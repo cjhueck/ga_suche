@@ -385,6 +385,10 @@
         {
           "index": "^gxy09t",
           "content": "![211-T01](assets/211-T02.webp)"
+        },
+        {
+          "index": "^ga211t01",
+          "content": "<img src=\"assets/GA211-1922-03-24-T01.webp\" alt=\"Tafel 1\" />"
         }
       ]
     },
@@ -637,6 +641,14 @@
         {
           "index": "^dzo0tb",
           "content": "![211-T06](assets/211-T06.webp)"
+        },
+        {
+          "index": "^ga211t05",
+          "content": "<img src=\"assets/GA211-1922-03-26-T05.webp\" alt=\"Tafel 5\" />"
+        },
+        {
+          "index": "^ga211t06",
+          "content": "<img src=\"assets/GA211-1922-03-26-T06.webp\" alt=\"Tafel 6\" />"
         }
       ]
     },
@@ -777,6 +789,10 @@
         {
           "index": "^vbm3bb",
           "content": "![211-T07](assets/211-T07.webp)"
+        },
+        {
+          "index": "^ga211t07",
+          "content": "<img src=\"assets/GA211-1922-03-31-T07.webp\" alt=\"Tafel 7\" />"
         }
       ]
     },
@@ -933,6 +949,10 @@
         {
           "index": "^ol77t8",
           "content": "![211-T09](assets/211-T09.webp)"
+        },
+        {
+          "index": "^ga211t08",
+          "content": "<img src=\"assets/GA211-1922-04-01-T08.webp\" alt=\"Tafel 8\" />"
         }
       ]
     },
@@ -1141,6 +1161,10 @@
         {
           "index": "^oy10kf",
           "content": "![211-T11](assets/211-T11.webp)"
+        },
+        {
+          "index": "^ga211t11",
+          "content": "<img src=\"assets/GA211-1922-04-02-T11.webp\" alt=\"Tafel 11\" />"
         }
       ]
     },

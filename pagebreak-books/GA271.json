@@ -1197,6 +1197,14 @@
         {
           "index": "^wskavm",
           "content": "Sie sehen, überall kommt man auf Geisteswissenschaft, wenn man von den wichtigsten Kulturbedürfnissen der Gegenwart spricht."
+        },
+        {
+          "index": "^ga271t01",
+          "content": "<img src=\"assets/GA271-1920-09-12-T01.webp\" alt=\"Tafel 1\" />"
+        },
+        {
+          "index": "^ga271t02",
+          "content": "<img src=\"assets/GA271-1920-09-12-T02.webp\" alt=\"Tafel 2\" />"
         }
       ]
     },

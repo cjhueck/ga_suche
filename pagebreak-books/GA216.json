@@ -145,6 +145,14 @@
         {
           "index": "^0qdgmk",
           "content": "![](<assets/216-T02.webp>)"
+        },
+        {
+          "index": "^ga216t01",
+          "content": "<img src=\"assets/GA216-1922-09-16-T01.webp\" alt=\"Tafel 1\" />"
+        },
+        {
+          "index": "^ga216t02",
+          "content": "<img src=\"assets/GA216-1922-09-16-T02.webp\" alt=\"Tafel 2\" />"
         }
       ]
     },
@@ -293,6 +301,10 @@
         {
           "index": "^e83pse",
           "content": "![](<assets/216-T04.webp>)"
+        },
+        {
+          "index": "^ga216t04",
+          "content": "<img src=\"assets/GA216-1922-09-17-T04.webp\" alt=\"Tafel 4\" />"
         }
       ]
     },
@@ -413,6 +425,10 @@
         {
           "index": "^c0td41",
           "content": "![](<assets/216-T05.webp>)"
+        },
+        {
+          "index": "^ga216t05",
+          "content": "<img src=\"assets/GA216-1922-09-22-T05.webp\" alt=\"Tafel 5\" />"
         }
       ]
     },
@@ -829,6 +845,14 @@
         {
           "index": "^dszo7t",
           "content": "![](<assets/216-T07.webp>)"
+        },
+        {
+          "index": "^ga216t06",
+          "content": "<img src=\"assets/GA216-1922-09-29-T06.webp\" alt=\"Tafel 6\" />"
+        },
+        {
+          "index": "^ga216t07",
+          "content": "<img src=\"assets/GA216-1922-09-29-T07.webp\" alt=\"Tafel 7\" />"
         }
       ]
     },
@@ -973,6 +997,14 @@
         {
           "index": "^9rmuf8",
           "content": "![](<assets/216-T09.webp>)"
+        },
+        {
+          "index": "^ga216t08",
+          "content": "<img src=\"assets/GA216-1922-09-30-T08.webp\" alt=\"Tafel 8\" />"
+        },
+        {
+          "index": "^ga216t09",
+          "content": "<img src=\"assets/GA216-1922-09-30-T09.webp\" alt=\"Tafel 9\" />"
         }
       ]
     },
@@ -1157,6 +1189,10 @@
         {
           "index": "^lrp41z",
           "content": "![](<assets/216-T10.webp>)"
+        },
+        {
+          "index": "^ga216t10",
+          "content": "<img src=\"assets/GA216-1922-10-01-T10.webp\" alt=\"Tafel 10\" />"
         }
       ]
     }

@@ -241,7 +241,7 @@
     #viewer .concept-main-title,
     .concept-main-title {
       font-weight: 700 !important;
-      font-size: 1.3rem !important;
+      font-size: 1.6rem !important;
       margin-bottom: 1rem !important;
       padding: 0.5rem 0 !important;
       color: var(--accent-color) !important;
@@ -1079,12 +1079,12 @@ body.dark-mode .connection-modal-header {
       font-size: 1.0rem !important;
     }
     
-    /* AUSNAHME: concept-main-title und alle Kinder behalten ihre Größe (1.3rem) */
+    /* AUSNAHME: concept-main-title und alle Kinder behalten ihre Größe (1.6rem) */
     body:has(.tab-button.active[onclick*="schlagworte"]) #viewer .concept-main-title,
     body:has(.tab-button.active[onclick*="schlagworte"]) #viewer .concept-main-title *,
     .tab-schlagworte-active #viewer .concept-main-title,
     .tab-schlagworte-active #viewer .concept-main-title * {
-      font-size: 1.3rem !important;
+      font-size: 1.6rem !important;
     }
     
     /* AUSNAHME: Netzwerk-Buttons in concept-main-title bleiben kleiner */
@@ -2571,6 +2571,131 @@ body.dark-mode .ga-missing-text {
       color: #1a1a1a !important;
     }
     
+    /* Wandtafeln Button im Dark Mode - wenn aktiv */
+    body.dark-mode #ga-chalkboards-btn.active {
+      background: var(--dark-accent-color) !important;
+      color: #1a1a1a !important;
+    }
+    
+    /* Wandtafeln Galerie Styles */
+    #viewer h2.chalkboards-title,
+    h2.chalkboards-title {
+      font-size: 1.6rem !important;
+      font-weight: 700 !important;
+      color: var(--accent-color) !important;
+    }
+    
+    .chalkboards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.5rem 1rem;
+      padding: 1rem;
+    }
+    
+    .chalkboard-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    body.dark-mode .chalkboard-item {
+      /* keine besonderen Dark-Mode Styles nötig */
+    }
+    
+    .chalkboard-item img {
+      width: auto;
+      height: 150px;
+      object-fit: contain;
+      transform: rotate(-90deg);
+      margin: 0;
+      cursor: pointer;
+    }
+    
+    .chalkboard-item .chalkboard-info {
+      margin-top: -15px;
+      margin-bottom: 0;
+    }
+    
+    /* Wandtafel Lightbox */
+    .chalkboard-lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 20000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    body.dark-mode .chalkboard-lightbox {
+      background: rgba(240, 240, 240, 0.95);
+    }
+    
+    .chalkboard-lightbox.active {
+      display: flex;
+    }
+    
+    .chalkboard-lightbox img {
+      max-width: 85vh;
+      max-height: 90vw;
+      object-fit: contain;
+      transform: rotate(-90deg);
+    }
+    
+    .chalkboard-lightbox-info {
+      color: #333;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .chalkboard-lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 20001;
+    }
+    
+    .chalkboard-lightbox-close:hover {
+      color: #666;
+    }
+    
+    .chalkboard-info {
+      padding: 0;
+      text-align: center;
+      width: 100%;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: var(--text-color);
+      white-space: nowrap;
+    }
+    
+    body.dark-mode .chalkboard-info {
+      color: var(--dark-text-color);
+    }
+    
+    .chalkboard-info a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+    
+    .chalkboard-info a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .chalkboard-info a {
+      color: var(--dark-accent-color);
+    }
+    
+    
     body.dark-mode .summary-buttons .search-button {
       background: var(--dark-background-color);
       color: var(--dark-secondary-text);
@@ -2847,9 +2972,9 @@ body.dark-mode .ga-missing-text {
       /* Opacity nicht ändern - Link soll bei Hover nicht verblassen */
     }
     
-    /* Schriftgröße für span-Elemente im Titel erhöhen (für Index-Darstellung) */
+    /* Schriftgröße für span-Elemente im Titel - Standard erben */
     #document-title span {
-      font-size: 1.2em !important;
+      font-size: inherit;
       font-weight: inherit;
     }
     
@@ -6085,6 +6210,9 @@ body.dark-mode .context-help-popup strong {
 <div id="ga-view-toggle" style="display: flex; gap: 8px; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
 <button id="ga-chronological-view-btn" class="depth-btn" onclick="toggleChronologicalView()" style="padding: 8px; font-size: 0.85em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); flex-shrink: 0;">
 Chronologisch
+</button>
+<button id="ga-chalkboards-btn" class="depth-btn" onclick="toggleChalkboardsView()" style="padding: 8px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); flex-shrink: 0;">
+Wandtafeln
 </button>
 <select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" style="display: none; padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 90px; flex-shrink: 0;">
 <option value="">Jahr</option>
@@ -10638,6 +10766,17 @@ function toggleChronologicalView() {
   const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
   const yearDropdown = document.getElementById('ga-year-filter-dropdown');
   const btn = document.getElementById('ga-chronological-view-btn');
+  const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+  
+  // Deaktiviere Wandtafeln-Ansicht wenn aktiv
+  if (isChalkboardsViewActive) {
+    isChalkboardsViewActive = false;
+    if (chalkboardsBtn) {
+      chalkboardsBtn.style.background = 'transparent';
+      chalkboardsBtn.style.color = 'var(--accent-color)';
+      chalkboardsBtn.classList.remove('active');
+    }
+  }
   
   // Prüfe ob irgendein Filter aktiv ist
   if (selectedGABandFilter || selectedYearFilter) {
@@ -10684,6 +10823,277 @@ function updateChronologicalButtonText() {
     btn.textContent = (selectedGABandFilter || selectedYearFilter) ? 'Alle Bände' : 'Chronologisch';
   }
 }
+
+// ============================================================================
+// WANDTAFELZEICHNUNGEN (CHALKBOARDS) - Galerie-Ansicht
+// ============================================================================
+
+let chalkboardsCache = null;
+let isChalkboardsViewActive = false;
+
+// Funktion: Toggle Wandtafeln-Ansicht
+async function toggleChalkboardsView() {
+  const btn = document.getElementById('ga-chalkboards-btn');
+  const chronoBtn = document.getElementById('ga-chronological-view-btn');
+  
+  // Prüfe Button-Status anstatt nur Variable (für Robustheit nach anderen Aktionen)
+  const buttonIsActive = btn && btn.classList.contains('active');
+  
+  if (isChalkboardsViewActive && buttonIsActive) {
+    // Wandtafeln-Ansicht deaktivieren (nur wenn wirklich aktiv)
+    isChalkboardsViewActive = false;
+    if (btn) {
+      btn.style.background = 'transparent';
+      btn.style.color = 'var(--accent-color)';
+      btn.classList.remove('active');
+    }
+    // Zurück zur normalen Ansicht
+    showGAChronologicalView();
+  } else {
+    // Wandtafeln-Ansicht aktivieren
+    isChalkboardsViewActive = true;
+    
+    // Deaktiviere chronologische Ansicht falls aktiv
+    if (typeof currentGAView !== 'undefined') {
+      currentGAView = 'chalkboards';
+    }
+    
+    // Entferne Jahres-Buttons der chronologischen Ansicht
+    if (typeof removeChronologicalYearButtons === 'function') {
+      removeChronologicalYearButtons();
+    }
+    if (typeof forceRemoveYearButtons === 'function') {
+      forceRemoveYearButtons();
+    }
+    
+    // Button-Styles aktualisieren
+    if (btn) {
+      btn.style.background = 'var(--accent-color)';
+      btn.style.color = 'white';
+      btn.classList.add('active');
+    }
+    if (chronoBtn) {
+      chronoBtn.style.background = 'transparent';
+      chronoBtn.style.color = 'var(--accent-color)';
+      chronoBtn.classList.remove('active');
+    }
+    
+    await loadAndDisplayChalkboards();
+  }
+}
+
+// Funktion: Lade Wandtafelzeichnungen vom Server
+async function loadAndDisplayChalkboards() {
+  const viewer = document.getElementById('viewer');
+  if (!viewer) {
+    console.error('[CHALKBOARDS] Viewer-Element nicht gefunden');
+    return;
+  }
+  
+  // Zeige Ladeindikator
+  viewer.innerHTML = `
+    <div style="padding: 2rem; text-align: center;">
+      <p style="color: var(--secondary-text); font-style: italic;">Lade Wandtafelzeichnungen...</p>
+    </div>
+  `;
+  
+  try {
+    // Prüfe ob gefiltert werden soll (nach GA-Band im Dropdown)
+    const gaFilter = selectedGABandFilter ? selectedGABandFilter.replace(/^GA/i, '') : '';
+    const url = gaFilter 
+      ? `${API_BASE}/api/chalkboards?ga=${gaFilter}`
+      : `${API_BASE}/api/chalkboards`;
+    
+    console.log('[CHALKBOARDS] Lade von:', url);
+    
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('[CHALKBOARDS] Geladen:', data.count, 'Bilder');
+    chalkboardsCache = data.chalkboards || [];
+    
+    displayChalkboardsGallery(chalkboardsCache);
+    
+  } catch (error) {
+    console.error('[CHALKBOARDS] Fehler beim Laden:', error);
+    viewer.innerHTML = `
+      <div style="padding: 2rem; text-align: center; color: var(--secondary-text);">
+        <p><strong>Fehler beim Laden der Wandtafelzeichnungen</strong></p>
+        <p style="font-size: 0.9em; margin-top: 0.5rem;">${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+// Funktion: Zeige Wandtafelzeichnungen in Galerie (5 pro Zeile)
+function displayChalkboardsGallery(chalkboards) {
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  
+  // Blacklist: Bestimmte WZ ausschließen (GA + Datum)
+  const blacklist = [
+    { ga: 'GA354', date: '1924-09-24' },
+    { ga: 'GA383', date: '1924-03-08' },
+    { ga: 'GA383', date: '1924-05-17' }
+  ];
+  
+  // Filtere Blacklist-Einträge heraus
+  chalkboards = chalkboards.filter(cb => {
+    const isBlacklisted = blacklist.some(bl => 
+      cb.gaNumber === bl.ga && cb.date === bl.date
+    );
+    return !isBlacklisted;
+  });
+  
+  // Setze Titel im Header (wie bei "Vorträge chronologisch")
+  const documentTitle = document.getElementById('document-title');
+  if (documentTitle) {
+    const filterInfo = selectedGABandFilter ? ' aus ' + selectedGABandFilter : '';
+    documentTitle.innerHTML = `<span style="font-size: 1em;">Wandtafelzeichnungen</span> <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${chalkboards.length} Bilder${filterInfo})</span>`;
+  }
+  
+  if (!chalkboards || chalkboards.length === 0) {
+    viewer.innerHTML = `
+      <div style="padding: 2rem; text-align: center; color: var(--secondary-text);">
+        <p>Keine Wandtafelzeichnungen gefunden.</p>
+        ${selectedGABandFilter ? '<p style="font-size: 0.9em; margin-top: 0.5rem;">Versuchen Sie "Alle GA-Bände" im Dropdown.</p>' : ''}
+      </div>
+    `;
+    return;
+  }
+  
+  // Galerie Grid (ohne Header, da Titel oben im document-title)
+  let html = '';
+  
+  // Galerie Grid
+  html += '<div class="chalkboards-grid">';
+  
+  for (const cb of chalkboards) {
+    const dateStr = cb.date ? formatChalkboardDate(cb.date) : '';
+    const lectureLink = cb.lectureId 
+      ? `app.html#texte&lecture=${encodeURIComponent(cb.lectureId)}`
+      : null;
+    
+    // Escape für onclick
+    const escapedImageUrl = cb.imageUrl.replace(/'/g, "\\'");
+    const escapedGaNumber = cb.gaNumber.replace(/'/g, "\\'");
+    const escapedDateStr = dateStr.replace(/'/g, "\\'");
+    
+    html += `
+      <div class="chalkboard-item">
+        <img src="${API_BASE}${cb.imageUrl}" 
+             alt="${cb.gaNumber} - ${dateStr}" 
+             loading="lazy"
+             data-image-popup-handler="true"
+             onclick="openChalkboardLightbox('${escapedImageUrl}', '${escapedGaNumber}', '${escapedDateStr}')">
+        <div class="chalkboard-info">
+          ${lectureLink 
+            ? `<a href="${lectureLink}" onclick="event.stopPropagation(); openLectureFromChalkboard('${cb.lectureId}'); return false;">${cb.gaNumber}${dateStr ? ', ' + dateStr : ''}</a>`
+            : `<span>${cb.gaNumber}${dateStr ? ', ' + dateStr : ''}</span>`
+          }
+        </div>
+      </div>
+    `;
+  }
+  
+  html += '</div>';
+  
+  // Lightbox Container (am Ende)
+  html += `
+    <div id="chalkboard-lightbox" class="chalkboard-lightbox" onclick="closeChalkboardLightbox(event)">
+      <span class="chalkboard-lightbox-close" onclick="closeChalkboardLightbox(event)">&times;</span>
+      <img id="chalkboard-lightbox-img" src="" alt="">
+      <div id="chalkboard-lightbox-info" class="chalkboard-lightbox-info"></div>
+    </div>
+  `;
+  
+  viewer.innerHTML = html;
+}
+
+// Funktion: Öffne Vortrag aus Wandtafel-Link
+function openLectureFromChalkboard(lectureId) {
+  if (!lectureId) return;
+  
+  // Deaktiviere Wandtafeln-Ansicht
+  isChalkboardsViewActive = false;
+  const btn = document.getElementById('ga-chalkboards-btn');
+  if (btn) {
+    btn.style.background = 'transparent';
+    btn.style.color = 'var(--accent-color)';
+    btn.classList.remove('active');
+  }
+  
+  // Wechsle zu Tab "Texte" und lade den Vortrag
+  switchTab('texte');
+  
+  // Lade den Vortrag mit showLecture
+  setTimeout(() => {
+    if (typeof showLecture === 'function') {
+      showLecture(lectureId, '');
+    } else {
+      // Fallback: Setze Hash
+      window.location.hash = `texte&lecture=${encodeURIComponent(lectureId)}`;
+    }
+  }, 100);
+}
+
+// Funktion: Formatiere Datum für Wandtafeln
+function formatChalkboardDate(dateStr) {
+  if (!dateStr) return '';
+  try {
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return dateStr;
+    return date.toLocaleDateString('de-DE', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  } catch (e) {
+    return dateStr;
+  }
+}
+
+// Funktion: Öffne Lightbox für Wandtafelbild (gedreht)
+function openChalkboardLightbox(imageUrl, gaNumber, dateStr) {
+  const lightbox = document.getElementById('chalkboard-lightbox');
+  const img = document.getElementById('chalkboard-lightbox-img');
+  const info = document.getElementById('chalkboard-lightbox-info');
+  
+  if (!lightbox || !img || !info) return;
+  
+  img.src = `${API_BASE}${imageUrl}`;
+  info.innerHTML = `<strong>${gaNumber}</strong>${dateStr ? ' – ' + dateStr : ''}`;
+  
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Funktion: Schließe Lightbox
+function closeChalkboardLightbox(event) {
+  // Schließe bei Klick auf Hintergrund oder X-Button, aber nicht auf Bild
+  if (event && event.target.tagName === 'IMG') return;
+  
+  const lightbox = document.getElementById('chalkboard-lightbox');
+  if (lightbox) {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// ESC-Taste schließt Wandtafel-Lightbox
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const lightbox = document.getElementById('chalkboard-lightbox');
+    if (lightbox && lightbox.classList.contains('active')) {
+      closeChalkboardLightbox(event);
+    }
+  }
+});
+
+// ============================================================================
 
 // Funktion: Befülle Jahr-Filter-Dropdown mit verfügbaren Jahren
 function populateYearFilterDropdown() {
@@ -10797,6 +11207,13 @@ function handleGABandFilterChange(value) {
   
   // Aktualisiere GA-Liste im Sidebar
   displayGAVolumesInSidebar();
+  
+  // Wenn Wandtafeln-Ansicht aktiv ist, lade Wandtafeln mit neuem Filter
+  if (isChalkboardsViewActive) {
+    console.log('[GA-FILTER] Wandtafeln-Ansicht aktiv, lade Wandtafeln neu');
+    loadAndDisplayChalkboards();
+    return;
+  }
   
   // Prüfe ob wir im GA-Tab sind
   const gaTab = document.getElementById('ga-tab');
@@ -13405,11 +13822,11 @@ async function showGAChronologicalView(skipHistory = false) {
     }
     
     const titleElement = document.getElementById('document-title');
-    let titleText = 'Vorträge chronologisch';
+    let titleHtml = '<span style="font-size: 1em;">Vorträge chronologisch</span>';
     if (selectedGABandFilter) {
-      titleText = `Vorträge chronologisch - ${selectedGABandFilter}`;
+      titleHtml += ` <span style="font-size: 1em;">– ${selectedGABandFilter}</span>`;
     }
-    titleElement.textContent = titleText;
+    titleElement.innerHTML = titleHtml;
     
     
     const response = await fetch(`${API_BASE}/api/lectures/chronological`);
@@ -13495,16 +13912,17 @@ function displayGAChronological(lectures) {
   
   if (!lectures || lectures.length === 0) {
     targetElement.innerHTML = '<p style="color: #666; font-style: italic;">Keine Vorträge gefunden.</p>';
-    titleElement.textContent = 'Vorträge chronologisch';
+    titleElement.innerHTML = '<span style="font-size: 1em;">Vorträge chronologisch</span>';
     return;
   }
   
   // Setze Titel im Header (mit Filter-Info falls aktiv)
-  let titleText = `Vorträge chronologisch (${lectures.length} Vorträge)`;
+  let titleHtml = `<span style="font-size: 1em;">Vorträge chronologisch</span>`;
   if (selectedGABandFilter) {
-    titleText = `Vorträge chronologisch - ${selectedGABandFilter} (${lectures.length} Vorträge)`;
+    titleHtml += ` <span style="font-size: 1em;">– ${selectedGABandFilter}</span>`;
   }
-  titleElement.textContent = titleText;
+  titleHtml += ` <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${lectures.length} Vorträge)</span>`;
+  titleElement.innerHTML = titleHtml;
   
   // Sortiere Vorträge chronologisch (sollten schon sortiert sein vom Server)
   const sortedLectures = lectures.sort((a, b) => {
@@ -18067,7 +18485,7 @@ function scrollToChronologicalYear(year) {
         ? `<button class="concept-network-trigger-btn" onclick="showConceptNetwork('${concept}')" title="KI-generiertes Konzept-Netzwerk">Netzwerk</button>
            <button class="concept-network-trigger-btn verlinkungsnetz" onclick="showBidirectionalNetworkGraph('${concept}')" title="Verlinkungsnetzwerk aus Index-Einträgen">Verlinkungsnetz</button>`
         : '';
-      html += `<div class="concept-main-title" style="font-size: 1.3rem !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
+      html += `<div class="concept-main-title" style="font-size: 1.6rem !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
         <span>${concept}</span>
         ${netzwerkButtons}
       </div>`;

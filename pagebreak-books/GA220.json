@@ -169,6 +169,14 @@
         {
           "index": "^3zfy0j",
           "content": "![](<assets/220-T02.webp>)"
+        },
+        {
+          "index": "^ga220t01",
+          "content": "<img src=\"assets/GA220-1923-01-05-T01.webp\" alt=\"Tafel 1\" />"
+        },
+        {
+          "index": "^ga220t02",
+          "content": "<img src=\"assets/GA220-1923-01-05-T02.webp\" alt=\"Tafel 2\" />"
         }
       ]
     },
@@ -817,6 +825,10 @@
         {
           "index": "^t9q4gn",
           "content": "![](<assets/220-T05.webp>)"
+        },
+        {
+          "index": "^ga220t05",
+          "content": "<img src=\"assets/GA220-1923-01-13-T05.webp\" alt=\"Tafel 5\" />"
         }
       ]
     },
@@ -1209,6 +1221,10 @@
         {
           "index": "^ly1lb9",
           "content": "![](<assets/220-T06.webp>)"
+        },
+        {
+          "index": "^ga220t08",
+          "content": "<img src=\"assets/GA220-1923-01-20-T08.webp\" alt=\"Tafel 8\" />"
         }
       ]
     },
@@ -1397,6 +1413,10 @@
         {
           "index": "^z2lsyx",
           "content": "![](<assets/220-T07.webp>)"
+        },
+        {
+          "index": "^ga220t07",
+          "content": "<img src=\"assets/GA220-1923-01-21-T07.webp\" alt=\"Tafel 7\" />"
         }
       ]
     },
@@ -1713,6 +1733,14 @@
         {
           "index": "^ll8gk1",
           "content": "Mit diesen Dingen muss eben durchaus Ernst gemacht werden. Es handelt sich durchaus darum, dass man sich selber prüfen muss, ob man nicht doch an dem Materialismus hängen bleibt und nur dem Materiellen allerlei geistige Namen anheftet. Ein Umdenken und Umfühlen, das ist dasjenige, worum es sich handelt, wenn man zu einer wirklich geistigen Weltanschauung kommen will. Damit ist dann erst ein Ausblick, eine Perspektive gewonnen in die Praxis dessen, was angestrebt werden muss in der Sündenerhebung gegenüber dem Sündenfall."
+        },
+        {
+          "index": "^ga220t03",
+          "content": "<img src=\"assets/GA220-1923-01-07-T03.webp\" alt=\"Tafel 3\" />"
+        },
+        {
+          "index": "^ga220t04",
+          "content": "<img src=\"assets/GA220-1923-01-07-T04.webp\" alt=\"Tafel 4\" />"
         }
       ]
     },
@@ -1865,6 +1893,14 @@
         {
           "index": "^ry8wds",
           "content": "![](<assets/220-T13.webp>)"
+        },
+        {
+          "index": "^ga220t12",
+          "content": "<img src=\"assets/GA220-1923-01-28-T12.webp\" alt=\"Tafel 12\" />"
+        },
+        {
+          "index": "^ga220t13",
+          "content": "<img src=\"assets/GA220-1923-01-28-T13.webp\" alt=\"Tafel 13\" />"
         }
       ]
     }
