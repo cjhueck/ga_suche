@@ -1,7 +1,7 @@
 {
   "_info": "Output: Vorträge mit eingefügten |page|-Markern (aus V4 Break Anchors).",
   "ga": "GA076",
-  "sourceFile": "steiner-full-lectures-030-100-part03.json",
+  "sourceFile": "steiner-full-lectures-074-076.json",
   "lectureCount": 7,
   "lectures": [
     {
@@ -940,7 +940,7 @@
         },
         {
           "index": "^0s9pk2",
-          "content": "![img-7.png](<assets/GA076-Die befruchtende Wirku|76|ng der Anthroposophie auf die Fachwissenschaften_img-7.png>)"
+          "content": "|76|![img-7.png](<assets/GA076-Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften_img-7.png>)"
         },
         {
           "index": "^3z747a",
@@ -1117,6 +1117,10 @@
         {
           "index": "^el72x1",
           "content": "Das ist das Schwierige, dass man heute so wenige Menschen mit jener Begeisterung findet, die ein wirkliches inneres Dabeisein bewirkt mit dem, was sie ja immerhin auch gern hören. Und deshalb freue ich mich immer, wenn sich Jugend findet, die etwas darüber zu sagen hat, wie sie das oder jenes, was sie sucht, da oder dort noch findet. |95|Denn ich glaube, aus solchen Impulsen wird doch das hervorgehen, was wir zu aller Einsicht, zu allem Verstehen brauchen: innerliches Dabeisein, innerliches Dabeisein, das weiß, wie stark die Metamorphose sein muss, die uns von den Niedergangskräften einer alten Zivilisation zu den Impulsen der neuen Zivilisation führt. Jawohl, wir brauchen gewissenhaftes Verständnis, wir brauchen eine eindringliche Einsicht. Wir brauchen aber auch vor allen Dingen das, was die Jugend aus ihren Naturanlagen heraus bringen könnte. Wir brauchen aber nicht nur in der Jugend, wir brauchen in den weitesten Kreisen der gegenwärtigen zivilisierten Menschheit nicht nur Einsicht, nicht nur eindringliches Verständnis der Wahrheit, wir brauchen Begeisterung für die Wahrheit!"
+        },
+        {
+          "index": "^ga076t01",
+          "content": "![Tafel 1](assets/GA076-T01.webp)"
         }
       ]
     },
@@ -1460,7 +1464,11 @@
         },
         {
           "index": "^6mjc0g",
-          "content": "Und da zu Willensentschlüssen - das weiß jeder Psychologe - die Menschheit schwerer zu bringen ist als zu theoretischen Erwägungen, bei denen man hübsch ruhig in seinem Inneren bleiben kann, so hat die moderne Menschheit gerade Gelegenheit, zu zeigen, wie sie aus der Not heraus zur Größe sich erheben kann, indem sie sich entschließt, zunächst auf dem soeben genannten Gebiete, auf dem Erkenntnisgebiete, auf dem Geistgebiete den Mut zu einem großen Umschwung, nicht zu kleinen Erwägungen aufzubringen|118|."
+          "content": "Und da zu Willensentschlüssen - das weiß jeder Psychologe - die Menschheit schwerer zu bringen ist als zu theoretischen Erwägungen, bei denen man hübsch ruhig in seinem Inneren bleiben kann, so hat die moderne Menschheit gerade Gelegenheit, zu zeigen, wie sie aus der Not heraus zur Größe sich erheben kann, indem sie sich entschließt, zunächst auf dem soeben genannten Gebiete, auf dem Erkenntnisgebiete, auf dem Geistgebiete den Mut zu einem großen Umschwung, nicht zu kleinen Erwägungen aufzubringen.|118|"
+        },
+        {
+          "index": "^ga076t02",
+          "content": "![Tafel 2](assets/GA076-T02.webp)"
         }
       ]
     },
@@ -1897,6 +1905,10 @@
         {
           "index": "^3oy7o1",
           "content": "Was ich sagen möchte, das muss natürlich unterschieden werden von einem gewissen Verständnisse, das man immerhin auch solchen Christen gegenüber haben kann, wie zum Beispiel der Herr General v. Gleich ein Christ ist! Ich will ja nicht einen Vergleich, nicht einen formellen Vergleich machen, sondern ich möchte nur etwas sagen, an das ich mich bei dieser Art von Christlichkeit erinnern musste. Es gibt nämlich ganz verschiedene Arten von Christlichkeit, sogar von orthodoxem Christentum. Als der Kriminalanthropologe Moritz Benedikt daran ging, in der Kriminalanthropologie zu arbeiten und zu schreiben, fand er zunächst in Wien wenig Verständnis. Er fand dann bei einem Anstaltsleiter für Schwerverbrecher in Ungarn außerordentliches Verständnis. Es wurde ihm die Möglichkeit gegeben, Verbrecherschädel zu untersuchen, auch von den schwersten ungarischen Verbrechern die Schädel zu untersuchen. Unter diesen waren die merkwürdigsten Leute, unter anderem auch ein ganz ausgeprägter orthodoxer Christ, welcher sich zwar freilich nicht dem Professor Benedikt gegenüber seinen christlichen Intentionen gemäß verhalten konnte. Über den war er sehr wütend, weil er seinen Schädel untersuchen durfte. Und ganz besonders war er darüber wütend, weil er gehört hatte, dass der Gefängnisdirektor damit einverstanden war, dass der Professor Benedikt besonders charakteristische Verbrecherschädel nach dem Tode werde zu studieren bekommen. Und da er in dieser Anstalt nicht in Freiheit auf den Professor Benedikt losgelassen wurde, so wollte er wenigstens gefesselt diesem Benedikt vorgeführt werden. Bei dieser Vorführung sagte er, er könne durchaus nicht zugeben, dass er bei seiner christlichen Gesinnung es erlauben müsse, dass sein Schädel nach dem Tode dem Professor Benedikt nach Wien geschickt werde; er würde dann doch hier begraben werden, und sein Schädel werde in Wien herumliegen! Und er möchte wissen, wie nun bei der Auferstehung sein Leib und sein Schädel zusammengebracht werden sollen. So gut glaubte der an seine leibliche Auferstehung - er war ein ganz richtiger Verbrecher, ich glaube sogar ein Mörder."
+        },
+        {
+          "index": "^ga076t03",
+          "content": "![Tafel 3](assets/GA076-T03.webp)"
         }
       ]
     },

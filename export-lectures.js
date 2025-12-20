@@ -977,18 +977,18 @@ class SteinerLecturesExporter {
           const isJpeg = ext === '.jpg' || ext === '.jpeg';
           
           let imageBuffer;
-          let mimeType = 'image/png'; // Standard: PNG nach Konvertierung
+          let mimeType = 'image/webp'; // Standard: WebP nach Konvertierung (kleinere Dateien)
           let convertedPath = img.path; // Pfad für gespeichertes Bild
-          
+
           try {
             if (isJpeg) {
-              // Konvertiere JPEG zu PNG
+              // Konvertiere JPEG zu WebP (kleinere Dateien als PNG)
               imageBuffer = await sharp(fullImagePath)
-                .png()
+                .webp({ quality: 85 })
                 .toBuffer();
-              
-              // Aktualisiere Pfad: .jpeg/.jpg → .png
-              convertedPath = img.path.replace(/\.jpe?g$/i, '.png');
+
+              // Aktualisiere Pfad: .jpeg/.jpg → .webp
+              convertedPath = img.path.replace(/\.jpe?g$/i, '.webp');
             } else {
               // Andere Formate (PNG, GIF, WEBP) direkt lesen
               imageBuffer = fs.readFileSync(fullImagePath);
@@ -999,7 +999,7 @@ class SteinerLecturesExporter {
                 '.gif': 'image/gif',
                 '.webp': 'image/webp'
               };
-              mimeType = mimeTypes[ext] || 'image/png';
+              mimeType = mimeTypes[ext] || 'image/webp';
             }
             
             // Konvertiere zu Base64
@@ -1010,17 +1010,17 @@ class SteinerLecturesExporter {
             let convertedAltText = img.altText;
             if (isJpeg) {
               if (img.markdownRef) {
-                convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g/gi, '.png');
+                convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g/gi, '.webp');
               }
               if (img.altText) {
-                convertedAltText = img.altText.replace(/\.jpe?g$/i, '.png');
+                convertedAltText = img.altText.replace(/\.jpe?g$/i, '.webp');
               }
             }
             
             imagesWithData[lectureId].push({
               index: img.index,
-              altText: convertedAltText, // Aktualisierter Alt-Text (.png statt .jpeg)
-              path: convertedPath, // Verwende konvertierten Pfad (.png statt .jpeg)
+              altText: convertedAltText, // Aktualisierter Alt-Text (.webp statt .jpeg)
+              path: convertedPath, // Verwende konvertierten Pfad (.webp statt .jpeg)
               markdownRef: convertedMarkdownRef, // Aktualisierte Markdown-Referenz
               base64: `data:${mimeType};base64,${base64}`,
               size: imageBuffer.length

@@ -24713,6 +24713,62 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocItems.push({ element: tocHeading, heading: heading });
       });
       
+      // Prüfe ob "Wandtafelzeichnungen" im Viewer vorhanden sind
+      // Suche nach H2 mit "Wandtafelzeichnungen" ODER Bildern mit "Tafel" im alt-Text
+      const allH2s = viewer.querySelectorAll('h2');
+      let wandtafelH2 = null;
+      for (const h2 of allH2s) {
+        if (h2.textContent.toLowerCase().includes('wandtafel')) {
+          wandtafelH2 = h2;
+          break;
+        }
+      }
+      
+      // Suche nach Bildern mit "Tafel" im alt-Text
+      const tafelImages = viewer.querySelectorAll('img[alt*="Tafel"], img[alt*="tafel"]');
+      const firstTafelImage = tafelImages.length > 0 ? tafelImages[0] : null;
+      
+      // Ziel-Element: H2 falls vorhanden, sonst erstes Tafel-Bild
+      const scrollTarget = wandtafelH2 || firstTafelImage;
+      
+      if (scrollTarget) {
+        // Füge "Wandtafelzeichnungen" Link am Ende der TOC-Liste hinzu
+        const wzLink = document.createElement('div');
+        wzLink.style.marginTop = '1rem';
+        wzLink.style.paddingTop = '0.5rem';
+        wzLink.style.borderTop = '1px solid var(--border-color)';
+        
+        const wzHeading = document.createElement('span');
+        wzHeading.textContent = 'Wandtafelzeichnungen';
+        wzHeading.style.cursor = 'pointer';
+        wzHeading.style.color = 'var(--accent-color)';
+        wzHeading.style.fontSize = '0.9rem';
+        wzHeading.style.display = 'block';
+        
+        wzHeading.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          // Scrolle zum Ziel-Element (H2 oder erstes Bild)
+          if (isTimelineActive) {
+            const timelineContainer = document.getElementById('timelineViewerContent');
+            const targetRect = scrollTarget.getBoundingClientRect();
+            const containerRect = timelineContainer.getBoundingClientRect();
+            const scrollPosition = timelineContainer.scrollTop + (targetRect.top - containerRect.top) - 50;
+            timelineContainer.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+          } else {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          
+          // Highlight-Effekt
+          const originalBg = scrollTarget.style.backgroundColor;
+          scrollTarget.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+          setTimeout(() => { scrollTarget.style.backgroundColor = originalBg; }, 1000);
+        });
+        
+        wzLink.appendChild(wzHeading);
+        tocList.appendChild(wzLink);
+      }
+      
       function updateActiveTocItem() {
         const containerTop = mainContainer.getBoundingClientRect().top;
         const containerBottom = mainContainer.getBoundingClientRect().bottom;
