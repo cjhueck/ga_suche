@@ -1033,6 +1033,10 @@
         {
           "index": "^x2ng0m",
           "content": "![](<assets/221-T02.webp>)"
+        },
+        {
+          "index": "^ga221t02",
+          "content": "<img src=\"assets/GA221-1923-02-11-T02.webp\" alt=\"Tafel 2\" />"
         }
       ]
     },
@@ -1373,6 +1377,10 @@
         {
           "index": "^kc9f86",
           "content": "![](<assets/221-T04.webp>)"
+        },
+        {
+          "index": "^ga221t03",
+          "content": "<img src=\"assets/GA221-1923-02-17-T03.webp\" alt=\"Tafel 3\" />"
         }
       ]
     },

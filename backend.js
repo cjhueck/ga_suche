@@ -6177,6 +6177,205 @@ app.get('/api/lectures/list', (req, res) => {
   });
 });
 
+// Cache für Wandtafelzeichnungen (wird einmal geladen und wiederverwendet)
+let chalkboardsCache = null;
+let chalkboardsCacheTime = 0;
+const CHALKBOARDS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 Stunden
+
+// API-Endpunkt: Wandtafelzeichnungen aus GA K Bänden
+app.get('/api/chalkboards', async (req, res) => {
+  try {
+    const steinerGADir = path.join(__dirname, 'Steiner_GA');
+    const gaFilter = req.query.ga ? req.query.ga.toUpperCase() : null;
+    
+    // Prüfe ob Verzeichnis existiert
+    if (!fsSync.existsSync(steinerGADir)) {
+      return res.json({ chalkboards: [], count: 0 });
+    }
+    
+    // Verwende Cache wenn vorhanden und nicht abgelaufen
+    const now = Date.now();
+    if (chalkboardsCache && (now - chalkboardsCacheTime) < CHALKBOARDS_CACHE_TTL) {
+      console.log('[CHALKBOARDS] Verwende Cache (' + chalkboardsCache.length + ' Bilder)');
+      let result = chalkboardsCache;
+      if (gaFilter) {
+        result = chalkboardsCache.filter(cb => cb.gaNumber === gaFilter);
+      }
+      return res.json({ chalkboards: result, count: result.length, fromCache: true });
+    }
+    
+    console.log('[CHALKBOARDS] Lade Daten aus Dateisystem...');
+    const chalkboards = [];
+    const allFolders = await fs.readdir(steinerGADir);
+    
+    // Finde alle GA K Ordner (Wandtafelzeichnungen-Bände)
+    const gaKFolders = allFolders.filter(f => f.startsWith('GA K 58'));
+    
+    for (const gaKFolder of gaKFolders) {
+      const folderPath = path.join(steinerGADir, gaKFolder);
+      const stat = await fs.stat(folderPath);
+      if (!stat.isDirectory()) continue;
+      
+      // Finde die Markdown-Datei im Ordner
+      const files = await fs.readdir(folderPath);
+      const mdFile = files.find(f => f.endsWith('.md'));
+      if (!mdFile) continue;
+      
+      // Lese und parse die Markdown-Datei
+      const mdPath = path.join(folderPath, mdFile);
+      const mdContent = await fs.readFile(mdPath, 'utf-8');
+      
+      // Extrahiere Band-Nummer aus Ordnername (z.B. "GA K 58_6" -> "6")
+      const bandMatch = gaKFolder.match(/GA K 58_(\d+)/);
+      const bandNumber = bandMatch ? bandMatch[1] : '';
+      
+      // Parse die Markdown-Datei, um Bilder mit GA-Nummer und Datum zu finden
+      // Pattern: "GA 202 TAFEL 1\nDORNACH, 26. NOVEMBER 1920" gefolgt von Bild
+      const lines = mdContent.split('\n');
+      
+      let currentGA = null;
+      let currentTafel = null;
+      let currentDate = null;
+      let currentLocation = null;
+      
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        
+        // Suche nach GA-Nummer und Tafel (z.B. "GA 202 TAFEL 1" oder "GA 202 TAFELN 13 + 14")
+        const gaMatch = line.match(/^GA\s*(\d{3}[a-z]?)\s+TAFELN?\s+(\d+)/i);
+        if (gaMatch) {
+          currentGA = `GA${gaMatch[1]}`;
+          currentTafel = parseInt(gaMatch[2]);
+          continue;
+        }
+        
+        // Suche nach Ort und Datum (z.B. "DORNACH, 26. NOVEMBER 1920")
+        const dateMatch = line.match(/^([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß]+),?\s+(\d{1,2})\.\s*(JANUAR|FEBRUAR|MÄRZ|APRIL|MAI|JUNI|JULI|AUGUST|SEPTEMBER|OKTOBER|NOVEMBER|DEZEMBER)\s+(\d{4})/i);
+        if (dateMatch && currentGA) {
+          currentLocation = dateMatch[1];
+          const day = dateMatch[2].padStart(2, '0');
+          const monthNames = {
+            'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+            'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+            'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+          };
+          const month = monthNames[dateMatch[3].toLowerCase()];
+          const year = dateMatch[4];
+          currentDate = `${year}-${month}-${day}`;
+          continue;
+        }
+        
+        // Alternatives Datumsformat: "26. Jan. 1923" oder "26.1.1923"
+        const altDateMatch = line.match(/(\d{1,2})\.\s*(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)\.?\s+(\d{4})/i);
+        if (altDateMatch && currentGA && !currentDate) {
+          const day = altDateMatch[1].padStart(2, '0');
+          const shortMonthNames = {
+            'jan': '01', 'feb': '02', 'mär': '03', 'apr': '04',
+            'mai': '05', 'jun': '06', 'jul': '07', 'aug': '08',
+            'sep': '09', 'okt': '10', 'nov': '11', 'dez': '12'
+          };
+          const month = shortMonthNames[altDateMatch[2].toLowerCase()];
+          const year = altDateMatch[3];
+          if (month) {
+            currentDate = `${year}-${month}-${day}`;
+          }
+          continue;
+        }
+        
+        // Suche nach Bild-Referenz (verschiedene Formate)
+        // Format 1: ![img-1.jpeg](...) 
+        // Format 2: ![img-27.jpeg](<assets/...>)_img-27.jpeg) (kaputtes Format aus PDF-Konvertierung)
+        // Format 3: )_img-27.jpeg am Ende der Zeile
+        let imgMatch = line.match(/!\[img-(\d+)\.jpe?g\]/i);
+        if (!imgMatch) {
+          // Versuche alternatives Format: )_img-XX.jpeg
+          imgMatch = line.match(/\)_img-(\d+)\.jpe?g\)?/i);
+        }
+        if (!imgMatch) {
+          // Versuche Format: img-XX.jpeg irgendwo in der Zeile
+          imgMatch = line.match(/img-(\d+)\.jpe?g/i);
+        }
+        if (imgMatch && currentGA && currentDate) {
+          const imgNum = imgMatch[1];
+          
+          // Prüfe GA-Filter
+          if (gaFilter && currentGA !== gaFilter) {
+            // Reset für nächste Tafel
+            currentGA = null;
+            currentTafel = null;
+            currentDate = null;
+            currentLocation = null;
+            continue;
+          }
+          
+          // Finde das Bild in assets
+          const assetsPath = path.join(folderPath, 'assets');
+          const imgFileName = `${gaKFolder}_img-${imgNum}.jpeg`;
+          const imgFilePath = path.join(assetsPath, imgFileName);
+          
+          // Suche passenden Vortrag basierend auf GA-Nummer und Datum
+          let lectureId = null;
+          for (const [id, lecture] of Object.entries(fullLectures)) {
+            if (lecture.gaNumber === currentGA && lecture.date === currentDate) {
+              lectureId = id;
+              break;
+            }
+          }
+          
+          chalkboards.push({
+            id: `${gaKFolder}/img-${imgNum}`,
+            gaNumber: currentGA,
+            bandNumber: bandNumber,
+            imageUrl: `/ga-k-images/${encodeURIComponent(gaKFolder)}/assets/${encodeURIComponent(imgFileName)}`,
+            date: currentDate,
+            location: currentLocation,
+            lectureId: lectureId,
+            imgNum: parseInt(imgNum)
+          });
+          
+          // Reset für nächste Tafel
+          currentGA = null;
+          currentTafel = null;
+          currentDate = null;
+          currentLocation = null;
+        }
+      }
+    }
+    
+    // Sortiere nach GA-Nummer, dann nach Datum
+    chalkboards.sort((a, b) => {
+      const gaCompare = a.gaNumber.localeCompare(b.gaNumber);
+      if (gaCompare !== 0) return gaCompare;
+      if (a.date && b.date) return a.date.localeCompare(b.date);
+      return 0;
+    });
+    
+    // Speichere im Cache (ohne Filter)
+    chalkboardsCache = chalkboards;
+    chalkboardsCacheTime = Date.now();
+    console.log('[CHALKBOARDS] Cache aktualisiert (' + chalkboards.length + ' Bilder)');
+    
+    // Wende Filter an falls vorhanden
+    let result = chalkboards;
+    if (gaFilter) {
+      result = chalkboards.filter(cb => cb.gaNumber === gaFilter);
+    }
+    
+    res.json({
+      chalkboards: result,
+      count: result.length,
+      gaNumbers: [...new Set(chalkboards.map(c => c.gaNumber))].sort()
+    });
+    
+  } catch (error) {
+    console.error('[CHALKBOARDS] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Laden der Wandtafelzeichnungen' });
+  }
+});
+
+// Statisches Serving für GA K Bilder
+app.use('/ga-k-images', express.static(path.join(__dirname, 'Steiner_GA')));
+
 app.get('/api/available-ga', async (req, res) => {
   try {
     const gaSet = new Set();
