@@ -46,3 +46,4 @@ if lec074:
 else:
     print("GA074/1 nicht gefunden!")
 
+

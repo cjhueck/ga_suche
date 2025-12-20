@@ -762,8 +762,6 @@ async function loadFullLectures() {
             // Prüfe ob es ein Vortrags-Override ist (hat "lectures" Array)
             if (parsed.lectures && Array.isArray(parsed.lectures)) {
               lectureOverrideFiles++;
-              // Debug: Zeige welche Override-Datei geladen wird
-              console.log(`[BACKEND] 📂 Lade Override-Datei: ${f} (${parsed.lectures.length} Vorträge)`);
               
               // Hole mtime der Override-Datei
               const overrideStats = await fs.stat(p).catch(() => null);
@@ -776,30 +774,7 @@ async function loadFullLectures() {
               const foundInFullLectures = overrideLectureIds.filter(id => fullLectures[id]);
               const notFoundInFullLectures = overrideLectureIds.filter(id => !fullLectures[id]);
               
-              // Zeige für alle Override-Dateien, nicht nur GA215
-              if (notFoundInFullLectures.length > 0) {
-                console.warn(`[BACKEND] ⚠️  ${f}: ${notFoundInFullLectures.length} von ${overrideLectureIds.length} Vorträgen nicht in fullLectures gefunden`);
-                if (notFoundInFullLectures.length <= 5) {
-                  console.warn(`[BACKEND]   Nicht gefunden: ${notFoundInFullLectures.join(', ')}`);
-                } else {
-                  console.warn(`[BACKEND]   Nicht gefunden (Beispiele): ${notFoundInFullLectures.slice(0, 5).join(', ')}...`);
-                }
-                // Zeige verfügbare IDs für diese GA-Nummer
-                const gaMatch = overrideLectureIds[0]?.match(/^(GA\d{3}[a-z]?)/);
-                if (gaMatch) {
-                  const gaPrefix = gaMatch[1];
-                  const availableIds = Object.keys(fullLectures).filter(id => id.startsWith(gaPrefix + '/')).slice(0, 10);
-                  if (availableIds.length > 0) {
-                    console.warn(`[BACKEND]   Verfügbare IDs in fullLectures (${gaPrefix}): ${availableIds.join(', ')}`);
-                  } else {
-                    console.warn(`[BACKEND]   KEINE ${gaPrefix}-Vorträge in fullLectures gefunden!`);
-                  }
-                }
-              }
-              
-              if (foundInFullLectures.length > 0) {
-                console.log(`[BACKEND] ✅ ${f}: ${foundInFullLectures.length} Vorträge werden überschrieben`);
-              }
+              // Debug-Logs für nicht gefundene Vorträge deaktiviert (nur bei Bedarf aktivieren)
               
               for (const lecture of parsed.lectures) {
                 if (!lecture.ID) continue;
@@ -807,7 +782,6 @@ async function loadFullLectures() {
                 // WICHTIG: Wenn Vortrag nicht in fullLectures existiert, füge ihn hinzu (wie bei Büchern)
                 // Override-Dateien enthalten Marker und sollten Vorrang haben
                 if (!fullLectures[lecture.ID]) {
-                  console.warn(`[BACKEND] ⚠️  Vortrag ${lecture.ID} nicht in exportierten Daten gefunden, füge aus Override hinzu`);
                   // Normalisiere Paragraphs
                   const normalizedParagraphs = lecture.paragraphs.map(p => {
                     const content = p.content || p.text || '';
@@ -829,13 +803,7 @@ async function loadFullLectures() {
                 // auch wenn die exportierte Datei neuer ist, da die Marker nur in Overrides vorhanden sind
                 const existingMtime = fullLectures[lecture.ID]._sourceFileMtime || 0;
                 
-                // Warnung nur wenn exportierte Datei deutlich neuer ist (mehr als 1 Tag)
-                const oneDayMs = 24 * 60 * 60 * 1000;
-                if (existingMtime > overrideMtime + oneDayMs) {
-                  console.warn(`    ⚠️  Override für ${lecture.ID} ist älter als exportierte Datei, wird trotzdem angewendet (Marker erforderlich)`);
-                  console.warn(`        Override mtime: ${new Date(overrideMtime).toISOString()}`);
-                  console.warn(`        Exportierte mtime: ${new Date(existingMtime).toISOString()}`);
-                }
+                // Override wird immer angewendet (Marker sind nur in Overrides vorhanden)
                 
                 // Debug: Prüfe Marker VOR Normalisierung
                 const firstParaBefore = lecture.paragraphs[0];

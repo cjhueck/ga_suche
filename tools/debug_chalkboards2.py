@@ -26,3 +26,4 @@ for lec in lectures:
             print(f"    {tp.get('index')}: {tp.get('content')[:50]}")
         print()
 
+
