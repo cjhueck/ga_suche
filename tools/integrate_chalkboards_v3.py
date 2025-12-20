@@ -203,7 +203,7 @@ def find_lecture_md(ga_folder: Path, date_tuple: tuple) -> Path:
     return None
 
 
-def process_image(src_path: Path, dst_path: Path, rotate: bool = False) -> bool:
+def process_image(src_path: Path, dst_path: Path, rotate: bool = True) -> bool:
     """Konvertiert Bild zu WebP und optional rotiert."""
     try:
         if PIL_AVAILABLE:
