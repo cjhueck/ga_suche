@@ -2585,10 +2585,11 @@ body.dark-mode .ga-missing-text {
       color: var(--accent-color) !important;
     }
     
+    /* Galerie-Ansicht: Grid-Layout für viele Tafeln (5 pro Zeile bei Standard-Viewer) */
     .chalkboards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 0.5rem 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
       padding: 1rem;
     }
     
@@ -2603,17 +2604,44 @@ body.dark-mode .ga-missing-text {
     }
     
     .chalkboard-item img {
-      width: auto;
-      height: 150px;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
       object-fit: contain;
-      transform: rotate(-90deg);
       margin: 0;
       cursor: pointer;
     }
     
     .chalkboard-item .chalkboard-info {
-      margin-top: -15px;
+      margin-top: 0.25rem;
       margin-bottom: 0;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    
+    /* Tafeln unter Vorträgen: mittig, textbreit */
+    .lecture-chalkboards-section .chalkboards-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0;
+    }
+    
+    .lecture-chalkboards-section .chalkboard-item {
+      width: 100%;
+    }
+    
+    .lecture-chalkboards-section .chalkboard-item img {
+      width: 100%;
+      max-width: 100%;
+      max-height: none;
+      height: auto;
+    }
+    
+    .lecture-chalkboards-section .chalkboard-item .chalkboard-info {
+      margin-top: 0.25rem;
+      text-align: center;
     }
     
     /* Wandtafel Lightbox */
@@ -2640,10 +2668,9 @@ body.dark-mode .ga-missing-text {
     }
     
     .chalkboard-lightbox img {
-      max-width: 85vh;
-      max-height: 90vw;
+      max-width: 90vw;
+      max-height: 85vh;
       object-fit: contain;
-      transform: rotate(-90deg);
     }
     
     .chalkboard-lightbox-info {
@@ -6167,6 +6194,13 @@ body.dark-mode .context-help-popup strong {
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 </head>
 <body>
+<!-- Globale Lightbox für Wandtafeln (immer verfügbar) -->
+<div id="chalkboard-lightbox" class="chalkboard-lightbox" onclick="closeChalkboardLightbox(event)">
+  <span class="chalkboard-lightbox-close" onclick="closeChalkboardLightbox(event)">&times;</span>
+  <img id="chalkboard-lightbox-img" src="" alt="">
+  <div id="chalkboard-lightbox-info" class="chalkboard-lightbox-info"></div>
+</div>
+
 <div id="sidebar">
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -8867,6 +8901,7 @@ function normalizeGANumber(gaNumber) {
   }, 100);
   checkServerConnection();
   loadSteinerImages(); // Lade Bilder-Datenbank
+  loadChalkboardsData(); // Lade Wandtafeln-Datenbank
   initTheme();
   initCustomDropdowns(); // Initialisiere Custom Multi-Select Dropdowns
   populateGADropdowns(); // Befüllt auch Jahre
@@ -9072,6 +9107,135 @@ function normalizeGANumber(gaNumber) {
         steinerImages[lectureId] = [];
         return [];
       }
+    }
+
+    // ============================================================================
+    // CHALKBOARDS (Wandtafelzeichnungen) - Laden und Anzeigen
+    // ============================================================================
+    
+    let chalkboardsData = []; // Globale Variable für alle Tafeln
+    let chalkboardsDataPromise = null; // Promise für einmaliges Laden
+    
+    // Lade chalkboards.json beim Start (mit Promise für Synchronisation)
+    async function loadChalkboardsData() {
+      // Wenn bereits geladen, sofort zurückkehren
+      if (chalkboardsData && chalkboardsData.length > 0) {
+        return Promise.resolve();
+      }
+      
+      // Wenn bereits ein Ladevorgang läuft, warte darauf
+      if (chalkboardsDataPromise) {
+        return chalkboardsDataPromise;
+      }
+      
+      // Starte neuen Ladevorgang
+      chalkboardsDataPromise = (async () => {
+        try {
+          const response = await fetch(`${API_BASE}/chalkboards.json`);
+          if (!response.ok) {
+            console.warn('[CHALKBOARDS] chalkboards.json nicht gefunden');
+            chalkboardsDataPromise = null; // Reset bei Fehler
+            return;
+          }
+          const data = await response.json();
+          chalkboardsData = data.chalkboards || [];
+          console.log(`[CHALKBOARDS] ${chalkboardsData.length} Tafeln geladen`);
+        } catch (error) {
+          console.error('[CHALKBOARDS] Fehler beim Laden:', error);
+          chalkboardsDataPromise = null; // Reset bei Fehler für erneuten Versuch
+        }
+      })();
+      
+      return chalkboardsDataPromise;
+    }
+    
+    // Finde Tafeln für einen bestimmten Vortrag (GA + Datum)
+    function getChalkboardsForLecture(gaNumber, dateStr) {
+      if (!chalkboardsData.length || !gaNumber || !dateStr) {
+        return [];
+      }
+      
+      // Normalisiere GA-Nummer (z.B. "GA199" -> "199", "GA073A" -> "073A")
+      const normalizedGA = gaNumber.replace(/^GA/i, '').toUpperCase();
+      
+      // Normalisiere Datum (verschiedene Formate möglich)
+      let normalizedDate = dateStr;
+      
+      // Prüfe ob bereits ISO-Format (YYYY-MM-DD)
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        normalizedDate = dateStr;
+      } else if (dateStr.includes('.')) {
+        // Format: "6. August 1920" oder "06.08.1920"
+        const parts = dateStr.match(/(\d{1,2})\.?\s*(\d{1,2}|\w+)\.?\s*(\d{4})/);
+        if (parts) {
+          const day = parts[1].padStart(2, '0');
+          let month = parts[2];
+          const year = parts[3];
+          
+          // Wenn Monat als Wort
+          const monthNames = {
+            'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+            'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+            'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+          };
+          if (isNaN(month)) {
+            month = monthNames[month.toLowerCase()] || '01';
+          } else {
+            month = month.padStart(2, '0');
+          }
+          normalizedDate = `${year}-${month}-${day}`;
+        }
+      }
+      
+      // Finde passende Tafeln
+      return chalkboardsData.filter(cb => {
+        const cbGA = cb.ga.toUpperCase();
+        return cbGA === normalizedGA && cb.date === normalizedDate;
+      });
+    }
+    
+    // Async-Version: Finde Tafeln für einen bestimmten Vortrag (wartet auf Datenladen)
+    async function getChalkboardsForLectureAsync(gaNumber, dateStr) {
+      await loadChalkboardsData();
+      return getChalkboardsForLecture(gaNumber, dateStr);
+    }
+    
+    // Füge Tafeln am Ende des Viewers hinzu
+    async function appendChalkboardsToViewer(gaNumber, dateStr) {
+      const chalkboards = await getChalkboardsForLectureAsync(gaNumber, dateStr);
+      if (chalkboards.length === 0) return;
+      
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      // Prüfe ob bereits Tafeln angehängt wurden
+      if (viewer.querySelector('.lecture-chalkboards-section')) return;
+      
+      // Erstelle HTML für Tafeln (ohne Überschrift)
+      let html = `
+        <div class="lecture-chalkboards-section" style="margin-top: 1.5rem; padding-top: 0.5rem; border-top: 2px solid var(--border-color);">
+          <div class="chalkboards-grid">
+      `;
+      
+      chalkboards.forEach(cb => {
+        const imageUrl = `${API_BASE}/ga-k-images/${cb.path}`;
+        const relativeUrl = `/ga-k-images/${cb.path}`;
+        html += `
+          <div class="chalkboard-item">
+            <img src="${imageUrl}" 
+                 alt="Tafel ${cb.tafel}" 
+                 data-image-popup-handler="true"
+                 onclick="openChalkboardLightbox('${relativeUrl}', 'GA${cb.ga}', '${cb.date}')"
+                 loading="lazy">
+          </div>
+        `;
+      });
+      
+      html += '</div></div>';
+      
+      // Füge am Ende des Viewers hinzu
+      viewer.insertAdjacentHTML('beforeend', html);
+      console.log(`[CHALKBOARDS] ${chalkboards.length} Tafeln zu Vortrag hinzugefügt`);
     }
 
     let totalLecturesCount = 0;
@@ -10722,8 +10886,24 @@ function displayGAVolumesInSidebar() {
   resultsDiv.innerHTML = html;
   }
 
+// Funktion: Extrahiere alle GA-Nummern, für die Tafeln vorhanden sind
+function getGAsWithChalkboards() {
+  if (!chalkboardsData || chalkboardsData.length === 0) return [];
+  
+  // Sammle alle einzigartigen GA-Nummern aus chalkboardsData
+  const gasWithChalkboards = new Set();
+  chalkboardsData.forEach(cb => {
+    if (cb.ga) {
+      gasWithChalkboards.add(cb.ga.toUpperCase());
+    }
+  });
+  
+  return Array.from(gasWithChalkboards);
+}
+
 // Funktion: Befülle GA-Band-Filter-Dropdown
-function populateGABandFilterDropdown() {
+// Bei chalkboardsOnly=true werden nur GAs mit Tafeln angezeigt
+function populateGABandFilterDropdown(chalkboardsOnly = false) {
   const dropdown = document.getElementById('ga-band-filter-dropdown');
   if (!dropdown) {
     console.warn('[GA-TAB] Dropdown nicht gefunden');
@@ -10733,11 +10913,18 @@ function populateGABandFilterDropdown() {
   // Speichere aktuellen Wert
   const currentValue = dropdown.value;
   
-  // Leere Dropdown (außer "Alle GA-Bände" Option)
-  dropdown.innerHTML = '<option value="">Alle GA-Bände</option>';
+  // Hole GAs mit Tafeln (falls benötigt)
+  const gasWithChalkboards = chalkboardsOnly ? getGAsWithChalkboards() : [];
+  
+  // Leere Dropdown
+  if (chalkboardsOnly) {
+    dropdown.innerHTML = '<option value="">Alle Tafeln</option>';
+  } else {
+    dropdown.innerHTML = '<option value="">Alle GA-Bände</option>';
+  }
   
   // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
-  const sortedGAs = [...gaVolumesData]
+  let sortedGAs = [...gaVolumesData]
     .filter(ga => ga.number.toUpperCase() !== 'GA014')
     .sort((a, b) => {
       const numA = parseInt(a.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
@@ -10747,6 +10934,15 @@ function populateGABandFilterDropdown() {
       return a.number.localeCompare(b.number);
     });
   
+  // Wenn chalkboardsOnly, filtere nur GAs mit Tafeln
+  if (chalkboardsOnly && gasWithChalkboards.length > 0) {
+    sortedGAs = sortedGAs.filter(ga => {
+      const gaNorm = ga.number.replace(/^GA/i, '').toUpperCase();
+      return gasWithChalkboards.includes(gaNorm);
+    });
+    console.log(`[GA-DROPDOWN] Gefiltert auf ${sortedGAs.length} GAs mit Tafeln`);
+  }
+  
   // Füge GA-Bände hinzu
   sortedGAs.forEach(ga => {
     const option = document.createElement('option');
@@ -10755,9 +10951,17 @@ function populateGABandFilterDropdown() {
     dropdown.appendChild(option);
   });
   
-  // Stelle vorherigen Wert wieder her falls vorhanden
+  // Stelle vorherigen Wert wieder her falls vorhanden und gültig
   if (currentValue) {
-    dropdown.value = currentValue;
+    // Prüfe ob der Wert noch in der Liste ist
+    const valueExists = Array.from(dropdown.options).some(opt => opt.value === currentValue);
+    if (valueExists) {
+      dropdown.value = currentValue;
+    } else {
+      // Wert existiert nicht mehr (z.B. weil GA keine Tafeln hat) - reset
+      dropdown.value = '';
+      selectedGABandFilter = null;
+    }
   }
 }
 
@@ -10847,6 +11051,8 @@ async function toggleChalkboardsView() {
       btn.style.color = 'var(--accent-color)';
       btn.classList.remove('active');
     }
+    // Dropdown wieder auf alle GAs zurücksetzen
+    populateGABandFilterDropdown(false);
     // Zurück zur normalen Ansicht
     showGAChronologicalView();
   } else {
@@ -10878,11 +11084,19 @@ async function toggleChalkboardsView() {
       chronoBtn.classList.remove('active');
     }
     
+    // Stelle sicher, dass chalkboardsData geladen ist, bevor Dropdown gefiltert wird
+    if (!chalkboardsData || chalkboardsData.length === 0) {
+      await loadChalkboardsData();
+    }
+    
+    // Dropdown auf nur GAs mit Tafeln filtern
+    populateGABandFilterDropdown(true);
+    
     await loadAndDisplayChalkboards();
   }
 }
 
-// Funktion: Lade Wandtafelzeichnungen vom Server
+// Funktion: Lade und zeige Wandtafelzeichnungen aus chalkboards.json
 async function loadAndDisplayChalkboards() {
   const viewer = document.getElementById('viewer');
   if (!viewer) {
@@ -10897,35 +11111,36 @@ async function loadAndDisplayChalkboards() {
     </div>
   `;
   
-  try {
-    // Prüfe ob gefiltert werden soll (nach GA-Band im Dropdown)
-    const gaFilter = selectedGABandFilter ? selectedGABandFilter.replace(/^GA/i, '') : '';
-    const url = gaFilter 
-      ? `${API_BASE}/api/chalkboards?ga=${gaFilter}`
-      : `${API_BASE}/api/chalkboards`;
-    
-    console.log('[CHALKBOARDS] Lade von:', url);
-    
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const data = await response.json();
-    console.log('[CHALKBOARDS] Geladen:', data.count, 'Bilder');
-    chalkboardsCache = data.chalkboards || [];
-    
-    displayChalkboardsGallery(chalkboardsCache);
-    
-  } catch (error) {
-    console.error('[CHALKBOARDS] Fehler beim Laden:', error);
+  // Stelle sicher, dass chalkboardsData geladen ist
+  if (!chalkboardsData || chalkboardsData.length === 0) {
+    await loadChalkboardsData();
+  }
+  
+  // Lade chronologische Vorträge für die Links (falls noch nicht geladen)
+  await ensureChronologicalLecturesLoaded();
+  
+  if (!chalkboardsData || chalkboardsData.length === 0) {
     viewer.innerHTML = `
       <div style="padding: 2rem; text-align: center; color: var(--secondary-text);">
-        <p><strong>Fehler beim Laden der Wandtafelzeichnungen</strong></p>
-        <p style="font-size: 0.9em; margin-top: 0.5rem;">${error.message}</p>
+        <p>Keine Wandtafelzeichnungen gefunden.</p>
       </div>
     `;
+    return;
   }
+  
+  // Filtere nach GA-Band wenn ausgewählt
+  let filteredChalkboards = [...chalkboardsData];
+  const gaFilter = selectedGABandFilter ? selectedGABandFilter.replace(/^GA/i, '').toUpperCase() : '';
+  
+  if (gaFilter) {
+    filteredChalkboards = chalkboardsData.filter(cb => 
+      cb.ga.toUpperCase() === gaFilter
+    );
+  }
+  
+  console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : ''));
+  
+  displayChalkboardsGallery(filteredChalkboards);
 }
 
 // Funktion: Zeige Wandtafelzeichnungen in Galerie (5 pro Zeile)
@@ -10935,15 +11150,15 @@ function displayChalkboardsGallery(chalkboards) {
   
   // Blacklist: Bestimmte WZ ausschließen (GA + Datum)
   const blacklist = [
-    { ga: 'GA354', date: '1924-09-24' },
-    { ga: 'GA383', date: '1924-03-08' },
-    { ga: 'GA383', date: '1924-05-17' }
+    { ga: '354', date: '1924-09-24' },
+    { ga: '383', date: '1924-03-08' },
+    { ga: '383', date: '1924-05-17' }
   ];
   
   // Filtere Blacklist-Einträge heraus
   chalkboards = chalkboards.filter(cb => {
     const isBlacklisted = blacklist.some(bl => 
-      cb.gaNumber === bl.ga && cb.date === bl.date
+      cb.ga === bl.ga && cb.date === bl.date
     );
     return !isBlacklisted;
   });
@@ -10973,27 +11188,41 @@ function displayChalkboardsGallery(chalkboards) {
   
   for (const cb of chalkboards) {
     const dateStr = cb.date ? formatChalkboardDate(cb.date) : '';
-    const lectureLink = cb.lectureId 
-      ? `app.html#texte&lecture=${encodeURIComponent(cb.lectureId)}`
-      : null;
+    const gaNumber = `GA${cb.ga}`;
+    const imageUrl = `/ga-k-images/${cb.path}`;
+    
+    // Finde passenden Vortrag für Link (mit Fehlerbehandlung)
+    let lectureId = null;
+    try {
+      const lecture = findLectureByGAAndDate(cb.ga, cb.date);
+      lectureId = lecture ? lecture.ID : null;
+    } catch (e) {
+      console.warn('[CHALKBOARDS] Fehler bei Vortrag-Suche:', e);
+    }
     
     // Escape für onclick
-    const escapedImageUrl = cb.imageUrl.replace(/'/g, "\\'");
-    const escapedGaNumber = cb.gaNumber.replace(/'/g, "\\'");
+    const escapedImageUrl = imageUrl.replace(/'/g, "\\'");
+    const escapedGaNumber = gaNumber.replace(/'/g, "\\'");
     const escapedDateStr = dateStr.replace(/'/g, "\\'");
+    const escapedLectureId = lectureId ? lectureId.replace(/'/g, "\\'") : '';
+    
+    // Info-Text mit oder ohne Link
+    const infoContent = lectureId 
+      ? `<a href="#texte&lecture=${encodeURIComponent(lectureId)}" 
+            onclick="event.preventDefault(); openLectureFromChalkboard('${escapedLectureId}');"
+            style="color: var(--link-color); text-decoration: none; cursor: pointer;"
+            title="Vortrag öffnen">${gaNumber}${dateStr ? ', ' + dateStr : ''}</a>`
+      : `<span>${gaNumber}${dateStr ? ', ' + dateStr : ''}</span>`;
     
     html += `
       <div class="chalkboard-item">
-        <img src="${API_BASE}${cb.imageUrl}" 
-             alt="${cb.gaNumber} - ${dateStr}" 
+        <img src="${API_BASE}${imageUrl}" 
+             alt="${gaNumber} - ${dateStr}" 
              loading="lazy"
              data-image-popup-handler="true"
              onclick="openChalkboardLightbox('${escapedImageUrl}', '${escapedGaNumber}', '${escapedDateStr}')">
         <div class="chalkboard-info">
-          ${lectureLink 
-            ? `<a href="${lectureLink}" onclick="event.stopPropagation(); openLectureFromChalkboard('${cb.lectureId}'); return false;">${cb.gaNumber}${dateStr ? ', ' + dateStr : ''}</a>`
-            : `<span>${cb.gaNumber}${dateStr ? ', ' + dateStr : ''}</span>`
-          }
+          ${infoContent}
         </div>
       </div>
     `;
@@ -11001,14 +11230,7 @@ function displayChalkboardsGallery(chalkboards) {
   
   html += '</div>';
   
-  // Lightbox Container (am Ende)
-  html += `
-    <div id="chalkboard-lightbox" class="chalkboard-lightbox" onclick="closeChalkboardLightbox(event)">
-      <span class="chalkboard-lightbox-close" onclick="closeChalkboardLightbox(event)">&times;</span>
-      <img id="chalkboard-lightbox-img" src="" alt="">
-      <div id="chalkboard-lightbox-info" class="chalkboard-lightbox-info"></div>
-    </div>
-  `;
+  // Lightbox ist jetzt global im HTML, muss nicht mehr dynamisch hinzugefügt werden
   
   viewer.innerHTML = html;
 }
@@ -11038,6 +11260,83 @@ function openLectureFromChalkboard(lectureId) {
       window.location.hash = `texte&lecture=${encodeURIComponent(lectureId)}`;
     }
   }, 100);
+}
+
+// Funktion: Finde Vortrag anhand von GA-Nummer und Datum
+function findLectureByGAAndDate(gaNumber, dateStr) {
+  // Verwende allChronologicalLectures (globale Variable)
+  if (!allChronologicalLectures || !allChronologicalLectures.length || !gaNumber || !dateStr) return null;
+  
+  // Normalisiere GA-Nummer (z.B. "191" -> "GA191")
+  const normalizedGA = gaNumber.startsWith('GA') ? gaNumber : `GA${gaNumber}`;
+  
+  // Suche Vortrag mit passendem GA und Datum
+  return allChronologicalLectures.find(lecture => {
+    if (!lecture.ID || !lecture.date) return false;
+    
+    // Lecture.ID ist z.B. "GA191/2", wir brauchen "GA191"
+    const lectureGA = lecture.ID.split('/')[0];
+    if (lectureGA !== normalizedGA) return false;
+    
+    // Vergleiche Datum (lecture.date kann verschiedene Formate haben)
+    // dateStr ist im Format "YYYY-MM-DD"
+    const lectureDate = parseLectureDateToISO(lecture.date);
+    return lectureDate === dateStr;
+  });
+}
+
+// Funktion: Lade chronologische Vorträge für Wandtafel-Links (falls noch nicht geladen)
+async function ensureChronologicalLecturesLoaded() {
+  if (allChronologicalLectures && allChronologicalLectures.length > 0) return true;
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/lectures/chronological`);
+    if (!response.ok) return false;
+    
+    const data = await response.json();
+    allChronologicalLectures = data.lectures || [];
+    console.log(`[CHALKBOARDS] ${allChronologicalLectures.length} Vorträge für Links geladen`);
+    return true;
+  } catch (error) {
+    console.warn('[CHALKBOARDS] Konnte Vorträge nicht laden:', error);
+    return false;
+  }
+}
+
+// Hilfsfunktion: Konvertiere Lecture-Datum zu ISO-Format
+function parseLectureDateToISO(dateStr) {
+  if (!dateStr) return null;
+  
+  // Falls bereits im ISO-Format
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+  
+  // Format: "6. August 1920" oder "06.08.1920"
+  const monthNames = {
+    'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+    'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+    'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+  };
+  
+  // Format: "6. August 1920"
+  const match1 = dateStr.match(/(\d{1,2})\.?\s*(\w+)\s*(\d{4})/);
+  if (match1) {
+    const day = match1[1].padStart(2, '0');
+    const monthName = match1[2].toLowerCase();
+    const year = match1[3];
+    const month = monthNames[monthName];
+    if (month) return `${year}-${month}-${day}`;
+  }
+  
+  // Format: "06.08.1920"
+  const match2 = dateStr.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+  if (match2) {
+    const day = match2[1].padStart(2, '0');
+    const month = match2[2].padStart(2, '0');
+    const year = match2[3];
+    return `${year}-${month}-${day}`;
+  }
+  
+  return null;
 }
 
 // Funktion: Formatiere Datum für Wandtafeln
@@ -22554,6 +22853,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
               }
             }, 300);
           }
+          
+          // Wandtafelzeichnungen NACH dem Bild-Ersetzen hinzufügen (falls vorhanden)
+          if (lecture && lecture.ID && lecture.date) {
+            const gaNumber = lecture.ID.split('/')[0];
+            setTimeout(async () => {
+              await appendChalkboardsToViewer(gaNumber, lecture.date);
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
+            }, 300);
+          }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
           // Auch bei Fehler Gedichte formatieren
@@ -22581,6 +22891,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
               const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
               if (targetParaElement) {
                 addHighlightingWithAutoRemove(targetParaElement);
+              }
+            }, 300);
+          }
+          
+          // Wandtafelzeichnungen auch im Fehlerfall hinzufügen
+          if (lecture && lecture.ID && lecture.date) {
+            const gaNumber = lecture.ID.split('/')[0];
+            setTimeout(async () => {
+              await appendChalkboardsToViewer(gaNumber, lecture.date);
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
               }
             }, 300);
           }
@@ -22618,6 +22939,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
         if (targetParaElement) {
           addHighlightingWithAutoRemove(targetParaElement);
+        }
+      }, 300);
+    }
+    
+    // Wandtafelzeichnungen hinzufügen (ohne Bilder-Ersetzung)
+    if (lecture && lecture.ID && lecture.date) {
+      const gaNumber = lecture.ID.split('/')[0];
+      setTimeout(async () => {
+        await appendChalkboardsToViewer(gaNumber, lecture.date);
+        if (typeof buildTableOfContents === 'function') {
+          buildTableOfContents();
         }
       }, 300);
     }
@@ -25131,25 +25463,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocItems.push({ element: tocHeading, heading: heading });
       });
       
-      // Prüfe ob "Wandtafelzeichnungen" im Viewer vorhanden sind
-      // Suche nach H2 mit "Wandtafelzeichnungen" ODER Bildern mit "Tafel" im alt-Text
-      const allH2s = viewer.querySelectorAll('h2');
-      let wandtafelH2 = null;
-      for (const h2 of allH2s) {
-        if (h2.textContent.toLowerCase().includes('wandtafel')) {
-          wandtafelH2 = h2;
-          break;
-        }
+      // Prüfe ob Wandtafelzeichnungen in chalkboards.json für diesen Vortrag vorhanden sind
+      let hasChalkboards = false;
+      if (currentLectureData && currentLectureData.ID && currentLectureData.date) {
+        const gaNumber = currentLectureData.ID.split('/')[0];
+        const chalkboards = getChalkboardsForLecture(gaNumber, currentLectureData.date);
+        hasChalkboards = chalkboards.length > 0;
       }
       
-      // Suche nach Bildern mit "Tafel" im alt-Text
-      const tafelImages = viewer.querySelectorAll('img[alt*="Tafel"], img[alt*="tafel"]');
-      const firstTafelImage = tafelImages.length > 0 ? tafelImages[0] : null;
-      
-      // Ziel-Element: H2 falls vorhanden, sonst erstes Tafel-Bild
-      const scrollTarget = wandtafelH2 || firstTafelImage;
-      
-      if (scrollTarget) {
+      if (hasChalkboards) {
         // Füge "Wandtafelzeichnungen" Link am Ende der TOC-Liste hinzu
         const wzLink = document.createElement('div');
         wzLink.style.marginTop = '1rem';
@@ -25166,21 +25488,41 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         wzHeading.addEventListener('click', (e) => {
           e.preventDefault();
           
-          // Scrolle zum Ziel-Element (H2 oder erstes Bild)
-          if (isTimelineActive) {
-            const timelineContainer = document.getElementById('timelineViewerContent');
-            const targetRect = scrollTarget.getBoundingClientRect();
-            const containerRect = timelineContainer.getBoundingClientRect();
-            const scrollPosition = timelineContainer.scrollTop + (targetRect.top - containerRect.top) - 50;
-            timelineContainer.scrollTo({ top: scrollPosition, behavior: 'smooth' });
-          } else {
-            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Suche das Scroll-Ziel (lecture-chalkboards-section oder H2 mit "Wandtafel")
+          let scrollTarget = viewer.querySelector('.lecture-chalkboards-section');
+          
+          if (!scrollTarget) {
+            const allH2s = viewer.querySelectorAll('h2');
+            for (const h2 of allH2s) {
+              if (h2.textContent.toLowerCase().includes('wandtafel')) {
+                scrollTarget = h2;
+                break;
+              }
+            }
           }
           
-          // Highlight-Effekt
-          const originalBg = scrollTarget.style.backgroundColor;
-          scrollTarget.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
-          setTimeout(() => { scrollTarget.style.backgroundColor = originalBg; }, 1000);
+          if (!scrollTarget) {
+            const tafelImages = viewer.querySelectorAll('img[alt*="Tafel"], img[alt*="tafel"]');
+            scrollTarget = tafelImages.length > 0 ? tafelImages[0] : null;
+          }
+          
+          if (scrollTarget) {
+            // Scrolle zum Ziel-Element
+            if (isTimelineActive) {
+              const timelineContainer = document.getElementById('timelineViewerContent');
+              const targetRect = scrollTarget.getBoundingClientRect();
+              const containerRect = timelineContainer.getBoundingClientRect();
+              const scrollPosition = timelineContainer.scrollTop + (targetRect.top - containerRect.top) - 50;
+              timelineContainer.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+            } else {
+              scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Highlight-Effekt
+            const originalBg = scrollTarget.style.backgroundColor;
+            scrollTarget.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+            setTimeout(() => { scrollTarget.style.backgroundColor = originalBg; }, 1000);
+          }
         });
         
         wzLink.appendChild(wzHeading);
@@ -25674,6 +26016,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
             // WICHTIG: Nach Bild-Ersetzen, Gedicht-Formatierung und anderen Manipulationen
             convertFootnotesToLinks();
+            
+            // Wandtafelzeichnungen hinzufügen (falls vorhanden)
+            if (lecture && lecture.ID && lecture.date) {
+              const gaNumber = lecture.ID.split('/')[0];
+              appendChalkboardsToViewer(gaNumber, lecture.date).then(() => {
+                if (typeof buildTableOfContents === 'function') {
+                  buildTableOfContents();
+                }
+              });
+            }
           }, 200);
           
           // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
@@ -25701,9 +26053,19 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
-          // Auch bei Fehler Gedichte formatieren
+          // Auch bei Fehler Gedichte formatieren und Tafeln hinzufügen
           setTimeout(() => {
             detectAndFormatPoems(viewer);
+            
+            // Wandtafelzeichnungen auch im Fehlerfall hinzufügen
+            if (lecture && lecture.ID && lecture.date) {
+              const gaNumber = lecture.ID.split('/')[0];
+              appendChalkboardsToViewer(gaNumber, lecture.date).then(() => {
+                if (typeof buildTableOfContents === 'function') {
+                  buildTableOfContents();
+                }
+              });
+            }
           }, 0);
         });
       } else {
@@ -25720,6 +26082,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
           // WICHTIG: Nach Gedicht-Formatierung und anderen Manipulationen
           convertFootnotesToLinks();
+          
+          // Wandtafelzeichnungen hinzufügen (falls vorhanden)
+          if (lecture && lecture.ID && lecture.date) {
+            const gaNumber = lecture.ID.split('/')[0];
+            appendChalkboardsToViewer(gaNumber, lecture.date).then(() => {
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
+            });
+          }
         }, 200);
         
         // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
@@ -33557,8 +33929,10 @@ async function createManualBackup() {
       const data = await response.json();
       if (type === 'full') {
         alert(`${data.backupsCreated} Backups erstellt`);
+      } else if (type === 'chalkboards') {
+        alert(`Wandtafeln-Backup: ${data.count} Tafeln gesichert`);
       } else {
-        alert(`Backup erstellt: ${data.backup}`);
+        alert(`Backup erstellt: ${data.backup || data.backupFile}`);
       }
       loadBackupList();
     } else {
@@ -33615,6 +33989,7 @@ async function restoreBackup(backupName) {
         <option value="pagebreakbooks">Pagebreak Books</option>
         <option value="code">Backend Code</option>
         <option value="html">HTML Dateien</option>
+        <option value="chalkboards">🖼️ Wandtafeln</option>
         <option value="full">🛡️ Alles (Full Backup)</option>
       </select>
       <button class="depth-btn" onclick="createManualBackup()" style="padding: 6px 15px; font-size: 0.85rem;">
