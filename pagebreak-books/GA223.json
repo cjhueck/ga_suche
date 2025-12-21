@@ -325,10 +325,6 @@
         {
           "index": "^exm1qe",
           "content": "![](<assets/223-T03.webp>)"
-        },
-        {
-          "index": "^ga223t03",
-          "content": "<img src=\"assets/GA223-1923-04-01-T03.webp\" alt=\"Tafel 3\" />"
         }
       ]
     },
@@ -469,10 +465,6 @@
         {
           "index": "^dnybur",
           "content": "![](<assets/223-T05.webp>)"
-        },
-        {
-          "index": "^ga223t04",
-          "content": "<img src=\"assets/GA223-1923-04-02-T04.webp\" alt=\"Tafel 4\" />"
         }
       ]
     },
@@ -649,10 +641,6 @@
         {
           "index": "^r635wz",
           "content": "![](<assets/223-T07.webp>)"
-        },
-        {
-          "index": "^ga223t07",
-          "content": "<img src=\"assets/GA223-1923-04-07-T07.webp\" alt=\"Tafel 7\" />"
         }
       ]
     },
@@ -817,10 +805,6 @@
         {
           "index": "^q3e8tu",
           "content": "![](<assets/223-T09.webp>)"
-        },
-        {
-          "index": "^ga223t08",
-          "content": "<img src=\"assets/GA223-1923-04-08-T08.webp\" alt=\"Tafel 8\" />"
         }
       ]
     },

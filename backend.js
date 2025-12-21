@@ -6373,6 +6373,28 @@ app.get('/api/chalkboards', async (req, res) => {
   }
 });
 
+// API-Endpunkt: Wandtafelzeichnungen Backup
+app.post('/api/chalkboards/backup', async (req, res) => {
+  try {
+    console.log('[CHALKBOARDS] Starte Backup...');
+    const result = await createChalkboardsBackup();
+    
+    if (result) {
+      res.json({ 
+        success: true, 
+        backupPath: result.path,
+        count: result.count,
+        message: `${result.count} Tafeln erfolgreich gesichert`
+      });
+    } else {
+      res.status(500).json({ error: 'Backup fehlgeschlagen - keine Tafeln gefunden' });
+    }
+  } catch (error) {
+    console.error('[CHALKBOARDS] Backup Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Statisches Serving für GA K Bilder
 app.use('/ga-k-images', express.static(path.join(__dirname, 'Steiner_GA')));
 
@@ -8696,6 +8718,7 @@ const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
 const IMAGES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'images');
 const PAGEMARKERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagemarkers');
 const PAGEBREAK_BOOKS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagebreak-books');
+const CHALKBOARDS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'chalkboards');
 
 // ============================================================================
 // AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
@@ -8712,7 +8735,8 @@ async function ensureBackupDirectories() {
     HTML_BACKUP_DIR,
     IMAGES_BACKUP_DIR,
     PAGEMARKERS_BACKUP_DIR,
-    PAGEBREAK_BOOKS_BACKUP_DIR
+    PAGEBREAK_BOOKS_BACKUP_DIR,
+    CHALKBOARDS_BACKUP_DIR
   ];
   
   for (const dir of dirs) {
@@ -8866,6 +8890,62 @@ async function createPagebreakBooksBackup() {
     return backupSubDir;
   } catch (error) {
     console.error('[BACKUP] Fehler beim pagebreak-books Backup:', error);
+    return null;
+  }
+}
+
+async function createChalkboardsBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceDir = path.join(__dirname, 'Steiner_GA', 'chalkboards');
+    if (!fsSync.existsSync(sourceDir)) {
+      return null;
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupSubDir = path.join(CHALKBOARDS_BACKUP_DIR, `chalkboards-${timestamp}`);
+    
+    await fs.mkdir(backupSubDir, { recursive: true });
+    
+    // Kopiere alle GA-Unterordner
+    const gaFolders = await fs.readdir(sourceDir);
+    let totalCount = 0;
+    
+    for (const folder of gaFolders) {
+      const srcPath = path.join(sourceDir, folder);
+      const dstPath = path.join(backupSubDir, folder);
+      
+      const stats = await fs.stat(srcPath);
+      if (stats.isDirectory()) {
+        await fs.mkdir(dstPath, { recursive: true });
+        const files = await fs.readdir(srcPath);
+        for (const file of files) {
+          if (file.endsWith('.webp')) {
+            await fs.copyFile(path.join(srcPath, file), path.join(dstPath, file));
+            totalCount++;
+          }
+        }
+      }
+    }
+    
+    console.log(`[BACKUP] chalkboards: ${totalCount} Tafeln gesichert nach ${backupSubDir}`);
+    
+    // Bereinige alte Backups (behalte 3 Versionen wegen Größe)
+    const allBackups = await fs.readdir(CHALKBOARDS_BACKUP_DIR);
+    const backupDirs = allBackups
+      .filter(d => d.startsWith('chalkboards-'))
+      .sort()
+      .reverse();
+    
+    for (const oldDir of backupDirs.slice(3)) {
+      const oldPath = path.join(CHALKBOARDS_BACKUP_DIR, oldDir);
+      await fs.rm(oldPath, { recursive: true, force: true });
+    }
+    
+    return { path: backupSubDir, count: totalCount };
+  } catch (error) {
+    console.error('[BACKUP] Fehler beim chalkboards Backup:', error);
     return null;
   }
 }
@@ -16272,6 +16352,17 @@ app.post('/api/backups/create', async (req, res) => {
       case 'pagebreakbooks':
         backupFile = await createPagebreakBooksBackup();
         break;
+      case 'chalkboards':
+        const result = await createChalkboardsBackup();
+        if (result) {
+          return res.json({ 
+            success: true, 
+            backupFile: result.path,
+            count: result.count,
+            message: `${result.count} Tafeln gesichert`
+          });
+        }
+        return res.status(500).json({ error: 'Chalkboards-Backup fehlgeschlagen' });
       case 'code':
         backupFile = await createCodeBackup();
         break;

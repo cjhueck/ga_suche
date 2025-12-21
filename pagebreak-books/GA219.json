@@ -221,10 +221,6 @@
         {
           "index": "^rr22yh",
           "content": "![](<assets/219-T02.webp>)"
-        },
-        {
-          "index": "^ga219t02",
-          "content": "<img src=\"assets/GA219-1922-11-26-T02.webp\" alt=\"Tafel 2\" />"
         }
       ]
     },
@@ -537,10 +533,6 @@
         {
           "index": "^e4dk6f",
           "content": "![](<assets/219-T06.webp>)"
-        },
-        {
-          "index": "^ga219t05",
-          "content": "<img src=\"assets/GA219-1922-12-03-T05.webp\" alt=\"Tafel 5\" />"
         }
       ]
     },
@@ -949,10 +941,6 @@
         {
           "index": "^j4whpl",
           "content": "![](<assets/219-T08.webp>)"
-        },
-        {
-          "index": "^ga219t08",
-          "content": "<img src=\"assets/GA219-1922-12-17-T08.webp\" alt=\"Tafel 8\" />"
         }
       ]
     },
@@ -1097,14 +1085,6 @@
         {
           "index": "^4qhgmm",
           "content": "![](<assets/219-T10.webp>)"
-        },
-        {
-          "index": "^ga219t10",
-          "content": "<img src=\"assets/GA219-1922-12-22-T10.webp\" alt=\"Tafel 10\" />"
-        },
-        {
-          "index": "^ga219t09",
-          "content": "<img src=\"assets/GA219-1922-12-22-T09.webp\" alt=\"Tafel 9\" />"
         }
       ]
     },
@@ -1285,14 +1265,6 @@
         {
           "index": "^hxi1gk",
           "content": "![](<assets/219-T12.webp>)"
-        },
-        {
-          "index": "^ga219t11",
-          "content": "<img src=\"assets/GA219-1922-12-23-T11.webp\" alt=\"Tafel 11\" />"
-        },
-        {
-          "index": "^ga219t12",
-          "content": "<img src=\"assets/GA219-1922-12-23-T12.webp\" alt=\"Tafel 12\" />"
         }
       ]
     },
@@ -1605,10 +1577,6 @@
         {
           "index": "^5z1rm1",
           "content": "![](<assets/219-T13.webp>)"
-        },
-        {
-          "index": "^ga219t13",
-          "content": "<img src=\"assets/GA219-1922-12-29-T13.webp\" alt=\"Tafel 13\" />"
         }
       ]
     },
@@ -2049,14 +2017,6 @@
         {
           "index": "^nu0kh8",
           "content": "Ich seh' im Fühlen sie sich weise wandeln."
-        },
-        {
-          "index": "^ga219t03",
-          "content": "<img src=\"assets/GA219-1922-12-01-T03.webp\" alt=\"Tafel 3\" />"
-        },
-        {
-          "index": "^ga219t04",
-          "content": "<img src=\"assets/GA219-1922-12-01-T04.webp\" alt=\"Tafel 4\" />"
         }
       ]
     }

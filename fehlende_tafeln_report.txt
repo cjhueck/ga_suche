@@ -1,0 +1,298 @@
+﻿FEHLENDE TAFELN (ohne Bild)
+================================================================================
+
+GA K 58_2: 9 fehlend von 37 Tafeln
+  GA 191 TAFEL 10 - DORNACH, 23. OKTOBER 1919 (Zeile 367)
+  GA 191 TAFEL 10 - (kein Datum) (Zeile 378)
+  GA 194 TAFEL 2 - DORNACH, 21. NOVEMBER 1919 (Zeile 499)
+  GA 194 TAFEL 6 - DORNACH, 28. NOVEMBER 1919 (Zeile 548)
+  GA 194 TAFEL 7 - DORNACH, 28. NOVEMBER 1919 (Zeile 560)
+  GA 194 TAFEL 8 - DORNACH, 29. NOVEMBER 1919 (Zeile 576)
+  GA 194 TAFEL 11 - DORNACH, 30. NOVEMBER 1919 (Zeile 615)
+  GA 194 TAFEL 18 - DORNACH, 14. DEZEMBER 1919 (Zeile 708)
+  GA 194 TAFEL 19 - DORNACH, 14. DEZEMBER 1919 (Zeile 730)
+
+GA K 58_3: 4 fehlend von 24 Tafeln
+  GA 196 TAFEL 17 - DORNACH, 21. FEBRUAR 1920 (Zeile 414)
+  GA 198 TAFEL 1 - DORNACH, 20. M─RZ 1920 (Zeile 468)
+  GA 198 TAFEL 3 - DORNACH, 21. M─RZ 1920 (Zeile 490)
+  GA 198 TAFEL 10 - DORNACH, 3. JULI 1920 (Zeile 585)
+
+GA K 58_4: 2 fehlend von 25 Tafeln
+  GA 199 TAFEL 5 - DORNACH, 8. AUGUST 1920 (Zeile 251)
+  GA 189 TAFEL 24 - (kein Datum) (Zeile 501)
+
+GA K 58_5: OK (26 Tafeln, alle mit Bild)
+
+GA K 58_6: 6 fehlend von 31 Tafeln
+  GA 202 TAFEL 7 - DORNACH, 4. DEZEMBER 1920 (Zeile 298)
+  GA 203 TAFEL 2 - DORNACH, 21. JANUAR 1921 (Zeile 575)
+  GA 203 TAFEL 4 - DORNACH, 30. JANUAR 1921 (Zeile 599)
+  GA 204 TAFEL 8 - DORNACH, 30. APRIL 1921 (Zeile 785)
+  GA 204 TAFEL 9 - DORNACH, 30. APRIL 1921 (Zeile 810)
+  GA 204 TAFEL 14 - DORNACH, 3. JUNI 1921 (Zeile 900)
+
+GA K 58_7: 5 fehlend von 29 Tafeln
+  GA 205 TAFEL 2 - DORNACH, 24. JUNI 1921 (Zeile 223)
+  GA 205 TAFEL 6 - DORNACH, 1. JULI 1921 (Zeile 291)
+  GA 205 TAFEL 10 - DORNACH, 3. JULI 1921 (Zeile 351)
+  GA 205 TAFEL 21 - DORNACH, 17. JULI 1921 (Zeile 522)
+  GA 206 TAFEL 13 - DORNACH, 14. AUGUST 1921 (Zeile 774)
+
+GA K 58_8: 5 fehlend von 25 Tafeln
+  GA 207 TAFEL 11 - DORNACH, 7. OKTOBER 1921 (Zeile 343)
+  GA 207 TAFEL 14 - DORNACH, 8. OKTOBER 1921 (Zeile 382)
+  GA 207 TAFEL 15 - DORNACH, 9. OKTOBER 1921 (Zeile 391)
+  GA 207 TAFEL 19 - (kein Datum) (Zeile 460)
+  GA 206 TAFEL 3 - DORNACH, 22. OKTOBER 1921 (Zeile 551)
+
+GA K 58_9: 5 fehlend von 30 Tafeln
+  GA 210 TAFEL 2 - DORNACH, 7. JANUAR 1922 (Zeile 213)
+  GA 210 TAFEL 13 - DORNACH, 24. FEBRUAR 1922 (Zeile 395)
+  GA 211 TAFEL 2 - DORNACH, 24. M─RZ 1922 (Zeile 473)
+  GA 212 TAFEL 8 - DORNACH, 6. MAI 1922 (Zeile 720)
+  GA 212 TAFEL 14 - DORNACH, 17. JUNI 1922 (Zeile 800)
+
+GA K 58_10: 6 fehlend von 31 Tafeln
+  GA 213 TAFEL 4 - DORNACH, 30. JUNI 1922 (Zeile 237)
+  GA 213 TAFEL 9 - DORNACH, 2. JULI 1922 (Zeile 300)
+  GA 213 TAFEL 12 - DORNACH, 8. JULI 1922 (Zeile 337)
+  GA 213 TAFEL 19 - DORNACH, 16. JULI 1922 (Zeile 425)
+  GA 214 TAFEL 4 - DORNACH, 28. JULI 1922 (Zeile 563)
+  GA 214 TAFEL 9 - DORNACH, 6. AUGUST 1922 (Zeile 646)
+
+GA K 58_11: 2 fehlend von 39 Tafeln
+  GA 216 TAFEL 1 - DORNACH, 16. SEPTEMBER 1922 (Zeile 210)
+  GA 216 TAFEL 3 - DORNACH, 17. SEPTEMBER 1922 (Zeile 235)
+
+GA K 58_12: 13 fehlend von 31 Tafeln
+  GA 221 TAFEL 2 - DORNACH, 11. FEBRUAR 1923 (Zeile 247)
+  GA 221 TAFEL 4 - DORNACH, 17. FEBRUAR 1923 (Zeile 276)
+  GA 222 TAFEL 1 - DORNACH, 12. M─RZ 1923 (Zeile 316)
+  GA 222 TAFEL 6 - DORNACH, 18. M─RZ 1923 (Zeile 382)
+  GA 222 TAFEL 9 - DORNACH, 23. M─RZ 1923 (Zeile 423)
+  GA 223 TAFEL 3 - DORNACH, 1. APRIL 1923 (Zeile 519)
+  GA 223 TAFEL 7 - DORNACH, 7. APRIL 1923 (Zeile 581)
+  GA 224 TAFEL 1 - (kein Datum) (Zeile 668)
+  GA 224 TAFEL 2 - DORNACH, 13. APRIL 1923 (Zeile 683)
+  GA 225 TAFEL 1 - (kein Datum) (Zeile 733)
+  GA 225 TAFEL 4 - DORNACH, 6. MAI 1923 (Zeile 770)
+  GA 225 TAFEL 5 - DORNACH, 6. JULI 1923 (Zeile 785)
+  GA 225 TAFEL 10 - DORNACH, 22. SEPTEMBER 1923 (Zeile 870)
+
+GA K 58_13: 7 fehlend von 30 Tafeln
+  GA 227 TAFEL 1 - PENMAENMAWR, 22. AUGUST 1923 (Zeile 217)
+  GA 228 TAFEL 1 - DORNACH, 27. JULI 1923 (Zeile 272)
+  GA 228 TAFEL 6 - DORNACH, 9. SEPTEMBER 1923 (Zeile 373)
+  GA 229 TAFEL 6 - DORNACH, 12. OKTOBER 1923 (Zeile 494)
+  GA 229 TAFEL 7 - DORNACH, 12. OKTOBER 1923 (Zeile 512)
+  GA 229 TAFEL 8 - DORNACH, 13. OKTOBER 1923 (Zeile 542)
+  GA 230 TAFEL 3 - DORNACH, 20. OKTOBER 1923 (Zeile 617)
+
+GA K 58_14: 8 fehlend von 25 Tafeln
+  GA 232 TAFEL 5 - DORNACH, 25. NOVEMBER 1923 (Zeile 249)
+  GA 232 TAFEL 6 - DORNACH, 30. NOVEMBER 1923 (Zeile 287)
+  GA 232 TAFEL 9 - DORNACH, 2. DEZEMBER 1923 (Zeile 324)
+  GA 232 TAFEL 11 - DORNACH, 7. DEZEMBER 1923 (Zeile 353)
+  GA 232 TAFEL 14 - DORNACH, 8. DEZEMBER 1923 (Zeile 411)
+  GA 232 TAFEL 21 - DORNACH, 21. DEZEMBER 1923 (Zeile 520)
+  GA 232 TAFEL 24 - DORNACH, 23. DEZEMBER 1923 (Zeile 565)
+  GA 233 TAFEL 10 - DORNACH, 29. DEZEMBER 1923 (Zeile 728)
+
+GA K 58_15: 5 fehlend von 17 Tafeln
+  GA 234 TAFEL 1 - DORNACH, 19. JANUAR 1924 (Zeile 465)
+  GA 234 TAFEL 3 - DORNACH, 20. JANUAR 1924 (Zeile 497)
+  GA 243 TAFEL 1 - TORQUAY, 11. AUGUST 1924 (Zeile 675)
+  GA 243 TAFEL 6 - TORQUAY, 15. AUGUST 1924 (Zeile 764)
+  GA 243 TAFEL 10 - TORQUAY, 20. AUGUST 1924 (Zeile 860)
+
+GA K 58_16: 12 fehlend von 43 Tafeln
+  GA 235 TAFEL 3 - DORNACH, 17. FEBRUAR 1924 (Zeile 248)
+  GA 235 TAFEL 8 - DORNACH, 1. M─RZ 1924 (Zeile 321)
+  GA 235 TAFEL 11 - DORNACH, 2. M─RZ 1924 (Zeile 355)
+  GA 235 TAFEL 13 - DORNACH, 8. M─RZ 1924 (Zeile 385)
+  GA 235 TAFEL 15 - DORNACH, 16. M─RZ 1924 (Zeile 429)
+  GA 236 TAFEL 8 - DORNACH, 10. MAI 1924 (Zeile 619)
+  GA 236 TAFEL 16 - DORNACH, 30. MAI 1924 (Zeile 736)
+  GA 236 TAFEL 20 - DORNACH, 22. JUNI 1924 (Zeile 783)
+  GA 237 TAFEL 4 - DORNACH, 8. JULI 1924 (Zeile 914)
+  GA 237 TAFEL 10 - DORNACH, 8. AUGUST 1924 (Zeile 1011)
+  GA 240 TAFEL 3 - TORQUAY, 21. AUGUST 1924 (Zeile 1140)
+  GA 240 TAFEL 5 - LONDON, 27. AUGUST 1924 (Zeile 1180)
+
+GA K 58_17: 6 fehlend von 15 Tafeln
+  GA 258 TAFEL 2 - DORNACH, 11. JUNI 1923 (Zeile 256)
+  GA 260 TAFEL 1 - DORNACH, 28. DEZEMBER 1923 (Zeile 359)
+  GA 260 TAFEL 2 - DORNACH, 27. DEZEMBER 1923 (Zeile 379)
+  GA 260 TAFEL 4 - DORNACH, 29. DEZEMBER 1923 (Zeile 417)
+  GA 260 TAFEL 7 - DORNACH, 30. DEZEMBER 1923 (Zeile 488)
+  GA 260 TAFEL 10 - DORNACH, 1. JANUAR 1924 (Zeile 536)
+
+GA K 58_18: 5 fehlend von 21 Tafeln
+  GA 291 TAFEL 6 - DORNACH, 8. MAI 1921 (Zeile 612)
+  GA 291 TAFEL 8 - (kein Datum) (Zeile 646)
+  GA 291 TAFEL 8 - (kein Datum) (Zeile 648)
+  GA 291 TAFEL 16 - DORNACH, 29. JULI 1923 (Zeile 734)
+  GA 291 TAFEL 17 - DORNACH, 29. JULI 1923 (Zeile 745)
+
+GA K 58_19: 10 fehlend von 33 Tafeln
+  GA 278 TAFEL 4 - DORNACH, 23. FEBRUAR 1924 (Zeile 263)
+  GA 278 TAFEL 9 - DORNACH, 26. FEBRUAR 1924 (Zeile 327)
+  GA 279 TAFEL 2 - DORNACH, 24. JUNI 1924 (Zeile 396)
+  GA 279 TAFEL 8 - DORNACH, 27. JUNI 1924 (Zeile 501)
+  GA 279 TAFEL 11 - DORNACH, 30. JUNI 1924 (Zeile 547)
+  GA 278 TAFEL 12 - DORNACH, 1. JULI 1924 (Zeile 773)
+  GA 279 TAFEL 14 - DORNACH, 2. JULI 1924 (Zeile 838)
+  GA 279 TAFEL 15 - DORNACH, 2. JULI 1924 (Zeile 858)
+  GA 279 TAFEL 17 - DORNACH, 3. JULI 1924 (Zeile 903)
+  GA 279 TAFEL 18 - DORNACH, 4. JULI 1924 (Zeile 922)
+
+GA K 58_20: 9 fehlend von 23 Tafeln
+  GA 281 TAFEL 2 - DORNACH, 6. OKTOBER 1920 (Zeile 236)
+  GA 282 TAFEL 2 - (kein Datum) (Zeile 289)
+  GA 282 TAFEL 7 - DORNACH, 9. SEPTEMBER 1924 (Zeile 381)
+  GA 282 TAFEL 10 - DORNACH, 10. SEPTEMBER 1924 (Zeile 452)
+  GA 282 TAFEL 11 - DORNACH, 12. SEPTEMBER 1924 (Zeile 468)
+  GA 282 TAFEL 15 - DORNACH, 15. SEPTEMBER 1924 (Zeile 548)
+  GA 282 TAFEL 19 - DORNACH, 20. SEPTEMBER 1924 (Zeile 605)
+  GA 282 TAFEL 20 - DORNACH, 20. SEPTEMBER 1924 (Zeile 634)
+  GA 282 TAFEL 23 - DORNACH, 22. SEPTEMBER 1924 (Zeile 697)
+
+GA K 58_21: 14 fehlend von 39 Tafeln
+  GA 296 TAFEL 1 - DORNACH, 9. AUGUST 1919 (Zeile 241)
+  GA 296 TAFEL 3 - DORNACH, 11. AUGUST 1919 (Zeile 279)
+  GA 303 TAFEL 1 - DORNACH, 24. DEZEMBER 1921 (Zeile 367)
+  GA 303 TAFEL 5 - DORNACH, 30. DEZEMBER 1921 (Zeile 446)
+  GA 303 TAFEL 9 - DORNACH, 3. JANUAR 1922 (Zeile 517)
+  GA 303 TAFEL 10 - DORNACH, 5. JANUAR 1922 (Zeile 536)
+  GA 303 TAFEL 11 - DORNACH, 7. JANUAR 1922 (Zeile 602)
+  GA 308 TAFEL 1 - DORNACH, 15. APRIL 1923 (Zeile 690)
+  GA 306 TAFEL 3 - DORNACH, 16. APRIL 1923 (Zeile 719)
+  GA 306 TAFEL 4 - DORNACH, 17. APRIL 1923 (Zeile 732)
+  GA 306 TAFEL 5 - (kein Datum) (Zeile 750)
+  GA 306 TAFEL 6 - DORNACH, 18. APRIL 1923 (Zeile 762)
+  GA 306 TAFEL 10 - DORNACH, 20. APRIL 1923 (Zeile 813)
+  GA 306 TAFEL 12 - DORNACH, 21. APRIL 1923 (Zeile 853)
+
+GA K 58_22: 8 fehlend von 33 Tafeln
+  GA 312 TAFEL 1 - DORNACH, 21. M─RZ 1920 (Zeile 225)
+  GA 312 TAFEL 4 - DORNACH, 23. M─RZ 1920 (Zeile 264)
+  GA 312 TAFEL 8 - (kein Datum) (Zeile 317)
+  GA 312 TAFEL 22 - DORNACH, 7. APRIL 1920 (Zeile 490)
+  GA 312 TAFEL 24 - DORNACH, 8. APRIL 1920 (Zeile 520)
+  GA 313 TAFEL 4 - DORNACH, 14. APRIL 1921 (Zeile 631)
+  GA 314 TAFEL 2 - DORNACH, 8. OKTOBER 1920 (Zeile 738)
+  GA 314 TAFEL 5 - DORNACH, 9. OKTOBER 1920 (Zeile 780)
+
+GA K 58_23: 9 fehlend von 42 Tafeln
+  GA 316 TAFEL 5 - DORNACH, 6. JANUAR 1924 (Zeile 277)
+  GA 316 TAFEL 7 - DORNACH, 7. JANUAR 1924 (Zeile 303)
+  GA 316 TAFEL 14 - DORNACH, 24. APRIL 1924 (Zeile 428)
+  GA 316 TAFEL 16 - DORNACH, 25. APRIL 1924 (Zeile 458)
+  GA 317 TAFEL 6 - DORNACH, 28. JUNI 1924 (Zeile 630)
+  GA 318 TAFEL 1 - DORNACH, 8. SEPTEMBER 1924 (Zeile 813)
+  GA 318 TAFEL 4 - DORNACH, 10. SEPTEMBER 1924 (Zeile 860)
+  GA 318 TAFEL 6 - DORNACH, 12. SEPTEMBER 1924 (Zeile 894)
+  GA 318 TAFEL 14 - DORNACH, 18. SEPTEMBER 1924 (Zeile 1045)
+
+GA K 58_24: 5 fehlend von 34 Tafeln
+  GA 326 TAFEL 6 - DORNACH, 2. JANUAR 1923 (Zeile 376)
+  GA 327 TAFEL 3 - KOBERWITZ, 11. JUNI 1924 (Zeile 525)
+  GA 327 TAFEL 3 - KOBERWITZ, 11. JUNI 1924 (Zeile 527)
+  GA 340 TAFEL 7 - DORNACH, 31. JULI 1922 (Zeile 782)
+  GA 340 TAFEL 12 - DORNACH, 6. AUGUST 1922 (Zeile 852)
+
+GA K 58_25: 6 fehlend von 32 Tafeln
+  GA 347 TAFEL 5 - DORNACH, 16. SEPTEMBER 1922 (Zeile 260)
+  GA 347 TAFEL 9 - DORNACH, 30. SEPTEMBER 1922 (Zeile 337)
+  GA 348 TAFEL 1 - DORNACH, 19. OKTOBER 1922 (Zeile 375)
+  GA 348 TAFEL 3 - DORNACH, 24. OKTOBER 1922 (Zeile 398)
+  GA 348 TAFEL 18 - DORNACH, 20. JANUAR 1923 (Zeile 609)
+  GA 348 TAFEL 22 - DORNACH, 3. FEBRUAR 1923 (Zeile 708)
+
+GA K 58_26: 12 fehlend von 40 Tafeln
+  GA 349 TAFEL 9 - DORNACH, 17. M─RZ 1923 (Zeile 312)
+  GA 349 TAFEL 11 - DORNACH, 21. M─RZ 1923 (Zeile 332)
+  GA 349 TAFEL 13 - DORNACH, 4. APRIL 1923 (Zeile 363)
+  GA 349 TAFEL 15 - DORNACH, 9. APRIL 1923 (Zeile 419)
+  GA 349 TAFEL 17 - DORNACH, 14. APRIL 1923 (Zeile 441)
+  GA 349 TAFEL 19 - DORNACH, 18. APRIL 1923 (Zeile 471)
+  GA 349 TAFEL 21 - DORNACH, 21. APRIL 1923 (Zeile 494)
+  GA 349 TAFEL 23 - DORNACH, 7. MAI 1923 (Zeile 530)
+  GA 349 TAFEL 24 - DORNACH, 9. MAI 1923 (Zeile 539)
+  GA 349 TAFEL 25 - DORNACH, 9. MAI 1923 (Zeile 551)
+  GA 350 TAFEL 8 - DORNACH, 13. JUNI 1923 (Zeile 686)
+  GA 350 TAFEL 25 - DORNACH, 22. SEPTEMBER 1923 (Zeile 923)
+
+GA K 58_27: 5 fehlend von 26 Tafeln
+  GA 351 TAFEL 5 - DORNACH, 13. OKTOBER 1923 (Zeile 255)
+  GA 351 TAFEL 15 - DORNACH, 1. DEZEMBER 1923 (Zeile 423)
+  GA 351 TAFEL 23 - DORNACH, 22. DEZEMBER 1923 (Zeile 585)
+  GA 352 TAFEL 4 - DORNACH, 23. JANUAR 1924 (Zeile 662)
+  GA 352 TAFEL 9 - DORNACH, 20. FEBRUAR 1924 (Zeile 770)
+
+GA K 58_28: 13 fehlend von 31 Tafeln
+  GA 353 TAFEL 2 - DORNACH, 1. M─RZ 1924 (Zeile 215)
+  GA 383 TAFEL 5 - DORNACH, 8. M─RZ 1924 (Zeile 260)
+  GA 353 TAFEL 11 - DORNACH, 12. APRIL 1924 (Zeile 390)
+  GA 353 TAFEL 14 - DORNACH, 8. MAI 1924 (Zeile 451)
+  GA 353 TAFEL 16 - DORNACH, 14. MAI 1924 (Zeile 483)
+  GA 393 TAFEL 19 - DORNACH, 20. MAI 1924 (Zeile 534)
+  GA 353 TAFEL 20 - DORNACH, 4. JUNI 1924 (Zeile 544)
+  GA 353 TAFEL 22 - DORNACH, 25. JUNI 1924 (Zeile 604)
+  GA 354 TAFEL 1 - DORNACH, 30. JUNI 1924 (Zeile 645)
+  GA 354 TAFEL 10 - DORNACH, 2. AUGUST 1924 (Zeile 790)
+  GA 354 TAFEL 14 - DORNACH, 9. SEPTEMBER 1924 (Zeile 854)
+  GA 354 TAFEL 16 - DORNACH, 18. SEPTEMBER 1924 (Zeile 880)
+  GA 354 TAFEL 19 - DORNACH, 24. SEPTEMBER 1924 (Zeile 925)
+
+GA K 58_29: 10 fehlend von 42 Tafeln
+  GA 343 TAFEL 1 - DORNACH, 27. SEPTEMBER 1921 (Zeile 302)
+  GA 343 TAFEL 5 - DORNACH, 30. SEPTEMBER 1921 (Zeile 367)
+  GA 343 TAFEL 8 - DORNACH, 2. OKTOBER 1921 (Zeile 410)
+  GA 343 TAFEL 17 - DORNACH, 9. OKTOBER 1921 (Zeile 557)
+  GA 343 TAFEL 18 - DORNACH, 9. OKTOBER 1921 (Zeile 585)
+  GA 343 TAFEL 18 - DORNACH, 10. OKTOBER 1921 (Zeile 632)
+  GA 346 TAFEL 4 - DORNACH, 19. SEPTEMBER 1924 (Zeile 792)
+  GA 346 TAFEL 6 - DORNACH, 12. SEPTEMBER 1924 (Zeile 823)
+  GA 346 TAFEL 6 - DORNACH, 12. SEPTEMBER 1924 (Zeile 825)
+  GA 346 TAFEL 10 - DORNACH, 19. SEPTEMBER 1924 (Zeile 870)
+
+GA K 58_30: OK (4 Tafeln, alle mit Bild)
+
+================================================================================
+ZUSAMMENFASSUNG
+================================================================================
+GA K     Tafeln     Mit Bild     Fehlend   
+--------------------------------------------------
+2        37         28           9          <-- 9 fehlen
+3        24         20           4          <-- 4 fehlen
+4        25         23           2          <-- 2 fehlen
+5        26         26           0          
+6        31         25           6          <-- 6 fehlen
+7        29         24           5          <-- 5 fehlen
+8        25         20           5          <-- 5 fehlen
+9        30         25           5          <-- 5 fehlen
+10       31         25           6          <-- 6 fehlen
+11       39         37           2          <-- 2 fehlen
+12       31         18           13         <-- 13 fehlen
+13       30         23           7          <-- 7 fehlen
+14       25         17           8          <-- 8 fehlen
+15       17         12           5          <-- 5 fehlen
+16       43         31           12         <-- 12 fehlen
+17       15         9            6          <-- 6 fehlen
+18       21         16           5          <-- 5 fehlen
+19       33         23           10         <-- 10 fehlen
+20       23         14           9          <-- 9 fehlen
+21       39         25           14         <-- 14 fehlen
+22       33         25           8          <-- 8 fehlen
+23       42         33           9          <-- 9 fehlen
+24       34         29           5          <-- 5 fehlen
+25       32         26           6          <-- 6 fehlen
+26       40         28           12         <-- 12 fehlen
+27       26         21           5          <-- 5 fehlen
+28       31         18           13         <-- 13 fehlen
+29       42         32           10         <-- 10 fehlen
+30       4          4            0          
+--------------------------------------------------
+GESAMT FEHLEND: 201

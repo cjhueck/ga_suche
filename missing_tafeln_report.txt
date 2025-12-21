@@ -1,0 +1,1168 @@
+﻿  MD-Datei nicht gefunden: Steiner_GA\GA K 58_1 - Wandtafelzeichnungen zum Vortragswerk 1 (U1-U4)\GA K 58_1 - Wandtafelzeichnungen zum Vortragswerk 1 (U1-U4).md
+
+============================================================
+GA K 58_2
+============================================================
+  Tafeln gesamt: 68
+  Mit Bild: 28
+  Ohne Bild: 40
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 | 4. Oktober 1919 | 13  | ^tq12hk (Zeile 108)
+    TAFEL 2 - |  Tafel 3 | 5. Oktober 1919 | 15  | ^9r9rv0 (Zeile 110)
+    TAFEL 3 - |  Tafel 4 | 11. Oktober 1919 | 17  | ^5v65wb (Zeile 111)
+    TAFEL 4 - |  Tafel 5 | 12. Oktober 1919 | 18  | ^ubvmsz (Zeile 112)
+    TAFEL 5 - |  Tafel 6 | 17. Oktober 1919 | 20  | ^hkx1zo (Zeile 113)
+    TAFEL 5 - |  Tafel 6 | 17. Oktober 1919 | 20  | ^hkx1zo (Zeile 114)
+    TAFEL 6 - |  Tafel 8 | 18. Oktober 1919 | 23  | ^f4c2kf (Zeile 115)
+    TAFEL 7 - |  Tafel 8 | 18. Oktober 1919 | 23  | ^f4c2kf (Zeile 116)
+    TAFEL 8 (Zeile 117)
+    TAFEL 1 - |  Tafel 3 | 22. November 1919 | 39  | ^n4m633 (Zeile 128)
+    TAFEL 2 - |  Tafel 3 | 22. November 1919 | 39  | ^n4m633 (Zeile 130)
+    TAFEL 3 - |  Tafel 4 | 23. November 1919 | 40  | ^ykbgs9 (Zeile 131)
+    TAFEL 4 - |  Tafel 6 | 28. November 1919 | 42  | ^sjk9mb (Zeile 132)
+    TAFEL 5 - |  Tafel 6 | 28. November 1919 | 42  | ^sjk9mb (Zeile 133)
+    TAFEL 6 - |  Tafel 8 | 29. November 1919 | 44  | ^pf8phv (Zeile 134)
+    TAFEL 7 - |  Tafel 8 | 29. November 1919 | 44  | ^pf8phv (Zeile 135)
+    TAFEL 8 - |  Tafel 10 | 30. November 1919 | 46  | ^3tzcqr (Zeile 136)
+    TAFEL 9 - |  Tafel 10 | 30. November 1919 | 46  | ^3tzcqr (Zeile 137)
+    TAFEL 10 - |  Tafel 12 | 6. Dezember 1919 | 49  | ^484lsa (Zeile 138)
+    TAFEL 11 - |  Tafel 12 | 6. Dezember 1919 | 49  | ^484lsa (Zeile 139)
+    TAFEL 12 - |  Tafel 13 | 7. Dezember 1919 | 51  | ^715wuk (Zeile 140)
+    TAFEL 13 - |  Tafel 14 | 12. Dezember 1919 | 52  | ^9cj3lb (Zeile 142)
+    TAFEL 14 - |  Tafel 16 | 13. Dezember 1919 | 54  | ^njqrdx (Zeile 143)
+    TAFEL 15 - |  Tafel 16 | 13. Dezember 1919 | 54  | ^njqrdx (Zeile 144)
+    TAFEL 16 - |  Tafel 18 | 14. Dezember 1919 | 56  | ^smfrrk (Zeile 145)
+    TAFEL 17 - |  Tafel 18 | 14. Dezember 1919 | 56  | ^smfrrk (Zeile 146)
+    TAFEL 18 - |  Tafel 20 | 15. Dezember 1919 | 59  | ^0s789h (Zeile 147)
+    TAFEL 19 - |  Tafel 20 | 15. Dezember 1919 | 59  | ^0s789h (Zeile 148)
+    TAFEL 20 - |  Tafel 21 | 7. Dezember 1919 | 61  | ^ygpmmk (Zeile 149)
+    TAFEL 21 (Zeile 150)
+    TAFEL 1 - DORNACH, 3. OKTOBER 1919 ^erec4t (Zeile 210)
+    TAFEL 8 - DORNACH, 18. OKTOBER 1919 ^kh8e3m (Zeile 336)
+    TAFEL 1 - DORNACH, 21. NOVEMBER 1919 ^qg5dnv (Zeile 481)
+    TAFEL 3 - DORNACH, 22. NOVEMBER 1919 ^g5m9qz (Zeile 514)
+    TAFEL 8 - DORNACH, 29. NOVEMBER 1919 ^r7dpvx (Zeile 576)
+    TAFEL 9 - DORNACH, 29. NOVEMBER 1919 ^3ewa6w (Zeile 589)
+    TAFEL 12 - DORNACH, 6. DEZEMBER 1919 ^dy0104 (Zeile 630)
+    TAFEL 13 - DORNACH, 7. DEZEMBER 1919 ^03w83j (Zeile 650)
+    TAFEL 19 - DORNACH, 14. DEZEMBER 1919 ^1blms7 (Zeile 730)
+    TAFEL 20 - DORNACH, 15. DEZEMBER 1919 ^ydztmd (Zeile 765)
+
+============================================================
+GA K 58_3
+============================================================
+  Tafeln gesamt: 43
+  Mit Bild: 17
+  Ohne Bild: 26
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 3 | 16. Januar 1920 | . 13 | Tafel 12 | 14. Februar 1920 | . 24 |   | ^40nhq6 (Zeile 103)
+    TAFEL 2 - |  Tafel 3 | 16. Januar 1920 | . 13 | Tafel 12 | 14. Februar 1920 | . 24 |   | ^40nhq6 (Zeile 104)
+    TAFEL 3 - |  Tafel 4 | 18. Januar 1920 | . 14 | Tafel 13 | " " " | . 25 |   | ^ynj1lg (Zeile 105)
+    TAFEL 4 - |  Tafel 5 | " " " | . 15 | Tafel 14 | 15. Februar 1920 | . 26 |   | ^rctnbi (Zeile 106)
+    TAFEL 5 - |  Tafel 6 | 30. Januar 1920 | . 17 | Tafel 15 | " " " | . 27 |   | ^ugy579 (Zeile 107)
+    TAFEL 6 - |  Tafel 7 | 31. Januar 1920 | . 18 | Tafel 14 | 20. Februar 1920 | . 29 |   | ^chtycl (Zeile 108)
+    TAFEL 7 - |  Tafel 8 | " " " | . 19 | Tafel 15 | 21. Februar 1920 | . 31 |   | ^d1tj8v (Zeile 109)
+    TAFEL 8 - |  Tafel 9 | 8. Februar 1920 | . 21 | Tafel 17 | 22. Februar 1920 | . 33 |   | ^8k9o9k (Zeile 110)
+    TAFEL 9 (Zeile 111)
+    TAFEL 1 - |  Tafel 2 | 21. Mõrz 1920 | . 38 | Tafel 10 | 3. Juli 1920 | . 49 |   | ^eqqwy4 (Zeile 121)
+    TAFEL 2 - |  Tafel 3 | " " " | . 39 | Tafel 11 | 10. Juli 1920 | . 51 |   | ^p2wx3g (Zeile 122)
+    TAFEL 3 - |  Tafel 4 | 21. Mõrz 1920 | . 40 | Tafel 12 | 11. Juli 1920 | . 53 |   | ^6b9o5r (Zeile 123)
+    TAFEL 4 - |  Tafel 5 | " " " | . 41 | Tafel 13 | 16. Juli 1920 | . 55 |   | ^yh6o8i (Zeile 124)
+    TAFEL 5 - |  Tafel 6 | 3. Juni 1920 | . 43 | Tafel 14 | 17. Juli 1920 | . 57 |   | ^1978zm (Zeile 125)
+    TAFEL 6 - |  Tafel 7 | 6. Juni 1920 | . 45 | Tafel 15 | 18. Juli 1920 | . 58 |   | ^v78hu4 (Zeile 126)
+    TAFEL 7 - |  Tafel 8 | 2. Juli 1920 | . 46 | Tafel 16 | " " " | . 59 |   | ^xq34su (Zeile 127)
+    TAFEL 8 (Zeile 128)
+    TAFEL 1 - DORNACH, 10. JANUAR 1920 ^zl7rz9 (Zeile 189)
+    TAFEL 16 - DORNACH, 20. FEBRUAR 1920 (Zeile 394)
+    TAFEL 18 - DORNACH, 22. FEBRUAR 1920 (Zeile 430)
+    TAFEL 1 - DORNACH, 20. M─RZ 1920 (Zeile 468)
+    TAFEL 3 - DORNACH, 21. M─RZ 1920 (Zeile 490)
+    TAFEL 6 - DORNACH, 3. JUNI 1920 (Zeile 527)
+    TAFEL 10 - DORNACH, 3. JULI 1920 (Zeile 585)
+    TAFEL 11 - DORNACH, 10. JULI 1920 (Zeile 603)
+    TAFEL 14 - DORNACH, 17. JULI 1920 (Zeile 649)
+
+============================================================
+GA K 58_4
+============================================================
+  Tafeln gesamt: 26
+  Mit Bild: 20
+  Ohne Bild: 6
+
+  FEHLENDE BILDER:
+    TAFEL 1 - DORNACH, 6. AUGUST 1920 (Zeile 207)
+    TAFEL 6 - DORNACH, 14. AUGUST 1920 (Zeile 273)
+    TAFEL 16 - DORNACH, 28. AUGUST 1920 (Zeile 393)
+    TAFEL 25 - DORNACH, 10. SEPTEMBER 1920 (Zeile 516)
+    TAFEL 26 - DORNACH, 11. SEPTEMBER 1920 (Zeile 534)
+    TAFEL 3 - DORNACH, 23. OKTOBER 1920 (Zeile 594)
+
+============================================================
+GA K 58_5
+============================================================
+  Tafeln gesamt: 46
+  Mit Bild: 25
+  Ohne Bild: 21
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 | ô ö | ô | . | 11 | Tafel 18 | 1. Mai 1920 | .  | (Zeile 102)
+    TAFEL 2 - |  Tafel 3 | 10. April 1920 | . | 12 | Tafel 19 | ô ö | ô | 29  | (Zeile 103)
+    TAFEL 3 - |  Tafel 4 | ô ö | ô | . | 13 | Tafel 20 | 2. Mai 1920 | .  | (Zeile 104)
+    TAFEL 4 - |  Tafel 5 | 11. April 1920 | . | 14 | Tafel 21 | ô ö | ô | 31  | (Zeile 105)
+    TAFEL 5 - |  Tafel 6 | ô ö | ô | . | 15 | Tafel 22 | 8. Mai 1920 | .  | (Zeile 106)
+    TAFEL 6 - |  Tafel 7 | 16. April 1920 | . | 16 | Tafel 23 | ô ö | ô | 33  | (Zeile 107)
+    TAFEL 7 - |  Tafel 8 | ô ö | ô | . | 17 | Tafel 24 | 9. Mai 1920 | .  | (Zeile 108)
+    TAFEL 8 - |  Tafel 9 | 17. April 1920 | . | 18 | Tafel 25 | ô ö | ô | 35  | (Zeile 109)
+    TAFEL 9 - |  Tafel 10 | ô ö | ô | . | 19 | Tafel 26 | 14. Mai 1920 | .  | (Zeile 110)
+    TAFEL 10 - |  Tafel 11 | 18. April 1920 | . | 20 | Tafel 27 | ô ö | ô | 37  | (Zeile 111)
+    TAFEL 11 - |  Tafel 12 | ô ö | ô | . | 21 | Tafel 28 | 15. Mai 1920 | .  | (Zeile 112)
+    TAFEL 12 - |  Tafel 13 | 23. April 1920 | . | 22 | Tafel 29 | ô ö | ô | 39  | (Zeile 113)
+    TAFEL 13 - |  Tafel 14 | ô ö | ô | . | 23 | Tafel 30 | 16. Mai 1920 | .  | (Zeile 114)
+    TAFEL 14 - |  Tafel 15 | 24. April 1920 | . | 24 | Tafel 31 | ô ö | ô | 41  | (Zeile 115)
+    TAFEL 15 (Zeile 116)
+    TAFEL 16 (Zeile 117)
+    TAFEL 1 - DORNACH, 9. APRIL 1920 (Zeile 177)
+    TAFEL 9 - DORNACH, 17. APRIL 1920 (Zeile 277)
+    TAFEL 17 - DORNACH, 25. APRIL 1920 (Zeile 387)
+    TAFEL 30 - DORNACH, 16. MAI 1920 (Zeile 536)
+    TAFEL 30 (Zeile 539)
+
+============================================================
+GA K 58_6
+============================================================
+  Tafeln gesamt: 61
+  Mit Bild: 25
+  Ohne Bild: 36
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 3 27. November 1920. . 12 | Tafel 15 17. Dezember 1920. . 24  | (Zeile 104)
+    TAFEL 2 - |  Tafel 3 27. November 1920. . 12 | Tafel 15 17. Dezember 1920. . 24  | (Zeile 105)
+    TAFEL 3 - |  Tafel 5 28. November 1920. . 14 | Tafel 17 18. Dezember 1920. . 26  | (Zeile 106)
+    TAFEL 4 - |  Tafel 5 28. November 1920. . 14 | Tafel 17 18. Dezember 1920. . 26  | (Zeile 107)
+    TAFEL 5 - |  Tafel 7 4. Dezember 1920. . 16 | Tafel 19 19. Dezember 1920. . 28  | (Zeile 108)
+    TAFEL 6 - |  Tafel 7 4. Dezember 1920. . 16 | Tafel 19 19. Dezember 1920. . 28  | (Zeile 109)
+    TAFEL 7 - |  Tafel 9 5. Dezember 1920. . 18 | Tafel 21 25. Dezember 1920. . 30  | (Zeile 110)
+    TAFEL 8 - |  Tafel 9 5. Dezember 1920. . 18 | Tafel 21 25. Dezember 1920. . 30  | (Zeile 111)
+    TAFEL 9 - |  Tafel 11 10. Dezember 1920. . 20 | Tafel 23 26. Dezember 1920. . 32  | (Zeile 112)
+    TAFEL 10 - |  Tafel 11 10. Dezember 1920. . 20 | Tafel 23 26. Dezember 1920. . 32  | (Zeile 113)
+    TAFEL 11 (Zeile 114)
+    TAFEL 12 (Zeile 115)
+    TAFEL 1 - |  Tafel 3 23. April 1921 . . . 46 | Tafel 10 5. Mai 1921 . . . 54  | (Zeile 125)
+    TAFEL 2 - |  Tafel 3 23. April 1921 . . . 46 | Tafel 10 5. Mai 1921 . . . 54  | (Zeile 126)
+    TAFEL 3 - |  Tafel 5 24. April 1921 . . . 48 | Tafel 12 2. Juni 1921 . . . 56  | (Zeile 127)
+    TAFEL 4 - |  Tafel 5 24. April 1921 . . . 48 | Tafel 12 2. Juni 1921 . . . 56  | (Zeile 128)
+    TAFEL 5 - |  Tafel 7 29. April 1921 . . . 51 | Tafel 14 3. Juni 1921 . . . 58  | (Zeile 129)
+    TAFEL 6 - |  Tafel 7 29. April 1921 . . . 51 | Tafel 14 3. Juni 1921 . . . 58  | (Zeile 130)
+    TAFEL 7 (Zeile 131)
+    TAFEL 1 - |  Tafel 2 " " " . . . 35 | Tafel 7 13. Mõrz 1921 . . . 40  | (Zeile 141)
+    TAFEL 2 - |  Tafel 3 30. Januar 1921 . . . 36 | Tafel 8 1. April 1921 . . . 41  | (Zeile 142)
+    TAFEL 3 - |  Tafel 5 11. Mõrz 1921 . . . 38 |   | (Zeile 143)
+    TAFEL 4 - |  Tafel 5 11. Mõrz 1921 . . . 38 |   | (Zeile 144)
+    TAFEL 5 (Zeile 145)
+    TAFEL 1 - DORNACH, 26. NOVEMBER 1920 (Zeile 203)
+    TAFEL 7 - DORNACH, 4. DEZEMBER 1920 (Zeile 298)
+    TAFEL 8 - DORNACH, 4. DEZEMBER 1920 (Zeile 324)
+    TAFEL 16 - DORNACH, 17. DEZEMBER 1920 (Zeile 421)
+    TAFEL 19 - DORNACH, 19. DEZEMBER 1920 (Zeile 478)
+    TAFEL 19 - DORNACH, 19. DEZEMBER 1920 (Zeile 480)
+    TAFEL 1 - DORNACH, 21. JANUAR 1921 (Zeile 562)
+    TAFEL 3 - DORNACH, 30. JANUAR 1921 (Zeile 584)
+    TAFEL 5 - 11. Mõrz 1921. (Zeile 610)
+    TAFEL 1 - DORNACH, 2. APRIL 1921 (Zeile 697)
+    TAFEL 5 - DORNACH, 24. APRIL 1921 (Zeile 746)
+    TAFEL 14 - DORNACH, 3. JUNI 1921 (Zeile 900)
+
+============================================================
+GA K 58_7
+============================================================
+  Tafeln gesamt: 49
+  Mit Bild: 15
+  Ohne Bild: 34
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 | " | " | " | . | 11 | Tafel 13 | 9. Juli 1921 | . | . | 22 |  |   | (Zeile 109)
+    TAFEL 2 - |  Tafel 3 | 26. Juni 1921 | . | . | 12 | Tafel 14 | " | " | " | . | 23 |  |   | (Zeile 110)
+    TAFEL 3 - |  Tafel 4 | " | " | " | . | 13 | Tafel 15 | 10. Juli 1921 | . | . | 24 |  |   | (Zeile 111)
+    TAFEL 4 - |  Tafel 5 | 1. Juli 1921 | . | . | 14 | Tafel 16 | " | " | " | . | 25 |  |   | (Zeile 112)
+    TAFEL 5 - |  Tafel 6 | " | " | " | . | 15 | Tafel 17 | 15. Juli 1921 | . | . | 26 |  |   | (Zeile 113)
+    TAFEL 6 - |  Tafel 7 | 2. Juli 1921 | . | . | 16 | Tafel 18 | " | " | " | . | 27 |  |   | (Zeile 114)
+    TAFEL 7 - |  Tafel 8 | " | " | " | . | 17 | Tafel 19 | 16. Juli 1921 | . | . | 28 |  |   | (Zeile 115)
+    TAFEL 8 - |  Tafel 9 | 3. Juli 1921 | . | . | 18 | Tafel 20 | " | " | " | . | 29 |  |   | (Zeile 116)
+    TAFEL 9 - |  Tafel 10 | " | " | " | . | 19 | Tafel 21 | 17. Juli 1921 | . | . | 30 |  |   | (Zeile 117)
+    TAFEL 10 - |  Tafel 11 | 8. Juli 1921 | . | . | 20 | Tafel 22 | " | " | " | . | 31 |  |   | (Zeile 118)
+    TAFEL 11 (Zeile 119)
+    TAFEL 1 - |  Tafel 3 | 23. Juli 1921 | . | . | 36 | Tafel 11 | 13. August 1921 | . | . | 46 |  |  |   | (Zeile 131)
+    TAFEL 2 - |  Tafel 3 | 23. Juli 1921 | . | . | 36 | Tafel 11 | 13. August 1921 | . | . | 46 |  |  |   | (Zeile 132)
+    TAFEL 3 - |  Tafel 5 | 24. Juli 1921 | . | . | 38 | Tafel 13 | 14. August 1921 | . | . | 48 |  |  |   | (Zeile 133)
+    TAFEL 4 - |  Tafel 5 | 24. Juli 1921 | . | . | 38 | Tafel 13 | 14. August 1921 | . | . | 48 |  |  |   | (Zeile 134)
+    TAFEL 5 - |  Tafel 7 | 6. August 1921 | . | . | 41 | Tafel 15 | 20. August 1921 | . | . | 50 |  |  |   | (Zeile 135)
+    TAFEL 6 - |  Tafel 7 | 6. August 1921 | . | . | 41 | Tafel 15 | 20. August 1921 | . | . | 50 |  |  |   | (Zeile 136)
+    TAFEL 7 - |  Tafel 8 | 7. August 1921 | . | . | 43 | Tafel 16 | " | " | " | . | 51 |  |   | (Zeile 137)
+    TAFEL 8 (Zeile 138)
+    TAFEL 1 - DORNACH, 24. JUNI 1921 (Zeile 214)
+    TAFEL 5 - DORNACH, 1. JULI 1921 (Zeile 277)
+    TAFEL 7 - DÍRNACH, 2. JULI 1921 (Zeile 307)
+    TAFEL 11 - DORNACH, 8. JULI 1921 (Zeile 370)
+    TAFEL 14 - DORNACH, 9. JULI 1921 (Zeile 413)
+    TAFEL 19 - GORWACH, 16. JULI 1921 (Zeile 488)
+    TAFEL 21 - DORNACH, 17. JULI 1921 (Zeile 522)
+    TAFEL 22 - DORNACH, 17. JULI 1921 (Zeile 546)
+    TAFEL 1 - DORNACH, 22. JULI 1921 (Zeile 589)
+    TAFEL 3 - 23. Juli 1991 (Zeile 619)
+    TAFEL 7 - DORNACH, 6. AUGUST 1921 (Zeile 678)
+    TAFEL 8 - DORNACH, 7. AUGUST 1921 (Zeile 697)
+    TAFEL 11 - DÍRNACH, 13. AUGUST 1921 (Zeile 749)
+    TAFEL 13 - DORNACH, 14. AUGUST 1921 (Zeile 774)
+    TAFEL 14 - DORNACH, 14. AUGUST 1921 (Zeile 791)
+
+============================================================
+GA K 58_8
+============================================================
+  Tafeln gesamt: 32
+  Mit Bild: 17
+  Ohne Bild: 15
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  1 | 23. September 1921 | 10 | 7. Oktober 1921 . . . 20  | (Zeile 103)
+    TAFEL 1 - |  1 | 21. Oktober 1921 | 34 | 4. November 1921 . . . 44  | (Zeile 122)
+    TAFEL 1 - |  18. Dezember 1921 | 18. Dezember 1921 | 57 | . . . 59  | (Zeile 143)
+    TAFEL 1 - DORNACH, 23. SEPTEMBER 1921 (Zeile 214)
+    TAFEL 7 - DORNACH, 1. OKTOBER 1921 (Zeile 293)
+    TAFEL 12 - DORNACH, 7. OKTOBER 1921 (Zeile 358)
+    TAFEL 15 - DORNACH, 9. OKTOBER 1921 (Zeile 391)
+    TAFEL 16 - DORNACH, 9. OKTOBER 1921 (Zeile 407)
+    TAFEL 19 (Zeile 460)
+    TAFEL 20 - DORNACH, 16. OKTOBER 1921 (Zeile 472)
+    TAFEL 1 - DORNACH, 21. OKTOBER 1921 (Zeile 515)
+    TAFEL 2 - DORNACH, 21. OKTOBER 1921 (Zeile 534)
+    TAFEL 4 - DORNACH, 22. OKTOBER 1921 (Zeile 567)
+    TAFEL 13 (Zeile 713)
+    TAFEL 3 - DORNACH, 23. DEZEMBER 1921 (Zeile 899)
+
+============================================================
+GA K 58_9
+============================================================
+  Tafeln gesamt: 42
+  Mit Bild: 19
+  Ohne Bild: 23
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Seite | 1. Januar 1922 | 1. Januar 1922 | 1. Januar 1922 | 1. Januar 1922 | 11 | 11  | (Zeile 98)
+    TAFEL 8 - |  17. Februar 1922 | 17. Februar 1922 | 17. Februar 1922 | 17. Februar 1922 | 17. Februar 1922 | 18 | 18  | (Zeile 101)
+    TAFEL 2 (Zeile 103)
+    TAFEL 1 - |  Seite | 24. Mõrz 1922 | 24. Mõrz 1922 | 25. Mõrz 1922 | 26. Mõrz 1922 | 30 | 30  | (Zeile 109)
+    TAFEL 7 - |  31. Mõrz 1922 | 31. Mõrz 1922 | 31. Mõrz 1922 | 30. April 1922 | 30. April 1922 | 37 | 37  | (Zeile 112)
+    TAFEL 1 - |  Seite | 29. April 1922 | 29. April 1922 | 30. April 1922 | 30. April 1922 | 55 | 55  | (Zeile 120)
+    TAFEL 8 - |  12. April 1922 | 12. April 1922 | 12. April 1922 | 10. April 1922 | 10. April 1922 | 59 | 59  | (Zeile 123)
+    TAFEL 10 - |  2. April 1922 | 2. April 1922 | 2. April 1922 | 2. April 1922 | 2. April 1922 | 61 | 61  | (Zeile 125)
+    TAFEL 12 (Zeile 127)
+    TAFEL 1 - DORNACH, 1. JANUAR 1922 (Zeile 195)
+    TAFEL 2 - DORNACH, 7. JANUAR 1922 (Zeile 213)
+    TAFEL 5 - DORNACH, 11. FEBRUAR 1922 (Zeile 270)
+    TAFEL 10 - DORNACH, 18. FEBRUAR 1922 (Zeile 343)
+    TAFEL 14 - DORNACH, 26. FEBRUAR 1922 (Zeile 410)
+    TAFEL 15 (Zeile 428)
+    TAFEL 1 - DORNACH, 24. M─RZ 1922 (Zeile 461)
+    TAFEL 1 (Zeile 465)
+    TAFEL 5 - DORNACH, 26. M─RZ 1922 (Zeile 523)
+    TAFEL 7 - DORNACH, 31. M─RZ 1922 (Zeile 556)
+    TAFEL 9 - DORNACH, 1. APRIL 1922 (Zeile 588)
+    TAFEL 1 - DORNACH, 29. APRIL 1922 (Zeile 641)
+    TAFEL 9 - DORNACH, 7. MAI 1922 (Zeile 735)
+    TAFEL 12 - DORNACH, 27. MAI 1922 (Zeile 776)
+
+============================================================
+GA K 58_10
+============================================================
+  Tafeln gesamt: 34
+  Mit Bild: 22
+  Ohne Bild: 12
+
+  FEHLENDE BILDER:
+    TAFEL 1 - DORNACH, 24. JUNI 1922 (Zeile 197)
+    TAFEL 5 - DORNACH, 30. JUNI 1922 (Zeile 246)
+    TAFEL 8 - DORNACH, 2. JULI 1922 (Zeile 287)
+    TAFEL 10 - DORNACH, 7. JULI 1922 (Zeile 315)
+    TAFEL 13 - DORNACH, 9. JULI 1922 (Zeile 355)
+    TAFEL 19 - DORNACH, 16. JULI 1922 (Zeile 425)
+    TAFEL 20 - DORNACH, 16. JULI 1922 (Zeile 442)
+    TAFEL 1 - DORNACH, 23. JULI 1922 (Zeile 530)
+    TAFEL 5 - DORNACH, 29. JULI 1922 (Zeile 592)
+    TAFEL 9 (Zeile 652)
+    TAFEL 10 - DORNACH, 6. AUGUST 1922 (Zeile 664)
+    TAFEL 1 - DORNACH, 9. SEPTEMBER 1922 (Zeile 704)
+
+============================================================
+GA K 58_11
+============================================================
+  Tafeln gesamt: 39
+  Mit Bild: 14
+  Ohne Bild: 25
+
+  FEHLENDE BILDER:
+    TAFEL 1 - 16. September 1922 (Zeile 210)
+    TAFEL 2 - DORNACH, 16. SEPTEMBER 1922 (Zeile 220)
+    TAFEL 3 - 17. September 1922 (Zeile 235)
+    TAFEL 4 - DORNACH, 17. SEPTEMBER 1922 (Zeile 253)
+    TAFEL 5 - DORNACH, 22. SEPTEMBER 1922 (Zeile 274)
+    TAFEL 6 - DORANCH, 29. SEPTEMBER 1922 (Zeile 289)
+    TAFEL 10 - DORNACH, 1. OKTOBER 1922 (Zeile 348)
+    TAFEL 1 - DORNACH, 20. OKTOBER 1922 (Zeile 385)
+    TAFEL 3 - DORNACH, 22. OKTOBER 1922 (Zeile 421)
+    TAFEL 4 - DORNACH, 23. OKTOBER 1922 (Zeile 436)
+    TAFEL 2 - DORNACH, 26. NOVEMBER 1922 (Zeile 505)
+    TAFEL 4 - DORNACH, 1. DEZEMBER 1922 (Zeile 534)
+    TAFEL 5 - DORNACH, 3. DEZEMBER 1922 (Zeile 551)
+    TAFEL 8 - DORMACH, 3. DEZEMBER 1922 (Zeile 571)
+    TAFEL 7 (Zeile 586)
+    TAFEL 13 - DORNACH, 29. DEZEMBER 1922 (Zeile 676)
+    TAFEL 1 - DORNACH, 5. JANUAR 1923 (Zeile 715)
+    TAFEL 2 - DORNACH, 5. JANUAR 1923 (Zeile 734)
+    TAFEL 3 - DORNACH, 7. JANUAR 1923 (Zeile 749)
+    TAFEL 5 - DORNACH, 13. JANUAR 1923 (Zeile 781)
+    TAFEL 8 - DORNACH, 20. JANUAR 1923 (Zeile 799)
+    TAFEL 7 - DORNACH, 21. JANUAR 1923 (Zeile 820)
+    TAFEL 6 - DORNACH, 26. JANUAR 1923 (Zeile 853)
+    TAFEL 10 - DORNACH, 27. JANUAR 1923 (Zeile 872)
+    TAFEL 11 - DORNACH, 27. JANUAR 1923 (Zeile 887)
+
+============================================================
+GA K 58_12
+============================================================
+  Tafeln gesamt: 55
+  Mit Bild: 20
+  Ohne Bild: 35
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 11. Februar 1923 . . . 13 | Tafel 4 " " " . . . 15 |   | (Zeile 104)
+    TAFEL 2 (Zeile 106)
+    TAFEL 1 - |  Tafel 2 16. Mõrz 1923 . . . 20 | Tafel 7 22. Mõrz 1923 . . . 26 |   | (Zeile 114)
+    TAFEL 2 - |  Tafel 4 17. Mõrz 1923 . . . 23 | Tafel 9 23. Mõrz 1923 . . . 28 |   | (Zeile 116)
+    TAFEL 3 - |  Tafel 4 17. Mõrz 1923 . . . 23 | Tafel 9 23. Mõrz 1923 . . . 28 |   | (Zeile 117)
+    TAFEL 4 - |  Tafel 5 18. Mõrz 1923 . . . 24 | Tafel 10 " " " . . . 29 |   | (Zeile 118)
+    TAFEL 5 (Zeile 119)
+    TAFEL 1 - |  Tafel 3 1. April 1923 . . . 35 | Tafel 8 8. April 1923 . . . 40 |   | (Zeile 129)
+    TAFEL 2 - |  Tafel 3 1. April 1923 . . . 35 | Tafel 8 8. April 1923 . . . 40 |   | (Zeile 131)
+    TAFEL 3 - |  Tafel 4 2. April 1923 . . . 36 | Tafel 9 " " " . . . 41 |   | (Zeile 132)
+    TAFEL 4 (Zeile 133)
+    TAFEL 5 (Zeile 134)
+    TAFEL 1 (Zeile 144)
+    TAFEL 1 - |  Tafel 2 " " " . . . 51 | Tafel 8 20. Juli 1923 . . . 60 |   | (Zeile 155)
+    TAFEL 2 - |  Tafel 3 6. Mai 1923 . . . 52 | Tafel 9 " " " . . . 61 |   | (Zeile 157)
+    TAFEL 3 - |  Tafel 4 " " " . . . 53 | Tafel 10 22. September 1923 63 |   | (Zeile 158)
+    TAFEL 4 - |  Tafel 5 6. Juli 1923 . . . 55 | Tafel 11 23. September 1923 64 |   | (Zeile 159)
+    TAFEL 5 - |  Tafel 6 7. Juli 1923 . . . 57 | Tafel 12 " " " 65 |   | (Zeile 160)
+    TAFEL 6 (Zeile 161)
+    TAFEL 3 - DORNACH, 17. FEBRUAR 1923 (Zeile 257)
+    TAFEL 4 - DORNACH, 17. FEBRUAR 1923 (Zeile 276)
+    TAFEL 2 - DORNACH, 16. M─RZ 1923 (Zeile 325)
+    TAFEL 2 (Zeile 327)
+    TAFEL 7 - DORNACH, 22. M─RZ 1923 (Zeile 394)
+    TAFEL 1 (Zeile 490)
+    TAFEL 4 - DORNACH, 2. APRIL 1923 (Zeile 537)
+    TAFEL 8 - DORNACH, 8. APRIL 1923 (Zeile 591)
+    TAFEL 9 - DORNACH, 8. APRIL 1923 (Zeile 618)
+    TAFEL 2 - DORNACH, 13. APRIL 1923 (Zeile 683)
+    TAFEL 1 (Zeile 733)
+    TAFEL 2 (Zeile 741)
+    TAFEL 3 - DORNACH, 6. MAI 1923 (Zeile 757)
+    TAFEL 5 - DORNACH, 6. JULI 1923 (Zeile 785)
+    TAFEL 6 - DORNACH, 7. JULI 1923 (Zeile 810)
+    TAFEL 11 - DORNACH, 23. SEPTEMBER 1923 (Zeile 880)
+
+============================================================
+GA K 58_13
+============================================================
+  Tafeln gesamt: 52
+  Mit Bild: 21
+  Ohne Bild: 31
+
+  FEHLENDE BILDER:
+    TAFEL 1 (Zeile 108)
+    TAFEL 1 - |  Tafel 2 | 28. Juli 1923 | . | . | 19 | Tafel 6 | ô | ô | ô | 23  | (Zeile 117)
+    TAFEL 2 - |  Tafel 3 | 29. Juli 1923 | . | . | 20 | Tafel 7 | 10. September 1923 | . | 25 | Tafel 4  | (Zeile 119)
+    TAFEL 3 (Zeile 120)
+    TAFEL 1 - |  Tafel 2 | 6. Oktober 1923 | . | . | 30 | Tafel 6 | 12. Oktober 1923 | . | . | 34 | Tafel 3  | (Zeile 128)
+    TAFEL 2 - |  Tafel 4 | 7. Oktober 1923 | . | . | 32 | Tafel 8 | 13. Oktober 1923 | . | . | 37 | Tafeln zu GA 230  | (Zeile 130)
+    TAFEL 3 - |  Tafel 4 | 7. Oktober 1923 | . | . | 32 | Tafel 8 | 13. Oktober 1923 | . | . | 37 | Tafeln zu GA 230  | (Zeile 131)
+    TAFEL 4 - Zw÷lf Vortrõge, gehalten in Dornach vom 19. Oktober bis 11. November 1923 (Zeile 132)
+    TAFEL 1 - |  Tafel 2 | 20. Oktober 1923 | . | . | 42 | Tafel 12 | ô | ô | ô | . | 53  | (Zeile 138)
+    TAFEL 2 - |  Tafel 3 | ô | ô | ô | . | 43 | Tafel 13 | 3. November 1923 | . | . | 55  | (Zeile 140)
+    TAFEL 3 - |  Tafel 4 | 21. Oktober 1923 | . | . | 45 | Tafel 14 | 4. November 1923 | . | . | . | 56  | (Zeile 141)
+    TAFEL 4 - |  Tafel 5 | 26. Oktober 1923 | . | . | 46 | Tafel 15 | ô | ô | ô | . | 57  | (Zeile 142)
+    TAFEL 5 - |  Tafel 6 | ô | ô | ô | . | 47 | Tafel 16 | 9. November 1923 | . | . | 58  | (Zeile 143)
+    TAFEL 6 - |  Tafel 7 | 27. Oktober 1923 | . | . | 48 | Tafel 17 | ô | ô | ô | . | 59  | (Zeile 144)
+    TAFEL 7 - |  Tafel 8 | ô | ô | ô | . | 49 | Tafel 18 | 10. November 1923 | . | . | 60  | (Zeile 145)
+    TAFEL 8 - |  Tafel 9 | 28. Oktober 1923 | . | . | 50 | Tafel 19 | ô | ô | ô | . | 61  | (Zeile 146)
+    TAFEL 9 - |  Tafel 10 | ô | ô | ô | . | 51 | Tafel 20 | 11. November 1923 | . | . | 63  | (Zeile 147)
+    TAFEL 10 (Zeile 148)
+    TAFEL 2 - PENMAENMAWR, 23. AUGUST 1923 (Zeile 232)
+    TAFEL 1 - DORNACH, 27. JULI 1923 (Zeile 272)
+    TAFEL 3 - DORNACH, 29. JULI 1923 (Zeile 324)
+    TAFEL 7 - DORNACH, 10. SEPTEMBER 1923 (Zeile 385)
+    TAFEL 1 (Zeile 428)
+    TAFEL 2 - DORNACH, 6. OKTOBER 1923 (Zeile 447)
+    TAFEL 7 - DORNACH, 12. OKTOBER 1923 (Zeile 512)
+    TAFEL 1 - DORNACH, 19. OKTOBER 1923 (Zeile 580)
+    TAFEL 3 - DORNACH, 20. OKTOBER 1923 (Zeile 617)
+    TAFEL 4 - DORNACH, 21. OKTOBER 1923 (Zeile 657)
+    TAFEL 7 - DORNACH, 27. OKTOBER 1923 (Zeile 704)
+    TAFEL 18 - DORNACH, 10. NOVEMBER 1923 (Zeile 979)
+    TAFEL 20 - DORNACH, 11. NOVEMBER 1923 (Zeile 1009)
+
+============================================================
+GA K 58_14
+============================================================
+  Tafeln gesamt: 32
+  Mit Bild: 20
+  Ohne Bild: 12
+
+  FEHLENDE BILDER:
+    TAFEL 3 - DORNACH, 24. NOVEMBER 1923 (Zeile 223)
+    TAFEL 6 - DORNACH, 30. NOVEMBER 1923 (Zeile 287)
+    TAFEL 6 (Zeile 290)
+    TAFEL 9 - DORNACH, 2. DEZEMBER 1923 (Zeile 324)
+    TAFEL 10 - DORNACH, 2. DEZEMBER 1923 (Zeile 340)
+    TAFEL 12 - DORNACH, 7. DEZEMBER 1923 (Zeile 382)
+    TAFEL 13 - DORNACH, 8. DEZEMBER 1923 (Zeile 391)
+    TAFEL 14 - DORNACH, 8. DEZEMBER 1923 (Zeile 411)
+    TAFEL 15 - DORNACH, 9. DEZEMBER 1923 (Zeile 438)
+    TAFEL 22 - DORNACH, 22. DEZEMBER 1923 (Zeile 529)
+    TAFEL 1 - DORNACH, 24. DEZEMBER 1923 (Zeile 599)
+    TAFEL 4 - DORNACH, 25. DEZEMBER 1923 (Zeile 647)
+
+============================================================
+GA K 58_15
+============================================================
+  Tafeln gesamt: 51
+  Mit Bild: 18
+  Ohne Bild: 33
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 " " " . . . 11 | Tafel 9 19. April 1924 . . . 21  | (Zeile 104)
+    TAFEL 2 - |  Tafel 3 5. Januar 1924 . . . 12 | Tafel 10 20. April 1924 . . . 23  | (Zeile 105)
+    TAFEL 3 - |  Tafel 4 " " " . . . 13 | Tafel 11 21. April 1924 . . . 25  | (Zeile 106)
+    TAFEL 4 - |  Tafel 5 6. Januar 1924 . . . 15 | Tafel 12 22. April 1924 . . . 26  | (Zeile 107)
+    TAFEL 5 - |  Tafel 6 12. Januar 1924 . . . 16 | Tafel 13 " " " . . . 27  | (Zeile 108)
+    TAFEL 6 (Zeile 109)
+    TAFEL 7 (Zeile 110)
+    TAFEL 1 - |  Tafel 2 20. Januar 1924 . . . 32 | Tafel 8 3. Februar 1924 . . . 40  | (Zeile 122)
+    TAFEL 2 - |  Tafel 4 27. Januar 1924 . . . 35 | Tafel 10 8. Februar 1924 . . . 43  | (Zeile 123)
+    TAFEL 3 - |  Tafel 4 27. Januar 1924 . . . 35 | Tafel 10 8. Februar 1924 . . . 43  | (Zeile 124)
+    TAFEL 4 - |  Tafel 5 1. Februar 1924 . . . 37 | Tafel 11 9. Februar 1924 . . . 45  | (Zeile 125)
+    TAFEL 5 - |  Tafel 6 2. Februar 1924 . . . 38 | Tafel 12 10. Februar 1924 . . . 47  | (Zeile 126)
+    TAFEL 6 (Zeile 127)
+    TAFEL 1 - |  Tafel 2 12. August 1924 . . . 53 | Tafel 8 18. August 1924 . . . 63  | (Zeile 139)
+    TAFEL 2 - |  Tafel 3 13. August 1924 . . . 54 | Tafel 9 19. August 1924 . . . 65  | (Zeile 140)
+    TAFEL 3 - |  Tafel 4 " " " . . . 55 | Tafel 10 20. August 1924 . . . 67  | (Zeile 141)
+    TAFEL 4 - |  Tafel 5 14. August 1924 . . . 57 | Tafel 11 21. August 1924 . . . 69  | (Zeile 142)
+    TAFEL 5 - |  Tafel 6 15. August 1924 . . . 59 | Tafel 12 22. August 1924 . . . 71  | (Zeile 143)
+    TAFEL 6 (Zeile 144)
+    TAFEL 1 - DORNACH, 4. JANUAR 1924 (Zeile 208)
+    TAFEL 5 - DORNACH, 6. JANUAR 1924 (Zeile 260)
+    TAFEL 9 - DORNACH, 19. APRIL 1924 (Zeile 324)
+    TAFEL 11 - DORNACH, 21. APRIL 1924 (Zeile 367)
+    TAFEL 12 - DORNACH, 22. APRIL 1924 (Zeile 388)
+    TAFEL 13 - DORNACH, 22. APRIL 1924 (Zeile 417)
+    TAFEL 1 - DORNACH, 19. JANUAR 1924 (Zeile 465)
+    TAFEL 2 - DORNACH, 20. JANUAR 1924 (Zeile 484)
+    TAFEL 4 - DORNACH, 27. JANUAR 1924 (Zeile 512)
+    TAFEL 10 - DORNACH, 8. FEBRUAR 1924 (Zeile 596)
+    TAFEL 1 - TORQUAY, 11. AUGUST 1924 (Zeile 675)
+    TAFEL 2 - TORQUAY, 12. AUGUST 1924 (Zeile 699)
+    TAFEL 8 - TORQUAY, 18. AUGUST 1924 (Zeile 807)
+    TAFEL 11 - TORQUAY, 21. AUGUST 1924 (Zeile 875)
+
+============================================================
+GA K 58_16
+============================================================
+  Tafeln gesamt: 75
+  Mit Bild: 25
+  Ohne Bild: 50
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 3 | 17. Februar 1924 | . . . | 12 | Tafel 12 | 8. Mõrz 1924 | . . . | 22  | (Zeile 106)
+    TAFEL 2 - |  Tafel 3 | 17. Februar 1924 | . . . | 12 | Tafel 12 | 8. Mõrz 1924 | . . . | 22  | (Zeile 107)
+    TAFEL 3 - |  Tafel 5 | 23. Februar 1924 | . . . | 15 | Tafel 14 | 15. Mõrz 1924 | . . . | 25  | (Zeile 108)
+    TAFEL 4 - |  Tafel 5 | 23. Februar 1924 | . . . | 15 | Tafel 14 | 15. Mõrz 1924 | . . . | 25  | (Zeile 109)
+    TAFEL 5 - |  Tafel 6 | 24. Februar 1924 | . . . | 16 | Tafel 15 | 16. Mõrz 1924 | . . . | 27  | (Zeile 110)
+    TAFEL 6 - |  Tafel 7 | " | " | " | 17 | Tafel 16 | 22. Mõrz 1924 | . . .  | (Zeile 111)
+    TAFEL 7 - |  Tafel 8 | 1. Mõrz 1924 | . . . | 18 | Tafel 17 | 23. Mõrz 1924 | . . . | 31  | (Zeile 112)
+    TAFEL 8 (Zeile 113)
+    TAFEL 9 (Zeile 114)
+    TAFEL 1 - |  Tafel 2 | 27. April 1924 | . . . | 37 | Tafel 14 | 29. Mai 1924 | . . . | 51  | (Zeile 124)
+    TAFEL 2 - |  Tafel 3 | 4. Mai 1924 | . . . | 38 | Tafel 15 | 30. Mai 1924 | . . . | 52  | (Zeile 125)
+    TAFEL 3 - |  Tafel 5 | 9. Mai 1924 | . . . | 40 | Tafel 17 | 4. Juni 1924 | . . . | 54  | (Zeile 126)
+    TAFEL 4 - |  Tafel 5 | 9. Mai 1924 | . . . | 40 | Tafel 17 | 4. Juni 1924 | . . . | 54  | (Zeile 127)
+    TAFEL 5 - |  Tafel 7 | 10. Mai 1924 | . . . | 42 | Tafel 19 | 22. Juni 1924 | . . . | 56  | (Zeile 128)
+    TAFEL 6 - |  Tafel 7 | 10. Mai 1924 | . . . | 42 | Tafel 19 | 22. Juni 1924 | . . . | 56  | (Zeile 129)
+    TAFEL 7 - |  Tafel 9 | 11. Mai 1924 | . . . | 45 | Tafel 21 | 27. Juni 1924 | . . . | 58  | (Zeile 130)
+    TAFEL 8 - |  Tafel 9 | 11. Mai 1924 | . . . | 45 | Tafel 21 | 27. Juni 1924 | . . . | 58  | (Zeile 131)
+    TAFEL 9 - |  Tafel 10 | 16. Mai 1924 | . . . | 46 | Tafel 22 | " | " | "  | (Zeile 132)
+    TAFEL 10 - |  Tafel 11 | " | " | " | 47 | Tafel 23 | 29. Juni 1924 | . . .  | (Zeile 133)
+    TAFEL 11 - |  Tafel 12 | 18. Mai 1924 | . . . | 48 |  |  |  |   | (Zeile 134)
+    TAFEL 12 (Zeile 135)
+    TAFEL 1 - |  Tafel 2 | 4. Juli 1924 | . . . | 66 | Tafel 7 | 3. August 1924 | . . . | 75  | (Zeile 145)
+    TAFEL 2 - |  Tafel 3 | " | " | " | 67 | Tafel 8 | 4. August 1924 | . . .  | (Zeile 146)
+    TAFEL 3 - |  Tafel 4 | 8. Juli 1924 | . . . | 69 | Tafel 9 | 8. August 1924 | . . . | 78  | (Zeile 147)
+    TAFEL 4 - |  Tafel 5 | 11. Juli 1924 | . . . | 71 | Tafel 10 | " | " | "  | (Zeile 148)
+    TAFEL 5 (Zeile 149)
+    TAFEL 1 (Zeile 157)
+    TAFEL 1 - Tafel 2 14. August 1924 . . . 89 Tafel 5 27. August 1924 . . . 95 (Zeile 165)
+    TAFEL 2 - Tafel 3 21. August 1924 . . . 91 (Zeile 166)
+    TAFEL 3 (Zeile 167)
+    TAFEL 1 - DORNACH, 16. FEBRUAR 1924 (Zeile 224)
+    TAFEL 3 - DORNACH, 17. FEBRUAR 1924 (Zeile 248)
+    TAFEL 3 (Zeile 250)
+    TAFEL 5 - DORNACH, 23. FEBRUAR 1924 (Zeile 279)
+    TAFEL 9 - DORNACH, 1. M─RZ 1924 (Zeile 330)
+    TAFEL 14 - DORNACH, 15. M─RZ 1924 (Zeile 406)
+    TAFEL 16 - DORNACH, 22. M─RZ 1924 (Zeile 446)
+    TAFEL 1 - DORNACH, 6. APRIL 1924 (Zeile 509)
+    TAFEL 2 - DORNACH, 27. APRIL 1924 (Zeile 527)
+    TAFEL 7 - DORNACH, 10. MAI 1924 (Zeile 605)
+    TAFEL 9 - DORNACH, 11. MAI 1924 (Zeile 634)
+    TAFEL 14 - DORNACH, 29. MAI 1924 (Zeile 712)
+    TAFEL 17 - DORNACH, 4. JUNI 1924 (Zeile 748)
+    TAFEL 21 - DORNACH, 27. JUNI 1924 (Zeile 792)
+    TAFEL 1 - DORNACH, 1. JULI 1924 (Zeile 867)
+    TAFEL 5 - DORNACH, 11. JULI 1924 (Zeile 929)
+    TAFEL 7 - DORNACH, 3. AUGUST 1924 (Zeile 969)
+    TAFEL 8 - DORNACH, 4. AUGUST 1924 (Zeile 988)
+    TAFEL 1 - DORNACH, 10. SEPTEMBER 1924 (Zeile 1067)
+    TAFEL 1 - TORQUAY, 12. AUGUST 1924 (Zeile 1105)
+
+============================================================
+GA K 58_17
+============================================================
+  Tafeln gesamt: 23
+  Mit Bild: 9
+  Ohne Bild: 14
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  1 | 3. Mõrz 1923 | . . 10 | 3. Mõrz 1923 | . . 11 |   | (Zeile 102)
+    TAFEL 1 - |  1 | 11. Juni 1923 | . . 14 | 15. Juni 1923 | . . 19 |   | (Zeile 113)
+    TAFEL 1 - |  1 | 26. Dezember 1923 | 25 | 7 30. Dezember 1923 | 33 |   | (Zeile 126)
+    TAFEL 1 - |  1 | 20. Juni 1924 | . . 40 | 20. Juni 1924 | . . 41 |   | (Zeile 144)
+    TAFEL 1 - DORNACH, 11. JUNI 1923 (Zeile 245)
+    TAFEL 3 - DORNACH, 14. JUNI 1923 (Zeile 276)
+    TAFEL 1 - DORNACH, 28. DEZEMBER 1923 (Zeile 359)
+    TAFEL 2 - DORNACH, 27. DEZEMBER 1923 (Zeile 379)
+    TAFEL 3 - DORNACH, 27. DEZEMBER 1923 (Zeile 405)
+    TAFEL 5 - DORNACH, 28. DEZEMBER 1923 (Zeile 441)
+    TAFEL 7 - DORNACH, 30. DEZEMBER 1923 (Zeile 488)
+    TAFEL 9 - DORNACH, 31. DEZEMBER 1923 (Zeile 523)
+    TAFEL 1 (Zeile 590)
+    TAFEL 1 (Zeile 592)
+
+============================================================
+GA K 58_18
+============================================================
+  Tafeln gesamt: 60
+  Mit Bild: 19
+  Ohne Bild: 41
+
+  FEHLENDE BILDER:
+    TAFEL 1 - Tafel 2 12. September 1920 11 (Zeile 103)
+    TAFEL 2 (Zeile 105)
+    TAFEL 1 - Tafel 2 1. Juni 1923 . . . 15 (Zeile 115)
+    TAFEL 2 - Tafel 3 2. Juni 1923 . . . 16 (Zeile 117)
+    TAFEL 3 - Tafel 4 2. Juni 1923 . . . 17 (Zeile 119)
+    TAFEL 4 (Zeile 121)
+    TAFEL 1 - Tafel 2 2. Dezember 1922 21 (Zeile 133)
+    TAFEL 2 (Zeile 135)
+    TAFEL 1 - Tafel 2 25. Januar 1920 . . . 27 (Zeile 147)
+    TAFEL 2 - Tafel 3 28. Dezember 1921 . 29 (Zeile 149)
+    TAFEL 3 - Tafel 4 9. Oktober 1920 . 31 (Zeile 151)
+    TAFEL 4 - Tafel 5 5. April 1920 . . . 32 (Zeile 153)
+    TAFEL 5 (Zeile 155)
+    TAFEL 6 (Zeile 157)
+    TAFEL 1 - Tafel 2 6. Mai 1921 . . . 37 (Zeile 167)
+    TAFEL 2 - Tafel 3 7. Mai 1921 . . . 38 (Zeile 169)
+    TAFEL 3 - Tafel 4 8. Mai 1921 . . . 39 (Zeile 171)
+    TAFEL 4 - Tafel 5 8. Mai 1921 . . . 40 (Zeile 173)
+    TAFEL 5 - Tafel 6 9. Mai 1921 . . . 41 (Zeile 175)
+    TAFEL 6 - Tafel 7 26. Juli 1914 . . . 43 (Zeile 177)
+    TAFEL 7 - Tafel 8 5. Dezember 1920 44 (Zeile 179)
+    TAFEL 8 - Tafel 10 10. Dezember 1920 46 (Zeile 181)
+    TAFEL 9 - Tafel 10 10. Dezember 1920 46 (Zeile 183)
+    TAFEL 10 - Tafel 11 10. Dezember 1920 47 (Zeile 185)
+    TAFEL 11 - Tafel 12 21. Februar 1923 . 48 (Zeile 188)
+    TAFEL 12 - Tafel 14 2. Juni 1923 . . . 50 (Zeile 190)
+    TAFEL 13 - Tafel 14 2. Juni 1923 . . . 50 (Zeile 192)
+    TAFEL 14 - Tafel 16 29. Juli 1923 . . . 52 (Zeile 194)
+    TAFEL 15 - Tafel 16 29. Juli 1923 . . . 52 (Zeile 196)
+    TAFEL 16 - Tafel 18 4. Januar 1924 . 54 (Zeile 198)
+    TAFEL 17 - Tafel 18 4. Januar 1924 . 54 (Zeile 200)
+    TAFEL 18 (Zeile 202)
+    TAFEL 19 (Zeile 204)
+    TAFEL 1 - DORNACH, 12. SEPTEMBER 1920 (Zeile 257)
+    TAFEL 1 - DORNACH, 1. JUNI 1923 (Zeile 309)
+    TAFEL 1 - DORNACH, 24. JANUAR 1920 (Zeile 425)
+    TAFEL 2 - DORNACH, 25. JANUAR 1920 (Zeile 443)
+    TAFEL 5 - DORNACH, 8. MAI 1921 (Zeile 601)
+    TAFEL 7 - DORNACH, 26. JULI 1914 (Zeile 632)
+    TAFEL 9 - DORNACH, 5. DEZEMBER 1920 (Zeile 656)
+    TAFEL 18 - DORNACH, 4. JANUAR 1924 (Zeile 756)
+
+============================================================
+GA K 58_19
+============================================================
+  Tafeln gesamt: 57
+  Mit Bild: 20
+  Ohne Bild: 37
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 21. Februar 1924 . . . 13 | Tafel 7 " " " . . . 19  | (Zeile 103)
+    TAFEL 2 - |  Tafel 3 22. Februar 1924 . . . 15 | Tafel 8 26. Februar 1924 . . . 20  | (Zeile 104)
+    TAFEL 3 - |  Tafel 4 23. Februar 1924 . . . 16 | Tafel 9 " " " . . . 21  | (Zeile 105)
+    TAFEL 4 - |  Tafel 5 " " " . . . 17 | Tafel 10 27. Februar 1924 . . . 23  | (Zeile 106)
+    TAFEL 5 (Zeile 107)
+    TAFEL 1 - |  Tafel 2 24. Juni 1924 . . . 28 | Tafel 13 " " " . . . 39  | (Zeile 123)
+    TAFEL 2 - |  Tafel 3 " " " . . . 29 | Tafel 14 2. Juli 1924 . . . 40  | (Zeile 124)
+    TAFEL 3 - |  Tafel 4 25. Juni 1924 . . . 30 | Tafel 15 2. Juli 1924 . . . 41  | (Zeile 125)
+    TAFEL 4 - |  Tafel 5 " " " . . . 31 | Tafel 16 3. Juli 1924 . . . 42  | (Zeile 126)
+    TAFEL 5 - |  Tafel 6 26. Juni 1924 . . . 32 | Tafel 17 " " " . . . 43  | (Zeile 127)
+    TAFEL 6 - |  Tafel 7 " " " . . . 33 | Tafel 18 4. Juli 1924 . . . 44  | (Zeile 128)
+    TAFEL 7 - |  Tafel 8 27. Juni 1924 . . . 34 | Tafel 19 " " " . . . 45  | (Zeile 129)
+    TAFEL 8 - |  Tafel 9 " " " . . . 35 | Tafel 20 7. Juli 1924 . . . 46  | (Zeile 130)
+    TAFEL 9 - |  Tafel 10 30. Juni 1924 . . . 36 | Tafel 21 " " " . . . 47  | (Zeile 131)
+    TAFEL 10 - |  Tafel 22 9. Juli 1924 . . . 49 | Tafel 25 11. Juli 1924 . . . 52  | (Zeile 132)
+    TAFEL 11 - |  Tafel 22 9. Juli 1924 . . . 49 | Tafel 25 11. Juli 1924 . . . 52  | (Zeile 133)
+    TAFEL 22 - |  Tafel 23 10. Juli 1924 . . . 50 | Tafel 26 " " " . . . 53  | (Zeile 136)
+    TAFEL 23 - |  Tafel 24 " " " . . . 51 | Tafel 27 12. Juli 1924 . . . 55  | (Zeile 137)
+    TAFEL 24 (Zeile 138)
+    TAFEL 1 - |  Tafel 2 13. April 1921 . . . 61 | Tafel 4 17. April 1921 . . . 65  | (Zeile 150)
+    TAFEL 2 (Zeile 151)
+    TAFEL 3 - DORNACH, 22. FEBRUAR 1924 (Zeile 249)
+    TAFEL 10 - DORNACH, 27. FEBRUAR 1924 (Zeile 342)
+    TAFEL 1 - DORNACH, 4. AUGUST 1922 (Zeile 383)
+    TAFEL 3 - 24. Juni 1924 Laut-Eurhythm (Zeile 416)
+    TAFEL 6 - DORNACH, 26. JUNI 1924 (Zeile 480)
+    TAFEL 9 - DORNACH, 27. JUNI 1924 (Zeile 517)
+    TAFEL 12 - DORNACH, 1. JULI 1924 (Zeile 773)
+    TAFEL 13 - DORNACH, 1. JULI 1924 (Zeile 826)
+    TAFEL 15 - DORNACH, 2. JULI 1924 (Zeile 858)
+    TAFEL 16 - DORNACH, 3. JULI 1924 (Zeile 877)
+    TAFEL 17 - DORNACH, 3. JULI 1924 (Zeile 903)
+    TAFEL 18 - DORNACH, 4. JULI 1924 (Zeile 922)
+    TAFEL 20 - DORNACH, 7. JULI 1924 (Zeile 969)
+    TAFEL 27 - DORNACH, 12. JULI 1924 (Zeile 1088)
+    TAFEL 1 - DORNACH, 12. APRIL 1921 (Zeile 1125)
+    TAFEL 4 - DORNACH, 17. APRIL 1921 (Zeile 1177)
+
+============================================================
+GA K 58_20
+============================================================
+  Tafeln gesamt: 55
+  Mit Bild: 10
+  Ohne Bild: 45
+
+  FEHLENDE BILDER:
+    TAFEL 1 (Zeile 113)
+    TAFEL 1 - |  Tafel 3 | 6. September 1924 | 16  | (Zeile 129)
+    TAFEL 2 - |  Tafel 3 | 6. September 1924 | 16  | (Zeile 130)
+    TAFEL 3 - |  Tafel 5 | 7. September 1924 | 18  | (Zeile 131)
+    TAFEL 4 - |  Tafel 5 | 7. September 1924 | 18  | (Zeile 132)
+    TAFEL 5 - |  Tafel 7 | 9. September 1924 | 20  | (Zeile 133)
+    TAFEL 6 - |  Tafel 7 | 9. September 1924 | 20  | (Zeile 134)
+    TAFEL 7 - |  Tafel 9 | 10. September 1924 | 22  | (Zeile 135)
+    TAFEL 8 - |  Tafel 9 | 10. September 1924 | 22  | (Zeile 136)
+    TAFEL 9 - |  Tafel 11 | 12. September 1924 | 24  | (Zeile 137)
+    TAFEL 10 - |  Tafel 11 | 12. September 1924 | 24  | (Zeile 138)
+    TAFEL 11 (Zeile 139)
+    TAFEL 12 - |  Tafel 13 | 13. September 1924 | 27  | (Zeile 140)
+    TAFEL 13 - |  Tafel 13 | 13. September 1924 | 27  | (Zeile 141)
+    TAFEL 13 - |  Tafel 14 | 14. September 1924 | 29  | (Zeile 144)
+    TAFEL 14 - |  Tafel 15 | 15. September 1924 | 31  | (Zeile 145)
+    TAFEL 15 - |  Tafel 16 | 17. September 1924 | 32  | (Zeile 146)
+    TAFEL 16 - |  Tafel 18 | 19. September 1924 | 35  | (Zeile 147)
+    TAFEL 17 - |  Tafel 18 | 19. September 1924 | 35  | (Zeile 148)
+    TAFEL 18 - |  Tafel 19 | 20. September 1924 | 36  | (Zeile 149)
+    TAFEL 19 - |  Tafel 21 | 21. September 1924 | 38  | (Zeile 150)
+    TAFEL 20 - |  Tafel 21 | 21. September 1924 | 38  | (Zeile 151)
+    TAFEL 21 - |  Tafel 23 | 22. September 1924 | 40  | (Zeile 152)
+    TAFEL 22 - |  Tafel 23 | 22. September 1924 | 40  | (Zeile 153)
+    TAFEL 23 - |  Tafel 25 | 23. September 1924 | 43  | (Zeile 154)
+    TAFEL 24 - |  Tafel 25 | 23. September 1924 | 43  | (Zeile 155)
+    TAFEL 25 (Zeile 156)
+    TAFEL 1 - DORNACH, 6. OKTOBER 1920 (Zeile 221)
+    TAFEL 1 (Zeile 269)
+    TAFEL 2 (Zeile 289)
+    TAFEL 8 - DORNACH, 9. SEPTEMBER 1924 (Zeile 398)
+    TAFEL 9 - DORNACH, 10. SEPTEMBER 1924 (Zeile 432)
+    TAFEL 9 (Zeile 434)
+    TAFEL 10 - DORNACH, 10. SEPTEMBER 1924 (Zeile 452)
+    TAFEL 11 - DORNACH, 12. SEPTEMBER 1924 (Zeile 468)
+    TAFEL 12 - DORNACH, 12. SEPTEMBER 1924 (Zeile 485)
+    TAFEL 13 - DORNACH, 13. SEPTEMBER 1924 (Zeile 510)
+    TAFEL 16 - DORNACH, 17. SEPTEMBER 1924 (Zeile 558)
+    TAFEL 18 - DORNACH, 19. SEPTEMBER 1924 (Zeile 590)
+    TAFEL 19 - DORNACH, 20. SEPTEMBER 1924 (Zeile 605)
+    TAFEL 20 - DORNACH, 20. SEPTEMBER 1924 (Zeile 634)
+    TAFEL 21 - DORNACH, 21. SEPTEMBER 1924 (Zeile 660)
+    TAFEL 23 - DORNACH, 22. SEPTEMBER 1924 (Zeile 697)
+    TAFEL 23 - DORNACH, 22. SEPTEMBER 1924 (Zeile 707)
+    TAFEL 24 - DORNACH, 22. SEPTEMBER 1924 (Zeile 715)
+
+============================================================
+GA K 58_21
+============================================================
+  Tafeln gesamt: 63
+  Mit Bild: 20
+  Ohne Bild: 43
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 | 10. August 1919 | 13 | Tafel 5 | " | " | 17  | (Zeile 112)
+    TAFEL 2 - |  Tafel 3 | 11. August 1919 | 15 |  |  |  |   | (Zeile 113)
+    TAFEL 3 (Zeile 114)
+    TAFEL 1 - |  Tafel 2 | 26. Dezember 1921 | 23 | Tafel 8 | 2. Januar 1922 | 35 |   | (Zeile 123)
+    TAFEL 2 - |  Tafel 3 | 28. Dezember 1921 | 24 | Tafel 9 | 3. Januar 1922 | 37 |   | (Zeile 124)
+    TAFEL 3 - |  Tafel 3a | " | 25 | Tafel 10 | 5. Januar 1922 | 38 |   | (Zeile 125)
+    TAFEL 3 - |  Tafel 4 | 29. Dezember 1921 | 27 | Tafel 10a | " | " | 39  | (Zeile 126)
+    TAFEL 4 - |  Tafel 5 | 30. Dezember 1921 | 29 | Tafel 11 | 7. Januar 1922 | 40 |   | (Zeile 127)
+    TAFEL 5 - |  Tafel 6 | 31. Dezember 1921 | 31 | Tafel 11a | " | " | 41  | (Zeile 128)
+    TAFEL 6 (Zeile 129)
+    TAFEL 1 (Zeile 139)
+    TAFEL 1 - |  Tafel 2 | 16. April 1923 | 50 | Tafel 8 | 19. April 1923 | 56 |   | (Zeile 149)
+    TAFEL 2 - |  Tafel 4 | 17. April 1923 | 52 | Tafel 10 | 20. April 1923 | 58 |   | (Zeile 150)
+    TAFEL 3 - |  Tafel 4 | 17. April 1923 | 52 | Tafel 10 | 20. April 1923 | 58 |   | (Zeile 151)
+    TAFEL 4 - |  Tafel 6 | 18. April 1923 | 54 | Tafel 12 | 21. April 1923 | 61 |   | (Zeile 152)
+    TAFEL 5 - |  Tafel 6 | 18. April 1923 | 54 | Tafel 12 | 21. April 1923 | 61 |   | (Zeile 153)
+    TAFEL 6 (Zeile 154)
+    TAFEL 1 - |  Tafel 2 | 14. August 1924 | 67 | Tafel 6 | 18. August 1924 | 73 |   | (Zeile 164)
+    TAFEL 2 - |  Tafel 3 | 15. August 1924 | 68 | Tafel 7 | 20. August 1924 | 74 |   | (Zeile 165)
+    TAFEL 3 (Zeile 166)
+    TAFEL 4 (Zeile 167)
+    TAFEL 1 (Zeile 174)
+    TAFEL 1 - DORNACH, 9. AUGUST 1919 (Zeile 241)
+    TAFEL 2 - DORNACH, 10. AUGUST 1919 (Zeile 262)
+    TAFEL 4 - DORNACH, 15. AUGUST 1919 (Zeile 307)
+    TAFEL 5 - DORNACH, 15. AUGUST 1919 (Zeile 324)
+    TAFEL 1 - DORNACH, 24. DEZEMBER 1921 (Zeile 367)
+    TAFEL 2 - (Auf der Tafel falsch datiert) DORNACH, 26. DEZEMBER 1921 (Zeile 386)
+    TAFEL 6 - DORNACH, 31. DEZEMBER 1921 (Zeile 460)
+    TAFEL 7 - DORNACH, 1. JANUAR 1922 (Zeile 478)
+    TAFEL 8 - DORNACH, 2. JANUAR 1922 (Zeile 497)
+    TAFEL 9 - DORNACH, 3. JANUAR 1922 (Zeile 517)
+    TAFEL 10 - DORNACH, 5. JANUAR 1922 (Zeile 536)
+    TAFEL 3 - DORNACH, 16. APRIL 1923 (Zeile 719)
+    TAFEL 4 - DORNACH, 17. APRIL 1923 (Zeile 732)
+    TAFEL 5 (Zeile 750)
+    TAFEL 6 - DORNACH, 18. APRIL 1923 (Zeile 762)
+    TAFEL 6 (Zeile 764)
+    TAFEL 11 - DORNACH, 20. APRIL 1923 (Zeile 836)
+    TAFEL 1 (Zeile 903)
+    TAFEL 5 - TORQUAY, 16. AUGUST 1924 (Zeile 959)
+    TAFEL 6 - TORQUAY, 18. AUGUST 1924 (Zeile 977)
+    TAFEL 1 (Zeile 1035)
+
+============================================================
+GA K 58_22
+============================================================
+  Tafeln gesamt: 69
+  Mit Bild: 26
+  Ohne Bild: 43
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 3 22. Mõrz 1920. . . . 13 | Tafel 16 31. Mõrz 1920. . . . 27  | (Zeile 105)
+    TAFEL 2 - |  Tafel 3 22. Mõrz 1920. . . . 13 | Tafel 16 31. Mõrz 1920. . . . 27  | (Zeile 106)
+    TAFEL 3 - |  Tafel 4 23. Mõrz 1920. . . . 14 | Tafel 17 1. April 1920. . . . 28  | (Zeile 107)
+    TAFEL 4 - |  Tafel 6 25. Mõrz 1920. . . . 16 | Tafel 19 2. April 1920. . . . 31  | (Zeile 108)
+    TAFEL 5 - |  Tafel 6 25. Mõrz 1920. . . . 16 | Tafel 19 2. April 1920. . . . 31  | (Zeile 109)
+    TAFEL 6 - |  Tafel 7 " " " . . . . 17 | Tafel 20 3. April 1920. . . . 32  | (Zeile 110)
+    TAFEL 7 - |  Tafel 8 26. Mõrz 1920. . . . 18 | Tafel 21 " " " . . . . 33  | (Zeile 111)
+    TAFEL 8 - |  Tafel 9 " " " . . . . 19 | Tafel 22 7. April 1920. . . . 34  | (Zeile 112)
+    TAFEL 9 - |  Tafel 10 27. Mõrz 1920. . . . 20 | Tafel 23 " " " . . . . 35  | (Zeile 113)
+    TAFEL 10 - |  Tafel 11 " " " . . . . 21 | Tafel 24 8. April 1920. . . . 37  | (Zeile 114)
+    TAFEL 11 - |  Tafel 12 28. Mõrz 1920. . . . 22 | Tafel 25 9. April 1920. . . . 39  | (Zeile 115)
+    TAFEL 12 (Zeile 116)
+    TAFEL 13 (Zeile 117)
+    TAFEL 1 - |  Tafel 2 " " " . . . . 59 | Tafel 7 21. April 1924 . . . . 67  | (Zeile 129)
+    TAFEL 2 - |  Tafel 3 9. Oktober 1920 . . . . 61 | Tafel 8 22. April 1924 . . . . 69  | (Zeile 130)
+    TAFEL 3 - |  Tafel 4 " " " . . . . 62 | Tafel 9 23. April 1924 . . . . 71  | (Zeile 131)
+    TAFEL 4 (Zeile 132)
+    TAFEL 5 (Zeile 133)
+    TAFEL 1 - |  Tafel 2 13. April 1921 . . . . 77 | Tafel 4 17. April 1921 . . . . 81  | (Zeile 144)
+    TAFEL 2 - |  Tafel 1 11. April 1921 . . . . 43 | Tafel 5 16. April 1921 . . . . 51  | (Zeile 145)
+    TAFEL 1 - |  Tafel 2 12. April 1921 . . . . 45 | Tafel 6 17. April 1921 . . . . 53  | (Zeile 146)
+    TAFEL 2 - |  Tafel 3 13. April 1921 . . . . 27 | Tafel 7 18. April 1921 . . . . 55  | (Zeile 147)
+    TAFEL 3 - |  Tafel 4 14. April 1921 . . . . 49 |   | (Zeile 148)
+    TAFEL 4 (Zeile 149)
+    TAFEL 1 - |  Tafel 2 12. April 1921 . . . . 45 | Tafel 6 17. April 1921 . . . . 81  | (Zeile 160)
+    TAFEL 2 - |  Tafel 3 13. April 1921 . . . . 27 |   | (Zeile 161)
+    TAFEL 3 - |  Tafel 4 14. April 1921 . . . . 49 |   | (Zeile 162)
+    TAFEL 4 - Tafel 16. April 1921 . . . . 83 (ohne Zuordnung) (Zeile 163)
+    TAFEL 16 (Zeile 165)
+    TAFEL 1 - 21. Mõrz 1920. (Zeile 225)
+    TAFEL 2 (Zeile 234)
+    TAFEL 5 - DORNACH, 23. M─RZ 1920 (Zeile 273)
+    TAFEL 8 (Zeile 317)
+    TAFEL 9 (Zeile 326)
+    TAFEL 20 - DORNACH, 3. APRIL 1920 (Zeile 467)
+    TAFEL 25 - DORNACH, 9. APRIL 1920 (Zeile 535)
+    TAFEL 2 - DORNACH, 12. APRIL 1921 (Zeile 593)
+    TAFEL 5 - DORNACH, 16. APRIL 1921 (Zeile 647)
+    TAFEL 3 - DORNACH, 9. OKTOBER 1920 (Zeile 757)
+    TAFEL 6 - DORNACH, 2. JANUAR 1924 (Zeile 795)
+    TAFEL 9 - DORNACH, 23. APRIL 1924 (Zeile 848)
+    TAFEL 1 - DORNACH, 12. APRIL 1921 (Zeile 890)
+    TAFEL 4 - DORNACH, 17. APRIL 1921 (Zeile 944)
+
+============================================================
+GA K 58_23
+============================================================
+  Tafeln gesamt: 71
+  Mit Bild: 27
+  Ohne Bild: 44
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 | 3. Januar 1924 | . | 13 | Tafel 12 | 22. April 1924 | . | . | 27 |  |   | (Zeile 106)
+    TAFEL 2 - |  Tafel 3 | 4. Januar 1924 | . | 14 | Tafel 13 | 23. April 1924 | . | . | 29 |  |   | (Zeile 107)
+    TAFEL 3 - |  Tafel 4 | ô | ô | . | 15 | Tafel 14 | 24. April 1924 | . | 30 |  |   | (Zeile 108)
+    TAFEL 4 - |  Tafel 5 | 6. Januar 1924 | . | 17 | Tafel 15 | ô | ô | ô | . | 31 |   | (Zeile 109)
+    TAFEL 5 - |  Tafel 6 | 7. Januar 1924 | . | 18 | Tafel 16 | 25. April 1924 | . | . | 32 |  |   | (Zeile 110)
+    TAFEL 6 - |  Tafel 8 | 8. Januar 1924 | . | 21 | Tafel 18 | 24. April 1924 | . | . | 34 |  |   | (Zeile 111)
+    TAFEL 7 - |  Tafel 8 | 8. Januar 1924 | . | 21 | Tafel 18 | 24. April 1924 | . | . | 34 |  |   | (Zeile 112)
+    TAFEL 8 - |  Tafel 9 | 9. Januar 1924 | . | 23 | Tafel 19 | 24. April 1924 | . | . | 35 |  |   | (Zeile 113)
+    TAFEL 9 - |  Tafel 10 | 21. April 1924 | . | 24 |  |  |  |  |  |  |   | (Zeile 114)
+    TAFEL 10 (Zeile 115)
+    TAFEL 1 - |  Tafel 2 | 26. Juni 1924 | . | 40 | Tafel 10 | 2. Juli 1924 | . | . | 50 |  |   | (Zeile 125)
+    TAFEL 2 - |  Tafel 4 | 27. Juni 1924 | . | 42 | Tafel 12 | 5. Juli 1924 | . | . | 53 |  |   | (Zeile 126)
+    TAFEL 3 - |  Tafel 4 | 27. Juni 1924 | . | 42 | Tafel 12 | 5. Juli 1924 | . | . | 53 |  |   | (Zeile 127)
+    TAFEL 4 - |  Tafel 5 | ô | ô | . | 43 | Tafel 13 | 6. Juli 1924 | . | . | 54 |   | (Zeile 128)
+    TAFEL 5 - |  Tafel 6 | 28. Juni 1924 | . | 45 | Tafel 14 | ô | ô | ô | . | 55 |   | (Zeile 129)
+    TAFEL 6 - |  Tafel 7 | 30. Juni 1924 | . | 46 | Tafel 15 | 7. Juli 1924 | . | . | 57 |  |   | (Zeile 130)
+    TAFEL 7 (Zeile 131)
+    TAFEL 8 (Zeile 132)
+    TAFEL 1 - |  Tafel 2 | 9. September 1924 | 62 | Tafel 9 | 15. September 1924 | 75 |  |  |  |  |   | (Zeile 142)
+    TAFEL 2 - |  Tafel 3 | ô | ô | 63 | Tafel 10 | 16. September 1924 | 77 |  |  |  |   | (Zeile 143)
+    TAFEL 3 - |  Tafel 4 | 10. September 1924 | 65 | Tafel 11 | 17. September 1924 | 78 |  |  |  |  |   | (Zeile 144)
+    TAFEL 4 - |  Tafel 5 | 11. September 1924 | 67 | Tafel 12 | ô | ô | 79 |  |  |  |   | (Zeile 145)
+    TAFEL 5 - |  Tafel 6 | 12. September 1924 | 69 | Tafel 13 | 18. September 1924 | 80 |  |  |  |  |   | (Zeile 146)
+    TAFEL 6 - |  Tafel 7 | 13. September 1924 | 71 | Tafel 14 | ô | ô | 81 |  |  |  |   | (Zeile 147)
+    TAFEL 7 (Zeile 148)
+    TAFEL 1 - DORNACH, 2. JANUAR 1924 (Zeile 210)
+    TAFEL 3 - DORNACH, 4. JANUAR 1924 (Zeile 245)
+    TAFEL 6 - DORNACH, 7. JANUAR 1924 (Zeile 286)
+    TAFEL 8 - DORNACH, 8. JANUAR 1924 (Zeile 327)
+    TAFEL 12 - DORNACH, 22. APRIL 1924 (Zeile 390)
+    TAFEL 15 - DORNACH, 24. APRIL 1924 (Zeile 446)
+    TAFEL 17 (Zeile 484)
+    TAFEL 1 - DORNACH, 25. JUNI 1924 (Zeile 544)
+    TAFEL 7 - DORNACH, 30. JUNI 1924 (Zeile 650)
+    TAFEL 15 - DORNACH, 7. JULI 1924 (Zeile 774)
+    TAFEL 1 - DORNACH, 8. SEPTEMBER 1924 (Zeile 813)
+    TAFEL 2 - DORNACH, 9. SEPTEMBER 1924 (Zeile 831)
+    TAFEL 5 - DORNACH, 11. SEPTEMBER 1924 (Zeile 875)
+    TAFEL 7 - DORNACH, 13. SEPTEMBER 1924 (Zeile 909)
+    TAFEL 8 - DORNACH, 14. SEPTEMBER 1924 (Zeile 926)
+    TAFEL 9 - DORNACH, 15. SEPTEMBER 1924 (Zeile 950)
+    TAFEL 11 - DORNACH, 17. SEPTEMBER 1924 (Zeile 982)
+    TAFEL 13 - DORNACH, 18. SEPTEMBER 1924 (Zeile 1021)
+    TAFEL 14 - DORNACH, 18. SEPTEMBER 1924 (Zeile 1045)
+
+============================================================
+GA K 58_24
+============================================================
+  Tafeln gesamt: 56
+  Mit Bild: 24
+  Ohne Bild: 32
+
+  FEHLENDE BILDER:
+    TAFEL 1 (Zeile 106)
+    TAFEL 2 (Zeile 107)
+    TAFEL 1 (Zeile 117)
+    TAFEL 2 (Zeile 118)
+    TAFEL 3 (Zeile 119)
+    TAFEL 4 (Zeile 120)
+    TAFEL 5 (Zeile 121)
+    TAFEL 6 (Zeile 122)
+    TAFEL 1 (Zeile 130)
+    TAFEL 2 (Zeile 132)
+    TAFEL 3 (Zeile 133)
+    TAFEL 4 - 6 Vortrõge, Dornach 11.û16. Oktober 1921 (Zeile 134)
+    TAFEL 1 (Zeile 140)
+    TAFEL 2 - 14 Vortrõge, Dornach 24. Juli bis 6. August 1922 (Zeile 142)
+    TAFEL 1 (Zeile 148)
+    TAFEL 2 (Zeile 150)
+    TAFEL 3 (Zeile 151)
+    TAFEL 4 (Zeile 152)
+    TAFEL 5 (Zeile 153)
+    TAFEL 6 (Zeile 154)
+    TAFEL 1 - DORNACH, 28. SEPTEMBER 1920 (Zeile 218)
+    TAFEL 2 - DORNACH, 29. SEPTEMBER 1920 (Zeile 236)
+    TAFEL 3 - DORNACH, 30. SEPTEMBER 1920 (Zeile 258)
+    TAFEL 1 - DORNACH, 25. DEZEMBER 1922 (Zeile 299)
+    TAFEL 3 - DORNACH, 28. DEZEMBER 1922 (Zeile 337)
+    TAFEL 7 - DORNACH, 3. JANUAR 1923 (Zeile 396)
+    TAFEL 1 - KOBERWITZ, 7. JUNI 1924 (Zeile 502)
+    TAFEL 4 - KOBERWITZ, 12. JUNI 1924 (Zeile 535)
+    TAFEL 1 - DORNACH, 12. OKTOBER 1921 (Zeile 615)
+    TAFEL 3 - DORNACH, 14. OKTOBER 1921 (Zeile 655)
+    TAFEL 2 - DORNACH, 25. JULI 1922 (Zeile 727)
+    TAFEL 8 - DORNACH, 2. AUGUST 1922 (Zeile 806)
+
+============================================================
+GA K 58_25
+============================================================
+  Tafeln gesamt: 50
+  Mit Bild: 27
+  Ohne Bild: 23
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 9. August 1922 . . . 13 | Tafel 7 23. September 1922 23  | (Zeile 103)
+    TAFEL 2 - |  Tafel 3 9. September 1922 15 | Tafel 8 27. September 1922 25  | (Zeile 104)
+    TAFEL 3 - |  Tafel 4 13. September 1922 17 | Tafel 9 30. September 1922 27  | (Zeile 105)
+    TAFEL 4 - |  Tafel 5 16. September 1922 19 |   | (Zeile 106)
+    TAFEL 5 (Zeile 107)
+    TAFEL 1 - |  Tafel 2 24. Oktober 1922 . 32 | Tafel 14 5. Januar 1923 . 49  | (Zeile 118)
+    TAFEL 2 - |  Tafel 3 " " " . 33 | Tafel 15 8. Januar 1923 . 51  | (Zeile 119)
+    TAFEL 3 - |  Tafel 4 29. November 1922 35 | Tafel 16 10. Januar 1923 . 53  | (Zeile 120)
+    TAFEL 4 - |  Tafel 5 2. Dezember 1922 36 | Tafel 17 13. Januar 1923 . 55  | (Zeile 121)
+    TAFEL 5 - |  Tafel 6 " " " 37 | Tafel 18 20. Januar 1923 . 56  | (Zeile 122)
+    TAFEL 6 - |  Tafel 7 16. Dezember 1922 38 | Tafel 19 " " " . 57  | (Zeile 123)
+    TAFEL 7 - |  Tafel 8 " " " 39 | Tafel 20 27. Januar 1923 . 58  | (Zeile 124)
+    TAFEL 8 - |  Tafel 9 20. Dezember 1922 41 | Tafel 21 " " " . 59  | (Zeile 125)
+    TAFEL 9 - |  Tafel 10 23. Dezember 1922 42 | Tafel 22 3. Februar 1923 . 61  | (Zeile 126)
+    TAFEL 10 - |  Tafel 11 " " " 43 | Tafel 23 10. Februar 1923 . 62  | (Zeile 127)
+    TAFEL 11 - |  Tafel 12 27. Dezember 1922 45 | Tafel 24 " " " . 63  | (Zeile 128)
+    TAFEL 12 (Zeile 129)
+    TAFEL 1 (Zeile 190)
+    TAFEL 6 - DORNACH, 20. SEPTEMBER 1922 (Zeile 284)
+    TAFEL 2 - DORNACH, 24. OKTOBER 1922 (Zeile 384)
+    TAFEL 4 - DORNACH, 29. NOVEMBER 1922 (Zeile 413)
+    TAFEL 19 - DORNACH, 20. JANUAR 1923 (Zeile 660)
+    TAFEL 23 - DORNACH, 10. FEBRUAR 1923 (Zeile 719)
+
+============================================================
+GA K 58_26
+============================================================
+  Tafeln gesamt: 71
+  Mit Bild: 29
+  Ohne Bild: 42
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 3 21. Februar 1923 . . . 12 | Tafel 16 14. April 1923 . . . 26  | (Zeile 99)
+    TAFEL 2 - |  Tafel 3 21. Februar 1923 . . . 12 | Tafel 16 14. April 1923 . . . 26  | (Zeile 100)
+    TAFEL 3 - |  Tafel 5 3. Mõrz 1923 . . . 14 | Tafel 18 18. April 1923 . . . 28  | (Zeile 101)
+    TAFEL 4 - |  Tafel 5 3. Mõrz 1923 . . . 14 | Tafel 18 18. April 1923 . . . 28  | (Zeile 102)
+    TAFEL 5 - |  Tafel 7 14. Mõrz 1923 . . . 16 | Tafel 20 21. April 1923 . . . 30  | (Zeile 103)
+    TAFEL 6 - |  Tafel 7 14. Mõrz 1923 . . . 16 | Tafel 20 21. April 1923 . . . 30  | (Zeile 104)
+    TAFEL 7 - |  Tafel 9 17. Mõrz 1923 . . . 19 | Tafel 22 7. Mai 1923 . . . 32  | (Zeile 105)
+    TAFEL 8 - |  Tafel 9 17. Mõrz 1923 . . . 19 | Tafel 22 7. Mai 1923 . . . 32  | (Zeile 106)
+    TAFEL 9 - |  Tafel 10 21. Mõrz 1923 . . . 20 | Tafel 23 " " " . . . 33  | (Zeile 107)
+    TAFEL 10 - |  Tafel 11 " " " . . . 21 | Tafel 24 9. Mai 1923 . . . 34  | (Zeile 108)
+    TAFEL 11 - |  Tafel 12 4. April 1923 . . . 22 | Tafel 25 " " " . . . 35  | (Zeile 109)
+    TAFEL 12 (Zeile 110)
+    TAFEL 13 (Zeile 111)
+    TAFEL 1 - |  Tafel 2 " " " . . . 39 | Tafel 15 7. Juli 1923 . . . 56  | (Zeile 123)
+    TAFEL 2 - |  Tafel 3 2. Juni 1923 . . . 40 | Tafel 16 " " " . . . 57  | (Zeile 124)
+    TAFEL 3 - |  Tafel 4 " " " . . . 41 | Tafel 17 18. Juli 1923 . . . 58  | (Zeile 125)
+    TAFEL 4 - |  Tafel 5 6. Juni 1923 . . . 43 | Tafel 18 " " " . . . 59  | (Zeile 126)
+    TAFEL 5 - |  Tafel 6 9. Juni 1923 . . . 44 | Tafel 19 20. Juli 1923 . . . 60  | (Zeile 127)
+    TAFEL 6 - |  Tafel 8 13. Juni 1923 . . . 47 | Tafel 21 25. Juli 1923 . . . 63  | (Zeile 128)
+    TAFEL 7 - |  Tafel 8 13. Juni 1923 . . . 47 | Tafel 21 25. Juli 1923 . . . 63  | (Zeile 129)
+    TAFEL 8 - |  Tafel 9 16. Juni 1923 . . . 49 | Tafel 22 28. Juli 1923 . . . 65  | (Zeile 130)
+    TAFEL 9 - |  Tafel 10 25. Juni 1923 . . . 50 | Tafel 23 10. September 1923 66  | (Zeile 131)
+    TAFEL 10 - |  Tafel 12 28. Juni 1923 . . . 53 | Tafel 25 22. September 1923 68  | (Zeile 132)
+    TAFEL 11 - |  Tafel 12 28. Juni 1923 . . . 53 | Tafel 25 22. September 1923 68  | (Zeile 133)
+    TAFEL 12 - |  Tafel 13 30. Juni 1923 . . . 54 | Tafel 26 " " " 69  | (Zeile 134)
+    TAFEL 13 (Zeile 135)
+    TAFEL 1 - DORNACH, 17. FEBRUAR 1923 (Zeile 193)
+    TAFEL 10 - DORNACH, 21. M─RZ 1923 (Zeile 322)
+    TAFEL 12 - DORNACH, 4. APRIL 1923 (Zeile 353)
+    TAFEL 14 - DORNACH, 9. APRIL 1923 (Zeile 384)
+    TAFEL 16 - DORNACH, 14. APRIL 1923 (Zeile 429)
+    TAFEL 18 - DORNACH, 18. APRIL 1923 (Zeile 451)
+    TAFEL 20 - DORNACH, 21. APRIL 1923 (Zeile 480)
+    TAFEL 22 - DORNACH, 7. MAI 1923 (Zeile 503)
+    TAFEL 24 - DORNACH, 9. MAI 1923 (Zeile 539)
+    TAFEL 25 - DORNACH, 9. MAI 1923 (Zeile 551)
+    TAFEL 6 - DORNACH, 9. JUNI 1923 (Zeile 657)
+    TAFEL 9 - DORNACH, 16. JUNI 1923 (Zeile 701)
+    TAFEL 12 - DORNACH, 28. JUNI 1923 (Zeile 743)
+    TAFEL 14 - DORNACH, 30. JUNI 1923 (Zeile 773)
+    TAFEL 25 - DORNACH, 22. SEPTEMBER 1923 (Zeile 923)
+    TAFEL 26 - DORNACH, 22. SEPTEMBER 1923 (Zeile 946)
+
+============================================================
+GA K 58_27
+============================================================
+  Tafeln gesamt: 51
+  Mit Bild: 18
+  Ohne Bild: 33
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 1 | 8. Oktober 1923 | . | 10 | 10. Oktober 1923 | 10. Oktober 1923 | 13. Oktober 1923 | 13. Oktober 1923 | 13. Oktober 1923 | 13. Oktober 1923 | 13. Oktober 1923 | 13. Oktober 1923  | (Zeile 105)
+    TAFEL 1 - |  Tafel 12 | 26. November 1923 | 24 | 25 | 25 | 25 | 27 | 27 | 27 | 27 | 27 | 27  | (Zeile 107)
+    TAFEL 12 - |  Tafel 14 | 28. November 1923 | 27 | 28 | 29 | 29 | 29 | 29 | 29 | 29 | 29 | 29  | (Zeile 108)
+    TAFEL 13 - |  Tafel 14 | 28. November 1923 | 27 | 28 | 29 | 29 | 29 | 29 | 29 | 29 | 29 | 29  | (Zeile 109)
+    TAFEL 14 - |  Tafel 15 | 1. Dezember 1923 | 28 | 29 | 29 | 29 | 29 | 29 | 29 | 29 | 29 | 29  | (Zeile 110)
+    TAFEL 15 - |  Tafel 17 | 5. Dezember 1923 | 31 | 31 | 31 | 31 | 33 | 33 | 33 | 33 | 33 | 33  | (Zeile 111)
+    TAFEL 16 - |  Tafel 17 | 5. Dezember 1923 | 31 | 31 | 31 | 31 | 33 | 33 | 33 | 33 | 33 | 33  | (Zeile 112)
+    TAFEL 17 - |  Tafel 18 | 10. Dezember 1923 | 33 | 33 | 33 | 33 | 33 | 33 | 33 | 33 | 33 | 33  | (Zeile 113)
+    TAFEL 18 - |  Tafel 19 | 12. Dezember 1923 | 35 | 35 | 35 | 35 | 36 | 36 | 36 | 36 | 36 | 36  | (Zeile 114)
+    TAFEL 19 - |  Tafel 20 | 15. Dezember 1923 | 36 | 36 | 36 | 36 | 37 | 37 | 37 | 37 | 37 | 37  | (Zeile 115)
+    TAFEL 20 - |  Tafel 22 | 22. Dezember 1923 | 38 | 38 | 38 | 38 | 39 | 39 | 39 | 39 | 39 | 39  | (Zeile 116)
+    TAFEL 21 - |  Tafel 22 | 22. Dezember 1923 | 38 | 38 | 38 | 38 | 39 | 39 | 39 | 39 | 39 | 39  | (Zeile 117)
+    TAFEL 22 (Zeile 118)
+    TAFEL 23 (Zeile 119)
+    TAFEL 1 - |  Tafel 1 | 7. Januar 1924 | . | 42 | 19. Januar 1924 | 42 | 23. Januar 1924 | . | 47 | 13. Februar 1924  | (Zeile 130)
+    TAFEL 1 - |  Tafel 2 | ô | ô | 43 | Tafel 3 | Tafel 8 | Tafel 16. Februar 1924 | . | 45 | 16. Februar 1924  | (Zeile 132)
+    TAFEL 2 - |  Tafel 8 | 16. Februar 1924 | . | 55 | Tafel 9 | 20. Februar 1924 | . | 57 | Tafel 10 | 23. Februar 1924  | (Zeile 133)
+    TAFEL 8 - |  Tafel 9 | 20. Februar 1924 | . | 59 | Tafel 11 | 27. Februar 1924 | . | 60 | Tafel 12 | 27. Februar 1924  | (Zeile 134)
+    TAFEL 9 - |  Tafel 11 | 27. Februar 1924 | . | 62 | Tafel 12 | ô | ô | ô | ô | ô  | (Zeile 135)
+    TAFEL 11 (Zeile 136)
+    TAFEL 1 - DORNACH, 8. OKTOBER 1923 (Zeile 193)
+    TAFEL 3 - DORNACH, 10. OKTOBER 1923 (Zeile 225)
+    TAFEL 6 - DORANCH, 20. OKTOBER 1923 (Zeile 270)
+    TAFEL 7 - DORNACH, 24. OKTOBER 1923 (Zeile 296)
+    TAFEL 9 - DORNACH, 27. OKTOBER 1923 (Zeile 330)
+    TAFEL 14 - DORNACH, 28. NOVEMBER 1923 (Zeile 410)
+    TAFEL 16 - DORNACH, 1. DEZEMBER 1923 (Zeile 473)
+    TAFEL 17 (Zeile 492)
+    TAFEL 19 - DORNACH, 12. DEZEMBER 1923 (Zeile 531)
+    TAFEL 1 - DORNACH, 7. JANUAR 1924 (Zeile 616)
+    TAFEL 4 - DORNACH, 23. JANUAR 1924 (Zeile 662)
+    TAFEL 7 - DORNACH, 13. FEBRUAR 1924 (Zeile 730)
+    TAFEL 10 - DORNACH, 23. FEBRUAR 1924 (Zeile 790)
+
+============================================================
+GA K 58_28
+============================================================
+  Tafeln gesamt: 58
+  Mit Bild: 21
+  Ohne Bild: 37
+
+  FEHLENDE BILDER:
+    TAFEL 1 - |  Tafel 2 " " " . . . . 11 | Tafel 13 5. Mai 1924. . . . 29  | (Zeile 102)
+    TAFEL 2 - |  Tafel 3 5. Mõrz 1924. . . . 13 | Tafel 14 8. Mai 1924. . . . 31  | (Zeile 103)
+    TAFEL 3 - |  Tafel 4 8. Mõrz 1924. . . . 14 | Tafel 15 10. Mai 1924. . . . 33  | (Zeile 104)
+    TAFEL 4 - |  Tafel 5 " " " . . . . 15 | Tafel 16 14. Mai 1924. . . . 35  | (Zeile 105)
+    TAFEL 5 - |  Tafel 6 12. Mõrz 1924. . . . 17 | Tafel 17 17. Mai 1924. . . . 36  | (Zeile 106)
+    TAFEL 6 - |  Tafel 7 15. Mõrz 1924. . . . 18 | Tafel 18 " " " . . . . 37  | (Zeile 107)
+    TAFEL 7 - |  Tafel 8 " " " . . . . 19 | Tafel 19 20. Mai 1924. . . . 39  | (Zeile 108)
+    TAFEL 8 - |  Tafel 9 19. Mõrz 1924. . . . 20 | Tafel 20 4. Juni 1924. . . . 40  | (Zeile 109)
+    TAFEL 9 - |  Tafel 10 26. Mõrz 1924. . . . 23 | Tafel 22 25. Juni 1924. . . . 43  | (Zeile 110)
+    TAFEL 9 - |  Tafel 10 26. Mõrz 1924. . . . 23 | Tafel 22 25. Juni 1924. . . . 43  | (Zeile 111)
+    TAFEL 10 - |  Tafel 11 12. April 1924. . . . 25 |   | (Zeile 112)
+    TAFEL 11 (Zeile 113)
+    TAFEL 1 - |  Tafel 2 3. Juli 1924. . . . 48 | Tafel 12 9. August 1924. . . . 62  | (Zeile 122)
+    TAFEL 2 - |  Tafel 4 7. Juli 1924. . . . 51 | Tafel 14 9. September 1924. . . . 65  | (Zeile 123)
+    TAFEL 3 - |  Tafel 4 7. Juli 1924. . . . 51 | Tafel 14 9. September 1924. . . . 65  | (Zeile 124)
+    TAFEL 4 - |  Tafel 5 9. Juli 1924. . . . 52 | Tafel 15 13. September 1924. . . . 67  | (Zeile 125)
+    TAFEL 5 - |  Tafel 6 " " " . . . . 53 | Tafel 16 18. September 1924. . . . 68  | (Zeile 126)
+    TAFEL 6 - |  Tafel 7 12. Juli 1924. . . . 54 | Tafel 17 " " " . . . . 69  | (Zeile 127)
+    TAFEL 7 - |  Tafel 8 " " " . . . . 55 | Tafel 18 20. September 1924. . . . 71  | (Zeile 128)
+    TAFEL 8 - |  Tafel 9 31. Juli 1924. . . . 57 | Tafel 19 24. September 1924. . . . 73  | (Zeile 129)
+    TAFEL 9 - |  Tafel 10 2. August 1924. . . . 59 |   | (Zeile 130)
+    TAFEL 10 (Zeile 131)
+    TAFEL 1 - DORNACH, 1. M─RZ 1924 (Zeile 188)
+    TAFEL 2 - DORNACH, 1. M─RZ 1924 (Zeile 215)
+    TAFEL 3 (Zeile 229)
+    TAFEL 7 - DORNACH, 15. M─RZ 1924 (Zeile 293)
+    TAFEL 8 - (Auf der Tafel falsch datiert) DORNACH, 15. M─RZ 1924 (Zeile 318)
+    TAFEL 10 - DORNACH, 26. M─RZ 1924 (Zeile 362)
+    TAFEL 11 - DORNACH, 12. APRIL 1924 (Zeile 390)
+    TAFEL 12 - DORNACH, 26. APRIL 1924 (Zeile 415)
+    TAFEL 15 - DORNACH, 10. MAI 1924 (Zeile 466)
+    TAFEL 17 - DORNACH, 17. MAI 1924 (Zeile 506)
+    TAFEL 20 - (Auf der Tafel falsch datiert) DORNACH, 4. JUNI 1924 (Zeile 544)
+    TAFEL 2 - DORNACH, 3. JULI 1924 (Zeile 655)
+    TAFEL 9 - DORNACH, 31. JULI 1924 (Zeile 765)
+    TAFEL 11 - (Auf der Tafel falsch datiert) DORNACH, 6. AUGUST 1924 (Zeile 813)
+    TAFEL 15 - DORNACH, 13. SEPTEMBER 1924 (Zeile 869)
+
+============================================================
+GA K 58_29
+============================================================
+  Tafeln gesamt: 67
+  Mit Bild: 29
+  Ohne Bild: 38
+
+  FEHLENDE BILDER:
+    TAFEL 1 (Zeile 114)
+    TAFEL 2 (Zeile 115)
+    TAFEL 1 - |  Tafel 2 | 28. September 1921 | 19 | Tafel 11 | 5. Oktober 1921 | . 33  | (Zeile 127)
+    TAFEL 2 - |  Tafel 3 | 29. September 1921 | 20 | Tafel 12 | 6. Oktober 1921 | . 34  | (Zeile 128)
+    TAFEL 3 - |  Tafel 4 | 30. September 1921 | 22 | Tafel 14 | 7. Oktober 1921 | . 37  | (Zeile 129)
+    TAFEL 3 - |  Tafel 4 | 30. September 1921 | 22 | Tafel 14 | 7. Oktober 1921 | . 37  | (Zeile 130)
+    TAFEL 4 - |  Tafel 5 | ô | ô | 23 | Tafel 15 | 8. Oktober 1921  | (Zeile 131)
+    TAFEL 5 - |  Tafel 6 | 1. Oktober 1921 | . 24 | Tafel 16 | ô | ô  | (Zeile 132)
+    TAFEL 6 - |  Tafel 7 | ô | ô | 25 | Tafel 17 | 9. Oktober 1921  | (Zeile 133)
+    TAFEL 7 - |  Tafel 8 | 2. Oktober 1921 | . 27 | Tafel 18 | ô | ô  | (Zeile 134)
+    TAFEL 8 - |  Tafel 9 | 3. Oktober 1921 | . 28 | Tafel 19 | 10. Oktober 1921 | . 42  | (Zeile 135)
+    TAFEL 9 (Zeile 136)
+    TAFEL 10 (Zeile 137)
+    TAFEL 1 - |  Tafel 2 | 11. September 1922 | 48 | Tafel 5 | 21. September 1922 | 51  | (Zeile 149)
+    TAFEL 2 - |  Tafel 3 | 18. September 1922 | 49 |  |  |   | (Zeile 150)
+    TAFEL 3 (Zeile 151)
+    TAFEL 1 - |  Tafel 2 | 7. September 1924 | 56 | Tafel 9 | 16. September 1924 | 63  | (Zeile 163)
+    TAFEL 2 - |  Tafel 3 | 8. September 1924 | 57 | Tafel 10 | 19. September 1924 | 64  | (Zeile 164)
+    TAFEL 3 - |  Tafel 4 | 10. September 1924 | 58 | Tafel 11 | 20. September 1924 | 65  | (Zeile 165)
+    TAFEL 4 - |  Tafel 5 | 11. September 1924 | 59 | Tafel 12 | 21. September 1924 | 66  | (Zeile 166)
+    TAFEL 5 - |  Tafel 6 | 12. September 1924 | 60 | Tafel 13 | 22. September 1924 | 67  | (Zeile 167)
+    TAFEL 6 - |  Tafel 7 | 13. September 1924 | 61 |  |  |   | (Zeile 168)
+    TAFEL 7 (Zeile 169)
+    TAFEL 1 - STUTTGART, 14. JUNI 1921, VORMITTAGS UND ABENDS (Zeile 227)
+    TAFEL 3 - STUTTGART, 16. JUNI 1921 (Zeile 259)
+    TAFEL 2 - DORNACH, 28. SEPTEMBER 1921, VORMITTAGS (Zeile 317)
+    TAFEL 6 - DORNACH, 1. OKTOBER 1921, VORMITTAGS (Zeile 376)
+    TAFEL 9 - DORNACH, 3. OKTOBER 1921, VORMITTAGS (Zeile 419)
+    TAFEL 13 - DORNACH, 6. OKTOBER 1921, NACHMITTAGS (Zeile 501)
+    TAFEL 14 - DORNACH, 7. OKTOBER 1921, VORMITTAGS (Zeile 519)
+    TAFEL 18 - DORNACH, 9. OKTOBER 1921, NACHMITTAGS (Zeile 585)
+    TAFEL 19 - DORNACH, 10. OKTOBER 1921, NACHMITTAGS (Zeile 620)
+    TAFEL 1 - DORNACH, 7. SEPTEMBER 1922, NACHMITTAGS (Zeile 673)
+    TAFEL 1 (Zeile 758)
+    TAFEL 5 - DORNACH, 11. SEPTEMBER 1924 (Zeile 811)
+    TAFEL 7 - DORNACH, 13. SEPTEMBER 1924 (Zeile 838)
+    TAFEL 10 - DORNACH, 19. SEPTEMBER 1924 (Zeile 870)
+    TAFEL 11 - DORNACH, 20. SEPTEMBER 1924 (Zeile 892)
+
+============================================================
+GA K 58_30
+============================================================
+  Tafeln gesamt: 37
+  Mit Bild: 8
+  Ohne Bild: 29
+
+  FEHLENDE BILDER:
+    TAFEL 1 - Dornach, 25. Mai 1920 ^qixls5 (Zeile 116)
+    TAFEL 2 - Dornach, 25. Mai 1920 ^itjo34 (Zeile 121)
+    TAFEL 1 - Dornach, 19. Juli 1920 ^pbz6y6 (Zeile 126)
+    TAFEL 2 - Dornach, 16. August 1920 ^qkjm65 (Zeile 131)
+    TAFEL 3 - Dornach, 16. August 1920 ^sm1piz (Zeile 136)
+    TAFEL 4 - Dornach, 23. August 1920 ^kfzmkr (Zeile 141)
+    TAFEL 5 - Dornach, 6. September 1920 ^eq2mxy (Zeile 146)
+    TAFEL 5 - Dornach, 6. September 1920 ^x2lk2y (Zeile 151)
+    TAFEL 6 - Dornach, 10. Oktober 1920 ^e4zvfi (Zeile 156)
+    TAFEL 4 - Dornach, 28. Juli 1922 ^zgr19m (Zeile 161)
+    TAFEL 7 - Dornach, 21. Oktober 1920 ^8u5p92 (Zeile 168)
+    TAFEL 7 - Dornach, 21. Oktober 1920 ^v74ufe (Zeile 174)
+    TAFEL 13 - Dornach, 24. Februar 1922 ^r0ieyl (Zeile 180)
+    TAFEL 3 - Dornach, 14. April 1921 ^6cx1p1 (Zeile 190)
+    TAFEL 4 - Dornach, 17. April 1921 ^4cd3hd (Zeile 196)
+    TAFEL 17 - Dornach, 17. Mai 1924 ^lg1q3q (Zeile 202)
+    TAFEL 18 - Dornach, 17. Mai 1924 ^etborv (Zeile 208)
+    TAFEL 1 - Dornach, 20. September 1922 ^xzy8sd (Zeile 215)
+    TAFEL 2 - Dornach, 9. September 1922 ^0o785t (Zeile 219)
+    TAFEL 3 - Dornach, 9. September 1922 ^0o785t (Zeile 222)
+    TAFEL 4 (Zeile 226)
+    TAFEL 5 (Zeile 229)
+    TAFEL 1 - Dornach, 14. November 1914 ^u7jabn (Zeile 236)
+    TAFEL 2 - Dornach, 14. November 1914 ^z5nfln (Zeile 241)
+    TAFEL 4 (Zeile 321)
+    TAFEL 1 - DORNACH, 19. JULI 1920 ^9s46kw (Zeile 383)
+    TAFEL 3 - DORNACH, 18. AUGUST 1920 ^cte44o (Zeile 608)
+    TAFEL 13 - DORNACH, 24. FEBRUAR 1922 ^doma4i (Zeile 745)
+    TAFEL 1 - DORNACH, 14. NOVEMBER 1914 ^8qe7ar (Zeile 932)
+
+============================================================
+ZUSAMMENFASSUNG - FEHLENDE BILDER
+============================================================
+
+Gesamt fehlende Tafeln ohne Bild: 900
