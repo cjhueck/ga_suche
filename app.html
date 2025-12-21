@@ -3875,6 +3875,45 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
+    /* Chalkboards Sort Toggle Button */
+    #chalkboardsSortToggleBtn {
+      display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
+      min-width: 28px !important;
+      height: 28px !important;
+      padding: 4px 6px !important;
+      border: 1px solid var(--accent-color) !important;
+      background: var(--bg-color) !important;
+      color: var(--accent-color) !important;
+      cursor: pointer !important;
+      border-radius: 4px !important;
+      transition: all 0.2s !important;
+      flex-shrink: 0 !important;
+      margin-right: 0.1rem !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    
+    /* Nur wenn JavaScript den Button explizit anzeigen möchte */
+    #chalkboardsSortToggleBtn[style*="inline-flex"] {
+      display: inline-flex !important;
+    }
+    
+    #chalkboardsSortToggleBtn:hover {
+      background: var(--accent-color) !important;
+      color: white !important;
+    }
+    
+    body.dark-mode #chalkboardsSortToggleBtn {
+      border-color: var(--dark-accent-color) !important;
+      color: var(--dark-accent-color) !important;
+      background: var(--dark-bg-color) !important;
+    }
+    
+    body.dark-mode #chalkboardsSortToggleBtn:hover {
+      background: var(--dark-accent-color) !important;
+      color: white !important;
+    }
+    
     /* Grid-Positionierungen für Buttons */
     /* Zeile 1: Info | Übersicht | Mitglieder */
     /* Zeile 2: (leer) | Original | H4-toggle */
@@ -6806,6 +6845,12 @@ Bestehende Schlagwörter überschreiben
 <div id="viewer-header" data-help="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container" data-help="viewer-buttons">
+<!-- Chalkboards Sort Toggle Button (nur bei Wandtafelzeichnungen-Ansicht) -->
+<button id="chalkboardsSortToggleBtn" onclick="toggleChalkboardsSort()" title="Sortierung umschalten: GA-Nummer / Datum" style="display: none; padding: 4px 6px; min-width: 28px; height: 28px; border: 1px solid var(--accent-color); background: var(--bg-color); color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-right: 0.1rem; align-items: center; justify-content: center;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="chalkboardsSortIcon">
+<path d="M12 2L6 18h12L12 2z"/>
+</svg>
+</button>
 <!-- Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
@@ -7820,6 +7865,18 @@ function normalizeGANumber(gaNumber) {
       if (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
         currentGAView = 'volumes';
         }
+      
+      // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
+      if (isChalkboardsViewActive) {
+        isChalkboardsViewActive = false;
+        const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+        if (chalkboardsBtn) {
+          chalkboardsBtn.style.background = 'transparent';
+          chalkboardsBtn.style.color = 'var(--accent-color)';
+          chalkboardsBtn.classList.remove('active');
+        }
+        updateChalkboardsSortToggleButton();
+      }
       
       // Setze chronologischen Button zurück
       const chronBtn = document.getElementById('ga-chronological-view-btn');
@@ -8843,6 +8900,9 @@ function normalizeGANumber(gaNumber) {
     });
 
     document.addEventListener('DOMContentLoaded', function() {
+      // Stelle sicher, dass Sort-Toggle-Button beim ersten Laden ausgeblendet ist
+      initChalkboardsSortToggleButton();
+      
       // Prüfe beim ersten Laden auf URL-Parameter (falls direkt mit Hash geladen)
       const url = window.location.hash;
       if (url) {
@@ -10980,6 +11040,8 @@ function toggleChronologicalView() {
       chalkboardsBtn.style.color = 'var(--accent-color)';
       chalkboardsBtn.classList.remove('active');
     }
+    // Sort-Toggle-Button ausblenden
+    updateChalkboardsSortToggleButton();
   }
   
   // Prüfe ob irgendein Filter aktiv ist
@@ -11034,6 +11096,29 @@ function updateChronologicalButtonText() {
 
 let chalkboardsCache = null;
 let isChalkboardsViewActive = false;
+let chalkboardsSortOrder = 'ga'; // 'ga' oder 'date'
+
+// Hilfsfunktion: Zeige/Verstecke Sort-Toggle-Button basierend auf Wandtafeln-Ansicht-Status
+function updateChalkboardsSortToggleButton() {
+  const sortToggleBtn = document.getElementById('chalkboardsSortToggleBtn');
+  if (!sortToggleBtn) return;
+  
+  // Button nur anzeigen, wenn Wandtafeln-Ansicht explizit aktiviert wurde
+  if (isChalkboardsViewActive) {
+    sortToggleBtn.style.display = 'inline-flex';
+    updateChalkboardsSortIcon();
+  } else {
+    sortToggleBtn.style.display = 'none';
+  }
+}
+
+// Stelle sicher, dass Button beim ersten Laden ausgeblendet ist
+function initChalkboardsSortToggleButton() {
+  const sortToggleBtn = document.getElementById('chalkboardsSortToggleBtn');
+  if (sortToggleBtn) {
+    sortToggleBtn.style.display = 'none';
+  }
+}
 
 // Funktion: Toggle Wandtafeln-Ansicht
 async function toggleChalkboardsView() {
@@ -11051,6 +11136,8 @@ async function toggleChalkboardsView() {
       btn.style.color = 'var(--accent-color)';
       btn.classList.remove('active');
     }
+    // Sort-Toggle-Button ausblenden
+    updateChalkboardsSortToggleButton();
     // Dropdown wieder auf alle GAs zurücksetzen
     populateGABandFilterDropdown(false);
     // Zurück zur normalen Ansicht
@@ -11092,7 +11179,39 @@ async function toggleChalkboardsView() {
     // Dropdown auf nur GAs mit Tafeln filtern
     populateGABandFilterDropdown(true);
     
+    // Sort-Toggle-Button anzeigen (nur wenn Wandtafeln-Ansicht aktiv ist)
+    updateChalkboardsSortToggleButton();
+    
     await loadAndDisplayChalkboards();
+  }
+}
+
+// Funktion: Toggle Sortierung der Wandtafelzeichnungen
+function toggleChalkboardsSort() {
+  // Wechsle zwischen 'ga' und 'date'
+  chalkboardsSortOrder = chalkboardsSortOrder === 'ga' ? 'date' : 'ga';
+  
+  // Aktualisiere Icon
+  updateChalkboardsSortIcon();
+  
+  // Lade Wandtafeln neu mit neuer Sortierung
+  if (isChalkboardsViewActive) {
+    loadAndDisplayChalkboards();
+  }
+}
+
+// Funktion: Aktualisiere Sort-Icon basierend auf aktueller Sortierung
+function updateChalkboardsSortIcon() {
+  const icon = document.getElementById('chalkboardsSortIcon');
+  if (!icon) return;
+  
+  // SVG-spitzwinkliges Dreieck nach unten (GA-Sortierung) oder nach oben (Datum-Sortierung)
+  if (chalkboardsSortOrder === 'ga') {
+    // Spitzwinkliges Dreieck nach unten = Sortierung nach GA-Nummer (breitere Basis)
+    icon.innerHTML = '<path d="M12 2L6 18h12L12 2z"/>';
+  } else {
+    // Spitzwinkliges Dreieck nach oben = Sortierung nach Datum (breitere Basis)
+    icon.innerHTML = '<path d="M12 22L6 6h12L12 22z"/>';
   }
 }
 
@@ -11138,7 +11257,38 @@ async function loadAndDisplayChalkboards() {
     );
   }
   
-  console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : ''));
+  // Sortiere nach aktueller Sortierreihenfolge
+  if (chalkboardsSortOrder === 'date') {
+    // Sortiere nach Datum (Jahr), dann nach GA-Nummer, dann nach Tafelnummer
+    filteredChalkboards.sort((a, b) => {
+      if (a.date && b.date) {
+        const dateCompare = a.date.localeCompare(b.date);
+        if (dateCompare !== 0) return dateCompare;
+      } else if (a.date) return -1;
+      else if (b.date) return 1;
+      
+      const gaCompare = a.ga.localeCompare(b.ga);
+      if (gaCompare !== 0) return gaCompare;
+      
+      return (a.tafel || 0) - (b.tafel || 0);
+    });
+  } else {
+    // Sortiere nach GA-Nummer, dann nach Datum, dann nach Tafelnummer (Standard)
+    filteredChalkboards.sort((a, b) => {
+      const gaCompare = a.ga.localeCompare(b.ga);
+      if (gaCompare !== 0) return gaCompare;
+      
+      if (a.date && b.date) {
+        const dateCompare = a.date.localeCompare(b.date);
+        if (dateCompare !== 0) return dateCompare;
+      } else if (a.date) return -1;
+      else if (b.date) return 1;
+      
+      return (a.tafel || 0) - (b.tafel || 0);
+    });
+  }
+  
+  console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : '') + ' (sortiert nach ' + (chalkboardsSortOrder === 'date' ? 'Datum' : 'GA-Nummer') + ')');
   
   displayChalkboardsGallery(filteredChalkboards);
 }
@@ -11247,6 +11397,8 @@ function openLectureFromChalkboard(lectureId) {
     btn.style.color = 'var(--accent-color)';
     btn.classList.remove('active');
   }
+  // Sort-Toggle-Button ausblenden
+  updateChalkboardsSortToggleButton();
   
   // Wechsle zu Tab "Texte" und lade den Vortrag
   switchTab('texte');
@@ -11267,15 +11419,16 @@ function findLectureByGAAndDate(gaNumber, dateStr) {
   // Verwende allChronologicalLectures (globale Variable)
   if (!allChronologicalLectures || !allChronologicalLectures.length || !gaNumber || !dateStr) return null;
   
-  // Normalisiere GA-Nummer (z.B. "191" -> "GA191")
-  const normalizedGA = gaNumber.startsWith('GA') ? gaNumber : `GA${gaNumber}`;
+  // Normalisiere GA-Nummer mit normalizeGANumber (behandelt Suffixe korrekt)
+  // z.B. "073A" -> "GA073a", "GA073A" -> "GA073a"
+  const normalizedGA = normalizeGANumber(gaNumber.startsWith('GA') ? gaNumber : `GA${gaNumber}`);
   
   // Suche Vortrag mit passendem GA und Datum
   return allChronologicalLectures.find(lecture => {
     if (!lecture.ID || !lecture.date) return false;
     
-    // Lecture.ID ist z.B. "GA191/2", wir brauchen "GA191"
-    const lectureGA = lecture.ID.split('/')[0];
+    // Lecture.ID ist z.B. "GA191/2", wir brauchen "GA191" oder "GA073a/2" -> "GA073a"
+    const lectureGA = normalizeGANumber(lecture.ID.split('/')[0]);
     if (lectureGA !== normalizedGA) return false;
     
     // Vergleiche Datum (lecture.date kann verschiedene Formate haben)
@@ -14077,6 +14230,18 @@ function showGAVolumesView() {
 async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
   
+  // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
+  if (isChalkboardsViewActive) {
+    isChalkboardsViewActive = false;
+    const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+    if (chalkboardsBtn) {
+      chalkboardsBtn.style.background = 'transparent';
+      chalkboardsBtn.style.color = 'var(--accent-color)';
+      chalkboardsBtn.classList.remove('active');
+    }
+    updateChalkboardsSortToggleButton();
+  }
+  
   // WICHTIG: Prüfe ob wir im GA-Tab sind - wenn nicht, wechsle zuerst zum GA-Tab
   const gaTab = document.getElementById('ga-tab');
   const isInGATab = gaTab && gaTab.classList.contains('active');
@@ -14133,14 +14298,19 @@ async function showGAChronologicalView(skipHistory = false) {
     
     const data = await response.json();
     
-    // Speichere alle Vorträge für spätere Filterung
-    allChronologicalLectures = data.lectures;
+    // Entferne GA031 aus der Liste und speichere alle Vorträge für spätere Filterung
+    allChronologicalLectures = data.lectures.filter(lecture => {
+      if (!lecture.gaNumber) return true;
+      const normalizedGA = normalizeGANumber(lecture.gaNumber);
+      return normalizedGA !== 'GA031';
+    });
     
     // Befülle das Jahr-Filter-Dropdown
     populateYearFilterDropdown();
     
     // Filtere nach ausgewähltem GA-Band und/oder Jahr
-    let filteredLectures = data.lectures;
+    // Hinweis: GA031 wird automatisch in displayGAChronological herausgefiltert
+    let filteredLectures = allChronologicalLectures;
     
     // Filter nach GA-Band
     if (selectedGABandFilter) {
@@ -14182,6 +14352,15 @@ async function showGAChronologicalView(skipHistory = false) {
 
 // Zeige chronologisches Grid
 function displayGAChronological(lectures) {
+  // Entferne GA031 aus der chronologischen Liste
+  if (lectures && lectures.length > 0) {
+    lectures = lectures.filter(lecture => {
+      if (!lecture.gaNumber) return true;
+      const normalizedGA = normalizeGANumber(lecture.gaNumber);
+      return normalizedGA !== 'GA031';
+    });
+  }
+  
   // Prüfe ob chronologische Ansicht bereits existiert (Wrapper ersetzt viewer)
   let viewer = document.getElementById('viewer');
   let chronologicalViewerContent = document.getElementById('chronological-viewer-content');
@@ -21963,6 +22142,18 @@ setTimeout(() => {
 }
 
     function closeAndShowOriginal() {
+  // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
+  if (isChalkboardsViewActive) {
+    isChalkboardsViewActive = false;
+    const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+    if (chalkboardsBtn) {
+      chalkboardsBtn.style.background = 'transparent';
+      chalkboardsBtn.style.color = 'var(--accent-color)';
+      chalkboardsBtn.classList.remove('active');
+    }
+    updateChalkboardsSortToggleButton();
+  }
+  
   // Mitgliederbereich schließen wenn offen
   if (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) {
     closeMembersPanel();
