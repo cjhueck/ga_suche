@@ -3,20 +3,6 @@
   "count": 972,
   "chalkboards": [
     {
-      "ga": "0311",
-      "date": "1922-09-16",
-      "tafel": 1,
-      "path": "chalkboards/GA311/GA0311-1922-09-16-T01.webp",
-      "filename": "GA0311-1922-09-16-T01.webp"
-    },
-    {
-      "ga": "0311",
-      "date": "1922-09-17",
-      "tafel": 3,
-      "path": "chalkboards/GA311/GA0311-1922-09-17-T03.webp",
-      "filename": "GA0311-1922-09-17-T03.webp"
-    },
-    {
       "ga": "073A",
       "date": "1920-03-27",
       "tafel": 1,
@@ -4586,6 +4572,20 @@
       "tafel": 1,
       "path": "chalkboards/GA308/GA308-1923-04-15-T01.webp",
       "filename": "GA308-1923-04-15-T01.webp"
+    },
+    {
+      "ga": "311",
+      "date": "1922-09-16",
+      "tafel": 1,
+      "path": "chalkboards/GA311/GA311-1922-09-16-T01.webp",
+      "filename": "GA311-1922-09-16-T01.webp"
+    },
+    {
+      "ga": "311",
+      "date": "1922-09-17",
+      "tafel": 3,
+      "path": "chalkboards/GA311/GA311-1922-09-17-T03.webp",
+      "filename": "GA311-1922-09-17-T03.webp"
     },
     {
       "ga": "311",
