@@ -3875,6 +3875,23 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
+    /* Chalkboards Info Button - identisch mit gaInfoBtn */
+    #chalkboardsInfoBtn {
+      display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
+      padding: 4px !important;
+      border: none !important;
+      background: transparent !important;
+      color: var(--link-color) !important;
+      cursor: pointer !important;
+      transition: opacity 0.2s !important;
+      margin-right: 0px !important;
+    }
+    
+    #chalkboardsInfoBtn[style*="inline-flex"],
+    #chalkboardsInfoBtn[style*="inline"] {
+      display: inline-flex !important;
+    }
+    
     /* Chalkboards Sort Toggle Button */
     #chalkboardsSortToggleBtn {
       display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
@@ -6845,6 +6862,13 @@ Bestehende Schlagwörter überschreiben
 <div id="viewer-header" data-help="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container" data-help="viewer-buttons">
+<!-- Chalkboards Info Button (nur bei Wandtafelzeichnungen-Ansicht) -->
+<button id="chalkboardsInfoBtn" onclick="showChalkboardsBibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s; margin-right: 0px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+</svg>
+</button>
 <!-- Chalkboards Sort Toggle Button (nur bei Wandtafelzeichnungen-Ansicht) -->
 <button id="chalkboardsSortToggleBtn" onclick="toggleChalkboardsSort()" title="Sortierung umschalten: GA-Nummer / Datum" style="display: none; padding: 4px 6px; min-width: 28px; height: 28px; border: 1px solid var(--accent-color); background: var(--bg-color); color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-right: 0.1rem; align-items: center; justify-content: center;">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="chalkboardsSortIcon">
@@ -7866,18 +7890,22 @@ function normalizeGANumber(gaNumber) {
         currentGAView = 'volumes';
         }
       
-      // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button IMMER ausblenden bei Tab-Wechsel
+      // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
       if (isChalkboardsViewActive) {
         isChalkboardsViewActive = false;
+        selectedChalkboardsYearFilter = null; // Reset Jahresfilter
         const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
         if (chalkboardsBtn) {
           chalkboardsBtn.style.background = 'transparent';
           chalkboardsBtn.style.color = 'var(--accent-color)';
           chalkboardsBtn.classList.remove('active');
         }
+        removeChalkboardsYearButtons();
+        updateChalkboardsSortToggleButton();
+      } else {
+        // WICHTIG: Auch wenn Wandtafeln-Ansicht nicht aktiv ist, verstecke Buttons beim Tab-Wechsel
+        updateChalkboardsSortToggleButton();
       }
-      // Button IMMER ausblenden bei Tab-Wechsel (auch wenn isChalkboardsViewActive bereits false ist)
-      updateChalkboardsSortToggleButton();
       
       // Setze chronologischen Button zurück
       const chronBtn = document.getElementById('ga-chronological-view-btn');
@@ -8266,9 +8294,6 @@ function normalizeGANumber(gaNumber) {
       
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
-      
-      // Stelle sicher, dass Sort-Toggle-Button ausgeblendet ist (außer wenn wir im GA-Tab sind und Wandtafeln aktiv ist)
-      updateChalkboardsSortToggleButton();
       
       // Setze Body-Klasse für Index-Tab, Themen-Tab und Timeline-Tab (für CSS-Fallback)
       if (mode === 'schlagworte') {
@@ -8684,6 +8709,18 @@ function normalizeGANumber(gaNumber) {
             }
           }
         } else {
+        }
+        
+        // Entferne Jahres-Buttons für Wandtafelzeichnungen, wenn Wandtafeln-Ansicht nicht aktiv ist
+        if (!isChalkboardsViewActive) {
+          removeChalkboardsYearButtons();
+        } else {
+          // Wenn Wandtafeln-Ansicht aktiv ist, zeige Jahres-Buttons wieder an
+          setTimeout(() => {
+            if (isChalkboardsViewActive) {
+              createChalkboardsYearButtons();
+            }
+          }, 100);
         }
         
         // Zusätzliche verzögerte Prüfung für maximale Robustheit
@@ -9861,6 +9898,119 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
+    // Funktion: Zeige bibliographische Angaben für Wandtafelzeichnungen
+    async function showChalkboardsBibliographyInfo() {
+      // Lade bibliographische Daten
+      const bibliographyData = await loadGABibliographyData();
+      if (!bibliographyData) {
+        alert('Bibliographische Daten konnten nicht geladen werden.');
+        return;
+      }
+      
+      // Suche nach dem Eintrag "Wandtafelzeichnungen zum Vortragswerk"
+      // Suche nach Titel mit "Wandtafelzeichnungen" oder ISBN "4100" oder "3-7274-4100-3" oder "GA K"
+      let gaInfo = null;
+      let gaKey = null;
+      
+      // Zuerst prüfe, ob es einen Eintrag "GA K" gibt
+      if (bibliographyData['GA K']) {
+        gaInfo = bibliographyData['GA K'];
+        gaKey = 'GA K';
+      } else {
+        // Suche nach Titel oder ISBN
+        for (const [key, value] of Object.entries(bibliographyData)) {
+          const title = (value.title || '').toLowerCase();
+          const isbn = (value.isbn || '').replace(/-/g, '');
+          
+          if (title.includes('wandtafelzeichnungen') || 
+              title.includes('wandtafel') ||
+              isbn.includes('4100') ||
+              isbn.includes('3727404100') ||
+              key === 'GA K') {
+            gaInfo = value;
+            gaKey = key;
+            break;
+          }
+        }
+      }
+      
+      if (!gaInfo) {
+        alert('Keine bibliographischen Angaben für "Wandtafelzeichnungen zum Vortragswerk" gefunden.');
+        return;
+      }
+      
+      // Zeige Popup (genau wie bei anderen GA-Bänden)
+      const popup = document.getElementById('gaBibliographyPopup');
+      const titleEl = document.getElementById('gaBibliographyTitle');
+      const contentEl = document.getElementById('gaBibliographyContent');
+      
+      if (!popup || !titleEl || !contentEl) return;
+      
+      // Setze Titel
+      titleEl.textContent = `${gaKey} - Bibliographische Angaben`;
+      
+      // Erstelle HTML für bibliographische Angaben (kompakt, genau wie bei anderen GA-Bänden)
+      // KEIN Copyright-Hinweis für Wandtafelzeichnungen-Popup
+      let html = '<div style="font-size: 0.8em; line-height: 1.3;">';
+      
+      // Autor
+      if (gaInfo.author) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Autor:</strong> ${gaInfo.author}</div>`;
+      }
+      
+      // Titel
+      if (gaInfo.title) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Titel:</strong> ${gaInfo.title}</div>`;
+      }
+      
+      // Untertitel
+      if (gaInfo.subtitle) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Untertitel:</strong> ${gaInfo.subtitle}</div>`;
+      }
+      
+      // Titelzusätze (TitleSupplement)
+      if (gaInfo.titleSupplement) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Titelzusätze:</strong> ${gaInfo.titleSupplement}</div>`;
+      }
+      
+      // Herausgeber (Editor)
+      if (gaInfo.editor) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Herausgeber:</strong> ${gaInfo.editor}</div>`;
+      }
+      
+      // Jahr
+      if (gaInfo.year) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Jahr:</strong> ${gaInfo.year}</div>`;
+      }
+      
+      // Verlagsort
+      if (gaInfo.place) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Verlagsort:</strong> ${gaInfo.place}</div>`;
+      }
+      
+      // Auflage
+      if (gaInfo.edition) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Auflage:</strong> ${gaInfo.edition}</div>`;
+      }
+      
+      // Band Nummer
+      if (gaInfo.volume) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Band Nummern:</strong> ${gaInfo.volume}</div>`;
+      }
+      
+      // ISBN
+      if (gaInfo.isbn) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>ISBN:</strong> ${gaInfo.isbn}</div>`;
+      }
+      
+      html += '</div>';
+      
+      // KEIN Copyright-Hinweis und KEIN Trennstrich für Wandtafelzeichnungen-Popup
+      
+      contentEl.innerHTML = html;
+      popup.style.display = 'flex';
+    }
+    
     window.closeImagePopup = function() {
       const popup = document.getElementById('imagePopup');
       if (popup) {
@@ -10709,6 +10859,7 @@ let gaVolumesLoading = false; // Verhindert doppeltes Laden
 let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
 let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
 let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
+let selectedChalkboardsYearFilter = null; // Filter für Jahr-Auswahl bei Wandtafelzeichnungen
 let allChronologicalLectures = null; // Speichert alle geladenen chronologischen Vorträge
 
 // Funktion: Lade GA-Bände im Sidebar
@@ -11039,11 +11190,13 @@ function toggleChronologicalView() {
   // Deaktiviere Wandtafeln-Ansicht wenn aktiv
   if (isChalkboardsViewActive) {
     isChalkboardsViewActive = false;
+    selectedChalkboardsYearFilter = null; // Reset Jahresfilter
     if (chalkboardsBtn) {
       chalkboardsBtn.style.background = 'transparent';
       chalkboardsBtn.style.color = 'var(--accent-color)';
       chalkboardsBtn.classList.remove('active');
     }
+    removeChalkboardsYearButtons();
     // Sort-Toggle-Button ausblenden
     updateChalkboardsSortToggleButton();
   }
@@ -11102,32 +11255,177 @@ let chalkboardsCache = null;
 let isChalkboardsViewActive = false;
 let chalkboardsSortOrder = 'ga'; // 'ga' oder 'date'
 
+// Funktion: Extrahiere verfügbare Jahre aus Wandtafelzeichnungen
+function getChalkboardsYears() {
+  if (!chalkboardsData || chalkboardsData.length === 0) {
+    return [];
+  }
+  
+  const yearsSet = new Set();
+  chalkboardsData.forEach(cb => {
+    if (cb.date) {
+      const year = parseInt(cb.date.split('-')[0]);
+      if (!isNaN(year)) {
+        yearsSet.add(year);
+      }
+    }
+  });
+  
+  return Array.from(yearsSet).sort((a, b) => a - b);
+}
+
+// Funktion: Erstelle und zeige Jahres-Buttons für Wandtafelzeichnungen
+function createChalkboardsYearButtons() {
+  // Entferne alte Jahres-Buttons falls vorhanden
+  const oldContainer = document.getElementById('chalkboards-year-buttons-container');
+  if (oldContainer) {
+    oldContainer.remove();
+  }
+  
+  // Nur anzeigen wenn Wandtafeln-Ansicht aktiv ist
+  if (!isChalkboardsViewActive) {
+    return;
+  }
+  
+  const years = getChalkboardsYears();
+  if (years.length === 0) {
+    return;
+  }
+  
+  const viewer = document.getElementById('viewer');
+  if (!viewer) {
+    return;
+  }
+  
+  // Erstelle Container für Jahres-Buttons
+  const buttonsContainer = document.createElement('div');
+  buttonsContainer.id = 'chalkboards-year-buttons-container';
+  buttonsContainer.className = 'ga-year-buttons-container';
+  buttonsContainer.style.cssText = `
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-color);
+    padding: 0.8rem 1rem;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  `;
+  
+  // Erstelle Buttons für jedes Jahr
+  const buttonsHtml = years.map(year => {
+    const isActive = selectedChalkboardsYearFilter === year;
+    return `
+      <button 
+        class="ga-year-button ${isActive ? 'active' : ''}" 
+        onclick="filterChalkboardsByYear(${year})"
+        data-year="${year}"
+        style="
+          padding: 0.4rem 0.8rem;
+          border: 1px solid var(--accent-color);
+          background: ${isActive ? 'var(--accent-color)' : 'var(--bg-color)'};
+          color: ${isActive ? 'var(--bg-color)' : 'var(--accent-color)'};
+          cursor: pointer;
+          border-radius: 4px;
+          font-size: 0.85em;
+          transition: all 0.2s;
+          white-space: nowrap;
+        "
+      >${year}</button>
+    `;
+  }).join('');
+  
+  // Füge "Alle Jahre" Button hinzu
+  const allYearsButton = `
+    <button 
+      class="ga-year-button ${selectedChalkboardsYearFilter === null ? 'active' : ''}" 
+      onclick="filterChalkboardsByYear(null)"
+      style="
+        padding: 0.4rem 0.8rem;
+        border: 1px solid var(--accent-color);
+        background: ${selectedChalkboardsYearFilter === null ? 'var(--accent-color)' : 'var(--bg-color)'};
+        color: ${selectedChalkboardsYearFilter === null ? 'var(--bg-color)' : 'var(--accent-color)'};
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 0.85em;
+        transition: all 0.2s;
+        white-space: nowrap;
+        margin-right: 0.5rem;
+      "
+    >Alle Jahre</button>
+  `;
+  
+  buttonsContainer.innerHTML = allYearsButton + buttonsHtml;
+  
+  // Füge Container vor dem Viewer-Inhalt ein
+  if (viewer.firstChild) {
+    viewer.insertBefore(buttonsContainer, viewer.firstChild);
+  } else {
+    viewer.appendChild(buttonsContainer);
+  }
+}
+
+// Funktion: Filtere Wandtafelzeichnungen nach Jahr
+function filterChalkboardsByYear(year) {
+  selectedChalkboardsYearFilter = year;
+  console.log('[CHALKBOARDS] Jahr-Filter geändert zu:', year);
+  
+  // Aktualisiere die Anzeige
+  if (isChalkboardsViewActive) {
+    loadAndDisplayChalkboards();
+  }
+}
+
+// Funktion: Entferne Jahres-Buttons für Wandtafelzeichnungen
+function removeChalkboardsYearButtons() {
+  const container = document.getElementById('chalkboards-year-buttons-container');
+  if (container) {
+    container.remove();
+  }
+}
+
+// Hilfsfunktion: Zeige/Verstecke Info-Button und Sort-Toggle-Button basierend auf Wandtafeln-Ansicht-Status
+function updateChalkboardsInfoButton() {
+  const infoBtn = document.getElementById('chalkboardsInfoBtn');
+  if (!infoBtn) return;
+  
+  // Button nur anzeigen, wenn Wandtafeln-Ansicht explizit aktiviert wurde
+  if (isChalkboardsViewActive) {
+    infoBtn.style.display = 'inline-flex';
+  } else {
+    infoBtn.style.display = 'none';
+  }
+}
+
 // Hilfsfunktion: Zeige/Verstecke Sort-Toggle-Button basierend auf Wandtafeln-Ansicht-Status
 function updateChalkboardsSortToggleButton() {
   const sortToggleBtn = document.getElementById('chalkboardsSortToggleBtn');
   if (!sortToggleBtn) return;
   
-  // Prüfe zusätzlich, ob wir im GA-Tab sind
-  const gaTab = document.getElementById('ga-tab');
-  const isInGATab = gaTab && gaTab.classList.contains('active');
-  
-  // Button nur anzeigen, wenn:
-  // 1. Wandtafeln-Ansicht aktiv ist UND
-  // 2. Wir im GA-Tab sind
-  if (isChalkboardsViewActive && isInGATab) {
+  // Button nur anzeigen, wenn Wandtafeln-Ansicht explizit aktiviert wurde
+  if (isChalkboardsViewActive) {
     sortToggleBtn.style.display = 'inline-flex';
     updateChalkboardsSortIcon();
   } else {
-    // IMMER ausblenden, wenn nicht beide Bedingungen erfüllt sind
     sortToggleBtn.style.display = 'none';
   }
+  
+  // Aktualisiere auch Info-Button
+  updateChalkboardsInfoButton();
 }
 
-// Stelle sicher, dass Button beim ersten Laden ausgeblendet ist
+// Stelle sicher, dass Buttons beim ersten Laden ausgeblendet sind
 function initChalkboardsSortToggleButton() {
   const sortToggleBtn = document.getElementById('chalkboardsSortToggleBtn');
   if (sortToggleBtn) {
     sortToggleBtn.style.display = 'none';
+  }
+  const infoBtn = document.getElementById('chalkboardsInfoBtn');
+  if (infoBtn) {
+    infoBtn.style.display = 'none';
   }
 }
 
@@ -11142,11 +11440,13 @@ async function toggleChalkboardsView() {
   if (isChalkboardsViewActive && buttonIsActive) {
     // Wandtafeln-Ansicht deaktivieren (nur wenn wirklich aktiv)
     isChalkboardsViewActive = false;
+    selectedChalkboardsYearFilter = null; // Reset Jahresfilter
     if (btn) {
       btn.style.background = 'transparent';
       btn.style.color = 'var(--accent-color)';
       btn.classList.remove('active');
     }
+    removeChalkboardsYearButtons();
     // Sort-Toggle-Button ausblenden
     updateChalkboardsSortToggleButton();
     // Dropdown wieder auf alle GAs zurücksetzen
@@ -11268,6 +11568,15 @@ async function loadAndDisplayChalkboards() {
     );
   }
   
+  // Filtere nach Jahr wenn ausgewählt
+  if (selectedChalkboardsYearFilter !== null) {
+    filteredChalkboards = filteredChalkboards.filter(cb => {
+      if (!cb.date) return false;
+      const year = parseInt(cb.date.split('-')[0]);
+      return year === selectedChalkboardsYearFilter;
+    });
+  }
+  
   // Sortiere nach aktueller Sortierreihenfolge
   if (chalkboardsSortOrder === 'date') {
     // Sortiere nach Datum (Jahr), dann nach GA-Nummer, dann nach Tafelnummer
@@ -11299,7 +11608,11 @@ async function loadAndDisplayChalkboards() {
     });
   }
   
-  console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : '') + ' (sortiert nach ' + (chalkboardsSortOrder === 'date' ? 'Datum' : 'GA-Nummer') + ')');
+  const yearFilterText = selectedChalkboardsYearFilter ? ` Jahr ${selectedChalkboardsYearFilter}` : '';
+  console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : '') + (yearFilterText ? ' (gefiltert nach' + yearFilterText + ')' : '') + ' (sortiert nach ' + (chalkboardsSortOrder === 'date' ? 'Datum' : 'GA-Nummer') + ')');
+  
+  // Erstelle Jahres-Buttons
+  createChalkboardsYearButtons();
   
   displayChalkboardsGallery(filteredChalkboards);
 }
@@ -11328,7 +11641,8 @@ function displayChalkboardsGallery(chalkboards) {
   const documentTitle = document.getElementById('document-title');
   if (documentTitle) {
     const filterInfo = selectedGABandFilter ? ' aus ' + selectedGABandFilter : '';
-    documentTitle.innerHTML = `<span style="font-size: 1em;">Wandtafelzeichnungen</span> <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${chalkboards.length} Bilder${filterInfo})</span>`;
+    const yearInfo = selectedChalkboardsYearFilter ? `, Jahr ${selectedChalkboardsYearFilter}` : '';
+    documentTitle.innerHTML = `<span style="font-size: 1em;">Wandtafelzeichnungen</span> <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${chalkboards.length} Bilder${filterInfo}${yearInfo})</span>`;
   }
   
   if (!chalkboards || chalkboards.length === 0) {
@@ -11402,12 +11716,14 @@ function openLectureFromChalkboard(lectureId) {
   
   // Deaktiviere Wandtafeln-Ansicht
   isChalkboardsViewActive = false;
+  selectedChalkboardsYearFilter = null; // Reset Jahresfilter
   const btn = document.getElementById('ga-chalkboards-btn');
   if (btn) {
     btn.style.background = 'transparent';
     btn.style.color = 'var(--accent-color)';
     btn.classList.remove('active');
   }
+  removeChalkboardsYearButtons();
   // Sort-Toggle-Button ausblenden
   updateChalkboardsSortToggleButton();
   
@@ -14197,6 +14513,20 @@ if (typeof window !== 'undefined') {
 function showGAVolumesView() {
   currentGAView = 'volumes';
   
+  // Deaktiviere Wandtafeln-Ansicht und verstecke Buttons
+  if (isChalkboardsViewActive) {
+    isChalkboardsViewActive = false;
+    selectedChalkboardsYearFilter = null;
+    const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+    if (chalkboardsBtn) {
+      chalkboardsBtn.style.background = 'transparent';
+      chalkboardsBtn.style.color = 'var(--accent-color)';
+      chalkboardsBtn.classList.remove('active');
+    }
+    removeChalkboardsYearButtons();
+  }
+  updateChalkboardsSortToggleButton();
+  
   // Entferne Jahres-Buttons aus chronologischer Ansicht - MEHRFACH für maximale Robustheit
   if (typeof removeChronologicalYearButtons === 'function') {
     removeChronologicalYearButtons();
@@ -14244,12 +14574,14 @@ async function showGAChronologicalView(skipHistory = false) {
   // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
   if (isChalkboardsViewActive) {
     isChalkboardsViewActive = false;
+    selectedChalkboardsYearFilter = null; // Reset Jahresfilter
     const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
     if (chalkboardsBtn) {
       chalkboardsBtn.style.background = 'transparent';
       chalkboardsBtn.style.color = 'var(--accent-color)';
       chalkboardsBtn.classList.remove('active');
     }
+    removeChalkboardsYearButtons();
     updateChalkboardsSortToggleButton();
   }
   
@@ -22156,12 +22488,14 @@ setTimeout(() => {
   // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
   if (isChalkboardsViewActive) {
     isChalkboardsViewActive = false;
+    selectedChalkboardsYearFilter = null; // Reset Jahresfilter
     const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
     if (chalkboardsBtn) {
       chalkboardsBtn.style.background = 'transparent';
       chalkboardsBtn.style.color = 'var(--accent-color)';
       chalkboardsBtn.classList.remove('active');
     }
+    removeChalkboardsYearButtons();
     updateChalkboardsSortToggleButton();
   }
   

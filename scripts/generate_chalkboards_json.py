@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Generiert chalkboards.json aus den WebP-Dateien in Steiner_GA/chalkboards/
+Konvertiert automatisch PNG-Dateien zu WebP.
 
 Die JSON-Datei enthält für jede Tafel:
 - ga: GA-Nummer (z.B. "199", "073A")
@@ -19,6 +20,14 @@ import re
 from pathlib import Path
 from collections import defaultdict
 
+try:
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    print("WARNUNG: PIL/Pillow nicht verfügbar. PNG-Konvertierung wird übersprungen.")
+    print("Installiere mit: pip install Pillow")
+
 # Pfade
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
@@ -28,14 +37,15 @@ OUTPUT_FILE = PROJECT_DIR / "chalkboards.json"
 
 def parse_filename(filename: str) -> dict | None:
     """
-    Parst einen Dateinamen wie GA199-1920-08-06-T01.webp
+    Parst einen Dateinamen wie GA199-1920-08-06-T01.webp oder GA199-1920-08-06-T01.png
     
     Returns:
         dict mit ga, date, tafel oder None bei Fehler
     """
     # Pattern: GA + Nummer (optional mit Suffix) + Datum + Tafel-Nummer
-    # Beispiele: GA199-1920-08-06-T01.webp, GA073A-1920-03-27-T02.webp
-    pattern = r'^GA(\d+[A-Z]?)-(\d{4}-\d{2}-\d{2})-T(\d+)\.webp$'
+    # Beispiele: GA199-1920-08-06-T01.webp, GA073A-1920-03-27-T02.webp, GA084-1923-04-22-To2.png
+    # Unterstützt auch Varianten wie "To2" statt "T02"
+    pattern = r'^GA(\d+[A-Z]?)-(\d{4}-\d{2}-\d{2})-T([oO]?\d+)\.(webp|png)$'
     match = re.match(pattern, filename, re.IGNORECASE)
     
     if not match:
@@ -43,7 +53,8 @@ def parse_filename(filename: str) -> dict | None:
     
     ga = match.group(1).upper()
     date = match.group(2)
-    tafel = int(match.group(3))
+    tafel_str = match.group(3).replace('o', '0').replace('O', '0')
+    tafel = int(tafel_str)
     
     return {
         'ga': ga,
@@ -52,8 +63,48 @@ def parse_filename(filename: str) -> dict | None:
     }
 
 
+def convert_png_to_webp(png_path: Path) -> Path | None:
+    """
+    Konvertiert eine PNG-Datei zu WebP.
+    
+    Args:
+        png_path: Pfad zur PNG-Datei
+        
+    Returns:
+        Pfad zur neuen WebP-Datei oder None bei Fehler
+    """
+    if not PIL_AVAILABLE:
+        return None
+    
+    if not png_path.exists():
+        print(f"  FEHLER: Datei nicht gefunden: {png_path}")
+        return None
+    
+    try:
+        # Öffne PNG-Bild
+        img = Image.open(png_path)
+        
+        # Erstelle WebP-Dateinamen
+        webp_path = png_path.with_suffix('.webp')
+        
+        # Konvertiere zu WebP (Qualität 90 für gute Balance zwischen Größe und Qualität)
+        img.save(webp_path, 'WEBP', quality=90)
+        
+        print(f"  Konvertiert: {png_path.name} -> {webp_path.name}")
+        
+        # Lösche PNG-Datei
+        png_path.unlink()
+        print(f"  Gelöscht: {png_path.name}")
+        
+        return webp_path
+        
+    except Exception as e:
+        print(f"  FEHLER beim Konvertieren von {png_path.name}: {e}")
+        return None
+
+
 def generate_chalkboards_json():
-    """Scannt alle Tafeln und generiert die JSON-Datei."""
+    """Scannt alle Tafeln, konvertiert PNG zu WebP und generiert die JSON-Datei."""
     
     if not CHALKBOARDS_DIR.exists():
         print(f"FEHLER: Verzeichnis nicht gefunden: {CHALKBOARDS_DIR}")
@@ -62,7 +113,25 @@ def generate_chalkboards_json():
     chalkboards = []
     stats = defaultdict(int)
     
-    # Scanne alle GA-Unterordner
+    # Schritt 1: Konvertiere alle PNG-Dateien zu WebP
+    print("=== Schritt 1: Konvertiere PNG zu WebP ===")
+    png_files = list(CHALKBOARDS_DIR.rglob("*.png"))
+    
+    if png_files:
+        print(f"Gefunden: {len(png_files)} PNG-Datei(en)")
+        for png_file in sorted(png_files):
+            webp_file = convert_png_to_webp(png_file)
+            if webp_file:
+                stats['converted'] += 1
+            else:
+                stats['conversion_errors'] += 1
+    else:
+        print("Keine PNG-Dateien gefunden.")
+    
+    print()
+    
+    # Schritt 2: Scanne alle GA-Unterordner und sammle WebP-Dateien
+    print("=== Schritt 2: Generiere chalkboards.json ===")
     for ga_folder in sorted(CHALKBOARDS_DIR.iterdir()):
         if not ga_folder.is_dir():
             continue
@@ -110,8 +179,12 @@ def generate_chalkboards_json():
     print(f"Anzahl Tafeln: {stats['total']}")
     print(f"Anzahl GA-Bände: {len([k for k in stats.keys() if k.startswith('GA')])}")
     
+    if stats.get('converted', 0) > 0:
+        print(f"Konvertiert: {stats['converted']} PNG-Datei(en) zu WebP")
+    if stats.get('conversion_errors', 0) > 0:
+        print(f"Konvertierungsfehler: {stats['conversion_errors']}")
     if stats['errors'] > 0:
-        print(f"Fehler: {stats['errors']}")
+        print(f"Parsing-Fehler: {stats['errors']}")
     
     # Zeige Top 10 GA-Bände
     print(f"\nTop 10 GA-Bände nach Anzahl Tafeln:")
