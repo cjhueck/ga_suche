@@ -3892,22 +3892,18 @@ body.dark-mode #thematicSearchInfo {
       display: inline-flex !important;
     }
     
-    /* Chalkboards Sort Toggle Button */
+    /* Chalkboards Sort Toggle Button - identisch mit h4ToggleBtn */
     #chalkboardsSortToggleBtn {
-      display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
-      min-width: 28px !important;
-      height: 28px !important;
-      padding: 4px 6px !important;
+      min-width: 32px !important;
+      font-size: 0.85em !important;
       border: 1px solid var(--accent-color) !important;
-      background: var(--bg-color) !important;
+      background: transparent !important;
       color: var(--accent-color) !important;
       cursor: pointer !important;
       border-radius: 4px !important;
-      transition: all 0.2s !important;
+      transition: background 0.2s, color 0.2s !important;
+      display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
       flex-shrink: 0 !important;
-      margin-right: 0.1rem !important;
-      align-items: center !important;
-      justify-content: center !important;
     }
     
     /* Nur wenn JavaScript den Button explizit anzeigen möchte */
@@ -3923,7 +3919,6 @@ body.dark-mode #thematicSearchInfo {
     body.dark-mode #chalkboardsSortToggleBtn {
       border-color: var(--dark-accent-color) !important;
       color: var(--dark-accent-color) !important;
-      background: var(--dark-bg-color) !important;
     }
     
     body.dark-mode #chalkboardsSortToggleBtn:hover {
@@ -6870,10 +6865,8 @@ Bestehende Schlagwörter überschreiben
 </svg>
 </button>
 <!-- Chalkboards Sort Toggle Button (nur bei Wandtafelzeichnungen-Ansicht) -->
-<button id="chalkboardsSortToggleBtn" onclick="toggleChalkboardsSort()" title="Sortierung umschalten: GA-Nummer / Datum" style="display: none; padding: 4px 6px; min-width: 28px; height: 28px; border: 1px solid var(--accent-color); background: var(--bg-color); color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-right: 0.1rem; align-items: center; justify-content: center;">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="chalkboardsSortIcon">
-<path d="M12 2L6 18h12L12 2z"/>
-</svg>
+<button id="chalkboardsSortToggleBtn" onclick="toggleChalkboardsSort()" title="Sortierung umschalten: GA-Nummer / Datum" style="display: none;">
+▼
 </button>
 <!-- Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
@@ -11523,16 +11516,15 @@ function toggleChalkboardsSort() {
 
 // Funktion: Aktualisiere Sort-Icon basierend auf aktueller Sortierung
 function updateChalkboardsSortIcon() {
-  const icon = document.getElementById('chalkboardsSortIcon');
-  if (!icon) return;
+  const btn = document.getElementById('chalkboardsSortToggleBtn');
+  if (!btn) return;
   
-  // SVG-spitzwinkliges Dreieck nach unten (GA-Sortierung) oder nach oben (Datum-Sortierung)
+  // Text-Pfeil nach unten (GA-Sortierung) oder nach oben (Datum-Sortierung)
+  // Identisch mit h4ToggleBtn
   if (chalkboardsSortOrder === 'ga') {
-    // Spitzwinkliges Dreieck nach unten = Sortierung nach GA-Nummer (breitere Basis)
-    icon.innerHTML = '<path d="M12 2L6 18h12L12 2z"/>';
+    btn.textContent = '▼';
   } else {
-    // Spitzwinkliges Dreieck nach oben = Sortierung nach Datum (breitere Basis)
-    icon.innerHTML = '<path d="M12 22L6 6h12L12 22z"/>';
+    btn.textContent = '▲';
   }
 }
 
