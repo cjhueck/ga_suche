@@ -1976,33 +1976,23 @@
           
           // GA-Nummer und Vortragsdatum für Quellenangabe unter dem Zitat
           let sourceParts = [];
-          let lectureDate = null;
           
           if (quote.lectureId && quote.lectureId !== 'manual') {
             const displayId = formatLectureId(quote.lectureId);
             const paragraphIndex = quote.paragraphIndex || '';
             const targetUrl = `app.html#texte&lecture=${quote.lectureId}${paragraphIndex ? '&p=' + paragraphIndex : ''}`;
             sourceParts.push(`<a href="${targetUrl}" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
-            
-            // Lade Vortragsdatum vom Server
-            try {
-              const lectureResponse = await fetch(`${API_BASE}/api/lecture/${quote.lectureId}`);
-              if (lectureResponse.ok) {
-                const lectureData = await lectureResponse.json();
-                lectureDate = lectureData.date || lectureData.lectureDate || null;
-              }
-            } catch (e) {
-              console.warn('[QUOTES-POPUP] Konnte Vortragsdatum nicht laden:', e);
-            }
           }
           
-          // Zeige Vortragsdatum (nicht Speicherdatum)
-          if (lectureDate) {
+          // Zeige Vortragsdatum aus dem Zitat-Objekt (wie in app.html)
+          if (quote.date) {
             try {
-              const dateObj = new Date(lectureDate);
+              const dateObj = new Date(quote.date);
               const dateStr = dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
-              sourceParts.push(`<span style="font-weight: bold;">${dateStr}</span>`);
-            } catch (e) {}
+              sourceParts.push(`<span>${dateStr}</span>`);
+            } catch (e) {
+              console.warn('[QUOTES-POPUP] Fehler bei Datumsformatierung:', e);
+            }
           }
           const sourceHtml = sourceParts.length > 0 ? `<div style="text-align: right; margin-top: 1rem; font-size: 0.9rem; font-style: normal;">${sourceParts.join(', ')}</div>` : '';
           

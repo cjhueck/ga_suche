@@ -15,7 +15,7 @@
       "lectureId": "GA267/4",
       "paragraphIndex": "^p46bvi",
       "addedAt": "2025-12-08T11:41:22.237Z",
-      "isActive": true,
+      "isActive": false,
       "isUsed": true,
       "usedSince": "2025-12-14T13:26:47.776Z",
       "displayedSince": "2025-12-14T13:27:11.651Z"
@@ -30,12 +30,13 @@
     },
     {
       "id": "1765615908235",
-      "text": "**Das höhere Selbst**\n\nStrahlender als die Sonne,<br>Reiner als der Schnee,<br>Feiner als der Äther<br>Ist das Selbst,<br>Der Geist in meinem Herzen.<br>Dies Selbst bin ich,<br>Ich bin dies Selbst. \n\nDer Äther ist der feinste Stoff. Aber aller Stoff ist noch dicht im Verhältnis zum Seelischen. Nicht das Dichte ist das Bleibende, sondern das «Feine». Der Stein, an den man denkt als Stoff, vergeht als Stoff. Aber der Gedanke an den Stein, der in der Seele lebt, bleibt. Gott hat diesen Gedanken gedacht. Und er hat daraus den dichten Stein gemacht. Wie das Eis nur verdichtetes Wasser ist, so ist der Stein nur ein verdichteter Gedanke Gottes. Alle Dinge sind solche verdichtete Gedanken Gottes. «Das höhere Selbst» aber löst alle Dinge auf, und in ihm leben dann die Gottesgedanken. Und wenn von solchen Gottesgedanken das Selbst gewoben ist, dann ist es «feiner als der Äther».",
+      "text": "**Das höhere Selbst**\n\nStrahlender als die Sonne,<br>Reiner als der Schnee,<br>Feiner als der Äther<br>Ist das Selbst,<br>Der Geist in meinem Herzen.<br>Dies Selbst bin ich,<br>Ich bin dies Selbst. \n\nDer Äther ist der feinste Stoff. Aber aller Stoff ist noch dicht im Verhältnis zum Seelischen. Nicht das Dichte ist das Bleibende, sondern das «Feine». Der Stein, an den man denkt als Stoff, vergeht als Stoff. Aber der Gedanke an den Stein, der in der Seele lebt, bleibt. Gott hat diesen Gedanken gedacht. Und er hat daraus den dichten Stein gemacht. Wie das Eis nur verdichtetes Wasser ist, so ist der Stein nur ein verdichteter Gedanke Gottes. Alle Dinge sind solche verdichtete Gedanken Gottes. «Das höhere Selbst» aber löst alle Dinge auf, und in ihm leben dann die Gottesgedanken. Und wenn von solchen Gottesgedanken das Selbst gewoben ist, dann ist es «feiner als der Äther».\n\nAus: Anweisungen für eine esoterische Schulung",
       "lectureId": "GA245/11",
       "paragraphIndex": "^zohy3x",
       "addedAt": "2025-12-13T08:51:48.235Z",
-      "isActive": false,
-      "date": "1905-10-24"
+      "isActive": true,
+      "date": "1905-10-24",
+      "displayedSince": "2025-12-22T22:35:39.503Z"
     },
     {
       "id": "1765670571255",
