@@ -7890,22 +7890,17 @@ function normalizeGANumber(gaNumber) {
         currentGAView = 'volumes';
         }
       
-      // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
-      if (isChalkboardsViewActive) {
-        isChalkboardsViewActive = false;
-        selectedChalkboardsYearFilter = null; // Reset Jahresfilter
-        const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
-        if (chalkboardsBtn) {
-          chalkboardsBtn.style.background = 'transparent';
-          chalkboardsBtn.style.color = 'var(--accent-color)';
-          chalkboardsBtn.classList.remove('active');
-        }
-        removeChalkboardsYearButtons();
-        updateChalkboardsSortToggleButton();
-      } else {
-        // WICHTIG: Auch wenn Wandtafeln-Ansicht nicht aktiv ist, verstecke Buttons beim Tab-Wechsel
-        updateChalkboardsSortToggleButton();
+      // Chalkboards-Ansicht deaktivieren und Buttons IMMER ausblenden beim Tab-Wechsel
+      isChalkboardsViewActive = false;
+      selectedChalkboardsYearFilter = null; // Reset Jahresfilter
+      const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+      if (chalkboardsBtn) {
+        chalkboardsBtn.style.background = 'transparent';
+        chalkboardsBtn.style.color = 'var(--accent-color)';
+        chalkboardsBtn.classList.remove('active');
       }
+      removeChalkboardsYearButtons();
+      hideChalkboardsButtons(); // WICHTIG: Buttons IMMER verstecken beim Tab-Wechsel
       
       // Setze chronologischen Button zurück
       const chronBtn = document.getElementById('ga-chronological-view-btn');
@@ -11197,8 +11192,7 @@ function toggleChronologicalView() {
       chalkboardsBtn.classList.remove('active');
     }
     removeChalkboardsYearButtons();
-    // Sort-Toggle-Button ausblenden
-    updateChalkboardsSortToggleButton();
+    hideChalkboardsButtons(); // Buttons verstecken
   }
   
   // Prüfe ob irgendein Filter aktiv ist
@@ -11387,6 +11381,23 @@ function removeChalkboardsYearButtons() {
   }
 }
 
+// EINFACHE Hilfsfunktion: Verstecke BEIDE Wandtafeln-Buttons (Info und Sort)
+function hideChalkboardsButtons() {
+  const infoBtn = document.getElementById('chalkboardsInfoBtn');
+  const sortBtn = document.getElementById('chalkboardsSortToggleBtn');
+  if (infoBtn) infoBtn.style.display = 'none';
+  if (sortBtn) sortBtn.style.display = 'none';
+}
+
+// EINFACHE Hilfsfunktion: Zeige BEIDE Wandtafeln-Buttons (Info und Sort)
+function showChalkboardsButtons() {
+  const infoBtn = document.getElementById('chalkboardsInfoBtn');
+  const sortBtn = document.getElementById('chalkboardsSortToggleBtn');
+  if (infoBtn) infoBtn.style.display = 'inline-flex';
+  if (sortBtn) sortBtn.style.display = 'inline-flex';
+  updateChalkboardsSortIcon();
+}
+
 // Hilfsfunktion: Zeige/Verstecke Info-Button und Sort-Toggle-Button basierend auf Wandtafeln-Ansicht-Status
 function updateChalkboardsInfoButton() {
   const infoBtn = document.getElementById('chalkboardsInfoBtn');
@@ -11447,8 +11458,7 @@ async function toggleChalkboardsView() {
       btn.classList.remove('active');
     }
     removeChalkboardsYearButtons();
-    // Sort-Toggle-Button ausblenden
-    updateChalkboardsSortToggleButton();
+    hideChalkboardsButtons(); // Buttons verstecken
     // Dropdown wieder auf alle GAs zurücksetzen
     populateGABandFilterDropdown(false);
     // Zurück zur normalen Ansicht
@@ -11490,8 +11500,8 @@ async function toggleChalkboardsView() {
     // Dropdown auf nur GAs mit Tafeln filtern
     populateGABandFilterDropdown(true);
     
-    // Sort-Toggle-Button anzeigen (nur wenn Wandtafeln-Ansicht aktiv ist)
-    updateChalkboardsSortToggleButton();
+    // Buttons anzeigen (Info und Sort)
+    showChalkboardsButtons();
     
     await loadAndDisplayChalkboards();
   }
@@ -11724,8 +11734,7 @@ function openLectureFromChalkboard(lectureId) {
     btn.classList.remove('active');
   }
   removeChalkboardsYearButtons();
-  // Sort-Toggle-Button ausblenden
-  updateChalkboardsSortToggleButton();
+  hideChalkboardsButtons(); // Buttons verstecken
   
   // Wechsle zu Tab "Texte" und lade den Vortrag
   switchTab('texte');
@@ -14513,20 +14522,6 @@ if (typeof window !== 'undefined') {
 function showGAVolumesView() {
   currentGAView = 'volumes';
   
-  // Deaktiviere Wandtafeln-Ansicht und verstecke Buttons
-  if (isChalkboardsViewActive) {
-    isChalkboardsViewActive = false;
-    selectedChalkboardsYearFilter = null;
-    const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
-    if (chalkboardsBtn) {
-      chalkboardsBtn.style.background = 'transparent';
-      chalkboardsBtn.style.color = 'var(--accent-color)';
-      chalkboardsBtn.classList.remove('active');
-    }
-    removeChalkboardsYearButtons();
-  }
-  updateChalkboardsSortToggleButton();
-  
   // Entferne Jahres-Buttons aus chronologischer Ansicht - MEHRFACH für maximale Robustheit
   if (typeof removeChronologicalYearButtons === 'function') {
     removeChronologicalYearButtons();
@@ -14571,7 +14566,7 @@ function showGAVolumesView() {
 async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
   
-  // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
+  // Chalkboards-Ansicht deaktivieren und Buttons ausblenden
   if (isChalkboardsViewActive) {
     isChalkboardsViewActive = false;
     selectedChalkboardsYearFilter = null; // Reset Jahresfilter
@@ -14582,7 +14577,7 @@ async function showGAChronologicalView(skipHistory = false) {
       chalkboardsBtn.classList.remove('active');
     }
     removeChalkboardsYearButtons();
-    updateChalkboardsSortToggleButton();
+    hideChalkboardsButtons(); // Buttons verstecken
   }
   
   // WICHTIG: Prüfe ob wir im GA-Tab sind - wenn nicht, wechsle zuerst zum GA-Tab
@@ -22485,7 +22480,7 @@ setTimeout(() => {
 }
 
     function closeAndShowOriginal() {
-  // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
+  // Chalkboards-Ansicht deaktivieren und Buttons ausblenden
   if (isChalkboardsViewActive) {
     isChalkboardsViewActive = false;
     selectedChalkboardsYearFilter = null; // Reset Jahresfilter
@@ -22496,7 +22491,7 @@ setTimeout(() => {
       chalkboardsBtn.classList.remove('active');
     }
     removeChalkboardsYearButtons();
-    updateChalkboardsSortToggleButton();
+    hideChalkboardsButtons(); // Buttons verstecken
   }
   
   // Mitgliederbereich schließen wenn offen
@@ -23942,20 +23937,6 @@ function formatAsteriskParagraphs() {
       chronologicalNav.remove();
       }
   }
-  
-  // WICHTIG: Deaktiviere Wandtafeln-Ansicht und verstecke Buttons beim Anzeigen eines Vortrags
-  if (isChalkboardsViewActive) {
-    isChalkboardsViewActive = false;
-    selectedChalkboardsYearFilter = null;
-    const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
-    if (chalkboardsBtn) {
-      chalkboardsBtn.style.background = 'transparent';
-      chalkboardsBtn.style.color = 'var(--accent-color)';
-      chalkboardsBtn.classList.remove('active');
-    }
-    removeChalkboardsYearButtons();
-  }
-  updateChalkboardsSortToggleButton();
   
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
@@ -32959,6 +32940,30 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
 // Update switchTab function to load stats when timeline tab is opened
 const originalSwitchTab = window.switchTab;
 window.switchTab = function(tabName) {
+  // WICHTIG: Wandtafeln-Buttons IMMER verstecken beim Tab-Wechsel (außer wenn zum GA-Tab gewechselt wird UND Wandtafeln aktiv sind)
+  if (tabName !== 'ga' || !isChalkboardsViewActive) {
+    // Buttons verstecken
+    const chalkboardsInfoBtn = document.getElementById('chalkboardsInfoBtn');
+    const chalkboardsSortBtn = document.getElementById('chalkboardsSortToggleBtn');
+    if (chalkboardsInfoBtn) chalkboardsInfoBtn.style.display = 'none';
+    if (chalkboardsSortBtn) chalkboardsSortBtn.style.display = 'none';
+    
+    // Bei Tab-Wechsel weg vom GA-Tab: Wandtafeln-Ansicht deaktivieren
+    if (tabName !== 'ga' && typeof isChalkboardsViewActive !== 'undefined' && isChalkboardsViewActive) {
+      isChalkboardsViewActive = false;
+      selectedChalkboardsYearFilter = null;
+      const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+      if (chalkboardsBtn) {
+        chalkboardsBtn.style.background = 'transparent';
+        chalkboardsBtn.style.color = 'var(--accent-color)';
+        chalkboardsBtn.classList.remove('active');
+      }
+      if (typeof removeChalkboardsYearButtons === 'function') {
+        removeChalkboardsYearButtons();
+      }
+    }
+  }
+  
   // Schließe Mitglieder-Panel beim Wechsel zu einem anderen Tab (Suche, GA, Themen, Timeline, Index)
   const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
   if (isMembersPanelOpen && typeof closeMembersPanel === 'function') {
