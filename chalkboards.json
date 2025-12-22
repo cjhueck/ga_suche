@@ -1,6 +1,6 @@
 {
   "generated": "generate_chalkboards_json.py",
-  "count": 952,
+  "count": 1006,
   "chalkboards": [
     {
       "ga": "073A",
@@ -207,6 +207,20 @@
     },
     {
       "ga": "191",
+      "date": "1919-10-17",
+      "tafel": 1,
+      "path": "chalkboards/GA191/GA191-1919-10-17-T01.webp",
+      "filename": "GA191-1919-10-17-T01.webp"
+    },
+    {
+      "ga": "191",
+      "date": "1919-10-17",
+      "tafel": 2,
+      "path": "chalkboards/GA191/GA191-1919-10-17-T02.webp",
+      "filename": "GA191-1919-10-17-T02.webp"
+    },
+    {
+      "ga": "191",
       "date": "1919-10-18",
       "tafel": 1,
       "path": "chalkboards/GA191/GA191-1919-10-18-T01.webp",
@@ -239,6 +253,13 @@
       "tafel": 1,
       "path": "chalkboards/GA191/GA191-1919-11-02-T01.webp",
       "filename": "GA191-1919-11-02-T01.webp"
+    },
+    {
+      "ga": "191",
+      "date": "1919-11-02",
+      "tafel": 2,
+      "path": "chalkboards/GA191/GA191-1919-11-02-T02.webp",
+      "filename": "GA191-1919-11-02-T02.webp"
     },
     {
       "ga": "191",
@@ -445,6 +466,13 @@
     },
     {
       "ga": "196",
+      "date": "1920-01-30",
+      "tafel": 1,
+      "path": "chalkboards/GA196/GA196-1920-01-30-T01.webp",
+      "filename": "GA196-1920-01-30-T01.webp"
+    },
+    {
+      "ga": "196",
       "date": "1920-01-31",
       "tafel": 1,
       "path": "chalkboards/GA196/GA196-1920-01-31-T01.webp",
@@ -473,10 +501,45 @@
     },
     {
       "ga": "196",
+      "date": "1920-02-14",
+      "tafel": 1,
+      "path": "chalkboards/GA196/GA196-1920-02-14-T01.webp",
+      "filename": "GA196-1920-02-14-T01.webp"
+    },
+    {
+      "ga": "196",
+      "date": "1920-02-14",
+      "tafel": 2,
+      "path": "chalkboards/GA196/GA196-1920-02-14-T02.webp",
+      "filename": "GA196-1920-02-14-T02.webp"
+    },
+    {
+      "ga": "196",
+      "date": "1920-02-15",
+      "tafel": 1,
+      "path": "chalkboards/GA196/GA196-1920-02-15-T01.webp",
+      "filename": "GA196-1920-02-15-T01.webp"
+    },
+    {
+      "ga": "196",
+      "date": "1920-02-15",
+      "tafel": 2,
+      "path": "chalkboards/GA196/GA196-1920-02-15-T02.webp",
+      "filename": "GA196-1920-02-15-T02.webp"
+    },
+    {
+      "ga": "196",
       "date": "1920-02-20",
       "tafel": 1,
       "path": "chalkboards/GA196/GA196-1920-02-20-T01.webp",
       "filename": "GA196-1920-02-20-T01.webp"
+    },
+    {
+      "ga": "196",
+      "date": "1920-02-21",
+      "tafel": 1,
+      "path": "chalkboards/GA196/GA196-1920-02-21-T01.webp",
+      "filename": "GA196-1920-02-21-T01.webp"
     },
     {
       "ga": "196",
@@ -501,6 +564,27 @@
     },
     {
       "ga": "198",
+      "date": "1920-03-21",
+      "tafel": 2,
+      "path": "chalkboards/GA198/GA198-1920-03-21-T02.webp",
+      "filename": "GA198-1920-03-21-T02.webp"
+    },
+    {
+      "ga": "198",
+      "date": "1920-03-28",
+      "tafel": 1,
+      "path": "chalkboards/GA198/GA198-1920-03-28-T01.webp",
+      "filename": "GA198-1920-03-28-T01.webp"
+    },
+    {
+      "ga": "198",
+      "date": "1920-03-28",
+      "tafel": 2,
+      "path": "chalkboards/GA198/GA198-1920-03-28-T02.webp",
+      "filename": "GA198-1920-03-28-T02.webp"
+    },
+    {
+      "ga": "198",
       "date": "1920-06-03",
       "tafel": 1,
       "path": "chalkboards/GA198/GA198-1920-06-03-T01.webp",
@@ -512,6 +596,20 @@
       "tafel": 1,
       "path": "chalkboards/GA198/GA198-1920-06-08-T01.webp",
       "filename": "GA198-1920-06-08-T01.webp"
+    },
+    {
+      "ga": "198",
+      "date": "1920-07-02",
+      "tafel": 1,
+      "path": "chalkboards/GA198/GA198-1920-07-02-T01.webp",
+      "filename": "GA198-1920-07-02-T01.webp"
+    },
+    {
+      "ga": "198",
+      "date": "1920-07-02",
+      "tafel": 2,
+      "path": "chalkboards/GA198/GA198-1920-07-02-T02.webp",
+      "filename": "GA198-1920-07-02-T02.webp"
     },
     {
       "ga": "198",
@@ -592,6 +690,13 @@
     },
     {
       "ga": "199",
+      "date": "1920-08-08",
+      "tafel": 2,
+      "path": "chalkboards/GA199/GA199-1920-08-08-T02.webp",
+      "filename": "GA199-1920-08-08-T02.webp"
+    },
+    {
+      "ga": "199",
       "date": "1920-08-14",
       "tafel": 1,
       "path": "chalkboards/GA199/GA199-1920-08-14-T01.webp",
@@ -634,13 +739,6 @@
     },
     {
       "ga": "199",
-      "date": "1920-08-21",
-      "tafel": 3,
-      "path": "chalkboards/GA199/GA199-1920-08-21-T03.webp",
-      "filename": "GA199-1920-08-21-T03.webp"
-    },
-    {
-      "ga": "199",
       "date": "1920-08-22",
       "tafel": 1,
       "path": "chalkboards/GA199/GA199-1920-08-22-T01.webp",
@@ -659,6 +757,13 @@
       "tafel": 1,
       "path": "chalkboards/GA199/GA199-1920-08-27-T01.webp",
       "filename": "GA199-1920-08-27-T01.webp"
+    },
+    {
+      "ga": "199",
+      "date": "1920-08-27",
+      "tafel": 2,
+      "path": "chalkboards/GA199/GA199-1920-08-27-T02.webp",
+      "filename": "GA199-1920-08-27-T02.webp"
     },
     {
       "ga": "199",
@@ -718,6 +823,13 @@
     },
     {
       "ga": "199",
+      "date": "1920-09-05",
+      "tafel": 1,
+      "path": "chalkboards/GA199/GA199-1920-09-05-T01.webp",
+      "filename": "GA199-1920-09-05-T01.webp"
+    },
+    {
+      "ga": "199",
       "date": "1920-09-10",
       "tafel": 1,
       "path": "chalkboards/GA199/GA199-1920-09-10-T01.webp",
@@ -736,6 +848,13 @@
       "tafel": 1,
       "path": "chalkboards/GA200/GA200-1920-10-17-T01.webp",
       "filename": "GA200-1920-10-17-T01.webp"
+    },
+    {
+      "ga": "200",
+      "date": "1920-10-17",
+      "tafel": 2,
+      "path": "chalkboards/GA200/GA200-1920-10-17-T02.webp",
+      "filename": "GA200-1920-10-17-T02.webp"
     },
     {
       "ga": "200",
@@ -761,13 +880,6 @@
     {
       "ga": "200",
       "date": "1920-10-29",
-      "tafel": 1,
-      "path": "chalkboards/GA200/GA200-1920-10-29-T01.webp",
-      "filename": "GA200-1920-10-29-T01.webp"
-    },
-    {
-      "ga": "200",
-      "date": "1920-10-29",
       "tafel": 2,
       "path": "chalkboards/GA200/GA200-1920-10-29-T02.webp",
       "filename": "GA200-1920-10-29-T02.webp"
@@ -778,13 +890,6 @@
       "tafel": 1,
       "path": "chalkboards/GA200/GA200-1920-10-31-T01.webp",
       "filename": "GA200-1920-10-31-T01.webp"
-    },
-    {
-      "ga": "200",
-      "date": "1920-10-31",
-      "tafel": 2,
-      "path": "chalkboards/GA200/GA200-1920-10-31-T02.webp",
-      "filename": "GA200-1920-10-31-T02.webp"
     },
     {
       "ga": "201",
@@ -858,6 +963,13 @@
     },
     {
       "ga": "201",
+      "date": "1920-04-18",
+      "tafel": 2,
+      "path": "chalkboards/GA201/GA201-1920-04-18-T02.webp",
+      "filename": "GA201-1920-04-18-T02.webp"
+    },
+    {
+      "ga": "201",
       "date": "1920-04-23",
       "tafel": 1,
       "path": "chalkboards/GA201/GA201-1920-04-23-T01.webp",
@@ -876,6 +988,13 @@
       "tafel": 1,
       "path": "chalkboards/GA201/GA201-1920-04-24-T01.webp",
       "filename": "GA201-1920-04-24-T01.webp"
+    },
+    {
+      "ga": "201",
+      "date": "1920-04-24",
+      "tafel": 2,
+      "path": "chalkboards/GA201/GA201-1920-04-24-T02.webp",
+      "filename": "GA201-1920-04-24-T02.webp"
     },
     {
       "ga": "201",
@@ -956,6 +1075,20 @@
     },
     {
       "ga": "201",
+      "date": "1920-05-15",
+      "tafel": 1,
+      "path": "chalkboards/GA201/GA201-1920-05-15-T01.webp",
+      "filename": "GA201-1920-05-15-T01.webp"
+    },
+    {
+      "ga": "201",
+      "date": "1920-05-15",
+      "tafel": 2,
+      "path": "chalkboards/GA201/GA201-1920-05-15-T02.webp",
+      "filename": "GA201-1920-05-15-T02.webp"
+    },
+    {
+      "ga": "201",
       "date": "1920-05-16",
       "tafel": 1,
       "path": "chalkboards/GA201/GA201-1920-05-16-T01.webp",
@@ -977,10 +1110,24 @@
     },
     {
       "ga": "202",
+      "date": "1920-11-26",
+      "tafel": 2,
+      "path": "chalkboards/GA202/GA202-1920-11-26-T02.webp",
+      "filename": "GA202-1920-11-26-T02.webp"
+    },
+    {
+      "ga": "202",
       "date": "1920-11-27",
       "tafel": 1,
       "path": "chalkboards/GA202/GA202-1920-11-27-T01.webp",
       "filename": "GA202-1920-11-27-T01.webp"
+    },
+    {
+      "ga": "202",
+      "date": "1920-11-27",
+      "tafel": 2,
+      "path": "chalkboards/GA202/GA202-1920-11-27-T02.webp",
+      "filename": "GA202-1920-11-27-T02.webp"
     },
     {
       "ga": "202",
@@ -1061,6 +1208,13 @@
     },
     {
       "ga": "202",
+      "date": "1920-12-17",
+      "tafel": 2,
+      "path": "chalkboards/GA202/GA202-1920-12-17-T02.webp",
+      "filename": "GA202-1920-12-17-T02.webp"
+    },
+    {
+      "ga": "202",
       "date": "1920-12-18",
       "tafel": 1,
       "path": "chalkboards/GA202/GA202-1920-12-18-T01.webp",
@@ -1076,9 +1230,9 @@
     {
       "ga": "202",
       "date": "1920-12-19",
-      "tafel": 3,
-      "path": "chalkboards/GA202/GA202-1920-12-19-T03.webp",
-      "filename": "GA202-1920-12-19-T03.webp"
+      "tafel": 2,
+      "path": "chalkboards/GA202/GA202-1920-12-19-T02.webp",
+      "filename": "GA202-1920-12-19-T02.webp"
     },
     {
       "ga": "202",
@@ -1102,13 +1256,6 @@
       "filename": "GA202-1920-12-26-T01.webp"
     },
     {
-      "ga": "202",
-      "date": "1920-12-26",
-      "tafel": 2,
-      "path": "chalkboards/GA202/GA202-1920-12-26-T02.webp",
-      "filename": "GA202-1920-12-26-T02.webp"
-    },
-    {
       "ga": "203",
       "date": "1921-01-21",
       "tafel": 1,
@@ -1117,38 +1264,38 @@
     },
     {
       "ga": "203",
-      "date": "1921-01-30",
+      "date": "1921-01-21",
       "tafel": 2,
-      "path": "chalkboards/GA203/GA203-1921-01-30-T02.webp",
-      "filename": "GA203-1921-01-30-T02.webp"
+      "path": "chalkboards/GA203/GA203-1921-01-21-T02.webp",
+      "filename": "GA203-1921-01-21-T02.webp"
     },
     {
       "ga": "203",
-      "date": "1921-03-11",
-      "tafel": 4,
-      "path": "chalkboards/GA203/GA203-1921-03-11-T04.webp",
-      "filename": "GA203-1921-03-11-T04.webp"
-    },
-    {
-      "ga": "203",
-      "date": "1921-03-11",
-      "tafel": 6,
-      "path": "chalkboards/GA203/GA203-1921-03-11-T06.webp",
-      "filename": "GA203-1921-03-11-T06.webp"
-    },
-    {
-      "ga": "203",
-      "date": "1921-04-01",
+      "date": "1921-01-30",
       "tafel": 1,
-      "path": "chalkboards/GA203/GA203-1921-04-01-T01.webp",
-      "filename": "GA203-1921-04-01-T01.webp"
+      "path": "chalkboards/GA203/GA203-1921-01-30-T01.webp",
+      "filename": "GA203-1921-01-30-T01.webp"
     },
     {
       "ga": "203",
-      "date": "1921-04-01",
-      "tafel": 3,
-      "path": "chalkboards/GA203/GA203-1921-04-01-T03.webp",
-      "filename": "GA203-1921-04-01-T03.webp"
+      "date": "1921-03-11",
+      "tafel": 1,
+      "path": "chalkboards/GA203/GA203-1921-03-11-T01.webp",
+      "filename": "GA203-1921-03-11-T01.webp"
+    },
+    {
+      "ga": "203",
+      "date": "1921-03-11",
+      "tafel": 2,
+      "path": "chalkboards/GA203/GA203-1921-03-11-T02.webp",
+      "filename": "GA203-1921-03-11-T02.webp"
+    },
+    {
+      "ga": "203",
+      "date": "1921-03-13",
+      "tafel": 1,
+      "path": "chalkboards/GA203/GA203-1921-03-13-T01.webp",
+      "filename": "GA203-1921-03-13-T01.webp"
     },
     {
       "ga": "203",
@@ -1271,6 +1418,13 @@
     },
     {
       "ga": "205",
+      "date": "1921-06-26",
+      "tafel": 2,
+      "path": "chalkboards/GA205/GA205-1921-06-26-T02.webp",
+      "filename": "GA205-1921-06-26-T02.webp"
+    },
+    {
+      "ga": "205",
       "date": "1921-07-01",
       "tafel": 1,
       "path": "chalkboards/GA205/GA205-1921-07-01-T01.webp",
@@ -1303,6 +1457,13 @@
       "tafel": 1,
       "path": "chalkboards/GA205/GA205-1921-07-03-T01.webp",
       "filename": "GA205-1921-07-03-T01.webp"
+    },
+    {
+      "ga": "205",
+      "date": "1921-07-03",
+      "tafel": 2,
+      "path": "chalkboards/GA205/GA205-1921-07-03-T02.webp",
+      "filename": "GA205-1921-07-03-T02.webp"
     },
     {
       "ga": "205",
@@ -1348,17 +1509,17 @@
     },
     {
       "ga": "205",
-      "date": "1921-07-10",
-      "tafel": 3,
-      "path": "chalkboards/GA205/GA205-1921-07-10-T03.webp",
-      "filename": "GA205-1921-07-10-T03.webp"
-    },
-    {
-      "ga": "205",
       "date": "1921-07-15",
       "tafel": 1,
       "path": "chalkboards/GA205/GA205-1921-07-15-T01.webp",
       "filename": "GA205-1921-07-15-T01.webp"
+    },
+    {
+      "ga": "205",
+      "date": "1921-07-15",
+      "tafel": 2,
+      "path": "chalkboards/GA205/GA205-1921-07-15-T02.webp",
+      "filename": "GA205-1921-07-15-T02.webp"
     },
     {
       "ga": "205",
@@ -1380,6 +1541,13 @@
       "tafel": 1,
       "path": "chalkboards/GA205/GA205-1921-07-17-T01.webp",
       "filename": "GA205-1921-07-17-T01.webp"
+    },
+    {
+      "ga": "205",
+      "date": "1921-07-17",
+      "tafel": 2,
+      "path": "chalkboards/GA205/GA205-1921-07-17-T02.webp",
+      "filename": "GA205-1921-07-17-T02.webp"
     },
     {
       "ga": "206",
@@ -1446,6 +1614,13 @@
     },
     {
       "ga": "206",
+      "date": "1921-08-12",
+      "tafel": 2,
+      "path": "chalkboards/GA206/GA206-1921-08-12-T02.webp",
+      "filename": "GA206-1921-08-12-T02.webp"
+    },
+    {
+      "ga": "206",
       "date": "1921-08-13",
       "tafel": 1,
       "path": "chalkboards/GA206/GA206-1921-08-13-T01.webp",
@@ -1492,6 +1667,13 @@
       "tafel": 1,
       "path": "chalkboards/GA207/GA207-1921-09-23-T01.webp",
       "filename": "GA207-1921-09-23-T01.webp"
+    },
+    {
+      "ga": "207",
+      "date": "1921-09-23",
+      "tafel": 2,
+      "path": "chalkboards/GA207/GA207-1921-09-23-T02.webp",
+      "filename": "GA207-1921-09-23-T02.webp"
     },
     {
       "ga": "207",
@@ -1586,6 +1768,13 @@
     },
     {
       "ga": "207",
+      "date": "1921-10-09",
+      "tafel": 2,
+      "path": "chalkboards/GA207/GA207-1921-10-09-T02.webp",
+      "filename": "GA207-1921-10-09-T02.webp"
+    },
+    {
+      "ga": "207",
       "date": "1921-10-14",
       "tafel": 1,
       "path": "chalkboards/GA207/GA207-1921-10-14-T01.webp",
@@ -1597,6 +1786,13 @@
       "tafel": 1,
       "path": "chalkboards/GA207/GA207-1921-10-15-T01.webp",
       "filename": "GA207-1921-10-15-T01.webp"
+    },
+    {
+      "ga": "207",
+      "date": "1921-10-15",
+      "tafel": 2,
+      "path": "chalkboards/GA207/GA207-1921-10-15-T02.webp",
+      "filename": "GA207-1921-10-15-T02.webp"
     },
     {
       "ga": "207",
@@ -1628,10 +1824,24 @@
     },
     {
       "ga": "208",
+      "date": "1921-10-22",
+      "tafel": 2,
+      "path": "chalkboards/GA208/GA208-1921-10-22-T02.webp",
+      "filename": "GA208-1921-10-22-T02.webp"
+    },
+    {
+      "ga": "208",
       "date": "1921-10-28",
       "tafel": 1,
       "path": "chalkboards/GA208/GA208-1921-10-28-T01.webp",
       "filename": "GA208-1921-10-28-T01.webp"
+    },
+    {
+      "ga": "208",
+      "date": "1921-10-28",
+      "tafel": 2,
+      "path": "chalkboards/GA208/GA208-1921-10-28-T02.webp",
+      "filename": "GA208-1921-10-28-T02.webp"
     },
     {
       "ga": "208",
@@ -1653,6 +1863,13 @@
       "tafel": 1,
       "path": "chalkboards/GA208/GA208-1921-10-30-T01.webp",
       "filename": "GA208-1921-10-30-T01.webp"
+    },
+    {
+      "ga": "208",
+      "date": "1921-10-30",
+      "tafel": 2,
+      "path": "chalkboards/GA208/GA208-1921-10-30-T02.webp",
+      "filename": "GA208-1921-10-30-T02.webp"
     },
     {
       "ga": "208",
@@ -1691,10 +1908,24 @@
     },
     {
       "ga": "208",
+      "date": "1921-11-06",
+      "tafel": 2,
+      "path": "chalkboards/GA208/GA208-1921-11-06-T02.webp",
+      "filename": "GA208-1921-11-06-T02.webp"
+    },
+    {
+      "ga": "208",
       "date": "1921-11-12",
       "tafel": 1,
       "path": "chalkboards/GA208/GA208-1921-11-12-T01.webp",
       "filename": "GA208-1921-11-12-T01.webp"
+    },
+    {
+      "ga": "208",
+      "date": "1921-11-13",
+      "tafel": 1,
+      "path": "chalkboards/GA208/GA208-1921-11-13-T01.webp",
+      "filename": "GA208-1921-11-13-T01.webp"
     },
     {
       "ga": "208",
@@ -1709,6 +1940,13 @@
       "tafel": 1,
       "path": "chalkboards/GA209/GA209-1921-12-18-T01.webp",
       "filename": "GA209-1921-12-18-T01.webp"
+    },
+    {
+      "ga": "209",
+      "date": "1921-12-18",
+      "tafel": 2,
+      "path": "chalkboards/GA209/GA209-1921-12-18-T02.webp",
+      "filename": "GA209-1921-12-18-T02.webp"
     },
     {
       "ga": "209",
@@ -1733,6 +1971,20 @@
     },
     {
       "ga": "210",
+      "date": "1922-01-08",
+      "tafel": 1,
+      "path": "chalkboards/GA210/GA210-1922-01-08-T01.webp",
+      "filename": "GA210-1922-01-08-T01.webp"
+    },
+    {
+      "ga": "210",
+      "date": "1922-01-08",
+      "tafel": 2,
+      "path": "chalkboards/GA210/GA210-1922-01-08-T02.webp",
+      "filename": "GA210-1922-01-08-T02.webp"
+    },
+    {
+      "ga": "210",
       "date": "1922-02-11",
       "tafel": 1,
       "path": "chalkboards/GA210/GA210-1922-02-11-T01.webp",
@@ -1740,17 +1992,17 @@
     },
     {
       "ga": "210",
-      "date": "1922-02-11",
-      "tafel": 2,
-      "path": "chalkboards/GA210/GA210-1922-02-11-T02.webp",
-      "filename": "GA210-1922-02-11-T02.webp"
-    },
-    {
-      "ga": "210",
       "date": "1922-02-12",
       "tafel": 1,
       "path": "chalkboards/GA210/GA210-1922-02-12-T01.webp",
       "filename": "GA210-1922-02-12-T01.webp"
+    },
+    {
+      "ga": "210",
+      "date": "1922-02-12",
+      "tafel": 2,
+      "path": "chalkboards/GA210/GA210-1922-02-12-T02.webp",
+      "filename": "GA210-1922-02-12-T02.webp"
     },
     {
       "ga": "210",
@@ -1768,13 +2020,6 @@
     },
     {
       "ga": "210",
-      "date": "1922-02-17",
-      "tafel": 3,
-      "path": "chalkboards/GA210/GA210-1922-02-17-T03.webp",
-      "filename": "GA210-1922-02-17-T03.webp"
-    },
-    {
-      "ga": "210",
       "date": "1922-02-18",
       "tafel": 1,
       "path": "chalkboards/GA210/GA210-1922-02-18-T01.webp",
@@ -1789,10 +2034,24 @@
     },
     {
       "ga": "210",
+      "date": "1922-02-19",
+      "tafel": 2,
+      "path": "chalkboards/GA210/GA210-1922-02-19-T02.webp",
+      "filename": "GA210-1922-02-19-T02.webp"
+    },
+    {
+      "ga": "210",
       "date": "1922-02-24",
       "tafel": 1,
       "path": "chalkboards/GA210/GA210-1922-02-24-T01.webp",
       "filename": "GA210-1922-02-24-T01.webp"
+    },
+    {
+      "ga": "210",
+      "date": "1922-02-26",
+      "tafel": 1,
+      "path": "chalkboards/GA210/GA210-1922-02-26-T01.webp",
+      "filename": "GA210-1922-02-26-T01.webp"
     },
     {
       "ga": "210",
@@ -1810,6 +2069,13 @@
     },
     {
       "ga": "211",
+      "date": "1922-03-24",
+      "tafel": 2,
+      "path": "chalkboards/GA211/GA211-1922-03-24-T02.webp",
+      "filename": "GA211-1922-03-24-T02.webp"
+    },
+    {
+      "ga": "211",
       "date": "1922-03-25",
       "tafel": 1,
       "path": "chalkboards/GA211/GA211-1922-03-25-T01.webp",
@@ -1821,13 +2087,6 @@
       "tafel": 1,
       "path": "chalkboards/GA211/GA211-1922-03-26-T01.webp",
       "filename": "GA211-1922-03-26-T01.webp"
-    },
-    {
-      "ga": "211",
-      "date": "1922-03-26",
-      "tafel": 2,
-      "path": "chalkboards/GA211/GA211-1922-03-26-T02.webp",
-      "filename": "GA211-1922-03-26-T02.webp"
     },
     {
       "ga": "211",
@@ -2153,6 +2412,13 @@
     },
     {
       "ga": "214",
+      "date": "1922-07-28",
+      "tafel": 2,
+      "path": "chalkboards/GA214/GA214-1922-07-28-T02.webp",
+      "filename": "GA214-1922-07-28-T02.webp"
+    },
+    {
+      "ga": "214",
       "date": "1922-07-29",
       "tafel": 1,
       "path": "chalkboards/GA214/GA214-1922-07-29-T01.webp",
@@ -2178,6 +2444,20 @@
       "tafel": 2,
       "path": "chalkboards/GA214/GA214-1922-08-05-T02.webp",
       "filename": "GA214-1922-08-05-T02.webp"
+    },
+    {
+      "ga": "214",
+      "date": "1922-08-06",
+      "tafel": 1,
+      "path": "chalkboards/GA214/GA214-1922-08-06-T01.webp",
+      "filename": "GA214-1922-08-06-T01.webp"
+    },
+    {
+      "ga": "214",
+      "date": "1922-08-06",
+      "tafel": 2,
+      "path": "chalkboards/GA214/GA214-1922-08-06-T02.webp",
+      "filename": "GA214-1922-08-06-T02.webp"
     },
     {
       "ga": "215",
@@ -2391,6 +2671,13 @@
     },
     {
       "ga": "220",
+      "date": "1923-01-05",
+      "tafel": 2,
+      "path": "chalkboards/GA220/GA220-1923-01-05-T02.webp",
+      "filename": "GA220-1923-01-05-T02.webp"
+    },
+    {
+      "ga": "220",
       "date": "1923-01-07",
       "tafel": 1,
       "path": "chalkboards/GA220/GA220-1923-01-07-T01.webp",
@@ -2426,17 +2713,17 @@
     },
     {
       "ga": "220",
-      "date": "1923-01-21",
-      "tafel": 2,
-      "path": "chalkboards/GA220/GA220-1923-01-21-T02.webp",
-      "filename": "GA220-1923-01-21-T02.webp"
-    },
-    {
-      "ga": "220",
       "date": "1923-01-26",
       "tafel": 1,
       "path": "chalkboards/GA220/GA220-1923-01-26-T01.webp",
       "filename": "GA220-1923-01-26-T01.webp"
+    },
+    {
+      "ga": "220",
+      "date": "1923-01-26",
+      "tafel": 2,
+      "path": "chalkboards/GA220/GA220-1923-01-26-T02.webp",
+      "filename": "GA220-1923-01-26-T02.webp"
     },
     {
       "ga": "220",
@@ -2486,6 +2773,13 @@
       "tafel": 1,
       "path": "chalkboards/GA221/GA221-1923-02-17-T01.webp",
       "filename": "GA221-1923-02-17-T01.webp"
+    },
+    {
+      "ga": "221",
+      "date": "1923-02-17",
+      "tafel": 2,
+      "path": "chalkboards/GA221/GA221-1923-02-17-T02.webp",
+      "filename": "GA221-1923-02-17-T02.webp"
     },
     {
       "ga": "222",
@@ -2551,11 +2845,11 @@
       "filename": "GA222-1923-03-23-T01.webp"
     },
     {
-      "ga": "223",
-      "date": "1923-03-30",
-      "tafel": 1,
-      "path": "chalkboards/GA223/GA223-1923-03-30-T01.webp",
-      "filename": "GA223-1923-03-30-T01.webp"
+      "ga": "222",
+      "date": "1923-03-23",
+      "tafel": 2,
+      "path": "chalkboards/GA222/GA222-1923-03-23-T02.webp",
+      "filename": "GA222-1923-03-23-T02.webp"
     },
     {
       "ga": "223",
@@ -2563,6 +2857,20 @@
       "tafel": 1,
       "path": "chalkboards/GA223/GA223-1923-03-31-T01.webp",
       "filename": "GA223-1923-03-31-T01.webp"
+    },
+    {
+      "ga": "223",
+      "date": "1923-03-31",
+      "tafel": 2,
+      "path": "chalkboards/GA223/GA223-1923-03-31-T02.webp",
+      "filename": "GA223-1923-03-31-T02.webp"
+    },
+    {
+      "ga": "223",
+      "date": "1923-04-01",
+      "tafel": 1,
+      "path": "chalkboards/GA223/GA223-1923-04-01-T01.webp",
+      "filename": "GA223-1923-04-01-T01.webp"
     },
     {
       "ga": "223",
@@ -2587,10 +2895,24 @@
     },
     {
       "ga": "223",
+      "date": "1923-04-07",
+      "tafel": 2,
+      "path": "chalkboards/GA223/GA223-1923-04-07-T02.webp",
+      "filename": "GA223-1923-04-07-T02.webp"
+    },
+    {
+      "ga": "223",
       "date": "1923-04-08",
       "tafel": 1,
       "path": "chalkboards/GA223/GA223-1923-04-08-T01.webp",
       "filename": "GA223-1923-04-08-T01.webp"
+    },
+    {
+      "ga": "223",
+      "date": "1923-04-08",
+      "tafel": 2,
+      "path": "chalkboards/GA223/GA223-1923-04-08-T02.webp",
+      "filename": "GA223-1923-04-08-T02.webp"
     },
     {
       "ga": "224",
@@ -2608,6 +2930,20 @@
     },
     {
       "ga": "225",
+      "date": "1923-05-05",
+      "tafel": 1,
+      "path": "chalkboards/GA225/GA225-1923-05-05-T01.webp",
+      "filename": "GA225-1923-05-05-T01.webp"
+    },
+    {
+      "ga": "225",
+      "date": "1923-05-05",
+      "tafel": 2,
+      "path": "chalkboards/GA225/GA225-1923-05-05-T02.webp",
+      "filename": "GA225-1923-05-05-T02.webp"
+    },
+    {
+      "ga": "225",
       "date": "1923-05-06",
       "tafel": 1,
       "path": "chalkboards/GA225/GA225-1923-05-06-T01.webp",
@@ -2619,6 +2955,13 @@
       "tafel": 2,
       "path": "chalkboards/GA225/GA225-1923-05-06-T02.webp",
       "filename": "GA225-1923-05-06-T02.webp"
+    },
+    {
+      "ga": "225",
+      "date": "1923-07-06",
+      "tafel": 1,
+      "path": "chalkboards/GA225/GA225-1923-07-06-T01.webp",
+      "filename": "GA225-1923-07-06-T01.webp"
     },
     {
       "ga": "225",
@@ -2727,6 +3070,13 @@
     },
     {
       "ga": "229",
+      "date": "1923-10-05",
+      "tafel": 1,
+      "path": "chalkboards/GA229/GA229-1923-10-05-T01.webp",
+      "filename": "GA229-1923-10-05-T01.webp"
+    },
+    {
+      "ga": "229",
       "date": "1923-10-06",
       "tafel": 1,
       "path": "chalkboards/GA229/GA229-1923-10-06-T01.webp",
@@ -2825,6 +3175,13 @@
     },
     {
       "ga": "230",
+      "date": "1923-10-28",
+      "tafel": 2,
+      "path": "chalkboards/GA230/GA230-1923-10-28-T02.webp",
+      "filename": "GA230-1923-10-28-T02.webp"
+    },
+    {
+      "ga": "230",
       "date": "1923-11-02",
       "tafel": 1,
       "path": "chalkboards/GA230/GA230-1923-11-02-T01.webp",
@@ -2853,10 +3210,24 @@
     },
     {
       "ga": "230",
+      "date": "1923-11-04",
+      "tafel": 2,
+      "path": "chalkboards/GA230/GA230-1923-11-04-T02.webp",
+      "filename": "GA230-1923-11-04-T02.webp"
+    },
+    {
+      "ga": "230",
       "date": "1923-11-09",
       "tafel": 1,
       "path": "chalkboards/GA230/GA230-1923-11-09-T01.webp",
       "filename": "GA230-1923-11-09-T01.webp"
+    },
+    {
+      "ga": "230",
+      "date": "1923-11-09",
+      "tafel": 2,
+      "path": "chalkboards/GA230/GA230-1923-11-09-T02.webp",
+      "filename": "GA230-1923-11-09-T02.webp"
     },
     {
       "ga": "230",
@@ -3615,6 +3986,13 @@
       "filename": "GA243-1924-08-22-T01.webp"
     },
     {
+      "ga": "255B",
+      "date": "1919-11-16",
+      "tafel": 1,
+      "path": "chalkboards/GA255B/GA255b-1919-11-16-T01.webp",
+      "filename": "GA255b-1919-11-16-T01.webp"
+    },
+    {
       "ga": "257",
       "date": "1923-03-03",
       "tafel": 1,
@@ -3755,11 +4133,11 @@
       "filename": "GA260-1924-01-01-T02.webp"
     },
     {
-      "ga": "260X",
+      "ga": "260B",
       "date": "1924-06-20",
       "tafel": 1,
-      "path": "chalkboards/GA260X/GA260X-1924-06-20-T01.webp",
-      "filename": "GA260X-1924-06-20-T01.webp"
+      "path": "chalkboards/GA260B/GA260B-1924-06-20-T01.webp",
+      "filename": "GA260B-1924-06-20-T01.webp"
     },
     {
       "ga": "271",
@@ -4855,6 +5233,13 @@
     },
     {
       "ga": "316",
+      "date": "1924-01-03",
+      "tafel": 1,
+      "path": "chalkboards/GA316/GA316-1924-01-03-T01.webp",
+      "filename": "GA316-1924-01-03-T01.webp"
+    },
+    {
+      "ga": "316",
       "date": "1924-01-04",
       "tafel": 1,
       "path": "chalkboards/GA316/GA316-1924-01-04-T01.webp",
@@ -4911,6 +5296,13 @@
     },
     {
       "ga": "316",
+      "date": "1924-04-22",
+      "tafel": 1,
+      "path": "chalkboards/GA316/GA316-1924-04-22-T01.webp",
+      "filename": "GA316-1924-04-22-T01.webp"
+    },
+    {
+      "ga": "316",
       "date": "1924-04-23",
       "tafel": 1,
       "path": "chalkboards/GA316/GA316-1924-04-23-T01.webp",
@@ -4925,10 +5317,17 @@
     },
     {
       "ga": "316",
-      "date": "1924-07-07",
-      "tafel": 1,
-      "path": "chalkboards/GA316/GA316-1924-07-07-T01.webp",
-      "filename": "GA316-1924-07-07-T01.webp"
+      "date": "1924-04-24",
+      "tafel": 5,
+      "path": "chalkboards/GA316/GA316-1924-04-24-T05.webp",
+      "filename": "GA316-1924-04-24-T05.webp"
+    },
+    {
+      "ga": "316",
+      "date": "1924-04-24",
+      "tafel": 6,
+      "path": "chalkboards/GA316/GA316-1924-04-24-T06.webp",
+      "filename": "GA316-1924-04-24-T06.webp"
     },
     {
       "ga": "317",
@@ -5092,11 +5491,11 @@
       "filename": "GA322-1920-09-30-T01.webp"
     },
     {
-      "ga": "324",
+      "ga": "324A",
       "date": "1920-03-31",
       "tafel": 1,
-      "path": "chalkboards/GA324/GA324-1920-03-31-T01.webp",
-      "filename": "GA324-1920-03-31-T01.webp"
+      "path": "chalkboards/GA324A/GA324A-1920-03-31-T01.webp",
+      "filename": "GA324A-1920-03-31-T01.webp"
     },
     {
       "ga": "326",
@@ -5226,80 +5625,59 @@
     },
     {
       "ga": "336",
-      "date": "1919-11-16",
-      "tafel": 1,
-      "path": "chalkboards/GA336/GA336-1919-11-16-T01.webp",
-      "filename": "GA336-1919-11-16-T01.webp"
-    },
-    {
-      "ga": "336",
-      "date": "1919-11-16",
-      "tafel": 2,
-      "path": "chalkboards/GA336/GA336-1919-11-16-T02.webp",
-      "filename": "GA336-1919-11-16-T02.webp"
-    },
-    {
-      "ga": "336",
       "date": "1920-05-25",
       "tafel": 1,
       "path": "chalkboards/GA336/GA336-1920-05-25-T01.webp",
       "filename": "GA336-1920-05-25-T01.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-07-19",
       "tafel": 1,
-      "path": "chalkboards/GA337/GA337-1920-07-19-T01.webp",
-      "filename": "GA337-1920-07-19-T01.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-07-19-T01.webp",
+      "filename": "GA337B-1920-07-19-T01.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-08-16",
       "tafel": 1,
-      "path": "chalkboards/GA337/GA337-1920-08-16-T01.webp",
-      "filename": "GA337-1920-08-16-T01.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-08-16-T01.webp",
+      "filename": "GA337B-1920-08-16-T01.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-08-16",
       "tafel": 2,
-      "path": "chalkboards/GA337/GA337-1920-08-16-T02.webp",
-      "filename": "GA337-1920-08-16-T02.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-08-16-T02.webp",
+      "filename": "GA337B-1920-08-16-T02.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-08-23",
       "tafel": 1,
-      "path": "chalkboards/GA337/GA337-1920-08-23-T01.webp",
-      "filename": "GA337-1920-08-23-T01.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-08-23-T01.webp",
+      "filename": "GA337B-1920-08-23-T01.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-09-06",
       "tafel": 1,
-      "path": "chalkboards/GA337/GA337-1920-09-06-T01.webp",
-      "filename": "GA337-1920-09-06-T01.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-09-06-T01.webp",
+      "filename": "GA337B-1920-09-06-T01.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-09-06",
       "tafel": 2,
-      "path": "chalkboards/GA337/GA337-1920-09-06-T02.webp",
-      "filename": "GA337-1920-09-06-T02.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-09-06-T02.webp",
+      "filename": "GA337B-1920-09-06-T02.webp"
     },
     {
-      "ga": "337",
+      "ga": "337B",
       "date": "1920-10-10",
       "tafel": 1,
-      "path": "chalkboards/GA337/GA337-1920-10-10-T01.webp",
-      "filename": "GA337-1920-10-10-T01.webp"
-    },
-    {
-      "ga": "337",
-      "date": "1922-07-28",
-      "tafel": 1,
-      "path": "chalkboards/GA337/GA337-1922-07-28-T01.webp",
-      "filename": "GA337-1922-07-28-T01.webp"
+      "path": "chalkboards/GA337B/GA337B-1920-10-10-T01.webp",
+      "filename": "GA337B-1920-10-10-T01.webp"
     },
     {
       "ga": "339",
@@ -6402,13 +6780,6 @@
     },
     {
       "ga": "353",
-      "date": "1921-04-14",
-      "tafel": 1,
-      "path": "chalkboards/GA353/GA353-1921-04-14-T01.webp",
-      "filename": "GA353-1921-04-14-T01.webp"
-    },
-    {
-      "ga": "353",
       "date": "1924-03-01",
       "tafel": 1,
       "path": "chalkboards/GA353/GA353-1924-03-01-T01.webp",
@@ -6665,6 +7036,13 @@
       "tafel": 1,
       "path": "chalkboards/GA383/GA383-1924-05-17-T01.webp",
       "filename": "GA383-1924-05-17-T01.webp"
+    },
+    {
+      "ga": "40",
+      "date": "1922-07-28",
+      "tafel": 1,
+      "path": "chalkboards/GA340/GA40-1922-07-28-T01.webp",
+      "filename": "GA40-1922-07-28-T01.webp"
     }
   ]
 }
