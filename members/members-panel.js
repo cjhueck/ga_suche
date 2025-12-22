@@ -9590,23 +9590,14 @@ async function handleMembersRegister() {
   try {
     const { data, error } = await supabaseClient.auth.signUp({
       email: email,
-      password: password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/members.html?view=login&confirmed=true`
-      }
+      password: password
     });
     
     if (error) throw error;
     
-    // Prüfe ob Email-Bestätigung erforderlich ist
-    if (data.user && !data.user.email_confirmed_at) {
-      messageDiv.innerHTML = '<div class="success-msg">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail-Adresse. Eine Bestätigungsmail wurde an ' + email + ' gesendet.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</div>';
-    } else {
-      messageDiv.innerHTML = '<div class="success-msg">✓ Registrierung erfolgreich!<br>Sie können sich jetzt anmelden.</div>';
-    }
+    messageDiv.innerHTML = '<div class="success-msg">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</div>';
     
   } catch (error) {
-    console.error('Registrierungsfehler:', error);
     messageDiv.innerHTML = `<div class="error-msg">✗ ${error.message}</div>`;
   }
 }
@@ -9669,25 +9660,21 @@ async function handlePasswordReset() {
     // Prüfe zuerst, ob die E-Mail registriert ist
     // Supabase sendet auch bei nicht registrierten E-Mails eine Bestätigung (aus Sicherheitsgründen)
     // aber wir können trotzdem versuchen zu prüfen
-    const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/members.html?view=reset-password&token=[[TOKEN]]`
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/members.html`
     });
     
-    if (error) {
-      console.error('Passwort-Reset-Fehler:', error);
-      throw error;
-    }
+    if (error) throw error;
     
     // Erfolgsmeldung - auch wenn E-Mail nicht registriert ist, zeigen wir die gleiche Meldung
     // (aus Sicherheitsgründen sollte man nicht verraten, welche E-Mails registriert sind)
-    messageDiv.innerHTML = '<div class="success-msg">✓ Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link an ' + email + ' gesendet.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.<br><br>Der Link ist 1 Stunde gültig.</div>';
+    messageDiv.innerHTML = '<div class="success-msg">✓ Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link an Ihre E-Mail-Adresse gesendet.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</div>';
     
     // Setze E-Mail-Feld zurück
     document.getElementById('members-reset-email').value = '';
     
   } catch (error) {
-    console.error('Passwort-Reset-Fehler:', error);
-    messageDiv.innerHTML = `<div class="error-msg">✗ Fehler: ${error.message}<br><br>Bitte versuchen Sie es erneut oder kontaktieren Sie den Support.</div>`;
+    messageDiv.innerHTML = `<div class="error-msg">✗ ${error.message}</div>`;
   }
 }
 
