@@ -169,6 +169,17 @@
     "volume": "013",
     "originalPublication": "1910"
   },
+  "GA014": {
+    "gaNumber": "GA014",
+    "title": "Vier Mysteriendramen",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "1998",
+    "place": "Dornach",
+    "isbn": "3727401400",
+    "edition": "5. Aufl.",
+    "volume": "014"
+  },
   "GA015": {
     "gaNumber": "GA015",
     "title": "Die geistige Führung des Menschen und der Menschheit",
@@ -4701,5 +4712,15 @@
     "volume": "354",
     "subtitle": "Über Welt- und Menschenentstehung und den Gang der Kulturentwickelung der Menschheit, Ernährungsfragen, Erdenleben und Sternenwirken",
     "titleSupplement": "Vierzehn Vorträge, gehalten für die Arbeiter am Goetheanumbau in Dornach vom 30. Juni bis 24. September 1924"
+  },
+  "GA K": {
+    "gaNumber": "GA K",
+    "title": "Wandtafelzeichnungen zum Vortragswerk",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "1989-2003",
+    "place": "Dornach",
+    "isbn": "3-7274-4100-3",
+    "volume": "K 1-30"
   }
 }
