@@ -12180,6 +12180,7 @@ function getChalkboardsYears() {
 }
 
 // Funktion: Erstelle und zeige Jahres-Buttons für Wandtafelzeichnungen
+// Layout und Styling identisch zur chronologischen Ansicht
 function createChalkboardsYearButtons() {
   // Entferne alte Jahres-Buttons falls vorhanden
   const oldContainer = document.getElementById('chalkboards-year-buttons-container');
@@ -12202,68 +12203,33 @@ function createChalkboardsYearButtons() {
     return;
   }
   
-  // Erstelle Container für Jahres-Buttons
+  // Erstelle Container für Jahres-Buttons (identisch zur chronologischen Ansicht)
   const buttonsContainer = document.createElement('div');
   buttonsContainer.id = 'chalkboards-year-buttons-container';
-  buttonsContainer.className = 'ga-year-buttons-container';
+  const bgColor = document.body.classList.contains('dark-mode') ? 'var(--dark-background-color)' : 'var(--background-color)';
   buttonsContainer.style.cssText = `
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--bg-color);
-    padding: 0.8rem 1rem;
-    border-bottom: 2px solid var(--border-color);
-    margin-bottom: 1rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    column-gap: 0.05rem;
+    row-gap: 0.3rem;
     align-items: center;
+    margin: 0;
+    padding: 0 0 1rem 0;
+    background: ${bgColor};
   `;
   
-  // Erstelle Buttons für jedes Jahr
+  // Erstelle Buttons für jedes Jahr (identisches Styling zur chronologischen Ansicht)
   const buttonsHtml = years.map(year => {
     const isActive = selectedChalkboardsYearFilter === year;
-    return `
-      <button 
-        class="ga-year-button ${isActive ? 'active' : ''}" 
-        onclick="filterChalkboardsByYear(${year})"
-        data-year="${year}"
-        style="
-          padding: 0.4rem 0.8rem;
-          border: 1px solid var(--accent-color);
-          background: ${isActive ? 'var(--accent-color)' : 'var(--bg-color)'};
-          color: ${isActive ? 'var(--bg-color)' : 'var(--accent-color)'};
-          cursor: pointer;
-          border-radius: 4px;
-          font-size: 0.85em;
-          transition: all 0.2s;
-          white-space: nowrap;
-        "
-      >${year}</button>
-    `;
+    return `<button 
+      class="year-nav-btn ${isActive ? 'active-year-btn' : ''}" 
+      onclick="filterChalkboardsByYear(${year})"
+      data-year="${year}"
+      style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;"
+    >${year}</button>`;
   }).join('');
   
-  // Füge "Alle Jahre" Button hinzu
-  const allYearsButton = `
-    <button 
-      class="ga-year-button ${selectedChalkboardsYearFilter === null ? 'active' : ''}" 
-      onclick="filterChalkboardsByYear(null)"
-      style="
-        padding: 0.4rem 0.8rem;
-        border: 1px solid var(--accent-color);
-        background: ${selectedChalkboardsYearFilter === null ? 'var(--accent-color)' : 'var(--bg-color)'};
-        color: ${selectedChalkboardsYearFilter === null ? 'var(--bg-color)' : 'var(--accent-color)'};
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 0.85em;
-        transition: all 0.2s;
-        white-space: nowrap;
-        margin-right: 0.5rem;
-      "
-    >Alle Jahre</button>
-  `;
-  
-  buttonsContainer.innerHTML = allYearsButton + buttonsHtml;
+  buttonsContainer.innerHTML = buttonsHtml;
   
   // Füge Container vor dem Viewer-Inhalt ein
   if (viewer.firstChild) {
@@ -12531,10 +12497,11 @@ async function loadAndDisplayChalkboards() {
   const yearFilterText = selectedChalkboardsYearFilter ? ` Jahr ${selectedChalkboardsYearFilter}` : '';
   console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : '') + (yearFilterText ? ' (gefiltert nach' + yearFilterText + ')' : '') + ' (sortiert nach ' + (chalkboardsSortOrder === 'date' ? 'Datum' : 'GA-Nummer') + ')');
   
-  // Erstelle Jahres-Buttons
-  createChalkboardsYearButtons();
-  
+  // Zeige Galerie zuerst, dann Jahres-Buttons einfügen
   displayChalkboardsGallery(filteredChalkboards);
+  
+  // Erstelle Jahres-Buttons NACH dem Galerie-Inhalt (werden am Anfang eingefügt)
+  createChalkboardsYearButtons();
 }
 
 // Funktion: Zeige Wandtafelzeichnungen in Galerie (5 pro Zeile)
