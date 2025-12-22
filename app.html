@@ -7866,7 +7866,7 @@ function normalizeGANumber(gaNumber) {
         currentGAView = 'volumes';
         }
       
-      // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button ausblenden
+      // Chalkboards-Ansicht deaktivieren und Sort-Toggle-Button IMMER ausblenden bei Tab-Wechsel
       if (isChalkboardsViewActive) {
         isChalkboardsViewActive = false;
         const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
@@ -7875,8 +7875,9 @@ function normalizeGANumber(gaNumber) {
           chalkboardsBtn.style.color = 'var(--accent-color)';
           chalkboardsBtn.classList.remove('active');
         }
-        updateChalkboardsSortToggleButton();
       }
+      // Button IMMER ausblenden bei Tab-Wechsel (auch wenn isChalkboardsViewActive bereits false ist)
+      updateChalkboardsSortToggleButton();
       
       // Setze chronologischen Button zurück
       const chronBtn = document.getElementById('ga-chronological-view-btn');
@@ -8265,6 +8266,9 @@ function normalizeGANumber(gaNumber) {
       
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
+      
+      // Stelle sicher, dass Sort-Toggle-Button ausgeblendet ist (außer wenn wir im GA-Tab sind und Wandtafeln aktiv ist)
+      updateChalkboardsSortToggleButton();
       
       // Setze Body-Klasse für Index-Tab, Themen-Tab und Timeline-Tab (für CSS-Fallback)
       if (mode === 'schlagworte') {
@@ -11103,11 +11107,18 @@ function updateChalkboardsSortToggleButton() {
   const sortToggleBtn = document.getElementById('chalkboardsSortToggleBtn');
   if (!sortToggleBtn) return;
   
-  // Button nur anzeigen, wenn Wandtafeln-Ansicht explizit aktiviert wurde
-  if (isChalkboardsViewActive) {
+  // Prüfe zusätzlich, ob wir im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  // Button nur anzeigen, wenn:
+  // 1. Wandtafeln-Ansicht aktiv ist UND
+  // 2. Wir im GA-Tab sind
+  if (isChalkboardsViewActive && isInGATab) {
     sortToggleBtn.style.display = 'inline-flex';
     updateChalkboardsSortIcon();
   } else {
+    // IMMER ausblenden, wenn nicht beide Bedingungen erfüllt sind
     sortToggleBtn.style.display = 'none';
   }
 }
