@@ -6396,7 +6396,6 @@ app.post('/api/chalkboards/backup', async (req, res) => {
 });
 
 // Statisches Serving für GA K Bilder
-app.use('/ga-k-images/chalkboards', express.static(path.join(__dirname, 'chalkboards')));
 app.use('/ga-k-images', express.static(path.join(__dirname, 'Steiner_GA')));
 
 app.get('/api/available-ga', async (req, res) => {
