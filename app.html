@@ -23943,6 +23943,20 @@ function formatAsteriskParagraphs() {
       }
   }
   
+  // WICHTIG: Deaktiviere Wandtafeln-Ansicht und verstecke Buttons beim Anzeigen eines Vortrags
+  if (isChalkboardsViewActive) {
+    isChalkboardsViewActive = false;
+    selectedChalkboardsYearFilter = null;
+    const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+    if (chalkboardsBtn) {
+      chalkboardsBtn.style.background = 'transparent';
+      chalkboardsBtn.style.color = 'var(--accent-color)';
+      chalkboardsBtn.classList.remove('active');
+    }
+    removeChalkboardsYearButtons();
+  }
+  updateChalkboardsSortToggleButton();
+  
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
   
