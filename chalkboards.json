@@ -4988,6 +4988,13 @@
     },
     {
       "ga": "312",
+      "date": "1920-03-29",
+      "tafel": 1,
+      "path": "chalkboards/GA312/GA312-1920-03-29-T01.webp",
+      "filename": "GA312-1920-03-29-T01.webp"
+    },
+    {
+      "ga": "312",
       "date": "1920-03-30",
       "tafel": 1,
       "path": "chalkboards/GA312/GA312-1920-03-30-T01.webp",
@@ -5069,13 +5076,6 @@
       "tafel": 2,
       "path": "chalkboards/GA312/GA312-1920-04-09-T02.webp",
       "filename": "GA312-1920-04-09-T02.webp"
-    },
-    {
-      "ga": "312",
-      "date": "1928-03-29",
-      "tafel": 1,
-      "path": "chalkboards/GA312/GA312-1928-03-29-T01.webp",
-      "filename": "GA312-1928-03-29-T01.webp"
     },
     {
       "ga": "313",
