@@ -6398,6 +6398,9 @@ app.post('/api/chalkboards/backup', async (req, res) => {
 // Statisches Serving für GA K Bilder
 app.use('/ga-k-images', express.static(path.join(__dirname, 'Steiner_GA')));
 
+// Statisches Serving für Wandtafelzeichnungen (aus Root-Ordner 'chalkboards')
+app.use('/ga-k-images/chalkboards', express.static(path.join(__dirname, 'chalkboards')));
+
 app.get('/api/available-ga', async (req, res) => {
   try {
     const gaSet = new Set();
