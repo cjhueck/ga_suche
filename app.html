@@ -11778,7 +11778,13 @@ function normalizeGANumber(gaNumber) {
         html += `</div>`;
         resultsContainer.innerHTML = html;
         
-        // Scroll to top
+        // Speichere aktuelle GA-Nummer für spätere Prüfung
+        window._currentGAInSidePanel = gaNumber;
+        
+        // Scroll nur bei erstem Laden nach oben (wenn andere GA geladen wurde)
+        // Bei Klick auf Vortrag innerhalb derselben GA: Scroll-Position beibehalten
+        // (wird durch die Prüfung in showLecture() gesteuert - hier immer scrollen,
+        // da diese Funktion nur bei GA-Wechsel aufgerufen wird)
         const sidebarContent = document.getElementById('sidebar-content');
         if (sidebarContent) {
           sidebarContent.scrollTop = 0;
@@ -15371,6 +15377,9 @@ async function displayGAOverview(data) {
   
   // Setze currentGANumber für Info-Button
   currentGANumber = data.gaNumber;
+  
+  // Speichere aktuelle GA-Nummer für Side Panel Prüfung
+  window._currentGAInSidePanel = data.gaNumber;
   
   // Setze currentLectureData zurück und verstecke Buttons
   currentLectureData = null;
@@ -25222,12 +25231,20 @@ function formatAsteriskParagraphs() {
         const gaNumber = gaMatch[1];
         // Prüfe ob es kein Buch ist (GA001-GA046 sind Bücher)
         if (!isBookGANumber(gaNumber)) {
-          // Lade GA-Übersicht im linken Side Panel
-          if (typeof loadGAOverviewInSidePanelOnly === 'function') {
-            loadGAOverviewInSidePanelOnly(gaNumber).catch(error => {
-              console.warn('[SHOW-LECTURE] Fehler beim Laden der GA-Übersicht im Side Panel:', error);
-            });
+          // Prüfe ob GA-Übersicht bereits für dieselbe GA-Nummer geladen ist
+          const resultsContainer = document.getElementById('results');
+          const existingList = resultsContainer ? resultsContainer.querySelector('#ga-lecture-list') : null;
+          const currentGAInPanel = window._currentGAInSidePanel;
+          
+          // Nur neu laden, wenn noch keine GA-Übersicht vorhanden ODER andere GA-Nummer
+          if (!existingList || currentGAInPanel !== gaNumber) {
+            if (typeof loadGAOverviewInSidePanelOnly === 'function') {
+              loadGAOverviewInSidePanelOnly(gaNumber).catch(error => {
+                console.warn('[SHOW-LECTURE] Fehler beim Laden der GA-Übersicht im Side Panel:', error);
+              });
+            }
           }
+          // Sonst: Behalte bestehende Liste und Scroll-Position
         }
       }
     }
