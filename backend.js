@@ -661,9 +661,7 @@ async function loadFullLectures() {
           }
         }
         
-        if (lectures.length === 0) {
-          console.warn(`    ⚠️  Warnung: ${fileName} enthält keine Vorträge!`);
-        }
+        // Leere Dateien stillschweigend ignorieren
         
         // Speichere mtime der aktuellen Datei für späteren Vergleich mit Overrides
         const fileMtime = fileInfo.mtime instanceof Date 
@@ -691,22 +689,7 @@ async function loadFullLectures() {
               const existingTitle = existing.title || '';
               const newTitle = lecture.title || '';
               
-              if (normalizedExisting !== normalizedNew || existingTitle !== newTitle) {
-                console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
-                console.warn(`        Alte Datei: ${existingFileName}`);
-                console.warn(`        Neue Datei: ${newFileName}`);
-              }
-              // Ansonsten ist es derselbe Vortrag aus einer anderen Part-Datei (normal bei Chunks)
-            }
-            // Debug: Zeige wenn GA217a/2 überschrieben wird
-            if (lecture.ID === 'GA217a/2') {
-              if (fullLectures[lecture.ID]) {
-                console.log(`    🔄 GA217a/2 wird überschrieben von: ${fileName}`);
-                console.log(`        Alte Version: ${fullLectures[lecture.ID].paragraphs[0]?.content?.substring(0, 80)}...`);
-                console.log(`        Neue Version: ${lecture.paragraphs[0]?.content?.substring(0, 80)}...`);
-              } else {
-                console.log(`    ✅ GA217a/2 wird zum ersten Mal geladen aus: ${fileName}`);
-              }
+              // Duplikat erkannt - überschreiben ohne Log (normal bei mehreren Part-Dateien)
             }
             // Speichere mtime der Datei, aus der dieser Vortrag geladen wurde
             // (für späteren Vergleich mit Overrides)
@@ -918,9 +901,7 @@ async function loadBooks() {
         
         const books = parsed.books || [];
         
-        if (books.length === 0) {
-          console.warn(`    ⚠️  Warnung: ${fileName} enthält keine Schriften!`);
-        }
+        // Leere Dateien stillschweigend ignorieren
         
         
         books.forEach(book => {
