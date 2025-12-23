@@ -354,6 +354,14 @@ class SteinerLecturesExporter {
       cleaned = `assets/${cleaned}`;
     }
     
+    // 6. NEU: Vereinfache komplexe Bildnamen zu img-X.ext
+    // Pattern: assets/GA###-Langer Name_img-X.ext -> assets/img-X.ext
+    // Auch: assets/GA###-Langer Name mit Umlauten_img-X.ext -> assets/img-X.ext
+    const complexImgMatch = cleaned.match(/^assets\/.*[_-](img-\d+)\.(webp|png|jpe?g|gif)$/i);
+    if (complexImgMatch) {
+      cleaned = `assets/${complexImgMatch[1]}.${complexImgMatch[2]}`;
+    }
+    
     return cleaned;
   }
   
@@ -642,7 +650,13 @@ class SteinerLecturesExporter {
             // Konvertiere Markdown-Bilder zu HTML-img-Tags
             // damit das Frontend konsistentes HTML erhält
             convertedText = convertedText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, 
-              (match, alt, src) => `<img src="${src.trim()}" alt="${alt.trim()}" />`);
+              (match, alt, src) => {
+                // Entferne <> Klammern um Pfade mit Leerzeichen (Markdown-Standard)
+                let cleanSrc = src.trim().replace(/^<|>$/g, '');
+                // Vereinfache Bildpfade (entferne GA###-Name_)
+                cleanSrc = this.cleanImagePath(cleanSrc);
+                return `<img src="${cleanSrc}" alt="${alt.trim()}" />`;
+              });
             
             // Füge gesammelte Überschriften vor dem Absatz ein
             if (pendingHeadings.length > 0) {
