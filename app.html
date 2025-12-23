@@ -6286,6 +6286,7 @@ body.dark-mode .context-help-popup strong {
 <button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Themen</button>
 <button class="tab-button" onclick="switchTab('timeline')" data-help="tab-timeline">Timeline</button>
 <button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
+<button class="tab-button" onclick="switchTab('docs')" id="docs-tab-button" data-help="tab-docs">Docs</button>
 <button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Keywords</button>
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button" data-help="tab-zitate">Zitate</button>
 </div>
@@ -6739,6 +6740,923 @@ Bestehende Schlagwörter überschreiben
 <!-- Alphabet-Navigation und Suchfeld wurden in das Anzeigefenster verschoben -->
 <!-- removed keyword-count status line -->
 </div>
+
+<!-- DOCS TAB - Nur lokal sichtbar, Inhalt wird im Main Viewer angezeigt -->
+<div class="tab-content" id="docs-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
+<!-- Leeres linkes Panel - Dokumentation wird im Main Viewer angezeigt -->
+</div>
+
+<!-- Versteckter Container für Dokumentationsinhalt (wird von showDocsInViewer() gelesen) -->
+<div id="docs-content-source" style="display: none;">
+<div style="padding: 0.5rem 1rem 2rem 0.5rem;">
+
+<h2 style="margin: 0 0 1rem 0; color: var(--heading-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 0.5rem;">
+  Projekt-Dokumentation: rudolf-steiner-online.de
+</h2>
+
+<!-- INHALTSVERZEICHNIS -->
+<div style="background: var(--sidebar-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+  <h3 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Inhaltsverzeichnis</h3>
+  <div style="column-count: 2; column-gap: 2rem; font-size: 0.9em;">
+    <ul style="margin: 0; padding-left: 1.2rem; list-style-type: none;">
+      <li><a href="#docs-overview" onclick="scrollToDocsSection('docs-overview')" style="color: var(--link-color);">1. Projektübersicht</a></li>
+      <li><a href="#docs-architecture" onclick="scrollToDocsSection('docs-architecture')" style="color: var(--link-color);">2. Architektur & Aufbau</a></li>
+      <li><a href="#docs-data-sources" onclick="scrollToDocsSection('docs-data-sources')" style="color: var(--link-color);">3. Datenquellen</a></li>
+      <li><a href="#docs-data-processing" onclick="scrollToDocsSection('docs-data-processing')" style="color: var(--link-color);">4. Datenverarbeitung</a></li>
+      <li><a href="#docs-tabs" onclick="scrollToDocsSection('docs-tabs')" style="color: var(--link-color);">5. Tabs & Funktionen</a></li>
+      <li><a href="#docs-databases" onclick="scrollToDocsSection('docs-databases')" style="color: var(--link-color);">6. Datenbanken (JSON)</a></li>
+      <li><a href="#docs-backend" onclick="scrollToDocsSection('docs-backend')" style="color: var(--link-color);">7. Backend-API</a></li>
+      <li><a href="#docs-modifications" onclick="scrollToDocsSection('docs-modifications')" style="color: var(--link-color);">8. Änderungen durchführen</a></li>
+      <li><a href="#docs-scripts" onclick="scrollToDocsSection('docs-scripts')" style="color: var(--link-color);">9. Skripte & Tools</a></li>
+      <li><a href="#docs-development" onclick="scrollToDocsSection('docs-development')" style="color: var(--link-color);">10. Entwicklung & Deployment</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 1. PROJEKTÜBERSICHT -->
+<div id="docs-overview" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    1. Projektübersicht
+  </h3>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <p style="margin: 0 0 0.8rem 0;"><strong>Zweck:</strong> Inhaltliche Orientierung und Recherche in der Rudolf Steiner Gesamtausgabe (GA)</p>
+    <p style="margin: 0 0 0.8rem 0;"><strong>Umfang:</strong> Ca. 350 GA-Bände mit über 6000 Vorträgen und Schriften</p>
+    <p style="margin: 0 0 0.8rem 0;"><strong>Technologie:</strong></p>
+    <ul style="margin: 0; padding-left: 1.5rem;">
+      <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+) - Single Page Application in <code>app.html</code></li>
+      <li><strong>Backend:</strong> Node.js mit Express (<code>backend.js</code>)</li>
+      <li><strong>KI-Integration:</strong> Claude API (Anthropic), DeepSeek, OpenAI via <code>llm-providers.js</code></li>
+      <li><strong>Datenbank:</strong> JSON-basiert (keine SQL-Datenbank)</li>
+      <li><strong>Hosting:</strong> Render.com (Online), localhost:3003 (Lokal)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. ARCHITEKTUR -->
+<div id="docs-architecture" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    2. Architektur & Aufbau
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Verzeichnisstruktur</h4>
+  <div style="background: #1e1e1e; color: #d4d4d4; border-radius: 6px; padding: 1rem; font-family: 'Consolas', monospace; font-size: 0.85em; overflow-x: auto;">
+    <pre style="margin: 0;">ga_suche/
+├── app.html                    # Frontend (Single Page Application)
+├── backend.js                  # Node.js Backend-Server
+├── llm-providers.js            # KI-Provider Abstraktion
+├── package.json                # Node.js Dependencies
+│
+├── steiner-full-lectures/      # Vorträge mit Volltext (JSON)
+│   └── steiner-full-lectures-XXX-YYY-partNN.json
+│
+├── steiner-books/              # Bücher (GA001-GA045)
+│   └── steiner-books-XXX-YYY-partNN.json
+│
+├── Steiner_GA/                 # GA-Bände Verzeichnisse
+│   ├── GA001-Titel/            # Pro Band: Markdown + Assets
+│   │   ├── GA001-lecture.md    # Einzelne Vorträge
+│   │   └── assets/             # Bilder, Wandtafeln
+│   └── chalkboards/            # Wandtafelzeichnungen
+│
+├── Keywords/                   # Schlagwort-Dateien (JSON)
+├── scripts/                    # Python-Hilfsskripte
+├── tools/                      # Weitere Tools
+├── system/                     # Systemtexte (Impressum, etc.)
+│
+└── *.json                      # Diverse Datenbanken</pre>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1.5rem 0 0.5rem 0;">Datenfluss</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <pre style="margin: 0; font-family: 'Consolas', monospace; font-size: 0.85em;">
+┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
+│   Obsidian  │────▶│ Python/JS    │────▶│ JSON-Datenbanken│
+│   (Markdown)│     │ Export-      │     │                 │
+└─────────────┘     │ Skripte      │     └────────┬────────┘
+                    └──────────────┘              │
+┌─────────────┐                                   ▼
+│   Citavi    │────────────────────────▶ ┌─────────────────┐
+│   (SQLite)  │  extract_citavi_*.py    │   backend.js    │
+└─────────────┘                          │   (Node.js)     │
+                                         └────────┬────────┘
+                                                  │ API
+                                                  ▼
+                                         ┌─────────────────┐
+                                         │    app.html     │
+                                         │   (Frontend)    │
+                                         └─────────────────┘</pre>
+  </div>
+</div>
+
+<!-- 3. DATENQUELLEN -->
+<div id="docs-data-sources" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    3. Datenquellen
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Obsidian</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <p style="margin: 0 0 0.5rem 0;"><strong>Verwendung:</strong> Primäre Bearbeitung der Vorträge und Schlagwörter</p>
+    <ul style="margin: 0; padding-left: 1.5rem;">
+      <li>Vorträge als Markdown-Dateien in <code>Steiner_GA/GAXXX-Titel/</code></li>
+      <li>Schlagwörter mit Wiki-Links: <code>[[Schlagwort]]</code></li>
+      <li>Quellenverweise: <code>([[GA078 (1.) TITEL|GA078/1]])</code></li>
+      <li>Zeilenumbrüche: <code>/br</code> Markierungen</li>
+      <li>Export via <code>scripts/export_from_md.py</code> oder Obsidian-Plugins</li>
+    </ul>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.9em; color: var(--secondary-text);">
+      <strong>Pfad:</strong> Die Markdown-Dateien werden in JSON konvertiert und in <code>steiner-full-lectures/</code> gespeichert.
+    </p>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Citavi</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <p style="margin: 0 0 0.5rem 0;"><strong>Verwendung:</strong> Bibliographische Angaben für GA-Bände</p>
+    <ul style="margin: 0; padding-left: 1.5rem;">
+      <li>Citavi-Projektdatei: <code>.ctv6</code> (SQLite-Datenbank)</li>
+      <li>Enthält: Titel, Autor, Verlag, Jahr, Ort, ISBN, Band-Nummern</li>
+      <li>Export via <code>extract_citavi_bibliography.py</code></li>
+      <li>Ziel: <code>ga-bibliography.json</code></li>
+    </ul>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.9em; color: var(--secondary-text);">
+      <strong>Pfad:</strong> <code>C:\Users\...\Citavi 7\Projects\Rudolf Steiner Gesamtausgabe\*.ctv6</code>
+    </p>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Frei verfügbare GA-Texte</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <p style="margin: 0;">Die Vortrags-Texte stammen aus frei im Internet verfügbaren Versionen der GA. Diese wurden in Obsidian importiert, strukturiert und mit KI-generierten Zusammenfassungen und Zwischenüberschriften versehen.</p>
+  </div>
+</div>
+
+<!-- 4. DATENVERARBEITUNG -->
+<div id="docs-data-processing" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    4. Datenverarbeitung
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Vorträge (Lectures)</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Quelle:</strong> Markdown-Dateien in Obsidian<br>
+        <code>Steiner_GA/GAXXX-Titel/GAXXX (N.) Vortragstitel.md</code>
+      </li>
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Export:</strong> Python-Skripte konvertieren MD → JSON<br>
+        <code>scripts/export_from_md.py</code>, <code>export_master.py</code>
+      </li>
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Ziel:</strong> <code>steiner-full-lectures/steiner-full-lectures-XXX-YYY-partNN.json</code>
+      </li>
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Struktur:</strong> Jeder Vortrag enthält:
+        <ul>
+          <li><code>ID</code>: z.B. "GA078/1"</li>
+          <li><code>gaNumber</code>: z.B. "GA078"</li>
+          <li><code>title</code>: Vortragstitel</li>
+          <li><code>date</code>: Datum</li>
+          <li><code>location</code>: Ort</li>
+          <li><code>paragraphs[]</code>: Absätze mit content und index</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Schlagwörter (Keywords/Concepts)</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Erstellung:</strong> KI-generiert oder manuell in Obsidian
+      </li>
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Speicherung:</strong>
+        <ul>
+          <li><code>concepts-database.json</code> - Hauptdatenbank für Index-Tab</li>
+          <li><code>keywords-database.json</code> - Vortragsspezifische Keywords</li>
+          <li><code>Keywords/*.json</code> - Alphabetisch sortiert (A.json, B.json, ...)</li>
+        </ul>
+      </li>
+      <li style="margin-bottom: 0.5rem;">
+        <strong>Verarbeitung:</strong> Zusammenfassung ähnlicher Einträge mit Claude AI
+      </li>
+    </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Wandtafelzeichnungen</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li><strong>Quelle:</strong> <code>Steiner_GA/chalkboards/</code> (WebP-Bilder)</li>
+      <li><strong>Namenskonvention:</strong> <code>GA076-1921-04-05-T01.webp</code></li>
+      <li><strong>Index:</strong> <code>chalkboards.json</code> (generiert durch <code>scripts/generate_chalkboards_json.py</code>)</li>
+      <li><strong>Konvertierung:</strong> PNG → WebP automatisch beim Export</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 5. TABS & FUNKTIONEN -->
+<div id="docs-tabs" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    5. Tabs & Funktionen (Detailliert)
+  </h3>
+  
+  <!-- ==================== GA-TAB ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #4CAF50; font-size: 1.1em; border-bottom: 2px solid #4CAF50; padding-bottom: 0.5rem;">
+      📗 GA-Tab (Gesamtausgabe)
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> Übersicht aller GA-Bände mit verschiedenen Ansichten</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons im linken Panel:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Chronologisch</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt alle Vorträge chronologisch sortiert (1884-1925). Jahr-Buttons zum Filtern. <code>toggleChronologicalView()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Wandtafeln</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt alle Wandtafelzeichnungen. Jahr-Filter verfügbar. <code>toggleChalkboardsView()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Jahr-Buttons (1884-1925)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Filtert chronologische Ansicht oder Wandtafeln nach Jahr</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">GA-Nummer (z.B. "GA078")</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Klick zeigt alle Vorträge dieses Bandes im Viewer</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons im Header (nur bei Wandtafeln-Ansicht):</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>ⓘ</code> (Info-Button)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt bibliographische Angaben aus <code>ga-bibliography.json</code>. <code>showChalkboardsBibliographyInfo()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>▼/▲</code> (Sort-Toggle)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Wechselt Sortierung: GA-Nummer ↔ Datum. <code>toggleChalkboardsSort()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Datenquellen:</strong> <code>summary-database.json</code> (Vorträge), <code>chalkboards.json</code> (Wandtafeln)
+    </p>
+  </div>
+  
+  <!-- ==================== SUCHE-TAB ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #2196F3; font-size: 1.1em; border-bottom: 2px solid #2196F3; padding-bottom: 0.5rem;">
+      Suche-Tab
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> Volltext-Suche in allen Vorträgen und Texten</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Eingabefelder (Einfache Suche):</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">Suchfeld</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suchbegriff eingeben. Exakte Phrase: in "Anführungszeichen". Teilwörter werden gefunden.</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Jahr-Filter (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suche auf bestimmte Jahre beschränken (Multi-Select)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">GA-Filter (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suche auf bestimmte GA-Bände beschränken (Multi-Select)</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Relevanz-Filter</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">alle | hoch 🟩 | mittel 🟧 | niedrig 🟨 — basierend auf Häufigkeit und Nähe</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons (Einfache Suche):</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Suche starten</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Führt Volltext-Suche durch. <code>performKeywordSearch()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Häufigkeit</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt Häufigkeit des Suchbegriffs pro GA-Band. <code>performSimpleFrequencyAnalysis()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>erweitert</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Öffnet erweiterte Suche (7 Suchfelder). <code>openAdvancedSearch()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Timeline</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt Suchergebnisse auf Timeline. <code>showSearchResultsInTimeline()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>▼</code> (View-Toggle)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Wechselt: Nur Titel ↔ Titel & Textauszug. <code>toggleResultView()</code></td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Erweiterte Suche (7 Suchfelder):</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">Suchwort 1-7</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Bis zu 7 Begriffe gleichzeitig suchen</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">UND / ODER</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Logische Verknüpfung zwischen Suchbegriffen</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Proximity (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Maximaler Abstand zwischen Begriffen (0-10 Absätze)</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Suche starten</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>performAdvancedSearch()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Häufigkeit</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>performAdvancedFrequencyAnalysis()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>API:</strong> <code>POST /api/search</code>, <code>POST /api/frequency-analysis</code>
+    </p>
+  </div>
+  
+  <!-- ==================== TEXTE-TAB ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #FF9800; font-size: 1.1em; border-bottom: 2px solid #FF9800; padding-bottom: 0.5rem;">
+      Texte-Tab
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> Anzeige der GA-Bände und Volltext-Lektüre</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Linkes Panel:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">GA-Filter (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Filtert angezeigte GA-Bände</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">GA-Band-Titel</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Klick öffnet Liste aller Vorträge des Bandes im Viewer</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Vortragstitel</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Klick öffnet Volltext des Vortrags. <code>showLecture(lectureId)</code></td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons im linken Panel:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>▼ Summaries</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Ein-/Ausblenden der Kurzzusammenfassungen. <code>toggleGASummaries()</code></td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Admin-Buttons (nur lokal):</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Struktur</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">KI generiert Zusammenfassung, Keywords, Überschriften. <code>batchGenerateStructure()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Keywords</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Nur Keywords generieren. <code>batchGenerateKeywords()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Neu generieren</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Alles neu generieren (überschreibt). <code>batchRegenerateAll()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Kurz-Summary</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Kurzzusammenfassungen generieren. <code>batchGenerateShortSummaries()</code></td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Header-Buttons (bei geöffnetem Vortrag):</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>▼/▲</code> (H4-Toggle)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Wechselt zwischen Überschriften-Ebenen: H3 | H3+H4 | H3+H4+KW. <code>toggleH4Display()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Original</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt ursprüngliche Zusammenfassung. <code>closeAndShowOriginal()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>ⓘ</code> (Info-Button)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt bibliographische Angaben des GA-Bandes. <code>showGABibliographyInfo()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>≡ Übersicht</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt H4-Überschriften im Viewer. <code>toggleViewerH4()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>TOC</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Blendet Inhaltsverzeichnis ein/aus. <code>toggleTOCContent()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>⬇</code> (Download)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Download als PDF, TXT oder Markdown. <code>showDownloadOptions()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>👤</code> (Mitglieder)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Öffnet Mitgliederbereich (Bookmarks, Zitate). <code>toggleMembersPanel()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Datenquellen:</strong> <code>steiner-full-lectures-*.json</code>, <code>steiner-books-*.json</code>, <code>summary-database.json</code>
+    </p>
+  </div>
+  
+  <!-- ==================== THEMEN-TAB ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #9C27B0; font-size: 1.1em; border-bottom: 2px solid #9C27B0; padding-bottom: 0.5rem;">
+      Themen-Tab (KI-Suche)
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> KI-gestützte thematische Suche mit natürlicher Sprache</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Eingabefelder:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">Thema/Frage</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Natürlichsprachige Anfrage, z.B. "Was sagt Steiner über das Ich?"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">GA-Filter (optional)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suche auf bestimmte GA-Bände beschränken</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Suchen</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Startet KI-Suche (Claude API). <code>performThematicSearch()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Übersicht</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt Konzept-Übersicht zu einem Begriff. <code>showConceptOverview()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>API:</strong> <code>POST /api/thematic-search</code> | <strong>KI:</strong> Claude API (Anthropic) | <strong>Cache:</strong> <code>thematic-search-database.json</code>
+    </p>
+  </div>
+  
+  <!-- ==================== TIMELINE-TAB ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #00BCD4; font-size: 1.1em; border-bottom: 2px solid #00BCD4; padding-bottom: 0.5rem;">
+      Timeline-Tab
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> Chronologische Darstellung des Vorkommens von Begriffen</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Eingabefelder:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">Thema (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Vordefinierte Themen aus <code>themes-database.json</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Schlagwort (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zusätzlicher Filter nach Schlagwörtern</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Anzeigen</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt Timeline für ausgewähltes Thema/Schlagwort</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>← Zurück</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Navigiert zurück zur vorherigen Ansicht. <code>navigateBackToTexteGA()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Datenquellen:</strong> <code>themes-database.json</code>, <code>timeline-cache-database.json</code>
+    </p>
+  </div>
+  
+  <!-- ==================== INDEX-TAB ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #E91E63; font-size: 1.1em; border-bottom: 2px solid #E91E63; padding-bottom: 0.5rem;">
+      Index-Tab (Schlagwortverzeichnis)
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> Alphabetisches Verzeichnis wichtiger Begriffe mit Erklärungen</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Navigation:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">A-Z Buttons</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Springt zu Schlagwörtern mit diesem Anfangsbuchstaben</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suchfeld</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Filtert Schlagwörter nach Eingabe</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Schlagwort-Liste</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Klick zeigt KI-generierte Zusammenfassung im Viewer</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Schlagwort hinzufügen</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Neues Schlagwort manuell hinzufügen. <code>addNewKeyword()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Schlagwort löschen</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Ausgewähltes Schlagwort entfernen. <code>deleteKeyword()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Batch-Generierung</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Mehrere Schlagwörter per KI generieren. <code>addBatchKeywords()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Datenquelle:</strong> <code>concepts-database.json</code> | <strong>Format:</strong> keyword, summary, references[]
+    </p>
+  </div>
+  
+  <!-- ==================== KEYWORDS-TAB (NUR LOKAL) ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #795548; font-size: 1.1em; border-bottom: 2px solid #795548; padding-bottom: 0.5rem;">
+      Keywords-Tab <span style="font-size: 0.75em; background: #ff5722; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 0.5rem;">NUR LOKAL</span>
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> KI-gestützte Batch-Bearbeitung von Vorträgen</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Einstellungen:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">GA-Bände Checkboxen</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Auswahl der zu bearbeitenden GA-Bände</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">KI-Provider (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Claude (Anthropic) | DeepSeek | OpenAI</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>GA-Bände laden</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Lädt Liste verfügbarer GA-Bände. <code>loadAvailableGAVolumes()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Alle auswählen</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Wählt alle/keine GA-Bände aus. <code>toggleSelectAllGA()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Vollständig regenerieren</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Generiert Summary, Keywords, Headings für alle ausgewählten Vorträge. <code>startGABatchFullRegenerate()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Kurz-Summaries</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Generiert nur Kurzzusammenfassungen. <code>startGABatchShortSummaries()</code></td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>API:</strong> <code>POST /api/generate-summary</code>, <code>POST /api/generate-keywords</code> | <strong>Provider:</strong> <code>llm-providers.js</code>
+    </p>
+  </div>
+  
+  <!-- ==================== ZITATE-TAB (NUR LOKAL) ==================== -->
+  <div style="background: var(--input-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: #607D8B; font-size: 1.1em; border-bottom: 2px solid #607D8B; padding-bottom: 0.5rem;">
+      Zitate-Tab <span style="font-size: 0.75em; background: #ff5722; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 0.5rem;">NUR LOKAL</span>
+    </h4>
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> Verwaltung gespeicherter Zitate und Markierungen</p>
+    
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Funktionen:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;">Zitate-Liste</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Alle gespeicherten Zitate mit Quelle und Tags</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zitat hinzufügen</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Textmarkierung + Rechtsklick im Vortrag</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Tags/Schlagwörter</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zitate mit Schlagwörtern versehen</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Export</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zitate als JSON oder Text exportieren</td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Datenquelle:</strong> <code>quotes-database.json</code>
+    </p>
+  </div>
+  
+  <!-- ==================== GLOBALE BUTTONS ==================== -->
+  <div style="background: var(--sidebar-bg); border-radius: 8px; padding: 1.2rem; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 1rem 0; color: var(--heading-color); font-size: 1.1em; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.5rem;">
+      Globale Buttons (immer sichtbar)
+    </h4>
+    
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--input-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>🌙/☀️</code> (Theme-Toggle)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Wechselt zwischen Hell- und Dunkelmodus. <code>toggleTheme()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>⋯</code> (drei Punkte)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Öffnet/schließt linkes Panel (Admin-Bereich)</td>
+      </tr>
+      <tr style="background: var(--input-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>?</code> (Hilfe)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Öffnet Hilfe-Modal. <code>openHelpModal()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Tab-Buttons</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">GA | Suche | Texte | Themen | Timeline | Index | [Docs] | [Keywords] | [Zitate]. <code>switchTab(mode)</code></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- 6. DATENBANKEN -->
+<div id="docs-databases" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    6. Datenbanken (JSON-Dateien)
+  </h3>
+  
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <thead>
+        <tr style="background: var(--accent-color); color: white;">
+          <th style="padding: 0.5rem; text-align: left; border: 1px solid var(--border-color);">Datei</th>
+          <th style="padding: 0.5rem; text-align: left; border: 1px solid var(--border-color);">Beschreibung</th>
+          <th style="padding: 0.5rem; text-align: left; border: 1px solid var(--border-color);">Verwendung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: var(--input-bg);">
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>steiner-full-lectures-*.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Vorträge mit Volltext</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Texte-Tab, Suche</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>steiner-books-*.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Bücher (GA001-GA045)</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Texte-Tab</td>
+        </tr>
+        <tr style="background: var(--input-bg);">
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary-database.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Zusammenfassungen & TOC</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">GA-Tab, Texte-Tab</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>concepts-database.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Schlagwörter mit Erklärungen</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Index-Tab</td>
+        </tr>
+        <tr style="background: var(--input-bg);">
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>keywords-database.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Vortragsspezifische Keywords</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Keywords-Anzeige</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>themes-database.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Themen-Definitionen</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Timeline-Tab</td>
+        </tr>
+        <tr style="background: var(--input-bg);">
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>thematic-search-database.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Cache für Themen-Suche</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Themen-Tab</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>chalkboards.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Wandtafel-Index</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">GA-Tab (Wandtafeln)</td>
+        </tr>
+        <tr style="background: var(--input-bg);">
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>ga-bibliography.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Bibliographische Angaben</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Info-Popups</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>quotes-database.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Gespeicherte Zitate</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Zitate-Tab</td>
+        </tr>
+        <tr style="background: var(--input-bg);">
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>synonyms.json</code></td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Synonym-Wörterbuch</td>
+          <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Suche-Erweiterung</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 7. BACKEND-API -->
+<div id="docs-backend" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    7. Backend-API (<code>backend.js</code>)
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Wichtige Endpunkte</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; font-size: 0.9em;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 0.3rem; vertical-align: top;"><code>GET /api/lecture/:id</code></td>
+        <td style="padding: 0.3rem;">Einzelner Vortrag laden</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem; vertical-align: top;"><code>GET /api/full-lectures</code></td>
+        <td style="padding: 0.3rem;">Alle Vorträge (für Timeline)</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.3rem; vertical-align: top;"><code>POST /api/search</code></td>
+        <td style="padding: 0.3rem;">Volltext-Suche</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem; vertical-align: top;"><code>POST /api/thematic-search</code></td>
+        <td style="padding: 0.3rem;">KI-gestützte Themensuche</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.3rem; vertical-align: top;"><code>GET /api/concepts</code></td>
+        <td style="padding: 0.3rem;">Schlagwörter laden</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem; vertical-align: top;"><code>POST /api/generate-summary</code></td>
+        <td style="padding: 0.3rem;">KI-Zusammenfassung generieren</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.3rem; vertical-align: top;"><code>GET /api/ga-volumes</code></td>
+        <td style="padding: 0.3rem;">Liste aller GA-Bände</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem; vertical-align: top;"><code>GET /assets/*</code></td>
+        <td style="padding: 0.3rem;">Bilder aus GA-Ordnern servieren</td>
+      </tr>
+    </table>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1.5rem 0 0.5rem 0;">Server starten</h4>
+  <div style="background: #1e1e1e; color: #d4d4d4; border-radius: 6px; padding: 1rem; font-family: 'Consolas', monospace; font-size: 0.9em;">
+    <code style="color: #9cdcfe;">cd</code> <code style="color: #ce9178;">C:\Users\...\ga_suche</code><br>
+    <code style="color: #9cdcfe;">node</code> <code style="color: #ce9178;">backend.js</code><br>
+    <span style="color: #6a9955;"># Oder mit Alias (falls eingerichtet):</span><br>
+    <code style="color: #9cdcfe;">nb</code>
+  </div>
+  <p style="font-size: 0.85em; color: var(--secondary-text); margin-top: 0.5rem;">
+    Server läuft auf <code>http://localhost:3003</code>
+  </p>
+</div>
+
+<!-- 8. ÄNDERUNGEN DURCHFÜHREN -->
+<div id="docs-modifications" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    8. Änderungen durchführen
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Vorträge bearbeiten</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li>Markdown-Datei in Obsidian bearbeiten: <code>Steiner_GA/GAXXX-Titel/*.md</code></li>
+      <li>Export ausführen: <code>python scripts/export_from_md.py</code></li>
+      <li>Oder: Änderungen direkt in <code>steiner-full-lectures-*.json</code> vornehmen</li>
+      <li>Backend neu starten: <code>node backend.js</code></li>
+    </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Schlagwörter bearbeiten</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li>Direkt in <code>concepts-database.json</code> bearbeiten</li>
+      <li>Oder via Keywords-Tab (KI-Generierung)</li>
+      <li>Format: <code>{ "keyword": "Begriff", "summary": "...", "references": [...] }</code></li>
+    </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Bibliographie bearbeiten</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li>Option A: Citavi aktualisieren, dann <code>python extract_citavi_bibliography.py</code></li>
+      <li>Option B: Direkt in <code>ga-bibliography.json</code> bearbeiten</li>
+    </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Wandtafeln hinzufügen</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li>Bilder in <code>Steiner_GA/chalkboards/GAXXX/</code> ablegen</li>
+      <li>Namensformat: <code>GA076-1921-04-05-T01.webp</code></li>
+      <li>Index neu generieren: <code>python scripts/generate_chalkboards_json.py</code></li>
+    </ol>
+  </div>
+</div>
+
+<!-- 9. SKRIPTE & TOOLS -->
+<div id="docs-scripts" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    9. Skripte & Tools
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Python-Skripte (<code>scripts/</code>)</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr>
+        <td style="padding: 0.3rem;"><code>export_from_md.py</code></td>
+        <td style="padding: 0.3rem;">Obsidian MD → JSON konvertieren</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem;"><code>generate_chalkboards_json.py</code></td>
+        <td style="padding: 0.3rem;">Wandtafel-Index erstellen</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.3rem;"><code>import_chalkboards_to_lectures.py</code></td>
+        <td style="padding: 0.3rem;">Wandtafeln zu Vorträgen zuordnen</td>
+      </tr>
+    </table>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Tools im Root-Verzeichnis</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr>
+        <td style="padding: 0.3rem;"><code>extract_citavi_bibliography.py</code></td>
+        <td style="padding: 0.3rem;">Citavi → JSON Export</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem;"><code>export_master.py</code></td>
+        <td style="padding: 0.3rem;">Haupt-Export-Skript</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.3rem;"><code>export_books_master.py</code></td>
+        <td style="padding: 0.3rem;">Bücher-Export</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.3rem;"><code>apply_page_break_markers_v4.py</code></td>
+        <td style="padding: 0.3rem;">Seitenumbruch-Markierungen einfügen</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- 10. ENTWICKLUNG & DEPLOYMENT -->
+<div id="docs-development" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    10. Entwicklung & Deployment
+  </h3>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Lokale Entwicklung</h4>
+  <div style="background: #1e1e1e; color: #d4d4d4; border-radius: 6px; padding: 1rem; font-family: 'Consolas', monospace; font-size: 0.9em; margin-bottom: 1rem;">
+    <span style="color: #6a9955;"># Dependencies installieren</span><br>
+    <code style="color: #9cdcfe;">npm install</code><br><br>
+    <span style="color: #6a9955;"># Backend starten</span><br>
+    <code style="color: #9cdcfe;">node backend.js</code><br><br>
+    <span style="color: #6a9955;"># Frontend öffnen</span><br>
+    <code style="color: #9cdcfe;">start app.html</code> <span style="color: #6a9955;">(Windows)</span>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Deployment (Render.com)</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li>Änderungen committen und pushen zu GitHub</li>
+      <li>Render.com zieht automatisch das neueste Commit</li>
+      <li>Build: <code>npm install</code></li>
+      <li>Start: <code>node backend.js</code></li>
+      <li>URL: <code>https://ga-suche.onrender.com</code></li>
+    </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Lokal vs. Online</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <p style="margin: 0 0 0.5rem 0;">Die Unterscheidung erfolgt via JavaScript:</p>
+    <pre style="margin: 0; background: #1e1e1e; color: #d4d4d4; padding: 0.5rem; border-radius: 4px; font-size: 0.85em;">const isLocalhost = window.location.hostname === 'localhost' || 
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';</pre>
+    <p style="margin: 0.8rem 0 0 0;"><strong>Nur lokal sichtbar:</strong></p>
+    <ul style="margin: 0.3rem 0 0 0; padding-left: 1.5rem;">
+      <li>Keywords-Tab</li>
+      <li>Zitate-Tab</li>
+      <li>Docs-Tab (diese Dokumentation)</li>
+      <li>Admin-Buttons im Texte-Tab</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--secondary-text); font-size: 0.85em;">
+  <p style="margin: 0;">Diese Dokumentation wird nur in der lokalen Version angezeigt.</p>
+  <p style="margin: 0.3rem 0 0 0;">Letzte Aktualisierung: Dezember 2024</p>
+</div>
+
+</div>
+</div>
+<!-- Ende des versteckten Dokumentationsinhalts -->
 
 <div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0 2rem 0;">
@@ -11186,6 +12104,8 @@ function toggleChronologicalView() {
     }
     removeChalkboardsYearButtons();
     hideChalkboardsButtons(); // Buttons verstecken
+    // Dropdown wieder auf "Alle GA-Bände" zurücksetzen
+    populateGABandFilterDropdown(false);
   }
   
   // Prüfe ob irgendein Filter aktiv ist
@@ -11311,7 +12231,15 @@ function createChalkboardsYearButtons() {
     >${year}</button>`;
   }).join('');
   
-  buttonsContainer.innerHTML = buttonsHtml;
+  // "Alle" Button am Ende
+  const isAllActive = selectedChalkboardsYearFilter === null;
+  const allButton = `<button 
+    class="year-nav-btn ${isAllActive ? 'active-year-btn' : ''}" 
+    onclick="filterChalkboardsByYear(null)"
+    style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isAllActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isAllActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;"
+  >Alle</button>`;
+  
+  buttonsContainer.innerHTML = buttonsHtml + allButton;
   
   // Füge Container vor dem Viewer-Inhalt ein
   if (viewer.firstChild) {
@@ -11579,10 +12507,8 @@ async function loadAndDisplayChalkboards() {
   const yearFilterText = selectedChalkboardsYearFilter ? ` Jahr ${selectedChalkboardsYearFilter}` : '';
   console.log('[CHALKBOARDS] Zeige:', filteredChalkboards.length, 'Bilder' + (gaFilter ? ' (gefiltert nach GA' + gaFilter + ')' : '') + (yearFilterText ? ' (gefiltert nach' + yearFilterText + ')' : '') + ' (sortiert nach ' + (chalkboardsSortOrder === 'date' ? 'Datum' : 'GA-Nummer') + ')');
   
-  // Zeige Galerie zuerst
+  // Erst Galerie anzeigen, dann Jahres-Buttons hinzufügen (damit sie nicht überschrieben werden)
   displayChalkboardsGallery(filteredChalkboards);
-  
-  // Erstelle Jahres-Buttons NACH der Galerie (werden am Anfang eingefügt)
   createChalkboardsYearButtons();
 }
 
@@ -11610,8 +12536,7 @@ function displayChalkboardsGallery(chalkboards) {
   const documentTitle = document.getElementById('document-title');
   if (documentTitle) {
     const filterInfo = selectedGABandFilter ? ' aus ' + selectedGABandFilter : '';
-    const yearInfo = selectedChalkboardsYearFilter ? `, Jahr ${selectedChalkboardsYearFilter}` : '';
-    documentTitle.innerHTML = `<span style="font-size: 1em;">Wandtafelzeichnungen</span> <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${chalkboards.length} Bilder${filterInfo}${yearInfo})</span>`;
+    documentTitle.innerHTML = `<span style="font-size: 1em;">Wandtafelzeichnungen</span> <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${chalkboards.length} Bilder${filterInfo})</span>`;
   }
   
   if (!chalkboards || chalkboards.length === 0) {
@@ -14719,13 +15644,31 @@ function displayGAChronological(lectures) {
     }
   });
   
-  // Sortiere Jahre aufsteigend
-  const years = Object.keys(lecturesByYear).sort((a, b) => parseInt(a) - parseInt(b));
+  // Sortiere Jahre aufsteigend (nur für Anzeige der gefilterten Vorträge)
+  const displayYears = Object.keys(lecturesByYear).sort((a, b) => parseInt(a) - parseInt(b));
   
-  // Erstelle sticky Jahres-Header
-  const yearButtonsHtml = years.map(year => 
-    `<button class="year-nav-btn" onclick="scrollToChronologicalYear('${year}')" data-year="${year}" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: var(--background-color); color: var(--text-color); cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">${year}</button>`
-  ).join('');
+  // Für die Jahres-Buttons: Verwende ALLE Jahre aus allChronologicalLectures (nicht nur gefilterte)
+  const allYearsSet = new Set();
+  if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+    allChronologicalLectures.forEach(lecture => {
+      if (lecture.date) {
+        allYearsSet.add(lecture.date.substring(0, 4));
+      }
+    });
+  }
+  const years = Array.from(allYearsSet).sort((a, b) => parseInt(a) - parseInt(b));
+  
+  // Erstelle sticky Jahres-Header mit ALLEN Jahren
+  const yearButtonsHtml = years.map(year => {
+    const isActive = selectedYearFilter === year;
+    return `<button class="year-nav-btn ${isActive ? 'active-year-btn' : ''}" onclick="scrollToChronologicalYear('${year}')" data-year="${year}" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">${year}</button>`;
+  }).join('');
+  
+  // "Alle" Button am Ende
+  const isAllActive = selectedYearFilter === null;
+  const allButton = `<button class="year-nav-btn ${isAllActive ? 'active-year-btn' : ''}" onclick="scrollToChronologicalYear(null)" data-year="all" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isAllActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isAllActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">Alle</button>`;
+  
+  const allYearButtonsHtml = yearButtonsHtml + allButton;
   
   // Speichere die Jahre für späteren Zugriff
   window.chronologicalYears = years;
@@ -14904,7 +15847,7 @@ function displayGAChronological(lectures) {
     return hyphenationMap[city] || city;
   };
   
-  years.forEach((year, yearIndex) => {
+  displayYears.forEach((year, yearIndex) => {
     const yearLectures = lecturesByYear[year];
     
     yearLectures.forEach((lecture, idx) => {
@@ -15014,7 +15957,7 @@ function displayGAChronological(lectures) {
       
       if (buttonsContainer) {
         console.log('[GA-FILTER] Aktualisiere Jahr-Buttons im Fallback, Jahre:', years.join(', '));
-        buttonsContainer.innerHTML = yearButtonsHtml;
+        buttonsContainer.innerHTML = allYearButtonsHtml;
       }
     }
   } else {
@@ -15082,7 +16025,7 @@ function displayGAChronological(lectures) {
         const buttonsContainer = document.createElement('div');
         buttonsContainer.id = 'chronological-year-buttons-container';
         buttonsContainer.style.cssText = `display: flex; flex-wrap: wrap; column-gap: 0.05rem; row-gap: 0.3rem; align-items: center; margin: 0; padding: 0;`;
-        buttonsContainer.innerHTML = yearButtonsHtml;
+        buttonsContainer.innerHTML = allYearButtonsHtml;
         yearButtonsPanel.appendChild(buttonsContainer);
         
         // Erstelle unteren Bereich für Viewer-Inhalt (scrollbar)
@@ -15121,7 +16064,7 @@ function displayGAChronological(lectures) {
         // Wrapper existiert bereits, aktualisiere nur die Buttons
         const buttonsContainer = yearButtonsPanel ? yearButtonsPanel.querySelector('#chronological-year-buttons-container') : null;
         if (buttonsContainer) {
-          buttonsContainer.innerHTML = yearButtonsHtml;
+          buttonsContainer.innerHTML = allYearButtonsHtml;
         }
         }
     }
@@ -15212,8 +16155,11 @@ function displayGAChronological(lectures) {
   }
 }
 
-// Scrollt zu einem bestimmten Jahr in der chronologischen Ansicht
+// Filtert die chronologische Ansicht nach Jahr (oder zeigt alle wenn year=null)
 function scrollToChronologicalYear(year) {
+  // Speichere den Jahr-Filter
+  selectedYearFilter = year;
+  
   // Entferne aktive Markierung von allen Buttons
   document.querySelectorAll('.year-nav-btn').forEach(btn => {
     btn.classList.remove('active-year-btn');
@@ -15229,7 +16175,9 @@ function scrollToChronologicalYear(year) {
   });
   
   // Markiere den angeklickten Button als aktiv
-  const clickedButton = document.querySelector(`.year-nav-btn[data-year="${year}"]`);
+  const clickedButton = year 
+    ? document.querySelector(`.year-nav-btn[data-year="${year}"]`)
+    : document.querySelector(`.year-nav-btn[data-year="all"]`);
   if (clickedButton) {
     clickedButton.classList.add('active-year-btn');
     clickedButton.style.background = 'var(--accent-color)';
@@ -15238,72 +16186,24 @@ function scrollToChronologicalYear(year) {
     clickedButton.style.fontWeight = 'bold';
   }
   
-  const yearElement = document.getElementById(`year-${year}`);
-  if (yearElement) {
-    // Finde die erste Zeile dieses Jahres
-    const yearStartElement = document.querySelector(`tr[data-year-start="${year}"]`);
-    const targetElement = yearStartElement || yearElement;
+  // Filtere und zeige die Vorträge
+  if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+    let filteredLectures = allChronologicalLectures;
     
-    // WICHTIG: Prüfe ob das zweigeteilte Layout aktiv ist
-    const viewerContentPanel = document.querySelector('[data-viewer-content="true"]');
-    
-    if (viewerContentPanel) {
-      // Zweigeteiltes Layout ist aktiv - scrolle nur im Content-Panel
-      const containerRect = viewerContentPanel.getBoundingClientRect();
-      const elementRect = targetElement.getBoundingClientRect();
-      
-      // Berechne die Scroll-Position relativ zum Content-Panel
-      const relativeTop = elementRect.top - containerRect.top + viewerContentPanel.scrollTop;
-      
-      // Abstand nach oben: 50px (mehr Platz für bessere Sichtbarkeit)
-      const headerOffset = 50;
-      
-      // Scrolle nur im Content-Panel (direkt springen, kein smooth)
-      viewerContentPanel.scrollTo({
-        top: relativeTop - headerOffset,
-        behavior: 'auto'
+    if (year) {
+      // Filtere nach Jahr
+      filteredLectures = allChronologicalLectures.filter(lecture => {
+        if (!lecture.date) return false;
+        const lectureYear = lecture.date.substring(0, 4);
+        return lectureYear === String(year);
       });
-      
-      } else {
-      // Normales Layout - scrolle im #main Container
-      const mainContainer = document.getElementById('main');
-      if (mainContainer) {
-        // Berechne die Position relativ zum scrollbaren Container
-        const containerRect = mainContainer.getBoundingClientRect();
-        const elementRect = targetElement.getBoundingClientRect();
-        
-        // Berechne die Scroll-Position: Element-Position minus Container-Position plus aktueller Scroll
-        const relativeTop = elementRect.top - containerRect.top + mainContainer.scrollTop;
-        
-        // Berücksichtige die Höhe des sticky Headers plus zusätzlichen Abstand
-        const headerOffset = 110;
-        
-        // Scrolle so, dass das Element mit Abstand unter dem Header erscheint (direkt springen, kein smooth)
-        mainContainer.scrollTo({
-          top: relativeTop - headerOffset,
-          behavior: 'auto'
-        });
-      } else {
-        // Fallback: Standard scrollIntoView
-        targetElement.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }
     }
     
-    // Highlighte den Button kurz
-    const btn = document.querySelector(`.year-nav-btn[data-year="${year}"]`);
-    if (btn) {
-      const originalBg = btn.style.background;
-      const originalColor = btn.style.color;
-      const originalBorder = btn.style.borderColor;
-      btn.style.background = 'var(--accent-color)';
-      btn.style.color = 'white';
-      btn.style.borderColor = 'var(--accent-color)';
-      setTimeout(() => {
-        btn.style.background = originalBg;
-        btn.style.color = originalColor;
-        btn.style.borderColor = 'var(--accent-color)';
-      }, 1000);
-    }
+    // Zeige gefilterte Vorträge
+    displayGAChronological(filteredLectures);
+    
+    // Aktualisiere Button-Text
+    updateChronologicalButtonText();
   }
 }
 
@@ -26898,6 +27798,12 @@ if (!isLocalhost) {
     zitateTabButton.style.display = 'none';
   }
   
+  // Docs-Tab verstecken (nur lokal sichtbar)
+  const docsTabButton = document.getElementById("docs-tab-button");
+  if (docsTabButton) {
+    docsTabButton.style.display = 'none';
+  }
+  
   // Admin-Buttons im Texte-Tab verstecken
   const texteAdminButtons = document.getElementById("texte-admin-buttons");
   if (texteAdminButtons) {
@@ -28052,13 +28958,22 @@ function switchTabExtended(mode) {
         defaultMessage = 'Bitte ein Zitat auswählen…';
         titleText = 'Zitate';
         break;
+      case 'docs':
+        defaultMessage = '';
+        titleText = 'Dokumentation';
+        break;
       case 'schlagworte':
         defaultMessage = 'Bitte ein Schlagwort auswählen…';
         titleText = 'Index';
         break;
     }
     
-    viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
+    // Für Docs-Tab: Dokumentation im Main Viewer anzeigen
+    if (mode === 'docs') {
+      showDocsInViewer();
+    } else {
+      viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
+    }
     
     if (documentTitle) {
       documentTitle.textContent = titleText;
@@ -31405,6 +32320,159 @@ if (document.readyState === 'loading') {
 </div>
 
 <script>
+// Docs Tab - Dokumentation im Main Viewer anzeigen
+function showDocsInViewer() {
+  const viewer = document.getElementById('viewer');
+  const docsSource = document.getElementById('docs-content-source');
+  
+  if (!viewer || !docsSource) return;
+  
+  // Hole den Inhalt aus dem versteckten Dokumentations-Container
+  const docsContent = docsSource.querySelector('div');
+  if (docsContent) {
+    // Klone den Inhalt und zeige ihn im Viewer
+    viewer.innerHTML = `
+      <div style="padding: 1rem 2rem 2rem 1rem; max-width: 1200px; margin: 0 auto;">
+        ${docsContent.innerHTML}
+      </div>
+    `;
+    
+    // Scroll zum Anfang
+    viewer.scrollTop = 0;
+    
+    // Zeige TOC im Summary Panel
+    showDocsTOC();
+  }
+}
+
+// Docs Tab - TOC im Summary Panel anzeigen
+function showDocsTOC() {
+  const summaryPanel = document.getElementById('summary-panel');
+  const summaryContent = document.getElementById('summary-content');
+  const resizeHandle = document.querySelector('.resize-handle');
+  const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+  const mainContainer = document.getElementById('main-container');
+  
+  if (!summaryPanel || !summaryContent) return;
+  
+  // TOC-Inhalt für die Dokumentation
+  const tocHTML = `
+    <div id="toc-list">
+      <h3 style="margin: 0 0 1rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); color: var(--heading-color); font-size: 1em;">
+        Inhaltsverzeichnis
+      </h3>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-overview'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            1. Projektübersicht
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-architecture'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            2. Architektur & Aufbau
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-data-sources'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            3. Datenquellen
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-data-processing'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            4. Datenverarbeitung
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-tabs'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            5. Tabs & Funktionen
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-databases'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            6. Datenbanken (JSON)
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-backend'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            7. Backend-API
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-modifications'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            8. Änderungen durchführen
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-scripts'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            9. Skripte & Tools
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-development'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            10. Entwicklung & Deployment
+          </a>
+        </li>
+      </ul>
+    </div>
+  `;
+  
+  // TOC in Summary Panel einfügen
+  summaryContent.innerHTML = tocHTML;
+  
+  // Panel öffnen
+  summaryPanel.classList.add('visible');
+  summaryPanel.style.display = '';
+  summaryPanel.style.removeProperty('display');
+  summaryPanel.style.setProperty('opacity', '1', 'important');
+  summaryPanel.style.setProperty('visibility', 'visible', 'important');
+  
+  // Breite setzen
+  const panelWidth = 250;
+  summaryPanel.style.setProperty('width', panelWidth + 'px', 'important');
+  summaryPanel.style.setProperty('min-width', panelWidth + 'px', 'important');
+  
+  // Resize Handle anzeigen
+  if (resizeHandle) {
+    resizeHandle.classList.add('visible');
+    resizeHandle.style.setProperty('display', 'block', 'important');
+  }
+  
+  if (verticalResizeHandleWrapper) {
+    verticalResizeHandleWrapper.style.display = 'flex';
+    verticalResizeHandleWrapper.classList.add('visible');
+  }
+  
+  // Main Container anpassen
+  if (mainContainer) {
+    mainContainer.style.marginRight = panelWidth + 'px';
+  }
+  
+  // Body-Klasse entfernen
+  document.body.classList.remove('summary-panel-collapsed');
+}
+
+// Docs Tab - Scroll to Section Function (für Viewer)
+function scrollToDocsSection(sectionId) {
+  if (event) event.preventDefault();
+  
+  // Suche im Viewer (wo die Docs jetzt angezeigt werden)
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    const section = viewer.querySelector('#' + sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return false;
+    }
+  }
+  
+  // Fallback: Suche im gesamten Dokument
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  return false;
+}
+
 // Help Modal Functions
 function openHelpModal() {
   const modal = document.getElementById('helpModal');
@@ -37232,6 +38300,7 @@ async function addKeywordToLecture() {
     'tab-uebersicht': '<strong>Übersicht:</strong> KI-generierte Begriffsübersichten.',
     'tab-timeline': '<strong>Timeline:</strong> Chronologisches Vorkommen von Schlagwörtern.',
     'tab-index': '<strong>Index:</strong> Alphabetisches Schlagwortverzeichnis.',
+    'tab-docs': '<strong>Docs:</strong> Projekt-Dokumentation (nur lokal sichtbar).',
     'tab-keywords': '<strong>Keywords:</strong> Vortrags-Schlagwörter verwalten.',
     'tab-zitate': '<strong>Zitate:</strong> Gesammelte Zitate und Markierungen.',
     // Eingabefelder
