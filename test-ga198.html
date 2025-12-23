@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head><title>GA198 Bild-Test</title></head>
+<body>
+<h1>GA198 Bild-Test</h1>
+<div id="result"></div>
+<script>
+async function test() {
+    const result = document.getElementById('result');
+    result.innerHTML = '<p>Lade...</p>';
+    
+    try {
+        // 1. Teste API fÃ¼r Bilder
+        const imgResponse = await fetch('/api/steiner-images/GA198/1');
+        const images = await imgResponse.json();
+        result.innerHTML += `<h2>API liefert ${images.length} Bilder:</h2>`;
+        images.forEach(img => {
+            result.innerHTML += `<p>Path: ${img.path}<br>Hat Base64: ${img.base64 ? 'Ja' : 'Nein'}</p>`;
+            if (img.base64) {
+                result.innerHTML += `<img src="${img.base64}" style="max-width:200px"><br>`;
+            }
+        });
+        
+        // 2. Teste Lecture Content
+        const lectureResponse = await fetch('/api/steiner-lectures?ga=198');
+        const lectures = await lectureResponse.json();
+        const lecture1 = lectures.find(l => l.ID === 'GA198/1');
+        if (lecture1) {
+            result.innerHTML += `<h2>Lecture Content (erste 500 Zeichen):</h2>`;
+            result.innerHTML += `<pre>${lecture1.content?.substring(0, 500)}</pre>`;
+            
+            // Zeige img-Tags
+            const match = lecture1.content?.match(/<img[^>]+>/g);
+            if (match) {
+                result.innerHTML += `<h2>Gefundene img-Tags:</h2>`;
+                match.forEach(m => result.innerHTML += `<pre>${m.replace(/</g,'&lt;')}</pre>`);
+            }
+        }
+    } catch (e) {
+        result.innerHTML = `<p style="color:red">Fehler: ${e.message}</p>`;
+    }
+}
+test();
+</script>
+</body>
+</html>
