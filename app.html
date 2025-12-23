@@ -12184,12 +12184,6 @@ function getChalkboardsYears() {
 // Funktion: Erstelle und zeige Jahres-Buttons für Wandtafelzeichnungen
 // Layout und Styling identisch zur chronologischen Ansicht
 function createChalkboardsYearButtons() {
-  // Entferne alte Jahres-Buttons falls vorhanden
-  const oldContainer = document.getElementById('chalkboards-year-buttons-container');
-  if (oldContainer) {
-    oldContainer.remove();
-  }
-  
   // Nur anzeigen wenn Wandtafeln-Ansicht aktiv ist
   if (!isChalkboardsViewActive) {
     return;
@@ -12200,25 +12194,22 @@ function createChalkboardsYearButtons() {
     return;
   }
   
-  const viewer = document.getElementById('viewer');
-  if (!viewer) {
+  // Suche das fixierte Panel für die Buttons
+  const yearButtonsPanel = document.getElementById('chalkboards-year-nav');
+  if (!yearButtonsPanel) {
     return;
   }
   
-  // Erstelle Container für Jahres-Buttons (identisch zur chronologischen Ansicht)
+  // Entferne alte Buttons falls vorhanden
+  const oldContainer = document.getElementById('chalkboards-year-buttons-container');
+  if (oldContainer) {
+    oldContainer.remove();
+  }
+  
+  // Erstelle Container für Jahres-Buttons
   const buttonsContainer = document.createElement('div');
   buttonsContainer.id = 'chalkboards-year-buttons-container';
-  const bgColor = document.body.classList.contains('dark-mode') ? 'var(--dark-background-color)' : 'var(--background-color)';
-  buttonsContainer.style.cssText = `
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 0.05rem;
-    row-gap: 0.3rem;
-    align-items: center;
-    margin: 0;
-    padding: 0 0 1rem 0;
-    background: ${bgColor};
-  `;
+  buttonsContainer.style.cssText = `display: flex; flex-wrap: wrap; column-gap: 0.05rem; row-gap: 0.3rem; align-items: center; margin: 0; padding: 0;`;
   
   // Erstelle Buttons für jedes Jahr (identisches Styling zur chronologischen Ansicht)
   const buttonsHtml = years.map(year => {
@@ -12241,12 +12232,8 @@ function createChalkboardsYearButtons() {
   
   buttonsContainer.innerHTML = buttonsHtml + allButton;
   
-  // Füge Container vor dem Viewer-Inhalt ein
-  if (viewer.firstChild) {
-    viewer.insertBefore(buttonsContainer, viewer.firstChild);
-  } else {
-    viewer.appendChild(buttonsContainer);
-  }
+  // Füge Buttons in das fixierte Panel ein
+  yearButtonsPanel.appendChild(buttonsContainer);
 }
 
 // Funktion: Filtere Wandtafelzeichnungen nach Jahr
@@ -12601,7 +12588,72 @@ function displayChalkboardsGallery(chalkboards) {
   
   // Lightbox ist jetzt global im HTML, muss nicht mehr dynamisch hinzugefügt werden
   
-  viewer.innerHTML = html;
+  // Erstelle zweigeteiltes Layout (wie bei chronologischer Ansicht)
+  // Entferne vorhandenes Wrapper-Element falls vorhanden
+  const existingWrapper = document.getElementById('chalkboards-year-nav-wrapper');
+  if (existingWrapper) {
+    existingWrapper.remove();
+  }
+  
+  // Berechne die Höhe bis zum unteren Bildschirmrand
+  const mainEl = document.getElementById('main');
+  const mainRect = mainEl ? mainEl.getBoundingClientRect() : null;
+  const availableHeight = mainRect ? (window.innerHeight - mainRect.top - 20) : (window.innerHeight - 220);
+  
+  // Erstelle Wrapper für zweigeteiltes Layout
+  const wrapper = document.createElement('div');
+  wrapper.id = 'chalkboards-year-nav-wrapper';
+  wrapper.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    height: ${availableHeight}px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  `;
+  
+  // Erstelle oberen Bereich für Jahres-Buttons (FIXIERT, scrollt nicht)
+  const yearButtonsPanel = document.createElement('div');
+  yearButtonsPanel.id = 'chalkboards-year-nav';
+  const bgColor = document.body.classList.contains('dark-mode') ? 'var(--dark-background-color)' : 'var(--background-color)';
+  yearButtonsPanel.style.cssText = `
+    flex-shrink: 0;
+    background: ${bgColor} !important;
+    padding: 0rem 1.5rem 1rem 0rem;  
+    border-bottom: none !important;
+    box-shadow: none !important;
+    z-index: 1003;
+    position: relative;
+    width: 100%;
+  `;
+  
+  // Erstelle unteren Bereich für Galerie-Inhalt (scrollbar)
+  const galleryContentPanel = document.createElement('div');
+  galleryContentPanel.id = 'chalkboards-gallery-content';
+  galleryContentPanel.style.cssText = `
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 3rem;
+  `;
+  
+  // Füge Galerie-Inhalt ein
+  galleryContentPanel.innerHTML = html;
+  
+  // Füge beide Panels zum Wrapper hinzu
+  wrapper.appendChild(yearButtonsPanel);
+  wrapper.appendChild(galleryContentPanel);
+  
+  // Ersetze den viewer-Inhalt durch den Wrapper
+  viewer.innerHTML = '';
+  viewer.appendChild(wrapper);
+  
+  // Deaktiviere das Scrollen von #main
+  if (mainEl) {
+    mainEl.style.overflow = 'hidden';
+  }
 }
 
 // Funktion: Öffne Vortrag aus Wandtafel-Link
