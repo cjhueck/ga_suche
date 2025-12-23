@@ -39,13 +39,21 @@ def parse_filename(filename: str) -> dict | None:
     """
     Parst einen Dateinamen wie GA199-1920-08-06-T01.webp oder GA199-1920-08-06-T01.png
     
+    Unterstützt auch Suffix für mehrere Vorträge am selben Tag:
+    - GA316-1924-04-24a-T01.webp  (mit Punkt vor T)
+    - GA316-1924-04-24a.T01.webp  (mit Punkt vor T)
+    
     Returns:
-        dict mit ga, date, tafel oder None bei Fehler
+        dict mit ga, date, tafel, dateSuffix (optional) oder None bei Fehler
     """
-    # Pattern: GA + Nummer (optional mit Suffix) + Datum + Tafel-Nummer
-    # Beispiele: GA199-1920-08-06-T01.webp, GA073A-1920-03-27-T02.webp, GA084-1923-04-22-To2.png
+    # Pattern: GA + Nummer (optional mit GA-Suffix wie A/B) + Datum + optionales Datums-Suffix (a/b/c) + Tafel-Nummer
+    # Beispiele: 
+    #   GA199-1920-08-06-T01.webp
+    #   GA073A-1920-03-27-T02.webp
+    #   GA316-1924-04-24a-T01.webp   (zweiter Vortrag am selben Tag)
+    #   GA316-1924-04-24a.T01.webp   (alternative Schreibweise mit Punkt)
     # Unterstützt auch Varianten wie "To2" statt "T02"
-    pattern = r'^GA(\d+[A-Z]?)-(\d{4}-\d{2}-\d{2})-T([oO]?\d+)\.(webp|png)$'
+    pattern = r'^GA(\d+[A-Z]?)-(\d{4}-\d{2}-\d{2})([a-z])?[.-]T([oO]?\d+)\.(webp|png)$'
     match = re.match(pattern, filename, re.IGNORECASE)
     
     if not match:
@@ -53,14 +61,21 @@ def parse_filename(filename: str) -> dict | None:
     
     ga = match.group(1).upper()
     date = match.group(2)
-    tafel_str = match.group(3).replace('o', '0').replace('O', '0')
+    date_suffix = match.group(3).lower() if match.group(3) else None  # z.B. "a" für Abendzusammenkunft
+    tafel_str = match.group(4).replace('o', '0').replace('O', '0')
     tafel = int(tafel_str)
     
-    return {
+    result = {
         'ga': ga,
         'date': date,
         'tafel': tafel
     }
+    
+    # Nur hinzufügen wenn vorhanden (für Abwärtskompatibilität)
+    if date_suffix:
+        result['dateSuffix'] = date_suffix
+    
+    return result
 
 
 def convert_png_to_webp(png_path: Path) -> Path | None:
@@ -150,13 +165,19 @@ def generate_chalkboards_json():
             # Relativer Pfad für Web-Zugriff
             rel_path = f"chalkboards/{ga_name}/{webp_file.name}"
             
-            chalkboards.append({
+            entry = {
                 'ga': info['ga'],
                 'date': info['date'],
                 'tafel': info['tafel'],
                 'path': rel_path,
                 'filename': webp_file.name
-            })
+            }
+            
+            # Datums-Suffix für mehrere Vorträge am selben Tag (z.B. "a" für Abendzusammenkunft)
+            if info.get('dateSuffix'):
+                entry['dateSuffix'] = info['dateSuffix']
+            
+            chalkboards.append(entry)
             
             stats['total'] += 1
             stats[f"GA{info['ga']}"] += 1

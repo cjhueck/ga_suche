@@ -21,15 +21,23 @@ LECTURES_DIR = PROJECT_DIR / "steiner-full-lectures"
 
 def load_chalkboards() -> dict:
     """
-    Lädt chalkboards.json und gruppiert nach GA + Datum.
-    Returns: {("076", "1921-04-05"): [tafel1, tafel2, ...], ...}
+    Lädt chalkboards.json und gruppiert nach GA + Datum + optionalem Suffix.
+    
+    Returns: {("076", "1921-04-05", None): [tafel1, tafel2, ...], 
+              ("316", "1924-04-24", "a"): [tafel1, tafel2, ...], ...}
+    
+    Das Suffix (z.B. "a") wird verwendet bei mehreren Vorträgen am selben Tag:
+    - Bilder ohne Suffix → erster Vortrag des Tages
+    - Bilder mit "a" → zweiter Vortrag des Tages (z.B. Abendzusammenkunft)
     """
     with open(CHALKBOARDS_FILE, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
     grouped = defaultdict(list)
     for cb in data.get('chalkboards', []):
-        key = (cb['ga'], cb['date'])
+        # Key enthält jetzt auch dateSuffix (kann None sein)
+        date_suffix = cb.get('dateSuffix', None)
+        key = (cb['ga'], cb['date'], date_suffix)
         grouped[key].append(cb)
     
     # Sortiere Tafeln nach Nummer
@@ -46,6 +54,51 @@ def ga_number_to_key(ga_number: str) -> str:
     if ga_number.startswith("GA"):
         return ga_number[2:]
     return ga_number
+
+
+def extract_date_suffix(lecture: dict) -> str | None:
+    """
+    Extrahiert das Datums-Suffix (a, b, c...) aus einem Vortrag.
+    
+    Erkennt mehrere Vorträge am selben Tag anhand:
+    1. Suffix direkt am Jahr: "24. April 1924a" → "a"
+    2. Suffix in Klammern: "24. April 1924(a)" → "a"
+    3. Schlüsselwörter wie "Abendzusammenkunft", "abends", "nachmittags"
+    
+    Returns: "a", "b", etc. oder None
+    """
+    import re
+    
+    fileName = lecture.get('fileName', '')
+    title = lecture.get('title', '')
+    
+    # Pattern 1: Suffix direkt am Jahr (OHNE Klammern)
+    # z.B. "24. April 1924a" oder "1924a"
+    # WICHTIG: Das "a" muss am Ende stehen oder von Komma/Leerzeichen gefolgt werden
+    pattern_direct = r'\b(\d{4})([a-z])(?:\b|[,\s]|$)'
+    
+    for text in [fileName, title]:
+        match = re.search(pattern_direct, text)
+        if match:
+            return match.group(2).lower()
+    
+    # Pattern 2: Suffix in Klammern (a), (b), (c) nach dem Jahr
+    # z.B. "24. April 1924(a)"
+    pattern_parens = r'\d{4}\s*\(([a-z])\)'
+    
+    for text in [fileName, title]:
+        match = re.search(pattern_parens, text, re.IGNORECASE)
+        if match:
+            return match.group(1).lower()
+    
+    # Pattern 3: Schlüsselwörter für zweiten Vortrag des Tages (Fallback)
+    combined = f"{fileName} {title}".lower()
+    
+    # "a" für Abendzusammenkunft, abends, Abend-Vortrag
+    if any(kw in combined for kw in ['abendzusammenkunft', 'abends', 'abend-', 'abendvortrag']):
+        return 'a'
+    
+    return None
 
 
 def create_chalkboard_paragraphs(tafeln: list) -> list:
@@ -110,10 +163,17 @@ def process_lectures_file(filepath: Path, chalkboards: dict, ga_filter: set) -> 
         if ga_filter and ga_key not in ga_filter:
             continue
         
-        # Suche passende Tafeln
-        key = (ga_key, date)
+        # Extrahiere Datums-Suffix für mehrere Vorträge am selben Tag
+        date_suffix = extract_date_suffix(lecture)
+        
+        # Suche passende Tafeln (mit Suffix)
+        key = (ga_key, date, date_suffix)
         if key not in chalkboards:
-            continue
+            # Fallback: Versuche ohne Suffix (für Abwärtskompatibilität)
+            key_no_suffix = (ga_key, date, None)
+            if key_no_suffix not in chalkboards:
+                continue
+            key = key_no_suffix
         
         tafeln = chalkboards[key]
         

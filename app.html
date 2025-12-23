@@ -6947,10 +6947,104 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
       <li><strong>Quelle:</strong> <code>Steiner_GA/chalkboards/</code> (WebP-Bilder)</li>
-      <li><strong>Namenskonvention:</strong> <code>GA076-1921-04-05-T01.webp</code></li>
+      <li><strong>Namenskonvention:</strong>
+        <ul style="margin: 0.3rem 0; padding-left: 1.2rem;">
+          <li><code>GA076-1921-04-05-T01.webp</code> – Standard</li>
+          <li><code>GA316-1924-04-24a-T01.webp</code> – Mit Suffix "a" für zweiten Vortrag am selben Tag</li>
+        </ul>
+      </li>
+      <li><strong>Mehrere Vorträge/Tag:</strong> Bilder mit Suffix (z.B. "a") werden Vorträgen zugeordnet, 
+        deren Datum das Suffix enthält: <code>24. April 1924a</code> (Suffix direkt am Jahr)</li>
       <li><strong>Index:</strong> <code>chalkboards.json</code> (generiert durch <code>scripts/generate_chalkboards_json.py</code>)</li>
+      <li><strong>Import:</strong> <code>scripts/import_chalkboards_to_lectures.py</code> ordnet Bilder den Vorträgen zu</li>
       <li><strong>Konvertierung:</strong> PNG → WebP automatisch beim Export</li>
     </ol>
+  </div>
+  
+  <h4 style="color: var(--heading-color); margin: 1.5rem 0 0.5rem 0;">Seitenzahlen (Page Breaks)</h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <p style="margin: 0 0 1rem 0;">
+      <strong>Zweck:</strong> Seitenzahlen aus den gedruckten GA-Bänden werden in die JSON-Vorträge eingefügt, 
+      damit Nutzer die Original-Seitenzahlen sehen können.
+    </p>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Skripte:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Skript</th>
+        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Funktion</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>batch_generate_pagebreaks.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Hauptskript: Führt beide Schritte für GA-Bände aus</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>export_page_markers_v4.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Extrahiert Seitenumbruch-Marker aus PDF</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>apply_page_break_markers_v4.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Fügt <code>|page|</code>-Marker in JSON-Vorträge ein</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>generate_lecture_page_mapping.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Erstellt Mapping: Vortrag-ID → Start-Seitenzahl</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Arbeitsweise:</h5>
+    <ol style="margin: 0; padding-left: 1.5rem;">
+      <li style="margin-bottom: 0.8rem;">
+        <strong>export_page_markers_v4.py:</strong>
+        <ul style="margin-top: 0.3rem;">
+          <li>Öffnet PDF aus <code>Steiner_GA_pdf/</code></li>
+          <li>Erkennt gedruckte Seitenzahlen im Footer ("Seite: X", "- 123 -")</li>
+          <li>Extrahiert Fließtext (ohne Header/Footer/Überschriften)</li>
+          <li>Speichert pro Seitenumbruch: <code>left</code> (200 Zeichen vor), <code>right</code> (200 Zeichen nach)</li>
+          <li><strong>Output:</strong> <code>page-break-markers.json</code></li>
+        </ul>
+      </li>
+      <li style="margin-bottom: 0.8rem;">
+        <strong>apply_page_break_markers_v4.py:</strong>
+        <ul style="margin-top: 0.3rem;">
+          <li>Lädt Break-Anker aus <code>page-break-markers.json</code></li>
+          <li>Normalisiert Text (lowercase, Ligaturen, alte Rechtschreibung)</li>
+          <li>Findet per Fuzzy-Matching die exakte Einfügeposition im JSON-Text</li>
+          <li>Fügt Marker im Format <code>|14|</code> ein</li>
+          <li><strong>Output:</strong> <code>pagebreak-books/GA198.json</code></li>
+        </ul>
+      </li>
+      <li style="margin-bottom: 0.8rem;">
+        <strong>generate_lecture_page_mapping.py:</strong>
+        <ul style="margin-top: 0.3rem;">
+          <li>Sucht ersten Fließtext-Absatz jedes Vortrags im PDF</li>
+          <li>Speichert Start-Seitenzahl pro Vortrag</li>
+          <li><strong>Output:</strong> <code>lecture-page-mapping.json</code></li>
+        </ul>
+      </li>
+    </ol>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Verwendung:</h5>
+    <div style="background: var(--code-bg, #1e1e1e); color: var(--code-color, #d4d4d4); padding: 0.8rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; overflow-x: auto;">
+      <div style="color: #6A9955;"># Seitenzahlen für eine GA generieren</div>
+      <div>python batch_generate_pagebreaks.py 198 198</div>
+      <br>
+      <div style="color: #6A9955;"># Mit Lecture-Mapping (für bessere Ergebnisse)</div>
+      <div>python generate_lecture_page_mapping.py GA198</div>
+      <div>python batch_generate_pagebreaks.py 198 198</div>
+      <br>
+      <div style="color: #6A9955;"># Server neu starten (lädt neue Pagebreaks)</div>
+      <div>Get-Process -Name "node" | Stop-Process -Force</div>
+      <div>node backend.js</div>
+    </div>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Dateien:</h5>
+    <ul style="margin: 0; padding-left: 1.5rem;">
+      <li><code>page-break-markers.json</code> – Break-Anker (left/right-Snippets pro Seitenumbruch)</li>
+      <li><code>lecture-page-mapping.json</code> – Start-Seitenzahl pro Vortrag</li>
+      <li><code>pagebreak-books/GA*.json</code> – Vorträge mit eingefügten <code>|page|</code>-Markern</li>
+      <li><code>pagebreak-books/GA*-report.json</code> – Statistik (wie viele Breaks eingefügt)</li>
+    </ul>
   </div>
 </div>
 
