@@ -1,6 +1,6 @@
 {
   "generated": "generate_chalkboards_json.py",
-  "count": 1006,
+  "count": 1008,
   "chalkboards": [
     {
       "ga": "073A",
@@ -5016,6 +5016,13 @@
     },
     {
       "ga": "312",
+      "date": "1920-04-01",
+      "tafel": 3,
+      "path": "chalkboards/GA312/GA312-1920-04-01-T03.webp",
+      "filename": "GA312-1920-04-01-T03.webp"
+    },
+    {
+      "ga": "312",
       "date": "1920-04-03",
       "tafel": 1,
       "path": "chalkboards/GA312/GA312-1920-04-03-T01.webp",
@@ -5069,13 +5076,6 @@
       "tafel": 1,
       "path": "chalkboards/GA312/GA312-1928-03-29-T01.webp",
       "filename": "GA312-1928-03-29-T01.webp"
-    },
-    {
-      "ga": "312",
-      "date": "1999-04-01",
-      "tafel": 1,
-      "path": "chalkboards/GA312/GA312-1999-04-01-T01.webp",
-      "filename": "GA312-1999-04-01-T01.webp"
     },
     {
       "ga": "313",
@@ -5314,6 +5314,20 @@
       "tafel": 1,
       "path": "chalkboards/GA316/GA316-1924-04-24-T01.webp",
       "filename": "GA316-1924-04-24-T01.webp"
+    },
+    {
+      "ga": "316",
+      "date": "1924-04-24",
+      "tafel": 2,
+      "path": "chalkboards/GA316/GA316-1924-04-24-T02.webp",
+      "filename": "GA316-1924-04-24-T02.webp"
+    },
+    {
+      "ga": "316",
+      "date": "1924-04-24",
+      "tafel": 4,
+      "path": "chalkboards/GA316/GA316-1924-04-24-T04.webp",
+      "filename": "GA316-1924-04-24-T04.webp"
     },
     {
       "ga": "316",
