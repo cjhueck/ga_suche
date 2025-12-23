@@ -1,6 +1,5 @@
 # Source folders (too large for git)
-Steiner_GA/*
-!Steiner_GA/chalkboards/
+Steiner_GA/
 Steiner_GA_pdf/
 backups/
 
