@@ -6945,20 +6945,111 @@ Bestehende Schlagwörter überschreiben
   
   <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Wandtafelzeichnungen</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
-    <ol style="margin: 0; padding-left: 1.5rem;">
-      <li><strong>Quelle:</strong> <code>Steiner_GA/chalkboards/</code> (WebP-Bilder)</li>
-      <li><strong>Namenskonvention:</strong>
-        <ul style="margin: 0.3rem 0; padding-left: 1.2rem;">
-          <li><code>GA076-1921-04-05-T01.webp</code> – Standard</li>
-          <li><code>GA316-1924-04-24a-T01.webp</code> – Mit Suffix "a" für zweiten Vortrag am selben Tag</li>
+    <p style="margin: 0 0 1rem 0;">
+      <strong>Zweck:</strong> Wandtafelzeichnungen Rudolf Steiners werden den entsprechenden Vorträgen zugeordnet 
+      und als klickbare Galerie unter dem Vortragstext angezeigt.
+    </p>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Quellen & Ordner:</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Ordner</th>
+        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Beschreibung</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>Steiner_GA/chalkboards/</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Quellordner (PNG/WebP) – Neue Bilder hier ablegen</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>chalkboards/</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Git-Repository-Ordner (WebP) – Wird automatisch synchronisiert</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>chalkboards.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Index aller Tafeln mit Metadaten (GA, Datum, Tafel-Nr.)</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Namenskonvention:</h5>
+    <ul style="margin: 0; padding-left: 1.5rem; margin-bottom: 1rem;">
+      <li><code>GA076-1921-04-05-T01.webp</code> – Standard: GA + Datum + Tafel-Nummer</li>
+      <li><code>GA316-1924-04-24a-T01.webp</code> – Mit Suffix <code>a</code> für zweiten Vortrag am selben Tag</li>
+      <li><code>GA316-1924-04-24a-T02.webp</code> – Zweite Tafel des zweiten Vortrags</li>
+    </ul>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Workflow (Schritt für Schritt):</h5>
+    <ol style="margin: 0; padding-left: 1.5rem; margin-bottom: 1rem;">
+      <li style="margin-bottom: 0.8rem;">
+        <strong>Bilder ablegen:</strong><br>
+        Neue Wandtafelbilder (PNG oder WebP) im Ordner <code>Steiner_GA/chalkboards/GAxxxx/</code> ablegen.
+        Die Unterordner sind nach GA-Nummer benannt (z.B. <code>GA316/</code>).
+      </li>
+      <li style="margin-bottom: 0.8rem;">
+        <strong>Export-Skript ausführen:</strong><br>
+        <div style="background: var(--code-bg, #1e1e1e); color: var(--code-color, #d4d4d4); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; margin-top: 0.3rem;">
+          python scripts/generate_chalkboards_json.py
+        </div>
+        <ul style="margin-top: 0.3rem;">
+          <li>Konvertiert PNG → WebP automatisch</li>
+          <li>Parst Dateinamen (GA, Datum, Tafel-Nr., Suffix)</li>
+          <li>Erstellt/aktualisiert <code>chalkboards.json</code></li>
+          <li>Synchronisiert nach <code>chalkboards/</code> (für Git)</li>
         </ul>
       </li>
-      <li><strong>Mehrere Vorträge/Tag:</strong> Bilder mit Suffix (z.B. "a") werden Vorträgen zugeordnet, 
-        deren Datum das Suffix enthält: <code>24. April 1924a</code> (Suffix direkt am Jahr)</li>
-      <li><strong>Index:</strong> <code>chalkboards.json</code> (generiert durch <code>scripts/generate_chalkboards_json.py</code>)</li>
-      <li><strong>Import:</strong> <code>scripts/import_chalkboards_to_lectures.py</code> ordnet Bilder den Vorträgen zu</li>
-      <li><strong>Konvertierung:</strong> PNG → WebP automatisch beim Export</li>
+      <li style="margin-bottom: 0.8rem;">
+        <strong>Import in Vorträge:</strong><br>
+        <div style="background: var(--code-bg, #1e1e1e); color: var(--code-color, #d4d4d4); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; margin-top: 0.3rem;">
+          python scripts/import_chalkboards_to_lectures.py
+        </div>
+        <ul style="margin-top: 0.3rem;">
+          <li>Lädt <code>chalkboards.json</code></li>
+          <li>Findet passende Vorträge anhand GA + Datum + Suffix</li>
+          <li>Fügt Tafel-Paragraphen am Ende des Vortrags ein</li>
+          <li>Entfernt alte Tafel-Paragraphen automatisch (bei Löschung von Bildern)</li>
+        </ul>
+      </li>
+      <li style="margin-bottom: 0.8rem;">
+        <strong style="color: #f59e0b;">⚠️ Git Push:</strong><br>
+        Der Ordner <code>chalkboards/</code> muss nach dem Export manuell gepusht werden:
+        <ul style="margin-top: 0.3rem;">
+          <li>GitHub Desktop öffnen</li>
+          <li>Änderungen im <code>chalkboards/</code> Ordner committen</li>
+          <li>Push zum Remote-Repository</li>
+        </ul>
+      </li>
     </ol>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Matching bei mehreren Vorträgen am selben Tag:</h5>
+    <div style="background: var(--sidebar-bg); padding: 0.8rem; border-radius: 4px; margin-bottom: 1rem;">
+      <p style="margin: 0 0 0.5rem 0;">Wenn es mehrere Vorträge am selben Tag gibt (z.B. Morgen- und Abendvortrag), 
+      wird ein Suffix (<code>a</code>, <code>b</code>, etc.) verwendet:</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; margin-top: 0.5rem;">
+        <tr style="background: var(--input-bg);">
+          <th style="text-align: left; padding: 0.4rem; border: 1px solid var(--border-color);">Dateiname</th>
+          <th style="text-align: left; padding: 0.4rem; border: 1px solid var(--border-color);">→ Vortragstitel enthält</th>
+        </tr>
+        <tr>
+          <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>GA316-1924-04-24-T01.webp</code></td>
+          <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>24. April 1924</code> (erster Vortrag)</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>GA316-1924-04-24a-T01.webp</code></td>
+          <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>24. April 1924a</code> (zweiter Vortrag)</td>
+        </tr>
+      </table>
+      <p style="margin: 0.5rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+        Das Suffix im Dateinamen (z.B. <code>a</code>) wird mit dem Suffix im Vortragstitel/-dateinamen abgeglichen.
+      </p>
+    </div>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Automatische Bereinigung:</h5>
+    <ul style="margin: 0; padding-left: 1.5rem;">
+      <li>Wenn ein Bild aus <code>Steiner_GA/chalkboards/</code> gelöscht wird, wird es beim nächsten 
+        <code>generate_chalkboards_json.py</code>-Lauf auch aus <code>chalkboards/</code> entfernt</li>
+      <li>Beim <code>import_chalkboards_to_lectures.py</code>-Lauf werden alte Tafel-Paragraphen 
+        automatisch entfernt, bevor neue eingefügt werden</li>
+      <li>Der TOC-Link "Wandtafelzeichnungen" erscheint/verschwindet automatisch je nach Vorhandensein von Tafeln</li>
+    </ul>
   </div>
   
   <h4 style="color: var(--heading-color); margin: 1.5rem 0 0.5rem 0;">Seitenzahlen (Page Breaks)</h4>
@@ -10216,6 +10307,13 @@ function normalizeGANumber(gaNumber) {
     
     let chalkboardsData = []; // Globale Variable für alle Tafeln
     let chalkboardsDataPromise = null; // Promise für einmaliges Laden
+    
+    // Cache löschen: In Browser-Konsole eingeben: clearChalkboardsCache()
+    function clearChalkboardsCache() {
+      chalkboardsData = [];
+      chalkboardsDataPromise = null;
+      console.log('[CHALKBOARDS] Cache gelöscht. Beim nächsten Aufruf werden Daten neu geladen.');
+    }
     
     // Lade chalkboards.json beim Start (mit Promise für Synchronisation)
     async function loadChalkboardsData() {
