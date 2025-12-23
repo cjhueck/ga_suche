@@ -8,9 +8,6 @@ Die Tafeln werden am Ende des Vortrags eingefügt:
 - Waagerechte Linie (---)
 - Überschrift "Wandtafelzeichnungen"
 - Bild(er) der Tafel(n)
-
-WICHTIG: Bei jedem Durchlauf werden bestehende Tafel-Paragraphen ENTFERNT und
-neu eingefügt. So verschwinden gelöschte Tafeln automatisch aus den Vorträgen.
 """
 
 import json
@@ -104,44 +101,6 @@ def extract_date_suffix(lecture: dict) -> str | None:
     return None
 
 
-def is_chalkboard_paragraph(paragraph: dict) -> bool:
-    """
-    Prüft ob ein Paragraph zu den Wandtafelzeichnungen gehört.
-    
-    Erkennungsmerkmale:
-    - Index beginnt mit "^cb" (chalkboard)
-    - Content ist "---\n\n## Wandtafelzeichnungen"
-    - Content ist ein Tafel-Bild: "![Tafel X](...)"
-    """
-    index = paragraph.get('index', '')
-    content = paragraph.get('content', '')
-    
-    # Index-basierte Erkennung (primär)
-    if index.startswith('^cb'):
-        return True
-    
-    # Content-basierte Erkennung (Fallback für alte Daten)
-    if content.startswith('---\n\n## Wandtafelzeichnungen'):
-        return True
-    if content.startswith('![Tafel '):
-        return True
-    
-    return False
-
-
-def remove_chalkboard_paragraphs(paragraphs: list) -> tuple[list, int]:
-    """
-    Entfernt alle Wandtafel-Paragraphen aus einer Paragraph-Liste.
-    
-    Returns:
-        (bereinigte_paragraphen, anzahl_entfernt)
-    """
-    original_count = len(paragraphs)
-    cleaned = [p for p in paragraphs if not is_chalkboard_paragraph(p)]
-    removed_count = original_count - len(cleaned)
-    return cleaned, removed_count
-
-
 def create_chalkboard_paragraphs(tafeln: list) -> list:
     """
     Erstellt die Paragraphen für die Wandtafelzeichnungen.
@@ -172,15 +131,12 @@ def create_chalkboard_paragraphs(tafeln: list) -> list:
     return paragraphs
 
 
-def process_lectures_file(filepath: Path, chalkboards: dict, ga_filter: set) -> tuple[int, int, int]:
+def process_lectures_file(filepath: Path, chalkboards: dict, ga_filter: set) -> tuple[int, int]:
     """
     Verarbeitet eine steiner-full-lectures JSON-Datei.
     
-    Bei jedem Durchlauf werden bestehende Tafel-Paragraphen ENTFERNT und
-    neu eingefügt. So verschwinden gelöschte Tafeln automatisch.
-    
     Returns:
-        (anzahl_tafeln_eingefügt, anzahl_vorträge_mit_neuen_tafeln, anzahl_vorträge_bereinigt)
+        (anzahl_tafeln_eingefügt, anzahl_vorträge_betroffen)
     """
     with open(filepath, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -194,8 +150,7 @@ def process_lectures_file(filepath: Path, chalkboards: dict, ga_filter: set) -> 
         is_wrapped = False
     
     total_tafeln = 0
-    lectures_with_new_tafeln = 0
-    lectures_cleaned = 0
+    lectures_affected = 0
     modified = False
     
     for lecture in lectures:
@@ -208,49 +163,37 @@ def process_lectures_file(filepath: Path, chalkboards: dict, ga_filter: set) -> 
         if ga_filter and ga_key not in ga_filter:
             continue
         
-        paragraphs = lecture.get('paragraphs', [])
-        
-        # SCHRITT 1: Entferne alle bestehenden Tafel-Paragraphen
-        cleaned_paragraphs, removed_count = remove_chalkboard_paragraphs(paragraphs)
-        
-        if removed_count > 0:
-            lecture['paragraphs'] = cleaned_paragraphs
-            paragraphs = cleaned_paragraphs
-            lectures_cleaned += 1
-            modified = True
-        
-        # SCHRITT 2: Prüfe ob neue Tafeln eingefügt werden sollen
         # Extrahiere Datums-Suffix für mehrere Vorträge am selben Tag
         date_suffix = extract_date_suffix(lecture)
         
         # Suche passende Tafeln (mit Suffix)
         key = (ga_key, date, date_suffix)
-        tafeln = None
-        
-        if key in chalkboards:
-            tafeln = chalkboards[key]
-        elif date_suffix is not None:
+        if key not in chalkboards:
             # Fallback: Versuche ohne Suffix (für Abwärtskompatibilität)
             key_no_suffix = (ga_key, date, None)
-            if key_no_suffix in chalkboards:
-                tafeln = chalkboards[key_no_suffix]
+            if key_no_suffix not in chalkboards:
+                continue
+            key = key_no_suffix
         
-        # SCHRITT 3: Füge neue Tafeln ein (falls vorhanden)
-        if tafeln:
-            tafel_paragraphs = create_chalkboard_paragraphs(tafeln)
-            lecture['paragraphs'].extend(tafel_paragraphs)
-            
-            total_tafeln += len(tafeln)
-            lectures_with_new_tafeln += 1
-            modified = True
-            
-            if removed_count > 0:
-                print(f"    ~ {lecture_id}: {removed_count} alte entfernt, {len(tafeln)} neue Tafel(n)")
-            else:
-                print(f"    + {lecture_id}: {len(tafeln)} Tafel(n) eingefuegt")
-        elif removed_count > 0:
-            # Tafeln wurden entfernt, aber keine neuen eingefügt
-            print(f"    - {lecture_id}: {removed_count} Tafel(n) entfernt (keine neuen)")
+        tafeln = chalkboards[key]
+        
+        # Prüfe ob bereits Tafeln eingefügt wurden (verhindere Duplikate)
+        paragraphs = lecture.get('paragraphs', [])
+        if paragraphs and any(p.get('content', '').startswith('---\n\n## Wandtafelzeichnungen') for p in paragraphs):
+            print(f"    ! {lecture_id}: Tafeln bereits vorhanden, ueberspringe")
+            continue
+        
+        # Erstelle Tafel-Paragraphen
+        tafel_paragraphs = create_chalkboard_paragraphs(tafeln)
+        
+        # Füge am Ende ein
+        lecture['paragraphs'].extend(tafel_paragraphs)
+        
+        total_tafeln += len(tafeln)
+        lectures_affected += 1
+        modified = True
+        
+        print(f"    + {lecture_id}: {len(tafeln)} Tafel(n) eingefuegt")
     
     if modified:
         with open(filepath, 'w', encoding='utf-8') as f:
@@ -260,16 +203,13 @@ def process_lectures_file(filepath: Path, chalkboards: dict, ga_filter: set) -> 
             else:
                 json.dump(lectures, f, ensure_ascii=False, indent=2)
     
-    return total_tafeln, lectures_with_new_tafeln, lectures_cleaned
+    return total_tafeln, lectures_affected
 
 
 def main(ga_filter: set = None):
     print("=" * 60)
     print("  IMPORTIERE WANDTAFELZEICHNUNGEN IN STEINER-FULL-LECTURES")
     print("=" * 60)
-    print()
-    print("  HINWEIS: Bestehende Tafeln werden entfernt und neu eingefuegt.")
-    print("           Geloeschte Tafeln verschwinden automatisch.")
     print()
     
     if ga_filter:
@@ -288,26 +228,23 @@ def main(ga_filter: set = None):
     print()
     
     total_tafeln = 0
-    total_lectures_new = 0
-    total_lectures_cleaned = 0
+    total_lectures = 0
     files_modified = 0
     
     for filepath in json_files:
-        tafeln, lectures_new, lectures_cleaned = process_lectures_file(filepath, chalkboards, ga_filter)
-        if tafeln > 0 or lectures_cleaned > 0:
+        tafeln, lectures = process_lectures_file(filepath, chalkboards, ga_filter)
+        if tafeln > 0:
             files_modified += 1
             total_tafeln += tafeln
-            total_lectures_new += lectures_new
-            total_lectures_cleaned += lectures_cleaned
+            total_lectures += lectures
     
     print()
     print("=" * 60)
     print(f"  ZUSAMMENFASSUNG")
     print("=" * 60)
-    print(f"  Dateien modifiziert:     {files_modified}")
-    print(f"  Vortraege mit Tafeln:    {total_lectures_new}")
-    print(f"  Vortraege bereinigt:     {total_lectures_cleaned}")
-    print(f"  Tafeln eingefuegt:       {total_tafeln}")
+    print(f"  Dateien modifiziert: {files_modified}")
+    print(f"  Vorträge betroffen: {total_lectures}")
+    print(f"  Tafeln eingefügt: {total_tafeln}")
     print("=" * 60)
 
 

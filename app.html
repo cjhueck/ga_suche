@@ -6944,132 +6944,21 @@ Bestehende Schlagwörter überschreiben
   </div>
   
   <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Wandtafelzeichnungen</h4>
-  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
-    <p style="margin: 0 0 1rem 0;">
-      <strong>Zweck:</strong> Wandtafelzeichnungen werden den entsprechenden Vorträgen zugeordnet und 
-      am Ende jedes Vortrags angezeigt. Im TOC erscheint ein klickbarer Link "Wandtafelzeichnungen".
-    </p>
-    
-    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Quellen und Dateien:</h5>
-    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
-      <tr style="background: var(--sidebar-bg);">
-        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Datei/Ordner</th>
-        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Beschreibung</th>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>Steiner_GA/chalkboards/</code></td>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Quellordner mit Wandtafelbildern (WebP/PNG)</td>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>chalkboards.json</code></td>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Index aller Tafeln (GA, Datum, Suffix, Pfad)</td>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>steiner-full-lectures/*.json</code></td>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Vorträge mit eingefügten Tafel-Paragraphen</td>
-      </tr>
-    </table>
-    
-    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Skripte:</h5>
-    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
-      <tr style="background: var(--sidebar-bg);">
-        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Skript</th>
-        <th style="text-align: left; padding: 0.5rem; border: 1px solid var(--border-color);">Funktion</th>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>scripts/generate_chalkboards_json.py</code></td>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Scannt Bilder, konvertiert PNG→WebP, erstellt <code>chalkboards.json</code></td>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>scripts/import_chalkboards_to_lectures.py</code></td>
-        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Importiert Tafeln in Vorträge (mit automatischer Bereinigung)</td>
-      </tr>
-    </table>
-    
-    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Namenskonvention der Bilddateien:</h5>
-    <div style="background: var(--sidebar-bg); border-radius: 4px; padding: 0.8rem; margin-bottom: 1rem;">
-      <code style="font-size: 0.95em;">GA{NNN}-{JJJJ}-{MM}-{TT}[{suffix}]-T{XX}.webp</code>
-      <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem; font-size: 0.9em;">
-        <li><code>NNN</code> – GA-Nummer (z.B. 076, 316)</li>
-        <li><code>JJJJ-MM-TT</code> – Datum im ISO-Format</li>
-        <li><code>suffix</code> – Optional: "a", "b" etc. für mehrere Vorträge am selben Tag</li>
-        <li><code>XX</code> – Tafel-Nummer (01, 02, ...)</li>
-      </ul>
-      <p style="margin: 0.8rem 0 0 0; font-size: 0.85em;">
-        <strong>Beispiele:</strong><br>
-        <code>GA076-1921-04-05-T01.webp</code> – Tafel 1 zum Vortrag vom 5. April 1921<br>
-        <code>GA316-1924-04-24a-T01.webp</code> – Tafel 1 zum <em>zweiten</em> Vortrag am 24. April 1924
-      </p>
-    </div>
-    
-    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Workflow (schrittweise):</h5>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
-      <li style="margin-bottom: 1rem;">
-        <strong>Schritt 1: Bilder hinzufügen/entfernen</strong>
-        <ul style="margin-top: 0.3rem;">
-          <li>Neue Bilder in <code>Steiner_GA/chalkboards/</code> ablegen</li>
-          <li>Namenskonvention beachten (GA-Nummer, Datum, Tafel-Nr.)</li>
-          <li>Bei mehreren Vorträgen am selben Tag: Suffix "a" für zweiten Vortrag</li>
-          <li>PNG-Dateien werden automatisch zu WebP konvertiert</li>
+      <li><strong>Quelle:</strong> <code>Steiner_GA/chalkboards/</code> (WebP-Bilder)</li>
+      <li><strong>Namenskonvention:</strong>
+        <ul style="margin: 0.3rem 0; padding-left: 1.2rem;">
+          <li><code>GA076-1921-04-05-T01.webp</code> – Standard</li>
+          <li><code>GA316-1924-04-24a-T01.webp</code> – Mit Suffix "a" für zweiten Vortrag am selben Tag</li>
         </ul>
       </li>
-      <li style="margin-bottom: 1rem;">
-        <strong>Schritt 2: Export (chalkboards.json generieren)</strong>
-        <pre style="background: var(--sidebar-bg); padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">python scripts/generate_chalkboards_json.py</pre>
-        <ul style="margin-top: 0.3rem;">
-          <li>Konvertiert alle PNG-Dateien zu WebP (Pillow-Bibliothek)</li>
-          <li>Parst alle Dateinamen im Ordner</li>
-          <li>Extrahiert: GA-Nummer, Datum, optionales Suffix, Tafel-Nummer</li>
-          <li>Speichert alles in <code>chalkboards.json</code></li>
-          <li><strong>Output:</strong> Index mit allen Tafeln, gruppiert nach GA/Datum/Suffix</li>
-        </ul>
-      </li>
-      <li style="margin-bottom: 1rem;">
-        <strong>Schritt 3: Import (Tafeln in Vorträge einfügen)</strong>
-        <pre style="background: var(--sidebar-bg); padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">python scripts/import_chalkboards_to_lectures.py [GA-Filter]</pre>
-        <ul style="margin-top: 0.3rem;">
-          <li>Lädt <code>chalkboards.json</code></li>
-          <li><strong>Bereinigung:</strong> Entfernt ALLE bestehenden Tafel-Paragraphen aus Vorträgen</li>
-          <li><strong>Matching:</strong> Ordnet Tafeln den Vorträgen zu (GA + Datum + Suffix)</li>
-          <li><strong>Einfügen:</strong> Fügt neue Tafel-Paragraphen am Ende jedes Vortrags ein</li>
-          <li><strong>Output:</strong> Aktualisierte <code>steiner-full-lectures/*.json</code> Dateien</li>
-        </ul>
-        <p style="margin: 0.5rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
-          Optional: <code>python scripts/import_chalkboards_to_lectures.py GA316</code> – Nur GA316 verarbeiten
-        </p>
-      </li>
+      <li><strong>Mehrere Vorträge/Tag:</strong> Bilder mit Suffix (z.B. "a") werden Vorträgen zugeordnet, 
+        deren Datum das Suffix enthält: <code>24. April 1924a</code> (Suffix direkt am Jahr)</li>
+      <li><strong>Index:</strong> <code>chalkboards.json</code> (generiert durch <code>scripts/generate_chalkboards_json.py</code>)</li>
+      <li><strong>Import:</strong> <code>scripts/import_chalkboards_to_lectures.py</code> ordnet Bilder den Vorträgen zu</li>
+      <li><strong>Konvertierung:</strong> PNG → WebP automatisch beim Export</li>
     </ol>
-    
-    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Matching bei mehreren Vorträgen am selben Tag:</h5>
-    <div style="background: var(--sidebar-bg); border-radius: 4px; padding: 0.8rem; margin-bottom: 1rem; font-size: 0.9em;">
-      <p style="margin: 0 0 0.5rem 0;">Das Import-Skript erkennt den zweiten Vortrag eines Tages anhand von:</p>
-      <ol style="margin: 0; padding-left: 1.5rem;">
-        <li>Suffix direkt am Jahr: <code>24. April 1924a</code></li>
-        <li>Suffix in Klammern: <code>24. April 1924(a)</code></li>
-        <li>Schlüsselwörter: "Abendzusammenkunft", "abends", "Abendvortrag" → automatisch Suffix "a"</li>
-      </ol>
-      <p style="margin: 0.8rem 0 0 0;">
-        <strong>Beispiel:</strong> <code>GA316-1924-04-24a-T01.webp</code> wird dem Vortrag 
-        "GA316/19 - Anhang... Abendzusammenkunft, 24. April 1924a" zugeordnet.
-      </p>
-    </div>
-    
-    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Automatische Bereinigung:</h5>
-    <div style="background: var(--sidebar-bg); border-radius: 4px; padding: 0.8rem; font-size: 0.9em;">
-      <p style="margin: 0;">
-        <strong>Wichtig:</strong> Das Import-Skript entfernt bei jedem Durchlauf ALLE bestehenden 
-        Tafel-Paragraphen und fügt sie neu ein. Dadurch:
-      </p>
-      <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
-        <li>✓ Gelöschte Bilder verschwinden automatisch aus Vorträgen</li>
-        <li>✓ Der TOC-Link "Wandtafelzeichnungen" verschwindet, wenn keine Tafeln mehr vorhanden</li>
-        <li>✓ Umbenannte/verschobene Bilder werden korrekt aktualisiert</li>
-      </ul>
-      <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
-        <strong>Hinweis:</strong> Der TOC-Link basiert auf <code>chalkboards.json</code>, nicht auf den 
-        Vortrags-Paragraphen. Er wird dynamisch generiert.
-      </p>
-    </div>
   </div>
   
   <h4 style="color: var(--heading-color); margin: 1.5rem 0 0.5rem 0;">Seitenzahlen (Page Breaks)</h4>
