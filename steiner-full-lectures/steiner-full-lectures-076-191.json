@@ -1116,7 +1116,7 @@
         },
         {
           "index": "^cb07619210405",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb07619210405t01",
@@ -1439,10 +1439,6 @@
           "content": "Von hier aus findet man dann auf rationale Weise den therapeutischen Bezug zwischen dem, was äußerlich ist und dem, was im Menschen innerlich ist. Und der Übergang kann gefunden werden über die Pathologie zur rationalen Therapie."
         },
         {
-          "index": "^cbxhop",
-          "content": "Auf dieses letztere kann ich hier nur hinweisen. Denen, die es angeht, werden ja noch weitere Aufschlüsse gerade über dieses Kapitel gegeben werden, wie es auch schon in einem Frühlingskurs des vorigen Jahres für Ärzte und Medizinstudierende geschehen ist."
-        },
-        {
           "index": "^hkn742",
           "content": "Das wird aber das Bedeutsame sein, dass wirkliche Wissenschaftlichkeit - die zu gleicher Zeit nicht bloß Theorie, sondern Hinweis auf fruchtbares Handeln, auf die Tat ist - aus der Geisteswissenschaft heraus wird geboren werden können."
         },
@@ -1468,7 +1464,7 @@
         },
         {
           "index": "^cb07619210406",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb07619210406t01",
@@ -1868,7 +1864,7 @@
         },
         {
           "index": "^cb07619210407",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb07619210407t01",
@@ -2824,7 +2820,7 @@
         },
         {
           "index": "^cb19119191003",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191003t01",
@@ -3028,7 +3024,7 @@
         },
         {
           "index": "^cb19119191004",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191004t01",
@@ -3188,7 +3184,7 @@
         },
         {
           "index": "^cb19119191005",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191005t01",
@@ -3512,7 +3508,7 @@
         },
         {
           "index": "^cb19119191011",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191011t01",
@@ -3732,7 +3728,7 @@
         },
         {
           "index": "^cb19119191012",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191012t01",
@@ -3917,6 +3913,18 @@
         {
           "index": "^becuu6",
           "content": "Sehen Sie, in solchen Dingen zeigt sich immerhin einiges von der Konstitution einer gegenwärtigen Menschenseele. Da tritt es nur in grotesker Form zu Tage. Aber es ist unbequem, in den vielen Gestalten gleich zu sehen, wo es überall vorhanden ist. Mancherlei groteske Widersprüche, die sind nicht etwa nur an solchen etwas unreinlichen Orten vorhanden, sondern sie sind auch im heutigen Menschheitsleben durchaus vorhanden. Und es ist nötig heute, sich wirklich zur Klarheit, zur, ich möchte sagen, messerscharfen Klarheit durchzuringen, wenn man fest stehen will. Das ist es, worauf es ankommt."
+        },
+        {
+          "index": "^cb19119191017",
+          "content": "---\n\n## Wandtafelzeichnungen"
+        },
+        {
+          "index": "^cb19119191017t01",
+          "content": "![Tafel 1](chalkboards/GA191/GA191-1919-10-17-T01.webp)"
+        },
+        {
+          "index": "^cb19119191017t02",
+          "content": "![Tafel 2](chalkboards/GA191/GA191-1919-10-17-T02.webp)"
         }
       ]
     },
@@ -4140,7 +4148,7 @@
         },
         {
           "index": "^cb19119191018",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191018t01",
@@ -4336,7 +4344,7 @@
         },
         {
           "index": "^cb19119191019",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191019t01",
@@ -4492,7 +4500,7 @@
         },
         {
           "index": "^cb19119191023",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191023t01",
@@ -4808,11 +4816,15 @@
         },
         {
           "index": "^cb19119191102",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191102t01",
           "content": "![Tafel 1](chalkboards/GA191/GA191-1919-11-02-T01.webp)"
+        },
+        {
+          "index": "^cb19119191102t02",
+          "content": "![Tafel 2](chalkboards/GA191/GA191-1919-11-02-T02.webp)"
         }
       ]
     },
@@ -5016,7 +5028,7 @@
         },
         {
           "index": "^cb19119191109",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191109t01",
@@ -5360,7 +5372,7 @@
         },
         {
           "index": "^cb19119191115",
-          "content": "<hr><h2>Wandtafelzeichnungen</h2>"
+          "content": "---\n\n## Wandtafelzeichnungen"
         },
         {
           "index": "^cb19119191115t01",
