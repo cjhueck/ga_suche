@@ -506,6 +506,32 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         if num_spelling_fixes > 0:
             changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}x")
         
+        # Fix 12: Bildpfade ohne assets/ Prefix korrigieren
+        # ![img-0.webp](<GA198-Heilfaktoren für den sozialen Organismus_img-0.webp>)
+        # → ![img-0.webp](<assets/GA198-Heilfaktoren für den sozialen Organismus_img-0.webp>)
+        original_before_assets_fix = content
+        
+        # Pattern für Markdown-Bilder mit GA..._img im Pfad, aber ohne assets/ Prefix
+        # Erfasst: ![...](GA..._img...) und ![...](<GA..._img...>)
+        assets_missing_pattern = r'!\[([^\]]*)\]\(<?(?!assets/)(GA\d{3}[a-z]?-[^)>]+_img-\d+\.(?:webp|png|jpg|jpeg))>?\)'
+        
+        def add_assets_prefix(match):
+            alt_text = match.group(1)
+            filename = match.group(2)
+            # Pfad mit Leerzeichen in <> einschließen
+            path = f'assets/{filename}'
+            if ' ' in path:
+                path = f'<{path}>'
+            return f'![{alt_text}]({path})'
+        
+        content = re.sub(assets_missing_pattern, add_assets_prefix, content)
+        
+        # Zähle wie viele Pfade korrigiert wurden
+        num_assets_added = len(re.findall(assets_missing_pattern, original_before_assets_fix))
+        
+        if num_assets_added > 0:
+            changes.append(f"  - assets/ Prefix hinzugefügt: {num_assets_added}x")
+        
         # Wende Änderungen an
         if changes and apply_changes:
             # KEIN Backup mehr - Backups werden nicht mehr erstellt

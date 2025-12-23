@@ -10361,6 +10361,8 @@ function normalizeGANumber(gaNumber) {
       }
       
       console.log(`[IMAGES] ${images.length} Bilder geladen für ${lectureId}`);
+      // DEBUG: Temporäre sichtbare Ausgabe
+      console.warn(`[IMAGES-DEBUG] Bilder für ${lectureId}:`, images.map(i => i.path));
       
       // Erstelle ein temporäres DOM-Element zum Parsen
       const tempDiv = document.createElement('div');
@@ -10438,10 +10440,15 @@ function normalizeGANumber(gaNumber) {
         const extractFilenameFromPath = (path) => {
           if (!path) return '';
           const normalized = normalizePathForComparison(path);
-          // Suche nach img-X.png Pattern
-          const imgMatch = normalized.match(/(img-\d+\.(png|jpg|jpeg|webp))/i);
+          // Suche nach img-X.png Pattern (am Ende des Pfads, nach _ oder /)
+          const imgMatch = normalized.match(/[_/](img-\d+\.(png|jpg|jpeg|webp))$/i);
           if (imgMatch) {
             return imgMatch[1];
+          }
+          // Auch ohne _ oder / am Anfang suchen
+          const imgMatchSimple = normalized.match(/(img-\d+\.(png|jpg|jpeg|webp))$/i);
+          if (imgMatchSimple) {
+            return imgMatchSimple[1];
           }
           // Fallback: Letzter Teil nach dem letzten /
           const parts = normalized.split('/');
@@ -10533,10 +10540,35 @@ function normalizeGANumber(gaNumber) {
               console.log(`[IMAGES] ✓ Bild gefunden durch Fallback-Dateinamen-Suche: ${matchingImage.path}`);
             }
           }
+          
+          // Letzter Fallback: Suche nach img-X Pattern am Ende des Pfads (ignoriere Umlaute und Sonderzeichen)
+          if (!matchingImage) {
+            // Extrahiere nur das img-X.ext Pattern
+            const srcImgPattern = src.match(/img-(\d+)\.(png|jpg|jpeg|webp)/i);
+            if (srcImgPattern) {
+              const imgNumber = srcImgPattern[1];
+              const imgExt = srcImgPattern[2].toLowerCase();
+              
+              matchingImage = images.find(img => {
+                const imgPatternMatch = img.path.match(/img-(\d+)\.(png|jpg|jpeg|webp)/i);
+                if (imgPatternMatch) {
+                  const matchNumber = imgPatternMatch[1];
+                  const matchExt = imgPatternMatch[2].toLowerCase();
+                  // Gleiche Nummer und gleiche Endung (oder webp)
+                  return matchNumber === imgNumber && (matchExt === imgExt || matchExt === 'webp' || imgExt === 'webp');
+                }
+                return false;
+              });
+              
+              if (matchingImage) {
+                console.log(`[IMAGES] ✓ Bild gefunden durch img-${imgNumber} Pattern-Match: ${matchingImage.path}`);
+              }
+            }
+          }
         }
         
         if (matchingImage) {
-          console.log(`[IMAGES] ✓ Bild gefunden und ersetzt: ${matchingImage.path} für ${lectureId}, src war: ${originalSrc}`);
+          console.warn(`[IMAGES-DEBUG] ✓ MATCH GEFUNDEN: ${matchingImage.path}`);
           // Ersetze src durch Base64-Daten
           imgTag.setAttribute('src', matchingImage.base64);
           // Prüfe, ob es eine Tafelzeichnung ist
@@ -29024,7 +29056,7 @@ function switchTabExtended(mode) {
     if (mode === 'docs') {
       showDocsInViewer();
     } else {
-      viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
+    viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
     }
     
     if (documentTitle) {
