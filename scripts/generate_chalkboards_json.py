@@ -3,7 +3,6 @@
 """
 Generiert chalkboards.json aus den WebP-Dateien in Steiner_GA/chalkboards/
 Konvertiert automatisch PNG-Dateien zu WebP.
-Synchronisiert Dateien nach chalkboards/ für Git-Deployment.
 
 Die JSON-Datei enthält für jede Tafel:
 - ga: GA-Nummer (z.B. "199", "073A")
@@ -18,7 +17,6 @@ Verwendung:
 
 import json
 import re
-import shutil
 from pathlib import Path
 from collections import defaultdict
 
@@ -33,8 +31,7 @@ except ImportError:
 # Pfade
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
-CHALKBOARDS_DIR = PROJECT_DIR / "Steiner_GA" / "chalkboards"  # Quelle (Obsidian)
-CHALKBOARDS_GIT_DIR = PROJECT_DIR / "chalkboards"              # Ziel (Git-Repository)
+CHALKBOARDS_DIR = PROJECT_DIR / "Steiner_GA" / "chalkboards"
 OUTPUT_FILE = PROJECT_DIR / "chalkboards.json"
 
 
@@ -121,93 +118,6 @@ def convert_png_to_webp(png_path: Path) -> Path | None:
         return None
 
 
-def sync_to_git_folder() -> dict:
-    """
-    Synchronisiert Steiner_GA/chalkboards/ nach chalkboards/ (Git-Repository).
-    
-    - Kopiert neue/geänderte Dateien
-    - Löscht Dateien im Ziel, die in der Quelle nicht mehr existieren
-    
-    Returns:
-        dict mit Statistiken: {'copied': int, 'deleted': int, 'unchanged': int}
-    """
-    stats = {'copied': 0, 'deleted': 0, 'unchanged': 0}
-    
-    if not CHALKBOARDS_DIR.exists():
-        print(f"FEHLER: Quellverzeichnis nicht gefunden: {CHALKBOARDS_DIR}")
-        return stats
-    
-    # Erstelle Zielverzeichnis falls nicht vorhanden
-    CHALKBOARDS_GIT_DIR.mkdir(exist_ok=True)
-    
-    # Sammle alle Quelldateien (relativ zum Quellordner)
-    # Nur GA-Ordner berücksichtigen (GA001, GA073A, etc.)
-    source_files = set()
-    for ga_folder in CHALKBOARDS_DIR.iterdir():
-        if not ga_folder.is_dir() or not ga_folder.name.startswith("GA"):
-            continue
-        for webp_file in ga_folder.glob("*.webp"):
-            rel_path = webp_file.relative_to(CHALKBOARDS_DIR)
-            source_files.add(rel_path)
-    
-    # Sammle alle Zieldateien (nur GA-Ordner)
-    target_files = set()
-    for ga_folder in CHALKBOARDS_GIT_DIR.iterdir():
-        if not ga_folder.is_dir() or not ga_folder.name.startswith("GA"):
-            continue
-        for webp_file in ga_folder.glob("*.webp"):
-            rel_path = webp_file.relative_to(CHALKBOARDS_GIT_DIR)
-            target_files.add(rel_path)
-    
-    # Kopiere neue/geänderte Dateien
-    for rel_path in source_files:
-        source_path = CHALKBOARDS_DIR / rel_path
-        target_path = CHALKBOARDS_GIT_DIR / rel_path
-        
-        # Erstelle GA-Unterordner falls nicht vorhanden
-        target_path.parent.mkdir(exist_ok=True)
-        
-        # Prüfe ob Kopieren nötig (Datei neu oder geändert)
-        needs_copy = False
-        if not target_path.exists():
-            needs_copy = True
-        else:
-            # Vergleiche Änderungszeit und Größe
-            source_stat = source_path.stat()
-            target_stat = target_path.stat()
-            if source_stat.st_size != target_stat.st_size or source_stat.st_mtime > target_stat.st_mtime:
-                needs_copy = True
-        
-        if needs_copy:
-            shutil.copy2(source_path, target_path)
-            stats['copied'] += 1
-        else:
-            stats['unchanged'] += 1
-    
-    # Lösche Dateien im Ziel, die in der Quelle nicht mehr existieren
-    files_to_delete = target_files - source_files
-    for rel_path in files_to_delete:
-        target_path = CHALKBOARDS_GIT_DIR / rel_path
-        try:
-            target_path.unlink()
-            print(f"  Gelöscht: {rel_path}")
-            stats['deleted'] += 1
-        except PermissionError:
-            print(f"  WARNUNG: Konnte nicht löschen (gesperrt): {rel_path}")
-    
-    # Lösche leere GA-Ordner (nur GA-Ordner)
-    for ga_folder in list(CHALKBOARDS_GIT_DIR.iterdir()):
-        if ga_folder.is_dir() and ga_folder.name.startswith("GA") and not any(ga_folder.iterdir()):
-            try:
-                ga_folder.rmdir()
-                print(f"  Leerer Ordner entfernt: {ga_folder.name}")
-            except PermissionError:
-                # OneDrive oder andere Prozesse blockieren manchmal das Löschen
-                pass
-    
-    return stats
-
-
 def generate_chalkboards_json():
     """Scannt alle Tafeln, konvertiert PNG zu WebP und generiert die JSON-Datei."""
     
@@ -235,19 +145,8 @@ def generate_chalkboards_json():
     
     print()
     
-    # Schritt 2: Synchronisiere nach chalkboards/ (Git-Repository)
-    print("=== Schritt 2: Synchronisiere nach chalkboards/ ===")
-    sync_stats = sync_to_git_folder()
-    if sync_stats['copied'] > 0:
-        print(f"  Kopiert: {sync_stats['copied']} Datei(en)")
-    if sync_stats['deleted'] > 0:
-        print(f"  Gelöscht: {sync_stats['deleted']} Datei(en)")
-    if sync_stats['unchanged'] > 0:
-        print(f"  Unverändert: {sync_stats['unchanged']} Datei(en)")
-    print()
-    
-    # Schritt 3: Scanne alle GA-Unterordner und sammle WebP-Dateien
-    print("=== Schritt 3: Generiere chalkboards.json ===")
+    # Schritt 2: Scanne alle GA-Unterordner und sammle WebP-Dateien
+    print("=== Schritt 2: Generiere chalkboards.json ===")
     for ga_folder in sorted(CHALKBOARDS_DIR.iterdir()):
         if not ga_folder.is_dir():
             continue
