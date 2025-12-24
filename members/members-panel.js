@@ -1155,8 +1155,7 @@ function getHighlightColor(colorName) {
   const colors = {
     'blue': '#467886',
     'red': '#c62828',
-    'yellow': '#ffc107',
-    'gray': '#9e9e9e'
+    'yellow': '#ffc107'
   };
   return colors[colorName] || colors['blue'];
 }
@@ -1168,8 +1167,7 @@ function getNoteColor(colorName) {
   const colors = {
     'blue': '#467886',
     'red': '#c62828',
-    'yellow': '#ffc107',
-    'gray': '#9e9e9e'
+    'yellow': '#ffc107'
   };
   return colors[colorName] || colors['blue'];
 }
@@ -1251,12 +1249,10 @@ async function loadHighlightsTab(container) {
  * Rendert die Highlights-Liste
  */
 function renderHighlightsList(container, sortedData) {
-  // Filtere graue Markierungen heraus (werden nicht im Panel angezeigt)
-  let filteredData = sortedData.filter(highlight => highlight.color !== 'gray');
-  
   // Filtere nach GA-Nummer wenn Filter aktiv ist
+  let filteredData = sortedData;
   if (selectedGAFilter) {
-    filteredData = filteredData.filter(highlight => {
+    filteredData = sortedData.filter(highlight => {
       const gaNumber = highlight.ga_number || '';
       return gaNumber.toLowerCase().startsWith(selectedGAFilter.toLowerCase());
     });
@@ -2147,12 +2143,10 @@ async function loadQuotesTab(container) {
  * Rendert die Quotes-Liste
  */
 function renderQuotesList(container, sortedData) {
-  // Filtere graue Markierungen heraus (werden nicht im Panel angezeigt)
-  let filteredData = sortedData.filter(quote => quote.marker_color !== 'gray');
-  
   // Filtere nach GA-Nummer wenn Filter aktiv ist
+  let filteredData = sortedData;
   if (selectedGAFilter) {
-    filteredData = filteredData.filter(quote => {
+    filteredData = sortedData.filter(quote => {
       const gaNumber = quote.ga_reference || quote.ga_number || '';
       return gaNumber.toLowerCase().startsWith(selectedGAFilter.toLowerCase());
     });
@@ -9119,8 +9113,7 @@ function getHighlightColorFromString(colorName) {
   const colors = {
     'blue': '#467886',
     'red': '#c62828',
-    'yellow': '#f9a825',
-    'gray': '#9e9e9e'
+    'yellow': '#f9a825'
   };
   return colors[colorName] || colors['blue'];
 }

@@ -85,7 +85,7 @@ HEADER_SCAN_Y_RATIO = 0.18     # obere 18%: Kandidaten für Running Header
 # Das Vorwort ist im JSON meist enthalten und sollte Seitenzahlen bekommen.
 #
 GA_PAGE_RANGES: Dict[str, Tuple[int, int]] = {
-    "GA001": (7, 300),
+    "GA001": (7, 400),  # PDF hat 350 Seiten, inkl. Vierter Band ab S.302
     "GA002": (7, 180),
     "GA003": (7, 120),
     # GA004: Vorrede ist im JSON enthalten (S.7ff). Frontmatter (S.1-6) ist NICHT im JSON -> skippen

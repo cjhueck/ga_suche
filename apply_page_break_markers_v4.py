@@ -75,10 +75,17 @@ def normalize_ga(ga_arg: str) -> Optional[str]:
 
 
 def iter_steiner_books_files() -> List[Path]:
+    """
+    Gibt alle steiner-books-*.json Dateien zurück, sortiert nach Änderungsdatum (neueste zuletzt).
+    Damit wird bei der Suche die neueste Datei bevorzugt (überschreibt frühere Funde).
+    """
     books_dir = SCRIPT_DIR / "steiner-books"
     if books_dir.exists():
-        return sorted(books_dir.glob("steiner-books-*.json"))
-    return sorted(SCRIPT_DIR.glob("steiner-books-*.json"))
+        files = list(books_dir.glob("steiner-books-*.json"))
+    else:
+        files = list(SCRIPT_DIR.glob("steiner-books-*.json"))
+    # Sortiere nach Änderungsdatum (älteste zuerst, neueste zuletzt)
+    return sorted(files, key=lambda f: f.stat().st_mtime)
 
 
 def load_json(path: Path) -> Dict:
@@ -185,6 +192,14 @@ def normalize_paragraphs_with_map(paragraphs: List[Dict]) -> Tuple[str, array, a
 
     for p_i, p in enumerate(paragraphs):
         s0 = (p.get("content") or "").replace("\u00a0", " ")
+        
+        # WICHTIG: Fußnoten überspringen (beginnen mit "[^")
+        # Diese stehen im JSON am Ende, aber im PDF mitten im Text.
+        # Wenn wir sie bei der Normalisierung einschließen, werden OCR-Anker
+        # fälschlicherweise in den Fußnoten gefunden.
+        if s0.startswith("[^"):
+            continue
+        
         # Separator zwischen Paragraphen: ein Space, der auf das Paragraph-Ende gemappt wird
         if p_i > 0:
             if not last_space:
@@ -508,7 +523,10 @@ def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tupl
 
 
 def iter_steiner_lectures_files() -> List[Path]:
-    """Sucht in beiden Verzeichnissen: Unterordner und Hauptverzeichnis"""
+    """
+    Sucht in beiden Verzeichnissen: Unterordner und Hauptverzeichnis.
+    Sortiert nach Änderungsdatum (neueste zuletzt), damit neuere Dateien bevorzugt werden.
+    """
     lectures_dir = SCRIPT_DIR / "steiner-full-lectures"
     files = []
     # Suche zuerst im Unterordner
@@ -516,20 +534,31 @@ def iter_steiner_lectures_files() -> List[Path]:
         files.extend(lectures_dir.glob("steiner-full-lectures-*.json"))
     # Suche auch im Hauptverzeichnis
     files.extend(SCRIPT_DIR.glob("steiner-full-lectures-*.json"))
-    # Entferne Duplikate und sortiere
-    return sorted(set(files))
+    # Entferne Duplikate und sortiere nach Änderungsdatum (älteste zuerst, neueste zuletzt)
+    unique_files = list(set(files))
+    return sorted(unique_files, key=lambda f: f.stat().st_mtime)
 
 
 def load_book_by_ga(ga_number: str) -> Tuple[Path, Dict]:
     """
     Findet den Book-Eintrag für GAxxx in steiner-books-*.json und gibt (file_path, book_obj) zurück.
+    WICHTIG: Verwendet die neueste Datei (nach Änderungsdatum), falls GA in mehreren Dateien vorkommt.
     """
+    found_path = None
+    found_book = None
+    
+    # Dateien sind nach Datum sortiert (älteste zuerst), also überschreibt neuere die ältere
     for path in iter_steiner_books_files():
         data = load_json(path)
         books = data.get("books") or []
         for b in books:
             if (b.get("ID") or "").upper() == ga_number.upper():
-                return path, b
+                found_path = path
+                found_book = b
+                # Nicht abbrechen - weitermachen, um neuere Dateien zu finden
+    
+    if found_book is not None:
+        return found_path, found_book
     raise FileNotFoundError(f"{ga_number} nicht in steiner-books-*.json gefunden")
 
 
@@ -787,6 +816,9 @@ def process_lectures_individually(
             insertions.append((0, 0, start_page))
         
         # Alle weiteren Breaks verarbeiten
+        # RESYNC-Mechanismus auch für Vorträge
+        need_resync = False
+        
         for b in lec_breaks:
             page = int(b.get("page", 0))
             
@@ -798,17 +830,28 @@ def process_lectures_individually(
             right = b.get("right") or ""
             hyph = bool(b.get("hyphenated"))
             
+            # Normale Suche mit min_norm_pos
+            search_min = last_norm_pos if not need_resync else 0
             found = find_best_insertion(
                 norm_content, norm_para, norm_char, left, right, hyph, 
-                min_norm_pos=last_norm_pos
+                min_norm_pos=search_min
             )
+            
+            # Bei Fehlschlag: Resync versuchen
+            if not found and not need_resync:
+                found = find_best_insertion(
+                    norm_content, norm_para, norm_char, left, right, hyph, 
+                    min_norm_pos=0
+                )
             
             if found:
                 p_i, c_i, norm_pos = found
                 insertions.append((p_i, c_i, page))
                 last_norm_pos = norm_pos + 1
+                need_resync = False
             else:
                 failures.append({"page": page, "reason": "no-match", "lecture": lec_idx})
+                need_resync = True
         
         # Wende Insertions an
         apply_insertions_to_paragraphs(paragraphs, insertions)
@@ -875,8 +918,22 @@ def main() -> None:
         start_pos_limit = int(len(norm_content) * 0.25)  # erster echter Match muss im ersten Viertel liegen
         last_inserted_page: Optional[int] = None
 
+        # Filtere doppelte Seitenzahlen: Nur den ersten Eintrag pro Seite verwenden
+        # (Doppelte entstehen durch OCR-Fehler oder mehrfache Seitenzahl-Erwähnungen im PDF)
+        sorted_breaks = sorted(breaks, key=lambda x: int(x.get("page") or 0))
+        seen_pages: set = set()
+        unique_breaks = []
+        for b in sorted_breaks:
+            page = int(b.get("page") or 0)
+            if page not in seen_pages:
+                unique_breaks.append(b)
+                seen_pages.add(page)
+        
+        if len(unique_breaks) < len(sorted_breaks):
+            print(f"[V4] {ga}: {len(sorted_breaks) - len(unique_breaks)} doppelte Seitenzahlen entfernt")
+
         # Wir setzen Marker am START der nächsten Seite => direkt vor right
-        for b in sorted(breaks, key=lambda x: int(x.get("page") or 0)):
+        for b in unique_breaks:
             page = int(b.get("page") or 0)
             left = b.get("left") or ""
             right = b.get("right") or ""
@@ -888,6 +945,16 @@ def main() -> None:
             found = find_best_insertion(
                 norm_content, norm_para, norm_char, left, right, hyph, min_norm_pos=last_norm_pos
             )
+            
+            # Bei Fehlschlag: Zweiter Versuch NUR mit RIGHT (ignoriere LEFT)
+            # Grund: LEFT kann Fußnoten-Text enthalten, der im JSON am Ende steht
+            if not found and right:
+                found = find_best_insertion(
+                    norm_content, norm_para, norm_char, "", right, hyph, min_norm_pos=last_norm_pos
+                )
+                if found:
+                    print(f"  [RIGHT-ONLY] Seite {page}: Gefunden ohne LEFT")
+            
             if not found:
                 failures.append({"page": page, "reason": "no-match", "left": left[-80:], "right": right[:80]})
                 continue

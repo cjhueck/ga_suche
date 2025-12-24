@@ -1,18 +1,18 @@
 {
   "ga": "GA002",
-  "sourceFile": "steiner-books-001-011-part01.json",
+  "sourceFile": "steiner-books-002-002.json",
   "anchorsFile": "page-break-markers.json",
   "breaksTotal": 170,
   "breaksWithPage": 170,
-  "inserted": 130,
-  "insertedRatio": 0.7647058823529411,
-  "failed": 40,
+  "inserted": 128,
+  "insertedRatio": 0.7529411764705882,
+  "failed": 42,
   "failuresSample": [
     {
-      "page": 101,
-      "reason": "jump-too-large",
-      "left": " will: die gesamte Welt nach der Schablone der physikalischen Methode behandeln.",
-      "right": "Diese Forderung liegt aber auch dem Darwinismus nicht in seiner ursprünglichen G"
+      "page": 135,
+      "reason": "no-match",
+      "left": "",
+      "right": "[Vorwort zur ersten Auflage] 1 Vgl. Goethes naturwissenschaftliche Schriften in "
     },
     {
       "page": 136,
@@ -25,6 +25,12 @@
       "reason": "no-match",
       "left": "eckel, «Die Naturanschauung von Darwin, Goethe und Lamarck». [Jena] 1882, S. 53.",
       "right": "Zu Seite 16 [«Diese Literatur...»:] Die Stimmung, die hin- ter diesem Urteil übe"
+    },
+    {
+      "page": 138,
+      "reason": "no-match",
+      "left": "g nur eine Seite. Aus der Fülle des menschlichen Seins steigen gewissermaßen Ge-",
+      "right": "dankengestaltungen an die Oberfläche des Seelenlebens. Ein Teil dieser Gedankenb"
     },
     {
       "page": 139,
@@ -93,6 +99,12 @@
       "right": "den in Rudolf Steiners Bibliothek vorhandenen Ausgaben. Ver- vollständigt wurde "
     },
     {
+      "page": 150,
+      "reason": "no-match",
+      "left": "Satz S. 123 in der vorliegenden Ausgabe, «Man glaubt die Verfassung aller Völker",
+      "right": "nach einer gewissen Schablone einrichten zu können», und lautet in der AlH: «13 "
+    },
+    {
       "page": 151,
       "reason": "no-match",
       "left": "ckt; die Berichtigungen sind bereits in früheren Ausgaben berücksichtigt worden.",
@@ -115,18 +127,6 @@
       "reason": "no-match",
       "left": "nahme» (mit dem Datum: 20. Februar) veröffentlichte. «Goethes Naturwissenschaft-",
       "right": "liehe Schriften», a.a.O., in Band V, S. 272-275, mit Anmerkungen R. Steiners. - "
-    },
-    {
-      "page": 155,
-      "reason": "no-match",
-      "left": "(Schlußkapitel). «Die Theorie an und für sich ist nichts nütze»: «Goethes Natur-",
-      "right": "wissenschaftliche Schriften», a.a.O., Band V: «Sprüche in Prosa», S. 357. 28 « W"
-    },
-    {
-      "page": 156,
-      "reason": "no-match",
-      "left": "Wörtlich: «daß alle Akte, die darauf Anspruch machen, ein objektives Erkennen zu",
-      "right": "sein, unabtrennbar an das erkennende individuelle Bewußtsein gebunden sind, daß "
     }
   ]
 }

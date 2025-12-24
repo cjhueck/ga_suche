@@ -1,112 +1,48 @@
 {
-  "ga": "GA076",
-  "sourceFile": "steiner-full-lectures-074-076.json",
+  "ga": "GA001",
+  "sourceFile": "steiner-books-001-001.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 262,
-  "breaksWithPage": 262,
-  "inserted": 154,
-  "insertedRatio": 0.5877862595419847,
-  "failed": 66,
+  "breaksTotal": 344,
+  "breaksWithPage": 344,
+  "inserted": 331,
+  "insertedRatio": 0.9622093023255814,
+  "failed": 6,
   "failuresSample": [
     {
-      "page": 44,
+      "page": 345,
       "reason": "no-match",
-      "lecture": 1
+      "left": "- sprochen zu sein, die Goethe in seinen Aphorismen über Kunst niedergelegt hat.",
+      "right": "Daten zur Herausgabe von Goethes «Naturwissenschaftlichen Schriften» durch Rudol"
     },
     {
-      "page": 47,
+      "page": 346,
       "reason": "no-match",
-      "lecture": 1
+      "left": "Band 1897 IV. (36.) Band, 1. Abt. Goethes Weltanschauung IV. (36.) Band, 2. Abt.",
+      "right": "Alton, Eduard d' (1803-1854) Faraday, Michael (1791-1867) Fichte, Johann Gottlie"
     },
     {
-      "page": 49,
+      "page": 347,
       "reason": "no-match",
-      "lecture": 1
+      "left": "hristian (1629-1695) (1721-1793) 44 Elie de Beaumont, Leonce (1798 bis 1874) 247",
+      "right": "Merck^ Johann Heinrich (1741 bis Jacobi, Friedrich Heinrich (1743 bis 1819) 25,6"
     },
     {
-      "page": 50,
+      "page": 348,
       "reason": "no-match",
-      "lecture": 1
+      "left": "0)151,153,157,178,228, 230 f. Martius, Karl Friedrich Philipp von (1794-1868)112",
+      "right": "Schröer, Karl Julius (1825-1900) Voigt, Friedrich Sigismund (1781 108,213 Schrön"
     },
     {
-      "page": 51,
+      "page": 349,
       "reason": "no-match",
-      "lecture": 1
+      "left": "mermann, Johann Georg (1728-1795) 59 bis 1887) 264 f. Vogt, Karl (1817-1895) 314",
+      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
     },
     {
-      "page": 52,
+      "page": 350,
       "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 53,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 54,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 55,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 56,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 57,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 58,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 59,
-      "reason": "no-match",
-      "lecture": 1
-    },
-    {
-      "page": 119,
-      "reason": "no-match",
-      "lecture": 3
-    },
-    {
-      "page": 120,
-      "reason": "no-match",
-      "lecture": 3
-    },
-    {
-      "page": 121,
-      "reason": "no-match",
-      "lecture": 3
-    },
-    {
-      "page": 122,
-      "reason": "no-match",
-      "lecture": 3
-    },
-    {
-      "page": 123,
-      "reason": "no-match",
-      "lecture": 3
-    },
-    {
-      "page": 124,
-      "reason": "no-match",
-      "lecture": 3
-    },
-    {
-      "page": 125,
-      "reason": "no-match",
-      "lecture": 3
+      "left": " 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923-1925 (28)",
+      "right": "//. Gesammelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Gr"
     }
   ]
 }

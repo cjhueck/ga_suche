@@ -46,9 +46,6 @@ function createContextMenu() {
         <div class="context-menu-item" onclick="contextMenuAction('quote', 'yellow')" style="border-left: 3px solid #ffc107;">
           <span class="context-menu-text">Gelb</span>
         </div>
-        <div class="context-menu-item" onclick="contextMenuAction('quote', 'gray')" style="border-left: 3px solid #9e9e9e;">
-          <span class="context-menu-text">Grau</span>
-        </div>
       </div>
     </div>
     <div class="context-menu-item highlight-menu-item" onmouseenter="showHighlightColorMenu()" onmouseleave="hideHighlightColorMenu()">
@@ -63,9 +60,6 @@ function createContextMenu() {
         </div>
         <div class="context-menu-item" onclick="contextMenuAction('highlight', 'yellow')" style="border-left: 3px solid #ffc107;">
           <span class="context-menu-text">Gelb</span>
-        </div>
-        <div class="context-menu-item" onclick="contextMenuAction('highlight', 'gray')" style="border-left: 3px solid #9e9e9e;">
-          <span class="context-menu-text">Grau</span>
         </div>
       </div>
     </div>
@@ -265,12 +259,10 @@ async function contextMenuAction(action, extraData = null) {
   switch(action) {
     case 'quote':
       const quoteColor = extraData || 'blue'; // Standard: blau
-      // Grau wird normal gespeichert, aber im Panel nicht angezeigt
       await saveContextQuote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter, quoteColor);
       break;
     case 'highlight':
       const color = extraData || 'blue'; // Standard: blau
-      // Grau wird normal gespeichert, aber im Panel nicht angezeigt
       await saveContextHighlight(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, color);
       break;
     case 'note':
@@ -790,22 +782,14 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       }
     }
     
-    // Bei grauer Farbe: Kein Dialog, direkt speichern
-    let keywords = [];
-    let groups = [];
-    let note = '';
-    
-    if (color !== 'gray') {
-      // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
-      const result = await showKeywordDialog('Zitat', text);
-      if (result === null) {
-        // Benutzer hat abgebrochen
-        return;
-      }
-      keywords = result.keywords;
-      groups = result.groups;
-      note = result.note;
+    // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+    const result = await showKeywordDialog('Zitat', text);
+    if (result === null) {
+      // Benutzer hat abgebrochen
+      return;
     }
+    
+    const { keywords, groups, note } = result;
     
     // Ermittle das Datum des Vortrags
     const lectureDate = getCurrentLectureDate(lectureId);
@@ -1289,22 +1273,14 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       }
       
       // Verwende die normalisierte Position als Näherung
-      // Bei grauer Farbe: Kein Dialog, direkt speichern
-      let keywords = [];
-      let groups = [];
-      let note = '';
-      
-      if (color !== 'gray') {
-        // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
-        const result = await showKeywordDialog('Unterstreichung', text);
-        if (result === null) {
-          // Benutzer hat abgebrochen
-          return;
-        }
-        keywords = result.keywords;
-        groups = result.groups;
-        note = result.note;
+      // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+      const result = await showKeywordDialog('Unterstreichung', text);
+      if (result === null) {
+        // Benutzer hat abgebrochen
+        return;
       }
+      
+      const { keywords, groups, note } = result;
       
       // Ermittle das Datum des Vortrags
       const lectureDate = getCurrentLectureDate(lectureId);
@@ -1387,22 +1363,14 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     return;
   }
     
-    // Bei grauer Farbe: Kein Dialog, direkt speichern
-    let keywords = [];
-    let groups = [];
-    let note = '';
-    
-    if (color !== 'gray') {
-      // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
-      const result = await showKeywordDialog('Unterstreichung', text);
-      if (result === null) {
-        // Benutzer hat abgebrochen
-        return;
-      }
-      keywords = result.keywords;
-      groups = result.groups;
-      note = result.note;
+    // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+    const result = await showKeywordDialog('Unterstreichung', text);
+    if (result === null) {
+      // Benutzer hat abgebrochen
+      return;
     }
+    
+    const { keywords, groups, note } = result;
     
     // Ermittle das Datum des Vortrags
     const lectureDate = getCurrentLectureDate(lectureId);
@@ -1632,8 +1600,7 @@ function getHighlightColor(colorName) {
   const colors = {
     'blue': '#467886',
     'red': '#c62828',
-    'yellow': '#ffc107',
-    'gray': '#9e9e9e'
+    'yellow': '#ffc107'
   };
   return colors[colorName] || colors['blue'];
 }

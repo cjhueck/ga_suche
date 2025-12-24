@@ -276,22 +276,41 @@ class BooksExporter:
             except Exception as e2:
                 print(f"[FEHLER] Konnte summary-database.json nicht speichern: {e2}")
         
-    def find_book_file(self, ga_folder):
-        """Findet die Haupt-Markdown-Datei eines GA-Bandes"""
-        # Suche nach Dateien im Format: "GAXXX - Titel (Jahr).md" oder "GAXXXa - Titel (Jahr).md"
-        # Oder auch ohne Jahr: "GAXXX - Titel.md" oder "GAXXXa - Titel.md"
+    def find_book_files(self, ga_folder):
+        """Findet die Markdown-Datei(en) eines GA-Bandes.
+        
+        Gibt ein Tuple zurück: (is_multi_file, files)
+        - is_multi_file: True wenn Multi-File-Buch (z.B. GA001 mit Kapiteln)
+        - files: Liste der Dateien (sortiert nach Kapitelnummer bei Multi-File)
+        """
         md_files = list(ga_folder.glob("GA*.md"))
         
-        # Filtere Backup-Dateien und Vortragsdateien aus
+        # Filtere Backup-Dateien aus
+        md_files = [f for f in md_files if not f.name.endswith('.backup')]
+        
+        # Suche nach Multi-File-Format: "GAXXX (N.) KAPITELNAME.md"
+        # z.B. "GA001 (1.) ZUR EINFÜHRUNG.md", "GA001 (2.) ERSTER BAND.md"
+        chapter_files = []
+        for md_file in md_files:
+            name = md_file.name
+            # Multi-File-Kapitel: "GAXXX (N.) KAPITELNAME.md" (OHNE Komma/Datum = kein Vortrag)
+            match = re.match(r'GA\d{2,3}[a-z]?\s*\((\d+)\.\)\s+([^,]+)\.md$', name)
+            if match:
+                chapter_num = int(match.group(1))
+                chapter_files.append((chapter_num, md_file))
+        
+        # Wenn Multi-File-Kapitel gefunden, sortiere nach Kapitelnummer
+        if len(chapter_files) >= 2:
+            chapter_files.sort(key=lambda x: x[0])
+            return (True, [f for _, f in chapter_files])
+        
+        # Sonst: Suche nach Einzeldatei (altes Verhalten)
         main_files_with_year = []
         main_files_without_year = []
         for md_file in md_files:
             name = md_file.name
-            # Überspringe Backup-Dateien
-            if name.endswith('.backup'):
-                continue
-            # Überspringe Vortragsdateien (Format: "GAXXX (N.) Titel, Ort, Datum.md")
-            if re.match(r'GA\d{2,3}[a-z]?\s*\([0-9]+\.\)', name):
+            # Überspringe Vortragsdateien (Format: "GAXXX (N.) Titel, Ort, Datum.md" - MIT Komma)
+            if re.match(r'GA\d{2,3}[a-z]?\s*\([0-9]+\.\)\s+.+,.+\.md', name):
                 continue
             # Hauptdatei mit Jahr: "GAXXX - Titel (Jahr).md" oder "GAXXXa - Titel (Jahr).md"
             if re.match(r'GA\d{2,3}[a-z]?\s*-\s*.+\(.+\)\.md', name):
@@ -302,10 +321,15 @@ class BooksExporter:
         
         # Bevorzuge Dateien mit Jahr, falls vorhanden
         if main_files_with_year:
-            return main_files_with_year[0]
+            return (False, [main_files_with_year[0]])
         elif main_files_without_year:
-            return main_files_without_year[0]
-        return None
+            return (False, [main_files_without_year[0]])
+        return (False, [])
+    
+    def find_book_file(self, ga_folder):
+        """Legacy-Wrapper für find_book_files() - gibt nur eine Datei zurück"""
+        is_multi, files = self.find_book_files(ga_folder)
+        return files[0] if files else None
     
     def convert_headings(self, text):
         """Wandelt Überschriften um: H1→H3, H2→H4, H3→H4"""
@@ -894,7 +918,7 @@ class BooksExporter:
         return '\n'.join(result_lines)
     
     def process_book(self, ga_folder):
-        """Verarbeitet einen GA-Band"""
+        """Verarbeitet einen GA-Band (Single-File oder Multi-File)"""
         import time
         start_time = time.time()
         
@@ -902,11 +926,19 @@ class BooksExporter:
         
         print(f"  {ga_number}...", end=' ', flush=True)
         
-        # Finde Hauptdatei
-        main_file = self.find_book_file(ga_folder)
-        if not main_file:
-            print("[X] Hauptdatei nicht gefunden")
+        # Prüfe ob Multi-File oder Single-File
+        is_multi_file, book_files = self.find_book_files(ga_folder)
+        
+        if not book_files:
+            print("[X] Keine Dateien gefunden")
             return None
+        
+        if is_multi_file:
+            print(f"[MULTI-FILE: {len(book_files)} Kapitel]")
+            return self.process_multi_file_book(ga_folder, ga_number, book_files, start_time)
+        
+        # Single-File-Verarbeitung (ursprünglicher Code)
+        main_file = book_files[0]
         
         try:
             # Lese Datei
@@ -1046,6 +1078,160 @@ class BooksExporter:
         except Exception as e:
             print(f"[X] Fehler: {e}")
             return None
+    
+    def process_multi_file_book(self, ga_folder, ga_number, chapter_files, start_time):
+        """Verarbeitet ein Multi-File-Buch (mehrere Kapitel-Dateien)"""
+        import time
+        
+        all_paragraphs = []
+        all_headings = []
+        all_content_parts = []
+        chapter_info = []
+        
+        for chapter_idx, chapter_file in enumerate(chapter_files, 1):
+            chapter_name = chapter_file.stem
+            print(f"    Kapitel {chapter_idx}/{len(chapter_files)}: {chapter_name[:50]}...")
+            
+            try:
+                # Lese Kapitel-Datei
+                with open(chapter_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # Extrahiere Kapiteltitel aus Dateinamen
+                # Format: "GA001 (1.) ZUR EINFÜHRUNG.md"
+                title_match = re.match(r'GA\d{2,3}[a-z]?\s*\(\d+\.\)\s+(.+)$', chapter_name)
+                chapter_title = title_match.group(1).strip() if title_match else chapter_name
+                
+                # 1. Rechtschreibkorrekturen (optional)
+                if not self.skip_spelling and len(content) < 500000:
+                    content = self.fix_spelling(content)
+                
+                # 1.5. Konvertiere JPEG-Platzhalter zu PNG
+                content = fix_image_placeholders_in_content(content)
+                
+                # 2. Konvertiere Überschriften
+                content = self.convert_headings(content)
+                
+                # 3. Extrahiere Überschriften
+                chapter_headings = self.extract_headings(content)
+                
+                # 4. Korrigiere Links im Inhaltsverzeichnis
+                content = self.fix_toc_links(content, chapter_headings)
+                
+                # 5. Konvertiere Fußnoten
+                content = self.convert_footnotes(content)
+                
+                # 6. Extrahiere Absätze
+                chapter_paragraphs = self.extract_paragraphs(content)
+                
+                # 6.5. Formatiere Paragraph-Content
+                for para in chapter_paragraphs:
+                    if para.get('content'):
+                        para['content'] = self.format_paragraph_content(para['content'])
+                
+                # Prüfe ob Absätze Indizes haben
+                has_indices = len(chapter_paragraphs) > 0 and all(
+                    p.get('index', '').startswith('^') for p in chapter_paragraphs
+                )
+                
+                if not has_indices:
+                    print(f"      [WARN] Kapitel {chapter_idx} hat keine Absatz-Indizes - übersprungen")
+                    continue
+                
+                # 7. Verknüpfe Überschriften mit Absatz-Indizes
+                linked_headings = self.link_headings_to_paragraphs(
+                    chapter_headings, chapter_paragraphs, content
+                )
+                
+                # Füge Kapitelüberschrift als H3 hinzu (wenn nicht schon vorhanden)
+                if chapter_paragraphs and chapter_title:
+                    first_para_index = chapter_paragraphs[0].get('index', '')
+                    # Prüfe ob Kapitelüberschrift bereits in linked_headings
+                    has_chapter_heading = any(
+                        h.get('text', '').upper() == chapter_title.upper() 
+                        for h in linked_headings
+                    )
+                    if not has_chapter_heading:
+                        # Füge Kapitelüberschrift am Anfang ein
+                        linked_headings.insert(0, {
+                            'index': first_para_index,
+                            'text': chapter_title,
+                            'level': 'h3'
+                        })
+                
+                # Sammle alle Daten
+                all_paragraphs.extend(chapter_paragraphs)
+                all_headings.extend(linked_headings)
+                all_content_parts.append(content)
+                
+                chapter_info.append({
+                    'number': chapter_idx,
+                    'title': chapter_title,
+                    'paragraphs': len(chapter_paragraphs),
+                    'headings': len(linked_headings)
+                })
+                
+                print(f"      [OK] {len(chapter_paragraphs)} Absätze, {len(linked_headings)} Überschriften")
+                
+            except Exception as e:
+                print(f"      [X] Fehler: {e}")
+                continue
+        
+        # Prüfe ob genug Kapitel verarbeitet wurden
+        if not all_paragraphs:
+            print(f"  [X] Keine gültigen Kapitel gefunden")
+            return None
+        
+        # 8. Speichere alle Überschriften in summary-database.json
+        self.save_headings_to_summary_db(ga_number, all_headings)
+        
+        # Konvertiere Headings zu Book-Format
+        headings_for_export = []
+        for h in all_headings:
+            headings_for_export.append({
+                'id': h.get('index', ''),
+                'text': h['text'],
+                'level': int(h['level'].replace('h', '')) if 'level' in h else 3
+            })
+        
+        # Extrahiere Titel und Jahr aus dem Ordnernamen
+        # Format: "GA001-Goethes Naturwissenschaftliche Schriften"
+        folder_name = ga_folder.name
+        title_match = re.match(r'GA\d{2,3}[a-z]?-(.+)$', folder_name)
+        if title_match:
+            title = title_match.group(1).strip()
+        else:
+            title = folder_name
+        
+        # Suche Jahr in der ersten Hauptdatei (falls vorhanden)
+        year_range = ""
+        main_file = self.find_book_file(ga_folder)
+        if main_file:
+            year_match = re.search(r'\((\d{4}(?:-\d{4})?)\)', main_file.name)
+            if year_match:
+                year_range = year_match.group(1)
+        
+        # Kombiniere alle Contents
+        combined_content = '\n\n---\n\n'.join(all_content_parts)
+        
+        # Erstelle Book-Objekt
+        book = {
+            'ID': ga_number,
+            'gaNumber': ga_number,
+            'fileName': folder_name,
+            'title': title,
+            'yearRange': year_range,
+            'content': combined_content,
+            'paragraphs': all_paragraphs,
+            'headings': headings_for_export,
+            'chapters': chapter_info,  # Zusätzliche Info über Kapitel
+            'wordCount': sum(len(p['content'].split()) for p in all_paragraphs),
+            'charCount': sum(len(p['content']) for p in all_paragraphs)
+        }
+        
+        total_time = time.time() - start_time
+        print(f"  [OK] Multi-File: {len(chapter_info)} Kapitel, {len(headings_for_export)} Überschriften, {len(all_paragraphs)} Absätze, {book['wordCount']} Wörter, {total_time:.1f}s")
+        return book
     
     def export_books(self, ga_numbers=None):
         """Exportiert Schriften als JSON"""
@@ -1194,23 +1380,27 @@ class BooksExporter:
         return True
     
     def save_json(self, data):
-        """Speichert JSON, splittet wenn > 10 MB"""
+        """Speichert JSON in steiner-books/ Unterverzeichnis, splittet wenn > 10 MB"""
         # Erstelle JSON-String
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         size_mb = len(json_str.encode('utf-8')) / (1024 * 1024)
         
         print(f"Gesamtgröße: {size_mb:.2f} MB\n")
         
+        # Stelle sicher, dass das steiner-books/ Verzeichnis existiert
+        books_dir = Path(self.project_root) / 'steiner-books'
+        books_dir.mkdir(exist_ok=True)
+        
         if size_mb <= 10:
             # Einzelne Datei
             ga_range = data['metadata']['gaRange'].replace('GA', '').replace('-', '-')
             filename = f"steiner-books-{ga_range}.json"
-            filepath = Path(self.project_root) / filename
+            filepath = books_dir / filename
             
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(json_str)
             
-            print(f"[OK] Gespeichert: {filename} ({size_mb:.2f} MB)")
+            print(f"[OK] Gespeichert: steiner-books/{filename} ({size_mb:.2f} MB)")
         else:
             # Splitte in mehrere Dateien
             print(f"[!] Datei zu groß ({size_mb:.2f} MB), splitte in mehrere Dateien...\n")
@@ -1238,15 +1428,15 @@ class BooksExporter:
                 
                 ga_range = f"{chunk_books[0]['gaNumber'].replace('GA', '')}-{chunk_books[-1]['gaNumber'].replace('GA', '')}"
                 filename = f"steiner-books-{ga_range}-part{part_num:02d}.json"
-                filepath = Path(self.project_root) / filename
+                filepath = books_dir / filename
                 
                 with open(filepath, 'w', encoding='utf-8') as f:
                     f.write(chunk_json)
                 
-                print(f"  [{part_num}] {filename}: {len(chunk_books)} Bücher ({chunk_size_mb:.2f} MB)")
+                print(f"  [{part_num}] steiner-books/{filename}: {len(chunk_books)} Bücher ({chunk_size_mb:.2f} MB)")
                 part_num += 1
             
-            print(f"\n[OK] {part_num - 1} Dateien erstellt")
+            print(f"\n[OK] {part_num - 1} Dateien erstellt in steiner-books/")
 
 
 def parse_arguments():

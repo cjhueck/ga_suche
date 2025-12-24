@@ -13661,6 +13661,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     const summaryData = await loadSummaryFromDB(bookId);
     if (summaryData && summaryData.headings) {
       headings = summaryData.headings;
+      // Weise auch book.headings zu, damit die IDs später gesetzt werden können
+      book.headings = headings;
       console.log(`[BOOK] ${bookId}: ${headings.length} Überschriften geladen`);
       if (headings.length > 0) {
         console.log(`[BOOK] ${bookId}: Erste Überschrift Index: ${headings[0].index}, Text: ${headings[0].text.substring(0, 40)}`);
@@ -13994,7 +13996,6 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // Im GA-Tab: NUR TOC anzeigen, kein Text
   // Im Texte-Tab wird das TOC im rechten Sidebar angezeigt
   if (isInGATab && headings.length > 0) {
-    html += '<h2 style="margin-bottom: 1rem; font-size: 1.2em; font-weight: bold;">Inhaltsverzeichnis</h2>';
     html += '<div style="margin-bottom: 2rem;">';
     
     const bookGANumber = book.gaNumber || book.ID;
@@ -14002,7 +14003,10 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     headings.forEach(heading => {
       const level = heading.level || 'h3';
       const headingText = heading.text || heading.title || 'Überschrift';
-      const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : '';
+      // headings aus summary-database haben 'index', nicht 'id'
+      // Entferne ^ am Anfang, da es Probleme mit DOM-Selektoren verursacht
+      const rawIndex = heading.index || heading.id || '';
+      const headingIndex = rawIndex.replace(/^\^/, '');
       const indent = level === 'h4' || level === 4 ? 'padding-left: 1.5rem;' : '';
       
       html += `
@@ -14173,7 +14177,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   // Setze IDs für Überschriften im gerenderten HTML
   // WICHTIG: Dies muss NACH dem Rendering passieren, damit die Überschriften im DOM sind
+  // WICHTIG: Verzögerung 10ms, damit IDs vor buildTableOfContents (50ms) gesetzt werden
   setTimeout(() => {
+    console.log(`[BOOK-IDS] book.headings vorhanden:`, book.headings ? book.headings.length : 'NEIN');
     if (book.headings && book.headings.length > 0) {
       let idsSetCount = 0;
       book.headings.forEach(heading => {
@@ -14193,20 +14199,32 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
               elTextNormalized.includes(headingTextNormalized) || 
               headingTextNormalized.includes(elTextNormalized) ||
               elText === heading.text) {
-            el.id = heading.id;
+            // headings aus summary-database haben 'index', nicht 'id'
+            // Entferne ^ am Anfang, da es Probleme mit DOM-Selektoren verursacht
+            const rawIndex = heading.index || heading.id || '';
+            const headingId = rawIndex.replace(/^\^/, '');
+            el.id = headingId;
             // Setze auch data-Attribut für zusätzliche Referenzierung
-            el.setAttribute('data-heading-id', heading.id);
+            el.setAttribute('data-heading-id', headingId);
             idsSetCount++;
             break;
           }
         }
       });
       
+      console.log(`[BOOK-IDS] ${idsSetCount} IDs gesetzt für book.headings`);
+      
       // Scrolle zu markierter Überschrift NACH dem Setzen der IDs
       if (highlightHeadingId) {
+        console.log(`[BOOK-SCROLL] Suche Überschrift mit ID: "${highlightHeadingId}"`);
         // Scrolle direkt zur Überschrift (sie ist vorhanden, wie der Benutzer bestätigt hat)
         setTimeout(() => {
-          const headingElement = document.getElementById(highlightHeadingId);
+          // Versuche mit und ohne "para-" Präfix zu finden
+          let headingElement = document.getElementById(highlightHeadingId);
+          if (!headingElement) {
+            headingElement = document.getElementById('para-' + highlightHeadingId);
+          }
+          console.log(`[BOOK-SCROLL] Element gefunden:`, headingElement ? 'JA' : 'NEIN');
           if (headingElement) {
             // Verwende scrollIntoView für zuverlässiges Scrollen
             headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -14217,7 +14235,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
               headingElement.style.backgroundColor = '';
             }, 2000);
             
-            }
+          } else {
+            // Debug: Liste alle IDs im Viewer auf
+            const allHeadings = viewer.querySelectorAll('h3, h4');
+            console.log(`[BOOK-SCROLL] Alle Überschriften im Viewer (${allHeadings.length}):`);
+            allHeadings.forEach((h, i) => {
+              console.log(`  ${i}: id="${h.id}", text="${h.textContent.substring(0, 40)}..."`);
+            });
+          }
         }, 400);
       }
     }
@@ -14353,7 +14378,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         // Scrolle zu Überschrift NACH dem Öffnen des Panels (falls highlightHeadingId gesetzt ist)
         if (highlightHeadingId) {
           setTimeout(() => {
-            const headingElement = document.getElementById(highlightHeadingId);
+            // Versuche mit und ohne "para-" Präfix zu finden
+            let headingElement = document.getElementById(highlightHeadingId);
+            if (!headingElement) {
+              headingElement = document.getElementById('para-' + highlightHeadingId);
+            }
             if (headingElement) {
               // Verwende scrollIntoView für zuverlässiges Scrollen
               headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -14610,9 +14639,21 @@ function convertFootnotesToLinks() {
     // Entferne auch Definitionen ohne <p> Tags
     newHtml = newHtml.replace(/\[\^\d+\]:\s*[^\[]+?(?=\[\^|<\/p>|<\/div>|$)/gs, '');
     
-    // Erstelle Fußnoten-Sektion am Ende
+    // Prüfe ob bereits eine Fußnoten-Überschrift existiert
+    const allH3 = viewer.querySelectorAll('h3');
+    let hasExistingFootnotesSection = false;
+    allH3.forEach(h3 => {
+      if (/^fußnoten$|^footnotes$/i.test(h3.textContent.trim())) {
+        hasExistingFootnotesSection = true;
+      }
+    });
+    
+    // Erstelle Fußnoten-Sektion am Ende (nur wenn noch keine existiert)
     let footnotesSection = '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
-    footnotesSection += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
+    // Füge Überschrift nur hinzu, wenn keine existiert
+    if (!hasExistingFootnotesSection) {
+      footnotesSection += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
+    }
     footnotesSection += '<ol style="list-style: decimal; padding-left: 2rem; font-size: var(--text-size);">';
     
     // Sortiere nach ID
@@ -16623,7 +16664,10 @@ function scrollToChronologicalYear(year) {
     window.navigateToLectureInTexteTab = navigateToLectureInTexteTab;
 
     // Navigiere zum Texte-Tab und zeige Book mit spezifischer Überschrift
+    // WICHTIG: Muss auch im globalen Scope sein für onclick-Attribute im GA-Tab
     async function navigateToBookHeadingInTexteTab(gaNumber, headingId) {
+      console.log(`[NAV-BOOK] Navigiere zu ${gaNumber}, Überschrift: ${headingId}`);
+      
       // Wechsle zum Texte-Tab
       switchTab('texte');
       
@@ -16640,12 +16684,16 @@ function scrollToChronologicalYear(year) {
           const response = await fetch(`${apiBase}/api/book/${gaNumber}`);
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const book = await response.json();
+          console.log(`[NAV-BOOK] Buch geladen, rufe displayBook mit headingId="${headingId}" auf`);
           await displayBook(book, headingId);
         } catch (error) {
           console.error(`[NAVIGATION] Fehler beim Laden des Books:`, error);
         }
       }
     }
+    
+    // Stelle Funktion im globalen Scope verfügbar für onclick-Attribute im GA-Tab
+    window.navigateToBookHeadingInTexteTab = navigateToBookHeadingInTexteTab;
 
     // Extrahiere GA-Nummer aus Lecture-Objekt
     function extractGANumber(lecture) {
