@@ -462,7 +462,7 @@ async function findDataFiles() {
   // (wird als zusätzliche Eigenschaft zurückgegeben)
   const lectureFilesWithPaths = allLectureFilesWithPath;
   
-  // Suche nach steiner-books-XXX-YYY*.json - zuerst im Unterordner, dann im Hauptordner
+  // Suche nach steiner-books-XXX-YYY*.json im steiner-books/ Unterverzeichnis
   // Pattern: steiner[-_]books[-_](\d{3}[a-z]?)[-_](\d{3}[a-z]?).*\.json
   // WICHTIG: Muss auch steiner-books-001-003.json matchen (ohne part-Nummer)
   // UND auch steiner-books-040a-040a.json (mit Suffix)
@@ -477,18 +477,11 @@ async function findDataFiles() {
     bookSourceFiles = files;
     bookBasePath = __dirname;
   }
-  const bookFiles = bookSourceFiles.filter(f => {
-    const matches = bookPattern.test(f);
-    if (!matches && f.includes('steiner') && f.includes('books') && f.endsWith('.json')) {
-    }
-    return matches;
-  });
+  const bookFiles = bookSourceFiles.filter(f => bookPattern.test(f));
   
   // DEBUG: Zeige alle gefundenen Books-Dateien
-  if (bookFiles.length > 0) {
-  } else {
-    console.warn('[DEBUG] KEINE Books-Dateien gefunden! Verfügbare Dateien mit "books":', 
-      bookSourceFiles.filter(f => f.includes('books') && f.endsWith('.json')));
+  if (bookFiles.length === 0) {
+    console.warn('[DEBUG] KEINE Books-Dateien gefunden!');
   }
   
   
@@ -890,9 +883,23 @@ async function loadBooks() {
       return {};
     }
     
+    // Sortiere Dateien nach Änderungsdatum (älteste zuerst), damit neuere Dateien überschreiben
+    const filesWithStats = await Promise.all(
+      bookFiles.map(async (fileName) => {
+        const filePath = path.join(bookBasePath, fileName);
+        try {
+          const stats = await fs.stat(filePath);
+          return { fileName, mtime: stats.mtime };
+        } catch {
+          return { fileName, mtime: new Date(0) };
+        }
+      })
+    );
+    filesWithStats.sort((a, b) => a.mtime - b.mtime);
+    const sortedBookFiles = filesWithStats.map(f => f.fileName);
     
     let totalBooks = 0;
-    for (const fileName of bookFiles) {
+    for (const fileName of sortedBookFiles) {
       const jsonPath = path.join(bookBasePath, fileName);
       
       try {
@@ -945,7 +952,22 @@ async function loadBooks() {
               const bookId = bookObj?.ID || bookObj?.gaNumber;
               if (!bookId) continue;
 
-              fullBooks[bookId] = bookObj;
+              // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings) beibehalten
+              // Dies ermöglicht, dass Pagebreak-Overrides nur die Seitenmarker hinzufügen,
+              // ohne die Überschriften aus der Hauptdatei zu verlieren
+              if (fullBooks[bookId]) {
+                // Merge: Überschreibe nur paragraphs aus dem Override
+                if (bookObj.paragraphs) {
+                  fullBooks[bookId].paragraphs = bookObj.paragraphs;
+                }
+                // Überschreibe auch content falls vorhanden
+                if (bookObj.content) {
+                  fullBooks[bookId].content = bookObj.content;
+                }
+              } else {
+                // Buch existiert noch nicht, vollständig übernehmen
+                fullBooks[bookId] = bookObj;
+              }
               applied++;
             } catch (e) {
               console.warn(`    ⚠️  Pagebreak-Override ${f} konnte nicht geladen werden:`, e.message);
@@ -8828,8 +8850,9 @@ async function createImagesBackup() {
 }
 
 async function createPageMarkersBackup() {
-  const pageMarkersFile = path.join(__dirname, 'page-markers.json');
-  return await createBackup(pageMarkersFile, PAGEMARKERS_BACKUP_DIR, 'page-markers', 10);
+  // V4: Nutze page-break-markers.json (ersetzt alte page-markers.json)
+  const pageMarkersFile = path.join(__dirname, 'page-break-markers.json');
+  return await createBackup(pageMarkersFile, PAGEMARKERS_BACKUP_DIR, 'page-break-markers', 10);
 }
 
 async function createPagebreakBooksBackup() {
@@ -16419,7 +16442,7 @@ app.get('/api/backups/list/:type', async (req, res) => {
         break;
       case 'pagemarkers':
         backupDir = PAGEMARKERS_BACKUP_DIR;
-        prefix = 'page-markers';
+        prefix = 'page-break-markers';
         break;
       case 'pagebreakbooks':
         backupDir = PAGEBREAK_BOOKS_BACKUP_DIR;
