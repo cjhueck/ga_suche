@@ -7887,7 +7887,7 @@ Bestehende Schlagwörter überschreiben
       </label>
       <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
         <input type="radio" name="llmProvider" value="gemini" style="margin: 0;">
-        <span style="font-weight: 600;">Gemini (2.0 Flash)</span>
+        <span style="font-weight: 600;">Gemini (2.5 Flash)</span>
         <span id="geminiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
       </label>
     </div>
@@ -10470,10 +10470,20 @@ function normalizeGANumber(gaNumber) {
           // essaysLoaded wird nicht vom Server geliefert - Wert aus GA-Volumes behalten
           if (data.essaysLoaded) totalEssaysCount = data.essaysLoaded;
           
-          const infoText = getDefaultStatsText();
-          document.getElementById('serverInfo').textContent = infoText;
-          document.getElementById('thematicServerInfo').textContent = infoText;
-          document.getElementById('texteServerInfo').textContent = infoText;
+          // NUR Statistik anzeigen wenn ALLE drei Werte vorhanden sind (inkl. Aufsätze)
+          // Ansonsten zeige "Lade..." - die vollständige Statistik kommt von loadGAVolumesInSidebar()
+          if (data.essaysLoaded || totalEssaysCount > 0) {
+            const infoText = getDefaultStatsText();
+            document.getElementById('serverInfo').textContent = infoText;
+            document.getElementById('thematicServerInfo').textContent = infoText;
+            document.getElementById('texteServerInfo').textContent = infoText;
+          } else {
+            // Zeige Platzhalter bis GA-Volumes geladen sind
+            const loadingText = 'Lade Statistik...';
+            document.getElementById('serverInfo').textContent = loadingText;
+            document.getElementById('thematicServerInfo').textContent = loadingText;
+            document.getElementById('texteServerInfo').textContent = loadingText;
+          }
         }
       } catch (error) {
         const errorText = `<span style="color: #c53030;">Server nicht erreichbar</span>`;
@@ -12088,6 +12098,16 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
       countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal';
     }
+    
+    // Aktualisiere auch die Statistik-Elemente in den Tabs Texte und Themen
+    const statsText = getDefaultStatsText();
+    const texteServerInfo = document.getElementById('texteServerInfo');
+    const thematicServerInfo = document.getElementById('thematicServerInfo');
+    const serverInfo = document.getElementById('serverInfo');
+    if (texteServerInfo) texteServerInfo.textContent = statsText;
+    if (thematicServerInfo) thematicServerInfo.textContent = statsText;
+    if (serverInfo) serverInfo.textContent = statsText;
+    
     return;
   }
   
@@ -12165,6 +12185,15 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
       countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
+    
+    // Aktualisiere auch die Statistik-Elemente in den Tabs Texte und Themen
+    const statsText = getDefaultStatsText();
+    const texteServerInfo = document.getElementById('texteServerInfo');
+    const thematicServerInfo = document.getElementById('thematicServerInfo');
+    const serverInfo = document.getElementById('serverInfo');
+    if (texteServerInfo) texteServerInfo.textContent = statsText;
+    if (thematicServerInfo) thematicServerInfo.textContent = statsText;
+    if (serverInfo) serverInfo.textContent = statsText;
     
     gaVolumesLoading = false; // Erfolgreich geladen
     
@@ -19955,6 +19984,10 @@ function scrollToChronologicalYear(year) {
         const gaFilter = document.getElementById('thematicGAFilter').value;
         currentThematicGAFilter = gaFilter || '';
         
+        // Hole ausgewählten Provider aus Keywords-Tab (für größere Token-Limits mit Gemini)
+        const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
+        const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+        
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
           keepalive: true,
@@ -19962,7 +19995,8 @@ function scrollToChronologicalYear(year) {
           body: JSON.stringify({
             query: query,
             limit: parseInt(limit),
-            gaFilter: gaFilter
+            gaFilter: gaFilter,
+            preferredProvider: selectedProvider
           })
         });
         
