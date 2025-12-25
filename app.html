@@ -8040,6 +8040,9 @@ Original
     // Setze Body-Klasse für CSS-Styling
     if (isLocal) {
       document.body.classList.add('local-mode');
+      // Admin-Buttons nur lokal anzeigen
+      const texteAdminButtons = document.getElementById('texte-admin-buttons');
+      if (texteAdminButtons) texteAdminButtons.style.display = 'flex';
     } else {
       document.body.classList.add('online-mode');
       document.body.classList.remove('local-mode');
@@ -24315,14 +24318,15 @@ function showSummaryView() {
     sortedHeadings.forEach((heading, hIdx) => {
       const headingText = heading.text || heading.title || 'Überschrift';
       const level = heading.level || 'h3';
+      const headingIndex = heading.index || paraIndexWithCaret;
       
       // Nur ausgeben wenn noch keine Überschrift für diesen Absatz gezeigt wurde
       if (!headingAlreadyShown) {
         if (level === 'h3') {
-          html += `<h3 id="heading-${idx}-${hIdx}">${headingText}</h3>`;
+          html += `<h3 id="heading-${idx}-${hIdx}" data-index="${headingIndex}">${headingText}</h3>`;
           headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
         } else if (level === 'h4') {
-          html += `<h4 id="heading-${idx}-${hIdx}">${headingText}</h4>`;
+          html += `<h4 id="heading-${idx}-${hIdx}" data-index="${headingIndex}">${headingText}</h4>`;
           headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
         }
       }
@@ -24350,9 +24354,10 @@ function showSummaryView() {
     // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
     content = formatParagraphContentForDisplay(content);
     
-    // Bei Aufsatzbänden (GA029-GA037, GA046): Entferne manuelle Überschriften
-    // da AI-generierte Überschriften verwendet werden
-    if (gaNumber && isEssayVolume(gaNumber)) {
+    // Bei Aufsatzbänden (GA029-GA037, GA046) ODER wenn Überschriften aus headings-Array eingefügt wurden:
+    // Entferne manuelle Überschriften aus dem Content, um Duplikate zu vermeiden
+    // NEU: Auch für Briefe (GA262, GA263a) und andere Vorträge mit Headings
+    if ((gaNumber && isEssayVolume(gaNumber)) || headingAlreadyShown) {
       content = removeManualHeadingsFromContent(content);
     }
     
@@ -25356,8 +25361,9 @@ function formatAsteriskParagraphs() {
         console.log('[LOAD-LECTURE] headings:', summaryData.headings?.length || 0);
         console.log('[LOAD-LECTURE] lectureKeywords:', summaryData.lectureKeywords?.length || 0);
         
-        // Wenn Zusammenfassung existiert (fromCache: true oder neue Daten)
-        if (summaryData.exists && summaryData.summary) {
+        // Wenn Zusammenfassung oder Überschriften existieren (fromCache: true oder neue Daten)
+        // NEU: Auch wenn keine Summary, aber Headings vorhanden sind, zeige sie an (wichtig für Briefe GA262/GA263a)
+        if (summaryData.exists && (summaryData.summary || (summaryData.headings && summaryData.headings.length > 0))) {
           // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
           currentLectureData.summary = summaryData.summary;
           currentLectureData.headings = summaryData.headings || [];
@@ -28203,7 +28209,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 const hostname = window.location.hostname;
 const isLocalhost = hostname === 'localhost' || 
                     hostname === '127.0.0.1' || 
+                    hostname === '' ||  // leerer Hostname (file://)
                     window.location.protocol === 'file:';
+console.log('[ADMIN] hostname:', hostname, 'isLocalhost:', isLocalhost);
 
 // Statistik-Anzeige im Tab Themen immer ausblenden (sowohl lokal als auch online)
 const thematicSearchInfo = document.getElementById("thematicSearchInfo");

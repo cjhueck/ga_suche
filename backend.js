@@ -3836,6 +3836,9 @@ app.post('/api/batch-generate-structure', async (req, res) => {
           return { success: true, skipped: true, lectureId };
         }
         
+        // Extrahiere existierende Obsidian-Überschriften aus dem Lecture-Content (HTML)
+        const lecture = fullLectures[lectureId];
+        const obsidianHeadings = lecture ? extractExistingHeadingsFromHTML(lecture) : [];
         
         // Generiere S+H+TOC
         const generatedData = await generateUnifiedLectureData(lectureId, 'structure', {
@@ -3843,10 +3846,33 @@ app.post('/api/batch-generate-structure', async (req, res) => {
           vocabularyTerms: vocabularyTerms
         });
         
+        // MERGE: Obsidian-Überschriften haben Priorität, generierte werden ergänzt
+        let mergedHeadings = [...obsidianHeadings]; // Obsidian zuerst
+        const obsidianIndices = new Set(obsidianHeadings.map(h => h.index));
+        
+        // Füge generierte Überschriften hinzu, wenn kein Konflikt
+        for (const genHeading of generatedData.headings) {
+          if (!obsidianIndices.has(genHeading.index)) {
+            mergedHeadings.push(genHeading);
+          }
+        }
+        
+        // Sortiere nach Reihenfolge im Vortrag (falls möglich)
+        if (lecture?.paragraphs) {
+          const paragraphOrder = lecture.paragraphs.map(p => p.index);
+          mergedHeadings.sort((a, b) => {
+            const idxA = paragraphOrder.indexOf(a.index);
+            const idxB = paragraphOrder.indexOf(b.index);
+            return idxA - idxB;
+          });
+        }
+        
+        console.log(`[BATCH-STRUCTURE] ${lectureId}: ${obsidianHeadings.length} Obsidian + ${generatedData.headings.length} generiert → ${mergedHeadings.length} merged`);
+        
         // Speichere in Summary-DB
         await saveSummaryToDatabase(lectureId, {
           summary: generatedData.summary,
-          headings: generatedData.headings,
+          headings: mergedHeadings, // MERGED statt nur generiert
           tableOfContents: generatedData.tableOfContents,
           lectureKeywords: [],  // Noch keine Keywords
           version: generatedData.version,
@@ -4095,6 +4121,9 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
     // Hilfsfunktion: Verarbeite einen einzelnen Vortrag
     const processLecture = async (lectureId, index, total) => {
       try {
+        // Extrahiere existierende Obsidian-Überschriften aus dem Lecture-Content (HTML)
+        const lecture = fullLectures[lectureId];
+        const obsidianHeadings = lecture ? extractExistingHeadingsFromHTML(lecture) : [];
         
         // Generiere ALLES in einem Call
         const generatedData = await generateUnifiedLectureData(lectureId, 'full', {
@@ -4104,18 +4133,38 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
           forceRegenerate: true
         });
         
+        // MERGE: Obsidian-Überschriften haben Priorität, generierte werden ergänzt
+        let mergedHeadings = [...obsidianHeadings]; // Obsidian zuerst
+        const obsidianIndices = new Set(obsidianHeadings.map(h => h.index));
+        
+        // Füge generierte Überschriften hinzu, wenn kein Konflikt
+        for (const genHeading of generatedData.headings) {
+          if (!obsidianIndices.has(genHeading.index)) {
+            mergedHeadings.push(genHeading);
+          }
+        }
+        
+        // Sortiere nach Reihenfolge im Vortrag (falls möglich)
+        if (lecture?.paragraphs) {
+          const paragraphOrder = lecture.paragraphs.map(p => p.index);
+          mergedHeadings.sort((a, b) => {
+            const idxA = paragraphOrder.indexOf(a.index);
+            const idxB = paragraphOrder.indexOf(b.index);
+            return idxA - idxB;
+          });
+        }
+        
+        console.log(`[BATCH-REGENERATE] ${lectureId}: ${obsidianHeadings.length} Obsidian + ${generatedData.headings.length} generiert → ${mergedHeadings.length} merged`);
+        
         // Speichere in Summary-DB
         await saveSummaryToDatabase(lectureId, {
           summary: generatedData.summary,
-          headings: generatedData.headings,
+          headings: mergedHeadings, // MERGED statt nur generiert
           tableOfContents: generatedData.tableOfContents,
           lectureKeywords: generatedData.keywords,
           version: generatedData.version,
           generated: generatedData.generated
         });
-        
-        // Extrahiere Metadaten für Keywords-DB
-        const lecture = fullLectures[lectureId];
         const date = lecture?.date || lecture?.dateString || '';
         const year = date ? parseInt(date.substring(0, 4)) : null;
         const gaMatch = lectureId.match(/^GA(\d+)/);
@@ -5321,12 +5370,59 @@ JSON-AUSGABE (NUR JSON, kein zusätzlicher Text):
 };
 
 /**
+ * Extrahiert existierende Überschriften aus HTML-Content (Obsidian-Format)
+ * Sucht nach <h3/h4 data-index="...">...</h3/h4> Tags im Paragraph-Content
+ * 
+ * @param {Object} lecture - Das Lecture-Objekt mit paragraphs
+ * @returns {Array} Array von { index, text, level, source: 'obsidian' }
+ */
+function extractExistingHeadingsFromHTML(lecture) {
+  const existingHeadings = [];
+  const paragraphs = lecture?.paragraphs || [];
+  
+  // Regex für <h3/h4 data-index="...">...</h3/h4>
+  const headingRegex = /<(h[34])\s+data-index="([^"]+)"[^>]*>([^<]+)<\/\1>/gi;
+  
+  for (const para of paragraphs) {
+    const content = para.content || para.text || '';
+    let match;
+    
+    while ((match = headingRegex.exec(content)) !== null) {
+      const level = match[1].toLowerCase(); // h3 oder h4
+      const index = match[2]; // Der data-index Wert
+      const text = match[3].trim(); // Der Überschriften-Text
+      
+      existingHeadings.push({
+        index: para.index || index, // Verwende paragraph-index falls vorhanden
+        text: text,
+        level: level,
+        source: 'obsidian' // Markierung, dass diese aus Obsidian stammt
+      });
+    }
+  }
+  
+  console.log(`[EXTRACT-HEADINGS] ${lecture?.ID || 'unknown'}: ${existingHeadings.length} Obsidian-Überschriften gefunden`);
+  return existingHeadings;
+}
+
+/**
+ * Prüft ob ein Absatz bereits eine Überschrift hat (aus existingHeadings oder aus headings-Array)
+ * 
+ * @param {string} paragraphIndex - Index des Absatzes
+ * @param {Array} existingHeadings - Bestehende Überschriften
+ * @returns {boolean}
+ */
+function paragraphHasExistingHeading(paragraphIndex, existingHeadings) {
+  return existingHeadings.some(h => h.index === paragraphIndex);
+}
+
+/**
  * ZENTRALE UNIFIED GENERATION FUNKTION
  * Führt die Generierung basierend auf dem Modus aus
  * 
  * @param {string} lectureId - ID des Vortrags
  * @param {string} mode - 'structure' | 'keywords' | 'full'
- * @param {Object} options - Zusätzliche Optionen
+ * @param {Object} options - Zusätzliche Optionen (inkl. preserveExisting)
  * @returns {Object} Generierte Daten
  */
 async function generateUnifiedLectureData(lectureId, mode, options = {}) {
@@ -5614,16 +5710,22 @@ app.get('/api/test-claude-key', async (req, res) => {
 app.get('/api/ga-list', async (req, res) => {
   try {
     
+    // Fallback-Titel für GA-Bände ohne bandTitle (z.B. Briefe)
+    const fallbackTitles = {
+      'GA262': 'Rudolf Steiner / Marie Steiner-von Sivers: Briefwechsel und Dokumente 1901–1925',
+      'GA263a': 'Rudolf Steiner / Edith Maryon: Briefwechsel (1912-1924)'
+    };
+    
     const gaMap = {};
     
     // Sammle GA-Nummern und Titel aus Vorträgen
     Object.values(fullLectures).forEach(lecture => {
       const gaNumber = lecture.ID?.split('/')[0];
       if (gaNumber && !gaMap[gaNumber]) {
-        // Verwende den Band-Titel falls vorhanden, sonst GA-Nummer
+        // Verwende den Band-Titel falls vorhanden, dann Fallback, sonst GA-Nummer
         gaMap[gaNumber] = {
           number: gaNumber,
-          title: lecture.bandTitle || lecture.gaTitle || gaNumber
+          title: lecture.bandTitle || lecture.gaTitle || fallbackTitles[gaNumber] || gaNumber
         };
       }
     });
