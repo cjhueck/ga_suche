@@ -556,7 +556,7 @@ class SteinerLecturesExporter {
       // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
       // Zusätzliche Ausnahmen: GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
-      // GA262 ist ein Multi-File-Buch und wird als Buch exportiert, nicht als Vorträge
+      // BRIEFE: GA262, GA263a werden wie Vorträge exportiert (mit H2-Überschriften als Navigation)
       if (gaNumber) {
         const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
         const gaLower = gaNumber.toLowerCase();
@@ -564,13 +564,13 @@ class SteinerLecturesExporter {
         // Standard Aufsatzbände + zusätzliche GAs die auch als Aufsätze exportiert werden können
         const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
         const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b || additionalEssayBands.includes(gaNum);
-        // Multi-File-Bücher: werden als Bücher exportiert, nicht als Vorträge
-        const multiFileBooks = [262];
-        const isMultiFileBook = multiFileBooks.includes(gaNum);
+        // BRIEFE: GA262 und GA263a werden wie Vorträge exportiert (NICHT als Bücher!)
+        const isGA263a = gaLower === '263a' || gaLower === 'ga263a';
+        const isLetterBand = gaNum === 262 || isGA263a;
         // Wenn selectedGAs angegeben sind UND diese GA dabei ist, dann exportieren (override)
         const isExplicitlySelected = selectedGAs.length > 0 && selectedGAs.map(g => g.toUpperCase()).includes(`GA${gaNumber.toUpperCase()}`);
-        if ((gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isExplicitlySelected) || isMultiFileBook) {
-          continue; // Überspringe GA001-GA050 und Multi-File-Bücher (werden als Bücher exportiert)
+        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isLetterBand && !isExplicitlySelected) {
+          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert)
         }
       }
       
@@ -587,14 +587,18 @@ class SteinerLecturesExporter {
       }
 
       const content = fs.readFileSync(filePath, 'utf8');
-      const lines = content.split("\n");
+      // Unterstütze sowohl Unix (\n) als auch Windows (\r\n) Zeilenenden
+      const lines = content.split(/\r?\n/);
 
       // NUR Absätze extrahieren (KEINE Summaries, TOC)
       // H2/H3/H4 Überschriften werden beibehalten und dem nächsten Absatz vorangestellt
       // AUSNAHME: Für GA051-GA084 werden H3/H4 NICHT exportiert (werden durch AI-generierte ersetzt)
+      // BRIEFE (GA262, GA263a): H2-Überschriften werden mit Absatz-Indizes versehen
       const paragraphs = [];
       const lectureImages = []; // Bilder für diesen Vortrag
       let pendingHeadings = []; // Sammle Überschriften für den nächsten Absatz
+      const letterHeadings = []; // Für Briefe: H2-Überschriften mit Absatz-Indizes
+      let pendingLetterHeading = null; // Aktuelle H2-Überschrift die auf Index wartet
       
       // Prüfe ob dieser GA-Band manuelle Überschriften NICHT exportieren soll
       // GA051-GA084: Haben AI-generierte Headings, manuelle werden übersprungen
@@ -602,13 +606,22 @@ class SteinerLecturesExporter {
       const gaNumeric = gaNumericMatch ? parseInt(gaNumericMatch[1], 10) : 0;
       const skipManualHeadings = gaNumeric >= 51 && gaNumeric <= 84;
       
+      // BRIEFE: GA262 und GA263a - H2-Überschriften mit Absatz-Indizes versehen
+      const gaLowerForCheck = meta.gaNumber.toLowerCase();
+      const isLetterBand = gaNumeric === 262 || gaLowerForCheck === 'ga263a';
+      
       if (skipManualHeadings) {
         console.log(`  [${meta.ID}] Manuelle H3/H4 werden übersprungen (AI-generierte verwenden)`);
+      }
+      
+      if (isLetterBand) {
+        console.log(`  [${meta.ID}] Briefe-Band: H2-Überschriften erhalten Absatz-Indizes`);
       }
       
       for (let line of lines) {
         // Erkenne H2/H3/H4 Überschriften und sammle sie
         // ABER: Für GA051-GA084 werden H3/H4 übersprungen (AI-generierte ersetzt)
+        // BRIEFE: H2-Überschriften erhalten data-index Attribute für Navigation
         const headingMatch = line.match(/^(#{2,4})\s+(.+)$/);
         if (headingMatch) {
           const level = headingMatch[1].length; // 2, 3, oder 4
@@ -617,6 +630,19 @@ class SteinerLecturesExporter {
           // Für GA051-GA084: H3/H4 überspringen
           if (skipManualHeadings && level >= 3) {
             continue; // H3 und H4 nicht exportieren
+          }
+          
+          // BRIEFE: H2-Überschriften werden als H4 gespeichert und warten auf Absatz-Index
+          if (isLetterBand && level === 2) {
+            // Speichere die Überschrift - der Index wird beim nächsten Absatz hinzugefügt
+            // WICHTIG: level 4 verwenden (H2 wird zu H4 konvertiert)
+            pendingLetterHeading = {
+              text: headingText,
+              level: 4  // H2 → H4 für konsistente Darstellung
+            };
+            // Die Überschrift wird NICHT zu pendingHeadings hinzugefügt,
+            // sondern separat behandelt
+            continue;
           }
           
           // Konvertiere zu HTML-Tag für spätere Darstellung
@@ -662,6 +688,20 @@ class SteinerLecturesExporter {
                 return `<img src="${cleanSrc}" alt="${alt.trim()}" />`;
               });
             
+            // BRIEFE: Brief-Überschrift (als H4) mit data-index Attribut hinzufügen
+            if (pendingLetterHeading) {
+              // Speichere in letterHeadings für summary-database (als h4)
+              letterHeadings.push({
+                index: `^${blockId}`,
+                text: pendingLetterHeading.text,
+                level: 'h4'  // Immer h4 für Briefe
+              });
+              // Füge H4 mit data-index zum Content hinzu (H2 aus MD wird zu H4 in HTML)
+              const h4WithIndex = `<h4 data-index="^${blockId}">${pendingLetterHeading.text}</h4>`;
+              convertedText = h4WithIndex + '\n' + convertedText;
+              pendingLetterHeading = null; // Reset
+            }
+            
             // Füge gesammelte Überschriften vor dem Absatz ein
             if (pendingHeadings.length > 0) {
               convertedText = pendingHeadings.join('\n') + '\n' + convertedText;
@@ -682,7 +722,7 @@ class SteinerLecturesExporter {
         // Merge aufeinanderfolgende Listenabsätze mit dem vorhergehenden Absatz
         const mergedParagraphs = this.mergeListParagraphs(paragraphs);
         
-        lectures.push({
+        const lectureData = {
           gaNumber: meta.gaNumber,
           gaTitle: gaTitle,
           lectureNumber: meta.lectureNumber,
@@ -692,7 +732,16 @@ class SteinerLecturesExporter {
           location: meta.location,
           date: meta.date,
           paragraphs: mergedParagraphs
-        });
+        };
+        
+        // BRIEFE: H2-Überschriften mit Absatz-Indizes hinzufügen
+        if (isLetterBand && letterHeadings.length > 0) {
+          lectureData.headings = letterHeadings;
+          console.log(`    -> ${letterHeadings.length} Brief-Überschriften mit Indizes`);
+        }
+        
+        
+        lectures.push(lectureData);
         
         // Speichere Bilder für diesen Vortrag
         if (lectureImages.length > 0) {
@@ -770,6 +819,10 @@ class SteinerLecturesExporter {
       
       await this.exportImages(allImages);
     }
+    
+    // BRIEFE: Speichere Brief-Überschriften in summary-database.json
+    // Damit sie im TOC im rechten Summary-Panel angezeigt werden
+    this.saveLetterHeadingsToSummaryDB(lectures);
     
     // Automatische Synchronisation der Metadaten (optional)
     if (syncMetadata) {
@@ -1290,6 +1343,61 @@ class SteinerLecturesExporter {
     
     if (month) return `${year}-${month}-${day}`;
     return null;
+  }
+  
+  // BRIEFE: Speichere Brief-Überschriften in summary-database.json
+  // Damit sie im TOC im rechten Summary-Panel angezeigt werden
+  saveLetterHeadingsToSummaryDB(lectures) {
+    const summaryDBPath = path.join(this.outputDir, 'summary-database.json');
+    
+    // Lade existierende summary-database.json
+    let summaryDB = {};
+    if (fs.existsSync(summaryDBPath)) {
+      try {
+        summaryDB = JSON.parse(fs.readFileSync(summaryDBPath, 'utf8'));
+      } catch (e) {
+        console.warn('  [WARN] Konnte summary-database.json nicht laden:', e.message);
+      }
+    }
+    
+    // Filtere Lectures mit Brief-Überschriften (headings vorhanden)
+    const letterLectures = lectures.filter(l => l.headings && l.headings.length > 0);
+    
+    if (letterLectures.length === 0) {
+      return 0;
+    }
+    
+    let updatedCount = 0;
+    
+    for (const lecture of letterLectures) {
+      const lectureId = lecture.ID;
+      
+      // Erstelle oder aktualisiere Eintrag
+      if (!summaryDB[lectureId]) {
+        summaryDB[lectureId] = {};
+      }
+      
+      // Speichere headings (Brief-Überschriften mit Absatz-Indizes)
+      summaryDB[lectureId].headings = lecture.headings;
+      
+      // Erstelle tableOfContents aus headings (für Kompatibilität)
+      summaryDB[lectureId].tableOfContents = lecture.headings.map(h => ({
+        heading: h.text,
+        description: '',
+        index: h.index
+      }));
+      
+      summaryDB[lectureId].version = 'v2-letter';
+      summaryDB[lectureId].timestamp = new Date().toISOString();
+      
+      updatedCount++;
+    }
+    
+    // Speichere zurück
+    fs.writeFileSync(summaryDBPath, JSON.stringify(summaryDB, null, 2), 'utf8');
+    console.log(`  ✓ ${updatedCount} Brief-Lectures in summary-database.json gespeichert`);
+    
+    return updatedCount;
   }
 }
 

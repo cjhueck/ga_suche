@@ -2985,6 +2985,11 @@ body.dark-mode .ga-missing-text {
       padding-left: 1.2rem;
     }
     
+    /* Briefe (GA262, GA263a): H4 mit data-index - keine Einrückung */
+    #toc-list h4[data-index] {
+      padding-left: 0;
+    }
+    
     h1 { margin-bottom: 0.5rem; margin-top: 0; }
     #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.3rem; }
     #document-title { margin-top: 0; margin-bottom: 0; margin-left: 2rem !important; }
@@ -27117,6 +27122,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         return;
       }
       
+      // BRIEFE (GA262, GA263a): Prüfe ob Brief-Band und ob H4-Überschriften mit data-index vorhanden
+      const isLetterBand = currentLectureData && currentLectureData.gaNumber && 
+                           (currentLectureData.gaNumber.toUpperCase() === 'GA262' || 
+                            currentLectureData.gaNumber.toLowerCase() === 'ga263a');
+      
+      // Für Briefe: H4 mit data-index werden automatisch gefunden (h3, h4 Selector)
       const headings = viewer.querySelectorAll('h3, h4');
       tocList.innerHTML = '';
       
@@ -27154,6 +27165,39 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         tocHeading.addEventListener('click', (e) => {
           e.preventDefault();
+          
+          // BRIEFE: Bei H4 mit data-index zur Überschrift scrollen (nicht zum Absatz)
+          const dataIndex = heading.getAttribute('data-index');
+          if (dataIndex) {
+            // Suche die H4-Überschrift mit diesem data-index im Viewer
+            const cleanIndex = dataIndex.replace(/^\^/, '');
+            const targetHeading = viewer.querySelector(`h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"]`);
+            
+            if (targetHeading) {
+              // Scrolle zur Überschrift
+              const mainContainer = document.getElementById('main');
+              const header = document.getElementById('viewer-header');
+              const headerHeight = header ? header.offsetHeight + 5 : 5;
+              const mainRect = mainContainer.getBoundingClientRect();
+              const headingRect = targetHeading.getBoundingClientRect();
+              const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+              mainContainer.scrollTop = Math.max(0, relativeTop);
+              
+              // Highlighte NUR die Überschrift (nicht den Absatz)
+              const originalBg = targetHeading.style.backgroundColor;
+              targetHeading.style.backgroundColor = 'rgba(70, 120, 134, 0.3)';
+              targetHeading.style.transition = 'background-color 0.3s ease';
+              setTimeout(() => {
+                targetHeading.style.backgroundColor = originalBg || '';
+              }, 2000);
+            } else {
+              // Fallback: Scroll zum Absatz (alte Logik)
+              if (typeof scrollToIndexInViewer === 'function') {
+                scrollToIndexInViewer(cleanIndex);
+              }
+            }
+            return;
+          }
           
           // WICHTIG: Verwende die ID, um die Überschrift im Viewer zu finden
           // (nicht die heading-Variable, die auf die TOC-Überschrift zeigt!)
