@@ -556,6 +556,7 @@ class SteinerLecturesExporter {
       // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
       // Zusätzliche Ausnahmen: GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
+      // GA262 ist ein Multi-File-Buch und wird als Buch exportiert, nicht als Vorträge
       if (gaNumber) {
         const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
         const gaLower = gaNumber.toLowerCase();
@@ -563,10 +564,13 @@ class SteinerLecturesExporter {
         // Standard Aufsatzbände + zusätzliche GAs die auch als Aufsätze exportiert werden können
         const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
         const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b || additionalEssayBands.includes(gaNum);
+        // Multi-File-Bücher: werden als Bücher exportiert, nicht als Vorträge
+        const multiFileBooks = [262];
+        const isMultiFileBook = multiFileBooks.includes(gaNum);
         // Wenn selectedGAs angegeben sind UND diese GA dabei ist, dann exportieren (override)
         const isExplicitlySelected = selectedGAs.length > 0 && selectedGAs.map(g => g.toUpperCase()).includes(`GA${gaNumber.toUpperCase()}`);
-        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isExplicitlySelected) {
-          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert), außer Aufsatzbände oder explizit ausgewählt
+        if ((gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isExplicitlySelected) || isMultiFileBook) {
+          continue; // Überspringe GA001-GA050 und Multi-File-Bücher (werden als Bücher exportiert)
         }
       }
       
