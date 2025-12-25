@@ -10954,7 +10954,7 @@ function normalizeGANumber(gaNumber) {
       titleEl.textContent = `${normalizedGANumber} - Bibliographische Angaben`;
       
       // Copyright-Hinweis
-      const copyrightText = 'Der Text wurde aus der frei im Internet verfügbaren Rudolf Steiner Gesamtausgabe entnommen. Anhänge und editorische Hinweise unterliegen dem Copyright und wurden deshalb nicht mit übernommen. Die Zusammenfassungen, Schlagwörter und Zwischenüberschriften wurden mit KI erstellt. Nähere Angaben siehe <a href="#" onclick="event.preventDefault(); closeGABibliographyPopup(); openHelpModalDirect(\'quick\'); return false;" style="color: var(--link-color, #467886); text-decoration: underline;">Impressum</a>.';
+      const copyrightText = 'Der Text wurde aus der frei im Internet verfügbaren Rudolf Steiner Gesamtausgabe entnommen und kann deshalb Fehler enthalten. Anhänge und editorische Hinweise unterliegen dem Copyright und wurden deshalb nicht mit übernommen. Die Zusammenfassungen, Schlagwörter und Zwischenüberschriften wurden mit KI erstellt. Nähere Angaben siehe <a href="#" onclick="event.preventDefault(); closeGABibliographyPopup(); openHelpModalDirect(\'quick\'); return false;" style="color: var(--link-color, #467886); text-decoration: underline;">Impressum</a>.';
       
       // Erstelle HTML für bibliographische Angaben (kompakt)
       let html = '<div style="font-size: 0.8em; line-height: 1.3;">';
@@ -32628,13 +32628,12 @@ if (document.readyState === 'loading') {
 <div id="helpModal" class="help-modal">
   <div class="help-modal-content">
     <div class="help-modal-header">
-      <h2 id="helpModalTitle">GA-Suche Anleitung</h2>
+      <h2 id="helpModalTitle">Anleitung</h2>
       <button class="help-modal-close" onclick="closeHelpModal()">&times;</button>
     </div>
     <div class="help-modal-body">
       <!-- Choice Screen -->
       <div id="helpChoice" class="help-choice">
-        <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
         <div class="help-choice-buttons">
           <button class="help-choice-btn" onclick="showHelpContent('welcome')">
             <h3>Willkommen</h3>
@@ -32648,6 +32647,14 @@ if (document.readyState === 'loading') {
           <button class="help-choice-btn" onclick="showHelpContent('quick')">
             <h3>Impressum</h3>
           </button>
+        </div>
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color, #ddd);">
+          <h3 style="margin-top: 0; margin-bottom: 1rem; font-size: 1em; color: var(--heading-color, #333);">Tastenkombinationen:</h3>
+          <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.6; color: var(--text-color, #333);">
+            <li><strong>Strg+Klick:</strong> Kurzinformation</li>
+            <li><strong>Alt+Klick</strong> (im Text): Rechtschreibfehler markieren</li>
+            <li><strong>Text markieren+Rechtsklick:</strong> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)</li>
+          </ul>
         </div>
       </div>
       
@@ -32845,7 +32852,7 @@ function closeHelpModal() {
 function showHelpChoice() {
   document.getElementById('helpChoice').style.display = 'block';
   document.getElementById('helpContentDisplay').classList.remove('active');
-  document.getElementById('helpModalTitle').textContent = 'GA-Suche Anleitung';
+  document.getElementById('helpModalTitle').textContent = 'Anleitung';
 }
 
 async function showHelpContent(type) {
@@ -32869,7 +32876,7 @@ async function showHelpContent(type) {
       title.textContent = 'Gesamtausgabe';
       mdFile = 'GESAMTAUSGABE.md';
     } else if (type === 'full') {
-      title.textContent = 'GA-Suche Anleitung';
+      title.textContent = 'Anleitung';
       mdFile = 'BENUTZERANLEITUNG.md';
     } else if (type === 'quick') {
       title.textContent = 'Impressum';
