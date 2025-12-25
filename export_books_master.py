@@ -200,9 +200,9 @@ class BooksExporter:
             # (nur für Bücher, nicht für Vorträge!)
             merged_db = existing_db.copy()
             
-            # Füge nur Bücher-Einträge hinzu/aktualisiere sie (GA001-GA046 + GA262, inkl. Varianten mit Suffix)
-            # MULTI_FILE_BOOKS: GA-Bände die als Multi-File-Bücher exportiert werden (nicht als Vorträge)
-            MULTI_FILE_BOOKS = {'GA262'}
+            # Füge nur Bücher-Einträge hinzu/aktualisiere sie (GA001-GA046, inkl. Varianten mit Suffix)
+            # HINWEIS: GA262 und GA263a werden jetzt als BRIEFE exportiert (in export-lectures.js)
+            MULTI_FILE_BOOKS = set()  # Keine Multi-File-Bücher mehr - GA262/GA263a sind jetzt Briefe
             books_added = 0
             for book_id, book_data in self.summary_db.items():
                 # Prüfe ob es ein Buch ist (GA001-GA046, inkl. GA040a, GA041a, etc. + Multi-File-Bücher)
@@ -260,9 +260,10 @@ class BooksExporter:
                         pass
                 
                 merged_db = existing_db.copy()
-                MULTI_FILE_BOOKS = {'GA262'}
+                # HINWEIS: GA262 und GA263a werden jetzt als BRIEFE exportiert (in export-lectures.js)
+                MULTI_FILE_BOOKS = set()  # Keine Multi-File-Bücher mehr
                 for book_id, book_data in self.summary_db.items():
-                    # Prüfe ob es ein Buch ist (GA001-GA046 + Multi-File-Bücher wie GA262)
+                    # Prüfe ob es ein Buch ist (GA001-GA046)
                     is_book = isinstance(book_id, str) and (
                         (book_id.startswith('GA0') and len(book_id) <= 5 and '/' not in book_id) or
                         book_id in MULTI_FILE_BOOKS
@@ -1294,8 +1295,7 @@ class BooksExporter:
             target_gas = [f"GA{i:03d}" for i in range(1, 47) if i not in essay_bands]
             # Füge bekannte Varianten mit Suffix hinzu (außer GA041b = Aufsatzband)
             target_gas.extend(['GA040a', 'GA041a'])
-            # Füge GA262 hinzu (Multi-File-Buch, nicht Vorträge)
-            target_gas.append('GA262')
+            # HINWEIS: GA262 und GA263a werden jetzt als BRIEFE exportiert (in export-lectures.js)
         
         print(f"Suche nach {len(target_gas)} GA-Bänden...\n")
         

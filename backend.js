@@ -630,10 +630,11 @@ async function loadFullLectures() {
         console.log(`  [${i}] ${fileName} (${mtime})`);
       });
     } else {
-      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien parallel...`);
     }
     
-    for (const fileInfo of filesToLoad) {
+    // PERFORMANCE: Lade alle Dateien parallel statt sequenziell
+    const loadPromises = filesToLoad.map(async (fileInfo) => {
       const fileName = fileInfo.fileName || fileInfo;
       const basePath = fileInfo.basePath || lectureBasePath;
       const jsonPath = path.join(basePath, fileName);
@@ -644,59 +645,65 @@ async function loadFullLectures() {
         
         const lectures = parsed.lectures || [];
         
-        // Debug: Zeige wenn GA217a/2 gefunden wird (nur im Debug-Modus)
-        if (DEBUG_LECTURES) {
-          const hasGA217a_2 = lectures.some(l => l.ID === 'GA217a/2');
-          if (hasGA217a_2) {
-            const l217a_2 = lectures.find(l => l.ID === 'GA217a/2');
-            console.log(`    📍 GA217a/2 gefunden in: ${fileName} (${basePath})`);
-            console.log(`        Erster Paragraph: ${l217a_2.paragraphs[0]?.content?.substring(0, 80)}...`);
-          }
-        }
-        
-        // Leere Dateien stillschweigend ignorieren
-        
         // Speichere mtime der aktuellen Datei für späteren Vergleich mit Overrides
         const fileMtime = fileInfo.mtime instanceof Date 
           ? fileInfo.mtime.getTime() 
           : new Date(fileInfo.mtime || Date.now()).getTime();
         
-        lectures.forEach(lecture => {
-          if (lecture.ID) {
-            // Prüfe auf Duplikate - nur warnen wenn wirklich unterschiedlich
-            if (fullLectures[lecture.ID]) {
-              const existing = fullLectures[lecture.ID];
-              const existingFileName = existing.fileName || 'unbekannt';
-              const newFileName = lecture.fileName || 'unbekannt';
-              
-              // Normalisiere fileName für Vergleich (entferne Datum in Klammern am Ende)
-              const normalizeFileName = (fn) => {
-                return fn.replace(/\s*\([^)]*\)\s*$/, '').trim();
-              };
-              
-              const normalizedExisting = normalizeFileName(existingFileName);
-              const normalizedNew = normalizeFileName(newFileName);
-              
-              // Nur warnen wenn normalisierte Dateinamen unterschiedlich sind (echtes Duplikat)
-              // oder wenn Titel unterschiedlich sind (inhaltliche Unterschiede)
-              const existingTitle = existing.title || '';
-              const newTitle = lecture.title || '';
-              
-              // Duplikat erkannt - überschreiben ohne Log (normal bei mehreren Part-Dateien)
-            }
-            // Speichere mtime der Datei, aus der dieser Vortrag geladen wurde
-            // (für späteren Vergleich mit Overrides)
-            lecture._sourceFileMtime = fileMtime;
-            fullLectures[lecture.ID] = lecture;
-            totalLectures++;
-          } else {
-            console.warn(`    ⚠️  Vortrag ohne ID übersprungen:`, Object.keys(lecture));
-          }
-        });
-        
+        return { fileName, lectures, fileMtime };
       } catch (fileError) {
         console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
+        return { fileName, lectures: [], fileMtime: 0 };
       }
+    });
+    
+    // Warte auf alle Dateien parallel
+    const loadedFiles = await Promise.all(loadPromises);
+    
+    // Verarbeite alle geladenen Dateien (sortiert nach mtime, damit neuere überschreiben)
+    for (const { fileName, lectures, fileMtime } of loadedFiles) {
+      // Debug: Zeige wenn GA217a/2 gefunden wird (nur im Debug-Modus)
+      if (DEBUG_LECTURES) {
+        const hasGA217a_2 = lectures.some(l => l.ID === 'GA217a/2');
+        if (hasGA217a_2) {
+          const l217a_2 = lectures.find(l => l.ID === 'GA217a/2');
+          console.log(`    📍 GA217a/2 gefunden in: ${fileName}`);
+          console.log(`        Erster Paragraph: ${l217a_2.paragraphs[0]?.content?.substring(0, 80)}...`);
+        }
+      }
+      
+      lectures.forEach(lecture => {
+        if (lecture.ID) {
+          // Prüfe auf Duplikate - nur warnen wenn wirklich unterschiedlich
+          if (fullLectures[lecture.ID]) {
+            const existing = fullLectures[lecture.ID];
+            const existingFileName = existing.fileName || 'unbekannt';
+            const newFileName = lecture.fileName || 'unbekannt';
+            
+            // Normalisiere fileName für Vergleich (entferne Datum in Klammern am Ende)
+            const normalizeFileName = (fn) => {
+              return fn.replace(/\s*\([^)]*\)\s*$/, '').trim();
+            };
+            
+            const normalizedExisting = normalizeFileName(existingFileName);
+            const normalizedNew = normalizeFileName(newFileName);
+            
+            // Nur warnen wenn normalisierte Dateinamen unterschiedlich sind (echtes Duplikat)
+            // oder wenn Titel unterschiedlich sind (inhaltliche Unterschiede)
+            const existingTitle = existing.title || '';
+            const newTitle = lecture.title || '';
+            
+            // Duplikat erkannt - überschreiben ohne Log (normal bei mehreren Part-Dateien)
+          }
+          // Speichere mtime der Datei, aus der dieser Vortrag geladen wurde
+          // (für späteren Vergleich mit Overrides)
+          lecture._sourceFileMtime = fileMtime;
+          fullLectures[lecture.ID] = lecture;
+          totalLectures++;
+        } else {
+          console.warn(`    ⚠️  Vortrag ohne ID übersprungen:`, Object.keys(lecture));
+        }
+      });
     }
     
     const uniqueLecturesCount = Object.keys(fullLectures).length;
@@ -729,21 +736,32 @@ async function loadFullLectures() {
         let applied = 0;
         let lectureOverrideFiles = 0;
         
-        for (const f of overrideFiles) {
+        // PERFORMANCE: Lade Override-Dateien parallel
+        const overridePromises = overrideFiles.map(async (f) => {
           try {
             const p = path.join(overridesDir, f);
             const raw = await fs.readFile(p, 'utf8');
             const parsed = JSON.parse(raw);
+            const overrideStats = await fs.stat(p).catch(() => null);
+            const overrideMtime = overrideStats 
+              ? (overrideStats.mtime instanceof Date ? overrideStats.mtime.getTime() : new Date(overrideStats.mtime).getTime())
+              : 0;
+            return { fileName: f, parsed, overrideMtime };
+          } catch (e) {
+            return { fileName: f, parsed: null, overrideMtime: 0 };
+          }
+        });
+        
+        const loadedOverrides = await Promise.all(overridePromises);
+        
+        for (const { fileName: f, parsed, overrideMtime } of loadedOverrides) {
+          if (!parsed) continue;
+          
+          try {
             
             // Prüfe ob es ein Vortrags-Override ist (hat "lectures" Array)
             if (parsed.lectures && Array.isArray(parsed.lectures)) {
               lectureOverrideFiles++;
-              
-              // Hole mtime der Override-Datei
-              const overrideStats = await fs.stat(p).catch(() => null);
-              const overrideMtime = overrideStats 
-                ? (overrideStats.mtime instanceof Date ? overrideStats.mtime.getTime() : new Date(overrideStats.mtime).getTime())
-                : 0;
               
               // Debug: Zeige welche Vorträge in dieser Override-Datei sind
               const overrideLectureIds = parsed.lectures.map(l => l.ID).filter(Boolean);
@@ -898,32 +916,37 @@ async function loadBooks() {
     filesWithStats.sort((a, b) => a.mtime - b.mtime);
     const sortedBookFiles = filesWithStats.map(f => f.fileName);
     
-    let totalBooks = 0;
-    for (const fileName of sortedBookFiles) {
+    // PERFORMANCE: Lade alle Bücher-Dateien parallel statt sequenziell
+    console.log(`  Lade ${sortedBookFiles.length} Bücher-Dateien parallel...`);
+    
+    const loadBookPromises = sortedBookFiles.map(async (fileName) => {
       const jsonPath = path.join(bookBasePath, fileName);
       
       try {
         const data = await fs.readFile(jsonPath, 'utf8');
         const parsed = JSON.parse(data);
-        
         const books = parsed.books || [];
-        
-        // Leere Dateien stillschweigend ignorieren
-        
-        
-        books.forEach(book => {
-          if (book.ID || book.gaNumber) {
-            const bookId = book.ID || book.gaNumber;
-            fullBooks[bookId] = book;
-            totalBooks++;
-          } else {
-            console.warn(`      ⚠️  Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
-          }
-        });
-        
+        return { fileName, books };
       } catch (fileError) {
         console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
+        return { fileName, books: [] };
       }
+    });
+    
+    // Warte auf alle Dateien parallel
+    const loadedBooksData = await Promise.all(loadBookPromises);
+    
+    let totalBooks = 0;
+    for (const { fileName, books } of loadedBooksData) {
+      books.forEach(book => {
+        if (book.ID || book.gaNumber) {
+          const bookId = book.ID || book.gaNumber;
+          fullBooks[bookId] = book;
+          totalBooks++;
+        } else {
+          console.warn(`      ⚠️  Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
+        }
+      });
     }
 
     // ============================================================
@@ -942,36 +965,46 @@ async function loadBooks() {
         const files = await fs.readdir(overridesDir);
         const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
         if (overrideFiles.length > 0) {
-          let applied = 0;
-          for (const f of overrideFiles) {
+          // PERFORMANCE: Lade Override-Dateien parallel
+          const bookOverridePromises = overrideFiles.map(async (f) => {
             try {
               const p = path.join(overridesDir, f);
               const raw = await fs.readFile(p, 'utf8');
               const parsed = JSON.parse(raw);
               const bookObj = parsed.book || parsed;
-              const bookId = bookObj?.ID || bookObj?.gaNumber;
-              if (!bookId) continue;
-
-              // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings) beibehalten
-              // Dies ermöglicht, dass Pagebreak-Overrides nur die Seitenmarker hinzufügen,
-              // ohne die Überschriften aus der Hauptdatei zu verlieren
-              if (fullBooks[bookId]) {
-                // Merge: Überschreibe nur paragraphs aus dem Override
-                if (bookObj.paragraphs) {
-                  fullBooks[bookId].paragraphs = bookObj.paragraphs;
-                }
-                // Überschreibe auch content falls vorhanden
-                if (bookObj.content) {
-                  fullBooks[bookId].content = bookObj.content;
-                }
-              } else {
-                // Buch existiert noch nicht, vollständig übernehmen
-              fullBooks[bookId] = bookObj;
-              }
-              applied++;
+              return { fileName: f, bookObj };
             } catch (e) {
               console.warn(`    ⚠️  Pagebreak-Override ${f} konnte nicht geladen werden:`, e.message);
+              return { fileName: f, bookObj: null };
             }
+          });
+          
+          const loadedBookOverrides = await Promise.all(bookOverridePromises);
+          let applied = 0;
+          
+          for (const { fileName: f, bookObj } of loadedBookOverrides) {
+            if (!bookObj) continue;
+            
+            const bookId = bookObj?.ID || bookObj?.gaNumber;
+            if (!bookId) continue;
+
+            // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings) beibehalten
+            // Dies ermöglicht, dass Pagebreak-Overrides nur die Seitenmarker hinzufügen,
+            // ohne die Überschriften aus der Hauptdatei zu verlieren
+            if (fullBooks[bookId]) {
+              // Merge: Überschreibe nur paragraphs aus dem Override
+              if (bookObj.paragraphs) {
+                fullBooks[bookId].paragraphs = bookObj.paragraphs;
+              }
+              // Überschreibe auch content falls vorhanden
+              if (bookObj.content) {
+                fullBooks[bookId].content = bookObj.content;
+              }
+            } else {
+              // Buch existiert noch nicht, vollständig übernehmen
+              fullBooks[bookId] = bookObj;
+            }
+            applied++;
           }
           if (applied > 0) {
             console.log(`  ✓ Pagebreak-Overrides geladen: ${applied}`);

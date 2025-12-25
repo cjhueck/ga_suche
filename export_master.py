@@ -15,6 +15,12 @@ GA-BAND-KATEGORIEN (unterschiedliche Export-Behandlung):
              - Manuelle Überschriften werden im Frontend ausgeblendet
                wenn AI-generierte Überschriften aktiv sind
              
+  BRIEFE:    GA262, GA263a
+             - Briefwechsel Rudolf Steiners
+             - Werden wie Vorträge exportiert (steiner-full-lectures-*.json)
+             - H2-Überschriften werden mit Absatz-Indizes versehen
+               für Navigation im HTML-Frontend
+             
   VORTRÄGE:  GA051 ff
              - Mitschriften von Vorträgen
              - Werden als steiner-full-lectures-*.json exportiert
