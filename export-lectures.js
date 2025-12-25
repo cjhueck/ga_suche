@@ -159,7 +159,7 @@ class SteinerLecturesExporter {
   convertWikiLinksToMarkdown(text) {
     // Pattern: ![[dateiname.ext]] → ![](assets/dateiname.ext)
     return text.replace(/!\[\[([^\]]+)\]\]/g, (match, filename) => {
-      // Extrahiere nur Dateinamen
+      // Extrahiere Dateinamen (letzter Teil nach /)
       let cleanName = filename.split('/').pop();
       
       // Falls "assets/" im Namen: Extrahiere danach
@@ -167,12 +167,8 @@ class SteinerLecturesExporter {
         cleanName = cleanName.split('assets/').pop();
       }
       
-      // Für img-N: Vereinfache
-      // GA121_img-4.jpeg → img-4.jpeg
-      const imgMatch = cleanName.match(/img-(\d+)\.(jpe?g|png|webp)/i);
-      if (imgMatch) {
-        cleanName = `img-${imgMatch[1]}.${imgMatch[2]}`;
-      }
+      // HINWEIS: Wir vereinfachen NICHT mehr zu img-X.ext
+      // Der volle Dateiname wird beibehalten für eindeutige Zuordnung
       
       // WICHTIG: URLs mit Leerzeichen in <> einschließen für Markdown
       return `![](<assets/${cleanName}>)`;
@@ -323,6 +319,7 @@ class SteinerLecturesExporter {
   
   // Extract image references from text
   // Hilfsfunktion: Bereinigt Bildpfade automatisch
+  // WICHTIG: Behält den vollen Dateinamen bei für eindeutige Zuordnung
   cleanImagePath(imagePath) {
     let cleaned = imagePath;
     
@@ -339,28 +336,21 @@ class SteinerLecturesExporter {
       // Falls Decodierung fehlschlägt, verwende Original
     }
     
-    // 2. Entferne GA-Ordnernamen aus dem Pfad
+    // 2. Entferne GA-Ordnernamen aus dem Pfad (Ordner-Prefix, nicht Dateiname!)
     // Pattern: GA###-Langer Ordnername/assets/file -> assets/file
-    cleaned = cleaned.replace(/^GA\d+[a-z]?[- ][^/]+\//, '');
+    cleaned = cleaned.replace(/^GA\d+[a-z]?[- ][^/]+\/assets\//, 'assets/');
     
-    // 3. Entferne GA###-Name_img-X.jpeg -> assets/img-X.jpeg
-    cleaned = cleaned.replace(/^GA\d+[a-z]?[- ][^_]+_/, 'assets/');
-    
-    // 4. Entferne doppeltes "assets/" am Anfang
+    // 3. Entferne doppeltes "assets/" am Anfang
     cleaned = cleaned.replace(/^assets\/['"]?assets\//, 'assets/');
     
-    // 5. Wenn kein assets/ am Anfang, füge es hinzu (für Dateien wie "img-0.jpeg")
+    // 4. Wenn kein assets/ am Anfang, füge es hinzu (für Dateien wie "img-0.jpeg")
     if (!cleaned.startsWith('assets/') && !cleaned.startsWith('../')) {
       cleaned = `assets/${cleaned}`;
     }
     
-    // 6. NEU: Vereinfache komplexe Bildnamen zu img-X.ext
-    // Pattern: assets/GA###-Langer Name_img-X.ext -> assets/img-X.ext
-    // Auch: assets/GA###-Langer Name mit Umlauten_img-X.ext -> assets/img-X.ext
-    const complexImgMatch = cleaned.match(/^assets\/.*[_-](img-\d+)\.(webp|png|jpe?g|gif)$/i);
-    if (complexImgMatch) {
-      cleaned = `assets/${complexImgMatch[1]}.${complexImgMatch[2]}`;
-    }
+    // HINWEIS: Wir vereinfachen NICHT mehr zu img-X.ext
+    // Der volle Dateiname wird beibehalten für eindeutige Zuordnung
+    // Das Matching erfolgt über lectureId + index oder den vollen Pfad
     
     return cleaned;
   }
@@ -400,6 +390,34 @@ class SteinerLecturesExporter {
         path: imagePath,
         fullMatch: match[0]
       });
+    }
+    
+    // Pattern 3: HTML <img> Tags (bereits im Markdown vorhanden)
+    // Erkennt: <img src="assets/img-0.png" alt="..." /> und <img src="<assets/...>" ... />
+    const htmlImgRegex = /<img\s+[^>]*src=["']<?([^"'>]+)>?["'][^>]*>/gi;
+    
+    while ((match = htmlImgRegex.exec(text)) !== null) {
+      let imagePath = match[1] || '';
+      
+      // Entferne < > falls vorhanden
+      imagePath = imagePath.replace(/^<|>$/g, '').trim();
+      
+      // Extrahiere alt-Text falls vorhanden
+      const altMatch = match[0].match(/alt=["']([^"']*)["']/i);
+      const altText = altMatch ? altMatch[1] : '';
+      
+      // Automatische Bildpfad-Bereinigung
+      const cleanedPath = this.cleanImagePath(imagePath);
+      
+      // Prüfe ob dieses Bild schon in der Liste ist (durch Markdown-Regex gefunden)
+      const alreadyExists = images.some(img => img.path === cleanedPath);
+      if (!alreadyExists) {
+        images.push({
+          altText,
+          path: cleanedPath,
+          fullMatch: match[0]
+        });
+      }
     }
     
     return images;

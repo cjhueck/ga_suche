@@ -10599,18 +10599,29 @@ function normalizeGANumber(gaNumber) {
           return;
         }
         
-        // Prüfe ob src mit assets/ beginnt oder einen relativen Pfad hat
-        if (!src || (!src.startsWith('assets/') && !src.includes('img-'))) {
-          console.log(`[IMAGES] Überspringe Bild (kein assets/ Pfad): ${src}`);
-          return;
-        }
         const originalSrc = imgTag.getAttribute('src');
         
         // Decode URL-encoded Zeichen (z.B. %20 -> Leerzeichen)
-        const decodedSrc = decodeURIComponent(originalSrc);
+        let decodedSrc;
+        try {
+          decodedSrc = decodeURIComponent(originalSrc);
+        } catch (e) {
+          decodedSrc = originalSrc;
+        }
         
         // Normalisiere Pfad (entferne < > und Anführungszeichen)
         const normalizedSrc = decodedSrc.replace(/^<['"]?|['"]?>$/g, '').trim();
+        
+        // Prüfe ob src ein Bild-Pfad ist (assets/, img-, page_X_img, oder Bildendung)
+        const isImagePath = normalizedSrc.startsWith('assets/') || 
+                           normalizedSrc.includes('img-') ||
+                           normalizedSrc.includes('page_') ||
+                           /\.(png|jpg|jpeg|webp|gif)$/i.test(normalizedSrc);
+        
+        if (!src || !isImagePath) {
+          console.log(`[IMAGES] Überspringe Bild (kein bekannter Bildpfad): ${src}`);
+          return;
+        }
         
         // Hilfsfunktion: Normalisiere Pfad für Vergleich (entferne < >, Anführungszeichen, normalisiere Leerzeichen)
         const normalizePathForComparison = (path) => {
@@ -10637,6 +10648,11 @@ function normalizeGANumber(gaNumber) {
         const extractFilenameFromPath = (path) => {
           if (!path) return '';
           const normalized = normalizePathForComparison(path);
+          
+          // Fallback: Letzter Teil nach dem letzten / (voller Dateiname)
+          const parts = normalized.split('/');
+          const fullFilename = parts[parts.length - 1] || '';
+          
           // Suche nach img-X.png Pattern (am Ende des Pfads, nach _ oder /)
           const imgMatch = normalized.match(/[_/](img-\d+\.(png|jpg|jpeg|webp))$/i);
           if (imgMatch) {
@@ -10647,9 +10663,13 @@ function normalizeGANumber(gaNumber) {
           if (imgMatchSimple) {
             return imgMatchSimple[1];
           }
-          // Fallback: Letzter Teil nach dem letzten /
-          const parts = normalized.split('/');
-          return parts[parts.length - 1] || '';
+          // Suche nach page_X_img_Y.png Pattern
+          const pageImgMatch = normalized.match(/(page_\d+_img_\d+\.(png|jpg|jpeg|webp))$/i);
+          if (pageImgMatch) {
+            return pageImgMatch[1];
+          }
+          
+          return fullFilename;
         };
         
         const normalizedSrcForComparison = normalizePathForComparison(normalizedSrc);
@@ -10759,6 +10779,27 @@ function normalizeGANumber(gaNumber) {
               
               if (matchingImage) {
                 console.log(`[IMAGES] ✓ Bild gefunden durch img-${imgNumber} Pattern-Match: ${matchingImage.path}`);
+              }
+            }
+          }
+          
+          // Fallback für page_X_img_Y Pattern (z.B. page_8_img_1.png)
+          if (!matchingImage) {
+            const pageImgPattern = normalizedSrc.match(/page_(\d+)_img_(\d+)\.(png|jpg|jpeg|webp)/i);
+            if (pageImgPattern) {
+              const pageNum = pageImgPattern[1];
+              const imgNum = pageImgPattern[2];
+              
+              matchingImage = images.find(img => {
+                const imgPatternMatch = img.path.match(/page_(\d+)_img_(\d+)\.(png|jpg|jpeg|webp)/i);
+                if (imgPatternMatch) {
+                  return imgPatternMatch[1] === pageNum && imgPatternMatch[2] === imgNum;
+                }
+                return false;
+              });
+              
+              if (matchingImage) {
+                console.log(`[IMAGES] ✓ Bild gefunden durch page_${pageNum}_img_${imgNum} Pattern-Match: ${matchingImage.path}`);
               }
             }
           }

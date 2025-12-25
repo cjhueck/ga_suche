@@ -417,7 +417,7 @@ async function findDataFiles() {
     }
   }
   
-  // Unterordner (falls vorhanden)
+  // Unterordner steiner-full-lectures (falls vorhanden)
   try {
     const subFiles = await fs.readdir(lecturesDir);
     const matchingSubFiles = subFiles.filter(f => lecturePattern.test(f));
@@ -436,6 +436,32 @@ async function findDataFiles() {
     }
   } catch (e) {
     // Unterordner existiert nicht - kein Problem
+  }
+  
+  // NEU: Unterordner steiner-letters (Briefe GA262, GA263a)
+  const lettersDir = path.join(__dirname, 'steiner-letters');
+  const lettersPattern = /^steiner-letters-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
+  try {
+    const letterFiles = await fs.readdir(lettersDir);
+    const matchingLetterFiles = letterFiles.filter(f => lettersPattern.test(f));
+    if (matchingLetterFiles.length > 0) {
+      console.log(`  [BRIEFE] Lade ${matchingLetterFiles.length} Briefe-Dateien aus steiner-letters/`);
+    }
+    for (const fileName of matchingLetterFiles) {
+      const filePath = path.join(lettersDir, fileName);
+      try {
+        const stats = await fs.stat(filePath);
+        allLectureFilesWithPath.push({
+          fileName,
+          basePath: lettersDir,
+          mtime: stats.mtime
+        });
+      } catch (e) {
+        console.error(`  [BRIEFE] Fehler bei ${fileName}:`, e.message);
+      }
+    }
+  } catch (e) {
+    console.log(`  [BRIEFE] steiner-letters/ nicht gefunden:`, e.message);
   }
   
   // Sortiere nach Änderungsdatum (älteste zuerst, neueste zuletzt)
@@ -3560,20 +3586,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
       // FALL: Keine Summary oder forceRegenerate ohne existierende Daten
       // → Generiere alles neu
       summaryData = await generateLectureSummary(lecture, existingSummary, 'auto', preferredProvider);
-    }
-    
-    // Speichere in zentrale Summary-Datenbank mit robustem Locking
-    try {
-      await saveSummaryToDatabase(lectureId, {
-        summary: summaryData.summary,
-        headings: summaryData.headings || [],
-        tableOfContents: tableOfContents,  // Neu generiertes TOC
-        lectureKeywords: summaryData.lectureKeywords || [],
-        version: summaryData.version || 'v2'
-      });
-    } catch (dbError) {
-      console.error(`[SPEICHERUNG] ✗ Fehler beim Speichern von ${lectureId}:`, dbError.message);
-      // Werfe Fehler nicht weiter, Response sollte trotzdem gesendet werden
     }
     
     // NEU: Generiere TOC + Keywords mit V3 (flexible + Budget) wenn forceRegenerate
