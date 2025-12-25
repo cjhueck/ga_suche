@@ -183,8 +183,8 @@ class GeminiProvider extends LLMProvider {
       throw new Error('Gemini API Key nicht gesetzt (GEMINI_API_KEY)');
     }
 
-    // Gemini 2.0 Flash ist das neueste verfügbare Modell
-    const model = options.model || 'gemini-2.0-flash-exp';
+    // Gemini 2.5 Flash - höheres Output-Limit (65k Tokens) und aktuelleres Modell
+    const model = options.model || 'gemini-2.5-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${this.apiKey}`;
     
 

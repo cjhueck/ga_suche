@@ -1570,11 +1570,12 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
   const quotedPhrases = query.match(/"([^"]+)"|'([^']+)'/g);
   if (quotedPhrases && quotedPhrases.length > 0) {
     
-    const phraseResults = [];
+    let phraseResults = [];
     quotedPhrases.forEach(phrase => {
       const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
       const results = performKeywordSearch(cleaned, filteredParagraphs);
-      phraseResults.push(...results);
+      // Verwende concat statt push(...) um Stack Overflow bei großen Arrays zu vermeiden
+      phraseResults = phraseResults.concat(results);
     });
     
     // Wenn Phrasen-Treffer vorhanden: NUR diese verwenden
@@ -3202,21 +3203,43 @@ app.post('/api/advanced-search', async (req, res) => {
 // LLM ANALYSE
 // ============================================================================
 
-async function generateAnalysis(query, results, depth = 'allgemein') {
+async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null) {
   
-  // Hole passenden LLM-Provider (kein Fallback mehr)
+  // Hole passenden LLM-Provider
   let provider;
   try {
-    provider = getProviderForTask('analysis');
+    if (preferredProvider) {
+      // Nutzer hat explizit einen Provider gewählt (z.B. Gemini für höheres Token-Limit)
+      const { createProvider } = require('./llm-providers');
+      provider = createProvider(preferredProvider);
+      if (!provider.isAvailable()) {
+        console.warn(`[ANALYSIS] ${preferredProvider} nicht verfügbar, verwende Fallback`);
+        provider = getProviderForTask('analysis');
+      } else {
+        console.log(`[ANALYSIS] Verwende explizit gewählten Provider: ${preferredProvider}`);
+      }
+    } else {
+      provider = getProviderForTask('analysis');
+    }
   } catch (error) {
     throw new Error('KI-Suche nicht verfügbar');
   }
   
-  // Begrenze Ergebnisse, um Token-Limit zu vermeiden (Claude max: 200.000 Tokens)
-  // Schätze ca. 4 Zeichen pro Token, also max ~800.000 Zeichen für Prompt
-  // Reduziere schrittweise, wenn zu viele Ergebnisse
+  // Begrenze Ergebnisse basierend auf Provider-Token-Limits
+  // Gemini: 1-2 Mio Tokens, Claude: 200k, OpenAI: 128k
   let topResults = results;
-  const MAX_PROMPT_CHARS = 700000; // Sicherheitspuffer unter 200k Tokens
+  
+  // Provider-spezifische Limits (Zeichen, ca. 4 Zeichen pro Token)
+  const providerName = provider.name?.toLowerCase() || 'claude';
+  let MAX_PROMPT_CHARS;
+  if (providerName === 'gemini') {
+    MAX_PROMPT_CHARS = 2000000; // Gemini: ~500k Tokens für Kontext (von 1M+ verfügbar)
+    console.log(`[ANALYSIS] Gemini erkannt - erhöhtes Token-Limit: ${MAX_PROMPT_CHARS} Zeichen`);
+  } else if (providerName === 'openai') {
+    MAX_PROMPT_CHARS = 300000; // OpenAI: ~75k Tokens für Kontext (von 128k verfügbar)
+  } else {
+    MAX_PROMPT_CHARS = 400000; // Claude: ~100k Tokens für Kontext (von 200k verfügbar)
+  }
   
   // Erstelle Test-Prompt um Länge zu schätzen
   let testContextText = topResults
@@ -3230,11 +3253,30 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
   if (testContextText.length > MAX_PROMPT_CHARS) {
     console.warn(`[LLM] Prompt zu lang (${testContextText.length} Zeichen), reduziere Ergebnisse von ${topResults.length}`);
     
-    // Reduziere auf ca. 70% der ursprünglichen Anzahl
-    let targetCount = Math.floor(topResults.length * 0.7);
+    // Berechne ungefähre Ziel-Anzahl basierend auf durchschnittlicher Ergebnisgröße
+    const avgResultSize = testContextText.length / topResults.length;
+    let targetCount = Math.floor(MAX_PROMPT_CHARS / avgResultSize);
     
-    // Wenn immer noch zu lang, weiter reduzieren
-    while (targetCount > 10) {
+    // Sicherheitspuffer: reduziere auf 90% des berechneten Werts
+    targetCount = Math.floor(targetCount * 0.9);
+    
+    // Mindestens 10 Ergebnisse
+    targetCount = Math.max(targetCount, 10);
+    
+    // Höchstens so viele wie ursprünglich
+    targetCount = Math.min(targetCount, topResults.length);
+    
+    topResults = results.slice(0, targetCount);
+    testContextText = topResults
+      .map((result, index) => {
+        const refId = `${result.ID}:${result.index}`;
+        return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+      })
+      .join('\n\n---\n\n');
+    
+    // Falls immer noch zu lang, weiter reduzieren
+    while (testContextText.length > MAX_PROMPT_CHARS && targetCount > 10) {
+      targetCount = Math.floor(targetCount * 0.7);
       topResults = results.slice(0, targetCount);
       testContextText = topResults
         .map((result, index) => {
@@ -3242,11 +3284,6 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
           return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
         })
         .join('\n\n---\n\n');
-      
-      if (testContextText.length <= MAX_PROMPT_CHARS) {
-        break;
-      }
-      targetCount = Math.floor(targetCount * 0.8);
     }
     
     console.warn(`[LLM] Reduziert auf ${topResults.length} Ergebnisse (${testContextText.length} Zeichen)`);
@@ -5782,7 +5819,7 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, limit = 100, gaFilter = '', skipCache = false } = req.body;
+    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null } = req.body;
     const effectiveDepth = 'ausführlich';
     
     // Prüfe ob Request von localhost kommt
@@ -5841,7 +5878,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
 
-    let analysis = await generateAnalysis(query, topResults, effectiveDepth);
+    let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider);
 
     let searchResult = {
       query: query,
