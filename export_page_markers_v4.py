@@ -140,7 +140,10 @@ def normalize_ga(ga_arg: str) -> Optional[str]:
 def find_pdf_for_ga(ga_number: str) -> Optional[Path]:
     """
     Findet die PDF-Datei für eine GA-Nummer.
-    Bevorzugt "_einzelseiten" PDFs (für aufgeteilte Doppelseiten-Scans).
+    Priorität:
+    1. "_einzelseiten" PDFs (für aufgeteilte Doppelseiten-Scans)
+    2. Vollständige PDFs im Format "Steiner, Rudolf GA XXX..." (ohne Seitenbereich)
+    3. Andere passende PDFs (aber keine Teil-PDFs mit Seitenbereichen)
     """
     m = re.search(r"(\d+[a-z]?)", ga_number, re.IGNORECASE)
     if not m:
@@ -164,6 +167,19 @@ def find_pdf_for_ga(ga_number: str) -> Optional[Path]:
     # Bevorzuge "_einzelseiten" PDFs (aufgeteilte Doppelseiten)
     for c in candidates:
         if "_einzelseiten" in c.name.lower():
+            return c
+    
+    # Bevorzuge vollständige "Steiner, Rudolf GA..." PDFs (ohne Seitenbereich im Namen)
+    # Diese erkennt man daran, dass sie KEINE Klammern mit Seitenbereich haben
+    for c in candidates:
+        name_lower = c.name.lower()
+        if "steiner" in name_lower and not re.search(r"\(\d+-\d+\)", c.name):
+            if "_doppelseiten" not in name_lower:
+                return c
+    
+    # Dann: PDFs ohne Seitenbereich (vollständige Bände)
+    for c in candidates:
+        if not re.search(r"\(\d+-\d+\)", c.name) and "_doppelseiten" not in c.name.lower():
             return c
     
     # Sonst: erstes gefundenes PDF (aber nicht "_DOPPELSEITEN" Backups)

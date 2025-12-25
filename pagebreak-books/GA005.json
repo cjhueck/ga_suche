@@ -1528,17 +1528,17 @@
         "level": 3
       },
       {
-        "id": "^q8n1o2",
+        "id": "^tcxokm",
         "text": "I",
         "level": 4
       },
       {
-        "id": "^569rfm",
+        "id": "^8x2m6a",
         "text": "II",
         "level": 4
       },
       {
-        "id": "^pz9epv",
+        "id": "^9j0kcp",
         "text": "III",
         "level": 4
       },
@@ -1548,12 +1548,12 @@
         "level": 3
       },
       {
-        "id": "^q8n1o2",
+        "id": "^y69beu",
         "text": "I",
         "level": 4
       },
       {
-        "id": "^569rfm",
+        "id": "^qbx3dm",
         "text": "II",
         "level": 4
       },
@@ -1570,5 +1570,282 @@
     ],
     "wordCount": 44001,
     "charCount": 295682
-  }
+  },
+  "headings": [
+    {
+      "id": "^31rlib",
+      "text": "VORREDE ZUR ERSTEN AUFLAGE",
+      "level": 3
+    },
+    {
+      "id": "^unh643",
+      "text": "NIETZSCHES WERKE",
+      "level": 3
+    },
+    {
+      "id": "^q8n1o2",
+      "text": "I. DER CHARAKTER",
+      "level": 3
+    },
+    {
+      "id": "^q8n1o2",
+      "text": "1",
+      "level": 4
+    },
+    {
+      "id": "^scidv4",
+      "text": "2",
+      "level": 4
+    },
+    {
+      "id": "^kyjljv",
+      "text": "3",
+      "level": 4
+    },
+    {
+      "id": "^7j2wbj",
+      "text": "4",
+      "level": 4
+    },
+    {
+      "id": "^75985l",
+      "text": "5",
+      "level": 4
+    },
+    {
+      "id": "^1j1chu",
+      "text": "6",
+      "level": 4
+    },
+    {
+      "id": "^5d5i2g",
+      "text": "7",
+      "level": 4
+    },
+    {
+      "id": "^5gpjdw",
+      "text": "8",
+      "level": 4
+    },
+    {
+      "id": "^h8zply",
+      "text": "9",
+      "level": 4
+    },
+    {
+      "id": "^569rfm",
+      "text": "II. DER ÜBERMENSCH",
+      "level": 3
+    },
+    {
+      "id": "^569rfm",
+      "text": "10",
+      "level": 4
+    },
+    {
+      "id": "^foqhmb",
+      "text": "11",
+      "level": 4
+    },
+    {
+      "id": "^td5hdm",
+      "text": "12",
+      "level": 4
+    },
+    {
+      "id": "^61zssf",
+      "text": "13",
+      "level": 4
+    },
+    {
+      "id": "^1dv1s0",
+      "text": "14",
+      "level": 4
+    },
+    {
+      "id": "^plkj18",
+      "text": "15",
+      "level": 4
+    },
+    {
+      "id": "^0hswl2",
+      "text": "16",
+      "level": 4
+    },
+    {
+      "id": "^mdsq7q",
+      "text": "17",
+      "level": 4
+    },
+    {
+      "id": "^mo7v2z",
+      "text": "18",
+      "level": 4
+    },
+    {
+      "id": "^qfkmlg",
+      "text": "19",
+      "level": 4
+    },
+    {
+      "id": "^ul2s08",
+      "text": "20",
+      "level": 4
+    },
+    {
+      "id": "^qk93fy",
+      "text": "21",
+      "level": 4
+    },
+    {
+      "id": "^l7esi7",
+      "text": "22",
+      "level": 4
+    },
+    {
+      "id": "^kuatlg",
+      "text": "23",
+      "level": 4
+    },
+    {
+      "id": "^qocw7o",
+      "text": "24",
+      "level": 4
+    },
+    {
+      "id": "^0spe5l",
+      "text": "25",
+      "level": 4
+    },
+    {
+      "id": "^cygyms",
+      "text": "26",
+      "level": 4
+    },
+    {
+      "id": "^fi445q",
+      "text": "27",
+      "level": 4
+    },
+    {
+      "id": "^z7nmed",
+      "text": "28",
+      "level": 4
+    },
+    {
+      "id": "^9cno57",
+      "text": "29",
+      "level": 4
+    },
+    {
+      "id": "^pz9epv",
+      "text": "III. NIETZSCHES ENTWICKELUNGSGANG",
+      "level": 3
+    },
+    {
+      "id": "^pz9epv",
+      "text": "30",
+      "level": 4
+    },
+    {
+      "id": "^a40qxz",
+      "text": "31",
+      "level": 4
+    },
+    {
+      "id": "^pvkghs",
+      "text": "32",
+      "level": 4
+    },
+    {
+      "id": "^tmr07d",
+      "text": "33",
+      "level": 4
+    },
+    {
+      "id": "^a6fg8r",
+      "text": "34",
+      "level": 4
+    },
+    {
+      "id": "^yc7x30",
+      "text": "35",
+      "level": 4
+    },
+    {
+      "id": "^ddo3nz",
+      "text": "36",
+      "level": 4
+    },
+    {
+      "id": "^qx5a4w",
+      "text": "37",
+      "level": 4
+    },
+    {
+      "id": "^f3q270",
+      "text": "38",
+      "level": 4
+    },
+    {
+      "id": "^3mfgd3",
+      "text": "39",
+      "level": 4
+    },
+    {
+      "id": "^cicgu7",
+      "text": "40",
+      "level": 4
+    },
+    {
+      "id": "^dp8q4h",
+      "text": "41",
+      "level": 4
+    },
+    {
+      "id": "^tcxokm",
+      "text": "DIE PHILOSOPHIE FRIEDRICH NIETZSCHES - ALS PSYCHOPATHOLOGISCHES Problem",
+      "level": 3
+    },
+    {
+      "id": "^tcxokm",
+      "text": "I",
+      "level": 4
+    },
+    {
+      "id": "^8x2m6a",
+      "text": "II",
+      "level": 4
+    },
+    {
+      "id": "^9j0kcp",
+      "text": "III",
+      "level": 4
+    },
+    {
+      "id": "^y69beu",
+      "text": "FRIEDRICH NIETZSCHES PERSÖNLICHKEIT UND DIE PSYCHO-PATHOLOGIE",
+      "level": 3
+    },
+    {
+      "id": "^y69beu",
+      "text": "I",
+      "level": 4
+    },
+    {
+      "id": "^qbx3dm",
+      "text": "II",
+      "level": 4
+    },
+    {
+      "id": "^v5cd8x",
+      "text": "DIE PERSÖNLICHKEIT FRIEDRICH NIETZSCHES",
+      "level": 3
+    },
+    {
+      "id": "^erfdeq",
+      "text": "AUS «MEIN LEBENSGANG» XVIII",
+      "level": 3
+    }
+  ]
 }

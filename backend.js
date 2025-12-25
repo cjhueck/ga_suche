@@ -966,7 +966,7 @@ async function loadBooks() {
                 }
               } else {
                 // Buch existiert noch nicht, vollständig übernehmen
-                fullBooks[bookId] = bookObj;
+              fullBooks[bookId] = bookObj;
               }
               applied++;
             } catch (e) {

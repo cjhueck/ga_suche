@@ -498,9 +498,69 @@ def find_safe_insertion_position(text: str, pos: int) -> int:
     return pos
 
 
+def find_word_boundary(text: str, pos: int) -> int:
+    """
+    Findet die beste Wortgrenze für eine Seitenmarker-Position.
+    
+    Der Marker markiert den BEGINN einer neuen Seite, also sollte er
+    VOR dem ersten Wort der neuen Seite stehen, nicht nach dem letzten
+    Wort der alten Seite.
+    
+    Strategie:
+    1. Wenn Position nicht mitten im Wort liegt -> ok
+    2. Wenn mitten im Wort: Verschiebe nach RECHTS zum Wortende,
+       dann suche nach vorne bis zum nächsten Wortanfang
+       (so steht der Marker vor dem neuen Wort, nicht nach dem alten)
+    """
+    if pos <= 0:
+        return 0
+    if pos >= len(text):
+        return len(text)
+    
+    # Prüfe ob wir mitten in einem Wort sind
+    left_char = text[pos - 1] if pos > 0 else ' '
+    right_char = text[pos] if pos < len(text) else ' '
+    
+    # Wenn nicht mitten im Wort, Position ist ok
+    if not (left_char.isalpha() and right_char.isalpha()):
+        # Aber: Wenn wir direkt nach einem Wort stehen und Leerzeichen folgt,
+        # verschiebe zum Leerzeichen (damit Marker vor dem nächsten Wort steht)
+        if left_char.isalpha() and right_char.isspace():
+            # Suche das nächste Nicht-Leerzeichen (Wortanfang)
+            next_word = pos
+            while next_word < len(text) and text[next_word].isspace():
+                next_word += 1
+            # Nur verschieben wenn wir ein Wort finden (nicht am Absatzende)
+            if next_word < len(text):
+                return next_word
+        return pos
+    
+    # Wir sind mitten im Wort - gehe zum Ende des Wortes
+    word_end = pos
+    while word_end < len(text) and text[word_end].isalpha():
+        word_end += 1
+    
+    # Jetzt überspringe Leerzeichen/Satzzeichen zum nächsten Wortanfang
+    next_word = word_end
+    while next_word < len(text) and not text[next_word].isalpha():
+        next_word += 1
+    
+    # Wenn wir ein nächstes Wort gefunden haben, stelle Marker davor
+    if next_word < len(text):
+        return next_word
+    
+    # Sonst: Ende des Wortes (Absatzende)
+    return word_end
+
+
 def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tuple[int, int, int]]) -> None:
     """
     insertions: List[(para_idx, char_idx, page)] - muss pro Absatz absteigend sortiert angewendet werden.
+    
+    Verbesserte Version:
+    - Verschiebt Marker auf Wortgrenzen (nicht mitten ins Wort)
+    - Verhindert doppelte Marker an derselben Stelle
+    - Entfernt doppelte aufeinanderfolgende Seitenzahlen
     """
     by_para: Dict[int, List[Tuple[int, int]]] = {}
     for p_i, c_i, page in insertions:
@@ -510,15 +570,35 @@ def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tupl
         # absteigend nach char_idx
         items.sort(key=lambda t: t[0], reverse=True)
         s = paragraphs[p_i].get("content") or ""
+        
+        # Verfolge bereits eingefügte Positionen um Duplikate zu vermeiden
+        inserted_positions: set = set()
+        
         for c_i, page in items:
             marker = f"|{page}|"
             if c_i < 0:
                 c_i = 0
             if c_i > len(s):
                 c_i = len(s)
+            
             # Prüfe ob Position in geschützter Struktur liegt und verschiebe ggf.
             c_i = find_safe_insertion_position(s, c_i)
+            
+            # Verschiebe auf Wortgrenze (nicht mitten ins Wort!)
+            c_i = find_word_boundary(s, c_i)
+            
+            # Verhindere doppelte Einfügung an derselben Stelle
+            if c_i in inserted_positions:
+                continue
+            inserted_positions.add(c_i)
+            
             s = s[:c_i] + marker + s[c_i:]
+            
+            # Aktualisiere alle nachfolgenden Positionen (wir gehen absteigend, also nicht nötig)
+        
+        # Entferne doppelte aufeinanderfolgende Marker wie |116||116|
+        s = re.sub(r'\|(\d+)\|\|(\d+)\|', lambda m: f"|{m.group(2)}|", s)
+        
         paragraphs[p_i]["content"] = s
 
 
@@ -842,7 +922,7 @@ def process_lectures_individually(
                 found = find_best_insertion(
                     norm_content, norm_para, norm_char, left, right, hyph, 
                     min_norm_pos=0
-                )
+            )
             
             if found:
                 p_i, c_i, norm_pos = found

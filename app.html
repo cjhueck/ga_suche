@@ -14242,7 +14242,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             allHeadings.forEach((h, i) => {
               console.log(`  ${i}: id="${h.id}", text="${h.textContent.substring(0, 40)}..."`);
             });
-          }
+            }
         }, 400);
       }
     }
@@ -14652,7 +14652,7 @@ function convertFootnotesToLinks() {
     let footnotesSection = '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
     // Füge Überschrift nur hinzu, wenn keine existiert
     if (!hasExistingFootnotesSection) {
-      footnotesSection += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
+    footnotesSection += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
     }
     footnotesSection += '<ol style="list-style: decimal; padding-left: 2rem; font-size: var(--text-size);">';
     
