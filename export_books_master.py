@@ -443,7 +443,12 @@ class BooksExporter:
         return paragraphs
     
     def link_headings_to_paragraphs(self, headings, paragraphs, content):
-        """Verknüpft Überschriften mit Absatz-Indizes"""
+        """Verknüpft Überschriften mit Absatz-Indizes.
+        
+        WICHTIG: Die Suche erfolgt sequenziell - jede Überschrift wird nur ab der 
+        Position der vorherigen Überschrift gesucht. Das verhindert, dass Überschriften
+        wie "I", "II" aus verschiedenen Kapiteln auf denselben Absatz-Index gemappt werden.
+        """
         linked_headings = []
         
         if not paragraphs:
@@ -478,26 +483,34 @@ class BooksExporter:
         # PERFORMANCE: Erstelle Liste von Absatz-Indizes für schnellen Zugriff
         para_indices_by_pos = [idx for pos, idx in para_positions]
         
+        # SEQUENZIELLE SUCHE: Starte bei Position 0 und suche jede Überschrift nur ab der 
+        # Position der vorherigen. Das verhindert, dass "I" aus Kapitel 2 auf den ersten
+        # Absatz nach "I" aus Kapitel 1 gemappt wird.
+        search_start_pos = 0
+        
         for heading_idx, heading in enumerate(headings):
             heading_text = heading['text']
             heading_level = heading['level']
             
             # PERFORMANCE: Verwende einfache String-Suche statt mehrerer Regex-Patterns
             # Suche nach Überschrift im Content (mit Markdown-Syntax)
+            # WICHTIG: Suche nur ab search_start_pos!
             heading_text_escaped = re.escape(heading_text.strip())
             
             # Versuche zuerst exakte Übereinstimmung mit Markdown-Syntax
             heading_position = -1
             for markdown_level in ['###', '####']:
                 pattern_str = f'{markdown_level} {heading_text}'
-                pos = content.find(pattern_str)
+                # Suche ab search_start_pos, nicht ab 0!
+                pos = content.find(pattern_str, search_start_pos)
                 if pos >= 0:
                     heading_position = pos
                     break
             
             # Wenn nicht gefunden, suche nur nach Text (schneller)
             if heading_position == -1:
-                heading_pos = content.find(heading_text)
+                # Suche ab search_start_pos, nicht ab 0!
+                heading_pos = content.find(heading_text, search_start_pos)
                 if heading_pos >= 0:
                     # Prüfe ob es wirklich eine Überschrift ist (hat # davor)
                     before_text = content[max(0, heading_pos - 50):heading_pos]
@@ -507,28 +520,44 @@ class BooksExporter:
             # Finde den ersten Absatz nach dieser Überschrift
             paragraph_index = None
             if heading_position >= 0 and para_positions:
-                # Verwende bereits sortierte Liste
+                # Verwende bereits sortierte Liste, aber nur Absätze nach heading_position
                 for pos, para_idx in para_positions:
                     if pos > heading_position:
                         paragraph_index = para_idx
                         break
+                
+                # Aktualisiere search_start_pos für die nächste Überschrift
+                # So wird die nächste Überschrift nur ab hier gesucht
+                search_start_pos = heading_position + 1
             
             # Fallback 1: Suche nach Paragraph, der mit der Überschrift beginnt
+            # WICHTIG: Auch hier nur Paragraphs ab der aktuellen Position berücksichtigen
             if not paragraph_index:
                 heading_text_lower = heading_text.lower().strip()
                 for para in paragraphs:
                     para_content = (para.get('content') or '').lower().strip()
                     if para_content.startswith(heading_text_lower) or heading_text_lower in para_content[:100]:
-                        paragraph_index = para['index']
-                        break
+                        # Prüfe ob dieser Paragraph nach search_start_pos kommt
+                        para_idx = para['index']
+                        para_pos = next((pos for pos, idx in para_positions if idx == para_idx), -1)
+                        if para_pos >= search_start_pos or search_start_pos == 0:
+                            paragraph_index = para_idx
+                            # Aktualisiere search_start_pos
+                            if para_pos > 0:
+                                search_start_pos = para_pos + 1
+                            break
             
             # Fallback 2: Verwende sequenziell die nächsten Absätze für die Überschriften
             if not paragraph_index and paragraphs:
-                # Verwende den nächsten verfügbaren Absatz basierend auf Überschriften-Index
-                if heading_idx < len(paragraphs):
-                    paragraph_index = paragraphs[heading_idx]['index']
-                else:
-                    # Wenn mehr Überschriften als Absätze, verwende den letzten Absatz
+                # Finde den nächsten Absatz ab search_start_pos
+                for pos, para_idx in para_positions:
+                    if pos >= search_start_pos:
+                        paragraph_index = para_idx
+                        search_start_pos = pos + 1
+                        break
+                
+                # Wenn kein Absatz mehr nach search_start_pos, verwende den letzten
+                if not paragraph_index:
                     paragraph_index = paragraphs[-1]['index']
             
             # WICHTIG: Stelle sicher, dass immer ein Index gesetzt wird
