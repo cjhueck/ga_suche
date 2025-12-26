@@ -31,7 +31,7 @@ except ImportError:
 # Pfade
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
-CHALKBOARDS_DIR = PROJECT_DIR / "Steiner_GA" / "chalkboards"
+CHALKBOARDS_DIR = PROJECT_DIR / "chalkboards"
 OUTPUT_FILE = PROJECT_DIR / "chalkboards.json"
 
 

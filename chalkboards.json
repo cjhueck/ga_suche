@@ -1,6 +1,6 @@
 {
   "generated": "generate_chalkboards_json.py",
-  "count": 1078,
+  "count": 1076,
   "chalkboards": [
     {
       "ga": "073A",
@@ -1222,13 +1222,6 @@
     },
     {
       "ga": "202",
-      "date": "1920-12-18",
-      "tafel": 2,
-      "path": "chalkboards/GA202/GA202-1920-12-18-T02.webp",
-      "filename": "GA202-1920-12-18-T02.webp"
-    },
-    {
-      "ga": "202",
       "date": "1920-12-19",
       "tafel": 1,
       "path": "chalkboards/GA202/GA202-1920-12-19-T01.webp",
@@ -1282,13 +1275,6 @@
       "tafel": 1,
       "path": "chalkboards/GA203/GA203-1921-01-30-T01.webp",
       "filename": "GA203-1921-01-30-T01.webp"
-    },
-    {
-      "ga": "203",
-      "date": "1921-01-30",
-      "tafel": 2,
-      "path": "chalkboards/GA203/GA203-1921-01-30-T02.webp",
-      "filename": "GA203-1921-01-30-T02.webp"
     },
     {
       "ga": "203",
@@ -1363,6 +1349,13 @@
     {
       "ga": "204",
       "date": "1921-04-24",
+      "tafel": 5,
+      "path": "chalkboards/GA204/GA204-1921-04-24-T05.webp",
+      "filename": "GA204-1921-04-24-T05.webp"
+    },
+    {
+      "ga": "204",
+      "date": "1921-04-24",
       "tafel": 6,
       "path": "chalkboards/GA204/GA204-1921-04-24-T06.webp",
       "filename": "GA204-1921-04-24-T06.webp"
@@ -1390,31 +1383,24 @@
     },
     {
       "ga": "204",
+      "date": "1921-04-30",
+      "tafel": 8,
+      "path": "chalkboards/GA204/GA204-1921-04-30-T08.webp",
+      "filename": "GA204-1921-04-30-T08.webp"
+    },
+    {
+      "ga": "204",
       "date": "1921-05-05",
-      "tafel": 2,
-      "path": "chalkboards/GA204/GA204-1921-05-05-T02.webp",
-      "filename": "GA204-1921-05-05-T02.webp"
-    },
-    {
-      "ga": "204",
-      "date": "1921-06-02",
       "tafel": 1,
-      "path": "chalkboards/GA204/GA204-1921-06-02-T01.webp",
-      "filename": "GA204-1921-06-02-T01.webp"
+      "path": "chalkboards/GA204/GA204-1921-05-05-T01.webp",
+      "filename": "GA204-1921-05-05-T01.webp"
     },
     {
       "ga": "204",
-      "date": "1921-06-02",
-      "tafel": 2,
-      "path": "chalkboards/GA204/GA204-1921-06-02-T02.webp",
-      "filename": "GA204-1921-06-02-T02.webp"
-    },
-    {
-      "ga": "204",
-      "date": "1921-06-03",
-      "tafel": 1,
-      "path": "chalkboards/GA204/GA204-1921-06-03-T01.webp",
-      "filename": "GA204-1921-06-03-T01.webp"
+      "date": "1921-05-05",
+      "tafel": 10,
+      "path": "chalkboards/GA204/GA204-1921-05-05-T10.webp",
+      "filename": "GA204-1921-05-05-T10.webp"
     },
     {
       "ga": "205",
