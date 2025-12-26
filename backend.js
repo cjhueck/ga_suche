@@ -8109,19 +8109,19 @@ function removeDuplicateAndNonSequentialPageNumbers(paragraphs) {
       continue;
     }
     
-    // Sequenz-Check: Seitenzahl muss nahe bei der letzten gültigen Seitenzahl sein
+    // Sequenz-Check: Seitenzahl muss monoton steigend sein
     if (lastValidPage > 0) {
       const diff = current.page - lastValidPage;
       
-      // Rückwärtssprung (> 2 Seiten zurück)
-      if (diff < -2) {
+      // JEDER Rückwärtssprung ist ein Fehler
+      if (diff < 0) {
         toRemove.add(i);
         log.push(`Rückwärtssprung entfernt: |${current.page}| (nach |${lastValidPage}|)`);
         continue;
       }
       
-      // Vorwärtssprung (> 5 Seiten vorwärts) - wahrscheinlich fremde Seitenzahl
-      if (diff > 5) {
+      // Vorwärtssprung (> 3 Seiten) - wahrscheinlich fremde Seitenzahl
+      if (diff > 3) {
         toRemove.add(i);
         log.push(`Vorwärtssprung entfernt: |${current.page}| (nach |${lastValidPage}|, Sprung +${diff})`);
         continue;
@@ -8131,6 +8131,19 @@ function removeDuplicateAndNonSequentialPageNumbers(paragraphs) {
     // Diese Seitenzahl ist gültig
     seenPages.add(current.page);
     lastValidPage = current.page;
+  }
+  
+  // ZUSÄTZLICH: Prüfe die letzte Seitenzahl
+  // Wenn sie einen großen Sprung von der vorletzten macht, gehört sie zum nächsten Vortrag
+  const remainingPages = allPages.filter((_, i) => !toRemove.has(i));
+  if (remainingPages.length >= 2) {
+    const last = remainingPages[remainingPages.length - 1];
+    const secondLast = remainingPages[remainingPages.length - 2];
+    if (last.page - secondLast.page > 2) {
+      const lastIdx = allPages.indexOf(last);
+      toRemove.add(lastIdx);
+      log.push(`Letzte Seitenzahl entfernt: |${last.page}| (Sprung von |${secondLast.page}|, gehört wahrscheinlich zum nächsten Vortrag)`);
+    }
   }
   
   // SCHRITT 5: Entferne die markierten Seitenzahlen (von hinten nach vorne)
@@ -8473,7 +8486,7 @@ function correctPageNumbersWithAnchors(paragraphs, anchorMatches, gaBreaks) {
   return { corrected: correctedCount, log };
 }
 
-// POST /api/pages/analyze - Analysiert Seitenzahlen für gegebene Vorträge
+// POST /api/pages/analyze - Analysiert Seitenzahlen für gegebene Vorträge ODER Bücher
 app.post('/api/pages/analyze', async (req, res) => {
   try {
     const { lectureIds } = req.body;
@@ -8488,7 +8501,15 @@ app.post('/api/pages/analyze', async (req, res) => {
     let withIssues = 0;
     
     for (const lectureId of lectureIds) {
-      const lecture = fullLectures[lectureId];
+      // Suche in Vorträgen UND Büchern
+      let lecture = fullLectures[lectureId];
+      let isBook = false;
+      
+      if (!lecture) {
+        // Versuche es als Buch
+        lecture = fullBooks[lectureId];
+        isBook = true;
+      }
       
       if (!lecture) {
         lectures.push({
@@ -8496,7 +8517,8 @@ app.post('/api/pages/analyze', async (req, res) => {
           title: 'Nicht gefunden',
           pageCount: 0,
           pageRange: null,
-          issues: ['Vortrag nicht gefunden']
+          issues: ['Vortrag/Buch nicht gefunden'],
+          isBook: false
         });
         continue;
       }
@@ -8533,14 +8555,16 @@ app.post('/api/pages/analyze', async (req, res) => {
         pageRange,
         firstPage: pages.length > 0 ? pages[0].pageNumber : null,
         lastPage: pages.length > 0 ? pages[pages.length - 1].pageNumber : null,
-        issues
+        issues,
+        isBook
       });
     }
     
     res.json({
       lectures,
       summary: {
-        totalLectures: lectureIds.length,
+        totalItems: lectureIds.length,
+        totalLectures: lectureIds.length, // Legacy-Kompatibilität
         withPages,
         withoutPages,
         withIssues
@@ -8553,14 +8577,22 @@ app.post('/api/pages/analyze', async (req, res) => {
   }
 });
 
-// GET /api/pages/details/:lectureId - Gibt Details für einen einzelnen Vortrag (inkl. Anker-Analyse)
+// GET /api/pages/details/:lectureId - Gibt Details für einen einzelnen Vortrag ODER Buch (inkl. Anker-Analyse)
 app.get('/api/pages/details/:lectureId', async (req, res) => {
   try {
     const lectureId = decodeURIComponent(req.params.lectureId);
-    const lecture = fullLectures[lectureId];
+    
+    // Suche in Vorträgen UND Büchern
+    let lecture = fullLectures[lectureId];
+    let isBook = false;
     
     if (!lecture) {
-      return res.status(404).json({ error: 'Vortrag nicht gefunden' });
+      lecture = fullBooks[lectureId];
+      isBook = true;
+    }
+    
+    if (!lecture) {
+      return res.status(404).json({ error: 'Vortrag/Buch nicht gefunden' });
     }
     
     // Extrahiere GA-Nummer
@@ -8625,7 +8657,7 @@ app.get('/api/pages/details/:lectureId', async (req, res) => {
   }
 });
 
-// POST /api/pages/correct - Korrigiert Seitenzahlen für einen Vortrag (mit Anker-Matching)
+// POST /api/pages/correct - Korrigiert Seitenzahlen für einen Vortrag ODER Buch (mit Anker-Matching)
 app.post('/api/pages/correct', async (req, res) => {
   try {
     const { lectureId, startPage, useAnchors = true } = req.body;
@@ -8634,15 +8666,23 @@ app.post('/api/pages/correct', async (req, res) => {
       return res.status(400).json({ error: 'lectureId erforderlich' });
     }
     
-    const lecture = fullLectures[lectureId];
+    // Suche in Vorträgen UND Büchern
+    let lecture = fullLectures[lectureId];
+    let isBook = false;
+    
     if (!lecture) {
-      return res.status(404).json({ error: 'Vortrag nicht gefunden' });
+      lecture = fullBooks[lectureId];
+      isBook = true;
+    }
+    
+    if (!lecture) {
+      return res.status(404).json({ error: 'Vortrag/Buch nicht gefunden' });
     }
     
     // Extrahiere GA-Nummer
     const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
     if (!gaMatch) {
-      return res.status(400).json({ error: 'Ungültige Lecture-ID' });
+      return res.status(400).json({ error: 'Ungültige ID' });
     }
     const gaNumber = gaMatch[1].toUpperCase();
     
@@ -8711,7 +8751,7 @@ app.post('/api/pages/correct', async (req, res) => {
     const removedCount = correctionLog.filter(l => l.includes('Duplikat entfernt')).length;
     const totalChanges = correctedCount + insertedCount + removedCount;
     if (totalChanges > 0) {
-      await saveLectureToSourceFile(lectureId, lecture);
+      await saveLectureToSourceFile(lectureId, lecture, isBook);
     }
     
     res.json({
@@ -8731,7 +8771,7 @@ app.post('/api/pages/correct', async (req, res) => {
   }
 });
 
-// POST /api/pages/bulk-correct - Automatische Korrektur für mehrere Vorträge (mit Anker-Matching)
+// POST /api/pages/bulk-correct - Automatische Korrektur für mehrere Vorträge ODER Bücher (mit Anker-Matching)
 app.post('/api/pages/bulk-correct', async (req, res) => {
   try {
     const { lectureIds } = req.body;
@@ -8752,10 +8792,18 @@ app.post('/api/pages/bulk-correct', async (req, res) => {
     for (const lectureId of lectureIds) {
       processed++;
       
-      const lecture = fullLectures[lectureId];
+      // Suche in Vorträgen UND Büchern
+      let lecture = fullLectures[lectureId];
+      let isBook = false;
+      
+      if (!lecture) {
+        lecture = fullBooks[lectureId];
+        isBook = true;
+      }
+      
       if (!lecture) {
         errors++;
-        details.push({ id: lectureId, status: 'error', reason: 'Nicht gefunden' });
+        details.push({ id: lectureId, status: 'error', reason: 'Nicht gefunden', isBook: false });
         continue;
       }
       
@@ -8815,14 +8863,15 @@ app.post('/api/pages/bulk-correct', async (req, res) => {
       const totalChanges = (correctionResult.corrected || 0) + (correctionResult.inserted || 0);
       if (totalChanges > 0) {
         try {
-          await saveLectureToSourceFile(lectureId, lecture);
+          await saveLectureToSourceFile(lectureId, lecture, isBook);
           corrected++;
           details.push({ 
             id: lectureId, 
             status: 'corrected', 
             corrected: correctionResult.corrected || 0,
             inserted: correctionResult.inserted || 0,
-            total: totalChanges
+            total: totalChanges,
+            isBook
           });
         } catch (saveError) {
           console.error(`[PAGES/BULK] Fehler beim Speichern von ${lectureId}:`, saveError);
@@ -9034,13 +9083,35 @@ app.post('/api/pages/generate', async (req, res) => {
     
     // Prüfe ob Pagebreaks bereits existieren
     const pagebreakFile = path.join(__dirname, 'pagebreaks', `${normalizedGA}.json`);
-    if (fsSync.existsSync(pagebreakFile)) {
-      return res.json({ 
-        success: true, 
-        status: 'exists',
-        message: `Pagebreaks für ${normalizedGA} existieren bereits`,
-        gaNumber: normalizedGA
-      });
+    const { force = false } = req.body;
+    
+    if (fsSync.existsSync(pagebreakFile) && !force) {
+      // Pagebreaks existieren - lade sie ins Memory (falls noch nicht geladen)
+      try {
+        const data = await fs.readFile(pagebreakFile, 'utf8');
+        const pagebreakData = JSON.parse(data);
+        
+        let loadedCount = 0;
+        if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
+          for (const lecture of pagebreakData.lectures) {
+            if (lecture.ID) {
+              fullLectures[lecture.ID] = lecture;
+              loadedCount++;
+            }
+          }
+        }
+        
+        return res.json({ 
+          success: true, 
+          status: 'loaded',
+          message: `Pagebreaks für ${normalizedGA} geladen (${loadedCount} Vorträge)`,
+          gaNumber: normalizedGA,
+          lecturesLoaded: loadedCount
+        });
+      } catch (loadErr) {
+        console.warn(`[PAGES/GENERATE] Fehler beim Laden existierender Pagebreaks: ${loadErr.message}`);
+        // Fahre fort mit Neu-Generierung
+      }
     }
     
     // Prüfe ob PDF existiert
@@ -9065,14 +9136,84 @@ app.post('/api/pages/generate', async (req, res) => {
     
     console.log(`[PAGES/GENERATE] Starte Pagebreak-Generierung für ${normalizedGA}...`);
     
-    // Rufe Python-Skript auf
     const { spawn } = require('child_process');
-    const pythonScript = path.join(__dirname, 'batch_generate_pagebreaks.py');
     
-    // Extrahiere numerischen Teil für das Skript
-    const gaNumeric = parseInt(gaNum);
+    // SCHRITT 1: Prüfe ob Marker in page-break-markers.json existieren UND vollständig sind
+    const markersFile = path.join(__dirname, 'page-break-markers.json');
+    let markersExist = false;
+    let markersComplete = false;
     
-    const pythonProcess = spawn('python', [pythonScript, String(gaNumeric), String(gaNumeric)], {
+    try {
+      if (fsSync.existsSync(markersFile)) {
+        const markersData = JSON.parse(fsSync.readFileSync(markersFile, 'utf8'));
+        const gaMarkers = markersData[normalizedGA];
+        
+        if (gaMarkers && gaMarkers.breaks && Array.isArray(gaMarkers.breaks)) {
+          markersExist = true;
+          const breakCount = gaMarkers.breaks.length;
+          const pdfPageCount = gaMarkers.pdfPageCount || 0;
+          
+          // Marker sind vollständig, wenn mindestens 50% der PDF-Seiten abgedeckt sind
+          // (Typischerweise sind es 90-100%, aber bei Frontmatter/Appendix kann es weniger sein)
+          if (pdfPageCount > 0) {
+            const coverage = breakCount / pdfPageCount;
+            markersComplete = coverage >= 0.5;
+            
+            if (!markersComplete) {
+              console.log(`[PAGES/GENERATE] Marker für ${normalizedGA} unvollständig: ${breakCount}/${pdfPageCount} (${(coverage*100).toFixed(1)}%)`);
+            }
+          } else {
+            // Fallback: Wenn pdfPageCount nicht bekannt, prüfe Mindestanzahl
+            markersComplete = breakCount >= 50;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn(`[PAGES/GENERATE] Fehler beim Prüfen der Marker: ${e.message}`);
+    }
+    
+    // SCHRITT 2: Falls Marker fehlen ODER unvollständig, extrahiere sie aus dem PDF
+    if (!markersExist || !markersComplete) {
+      const reason = !markersExist ? 'fehlen' : 'sind unvollständig';
+      console.log(`[PAGES/GENERATE] Marker für ${normalizedGA} ${reason} - extrahiere aus PDF...`);
+      
+      const exportScript = path.join(__dirname, 'export_page_markers_v4.py');
+      
+      await new Promise((resolve, reject) => {
+        const exportProcess = spawn('python', [exportScript, normalizedGA], {
+          cwd: __dirname,
+          encoding: 'utf8'
+        });
+        
+        exportProcess.stdout.on('data', (data) => {
+          console.log(`[PAGES/GENERATE/EXPORT] ${data.toString().trim()}`);
+        });
+        
+        exportProcess.stderr.on('data', (data) => {
+          console.error(`[PAGES/GENERATE/EXPORT] stderr: ${data.toString().trim()}`);
+        });
+        
+        exportProcess.on('close', (code) => {
+          if (code === 0) {
+            console.log(`[PAGES/GENERATE] Marker-Export abgeschlossen`);
+            // Cache invalidieren, damit die neuen Marker geladen werden
+            pageBreakMarkersCache = null;
+            resolve();
+          } else {
+            reject(new Error(`Marker-Export fehlgeschlagen (Code ${code})`));
+          }
+        });
+        
+        exportProcess.on('error', reject);
+      });
+    }
+    
+    // SCHRITT 3: Wende Pagebreaks auf Vorträge an
+    console.log(`[PAGES/GENERATE] Wende Pagebreaks auf Vorträge an...`);
+    
+    const applyScript = path.join(__dirname, 'apply_page_break_markers_v4.py');
+    
+    const pythonProcess = spawn('python', [applyScript, normalizedGA], {
       cwd: __dirname,
       encoding: 'utf8'
     });
@@ -9092,6 +9233,28 @@ app.post('/api/pages/generate', async (req, res) => {
     
     pythonProcess.on('close', async (code) => {
       if (code === 0) {
+        // Das apply-Skript erzeugt eine Datei wie "GA068D-with-pagebreaks.json" im Hauptverzeichnis
+        // Wir müssen sie finden und in das pagebreaks-Verzeichnis verschieben
+        const generatedFile = path.join(__dirname, `${normalizedGA}-with-pagebreaks.json`);
+        
+        // Prüfe zuerst die generierte Datei
+        if (fsSync.existsSync(generatedFile)) {
+          // Verschiebe in pagebreaks-Verzeichnis
+          try {
+            await fs.rename(generatedFile, pagebreakFile);
+            console.log(`[PAGES/GENERATE] Datei verschoben: ${generatedFile} → ${pagebreakFile}`);
+          } catch (moveErr) {
+            // Fallback: Kopieren und Löschen
+            try {
+              await fs.copyFile(generatedFile, pagebreakFile);
+              await fs.unlink(generatedFile);
+              console.log(`[PAGES/GENERATE] Datei kopiert und gelöscht: ${generatedFile} → ${pagebreakFile}`);
+            } catch (copyErr) {
+              console.error(`[PAGES/GENERATE] Fehler beim Verschieben: ${copyErr.message}`);
+            }
+          }
+        }
+        
         // Prüfe ob Pagebreaks jetzt existieren
         const pagebreakCreated = fsSync.existsSync(pagebreakFile);
         
@@ -9102,13 +9265,22 @@ app.post('/api/pages/generate', async (req, res) => {
             const pagebreakData = JSON.parse(data);
             
             // Aktualisiere fullLectures mit den neuen Pagebreaks
+            let loadedCount = 0;
             if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
               for (const lecture of pagebreakData.lectures) {
                 if (lecture.ID) {
                   fullLectures[lecture.ID] = lecture;
+                  loadedCount++;
                 }
               }
-              console.log(`[PAGES/GENERATE] ${pagebreakData.lectures.length} Vorträge aus ${normalizedGA} in Memory geladen`);
+              console.log(`[PAGES/GENERATE] ${loadedCount} Vorträge aus ${normalizedGA} in Memory geladen`);
+            }
+            
+            // Aktualisiere auch fullBooks falls vorhanden
+            if (pagebreakData.book) {
+              const bookId = pagebreakData.book.ID || pagebreakData.book.gaNumber || normalizedGA;
+              fullBooks[bookId] = pagebreakData.book;
+              console.log(`[PAGES/GENERATE] Buch ${bookId} in Memory geladen`);
             }
           } catch (loadErr) {
             console.warn(`[PAGES/GENERATE] Warnung beim Laden der neuen Pagebreaks: ${loadErr.message}`);
@@ -9196,12 +9368,12 @@ app.get('/api/pages/status/:gaNumber', (req, res) => {
   }
 });
 
-// Hilfsfunktion: Speichert einen Vortrag in seiner Quell-Datei
-async function saveLectureToSourceFile(lectureId, lecture) {
-  // Extrahiere GA-Nummer aus lectureId (z.B. "GA198/1" -> "GA198")
-  const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+// Hilfsfunktion: Speichert einen Vortrag ODER Buch in seiner Quell-Datei
+async function saveLectureToSourceFile(itemId, item, isBook = false) {
+  // Extrahiere GA-Nummer aus itemId (z.B. "GA198/1" -> "GA198" oder "GA004" -> "GA004")
+  const gaMatch = itemId.match(/^(GA\d{3}[a-z]?)/i);
   if (!gaMatch) {
-    throw new Error(`Ungültige Lecture-ID: ${lectureId}`);
+    throw new Error(`Ungültige ID: ${itemId}`);
   }
   
   const gaNumber = gaMatch[1].toUpperCase();
@@ -9215,45 +9387,74 @@ async function saveLectureToSourceFile(lectureId, lecture) {
       const data = await fs.readFile(pagebreakFile, 'utf8');
       const pagebreakData = JSON.parse(data);
       
-      // Finde und aktualisiere den Vortrag
-      if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
-        const idx = pagebreakData.lectures.findIndex(l => l.ID === lectureId);
-        if (idx !== -1) {
-          pagebreakData.lectures[idx] = lecture;
-          
-          // Speichere zurück
+      if (isBook) {
+        // Für Bücher: Prüfe "book" Objekt
+        if (pagebreakData.book && (pagebreakData.book.ID === itemId || pagebreakData.book.gaNumber === itemId)) {
+          pagebreakData.book = item;
           await fs.writeFile(pagebreakFile, JSON.stringify(pagebreakData, null, 2), 'utf8');
-          console.log(`[PAGES] Vortrag ${lectureId} in ${pagebreakFile} gespeichert`);
+          console.log(`[PAGES] Buch ${itemId} in ${pagebreakFile} gespeichert`);
           return;
+        }
+      } else {
+        // Für Vorträge: Finde und aktualisiere im lectures Array
+        if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
+          const idx = pagebreakData.lectures.findIndex(l => l.ID === itemId);
+          if (idx !== -1) {
+            pagebreakData.lectures[idx] = item;
+            await fs.writeFile(pagebreakFile, JSON.stringify(pagebreakData, null, 2), 'utf8');
+            console.log(`[PAGES] Vortrag ${itemId} in ${pagebreakFile} gespeichert`);
+            return;
+          }
         }
       }
     }
     
-    // Fallback: Suche in steiner-full-lectures Dateien
-    const { lectureFilesWithPaths } = await findDataFiles();
-    
-    for (const fileInfo of lectureFilesWithPaths) {
-      const filePath = path.join(fileInfo.basePath, fileInfo.fileName);
-      const data = await fs.readFile(filePath, 'utf8');
-      const parsed = JSON.parse(data);
+    if (isBook) {
+      // Fallback: Suche in steiner-books Dateien
+      const { bookFilesWithPaths } = await findDataFiles();
       
-      if (parsed.lectures && Array.isArray(parsed.lectures)) {
-        const idx = parsed.lectures.findIndex(l => l.ID === lectureId);
-        if (idx !== -1) {
-          parsed.lectures[idx] = lecture;
-          
-          // Speichere zurück
-          await fs.writeFile(filePath, JSON.stringify(parsed, null, 2), 'utf8');
-          console.log(`[PAGES] Vortrag ${lectureId} in ${fileInfo.fileName} gespeichert`);
-          return;
+      for (const fileInfo of bookFilesWithPaths || []) {
+        const filePath = path.join(fileInfo.basePath, fileInfo.fileName);
+        const data = await fs.readFile(filePath, 'utf8');
+        const parsed = JSON.parse(data);
+        
+        if (parsed.books && Array.isArray(parsed.books)) {
+          const idx = parsed.books.findIndex(b => b.ID === itemId || b.gaNumber === itemId);
+          if (idx !== -1) {
+            parsed.books[idx] = item;
+            await fs.writeFile(filePath, JSON.stringify(parsed, null, 2), 'utf8');
+            console.log(`[PAGES] Buch ${itemId} in ${fileInfo.fileName} gespeichert`);
+            return;
+          }
         }
       }
+      
+      throw new Error(`Buch ${itemId} nicht in Quelldateien gefunden`);
+    } else {
+      // Fallback: Suche in steiner-full-lectures Dateien
+      const { lectureFilesWithPaths } = await findDataFiles();
+      
+      for (const fileInfo of lectureFilesWithPaths) {
+        const filePath = path.join(fileInfo.basePath, fileInfo.fileName);
+        const data = await fs.readFile(filePath, 'utf8');
+        const parsed = JSON.parse(data);
+        
+        if (parsed.lectures && Array.isArray(parsed.lectures)) {
+          const idx = parsed.lectures.findIndex(l => l.ID === itemId);
+          if (idx !== -1) {
+            parsed.lectures[idx] = item;
+            await fs.writeFile(filePath, JSON.stringify(parsed, null, 2), 'utf8');
+            console.log(`[PAGES] Vortrag ${itemId} in ${fileInfo.fileName} gespeichert`);
+            return;
+          }
+        }
+      }
+      
+      throw new Error(`Vortrag ${itemId} nicht in Quelldateien gefunden`);
     }
-    
-    throw new Error(`Vortrag ${lectureId} nicht in Quelldateien gefunden`);
     
   } catch (error) {
-    console.error(`[PAGES] Fehler beim Speichern von ${lectureId}:`, error);
+    console.error(`[PAGES] Fehler beim Speichern von ${itemId}:`, error);
     throw error;
   }
 }
@@ -18327,3 +18528,4 @@ Object.values(fullBooks).forEach(book => {
 }
 
 startServer();
+

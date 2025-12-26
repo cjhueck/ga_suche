@@ -676,23 +676,33 @@ def cleanup_non_sequential_pages(
         current = all_pages[i]
         diff = current["page"] - last_valid_page
         
-        # Großer Vorwärtssprung (> 5 Seiten) - wahrscheinlich falsche Zuordnung
-        if diff > 5:
+        # Großer Vorwärtssprung (> 3 Seiten) - wahrscheinlich falsche Zuordnung
+        if diff > 3:
             to_remove.append(i)
             continue
         
-        # Großer Rückwärtssprung (> 2 Seiten zurück)
-        if diff < -2:
+        # JEDER Rückwärtssprung ist ein Fehler (Seiten müssen monoton steigen)
+        if diff < 0:
             to_remove.append(i)
             continue
         
         last_valid_page = current["page"]
     
+    # ZUSÄTZLICH: Prüfe die letzte Seitenzahl
+    # Wenn sie einen großen Sprung von der vorletzten macht, gehört sie zum nächsten Vortrag
+    remaining_pages = [p for i, p in enumerate(all_pages) if i not in to_remove]
+    if len(remaining_pages) >= 2:
+        last = remaining_pages[-1]
+        second_last = remaining_pages[-2]
+        if last["page"] - second_last["page"] > 2:
+            # Die letzte Seite macht einen Sprung - entfernen
+            to_remove.append(all_pages.index(last))
+    
     if not to_remove:
         return 0
     
     # Entferne von hinten nach vorne
-    for i in sorted(to_remove, reverse=True):
+    for i in sorted(set(to_remove), reverse=True):
         info = all_pages[i]
         para = paragraphs[info["para_idx"]]
         content = para.get("content") or ""
@@ -928,6 +938,10 @@ def process_lectures_individually(
     mapped_count = 0
     fallback_count = 0
     
+    # Sammle zunächst alle Vorträge mit bekannter Startseite
+    lectures_with_page = []
+    lectures_without_page = []
+    
     for idx, lec in enumerate(lectures):
         lec_id = lec.get("ID") or ""
         
@@ -935,13 +949,49 @@ def process_lectures_individually(
         if lec_id in mapping:
             start_page = mapping[lec_id]
             mapped_count += 1
-            lecture_starts.append((idx, start_page, lec))
+            lectures_with_page.append((idx, start_page, lec))
         else:
             # Fallback: Alte Methode (Suche in breaks)
             start_page = find_lecture_start_page(lec, breaks, min_page)
             if start_page:
                 fallback_count += 1
-                lecture_starts.append((idx, start_page, lec))
+                lectures_with_page.append((idx, start_page, lec))
+            else:
+                lectures_without_page.append((idx, lec))
+    
+    # Sortiere bekannte Vorträge nach Start-Seite
+    lectures_with_page.sort(key=lambda x: x[1])
+    lecture_starts = list(lectures_with_page)
+    
+    # NEUE FALLBACK-LOGIK: Schätze Startseiten für unbekannte Vorträge
+    if lectures_without_page and lectures_with_page:
+        print(f"  Schätze Startseiten für {len(lectures_without_page)} Vorträge...")
+        
+        # Finde den letzten bekannten Vortrag und seine Endseite
+        last_known_page = lectures_with_page[-1][1]
+        
+        # Berechne durchschnittliche Seitenzahl pro Vortrag
+        if len(lectures_with_page) >= 2:
+            total_pages = lectures_with_page[-1][1] - lectures_with_page[0][1]
+            avg_pages_per_lecture = max(5, total_pages // len(lectures_with_page))
+        else:
+            avg_pages_per_lecture = 15  # Standardwert
+        
+        # Schätze Startseiten für unbekannte Vorträge
+        estimated_count = 0
+        for i, (idx, lec) in enumerate(lectures_without_page):
+            # Schätze basierend auf Position nach dem letzten bekannten Vortrag
+            estimated_page = last_known_page + (i + 1) * avg_pages_per_lecture
+            
+            # Prüfe ob diese Schätzung Sinn macht (nicht über max_page)
+            max_break_page = max(b.get("page", 0) for b in sorted_breaks) if sorted_breaks else estimated_page
+            if estimated_page <= max_break_page:
+                lecture_starts.append((idx, estimated_page, lec))
+                estimated_count += 1
+        
+        if estimated_count > 0:
+            fallback_count += estimated_count
+            print(f"    → {estimated_count} Vorträge mit geschätzter Startseite")
     
     # Sortiere nach Start-Seite
     lecture_starts.sort(key=lambda x: x[1])

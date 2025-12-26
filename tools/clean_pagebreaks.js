@@ -98,18 +98,39 @@ function cleanPageNumbers(paragraphs) {
       continue;
     }
     
-    // Sequenz-Check
+    // Sequenz-Check: Seiten müssen monoton steigend sein
     if (lastValidPage > 0) {
       const diff = current.page - lastValidPage;
-      if (diff < -2 || diff > 5) {
+      
+      // JEDER Rückwärtssprung ist ein Fehler
+      if (diff < 0) {
         toRemove.add(i);
-        log.push(`Sprung: |${current.page}| (nach |${lastValidPage}|)`);
+        log.push(`Rückwärts: |${current.page}| (nach |${lastValidPage}|)`);
+        continue;
+      }
+      
+      // Vorwärtssprung > 3 ist verdächtig
+      if (diff > 3) {
+        toRemove.add(i);
+        log.push(`Sprung: |${current.page}| (nach |${lastValidPage}|, +${diff})`);
         continue;
       }
     }
     
     seenPages.add(current.page);
     lastValidPage = current.page;
+  }
+  
+  // Prüfe die letzte Seitenzahl
+  const remainingPages = allPages.filter((_, i) => !toRemove.has(i));
+  if (remainingPages.length >= 2) {
+    const last = remainingPages[remainingPages.length - 1];
+    const secondLast = remainingPages[remainingPages.length - 2];
+    if (last.page - secondLast.page > 2) {
+      const lastIdx = allPages.indexOf(last);
+      toRemove.add(lastIdx);
+      log.push(`Letzte entfernt: |${last.page}| (Sprung von |${secondLast.page}|)`);
+    }
   }
   
   // Entferne markierte Seitenzahlen
