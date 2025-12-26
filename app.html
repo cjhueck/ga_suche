@@ -6280,6 +6280,9 @@ body.dark-mode .context-help-popup strong {
 <button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none;">
 <i data-lucide="alert-triangle"></i>
 </button>
+<button id="error-report-button" class="help-button" onclick="openErrorReportModal()" title="Fehler melden">
+<i data-lucide="message-circle-warning"></i>
+</button>
 </div>
 </div>
 </div>
@@ -33739,6 +33742,49 @@ if (document.readyState === 'loading') {
   </div>
 </div>
 
+<!-- Error Report Modal -->
+<div id="errorReportModal" class="help-modal">
+  <div class="help-modal-content" style="max-width: 500px;">
+    <div class="help-modal-header">
+      <h2>Fehler melden</h2>
+      <button class="help-modal-close" onclick="closeErrorReportModal()">&times;</button>
+    </div>
+    <div class="help-modal-body">
+      <div id="errorReportStep1">
+        <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+          <strong>Senden Sie uns einen Fehler.</strong><br><br>
+          Markieren Sie den fehlerhaften Bereich mit <kbd style="background: var(--border-color); padding: 2px 6px; border-radius: 3px; font-family: monospace;">Shift+Klick</kbd> und dem Mauszeiger.
+        </p>
+        <button class="help-choice-btn" onclick="startErrorSelection()" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">
+          <h3 style="margin: 0;">Bereich markieren</h3>
+        </button>
+      </div>
+      <div id="errorReportStep2" style="display: none;">
+        <p style="margin-bottom: 1rem; color: var(--accent-color);">
+          <i data-lucide="check-circle" style="width: 16px; height: 16px; vertical-align: middle;"></i>
+          Bereich markiert!
+        </p>
+        <div id="errorPreviewContainer" style="margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; max-height: 150px;">
+          <img id="errorPreviewImage" style="width: 100%; display: block;" alt="Vorschau">
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="errorComment" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Kommentar <span style="color: var(--text-muted); font-weight: normal;">(optional)</span></label>
+          <textarea id="errorComment" placeholder="Beschreiben Sie den Fehler..." style="width: 100%; min-height: 80px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.95em; resize: vertical; background: var(--background-color); color: var(--text-color); box-sizing: border-box;"></textarea>
+        </div>
+        <button id="sendErrorReportBtn" class="help-choice-btn" onclick="sendErrorReport()" style="width: 100%; padding: 1rem; background: var(--accent-color); color: white; border-color: var(--accent-color);">
+          <h3 style="margin: 0; color: white;">Senden</h3>
+        </button>
+        <button class="help-back-btn" onclick="resetErrorReport()" style="margin-top: 1rem;">← Zurück</button>
+      </div>
+      <div id="errorReportSuccess" style="display: none; text-align: center; padding: 2rem 0;">
+        <i data-lucide="check-circle" style="width: 48px; height: 48px; color: #22c55e; margin-bottom: 1rem;"></i>
+        <h3 style="margin: 0 0 0.5rem 0;">Vielen Dank!</h3>
+        <p style="color: var(--text-muted);">Ihre Fehlermeldung wurde gesendet.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // Docs Tab - Dokumentation im Main Viewer anzeigen
 function showDocsInViewer() {
@@ -33920,6 +33966,303 @@ function closeHelpModal() {
   const modal = document.getElementById('helpModal');
   modal.classList.remove('active');
 }
+
+// ============================================================================
+// ERROR REPORT MODAL FUNCTIONS
+// ============================================================================
+
+let errorReportState = {
+  isSelecting: false,
+  startX: 0,
+  startY: 0,
+  selectionBox: null,
+  screenshotData: null,
+  currentGA: null,
+  currentLecture: null
+};
+
+function openErrorReportModal() {
+  const modal = document.getElementById('errorReportModal');
+  modal.classList.add('active');
+  resetErrorReport();
+  
+  // Lucide Icons neu rendern
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
+function closeErrorReportModal() {
+  const modal = document.getElementById('errorReportModal');
+  modal.classList.remove('active');
+  cancelErrorSelection();
+  resetErrorReport();
+}
+
+function resetErrorReport() {
+  document.getElementById('errorReportStep1').style.display = 'block';
+  document.getElementById('errorReportStep2').style.display = 'none';
+  document.getElementById('errorReportSuccess').style.display = 'none';
+  document.getElementById('errorComment').value = '';
+  errorReportState.screenshotData = null;
+}
+
+function startErrorSelection() {
+  // Modal temporär ausblenden
+  const modal = document.getElementById('errorReportModal');
+  modal.classList.remove('active');
+  
+  // Speichere aktuelle GA/Vortrag Info
+  errorReportState.currentGA = typeof currentGANumber !== 'undefined' ? currentGANumber : null;
+  errorReportState.currentLecture = typeof currentLectureNumber !== 'undefined' ? currentLectureNumber : null;
+  
+  // Aktiviere Auswahl-Modus
+  errorReportState.isSelecting = true;
+  document.body.style.cursor = 'crosshair';
+  
+  // Erstelle Overlay für visuelle Anleitung
+  const overlay = document.createElement('div');
+  overlay.id = 'errorSelectionOverlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.1);
+    z-index: 9998;
+    pointer-events: none;
+  `;
+  
+  const hint = document.createElement('div');
+  hint.id = 'errorSelectionHint';
+  hint.innerHTML = '<i data-lucide="mouse-pointer-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>Shift+Klick und ziehen um Bereich zu markieren. <strong>ESC</strong> zum Abbrechen.';
+  hint.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color, #467886);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+  `;
+  document.body.appendChild(overlay);
+  document.body.appendChild(hint);
+  
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+  
+  // Event Listeners
+  document.addEventListener('mousedown', handleErrorSelectionStart);
+  document.addEventListener('keydown', handleErrorSelectionEscape);
+}
+
+function handleErrorSelectionEscape(e) {
+  if (e.key === 'Escape') {
+    cancelErrorSelection();
+    openErrorReportModal();
+  }
+}
+
+function handleErrorSelectionStart(e) {
+  if (!errorReportState.isSelecting) return;
+  if (!e.shiftKey) return; // Nur mit Shift
+  
+  e.preventDefault();
+  
+  errorReportState.startX = e.clientX;
+  errorReportState.startY = e.clientY;
+  
+  // Erstelle Auswahl-Box
+  const box = document.createElement('div');
+  box.id = 'errorSelectionBox';
+  box.style.cssText = `
+    position: fixed;
+    border: 2px dashed var(--accent-color, #467886);
+    background: rgba(70, 120, 134, 0.2);
+    z-index: 10000;
+    pointer-events: none;
+  `;
+  document.body.appendChild(box);
+  errorReportState.selectionBox = box;
+  
+  document.addEventListener('mousemove', handleErrorSelectionMove);
+  document.addEventListener('mouseup', handleErrorSelectionEnd);
+}
+
+function handleErrorSelectionMove(e) {
+  if (!errorReportState.selectionBox) return;
+  
+  const box = errorReportState.selectionBox;
+  const startX = errorReportState.startX;
+  const startY = errorReportState.startY;
+  const currentX = e.clientX;
+  const currentY = e.clientY;
+  
+  const left = Math.min(startX, currentX);
+  const top = Math.min(startY, currentY);
+  const width = Math.abs(currentX - startX);
+  const height = Math.abs(currentY - startY);
+  
+  box.style.left = left + 'px';
+  box.style.top = top + 'px';
+  box.style.width = width + 'px';
+  box.style.height = height + 'px';
+}
+
+async function handleErrorSelectionEnd(e) {
+  if (!errorReportState.selectionBox) return;
+  
+  document.removeEventListener('mousemove', handleErrorSelectionMove);
+  document.removeEventListener('mouseup', handleErrorSelectionEnd);
+  
+  const box = errorReportState.selectionBox;
+  const rect = box.getBoundingClientRect();
+  
+  // Mindestgröße prüfen
+  if (rect.width < 20 || rect.height < 20) {
+    cancelErrorSelection();
+    openErrorReportModal();
+    return;
+  }
+  
+  // Screenshot erstellen
+  try {
+    // Entferne temporäre Elemente vor Screenshot
+    const overlay = document.getElementById('errorSelectionOverlay');
+    const hint = document.getElementById('errorSelectionHint');
+    if (overlay) overlay.style.display = 'none';
+    if (hint) hint.style.display = 'none';
+    box.style.display = 'none';
+    
+    // Kurze Verzögerung damit Browser rendern kann
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
+    // Screenshot der gesamten Seite
+    const canvas = await html2canvas(document.body, {
+      x: rect.left + window.scrollX,
+      y: rect.top + window.scrollY,
+      width: rect.width,
+      height: rect.height,
+      useCORS: true,
+      logging: false
+    });
+    
+    errorReportState.screenshotData = canvas.toDataURL('image/png');
+    
+    // Zeige Vorschau
+    document.getElementById('errorPreviewImage').src = errorReportState.screenshotData;
+    
+    // Cleanup und zurück zum Modal
+    cancelErrorSelection();
+    
+    // Zeige Step 2
+    const modal = document.getElementById('errorReportModal');
+    modal.classList.add('active');
+    document.getElementById('errorReportStep1').style.display = 'none';
+    document.getElementById('errorReportStep2').style.display = 'block';
+    
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    
+  } catch (err) {
+    console.error('Screenshot Fehler:', err);
+    cancelErrorSelection();
+    openErrorReportModal();
+    alert('Fehler beim Erstellen des Screenshots. Bitte versuchen Sie es erneut.');
+  }
+}
+
+function cancelErrorSelection() {
+  errorReportState.isSelecting = false;
+  document.body.style.cursor = '';
+  
+  // Entferne alle temporären Elemente
+  const overlay = document.getElementById('errorSelectionOverlay');
+  const hint = document.getElementById('errorSelectionHint');
+  const box = document.getElementById('errorSelectionBox');
+  
+  if (overlay) overlay.remove();
+  if (hint) hint.remove();
+  if (box) box.remove();
+  
+  errorReportState.selectionBox = null;
+  
+  // Entferne Event Listeners
+  document.removeEventListener('mousedown', handleErrorSelectionStart);
+  document.removeEventListener('mousemove', handleErrorSelectionMove);
+  document.removeEventListener('mouseup', handleErrorSelectionEnd);
+  document.removeEventListener('keydown', handleErrorSelectionEscape);
+}
+
+async function sendErrorReport() {
+  const btn = document.getElementById('sendErrorReportBtn');
+  const comment = document.getElementById('errorComment').value.trim();
+  
+  if (!errorReportState.screenshotData) {
+    alert('Kein Screenshot vorhanden. Bitte markieren Sie zuerst einen Bereich.');
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.innerHTML = '<h3 style="margin: 0; color: white;">Wird gesendet...</h3>';
+  
+  try {
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
+    const response = await fetch(`${API_BASE}/api/error-report`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        screenshot: errorReportState.screenshotData,
+        comment: comment,
+        ga: errorReportState.currentGA,
+        lecture: errorReportState.currentLecture,
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString()
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Server-Fehler: ${response.status}`);
+    }
+    
+    // Erfolg anzeigen
+    document.getElementById('errorReportStep2').style.display = 'none';
+    document.getElementById('errorReportSuccess').style.display = 'block';
+    
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    
+    // Modal nach 2 Sekunden schließen
+    setTimeout(() => {
+      closeErrorReportModal();
+    }, 2000);
+    
+  } catch (err) {
+    console.error('Fehler beim Senden:', err);
+    alert('Fehler beim Senden der Meldung. Bitte versuchen Sie es später erneut.');
+    btn.disabled = false;
+    btn.innerHTML = '<h3 style="margin: 0; color: white;">Senden</h3>';
+  }
+}
+
+// ============================================================================
 
 function showHelpChoice() {
   document.getElementById('helpChoice').style.display = 'block';
