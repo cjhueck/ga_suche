@@ -441,7 +441,21 @@ const defaultSynonyms = {
 // DATEI-SUCHE FUNKTIONEN
 // ============================================================================
 
+// Cache für findDataFiles - wird nur einmal beim ersten Aufruf befüllt
+let dataFilesCache = null;
+
+// Cache leeren (z.B. nach Datei-Änderungen)
+function clearDataFilesCache() {
+  dataFilesCache = null;
+  console.log('[CACHE] DataFiles-Cache geleert');
+}
+
 async function findDataFiles() {
+  // Verwende Cache wenn vorhanden
+  if (dataFilesCache) {
+    return dataFilesCache;
+  }
+  
   const files = await fs.readdir(__dirname);
   
   // Suche nach steiner-search-XXX-YYY*.json
@@ -565,7 +579,8 @@ async function findDataFiles() {
   }
   
   
-  return {
+  // Speichere im Cache
+  dataFilesCache = {
     searchFiles,
     lectureFiles,
     lectureBasePath,
@@ -573,6 +588,8 @@ async function findDataFiles() {
     bookFiles,
     bookBasePath
   };
+  
+  return dataFilesCache;
 }
 
 // ============================================================================
