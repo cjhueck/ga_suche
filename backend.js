@@ -1257,8 +1257,9 @@ function formatDate(dateStr) {
 async function generateGAOverview(gaNumber) {
   // Case-insensitive Vergleich
   const gaNumberNormalized = gaNumber.toLowerCase();
+  const gaNumberUpper = gaNumber.toUpperCase();
   
-  // Suche nach Vorträgen (Books haben eigenen Endpoint /api/book/:gaNumber)
+  // Suche nach Vorträgen
   const lectures = Object.values(fullLectures)
     .filter(lec => lec.gaNumber && lec.gaNumber.toLowerCase() === gaNumberNormalized)
     .sort((a, b) => {
@@ -1268,7 +1269,39 @@ async function generateGAOverview(gaNumber) {
     });
   
   if (lectures.length === 0) {
-    console.warn(`[GA-OVERVIEW] Keine Vorträge für ${gaNumber} gefunden (fullLectures hat ${Object.keys(fullLectures).length} Einträge)`);
+    // Keine Vorträge gefunden - prüfe ob es ein Buch ist
+    const book = fullBooks[gaNumberUpper] || fullBooks[gaNumber];
+    
+    if (book) {
+      // Buch gefunden - gib es als Übersicht zurück
+      console.log(`[GA-OVERVIEW] ${gaNumber} ist ein Buch, nicht Vorträge`);
+      const summaryDB = await loadSummaryDatabase();
+      const summaryData = summaryDB[book.ID || gaNumberUpper];
+      
+      return {
+        gaNumber: gaNumberUpper,
+        gaTitle: book.title || book.gaTitle || gaNumber,
+        lectureCount: 1,
+        isBook: true,
+        lectures: [{
+          lectureNumber: 1,
+          ID: book.ID || gaNumberUpper,
+          title: book.title || book.gaTitle || gaNumber,
+          fileName: book.fileName || '',
+          location: null,
+          date: null,
+          summary: summaryData?.summary || null,
+          shortSummary: summaryData?.shortSummary || null,
+          headings: summaryData?.headings || [],
+          tableOfContents: summaryData?.tableOfContents || [],
+          lectureKeywords: summaryData?.lectureKeywords || [],
+          version: summaryData?.version || 'v1',
+          isBook: true
+        }]
+      };
+    }
+    
+    console.warn(`[GA-OVERVIEW] Keine Vorträge/Bücher für ${gaNumber} gefunden`);
     return null;
   }
   
@@ -7132,31 +7165,39 @@ app.get('/api/synonyms/:keyword', (req, res) => {
 });
 
 // ============================================================================
-// ERROR REPORT API - Fehlermeldungen per E-Mail
+// ERROR REPORT API - Fehlermeldungen speichern und abrufen
 // ============================================================================
 
-const nodemailer = require('nodemailer');
+const ERROR_REPORTS_FILE = path.join(__dirname, 'system', 'error-reports.json');
+const ERROR_SCREENSHOTS_DIR = path.join(__dirname, 'system', 'error-screenshots');
 
-// E-Mail Transporter konfigurieren
-let emailTransporter = null;
-
-function getEmailTransporter() {
-  if (!emailTransporter && process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    emailTransporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === 'true', // true für 465, false für andere
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-      }
-    });
-    console.log('[EMAIL] SMTP Transporter konfiguriert');
+// Fehlerberichte laden
+async function loadErrorReports() {
+  try {
+    const data = await fs.readFile(ERROR_REPORTS_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    // Datei existiert nicht - leeres Array zurückgeben
+    return [];
   }
-  return emailTransporter;
 }
 
-// API-Endpunkt: Fehlermeldung senden
+// Fehlerberichte speichern
+async function saveErrorReports(reports) {
+  await fs.writeFile(ERROR_REPORTS_FILE, JSON.stringify(reports, null, 2), 'utf8');
+}
+
+// Screenshots-Ordner erstellen falls nicht vorhanden
+async function ensureScreenshotsDir() {
+  try {
+    await fs.access(ERROR_SCREENSHOTS_DIR);
+  } catch {
+    await fs.mkdir(ERROR_SCREENSHOTS_DIR, { recursive: true });
+    console.log('[ERROR-REPORT] Screenshots-Ordner erstellt:', ERROR_SCREENSHOTS_DIR);
+  }
+}
+
+// API-Endpunkt: Fehlermeldung speichern
 app.post('/api/error-report', async (req, res) => {
   try {
     const { screenshot, comment, ga, lecture, url, userAgent, timestamp } = req.body;
@@ -7165,72 +7206,142 @@ app.post('/api/error-report', async (req, res) => {
       return res.status(400).json({ error: 'Kein Screenshot vorhanden' });
     }
     
-    const transporter = getEmailTransporter();
+    await ensureScreenshotsDir();
     
-    if (!transporter) {
-      console.error('[ERROR-REPORT] SMTP nicht konfiguriert. Benötigte Umgebungsvariablen: SMTP_HOST, SMTP_USER, SMTP_PASS');
-      return res.status(500).json({ error: 'E-Mail-Versand nicht konfiguriert' });
-    }
+    // Eindeutige ID generieren
+    const id = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
     
-    // Base64 Screenshot zu Buffer konvertieren
+    // Base64 Screenshot zu Buffer konvertieren und speichern
     const base64Data = screenshot.replace(/^data:image\/\w+;base64,/, '');
     const imageBuffer = Buffer.from(base64Data, 'base64');
+    const screenshotFilename = `${id}.png`;
+    const screenshotPath = path.join(ERROR_SCREENSHOTS_DIR, screenshotFilename);
     
-    // E-Mail zusammenstellen
-    const gaInfo = ga && lecture ? `GA${ga}/${lecture}` : (ga ? `GA${ga}` : 'Nicht angegeben');
-    const dateStr = new Date(timestamp).toLocaleString('de-DE', { 
-      timeZone: 'Europe/Berlin',
-      dateStyle: 'medium',
-      timeStyle: 'short'
-    });
+    await fs.writeFile(screenshotPath, imageBuffer);
     
-    const mailOptions = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: 'hueck@akanthos-akademie.de',
-      subject: `[GA-Suche Fehlermeldung] ${gaInfo} - ${dateStr}`,
-      html: `
-        <h2>Fehlermeldung aus GA-Suche</h2>
-        <table style="border-collapse: collapse; margin-bottom: 20px;">
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Zeitpunkt:</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${dateStr}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">GA/Vortrag:</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${gaInfo}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">URL:</td>
-            <td style="padding: 8px; border: 1px solid #ddd;"><a href="${url}">${url}</a></td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Kommentar:</td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${comment || '<em>Kein Kommentar</em>'}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Browser:</td>
-            <td style="padding: 8px; border: 1px solid #ddd; font-size: 12px;">${userAgent}</td>
-          </tr>
-        </table>
-        <p>Screenshot im Anhang.</p>
-      `,
-      attachments: [
-        {
-          filename: `fehler_${gaInfo.replace(/\//g, '-')}_${Date.now()}.png`,
-          content: imageBuffer,
-          contentType: 'image/png'
-        }
-      ]
+    // Fehlerbericht erstellen
+    const gaInfo = ga && lecture ? `GA${ga}/${lecture}` : (ga ? `GA${ga}` : null);
+    const report = {
+      id,
+      timestamp: timestamp || new Date().toISOString(),
+      ga: gaInfo,
+      gaNumber: ga,
+      lectureNumber: lecture,
+      comment: comment || null,
+      screenshot: screenshotFilename,
+      url,
+      userAgent,
+      status: 'new' // new, reviewed, resolved
     };
     
-    await transporter.sendMail(mailOptions);
+    // Zu bestehenden Berichten hinzufügen
+    const reports = await loadErrorReports();
+    reports.unshift(report); // Neueste zuerst
+    await saveErrorReports(reports);
     
-    console.log(`[ERROR-REPORT] Fehlermeldung gesendet: ${gaInfo}`);
-    res.json({ success: true, message: 'Fehlermeldung gesendet' });
+    console.log(`[ERROR-REPORT] Fehlermeldung gespeichert: ${id} (${gaInfo || 'unbekannt'})`);
+    res.json({ success: true, message: 'Fehlermeldung gespeichert', id });
     
   } catch (error) {
-    console.error('[ERROR-REPORT] Fehler beim Senden:', error);
-    res.status(500).json({ error: 'Fehler beim Senden der E-Mail' });
+    console.error('[ERROR-REPORT] Fehler beim Speichern:', error);
+    res.status(500).json({ error: 'Fehler beim Speichern der Meldung' });
+  }
+});
+
+// API-Endpunkt: Alle Fehlerberichte abrufen
+app.get('/api/error-reports', async (req, res) => {
+  try {
+    const reports = await loadErrorReports();
+    res.json(reports);
+  } catch (error) {
+    console.error('[ERROR-REPORT] Fehler beim Laden:', error);
+    res.status(500).json({ error: 'Fehler beim Laden der Meldungen' });
+  }
+});
+
+// API-Endpunkt: Screenshot abrufen
+app.get('/api/error-screenshot/:filename', async (req, res) => {
+  try {
+    const filename = req.params.filename;
+    // Sicherheit: Nur Dateinamen ohne Pfadkomponenten erlauben
+    if (filename.includes('/') || filename.includes('\\') || filename.includes('..')) {
+      return res.status(400).json({ error: 'Ungültiger Dateiname' });
+    }
+    
+    const screenshotPath = path.join(ERROR_SCREENSHOTS_DIR, filename);
+    
+    try {
+      await fs.access(screenshotPath);
+    } catch {
+      return res.status(404).json({ error: 'Screenshot nicht gefunden' });
+    }
+    
+    res.sendFile(screenshotPath);
+  } catch (error) {
+    console.error('[ERROR-REPORT] Fehler beim Laden des Screenshots:', error);
+    res.status(500).json({ error: 'Fehler beim Laden des Screenshots' });
+  }
+});
+
+// API-Endpunkt: Fehlerbericht Status aktualisieren
+app.patch('/api/error-report/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    if (!['new', 'reviewed', 'resolved'].includes(status)) {
+      return res.status(400).json({ error: 'Ungültiger Status' });
+    }
+    
+    const reports = await loadErrorReports();
+    const report = reports.find(r => r.id === id);
+    
+    if (!report) {
+      return res.status(404).json({ error: 'Bericht nicht gefunden' });
+    }
+    
+    report.status = status;
+    await saveErrorReports(reports);
+    
+    res.json({ success: true, report });
+  } catch (error) {
+    console.error('[ERROR-REPORT] Fehler beim Aktualisieren:', error);
+    res.status(500).json({ error: 'Fehler beim Aktualisieren' });
+  }
+});
+
+// API-Endpunkt: Fehlerbericht löschen
+app.delete('/api/error-report/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const reports = await loadErrorReports();
+    const reportIndex = reports.findIndex(r => r.id === id);
+    
+    if (reportIndex === -1) {
+      return res.status(404).json({ error: 'Bericht nicht gefunden' });
+    }
+    
+    const report = reports[reportIndex];
+    
+    // Screenshot löschen
+    if (report.screenshot) {
+      const screenshotPath = path.join(ERROR_SCREENSHOTS_DIR, report.screenshot);
+      try {
+        await fs.unlink(screenshotPath);
+      } catch (e) {
+        console.warn('[ERROR-REPORT] Screenshot konnte nicht gelöscht werden:', e.message);
+      }
+    }
+    
+    // Bericht entfernen
+    reports.splice(reportIndex, 1);
+    await saveErrorReports(reports);
+    
+    res.json({ success: true, message: 'Bericht gelöscht' });
+  } catch (error) {
+    console.error('[ERROR-REPORT] Fehler beim Löschen:', error);
+    res.status(500).json({ error: 'Fehler beim Löschen' });
   }
 });
 
@@ -9260,6 +9371,9 @@ app.post('/api/pages/generate', async (req, res) => {
         const pagebreakData = JSON.parse(data);
         
         let loadedCount = 0;
+        let isBook = false;
+        
+        // Lade Vorträge
         if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
           for (const lecture of pagebreakData.lectures) {
             if (lecture.ID) {
@@ -9269,12 +9383,23 @@ app.post('/api/pages/generate', async (req, res) => {
           }
         }
         
+        // Lade Buch (falls vorhanden)
+        if (pagebreakData.book) {
+          const bookId = pagebreakData.book.ID || pagebreakData.book.gaNumber || normalizedGA;
+          fullBooks[bookId] = pagebreakData.book;
+          loadedCount = 1;
+          isBook = true;
+          console.log(`[PAGES/GENERATE] Buch ${bookId} aus ${normalizedGA} in Memory geladen`);
+        }
+        
+        const itemType = isBook ? 'Buch' : `${loadedCount} Vorträge`;
         return res.json({ 
           success: true, 
           status: 'loaded',
-          message: `Pagebreaks für ${normalizedGA} geladen (${loadedCount} Vorträge)`,
+          message: `Pagebreaks für ${normalizedGA} geladen (${itemType})`,
           gaNumber: normalizedGA,
-          lecturesLoaded: loadedCount
+          lecturesLoaded: loadedCount,
+          isBook
         });
       } catch (loadErr) {
         console.warn(`[PAGES/GENERATE] Fehler beim Laden existierender Pagebreaks: ${loadErr.message}`);

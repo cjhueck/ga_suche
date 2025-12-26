@@ -6094,12 +6094,19 @@ body.dark-mode #popupCaption {
 
 /* FINAL OVERRIDE: Help Modal Buttons - MUSS am Ende stehen! */
 .help-modal .help-choice-btn:hover h3,
-#helpModal .help-choice-btn:hover h3 {
+#helpModal .help-choice-btn:hover h3,
+.help-choice-btn:hover span {
   color: white !important;
 }
 
 body.dark-mode .help-modal .help-choice-btn:hover h3,
-body.dark-mode #helpModal .help-choice-btn:hover h3 {
+body.dark-mode #helpModal .help-choice-btn:hover h3,
+body.dark-mode .help-choice-btn:hover span {
+  color: white !important;
+}
+
+/* Error Report Button Styles */
+#errorReportModal .help-choice-btn:hover span {
   color: white !important;
 }
 
@@ -6277,8 +6284,9 @@ body.dark-mode .context-help-popup strong {
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen" data-help="help-button">
 <i data-lucide="info"></i>
 </button>
-<button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none;">
+<button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none; position: relative;">
 <i data-lucide="alert-triangle"></i>
+<span id="error-reports-badge" style="display: none; position: absolute; top: -4px; right: -4px; background: #dc2626; color: white; font-size: 10px; font-weight: bold; min-width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1;"></span>
 </button>
 <button id="error-report-button" class="help-button" onclick="openErrorReportModal()" title="Fehler melden">
 <i data-lucide="message-circle-warning"></i>
@@ -33755,8 +33763,8 @@ if (document.readyState === 'loading') {
           <strong>Senden Sie uns einen Fehler.</strong><br><br>
           Markieren Sie den fehlerhaften Bereich mit <kbd style="background: var(--border-color); padding: 2px 6px; border-radius: 3px; font-family: monospace;">Shift+Klick</kbd> und dem Mauszeiger.
         </p>
-        <button class="help-choice-btn" onclick="startErrorSelection()" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">
-          <h3 style="margin: 0;">Bereich markieren</h3>
+        <button class="help-choice-btn error-report-btn" onclick="startErrorSelection()" style="width: 100%; padding: 1rem; margin-bottom: 1rem;">
+          <span style="margin: 0; font-size: 1.1em; font-weight: 600;">Bereich markieren</span>
         </button>
       </div>
       <div id="errorReportStep2" style="display: none;">
@@ -33769,17 +33777,21 @@ if (document.readyState === 'loading') {
         </div>
         <div style="margin-bottom: 1rem;">
           <label for="errorComment" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Kommentar <span style="color: var(--text-muted); font-weight: normal;">(optional)</span></label>
-          <textarea id="errorComment" placeholder="Beschreiben Sie den Fehler..." style="width: 100%; min-height: 80px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.95em; resize: vertical; background: var(--background-color); color: var(--text-color); box-sizing: border-box;"></textarea>
+          <textarea id="errorComment" placeholder="Bitte beschreiben Sie den Fehler (optional)" style="width: 100%; min-height: 80px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.95em; resize: vertical; background: var(--background-color); color: var(--text-color); box-sizing: border-box;"></textarea>
         </div>
-        <button id="sendErrorReportBtn" class="help-choice-btn" onclick="sendErrorReport()" style="width: 100%; padding: 1rem; background: var(--accent-color); color: white; border-color: var(--accent-color);">
-          <h3 style="margin: 0; color: white;">Senden</h3>
+        <button id="sendErrorReportBtn" class="help-choice-btn" onclick="sendErrorReport()" style="width: 100%; padding: 1rem; background: var(--accent-color); border-color: var(--accent-color);">
+          <span style="margin: 0; color: white; font-size: 1.1em; font-weight: 600;">Senden</span>
         </button>
         <button class="help-back-btn" onclick="resetErrorReport()" style="margin-top: 1rem;">← Zurück</button>
       </div>
       <div id="errorReportSuccess" style="display: none; text-align: center; padding: 2rem 0;">
         <i data-lucide="check-circle" style="width: 48px; height: 48px; color: #22c55e; margin-bottom: 1rem;"></i>
         <h3 style="margin: 0 0 0.5rem 0;">Vielen Dank!</h3>
-        <p style="color: var(--text-muted);">Ihre Fehlermeldung wurde gesendet.</p>
+        <p style="color: var(--text-muted);">Ihre Fehlermeldung wurde gespeichert.</p>
+        <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 0.5rem;">
+          Sie können alle gemeldeten Fehler unter<br>
+          <a href="#" onclick="event.preventDefault(); closeErrorReportModal(); openMarkedWordsModal(); switchMarkedWordsTab('reports');" style="color: var(--accent-color);">⚠️ Fehlerhafte Textstellen → 📸 Gemeldete Fehler</a> einsehen.
+        </p>
       </div>
     </div>
   </div>
@@ -34018,7 +34030,14 @@ function startErrorSelection() {
   
   // Aktiviere Auswahl-Modus
   errorReportState.isSelecting = true;
-  document.body.style.cursor = 'crosshair';
+  
+  // Globaler Cursor-Override via CSS
+  const cursorStyle = document.createElement('style');
+  cursorStyle.id = 'errorSelectionCursorStyle';
+  cursorStyle.textContent = `
+    * { cursor: default !important; }
+  `;
+  document.head.appendChild(cursorStyle);
   
   // Erstelle Overlay für visuelle Anleitung
   const overlay = document.createElement('div');
@@ -34032,6 +34051,7 @@ function startErrorSelection() {
     background: rgba(0,0,0,0.1);
     z-index: 9998;
     pointer-events: none;
+    cursor: default;
   `;
   
   const hint = document.createElement('div');
@@ -34185,6 +34205,10 @@ function cancelErrorSelection() {
   errorReportState.isSelecting = false;
   document.body.style.cursor = '';
   
+  // Entferne Cursor-Override Style
+  const cursorStyle = document.getElementById('errorSelectionCursorStyle');
+  if (cursorStyle) cursorStyle.remove();
+  
   // Entferne alle temporären Elemente
   const overlay = document.getElementById('errorSelectionOverlay');
   const hint = document.getElementById('errorSelectionHint');
@@ -34213,7 +34237,7 @@ async function sendErrorReport() {
   }
   
   btn.disabled = true;
-  btn.innerHTML = '<h3 style="margin: 0; color: white;">Wird gesendet...</h3>';
+  btn.innerHTML = '<span style="margin: 0; color: white; font-size: 1.1em; font-weight: 600;">Wird gesendet...</span>';
   
   try {
     const isLocal = window.location.hostname === 'localhost' ||
@@ -34245,6 +34269,9 @@ async function sendErrorReport() {
     document.getElementById('errorReportStep2').style.display = 'none';
     document.getElementById('errorReportSuccess').style.display = 'block';
     
+    // Badge aktualisieren (neuer Fehlerbericht hinzugefügt)
+    updateErrorReportsBadge();
+    
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
@@ -34255,10 +34282,10 @@ async function sendErrorReport() {
     }, 2000);
     
   } catch (err) {
-    console.error('Fehler beim Senden:', err);
-    alert('Fehler beim Senden der Meldung. Bitte versuchen Sie es später erneut.');
+    console.error('Fehler beim Speichern:', err);
+    alert('Fehler beim Speichern der Meldung. Bitte versuchen Sie es später erneut.');
     btn.disabled = false;
-    btn.innerHTML = '<h3 style="margin: 0; color: white;">Senden</h3>';
+    btn.innerHTML = '<span style="margin: 0; color: white; font-size: 1.1em; font-weight: 600;">Senden</span>';
   }
 }
 
@@ -37359,14 +37386,33 @@ async function restoreBackup(backupName) {
       <h2 style="color: var(--heading-color); font-size: 1rem; margin: 0;">⚠️ Fehlerhafte Textstellen</h2>
       <div style="display: flex; gap: 6px; align-items: center;">
         <span id="markedWordsCount" style="font-size: 0.8em; color: var(--text-color); opacity: 0.6;"></span>
-        <button onclick="loadMarkedWords()" title="Aktualisieren & mit Online synchronisieren" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">🔄</button>
+        <button onclick="loadMarkedWords(); loadErrorReports(); updateErrorReportsBadge();" title="Aktualisieren" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">🔄</button>
         <button onclick="closeMarkedWordsModal()" class="depth-btn" style="padding: 3px 10px; font-size: 0.8rem;">✕</button>
       </div>
     </div>
     
-    <!-- Content -->
-    <div id="markedWordsListContainer" style="max-height: 40vh; overflow-y: auto; padding: 10px 15px;">
-      <div style="padding: 30px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 0.9em;">Lade...</div>
+    <!-- Tab-Buttons -->
+    <div style="display: flex; border-bottom: 1px solid var(--border-color);">
+      <button id="markedWordsTabBtn" onclick="switchMarkedWordsTab('words')" style="flex: 1; padding: 10px; border: none; background: var(--accent-color); color: white; cursor: pointer; font-size: 0.85em; font-weight: 500;">
+        📝 Markierte Wörter <span id="markedWordsTabCount" style="opacity: 0.8;"></span>
+      </button>
+      <button id="errorReportsTabBtn" onclick="switchMarkedWordsTab('reports')" style="flex: 1; padding: 10px; border: none; background: transparent; color: var(--text-color); cursor: pointer; font-size: 0.85em; font-weight: 500;">
+        📸 Gemeldete Fehler <span id="errorReportsTabCount" style="opacity: 0.8;"></span>
+      </button>
+    </div>
+    
+    <!-- Tab: Markierte Wörter -->
+    <div id="markedWordsTabContent" style="display: block;">
+      <div id="markedWordsListContainer" style="max-height: 40vh; overflow-y: auto; padding: 10px 15px;">
+        <div style="padding: 30px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 0.9em;">Lade...</div>
+      </div>
+    </div>
+    
+    <!-- Tab: Gemeldete Fehler -->
+    <div id="errorReportsTabContent" style="display: none;">
+      <div id="errorReportsListContainer" style="max-height: 40vh; overflow-y: auto; padding: 10px 15px;">
+        <div style="padding: 30px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 0.9em;">Lade...</div>
+      </div>
     </div>
     
     <!-- Korrektur-Panel -->
@@ -37415,10 +37461,202 @@ async function restoreBackup(backupName) {
 function openMarkedWordsModal() {
   document.getElementById('markedWordsModal').style.display = 'block';
   loadMarkedWords();
+  loadErrorReports();
 }
 
 function closeMarkedWordsModal() {
   document.getElementById('markedWordsModal').style.display = 'none';
+}
+
+function switchMarkedWordsTab(tab) {
+  const wordsTab = document.getElementById('markedWordsTabContent');
+  const reportsTab = document.getElementById('errorReportsTabContent');
+  const wordsBtn = document.getElementById('markedWordsTabBtn');
+  const reportsBtn = document.getElementById('errorReportsTabBtn');
+  
+  if (tab === 'words') {
+    wordsTab.style.display = 'block';
+    reportsTab.style.display = 'none';
+    wordsBtn.style.background = 'var(--accent-color)';
+    wordsBtn.style.color = 'white';
+    reportsBtn.style.background = 'transparent';
+    reportsBtn.style.color = 'var(--text-color)';
+  } else {
+    wordsTab.style.display = 'none';
+    reportsTab.style.display = 'block';
+    wordsBtn.style.background = 'transparent';
+    wordsBtn.style.color = 'var(--text-color)';
+    reportsBtn.style.background = 'var(--accent-color)';
+    reportsBtn.style.color = 'white';
+  }
+}
+
+async function loadErrorReports() {
+  const container = document.getElementById('errorReportsListContainer');
+  const countEl = document.getElementById('errorReportsTabCount');
+  
+  try {
+    container.innerHTML = '<div style="padding: 30px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 0.9em;">Lade Fehlerberichte...</div>';
+    
+    const response = await fetch(`${API_BASE}/api/error-reports`);
+    if (!response.ok) throw new Error('Fehler beim Laden');
+    
+    const reports = await response.json();
+    
+    countEl.textContent = reports.length > 0 ? `(${reports.length})` : '';
+    
+    if (reports.length === 0) {
+      container.innerHTML = '<div style="padding: 30px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 0.9em;">Keine Fehlerberichte vorhanden.</div>';
+      return;
+    }
+    
+    let html = '';
+    for (const report of reports) {
+      const dateStr = new Date(report.timestamp).toLocaleString('de-DE', {
+        dateStyle: 'short',
+        timeStyle: 'short'
+      });
+      
+      const statusColors = {
+        'new': '#f59e0b',
+        'reviewed': '#3b82f6',
+        'resolved': '#22c55e'
+      };
+      const statusLabels = {
+        'new': 'Neu',
+        'reviewed': 'Geprüft',
+        'resolved': 'Erledigt'
+      };
+      
+      html += `
+        <div class="error-report-item" style="border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; overflow: hidden;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(0,0,0,0.02); cursor: pointer;" onclick="toggleErrorReportDetails('${report.id}')">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="background: ${statusColors[report.status] || statusColors.new}; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7em; font-weight: 500;">${statusLabels[report.status] || 'Neu'}</span>
+              <span style="font-weight: 500; color: var(--heading-color);">${report.ga || 'Unbekannt'}</span>
+              <span style="font-size: 0.8em; color: var(--text-color); opacity: 0.6;">${dateStr}</span>
+            </div>
+            <span style="font-size: 1.2em; color: var(--text-color); opacity: 0.5;">▼</span>
+          </div>
+          <div id="error-report-details-${report.id}" style="display: none; padding: 12px; border-top: 1px solid var(--border-color);">
+            ${report.comment ? `<p style="margin: 0 0 10px 0; color: var(--text-color);"><strong>Kommentar:</strong> ${escapeHtml(report.comment)}</p>` : ''}
+            <div style="margin-bottom: 10px;">
+              <img src="${API_BASE}/api/error-screenshot/${report.screenshot}" alt="Screenshot" style="max-width: 100%; border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer;" onclick="openScreenshotFullscreen('${API_BASE}/api/error-screenshot/${report.screenshot}')">
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <select onchange="updateErrorReportStatus('${report.id}', this.value)" style="padding: 5px 10px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.8em; background: var(--background-color); color: var(--text-color);">
+                <option value="new" ${report.status === 'new' ? 'selected' : ''}>Neu</option>
+                <option value="reviewed" ${report.status === 'reviewed' ? 'selected' : ''}>Geprüft</option>
+                <option value="resolved" ${report.status === 'resolved' ? 'selected' : ''}>Erledigt</option>
+              </select>
+              <button onclick="deleteErrorReport('${report.id}')" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em; background: #dc2626; color: white;">🗑️ Löschen</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    container.innerHTML = html;
+    
+  } catch (error) {
+    console.error('Fehler beim Laden der Fehlerberichte:', error);
+    container.innerHTML = '<div style="padding: 30px; text-align: center; color: #dc2626; font-size: 0.9em;">Fehler beim Laden der Berichte.</div>';
+  }
+}
+
+function toggleErrorReportDetails(id) {
+  const details = document.getElementById(`error-report-details-${id}`);
+  if (details) {
+    details.style.display = details.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
+function openScreenshotFullscreen(src) {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 20000; display: flex; align-items: center; justify-content: center; cursor: pointer;';
+  overlay.onclick = () => overlay.remove();
+  
+  const img = document.createElement('img');
+  img.src = src;
+  img.style.cssText = 'max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 4px;';
+  
+  overlay.appendChild(img);
+  document.body.appendChild(overlay);
+}
+
+async function updateErrorReportStatus(id, status) {
+  try {
+    const response = await fetch(`${API_BASE}/api/error-report/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    });
+    
+    if (!response.ok) throw new Error('Fehler beim Aktualisieren');
+    
+    // Neu laden und Badge aktualisieren
+    loadErrorReports();
+    updateErrorReportsBadge();
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren:', error);
+    alert('Fehler beim Aktualisieren des Status.');
+  }
+}
+
+async function deleteErrorReport(id) {
+  if (!confirm('Diesen Fehlerbericht wirklich löschen?')) return;
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/error-report/${id}`, {
+      method: 'DELETE'
+    });
+    
+    if (!response.ok) throw new Error('Fehler beim Löschen');
+    
+    // Neu laden und Badge aktualisieren
+    loadErrorReports();
+    updateErrorReportsBadge();
+  } catch (error) {
+    console.error('Fehler beim Löschen:', error);
+    alert('Fehler beim Löschen des Berichts.');
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Badge für neue Fehlerberichte aktualisieren
+async function updateErrorReportsBadge() {
+  const badge = document.getElementById('error-reports-badge');
+  if (!badge) return;
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/error-reports`);
+    if (!response.ok) return;
+    
+    const reports = await response.json();
+    const newCount = reports.filter(r => r.status === 'new').length;
+    
+    if (newCount > 0) {
+      badge.textContent = newCount > 9 ? '9+' : newCount.toString();
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  } catch (error) {
+    console.log('Badge-Update fehlgeschlagen:', error.message);
+    badge.style.display = 'none';
+  }
+}
+
+// Badge beim Laden der Seite aktualisieren (nur lokal)
+if (typeof isLocal !== 'undefined' && isLocal) {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(updateErrorReportsBadge, 2000); // Nach 2s prüfen
+  });
 }
 
 async function loadMarkedWords(syncOnline = true) {
