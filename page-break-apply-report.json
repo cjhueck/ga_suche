@@ -1,132 +1,92 @@
 {
-  "ga": "GA012",
-  "sourceFile": "steiner-books-001-012-part01.json",
+  "ga": "GA115",
+  "sourceFile": "steiner-full-lectures-014-354-part07.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 88,
-  "breaksWithPage": 88,
-  "inserted": 8,
-  "insertedRatio": 0.09090909090909091,
-  "failed": 80,
+  "breaksTotal": 346,
+  "breaksWithPage": 346,
+  "inserted": 274,
+  "insertedRatio": 0.791907514450867,
+  "failed": 16,
   "failuresSample": [
     {
-      "page": 9,
-      "reason": "jump-too-large",
-      "left": "ar das ungeheure Ethos notwen- dig, welches das ganze Lebenswerk Rudolf Steiners",
-      "right": "durchpulst und nichts anderes mehr für ihn in Betracht kommen ließ als das Wohl "
-    },
-    {
-      "page": 10,
-      "reason": "jump-too-large",
-      "left": "berwältigt hätten. Sein Ich schwebte ja noch über seinen physischen Hüllen, sein",
-      "right": "Selbstbewußtsein war nicht erwacht. Dieses immer mehr zur Erweckung zu bringen, "
-    },
-    {
-      "page": 11,
-      "reason": "jump-too-large",
-      "left": " Landen den Führer findet. Ein solches war nicht vorhanden, bevor Rudolf Steiner",
-      "right": "sein Geisteswerk begann. Seine Tat ist - die «Wissen- schaft» von der Initiation"
-    },
-    {
-      "page": 12,
-      "reason": "jump-too-large",
-      "left": "reinbricht, gleich dem Wun- der der aufleuchtenden Blüte in der grünen Pflanzen-",
-      "right": "weit. Doch ohne diese durch weise Mächte von Form zu Form durchgeführte Wandlung"
-    },
-    {
-      "page": 14,
-      "reason": "jump-too-large",
-      "left": "ng mancher Einzelheiten schärfer zu betonen, wie es bei dem, der Geistesschulung",
-      "right": "sucht im Sinne der gegenwärtigen geistigen Bedingun- gen, viel mehr auf ein völl"
-    },
-    {
-      "page": 18,
+      "page": 99,
       "reason": "no-match",
-      "left": "handen, als diese Dinge selbst auf die Seele wirken. Das innere Leben aber hängt",
-      "right": "davon ab, daß Wahrnehmung an Wahrnehmung gereiht wird. Das «Ich» orientiert sich"
+      "lecture": 3
     },
     {
-      "page": 19,
+      "page": 100,
       "reason": "no-match",
-      "left": "keinen Begriff, wenn ein äußerer Sinnesgegenstand nicht vorhanden ist. Das «Ich»",
-      "right": "bleibt dann untätig. Wer sich Bilder formt, denen Sin- nesgegenstände entspreche"
+      "lecture": 3
     },
     {
-      "page": 20,
+      "page": 215,
       "reason": "no-match",
-      "left": "ind ja nur Einbildungen, bloße Ausflüsse meines Vorstellungslebens.» Das ist nur",
-      "right": "zu begreiflich. Denn der Mensch ist zunächst ja daran gewöhnt, nur dasjenige «wi"
+      "lecture": 7
     },
     {
-      "page": 21,
+      "page": 216,
       "reason": "no-match",
-      "left": "sind auch solche Bilder nicht mehr vorhanden. Der Mensch lebt ganz in einer rein",
-      "right": "geistigen Welt. Wer nur gewöhnt ist, sich an die Sinne 2u halten, wird versucht "
+      "lecture": 7
     },
     {
-      "page": 23,
+      "page": 303,
       "reason": "no-match",
-      "left": "heinbar sie aber ist: für den, der sie ganz versteht, ist sie von der allerweit-",
-      "right": "tragendsten Bedeutung. Sie ist die folgende: Ein jedes Ding der Außenwelt kann v"
+      "lecture": 11
     },
     {
-      "page": 24,
+      "page": 305,
       "reason": "no-match",
-      "left": "man lernen muß, ist gerade die Gewöhnung daran, etwas ganz anderes «wirklich» zu",
-      "right": "nennen, als was man im Bereich der Sinne so bezeichnet. Und dies ist nicht ganz "
+      "lecture": 11
     },
     {
-      "page": 25,
+      "page": 307,
       "reason": "no-match",
-      "left": "tet sie: das ist ihre Tätigkeit. Diese stellt sie während des Schlafes ein. Aber",
-      "right": "sie ist keineswegs untätig. Sie arbeitet schlafend an dem eigenen Leibe. Dieser "
+      "lecture": 11
     },
     {
-      "page": 26,
+      "page": 315,
       "reason": "no-match",
-      "left": "ungen unternehmen. Denn nur wer Erfahrung auf diesem Gebiete hat, kann ermessen,",
-      "right": "welche Wirkung bei dem einen oder dem anderen Men- schen sich einstellen muß, we"
+      "lecture": 11
     },
     {
-      "page": 27,
+      "page": 316,
       "reason": "no-match",
-      "left": "die Erlebnisse der Nacht. Die Erinnerung, daß man in der Nacht wahrgenommen hat,",
-      "right": "tritt nur ganz langsam und allmählich ein. Denn der Schüler lernt nicht leicht a"
+      "lecture": 11
     },
     {
-      "page": 28,
+      "page": 317,
       "reason": "no-match",
-      "left": "tracht. Der Mensch gehört dieser sichtbaren Natur an. Gäbe es um ihn herum nicht",
-      "right": "das Mineral-, Pflanzen-, Tierreich und dasjenige der anderen Menschen: er könnte"
+      "lecture": 11
     },
     {
-      "page": 29,
+      "page": 322,
       "reason": "no-match",
-      "left": "ner verderbliche Kräfte aus den Elementarreichen bemächtigen. Darin besteht eine",
-      "right": "Gefahr der höheren Entwickelung. Es muß daher dafür gesorgt werden, daß, sobald "
+      "lecture": 11
     },
     {
-      "page": 30,
+      "page": 328,
       "reason": "no-match",
-      "left": " ganz bewußter Weise bei allen Dingen fortwährend darauf bedacht sein, das Blei-",
-      "right": "bende, Unvergängliche von dem Vergänglichen abzu- sondern, und auf das erstere s"
+      "lecture": 11
     },
     {
-      "page": 31,
+      "page": 342,
       "reason": "no-match",
-      "left": "lt erreicht man, wenn man sich bemüht, dem Irrlichtelieren der Gedanken und Emp-",
-      "right": "findungen, die beim gewöhnlichen Menschen immer auf- und abwogen, entgegenzuarbe"
+      "lecture": 11
     },
     {
-      "page": 32,
+      "page": 344,
       "reason": "no-match",
-      "left": "gebenen Richtung mehr als alles, wozu man vom äußeren Leben gedrängt wird. - Er-",
-      "right": "tragsamkeit ist das Entfernthalten von jener Stimmung, die man bezeichnen kann m"
+      "lecture": 11
     },
     {
-      "page": 33,
+      "page": 345,
       "reason": "no-match",
-      "left": "ähnen des Tieres. So kann man den Dingen gegenüber empfinden; in allem, auch dem",
-      "right": "Widrigsten, mag sich für den, welcher ernstlich sucht, et- was Anerkennenswertes"
+      "lecture": 11
+    },
+    {
+      "page": 347,
+      "reason": "no-match",
+      "lecture": 11
     }
   ]
 }
