@@ -6609,6 +6609,17 @@ Wandtafeln
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
+<!-- Analyse-Modus Auswahl -->
+<div style="display: flex; align-items: center; gap: 16px; margin-left: 12px;">
+  <label class="thematic-mode-radio" style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85em;">
+    <input type="radio" name="thematicMode" value="deep" checked style="accent-color: var(--primary-color); width: 16px; height: 16px; cursor: pointer;">
+    <span style="color: var(--text-color);">Tiefe Analyse</span>
+  </label>
+  <label class="thematic-mode-radio" style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85em;">
+    <input type="radio" name="thematicMode" value="broad" style="accent-color: var(--primary-color); width: 16px; height: 16px; cursor: pointer;">
+    <span style="color: var(--text-color);">Breite Sammlung</span>
+  </label>
+</div>
 <div style="display: flex; gap: 8px; margin-left: auto;">
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()">
   Suche starten
@@ -19980,13 +19991,19 @@ function scrollToChronologicalYear(year) {
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
         
-        const limit = 100; // Default limit
         const gaFilter = document.getElementById('thematicGAFilter').value;
         currentThematicGAFilter = gaFilter || '';
         
-        // Hole ausgewählten Provider aus Keywords-Tab (für größere Token-Limits mit Gemini)
-        const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
-        const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+        // Hole Analyse-Modus aus Radio-Buttons
+        const thematicModeRadio = document.querySelector('input[name="thematicMode"]:checked');
+        const thematicMode = thematicModeRadio ? thematicModeRadio.value : 'deep';
+        
+        // Modus-basierte Einstellungen:
+        // - "deep" (Tiefe Analyse): Claude, begrenzte Quellen, qualitative Analyse
+        // - "broad" (Breite Sammlung): Gemini, viele Quellen, umfassende Sammlung
+        const isDeepMode = thematicMode === 'deep';
+        const limit = isDeepMode ? 100 : 300; // Breite Sammlung: mehr Quellen
+        const preferredProvider = isDeepMode ? 'claude' : 'gemini';
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
@@ -19996,7 +20013,8 @@ function scrollToChronologicalYear(year) {
             query: query,
             limit: parseInt(limit),
             gaFilter: gaFilter,
-            preferredProvider: selectedProvider
+            preferredProvider: preferredProvider,
+            thematicMode: thematicMode
           })
         });
         
@@ -26613,38 +26631,49 @@ async function openPagesCorrectionDialog() {
     return;
   }
   
-  // Bestimme welche Vorträge bearbeitet werden sollen
+  // Bestimme welche Vorträge/Bücher bearbeitet werden sollen
   let lectureIds = [];
   let targetDescription = '';
+  let isBookMode = false;
   
   if (selectedLectureIds.size > 0) {
-    // Ausgewählte Vorträge verwenden
+    // Ausgewählte Vorträge/Bücher verwenden
     lectureIds = Array.from(selectedLectureIds);
-    targetDescription = `${lectureIds.length} ausgewählte(r) Vortrag/Vorträge`;
+    targetDescription = `${lectureIds.length} ausgewählte(r) Eintrag/Einträge`;
   } else {
     // Aktuell angezeigten GA-Band verwenden
     const gaNumber = document.getElementById('texteGAFilter')?.value;
     if (!gaNumber) {
-      alert('Bitte wählen Sie zuerst einen GA-Band aus oder markieren Sie Vorträge mit den Checkboxen.');
+      alert('Bitte wählen Sie zuerst einen GA-Band aus oder markieren Sie Einträge mit den Checkboxen.');
       return;
     }
-    targetDescription = `GA-Band ${gaNumber}`;
     
-    // Hole alle Vorträge des GA-Bands
+    // Prüfe ob es ein Buch ist (GA001-GA045 sind typischerweise Bücher)
+    const gaNum = parseInt(gaNumber.replace(/[^0-9]/g, ''));
+    isBookMode = gaNum >= 1 && gaNum <= 45;
+    
+    targetDescription = `GA-Band ${gaNumber}` + (isBookMode ? ' (Schrift)' : '');
+    
+    // Hole alle Vorträge/Bücher des GA-Bands
     try {
       const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
       if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
       const data = await resp.json();
-      const lectures = data.lectures || [];
       
-      if (lectures.length === 0) {
-        alert('Keine Vorträge in diesem GA-Band gefunden.');
-        return;
+      // Für Bücher: Verwende die GA-Nummer als ID
+      if (data.isBook || isBookMode) {
+        lectureIds = [gaNumber.toUpperCase()];
+        isBookMode = true;
+      } else {
+        const lectures = data.lectures || [];
+        if (lectures.length === 0) {
+          alert('Keine Vorträge in diesem GA-Band gefunden.');
+          return;
+        }
+        lectureIds = lectures.map(l => l.ID);
       }
-      
-      lectureIds = lectures.map(l => l.ID);
     } catch (err) {
-      alert('Fehler beim Laden der Vorträge: ' + err.message);
+      alert('Fehler beim Laden: ' + err.message);
       return;
     }
   }
@@ -26801,10 +26830,16 @@ async function displayPagesCorrectionUI(analysisResult, lectureIds, targetDescri
         <td style="padding: 0.5rem; text-align: center;">
           ${lecture.pageCount > 0 ? `
             <button class="depth-btn" onclick="openPageCorrectionForLecture('${lecture.id}')" 
-                    style="padding: 2px 8px; font-size: 0.8em;" title="Seitenzahlen für diesen Vortrag korrigieren">
+                    style="padding: 2px 8px; font-size: 0.8em;" title="Seitenzahlen korrigieren">
               Korrigieren
             </button>
-          ` : '—'}
+          ` : `
+            <button class="depth-btn" onclick="generatePagesForLecture('${lecture.id}')" 
+                    style="padding: 2px 8px; font-size: 0.8em; background: #5cb85c; color: white; border: none;" 
+                    title="Seitenzahlen aus Pagebreaks generieren">
+              Generieren
+            </button>
+          `}
         </td>
       </tr>
     `;
@@ -26816,9 +26851,24 @@ async function displayPagesCorrectionUI(analysisResult, lectureIds, targetDescri
       </div>
       
       <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        ${summary.withoutPages > 0 ? `
+          <button class="depth-btn" onclick="generatePagesForMultiple('${lectureIds.filter(id => {
+            const lec = lectures.find(l => l.id === id);
+            return lec && lec.pageCount === 0;
+          }).join(',')}')" 
+                  style="padding: 8px 16px; background: #5cb85c; color: white; border: none;">
+            📄 Seitenzahlen generieren (${summary.withoutPages} ohne)
+          </button>
+        ` : ''}
+        ${summary.withIssues > 0 ? `
+          <button class="depth-btn" onclick="applyBulkPageCorrection('${lectureIds.join(',')}')" 
+                  style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
+            🔧 Probleme korrigieren (${summary.withIssues})
+          </button>
+        ` : ''}
         <button class="depth-btn" onclick="applyBulkPageCorrection('${lectureIds.join(',')}')" 
-                style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-          🔧 Alle Probleme automatisch korrigieren
+                style="padding: 8px 16px; background: #6c757d; color: white; border: none;">
+          🔄 Alle neu generieren/korrigieren
         </button>
         <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
           Schließen
@@ -27172,6 +27222,197 @@ async function applyBulkPageCorrection(lectureIdsString) {
         <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
       </div>
     `;
+  }
+}
+
+// ============================================================================
+// SEITENZAHLEN-GENERIERUNG FÜR EINZELNE VORTRÄGE
+// ============================================================================
+
+/**
+ * Generiert Seitenzahlen für einen einzelnen Vortrag aus den Pagebreaks
+ */
+async function generatePagesForLecture(lectureId) {
+  const viewer = document.getElementById('viewer');
+  
+  viewer.innerHTML = `
+    <div style="padding: 2rem; text-align: center;">
+      <p>Generiere Seitenzahlen für ${lectureId}...</p>
+    </div>
+  `;
+  
+  try {
+    // Extrahiere GA-Nummer
+    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+    if (!gaMatch) {
+      throw new Error('Ungültige Lecture-ID');
+    }
+    const gaNumber = gaMatch[1].toUpperCase();
+    
+    // Prüfe ob Pagebreaks existieren
+    const statusResp = await fetch(`${API_BASE}/api/pages/status/${encodeURIComponent(gaNumber)}`);
+    const status = await statusResp.json();
+    
+    if (!status.hasPagebreaks) {
+      // Pagebreaks müssen erst generiert werden
+      viewer.innerHTML = `
+        <div style="padding: 2rem;">
+          <h3 style="color: #f0ad4e;">⚠ Pagebreaks fehlen für ${gaNumber}</h3>
+          <p>Bevor Seitenzahlen eingefügt werden können, müssen die Pagebreaks aus dem PDF extrahiert werden.</p>
+          <div style="margin-top: 1rem;">
+            <button class="depth-btn" onclick="generatePagebreaksForGAs('${gaNumber}')" 
+                    style="padding: 8px 16px; background: #ffc107; color: #212529; border: none;">
+              📑 Pagebreaks generieren
+            </button>
+            <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; margin-left: 1rem;">
+              Zurück
+            </button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+    
+    // Generiere Pagebreaks für den gesamten GA-Band und lade dann neu
+    // force=true: Auch wenn Pagebreaks existieren, neu generieren (für Vorträge ohne Seitenzahlen)
+    const resp = await fetch(`${API_BASE}/api/pages/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gaNumber, force: true })
+    });
+    
+    const result = await resp.json();
+    
+    if (result.success) {
+      viewer.innerHTML = `
+        <div style="padding: 2rem;">
+          <h3 style="color: #5cb85c;">✓ Seitenzahlen generiert</h3>
+          <p>${result.message || 'Seitenzahlen wurden erfolgreich eingefügt.'}</p>
+          <div style="margin-top: 1rem;">
+            <button class="depth-btn" onclick="showLecture('${lectureId}')" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
+              Vortrag anzeigen
+            </button>
+            <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; margin-left: 1rem;">
+              Zurück zur Übersicht
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      throw new Error(result.error || 'Unbekannter Fehler');
+    }
+    
+  } catch (err) {
+    console.error('[PAGES] Generierung Fehler:', err);
+    viewer.innerHTML = `
+      <div style="padding: 2rem;">
+        <h3 style="color: #d9534f;">❌ Fehler bei der Generierung</h3>
+        <p>${err.message}</p>
+        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
+      </div>
+    `;
+  }
+}
+
+/**
+ * Generiert Seitenzahlen für mehrere Vorträge
+ */
+async function generatePagesForMultiple(lectureIdsString) {
+  const lectureIds = lectureIdsString.split(',').filter(Boolean);
+  
+  if (lectureIds.length === 0) {
+    alert('Keine Vorträge zum Generieren ausgewählt.');
+    return;
+  }
+  
+  const viewer = document.getElementById('viewer');
+  
+  // Ermittle betroffene GA-Bände
+  const gaNumbers = [...new Set(lectureIds.map(id => {
+    const match = id.match(/^(GA\d{3}[a-z]?)/i);
+    return match ? match[1].toUpperCase() : null;
+  }).filter(Boolean))];
+  
+  viewer.innerHTML = `
+    <div style="padding: 2rem;">
+      <h3 style="margin-bottom: 1rem;">📄 Seitenzahlen werden generiert...</h3>
+      <div id="gen-progress">
+        ${gaNumbers.map(ga => `
+          <div id="gen-${ga}" style="padding: 0.5rem; margin-bottom: 0.5rem; background: var(--code-bg); border-radius: 4px;">
+            <span style="color: #17a2b8;">⏳</span> ${ga}: Warte...
+          </div>
+        `).join('')}
+      </div>
+      <p style="color: #666; font-size: 0.9em; margin-top: 1rem;">
+        Die Seitenzahlen werden aus den Pagebreaks eingefügt...
+      </p>
+    </div>
+  `;
+  
+  let successCount = 0;
+  let errorCount = 0;
+  
+  for (const gaNumber of gaNumbers) {
+    const progressDiv = document.getElementById(`gen-${gaNumber}`);
+    if (progressDiv) {
+      progressDiv.innerHTML = `<span style="color: #17a2b8;">⏳</span> ${gaNumber}: Generiere...`;
+    }
+    
+    try {
+      // Prüfe ob Pagebreaks existieren
+      const statusResp = await fetch(`${API_BASE}/api/pages/status/${encodeURIComponent(gaNumber)}`);
+      const status = await statusResp.json();
+      
+      // Generiere Pagebreaks (force=true: auch wenn bereits vorhanden, neu generieren)
+      if (progressDiv) {
+        progressDiv.innerHTML = `<span style="color: #17a2b8;">⏳</span> ${gaNumber}: Generiere Seitenzahlen...`;
+      }
+      
+      const resp = await fetch(`${API_BASE}/api/pages/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gaNumber, force: true })
+      });
+      
+      const result = await resp.json();
+      
+      if (result.success) {
+        if (progressDiv) {
+          progressDiv.innerHTML = `<span style="color: #5cb85c;">✓</span> ${gaNumber}: Seitenzahlen eingefügt`;
+        }
+        successCount++;
+      } else {
+        throw new Error(result.error);
+      }
+      
+    } catch (err) {
+      errorCount++;
+      if (progressDiv) {
+        progressDiv.innerHTML = `<span style="color: #d9534f;">✗</span> ${gaNumber}: ${err.message}`;
+      }
+    }
+  }
+  
+  // Zeige Zusammenfassung
+  const summaryHtml = `
+    <div style="margin-top: 1.5rem; padding: 1rem; background: ${errorCount === 0 ? '#d4edda' : '#fff3cd'}; border-radius: 8px;">
+      <h4>${errorCount === 0 ? '✓ Generierung abgeschlossen' : '⚠ Generierung mit Warnungen'}</h4>
+      <p>Erfolgreich: ${successCount} GA-Bände</p>
+      ${errorCount > 0 ? `<p style="color: #856404;">Fehler: ${errorCount} GA-Bände</p>` : ''}
+      <div style="margin-top: 1rem;">
+        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
+          🔄 Erneut analysieren
+        </button>
+        <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px; margin-left: 1rem;">
+          Schließen
+        </button>
+      </div>
+    </div>
+  `;
+  
+  const progressContainer = document.getElementById('gen-progress');
+  if (progressContainer) {
+    progressContainer.insertAdjacentHTML('afterend', summaryHtml);
   }
 }
 
