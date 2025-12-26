@@ -14,7 +14,7 @@ if sys.platform == "win32":
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 SCRIPT_DIR = Path(__file__).parent
-PAGEBREAK_DIR = SCRIPT_DIR / "pagebreak-books"
+PAGEBREAK_DIR = SCRIPT_DIR / "pagebreaks"
 
 def main():
     # GA301 bis GA354

@@ -26,7 +26,7 @@ if sys.platform == "win32":
 
 SCRIPT_DIR = Path(__file__).parent
 PDF_DIR = SCRIPT_DIR / "Steiner_GA_pdf"
-PAGEBREAK_DIR = SCRIPT_DIR / "pagebreak-books"
+PAGEBREAK_DIR = SCRIPT_DIR / "pagebreaks"
 
 
 def find_pdf_for_ga(ga_num: int) -> Path | None:

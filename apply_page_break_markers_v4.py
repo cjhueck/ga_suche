@@ -13,7 +13,7 @@ JSON-Buchtext die exakte Einfügeposition pro Seitenumbruch.
 Ergebnis (Test-Workflow):
   - schreibt standardmäßig KEINE bestehenden steiner-books-*.json um
   - erzeugt stattdessen ein GA-spezifisches Test-Output mit eingefügten Markern
-  - Output wird in pagebreak-books/ gespeichert (Override für Backend)
+  - Output wird in pagebreaks/ gespeichert (Override für Backend)
 
 Marker-Syntax (intern):
   |<page>|
@@ -22,8 +22,8 @@ Beispiel:
 
 Aufruf:
   python apply_page_break_markers_v4.py GA004
-  python apply_page_break_markers_v4.py GA004 --out pagebreak-books/GA004.json
-  python apply_page_break_markers_v4.py GA051 --out pagebreak-books/GA051.json
+  python apply_page_break_markers_v4.py GA004 --out pagebreaks/GA004.json
+  python apply_page_break_markers_v4.py GA051 --out pagebreaks/GA051.json
 """
 
 from __future__ import annotations
@@ -553,19 +553,54 @@ def find_word_boundary(text: str, pos: int) -> int:
     return word_end
 
 
-def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tuple[int, int, int]]) -> None:
+def apply_insertions_to_paragraphs(
+    paragraphs: List[Dict], 
+    insertions: List[Tuple[int, int, int]],
+    expected_min: Optional[int] = None,
+    expected_max: Optional[int] = None
+) -> int:
     """
     insertions: List[(para_idx, char_idx, page)] - muss pro Absatz absteigend sortiert angewendet werden.
+    expected_min/max: Optionaler erwarteter Seitenbereich für den Vortrag.
     
-    Verbesserte Version:
+    Intelligente Version mit eingebauter Korrekturlogik:
     - Verschiebt Marker auf Wortgrenzen (nicht mitten ins Wort)
     - Verhindert doppelte Marker an derselben Stelle
+    - Verhindert globale Duplikate (dieselbe Seitenzahl mehrfach im Text)
+    - Filtert Seitenzahlen außerhalb des erwarteten Bereichs (mit Toleranz)
     - Entfernt doppelte aufeinanderfolgende Seitenzahlen
+    
+    Returns: Anzahl der tatsächlich eingefügten Seitenzahlen
     """
-    by_para: Dict[int, List[Tuple[int, int]]] = {}
+    # Sammle bereits im Text vorhandene Seitenzahlen (vor dem Einfügen)
+    existing_pages: set = set()
+    for para in paragraphs:
+        content = para.get("content") or ""
+        for m in re.finditer(r'\|<?(\d+)>?\|', content):
+            existing_pages.add(int(m.group(1)))
+    
+    # Filtere Insertions VOR dem Einfügen
+    filtered_insertions = []
+    tolerance = 1  # Erlaube 1 Seite Toleranz am Rand des Bereichs
+    
     for p_i, c_i, page in insertions:
+        # Bereichsprüfung (wenn angegeben)
+        if expected_min is not None and expected_max is not None:
+            if page < expected_min - tolerance or page > expected_max + tolerance:
+                continue  # Überspringe Seitenzahlen außerhalb des Bereichs
+        
+        # Globale Duplikat-Prüfung
+        if page in existing_pages:
+            continue  # Diese Seitenzahl existiert bereits
+        
+        filtered_insertions.append((p_i, c_i, page))
+        existing_pages.add(page)  # Merke, dass diese Seite jetzt verwendet wird
+    
+    by_para: Dict[int, List[Tuple[int, int]]] = {}
+    for p_i, c_i, page in filtered_insertions:
         by_para.setdefault(p_i, []).append((c_i, page))
 
+    inserted_count = 0
     for p_i, items in by_para.items():
         # absteigend nach char_idx
         items.sort(key=lambda t: t[0], reverse=True)
@@ -593,6 +628,7 @@ def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tupl
             inserted_positions.add(c_i)
             
             s = s[:c_i] + marker + s[c_i:]
+            inserted_count += 1
             
             # Aktualisiere alle nachfolgenden Positionen (wir gehen absteigend, also nicht nötig)
         
@@ -600,6 +636,69 @@ def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tupl
         s = re.sub(r'\|(\d+)\|\|(\d+)\|', lambda m: f"|{m.group(2)}|", s)
         
         paragraphs[p_i]["content"] = s
+    
+    # NACHBEREINIGUNG: Entferne nicht-sequentielle Seitenzahlen
+    # (Seiten, die große Sprünge machen und wahrscheinlich falsch zugeordnet sind)
+    cleanup_count = cleanup_non_sequential_pages(paragraphs, expected_min, expected_max)
+    
+    return inserted_count - cleanup_count
+
+
+def cleanup_non_sequential_pages(
+    paragraphs: List[Dict], 
+    expected_min: Optional[int] = None, 
+    expected_max: Optional[int] = None
+) -> int:
+    """
+    Entfernt Seitenzahlen, die nicht sequentiell sind (große Sprünge nach vorne/hinten).
+    Diese entstehen, wenn Anker an falschen Stellen im Text passen.
+    """
+    # Sammle alle Seitenzahlen mit Position
+    all_pages = []
+    for para_idx, para in enumerate(paragraphs):
+        content = para.get("content") or ""
+        for m in re.finditer(r'\|<?(\d+)>?\|', content):
+            all_pages.append({
+                "page": int(m.group(1)),
+                "para_idx": para_idx,
+                "match_idx": m.start(),
+                "match_len": len(m.group(0))
+            })
+    
+    if len(all_pages) < 3:
+        return 0
+    
+    # Identifiziere Seiten, die nicht-sequentiell sind
+    to_remove = []
+    last_valid_page = all_pages[0]["page"]
+    
+    for i in range(1, len(all_pages)):
+        current = all_pages[i]
+        diff = current["page"] - last_valid_page
+        
+        # Großer Vorwärtssprung (> 5 Seiten) - wahrscheinlich falsche Zuordnung
+        if diff > 5:
+            to_remove.append(i)
+            continue
+        
+        # Großer Rückwärtssprung (> 2 Seiten zurück)
+        if diff < -2:
+            to_remove.append(i)
+            continue
+        
+        last_valid_page = current["page"]
+    
+    if not to_remove:
+        return 0
+    
+    # Entferne von hinten nach vorne
+    for i in sorted(to_remove, reverse=True):
+        info = all_pages[i]
+        para = paragraphs[info["para_idx"]]
+        content = para.get("content") or ""
+        para["content"] = content[:info["match_idx"]] + content[info["match_idx"] + info["match_len"]:]
+    
+    return len(to_remove)
 
 
 def iter_steiner_lectures_files() -> List[Path]:
@@ -858,9 +957,10 @@ def process_lectures_individually(
         if i + 1 < len(lecture_starts):
             end_page = lecture_starts[i + 1][1]
         else:
-            # Letzter Vortrag: Begrenze auf start_page + 10 Seiten
-            # um Nachwort/Anhang auszuschließen (typischer Vortrag < 10 Seiten)
-            end_page = start_page + 10
+            # Letzter Vortrag: Verwende die letzte verfügbare Seite aus den Breaks
+            # (nicht künstlich begrenzen, da der letzte Vortrag oft länger ist)
+            max_break_page = max(b.get("page", 0) for b in sorted_breaks) if sorted_breaks else start_page
+            end_page = max_break_page + 1  # +1, da end_page exklusiv ist
         
         # Finde Breaks für diesen Vortrag
         lec_breaks = [b for b in sorted_breaks if start_page <= b.get("page", 0) < end_page]
@@ -933,12 +1033,15 @@ def process_lectures_individually(
                 failures.append({"page": page, "reason": "no-match", "lecture": lec_idx})
                 need_resync = True
         
-        # Wende Insertions an
-        apply_insertions_to_paragraphs(paragraphs, insertions)
+        # Wende Insertions an (mit Bereichsprüfung)
+        actual_inserted = apply_insertions_to_paragraphs(
+            paragraphs, insertions, 
+            expected_min=start_page, expected_max=end_page
+        )
         # DEBUG: Zeige erste erfolgreiche Einfügung
         if i < 3:
-            print(f"    Vortrag {lec_idx}: {len(insertions)} Seiten eingefügt (S.{start_page}-{end_page})")
-        inserted_total += len(insertions)
+            print(f"    Vortrag {lec_idx}: {actual_inserted} Seiten eingefügt (S.{start_page}-{end_page})")
+        inserted_total += actual_inserted
     
     return inserted_total, len(sorted_breaks), failures
 

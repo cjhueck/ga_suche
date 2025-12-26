@@ -19,7 +19,7 @@ if sys.platform == "win32":
 
 SCRIPT_DIR = Path(__file__).parent.parent
 PDF_DIR = SCRIPT_DIR / "Steiner_GA_pdf"
-PAGEBREAK_DIR = SCRIPT_DIR / "pagebreak-books"
+PAGEBREAK_DIR = SCRIPT_DIR / "pagebreaks"
 
 
 def find_pdf_for_ga(ga_num: int) -> bool:
@@ -127,7 +127,7 @@ def process_ga(ga_num: int, dry_run: bool = False) -> dict:
         result["reason"] = "Apply fehlgeschlagen"
         return result
     
-    # 4. Nach pagebreak-books kopieren
+    # 4. Nach pagebreaks kopieren
     output_file = SCRIPT_DIR / f"{ga_str}-with-pagebreaks.json"
     target_file = PAGEBREAK_DIR / f"{ga_str}.json"
     

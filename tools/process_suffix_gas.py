@@ -60,9 +60,9 @@ def process_ga(ga_id):
     ):
         return False
     
-    # 4. Nach pagebreak-books kopieren
+    # 4. Nach pagebreaks kopieren
     src = SCRIPT_DIR / f"{ga_id}-with-pagebreaks.json"
-    dst = SCRIPT_DIR / "pagebreak-books" / f"{ga_id}.json"
+    dst = SCRIPT_DIR / "pagebreaks" / f"{ga_id}.json"
     if src.exists():
         import shutil
         shutil.copy(src, dst)

@@ -16,11 +16,11 @@ else:
         v = ga035_entries[k]
         print(f'{k}: start_page={v.get("start_page")}')
 
-# Vergleiche mit pagebreak-books Markern
+# Vergleiche mit pagebreaks Markern
 print()
-print('=== Vergleich mit pagebreak-books/GA035.json ===')
+print('=== Vergleich mit pagebreaks/GA035.json ===')
 import re
-with open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreak-books\GA035.json', encoding='utf-8') as f:
+with open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreaks\GA035.json', encoding='utf-8') as f:
     pb_data = json.load(f)
 
 for lecture in pb_data.get('lectures', []):

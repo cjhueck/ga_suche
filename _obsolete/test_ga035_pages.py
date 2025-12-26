@@ -4,7 +4,7 @@
 import json
 import re
 
-data = json.load(open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreak-books\GA035.json', encoding='utf-8'))
+data = json.load(open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreaks\GA035.json', encoding='utf-8'))
 lectures = data.get('lectures', [])
 
 print(f'Anzahl Vortraege: {len(lectures)}')

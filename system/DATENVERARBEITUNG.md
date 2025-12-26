@@ -873,8 +873,8 @@ def apply_insertions_to_paragraphs(paragraphs, insertions):
 
 | Datei | Pfad | Beschreibung |
 |-------|------|--------------|
-| Vorträge/Buch mit Markern | `pagebreak-books/GA198.json` | JSON mit eingefügten `\|page\|` Markern |
-| Report | `pagebreak-books/GA198-report.json` | Statistik und Fehler |
+| Vorträge/Buch mit Markern | `pagebreaks/GA198.json` | JSON mit eingefügten `\|page\|` Markern |
+| Report | `pagebreaks/GA198-report.json` | Statistik und Fehler |
 
 **Vortrags-Output Struktur:**
 ```json
@@ -920,14 +920,14 @@ def apply_insertions_to_paragraphs(paragraphs, insertions):
 ### Aufruf
 
 ```powershell
-# Standard: Output in pagebreak-books/
+# Standard: Output in pagebreaks/
 python apply_page_break_markers_v4.py GA198
 
 # Mit explizitem Output-Pfad
-python apply_page_break_markers_v4.py GA198 --out pagebreak-books/GA198.json
+python apply_page_break_markers_v4.py GA198 --out pagebreaks/GA198.json
 
 # Mit Report-Pfad
-python apply_page_break_markers_v4.py GA198 --out pagebreak-books/GA198.json --report pagebreak-books/GA198-report.json
+python apply_page_break_markers_v4.py GA198 --out pagebreaks/GA198.json --report pagebreaks/GA198-report.json
 ```
 
 ---
@@ -1117,7 +1117,7 @@ Batch-Verarbeitung: Führt `export_page_markers_v4.py` und `apply_page_break_mar
 | Quelle | Beschreibung |
 |--------|--------------|
 | PDF-Dateien | `Steiner_GA_pdf/*.pdf` |
-| Bestehende Pagebreaks | `pagebreak-books/GA*.json` (zum Überspringen bereits verarbeiteter) |
+| Bestehende Pagebreaks | `pagebreaks/GA*.json` (zum Überspringen bereits verarbeiteter) |
 
 ### Verarbeitungsschritte (detailliert)
 
@@ -1154,10 +1154,10 @@ def main():
         print(f"[2/2] Wende Marker auf Vorträge an...")
         subprocess.run([
             "python", "apply_page_break_markers_v4.py", ga_str,
-            "--out", f"pagebreak-books/{ga_str}.json",
-            "--report", f"pagebreak-books/{ga_str}-report.json"
+            "--out", f"pagebreaks/{ga_str}.json",
+            "--report", f"pagebreaks/{ga_str}-report.json"
         ])
-        # → Erzeugt pagebreak-books/GA198.json und GA198-report.json
+        # → Erzeugt pagebreaks/GA198.json und GA198-report.json
         
         processed += 1
     
@@ -1206,8 +1206,8 @@ ZUSAMMENFASSUNG
 | Datei | Pfad | Beschreibung |
 |-------|------|--------------|
 | Break-Marker | `page-break-markers.json` | Wird erweitert |
-| Pagebreaks | `pagebreak-books/GA*.json` | Pro GA eine Datei |
-| Reports | `pagebreak-books/GA*-report.json` | Pro GA ein Report |
+| Pagebreaks | `pagebreaks/GA*.json` | Pro GA eine Datei |
+| Reports | `pagebreaks/GA*-report.json` | Pro GA ein Report |
 
 ### Aufruf
 
@@ -1298,7 +1298,7 @@ python batch_generate_pagebreaks.py --check
          │                                   │
          │                                   ▼
          │                    ┌───────────────────────────────┐
-         │                    │       pagebreak-books/        │
+         │                    │       pagebreaks/        │
          │                    │  GA*.json (mit |page| Markern)│
          │                    │  GA*-report.json (Statistik)  │
          │                    └───────────────┬───────────────┘
@@ -1313,7 +1313,7 @@ python batch_generate_pagebreaks.py --check
                    │                             │
                    │  • steiner-books/*.json     │
                    │  • steiner-full-lectures/   │
-                   │  • pagebreak-books/ (Override)│
+                   │  • pagebreaks/ (Override)│
                    └──────────────┬──────────────┘
                                   │
                                   ▼
@@ -1330,11 +1330,11 @@ python batch_generate_pagebreaks.py --check
 
 ## 11. Backend-Integration
 
-Das Backend (`backend.js`) lädt beim Start automatisch die Pagebreak-Overrides aus `pagebreak-books/`:
+Das Backend (`backend.js`) lädt beim Start automatisch die Pagebreak-Overrides aus `pagebreaks/`:
 
 ```javascript
 // Zeile 729-760 in backend.js
-const overridesDir = path.join(__dirname, 'pagebreak-books');
+const overridesDir = path.join(__dirname, 'pagebreaks');
 const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
 
 // Für jeden Override: Ersetze die Vorträge/Bücher mit den Versionen
@@ -1363,7 +1363,7 @@ python export_page_markers_v4.py GA068c
 python generate_lecture_page_mapping.py GA068c
 
 # 5. Seitenzahlen in JSON einfügen
-python apply_page_break_markers_v4.py GA068c --out pagebreak-books/GA068C.json --report pagebreak-books/GA068C-report.json
+python apply_page_break_markers_v4.py GA068c --out pagebreaks/GA068C.json --report pagebreaks/GA068C-report.json
 
 # 6. Server starten
 node backend.js
@@ -1383,7 +1383,7 @@ python batch_generate_pagebreaks.py 190 200
 python generate_lecture_page_mapping.py GA198
 
 # 2. Dann Pagebreaks neu generieren
-python apply_page_break_markers_v4.py GA198 --out pagebreak-books/GA198.json
+python apply_page_break_markers_v4.py GA198 --out pagebreaks/GA198.json
 ```
 
 ### D) Nur Seitenzahlen aktualisieren (ohne Export)
@@ -1410,14 +1410,14 @@ python batch_generate_pagebreaks.py --check
 
 1. **Prüfen ob Pagebreak-Datei existiert:**
    ```powershell
-   Test-Path pagebreak-books/GA198.json
+   Test-Path pagebreaks/GA198.json
    ```
 
 2. **Server neu starten** (lädt Overrides neu)
 
 3. **Report prüfen** für Einfüge-Quote:
    ```powershell
-   Get-Content pagebreak-books/GA198-report.json
+   Get-Content pagebreaks/GA198-report.json
    ```
 
 ### Problem: Viele "no-match" Fehler

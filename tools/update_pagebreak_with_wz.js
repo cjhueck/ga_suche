@@ -8,7 +8,7 @@ const path = require('path');
 
 const projectDir = path.join(__dirname, '..');
 const exportDir = path.join(projectDir, 'steiner-full-lectures');
-const pagebreakDir = path.join(projectDir, 'pagebreak-books');
+const pagebreakDir = path.join(projectDir, 'pagebreaks');
 
 // GA-Bände die aktualisiert werden sollen
 const gaNumbers = process.argv.slice(2);
