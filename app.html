@@ -20356,12 +20356,17 @@ function scrollToChronologicalYear(year) {
         });
 
         // Letzte bis zu 100 unique Queries mit zugehörigem Cache-Key
+        // Berücksichtige auch das Limit (100=tief, 300=breit) für Einzigartigkeit
         const seen = new Set();
         const recentItems = [];
         for (const e of entries) {
           const q = String(e.query).trim();
-          if (!seen.has(q)) {
-            seen.add(q);
+          // Parse Limit aus Cache-Key für unique-Prüfung
+          const keyParts = (e.key || '').split('|');
+          const limit = keyParts.length >= 3 ? keyParts[2] : '100';
+          const uniqueKey = `${q}|${limit}`; // Query + Limit = unique
+          if (!seen.has(uniqueKey)) {
+            seen.add(uniqueKey);
             recentItems.push({ query: q, key: e.key });
             if (recentItems.length >= 100) break;
           }
