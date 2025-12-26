@@ -10463,11 +10463,9 @@ function normalizeGANumber(gaNumber) {
         const response = await fetch(`${API_BASE}/debug/status`);
         if (response.ok) {
           const data = await response.json();
-          // Setze nur Werte, die der Server zurückgibt
-          // Aufsätze werden aus GA-Volumes berechnet, nicht vom Server
+          // Setze Werte aus Server-Response (Vorträge, Aufsätze, Schriften)
           if (data.lecturesLoaded) totalLecturesCount = data.lecturesLoaded;
           if (data.booksLoaded) totalBooksCount = data.booksLoaded;
-          // essaysLoaded wird nicht vom Server geliefert - Wert aus GA-Volumes behalten
           if (data.essaysLoaded) totalEssaysCount = data.essaysLoaded;
           
           // NUR Statistik anzeigen wenn ALLE drei Werte vorhanden sind (inkl. Aufsätze)

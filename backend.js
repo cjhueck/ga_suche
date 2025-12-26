@@ -296,6 +296,60 @@ let gaOverviewCache = {};
 let queryLog = {}; // NEU: Für Query-Tracking
 let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
+// Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
+// GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
+// Zusätzlich: GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+function isEssayGANumber(gaNumber) {
+  if (!gaNumber) return false;
+  const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
+  const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
+  // GA041b ist speziell - prüfe auf "b" Suffix
+  if (normalized === '041b' || normalized === '41b') return true;
+  // Zusätzliche Aufsatzbände: GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [19, 24, 26, 42, 43, 44];
+  if (additionalEssayBands.includes(gaNum)) return true;
+  // GA029-GA037 und GA046
+  return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
+}
+
+// Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
+// Bücher: GA001-GA028 (ohne die Aufsatzbände GA019, GA024, GA026)
+function isBookGANumberBackend(gaNumber) {
+  if (!gaNumber) return false;
+  // Wenn es ein Aufsatzband ist, ist es KEIN Buch
+  if (isEssayGANumber(gaNumber)) return false;
+  const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
+  const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
+  // GA001-GA028 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
+  return gaNum >= 1 && gaNum <= 28;
+}
+
+// Hilfsfunktion: Extrahiert GA-Nummer aus Lecture-ID (z.B. "GA078/1" -> "GA078")
+function extractGAFromLectureId(lectureId) {
+  if (!lectureId) return null;
+  const match = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+  return match ? match[1] : null;
+}
+
+// Hilfsfunktion: Zählt Vorträge, Aufsätze und Schriften
+function countLectureTypes() {
+  let lectures = 0;
+  let essays = 0;
+  
+  for (const lectureId of Object.keys(fullLectures)) {
+    const ga = extractGAFromLectureId(lectureId);
+    if (ga) {
+      if (isEssayGANumber(ga)) {
+        essays++;
+      } else if (!isBookGANumberBackend(ga)) {
+        lectures++;
+      }
+    }
+  }
+  
+  return { lectures, essays, books: Object.keys(fullBooks).length };
+}
+
 // Hilfsfunktion: Synonym-Expansion
 function expandSynonyms(query) {
   const words = query.toLowerCase().split(/\W+/);
@@ -5645,12 +5699,16 @@ app.get('/debug/status', async (req, res) => {
     }
   }
   
+  // Zähle Vorträge, Aufsätze und Schriften für korrekte Statistik
+  const typeCounts = countLectureTypes();
+  
   res.json({
     server: 'hybrid-search-unified',
     status: 'running',
     chunksLoaded: chunks.length,
-    lecturesLoaded: Object.keys(fullLectures).length,
-    booksLoaded: Object.keys(fullBooks).length,
+    lecturesLoaded: typeCounts.lectures, // Nur echte Vorträge (ohne Aufsätze)
+    essaysLoaded: typeCounts.essays, // Aufsätze separat
+    booksLoaded: typeCounts.books, // Schriften (Bücher)
     bookFilesFound: bookFiles.length,
     bookFiles: bookFiles,
     books: Object.keys(fullBooks),
