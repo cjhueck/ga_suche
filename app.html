@@ -4256,6 +4256,17 @@ body.dark-mode #thematicSearchInfo {
       margin-top: 0;
     }
     
+    /* Scroll-Offset für TOC-Navigation (2 Zeilen Abstand zum Header) */
+    #viewer h1,
+    #viewer h2,
+    #viewer h3,
+    #viewer h4,
+    #viewer h5,
+    #viewer h6,
+    #viewer [id^="heading-"] {
+      scroll-margin-top: 80px;
+    }
+    
     #viewer > p:first-of-type {
       font-style: italic;
       margin-bottom: 1rem;
