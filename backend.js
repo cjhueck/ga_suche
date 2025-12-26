@@ -3257,7 +3257,7 @@ app.post('/api/advanced-search', async (req, res) => {
 // LLM ANALYSE
 // ============================================================================
 
-async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null) {
+async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep') {
   
   // Hole passenden LLM-Provider
   let provider;
@@ -3354,15 +3354,69 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
   
   
   const maxTokens = {
-    'allgemein': 4000,    // Erhöht von 2000 auf 4000
-    'ausführlich': 8000   // Erhöht von 6000 auf 8000
+    'allgemein': 4000,
+    'ausführlich': 8000,
+    'broad': 32000  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
   };
   
-  // Erzwinge immer den ausführlichen Prompt unabhängig vom übergebenen depth
-  const effectiveDepth = 'ausführlich';
-  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+  // Wähle Prompt basierend auf thematicMode
+  let prompt;
+  
+  if (thematicMode === 'broad') {
+    // BREITE SAMMLUNG: Gemini - viele Quellen, kurze Zusammenfassungen
+    console.log(`[ANALYSIS] Modus: Breite Sammlung - ${topResults.length} Quellen`);
+    prompt = `Erstelle eine umfassende Quellensammlung zu: "${query}"
 
-ANALYSE-TIEFE: ${effectiveDepth}
+MODUS: Breite Quellensammlung
+Du bist ein Assistent zur Sammlung und Darstellung von Textmaterial aus Rudolf Steiners Gesamtausgabe (GA).
+
+ZIEL: Sammle möglichst viele relevante Aussagen zum Thema und fasse sie kurz zusammen.
+
+ARBEITSWEISE:
+- Fasse jeden relevanten Inhalt in 1-2 kurzen, prägnanten Sätzen zusammen
+- Kurze, treffende Zitate oder Zitat-Ausschnitte in "Anführungszeichen" sind erlaubt
+- Nach JEDER Zusammenfassung oder jedem Zitat die Quelle angeben
+- Quellenformat: (GA###/lectureNum:index), z.B. (GA052/7:n5x6ru)
+- Gliedere das Material mit aussagekräftigen Zwischenüberschriften (## Format)
+
+STILISTISCHE ANFORDERUNGEN:
+- Beginne direkt mit Inhalten, keine Einleitung
+- Kurze, prägnante Sätze
+- Keine Wiederholungen oder Redundanzen
+- Keine eigenen Interpretationen
+- Decke möglichst VIELE verschiedene Aspekte und Quellen ab
+
+STRUKTUR:
+- Eigene thematische Zwischenüberschriften (## Format)
+- Unter jeder Überschrift: mehrere kurze Zusammenfassungen mit Quellenangaben
+- Am Ende: ## Fazit (kurz, ohne Quellenangaben)
+- Danach: ## Weitere relevante Quellen
+
+QUELLENANGABEN IM TEXT:
+- Format: (GA###/lectureNum:index)
+- EIN Leerzeichen VOR der öffnenden Klammer
+- KEINE Leerzeichen INNERHALB der Klammern
+- WICHTIG: Der Satzpunkt kommt NACH der Quellenangabe, nicht davor!
+- Richtig: "...hervortreten (GA336/1)." oder "...muss (GA079/2), (GA226/5)."
+- Falsch: "...hervortreten. (GA336/1)" oder "...muss. (GA079/2)"
+
+WEITERE RELEVANTE QUELLEN:
+Liste am Ende unter ## "Weitere relevante Quellen" zusätzliche Quellen auf, die im Text NICHT genannt wurden.
+Format: GA###/lectureNum:index (ohne Klammern), komma-getrennt
+
+Verfügbare Referenzen: ${availableRefs}
+Anzahl Quellen: ${topResults.length} - nutze so viele wie möglich!
+
+TEXTPASSAGEN:
+${contextText}
+
+QUELLENSAMMLUNG:`;
+  } else {
+    // TIEFE ANALYSE: Claude - qualitative Analyse mit Zitaten (wie bisher)
+    console.log(`[ANALYSIS] Modus: Tiefe Analyse - ${topResults.length} Quellen`);
+    prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+
+ANALYSE-TIEFE: ausführlich
 
 Prompt für thematische Textanalyse:
 Du bist ein Assistent zur Analyse und Darstellung von Textmaterial aus Rudolf Steiners Gesamtausgabe (GA).
@@ -3443,6 +3497,9 @@ Beispiel: (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
 EIN Leerzeichen VOR der öffnenden Klammer: "Text (GA052/7:n5x6ru)"
 KEINE Leerzeichen INNERHALB der Klammern
 Vollständiges Format verwenden: Immer GA###/Y:index
+WICHTIG: Der Satzpunkt kommt NACH der Quellenangabe, nicht davor!
+Richtig: "...hervortreten (GA336/1)." oder "...muss (GA079/2), (GA226/5)."
+Falsch: "...hervortreten. (GA336/1)"
 
 
 Schreibe am Ende der Darstellung ein kurzes inhaltliches Fazit unter der ## Überschrift "Fazit" in einem neuen Absatz
@@ -3464,12 +3521,16 @@ TEXTPASSAGEN:
 ${contextText}
 
 ANALYSE:`;
+  }
+  
+  // Bestimme maxTokens basierend auf Modus
+  const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad'] : maxTokens['ausführlich'];
 
   try {
     
     // Verwende Provider-Abstraction
     let analysisText = await provider.generateCompletion(prompt, {
-      maxTokens: maxTokens[effectiveDepth] || 8192,
+      maxTokens: effectiveMaxTokens,
       temperature: 0.7
     });
     
@@ -5877,8 +5938,12 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null } = req.body;
+    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep' } = req.body;
     const effectiveDepth = 'ausführlich';
+    
+    // Log Analyse-Modus
+    const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)' : 'Breite Sammlung (Gemini)';
+    console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
     
     // Prüfe ob Request von localhost kommt
     const isLocalRequest = req.hostname === 'localhost' || 
@@ -5936,7 +6001,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
 
-    let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider);
+    let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode);
 
     let searchResult = {
       query: query,
