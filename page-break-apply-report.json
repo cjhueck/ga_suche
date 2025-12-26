@@ -1,132 +1,102 @@
 {
-  "ga": "GA005",
-  "sourceFile": "steiner-books-005-005.json",
+  "ga": "GA076",
+  "sourceFile": "steiner-full-lectures-076-076.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 194,
-  "breaksWithPage": 194,
-  "inserted": 126,
-  "insertedRatio": 0.6494845360824743,
-  "failed": 68,
+  "breaksTotal": 262,
+  "breaksWithPage": 262,
+  "inserted": 168,
+  "insertedRatio": 0.6412213740458015,
+  "failed": 18,
   "failuresSample": [
     {
-      "page": 7,
+      "page": 58,
       "reason": "no-match",
-      "left": "",
-      "right": "(1895)"
+      "lecture": 1
     },
     {
-      "page": 8,
+      "page": 65,
       "reason": "no-match",
-      "left": "(1895)",
-      "right": ""
+      "lecture": 2
     },
     {
-      "page": 126,
+      "page": 67,
       "reason": "no-match",
-      "left": "hau, 1900) DIE PERSÖNLICHKEIT FRIEDRICH NIETZSCHES. (Die Kommenden, 1900) (1924)",
-      "right": ""
+      "lecture": 2
     },
     {
-      "page": 127,
-      "reason": "jump-too-large",
-      "left": "",
-      "right": "Nicht um die. Behauptungen der Gegner Friedrich Nietzsches zu vermehren, ist das"
+      "page": 75,
+      "reason": "no-match",
+      "lecture": 2
     },
     {
-      "page": 130,
+      "page": 78,
       "reason": "no-match",
-      "left": "en den «kleinen Pastor» genannt haben. Aus alledem geht hervor, daß er die reli-",
-      "right": "giösen Überzeugungen seiner Jugend mit großer Leichtig- keit überwunden hat. Der"
+      "lecture": 2
+    },
+    {
+      "page": 99,
+      "reason": "no-match",
+      "lecture": 3
+    },
+    {
+      "page": 106,
+      "reason": "no-match",
+      "lecture": 3
+    },
+    {
+      "page": 111,
+      "reason": "no-match",
+      "lecture": 3
     },
     {
       "page": 132,
       "reason": "no-match",
-      "left": "n Zuhörer denken will, so denke man sich den Sohn, welchen der Vater unterweist.",
-      "right": "Es ist ein redliches, derbes, gutmütiges Aussprechen, vor einem Hörer, der mit L"
-    },
-    {
-      "page": 133,
-      "reason": "no-match",
-      "left": "ine Ideen über die «Geburt der Tragödie» auf der Grundlage eines philosophischen",
-      "right": "Lehrgebäudes auf, von dem er es dahingestellt sein läßt, ob er es richtig versta"
-    },
-    {
-      "page": 134,
-      "reason": "no-match",
-      "left": "den Inhalt der Weltanschauung Nietzsches einen erheblichen Einfluß ge- habt hat.",
-      "right": "zem erschienenen Buche: «Der Lebensabend einer Ideali- stin» von Nietzsches Stel"
-    },
-    {
-      "page": 136,
-      "reason": "no-match",
-      "left": "rkehr» willen. Die logisch zwingende Kraft der Wahrheit sollte geleugnet werden,",
-      "right": "um eine dem Wesen dieser Wahrheit zuwiderlaufende Gegenmeinung aufstellen zu kön"
-    },
-    {
-      "page": 137,
-      "reason": "no-match",
-      "left": "Wahrheit), sondern um etwas anderes, sagen wir um Gesundheit, Zukunft, Wachstum,",
-      "right": "Macht, Leben ...» So schrieb Nietzsche im Herbste 1886. (In der Vorrede zur zwei"
-    },
-    {
-      "page": 138,
-      "reason": "no-match",
-      "left": "hische Skepsis anderer Per- sönlichkeiten mit dem Kampfe gegen die Wahrheit, den",
-      "right": "Nietzsche führt. Gewöhnlich liegt dieser Skepsis gerade ein ausgesprochener Sinn"
-    },
-    {
-      "page": 139,
-      "reason": "no-match",
-      "left": "ind vier dieser Betrach- tungen fertig geworden. Zwei davon sind Kampfschriften,",
-      "right": "die in grausamster Weise die Schwächen des angegriffenen Gegners oder der Nietzs"
+      "lecture": 3
     },
     {
       "page": 140,
       "reason": "no-match",
-      "left": "ttern. Er schreibt 1888 im «Ecce homo» über das Zerstörungswerk, das er 1876 mit",
-      "right": "«Menschliches, Allzumenschliches» begann: «Ein Irrtum nach dem andern wird gelas"
+      "lecture": 3
     },
     {
-      "page": 141,
+      "page": 248,
       "reason": "no-match",
-      "left": "er besonders klar, wenn man .bedenkt, wie wenig positive Ideen er den Anschauun-",
-      "right": "gen entgegenzusetzen vermag, die er angreift. Er behauptet von der ganzen bisher"
+      "lecture": 11
     },
     {
-      "page": 142,
+      "page": 252,
       "reason": "no-match",
-      "left": "hängnisvollste Art von Unwissenheit». Erst das letzte Kapitel kündet etwas Posi-",
-      "right": "tives an: «Dionysos, Philosophie der ewigen Wieder- kunft.» (Nietzsches Werke, B"
+      "lecture": 11
     },
     {
-      "page": 144,
+      "page": 254,
       "reason": "no-match",
-      "left": "ner Stelle in «Also sprach Zarathustra», wo die Zukunfts- den Gegenwartsmenschen",
-      "right": "gegenübergestellt werden, finden wir folgende Ausschwei- fung der Phantasie: «De"
+      "lecture": 11
     },
     {
-      "page": 145,
+      "page": 255,
       "reason": "no-match",
-      "left": "se einer Abhandlung über den Wert der deutschen Kultur folgender Satz steht, der",
-      "right": "hier mehr sein soll als eine stilistische Pointe: «Es ist für ein Volk klug, sic"
+      "lecture": 11
     },
     {
-      "page": 146,
+      "page": 256,
       "reason": "no-match",
-      "left": "indung. - Aber ich habe Einsamkeit nötig, will sagen, Genesung, Rückkehr zu mir,",
-      "right": "den Atem einer freien leichten spielenden Luft ... Der Ekel am Menschen, am <Ges"
+      "lecture": 11
     },
     {
-      "page": 147,
+      "page": 260,
       "reason": "no-match",
-      "left": "h die unverantwortlichste Gedankenlosigkeit in Grund und Boden zerstört. Man hat",
-      "right": "den Arbeiter militärtüchtig gemacht, man hat ihm das Koalitions-Recht, das polit"
+      "lecture": 11
     },
     {
-      "page": 148,
+      "page": 262,
       "reason": "no-match",
-      "left": "sind, was sich auch sonst im Geistesleben des neunzehnten Jahrhunderts zur Herr-",
-      "right": "schaft heraufgearbeitet hat. Auch fehlte ihm jede Erkennt- nis des Zusammenhange"
+      "lecture": 11
+    },
+    {
+      "page": 264,
+      "reason": "no-match",
+      "lecture": 11
     }
   ]
 }

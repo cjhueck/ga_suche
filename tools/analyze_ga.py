@@ -68,9 +68,9 @@ if found_lectures:
 else:
     print(f"   ✗ Nicht vorhanden")
 
-# 5. pagebreak-books Datei vorhanden?
-print(f"\n5. pagebreak-books/{ga}.json:")
-pb_file = Path(f'pagebreak-books/{ga}.json')
+# 5. pagebreaks Datei vorhanden?
+print(f"\n5. pagebreaks/{ga}.json:")
+pb_file = Path(f'pagebreaks/{ga}.json')
 if pb_file.exists():
     try:
         data = json.load(open(pb_file, 'r', encoding='utf-8'))
@@ -104,7 +104,7 @@ elif not ga_entries:
     print("→ Führe aus: python generate_lecture_page_mapping.py " + ga)
 elif not pb_file.exists():
     print("→ Führe aus: python apply_page_break_markers_v4.py " + ga)
-    print("→ Dann: Copy-Item -Path \"" + ga + "-with-pagebreaks.json\" -Destination \"pagebreak-books\\" + ga + ".json\" -Force")
+    print("→ Dann: Copy-Item -Path \"" + ga + "-with-pagebreaks.json\" -Destination \"pagebreaks\\" + ga + ".json\" -Force")
 else:
     print("→ Alles vorhanden! Server neu laden: Invoke-RestMethod -Uri 'http://localhost:3003/api/reload-books' -Method POST")
 

@@ -3,12 +3,12 @@
 import json
 import re
 
-# Lade pagebreak-books/GA035.json
-with open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreak-books\GA035.json', encoding='utf-8') as f:
+# Lade pagebreaks/GA035.json
+with open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreaks\GA035.json', encoding='utf-8') as f:
     data = json.load(f)
 
 lectures = data.get('lectures', [])
-print(f'Anzahl Vorträge in pagebreak-books/GA035.json: {len(lectures)}')
+print(f'Anzahl Vorträge in pagebreaks/GA035.json: {len(lectures)}')
 print()
 
 # Prüfe jeden Vortrag

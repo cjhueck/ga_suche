@@ -3,8 +3,8 @@
 import json
 import re
 
-# Lade pagebreak-books/GA035.json
-with open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreak-books\GA035.json', encoding='utf-8') as f:
+# Lade pagebreaks/GA035.json
+with open(r'c:\Users\chuec\OneDrive\GitHub\ga_suche\pagebreaks\GA035.json', encoding='utf-8') as f:
     data = json.load(f)
 
 for lecture in data.get('lectures', []):

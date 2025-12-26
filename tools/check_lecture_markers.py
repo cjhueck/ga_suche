@@ -10,7 +10,7 @@ if sys.platform == "win32":
 
 ga = sys.argv[1].upper() if len(sys.argv) > 1 else 'GA068B'
 
-pb_file = f'pagebreak-books/{ga}.json'
+pb_file = f'pagebreaks/{ga}.json'
 try:
     data = json.load(open(pb_file, 'r', encoding='utf-8'))
 except FileNotFoundError:

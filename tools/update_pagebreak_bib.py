@@ -9,7 +9,7 @@ with open('ga-bibliography.json', 'r', encoding='utf-8') as f:
     bib = json.load(f)
 
 for ga_id in target_gas:
-    filepath = f'pagebreak-books/{ga_id}.json'
+    filepath = f'pagebreaks/{ga_id}.json'
     
     try:
         with open(filepath, 'r', encoding='utf-8') as f:

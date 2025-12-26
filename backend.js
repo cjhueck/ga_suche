@@ -805,11 +805,11 @@ async function loadFullLectures() {
     // ============================================================
     // OPTIONAL: Pagebreak-Overrides für Vorträge laden
     // ============================================================
-    // Zweck: Lädt Vorträge mit eingebetteten |<page>|-Markern aus pagebreak-books/
-    // Format: pagebreak-books/GA035.json mit { lectures: [...] }
+    // Zweck: Lädt Vorträge mit eingebetteten |<page>|-Markern aus pagebreaks/
+    // Format: pagebreaks/GA035.json mit { lectures: [...] }
     // ============================================================
     try {
-      const overridesDir = path.join(__dirname, 'pagebreak-books');
+      const overridesDir = path.join(__dirname, 'pagebreaks');
       if (fsSync.existsSync(overridesDir)) {
         const files = await fs.readdir(overridesDir);
         const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
@@ -1036,11 +1036,11 @@ async function loadBooks() {
     // sondern können pro GA einen Override laden, der bereits |<page>|-Marker
     // im Text enthält (z.B. durch apply_page_break_markers_v4.py).
     //
-    // Format: pagebreak-books/GA004.json
+    // Format: pagebreaks/GA004.json
     // Erwartet: { book: { ID:"GA004", paragraphs:[...] } } oder direkt { ID:"GA004", ... }
     // ============================================================
     try {
-      const overridesDir = path.join(__dirname, 'pagebreak-books');
+      const overridesDir = path.join(__dirname, 'pagebreaks');
       if (fsSync.existsSync(overridesDir)) {
         const files = await fs.readdir(overridesDir);
         const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
@@ -7783,6 +7783,1482 @@ app.get('/api/lecture/:lectureId', async (req, res) => {
 });
 
 // ============================================================================
+// PAGES CORRECTION API - Seitenzahlen überprüfen und korrigieren
+// ============================================================================
+
+// Hilfsfunktion: Extrahiert Seitenzahlen aus Content
+function extractPageNumbers(content) {
+  if (!content) return [];
+  
+  const pages = [];
+  // Pattern: |123| oder |<123>| für Seitenzahlen
+  const regex = /\|<?(\d+)>?\|/g;
+  let match;
+  
+  while ((match = regex.exec(content)) !== null) {
+    pages.push({
+      pageNumber: parseInt(match[1]),
+      position: match.index,
+      fullMatch: match[0],
+      context: content.substring(Math.max(0, match.index - 30), Math.min(content.length, match.index + match[0].length + 30))
+    });
+  }
+  
+  return pages;
+}
+
+// Hilfsfunktion: Analysiert Seitenzahlen-Probleme
+function analyzePageIssues(pages) {
+  const issues = [];
+  
+  if (pages.length === 0) {
+    return issues;
+  }
+  
+  // Prüfe auf nicht-sequenzielle Seitenzahlen
+  for (let i = 1; i < pages.length; i++) {
+    const prev = pages[i - 1].pageNumber;
+    const curr = pages[i].pageNumber;
+    
+    if (curr !== prev + 1) {
+      if (curr < prev) {
+        issues.push(`Rückwärtssprung: ${prev} → ${curr}`);
+      } else if (curr > prev + 1) {
+        issues.push(`Lücke: ${prev} → ${curr}`);
+      }
+    }
+  }
+  
+  // Prüfe auf Duplikate
+  const seen = new Set();
+  for (const page of pages) {
+    if (seen.has(page.pageNumber)) {
+      issues.push(`Duplikat: Seite ${page.pageNumber}`);
+    }
+    seen.add(page.pageNumber);
+  }
+  
+  return issues;
+}
+
+// Cache für page-break-markers
+let pageBreakMarkersCache = null;
+
+// Hilfsfunktion: Lädt page-break-markers.json
+async function loadPageBreakMarkers() {
+  if (pageBreakMarkersCache) return pageBreakMarkersCache;
+  
+  try {
+    const markersFile = path.join(__dirname, 'page-break-markers.json');
+    const data = await fs.readFile(markersFile, 'utf8');
+    pageBreakMarkersCache = JSON.parse(data);
+    console.log('[PAGES] page-break-markers.json geladen');
+    return pageBreakMarkersCache;
+  } catch (error) {
+    console.error('[PAGES] Fehler beim Laden von page-break-markers.json:', error.message);
+    return null;
+  }
+}
+
+// Hilfsfunktion: Normalisiert Text für Vergleich (entfernt Whitespace-Unterschiede)
+function normalizeTextForComparison(text) {
+  if (!text) return '';
+  return text
+    .replace(/\s+/g, ' ')  // Mehrfache Whitespaces zu einem
+    .replace(/\|<?(\d+)>?\|/g, '')  // Entferne Seitenzahlen-Marker
+    .trim()
+    .toLowerCase();
+}
+
+// Hilfsfunktion: Sucht einen Anker im Text und gibt die Position zurück
+function findAnchorInText(anchor, text, minMatchLength = 30) {
+  if (!anchor || !text || anchor.length < minMatchLength) return null;
+  
+  const normalizedAnchor = normalizeTextForComparison(anchor);
+  const normalizedText = normalizeTextForComparison(text);
+  
+  // Versuche exakten Match
+  const exactPos = normalizedText.indexOf(normalizedAnchor);
+  if (exactPos !== -1) {
+    return { position: exactPos, confidence: 'exact', matchLength: normalizedAnchor.length };
+  }
+  
+  // Versuche Teilmatch (erste 50 Zeichen des Ankers)
+  const partialAnchor = normalizedAnchor.substring(0, Math.min(50, normalizedAnchor.length));
+  const partialPos = normalizedText.indexOf(partialAnchor);
+  if (partialPos !== -1) {
+    return { position: partialPos, confidence: 'partial', matchLength: partialAnchor.length };
+  }
+  
+  // Versuche kürzeren Match (30 Zeichen)
+  const shortAnchor = normalizedAnchor.substring(0, Math.min(30, normalizedAnchor.length));
+  const shortPos = normalizedText.indexOf(shortAnchor);
+  if (shortPos !== -1) {
+    return { position: shortPos, confidence: 'short', matchLength: shortAnchor.length };
+  }
+  
+  return null;
+}
+
+// Hilfsfunktion: Findet alle Anker-Matches in einem Text und gibt die korrekten Seitenzahlen zurück
+function findAnchorMatchesInContent(content, gaBreaks) {
+  if (!content || !gaBreaks || !gaBreaks.breaks) return [];
+  
+  const matches = [];
+  const normalizedContent = normalizeTextForComparison(content);
+  
+  for (const breakInfo of gaBreaks.breaks) {
+    // Versuche left-Anker zu finden
+    if (breakInfo.left) {
+      const leftMatch = findAnchorInText(breakInfo.left, content);
+      if (leftMatch) {
+        matches.push({
+          page: breakInfo.page,
+          anchorType: 'left',
+          position: leftMatch.position,
+          confidence: leftMatch.confidence
+        });
+      }
+    }
+    
+    // Versuche right-Anker zu finden
+    if (breakInfo.right) {
+      const rightMatch = findAnchorInText(breakInfo.right, content);
+      if (rightMatch) {
+        matches.push({
+          page: breakInfo.page,
+          anchorType: 'right',
+          position: rightMatch.position,
+          confidence: rightMatch.confidence
+        });
+      }
+    }
+  }
+  
+  // Sortiere nach Position im Text
+  matches.sort((a, b) => a.position - b.position);
+  
+  // Entferne Duplikate (gleiche Seite mehrfach gefunden)
+  const uniqueMatches = [];
+  const seenPages = new Set();
+  for (const match of matches) {
+    if (!seenPages.has(match.page)) {
+      uniqueMatches.push(match);
+      seenPages.add(match.page);
+    }
+  }
+  
+  return uniqueMatches;
+}
+
+// Hilfsfunktion: Sucht Anker im Originaltext und gibt Position im Originaltext zurück
+function findAnchorPositionInOriginalText(anchor, originalText, minMatchLength = 25) {
+  if (!anchor || !originalText) return null;
+  
+  // Reinige den Anker (entferne Zeilenumbrüche, normalisiere Whitespace)
+  const cleanAnchor = anchor.replace(/\s+/g, ' ').trim();
+  
+  // Versuche verschiedene Längen
+  const lengths = [100, 70, 50, 35, 25];
+  
+  for (const len of lengths) {
+    if (cleanAnchor.length < len) continue;
+    
+    const searchText = cleanAnchor.substring(0, len);
+    // Suche im Originaltext mit normalisierten Whitespaces
+    const normalizedOriginal = originalText.replace(/\s+/g, ' ');
+    const pos = normalizedOriginal.toLowerCase().indexOf(searchText.toLowerCase());
+    
+    if (pos !== -1) {
+      return { position: pos, matchLength: len, confidence: len >= 70 ? 'high' : (len >= 50 ? 'medium' : 'low') };
+    }
+  }
+  
+  return null;
+}
+
+// Hilfsfunktion: Entfernt Duplikat-Seitenzahlen, nicht-sequenzielle und außerhalb des Bereichs liegende Seitenzahlen
+function removeDuplicateAndNonSequentialPageNumbers(paragraphs) {
+  let removedCount = 0;
+  const log = [];
+  
+  // SCHRITT 1: Sammle alle Seitenzahlen mit ihrer Position
+  const allPages = [];
+  let globalPos = 0;
+  
+  for (let paraIdx = 0; paraIdx < paragraphs.length; paraIdx++) {
+    const paragraph = paragraphs[paraIdx];
+    if (!paragraph.content) {
+      globalPos += 1;
+      continue;
+    }
+    
+    const regex = /\|<?(\d+)>?\|/g;
+    let match;
+    while ((match = regex.exec(paragraph.content)) !== null) {
+      allPages.push({
+        page: parseInt(match[1]),
+        paraIdx: paraIdx,
+        matchIndex: match.index,
+        matchLength: match[0].length,
+        globalPos: globalPos + match.index
+      });
+    }
+    globalPos += paragraph.content.length + 1;
+  }
+  
+  if (allPages.length === 0) {
+    return { removed: 0, log: [], pageRange: null };
+  }
+  
+  // SCHRITT 2: Bestimme den erwarteten Seitenbereich des Vortrags
+  // Basierend auf den ersten und letzten Seitenzahlen, die "Sinn machen"
+  // Sortiere nach Seitenzahl, um den Median/Hauptbereich zu finden
+  const sortedPages = [...allPages].sort((a, b) => a.page - b.page);
+  
+  // Finde den "Hauptbereich" - die größte Gruppe aufeinanderfolgender Seitenzahlen
+  // Verwende diff <= 2 (erlaubt 1 fehlende Seite, aber keine großen Sprünge)
+  let bestStart = 0;
+  let bestEnd = 0;
+  let bestCount = 0;
+  let currentStart = 0;
+  let currentCount = 1;
+  
+  for (let i = 1; i < sortedPages.length; i++) {
+    const diff = sortedPages[i].page - sortedPages[i - 1].page;
+    if (diff <= 2) { // Erlaubt 1 fehlende Seite
+      currentCount++;
+    } else {
+      if (currentCount > bestCount) {
+        bestCount = currentCount;
+        bestStart = currentStart;
+        bestEnd = i - 1;
+      }
+      currentStart = i;
+      currentCount = 1;
+    }
+  }
+  if (currentCount > bestCount) {
+    bestCount = currentCount;
+    bestStart = currentStart;
+    bestEnd = sortedPages.length - 1;
+  }
+  
+  // ZUSÄTZLICH: Prüfe ob es eine zweite Seitenzahlen-Reihe gibt (> 10 Seiten entfernt)
+  // Falls ja, ist der Bereich wahrscheinlich falsch bestimmt
+  const mainRangePages = sortedPages.slice(bestStart, bestEnd + 1);
+  const outsidePages = [...sortedPages.slice(0, bestStart), ...sortedPages.slice(bestEnd + 1)];
+  
+  // Wenn fremde Seitenzahlen existieren, die weit vom Hauptbereich entfernt sind,
+  // und der Hauptbereich die Mehrheit der Seiten umfasst, ist alles OK
+  // Sonst müssen wir vorsichtiger sein
+  
+  // Der erwartete Bereich
+  const expectedMin = sortedPages[bestStart].page;
+  const expectedMax = sortedPages[bestEnd].page;
+  log.push(`Erwarteter Seitenbereich: ${expectedMin}–${expectedMax}`);
+  
+  // SCHRITT 3: Spezielle Prüfung für die letzte Seitenzahl
+  // Oft gehört die letzte Seitenzahl zum nächsten Vortrag
+  if (allPages.length >= 2) {
+    const lastPage = allPages[allPages.length - 1];
+    const secondLastPage = allPages[allPages.length - 2];
+    
+    // Wenn die letzte Seitenzahl > vorletzte + 1, gehört sie wahrscheinlich zum nächsten Vortrag
+    // (Ein Vortrag endet normalerweise auf einer Seite, nicht mitten in der nächsten)
+    if (lastPage.page > secondLastPage.page + 1) {
+      // Prüfe ob die letzte Seitenzahl am Ende des letzten Paragraphen steht
+      const lastPara = paragraphs[lastPage.paraIdx];
+      if (lastPara && lastPara.content) {
+        const contentAfterPage = lastPara.content.substring(lastPage.matchIndex + lastPage.matchLength).trim();
+        // Wenn nach der Seitenzahl nur wenig Text kommt (< 200 Zeichen), ist sie verdächtig
+        if (contentAfterPage.length < 200) {
+          log.push(`Letzte Seitenzahl entfernt: |${lastPage.page}| (gehört wahrscheinlich zum nächsten Vortrag, nur ${contentAfterPage.length} Zeichen danach)`);
+          // Entferne direkt
+          paragraphs[lastPage.paraIdx].content = 
+            lastPara.content.substring(0, lastPage.matchIndex) + 
+            lastPara.content.substring(lastPage.matchIndex + lastPage.matchLength);
+          // Entferne aus allPages Array
+          allPages.pop();
+          removedCount++;
+        }
+      }
+    }
+  }
+  
+  // SCHRITT 4: Identifiziere weitere Seitenzahlen, die entfernt werden müssen
+  const toRemove = new Set();
+  const seenPages = new Set();
+  let lastValidPage = 0;
+  
+  for (let i = 0; i < allPages.length; i++) {
+    const current = allPages[i];
+    
+    // Bereichs-Check: Seitenzahl muss im erwarteten Bereich liegen (mit Toleranz)
+    const tolerance = 1; // Erlaube nur 1 Seite vor/nach dem Bereich
+    if (current.page < expectedMin - tolerance || current.page > expectedMax + tolerance) {
+      toRemove.add(i);
+      log.push(`Außerhalb des Bereichs entfernt: |${current.page}| (Bereich: ${expectedMin}–${expectedMax})`);
+      continue;
+    }
+    
+    // Duplikat-Check
+    if (seenPages.has(current.page)) {
+      toRemove.add(i);
+      log.push(`Duplikat entfernt: |${current.page}|`);
+      continue;
+    }
+    
+    // Sequenz-Check: Seitenzahl muss nahe bei der letzten gültigen Seitenzahl sein
+    if (lastValidPage > 0) {
+      const diff = current.page - lastValidPage;
+      
+      // Rückwärtssprung (> 2 Seiten zurück)
+      if (diff < -2) {
+        toRemove.add(i);
+        log.push(`Rückwärtssprung entfernt: |${current.page}| (nach |${lastValidPage}|)`);
+        continue;
+      }
+      
+      // Vorwärtssprung (> 5 Seiten vorwärts) - wahrscheinlich fremde Seitenzahl
+      if (diff > 5) {
+        toRemove.add(i);
+        log.push(`Vorwärtssprung entfernt: |${current.page}| (nach |${lastValidPage}|, Sprung +${diff})`);
+        continue;
+      }
+    }
+    
+    // Diese Seitenzahl ist gültig
+    seenPages.add(current.page);
+    lastValidPage = current.page;
+  }
+  
+  // SCHRITT 5: Entferne die markierten Seitenzahlen (von hinten nach vorne)
+  const removeByPara = new Map();
+  for (const idx of toRemove) {
+    const pageInfo = allPages[idx];
+    if (!removeByPara.has(pageInfo.paraIdx)) {
+      removeByPara.set(pageInfo.paraIdx, []);
+    }
+    removeByPara.get(pageInfo.paraIdx).push(pageInfo);
+  }
+  
+  for (const [paraIdx, pageInfos] of removeByPara) {
+    pageInfos.sort((a, b) => b.matchIndex - a.matchIndex);
+    
+    let content = paragraphs[paraIdx].content;
+    for (const pageInfo of pageInfos) {
+      content = content.substring(0, pageInfo.matchIndex) + 
+                content.substring(pageInfo.matchIndex + pageInfo.matchLength);
+      removedCount++;
+    }
+    paragraphs[paraIdx].content = content;
+  }
+  
+  return { removed: removedCount, log, pageRange: { min: expectedMin, max: expectedMax } };
+}
+
+// Hilfsfunktion: Intelligente Seitenzahlen-Korrektur und -Einfügung
+// Berücksichtigt von Anfang an: Bereichsgrenzen, Duplikate, Sequenz
+function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
+  if (!paragraphs || paragraphs.length === 0 || !gaBreaks || !gaBreaks.breaks) {
+    return { corrected: 0, inserted: 0, removed: 0, log: [] };
+  }
+  
+  const log = [];
+  let correctedCount = 0;
+  let insertedCount = 0;
+  let removedCount = 0;
+  
+  // SCHRITT 1: Analysiere existierende Seitenzahlen, um den Bereich zu bestimmen
+  let fullContent = paragraphs.map(p => p.content || '').join('\n');
+  const existingPagesArray = [];
+  const existingPagesRegex = /\|<?(\d+)>?\|/g;
+  let existingMatch;
+  while ((existingMatch = existingPagesRegex.exec(fullContent)) !== null) {
+    existingPagesArray.push(parseInt(existingMatch[1]));
+  }
+  
+  // Bestimme den erwarteten Seitenbereich
+  let expectedMin = null;
+  let expectedMax = null;
+  
+  if (existingPagesArray.length > 0) {
+    // Finde den Hauptbereich (größte Gruppe aufeinanderfolgender Seiten)
+    const sorted = [...existingPagesArray].sort((a, b) => a - b);
+    let bestStart = 0, bestEnd = 0, bestCount = 0;
+    let currentStart = 0, currentCount = 1;
+    
+    for (let i = 1; i < sorted.length; i++) {
+      if (sorted[i] - sorted[i - 1] <= 3) {
+        currentCount++;
+      } else {
+        if (currentCount > bestCount) {
+          bestCount = currentCount;
+          bestStart = currentStart;
+          bestEnd = i - 1;
+        }
+        currentStart = i;
+        currentCount = 1;
+      }
+    }
+    if (currentCount > bestCount) {
+      bestStart = currentStart;
+      bestEnd = sorted.length - 1;
+    }
+    
+    expectedMin = sorted[bestStart];
+    expectedMax = sorted[bestEnd];
+    log.push(`Erwarteter Seitenbereich: ${expectedMin}–${expectedMax}`);
+  }
+  
+  // SCHRITT 2: Entferne fehlerhafte Seitenzahlen (außerhalb Bereich, Duplikate, nicht-sequenziell)
+  if (expectedMin !== null) {
+    const dupResult = removeDuplicateAndNonSequentialPageNumbers(paragraphs);
+    if (dupResult.removed > 0) {
+      removedCount = dupResult.removed;
+      log.push(...dupResult.log);
+    }
+  }
+  
+  // Aktualisiere Content nach Bereinigung
+  fullContent = paragraphs.map(p => p.content || '').join('\n');
+  
+  // Sammle existierende Seitenzahlen (nach Bereinigung)
+  const existingPages = new Set();
+  existingPagesRegex.lastIndex = 0;
+  while ((existingMatch = existingPagesRegex.exec(fullContent)) !== null) {
+    existingPages.add(parseInt(existingMatch[1]));
+  }
+  log.push(`${existingPages.size} Seitenzahlen nach Bereinigung`);
+  
+  // SCHRITT 3: Finde Anker-Positionen im Content (nur im erwarteten Bereich)
+  const anchorPositions = [];
+  let skippedOutOfRange = 0;
+  
+  for (const breakInfo of gaBreaks.breaks) {
+    // WICHTIG: Nur Anker im erwarteten Bereich verwenden (mit Toleranz)
+    if (expectedMin !== null && expectedMax !== null) {
+      const tolerance = 1;
+      if (breakInfo.page < expectedMin - tolerance || breakInfo.page > expectedMax + tolerance) {
+        skippedOutOfRange++;
+        continue; // Überspringe Anker außerhalb des Bereichs
+      }
+    }
+    
+    // Bevorzuge right-Anker (Beginn der neuen Seite)
+    if (breakInfo.right) {
+      const rightPos = findAnchorPositionInOriginalText(breakInfo.right, fullContent);
+      if (rightPos) {
+        anchorPositions.push({
+          page: breakInfo.page,
+          position: rightPos.position,
+          confidence: rightPos.confidence,
+          anchorType: 'right',
+          anchorText: breakInfo.right.substring(0, 50)
+        });
+        continue;
+      }
+    }
+    
+    // Fallback auf left-Anker (Ende der vorherigen Seite)
+    if (breakInfo.left) {
+      const leftPos = findAnchorPositionInOriginalText(breakInfo.left, fullContent);
+      if (leftPos) {
+        // Bei left-Anker ist die Position am ENDE des Textes, also nach dem Match
+        anchorPositions.push({
+          page: breakInfo.page,
+          position: leftPos.position + leftPos.matchLength,
+          confidence: leftPos.confidence,
+          anchorType: 'left',
+          anchorText: breakInfo.left.substring(0, 50)
+        });
+      }
+    }
+  }
+  
+  if (skippedOutOfRange > 0) {
+    log.push(`${skippedOutOfRange} Anker außerhalb des Bereichs übersprungen`);
+  }
+  
+  // Sortiere nach Position
+  anchorPositions.sort((a, b) => a.position - b.position);
+  
+  if (anchorPositions.length === 0) {
+    log.push('Keine passenden Anker im Text gefunden');
+    return { corrected: 0, inserted: 0, removed: removedCount, log };
+  }
+  
+  log.push(`${anchorPositions.length} Anker im Bereich gefunden`);
+  
+  // Verarbeite jeden Paragraphen
+  let currentContentPos = 0;
+  
+  for (let paraIdx = 0; paraIdx < paragraphs.length; paraIdx++) {
+    const paragraph = paragraphs[paraIdx];
+    if (!paragraph.content) {
+      currentContentPos += 1; // Für den Newline-Separator
+      continue;
+    }
+    
+    const paraStart = currentContentPos;
+    const paraEnd = currentContentPos + paragraph.content.length;
+    
+    // Finde alle Anker-Positionen in diesem Paragraphen
+    const anchorsInPara = anchorPositions.filter(a => 
+      a.position >= paraStart && a.position < paraEnd
+    );
+    
+    if (anchorsInPara.length > 0) {
+      // Sortiere rückwärts, damit wir von hinten nach vorne einfügen können
+      // (damit die Positionen nicht verschoben werden)
+      anchorsInPara.sort((a, b) => b.position - a.position);
+      
+      let newContent = paragraph.content;
+      
+      for (const anchor of anchorsInPara) {
+        const localPos = anchor.position - paraStart;
+        
+        // Prüfe ob an dieser Position schon eine Seitenzahl steht
+        const beforePos = newContent.substring(Math.max(0, localPos - 10), localPos);
+        const afterPos = newContent.substring(localPos, Math.min(newContent.length, localPos + 10));
+        const aroundText = beforePos + afterPos;
+        
+        const existingPageMatch = aroundText.match(/\|<?(\d+)>?\|/);
+        
+        if (existingPageMatch) {
+          const existingPage = parseInt(existingPageMatch[1]);
+          if (existingPage !== anchor.page) {
+            // Prüfe ob die Ziel-Seitenzahl bereits woanders im Text existiert
+            if (existingPages.has(anchor.page)) {
+              // Seitenzahl existiert bereits - nicht korrigieren, da dies ein Duplikat erzeugen würde
+              log.push(`Übersprungen: |${existingPage}| (|${anchor.page}| existiert bereits)`);
+            } else {
+              // Korrigiere bestehende Seitenzahl
+              const matchStart = aroundText.indexOf(existingPageMatch[0]);
+              const actualPos = Math.max(0, localPos - 10) + matchStart;
+              
+              newContent = newContent.substring(0, actualPos) + 
+                          `|${anchor.page}|` + 
+                          newContent.substring(actualPos + existingPageMatch[0].length);
+              
+              // Aktualisiere existingPages Set
+              existingPages.delete(existingPage);
+              existingPages.add(anchor.page);
+              
+              log.push(`Korrigiert: |${existingPage}| → |${anchor.page}|`);
+              correctedCount++;
+            }
+          }
+        } else {
+          // Prüfe ob diese Seitenzahl bereits im Text existiert
+          if (existingPages.has(anchor.page)) {
+            // Seitenzahl existiert bereits - nicht einfügen
+            log.push(`Übersprungen: |${anchor.page}| existiert bereits im Text`);
+          } else {
+            // Füge neue Seitenzahl ein
+            // Position bleibt an der Anker-Position (auch mitten im Wort bei Silbentrennung)
+            let insertPos = localPos;
+            
+            // Begrenze insertPos auf gültige Werte
+            insertPos = Math.max(0, Math.min(insertPos, newContent.length));
+            
+            newContent = newContent.substring(0, insertPos) + 
+                        `|${anchor.page}|` + 
+                        newContent.substring(insertPos);
+            
+            // Füge zur existingPages hinzu
+            existingPages.add(anchor.page);
+            
+            log.push(`Eingefügt: |${anchor.page}| (${anchor.anchorType}, ${anchor.confidence})`);
+            insertedCount++;
+          }
+        }
+      }
+      
+      paragraph.content = newContent;
+    }
+    
+    currentContentPos = paraEnd + 1; // +1 für Newline
+  }
+  
+  return { corrected: correctedCount, inserted: insertedCount, removed: removedCount, log };
+}
+
+// Hilfsfunktion: Korrigiert Seitenzahlen basierend auf Anker-Matches (alte Methode - nur korrigieren)
+function correctPageNumbersWithAnchors(paragraphs, anchorMatches, gaBreaks) {
+  if (!paragraphs || paragraphs.length === 0) return { corrected: 0, log: [] };
+  
+  const log = [];
+  let correctedCount = 0;
+  
+  // Erstelle eine Map von Position zu korrekter Seitenzahl
+  const pageAtPosition = new Map();
+  for (const match of anchorMatches) {
+    pageAtPosition.set(match.position, match.page);
+  }
+  
+  // Sammle alle Seitenzahlen-Marker mit ihrer Position
+  let globalPosition = 0;
+  const pageMarkers = [];
+  
+  for (let paraIdx = 0; paraIdx < paragraphs.length; paraIdx++) {
+    const paragraph = paragraphs[paraIdx];
+    if (!paragraph.content) continue;
+    
+    const normalizedContent = normalizeTextForComparison(paragraph.content);
+    const regex = /\|<?(\d+)>?\|/g;
+    let match;
+    
+    while ((match = regex.exec(paragraph.content)) !== null) {
+      const markerPosition = globalPosition + normalizeTextForComparison(paragraph.content.substring(0, match.index)).length;
+      pageMarkers.push({
+        paraIdx,
+        matchIndex: match.index,
+        matchLength: match[0].length,
+        currentPage: parseInt(match[1]),
+        globalPosition: markerPosition
+      });
+    }
+    
+    globalPosition += normalizedContent.length + 1; // +1 für Newline
+  }
+  
+  if (pageMarkers.length === 0) {
+    return { corrected: 0, log: ['Keine Seitenzahlen-Marker gefunden'] };
+  }
+  
+  // Finde für jeden Marker die nächste bekannte Anker-Position
+  // und berechne die korrekte Seitenzahl
+  const sortedAnchors = [...anchorMatches].sort((a, b) => a.position - b.position);
+  
+  for (const marker of pageMarkers) {
+    let correctPage = null;
+    
+    // Finde den nächsten Anker VOR oder AN dieser Position
+    let nearestAnchorBefore = null;
+    let nearestAnchorAfter = null;
+    
+    for (const anchor of sortedAnchors) {
+      if (anchor.position <= marker.globalPosition) {
+        nearestAnchorBefore = anchor;
+      } else if (!nearestAnchorAfter) {
+        nearestAnchorAfter = anchor;
+        break;
+      }
+    }
+    
+    // Berechne die korrekte Seitenzahl
+    if (nearestAnchorBefore) {
+      // Wir sind auf oder nach diesem Anker, also Seite = Anker-Seite
+      // (Der Anker markiert den Beginn dieser Seite)
+      correctPage = nearestAnchorBefore.page;
+    } else if (nearestAnchorAfter) {
+      // Wir sind vor dem ersten Anker, also Seite = Anker-Seite - 1
+      correctPage = nearestAnchorAfter.page - 1;
+    }
+    
+    if (correctPage !== null && correctPage !== marker.currentPage) {
+      // Korrigiere die Seitenzahl
+      const paragraph = paragraphs[marker.paraIdx];
+      const before = paragraph.content.substring(0, marker.matchIndex);
+      const after = paragraph.content.substring(marker.matchIndex + marker.matchLength);
+      paragraph.content = before + `|${correctPage}|` + after;
+      
+      log.push(`Korrigiert: |${marker.currentPage}| → |${correctPage}| (Position ${marker.globalPosition})`);
+      correctedCount++;
+    }
+  }
+  
+  return { corrected: correctedCount, log };
+}
+
+// POST /api/pages/analyze - Analysiert Seitenzahlen für gegebene Vorträge
+app.post('/api/pages/analyze', async (req, res) => {
+  try {
+    const { lectureIds } = req.body;
+    
+    if (!lectureIds || !Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'lectureIds Array erforderlich' });
+    }
+    
+    const lectures = [];
+    let withPages = 0;
+    let withoutPages = 0;
+    let withIssues = 0;
+    
+    for (const lectureId of lectureIds) {
+      const lecture = fullLectures[lectureId];
+      
+      if (!lecture) {
+        lectures.push({
+          id: lectureId,
+          title: 'Nicht gefunden',
+          pageCount: 0,
+          pageRange: null,
+          issues: ['Vortrag nicht gefunden']
+        });
+        continue;
+      }
+      
+      // Sammle Content aus allen Paragraphen
+      let fullContent = '';
+      if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+        fullContent = lecture.paragraphs.map(p => p.content || p.text || '').join('\n');
+      } else if (lecture.content) {
+        fullContent = lecture.content;
+      }
+      
+      const pages = extractPageNumbers(fullContent);
+      const issues = analyzePageIssues(pages);
+      
+      const pageRange = pages.length > 0 
+        ? `${pages[0].pageNumber}–${pages[pages.length - 1].pageNumber}`
+        : null;
+      
+      if (pages.length > 0) {
+        withPages++;
+      } else {
+        withoutPages++;
+      }
+      
+      if (issues.length > 0) {
+        withIssues++;
+      }
+      
+      lectures.push({
+        id: lectureId,
+        title: lecture.title || lecture.fileName || '',
+        pageCount: pages.length,
+        pageRange,
+        firstPage: pages.length > 0 ? pages[0].pageNumber : null,
+        lastPage: pages.length > 0 ? pages[pages.length - 1].pageNumber : null,
+        issues
+      });
+    }
+    
+    res.json({
+      lectures,
+      summary: {
+        totalLectures: lectureIds.length,
+        withPages,
+        withoutPages,
+        withIssues
+      }
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/ANALYZE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/pages/details/:lectureId - Gibt Details für einen einzelnen Vortrag (inkl. Anker-Analyse)
+app.get('/api/pages/details/:lectureId', async (req, res) => {
+  try {
+    const lectureId = decodeURIComponent(req.params.lectureId);
+    const lecture = fullLectures[lectureId];
+    
+    if (!lecture) {
+      return res.status(404).json({ error: 'Vortrag nicht gefunden' });
+    }
+    
+    // Extrahiere GA-Nummer
+    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+    const gaNumber = gaMatch ? gaMatch[1].toUpperCase() : null;
+    
+    // Sammle Content aus allen Paragraphen
+    let fullContent = '';
+    if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+      fullContent = lecture.paragraphs.map(p => p.content || p.text || '').join('\n');
+    } else if (lecture.content) {
+      fullContent = lecture.content;
+    }
+    
+    const pages = extractPageNumbers(fullContent);
+    const issues = analyzePageIssues(pages);
+    
+    // Lade Anker-Informationen
+    let anchorInfo = null;
+    let anchorMatches = [];
+    
+    if (gaNumber) {
+      const markers = await loadPageBreakMarkers();
+      const gaBreaks = markers ? markers[gaNumber] : null;
+      
+      if (gaBreaks && gaBreaks.breaks) {
+        anchorMatches = findAnchorMatchesInContent(fullContent, gaBreaks);
+        anchorInfo = {
+          available: true,
+          totalAnchors: gaBreaks.breaks.length,
+          matchedAnchors: anchorMatches.length,
+          matches: anchorMatches.slice(0, 20), // Zeige max. 20 Matches
+          expectedPageRange: gaBreaks.breaks.length > 0 
+            ? `${gaBreaks.breaks[0].page}–${gaBreaks.breaks[gaBreaks.breaks.length - 1].page}`
+            : null
+        };
+      } else {
+        anchorInfo = {
+          available: false,
+          reason: `Keine Anker für ${gaNumber} in page-break-markers.json`
+        };
+      }
+    }
+    
+    res.json({
+      id: lectureId,
+      gaNumber,
+      title: lecture.title || lecture.fileName || '',
+      pages,
+      pageRange: pages.length > 0 
+        ? `${pages[0].pageNumber}–${pages[pages.length - 1].pageNumber}`
+        : null,
+      firstPage: pages.length > 0 ? pages[0].pageNumber : null,
+      lastPage: pages.length > 0 ? pages[pages.length - 1].pageNumber : null,
+      issues,
+      anchorInfo
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/DETAILS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/pages/correct - Korrigiert Seitenzahlen für einen Vortrag (mit Anker-Matching)
+app.post('/api/pages/correct', async (req, res) => {
+  try {
+    const { lectureId, startPage, useAnchors = true } = req.body;
+    
+    if (!lectureId) {
+      return res.status(400).json({ error: 'lectureId erforderlich' });
+    }
+    
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ error: 'Vortrag nicht gefunden' });
+    }
+    
+    // Extrahiere GA-Nummer
+    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+    if (!gaMatch) {
+      return res.status(400).json({ error: 'Ungültige Lecture-ID' });
+    }
+    const gaNumber = gaMatch[1].toUpperCase();
+    
+    let correctedCount = 0;
+    let correctionLog = [];
+    
+    let insertedCount = 0;
+    
+    if (useAnchors) {
+      // Erweiterte Korrektur mit Anker-Matching - fügt auch fehlende Seitenzahlen ein
+      const markers = await loadPageBreakMarkers();
+      const gaBreaks = markers ? markers[gaNumber] : null;
+      
+      if (gaBreaks && gaBreaks.breaks) {
+        // Verwende die neue erweiterte Funktion
+        const result = insertAndCorrectPageNumbers(lecture.paragraphs, gaBreaks, lectureId);
+        correctedCount = result.corrected;
+        insertedCount = result.inserted || 0;
+        correctionLog = result.log;
+        
+        if (correctedCount === 0 && insertedCount === 0) {
+          correctionLog.push('Keine Korrekturen oder Einfügungen vorgenommen');
+        }
+      } else {
+        correctionLog.push(`Keine Anker für ${gaNumber} in page-break-markers.json gefunden`);
+        
+        // Fallback auf sukzessive Nummerierung wenn startPage angegeben
+        if (startPage && !isNaN(startPage)) {
+          let currentPage = parseInt(startPage);
+          if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+            for (const paragraph of lecture.paragraphs) {
+              if (paragraph.content) {
+                paragraph.content = paragraph.content.replace(/\|<?(\d+)>?\|/g, (match) => {
+                  const newPage = `|${currentPage}|`;
+                  currentPage++;
+                  correctedCount++;
+                  return newPage;
+                });
+              }
+            }
+          }
+        }
+      }
+    } else {
+      // Einfache sukzessive Nummerierung
+      if (!startPage || isNaN(startPage) || startPage < 1) {
+        return res.status(400).json({ error: 'startPage muss eine positive Zahl sein' });
+      }
+      
+      let currentPage = parseInt(startPage);
+      if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+        for (const paragraph of lecture.paragraphs) {
+          if (paragraph.content) {
+            paragraph.content = paragraph.content.replace(/\|<?(\d+)>?\|/g, (match) => {
+              const newPage = `|${currentPage}|`;
+              currentPage++;
+              correctedCount++;
+              return newPage;
+            });
+          }
+        }
+      }
+    }
+    
+    // Speichere die Änderungen in der Quell-Datei
+    const removedCount = correctionLog.filter(l => l.includes('Duplikat entfernt')).length;
+    const totalChanges = correctedCount + insertedCount + removedCount;
+    if (totalChanges > 0) {
+      await saveLectureToSourceFile(lectureId, lecture);
+    }
+    
+    res.json({
+      success: true,
+      lectureId,
+      corrected: correctedCount,
+      inserted: insertedCount,
+      removed: removedCount,
+      total: totalChanges,
+      log: correctionLog,
+      method: useAnchors ? 'anchor-matching' : 'sequential'
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/CORRECT] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/pages/bulk-correct - Automatische Korrektur für mehrere Vorträge (mit Anker-Matching)
+app.post('/api/pages/bulk-correct', async (req, res) => {
+  try {
+    const { lectureIds } = req.body;
+    
+    if (!lectureIds || !Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'lectureIds Array erforderlich' });
+    }
+    
+    // Lade page-break-markers für Anker-Matching
+    const markers = await loadPageBreakMarkers();
+    
+    let processed = 0;
+    let corrected = 0;
+    let skipped = 0;
+    let errors = 0;
+    const details = [];
+    
+    for (const lectureId of lectureIds) {
+      processed++;
+      
+      const lecture = fullLectures[lectureId];
+      if (!lecture) {
+        errors++;
+        details.push({ id: lectureId, status: 'error', reason: 'Nicht gefunden' });
+        continue;
+      }
+      
+      // Extrahiere GA-Nummer
+      const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+      if (!gaMatch) {
+        errors++;
+        details.push({ id: lectureId, status: 'error', reason: 'Ungültige ID' });
+        continue;
+      }
+      const gaNumber = gaMatch[1].toUpperCase();
+      
+      // Sammle Content für Analyse
+      let fullContent = '';
+      if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+        fullContent = lecture.paragraphs.map(p => p.content || p.text || '').join('\n');
+      }
+      
+      const pages = extractPageNumbers(fullContent);
+      const issues = analyzePageIssues(pages);
+      
+      // Nur korrigieren wenn es Probleme gibt
+      if (issues.length === 0 || pages.length === 0) {
+        skipped++;
+        details.push({ id: lectureId, status: 'skipped', reason: pages.length === 0 ? 'Keine Seiten' : 'Keine Probleme' });
+        continue;
+      }
+      
+      // Versuche erweiterte Anker-basierte Korrektur (fügt auch fehlende Seitenzahlen ein)
+      const gaBreaks = markers ? markers[gaNumber] : null;
+      let correctionResult = { corrected: 0, inserted: 0, log: [] };
+      
+      if (gaBreaks && gaBreaks.breaks) {
+        // Verwende die erweiterte Funktion, die auch fehlende Seitenzahlen einfügt
+        correctionResult = insertAndCorrectPageNumbers(lecture.paragraphs, gaBreaks, lectureId);
+      } else {
+        // Kein GA in markers - sukzessive Nummerierung als Fallback
+        const startPage = pages[0].pageNumber;
+        let currentPage = startPage;
+        
+        if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+          for (const paragraph of lecture.paragraphs) {
+            if (paragraph.content) {
+              paragraph.content = paragraph.content.replace(/\|<?(\d+)>?\|/g, (match) => {
+                const newPage = `|${currentPage}|`;
+                currentPage++;
+                correctionResult.corrected++;
+                return newPage;
+              });
+            }
+          }
+        }
+        correctionResult.log.push(`Keine Marker für ${gaNumber} - sukzessive Nummerierung verwendet`);
+      }
+      
+      // Speichere wenn korrigiert oder eingefügt
+      const totalChanges = (correctionResult.corrected || 0) + (correctionResult.inserted || 0);
+      if (totalChanges > 0) {
+        try {
+          await saveLectureToSourceFile(lectureId, lecture);
+          corrected++;
+          details.push({ 
+            id: lectureId, 
+            status: 'corrected', 
+            corrected: correctionResult.corrected || 0,
+            inserted: correctionResult.inserted || 0,
+            total: totalChanges
+          });
+        } catch (saveError) {
+          console.error(`[PAGES/BULK] Fehler beim Speichern von ${lectureId}:`, saveError);
+          errors++;
+          details.push({ id: lectureId, status: 'error', reason: 'Speicherfehler' });
+        }
+      } else {
+        skipped++;
+        details.push({ id: lectureId, status: 'skipped', reason: 'Keine Änderungen nötig' });
+      }
+    }
+    
+    res.json({
+      success: true,
+      processed,
+      corrected,
+      skipped,
+      errors,
+      details
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/BULK-CORRECT] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/export/ga - Exportiert einen GA-Band neu (ruft das passende Export-Skript auf)
+app.post('/api/export/ga', async (req, res) => {
+  try {
+    const { gaNumber } = req.body;
+    
+    if (!gaNumber) {
+      return res.status(400).json({ error: 'gaNumber erforderlich' });
+    }
+    
+    // Normalisiere GA-Nummer
+    const gaMatch = gaNumber.match(/^GA?(\d{1,3}[a-z]?)$/i);
+    if (!gaMatch) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer' });
+    }
+    const gaNum = gaMatch[1];
+    const gaNumeric = parseInt(gaNum.match(/^\d+/)?.[0] || '0');
+    const gaSuffix = gaNum.match(/[a-z]$/i)?.[0]?.toLowerCase() || '';
+    const normalizedGA = `GA${gaNum.padStart(3, '0')}${gaSuffix}`.toUpperCase();
+    
+    console.log(`[EXPORT] Starte Export für ${normalizedGA}...`);
+    
+    // Bestimme den Typ des GA-Bands
+    let exportType = 'lectures'; // Default: Vorträge
+    let exportScript = '';
+    let exportArgs = [];
+    
+    // Bücher: GA001-GA028, GA045 (außer Aufsätze)
+    const essayBands = [14, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+    const letterBands = [262]; // GA262, GA263a werden separat behandelt
+    const isGA041b = gaSuffix === 'b' && gaNumeric === 41;
+    const isGA263a = gaSuffix === 'a' && gaNumeric === 263;
+    
+    if (isGA263a || gaNumeric === 262) {
+      // Briefe: GA262, GA263a - werden wie Vorträge exportiert
+      exportType = 'letters';
+      exportScript = 'export-lectures.js';
+      exportArgs = [normalizedGA];
+    } else if (gaNumeric >= 1 && gaNumeric <= 50 && !essayBands.includes(gaNumeric) && !isGA041b && gaNumeric !== 45) {
+      // Bücher: GA001-GA028 (außer Aufsätze und GA045)
+      // Prüfe ob es ein Multi-File Buch ist (GA001, GA014, etc.)
+      const multiFileBooks = [1, 14, 19, 24, 26, 29, 30, 31, 32, 33, 37];
+      if (multiFileBooks.includes(gaNumeric)) {
+        exportType = 'book-multi';
+      } else {
+        exportType = 'book';
+      }
+      exportScript = 'export_books_master.py';
+      exportArgs = [normalizedGA];
+    } else if (gaNumeric === 45) {
+      // GA045 ist ein Buch
+      exportType = 'book';
+      exportScript = 'export_books_master.py';
+      exportArgs = [normalizedGA];
+    } else {
+      // Vorträge und Aufsätze: GA051+ und GA029-GA037, GA046, etc.
+      exportType = 'lectures';
+      exportScript = 'export-lectures.js';
+      exportArgs = [normalizedGA];
+    }
+    
+    console.log(`[EXPORT] Typ: ${exportType}, Skript: ${exportScript}`);
+    
+    const { spawn } = require('child_process');
+    let command, args;
+    
+    if (exportScript.endsWith('.py')) {
+      command = 'python';
+      args = [path.join(__dirname, exportScript), ...exportArgs];
+    } else {
+      command = 'node';
+      args = [path.join(__dirname, exportScript), ...exportArgs];
+    }
+    
+    const exportProcess = spawn(command, args, {
+      cwd: __dirname,
+      encoding: 'utf8'
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    exportProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log(`[EXPORT] ${data.toString().trim()}`);
+    });
+    
+    exportProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error(`[EXPORT] stderr: ${data.toString().trim()}`);
+    });
+    
+    exportProcess.on('close', async (code) => {
+      if (code === 0) {
+        // Erfolg - lade die neuen Daten ins Memory
+        let lectureCount = 0;
+        let files = [];
+        
+        try {
+          if (exportType === 'lectures' || exportType === 'letters') {
+            // Lade die neuen Vorträge aus steiner-full-lectures/
+            const lecturesDir = path.join(__dirname, 'steiner-full-lectures');
+            const lectureFiles = fsSync.readdirSync(lecturesDir)
+              .filter(f => f.includes(gaNum.padStart(3, '0')) && f.endsWith('.json'));
+            
+            for (const file of lectureFiles) {
+              const filePath = path.join(lecturesDir, file);
+              const data = JSON.parse(fsSync.readFileSync(filePath, 'utf8'));
+              
+              if (data.lectures && Array.isArray(data.lectures)) {
+                for (const lecture of data.lectures) {
+                  if (lecture.ID && lecture.ID.toUpperCase().startsWith(normalizedGA.toUpperCase())) {
+                    fullLectures[lecture.ID] = lecture;
+                    lectureCount++;
+                  }
+                }
+              }
+              files.push(file);
+            }
+            
+            console.log(`[EXPORT] ${lectureCount} Vorträge aus ${normalizedGA} in Memory geladen`);
+          } else {
+            // Bücher - zähle exportierte Dateien
+            const booksDir = path.join(__dirname, 'steiner-books');
+            files = fsSync.readdirSync(booksDir)
+              .filter(f => f.includes(gaNum.padStart(3, '0')) && f.endsWith('.json'));
+          }
+        } catch (loadErr) {
+          console.warn(`[EXPORT] Warnung beim Nachladen: ${loadErr.message}`);
+        }
+        
+        res.json({
+          success: true,
+          gaNumber: normalizedGA,
+          type: exportType,
+          files: files,
+          lectureCount: lectureCount > 0 ? lectureCount : undefined,
+          message: `Export für ${normalizedGA} erfolgreich abgeschlossen`
+        });
+        
+      } else {
+        res.status(500).json({
+          success: false,
+          error: `Export fehlgeschlagen (Exit-Code: ${code})`,
+          gaNumber: normalizedGA,
+          type: exportType,
+          details: stderr || stdout
+        });
+      }
+    });
+    
+    exportProcess.on('error', (err) => {
+      console.error(`[EXPORT] Prozess-Fehler:`, err);
+      res.status(500).json({
+        success: false,
+        error: `Export-Prozess konnte nicht gestartet werden: ${err.message}`,
+        gaNumber: normalizedGA
+      });
+    });
+    
+  } catch (error) {
+    console.error('[EXPORT] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/pages/generate - Generiert Pagebreaks für einen GA-Band (ruft Python-Skripte auf)
+app.post('/api/pages/generate', async (req, res) => {
+  try {
+    const { gaNumber } = req.body;
+    
+    if (!gaNumber) {
+      return res.status(400).json({ error: 'gaNumber erforderlich' });
+    }
+    
+    // Normalisiere GA-Nummer (z.B. "GA076" oder "ga76" → "GA076")
+    const gaMatch = gaNumber.match(/^GA?(\d{1,3}[a-z]?)$/i);
+    if (!gaMatch) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer' });
+    }
+    const gaNum = gaMatch[1].padStart(3, '0').toUpperCase();
+    const normalizedGA = `GA${gaNum}`;
+    
+    // Prüfe ob Pagebreaks bereits existieren
+    const pagebreakFile = path.join(__dirname, 'pagebreaks', `${normalizedGA}.json`);
+    if (fsSync.existsSync(pagebreakFile)) {
+      return res.json({ 
+        success: true, 
+        status: 'exists',
+        message: `Pagebreaks für ${normalizedGA} existieren bereits`,
+        gaNumber: normalizedGA
+      });
+    }
+    
+    // Prüfe ob PDF existiert
+    const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
+    let pdfExists = false;
+    if (fsSync.existsSync(pdfDir)) {
+      const pdfFiles = fsSync.readdirSync(pdfDir);
+      pdfExists = pdfFiles.some(f => {
+        const nameLower = f.toLowerCase();
+        return nameLower.includes(`ga ${gaNum}`) || 
+               nameLower.includes(`ga${gaNum}`) ||
+               nameLower.includes(`ga ${parseInt(gaNum)}`);
+      });
+    }
+    
+    if (!pdfExists) {
+      return res.status(400).json({ 
+        error: `Keine PDF für ${normalizedGA} gefunden`,
+        gaNumber: normalizedGA
+      });
+    }
+    
+    console.log(`[PAGES/GENERATE] Starte Pagebreak-Generierung für ${normalizedGA}...`);
+    
+    // Rufe Python-Skript auf
+    const { spawn } = require('child_process');
+    const pythonScript = path.join(__dirname, 'batch_generate_pagebreaks.py');
+    
+    // Extrahiere numerischen Teil für das Skript
+    const gaNumeric = parseInt(gaNum);
+    
+    const pythonProcess = spawn('python', [pythonScript, String(gaNumeric), String(gaNumeric)], {
+      cwd: __dirname,
+      encoding: 'utf8'
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    pythonProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log(`[PAGES/GENERATE] ${data.toString().trim()}`);
+    });
+    
+    pythonProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error(`[PAGES/GENERATE] stderr: ${data.toString().trim()}`);
+    });
+    
+    pythonProcess.on('close', async (code) => {
+      if (code === 0) {
+        // Prüfe ob Pagebreaks jetzt existieren
+        const pagebreakCreated = fsSync.existsSync(pagebreakFile);
+        
+        if (pagebreakCreated) {
+          // Lade die neuen Pagebreaks ins Memory
+          try {
+            const data = await fs.readFile(pagebreakFile, 'utf8');
+            const pagebreakData = JSON.parse(data);
+            
+            // Aktualisiere fullLectures mit den neuen Pagebreaks
+            if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
+              for (const lecture of pagebreakData.lectures) {
+                if (lecture.ID) {
+                  fullLectures[lecture.ID] = lecture;
+                }
+              }
+              console.log(`[PAGES/GENERATE] ${pagebreakData.lectures.length} Vorträge aus ${normalizedGA} in Memory geladen`);
+            }
+          } catch (loadErr) {
+            console.warn(`[PAGES/GENERATE] Warnung beim Laden der neuen Pagebreaks: ${loadErr.message}`);
+          }
+          
+          res.json({
+            success: true,
+            status: 'generated',
+            message: `Pagebreaks für ${normalizedGA} erfolgreich generiert`,
+            gaNumber: normalizedGA,
+            output: stdout
+          });
+        } else {
+          res.status(500).json({
+            error: `Pagebreak-Generierung abgeschlossen, aber Datei nicht gefunden`,
+            gaNumber: normalizedGA,
+            output: stdout,
+            stderr: stderr
+          });
+        }
+      } else {
+        res.status(500).json({
+          error: `Pagebreak-Generierung fehlgeschlagen (Exit-Code: ${code})`,
+          gaNumber: normalizedGA,
+          output: stdout,
+          stderr: stderr
+        });
+      }
+    });
+    
+    pythonProcess.on('error', (err) => {
+      console.error(`[PAGES/GENERATE] Prozess-Fehler:`, err);
+      res.status(500).json({
+        error: `Python-Prozess konnte nicht gestartet werden: ${err.message}`,
+        gaNumber: normalizedGA
+      });
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/GENERATE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/pages/status/:gaNumber - Prüft ob Pagebreaks für einen GA-Band existieren
+app.get('/api/pages/status/:gaNumber', (req, res) => {
+  try {
+    const gaNumber = decodeURIComponent(req.params.gaNumber).toUpperCase();
+    
+    // Normalisiere GA-Nummer
+    const gaMatch = gaNumber.match(/^GA?(\d{1,3}[a-z]?)$/i);
+    if (!gaMatch) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer' });
+    }
+    const gaNum = gaMatch[1].padStart(3, '0').toUpperCase();
+    const normalizedGA = `GA${gaNum}`;
+    
+    // Prüfe ob Pagebreaks existieren
+    const pagebreakFile = path.join(__dirname, 'pagebreaks', `${normalizedGA}.json`);
+    const hasPagebreaks = fsSync.existsSync(pagebreakFile);
+    
+    // Prüfe ob PDF existiert
+    const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
+    let hasPdf = false;
+    if (fsSync.existsSync(pdfDir)) {
+      const pdfFiles = fsSync.readdirSync(pdfDir);
+      hasPdf = pdfFiles.some(f => {
+        const nameLower = f.toLowerCase();
+        return nameLower.includes(`ga ${gaNum}`) || 
+               nameLower.includes(`ga${gaNum}`) ||
+               nameLower.includes(`ga ${parseInt(gaNum)}`);
+      });
+    }
+    
+    res.json({
+      gaNumber: normalizedGA,
+      hasPagebreaks,
+      hasPdf,
+      canGenerate: !hasPagebreaks && hasPdf
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/STATUS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Hilfsfunktion: Speichert einen Vortrag in seiner Quell-Datei
+async function saveLectureToSourceFile(lectureId, lecture) {
+  // Extrahiere GA-Nummer aus lectureId (z.B. "GA198/1" -> "GA198")
+  const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+  if (!gaMatch) {
+    throw new Error(`Ungültige Lecture-ID: ${lectureId}`);
+  }
+  
+  const gaNumber = gaMatch[1].toUpperCase();
+  
+  // Suche nach der pagebreaks Datei für diesen GA-Band
+  const pagebreakFile = path.join(__dirname, 'pagebreaks', `${gaNumber}.json`);
+  
+  try {
+    // Prüfe ob pagebreaks Datei existiert
+    if (fsSync.existsSync(pagebreakFile)) {
+      const data = await fs.readFile(pagebreakFile, 'utf8');
+      const pagebreakData = JSON.parse(data);
+      
+      // Finde und aktualisiere den Vortrag
+      if (pagebreakData.lectures && Array.isArray(pagebreakData.lectures)) {
+        const idx = pagebreakData.lectures.findIndex(l => l.ID === lectureId);
+        if (idx !== -1) {
+          pagebreakData.lectures[idx] = lecture;
+          
+          // Speichere zurück
+          await fs.writeFile(pagebreakFile, JSON.stringify(pagebreakData, null, 2), 'utf8');
+          console.log(`[PAGES] Vortrag ${lectureId} in ${pagebreakFile} gespeichert`);
+          return;
+        }
+      }
+    }
+    
+    // Fallback: Suche in steiner-full-lectures Dateien
+    const { lectureFilesWithPaths } = await findDataFiles();
+    
+    for (const fileInfo of lectureFilesWithPaths) {
+      const filePath = path.join(fileInfo.basePath, fileInfo.fileName);
+      const data = await fs.readFile(filePath, 'utf8');
+      const parsed = JSON.parse(data);
+      
+      if (parsed.lectures && Array.isArray(parsed.lectures)) {
+        const idx = parsed.lectures.findIndex(l => l.ID === lectureId);
+        if (idx !== -1) {
+          parsed.lectures[idx] = lecture;
+          
+          // Speichere zurück
+          await fs.writeFile(filePath, JSON.stringify(parsed, null, 2), 'utf8');
+          console.log(`[PAGES] Vortrag ${lectureId} in ${fileInfo.fileName} gespeichert`);
+          return;
+        }
+      }
+    }
+    
+    throw new Error(`Vortrag ${lectureId} nicht in Quelldateien gefunden`);
+    
+  } catch (error) {
+    console.error(`[PAGES] Fehler beim Speichern von ${lectureId}:`, error);
+    throw error;
+  }
+}
+
+// ============================================================================
 // KEYWORD THEMATIC SEARCH (basierend auf Themensuche)
 // ============================================================================
 
@@ -8965,7 +10441,7 @@ const CODE_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'code');
 const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
 const IMAGES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'images');
 const PAGEMARKERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagemarkers');
-const PAGEBREAK_BOOKS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagebreak-books');
+const PAGEBREAK_BOOKS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagebreaks');
 const CHALKBOARDS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'chalkboards');
 
 // ============================================================================
@@ -9101,13 +10577,13 @@ async function createPagebreakBooksBackup() {
   try {
     await ensureBackupDirectories();
     
-    const sourceDir = path.join(__dirname, 'pagebreak-books');
+    const sourceDir = path.join(__dirname, 'pagebreaks');
     if (!fsSync.existsSync(sourceDir)) {
       return null;
     }
     
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupSubDir = path.join(PAGEBREAK_BOOKS_BACKUP_DIR, `pagebreak-books-${timestamp}`);
+    const backupSubDir = path.join(PAGEBREAK_BOOKS_BACKUP_DIR, `pagebreaks-${timestamp}`);
     
     await fs.mkdir(backupSubDir, { recursive: true });
     
@@ -9122,12 +10598,12 @@ async function createPagebreakBooksBackup() {
       copiedCount++;
     }
     
-    console.log(`[BACKUP] pagebreak-books: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
+    console.log(`[BACKUP] pagebreaks: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
     
     // Bereinige alte Backups (behalte 5 Versionen)
     const allBackups = await fs.readdir(PAGEBREAK_BOOKS_BACKUP_DIR);
     const backupDirs = allBackups
-      .filter(d => d.startsWith('pagebreak-books-'))
+      .filter(d => d.startsWith('pagebreaks-'))
       .sort()
       .reverse();
     
@@ -9138,7 +10614,7 @@ async function createPagebreakBooksBackup() {
     
     return backupSubDir;
   } catch (error) {
-    console.error('[BACKUP] Fehler beim pagebreak-books Backup:', error);
+    console.error('[BACKUP] Fehler beim pagebreaks Backup:', error);
     return null;
   }
 }
@@ -16688,7 +18164,7 @@ app.get('/api/backups/list/:type', async (req, res) => {
         break;
       case 'pagebreakbooks':
         backupDir = PAGEBREAK_BOOKS_BACKUP_DIR;
-        prefix = 'pagebreak-books';
+        prefix = 'pagebreaks';
         break;
       case 'code':
         backupDir = CODE_BACKUP_DIR;

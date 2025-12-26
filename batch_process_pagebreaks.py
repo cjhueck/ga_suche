@@ -65,7 +65,7 @@ def process_single_ga(ga: str) -> Tuple[str, bool, str, float, float]:
     
     mapping_script = SCRIPT_DIR / "generate_lecture_page_mapping.py"
     pagebreak_script = SCRIPT_DIR / "apply_page_break_markers_v4.py"
-    output_file = SCRIPT_DIR / "pagebreak-books" / f"{ga}.json"
+    output_file = SCRIPT_DIR / "pagebreaks" / f"{ga}.json"
     
     start = time.time()
     

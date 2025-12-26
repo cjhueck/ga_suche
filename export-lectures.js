@@ -2,6 +2,164 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 
+// ============================================================
+// Rechtschreibkorrektur (portiert aus rechtschreibregeln.py)
+// ============================================================
+
+/**
+ * Korrigiert alte deutsche Rechtschreibung zu neuer Rechtschreibung.
+ * @param {string} text - Der zu korrigierende Text
+ * @returns {string} - Der korrigierte Text
+ */
+function korrigiereRechtschreibung(text) {
+  if (typeof text !== 'string') return text;
+  
+  // Ersetze lange Gedankenstriche durch kurze
+  text = text.replace(/—/g, '-');
+  
+  // Ersetze kk durch ck in deutschen Wörtern (Entwikklung → Entwicklung)
+  const kkExceptions = ['okkult', 'kehr', 'akkord', 'akkum', 'akkus', 'mokka', 
+                        'sakko', 'stakka', 'okkup', 'brokko', 'sukkul', 'makka'];
+  
+  text = text.replace(/\b(\w+?)kk(\w+?)\b/g, (match, before, after) => {
+    const word = before + 'kk' + after;
+    const wordLower = word.toLowerCase();
+    
+    // Überspringe Ausnahmen
+    const hasException = kkExceptions.some(exc => wordLower.includes(exc));
+    
+    if (word.length < 5 || !before || 
+        /[/:\.@_]/.test(word) || hasException) {
+      return match;
+    }
+    
+    return before + 'ck' + after;
+  });
+  
+  // Wörterliste: Alte → Neue Rechtschreibung
+  const replacements = {
+    // Häufigste: daß, muß, etc.
+    'daß': 'dass',
+    'Daß': 'Dass',
+    'muß': 'muss',
+    'mußt': 'musst',
+    'mußte': 'musste',
+    'mußtest': 'musstest',
+    'mußtet': 'musstet',
+    'mußten': 'mussten',
+    'wußte': 'wusste',
+    'gewußt': 'gewusst',
+    
+    // Bewusstsein und Varianten
+    'Bewußtsein': 'Bewusstsein',
+    'bewußt': 'bewusst',
+    'Bewußtseins': 'Bewusstseins',
+    'Bewußtseinszustand': 'Bewusstseinszustand',
+    'Bewußtseinszustände': 'Bewusstseinszustände',
+    'Unbewußtsein': 'Unbewusstsein',
+    'unbewußt': 'unbewusst',
+    'Selbstbewußtsein': 'Selbstbewusstsein',
+    'selbstbewußt': 'selbstbewusst',
+    
+    // Weitere häufige: ißt, frißt, etc.
+    'ißt': 'isst',
+    'iß': 'iss',
+    'frißt': 'frisst',
+    
+    // ß → ss (nach kurzem Vokal)
+    'Kuß': 'Kuss',
+    'Fluß': 'Fluss',
+    'Schloß': 'Schloss',
+    'Haß': 'Hass',
+    'Nuß': 'Nuss',
+    'Faß': 'Fass',
+    'Preß': 'Press',
+    'Miß': 'Miss',
+    'miß': 'miss',
+    'nuß': 'nuss',
+    'fluß': 'fluss',
+    'schloß': 'schloss',
+    'kuß': 'kuss',
+    'haß': 'hass',
+    'faß': 'fass',
+    'preß': 'press',
+    'Anschluß': 'Anschluss',
+    'schluß': 'schluss',
+    'Schluß': 'Schluss',
+    'biß': 'biss',
+    'riß': 'riss',
+    'floß': 'floss',
+    'schoß': 'schoss',
+    'Entschluß': 'Entschluss',
+    'entschluß': 'entschluss',
+    'häßlich': 'hässlich',
+    'veranlaßt': 'veranlasst',
+    'unermeßlich': 'unermesslich',
+    'verläßt': 'verlässt',
+    'verläßlich': 'verlässlich',
+    
+    // Konjunktiv: müßte, etc.
+    'müßte': 'müsste',
+    'müßtest': 'müsstest',
+    'müßtet': 'müsstet',
+    'müßten': 'müssten',
+    
+    // ss → ß (nach langem Vokal/Diphthong)
+    'reisst': 'reißt',
+    'Eiweiss': 'Eiweiß',
+    'eiweiss': 'eiweiß',
+    'läßt': 'lässt',
+    'heisst': 'heißt',
+    'weiss': 'weiß',
+    
+    // Zusammengesetzte Wörter mit Bindestrich
+    'ChristusWesenheit': 'Christus-Wesenheit',
+    'SeelischGeistiges': 'Seelisch-Geistiges',
+    'geistigseelisch': 'geistig-seelisch',
+    'seelischgeistig': 'seelisch-geistig',
+    'westund mitteleuropäisch': 'west- und mitteleuropäisch',
+    'von daoder von dorther': 'von da- oder von dorther',
+    'EntwederOder': 'Entweder-Oder',
+    
+    // Prozeß → Prozess
+    'Prozeß': 'Prozess',
+    
+    // Zahlen: dreissig → dreißig
+    'dreissig': 'dreißig',
+    'dreiunddreissig': 'dreiunddreißig',
+    
+    // Zusätzliche Korrekturen
+    'Fleiss': 'Fleiß',
+    'fleiss': 'fleiß',
+    'vergeßlich': 'vergesslich',
+    'heiss': 'heiß',
+    'zurücckommen': 'zurückkommen',
+    'ackurat': 'akkurat',
+    'paßt': 'passt',
+    'römischkatholisch': 'römisch-katholisch',
+    'DeutschÖsterreicher': 'Deutsch-Österreicher',
+    
+    // Kongreß → Kongress
+    'Kongreß': 'Kongress',
+    'kongreß': 'kongress',
+  };
+  
+  // Wende alle Ersetzungen an
+  for (const [old, newVal] of Object.entries(replacements)) {
+    text = text.split(old).join(newVal);
+  }
+  
+  // Regel: Zusammengesetzte Substantive mit großgeschriebenem zweiten Teil
+  // müssen durch einen Bindestrich getrennt werden (z.B. GöttlichGeistiges => Göttlich-Geistiges)
+  // Muster: Kleinbuchstabe gefolgt von Großbuchstabe innerhalb eines Wortes
+  text = text.replace(/\b[A-ZÄÖÜ]?[a-zäöüß]+[A-ZÄÖÜ][a-zäöüßA-ZÄÖÜ]*\b/g, (word) => {
+    // Füge Bindestrich ein wo Kleinbuchstabe auf Großbuchstabe folgt
+    return word.replace(/([a-zäöüß])([A-ZÄÖÜ])/g, '$1-$2');
+  });
+  
+  return text;
+}
+
 class SteinerLecturesExporter {
   constructor(sourceDir, outputDir) {
     this.sourceDir = sourceDir;
@@ -552,6 +710,48 @@ class SteinerLecturesExporter {
     }
   }
 
+  // Löscht pagebreaks-Dateien für die exportierten GA-Bände
+  // um sicherzustellen, dass nach einem Neu-Export die alten pagebreaks nicht mehr verwendet werden
+  removePagebreaksForGAs(gasToRemove) {
+    if (!gasToRemove || gasToRemove.length === 0) return;
+
+    const pagebreaksDir = path.join(this.outputDir, 'pagebreaks');
+    if (!fs.existsSync(pagebreaksDir)) return;
+
+    let deletedCount = 0;
+
+    for (const ga of gasToRemove) {
+      // Normalisiere GA-Nummer (z.B. "GA076" → "GA076", "ga76" → "GA076")
+      const gaUpper = ga.toUpperCase();
+      const gaNum = gaUpper.replace(/^GA0*/, ''); // Entferne führende Nullen für Dateisuche
+      
+      // Mögliche Dateinamen: GA076.json, GA76.json, GA076-report.json, GA76-report.json
+      const possibleFiles = [
+        `${gaUpper}.json`,
+        `GA${gaNum}.json`,
+        `${gaUpper}-report.json`,
+        `GA${gaNum}-report.json`
+      ];
+
+      for (const fileName of possibleFiles) {
+        const filePath = path.join(pagebreaksDir, fileName);
+        if (fs.existsSync(filePath)) {
+          try {
+            fs.unlinkSync(filePath);
+            console.log(`   🗑️  pagebreaks/${fileName} gelöscht`);
+            deletedCount++;
+          } catch (e) {
+            console.warn(`   ⚠ Konnte pagebreaks/${fileName} nicht löschen: ${e.message}`);
+          }
+        }
+      }
+    }
+
+    if (deletedCount > 0) {
+      console.log(`   ✓ Gesamt: ${deletedCount} pagebreaks-Dateien gelöscht\n`);
+    }
+  }
+
   // Main export function
   async export(selectedGAs = [], options = {}) {
     const { syncMetadata = true } = options;
@@ -726,6 +926,9 @@ class SteinerLecturesExporter {
               pendingHeadings = []; // Reset
             }
             
+            // Wende Rechtschreibkorrektur an (alte → neue deutsche Rechtschreibung)
+            convertedText = korrigiereRechtschreibung(convertedText);
+            
             paragraphs.push({
               index: `^${blockId}`,
               content: convertedText
@@ -797,6 +1000,9 @@ class SteinerLecturesExporter {
     // WICHTIG: Entferne alte Einträge für die exportierten GA-Bände aus bestehenden Dateien
     // um Duplikate zu vermeiden
     this.removeGAsFromExistingFiles(exportedGAs);
+
+    // Lösche pagebreaks-Dateien für die exportierten GA-Bände
+    this.removePagebreaksForGAs(exportedGAs);
 
     // Split into chunks of max 10 MB
     const maxSize = 10 * 1024 * 1024; // 10 MB

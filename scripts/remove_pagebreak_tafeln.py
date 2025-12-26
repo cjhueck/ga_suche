@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Entfernt redundante Wandtafel-Einträge am ENDE von Vorträgen in pagebreak-books.
+Entfernt redundante Wandtafel-Einträge am ENDE von Vorträgen in pagebreaks.
 
 WICHTIG: Nur Tafel-Einträge am ENDE eines Vortrags werden entfernt,
 NICHT die Bilder, die im Text eingebettet sind!
@@ -19,7 +19,7 @@ import re
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).parent.parent
-PAGEBREAK_DIR = PROJECT_DIR / "pagebreak-books"
+PAGEBREAK_DIR = PROJECT_DIR / "pagebreaks"
 
 # Muster für Tafel-Einträge am Ende (verschiedene Formate)
 TAFEL_PATTERNS = [
