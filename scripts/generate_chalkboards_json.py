@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generiert chalkboards.json aus den WebP-Dateien in Steiner_GA/chalkboards/
+Generiert chalkboards.json aus den WebP-Dateien in chalkboards/
+Synchronisiert automatisch von Steiner_GA/chalkboards/ nach chalkboards/
 Konvertiert automatisch PNG-Dateien zu WebP.
 
 Die JSON-Datei enthält für jede Tafel:
@@ -17,6 +18,7 @@ Verwendung:
 
 import json
 import re
+import shutil
 from pathlib import Path
 from collections import defaultdict
 
@@ -31,8 +33,81 @@ except ImportError:
 # Pfade
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
-CHALKBOARDS_DIR = PROJECT_DIR / "chalkboards"
+CHALKBOARDS_DIR = PROJECT_DIR / "chalkboards"  # Ziel (im Git-Repository)
+SOURCE_CHALKBOARDS_DIR = PROJECT_DIR / "Steiner_GA" / "chalkboards"  # Quelle (lokal)
 OUTPUT_FILE = PROJECT_DIR / "chalkboards.json"
+
+
+def sync_chalkboards() -> dict:
+    """
+    Synchronisiert Wandtafelzeichnungen von Steiner_GA/chalkboards/ nach chalkboards/
+    
+    Returns:
+        dict mit Statistiken (copied, skipped, errors)
+    """
+    stats = {'copied': 0, 'skipped': 0, 'errors': 0, 'renamed': 0}
+    
+    if not SOURCE_CHALKBOARDS_DIR.exists():
+        print(f"  Quellverzeichnis nicht gefunden: {SOURCE_CHALKBOARDS_DIR}")
+        print("  Überspringe Synchronisation.")
+        return stats
+    
+    # Sammle alle WebP-Dateien aus dem Quellverzeichnis
+    source_files = list(SOURCE_CHALKBOARDS_DIR.rglob("*.webp"))
+    
+    if not source_files:
+        print("  Keine WebP-Dateien im Quellverzeichnis gefunden.")
+        return stats
+    
+    for source_file in sorted(source_files):
+        try:
+            # Berechne relativen Pfad
+            rel_path = source_file.relative_to(SOURCE_CHALKBOARDS_DIR)
+            target_file = CHALKBOARDS_DIR / rel_path
+            
+            # Prüfe auf falsch formatierte Dateinamen (z.B. 05.05 statt 05-05)
+            filename = source_file.name
+            fixed_filename = fix_filename(filename)
+            
+            if fixed_filename != filename:
+                # Verwende den korrigierten Dateinamen
+                target_file = target_file.parent / fixed_filename
+                
+            # Erstelle Zielverzeichnis falls nötig
+            target_file.parent.mkdir(parents=True, exist_ok=True)
+            
+            # Kopiere nur wenn Ziel nicht existiert
+            if not target_file.exists():
+                shutil.copy2(source_file, target_file)
+                if fixed_filename != filename:
+                    print(f"  Kopiert + umbenannt: {rel_path} -> {fixed_filename}")
+                    stats['renamed'] += 1
+                else:
+                    print(f"  Kopiert: {rel_path}")
+                stats['copied'] += 1
+            else:
+                stats['skipped'] += 1
+                
+        except Exception as e:
+            print(f"  FEHLER bei {source_file}: {e}")
+            stats['errors'] += 1
+    
+    return stats
+
+
+def fix_filename(filename: str) -> str:
+    """
+    Korrigiert falsch formatierte Dateinamen.
+    z.B. GA204-1921-05.05-T01.webp -> GA204-1921-05-05-T01.webp
+    """
+    # Pattern für falsches Datumsformat: YYYY-MM.DD statt YYYY-MM-DD
+    pattern = r'^(GA\d+[A-Z]?-\d{4}-\d{2})\.(\d{2})(-T\d+\.webp)$'
+    match = re.match(pattern, filename, re.IGNORECASE)
+    
+    if match:
+        return f"{match.group(1)}-{match.group(2)}{match.group(3)}"
+    
+    return filename
 
 
 def parse_filename(filename: str) -> dict | None:
@@ -119,7 +194,22 @@ def convert_png_to_webp(png_path: Path) -> Path | None:
 
 
 def generate_chalkboards_json():
-    """Scannt alle Tafeln, konvertiert PNG zu WebP und generiert die JSON-Datei."""
+    """Synchronisiert, konvertiert PNG zu WebP und generiert die JSON-Datei."""
+    
+    # Schritt 0: Synchronisiere von Steiner_GA/chalkboards nach chalkboards
+    print("=== Schritt 0: Synchronisiere Wandtafelzeichnungen ===")
+    sync_stats = sync_chalkboards()
+    
+    if sync_stats['copied'] > 0:
+        print(f"  {sync_stats['copied']} Datei(en) kopiert")
+        if sync_stats['renamed'] > 0:
+            print(f"  {sync_stats['renamed']} davon mit korrigiertem Dateinamen")
+    if sync_stats['skipped'] > 0:
+        print(f"  {sync_stats['skipped']} Datei(en) übersprungen (bereits vorhanden)")
+    if sync_stats['errors'] > 0:
+        print(f"  {sync_stats['errors']} Fehler")
+    
+    print()
     
     if not CHALKBOARDS_DIR.exists():
         print(f"FEHLER: Verzeichnis nicht gefunden: {CHALKBOARDS_DIR}")
@@ -200,6 +290,8 @@ def generate_chalkboards_json():
     print(f"Anzahl Tafeln: {stats['total']}")
     print(f"Anzahl GA-Bände: {len([k for k in stats.keys() if k.startswith('GA')])}")
     
+    if sync_stats['copied'] > 0:
+        print(f"Neu synchronisiert: {sync_stats['copied']} Datei(en)")
     if stats.get('converted', 0) > 0:
         print(f"Konvertiert: {stats['converted']} PNG-Datei(en) zu WebP")
     if stats.get('conversion_errors', 0) > 0:
@@ -217,4 +309,3 @@ def generate_chalkboards_json():
 
 if __name__ == "__main__":
     generate_chalkboards_json()
-
