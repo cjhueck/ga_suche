@@ -7132,6 +7132,109 @@ app.get('/api/synonyms/:keyword', (req, res) => {
 });
 
 // ============================================================================
+// ERROR REPORT API - Fehlermeldungen per E-Mail
+// ============================================================================
+
+const nodemailer = require('nodemailer');
+
+// E-Mail Transporter konfigurieren
+let emailTransporter = null;
+
+function getEmailTransporter() {
+  if (!emailTransporter && process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    emailTransporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT) || 587,
+      secure: process.env.SMTP_SECURE === 'true', // true für 465, false für andere
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+      }
+    });
+    console.log('[EMAIL] SMTP Transporter konfiguriert');
+  }
+  return emailTransporter;
+}
+
+// API-Endpunkt: Fehlermeldung senden
+app.post('/api/error-report', async (req, res) => {
+  try {
+    const { screenshot, comment, ga, lecture, url, userAgent, timestamp } = req.body;
+    
+    if (!screenshot) {
+      return res.status(400).json({ error: 'Kein Screenshot vorhanden' });
+    }
+    
+    const transporter = getEmailTransporter();
+    
+    if (!transporter) {
+      console.error('[ERROR-REPORT] SMTP nicht konfiguriert. Benötigte Umgebungsvariablen: SMTP_HOST, SMTP_USER, SMTP_PASS');
+      return res.status(500).json({ error: 'E-Mail-Versand nicht konfiguriert' });
+    }
+    
+    // Base64 Screenshot zu Buffer konvertieren
+    const base64Data = screenshot.replace(/^data:image\/\w+;base64,/, '');
+    const imageBuffer = Buffer.from(base64Data, 'base64');
+    
+    // E-Mail zusammenstellen
+    const gaInfo = ga && lecture ? `GA${ga}/${lecture}` : (ga ? `GA${ga}` : 'Nicht angegeben');
+    const dateStr = new Date(timestamp).toLocaleString('de-DE', { 
+      timeZone: 'Europe/Berlin',
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    });
+    
+    const mailOptions = {
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      to: 'hueck@akanthos-akademie.de',
+      subject: `[GA-Suche Fehlermeldung] ${gaInfo} - ${dateStr}`,
+      html: `
+        <h2>Fehlermeldung aus GA-Suche</h2>
+        <table style="border-collapse: collapse; margin-bottom: 20px;">
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Zeitpunkt:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${dateStr}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">GA/Vortrag:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${gaInfo}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">URL:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><a href="${url}">${url}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Kommentar:</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${comment || '<em>Kein Kommentar</em>'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Browser:</td>
+            <td style="padding: 8px; border: 1px solid #ddd; font-size: 12px;">${userAgent}</td>
+          </tr>
+        </table>
+        <p>Screenshot im Anhang.</p>
+      `,
+      attachments: [
+        {
+          filename: `fehler_${gaInfo.replace(/\//g, '-')}_${Date.now()}.png`,
+          content: imageBuffer,
+          contentType: 'image/png'
+        }
+      ]
+    };
+    
+    await transporter.sendMail(mailOptions);
+    
+    console.log(`[ERROR-REPORT] Fehlermeldung gesendet: ${gaInfo}`);
+    res.json({ success: true, message: 'Fehlermeldung gesendet' });
+    
+  } catch (error) {
+    console.error('[ERROR-REPORT] Fehler beim Senden:', error);
+    res.status(500).json({ error: 'Fehler beim Senden der E-Mail' });
+  }
+});
+
+// ============================================================================
 // SCHLAGWORT-SYSTEM API
 // ============================================================================
 
