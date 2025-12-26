@@ -15340,7 +15340,7 @@ async function showKeywordSearchInTimeline(keyword) {
   resultsDiv.appendChild(timelineContainer);
   
   // Zeige Ladeanzeige
-  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Führe GA-Suche durch...</div>';
+  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Führe GA-Suche durch, bitte einen Moment Geduld...</div>';
   
   try {
     // SCHRITT 1: Lade vorhandene Keyword-Einträge aus keywords-database.json
@@ -35455,8 +35455,8 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   timelineContainer.id = 'timelineContainer';
   resultsDiv.appendChild(timelineContainer);
   
-  // Zeige "Timeline wird generiert..." Nachricht
-  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Timeline wird generiert...</div>';
+  // Zeige "GA-Suche läuft..." Nachricht
+  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Führe GA-Suche durch, bitte einen Moment Geduld...</div>';
   
   // Verwende customResults falls übergeben, sonst searchResults (lokal) oder window._tempSearchResults
   // WICHTIG: searchResults enthält bereits die relevanz-gefilterten Treffer vom Backend
