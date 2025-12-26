@@ -5752,6 +5752,16 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // API ENDPOINTS
 // ============================================================================
 
+// Health-Check Endpoint für Keep-Alive (UptimeRobot, etc.)
+// Antwortet sofort ohne Datenbank-Zugriffe
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
 app.get('/debug/status', async (req, res) => {
   // Debug: Zeige auch Books-Status
   const { bookFiles } = await findDataFiles();
