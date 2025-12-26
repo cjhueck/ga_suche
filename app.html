@@ -15345,7 +15345,7 @@ async function showKeywordSearchInTimeline(keyword) {
   try {
     // SCHRITT 1: Lade vorhandene Keyword-Einträge aus keywords-database.json
     const keywordsDB = await loadKeywordsDatabase();
-    const summaryDBResponse = await fetch(`${API_BASE}/api/summary-database`);
+    const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
     const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
     
     // Lade Vortragsdaten für Überschriften
@@ -32745,7 +32745,7 @@ async function showTimeline(keyword, clickedButton) {
       
       const keywordsDB = await keywordsDBResponse.json();
       // Lade Summary-Database für Überschriften
-      const summaryDBResponse = await fetch(`${API_BASE}/api/summary-database`);
+      const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
       const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
       
       // Sammle alle Vorträge mit diesem Keyword
@@ -35175,7 +35175,7 @@ async function renderTimelineContent() {
     const keywordsDB = await loadKeywordsDatabase();
     const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
     const clusters = themesResponse.ok ? await themesResponse.json() : {};
-    const summaryDBResponse = await fetch(`${API_BASE}/api/summary-database`);
+    const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
     const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
     
     let keywordEntries = [];
