@@ -6610,19 +6610,19 @@ Wandtafeln
   <option value="">Alle GA-Bände</option>
 </select>
 <!-- Analyse-Modus Auswahl -->
-<div style="display: flex; align-items: center; gap: 16px; margin-left: 12px;">
-  <label class="thematic-mode-radio" style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85em;">
-    <input type="radio" name="thematicMode" value="deep" checked style="accent-color: var(--primary-color); width: 16px; height: 16px; cursor: pointer;">
-    <span style="color: var(--text-color);">Tiefe Analyse</span>
+<div style="display: flex; align-items: center; gap: 6px; margin-left: 6px;">
+  <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;">
+    <input type="radio" name="thematicMode" value="deep" checked style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+    <span style="color: var(--text-color); font-weight: 500;">Tiefe</span>
   </label>
-  <label class="thematic-mode-radio" style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.85em;">
-    <input type="radio" name="thematicMode" value="broad" style="accent-color: var(--primary-color); width: 16px; height: 16px; cursor: pointer;">
-    <span style="color: var(--text-color);">Breite Sammlung</span>
+  <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;">
+    <input type="radio" name="thematicMode" value="broad" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+    <span style="color: var(--text-color); font-weight: 500;">Breite</span>
   </label>
 </div>
 <div style="display: flex; gap: 8px; margin-left: auto;">
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()">
-  Suche starten
+  Suchen
 </button>
 </div>
 </div>
@@ -8082,6 +8082,7 @@ Original
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
+    let currentThematicLimit = 100; // Limit basierend auf Modus (100 für Tiefe, 300 für Breite)
     // Suchhistorie aus localStorage laden (falls vorhanden)
     let searchHistory = (function() {
       try {
@@ -20003,6 +20004,7 @@ function scrollToChronologicalYear(year) {
         // - "broad" (Breite Sammlung): Gemini, viele Quellen, umfassende Sammlung
         const isDeepMode = thematicMode === 'deep';
         const limit = isDeepMode ? 100 : 300; // Breite Sammlung: mehr Quellen
+        currentThematicLimit = limit; // Speichere für Lösch-Funktion
         const preferredProvider = isDeepMode ? 'claude' : 'gemini';
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
@@ -20372,9 +20374,13 @@ function scrollToChronologicalYear(year) {
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
+          // Parse Limit aus Cache-Key (Format: query|depth|limit|ga) für Modus-Label
+          const keyParts = (item.key || '').split('|');
+          const limit = keyParts.length >= 3 ? parseInt(keyParts[2]) : 100;
+          const modeLabel = limit === 300 ? '[breit]' : '[tief]';
           const keyEnc = encodeURIComponent(item.key);
           const queryEnc = encodeURIComponent(item.query);
-          return `<li style="margin: 0.2rem 0;"><a href="#" onclick="openSavedThematicQueryEncoded('${keyEnc}','${queryEnc}'); return false;">${label}</a></li>`;
+          return `<li style="margin: 0.2rem 0;"><a href="#" onclick="openSavedThematicQueryEncoded('${keyEnc}','${queryEnc}'); return false;">${label} <span style="color: var(--secondary-text); font-size: 0.85em;">${modeLabel}</span></a></li>`;
         }).join('');
         
         resultsDiv.innerHTML = `
@@ -20404,16 +20410,21 @@ function scrollToChronologicalYear(year) {
         }
         const effectiveQuery = autocorrectQuery(query || entry.query || '');
         currentThematicQuery = effectiveQuery;
-        // Parse GA-Filter aus dem Cache-Key (Format: query|depth|limit|ga)
+        // Parse GA-Filter und Limit aus dem Cache-Key (Format: query|depth|limit|ga)
         try {
           const parts = (cacheKey || '').split('|');
           currentThematicGAFilter = parts && parts.length >= 4 ? (parts[3] || '') : '';
+          currentThematicLimit = parts && parts.length >= 3 ? parseInt(parts[2]) || 100 : 100;
           // Dropdown visual synchronisieren
           const gaSel = document.getElementById('thematicGAFilter');
           if (gaSel && currentThematicGAFilter) {
             gaSel.value = currentThematicGAFilter;
           }
-        } catch (_) { currentThematicGAFilter = ''; }
+          // Radio-Button synchronisieren (100 = Tiefe, 300 = Breite)
+          const modeValue = currentThematicLimit === 300 ? 'broad' : 'deep';
+          const modeRadio = document.querySelector(`input[name="thematicMode"][value="${modeValue}"]`);
+          if (modeRadio) modeRadio.checked = true;
+        } catch (_) { currentThematicGAFilter = ''; currentThematicLimit = 100; }
         const input = document.getElementById('thematicQuery');
         if (input) input.value = effectiveQuery;
         const sources = entry.sources || [];
@@ -22438,7 +22449,8 @@ function scrollToChronologicalYear(year) {
         const gaFilter = currentThematicGAFilter || '';
         // Normalisiere Query wie im Backend (toLowerCase + trim)
         const normalizedQuery = currentThematicQuery.toLowerCase().trim();
-        const cacheKey = `${normalizedQuery}|ausführlich|100|${gaFilter}`;
+        // Verwende gespeichertes Limit (100 für Tiefe, 300 für Breite)
+        const cacheKey = `${normalizedQuery}|ausführlich|${currentThematicLimit}|${gaFilter}`;
         
         // Rufe Backend-Endpunkt auf (muss im Backend implementiert sein!)
         const response = await fetch(`${API_BASE}/api/thematic-search/delete`, {
@@ -25014,7 +25026,10 @@ function formatAsteriskParagraphs() {
       // Verwende ausschließlich den GA-Band, der für DIESES Ergebnis angewendet wurde
       const selectedGA = appliedGA || '';
       const headingBase = autocorrectQuery(query) || '';
-      const headingWithGA = selectedGA ? `${headingBase} (aus ${selectedGA})` : headingBase;
+      // Modus-Label basierend auf currentThematicLimit (100 = tief, 300 = breit)
+      const modeLabel = currentThematicLimit === 300 ? '[breit]' : '[tief]';
+      const headingWithMode = `${headingBase} ${modeLabel}`;
+      const headingWithGA = selectedGA ? `${headingWithMode} (aus ${selectedGA})` : headingWithMode;
       const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       // Delete-Button nur in lokaler Version anzeigen
       const deleteButtonHTML = isLocal 
