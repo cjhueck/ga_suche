@@ -6769,7 +6769,11 @@ app.post('/api/chalkboards/backup', async (req, res) => {
 app.use('/ga-k-images', express.static(path.join(__dirname, 'Steiner_GA')));
 
 // Statisches Serving für Wandtafelzeichnungen (aus Root-Ordner 'chalkboards')
-app.use('/ga-k-images/chalkboards', express.static(path.join(__dirname, 'chalkboards')));
+// Mit langfristigem Cache (30 Tage) - Bilder ändern sich selten
+app.use('/ga-k-images/chalkboards', express.static(path.join(__dirname, 'chalkboards'), {
+  maxAge: '30d',
+  immutable: true
+}));
 
 app.get('/api/available-ga', async (req, res) => {
   try {
