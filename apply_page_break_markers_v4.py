@@ -815,20 +815,42 @@ def load_content_by_ga(ga_number: str) -> Tuple[Path, Dict, bool]:
     """
     Lädt entweder Buch oder Vorträge für eine GA-Nummer.
     Rückgabe: (source_path, content_obj, is_lectures)
-    """
-    # Versuche zuerst Buch
-    try:
-        path, book = load_book_by_ga(ga_number)
-        return path, book, False
-    except FileNotFoundError:
-        pass
     
-    # Versuche Vorträge
-    try:
-        path, pseudo_book = load_lectures_by_ga(ga_number)
-        return path, pseudo_book, True
-    except FileNotFoundError:
-        pass
+    AUFSATZBÄNDE: Diese GA-Nummern existieren sowohl als Buch als auch als Vorträge,
+    werden aber im Frontend als Aufsätze (wie Vorträge) angezeigt.
+    Daher müssen sie hier auch als Vorträge verarbeitet werden!
+    """
+    # Aufsatzbände: Als Vorträge behandeln, auch wenn Buch existiert
+    ga_upper = ga_number.upper()
+    aufsatzbaende = ['GA019', 'GA024', 'GA026', 'GA042', 'GA043', 'GA044']
+    
+    # Für Aufsatzbände: Vorträge zuerst versuchen
+    if ga_upper in aufsatzbaende:
+        try:
+            path, pseudo_book = load_lectures_by_ga(ga_number)
+            return path, pseudo_book, True
+        except FileNotFoundError:
+            pass
+        # Fallback auf Buch
+        try:
+            path, book = load_book_by_ga(ga_number)
+            return path, book, False
+        except FileNotFoundError:
+            pass
+    else:
+        # Normale Reihenfolge: Buch zuerst
+        try:
+            path, book = load_book_by_ga(ga_number)
+            return path, book, False
+        except FileNotFoundError:
+            pass
+        
+        # Versuche Vorträge
+        try:
+            path, pseudo_book = load_lectures_by_ga(ga_number)
+            return path, pseudo_book, True
+        except FileNotFoundError:
+            pass
     
     raise FileNotFoundError(f"{ga_number} weder in steiner-books-*.json noch in steiner-full-lectures-*.json gefunden")
 
