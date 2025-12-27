@@ -694,9 +694,16 @@ class SteinerLecturesExporter {
           const removedCount = originalCount - data.lectures.length;
           
           if (removedCount > 0) {
-            fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
             const relativePath = path.relative(this.outputDir, filePath);
-            console.log(`   🧹 ${relativePath}: ${removedCount} alte Einträge entfernt`);
+            
+            // Wenn die Datei jetzt leer ist, lösche sie komplett
+            if (data.lectures.length === 0) {
+              fs.unlinkSync(filePath);
+              console.log(`   🗑️  ${relativePath}: gelöscht (war leer nach Bereinigung)`);
+            } else {
+              fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+              console.log(`   🧹 ${relativePath}: ${removedCount} alte Einträge entfernt`);
+            }
             totalRemoved += removedCount;
           }
         } catch (e) {
@@ -775,6 +782,10 @@ class SteinerLecturesExporter {
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
       // Zusätzliche Ausnahmen: GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
       // BRIEFE: GA262, GA263a werden wie Vorträge exportiert (mit H2-Überschriften als Navigation)
+      
+      // Bestimme den Typ (lecture, essay, letter) - wird später im lectureData gespeichert
+      let contentType = 'lecture'; // Default: Vortrag
+      
       if (gaNumber) {
         const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
         const gaLower = gaNumber.toLowerCase();
@@ -784,10 +795,18 @@ class SteinerLecturesExporter {
         const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b || additionalEssayBands.includes(gaNum);
         // BRIEFE: GA262 und GA263a werden wie Vorträge exportiert (NICHT als Bücher!)
         const isGA263a = gaLower === '263a' || gaLower === 'ga263a';
-        const isLetterBand = gaNum === 262 || isGA263a;
+        const isLetterBandCheck = gaNum === 262 || isGA263a;
+        
+        // Setze den Typ
+        if (isLetterBandCheck) {
+          contentType = 'letter';
+        } else if (isEssayBand) {
+          contentType = 'essay';
+        }
+        
         // Wenn selectedGAs angegeben sind UND diese GA dabei ist, dann exportieren (override)
         const isExplicitlySelected = selectedGAs.length > 0 && selectedGAs.map(g => g.toUpperCase()).includes(`GA${gaNumber.toUpperCase()}`);
-        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isLetterBand && !isExplicitlySelected) {
+        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isLetterBandCheck && !isExplicitlySelected) {
           continue; // Überspringe GA001-GA050 (werden als Bücher exportiert)
         }
       }
@@ -952,6 +971,7 @@ class SteinerLecturesExporter {
           fileName: `${meta.ID} - ${meta.fullRest}`,
           location: meta.location,
           date: meta.date,
+          type: contentType, // 'lecture', 'essay', oder 'letter'
           paragraphs: mergedParagraphs
         };
         
@@ -1033,6 +1053,7 @@ class SteinerLecturesExporter {
       fs.writeFileSync(filePath, jsonStr, 'utf8');
 
       const sizeMB = (Buffer.byteLength(jsonStr, 'utf8') / (1024 * 1024)).toFixed(2);
+      console.log(`   ✓ ${fileName} (${sizeMB} MB, ${chunk.length} Einträge)`);
       
       exportedFiles.push(fileName);
     }

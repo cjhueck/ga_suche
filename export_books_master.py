@@ -1295,7 +1295,7 @@ class BooksExporter:
         print("=" * 70 + "\n")
         
         # Bestimme zu exportierende GA-Bände
-        # Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
+        # Ausnahmen: GA015, GA022, GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
         essay_bands = set(range(29, 38)) | {46}  # GA029-GA037 und GA046
         
         def is_essay_band(ga):

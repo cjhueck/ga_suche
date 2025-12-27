@@ -1195,6 +1195,163 @@ async function loadBooks() {
   }
 }
 
+// ============================================================
+// GLOBALE DEDUPLIZIERUNG: Bücher vs. Lectures
+// ============================================================
+// Diese Funktion wird NACH dem Laden von Büchern UND Lectures aufgerufen.
+// Sie prüft ob eine GA-Nummer sowohl als Buch als auch als Lecture existiert
+// und behält NUR die NEUESTE Version (basierend auf mtime der Quelldatei).
+// Die ältere Version wird auch aus der Quelldatei entfernt!
+// ============================================================
+async function deduplicateBooksAndLectures() {
+  console.log('  Prüfe auf Duplikate zwischen Büchern und Lectures...');
+  
+  // ============================================================
+  // REGELBASIERTE KLASSIFIZIERUNG: Diese GAs sind IMMER Aufsätze/Lectures, nie Bücher!
+  // Wenn beide existieren, wird das Buch IMMER entfernt, unabhängig von mtime.
+  // ============================================================
+  const FORCE_AS_LECTURES = new Set([
+    'GA019', 'GA024', 'GA026',
+    'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037',
+    'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'
+  ]);
+  
+  // Sammle alle GA-Nummern aus Büchern (z.B. "GA015", "GA022")
+  const bookGAs = new Map(); // gaNumber -> { mtime, sourceFile }
+  for (const [id, book] of Object.entries(fullBooks)) {
+    const gaNumber = id.replace(/\/.*$/, '').toUpperCase(); // "GA015/1" -> "GA015", "GA015" -> "GA015"
+    if (!bookGAs.has(gaNumber) || (book._sourceFileMtime > bookGAs.get(gaNumber).mtime)) {
+      bookGAs.set(gaNumber, {
+        mtime: book._sourceFileMtime || 0,
+        sourceFile: book._sourceFileName || 'unknown',
+        id: id
+      });
+    }
+  }
+  
+  // Sammle alle GA-Nummern aus Lectures (z.B. "GA015" aus "GA015/1", "GA015/2")
+  const lectureGAs = new Map(); // gaNumber -> { mtime, sourceFile, ids: [] }
+  for (const [id, lecture] of Object.entries(fullLectures)) {
+    const gaNumber = id.replace(/\/.*$/, '').toUpperCase(); // "GA015/1" -> "GA015"
+    if (!lectureGAs.has(gaNumber)) {
+      lectureGAs.set(gaNumber, {
+        mtime: lecture._sourceFileMtime || 0,
+        sourceFile: lecture._sourceFileName || 'unknown',
+        ids: [id]
+      });
+    } else {
+      const entry = lectureGAs.get(gaNumber);
+      entry.ids.push(id);
+      // Aktualisiere mtime wenn diese Lecture neuer ist
+      if ((lecture._sourceFileMtime || 0) > entry.mtime) {
+        entry.mtime = lecture._sourceFileMtime;
+        entry.sourceFile = lecture._sourceFileName;
+      }
+    }
+  }
+  
+  // Finde Überschneidungen
+  const duplicates = [];
+  for (const [gaNumber, bookInfo] of bookGAs) {
+    if (lectureGAs.has(gaNumber)) {
+      const lectureInfo = lectureGAs.get(gaNumber);
+      duplicates.push({
+        gaNumber,
+        bookMtime: bookInfo.mtime,
+        bookFile: bookInfo.sourceFile,
+        bookId: bookInfo.id,
+        lectureMtime: lectureInfo.mtime,
+        lectureFile: lectureInfo.sourceFile,
+        lectureIds: lectureInfo.ids
+      });
+    }
+  }
+  
+  if (duplicates.length === 0) {
+    console.log('  ✓ Keine Duplikate gefunden');
+    return;
+  }
+  
+  console.log(`  ⚠️  ${duplicates.length} GA-Bände existieren sowohl als Buch als auch als Lecture:`);
+  
+  let booksRemoved = 0;
+  let lecturesRemoved = 0;
+  const filesToUpdate = new Map(); // fileName -> Set of IDs to remove
+  
+  for (const dup of duplicates) {
+    const bookDate = new Date(dup.bookMtime).toISOString().split('T')[0];
+    const lectureDate = new Date(dup.lectureMtime).toISOString().split('T')[0];
+    
+    // REGEL 1: Wenn GA in FORCE_AS_LECTURES → IMMER Lectures behalten!
+    const forceLecture = FORCE_AS_LECTURES.has(dup.gaNumber.toUpperCase());
+    
+    // REGEL 2: Sonst mtime-basierte Entscheidung
+    const bookNewer = !forceLecture && (dup.bookMtime > dup.lectureMtime);
+    
+    if (bookNewer) {
+      // Buch ist neuer UND nicht in FORCE_AS_LECTURES - entferne Lectures
+      console.log(`    ${dup.gaNumber}: Buch (${bookDate}) ist neuer als Lectures (${lectureDate}) → Lectures entfernen`);
+      for (const lectureId of dup.lectureIds) {
+        delete fullLectures[lectureId];
+        lecturesRemoved++;
+      }
+      // Merke Datei für spätere Bereinigung
+      if (!filesToUpdate.has(dup.lectureFile)) {
+        filesToUpdate.set(dup.lectureFile, new Set());
+      }
+      dup.lectureIds.forEach(id => filesToUpdate.get(dup.lectureFile).add(id));
+    } else {
+      // Lecture ist neuer ODER GA ist in FORCE_AS_LECTURES - entferne Buch
+      const reason = forceLecture 
+        ? `ist AUFSATZBAND (Regel)` 
+        : `Lectures (${lectureDate}) sind neuer als Buch (${bookDate})`;
+      console.log(`    ${dup.gaNumber}: ${reason} → Buch entfernen`);
+      delete fullBooks[dup.bookId];
+      booksRemoved++;
+      // Merke Datei für spätere Bereinigung
+      if (!filesToUpdate.has(dup.bookFile)) {
+        filesToUpdate.set(dup.bookFile, new Set());
+      }
+      filesToUpdate.get(dup.bookFile).add(dup.bookId);
+    }
+  }
+  
+  // Bereinige die Quelldateien
+  for (const [fileName, idsToRemove] of filesToUpdate) {
+    try {
+      // Bestimme ob es eine Buch- oder Lecture-Datei ist
+      const isBookFile = fileName.includes('steiner-books');
+      const basePath = isBookFile 
+        ? path.join(__dirname, 'steiner-books')
+        : path.join(__dirname, 'steiner-full-lectures');
+      const filePath = path.join(basePath, fileName);
+      
+      if (!await fs.access(filePath).then(() => true).catch(() => false)) {
+        continue;
+      }
+      
+      const content = JSON.parse(await fs.readFile(filePath, 'utf8'));
+      const arrayKey = isBookFile ? 'books' : 'lectures';
+      const originalCount = content[arrayKey]?.length || 0;
+      
+      content[arrayKey] = (content[arrayKey] || []).filter(item => {
+        const itemId = item.ID || item.gaNumber || '';
+        return !idsToRemove.has(itemId);
+      });
+      
+      const newCount = content[arrayKey].length;
+      if (newCount < originalCount) {
+        await fs.writeFile(filePath, JSON.stringify(content, null, 2), 'utf8');
+        console.log(`    🧹 ${fileName}: ${originalCount - newCount} Einträge dauerhaft entfernt`);
+      }
+    } catch (e) {
+      console.warn(`    ⚠️  Konnte ${fileName} nicht bereinigen: ${e.message}`);
+    }
+  }
+  
+  console.log(`  ✓ Deduplizierung abgeschlossen: ${booksRemoved} Bücher, ${lecturesRemoved} Lectures entfernt`);
+}
+
 // Lade Concepts-Database beim Start (Caching für Performance)
 async function loadConceptsDatabase() {
   try {
@@ -9542,6 +9699,7 @@ app.post('/api/export/ga', async (req, res) => {
     let exportArgs = [];
     
     // Bücher: GA001-GA028, GA045 (außer Aufsätze)
+    // GA015 und GA022 werden als Vorträge/Aufsätze exportiert (nicht als Bücher)
     const essayBands = [14, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
     const letterBands = [262]; // GA262, GA263a werden separat behandelt
     const isGA041b = gaSuffix === 'b' && gaNumeric === 41;
@@ -19074,6 +19232,11 @@ await loadFullLectures();
     console.log('\n[4/9] Lade Bücher...');
 const loadedBooks = await loadBooks();
     console.log(`  ✓ Bücher geladen: ${Object.keys(fullBooks).length} Bücher`);
+
+    console.log('\n[4b/9] Deduplizierung Bücher vs. Lectures...');
+await deduplicateBooksAndLectures();
+    console.log(`  ✓ Nach Deduplizierung: ${Object.keys(fullLectures).length} Vorträge, ${Object.keys(fullBooks).length} Bücher`);
+
 // Lade Bilder-Datenbank NICHT beim Start (zu groß)
 // Bilder werden bei Bedarf aus Part-Dateien geladen
 // await loadSteinerImages(); // Deaktiviert - Lazy Loading statt dessen
