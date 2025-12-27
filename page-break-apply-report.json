@@ -1,66 +1,112 @@
 {
-  "ga": "GA021",
-  "sourceFile": "steiner-books-021-021.json",
+  "ga": "GA070A",
+  "sourceFile": "steiner-full-lectures-014-354-part04.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 176,
-  "breaksWithPage": 176,
-  "inserted": 167,
-  "insertedRatio": 0.9488636363636364,
-  "failed": 9,
+  "breaksTotal": 974,
+  "breaksWithPage": 974,
+  "inserted": 463,
+  "insertedRatio": 0.4753593429158111,
+  "failed": 79,
   "failuresSample": [
     {
-      "page": 174,
+      "page": 46,
       "reason": "no-match",
-      "left": "hie 1884 bis 1901», GA 1961, Bibl.-Nr. 30, S. 526ff., sowie: «Franz Brentano und",
-      "right": "die Aristotelische Geisteslehre», Vortrag in: «Anthroposophie, Psycho- sophie, P"
+      "lecture": 0
     },
     {
-      "page": 175,
+      "page": 48,
       "reason": "no-match",
-      "left": "Das Geheimnis der Runen» (1907); «Die Bil- derschrift der Ario-Germanen» (1910).",
-      "right": "77 Friedrich Theodor Vischer: Siehe Hinweis zu S, 135 f. ein anderer Nachruf (vo"
+      "lecture": 0
     },
     {
-      "page": 176,
+      "page": 50,
       "reason": "no-match",
-      "left": "en aner- kannte Axiom entgegenhalten, daß nichts in der Seele ist, das nicht von",
-      "right": "den Sinnen stammt. Aber man muß die Seele selbst und ihre Affektio- nen davon au"
+      "lecture": 0
     },
     {
-      "page": 177,
+      "page": 54,
       "reason": "no-match",
-      "left": "- sche Grundlagen der Anthroposophie 1884-1901», GA 1961, Bibl.-Nr. 30, S. 329f.",
-      "right": "145 «vollständige Sinneslebre»: Siehe besonders Rudolf Steiner, «Anthropo- sophi"
+      "lecture": 0
     },
     {
-      "page": 178,
+      "page": 361,
       "reason": "no-match",
-      "left": "269-306. 167f. Arnold Rudolf Karl Fortlage, 1806-1881, Philosoph und Psychologe.",
-      "right": "Verzeichnis der im Text angeführten Schriften Rudolf Steiners in chronologischer"
+      "lecture": 8
     },
     {
-      "page": 179,
+      "page": 723,
       "reason": "no-match",
-      "left": "t (1917), in: «Philosophie und Anthroposophie», GA 1965, BibL-Nr. 35, S. 269-306",
-      "right": "Personenregister (erw. = der Name wird im Text lediglich erwähnt) Hartmann, Edua"
+      "lecture": 14
     },
     {
-      "page": 180,
+      "page": 730,
       "reason": "no-match",
-      "left": "hott, Jacob (1822-1893) 85 Goethe, Johann Wolfgang von (1749-1832) erw. 13f., 28",
-      "right": "Tauler, Johannes (um 1300-1361) Occam, Wilhelm von (i 270-1327) erw. 113 Thaies "
+      "lecture": 14
     },
     {
-      "page": 181,
+      "page": 731,
       "reason": "no-match",
-      "left": " Eduard (1814-1908) 102 f. Ziehen, Theodor (1862-1950) erw. 113 erw. 132, 153fr.",
-      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
+      "lecture": 14
     },
     {
-      "page": 182,
+      "page": 732,
       "reason": "no-match",
-      "left": "n, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923/25 (28)",
-      "right": "//. Gesammelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Gr"
+      "lecture": 14
+    },
+    {
+      "page": 792,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 798,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 798,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 846,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 856,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 859,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 861,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 867,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 871,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 876,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 881,
+      "reason": "no-match",
+      "lecture": 18
     }
   ]
 }

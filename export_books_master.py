@@ -1108,6 +1108,16 @@ class BooksExporter:
             
             total_time = time.time() - start_time
             print(f"[OK] ({len(headings)} Überschriften, {len(paragraphs)} Absätze, {book['wordCount']} Wörter, {total_time:.1f}s)")
+            
+            # NEUERUNG: Lösche alte pagebreaks-Datei für diese GA, damit Seitenzahlen neu generiert werden
+            pagebreaks_file = Path(self.project_root) / 'pagebreaks' / f'{ga_number}.json'
+            if pagebreaks_file.exists():
+                try:
+                    pagebreaks_file.unlink()
+                    print(f"    → Alte pagebreaks/{ga_number}.json gelöscht (Seitenzahlen müssen neu generiert werden)")
+                except Exception as del_err:
+                    print(f"    [WARN] Konnte pagebreaks/{ga_number}.json nicht löschen: {del_err}")
+            
             return book
             
         except Exception as e:
@@ -1266,6 +1276,16 @@ class BooksExporter:
         
         total_time = time.time() - start_time
         print(f"  [OK] Multi-File: {len(chapter_info)} Kapitel, {len(headings_for_export)} Überschriften, {len(all_paragraphs)} Absätze, {book['wordCount']} Wörter, {total_time:.1f}s")
+        
+        # NEUERUNG: Lösche alte pagebreaks-Datei für diese GA, damit Seitenzahlen neu generiert werden
+        pagebreaks_file = Path(self.project_root) / 'pagebreaks' / f'{ga_number}.json'
+        if pagebreaks_file.exists():
+            try:
+                pagebreaks_file.unlink()
+                print(f"    → Alte pagebreaks/{ga_number}.json gelöscht (Seitenzahlen müssen neu generiert werden)")
+            except Exception as del_err:
+                print(f"    [WARN] Konnte pagebreaks/{ga_number}.json nicht löschen: {del_err}")
+        
         return book
     
     def export_books(self, ga_numbers=None):

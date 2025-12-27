@@ -579,15 +579,20 @@ def build_breaks_for_ga(ga_number: str, validate: bool = False) -> Optional[Dict
     rate = (extracted / pdf_page_count * 100.0) if pdf_page_count else 0.0
     print(f"  PDF-Seiten: {pdf_page_count}, erkannte gedruckte Seiten: {extracted} ({rate:.1f}%)")
 
-    # Fallback: Wenn überhaupt keine Seitenzahlen extrahiert werden konnten,
+    # Fallback: Wenn weniger als 20% der Seitenzahlen extrahiert werden konnten,
     # nutze PDF-Seitenindex als Seitenzahl (1-basiert). Das ist nicht perfekt,
     # aber ermöglicht ein reproduzierbares Ergebnis für PDFs ohne text-extrahierbare Footer.
-    if extracted == 0 and pdf_page_count > 0:
-        print("  ⚠️  Keine Seitenzahlen im Footer erkannt – verwende PDF-Seitennummern als Fallback")
+    use_fallback = extracted == 0 or (rate < 20.0 and pdf_page_count > 10)
+    if use_fallback and pdf_page_count > 0:
+        print(f"  ⚠️  Zu wenige Seitenzahlen erkannt ({rate:.1f}%) – verwende PDF-Seitennummern als Fallback")
+        # Bestimme Offset: PDF-Seite 1 entspricht normalerweise Seite 1, 
+        # aber bei Büchern mit Vorspann kann es anders sein
+        # Für GA-Bücher: PDF-Seite 7 entspricht oft gedruckter Seite 7
+        # Wir verwenden einfach PDF-Index + 1 als Seitenzahl
         pages = [
             PageMeta(
                 pdf_index=p.pdf_index,
-                printed_page=p.pdf_index + 1,
+                printed_page=p.pdf_index + 1,  # PDF-Seite 0 = Seite 1, etc.
                 printed_confidence=Confidence.INTERPOLATED,
                 body_text=p.body_text,
             )

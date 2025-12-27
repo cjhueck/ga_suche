@@ -880,15 +880,10 @@ async function loadFullLectures() {
                   continue;
                 }
                 
-                // Vortrag existiert bereits - Override nur anwenden wenn NEUER als Hauptdatei
+                // Vortrag existiert bereits - Override IMMER anwenden (enthält Seitenzahlen!)
                 const existingMtime = fullLectures[lecture.ID]._sourceFileMtime || 0;
                 
-                // NEUERUNG: Override NUR anwenden, wenn er NEUER ist als die Hauptdatei
-                // Dies verhindert, dass alte Overrides neue Exporte überschreiben
-                if (existingMtime > overrideMtime) {
-                  // Hauptdatei ist neuer - Override NICHT anwenden
-                  continue;
-                }
+                // Pagebreak-Overrides enthalten Seitenzahlen - IMMER anwenden!
                 
                 // Debug: Prüfe Marker VOR Normalisierung
                 const firstParaBefore = lecture.paragraphs[0];
@@ -1066,6 +1061,51 @@ async function loadBooks() {
     
     if (duplicatesSkipped > 0) {
       console.log(`  ℹ️  ${duplicatesSkipped} ältere Duplikate übersprungen (neuere Version bevorzugt)`);
+      
+      // NEUERUNG: Automatische Bereinigung - entferne Duplikate aus älteren Dateien
+      // Dies verhindert, dass bei zukünftigen Server-Starts alte Versionen geladen werden
+      const booksToRemoveFromFiles = new Map(); // fileName -> Set of bookIds to remove
+      
+      for (const { fileName, books, mtime } of booksWithMtime) {
+        for (const book of books) {
+          const bookId = book.ID || book.gaNumber;
+          if (!bookId) continue;
+          
+          const current = fullBooks[bookId];
+          if (current && current._sourceFileName !== fileName) {
+            // Dieses Buch wurde aus einer anderen (neueren) Datei geladen
+            if (!booksToRemoveFromFiles.has(fileName)) {
+              booksToRemoveFromFiles.set(fileName, new Set());
+            }
+            booksToRemoveFromFiles.get(fileName).add(bookId);
+          }
+        }
+      }
+      
+      // Entferne Duplikate aus älteren Dateien
+      for (const [fileName, bookIds] of booksToRemoveFromFiles) {
+        if (bookIds.size === 0) continue;
+        
+        const filePath = path.join(bookBasePath, fileName);
+        try {
+          const data = await fs.readFile(filePath, 'utf8');
+          const parsed = JSON.parse(data);
+          const originalCount = parsed.books?.length || 0;
+          
+          parsed.books = (parsed.books || []).filter(b => {
+            const bid = b.ID || b.gaNumber;
+            return !bookIds.has(bid);
+          });
+          
+          const newCount = parsed.books.length;
+          if (newCount < originalCount) {
+            await fs.writeFile(filePath, JSON.stringify(parsed, null, 2), 'utf8');
+            console.log(`    🧹 ${originalCount - newCount} Duplikat(e) aus ${fileName} entfernt`);
+          }
+        } catch (cleanErr) {
+          // Ignoriere Fehler bei der Bereinigung
+        }
+      }
     }
 
     // ============================================================
@@ -1102,7 +1142,6 @@ async function loadBooks() {
           
           const loadedBookOverrides = await Promise.all(bookOverridePromises);
           let applied = 0;
-          let skippedOlder = 0;
           
           for (const { fileName: f, bookObj, mtime } of loadedBookOverrides) {
             if (!bookObj) continue;
@@ -1110,13 +1149,9 @@ async function loadBooks() {
             const bookId = bookObj?.ID || bookObj?.gaNumber;
             if (!bookId) continue;
 
-            // NEUERUNG: Prüfe ob die Hauptdatei neuer ist als der Override
+            // Pagebreak-Overrides enthalten Seitenzahlen - IMMER anwenden wenn vorhanden!
+            // Die Seitenzahlen sind nur in den Overrides, nicht in den Hauptdateien.
             const existing = fullBooks[bookId];
-            if (existing && existing._sourceFileMtime && existing._sourceFileMtime > mtime) {
-              // Hauptdatei ist neuer - Override NICHT anwenden
-              skippedOlder++;
-              continue;
-            }
 
             // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings) beibehalten
             // Dies ermöglicht, dass Pagebreak-Overrides nur die Seitenmarker hinzufügen,
@@ -1142,10 +1177,7 @@ async function loadBooks() {
             applied++;
           }
           if (applied > 0) {
-            console.log(`  ✓ Pagebreak-Overrides geladen: ${applied}`);
-          }
-          if (skippedOlder > 0) {
-            console.log(`  ℹ️  ${skippedOlder} ältere Pagebreak-Overrides übersprungen (Hauptdatei neuer)`);
+            console.log(`  ✓ Pagebreak-Overrides geladen: ${applied} (Seitenzahlen)`);
           }
         }
       }

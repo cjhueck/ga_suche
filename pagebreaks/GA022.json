@@ -12,7 +12,7 @@
     "paragraphs": [
       {
         "index": "^wc1yku",
-        "content": "|7|(Diese Ausführungen sind 1902 geschrieben und zuers|8|t veröffentlicht worden.)"
+        "content": "|7|(Diese Ausführungen sind 1902 geschrieben und zuerst veröffentlicht worden.)"
       },
       {
         "index": "^a15vwp",
@@ -1116,7 +1116,7 @@
       },
       {
         "index": "^4g39m0",
-        "content": "|43|(Diese Ausführungen werden in dieser|44| Neu-Ausgabe 1918 neu hinzugefügt.)"
+        "content": "|43|(Diese Ausführungen werden in dieser Neu-Ausgabe 1918 neu hinzugefügt.)"
       },
       {
         "index": "^lfnl2r",
@@ -1397,6 +1397,6 @@
       }
     ],
     "wordCount": 17036,
-    "charCount": 112704
+    "charCount": 112698
   }
 }
