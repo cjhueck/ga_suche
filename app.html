@@ -1347,6 +1347,137 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       border-left: 4px solid #6BA3B8;
     }
     
+    /* ============================================ */
+    /* TEXT-BEARBEITUNGSMODUS (INLINE EDITING) */
+    /* ============================================ */
+    
+    /* Edit-Modus aktiv: Body-Klasse */
+    body.text-edit-mode #viewer .paragraph[contenteditable="true"],
+    body.text-edit-mode #viewer h3[contenteditable="true"],
+    body.text-edit-mode #viewer h4[contenteditable="true"] {
+      outline: 2px dashed #9b59b6;
+      outline-offset: 4px;
+      padding: 8px;
+      margin: 4px 0;
+      border-radius: 4px;
+      background: rgba(155, 89, 182, 0.05);
+      cursor: text;
+      transition: background 0.2s, outline-color 0.2s;
+    }
+    
+    body.text-edit-mode #viewer .paragraph[contenteditable="true"]:hover,
+    body.text-edit-mode #viewer h3[contenteditable="true"]:hover,
+    body.text-edit-mode #viewer h4[contenteditable="true"]:hover {
+      background: rgba(155, 89, 182, 0.1);
+      outline-color: #8e44ad;
+    }
+    
+    body.text-edit-mode #viewer .paragraph[contenteditable="true"]:focus,
+    body.text-edit-mode #viewer h3[contenteditable="true"]:focus,
+    body.text-edit-mode #viewer h4[contenteditable="true"]:focus {
+      outline: 2px solid #8e44ad;
+      background: rgba(155, 89, 182, 0.15);
+    }
+    
+    /* Bearbeiteter Text (mit Änderungen) */
+    body.text-edit-mode .paragraph.text-modified,
+    body.text-edit-mode h3.text-modified,
+    body.text-edit-mode h4.text-modified {
+      outline-color: #e74c3c !important;
+      background: rgba(231, 76, 60, 0.1) !important;
+    }
+    
+    /* Gespeicherte Änderungen anzeigen */
+    .paragraph.has-text-edit,
+    h3.has-text-edit,
+    h4.has-text-edit {
+      position: relative;
+    }
+    
+    .paragraph.has-text-edit::before,
+    h3.has-text-edit::before,
+    h4.has-text-edit::before {
+      content: '✏️';
+      position: absolute;
+      left: -24px;
+      top: 0;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    
+    /* Dark Mode für Edit-Modus */
+    body.dark-mode.text-edit-mode #viewer .paragraph[contenteditable="true"],
+    body.dark-mode.text-edit-mode #viewer h3[contenteditable="true"],
+    body.dark-mode.text-edit-mode #viewer h4[contenteditable="true"] {
+      outline-color: #bb8fce;
+      background: rgba(155, 89, 182, 0.1);
+    }
+    
+    body.dark-mode.text-edit-mode #viewer .paragraph[contenteditable="true"]:focus,
+    body.dark-mode.text-edit-mode #viewer h3[contenteditable="true"]:focus,
+    body.dark-mode.text-edit-mode #viewer h4[contenteditable="true"]:focus {
+      outline-color: #d4a5e8;
+      background: rgba(155, 89, 182, 0.2);
+    }
+    
+    /* Edit-Modus Toolbar */
+    #text-edit-toolbar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--background-color);
+      border: 2px solid #9b59b6;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: none;
+      gap: 10px;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+    
+    body.text-edit-mode #text-edit-toolbar {
+      display: flex;
+    }
+    
+    #text-edit-toolbar button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    #text-edit-toolbar .save-btn {
+      background: #27ae60;
+      color: white;
+      border: none;
+    }
+    
+    #text-edit-toolbar .save-btn:hover {
+      background: #219a52;
+    }
+    
+    #text-edit-toolbar .cancel-btn {
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+    
+    #text-edit-toolbar .cancel-btn:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    
+    #text-edit-toolbar .status {
+      font-size: 0.85em;
+      color: var(--secondary-text);
+    }
+    
+    body.dark-mode #text-edit-toolbar {
+      background: var(--dark-background-color);
+      border-color: #bb8fce;
+    }
+    
     /* Keyword Management Item Hover */
     .kw-mgmt-item:hover {
       background: #f0f8ff !important;
@@ -6283,6 +6414,184 @@ body.dark-mode .context-help-popup strong {
   color: var(--dark-accent-color);
 }
 
+/* Analytics Dashboard */
+.analytics-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.analytics-overlay.visible {
+  display: flex;
+}
+
+.analytics-panel {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--sidebar-bg);
+}
+
+.analytics-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.analytics-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--secondary-text);
+  padding: 0 8px;
+}
+
+.analytics-close:hover {
+  color: var(--text-color);
+}
+
+.analytics-content {
+  padding: 20px;
+}
+
+.analytics-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.analytics-stat-box {
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+}
+
+.analytics-stat-box h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  font-weight: normal;
+}
+
+.analytics-stat-box .stat-value {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.analytics-stat-box .stat-label {
+  font-size: 0.75rem;
+  color: var(--secondary-text);
+  margin-top: 4px;
+}
+
+.analytics-section {
+  margin-bottom: 24px;
+}
+
+.analytics-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.analytics-chart {
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 10px 0;
+}
+
+.analytics-chart-bar {
+  flex: 1;
+  background: var(--accent-color);
+  border-radius: 2px 2px 0 0;
+  min-height: 2px;
+  position: relative;
+}
+
+.analytics-chart-bar:hover {
+  opacity: 0.8;
+}
+
+.analytics-chart-bar::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: var(--secondary-text);
+  white-space: nowrap;
+}
+
+.analytics-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.analytics-list-section {
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.analytics-list-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 0.85rem;
+  color: var(--text-color);
+}
+
+.analytics-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+}
+
+.analytics-list-item:last-child {
+  border-bottom: none;
+}
+
+.analytics-list-item .term {
+  color: var(--text-color);
+}
+
+.analytics-list-item .count {
+  color: var(--secondary-text);
+  font-family: monospace;
+}
+
 </style>
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
@@ -6290,6 +6599,19 @@ body.dark-mode .context-help-popup strong {
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 </head>
 <body>
+<!-- Analytics Dashboard Overlay -->
+<div id="analytics-overlay" class="analytics-overlay" onclick="if(event.target===this)closeAnalytics()">
+  <div class="analytics-panel">
+    <div class="analytics-header">
+      <h2>Nutzungsstatistiken</h2>
+      <button class="analytics-close" onclick="closeAnalytics()">&times;</button>
+    </div>
+    <div class="analytics-content" id="analytics-content">
+      <p style="color: var(--secondary-text);">Statistiken werden geladen...</p>
+    </div>
+  </div>
+</div>
+
 <!-- Globale Lightbox für Wandtafeln (immer verfügbar) -->
 <div id="chalkboard-lightbox" class="chalkboard-lightbox" onclick="closeChalkboardLightbox(event)">
   <span class="chalkboard-lightbox-close" onclick="closeChalkboardLightbox(event)">&times;</span>
@@ -6621,6 +6943,10 @@ Wandtafeln
   <!-- Pages-Korrektur Button -->
   <button id="pages-correction-btn" class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #17a2b8; border: 1px solid #17a2b8;" title="Seitenzahlen überprüfen und korrigieren">
     Pages
+  </button>
+  <!-- Text-Bearbeitung Button -->
+  <button id="text-edit-mode-btn" class="depth-btn" onclick="toggleTextEditMode()" style="padding: 6px 8px; font-size: 1em; background: transparent; color: #9b59b6; border: 1px solid #9b59b6;" title="Text-Bearbeitungsmodus aktivieren">
+    ✏️
   </button>
   <!-- BATCH GENERATION (nur lokal) -->
   <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #d9534f; border: 1px solid #d9534f;">
@@ -8093,6 +8419,146 @@ Original
     const isLocal = window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1' ||
                     window.location.protocol === 'file:';
+    
+    // ============================================================
+    // ANALYTICS-FUNKTIONEN
+    // ============================================================
+    
+    // Track Event an Server senden (fire-and-forget)
+    function analyticsTrack(type, value = null) {
+      try {
+        fetch('/api/analytics/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, value })
+        }).catch(() => {}); // Fehler ignorieren
+      } catch (e) {}
+    }
+    
+    // Seitenaufruf tracken (einmal pro Session)
+    if (!sessionStorage.getItem('analytics_tracked')) {
+      analyticsTrack('page_view');
+      sessionStorage.setItem('analytics_tracked', '1');
+    }
+    
+    // Analytics-Dashboard öffnen
+    function openAnalytics() {
+      const overlay = document.getElementById('analytics-overlay');
+      if (overlay) {
+        overlay.classList.add('visible');
+        loadAnalyticsData();
+      }
+    }
+    
+    // Analytics-Dashboard schließen
+    function closeAnalytics() {
+      const overlay = document.getElementById('analytics-overlay');
+      if (overlay) overlay.classList.remove('visible');
+    }
+    
+    // Analytics-Daten laden und anzeigen
+    async function loadAnalyticsData() {
+      const container = document.getElementById('analytics-content');
+      if (!container) return;
+      
+      try {
+        const res = await fetch('/api/analytics/stats');
+        if (!res.ok) throw new Error('Fehler beim Laden');
+        const data = await res.json();
+        
+        // Chart-Höhe berechnen
+        const maxViews = Math.max(...data.dailyData.map(d => d.views), 1);
+        
+        container.innerHTML = `
+          <div class="analytics-stats-row">
+            <div class="analytics-stat-box">
+              <h4>Heute</h4>
+              <div class="stat-value">${data.today.views}</div>
+              <div class="stat-label">Besuche</div>
+            </div>
+            <div class="analytics-stat-box">
+              <h4>Diese Woche</h4>
+              <div class="stat-value">${data.week.views}</div>
+              <div class="stat-label">Besuche</div>
+            </div>
+            <div class="analytics-stat-box">
+              <h4>Gesamt</h4>
+              <div class="stat-value">${data.total.views}</div>
+              <div class="stat-label">Besuche</div>
+            </div>
+          </div>
+          
+          <div class="analytics-stats-row">
+            <div class="analytics-stat-box">
+              <h4>Heute</h4>
+              <div class="stat-value">${data.today.searches}</div>
+              <div class="stat-label">Suchen</div>
+            </div>
+            <div class="analytics-stat-box">
+              <h4>Diese Woche</h4>
+              <div class="stat-value">${data.week.searches}</div>
+              <div class="stat-label">Suchen</div>
+            </div>
+            <div class="analytics-stat-box">
+              <h4>Gesamt</h4>
+              <div class="stat-value">${data.total.searches}</div>
+              <div class="stat-label">Suchen</div>
+            </div>
+          </div>
+          
+          <div class="analytics-section">
+            <h3>Besuche der letzten 14 Tage</h3>
+            <div class="analytics-chart">
+              ${data.dailyData.map(d => `
+                <div class="analytics-chart-bar" 
+                     style="height: ${Math.max((d.views / maxViews) * 100, 2)}%"
+                     data-label="${d.label}"
+                     title="${d.date}: ${d.views} Besuche, ${d.searches} Suchen"></div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div class="analytics-list">
+            <div class="analytics-list-section">
+              <h4>Beliebte Suchbegriffe</h4>
+              ${data.topSearches.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
+                data.topSearches.map(s => `
+                  <div class="analytics-list-item">
+                    <span class="term">${escapeHtml(s.term)}</span>
+                    <span class="count">${s.count}</span>
+                  </div>
+                `).join('')}
+            </div>
+            <div class="analytics-list-section">
+              <h4>Beliebte Vorträge</h4>
+              ${data.topLectures.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
+                data.topLectures.map(l => `
+                  <div class="analytics-list-item">
+                    <span class="term">${escapeHtml(l.id)}</span>
+                    <span class="count">${l.count}</span>
+                  </div>
+                `).join('')}
+            </div>
+          </div>
+        `;
+      } catch (e) {
+        container.innerHTML = '<p style="color: var(--error-color);">Fehler beim Laden der Statistiken.</p>';
+      }
+    }
+    
+    // Tastenkombination: Strg+Shift+A öffnet Analytics
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+        e.preventDefault();
+        openAnalytics();
+      }
+      // ESC schließt Analytics
+      if (e.key === 'Escape') {
+        closeAnalytics();
+      }
+    });
+    
+    // ============================================================
     
     // Setze Body-Klasse für CSS-Styling
     if (isLocal) {
@@ -14139,10 +14605,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       const cursorStyle = isLocal ? 'cursor: pointer;' : '';
       const applyHighlight = isTargetPara && !window.membersNavigating;
       
+      // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
+      const hasTextEdit = para._edited ? 'has-text-edit' : '';
+      
       paraHtml += `
-        <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
+        <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}" 
              id="para-${paraIndex}"
              data-index="${paraIndexWithCaret}"
+             data-paragraph-index="${paraIndex}"
              ${clickHandler}
              style="${cursorStyle}">
           ${content}
@@ -17142,6 +17612,9 @@ function scrollToChronologicalYear(year) {
         alert('Bitte mindestens ein Suchwort eingeben');
         return;
       }
+      
+      // Analytics: Suche tracken
+      analyticsTrack('search', word1Input + (word2Input ? ' ' + word2Input : ''));
       
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen…</div>';
       document.getElementById('document-title').textContent = 'Suche';
@@ -20172,6 +20645,9 @@ function scrollToChronologicalYear(year) {
     async function performThematicSearch(skipHistory = false) {
       const query = document.getElementById('thematicQuery').value.trim();
       if (!query) return;
+      
+      // Analytics: Themensuche tracken
+      analyticsTrack('search', query);
       
       currentThematicQuery = query;
       
@@ -24846,8 +25322,11 @@ function showSummaryView() {
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
     const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
     const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+    
+    // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
+    const hasTextEdit = para._edited ? 'has-text-edit' : '';
 
-html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
+html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
   
   // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
@@ -25461,6 +25940,9 @@ function formatAsteriskParagraphs() {
   
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
+  
+  // Analytics: Vortrag-Aufruf tracken
+  analyticsTrack('lecture_view', lectureId);
   
   // Browser History Eintrag hinzufügen (außer bei popstate)
   if (!skipHistory) {
@@ -28992,10 +29474,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
           const cursorStyle = isLocal ? 'cursor: pointer;' : '';
           
+          // Prüfe ob dieser Absatz bearbeitet wurde
+          const hasTextEdit = para._edited ? 'has-text-edit' : '';
+          
           html += `
-            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
+            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}" 
                  id="para-${paraIndex}"
                  data-index="${paraIndexWithCaret}"
+                 data-paragraph-index="${paraIndex}"
                  ${clickHandler}
                  style="${cursorStyle}">
               ${content}
@@ -40748,6 +41234,303 @@ async function addKeywordToLecture() {
     if (aufsatzbaende.includes(normalized)) return true;
     return originalIsEssayGANumber(gaNumber);
   };
+})();
+</script>
+
+<!-- Text-Bearbeitungs-Toolbar (fixiert unten rechts) -->
+<div id="text-edit-toolbar">
+  <span class="status" id="text-edit-status">Bearbeitungsmodus aktiv</span>
+  <button class="save-btn" onclick="saveTextEdits()" title="Änderungen speichern (Strg+S)">
+    💾 Speichern
+  </button>
+  <button class="cancel-btn" onclick="cancelTextEditMode()" title="Bearbeitung abbrechen">
+    ✕ Abbrechen
+  </button>
+</div>
+
+<!-- Text-Bearbeitungs-JavaScript -->
+<script>
+(function() {
+  // Text-Bearbeitungs-Modul
+  window.textEditMode = {
+    active: false,
+    currentLectureId: null,
+    originalContents: new Map(), // Speichert Originalinhalte
+    modifiedElements: new Set(), // Elemente mit Änderungen
+    headingEdits: {} // Überschriften-Bearbeitungen von der DB
+  };
+  
+  // Edit-Modus aktivieren/deaktivieren
+  window.toggleTextEditMode = function() {
+    if (!window.textEditMode.active) {
+      activateTextEditMode();
+    } else {
+      deactivateTextEditMode();
+    }
+  };
+  
+  function activateTextEditMode() {
+    const lectureId = window.currentOpenLectureId;
+    if (!lectureId) {
+      alert('Bitte öffnen Sie zuerst einen Vortrag.');
+      return;
+    }
+    
+    window.textEditMode.active = true;
+    window.textEditMode.currentLectureId = lectureId;
+    window.textEditMode.originalContents.clear();
+    window.textEditMode.modifiedElements.clear();
+    
+    document.body.classList.add('text-edit-mode');
+    
+    // Button-Text ändern
+    const btn = document.getElementById('text-edit-mode-btn');
+    if (btn) {
+      btn.innerHTML = '✏️';
+      btn.style.background = '#9b59b6';
+      btn.style.color = 'white';
+    }
+    
+    // Alle Absätze und Überschriften bearbeitbar machen
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      // Absätze
+      const paragraphs = viewer.querySelectorAll('.paragraph');
+      paragraphs.forEach(para => {
+        const index = para.dataset.paragraphIndex || para.id;
+        if (index) {
+          para.setAttribute('contenteditable', 'true');
+          window.textEditMode.originalContents.set(index, para.innerHTML);
+          para.addEventListener('input', handleTextInput);
+          para.addEventListener('paste', handlePaste);
+        }
+      });
+      
+      // Überschriften (h3, h4)
+      const headings = viewer.querySelectorAll('h3, h4');
+      headings.forEach((heading, idx) => {
+        const headingId = heading.id || `heading_${idx}`;
+        heading.setAttribute('contenteditable', 'true');
+        heading.dataset.headingIndex = headingId;
+        window.textEditMode.originalContents.set(`heading_${headingId}`, heading.textContent.trim());
+        heading.addEventListener('input', handleTextInput);
+        heading.addEventListener('paste', handlePaste);
+      });
+    }
+    
+    updateEditStatus();
+    console.log('[TEXT-EDIT] ✅ Bearbeitungsmodus aktiviert für:', lectureId);
+  }
+  
+  function deactivateTextEditMode(confirmSave = true) {
+    if (confirmSave && window.textEditMode.modifiedElements.size > 0) {
+      if (!confirm('Es gibt ungespeicherte Änderungen. Möchten Sie den Bearbeitungsmodus wirklich beenden?')) {
+        return;
+      }
+    }
+    
+    window.textEditMode.active = false;
+    document.body.classList.remove('text-edit-mode');
+    
+    // Button-Text zurücksetzen
+    const btn = document.getElementById('text-edit-mode-btn');
+    if (btn) {
+      btn.innerHTML = '✏️';
+      btn.style.background = 'transparent';
+      btn.style.color = '#9b59b6';
+    }
+    
+    // contenteditable entfernen
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      const editables = viewer.querySelectorAll('[contenteditable="true"]');
+      editables.forEach(el => {
+        el.removeAttribute('contenteditable');
+        el.removeEventListener('input', handleTextInput);
+        el.removeEventListener('paste', handlePaste);
+        el.classList.remove('text-modified');
+      });
+    }
+    
+    window.textEditMode.originalContents.clear();
+    window.textEditMode.modifiedElements.clear();
+    console.log('[TEXT-EDIT] ❌ Bearbeitungsmodus deaktiviert');
+  }
+  
+  window.cancelTextEditMode = function() {
+    // Originalinhalte wiederherstellen
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      window.textEditMode.originalContents.forEach((originalContent, key) => {
+        if (key.startsWith('heading_')) {
+          const headingId = key.replace('heading_', '');
+          const heading = viewer.querySelector(`h3[data-heading-index="${headingId}"], h4[data-heading-index="${headingId}"]`);
+          if (heading) {
+            heading.textContent = originalContent;
+          }
+        } else {
+          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#${key}`);
+          if (para) {
+            para.innerHTML = originalContent;
+          }
+        }
+      });
+    }
+    deactivateTextEditMode(false);
+  };
+  
+  function handleTextInput(event) {
+    const element = event.target;
+    const isHeading = element.tagName === 'H3' || element.tagName === 'H4';
+    const key = isHeading 
+      ? `heading_${element.dataset.headingIndex}`
+      : (element.dataset.paragraphIndex || element.id);
+    
+    const originalContent = window.textEditMode.originalContents.get(key);
+    const currentContent = isHeading ? element.textContent.trim() : element.innerHTML;
+    
+    if (currentContent !== originalContent) {
+      element.classList.add('text-modified');
+      window.textEditMode.modifiedElements.add(key);
+    } else {
+      element.classList.remove('text-modified');
+      window.textEditMode.modifiedElements.delete(key);
+    }
+    
+    updateEditStatus();
+  }
+  
+  function handlePaste(event) {
+    // Beim Einfügen: Nur reinen Text einfügen (ohne Formatierung)
+    event.preventDefault();
+    const text = (event.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+  }
+  
+  function updateEditStatus() {
+    const statusEl = document.getElementById('text-edit-status');
+    if (statusEl) {
+      const count = window.textEditMode.modifiedElements.size;
+      if (count > 0) {
+        statusEl.textContent = `${count} Änderung${count > 1 ? 'en' : ''} nicht gespeichert`;
+        statusEl.style.color = '#e74c3c';
+      } else {
+        statusEl.textContent = 'Bearbeitungsmodus aktiv';
+        statusEl.style.color = 'var(--secondary-text)';
+      }
+    }
+  }
+  
+  // Änderungen speichern
+  window.saveTextEdits = async function() {
+    if (!window.textEditMode.active || window.textEditMode.modifiedElements.size === 0) {
+      alert('Keine Änderungen zum Speichern.');
+      return;
+    }
+    
+    const lectureId = window.textEditMode.currentLectureId;
+    const viewer = document.getElementById('viewer');
+    if (!viewer || !lectureId) return;
+    
+    const statusEl = document.getElementById('text-edit-status');
+    if (statusEl) {
+      statusEl.textContent = 'Speichere...';
+      statusEl.style.color = '#f39c12';
+    }
+    
+    let savedCount = 0;
+    let errors = [];
+    
+    for (const key of window.textEditMode.modifiedElements) {
+      try {
+        const isHeading = key.startsWith('heading_');
+        let editType, paragraphIndex, headingIndex, originalText, editedText;
+        
+        if (isHeading) {
+          editType = 'heading';
+          headingIndex = key.replace('heading_', '');
+          const heading = viewer.querySelector(`h3[data-heading-index="${headingIndex}"], h4[data-heading-index="${headingIndex}"]`);
+          if (!heading) continue;
+          
+          originalText = window.textEditMode.originalContents.get(key);
+          editedText = heading.textContent.trim();
+        } else {
+          editType = 'paragraph';
+          paragraphIndex = key;
+          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#${key}`);
+          if (!para) continue;
+          
+          originalText = window.textEditMode.originalContents.get(key);
+          // Extrahiere den reinen Text ohne HTML-Tags für die Speicherung
+          editedText = para.innerText || para.textContent;
+        }
+        
+        const response = await fetch('/api/text-edits/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lectureId,
+            editType,
+            paragraphIndex,
+            headingIndex,
+            originalText,
+            editedText
+          })
+        });
+        
+        if (response.ok) {
+          savedCount++;
+          // Markiere als gespeichert
+          const element = isHeading 
+            ? viewer.querySelector(`h3[data-heading-index="${headingIndex}"], h4[data-heading-index="${headingIndex}"]`)
+            : viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#${key}`);
+          if (element) {
+            element.classList.remove('text-modified');
+            element.classList.add('has-text-edit');
+          }
+        } else {
+          const error = await response.json();
+          errors.push(`${key}: ${error.error}`);
+        }
+      } catch (err) {
+        errors.push(`${key}: ${err.message}`);
+      }
+    }
+    
+    window.textEditMode.modifiedElements.clear();
+    
+    if (errors.length > 0) {
+      alert(`${savedCount} Änderung(en) gespeichert.\n\nFehler:\n${errors.join('\n')}`);
+    } else {
+      console.log(`[TEXT-EDIT] ✅ ${savedCount} Änderung(en) gespeichert`);
+    }
+    
+    updateEditStatus();
+    
+    // Nach dem Speichern: Vortrag neu laden um Änderungen anzuwenden
+    if (savedCount > 0 && typeof showLecture === 'function') {
+      deactivateTextEditMode(false);
+      // Kurze Verzögerung, dann Vortrag neu laden
+      setTimeout(() => {
+        showLecture(lectureId, null, []);
+      }, 500);
+    }
+  };
+  
+  // Strg+S zum Speichern
+  document.addEventListener('keydown', function(e) {
+    if (window.textEditMode.active && e.ctrlKey && e.key === 's') {
+      e.preventDefault();
+      saveTextEdits();
+    }
+    // Escape zum Abbrechen
+    if (window.textEditMode.active && e.key === 'Escape') {
+      e.preventDefault();
+      cancelTextEditMode();
+    }
+  });
+  
+  console.log('[TEXT-EDIT] Modul geladen');
 })();
 </script>
 

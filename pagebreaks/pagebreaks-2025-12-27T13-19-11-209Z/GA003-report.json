@@ -1,0 +1,132 @@
+{
+  "ga": "GA003",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 59,
+  "breaksWithPage": 59,
+  "inserted": 9,
+  "insertedRatio": 0.15254237288135594,
+  "failed": 50,
+  "failuresSample": [
+    {
+      "page": 5,
+      "reason": "jump-too-large",
+      "left": "fen, organisch dem allgemeinen Weltgeschehen eingegliedert. Ohne diese Tätigkeit",
+      "right": "wäre das Weltgeschehen gar nicht als in sich abgeschlossene Ganzheit zu denken. "
+    },
+    {
+      "page": 6,
+      "reason": "jump-too-large",
+      "left": "schaft. Wer letztere nicht in dieser Absicht betreibt, der arbeitet nur, weil er",
+      "right": "von seinem Meister solches gesehen hat, er «forscht», weil er das gerade zufälli"
+    },
+    {
+      "page": 8,
+      "reason": "no-match",
+      "left": "dern auch alle jene Schriften, in denen Fragen behandelt werden, die den von uns",
+      "right": "erörterten ähnlich sind. Von einer besonderen Anführung der Schriften der eigent"
+    },
+    {
+      "page": 9,
+      "reason": "jump-too-large",
+      "left": "n der ersten und zweiten Auflage seiner Kritik der reinen Vernunft; Leipzig 1878",
+      "right": "F. v. Feldegg, Das Gefühl als Fundament der Weltordnung; Wien 1890 E. L. Fischer"
+    },
+    {
+      "page": 10,
+      "reason": "jump-too-large",
+      "left": "F. H. Jacobi, David Hume über den Glauben oder Idealismus und Realismus; Breslau",
+      "right": "M. Kappes, Der « Common Sense » als Prinzip der Gewißheit in der Philosophie des"
+    },
+    {
+      "page": 11,
+      "reason": "no-match",
+      "left": "eslau 1885 G. Neudecker, Das Grundproblem der Erkenntnistheorie; Nördlingen 1881",
+      "right": "F. Paulsen, Versuch einer Entwicklungsgeschichte der Kantschen Erkenntnistheorie"
+    },
+    {
+      "page": 12,
+      "reason": "jump-too-large",
+      "left": " Gehirn und Bewußtsein; Wien 1884 W. Windelband, Präludien; Freiburg i. Br. 1884",
+      "right": "Die verschiedenen Phasen der Kantschen Lehre vom «Ding an sich»; Vierteljahrssch"
+    },
+    {
+      "page": 14,
+      "reason": "no-match",
+      "left": "ob dieses Organ nicht bloß ein beim Menschen stehengebliebener Rest aus niederen",
+      "right": "Entwickelungsformen sei, gelangte man zu einem Ziele. Oder, um noch ein Beispiel"
+    },
+    {
+      "page": 18,
+      "reason": "no-match",
+      "left": " Notwendigkeit bei sich führen, welche aus der Erfahrung nicht abgenommen werden",
+      "right": "kann. Will man aber dieses nicht einräumen, wohlan, so schränke ich meinen Satz "
+    },
+    {
+      "page": 19,
+      "reason": "no-match",
+      "left": "aber es ist «doch durch jene dogmatische Voraussetzung die kritische Haltung der",
+      "right": "Kantschen Erkenntnistheorie in durchgreifender Weise gestört». (9) Genug, auch V"
+    },
+    {
+      "page": 20,
+      "reason": "no-match",
+      "left": "her angestellten Erwägungen abhängig gemacht wird. (12) Genau in derselben Weise",
+      "right": "müßte der Erkenntnistheoretiker in seinen einleitenden Bemerkungen den Weg zeige"
+    },
+    {
+      "page": 21,
+      "reason": "no-match",
+      "left": "en müsse, um das Folgende gelten zu lassen». Diese Voraussetzungen sind auch für",
+      "right": "Fischer der Umstand, daß «erst die Tatsache der Erkenntnis» festgestellt wird un"
+    },
+    {
+      "page": 22,
+      "reason": "no-match",
+      "left": "se vorgehen, zeigen wir in Kapitel IV: Die Ausgangspunkte der Erkenntnistheorie.",
+      "right": "III. Die Erkenntnistheorie nach Kant Von der fehlerhaften Fragestellung bei Kant"
+    },
+    {
+      "page": 23,
+      "reason": "no-match",
+      "left": " Philosophierens einzig Feststehende an die Spitze stellt und es dann konsequent",
+      "right": "durchdenkt. (3) .Bei anderen Philosophen findet man wieder andere Behauptungen a"
+    },
+    {
+      "page": 24,
+      "reason": "no-match",
+      "left": " zur Aufgabe macht, alle Gründe zu erörtern, die zu jener Annahme führen können.",
+      "right": "Diese Gründe sind physikalische, psycho-physische, physiologische und eigentlich"
+    },
+    {
+      "page": 25,
+      "reason": "no-match",
+      "left": " die in der Lehre von den spezifischen Sinnes-Energien ihren Ausdruck finden. J.",
+      "right": "Müller hat gezeigt, daß jeder Sinn nur in der ihm eigentümlichen, durch seine Or"
+    },
+    {
+      "page": 26,
+      "reason": "no-match",
+      "left": "ungszustände ihres obersten Hirnzentrums reflektorisch reagiert, welche aber mit",
+      "right": "den molekularen Bewegungszuständen, durch welche sie ausgeübt werden, nicht die "
+    },
+    {
+      "page": 27,
+      "reason": "no-match",
+      "left": "tellungswelt umgewandelt. Wir haben es hier mit einer Voraussetzung zu tun, die,",
+      "right": "konsequent verfolgt, sich selbst aufhebt. Ist dieser Gedankengang aber geeignet,"
+    },
+    {
+      "page": 28,
+      "reason": "no-match",
+      "left": "halb empfiehlt es sich, die Korrektur gerade bei ihm zu beginnen. Haben wir dann",
+      "right": "eingesehen, warum er mangelhaft sein muß, dann werden wir mit ganz anderer Siche"
+    },
+    {
+      "page": 29,
+      "reason": "no-match",
+      "left": "ufgehen, ohne nach der letzteren zu fragen. Der Künstler, der die Gesetze seines",
+      "right": "Schaffens nicht in reflexionsmäßiger Form kennt, sondern sie dem Gefühle, der Em"
+    }
+  ]
+}

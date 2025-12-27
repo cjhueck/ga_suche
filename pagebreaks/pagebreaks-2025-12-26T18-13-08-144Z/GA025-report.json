@@ -1,0 +1,60 @@
+{
+  "ga": "GA025",
+  "sourceFile": "steiner-books-023-045-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 90,
+  "breaksWithPage": 90,
+  "inserted": 82,
+  "insertedRatio": 0.9111111111111111,
+  "failed": 8,
+  "failuresSample": [
+    {
+      "page": 89,
+      "reason": "no-match",
+      "left": "rde noch vieles zu sagen sein, wenn die Skizze zum farbigen Bilde werden sollte.",
+      "right": "Korrekturennachweis Personenregister Übersicht über die Rudolf Steiner Gesamtaus"
+    },
+    {
+      "page": 90,
+      "reason": "no-match",
+      "left": "ekturennachweis Personenregister Übersicht über die Rudolf Steiner Gesamtausgabe",
+      "right": ""
+    },
+    {
+      "page": 91,
+      "reason": "no-match",
+      "left": "",
+      "right": "Zu dieser Ausgabe Die hier vorliegende kleine Schrift beinhaltet zehn Autorefera"
+    },
+    {
+      "page": 92,
+      "reason": "no-match",
+      "left": "ungsvortrag zum Französischen Kurs im September 1922 am Goetheanum», dann «Zwei-",
+      "right": "ter Vortrag ...» usw. bis «Zehnter Vortrag ...». Der ersten Buchausgabe im Jahre"
+    },
+    {
+      "page": 93,
+      "reason": "no-match",
+      "left": "siones). Rene1 Decartes (Renatus Cartesius), 1596-1650, französischer Philosoph.",
+      "right": "in der 4. Auflage 1999 gegenüber der 3. Auflage 1979: Die Korrekturen beruhen en"
+    },
+    {
+      "page": 94,
+      "reason": "no-match",
+      "left": "schrift lautet: «Indem das Geistesleben der Menschheit ... hat sie zugleich ...»",
+      "right": "Seite 18, 4. Zeile v.u.: «Die inspirierten Erkenntnisse bilden sich im astralisc"
+    },
+    {
+      "page": 95,
+      "reason": "no-match",
+      "left": "kenntnisse der höheren Welten? (GA 10) - Die Geheimwissenschaft im Umriß (GA 13)",
+      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
+    },
+    {
+      "page": 96,
+      "reason": "no-match",
+      "left": " 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923-1925 (28)",
+      "right": "//. Gesammelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Gr"
+    }
+  ]
+}

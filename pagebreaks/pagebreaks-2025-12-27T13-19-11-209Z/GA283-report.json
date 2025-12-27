@@ -1,0 +1,27 @@
+{
+  "ga": "GA283",
+  "sourceFile": "steiner-full-lectures-030-354-part14.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 190,
+  "breaksWithPage": 190,
+  "inserted": 145,
+  "insertedRatio": 0.7631578947368421,
+  "failed": 3,
+  "failuresSample": [
+    {
+      "page": 45,
+      "reason": "no-match",
+      "lecture": 3
+    },
+    {
+      "page": 46,
+      "reason": "no-match",
+      "lecture": 3
+    },
+    {
+      "page": 118,
+      "reason": "no-match",
+      "lecture": 8
+    }
+  ]
+}

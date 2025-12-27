@@ -1,0 +1,84 @@
+{
+  "ga": "GA007",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 154,
+  "breaksWithPage": 154,
+  "inserted": 142,
+  "insertedRatio": 0.922077922077922,
+  "failed": 12,
+  "failuresSample": [
+    {
+      "page": 149,
+      "reason": "no-match",
+      "left": "",
+      "right": "Textgrundlagen: Der vorliegende Text beruht auf der von Rudolf Steiner 1923 beso"
+    },
+    {
+      "page": 150,
+      "reason": "no-match",
+      "left": "- gleiche Rudolf Steiner, «Mein Lebensgang» (1923-25), GA Bibl.-Nr. 28, Kap. 30.",
+      "right": "in meiner «Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung — S"
+    },
+    {
+      "page": 151,
+      "reason": "no-match",
+      "left": "t. daß «die menschliche Seele . . .»: Spinoza, «Ethik», Teil II, 47. Lehr- satz.",
+      "right": "«Denke man eine Welt von Blindgeborenen, . . .»: Fichte, «Einlei- tungsvorlesung"
+    },
+    {
+      "page": 152,
+      "reason": "no-match",
+      "left": "57-163. -Hum- boldt hat am 30. 6. 1825 und 15. 6. 1826 zwei Vorlesungen über die",
+      "right": "Bhagavad Gita gehalten, die eine Gesamtdarstellung der Dichtung geben: «Über die"
+    },
+    {
+      "page": 153,
+      "reason": "no-match",
+      "left": "tschen und lateini- schen Werke Meister Eckharts, im Auftrage der Deutschen For-",
+      "right": "schungsgemeinschaft, ist weitgehend erschienen; die deutschen Pre- digten und Tr"
+    },
+    {
+      "page": 154,
+      "reason": "no-match",
+      "left": "cht nachgewiesen. Eine fast gleich lautende Stelle bei Quint, Predigt 7, S. 185.",
+      "right": "«Ziehet euch Jesum Christum an»: Römer 13, 14. - Siehe Eckhart, Tractat «Von Abg"
+    },
+    {
+      "page": 155,
+      "reason": "no-match",
+      "left": "en: . . .»: Ebenda. «Denn alles, was das Verständnis . . .»: Nicht nachgewiesen.",
+      "right": "«Der Gerechten Seligkeit und . . .»: Eckhart, Predigt 59, Pfeiffer S. 189/90; Pr"
+    },
+    {
+      "page": 156,
+      "reason": "no-match",
+      "left": "er, Predigt 15, Hamber- ger, I. Teil S. 113 (An der heiligen drei Könige Abend).",
+      "right": "«Soll der Mensch in der Wahrheit. . .»: Tauler, Predigt 45a, Hamber- ger, I. Tei"
+    },
+    {
+      "page": 157,
+      "reason": "no-match",
+      "left": "esserte u. mit einer neudeutschen Übersetzung vermehrte Auflage, Stuttgart 1855.",
+      "right": "67 (im Sinne des Ausspruches PaulAsmus», vgl. oben S. 27 f.); Der Hin- weis auf "
+    },
+    {
+      "page": 158,
+      "reason": "no-match",
+      "left": ". 292. «Büchlein von der ewigen Weisheit»: H. Suso, hg. Diepenbrock, S. 311-415.",
+      "right": "73/74 «Erkennst du mich nicht? . . .»: H. Suso, «Büchlein von der ewigen Weishei"
+    },
+    {
+      "page": 159,
+      "reason": "no-match",
+      "left": "; die Antwort Tycho Brahes an den Astronomen Christoph Rothmann in Kassel, 1590.",
+      "right": "Karl Werner, «Franz Suarez und die Scholastik der letzten Jahrhun- derte», 2. Ba"
+    },
+    {
+      "page": 160,
+      "reason": "no-match",
+      "left": "nntnistheorie gegen naturwissenschaftlichen Dogmatismus», Ber- lin 1901, S. 120.",
+      "right": "wurde Nicolaus «durch das Priestergewand gehemmt»: Ein Aus- druck Giordano Bruno"
+    }
+  ]
+}

@@ -717,45 +717,12 @@ class SteinerLecturesExporter {
     }
   }
 
-  // Löscht pagebreaks-Dateien für die exportierten GA-Bände
-  // um sicherzustellen, dass nach einem Neu-Export die alten pagebreaks nicht mehr verwendet werden
+  // DEAKTIVIERT: Diese Funktion hatte einen gefährlichen Bug, der ALLE pagebreaks löschte.
+  // Pagebreaks enthalten wertvolle Seitenzahl-Informationen und sollten NIE automatisch gelöscht werden.
   removePagebreaksForGAs(gasToRemove) {
-    if (!gasToRemove || gasToRemove.length === 0) return;
-
-    const pagebreaksDir = path.join(this.outputDir, 'pagebreaks');
-    if (!fs.existsSync(pagebreaksDir)) return;
-
-    let deletedCount = 0;
-
-    for (const ga of gasToRemove) {
-      // Normalisiere GA-Nummer (z.B. "GA076" → "GA076", "ga76" → "GA076")
-      const gaUpper = ga.toUpperCase();
-      const gaNum = gaUpper.replace(/^GA0*/, ''); // Entferne führende Nullen für Dateisuche
-      
-      // Mögliche Dateinamen: GA076.json, GA76.json, GA076-report.json, GA76-report.json
-      const possibleFiles = [
-        `${gaUpper}.json`,
-        `GA${gaNum}.json`,
-        `${gaUpper}-report.json`,
-        `GA${gaNum}-report.json`
-      ];
-
-      for (const fileName of possibleFiles) {
-        const filePath = path.join(pagebreaksDir, fileName);
-        if (fs.existsSync(filePath)) {
-          try {
-            fs.unlinkSync(filePath);
-            console.log(`   🗑️  pagebreaks/${fileName} gelöscht`);
-            deletedCount++;
-          } catch (e) {
-            console.warn(`   ⚠ Konnte pagebreaks/${fileName} nicht löschen: ${e.message}`);
-          }
-        }
-      }
-    }
-
-    if (deletedCount > 0) {
-      console.log(`   ✓ Gesamt: ${deletedCount} pagebreaks-Dateien gelöscht\n`);
+    // Funktion deaktiviert - gibt nur eine Info-Meldung aus
+    if (gasToRemove && gasToRemove.length > 0) {
+      console.log('   [INFO] Pagebreaks werden NICHT geloescht (Feature deaktiviert)');
     }
   }
 

@@ -1,0 +1,132 @@
+{
+  "ga": "GA028",
+  "sourceFile": "steiner-books-028-028.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 552,
+  "breaksWithPage": 552,
+  "inserted": 465,
+  "insertedRatio": 0.842391304347826,
+  "failed": 41,
+  "failuresSample": [
+    {
+      "page": 470,
+      "reason": "no-match",
+      "left": "e Chronik Nachweis früherer Veröffentlichungen Nachweis der Abbildungen Register",
+      "right": ""
+    },
+    {
+      "page": 471,
+      "reason": "no-match",
+      "left": "",
+      "right": "Eine Chronik Kraljevec - Neudörfl 1861-1879 Am 25. oder 27. Februar 1861 wird Ru"
+    },
+    {
+      "page": 472,
+      "reason": "no-match",
+      "left": "ntlichung: Grundlinien einer Erkenntnistheo- rie der Goetheschen Weltanschauung.",
+      "right": "Anfrage des Weimarer Archiv-Direktors Erich Schmidt wegen Mit- arbeit an der Wei"
+    },
+    {
+      "page": 473,
+      "reason": "no-match",
+      "left": "erke ihres Bruders gewinnen will. Begegnung mit dem kranken Friedrich Nietzsche.",
+      "right": "1895 Die Schrift Friedrich Nietzsche, ein Kämpfer gegen seine Zeit erscheint. 18"
+    },
+    {
+      "page": 475,
+      "reason": "no-match",
+      "left": "ung von Rudolf Steiners vier Mysterien-Dra- men unter seiner Leitung in München.",
+      "right": "Entwurf eines Gebäudes (Johannes-Bau) für künstlerische Darbietun- gen und Veran"
+    },
+    {
+      "page": 476,
+      "reason": "no-match",
+      "left": "astisch-orga- nisch in Holz gestalteter Doppelkuppelbau. Künstlerische Arbeiten:",
+      "right": "Plastische Innengestaltung, Kuppelmalerei, Skulptur (9 m hoch): Der Menschheitsr"
+    },
+    {
+      "page": 477,
+      "reason": "no-match",
+      "left": "es Wirtschaftsleben entwickelt, die nun in zahlreichen Vorträgen vertreten wird.",
+      "right": "In Vorträgen und Besprechungen mit Vertretern der Arbeiterschaft und mit Industr"
+    },
+    {
+      "page": 478,
+      "reason": "no-match",
+      "left": "g der Freien Hochschule für Geisteswissenschaft, ebenfalls unter seiner Leitung.",
+      "right": "1924-1925 Im Herbst 1924 Beginn des Krankenlagers. Die immens angewachsene Vortr"
+    },
+    {
+      "page": 479,
+      "reason": "no-match",
+      "left": "g ihrer Arbeit. Am 30. März 1925 stirbt Rudolf Steiner in Dornach. Walter Kugler",
+      "right": "Zu dieser Ausgabe Rudolf Steiners autobiographische Aufzeichnungen «Mein Le- ben"
+    },
+    {
+      "page": 481,
+      "reason": "no-match",
+      "left": "1866-1942 Scheibbs, Niederösterreich, Briefe an Eltern und Geschwister in GA 39.",
+      "right": "17 der in drei Viertelstunden zu besteigen war: Die Rosalienkapelle liegt nordös"
+    },
+    {
+      "page": 482,
+      "reason": "no-match",
+      "left": "Die allgemeine Bewe- gung der Materie als Grundursache aller Naturerscheinungen»",
+      "right": "36 In der dritten Klasse erhielt ich einen Lehrer, der wirklich das «Ideal» erfü"
+    },
+    {
+      "page": 483,
+      "reason": "no-match",
+      "left": "h seinen Geschichtsunterricht fesselte: Albert Löger. Vgl. «Beiträge» Nr. 49/50.",
+      "right": "52 so nahm ich denn die «Wissenschaftslehre» Seite für Seite vor und schrieb sie"
+    },
+    {
+      "page": 484,
+      "reason": "no-match",
+      "left": " «Autobiographischen Vortrag» vom 4. Febr. 1913 in: «Beiträge» Nr. 83/84, S. 18.",
+      "right": "65 Ich fand bei ihm an einer Stelle seiner Werke: In «Altes und Neues» 3. Auflag"
+    },
+    {
+      "page": 486,
+      "reason": "no-match",
+      "left": "e die vier Söhne: Richard, Arthur, Otto und Ernst bis Herbst 1890. Das Kind, dem",
+      "right": "die besondere Aufmerksamkeit Rudolf Steiners galt, war Otto. Siehe dazu die ausf"
+    },
+    {
+      "page": 490,
+      "reason": "no-match",
+      "left": "ersten Gatten. 187 Vortrag in Hermannstadt: 29, Dezember 1889. Siehe «Beiträge»,",
+      "right": "189 «Rembrandt als Erzieher»: Erschien 1890 anonym «Von einem Deutschen». Verfas"
+    },
+    {
+      "page": 491,
+      "reason": "no-match",
+      "left": "ise von Sachsen-Weimar, Prinzessin der Niederlande, Den Haag 1824 - 1897 Weimar.",
+      "right": "203 Gustav von Loeper, Wedderwill, Pommern 1822 - 1891 Berlin. 204 Herman Grimm,"
+    },
+    {
+      "page": 493,
+      "reason": "no-match",
+      "left": "einandersetzung mit Nietzsche und dem Nietzsche-Archiv siehe: Die Aufsätze in GA",
+      "right": "31, S. 453-614; die Dokumentation «Rudolf Steiner und das Nietz- sche-Archiv. Br"
+    },
+    {
+      "page": 494,
+      "reason": "no-match",
+      "left": "reichen Erwähnungen der Ewigen Wiederkunft und Eugen Dührings in Rudolf Steiners",
+      "right": "Aufsätzen und Vorträgen (in chronol. Reihenfolge): GA 39, S. 363 / GA 5, S. 123,"
+    },
+    {
+      "page": 495,
+      "reason": "no-match",
+      "left": " und reaktionärer Kurs», wiederabgedruckt in GA 30, die zitierte Stelle S. 416f.",
+      "right": "272LOtto Fröhlich ... Bild von Zarathustra: Das erwähnte Bild Otto Fröhlichs muß"
+    },
+    {
+      "page": 496,
+      "reason": "no-match",
+      "left": "erarischer Mer- kur», Weimar. Kritisches und bibliographisches Wochenblatt. Ver-",
+      "right": "lag von Hermann Weißbach. Redaktion: Curt Weißbach. Enthält 45 Beiträge Rudolf S"
+    }
+  ]
+}

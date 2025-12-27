@@ -1,0 +1,132 @@
+{
+  "ga": "GA020",
+  "sourceFile": "steiner-books-012-022-part02.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 206,
+  "breaksWithPage": 206,
+  "inserted": 184,
+  "insertedRatio": 0.8932038834951457,
+  "failed": 22,
+  "failuresSample": [
+    {
+      "page": 191,
+      "reason": "no-match",
+      "left": "",
+      "right": "Textunterlagen: Für die 5. Auflage wurde der Text mit dem handschrift- lichen Ma"
+    },
+    {
+      "page": 192,
+      "reason": "no-match",
+      "left": "4 «Die Menschenschule», 1964, Heft 1/2 Stuttgart 15. Febr. 1915 unveröffentlicht",
+      "right": "Nürnberg 11. März 1915 vorgesehen Bibl.-Nr. 70 Elberfeld 14. Juni 1915 unveröffe"
+    },
+    {
+      "page": 193,
+      "reason": "no-match",
+      "left": "icksaltragende Zeit Berlin 15. April 1915 unveröffentlicht München 28. Nov. 1915",
+      "right": "XII. Das Weltbild des deutschen Idealismus. Eine Betrachtung im Hinblick auf uns"
+    },
+    {
+      "page": 194,
+      "reason": "no-match",
+      "left": " 1916 13. März 1916 17. März 1916 Bremen Stuttgart München Berlin 26. Febr. 1916",
+      "right": "XII. Nietzsches Seelenleben und Richard Wagner. Zur deutschen Weltanschauungsent"
+    },
+    {
+      "page": 195,
+      "reason": "no-match",
+      "left": "- derum so schlecht gelesen wird, wie vorhergehende Bücher gelesen worden sind.»",
+      "right": "Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen m"
+    },
+    {
+      "page": 196,
+      "reason": "no-match",
+      "left": "nem Sohne Immanuel Hermann Fichte, 2. Auflage Leipzig 1862, l.Teil, 10. Kapitel.",
+      "right": "Rene Descartes, La Haye/Touraine 31. März 1596 bis 11. Febr. 1650 Stockholm; Mat"
+    },
+    {
+      "page": 197,
+      "reason": "no-match",
+      "left": "tt. 21. Jan. 1775 bis 20. Aug. 1854 Ragaz/Schweiz; kam sehr jung in das Tübinger",
+      "right": "Stift, wo er mit Hegel und Hölderlin Freundschaft schloß; Profes- sor der Philos"
+    },
+    {
+      "page": 198,
+      "reason": "no-match",
+      "left": "1952, S. 564, die An- merkung: «Umgeformtes Zitat aus Schillers Gedicht <Freund-",
+      "right": "schaft> ». Bei Schiller heißt es: «Aus dem Kelch des ganzen Seelen- reiches / Sc"
+    },
+    {
+      "page": 199,
+      "reason": "no-match",
+      "left": "er deutschen Gedankenentwickelung nennen kann, herauftragen bis in unsere Tage.»",
+      "right": "Hierzu hat C. S. Picht beim Abdruck des Vortrages in «Anthropo- sophie» 15. Jahr"
+    },
+    {
+      "page": 200,
+      "reason": "no-match",
+      "left": "ital Troxler. Aufsätze über den Philosophen und Pädagogen», Basel: Zbinden 1929.",
+      "right": "Troxler-Zitate: Siehe «Vorlesungen über Philosophie», a. a. O., S. 108 u. 110. P"
+    },
+    {
+      "page": 201,
+      "reason": "no-match",
+      "left": "s: «Es wird in der nächsten Zeit von mir ein Buch erscheinen, das vieles enthält",
+      "right": "von den Ideen, die ich vorgetragen habe in den zwei letzten Win- tern vor der Öf"
+    },
+    {
+      "page": 202,
+      "reason": "no-match",
+      "left": "h «Anspra- chen zu den Weihnachtsspielen aus altem Volkstum», GA Bibl.- Nr. 274.",
+      "right": ". . . die deutschen Mundarten . . . darzustellen: Stehe «Darstellung der deutsch"
+    },
+    {
+      "page": 203,
+      "reason": "no-match",
+      "left": " Wien (1903), Daberkow; «Kosmische Chöre», hrsg. v. C. S. Picht, Stuttgart 1928.",
+      "right": "Steinwand-Zitate: Siehe «Sämtliche Werke», a.a.O., 1. Bd., S. 21 f. Fern der Gem"
+    },
+    {
+      "page": 204,
+      "reason": "no-match",
+      "left": "19. Jahrhunderts in ihren bedeutenderen Erscheinungen», Leipzig 1875, Seite 258.",
+      "right": "Robert Hamerling, Kirchberg am Wald/NiederÖsterreich 24. März 1830 bis 13. Juli "
+    },
+    {
+      "page": 205,
+      "reason": "no-match",
+      "left": ": Siehe Hamerling «Atomi- stik des Willens», a. a. O., 1. Band, 2. Buch, S. 261.",
+      "right": "«Die Hauptursache ist nicht. . .»: ebd., 2. Band, 4. Buch, S. 239. «Homunculus. "
+    },
+    {
+      "page": 206,
+      "reason": "no-match",
+      "left": "se von Empfindun- gen, nur im Ich stärker zusammenhängend. Obgleich sich die ei-",
+      "right": "gentliche Reflexion erst später hinzugesellte, so ist doch dieser Mo- ment für m"
+    },
+    {
+      "page": 207,
+      "reason": "no-match",
+      "left": ". Band «Bildung und Umbildung organischer Naturen», Vorwort S. LVIII und S. 118.",
+      "right": "Hermann Bahr, Linz 1863-1934 München. Siehe auch Rudolf Stei- ner «Gesammelte Au"
+    },
+    {
+      "page": 208,
+      "reason": "no-match",
+      "left": "erling, in «Hamerlings Werke in vier Bänden», Leipzig o. J., 2. Band, S. 369 ff.",
+      "right": "Die kursiv gesetzte Zitier gibt jeweils die Seite an, zu der ein Hinweis besteht"
+    },
+    {
+      "page": 209,
+      "reason": "no-match",
+      "left": ".) 50 Erasmus von Rotterdam (1466 114, 120, 131, 144, 146, 175 f., bis 1536) 155",
+      "right": "Nero, Lucius Domitius (37-68) Heine, Heinrich (1797-1856) 135 f. Newton, Isaac ("
+    },
+    {
+      "page": 210,
+      "reason": "no-match",
+      "left": " bis Nägeli, Carl Wilhelm von (1817 bis 1891) 80 Natter, Heinrich (1846-1892) 99",
+      "right": "Steffens, Henrik (1773-1845) 31 Walther von der Vogelweide (um Steinwand, Ferche"
+    }
+  ]
+}

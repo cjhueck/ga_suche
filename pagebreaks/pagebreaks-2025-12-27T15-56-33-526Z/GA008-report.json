@@ -1,0 +1,60 @@
+{
+  "ga": "GA008",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 183,
+  "breaksWithPage": 183,
+  "inserted": 175,
+  "insertedRatio": 0.9562841530054644,
+  "failed": 8,
+  "failuresSample": [
+    {
+      "page": 183,
+      "reason": "no-match",
+      "left": "",
+      "right": "Zu dieser Ausgabe Das Buch «Das Christentum als mystische Tatsache» ist die schr"
+    },
+    {
+      "page": 184,
+      "reason": "no-match",
+      "left": "hörigen Kor- rekturfahnen genau verglichen. Alle seit dieser Ausgabe von Heraus-",
+      "right": "gebern vorgenommenen Korrekturen wurden geprüft und entweder rückgängig gemacht "
+    },
+    {
+      "page": 185,
+      "reason": "no-match",
+      "left": "ealis- mus», Braunschweig 1894, und Band II «Der Idealismus der Kirchenväter und",
+      "right": "der Idealismus der Scholastiker», Braunschweig 1896. Das Arbeitsexemplar Rudolf "
+    },
+    {
+      "page": 186,
+      "reason": "no-match",
+      "left": "election or the Preservation of Favoured Races in the Struggle for Life» (1859).",
+      "right": "Ernst Haeckel (1834-1919), deutscher Naturforscher. «Anthropogenie oder Entwickl"
+    },
+    {
+      "page": 187,
+      "reason": "no-match",
+      "left": "tsteller. In den Mysterien, «wenn sie erklärt...»: Cicero, «De natura deorum I»,",
+      "right": "34 Xenophanes aus Kolophon (um 580-490 v. Chr.), vorsokratischer Philo- soph und"
+    },
+    {
+      "page": 188,
+      "reason": "no-match",
+      "left": " vgl. auch B 48. 42 «Unsterbliche sind sterblich, ...»: Heraklit, Fragment B 62.",
+      "right": "«Die Ewigkeit... ist ein spielendes Kind ...»: Heraklit, Fragment B 52; vgl. auc"
+    },
+    {
+      "page": 189,
+      "reason": "no-match",
+      "left": "führten zuerst die Mathematik fort ...»: Aristoteles, Metaphysik I, 985 b, 24-34",
+      "right": "Gregorius von Nissa (Gregor von Nyssa) (um 334-394 n. Chr.), Kir- chenvater, Bis"
+    },
+    {
+      "page": 190,
+      "reason": "no-match",
+      "left": "Steiner hier angeführte Wortlaut findet sich darin nicht in dieser Formulierung.",
+      "right": "Ein anderer Beleg für dieses Bild ist eine Stelle in der Schrift des Wie- ner Ph"
+    }
+  ]
+}

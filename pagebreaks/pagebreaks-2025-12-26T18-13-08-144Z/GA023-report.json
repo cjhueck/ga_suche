@@ -1,0 +1,54 @@
+{
+  "ga": "GA023",
+  "sourceFile": "steiner-books-023-045-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 163,
+  "breaksWithPage": 163,
+  "inserted": 156,
+  "insertedRatio": 0.9570552147239264,
+  "failed": 7,
+  "failuresSample": [
+    {
+      "page": 4,
+      "reason": "start-too-late",
+      "left": "",
+      "right": "Herausgegeben von der Rudolf Steiner-Nachlaß Verwaltung, Dornach/Schweiz (1. Auf"
+    },
+    {
+      "page": 5,
+      "reason": "start-too-late",
+      "left": "ng, Dornach/Schweiz Printed in Switzerland by Zbinden Druck und Verlag AG, Basel",
+      "right": "Vorrede und Einleitung zum 41.-80. Tausend Vorbemerkungen über die Absicht diese"
+    },
+    {
+      "page": 6,
+      "reason": "no-match",
+      "left": "che Volk und an die Kulturwelt Übersicht über die Rudolf Steiner Gesamtausgabe .",
+      "right": ""
+    },
+    {
+      "page": 163,
+      "reason": "no-match",
+      "left": "eführte durch weiter entstehendes ins Unbegrenzte vermehren. Dr. Rudolf Steiner.",
+      "right": "(GA = Rudolf Steiner Gesamtausgabe) Die Grundlage zu dieser Schrift bildeten ein"
+    },
+    {
+      "page": 164,
+      "reason": "no-match",
+      "left": "Wien. Schrieb: «Bau und Leben des socialen Kör- pers», 4 Bde., Tübingen 1875/78.",
+      "right": "59 C. H. Meray: «Weltmutation. Schöpfungsgesetze über Krieg und Frieden und die "
+    },
+    {
+      "page": 165,
+      "reason": "no-match",
+      "left": "ns unterzeichnet, wurde im März 1919 als Flugblatt gedruckt und weit verbreitet.",
+      "right": "I. Werke Einleitungen zu den Naturwissenschaftlichen Schriften Goethes (1883/97)"
+    },
+    {
+      "page": 166,
+      "reason": "no-match",
+      "left": "nntnissen. Von Dr. R. Steiner und Dr. I. Wegman (1925) Mein Lebensgang (1923/25)",
+      "right": "II. Gesammelte Aufsätze Aufsätze aus den Jahren 1882-1902 Aufsätze aus den Jahre"
+    }
+  ]
+}

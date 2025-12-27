@@ -1,0 +1,132 @@
+{
+  "ga": "GA018",
+  "sourceFile": "steiner-books-012-022-part02.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 687,
+  "breaksWithPage": 687,
+  "inserted": 619,
+  "insertedRatio": 0.901018922852984,
+  "failed": 68,
+  "failuresSample": [
+    {
+      "page": 629,
+      "reason": "no-match",
+      "left": "er 8. Auflage. Nachweis der Zitate im Band enthalten. Gesamtausgabe Dornach 1985",
+      "right": "1. Teil: Griechische Philosophen (Zusammengestellt von Karl-Martin Dietz) Vorbem"
+    },
+    {
+      "page": 630,
+      "reason": "no-match",
+      "left": "s Arist. 1867(1967), 117-128. 102 Erster Beweger Arist. Metaphysik 12, 1071b ff.",
+      "right": "CHRYSIPPOS siehe «STOIKER» DEMOKRIT von Abdera (Mitte des 5. Jahrh. v. Chr.) (Di"
+    },
+    {
+      "page": 631,
+      "reason": "no-match",
+      "left": "mes Wesen etc. 54 «Gut wäre es . . .»: 54 «Toren ...» 54 Feuer 55 «Alles fließt»",
+      "right": "HERAKLIT (Fortsetzung) «Nicht zweimal in den- Heraklit B 91, vgl. B 49a, B 12 se"
+    },
+    {
+      "page": 632,
+      "reason": "no-match",
+      "left": "onverhältniszahlen Philolaos B 6 und 11 (Diels) 50 Gedanke Philolaos B 4 (Diels)",
+      "right": "PLATON (427-347 v.Chr.) Stellenangaben nach der Stefanus-Numerierung. Weitere Hi"
+    },
+    {
+      "page": 633,
+      "reason": "no-match",
+      "left": "ekümmern . . . eigene Machtvollkommenheit vgl. Platon, «Theaetet», 166a bis 167d",
+      "right": "PYRRHON (360-270 v.Chr.) 79 Menschliche Meinungen vgl. Sextus Empiricus, Grundri"
+    },
+    {
+      "page": 634,
+      "reason": "no-match",
+      "left": ") («Maieutik» = «Hebammen- kunst»), vgl. Piaton, «Theaetet» 148d-151d und 210b-d",
+      "right": "STOIKER (Zenon, Kleanthes, Chrysippos u.a.) - Von den älteren Stoikern sind nur "
+    },
+    {
+      "page": 635,
+      "reason": "no-match",
+      "left": "d die Schildkröte Zenon A 26, vgl. A 1 (Diels) ZENON von Kition: siehe «STOIKER»",
+      "right": "2. Teil: Nachgriechische Autoren (Zusammengestellt von Brigitte Ericsson-Skopnik"
+    },
+    {
+      "page": 636,
+      "reason": "no-match",
+      "left": "562 Philosophieren besteht. . . 562 Relativ ist die symbolische Erkenntnis . . .",
+      "right": "BERGSON (Fortsetzung) Materie und Gedächtnis (1896) Deutsch Jena 1908 Schöpferis"
+    },
+    {
+      "page": 637,
+      "reason": "no-match",
+      "left": "merkt . . . 618 Denn wenn auch der, . . l.Band, 1. Kap. § 2, S. 20 desgl., S. 21",
+      "right": "BÜCHNER Ludwig 354 Erstens ist der Materialis- Sechs Vorlesungen über die Dar- w"
+    },
+    {
+      "page": 638,
+      "reason": "no-match",
+      "left": "1881 537 Als Materie fassen wir den I. Teil, Kap. 1: Das Leben, S. 30 Stoff. . .",
+      "right": "CARNERI (Fortsetzung) 538 Das erwachende Selbstbe- I. Teil, Kap. 3: Der Mensch, "
+    },
+    {
+      "page": 639,
+      "reason": "no-match",
+      "left": "Streben nach dem . . . desgl., S. 47 f. Neue Darstellung des Sensualismus (1855)",
+      "right": "CZOLBE (Fortsetzung) Die Entstehung des Selbstbewußt- seins. Eine Antwort an Her"
+    },
+    {
+      "page": 640,
+      "reason": "no-match",
+      "left": "ictor Carus. Stuttgart 1878, Dar- wins gesammelte Werke Band 3, Einleitung S. 10",
+      "right": "DARWIN (Fortsetzung) (Diesem Zitat liegt die Carussche Übersetzung mit einigen A"
+    },
+    {
+      "page": 641,
+      "reason": "no-match",
+      "left": "ges am 6. Juli 1876. Berlin DÜHRING Eugen 492 u. 500 Natürliche Dialektik (1865)",
+      "right": "DÜHRING (Fortsetzung) Kursus der Philosophie als streng wissenschaftlich er Welt"
+    },
+    {
+      "page": 642,
+      "reason": "no-match",
+      "left": "r Wahrheitsgehalt der Religion Grundlinien einer neuen Lebensan- schauung (1907)",
+      "right": "EUCKEN (Fortsetzung) Geistige Strömungen der Gegen- wart (1878) Geschichte und K"
+    },
+    {
+      "page": 643,
+      "reason": "no-match",
+      "left": " nach den Quellen des klassischen, hehräischen und christlichen Altertums (1857)",
+      "right": "FEUERBACH (Fortsetzung) Das Wesen des Christentums (1841) 2. verm. Aufl. Leipzig"
+    },
+    {
+      "page": 644,
+      "reason": "no-match",
+      "left": "dargestellt von Karl Grün, nie . . . Leipzig und Heidelberg 1874, 1. Bd., S. 383",
+      "right": "FEUERBACH (Fortsetzung) 299 In Ermangelung einer Aus- Brief an Friedrich Kapp, B"
+    },
+    {
+      "page": 645,
+      "reason": "no-match",
+      "left": "Wahrheit... 2. Bd.; IX. Briefe an Niethammer Nr. 2, Zürich, den 6. Okt. 1793, S.",
+      "right": "FICHTE (Fortsetzung) 176 Die Liebe der Wissen- l.Bd.;2. Buch, Kap. 2, S. 224 sch"
+    },
+    {
+      "page": 646,
+      "reason": "no-match",
+      "left": "schulbuchhdl. Berlin 1801 Nichts hat unbedingten Wert. . . Einleitung (4), S. 13",
+      "right": "FICHTE J. G. (Fortsetzung) 178 An meinem Leben . . . Ich Einige Vorlesungen über"
+    },
+    {
+      "page": 647,
+      "reason": "no-match",
+      "left": "fahre 1804-1805 Die Anweisung zum seligen Lehen oder auch die Religionslehre, in",
+      "right": "FICHTE J. G. (Fortsetzung) Vorlesungen gehalten zu Berlin im Jahre 1806 Reden an"
+    },
+    {
+      "page": 648,
+      "reason": "no-match",
+      "left": ". G. Fichte's Leben und lit. Briefwechsel, 1. Bd., 2. Aufl. Leipzig 1862, S. 221",
+      "right": "GEGENBAUR Karl Grundzüge der vergleichenden Anatomie (1859). 2. Aufl. 1870 GOETH"
+    }
+  ]
+}

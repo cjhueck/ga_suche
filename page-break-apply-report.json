@@ -1,54 +1,112 @@
 {
-  "ga": "GA022",
-  "sourceFile": "steiner-books-015-022.json",
+  "ga": "GA291A",
+  "sourceFile": "steiner-full-lectures-291a-291a.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 84,
-  "breaksWithPage": 84,
-  "inserted": 77,
-  "insertedRatio": 0.9166666666666666,
-  "failed": 7,
+  "breaksTotal": 546,
+  "breaksWithPage": 546,
+  "inserted": 164,
+  "insertedRatio": 0.30036630036630035,
+  "failed": 199,
   "failuresSample": [
     {
-      "page": 8,
+      "page": 10,
       "reason": "no-match",
-      "left": "Diese Ausführungen sind 1902 geschrieben und zuerst veröflfentlicht worden",
-      "right": ""
+      "lecture": 0
     },
     {
-      "page": 44,
+      "page": 15,
       "reason": "no-match",
-      "left": "Diese Ausführungen werden in dieser Neu-Ausgabe [1918] neu hinzugefügt",
-      "right": ""
+      "lecture": 0
     },
     {
-      "page": 86,
+      "page": 32,
       "reason": "no-match",
-      "left": "g und Wahrheit», Erster Teil, Erstes Buch. Wei- marer Ausgabe Band 26, S. 63 ff.",
-      "right": "Zu Seite: 14f. ob ihm «durch Geistes Kraft und Mund...»: Faust I, Vers 378. 15f."
+      "lecture": 0
     },
     {
-      "page": 87,
+      "page": 35,
       "reason": "no-match",
-      "left": "1830. Siehe Plutarchs «Vergleichende Lebensbeschrei- bungen» Marcellus, Kap. 20.",
-      "right": "Zu Seite: Er hat in der Kunst, in der Poesie «eine Manifestation ...».* Sprüche "
+      "lecture": 0
     },
     {
-      "page": 88,
+      "page": 52,
       "reason": "no-match",
-      "left": "S.Juli 1827. «Wenn wir jemand mit Leidenschaft umfassen ...»; Vierzehnter Brief.",
-      "right": "Zu Seite: «Alles, was unseren Geist befreit, ohne uns die Herrschaft.,.»: Sprüch"
+      "lecture": 1
     },
     {
-      "page": 89,
+      "page": 59,
       "reason": "no-match",
-      "left": "Das Märchen ist bunt und lustig genug ...»; Schillers Brief vom 29. August 1795.",
-      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
+      "lecture": 4
     },
     {
-      "page": 90,
+      "page": 60,
       "reason": "no-match",
-      "left": "n, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923/25 (28)",
-      "right": "//. Gesammelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Gr"
+      "lecture": 4
+    },
+    {
+      "page": 61,
+      "reason": "no-match",
+      "lecture": 4
+    },
+    {
+      "page": 62,
+      "reason": "no-match",
+      "lecture": 4
+    },
+    {
+      "page": 70,
+      "reason": "no-match",
+      "lecture": 7
+    },
+    {
+      "page": 72,
+      "reason": "no-match",
+      "lecture": 7
+    },
+    {
+      "page": 73,
+      "reason": "no-match",
+      "lecture": 7
+    },
+    {
+      "page": 74,
+      "reason": "no-match",
+      "lecture": 7
+    },
+    {
+      "page": 77,
+      "reason": "no-match",
+      "lecture": 7
+    },
+    {
+      "page": 80,
+      "reason": "no-match",
+      "lecture": 7
+    },
+    {
+      "page": 83,
+      "reason": "no-match",
+      "lecture": 12
+    },
+    {
+      "page": 85,
+      "reason": "no-match",
+      "lecture": 12
+    },
+    {
+      "page": 93,
+      "reason": "no-match",
+      "lecture": 12
+    },
+    {
+      "page": 95,
+      "reason": "no-match",
+      "lecture": 12
+    },
+    {
+      "page": 101,
+      "reason": "no-match",
+      "lecture": 12
     }
   ]
 }

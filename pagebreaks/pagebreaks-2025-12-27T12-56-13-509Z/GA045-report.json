@@ -1,0 +1,132 @@
+{
+  "ga": "GA045",
+  "sourceFile": "steiner-books-023-045-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 96,
+  "breaksWithPage": 96,
+  "inserted": 13,
+  "insertedRatio": 0.13541666666666666,
+  "failed": 83,
+  "failuresSample": [
+    {
+      "page": 7,
+      "reason": "start-too-late",
+      "left": "",
+      "right": "Vorbemerkung des Herausgebers Das Fragment «Anthroposophie» gehört zu den nachge"
+    },
+    {
+      "page": 9,
+      "reason": "no-match",
+      "left": "d Text- gestalt, sowie Selbstzeugnisse Steiners über seine unvollendete Schrift.",
+      "right": "Ein Fragment"
+    },
+    {
+      "page": 10,
+      "reason": "no-match",
+      "left": "Ein Fragment",
+      "right": ""
+    },
+    {
+      "page": 12,
+      "reason": "jump-too-large",
+      "left": "graphisch aufnimmt. Dieses Bild gibt das Aussehen des Baumes, von einem gewissen",
+      "right": "Gesichtspunkte aus, in voller Wahrheit. Wählt man einen anderen Gesichtspunkt, s"
+    },
+    {
+      "page": 13,
+      "reason": "jump-too-large",
+      "left": " wenn man sich über den Gesichtspunkt klar ist, von welchem aus sie gegeben ist.",
+      "right": "Man käme in der Welt menschlicher Meinungen viel besser zurecht, als es vielfach"
+    },
+    {
+      "page": 15,
+      "reason": "jump-too-large",
+      "left": "achtet z. B. die Einrichtung der Sinnesorgane, die Gestalt des Knochenbaues, die",
+      "right": "Verhältnisse des Nervensystems, die Vorgänge der Mus- kelbewegung usw. Sie dring"
+    },
+    {
+      "page": 16,
+      "reason": "jump-too-large",
+      "left": "hoden ansieht. Ein gewal- tiges Tatsachenmaterial ist durch sie zusammengetragen",
+      "right": "worden. Trotz der verschiedenen Vorstellungsarten, in welchen dieses Material zu"
+    },
+    {
+      "page": 19,
+      "reason": "jump-too-large",
+      "left": ". Will der Geistesforscher etwas behaupten, was unwahr ist, dann wird dies durch",
+      "right": "die Ablehnung des gesunden Wahrheitssinnes und der unbefangenen Logik immer fest"
+    },
+    {
+      "page": 20,
+      "reason": "jump-too-large",
+      "left": "von dem Gipfel einer Anhöhe über denselben Landstrich gewinnt: so soll Anthropo-",
+      "right": "sophie verglichen werden dem Anblick, den man haben kann von dem Abhänge der Anh"
+    },
+    {
+      "page": 21,
+      "reason": "jump-too-large",
+      "left": "st beschäftigt. Damit mündet dann Anthropo- sophie in die Theosophie selbst ein.",
+      "right": "Der Anfang der Anthroposophie soll gemacht werden mit einer Betrachtung der mens"
+    },
+    {
+      "page": 26,
+      "reason": "no-match",
+      "left": " Sinnesempfindung ist dann diejenige, durch welche nicht mehr bloß der Stoff als",
+      "right": "solcher, sondern Wirkungen (Taten) des Stofflichen wahrgenommen werden. Es gesch"
+    },
+    {
+      "page": 27,
+      "reason": "no-match",
+      "left": "von dem Innern dieses Kör- pers, als in der Wirkung enthalten ist, die durch den",
+      "right": "Geschmackssinn vermittelt wird. Es hängt von dem Wesen eines Körpers ab, ob er s"
+    },
+    {
+      "page": 28,
+      "reason": "no-match",
+      "left": "he entsprechend ist, da von Sinn spricht, wo eine Erkenntnis zustande kommt ohne",
+      "right": "Mitwirkung des Verstandes, des Gedächtnisses usw., so muß man noch andere Sinne "
+    },
+    {
+      "page": 30,
+      "reason": "no-match",
+      "left": "l für diese Tatsache erlangt man am besten dadurch, daß man sich klar macht, wie",
+      "right": "man auch das verstehen kann, wofür man es noch gar nicht zu einer Urteilsfähigke"
+    },
+    {
+      "page": 31,
+      "reason": "no-match",
+      "left": " B. eines Wärmegrades, der sich an einem Körper offenbart. Wenn es auch durchaus",
+      "right": "richtig ist, daß einem selbst erhitzten Menschen ein kal- tes Bad in einem ander"
+    },
+    {
+      "page": 32,
+      "reason": "no-match",
+      "left": "terschied der einzelnen Sinnesgebiete genau festzuhalten. Bei jedem Sinn ist das",
+      "right": "Verhältnis, in das der Mensch zu einem äußeren Gegen- stande tritt, ein anderes "
+    },
+    {
+      "page": 33,
+      "reason": "no-match",
+      "left": "e Sinne wahr und bildet sich auf Grund der Sinneswahrnehmungen Vorstellungen und",
+      "right": "Begriffe.» Man setzt da die Sinneswahrnehmung dem begrifflichen Denken einfach g"
+    },
+    {
+      "page": 34,
+      "reason": "no-match",
+      "left": " schon dem annähert, was im Innern der Seele als solches Erlebnis vorhanden ist.",
+      "right": "In den Sinneswahrnehmungen ist die Grundlage des weiteren Seelenlebens gegeben. "
+    },
+    {
+      "page": 35,
+      "reason": "no-match",
+      "left": "«Ich» die Vorstellung zu- rück. Diese bildet nun etwas Wesenhaftes innerhalb des",
+      "right": "Seelenlebens. Man soll nicht versäumen, zu bemerken, daß die Vorstellung dasjeni"
+    },
+    {
+      "page": 36,
+      "reason": "no-match",
+      "left": " zum Grunde liegen, wel- che diese Sinneswelt selbst erst dadurch möglich macht,",
+      "right": "daß sie die Sinne aus sich heraus entstehen läßt. Und diese Welt kann nicht in d"
+    }
+  ]
+}

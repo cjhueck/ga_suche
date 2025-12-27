@@ -1,0 +1,60 @@
+{
+  "ga": "GA004",
+  "sourceFile": "steiner-books-004-004.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 269,
+  "breaksWithPage": 269,
+  "inserted": 259,
+  "insertedRatio": 0.9628252788104089,
+  "failed": 8,
+  "failuresSample": [
+    {
+      "page": 272,
+      "reason": "no-match",
+      "left": "dee erlebend gegenüberstellen kön- nen; sonst gerät man unter ihre Knechtschaft.",
+      "right": "Die Textgrundlage für die Ausgabe innerhalb der Gesamtausgabe bildet die von Rud"
+    },
+    {
+      "page": 273,
+      "reason": "no-match",
+      "left": "ist uns durch ebenso wenig sondern ihn in dem Weg zur Erlösung it Rudolf Steiner",
+      "right": "im bloß materiellen bloß im materiellen als der Zweck als ein Zweck 12/13 die Be"
+    },
+    {
+      "page": 274,
+      "reason": "no-match",
+      "left": "t «Mensch» in der 2. Auflage (1918) die Angleichung des Fürwortes entgangen war:",
+      "right": "Zur Entstehung der Philosophie der Freiheit Rudolf Steiners philosophische Besch"
+    },
+    {
+      "page": 275,
+      "reason": "no-match",
+      "left": " Randbemerkungen und weitere Materialien, Gesamtausgabe 4a, Dornach 1994, 543 S.",
+      "right": "Zu Seite 9 in späteren Schriften von mir: Siehe dazu die Übersicht über die Rudo"
+    },
+    {
+      "page": 276,
+      "reason": "no-match",
+      "left": " wohnen, ach! in meiner Brust»: Goethe, «Faust» I, Vor dem Tor, Verse 1112-1117.",
+      "right": "32f. Friedrieb Albert Lange, «Geschichte des Materialismus und Kritik seiner Bed"
+    },
+    {
+      "page": 278,
+      "reason": "no-match",
+      "left": "r Philosophie», Zweite, beträchtlich vermehrte Auf- lage, Straßburg 1880, S. 28.",
+      "right": "70 Johannes Volkelt, «Immanuel Kant's Erkenntnißtheorie nach ihren Grundprincipi"
+    },
+    {
+      "page": 279,
+      "reason": "no-match",
+      "left": "inleitung von Dr. Rudolf Steiner, Stuttgart o.J. (1894), 2. Bd., S. 140 und 141.",
+      "right": "98 «Keine Farbe ohne farbempfindendes Auge»: In dieser Form nicht nachge- wiesen"
+    },
+    {
+      "page": 280,
+      "reason": "no-match",
+      "left": " Erinnerung geht das Teilen, Verbinden, Beziehen und die Begriffsbil- dung aus.»",
+      "right": "148 in Schriften, die auf dieses Buch gefolgt sind: Siehe u. a. «Vom Menschen- r"
+    }
+  ]
+}
