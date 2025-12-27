@@ -1,0 +1,42 @@
+{
+  "ga": "GA017",
+  "sourceFile": "steiner-books-012-022-part02.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 99,
+  "breaksWithPage": 99,
+  "inserted": 94,
+  "insertedRatio": 0.9494949494949495,
+  "failed": 5,
+  "failuresSample": [
+    {
+      "page": 4,
+      "reason": "no-match",
+      "left": "",
+      "right": "Herausgegeben von der Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz 1. Aufla"
+    },
+    {
+      "page": 5,
+      "reason": "start-too-late",
+      "left": "g, Dornach /Schweiz Printed in Switzerland by Zbinden Druck und Verlag AG, Basel",
+      "right": "Einleitende Bemerkungen Von dem Vertrauen, das man zu dem Denken haben kann, und"
+    },
+    {
+      "page": 6,
+      "reason": "start-too-late",
+      "left": "leibes . Von dem «wahren Ich» des Menschen Zusammenfassung einiges Vorangehenden",
+      "right": "Bemerkungen über das Verhältnis des in dieser Schrift Ge- schilderten zu der Dar"
+    },
+    {
+      "page": 101,
+      "reason": "no-match",
+      "left": "schwimmen. Denn darin läge die Quelle von Illu- sionen über das, was man erlebt.",
+      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
+    },
+    {
+      "page": 102,
+      "reason": "no-match",
+      "left": "n, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923-25 (28)",
+      "right": "//. Gesammelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Gr"
+    }
+  ]
+}

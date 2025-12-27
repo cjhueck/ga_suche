@@ -1,0 +1,11 @@
+{
+  "ga": "GA333",
+  "sourceFile": "steiner-full-lectures-030-354-part16.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 175,
+  "breaksWithPage": 175,
+  "inserted": 146,
+  "insertedRatio": 0.8342857142857143,
+  "failed": 0,
+  "failuresSample": []
+}

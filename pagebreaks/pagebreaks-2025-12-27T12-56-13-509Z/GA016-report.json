@@ -1,0 +1,90 @@
+{
+  "ga": "GA016",
+  "sourceFile": "steiner-books-012-022-part02.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 98,
+  "breaksWithPage": 98,
+  "inserted": 85,
+  "insertedRatio": 0.8673469387755102,
+  "failed": 13,
+  "failuresSample": [
+    {
+      "page": 20,
+      "reason": "jump-too-large",
+      "left": "und zur Natur, so erlebt er an sich, was man seinen physischen Leib nennen kann.",
+      "right": "Der Meditierende versucht eine wahre Vorstellung von dem elementarischen oder ät"
+    },
+    {
+      "page": 93,
+      "reason": "no-match",
+      "left": "",
+      "right": "Zu dieser Ausgabe Textgrundlagen Textkorrekturen Literatur zum Thema aus dem Wer"
+    },
+    {
+      "page": 94,
+      "reason": "no-match",
+      "left": "Steiners Bibliographischer Nachweis bisheriger Ausgaben Zum Werk Rudolf Steiners",
+      "right": ""
+    },
+    {
+      "page": 95,
+      "reason": "no-match",
+      "left": "",
+      "right": "dieser Ausgabe In den «Einleitenden Bemerkungen» zum vorliegenden Buch betont Ru"
+    },
+    {
+      "page": 96,
+      "reason": "no-match",
+      "left": "(GA 17) ergänzt, er- weitert und vertieft es die grundlegenden Aufsatzreihen zum",
+      "right": "anthroposophischen Schulungsweg «Wie erlangt man Erkennt- nisse der höheren Welt"
+    },
+    {
+      "page": 97,
+      "reason": "no-match",
+      "left": "s vollgeschriebene Seiten, meist handelt es sich nur um kurze Passagen, einzelne",
+      "right": "Sätze oder Wörter. Einige Eintragungen lassen sich nicht mit Bestimmtheit zuordn"
+    },
+    {
+      "page": 98,
+      "reason": "no-match",
+      "left": "es wurde kursiv gesetzt. Entwicklung wird konsequent ohne zweites «e» (Entwicke-",
+      "right": "lung) geschrieben. In der 2. Auflage steht das Wort zweimal ohne, sonst mit «e»."
+    },
+    {
+      "page": 99,
+      "reason": "no-match",
+      "left": " man kann statt erinnern und kann. 15 Schauungen führen statt Schauungen führte.",
+      "right": "Werke Rudolf Steiners, die in der Gesamtausgabe (GA) erschienen sind, werden in "
+    },
+    {
+      "page": 100,
+      "reason": "no-match",
+      "left": "er- maßen neu gefaßt: «das Einsamkeitsgefühl sprengt etwas, das wie eine Hülle».",
+      "right": "Literatur zum Thema aus dem Werk Rudolf Steiners GA = Rudolf Steiner Gesamtausga"
+    },
+    {
+      "page": 101,
+      "reason": "no-match",
+      "left": "einmal neu Wahrspruchworte (ca. 1886-1925) Meditatives Spruchgut Rudolf Steiners",
+      "right": "Vorträge Ursprung und Ziel des Menschen. Grundbegriffe der Geisteswissenschaft 2"
+    },
+    {
+      "page": 102,
+      "reason": "no-match",
+      "left": "öheren Erkenntnis im Lebenswerk und Lebensgang Rudolf Steiners. Nr. 51/52, 1975.",
+      "right": "Bibliographischer Nachweis bisheriger Ausgaben 1. Auflage Philosophisch-Theosoph"
+    },
+    {
+      "page": 103,
+      "reason": "no-match",
+      "left": "hdruck, Rudolf Steiner Verlag, Dornach 1982 Herausgegeben durch Caroline Wispler",
+      "right": "Zum Werk Rudolf Steiners Rudolf Steiner (1861-1925), der zunächst als Philosoph,"
+    },
+    {
+      "page": 104,
+      "reason": "no-match",
+      "left": "rnach 1 verlag@rudolf-steiner.com www.steinerverlag.com / www.steinerarchiv.info",
+      "right": "Die Rudolf Steiner Gesamtausgabe Gliederung nach: Rudolf Steiner - Das literaris"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "ga": "GA053",
+  "sourceFile": "steiner-full-lectures-030-100-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 502,
+  "breaksWithPage": 502,
+  "inserted": 450,
+  "insertedRatio": 0.896414342629482,
+  "failed": 17,
+  "failuresSample": [
+    {
+      "page": 143,
+      "reason": "no-match",
+      "lecture": 5
+    },
+    {
+      "page": 144,
+      "reason": "no-match",
+      "lecture": 5
+    },
+    {
+      "page": 145,
+      "reason": "no-match",
+      "lecture": 5
+    },
+    {
+      "page": 146,
+      "reason": "no-match",
+      "lecture": 5
+    },
+    {
+      "page": 266,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 267,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 269,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 270,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 271,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 272,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 273,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 274,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 275,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 276,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 277,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 278,
+      "reason": "no-match",
+      "lecture": 11
+    },
+    {
+      "page": 279,
+      "reason": "no-match",
+      "lecture": 11
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "ga": "GA009",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 134,
+  "breaksWithPage": 134,
+  "inserted": 132,
+  "insertedRatio": 0.9850746268656716,
+  "failed": 2,
+  "failuresSample": [
+    {
+      "page": 37,
+      "reason": "jump-too-large",
+      "left": "enskraft im Sinne der modernen Naturwissenschaft handelt, steht der Verfasser in",
+      "right": "einem gewissen Sinne auf dem Standpunkt der Gegner einer solchen Kraft. Denn mit"
+    },
+    {
+      "page": 114,
+      "reason": "jump-too-large",
+      "left": "d, ist aus dem oben über die Schwierigkeiten des sprachlichen Ausdrucks Gesagten",
+      "right": "selbstverständlich. An ein Aufwärmen der alten «Zweckmäßigkeitslehre» ist nicht "
+    }
+  ]
+}

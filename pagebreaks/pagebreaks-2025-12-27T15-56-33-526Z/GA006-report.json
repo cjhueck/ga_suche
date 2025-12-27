@@ -1,0 +1,24 @@
+{
+  "ga": "GA006",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 206,
+  "breaksWithPage": 206,
+  "inserted": 204,
+  "insertedRatio": 0.9902912621359223,
+  "failed": 2,
+  "failuresSample": [
+    {
+      "page": 219,
+      "reason": "no-match",
+      "left": "",
+      "right": "dieser Ausgabe Seit 1882 war Rudolf Steiner auf Empfehlung seines Lehrers, des G"
+    },
+    {
+      "page": 220,
+      "reason": "no-match",
+      "left": "selben Jahr sogar zwei Nachauflagen nötig. 1918 legte Steiner auch sein vor über",
+      "right": "zwanzig Jahren erschienenes philosophisches Hauptwerk «Die Phi- losophie der Fre"
+    }
+  ]
+}

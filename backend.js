@@ -18382,9 +18382,61 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
 app.get('/api/full-lecture/:lectureId', async (req, res) => {
   try {
     const { lectureId } = req.params;
-    const lecture = fullLectures[lectureId];
-    if (!lecture) {
+    const originalLecture = fullLectures[lectureId];
+    if (!originalLecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
+    }
+    
+    // Erstelle eine tiefe Kopie des Vortrags, um das Original nicht zu verändern
+    const lecture = JSON.parse(JSON.stringify(originalLecture));
+    
+    // Lade Text-Edits für diesen Vortrag
+    try {
+      const textEditsFile = path.join(__dirname, 'text-edits-database.json');
+      const editsData = await fs.readFile(textEditsFile, 'utf8');
+      const editsDB = JSON.parse(editsData);
+      
+      if (editsDB[lectureId]) {
+        const edits = editsDB[lectureId];
+        let appliedEdits = 0;
+        
+        // Wende Absatz-Bearbeitungen an
+        if (edits.paragraphs && lecture.paragraphs) {
+          for (const [index, edit] of Object.entries(edits.paragraphs)) {
+            // Finde den Absatz mit diesem Index
+            const para = lecture.paragraphs.find(p => {
+              const paraIndex = p.index ? p.index.replace(/^\^/, '') : '';
+              return paraIndex === index || p.index === index || p.index === `^${index}`;
+            });
+            if (para && edit.edited) {
+              para.content = edit.edited;
+              para.text = edit.edited;
+              para._edited = true;
+              appliedEdits++;
+            }
+          }
+        }
+        
+        // Wende Titel-Bearbeitung an
+        if (edits.title && edits.title.edited) {
+          lecture.title = edits.title.edited;
+          lecture._titleEdited = true;
+          appliedEdits++;
+        }
+        
+        // Speichere die Überschriften-Edits für das Frontend
+        if (edits.headings && Object.keys(edits.headings).length > 0) {
+          lecture._headingEdits = edits.headings;
+          appliedEdits += Object.keys(edits.headings).length;
+        }
+        
+        if (appliedEdits > 0) {
+          console.log(`[BACKEND-API] ✏️ ${appliedEdits} Text-Edits angewendet für ${lectureId}`);
+          lecture._hasTextEdits = true;
+        }
+      }
+    } catch (editsError) {
+      // Keine Text-Edits-Datei oder Fehler - ignorieren
     }
     
     // Debug: Prüfe ob Marker in Paragraphs vorhanden sind
@@ -18623,6 +18675,220 @@ app.post('/api/save-marked-word', async (req, res) => {
     
   } catch (error) {
     console.error('[MARKED-WORD] Fehler beim Speichern:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// API: TEXT-BEARBEITUNG (INLINE EDITS)
+// ============================================================================
+
+const TEXT_EDITS_DB_FILE = path.join(__dirname, 'text-edits-database.json');
+
+// Hilfsfunktion: Text-Edits-Datenbank laden
+async function loadTextEditsDatabase() {
+  try {
+    const data = await fs.readFile(TEXT_EDITS_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    // Datei existiert noch nicht - leeres Objekt zurückgeben
+    return {};
+  }
+}
+
+// Hilfsfunktion: Text-Edits-Datenbank speichern
+async function saveTextEditsDatabase(editsDB) {
+  try {
+    // Backup erstellen
+    const backupPath = path.join(__dirname, 'backups', `text-edits-database-${new Date().toISOString().slice(0, 10)}.json`);
+    try {
+      const existingData = await fs.readFile(TEXT_EDITS_DB_FILE, 'utf8');
+      await fs.writeFile(backupPath, existingData, 'utf8');
+    } catch (err) {
+      // Keine existierende Datei zum Backup
+    }
+    
+    await fs.writeFile(TEXT_EDITS_DB_FILE, JSON.stringify(editsDB, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('[TEXT-EDITS] Fehler beim Speichern:', error);
+    return false;
+  }
+}
+
+// GET: Alle Text-Bearbeitungen laden
+app.get('/api/text-edits', async (req, res) => {
+  try {
+    const editsDB = await loadTextEditsDatabase();
+    res.json(editsDB);
+  } catch (error) {
+    console.error('[TEXT-EDITS] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET: Text-Bearbeitungen für einen bestimmten Vortrag
+app.get('/api/text-edits/:lectureId', async (req, res) => {
+  try {
+    const lectureId = decodeURIComponent(req.params.lectureId);
+    const editsDB = await loadTextEditsDatabase();
+    const lectureEdits = editsDB[lectureId] || { paragraphs: {}, headings: {}, title: null };
+    res.json(lectureEdits);
+  } catch (error) {
+    console.error('[TEXT-EDITS] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST: Text-Bearbeitung speichern
+app.post('/api/text-edits/save', async (req, res) => {
+  try {
+    const { lectureId, editType, paragraphIndex, originalText, editedText, headingIndex } = req.body;
+    
+    if (!lectureId) {
+      return res.status(400).json({ error: 'lectureId ist erforderlich' });
+    }
+    
+    if (!editType || !['paragraph', 'heading', 'title'].includes(editType)) {
+      return res.status(400).json({ error: 'editType muss paragraph, heading oder title sein' });
+    }
+    
+    const editsDB = await loadTextEditsDatabase();
+    
+    // Initialisiere Vortrag-Eintrag wenn nicht vorhanden
+    if (!editsDB[lectureId]) {
+      editsDB[lectureId] = {
+        paragraphs: {},
+        headings: {},
+        title: null,
+        lastModified: new Date().toISOString()
+      };
+    }
+    
+    // Speichere die Bearbeitung
+    if (editType === 'paragraph') {
+      if (!paragraphIndex) {
+        return res.status(400).json({ error: 'paragraphIndex ist erforderlich für Absatz-Bearbeitungen' });
+      }
+      
+      // Wenn editedText leer oder gleich originalText, lösche den Override
+      if (!editedText || editedText === originalText) {
+        delete editsDB[lectureId].paragraphs[paragraphIndex];
+      } else {
+        editsDB[lectureId].paragraphs[paragraphIndex] = {
+          original: originalText,
+          edited: editedText,
+          timestamp: new Date().toISOString()
+        };
+      }
+    } else if (editType === 'heading') {
+      if (!headingIndex && headingIndex !== 0) {
+        return res.status(400).json({ error: 'headingIndex ist erforderlich für Überschrift-Bearbeitungen' });
+      }
+      
+      // Wenn editedText leer oder gleich originalText, lösche den Override
+      if (!editedText || editedText === originalText) {
+        delete editsDB[lectureId].headings[headingIndex];
+      } else {
+        editsDB[lectureId].headings[headingIndex] = {
+          original: originalText,
+          edited: editedText,
+          timestamp: new Date().toISOString()
+        };
+      }
+    } else if (editType === 'title') {
+      if (!editedText || editedText === originalText) {
+        editsDB[lectureId].title = null;
+      } else {
+        editsDB[lectureId].title = {
+          original: originalText,
+          edited: editedText,
+          timestamp: new Date().toISOString()
+        };
+      }
+    }
+    
+    editsDB[lectureId].lastModified = new Date().toISOString();
+    
+    // Prüfe ob der Vortrag-Eintrag leer ist und entferne ihn dann
+    if (Object.keys(editsDB[lectureId].paragraphs).length === 0 &&
+        Object.keys(editsDB[lectureId].headings).length === 0 &&
+        !editsDB[lectureId].title) {
+      delete editsDB[lectureId];
+    }
+    
+    const success = await saveTextEditsDatabase(editsDB);
+    
+    if (success) {
+      console.log(`[TEXT-EDITS] ✅ Gespeichert: ${lectureId} (${editType})`);
+      res.json({ 
+        success: true, 
+        message: `${editType === 'paragraph' ? 'Absatz' : editType === 'heading' ? 'Überschrift' : 'Titel'} gespeichert`,
+        lectureId,
+        editType
+      });
+    } else {
+      res.status(500).json({ error: 'Fehler beim Speichern' });
+    }
+    
+  } catch (error) {
+    console.error('[TEXT-EDITS] Fehler beim Speichern:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE: Text-Bearbeitung für einen Vortrag löschen
+app.delete('/api/text-edits/:lectureId', async (req, res) => {
+  try {
+    const lectureId = decodeURIComponent(req.params.lectureId);
+    const editsDB = await loadTextEditsDatabase();
+    
+    if (editsDB[lectureId]) {
+      delete editsDB[lectureId];
+      await saveTextEditsDatabase(editsDB);
+      console.log(`[TEXT-EDITS] ✅ Gelöscht: ${lectureId}`);
+      res.json({ success: true, message: `Alle Bearbeitungen für ${lectureId} gelöscht` });
+    } else {
+      res.json({ success: true, message: 'Keine Bearbeitungen vorhanden' });
+    }
+  } catch (error) {
+    console.error('[TEXT-EDITS] Fehler beim Löschen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE: Einzelne Text-Bearbeitung löschen
+app.delete('/api/text-edits/:lectureId/:editType/:index', async (req, res) => {
+  try {
+    const lectureId = decodeURIComponent(req.params.lectureId);
+    const editType = req.params.editType;
+    const index = req.params.index;
+    
+    const editsDB = await loadTextEditsDatabase();
+    
+    if (!editsDB[lectureId]) {
+      return res.json({ success: true, message: 'Keine Bearbeitungen vorhanden' });
+    }
+    
+    if (editType === 'paragraph' && editsDB[lectureId].paragraphs[index]) {
+      delete editsDB[lectureId].paragraphs[index];
+    } else if (editType === 'heading' && editsDB[lectureId].headings[index]) {
+      delete editsDB[lectureId].headings[index];
+    } else if (editType === 'title') {
+      editsDB[lectureId].title = null;
+    }
+    
+    // Prüfe ob leer
+    if (Object.keys(editsDB[lectureId].paragraphs).length === 0 &&
+        Object.keys(editsDB[lectureId].headings).length === 0 &&
+        !editsDB[lectureId].title) {
+      delete editsDB[lectureId];
+    }
+    
+    await saveTextEditsDatabase(editsDB);
+    res.json({ success: true, message: 'Bearbeitung gelöscht' });
+  } catch (error) {
+    console.error('[TEXT-EDITS] Fehler beim Löschen:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -19200,6 +19466,163 @@ app.get('/api/backups/list/:type', async (req, res) => {
     });
   } catch (error) {
     console.error('[BACKUP-API] Fehler beim Auflisten:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================
+// ANALYTICS-SYSTEM: Einfache Nutzungsstatistiken
+// ============================================================
+
+const ANALYTICS_FILE = path.join(__dirname, 'analytics-data.json');
+
+// Analytics-Daten laden oder initialisieren
+async function loadAnalyticsData() {
+  try {
+    const data = await fs.readFile(ANALYTICS_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch {
+    return {
+      dailyStats: {},      // { "2025-12-27": { views: 10, searches: 5, lectures: 3 } }
+      topSearches: {},     // { "karma": 15, "christus": 12 }
+      topLectures: {},     // { "GA013": 8, "GA009/3": 5 }
+      totalViews: 0,
+      totalSearches: 0,
+      totalLectureViews: 0
+    };
+  }
+}
+
+// Analytics-Daten speichern
+async function saveAnalyticsData(data) {
+  try {
+    await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {
+    console.error('[ANALYTICS] Fehler beim Speichern:', e.message);
+  }
+}
+
+// Aktuelles Datum als String
+function getDateKey() {
+  return new Date().toISOString().split('T')[0];
+}
+
+// Track-Endpunkt
+app.post('/api/analytics/track', async (req, res) => {
+  try {
+    const { type, value } = req.body;
+    if (!type) return res.status(400).json({ error: 'type required' });
+    
+    const data = await loadAnalyticsData();
+    const today = getDateKey();
+    
+    // Initialisiere Tagesstatistik
+    if (!data.dailyStats[today]) {
+      data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
+    }
+    
+    switch (type) {
+      case 'page_view':
+        data.dailyStats[today].views++;
+        data.totalViews++;
+        break;
+        
+      case 'search':
+        data.dailyStats[today].searches++;
+        data.totalSearches++;
+        if (value && typeof value === 'string' && value.length > 1) {
+          const term = value.toLowerCase().trim().substring(0, 50);
+          data.topSearches[term] = (data.topSearches[term] || 0) + 1;
+        }
+        break;
+        
+      case 'lecture_view':
+        data.dailyStats[today].lectures++;
+        data.totalLectureViews++;
+        if (value && typeof value === 'string') {
+          const lectureId = value.substring(0, 20);
+          data.topLectures[lectureId] = (data.topLectures[lectureId] || 0) + 1;
+        }
+        break;
+    }
+    
+    // Alte Daten bereinigen (behalte nur letzte 90 Tage)
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - 90);
+    const cutoffKey = cutoffDate.toISOString().split('T')[0];
+    for (const key of Object.keys(data.dailyStats)) {
+      if (key < cutoffKey) delete data.dailyStats[key];
+    }
+    
+    await saveAnalyticsData(data);
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Stats-Endpunkt für Dashboard
+app.get('/api/analytics/stats', async (req, res) => {
+  try {
+    const data = await loadAnalyticsData();
+    const today = getDateKey();
+    const todayStats = data.dailyStats[today] || { views: 0, searches: 0, lectures: 0 };
+    
+    // Letzte 7 Tage berechnen
+    let weekViews = 0, weekSearches = 0, weekLectures = 0;
+    for (let i = 0; i < 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      const dayData = data.dailyStats[key];
+      if (dayData) {
+        weekViews += dayData.views || 0;
+        weekSearches += dayData.searches || 0;
+        weekLectures += dayData.lectures || 0;
+      }
+    }
+    
+    // Top 10 Suchen
+    const topSearches = Object.entries(data.topSearches || {})
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([term, count]) => ({ term, count }));
+    
+    // Top 10 Vorträge
+    const topLectures = Object.entries(data.topLectures || {})
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([id, count]) => ({ id, count }));
+    
+    // Tägliche Daten für Chart (letzte 14 Tage)
+    const dailyData = [];
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      const dayData = data.dailyStats[key] || { views: 0, searches: 0, lectures: 0 };
+      dailyData.push({
+        date: key,
+        label: d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }),
+        views: dayData.views,
+        searches: dayData.searches,
+        lectures: dayData.lectures
+      });
+    }
+    
+    res.json({
+      today: todayStats,
+      week: { views: weekViews, searches: weekSearches, lectures: weekLectures },
+      total: {
+        views: data.totalViews || 0,
+        searches: data.totalSearches || 0,
+        lectures: data.totalLectureViews || 0
+      },
+      topSearches,
+      topLectures,
+      dailyData
+    });
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });

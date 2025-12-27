@@ -1,0 +1,36 @@
+{
+  "ga": "GA010",
+  "sourceFile": "steiner-books-010-010.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 224,
+  "breaksWithPage": 224,
+  "inserted": 220,
+  "insertedRatio": 0.9821428571428571,
+  "failed": 4,
+  "failuresSample": [
+    {
+      "page": 227,
+      "reason": "no-match",
+      "left": "",
+      "right": "dieser Ausgabe Der Text der vorliegenden Ausgabe ist in seiner ersten Fassung er"
+    },
+    {
+      "page": 228,
+      "reason": "no-match",
+      "left": "chien 1909 ohne wesentliche Überarbeitung unter Verwendung des bestehenden Spal-",
+      "right": "tensatzes von «Lucifer - Gnosis». Bis 1922 erschienen insgesamt acht Buchausgabe"
+    },
+    {
+      "page": 229,
+      "reason": "no-match",
+      "left": "ichnung I. Teil auf dem Titelblatt von «Wie erlangt man...» weggelassen. Für die",
+      "right": "24. Auflage (1993) wurde sie erstmals wiedereingefügt, weil damit auch gekennzei"
+    },
+    {
+      "page": 230,
+      "reason": "no-match",
+      "left": " die sich an ihn knüpfen Wie- derherstellung einer irrtümlich veränderten Stelle",
+      "right": "ganz Wiedereinfügung eines versehentlich weggefalle- nen Wortes oder statt und 4"
+    }
+  ]
+}

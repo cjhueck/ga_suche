@@ -1,0 +1,11 @@
+{
+  "ga": "GA105",
+  "sourceFile": "steiner-full-lectures-101-150-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 206,
+  "breaksWithPage": 206,
+  "inserted": 172,
+  "insertedRatio": 0.8349514563106796,
+  "failed": 0,
+  "failuresSample": []
+}

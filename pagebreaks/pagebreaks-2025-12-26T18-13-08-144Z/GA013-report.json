@@ -1,0 +1,132 @@
+{
+  "ga": "GA013",
+  "sourceFile": "steiner-books-012-022-part02.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 452,
+  "breaksWithPage": 452,
+  "inserted": 427,
+  "insertedRatio": 0.9446902654867256,
+  "failed": 25,
+  "failuresSample": [
+    {
+      "page": 4,
+      "reason": "start-too-late",
+      "left": "",
+      "right": "Herausgegeben von der Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz 30. Aufl"
+    },
+    {
+      "page": 6,
+      "reason": "no-match",
+      "left": " zum Text 445 Namenregister Übersicht über die Rudolf Steiner Gesamtausgabe. . .",
+      "right": ""
+    },
+    {
+      "page": 227,
+      "reason": "no-match",
+      "left": "elskörper werden durch geistig-seelische Ursachen in solche Lagen und Bewegungen",
+      "right": "gebracht, daß im Physischen die geistigen Zustände sich aus- leben können.) Wend"
+    },
+    {
+      "page": 274,
+      "reason": "no-match",
+      "left": "ußere sinnliche Anschauen und der an dieses Anschauen gebundene Verstand liefern",
+      "right": "kann. Die übersinnliche Welt fühlte man als die wahre und die sinnliche als eine"
+    },
+    {
+      "page": 275,
+      "reason": "no-match",
+      "left": "er der geistige Nach- folger des Christus-Eingeweihten war, nicht dasjenige dar,",
+      "right": "was der Christus-Eingeweihte selbst enthüllen konnte. Die- ser war im Hintergrun"
+    },
+    {
+      "page": 296,
+      "reason": "no-match",
+      "left": "iesen Mysterien vorwiegend ein solches Geheimnis der Einweihung aus, welches zur",
+      "right": "Offenbarung derjenigen Geisteswelt fuhrt, die Ahriman verschlossen hält. Die hin"
+    },
+    {
+      "page": 365,
+      "reason": "no-match",
+      "left": "fter Mensch Verehrung bis zu den höchsten Graden für andere Menschen haben kann,",
+      "right": "deren Wert man ahnt oder zu erkennen glaubt. Nur wo solche Verehrung vorhanden i"
+    },
+    {
+      "page": 367,
+      "reason": "no-match",
+      "left": "ik und Träumerei. Nicht derjenige kommt in einer richtigen Weise in die geistige",
+      "right": "Welt hinein, welcher froh ist, wenn er irgendwo einen Vor- gang erleben kann, de"
+    },
+    {
+      "page": 384,
+      "reason": "no-match",
+      "left": "n Tatsachen zu berich- tigen. In der übersinnlichen Welt aber ist das nicht ohne",
+      "right": "weiteres möglich. Wenn man einen übersinnlichen Vorgang beobachten will und mit "
+    },
+    {
+      "page": 385,
+      "reason": "no-match",
+      "left": "n, daß der Geistes- schüler weiß, an welchen Eigenschaften er die Wirklichkeiten",
+      "right": "erkennen kann. Nichts erscheint selbstverständlicher, als daß der Nichtkenner ge"
+    },
+    {
+      "page": 387,
+      "reason": "no-match",
+      "left": "ßes Eisenstück für ein solches zu halten, das wirklich brennt. Es ist selbstver-",
+      "right": "ständlich, daß man sich so nur zu denjenigen Erkenntnissen verhalten wird, welch"
+    },
+    {
+      "page": 441,
+      "reason": "no-match",
+      "left": " Weltgeschehen sich bezieht, dem eine sinnenfallige Offenbarung entspricht. Ende",
+      "right": ""
+    },
+    {
+      "page": 443,
+      "reason": "no-match",
+      "left": "",
+      "right": "Z,u dieser Ausgabe Textgrundlage: 16.-20. Auflage, 1925 (Ausgabe letzter Hand) N"
+    },
+    {
+      "page": 444,
+      "reason": "no-match",
+      "left": "henwesen statt Menschenleben Korrektur nach Manu- skript und Druck 1. -15. Aufl.",
+      "right": "2f. Es... Naturen: Dieser Satz ist im Druck 7.-20. Aufl. wohl versehentlich wegg"
+    },
+    {
+      "page": 445,
+      "reason": "no-match",
+      "left": "t und Druck 1.-6. Aufl. 6 ihm statt es Korrektur nach Manuskript und Druck 1.-6.",
+      "right": "26 Empfindungszug statt Empfindungszucht Korrektur nach Manuskript. 11 ihren sta"
+    },
+    {
+      "page": 446,
+      "reason": "no-match",
+      "left": "er. Psychologe, Philosoph und Reli- gionspsychologe, Begründer des Pragmatismus.",
+      "right": "12 Ferdinand Canning Scott Schiller, 1864-1937, engl. Philosoph, ver- band den P"
+    },
+    {
+      "page": 447,
+      "reason": "no-match",
+      "left": "den, das vmtl. auf diesen ursprünglichen Plan, die Kosmologie als letzte Kapitel",
+      "right": "der «Theosophie» anzufügen, zurückgeht. — Auch nachdem dieser Plan nicht so ausg"
+    },
+    {
+      "page": 448,
+      "reason": "no-match",
+      "left": "r Philosophie im Grundriß», Bd. III «Grundriß der Psychologie», Bad Sachsa 1908,",
+      "right": "S. 55f. Bei Hartmann wörtlich: «kürzerer Ersatz» statt «kurzer Er- satz». 81 «Di"
+    },
+    {
+      "page": 449,
+      "reason": "no-match",
+      "left": "lnamen: In vor- liegendem Werk verwendet Rudolf Steiner die grammatikalisch zwar",
+      "right": "falsche, aber spätestens seit dem 16. Jahrhundert im Deutschen einge- bürgerte P"
+    },
+    {
+      "page": 450,
+      "reason": "no-match",
+      "left": "nweis zu S. 81), Bd. 5, GAld, S. 457. Auch in Goethe, «Maximen und Reflexionen».",
+      "right": "3 34 eine schöne Legende: Ein Gedicht des persischen Dichters Nisami (Ne- zamii)"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "ga": "GA001",
+  "sourceFile": "steiner-books-001-001.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 294,
+  "breaksWithPage": 294,
+  "inserted": 289,
+  "insertedRatio": 0.9829931972789115,
+  "failed": 0,
+  "failuresSample": []
+}

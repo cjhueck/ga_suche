@@ -1,0 +1,48 @@
+{
+  "ga": "GA027",
+  "sourceFile": "steiner-books-023-045-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 138,
+  "breaksWithPage": 138,
+  "inserted": 132,
+  "insertedRatio": 0.9565217391304348,
+  "failed": 6,
+  "failuresSample": [
+    {
+      "page": 138,
+      "reason": "no-match",
+      "left": "n Angaben und Notizen den zweiten Teil des Buches in Bälde erscheinen zu lassen.",
+      "right": ""
+    },
+    {
+      "page": 139,
+      "reason": "no-match",
+      "left": "",
+      "right": "Xu dieser Ausgabe Textgrundlage: 1. Auflage 1925. Für die 7, Auflage (1991) wurd"
+    },
+    {
+      "page": 140,
+      "reason": "no-match",
+      "left": "träge zur Rudolf Steiner Gesamtausgabe», Nr. 58/59 Dornach Herbst 1977, S. 3-21.",
+      "right": "Textkorrekturen des Herausgebers gegenüber der Ausgabe 1925 Seite Zeile Nach dem"
+    },
+    {
+      "page": 142,
+      "reason": "no-match",
+      "left": "elten? (GA 10) 9,14 Die Geheimwissenschaft im Umriß (GA 13) 9,14 Wegman, Ita 137",
+      "right": ""
+    },
+    {
+      "page": 143,
+      "reason": "no-match",
+      "left": "",
+      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
+    },
+    {
+      "page": 144,
+      "reason": "no-match",
+      "left": "n, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923-25 (28)",
+      "right": "//. Gesammmelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische G"
+    }
+  ]
+}
