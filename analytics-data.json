@@ -1,9 +1,9 @@
 {
   "dailyStats": {
     "2025-12-27": {
-      "views": 1,
+      "views": 2,
       "searches": 1,
-      "lectures": 64
+      "lectures": 68
     }
   },
   "topSearches": {
@@ -26,7 +26,7 @@
     "GA291a/3": 2,
     "GA291a/12": 2,
     "GA291a/11": 2,
-    "GA084/1": 1,
+    "GA084/1": 5,
     "GA154/1": 1,
     "GA154/7": 1,
     "GA222/1": 1,
@@ -55,7 +55,7 @@
     "GA291a/13": 1,
     "GA291a/28": 1
   },
-  "totalViews": 1,
+  "totalViews": 2,
   "totalSearches": 1,
-  "totalLectureViews": 64
+  "totalLectureViews": 68
 }
