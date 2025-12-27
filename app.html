@@ -8156,52 +8156,63 @@ Original
 
     // === ZENTRALE SUMMARY-DATENBANK ===
     // Einfaches System: Alle Summaries in einer JSON-Datei
+    // OPTIMIERUNG: Cache für Summary-Database (verhindert wiederholtes Laden der ~1.3MB Datei)
+    let summaryDBCache = null;
+    let summaryDBCachePromise = null;
+    
+    // Hilfsfunktion: Lädt Summary-Database einmal und cached sie
+    async function getSummaryDBCached() {
+      // Wenn bereits geladen, sofort zurückgeben
+      if (summaryDBCache !== null) {
+        return summaryDBCache;
+      }
+      
+      // Wenn gerade geladen wird, auf das Promise warten
+      if (summaryDBCachePromise !== null) {
+        return summaryDBCachePromise;
+      }
+      
+      // Starte das Laden
+      summaryDBCachePromise = (async () => {
+        try {
+          const response = await fetch(`${API_BASE}/summary-database.json`, { 
+            cache: 'default'  // Browser-Cache nutzen
+          });
+          
+          if (!response.ok) {
+            console.warn(`[SUMMARY-DB-CACHE] Response nicht OK: ${response.status}`);
+            return null;
+          }
+          
+          summaryDBCache = await response.json();
+          console.log('[SUMMARY-DB-CACHE] Summary-Database geladen und gecached');
+          return summaryDBCache;
+        } catch (e) {
+          console.error('[SUMMARY-DB-CACHE] Fehler beim Laden:', e.message);
+          return null;
+        } finally {
+          summaryDBCachePromise = null;
+        }
+      })();
+      
+      return summaryDBCachePromise;
+    }
 
     async function loadSummaryFromDB(lectureId) {
       try {
         if (isLocal) {
-          // Lokal: Lade aus statischer Datei
-          // Cache-Busting: Füge Timestamp hinzu, damit immer die neueste Version geladen wird
-          const cacheBuster = `?t=${Date.now()}`;
+          // Lokal: Nutze gecachte Summary-Database
+          const summaryDB = await getSummaryDBCached();
+          if (!summaryDB) return null;
           
-          // Retry-Mechanismus für große Dateien (max. 3 Versuche)
-          let retries = 3;
-          while (retries > 0) {
-            try {
-              const response = await fetch(`${API_BASE}/summary-database.json${cacheBuster}`, { 
-                cache: 'no-store'
-              });
-              
-              if (!response.ok) {
-                console.warn(`[LOAD-SUMMARY] Response nicht OK: ${response.status}, verbleibende Versuche: ${retries - 1}`);
-                if (retries === 1) return null;
-                retries--;
-                await new Promise(resolve => setTimeout(resolve, 1000)); // Warte 1s vor Retry
-                continue;
-              }
-              
-              // Versuche JSON zu parsen
-              const summaryDB = await response.json();
-              const entry = summaryDB[lectureId] || null;
-              
-              // Debug-Ausgabe
-              if (entry && entry.headings && entry.headings.length > 0) {
-                console.log(`[LOAD-SUMMARY] ${lectureId}: ${entry.headings.length} Überschriften geladen, erste Index: ${entry.headings[0].index}`);
-              }
-              
-              return entry;
-            } catch (e) {
-              console.warn(`[LOAD-SUMMARY] Fehler beim Laden: ${e.message}, verbleibende Versuche: ${retries - 1}`);
-              if (retries === 1) {
-                console.error('[LOAD-SUMMARY] Alle Versuche fehlgeschlagen');
-                return null;
-              }
-              retries--;
-              await new Promise(resolve => setTimeout(resolve, 1000));
-            }
+          const entry = summaryDB[lectureId] || null;
+          
+          // Debug-Ausgabe
+          if (entry && entry.headings && entry.headings.length > 0) {
+            console.log(`[LOAD-SUMMARY] ${lectureId}: ${entry.headings.length} Überschriften geladen (aus Cache)`);
           }
           
-          return null;
+          return entry;
         } else {
           // ONLINE: Preferiere statische summary-database.json aus dem GitHub-Repo.
           // Falls diese nicht verfügbar ist, fällt das System auf die frühere
@@ -13519,6 +13530,91 @@ function getGATypeName(gaNumber, plural = false) {
   return plural ? 'Vorträge' : 'Vortrag';
 }
 
+// Hilfsfunktion für Post-Processing nach dem Book-Rendering (für progressives Rendering)
+async function finishBookRendering(book, viewer, targetIndex, mainContainer) {
+  const bookId = book.gaNumber || book.ID;
+  
+  // Bilder ersetzen
+  let imagesForBook = steinerImages[bookId];
+  if (!imagesForBook) {
+    const matchingKeys = Object.keys(steinerImages).filter(key => key.startsWith(bookId + '/'));
+    if (matchingKeys.length > 0) {
+      imagesForBook = [];
+      matchingKeys.forEach(key => {
+        if (steinerImages[key] && Array.isArray(steinerImages[key])) {
+          imagesForBook = imagesForBook.concat(steinerImages[key]);
+        }
+      });
+    }
+  }
+  
+  if (imagesForBook && imagesForBook.length > 0) {
+    const originalImages = steinerImages[bookId];
+    steinerImages[bookId] = imagesForBook;
+    try {
+      const updatedHTML = await replaceImageSrcWithBase64(viewer.innerHTML, bookId);
+      viewer.innerHTML = updatedHTML;
+      
+      const bookContentDiv = viewer.querySelector('.book-content');
+      if (bookContentDiv && typeof processAllParagraphIndices === 'function') {
+        bookContentDiv.dataset.indicesProcessed = 'false';
+        processAllParagraphIndices(bookContentDiv);
+      }
+      
+      if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+        setTimeout(() => {
+          markParagraphsWithBookmarksAndQuotes(bookId);
+          if (typeof attachClickListenersToHighlights === 'function') {
+            attachClickListenersToHighlights(bookId);
+          }
+        }, 100);
+      }
+    } catch (error) {
+      console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+    }
+    if (originalImages) {
+      steinerImages[bookId] = originalImages;
+    } else {
+      delete steinerImages[bookId];
+    }
+  }
+  
+  // Anmerkungen behandeln
+  setTimeout(() => {
+    if (typeof replaceBulletPointsWithAsterisks === 'function') replaceBulletPointsWithAsterisks();
+    if (typeof formatAsteriskParagraphs === 'function') formatAsteriskParagraphs();
+  }, 100);
+  
+  // Scrolle zu targetIndex wenn vorhanden
+  if (targetIndex) {
+    setTimeout(() => {
+      const bookContentDiv = viewer.querySelector('.book-content');
+      if (bookContentDiv && typeof processParagraphIndex === 'function') {
+        // processParagraphIndex ist in displayBook definiert, nutze daher direkte Navigation
+        const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
+        const targetParaElement = bookContentDiv.querySelector(`#para-${targetParagraphIndex}`);
+        if (targetParaElement) {
+          let paragraphElement = targetParaElement.closest('.paragraph');
+          if (paragraphElement && mainContainer) {
+            const header = document.getElementById('viewer-header');
+            const headerHeight = header ? header.offsetHeight + 5 : 5;
+            const mainRect = mainContainer.getBoundingClientRect();
+            const paraRect = paragraphElement.getBoundingClientRect();
+            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
+            mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+            
+            if (typeof addHighlightingWithAutoRemove === 'function') {
+              addHighlightingWithAutoRemove(paragraphElement);
+            } else {
+              paragraphElement.classList.add('highlighted-paragraph');
+            }
+          }
+        }
+      }
+    }, 200);
+  }
+}
+
 // Funktion: Rendert ein Book (Schrift)
 async function displayBook(book, highlightHeadingId = null, keywords = [], isPhraseArray = [], targetIndex = null) {
   // Entferne chronologische Jahres-Buttons, falls vorhanden
@@ -13884,10 +13980,17 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // Erstelle HTML aus Absätzen und Überschriften (wie bei Vorträgen)
   let htmlContent = '';
   
-  if (paragraphs.length > 0) {
-    // Rendere Absätze mit Überschriften davor
-    // Überschriften sind jetzt korrekt mit Absatz-Indizes verknüpft (durch verbesserte link_headings_to_paragraphs Funktion)
-    paragraphs.forEach((para, idx) => {
+  // OPTIMIERUNG: Für große Dokumente (>500 Absätze) progressives Rendering verwenden
+  const LARGE_DOCUMENT_THRESHOLD = 500;
+  const isLargeDocument = paragraphs.length > LARGE_DOCUMENT_THRESHOLD;
+  
+  if (isLargeDocument) {
+    console.log(`[BOOK] Großes Dokument erkannt: ${paragraphs.length} Absätze - verwende progressives Rendering`);
+  }
+  
+  // Hilfsfunktion: Rendert einen einzelnen Absatz zu HTML
+  function renderParagraphToHTML(para, idx, headings, keywords, isPhraseArray, targetIndex) {
+      let paraHtml = '';
       const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
       const paraIndexWithCaret = para.index || `^${paraIndex}`;
       
@@ -13899,17 +14002,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         const matches = hIndex === paraIndex || 
                hIndex === paraIndexWithCaret || 
                hIndexClean === paraIndex;
-        // Debug: Log für erste paar Absätze
-        if (idx < 3 && matches) {
-          console.log(`[BOOK] Absatz ${idx} (${paraIndex}): Überschrift gefunden: ${h.text.substring(0, 40)} (Index: ${hIndex})`);
-        }
         return matches;
       });
-      
-      // Debug: Log wenn keine Überschrift gefunden wurde für erste Absätze
-      if (idx < 3 && matchingHeadings.length === 0 && headings.length > 0) {
-        console.log(`[BOOK] Absatz ${idx} (${paraIndex}): KEINE Überschrift gefunden. Verfügbare Überschriften-Indizes:`, headings.slice(0, 5).map(h => h.index));
-      }
       
       // Sortiere Überschriften: h3 vor h4
       const sortedHeadings = matchingHeadings.sort((a, b) => {
@@ -13926,8 +14020,6 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
         
         // Erstelle ID für Überschrift: Verwende heading.id falls vorhanden, sonst heading.index oder para-{index}
-        // Bei Büchern ist heading.index oft ein String wie "zur-einfuhrung" (aus summary-database.json)
-        // Bei Vorträgen ist heading.index ein Paragraph-Index wie "^abc123"
         const headingId = heading.id || (heading.index && !heading.index.startsWith('^') ? heading.index : `para-${headingIndex}`);
         
         // HTML-Escaping für headingText
@@ -13938,7 +14030,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           .replace(/"/g, '&quot;')
           .replace(/'/g, '&#039;');
         
-        htmlContent += `
+        paraHtml += `
           <${headingTag} id="${headingId}">
             ${escapedHeadingText}
           </${headingTag}>
@@ -13973,27 +14065,20 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
           });
         }
-        
-        // HINWEIS: Seitenmarker-Konvertierung passiert NACH dem Zusammenfügen aller Absätze
-        // (V4: Marker sind bereits im Text eingebettet)
       }
       
       // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
-      // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
       if (keywords && keywords.length > 0) {
         // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
         function highlightInHTML(htmlContent, searchWord, isPhrase) {
-          // Erstelle temporäres DOM-Element für sicheres Highlighting
           const tempDiv = document.createElement('div');
           tempDiv.innerHTML = htmlContent;
           
-          // Verwende TreeWalker um nur Textknoten zu markieren
           const walker = document.createTreeWalker(
             tempDiv,
             NodeFilter.SHOW_TEXT,
             {
               acceptNode: function(node) {
-                // Überspringe Textknoten die bereits in <mark> Tags sind
                 let parent = node.parentNode;
                 while (parent && parent !== tempDiv) {
                   if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
@@ -14019,7 +14104,6 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             }
           }
           
-          // Markiere Suchwort in Textknoten
           textNodesToMark.forEach(textNode => {
             const text = textNode.textContent;
             const highlightedText = text.replace(regex, '<mark>$1</mark>');
@@ -14045,8 +14129,6 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
               ? cleanWord.slice(1, -1) 
               : cleanWord;
-            
-            // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
             content = highlightInHTML(content, wordToHighlight, isPhrase);
           }
         });
@@ -14055,10 +14137,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Verwende gleiche HTML-Struktur wie bei Vorträgen
       const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
       const cursorStyle = isLocal ? 'cursor: pointer;' : '';
-      // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
       const applyHighlight = isTargetPara && !window.membersNavigating;
       
-      htmlContent += `
+      paraHtml += `
         <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
              id="para-${paraIndex}"
              data-index="${paraIndexWithCaret}"
@@ -14067,6 +14148,87 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           ${content}
         </div>
       `;
+      
+      return paraHtml;
+  }
+  
+  if (paragraphs.length > 0) {
+    // OPTIMIERUNG: Bei großen Dokumenten progressives Rendering verwenden
+    if (isLargeDocument && !isInGATab) {
+      // Zeige sofort einen Ladeindikator
+      const gaNumber = book.gaNumber || book.ID || '';
+      viewer.innerHTML = `
+        <div style="padding: 0 2rem 2rem 0;">
+          <div id="book-loading-indicator" style="padding: 2rem; text-align: center;">
+            <p style="color: var(--secondary-text); font-style: italic;">
+              Lade ${paragraphs.length} Absätze...
+            </p>
+            <div style="width: 100%; height: 4px; background: var(--border-color); border-radius: 2px; margin-top: 1rem;">
+              <div id="book-loading-progress" style="width: 0%; height: 100%; background: var(--link-color); border-radius: 2px; transition: width 0.1s;"></div>
+            </div>
+          </div>
+          <div class="book-content" data-ga-number="${gaNumber}" id="progressive-book-content"></div>
+        </div>
+      `;
+      
+      // Starte progressives Rendering in Batches
+      const BATCH_SIZE = 200;
+      let currentIndex = 0;
+      const progressBar = document.getElementById('book-loading-progress');
+      const contentContainer = document.getElementById('progressive-book-content');
+      const loadingIndicator = document.getElementById('book-loading-indicator');
+      
+      async function renderNextBatch() {
+        const endIndex = Math.min(currentIndex + BATCH_SIZE, paragraphs.length);
+        let batchHtml = '';
+        
+        for (let idx = currentIndex; idx < endIndex; idx++) {
+          batchHtml += renderParagraphToHTML(paragraphs[idx], idx, headings, keywords, isPhraseArray, targetIndex);
+        }
+        
+        // Füge Batch zum Container hinzu
+        const fragment = document.createRange().createContextualFragment(batchHtml);
+        contentContainer.appendChild(fragment);
+        
+        currentIndex = endIndex;
+        
+        // Aktualisiere Fortschrittsbalken
+        const progress = (currentIndex / paragraphs.length) * 100;
+        if (progressBar) progressBar.style.width = progress + '%';
+        
+        if (currentIndex < paragraphs.length) {
+          // Nächster Batch mit requestAnimationFrame
+          requestAnimationFrame(renderNextBatch);
+        } else {
+          // Fertig - entferne Ladeindikator
+          if (loadingIndicator) loadingIndicator.remove();
+          
+          // Konvertiere Seitenmarker
+          contentContainer.innerHTML = convertPageMarkers(contentContainer.innerHTML);
+          
+          // Post-Processing
+          setTimeout(() => {
+            detectAndFormatPoems(viewer);
+            const bookContentDiv = viewer.querySelector('.book-content');
+            if (bookContentDiv) {
+              processAllParagraphIndices(bookContentDiv);
+            }
+            // Bilder und andere Post-Processing...
+            finishBookRendering(book, viewer, targetIndex, mainContainer);
+          }, 0);
+          
+          console.log(`[BOOK] Progressives Rendering abgeschlossen: ${paragraphs.length} Absätze`);
+        }
+      }
+      
+      // Starte das progressive Rendering
+      requestAnimationFrame(renderNextBatch);
+      return; // Beende die Funktion hier für großes Dokument
+    }
+    
+    // Standard-Rendering für normale Dokumente
+    paragraphs.forEach((para, idx) => {
+      htmlContent += renderParagraphToHTML(para, idx, headings, keywords, isPhraseArray, targetIndex);
     });
     
     // V4: Seitenmarker sind bereits im Text eingebettet (|123|)

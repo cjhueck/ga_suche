@@ -1,112 +1,132 @@
 {
-  "ga": "GA070A",
-  "sourceFile": "steiner-full-lectures-014-354-part04.json",
+  "ga": "GA040",
+  "sourceFile": "steiner-books-023-045-part03.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 974,
-  "breaksWithPage": 974,
-  "inserted": 463,
-  "insertedRatio": 0.4753593429158111,
-  "failed": 79,
+  "breaksTotal": 442,
+  "breaksWithPage": 442,
+  "inserted": 14,
+  "insertedRatio": 0.03167420814479638,
+  "failed": 428,
   "failuresSample": [
     {
-      "page": 46,
+      "page": 4,
       "reason": "no-match",
-      "lecture": 0
+      "left": "",
+      "right": "Herausgegeben von der Rudolf Steiner-Nachlaß Verwaltung Dornach/Schweiz Die Hera"
     },
     {
-      "page": 48,
+      "page": 8,
       "reason": "no-match",
-      "lecture": 0
+      "left": "ß die Spruchdichtungen Rudolf Steiners zu einem fortwirkenden Lebensstrom werden",
+      "right": ""
     },
     {
-      "page": 50,
+      "page": 9,
       "reason": "no-match",
-      "lecture": 0
+      "left": "",
+      "right": "Mit der vorliegenden Neuausgabe der «Wahrspruchworte» und der Erstveröffentlichu"
     },
     {
-      "page": 54,
-      "reason": "no-match",
-      "lecture": 0
+      "page": 10,
+      "reason": "jump-too-large",
+      "left": "ein normalerweise lff. Die Nachweise findet man zu Beginn der «Hinweise» S. 393.",
+      "right": "noch keineswegs zu echtem Künstlertum. Es scheint jedoch bei immer tieferem Eind"
     },
     {
-      "page": 361,
+      "page": 12,
       "reason": "no-match",
-      "lecture": 8
+      "left": "de das «künstlerisch geformte Wort zur Geltung zu bringen, das streben wir an».8",
+      "right": "Am Ende seiner Lebenszeit auf diese Anfänge zurückschau- end erinnert er daran, "
     },
     {
-      "page": 723,
+      "page": 13,
       "reason": "no-match",
-      "lecture": 14
+      "left": "d nach Rudolf Steiners Tod be- gonnen, sie allgemein zugänglich zu machen. H. W.",
+      "right": ""
     },
     {
-      "page": 730,
+      "page": 15,
       "reason": "no-match",
-      "lecture": 14
+      "left": "",
+      "right": "Credo. Der Einzelne und das All. Die Ideenwelt ist der Urquell und das Prinzip a"
     },
     {
-      "page": 731,
+      "page": 18,
       "reason": "no-match",
-      "lecture": 14
+      "left": "it zum Leben werden; verliere Dich selbst, um Dich im Weltgeiste wiederzufinden!",
+      "right": ""
     },
     {
-      "page": 732,
+      "page": 21,
       "reason": "no-match",
-      "lecture": 14
+      "left": "eele etwas, wonach sie Verlangen trägt, wenn sie sich nur selbst recht versteht.",
+      "right": "Vorwort zur ersten Ausgabe 1912/13 Mit der Welt und ihrem Zeitenwandel verbunden"
     },
     {
-      "page": 792,
+      "page": 22,
       "reason": "no-match",
-      "lecture": 18
+      "left": "ach dem Muster theosophi- scher Pedanten sollen gegeben werden, sondern vielmehr",
+      "right": "auf das lebendige Weben der Seele, wie es einmal sein kann, wird hingewiesen. Al"
     },
     {
-      "page": 798,
+      "page": 24,
       "reason": "no-match",
-      "lecture": 18
+      "left": "n wieder, Der seinen Keim in ihnen, Doch seine Seelenfrucht In sich muss finden.",
+      "right": "Dritte April-Woche (1912: 21.-27. April) Es spricht zum Weltenall, Sich selbst v"
     },
     {
-      "page": 798,
+      "page": 25,
       "reason": "no-match",
-      "lecture": 18
+      "left": "enken Zur Klarheit Wärme schenken Und Mensch und Welt In Einheit fest verbinden.",
+      "right": "Erste Mai-Woche (1912: 5. - 1 1 . Mai) Im Lichte das aus Geistestiefen Im Räume "
     },
     {
-      "page": 846,
+      "page": 26,
       "reason": "no-match",
-      "lecture": 18
+      "left": "Die Welt, sie zeigt mir überall Als göttlich Urbild Des eignen Abbilds Wahrheit.",
+      "right": "Dritte Mai-Woche (1912: 19.-25. Mai) Mein Selbst, es drohet zu entfliehen, Vom W"
     },
     {
-      "page": 856,
+      "page": 27,
       "reason": "no-match",
-      "lecture": 18
+      "left": "r Seele einen will, Muss menschlich Denken Im Traumessein sich still bescheiden.",
+      "right": "Fünfte Mai-Woche (1912: 2.-8. Juni) Vergessend meine Willenseigenheit Erfüllet W"
     },
     {
-      "page": 859,
+      "page": 28,
       "reason": "no-match",
-      "lecture": 18
+      "left": ", dumpf mir kündend, Erkennen wirst du einst: Dich fühlte jetzt ein Gotteswesen.",
+      "right": "Zweite Juni-Woche (1912: 16. - 23. Juni) 11 Es ist in dieser Sonnenstunde An dir"
     },
     {
-      "page": 861,
+      "page": 29,
       "reason": "no-match",
-      "lecture": 18
+      "left": "selber zu verlassen, Vertrauend nur mich suchend In Weltenlicht und Weltenwärme.",
+      "right": "Vierte Juni-Woche (1912: 30. Juni - 6. Juli) 13 Und bin ich in den Sinneshöhen, "
     },
     {
-      "page": 867,
+      "page": 30,
       "reason": "no-match",
-      "lecture": 18
+      "left": "das Selbst zu rauben, Doch weckend nahet schon Im Sinnenschein mir Weltendenken.",
+      "right": "Zweite Juli-Woche (1912: 14. - 20. Juli) 15 Ich fühle wie verzaubert Im Weltensc"
     },
     {
-      "page": 871,
+      "page": 32,
       "reason": "no-match",
-      "lecture": 18
+      "left": "aft muss finden Die Seele würdig zu gestalten, Zum Geisteskleide sich zu bilden.",
+      "right": "Erste August-Woche (1912: 11. - 17. August) 19 Geheimnisvoll das Neu-Empfang'ne "
     },
     {
-      "page": 876,
+      "page": 33,
       "reason": "no-match",
-      "lecture": 18
+      "left": " erlöschen Und bauend nur auf eignem Grunde In sich, sich selbst ertöten müsste.",
+      "right": "Dritte August-Woche (1912: 25. - 31. August) 21 Ich fühle fruchtend fremde Macht"
     },
     {
-      "page": 881,
+      "page": 34,
       "reason": "no-match",
-      "lecture": 18
+      "left": " zu entbinden, Die Menschenselbst aus Weltenselbst Im Zeitenlaufe reifen lassen.",
+      "right": "Erste September-Woche (1912: 8. - 14. September) 23 Es dämpfet herbstlich sich D"
     }
   ]
 }
