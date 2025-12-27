@@ -27052,6 +27052,9 @@ async function openPageCorrectionForLecture(lectureId) {
             <div>
               <p><strong>Gefundene Seitenzahlen:</strong> ${details.pages.length}</p>
               <p><strong>Aktueller Bereich:</strong> ${details.pageRange || 'Keine Seiten'}</p>
+              ${details.mappingRange ? `
+                <p><strong>Erwarteter Bereich (Mapping):</strong> <span style="color: #17a2b8;">${details.mappingRange}</span></p>
+              ` : ''}
               ${details.issues && details.issues.length > 0 ? `
                 <p style="color: #d9534f;"><strong>Probleme:</strong> ${details.issues.join(', ')}</p>
               ` : '<p style="color: #5cb85c;">✓ Keine Probleme erkannt</p>'}
@@ -27064,7 +27067,6 @@ async function openPageCorrectionForLecture(lectureId) {
                 }
               </p>
               ${hasAnchors ? `
-                <p><strong>Erwarteter Bereich:</strong> ${details.anchorInfo.expectedPageRange || '?'}</p>
                 <p><strong>Verfügbare Anker:</strong> ${details.anchorInfo.totalAnchors}</p>
               ` : `<p style="font-size: 0.85em; color: #999;">${details.anchorInfo?.reason || 'Keine Anker in page-break-markers.json'}</p>`}
             </div>

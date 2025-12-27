@@ -1,92 +1,66 @@
 {
-  "ga": "GA115",
-  "sourceFile": "steiner-full-lectures-014-354-part07.json",
+  "ga": "GA021",
+  "sourceFile": "steiner-books-021-021.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 346,
-  "breaksWithPage": 346,
-  "inserted": 274,
-  "insertedRatio": 0.791907514450867,
-  "failed": 16,
+  "breaksTotal": 176,
+  "breaksWithPage": 176,
+  "inserted": 167,
+  "insertedRatio": 0.9488636363636364,
+  "failed": 9,
   "failuresSample": [
     {
-      "page": 99,
+      "page": 174,
       "reason": "no-match",
-      "lecture": 3
+      "left": "hie 1884 bis 1901», GA 1961, Bibl.-Nr. 30, S. 526ff., sowie: «Franz Brentano und",
+      "right": "die Aristotelische Geisteslehre», Vortrag in: «Anthroposophie, Psycho- sophie, P"
     },
     {
-      "page": 100,
+      "page": 175,
       "reason": "no-match",
-      "lecture": 3
+      "left": "Das Geheimnis der Runen» (1907); «Die Bil- derschrift der Ario-Germanen» (1910).",
+      "right": "77 Friedrich Theodor Vischer: Siehe Hinweis zu S, 135 f. ein anderer Nachruf (vo"
     },
     {
-      "page": 215,
+      "page": 176,
       "reason": "no-match",
-      "lecture": 7
+      "left": "en aner- kannte Axiom entgegenhalten, daß nichts in der Seele ist, das nicht von",
+      "right": "den Sinnen stammt. Aber man muß die Seele selbst und ihre Affektio- nen davon au"
     },
     {
-      "page": 216,
+      "page": 177,
       "reason": "no-match",
-      "lecture": 7
+      "left": "- sche Grundlagen der Anthroposophie 1884-1901», GA 1961, Bibl.-Nr. 30, S. 329f.",
+      "right": "145 «vollständige Sinneslebre»: Siehe besonders Rudolf Steiner, «Anthropo- sophi"
     },
     {
-      "page": 303,
+      "page": 178,
       "reason": "no-match",
-      "lecture": 11
+      "left": "269-306. 167f. Arnold Rudolf Karl Fortlage, 1806-1881, Philosoph und Psychologe.",
+      "right": "Verzeichnis der im Text angeführten Schriften Rudolf Steiners in chronologischer"
     },
     {
-      "page": 305,
+      "page": 179,
       "reason": "no-match",
-      "lecture": 11
+      "left": "t (1917), in: «Philosophie und Anthroposophie», GA 1965, BibL-Nr. 35, S. 269-306",
+      "right": "Personenregister (erw. = der Name wird im Text lediglich erwähnt) Hartmann, Edua"
     },
     {
-      "page": 307,
+      "page": 180,
       "reason": "no-match",
-      "lecture": 11
+      "left": "hott, Jacob (1822-1893) 85 Goethe, Johann Wolfgang von (1749-1832) erw. 13f., 28",
+      "right": "Tauler, Johannes (um 1300-1361) Occam, Wilhelm von (i 270-1327) erw. 113 Thaies "
     },
     {
-      "page": 315,
+      "page": 181,
       "reason": "no-match",
-      "lecture": 11
+      "left": " Eduard (1814-1908) 102 f. Ziehen, Theodor (1862-1950) erw. 113 erw. 132, 153fr.",
+      "right": "Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine "
     },
     {
-      "page": 316,
+      "page": 182,
       "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 317,
-      "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 322,
-      "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 328,
-      "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 342,
-      "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 344,
-      "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 345,
-      "reason": "no-match",
-      "lecture": 11
-    },
-    {
-      "page": 347,
-      "reason": "no-match",
-      "lecture": 11
+      "left": "n, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27) Mein Lebensgang, 1923/25 (28)",
+      "right": "//. Gesammelte Aufsätze Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Gr"
     }
   ]
 }

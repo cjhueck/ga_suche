@@ -771,30 +771,21 @@ async function loadFullLectures() {
       
       lectures.forEach(lecture => {
         if (lecture.ID) {
-          // Prüfe auf Duplikate - nur warnen wenn wirklich unterschiedlich
+          // NEUERUNG: Prüfe ob bereits eine neuere Version existiert
           if (fullLectures[lecture.ID]) {
             const existing = fullLectures[lecture.ID];
-            const existingFileName = existing.fileName || 'unbekannt';
-            const newFileName = lecture.fileName || 'unbekannt';
+            const existingMtime = existing._sourceFileMtime || 0;
             
-            // Normalisiere fileName für Vergleich (entferne Datum in Klammern am Ende)
-            const normalizeFileName = (fn) => {
-              return fn.replace(/\s*\([^)]*\)\s*$/, '').trim();
-            };
-            
-            const normalizedExisting = normalizeFileName(existingFileName);
-            const normalizedNew = normalizeFileName(newFileName);
-            
-            // Nur warnen wenn normalisierte Dateinamen unterschiedlich sind (echtes Duplikat)
-            // oder wenn Titel unterschiedlich sind (inhaltliche Unterschiede)
-            const existingTitle = existing.title || '';
-            const newTitle = lecture.title || '';
-            
-            // Duplikat erkannt - überschreiben ohne Log (normal bei mehreren Part-Dateien)
+            // Wenn existierende Version neuer ist, überspringe
+            if (existingMtime > fileMtime) {
+              // Ältere Version - überspringe
+              return;
+            }
           }
           // Speichere mtime der Datei, aus der dieser Vortrag geladen wurde
           // (für späteren Vergleich mit Overrides)
           lecture._sourceFileMtime = fileMtime;
+          lecture._sourceFileName = fileName;
           fullLectures[lecture.ID] = lecture;
           totalLectures++;
         } else {
@@ -889,12 +880,15 @@ async function loadFullLectures() {
                   continue;
                 }
                 
-                // Vortrag existiert bereits - Override anwenden
-                // WICHTIG: Override-Dateien enthalten Seitenmarker und sollten IMMER angewendet werden,
-                // auch wenn die exportierte Datei neuer ist, da die Marker nur in Overrides vorhanden sind
+                // Vortrag existiert bereits - Override nur anwenden wenn NEUER als Hauptdatei
                 const existingMtime = fullLectures[lecture.ID]._sourceFileMtime || 0;
                 
-                // Override wird immer angewendet (Marker sind nur in Overrides vorhanden)
+                // NEUERUNG: Override NUR anwenden, wenn er NEUER ist als die Hauptdatei
+                // Dies verhindert, dass alte Overrides neue Exporte überschreiben
+                if (existingMtime > overrideMtime) {
+                  // Hauptdatei ist neuer - Override NICHT anwenden
+                  continue;
+                }
                 
                 // Debug: Prüfe Marker VOR Normalisierung
                 const firstParaBefore = lecture.paragraphs[0];
@@ -1033,17 +1027,45 @@ async function loadBooks() {
     // Warte auf alle Dateien parallel
     const loadedBooksData = await Promise.all(loadBookPromises);
     
+    // WICHTIG: Speichere auch das Änderungsdatum pro Buch, um später die neueste Version zu bevorzugen
     let totalBooks = 0;
-    for (const { fileName, books } of loadedBooksData) {
+    let duplicatesSkipped = 0;
+    
+    // Sortiere loadedBooksData nach dem Änderungsdatum der Quelldatei
+    // Damit neuere Dateien später verarbeitet werden und ältere überschreiben
+    const booksWithMtime = loadedBooksData.map(({ fileName, books }) => {
+      const fileInfo = filesWithStats.find(f => f.fileName === fileName);
+      const mtime = fileInfo ? fileInfo.mtime.getTime() : 0;
+      return { fileName, books, mtime };
+    });
+    booksWithMtime.sort((a, b) => a.mtime - b.mtime); // Älteste zuerst
+    
+    for (const { fileName, books, mtime } of booksWithMtime) {
       books.forEach(book => {
         if (book.ID || book.gaNumber) {
           const bookId = book.ID || book.gaNumber;
+          
+          // NEUERUNG: Prüfe ob bereits eine neuere Version existiert
+          const existing = fullBooks[bookId];
+          if (existing && existing._sourceFileMtime && existing._sourceFileMtime > mtime) {
+            // Existierende Version ist neuer - überspringe
+            duplicatesSkipped++;
+            return;
+          }
+          
+          // Speichere Buch mit Metadaten
+          book._sourceFileMtime = mtime;
+          book._sourceFileName = fileName;
           fullBooks[bookId] = book;
           totalBooks++;
         } else {
           console.warn(`      ⚠️  Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
         }
       });
+    }
+    
+    if (duplicatesSkipped > 0) {
+      console.log(`  ℹ️  ${duplicatesSkipped} ältere Duplikate übersprungen (neuere Version bevorzugt)`);
     }
 
     // ============================================================
@@ -1062,28 +1084,39 @@ async function loadBooks() {
         const files = await fs.readdir(overridesDir);
         const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
         if (overrideFiles.length > 0) {
-          // PERFORMANCE: Lade Override-Dateien parallel
+          // PERFORMANCE: Lade Override-Dateien parallel MIT Änderungsdatum
           const bookOverridePromises = overrideFiles.map(async (f) => {
             try {
               const p = path.join(overridesDir, f);
+              const stats = await fs.stat(p);
+              const mtime = stats.mtime.getTime();
               const raw = await fs.readFile(p, 'utf8');
               const parsed = JSON.parse(raw);
               const bookObj = parsed.book || parsed;
-              return { fileName: f, bookObj };
+              return { fileName: f, bookObj, mtime };
             } catch (e) {
               console.warn(`    ⚠️  Pagebreak-Override ${f} konnte nicht geladen werden:`, e.message);
-              return { fileName: f, bookObj: null };
+              return { fileName: f, bookObj: null, mtime: 0 };
             }
           });
           
           const loadedBookOverrides = await Promise.all(bookOverridePromises);
           let applied = 0;
+          let skippedOlder = 0;
           
-          for (const { fileName: f, bookObj } of loadedBookOverrides) {
+          for (const { fileName: f, bookObj, mtime } of loadedBookOverrides) {
             if (!bookObj) continue;
             
             const bookId = bookObj?.ID || bookObj?.gaNumber;
             if (!bookId) continue;
+
+            // NEUERUNG: Prüfe ob die Hauptdatei neuer ist als der Override
+            const existing = fullBooks[bookId];
+            if (existing && existing._sourceFileMtime && existing._sourceFileMtime > mtime) {
+              // Hauptdatei ist neuer - Override NICHT anwenden
+              skippedOlder++;
+              continue;
+            }
 
             // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings) beibehalten
             // Dies ermöglicht, dass Pagebreak-Overrides nur die Seitenmarker hinzufügen,
@@ -1097,14 +1130,22 @@ async function loadBooks() {
               if (bookObj.content) {
                 fullBooks[bookId].content = bookObj.content;
               }
+              // Aktualisiere Metadaten
+              fullBooks[bookId]._sourceFileMtime = mtime;
+              fullBooks[bookId]._sourceFileName = `pagebreaks/${f}`;
             } else {
               // Buch existiert noch nicht, vollständig übernehmen
+              bookObj._sourceFileMtime = mtime;
+              bookObj._sourceFileName = `pagebreaks/${f}`;
               fullBooks[bookId] = bookObj;
             }
             applied++;
           }
           if (applied > 0) {
             console.log(`  ✓ Pagebreak-Overrides geladen: ${applied}`);
+          }
+          if (skippedOlder > 0) {
+            console.log(`  ℹ️  ${skippedOlder} ältere Pagebreak-Overrides übersprungen (Hauptdatei neuer)`);
           }
         }
       }
@@ -8288,7 +8329,7 @@ function findAnchorPositionInOriginalText(anchor, originalText, minMatchLength =
 }
 
 // Hilfsfunktion: Entfernt Duplikat-Seitenzahlen, nicht-sequenzielle und außerhalb des Bereichs liegende Seitenzahlen
-function removeDuplicateAndNonSequentialPageNumbers(paragraphs) {
+function removeDuplicateAndNonSequentialPageNumbers(paragraphs, providedMin = null, providedMax = null) {
   let removedCount = 0;
   const log = [];
   
@@ -8321,52 +8362,49 @@ function removeDuplicateAndNonSequentialPageNumbers(paragraphs) {
     return { removed: 0, log: [], pageRange: null };
   }
   
-  // SCHRITT 2: Bestimme den erwarteten Seitenbereich des Vortrags
-  // Basierend auf den ersten und letzten Seitenzahlen, die "Sinn machen"
-  // Sortiere nach Seitenzahl, um den Median/Hauptbereich zu finden
-  const sortedPages = [...allPages].sort((a, b) => a.page - b.page);
+  // SCHRITT 2: Bestimme den erwarteten Seitenbereich
+  let expectedMin, expectedMax;
   
-  // Finde den "Hauptbereich" - die größte Gruppe aufeinanderfolgender Seitenzahlen
-  // Verwende diff <= 2 (erlaubt 1 fehlende Seite, aber keine großen Sprünge)
-  let bestStart = 0;
-  let bestEnd = 0;
-  let bestCount = 0;
-  let currentStart = 0;
-  let currentCount = 1;
-  
-  for (let i = 1; i < sortedPages.length; i++) {
-    const diff = sortedPages[i].page - sortedPages[i - 1].page;
-    if (diff <= 2) { // Erlaubt 1 fehlende Seite
-      currentCount++;
-    } else {
-      if (currentCount > bestCount) {
-        bestCount = currentCount;
-        bestStart = currentStart;
-        bestEnd = i - 1;
+  if (providedMin !== null && providedMax !== null) {
+    // Verwende den vom Aufrufer übergebenen Bereich
+    expectedMin = providedMin;
+    expectedMax = providedMax;
+    log.push(`Seitenbereich aus Mapping: ${expectedMin}–${expectedMax}`);
+  } else {
+    // Fallback: Bestimme Bereich basierend auf existierenden Seitenzahlen
+    const sortedPages = [...allPages].sort((a, b) => a.page - b.page);
+    
+    // Finde den "Hauptbereich" - die größte Gruppe aufeinanderfolgender Seitenzahlen
+    let bestStart = 0;
+    let bestEnd = 0;
+    let bestCount = 0;
+    let currentStart = 0;
+    let currentCount = 1;
+    
+    for (let i = 1; i < sortedPages.length; i++) {
+      const diff = sortedPages[i].page - sortedPages[i - 1].page;
+      if (diff <= 2) { // Erlaubt 1 fehlende Seite
+        currentCount++;
+      } else {
+        if (currentCount > bestCount) {
+          bestCount = currentCount;
+          bestStart = currentStart;
+          bestEnd = i - 1;
+        }
+        currentStart = i;
+        currentCount = 1;
       }
-      currentStart = i;
-      currentCount = 1;
     }
+    if (currentCount > bestCount) {
+      bestCount = currentCount;
+      bestStart = currentStart;
+      bestEnd = sortedPages.length - 1;
+    }
+    
+    expectedMin = sortedPages[bestStart].page;
+    expectedMax = sortedPages[bestEnd].page;
+    log.push(`Erwarteter Seitenbereich (berechnet): ${expectedMin}–${expectedMax}`);
   }
-  if (currentCount > bestCount) {
-    bestCount = currentCount;
-    bestStart = currentStart;
-    bestEnd = sortedPages.length - 1;
-  }
-  
-  // ZUSÄTZLICH: Prüfe ob es eine zweite Seitenzahlen-Reihe gibt (> 10 Seiten entfernt)
-  // Falls ja, ist der Bereich wahrscheinlich falsch bestimmt
-  const mainRangePages = sortedPages.slice(bestStart, bestEnd + 1);
-  const outsidePages = [...sortedPages.slice(0, bestStart), ...sortedPages.slice(bestEnd + 1)];
-  
-  // Wenn fremde Seitenzahlen existieren, die weit vom Hauptbereich entfernt sind,
-  // und der Hauptbereich die Mehrheit der Seiten umfasst, ist alles OK
-  // Sonst müssen wir vorsichtiger sein
-  
-  // Der erwartete Bereich
-  const expectedMin = sortedPages[bestStart].page;
-  const expectedMax = sortedPages[bestEnd].page;
-  log.push(`Erwarteter Seitenbereich: ${expectedMin}–${expectedMax}`);
   
   // SCHRITT 3: Spezielle Prüfung für die letzte Seitenzahl
   // Oft gehört die letzte Seitenzahl zum nächsten Vortrag
@@ -8493,6 +8531,56 @@ function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
   let insertedCount = 0;
   let removedCount = 0;
   
+  // SCHRITT 0: Lade Seitenbereich aus lecture-page-mapping.json (falls vorhanden)
+  let mappingMin = null;
+  let mappingMax = null;
+  
+  // Prüfe ob es ein Buch ist (keine /Nummer am Ende)
+  const isBookId = !lectureId.includes('/');
+  
+  try {
+    const mappingPath = path.join(__dirname, 'lecture-page-mapping.json');
+    if (fsSync.existsSync(mappingPath) && !isBookId) {
+      const mapping = JSON.parse(fsSync.readFileSync(mappingPath, 'utf8'));
+      
+      // Extrahiere GA-Nummer aus lectureId (z.B. "GA115/1" → "GA115")
+      const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+      if (gaMatch) {
+        const gaNumber = gaMatch[1].toUpperCase();
+        const gaMapping = mapping[gaNumber];
+        
+        if (gaMapping && gaMapping[lectureId]) {
+          mappingMin = gaMapping[lectureId];
+          
+          // Finde das Ende (Start der nächsten Vorlesung - 1)
+          const lectureMatch = lectureId.match(/\/(\d+)$/);
+          if (lectureMatch) {
+            const lectureNum = parseInt(lectureMatch[1]);
+            const nextLectureId = `${gaNumber}/${lectureNum + 1}`;
+            if (gaMapping[nextLectureId]) {
+              mappingMax = gaMapping[nextLectureId] - 1;
+            } else {
+              // Letzter Vortrag - schätze Ende basierend auf Breaks
+              const maxBreakPage = Math.max(...gaBreaks.breaks.map(b => b.page));
+              mappingMax = maxBreakPage;
+            }
+          }
+          log.push(`Mapping: Vortrag ${lectureId} → Seite ${mappingMin}–${mappingMax}`);
+        }
+      }
+    }
+  } catch (e) {
+    // Mapping konnte nicht geladen werden - kein Problem, fahre fort
+  }
+  
+  // Für Bücher: Verwende den Bereich aus den Breaks
+  if (isBookId && gaBreaks && gaBreaks.breaks && gaBreaks.breaks.length > 0) {
+    const breakPages = gaBreaks.breaks.map(b => b.page);
+    mappingMin = Math.min(...breakPages);
+    mappingMax = Math.max(...breakPages);
+    log.push(`Buch ${lectureId}: Seitenbereich aus Breaks: ${mappingMin}–${mappingMax}`);
+  }
+  
   // SCHRITT 1: Analysiere existierende Seitenzahlen, um den Bereich zu bestimmen
   let fullContent = paragraphs.map(p => p.content || '').join('\n');
   const existingPagesArray = [];
@@ -8503,11 +8591,11 @@ function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
   }
   
   // Bestimme den erwarteten Seitenbereich
-  let expectedMin = null;
-  let expectedMax = null;
+  let expectedMin = mappingMin; // Verwende Mapping als Basis (falls vorhanden)
+  let expectedMax = mappingMax;
   
-  if (existingPagesArray.length > 0) {
-    // Finde den Hauptbereich (größte Gruppe aufeinanderfolgender Seiten)
+  if (existingPagesArray.length > 0 && expectedMin === null) {
+    // Fallback: Finde den Hauptbereich aus existierenden Seitenzahlen
     const sorted = [...existingPagesArray].sort((a, b) => a - b);
     let bestStart = 0, bestEnd = 0, bestCount = 0;
     let currentStart = 0, currentCount = 1;
@@ -8532,12 +8620,45 @@ function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
     
     expectedMin = sorted[bestStart];
     expectedMax = sorted[bestEnd];
+  }
+  
+  if (expectedMin !== null && expectedMax !== null) {
     log.push(`Erwarteter Seitenbereich: ${expectedMin}–${expectedMax}`);
   }
   
-  // SCHRITT 2: Entferne fehlerhafte Seitenzahlen (außerhalb Bereich, Duplikate, nicht-sequenziell)
-  if (expectedMin !== null) {
-    const dupResult = removeDuplicateAndNonSequentialPageNumbers(paragraphs);
+  // SCHRITT 2: Analysiere Probleme und entscheide über die Bereinigungsstrategie
+  // Zähle Probleme (Rückwärtssprünge, große Lücken)
+  let problemCount = 0;
+  {
+    const pages = existingPagesArray;
+    for (let i = 1; i < pages.length; i++) {
+      const diff = pages[i] - pages[i - 1];
+      if (diff < 0) problemCount++; // Rückwärtssprung
+      if (diff > 5) problemCount++; // Große Lücke (> 5 Seiten)
+    }
+  }
+  
+  // Bei vielen Problemen (> 3): Entferne ALLE Seitenzahlen und füge sie neu ein
+  const severeCleaning = problemCount > 3;
+  
+  if (severeCleaning) {
+    log.push(`Schwere Fehler erkannt (${problemCount} Probleme) - entferne ALLE existierenden Seitenzahlen`);
+    
+    // Entferne ALLE Seitenzahlen aus allen Paragraphen
+    for (const paragraph of paragraphs) {
+      if (paragraph.content) {
+        const before = paragraph.content;
+        paragraph.content = paragraph.content.replace(/\|<?(\d+)>?\|/g, '');
+        if (before !== paragraph.content) {
+          const matches = before.match(/\|<?(\d+)>?\|/g);
+          removedCount += matches ? matches.length : 0;
+        }
+      }
+    }
+    log.push(`${removedCount} Seitenzahlen entfernt`);
+  } else if (expectedMin !== null) {
+    // Normale Bereinigung bei wenigen Problemen
+    const dupResult = removeDuplicateAndNonSequentialPageNumbers(paragraphs, expectedMin, expectedMax);
     if (dupResult.removed > 0) {
       removedCount = dupResult.removed;
       log.push(...dupResult.log);
@@ -8607,12 +8728,30 @@ function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
   // Sortiere nach Position
   anchorPositions.sort((a, b) => a.position - b.position);
   
-  if (anchorPositions.length === 0) {
+  // Filtere Seiten außerhalb des erwarteten Bereichs (mit kleiner Toleranz)
+  const tolerance = 0; // Keine Toleranz - nur Seiten im Bereich
+  const filteredAnchorPositions = anchorPositions.filter(a => 
+    a.page >= expectedMin && a.page <= expectedMax
+  );
+  
+  // Wenn die erste Seite (expectedMin) fehlt, füge sie am Anfang ein
+  if (expectedMin && !filteredAnchorPositions.some(a => a.page === expectedMin)) {
+    filteredAnchorPositions.unshift({
+      page: expectedMin,
+      position: 0,
+      confidence: 'forced',
+      anchorType: 'start',
+      anchorText: 'Anfang des Vortrags'
+    });
+    log.push(`Erste Seite |${expectedMin}| wird am Anfang eingefügt`);
+  }
+  
+  if (filteredAnchorPositions.length === 0) {
     log.push('Keine passenden Anker im Text gefunden');
     return { corrected: 0, inserted: 0, removed: removedCount, log };
   }
   
-  log.push(`${anchorPositions.length} Anker im Bereich gefunden`);
+  log.push(`${filteredAnchorPositions.length} Anker im Bereich gefunden (von ${anchorPositions.length} gesamt)`);
   
   // Verarbeite jeden Paragraphen
   let currentContentPos = 0;
@@ -8628,7 +8767,7 @@ function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
     const paraEnd = currentContentPos + paragraph.content.length;
     
     // Finde alle Anker-Positionen in diesem Paragraphen
-    const anchorsInPara = anchorPositions.filter(a => 
+    const anchorsInPara = filteredAnchorPositions.filter(a => 
       a.position >= paraStart && a.position < paraEnd
     );
     
@@ -8703,6 +8842,89 @@ function insertAndCorrectPageNumbers(paragraphs, gaBreaks, lectureId) {
     }
     
     currentContentPos = paraEnd + 1; // +1 für Newline
+  }
+  
+  // SCHRITT FINAL: Nachbereinigung - entferne offensichtliche Fehler
+  // (große Sprünge > 20 Seiten, die dann wieder zurückspringen)
+  let finalContent = paragraphs.map(p => p.content || '').join('\n');
+  const finalPagesRegex = /\|(\d+)\|/g;
+  let finalPages = [];
+  let fm;
+  while ((fm = finalPagesRegex.exec(finalContent)) !== null) {
+    finalPages.push({ page: parseInt(fm[1]), pos: fm.index });
+  }
+  
+  // Finde Seitenzahlen, die große Sprünge verursachen und dann zurückspringen
+  const toRemovePages = new Set();
+  for (let i = 1; i < finalPages.length - 1; i++) {
+    const prev = finalPages[i - 1].page;
+    const curr = finalPages[i].page;
+    const next = finalPages[i + 1].page;
+    
+    // Muster: prev -> curr (großer Sprung) -> next (zurück in die Nähe von prev)
+    const jumpToCurr = curr - prev;
+    const jumpToNext = next - curr;
+    
+    // Wenn großer Sprung nach vorne (> 20) und dann großer Sprung zurück
+    if (jumpToCurr > 20 && jumpToNext < -15) {
+      toRemovePages.add(curr);
+      log.push(`Nachbereinigung: |${curr}| entfernt (Sprung ${prev}→${curr}→${next})`);
+    }
+    // Wenn großer Sprung nach hinten (< -20) und dann großer Sprung nach vorne
+    if (jumpToCurr < -20 && jumpToNext > 15) {
+      toRemovePages.add(curr);
+      log.push(`Nachbereinigung: |${curr}| entfernt (Sprung ${prev}→${curr}→${next})`);
+    }
+  }
+  
+  // Entferne die markierten Seitenzahlen
+  if (toRemovePages.size > 0) {
+    for (const paragraph of paragraphs) {
+      if (paragraph.content) {
+        for (const pageToRemove of toRemovePages) {
+          if (paragraph.content.includes(`|${pageToRemove}|`)) {
+            paragraph.content = paragraph.content.replace(`|${pageToRemove}|`, '');
+            removedCount++;
+          }
+        }
+      }
+    }
+  }
+  
+  // SCHRITT FINAL 2: Entferne Rückwärtssprünge (A -> B -> C wo B < A und C > B)
+  // Aktualisiere finalPages nach der ersten Bereinigung
+  finalContent = paragraphs.map(p => p.content || '').join('\n');
+  finalPagesRegex.lastIndex = 0;
+  finalPages = [];
+  while ((fm = finalPagesRegex.exec(finalContent)) !== null) {
+    finalPages.push({ page: parseInt(fm[1]), pos: fm.index });
+  }
+  
+  const toRemoveBackward = new Set();
+  for (let i = 1; i < finalPages.length - 1; i++) {
+    const prev = finalPages[i - 1].page;
+    const curr = finalPages[i].page;
+    const next = finalPages[i + 1].page;
+    
+    // Muster: prev -> curr (Rückwärts) -> next (wieder vorwärts und über prev hinaus)
+    // z.B. 404 -> 403 -> 405: curr=403 ist falsch platziert
+    if (curr < prev && next > prev) {
+      toRemoveBackward.add(curr);
+      log.push(`Nachbereinigung: |${curr}| entfernt (Rückwärtssprung ${prev}→${curr}→${next})`);
+    }
+  }
+  
+  if (toRemoveBackward.size > 0) {
+    for (const paragraph of paragraphs) {
+      if (paragraph.content) {
+        for (const pageToRemove of toRemoveBackward) {
+          if (paragraph.content.includes(`|${pageToRemove}|`)) {
+            paragraph.content = paragraph.content.replace(`|${pageToRemove}|`, '');
+            removedCount++;
+          }
+        }
+      }
+    }
   }
   
   return { corrected: correctedCount, inserted: insertedCount, removed: removedCount, log };
@@ -8909,6 +9131,33 @@ app.get('/api/pages/details/:lectureId', async (req, res) => {
     const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
     const gaNumber = gaMatch ? gaMatch[1].toUpperCase() : null;
     
+    // Lade Seitenbereich aus lecture-page-mapping.json
+    let mappingMin = null;
+    let mappingMax = null;
+    
+    try {
+      const mappingPath = path.join(__dirname, 'lecture-page-mapping.json');
+      if (fsSync.existsSync(mappingPath)) {
+        const mapping = JSON.parse(fsSync.readFileSync(mappingPath, 'utf8'));
+        
+        if (gaNumber && mapping[gaNumber] && mapping[gaNumber][lectureId]) {
+          mappingMin = mapping[gaNumber][lectureId];
+          
+          // Finde das Ende (Start der nächsten Vorlesung - 1)
+          const lectureMatch = lectureId.match(/\/(\d+)$/);
+          if (lectureMatch) {
+            const lectureNum = parseInt(lectureMatch[1]);
+            const nextLectureId = `${gaNumber}/${lectureNum + 1}`;
+            if (mapping[gaNumber][nextLectureId]) {
+              mappingMax = mapping[gaNumber][nextLectureId] - 1;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      // Mapping konnte nicht geladen werden
+    }
+    
     // Sammle Content aus allen Paragraphen
     let fullContent = '';
     if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
@@ -8929,6 +9178,12 @@ app.get('/api/pages/details/:lectureId', async (req, res) => {
       const gaBreaks = markers ? markers[gaNumber] : null;
       
       if (gaBreaks && gaBreaks.breaks) {
+        // Wenn kein mappingMax gefunden, schätze aus Breaks
+        if (mappingMin !== null && mappingMax === null) {
+          const maxBreakPage = Math.max(...gaBreaks.breaks.map(b => b.page));
+          mappingMax = maxBreakPage;
+        }
+        
         anchorMatches = findAnchorMatchesInContent(fullContent, gaBreaks);
         anchorInfo = {
           available: true,
@@ -8947,6 +9202,10 @@ app.get('/api/pages/details/:lectureId', async (req, res) => {
       }
     }
     
+    // Bestimme den erwarteten Seitenbereich
+    const expectedMin = mappingMin || (pages.length > 0 ? pages[0].pageNumber : null);
+    const expectedMax = mappingMax || (pages.length > 0 ? pages[pages.length - 1].pageNumber : null);
+    
     res.json({
       id: lectureId,
       gaNumber,
@@ -8955,10 +9214,13 @@ app.get('/api/pages/details/:lectureId', async (req, res) => {
       pageRange: pages.length > 0 
         ? `${pages[0].pageNumber}–${pages[pages.length - 1].pageNumber}`
         : null,
+      expectedRange: (expectedMin && expectedMax) ? `${expectedMin}–${expectedMax}` : null,
+      mappingRange: (mappingMin && mappingMax) ? `${mappingMin}–${mappingMax}` : null,
       firstPage: pages.length > 0 ? pages[0].pageNumber : null,
       lastPage: pages.length > 0 ? pages[pages.length - 1].pageNumber : null,
       issues,
-      anchorInfo
+      anchorInfo,
+      isBook
     });
     
   } catch (error) {
@@ -9009,12 +9271,20 @@ app.post('/api/pages/correct', async (req, res) => {
       if (gaBreaks && gaBreaks.breaks) {
         // Verwende die neue erweiterte Funktion
         const result = insertAndCorrectPageNumbers(lecture.paragraphs, gaBreaks, lectureId);
-        correctedCount = result.corrected;
+        correctedCount = result.corrected || 0;
         insertedCount = result.inserted || 0;
-        correctionLog = result.log;
+        const removedFromResult = result.removed || 0;
+        correctionLog = result.log || [];
         
-        if (correctedCount === 0 && insertedCount === 0) {
+        // Zähle die tatsächlichen Änderungen
+        const totalActualChanges = correctedCount + insertedCount + removedFromResult;
+        
+        if (totalActualChanges === 0) {
           correctionLog.push('Keine Korrekturen oder Einfügungen vorgenommen');
+        } else {
+          // Speichere sofort wenn es Änderungen gibt
+          await saveLectureToSourceFile(lectureId, lecture, isBook);
+          console.log(`[PAGES/CORRECT] ${lectureId}: ${totalActualChanges} Änderungen gespeichert`);
         }
       } else {
         correctionLog.push(`Keine Anker für ${gaNumber} in page-break-markers.json gefunden`);
@@ -9057,10 +9327,14 @@ app.post('/api/pages/correct', async (req, res) => {
       }
     }
     
-    // Speichere die Änderungen in der Quell-Datei
-    const removedCount = correctionLog.filter(l => l.includes('Duplikat entfernt')).length;
-    const totalChanges = correctedCount + insertedCount + removedCount;
-    if (totalChanges > 0) {
+    // Zähle entfernte Seitenzahlen aus dem Log (falls nicht schon gezählt)
+    const removedFromLog = correctionLog.filter(l => 
+      l.includes('entfernt:') || l.includes('Rückwärtssprung') || l.includes('Vorwärtssprung')
+    ).length;
+    const totalChanges = correctedCount + insertedCount + removedFromLog;
+    
+    // Speichere falls noch nicht geschehen (bei nicht-Anker-Korrektur)
+    if (totalChanges > 0 && !useAnchors) {
       await saveLectureToSourceFile(lectureId, lecture, isBook);
     }
     
@@ -9069,7 +9343,7 @@ app.post('/api/pages/correct', async (req, res) => {
       lectureId,
       corrected: correctedCount,
       inserted: insertedCount,
-      removed: removedCount,
+      removed: removedFromLog,
       total: totalChanges,
       log: correctionLog,
       method: useAnchors ? 'anchor-matching' : 'sequential'
