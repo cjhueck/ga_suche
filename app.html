@@ -1387,22 +1387,42 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       background: rgba(231, 76, 60, 0.1) !important;
     }
     
-    /* Gespeicherte Änderungen anzeigen */
-    .paragraph.has-text-edit,
-    h3.has-text-edit,
-    h4.has-text-edit {
+    /* Gespeicherte Änderungen anzeigen (Nur in lokaler Version sichtbar) */
+    body.is-local .paragraph.has-text-edit,
+    body.is-local h3.has-text-edit,
+    body.is-local h4.has-text-edit {
       position: relative;
+      background: rgba(155, 89, 182, 0.05); /* Dezenter lila Hintergrund für Bearbeitungen */
+      border-left: 3px solid #9b59b6;
+      padding-left: 10px;
+      margin-left: -13px;
     }
     
-    .paragraph.has-text-edit::before,
-    h3.has-text-edit::before,
-    h4.has-text-edit::before {
+    body.dark-mode.is-local .paragraph.has-text-edit,
+    body.dark-mode.is-local h3.has-text-edit,
+    body.dark-mode.is-local h4.has-text-edit {
+      background: rgba(155, 89, 182, 0.1);
+      border-left-color: #bb8fce;
+    }
+    
+    body.is-local .paragraph.has-text-edit::before,
+    body.is-local h3.has-text-edit::before,
+    body.is-local h4.has-text-edit::before {
       content: '✏️';
       position: absolute;
-      left: -24px;
-      top: 0;
-      font-size: 12px;
-      opacity: 0.7;
+      left: 5px; /* In den Absatz verschieben */
+      top: -10px;
+      font-size: 14px;
+      opacity: 0.8;
+      background: var(--background-color);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 10;
     }
     
     /* Dark Mode für Edit-Modus */
@@ -1440,12 +1460,25 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       display: flex;
     }
     
+    /* Toolbar nur lokal erlauben */
+    body:not(.is-local) #text-edit-toolbar {
+      display: none !important;
+    }
+    
     #text-edit-toolbar button {
       padding: 8px 16px;
       border-radius: 6px;
       font-size: 0.9em;
       cursor: pointer;
       transition: all 0.2s;
+    }
+
+    /* Bearbeiten-Button nur lokal anzeigen */
+    #text-edit-mode-btn {
+        display: none !important;
+    }
+    body.is-local #text-edit-mode-btn {
+        display: inline-block !important;
     }
     
     #text-edit-toolbar .save-btn {
@@ -8424,7 +8457,20 @@ Original
 <script>
     const isLocal = window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1' ||
+                    window.location.hostname.startsWith('192.168.') ||
+                    window.location.hostname.startsWith('172.') ||
+                    window.location.hostname.startsWith('10.') ||
                     window.location.protocol === 'file:';
+    
+    // Markiere lokale Version im Body (für CSS-Unterscheidungen)
+    // WICHTIG: Sicherstellen dass Body bereits existiert oder auf DOMContentLoaded warten
+    if (document.body) {
+        if (isLocal) document.body.classList.add('is-local');
+    } else {
+        window.addEventListener('DOMContentLoaded', () => {
+            if (isLocal) document.body.classList.add('is-local');
+        });
+    }
     
     // ============================================================
     // ANALYTICS-FUNKTIONEN
@@ -14486,13 +14532,19 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       
       // Rendere Überschriften
       sortedHeadings.forEach((heading, hIdx) => {
-        const headingText = heading.text || heading.title || 'Überschrift';
+        let headingText = heading.text || heading.title || 'Überschrift';
         const level = heading.level || 'h3';
         const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
         const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
         
+        // Wende gespeicherte Bearbeitung an, falls vorhanden (von API)
+        if (heading._edited && (heading.text || heading.title)) {
+          headingText = heading.text || heading.title;
+        }
+        
         // Erstelle ID für Überschrift: Verwende heading.id falls vorhanden, sonst heading.index oder para-{index}
         const headingId = heading.id || (heading.index && !heading.index.startsWith('^') ? heading.index : `para-${headingIndex}`);
+        const hasTextEdit = heading._edited ? 'has-text-edit' : '';
         
         // HTML-Escaping für headingText
         const escapedHeadingText = String(headingText)
@@ -14503,7 +14555,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           .replace(/'/g, '&#039;');
         
         paraHtml += `
-          <${headingTag} id="${headingId}">
+          <${headingTag} id="${headingId}" data-heading-index="${headingIndex}" class="${hasTextEdit}">
             ${escapedHeadingText}
           </${headingTag}>
         `;
@@ -25080,17 +25132,31 @@ function showSummaryView() {
     let headingAlreadyShown = false;
     
     sortedHeadings.forEach((heading, hIdx) => {
-      const headingText = heading.text || heading.title || 'Überschrift';
+      let headingText = heading.text || heading.title || 'Überschrift';
       const level = heading.level || 'h3';
       const headingIndex = heading.index || paraIndexWithCaret;
+      const cleanHeadingIndex = headingIndex.replace(/^\^/, '');
+      
+      // Wende gespeicherte Bearbeitung an (von API in lecture._headingEdits)
+      let hasEdit = false;
+      if (lecture._headingEdits) {
+        // Suche nach clean Index oder Index mit ^
+        const edit = lecture._headingEdits[cleanHeadingIndex] || lecture._headingEdits[headingIndex];
+        if (edit && edit.edited) {
+          headingText = edit.edited;
+          hasEdit = true;
+        }
+      }
+      
+      const hasTextEditClass = hasEdit ? 'has-text-edit' : '';
       
       // Nur ausgeben wenn noch keine Überschrift für diesen Absatz gezeigt wurde
       if (!headingAlreadyShown) {
         if (level === 'h3') {
-          html += `<h3 id="heading-${idx}-${hIdx}" data-index="${headingIndex}">${headingText}</h3>`;
+          html += `<h3 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h3>`;
           headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
         } else if (level === 'h4') {
-          html += `<h4 id="heading-${idx}-${hIdx}" data-index="${headingIndex}">${headingText}</h4>`;
+          html += `<h4 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h4>`;
           headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
         }
       }
@@ -26068,7 +26134,7 @@ function formatAsteriskParagraphs() {
       const gaNumber = gaMatch[1];
       if (isBookGANumber(gaNumber)) {
         // Lade das Buch
-        const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+        const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}?t=${Date.now()}`);
         if (!bookResponse.ok) {
           throw new Error(`Buch nicht gefunden: ${gaNumber}`);
         }
@@ -26122,8 +26188,8 @@ function formatAsteriskParagraphs() {
     // Ansonsten: Lade Vortrag wie bisher
     const parts = lectureId.split('/');
     const url = parts.length === 2 
-                ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
-                : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+                ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}?t=${Date.now()}`
+                : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}?t=${Date.now()}`;
 
     const response = await fetch(url);
     
@@ -26132,6 +26198,13 @@ function formatAsteriskParagraphs() {
     }
     
     const data = await response.json();
+    
+    // Debug: Prüfe auf Text-Edits im Response
+    if (data.lecture && data.lecture._hasTextEdits) {
+      console.log(`[SHOW-LECTURE] ✏️ Vortrag hat Text-Edits: ${data.lecture.ID}`);
+      const editedParas = data.lecture.paragraphs?.filter(p => p._edited);
+      console.log(`[SHOW-LECTURE]   Anzahl bearbeiteter Absätze: ${editedParas?.length || 0}`);
+    }
     
     // Prüfe ob wir von einem Buch zu einem Vortrag wechseln (im GA-Tab)
     const gaTab = document.getElementById('ga-tab');
@@ -29407,11 +29480,18 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             
             // Render headings
             sortedHeadings.forEach((heading, hIdx) => {
-              const headingText = heading.text || heading.title || 'Überschrift';
+              let headingText = heading.text || heading.title || 'Überschrift';
               const level = heading.level || 'h3';
               const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
               const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
+              
+              // Wende gespeicherte Bearbeitung an, falls vorhanden
+              if (lecture._headingEdits && lecture._headingEdits[headingIndex]) {
+                headingText = lecture._headingEdits[headingIndex].edited;
+              }
+              
               const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
+              const hasTextEdit = (lecture._headingEdits && lecture._headingEdits[headingIndex]) ? 'has-text-edit' : '';
               
               // HTML-Escaping für headingText um sicherzustellen, dass nur Text gerendert wird
               // und der nachfolgende Paragraph nicht im Überschriften-Format erscheint
@@ -29423,7 +29503,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                 .replace(/'/g, '&#039;');
               
               html += `
-                <${headingTag} id="para-${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''}">
+                <${headingTag} id="para-${headingIndex}" data-heading-index="${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''} ${hasTextEdit}">
                   ${escapedHeadingText}
                 </${headingTag}>
               `;
@@ -30534,6 +30614,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   // Prüfe ob lokale Version
   const isLocal = window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
                   window.location.protocol === 'file:';
   
   // WICHTIG: Prüfe auf Duplikate in keywordsData
@@ -31477,6 +31560,9 @@ async function performKeywordThematicSearch(keyword) {
   // Prüfe ob lokale Version
   const isLocal = window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
                   window.location.protocol === 'file:';
   
   try {
@@ -35036,9 +35122,12 @@ async function sendErrorReport() {
   btn.innerHTML = '<span style="margin: 0; color: white; font-size: 1.1em; font-weight: 600;">Wird gesendet...</span>';
   
   try {
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
     const response = await fetch(`${API_BASE}/api/error-report`, {
@@ -35122,9 +35211,12 @@ async function showHelpContent(type) {
     }
     
     // Lade Markdown-Datei vom Backend-Server (alle aus system-Ordner)
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     const response = await fetch(`${API_BASE}/system/${mdFile}`);
     if (!response.ok) {
@@ -37530,9 +37622,12 @@ function closeKeywordEditor() {
 
 async function loadClustersForMove() {
   try {
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
     const response = await fetch(`${API_BASE}/api/themes/clusters`);
@@ -37583,9 +37678,12 @@ async function moveKeywordToCluster() {
   statusDiv.innerHTML = 'Verschiebe Keyword...';
   
   try {
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
     const response = await fetch(`${API_BASE}/api/keywords/move-to-cluster`, {
@@ -37669,9 +37767,12 @@ async function renameKeyword() {
   
   try {
     // API Base ermitteln
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
     const response = await fetch(`${API_BASE}/api/keywords/rename`, {
@@ -37725,9 +37826,12 @@ async function loadKeywordsForEdit() {
   }
   
   try {
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
     const response = await fetch(`${API_BASE}/api/keywords-database`);
@@ -37826,9 +37930,12 @@ async function loadKeywordsForEdit() {
 
 async function loadClustersForEdit() {
   try {
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname.startsWith('192.168.') ||
+                  window.location.hostname.startsWith('172.') ||
+                  window.location.hostname.startsWith('10.') ||
+                  window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
     const response = await fetch(`${API_BASE}/api/themes/clusters`);
@@ -41413,7 +41520,7 @@ async function addKeywordToLecture() {
       // Absätze
       const paragraphs = viewer.querySelectorAll('.paragraph');
       paragraphs.forEach(para => {
-        const index = para.dataset.paragraphIndex || para.id;
+        const index = para.dataset.paragraphIndex || para.id.replace(/^para-/, '');
         if (index) {
           para.setAttribute('contenteditable', 'true');
           window.textEditMode.originalContents.set(index, para.innerHTML);
@@ -41425,10 +41532,11 @@ async function addKeywordToLecture() {
       // Überschriften (h3, h4)
       const headings = viewer.querySelectorAll('h3, h4');
       headings.forEach((heading, idx) => {
-        const headingId = heading.id || `heading_${idx}`;
+        // Nutze data-heading-index falls vorhanden, sonst Fallback auf ID oder Index
+        const headingIndex = heading.dataset.headingIndex || heading.id.replace(/^para-/, '') || `heading_${idx}`;
         heading.setAttribute('contenteditable', 'true');
-        heading.dataset.headingIndex = headingId;
-        window.textEditMode.originalContents.set(`heading_${headingId}`, heading.textContent.trim());
+        heading.dataset.headingIndex = headingIndex;
+        window.textEditMode.originalContents.set(`heading_${headingIndex}`, heading.textContent.trim());
         heading.addEventListener('input', handleTextInput);
         heading.addEventListener('paste', handlePaste);
       });
@@ -41480,12 +41588,12 @@ async function addKeywordToLecture() {
       window.textEditMode.originalContents.forEach((originalContent, key) => {
         if (key.startsWith('heading_')) {
           const headingId = key.replace('heading_', '');
-          const heading = viewer.querySelector(`h3[data-heading-index="${headingId}"], h4[data-heading-index="${headingId}"]`);
+          const heading = viewer.querySelector(`[data-heading-index="${headingId}"], #para-${headingId}, #${headingId}`);
           if (heading) {
             heading.textContent = originalContent;
           }
         } else {
-          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#${key}`);
+          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#para-${key}, .paragraph#${key}`);
           if (para) {
             para.innerHTML = originalContent;
           }
@@ -41500,7 +41608,7 @@ async function addKeywordToLecture() {
     const isHeading = element.tagName === 'H3' || element.tagName === 'H4';
     const key = isHeading 
       ? `heading_${element.dataset.headingIndex}`
-      : (element.dataset.paragraphIndex || element.id);
+      : (element.dataset.paragraphIndex || element.id.replace(/^para-/, ''));
     
     const originalContent = window.textEditMode.originalContents.get(key);
     const currentContent = isHeading ? element.textContent.trim() : element.innerHTML;
@@ -41537,6 +41645,41 @@ async function addKeywordToLecture() {
     }
   }
   
+  // Hilfsfunktion: Bereitet den Inhalt eines Elements für das Speichern vor
+  // (Konvertiert HTML-Marker wie Seitenumbrüche zurück in das Rohformat |123|)
+  function getCleanedContentForSaving(element) {
+    if (!element) return '';
+    
+    // Erstelle eine Kopie des Elements für die Bearbeitung
+    const clone = element.cloneNode(true);
+    
+    // 1. Konvertiere Seitenumbruch-Spans zurück zu |123|
+    const pageMarkers = clone.querySelectorAll('.page-break-container');
+    pageMarkers.forEach(span => {
+      const num = span.querySelector('.page-break-num')?.textContent;
+      if (num) {
+        span.outerHTML = `|${num}|`;
+      } else {
+        span.remove(); // Sicherheitsmaßnahme
+      }
+    });
+    
+    // 2. Entferne Bilder (werden vom Server/Markdown-Prozessor wieder eingefügt)
+    const images = clone.querySelectorAll('img');
+    images.forEach(img => {
+      // Wenn das Bild ein Markdown-Original hatte (in alt-Attribut oder Pfad), 
+      // könnten wir es wiederherstellen. Aber einfacher:
+      img.remove();
+    });
+    
+    // 3. Hole den Text-Inhalt (behandelt nun |123| als Text)
+    // Wir nutzen innerText um Zeilenumbrüche zu erhalten, aber bereinigen ihn
+    let text = clone.innerText || clone.textContent || '';
+    
+    // 4. Bereinigung: Doppelte Leerzeichen, etc.
+    return text.trim();
+  }
+
   // Änderungen speichern
   window.saveTextEdits = async function() {
     if (!window.textEditMode.active || window.textEditMode.modifiedElements.size === 0) {
@@ -41558,6 +41701,7 @@ async function addKeywordToLecture() {
     let errors = [];
     
     for (const key of window.textEditMode.modifiedElements) {
+      console.log(`[TEXT-EDIT] Verarbeite Änderung für Key: "${key}"`);
       try {
         const isHeading = key.startsWith('heading_');
         let editType, paragraphIndex, headingIndex, originalText, editedText;
@@ -41565,22 +41709,33 @@ async function addKeywordToLecture() {
         if (isHeading) {
           editType = 'heading';
           headingIndex = key.replace('heading_', '');
-          const heading = viewer.querySelector(`h3[data-heading-index="${headingIndex}"], h4[data-heading-index="${headingIndex}"]`);
-          if (!heading) continue;
+          const heading = viewer.querySelector(`[data-heading-index="${headingIndex}"], #para-${headingIndex}, #${headingIndex}, [data-index="${headingIndex}"], [data-index="^${headingIndex}"]`);
+          
+          if (!heading) {
+            console.warn(`[TEXT-EDIT] ⚠️ Überschrift nicht gefunden für Key: ${key}`);
+            continue;
+          }
           
           originalText = window.textEditMode.originalContents.get(key);
           editedText = heading.textContent.trim();
+          console.log(`[TEXT-EDIT] Überschrift gefunden: "${editedText.substring(0, 30)}..."`);
         } else {
           editType = 'paragraph';
           paragraphIndex = key;
-          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#${key}`);
-          if (!para) continue;
+          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#para-${key}, .paragraph#${key}, .paragraph[data-index="${key}"], .paragraph[data-index="^${key}"]`);
+          
+          if (!para) {
+            console.warn(`[TEXT-EDIT] ⚠️ Absatz nicht gefunden für Key: ${key}`);
+            continue;
+          }
           
           originalText = window.textEditMode.originalContents.get(key);
-          // Extrahiere den reinen Text ohne HTML-Tags für die Speicherung
-          editedText = para.innerText || para.textContent;
+          // Nutze die neue Bereinigungs-Funktion
+          editedText = getCleanedContentForSaving(para);
+          console.log(`[TEXT-EDIT] Absatz gefunden: "${editedText.substring(0, 30)}..."`);
         }
         
+        console.log(`[TEXT-EDIT] Sende an Server...`);
         const response = await fetch('/api/text-edits/save', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -41596,15 +41751,25 @@ async function addKeywordToLecture() {
         
         if (response.ok) {
           savedCount++;
+          console.log(`[TEXT-EDIT] ✅ Server-Bestätigung erhalten für: ${key}`);
           // Markiere als gespeichert
           const element = isHeading 
-            ? viewer.querySelector(`h3[data-heading-index="${headingIndex}"], h4[data-heading-index="${headingIndex}"]`)
-            : viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#${key}`);
+            ? viewer.querySelector(`[data-heading-index="${headingIndex}"], #para-${headingIndex}, #${headingIndex}, [data-index="${headingIndex}"], [data-index="^${headingIndex}"]`)
+            : viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#para-${key}, .paragraph#${key}, .paragraph[data-index="${key}"], .paragraph[data-index="^${key}"]`);
           if (element) {
             element.classList.remove('text-modified');
             element.classList.add('has-text-edit');
           }
         } else {
+          const error = await response.json();
+          console.error(`[TEXT-EDIT] ❌ Server-Fehler für ${key}:`, error.error);
+          errors.push(`${key}: ${error.error}`);
+        }
+      } catch (err) {
+        console.error(`[TEXT-EDIT] ❌ Ausnahme für ${key}:`, err.message);
+        errors.push(`${key}: ${err.message}`);
+      }
+    }
           const error = await response.json();
           errors.push(`${key}: ${error.error}`);
         }
@@ -41618,6 +41783,7 @@ async function addKeywordToLecture() {
     if (errors.length > 0) {
       alert(`${savedCount} Änderung(en) gespeichert.\n\nFehler:\n${errors.join('\n')}`);
     } else {
+      alert(`${savedCount} Änderung(en) erfolgreich gespeichert.`);
       console.log(`[TEXT-EDIT] ✅ ${savedCount} Änderung(en) gespeichert`);
     }
     
@@ -41625,11 +41791,12 @@ async function addKeywordToLecture() {
     
     // Nach dem Speichern: Vortrag neu laden um Änderungen anzuwenden
     if (savedCount > 0 && typeof showLecture === 'function') {
+      // Deaktiviere Modus OHNE Bestätigung (da gerade gespeichert wurde)
       deactivateTextEditMode(false);
       // Kurze Verzögerung, dann Vortrag neu laden
       setTimeout(() => {
         showLecture(lectureId, null, []);
-      }, 500);
+      }, 300);
     }
   };
   

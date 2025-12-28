@@ -7129,10 +7129,16 @@ app.get('/api/book/:gaNumber', async (req, res) => {
       return res.status(404).json({ error: `Keine Schrift gefunden für ${gaNumberOriginal}` });
     }
 
+    // Erstelle eine tiefe Kopie des Buches, um das Original nicht zu verändern
+    const bookCopy = JSON.parse(JSON.stringify(book));
+    const bookIdForEdits = bookCopy.ID || bookCopy.gaNumber;
+
+    // Wende Text-Edits an
+    await applyTextEditsToLecture(bookCopy, bookIdForEdits);
 
     // Speichere Überschriften in summary-database.json für TOC-Anzeige
     // WICHTIG: Nur für Books (GA001-GA046), niemals Vortrags-Einträge überschreiben!
-    const bookId = book.ID || book.gaNumber;
+    const bookId = bookCopy.ID || bookCopy.gaNumber;
     
     // Prüfe ob es wirklich ein Book ist (GA001-GA046)
     const gaMatch = bookId.match(/^GA0?([0-4][0-6]|[0-4][0-9])$/);
@@ -7229,21 +7235,21 @@ app.get('/api/book/:gaNumber', async (req, res) => {
 
     // Gebe vollständige Book-Daten zurück
     const responseBook = {
-      ID: book.ID || book.gaNumber,
-      gaNumber: book.gaNumber || book.ID,
-      title: book.title,
-      fileName: book.fileName,
-      yearRange: book.yearRange,
-      content: book.content,
-      headings: book.headings || [],
-      wordCount: book.wordCount,
-      charCount: book.charCount
+      ID: bookCopy.ID || bookCopy.gaNumber,
+      gaNumber: bookCopy.gaNumber || bookCopy.ID,
+      title: bookCopy.title,
+      fileName: bookCopy.fileName,
+      yearRange: bookCopy.yearRange,
+      content: bookCopy.content,
+      headings: bookCopy.headings || [],
+      wordCount: bookCopy.wordCount,
+      charCount: bookCopy.charCount
     };
 
     // WICHTIG: Für saubere Seitenumbrüche/Marker und konsistente Darstellung kann das Frontend
     // die Absatz-Struktur nutzen. Diese war zuvor nicht im Response enthalten.
-    if (Array.isArray(book.paragraphs) && book.paragraphs.length > 0) {
-      responseBook.paragraphs = book.paragraphs;
+    if (Array.isArray(bookCopy.paragraphs) && bookCopy.paragraphs.length > 0) {
+      responseBook.paragraphs = bookCopy.paragraphs;
     }
 
     res.json(responseBook);
@@ -18403,16 +18409,101 @@ app.post('/api/quotes/update', async (req, res) => {
 // ============================================================================
 
 // API: Vollständigen Vortrag nach GA-Nummer und Vortragsnummer bereitstellen
+// Hilfsfunktion: Text-Bearbeitungen auf einen Vortrag anwenden
+async function applyTextEditsToLecture(lecture, lectureId) {
+  try {
+    const textEditsFile = path.join(__dirname, 'text-edits-database.json');
+    let editsDB = {};
+    try {
+      const editsData = await fs.readFile(textEditsFile, 'utf8');
+      editsDB = JSON.parse(editsData);
+    } catch (err) {
+      // Datei existiert nicht oder ist leer
+      return;
+    }
+    
+    if (editsDB[lectureId]) {
+      const edits = editsDB[lectureId];
+      let appliedEdits = 0;
+      
+      // Wende Absatz-Bearbeitungen an
+      if (edits.paragraphs && lecture.paragraphs) {
+        for (const [index, edit] of Object.entries(edits.paragraphs)) {
+          // Finde den Absatz mit diesem Index
+          const para = lecture.paragraphs.find(p => {
+            const paraIndex = p.index ? p.index.replace(/^\^/, '') : '';
+            // Berücksichtige auch den 'para-' Präfix vom Frontend
+            const cleanIndex = index.toString().replace(/^para-/, '');
+            return paraIndex === index || p.index === index || p.index === `^${index}` ||
+                   paraIndex === cleanIndex || p.index === cleanIndex || p.index === `^${cleanIndex}`;
+          });
+          if (para && (edit.edited !== undefined)) { // Erlaube auch leere Strings (Löschen)
+            para.content = edit.edited;
+            para.text = edit.edited;
+            para._edited = true;
+            appliedEdits++;
+          }
+        }
+      }
+      
+      // Wende Überschriften-Bearbeitungen an (falls in lecture.headings vorhanden)
+      if (edits.headings && lecture.headings) {
+        for (const [index, edit] of Object.entries(edits.headings)) {
+          const heading = lecture.headings.find(h => {
+            const hIndex = h.index ? h.index.replace(/^\^/, '') : '';
+            const cleanIndex = index.toString().replace(/^para-/, '');
+            return hIndex === index || h.index === index || h.index === `^${index}` ||
+                   hIndex === cleanIndex || h.index === cleanIndex || h.index === `^${cleanIndex}`;
+          });
+          if (heading && (edit.edited !== undefined)) {
+            heading.text = edit.edited;
+            if (heading.title) heading.title = edit.edited;
+            heading._edited = true;
+            appliedEdits++;
+          }
+        }
+      }
+      
+      // Wende Titel-Bearbeitung an
+      if (edits.title && edits.title.edited) {
+        lecture.title = edits.title.edited;
+        lecture._titleEdited = true;
+        appliedEdits++;
+      }
+      
+      // Speichere die Überschriften-Edits für das Frontend (Kompatibilität für AI-Headings)
+      if (edits.headings && Object.keys(edits.headings).length > 0) {
+        lecture._headingEdits = edits.headings;
+      }
+      
+      if (appliedEdits > 0) {
+        console.log(`[BACKEND-API] ✏️ ${appliedEdits} Text-Edits angewendet für ${lectureId}`);
+        lecture._hasTextEdits = true;
+      }
+    }
+  } catch (editsError) {
+    console.warn(`[BACKEND-API] Fehler beim Anwenden der Text-Edits für ${lectureId}:`, editsError.message);
+  }
+}
+
+// API: Vollständigen Vortrag bereitstellen
 app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
   try {
     const { gaNumber, lectureNum } = req.params;
     // Compose lecture ID as used in fullLectures
     const lectureId = `${gaNumber}/${lectureNum}`;
-    const lecture = fullLectures[lectureId];
-    if (!lecture) {
+    const originalLecture = fullLectures[lectureId];
+    if (!originalLecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
-  res.json({ lecture });
+    
+    // Erstelle eine tiefe Kopie des Vortrags, um das Original nicht zu verändern
+    const lecture = JSON.parse(JSON.stringify(originalLecture));
+    
+    // Wende Text-Edits an
+    await applyTextEditsToLecture(lecture, lectureId);
+    
+    res.json({ lecture });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
     res.status(500).json({ error: error.message });
@@ -18431,54 +18522,8 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
     // Erstelle eine tiefe Kopie des Vortrags, um das Original nicht zu verändern
     const lecture = JSON.parse(JSON.stringify(originalLecture));
     
-    // Lade Text-Edits für diesen Vortrag
-    try {
-      const textEditsFile = path.join(__dirname, 'text-edits-database.json');
-      const editsData = await fs.readFile(textEditsFile, 'utf8');
-      const editsDB = JSON.parse(editsData);
-      
-      if (editsDB[lectureId]) {
-        const edits = editsDB[lectureId];
-        let appliedEdits = 0;
-        
-        // Wende Absatz-Bearbeitungen an
-        if (edits.paragraphs && lecture.paragraphs) {
-          for (const [index, edit] of Object.entries(edits.paragraphs)) {
-            // Finde den Absatz mit diesem Index
-            const para = lecture.paragraphs.find(p => {
-              const paraIndex = p.index ? p.index.replace(/^\^/, '') : '';
-              return paraIndex === index || p.index === index || p.index === `^${index}`;
-            });
-            if (para && edit.edited) {
-              para.content = edit.edited;
-              para.text = edit.edited;
-              para._edited = true;
-              appliedEdits++;
-            }
-          }
-        }
-        
-        // Wende Titel-Bearbeitung an
-        if (edits.title && edits.title.edited) {
-          lecture.title = edits.title.edited;
-          lecture._titleEdited = true;
-          appliedEdits++;
-        }
-        
-        // Speichere die Überschriften-Edits für das Frontend
-        if (edits.headings && Object.keys(edits.headings).length > 0) {
-          lecture._headingEdits = edits.headings;
-          appliedEdits += Object.keys(edits.headings).length;
-        }
-        
-        if (appliedEdits > 0) {
-          console.log(`[BACKEND-API] ✏️ ${appliedEdits} Text-Edits angewendet für ${lectureId}`);
-          lecture._hasTextEdits = true;
-        }
-      }
-    } catch (editsError) {
-      // Keine Text-Edits-Datei oder Fehler - ignorieren
-    }
+    // Wende Text-Edits an
+    await applyTextEditsToLecture(lecture, lectureId);
     
     // Debug: Prüfe ob Marker in Paragraphs vorhanden sind
     if (lecture.paragraphs && lecture.paragraphs.length > 0) {
