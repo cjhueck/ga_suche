@@ -1037,3 +1037,188 @@ async function getUserProfile(userId) {
   return data;
 }
 
+
+// ============================================
+// SAVED THEMATIC SEARCHES (Gespeicherte Themenabfragen)
+// ============================================
+
+/**
+ * Themenabfrage speichern
+ */
+export async function saveThematicSearch(query, content, sources = [], options = {}) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const {
+      title = null,
+      searchMethod = 'hybrid-thematic-unified',
+      totalMatches = 0,
+      gaFilter = null,
+      limitUsed = 100,
+      tags = [],
+      notes = null
+    } = options;
+
+    const { data, error } = await supabase
+      .from('saved_thematic_searches')
+      .insert({
+        user_id: user.id,
+        query: query,
+        title: title || query.substring(0, 100), // Fallback: Erste 100 Zeichen der Query
+        content: content,
+        sources: sources,
+        search_method: searchMethod,
+        total_matches: totalMatches,
+        ga_filter: gaFilter,
+        limit_used: limitUsed,
+        tags: tags,
+        notes: notes
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Speichern der Themenabfrage:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Alle gespeicherten Themenabfragen des Users abrufen
+ */
+export async function getSavedThematicSearches(filters = {}) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    let query = supabase
+      .from('saved_thematic_searches')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+
+    // Optional: Nach Tags filtern
+    if (filters.tags && filters.tags.length > 0) {
+      query = query.contains('tags', filters.tags);
+    }
+
+    // Optional: Limit
+    if (filters.limit) {
+      query = query.limit(filters.limit);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der gespeicherten Themenabfragen:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Einzelne gespeicherte Themenabfrage abrufen
+ */
+export async function getSavedThematicSearch(searchId) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('saved_thematic_searches')
+      .select('*')
+      .eq('id', searchId)
+      .eq('user_id', user.id)
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Themenabfrage:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Gespeicherte Themenabfrage aktualisieren
+ */
+export async function updateSavedThematicSearch(searchId, updates) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('saved_thematic_searches')
+      .update(updates)
+      .eq('id', searchId)
+      .eq('user_id', user.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren der Themenabfrage:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Gespeicherte Themenabfrage löschen
+ */
+export async function deleteSavedThematicSearch(searchId) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { error } = await supabase
+      .from('saved_thematic_searches')
+      .delete()
+      .eq('id', searchId)
+      .eq('user_id', user.id);
+
+    if (error) throw error;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Fehler beim Löschen der Themenabfrage:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * In gespeicherten Themenabfragen suchen (Volltext)
+ */
+export async function searchSavedThematicSearches(searchTerm) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('saved_thematic_searches')
+      .select('*')
+      .eq('user_id', user.id)
+      .or(`query.ilike.%${searchTerm}%,title.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Durchsuchen der Themenabfragen:', error);
+    return { success: false, error: error.message };
+  }
+}
+
