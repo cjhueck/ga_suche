@@ -1,32 +1,112 @@
 {
-  "ga": "GA073",
-  "sourceFile": "steiner-full-lectures-014-354-part04.json",
+  "ga": "GA259",
+  "sourceFile": "steiner-full-lectures-014-354-part14.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 397,
-  "breaksWithPage": 397,
-  "inserted": 349,
-  "insertedRatio": 0.8790931989924433,
-  "failed": 4,
+  "breaksTotal": 951,
+  "breaksWithPage": 951,
+  "inserted": 114,
+  "insertedRatio": 0.11987381703470032,
+  "failed": 277,
   "failuresSample": [
     {
-      "page": 377,
+      "page": 60,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 0
     },
     {
-      "page": 379,
+      "page": 66,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 2
     },
     {
-      "page": 383,
+      "page": 67,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 2
     },
     {
-      "page": 385,
+      "page": 73,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 2
+    },
+    {
+      "page": 74,
+      "reason": "no-match",
+      "lecture": 2
+    },
+    {
+      "page": 82,
+      "reason": "no-match",
+      "lecture": 2
+    },
+    {
+      "page": 83,
+      "reason": "no-match",
+      "lecture": 2
+    },
+    {
+      "page": 89,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 92,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 95,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 96,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 99,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 102,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 116,
+      "reason": "no-match",
+      "lecture": 6
+    },
+    {
+      "page": 127,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 128,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 130,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 132,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 137,
+      "reason": "no-match",
+      "lecture": 18
+    },
+    {
+      "page": 139,
+      "reason": "no-match",
+      "lecture": 18
     }
   ]
 }
