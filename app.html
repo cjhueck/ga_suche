@@ -25796,6 +25796,8 @@ function formatAsteriskParagraphs() {
       
       return words;
     }
+    // Global verfügbar machen für andere Script-Blöcke
+    window.extractKeywordsFromQuery = extractKeywordsFromQuery;
     
     function renderThematicResults(query, content, sources, appliedGA = '') {
       // Zeige Ergebnisse im Main Viewer (wie bei Index-Tab), nicht im linken Panel
@@ -29176,6 +29178,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       updateActiveTocItem();
     }
+    // Global verfügbar machen für andere Script-Blöcke
+    window.showLecture = showLecture;
 
     function displayLecture(lecture, highlightIndex, keywords = [], shouldHighlight = true) {
       const viewer = document.getElementById('viewer');
@@ -41872,6 +41876,38 @@ async function addKeywordToLecture() {
           </div>
         </div>
       `;
+      
+      // GA-Links mit Event-Listenern versehen (wie in renderThematicResults)
+      const savedQuery = data.query; // Query für Closure speichern
+      setTimeout(() => {
+        const answerDiv = document.getElementById('answerContent');
+        if (answerDiv) {
+          const gaLinks = answerDiv.querySelectorAll('.ga-reference');
+          
+          gaLinks.forEach(link => {
+            const lectureId = link.getAttribute('data-id');
+            const targetIndex = link.getAttribute('data-index');
+            
+            if (lectureId && targetIndex) {
+              link.style.cursor = 'pointer'; // Visuelles Feedback
+              link.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // Verwende globale Funktionen
+                if (typeof window.extractKeywordsFromQuery === 'function' && typeof window.showLecture === 'function') {
+                  const keywords = window.extractKeywordsFromQuery(savedQuery);
+                  window.showLecture(lectureId, targetIndex, keywords);
+                } else if (typeof extractKeywordsFromQuery === 'function' && typeof showLecture === 'function') {
+                  const keywords = extractKeywordsFromQuery(savedQuery);
+                  showLecture(lectureId, targetIndex, keywords);
+                } else {
+                  console.warn('[SAVED-SEARCH] showLecture oder extractKeywordsFromQuery nicht gefunden');
+                }
+              });
+            }
+          });
+        }
+      }, 100);
       
       document.getElementById('status').textContent = `Gespeicherte Antwort geladen`;
       
