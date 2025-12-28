@@ -25672,27 +25672,64 @@ function formatAsteriskParagraphs() {
         nodes.push(walker.currentNode);
       }
       
+      // Regex für alle Anführungszeichen-Varianten:
+      // U+0022 " ASCII straight quote
+      // U+201C " LEFT DOUBLE QUOTATION MARK
+      // U+201D " RIGHT DOUBLE QUOTATION MARK
+      // U+201E „ DOUBLE LOW-9 QUOTATION MARK (deutsches öffnendes)
+      // U+00AB « und U+00BB » französische Guillemets
+      const allQuotesRegex = /[\u0022\u201C\u201D\u201E\u00AB\u00BB]/g;
+      
       nodes.forEach(node => {
         if (!node.nodeValue) return;
         let text = node.nodeValue;
         const originalText = text;
         
-        // Schritt 1: Korrigiere ALLE „ (unten) die nach einem alphanumerischen Zeichen kommen
-        // Diese sind definitiv schließende Anführungszeichen und sollten " (oben) sein
-        // Pattern: Jedes alphanumerische Zeichen (Buchstabe, Zahl, Umlaut) gefolgt von „
-        text = text.replace(/([a-zA-ZäöüÄÖÜß0-9])„/g, '$1"');
+        // Kontextbasierte Konvertierung:
+        // - Öffnend „ (U+201E): Nach Leerzeichen, Zeilenumbruch, am Textanfang, nach ( [ { oder Satzzeichen
+        // - Schließend " (U+201C): Nach Buchstaben, Zahlen, Satzzeichen wie . , ! ? oder vor Leerzeichen/Ende
         
-        // Schritt 2: Alle anderen Anführungszeichen-Varianten durch Marker ersetzen
-        // " (U+0022 ASCII), " (U+201C englisch öffnend), " (U+201D englisch schließend)
-        text = text.replace(/[""\u201C\u201D]/g, '\x01QUOTE\x01');
-        
-        // Schritt 3: Ersetze Marker durch korrekte deutsche Anführungszeichen
-        // Paarweise: ungerade Positionen = öffnend „ (unten), gerade Positionen = schließend " (oben)
-        let quoteIndex = 0;
-        text = text.replace(/\x01QUOTE\x01/g, () => {
-          quoteIndex++;
-          // Ungerade = öffnend „ (unten), gerade = schließend " (oben)
-          return quoteIndex % 2 === 1 ? '„' : '"';
+        text = text.replace(allQuotesRegex, (match, offset, fullText) => {
+          const charBefore = offset > 0 ? fullText[offset - 1] : '';
+          const charAfter = offset < fullText.length - 1 ? fullText[offset + 1] : '';
+          
+          // Prüfe Kontext VOR dem Anführungszeichen
+          const isAfterSpace = /[\s\n\r]/.test(charBefore) || charBefore === '';
+          const isAfterOpeningBracket = /[(\[{]/.test(charBefore);
+          const isAfterPunctuation = /[.!?:;,–—-]/.test(charBefore);
+          
+          // Prüfe Kontext NACH dem Anführungszeichen
+          const isBeforeSpace = /[\s\n\r]/.test(charAfter) || charAfter === '';
+          const isBeforeClosingBracket = /[)\]}]/.test(charAfter);
+          const isBeforePunctuation = /[.!?:;,]/.test(charAfter);
+          const isBeforeLetter = /[a-zA-ZäöüÄÖÜß]/.test(charAfter);
+          
+          // Entscheidungslogik:
+          // Öffnendes Anführungszeichen „ wenn:
+          // - Am Textanfang oder nach Leerzeichen
+          // - Nach öffnender Klammer
+          // - Vor einem Buchstaben (Zitat beginnt)
+          if (isAfterSpace || isAfterOpeningBracket || (offset === 0 && isBeforeLetter)) {
+            return '\u201E'; // „ öffnend (unten)
+          }
+          
+          // Schließendes Anführungszeichen " wenn:
+          // - Vor Leerzeichen oder Textende
+          // - Vor schließender Klammer
+          // - Vor Satzzeichen
+          // - Nach einem Buchstaben/Zahl (Zitat endet)
+          if (isBeforeSpace || isBeforeClosingBracket || isBeforePunctuation) {
+            return '\u201C'; // " schließend (oben)
+          }
+          
+          // Prüfe das Zeichen VOR dem Anführungszeichen genauer
+          const isAfterLetter = /[a-zA-ZäöüÄÖÜß0-9.,!?]/.test(charBefore);
+          if (isAfterLetter) {
+            return '\u201C'; // " schließend (oben)
+          }
+          
+          // Fallback: Wenn nichts eindeutig ist, nehme öffnend
+          return '\u201E'; // „ öffnend (unten)
         });
         
         // Nur aktualisieren wenn sich etwas geändert hat

@@ -1,7 +1,7 @@
 {
   "_info": "Output: Vorträge mit eingefügten |page|-Markern (aus V4 Break Anchors).",
   "ga": "GA259",
-  "sourceFile": "steiner-full-lectures-030-354-part13.json",
+  "sourceFile": "steiner-full-lectures-014-354-part14.json",
   "lectureCount": 38,
   "lectures": [
     {
@@ -13,22 +13,23 @@
       "fileName": "GA259/1 - Aus der Arbeit für den Wiederaufbau des Goetheanum und die Neubildung der Anthroposophischen Gesellschaft",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^mqv7cv",
-          "content": "|57|Soll ein Wiederaufbau zustande kommen, so ist dazu eine starke Anthroposophische Gesellschaft notwendig; denn ohne diese wäre ein Wiederaufbau nicht möglich. Also es muss einfach eine Konsolidierung, eine innere Festigung, ein deutliches Wollen der Anthroposophischen Gesellschaft zustande kommen."
+          "content": "|57|Soll ein Wiederaufbau zustande kommen, so ist dazu eine starke Anthroposophische Gesellschaft notwendig; denn ohne diese wäre ein Wiederaufbau nicht möglich. Also es muss einfach eine Konsolidierung, eine innere Festigung, ein deutliches Wollen der |59|Anthroposophischen Gesellschaft zustande kommen."
         },
         {
           "index": "^lj9b5d",
-          "content": "Rudolf Steiner, Dornach, 9. Februar 1923 ![img-0.png](<assets/GA259-Das Schicksalsjahr 1923 in der AG_img-0.png>)"
+          "content": "Rudolf Steiner, Dornach, 9. Februar 1923 <img src=\"assets/GA259-Das Schicksalsjahr 1923 in der AG_img-0.png\" alt=\"img-0.png\" />"
         },
         {
           "index": "^wlozgi",
-          "content": "(3) |58|by Verlag am Goetheanum, Dornach"
+          "content": "(3) by Verlag am Goetheanum, Dornach"
         },
         {
           "index": "^wxuo7h",
-          "content": "![img-1.png](<assets/GA259-Das Schicksalsjahr 1923 in der AG_img-1.png>)"
+          "content": "<img src=\"assets/GA259-Das Schicksalsjahr 1923 in der AG_img-1.png\" alt=\"img-1.png\" />"
         }
       ]
     },
@@ -41,10 +42,11 @@
       "fileName": "GA259/2 - INTERVIEW MIT BASLER ZEITUNGSKORRESPONDENTEN ÜBER DEN BRAND, Montag, 1. Januar 1923, 14 Uhr",
       "location": "Montag",
       "date": "1923-01-01",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^bflpdv",
-          "content": "«Ein Interview bei Dr. Steiner»"
+          "content": "|703|«Ein Interview bei Dr. Steiner»"
         },
         {
           "index": "^62apyj",
@@ -60,7 +62,7 @@
         },
         {
           "index": "^6xtec5",
-          "content": "Von all den Gerüchten mit ihren Drohungen schweige ich. Wichtig ist, dass das Feuer, das wohl schon zwei Stunden hinter der Wand in der Konstruktion des Innern sich entwickelte, nicht durch Kurzschluss oder irgendwelche Unvorsichtigkeit verursacht war. Die Sicherungen waren durchweg intakt. Die Lichter brannten unverändert weiter. Die Leitungen lagen in feuersichern Stahlpanzerrohren. Gerade an jener Stelle, an der es brannte, fanden sich keine Leitungen. Wohl aber stellten wir fest, dass schon um 7 Uhr die Dame, die jenes anstoßende Zimmer benützte, den Spiegel heruntergeworfen und zerschlagen fand, der ganz in der Nähe der späteren Feuerstelle hing. Jenes Zimmer konnte unkontrolliert leicht betreten werden, um so leichter, als ein Hilfsgerüst an der Mauer das Einsteigen auch vom Erdboden aus bequem ermöglichte. Die angeführten Tatsachen weisen auf Brandlegung von außen hin. [*] Dieser Verdacht wurde von vielen Menschen aus der Umgebung des Goetheanums in Dornach und Arlesheim ausgesprochen."
+          "content": "Von all den Gerüchten mit ihren Drohungen schweige ich. Wichtig ist, dass das Feuer, das wohl schon zwei Stunden hinter der Wand in der Konstruktion des Innern sich entwickelte, nicht durch Kurzschluss oder irgendwelche Unvorsichtigkeit verursacht war. Die Sicherungen waren durchweg intakt. Die Lichter brannten unverändert weiter. Die Leitungen lagen in feuersichern Stahlpanzerrohren. Gerade an jener Stelle, an der es brannte, fanden sich keine Leitungen. Wohl aber stellten wir fest, dass schon um 7 Uhr die Dame, die jenes anstoßende Zimmer benützte, den Spiegel heruntergeworfen und zerschlagen fand, der ganz in der Nähe der späteren Feuerstelle hing. Jenes |704|Zimmer konnte unkontrolliert leicht betreten werden, um so leichter, als ein Hilfsgerüst an der Mauer |706|das Einsteigen auch vom Erdboden aus bequem ermöglichte. Die angeführten Tatsachen weisen auf Brandlegung von außen hin. [*] Dieser Verdacht wurde von vielen Menschen aus der Umgebung des Goetheanums in Dornach und Arlesheim ausgesprochen."
         },
         {
           "index": "^hryr9y",
@@ -80,7 +82,7 @@
         },
         {
           "index": "^vsjt92",
-          "content": "«Gedenken Sie, wieder zu bauen?» Unbedingt. Das Gebäude ist, soweit ich mich erinnern kann, um 3,5 Millionen bei der Brandassekuranz des Kantons Solothurn versichert. Davon entfallen 2.600.000 auf den hölzernen oberbau und 900.000 Fr. auf den Betonunterbau. Dazu kommt die Versicherung bei der «Helvetia» für das wertvolle Mobiliar, Orgel, Harmonium, Klaviere und sehr kostbare Perserteppiche. Die Summe ist freilich nur der vierte Teil des Aufwandes, zumal wenn man die künstlerische Arbeit der vielen einrechnet, die sie als Mitglieder unserer Gemeinde jahrelang geleistet hatten. Ich werde also anders und bescheidener bauen müssen, auch nicht mehr aus Holz. Aber die künstlerische Grundtendenz bleibt."
+          "content": "«Gedenken Sie, wieder zu bauen?» Unbedingt. Das Gebäude ist, soweit ich mich erinnern kann, um 3,5 Millionen bei der Brandassekuranz des Kantons Solothurn versichert. Davon entfallen 2.600.000 auf den hölzernen oberbau und 900.000 Fr. auf den Betonunterbau. Dazu kommt die Versicherung bei der «Helvetia» für das wertvolle Mobiliar, Orgel, Harmonium, Klaviere und sehr kostbare Perserteppiche. Die Summe ist freilich nur der vierte Teil des Aufwandes, zumal wenn man die künstlerische Arbeit der vielen einrechnet, die sie als Mitglieder unserer Gemeinde jahrelang |708|geleistet hatten. Ich werde also anders und bescheidener bauen müssen, auch nicht mehr aus Holz. Aber die künstlerische Grundtendenz bleibt."
         },
         {
           "index": "^dzp8eh",
@@ -101,6 +103,7 @@
       "fileName": "GA259/3 - ERSTE WORTE AN DIE MITGLIEDER NACH DEM BRANDGESCHEHEN",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^7gvx8v",
@@ -189,10 +192,11 @@
       "fileName": "GA259/4 - EINLEITENDE WORTE ZU DEM ERSTEN FÜR DIE ARBEITER AM GOETHEANUMBAU NACH DEM BRAND GEHALTENEN VORTRAG",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^el97ax",
-          "content": "Dornach, Freitag, 5. Januar 1923, morgens 9 Uhr"
+          "content": "|749|Dornach, Freitag, 5. Januar 1923, morgens 9 Uhr"
         },
         {
           "index": "^sf9hel",
@@ -229,10 +233,11 @@
       "fileName": "GA259/5 - MITTEILUNG der bisher aus aller Welt und nicht nur von Mitgliedern eingetroffenen Teilnahme-Bekundungen am Brandunglück, vor Beginn des Abendvortrage, Dornach, 6. Januar",
       "location": "vor Beginn des Abendvortrage",
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^v3e7xy",
-          "content": "Meine lieben Freunde! Meine sehr verehrten Anwesenden! Ich müsste Ihnen ein Buch vorlesen, wenn ich Ihnen mitteilen wollte all die außerordentlich lieben Worte und die Worte inniger Verbindung mit dem, was hier durch die furchtbare Katastrophe verloren worden ist; ich werde mir erlauben, daher nur die Namen derjenigen mitzuteilen, welche unterzeichnet haben solche Worte des Anteiles, des Hingegebenseins an die Sache. Es sind zum Teil Zeichen dafür, wie tief in die Herzen vieler Menschen doch gegangen ist, was von hier aus an die Welt mitgeteilt werden darf. Es sind zum Teil auch Zeichen von wirklich tiefgefühlten Wünschen und auch tatkräftigen Willensentschließungen, das wieder zu erringen, was wir verloren haben. Die breite Anteilnahme an unserer Arbeit und an unserem Verluste wird für viele von Ihnen ja gewiss eine Quelle von Kraft sein können, und schon aus diesem Grunde darf ich hier die Mitteilung von alledem machen. Denn unsere Sache soll ja nicht bloß eine theoretische sein, unsere Sache soll eine Sache der Arbeit, der Menschenliebe, des hingebungsvollen Menschheitsdienstes sein, und deshalb gehört zu dem, was von hier aus gesprochen werden soll, auch die Mitteilung dessen, was Tat oder Absicht zur Tat ist. Ich werde mir nur erlauben, diejenigen Namen zu nennen, die nicht Persönlichkeiten angehören, welche hier sind, denn was sich die Herzen derer mitzuteilen haben, die hier sind, das ist ja in diesen Tagen, in diesen Tagen des wirklich vom Schmerz durchwühlten Zusammenseins, mehr stumm, aber doch nicht weniger tief und deutlich zum Ausdrucke gekommen. So werden Sie mir gestatten, dass ich die lieben Freunde der Sache, die hier ihre Anteilnahme auch schriftlich zum Ausdrucke gebracht haben, jetzt nicht besonders anführe. Sie kennen sie ja. [Verlesung der Namen. - ,]"
+          "content": "|795|Meine lieben Freunde! Meine sehr verehrten Anwesenden! Ich müsste Ihnen ein Buch vorlesen, wenn ich Ihnen mitteilen wollte all die außerordentlich lieben Worte und die Worte inniger Verbindung mit dem, was hier durch die furchtbare Katastrophe verloren worden ist; ich werde mir erlauben, daher nur die Namen derjenigen mitzuteilen, welche unterzeichnet haben solche Worte des Anteiles, des Hingegebenseins an die Sache. Es sind zum Teil Zeichen dafür, wie tief in die Herzen vieler Menschen doch gegangen ist, was von hier aus an die Welt mitgeteilt werden darf. Es sind zum Teil auch Zeichen von wirklich tiefgefühlten Wünschen und auch tatkräftigen Willensentschließungen, das wieder zu erringen, was wir verloren haben. Die breite Anteilnahme an unserer Arbeit und an unserem Verluste wird für viele von Ihnen ja gewiss eine Quelle von Kraft sein können, und schon aus diesem Grunde darf ich hier die Mitteilung von alledem machen. Denn unsere Sache soll ja nicht bloß eine theoretische sein, unsere Sache soll eine Sache der Arbeit, der Menschenliebe, des hingebungsvollen Menschheitsdienstes sein, und deshalb gehört zu dem, was von hier aus gesprochen werden soll, auch die Mitteilung dessen, was Tat oder Absicht zur Tat ist. Ich werde mir nur erlauben, diejenigen Namen zu nennen, die nicht Persönlichkeiten angehören, welche hier sind, denn was sich die Herzen derer mitzuteilen haben, die hier sind, das ist ja in diesen Tagen, in diesen Tagen des wirklich vom Schmerz durchwühlten Zusammenseins, mehr stumm, aber doch nicht weniger tief und deutlich zum Ausdrucke gekommen. So werden Sie mir gestatten, dass ich die lieben Freunde der Sache, die hier ihre Anteilnahme auch schriftlich zum Ausdrucke gebracht haben, jetzt nicht besonders anführe. Sie kennen sie ja. [Verlesung der Namen. - ,]"
         },
         {
           "index": "^nj4zns",
@@ -249,10 +254,11 @@
       "fileName": "GA259/6 - ANSPRACHE in einer vom Zentralvorstand einberufenen Mitgliederversammlung zur Frage des Wiederaufbaues, Dornach, Dreikönigstag, 6. Januar 1923, nach dem Abendvortrag",
       "location": "Dreikönigstag",
       "date": "1923-01-06",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^gvg9t0",
-          "content": "Es ist in hohem Maße befriedigend, dass heute abend wiederholt hingedeutet worden ist auf jene Tatsache, die niemals innerhalb der Kreise der Anthroposophischen Gesellschaft vergessen werden darf: Es ist die Tatsache, dass ja ein Teil, und zwar, ich gestehe es offen, sogar der allerwesentlichste Teil dessen, was in der Anthroposophischen Gesellschaft verkörpert sein soll, in den wichtigsten, in entscheidenden Momenten seinen Bestand gezeigt hat. Es ist heute schon mit Recht darauf hingewiesen worden, dass dieser Bestand sich gezeigt hat, als die Idee zu diesem jetzt verlorenen Bau gefasst wurde und wirklich in innigem Einklange der Herzen und der Seelen dieser Bau in Angriff genommen und weitergeführt worden ist, nachdem sowohl im Anfange wie im weiteren Verlauf unbegrenzte Opfer von seiten unserer lieben Freunde für die Arbeit, für das Instandsetzen des Werkes, gebracht worden sind - Opfer, deren Größe ja nur bemessen werden könnte, wenn man überall im einzelnen hinweisen würde darauf, wie schwer sie manchem geworden sind. Aber man braucht das nicht. Sie sind ja wirklich in dem Sinne aus anthroposophischem Geiste hervorgegangen, dass sie in Liebe, in inniger Liebe gebracht worden sind, und das ist ganz gewiss einer der Hauptteile der Impulse, die innerhalb der Anthroposophischen Gesellschaft wirken sollen. Und wir haben in der Brandnacht diese Impulse wiederum in einer ganz hervorragenden Weise wirken gesehen. Es kann eigentlich kaum ein wirklich fühlendes Herz geben, das nicht in innigster Dankbarkeit gegen alle Freunde und gegen das Schicksal empfinden würde, was sich in dieser Weise geoffenbart hat. Und ich möchte noch weitergehen. Ich möchte sagen: Soweit es möglich war, immer mehr und immer intimer die Anthroposophische Gesellschaft kennenzulernen von dieser Seite her, desto mehr hat sich die gefühlsmäßige Überzeugung ergeben, dass es an dieser Liebe ganz gewiss auch in der Zukunft nicht fehlen wird. Sie hat sich in einer so starken Weise seit zehn Jahren während dieses Baues geoffenbart, sie hat sich in einer so wunderbaren Weise in der Brandnacht geoffenbart, dass sie eben einfach als etwas angesprochen werden kann, was Dauer verspricht für die Zukunft. Alles hat hier gearbeitet in seiner Art. Da hätte ich wahrhaftig nicht nötig gehabt, aufzurufen zur Verständigung der jungen und der Alten, wenn es sich gehandelt haben würde um das, was aus dieser Liebe heraus zu vollbringen ist und was im Grunde noch immer vollbracht wird; denn es ist ja auch eine gewisse opferwillige Arbeit, manche Nächte hier mit Wachdiensten zuzubringen und dergleichen, und es ist schon unsere Sache, alle Einzelheiten anzuerkennen. Und im Grunde genommen, wenn wir die Arbeit der jungen Leute während der letzten Tage hier betrachten, so werden wir sagen müssen: Nach dieser Arbeit sind sie in bezug auf den Punkt, den ich jetzt hervorgehoben habe, wahrhaftig schon ganze Anthroposophen geworden, so wie die Alten."
+          "content": "|841|Es ist in hohem Maße befriedigend, dass heute abend wiederholt hingedeutet worden ist auf jene Tatsache, die niemals innerhalb der Kreise der Anthroposophischen Gesellschaft vergessen werden darf: Es ist die Tatsache, dass ja ein Teil, und zwar, ich gestehe es offen, sogar der allerwesentlichste Teil dessen, was in der Anthroposophischen Gesellschaft verkörpert sein soll, in den wichtigsten, in entscheidenden Momenten seinen Bestand gezeigt hat. Es ist heute schon mit Recht darauf hingewiesen worden, dass dieser Bestand sich gezeigt hat, als die Idee zu diesem jetzt verlorenen Bau gefasst wurde und wirklich in innigem Einklange der Herzen und der Seelen dieser Bau in Angriff genommen und weitergeführt worden ist, nachdem sowohl im Anfange wie im weiteren Verlauf unbegrenzte Opfer von seiten unserer lieben Freunde für die Arbeit, für das Instandsetzen des Werkes, gebracht worden sind - Opfer, deren Größe ja nur bemessen werden könnte, wenn man überall im einzelnen hinweisen würde darauf, wie schwer sie manchem geworden sind. Aber man braucht das nicht. Sie sind ja wirklich in dem Sinne aus anthroposophischem Geiste hervorgegangen, dass sie in Liebe, in inniger Liebe gebracht worden sind, und das ist ganz gewiss einer der Hauptteile der Impulse, die innerhalb der Anthroposophischen Gesellschaft wirken sollen. Und wir haben in der Brandnacht diese Impulse wiederum in einer ganz hervorragenden Weise wirken gesehen. Es kann eigentlich kaum ein wirklich fühlendes Herz geben, das nicht in innigster Dankbarkeit gegen alle Freunde und gegen das Schicksal empfinden würde, was sich in dieser Weise geoffenbart hat. Und ich möchte noch weitergehen. Ich möchte sagen: Soweit es möglich war, immer mehr und immer intimer die Anthroposophische Gesellschaft kennenzulernen von dieser Seite her, desto mehr hat sich die gefühlsmäßige Überzeugung ergeben, dass es an dieser Liebe ganz gewiss auch in der Zukunft nicht fehlen wird. Sie hat sich in einer so starken Weise seit zehn Jahren während dieses Baues geoffenbart, sie hat sich in einer so wunderbaren Weise in der Brandnacht geoffenbart, dass sie eben einfach als etwas angesprochen werden kann, was Dauer verspricht für die Zukunft. Alles hat hier gearbeitet in seiner Art. Da hätte ich wahrhaftig nicht nötig gehabt, aufzurufen zur Verständigung der jungen und der Alten, wenn es sich gehandelt haben würde um das, was aus dieser Liebe heraus zu vollbringen ist und was im Grunde noch immer vollbracht wird; denn es ist ja auch eine gewisse opferwillige Arbeit, manche Nächte hier mit Wachdiensten zuzubringen und dergleichen, und es ist schon unsere Sache, alle Einzelheiten anzuerkennen. Und im Grunde genommen, wenn wir die Arbeit der jungen Leute während der letzten Tage hier betrachten, so werden wir sagen müssen: Nach dieser Arbeit sind sie in bezug auf den Punkt, den ich jetzt hervorgehoben habe, wahrhaftig schon ganze Anthroposophen geworden, so wie die Alten."
         },
         {
           "index": "^swteww",
@@ -276,7 +282,7 @@
         },
         {
           "index": "^8i4z3f",
-          "content": "Nun, meine lieben Freunde, lassen Sie mich eines sagen - Sie müssen es mir nicht übelnehmen, nachdem Sie ja soeben gehört haben, dass ich alles das, was in so schöner Weise heute gesprochen worden ist, ganz tief im Herzen empfinde -, dass ich eigentlich die Realität der Anthroposophischen Gesellschaft von seiten der zusammenwirkenden Liebe soweit für verwirklicht halte, als ich völlig überzeugt bin, von dieser Seite her werden dem Wiederaufbau des Goetheanum keine Hindernisse erwachsen. Diese Liebe erkenne ich schon als etwas, was so dauernd ist, dass wir damit das Goetheanum aufbauen können. Aber gerade indem ich das sage, werden Sie es mir nicht übelnehmen, wenn ich einige andere Bedingungen daran knüpfe, ohne deren Erfüllung ich mir heute, so wie die Dinge geworden sind, nicht denken kann, dass der nun einmal notwendige Aufbau des Goetheanum zu weiterem führen kann als zu einer unermeßlichen Vermehrung der Rippenstöße, von denen ich gesprochen habe, der Rippenstöße, die ich nicht persönlich meine, sondern die ich durchaus für die Sache, für die anthroposophische Sache, meine."
+          "content": "Nun, meine lieben Freunde, lassen Sie mich eines sagen - Sie müssen es mir nicht übelnehmen, nachdem Sie ja soeben gehört haben, dass ich alles das, was in so schöner Weise heute gesprochen worden ist, ganz tief im Herzen empfinde -, dass ich eigentlich die Realität der Anthroposophischen Gesellschaft von seiten der zusammenwirkenden Liebe soweit für verwirklicht halte, als ich völlig überzeugt bin, von dieser Seite her werden dem Wiederaufbau des Goetheanum keine Hindernisse erwachsen. Diese Liebe erkenne ich schon als etwas, was so dauernd ist, dass wir damit das Goetheanum aufbauen können. Aber gerade indem ich das sage, werden Sie es mir nicht übelnehmen, wenn ich einige andere Bedingungen daran knüpfe, ohne deren Erfüllung ich mir heute, so wie die Dinge geworden sind, nicht denken kann, dass der nun einmal notwendige Aufbau des Goetheanum zu weiterem führen kann als zu einer unermesslichen Vermehrung der Rippenstöße, von denen ich gesprochen habe, der Rippenstöße, die ich nicht persönlich meine, sondern die ich durchaus für die Sache, für die anthroposophische Sache, meine."
         },
         {
           "index": "^93mj8m",
@@ -284,7 +290,7 @@
         },
         {
           "index": "^1dhlii",
-          "content": "Und was die Gegnerschaft betrifft: Die meisten unserer Freunde werden ja wissen, wie wenig ich mir innerlich mit dieser Gegnerschaft eigentlich zu tun mache und wie ich nur den Notwendigkeiten weiche, wenn es sich eben darum handelt, äußerlich sich mit ihr zu tun zu machen. Aber man muss sich dann mit ihr zu tun machen, wenn es sich um die inneren Bedingungen des Daseins der anthroposophischen Bewegung handelt. Bis zum Jahre 1918 waren die Gegnerschaften zu ertragen, durchaus zu ertragen, so häßlich sie da oder dort aufgetreten sind."
+          "content": "Und was die Gegnerschaft betrifft: Die meisten unserer Freunde werden ja wissen, wie wenig ich mir innerlich mit dieser Gegnerschaft eigentlich zu tun mache und wie ich nur den Notwendigkeiten weiche, wenn es sich eben darum handelt, äußerlich sich mit ihr zu tun zu machen. Aber man muss sich dann mit ihr zu tun machen, wenn es sich um die inneren Bedingungen des Daseins der anthroposophischen Bewegung handelt. Bis zum Jahre 1918 waren die Gegnerschaften zu ertragen, durchaus zu ertragen, so hässlich sie da oder dort aufgetreten sind."
         },
         {
           "index": "^s7oz21",
@@ -312,15 +318,15 @@
         },
         {
           "index": "^0dxl13",
-          "content": "Ich weiß, dass ich damit gerade zu dem Gros der Anthroposophischen Gesellschaft nicht spreche; das Gros der Anthroposophischen Gesellschaft hat, wo es darauf ankam, das ihre zu tun, dieses immer getan. Um was es sich handelt, ist, dass nicht in die Anthroposophische Gesellschaft Arbeitsmethoden hineingetragen werden, die eigentlich Unmethoden sind. Es muss energisches Wollen hineingetragen werden, nicht bloßes Wünschen, energisches Wollen, nicht bloßes Aufstellen von Idealen, energisches Wollen auf seinem Gebiete, nicht bloß etwa sich hinstellen und in die Gebiete der anderen hineinpfuschen. Es handelt sich darum, mit klarem Auge und mit energischem Willen, mit gutem energischem Willen andere Arbeitsmethoden eintreten zu lassen als diejenigen, die seit vier Jahren in vielen Kreisen oder wenigstens in einzelnen Kreisen beliebt geworden sind und die in ihrer Unmethodik vielleicht das Gros der Mitglieder noch gar nicht einmal in der richtigen Weise angeschaut hat. Offenes Auge haben ist dasjenige, was wir brauchen."
+          "content": "Ich weiß, dass ich damit gerade zu dem Gros der Anthroposophischen Gesellschaft nicht spreche; das Gros der |843|Anthroposophischen Gesellschaft hat, wo es darauf ankam, das ihre zu tun, dieses immer getan. Um was es sich handelt, ist, dass nicht in die Anthroposophische Gesellschaft Arbeitsmethoden hineingetragen werden, die eigentlich Unmethoden sind. Es muss energisches Wollen hineingetragen werden, nicht bloßes Wünschen, energisches Wollen, nicht bloßes Aufstellen von Idealen, energisches Wollen auf seinem Gebiete, nicht bloß etwa sich hinstellen und in die Gebiete der anderen hineinpfuschen. Es handelt sich darum, mit klarem Auge und mit energischem Willen, mit gutem energischem Willen andere Arbeitsmethoden eintreten zu lassen als diejenigen, die seit vier Jahren in vielen Kreisen oder wenigstens in einzelnen Kreisen beliebt geworden sind und die in ihrer Unmethodik vielleicht das Gros der Mitglieder noch gar nicht einmal in der richtigen Weise angeschaut hat. Offenes Auge haben ist dasjenige, was wir brauchen."
         },
         {
           "index": "^5u3d3j",
-          "content": "Ich weiß, meine lieben Freunde, mit dem Gros der Mitglieder wird sich gut arbeiten lassen; aber es muss darauf gesehen werden, dass die Wege, die auf vielen Gebieten seit 1919 gegangen worden sind, nicht weiter gegangen werden und dass gerade nach dieser Richtung nicht immer bloß über die Dinge hinweggeredet wird, sondern dass durch Einsicht in die Fehler, durch eine scharfe Beurteilung der Fehler erkannt werde, was in der Zukunft getan werden muss."
+          "content": "Ich weiß, meine lieben Freunde, mit dem Gros der Mitglieder wird sich gut arbeiten lassen|844|; aber es muss darauf gesehen werden, dass die Wege, die auf vielen Gebieten seit 1919 gegangen worden sind, nicht weiter gegangen werden und dass gerade nach dieser Richtung nicht immer bloß über die Dinge hinweggeredet wird, sondern dass durch Einsicht in die Fehler, durch eine scharfe Beurteilung der Fehler erkannt werde, was in der Zukunft getan werden muss."
         },
         {
           "index": "^c68cc5",
-          "content": "Dies, meine lieben Freunde, ist es, um das ich Sie bitte. Ich danke Ihnen herzlich für alles, was hier ausgesprochen worden ist. Ich weiß zu würdigen so wunderschöne Worte, wie sie zum Beispiel Herr Leinhas eben gesprochen hat, bin auch von Herzen innigst dankbar für diese Worte, im Interesse der Anthroposophischen Gesellschaft vor allen Dingen. Aber ich rufe diejenigen Freunde, die noch ein Verständnis haben für die inneren Bedingungen der Anthroposophischen Gesellschaft, auch da, wo sie in ihre peripherischen Zweige hinaus verschwimmt, wo sie praktische Gebiete, praktische Kreise zieht, ich rufe die Freunde dazu auf, nun endlich einmal ernst und würdig ein Ende zu machen mit solchen Methoden, wie sie seit vier Jahren eingerissen sind; zu prüfen, worin die Fehler bestehen, und einzusehen, inwiefern gerade ein großer Teil derjenigen Gegnerschaft, die über viele Gebiete hinaus, über die hinaus es früher kein Hindernis gab, überhaupt die Vorträge unmöglich gemacht hat. Es handelt sich gar nicht so sehr darum, die Gegner zurückzuschlagen; die sind manchmal froh, wenn man ihnen einen Hieb gibt, der nützt ihnen, der schadet ihnen nicht. Es handelt sich nicht um das, sondern es handelt sich darum, dass tatsächlich innerhalb der Anthroposophischen Gesellschaft ein Musterbeispiel gegeben werde von einem methodisch anzuerkennenden, das heißt vom Willen durchdrungenen Arbeiten, nicht von einem Aufstellen von Projekten und Wünschen, die man alle Augenblicke wiederum verlässt, sondern bei denen man bleibt, bei denen man auch wirklich eine hingebungsvolle Arbeit, nicht bloß eine Gschaftlhuberei verrichtet. Das ist es, was einer auf solchen Grundlagen ruhenden Bewegung, wie die anthroposophische Bewegung es ist, vor allen Dingen not tut. Ich muss es aussprechen, weil ich die Liebe erwidere, die mir auch am heutigen Abend wieder ausgesprochen worden ist. Soll ich aber diese Liebe in der richtigen Weise erwidern, dann muss ich aufrichtig sprechen zu denjenigen, die dies erwarten können, und dann muss ich sagen: Es sollen die Freunde, auf die es ankommt, einmal ernstlich erwägen, welche Methoden, die in den letzten vier Jahren zu Unmethoden geworden sind, zu verlassen sind. Dann erst wird die schöne Liebe, diese nicht nur unanfechtbare, sondern nicht hoch genug anzuschlagende Liebe, in der zusammengearbeitet worden ist in der Anthroposophischen Gesellschaft bis zum Baubeginn und während des Baues bis 1918, dann wird diese Liebe in das richtige Fahrwasser, in die richtige Strömung geleitet werden. Und ich bitte vor allen Dingen, die Sache so zu betrachten, dass die Worte, die ich heute nur aus einem innersten Zwang heraus rede, nicht wiederum taube Ohren finden, sondern ich bitte Sie, die Liebe, wenn sie vorhanden ist, schon so weit zu treiben, dass man auch wirklich ernstlich darauf sieht, dass die Methoden der letzten vier Jahre geprüft werden, damit wir wiederum dazu kommen was notwendig ist -, dass die Anthroposophische Gesellschaft vor allen Dingen bei sich anfängt, dasjenige zu zeigen, was sie von der Außenwelt verlangt. Solange wir unsere inneren Gegner sind, so lange brauchen wir uns, da wir ja auf einem okkulten Boden stehen, nicht zu verwundern, wenn eine furchtbare Gegnerschaft von außen anschlägt. Suchen wir auch da Selbsterkenntnis, so wird sich manches in das richtige Licht stellen lassen."
+          "content": "Dies, meine lieben Freunde, ist es, um das ich Sie bitte. Ich danke Ihnen herzlich für alles, was hier ausgesprochen worden ist. Ich weiß zu würdigen so wunderschöne Worte, wie sie zum Beispiel Herr Leinhas eben gesprochen hat, bin auch von Herzen innigst dankbar für diese Worte, im Interesse der Anthroposophischen Gesellschaft vor allen Dingen. |845|Aber ich rufe diejenigen Freunde, die noch ein Verständnis haben für die inneren Bedingungen der Anthroposophischen Gesellschaft, auch da, wo sie in ihre peripherischen Zweige hinaus verschwimmt, wo sie praktische Gebiete, praktische Kreise zieht, ich rufe die Freunde dazu auf, nun endlich einmal ernst und würdig ein Ende zu machen mit solchen Methoden, wie sie seit vier Jahren eingerissen sind; zu prüfen, worin die Fehler bestehen, und einzusehen, inwiefern gerade ein großer Teil derjenigen Gegnerschaft, die über viele Gebiete hinaus, über die hinaus es früher kein Hindernis gab, überhaupt die Vorträge unmöglich gemacht hat. Es handelt sich gar nicht so sehr darum, die Gegner zurückzuschlagen; die sind manchmal froh, wenn man ihnen einen Hieb gibt, der nützt ihnen, der schadet ihnen nicht. Es handelt sich nicht um das, sondern es handelt sich darum, dass tatsächlich innerhalb der Anthroposophischen Gesellschaft ein Musterbeispiel gegeben werde von einem methodisch anzuerkennenden, das heißt vom Willen durchdrungenen Arbeiten, nicht von einem Aufstellen von Projekten und Wünschen, die man alle Augenblicke wiederum verlässt, sondern bei denen man bleibt, bei denen man auch wirklich eine hingebungsvolle Arbeit, nicht bloß eine Gschaftlhuberei verrichtet. Das ist es, was einer auf solchen Grundlagen ruhenden Bewegung, wie die anthroposophische Bewegung es ist, vor allen Dingen not tut. Ich muss es aussprechen, weil ich die Liebe erwidere, die mir auch am heutigen Abend wieder ausgesprochen worden ist. Soll ich aber diese Liebe in der richtigen Weise erwidern, dann muss ich aufrichtig sprechen zu denjenigen, die dies erwarten können, und dann muss ich sagen: Es sollen die Freunde, auf die es ankommt, einmal ernstlich erwägen, welche Methoden, die in den letzten vier Jahren zu Unmethoden geworden sind, zu verlassen sind. Dann erst wird die schöne Liebe, diese nicht nur unanfechtbare, sondern nicht |846|hoch genug anzuschlagende Liebe, in der zusammengearbeitet worden ist in der Anthroposophischen Gesellschaft bis zum Baubeginn und während des Baues bis 1918, dann wird diese Liebe in das richtige Fahrwasser, in die richtige Strömung geleitet werden. Und ich bitte vor allen Dingen, die Sache so zu betrachten, dass die Worte, die ich heute nur aus einem innersten Zwang heraus rede, nicht wiederum taube Ohren finden, sondern ich bitte Sie, die Liebe, wenn sie vorhanden ist, schon so weit zu treiben, dass man auch wirklich ernstlich darauf sieht, dass die Methoden der letzten vier Jahre geprüft werden, damit wir wiederum dazu kommen was notwendig ist -, dass die Anthroposophische Gesellschaft vor allen Dingen bei sich anfängt, dasjenige zu zeigen, was sie von der Außenwelt verlangt. Solange wir unsere inneren Gegner sind, |847|so lange brauchen wir uns, da wir ja auf einem okkulten Boden stehen, nicht zu verwundern, wenn eine furchtbare Gegnerschaft von außen anschlägt. Suchen wir auch da Selbsterkenntnis, so wird sich manches in das richtige Licht stellen lassen."
         },
         {
           "index": "^bmwhrb",
@@ -337,6 +343,7 @@
       "fileName": "GA259/7 - MAHNWORTE ZUR ERWECKUNG DES NOTWENDIGEN GESELLSCHAFTSBEWUSSTSEINS, Dornach, 14. Januar 1923",
       "location": "Dornach",
       "date": "1923-01-14",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^c7zs5i",
@@ -356,7 +363,7 @@
         },
         {
           "index": "^pkfd49",
-          "content": "Sehen Sie, der Bau hat ja viele außerordentlich schöne Eigenschaften der Anthroposophen an die Oberfläche gebracht; aber parallel hätte gehen müssen eine lebendige Erkraftung der Gesellschaft selbst. Es sind mit vollem Recht viele schöne Eigenschaften am Ende unseres Kurses neulich genannt worden, die hervorgetreten sind während des Baues, hervorgetreten sind während der Brandnacht. Aber diese Eigenschaften brauchen Führung, brauchen vor allen Dingen aber auch dieses, dass jeder, der irgend etwas zu tun hat, auch innerhalb der Gesellschaft etwas zu tun hat, nicht dasjenige hineinträgt in die Gesellschaft, was heute eben gang und gäbe ist, sondern dass jeder vor allen Dingen alles, was er für die Gesellschaft zu machen hat, mit wirklichem persönlichem Interesse und Anteil tue. Und dieses persönliche Interesse und diesen persönlichen Anteil, den muss man leider gerade da vermissen, wo Persönlichkeiten für die Gesellschaft das eine oder das andere tun."
+          "content": "Sehen Sie, der Bau hat ja viele außerordentlich schöne Eigenschaften der Anthroposophen an die Oberfläche gebracht; aber parallel hätte gehen müssen eine lebendige Erkraftung der Gesellschaft selbst. Es sind mit vollem Recht viele schöne Eigenschaften am Ende unseres Kurses neulich genannt worden, die hervorgetreten sind während des Baues, hervorgetreten sind während der Brandnacht. Aber diese Eigenschaften brauchen Führung, brauchen vor allen Dingen aber auch dieses, dass jeder, der irgend etwas zu tun hat, auch innerhalb der Gesellschaft etwas zu tun hat, nicht dasjenige hineinträgt in die Gesellschaft, was heute eben gang und gäbe ist, sondern dass jeder vor allen Dingen alles, |88|was er für die Gesellschaft zu machen hat, mit wirklichem persönlichem Interesse und Anteil tue. Und dieses persönliche Interesse und diesen persönlichen Anteil, den muss man leider gerade da vermissen, wo Persönlichkeiten für die Gesellschaft das eine oder das andere tun."
         },
         {
           "index": "^wtqxdo",
@@ -364,7 +371,7 @@
         },
         {
           "index": "^3qley2",
-          "content": "Dass Gegnerschaft in sachlicher Beziehung da ist, das muss man begreifen, das muss man aus dem objektiven Weltengang heraus begreifen. Manchmal aber bin ich doch - und ich habe es ja auch öffentlich ausgesprochen - erstaunt darüber, wie wenig innere Anteilnahme da ist, wenn die Gegnerschaft so ausartet, dass sie einfach von objektiven Unwahrheiten nur so wimmelt. Wir müssen sachlich in der positi|87|ven Verteidigung der Anthroposophie bleiben, wenn es sich um Sachliches handelt. Aber wir müssen uns auch wirklich dazu aufschwingen können, zu begreifen, dass Anthroposophie nur bestehen kann in der Atmosphäre der Wahrhaftigkeit; dass wir daher auch ein Gefühl entwickeln müssen dafür, was es heißt, wenn so viel von Unwahrhaftigkeit, von objektiver Verleumdung demjenigen entgegengebracht wird, was sich auf anthroposophischem Felde geltend macht. Da brauchen wir wirklich inneres Leben. Und da haben wir heute reichlich Gelegenheit dazu, zu erwachen. Dann wird der Impuls des Erwachens vielleicht sich auch auf anderes ausdehnen. Aber wenn man jemanden schlafen sieht, während die Flammen der Unwahrheit überall sich geltend machen, dann braucht man sich nicht zu verwundern, wenn auch der Stichl weiterschläft."
+          "content": "Dass Gegnerschaft in sachlicher Beziehung da ist, das muss man begreifen, das muss man aus dem objektiven Weltengang heraus begreifen. Manchmal aber bin ich doch - und ich habe es ja auch öffentlich ausgesprochen - erstaunt darüber, wie wenig innere Anteilnahme da ist, wenn die Gegnerschaft so ausartet, dass sie einfach von objektiven Unwahrheiten nur so wimmelt. Wir müssen sachlich in der positiven Verteidigung der Anthroposophie bleiben, wenn es sich um Sachliches handelt. Aber wir müssen uns auch wirklich dazu aufschwingen können, zu begreifen, dass Anthroposophie nur bestehen kann in der Atmosphäre der Wahrhaftigkeit; dass wir daher auch ein Gefühl entwickeln müssen dafür, was es heißt, wenn so viel von Unwahrhaftigkeit, von objektiver Verleumdung demjenigen entgegengebracht wird, was sich auf anthroposophischem Felde geltend macht. Da brauchen wir wirklich inneres Leben. Und da haben wir heute reichlich Gelegenheit dazu, zu erwachen. Dann wird der Impuls des Erwachens vielleicht sich auch auf anderes ausdehnen. Aber wenn man jemanden schlafen sieht, während die Flammen der Unwahrheit überall sich geltend machen, dann braucht man sich nicht zu verwundern, wenn auch der Stichl weiterschläft."
         },
         {
           "index": "^2bmiqt",
@@ -381,10 +388,11 @@
       "fileName": "GA259/8 - Dornach, 19. Januar 1923 anschließend an den Abendvortrag",
       "location": null,
       "date": "1923-01-19",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^g5ym6o",
-          "content": "Ich habe heute vernommen,* dass allerlei im Munde von Anthroposophen überflüssige Anekdoten herumgetragen werden, die, ich möchte sagen, aufgestachelt werden vielleicht durch die oder jene Empfindung gegenüber unserem großen Unglücke, mit der Katastrophe des Goetheanum. Aber so ungern ich ja so etwas tue, möchte ich auch wiederum bei dieser Gelegenheit darauf aufmerksam machen, dass die Mitgliedschaft zur Anthroposophischen Gesellschaft gewisse Verpflichtungen auferlegt, vor allen Dingen die Verpflichtung, nicht Angriffspunkt zu geben dadurch, dass wir solche Anekdoten herumtragen. **\n\n* Bei der Rückkehr von den ersten Stuttgarter Verhandlungen."
+          "content": "|887|Ich habe heute vernommen,* dass allerlei im Munde von Anthroposophen überflüssige Anekdoten herumgetragen |889|werden, die, ich möchte sagen, aufgestachelt werden vielleicht durch die oder jene Empfindung gegenüber unserem großen Unglücke, mit der Katastrophe des Goetheanum. Aber so ungern ich ja so etwas tue, möchte ich auch wiederum bei dieser Gelegenheit darauf aufmerksam machen, dass die Mitgliedschaft zur Anthroposophischen Gesellschaft gewisse Verpflichtungen auferlegt, vor allen Dingen die Verpflichtung, nicht Angriffspunkt zu geben dadurch, dass wir solche Anekdoten herumtragen. **\n\n* Bei der Rückkehr von den ersten Stuttgarter Verhandlungen."
         },
         {
           "index": "^uf3vau",
@@ -400,7 +408,7 @@
         },
         {
           "index": "^feuesr",
-          "content": "Gewiss, diese Dinge sind die denkbar unberechtigsten Angriffe; aber auf der anderen Seite darf ich doch wohl bitten, dass nach und nach jener Ernst, der da sein muss in der Anthroposophischen Gesellschaft, von jedem einzelnen Mitgliede geübt werde und nicht Jetzt ausgesprochen werden alle möglichen Anekdoten, die dann von den Gegnern ausgenützt werden. Und die Ausnützung wird ja dann gewöhnlich gerade auf mich abgeladen."
+          "content": "Gewiss, diese Dinge sind die denkbar unberechtigsten |890|Angriffe; |891|aber auf der anderen Seite darf ich doch wohl bitten, dass nach und nach jener Ernst, der da sein muss in der Anthroposophischen Gesellschaft, von jedem einzelnen Mitgliede geübt werde und nicht Jetzt ausgesprochen werden alle möglichen Anekdoten, die dann von den Gegnern ausgenützt werden. Und die Ausnützung wird ja dann gewöhnlich gerade auf mich abgeladen."
         },
         {
           "index": "^o36d3q",
@@ -417,10 +425,11 @@
       "fileName": "GA259/9 - Dornach, Samstag, 20. Januar 1923, Zweiter Teil des Abendvortrages",
       "location": "Samstag",
       "date": "1923-01-20",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^n3n803",
-          "content": ". . . Denn das, was uns in anthroposophischer Geisteswissenschaft entgegentritt, will nicht in derselben Weise hingenommen werden wie die Zivilisationsprodukte der Gegenwart, sondern es will Anregung sein zu einem besonderen Anschauen der Welt."
+          "content": "|933|. . . Denn das, was uns in anthroposophischer Geisteswissenschaft entgegentritt, will nicht in derselben Weise hingenommen werden wie die Zivilisationsprodukte der Gegenwart, sondern es will Anregung sein zu einem besonderen Anschauen der Welt."
         },
         {
           "index": "^4rkfnx",
@@ -428,7 +437,7 @@
         },
         {
           "index": "^cpebe2",
-          "content": "Das ist gemeint, wenn gesagt wird: In der Anthroposophischen Gesellschaft soll nicht bloß vom Geist im allgemeinen gesprochen werden - das tut auch der Pantheist -, sondern in der Anthroposophischen Gesellschaft soll man sich bewusst sein, mit dem Geiste wieder leben zu können. Dann würde ja ganz von selbst in die Anthroposophische Gesellschaft einziehen dieses Im-Geist-Leben auch wiederum mit andern Menschen. Man würde sagen: Die Anthroposophische Gesellschaft ist dazu da, um unseren Hegern und Pflegern aus alten Zeiten zurückzuzahlen, was sie an uns getan haben, und man würde gewahr werden die Realität des innerhalb der Anthroposophischen Gesellschaft waltenden Geistes. Und von den alten Gefühlen und den alten Empfindungen, die heute noch traditionell unter den Menschen leben, würde vieles verschwinden, und es würde sich ein reales Gefühl entwickeln von einer ganz bestimmten Aufgabe der Anthroposophischen Gesellschaft. Und alles, was sich sonst ausbildet, würde jetzt erst seinen wahren Sinn erhalten."
+          "content": "Das ist gemeint, wenn gesagt wird: In der Anthroposophischen Gesellschaft soll nicht bloß vom Geist im allgemeinen gesprochen werden - das tut auch der Pantheist -, sondern in der Anthroposophischen Gesellschaft soll man sich bewusst sein, mit dem Geiste wieder leben zu können. Dann würde ja ganz von selbst in die Anthroposophische Gesellschaft einziehen dieses Im-Geist-Leben auch wiederum mit andern Menschen. Man würde sagen: Die Anthroposophische Gesellschaft ist dazu da, um unseren Hegern und Pflegern aus alten Zeiten zurückzuzahlen, was sie an uns |935|getan haben, und man würde gewahr werden die Realität des innerhalb der Anthroposophischen Gesellschaft waltenden Geistes. Und von den alten Gefühlen und den alten Empfindungen, die heute noch traditionell unter den Menschen leben, würde vieles verschwinden, und es würde sich ein reales Gefühl entwickeln von einer ganz bestimmten Aufgabe der Anthroposophischen Gesellschaft. Und alles, was sich sonst ausbildet, würde jetzt erst seinen wahren Sinn erhalten."
         },
         {
           "index": "^uxo0u4",
@@ -452,7 +461,7 @@
         },
         {
           "index": "^copqxw",
-          "content": "Denken Sie nur, was wird uns alles heute durch die Zeitungen berichtet. Die Zeitungen fühlen sich verpflichtet, alles zu berichten, gleichgültig ob irgendwie konstatiert werden kann, dass es so sei oder nicht so sei. Und dann spürt man oftmals, wenn irgend jemand etwas erzählt, wie die Bemühung fehlt, daraufzukommen, wie das konstatiert worden ist seiner Tatsächlichkeit nach. Dann hört man oftmals das Urteil: Ja, warum sollte das denn nicht so sein können? Ganz gewiss, wenn man so an die Welt herangeht, dass man von irgend etwas, das behauptet wird, sagt: Warum sollte denn das nicht sein können - , dann kann man nicht zu einer inneren Wahrhaftigkeit kommen. Denn was wir an uns erziehen im Anschauen der äußeren Sinneswelt, das muss gerade unter Anthroposophen so gestaltet werden, dass man streng stehenbleibt bei dem Konstatieren desjenigen, was in der äußeren Sinneswelt einem vor Augen getreten ist. Eine sehr merkwürdige Folge würde ja allerdings die Verfolgung eines solchen Zieles in der heutigen zivilisierten Welt haben. Wenn es durch irgendein Wunder geschehen könnte, dass viele Menschen dazu gezwungen würden, nur so ihre Worte zu prägen, wie es genau den Tatsachen entspricht, dann würde ein weitverbreitetes Verstummen entstehen. Denn das meiste, was heute geredet wird, entspricht eben nicht den konstatierten Tatsachen, sondern wird aus allerlei Meinungen, aus allerlei Leidenschaften heraus gesprochen."
+          "content": "Denken Sie nur, was wird uns alles heute durch die Zeitungen |937|berichtet. Die Zeitungen fühlen sich verpflichtet, alles zu berichten, gleichgültig ob irgendwie konstatiert werden kann, dass es so sei oder nicht so sei. Und dann spürt man oftmals, wenn irgend jemand etwas erzählt, wie die Bemühung fehlt, daraufzukommen, wie das konstatiert worden ist seiner Tatsächlichkeit nach. Dann hört man oftmals das Urteil: Ja, warum sollte das denn nicht so sein können? Ganz gewiss, wenn man so an die Welt herangeht, dass man von irgend etwas, das behauptet wird, sagt: Warum sollte denn das nicht sein können - , dann kann man nicht zu einer inneren Wahrhaftigkeit kommen. Denn was wir an uns erziehen im Anschauen der äußeren Sinneswelt, das muss gerade unter Anthroposophen so gestaltet werden, dass man streng stehenbleibt bei dem Konstatieren desjenigen, was in der äußeren Sinneswelt einem vor Augen getreten ist. Eine sehr merkwürdige Folge würde ja allerdings die Verfolgung eines solchen Zieles in der heutigen zivilisierten Welt haben. Wenn es durch irgendein Wunder geschehen könnte, dass viele Menschen dazu gezwungen würden, nur so ihre Worte zu prägen, wie es genau den Tatsachen entspricht, dann würde ein weitverbreitetes Verstummen entstehen. Denn das meiste, was heute geredet wird, entspricht eben nicht den konstatierten Tatsachen, sondern wird aus allerlei Meinungen, aus allerlei Leidenschaften heraus gesprochen."
         },
         {
           "index": "^uqcqt7",
@@ -505,6 +514,7 @@
       "fileName": "GA259/10 - Dornach, 21. Januar 1923",
       "location": null,
       "date": "1923-01-21",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^suv3g1",
@@ -549,6 +559,7 @@
       "fileName": "GA259/11 - Dornach, 3. Februar 1923",
       "location": null,
       "date": "1923-02-03",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^cr5yhg",
@@ -568,7 +579,7 @@
         },
         {
           "index": "^h6wce1",
-          "content": "Weil es eben in der Anthroposophischen Gesellschaft nicht so ist, wie es sein sollte, so muss jetzt Mannigfaltiges getan werden, und ich bin genötigt, noch einmal eine kurze Reise nach Stuttgart zu machen. Daher muss ich noch einmal bitten, morgen den Vortrag um 11 Uhr halten zu können, damit alle nötigen sonstigen Proben, Vorbereitungen und so weiter auf den Abend verlegt werden können. So dass wir morgen meinen Vortrag um 11 Uhr vormittags haben können, die Eurythmievorstellung um 5 Uhr nachmittags. Sie wird aber wirklich so sein, dass, wenn zwar nicht so neu wie vor 8 Tagen, wir auch da wieder sagen können: Anthroposophen sollten so viel an Enthusiasmus aufbringen können, dass sie zweimal den Berg heraufsteigen. Also ich möchte das nicht als Entschuldigung gelten lassen für den etwaigen NichtBesuch der Eurythmievorstellung, dass man zweimal heraufkommen muss. Aber es liegt eben in den Unvollkommenheiten der Anthroposophischen Gesellschaft, dass wir morgen die Zeit zu kommen zweimal brauchen: um 11 Uhr zum Vortrag und um 5 Uhr zur Eurythmievorstellung."
+          "content": "Weil es eben in der Anthroposophischen Gesellschaft nicht so ist, wie es sein sollte, so muss jetzt Mannigfaltiges getan werden, und ich bin genötigt, noch einmal eine kurze Reise nach Stuttgart zu machen. Daher muss ich noch einmal bitten, morgen den Vortrag um 11 Uhr halten zu können, damit alle nötigen sonstigen Proben, Vorbereitungen und so weiter auf den Abend verlegt werden können. So dass wir morgen meinen Vortrag um 11 Uhr vormittags haben können, die Eurythmievorstellung um 5 Uhr nachmittags. Sie wird aber wirklich so sein, dass, wenn zwar nicht so neu wie vor 8 Tagen, wir auch da wieder sagen können: Anthroposophen sollten so viel an Enthusiasmus aufbringen können, dass sie zweimal den Berg heraufsteigen. Also ich möchte das nicht als Entschuldigung gelten lassen für den etwaigen Nicht-Besuch der Eurythmievorstellung, dass man zweimal heraufkommen muss. Aber es liegt eben in den Unvollkommenheiten der Anthroposophischen Gesellschaft, dass wir morgen die Zeit zu kommen zweimal brauchen: um 11 Uhr zum Vortrag und um 5 Uhr zur Eurythmievorstellung."
         }
       ]
     },
@@ -581,6 +592,7 @@
       "fileName": "GA259/12 - Dornach, 4. Februar 1923",
       "location": null,
       "date": "1923-02-04",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^sh1iqz",
@@ -716,7 +728,7 @@
         },
         {
           "index": "^bvugq1",
-          "content": "Das ist dasjenige, was ich Ihnen sagen wollte, denn wir sind noch immer nicht zu Ende mit den jetzigen Reisen nach Stuttgart. Ich muss morgen wieder dahin. Der nächste Vortrag wird am nächsten Freitag sein. Heute nachmittag wird dann hier eine Eurythmie-Vorstellung um 5 Uhr stattfinden. Ich bitte noch einmal, den zweiten Weg nicht zu scheuen; die Vorbereitungen zur Reise machten es notwendig, dass sich dieser Vortrag nicht anschließt an die EurythmieDarbietung, sondern dass er eben am Vormittag gehalten werden muss."
+          "content": "Das ist dasjenige, was ich Ihnen sagen wollte, denn wir sind noch immer nicht zu Ende mit den jetzigen Reisen nach Stuttgart. Ich muss morgen wieder dahin. Der nächste Vortrag wird am nächsten Freitag sein. Heute nachmittag wird dann hier eine Eurythmie-Vorstellung um 5 Uhr stattfinden. Ich bitte noch einmal, den zweiten Weg nicht zu scheuen; die Vorbereitungen zur Reise machten es notwendig, dass sich dieser Vortrag nicht anschließt an die Eurythmie-Darbietung, sondern dass er eben am Vormittag gehalten werden muss."
         }
       ]
     },
@@ -729,6 +741,7 @@
       "fileName": "GA259/14 - Dornach, 16. Februar 1923",
       "location": null,
       "date": "1923-02-16",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^vfz0dk",
@@ -765,6 +778,7 @@
       "fileName": "GA259/15 - Dornach, 22. Februar 1923",
       "location": null,
       "date": "1923-02-22",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^psx5bk",
@@ -801,6 +815,7 @@
       "fileName": "GA259/16 - ANSPRACHE IN EINER SITZUNG DES «BUNDES FÜR FREIES GEISTESLEBEN», Stuttgart, 1. März 1923",
       "location": "Stuttgart",
       "date": "1923-03-01",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^9j71o7",
@@ -808,7 +823,7 @@
         },
         {
           "index": "^mamra7",
-          "content": "Wenn der «Bund für Freies Geistesleben» Aufgaben bekommen soll, so kann es nur unter Berücksichtigung der Wirklichkeit sein. Schon bei der Konstitution * habe ich darauf aufmerksam gemacht, auf was es ankommt. Bis zum letzten Drittel des 19. Jahrhunderts hat es eigentlich diesen Bund gegeben und [er] bestand aus Menschen, die sich als freie Geister abhoben von dem philiströsen Geistesleben. Der Unterschied zwischen alt und jung, wie er sich heute heraushebt, ist oberflächlich. Früher bestand von der vierten nachatlantischen Kultur her eine natürliche Autorität, aber schon zur Goethe-Zeit ging der Mensch in seinem Alter in die Philistrosität ein. Goethe selbst war in seinem Alter natürlich immer der geniale Mensch, aber nebenbei auch der dicke Geheimrat mit dem Doppelkinn. Jetzt sind wir in die Epoche der Freiheit eingetreten, das kommt in der Jugend zum Ausdruck. Goethe schildert zum Beispiel in seinen «Unterhaltungen deutscher Ausgewanderter» einen solchen Bund, der instinktiv vorhanden war. Da besprechen sich Menschen der verschiedensten Sphären auf völlig freiem neutralen Boden; auch ein Spiritist ist dabei. Solche Menschen haben sich immer unterschieden von den philiströsen geistigen Zusammenhängen, wie zum Beispiel Theologen, Juristen, Mediziner und was aus der vierten Fakultät hervorgegangen ist. Ein solcher Bund muss in bewusster Weise entwickelt werden. Zur Zeit des Wiener Kongresses [gemeint ist der internationale Kongreß der anthroposophischen Bewegung vom Juni 1922 in Wien] wurde ein sogenannter Kulturb- und von sieben Menschen begründet, natürlich in falscher Weise, es war auch ein Jesuit dabei. Aber es handelt sich um eine |122|weltmännische Angelegenheit. Dieser Kulturb- und schilderte in der ersten Nummer seiner Zeitschrift die Idee der Dreigliederung, wenn auch in versteckter Weise, aber durchaus sachgemäß. Da ist die Rede von den banausischen Industriellen auf der einen Seite, den Bolschewiken auf der anderen. Dazwischen gibt es eine gewisse Gesellschaftsschicht, die sich zusammengehörig weiß: deklassierte Adelige, die Bildung haben, Leute, die sonst Bildung haben, aber aus der Entwicklung herausfallen, die werden sich international konstituieren und sich überall erkennen. Auf so realer Grundlage muss sich der «Bund für Freies Geistesleben» begründen, aber mit vollem Bewusstsein. Da werden auch die spirituellen Menschen Geltung haben. Die Leute sind sicher da. Von vorhandenen Beziehungen halte ich nichts. Die Dinge müssen sich natürlich ergeben. Vorträge nützen, wenn man den latenten Erfolg ausnützen kann. Man findet die Menschen, wenn man sie an sich herantreten lässt und sie nicht zurückstößt. Es handelt sich um Menschen besonderer Geistesart, um Leute, die eigentlich das Bedürfnis haben, an ein Geistiges heranzukommen außerhalb der Schablone, in die sie durch ihren Bildungsgang hineingestellt sind. In der zerfallenden Sozietät von Europa sind diese Menschen überall zu finden. Sie haben das Bedürfnis, mit Gleichstrebenden in einer Gemeinschaft zu sein auf geistigem Boden. Aus diesen erwachsen die Interessenten für eine freie Hochschule. Am leichtesten wird es auf künstlerischem Gebiete werden. Die Idee einer freien Hochschule innerhalb Mitteleuropas könnte in Amerika das größte Interesse erwecken, gerade finanziell, aber wir brauchen auch die Dozenten dafür, denn wir können nicht immer die gleichen Menschen mit allem belasten.\n\n* Im Juli 1922, ein Protokoll liegt nicht vor."
+          "content": "Wenn der «Bund für Freies Geistesleben» Aufgaben bekommen soll, so kann es nur unter Berücksichtigung der Wirklichkeit sein. Schon bei der Konstitution * habe ich darauf aufmerksam gemacht, auf was es ankommt. Bis zum letzten Drittel des 19. Jahrhunderts hat es eigentlich diesen Bund gegeben und [er] bestand aus Menschen, die sich als freie Geister abhoben von dem philiströsen Geistesleben. Der Unterschied zwischen alt und jung, wie er sich heute heraushebt, ist oberflächlich. Früher bestand von der vierten nachatlantischen Kultur her eine natürliche Autorität, aber schon zur Goethe-Zeit ging der Mensch in seinem Alter in die Philistrosität ein. Goethe selbst war in seinem Alter natürlich immer der geniale Mensch, aber nebenbei auch der dicke Geheimrat mit dem Doppelkinn. Jetzt sind wir in die Epoche der Freiheit eingetreten, das kommt in der Jugend zum Ausdruck. Goethe schildert zum Beispiel in seinen «Unterhaltungen deutscher Ausgewanderter» einen solchen Bund, der instinktiv vorhanden war. Da besprechen sich Menschen der verschiedensten Sphären auf völlig freiem neutralen Boden; auch ein Spiritist ist dabei. Solche Menschen haben sich immer unterschieden von den philiströsen geistigen Zusammenhängen, wie zum Beispiel Theologen, Juristen, Mediziner und was aus der vierten Fakultät hervorgegangen ist. Ein solcher Bund muss in bewusster Weise entwickelt werden. Zur Zeit des Wiener Kongresses [gemeint ist der internationale Kongress der anthroposophischen Bewegung vom Juni 1922 in Wien] wurde ein sogenannter Kulturb- und von sieben Menschen begründet, natürlich in falscher Weise, es war auch ein Jesuit dabei. Aber es handelt sich um eine |122|weltmännische Angelegenheit. Dieser Kulturb- und schilderte in der ersten Nummer seiner Zeitschrift die Idee der Dreigliederung, wenn auch in versteckter Weise, aber durchaus sachgemäß. Da ist die Rede von den banausischen Industriellen auf der einen Seite, den Bolschewiken auf der anderen. Dazwischen gibt es eine gewisse Gesellschaftsschicht, die sich zusammengehörig weiß: deklassierte Adelige, die Bildung haben, Leute, die sonst Bildung haben, aber aus der Entwicklung herausfallen, die werden sich international konstituieren und sich überall erkennen. Auf so realer Grundlage muss sich der «Bund für Freies Geistesleben» begründen, aber mit vollem Bewusstsein. Da werden auch die spirituellen Menschen Geltung haben. Die Leute sind sicher da. Von vorhandenen Beziehungen halte ich nichts. Die Dinge müssen sich natürlich ergeben. Vorträge nützen, wenn man den latenten Erfolg ausnützen kann. Man findet die Menschen, wenn man sie an sich herantreten lässt und sie nicht zurückstößt. Es handelt sich um Menschen besonderer Geistesart, um Leute, die eigentlich das Bedürfnis haben, an ein Geistiges heranzukommen außerhalb der Schablone, in die sie durch ihren Bildungsgang hineingestellt sind. In der zerfallenden Sozietät von Europa sind diese Menschen überall zu finden. Sie haben das Bedürfnis, mit Gleichstrebenden in einer Gemeinschaft zu sein auf geistigem Boden. Aus diesen erwachsen die Interessenten für eine freie Hochschule. Am leichtesten wird es auf künstlerischem Gebiete werden. Die Idee einer freien Hochschule innerhalb Mitteleuropas könnte in Amerika das größte Interesse erwecken, gerade finanziell, aber wir brauchen auch die Dozenten dafür, denn wir können nicht immer die gleichen Menschen mit allem belasten.\n\n* Im Juli 1922, ein Protokoll liegt nicht vor."
         }
       ]
     },
@@ -821,6 +836,7 @@
       "fileName": "GA259/17 - MEMORANDUM FÜR DAS KOMITEE DER FREIEN ANTHROPOSOPHISCHEN GESELLSCHAFT ZU DESSEN ORIENTIERUNG, niedergeschrieben zwischen dem 7.-11. März 1923",
       "location": null,
       "date": "1923-03-11",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^u60vmo",
@@ -832,7 +848,7 @@
         },
         {
           "index": "^dbo3xu",
-          "content": "[**] Gemeint sind die damals gültigen Satzungen der alten Anthroposophischen Gesellschaft, siehe unter Hinweise.\n\n2. Zunächst ist notwendig, alle diejenigen Persönlichkeiten zusammenzufassen, die bereits Mitglieder der Anthroposophischen Gesellschaft sind und von denen das gebildete Komitee der Meinung ist, dass sie von denjenigen Gesichtspunkten ausgingen, die in berechtigter Art die Trennung in zwei Gruppen der Gesamtgesellschaft bewirken mussten. Bloße Unzufriedenheit mit der alten Leitung kann nicht genügen, sondern nur die positive Orientierung auf ein anthroposophisches Ziel, von dem angenommen werden muss, dass es von der alten Leitung nicht erreicht werden kann.\n|124|3. Zunächst aus diesem so gebildeten Kreise der Freien Anthroposophischen Gesellschaft sind Vertrauenspersönlichkeiten zu ernennen, die von dem Komitee anerkannt werden. Man sollte zu Vertrauenspersönlichkeiten nur solche ernennen, die ein Interesse haben, der gegenwärtigen Zivilisation Anthroposophie zu geben. Es werden dann zu den schon in der Anthroposophischen Gesellschaft befindlichen Persönlichkeiten solche kommen, die erst aufgenommen werden. Aber gerade bei diesen ist darauf zu achten, dass sie das Positive des Anthroposophischen zu der Grundrichtung ihres eigenen Lebens gemacht haben. Menschen, die nur ein allgemeines gesellschaftliches Interesse haben, ohne intensiven anthroposophischen Einschlag, sollte man nicht zu Vertrauenspersönlichkeiten ernennen, wenn sie auch in die Gesellschaft mit der Idee etwa aufgenommen werden, dass sie zu wirklichen Anthroposophen heranwachsen.\n4. Für die Aufnahme selbst sollte ein Darinnenstehen in der anthroposophischen Weltanschauung bis zu einem gewissen Grade maßgebend sein. Es muss aber zunächst für die Aufnahme in die allgemeine Freie Anthroposophische Gesellschaft Weitherzigkeit herrschen. Strenge sollte erst bei der Bildung der engeren Gemeinschaften eintreten.\n5. Die Freie Anthroposophische Gesellschaft sollte ein Werkzeug werden zur Verbreitung der Anthroposophie in der Welt. Aus ihrem Schoße müsste die Vortrags- und sonstige Verbreitungsarbeit hervorgehen, auch Institute und sonstiges müssten aus ihr gebildet werden.\n6. Ein anderes ist die allgemeine Freie Anthroposophische Gesellschaft, ein anderes die in ihr zu bildenden Lebensgemeinschaften. In diesen - ob exoterisch oder esoterisch - müssten sich zusammenfinden die Menschen, die sich innerlich zusammengehörig fühlen, die den Geist gemeinsam erleben wollen. Neben solchen Lebensgemeinschaften ist es durchaus möglich, dass sich das Zweigleben im Sinne des «Entwurfes» herausbildet. Die Zweige wären dann eben Gruppen der Freien Anthroposophischen Gesellschaft im allgemeinen. Es könnte aber durchaus sein, dass die Mitglieder der Freien Anthroposophischen Gesellschaft in die Zweige der Anthroposophischen Gesellschaft eintreten und darinnen mit den Mitgliedern dieser gemeinsame Arbeit tun.\n7. Die Arbeit in den Lebensgemeinschaften wird eine solche sein, die sich innerhalb derselben abschließt. Sie ist auf die geistige Vervoll|125|kommnung der Vereinigten gerichtet. Was ein Mitglied einer solchen Lebensgemeinschaft nach außen unternimmt, tut es als Vertreter der allgemeinen Freien Anthroposophischen Gesellschaft. Selbstverständlich kann dabei doch eine solche Lebensgemeinschaft zu einer bestimmten äußeren Wirksamkeit treten; allein, es bleibt wünschenswert, dass dann ihre einzelnen Mitglieder eben als Repräsentanten der allgemeinen Freien Anthroposophischen Gesellschaft auftreten. Das braucht natürlich nicht eine bürokratische Verwaltung einer Vereinstätigkeit zu begründen, sondern kann durchaus eine freie Bewusstseinstatsache der einzelnen sein.\n8. Aus den beiden Komitees, dem der Anthroposophischen Gesellschaft und dem der Freien Anthroposophischen Gesellschaft, wäre je ein Vertrauenskomitee zu begründen. Diesen beiden obliegt die Erledigung der gemeinsamen Angelegenheiten der GesamtAnthroposophischen Gesellschaft.\n9. Es sollten alle Institutionen der Gesamt-Anthroposophischen Gesellschaft in den Interessenkreis der Anthroposophischen und der Freien Anthroposophischen Gesellschaft fallen. Das kann ganz gut sein, wenn eine Zentral-Verwaltungsstelle geschaffen wird, die die Angelegenheiten der Gesamtgesellschaft im Auftrage der beiden Komitees (vermittelt durch ihre Ver-trauens-Komitees) verwaltet. Es sollte die Gliederung in zwei Gruppen der Gesellschaft durchaus nicht dazu führen, dass etwa eine anthroposophische Institution - insbesondere eine solche, die schon besteht - nur als eine Angelegenheit der einen Gruppe angesehen werde."
+          "content": "[**] Gemeint sind die damals gültigen Satzungen der alten Anthroposophischen Gesellschaft, siehe unter Hinweise.\n\n2. Zunächst ist notwendig, alle diejenigen Persönlichkeiten zusammenzufassen, die bereits Mitglieder der Anthroposophischen Gesellschaft sind und von denen das gebildete Komitee der Meinung ist, dass sie von denjenigen Gesichtspunkten ausgingen, die in berechtigter Art die Trennung in zwei Gruppen der Gesamtgesellschaft bewirken mussten. Bloße Unzufriedenheit mit der alten Leitung kann nicht genügen, sondern nur die positive Orientierung auf ein anthroposophisches Ziel, von dem angenommen werden muss, dass es von der alten Leitung nicht erreicht werden kann.\n|124|3. Zunächst aus diesem so gebildeten Kreise der Freien Anthroposophischen Gesellschaft sind Vertrauenspersönlichkeiten zu ernennen, die von dem Komitee anerkannt werden. Man sollte zu Vertrauenspersönlichkeiten nur solche ernennen, die ein Interesse haben, der gegenwärtigen Zivilisation Anthroposophie zu geben. Es werden dann zu den schon in der Anthroposophischen Gesellschaft befindlichen Persönlichkeiten solche kommen, die erst aufgenommen werden. Aber gerade bei diesen ist darauf zu achten, dass sie das Positive des Anthroposophischen zu der Grundrichtung ihres eigenen Lebens gemacht haben. Menschen, die nur ein allgemeines gesellschaftliches Interesse haben, ohne intensiven anthroposophischen Einschlag, sollte man nicht zu Vertrauenspersönlichkeiten ernennen, wenn sie auch in die Gesellschaft mit der Idee etwa aufgenommen werden, dass sie zu wirklichen Anthroposophen heranwachsen.\n4. Für die Aufnahme selbst sollte ein Darinnenstehen in der anthroposophischen Weltanschauung bis zu einem gewissen Grade maßgebend sein. Es muss aber zunächst für die Aufnahme in die allgemeine Freie Anthroposophische Gesellschaft Weitherzigkeit herrschen. Strenge sollte erst bei der Bildung der engeren Gemeinschaften eintreten.\n5. Die Freie Anthroposophische Gesellschaft sollte ein Werkzeug werden zur Verbreitung der Anthroposophie in der Welt. Aus ihrem Schoße müsste die Vortrags- und sonstige Verbreitungsarbeit hervorgehen, auch Institute und sonstiges müssten aus ihr gebildet werden.\n6. Ein anderes ist die allgemeine Freie Anthroposophische Gesellschaft, ein anderes die in ihr zu bildenden Lebensgemeinschaften. In diesen - ob exoterisch oder esoterisch - müssten sich zusammenfinden die Menschen, die sich innerlich zusammengehörig fühlen, die den Geist gemeinsam erleben wollen. Neben solchen Lebensgemeinschaften ist es durchaus möglich, dass sich das Zweigleben im Sinne des «Entwurfes» herausbildet. Die Zweige wären dann eben Gruppen der Freien Anthroposophischen Gesellschaft im allgemeinen. Es könnte aber durchaus sein, dass die Mitglieder der Freien Anthroposophischen Gesellschaft in die Zweige der Anthroposophischen Gesellschaft eintreten und darinnen mit den Mitgliedern dieser gemeinsame Arbeit tun.\n7. Die Arbeit in den Lebensgemeinschaften wird eine solche sein, die sich innerhalb derselben abschließt. Sie ist auf die geistige Vervollkommnung |125|der Vereinigten gerichtet. Was ein Mitglied einer solchen Lebensgemeinschaft nach außen unternimmt, tut es als Vertreter der allgemeinen Freien Anthroposophischen Gesellschaft. Selbstverständlich kann dabei doch eine solche Lebensgemeinschaft zu einer bestimmten äußeren Wirksamkeit treten; allein, es bleibt wünschenswert, dass dann ihre einzelnen Mitglieder eben als Repräsentanten der allgemeinen Freien Anthroposophischen Gesellschaft auftreten. Das braucht natürlich nicht eine bürokratische Verwaltung einer Vereinstätigkeit zu begründen, sondern kann durchaus eine freie Bewusstseinstatsache der einzelnen sein.\n8. Aus den beiden Komitees, dem der Anthroposophischen Gesellschaft und dem der Freien Anthroposophischen Gesellschaft, wäre je ein Vertrauenskomitee zu begründen. Diesen beiden obliegt die Erledigung der gemeinsamen Angelegenheiten der Gesamt-Anthroposophischen Gesellschaft.\n9. Es sollten alle Institutionen der Gesamt-Anthroposophischen Gesellschaft in den Interessenkreis der Anthroposophischen und der Freien Anthroposophischen Gesellschaft fallen. Das kann ganz gut sein, wenn eine Zentral-Verwaltungsstelle geschaffen wird, die die Angelegenheiten der Gesamtgesellschaft im Auftrage der beiden Komitees (vermittelt durch ihre Ver-trauens-Komitees) verwaltet. Es sollte die Gliederung in zwei Gruppen der Gesellschaft durchaus nicht dazu führen, dass etwa eine anthroposophische Institution - insbesondere eine solche, die schon besteht - nur als eine Angelegenheit der einen Gruppe angesehen werde."
         },
         {
           "index": "^u3apzk",
@@ -849,6 +865,7 @@
       "fileName": "GA259/18 - Dornach, 15. März 1923",
       "location": null,
       "date": "1923-03-15",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^snxb44",
@@ -869,6 +886,7 @@
       "fileName": "GA259/19 - ÜBER DAS BRANDUNGLÜCK IN ÖFFENTLICHEN VORTRAGEN IN SCHWEIZER STÄDTEN IM APRIL 1923, Bern, 5. April 1923",
       "location": "Bern",
       "date": "1923-04-05",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^e8k97e",
@@ -989,6 +1007,7 @@
       "fileName": "GA259/20 - BEGRÜSSUNGSWORTE FÜR DIE MITGLIEDER IN PRAG, Prag, 28. April 1923",
       "location": "Prag",
       "date": "1923-04-28",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^zr4x2z",
@@ -996,7 +1015,7 @@
         },
         {
           "index": "^hoh053",
-          "content": "Auch ist erinnert worden an jenes schmerzliche Ereignis in der Silvesternacht des letzten Jahres. Dieses schmerzliche Ereignis in seinem ganzen Umfange zu beurteilen, kann mir heute noch nicht obliegen. Aber die Gegnerschaft, die sich im Anschluss an jenes schmerzliche Ereignis geltend gemacht hat, darf mit jenen Worten bezeichnet werden, die Herr Professor Hauffen hier gebraucht hat. Denn es überkam unseren Fre- und, den Schweizer Dichter Albert Steffen, als er die Anwürfe niederster Art wahrnahm, welche entgegengeworfen wurden unserem Streben, einige nicht einmal allzuscharfe Worte gegen die Gegnerschaft zu sprechen: man hat alle möglichen Dinge ihm vorgeworfen. Er erinnerte daran, dass er unter seinen schriftstellerischen Leistungen eine Arbeit habe, welche die Roheit charakterisiert; was er vorgebracht hat, wurde nicht vorgebracht gegen eine Weltanschauung, sondern gegen die Roheit. Von der Roheit, welche sich oft zur Groteskheit gesteigert hat, will ich Ihnen heute nicht |135|sprechen, da wir zu etwas Besserem zusammengekommen sind. Aber ich will Ihnen zwei Dinge mitteilen. Eine Zeitung, die ganz besonders auf das schimpft, was in|136| Dornach gepflegt wurde, schrieb: Nun, man kennt ja die ganzen Dinge, die da getrieben wurden am «Grutluanum». - Nicht einmal den Namen hat man gekannt! Eine andere Zeitung schrieb: Die Absurdität ging so weit, dass die Anthroposophen in Scharen während des Brandes gebetet haben, dass das Feuer aufhören möge."
+          "content": "Auch ist erinnert worden an jenes schmerzliche Ereignis in der Silvesternacht des letzten Jahres. Dieses schmerzliche Ereignis in seinem ganzen Umfange zu beurteilen, kann mir heute noch nicht obliegen. Aber die Gegnerschaft, die sich im Anschluss an jenes schmerzliche Ereignis geltend gemacht hat, darf mit jenen Worten bezeichnet werden, die Herr Professor Hauffen hier gebraucht hat. Denn es überkam unseren Fre- und, den Schweizer Dichter Albert Steffen, als er die Anwürfe niederster Art wahrnahm, welche entgegengeworfen wurden unserem Streben, einige nicht einmal allzuscharfe Worte gegen die Gegnerschaft zu sprechen: man hat alle möglichen Dinge ihm vorgeworfen. Er erinnerte daran, dass er unter seinen schriftstellerischen Leistungen eine Arbeit habe, welche die Roheit charakterisiert; was er vorgebracht hat, wurde nicht vorgebracht gegen eine Weltanschauung, sondern gegen die Roheit. Von der Roheit, welche sich oft zur Groteskheit gesteigert hat, will ich Ihnen heute nicht |135|sprechen, da wir zu etwas Besserem zusammengekommen sind. Aber ich will Ihnen zwei Dinge mitteilen. Eine Zeitung, die ganz besonders auf das schimpft, was in |136|Dornach gepflegt wurde, schrieb: Nun, man kennt ja die ganzen Dinge, die da getrieben wurden am «Grutluanum». - Nicht einmal den Namen hat man gekannt! Eine andere Zeitung schrieb: Die Absurdität ging so weit, dass die Anthroposophen in Scharen während des Brandes gebetet haben, dass das Feuer aufhören möge."
         },
         {
           "index": "^hssx3x",
@@ -1021,6 +1040,7 @@
       "fileName": "GA259/22 - BITTE AN DIE MITGLIEDER, DEN GOETHEANUM-WÄCHTERN IHRE ARBEIT NICHT ZU ERSCHWEREN, Dornach, 7. Mai 1923",
       "location": "Dornach",
       "date": "1923-05-07",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^iycmv2",
@@ -1049,6 +1069,7 @@
       "fileName": "GA259/23 - WORTE ÜBER DAS BRANDUNGLÜCK ZU BEGINN DER MITGLIEDER-VORTRÄGE IN NORWEGEN, Kristiania, 16. Mai 1923",
       "location": "Kristiania",
       "date": "1923-05-16",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^f6covj",
@@ -1073,10 +1094,11 @@
       "fileName": "GA259/24 - WORTE ZUM BAUBRAND UND ZUR GESELLSCHAFTSSITUATION bei einem auf der Rückreise von Norwegen nach Dornach gehaltenen Vortrag, Berlin, 23. Mai 1923, Einleitungs- und Schlu",
       "location": "Berlin",
       "date": "1923-05-23",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^8n8j82",
-          "content": "|140|Was ich Ihnen heute vorbringen möchte, wird, wie alles, was ich über Anthroposophie in der letzten Zeit zu sagen hatte, mit einem gewissen Unterton gesagt werden müssen, der hervorgerufen ist durch das schmerzliche Ereignis, das unsere Sache und unsere Gesellschaft am letzten Silvesterabend getroffen hat: Das Goetheanum in Dornach ist ja augenblicklich nicht mehr. Es ist von den Flammen in der letzten Silvesternacht verzehrt worden. Und alle die, welche mit dieser einen Nacht die zehnjährige, lange Arbeit zerstört sahen, die ausgegangen ist von so vielen unserer Freunde, die in hingebungsvoller Weise diese Arbeit geleistet haben, alle, die aus dieser Arbeit und aus dem, was uns das Goetheanum war, dieses Goetheanum sehr lieb gehabt haben, die werden unter diesem Eindruck stehen müssen, dass wir dieses äußere Zeichen anthroposophischen Wirkens nicht mehr haben. Denn wenn auch - was ja durchaus sein sollte - irgendein Bau für unsere Sache an derselben Stätte wiederum entstehen wird: das alte Goetheanum kann es ja unter dem Einfluss der schwierigen Zeitverhältnisse selbstverständlich nicht mehr werden. So steht denn eigentlich im Hintergrunde hinter alledem, was ich seit jenen Tagen zu sagen habe, die furchtbare Glut der Flammen, die in einer so herzzerreiBenden Weise eingegriffen hat in die Entwickelung unserer ganzen Sache. Wir müssen uns da um so mehr, als dieses äußere Zeichen dahin ist, widmen dem Ergreifen der inneren Kräfte und inneren Wesenhaftigkeiten der anthroposophischen Bewegung und desjenigen, was mit ihr für die ganze Entwickelung der Menschheit zusammenhängt. So lassen Sie mich denn auch zunächst mit einer Art Betrachtung über das Wesen des Menschen beginnen. Ich habe solche viele hier in Ihrer Mitte angestellt und möchte nun heute wiederum eine solche von einem gewissen Gesichtspunkte aus anstellen."
+          "content": "|140|Was ich Ihnen heute vorbringen möchte, wird, wie alles, was ich über Anthroposophie in der letzten Zeit zu sagen hatte, mit einem gewissen Unterton gesagt werden müssen, der hervorgerufen ist durch das schmerzliche Ereignis, das unsere Sache und unsere Gesellschaft am letzten Silvesterabend getroffen hat: Das Goetheanum in Dornach ist ja augenblicklich nicht mehr. Es ist von den Flammen in der letzten Silvesternacht verzehrt worden. Und alle die, welche mit dieser einen Nacht die zehnjährige, lange Arbeit zerstört sahen, die ausgegangen ist von so vielen unserer Freunde, die in hingebungsvoller Weise diese Arbeit geleistet haben, alle, die aus dieser Arbeit und aus dem, was uns das Goetheanum war, dieses Goetheanum sehr lieb gehabt haben, die werden unter diesem Eindruck stehen müssen, dass wir dieses äußere Zeichen anthroposophischen Wirkens nicht mehr haben. Denn wenn auch - was ja durchaus sein sollte - irgendein Bau für unsere Sache an derselben Stätte wiederum entstehen wird: das alte Goetheanum kann es ja unter dem Einfluss der schwierigen Zeitverhältnisse selbstverständlich nicht mehr werden. So steht denn eigentlich im Hintergrunde hinter alledem, was ich seit jenen Tagen zu sagen habe, die furchtbare Glut der Flammen, die in einer so herzzerrei-Benden Weise eingegriffen hat in die Entwickelung unserer ganzen Sache. Wir müssen uns da um so mehr, als dieses äußere Zeichen dahin ist, widmen dem Ergreifen der inneren Kräfte und inneren Wesenhaftigkeiten der anthroposophischen Bewegung und desjenigen, was mit ihr für die ganze Entwickelung der Menschheit zusammenhängt. So lassen Sie mich denn auch zunächst mit einer Art Betrachtung über das Wesen des Menschen beginnen. Ich habe solche viele hier in Ihrer Mitte angestellt und möchte nun heute wiederum eine solche von einem gewissen Gesichtspunkte aus anstellen."
         },
         {
           "index": "^14jwot",
@@ -1105,6 +1127,7 @@
       "fileName": "GA259/26 - OFFENER BRIEF RUDOLF STEINERS BETREFFEND SEINEN RÜCKTRITT ALS VORSITZENDER DES AUFSICHTSRATES DER «KOMMENDEN TAG AG»",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^7p12uc",
@@ -1128,15 +1151,15 @@
         },
         {
           "index": "^zakz9n",
-          "content": "Für eine verhältnismäßig kurze Frist musste ich den Wünschen der Freunde entsprechen. Aber ebenso muss ich jetzt mich auf den Standpunkt stellen, dass ich weiterhin nur innerhalb dieses Zentralen des anthroposophischen Lebens mit seinen künstlerischen und pädagogischen Auswirkungen tätig sein darf. Ich muss ganz der Anthroposo|145|phie als solcher sowie ihren künstlerischen und Schulbestrebungen und ähnlichem gehören und den Institutionen wie «Kommender Tag» usw. nur insoweit, als die geistigen Anregungen der Anthroposophie in dieselben hineinfließen. Von allem Verwaltungsmäßigen dieser Institutionen muss ich mich im Interesse der anthroposophischen Sache zurückziehen. Nur dadurch wird es möglich sein, dass durch mich in dieser Sache so intensiv gearbeitet werde, wie es angesichts von deren eigenen Anforderungen und der rasch wachsenden Gegnerschaft nötig ist."
+          "content": "Für eine verhältnismäßig kurze Frist musste ich den Wünschen der Freunde entsprechen. Aber ebenso muss ich jetzt mich auf den Standpunkt stellen, dass ich weiterhin nur innerhalb dieses Zentralen des anthroposophischen Lebens mit seinen künstlerischen und pädagogischen Auswirkungen tätig sein darf. Ich muss ganz |147|der Anthroposophie als solcher sowie ihren künstlerischen und Schulbestrebungen und |148|ähnlichem gehören und den Institutionen wie «Kommender Tag» usw. nur insoweit, als die geistigen Anregungen der Anthroposophie in dieselben hineinfließen. Von allem Verwaltungsmäßigen dieser Institutionen muss ich mich im Interesse der anthroposophischen Sache zurückziehen. Nur dadurch wird es möglich sein, dass durch mich in dieser Sache so intensiv gearbeitet werde, wie es angesichts von deren eigenen Anforderungen und der rasch wachsenden Gegnerschaft nötig ist."
         },
         {
           "index": "^5ocsza",
-          "content": "Das sind die Gründe, welche mich bewegen, jetzt von dem Amte des Vorsitzenden im Aufsichtsrate des|146| «Kommenden Tages» zurückzutreten. Ich bitte die Freunde der anthroposophischen Sache dies nicht so aufzufassen, als ob dadurch eine Änderung in der intensiven, sach- und idealgemäßen Arbeit des «Kommenden Tages» einträte. Diese Arbeit ist in guten Händen; und ich bitte, fernerhin keinen Grad des Vertrauens ihr zu entziehen. Ich bin der Überzeugung, dass alles besser gehen werde, wenn ich selbst jetzt diese Arbeit auch formell in die Hände lege, von denen sie gut getan wird, und mich der Sache widme, die mir vom Schicksal zugeteilt ist. Was ich als geistige Anregungen dem Klinisch-therapeutischen Institut, dem Kom-menden-Tag-Verlag, den Forschungsinstituten, den Zeitschriften usw. geben kann, wird diesen besser zufließen, wenn ich aus der eigentlichen Administration herausgelöst bin. Praktisch wird sich innerhalb derselben nichts Wesentliches ändern, da ich genötigt war, schon in der letzten Zeit durch die dargelegten Verhältnisse in den für die Zukunft als notwendig geschilderten Zustand hineinzuwachsen. Es wird also nur der faktisch entstandene Zustand auch offiziell festgelegt."
+          "content": "Das sind die Gründe, welche mich bewegen, jetzt von dem Amte des Vorsitzenden im Aufsichtsrate des «Kommenden Tages» zurückzutreten. Ich bitte die Freunde der anthroposophischen Sache dies nicht so aufzufassen, als ob dadurch eine Änderung in der intensiven, sach- und idealgemäßen Arbeit des «Kommenden Tages» einträte. Diese Arbeit ist in guten Händen; und ich bitte, fernerhin keinen Grad des Vertrauens ihr zu entziehen. Ich bin der Überzeugung, dass alles besser gehen werde, wenn ich selbst jetzt diese Arbeit auch formell in die Hände lege, von denen sie gut getan wird, und mich der Sache widme, die mir vom Schicksal zugeteilt ist. Was ich als geistige Anregungen dem Klinisch-therapeutischen Institut, dem Kom-menden-Tag-Verlag, den |151|Forschungsinstituten, den Zeitschriften usw. geben kann, wird diesen besser zufließen, wenn ich aus der eigentlichen Administration herausgelöst bin. Praktisch wird sich innerhalb derselben nichts Wesentliches ändern, da ich genötigt war, schon in der letzten Zeit durch die dargelegten Verhältnisse in den für die Zukunft als notwendig geschilderten Zustand hineinzuwachsen. Es wird also nur der faktisch entstandene Zustand auch offiziell festgelegt."
         },
         {
           "index": "^394bkr",
-          "content": "So hoffe ich denn, dass mein Austritt aus dem Aufsichtsrat des «Kommenden Tages» als eine Vertrauenskundgebung meinerseits für dessen Leitung aufgefasst und zu einer solchen auch bei den Mitgliedern der Anthroposophischen Gesellschaften werden wird. Er soll das Vertrauen stärken, nicht schwächen. Wäre Grund zu einer Schwächung vorhanden, so müsste ich bleiben. Die Sache liegt aber so, dass ich der sachkundigen, umsichtigen Leitung fernerhin unnötig und daher verpflichtet bin, zu der anthroposophischen Sache im engern Sinne zurückzukehren."
+          "content": "So hoffe ich denn, dass mein Austritt aus dem Aufsichtsrat |152|des «Kommenden Tages» als eine Vertrauenskundgebung |153|meinerseits für dessen Leitung aufgefasst und zu einer solchen auch bei den Mitgliedern der Anthroposophischen Gesellschaften werden wird. Er soll das Vertrauen stärken, nicht schwächen. Wäre Grund zu einer Schwächung vorhanden, so müsste |154|ich bleiben. Die Sache liegt aber so, dass ich der sachkundigen, umsichtigen Leitung fernerhin unnötig und daher verpflichtet bin, zu der anthroposophischen Sache im engern Sinne zurückzukehren."
         },
         {
           "index": "^00mkv0",
@@ -1157,6 +1180,7 @@
       "fileName": "GA259/27 - ANSPRACHE BEI DER ZEHNTEN ORDENTLICHEN GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM, Dornach, 17. Juni 1923",
       "location": "Dornach",
       "date": "1923-06-17",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^fah5bq",
@@ -1200,7 +1224,7 @@
         },
         {
           "index": "^j63ijj",
-          "content": "Derjenige, der jemals den Glauben haben kann, dass ein Geistiges, das recht gewollt wird, durch irgend etwas in der äußeren Welt ganz vernichtet werden kann, wenn auch in der äußeren Maja die Vernichtung da ist, der glaubt nicht in Wirklichkeit an die Schlagkraft der geistigen Impulse, an die Schlagkraft der geistigen Energie. Man muss noch sagen können in dem Augenblicke, wo alles Äußere zugrunde geht: Demjenigen, was aus dem Innern gewollt wird, ist der Erfolg sicher. Aber man darf dann vom Erfolg nur in der Weise sprechen, dass man dasjenige meint, was im Sinne der inneren Impulse, der Gedanken, der Bewusstseinsabsichten selber liegt. Die Dinge, die in der äußeren Welt sich vollziehen, vollziehen sich in der Regel in einer Weise, die oftmals erst erklärlich wird nach Jahrzehnten, Vielleicht nach noch längerer Zeit. Und nach den augenblicklichen Konstellationen die, wenn ich so sagen darf, Regierung der geistigen Welt beurteilen, hieße kleinmutig sein gegenüber dieser geistigen Welt. Die geistige Welt muss sich selbst ihre Stärke und Schlagkraft geben. Nun gibt es innerhalb der Erdenwelt nichts anderes als die Menschengemüter, in denen diese Schlagkraft ein Heim haben kann, ein Verständnis finden kann; nicht Einrichtungen, nicht Institutionen, und wären sie noch so schön oder noch so häßlich, können irgendwie beweisend oder widerlegend sein für dasjenige, was aus dem Geiste heraus wirklich gewollt wird."
+          "content": "Derjenige, der jemals den Glauben haben kann, dass ein Geistiges, das recht gewollt wird, durch irgend etwas in der äußeren Welt ganz vernichtet werden kann, wenn auch in der äußeren Maja die Vernichtung da ist, der glaubt nicht in Wirklichkeit an die Schlagkraft der geistigen Impulse, an die Schlagkraft der geistigen Energie. Man muss noch sagen können in dem Augenblicke, wo alles Äußere zugrunde geht: Demjenigen, was aus dem Innern gewollt wird, ist der Erfolg sicher. Aber man darf dann vom Erfolg nur in der Weise sprechen, dass man dasjenige meint, was im Sinne der inneren Impulse, der Gedanken, der Bewusstseinsabsichten selber liegt. Die Dinge, die in der äußeren Welt sich vollziehen, vollziehen sich in der Regel in einer Weise, die oftmals erst erklärlich wird nach Jahrzehnten, Vielleicht nach noch längerer Zeit. Und nach den augenblicklichen Konstellationen die, wenn ich so sagen darf, Regierung der geistigen Welt beurteilen, hieße kleinmutig sein gegenüber dieser geistigen Welt. Die geistige Welt muss sich selbst ihre Stärke und Schlagkraft geben. Nun gibt es innerhalb der Erdenwelt nichts anderes als die Menschengemüter, in denen diese Schlagkraft ein Heim haben kann, ein Verständnis finden kann; nicht Einrichtungen, nicht Institutionen, und wären sie noch so schön oder noch so hässlich, können irgendwie beweisend oder widerlegend sein für dasjenige, was aus dem Geiste heraus wirklich gewollt wird."
         },
         {
           "index": "^o0a6my",
@@ -1236,7 +1260,7 @@
         },
         {
           "index": "^i8xqh5",
-          "content": "Meine lieben Freunde! Das ist er nicht. Und wenn ich also heute von einer ganz im Sinne des anthroposophischen Lebens gemeinten Seite her die Sache vor Ihnen beleuchten soll, so muss ich noch anders sprechen. Mir zum Beispiel ist diese Tatsache, die vielleicht von da oder dort als eine außerordentlich freudige bezeichnet wird, eine außerordentlich schmerzliche, eine auBerordentlich traurige. Und zu denjenigen Leidempfindungen, die ich hatte seit dem Goethea-num-Brande, gehört diese ganz besonders, dass ich mir sagen musste: Das, was jetzt geschehen ist, muss ja herbeigeführt werden, muss in der besten und energischsten Weise, muss eben notwendig geschehen; aber es muss etwas herbeigeführt werden, was eigentlich gar nichts zu tun hat mit dem Zentrum der anthroposophischen Bewegung, was ganz außerhalb des Zentrumwirkens dieser Bewegung liegt."
+          "content": "Meine lieben Freunde! Das ist er nicht. Und wenn ich also heute von einer ganz im Sinne des anthroposophischen Lebens gemeinten Seite her die Sache vor Ihnen beleuchten soll, so muss ich noch anders sprechen. Mir zum Beispiel ist diese Tatsache, die vielleicht von da oder dort als eine außerordentlich freudige bezeichnet wird, eine außerordentlich schmerzliche, eine au-Berordentlich traurige. Und zu denjenigen Leidempfindungen, die ich hatte seit dem Goethea-num-Brande, gehört diese ganz besonders, dass ich mir sagen musste: Das, was jetzt geschehen ist, muss ja herbeigeführt werden, muss in der besten und energischsten Weise, muss eben notwendig geschehen; aber es muss etwas herbeigeführt werden, was eigentlich gar nichts zu tun hat mit dem Zentrum der anthroposophischen Bewegung, was ganz außerhalb des Zentrumwirkens dieser Bewegung liegt."
         },
         {
           "index": "^p3wf92",
@@ -1361,6 +1385,7 @@
       "fileName": "GA259/28 - AUS DEN GEDENKWORTEN ZUM TODE VON HERMANN LINDE zweiter Vorsitzender des Vereins des Goetheanum, Dornach, 29. Juni 1923",
       "location": "Dornach",
       "date": "1923-06-29",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^3re6gd",
@@ -1389,6 +1414,7 @@
       "fileName": "GA259/29 - ABSCHIEDSWORTE VOR ANTRITT DER MEHRWÖCHIGEN ENGLANDREISE, Dornach, 29. Juli 1923, Schlußworte des Vortrags",
       "location": "Dornach",
       "date": "1923-07-29",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^8cftk8",
@@ -1429,6 +1455,7 @@
       "fileName": "GA259/30 - ANSPRACHE IN EINER AUSSPRACHE ÜBER DIE ZUKUNFT DER ANTHROPOSOPHISCHEN GESELLSCHAFT IN ENGLAND, Penmaenmawr, 19. August 1923",
       "location": "Penmaenmawr",
       "date": "1923-08-19",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^il3a4m",
@@ -1452,7 +1479,7 @@
         },
         {
           "index": "^93cw1b",
-          "content": "Nehmen Sie das Gebiet, das wir in den letzten vierzehn Tagen in Ilkley besprochen haben: das pädagogische Gebiet. Dieses pädagogische Gebiet wird so behandelt, dass nur die pädagogischen, die didaktischen Methoden in der besten Weise aus der anthroposophischen Bewegung herausgearbeitet werden sollen. Die Waldorfschule in Stuttgart, in der diese Pädagogik, diese Didaktik, zur Anwendung kommt, ist nichts von einer Sektenschule, nichts von einer dogmatischen Schule, nichts von dem, was die Welt gern eine Anthroposophenschule nennen möchte. Denn wir tragen nicht anthroposophische Dogmatik in die Schule hinein, sondern wir suchen die rein didaktisch-pädagogischen Methoden so auszubilden, wie sie allgemein menschlich sind. Und damit wird von diesen Gebieten aus auf die |173|Anthroposophie doch in einer ganz bestimmten Weise hingedeutet. Es wird so hingedeutet, dass man sagen kann: Es gibt heute viele Bewegungen in der Welt - jeder Mensch macht ja fast schon heute eine Bewegung, man kann auch nicht sagen, dass nicht alle diese Bewegungen sehr vernünftig wären, denn das ist ja vor allen Dingen das Charakteristische des gegenwärtigen Menschen, dass er vernünftig ist. Wir haben es doch dahin gebracht, dass die Vernünftigkeit eine allgemeine Eigenschaft der Menschen geworden ist. Daher kann ich mir leicht vorstellen, dass sich heute 5, 10, 15 zusammensetzen, die sehr gescheit sind, und ein Programm ausarbeiten mit 12 oder 30 Paragraphen, die außerordentlich vernünftig sind, über die beste Pädagogik, die man haben kann - ich kann mir vorstellen, dass nicht das geringste gegen ein solches Programm zu sagen wäre. Aber in der Praxis, in der Schulpraxis kann man mit solchen Programmen gar nichts anfangen; da muss man wissen, wie sich das Kind jedes Jahr entwickelt, wie man der einzelnen kindlichen Individualität entgegenkommt. Und selbst das genügt nicht: In einem solchen sehr vernünftigen Programm über Reformpädagogik könnte zum Beispiel drinnen stehen, wie die Lehrer beschaffen sein müssen. Ja, da könnte ich mir vorstellen, dass unglaublich schöne, herrliche Bilder von der Beschaffenheit der Lehrer in einer solchen Schule gemalt werden könnten - aber wenn die Lehrer dann nicht da sind, so wie sie in diesen Programmreihen gemalt werden, und wenn auch zunächst keine Aussicht ist, dass diese Lehrer so sein können, wie es in diesen vernünftigen Programmen steht, so muss man diejenigen Lehrer nehmen, die man hat, die man bekommen kann, und muss mit denen das relativ Beste machen. Das ist Praxis - Praxis, die sich auch ausdehnt auf die Wahl der Menschen, die man an irgendeinen Platz stellt. Und so handelt es sich darum, dass Anthroposophie in dem Augenblicke, wo sie ins Leben eingreifen will, nur allgemein menschlich sein will, absehen will von jeder Dogmatik, wiederum das Leben selber ergreifen will, darstellen will. Das wollen - kann man sagen - die andern Reformbewegungen auch; aber dazu sehe man sie eben an, ob sie es wollen, ob nicht heute die Menschen, die gerade am meisten Praktiker zu sein glauben, die stärksten Theoretiker sind, weil sie alles von der Theorie, vom Programm abhängig machen. So paradox es klingt: In den kommerziellen und industriellen und namentlich in den sogenannten praktischen Berufen stecken heute die stärksten Theoretiker drinnen. Kein Mensch, wenn er heute im meinetwillen pra|174|ktischen Leben steht, sieht die wirkliche Praxis, sondern das, was er sich einbildet."
+          "content": "Nehmen Sie das Gebiet, das wir in den letzten vierzehn Tagen in Ilkley besprochen haben: das pädagogische Gebiet. Dieses pädagogische Gebiet wird so behandelt, dass nur die pädagogischen, die didaktischen Methoden in der besten Weise aus der anthroposophischen Bewegung herausgearbeitet werden sollen. Die Waldorfschule in Stuttgart, in der diese Pädagogik, diese Didaktik, zur Anwendung kommt, ist nichts von einer Sektenschule, nichts von einer dogmatischen Schule, nichts von dem, was die Welt gern eine Anthroposophenschule nennen möchte. Denn wir tragen nicht anthroposophische Dogmatik in die Schule hinein, sondern wir suchen die rein didaktisch-pädagogischen Methoden so auszubilden, wie sie allgemein menschlich sind. Und damit wird von diesen Gebieten aus auf die |173|Anthroposophie doch in einer ganz bestimmten Weise hingedeutet. Es wird so hingedeutet, dass man sagen kann: Es gibt heute viele Bewegungen in der Welt - jeder Mensch macht ja fast schon heute eine Bewegung, man kann auch nicht sagen, dass nicht alle diese Bewegungen sehr vernünftig wären, denn das ist ja vor allen Dingen das Charakteristische des gegenwärtigen Menschen, dass er vernünftig ist. Wir haben es doch dahin gebracht, dass die Vernünftigkeit eine allgemeine Eigenschaft der Menschen geworden ist. Daher kann ich mir leicht vorstellen, dass sich heute 5, 10, 15 zusammensetzen, die sehr gescheit sind, und ein Programm ausarbeiten mit 12 oder 30 Paragraphen, die außerordentlich vernünftig sind, über die beste Pädagogik, die man haben kann - ich kann mir vorstellen, dass nicht das geringste gegen ein solches Programm zu sagen wäre. Aber in der Praxis, in der Schulpraxis kann man mit solchen Programmen gar nichts anfangen; da muss man wissen, wie sich das Kind jedes Jahr entwickelt, wie man der einzelnen kindlichen Individualität entgegenkommt. Und selbst das genügt nicht: In einem solchen sehr vernünftigen Programm über Reformpädagogik könnte zum Beispiel drinnen stehen, wie die Lehrer beschaffen sein müssen. Ja, da könnte ich mir vorstellen, dass unglaublich schöne, herrliche Bilder von der Beschaffenheit der Lehrer in einer solchen Schule gemalt werden könnten - aber wenn die Lehrer dann nicht da sind, so wie sie in diesen Programmreihen gemalt werden, und wenn auch zunächst keine Aussicht ist, dass diese Lehrer so sein können, wie es in diesen vernünftigen Programmen steht, so muss man diejenigen Lehrer nehmen, die man hat, die man bekommen kann, und muss mit denen das relativ Beste machen. Das ist Praxis - Praxis, die sich auch ausdehnt auf die Wahl der Menschen, die man an irgendeinen Platz stellt. Und so handelt es sich darum, dass Anthroposophie in dem Augenblicke, wo sie ins Leben eingreifen will, nur allgemein menschlich sein will, absehen will von jeder Dogmatik, wiederum das Leben selber ergreifen will, darstellen will. Das wollen - kann man sagen - die andern Reformbewegungen auch; aber dazu sehe man sie eben an, ob sie es wollen, ob nicht heute die Menschen, die gerade am meisten Praktiker zu sein glauben, die stärksten Theoretiker sind, weil sie alles von der Theorie, vom Programm abhängig machen. So paradox es klingt: In den kommerziellen und industriellen und namentlich in den sogenannten praktischen Berufen stecken heute die stärksten Theoretiker drinnen. Kein Mensch, wenn er heute im meinetwillen praktischen |174|Leben steht, sieht die wirkliche Praxis, sondern das, was er sich einbildet."
         },
         {
           "index": "^8k6you",
@@ -1497,6 +1524,7 @@
       "fileName": "GA259/31 - ABSCHIEDSWORTE, London, 2. September 1923 am Schluß des Vortrages für Mitglieder",
       "location": "London",
       "date": "1923-09-02",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^nkzdsx",
@@ -1525,6 +1553,7 @@
       "fileName": "GA259/32 - WORTE BEI DER STUTTGARTER SEPTEMBER-TAGUNG, Stuttgart, 17. September 1923",
       "location": "Stuttgart",
       "date": "1923-09-17",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^5r6hw6",
@@ -1557,6 +1586,7 @@
       "fileName": "GA259/34 - BEMERKUNGEN ZUR GOETHEANUM-SPARBÜCHSE, Dornach, am 21. Oktober 1923, nach dem Vortrag",
       "location": "Dornach",
       "date": "1923-10-21",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^z21jpu",
@@ -1577,6 +1607,7 @@
       "fileName": "GA259/36 - HINWEIS, DASS DIE VORTRÄGE BIS WEIHNACHTEN AUF DIE WEIHNACHTSTAGUNG INNERLICH EINSTIMMEN SOLLEN, Dornach, 23. November 1923",
       "location": "Dornach",
       "date": "1923-11-23",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^o65lg4",
@@ -1593,6 +1624,7 @@
       "fileName": "GA259/37 - ANSPRACHE BEI EINER ZUSAMMENKUNFT MIT DER JUGENDGRUPPE über die drei Hauptfragen für die anthroposophische Jugendarbeit Stuttgart, 14. Februar 1923",
       "location": null,
       "date": "1923-02-14",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^zsv0tc",
@@ -1649,6 +1681,7 @@
       "fileName": "GA259/38 - Erklärung über ein freies Hochschulwesen, Ostern 1924",
       "location": "Ostern 1924",
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^69i1qm",
@@ -1672,11 +1705,11 @@
         },
         {
           "index": "^uda9y3",
-          "content": "Hier spricht die Sorge desjenigen, was wir bei den jüngsten sehen, bei den Knaben und Mädchen, die unserer Bewegung nahestehen. Daraus ergibt sich die Frage: Wie stellt sich die eventuelle Leitung einer Anthroposophischen Gesellschaft zu den wichtigsten Zukunftsfragen? Wie denkt sie darüber? - Selbstverständlich können die Dinge |382|nicht von heute auf morgen gemacht werden. Aber wie wird weiter gedacht über die Dinge, seitdem nach dem Aufstellen des Programms des Hochschulbundes überhaupt nicht mehr durchgreifend gedacht worden ist? Also die Frage ist weiter zu behandeln: Wie denkt man in der Anthroposophischen Gesellschaft, so in Zukunft zu wirken, dass wirklich an die Zukunft gedacht wird?"
+          "content": "Hier spricht die Sorge desjenigen, was wir bei den jüngsten sehen, bei den Knaben und Mädchen, die unserer Bewegung nahestehen. Daraus ergibt sich die Frage: Wie stellt sich die eventuelle Leitung einer Anthroposophischen Gesellschaft zu den wichtigsten Zukunftsfragen? Wie denkt sie darüber? - Selbstverständlich können die Dinge nicht von heute auf morgen gemacht werden. Aber wie wird weiter gedacht über die Dinge, seitdem nach dem Aufstellen des Programms des Hochschulbundes überhaupt nicht mehr durchgreifend gedacht worden ist? Also die Frage ist weiter zu behandeln: Wie denkt man in der Anthroposophischen Gesellschaft, so in Zukunft zu wirken, dass wirklich an die Zukunft gedacht wird?"
         },
         {
           "index": "^jxvcjy",
-          "content": "Dieses Nichtdenken an die Zukunft drückt sich sehr stark aus. Wir haben eine Reihe von Kongressen gehabt, die sind in sich glänzend verlaufen. Gerade bei den Kongressen war es so, dass Ausgezeichnetes von den Intelligenzen innerhalb der Anthroposophischen Gesellschaft geleistet worden ist. Hat man sich dann umgesehen innerhalb eines weiteren Horizontes über die Auswirkung eines solchen Kongresses, so hat man erfahren: Ja, das ist sehr schön, was da vorgebracht worden ist, aber die Anthroposophen sind so, dass es uns gar nicht einfällt, ihnen nahetreten zu wollen. - Das ist etwas, was eigentlich in Anknüpfung an jeden Kongreß erfahren werden musste. Das ist etwas, was ich kleiden möchte in den Satz: Vieles ist - gerade von den führenden Persönlichkeiten - durch den Fanatismus und durch die Engherzigkeiten, die da walteten, dazu beigetragen worden, Leute abzustoßen, deren Mitarbeit wir sehr nötig hätten!"
+          "content": "Dieses Nichtdenken an die Zukunft drückt sich sehr stark aus. Wir haben eine Reihe von Kongressen gehabt, die sind in sich glänzend verlaufen. Gerade bei den Kongressen war es so, dass Ausgezeichnetes von den Intelligenzen innerhalb der Anthroposophischen Gesellschaft geleistet worden ist. Hat man sich dann umgesehen innerhalb eines weiteren Horizontes über die Auswirkung eines solchen Kongresses, so hat man erfahren: Ja, das ist sehr schön, was da vorgebracht worden ist, aber die Anthroposophen sind so, dass es uns gar nicht einfällt, ihnen nahetreten zu wollen. - Das ist etwas, was eigentlich in Anknüpfung an jeden Kongress erfahren werden musste. Das ist etwas, was ich kleiden möchte in den Satz: Vieles ist - gerade von den führenden Persönlichkeiten - durch den Fanatismus und durch die Engherzigkeiten, die da walteten, dazu beigetragen worden, Leute abzustoßen, deren Mitarbeit wir sehr nötig hätten!"
         },
         {
           "index": "^zu7e1w",
@@ -1684,7 +1717,7 @@
         },
         {
           "index": "^akzx4b",
-          "content": "|383|Diese Beziehungen müssen in der Spezialdebatte geregelt werden, denn hier liegen die Aufgaben für die Zukunft. Die Aufgaben liegen vielfach in einer Umänderung des ganzen Taktes, der in der Gesellschaft herrscht. Die Aufgaben liegen darin, dass es nicht darauf ankommt zu sagen: Die Stuttgarter haben keine Zeit. - Es werden schon die Freunde nicht verlangen, dass mit jedem einzelnen Stunden zugebracht werden; aber was in den Minuten geschieht, das ist es, worauf es ankommt und was so vielfach dazu geführt hat, dass einem das Echo von drauBen entgegentönte: Ja, wenn man nun doch einmal nach Stuttgart kommt, so verschlägt es einem die Rede! Und wenn man dann wieder weggegangen ist, so verschlägt es einem den Atem! - Ich kleide das in etwas ra|384|dikale Ausdrücke, aber wir sind ja aufgefordert worden, «frisch von der Leber weg» zu sagen, was vorgebracht werden müsste."
+          "content": "|383|Diese Beziehungen müssen in der Spezialdebatte geregelt werden, denn hier liegen die Aufgaben für die Zukunft. Die Aufgaben liegen vielfach in einer Umänderung des ganzen Taktes, der in der Gesellschaft herrscht. Die Aufgaben liegen darin, dass es nicht darauf ankommt zu sagen: Die Stuttgarter haben keine Zeit. - Es werden schon die Freunde nicht verlangen, dass mit jedem einzelnen Stunden zugebracht werden; aber was in den Minuten geschieht, das ist es, worauf es ankommt und was so vielfach dazu geführt hat, dass einem das Echo von drau-Ben entgegentönte: Ja, wenn man nun doch einmal nach Stuttgart kommt, so verschlägt es einem die Rede! Und wenn man dann wieder weggegangen ist, so verschlägt es einem den Atem! - Ich kleide das in etwas radikale |385|Ausdrücke, aber wir sind ja aufgefordert worden, «frisch von der Leber weg» zu sagen, was vorgebracht werden müsste."
         },
         {
           "index": "^25qz6a",
@@ -1709,6 +1742,7 @@
       "fileName": "GA259/39 - Die Begründung der norwegischen Landesgesellschaft, Ausführungen bei der Gründungsversammlung Kristiania, 17. Mai 1923",
       "location": "Ausführungen bei der Gründungsversammlung Kristiania",
       "date": "1923-05-17",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^sgdak3",
@@ -1817,6 +1851,7 @@
       "fileName": "GA259/40 - ANSPRACHE zur Versammlung zur Konstituierung der englischen Landesgesellschaft, London, 2. September 1923",
       "location": "London",
       "date": "1923-09-02",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^3sd4nd",
@@ -1840,7 +1875,7 @@
         },
         {
           "index": "^sa4bav",
-          "content": "Das hindert natürlich nicht, dass sie gerecht wird allen menschlichen Gruppenzusammenhängen. Man kann ebenso gerecht sein gegen seine eigene Nation wie gegen die anderen. Jede Nation hat selbstverständlich mehr oder weniger ihre großen Impulse in die Gesamtmenschheit zu tragen. Und zu glauben, dass das Internationale verknüpft ist mit einer Missachtung etwa des eigenen Nationalen, das ist gar nicht be|605|rechtigt. Gerade innerhalb des Internationalen werden die Gesichtspunkte gegeben, um das eigene Nationale in der richtigen Weise zu taxieren und in das richtige Licht zu stellen."
+          "content": "Das hindert natürlich nicht, dass sie gerecht wird allen menschlichen Gruppenzusammenhängen. Man kann ebenso gerecht sein gegen seine eigene Nation wie gegen die anderen. Jede Nation hat selbstverständlich mehr oder weniger ihre großen Impulse in die Gesamtmenschheit zu tragen. Und zu glauben, dass das Internationale verknüpft ist mit einer Missachtung etwa des eigenen Nationalen, das ist gar nicht berechtigt. |605|Gerade innerhalb des Internationalen werden die Gesichtspunkte gegeben, um das eigene Nationale in der richtigen Weise zu taxieren und in das richtige Licht zu stellen."
         },
         {
           "index": "^obvf0e",
@@ -1852,11 +1887,11 @@
         },
         {
           "index": "^8z0nln",
-          "content": "Man kann wachen im Leben, man kann schlafen. Ich meine jetzt nicht die gewöhnlichen Zu stände - davon sprechen wir dann in dem Vortrage [in GA 228] -, sondern ich meine die Zustände gegenüber dem, was in der Welt geschieht. Da kann man schlafen, trotzdem man äuBerlich wach zu sein scheint. Aber schlafen heißt ja doch wirklich nichts anderes als die Aufmerksamkeit von irgendeiner Sache ablenken. Wenn wir in der Nacht wirklich schlafen, so heißt das auch nichts anderes, als die Aufmerksamkeit von all dem, was uns überhaupt in der Erdenwelt beschäftigen kann, abzulenken. Wir lenken die Aufmerksamkeit dann Dingen zu, für die wir noch nicht das Wahrnehmungsvermögen in der gegenwärtigen Menschheitsevolution haben. Deshalb bedeutet schlafen [gegenüber dem, was in der Welt geschieht], auch gar nichts anderes als die Aufmerksamkeit von etwas ablenken. Wir müssen uns aber als Anthroposophen intensiv für dasjenige interessieren, was in der Welt vorgeht. Die Welt interessiert sich für Anthroposophie; wenn wir uns nicht [für die Welt] interessieren, dann wird die Welt gegnerisch. Das erfordert eine Wachsamkeit. Und im Sinne dieser Wachsamkeit muss denn eigentlich nun die Anthroposophische Gesellschaft im ganzen konstituiert werden. Deshalb muss ich seit einiger Zeit aufmerksam darauf machen, dass sich gliedern sollten die einzelnen Ländergesellschaften in nationale Gesellschaften. Solche nationalen Gesellschaften haben sich gegliedert in der Schweiz, in Deutschland, der Tschechoslowakei, in Norwegen, werden sich in diesem Jahre in Österreich und Holland und so weiter bilden. Und es ist von außerordentlich großer Wichtigkeit, dass sich eine solche nationale Gesellschaft auch hier bildet und dass sich diese einzelnen nationalen Gesellschaften wiederum zusammenschließen zur Internationalen Anthroposophischen Gesellschaft, die in der Zukunft in Dornach ihren Mittelpunkt haben kann. Es soll ja zu Weihnachten, wie bei der Delegiertenversammlung im Juli 1923 in Dornach projektiert worden ist, die Zusammenschließung zur internationalen Gesellschaft in Dornach vorgenommen werden."
+          "content": "Man kann wachen im Leben, man kann schlafen. Ich meine jetzt nicht die gewöhnlichen Zu stände - davon sprechen wir dann in dem Vortrage [in GA 228] -, sondern ich meine die Zustände gegenüber dem, was in der Welt geschieht. Da kann man schlafen, trotzdem man äu-Berlich wach zu sein scheint. Aber schlafen heißt ja doch wirklich nichts anderes als die Aufmerksamkeit von irgendeiner Sache ablenken. Wenn wir in der Nacht wirklich schlafen, so heißt das auch nichts anderes, als die Aufmerksamkeit von all dem, was uns überhaupt in der Erdenwelt beschäftigen kann, abzulenken. Wir lenken die Aufmerksamkeit dann Dingen zu, für die wir noch nicht das Wahrnehmungsvermögen in der gegenwärtigen Menschheitsevolution haben. Deshalb bedeutet schlafen [gegenüber dem, was in der Welt geschieht], auch gar nichts anderes als die Aufmerksamkeit von etwas ablenken. Wir müssen uns aber als Anthroposophen intensiv für dasjenige interessieren, was in der Welt vorgeht. Die Welt interessiert sich für Anthroposophie; wenn wir uns nicht [für die Welt] interessieren, dann wird die Welt gegnerisch. Das erfordert eine Wachsamkeit. Und im Sinne dieser Wachsamkeit muss denn eigentlich nun die Anthroposophische Gesellschaft im ganzen konstituiert werden. Deshalb muss ich seit einiger Zeit aufmerksam darauf machen, dass sich gliedern sollten die einzelnen Ländergesellschaften in nationale Gesellschaften. Solche nationalen Gesellschaften haben sich gegliedert in der Schweiz, in Deutschland, der Tschechoslowakei, in Norwegen, werden sich in diesem Jahre in Österreich und Holland und so weiter bilden. Und es ist von außerordentlich großer Wichtigkeit, dass sich eine solche nationale Gesellschaft auch hier bildet und dass sich diese einzelnen nationalen Gesellschaften wiederum zusammenschließen zur Internationalen Anthroposophischen Gesellschaft, die in der Zukunft in Dornach ihren Mittelpunkt haben kann. Es soll ja zu Weihnachten, wie bei der Delegiertenversammlung im Juli 1923 in Dornach projektiert worden ist, die Zusammenschließung zur internationalen Gesellschaft in Dornach vorgenommen werden."
         },
         {
           "index": "^k99jd1",
-          "content": "Das kann aber nur dann geschehen, wenn die nationalen Gesellschaften im voraus sich gegliedert haben, denn zusammenschließen kann sich nur etwas, was sich schon gebildet hat. Und daher wäre es |607|gut, wenn eben aus den Verhandlungen dieses Meetings die Konstitution der englischen Anthroposophischen Gesellschaft als ein nationaler Körper hervorginge, mit der Tendenz, sich dann zu Weihnachten mit der internationalen Gesellschaft zusammenzuschlieBen und dann den nationalen Mittelpunkt in London zu haben, den internationalen Mittelpunkt in Dornach in der Schweiz. Das wäre gut."
+          "content": "Das kann aber nur dann geschehen, wenn die nationalen Gesellschaften im voraus sich gegliedert haben, denn zusammenschließen kann sich nur etwas, was sich schon gebildet hat. Und daher wäre es |607|gut, wenn eben aus den Verhandlungen dieses Meetings die Konstitution der englischen Anthroposophischen Gesellschaft als ein nationaler Körper hervorginge, mit der Tendenz, sich dann zu Weihnachten mit der internationalen Gesellschaft zusammenzuschlie-Ben und dann den nationalen Mittelpunkt in London zu haben, den internationalen Mittelpunkt in Dornach in der Schweiz. Das wäre gut."
         },
         {
           "index": "^po24bt",
@@ -1876,7 +1911,7 @@
         },
         {
           "index": "^y9bfz0",
-          "content": "Ich habe das in Holland dazumal auf Mr. Collisons Frage geantwortet, eben ganz von diesem Gesichtspunkt aus. Ich habe gesagt, dass eine Anzahl gerade der ältesten und wertvollsten Mitglieder Freimaurer sind. Ich kann mir gar nicht denken, woraus ein Hindernis erwach|609|sen sollte aus irgendeiner Form der Freimaurerei für das Angehören zur Anthroposophischen Gesellschaft. Ich kann mir das gar nicht denken. Ich finde, die anthroposophische Bewegung will selber etwas sein. Nicht wahr, sie würde eben nicht fruchtbar sein können in der Welt, wenn sie nicht aus sich heraus - lassen Sie mich den Ausdruck gebrauchen -. aus ihrem eigenen Samen heraus positiv wirkte. Darauf kommt es an: was sie positiv wirkt. Wie das sich nun ausnimmt, wenn man es mit dem einen oder anderen vergleicht, darauf kommt es doch nicht an. Wenn ich mir einen Anzug kaufe, so handelt es sich darum, dass er meinem Geschmack entspricht, aus meinen Intentionen hervorgeht. Was hat das damit zu tun, dass einer kommt und sagt: Der Anzug schaut ja nicht so aus, wie derjenige, den der andere anhat. - Es handelt sich ja wirklich gar nicht darum, dass man den Anzug des anderen anziehen soll, sondern seinen eigenen. Man zieht doch nicht, wenn man Anthroposoph wird, die Freimaurerei an. Also es ist eigentlich ganz unmöglich, dieses Urteil zu fällen."
+          "content": "Ich habe das in Holland dazumal auf Mr. Collisons Frage geantwortet, eben ganz von diesem Gesichtspunkt aus. Ich habe gesagt, dass eine Anzahl gerade der ältesten und wertvollsten Mitglieder Freimaurer sind. Ich kann mir gar nicht denken, woraus ein Hindernis erwachsen sollte aus irgendeiner Form der Freimaurerei für das Angehören zur Anthroposophischen Gesellschaft. Ich kann mir das gar nicht denken. Ich finde, die anthroposophische Bewegung will selber etwas sein. Nicht wahr, sie würde eben nicht fruchtbar sein können in der Welt, wenn sie nicht aus sich heraus - lassen Sie mich den Ausdruck gebrauchen -. aus ihrem eigenen Samen heraus positiv wirkte. Darauf kommt es an: was sie positiv wirkt. Wie das sich nun ausnimmt, wenn man es mit dem einen oder anderen vergleicht, darauf kommt es doch nicht an. Wenn ich mir einen Anzug kaufe, so handelt es sich darum, dass er meinem Geschmack entspricht, aus meinen Intentionen hervorgeht. Was hat das damit zu tun, dass einer kommt und sagt: Der Anzug schaut ja nicht so aus, wie derjenige, den der andere anhat. - Es handelt sich ja wirklich gar nicht darum, dass man den Anzug des anderen anziehen soll, sondern seinen eigenen. Man zieht doch nicht, wenn man Anthroposoph wird, die Freimaurerei an. Also es ist eigentlich ganz unmöglich, dieses Urteil zu fällen."
         },
         {
           "index": "^r5g5s9",
@@ -1932,7 +1967,7 @@
         },
         {
           "index": "^2rj99o",
-          "content": "Wenn das so der Fall ist - und das ist ja in den Intentionen des Mr. Dunlop gelegen, die Gründe sind ja daraus hervorgegangen -, so steht nichts irgendwie dem im Wege, dass der Vorschlag Mr. Dunlops angenommen wird. Ich glaube nicht, dass er dann zu etwas anderem führt, als zu dem, wovon ich auch nicht einen einzigen Schritt abwei|613|chen kann. Es muss die anthroposophische Bewegung eine innere bleiben, muss in gewisser Beziehung den esoterischen Charakter tragen, dass nichts anderes gemacht wird von mir selbst als dasjenige, was sich unmittelbar aus der Sache ergibt. Also muss die Sache nur wirklich gründlich so angesehen werden: Ich strebe keine andere Macht an als diejenige, die sich aus der Sache selbst ergibt. Das muss ich wegen der Gesetze einer spirituellen Bewegung. Und gerade bei der Art und Weise, wie Anthroposophische Gesellschaft und Bewegung heute in der Welt drinnen steht, muss im striktesten beobachtet werden, dass man auch keinen Schritt abgeht von dem, was durch die innere Gesetzmäßigkeit der Bewegung selbst vorgezeichnet wird|614|."
+          "content": "Wenn das so der Fall ist - und das ist ja in den Intentionen des Mr. Dunlop gelegen, die Gründe sind ja daraus hervorgegangen -, so steht nichts irgendwie dem im Wege, dass der Vorschlag Mr. Dunlops angenommen wird. Ich glaube nicht, dass er dann zu etwas anderem führt, als zu dem, wovon ich auch nicht einen einzigen Schritt abweichen |613|kann. Es muss die anthroposophische Bewegung eine innere bleiben, muss in gewisser Beziehung den esoterischen Charakter tragen, dass nichts anderes gemacht wird von mir selbst als dasjenige, was sich unmittelbar aus der Sache ergibt. Also muss die Sache nur wirklich gründlich so angesehen werden: Ich strebe keine andere Macht an als diejenige, die sich aus der Sache selbst ergibt. Das muss ich wegen der Gesetze einer spirituellen Bewegung. Und gerade bei der Art und Weise, wie Anthroposophische Gesellschaft und Bewegung heute in der Welt drinnen steht, muss im striktesten beobachtet werden, dass man auch keinen Schritt abgeht von dem, was durch die innere Gesetzmäßigkeit der Bewegung selbst vorgezeichnet wird|614|."
         }
       ]
     },
@@ -1945,6 +1980,7 @@
       "fileName": "GA259/42 - WORTE ÜBER DIE GRÜNDUNGSVERSAMMLUNG DER ÖSTERREICHISCHEN LANDESGESELLSCHAFT, Wien, 1. Oktober 1923 (Schluß des Vortrags)",
       "location": "Wien",
       "date": "1923-10-01",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^zgd2nr",
@@ -2005,6 +2041,7 @@
       "fileName": "GA259/43 - AUSFÜHRUNGEN BEI DER GRÜNDUNGSVERSAMMLUNG DER HOLLÄNDISCHEN LANDESGESELLSCHAFT, Den Haag, 18. November 1923",
       "location": "Den Haag",
       "date": "1923-11-18",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^1qe51j",
@@ -2068,7 +2105,7 @@
         },
         {
           "index": "^h8noft",
-          "content": "Wir haben einmal in der letzten Zeit auf wissenschaftlichem Gebiete zwei eminent bedeutsame Entdeckungen, meinetwillen, sagen wir, zu verzeichnen. Ich will nur das hervorheben. Es sind zwei biologische Entdeckungen über die Milz und über die Wirksamkeit kleinster Entitäten. Ich will das jetzt nicht ausführen, aber es wäre interessant, wenn man einmal darüber abstimmen würde und alle die aufstehen würden, die noch nichts gehört haben von der Bedeutung dieser wissenschaftlichen Entdeckungen. Es muss wirklich bei uns so etwas geben, durch das man erfährt, was alles geschieht. Es geschieht ja ungeheuer viel in der Anthroposophischen Gesellschaft, aber der einzelne hat nicht einmal die Möglichkeit, die Dinge zu wissen. Ich empfand das, wie gesagt, als eine sehr berechtigte Forderung. Aber man kann das alles nur machen, wenn die Gesellschaft, so wie sie sein soll, da ist. Deshalb wurde der Entschluss gefasst, die internationale Gesellschaft in Dornach so zu bilden - und das soll ja in den kommenden Weihnachtstagen geschehen -, dass sie solche Aufgaben erfüllen kann. Also nicht bloß äuBerlich formell soll diese Gesellschaft dastehen, dass man also zum Beispiel einheitliche Mitgliedskarten hat, dass man Register hat, wo alle drinstehen, dass man eine Zentralstelle hat, wo alle bezahlen müssen und so weiter. Also nicht bloß in äußerlich formaler Weise soll eine Internationale Anthroposophische Gesellschaft dasein, sondern in einem organischen Zirkulieren desjenigen, was in ihr geschieht. Denken Sie sich nur, wenn sie einmal da ist in dieser Form, die Internationale Anthroposophische Gesellschaft, dann werden unzählige Schwierigkeiten, die wir heute haben, einfach wegfallen."
+          "content": "Wir haben einmal in der letzten Zeit auf wissenschaftlichem Gebiete zwei eminent bedeutsame Entdeckungen, meinetwillen, sagen wir, zu verzeichnen. Ich will nur das hervorheben. Es sind zwei biologische Entdeckungen über die Milz und über die Wirksamkeit kleinster Entitäten. Ich will das jetzt nicht ausführen, aber es wäre interessant, wenn man einmal darüber abstimmen würde und alle die aufstehen würden, die noch nichts gehört haben von der Bedeutung dieser wissenschaftlichen Entdeckungen. Es muss wirklich bei uns so etwas geben, durch das man erfährt, was alles geschieht. Es geschieht ja ungeheuer viel in der Anthroposophischen Gesellschaft, aber der einzelne hat nicht einmal die Möglichkeit, die Dinge zu wissen. Ich empfand das, wie gesagt, als eine sehr berechtigte Forderung. Aber man kann das alles nur machen, wenn die Gesellschaft, so wie sie sein soll, da ist. Deshalb wurde der Entschluss gefasst, die internationale Gesellschaft in Dornach so zu bilden - und das soll ja in den kommenden Weihnachtstagen geschehen -, dass sie solche Aufgaben erfüllen kann. Also nicht bloß äu-Berlich formell soll diese Gesellschaft dastehen, dass man also zum Beispiel einheitliche Mitgliedskarten hat, dass man Register hat, wo alle drinstehen, dass man eine Zentralstelle hat, wo alle bezahlen müssen und so weiter. Also nicht bloß in äußerlich formaler Weise soll eine Internationale Anthroposophische Gesellschaft dasein, sondern in einem organischen Zirkulieren desjenigen, was in ihr geschieht. Denken Sie sich nur, wenn sie einmal da ist in dieser Form, die Internationale Anthroposophische Gesellschaft, dann werden unzählige Schwierigkeiten, die wir heute haben, einfach wegfallen."
         },
         {
           "index": "^fqwcpr",
@@ -2173,6 +2210,7 @@
       "fileName": "GA259/44 - RÜCKBLICK AUF DIE GRÜNDUNGSVERSAMMLUNG DER HOLLÄNDISCHEN LANDESGESELLSCHAFT im letzten Vortrag von «Der übersinnliche Mensch, anthroposophisch erfasst», Den Haag, 18. N",
       "location": "anthroposophisch erfasst»",
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^l3qesu",

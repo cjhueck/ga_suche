@@ -1,7 +1,7 @@
 {
   "_info": "Output: Vorträge mit eingefügten |page|-Markern (aus V4 Break Anchors).",
   "ga": "GA260",
-  "sourceFile": "steiner-full-lectures-260-260.json",
+  "sourceFile": "steiner-full-lectures-014-354-part14.json",
   "lectureCount": 20,
   "lectures": [
     {
@@ -13,6 +13,7 @@
       "fileName": "GA260/1 - Ansprache zur Eurythmie-Darbietung am Sonntag, 23. Dezember 1923",
       "location": null,
       "date": "1923-12-23",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^b92un9",
@@ -85,6 +86,7 @@
       "fileName": "GA260/2 - ERÖFFNUNG DER WEIHNACHTSTAGUNG durch Rudolf Steiner am 24. Dezember, 10 Uhr vormittags",
       "location": "10 Uhr vormittags",
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^z89yhl",
@@ -109,6 +111,7 @@
       "fileName": "GA260/3 - RUDOLF STEINERS ERÖFFNUNGSVORTRAG, VOM 24. Dezember 1923",
       "location": null,
       "date": "1923-12-24",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^86e8dm",
@@ -281,6 +284,7 @@
       "fileName": "GA260/4 - «Statuten der Anthroposophischen Gesellschaft»",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^cte53m",
@@ -453,6 +457,7 @@
       "fileName": "GA260/5 - GRUNDSTEINLEGUNG DER ALLGEMEINEN ANTHROPOSOPHISCHEN GESELLSCHAFT, am 25. Dezember 1923, 10 Uhr morgens",
       "location": null,
       "date": "1923-12-25",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^ubz8ho",
@@ -1041,6 +1046,7 @@
       "fileName": "GA260/6 - GRÜNDUNGSVERSAMMLUNG DER ALLGEMEINEN ANTHROPOSOPHISCHEN GESELLSCHAFT DORNACH, WEIHNACHTEN 1923, am 25. Dezember 1923, 11 Uhr 15 vormittags",
       "location": "WEIHNACHTEN 1923",
       "date": "1923-12-25",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^976glf",
@@ -1273,6 +1279,7 @@
       "fileName": "GA260/7 - SITZUNG DES VORSTANDES UND DER GENERALSEKRETÄRE DER LÄNDERGESELLSCHAFTEN MIT IHREN SEKRETÄREN, am 25. Dezember 1923, 2 Uhr 30 nachmittags, im Glashaus",
       "location": null,
       "date": "1923-12-25",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^dl9dcc",
@@ -1501,6 +1508,7 @@
       "fileName": "GA260/8 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, 26. Dezember 1923, 10 Uhr vormittags",
       "location": null,
       "date": "1923-12-26",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^a9szjd",
@@ -1897,6 +1905,7 @@
       "fileName": "GA260/9 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, am 27. Dezember 1923, 10 Uhr vormittags",
       "location": null,
       "date": "1923-12-27",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^f9wonw",
@@ -2613,6 +2622,7 @@
       "fileName": "GA260/10 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, am 28. Dezember 1923, 10 Uhr vormittags",
       "location": null,
       "date": "1923-12-28",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^l0yacl",
@@ -3457,6 +3467,7 @@
       "fileName": "GA260/11 - SITZUNG DES VORSTANDES DER ALLGEMEINEN ANTHROPOSOPHISCHEN GESELLSCHAFT DER GENERALSEKRETÄRE DER LANDESGESELLSCHAFTEN MIT IHREN SEKRETÄREN UND DER SCHWEIZERISCHEN ZWEIGE",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^9qn1zr",
@@ -3673,6 +3684,7 @@
       "fileName": "GA260/12 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, am 29. Dezember 1923, 10 Uhr vormittags",
       "location": null,
       "date": "1923-12-29",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^qiir5y",
@@ -4153,6 +4165,7 @@
       "fileName": "GA260/13 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, am 30. Dezember 1923, 10 Uhr vormittags",
       "location": null,
       "date": "1923-12-30",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^bl06ys",
@@ -4601,6 +4614,7 @@
       "fileName": "GA260/14 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, am 31. Dezember 1923, 10 Uhr vormittags",
       "location": null,
       "date": "1923-12-31",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^tl4njs",
@@ -5009,6 +5023,7 @@
       "fileName": "GA260/15 - DER KÜNFTIGE BAUGEDANKE VON DORNACH",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^65rsub",
@@ -5141,6 +5156,7 @@
       "fileName": "GA260/16 - FREIE AUSSPRACHE DER SCHWEIZERISCHEN DELEGIERTEN",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^fie3sl",
@@ -5445,6 +5461,7 @@
       "fileName": "GA260/17 - DER NEID DER GÖTTER - DER NEID DER MENSCHEN RÜCKBLICK AUF DEN BRAND DES GOETHEANUMS IN DER SILVESTERNACHT 1922 1923, 31. Dezember 1923",
       "location": null,
       "date": "1923-12-31",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^l0hati",
@@ -5581,6 +5598,7 @@
       "fileName": "GA260/18 - FORTSETZUNG DER GRÜNDUNGSVERSAMMLUNG, am 1. Januar 1924, 10 Uhr vormittags",
       "location": null,
       "date": "1924-01-01",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^zndcl5",
@@ -6117,6 +6135,7 @@
       "fileName": "GA260/19 - DAS RICHTIGE HINEINKOMMEN IN DIE GEISTIGE WELT DIE UNS AUFERLEGTE VERANTWORTUNG, 1. Januar 1924",
       "location": null,
       "date": "1924-01-01",
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^1sm794",
@@ -6633,6 +6652,7 @@
       "fileName": "GA260/20 - AUS DEM MITGLIEDERKREISE",
       "location": null,
       "date": null,
+      "type": "lecture",
       "paragraphs": [
         {
           "index": "^brs0oj",
