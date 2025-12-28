@@ -6994,6 +6994,14 @@ Wandtafeln
 </button>
 </div>
 </div>
+<div id="savedSearchButtons" style="display: none; gap: 8px; margin-top: 6px;">
+<button class="depth-btn" id="saveThematicSearchBtn" onclick="saveCurrentThematicSearch()" title="Themenabfrage speichern (nur für Mitglieder)" style="display: inline-flex; align-items: center; justify-content: center;">
+Speichern
+</button>
+<button class="depth-btn" id="showSavedSearchesBtn" onclick="showSavedThematicSearches()" title="Gespeicherte Themenabfragen anzeigen" style="display: inline-flex; align-items: center; justify-content: center;">
+Meine Abfragen
+</button>
+</div>
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
 <span id="thematicServerInfo"></span>
@@ -40922,6 +40930,12 @@ async function addKeywordToLecture() {
   window.subscribeToChatMessages = MembersAPI.subscribeToChatMessages;
   window.unsubscribeFromChat = MembersAPI.unsubscribeFromChat;
   
+  // Themenabfragen-Funktionen
+  window.saveThematicSearchAPI = MembersAPI.saveThematicSearch;
+  window.getSavedThematicSearchesAPI = MembersAPI.getSavedThematicSearches;
+  window.getSavedThematicSearchAPI = MembersAPI.getSavedThematicSearch;
+  window.deleteSavedThematicSearchAPI = MembersAPI.deleteSavedThematicSearch;
+  
   // Event auslösen, dass API-Funktionen geladen sind
   window.dispatchEvent(new CustomEvent('members-api-loaded'));
   
@@ -41629,6 +41643,322 @@ async function addKeywordToLecture() {
   });
   
   console.log('[TEXT-EDIT] Modul geladen');
+})();
+</script>
+
+<!-- Themenabfragen speichern/laden für Mitglieder -->
+<script>
+(function() {
+  let currentMemberUser = null;
+  
+  // Auth-Status prüfen und Buttons aktualisieren
+  async function checkThematicAuthState() {
+    if (typeof getCurrentUser !== 'function') return;
+    
+    try {
+      currentMemberUser = await getCurrentUser();
+      updateThematicSaveButtonVisibility();
+    } catch (error) {
+      console.log('[THEMATIC-SAVE] Nicht angemeldet');
+      currentMemberUser = null;
+    }
+  }
+  
+  // Speichern-Button Sichtbarkeit aktualisieren
+  function updateThematicSaveButtonVisibility() {
+    const savedSearchButtons = document.getElementById('savedSearchButtons');
+    
+    if (savedSearchButtons) {
+      savedSearchButtons.style.display = currentMemberUser ? 'flex' : 'none';
+    }
+  }
+  
+  // Themenabfrage speichern
+  window.saveCurrentThematicSearch = async function() {
+    if (!currentMemberUser) {
+      alert('Bitte melden Sie sich im Mitgliederbereich an, um Themenabfragen zu speichern.');
+      return;
+    }
+    
+    const query = document.getElementById('thematicQuery').value.trim();
+    const answerContent = document.getElementById('answerContent');
+    
+    if (!query || !answerContent) {
+      alert('Keine Themenabfrage zum Speichern vorhanden.');
+      return;
+    }
+    
+    const content = answerContent.innerHTML;
+    const gaFilter = document.getElementById('thematicGAFilter').value || null;
+    const limit = parseInt(document.getElementById('thematicLimitFilter')?.value) || 100;
+    
+    try {
+      if (typeof saveThematicSearchAPI !== 'function') {
+        throw new Error('API nicht verfügbar');
+      }
+      
+      const result = await saveThematicSearchAPI(query, content, currentSources || [], {
+        gaFilter: gaFilter,
+        limitUsed: limit,
+        totalMatches: currentSources ? currentSources.length : 0
+      });
+      
+      if (!result.success) throw new Error(result.error);
+      
+      showThematicNotification('Themenabfrage gespeichert!', 'success');
+    } catch (error) {
+      console.error('Fehler beim Speichern:', error);
+      showThematicNotification('Fehler beim Speichern: ' + error.message, 'error');
+    }
+  };
+  
+  // Gespeicherte Themenabfragen anzeigen
+  window.showSavedThematicSearches = async function() {
+    if (!currentMemberUser) {
+      alert('Bitte melden Sie sich im Mitgliederbereich an.');
+      return;
+    }
+    
+    try {
+      if (typeof getSavedThematicSearchesAPI !== 'function') {
+        throw new Error('API nicht verfügbar');
+      }
+      
+      const result = await getSavedThematicSearchesAPI();
+      if (!result.success) throw new Error(result.error);
+      
+      displaySavedSearchesModal(result.data);
+    } catch (error) {
+      console.error('Fehler beim Laden:', error);
+      showThematicNotification('Fehler beim Laden: ' + error.message, 'error');
+    }
+  };
+  
+  // Modal für gespeicherte Abfragen anzeigen
+  function displaySavedSearchesModal(searches) {
+    const existingModal = document.getElementById('savedSearchesModal');
+    if (existingModal) existingModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'savedSearchesModal';
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+      background: var(--bg-color, white);
+      color: var(--text-color, #333);
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 700px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    `;
+    
+    let html = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="margin: 0; color: var(--accent-color, #467886);">Meine gespeicherten Themenabfragen</h3>
+        <button onclick="document.getElementById('savedSearchesModal').remove()" 
+                style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-color, #666);">×</button>
+      </div>
+    `;
+    
+    if (searches.length === 0) {
+      html += '<p style="color: var(--secondary-text, #666); text-align: center;">Keine gespeicherten Themenabfragen vorhanden.</p>';
+    } else {
+      html += '<div style="display: flex; flex-direction: column; gap: 10px;">';
+      
+      searches.forEach(search => {
+        const date = new Date(search.created_at).toLocaleDateString('de-DE', {
+          day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+        
+        const queryText = search.query.substring(0, 80) + (search.query.length > 80 ? '...' : '');
+        
+        html += `
+          <div style="border: 1px solid var(--border-color, #ddd); border-radius: 6px; padding: 12px; background: var(--input-bg, #f9f9f9);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; color: var(--text-color, #333); margin-bottom: 4px;">${escapeHtmlThematic(queryText)}</div>
+                <div style="font-size: 12px; color: var(--secondary-text, #888);">${date} | ${search.total_matches} Quellen${search.ga_filter ? ' | ' + search.ga_filter : ''}</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button onclick="loadSavedThematicSearch('${search.id}')" 
+                        style="background: var(--accent-color, #467886); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                  Laden
+                </button>
+                <button onclick="deleteSavedThematicSearch('${search.id}')" 
+                        style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                  Löschen
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+    }
+    
+    modalContent.innerHTML = html;
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.remove();
+    });
+  }
+  
+  // Gespeicherte Abfrage laden
+  window.loadSavedThematicSearch = async function(searchId) {
+    if (!currentMemberUser) return;
+    
+    try {
+      if (typeof getSavedThematicSearchAPI !== 'function') {
+        throw new Error('API nicht verfügbar');
+      }
+      
+      const result = await getSavedThematicSearchAPI(searchId);
+      if (!result.success) throw new Error(result.error);
+      
+      const data = result.data;
+      
+      // Query in Eingabefeld setzen
+      document.getElementById('thematicQuery').value = data.query;
+      
+      // GA-Filter setzen falls vorhanden
+      if (data.ga_filter) {
+        document.getElementById('thematicGAFilter').value = data.ga_filter;
+      }
+      
+      // Limit setzen
+      const limitFilter = document.getElementById('thematicLimitFilter');
+      if (limitFilter && data.limit_used) {
+        limitFilter.value = data.limit_used;
+      }
+      
+      // Ergebnisse im Main Viewer anzeigen
+      currentSources = data.sources || [];
+      
+      // Titel aktualisieren
+      const titleElement = document.getElementById('document-title');
+      const queryShort = data.query.length > 60 ? data.query.substring(0, 60) + '...' : data.query;
+      titleElement.innerHTML = `<span style="color: var(--accent-color, #467886);">Themenabfrage:</span> ${queryShort}`;
+      
+      // Inhalt im Main Viewer anzeigen
+      const viewer = document.getElementById('viewer');
+      const date = new Date(data.created_at).toLocaleDateString('de-DE', {
+        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+      
+      viewer.innerHTML = `
+        <div class="saved-thematic-result" style="padding: 1rem 0;">
+          <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
+            Gespeichert am ${date} • ${data.total_matches} Quellen${data.ga_filter ? ' • ' + data.ga_filter : ''}
+          </div>
+          <div class="semantic-answer">
+            <div class="answer-content" id="answerContent">${data.content}</div>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('status').textContent = `Gespeicherte Antwort geladen`;
+      
+      // Modal schließen
+      const modal = document.getElementById('savedSearchesModal');
+      if (modal) modal.remove();
+      
+      showThematicNotification('Themenabfrage geladen!', 'success');
+    } catch (error) {
+      console.error('Fehler beim Laden:', error);
+      showThematicNotification('Fehler beim Laden: ' + error.message, 'error');
+    }
+  };
+  
+  // Gespeicherte Abfrage löschen
+  window.deleteSavedThematicSearch = async function(searchId) {
+    if (!currentMemberUser) return;
+    
+    if (!confirm('Möchten Sie diese Themenabfrage wirklich löschen?')) return;
+    
+    try {
+      if (typeof deleteSavedThematicSearchAPI !== 'function') {
+        throw new Error('API nicht verfügbar');
+      }
+      
+      const result = await deleteSavedThematicSearchAPI(searchId);
+      if (!result.success) throw new Error(result.error);
+      
+      showThematicNotification('Themenabfrage gelöscht!', 'success');
+      
+      // Liste aktualisieren
+      showSavedThematicSearches();
+    } catch (error) {
+      console.error('Fehler beim Löschen:', error);
+      showThematicNotification('Fehler beim Löschen: ' + error.message, 'error');
+    }
+  };
+  
+  // Helper: HTML escapen
+  function escapeHtmlThematic(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  // Benachrichtigung anzeigen
+  function showThematicNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background: ${type === 'success' ? 'var(--accent-color, #467886)' : type === 'error' ? '#dc3545' : '#2196F3'};
+      color: white;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 10001;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+  
+  // Initialisierung
+  window.addEventListener('members-api-loaded', function() {
+    checkThematicAuthState();
+    
+    // Auth-Status-Listener
+    if (typeof window.supabaseClient !== 'undefined' && window.supabaseClient) {
+      window.supabaseClient.auth.onAuthStateChange((event, session) => {
+        currentMemberUser = session?.user || null;
+        updateThematicSaveButtonVisibility();
+      });
+    }
+  });
+  
+  // Auch bei DOMContentLoaded prüfen
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(checkThematicAuthState, 500);
+  });
+  
+  console.log('[THEMATIC-SAVE] Modul geladen');
 })();
 </script>
 
