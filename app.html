@@ -21118,6 +21118,13 @@ function scrollToChronologicalYear(year) {
         // Scroll sidebar to top
         const sc = document.getElementById('sidebar-content');
         if (sc) sc.scrollTop = 0;
+        // Korrigiere Anführungszeichen nach dem Rendern
+        setTimeout(() => {
+          const answerContent = document.getElementById('answerContent');
+          if (answerContent) {
+            convertToGermanQuotes(answerContent);
+          }
+        }, 100);
       } catch (e) {
         console.error('Fehler beim Laden der gespeicherten Themenanfrage:', e);
         alert('Fehler beim Laden der gespeicherten Themenanfrage.');
@@ -25644,28 +25651,72 @@ function formatAsteriskParagraphs() {
     function convertToGermanQuotes(element) {
       if (!element) return;
       
-      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+      // Verwende TreeWalker um alle Textknoten zu finden
+      const walker = document.createTreeWalker(
+        element,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: function(node) {
+            // Überspringe Textknoten in script und style Tags
+            const parent = node.parentNode;
+            if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        }
+      );
+      
       const nodes = [];
-      while (walker.nextNode()) nodes.push(walker.currentNode);
+      while (walker.nextNode()) {
+        nodes.push(walker.currentNode);
+      }
       
       nodes.forEach(node => {
         if (!node.nodeValue) return;
         let text = node.nodeValue;
+        const originalText = text;
         
-        // Konvertiere gerade Anführungszeichen zu deutschen
-        // Einführend/öffnend: „ (unten, U+201E)
-        // Ausführend/schließend: " (oben, U+201C)
-        let isOpening = true;
-        text = text.replace(/"/g, () => {
-          // „ = \u201E (doppelte untere Anführungszeichen - öffnend)
-          // " = \u201C (doppelte obere Anführungszeichen - schließend)
-          const quote = isOpening ? '\u201E' : '\u201C';
-          isOpening = !isOpening;
-          return quote;
+        // Schritt 1: Korrigiere ALLE „ (unten) die nach einem alphanumerischen Zeichen kommen
+        // Diese sind definitiv schließende Anführungszeichen und sollten " (oben) sein
+        // Pattern: Jedes alphanumerische Zeichen (Buchstabe, Zahl, Umlaut) gefolgt von „
+        text = text.replace(/([a-zA-ZäöüÄÖÜß0-9])„/g, '$1"');
+        
+        // Schritt 2: Alle anderen Anführungszeichen-Varianten durch Marker ersetzen
+        // " (U+0022 ASCII), " (U+201C englisch öffnend), " (U+201D englisch schließend)
+        text = text.replace(/[""\u201C\u201D]/g, '\x01QUOTE\x01');
+        
+        // Schritt 3: Ersetze Marker durch korrekte deutsche Anführungszeichen
+        // Paarweise: ungerade Positionen = öffnend „ (unten), gerade Positionen = schließend " (oben)
+        let quoteIndex = 0;
+        text = text.replace(/\x01QUOTE\x01/g, () => {
+          quoteIndex++;
+          // Ungerade = öffnend „ (unten), gerade = schließend " (oben)
+          return quoteIndex % 2 === 1 ? '„' : '"';
         });
         
-        node.nodeValue = text;
+        // Nur aktualisieren wenn sich etwas geändert hat
+        if (text !== originalText) {
+          node.nodeValue = text;
+        }
       });
+    }
+    
+    // Globale Funktion zum Korrigieren aller Anführungszeichen im Viewer
+    function correctAllGermanQuotes() {
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      // Korrigiere alle .answer-content Elemente
+      const answerContents = viewer.querySelectorAll('.answer-content');
+      answerContents.forEach(element => {
+        convertToGermanQuotes(element);
+      });
+      
+      // Falls kein .answer-content vorhanden, korrigiere den gesamten Viewer
+      if (answerContents.length === 0) {
+        convertToGermanQuotes(viewer);
+      }
     }
 
     // Stellt einheitliche Leerzeichen um Klammern bei GA-Quellenangaben her
@@ -25762,6 +25813,11 @@ function formatAsteriskParagraphs() {
       normalizeCitationSpacing(answerDiv);
       // Deutsche Anführungszeichen „..." verwenden
       convertToGermanQuotes(answerDiv);
+      
+      // Zusätzlich: Korrigiere auch nach kurzer Verzögerung (falls dynamisch geladen)
+      setTimeout(() => {
+        convertToGermanQuotes(answerDiv);
+      }, 100);
 
       // Falls die Quellen direkt in der Überschrift stehen: Überschrift säubern und Rest in neuen Absatz verschieben
       try {
@@ -30871,6 +30927,13 @@ function switchTabExtended(mode) {
     // Warte kurz, damit der Tab-Inhalt zuerst sichtbar wird
     setTimeout(() => {
       loadRecentThematicQueries();
+      // Korrigiere bestehende Inhalte im Viewer - mehrfach mit Verzögerung für dynamisch geladene Inhalte
+      correctAllGermanQuotes();
+      
+      // Nochmal nach kurzer Verzögerung (für dynamisch geladene Inhalte)
+      setTimeout(correctAllGermanQuotes, 200);
+      setTimeout(correctAllGermanQuotes, 500);
+      setTimeout(correctAllGermanQuotes, 1000);
     }, 50);
   }
   

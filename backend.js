@@ -3817,6 +3817,8 @@ ANALYSE:`;
     
     analysisText = addClickableReferences(analysisText, topResults);
     
+    // Deutsche Anführungszeichen korrigieren: öffnend „ (unten), schließend " (oben)
+    analysisText = fixGermanQuotes(analysisText);
     
     return analysisText;
 
@@ -3931,6 +3933,45 @@ function addClickableReferences(text, results) {
   
   
   return linkedText;
+}
+
+/**
+ * Korrigiert Anführungszeichen auf deutsche Typografie:
+ * öffnend: „ (U+201E, unten) - schließend: " (U+201C, oben)
+ */
+function fixGermanQuotes(text) {
+  // Schritt 1: HTML-Tags und Attribute schützen
+  const htmlTagPattern = /<[^>]*>/g;
+  const htmlTags = [];
+  let protectedText = text.replace(htmlTagPattern, (match) => {
+    htmlTags.push(match);
+    return `\x00HTML${htmlTags.length - 1}\x00`;
+  });
+  
+  // Schritt 2: Korrigiere ALLE „ (unten) die nach einem alphanumerischen Zeichen kommen
+  // Diese sind definitiv schließende Anführungszeichen und sollten " (oben) sein
+  // Pattern: Jedes alphanumerische Zeichen (Buchstabe, Zahl, Umlaut) gefolgt von „
+  protectedText = protectedText.replace(/([a-zA-ZäöüÄÖÜß0-9])„/g, '$1"');
+  
+  // Schritt 3: Alle anderen Anführungszeichen-Varianten durch Marker ersetzen
+  // " (U+0022 ASCII), " (U+201C englisch öffnend), " (U+201D englisch schließend)
+  protectedText = protectedText.replace(/[""\u201C\u201D]/g, '\x01QUOTE\x01');
+  
+  // Schritt 4: Ersetze Marker durch korrekte deutsche Anführungszeichen
+  // Paarweise: ungerade Positionen = öffnend „ (unten), gerade Positionen = schließend " (oben)
+  let quoteIndex = 0;
+  protectedText = protectedText.replace(/\x01QUOTE\x01/g, () => {
+    quoteIndex++;
+    // Ungerade = öffnend „ (unten), gerade = schließend " (oben)
+    return quoteIndex % 2 === 1 ? '„' : '"';
+  });
+  
+  // Schritt 7: HTML-Tags wiederherstellen
+  protectedText = protectedText.replace(/\x00HTML(\d+)\x00/g, (match, index) => {
+    return htmlTags[parseInt(index)];
+  });
+  
+  return protectedText;
 }
 
 function generateFallbackAnalysis(query, results) {
