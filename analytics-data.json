@@ -3,11 +3,18 @@
     "2025-12-27": {
       "views": 2,
       "searches": 1,
-      "lectures": 68
+      "lectures": 71
+    },
+    "2025-12-28": {
+      "views": 4,
+      "searches": 3,
+      "lectures": 43
     }
   },
   "topSearches": {
-    "img": 1
+    "img": 1,
+    "was ist \"imaginatives erkennen\" bzw. \"imagination\"": 2,
+    "welcher zusammenhang besteht zwischen dem fühlen u": 1
   },
   "topLectures": {
     "GA019": 2,
@@ -53,9 +60,22 @@
     "GA291a/20": 1,
     "GA291a/34": 2,
     "GA291a/13": 1,
-    "GA291a/28": 1
+    "GA291a/28": 1,
+    "GA289/10": 1,
+    "GA289/2": 1,
+    "GA289/1": 1,
+    "GA073a/1": 11,
+    "GA073a/2": 9,
+    "GA073a/10": 2,
+    "GA073a/9": 1,
+    "GA073a/3": 3,
+    "GA073a/4": 1,
+    "GA073a/6": 1,
+    "GA073/1": 5,
+    "GA073/2": 7,
+    "GA073/5": 3
   },
-  "totalViews": 2,
-  "totalSearches": 1,
-  "totalLectureViews": 68
+  "totalViews": 6,
+  "totalSearches": 4,
+  "totalLectureViews": 114
 }
