@@ -8,7 +8,7 @@
 - **Timeline**: Zeitlicher Verlauf einzelner Such- und Schlagwörter in der GA
 - **Index**: Liste wichtiger Begriffe
 
-- **Mitgliederbereich**: Nach Anmeldung Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren
+- **Mitgliederbereich**: Nach Anmeldung Zitate, Bookmarks und Themenabfragen abspeichern, mit Schlagworten versehen, ordnen und kommentieren
 
 Suche, Themen, Timeline und Schlagwörter sind mit den entsprechenden Quellen verlinkt.
 Die Fenster können über die **drei blauen Punkte** geöffnet und geschlossen werden.

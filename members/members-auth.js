@@ -16,12 +16,43 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Supabase Client initialisieren - verwende globale supabase Variable
 // Prüfe ob supabase verfügbar ist (kann window.supabase oder global supabase sein)
 const getSupabaseClient = () => {
-  if (typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
-    return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  } else if (typeof supabase !== 'undefined' && supabase.createClient) {
-    return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  } else {
-    throw new Error('Supabase-Bibliothek nicht gefunden! Bitte stellen Sie sicher, dass das Supabase-Script vor diesem Modul geladen wird.');
+  const options = {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    },
+    // Realtime-Konfiguration: Wir erlauben Fallbacks, falls WebSockets blockiert sind
+    realtime: {
+      params: {
+        eventsPerSecond: 2
+      }
+    }
+  };
+
+  try {
+    if (typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
+      return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, options);
+    } else if (typeof supabase !== 'undefined' && supabase.createClient) {
+      return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, options);
+    } else {
+      throw new Error('Supabase-Bibliothek nicht gefunden! Bitte stellen Sie sicher, dass das Supabase-Script vor diesem Modul geladen wird.');
+    }
+  } catch (error) {
+    console.error('Kritischer Fehler bei der Supabase-Initialisierung:', error);
+    // Letzter Rettungsversuch: Ohne Realtime initialisieren
+    console.log('Versuche Initialisierung ohne Realtime...');
+    try {
+      options.realtime = false;
+      if (typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
+        return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, options);
+      } else if (typeof supabase !== 'undefined' && supabase.createClient) {
+        return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, options);
+      }
+    } catch (innerError) {
+      console.error('Auch die Fallback-Initialisierung ist fehlgeschlagen:', innerError);
+      throw innerError;
+    }
   }
 };
 
