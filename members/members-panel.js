@@ -9558,7 +9558,7 @@ async function handleMembersLogin() {
     }, 100);
     
     setTimeout(() => {
-      showMembersContent();
+      window.location.href = 'index.html';
     }, 1000);
     
   } catch (error) {
@@ -9661,7 +9661,7 @@ async function handlePasswordReset() {
     // Supabase sendet auch bei nicht registrierten E-Mails eine Bestätigung (aus Sicherheitsgründen)
     // aber wir können trotzdem versuchen zu prüfen
     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/members.html`
+      redirectTo: `${window.location.origin}/index.html`
     });
     
     if (error) throw error;
