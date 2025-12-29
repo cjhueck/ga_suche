@@ -75,7 +75,7 @@ export async function signUp(email, password, displayName) {
         data: {
           display_name: displayName
         },
-        emailRedirectTo: `${window.location.origin}/members.html`
+        emailRedirectTo: `${window.location.origin}/index.html`
       }
     });
 
@@ -165,7 +165,7 @@ export async function getCurrentUser() {
 export async function resetPassword(email) {
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/members.html`
+      redirectTo: `${window.location.origin}/index.html`
     });
 
     if (error) throw error;

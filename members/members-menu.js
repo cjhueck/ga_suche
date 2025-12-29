@@ -230,7 +230,7 @@ async function handleLogin() {
     
     setTimeout(() => {
       closeLoginModal();
-      updateMemberMenuState();
+      window.location.href = 'index.html';
     }, 1000);
     
   } catch (error) {
@@ -261,7 +261,7 @@ async function handleRegister() {
       email: email,
       password: password,
       options: {
-        emailRedirectTo: `${window.location.origin}/members.html`
+        emailRedirectTo: `${window.location.origin}/index.html`
       }
     });
     
