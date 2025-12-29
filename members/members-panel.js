@@ -9590,7 +9590,10 @@ async function handleMembersRegister() {
   try {
     const { data, error } = await supabaseClient.auth.signUp({
       email: email,
-      password: password
+      password: password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/index.html`
+      }
     });
     
     if (error) throw error;

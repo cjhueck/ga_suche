@@ -102,10 +102,39 @@
       font-family: inherit;
       border-radius: 4px;
       transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      box-sizing: border-box;
     }
 
     button.secondary:hover {
       background-color: var(--accent-color);
+      color: white;
+    }
+
+    .ga-suche-btn {
+      background: var(--accent-color);
+      color: white;
+      border: 1px solid var(--accent-color);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      height: 38px;
+      box-sizing: border-box;
+    }
+    
+    .ga-suche-btn:hover {
+      background: var(--heading-color);
+      border-color: var(--heading-color);
       color: white;
     }
 
@@ -171,16 +200,7 @@
       box-sizing: border-box;
     }
     
-    .toolbar-tab.ga-suche-btn {
-      background: var(--accent-color);
-      color: white;
-      border-color: var(--accent-color);
-    }
-    
-    .toolbar-tab.ga-suche-btn:hover {
-      background: var(--heading-color);
-      border-color: var(--heading-color);
-    }
+    /* .toolbar-tab.ga-suche-btn entfernt, da jetzt im Header-Rechts */
 
     .toolbar-btn {
       padding: 0.4rem 1rem;
@@ -1150,10 +1170,10 @@
   <div id="app-view">
     <header>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="app.html" class="toolbar-tab ga-suche-btn" style="text-decoration: none;">Zur GA-Suche</a>
         <h1>GA-Suche Mitgliederbereich</h1>
       </div>
       <div class="user-info">
+        <a href="app.html" class="ga-suche-btn">Zur GA-Suche</a>
         <button class="secondary" id="account-btn">Mein Account</button>
         <button class="secondary" id="logout-btn">Abmelden</button>
       </div>
@@ -1788,7 +1808,10 @@
             const result = await signInFunc(email, password);
             
             if (result.success) {
-              await showApp(result.user);
+              showAuthMessage('✓ Erfolgreich angemeldet!', 'success');
+              setTimeout(() => {
+                window.location.href = 'index.html';
+              }, 1000);
             } else {
               showAuthMessage(result.message, 'error');
             }
@@ -1854,7 +1877,7 @@
           }
           try {
             await signOutFunc();
-            showAuth();
+            window.location.href = 'index.html';
           } catch (error) {
             console.error('[MEMBERS-HTML] Logout-Fehler:', error);
           }
