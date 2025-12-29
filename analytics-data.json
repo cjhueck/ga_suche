@@ -13,7 +13,7 @@
     "2025-12-29": {
       "views": 5,
       "searches": 2,
-      "lectures": 52
+      "lectures": 63
     }
   },
   "topSearches": {
@@ -110,9 +110,17 @@
     "GA174a/12": 1,
     "GA170/14": 1,
     "GA262/2": 3,
-    "GA046/54": 2
+    "GA046/54": 2,
+    "GA264/1": 4,
+    "GA264/2": 1,
+    "GA264/18": 1,
+    "GA264/20": 1,
+    "GA264/21": 1,
+    "GA264/11": 1,
+    "GA264/6": 1,
+    "GA264/4": 1
   },
   "totalViews": 13,
   "totalSearches": 24,
-  "totalLectureViews": 236
+  "totalLectureViews": 247
 }
