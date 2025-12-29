@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
@@ -1345,170 +1345,6 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     body.dark-mode .paragraph.selected-for-keyword {
       background: rgba(107, 163, 184, 0.25);
       border-left: 4px solid #6BA3B8;
-    }
-    
-    /* ============================================ */
-    /* TEXT-BEARBEITUNGSMODUS (INLINE EDITING) */
-    /* ============================================ */
-    
-    /* Edit-Modus aktiv: Body-Klasse */
-    body.text-edit-mode #viewer .paragraph[contenteditable="true"],
-    body.text-edit-mode #viewer h3[contenteditable="true"],
-    body.text-edit-mode #viewer h4[contenteditable="true"] {
-      outline: 2px dashed #9b59b6;
-      outline-offset: 4px;
-      padding: 8px;
-      margin: 4px 0;
-      border-radius: 4px;
-      background: rgba(155, 89, 182, 0.05);
-      cursor: text;
-      transition: background 0.2s, outline-color 0.2s;
-    }
-    
-    body.text-edit-mode #viewer .paragraph[contenteditable="true"]:hover,
-    body.text-edit-mode #viewer h3[contenteditable="true"]:hover,
-    body.text-edit-mode #viewer h4[contenteditable="true"]:hover {
-      background: rgba(155, 89, 182, 0.1);
-      outline-color: #8e44ad;
-    }
-    
-    body.text-edit-mode #viewer .paragraph[contenteditable="true"]:focus,
-    body.text-edit-mode #viewer h3[contenteditable="true"]:focus,
-    body.text-edit-mode #viewer h4[contenteditable="true"]:focus {
-      outline: 2px solid #8e44ad;
-      background: rgba(155, 89, 182, 0.15);
-    }
-    
-    /* Bearbeiteter Text (mit Änderungen) */
-    body.text-edit-mode .paragraph.text-modified,
-    body.text-edit-mode h3.text-modified,
-    body.text-edit-mode h4.text-modified {
-      outline-color: #e74c3c !important;
-      background: rgba(231, 76, 60, 0.1) !important;
-    }
-    
-    /* Gespeicherte Änderungen anzeigen (Nur in lokaler Version sichtbar) */
-    body.is-local .paragraph.has-text-edit,
-    body.is-local h3.has-text-edit,
-    body.is-local h4.has-text-edit {
-      position: relative;
-      background: rgba(155, 89, 182, 0.05); /* Dezenter lila Hintergrund für Bearbeitungen */
-      border-left: 3px solid #9b59b6;
-      padding-left: 10px;
-      margin-left: -13px;
-    }
-    
-    body.dark-mode.is-local .paragraph.has-text-edit,
-    body.dark-mode.is-local h3.has-text-edit,
-    body.dark-mode.is-local h4.has-text-edit {
-      background: rgba(155, 89, 182, 0.1);
-      border-left-color: #bb8fce;
-    }
-    
-    body.is-local .paragraph.has-text-edit::before,
-    body.is-local h3.has-text-edit::before,
-    body.is-local h4.has-text-edit::before {
-      content: '✏️';
-      position: absolute;
-      left: 5px; /* In den Absatz verschieben */
-      top: -10px;
-      font-size: 14px;
-      opacity: 0.8;
-      background: var(--background-color);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 10;
-    }
-    
-    /* Dark Mode für Edit-Modus */
-    body.dark-mode.text-edit-mode #viewer .paragraph[contenteditable="true"],
-    body.dark-mode.text-edit-mode #viewer h3[contenteditable="true"],
-    body.dark-mode.text-edit-mode #viewer h4[contenteditable="true"] {
-      outline-color: #bb8fce;
-      background: rgba(155, 89, 182, 0.1);
-    }
-    
-    body.dark-mode.text-edit-mode #viewer .paragraph[contenteditable="true"]:focus,
-    body.dark-mode.text-edit-mode #viewer h3[contenteditable="true"]:focus,
-    body.dark-mode.text-edit-mode #viewer h4[contenteditable="true"]:focus {
-      outline-color: #d4a5e8;
-      background: rgba(155, 89, 182, 0.2);
-    }
-    
-    /* Edit-Modus Toolbar */
-    #text-edit-toolbar {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--background-color);
-      border: 2px solid #9b59b6;
-      border-radius: 12px;
-      padding: 12px 16px;
-      display: none;
-      gap: 10px;
-      align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      z-index: 9999;
-    }
-    
-    body.text-edit-mode #text-edit-toolbar {
-      display: flex;
-    }
-    
-    /* Toolbar nur lokal erlauben */
-    body:not(.is-local) #text-edit-toolbar {
-      display: none !important;
-    }
-    
-    #text-edit-toolbar button {
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.9em;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    /* Bearbeiten-Button nur lokal anzeigen */
-    #text-edit-mode-btn {
-        display: none !important;
-    }
-    body.is-local #text-edit-mode-btn {
-        display: inline-block !important;
-    }
-    
-    #text-edit-toolbar .save-btn {
-      background: #27ae60;
-      color: white;
-      border: none;
-    }
-    
-    #text-edit-toolbar .save-btn:hover {
-      background: #219a52;
-    }
-    
-    #text-edit-toolbar .cancel-btn {
-      background: transparent;
-      color: var(--text-color);
-      border: 1px solid var(--border-color);
-    }
-    
-    #text-edit-toolbar .cancel-btn:hover {
-      background: rgba(0,0,0,0.05);
-    }
-    
-    #text-edit-toolbar .status {
-      font-size: 0.85em;
-      color: var(--secondary-text);
-    }
-    
-    body.dark-mode #text-edit-toolbar {
-      background: var(--dark-background-color);
-      border-color: #bb8fce;
     }
     
     /* Keyword Management Item Hover */
@@ -6977,8 +6813,6 @@ Wandtafeln
   <button id="pages-correction-btn" class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #17a2b8; border: 1px solid #17a2b8;" title="Seitenzahlen überprüfen und korrigieren">
     Pages
   </button>
-  <!-- Text-Bearbeitung Button -->
-  <button id="text-edit-mode-btn" class="depth-btn" onclick="toggleTextEditMode()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #9b59b6; border: 1px solid #9b59b6;" title="Text-Bearbeitungsmodus aktivieren">&#8203;✏️&#8203;</button>
   <!-- BATCH GENERATION (nur lokal) -->
   <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #d9534f; border: 1px solid #d9534f;">
     S&H&C&K
@@ -14508,6 +14342,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   // Hilfsfunktion: Rendert einen einzelnen Absatz zu HTML
   function renderParagraphToHTML(para, idx, headings, keywords, isPhraseArray, targetIndex) {
+      // Überspringe gelöschte Absätze
+      if (para._deleted) return '';
+      
       let paraHtml = '';
       const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
       const paraIndexWithCaret = para.index || `^${paraIndex}`;
@@ -23667,6 +23504,9 @@ function scrollToChronologicalYear(year) {
           
           // Absätze mit Überschriften
           paragraphs.forEach((para, idx) => {
+            // Überspringe gelöschte Absätze
+            if (para._deleted) return;
+            
             const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
             
             // Finde passende Überschriften
@@ -23704,6 +23544,9 @@ function scrollToChronologicalYear(year) {
           
           // Absätze mit Überschriften
           paragraphs.forEach((para, idx) => {
+            // Überspringe gelöschte Absätze
+            if (para._deleted) return;
+            
             const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
             
             // Finde passende Überschriften
@@ -25109,6 +24952,9 @@ function showSummaryView() {
   const paragraphs = lecture.paragraphs || [];
   
   paragraphs.forEach((para, idx) => {
+    // Überspringe gelöschte Absätze
+    if (para._deleted) return;
+    
     const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
     const paraIndexWithCaret = para.index || `^${paraIndex}`;
     
@@ -25404,6 +25250,11 @@ function showSummaryView() {
     
     // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
     const hasTextEdit = para._edited ? 'has-text-edit' : '';
+    
+    // Debug: Log wenn Absatz als bearbeitet markiert ist
+    if (para._edited) {
+      console.log(`[RENDER] ✏️ Absatz mit has-text-edit Klasse: para-${paraIndex}`);
+    }
 
 html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
@@ -26204,6 +26055,14 @@ function formatAsteriskParagraphs() {
       console.log(`[SHOW-LECTURE] ✏️ Vortrag hat Text-Edits: ${data.lecture.ID}`);
       const editedParas = data.lecture.paragraphs?.filter(p => p._edited);
       console.log(`[SHOW-LECTURE]   Anzahl bearbeiteter Absätze: ${editedParas?.length || 0}`);
+      // Debug: Zeige welche Absätze bearbeitet wurden
+      if (editedParas && editedParas.length > 0) {
+        editedParas.forEach(p => {
+          console.log(`[SHOW-LECTURE]   ✏️ Bearbeitet: Index="${p.index}", Content-Auszug="${(p.content || p.text || '').substring(0, 50)}..."`);
+        });
+      }
+      // Debug: Prüfe ob is-local Klasse gesetzt ist
+      console.log(`[SHOW-LECTURE]   body.is-local = ${document.body.classList.contains('is-local')}`);
     }
     
     // Prüfe ob wir von einem Buch zu einem Vortrag wechseln (im GA-Tab)
@@ -29457,6 +29316,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         // Render paragraphs and insert matching headings before each paragraph
         mergedParagraphs.forEach((para, idx) => {
+          // Überspringe gelöschte Absätze
+          if (para._deleted) return;
+          
           const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
           const paraIndexWithCaret = para.index || `^${paraIndex}`;
           
@@ -41460,362 +41322,16 @@ async function addKeywordToLecture() {
 })();
 </script>
 
-<!-- Text-Bearbeitungs-Toolbar (fixiert unten rechts) -->
-<div id="text-edit-toolbar">
-  <span class="status" id="text-edit-status">Bearbeitungsmodus aktiv</span>
-  <button class="save-btn" onclick="saveTextEdits()" title="Änderungen speichern (Strg+S)">
-    💾 Speichern
-  </button>
-  <button class="cancel-btn" onclick="cancelTextEditMode()" title="Bearbeitung abbrechen">
-    ✕ Abbrechen
-  </button>
-</div>
-
-<!-- Text-Bearbeitungs-JavaScript -->
+<!-- Themenabfragen speichern/laden für Mitglieder - Text-Edit-Modul wurde entfernt -->
 <script>
-(function() {
-  // Text-Bearbeitungs-Modul
-  window.textEditMode = {
-    active: false,
-    currentLectureId: null,
-    originalContents: new Map(), // Speichert Originalinhalte
-    modifiedElements: new Set(), // Elemente mit Änderungen
-    headingEdits: {} // Überschriften-Bearbeitungen von der DB
-  };
-  
-  // Edit-Modus aktivieren/deaktivieren
-  window.toggleTextEditMode = function() {
-    if (!window.textEditMode.active) {
-      activateTextEditMode();
-    } else {
-      deactivateTextEditMode();
-    }
-  };
-  
-  function activateTextEditMode() {
-    const lectureId = window.currentOpenLectureId;
-    if (!lectureId) {
-      alert('Bitte öffnen Sie zuerst einen Vortrag.');
-      return;
-    }
-    
-    window.textEditMode.active = true;
-    window.textEditMode.currentLectureId = lectureId;
-    window.textEditMode.originalContents.clear();
-    window.textEditMode.modifiedElements.clear();
-    
-    document.body.classList.add('text-edit-mode');
-    
-    // Button-Text ändern
-    const btn = document.getElementById('text-edit-mode-btn');
-    if (btn) {
-      btn.innerHTML = '✏️';
-      btn.style.background = '#9b59b6';
-      btn.style.color = 'white';
-    }
-    
-    // Alle Absätze und Überschriften bearbeitbar machen
-    const viewer = document.getElementById('viewer');
-    if (viewer) {
-      // Absätze
-      const paragraphs = viewer.querySelectorAll('.paragraph');
-      paragraphs.forEach(para => {
-        const index = para.dataset.paragraphIndex || para.id.replace(/^para-/, '');
-        if (index) {
-          para.setAttribute('contenteditable', 'true');
-          window.textEditMode.originalContents.set(index, para.innerHTML);
-          para.addEventListener('input', handleTextInput);
-          para.addEventListener('paste', handlePaste);
-        }
-      });
-      
-      // Überschriften (h3, h4)
-      const headings = viewer.querySelectorAll('h3, h4');
-      headings.forEach((heading, idx) => {
-        // Nutze data-heading-index falls vorhanden, sonst Fallback auf ID oder Index
-        const headingIndex = heading.dataset.headingIndex || heading.id.replace(/^para-/, '') || `heading_${idx}`;
-        heading.setAttribute('contenteditable', 'true');
-        heading.dataset.headingIndex = headingIndex;
-        window.textEditMode.originalContents.set(`heading_${headingIndex}`, heading.textContent.trim());
-        heading.addEventListener('input', handleTextInput);
-        heading.addEventListener('paste', handlePaste);
-      });
-    }
-    
-    updateEditStatus();
-    console.log('[TEXT-EDIT] ✅ Bearbeitungsmodus aktiviert für:', lectureId);
-  }
-  
-  function deactivateTextEditMode(confirmSave = true) {
-    if (confirmSave && window.textEditMode.modifiedElements.size > 0) {
-      if (!confirm('Es gibt ungespeicherte Änderungen. Möchten Sie den Bearbeitungsmodus wirklich beenden?')) {
-        return;
-      }
-    }
-    
-    window.textEditMode.active = false;
-    document.body.classList.remove('text-edit-mode');
-    
-    // Button-Text zurücksetzen
-    const btn = document.getElementById('text-edit-mode-btn');
-    if (btn) {
-      btn.innerHTML = '✏️';
-      btn.style.background = 'transparent';
-      btn.style.color = '#9b59b6';
-    }
-    
-    // contenteditable entfernen
-    const viewer = document.getElementById('viewer');
-    if (viewer) {
-      const editables = viewer.querySelectorAll('[contenteditable="true"]');
-      editables.forEach(el => {
-        el.removeAttribute('contenteditable');
-        el.removeEventListener('input', handleTextInput);
-        el.removeEventListener('paste', handlePaste);
-        el.classList.remove('text-modified');
-      });
-    }
-    
-    window.textEditMode.originalContents.clear();
-    window.textEditMode.modifiedElements.clear();
-    console.log('[TEXT-EDIT] ❌ Bearbeitungsmodus deaktiviert');
-  }
-  
-  window.cancelTextEditMode = function() {
-    // Originalinhalte wiederherstellen
-    const viewer = document.getElementById('viewer');
-    if (viewer) {
-      window.textEditMode.originalContents.forEach((originalContent, key) => {
-        if (key.startsWith('heading_')) {
-          const headingId = key.replace('heading_', '');
-          const heading = viewer.querySelector(`[data-heading-index="${headingId}"], #para-${headingId}, #${headingId}`);
-          if (heading) {
-            heading.textContent = originalContent;
-          }
-        } else {
-          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#para-${key}, .paragraph#${key}`);
-          if (para) {
-            para.innerHTML = originalContent;
-          }
-        }
-      });
-    }
-    deactivateTextEditMode(false);
-  };
-  
-  function handleTextInput(event) {
-    const element = event.target;
-    const isHeading = element.tagName === 'H3' || element.tagName === 'H4';
-    const key = isHeading 
-      ? `heading_${element.dataset.headingIndex}`
-      : (element.dataset.paragraphIndex || element.id.replace(/^para-/, ''));
-    
-    const originalContent = window.textEditMode.originalContents.get(key);
-    const currentContent = isHeading ? element.textContent.trim() : element.innerHTML;
-    
-    if (currentContent !== originalContent) {
-      element.classList.add('text-modified');
-      window.textEditMode.modifiedElements.add(key);
-    } else {
-      element.classList.remove('text-modified');
-      window.textEditMode.modifiedElements.delete(key);
-    }
-    
-    updateEditStatus();
-  }
-  
-  function handlePaste(event) {
-    // Beim Einfügen: Nur reinen Text einfügen (ohne Formatierung)
-    event.preventDefault();
-    const text = (event.clipboardData || window.clipboardData).getData('text/plain');
-    document.execCommand('insertText', false, text);
-  }
-  
-  function updateEditStatus() {
-    const statusEl = document.getElementById('text-edit-status');
-    if (statusEl) {
-      const count = window.textEditMode.modifiedElements.size;
-      if (count > 0) {
-        statusEl.textContent = `${count} Änderung${count > 1 ? 'en' : ''} nicht gespeichert`;
-        statusEl.style.color = '#e74c3c';
-      } else {
-        statusEl.textContent = 'Bearbeitungsmodus aktiv';
-        statusEl.style.color = 'var(--secondary-text)';
-      }
-    }
-  }
-  
-  // Hilfsfunktion: Bereitet den Inhalt eines Elements für das Speichern vor
-  // (Konvertiert HTML-Marker wie Seitenumbrüche zurück in das Rohformat |123|)
-  function getCleanedContentForSaving(element) {
-    if (!element) return '';
-    
-    // Erstelle eine Kopie des Elements für die Bearbeitung
-    const clone = element.cloneNode(true);
-    
-    // 1. Konvertiere Seitenumbruch-Spans zurück zu |123|
-    const pageMarkers = clone.querySelectorAll('.page-break-container');
-    pageMarkers.forEach(span => {
-      const num = span.querySelector('.page-break-num')?.textContent;
-      if (num) {
-        span.outerHTML = `|${num}|`;
-      } else {
-        span.remove(); // Sicherheitsmaßnahme
-      }
-    });
-    
-    // 2. Entferne Bilder (werden vom Server/Markdown-Prozessor wieder eingefügt)
-    const images = clone.querySelectorAll('img');
-    images.forEach(img => {
-      // Wenn das Bild ein Markdown-Original hatte (in alt-Attribut oder Pfad), 
-      // könnten wir es wiederherstellen. Aber einfacher:
-      img.remove();
-    });
-    
-    // 3. Hole den Text-Inhalt (behandelt nun |123| als Text)
-    // Wir nutzen innerText um Zeilenumbrüche zu erhalten, aber bereinigen ihn
-    let text = clone.innerText || clone.textContent || '';
-    
-    // 4. Bereinigung: Doppelte Leerzeichen, etc.
-    return text.trim();
-  }
-
-  // Änderungen speichern
-  window.saveTextEdits = async function() {
-    if (!window.textEditMode.active || window.textEditMode.modifiedElements.size === 0) {
-      alert('Keine Änderungen zum Speichern.');
-      return;
-    }
-    
-    const lectureId = window.textEditMode.currentLectureId;
-    const viewer = document.getElementById('viewer');
-    if (!viewer || !lectureId) return;
-    
-    const statusEl = document.getElementById('text-edit-status');
-    if (statusEl) {
-      statusEl.textContent = 'Speichere...';
-      statusEl.style.color = '#f39c12';
-    }
-    
-    let savedCount = 0;
-    let errors = [];
-    
-    for (const key of window.textEditMode.modifiedElements) {
-      console.log(`[TEXT-EDIT] Verarbeite Änderung für Key: "${key}"`);
-      try {
-        const isHeading = key.startsWith('heading_');
-        let editType, paragraphIndex, headingIndex, originalText, editedText;
-        
-        if (isHeading) {
-          editType = 'heading';
-          headingIndex = key.replace('heading_', '');
-          const heading = viewer.querySelector(`[data-heading-index="${headingIndex}"], #para-${headingIndex}, #${headingIndex}, [data-index="${headingIndex}"], [data-index="^${headingIndex}"]`);
-          
-          if (!heading) {
-            console.warn(`[TEXT-EDIT] ⚠️ Überschrift nicht gefunden für Key: ${key}`);
-            continue;
-          }
-          
-          originalText = window.textEditMode.originalContents.get(key);
-          editedText = heading.textContent.trim();
-          console.log(`[TEXT-EDIT] Überschrift gefunden: "${editedText.substring(0, 30)}..."`);
-        } else {
-          editType = 'paragraph';
-          paragraphIndex = key;
-          const para = viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#para-${key}, .paragraph#${key}, .paragraph[data-index="${key}"], .paragraph[data-index="^${key}"]`);
-          
-          if (!para) {
-            console.warn(`[TEXT-EDIT] ⚠️ Absatz nicht gefunden für Key: ${key}`);
-            continue;
-          }
-          
-          originalText = window.textEditMode.originalContents.get(key);
-          // Nutze die neue Bereinigungs-Funktion
-          editedText = getCleanedContentForSaving(para);
-          console.log(`[TEXT-EDIT] Absatz gefunden: "${editedText.substring(0, 30)}..."`);
-        }
-        
-        console.log(`[TEXT-EDIT] Sende an Server...`);
-        const response = await fetch('/api/text-edits/save', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lectureId,
-            editType,
-            paragraphIndex,
-            headingIndex,
-            originalText,
-            editedText
-          })
-        });
-        
-        if (response.ok) {
-          savedCount++;
-          console.log(`[TEXT-EDIT] ✅ Server-Bestätigung erhalten für: ${key}`);
-          // Markiere als gespeichert
-          const element = isHeading 
-            ? viewer.querySelector(`[data-heading-index="${headingIndex}"], #para-${headingIndex}, #${headingIndex}, [data-index="${headingIndex}"], [data-index="^${headingIndex}"]`)
-            : viewer.querySelector(`.paragraph[data-paragraph-index="${key}"], .paragraph#para-${key}, .paragraph#${key}, .paragraph[data-index="${key}"], .paragraph[data-index="^${key}"]`);
-          if (element) {
-            element.classList.remove('text-modified');
-            element.classList.add('has-text-edit');
-          }
-        } else {
-          const error = await response.json();
-          console.error(`[TEXT-EDIT] ❌ Server-Fehler für ${key}:`, error.error);
-          errors.push(`${key}: ${error.error}`);
-        }
-      } catch (err) {
-        console.error(`[TEXT-EDIT] ❌ Ausnahme für ${key}:`, err.message);
-        errors.push(`${key}: ${err.message}`);
-      }
-    }
-          const error = await response.json();
-          errors.push(`${key}: ${error.error}`);
-        }
-      } catch (err) {
-        errors.push(`${key}: ${err.message}`);
-      }
-    }
-    
-    window.textEditMode.modifiedElements.clear();
-    
-    if (errors.length > 0) {
-      alert(`${savedCount} Änderung(en) gespeichert.\n\nFehler:\n${errors.join('\n')}`);
-    } else {
-      alert(`${savedCount} Änderung(en) erfolgreich gespeichert.`);
-      console.log(`[TEXT-EDIT] ✅ ${savedCount} Änderung(en) gespeichert`);
-    }
-    
-    updateEditStatus();
-    
-    // Nach dem Speichern: Vortrag neu laden um Änderungen anzuwenden
-    if (savedCount > 0 && typeof showLecture === 'function') {
-      // Deaktiviere Modus OHNE Bestätigung (da gerade gespeichert wurde)
-      deactivateTextEditMode(false);
-      // Kurze Verzögerung, dann Vortrag neu laden
-      setTimeout(() => {
-        showLecture(lectureId, null, []);
-      }, 300);
-    }
-  };
-  
-  // Strg+S zum Speichern
-  document.addEventListener('keydown', function(e) {
-    if (window.textEditMode.active && e.ctrlKey && e.key === 's') {
-      e.preventDefault();
-      saveTextEdits();
-    }
-    // Escape zum Abbrechen
-    if (window.textEditMode.active && e.key === 'Escape') {
-      e.preventDefault();
-      cancelTextEditMode();
-    }
-  });
-  
-  console.log('[TEXT-EDIT] Modul geladen');
-})();
+// Text-Edit-Modul wurde entfernt - Platzhalter für Kompatibilität
+window.textEditMode = { active: false };
+window.toggleTextEditMode = function() { console.log('Text-Edit-Modul wurde entfernt'); };
+window.saveTextEdits = function() {};
+window.cancelTextEditMode = function() {};
 </script>
+
+
 
 <!-- Themenabfragen speichern/laden für Mitglieder -->
 <script>
@@ -41883,7 +41399,7 @@ async function addKeywordToLecture() {
     }
   };
   
-  // Gespeicherte Themenabfragen anzeigen
+  // Gespeicherte Themenabfragen anzeigen (Liste im linken Panel)
   window.showSavedThematicSearches = async function() {
     if (!currentMemberUser) {
       alert('Bitte melden Sie sich im Mitgliederbereich an.');
@@ -41898,100 +41414,55 @@ async function addKeywordToLecture() {
       const result = await getSavedThematicSearchesAPI();
       if (!result.success) throw new Error(result.error);
       
-      displaySavedSearchesModal(result.data);
+      // Liste im linken Panel anzeigen (statt Modal)
+      displaySavedSearchesList(result.data);
     } catch (error) {
       console.error('Fehler beim Laden:', error);
       showThematicNotification('Fehler beim Laden: ' + error.message, 'error');
     }
   };
   
-  // Modal für gespeicherte Abfragen anzeigen
-  function displaySavedSearchesModal(searches) {
-    const existingModal = document.getElementById('savedSearchesModal');
-    if (existingModal) existingModal.remove();
-    
-    const modal = document.createElement('div');
-    modal.id = 'savedSearchesModal';
-    modal.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    `;
-    
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-      background: var(--bg-color, white);
-      color: var(--text-color, #333);
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 700px;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    `;
-    
-    let html = `
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="margin: 0; color: var(--accent-color, #467886);">Meine gespeicherten Themenabfragen</h3>
-        <button onclick="document.getElementById('savedSearchesModal').remove()" 
-                style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-color, #666);">×</button>
-      </div>
-    `;
+  // Liste der gespeicherten Abfragen im linken Panel anzeigen
+  function displaySavedSearchesList(searches) {
+    const container = document.getElementById('results');
     
     if (searches.length === 0) {
-      html += '<p style="color: var(--secondary-text, #666); text-align: center;">Keine gespeicherten Themenabfragen vorhanden.</p>';
-    } else {
-      html += '<div style="display: flex; flex-direction: column; gap: 10px;">';
-      
-      searches.forEach(search => {
-        const date = new Date(search.created_at).toLocaleDateString('de-DE', {
-          day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
-        });
-        
-        const queryText = search.query.substring(0, 80) + (search.query.length > 80 ? '...' : '');
-        
-        html += `
-          <div style="border: 1px solid var(--border-color, #ddd); border-radius: 6px; padding: 12px; background: var(--input-bg, #f9f9f9);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-              <div style="flex: 1;">
-                <div style="font-weight: 600; color: var(--text-color, #333); margin-bottom: 4px;">${escapeHtmlThematic(queryText)}</div>
-                <div style="font-size: 12px; color: var(--secondary-text, #888);">${date} | ${search.total_matches} Quellen${search.ga_filter ? ' | ' + search.ga_filter : ''}</div>
-              </div>
-              <div style="display: flex; gap: 8px;">
-                <button onclick="loadSavedThematicSearch('${search.id}')" 
-                        style="background: var(--accent-color, #467886); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                  Laden
-                </button>
-                <button onclick="deleteSavedThematicSearch('${search.id}')" 
-                        style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                  Löschen
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-      
-      html += '</div>';
+      container.innerHTML = '<p style="color: var(--secondary-text, #666); text-align: center; padding: 1rem;">Keine gespeicherten Themenabfragen vorhanden.</p>';
+      return;
     }
     
-    modalContent.innerHTML = html;
-    modal.appendChild(modalContent);
-    document.body.appendChild(modal);
+    let html = '<ul class="results-list" style="list-style: disc; padding-left: 1.2rem; margin: 0;">';
     
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.remove();
+    searches.forEach(search => {
+      const date = new Date(search.created_at).toLocaleDateString('de-DE', {
+        day: '2-digit', month: '2-digit', year: 'numeric'
+      });
+      const queryShort = search.query.length > 60 ? search.query.substring(0, 60) + '...' : search.query;
+      
+      html += `
+        <li style="margin-bottom: 0.8rem; line-height: 1.4;">
+          <a href="#" onclick="loadSavedThematicSearch('${search.id}'); return false;" 
+             style="color: var(--accent-color, #467886); text-decoration: none; font-weight: 500;">
+            ${escapeHtmlThematic(queryShort)}
+          </a>
+          <div style="font-size: 0.8em; color: var(--secondary-text, #888); margin-top: 2px;">
+            ${date} • ${search.total_matches} Quellen
+            <button onclick="deleteSavedThematicSearch('${search.id}'); event.stopPropagation();" 
+                    style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 0.9em; margin-left: 8px;">
+              [löschen]
+            </button>
+          </div>
+        </li>
+      `;
     });
+    
+    html += '</ul>';
+    container.innerHTML = html;
+    
+    document.getElementById('status').textContent = `${searches.length} gespeicherte Abfragen`;
   }
   
-  // Gespeicherte Abfrage laden
+  // Gespeicherte Abfrage laden und im Main Viewer anzeigen
   window.loadSavedThematicSearch = async function(searchId) {
     if (!currentMemberUser) return;
     
@@ -42019,28 +41490,35 @@ async function addKeywordToLecture() {
         limitFilter.value = data.limit_used;
       }
       
-      // Ergebnisse im linken Sidebar anzeigen (wie normale Themensuche)
+      // Speichere für spätere Verwendung
       currentSources = data.sources || [];
-      currentThematicQuery = data.query; // Für extractKeywordsFromQuery
+      currentThematicQuery = data.query;
       
-      // Ergebnisse im #results Container anzeigen (linker Sidebar)
-      const container = document.getElementById('results');
+      // Titel im Main Viewer setzen
+      const titleElement = document.getElementById('document-title');
+      const queryShort = data.query.length > 60 ? data.query.substring(0, 60) + '...' : data.query;
+      titleElement.innerHTML = `<span style="color: var(--accent-color, #467886);">Themenabfrage:</span> ${escapeHtmlThematic(queryShort)}`;
+      
+      // Ergebnisse im Main Viewer anzeigen
+      const viewer = document.getElementById('viewer');
       const date = new Date(data.created_at).toLocaleDateString('de-DE', {
         day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
       });
       
-      container.innerHTML = `
-        <div class="semantic-answer">
-          <div style="font-size: 0.85em; color: var(--secondary-text, #666); margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
+      viewer.innerHTML = `
+        <div class="saved-thematic-result">
+          <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
             Gespeichert am ${date} • ${data.total_matches} Quellen${data.ga_filter ? ' • ' + data.ga_filter : ''}
           </div>
-          <div class="answer-content" id="answerContent">${data.content}</div>
+          <div class="semantic-answer">
+            <div class="answer-content" id="answerContentViewer">${data.content}</div>
+          </div>
         </div>
       `;
       
-      // GA-Links mit Event-Listenern versehen (identisch zu renderThematicResults)
+      // GA-Links: Öffnen Vortrag im rechten Summary Panel (wie bei normaler Themensuche)
       setTimeout(() => {
-        const answerDiv = document.getElementById('answerContent');
+        const answerDiv = document.getElementById('answerContentViewer');
         if (answerDiv) {
           const gaLinks = answerDiv.querySelectorAll('.ga-reference');
           
@@ -42049,23 +41527,22 @@ async function addKeywordToLecture() {
             const targetIndex = link.getAttribute('data-index');
             
             if (lectureId && targetIndex) {
-              link.addEventListener('click', (e) => {
+              link.addEventListener('click', async (e) => {
                 e.preventDefault();
+                e.stopPropagation();
+                
+                // Zeige Text im rechten Side-Panel (wie bei normaler Themensuche)
                 const keywords = extractKeywordsFromQuery(currentThematicQuery);
-                showLecture(lectureId, targetIndex, keywords);
+                const searchTerm = keywords.length > 0 ? keywords[0] : '';
+                await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex);
               });
             }
           });
         }
       }, 100);
       
-      document.getElementById('status').textContent = `Gespeicherte Antwort aus ${data.total_matches} Quellen`;
+      document.getElementById('status').textContent = `Antwort aus ${data.total_matches} Quellen`;
       
-      // Modal schließen
-      const modal = document.getElementById('savedSearchesModal');
-      if (modal) modal.remove();
-      
-      showThematicNotification('Themenabfrage geladen!', 'success');
     } catch (error) {
       console.error('Fehler beim Laden:', error);
       showThematicNotification('Fehler beim Laden: ' + error.message, 'error');
@@ -42086,9 +41563,9 @@ async function addKeywordToLecture() {
       const result = await deleteSavedThematicSearchAPI(searchId);
       if (!result.success) throw new Error(result.error);
       
-      showThematicNotification('Themenabfrage gelöscht!', 'success');
+      showThematicNotification('Gelöscht', 'success');
       
-      // Liste aktualisieren
+      // Liste im linken Panel aktualisieren
       showSavedThematicSearches();
     } catch (error) {
       console.error('Fehler beim Löschen:', error);
@@ -42149,4 +41626,5 @@ async function addKeywordToLecture() {
 </script>
 
 </body>
+</html>
 </html>

@@ -11,9 +11,9 @@
       "lectures": 113
     },
     "2025-12-29": {
-      "views": 3,
-      "searches": 0,
-      "lectures": 9
+      "views": 4,
+      "searches": 2,
+      "lectures": 52
     }
   },
   "topSearches": {
@@ -22,7 +22,7 @@
     "welcher zusammenhang besteht zwischen dem fühlen u": 1,
     "ab wann hat steiner über \"12 sinne\" gesprochen?": 1,
     "ab wann hat steiner über die \"zwölf sinne\" (tastsi": 1,
-    "geister eurer seelen": 16
+    "geister eurer seelen": 18
   },
   "topLectures": {
     "GA019": 2,
@@ -96,18 +96,23 @@
     "GA259/7": 1,
     "GA259/6": 1,
     "GA259/4": 1,
-    "GA266c/35": 5,
-    "GA169/3": 6,
-    "GA093a/9": 1,
+    "GA266c/35": 6,
+    "GA169/3": 7,
+    "GA093a/9": 3,
     "GA170/9": 1,
     "GA096/3": 1,
-    "GA261/8": 14,
-    "GA174a/1": 24,
-    "GA322/7": 2,
+    "GA261/8": 17,
+    "GA174a/1": 49,
+    "GA322/7": 4,
     "GA170/8": 1,
-    "GA170/7": 1
+    "GA170/7": 1,
+    "GA174a/2": 2,
+    "GA174a/12": 1,
+    "GA170/14": 1,
+    "GA262/2": 3,
+    "GA046/54": 2
   },
-  "totalViews": 11,
-  "totalSearches": 22,
-  "totalLectureViews": 193
+  "totalViews": 12,
+  "totalSearches": 24,
+  "totalLectureViews": 236
 }
