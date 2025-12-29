@@ -2,7 +2,7 @@ Rudolf Steiners immenses schriftliches und Vortrags-Werk, die „Rudolf Steiner 
 
 **Textgrundlagen**
 
-Die hier verwendeten Texte, insbesondere diejenigen des Vortragswerk, wurden durch die hingebungsvolle Arbeit von mehreren Generationen von Herausgebern der Rudolf Steiner Nachlassverwaltung verfügbar gemacht. Für diese Arbeit kann ihnen nicht genug gedankt werden. Die Nachlassverwaltung gibt diese Texte in gedruckter und in (kostenpflichtiger) elektronischer Form heraus. Seit Jahren existieren allerdings auch frei im Internet zugängliche Versionen der GA. Auf diesen Versionen baut die hier entwickelte Datenbank mit ihren Suchfunktionen auf. Da die Qualität der Internet-Versionen nicht immer der hochwertigen Qualität der Versionen der Nachlassverwaltung entspricht, muss bei Verwendung der Datenbank mit Druckfehlern gerechnet werden. Wer eine sichere Grundlage braucht, dem sei unbedingt eine Überprüfung anhand der Versionen der Nachlassverwaltung empfohlen. Auch konnte die Paginierung der Bücher und Vortragsbände hier nicht übernommen werden, sodass für genaue Quellenangaben ebenfalls auf die Versionen der Nachlassverwaltung (oder auf andere, online verfügbare Versionen) zurückgegriffen werden muss. 
+Die hier verwendeten Texte, insbesondere diejenigen des Vortragswerk, wurden durch die hingebungsvolle Arbeit von mehreren Generationen von Herausgebern der Rudolf Steiner Nachlassverwaltung verfügbar gemacht. Für diese Arbeit kann ihnen nicht genug gedankt werden. Die Nachlassverwaltung gibt diese Texte in gedruckter und in (kostenpflichtiger) elektronischer Form heraus. Seit Jahren existieren allerdings auch frei im Internet zugängliche Versionen der GA. Auf diesen Versionen baut die hier entwickelte Datenbank mit ihren Suchfunktionen auf. Da die Qualität der Internet-Versionen nicht immer der hochwertigen Qualität der Versionen der Nachlassverwaltung entspricht, muss bei Verwendung der Datenbank mit Druckfehlern gerechnet werden. Wer eine sichere Grundlage braucht, dem sei unbedingt eine Überprüfung anhand der Versionen der Nachlassverwaltung empfohlen. Die Paginierung der Bücher und Vortragsbände wurde hier soweit wie möglich übernommen (die verwendete Ausgabe ist jeweils über den kleinen, kreisrunden Info-Button oben rechts ersichtlich). 
 
 **Rudolf Steiner über die Texte**
 
@@ -35,9 +35,9 @@ Einige Bände der Gesamtausgabe wurden hier nicht aufgenommen. Dazu gehören u.a
 
 Für detaillierte Beschreibung der verschiedenen Suchfunktionen siehe         <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
 
-**Bookmarks und Zitate speichern**
+**Bookmarks, Zitate und Themenabfragen speichern**
 
-Wenn Sie sich als <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglied</a> anmelden, können Sie persönliche Bookmarks setzen und Zitate speichern. Dazu einen Textabschnitt markieren und mit der **rechten Maustaste** speichern. 
+Wenn Sie sich als <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglied</a> anmelden, können Sie persönliche Bookmarks setzen und Zitate sowie die Ergebnisse Ihrer Themenabfragen speichern. Für Bookmarks und Zitate einen Textabschnitt markieren und mit der **rechten Maustaste** speichern. 
 
 **Fehler & Rückmeldung**
 

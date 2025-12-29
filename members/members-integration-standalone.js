@@ -25,7 +25,26 @@ async function initSupabase() {
     return null;
   }
   
-  supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const options = {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    },
+    realtime: {
+      params: {
+        eventsPerSecond: 2
+      }
+    }
+  };
+
+  try {
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, options);
+  } catch (error) {
+    console.warn('Supabase Realtime konnte nicht initialisiert werden, versuche Fallback:', error);
+    options.realtime = false;
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, options);
+  }
   
   // User Status prüfen
   const { data: { user } } = await supabaseClient.auth.getUser();
