@@ -42019,33 +42019,26 @@ async function addKeywordToLecture() {
         limitFilter.value = data.limit_used;
       }
       
-      // Ergebnisse im Main Viewer anzeigen
+      // Ergebnisse im linken Sidebar anzeigen (wie normale Themensuche)
       currentSources = data.sources || [];
+      currentThematicQuery = data.query; // Für extractKeywordsFromQuery
       
-      // Titel aktualisieren
-      const titleElement = document.getElementById('document-title');
-      const queryShort = data.query.length > 60 ? data.query.substring(0, 60) + '...' : data.query;
-      titleElement.innerHTML = `<span style="color: var(--accent-color, #467886);">Themenabfrage:</span> ${queryShort}`;
-      
-      // Inhalt im Main Viewer anzeigen
-      const viewer = document.getElementById('viewer');
+      // Ergebnisse im #results Container anzeigen (linker Sidebar)
+      const container = document.getElementById('results');
       const date = new Date(data.created_at).toLocaleDateString('de-DE', {
         day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
       });
       
-      viewer.innerHTML = `
-        <div class="saved-thematic-result" style="padding: 1rem 0;">
-          <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
+      container.innerHTML = `
+        <div class="semantic-answer">
+          <div style="font-size: 0.85em; color: var(--secondary-text, #666); margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
             Gespeichert am ${date} • ${data.total_matches} Quellen${data.ga_filter ? ' • ' + data.ga_filter : ''}
           </div>
-          <div class="semantic-answer">
-            <div class="answer-content" id="answerContent">${data.content}</div>
-          </div>
+          <div class="answer-content" id="answerContent">${data.content}</div>
         </div>
       `;
       
-      // GA-Links mit Event-Listenern versehen (wie in renderThematicResults)
-      const savedQuery = data.query; // Query für Closure speichern
+      // GA-Links mit Event-Listenern versehen (identisch zu renderThematicResults)
       setTimeout(() => {
         const answerDiv = document.getElementById('answerContent');
         if (answerDiv) {
@@ -42056,27 +42049,17 @@ async function addKeywordToLecture() {
             const targetIndex = link.getAttribute('data-index');
             
             if (lectureId && targetIndex) {
-              link.style.cursor = 'pointer'; // Visuelles Feedback
               link.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                // Verwende globale Funktionen
-                if (typeof window.extractKeywordsFromQuery === 'function' && typeof window.showLecture === 'function') {
-                  const keywords = window.extractKeywordsFromQuery(savedQuery);
-                  window.showLecture(lectureId, targetIndex, keywords);
-                } else if (typeof extractKeywordsFromQuery === 'function' && typeof showLecture === 'function') {
-                  const keywords = extractKeywordsFromQuery(savedQuery);
-                  showLecture(lectureId, targetIndex, keywords);
-                } else {
-                  console.warn('[SAVED-SEARCH] showLecture oder extractKeywordsFromQuery nicht gefunden');
-                }
+                const keywords = extractKeywordsFromQuery(currentThematicQuery);
+                showLecture(lectureId, targetIndex, keywords);
               });
             }
           });
         }
       }, 100);
       
-      document.getElementById('status').textContent = `Gespeicherte Antwort geladen`;
+      document.getElementById('status').textContent = `Gespeicherte Antwort aus ${data.total_matches} Quellen`;
       
       // Modal schließen
       const modal = document.getElementById('savedSearchesModal');

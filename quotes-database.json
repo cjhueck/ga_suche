@@ -36,7 +36,9 @@
       "addedAt": "2025-12-13T08:51:48.235Z",
       "isActive": false,
       "date": "1905-10-24",
-      "displayedSince": "2025-12-22T22:35:39.503Z"
+      "displayedSince": "2025-12-22T22:35:39.503Z",
+      "isUsed": true,
+      "usedSince": "2025-12-29T07:56:38.316Z"
     },
     {
       "id": "1765670571255",
