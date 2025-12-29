@@ -9,6 +9,11 @@
       "views": 6,
       "searches": 21,
       "lectures": 113
+    },
+    "2025-12-29": {
+      "views": 2,
+      "searches": 0,
+      "lectures": 4
     }
   },
   "topSearches": {
@@ -91,15 +96,16 @@
     "GA259/7": 1,
     "GA259/6": 1,
     "GA259/4": 1,
-    "GA266c/35": 2,
+    "GA266c/35": 4,
     "GA169/3": 4,
     "GA093a/9": 1,
     "GA170/9": 1,
     "GA096/3": 1,
     "GA261/8": 14,
-    "GA174a/1": 24
+    "GA174a/1": 24,
+    "GA322/7": 2
   },
-  "totalViews": 8,
+  "totalViews": 10,
   "totalSearches": 22,
-  "totalLectureViews": 184
+  "totalLectureViews": 188
 }
