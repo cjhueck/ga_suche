@@ -6258,7 +6258,7 @@ app.post('/api/save-theme-keywords', async (req, res) => {
     console.log(`[THEME-KEYWORDS] Neue Query: ${newQuery}`);
     
     // Lese die aktuelle Datei
-    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    const filePath = path.join(__dirname, 'themes', 'themes-data.js');
     let fileContent = await fs.readFile(filePath, 'utf8');
     
     // Robuster Ansatz: Zeile für Zeile durchgehen
@@ -6330,7 +6330,7 @@ app.post('/api/add-theme', async (req, res) => {
     console.log(`[ADD-THEME] Query: ${query}`);
     
     // Lese die aktuelle Datei
-    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    const filePath = path.join(__dirname, 'themes', 'themes-data.js');
     let fileContent = await fs.readFile(filePath, 'utf8');
     
     // Prüfe ob Theme bereits existiert
@@ -6529,7 +6529,7 @@ app.post('/api/rename-theme', async (req, res) => {
     
     console.log(`[RENAME-THEME] Benenne um: "${oldName}" -> "${newName}"`);
     
-    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    const filePath = path.join(__dirname, 'themes', 'themes-data.js');
     let fileContent = await fs.readFile(filePath, 'utf8');
     
     // Prüfe ob altes Theme existiert
@@ -6569,7 +6569,7 @@ app.post('/api/delete-theme', async (req, res) => {
     
     console.log(`[DELETE-THEME] Lösche: "${themeName}"`);
     
-    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    const filePath = path.join(__dirname, 'themes', 'themes-data.js');
     let fileContent = await fs.readFile(filePath, 'utf8');
     
     // Prüfe ob Theme existiert
@@ -6650,7 +6650,7 @@ app.post('/api/delete-theme', async (req, res) => {
 // ============================================================================
 const EMBEDDINGS_CACHE_FILE = path.join(__dirname, 'summary-embeddings.json');
 const BOOK_CHAPTER_SUMMARIES_FILE_EMB = path.join(__dirname, 'book-chapter-summaries.json');
-const THEME_ASSIGNMENTS_FILE_EMB = path.join(__dirname, 'theme-assignments.json');
+const THEME_ASSIGNMENTS_FILE_EMB = path.join(__dirname, 'themes', 'theme-assignments.json');
 
 // Erstelle Embedding für einen Text (Gemini oder OpenAI)
 async function createEmbedding(text) {
@@ -6932,7 +6932,7 @@ app.post('/api/semantic-theme-search', async (req, res) => {
 });
 
 // Cache für Themen-Suchergebnisse
-const THEME_RESULTS_CACHE_FILE = path.join(__dirname, 'theme-results-cache.json');
+const THEME_RESULTS_CACHE_FILE = path.join(__dirname, 'themes', 'theme-results-cache.json');
 
 // API: Semantische Suche für ein Thema (mit Cache)
 app.post('/api/semantic-theme-search-cached', async (req, res) => {
@@ -7162,7 +7162,7 @@ app.get('/api/embeddings-status', async (req, res) => {
 // ============================================================================
 // THEME RANGES CACHE - Berechnet und cached Zeiträume für Themenschwerpunkte
 // ============================================================================
-const THEME_RANGES_CACHE_FILE = path.join(__dirname, 'theme-ranges-cache.json');
+const THEME_RANGES_CACHE_FILE = path.join(__dirname, 'themes', 'theme-ranges-cache.json');
 
 // Fuzzy-Matching: Nur sichere Plural/Singular-Varianten
 // KEIN aggressives Stemming mehr - nur kontrollierte Varianten
@@ -7468,7 +7468,7 @@ app.post('/api/calculate-theme-ranges', async (req, res) => {
     }
     
     // Lade SteinerThemesData aus der JS-Datei
-    const jsPath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    const jsPath = path.join(__dirname, 'themes', 'themes-data.js');
     const jsContent = await fs.readFile(jsPath, 'utf8');
     
     // Extrahiere die Themes zeilenweise (robuster Ansatz)
@@ -7771,29 +7771,51 @@ app.post('/api/get-theme-results-ai', async (req, res) => {
     
     // Lade Details für die gefundenen IDs
     let summaryDb = {};
-    let keywordsDb = {};
     let bookChapterSummaries = {};
-    let bibliography = {};
     
     try {
       summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
     } catch (e) { /* ignore */ }
     
     try {
-      keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
-    } catch (e) { /* ignore */ }
-    
-    try {
       bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
     } catch (e) { /* ignore */ }
     
-    try {
-      bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
-    } catch (e) { /* ignore */ }
-    
     const results = [];
+    
+    // Hilfsfunktion zur Ermittlung des Jahres (identisch mit Status-API)
+    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, ID oder Titel)
+    function getYearForTextLocal(id, entry) {
+      // 1. Aus fullLectures (primäre Quelle für Vorträge und Aufsätze)
+      if (fullLectures[id]) {
+        const lecture = fullLectures[id];
+        // Erst Jahr/Datum-Felder prüfen
+        if (lecture.year) return parseInt(lecture.year);
+        if (lecture.date) {
+          const yearMatch = lecture.date.match(/\b(18|19)\d{2}\b/);
+          if (yearMatch) return parseInt(yearMatch[0]);
+        }
+        // Dann Titel prüfen (wichtig für GA001-046 Aufsätze mit "(1882)" im Titel)
+        if (lecture.title) {
+          const titleMatch = lecture.title.match(/\b(18|19)\d{2}\b/);
+          if (titleMatch) return parseInt(titleMatch[0]);
+        }
+      }
+      
+      // 2. Aus der ID (z.B. GA093a/1905-10-04)
+      const idYearMatch = id.match(/\/(18\d{2}|19\d{2})/);
+      if (idYearMatch) return parseInt(idYearMatch[1]);
+      
+      // 3. Aus dem Titel in summaryDb (Fallback)
+      if (entry && entry.title) {
+        const titleMatch = entry.title.match(/\b(18|19)\d{2}\b/);
+        if (titleMatch) return parseInt(titleMatch[0]);
+      }
+      
+      return null;
+    }
+
     for (const id of matchingIds) {
-      const meta = keywordsDb[id] || {};
       const summaryEntry = summaryDb[id] || {};
       const bookChapter = bookChapterSummaries[id];
       
@@ -7804,55 +7826,24 @@ app.post('/api/get-theme-results-ai', async (req, res) => {
       let shortSummary = '';
       let isBookChapter = false;
       
-      // Buch-Kapitel zuerst prüfen
       if (bookChapter) {
         title = bookChapter.title || '';
         location = bookChapter.bookTitle || '';
         shortSummary = bookChapter.shortSummary || bookChapter.summary || '';
         isBookChapter = true;
-        
-        // Jahr aus Bibliographie
-        const gaMatch = id.match(/^(GA\d+)/);
-        const gaNum = gaMatch ? gaMatch[1] : null;
-        const bibEntry = gaNum ? bibliography[gaNum] : null;
-        if (bibEntry) {
-          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
-          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
-          year = years.length > 0 ? years[0] : null;
-        }
+        year = getYearForTextLocal(id, bookChapter);
         date = year ? `${year}-01-01` : '';
-      }
-      // Vorträge/Aufsätze aus keywords-database (primäre Quelle)
-      else if (meta.title || meta.year) {
-        title = meta.title || '';
-        year = meta.year ? parseInt(meta.year) : null;
-        location = meta.location || '';
-        date = meta.date || '';
+      } else if (summaryEntry.summary || summaryEntry.shortSummary) {
+        title = summaryEntry.title || '';
         shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
+        year = getYearForTextLocal(id, summaryEntry);
         
-        // Fallback: Jahr aus Datum extrahieren
-        if (!year && date) {
-          const yearMatch = date.match(/\b(18|19|20)\d{2}\b/);
-          year = yearMatch ? parseInt(yearMatch[0]) : null;
+        // location und date aus fullLectures falls verfügbar
+        if (typeof fullLectures !== 'undefined' && fullLectures[id]) {
+          location = fullLectures[id].location || fullLectures[id].city || '';
+          date = fullLectures[id].date || '';
+          if (!title) title = fullLectures[id].title || '';
         }
-      }
-      // Vortrag aus fullLectures (Fallback)
-      else if (typeof fullLectures !== 'undefined' && fullLectures[id]) {
-        const lecture = fullLectures[id];
-        title = lecture.title || '';
-        year = lecture.year ? parseInt(lecture.year) : null;
-        location = lecture.location || lecture.city || '';
-        date = lecture.date || '';
-        shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
-      }
-      // Nur Summary vorhanden
-      else if (summaryEntry.summary) {
-        title = '';
-        shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
-        
-        // Jahr aus ID extrahieren (z.B. GA046/1901-01-01)
-        const idYearMatch = id.match(/\/(18|19|20)\d{2}/);
-        year = idYearMatch ? parseInt(idYearMatch[0].substring(1)) : null;
       }
       
       if (title || shortSummary) {
@@ -13106,9 +13097,13 @@ const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const SUMMARY_KEYWORDS_DB_FILE = path.join(__dirname, 'summary-keywords-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
-const THEMES_DB_FILE = path.join(__dirname, 'themes-database.json');
+const THEMES_DB_FILE = path.join(__dirname, 'themes', 'themes-database.json');
+const THEMES_DATA_FILE = path.join(__dirname, 'themes', 'themes-data.js');
+const THEMES_VIZ_FILE = path.join(__dirname, 'themes', 'thematic-visualization.js');
+const THEMES_CSS_FILE = path.join(__dirname, 'themes', 'thematic.css');
+const THEME_ASSIGNMENTS_FILE_BACKUP = path.join(__dirname, 'themes', 'theme-assignments.json');
 const CLUSTERS_FILE = path.join(__dirname, 'thematic-clusters.json');
-const THEMES_KEYWORDS_TEMPLATE_FILE = path.join(__dirname, 'themes-keywords-template.json');
+const THEMES_KEYWORDS_TEMPLATE_FILE = path.join(__dirname, 'themes', 'themes-keywords-template.json');
 const QUOTES_DB_FILE = path.join(__dirname, 'quotes-database.json');
 
 // Backup-Verzeichnisse
@@ -13175,7 +13170,8 @@ async function createBackup(sourceFile, backupDir, prefix, maxBackups = 10) {
     
     // Erstelle Backup mit Timestamp
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupFile = path.join(backupDir, `${prefix}-${timestamp}.json`);
+    const ext = path.extname(sourceFile) || '.json';
+    const backupFile = path.join(backupDir, `${prefix}-${timestamp}${ext}`);
     
     const data = await fs.readFile(sourceFile, 'utf8');
     await fs.writeFile(backupFile, data, 'utf8');
@@ -13196,7 +13192,7 @@ async function cleanOldBackupsGeneric(backupDir, prefix, maxBackups) {
   try {
     const files = await fs.readdir(backupDir);
     const backupFiles = files
-      .filter(f => f.startsWith(prefix) && (f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html')))
+      .filter(f => f.startsWith(prefix) && (f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html') || f.endsWith('.css')))
       .map(f => ({
         name: f,
         fullPath: path.join(backupDir, f)
@@ -13235,7 +13231,16 @@ async function createSummaryBackup() {
 }
 
 async function createThemesBackup() {
-  return await createBackup(THEMES_DB_FILE, THEMES_BACKUP_DIR, 'themes-database', 10);
+  const backups = [
+    createBackup(THEMES_DB_FILE, THEMES_BACKUP_DIR, 'themes-database', 10),
+    createBackup(THEMES_DATA_FILE, THEMES_BACKUP_DIR, 'themes-data', 15),
+    createBackup(THEME_ASSIGNMENTS_FILE_BACKUP, THEMES_BACKUP_DIR, 'theme-assignments', 10),
+    createBackup(THEMES_KEYWORDS_TEMPLATE_FILE, THEMES_BACKUP_DIR, 'themes-keywords-template', 10),
+    createBackup(THEMES_VIZ_FILE, THEMES_BACKUP_DIR, 'thematic-visualization', 10),
+    createBackup(THEMES_CSS_FILE, THEMES_BACKUP_DIR, 'thematic-css', 10)
+  ];
+  const results = await Promise.all(backups);
+  return results.find(r => r !== null) || null;
 }
 
 async function createClustersBackup() {
@@ -16858,7 +16863,7 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 app.get('/api/themes/clusters', async (req, res) => {
   try {
     // Lade themes-database.json (neue Struktur) und konvertiere zu Cluster-Format
-    const themesPath = path.join(__dirname, 'themes-database.json');
+    const themesPath = path.join(__dirname, 'themes', 'themes-database.json');
     const themes = JSON.parse(fsSync.readFileSync(themesPath, 'utf8'));
     
     // Konvertiere zu Cluster-Format für Keyword-Manager
@@ -17092,7 +17097,7 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     }
     
     // Lade themes-database.json (neue Struktur)
-    const themesPath = path.join(__dirname, 'themes-database.json');
+    const themesPath = path.join(__dirname, 'themes', 'themes-database.json');
     const themes = JSON.parse(fsSync.readFileSync(themesPath, 'utf8'));
     
     if (!themes[targetCluster]) {
@@ -18946,7 +18951,7 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
 app.get('/api/themes-database', async (req, res) => {
   try {
     // Versuche zuerst themes-database.json zu laden (neue Struktur)
-    const themesPath = path.join(__dirname, 'themes-database.json');
+    const themesPath = path.join(__dirname, 'themes', 'themes-database.json');
     if (fsSync.existsSync(themesPath)) {
       const data = JSON.parse(fsSync.readFileSync(themesPath, 'utf8'));
       return res.json(data);
@@ -21259,6 +21264,26 @@ app.post('/api/backups/restore', async (req, res) => {
       backupDir = THEMES_BACKUP_DIR;
       targetFile = THEMES_DB_FILE;
       backupFunc = createThemesBackup;
+    } else if (backupName.startsWith('themes-data-')) {
+      backupDir = THEMES_BACKUP_DIR;
+      targetFile = THEMES_DATA_FILE;
+      backupFunc = createThemesBackup;
+    } else if (backupName.startsWith('theme-assignments-')) {
+      backupDir = THEMES_BACKUP_DIR;
+      targetFile = THEME_ASSIGNMENTS_FILE;
+      backupFunc = createThemesBackup;
+    } else if (backupName.startsWith('thematic-visualization-')) {
+      backupDir = THEMES_BACKUP_DIR;
+      targetFile = THEMES_VIZ_FILE;
+      backupFunc = createThemesBackup;
+    } else if (backupName.startsWith('thematic-css-')) {
+      backupDir = THEMES_BACKUP_DIR;
+      targetFile = THEMES_CSS_FILE;
+      backupFunc = createThemesBackup;
+    } else if (backupName.startsWith('themes-keywords-template-')) {
+      backupDir = THEMES_BACKUP_DIR;
+      targetFile = THEMES_KEYWORDS_TEMPLATE_FILE;
+      backupFunc = createThemesBackup;
     } else if (backupName.startsWith('thematic-clusters-')) {
       backupDir = CLUSTERS_BACKUP_DIR;
       targetFile = CLUSTERS_FILE;
@@ -21434,7 +21459,7 @@ app.get('/api/backups/list/:type', async (req, res) => {
         break;
       case 'themes':
         backupDir = THEMES_BACKUP_DIR;
-        prefix = 'themes-database';
+        prefix = null; // Alle Dateien im Themes-Backup-Ordner anzeigen
         break;
       case 'clusters':
         backupDir = CLUSTERS_BACKUP_DIR;
@@ -21470,9 +21495,9 @@ app.get('/api/backups/list/:type', async (req, res) => {
     const backupFiles = files
       .filter(f => {
         if (prefix) {
-          return f.startsWith(prefix) && (f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html'));
+          return f.startsWith(prefix) && (f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html') || f.endsWith('.css'));
         }
-        return f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html');
+        return f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html') || f.endsWith('.css');
       })
       .map(f => {
         const filePath = path.join(backupDir, f);
@@ -22103,7 +22128,7 @@ Antworte NUR mit 1-2 Sätzen.`;
 // KI-BASIERTE THEMEN-ZUORDNUNG
 // ============================================================
 
-const THEME_ASSIGNMENTS_FILE = path.join(__dirname, 'theme-assignments.json');
+const THEME_ASSIGNMENTS_FILE = path.join(__dirname, 'themes', 'theme-assignments.json');
 
 // Themen mit ihren Schlagwörtern für die Zuordnung (synchron mit thematic-visualization.js)
 const THEME_KEYWORDS = {
@@ -22342,44 +22367,56 @@ app.get('/api/theme-assignments-status', async (req, res) => {
       assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE, 'utf8'));
     } catch (e) { /* ignore */ }
     
-    // Lade Metadaten für Jahre
-    let keywordsDb = {};
-    let bibliography = {};
+    // Lade Metadaten (Summary-DB)
+    let summaryDb = {};
     try {
-      keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
-    } catch (e) { /* ignore */ }
-    try {
-      bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+      summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
     } catch (e) { /* ignore */ }
     
+    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, ID oder Titel)
+    function getYearForText(id, entry) {
+      // 1. Aus fullLectures (primäre Quelle für Vorträge und Aufsätze)
+      if (fullLectures[id]) {
+        const lecture = fullLectures[id];
+        // Erst Jahr/Datum-Felder prüfen
+        if (lecture.year) return parseInt(lecture.year);
+        if (lecture.date) {
+          const yearMatch = lecture.date.match(/\b(18|19)\d{2}\b/);
+          if (yearMatch) return parseInt(yearMatch[0]);
+        }
+        // Dann Titel prüfen (wichtig für GA001-046 Aufsätze mit "(1882)" im Titel)
+        if (lecture.title) {
+          const titleMatch = lecture.title.match(/\b(18|19)\d{2}\b/);
+          if (titleMatch) return parseInt(titleMatch[0]);
+        }
+      }
+      
+      // 2. Aus der ID (z.B. GA093a/1905-10-04)
+      const idYearMatch = id.match(/\/(18\d{2}|19\d{2})/);
+      if (idYearMatch) return parseInt(idYearMatch[1]);
+      
+      // 3. Aus dem Titel in summaryDb (Fallback)
+      if (entry && entry.title) {
+        const titleMatch = entry.title.match(/\b(18|19)\d{2}\b/);
+        if (titleMatch) return parseInt(titleMatch[0]);
+      }
+      
+      return null;
+    }
+
     // Statistik mit Jahren
     const themeCounts = {};
     const themeYears = {}; // { themeName: { year: count } }
     
     for (const id in assignments) {
       const themes = assignments[id].themes || [];
-      
-      // Ermittle Jahr für diesen Text
-      let year = null;
-      const meta = keywordsDb[id];
-      if (meta && meta.year) {
-        year = meta.year;
-      } else {
-        // Aufsätze/Bücher: Jahr aus Bibliographie
-        const gaMatch = id.match(/^(GA\d+)/);
-        const gaNum = gaMatch ? gaMatch[1] : null;
-        const bibEntry = gaNum ? bibliography[gaNum] : null;
-        if (bibEntry) {
-          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
-          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
-          year = years.length > 0 ? years[0] : null;
-        }
-      }
+      const entry = summaryDb[id];
+      const year = getYearForText(id, entry);
       
       themes.forEach(t => {
         themeCounts[t] = (themeCounts[t] || 0) + 1;
         
-        if (year && year >= 1882 && year <= 1925) {
+        if (year && year >= 1879 && year <= 1925) {
           if (!themeYears[t]) themeYears[t] = {};
           themeYears[t][year] = (themeYears[t][year] || 0) + 1;
         }
