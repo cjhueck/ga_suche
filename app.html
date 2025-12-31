@@ -7224,6 +7224,7 @@ Bestehende Schlagwörter überschreiben
       <li><a href="#docs-modifications" onclick="scrollToDocsSection('docs-modifications')" style="color: var(--link-color);">8. Änderungen durchführen</a></li>
       <li><a href="#docs-scripts" onclick="scrollToDocsSection('docs-scripts')" style="color: var(--link-color);">9. Skripte & Tools</a></li>
       <li><a href="#docs-development" onclick="scrollToDocsSection('docs-development')" style="color: var(--link-color);">10. Entwicklung & Deployment</a></li>
+      <li><a href="#docs-data-display" onclick="scrollToDocsSection('docs-data-display')" style="color: var(--link-color);">11. Datenquellen für Tab-Anzeige</a></li>
     </ul>
   </div>
 </div>
@@ -8288,10 +8289,153 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
+<!-- 11. DATENQUELLEN FÜR TAB-ANZEIGE -->
+<div id="docs-data-display" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    11. Datenquellen für Tab-Anzeige
+  </h3>
+  
+  <p style="margin-bottom: 1rem;">Diese Übersicht zeigt, welche JSON-Dateien für die Anzeige in den verschiedenen Tabs verwendet werden.</p>
+  
+  <!-- TEXTE-TAB DATENQUELLEN -->
+  <h4 style="color: #FF9800; margin: 1.5rem 0 0.5rem 0; border-bottom: 2px solid #FF9800; padding-bottom: 0.3rem;">
+    📖 Texte-Tab
+  </h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; width: 25%;">Anzeige-Element</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; width: 35%;">Datenquelle</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Felder</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>GA-Nummer, Titel</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>pagebreaks/*.json</code> → <code>fullLectures</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>ID</code>, <code>title</code>, <code>gaNumber</code>, <code>gaTitle</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Ort, Datum</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>pagebreaks/*.json</code> → <code>fullLectures</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>location</code>, <code>date</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Volltext</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>pagebreaks/*.json</code> → <code>fullLectures</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>paragraphs[]</code> (mit <code>|page|</code>-Markern)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Summary</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary-database.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary</code>, <code>shortSummary</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Überschriften (H3/H4)</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary-database.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>headings[]</code> (text, level, index)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Bibliographie</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>ga-bibliography.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Verlag, Jahr, ISBN etc.</td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Hinweis:</strong> Die <code>pagebreaks/*.json</code> Dateien werden beim Server-Start in die globale Variable <code>fullLectures</code> geladen.
+    </p>
+  </div>
+  
+  <!-- THEMEN-TAB (HEATMAP) DATENQUELLEN -->
+  <h4 style="color: #9C27B0; margin: 1.5rem 0 0.5rem 0; border-bottom: 2px solid #9C27B0; padding-bottom: 0.3rem;">
+    🔥 Themen-Tab (Heatmap)
+  </h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; width: 25%;">Anzeige-Element</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; width: 35%;">Datenquelle</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Felder / Logik</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Themenliste (links)</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>themes/themes-data.js</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>SteinerThemesData[]</code> (theme, query)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Heatmap-Balken</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>themes/theme-assignments.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">KI-Zuordnungen: welcher Text gehört zu welchem Thema</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Jahr für Heatmap-Position</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>fullLectures</code> (primär)</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">
+          Reihenfolge: 1. <code>fullLectures[id].year/date</code><br>
+          2. Jahr aus <code>fullLectures[id].title</code> (z.B. "(1882)")<br>
+          3. Jahr aus ID (z.B. "GA093a/1905-10-04")
+        </td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Ergebnisliste (Klick auf Heatmap)</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary-database.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary</code>, <code>shortSummary</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Titel, Ort in Ergebnisliste</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>fullLectures</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>title</code>, <code>location</code>, <code>date</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Schlagwort-Chips</strong></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>themes/themes-data.js</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>query</code>-Feld wird in Keywords gesplittet</td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>API:</strong> <code>GET /api/theme-assignments-status</code> (Heatmap-Daten), <code>POST /api/get-theme-results-ai</code> (Ergebnisliste)
+    </p>
+  </div>
+  
+  <!-- ZUSAMMENFASSUNG DATENSTRUKTUR -->
+  <h4 style="color: var(--heading-color); margin: 1.5rem 0 0.5rem 0;">
+    📁 Zusammenfassung: Datenstruktur
+  </h4>
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; width: 30%;">Datei</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Inhalt</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>pagebreaks/*.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Volltexte + Metadaten (ID, title, location, date, paragraphs mit |page|-Markern)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>summary-database.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">KI-generiert: summary, shortSummary, headings[]</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>keywords-database.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Schlagwörter pro Text (für Suche/Index)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>themes/theme-assignments.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">KI-Zuordnungen: Text-ID → Themen[]</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>themes/themes-data.js</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Themendefinitionen (Name, Schlagwörter)</td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Trennung:</strong> Volltexte sind in aufgeteilten Dateien gespeichert (GitHub-Limit ~10 MB), Metadaten in zentralen Dateien.
+    </p>
+  </div>
+</div>
+
 <!-- Footer -->
 <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--secondary-text); font-size: 0.85em;">
   <p style="margin: 0;">Diese Dokumentation wird nur in der lokalen Version angezeigt.</p>
-  <p style="margin: 0.3rem 0 0 0;">Letzte Aktualisierung: Dezember 2024</p>
+  <p style="margin: 0.3rem 0 0 0;">Letzte Aktualisierung: Dezember 2024 / Januar 2025</p>
 </div>
 
 </div>
@@ -34880,6 +35024,11 @@ function showDocsTOC() {
         <li style="margin-bottom: 0.6rem;">
           <a href="#" onclick="scrollToDocsSection('docs-development'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
             10. Entwicklung & Deployment
+          </a>
+        </li>
+        <li style="margin-bottom: 0.6rem;">
+          <a href="#" onclick="scrollToDocsSection('docs-data-display'); return false;" style="color: var(--link-color); text-decoration: none; font-size: 0.9em;">
+            11. Datenquellen für Tab-Anzeige
           </a>
         </li>
       </ul>

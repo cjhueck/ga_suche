@@ -844,7 +844,7 @@ function getOriginalThemeQuery(themeName) {
     var originalQueries = {
         "Abstammung / Evolution": "Abstammung Evolution Haeckel",
         "Anthroposophische Künste": "Eurythmie Sprachgestaltung Schauspielkunst Malerei Materie Bildhauerei Architektur",
-        "Anthroposophische Medizin": "Medizin Heilkunde Heilmittel Pathologie Therapie",
+        "Medizin / Heilkunde": "Medizin Heilkunde Heilmittel Pathologie Therapie",
         "Bibel / Evangelien": "Bibel Evangelium",
         "Böses (Luzifer, Ahriman)": "Luzifer Ahriman Böses",
         "Christengemeinschaft": "Christengemeinschaft",

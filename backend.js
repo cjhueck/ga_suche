@@ -6542,10 +6542,62 @@ app.post('/api/rename-theme', async (req, res) => {
       return res.status(400).json({ error: `Theme "${newName}" existiert bereits` });
     }
     
-    // Ersetze den Theme-Namen
+    // Ersetze den Theme-Namen in themes-data.js
     fileContent = fileContent.replace(`theme: "${oldName}"`, `theme: "${newName}"`);
     
     await fs.writeFile(filePath, fileContent, 'utf8');
+    
+    // Aktualisiere auch theme-assignments.json (KI-Zuordnungen)
+    const assignmentsPath = path.join(__dirname, 'themes', 'theme-assignments.json');
+    try {
+      const assignmentsContent = await fs.readFile(assignmentsPath, 'utf8');
+      const assignments = JSON.parse(assignmentsContent);
+      let updated = false;
+      
+      for (const textId of Object.keys(assignments)) {
+        const entry = assignments[textId];
+        if (entry.themes && Array.isArray(entry.themes)) {
+          const idx = entry.themes.indexOf(oldName);
+          if (idx !== -1) {
+            entry.themes[idx] = newName;
+            updated = true;
+          }
+        }
+      }
+      
+      if (updated) {
+        await fs.writeFile(assignmentsPath, JSON.stringify(assignments, null, 2), 'utf8');
+        console.log(`[RENAME-THEME] ✓ theme-assignments.json aktualisiert`);
+      }
+    } catch (assignErr) {
+      console.log(`[RENAME-THEME] Keine theme-assignments.json gefunden oder Fehler: ${assignErr.message}`);
+    }
+    
+    // Aktualisiere thematic-visualization.js (defaultThemeKeywords)
+    const vizPath = path.join(__dirname, 'themes', 'thematic-visualization.js');
+    try {
+      let vizContent = await fs.readFile(vizPath, 'utf8');
+      if (vizContent.includes(`"${oldName}"`)) {
+        vizContent = vizContent.replace(new RegExp(`"${oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'), `"${newName}"`);
+        await fs.writeFile(vizPath, vizContent, 'utf8');
+        console.log(`[RENAME-THEME] ✓ thematic-visualization.js aktualisiert`);
+      }
+    } catch (vizErr) {
+      console.log(`[RENAME-THEME] thematic-visualization.js nicht gefunden oder Fehler: ${vizErr.message}`);
+    }
+    
+    // Aktualisiere themes-keywords-template.json
+    const templatePath = path.join(__dirname, 'themes', 'themes-keywords-template.json');
+    try {
+      let templateContent = await fs.readFile(templatePath, 'utf8');
+      if (templateContent.includes(`"${oldName}"`)) {
+        templateContent = templateContent.replace(new RegExp(`"${oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'), `"${newName}"`);
+        await fs.writeFile(templatePath, templateContent, 'utf8');
+        console.log(`[RENAME-THEME] ✓ themes-keywords-template.json aktualisiert`);
+      }
+    } catch (templateErr) {
+      console.log(`[RENAME-THEME] themes-keywords-template.json nicht gefunden oder Fehler: ${templateErr.message}`);
+    }
     
     console.log(`[RENAME-THEME] ✓ Erfolgreich umbenannt`);
     res.json({ success: true, message: `Theme "${oldName}" zu "${newName}" umbenannt` });
