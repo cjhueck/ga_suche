@@ -36,13 +36,6 @@ var SteinerThemesData = [
         query: "Eurythmie Sprachgestaltung Menschheitsrepräsentant Organische Architektur Malen aus der Farbe"
     },
     {
-        theme: "Anthroposophische Medizin",
-        ranges: [
-            { start: 1920, end: 1924, intensity: 1.0 }
-        ],
-        query: "Medizin Heilkunde Heilmittel Pathologie Therapie"
-    },
-        {
         theme: "Bewusstsein",
         ranges: [
             { start: 1904, end: 1924, intensity: 0.8 }
@@ -241,6 +234,13 @@ var SteinerThemesData = [
             { start: 1904, end: 1925, intensity: 0.8 }
         ],
         query: "Meditation Schulungsweg Rückschau Konzentration Übungen Nebenübungen Mantram Symbol Leeres Bewusstsein Andacht Gebet"
+    },
+    {
+        theme: "Medizin / Heilkunde",
+        ranges: [
+            { start: 1920, end: 1924, intensity: 1.0 }
+        ],
+        query: "Medizin Heilkunde Heilmittel Pathologie Therapie"
     },
     {
         theme: "Menschenkunde",
