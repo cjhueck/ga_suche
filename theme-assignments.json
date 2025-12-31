@@ -1,0 +1,6507 @@
+{
+  "GA051/11": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:25:54.108Z"
+  },
+  "GA051/1": {
+    "themes": [
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:25:56.163Z"
+  },
+  "GA051/3": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:25:57.492Z"
+  },
+  "GA051/2": {
+    "themes": [],
+    "assignedAt": "2025-12-31T13:26:00.345Z"
+  },
+  "GA051/4": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:02.479Z"
+  },
+  "GA051/9": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:03.749Z"
+  },
+  "GA051/6": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:05.038Z"
+  },
+  "GA051/5": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:06.470Z"
+  },
+  "GA051/8": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:07.911Z"
+  },
+  "GA051/7": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:26:09.345Z"
+  },
+  "GA051/15": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:26:10.669Z"
+  },
+  "GA051/14": {
+    "themes": [
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:26:12.411Z"
+  },
+  "GA051/10": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:13.644Z"
+  },
+  "GA051/12": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:15.178Z"
+  },
+  "GA051/16": {
+    "themes": [
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:26:16.508Z"
+  },
+  "GA051/13": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:26:17.740Z"
+  },
+  "GA051/18": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:26:19.090Z"
+  },
+  "GA051/17": {
+    "themes": [
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:26:20.604Z"
+  },
+  "GA051/19": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:26:22.039Z"
+  },
+  "GA051/20": {
+    "themes": [
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:26:23.270Z"
+  },
+  "GA051/21": {
+    "themes": [],
+    "assignedAt": "2025-12-31T13:26:26.658Z"
+  },
+  "GA051/22": {
+    "themes": [],
+    "assignedAt": "2025-12-31T13:26:31.047Z"
+  },
+  "GA051/23": {
+    "themes": [
+      "Gehirn & Geist"
+    ],
+    "assignedAt": "2025-12-31T13:26:34.733Z"
+  },
+  "GA051/24": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:26:36.167Z"
+  },
+  "GA051/25": {
+    "themes": [],
+    "assignedAt": "2025-12-31T13:26:39.143Z"
+  },
+  "GA052/2": {
+    "themes": [
+      "Seelenlehre / Seelenglieder",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:26:40.607Z"
+  },
+  "GA052/1": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:26:41.906Z"
+  },
+  "GA052/3": {
+    "themes": [
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:26:43.153Z"
+  },
+  "GA052/5": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:26:44.504Z"
+  },
+  "GA052/4": {
+    "themes": [
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:26:45.902Z"
+  },
+  "GA052/6": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:26:47.269Z"
+  },
+  "GA052/8": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:26:49.207Z"
+  },
+  "GA052/7": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:26:50.523Z"
+  },
+  "GA052/10": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:26:51.882Z"
+  },
+  "GA052/9": {
+    "themes": [
+      "Gehirn & Geist",
+      "Reinkarnation & Karma",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:26:53.269Z"
+  },
+  "GA052/11": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik",
+      "Theosophische Gesellschaft",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:26:54.910Z"
+  },
+  "GA052/13": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:26:57.058Z"
+  },
+  "GA052/14": {
+    "themes": [
+      "Bewusstsein",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:26:58.625Z"
+  },
+  "GA052/17": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:00.137Z"
+  },
+  "GA052/15": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:27:01.494Z"
+  },
+  "GA052/16": {
+    "themes": [
+      "Anthroposophie",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:02.904Z"
+  },
+  "GA052/12": {
+    "themes": [
+      "Bewusstsein",
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:04.367Z"
+  },
+  "GA052/18": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:06.189Z"
+  },
+  "GA053/2": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:07.637Z"
+  },
+  "GA053/4": {
+    "themes": [
+      "Darwinismus",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:27:09.182Z"
+  },
+  "GA053/3": {
+    "themes": [
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:10.783Z"
+  },
+  "GA053/1": {
+    "themes": [
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:12.213Z"
+  },
+  "GA053/6": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:27:14.570Z"
+  },
+  "GA053/5": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:16.626Z"
+  },
+  "GA053/7": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:27:18.561Z"
+  },
+  "GA053/9": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:19.894Z"
+  },
+  "GA053/8": {
+    "themes": [
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:27:21.125Z"
+  },
+  "GA053/11": {
+    "themes": [
+      "Kosmologie / Kosmogonie",
+      "Menschheitsentwicklung",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:22.556Z"
+  },
+  "GA053/10": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Akasha-Chronik",
+      "Menschheitsentwicklung",
+      "Naturreiche"
+    ],
+    "assignedAt": "2025-12-31T13:27:23.907Z"
+  },
+  "GA053/14": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:27:25.338Z"
+  },
+  "GA053/13": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:26.695Z"
+  },
+  "GA053/15": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:28.206Z"
+  },
+  "GA053/12": {
+    "themes": [
+      "Christus / Golgatha",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Mysterienwesen / Einweihung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:27:29.985Z"
+  },
+  "GA053/16": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:27:31.218Z"
+  },
+  "GA053/20": {
+    "themes": [
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:27:33.315Z"
+  },
+  "GA053/17": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Goethe (Faust, Märchen)",
+      "Mysterienwesen / Einweihung",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:34.969Z"
+  },
+  "GA053/21": {
+    "themes": [
+      "Theosophische Gesellschaft",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:38.068Z"
+  },
+  "GA053/19": {
+    "themes": [
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:27:39.457Z"
+  },
+  "GA053/18": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:27:40.786Z"
+  },
+  "GA053/22": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Erkenntnisstufen"
+    ],
+    "assignedAt": "2025-12-31T13:27:42.117Z"
+  },
+  "GA053/23": {
+    "themes": [
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:44.786Z"
+  },
+  "GA054/3": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:46.318Z"
+  },
+  "GA054/2": {
+    "themes": [
+      "Darwinismus",
+      "Naturreiche",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:27:47.752Z"
+  },
+  "GA054/1": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Darwinismus"
+    ],
+    "assignedAt": "2025-12-31T13:27:49.519Z"
+  },
+  "GA054/4": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:27:50.818Z"
+  },
+  "GA054/5": {
+    "themes": [],
+    "assignedAt": "2025-12-31T13:27:54.464Z"
+  },
+  "GA054/7": {
+    "themes": [
+      "Anthroposophie",
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:27:55.879Z"
+  },
+  "GA054/6": {
+    "themes": [
+      "Menschheitsentwicklung",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:27:57.377Z"
+  },
+  "GA054/8": {
+    "themes": [
+      "Darwinismus",
+      "Soziale Dreigliederung",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:27:58.761Z"
+  },
+  "GA054/9": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:28:01.410Z"
+  },
+  "GA054/13": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:28:03.030Z"
+  },
+  "GA054/10": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:28:04.455Z"
+  },
+  "GA054/11": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:28:06.690Z"
+  },
+  "GA054/12": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:28:08.075Z"
+  },
+  "GA054/14": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:28:09.456Z"
+  },
+  "GA054/17": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Geschichte / Kulturentwicklung",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:28:11.504Z"
+  },
+  "GA054/19": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geistiges Erkennen",
+      "Geschichte / Kulturentwicklung",
+      "Rhythmen & Zyklen"
+    ],
+    "assignedAt": "2025-12-31T13:28:12.942Z"
+  },
+  "GA054/15": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Religionen / Weisheitslehren",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:14.594Z"
+  },
+  "GA054/16": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:28:16.430Z"
+  },
+  "GA054/18": {
+    "themes": [
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:28:18.205Z"
+  },
+  "GA054/20": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:28:19.645Z"
+  },
+  "GA054/21": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:21.045Z"
+  },
+  "GA055/2": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:22.314Z"
+  },
+  "GA055/4": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Freiheitsphilosophie",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:28:23.999Z"
+  },
+  "GA054/22": {
+    "themes": [
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:28:25.741Z"
+  },
+  "GA055/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:28:27.274Z"
+  },
+  "GA055/3": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Seelenfähigkeiten",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:28:29.121Z"
+  },
+  "GA055/5": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:30.591Z"
+  },
+  "GA055/6": {
+    "themes": [
+      "Biographie",
+      "Menschenkunde",
+      "Pädagogik / Heilpädagogik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:31.943Z"
+  },
+  "GA055/7": {
+    "themes": [
+      "Biographie",
+      "Menschenkunde",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:28:33.315Z"
+  },
+  "GA055/8": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:35.364Z"
+  },
+  "GA055/9": {
+    "themes": [
+      "Anthroposophie",
+      "Anthroposophische Medizin",
+      "Erkenntnisstufen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:37.512Z"
+  },
+  "GA055/10": {
+    "themes": [
+      "Biographie",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:28:38.869Z"
+  },
+  "GA055/11": {
+    "themes": [
+      "Rosenkreuzer"
+    ],
+    "assignedAt": "2025-12-31T13:28:40.298Z"
+  },
+  "GA055/13": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:28:41.814Z"
+  },
+  "GA056/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:28:43.355Z"
+  },
+  "GA056/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:28:44.790Z"
+  },
+  "GA056/3": {
+    "themes": [
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:46.359Z"
+  },
+  "GA055/12": {
+    "themes": [
+      "Mysterienwesen / Einweihung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:28:47.662Z"
+  },
+  "GA056/4": {
+    "themes": [
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:50.573Z"
+  },
+  "GA056/5": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:28:51.865Z"
+  },
+  "GA056/7": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:28:53.304Z"
+  },
+  "GA056/8": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Naturreiche"
+    ],
+    "assignedAt": "2025-12-31T13:28:54.728Z"
+  },
+  "GA056/6": {
+    "themes": [
+      "Anthroposophie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:28:57.182Z"
+  },
+  "GA056/9": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:28:58.915Z"
+  },
+  "GA056/10": {
+    "themes": [
+      "Anthroposophie",
+      "Anthroposophische Medizin",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:29:01.623Z"
+  },
+  "GA056/13": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Kosmologie / Kosmogonie",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:29:03.067Z"
+  },
+  "GA056/14": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:29:04.463Z"
+  },
+  "GA056/11": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:29:07.720Z"
+  },
+  "GA056/12": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:29:08.950Z"
+  },
+  "GA056/15": {
+    "themes": [
+      "Anthroposophie",
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Naturwissenschaft / Mathematik",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:29:10.797Z"
+  },
+  "GA057/1": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:12.274Z"
+  },
+  "GA057/4": {
+    "themes": [
+      "Anthroposophie",
+      "Bibel / Evangelien",
+      "Geistige Wesen",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:29:13.967Z"
+  },
+  "GA057/2": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:29:16.020Z"
+  },
+  "GA057/5": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geistige Wesen"
+    ],
+    "assignedAt": "2025-12-31T13:29:17.860Z"
+  },
+  "GA057/3": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Mysterienwesen / Einweihung",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:29:20.525Z"
+  },
+  "GA057/6": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:29:21.957Z"
+  },
+  "GA057/8": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:23.301Z"
+  },
+  "GA057/11": {
+    "themes": [
+      "Wesensglieder",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:26.587Z"
+  },
+  "GA057/10": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:29:28.136Z"
+  },
+  "GA057/7": {
+    "themes": [
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:29:31.718Z"
+  },
+  "GA057/9": {
+    "themes": [
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:29:33.028Z"
+  },
+  "GA057/12": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:34.447Z"
+  },
+  "GA057/13": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:29:35.679Z"
+  },
+  "GA057/15": {
+    "themes": [
+      "Philosophie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:37.749Z"
+  },
+  "GA057/17": {
+    "themes": [
+      "Bewusstsein",
+      "Geistiges Erkennen",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:29:39.496Z"
+  },
+  "GA057/18": {
+    "themes": [
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung",
+      "Rosenkreuzer"
+    ],
+    "assignedAt": "2025-12-31T13:29:41.110Z"
+  },
+  "GA057/14": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:29:42.262Z"
+  },
+  "GA057/16": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:29:43.707Z"
+  },
+  "GA058/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:29:45.202Z"
+  },
+  "GA058/3": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:46.640Z"
+  },
+  "GA058/4": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:48.272Z"
+  },
+  "GA058/2": {
+    "themes": [
+      "Menschenkunde",
+      "Seelenlehre / Seelenglieder",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:49.635Z"
+  },
+  "GA058/5": {
+    "themes": [
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Seelenlehre / Seelenglieder",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:51.142Z"
+  },
+  "GA058/6": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Bewusstsein",
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:29:52.722Z"
+  },
+  "GA058/7": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:54.331Z"
+  },
+  "GA059/1": {
+    "themes": [
+      "Sprache"
+    ],
+    "assignedAt": "2025-12-31T13:29:55.652Z"
+  },
+  "GA058/8": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:29:56.977Z"
+  },
+  "GA058/9": {
+    "themes": [
+      "Kosmologie / Kosmogonie",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:29:58.415Z"
+  },
+  "GA059/2": {
+    "themes": [
+      "Biographie",
+      "Menschenkunde",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:29:59.742Z"
+  },
+  "GA059/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:30:01.279Z"
+  },
+  "GA059/4": {
+    "themes": [
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:30:02.614Z"
+  },
+  "GA059/5": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:30:04.378Z"
+  },
+  "GA059/6": {
+    "themes": [
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:30:05.580Z"
+  },
+  "GA059/7": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde",
+      "Seelenlehre / Seelenglieder",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:30:07.246Z"
+  },
+  "GA059/8": {
+    "themes": [
+      "Christus / Golgatha",
+      "Seelenlehre / Seelenglieder",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:30:08.686Z"
+  },
+  "GA059/9": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:30:09.886Z"
+  },
+  "GA060/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:30:11.211Z"
+  },
+  "GA060/2": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:30:13.010Z"
+  },
+  "GA060/3": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Naturreiche",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:30:15.013Z"
+  },
+  "GA060/4": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Menschenkunde",
+      "Naturreiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:30:16.776Z"
+  },
+  "GA060/6": {
+    "themes": [
+      "Bewusstsein",
+      "Naturreiche",
+      "Rhythmen & Zyklen"
+    ],
+    "assignedAt": "2025-12-31T13:30:18.240Z"
+  },
+  "GA060/5": {
+    "themes": [
+      "Bewusstsein",
+      "Gehirn & Geist",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:30:20.056Z"
+  },
+  "GA060/7": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:30:21.350Z"
+  },
+  "GA060/9": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistige Wesen",
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:30:22.990Z"
+  },
+  "GA060/10": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:30:24.423Z"
+  },
+  "GA060/8": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:30:25.755Z"
+  },
+  "GA060/13": {
+    "themes": [
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:30:27.099Z"
+  },
+  "GA060/12": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:30:28.517Z"
+  },
+  "GA060/11": {
+    "themes": [
+      "Kosmologie / Kosmogonie",
+      "Naturreiche",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:30:29.886Z"
+  },
+  "GA060/14": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geistige Wesen",
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:30:31.486Z"
+  },
+  "GA060/15": {
+    "themes": [
+      "Naturwissenschaft / Mathematik",
+      "Kosmologie / Kosmogonie"
+    ],
+    "assignedAt": "2025-12-31T13:30:33.235Z"
+  },
+  "GA046/6": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:30:34.506Z"
+  },
+  "GA046/10": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Gehirn & Geist",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:30:36.199Z"
+  },
+  "GA046/3": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus"
+    ],
+    "assignedAt": "2025-12-31T13:30:37.533Z"
+  },
+  "GA046/5": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:30:38.862Z"
+  },
+  "GA046/8": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus"
+    ],
+    "assignedAt": "2025-12-31T13:30:40.191Z"
+  },
+  "GA046/2": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:30:41.443Z"
+  },
+  "GA046/7": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:30:44.008Z"
+  },
+  "GA046/1": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:30:45.312Z"
+  },
+  "GA046/9": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus"
+    ],
+    "assignedAt": "2025-12-31T13:30:46.744Z"
+  },
+  "GA046/4": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:30:48.813Z"
+  },
+  "GA046/11": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:30:50.124Z"
+  },
+  "GA046/15": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:30:51.682Z"
+  },
+  "GA046/14": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen"
+    ],
+    "assignedAt": "2025-12-31T13:30:53.302Z"
+  },
+  "GA046/17": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:30:54.843Z"
+  },
+  "GA046/12": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:30:57.189Z"
+  },
+  "GA046/20": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen"
+    ],
+    "assignedAt": "2025-12-31T13:30:58.649Z"
+  },
+  "GA046/13": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:30:59.852Z"
+  },
+  "GA046/18": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:31:01.305Z"
+  },
+  "GA046/16": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus"
+    ],
+    "assignedAt": "2025-12-31T13:31:02.642Z"
+  },
+  "GA046/19": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:31:03.950Z"
+  },
+  "GA046/29": {
+    "themes": [
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:31:05.176Z"
+  },
+  "GA046/21": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus"
+    ],
+    "assignedAt": "2025-12-31T13:31:06.538Z"
+  },
+  "GA046/27": {
+    "themes": [
+      "Rudolf Steiner",
+      "Goethes Naturerkennen"
+    ],
+    "assignedAt": "2025-12-31T13:31:08.149Z"
+  },
+  "GA046/28": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:31:09.598Z"
+  },
+  "GA046/26": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:31:11.428Z"
+  },
+  "GA046/25": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Rudolf Steiner"
+    ],
+    "assignedAt": "2025-12-31T13:31:12.856Z"
+  },
+  "GA046/22": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:31:14.119Z"
+  },
+  "GA046/24": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:31:16.261Z"
+  },
+  "GA046/30": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:31:17.513Z"
+  },
+  "GA046/23": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:31:18.924Z"
+  },
+  "GA046/32": {
+    "themes": [
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:31:20.331Z"
+  },
+  "GA046/38": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen"
+    ],
+    "assignedAt": "2025-12-31T13:31:22.176Z"
+  },
+  "GA046/34": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:31:23.510Z"
+  },
+  "GA046/35": {
+    "themes": [
+      "Philosophie",
+      "Bewusstsein"
+    ],
+    "assignedAt": "2025-12-31T13:31:24.861Z"
+  },
+  "GA046/40": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:31:26.222Z"
+  },
+  "GA046/33": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:31:27.807Z"
+  },
+  "GA046/31": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:31:29.241Z"
+  },
+  "GA046/39": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:31:30.724Z"
+  },
+  "GA046/37": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:31:33.056Z"
+  },
+  "GA046/36": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus"
+    ],
+    "assignedAt": "2025-12-31T13:31:34.271Z"
+  },
+  "GA046/41": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:31:35.612Z"
+  },
+  "GA046/42": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:31:37.042Z"
+  },
+  "GA046/45": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:31:38.705Z"
+  },
+  "GA046/47": {
+    "themes": [
+      "Christus / Golgatha",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:31:40.539Z"
+  },
+  "GA046/46": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:31:42.248Z"
+  },
+  "GA046/44": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:31:43.629Z"
+  },
+  "GA046/48": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:31:45.320Z"
+  },
+  "GA046/50": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Menschenkunde",
+      "Naturreiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:31:46.756Z"
+  },
+  "GA046/49": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:31:48.392Z"
+  },
+  "GA046/43": {
+    "themes": [
+      "Bewusstsein",
+      "Kosmologie / Kosmogonie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:31:49.984Z"
+  },
+  "GA046/57": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:31:51.361Z"
+  },
+  "GA046/56": {
+    "themes": [
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:31:53.252Z"
+  },
+  "GA046/53": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:31:54.644Z"
+  },
+  "GA046/58": {
+    "themes": [
+      "Geistige Wesen",
+      "Geistige Weltbereiche",
+      "Menschheitsentwicklung",
+      "Naturreiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:31:56.281Z"
+  },
+  "GA046/52": {
+    "themes": [
+      "Bewusstsein",
+      "Gehirn & Geist",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:31:57.615Z"
+  },
+  "GA046/54": {
+    "themes": [
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:31:58.837Z"
+  },
+  "GA046/59": {
+    "themes": [
+      "Kosmologie / Kosmogonie",
+      "Menschenkunde",
+      "Rhythmen & Zyklen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:00.294Z"
+  },
+  "GA046/55": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:01.721Z"
+  },
+  "GA046/60": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Geschichte / Kulturentwicklung",
+      "Kosmologie / Kosmogonie",
+      "Menschheitsentwicklung",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:03.277Z"
+  },
+  "GA046/51": {
+    "themes": [
+      "Bewusstsein",
+      "Kosmologie / Kosmogonie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:04.788Z"
+  },
+  "GA046/66": {
+    "themes": [
+      "Anthroposophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:32:06.126Z"
+  },
+  "GA046/67": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:32:07.774Z"
+  },
+  "GA046/69": {
+    "themes": [
+      "Anthroposophie",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:32:09.177Z"
+  },
+  "GA046/68": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:32:10.613Z"
+  },
+  "GA046/70": {
+    "themes": [
+      "Anthroposophie",
+      "Anthroposophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:32:12.291Z"
+  },
+  "GA046/63": {
+    "themes": [
+      "Rosenkreuzer"
+    ],
+    "assignedAt": "2025-12-31T13:32:13.608Z"
+  },
+  "GA046/64": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Rosenkreuzer",
+      "Theosophische Gesellschaft",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:32:14.965Z"
+  },
+  "GA046/65": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:16.588Z"
+  },
+  "GA046/62": {
+    "themes": [
+      "Rudolf Steiner"
+    ],
+    "assignedAt": "2025-12-31T13:32:17.819Z"
+  },
+  "GA046/61": {
+    "themes": [
+      "Bewusstsein",
+      "Christus / Golgatha",
+      "Kosmologie / Kosmogonie",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:32:19.647Z"
+  },
+  "GA046/75": {
+    "themes": [
+      "Anthroposophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:32:21.057Z"
+  },
+  "GA046/71": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:32:22.324Z"
+  },
+  "GA046/80": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geistige Weltbereiche",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:32:23.763Z"
+  },
+  "GA046/72": {
+    "themes": [
+      "Wesensglieder",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:27.407Z"
+  },
+  "GA046/77": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:32:28.655Z"
+  },
+  "GA046/79": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Gehirn & Geist"
+    ],
+    "assignedAt": "2025-12-31T13:32:30.175Z"
+  },
+  "GA046/76": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Menschenkunde",
+      "Naturwissenschaft / Mathematik",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:32.159Z"
+  },
+  "GA046/74": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Religionen / Weisheitslehren",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:32:33.552Z"
+  },
+  "GA046/73": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:32:34.983Z"
+  },
+  "GA046/78": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:36.933Z"
+  },
+  "GA046/81": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:32:38.302Z"
+  },
+  "GA046/87": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:32:39.929Z"
+  },
+  "GA046/88": {
+    "themes": [
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:32:41.229Z"
+  },
+  "GA046/90": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:42.663Z"
+  },
+  "GA046/83": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:32:44.131Z"
+  },
+  "GA046/84": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:32:45.738Z"
+  },
+  "GA046/89": {
+    "themes": [
+      "Christus / Golgatha",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Religionen / Weisheitslehren",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:32:47.600Z"
+  },
+  "GA046/85": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:49.284Z"
+  },
+  "GA046/86": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen",
+      "Goetheanismus",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:32:50.993Z"
+  },
+  "GA046/82": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:52.493Z"
+  },
+  "GA046/93": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:32:53.854Z"
+  },
+  "GA046/92": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus",
+      "Sinneslehre",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:32:55.769Z"
+  },
+  "GA046/94": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:32:57.549Z"
+  },
+  "GA046/97": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:32:58.984Z"
+  },
+  "GA046/99": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geistige Wesen"
+    ],
+    "assignedAt": "2025-12-31T13:33:00.496Z"
+  },
+  "GA046/91": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:02.050Z"
+  },
+  "GA046/95": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:03.493Z"
+  },
+  "GA046/98": {
+    "themes": [
+      "Anthroposophie",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:33:04.988Z"
+  },
+  "GA046/100": {
+    "themes": [
+      "Gehirn & Geist",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:06.676Z"
+  },
+  "GA046/96": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Geistiges Erkennen",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:33:08.471Z"
+  },
+  "GA046/109": {
+    "themes": [
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:33:09.705Z"
+  },
+  "GA046/105": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:33:11.188Z"
+  },
+  "GA046/101": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:12.672Z"
+  },
+  "GA046/110": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:33:14.356Z"
+  },
+  "GA046/103": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:33:16.352Z"
+  },
+  "GA046/104": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:33:17.722Z"
+  },
+  "GA046/102": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:19.428Z"
+  },
+  "GA046/107": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:33:21.293Z"
+  },
+  "GA046/108": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:33:22.806Z"
+  },
+  "GA046/106": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:33:24.090Z"
+  },
+  "GA046/113": {
+    "themes": [
+      "Naturwissenschaft / Mathematik",
+      "Vier Elemente / Ätherarten"
+    ],
+    "assignedAt": "2025-12-31T13:33:25.466Z"
+  },
+  "GA046/112": {
+    "themes": [
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:33:27.161Z"
+  },
+  "GA046/119": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Rosenkreuzer"
+    ],
+    "assignedAt": "2025-12-31T13:33:28.977Z"
+  },
+  "GA046/120": {
+    "themes": [
+      "Anthroposophie",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:33:30.488Z"
+  },
+  "GA046/111": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:33:31.820Z"
+  },
+  "GA046/117": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Naturwissenschaft / Mathematik",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:33.567Z"
+  },
+  "GA046/114": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:33:34.831Z"
+  },
+  "GA046/118": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:36.469Z"
+  },
+  "GA046/115": {
+    "themes": [
+      "Rudolf Steiner"
+    ],
+    "assignedAt": "2025-12-31T13:33:37.663Z"
+  },
+  "GA046/116": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:33:39.091Z"
+  },
+  "GA046/127": {
+    "themes": [
+      "Geistige Wesen",
+      "Geistige Weltbereiche"
+    ],
+    "assignedAt": "2025-12-31T13:33:40.319Z"
+  },
+  "GA046/124": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:41.646Z"
+  },
+  "GA046/126": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:43.103Z"
+  },
+  "GA046/123": {
+    "themes": [
+      "Westen Mitte Osten",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:33:46.558Z"
+  },
+  "GA046/125": {
+    "themes": [
+      "Goetheanum"
+    ],
+    "assignedAt": "2025-12-31T13:33:47.734Z"
+  },
+  "GA046/129": {
+    "themes": [
+      "Geistige Wesen",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:33:49.535Z"
+  },
+  "GA046/130": {
+    "themes": [
+      "Anthroposophische Medizin"
+    ],
+    "assignedAt": "2025-12-31T13:33:51.894Z"
+  },
+  "GA046/121": {
+    "themes": [
+      "Bewusstsein",
+      "Geistige Wesen",
+      "Moral",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:53.628Z"
+  },
+  "GA046/128": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:55.615Z"
+  },
+  "GA046/122": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistige Weltbereiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:33:57.312Z"
+  },
+  "GA046/134": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:33:58.678Z"
+  },
+  "GA046/135": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:34:00.079Z"
+  },
+  "GA046/133": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:34:01.443Z"
+  },
+  "GA046/132": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geistige Wesen",
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:34:02.890Z"
+  },
+  "GA046/136": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:34:05.643Z"
+  },
+  "GA046/137": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:34:07.243Z"
+  },
+  "GA046/138": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:34:08.804Z"
+  },
+  "GA046/131": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goetheanismus",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:34:10.317Z"
+  },
+  "GA046/140": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:34:12.672Z"
+  },
+  "GA046/139": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:34:14.119Z"
+  },
+  "GA046/141": {
+    "themes": [
+      "Bewusstsein"
+    ],
+    "assignedAt": "2025-12-31T13:34:15.949Z"
+  },
+  "GA046/142": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:34:17.483Z"
+  },
+  "GA046/143": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist"
+    ],
+    "assignedAt": "2025-12-31T13:34:18.930Z"
+  },
+  "GA067/3": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Goethes Naturerkennen",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:41:56.765Z"
+  },
+  "GA068a/9": {
+    "themes": [
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:41:58.618Z"
+  },
+  "GA065/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:00.342Z"
+  },
+  "GA066/4": {
+    "themes": [
+      "Menschenkunde",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:42:01.724Z"
+  },
+  "GA067/4": {
+    "themes": [
+      "Bewusstsein",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:03.749Z"
+  },
+  "GA063/5": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:42:05.279Z"
+  },
+  "GA068a/11": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:42:06.793Z"
+  },
+  "GA064/5": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Kulturen & Völker",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:42:09.152Z"
+  },
+  "GA065/5": {
+    "themes": [
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:42:10.395Z"
+  },
+  "GA068b/5": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:11.762Z"
+  },
+  "GA063/6": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:42:13.275Z"
+  },
+  "GA067/5": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:14.724Z"
+  },
+  "GA068a/13": {
+    "themes": [
+      "Religionen / Weisheitslehren",
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:42:16.026Z"
+  },
+  "GA066/5": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:17.985Z"
+  },
+  "GA064/6": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:42:19.638Z"
+  },
+  "GA068b/6": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:21.271Z"
+  },
+  "GA068c/2": {
+    "themes": [],
+    "assignedAt": "2025-12-31T13:42:24.943Z"
+  },
+  "GA065/6": {
+    "themes": [
+      "Bewusstsein",
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:42:26.352Z"
+  },
+  "GA063/7": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)"
+    ],
+    "assignedAt": "2025-12-31T13:42:27.684Z"
+  },
+  "GA068a/14": {
+    "themes": [
+      "Christus / Golgatha",
+      "Reinkarnation & Karma",
+      "Religionen / Weisheitslehren",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:42:29.681Z"
+  },
+  "GA067/6": {
+    "themes": [
+      "Biographie",
+      "Erkenntnisstufen",
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:42:31.065Z"
+  },
+  "GA066/6": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:42:32.809Z"
+  },
+  "GA068c/9": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:42:33.977Z"
+  },
+  "GA064/7": {
+    "themes": [
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:42:35.773Z"
+  },
+  "GA068b/7": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:37.106Z"
+  },
+  "GA061/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:42:38.640Z"
+  },
+  "GA061/4": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Goethes Naturerkennen",
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:42:40.280Z"
+  },
+  "GA061/3": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:42:43.454Z"
+  },
+  "GA061/5": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:45.199Z"
+  },
+  "GA061/2": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:42:46.657Z"
+  },
+  "GA061/6": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:42:47.866Z"
+  },
+  "GA061/7": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Geistige Wesen",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:42:49.293Z"
+  },
+  "GA061/8": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Darwinismus"
+    ],
+    "assignedAt": "2025-12-31T13:42:51.147Z"
+  },
+  "GA061/11": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:42:52.463Z"
+  },
+  "GA061/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:42:54.006Z"
+  },
+  "GA061/9": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Geschichte / Kulturentwicklung",
+      "Kosmologie / Kosmogonie"
+    ],
+    "assignedAt": "2025-12-31T13:42:55.335Z"
+  },
+  "GA061/10": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:42:56.824Z"
+  },
+  "GA061/13": {
+    "themes": [
+      "Naturreiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:42:58.123Z"
+  },
+  "GA061/14": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Pädagogik / Heilpädagogik",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:42:59.656Z"
+  },
+  "GA061/15": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:43:01.102Z"
+  },
+  "GA061/16": {
+    "themes": [
+      "Darwinismus",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:43:02.502Z"
+  },
+  "GA062/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:43:03.991Z"
+  },
+  "GA062/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Menschenkunde",
+      "Naturwissenschaft / Mathematik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:05.602Z"
+  },
+  "GA062/3": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:43:07.334Z"
+  },
+  "GA062/4": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:43:08.963Z"
+  },
+  "GA062/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:43:10.422Z"
+  },
+  "GA062/9": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:43:12.330Z"
+  },
+  "GA062/8": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:43:14.022Z"
+  },
+  "GA062/7": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)"
+    ],
+    "assignedAt": "2025-12-31T13:43:16.024Z"
+  },
+  "GA062/5": {
+    "themes": [
+      "Anthroposophie",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:43:18.168Z"
+  },
+  "GA062/10": {
+    "themes": [
+      "Bewusstsein",
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:43:19.714Z"
+  },
+  "GA062/12": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:43:21.034Z"
+  },
+  "GA062/14": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Geschichte / Kulturentwicklung",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:22.569Z"
+  },
+  "GA062/11": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:43:24.005Z"
+  },
+  "GA062/13": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Moral",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:43:25.437Z"
+  },
+  "GA063/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Naturwissenschaft / Mathematik",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:43:27.117Z"
+  },
+  "GA063/2": {
+    "themes": [
+      "Anthroposophie",
+      "Theosophische Gesellschaft",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:43:28.611Z"
+  },
+  "GA063/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:43:30.076Z"
+  },
+  "GA063/8": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:43:31.739Z"
+  },
+  "GA063/9": {
+    "themes": [
+      "Seelenlehre / Seelenglieder",
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:43:33.322Z"
+  },
+  "GA063/4": {
+    "themes": [
+      "Gehirn & Geist",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:35.014Z"
+  },
+  "GA063/10": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:43:36.394Z"
+  },
+  "GA063/11": {
+    "themes": [
+      "Anthroposophie",
+      "Goethe (Faust, Märchen)",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:43:38.091Z"
+  },
+  "GA063/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Moral",
+      "Seelenfähigkeiten",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:43:39.991Z"
+  },
+  "GA064/1": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Kulturen & Völker"
+    ],
+    "assignedAt": "2025-12-31T13:43:41.927Z"
+  },
+  "GA064/2": {
+    "themes": [
+      "Anthroposophie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:43:43.289Z"
+  },
+  "GA064/4": {
+    "themes": [
+      "Kulturen & Völker",
+      "Seelenlehre / Seelenglieder",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:43:44.796Z"
+  },
+  "GA064/8": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Weltanschauungen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:46.328Z"
+  },
+  "GA064/3": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geistige Weltbereiche",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:43:47.985Z"
+  },
+  "GA064/9": {
+    "themes": [
+      "Kulturen & Völker",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:49.557Z"
+  },
+  "GA064/10": {
+    "themes": [
+      "Anthroposophie",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:43:51.141Z"
+  },
+  "GA064/11": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:43:52.883Z"
+  },
+  "GA064/12": {
+    "themes": [
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:43:54.138Z"
+  },
+  "GA064/14": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:56.054Z"
+  },
+  "GA064/13": {
+    "themes": [
+      "Gehirn & Geist",
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:43:58.001Z"
+  },
+  "GA065/1": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:43:59.647Z"
+  },
+  "GA065/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:44:01.185Z"
+  },
+  "GA065/7": {
+    "themes": [
+      "Bewusstsein",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:44:02.509Z"
+  },
+  "GA065/3": {
+    "themes": [
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:44:03.941Z"
+  },
+  "GA065/9": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:44:05.484Z"
+  },
+  "GA065/10": {
+    "themes": [
+      "Anthroposophie",
+      "Philosophie",
+      "Weltanschauungen",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:44:07.831Z"
+  },
+  "GA065/8": {
+    "themes": [
+      "Kulturen & Völker"
+    ],
+    "assignedAt": "2025-12-31T13:44:09.012Z"
+  },
+  "GA065/11": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:44:10.713Z"
+  },
+  "GA065/13": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:44:12.353Z"
+  },
+  "GA065/12": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:44:13.668Z"
+  },
+  "GA065/14": {
+    "themes": [
+      "Kulturen & Völker",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:44:15.243Z"
+  },
+  "GA065/15": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:44:16.779Z"
+  },
+  "GA066/2": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:44:18.174Z"
+  },
+  "GA066/1": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Geistige Weltbereiche",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:44:19.657Z"
+  },
+  "GA066/7": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistige Weltbereiche",
+      "Menschenkunde",
+      "Naturwissenschaft / Mathematik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:44:21.247Z"
+  },
+  "GA066/3": {
+    "themes": [
+      "Bewusstsein",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:44:22.693Z"
+  },
+  "GA067/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:44:24.726Z"
+  },
+  "GA067/7": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:44:26.115Z"
+  },
+  "GA067/2": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:44:27.714Z"
+  },
+  "GA067/8": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Menschenkunde",
+      "Naturreiche"
+    ],
+    "assignedAt": "2025-12-31T13:44:29.133Z"
+  },
+  "GA067/10": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:44:30.510Z"
+  },
+  "GA067/9": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:44:32.146Z"
+  },
+  "GA068a/16": {
+    "themes": [
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:44:33.432Z"
+  },
+  "GA068a/17": {
+    "themes": [
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:44:34.968Z"
+  },
+  "GA068a/20": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Mythologie"
+    ],
+    "assignedAt": "2025-12-31T13:44:36.411Z"
+  },
+  "GA068a/18": {
+    "themes": [
+      "Mysterienwesen / Einweihung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:44:37.634Z"
+  },
+  "GA068a/24": {
+    "themes": [
+      "Anthroposophie",
+      "Bibel / Evangelien",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:44:40.087Z"
+  },
+  "GA068a/21": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:44:41.410Z"
+  },
+  "GA068a/23": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Christentum",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:44:42.853Z"
+  },
+  "GA068a/27": {
+    "themes": [
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:44:44.490Z"
+  },
+  "GA068a/22": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:44:46.310Z"
+  },
+  "GA068a/25": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:44:47.696Z"
+  },
+  "GA068a/28": {
+    "themes": [
+      "Anthroposophie",
+      "Theosophische Gesellschaft",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:44:49.459Z"
+  },
+  "GA068a/26": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Naturreiche"
+    ],
+    "assignedAt": "2025-12-31T13:44:51.679Z"
+  },
+  "GA068a/30": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:44:53.297Z"
+  },
+  "GA068a/31": {
+    "themes": [
+      "Anthroposophie",
+      "Bibel / Evangelien",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:44:54.660Z"
+  },
+  "GA068a/29": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:44:56.270Z"
+  },
+  "GA068a/33": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Erkenntnisstufen",
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:44:57.806Z"
+  },
+  "GA068a/32": {
+    "themes": [
+      "Bewusstsein",
+      "Christus / Golgatha",
+      "Geistiges Erkennen",
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:44:59.284Z"
+  },
+  "GA068a/34": {
+    "themes": [
+      "Anthroposophie",
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geistiges Erkennen",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:45:00.898Z"
+  },
+  "GA068a/35": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:45:02.518Z"
+  },
+  "GA068a/36": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Hüter der Schwelle",
+      "Meditation / Schulungsweg",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:45:04.184Z"
+  },
+  "GA068a/37": {
+    "themes": [
+      "Anthroposophie",
+      "Böses (Luzifer, Ahriman)",
+      "Hüter der Schwelle"
+    ],
+    "assignedAt": "2025-12-31T13:45:05.688Z"
+  },
+  "GA068a/40": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:07.327Z"
+  },
+  "GA068a/39": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:45:08.701Z"
+  },
+  "GA068a/38": {
+    "themes": [
+      "Anthroposophie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:10.097Z"
+  },
+  "GA068a/42": {
+    "themes": [
+      "Anthroposophie",
+      "Bibel / Evangelien",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:45:11.671Z"
+  },
+  "GA068a/46": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Soziale Dreigliederung",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:45:13.267Z"
+  },
+  "GA068a/43": {
+    "themes": [
+      "Anthroposophie",
+      "Bibel / Evangelien",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:45:15.342Z"
+  },
+  "GA068a/47": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Geistige Wesen"
+    ],
+    "assignedAt": "2025-12-31T13:45:16.665Z"
+  },
+  "GA068a/45": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:45:18.190Z"
+  },
+  "GA068a/51": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:45:19.723Z"
+  },
+  "GA068a/48": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:45:21.289Z"
+  },
+  "GA068a/55": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Naturwissenschaft / Mathematik",
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:45:22.789Z"
+  },
+  "GA068a/54": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:45:24.127Z"
+  },
+  "GA068a/56": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:45:25.666Z"
+  },
+  "GA068a/53": {
+    "themes": [
+      "Anthroposophie",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geistiges Erkennen",
+      "Menschheitsentwicklung",
+      "Michael"
+    ],
+    "assignedAt": "2025-12-31T13:45:27.217Z"
+  },
+  "GA068b/8": {
+    "themes": [
+      "Theosophische Gesellschaft",
+      "Wesensglieder",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:45:28.865Z"
+  },
+  "GA068b/9": {
+    "themes": [
+      "Christus / Golgatha",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:45:30.277Z"
+  },
+  "GA068b/10": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:31.906Z"
+  },
+  "GA068b/13": {
+    "themes": [
+      "Bewusstsein",
+      "Biographie",
+      "Reinkarnation & Karma",
+      "Rhythmen & Zyklen",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:34.159Z"
+  },
+  "GA068b/14": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:45:35.606Z"
+  },
+  "GA068b/12": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:37.330Z"
+  },
+  "GA068b/15": {
+    "themes": [
+      "Bewusstsein",
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:38.871Z"
+  },
+  "GA068b/18": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Darwinismus",
+      "Geistige Weltbereiche",
+      "Theosophische Gesellschaft",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:45:40.318Z"
+  },
+  "GA068b/20": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:41.950Z"
+  },
+  "GA068b/19": {
+    "themes": [
+      "Philosophie",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:45:43.272Z"
+  },
+  "GA068b/22": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Mysterienwesen / Einweihung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:45:44.811Z"
+  },
+  "GA068b/21": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:45:46.089Z"
+  },
+  "GA068b/25": {
+    "themes": [
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:45:47.370Z"
+  },
+  "GA068b/26": {
+    "themes": [
+      "Philosophie",
+      "Theosophische Gesellschaft",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:45:48.720Z"
+  },
+  "GA068b/28": {
+    "themes": [
+      "Anthroposophie",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:50.137Z"
+  },
+  "GA068b/29": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:45:51.599Z"
+  },
+  "GA068b/31": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Kosmologie / Kosmogonie"
+    ],
+    "assignedAt": "2025-12-31T13:45:52.997Z"
+  },
+  "GA068b/34": {
+    "themes": [
+      "Menschheitsentwicklung",
+      "Naturreiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:54.371Z"
+  },
+  "GA068b/35": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik",
+      "Weltanschauungen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:55.868Z"
+  },
+  "GA068b/32": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Menschheitsentwicklung",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:45:57.247Z"
+  },
+  "GA068b/33": {
+    "themes": [
+      "Naturwissenschaft / Mathematik",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:45:59.037Z"
+  },
+  "GA068b/36": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:46:00.573Z"
+  },
+  "GA068b/38": {
+    "themes": [
+      "Menschheitsentwicklung",
+      "Mysterienwesen / Einweihung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:46:01.960Z"
+  },
+  "GA068b/42": {
+    "themes": [
+      "Menschenkunde",
+      "Menschheitsentwicklung",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:03.548Z"
+  },
+  "GA068b/43": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:04.980Z"
+  },
+  "GA068b/45": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:06.569Z"
+  },
+  "GA068b/44": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:07.985Z"
+  },
+  "GA068b/46": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:46:09.428Z"
+  },
+  "GA068b/47": {
+    "themes": [
+      "Kosmologie / Kosmogonie",
+      "Menschenkunde",
+      "Naturreiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:11.024Z"
+  },
+  "GA068b/50": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:46:12.396Z"
+  },
+  "GA068b/48": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:46:13.707Z"
+  },
+  "GA068b/53": {
+    "themes": [
+      "Menschenkunde",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:15.126Z"
+  },
+  "GA068b/49": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:46:16.555Z"
+  },
+  "GA068b/54": {
+    "themes": [
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:46:17.835Z"
+  },
+  "GA068b/52": {
+    "themes": [
+      "Seelenfähigkeiten",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:46:19.423Z"
+  },
+  "GA068c/12": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Mysterienwesen / Einweihung",
+      "Geistige Weltbereiche",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:21.467Z"
+  },
+  "GA068b/55": {
+    "themes": [
+      "Hüter der Schwelle",
+      "Seelenlehre / Seelenglieder",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:46:22.824Z"
+  },
+  "GA068c/15": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Meditation / Schulungsweg",
+      "Religionen / Weisheitslehren",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:24.335Z"
+  },
+  "GA068c/10": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:25.871Z"
+  },
+  "GA068c/14": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:46:27.666Z"
+  },
+  "GA068c/16": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:29.049Z"
+  },
+  "GA068c/19": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:46:30.476Z"
+  },
+  "GA068c/17": {
+    "themes": [
+      "Goethes Naturerkennen",
+      "Goethe (Faust, Märchen)",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:46:31.911Z"
+  },
+  "GA068c/22": {
+    "themes": [
+      "Rosenkreuzer",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:46:33.360Z"
+  },
+  "GA068c/20": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Reinkarnation & Karma",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:46:35.238Z"
+  },
+  "GA068c/21": {
+    "themes": [
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:46:36.525Z"
+  },
+  "GA068c/24": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:46:37.955Z"
+  },
+  "GA068c/28": {
+    "themes": [
+      "Christus / Golgatha",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:46:39.288Z"
+  },
+  "GA068c/26": {
+    "themes": [
+      "Goethe (Faust, Märchen)",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:46:40.834Z"
+  },
+  "GA068c/29": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)"
+    ],
+    "assignedAt": "2025-12-31T13:46:42.092Z"
+  },
+  "GA068c/25": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:43.436Z"
+  },
+  "GA068c/30": {
+    "themes": [
+      "Anthroposophie",
+      "Geschichte / Kulturentwicklung",
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:44.938Z"
+  },
+  "GA068c/32": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:47.101Z"
+  },
+  "GA068c/27": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:48.501Z"
+  },
+  "GA068c/31": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:46:49.832Z"
+  },
+  "GA068c/33": {
+    "themes": [
+      "Goethe (Faust, Märchen)"
+    ],
+    "assignedAt": "2025-12-31T13:46:51.011Z"
+  },
+  "GA068c/34": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:46:52.602Z"
+  },
+  "GA068c/35": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:46:54.384Z"
+  },
+  "GA068d/2": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:46:55.977Z"
+  },
+  "GA068d/1": {
+    "themes": [
+      "Soziale Dreigliederung",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:46:57.512Z"
+  },
+  "GA068d/3": {
+    "themes": [
+      "Darwinismus",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft",
+      "Tugenden"
+    ],
+    "assignedAt": "2025-12-31T13:46:58.983Z"
+  },
+  "GA068d/7": {
+    "themes": [
+      "Geistiges Erkennen",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:47:00.379Z"
+  },
+  "GA068d/6": {
+    "themes": [
+      "Biographie",
+      "Menschenkunde",
+      "Pädagogik / Heilpädagogik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:01.926Z"
+  },
+  "GA068d/8": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:47:03.272Z"
+  },
+  "GA068d/9": {
+    "themes": [
+      "Biographie",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:04.683Z"
+  },
+  "GA068d/10": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:06.151Z"
+  },
+  "GA068d/12": {
+    "themes": [
+      "Anthroposophische Medizin"
+    ],
+    "assignedAt": "2025-12-31T13:47:07.603Z"
+  },
+  "GA068d/11": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:09.002Z"
+  },
+  "GA068d/15": {
+    "themes": [
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:12.493Z"
+  },
+  "GA068d/13": {
+    "themes": [
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:13.808Z"
+  },
+  "GA068d/14": {
+    "themes": [
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:16.980Z"
+  },
+  "GA068d/16": {
+    "themes": [
+      "Biographie",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:18.347Z"
+  },
+  "GA068d/17": {
+    "themes": [
+      "Anthroposophie",
+      "Geistige Weltbereiche",
+      "Theosophische Gesellschaft",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:19.793Z"
+  },
+  "GA068d/20": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:21.907Z"
+  },
+  "GA068d/18": {
+    "themes": [
+      "Anthroposophie",
+      "Menschenkunde",
+      "Theosophische Gesellschaft",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:24.263Z"
+  },
+  "GA068d/19": {
+    "themes": [
+      "Biographie",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:26.342Z"
+  },
+  "GA068d/21": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:27.771Z"
+  },
+  "GA068d/24": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:47:29.207Z"
+  },
+  "GA068d/23": {
+    "themes": [
+      "Biographie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:47:30.688Z"
+  },
+  "GA068d/22": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:47:32.122Z"
+  },
+  "GA068d/25": {
+    "themes": [
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:33.565Z"
+  },
+  "GA068d/29": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:34.921Z"
+  },
+  "GA068d/28": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:36.320Z"
+  },
+  "GA068d/27": {
+    "themes": [
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:47:38.881Z"
+  },
+  "GA068d/26": {
+    "themes": [
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:40.723Z"
+  },
+  "GA068d/30": {
+    "themes": [
+      "Anthroposophie",
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:42.072Z"
+  },
+  "GA068d/31": {
+    "themes": [
+      "Anthroposophie",
+      "Anthroposophische Medizin",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:43.488Z"
+  },
+  "GA068d/32": {
+    "themes": [
+      "Menschenkunde",
+      "Pädagogik / Heilpädagogik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:47:45.640Z"
+  },
+  "GA069a/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:47:47.028Z"
+  },
+  "GA069a/2": {
+    "themes": [
+      "Theosophische Gesellschaft",
+      "Wesensglieder",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:47:48.403Z"
+  },
+  "GA068d/34": {
+    "themes": [
+      "Anthroposophie",
+      "Anthroposophische Medizin",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:47:49.983Z"
+  },
+  "GA069a/3": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:47:51.497Z"
+  },
+  "GA069a/7": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:47:53.050Z"
+  },
+  "GA069a/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Religionen / Weisheitslehren",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:47:54.673Z"
+  },
+  "GA069a/4": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:47:56.239Z"
+  },
+  "GA069a/8": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:47:57.637Z"
+  },
+  "GA069a/5": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:47:59.003Z"
+  },
+  "GA069a/9": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:00.795Z"
+  },
+  "GA069b/2": {
+    "themes": [
+      "Bewusstsein",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:48:02.552Z"
+  },
+  "GA069a/10": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:04.277Z"
+  },
+  "GA069b/1": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:05.728Z"
+  },
+  "GA069b/3": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:06.979Z"
+  },
+  "GA069b/4": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:48:09.305Z"
+  },
+  "GA069b/6": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:48:10.638Z"
+  },
+  "GA069b/5": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:12.164Z"
+  },
+  "GA069b/7": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:13.545Z"
+  },
+  "GA069b/9": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geistige Wesen",
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:48:15.869Z"
+  },
+  "GA069b/8": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:48:17.388Z"
+  },
+  "GA069b/10": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:48:18.620Z"
+  },
+  "GA069c/1": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:48:20.663Z"
+  },
+  "GA069c/2": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geistiges Erkennen",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:48:22.006Z"
+  },
+  "GA069c/6": {
+    "themes": [
+      "Christentum",
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:48:23.538Z"
+  },
+  "GA069c/4": {
+    "themes": [
+      "Christus / Golgatha",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:25.067Z"
+  },
+  "GA069c/5": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:48:26.605Z"
+  },
+  "GA069c/3": {
+    "themes": [
+      "Christus / Golgatha",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:48:28.035Z"
+  },
+  "GA069c/7": {
+    "themes": [
+      "Christus / Golgatha",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:48:29.408Z"
+  },
+  "GA069c/8": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:30.902Z"
+  },
+  "GA069c/9": {
+    "themes": [
+      "Bibel / Evangelien",
+      "Christentum",
+      "Christus / Golgatha",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:48:32.540Z"
+  },
+  "GA069c/10": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:48:33.996Z"
+  },
+  "GA069c/11": {
+    "themes": [
+      "Biographie",
+      "Christentum",
+      "Christus / Golgatha",
+      "Geschichte / Kulturentwicklung",
+      "Mysterienwesen / Einweihung"
+    ],
+    "assignedAt": "2025-12-31T13:48:35.511Z"
+  },
+  "GA069c/12": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:48:36.857Z"
+  },
+  "GA069d/1": {
+    "themes": [
+      "Anthroposophie",
+      "Geistige Weltbereiche",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:38.386Z"
+  },
+  "GA069c/13": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:39.710Z"
+  },
+  "GA069d/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen"
+    ],
+    "assignedAt": "2025-12-31T13:48:41.188Z"
+  },
+  "GA069d/5": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:43.189Z"
+  },
+  "GA069d/4": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:44.567Z"
+  },
+  "GA069d/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:48:46.419Z"
+  },
+  "GA069d/6": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:48:47.825Z"
+  },
+  "GA069d/7": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:48:49.075Z"
+  },
+  "GA069d/8": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:52.404Z"
+  },
+  "GA069d/11": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:48:53.762Z"
+  },
+  "GA069d/10": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Darwinismus"
+    ],
+    "assignedAt": "2025-12-31T13:48:55.385Z"
+  },
+  "GA069d/9": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Moral",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:57.155Z"
+  },
+  "GA069d/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:48:58.657Z"
+  },
+  "GA069d/13": {
+    "themes": [
+      "Anthroposophie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:00.037Z"
+  },
+  "GA069d/14": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:01.551Z"
+  },
+  "GA069d/17": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:49:04.068Z"
+  },
+  "GA069d/16": {
+    "themes": [
+      "Anthroposophie",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:49:05.725Z"
+  },
+  "GA069d/15": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:49:07.086Z"
+  },
+  "GA069d/21": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Naturreiche"
+    ],
+    "assignedAt": "2025-12-31T13:49:08.633Z"
+  },
+  "GA069d/18": {
+    "themes": [
+      "Böses (Luzifer, Ahriman)",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:49:10.132Z"
+  },
+  "GA069d/19": {
+    "themes": [
+      "Geistige Weltbereiche",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:49:11.862Z"
+  },
+  "GA069d/23": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:13.241Z"
+  },
+  "GA069d/22": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:14.525Z"
+  },
+  "GA069d/20": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistige Wesen",
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:16.287Z"
+  },
+  "GA069d/24": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:17.847Z"
+  },
+  "GA069e/2": {
+    "themes": [
+      "Wesensglieder",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft"
+    ],
+    "assignedAt": "2025-12-31T13:49:19.350Z"
+  },
+  "GA069e/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:49:21.707Z"
+  },
+  "GA069e/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:23.637Z"
+  },
+  "GA069e/4": {
+    "themes": [
+      "Anthroposophie",
+      "Reinkarnation & Karma",
+      "Theosophische Gesellschaft",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:49:25.193Z"
+  },
+  "GA069e/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:49:27.018Z"
+  },
+  "GA069e/6": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:49:28.349Z"
+  },
+  "GA069e/8": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:29.723Z"
+  },
+  "GA069e/7": {
+    "themes": [
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:49:30.907Z"
+  },
+  "GA069e/9": {
+    "themes": [
+      "Hüter der Schwelle",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:49:32.445Z"
+  },
+  "GA069e/10": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:49:34.011Z"
+  },
+  "GA069e/13": {
+    "themes": [
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:49:35.249Z"
+  },
+  "GA069e/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:49:36.953Z"
+  },
+  "GA069e/11": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:38.919Z"
+  },
+  "GA069e/14": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:40.377Z"
+  },
+  "GA069e/15": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:49:41.872Z"
+  },
+  "GA069e/16": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:43.505Z"
+  },
+  "GA069e/19": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:49:44.942Z"
+  },
+  "GA069e/21": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist"
+    ],
+    "assignedAt": "2025-12-31T13:49:46.376Z"
+  },
+  "GA069e/18": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:49:48.122Z"
+  },
+  "GA069e/17": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:49:49.563Z"
+  },
+  "GA069e/20": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:49:51.600Z"
+  },
+  "GA069e/22": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Religionen / Weisheitslehren",
+      "Christus / Golgatha"
+    ],
+    "assignedAt": "2025-12-31T13:49:53.054Z"
+  },
+  "GA069e/23": {
+    "themes": [
+      "Anthroposophie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:49:54.576Z"
+  },
+  "GA069e/25": {
+    "themes": [
+      "Bewusstsein",
+      "Gehirn & Geist",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:49:56.004Z"
+  },
+  "GA069e/24": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:49:57.871Z"
+  },
+  "GA070a/1": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:49:59.216Z"
+  },
+  "GA070a/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Geistige Weltbereiche",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:50:00.751Z"
+  },
+  "GA070a/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:50:03.190Z"
+  },
+  "GA070a/3": {
+    "themes": [
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:04.811Z"
+  },
+  "GA070a/5": {
+    "themes": [
+      "Anthroposophie",
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:06.339Z"
+  },
+  "GA070a/6": {
+    "themes": [
+      "Kulturen & Völker",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:50:07.877Z"
+  },
+  "GA070a/7": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Kulturen & Völker"
+    ],
+    "assignedAt": "2025-12-31T13:50:09.424Z"
+  },
+  "GA070a/8": {
+    "themes": [
+      "Philosophie",
+      "Kulturen & Völker"
+    ],
+    "assignedAt": "2025-12-31T13:50:10.871Z"
+  },
+  "GA070a/9": {
+    "themes": [
+      "Anthroposophie",
+      "Reinkarnation & Karma",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:50:12.381Z"
+  },
+  "GA070a/10": {
+    "themes": [
+      "Kulturen & Völker",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:50:16.901Z"
+  },
+  "GA070a/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:50:18.535Z"
+  },
+  "GA070a/11": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:50:20.268Z"
+  },
+  "GA070a/13": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:50:22.293Z"
+  },
+  "GA070a/17": {
+    "themes": [
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:25.293Z"
+  },
+  "GA070a/14": {
+    "themes": [
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:50:26.730Z"
+  },
+  "GA070a/18": {
+    "themes": [
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:28.153Z"
+  },
+  "GA070a/16": {
+    "themes": [
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Bewusstsein"
+    ],
+    "assignedAt": "2025-12-31T13:50:30.506Z"
+  },
+  "GA070a/15": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:50:32.247Z"
+  },
+  "GA070a/19": {
+    "themes": [
+      "Kulturen & Völker",
+      "Seelenlehre / Seelenglieder",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:34.192Z"
+  },
+  "GA070b/1": {
+    "themes": [
+      "Weltanschauungen",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:35.527Z"
+  },
+  "GA070b/3": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:50:37.286Z"
+  },
+  "GA070b/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:50:38.852Z"
+  },
+  "GA070b/5": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:50:40.644Z"
+  },
+  "GA070b/4": {
+    "themes": [
+      "Reinkarnation & Karma",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:50:42.333Z"
+  },
+  "GA070b/6": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:50:44.028Z"
+  },
+  "GA070b/7": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:50:45.666Z"
+  },
+  "GA070b/8": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:50:47.107Z"
+  },
+  "GA070b/9": {
+    "themes": [
+      "Anthroposophie",
+      "Seelenlehre / Seelenglieder",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:50:48.675Z"
+  },
+  "GA070b/10": {
+    "themes": [
+      "Anthroposophie",
+      "Kulturen & Völker",
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:50:50.681Z"
+  },
+  "GA070b/11": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:52.350Z"
+  },
+  "GA070b/12": {
+    "themes": [
+      "Anthroposophie",
+      "Kulturen & Völker",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:54.387Z"
+  },
+  "GA070b/13": {
+    "themes": [
+      "Philosophie",
+      "Weltanschauungen",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:55.802Z"
+  },
+  "GA070b/14": {
+    "themes": [
+      "Anthroposophie",
+      "Philosophie",
+      "Weltanschauungen",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:50:57.232Z"
+  },
+  "GA070b/15": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:50:58.895Z"
+  },
+  "GA070b/16": {
+    "themes": [
+      "Anthroposophie",
+      "Philosophie",
+      "Weltanschauungen",
+      "Wesensglieder",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:51:00.509Z"
+  },
+  "GA070b/17": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:51:02.253Z"
+  },
+  "GA071b/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde",
+      "Naturwissenschaft / Mathematik",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:51:03.899Z"
+  },
+  "GA071b/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Menschenkunde",
+      "Reinkarnation & Karma",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:51:05.788Z"
+  },
+  "GA071b/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Menschenkunde",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:51:07.373Z"
+  },
+  "GA071b/2": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:51:09.220Z"
+  },
+  "GA071b/6": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:51:10.782Z"
+  },
+  "GA071b/4": {
+    "themes": [
+      "Bewusstsein",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:51:12.334Z"
+  },
+  "GA071b/7": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:51:15.703Z"
+  },
+  "GA071b/8": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Moral",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:51:17.201Z"
+  },
+  "GA071b/10": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Freiheitsphilosophie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:51:18.634Z"
+  },
+  "GA071b/9": {
+    "themes": [
+      "Biographie",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:51:19.912Z"
+  },
+  "GA077a/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:51:21.338Z"
+  },
+  "GA077a/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:51:22.959Z"
+  },
+  "GA077a/3": {
+    "themes": [
+      "Anthroposophische Künste",
+      "Goetheanum"
+    ],
+    "assignedAt": "2025-12-31T13:51:24.293Z"
+  },
+  "GA077a/5": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:51:27.308Z"
+  },
+  "GA077a/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:51:28.965Z"
+  },
+  "GA077b/1": {
+    "themes": [
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:51:30.311Z"
+  },
+  "GA077b/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:51:31.826Z"
+  },
+  "GA077b/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:51:33.487Z"
+  },
+  "GA077b/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:51:36.155Z"
+  },
+  "GA077b/5": {
+    "themes": [
+      "Anthroposophische Künste",
+      "Goetheanum"
+    ],
+    "assignedAt": "2025-12-31T13:51:37.580Z"
+  },
+  "GA080c/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:51:39.013Z"
+  },
+  "GA080c/5": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:51:40.352Z"
+  },
+  "GA080c/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistige Weltbereiche",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:51:42.391Z"
+  },
+  "GA080c/7": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:51:44.374Z"
+  },
+  "GA080c/9": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Moral",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:51:46.496Z"
+  },
+  "GA081/2": {
+    "themes": [
+      "Abstammung / Evolution",
+      "Menschenkunde",
+      "Sinneslehre"
+    ],
+    "assignedAt": "2025-12-31T13:51:47.922Z"
+  },
+  "GA081/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen",
+      "Goetheanismus",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:51:49.481Z"
+  },
+  "GA080c/8": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:51:51.455Z"
+  },
+  "GA081/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:51:53.146Z"
+  },
+  "GA081/4": {
+    "themes": [
+      "Biographie",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:51:54.533Z"
+  },
+  "GA071b/18": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Menschenkunde",
+      "Naturwissenschaft / Mathematik",
+      "Seelenfähigkeiten",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:51:56.443Z"
+  },
+  "GA071b/17": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:51:57.898Z"
+  },
+  "GA071b/14": {
+    "themes": [
+      "Bewusstsein",
+      "Biographie",
+      "Geschichte / Kulturentwicklung",
+      "Menschheitsentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:51:59.902Z"
+  },
+  "GA071b/15": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:52:01.642Z"
+  },
+  "GA077b/7": {
+    "themes": [
+      "Anthroposophische Künste"
+    ],
+    "assignedAt": "2025-12-31T13:52:02.985Z"
+  },
+  "GA077b/9": {
+    "themes": [
+      "Anthroposophische Künste"
+    ],
+    "assignedAt": "2025-12-31T13:52:04.259Z"
+  },
+  "GA077b/6": {
+    "themes": [
+      "Anthroposophische Künste",
+      "Goetheanum"
+    ],
+    "assignedAt": "2025-12-31T13:52:05.645Z"
+  },
+  "GA077b/8": {
+    "themes": [
+      "Anthroposophische Künste"
+    ],
+    "assignedAt": "2025-12-31T13:52:06.870Z"
+  },
+  "GA072/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:52:08.304Z"
+  },
+  "GA077b/10": {
+    "themes": [
+      "Anthroposophie",
+      "Goetheanum",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:52:09.834Z"
+  },
+  "GA078/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Religionen / Weisheitslehren",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:52:11.271Z"
+  },
+  "GA072/1": {
+    "themes": [
+      "Gehirn & Geist",
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:52:12.827Z"
+  },
+  "GA078/2": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:52:14.145Z"
+  },
+  "GA077b/11": {
+    "themes": [
+      "Anthroposophie",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:52:15.469Z"
+  },
+  "GA078/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Philosophie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:52:17.030Z"
+  },
+  "GA078/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:18.570Z"
+  },
+  "GA081/6": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnisstufen"
+    ],
+    "assignedAt": "2025-12-31T13:52:21.221Z"
+  },
+  "GA081/5": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:52:22.681Z"
+  },
+  "GA081/7": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Sprache"
+    ],
+    "assignedAt": "2025-12-31T13:52:24.995Z"
+  },
+  "GA082/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:26.534Z"
+  },
+  "GA082/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:28.118Z"
+  },
+  "GA082/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:52:29.907Z"
+  },
+  "GA082/3": {
+    "themes": [
+      "Anthroposophische Künste"
+    ],
+    "assignedAt": "2025-12-31T13:52:31.140Z"
+  },
+  "GA082/5": {
+    "themes": [
+      "Bewusstsein",
+      "Menschenkunde",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:52:32.692Z"
+  },
+  "GA082/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:52:34.313Z"
+  },
+  "GA082/7": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:35.650Z"
+  },
+  "GA072/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:52:37.188Z"
+  },
+  "GA072/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Gehirn & Geist",
+      "Menschenkunde",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:52:38.877Z"
+  },
+  "GA072/6": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Seelenfähigkeiten",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:52:40.560Z"
+  },
+  "GA072/5": {
+    "themes": [
+      "Anthroposophie",
+      "Geistige Weltbereiche",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:52:42.400Z"
+  },
+  "GA072/7": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:52:44.448Z"
+  },
+  "GA072/8": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:46.040Z"
+  },
+  "GA072/9": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:52:47.726Z"
+  },
+  "GA078/6": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:52:49.101Z"
+  },
+  "GA072/10": {
+    "themes": [
+      "Anthroposophie",
+      "Moral",
+      "Naturwissenschaft / Mathematik",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:52:50.699Z"
+  },
+  "GA078/7": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Moral",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:52.072Z"
+  },
+  "GA078/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:52:54.226Z"
+  },
+  "GA079/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:52:55.915Z"
+  },
+  "GA078/8": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:52:57.565Z"
+  },
+  "GA083/2": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:52:59.197Z"
+  },
+  "GA071b/11": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Biographie",
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:53:00.832Z"
+  },
+  "GA071b/12": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Gehirn & Geist",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:53:02.218Z"
+  },
+  "GA071b/13": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:53:03.911Z"
+  },
+  "GA071b/16": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Menschenkunde",
+      "Naturwissenschaft / Mathematik",
+      "Religionen / Weisheitslehren",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:53:05.591Z"
+  },
+  "GA073a/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:53:07.862Z"
+  },
+  "GA073a/3": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:53:09.233Z"
+  },
+  "GA073a/5": {
+    "themes": [
+      "Anthroposophische Medizin",
+      "Goethes Naturerkennen",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:53:10.559Z"
+  },
+  "GA073a/9": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:53:12.097Z"
+  },
+  "GA073a/7": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:13.575Z"
+  },
+  "GA073a/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:53:14.966Z"
+  },
+  "GA073a/8": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:53:17.063Z"
+  },
+  "GA080a/14": {
+    "themes": [
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:53:19.003Z"
+  },
+  "GA073a/10": {
+    "themes": [
+      "Anthroposophische Künste",
+      "Anthroposophische Medizin",
+      "Bewusstsein",
+      "Menschenkunde",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:20.705Z"
+  },
+  "GA074/1": {
+    "themes": [
+      "Philosophie",
+      "Religionen / Weisheitslehren"
+    ],
+    "assignedAt": "2025-12-31T13:53:22.136Z"
+  },
+  "GA074/2": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:53:23.491Z"
+  },
+  "GA080b/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:53:25.203Z"
+  },
+  "GA080b/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:53:26.664Z"
+  },
+  "GA080b/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen"
+    ],
+    "assignedAt": "2025-12-31T13:53:29.000Z"
+  },
+  "GA080b/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen"
+    ],
+    "assignedAt": "2025-12-31T13:53:30.531Z"
+  },
+  "GA080b/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Goethes Naturerkennen"
+    ],
+    "assignedAt": "2025-12-31T13:53:32.167Z"
+  },
+  "GA080b/7": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:53:33.703Z"
+  },
+  "GA080b/5": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:53:35.265Z"
+  },
+  "GA080b/8": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:53:37.508Z"
+  },
+  "GA080b/9": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:39.242Z"
+  },
+  "GA076/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:53:41.278Z"
+  },
+  "GA076/5": {
+    "themes": [
+      "Freiheitsphilosophie",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:42.555Z"
+  },
+  "GA076/7": {
+    "themes": [
+      "Biographie",
+      "Goethes Naturerkennen",
+      "Sprache"
+    ],
+    "assignedAt": "2025-12-31T13:53:44.151Z"
+  },
+  "GA079/1": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:53:45.785Z"
+  },
+  "GA076/6": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:53:47.324Z"
+  },
+  "GA083/6": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Seelenfähigkeiten",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:48.754Z"
+  },
+  "GA079/3": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:53:50.303Z"
+  },
+  "GA079/4": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:53:52.135Z"
+  },
+  "GA079/6": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:53.786Z"
+  },
+  "GA079/5": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen"
+    ],
+    "assignedAt": "2025-12-31T13:53:55.419Z"
+  },
+  "GA083/8": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:58.599Z"
+  },
+  "GA083/7": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:53:59.944Z"
+  },
+  "GA083/9": {
+    "themes": [
+      "Anthroposophie",
+      "Soziale Dreigliederung",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:54:01.965Z"
+  },
+  "GA083/10": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:54:03.194Z"
+  },
+  "GA084/2": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde",
+      "Seelenfähigkeiten",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:05.374Z"
+  },
+  "GA079/7": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:54:07.235Z"
+  },
+  "GA084/1": {
+    "themes": [
+      "Anthroposophie",
+      "Goetheanum"
+    ],
+    "assignedAt": "2025-12-31T13:54:08.625Z"
+  },
+  "GA084/3": {
+    "themes": [
+      "Bewusstsein",
+      "Meditation / Schulungsweg",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:10.061Z"
+  },
+  "GA084/4": {
+    "themes": [
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:11.335Z"
+  },
+  "GA084/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistige Wesen",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:12.922Z"
+  },
+  "GA080a/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:54:14.576Z"
+  },
+  "GA079/8": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:54:15.900Z"
+  },
+  "GA080a/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:54:17.537Z"
+  },
+  "GA080a/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:54:19.117Z"
+  },
+  "GA080a/4": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:54:20.609Z"
+  },
+  "GA084/6": {
+    "themes": [
+      "Anthroposophie",
+      "Geistige Wesen",
+      "Menschenkunde",
+      "Tugenden",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:22.138Z"
+  },
+  "GA084/7": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod"
+    ],
+    "assignedAt": "2025-12-31T13:54:24.087Z"
+  },
+  "GA084/10": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:54:25.542Z"
+  },
+  "GA084/8": {
+    "themes": [
+      "Anthroposophie",
+      "Biographie",
+      "Geistiges Erkennen",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:54:28.037Z"
+  },
+  "GA084/9": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:54:30.868Z"
+  },
+  "GA075/4": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:54:32.402Z"
+  },
+  "GA075/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:54:33.922Z"
+  },
+  "GA076/3": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:54:35.378Z"
+  },
+  "GA076/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:54:36.812Z"
+  },
+  "GA075/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:54:38.319Z"
+  },
+  "GA080a/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:54:39.680Z"
+  },
+  "GA076/2": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie"
+    ],
+    "assignedAt": "2025-12-31T13:54:41.133Z"
+  },
+  "GA080a/11": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:54:42.734Z"
+  },
+  "GA080a/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:54:44.363Z"
+  },
+  "GA080a/6": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:54:45.830Z"
+  },
+  "GA080a/7": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:47.381Z"
+  },
+  "GA080a/13": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:54:49.220Z"
+  },
+  "GA080b/10": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:54:51.019Z"
+  },
+  "GA080b/12": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:54:52.475Z"
+  },
+  "GA080b/13": {
+    "themes": [
+      "Anthroposophie",
+      "Biographie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Goetheanum",
+      "Pädagogik / Heilpädagogik"
+    ],
+    "assignedAt": "2025-12-31T13:54:54.710Z"
+  },
+  "GA080b/11": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Geistiges Erkennen",
+      "Goetheanum",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:54:56.470Z"
+  },
+  "GA080c/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:54:57.991Z"
+  },
+  "GA080c/2": {
+    "themes": [
+      "Anthroposophie"
+    ],
+    "assignedAt": "2025-12-31T13:54:59.363Z"
+  },
+  "GA080c/3": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Naturwissenschaft / Mathematik",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:55:00.975Z"
+  },
+  "GA084/11": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Meditation / Schulungsweg",
+      "Mysterienwesen / Einweihung",
+      "Wesensglieder"
+    ],
+    "assignedAt": "2025-12-31T13:55:02.427Z"
+  },
+  "GA083/5": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie"
+    ],
+    "assignedAt": "2025-12-31T13:55:03.713Z"
+  },
+  "GA075/1": {
+    "themes": [
+      "Anthroposophie",
+      "Bewusstsein",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:55:06.080Z"
+  },
+  "GA074/3": {
+    "themes": [
+      "Anthroposophie",
+      "Christus / Golgatha",
+      "Erkenntnis / Erkenntnistheorie",
+      "Philosophie"
+    ],
+    "assignedAt": "2025-12-31T13:55:08.572Z"
+  },
+  "GA075/2": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg",
+      "Moral"
+    ],
+    "assignedAt": "2025-12-31T13:55:10.408Z"
+  },
+  "GA080a/9": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:55:11.909Z"
+  },
+  "GA080a/8": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:55:14.577Z"
+  },
+  "GA080a/10": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:55:16.410Z"
+  },
+  "GA083/3": {
+    "themes": [
+      "Anthroposophie",
+      "Geschichte / Kulturentwicklung",
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:55:18.173Z"
+  },
+  "GA083/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Gehirn & Geist",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:55:19.893Z"
+  },
+  "GA083/4": {
+    "themes": [
+      "Westen Mitte Osten"
+    ],
+    "assignedAt": "2025-12-31T13:55:21.225Z"
+  },
+  "GA073/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Reinkarnation & Karma"
+    ],
+    "assignedAt": "2025-12-31T13:55:22.807Z"
+  },
+  "GA073/5": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Geistiges Erkennen",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:55:24.814Z"
+  },
+  "GA073/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Menschenkunde"
+    ],
+    "assignedAt": "2025-12-31T13:55:26.188Z"
+  },
+  "GA073/4": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Freiheitsphilosophie",
+      "Gehirn & Geist",
+      "Naturwissenschaft / Mathematik",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:55:27.808Z"
+  },
+  "GA073/6": {
+    "themes": [
+      "Bewusstsein",
+      "Meditation / Schulungsweg",
+      "Reinkarnation & Karma",
+      "Schlaf und Tod",
+      "Seelenfähigkeiten"
+    ],
+    "assignedAt": "2025-12-31T13:55:29.319Z"
+  },
+  "GA073/7": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:55:30.755Z"
+  },
+  "GA073a/1": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:55:32.228Z"
+  },
+  "GA075/3": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnisstufen",
+      "Erkenntnis / Erkenntnistheorie",
+      "Meditation / Schulungsweg"
+    ],
+    "assignedAt": "2025-12-31T13:55:34.024Z"
+  },
+  "GA073/8": {
+    "themes": [
+      "Geschichte / Kulturentwicklung",
+      "Seelenlehre / Seelenglieder"
+    ],
+    "assignedAt": "2025-12-31T13:55:35.303Z"
+  },
+  "GA073a/2": {
+    "themes": [
+      "Anthroposophie",
+      "Naturwissenschaft / Mathematik",
+      "Weltanschauungen"
+    ],
+    "assignedAt": "2025-12-31T13:55:36.710Z"
+  },
+  "GA073/2": {
+    "themes": [
+      "Bewusstsein",
+      "Erkenntnisstufen",
+      "Geschichte / Kulturentwicklung"
+    ],
+    "assignedAt": "2025-12-31T13:55:38.038Z"
+  },
+  "GA076/10": {
+    "themes": [
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:55:39.472Z"
+  },
+  "GA076/8": {
+    "themes": [
+      "Erkenntnisstufen",
+      "Gehirn & Geist",
+      "Geschichte / Kulturentwicklung",
+      "Naturwissenschaft / Mathematik"
+    ],
+    "assignedAt": "2025-12-31T13:55:41.764Z"
+  },
+  "GA076/9": {
+    "themes": [
+      "Erkenntnis / Erkenntnistheorie",
+      "Soziale Dreigliederung",
+      "Sprache"
+    ],
+    "assignedAt": "2025-12-31T13:55:45.767Z"
+  },
+  "GA076/11": {
+    "themes": [
+      "Anthroposophie",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:55:47.479Z"
+  },
+  "GA076/12": {
+    "themes": [
+      "Anthroposophie",
+      "Erkenntnis / Erkenntnistheorie",
+      "Naturwissenschaft / Mathematik",
+      "Soziale Dreigliederung"
+    ],
+    "assignedAt": "2025-12-31T13:55:49.203Z"
+  }
+}

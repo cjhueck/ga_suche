@@ -7,10 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="members/thematic-visualization.js"></script>
 <!-- Mitglieder Panel Styles -->
 <link rel="stylesheet" href="members/members-panel.css">
 <!-- SICHERHEIT: Content Security Policy (nicht zu restriktiv, um nichts kaputt zu machen) -->
@@ -3106,19 +3108,20 @@ body.dark-mode .loading-message {
       display: flex !important;
       justify-content: flex-start !important;
       flex-direction: row !important;
-      gap: 4px !important;
+gap: 4px !important;
     }
     
     .tab-button {
-      padding: 8px 12px;
+      padding: 10px 6px;
       border: none;
       background: transparent;
       cursor: pointer;
-  font-size: 0.95em;
+      font-size: 0.95em;
       font-weight: 700;
       color: var(--secondary-text);
       border-bottom: 2px solid transparent;
       transition: all 0.2s;
+      white-space: nowrap;
     }
     
     .tab-button.active {
@@ -4591,6 +4594,32 @@ body.dark-mode .loading-tooltip {
 
 body.dark-mode .loading-tooltip::before {
   border-color: transparent transparent var(--dark-link-color) transparent;
+}
+
+/* Themen II Visualisierung */
+#thematic2-viewer-container {
+  overflow-x: hidden;
+}
+#thematic2-visualization-main {
+  user-select: none;
+}
+#thematic2-visualization-main .grid line {
+  stroke: var(--border-color);
+  stroke-opacity: 0.2;
+  shape-rendering: crispEdges;
+}
+#thematic2-visualization-main .grid path {
+  stroke-width: 0;
+}
+#thematic2-visualization-main .tick text {
+  fill: var(--text-color);
+  font-size: 13px;
+}
+#thematic2-visualization-main .domain {
+  stroke: var(--border-color);
+}
+#thematic2-visualization-main .theme-group text {
+  font-size: 14px;
 }
 
 /* Themensuche-Ergebnisse Styling */
@@ -6465,7 +6494,6 @@ body.dark-mode .context-help-popup strong {
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
 <!-- D3.js für Netzwerk-Visualisierung -->
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 </head>
 <body>
 <!-- Analytics Dashboard Overlay -->
@@ -6523,7 +6551,8 @@ body.dark-mode .context-help-popup strong {
 <button class="tab-button active" onclick="switchTab('ga')" data-help="tab-ga">GA</button>
 <button class="tab-button" onclick="switchTab('keyword')" data-help="tab-suche">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')" data-help="tab-texte">Texte</button>
-<button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Themen</button>
+<button class="tab-button" onclick="switchTab('thematic2')" data-help="tab-themen-2">Themen</button>
+<button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Abfrage</button>
 <button class="tab-button" onclick="switchTab('timeline')" data-help="tab-timeline">Timeline</button>
 <button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
 <button class="tab-button" onclick="switchTab('docs')" id="docs-tab-button" data-help="tab-docs">Docs</button>
@@ -6874,6 +6903,194 @@ Meine Abfragen
 <span id="thematicServerInfo"></span>
 </div>
 </div>
+
+<div class="tab-content" id="thematic2-tab" style="overflow-y: auto; max-height: calc(100vh - 200px);">
+  <!-- Admin-Bereich: Nur auf localhost sichtbar -->
+  <div id="thematic2-admin-panel">
+  <!-- Schlagwort-Verwaltung -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Schlagwörter verwalten</h4>
+    
+    <!-- Themenschwerpunkt-Auswahl -->
+    <select id="themeKeywordSelector" onchange="displayThemeKeywords()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
+      <option value="">-- Themenschwerpunkt wählen --</option>
+    </select>
+    
+    <!-- Schlagwörter-Anzeige -->
+    <div id="keywordChipsContainer" style="display: none;">
+      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.5rem;">
+        Aktive Schlagwörter (Klick zum Deaktivieren):
+      </label>
+      <div id="keywordChips" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; max-height: 150px; overflow-y: auto; padding-right: 4px;"></div>
+      
+      <!-- Neues Schlagwort hinzufügen -->
+      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neues Schlagwort hinzufügen:</label>
+      <div style="display: flex; gap: 6px;">
+        <input type="text" id="themeNewKeywordInput" placeholder="Schlagwort eingeben..." style="flex: 1; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem;" onkeypress="if(event.key==='Enter')addThemeKeyword()">
+        <button class="depth-btn" onclick="addThemeKeyword()" style="padding: 8px 12px;">
+          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+        </button>
+      </div>
+      
+      <!-- Aktionen -->
+      <div style="margin-top: 1rem; display: flex; gap: 6px;">
+        <button class="depth-btn" onclick="resetThemeKeywords()" style="flex: 1; font-size: 0.85rem;">
+          Zurücksetzen
+        </button>
+        <button class="depth-btn primary" onclick="saveKeywordChanges()" style="flex: 1; font-size: 0.85rem;">
+          Speichern
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Themenschwerpunkt bearbeiten -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Themenschwerpunkt bearbeiten</h4>
+    
+    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neuer Name:</label>
+    <input type="text" id="renameThemeInput" placeholder="Neuen Namen eingeben..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
+    
+    <div style="display: flex; gap: 6px;">
+      <button class="depth-btn" onclick="renameSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem;">
+        <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
+        Umbenennen
+      </button>
+      <button class="depth-btn" onclick="deleteSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; color: var(--danger-text, #dc3545);">
+        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+        Löschen
+      </button>
+    </div>
+    
+    <div id="renameThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
+  </div>
+  
+  <!-- Neuer Themenschwerpunkt -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Neuer Themenschwerpunkt</h4>
+    
+    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Name:</label>
+    <input type="text" id="newThemeName" placeholder="z.B. Temperamente" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
+    
+    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Schlagwörter (durch Leerzeichen getrennt):</label>
+    <input type="text" id="newThemeKeywords" placeholder="z.B. Temperament Sanguiniker Choleriker Melancholiker Phlegmatiker" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
+    
+    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0 0 1rem 0; font-style: italic;">
+      Der Zeitraum wird automatisch durch Analyse der Texte ermittelt.
+    </p>
+    
+    <button class="depth-btn primary" onclick="addNewTheme()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
+      Themenschwerpunkt hinzufügen
+    </button>
+    
+    <div id="newThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
+  </div>
+  
+  <!-- KI-Suche (Embeddings) -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">KI-Suche (Embeddings)</h4>
+    
+    <div id="embeddingsStatus" style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 0.8rem;">
+      Lade Status...
+    </div>
+    
+    <button class="depth-btn primary" onclick="generateEmbeddings()" id="generateEmbeddingsBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
+      Embeddings generieren
+    </button>
+    
+    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0.8rem 0 0 0; font-style: italic;">
+      Einmalig: Erstellt KI-Vektoren für alle Summaries (~6000). Dauert ca. 10-15 Min.
+    </p>
+  </div>
+  </div><!-- Ende thematic2-admin-panel -->
+  
+  <!-- Online-Version: Linkes Panel bleibt leer -->
+  <div id="thematic2-online-info" style="display: none;">
+  </div>
+</div>
+
+<script>
+// Verstecke Admin-Panel in der Online-Version
+(function() {
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const adminPanel = document.getElementById('thematic2-admin-panel');
+  const onlineInfo = document.getElementById('thematic2-online-info');
+  
+  if (!isLocalhost) {
+    if (adminPanel) adminPanel.style.display = 'none';
+    if (onlineInfo) onlineInfo.style.display = 'block';
+  }
+})();
+
+// Embedding-Status laden
+async function loadEmbeddingsStatus() {
+  const statusDiv = document.getElementById('embeddingsStatus');
+  if (!statusDiv) return;
+  
+  try {
+    const response = await fetch('/api/embeddings-status');
+    if (response.ok) {
+      const status = await response.json();
+      if (status.hasEmbeddings) {
+        statusDiv.innerHTML = '✓ <strong>' + status.totalEmbeddings + '</strong> von ' + status.totalSummaries + ' Embeddings vorhanden (' + status.coverage + '%)';
+        statusDiv.style.color = 'var(--success-text, #155724)';
+      } else {
+        statusDiv.innerHTML = '⚠ Keine Embeddings vorhanden. KI-Suche nicht verfügbar.';
+        statusDiv.style.color = 'var(--warning-text, #856404)';
+      }
+    }
+  } catch (e) {
+    statusDiv.innerHTML = '❌ Status-Abfrage fehlgeschlagen';
+    statusDiv.style.color = 'var(--danger-text, #721c24)';
+  }
+}
+
+// Embeddings generieren
+async function generateEmbeddings() {
+  const btn = document.getElementById('generateEmbeddingsBtn');
+  const statusDiv = document.getElementById('embeddingsStatus');
+  
+  if (!confirm('Embeddings für alle Summaries generieren? Das dauert ca. 10-15 Minuten und verwendet die OpenAI API.')) {
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.innerHTML = '<span style="animation: spin 1s linear infinite; display: inline-block;">⏳</span> Generiere Embeddings...';
+  statusDiv.innerHTML = 'Generierung läuft... Bitte warten.';
+  
+  try {
+    const response = await fetch('/api/generate-embeddings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      statusDiv.innerHTML = '✓ <strong>' + result.processed + '</strong> neue Embeddings erstellt. Total: ' + result.total;
+      statusDiv.style.color = 'var(--success-text, #155724)';
+      alert('Embeddings erfolgreich generiert: ' + result.processed + ' neu, ' + result.total + ' total');
+    } else {
+      statusDiv.innerHTML = '❌ Fehler: ' + (result.error || 'Unbekannt');
+      statusDiv.style.color = 'var(--danger-text, #721c24)';
+    }
+  } catch (e) {
+    statusDiv.innerHTML = '❌ Netzwerkfehler: ' + e.message;
+    statusDiv.style.color = 'var(--danger-text, #721c24)';
+  }
+  
+  btn.disabled = false;
+  btn.innerHTML = '<i data-lucide="cpu" style="width: 16px; height: 16px;"></i> Embeddings generieren';
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// Lade Status beim Tab-Wechsel
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(loadEmbeddingsStatus, 1000);
+});
+</script>
 
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
@@ -9405,8 +9622,8 @@ function normalizeGANumber(gaNumber) {
         mainElement.appendChild(viewer);
         }
       
-      // Lösche ALLE Inhalte im Viewer beim Tab-Wechsel
-      if (viewer) {
+      // Lösche ALLE Inhalte im Viewer beim Tab-Wechsel (außer für Themen II)
+      if (viewer && mode !== 'thematic2') {
         viewer.innerHTML = '';
         }
       
@@ -9464,7 +9681,7 @@ function normalizeGANumber(gaNumber) {
       const wrapperCheck2 = document.getElementById('chronological-year-nav-wrapper');
       let viewerRestored = false;
       
-      if (wrapperCheck2 && mode !== 'ga') {
+      if (wrapperCheck2 && (mode !== 'ga' || mode === 'thematic2')) {
         // Stelle den ursprünglichen viewer wieder her
         const viewerContentPanel2 = document.getElementById('chronological-viewer-content');
         if (wrapperCheck2.parentNode) {
@@ -9491,7 +9708,7 @@ function normalizeGANumber(gaNumber) {
       const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
       const hasChronologicalContainers = chronologicalNav !== null || chronologicalViewerContent !== null;
       
-      if (mode !== 'ga' && (
+      if (mode !== 'ga' && mode !== 'thematic2' && (
         (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') ||
         hasChronologicalContent ||
         hasChronologicalContainers ||
@@ -9657,7 +9874,7 @@ function normalizeGANumber(gaNumber) {
         viewer.querySelector('#chronological-year-nav') !== null
       );
       
-      if (mode !== 'ga' && (
+      if (mode !== 'ga' && mode !== 'thematic2' && (
         (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') ||
         viewerHasChronologicalContent
       )) {
@@ -9826,6 +10043,23 @@ function normalizeGANumber(gaNumber) {
       } else {
         document.body.classList.remove('tab-thematic-active');
       }
+      if (mode === 'thematic2') {
+        document.body.classList.add('tab-thematic2-active');
+        // Initialisiere Visualisierung wenn der Tab aktiviert wird
+        function tryInitThematic2(retries = 0) {
+          if (typeof initThematicVisualization === 'function') {
+            initThematicVisualization();
+          } else if (retries < 10) {
+            console.log('[TABS] initThematicVisualization noch nicht bereit, retry ' + (retries + 1));
+            setTimeout(() => tryInitThematic2(retries + 1), 200);
+          } else {
+            console.error('[TABS] initThematicVisualization konnte nach 10 Versuchen nicht gefunden werden.');
+          }
+        }
+        setTimeout(() => tryInitThematic2(), 50);
+      } else {
+        document.body.classList.remove('tab-thematic2-active');
+      }
       if (mode === 'timeline') {
         document.body.classList.add('tab-timeline-active');
       } else {
@@ -9880,7 +10114,7 @@ function normalizeGANumber(gaNumber) {
       }
       
       // WICHTIG: Wenn wir zu einem anderen Tab wechseln (nicht GA-Tab), entferne chronologische Ansicht SOFORT
-      if (mode !== 'ga' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+      if (mode !== 'ga' && mode !== 'thematic2' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
         currentGAView = 'volumes';
         
         // Setze chronologischen Button zurück
@@ -9951,6 +10185,8 @@ function normalizeGANumber(gaNumber) {
             documentTitle.textContent = 'Zitate';
           } else if (mode === 'erweitert') {
             documentTitle.textContent = 'Erweiterte Suche';
+          } else if (mode === 'thematic2') {
+            documentTitle.textContent = 'Themenschwerpunkte im Gesamtwerk (1882–1925)';
           } else {
             documentTitle.textContent = '';
           }
@@ -9965,7 +10201,7 @@ function normalizeGANumber(gaNumber) {
           forceRemoveYearButtons();
           
           // WICHTIG: Wenn wir zu einem anderen Tab wechseln und currentGAView noch auf 'chronological' steht, setze es zurück
-          if (mode !== 'ga' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+          if (mode !== 'ga' && mode !== 'thematic2' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
             currentGAView = 'volumes';
             
             // Setze chronologischen Button zurück
@@ -10005,7 +10241,7 @@ function normalizeGANumber(gaNumber) {
             
             // Lösche Viewer-Inhalt falls noch chronologische Ansicht sichtbar
             const viewer = document.getElementById('viewer');
-            if (viewer) {
+            if (viewer && mode !== 'thematic2') {
               viewer.innerHTML = '';
             }
             
@@ -10044,7 +10280,7 @@ function normalizeGANumber(gaNumber) {
             forceRemoveYearButtons();
             
             // WICHTIG: Wenn wir zu einem anderen Tab wechseln und currentGAView noch auf 'chronological' steht, setze es zurück
-            if (mode !== 'ga' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+            if (mode !== 'ga' && mode !== 'thematic2' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
               currentGAView = 'volumes';
               
               // Setze chronologischen Button zurück
@@ -30782,7 +31018,7 @@ function switchTabExtended(mode) {
   if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
     // Lösche Viewer-Inhalt (Suchergebnisse)
     const viewer = document.getElementById('viewer');
-    if (viewer) {
+    if (viewer && mode !== 'thematic2') {
       viewer.innerHTML = '';
       }
     
@@ -31024,9 +31260,9 @@ function switchTabExtended(mode) {
         resultsEl.innerHTML = '';
         }
 
-      // Main Viewer leeren
+      // Main Viewer leeren (außer für Themen II)
       const viewer = document.getElementById('viewer');
-      if (viewer) {
+      if (viewer && mode !== 'thematic2') {
         viewer.innerHTML = '';
         }
       
@@ -31104,6 +31340,10 @@ function switchTabExtended(mode) {
         defaultMessage = 'Bitte eine Themenanfrage stellen...';
         titleText = 'Themen';
         break;
+      case 'thematic2':
+        defaultMessage = '';
+        titleText = 'Themenschwerpunkte';
+        break;
       case 'concept-overview':
         defaultMessage = 'Bitte ein Thema für die Übersicht eingeben...';
         titleText = 'Konzept-Übersicht';
@@ -31133,6 +31373,8 @@ function switchTabExtended(mode) {
     // Für Docs-Tab: Dokumentation im Main Viewer anzeigen
     if (mode === 'docs') {
       showDocsInViewer();
+    } else if (mode === 'thematic2') {
+      // Themen II Visualisierung wird separat initialisiert
     } else {
     viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
     }
@@ -31251,6 +31493,35 @@ function switchTabExtended(mode) {
         console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
       }
     }, 100);
+  }
+  
+  // Lade Visualisierung wenn zum Themen II Tab gewechselt wird
+  if (mode === 'thematic2') {
+    const documentTitle = document.getElementById('document-title');
+    if (documentTitle) {
+      documentTitle.textContent = 'Themenschwerpunkte im Gesamtwerk (1882–1925)';
+    }
+    
+    // Initialisiere Visualisierung SOFORT wenn der Tab aktiviert wird
+    function tryInitThematic2(retries = 0) {
+      console.log('[TABS] tryInitThematic2 called, retry:', retries);
+      if (typeof initThematicVisualization === 'function') {
+        console.log('[TABS] initThematicVisualization gefunden, starte...');
+        initThematicVisualization();
+      } else if (retries < 20) {
+        console.log('[TABS] initThematicVisualization noch nicht bereit, retry ' + (retries + 1));
+        setTimeout(() => tryInitThematic2(retries + 1), 150);
+      } else {
+        console.error('[TABS] initThematicVisualization konnte nach 20 Versuchen nicht gefunden werden.');
+        // Fallback: Zeige Fehlermeldung im Viewer
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--danger-text, #721c24);"><p>Fehler: Visualisierung konnte nicht geladen werden.</p><p>Bitte laden Sie die Seite neu (Strg + F5).</p></div>';
+        }
+      }
+    }
+    // Starte sofort, nicht erst nach 50ms
+    tryInitThematic2();
   }
 }
 

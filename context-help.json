@@ -15,9 +15,10 @@
         "ga-tab": "GA: Übersicht aller Bände der Gesamtausgabe.",
         "keyword-tab": "Suche: Volltextsuche mit einem oder mehreren Suchwörtern, Auswahl-Filter nach Jahr, GA-Band, Absatz-Abstand und Relevanz sowie Häufigkeits- und Timeline-Darstellung.",
         "texte-tab": "Texte: Direktzugriff auf alle Texte, sortiert nach Bandnummer.",
-        "thematic-tab": "Themen: KI-gestützte thematische Suche, Ergebnisanzeige mit Verlinkung zu den entsprechenden Textstellen.",
+        "thematic-tab": "Themen I: KI-gestützte thematische Suche, Ergebnisanzeige mit Verlinkung zu den entsprechenden Textstellen.",
         "timeline-tab": "Timeline: Chronologische Darstellung des Vorkommens bestimmter Begriffe in der GA, gefiltert nach Relevanz.",
         "schlagworte-tab": "Index: Alphabetisches Schlagwortverzeichnis mit ausführlichen, KI-generierten Zusammenfassungen und Verlinkung zu den entsprechenden Textstellen.",
+        "thematic2-tab": "II: Graphische Übersicht der Themenschwerpunkte 1882-1925.",
         "keywords-tab": "Keywords: Verwaltung der automatisch generierten Schlagwörter für Vorträge.",
         "zitate-tab": "Zitate: Sammlung gespeicherter Zitate. Speichern mit Strg+Shift+Klick im Text. Titel mit **...** fett markieren."
     },
@@ -25,7 +26,8 @@
         "tab-ga": "GA: Alle hier gespeicherten GA-Bände anzeigen.",
         "tab-suche": "Suche: Volltextsuche mit Filtern.",
         "tab-texte": "Texte: Direktzugriff auf alle Texte.",
-        "tab-themen": "Themen: KI-gestützte Themensuche.",
+        "tab-themen": "Themen I: KI-gestützte Themensuche.",
+        "tab-themen-2": "II: Graphische Übersicht der Themenschwerpunkte 1882-1925.",
         "tab-timeline": "Timeline: Chronologisches Vorkommen von Schlagwörtern.",
         "tab-index": "Index: Alphabetisches Schlagwortverzeichnis."
     },
