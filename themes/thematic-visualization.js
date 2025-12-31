@@ -154,21 +154,21 @@ function renderThematicChart(container) {
         // Bei log-Skala: intensity = log(count+1) / log(globalMax+1)
         var logMax = Math.log(globalMax + 1);
         function countToOpacity(count) {
-            return Math.log(count + 1) / logMax * 0.85;
+            return Math.max(0.25, Math.log(count + 1) / logMax * 0.85);
         }
-        var steps = [
-            { opacity: countToOpacity(1), label: '1' },
-            { opacity: countToOpacity(3), label: '3' },
-            { opacity: countToOpacity(10), label: '10' },
-            { opacity: countToOpacity(20), label: '20' },
-            { opacity: countToOpacity(globalMax), label: globalMax }
-        ];
         
-        var legendHtml = '<span style="font-weight: 600; color: #333; font-size: 0.9rem;">Thema pro Jahr:</span>';
-        steps.forEach(function(step) {
+        // Erstelle Legende mit relevanten Stufen (keine Duplikate)
+        var legendSteps = [1];
+        if (globalMax >= 3) legendSteps.push(3);
+        if (globalMax >= 10) legendSteps.push(10);
+        if (globalMax >= 20) legendSteps.push(20);
+        if (globalMax > 20) legendSteps.push(globalMax);
+        
+        var legendHtml = '<span style="font-weight: 600; color: #333; font-size: 0.9rem;">Texte pro Jahr:</span>';
+        legendSteps.forEach(function(count) {
             legendHtml += '<div style="display: flex; align-items: center; gap: 0.5rem;">' +
-                '<div style="width: 20px; height: 14px; background: rgba(70,120,134,' + step.opacity + '); border-radius: 2px;"></div>' +
-                '<span style="font-size: 0.85rem; color: #666;">' + step.label + '</span>' +
+                '<div style="width: 20px; height: 14px; background: rgba(70,120,134,' + countToOpacity(count) + '); border-radius: 2px;"></div>' +
+                '<span style="font-size: 0.85rem; color: #666;">' + count + '</span>' +
                 '</div>';
         });
         
@@ -238,11 +238,8 @@ function renderThematicChart(container) {
             .style('stroke', '#ccc')
             .style('stroke-dasharray', '3,3')
             .style('stroke-opacity', 0.4);
-
-        // Defs für Gradienten
-        var defs = svg.append('defs');
         
-        // Heatmap-Bänder mit Farbverlauf
+        // Heatmap-Rechtecke für jedes Jahr mit Daten
         var themeGroups = svg.selectAll('.theme-group')
             .data(themesData)
             .enter()
@@ -253,81 +250,42 @@ function renderThematicChart(container) {
         themeGroups.each(function(d, themeIndex) {
             var group = d3.select(this);
             
-            // Finde min/max Jahr für dieses Thema
-            var minYear = 1925, maxYear = 1882;
-            d.ranges.forEach(function(r) {
-                if (r.start < minYear) minYear = r.start;
-                if (r.end > maxYear) maxYear = r.end;
-            });
-            
-            // Erstelle Intensitäts-Map für alle Jahre
+            // Erstelle Intensitäts-Map für jedes Jahr (nur Jahre mit Daten)
             var yearIntensity = {};
             d.ranges.forEach(function(r) {
-                for (var yr = r.start; yr <= r.end; yr++) {
-                    yearIntensity[yr] = Math.max(yearIntensity[yr] || 0, r.intensity);
-                }
+                // Jeder Range hat start === end (einzelnes Jahr)
+                yearIntensity[r.start] = Math.max(yearIntensity[r.start] || 0, r.intensity);
             });
             
-            // Erstelle Gradient für dieses Thema
-            var gradientId = 'gradient-' + themeIndex;
-            var gradient = defs.append('linearGradient')
-                .attr('id', gradientId)
-                .attr('x1', '0%')
-                .attr('y1', '0%')
-                .attr('x2', '100%')
-                .attr('y2', '0%');
+            // Zeichne ein separates Rechteck für jedes Jahr mit Daten
+            var years = Object.keys(yearIntensity).map(Number).sort(function(a, b) { return a - b; });
             
-            // Füge Gradient-Stops für jedes Jahr hinzu
-            var bandWidth = maxYear - minYear + 1;
-            for (var year = minYear; year <= maxYear; year++) {
-                var intensity = yearIntensity[year] || 0;
-                var offset = ((year - minYear) / bandWidth) * 100;
-                var nextOffset = ((year - minYear + 1) / bandWidth) * 100;
+            years.forEach(function(year) {
+                var intensity = yearIntensity[year];
+                if (intensity <= 0) return; // Keine Anzeige bei Intensität 0
                 
-                // Farbe basierend auf Intensität (von transparent zu teal)
-                // Minimum 0.20 damit auch einzelne Texte sichtbar sind
-                var alpha = Math.max(0.20, intensity * 0.85);
-                var color = 'rgba(70, 120, 134, ' + alpha + ')';
+                var alpha = Math.max(0.25, intensity * 0.85);
+                var rectX = x(year);
+                var rectWidth = x(year + 1) - x(year);
                 
-                // Start und Ende des Jahres-Segments
-                gradient.append('stop')
-                    .attr('offset', offset + '%')
-                    .attr('stop-color', '#467886')
-                    .attr('stop-opacity', alpha);
-                gradient.append('stop')
-                    .attr('offset', nextOffset + '%')
-                    .attr('stop-color', '#467886')
-                    .attr('stop-opacity', alpha);
-            }
-            
-            // Zeichne das Band
-            var bandStartX = x(minYear);
-            var bandEndX = x(maxYear + 1);
-            var bandWidthPx = bandEndX - bandStartX;
-            
-            group.append('rect')
-                .attr('x', bandStartX)
-                .attr('y', 0)
-                .attr('width', bandWidthPx)
-                .attr('height', y.bandwidth())
-                .attr('fill', 'url(#' + gradientId + ')')
-                .attr('rx', 4)
-                .style('cursor', 'pointer')
-                .on('click', function(event) {
-                    // Berechne das geklickte Jahr aus der Mausposition (relativ zur SVG)
-                    var svgElement = d3.select(container).select('svg').node();
-                    var mouseX = d3.pointer(event, svgElement)[0] - margin.left;
-                    var clickedYear = Math.floor(x.invert(mouseX));
-                    // Begrenze auf gültigen Bereich
-                    clickedYear = Math.max(minYear, Math.min(maxYear, clickedYear));
-                    
-                    selectThemeInDropdown(d.theme);
-                    var currentQuery = d.query;
-                    if (themeKeywordSettings[d.theme] && themeKeywordSettings[d.theme].activeKeywords.length > 0) {
-                        currentQuery = themeKeywordSettings[d.theme].activeKeywords.join(' ');
-                    }
-                    openThematicLectureList(d.theme, minYear, maxYear, currentQuery, clickedYear);
-                });
+                group.append('rect')
+                    .attr('x', rectX)
+                    .attr('y', 0)
+                    .attr('width', rectWidth)
+                    .attr('height', y.bandwidth())
+                    .attr('fill', '#467886')
+                    .attr('fill-opacity', alpha)
+                    .attr('rx', 2)
+                    .style('cursor', 'pointer')
+                    .on('click', function(event) {
+                        selectThemeInDropdown(d.theme);
+                        var currentQuery = d.query;
+                        if (themeKeywordSettings[d.theme] && themeKeywordSettings[d.theme].activeKeywords.length > 0) {
+                            currentQuery = themeKeywordSettings[d.theme].activeKeywords.join(' ');
+                        }
+                        openThematicLectureList(d.theme, years[0], years[years.length - 1], currentQuery, year);
+                    });
+            });
         });
 
         console.log('[THEME2] Chart rendered successfully');
@@ -394,14 +352,16 @@ function renderThematic2Results(container, theme, results, isSemantic, isCached,
         // Prüfe, ob das Jahr bereits im Titel vorkommt
         var yearInTitle = res.title && res.year && res.title.indexOf(String(res.year)) !== -1;
         
-        // Datum: Vollständiges Datum wenn vorhanden, sonst nur Jahr in Klammern (wenn nicht schon im Titel)
+        // Datum: Echtes Datum anzeigen (wenn vorhanden), Jahr nur wenn nicht im Titel
         var dateStr = '';
-        if (res.date && res.date !== (res.year + '-01-01')) {
+        if (res.date && res.date.length >= 10 && res.date !== (res.year + '-01-01')) {
+            // Echtes Datum formatieren (z.B. "1905-10-04" -> "4.10.1905")
             dateStr = new Date(res.date).toLocaleDateString('de-DE');
         } else if (res.year && !yearInTitle) {
+            // Nur Jahr anzeigen, wenn nicht schon im Titel
             dateStr = '(' + res.year + ')';
         }
-            
+        
         var shortSummary = res.shortSummary || res.summary || '';
 
         // Format: GA101/1 - Titel, Ort, Datum oder (Jahr)
