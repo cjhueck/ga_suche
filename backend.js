@@ -6243,6 +6243,1650 @@ app.get('/api/ga-list', async (req, res) => {
   }
 });
 
+// ============================================================================
+// API: Schlagwörter für Themenschwerpunkte speichern
+// ============================================================================
+app.post('/api/save-theme-keywords', async (req, res) => {
+  try {
+    const { themeName, newQuery } = req.body;
+    
+    if (!themeName || !newQuery) {
+      return res.status(400).json({ error: 'themeName und newQuery sind erforderlich' });
+    }
+    
+    console.log(`[THEME-KEYWORDS] Speichere Schlagwörter für: ${themeName}`);
+    console.log(`[THEME-KEYWORDS] Neue Query: ${newQuery}`);
+    
+    // Lese die aktuelle Datei
+    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    let fileContent = await fs.readFile(filePath, 'utf8');
+    
+    // Robuster Ansatz: Zeile für Zeile durchgehen
+    const lines = fileContent.split('\n');
+    let foundTheme = false;
+    let modified = false;
+    
+    for (let i = 0; i < lines.length; i++) {
+      // Suche nach der Theme-Zeile
+      if (lines[i].includes(`theme: "${themeName}"`) || lines[i].includes(`theme: '${themeName}'`)) {
+        foundTheme = true;
+        console.log(`[THEME-KEYWORDS] Theme gefunden in Zeile ${i + 1}`);
+      }
+      
+      // Wenn Theme gefunden, suche nach der Query-Zeile (innerhalb der nächsten 10 Zeilen)
+      if (foundTheme && i < lines.length) {
+        const queryMatch = lines[i].match(/^(\s*query:\s*["'])([^"']*)(['"].*)$/);
+        if (queryMatch) {
+          const oldQuery = queryMatch[2];
+          lines[i] = `${queryMatch[1]}${newQuery}${queryMatch[3]}`;
+          console.log(`[THEME-KEYWORDS] Query ersetzt in Zeile ${i + 1}: "${oldQuery}" -> "${newQuery}"`);
+          modified = true;
+          break; // Nur die erste Query nach dem Theme ersetzen
+        }
+      }
+      
+      // Wenn wir ein neues Theme finden, bevor wir die Query gefunden haben, abbrechen
+      if (foundTheme && lines[i].includes('theme:') && !lines[i].includes(themeName)) {
+        console.log(`[THEME-KEYWORDS] Neues Theme gefunden bevor Query - abgebrochen`);
+        break;
+      }
+    }
+    
+    if (!foundTheme) {
+      console.log(`[THEME-KEYWORDS] Theme nicht gefunden: ${themeName}`);
+      return res.status(404).json({ error: `Theme "${themeName}" nicht gefunden` });
+    }
+    
+    if (!modified) {
+      console.log(`[THEME-KEYWORDS] Query-Zeile nicht gefunden für: ${themeName}`);
+      return res.status(404).json({ error: `Query für Theme "${themeName}" nicht gefunden` });
+    }
+    
+    // Schreibe die aktualisierte Datei
+    fileContent = lines.join('\n');
+    await fs.writeFile(filePath, fileContent, 'utf8');
+    
+    console.log(`[THEME-KEYWORDS] ✓ Erfolgreich gespeichert für: ${themeName}`);
+    res.json({ success: true, message: `Schlagwörter für "${themeName}" erfolgreich gespeichert` });
+    
+  } catch (error) {
+    console.error('[THEME-KEYWORDS] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Speichern', details: error.message });
+  }
+});
+
+// ============================================================================
+// API: Neuen Themenschwerpunkt hinzufügen (mit automatischer Zeitraum-Ermittlung)
+// ============================================================================
+app.post('/api/add-theme', async (req, res) => {
+  try {
+    const { themeName, query } = req.body;
+    
+    if (!themeName || !query) {
+      return res.status(400).json({ error: 'themeName und query sind erforderlich' });
+    }
+    
+    console.log(`[ADD-THEME] Füge neuen Themenschwerpunkt hinzu: ${themeName}`);
+    console.log(`[ADD-THEME] Query: ${query}`);
+    
+    // Lese die aktuelle Datei
+    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    let fileContent = await fs.readFile(filePath, 'utf8');
+    
+    // Prüfe ob Theme bereits existiert
+    if (fileContent.includes(`theme: "${themeName}"`)) {
+      return res.status(400).json({ error: `Theme "${themeName}" existiert bereits` });
+    }
+    
+    // Ermittle Zeitraum durch Analyse der Texte
+    // NUR summary-database.json durchsuchen mit Fuzzy-Matching!
+    console.log(`[ADD-THEME] Analysiere Texte für Zeitraum...`);
+    const keywords = query.toLowerCase().split(/\s+/).filter(k => k.length > 2);
+    let minYear = 2000;
+    let maxYear = 1800;
+    let matchCount = 0;
+    
+    // Fuzzy-Matching Hilfsfunktion: Extrahiert deutschen Wortstamm
+    function getWordStem(word) {
+      word = word.toLowerCase();
+      const endings = ['ungen', 'heit', 'keit', 'isch', 'lich', 'ien', 'en', 'er', 'es', 'em', 'e', 'n', 's'];
+      for (const ending of endings) {
+        if (word.length > ending.length + 3 && word.endsWith(ending)) {
+          return word.slice(0, -ending.length);
+        }
+      }
+      return word;
+    }
+    
+    // Fuzzy-Match: Prüft ob ein Schlagwort im Text vorkommt
+    function fuzzyMatch(text, keyword) {
+      text = text.toLowerCase();
+      keyword = keyword.toLowerCase();
+      if (text.includes(keyword)) return true;
+      const keywordStem = getWordStem(keyword);
+      if (keywordStem.length >= 4 && text.includes(keywordStem)) return true;
+      return false;
+    }
+    
+    // Lade beide Datenbanken
+    let keywordsDb = {};
+    let summaryDb = {};
+    let bibliography = {};
+    
+    try {
+      const keywordsDbPath = path.join(__dirname, 'keywords-database.json');
+      keywordsDb = JSON.parse(await fs.readFile(keywordsDbPath, 'utf8'));
+    } catch (e) {
+      console.log(`[ADD-THEME] keywords-database nicht lesbar:`, e.message);
+    }
+    
+    try {
+      const summaryDbPath = path.join(__dirname, 'summary-database.json');
+      summaryDb = JSON.parse(await fs.readFile(summaryDbPath, 'utf8'));
+    } catch (e) {
+      console.log(`[ADD-THEME] summary-database nicht lesbar:`, e.message);
+    }
+    
+    try {
+      const bibPath = path.join(__dirname, 'ga-bibliography.json');
+      bibliography = JSON.parse(await fs.readFile(bibPath, 'utf8'));
+    } catch (e) {
+      console.log(`[ADD-THEME] ga-bibliography nicht lesbar:`, e.message);
+    }
+    
+    // Durchsuche NUR summary-database für Vorträge
+    for (const id in summaryDb) {
+      const summaryEntry = summaryDb[id];
+      const summaryText = ((summaryEntry.summary || '') + ' ' + (summaryEntry.shortSummary || '')).toLowerCase();
+      
+      // Fuzzy-Match prüfen
+      const hasMatch = keywords.some(kw => fuzzyMatch(summaryText, kw));
+      
+      if (hasMatch) {
+        // Jahr aus keywords-database holen (dort stehen die Metadaten)
+        if (keywordsDb[id] && keywordsDb[id].year) {
+          const year = keywordsDb[id].year;
+          if (year >= 1882 && year <= 1925) {
+            matchCount++;
+            if (year < minYear) minYear = year;
+            if (year > maxYear) maxYear = year;
+          }
+        }
+      }
+    }
+    
+    // Durchsuche auch Bücher/Aufsätze in summary-database
+    for (const ga in bibliography) {
+      if (!summaryDb[ga]) continue;
+      
+      const summaryEntry = summaryDb[ga];
+      const summaryText = ((summaryEntry.summary || '') + ' ' + (summaryEntry.shortSummary || '')).toLowerCase();
+      
+      const hasMatch = keywords.some(kw => fuzzyMatch(summaryText, kw));
+      
+      if (hasMatch) {
+        const gaEntry = bibliography[ga];
+        const pubInfo = gaEntry.originalPublication || gaEntry.year || '';
+        const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+        if (years.length === 0 && gaEntry.year) years.push(parseInt(gaEntry.year));
+        
+        for (const year of years) {
+          if (year >= 1882 && year <= 1925) {
+            matchCount++;
+            if (year < minYear) minYear = year;
+            if (year > maxYear) maxYear = year;
+          }
+        }
+      }
+    }
+    
+    // Fallback wenn keine Matches gefunden
+    if (minYear > maxYear || matchCount === 0) {
+      minYear = 1904;
+      maxYear = 1924;
+      console.log(`[ADD-THEME] Keine Texte gefunden, verwende Standardzeitraum 1904-1924`);
+    } else {
+      console.log(`[ADD-THEME] Zeitraum ermittelt: ${minYear}-${maxYear} (${matchCount} Texte)`);
+    }
+    
+    // Erstelle den neuen Theme-Block
+    const newThemeBlock = `    {
+        theme: "${themeName}",
+        ranges: [
+            { start: ${minYear}, end: ${maxYear}, intensity: 0.8 }
+        ],
+        query: "${query}"
+    }`;
+    
+    // Finde die Position zum Einfügen (alphabetisch sortiert)
+    const themeRegex = /\{\s*theme:\s*"([^"]+)"/g;
+    let match;
+    let insertPosition = -1;
+    let lastThemeEnd = -1;
+    
+    while ((match = themeRegex.exec(fileContent)) !== null) {
+      const existingThemeName = match[1];
+      
+      if (themeName.localeCompare(existingThemeName, 'de') < 0 && insertPosition === -1) {
+        insertPosition = match.index;
+      }
+      
+      let braceCount = 0;
+      let foundStart = false;
+      for (let i = match.index; i < fileContent.length; i++) {
+        if (fileContent[i] === '{') {
+          braceCount++;
+          foundStart = true;
+        } else if (fileContent[i] === '}') {
+          braceCount--;
+          if (foundStart && braceCount === 0) {
+            lastThemeEnd = i + 1;
+            break;
+          }
+        }
+      }
+    }
+    
+    if (insertPosition === -1) {
+      const insertAfterComma = fileContent.indexOf(',', lastThemeEnd);
+      if (insertAfterComma !== -1 && insertAfterComma < lastThemeEnd + 5) {
+        insertPosition = insertAfterComma + 1;
+      } else {
+        insertPosition = lastThemeEnd;
+      }
+      fileContent = fileContent.slice(0, insertPosition) + ',\n' + newThemeBlock + fileContent.slice(insertPosition);
+    } else {
+      fileContent = fileContent.slice(0, insertPosition) + newThemeBlock + ',\n' + fileContent.slice(insertPosition);
+    }
+    
+    await fs.writeFile(filePath, fileContent, 'utf8');
+    
+    console.log(`[ADD-THEME] ✓ Erfolgreich hinzugefügt: ${themeName}`);
+    res.json({ 
+      success: true, 
+      message: `Themenschwerpunkt "${themeName}" erfolgreich hinzugefügt`,
+      startYear: minYear,
+      endYear: maxYear,
+      matchCount: matchCount
+    });
+    
+  } catch (error) {
+    console.error('[ADD-THEME] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Hinzufügen', details: error.message });
+  }
+});
+
+// ============================================================================
+// API: Themenschwerpunkt umbenennen
+// ============================================================================
+app.post('/api/rename-theme', async (req, res) => {
+  try {
+    const { oldName, newName } = req.body;
+    
+    if (!oldName || !newName) {
+      return res.status(400).json({ error: 'oldName und newName sind erforderlich' });
+    }
+    
+    console.log(`[RENAME-THEME] Benenne um: "${oldName}" -> "${newName}"`);
+    
+    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    let fileContent = await fs.readFile(filePath, 'utf8');
+    
+    // Prüfe ob altes Theme existiert
+    if (!fileContent.includes(`theme: "${oldName}"`)) {
+      return res.status(404).json({ error: `Theme "${oldName}" nicht gefunden` });
+    }
+    
+    // Prüfe ob neues Theme bereits existiert (aber erlaube Groß-/Kleinschreibung-Änderung vom gleichen Theme)
+    if (oldName !== newName && fileContent.includes(`theme: "${newName}"`)) {
+      return res.status(400).json({ error: `Theme "${newName}" existiert bereits` });
+    }
+    
+    // Ersetze den Theme-Namen
+    fileContent = fileContent.replace(`theme: "${oldName}"`, `theme: "${newName}"`);
+    
+    await fs.writeFile(filePath, fileContent, 'utf8');
+    
+    console.log(`[RENAME-THEME] ✓ Erfolgreich umbenannt`);
+    res.json({ success: true, message: `Theme "${oldName}" zu "${newName}" umbenannt` });
+    
+  } catch (error) {
+    console.error('[RENAME-THEME] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Umbenennen', details: error.message });
+  }
+});
+
+// ============================================================================
+// API: Themenschwerpunkt löschen
+// ============================================================================
+app.post('/api/delete-theme', async (req, res) => {
+  try {
+    const { themeName } = req.body;
+    
+    if (!themeName) {
+      return res.status(400).json({ error: 'themeName ist erforderlich' });
+    }
+    
+    console.log(`[DELETE-THEME] Lösche: "${themeName}"`);
+    
+    const filePath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    let fileContent = await fs.readFile(filePath, 'utf8');
+    
+    // Prüfe ob Theme existiert
+    if (!fileContent.includes(`theme: "${themeName}"`)) {
+      return res.status(404).json({ error: `Theme "${themeName}" nicht gefunden` });
+    }
+    
+    // Finde den Theme-Block und lösche ihn
+    const lines = fileContent.split('\n');
+    let inThemeBlock = false;
+    let braceCount = 0;
+    let blockStartLine = -1;
+    let blockEndLine = -1;
+    
+    for (let i = 0; i < lines.length; i++) {
+      // Suche nach dem Theme
+      if (lines[i].includes(`theme: "${themeName}"`)) {
+        // Finde den Anfang des Blocks (suche rückwärts nach {)
+        for (let j = i; j >= 0; j--) {
+          if (lines[j].trim().startsWith('{')) {
+            blockStartLine = j;
+            break;
+          }
+        }
+        inThemeBlock = true;
+      }
+      
+      if (inThemeBlock) {
+        // Zähle Klammern um das Ende zu finden
+        for (const char of lines[i]) {
+          if (char === '{') braceCount++;
+          if (char === '}') braceCount--;
+        }
+        
+        if (braceCount === 0 && blockStartLine !== -1) {
+          blockEndLine = i;
+          break;
+        }
+      }
+    }
+    
+    if (blockStartLine === -1 || blockEndLine === -1) {
+      return res.status(500).json({ error: 'Theme-Block konnte nicht gefunden werden' });
+    }
+    
+    // Entferne auch das Komma nach dem Block (falls vorhanden)
+    if (blockEndLine + 1 < lines.length && lines[blockEndLine].trim().endsWith(',')) {
+      // Komma ist am Ende des Blocks
+    } else if (blockEndLine + 1 < lines.length && lines[blockEndLine + 1].trim() === ',') {
+      blockEndLine++;
+    }
+    
+    // Wenn Block mit Komma beginnt (nach vorherigem Block), entferne auch das
+    if (blockStartLine > 0 && lines[blockStartLine - 1].trim().endsWith(',')) {
+      // Entferne das Komma der vorherigen Zeile
+      lines[blockStartLine - 1] = lines[blockStartLine - 1].replace(/,\s*$/, '');
+    }
+    
+    // Lösche die Zeilen des Theme-Blocks
+    lines.splice(blockStartLine, blockEndLine - blockStartLine + 1);
+    
+    // Bereinige doppelte Leerzeilen
+    fileContent = lines.join('\n').replace(/\n{3,}/g, '\n\n');
+    
+    await fs.writeFile(filePath, fileContent, 'utf8');
+    
+    console.log(`[DELETE-THEME] ✓ Erfolgreich gelöscht: ${themeName}`);
+    res.json({ success: true, message: `Theme "${themeName}" gelöscht` });
+    
+  } catch (error) {
+    console.error('[DELETE-THEME] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Löschen', details: error.message });
+  }
+});
+
+// ============================================================================
+// SEMANTIC THEME SEARCH - KI-basierte semantische Suche mit Embeddings
+// ============================================================================
+const EMBEDDINGS_CACHE_FILE = path.join(__dirname, 'summary-embeddings.json');
+const BOOK_CHAPTER_SUMMARIES_FILE_EMB = path.join(__dirname, 'book-chapter-summaries.json');
+const THEME_ASSIGNMENTS_FILE_EMB = path.join(__dirname, 'theme-assignments.json');
+
+// Erstelle Embedding für einen Text (Gemini oder OpenAI)
+async function createEmbedding(text) {
+  // Versuche zuerst Gemini, dann OpenAI
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const openaiKey = process.env.OPENAI_API_KEY;
+  
+  if (geminiKey) {
+    // GEMINI EMBEDDING
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${geminiKey}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'models/text-embedding-004',
+        content: {
+          parts: [{ text: text.substring(0, 10000) }]
+        }
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Gemini API Fehler: ${error}`);
+    }
+    
+    const data = await response.json();
+    return data.embedding.values;
+    
+  } else if (openaiKey) {
+    // OPENAI EMBEDDING (Fallback)
+    const response = await fetch('https://api.openai.com/v1/embeddings', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${openaiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'text-embedding-3-small',
+        input: text.substring(0, 8000)
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`OpenAI API Fehler: ${error}`);
+    }
+    
+    const data = await response.json();
+    return data.data[0].embedding;
+    
+  } else {
+    throw new Error('Weder GEMINI_API_KEY noch OPENAI_API_KEY konfiguriert');
+  }
+}
+
+// Berechne Kosinus-Ähnlichkeit zwischen zwei Vektoren
+function cosineSimilarity(vecA, vecB) {
+  let dotProduct = 0;
+  let normA = 0;
+  let normB = 0;
+  for (let i = 0; i < vecA.length; i++) {
+    dotProduct += vecA[i] * vecB[i];
+    normA += vecA[i] * vecA[i];
+    normB += vecB[i] * vecB[i];
+  }
+  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+// API: Generiere Embeddings für alle Summaries (einmalig)
+app.post('/api/generate-embeddings', async (req, res) => {
+  try {
+    console.log('[EMBEDDINGS] Starte Embedding-Generierung...');
+    
+    // Lade Summaries (Vorträge)
+    const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    const keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+    
+    // Lade Buch-Kapitel-Summaries
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
+      console.log(`[EMBEDDINGS] ${Object.keys(bookChapterSummaries).length} Buch-Kapitel-Summaries geladen`);
+    } catch (e) {
+      console.log('[EMBEDDINGS] Keine Buch-Kapitel-Summaries gefunden');
+    }
+    
+    // Lade bestehende Embeddings
+    let embeddings = {};
+    try {
+      embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+      console.log(`[EMBEDDINGS] ${Object.keys(embeddings).length} bestehende Embeddings geladen`);
+    } catch (e) {
+      console.log('[EMBEDDINGS] Keine bestehenden Embeddings gefunden');
+    }
+    
+    // Finde Summaries ohne Embedding (Vorträge)
+    const toProcess = [];
+    for (const id in summaryDb) {
+      if (!embeddings[id]) {
+        const summary = summaryDb[id];
+        const text = (summary.shortSummary || '') + ' ' + (summary.summary || '');
+        if (text.trim().length > 50) {
+          toProcess.push({ id, text: text.trim(), type: 'lecture' });
+        }
+      }
+    }
+    
+    // Finde Buch-Kapitel-Summaries ohne Embedding
+    let bookChaptersToProcess = 0;
+    for (const id in bookChapterSummaries) {
+      if (!embeddings[id]) {
+        const chapter = bookChapterSummaries[id];
+        // Kombiniere Titel und Summary für besseres Embedding
+        const text = `${chapter.title || ''} - ${chapter.bookTitle || ''}: ${chapter.summary || ''}`;
+        if (text.trim().length > 50) {
+          toProcess.push({ id, text: text.trim(), type: 'book-chapter' });
+          bookChaptersToProcess++;
+        }
+      }
+    }
+    
+    console.log(`[EMBEDDINGS] ${toProcess.length} Summaries zu verarbeiten (davon ${bookChaptersToProcess} Buch-Kapitel)`)
+    
+    console.log(`[EMBEDDINGS] ${toProcess.length} Summaries zu verarbeiten`);
+    
+    // Verarbeite in Batches
+    let processed = 0;
+    const batchSize = 20;
+    const errors = [];
+    
+    for (let i = 0; i < toProcess.length; i += batchSize) {
+      const batch = toProcess.slice(i, i + batchSize);
+      
+      for (const item of batch) {
+        try {
+          const embedding = await createEmbedding(item.text);
+          embeddings[item.id] = {
+            embedding,
+            createdAt: new Date().toISOString()
+          };
+          processed++;
+          
+          if (processed % 100 === 0) {
+            console.log(`[EMBEDDINGS] ${processed}/${toProcess.length} verarbeitet`);
+            // Zwischenspeichern
+            await fs.writeFile(EMBEDDINGS_CACHE_FILE, JSON.stringify(embeddings), 'utf8');
+          }
+        } catch (e) {
+          errors.push({ id: item.id, error: e.message });
+          console.error(`[EMBEDDINGS] Fehler bei ${item.id}:`, e.message);
+        }
+      }
+      
+      // Rate limiting: 1 Sekunde Pause zwischen Batches
+      if (i + batchSize < toProcess.length) {
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    }
+    
+    // Speichere alle Embeddings
+    await fs.writeFile(EMBEDDINGS_CACHE_FILE, JSON.stringify(embeddings), 'utf8');
+    
+    console.log(`[EMBEDDINGS] Fertig: ${processed} neu, ${errors.length} Fehler`);
+    res.json({ 
+      success: true, 
+      processed, 
+      total: Object.keys(embeddings).length,
+      errors: errors.length 
+    });
+    
+  } catch (error) {
+    console.error('[EMBEDDINGS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Semantische Suche für ein Thema
+app.post('/api/semantic-theme-search', async (req, res) => {
+  try {
+    const { themeDescription, limit = 100 } = req.body;
+    
+    if (!themeDescription) {
+      return res.status(400).json({ error: 'themeDescription erforderlich' });
+    }
+    
+    console.log(`[SEMANTIC] Suche nach: ${themeDescription.substring(0, 50)}...`);
+    
+    // Lade Embeddings
+    let embeddings = {};
+    try {
+      embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      return res.status(400).json({ error: 'Keine Embeddings vorhanden. Bitte erst /api/generate-embeddings aufrufen.' });
+    }
+    
+    // Erstelle Embedding für die Suchanfrage
+    const queryEmbedding = await createEmbedding(themeDescription);
+    
+    // Berechne Ähnlichkeit zu allen Summaries
+    const similarities = [];
+    for (const id in embeddings) {
+      const similarity = cosineSimilarity(queryEmbedding, embeddings[id].embedding);
+      similarities.push({ id, similarity });
+    }
+    
+    // Sortiere nach Ähnlichkeit
+    similarities.sort((a, b) => b.similarity - a.similarity);
+    
+    // Lade Metadaten für Top-Ergebnisse
+    const keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+    const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    const bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+    
+    // Lade Buch-Kapitel-Summaries
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
+    } catch (e) {
+      // Keine Buch-Summaries vorhanden
+    }
+    
+    const results = [];
+    for (const item of similarities.slice(0, limit)) {
+      // Nur Ergebnisse mit Ähnlichkeit > 0.3
+      if (item.similarity < 0.3) break;
+      
+      const meta = keywordsDb[item.id];
+      const summary = summaryDb[item.id];
+      
+      if (meta) {
+        results.push({
+          id: item.id,
+          similarity: Math.round(item.similarity * 1000) / 1000,
+          year: meta.year,
+          date: meta.date,
+          title: meta.title,
+          location: meta.location,
+          shortSummary: summary ? (summary.shortSummary || '') : '',
+          summary: summary ? (summary.shortSummary || '') : ''
+        });
+      } else if (bookChapterSummaries[item.id]) {
+        // Buch-Kapitel aus book-chapter-summaries
+        const chapter = bookChapterSummaries[item.id];
+        const gaMatch = item.id.match(/^(GA\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : null;
+        const bibEntry = gaNum ? bibliography[gaNum] : null;
+        
+        // Jahr aus Bibliographie extrahieren
+        let year = null;
+        if (bibEntry) {
+          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+          year = years.length > 0 ? years[0] : null;
+        }
+        
+        results.push({
+          id: item.id,
+          similarity: Math.round(item.similarity * 1000) / 1000,
+          year: year,
+          date: year ? `${year}-01-01` : null,
+          title: chapter.title || '',
+          location: chapter.bookTitle || '',
+          shortSummary: chapter.shortSummary || '',
+          summary: chapter.shortSummary || chapter.summary || '',
+          isBookChapter: true
+        });
+      }
+    }
+    
+    console.log(`[SEMANTIC] ${results.length} Ergebnisse gefunden`);
+    res.json({ results });
+    
+  } catch (error) {
+    console.error('[SEMANTIC] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Cache für Themen-Suchergebnisse
+const THEME_RESULTS_CACHE_FILE = path.join(__dirname, 'theme-results-cache.json');
+
+// API: Semantische Suche für ein Thema (mit Cache)
+app.post('/api/semantic-theme-search-cached', async (req, res) => {
+  try {
+    const { themeName, themeDescription, query, limit = 100 } = req.body;
+    
+    if (!themeName || !themeDescription) {
+      return res.status(400).json({ error: 'themeName und themeDescription erforderlich' });
+    }
+    
+    // Lade bestehenden Cache
+    let cache = {};
+    try {
+      cache = JSON.parse(await fs.readFile(THEME_RESULTS_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      // Kein Cache vorhanden
+    }
+    
+    // Prüfe ob Cache gültig ist (gleiche Query)
+    const cacheKey = themeName;
+    if (cache[cacheKey] && cache[cacheKey].query === query) {
+      console.log(`[SEMANTIC-CACHE] Cache-Hit für: ${themeName}`);
+      return res.json({ 
+        results: cache[cacheKey].results, 
+        cached: true,
+        cachedAt: cache[cacheKey].cachedAt
+      });
+    }
+    
+    console.log(`[SEMANTIC-CACHE] Cache-Miss für: ${themeName}, führe Suche durch...`);
+    
+    // Lade Embeddings
+    let embeddings = {};
+    try {
+      embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      return res.status(400).json({ error: 'Keine Embeddings vorhanden.' });
+    }
+    
+    // Erstelle Embedding für die Suchanfrage
+    const queryEmbedding = await createEmbedding(themeDescription);
+    
+    // Berechne Ähnlichkeit zu allen Summaries
+    const similarities = [];
+    for (const id in embeddings) {
+      const similarity = cosineSimilarity(queryEmbedding, embeddings[id].embedding);
+      similarities.push({ id, similarity });
+    }
+    
+    // Sortiere nach Ähnlichkeit
+    similarities.sort((a, b) => b.similarity - a.similarity);
+    
+    // Lade Metadaten für Top-Ergebnisse
+    const keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+    const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    const bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+    
+    // Lade Buch-Kapitel-Summaries
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
+    } catch (e) {
+      // Keine Buch-Summaries vorhanden
+    }
+    
+    // Aufsatzbände: GA 30, 34, 35, 36, 46
+    const essayVolumes = ['GA030', 'GA034', 'GA035', 'GA036', 'GA046'];
+    
+    // Blacklist: Nicht-thematische Aufsätze (Mitteilungen, Biographisches, etc.)
+    const essayBlacklist = new Set([
+      // GA034/45-69: Mitteilungen der Theosophischen Gesellschaft
+      'GA034/45', 'GA034/46', 'GA034/47', 'GA034/48', 'GA034/49',
+      'GA034/50', 'GA034/51', 'GA034/52', 'GA034/53', 'GA034/54',
+      'GA034/55', 'GA034/56', 'GA034/57', 'GA034/58', 'GA034/59',
+      'GA034/60', 'GA034/61', 'GA034/62', 'GA034/63', 'GA034/64',
+      'GA034/65', 'GA034/66', 'GA034/67', 'GA034/68', 'GA034/69',
+      // GA046/25-28: Biographische Fragmente
+      'GA046/25', 'GA046/26', 'GA046/27', 'GA046/28'
+    ]);
+    
+    const results = [];
+    // Dynamische Schwelle: Mindestens 88% der Top-Similarity, aber nicht unter 0.68
+    const maxSimilarity = similarities[0]?.similarity || 0;
+    const dynamicThreshold = Math.max(0.68, maxSimilarity * 0.88);
+    
+    for (const item of similarities.slice(0, limit)) {
+      // Dynamische Schwelle für themenbezogenere Ergebnisse
+      if (item.similarity < dynamicThreshold) break;
+      
+      // Überspringe blacklisted Aufsätze
+      if (essayBlacklist.has(item.id)) continue;
+      
+      const meta = keywordsDb[item.id];
+      const summary = summaryDb[item.id];
+      
+      if (meta) {
+        // Vorträge aus keywords-database
+        results.push({
+          id: item.id,
+          similarity: Math.round(item.similarity * 1000) / 1000,
+          year: meta.year,
+          date: meta.date,
+          title: meta.title,
+          location: meta.location,
+          summary: summary ? (summary.shortSummary || '') : ''
+        });
+      } else if (summary) {
+        // Aufsätze/Bücher aus summary-database (nicht in keywords-database)
+        // Extrahiere GA-Nummer aus ID (z.B. "GA035/7" -> "GA035")
+        const gaMatch = item.id.match(/^(GA\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : null;
+        const bibEntry = gaNum ? bibliography[gaNum] : null;
+        
+        // Jahr aus Bibliographie extrahieren
+        let year = null;
+        if (bibEntry) {
+          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+          year = years.length > 0 ? years[0] : null;
+        }
+        
+        results.push({
+          id: item.id,
+          similarity: Math.round(item.similarity * 1000) / 1000,
+          year: year,
+          date: year ? `${year}-01-01` : null,
+          title: bibEntry ? bibEntry.title : '',
+          location: '',
+          summary: summary.shortSummary || ''
+        });
+      } else if (bookChapterSummaries[item.id]) {
+        // Buch-Kapitel aus book-chapter-summaries
+        const chapter = bookChapterSummaries[item.id];
+        const gaMatch = item.id.match(/^(GA\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : null;
+        const bibEntry = gaNum ? bibliography[gaNum] : null;
+        
+        // Jahr aus Bibliographie extrahieren
+        let year = null;
+        if (bibEntry) {
+          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+          year = years.length > 0 ? years[0] : null;
+        }
+        
+        results.push({
+          id: item.id,
+          similarity: Math.round(item.similarity * 1000) / 1000,
+          year: year,
+          date: year ? `${year}-01-01` : null,
+          title: chapter.title || (bibEntry ? bibEntry.title : ''),
+          location: chapter.bookTitle || '',
+          shortSummary: chapter.shortSummary || '',
+          summary: chapter.shortSummary || chapter.summary || '',
+          isBookChapter: true
+        });
+      }
+    }
+    
+    // Speichere in Cache
+    cache[cacheKey] = {
+      query: query,
+      results: results,
+      cachedAt: new Date().toISOString()
+    };
+    
+    await fs.writeFile(THEME_RESULTS_CACHE_FILE, JSON.stringify(cache, null, 2), 'utf8');
+    console.log(`[SEMANTIC-CACHE] ${results.length} Ergebnisse gecacht für: ${themeName}`);
+    
+    res.json({ results, cached: false });
+    
+  } catch (error) {
+    console.error('[SEMANTIC-CACHE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Cache für ein Thema invalidieren
+app.post('/api/invalidate-theme-cache', async (req, res) => {
+  try {
+    const { themeName } = req.body;
+    
+    let cache = {};
+    try {
+      cache = JSON.parse(await fs.readFile(THEME_RESULTS_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      return res.json({ success: true, message: 'Kein Cache vorhanden' });
+    }
+    
+    if (cache[themeName]) {
+      delete cache[themeName];
+      await fs.writeFile(THEME_RESULTS_CACHE_FILE, JSON.stringify(cache, null, 2), 'utf8');
+      console.log(`[SEMANTIC-CACHE] Cache invalidiert für: ${themeName}`);
+    }
+    
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Prüfe Embedding-Status
+app.get('/api/embeddings-status', async (req, res) => {
+  try {
+    let embeddings = {};
+    try {
+      embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      // Keine Embeddings
+    }
+    
+    const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    const totalSummaries = Object.keys(summaryDb).length;
+    const totalEmbeddings = Object.keys(embeddings).length;
+    
+    res.json({
+      hasEmbeddings: totalEmbeddings > 0,
+      totalEmbeddings,
+      totalSummaries,
+      coverage: totalSummaries > 0 ? Math.round(totalEmbeddings / totalSummaries * 100) : 0
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// THEME RANGES CACHE - Berechnet und cached Zeiträume für Themenschwerpunkte
+// ============================================================================
+const THEME_RANGES_CACHE_FILE = path.join(__dirname, 'theme-ranges-cache.json');
+
+// Fuzzy-Matching: Nur sichere Plural/Singular-Varianten
+// KEIN aggressives Stemming mehr - nur kontrollierte Varianten
+function fuzzyMatch(text, keyword) {
+  text = text.toLowerCase();
+  keyword = keyword.toLowerCase();
+  
+  // 1. Exakter Substring-Match
+  if (text.includes(keyword)) return true;
+  
+  // 2. Nur sichere deutsche Plural-Endungen prüfen
+  if (keyword.endsWith('ien') && keyword.length > 6) {
+    // Plural -ien → Singular -ie (Hierarchien → Hierarchie)
+    const singular = keyword.slice(0, -1);
+    if (text.includes(singular)) return true;
+  }
+  if (keyword.endsWith('ie') && keyword.length > 5) {
+    // Singular -ie → Plural -ien (Hierarchie → Hierarchien)
+    if (text.includes(keyword + 'n')) return true;
+  }
+  if (keyword.endsWith('en') && keyword.length > 6) {
+    // Plural -en → Singular ohne -en (Menschen → Mensch)
+    const base = keyword.slice(0, -2);
+    if (base.length >= 5 && text.includes(base)) return true;
+  }
+  if (keyword.length >= 5 && !keyword.endsWith('en')) {
+    // Singular → Plural mit -en (Mensch → Menschen)
+    if (text.includes(keyword + 'en')) return true;
+  }
+  
+  return false;
+}
+
+// Berechnet den Zeitraum für ein Thema basierend auf EMBEDDINGS (semantische Ähnlichkeit)
+async function calculateThemeRangeWithEmbeddings(themeName, themeDescription) {
+  let embeddings = {};
+  let keywordsDb = {};
+  let bibliography = {};
+  
+  try {
+    embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+  } catch (e) {
+    console.log('[THEME-RANGES-EMB] Embeddings nicht lesbar');
+    return null; // Fallback auf Keyword-Suche
+  }
+  
+  try {
+    keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+  } catch (e) {
+    console.log('[THEME-RANGES-EMB] keywords-database nicht lesbar');
+    return null;
+  }
+  
+  try {
+    bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+  } catch (e) {
+    console.log('[THEME-RANGES-EMB] ga-bibliography nicht lesbar');
+  }
+  
+  // Blacklist: Nicht-thematische Aufsätze (Mitteilungen, Biographisches, etc.)
+  const essayBlacklist = new Set([
+    'GA034/45', 'GA034/46', 'GA034/47', 'GA034/48', 'GA034/49',
+    'GA034/50', 'GA034/51', 'GA034/52', 'GA034/53', 'GA034/54',
+    'GA034/55', 'GA034/56', 'GA034/57', 'GA034/58', 'GA034/59',
+    'GA034/60', 'GA034/61', 'GA034/62', 'GA034/63', 'GA034/64',
+    'GA034/65', 'GA034/66', 'GA034/67', 'GA034/68', 'GA034/69',
+    'GA046/25', 'GA046/26', 'GA046/27', 'GA046/28'
+  ]);
+  
+  // Erstelle Embedding für das Thema
+  const queryEmbedding = await createEmbedding(themeDescription);
+  if (!queryEmbedding) {
+    console.log('[THEME-RANGES-EMB] Konnte Embedding für Thema nicht erstellen');
+    return null;
+  }
+  
+  // Berechne Ähnlichkeit zu allen Summaries
+  const allSimilarities = [];
+  
+  for (const id in embeddings) {
+    // Überspringe blacklisted Aufsätze
+    if (essayBlacklist.has(id)) continue;
+    
+    const similarity = cosineSimilarity(queryEmbedding, embeddings[id].embedding);
+    const meta = keywordsDb[id];
+    
+    let year = null;
+    if (meta && meta.year) {
+      // Vorträge aus keywords-database
+      year = meta.year;
+    } else {
+      // Aufsätze/Bücher: Jahr aus Bibliographie extrahieren
+      const gaMatch = id.match(/^(GA\d+)/);
+      const gaNum = gaMatch ? gaMatch[1] : null;
+      const bibEntry = gaNum ? bibliography[gaNum] : null;
+      if (bibEntry) {
+        const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+        const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+        year = years.length > 0 ? years[0] : null;
+      }
+    }
+    
+    if (year && year >= 1882 && year <= 1925) {
+      allSimilarities.push({ id, similarity, year });
+    }
+  }
+  
+  // Sortiere nach Ähnlichkeit und nimm nur die Top-Ergebnisse
+  allSimilarities.sort((a, b) => b.similarity - a.similarity);
+  
+  // Dynamische Schwelle: Mindestens 88% der Top-Similarity, aber nicht unter 0.68
+  const maxSimilarity = allSimilarities[0]?.similarity || 0;
+  const dynamicThreshold = Math.max(0.68, maxSimilarity * 0.88);
+  
+  // Top 6% oder max 350 Ergebnisse, gefiltert nach dynamischer Schwelle
+  const topCount = Math.min(Math.ceil(allSimilarities.length * 0.06), 350);
+  const topResults = allSimilarities.slice(0, topCount).filter(r => r.similarity >= dynamicThreshold);
+  
+  console.log(`[THEME-RANGES-EMB] ${themeName}: Top-Ähnlichkeit=${allSimilarities[0]?.similarity.toFixed(3)}, dynamische Schwelle=${dynamicThreshold.toFixed(3)}, gefiltert auf ${topResults.length}`);
+  
+  // Gruppiere nach Jahr
+  const yearData = {}; // Jahr -> { totalSimilarity, count, maxSimilarity }
+  let totalMatches = 0;
+  
+  for (const item of topResults) {
+    const year = item.year;
+    if (!yearData[year]) {
+      yearData[year] = { totalSimilarity: 0, count: 0, maxSimilarity: 0 };
+    }
+    yearData[year].totalSimilarity += item.similarity;
+    yearData[year].count += 1;
+    yearData[year].maxSimilarity = Math.max(yearData[year].maxSimilarity, item.similarity);
+    totalMatches++;
+  }
+  
+  const years = Object.keys(yearData).map(Number).sort((a, b) => a - b);
+  
+  if (years.length === 0) {
+    return { ranges: [], totalMatches: 0, yearCounts: {}, maxCount: 0, method: 'embeddings' };
+  }
+  
+  // Berechne Intensität basierend auf gewichteter Kombination aus Anzahl und Ähnlichkeit
+  const yearCounts = {};
+  const ranges = [];
+  let maxCount = 0;
+  
+  for (const year of years) {
+    const data = yearData[year];
+    yearCounts[year] = data.count;
+    maxCount = Math.max(maxCount, data.count);
+    
+    // Kombinierte Intensität: Anzahl * durchschnittliche Ähnlichkeit
+    const avgSimilarity = data.totalSimilarity / data.count;
+    
+    // Intensität basierend auf Anzahl (angepasst für strenge Filterung)
+    let intensity;
+    if (data.count >= 15) {
+      intensity = 0.85;
+    } else if (data.count >= 8) {
+      intensity = 0.70;
+    } else if (data.count >= 4) {
+      intensity = 0.50;
+    } else if (data.count >= 2) {
+      intensity = 0.35;
+    } else {
+      intensity = 0.21;
+    }
+    
+    // Boost durch hohe Ähnlichkeit (max +0.1)
+    intensity = Math.min(0.90, intensity + (avgSimilarity - 0.6) * 0.3);
+    
+    ranges.push({
+      start: year,
+      end: year,
+      intensity: Math.round(intensity * 100) / 100,
+      count: data.count,
+      avgSimilarity: Math.round(avgSimilarity * 1000) / 1000
+    });
+  }
+  
+  console.log(`[THEME-RANGES-EMB] ${themeName}: ${totalMatches} Treffer in ${years.length} Jahren`);
+  
+  // Speichere die Text-IDs mit Similarity für spätere Anzeige
+  const textIds = topResults.map(r => ({ id: r.id, similarity: r.similarity, year: r.year }));
+  
+  return { ranges, totalMatches, yearCounts, maxCount, method: 'embeddings', textIds };
+}
+
+// Berechnet den Zeitraum für ein einzelnes Thema basierend auf Summary-Matches (Keyword-Fallback)
+async function calculateThemeRange(themeName, keywords) {
+  let summaryDb = {};
+  let keywordsDb = {};
+  let bibliography = {};
+  
+  try {
+    summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+  } catch (e) { console.log('[THEME-RANGES] summary-database nicht lesbar'); }
+  
+  try {
+    keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+  } catch (e) { console.log('[THEME-RANGES] keywords-database nicht lesbar'); }
+  
+  try {
+    bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+  } catch (e) { console.log('[THEME-RANGES] ga-bibliography nicht lesbar'); }
+  
+  const keywordList = keywords.toLowerCase().split(/\s+/).filter(k => k.length > 3); // Mindestens 4 Zeichen
+  const yearCounts = {}; // Jahr -> Anzahl Treffer
+  let totalMatches = 0;
+  
+  // Durchsuche Vorträge (nur summary-database.json!)
+  for (const id in summaryDb) {
+    const summaryEntry = summaryDb[id];
+    const summaryText = ((summaryEntry.summary || '') + ' ' + (summaryEntry.shortSummary || '')).toLowerCase();
+    
+    const hasMatch = keywordList.some(kw => fuzzyMatch(summaryText, kw));
+    
+    if (hasMatch && keywordsDb[id] && keywordsDb[id].year) {
+      const year = keywordsDb[id].year;
+      if (year >= 1882 && year <= 1925) {
+        yearCounts[year] = (yearCounts[year] || 0) + 1;
+        totalMatches++;
+      }
+    }
+  }
+  
+  // Durchsuche auch Bücher/Aufsätze
+  for (const ga in bibliography) {
+    if (!summaryDb[ga]) continue;
+    
+    const summaryEntry = summaryDb[ga];
+    const summaryText = ((summaryEntry.summary || '') + ' ' + (summaryEntry.shortSummary || '')).toLowerCase();
+    
+    const hasMatch = keywordList.some(kw => fuzzyMatch(summaryText, kw));
+    
+    if (hasMatch) {
+      const gaEntry = bibliography[ga];
+      const pubInfo = gaEntry.originalPublication || gaEntry.year || '';
+      const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+      if (years.length === 0 && gaEntry.year) years.push(parseInt(gaEntry.year));
+      
+      for (const year of years) {
+        if (year >= 1882 && year <= 1925) {
+          yearCounts[year] = (yearCounts[year] || 0) + 1;
+          totalMatches++;
+        }
+      }
+    }
+  }
+  
+  // Berechne Ranges aus den Jahreszahlen - JEDES JAHR einzeln mit eigener Intensität
+  const years = Object.keys(yearCounts).map(Number).sort((a, b) => a - b);
+  
+  if (years.length === 0) {
+    return { ranges: [{ start: 1904, end: 1924, intensity: 0.3 }], totalMatches: 0, yearCounts: {} };
+  }
+  
+  const maxCount = Math.max(...Object.values(yearCounts));
+  const ranges = [];
+  
+  // Erstelle für jedes Jahr einen eigenen Range mit individueller Intensität
+  // Absolute Schwellwerte: 1→0.21, 5→0.35, 15→0.50, 30→0.70, 50+→0.85
+  for (const year of years) {
+    const count = yearCounts[year];
+    
+    // Intensität basierend auf absoluten Schwellwerten
+    let intensity;
+    if (count >= 50) {
+      intensity = 0.85;
+    } else if (count >= 30) {
+      intensity = 0.70;
+    } else if (count >= 15) {
+      intensity = 0.50;
+    } else if (count >= 5) {
+      intensity = 0.35;
+    } else {
+      intensity = 0.21;
+    }
+    
+    ranges.push({
+      start: year,
+      end: year,
+      intensity: intensity,
+      count: count // Anzahl der Treffer für dieses Jahr
+    });
+  }
+  
+  return { ranges, totalMatches, yearCounts, maxCount };
+}
+
+// API: Berechne und cache alle Theme-Ranges
+app.post('/api/calculate-theme-ranges', async (req, res) => {
+  try {
+    const { themeName, forceRecalculate } = req.body;
+    console.log('[THEME-RANGES] Berechne Zeiträume...', themeName ? `für: ${themeName}` : 'für alle Themen');
+    
+    // Lade bestehenden Cache
+    let cache = {};
+    try {
+      cache = JSON.parse(await fs.readFile(THEME_RANGES_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      console.log('[THEME-RANGES] Kein bestehender Cache gefunden, erstelle neu');
+    }
+    
+    // Lade SteinerThemesData aus der JS-Datei
+    const jsPath = path.join(__dirname, 'members', 'thematic-visualization.js');
+    const jsContent = await fs.readFile(jsPath, 'utf8');
+    
+    // Extrahiere die Themes zeilenweise (robuster Ansatz)
+    const themes = [];
+    const lines = jsContent.split('\n');
+    let currentTheme = null;
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Suche nach theme: "..."
+      const themeMatch = line.match(/theme:\s*["']([^"']+)["']/);
+      if (themeMatch) {
+        currentTheme = { theme: themeMatch[1], query: null };
+      }
+      
+      // Suche nach query: "..." (nach dem theme)
+      if (currentTheme && !currentTheme.query) {
+        const queryMatch = line.match(/query:\s*["']([^"']+)["']/);
+        if (queryMatch) {
+          currentTheme.query = queryMatch[1];
+          themes.push(currentTheme);
+          currentTheme = null;
+        }
+      }
+    }
+    
+    console.log(`[THEME-RANGES] ${themes.length} Themen gefunden`);
+    
+    // Prüfe ob Embeddings vorhanden sind
+    let hasEmbeddings = false;
+    try {
+      const embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+      hasEmbeddings = Object.keys(embeddings).length > 1000; // Mindestens 1000 Embeddings
+      console.log(`[THEME-RANGES] Embeddings vorhanden: ${hasEmbeddings} (${Object.keys(embeddings).length} Einträge)`);
+    } catch (e) {
+      console.log('[THEME-RANGES] Keine Embeddings vorhanden, verwende Keyword-Suche');
+    }
+    
+    // Berechne Ranges
+    let updated = 0;
+    let method = hasEmbeddings ? 'embeddings' : 'keywords';
+    
+    for (const t of themes) {
+      // Wenn nur ein bestimmtes Thema berechnet werden soll
+      if (themeName && t.theme !== themeName) continue;
+      
+      // Prüfe ob Cache gültig ist (gleiche Query UND gleiche Methode)
+      if (!forceRecalculate && cache[t.theme] && cache[t.theme].query === t.query && cache[t.theme].method === method) {
+        console.log(`[THEME-RANGES] Cache gültig für: ${t.theme} (${method})`);
+        continue;
+      }
+      
+      console.log(`[THEME-RANGES] Berechne: ${t.theme} mit ${method}`);
+      
+      let result;
+      if (hasEmbeddings) {
+        // Erstelle aussagekräftige Themenbeschreibung
+        const themeDescription = `Rudolf Steiner über ${t.theme}. Themen: ${t.query}`;
+        result = await calculateThemeRangeWithEmbeddings(t.theme, themeDescription);
+        
+        // Fallback auf Keywords wenn Embeddings-Berechnung fehlschlägt
+        if (!result) {
+          console.log(`[THEME-RANGES] Fallback auf Keywords für: ${t.theme}`);
+          result = await calculateThemeRange(t.theme, t.query);
+          method = 'keywords';
+        }
+      } else {
+        result = await calculateThemeRange(t.theme, t.query);
+      }
+      
+      cache[t.theme] = {
+        query: t.query,
+        method: result.method || method,
+        ranges: result.ranges,
+        totalMatches: result.totalMatches,
+        textIds: result.textIds || [], // Speichere Text-IDs für direkte Anzeige
+        calculatedAt: new Date().toISOString()
+      };
+      updated++;
+    }
+    
+    // Speichere Cache
+    await fs.writeFile(THEME_RANGES_CACHE_FILE, JSON.stringify(cache, null, 2), 'utf8');
+    console.log(`[THEME-RANGES] Cache gespeichert: ${updated} Themen aktualisiert (Methode: ${method})`);
+    
+    res.json({ 
+      success: true, 
+      updated,
+      totalThemes: themes.length,
+      method: method,
+      cache 
+    });
+    
+  } catch (error) {
+    console.error('[THEME-RANGES] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Berechnen', details: error.message });
+  }
+});
+
+// API: Lade gecachte Theme-Ranges
+app.get('/api/theme-ranges-cache', async (req, res) => {
+  try {
+    let cache = {};
+    try {
+      cache = JSON.parse(await fs.readFile(THEME_RANGES_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      // Kein Cache vorhanden
+    }
+    res.json(cache);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Lade Details für gecachte Theme-Ergebnisse (für Klick auf Heatmap)
+app.post('/api/get-theme-results', async (req, res) => {
+  try {
+    const { themeName, year } = req.body;
+    
+    if (!themeName) {
+      return res.status(400).json({ error: 'themeName erforderlich' });
+    }
+    
+    // Lade Cache
+    let cache = {};
+    try {
+      cache = JSON.parse(await fs.readFile(THEME_RANGES_CACHE_FILE, 'utf8'));
+    } catch (e) {
+      return res.status(404).json({ error: 'Kein Cache vorhanden' });
+    }
+    
+    const themeCache = cache[themeName];
+    if (!themeCache || !themeCache.textIds) {
+      return res.status(404).json({ error: 'Keine gecachten Ergebnisse für dieses Thema' });
+    }
+    
+    // Filtere nach Jahr falls angegeben
+    let textIds = themeCache.textIds;
+    if (year) {
+      textIds = textIds.filter(t => t.year === year);
+    }
+    
+    // Lade die Details für die Text-IDs
+    let summaryDb = {};
+    let keywordsDb = {};
+    let bibliography = {};
+    let bookChapterSummaries = {};
+    
+    try {
+      summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    try {
+      keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    try {
+      bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Sortiere nach Similarity (absteigend)
+    textIds.sort((a, b) => b.similarity - a.similarity);
+    
+    const results = [];
+    for (const item of textIds) {
+      const id = item.id;
+      let meta = keywordsDb[id] || {};
+      const summaryEntry = summaryDb[id] || {};
+      
+      // Für Vorträge: Hole Metadaten aus fullLectures (globale Variable)
+      let lectureData = null;
+      if (typeof fullLectures !== 'undefined' && fullLectures[id]) {
+        lectureData = fullLectures[id];
+      }
+      
+      // Hole Titel und Jahr - Priorität: fullLectures > keywordsDb > bibliography
+      let title = '';
+      let displayYear = item.year;
+      let location = '';
+      let date = '';
+      
+      if (lectureData) {
+        // Vortrag gefunden in fullLectures
+        title = lectureData.title || '';
+        displayYear = lectureData.year || item.year;
+        location = lectureData.location || lectureData.city || '';
+        date = lectureData.date || '';
+      } else if (meta.title || meta.lectureId) {
+        // Fallback auf keywordsDb
+        title = meta.title || '';
+        displayYear = meta.year || item.year;
+        location = meta.location || meta.city || '';
+        date = meta.date || '';
+      }
+      
+      // Für Aufsätze: Titel aus keywordsDb oder bibliography
+      if (!title && id.includes('/') && !id.includes('_')) {
+        const [gaNum] = id.split('/');
+        const bibEntry = bibliography[gaNum];
+        if (bibEntry && bibEntry.essays) {
+          const essayEntry = bibEntry.essays.find(e => e.id === id);
+          if (essayEntry) {
+            title = essayEntry.title || id;
+          }
+        }
+        if (!title) title = meta.title || id;
+      }
+      
+      // Prüfe ob es sich um ein Buch-Kapitel handelt
+      const bookChapter = bookChapterSummaries[id];
+      if (bookChapter) {
+        // Buch-Kapitel: Hole Titel und Summary aus book-chapter-summaries
+        title = bookChapter.title || title || id;
+        location = bookChapter.bookTitle || location;
+        
+        // Jahr aus Bibliographie extrahieren wenn nicht vorhanden
+        if (!displayYear) {
+          const gaMatch = id.match(/^(GA\d+)/);
+          const gaNum = gaMatch ? gaMatch[1] : null;
+          const bibEntry = gaNum ? bibliography[gaNum] : null;
+          if (bibEntry) {
+            const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+            const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+            displayYear = years.length > 0 ? years[0] : null;
+          }
+        }
+        
+        results.push({
+          id: id,
+          title: title,
+          shortSummary: bookChapter.shortSummary || bookChapter.summary || '',
+          year: displayYear,
+          location: location,
+          date: displayYear ? `${displayYear}-01-01` : '',
+          similarity: item.similarity,
+          isBookChapter: true
+        });
+      } else {
+        results.push({
+          id: id,
+          title: title,
+          shortSummary: summaryEntry.shortSummary || summaryEntry.summary || '',
+          year: displayYear,
+          location: location,
+          date: date,
+          similarity: item.similarity
+        });
+      }
+    }
+    
+    console.log(`[GET-THEME-RESULTS] ${themeName}${year ? ` (${year})` : ''}: ${results.length} Ergebnisse`);
+    
+    res.json({
+      themeName,
+      year: year || null,
+      totalResults: results.length,
+      results
+    });
+    
+  } catch (error) {
+    console.error('[GET-THEME-RESULTS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Lade Theme-Ergebnisse basierend auf KI-Zuordnungen (für Heatmap)
+app.post('/api/get-theme-results-ai', async (req, res) => {
+  try {
+    const { themeName } = req.body;
+    
+    if (!themeName) {
+      return res.status(400).json({ error: 'themeName erforderlich' });
+    }
+    
+    // Lade KI-Zuordnungen
+    let assignments = {};
+    try {
+      assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE_EMB, 'utf8'));
+    } catch (e) {
+      return res.status(404).json({ error: 'Keine KI-Zuordnungen vorhanden' });
+    }
+    
+    // Finde alle Texte, die diesem Thema zugeordnet sind
+    const matchingIds = [];
+    for (const id in assignments) {
+      const entry = assignments[id];
+      if (entry.themes && entry.themes.includes(themeName)) {
+        matchingIds.push(id);
+      }
+    }
+    
+    if (matchingIds.length === 0) {
+      return res.json({ themeName, totalResults: 0, results: [], source: 'ai-assignments' });
+    }
+    
+    // Lade Details für die gefundenen IDs
+    let summaryDb = {};
+    let keywordsDb = {};
+    let bookChapterSummaries = {};
+    let bibliography = {};
+    
+    try {
+      summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    try {
+      keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    try {
+      bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    const results = [];
+    for (const id of matchingIds) {
+      const meta = keywordsDb[id] || {};
+      const summaryEntry = summaryDb[id] || {};
+      const bookChapter = bookChapterSummaries[id];
+      
+      let title = '';
+      let year = null;
+      let location = '';
+      let date = '';
+      let shortSummary = '';
+      let isBookChapter = false;
+      
+      // Buch-Kapitel zuerst prüfen
+      if (bookChapter) {
+        title = bookChapter.title || '';
+        location = bookChapter.bookTitle || '';
+        shortSummary = bookChapter.shortSummary || bookChapter.summary || '';
+        isBookChapter = true;
+        
+        // Jahr aus Bibliographie
+        const gaMatch = id.match(/^(GA\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : null;
+        const bibEntry = gaNum ? bibliography[gaNum] : null;
+        if (bibEntry) {
+          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+          year = years.length > 0 ? years[0] : null;
+        }
+        date = year ? `${year}-01-01` : '';
+      }
+      // Vorträge/Aufsätze aus keywords-database (primäre Quelle)
+      else if (meta.title || meta.year) {
+        title = meta.title || '';
+        year = meta.year ? parseInt(meta.year) : null;
+        location = meta.location || '';
+        date = meta.date || '';
+        shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
+        
+        // Fallback: Jahr aus Datum extrahieren
+        if (!year && date) {
+          const yearMatch = date.match(/\b(18|19|20)\d{2}\b/);
+          year = yearMatch ? parseInt(yearMatch[0]) : null;
+        }
+      }
+      // Vortrag aus fullLectures (Fallback)
+      else if (typeof fullLectures !== 'undefined' && fullLectures[id]) {
+        const lecture = fullLectures[id];
+        title = lecture.title || '';
+        year = lecture.year ? parseInt(lecture.year) : null;
+        location = lecture.location || lecture.city || '';
+        date = lecture.date || '';
+        shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
+      }
+      // Nur Summary vorhanden
+      else if (summaryEntry.summary) {
+        title = '';
+        shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
+        
+        // Jahr aus ID extrahieren (z.B. GA046/1901-01-01)
+        const idYearMatch = id.match(/\/(18|19|20)\d{2}/);
+        year = idYearMatch ? parseInt(idYearMatch[0].substring(1)) : null;
+      }
+      
+      if (title || shortSummary) {
+        results.push({
+          id,
+          title,
+          shortSummary,
+          year,
+          location,
+          date,
+          isBookChapter,
+          source: 'ai-assignment'
+        });
+      }
+    }
+    
+    // Sortiere chronologisch
+    results.sort((a, b) => (a.year || 0) - (b.year || 0));
+    
+    console.log(`[GET-THEME-RESULTS-AI] ${themeName}: ${results.length} Ergebnisse aus KI-Zuordnungen`);
+    
+    res.json({
+      themeName,
+      totalResults: results.length,
+      results,
+      source: 'ai-assignments'
+    });
+    
+  } catch (error) {
+    console.error('[GET-THEME-RESULTS-AI] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/hybrid-search', async (req, res) => {
   try {
     const { query, limit = 20 } = req.body;
@@ -20098,6 +21742,698 @@ Object.values(fullBooks).forEach(book => {
   });
 });
     console.log(`  ✓ Absätze erstellt: ${lectureParagraphsCount} Vortrags-Absätze, ${bookParagraphsCount} Buch-Absätze`);
+
+// ============================================================
+// KAPITEL-SUMMARIES FÜR BÜCHER (mit Claude)
+// ============================================================
+
+const BOOK_CHAPTER_SUMMARIES_FILE = path.join(__dirname, 'book-chapter-summaries.json');
+
+// Extrahiere Kapitel aus einer Markdown-Datei (nur H1 = # Überschriften)
+function extractChaptersFromMarkdown(content, gaNumber) {
+  const chapters = [];
+  const lines = content.split('\n');
+  
+  let currentChapter = null;
+  let chapterContent = [];
+  let chapterIndex = 0;
+  
+  for (const line of lines) {
+    // Erkenne NUR H1-Überschriften (# aber nicht ## oder ###)
+    const h1Match = line.match(/^#\s+(.+)$/);
+    const isH2orLower = line.match(/^#{2,}\s+/);
+    
+    if (h1Match && !isH2orLower) {
+      // Speichere vorheriges Kapitel
+      if (currentChapter && chapterContent.length > 0) {
+        chapters.push({
+          id: `${gaNumber}/${chapterIndex}`,
+          title: currentChapter,
+          content: chapterContent.join('\n').trim(),
+          index: chapterIndex
+        });
+      }
+      
+      // Starte neues Kapitel
+      chapterIndex++;
+      currentChapter = h1Match[1].trim();
+      chapterContent = [];
+    } else if (currentChapter) {
+      chapterContent.push(line);
+    }
+  }
+  
+  // Letztes Kapitel speichern
+  if (currentChapter && chapterContent.length > 0) {
+    chapters.push({
+      id: `${gaNumber}/${chapterIndex}`,
+      title: currentChapter,
+      content: chapterContent.join('\n').trim(),
+      index: chapterIndex
+    });
+  }
+  
+  return chapters;
+}
+
+// Generiere Summary mit Claude
+async function generateChapterSummaryWithClaude(chapter, bookTitle) {
+  const apiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error('CLAUDE_API_KEY nicht konfiguriert');
+  }
+  
+  const prompt = `Erstelle eine prägnante deutsche Zusammenfassung (2-4 Sätze) für das folgende Kapitel aus Rudolf Steiners Buch "${bookTitle}".
+
+Kapitel: ${chapter.title}
+
+Text (Auszug):
+${chapter.content.substring(0, 4000)}
+
+Zusammenfassung:`;
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01'
+    },
+    body: JSON.stringify({
+      model: 'claude-3-haiku-20240307',
+      max_tokens: 300,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Claude API Fehler: ${error}`);
+  }
+  
+  const data = await response.json();
+  return data.content[0].text.trim();
+}
+
+// API: Liste alle Bücher und deren Kapitel
+app.get('/api/book-chapters', async (req, res) => {
+  try {
+    const steinerGaPath = path.join(__dirname, 'Steiner_GA');
+    const folders = (await fs.readdir(steinerGaPath)).filter(f => {
+      const m = f.match(/^GA0*(\d+)-/);
+      if (!m) return false;
+      const num = parseInt(m[1]);
+      return (num >= 1 && num <= 28) || num === 45;
+    });
+    
+    const books = [];
+    for (const folder of folders) {
+      const folderPath = path.join(steinerGaPath, folder);
+      const files = (await fs.readdir(folderPath)).filter(f => f.endsWith('.md'));
+      
+      if (files.length === 0) continue;
+      
+      const content = await fs.readFile(path.join(folderPath, files[0]), 'utf8');
+      const gaMatch = folder.match(/^GA0*(\d+)/);
+      const gaNumber = gaMatch ? 'GA' + gaMatch[1].padStart(3, '0') : folder;
+      
+      const chapters = extractChaptersFromMarkdown(content, gaNumber);
+      
+      books.push({
+        gaNumber,
+        folder,
+        fileName: files[0],
+        chapterCount: chapters.length,
+        chapters: chapters.map(c => ({ id: c.id, title: c.title, index: c.index }))
+      });
+    }
+    
+    res.json({ books, totalChapters: books.reduce((sum, b) => sum + b.chapterCount, 0) });
+  } catch (error) {
+    console.error('[BOOK-CHAPTERS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Generiere Summaries für ein Buch
+app.post('/api/generate-book-summaries', async (req, res) => {
+  try {
+    const { gaNumber, forceRegenerate } = req.body;
+    
+    if (!gaNumber) {
+      return res.status(400).json({ error: 'gaNumber erforderlich' });
+    }
+    
+    console.log(`[BOOK-SUMMARIES] Generiere Summaries für ${gaNumber}...`);
+    
+    // Lade bestehende Summaries
+    let summaries = {};
+    try {
+      summaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE, 'utf8'));
+    } catch (e) {
+      console.log('[BOOK-SUMMARIES] Keine bestehenden Summaries gefunden');
+    }
+    
+    // Finde das Buch
+    const steinerGaPath = path.join(__dirname, 'Steiner_GA');
+    const folders = await fs.readdir(steinerGaPath);
+    const bookFolder = folders.find(f => f.startsWith(gaNumber + '-') || f.startsWith(gaNumber.replace('GA0', 'GA') + '-'));
+    
+    if (!bookFolder) {
+      return res.status(404).json({ error: `Buch ${gaNumber} nicht gefunden` });
+    }
+    
+    const folderPath = path.join(steinerGaPath, bookFolder);
+    const files = (await fs.readdir(folderPath)).filter(f => f.endsWith('.md'));
+    
+    if (files.length === 0) {
+      return res.status(404).json({ error: `Keine Markdown-Datei für ${gaNumber} gefunden` });
+    }
+    
+    const content = await fs.readFile(path.join(folderPath, files[0]), 'utf8');
+    const bookTitle = bookFolder.replace(/^GA\d+-/, '');
+    const chapters = extractChaptersFromMarkdown(content, gaNumber);
+    
+    console.log(`[BOOK-SUMMARIES] ${chapters.length} Kapitel gefunden`);
+    
+    let generated = 0;
+    let skipped = 0;
+    
+    for (const chapter of chapters) {
+      // Überspringe wenn bereits vorhanden (außer forceRegenerate)
+      if (summaries[chapter.id] && !forceRegenerate) {
+        skipped++;
+        continue;
+      }
+      
+      try {
+        console.log(`[BOOK-SUMMARIES] Generiere: ${chapter.id} - ${chapter.title.substring(0, 40)}...`);
+        const summary = await generateChapterSummaryWithClaude(chapter, bookTitle);
+        
+        summaries[chapter.id] = {
+          title: chapter.title,
+          summary: summary,
+          bookTitle: bookTitle,
+          gaNumber: gaNumber,
+          generatedAt: new Date().toISOString()
+        };
+        generated++;
+        
+        // Zwischenspeichern alle 5 Kapitel
+        if (generated % 5 === 0) {
+          await fs.writeFile(BOOK_CHAPTER_SUMMARIES_FILE, JSON.stringify(summaries, null, 2), 'utf8');
+        }
+        
+        // Rate limiting: 500ms Pause zwischen API-Calls
+        await new Promise(r => setTimeout(r, 500));
+        
+      } catch (e) {
+        console.error(`[BOOK-SUMMARIES] Fehler bei ${chapter.id}:`, e.message);
+      }
+    }
+    
+    // Finale Speicherung
+    await fs.writeFile(BOOK_CHAPTER_SUMMARIES_FILE, JSON.stringify(summaries, null, 2), 'utf8');
+    
+    console.log(`[BOOK-SUMMARIES] Fertig: ${generated} generiert, ${skipped} übersprungen`);
+    res.json({ success: true, generated, skipped, total: Object.keys(summaries).length });
+    
+  } catch (error) {
+    console.error('[BOOK-SUMMARIES] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Status der Buch-Summaries
+app.get('/api/book-summaries-status', async (req, res) => {
+  try {
+    let summaries = {};
+    try {
+      summaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE, 'utf8'));
+    } catch (e) {
+      // Keine Summaries vorhanden
+    }
+    
+    res.json({
+      totalSummaries: Object.keys(summaries).length,
+      summaries: Object.keys(summaries)
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Generiere Short Summaries für Buch-Kapitel
+app.post('/api/generate-book-short-summaries', async (req, res) => {
+  try {
+    const { forceRegenerate = false, preferredProvider = 'claude' } = req.body;
+    
+    console.log('[BOOK-SHORT-SUMMARIES] Starte Generierung...');
+    
+    // Lade bestehende Summaries
+    let summaries = {};
+    try {
+      summaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE, 'utf8'));
+    } catch (e) {
+      return res.status(400).json({ error: 'Keine Buch-Kapitel-Summaries gefunden' });
+    }
+    
+    // Finde Kapitel ohne Short Summary
+    const toProcess = [];
+    for (const id in summaries) {
+      const chapter = summaries[id];
+      if (chapter.summary && (!chapter.shortSummary || forceRegenerate)) {
+        toProcess.push({ id, summary: chapter.summary, title: chapter.title });
+      }
+    }
+    
+    console.log(`[BOOK-SHORT-SUMMARIES] ${toProcess.length} Kapitel zu verarbeiten`);
+    
+    if (toProcess.length === 0) {
+      return res.json({ success: true, processed: 0, total: Object.keys(summaries).length, message: 'Alle Kapitel haben bereits Short Summaries' });
+    }
+    
+    // Provider initialisieren
+    const { createProvider } = require('./llm-providers');
+    const provider = createProvider(preferredProvider);
+    
+    if (!provider.isAvailable()) {
+      return res.status(400).json({ error: `Provider ${preferredProvider} nicht verfügbar` });
+    }
+    
+    let processed = 0;
+    let errors = [];
+    const BATCH_SIZE = 10;
+    
+    for (let i = 0; i < toProcess.length; i += BATCH_SIZE) {
+      const batch = toProcess.slice(i, i + BATCH_SIZE);
+      
+      // Verarbeite Batch parallel
+      const batchPromises = batch.map(async (item) => {
+        try {
+          const prompt = `Fasse diese Kapitel-Zusammenfassung in MAXIMAL 2 Sätzen zusammen. Sei extrem prägnant.
+
+REGELN:
+- Maximal 1-2 Sätze (nicht mehr!)
+- Nur die allerwichtigste Kernaussage
+- Keine Meta-Sprache ("Rudolf Steiner beschreibt...")
+- Direkt und sachlich
+
+KAPITEL: ${item.title}
+
+ZUSAMMENFASSUNG:
+${item.summary}
+
+Antworte NUR mit 1-2 Sätzen.`;
+
+          const response = await provider.generateCompletion(prompt, {
+            maxTokens: 150,
+            temperature: 0.3
+          });
+          
+          return { success: true, id: item.id, shortSummary: response.trim() };
+        } catch (e) {
+          return { success: false, id: item.id, error: e.message };
+        }
+      });
+      
+      const batchResults = await Promise.all(batchPromises);
+      
+      // Aktualisiere Summaries
+      for (const result of batchResults) {
+        if (result.success) {
+          summaries[result.id].shortSummary = result.shortSummary;
+          processed++;
+        } else {
+          errors.push({ id: result.id, error: result.error });
+        }
+      }
+      
+      // Zwischenspeichern
+      if (processed > 0 && processed % 20 === 0) {
+        await fs.writeFile(BOOK_CHAPTER_SUMMARIES_FILE, JSON.stringify(summaries, null, 2), 'utf8');
+        console.log(`[BOOK-SHORT-SUMMARIES] ${processed}/${toProcess.length} verarbeitet`);
+      }
+      
+      // Rate limiting
+      if (i + BATCH_SIZE < toProcess.length) {
+        await new Promise(r => setTimeout(r, 500));
+      }
+    }
+    
+    // Finale Speicherung
+    await fs.writeFile(BOOK_CHAPTER_SUMMARIES_FILE, JSON.stringify(summaries, null, 2), 'utf8');
+    
+    console.log(`[BOOK-SHORT-SUMMARIES] Fertig: ${processed} generiert, ${errors.length} Fehler`);
+    res.json({ 
+      success: true, 
+      processed, 
+      total: Object.keys(summaries).length,
+      errors: errors.length,
+      errorDetails: errors.slice(0, 10)
+    });
+    
+  } catch (error) {
+    console.error('[BOOK-SHORT-SUMMARIES] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================
+// KI-BASIERTE THEMEN-ZUORDNUNG
+// ============================================================
+
+const THEME_ASSIGNMENTS_FILE = path.join(__dirname, 'theme-assignments.json');
+
+// Themen mit ihren Schlagwörtern für die Zuordnung (synchron mit thematic-visualization.js)
+const THEME_KEYWORDS = {
+  "Abstammung / Evolution": "Abstammung Evolution Haeckel Mensch und Tier",
+  "Akasha-Chronik": "Akasha Okkulte Geschichte Akasha-Chronik",
+  "Anthroposophie": "Anthroposophie Geisteswissenschaft Geheimwissenschaft",
+  "Anthroposophische Gesellschaft": "Weihnachtstagung Dornach Verlag Vorsitz Anthroposophische Gesellschaft",
+  "Anthroposophische Künste": "Eurythmie Sprachgestaltung Menschheitsrepräsentant Organische Architektur Malen aus der Farbe",
+  "Anthroposophische Medizin": "Medizin Heilkunde Heilmittel Pathologie Therapie",
+  "Bewusstsein": "Wachen Träumen Schlafen Trance Somnambulismus Erweitertes Bewusstsein Schauendes Bewusstsein",
+  "Bibel / Evangelien": "Bibel Evangelien Bergpredigt Paulus Prolog Johannes-Evangelium Vaterunser Seligpreisungen Neues Testament Altes Testament Zehn Gebote Markus-Evangelium Lukas-Evangelium Matthäus-Evangelium",
+  "Biographie": "Zahnwechsel Geschlechtsreife Rubikon Jahrsiebte Ich-Geburt Nachahmung Vorbild Nachfolge Autorität Urteilskraft Jüngerwerden der Menschheit",
+  "Böses (Luzifer, Ahriman)": "Luzifer Ahriman Böses Asuras",
+  "Christengemeinschaft": "Die Christengemeinschaft Sakrament Ritus",
+  "Christentum": "Jesus Jordan-Taufe Abendmahl Lazarus Paulus Nikodemus Vaterunser Christus-Jesus",
+  "Christus / Golgatha": "Christus Golgatha Logos Weltenwort Auferstehung",
+  "Darwinismus": "Darwinismus Darwin Daseinskampf",
+  "Elementarwesen": "Gnomen Undinen Sylphen Salamander Elementarwesen",
+  "Erkenntnisstufen": "Imagination Inspiration Intuition",
+  "Erkenntnis / Erkenntnistheorie": "Wahrnehmung Denken Erkennen Erkenntnistheorie Urteilskraft Wahrheit Irrtum Erkenntnisrätsel Grenzen des Erkennens Erkenntnismethode Erkenntnisweg Erkenntniskraft",
+  "Freiheitsphilosophie": "Freiheit Philosophie der Freiheit Ethischer Individualismus",
+  "Gehirn & Geist": "Gehirn Denken Geist Bewusstsein Abbau Astralleib Spiegelung",
+  "Geistige Wesen": "Hierarchien Seraphim Dynamis Throne Cherubim Kyriotetes Exusiai Archai Archangeloi Angeloi Dionysius Areopagita Jahve Elohim",
+  "Geistige Weltbereiche": "Astralwelt Devachan Geistige Welt Kamaloka Ätherwelt Mentale Welt",
+  "Geistiges Erkennen": "Hellsehen Exakte Clairvoyance Übersinnliche Wahrnehmung",
+  "Goethes Naturerkennen": "Goethes Naturerkenntnis Morphologie Metamorphose Phänomenologie Farbenlehre Urpflanze Urphänomen Ideen mit Augen sehen Anschauende Urteilskraft Zwischenkieferknochen",
+  "Geschichte / Kulturentwicklung": "Geschichte Kulturentwicklung Atlantis Lemuris Ägyptische Kultur Nachatlantische Kulturen Chaldäische Kultur Griechisch-römische Kultur Zeitalter der Bewusstseinsseele Ägyptisch-chaldäische Kultur Mittelalter Alt-indische Kultur Persische Kultur",
+  "Goethe (Faust, Märchen)": "Goethe Faust Märchen Grüne Schlange Schöne Lilie Mephistopheles Ewig-Weibliches Homunkulus Erdgeist",
+  "Goetheanismus": "Goetheanismus Metamorphose Typus Anschauende Urteilskraft Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie",
+  "Goetheanum": "Baugedanke Brand Menschheitsrepräsentant Kuppelmalerei Säulen Glasfenster",
+  "Hüter der Schwelle": "Hüter der Schwelle",
+  "Kosmologie / Kosmogonie": "Kosmologie Kosmogonie Alter Saturn Alte Sonne Alter Mond Erde Jupiter Venus Vulkan Tierkreis",
+  "Kulturen & Völker": "Volksseelen Mitteleuropa Deutsche Volksseele Orientalische Kultur",
+  "Landwirtschaft": "Landwirtschaft Präparate Hoforganismus",
+  "Lebenspraxis": "Lebenskraft Lebenserfahrung Lebensfragen Lebensgesetze",
+  "Meditation / Schulungsweg": "Meditation Schulungsweg Rückschau Konzentration Übungen Nebenübungen Mantram Symbol Leeres Bewusstsein Andacht Gebet",
+  "Menschenkunde": "Menschenkunde Dreigliederung Temperamente Nerven-Sinnes-System Rhythmisches System Stoffwechsel-Gliedmaßen-System Leib Seele Geist",
+  "Menschheitsentwicklung": "Menschheitsentwicklung Wurzelrassen Kulturepochen Menschheitsführer Kali Yuga",
+  "Michael": "Michael Michael-Briefe Drache Michael-Zeitalter 1879",
+  "Moral": "Moralische Weltordnung Moralische Phantasie Moral",
+  "Mysteriendramen": "Mysteriendramen Pforte der Einweihung Prüfung der Seele",
+  "Mysterienwesen / Einweihung": "Einweihung Eleusis Kabiren Delphi Samothrake Ephesus Mysterien Ägyptische Mysterien Mitras",
+  "Mythologie": "Isis Osiris Demeter Persephone Widar Wotan",
+  "Naturreiche": "Naturreiche Mineralreich Pflanzenreich Tierreich Menschenreich Gruppenseelen",
+  "Naturwissenschaft / Mathematik": "Naturwissenschaft Physik Chemie Biologie Geologie Astronomie Mathematik Anatomie",
+  "Pädagogik / Heilpädagogik": "Pädagogik Heilpädagogik Erziehung Vorbild und Nachahmung Autorität und Nachfolge Pädagogisches Gesetz",
+  "Philosophie": "Aristoteles Plato Parmenides Heraklit Schopenhauer Fichte Hegel Schelling Eduard von Hartmann Philosophie Nietzsche Hartmann Kant Kantianismus Neukantianismus Descartes Mittelalterliche Philosophie",
+  "Reinkarnation & Karma": "Reinkarnation Karma Inkarnation Kamaloka Weltenmitternacht Schicksal Vorgeburtlichkeit Nachtodliches Leben",
+  "Religionen / Weisheitslehren": "Religionen Weisheitslehren Buddhismus Hinduismus Islam Judentum Gnosis Mystik Esoterisches Christentum Okkultismus",
+  "Rhythmen & Zyklen": "Jahrsiebte Jahreszeiten Platonisches Weltenjahr Entwicklungszyklen 33-Jahre-Zyklus Kulturepochen Erzengel-Regentschaft",
+  "Rosenkreuzer": "Rosenkreuzer Rosenkreuzertum Christian Rosenkreutz Chymische Hochzeit",
+  "Rudolf Steiner": "Rudolf Steiner",
+  "Schlaf und Tod": "Schlaf Tod Lebenstableau Erinnerungstableau Kamaloka Devachan Nachtodliches Leben",
+  "Seelenfähigkeiten": "Denken Fühlen Wollen Gedächtnis Aufmerksamkeit",
+  "Seelenlehre / Seelenglieder": "Empfindungsseele Verstandesseele Bewusstseinsseele Psychosophie Vegetative Seele Animalische Seele",
+  "Sinneslehre": "Sinneslehre Sinnesorganisation Ich-Sinn Gedanken-Sinn Laut-Sinn Wort-Sinn Lebens-Sinn Tast-Sinn Bewegungs-Sinn Geschmacks-Sinn Geruchs-Sinn Seh-Sinn Hör-Sinn Wärme-Sinn",
+  "Soziale Dreigliederung": "Soziale Dreigliederung Wirtschaftleben Rechtsleben Geistesleben Assoziationen Freiheit Gleichheit Brüderlichkeit",
+  "Sprache": "Sprechenlernen Sprache Vokale Konsonanten Laute Worte Grammatik",
+  "Theosophische Gesellschaft": "Theosophie Blavatsky Besant Bruderbund",
+  "Tugenden": "Brüderlichkeit Demut Ehrfurcht Gerechtigkeit Liebe Selbstlosigkeit Toleranz",
+  "Vier Elemente / Ätherarten": "Elemente Feuer Luft Wasser Erde Äther Lebensäther Wärmeäther Lichtäther Klangäther Chemischer Äther",
+  "Weltanschauungen": "Agnostizismus Materialismus Spiritualismus Monismus Idealismus Neuplatonismus Pragmatismus Deutscher Idealismus",
+  "Wesensglieder": "Wesensglieder Physischer Leib Ätherleib Astralleib Ich Geistselbst Lebensgeist Geistesmensch Manas Atma Buddhi",
+  "Westen Mitte Osten": "West-Ost-Gegensatz Orient Okzident Amerika Europa Asien"
+};
+
+const ALL_THEMES = Object.keys(THEME_KEYWORDS);
+
+// Funktion: Claude ordnet eine Summary den passenden Themen zu
+async function assignThemesWithClaude(summaryText, textId, title = '') {
+  const { createProvider } = require('./llm-providers');
+  const provider = createProvider('claude');
+  
+  if (!provider.isAvailable()) {
+    throw new Error('Claude nicht verfügbar');
+  }
+  
+  // Erstelle die Schlagwort-Liste (nur Schlagwörter, keine Themen-Überschriften)
+  const keywordList = ALL_THEMES.map((theme, i) => 
+    `${i + 1}. ${THEME_KEYWORDS[theme]}`
+  ).join('\n');
+  
+  const prompt = `Du bist ein Experte für Rudolf Steiners Werk. Analysiere den folgenden Text und ordne ihn den passenden SCHLAGWORT-GRUPPEN zu.
+
+TEXT-ID: ${textId}
+TITEL: ${title || 'Unbekannt'}
+
+ZUSAMMENFASSUNG:
+${summaryText}
+
+SCHLAGWORT-GRUPPEN (nur zuordnen wenn der Text DIREKT diese Begriffe behandelt):
+${keywordList}
+
+AUFGABE:
+- Ordne NUR zu, wenn der Text diese spezifischen Begriffe/Konzepte DIREKT behandelt
+- Sei SEHR streng: Allgemeine philosophische Betrachtungen passen NICHT zu "Buddhismus Hinduismus Islam"
+- Ein Text über Erkenntnistheorie/Denken gehört NICHT zu religiösen Themen
+- Gib die Nummern der passenden Gruppen als kommaseparierte Liste zurück
+- Wenn keine Gruppe passt, antworte mit "0"
+
+ANTWORT (nur Zahlen, z.B. "16, 24"):`;
+
+  const response = await provider.generateCompletion(prompt, {
+    maxTokens: 100,
+    temperature: 0.1
+  });
+  
+  // Parse die Antwort
+  const numbers = response.match(/\d+/g) || [];
+  const themes = numbers
+    .map(n => parseInt(n) - 1)
+    .filter(i => i >= 0 && i < ALL_THEMES.length)
+    .map(i => ALL_THEMES[i]);
+  
+  return themes;
+}
+
+// API: Themen-Zuordnung für bestimmte GA-Bände durchführen
+app.post('/api/assign-themes-batch', async (req, res) => {
+  try {
+    const { gaPattern, forceReassign = false, limit = 500 } = req.body;
+    
+    if (!gaPattern) {
+      return res.status(400).json({ error: 'gaPattern erforderlich (z.B. "GA046|GA05[1-9]|GA060")' });
+    }
+    
+    console.log(`[THEME-ASSIGN] Starte Zuordnung für Pattern: ${gaPattern}`);
+    
+    // Lade Summaries
+    const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE, 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Lade bestehende Zuordnungen
+    let assignments = {};
+    try {
+      assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE, 'utf8'));
+    } catch (e) {
+      console.log('[THEME-ASSIGN] Keine bestehenden Zuordnungen gefunden');
+    }
+    
+    // Finde passende Summaries
+    const regex = new RegExp(`^(${gaPattern})`);
+    const toProcess = [];
+    
+    // Aus summary-database
+    for (const id in summaryDb) {
+      if (regex.test(id)) {
+        if (!assignments[id] || forceReassign) {
+          const summary = summaryDb[id];
+          const text = summary.shortSummary || summary.summary || '';
+          if (text.trim().length > 30) {
+            toProcess.push({ id, text: text.trim(), title: summary.title || '' });
+          }
+        }
+      }
+    }
+    
+    // Aus book-chapter-summaries
+    for (const id in bookChapterSummaries) {
+      if (regex.test(id)) {
+        if (!assignments[id] || forceReassign) {
+          const chapter = bookChapterSummaries[id];
+          const text = chapter.shortSummary || chapter.summary || '';
+          if (text.trim().length > 30) {
+            toProcess.push({ id, text: text.trim(), title: chapter.title || '' });
+          }
+        }
+      }
+    }
+    
+    // Limitieren
+    const batch = toProcess.slice(0, limit);
+    console.log(`[THEME-ASSIGN] ${batch.length} Texte zu verarbeiten (von ${toProcess.length} gefunden)`);
+    
+    if (batch.length === 0) {
+      return res.json({ success: true, processed: 0, message: 'Alle Texte bereits zugeordnet' });
+    }
+    
+    let processed = 0;
+    let errors = [];
+    
+    for (const item of batch) {
+      try {
+        console.log(`[THEME-ASSIGN] ${processed + 1}/${batch.length}: ${item.id}`);
+        
+        const themes = await assignThemesWithClaude(item.text, item.id, item.title);
+        
+        assignments[item.id] = {
+          themes: themes,
+          assignedAt: new Date().toISOString()
+        };
+        
+        processed++;
+        
+        // Zwischenspeichern alle 20 Texte
+        if (processed % 20 === 0) {
+          await fs.writeFile(THEME_ASSIGNMENTS_FILE, JSON.stringify(assignments, null, 2), 'utf8');
+          console.log(`[THEME-ASSIGN] Zwischenstand gespeichert: ${processed}/${batch.length}`);
+        }
+        
+        // Rate limiting: 200ms Pause
+        await new Promise(r => setTimeout(r, 200));
+        
+      } catch (e) {
+        console.error(`[THEME-ASSIGN] Fehler bei ${item.id}:`, e.message);
+        errors.push({ id: item.id, error: e.message });
+      }
+    }
+    
+    // Finale Speicherung
+    await fs.writeFile(THEME_ASSIGNMENTS_FILE, JSON.stringify(assignments, null, 2), 'utf8');
+    
+    console.log(`[THEME-ASSIGN] Fertig: ${processed} zugeordnet, ${errors.length} Fehler`);
+    res.json({
+      success: true,
+      processed,
+      total: Object.keys(assignments).length,
+      errors: errors.length,
+      remaining: toProcess.length - batch.length
+    });
+    
+  } catch (error) {
+    console.error('[THEME-ASSIGN] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Status der Themen-Zuordnungen abrufen (mit Jahresdaten für Heatmap)
+app.get('/api/theme-assignments-status', async (req, res) => {
+  try {
+    let assignments = {};
+    try {
+      assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE, 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Lade Metadaten für Jahre
+    let keywordsDb = {};
+    let bibliography = {};
+    try {
+      keywordsDb = JSON.parse(await fs.readFile(path.join(__dirname, 'keywords-database.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    try {
+      bibliography = JSON.parse(await fs.readFile(path.join(__dirname, 'ga-bibliography.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Statistik mit Jahren
+    const themeCounts = {};
+    const themeYears = {}; // { themeName: { year: count } }
+    
+    for (const id in assignments) {
+      const themes = assignments[id].themes || [];
+      
+      // Ermittle Jahr für diesen Text
+      let year = null;
+      const meta = keywordsDb[id];
+      if (meta && meta.year) {
+        year = meta.year;
+      } else {
+        // Aufsätze/Bücher: Jahr aus Bibliographie
+        const gaMatch = id.match(/^(GA\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : null;
+        const bibEntry = gaNum ? bibliography[gaNum] : null;
+        if (bibEntry) {
+          const pubInfo = bibEntry.originalPublication || bibEntry.year || '';
+          const years = (pubInfo.match(/\b(18|19)\d{2}\b/g) || []).map(Number);
+          year = years.length > 0 ? years[0] : null;
+        }
+      }
+      
+      themes.forEach(t => {
+        themeCounts[t] = (themeCounts[t] || 0) + 1;
+        
+        if (year && year >= 1882 && year <= 1925) {
+          if (!themeYears[t]) themeYears[t] = {};
+          themeYears[t][year] = (themeYears[t][year] || 0) + 1;
+        }
+      });
+    }
+    
+    // Finde das globale Maximum über alle Themen und Jahre
+    let globalMaxCount = 0;
+    for (const theme in themeYears) {
+      const yearData = themeYears[theme];
+      const maxForTheme = Math.max(...Object.values(yearData));
+      if (maxForTheme > globalMaxCount) globalMaxCount = maxForTheme;
+    }
+    // Mindestens 3, um zu schwache Farben bei wenigen Einträgen zu vermeiden
+    globalMaxCount = Math.max(globalMaxCount, 3);
+    
+    // Erstelle Ranges für jedes Thema basierend auf den Jahren
+    const themeRanges = {};
+    for (const theme in themeYears) {
+      const yearData = themeYears[theme];
+      const years = Object.keys(yearData).map(Number).sort((a, b) => a - b);
+      
+      if (years.length === 0) continue;
+      
+      // Berechne Intensität pro Jahr mit logarithmischer Skala für bessere Differenzierung
+      // log(1) = 0, log(globalMax) = max
+      const logMax = Math.log(globalMaxCount + 1);
+      const ranges = years.map(y => ({
+        start: y,
+        end: y,
+        intensity: Math.min(1, Math.log(yearData[y] + 1) / logMax),
+        count: yearData[y]
+      }));
+      
+      themeRanges[theme] = {
+        ranges: ranges,
+        totalMatches: themeCounts[theme],
+        yearCounts: yearData
+      };
+    }
+    
+    res.json({
+      totalAssignments: Object.keys(assignments).length,
+      themeCounts: themeCounts,
+      themeRanges: themeRanges,
+      globalMaxCount: globalMaxCount,
+      sample: Object.entries(assignments).slice(0, 5)
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================
 
     console.log('\n[8/9] Lade Query-Log und Cache...');
     await loadQueryLog();
