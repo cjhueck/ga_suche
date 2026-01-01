@@ -637,25 +637,6 @@
       "Schöpferische Gedanken"
     ]
   },
-  "Entwicklung & Evolution": {
-    "description": "Allgemeine Entwicklungsprinzipien",
-    "keywords": [
-      "Menschheitsentwicklung",
-      "Entwickelungsgedanke",
-      "Entwicklung",
-      "Entwicklungslehre",
-      "Entwicklungsgesetz",
-      "Entwicklungsphasen",
-      "Entwicklungszyklen",
-      "Evolution",
-      "Evolution und Involution",
-      "Metamorphose",
-      "Formstadien",
-      "Transformation",
-      "Umstülpung",
-      "Urmenschheit"
-    ]
-  },
   "Kosmische Entwicklung": {
     "description": "Planetarische und kosmische Entwicklungsstufen",
     "keywords": [
@@ -1244,80 +1225,6 @@
       "Jurisprudenz",
       "Philosophische Fakultät",
       "Graphologie"
-    ]
-  },
-  "Pädagogik & Erziehung": {
-    "description": "Erziehungskunst und Waldorfpädagogik",
-    "keywords": [
-      "Pädagogik",
-      "Erziehung",
-      "Waldorfpädagogik",
-      "Autorität in der Erziehung",
-      "Erziehungskunst",
-      "Lebendige Pädagogik",
-      "Universitätsreform",
-      "Studenten",
-      "Weltschulverein",
-      "Holländische Hochschulen",
-      "Universitäten",
-      "Hochschule",
-      "Hochschulbund",
-      "Wiederholung",
-      "Lehrerbildung",
-      "Lehrerpersönlichkeit",
-      "Lehrer",
-      "Lehrerkollegium",
-      "Lehrer-Schüler-Verhältnis",
-      "Schulwesen",
-      "Schulbildung",
-      "Elternhaus",
-      "Schulaufsicht",
-      "Morgenspruch",
-      "Lehrerkonferenz",
-      "Schülerverhalten",
-      "Lehrerautorität",
-      "Familienverhältnisse",
-      "Abitur",
-      "Prüfungswesen",
-      "Hilfsklasse",
-      "Heilpädagogik",
-      "Jugendpädagogik",
-      "Volksschule",
-      "Spielzeug",
-      "Zeugnis",
-      "Kindergarten",
-      "Ganzheitliche Erziehung",
-      "Fachstudium",
-      "Begabtenprüfung",
-      "Universitätsbildung",
-      "Kinder",
-      "Bildung",
-      "Universitätswesen",
-      "Analphabetismus",
-      "Arbeiterbildung",
-      "Hochschulwesen",
-      "Grundschulgesetz",
-      "Hochschulkurs",
-      "Hochschulkurse",
-      "Waldorfschule",
-      "Freie Hochschule",
-      "Nachwuchsförderung",
-      "Vortragsreihe"
-    ]
-  },
-  "Entwicklungsphasen": {
-    "description": "Kindliche Entwicklungsphasen",
-    "keywords": [
-      "Jahrsiebte",
-      "Zahnwechsel",
-      "Geschlechtsreife",
-      "Kindheitserinnerung",
-      "Kindheitskräfte",
-      "Stimmbruch",
-      "Pubertät",
-      "Stimmwechsel",
-      "Geschlechtswechsel",
-      "Kindheit"
     ]
   },
   "Unterricht": {
@@ -3250,17 +3157,6 @@
       "Feuer"
     ]
   },
-  "Embryologie & Entwicklung": {
-    "description": "Embryonale Entwicklung und vorgeburtliche Prozesse",
-    "keywords": [
-      "Embryologie",
-      "Befruchtung",
-      "Zahnentwicklung",
-      "Allantois",
-      "Embryonalzustand",
-      "Embryo"
-    ]
-  },
   "Erdentwicklung": {
     "description": "Entwicklung und Zukunft der Erde als Planetenstufe",
     "keywords": [
@@ -3836,6 +3732,108 @@
       "Lebewesen",
       "Plastische Kräfte",
       "Samenbildung"
+    ]
+  },
+  "Abstammung / Evolution": {
+    "description": "Allgemeine Entwicklungsprinzipien",
+    "keywords": [
+      "Menschheitsentwicklung",
+      "Entwickelungsgedanke",
+      "Entwicklung",
+      "Entwicklungslehre",
+      "Entwicklungsgesetz",
+      "Entwicklungsphasen",
+      "Entwicklungszyklen",
+      "Evolution",
+      "Evolution und Involution",
+      "Metamorphose",
+      "Formstadien",
+      "Transformation",
+      "Umstülpung",
+      "Urmenschheit",
+      "Embryologie",
+      "Befruchtung",
+      "Zahnentwicklung",
+      "Allantois",
+      "Embryonalzustand",
+      "Embryo",
+      "Abstammungslehre"
+    ]
+  },
+  "Biographie": {
+    "description": "Kindliche Entwicklungsphasen",
+    "keywords": [
+      "Jahrsiebte",
+      "Zahnwechsel",
+      "Geschlechtsreife",
+      "Kindheitserinnerung",
+      "Kindheitskräfte",
+      "Stimmbruch",
+      "Pubertät",
+      "Stimmwechsel",
+      "Geschlechtswechsel",
+      "Kindheit",
+      "Rubikon"
+    ]
+  },
+  "Pädagogik / Heilpädagogik": {
+    "description": "Erziehungskunst und Waldorfpädagogik",
+    "keywords": [
+      "Pädagogik",
+      "Erziehung",
+      "Waldorfpädagogik",
+      "Autorität in der Erziehung",
+      "Erziehungskunst",
+      "Lebendige Pädagogik",
+      "Universitätsreform",
+      "Studenten",
+      "Weltschulverein",
+      "Holländische Hochschulen",
+      "Universitäten",
+      "Hochschule",
+      "Hochschulbund",
+      "Wiederholung",
+      "Lehrerbildung",
+      "Lehrerpersönlichkeit",
+      "Lehrer",
+      "Lehrerkollegium",
+      "Lehrer-Schüler-Verhältnis",
+      "Schulwesen",
+      "Schulbildung",
+      "Elternhaus",
+      "Schulaufsicht",
+      "Morgenspruch",
+      "Lehrerkonferenz",
+      "Schülerverhalten",
+      "Lehrerautorität",
+      "Familienverhältnisse",
+      "Abitur",
+      "Prüfungswesen",
+      "Hilfsklasse",
+      "Heilpädagogik",
+      "Jugendpädagogik",
+      "Volksschule",
+      "Spielzeug",
+      "Zeugnis",
+      "Kindergarten",
+      "Ganzheitliche Erziehung",
+      "Fachstudium",
+      "Begabtenprüfung",
+      "Universitätsbildung",
+      "Kinder",
+      "Bildung",
+      "Universitätswesen",
+      "Analphabetismus",
+      "Arbeiterbildung",
+      "Hochschulwesen",
+      "Grundschulgesetz",
+      "Hochschulkurs",
+      "Hochschulkurse",
+      "Waldorfschule",
+      "Freie Hochschule",
+      "Nachwuchsförderung",
+      "Vortragsreihe",
+      "Vorbild"
     ]
   }
 }

@@ -36443,7 +36443,7 @@ async function loadKeywordsForTheme(themeName) {
         const themeData = themes[themeName];
         
         if (themeData && themeData.keywords) {
-          // Sammle existierende Keywords
+          // Sammle existierende Keywords aus Vorträgen
           const existingKeywords = new Set();
           Object.values(keywordsDB).forEach(lecture => {
             if (lecture.keywords && Array.isArray(lecture.keywords)) {
@@ -36453,12 +36453,8 @@ async function loadKeywordsForTheme(themeName) {
             }
           });
           
-          // Nur verfügbare Keywords
-          const availableKeywords = themeData.keywords.filter(kw => 
-            existingKeywords.has(kw.toLowerCase())
-          );
-          
-          availableKeywords.sort().forEach(kw => {
+          // Zeige ALLE Keywords des Themas (auch manuell hinzugefügte)
+          themeData.keywords.sort().forEach(kw => {
             keywordsHTML += `<option value="${kw}">${kw}</option>`;
           });
         }
@@ -36577,7 +36573,7 @@ async function renderTimeline() {
     const keywordsDB = await loadKeywordsDatabase();
     
     if (currentTheme) {
-      // Keywords NUR vom ausgewählten Thema UND die tatsächlich existieren (NUR neue unified Generierungen)
+      // Keywords NUR vom ausgewählten Thema (inkl. manuell hinzugefügte)
       const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
       if (themesResponse.ok) {
         const themes = await themesResponse.json();
@@ -36603,12 +36599,8 @@ async function renderTimeline() {
             }
           });
           
-          // Filtere und sortiere
-          const availableKeywords = themeData.keywords.filter(kw => 
-            existingKeywords.has(kw.toLowerCase())
-          );
-          
-          availableKeywords.sort().forEach(kw => {
+          // Zeige ALLE Keywords des Themas (auch manuell hinzugefügte)
+          themeData.keywords.sort().forEach(kw => {
             const selected = kw === currentKeyword ? 'selected' : '';
             keywordsHTML += `<option value="${kw}" ${selected}>${kw}</option>`;
           });
