@@ -7408,7 +7408,7 @@
     "calculatedAt": "2025-12-31T13:20:55.798Z"
   },
   "Christengemeinschaft": {
-    "query": "Sakrament Ritus Die Christengemeinschaft",
+    "query": "Sakrament Ritus Die_Christengemeinschaft",
     "method": "embeddings",
     "ranges": [
       {
@@ -7416,130 +7416,130 @@
         "end": 1916,
         "intensity": 0.24,
         "count": 1,
-        "avgSimilarity": 0.692
+        "avgSimilarity": 0.704
       },
       {
         "start": 1917,
         "end": 1917,
         "intensity": 0.24,
         "count": 1,
-        "avgSimilarity": 0.702
+        "avgSimilarity": 0.711
       },
       {
         "start": 1920,
         "end": 1920,
         "intensity": 0.26,
         "count": 1,
-        "avgSimilarity": 0.753
+        "avgSimilarity": 0.769
       },
       {
         "start": 1921,
         "end": 1921,
         "intensity": 0.25,
         "count": 1,
-        "avgSimilarity": 0.719
+        "avgSimilarity": 0.724
       },
       {
         "start": 1922,
         "end": 1922,
-        "intensity": 0.54,
+        "intensity": 0.55,
         "count": 5,
-        "avgSimilarity": 0.748
+        "avgSimilarity": 0.758
       },
       {
         "start": 1923,
         "end": 1923,
         "intensity": 0.53,
         "count": 5,
-        "avgSimilarity": 0.703
+        "avgSimilarity": 0.714
       },
       {
         "start": 1924,
         "end": 1924,
         "intensity": 0.24,
         "count": 1,
-        "avgSimilarity": 0.697
+        "avgSimilarity": 0.712
       }
     ],
     "totalMatches": 15,
     "textIds": [
       {
         "id": "GA344/14",
-        "similarity": 0.7818600253639725,
+        "similarity": 0.7923103300103799,
         "year": 1922
       },
       {
         "id": "GA344/19",
-        "similarity": 0.7643621114556146,
+        "similarity": 0.7794526429548679,
         "year": 1922
       },
       {
         "id": "GA342/7",
-        "similarity": 0.7528470383821069,
+        "similarity": 0.7694281961421877,
         "year": 1920
       },
       {
         "id": "GA344/1",
-        "similarity": 0.731958234948943,
-        "year": 1922
-      },
-      {
-        "id": "GA344/5",
-        "similarity": 0.731878228430117,
+        "similarity": 0.7421137739267784,
         "year": 1922
       },
       {
         "id": "GA344/20",
-        "similarity": 0.7290588661909143,
+        "similarity": 0.7392813729734411,
+        "year": 1922
+      },
+      {
+        "id": "GA344/5",
+        "similarity": 0.7359720660467999,
         "year": 1922
       },
       {
         "id": "GA028/36",
-        "similarity": 0.7272247566954481,
+        "similarity": 0.7348988458735871,
         "year": 1923
       },
       {
         "id": "GA342/3",
-        "similarity": 0.7191600697697923,
+        "similarity": 0.7237285607999926,
         "year": 1921
       },
       {
         "id": "GA345/1",
-        "similarity": 0.7100834395367343,
+        "similarity": 0.7170229851023001,
         "year": 1923
       },
       {
-        "id": "GA251/6",
-        "similarity": 0.701915928621715,
-        "year": 1917
-      },
-      {
         "id": "GA028/17",
-        "similarity": 0.698676068510324,
+        "similarity": 0.713092634456673,
         "year": 1923
       },
       {
         "id": "GA346/1",
-        "similarity": 0.6968226420263494,
+        "similarity": 0.7118812026250521,
         "year": 1924
       },
       {
+        "id": "GA251/6",
+        "similarity": 0.711036115163897,
+        "year": 1917
+      },
+      {
         "id": "GA020/1",
-        "similarity": 0.6922556482226775,
+        "similarity": 0.7044787906333746,
         "year": 1916
       },
       {
         "id": "GA028/24",
-        "similarity": 0.6917785796954579,
+        "similarity": 0.7025741932954835,
         "year": 1923
       },
       {
         "id": "GA028/26",
-        "similarity": 0.6883467993250151,
+        "similarity": 0.7009721806502902,
         "year": 1923
       }
     ],
-    "calculatedAt": "2025-12-31T23:19:56.962Z"
+    "calculatedAt": "2026-01-01T12:25:26.659Z"
   },
   "Anthroposophische Gesellschaft": {
     "query": "Weihnachtstagung Dornach Verlag Vorsitz Anthroposophische_Gesellschaft",

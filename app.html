@@ -1510,7 +1510,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 400px;
+      width: 375px;
       min-width: 0px;
       max-width: none;
       height: 100vh;
@@ -3154,7 +3154,7 @@ gap: 4px !important;
       box-sizing: border-box;
       border: 1px solid var(--link-color);
       background: var(--background-color);
-      font-size: 15px;
+      font-size: 13px;
       min-height: 70px;
       resize: vertical;
       border-radius: 4px;
@@ -3385,7 +3385,7 @@ gap: 4px !important;
       box-sizing: border-box;
       border: 1px solid #ccc;
       background: var(--background-color);
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
     
     .search-words-row {
@@ -3409,7 +3409,7 @@ gap: 4px !important;
       min-height: 2.2em;
       padding: 6px 8px;
       margin: 2px 0;
-      font-size: 0.9em;
+      font-size: 0.8em;
       box-sizing: border-box;
       border: 1px solid #ccc;
       background: var(--background-color);
@@ -3483,6 +3483,11 @@ gap: 4px !important;
       display: none;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       opacity: 1 !important;
+    }
+    
+    #gaFilterList {
+      min-width: 120px;
+      right: auto;
     }
     
     .custom-dropdown.open .custom-dropdown-list {
@@ -6590,19 +6595,19 @@ Wandtafeln
 <!-- Custom Multi-Select Dropdown für GA-Bände -->
 <div class="custom-dropdown" id="gaFilterContainer">
   <button type="button" class="filter-dropdown custom-dropdown-button" id="gaFilterButton">
-    <span class="custom-dropdown-text">GA-Bände</span>
+    <span class="custom-dropdown-text">GA</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
   <div class="custom-dropdown-list" id="gaFilterList"></div>
 </div>
 
-<select class="filter-dropdown" id="proximityFilter" style="flex: 0.6;" data-help="distanceFilter">
+<select class="filter-dropdown" id="proximityFilter" style="flex: 0 0 auto; width: 85px;" data-help="distanceFilter">
 <option value="">Abstand</option>
 <option value="1">1 Absatz</option>
 <option value="2">2 Absätze</option>
 <option value="3">3 Absätze</option>
 </select>
-<select class="filter-dropdown" id="relevanceFilter" style="flex: 0.7;" data-help="relevanceFilter">
+<select class="filter-dropdown" id="relevanceFilter" style="flex: 0 0 auto; width: 85px;" data-help="relevanceFilter">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
@@ -6613,7 +6618,7 @@ Wandtafeln
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items: flex-start; justify-content: space-between; width: 100%;">
     <div style="display:flex; gap:8px;">
-      <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suche starten</button>
+      <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suchen</button>
       <button id="frequencyBtnSimple" class="depth-btn primary" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 8px;">Häufigkeit</button>
       <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 8px;">erweitert</button>
     </div>
@@ -6847,10 +6852,10 @@ Wandtafeln
 <div class="semantic-options">
 <div class="filter-row">
 <select class="filter-dropdown" id="thematicGAFilter">
-  <option value="">Alle GA-Bände</option>
+  <option value="">GA-Bände</option>
 </select>
 <!-- Analyse-Modus Auswahl -->
-<div style="display: flex; align-items: center; gap: 6px; margin-left: 6px;">
+<div style="display: flex; align-items: center; gap: 6px; margin-left: 2px;">
   <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;">
     <input type="radio" name="thematicMode" value="deep" checked style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
     <span style="color: var(--text-color); font-weight: 500;">Tiefe</span>
@@ -12388,7 +12393,7 @@ function normalizeGANumber(gaNumber) {
         'gaFilterContainer',
         'gaFilterButton',
         'gaFilterList',
-        'GA-Bände'
+        'GA'
       );
       
       advancedGAFilterDropdown = new MultiSelectDropdown(
@@ -12464,7 +12469,7 @@ function normalizeGANumber(gaNumber) {
         const conceptOverviewGAFilter = document.getElementById('conceptOverviewGAFilter');
         
         if (thematicGAFilter) {
-          thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+          thematicGAFilter.innerHTML = '<option value="">GA-Bände</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
@@ -30534,7 +30539,7 @@ if (!isLocalhost) {
   }
   
   if (thematicGAFilter) {
-    thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+    thematicGAFilter.innerHTML = '<option value="">GA-Bände</option>';
   }
   
   // Kein Fehler mehr, da Custom Dropdowns verwendet werden können
