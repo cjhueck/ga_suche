@@ -3067,6 +3067,10 @@ body.dark-mode #viewerOriginalBtn {
   color: var(--dark-text-color) !important;
 }
 
+#viewerOriginalBtn {
+  display: none !important;
+}
+
 #viewerOriginalBtn:hover {
   opacity: 0.7;
 }   
@@ -3828,14 +3832,13 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     
     /* Viewer Header Button Container */
     .viewer-buttons-container {
-      display: grid;
-      grid-template-columns: auto auto auto; /* 3 Spalten */
-      grid-template-rows: repeat(2, auto); /* 2 Zeilen */
-      column-gap: 2px; /* Horizontaler Abstand zwischen Spalten */
-      row-gap: 2px; /* Vertikaler Abstand zwischen Zeilen */
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 4px;
       margin-left: auto;
       flex-shrink: 0;
-      align-items: flex-start; /* Buttons oben ausrichten */
+      align-items: center;
       position: relative;
     }
     
@@ -3849,6 +3852,22 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       justify-content: center !important;
       padding: 4px 8px !important; /* Einheitliches Padding */
       line-height: 1 !important;
+    }
+    
+    /* Eckige Buttons - einheitliche Breite */
+    #viewerTOCToggleBtn,
+    #viewerDownloadBtn,
+    #h4ToggleBtn,
+    #viewerSummaryBtn,
+    #membersPanelBtn {
+      min-width: 30px !important;
+      width: 30px !important;
+    }
+    
+    /* Runder Info-Button */
+    #gaInfoBtn {
+      min-width: 32px !important;
+      width: 32px !important;
     }
     
     /* Mitglieder-Button ist immer sichtbar */
@@ -8603,43 +8622,44 @@ Bestehende Schlagwörter überschreiben
 <polyline points="9 18 15 12 9 6"></polyline>
 </svg>
 </button>
-<!-- Mitglieder Button -->
-<button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
-<circle cx="12" cy="8" r="4"/>
-<path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
-</svg>
-<span class="chat-badge" id="app-header-chat-badge" style="display: none !important;">0</span>
-</button>
-<!-- H4 Toggle Button (nur bei Vorträgen) -->
-<button id="h4ToggleBtn" onclick="toggleH4Display()" title="H3/H3+H4+KW+H4Headings umschalten" style="display: none;">
-▼
-</button>
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
-</button>
-<!-- Info Button für bibliographische Angaben (nur bei GA-Bänden) - links neben Übersicht -->
-<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s; margin-right: 0px;">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
-<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
-</svg>
-</button>
-<button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-≡ Übersicht
 </button>
 <button id="viewerTOCToggleBtn" onclick="toggleTOCContent()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
 <path d="M6 2 L10 8 L2 8 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
 </svg>
 </button>
-<!-- PDF/Text Download Button -->
+<!-- 1. Info Button für bibliographische Angaben (nur bei GA-Bänden) -->
+<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+</svg>
+</button>
+<!-- 2. PDF/Text Download Button -->
 <button id="viewerDownloadBtn" onclick="showDownloadOptions()" title="Text herunterladen (PDF, TXT, Markdown)" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
 <polyline points="7 10 12 15 17 10"></polyline>
 <line x1="12" y1="15" x2="12" y2="3"></line>
 </svg>
+</button>
+<!-- H4 Toggle Button (nur bei Vorträgen) -->
+<button id="h4ToggleBtn" onclick="toggleH4Display()" title="H3/H3+H4+KW+H4Headings umschalten" style="display: none;">
+▼
+</button>
+<!-- 3. TOC/Übersicht Button -->
+<button id="viewerSummaryBtn" onclick="toggleViewerH4()" title="Übersicht ein-/ausblenden" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+≡
+</button>
+<!-- 4. Mitglieder Button -->
+<button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
+<circle cx="12" cy="8" r="4"/>
+<path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
+</svg>
+<span class="chat-badge" id="app-header-chat-badge" style="display: none !important;">0</span>
 </button>
 </div>
 </div>
@@ -14809,6 +14829,10 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   if (!displayTitle) {
     displayTitle = book.ID;
   }
+  // Füge yearRange in Klammern hinzu, falls vorhanden
+  if (book.yearRange) {
+    displayTitle = `${displayTitle} (${book.yearRange})`;
+  }
   const gaNumber = book.gaNumber || book.ID;
   const titleText = `${gaNumber} - ${displayTitle}`;
   documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
@@ -19175,6 +19199,10 @@ function scrollToChronologicalYear(year) {
           if (!displayTitle) {
             displayTitle = book.ID;
           }
+          // Füge yearRange in Klammern hinzu, falls vorhanden
+          if (book.yearRange) {
+            displayTitle = `${displayTitle} (${book.yearRange})`;
+          }
           html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
           
           // Finde den Index des Target-Paragraphs (wie bei Vorträgen)
@@ -19649,6 +19677,10 @@ function scrollToChronologicalYear(year) {
           }
           if (!displayTitle) {
             displayTitle = book.ID;
+          }
+          // Füge yearRange in Klammern hinzu, falls vorhanden
+          if (book.yearRange) {
+            displayTitle = `${displayTitle} (${book.yearRange})`;
           }
           const fullTitle = `${gaNumber} - ${displayTitle}`;
           
@@ -21501,7 +21533,7 @@ function scrollToChronologicalYear(year) {
           viewerSummaryBtn.style.display = 'none';
         } else {
           viewerSummaryBtn.style.display = 'inline-flex';
-          viewerSummaryBtn.innerHTML = '≡ Übersicht';
+          viewerSummaryBtn.innerHTML = '≡';
         }
       }
     } else {
@@ -21513,7 +21545,7 @@ function scrollToChronologicalYear(year) {
           viewerSummaryBtn.style.display = 'none';
         } else {
           viewerSummaryBtn.style.display = 'inline-flex';
-          viewerSummaryBtn.innerHTML = '≡ Übersicht';
+          viewerSummaryBtn.innerHTML = '≡';
         }
       }
     }
@@ -24620,7 +24652,7 @@ try {
         const summaryBtn = document.getElementById('viewerSummaryBtn');
         if (summaryBtn) {
           summaryBtn.disabled = false;
-          summaryBtn.innerHTML = '≡ Übersicht';
+          summaryBtn.innerHTML = '≡';
           summaryBtn.style.opacity = '1';
         }
       }
@@ -25114,7 +25146,7 @@ setTimeout(() => {
   
   if (viewerSummaryBtn) {
     viewerSummaryBtn.disabled = false;
-    viewerSummaryBtn.innerHTML = '≡ Übersicht';
+    viewerSummaryBtn.innerHTML = '≡';
     viewerSummaryBtn.style.opacity = '1';
   }
   // TOC-Toggle-Button ausblenden in Original-Ansicht
@@ -25234,7 +25266,7 @@ function showSummaryView() {
     if (viewerSummaryBtn) {
       // Button zurücksetzen falls er im Lade-Zustand war
       viewerSummaryBtn.disabled = false;
-      viewerSummaryBtn.innerHTML = '≡ Übersicht';
+      viewerSummaryBtn.innerHTML = '≡';
       viewerSummaryBtn.style.opacity = '1';
     }
     
