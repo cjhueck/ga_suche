@@ -22053,12 +22053,16 @@ function scrollToChronologicalYear(year) {
     }
     
     /**
-     * Navigiert zu einem Schlagwort im Index-Tab
+     * Navigiert zu einem Schlagwort im Themen-Tab (Timeline)
      * @param {string} keyword - Das Schlagwort, zu dem navigiert werden soll
      */
     function navigateToSchlagwort(keyword) {
-      // Führe die thematische Keyword-Suche durch (zeigt den Index-Eintrag an)
-      performKeywordThematicSearch(keyword);
+      // Hole aktuelle GA-Nummer und Lecture-ID für Zurück-Navigation
+      const gaNumber = currentLectureData ? (currentLectureData.gaNumber || currentLectureData.ID?.split('/')[0] || '') : '';
+      const lectureId = currentLectureData ? currentLectureData.ID : null;
+      
+      // Navigiere zum Themen-Tab und zeige das Keyword in der Timeline
+      navigateToTimelineKeyword(keyword, gaNumber, lectureId);
     }
     
     // ============================================================================

@@ -28,7 +28,7 @@
     "2026-01-01": {
       "views": 5,
       "searches": 7,
-      "lectures": 48
+      "lectures": 56
     }
   },
   "topSearches": {
@@ -59,7 +59,7 @@
     "GA291a/3": 2,
     "GA291a/12": 2,
     "GA291a/11": 2,
-    "GA084/1": 5,
+    "GA084/1": 6,
     "GA154/1": 1,
     "GA154/7": 1,
     "GA222/1": 1,
@@ -211,9 +211,10 @@
     "GA090a/27": 1,
     "GA295/1": 1,
     "GA260/18": 2,
-    "GA052/1": 1
+    "GA052/1": 1,
+    "GA087/1": 7
   },
   "totalViews": 24,
   "totalSearches": 33,
-  "totalLectureViews": 384
+  "totalLectureViews": 392
 }
