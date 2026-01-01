@@ -25,7 +25,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1923, end: 1924, intensity: 0.8 }
         ],
-        query: "Weihnachtstagung Dornach Verlag Vorsitz Anthroposophische Gesellschaft"
+        query: "Weihnachtstagung Dornach Verlag Vorsitz Anthroposophische_Gesellschaft"
     },
 {
         theme: "Anthroposophische Künste",
@@ -48,7 +48,7 @@ var SteinerThemesData = [
             { start: 1908, end: 1912, intensity: 1.0 },
             { start: 1913, end: 1924, intensity: 0.5 }
         ],
-        query: "Bibel Evangelien Bergpredigt Paulus Prolog Johannes-Evangelium Vaterunser Seligpreisungen Neues Testament Altes Testament Zehn Gebote Markus-Evangelium Lukas-Evangelium Matthäus-Evangelium"
+        query: "Bibel Evangelien Bergpredigt Paulus Prolog Johannes-Evangelium Vaterunser Seligpreisungen Markus-Evangelium Lukas-Evangelium Matthäus-Evangelium Neues Testament Altes Testament Genesis Apokalypse Kain Abel Paradies Lazarus Kanaa"
     },
         {
         theme: "Biographie",
@@ -70,7 +70,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1921, end: 1924, intensity: 1.0 }
         ],
-        query: "Die Christengemeinschaft Sakrament Ritus"
+        query: "Sakrament Ritus Die Christengemeinschaft"
     },
         {
         theme: "Christentum",
@@ -117,6 +117,13 @@ var SteinerThemesData = [
         query: "Wahrnehmung Denken Erkennen Erkenntnistheorie Urteilskraft Wahrheit Irrtum Erkenntnisrätsel Grenzen des Erkennens Erkenntnismethode Erkenntnisweg Erkenntniskraft"
     },
     {
+        theme: "Ernährung / Landwirtschaft",
+        ranges: [
+            { start: 1924, end: 1924, intensity: 1.0 }
+        ],
+        query: "Landwirtschaft Präparate Hoforganismus Ernährung Nahrungsmittel Kaffee Tee Alkohol Fleisch"
+    },
+    {
         theme: "Freiheitsphilosophie",
         ranges: [
             { start: 1890, end: 1895, intensity: 1.0 },
@@ -137,7 +144,7 @@ var SteinerThemesData = [
             { start: 1909, end: 1912, intensity: 1.0 },
             { start: 1913, end: 1924, intensity: 0.6 }
         ],
-        query: "Hierarchien Seraphim, Dynamis, Throne Cherubim, Kyriotetes, Exusiai Archai, Archangeloi, Angeloi Dionysius Areopagita Jahve Elohim"
+        query: "Hierarchien Seraphim, Dynamis, Throne Cherubim, Kyriotetes, Exusiai Archai, Archangeloi, Angeloi Dionysius Areopagita Jahve Elohim Erste Hierarchie Zweite Hierarchie Dritte Hierarchie"
     },
     {
         theme: "Geistige Weltbereiche",
@@ -213,13 +220,6 @@ var SteinerThemesData = [
             { start: 1904, end: 1924, intensity: 0.8 }
         ],
         query: "Volksseelen Mitteleuropa Deutsche Volksseele Orientalische Kultur"
-    },
-{
-        theme: "Landwirtschaft",
-        ranges: [
-            { start: 1924, end: 1924, intensity: 1.0 }
-        ],
-        query: "Landwirtschaft Präparate Hoforganismus"
     },
         {
         theme: "Lebenspraxis",
@@ -394,7 +394,7 @@ var SteinerThemesData = [
             { start: 1905, end: 1906, intensity: 0.5 },
             { start: 1917, end: 1922, intensity: 1.0 }
         ],
-        query: "Soziale Dreigliederung Wirtschaftleben Rechtsleben Geistesleben Assoziationen Freiheit Gleichheit Brüderlichkeit"
+        query: "Wirtschaftleben Rechtsleben Geistesleben Assoziationen Freiheit Gleichheit Brüderlichkeit Soziale_Dreigliederung"
     },
             {
         theme: "Sprache",

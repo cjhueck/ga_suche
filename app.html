@@ -6918,6 +6918,18 @@ Meine Abfragen
           Speichern
         </button>
       </div>
+      
+      <!-- KI-Neu-Zuordnung -->
+      <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
+        <button class="depth-btn" onclick="reassignThemeWithAI()" style="width: 100%; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+          Thema mit KI neu zuordnen
+        </button>
+        <p style="font-size: 0.75rem; color: var(--secondary-text); margin: 0.5rem 0 0 0;">
+          Durchsucht alle Texte nach den aktuellen Schlagwörtern und ordnet das Thema neu zu (API-Kosten).
+        </p>
+        <div id="reassignThemeStatus" style="margin-top: 0.5rem; display: none;"></div>
+      </div>
     </div>
   </div>
   
