@@ -55,7 +55,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1906, end: 1924, intensity: 0.8 }
         ],
-        query: "Zahnwechsel Geschlechtsreife Rubikon Jahrsiebte Ich-Geburt Nachahmung Vorbild Nachfolge Autorität Urteilskraft Jüngerwerden der Menschheit"
+        query: "Zahnwechsel Geschlechtsreife Rubikon Jahrsiebte Ich-Geburt Jüngerwerden_der_Menschheit"
     },
 {
         theme: "Böses (Luzifer, Ahriman)",
@@ -313,7 +313,7 @@ var SteinerThemesData = [
             { start: 1906, end: 1906, intensity: 0.4 },
             { start: 1919, end: 1925, intensity: 1.0 }
         ],
-        query: "Pädagogik Heilpädagogik Erziehung Vorbild und Nachahmung Autorität und Nachfolge Pädagogisches Gesetz"
+        query: "Pädagogik Heilpädagogik Erziehung Vorbild Nachahmung Autorität Nachfolge Pädagogisches Gesetz"
     },
         {
         theme: "Philosophie",

@@ -49,7 +49,7 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: 1.2fr 1.2fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 0.8fr 0.8fr 0.8fr;
             gap: 10px;
             padding: 10px;
             max-width: 100%;
@@ -651,6 +651,51 @@
                 </div>
             </div>
 
+            <!-- SPALTE 5: Neues Keyword -->
+            <div class="panel actions-panel">
+                <div class="panel-header">
+                    <h2>Neues Keyword</h2>
+                </div>
+                
+                <div class="action-groups">
+                    <div class="action-group">
+                        <h3>Keyword erstellen</h3>
+                        
+                        <div class="input-group">
+                            <label>Keyword-Name:</label>
+                            <input type="text" id="newKeywordInput" placeholder="z.B. Anthroposophie">
+                        </div>
+                        <div class="input-group">
+                            <label>Cluster (optional):</label>
+                            <select id="newKeywordClusterSelect">
+                                <option value="">Kein Cluster</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" onclick="addNewKeyword()">
+                            Keyword hinzufügen
+                        </button>
+                        
+                        <div id="newKeywordStatus" style="margin-top: 8px; font-size: 0.8rem; color: var(--secondary-text); display: none;"></div>
+                    </div>
+                    
+                    <div class="action-group">
+                        <h3>Schnell-Import</h3>
+                        <div class="input-group">
+                            <label>Mehrere Keywords (je Zeile eins):</label>
+                            <textarea id="bulkKeywordsInput" placeholder="Keyword 1&#10;Keyword 2&#10;Keyword 3" style="width: 100%; height: 100px; padding: 5px 8px; border: 1px solid var(--border-color); border-radius: 3px; font-size: 0.85rem; resize: vertical;"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Alle zu Cluster:</label>
+                            <select id="bulkClusterSelect">
+                                <option value="">Kein Cluster</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" onclick="addBulkKeywords()">
+                            Alle hinzufügen
+                        </button>
+                    </div>
+                </div>
+            </div>
             
         </div>
 
@@ -785,6 +830,21 @@
                 }
             });
             
+            // Enter-Taste für Neues Keyword
+            document.getElementById('newKeywordInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addNewKeyword();
+                }
+            });
+            
+            document.getElementById('newKeywordClusterSelect').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addNewKeyword();
+                }
+            });
+            
             // Generischer Enter-Support für alle Input-Felder in action-groups
             document.querySelectorAll('.action-group input, .action-group select').forEach(input => {
                 if (!input.hasAttribute('data-enter-bound')) {
@@ -862,6 +922,21 @@
                     gaReferences: Array.from(kw.gaReferences),
                     lectureCount: kw.lectures.length
                 }));
+                
+                // WICHTIG: Füge auch Keywords aus Clustern hinzu, die noch nicht in der DB sind
+                // (z.B. manuell hinzugefügte Keywords)
+                Object.entries(keywordToClusterMap).forEach(([keyword, clusterName]) => {
+                    const exists = allKeywords.some(kw => kw.name === keyword);
+                    if (!exists) {
+                        allKeywords.push({
+                            name: keyword,
+                            cluster: clusterName,
+                            gaReferences: [],
+                            lectures: [],
+                            lectureCount: 0
+                        });
+                    }
+                });
 
                 allKeywords.sort((a, b) => a.name.localeCompare(b.name));
                 
@@ -1131,6 +1206,22 @@
                         `<option value="${name}">${name}</option>`
                     ).join('');
             }
+            
+            // Aktualisiere Neues-Keyword-Selects
+            const newKeywordCluster = document.getElementById('newKeywordClusterSelect');
+            const bulkCluster = document.getElementById('bulkClusterSelect');
+            
+            const clusterOptions = '<option value="">Kein Cluster</option>' +
+                sortedClusters.map(name => 
+                    `<option value="${name}">${name}</option>`
+                ).join('');
+            
+            if (newKeywordCluster) {
+                newKeywordCluster.innerHTML = clusterOptions;
+            }
+            if (bulkCluster) {
+                bulkCluster.innerHTML = clusterOptions;
+            }
         }
 
         // Keywords filtern
@@ -1387,6 +1478,7 @@
         // Neues Keyword hinzufügen
         async function addNewKeyword() {
             const keywordName = document.getElementById('newKeywordInput').value.trim();
+            const statusEl = document.getElementById('newKeywordStatus');
             
             if (!keywordName) {
                 showToast('Bitte geben Sie einen Keyword-Namen ein', 'error');
@@ -1400,14 +1492,12 @@
                 return;
             }
             
-            // Frage nach Cluster-Zuordnung
-            const targetCluster = document.getElementById('targetClusterSelect').value;
+            // Hole Cluster aus dem neuen Select
+            const targetCluster = document.getElementById('newKeywordClusterSelect').value;
             
-            if (!targetCluster) {
-                if (!confirm(`Keyword "${keywordName}" ohne Cluster-Zuordnung hinzufügen?`)) {
-                    return;
-                }
-            }
+            statusEl.style.display = 'block';
+            statusEl.textContent = 'Füge Keyword hinzu...';
+            statusEl.style.color = 'var(--secondary-text)';
             
             try {
                 // Füge zu Cluster hinzu (wenn ausgewählt)
@@ -1423,20 +1513,114 @@
                     
                     if (response.ok) {
                         showToast(`Keyword "${keywordName}" zu Cluster "${targetCluster}" hinzugefügt`, 'success');
+                        statusEl.textContent = `✓ "${keywordName}" hinzugefügt`;
+                        statusEl.style.color = '#5cb85c';
                         document.getElementById('newKeywordInput').value = '';
                         await loadClusters();
                         await loadKeywords(true);
                     } else {
                         const error = await response.json();
+                        statusEl.textContent = `✗ Fehler: ${error.error}`;
+                        statusEl.style.color = '#d9534f';
                         showToast(`Fehler: ${error.error || 'Unbekannter Fehler'}`, 'error');
                     }
                 } else {
-                    showToast(`Keyword "${keywordName}" wurde notiert (noch ohne Vorträge)`, 'info');
-                    document.getElementById('newKeywordInput').value = '';
+                    // Ohne Cluster: Füge zu einem leeren/placeholder Cluster hinzu
+                    const response = await fetch(`${API_BASE}/keywords/move-to-cluster`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            keyword: keywordName, 
+                            targetCluster: 'Nicht zugeordnet'
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        showToast(`Keyword "${keywordName}" hinzugefügt (ohne Cluster)`, 'success');
+                        statusEl.textContent = `✓ "${keywordName}" hinzugefügt`;
+                        statusEl.style.color = '#5cb85c';
+                        document.getElementById('newKeywordInput').value = '';
+                        await loadClusters();
+                        await loadKeywords(true);
+                    } else {
+                        const error = await response.json();
+                        statusEl.textContent = `✗ Fehler: ${error.error}`;
+                        statusEl.style.color = '#d9534f';
+                    }
                 }
             } catch (error) {
                 console.error('Fehler beim Hinzufügen:', error);
+                statusEl.textContent = `✗ ${error.message}`;
+                statusEl.style.color = '#d9534f';
                 showToast('Fehler beim Hinzufügen: ' + error.message, 'error');
+            }
+        }
+        
+        // Mehrere Keywords auf einmal hinzufügen
+        async function addBulkKeywords() {
+            const textarea = document.getElementById('bulkKeywordsInput');
+            const rawText = textarea.value.trim();
+            
+            if (!rawText) {
+                showToast('Bitte geben Sie mindestens ein Keyword ein', 'error');
+                return;
+            }
+            
+            // Parse Keywords (je Zeile eins, leere Zeilen ignorieren)
+            const keywords = rawText.split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+            
+            if (keywords.length === 0) {
+                showToast('Keine gültigen Keywords gefunden', 'error');
+                return;
+            }
+            
+            const targetCluster = document.getElementById('bulkClusterSelect').value || 'Nicht zugeordnet';
+            
+            let successCount = 0;
+            let skipCount = 0;
+            let errorCount = 0;
+            
+            for (const keyword of keywords) {
+                // Prüfe ob bereits vorhanden
+                const exists = allKeywords.some(kw => kw.name.toLowerCase() === keyword.toLowerCase());
+                if (exists) {
+                    skipCount++;
+                    continue;
+                }
+                
+                try {
+                    const response = await fetch(`${API_BASE}/keywords/move-to-cluster`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            keyword: keyword, 
+                            targetCluster: targetCluster 
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    } else {
+                        errorCount++;
+                    }
+                } catch (error) {
+                    errorCount++;
+                }
+            }
+            
+            // Ergebnis anzeigen
+            let message = `${successCount} Keywords hinzugefügt`;
+            if (skipCount > 0) message += `, ${skipCount} übersprungen (existieren bereits)`;
+            if (errorCount > 0) message += `, ${errorCount} Fehler`;
+            
+            showToast(message, successCount > 0 ? 'success' : 'info');
+            
+            if (successCount > 0) {
+                textarea.value = '';
+                await loadClusters();
+                await loadKeywords(true);
             }
         }
         
