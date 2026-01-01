@@ -28,7 +28,7 @@
     "2026-01-01": {
       "views": 5,
       "searches": 7,
-      "lectures": 56
+      "lectures": 58
     }
   },
   "topSearches": {
@@ -212,9 +212,10 @@
     "GA295/1": 1,
     "GA260/18": 2,
     "GA052/1": 1,
-    "GA087/1": 7
+    "GA087/1": 7,
+    "GA180/10": 2
   },
   "totalViews": 24,
   "totalSearches": 33,
-  "totalLectureViews": 392
+  "totalLectureViews": 394
 }
