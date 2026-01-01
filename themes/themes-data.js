@@ -359,7 +359,7 @@ var SteinerThemesData = [
         query: "Rudolf Steiner"
     },
 {
-        theme: "Schlaf und Tod",
+        theme: "Schlaf & Tod",
         ranges: [
             { start: 1903, end: 1924, intensity: 0.7 }
         ],
