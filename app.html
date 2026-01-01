@@ -10330,70 +10330,88 @@ function normalizeGANumber(gaNumber) {
         document.body.classList.remove('tab-thematic-active');
       }
       if (mode === 'thematic2') {
-        // Prüfe ob Themen-Tab bereits aktiv war - wenn ja, Suchergebnisse und Dropdowns zurücksetzen
-        // Verwende Body-Klasse als Indikator, da sie VOR diesem Code noch nicht entfernt wurde
-        const wasThematic2Active = document.body.classList.contains('tab-thematic2-active');
+        // IMMER zurücksetzen beim Klick auf Themen-Tab (wie beim ersten Öffnen)
+        console.log('[THEMATIC2] Tab aktiviert - setze Ansicht zurück');
         
-        if (wasThematic2Active) {
-          console.log('[THEMATIC2] Tab bereits aktiv - setze Suchergebnisse zurück');
-          
-          // Dropdowns zurücksetzen
-          const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
-          const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
-          if (themeDropdown) themeDropdown.value = '';
-          if (keywordDropdown) keywordDropdown.value = '';
-          
-          // Suchergebnisse im linken Side Panel löschen
-          const resultsDiv = document.getElementById('results');
-          if (resultsDiv) {
-            resultsDiv.innerHTML = '';
+        // Dropdowns zurücksetzen
+        const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
+        const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+        if (themeDropdown) themeDropdown.value = '';
+        if (keywordDropdown) keywordDropdown.value = '';
+        
+        // Suchergebnisse im linken Side Panel löschen
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) {
+          resultsDiv.innerHTML = '';
+        }
+        
+        // Summary-Panel schließen (rechtes Side Panel)
+        const summaryPanel = document.getElementById('summary-panel');
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        const mainContainer = document.getElementById('main-container');
+        if (summaryPanel && summaryPanel.classList.contains('visible')) {
+          summaryPanel.classList.remove('visible');
+          summaryPanel.style.width = '0';
+          summaryPanel.style.minWidth = '0';
+          document.body.classList.add('summary-panel-collapsed');
+          if (verticalResizeHandleWrapper) {
+            verticalResizeHandleWrapper.classList.remove('visible');
+            verticalResizeHandleWrapper.style.display = 'none';
           }
-          
-          // Keyword-Dropdown zurücksetzen auf alle Schlagwörter
-          setTimeout(() => {
-            if (typeof loadKeywordsForTheme === 'function') {
-              loadKeywordsForTheme('');
-            }
-          }, 50);
+          if (mainContainer) {
+            mainContainer.style.marginRight = '0px';
+          }
+          const summaryContent = document.getElementById('summary-content');
+          if (summaryContent) {
+            summaryContent.innerHTML = '<div id="toc-list"></div>';
+          }
+        }
+        
+        // Close-Button verstecken
+        const closeSummaryBtn = document.getElementById('closeSummaryPanelBtn');
+        if (closeSummaryBtn) {
+          closeSummaryBtn.style.display = 'none';
+          closeSummaryBtn.style.visibility = 'hidden';
         }
         
         document.body.classList.add('tab-thematic2-active');
         
-        // Initialisiere Visualisierung wenn der Tab aktiviert wird
-        const existingHeatmap = document.getElementById('thematic2-visualization-main');
-        if (!existingHeatmap) {
-          function tryInitThematic2(retries = 0) {
-            if (typeof initThematicVisualization === 'function') {
-              initThematicVisualization();
-            } else if (retries < 10) {
-              console.log('[TABS] initThematicVisualization noch nicht bereit, retry ' + (retries + 1));
-              setTimeout(() => tryInitThematic2(retries + 1), 200);
-            } else {
-              console.error('[TABS] initThematicVisualization konnte nach 10 Versuchen nicht gefunden werden.');
-            }
-          }
-          setTimeout(() => tryInitThematic2(), 50);
+        // IMMER Viewer-Inhalt löschen und Visualisierung neu initialisieren
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = ''; // Viewer komplett leeren
         }
         
-        // Initialisiere Timeline-Filter NUR wenn der Tab neu aktiviert wird (nicht bei erneutem Klick)
-        if (!wasThematic2Active) {
-          setTimeout(function() {
-            // Lade Themes für Dropdown
-            if (typeof loadTimelineThemes === 'function') {
-              loadTimelineThemes();
-            }
-            
-            // Lade alle Keywords für das Keyword-Dropdown (wenn kein Thema ausgewählt)
-            if (typeof loadKeywordsForTheme === 'function') {
-              loadKeywordsForTheme('');
-            }
-            
-            // Lade Statistik
-            if (typeof updateTimelineStats === 'function') {
-              updateTimelineStats();
-            }
-          }, 300);
+        // Visualisierung neu initialisieren
+        function tryInitThematic2(retries = 0) {
+          if (typeof initThematicVisualization === 'function') {
+            initThematicVisualization();
+          } else if (retries < 10) {
+            console.log('[TABS] initThematicVisualization noch nicht bereit, retry ' + (retries + 1));
+            setTimeout(() => tryInitThematic2(retries + 1), 200);
+          } else {
+            console.error('[TABS] initThematicVisualization konnte nach 10 Versuchen nicht gefunden werden.');
+          }
         }
+        setTimeout(() => tryInitThematic2(), 50);
+        
+        // IMMER Timeline-Filter neu initialisieren
+        setTimeout(function() {
+          // Lade Themes für Dropdown
+          if (typeof loadTimelineThemes === 'function') {
+            loadTimelineThemes();
+          }
+          
+          // Lade alle Keywords für das Keyword-Dropdown (wenn kein Thema ausgewählt)
+          if (typeof loadKeywordsForTheme === 'function') {
+            loadKeywordsForTheme('');
+          }
+          
+          // Lade Statistik
+          if (typeof updateTimelineStats === 'function') {
+            updateTimelineStats();
+          }
+        }, 300);
       } else {
         document.body.classList.remove('tab-thematic2-active');
       }
@@ -31791,16 +31809,14 @@ function switchTabExtended(mode) {
     if (mode === 'docs') {
       showDocsInViewer();
     } else if (mode === 'thematic2') {
-      // Themen II Visualisierung: Heatmap nur initialisieren wenn noch nicht vorhanden
+      // Themen II Visualisierung: IMMER neu initialisieren (Reset bei jedem Tab-Klick)
+      // Die Initialisierung wird bereits oben durchgeführt, hier nur Fallback
       const existingHeatmap = document.getElementById('thematic2-visualization-main');
       if (!existingHeatmap) {
-        // Heatmap noch nicht vorhanden, initialisiere sie
+        // Fallback: Falls Heatmap nicht vorhanden, initialisiere sie
         if (typeof initThematicVisualization === 'function') {
           initThematicVisualization();
         }
-      } else {
-        // Heatmap bereits vorhanden, lasse sie sichtbar
-        console.log('[THEME2] Heatmap bereits vorhanden, bleibt sichtbar');
       }
       
       // Initialisiere Timeline-Filter (Dropdowns und Statistik)
@@ -31957,12 +31973,62 @@ function switchTabExtended(mode) {
   
   // Lade Visualisierung wenn zum Themen II Tab gewechselt wird
   if (mode === 'thematic2') {
+    console.log('[THEMATIC2-EXT] Tab aktiviert - vollständiger Reset');
+    
+    // 1. Dropdowns zurücksetzen
+    const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
+    const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+    if (themeDropdown) themeDropdown.value = '';
+    if (keywordDropdown) keywordDropdown.value = '';
+    
+    // 2. Suchergebnisse im linken Side Panel löschen
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv) {
+      resultsDiv.innerHTML = '';
+    }
+    
+    // 3. Summary-Panel schließen (rechtes Side Panel)
+    const summaryPanel = document.getElementById('summary-panel');
+    const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+    const mainContainer = document.getElementById('main-container');
+    if (summaryPanel && summaryPanel.classList.contains('visible')) {
+      summaryPanel.classList.remove('visible');
+      summaryPanel.style.width = '0';
+      summaryPanel.style.minWidth = '0';
+      document.body.classList.add('summary-panel-collapsed');
+      if (verticalResizeHandleWrapper) {
+        verticalResizeHandleWrapper.classList.remove('visible');
+        verticalResizeHandleWrapper.style.display = 'none';
+      }
+      if (mainContainer) {
+        mainContainer.style.marginRight = '0px';
+      }
+      const summaryContent = document.getElementById('summary-content');
+      if (summaryContent) {
+        summaryContent.innerHTML = '<div id="toc-list"></div>';
+      }
+    }
+    
+    // 4. Close-Button verstecken
+    const closeSummaryBtn = document.getElementById('closeSummaryPanelBtn');
+    if (closeSummaryBtn) {
+      closeSummaryBtn.style.display = 'none';
+      closeSummaryBtn.style.visibility = 'hidden';
+    }
+    
+    // 5. Viewer leeren und Visualisierung neu initialisieren
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = '';
+    }
+    
+    // 6. Titel setzen
     const documentTitle = document.getElementById('document-title');
     if (documentTitle) {
       documentTitle.textContent = 'Themenschwerpunkte im Gesamtwerk (1879–1925)';
     }
     
-    // Initialisiere Visualisierung SOFORT wenn der Tab aktiviert wird
+    // 7. Visualisierung neu initialisieren
     function tryInitThematic2(retries = 0) {
       console.log('[TABS] tryInitThematic2 called, retry:', retries);
       if (typeof initThematicVisualization === 'function') {
@@ -31974,14 +32040,27 @@ function switchTabExtended(mode) {
       } else {
         console.error('[TABS] initThematicVisualization konnte nach 20 Versuchen nicht gefunden werden.');
         // Fallback: Zeige Fehlermeldung im Viewer
-        const viewer = document.getElementById('viewer');
-        if (viewer) {
-          viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--danger-text, #721c24);"><p>Fehler: Visualisierung konnte nicht geladen werden.</p><p>Bitte laden Sie die Seite neu (Strg + F5).</p></div>';
+        const viewerFallback = document.getElementById('viewer');
+        if (viewerFallback) {
+          viewerFallback.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--danger-text, #721c24);"><p>Fehler: Visualisierung konnte nicht geladen werden.</p><p>Bitte laden Sie die Seite neu (Strg + F5).</p></div>';
         }
       }
     }
-    // Starte sofort, nicht erst nach 50ms
+    // Starte sofort
     tryInitThematic2();
+    
+    // 8. Timeline-Filter neu initialisieren
+    setTimeout(function() {
+      if (typeof loadTimelineThemes === 'function') {
+        loadTimelineThemes();
+      }
+      if (typeof loadKeywordsForTheme === 'function') {
+        loadKeywordsForTheme('');
+      }
+      if (typeof updateTimelineStats === 'function') {
+        updateTimelineStats();
+      }
+    }, 300);
   }
 }
 
