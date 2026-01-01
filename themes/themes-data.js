@@ -70,7 +70,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1921, end: 1924, intensity: 1.0 }
         ],
-        query: "Sakrament Ritus Die Christengemeinschaft"
+        query: "Sakrament Ritus Die_Christengemeinschaft"
     },
         {
         theme: "Christentum",

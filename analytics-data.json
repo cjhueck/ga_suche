@@ -26,9 +26,9 @@
       "lectures": 12
     },
     "2026-01-01": {
-      "views": 3,
-      "searches": 6,
-      "lectures": 44
+      "views": 5,
+      "searches": 7,
+      "lectures": 46
     }
   },
   "topSearches": {
@@ -40,7 +40,7 @@
     "geister eurer seelen": 20,
     "denken fühlen wollen gedächtnis": 1,
     "brüderlichkeit theosophie": 1,
-    "lebenstableau": 4
+    "lebenstableau": 5
   },
   "topLectures": {
     "GA019": 2,
@@ -195,8 +195,8 @@
     "GA136/9": 2,
     "GA030/65": 3,
     "GA030/1": 6,
-    "GA100/8": 4,
-    "GA102/13": 2,
+    "GA100/8": 5,
+    "GA102/13": 3,
     "GA102/1": 1,
     "GA250/1": 1,
     "GA034/2": 3,
@@ -212,7 +212,7 @@
     "GA295/1": 1,
     "GA260/18": 2
   },
-  "totalViews": 22,
-  "totalSearches": 32,
-  "totalLectureViews": 380
+  "totalViews": 24,
+  "totalSearches": 33,
+  "totalLectureViews": 382
 }
