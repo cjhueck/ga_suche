@@ -6261,20 +6261,23 @@ app.post('/api/save-theme-keywords', async (req, res) => {
     const filePath = path.join(__dirname, 'themes', 'themes-data.js');
     let fileContent = await fs.readFile(filePath, 'utf8');
     
-    // Robuster Ansatz: Zeile für Zeile durchgehen
-    const lines = fileContent.split('\n');
+    // Robuster Ansatz: Zeile für Zeile durchgehen (CRLF und LF unterstützen)
+    const lines = fileContent.split(/\r?\n/);
     let foundTheme = false;
+    let themeLineIndex = -1;
     let modified = false;
     
     for (let i = 0; i < lines.length; i++) {
       // Suche nach der Theme-Zeile
-      if (lines[i].includes(`theme: "${themeName}"`) || lines[i].includes(`theme: '${themeName}'`)) {
+      if (!foundTheme && (lines[i].includes(`theme: "${themeName}"`) || lines[i].includes(`theme: '${themeName}'`))) {
         foundTheme = true;
+        themeLineIndex = i;
         console.log(`[THEME-KEYWORDS] Theme gefunden in Zeile ${i + 1}`);
+        continue; // Zur nächsten Zeile weitergehen
       }
       
-      // Wenn Theme gefunden, suche nach der Query-Zeile (innerhalb der nächsten 10 Zeilen)
-      if (foundTheme && i < lines.length) {
+      // Wenn Theme gefunden, suche nach der Query-Zeile
+      if (foundTheme) {
         const queryMatch = lines[i].match(/^(\s*query:\s*["'])([^"']*)(['"].*)$/);
         if (queryMatch) {
           const oldQuery = queryMatch[2];
@@ -6283,12 +6286,12 @@ app.post('/api/save-theme-keywords', async (req, res) => {
           modified = true;
           break; // Nur die erste Query nach dem Theme ersetzen
         }
-      }
-      
-      // Wenn wir ein neues Theme finden, bevor wir die Query gefunden haben, abbrechen
-      if (foundTheme && lines[i].includes('theme:') && !lines[i].includes(themeName)) {
-        console.log(`[THEME-KEYWORDS] Neues Theme gefunden bevor Query - abgebrochen`);
-        break;
+        
+        // Wenn wir ein neues Theme finden, bevor wir die Query gefunden haben, abbrechen
+        if (lines[i].includes('theme:') && !lines[i].includes(themeName)) {
+          console.log(`[THEME-KEYWORDS] Neues Theme gefunden bevor Query - abgebrochen`);
+          break;
+        }
       }
     }
     
@@ -6302,9 +6305,10 @@ app.post('/api/save-theme-keywords', async (req, res) => {
       return res.status(404).json({ error: `Query für Theme "${themeName}" nicht gefunden` });
     }
     
-    // Schreibe die aktualisierte Datei
-    fileContent = lines.join('\n');
-    await fs.writeFile(filePath, fileContent, 'utf8');
+    // Schreibe die aktualisierte Datei (behalte originale Zeilenumbrüche)
+    const lineEnding = fileContent.includes('\r\n') ? '\r\n' : '\n';
+    const updatedContent = lines.join(lineEnding);
+    await fs.writeFile(filePath, updatedContent, 'utf8');
     
     console.log(`[THEME-KEYWORDS] ✓ Erfolgreich gespeichert für: ${themeName}`);
     res.json({ success: true, message: `Schlagwörter für "${themeName}" erfolgreich gespeichert` });
@@ -22060,6 +22064,250 @@ app.get('/api/book-summaries-status', async (req, res) => {
   }
 });
 
+// API: Generiere Kapitel-Summaries für Bücher (H1-Ebene)
+app.post('/api/generate-book-chapter-summaries', async (req, res) => {
+  try {
+    const { gaNumbers = [], forceRegenerate = false, preferredProvider = 'claude' } = req.body;
+    
+    if (!Array.isArray(gaNumbers) || gaNumbers.length === 0) {
+      return res.status(400).json({ error: 'gaNumbers erforderlich (Array, z.B. ["GA001", "GA002"])' });
+    }
+    
+    console.log(`[BOOK-CHAPTER-SUMMARIES] Starte Generierung für: ${gaNumbers.join(', ')}`);
+    
+    // Hole LLM Provider
+    let provider;
+    try {
+      provider = getProviderForTask('keywords', preferredProvider);
+      if (!provider || !provider.isAvailable()) {
+        throw new Error('Kein LLM-Provider verfügbar');
+      }
+    } catch (error) {
+      return res.status(500).json({ error: 'Kein LLM-Provider verfügbar', details: error.message });
+    }
+    
+    // Lade bestehende Summaries
+    let existingSummaries = {};
+    try {
+      existingSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE, 'utf8'));
+    } catch (e) {
+      console.log('[BOOK-CHAPTER-SUMMARIES] Keine bestehenden Summaries gefunden, starte neu');
+    }
+    
+    const results = { processed: 0, skipped: 0, failed: 0, errors: [] };
+    
+    // Durchsuche alle steiner-books Dateien
+    const booksDir = path.join(__dirname, 'steiner-books');
+    const bookFiles = await fs.readdir(booksDir);
+    
+    // Lade alle Buchdateien und sammle alle Bücher
+    const allBooks = {};
+    for (const file of bookFiles) {
+      if (!file.endsWith('.json')) continue;
+      try {
+        const bookContent = JSON.parse(await fs.readFile(path.join(booksDir, file), 'utf8'));
+        const books = bookContent.books || [bookContent];
+        for (const book of books) {
+          if (book.ID && !allBooks[book.ID]) {
+            allBooks[book.ID] = book;
+          }
+        }
+      } catch (e) {
+        console.log(`[BOOK-CHAPTER-SUMMARIES] Fehler beim Laden von ${file}: ${e.message}`);
+      }
+    }
+    
+    console.log(`[BOOK-CHAPTER-SUMMARIES] ${Object.keys(allBooks).length} Bücher geladen`);
+    
+    for (const gaNumber of gaNumbers) {
+      console.log(`[BOOK-CHAPTER-SUMMARIES] Verarbeite ${gaNumber}...`);
+      
+      // Finde Buch in allen geladenen Büchern
+      const book = allBooks[gaNumber];
+      
+      if (!book) {
+        console.log(`[BOOK-CHAPTER-SUMMARIES] Kein Buch für ${gaNumber} gefunden`);
+        results.errors.push({ id: gaNumber, error: 'Kein Buch gefunden' });
+        results.failed++;
+        continue;
+      }
+      
+      const books = [book];
+      
+      for (const currentBook of books) {
+        if (currentBook.ID !== gaNumber) continue;
+        
+        const bookTitle = currentBook.title || gaNumber;
+        const chapters = currentBook.chapters || [];
+        const bookParagraphs = currentBook.paragraphs || [];
+        const bookHeadings = currentBook.headings || [];
+        
+        // Extrahiere Jahr aus yearRange oder Titel
+        let bookYear = null;
+        if (currentBook.yearRange) {
+          const yearMatch = String(currentBook.yearRange).match(/\b(18|19)\d{2}\b/);
+          if (yearMatch) bookYear = parseInt(yearMatch[0]);
+        }
+        if (!bookYear && bookTitle) {
+          const titleMatch = bookTitle.match(/\b(18|19)\d{2}\b/);
+          if (titleMatch) bookYear = parseInt(titleMatch[0]);
+        }
+        
+        // Finde H1-Kapitel basierend auf Headings Level 3 (H3 = Hauptkapitel in Büchern)
+        const h1Chapters = [];
+        
+        // Prüfe ob chapters echte Absätze haben oder nur Referenzen
+        const firstChapterHasText = chapters.length > 0 && 
+          chapters[0].paragraphs && 
+          Array.isArray(chapters[0].paragraphs) && 
+          chapters[0].paragraphs.length > 0 &&
+          typeof chapters[0].paragraphs[0] === 'string';
+        
+        if (firstChapterHasText) {
+          // Kapitel haben echte Texte
+          for (const chapter of chapters) {
+            if (chapter.number && !String(chapter.number).includes('.')) {
+              h1Chapters.push({
+                number: chapter.number,
+                title: chapter.title,
+                paragraphs: chapter.paragraphs || []
+              });
+            }
+          }
+        } else if (bookHeadings.length > 0 && bookParagraphs.length > 0) {
+          // Nutze Headings um Kapitel zu identifizieren
+          // Level 3 = H3 = Hauptkapitel
+          const h3Headings = bookHeadings.filter(h => h.level === 3);
+          
+          if (h3Headings.length > 0) {
+            // Finde Absatzbereiche für jedes H3
+            // (Vereinfacht: teile Absätze gleichmäßig auf)
+            const paragraphsPerChapter = Math.floor(bookParagraphs.length / h3Headings.length);
+            
+            for (let i = 0; i < h3Headings.length; i++) {
+              const startIdx = i * paragraphsPerChapter;
+              const endIdx = i === h3Headings.length - 1 ? bookParagraphs.length : (i + 1) * paragraphsPerChapter;
+              const chapterParagraphs = bookParagraphs.slice(startIdx, endIdx);
+              
+              h1Chapters.push({
+                number: i + 1,
+                title: h3Headings[i].text,
+                paragraphs: chapterParagraphs
+              });
+            }
+          } else {
+            // Keine H3-Headings, nutze ganzes Buch als ein Kapitel
+            h1Chapters.push({
+              number: 1,
+              title: bookTitle,
+              paragraphs: bookParagraphs
+            });
+          }
+        } else if (bookParagraphs.length > 0) {
+          // Nur Absätze auf Buch-Ebene, keine Headings
+          h1Chapters.push({
+            number: 1,
+            title: bookTitle,
+            paragraphs: bookParagraphs
+          });
+        }
+        
+        // Generiere Summaries für jedes H1-Kapitel
+        for (const h1 of h1Chapters) {
+          const chapterId = `${gaNumber}/${h1.number}`;
+          
+          // Prüfe ob bereits vorhanden
+          if (existingSummaries[chapterId] && existingSummaries[chapterId].summary && !forceRegenerate) {
+            results.skipped++;
+            continue;
+          }
+          
+          // Hole Kapiteltext
+          let chapterText = '';
+          if (Array.isArray(h1.paragraphs)) {
+            chapterText = h1.paragraphs
+              .map(p => {
+                if (typeof p === 'string') return p;
+                if (p && p.content) return p.content;
+                if (p && p.text) return p.text;
+                return '';
+              })
+              .filter(t => t.length > 0)
+              .join('\n\n')
+              .substring(0, 15000); // Limitieren
+          }
+          
+          if (chapterText.length < 100) {
+            console.log(`[BOOK-CHAPTER-SUMMARIES] ${chapterId}: Zu wenig Text, übersprungen`);
+            results.skipped++;
+            continue;
+          }
+          
+          try {
+            const prompt = `Erstelle eine ZUSAMMENFASSUNG für dieses Buchkapitel.
+
+BUCH: ${bookTitle}
+KAPITEL ${h1.number}: ${h1.title}
+
+REGELN:
+1. Schreibe 80-120 Wörter
+2. KEINE Meta-Sprache ("Rudolf Steiner beschreibt...", "In diesem Kapitel...")
+3. Direkt und sachlich wie ein Lexikon-Artikel
+4. Nur die Kernaussagen und Hauptthemen
+
+KAPITELTEXT:
+${chapterText}
+
+Antworte NUR mit der Zusammenfassung (80-120 Wörter):`;
+
+            const response = await provider.generateCompletion(prompt, {
+              maxTokens: 300,
+              temperature: 0.3
+            });
+            
+            const summary = response.trim();
+            
+            existingSummaries[chapterId] = {
+              title: h1.title,
+              bookTitle: bookTitle,
+              gaNumber: gaNumber,
+              chapterNumber: h1.number,
+              year: bookYear,  // Jahr aus Buch-Metadaten
+              summary: summary,
+              generated: new Date().toISOString()
+            };
+            
+            results.processed++;
+            console.log(`[BOOK-CHAPTER-SUMMARIES] ✓ ${chapterId}: ${summary.substring(0, 50)}...`);
+            
+            // Rate limiting
+            await new Promise(r => setTimeout(r, 500));
+            
+          } catch (error) {
+            console.error(`[BOOK-CHAPTER-SUMMARIES] ✗ ${chapterId}:`, error.message);
+            results.errors.push({ id: chapterId, error: error.message });
+            results.failed++;
+          }
+        }
+      }
+    }
+    
+    // Speichere Summaries
+    await fs.writeFile(BOOK_CHAPTER_SUMMARIES_FILE, JSON.stringify(existingSummaries, null, 2), 'utf8');
+    
+    console.log(`[BOOK-CHAPTER-SUMMARIES] Fertig: ${results.processed} generiert, ${results.skipped} übersprungen, ${results.failed} Fehler`);
+    
+    res.json({
+      success: true,
+      ...results
+    });
+    
+  } catch (error) {
+    console.error('[BOOK-CHAPTER-SUMMARIES] Kritischer Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Generiere Short Summaries für Buch-Kapitel
 app.post('/api/generate-book-short-summaries', async (req, res) => {
   try {
@@ -22214,7 +22462,7 @@ const THEME_KEYWORDS = {
   "Hüter der Schwelle": "Hüter der Schwelle",
   "Kosmologie / Kosmogonie": "Kosmologie Kosmogonie Alter Saturn Alte Sonne Alter Mond Erde Jupiter Venus Vulkan Tierkreis",
   "Kulturen & Völker": "Volksseelen Mitteleuropa Deutsche Volksseele Orientalische Kultur",
-  "Landwirtschaft": "Landwirtschaft Präparate Hoforganismus",
+  "Ernährung / Landwirtschaft": "Landwirtschaft Präparate Hoforganismus Ernährung Nahrungsmittel Kaffee Tee Alkohol Fleisch",
   "Lebenspraxis": "Lebenskraft Lebenserfahrung Lebensfragen Lebensgesetze",
   "Meditation / Schulungsweg": "Meditation Schulungsweg Rückschau Konzentration Übungen Nebenübungen Mantram Symbol Leeres Bewusstsein Andacht Gebet",
   "Menschenkunde": "Menschenkunde Dreigliederung Temperamente Nerven-Sinnes-System Rhythmisches System Stoffwechsel-Gliedmaßen-System Leib Seele Geist",
@@ -22298,6 +22546,336 @@ ANTWORT (nur Zahlen, z.B. "16, 24"):`;
   return themes;
 }
 
+// Hilfsfunktion: Datei speichern mit Retry bei Zugriffsproblemen (OneDrive, etc.)
+async function saveWithRetry(filePath, data, maxRetries = 5) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+      return true;
+    } catch (error) {
+      console.warn(`[SAVE-RETRY] Versuch ${attempt}/${maxRetries} fehlgeschlagen: ${error.message}`);
+      if (attempt < maxRetries) {
+        // Warte 500ms * Versuchsnummer
+        await new Promise(r => setTimeout(r, 500 * attempt));
+      } else {
+        throw error;
+      }
+    }
+  }
+}
+
+// API: Ein einzelnes Thema neu zuordnen (basierend auf aktuellen Schlagwörtern)
+app.post('/api/reassign-single-theme', async (req, res) => {
+  try {
+    const { themeName, forceAll = false, countOnly = false } = req.body;
+    
+    if (!themeName) {
+      return res.status(400).json({ error: 'themeName erforderlich' });
+    }
+    
+    // Normalisierung für robuste Umlaut-Vergleiche
+    function normalizeForComparison(str) {
+      return str.normalize('NFC').toLowerCase().trim();
+    }
+    
+    const themeNameNormalized = normalizeForComparison(themeName);
+    
+    // Hole Schlagwörter DYNAMISCH aus themes-data.js (nicht aus statischem THEME_KEYWORDS)
+    let themeKeywords = null;
+    let foundThemeName = null; // Der exakte Name aus der Datei
+    
+    // Versuche dynamisch aus themes-data.js zu laden
+    try {
+      const themesDataContent = await fs.readFile(THEMES_DATA_FILE, 'utf8');
+      
+      // Extrahiere alle theme/query Paare mit einfacher Regex
+      const themeMatches = [...themesDataContent.matchAll(/theme:\s*"([^"]+)"[\s\S]*?query:\s*"([^"]+)"/g)];
+      for (const m of themeMatches) {
+        if (normalizeForComparison(m[1]) === themeNameNormalized) {
+          themeKeywords = m[2];
+          foundThemeName = m[1];
+          console.log(`[REASSIGN-THEME] Keywords dynamisch aus themes-data.js geladen für: "${foundThemeName}"`);
+          break;
+        }
+      }
+      
+      // Falls nicht gefunden, versuche umgekehrte Reihenfolge (query vor theme)
+      if (!themeKeywords) {
+        const altMatches = [...themesDataContent.matchAll(/query:\s*"([^"]+)"[\s\S]*?theme:\s*"([^"]+)"/g)];
+        for (const m of altMatches) {
+          if (normalizeForComparison(m[2]) === themeNameNormalized) {
+            themeKeywords = m[1];
+            foundThemeName = m[2];
+            console.log(`[REASSIGN-THEME] Keywords dynamisch aus themes-data.js geladen (alt) für: "${foundThemeName}"`);
+            break;
+          }
+        }
+      }
+      
+      // Debug: Zeige gefundene Themen bei Fehler
+      if (!themeKeywords) {
+        const availableThemes = themeMatches.map(m => m[1]).slice(0, 10);
+        console.log(`[REASSIGN-THEME] Thema "${themeName}" nicht in themes-data.js gefunden. Verfügbare: ${availableThemes.join(', ')}...`);
+      }
+    } catch (e) {
+      console.log(`[REASSIGN-THEME] Konnte themes-data.js nicht laden: ${e.message}`);
+    }
+    
+    // Fallback auf statisches THEME_KEYWORDS
+    if (!themeKeywords) {
+      // Versuche auch hier normalisierte Suche
+      for (const [key, value] of Object.entries(THEME_KEYWORDS)) {
+        if (normalizeForComparison(key) === themeNameNormalized) {
+          themeKeywords = value;
+          foundThemeName = key;
+          console.log(`[REASSIGN-THEME] Nutze statisches THEME_KEYWORDS für: "${foundThemeName}"`);
+          break;
+        }
+      }
+    }
+    
+    if (!themeKeywords) {
+      // Liste verfügbare Themen für Debug
+      console.log(`[REASSIGN-THEME] Thema "${themeName}" nicht gefunden.`);
+      return res.status(404).json({ error: `Thema "${themeName}" nicht gefunden` });
+    }
+    
+    // Verwende den gefundenen Namen für konsistente Zuordnungen
+    const effectiveThemeName = foundThemeName || themeName;
+    
+    console.log(`[REASSIGN-THEME] Starte Neu-Zuordnung für: ${effectiveThemeName}`);
+    console.log(`[REASSIGN-THEME] Schlagwörter: ${themeKeywords}`);
+    
+    const keywords = themeKeywords.toLowerCase().split(/\s+/);
+    
+    // Lade alle Summaries
+    const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE, 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Lade bestehende Zuordnungen
+    let assignments = {};
+    try {
+      assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE, 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Finde Kandidaten: Texte, die mindestens ein Schlagwort enthalten
+    // und noch nicht für dieses Thema verarbeitet wurden
+    const candidates = [];
+    let skippedAlreadyProcessed = 0;
+    
+    // Hilfsfunktion: Prüft ob Text bereits für dieses Thema verarbeitet wurde
+    function wasRecentlyProcessed(id) {
+      const entry = assignments[id];
+      if (!entry || !entry.reassignedThemes) return false;
+      return entry.reassignedThemes.includes(effectiveThemeName);
+    }
+    
+    // Aus summary-database
+    for (const id in summaryDb) {
+      const summary = summaryDb[id];
+      const text = ((summary.shortSummary || '') + ' ' + (summary.summary || '') + ' ' + (summary.title || '')).toLowerCase();
+      
+      // Prüfe ob mindestens ein Schlagwort vorkommt
+      const hasKeyword = keywords.some(kw => kw.length > 3 && text.includes(kw));
+      
+      // Auch prüfen, ob bereits zugeordnet (um ggf. zu entfernen)
+      const alreadyAssigned = assignments[id]?.themes?.includes(effectiveThemeName);
+      
+      if (hasKeyword || (forceAll && alreadyAssigned)) {
+        // Überspringe bereits verarbeitete Texte (außer bei forceAll)
+        if (!forceAll && wasRecentlyProcessed(id)) {
+          skippedAlreadyProcessed++;
+          continue;
+        }
+        
+        candidates.push({
+          id,
+          text: (summary.shortSummary || summary.summary || '').trim(),
+          title: summary.title || '',
+          alreadyAssigned
+        });
+      }
+    }
+    
+    // Aus book-chapter-summaries
+    for (const id in bookChapterSummaries) {
+      const chapter = bookChapterSummaries[id];
+      const text = ((chapter.shortSummary || '') + ' ' + (chapter.summary || '') + ' ' + (chapter.title || '') + ' ' + (chapter.bookTitle || '')).toLowerCase();
+      
+      const hasKeyword = keywords.some(kw => kw.length > 3 && text.includes(kw));
+      const alreadyAssigned = assignments[id]?.themes?.includes(effectiveThemeName);
+      
+      if (hasKeyword || (forceAll && alreadyAssigned)) {
+        // Überspringe bereits verarbeitete Texte (außer bei forceAll)
+        if (!forceAll && wasRecentlyProcessed(id)) {
+          skippedAlreadyProcessed++;
+          continue;
+        }
+        
+        candidates.push({
+          id,
+          text: (chapter.shortSummary || chapter.summary || '').trim(),
+          title: chapter.title || '',
+          alreadyAssigned
+        });
+      }
+    }
+    
+    if (skippedAlreadyProcessed > 0) {
+      console.log(`[REASSIGN-THEME] ${skippedAlreadyProcessed} bereits verarbeitete Texte übersprungen`);
+    }
+    
+    console.log(`[REASSIGN-THEME] ${candidates.length} Kandidaten gefunden`);
+    
+    // Nur zählen ohne zu verarbeiten
+    if (countOnly) {
+      return res.json({
+        success: true,
+        candidates: candidates.length,
+        skippedAlreadyProcessed: skippedAlreadyProcessed,
+        themeName: effectiveThemeName
+      });
+    }
+    
+    if (candidates.length === 0) {
+      return res.json({ 
+        success: true, 
+        message: 'Keine Kandidaten gefunden', 
+        added: 0, 
+        removed: 0 
+      });
+    }
+    
+    // Alle Kandidaten verarbeiten
+    const batch = candidates;
+    
+    // KI-Provider
+    const { createProvider } = require('./llm-providers');
+    const provider = createProvider('claude');
+    
+    if (!provider.isAvailable()) {
+      return res.status(500).json({ error: 'Claude nicht verfügbar' });
+    }
+    
+    let added = 0;
+    let removed = 0;
+    let errors = [];
+    
+    // Parallelverarbeitung mit Chunks
+    const PARALLEL_SIZE = 10; // 10 gleichzeitige Anfragen
+    
+    async function processItem(item) {
+      try {
+        const prompt = `Analysiere diesen Text und beantworte NUR mit JA oder NEIN:
+
+Passt der folgende Text zum Thema "${effectiveThemeName}"?
+Schlagwörter für dieses Thema: ${themeKeywords}
+
+TEXT-ID: ${item.id}
+TITEL: ${item.title}
+ZUSAMMENFASSUNG:
+${item.text.substring(0, 2000)}
+
+KRITERIEN:
+- Antworte JA nur wenn der Text diese Begriffe DIREKT und WESENTLICH behandelt
+- Allgemeine Erwähnungen reichen NICHT
+- Sei streng!
+
+ANTWORT (nur JA oder NEIN):`;
+
+        const response = await provider.generateCompletion(prompt, {
+          maxTokens: 10,
+          temperature: 0.1
+        });
+        
+        const matches = response.trim().toUpperCase().startsWith('JA');
+        return { id: item.id, matches, wasAssigned: item.alreadyAssigned };
+        
+      } catch (e) {
+        return { id: item.id, error: e.message };
+      }
+    }
+    
+    // Verarbeite in parallelen Chunks
+    for (let i = 0; i < batch.length; i += PARALLEL_SIZE) {
+      const chunk = batch.slice(i, i + PARALLEL_SIZE);
+      
+      console.log(`[REASSIGN-THEME] Verarbeite ${i + 1}-${Math.min(i + PARALLEL_SIZE, batch.length)} von ${batch.length}...`);
+      
+      // Parallele Verarbeitung des Chunks
+      const results = await Promise.all(chunk.map(processItem));
+      
+      // Ergebnisse verarbeiten
+      for (const result of results) {
+        if (result.error) {
+          errors.push({ id: result.id, error: result.error });
+          continue;
+        }
+        
+        // Aktualisiere Zuordnung
+        if (!assignments[result.id]) {
+          assignments[result.id] = { themes: [], assignedAt: new Date().toISOString() };
+        }
+        
+        const themes = assignments[result.id].themes || [];
+        const wasAssigned = themes.includes(effectiveThemeName);
+        
+        if (result.matches && !wasAssigned) {
+          themes.push(effectiveThemeName);
+          added++;
+          console.log(`[REASSIGN-THEME] + ${result.id}`);
+        } else if (!result.matches && wasAssigned) {
+          const idx = themes.indexOf(effectiveThemeName);
+          if (idx !== -1) themes.splice(idx, 1);
+          removed++;
+          console.log(`[REASSIGN-THEME] - ${result.id}`);
+        }
+        
+        assignments[result.id].themes = themes;
+        assignments[result.id].reassignedAt = new Date().toISOString();
+        
+        // Markiere, dass dieses Thema für diesen Text verarbeitet wurde
+        if (!assignments[result.id].reassignedThemes) {
+          assignments[result.id].reassignedThemes = [];
+        }
+        if (!assignments[result.id].reassignedThemes.includes(effectiveThemeName)) {
+          assignments[result.id].reassignedThemes.push(effectiveThemeName);
+        }
+      }
+      
+      // Zwischenspeichern nach jedem Chunk (mit Retry bei Dateifehler)
+      await saveWithRetry(THEME_ASSIGNMENTS_FILE, assignments);
+      
+      // Kurze Pause zwischen Chunks (Rate Limiting)
+      if (i + PARALLEL_SIZE < batch.length) {
+        await new Promise(r => setTimeout(r, 300));
+      }
+    }
+    
+    // Finale Speicherung (mit Retry bei Dateifehler)
+    await saveWithRetry(THEME_ASSIGNMENTS_FILE, assignments);
+    
+    console.log(`[REASSIGN-THEME] Fertig: +${added} hinzugefügt, -${removed} entfernt, ${errors.length} Fehler`);
+    
+    res.json({
+      success: true,
+      themeName: effectiveThemeName,
+      candidates: candidates.length,
+      processed: batch.length,
+      added,
+      removed,
+      errors: errors.length
+    });
+    
+  } catch (error) {
+    console.error('[REASSIGN-THEME] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Themen-Zuordnung für bestimmte GA-Bände durchführen
 app.post('/api/assign-themes-batch', async (req, res) => {
   try {
@@ -22365,36 +22943,53 @@ app.post('/api/assign-themes-batch', async (req, res) => {
     let processed = 0;
     let errors = [];
     
-    for (const item of batch) {
+    // Parallelverarbeitung mit Chunks
+    const PARALLEL_SIZE = 5; // 5 gleichzeitige Anfragen (konservativer wegen längerer Prompts)
+    
+    async function processItem(item) {
       try {
-        console.log(`[THEME-ASSIGN] ${processed + 1}/${batch.length}: ${item.id}`);
-        
         const themes = await assignThemesWithClaude(item.text, item.id, item.title);
-        
-        assignments[item.id] = {
-          themes: themes,
-          assignedAt: new Date().toISOString()
-        };
-        
-        processed++;
-        
-        // Zwischenspeichern alle 20 Texte
-        if (processed % 20 === 0) {
-          await fs.writeFile(THEME_ASSIGNMENTS_FILE, JSON.stringify(assignments, null, 2), 'utf8');
-          console.log(`[THEME-ASSIGN] Zwischenstand gespeichert: ${processed}/${batch.length}`);
-        }
-        
-        // Rate limiting: 200ms Pause
-        await new Promise(r => setTimeout(r, 200));
-        
+        return { id: item.id, themes, success: true };
       } catch (e) {
-        console.error(`[THEME-ASSIGN] Fehler bei ${item.id}:`, e.message);
-        errors.push({ id: item.id, error: e.message });
+        return { id: item.id, error: e.message, success: false };
       }
     }
     
-    // Finale Speicherung
-    await fs.writeFile(THEME_ASSIGNMENTS_FILE, JSON.stringify(assignments, null, 2), 'utf8');
+    // Verarbeite in parallelen Chunks
+    for (let i = 0; i < batch.length; i += PARALLEL_SIZE) {
+      const chunk = batch.slice(i, i + PARALLEL_SIZE);
+      
+      console.log(`[THEME-ASSIGN] Verarbeite ${i + 1}-${Math.min(i + PARALLEL_SIZE, batch.length)} von ${batch.length}...`);
+      
+      // Parallele Verarbeitung des Chunks
+      const results = await Promise.all(chunk.map(processItem));
+      
+      // Ergebnisse verarbeiten
+      for (const result of results) {
+        if (result.success) {
+          assignments[result.id] = {
+            themes: result.themes,
+            assignedAt: new Date().toISOString()
+          };
+          processed++;
+        } else {
+          console.error(`[THEME-ASSIGN] Fehler bei ${result.id}:`, result.error);
+          errors.push({ id: result.id, error: result.error });
+        }
+      }
+      
+      // Zwischenspeichern nach jedem Chunk (mit Retry bei Dateifehler)
+      await saveWithRetry(THEME_ASSIGNMENTS_FILE, assignments);
+      console.log(`[THEME-ASSIGN] Zwischenstand: ${processed}/${batch.length}`);
+      
+      // Kurze Pause zwischen Chunks (Rate Limiting)
+      if (i + PARALLEL_SIZE < batch.length) {
+        await new Promise(r => setTimeout(r, 300));
+      }
+    }
+    
+    // Finale Speicherung (mit Retry bei Dateifehler)
+    await saveWithRetry(THEME_ASSIGNMENTS_FILE, assignments);
     
     console.log(`[THEME-ASSIGN] Fertig: ${processed} zugeordnet, ${errors.length} Fehler`);
     res.json({
@@ -22425,7 +23020,13 @@ app.get('/api/theme-assignments-status', async (req, res) => {
       summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
     } catch (e) { /* ignore */ }
     
-    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, ID oder Titel)
+    // Lade Buch-Kapitel-Summaries (für Bücher GA001-046)
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(path.join(__dirname, 'book-chapter-summaries.json'), 'utf8'));
+    } catch (e) { /* ignore */ }
+    
+    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, Büchern, ID oder Titel)
     function getYearForText(id, entry) {
       // 1. Aus fullLectures (primäre Quelle für Vorträge und Aufsätze)
       if (fullLectures[id]) {
@@ -22443,11 +23044,28 @@ app.get('/api/theme-assignments-status', async (req, res) => {
         }
       }
       
-      // 2. Aus der ID (z.B. GA093a/1905-10-04)
+      // 2. Aus Buch-Kapitel-Summaries (für Bücher GA001-046)
+      if (bookChapterSummaries[id]) {
+        const chapter = bookChapterSummaries[id];
+        // Direkt gespeichertes Jahr
+        if (chapter.year) return parseInt(chapter.year);
+        // Prüfe bookTitle (z.B. "Goethes Weltanschauung (1897)")
+        if (chapter.bookTitle) {
+          const titleMatch = chapter.bookTitle.match(/\b(18|19)\d{2}\b/);
+          if (titleMatch) return parseInt(titleMatch[0]);
+        }
+        // Prüfe Kapiteltitel
+        if (chapter.title) {
+          const titleMatch = chapter.title.match(/\b(18|19)\d{2}\b/);
+          if (titleMatch) return parseInt(titleMatch[0]);
+        }
+      }
+      
+      // 3. Aus der ID (z.B. GA093a/1905-10-04)
       const idYearMatch = id.match(/\/(18\d{2}|19\d{2})/);
       if (idYearMatch) return parseInt(idYearMatch[1]);
       
-      // 3. Aus dem Titel in summaryDb (Fallback)
+      // 5. Aus dem Titel in summaryDb (Fallback)
       if (entry && entry.title) {
         const titleMatch = entry.title.match(/\b(18|19)\d{2}\b/);
         if (titleMatch) return parseInt(titleMatch[0]);

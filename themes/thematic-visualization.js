@@ -137,6 +137,11 @@ function renderThematicChart(container) {
         // Verwende dynamische Daten wenn verfügbar, sonst statische
         var themesData = dynamicThemesData || SteinerThemesData;
         
+        // Sortiere Themen alphabetisch für konsistente Anzeige
+        themesData = themesData.slice().sort(function(a, b) {
+            return a.theme.localeCompare(b.theme, 'de');
+        });
+        
         console.log('[THEME2] Rendering chart...');
         console.log('[THEME2] Container:', container ? container.id : 'null');
         console.log('[THEME2] Themes count:', themesData.length);
@@ -622,6 +627,11 @@ function populateThemeSelector() {
     var selector = document.getElementById('themeKeywordSelector');
     if (!selector) return;
     
+    // Sortiere SteinerThemesData alphabetisch (falls noch nicht sortiert)
+    SteinerThemesData.sort(function(a, b) {
+        return a.theme.localeCompare(b.theme, 'de');
+    });
+    
     // Behalte die erste Option
     selector.innerHTML = '<option value="">-- Bitte wählen --</option>';
     
@@ -859,7 +869,7 @@ function getOriginalThemeQuery(themeName) {
         "Goethe (Faust, Märchen)": "Goethe Faust Märchen",
         "Goetheanismus": "Goetheanismus",
         "Kosmologie / Kosmogonie": "Kosmologie Kosmogonie",
-        "Landwirtschaft": "Landwirtschaft",
+        "Ernährung / Landwirtschaft": "Ernährung / Landwirtschaft",
         "Meditation / Schulungsweg": "Meditation Schulungsweg",
         "Menschenkunde & Dreigliederung": "Menschenkunde Dreigliederung",
         "Menschheitsentwicklung": "Menschheitsentwicklung",
@@ -1027,6 +1037,147 @@ async function saveKeywordChanges() {
     setTimeout(function() {
         if (statusMsg.parentNode) statusMsg.remove();
     }, 5000);
+}
+
+// KI-Neu-Zuordnung für ausgewähltes Thema
+async function reassignThemeWithAI() {
+    var selector = document.getElementById('themeKeywordSelector');
+    var statusDiv = document.getElementById('reassignThemeStatus');
+    
+    if (!selector || !selector.value) {
+        alert('Bitte wählen Sie zuerst ein Thema aus.');
+        return;
+    }
+    
+    var themeName = selector.value;
+    
+    // Erst Kandidaten zählen (schnelle Anfrage)
+    statusDiv.style.display = 'block';
+    statusDiv.style.cssText = 'margin-top: 0.5rem; padding: 8px 12px; background: var(--info-bg, #d1ecf1); color: var(--info-text, #0c5460); border-radius: 4px; font-size: 0.85rem; text-align: center;';
+    statusDiv.innerHTML = 'Zähle Kandidaten...';
+    
+    try {
+        var countResponse = await fetch('/api/reassign-single-theme', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ themeName: themeName, countOnly: true })
+        });
+        var countResult = await countResponse.json();
+        
+        if (!countResponse.ok) {
+            statusDiv.style.background = 'var(--danger-bg, #f8d7da)';
+            statusDiv.style.color = 'var(--danger-text, #721c24)';
+            statusDiv.innerHTML = '✗ Fehler: ' + (countResult.error || 'Unbekannt');
+            return;
+        }
+        
+        var candidateCount = countResult.candidates || 0;
+        var skippedCount = countResult.skippedAlreadyProcessed || 0;
+        
+        if (candidateCount === 0) {
+            if (skippedCount > 0) {
+                statusDiv.style.background = 'var(--success-bg, #d4edda)';
+                statusDiv.style.color = 'var(--success-text, #155724)';
+                statusDiv.innerHTML = '✓ Alle ' + skippedCount + ' Kandidaten wurden bereits verarbeitet.';
+            } else {
+                statusDiv.style.background = 'var(--warning-bg, #fff3cd)';
+                statusDiv.style.color = 'var(--warning-text, #856404)';
+                statusDiv.innerHTML = 'Keine Kandidaten gefunden. Prüfen Sie die Schlagwörter.';
+            }
+            return;
+        }
+        
+        // Bestätigung mit Kandidatenzahl
+        var estimatedTime = Math.ceil(candidateCount / 10 * 0.7); // ca. 0.7s pro 10 Texte
+        var estimatedCost = (candidateCount * 0.0001).toFixed(3); // ca. $0.0001 pro Text
+        
+        var skippedInfo = skippedCount > 0 ? '\n⏭️ ' + skippedCount + ' bereits verarbeitet (übersprungen)' : '';
+        
+        if (!confirm('Thema "' + themeName + '" mit KI neu zuordnen?\n\n' +
+            '📊 ' + candidateCount + ' neue Kandidaten' + skippedInfo + '\n' +
+            '⏱️ Geschätzte Zeit: ~' + estimatedTime + ' Sekunden\n' +
+            '💰 Geschätzte Kosten: ~$' + estimatedCost + '\n\n' +
+            'Fortfahren?')) {
+            statusDiv.style.display = 'none';
+            return;
+        }
+        
+    } catch (e) {
+        statusDiv.style.background = 'var(--danger-bg, #f8d7da)';
+        statusDiv.style.color = 'var(--danger-text, #721c24)';
+        statusDiv.innerHTML = '✗ Fehler beim Zählen: ' + e.message;
+        return;
+    }
+    
+    // Status anzeigen
+    statusDiv.style.cssText = 'margin-top: 0.5rem; padding: 8px 12px; background: var(--info-bg, #d1ecf1); color: var(--info-text, #0c5460); border-radius: 4px; font-size: 0.85rem; text-align: center;';
+    statusDiv.innerHTML = '<i data-lucide="loader" class="spin" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 6px;"></i> KI-Zuordnung läuft (0/' + candidateCount + ')...';
+    
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+    }
+    
+    try {
+        var response = await fetch('/api/reassign-single-theme', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ themeName: themeName })
+        });
+        
+        var result = await response.json();
+        
+        if (response.ok && result.success) {
+            statusDiv.style.background = 'var(--success-bg, #d4edda)';
+            statusDiv.style.color = 'var(--success-text, #155724)';
+            statusDiv.innerHTML = '✓ <strong>' + result.processed + '</strong> Texte geprüft: <strong>+' + result.added + '</strong> hinzugefügt, <strong>-' + result.removed + '</strong> entfernt';
+            
+            // Heatmap neu laden
+            try {
+                var rangeResponse = await fetch('/api/theme-assignments-status');
+                if (rangeResponse.ok) {
+                    var rangeResult = await rangeResponse.json();
+                    themeRangesCache = rangeResult.themeRanges || {};
+                    
+                    // Aktualisiere dynamische Daten
+                    dynamicThemesData = SteinerThemesData.map(function(theme) {
+                        var cached = themeRangesCache[theme.theme];
+                        if (cached && cached.ranges) {
+                            return {
+                                theme: theme.theme,
+                                ranges: cached.ranges,
+                                query: theme.query,
+                                totalMatches: cached.totalMatches || 0
+                            };
+                        }
+                        return theme;
+                    });
+                    
+                    // Grafik neu rendern
+                    var chartContainer = document.getElementById('thematic2-visualization-main');
+                    if (chartContainer) {
+                        renderThematicChart(chartContainer);
+                    }
+                }
+            } catch (e) {
+                console.warn('[THEME2] Heatmap-Update fehlgeschlagen:', e);
+            }
+            
+        } else {
+            statusDiv.style.background = 'var(--danger-bg, #f8d7da)';
+            statusDiv.style.color = 'var(--danger-text, #721c24)';
+            statusDiv.innerHTML = '✗ Fehler: ' + (result.error || 'Unbekannter Fehler');
+        }
+        
+    } catch (error) {
+        statusDiv.style.background = 'var(--danger-bg, #f8d7da)';
+        statusDiv.style.color = 'var(--danger-text, #721c24)';
+        statusDiv.innerHTML = '✗ Netzwerkfehler: ' + error.message;
+    }
+    
+    // Status nach 10 Sekunden ausblenden
+    setTimeout(function() {
+        statusDiv.style.display = 'none';
+    }, 10000);
 }
 
 // Beim Klick auf einen Balken in der Grafik: Theme im Dropdown auswählen
@@ -1476,3 +1627,4 @@ window.exportKeywordChanges = exportKeywordChanges;
 window.addNewTheme = addNewTheme;
 window.renameSelectedTheme = renameSelectedTheme;
 window.deleteSelectedTheme = deleteSelectedTheme;
+window.reassignThemeWithAI = reassignThemeWithAI;

@@ -23,7 +23,12 @@
     "2025-12-31": {
       "views": 2,
       "searches": 0,
-      "lectures": 9
+      "lectures": 12
+    },
+    "2026-01-01": {
+      "views": 0,
+      "searches": 0,
+      "lectures": 2
     }
   },
   "topSearches": {
@@ -181,9 +186,13 @@
     "GA046/1": 4,
     "GA046/2": 1,
     "GA046/41": 1,
-    "GA069a/9": 1
+    "GA069a/9": 1,
+    "GA046/113": 1,
+    "GA019/8": 2,
+    "GA046/71": 1,
+    "GA005/7": 1
   },
   "totalViews": 19,
   "totalSearches": 26,
-  "totalLectureViews": 333
+  "totalLectureViews": 338
 }
