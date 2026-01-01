@@ -8582,6 +8582,12 @@ Bestehende Schlagwörter überschreiben
 <button id="chalkboardsSortToggleBtn" onclick="toggleChalkboardsSort()" title="Sortierung umschalten: GA-Nummer / Datum" style="display: none;">
 ▼
 </button>
+<!-- Close Summary Panel Button (nur im Themen-Tab wenn Panel offen) -->
+<button id="closeSummaryPanelBtn" onclick="closeSummaryPanelFromHeader()" title="Seitenleiste schließen" style="display: none; padding: 4px 8px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
 <!-- Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
@@ -9405,6 +9411,81 @@ function normalizeGANumber(gaNumber) {
     }
 
     /**
+     * Schließt das Summary Panel über den Header-Button (nur im Themen-Tab)
+     */
+    function closeSummaryPanelFromHeader() {
+      const summaryPanel = document.getElementById('summary-panel');
+      const summaryContent = document.getElementById('summary-content');
+      const resizeHandle = document.getElementById('verticalResizeHandle');
+      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+      const mainContainer = document.getElementById('main-container');
+      
+      if (summaryPanel) {
+        summaryPanel.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        document.body.classList.add('summary-panel-collapsed');
+        
+        if (resizeHandle) {
+          resizeHandle.classList.remove('visible');
+        }
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.classList.remove('visible');
+          verticalResizeHandleWrapper.style.display = 'none';
+        }
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        if (summaryContent) {
+          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        }
+        
+        // Update header position
+        updateHeaderPosition();
+        
+        // Button IMMER verstecken
+        const closeBtn = document.getElementById('closeSummaryPanelBtn');
+        if (closeBtn) {
+          closeBtn.style.display = 'none';
+          closeBtn.style.visibility = 'hidden';
+        }
+        
+        // Button-Sichtbarkeit aktualisieren NUR wenn wir im Themen-Tab sind
+        // (beim Tab-Wechsel wird das später in switchTab() gemacht)
+        const thematic2Tab = document.getElementById('thematic2-tab');
+        const isThematic2Active = thematic2Tab && thematic2Tab.classList.contains('active');
+        if (isThematic2Active && typeof updateCloseSummaryPanelButton === 'function') {
+          updateCloseSummaryPanelButton();
+        }
+      }
+    }
+    
+    /**
+     * Aktualisiert die Sichtbarkeit des Close-Summary-Panel-Buttons
+     * Button wird nur angezeigt wenn: Themen-Tab aktiv UND Summary Panel offen
+     */
+    function updateCloseSummaryPanelButton() {
+      const closeBtn = document.getElementById('closeSummaryPanelBtn');
+      const summaryPanel = document.getElementById('summary-panel');
+      const thematic2Tab = document.getElementById('thematic2-tab');
+      
+      if (!closeBtn) return;
+      
+      // Prüfe ob Themen-Tab aktiv ist
+      const isThematic2Active = thematic2Tab && thematic2Tab.classList.contains('active');
+      // Prüfe ob Summary Panel sichtbar ist
+      const isPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
+      
+      if (isThematic2Active && isPanelVisible) {
+        closeBtn.style.display = 'inline-flex';
+        closeBtn.style.visibility = 'visible';
+      } else {
+        closeBtn.style.display = 'none';
+        closeBtn.style.visibility = 'hidden';
+      }
+    }
+
+    /**
      * Hilfsfunktion: Setzt die Panel-Breite und passt den Main-Container automatisch an
      * @param {number} width - Neue Breite des Panels in Pixeln
      */
@@ -9721,6 +9802,13 @@ function normalizeGANumber(gaNumber) {
       }
     
     function switchTab(mode, skipHistory = false) {
+      // SOFORT: Button direkt verstecken beim Tab-Wechsel (wird später korrekt gesetzt)
+      const closeSummaryBtn = document.getElementById('closeSummaryPanelBtn');
+      if (closeSummaryBtn) {
+        closeSummaryBtn.style.display = 'none';
+        closeSummaryBtn.style.visibility = 'hidden';
+      }
+      
       // WICHTIG: Beim Tab-Wechsel SOFORT alle Anzeigen im Main Viewer löschen
       // Entferne ALLE Container der chronologischen Ansicht
       const wrapper = document.getElementById('chronological-year-nav-wrapper');
@@ -10070,6 +10158,13 @@ function normalizeGANumber(gaNumber) {
       // Verstecke Viewer-Buttons beim Tab-Wechsel (inkl. Info-Button)
       updateButtonStates();
       
+      // Close Summary Panel Button IMMER verstecken beim Tab-Wechsel (wird später wieder angezeigt falls nötig)
+      const closeSummaryPanelBtn = document.getElementById('closeSummaryPanelBtn');
+      if (closeSummaryPanelBtn) {
+        closeSummaryPanelBtn.style.display = 'none';
+        closeSummaryPanelBtn.style.visibility = 'hidden';
+      }
+      
       // Zusätzliche Sicherheitsprüfung: H4 Toggle Button und Übersicht-Button im GA-Tab ausblenden
       if (mode === 'ga') {
         const h4ToggleBtn = document.getElementById('h4ToggleBtn');
@@ -10207,6 +10302,20 @@ function normalizeGANumber(gaNumber) {
         }
       });
       
+      // Summary Panel schließen NACH dem Entfernen der Tab-Klassen (wie beim Button-Klick)
+      // Dies versteckt auch den Close-Button korrekt
+      // Button wird hier IMMER versteckt, wird später nur wieder angezeigt wenn im Themen-Tab und Panel offen
+      const closeSummaryPanelBtnAfterTabRemove = document.getElementById('closeSummaryPanelBtn');
+      if (closeSummaryPanelBtnAfterTabRemove) {
+        closeSummaryPanelBtnAfterTabRemove.style.display = 'none';
+        closeSummaryPanelBtnAfterTabRemove.style.visibility = 'hidden';
+      }
+      
+      // Panel schließen wenn wir NICHT zum Themen-Tab wechseln
+      if (mode !== 'thematic2' && typeof closeSummaryPanelFromHeader === 'function') {
+        closeSummaryPanelFromHeader();
+      }
+      
       // Entferne Jahres-Buttons beim Tab-Wechsel IMMER (unabhängig vom Ziel-Tab)
       // Verwende globale Funktion für maximale Robustheit
       function forceRemoveYearButtons() {
@@ -10244,6 +10353,22 @@ function normalizeGANumber(gaNumber) {
         targetTab.classList.add('active');
         // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
         targetTab.style.display = '';
+      }
+      
+      // Close Summary Panel Button Sichtbarkeit aktualisieren NACH dem Setzen der Tab-Klassen
+      // Button wurde bereits oben versteckt, jetzt nur noch aktualisieren wenn nötig
+      if (typeof updateCloseSummaryPanelButton === 'function') {
+        if (mode === 'thematic2') {
+          // Nur beim Themen-Tab: Button-Sichtbarkeit prüfen (wird nur angezeigt wenn Panel offen ist)
+          updateCloseSummaryPanelButton();
+        } else {
+          // Bei allen anderen Tabs: Button sicherstellen dass er versteckt ist (auch nach closeSummaryPanelFromHeader)
+          const closeBtnFinal = document.getElementById('closeSummaryPanelBtn');
+          if (closeBtnFinal) {
+            closeBtnFinal.style.display = 'none';
+            closeBtnFinal.style.visibility = 'hidden';
+          }
+        }
       }
       
       // WICHTIG: Wenn wir zu einem anderen Tab wechseln (nicht GA-Tab), entferne chronologische Ansicht SOFORT
@@ -21169,29 +21294,62 @@ function scrollToChronologicalYear(year) {
   // Übersicht, Original, H4-Toggle und Download: NUR anzeigen wenn Vortrag oder Buch im Main Viewer geladen ist
   const viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
   
-  // Prüfe ob wir in Themen, Timeline oder Index-Tab sind (für Download-Button)
+  // Prüfe ob wir in verschiedenen Tabs sind (für Download-Button)
   const schlagworteTab = document.getElementById('schlagworte-tab');
   const isInIndexTab = schlagworteTab && schlagworteTab.classList.contains('active');
   const thematicTab = document.getElementById('thematic-tab');
   const isInThematicTab = thematicTab && thematicTab.classList.contains('active');
   const timelineTab = document.getElementById('timeline-tab');
   const isInTimelineTab = timelineTab && timelineTab.classList.contains('active');
+  const keywordTab = document.getElementById('keyword-tab');
+  const isInKeywordTab = keywordTab && keywordTab.classList.contains('active');
   
-  // Prüfe ob Viewer Inhalt hat (für Themen/Timeline/Index-Tabs)
+  // Prüfe ob Viewer Inhalt hat (für Timeline/Index/Abfrage/Suche-Tabs)
   const viewer = document.getElementById('viewer');
-  const viewerHasContent = viewer && viewer.innerHTML.trim() !== '' && 
-    !viewer.innerHTML.includes('Wählen Sie einen GA-Band') && 
-    !viewer.innerHTML.includes('Wählen Sie einen Vortrag') &&
-    !viewer.innerHTML.includes('Keine Ergebnisse');
+  const viewerText = viewer ? (viewer.textContent || viewer.innerText || '').trim() : '';
+  const viewerHTML = viewer ? viewer.innerHTML.trim() : '';
+  
+  // Standard-Nachrichten die KEIN echter Inhalt sind
+  const isDefaultMessage = viewerText.includes('Bitte ein Schlagwort auswählen') ||
+    viewerText.includes('Bitte eine Suche durchführen') ||
+    viewerText.includes('Bitte eine Themenanfrage stellen') ||
+    viewerText.includes('Bitte ein Schlagwort auswählen') ||
+    viewerText.includes('Bitte einen Zeitraum auswählen') ||
+    viewerHTML.includes('Wählen Sie einen GA-Band') ||
+    viewerHTML.includes('Wählen Sie einen Vortrag') ||
+    viewerHTML.includes('Keine Ergebnisse') ||
+    viewerHTML.includes('Wählen Sie einen Zeitraum') ||
+    viewerHTML.includes('Bitte wählen Sie') ||
+    (viewerHTML.length < 100 && viewerText.length < 50); // Sehr kurzer Inhalt = wahrscheinlich Standard-Nachricht
+  
+  // Viewer hat Inhalt wenn: HTML vorhanden UND keine Standard-Nachricht
+  const viewerHasContent = viewer && viewerHTML !== '' && !isDefaultMessage;
+  
+  // Close Summary Panel Button: Nur im Themen-Tab anzeigen wenn Panel offen ist
+  const closeSummaryPanelBtn = document.getElementById('closeSummaryPanelBtn');
+  const thematic2Tab = document.getElementById('thematic2-tab');
+  const isInThematic2Tab = thematic2Tab && thematic2Tab.classList.contains('active');
+  const summaryPanel = document.getElementById('summary-panel');
+  const isPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
+  
+  if (closeSummaryPanelBtn) {
+    if (isInThematic2Tab && isPanelVisible) {
+      closeSummaryPanelBtn.style.display = 'inline-flex';
+      closeSummaryPanelBtn.style.visibility = 'visible';
+    } else {
+      closeSummaryPanelBtn.style.display = 'none';
+      closeSummaryPanelBtn.style.visibility = 'hidden';
+    }
+  }
   
   if (!currentLectureData) {
     // Kein Vortrag/Buch geladen - verstecke diese Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
     
-    // Download-Button: In Themen/Timeline/Index anzeigen wenn Viewer Inhalt hat
+    // Download-Button: Nur in Timeline/Index/Abfrage/Suche anzeigen wenn Viewer Inhalt hat
     if (viewerDownloadBtn) {
-      if ((isInThematicTab || isInTimelineTab || isInIndexTab) && viewerHasContent) {
+      if ((isInTimelineTab || isInIndexTab || isInThematicTab || isInKeywordTab) && viewerHasContent) {
         viewerDownloadBtn.style.display = 'inline-flex';
       } else {
         viewerDownloadBtn.style.display = 'none';
@@ -21245,9 +21403,14 @@ function scrollToChronologicalYear(year) {
       }
     }
     
-    // Download-Button bei geladenen Texten anzeigen
+    // Download-Button: Nur im Texte-Tab anzeigen wenn Text geladen ist
     if (viewerDownloadBtn) {
-      viewerDownloadBtn.style.display = 'inline-flex';
+      if (isInTexteTab) {
+        viewerDownloadBtn.style.display = 'inline-flex';
+      } else {
+        // In anderen Tabs verstecken (auch wenn Text geladen ist)
+        viewerDownloadBtn.style.display = 'none';
+      }
     }
   }
 
@@ -21644,6 +21807,11 @@ function scrollToChronologicalYear(year) {
         convertGAReferencesToLinks(viewer, concept);
         // Verlinke Schlagwörter im Text, die als Index-Einträge existieren
         linkifySchlagworteInElement(viewer, concept);
+        
+        // Aktualisiere Button-States nach dem Laden des Inhalts (zeigt Download-Button an)
+        if (typeof updateButtonStates === 'function') {
+          updateButtonStates();
+        }
       }, 100);
     }
     
@@ -22311,7 +22479,19 @@ function scrollToChronologicalYear(year) {
       // Simulation nach 3 Sekunden stoppen für stabile Interaktion
       setTimeout(() => {
         networkSimulation.stop();
+        
+        // Aktualisiere Button-States nach dem Rendern des Netzwerks (zeigt Download-Button an)
+        if (typeof updateButtonStates === 'function') {
+          updateButtonStates();
+        }
       }, 3000);
+      
+      // Auch sofort nach dem Rendern aktualisieren (für schnelleres Feedback)
+      setTimeout(() => {
+        if (typeof updateButtonStates === 'function') {
+          updateButtonStates();
+        }
+      }, 100);
       
       // Drag Funktionen
       function dragstarted(event, d) {

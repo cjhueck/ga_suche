@@ -5749,7 +5749,7 @@
     "calculatedAt": "2025-12-31T13:13:11.688Z"
   },
   "Bewusstsein": {
-    "query": "Wachen Träumen Schlafen Trance Somnambulismus Erweitertes Bewusstsein Schauendes_Bewusstsein",
+    "query": "Wachen Träumen Schlafen Trance Somnambulismus Erweitertes Bewusstsein Schauendes Bewusstsein Leibfreies Bewusstsein",
     "method": "embeddings",
     "ranges": [
       {
@@ -5757,56 +5757,56 @@
         "end": 1892,
         "intensity": 0.25,
         "count": 1,
-        "avgSimilarity": 0.74
+        "avgSimilarity": 0.736
       },
       {
         "start": 1902,
         "end": 1902,
         "intensity": 0.39,
         "count": 2,
-        "avgSimilarity": 0.717
+        "avgSimilarity": 0.721
       },
       {
         "start": 1903,
         "end": 1903,
         "intensity": 0.24,
         "count": 1,
-        "avgSimilarity": 0.695
+        "avgSimilarity": 0.698
       },
       {
         "start": 1904,
         "end": 1904,
         "intensity": 0.89,
         "count": 20,
-        "avgSimilarity": 0.729
+        "avgSimilarity": 0.73
       },
       {
         "start": 1910,
         "end": 1910,
         "intensity": 0.74,
         "count": 9,
-        "avgSimilarity": 0.722
+        "avgSimilarity": 0.725
       },
       {
         "start": 1913,
         "end": 1913,
-        "intensity": 0.38,
-        "count": 2,
-        "avgSimilarity": 0.694
+        "intensity": 0.24,
+        "count": 1,
+        "avgSimilarity": 0.702
       },
       {
         "start": 1915,
         "end": 1915,
         "intensity": 0.24,
         "count": 1,
-        "avgSimilarity": 0.713
+        "avgSimilarity": 0.707
       },
       {
         "start": 1916,
         "end": 1916,
         "intensity": 0.24,
         "count": 1,
-        "avgSimilarity": 0.699
+        "avgSimilarity": 0.701
       },
       {
         "start": 1917,
@@ -5819,284 +5819,284 @@
         "start": 1923,
         "end": 1923,
         "intensity": 0.88,
-        "count": 16,
-        "avgSimilarity": 0.711
+        "count": 17,
+        "avgSimilarity": 0.715
       }
     ],
     "totalMatches": 54,
     "textIds": [
       {
         "id": "GA010/11",
-        "similarity": 0.7876731255287539,
+        "similarity": 0.7895722272328418,
         "year": 1904
       },
       {
         "id": "GA013/12",
-        "similarity": 0.7751292554645234,
+        "similarity": 0.7802808659815383,
         "year": 1910
       },
       {
-        "id": "GA010/10",
-        "similarity": 0.7607628902317772,
-        "year": 1904
-      },
-      {
         "id": "GA010/12",
-        "similarity": 0.7576778620546496,
+        "similarity": 0.7620301487861068,
         "year": 1904
       },
       {
-        "id": "GA010/15",
-        "similarity": 0.7525628261096556,
-        "year": 1904
-      },
-      {
-        "id": "GA012/2",
-        "similarity": 0.7488427494508983,
+        "id": "GA010/10",
+        "similarity": 0.7605776815966507,
         "year": 1904
       },
       {
         "id": "GA013/7",
-        "similarity": 0.7456683537959616,
+        "similarity": 0.7576218225832093,
         "year": 1910
       },
       {
-        "id": "GA012/1",
-        "similarity": 0.7432982111116715,
+        "id": "GA010/15",
+        "similarity": 0.7543760086001721,
         "year": 1904
       },
       {
+        "id": "GA012/2",
+        "similarity": 0.7470216306321804,
+        "year": 1904
+      },
+      {
+        "id": "GA012/1",
+        "similarity": 0.7455303117654329,
+        "year": 1904
+      },
+      {
+        "id": "GA028/15",
+        "similarity": 0.7447566458582271,
+        "year": 1923
+      },
+      {
         "id": "GA007/11",
-        "similarity": 0.7400244846329229,
+        "similarity": 0.7420394860840519,
         "year": 1902
       },
       {
         "id": "GA003/8",
-        "similarity": 0.7398023676188448,
+        "similarity": 0.7362346875681637,
         "year": 1892
       },
       {
-        "id": "GA028/15",
-        "similarity": 0.7369321261831235,
-        "year": 1923
-      },
-      {
-        "id": "GA010/5",
-        "similarity": 0.7339413466049741,
-        "year": 1904
-      },
-      {
-        "id": "GA021/4",
-        "similarity": 0.7289079078947615,
-        "year": 1917
-      },
-      {
-        "id": "GA012/4",
-        "similarity": 0.7280418039365375,
-        "year": 1904
-      },
-      {
-        "id": "GA009/9",
-        "similarity": 0.7276741673837106,
-        "year": 1904
-      },
-      {
         "id": "GA052/12",
-        "similarity": 0.7256331729741478,
-        "year": 1904
-      },
-      {
-        "id": "GA010/7",
-        "similarity": 0.7242198659922804,
-        "year": 1904
-      },
-      {
-        "id": "GA013/2",
-        "similarity": 0.7238119846539289,
-        "year": 1910
-      },
-      {
-        "id": "GA028/3",
-        "similarity": 0.7232543067983667,
-        "year": 1923
-      },
-      {
-        "id": "GA084/3",
-        "similarity": 0.7232178443360099,
-        "year": 1923
-      },
-      {
-        "id": "GA010/4",
-        "similarity": 0.7232009237889706,
+        "similarity": 0.7328175978517902,
         "year": 1904
       },
       {
         "id": "GA028/29",
-        "similarity": 0.7218855206364146,
+        "similarity": 0.7326260283791439,
+        "year": 1923
+      },
+      {
+        "id": "GA010/5",
+        "similarity": 0.7323465255107455,
+        "year": 1904
+      },
+      {
+        "id": "GA012/4",
+        "similarity": 0.7298123823774588,
+        "year": 1904
+      },
+      {
+        "id": "GA028/3",
+        "similarity": 0.7290833402542396,
+        "year": 1923
+      },
+      {
+        "id": "GA021/4",
+        "similarity": 0.7289905354405403,
+        "year": 1917
+      },
+      {
+        "id": "GA013/2",
+        "similarity": 0.7285789829858281,
+        "year": 1910
+      },
+      {
+        "id": "GA009/9",
+        "similarity": 0.725763096487947,
+        "year": 1904
+      },
+      {
+        "id": "GA084/3",
+        "similarity": 0.725538048124952,
+        "year": 1923
+      },
+      {
+        "id": "GA010/7",
+        "similarity": 0.7252503196140552,
+        "year": 1904
+      },
+      {
+        "id": "GA009/2",
+        "similarity": 0.7240205977130504,
+        "year": 1904
+      },
+      {
+        "id": "GA225/10",
+        "similarity": 0.7219764850923429,
+        "year": 1923
+      },
+      {
+        "id": "GA010/4",
+        "similarity": 0.7206594373428371,
+        "year": 1904
+      },
+      {
+        "id": "GA013/6",
+        "similarity": 0.7194425482662276,
+        "year": 1910
+      },
+      {
+        "id": "GA028/31",
+        "similarity": 0.7191880894113168,
         "year": 1923
       },
       {
         "id": "GA013/11",
-        "similarity": 0.7206139507866279,
+        "similarity": 0.717098261519647,
         "year": 1910
       },
       {
-        "id": "GA013/6",
-        "similarity": 0.7187620500486694,
-        "year": 1910
-      },
-      {
-        "id": "GA225/10",
-        "similarity": 0.7184515951176318,
+        "id": "GA028/33",
+        "similarity": 0.7166862531836832,
         "year": 1923
       },
       {
-        "id": "GA009/2",
-        "similarity": 0.7177883132419878,
+        "id": "GA009/7",
+        "similarity": 0.7165567014855386,
         "year": 1904
       },
       {
         "id": "GA012/5",
-        "similarity": 0.7162456867503991,
+        "similarity": 0.7149851959420226,
         "year": 1904
-      },
-      {
-        "id": "GA028/31",
-        "similarity": 0.7151839345435536,
-        "year": 1923
-      },
-      {
-        "id": "GA345/1",
-        "similarity": 0.7142082423909809,
-        "year": 1923
-      },
-      {
-        "id": "GA028/35",
-        "similarity": 0.713014455632485,
-        "year": 1923
-      },
-      {
-        "id": "GA163/2",
-        "similarity": 0.7129612900713476,
-        "year": 1915
       },
       {
         "id": "GA013/4",
-        "similarity": 0.711824164501929,
+        "similarity": 0.7136850069520784,
         "year": 1910
       },
       {
-        "id": "GA009/7",
-        "similarity": 0.711508388241974,
-        "year": 1904
-      },
-      {
-        "id": "GA010/1",
-        "similarity": 0.7094228411162001,
-        "year": 1904
-      },
-      {
-        "id": "GA028/33",
-        "similarity": 0.7092736074574276,
+        "id": "GA028/35",
+        "similarity": 0.713145313153402,
         "year": 1923
       },
       {
         "id": "GA028/19",
-        "similarity": 0.7063808716506209,
+        "similarity": 0.711693286752639,
         "year": 1923
       },
       {
-        "id": "GA028/10",
-        "similarity": 0.7056111395378393,
+        "id": "GA345/1",
+        "similarity": 0.7112643941713924,
         "year": 1923
       },
       {
         "id": "GA012/3",
-        "similarity": 0.7050188100161896,
+        "similarity": 0.7084959843295172,
         "year": 1904
       },
       {
-        "id": "GA009/10",
-        "similarity": 0.7034355003348374,
-        "year": 1904
-      },
-      {
-        "id": "GA010/3",
-        "similarity": 0.7024162010110165,
-        "year": 1904
-      },
-      {
-        "id": "GA013/3",
-        "similarity": 0.7009631732899103,
-        "year": 1910
-      },
-      {
-        "id": "GA010/2",
-        "similarity": 0.700895229092888,
-        "year": 1904
-      },
-      {
-        "id": "GA013/10",
-        "similarity": 0.7003852102070205,
-        "year": 1910
-      },
-      {
-        "id": "GA028/22",
-        "similarity": 0.7001854931104072,
+        "id": "GA028/10",
+        "similarity": 0.708201356011514,
         "year": 1923
+      },
+      {
+        "id": "GA010/1",
+        "similarity": 0.7080776349091531,
+        "year": 1904
+      },
+      {
+        "id": "GA163/2",
+        "similarity": 0.7073161449451524,
+        "year": 1915
       },
       {
         "id": "GA028/14",
-        "similarity": 0.6996531054846351,
+        "similarity": 0.7046679537191514,
         "year": 1923
       },
       {
-        "id": "GA020/1",
-        "similarity": 0.6989927673929442,
-        "year": 1916
+        "id": "GA013/3",
+        "similarity": 0.7045867540978498,
+        "year": 1910
+      },
+      {
+        "id": "GA009/10",
+        "similarity": 0.704109956917157,
+        "year": 1904
+      },
+      {
+        "id": "GA010/2",
+        "similarity": 0.7032922268076064,
+        "year": 1904
+      },
+      {
+        "id": "GA013/1",
+        "similarity": 0.7031832986196473,
+        "year": 1910
+      },
+      {
+        "id": "GA010/3",
+        "similarity": 0.70305013546734,
+        "year": 1904
       },
       {
         "id": "GA028/9",
-        "similarity": 0.6987754984298928,
+        "similarity": 0.7029119895036283,
+        "year": 1923
+      },
+      {
+        "id": "GA028/12",
+        "similarity": 0.7028062124481252,
         "year": 1923
       },
       {
         "id": "GA028/11",
-        "similarity": 0.698448244425058,
-        "year": 1923
-      },
-      {
-        "id": "GA013/1",
-        "similarity": 0.6983223933716876,
-        "year": 1910
-      },
-      {
-        "id": "GA028/12",
-        "similarity": 0.6951824864522752,
+        "similarity": 0.7023870377642797,
         "year": 1923
       },
       {
         "id": "GA250/21",
-        "similarity": 0.6947685081349466,
+        "similarity": 0.7015443022079021,
         "year": 1913
       },
       {
-        "id": "GA089/41",
-        "similarity": 0.6947534531438717,
-        "year": 1903
+        "id": "GA028/22",
+        "similarity": 0.7014942506164618,
+        "year": 1923
+      },
+      {
+        "id": "GA020/1",
+        "similarity": 0.7011830920819583,
+        "year": 1916
       },
       {
         "id": "GA007/2",
-        "similarity": 0.6945552854196342,
+        "similarity": 0.6998060576406405,
         "year": 1902
       },
       {
-        "id": "GA046/69",
-        "similarity": 0.693391513206876,
-        "year": 1913
+        "id": "GA028/24",
+        "similarity": 0.6988807265727338,
+        "year": 1923
+      },
+      {
+        "id": "GA089/41",
+        "similarity": 0.6983956895800627,
+        "year": 1903
+      },
+      {
+        "id": "GA013/10",
+        "similarity": 0.6980973091430875,
+        "year": 1910
       }
     ],
-    "calculatedAt": "2025-12-31T13:15:04.159Z"
+    "calculatedAt": "2026-01-01T10:16:57.901Z"
   },
   "Geistige Weltbereiche": {
     "query": "Astralwelt Devachan Geistige Welt Kamaloka Ätherwelt Mentale_Welt",
