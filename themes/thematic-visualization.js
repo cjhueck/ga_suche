@@ -887,7 +887,7 @@ function getOriginalThemeQuery(themeName) {
         "Reinkarnation und Karma": "Reinkarnation Karma",
         "Religionen / Weisheitslehren": "Religionen Weisheitslehren Buddhismus Hinduismus Islam Judentum",
         "Rosenkreuzer": "Rosenkreuzer Rosenkreuzertum Christian Rosenkreutz",
-        "Schlaf und Tod": "Schlaf Tod",
+        "Schlaf & Tod": "Schlaf Tod",
         "Seelenfähigkeiten": "Denken Fühlen Wollen Gedächtnis",
         "Sinneslehre": "Sinneslehre Sinnesorganisation",
         "Soziale Dreigliederung": "Soziale Dreigliederung",

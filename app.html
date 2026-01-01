@@ -1510,7 +1510,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 450px;
+      width: 400px;
       min-width: 0px;
       max-width: none;
       height: 100vh;
@@ -6530,7 +6530,6 @@ body.dark-mode .context-help-popup strong {
 <button class="tab-button" onclick="switchTab('texte')" data-help="tab-texte">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic2')" data-help="tab-themen-2">Themen</button>
 <button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Abfrage</button>
-<button class="tab-button" onclick="switchTab('timeline')" data-help="tab-timeline">Timeline</button>
 <button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
 <button class="tab-button" onclick="switchTab('docs')" id="docs-tab-button" data-help="tab-docs">Docs</button>
 <button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Keywords</button>
@@ -6882,123 +6881,39 @@ Meine Abfragen
 </div>
 
 <div class="tab-content" id="thematic2-tab" style="overflow-y: auto; max-height: calc(100vh - 200px);">
-  <!-- Admin-Bereich: Nur auf localhost sichtbar -->
-  <div id="thematic2-admin-panel">
-  <!-- Schlagwort-Verwaltung -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Schlagwörter verwalten</h4>
-    
-    <!-- Themenschwerpunkt-Auswahl -->
-    <select id="themeKeywordSelector" onchange="displayThemeKeywords()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
-      <option value="">-- Themenschwerpunkt wählen --</option>
-    </select>
-    
-    <!-- Schlagwörter-Anzeige -->
-    <div id="keywordChipsContainer" style="display: none;">
-      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.5rem;">
-        Aktive Schlagwörter (Klick zum Deaktivieren):
-      </label>
-      <div id="keywordChips" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; max-height: 150px; overflow-y: auto; padding-right: 4px;"></div>
-      
-      <!-- Neues Schlagwort hinzufügen -->
-      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neues Schlagwort hinzufügen:</label>
-      <div style="display: flex; gap: 6px;">
-        <input type="text" id="themeNewKeywordInput" placeholder="Schlagwort eingeben..." style="flex: 1; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem;" onkeypress="if(event.key==='Enter')addThemeKeyword()">
-        <button class="depth-btn" onclick="addThemeKeyword()" style="padding: 8px 12px;">
-          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
-        </button>
-      </div>
-      
-      <!-- Aktionen -->
-      <div style="margin-top: 1rem; display: flex; gap: 6px;">
-        <button class="depth-btn" onclick="resetThemeKeywords()" style="flex: 1; font-size: 0.85rem;">
-          Zurücksetzen
-        </button>
-        <button class="depth-btn primary" onclick="saveKeywordChanges()" style="flex: 1; font-size: 0.85rem;">
-          Speichern
-        </button>
-      </div>
-      
-      <!-- KI-Neu-Zuordnung -->
-      <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
-        <button class="depth-btn" onclick="reassignThemeWithAI()" style="width: 100%; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px;">
-          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-          Thema mit KI neu zuordnen
-        </button>
-        <p style="font-size: 0.75rem; color: var(--secondary-text); margin: 0.5rem 0 0 0;">
-          Durchsucht alle Texte nach den aktuellen Schlagwörtern und ordnet das Thema neu zu (API-Kosten).
-        </p>
-        <div id="reassignThemeStatus" style="margin-top: 0.5rem; display: none;"></div>
-      </div>
-    </div>
+  <!-- Timeline Filter Admin-Bereich (aus Timeline-Tab verschoben) -->
+  <div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+  <div>
+  <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('theme');">
+  <option value="">Bitte Thema wählen...</option>
+  </select>
   </div>
-  
-  <!-- Themenschwerpunkt bearbeiten -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Themenschwerpunkt bearbeiten</h4>
-    
-    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neuer Name:</label>
-    <input type="text" id="renameThemeInput" placeholder="Neuen Namen eingeben..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
-    
-    <div style="display: flex; gap: 6px;">
-      <button class="depth-btn" onclick="renameSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem;">
-        <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
-        Umbenennen
-      </button>
-      <button class="depth-btn" onclick="deleteSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; color: var(--danger-text, #dc3545);">
-        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
-        Löschen
-      </button>
-    </div>
-    
-    <div id="renameThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
+  <div>
+  <select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('keyword');">
+  <option value="">Alle Schlagwörter</option>
+  </select>
   </div>
-  
-  <!-- Neuer Themenschwerpunkt -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Neuer Themenschwerpunkt</h4>
-    
-    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Name:</label>
-    <input type="text" id="newThemeName" placeholder="z.B. Temperamente" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
-    
-    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Schlagwörter (durch Leerzeichen getrennt):</label>
-    <input type="text" id="newThemeKeywords" placeholder="z.B. Temperament Sanguiniker Choleriker Melancholiker Phlegmatiker" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
-    
-    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0 0 1rem 0; font-style: italic;">
-      Der Zeitraum wird automatisch durch Analyse der Texte ermittelt.
-    </p>
-    
-    <button class="depth-btn primary" onclick="addNewTheme()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
-      Themenschwerpunkt hinzufügen
-    </button>
-    
-    <div id="newThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
+  <div>
+  <input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onkeydown="handleTimelineKeywordSearch(event);" oninput="handleTimelineKeywordSearchInput(event);">
   </div>
-  
-  <!-- KI-Suche (Embeddings) -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">KI-Suche (Embeddings)</h4>
-    
-    <div id="embeddingsStatus" style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 0.8rem;">
-      Lade Status...
-    </div>
-    
-    <button class="depth-btn primary" onclick="generateEmbeddings()" id="generateEmbeddingsBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
-      Embeddings generieren
-    </button>
-    
-    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0.8rem 0 0 0; font-style: italic;">
-      Einmalig: Erstellt KI-Vektoren für alle Summaries (~6000). Dauert ca. 10-15 Min.
-    </p>
   </div>
-  </div><!-- Ende thematic2-admin-panel -->
+  <!-- Statistik-Anzeige -->
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+  <div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
+  <em>Lade Statistiken...</em>
+  </div>
+  <button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
+  ← Zurück zum Text
+  </button>
+  </div>
+  </div>
   
   <!-- Online-Version: Linkes Panel bleibt leer -->
   <div id="thematic2-online-info" style="display: none;">
   </div>
 </div>
+
 
 <script>
 // Verstecke Admin-Panel in der Online-Version
@@ -7079,41 +6994,9 @@ async function generateEmbeddings() {
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(loadEmbeddingsStatus, 1000);
 });
+
 </script>
 
-<div class="tab-content" id="timeline-tab">
-<!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
-<div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
-<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
-<div>
-<select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('theme');">
-<option value="">Bitte Thema wählen...</option>
-</select>
-</div>
-<div>
-<select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('keyword');">
-<option value="">Alle Schlagwörter</option>
-</select>
-</div>
-<div>
-<input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onkeydown="handleTimelineKeywordSearch(event);" oninput="handleTimelineKeywordSearchInput(event);">
-</div>
-</div>
-<!-- Statistik-Anzeige -->
-<div style="display: flex; justify-content: space-between; align-items: center;">
-<div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
-<em>Lade Statistiken...</em>
-</div>
-<button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
-← Zurück zum Text
-</button>
-</div>
-</div>
-
-<div id="timelineContentArea" style="padding: 0; max-height: calc(100vh - 350px); overflow-y: auto;">
-<!-- Timeline-Inhalte werden hier angezeigt -->
-</div>
-</div>
 
 <div class="tab-content" id="zitate-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0 2rem 0;">
@@ -8550,6 +8433,118 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
+<!-- Schlagwörter-Verwaltung für Themenschwerpunkte -->
+<div id="thematic2-admin-panel" style="margin-top: 2rem;">
+  <!-- Schlagwort-Verwaltung -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Schlagwörter verwalten</h4>
+    
+    <!-- Themenschwerpunkt-Auswahl -->
+    <select id="themeKeywordSelector" onchange="displayThemeKeywords()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
+      <option value="">-- Themenschwerpunkt wählen --</option>
+    </select>
+    
+    <!-- Schlagwörter-Anzeige -->
+    <div id="keywordChipsContainer" style="display: none;">
+      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.5rem;">
+        Aktive Schlagwörter (Klick zum Deaktivieren):
+      </label>
+      <div id="keywordChips" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; max-height: 150px; overflow-y: auto; padding-right: 4px;"></div>
+      
+      <!-- Neues Schlagwort hinzufügen -->
+      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neues Schlagwort hinzufügen:</label>
+      <div style="display: flex; gap: 6px;">
+        <input type="text" id="themeNewKeywordInput" placeholder="Schlagwort eingeben..." style="flex: 1; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem;" onkeypress="if(event.key==='Enter')addThemeKeyword()">
+        <button class="depth-btn" onclick="addThemeKeyword()" style="padding: 8px 12px;">
+          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+        </button>
+      </div>
+      
+      <!-- Aktionen -->
+      <div style="margin-top: 1rem; display: flex; gap: 6px;">
+        <button class="depth-btn" onclick="resetThemeKeywords()" style="flex: 1; font-size: 0.85rem;">
+          Zurücksetzen
+        </button>
+        <button class="depth-btn primary" onclick="saveKeywordChanges()" style="flex: 1; font-size: 0.85rem;">
+          Speichern
+        </button>
+      </div>
+      
+      <!-- KI-Neu-Zuordnung -->
+      <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
+        <button class="depth-btn" onclick="reassignThemeWithAI()" style="width: 100%; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+          Thema mit KI neu zuordnen
+        </button>
+        <p style="font-size: 0.75rem; color: var(--secondary-text); margin: 0.5rem 0 0 0;">
+          Durchsucht alle Texte nach den aktuellen Schlagwörtern und ordnet das Thema neu zu (API-Kosten).
+        </p>
+        <div id="reassignThemeStatus" style="margin-top: 0.5rem; display: none;"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Themenschwerpunkt bearbeiten -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Themenschwerpunkt bearbeiten</h4>
+    
+    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neuer Name:</label>
+    <input type="text" id="renameThemeInput" placeholder="Neuen Namen eingeben..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
+    
+    <div style="display: flex; gap: 6px;">
+      <button class="depth-btn" onclick="renameSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem;">
+        <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
+        Umbenennen
+      </button>
+      <button class="depth-btn" onclick="deleteSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; color: var(--danger-text, #dc3545);">
+        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+        Löschen
+      </button>
+    </div>
+    
+    <div id="renameThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
+  </div>
+  
+  <!-- Neuer Themenschwerpunkt -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Neuer Themenschwerpunkt</h4>
+    
+    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Name:</label>
+    <input type="text" id="newThemeName" placeholder="z.B. Temperamente" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
+    
+    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Schlagwörter (durch Leerzeichen getrennt):</label>
+    <input type="text" id="newThemeKeywords" placeholder="z.B. Temperament Sanguiniker Choleriker Melancholiker Phlegmatiker" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
+    
+    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0 0 1rem 0; font-style: italic;">
+      Der Zeitraum wird automatisch durch Analyse der Texte ermittelt.
+    </p>
+    
+    <button class="depth-btn primary" onclick="addNewTheme()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
+      Themenschwerpunkt hinzufügen
+    </button>
+    
+    <div id="newThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
+  </div>
+  
+  <!-- KI-Suche (Embeddings) -->
+  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">KI-Suche (Embeddings)</h4>
+    
+    <div id="embeddingsStatus" style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 0.8rem;">
+      Lade Status...
+    </div>
+    
+    <button class="depth-btn primary" onclick="generateEmbeddings()" id="generateEmbeddingsBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
+      Embeddings generieren
+    </button>
+    
+    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0.8rem 0 0 0; font-style: italic;">
+      Einmalig: Erstellt KI-Vektoren für alle Summaries (~6000). Dauert ca. 10-15 Min.
+    </p>
+  </div>
+</div>
 
 </div>
 </div>
@@ -10274,24 +10269,40 @@ function normalizeGANumber(gaNumber) {
       if (mode === 'thematic2') {
         document.body.classList.add('tab-thematic2-active');
         // Initialisiere Visualisierung wenn der Tab aktiviert wird
-        function tryInitThematic2(retries = 0) {
-          if (typeof initThematicVisualization === 'function') {
-            initThematicVisualization();
-          } else if (retries < 10) {
-            console.log('[TABS] initThematicVisualization noch nicht bereit, retry ' + (retries + 1));
-            setTimeout(() => tryInitThematic2(retries + 1), 200);
-          } else {
-            console.error('[TABS] initThematicVisualization konnte nach 10 Versuchen nicht gefunden werden.');
+        const existingHeatmap = document.getElementById('thematic2-visualization-main');
+        if (!existingHeatmap) {
+          function tryInitThematic2(retries = 0) {
+            if (typeof initThematicVisualization === 'function') {
+              initThematicVisualization();
+            } else if (retries < 10) {
+              console.log('[TABS] initThematicVisualization noch nicht bereit, retry ' + (retries + 1));
+              setTimeout(() => tryInitThematic2(retries + 1), 200);
+            } else {
+              console.error('[TABS] initThematicVisualization konnte nach 10 Versuchen nicht gefunden werden.');
+            }
           }
+          setTimeout(() => tryInitThematic2(), 50);
         }
-        setTimeout(() => tryInitThematic2(), 50);
+        
+        // Initialisiere Timeline-Filter (Dropdowns und Statistik)
+        setTimeout(function() {
+          // Lade Themes für Dropdown
+          if (typeof loadTimelineThemes === 'function') {
+            loadTimelineThemes();
+          }
+          
+          // Lade alle Keywords für das Keyword-Dropdown (wenn kein Thema ausgewählt)
+          if (typeof loadKeywordsForTheme === 'function') {
+            loadKeywordsForTheme('');
+          }
+          
+          // Lade Statistik
+          if (typeof updateTimelineStats === 'function') {
+            updateTimelineStats();
+          }
+        }, 300);
       } else {
         document.body.classList.remove('tab-thematic2-active');
-      }
-      if (mode === 'timeline') {
-        document.body.classList.add('tab-timeline-active');
-      } else {
-        document.body.classList.remove('tab-timeline-active');
       }
       
       document.querySelectorAll('.tab-content').forEach(content => {
@@ -10437,8 +10448,6 @@ function normalizeGANumber(gaNumber) {
             documentTitle.textContent = 'Schlagworte';
           } else if (mode === 'keyword') {
             documentTitle.textContent = 'Suche';
-          } else if (mode === 'timeline') {
-            documentTitle.textContent = 'Timeline';
           } else if (mode === 'zitate') {
             documentTitle.textContent = 'Zitate';
           } else if (mode === 'erweitert') {
@@ -16322,17 +16331,14 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
     timelineBackToLeftPanel = resultsContainer.innerHTML;
     }
   
-  // IMMER zum Timeline-Tab wechseln (auch wenn schon dort) um alles zurückzusetzen
+  // Wechsle zum Themen-Tab (Timeline-Tab wurde entfernt)
   timelinePendingKeyword = keyword;
-  switchTab('timeline');
+  switchTab('thematic2');
   
   // Warte, dann setze Keyword und führe GA-Suche durch
   setTimeout(async () => {
     if (timelinePendingKeyword) {
       const keywordToSet = timelinePendingKeyword;
-      
-      // renderTimeline lädt Dropdowns komplett neu (beide leer)
-      await renderTimeline();
       
       // Warte bis Dropdowns fertig gerendert sind
       setTimeout(async () => {
@@ -16341,15 +16347,13 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
         const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
         if (keywordDropdown) {
           keywordDropdown.value = keywordToSet;
+          await updateTimelineFilters('keyword');
         }
         
-        // NEU: Führe GA-Suche mit Keyword durch und zeige Ergebnisse in Timeline
-        await showKeywordSearchInTimeline(keywordToSet);
-        
         showTimelineBackButton();
-      }, 100);
+      }, 500);
     }
-  }, 100);
+  }, 300);
 }
 
 // Zeige/Verstecke Zurück-Button im Timeline-Tab
@@ -18206,10 +18210,10 @@ function scrollToChronologicalYear(year) {
       // Hole aktuelle Breite
       const currentWidth = panel.offsetWidth || 0;
       
-      // 2 Zustände: Geschlossen (0) -> Offen (gespeicherte Breite oder 450px) -> Geschlossen (0)
+      // 2 Zustände: Geschlossen (0) -> Offen (gespeicherte Breite oder 400px) -> Geschlossen (0)
       if (currentWidth === 0) {
-        // Verwende gespeicherte Breite oder Standard (450px)
-        const panelWidth = savedSummaryPanelWidth || 450;
+        // Verwende gespeicherte Breite oder Standard (400px)
+        const panelWidth = savedSummaryPanelWidth || 400;
         
         panel.classList.add('visible');
         panel.style.width = panelWidth + 'px';
@@ -31610,6 +31614,8 @@ function switchTabExtended(mode) {
       targetContent.style.display = '';
     }
     
+    // Keywords-Tab: Tab-Content bleibt sichtbar, da der Inhalt dort angezeigt wird
+    
     // Wenn zu einem Tab mit GA-Dropdown gewechselt wird, befülle die Dropdowns neu
     if ((mode === 'texte' || mode === 'thematic' || mode === 'concept-overview') && typeof populateGADropdowns === 'function') {
       populateGADropdowns().then(() => {
@@ -31661,12 +31667,8 @@ function switchTabExtended(mode) {
         defaultMessage = 'Bitte ein Thema für die Übersicht eingeben...';
         titleText = 'Konzept-Übersicht';
         break;
-      case 'timeline':
-        defaultMessage = 'Bitte ein Schlagwort auswählen…';
-        titleText = 'Timeline';
-        break;
       case 'keywords':
-        defaultMessage = 'Bitte ein Keyword auswählen…';
+        defaultMessage = '';
         titleText = 'Keywords';
         break;
       case 'zitate':
@@ -31687,7 +31689,59 @@ function switchTabExtended(mode) {
     if (mode === 'docs') {
       showDocsInViewer();
     } else if (mode === 'thematic2') {
-      // Themen II Visualisierung wird separat initialisiert
+      // Themen II Visualisierung: Heatmap nur initialisieren wenn noch nicht vorhanden
+      const existingHeatmap = document.getElementById('thematic2-visualization-main');
+      if (!existingHeatmap) {
+        // Heatmap noch nicht vorhanden, initialisiere sie
+        if (typeof initThematicVisualization === 'function') {
+          initThematicVisualization();
+        }
+      } else {
+        // Heatmap bereits vorhanden, lasse sie sichtbar
+        console.log('[THEME2] Heatmap bereits vorhanden, bleibt sichtbar');
+      }
+      
+      // Initialisiere Timeline-Filter (Dropdowns und Statistik)
+      requestAnimationFrame(function() {
+        setTimeout(function() {
+          // Lade Themes für Dropdown
+          if (typeof loadTimelineThemes === 'function') {
+            loadTimelineThemes();
+          }
+          
+          // Lade alle Keywords für das Keyword-Dropdown (wenn kein Thema ausgewählt)
+          if (typeof loadKeywordsForTheme === 'function') {
+            loadKeywordsForTheme('');
+          }
+          
+          // Lade Statistik
+          if (typeof updateTimelineStats === 'function') {
+            updateTimelineStats();
+          }
+        }, 100);
+      });
+    } else if (mode === 'keywords') {
+      // Keywords-Tab: Inhalt ist bereits im Tab-Content vorhanden und funktioniert dort
+      // Zeige Standard-Nachricht im Viewer
+      viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
+      
+      // Initialisiere Admin-Panel-Funktionen im Tab-Content
+      requestAnimationFrame(function() {
+        setTimeout(function() {
+          // Lade Embedding-Status
+          if (typeof loadEmbeddingsStatus === 'function') {
+            loadEmbeddingsStatus();
+          }
+          
+          // Populiere Theme-Selector wenn verfügbar
+          if (typeof populateThemeSelector === 'function') {
+            const selector = document.getElementById('themeKeywordSelector');
+            if (selector) {
+              populateThemeSelector();
+            }
+          }
+        }, 100);
+      });
     } else {
     viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
     }
@@ -31745,16 +31799,7 @@ function switchTabExtended(mode) {
   }
   
   // Wenn wir zum Timeline-Tab wechseln, Zurück-Button anzeigen/verstecken
-  if (mode === 'timeline') {
-    showTimelineBackButton();
-  } else {
-    // Bei allen anderen Tabs: Zurück-Navigation zurücksetzen
-    if (mode !== 'timeline') {
-      timelineBackToGA = null;
-      timelineBackToLecture = null;
-      timelineBackToLeftPanel = null;
-    }
-  }
+  // Timeline-Tab wurde entfernt
 
   // Wenn wir zum Text-Tab wechseln, lösche das zuletzt eingegebene Suchwort
   if (mode === 'keyword' && lastKeywordInputId) {
