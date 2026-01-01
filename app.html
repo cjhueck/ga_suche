@@ -3155,7 +3155,7 @@ gap: 4px !important;
       border: 1px solid var(--link-color);
       background: var(--background-color);
       font-size: 13px;
-      min-height: 70px;
+      min-height: 85px;
       resize: vertical;
       border-radius: 4px;
       line-height: 16px; 
@@ -6554,7 +6554,7 @@ Wandtafeln
 <option value="">Jahr</option>
 </select>
 <select id="ga-band-filter-dropdown" class="filter-dropdown" onchange="handleGABandFilterChange(this.value)" style="padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; flex: 1; min-width: 0; max-width: 100%;">
-<option value="">Alle GA-Bände</option>
+<option value="">GA-Bände</option>
 </select>
 </div>
 <div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
@@ -6896,7 +6896,7 @@ Meine Abfragen
   </div>
   <div>
   <select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('keyword');">
-  <option value="">Alle Schlagwörter</option>
+  <option value="">Schlagwörter</option>
   </select>
   </div>
   <div>
@@ -12576,7 +12576,7 @@ function normalizeGANumber(gaNumber) {
         
         // Befülle Concept Overview GA-Filter
         if (conceptOverviewGAFilter) {
-          conceptOverviewGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+          conceptOverviewGAFilter.innerHTML = '<option value="">GA-Bände</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
@@ -13316,7 +13316,7 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   if (chalkboardsOnly) {
     dropdown.innerHTML = '<option value="">Alle Tafeln</option>';
   } else {
-    dropdown.innerHTML = '<option value="">Alle GA-Bände</option>';
+    dropdown.innerHTML = '<option value="">GA-Bände</option>';
   }
   
   // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
@@ -13379,7 +13379,7 @@ function toggleChronologicalView() {
     }
     removeChalkboardsYearButtons();
     hideChalkboardsButtons(); // Buttons verstecken
-    // Dropdown wieder auf "Alle GA-Bände" zurücksetzen
+    // Dropdown wieder auf "GA-Bände" zurücksetzen
     populateGABandFilterDropdown(false);
   }
   
@@ -13805,7 +13805,7 @@ function displayChalkboardsGallery(chalkboards) {
     viewer.innerHTML = `
       <div style="padding: 2rem; text-align: center; color: var(--secondary-text);">
         <p>Keine Wandtafelzeichnungen gefunden.</p>
-        ${selectedGABandFilter ? '<p style="font-size: 0.9em; margin-top: 0.5rem;">Versuchen Sie "Alle GA-Bände" im Dropdown.</p>' : ''}
+        ${selectedGABandFilter ? '<p style="font-size: 0.9em; margin-top: 0.5rem;">Versuchen Sie "GA-Bände" im Dropdown.</p>' : ''}
       </div>
     `;
     return;
@@ -35940,7 +35940,7 @@ async function loadAvailableGAs() {
     const select = document.getElementById('timelineGASelect');
     
     // Clear existing options except first
-    select.innerHTML = '<option value="">Alle GA-Bände</option>';
+    select.innerHTML = '<option value="">GA-Bände</option>';
     
     // Add GA options
     if (Array.isArray(gaList)) {
@@ -35986,7 +35986,7 @@ async function loadTimelineThemes() {
     
     if (Object.keys(themes).length > 0) {
       // Clear and populate
-      themeSelect.innerHTML = '<option value="">Alle Themen</option>';
+      themeSelect.innerHTML = '<option value="">Themen</option>';
       Object.keys(themes).sort().forEach(theme => {
         const option = document.createElement('option');
         option.value = theme;
@@ -36021,7 +36021,7 @@ async function loadTimelineKeywords() {
   const theme = themeSelect.value;
   
   if (!theme || theme === '') {
-    keywordSelect.innerHTML = '<option value="">Alle Schlagwörter</option>';
+    keywordSelect.innerHTML = '<option value="">Schlagwörter</option>';
     keywordSelect.disabled = true;
     return;
   }
@@ -36034,7 +36034,7 @@ async function loadTimelineKeywords() {
     const themeData = themes[theme];
     
     if (themeData && themeData.keywords) {
-      keywordSelect.innerHTML = '<option value="">Alle Schlagwörter des Themas</option>';
+      keywordSelect.innerHTML = '<option value="">Schlagwörter des Themas</option>';
       themeData.keywords.sort().forEach(kw => {
         const option = document.createElement('option');
         option.value = kw;
@@ -36309,7 +36309,7 @@ async function loadKeywordsForTheme(themeName) {
   
   let keywordsHTML = themeName 
     ? '<option value="">Schlagwörter zum Thema</option>' 
-    : '<option value="">Alle Schlagwörter</option>';
+    : '<option value="">Schlagwörter</option>';
   
   if (themeName) {
     // Keywords für das gewählte Thema
@@ -36451,7 +36451,7 @@ async function renderTimeline() {
   // Lade Keywords: Wenn Thema gewählt, nur dessen Keywords; sonst alle
   let keywordsHTML = currentTheme 
     ? '<option value="">Schlagwörter zum Thema</option>' 
-    : '<option value="">Alle Schlagwörter</option>';
+    : '<option value="">Schlagwörter</option>';
   try {
     const keywordsDB = await loadKeywordsDatabase();
     
