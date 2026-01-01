@@ -3626,7 +3626,22 @@ body.dark-mode #texteSearchInfo {
 
 body.dark-mode #thematicSearchInfo {
   color: var(--dark-text-color);
-}  
+}
+
+/* Dark Mode: Heatmap SVG-Achsen und Beschriftungen */
+body.dark-mode #thematic2-visualization-main svg text {
+  fill: #b8b8b8 !important;
+}
+
+body.dark-mode #thematic2-visualization-main svg .domain,
+body.dark-mode #thematic2-visualization-main svg .tick line {
+  stroke: #555 !important;
+}
+
+body.dark-mode #thematic2-visualization-main svg .grid line {
+  stroke: #444 !important;
+}
+
     /* Diese Styles sind jetzt in #sidebar-content zentralisiert */
     a { color: var(--link-color); text-decoration: none; cursor: pointer; }
     a:hover { text-decoration: none !important; cursor: pointer; }
@@ -6807,7 +6822,7 @@ Wandtafeln
 <div class="tab-content" id="texte-tab">
 <div style="padding: 0;">
 <div class="filter-row" style="display: flex; align-items: center; gap: 8px;">
-<select class="filter-dropdown" id="texteGAFilter" style="flex: 1;">
+<select class="filter-dropdown" id="texteGAFilter" style="flex: 1; max-width: 100%; min-width: 0;">
 <option value="">GA-Band auswählen...</option>
 </select>
 <button id="texteSummaryToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: auto; flex-shrink: 0; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">

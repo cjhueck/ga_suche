@@ -169,11 +169,11 @@ function renderThematicChart(container) {
         if (globalMax >= 20) legendSteps.push(20);
         if (globalMax > 20) legendSteps.push(globalMax);
         
-        var legendHtml = '<span style="font-weight: 600; color: #333; font-size: 0.9rem;">Texte pro Jahr:</span>';
+        var legendHtml = '<span style="font-weight: 600; color: var(--text-color, #333); font-size: 0.9rem;">Texte pro Jahr:</span>';
         legendSteps.forEach(function(count) {
             legendHtml += '<div style="display: flex; align-items: center; gap: 0.5rem;">' +
                 '<div style="width: 20px; height: 14px; background: rgba(70,120,134,' + countToOpacity(count) + '); border-radius: 2px;"></div>' +
-                '<span style="font-size: 0.85rem; color: #666;">' + count + '</span>' +
+                '<span style="font-size: 0.85rem; color: var(--secondary-text, #666);">' + count + '</span>' +
                 '</div>';
         });
         
@@ -209,9 +209,12 @@ function renderThematicChart(container) {
             .attr('transform', 'translate(0,' + (height - margin.top - margin.bottom) + ')')
             .call(d3.axisBottom(x).ticks(15).tickFormat(d3.format('d')));
             
+        // Textfarbe basierend auf Dark Mode
+        var textColor = document.body.classList.contains('dark-mode') ? '#b8b8b8' : '#333';
+        
         xAxis.selectAll('text')
             .style('font-size', '13px')
-            .style('fill', '#333');
+            .style('fill', textColor);
             
         // X Axis (oben)
         var xAxisTop = svg.append('g')
@@ -220,7 +223,7 @@ function renderThematicChart(container) {
             
         xAxisTop.selectAll('text')
             .style('font-size', '13px')
-            .style('fill', '#333');
+            .style('fill', textColor);
 
         // Y Axis
         var yAxis = svg.append('g')
@@ -229,7 +232,7 @@ function renderThematicChart(container) {
         yAxis.selectAll('text')
             .style('font-size', '14px')
             .style('font-weight', '500')
-            .style('fill', '#333');
+            .style('fill', textColor);
 
         // Grid lines
         svg.append('g')
