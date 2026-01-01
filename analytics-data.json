@@ -27,8 +27,8 @@
     },
     "2026-01-01": {
       "views": 5,
-      "searches": 7,
-      "lectures": 73
+      "searches": 17,
+      "lectures": 92
     }
   },
   "topSearches": {
@@ -40,7 +40,11 @@
     "geister eurer seelen": 20,
     "denken fühlen wollen gedächtnis": 1,
     "brüderlichkeit theosophie": 1,
-    "lebenstableau": 5
+    "lebenstableau": 11,
+    "spirituelle pädagogik": 1,
+    "spirituelle* pädagogik": 1,
+    "spirituellen pädagogik": 1,
+    "spirituell pädagogik": 1
   },
   "topLectures": {
     "GA019": 2,
@@ -195,7 +199,7 @@
     "GA136/9": 2,
     "GA030/65": 3,
     "GA030/1": 6,
-    "GA100/8": 5,
+    "GA100/8": 6,
     "GA102/13": 3,
     "GA102/1": 1,
     "GA250/1": 1,
@@ -224,9 +228,17 @@
     "GA058/8": 1,
     "GA112/1": 1,
     "GA112/5": 1,
-    "GA117/4": 1
+    "GA117/4": 2,
+    "GA161/4": 3,
+    "GA054/4": 2,
+    "GA105/2": 2,
+    "GA168/2": 2,
+    "GA168/7": 2,
+    "GA173c/4": 3,
+    "GA174/7": 2,
+    "GA173c/9": 1
   },
   "totalViews": 24,
-  "totalSearches": 33,
-  "totalLectureViews": 409
+  "totalSearches": 43,
+  "totalLectureViews": 428
 }
