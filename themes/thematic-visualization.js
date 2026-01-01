@@ -453,6 +453,11 @@ async function openThematicLectureList(theme, startYear, endYear, query, clicked
         }
     }
     
+    // Close-Button im Header anzeigen (nur im Themen-Tab)
+    if (typeof updateCloseSummaryPanelButton === 'function') {
+        setTimeout(updateCloseSummaryPanelButton, 60);
+    }
+    
     summaryContent.innerHTML = '';
 
     // NUR KI-Zuordnungen anzeigen

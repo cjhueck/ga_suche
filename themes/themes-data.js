@@ -40,7 +40,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1904, end: 1924, intensity: 0.8 }
         ],
-        query: "Wachen Träumen Schlafen Trance Somnambulismus Erweitertes Bewusstsein Schauendes Bewusstsein"
+        query: "Wachen Träumen Schlafen Trance Somnambulismus Erweitertes Bewusstsein Schauendes Bewusstsein Leibfreies Bewusstsein"
     },
 {
         theme: "Bibel / Evangelien",

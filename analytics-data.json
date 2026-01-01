@@ -26,9 +26,9 @@
       "lectures": 12
     },
     "2026-01-01": {
-      "views": 0,
-      "searches": 0,
-      "lectures": 2
+      "views": 2,
+      "searches": 6,
+      "lectures": 40
     }
   },
   "topSearches": {
@@ -37,9 +37,10 @@
     "welcher zusammenhang besteht zwischen dem fühlen u": 1,
     "ab wann hat steiner über \"12 sinne\" gesprochen?": 1,
     "ab wann hat steiner über die \"zwölf sinne\" (tastsi": 1,
-    "geister eurer seelen": 18,
+    "geister eurer seelen": 20,
     "denken fühlen wollen gedächtnis": 1,
-    "brüderlichkeit theosophie": 1
+    "brüderlichkeit theosophie": 1,
+    "lebenstableau": 4
   },
   "topLectures": {
     "GA019": 2,
@@ -94,7 +95,7 @@
     "GA073a/10": 2,
     "GA073a/9": 1,
     "GA073a/3": 3,
-    "GA073a/4": 1,
+    "GA073a/4": 2,
     "GA073a/6": 1,
     "GA073/1": 5,
     "GA073/2": 7,
@@ -118,7 +119,7 @@
     "GA093a/9": 3,
     "GA170/9": 1,
     "GA096/3": 1,
-    "GA261/8": 17,
+    "GA261/8": 19,
     "GA174a/1": 49,
     "GA322/7": 4,
     "GA170/8": 1,
@@ -126,8 +127,8 @@
     "GA174a/2": 2,
     "GA174a/12": 1,
     "GA170/14": 1,
-    "GA262/2": 3,
-    "GA046/54": 3,
+    "GA262/2": 4,
+    "GA046/54": 4,
     "GA264/1": 4,
     "GA264/2": 1,
     "GA264/18": 1,
@@ -173,7 +174,7 @@
     "GA036/38": 2,
     "GA046/27": 1,
     "GA034/51": 1,
-    "GA030/11": 1,
+    "GA030/11": 2,
     "GA046/57": 1,
     "GA354/8": 1,
     "GA046/8": 1,
@@ -190,9 +191,25 @@
     "GA046/113": 1,
     "GA019/8": 2,
     "GA046/71": 1,
-    "GA005/7": 1
+    "GA005/7": 1,
+    "GA136/9": 2,
+    "GA030/65": 3,
+    "GA030/1": 6,
+    "GA100/8": 4,
+    "GA102/13": 2,
+    "GA102/1": 1,
+    "GA250/1": 1,
+    "GA034/2": 3,
+    "GA030/81": 1,
+    "GA052/16": 1,
+    "GA030/37": 1,
+    "GA137/10": 2,
+    "GA198/15": 1,
+    "GA078/3": 1,
+    "GA075/6": 2,
+    "GA266b/52": 1
   },
-  "totalViews": 19,
-  "totalSearches": 26,
-  "totalLectureViews": 338
+  "totalViews": 21,
+  "totalSearches": 32,
+  "totalLectureViews": 376
 }
