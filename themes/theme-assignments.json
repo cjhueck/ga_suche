@@ -11014,9 +11014,10 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T21:15:10.071Z",
-    "reassignedAt": "2025-12-31T23:52:58.929Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Christengemeinschaft"
     ]
   },
   "GA087/23": {
@@ -13049,7 +13050,11 @@
       "Religionen / Weisheitslehren",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2025-12-31T21:21:10.272Z"
+    "assignedAt": "2025-12-31T21:21:10.272Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA093/12": {
     "themes": [
@@ -13111,7 +13116,11 @@
       "Naturwissenschaft / Mathematik",
       "Vier Elemente / Ätherarten"
     ],
-    "assignedAt": "2025-12-31T21:21:22.168Z"
+    "assignedAt": "2025-12-31T21:21:22.168Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA093/20": {
     "themes": [
@@ -13503,7 +13512,11 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2025-12-31T21:22:25.737Z"
+    "assignedAt": "2025-12-31T21:22:25.737Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA092/4": {
     "themes": [
@@ -16453,7 +16466,10 @@
   "GA220/4": {
     "themes": [],
     "assignedAt": "2025-12-31T23:34:44.874Z",
-    "reassignedAt": "2025-12-31T23:34:44.874Z"
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA221/7": {
     "themes": [],
@@ -20516,11 +20532,14 @@
     ]
   },
   "GA343/28": {
-    "themes": [],
+    "themes": [
+      "Christengemeinschaft"
+    ],
     "assignedAt": "2025-12-31T23:54:01.175Z",
-    "reassignedAt": "2025-12-31T23:54:01.175Z",
+    "reassignedAt": "2026-01-01T13:00:19.027Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Christengemeinschaft"
     ]
   },
   "GA343/32": {
@@ -20550,9 +20569,10 @@
   "GA343/25": {
     "themes": [],
     "assignedAt": "2025-12-31T23:54:01.175Z",
-    "reassignedAt": "2025-12-31T23:54:01.175Z",
+    "reassignedAt": "2026-01-01T13:00:19.027Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Christengemeinschaft"
     ]
   },
   "GA344/7": {
@@ -20589,11 +20609,14 @@
     ]
   },
   "GA344/16": {
-    "themes": [],
+    "themes": [
+      "Christengemeinschaft"
+    ],
     "assignedAt": "2025-12-31T23:54:02.483Z",
-    "reassignedAt": "2025-12-31T23:54:02.483Z",
+    "reassignedAt": "2026-01-01T13:00:20.288Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Christengemeinschaft"
     ]
   },
   "GA344/17": {
@@ -20607,9 +20630,10 @@
   "GA344/18": {
     "themes": [],
     "assignedAt": "2025-12-31T23:54:02.483Z",
-    "reassignedAt": "2025-12-31T23:54:02.483Z",
+    "reassignedAt": "2026-01-01T13:00:20.288Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Christengemeinschaft"
     ]
   },
   "GA345/4": {
@@ -20975,9 +20999,10 @@
   "GA292/10": {
     "themes": [],
     "assignedAt": "2025-12-31T23:55:25.933Z",
-    "reassignedAt": "2025-12-31T23:55:25.933Z",
+    "reassignedAt": "2026-01-01T13:00:20.289Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Christengemeinschaft"
     ]
   },
   "GA172/9": {
@@ -21001,9 +21026,10 @@
   "GA173/11": {
     "themes": [],
     "assignedAt": "2025-12-31T23:56:51.647Z",
-    "reassignedAt": "2025-12-31T23:56:51.647Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Christengemeinschaft"
     ]
   },
   "GA173b/3": {
@@ -31139,7 +31165,11 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:28:01.404Z"
+    "assignedAt": "2026-01-01T00:28:01.404Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA171/10": {
     "themes": [
@@ -32608,7 +32638,11 @@
       "Geschichte / Kulturentwicklung",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2026-01-01T00:29:10.217Z"
+    "assignedAt": "2026-01-01T00:29:10.217Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA184/14": {
     "themes": [
@@ -38744,7 +38778,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:38.113Z"
+    "assignedAt": "2026-01-01T00:35:38.113Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA277/81": {
     "themes": [
@@ -39977,10 +40015,13 @@
   },
   "GA318/1": {
     "themes": [
-      "Anthroposophische Medizin",
-      "Christengemeinschaft"
+      "Anthroposophische Medizin"
     ],
-    "assignedAt": "2026-01-01T00:36:51.487Z"
+    "assignedAt": "2026-01-01T00:36:51.487Z",
+    "reassignedAt": "2026-01-01T13:00:17.391Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA317/7": {
     "themes": [
@@ -40110,10 +40151,13 @@
   },
   "GA318/8": {
     "themes": [
-      "Anthroposophische Medizin",
-      "Christengemeinschaft"
+      "Anthroposophische Medizin"
     ],
-    "assignedAt": "2026-01-01T00:36:55.017Z"
+    "assignedAt": "2026-01-01T00:36:55.017Z",
+    "reassignedAt": "2026-01-01T13:00:19.024Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA319/2": {
     "themes": [
@@ -42488,20 +42532,23 @@
   },
   "GA342/4": {
     "themes": [
-      "Böses (Luzifer, Ahriman)",
-      "Christengemeinschaft"
+      "Böses (Luzifer, Ahriman)"
     ],
-    "assignedAt": "2026-01-01T00:39:02.000Z"
+    "assignedAt": "2026-01-01T00:39:02.000Z",
+    "reassignedAt": "2026-01-01T13:00:19.025Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA343/2": {
     "themes": [
-      "Christengemeinschaft",
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2026-01-01T00:39:02.000Z",
-    "reassignedAt": "2026-01-01T00:55:24.774Z",
+    "reassignedAt": "2026-01-01T13:00:19.026Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Christengemeinschaft"
     ]
   },
   "GA342/1": {
@@ -42525,10 +42572,12 @@
     "assignedAt": "2026-01-01T00:39:03.532Z"
   },
   "GA343/10": {
-    "themes": [
+    "themes": [],
+    "assignedAt": "2026-01-01T00:39:03.532Z",
+    "reassignedAt": "2026-01-01T13:00:19.026Z",
+    "reassignedThemes": [
       "Christengemeinschaft"
-    ],
-    "assignedAt": "2026-01-01T00:39:03.532Z"
+    ]
   },
   "GA343/6": {
     "themes": [
@@ -42589,19 +42638,29 @@
       "Christentum",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:39:06.293Z"
+    "assignedAt": "2026-01-01T00:39:06.293Z",
+    "reassignedAt": "2026-01-01T13:00:19.026Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA343/18": {
     "themes": [
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:39:07.840Z"
+    "assignedAt": "2026-01-01T00:39:07.840Z",
+    "reassignedAt": "2026-01-01T13:00:19.026Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA343/14": {
-    "themes": [
+    "themes": [],
+    "assignedAt": "2026-01-01T00:39:07.840Z",
+    "reassignedAt": "2026-01-01T13:00:19.027Z",
+    "reassignedThemes": [
       "Christengemeinschaft"
-    ],
-    "assignedAt": "2026-01-01T00:39:07.840Z"
+    ]
   },
   "GA343/22": {
     "themes": [
@@ -42616,7 +42675,11 @@
       "Christentum",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:39:07.840Z"
+    "assignedAt": "2026-01-01T00:39:07.840Z",
+    "reassignedAt": "2026-01-01T13:00:19.027Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA343/27": {
     "themes": [
@@ -42754,7 +42817,11 @@
       "Christentum",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:39:16.740Z"
+    "assignedAt": "2026-01-01T00:39:16.740Z",
+    "reassignedAt": "2026-01-01T13:00:20.288Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA344/21": {
     "themes": [
@@ -42888,11 +42955,14 @@
   },
   "GA346/21": {
     "themes": [
-      "Christengemeinschaft",
       "Erkenntnisstufen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2026-01-01T00:39:22.947Z"
+    "assignedAt": "2026-01-01T00:39:22.947Z",
+    "reassignedAt": "2026-01-01T13:00:20.289Z",
+    "reassignedThemes": [
+      "Christengemeinschaft"
+    ]
   },
   "GA346/17": {
     "themes": [
