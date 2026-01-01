@@ -153,7 +153,7 @@ function renderThematicChart(container) {
         // Legende erstellen - dynamisch basierend auf globalem Maximum
         var globalMax = aiAssignmentsStatus ? (aiAssignmentsStatus.globalMaxCount || 10) : 10;
         var legendDiv = document.createElement('div');
-        legendDiv.style.cssText = 'margin-bottom: 1rem; padding: 0.8rem 1rem; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;';
+        legendDiv.style.cssText = 'margin-bottom: 1rem; padding: 0.8rem 1rem; background: transparent; border-radius: 6px; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;';
         
         // Dynamische Schwellwerte basierend auf globalMax (logarithmische Skala)
         // Bei log-Skala: intensity = log(count+1) / log(globalMax+1)
