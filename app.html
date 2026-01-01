@@ -9679,48 +9679,6 @@ function normalizeGANumber(gaNumber) {
       blockEmailAutofill(document.getElementById('word1'));
       blockEmailAutofill(document.getElementById('word2'));
       
-      // Themen-Tab: Klick auf Main-Bereich schließt Summary-Panel (außer bei interaktiven Elementen)
-      const mainContainer = document.getElementById('main');
-      if (mainContainer) {
-        mainContainer.addEventListener('click', function(e) {
-          // WICHTIG: Ignoriere Klicks im Summary-Panel (z.B. Mitgliederbereich Login)
-          if (e.target.closest('#summary-panel') || e.target.closest('#summary-content')) return;
-          
-          // Prüfe ob Themen-Tab aktiv ist
-          const thematic2Tab = document.getElementById('thematic2-tab');
-          const isThematic2Active = thematic2Tab && thematic2Tab.classList.contains('active');
-          if (!isThematic2Active) return;
-          
-          // Prüfe ob Summary-Panel sichtbar ist
-          const summaryPanel = document.getElementById('summary-panel');
-          const isPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
-          if (!isPanelVisible) return;
-          
-          // Prüfe ob der Klick auf einem interaktiven Element war
-          const clickedElement = e.target;
-          
-          // Ignoriere Klicks auf Links (a-Tags)
-          if (clickedElement.closest('a')) return;
-          
-          // Ignoriere Klicks auf Buttons
-          if (clickedElement.closest('button')) return;
-          
-          // Ignoriere Klicks auf SVG-Balken (rect) mit cursor:pointer (Heatmap-Balken)
-          if (clickedElement.tagName === 'rect') {
-            const rectStyle = window.getComputedStyle(clickedElement);
-            if (rectStyle.cursor === 'pointer') return;
-          }
-          
-          // Ignoriere Klicks auf interaktive Elemente mit cursor:pointer
-          const computedStyle = window.getComputedStyle(clickedElement);
-          if (computedStyle.cursor === 'pointer') return;
-          
-          // Alle Prüfungen bestanden - Panel schließen
-          if (typeof closeSummaryPanelFromHeader === 'function') {
-            closeSummaryPanelFromHeader();
-          }
-        });
-      }
     });
     
     // Header-Position nach kurzer Verzögerung auch aktualisieren (für dynamische Layouts)
