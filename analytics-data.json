@@ -31,9 +31,9 @@
       "lectures": 140
     },
     "2026-01-02": {
-      "views": 1,
-      "searches": 0,
-      "lectures": 0
+      "views": 2,
+      "searches": 1,
+      "lectures": 9
     }
   },
   "topSearches": {
@@ -51,7 +51,8 @@
     "spirituellen pädagogik": 1,
     "spirituell pädagogik": 1,
     "lebenstableu": 1,
-    "aquino": 1
+    "aquino": 1,
+    "das ist der zukünftige gang der menschheitsentwick": 1
   },
   "topLectures": {
     "GA019": 2,
@@ -273,9 +274,11 @@
     "GA305/4": 1,
     "GA034/24": 3,
     "GA056/7": 1,
-    "GA111/25": 1
+    "GA111/25": 1,
+    "GA052/12": 7,
+    "GA136/8": 2
   },
-  "totalViews": 26,
-  "totalSearches": 48,
-  "totalLectureViews": 476
+  "totalViews": 27,
+  "totalSearches": 49,
+  "totalLectureViews": 485
 }

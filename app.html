@@ -7038,7 +7038,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <div class="tab-content" id="zitate-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
-<div style="padding: 0.5rem 0 2rem 0;">
+<div style="padding: 0.5rem 0 8rem 0;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
   <h3 style="margin: 0; color: var(--heading-color);">Zitate-Verwaltung</h3>
 </div>
@@ -39638,11 +39638,10 @@ let addKeywordTargetLectureId = null;
 let selectedParagraphIndex = null;
 
 // Absatz für Keyword-Zuordnung auswählen (nur lokal, nur mit Strg+Klick)
-// Strg+Shift+Klick öffnet Dialog zum Speichern als Zitat
+// Strg+Shift+Klick öffnet Dialog zum Speichern als Zitat (auch online)
 function selectParagraphForKeyword(paragraphIndex, element, event) {
-  if (!isLocal) return;
-  
   // Strg+Shift+Klick: Als Zitat speichern (ohne Selektion - ganzer Absatz)
+  // Funktioniert auch online!
   if (event && event.ctrlKey && event.shiftKey) {
     event.preventDefault();
     // Prüfe ob Text markiert ist
@@ -39655,6 +39654,9 @@ function selectParagraphForKeyword(paragraphIndex, element, event) {
     // Mit Selektion wird der Dialog über den mouseup-Handler geöffnet
     return;
   }
+  
+  // Keyword-Zuordnung nur lokal
+  if (!isLocal) return;
   
   // Nur bei Strg+Klick (oder Cmd+Klick auf Mac) reagieren
   if (!event || (!event.ctrlKey && !event.metaKey)) {
@@ -40608,8 +40610,8 @@ let saveQuoteData = null;
 
 // Öffne Dialog zum Speichern eines Zitats aus einem Absatz oder markiertem Text
 function openSaveQuoteDialog(paragraphIndex, element) {
-  if (!isLocal || !currentLectureData) {
-    console.warn('[SAVE-QUOTE] Nur lokal verfügbar oder kein Vortrag geladen');
+  if (!currentLectureData) {
+    console.warn('[SAVE-QUOTE] Kein Vortrag geladen');
     return;
   }
   
@@ -40705,25 +40707,9 @@ document.addEventListener('mouseup', function(event) {
       anchorNode = anchorNode.parentNode;
     }
     
-    // ONLINE: Wenn User eingeloggt ist, verwende Members-System
-    if (typeof currentUser !== 'undefined' && currentUser && typeof saveContextQuote === 'function') {
-      // Speichere Selection Range für das Context-Menu-System
-      const range = selection.getRangeAt(0).cloneRange();
-      if (typeof window.selectionRangeForContext !== 'undefined' || true) {
-        window.selectionRangeForContext = range;
-      }
-      
-      // Ermittle Lecture-Daten
-      const lectureId = currentLectureData?.ID || window.currentGANumber || '';
-      const lectureTitle = currentLectureData?.title || document.title || '';
-      
-      // Rufe saveContextQuote mit Standard-Farbe (blau) auf
-      saveContextQuote(selectedText, lectureId, lectureTitle, paragraphIndex, '', '', 'blue');
-      return;
-    }
-    
-    // LOKAL: Öffne Dialog mit markiertem Text (Fallback)
-    if (isLocal && currentLectureData) {
+    // Strg+Shift+Klick: Immer das normale Zitate-System verwenden (Tab Zitate)
+    // NICHT das Members-System (für Members gibt es das Context-Menu)
+    if (currentLectureData) {
       openSaveQuoteDialogWithSelection(selectedText, paragraphIndex);
     }
   }
@@ -40731,8 +40717,8 @@ document.addEventListener('mouseup', function(event) {
 
 // Öffne Dialog mit vorausgewähltem Text
 function openSaveQuoteDialogWithSelection(selectedText, paragraphIndex) {
-  if (!isLocal || !currentLectureData) {
-    console.warn('[SAVE-QUOTE] Nur lokal verfügbar oder kein Vortrag geladen');
+  if (!currentLectureData) {
+    console.warn('[SAVE-QUOTE] Kein Vortrag geladen');
     return;
   }
   
