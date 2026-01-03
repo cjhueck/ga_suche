@@ -5857,6 +5857,28 @@ body.dark-mode .help-button svg {
   }
 }
 
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 .help-modal-header {
   padding: 1.5rem;
   border-bottom: 1px solid var(--border-color);
@@ -8695,6 +8717,215 @@ Original
         window.addEventListener('DOMContentLoaded', () => {
             if (isLocal) document.body.classList.add('is-local');
         });
+    }
+    
+    // ============================================================
+    // TOAST/NOTIFICATION FUNKTION
+    // ============================================================
+    
+    function showToast(message, type = 'info') {
+      // Entferne bestehende Toasts
+      document.querySelectorAll('.app-toast').forEach(t => t.remove());
+      
+      const toast = document.createElement('div');
+      toast.className = 'app-toast';
+      
+      const colors = {
+        success: '#28a745',
+        error: '#dc3545',
+        warning: '#ffc107',
+        info: '#17a2b8'
+      };
+      
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        background: ${colors[type] || colors.info};
+        color: ${type === 'warning' ? '#333' : 'white'};
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        font-size: 0.9rem;
+        animation: toastSlideIn 0.3s ease;
+      `;
+      toast.textContent = message;
+      
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.animation = 'toastSlideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+    
+    // ============================================================
+    // THEME KEYWORD MANAGEMENT FUNKTIONEN
+    // ============================================================
+    
+    // Aktueller Theme-Status für Keyword-Management
+    let currentThemeKeywords = [];
+    let originalThemeKeywords = [];
+    let currentSelectedTheme = null;
+    
+    // Populiere das Theme-Selector Dropdown
+    function populateThemeSelector() {
+      const selector = document.getElementById('themeKeywordSelector');
+      if (!selector) return;
+      
+      // Hole Themen aus SteinerThemesData (aus themes-data.js)
+      if (typeof SteinerThemesData !== 'undefined' && SteinerThemesData.length > 0) {
+        selector.innerHTML = '<option value="">-- Themenschwerpunkt wählen --</option>';
+        
+        // Sortiere alphabetisch
+        const sortedThemes = [...SteinerThemesData].sort((a, b) => 
+          a.theme.localeCompare(b.theme, 'de')
+        );
+        
+        sortedThemes.forEach(theme => {
+          const option = document.createElement('option');
+          option.value = theme.theme;
+          option.textContent = theme.theme;
+          selector.appendChild(option);
+        });
+      } else {
+        selector.innerHTML = '<option value="">Keine Themen geladen...</option>';
+      }
+    }
+    
+    // Zeige Schlagwörter für ausgewähltes Theme
+    function displayThemeKeywords() {
+      const selector = document.getElementById('themeKeywordSelector');
+      const container = document.getElementById('keywordChipsContainer');
+      const chips = document.getElementById('keywordChips');
+      
+      if (!selector || !container || !chips) return;
+      
+      const themeName = selector.value;
+      
+      if (!themeName) {
+        container.style.display = 'none';
+        currentSelectedTheme = null;
+        currentThemeKeywords = [];
+        originalThemeKeywords = [];
+        return;
+      }
+      
+      currentSelectedTheme = themeName;
+      
+      // Finde Theme in SteinerThemesData
+      const theme = SteinerThemesData.find(t => t.theme === themeName);
+      if (!theme || !theme.query) {
+        chips.innerHTML = '<span style="color: var(--secondary-text); font-style: italic;">Keine Schlagwörter definiert</span>';
+        container.style.display = 'block';
+        currentThemeKeywords = [];
+        originalThemeKeywords = [];
+        return;
+      }
+      
+      // Parse Keywords aus Query (Leerzeichen-getrennt, Unterstriche ersetzen)
+      const keywords = theme.query.split(/\s+/)
+        .filter(k => k.length > 0)
+        .map(k => k.replace(/_/g, ' '));
+      
+      currentThemeKeywords = [...keywords];
+      originalThemeKeywords = [...keywords];
+      
+      renderKeywordChips();
+      container.style.display = 'block';
+    }
+    
+    // Rendere Keyword-Chips
+    function renderKeywordChips() {
+      const chips = document.getElementById('keywordChips');
+      if (!chips) return;
+      
+      if (currentThemeKeywords.length === 0) {
+        chips.innerHTML = '<span style="color: var(--secondary-text); font-style: italic;">Keine Schlagwörter definiert</span>';
+        return;
+      }
+      
+      chips.innerHTML = currentThemeKeywords.map(keyword => `
+        <span class="keyword-chip" onclick="removeThemeKeyword('${keyword.replace(/'/g, "\\'")}')" 
+              style="background: var(--accent-color); color: white; padding: 4px 10px; border-radius: 12px; cursor: pointer; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
+          ${keyword}
+          <span style="font-size: 0.7rem; opacity: 0.8;">×</span>
+        </span>
+      `).join('');
+    }
+    
+    // Entferne Keyword
+    function removeThemeKeyword(keyword) {
+      currentThemeKeywords = currentThemeKeywords.filter(k => k !== keyword);
+      renderKeywordChips();
+    }
+    
+    // Füge neues Keyword hinzu
+    function addThemeKeyword() {
+      const input = document.getElementById('themeNewKeywordInput');
+      if (!input || !input.value.trim()) return;
+      
+      const newKeyword = input.value.trim();
+      
+      // Prüfe ob bereits vorhanden
+      if (currentThemeKeywords.includes(newKeyword)) {
+        showToast('Schlagwort bereits vorhanden', 'warning');
+        return;
+      }
+      
+      currentThemeKeywords.push(newKeyword);
+      renderKeywordChips();
+      input.value = '';
+    }
+    
+    // Setze auf Original zurück
+    function resetThemeKeywords() {
+      currentThemeKeywords = [...originalThemeKeywords];
+      renderKeywordChips();
+      showToast('Schlagwörter zurückgesetzt', 'info');
+    }
+    
+    // Speichere Änderungen
+    async function saveKeywordChanges() {
+      if (!currentSelectedTheme) {
+        showToast('Bitte erst einen Themenschwerpunkt wählen', 'warning');
+        return;
+      }
+      
+      // Konvertiere Leerzeichen zu Unterstrichen für mehrteilige Begriffe
+      const newQuery = currentThemeKeywords
+        .map(k => k.includes(' ') ? k.replace(/ /g, '_') : k)
+        .join(' ');
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/save-theme-keywords`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            themeName: currentSelectedTheme,
+            newQuery: newQuery
+          })
+        });
+        
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Speichern fehlgeschlagen');
+        }
+        
+        originalThemeKeywords = [...currentThemeKeywords];
+        showToast(`Schlagwörter für "${currentSelectedTheme}" gespeichert`, 'success');
+        
+        // Aktualisiere SteinerThemesData im Speicher
+        const themeIndex = SteinerThemesData.findIndex(t => t.theme === currentSelectedTheme);
+        if (themeIndex !== -1) {
+          SteinerThemesData[themeIndex].query = newQuery;
+        }
+        
+      } catch (error) {
+        console.error('[THEME-KEYWORDS] Fehler:', error);
+        showToast('Fehler beim Speichern: ' + error.message, 'error');
+      }
     }
     
     // ============================================================
@@ -14787,8 +15018,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   if (!displayTitle) {
     displayTitle = book.ID;
   }
-  // Füge yearRange in Klammern hinzu, falls vorhanden
-  if (book.yearRange) {
+  // Füge yearRange in Klammern hinzu, falls vorhanden und nicht bereits im Titel enthalten
+  if (book.yearRange && !displayTitle.includes(`(${book.yearRange})`)) {
     displayTitle = `${displayTitle} (${book.yearRange})`;
   }
   const gaNumber = book.gaNumber || book.ID;
@@ -19157,8 +19388,8 @@ function scrollToChronologicalYear(year) {
           if (!displayTitle) {
             displayTitle = book.ID;
           }
-          // Füge yearRange in Klammern hinzu, falls vorhanden
-          if (book.yearRange) {
+          // Füge yearRange in Klammern hinzu, falls vorhanden und nicht bereits im Titel enthalten
+          if (book.yearRange && !displayTitle.includes(`(${book.yearRange})`)) {
             displayTitle = `${displayTitle} (${book.yearRange})`;
           }
           html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
@@ -19636,8 +19867,8 @@ function scrollToChronologicalYear(year) {
           if (!displayTitle) {
             displayTitle = book.ID;
           }
-          // Füge yearRange in Klammern hinzu, falls vorhanden
-          if (book.yearRange) {
+          // Füge yearRange in Klammern hinzu, falls vorhanden und nicht bereits im Titel enthalten
+          if (book.yearRange && !displayTitle.includes(`(${book.yearRange})`)) {
             displayTitle = `${displayTitle} (${book.yearRange})`;
           }
           const fullTitle = `${gaNumber} - ${displayTitle}`;
