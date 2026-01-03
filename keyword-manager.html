@@ -990,12 +990,12 @@
             }
             
             container.innerHTML = keywords.map((kw, index) => `
-                <div class="list-item" data-keyword="${kw.name}" data-index="${index}" onclick="selectKeyword(event, '${kw.name}', ${index})">
+                <div class="list-item" data-keyword="${escapeForAttribute(kw.name)}" data-index="${index}" onclick="selectKeyword(event, '${escapeForAttribute(kw.name)}', ${index})">
                     <div class="keyword-info">
-                        <span class="keyword-name">${kw.name}</span>
+                        <span class="keyword-name">${escapeForAttribute(kw.name)}</span>
                         <div style="display: flex; gap: 5px; align-items: center;">
                             ${kw.cluster 
-                                ? `<span class="keyword-cluster">${kw.cluster}</span>` 
+                                ? `<span class="keyword-cluster">${escapeForAttribute(kw.cluster)}</span>` 
                                 : '<span class="keyword-cluster no-cluster">Kein Cluster</span>'}
                             <span style="font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; background: #f0f0f0; color: #666;">${kw.lectureCount || 0}</span>
                         </div>
@@ -1028,12 +1028,12 @@
             clusterArray.sort((a, b) => a[0].localeCompare(b[0]));
             
             container.innerHTML = clusterArray.map(([name, info]) => `
-                <div class="list-item" data-cluster="${name}" onclick="selectCluster('${name}')">
+                <div class="list-item" data-cluster="${escapeForAttribute(name)}" onclick="selectCluster('${escapeForAttribute(name)}')">
                     <div class="keyword-info">
-                        <span class="keyword-name">${name}</span>
+                        <span class="keyword-name">${escapeForAttribute(name)}</span>
                         <span class="keyword-cluster">${info.keywords ? info.keywords.length : 0} Keywords</span>
                     </div>
-                    ${info.description ? `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">${info.description}</div>` : ''}
+                    ${info.description ? `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">${escapeForAttribute(info.description)}</div>` : ''}
                 </div>
             `).join('');
         }
@@ -1088,7 +1088,7 @@
             } else {
                 // Selektieren - zeige nur Keywords dieses Clusters
                 selectedCluster = clusterName;
-                document.querySelector(`[data-cluster="${clusterName}"]`)?.classList.add('selected');
+                document.querySelector(`[data-cluster="${CSS.escape(clusterName)}"]`)?.classList.add('selected');
                 
                 // Filtere Keywords nach Cluster
                 const clusterKeywords = allKeywords.filter(kw => kw.cluster === clusterName);
@@ -1257,12 +1257,12 @@
             
             const container = document.getElementById('clustersList');
             container.innerHTML = filtered.map(([name, info]) => `
-                <div class="list-item" data-cluster="${name}" onclick="selectCluster('${name}')">
+                <div class="list-item" data-cluster="${escapeForAttribute(name)}" onclick="selectCluster('${escapeForAttribute(name)}')">
                     <div class="keyword-info">
-                        <span class="keyword-name">${name}</span>
+                        <span class="keyword-name">${escapeForAttribute(name)}</span>
                         <span class="keyword-cluster">${info.keywords ? info.keywords.length : 0} Keywords</span>
                     </div>
-                    ${info.description ? `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">${info.description}</div>` : ''}
+                    ${info.description ? `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">${escapeForAttribute(info.description)}</div>` : ''}
                 </div>
             `).join('');
         }
@@ -1943,15 +1943,15 @@
             const list = document.getElementById('similarKeywordsList');
             
             list.innerHTML = similarKeywordsData.map(kw => `
-                <div class="similar-keyword-item" onclick="toggleSimilarKeyword('${kw.name}')">
-                    <div><strong>${kw.name}</strong></div>
-                    ${kw.cluster ? `<div style="font-size: 0.8em; color: #666; margin-top: 3px;">${kw.cluster}</div>` : ''}
+                <div class="similar-keyword-item" onclick="toggleSimilarKeyword(event, '${escapeForAttribute(kw.name)}')">
+                    <div><strong>${escapeForAttribute(kw.name)}</strong></div>
+                    ${kw.cluster ? `<div style="font-size: 0.8em; color: #666; margin-top: 3px;">${escapeForAttribute(kw.cluster)}</div>` : ''}
                     <div class="similarity-score">${Math.round(kw.similarity * 100)}% ähnlich</div>
                 </div>
             `).join('');
         }
 
-        function toggleSimilarKeyword(keyword) {
+        function toggleSimilarKeyword(event, keyword) {
             const item = event.currentTarget;
             
             if (selectedKeywords.has(keyword)) {
@@ -2085,6 +2085,18 @@
         // HILFSFUNKTIONEN
         // ============================================================================
 
+        // HTML/JS Escape-Funktion für sichere onclick-Attribute
+        function escapeForAttribute(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/'/g, '&#39;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\\/g, '\\\\');
+        }
+
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
@@ -2141,12 +2153,12 @@
                     return `
                         <div style="padding: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <div style="font-weight: 500; font-size: 0.9rem;">${backup.name}</div>
+                                <div style="font-weight: 500; font-size: 0.9rem;">${escapeForAttribute(backup.name)}</div>
                                 <div style="font-size: 0.75rem; color: var(--secondary-text); margin-top: 3px;">
                                     ${date.toLocaleString('de-DE')} • ${sizeKB} KB
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="restoreBackup('${backup.name}')" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                            <button class="btn btn-primary" onclick="restoreBackup('${escapeForAttribute(backup.name)}')" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
                                 Wiederherstellen
                             </button>
                         </div>
