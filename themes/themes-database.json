@@ -1,27 +1,4 @@
 {
-  "Anthroposophie & Theosophie": {
-    "description": "Grundlagen und Methodik der Anthroposophie und Theosophie",
-    "keywords": [
-      "Anthroposophie",
-      "Anthroposophische Architektur",
-      "Anthroposophische Forschung",
-      "Anthroposophische Medizin",
-      "Anthroposophische Methode",
-      "Anthroposophische Mission",
-      "Antisophie",
-      "Theosophie",
-      "Einwände gegen Theosophie",
-      "Kategorien",
-      "Anthroposophen",
-      "Geisteskampf",
-      "Adyar",
-      "Anthroposophische Gesellschaft",
-      "Anthroposophische Bewegung",
-      "Theosophische Gesellschaft",
-      "Allgemeine Anthroposophische Gesellschaft",
-      "Theosophische Bewegung"
-    ]
-  },
   "Geisteswissenschaft": {
     "description": "Geisteswissenschaftliche Forschung und Methoden",
     "keywords": [
@@ -79,7 +56,6 @@
       "Imagination",
       "Inspiration",
       "Intuition",
-      "Akasha",
       "Unsterblichkeit",
       "Ewigkeit",
       "Geistige Chemie",
@@ -109,8 +85,7 @@
       "Prophetische Gaben",
       "Schwellenwahrheit",
       "Sehertum",
-      "Übersinnliche Wahrnehmung",
-      "Akasha-Chronik"
+      "Übersinnliche Wahrnehmung"
     ]
   },
   "Bewusstsein": {
@@ -1054,7 +1029,6 @@
       "Irrtum",
       "Philosophie",
       "Logik",
-      "Phänomenologie",
       "Gegenständliches Denken",
       "Kausalität",
       "Rückwärtsdenken",
@@ -1336,69 +1310,6 @@
       "Künstlerische Phantasie"
     ]
   },
-  "Medizin & Heilkunde": {
-    "description": "Anthroposophische und komplementäre Medizin",
-    "keywords": [
-      "Heilkräfte",
-      "Heilung",
-      "Homöopathie",
-      "Naturheilkunde",
-      "Therapeut",
-      "Medizin",
-      "Symptomatologie",
-      "Injektionen",
-      "Vivisektion",
-      "Jodine",
-      "Pathologie",
-      "Heilmittel",
-      "Phosphor",
-      "Salz",
-      "Humoralpathologie",
-      "Heilmittelgewinnung",
-      "Geisteswissenschaftliche Medizin",
-      "Metallwirkungen",
-      "Carbo vegetabilis",
-      "Potenzierung",
-      "Antimon",
-      "Ameisensäure",
-      "Mistel",
-      "Psychiatrie",
-      "Heilpflanzen",
-      "Heilkunst",
-      "Heilmittellehre",
-      "Metalltherapie",
-      "Dosierung",
-      "Quecksilber",
-      "Mineralische Heilmittel",
-      "Heilverfahren",
-      "Bocksdorn",
-      "Bienengift",
-      "Arnica",
-      "Heilungsgesinnung",
-      "Ärzte",
-      "Pastoralmedizin",
-      "Pflanzenheilkunde",
-      "Arsenik",
-      "Hysterie",
-      "Hypochondrie",
-      "Krankheitswahn",
-      "Nervosität",
-      "Geisteskrankheit",
-      "Wahnsinn",
-      "Paranoia",
-      "Idiotie",
-      "Irresein",
-      "Seelenkrankheiten",
-      "Dementia praecox",
-      "Psychische Erkrankung",
-      "Tobsucht",
-      "Zwangsvorstellungen",
-      "Agoraphobie",
-      "Klaustrophobie",
-      "Heilungsverfahren",
-      "Equisetum"
-    ]
-  },
   "Gesundheit & Krankheit": {
     "description": "Gesundheit auf verschiedenen Ebenen",
     "keywords": [
@@ -1473,7 +1384,6 @@
       "Hydrozephalus",
       "Infantilismus",
       "Albinismus",
-      "Abnorme Kinder",
       "Abnormitäten",
       "Depression",
       "Heuschnupfen",
@@ -1764,8 +1674,6 @@
       "Vier Elemente",
       "Naturkräfte",
       "Natur",
-      "Urphänomen",
-      "Lichtäther",
       "Zentralkräfte",
       "Ätherarten",
       "Buch der Natur",
@@ -1898,47 +1806,18 @@
       "Geistige Führung"
     ]
   },
-  "Goethe - Faust": {
-    "description": "Goethes Faust-Drama",
-    "keywords": [
-      "Faust - Homunculus",
-      "Homunculus",
-      "Mephistopheles",
-      "Chorus mysticus",
-      "Faust",
-      "Ewig-Weibliche",
-      "Ewig-Männliche"
-    ]
-  },
-  "Goethe - Märchen": {
-    "description": "Goethes Märchen von der grünen Schlange",
-    "keywords": [
-      "Schlange und schöne Lilie",
-      "Irrlichter",
-      "Könige",
-      "Alter mit der Lampe"
-    ]
-  },
-  "Goethe - Naturanschauung": {
-    "description": "Goethes Naturwissenschaft und Farbenlehre",
-    "keywords": [
-      "Goetheanismus",
-      "Urpflanze",
-      "Urtier",
-      "Anschauende Urteilskraft",
-      "Farbenlehre",
-      "Goethes Bedeutung",
-      "Zwischenkiefer",
-      "Goethe"
-    ]
-  },
   "Goetheanum": {
     "description": "Das Goetheanum in Dornach",
     "keywords": [
       "Goetheanum",
       "Dornach",
       "Brand",
-      "Brandstiftung"
+      "Brandstiftung",
+      "Goetheanum-Brand",
+      "Doppelkuppelbau",
+      "Grundstein",
+      "Johannesbau",
+      "Säulen"
     ]
   },
   "Märchen & Mythen": {
@@ -3067,62 +2946,6 @@
       "Feindliche Gewalten"
     ]
   },
-  "Architektonische Gestaltung": {
-    "description": "Architektonische Formen und Baustile in der anthroposophischen Architektur",
-    "keywords": [
-      "Architektonische Formen",
-      "Architrave",
-      "Baukunst",
-      "Gotik",
-      "Zweikuppelbau",
-      "Griechischer Tempel",
-      "Gotischer Dom",
-      "Baumeister",
-      "Johannesbau",
-      "Hallen",
-      "Pyramidenbau",
-      "Goetheanum-Brand",
-      "Materialgestaltung",
-      "Spitzbogen",
-      "Tempelkunst",
-      "Vitruv-Anekdote",
-      "Korinthisches Kapitäl",
-      "Palmette",
-      "Säulen",
-      "Raumgestaltung",
-      "Baugedanke",
-      "Portal",
-      "Beton",
-      "Kuppel",
-      "Doppelkuppelbau",
-      "Säulenkapitelle",
-      "Relief",
-      "Glasfenster",
-      "Grundstein"
-    ]
-  },
-  "Bewegungskunst & Eurythmie": {
-    "description": "Bewegungskunst, Eurythmie und bewegte Plastik",
-    "keywords": [
-      "Bewegte Plastik",
-      "Bewegungsformen",
-      "Bewegungskunst",
-      "Bewegungsübungen",
-      "Bewegung",
-      "Heileurythmie",
-      "Gymnastik",
-      "Gebärde",
-      "Gesten",
-      "Handbewegungen",
-      "Tanzkunst",
-      "Tempeltanz",
-      "Luftgebärden",
-      "Toneurythmie",
-      "Gestus",
-      "Turnen",
-      "Helleurythmie"
-    ]
-  },
   "Bewusstseins-Entwicklung": {
     "description": "Verschiedene Aspekte der Bewusstseinsentwicklung und -schulung",
     "keywords": [
@@ -3179,7 +3002,9 @@
       "Erdenschöpfung",
       "Menschenentstehung",
       "Mammut",
-      "Erdentiefen"
+      "Erdentiefen",
+      "Wärmeorganismus",
+      "Wärme"
     ]
   },
   "Gralslegenden": {
@@ -3398,18 +3223,12 @@
       "Osterfest",
       "Pfingsten",
       "Wintersonnenwende",
-      "Michaelfest",
       "Festeszeiten",
       "Johannifest",
-      "Julfest",
       "Karfreitag-Mysterium",
-      "Pfingststimmung",
       "Silvester",
-      "Jubeljahr",
-      "Adonisfest",
       "Weihnachtsfeier",
       "Michaelsfest",
-      "Ostern",
       "Advent"
     ]
   },
@@ -3558,9 +3377,7 @@
     "keywords": [
       "Weihnachten",
       "Weihnachtsbaum",
-      "Weihnachtsmysterium",
-      "Weihnachtstagung",
-      "Wintermysterium"
+      "Weihnachtsmysterium"
     ]
   },
   "Kosmische Weisheit": {
@@ -3626,12 +3443,7 @@
   },
   "Wärmelehre": {
     "description": "Anthroposophische Wärmelehre und Wärmewirkungen",
-    "keywords": [
-      "Wärme",
-      "Wärmtod",
-      "Wärmeäther",
-      "Wärmeorganismus"
-    ]
+    "keywords": []
   },
   "Zahlen & Zahlensymbolik": {
     "description": "Zahlensymbolik und Zahlengesetze",
@@ -3711,7 +3523,9 @@
   "Anthroposophische Gesellschaft": {
     "description": "Manuell erstellter Cluster: Anthroposophische Gesellschaft",
     "keywords": [
-      "Statuten"
+      "Statuten",
+      "Weihnachsttagung",
+      "Vorsitz"
     ]
   },
   "Organismus & organische Entwicklung": {
@@ -3746,14 +3560,11 @@
       "Entwicklungszyklen",
       "Evolution",
       "Evolution und Involution",
-      "Metamorphose",
       "Formstadien",
-      "Transformation",
       "Umstülpung",
       "Urmenschheit",
       "Embryologie",
       "Befruchtung",
-      "Zahnentwicklung",
       "Allantois",
       "Embryonalzustand",
       "Embryo",
@@ -3807,7 +3618,6 @@
       "Schülerverhalten",
       "Lehrerautorität",
       "Familienverhältnisse",
-      "Abitur",
       "Prüfungswesen",
       "Hilfsklasse",
       "Heilpädagogik",
@@ -3834,6 +3644,189 @@
       "Nachwuchsförderung",
       "Vortragsreihe",
       "Vorbild"
+    ]
+  },
+  "Akasha-Chronik": {
+    "description": "Manuell erstellter Cluster: Akasha-Chronik",
+    "keywords": [
+      "Akasha-Chronik"
+    ]
+  },
+  "Theosophie": {
+    "description": "Manuell erstellter Cluster: Theosophie",
+    "keywords": [
+      "Adyar",
+      "Theosophie",
+      "Theosophische Bewegung",
+      "Theosophische Gesellschaft",
+      "Einwände gegen Theosophie",
+      "Antisophie"
+    ]
+  },
+  "Anthroposophische Künste": {
+    "description": "Manuell erstellter Cluster: Anthroposophische Künste",
+    "keywords": [
+      "Anthroposophische Architektur"
+    ]
+  },
+  "Medizin / Heilkunde": {
+    "description": "Anthroposophische und komplementäre Medizin",
+    "keywords": [
+      "Heilkräfte",
+      "Heilung",
+      "Homöopathie",
+      "Naturheilkunde",
+      "Therapeut",
+      "Medizin",
+      "Symptomatologie",
+      "Injektionen",
+      "Vivisektion",
+      "Jodine",
+      "Pathologie",
+      "Heilmittel",
+      "Phosphor",
+      "Salz",
+      "Humoralpathologie",
+      "Heilmittelgewinnung",
+      "Geisteswissenschaftliche Medizin",
+      "Metallwirkungen",
+      "Carbo vegetabilis",
+      "Potenzierung",
+      "Antimon",
+      "Ameisensäure",
+      "Mistel",
+      "Psychiatrie",
+      "Heilpflanzen",
+      "Heilkunst",
+      "Heilmittellehre",
+      "Metalltherapie",
+      "Dosierung",
+      "Quecksilber",
+      "Mineralische Heilmittel",
+      "Heilverfahren",
+      "Bocksdorn",
+      "Bienengift",
+      "Arnica",
+      "Heilungsgesinnung",
+      "Ärzte",
+      "Pastoralmedizin",
+      "Pflanzenheilkunde",
+      "Arsenik",
+      "Hysterie",
+      "Hypochondrie",
+      "Krankheitswahn",
+      "Nervosität",
+      "Geisteskrankheit",
+      "Wahnsinn",
+      "Paranoia",
+      "Idiotie",
+      "Irresein",
+      "Seelenkrankheiten",
+      "Dementia praecox",
+      "Psychische Erkrankung",
+      "Tobsucht",
+      "Zwangsvorstellungen",
+      "Agoraphobie",
+      "Klaustrophobie",
+      "Heilungsverfahren",
+      "Equisetum",
+      "Anthroposophische Medizin"
+    ]
+  },
+  "Architektur": {
+    "description": "Architektonische Formen und Baustile in der anthroposophischen Architektur",
+    "keywords": [
+      "Architektonische Formen",
+      "Architrave",
+      "Baukunst",
+      "Gotik",
+      "Griechischer Tempel",
+      "Gotischer Dom",
+      "Baumeister",
+      "Hallen",
+      "Pyramidenbau",
+      "Materialgestaltung",
+      "Spitzbogen",
+      "Tempelkunst",
+      "Vitruv-Anekdote",
+      "Korinthisches Kapitäl",
+      "Palmette",
+      "Raumgestaltung",
+      "Baugedanke",
+      "Portal",
+      "Beton",
+      "Kuppel",
+      "Säulenkapitelle",
+      "Relief",
+      "Glasfenster"
+    ]
+  },
+  "Eurythmie": {
+    "description": "Bewegungskunst, Eurythmie und bewegte Plastik",
+    "keywords": [
+      "Bewegte Plastik",
+      "Bewegungsformen",
+      "Bewegungskunst",
+      "Bewegungsübungen",
+      "Bewegung",
+      "Heileurythmie",
+      "Gymnastik",
+      "Gebärde",
+      "Gesten",
+      "Handbewegungen",
+      "Tanzkunst",
+      "Tempeltanz",
+      "Luftgebärden",
+      "Toneurythmie",
+      "Gestus",
+      "Turnen",
+      "Helleurythmie"
+    ]
+  },
+  "Elemente / Ätherarten": {
+    "description": "Manuell erstellter Cluster: Elemente / Ätherarten",
+    "keywords": [
+      "Wärmeäther",
+      "Lebensäther",
+      "Lichtäther"
+    ]
+  },
+  "Goethe (Faust)": {
+    "description": "Goethes Faust-Drama",
+    "keywords": [
+      "Faust - Homunculus",
+      "Homunculus",
+      "Mephistopheles",
+      "Chorus mysticus",
+      "Faust",
+      "Ewig-Weibliche",
+      "Ewig-Männliche"
+    ]
+  },
+  "Goethe (Märchen)": {
+    "description": "Goethes Märchen von der grünen Schlange",
+    "keywords": [
+      "Schlange und schöne Lilie",
+      "Irrlichter",
+      "Könige",
+      "Alter mit der Lampe"
+    ]
+  },
+  "Goetheanismus": {
+    "description": "Goethes Naturwissenschaft und Farbenlehre",
+    "keywords": [
+      "Goetheanismus",
+      "Urpflanze",
+      "Urtier",
+      "Anschauende Urteilskraft",
+      "Farbenlehre",
+      "Goethes Bedeutung",
+      "Zwischenkiefer",
+      "Goethe",
+      "Typus",
+      "Metamorphose",
+      "Urphänomen",
+      "Phänomenologie"
     ]
   }
 }

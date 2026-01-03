@@ -4,7 +4,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1882, end: 1924, intensity: 0.7 }
         ],
-        query: "Abstammung Evolution Haeckel Mensch und Tier"
+        query: "Abstammung Evolution Haeckel Mensch_und_Tier Aufrichtung"
     },
             {
         theme: "Akasha-Chronik",
@@ -100,6 +100,11 @@ var SteinerThemesData = [
             { start: 1903, end: 1923, intensity: 0.8 }
         ],
         query: "Gnomen Undinen Sylphen Salamander Elementarwesen"
+    }
+        ranges: [
+            { start: 1903, end: 1924, intensity: 0.8 }
+        ],
+        query: "Befruchtung Embryo biogenetisches_Grundgesetz Eizelle Empfängnis"
     },
 {
         theme: "Erkenntnisstufen",
@@ -166,7 +171,7 @@ var SteinerThemesData = [
             { start: 1882, end: 1897, intensity: 0.9 },
             { start: 1919, end: 1925, intensity: 0.7 }
         ],
-        query: "Goethes Naturerkenntnis Morphologie Metamorphose Phänomenologie Farbenlehre Urpflanze Urphänomen Ideen mit Augen sehen Anschauende Urteilskraft Zwischenkieferknochen"
+        query: "Goethes Naturerkenntnis Morphologie Metamorphose Phänomenologie Farbenlehre Urpflanze Urphänomen Zwischenkieferknochen Ideen_mit_Augen_sehen Anschauende_Urteilskraft Lebendige_Begriffe Gespräch_mit_Schiller"
     },
     {
         theme: "Geschichte / Kulturentwicklung",
@@ -190,7 +195,7 @@ var SteinerThemesData = [
             { start: 1882, end: 1897, intensity: 1.0 },
             { start: 1898, end: 1925, intensity: 0.5 }
         ],
-        query: "Goetheanismus Metamorphose Typus Anschauende Urteilskraft Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie"
+        query: "Goetheanismus Metamorphose Typus Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie Lebendiges_Denken Lebendige_Begriffe Anschauende_Urteilskraft"
     },
         {
         theme: "Goetheanum",
@@ -418,7 +423,7 @@ var SteinerThemesData = [
         query: "Brüderlichkeit Demut Ehrfurcht Gerechtigkeit Liebe Selbstlosigkeit Toleranz"
     },
 {
-        theme: "Vier Elemente / Ätherarten",
+        theme: "Elemente / Ätherarten",
         ranges: [
             { start: 1903, end: 1924, intensity: 0.7 }
         ],

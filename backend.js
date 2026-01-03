@@ -13826,11 +13826,10 @@ app.post('/api/keywords-delete', async (req, res) => {
     
     // 3. Aktualisiere Clusters (entferne Keyword aus allen Clustern)
     try {
-      const clustersData = await loadClustersFile();
-      const clusters = clustersData.clusters || {};
+      const themesDB = await loadThemesDatabase();
       let removedFromClusters = 0;
       
-      for (const [clusterName, clusterInfo] of Object.entries(clusters)) {
+      for (const [clusterName, clusterInfo] of Object.entries(themesDB)) {
         if (clusterInfo.keywords && Array.isArray(clusterInfo.keywords)) {
           const beforeCount = clusterInfo.keywords.length;
           clusterInfo.keywords = clusterInfo.keywords.filter(kw => kw !== keyword);
@@ -13842,7 +13841,7 @@ app.post('/api/keywords-delete', async (req, res) => {
       }
       
       if (removedFromClusters > 0) {
-        await saveClustersFile({ ...clustersData, clusters });
+        await saveThemesDatabase(themesDB);
       }
     } catch (error) {
       console.warn(`[DELETE-KW] Warnung: Clusters konnten nicht aktualisiert werden:`, error.message);

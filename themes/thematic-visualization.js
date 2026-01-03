@@ -894,7 +894,7 @@ function getOriginalThemeQuery(themeName) {
         "Seelenfähigkeiten": "Denken Fühlen Wollen Gedächtnis",
         "Sinneslehre": "Sinneslehre Sinnesorganisation",
         "Soziale Dreigliederung": "Soziale Dreigliederung",
-        "Vier Elemente / Ätherarten": "Elemente Feuer Luft Wasser Erde Äther Ätherarten",
+        "Elemente / Ätherarten": "Elemente Feuer Luft Wasser Erde Äther Ätherarten",
         "Wesensglieder": "Wesensglieder",
         "West-Ost-Gegensatz": "West-Ost-Gegensatz Orient Okzident"
     };
