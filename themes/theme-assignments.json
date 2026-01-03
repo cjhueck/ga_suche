@@ -732,9 +732,15 @@
       "Anthroposophie",
       "Christus / Golgatha",
       "Geschichte / Kulturentwicklung",
-      "Mysterienwesen / Einweihung"
+      "Mysterienwesen / Einweihung",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T13:28:11.504Z"
+    "assignedAt": "2025-12-31T13:28:11.504Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA054/19": {
     "themes": [
@@ -744,9 +750,11 @@
       "Rhythmen & Zyklen"
     ],
     "assignedAt": "2025-12-31T13:28:12.942Z",
-    "reassignedAt": "2026-01-01T10:14:12.121Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA054/15": {
@@ -756,9 +764,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T13:28:14.594Z",
-    "reassignedAt": "2026-01-01T22:38:35.515Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA054/16": {
@@ -770,9 +780,15 @@
   },
   "GA054/18": {
     "themes": [
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T13:28:18.205Z"
+    "assignedAt": "2025-12-31T13:28:18.205Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA054/20": {
     "themes": [
@@ -909,9 +925,11 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T13:28:40.298Z",
-    "reassignedAt": "2026-01-03T16:45:30.179Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA055/13": {
@@ -959,7 +977,12 @@
       "Mysterienwesen / Einweihung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T13:28:47.662Z"
+    "assignedAt": "2025-12-31T13:28:47.662Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA056/4": {
     "themes": [
@@ -978,10 +1001,12 @@
       "Mysterienwesen / Einweihung"
     ],
     "assignedAt": "2025-12-31T13:28:51.865Z",
-    "reassignedAt": "2026-01-03T16:48:27.654Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA056/7": {
@@ -1019,7 +1044,12 @@
       "Gehirn & Geist",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T13:28:58.915Z"
+    "assignedAt": "2025-12-31T13:28:58.915Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA056/10": {
     "themes": [
@@ -1232,9 +1262,11 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T13:29:41.110Z",
-    "reassignedAt": "2026-01-03T16:45:30.179Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA057/14": {
@@ -1253,9 +1285,11 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T13:29:43.707Z",
-    "reassignedAt": "2026-01-03T15:58:56.217Z",
+    "reassignedAt": "2026-01-03T17:13:49.270Z",
     "reassignedThemes": [
-      "Embryologie"
+      "Embryologie",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA058/1": {
@@ -1547,7 +1581,11 @@
       "Mysterienwesen / Einweihung"
     ],
     "assignedAt": "2025-12-31T13:30:28.517Z",
-    "reassignedAt": "2025-12-31T23:31:59.083Z"
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA060/11": {
     "themes": [
@@ -2218,9 +2256,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2025-12-31T18:32:34.416Z",
-    "reassignedAt": "2026-01-03T15:54:48.813Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA046/65": {
@@ -3983,9 +4023,14 @@
     "themes": [
       "Geistige Weltbereiche",
       "Geistiges Erkennen",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T13:44:36.411Z"
+    "assignedAt": "2025-12-31T13:44:36.411Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA068a/18": {
     "themes": [
@@ -3993,7 +4038,11 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T13:44:37.634Z",
-    "reassignedAt": "2025-12-31T23:32:17.706Z"
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA068a/24": {
     "themes": [
@@ -4282,7 +4331,12 @@
       "Religionen / Weisheitslehren",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2025-12-31T13:45:18.190Z"
+    "assignedAt": "2025-12-31T13:45:18.190Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA068a/51": {
     "themes": [
@@ -4478,20 +4532,25 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T13:45:44.811Z",
-    "reassignedAt": "2026-01-01T22:38:42.063Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA068b/21": {
     "themes": [
       "Geistiges Erkennen",
-      "Menschheitsentwicklung"
+      "Menschheitsentwicklung",
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T13:45:46.089Z",
-    "reassignedAt": "2026-01-03T15:54:03.484Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA068b/25": {
@@ -5628,9 +5687,11 @@
       "Geistiges Erkennen"
     ],
     "assignedAt": "2025-12-31T13:48:33.996Z",
-    "reassignedAt": "2026-01-03T15:54:05.074Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA069c/11": {
@@ -6237,7 +6298,12 @@
       "Kulturen & Völker",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2025-12-31T13:50:16.901Z"
+    "assignedAt": "2025-12-31T13:50:16.901Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA070a/12": {
     "themes": [
@@ -6773,9 +6839,10 @@
       "Sinneslehre"
     ],
     "assignedAt": "2025-12-31T13:51:47.922Z",
-    "reassignedAt": "2026-01-03T16:45:41.578Z",
+    "reassignedAt": "2026-01-03T16:56:41.690Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Goetheanismus"
     ]
   },
   "GA081/1": {
@@ -8958,7 +9025,12 @@
     "themes": [
       "Anthroposophie"
     ],
-    "assignedAt": "2025-12-31T18:25:18.606Z"
+    "assignedAt": "2025-12-31T18:25:18.606Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA036/50": {
     "themes": [
@@ -10048,12 +10120,14 @@
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T18:28:54.712Z",
-    "reassignedAt": "2026-01-01T22:41:59.287Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA034/12": {
@@ -10642,10 +10716,11 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T18:35:33.264Z",
-    "reassignedAt": "2026-01-03T16:46:50.376Z",
+    "reassignedAt": "2026-01-03T16:56:41.690Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Goetheanismus"
     ]
   },
   "GA024/7": {
@@ -11397,7 +11472,12 @@
       "Christus / Golgatha",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2025-12-31T18:38:20.352Z"
+    "assignedAt": "2025-12-31T18:38:20.352Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA026/18": {
     "themes": [
@@ -11500,9 +11580,11 @@
       "Seelenlehre / Seelenglieder"
     ],
     "assignedAt": "2025-12-31T18:38:38.705Z",
-    "reassignedAt": "2025-12-31T23:55:22.451Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA026/33": {
@@ -12597,16 +12679,26 @@
       "Reinkarnation & Karma",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2025-12-31T21:14:42.271Z"
+    "assignedAt": "2025-12-31T21:14:42.271Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA087/7": {
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung",
-      "Mythologie",
+      "Legenden / Märchen / Mythen",
       "Philosophie"
     ],
-    "assignedAt": "2025-12-31T21:14:44.228Z"
+    "assignedAt": "2025-12-31T21:14:44.228Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA087/8": {
     "themes": [
@@ -12696,20 +12788,27 @@
       "Mysterienwesen / Einweihung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T21:14:58.864Z"
+    "assignedAt": "2025-12-31T21:14:58.864Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA087/17": {
     "themes": [
       "Christentum",
       "Christus / Golgatha",
       "Mysterienwesen / Einweihung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T21:15:00.441Z",
-    "reassignedAt": "2026-01-01T22:39:59.529Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA087/18": {
@@ -12720,11 +12819,13 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T21:15:02.956Z",
-    "reassignedAt": "2026-01-03T16:48:35.372Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA087/19": {
@@ -14078,9 +14179,15 @@
   "GA090a/59": {
     "themes": [
       "Religionen / Weisheitslehren",
-      "Theosophische Gesellschaft"
+      "Theosophische Gesellschaft",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:18:27.777Z"
+    "assignedAt": "2025-12-31T21:18:27.777Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA090a/60": {
     "themes": [
@@ -14323,9 +14430,11 @@
       "Menschheitsentwicklung"
     ],
     "assignedAt": "2025-12-31T21:19:02.898Z",
-    "reassignedAt": "2026-01-03T15:54:11.766Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA090a/82": {
@@ -14690,9 +14799,14 @@
   "GA090b/33": {
     "themes": [
       "Mysterienwesen / Einweihung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:20:01.051Z"
+    "assignedAt": "2025-12-31T21:20:01.051Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA090b/36": {
     "themes": [
@@ -14728,10 +14842,15 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung",
       "Mysterienwesen / Einweihung",
-      "Mythologie",
+      "Legenden / Märchen / Mythen",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T21:20:09.957Z"
+    "assignedAt": "2025-12-31T21:20:09.957Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA090c/1": {
     "themes": [
@@ -14957,9 +15076,15 @@
   "GA092/6": {
     "themes": [
       "Mysterienwesen / Einweihung",
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:20:43.545Z"
+    "assignedAt": "2025-12-31T21:20:43.545Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA092/7": {
     "themes": [
@@ -14982,16 +15107,28 @@
   "GA092/11": {
     "themes": [
       "Mysterienwesen / Einweihung",
-      "Geschichte / Kulturentwicklung"
+      "Geschichte / Kulturentwicklung",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:20:47.750Z"
+    "assignedAt": "2025-12-31T21:20:47.750Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA092/9": {
     "themes": [
       "Mysterienwesen / Einweihung",
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:20:49.279Z"
+    "assignedAt": "2025-12-31T21:20:49.279Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA092/10": {
     "themes": [
@@ -15003,31 +15140,36 @@
   "GA092/12": {
     "themes": [
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T21:20:53.414Z",
-    "reassignedAt": "2026-01-03T15:54:13.812Z",
+    "reassignedAt": "2026-01-03T17:13:55.208Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA092/13": {
     "themes": [
       "Christus / Golgatha",
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T21:20:54.806Z"
   },
   "GA093/4": {
     "themes": [
       "Mysterienwesen / Einweihung",
-      "Geschichte / Kulturentwicklung"
+      "Geschichte / Kulturentwicklung",
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T21:20:56.653Z",
-    "reassignedAt": "2026-01-03T16:45:53.961Z",
+    "reassignedAt": "2026-01-03T17:13:57.614Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA092/14": {
@@ -15035,7 +15177,12 @@
       "Geschichte / Kulturentwicklung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T21:20:58.541Z"
+    "assignedAt": "2025-12-31T21:20:58.541Z",
+    "reassignedAt": "2026-01-03T17:13:57.614Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/6": {
     "themes": [
@@ -15052,9 +15199,15 @@
   "GA092/15": {
     "themes": [
       "Geschichte / Kulturentwicklung",
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:21:01.403Z"
+    "assignedAt": "2025-12-31T21:21:01.403Z",
+    "reassignedAt": "2026-01-03T17:13:57.614Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/5": {
     "themes": [
@@ -15167,16 +15320,25 @@
   },
   "GA093/25": {
     "themes": [
-      "Mysterienwesen / Einweihung",
-      "Mythologie"
+      "Mysterienwesen / Einweihung"
     ],
-    "assignedAt": "2025-12-31T21:21:19.384Z"
+    "assignedAt": "2025-12-31T21:21:19.384Z",
+    "reassignedAt": "2026-01-03T17:13:57.614Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/21": {
     "themes": [
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T21:21:20.611Z"
+    "assignedAt": "2025-12-31T21:21:20.611Z",
+    "reassignedAt": "2026-01-03T17:13:57.614Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/23": {
     "themes": [
@@ -15616,9 +15778,15 @@
   "GA092/2": {
     "themes": [
       "Akasha-Chronik",
-      "Geschichte / Kulturentwicklung"
+      "Geschichte / Kulturentwicklung",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:22:24.315Z"
+    "assignedAt": "2025-12-31T21:22:24.315Z",
+    "reassignedAt": "2026-01-03T17:13:57.614Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA092/3": {
     "themes": [
@@ -15637,7 +15805,12 @@
       "Menschheitsentwicklung",
       "Mysterienwesen / Einweihung"
     ],
-    "assignedAt": "2025-12-31T21:22:27.212Z"
+    "assignedAt": "2025-12-31T21:22:27.212Z",
+    "reassignedAt": "2026-01-03T17:13:57.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/1": {
     "themes": [
@@ -15657,7 +15830,12 @@
       "Menschheitsentwicklung",
       "Naturreiche"
     ],
-    "assignedAt": "2025-12-31T21:22:29.868Z"
+    "assignedAt": "2025-12-31T21:22:29.868Z",
+    "reassignedAt": "2026-01-03T17:13:57.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/2": {
     "themes": [
@@ -15677,9 +15855,15 @@
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung",
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:22:32.824Z"
+    "assignedAt": "2025-12-31T21:22:32.824Z",
+    "reassignedAt": "2026-01-03T17:13:57.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA093/14": {
     "themes": [
@@ -15783,10 +15967,12 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T21:22:49.644Z",
-    "reassignedAt": "2026-01-03T15:59:00.033Z",
+    "reassignedAt": "2026-01-03T17:13:57.615Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Embryologie"
+      "Embryologie",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA093a/17": {
@@ -16563,9 +16749,15 @@
   },
   "GA097/25": {
     "themes": [
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2025-12-31T21:24:45.208Z"
+    "assignedAt": "2025-12-31T21:24:45.208Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA097/27": {
     "themes": [
@@ -16581,12 +16773,15 @@
       "Christentum",
       "Christus / Golgatha",
       "Mysterienwesen / Einweihung",
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T21:24:48.493Z",
-    "reassignedAt": "2026-01-01T00:55:10.526Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA097/28": {
@@ -16643,10 +16838,12 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T21:24:55.959Z",
-    "reassignedAt": "2026-01-01T22:40:13.415Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
     "reassignedThemes": [
       "Ernährung / Landwirtschaft",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA098/2": {
@@ -16667,9 +16864,11 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T21:24:59.150Z",
-    "reassignedAt": "2026-01-01T10:14:35.099Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA098/6": {
@@ -17701,10 +17900,12 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T21:27:32.944Z",
-    "reassignedAt": "2026-01-01T22:40:17.196Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA100/15": {
@@ -18020,9 +18221,11 @@
       "Meditation / Schulungsweg"
     ],
     "assignedAt": "2025-12-31T21:28:15.066Z",
-    "reassignedAt": "2026-01-01T10:14:35.099Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA094/13": {
@@ -19112,10 +19315,12 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T23:34:51.125Z",
-    "reassignedAt": "2026-01-01T22:39:27.939Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA304/7": {
@@ -19843,9 +20048,11 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:50.889Z",
-    "reassignedAt": "2025-12-31T23:56:31.372Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA105/3": {
@@ -19878,26 +20085,34 @@
   "GA106/5": {
     "themes": [],
     "assignedAt": "2025-12-31T23:43:52.703Z",
-    "reassignedAt": "2025-12-31T23:56:32.804Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA106/6": {
-    "themes": [],
+    "themes": [
+      "Legenden / Märchen / Mythen"
+    ],
     "assignedAt": "2025-12-31T23:43:52.703Z",
-    "reassignedAt": "2025-12-31T23:56:32.804Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA107/11": {
     "themes": [],
     "assignedAt": "2025-12-31T23:43:52.703Z",
-    "reassignedAt": "2025-12-31T23:56:32.804Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA107/9": {
@@ -20189,10 +20404,12 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:56.699Z",
-    "reassignedAt": "2026-01-03T15:54:25.276Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA122/5": {
@@ -20318,12 +20535,15 @@
   },
   "GA126/3": {
     "themes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2025-12-31T23:43:58.863Z",
-    "reassignedAt": "2025-12-31T23:56:40.177Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA126/4": {
@@ -20526,9 +20746,11 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:44:01.178Z",
-    "reassignedAt": "2025-12-31T23:56:42.972Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA136/10": {
@@ -20643,10 +20865,12 @@
   "GA145/6": {
     "themes": [],
     "assignedAt": "2025-12-31T23:44:03.632Z",
-    "reassignedAt": "2026-01-01T10:14:43.395Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA145/8": {
@@ -20703,12 +20927,16 @@
     ]
   },
   "GA149/6": {
-    "themes": [],
+    "themes": [
+      "Legenden / Märchen / Mythen"
+    ],
     "assignedAt": "2025-12-31T23:44:03.632Z",
-    "reassignedAt": "2026-01-01T22:40:32.891Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA150/10": {
@@ -21656,10 +21884,12 @@
   "GA129/1": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:26.883Z",
-    "reassignedAt": "2026-01-03T16:45:57.739Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA130/2": {
@@ -21714,9 +21944,11 @@
   "GA130/14": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:28.892Z",
-    "reassignedAt": "2025-12-31T23:53:28.892Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA130/17": {
@@ -22145,9 +22377,11 @@
   "GA162/8": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:37.531Z",
-    "reassignedAt": "2025-12-31T23:53:37.531Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA162/14": {
@@ -22204,18 +22438,22 @@
   "GA171/8": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:39.659Z",
-    "reassignedAt": "2026-01-01T10:14:52.867Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA171/15": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:39.659Z",
-    "reassignedAt": "2025-12-31T23:53:39.659Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA173/3": {
@@ -22253,9 +22491,11 @@
   "GA175/7": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:39.659Z",
-    "reassignedAt": "2025-12-31T23:53:39.659Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA175/10": {
@@ -22320,10 +22560,12 @@
   "GA180/9": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:41.426Z",
-    "reassignedAt": "2025-12-31T23:56:54.641Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA181/21": {
@@ -22392,9 +22634,11 @@
   "GA190/10": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:42.828Z",
-    "reassignedAt": "2025-12-31T23:53:42.828Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA191/1": {
@@ -23047,10 +23291,12 @@
   "GA280/8": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:53.774Z",
-    "reassignedAt": "2026-01-01T22:41:19.777Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA280/11": {
@@ -23464,9 +23710,11 @@
   "GA344/7": {
     "themes": [],
     "assignedAt": "2025-12-31T23:54:01.175Z",
-    "reassignedAt": "2025-12-31T23:54:01.175Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA344/8": {
@@ -23545,9 +23793,11 @@
   "GA346/5": {
     "themes": [],
     "assignedAt": "2025-12-31T23:54:02.483Z",
-    "reassignedAt": "2025-12-31T23:54:02.483Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA346/6": {
@@ -23803,10 +24053,12 @@
   "GA217a/24": {
     "themes": [],
     "assignedAt": "2025-12-31T23:55:24.090Z",
-    "reassignedAt": "2026-01-03T16:46:50.376Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA262/4": {
@@ -23880,9 +24132,11 @@
   "GA264/12": {
     "themes": [],
     "assignedAt": "2025-12-31T23:55:25.933Z",
-    "reassignedAt": "2025-12-31T23:55:25.933Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA292/7": {
@@ -25061,9 +25315,11 @@
   "GA353/1": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:35.298Z",
-    "reassignedAt": "2025-12-31T23:57:35.298Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA353/4": {
@@ -25183,9 +25439,11 @@
   "GA266a/91": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:36.810Z",
-    "reassignedAt": "2025-12-31T23:57:36.810Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA266b/6": {
@@ -25697,7 +25955,12 @@
       "Geschichte / Kulturentwicklung",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2026-01-01T00:07:48.251Z"
+    "assignedAt": "2026-01-01T00:07:48.251Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA211/1": {
     "themes": [
@@ -25775,9 +26038,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:07:51.726Z",
-    "reassignedAt": "2026-01-01T10:14:20.674Z",
+    "reassignedAt": "2026-01-03T17:13:51.198Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA214/2": {
@@ -25885,9 +26150,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:07:57.565Z",
-    "reassignedAt": "2026-01-01T00:55:05.522Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA218/5": {
@@ -26294,7 +26561,12 @@
       "Geschichte / Kulturentwicklung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:08:13.464Z"
+    "assignedAt": "2026-01-01T00:08:13.464Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA215/6": {
     "themes": [
@@ -26900,14 +27172,15 @@
     "themes": [
       "Christus / Golgatha",
       "Moral",
-      "Mythologie",
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:08:40.879Z",
-    "reassignedAt": "2026-01-01T22:40:47.858Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA203/2": {
@@ -27084,15 +27357,26 @@
       "Geschichte / Kulturentwicklung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:08:47.846Z"
+    "assignedAt": "2026-01-01T00:08:47.846Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA204/4": {
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Religionen / Weisheitslehren",
-      "Westen Mitte Osten"
+      "Westen Mitte Osten",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:08:47.846Z"
+    "assignedAt": "2026-01-01T00:08:47.846Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA204/8": {
     "themes": [
@@ -27984,10 +28268,14 @@
       "Anthroposophische Medizin",
       "Christus / Golgatha",
       "Elementarwesen",
-      "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:09:22.292Z"
+    "assignedAt": "2026-01-01T00:09:22.292Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA229/5": {
     "themes": [
@@ -28329,16 +28617,28 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung",
       "Philosophie",
-      "Reinkarnation & Karma"
+      "Reinkarnation & Karma",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:09:34.780Z"
+    "assignedAt": "2026-01-01T00:09:34.780Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA233/3": {
     "themes": [
       "Geschichte / Kulturentwicklung",
-      "Reinkarnation & Karma"
+      "Reinkarnation & Karma",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:09:34.780Z"
+    "assignedAt": "2026-01-01T00:09:34.780Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA233/5": {
     "themes": [
@@ -28734,7 +29034,12 @@
       "Religionen / Weisheitslehren",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:09:53.584Z"
+    "assignedAt": "2026-01-01T00:09:53.584Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA238/4": {
     "themes": [
@@ -28769,7 +29074,12 @@
       "Michael",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:09:56.164Z"
+    "assignedAt": "2026-01-01T00:09:56.164Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA238/10": {
     "themes": [
@@ -28964,7 +29274,12 @@
       "Christus / Golgatha",
       "Michael"
     ],
-    "assignedAt": "2026-01-01T00:10:06.390Z"
+    "assignedAt": "2026-01-01T00:10:06.390Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA240/9": {
     "themes": [
@@ -29034,9 +29349,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:10:08.076Z",
-    "reassignedAt": "2026-01-01T22:40:54.881Z",
+    "reassignedAt": "2026-01-03T17:14:13.615Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA243/5": {
@@ -29085,10 +29402,12 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:10:10.348Z",
-    "reassignedAt": "2026-01-03T16:48:45.861Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA243/7": {
@@ -29628,16 +29947,20 @@
   "GA101/4": {
     "themes": [
       "Geschichte / Kulturentwicklung",
-      "Mythologie",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:24:06.943Z"
+    "assignedAt": "2026-01-01T00:24:06.943Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA101/1": {
     "themes": [
       "Geistiges Erkennen",
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:24:06.943Z"
   },
@@ -29654,7 +29977,12 @@
       "Böses (Luzifer, Ahriman)",
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:24:06.943Z"
+    "assignedAt": "2026-01-01T00:24:06.943Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA101/7": {
     "themes": [
@@ -29703,9 +30031,11 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2026-01-01T00:24:09.260Z",
-    "reassignedAt": "2026-01-03T15:59:00.033Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
     "reassignedThemes": [
-      "Embryologie"
+      "Embryologie",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA101/16": {
@@ -29931,7 +30261,12 @@
       "Christus / Golgatha",
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:24:19.093Z"
+    "assignedAt": "2026-01-01T00:24:19.093Z",
+    "reassignedAt": "2026-01-03T17:13:59.762Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA104a/10": {
     "themes": [
@@ -29941,9 +30276,11 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2026-01-01T00:24:19.093Z",
-    "reassignedAt": "2026-01-01T10:14:36.554Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA104a/11": {
@@ -29952,7 +30289,12 @@
       "Rosenkreuzer",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:24:19.093Z"
+    "assignedAt": "2026-01-01T00:24:19.093Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA105/1": {
     "themes": [
@@ -29969,7 +30311,12 @@
       "Menschheitsentwicklung",
       "Mysterienwesen / Einweihung"
     ],
-    "assignedAt": "2026-01-01T00:24:20.933Z"
+    "assignedAt": "2026-01-01T00:24:20.933Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA105/8": {
     "themes": [
@@ -29999,31 +30346,39 @@
       "Christus / Golgatha",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:24:22.973Z"
+    "assignedAt": "2026-01-01T00:24:22.973Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA106/7": {
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:24:22.973Z",
-    "reassignedAt": "2026-01-03T15:54:21.799Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA106/8": {
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung",
-      "Mythologie",
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:24:22.973Z",
-    "reassignedAt": "2026-01-03T15:59:01.433Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
-      "Embryologie"
+      "Embryologie",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA106/9": {
@@ -30033,9 +30388,11 @@
       "Seelenlehre / Seelenglieder"
     ],
     "assignedAt": "2026-01-01T00:24:22.973Z",
-    "reassignedAt": "2026-01-03T15:54:21.799Z",
+    "reassignedAt": "2026-01-03T17:14:01.178Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA106/10": {
@@ -30080,7 +30437,12 @@
       "Geschichte / Kulturentwicklung",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:24:24.614Z"
+    "assignedAt": "2026-01-01T00:24:24.614Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA107/7": {
     "themes": [
@@ -30118,9 +30480,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:24:26.412Z",
-    "reassignedAt": "2026-01-03T15:54:21.799Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA108/2": {
@@ -30287,9 +30651,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:24:37.539Z",
-    "reassignedAt": "2026-01-01T22:40:19.178Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA108/20": {
@@ -30299,7 +30665,12 @@
       "Reinkarnation & Karma",
       "Schlaf & Tod"
     ],
-    "assignedAt": "2026-01-01T00:24:37.539Z"
+    "assignedAt": "2026-01-01T00:24:37.539Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA101/12": {
     "themes": [
@@ -30448,10 +30819,12 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2026-01-01T00:24:42.950Z",
-    "reassignedAt": "2026-01-03T16:45:55.987Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA106/2": {
@@ -30475,7 +30848,12 @@
       "Geschichte / Kulturentwicklung",
       "Rosenkreuzer"
     ],
-    "assignedAt": "2026-01-01T00:24:46.239Z"
+    "assignedAt": "2026-01-01T00:24:46.239Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA107/3": {
     "themes": [
@@ -30657,16 +31035,27 @@
     "themes": [
       "Anthroposophie",
       "Geschichte / Kulturentwicklung",
-      "Rosenkreuzer"
+      "Rosenkreuzer",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:24:51.474Z"
+    "assignedAt": "2026-01-01T00:24:51.474Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA109/8": {
     "themes": [
       "Christus / Golgatha",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:24:53.591Z"
+    "assignedAt": "2026-01-01T00:24:53.591Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA109/6": {
     "themes": [
@@ -30684,7 +31073,12 @@
       "Christus / Golgatha",
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:24:53.591Z"
+    "assignedAt": "2026-01-01T00:24:53.591Z",
+    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA109/12": {
     "themes": [
@@ -30867,7 +31261,12 @@
       "Menschheitsentwicklung",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:25:03.830Z"
+    "assignedAt": "2026-01-01T00:25:03.830Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA111/13": {
     "themes": [
@@ -30877,18 +31276,26 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2026-01-01T00:25:03.830Z",
-    "reassignedAt": "2026-01-01T00:55:11.740Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA111/12": {
     "themes": [
       "Erkenntnisstufen",
       "Meditation / Schulungsweg",
-      "Rosenkreuzer"
+      "Rosenkreuzer",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:25:03.831Z"
+    "assignedAt": "2026-01-01T00:25:03.831Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA111/16": {
     "themes": [
@@ -30903,7 +31310,12 @@
       "Meditation / Schulungsweg",
       "Rosenkreuzer"
     ],
-    "assignedAt": "2026-01-01T00:25:05.677Z"
+    "assignedAt": "2026-01-01T00:25:05.677Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA111/19": {
     "themes": [
@@ -31146,9 +31558,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:25:18.788Z",
-    "reassignedAt": "2026-01-03T15:54:23.356Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA112/4": {
@@ -31210,7 +31624,12 @@
       "Christus / Golgatha",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:25:20.937Z"
+    "assignedAt": "2026-01-01T00:25:20.937Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA113/4": {
     "themes": [
@@ -31587,9 +32006,15 @@
     "themes": [
       "Mysterienwesen / Einweihung",
       "Reinkarnation & Karma",
-      "Religionen / Weisheitslehren"
+      "Religionen / Weisheitslehren",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:25:38.558Z"
+    "assignedAt": "2026-01-01T00:25:38.558Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA119/9": {
     "themes": [
@@ -31759,7 +32184,7 @@
   "GA121/10": {
     "themes": [
       "Böses (Luzifer, Ahriman)",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:25:45.820Z"
   },
@@ -31777,7 +32202,7 @@
     "themes": [
       "Geistige Wesen",
       "Kulturen & Völker",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:25:45.820Z"
   },
@@ -31788,10 +32213,15 @@
       "Geistiges Erkennen",
       "Geschichte / Kulturentwicklung",
       "Michael",
-      "Mythologie",
+      "Legenden / Märchen / Mythen",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:25:49.139Z"
+    "assignedAt": "2026-01-01T00:25:49.139Z",
+    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA122/1": {
     "themes": [
@@ -31965,7 +32395,12 @@
       "Akasha-Chronik",
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:25:55.242Z"
+    "assignedAt": "2026-01-01T00:25:55.242Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA127/2": {
     "themes": [
@@ -32144,20 +32579,22 @@
     "themes": [
       "Geistiges Erkennen",
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:26:01.949Z",
-    "reassignedAt": "2026-01-03T16:48:37.108Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA129/6": {
     "themes": [
       "Geistiges Erkennen",
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:26:01.949Z",
     "reassignedAt": "2026-01-01T22:40:28.152Z",
@@ -32638,12 +33075,14 @@
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:26:22.689Z",
-    "reassignedAt": "2026-01-01T22:40:29.689Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA137/9": {
@@ -32936,7 +33375,12 @@
       "Geschichte / Kulturentwicklung",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:26:31.703Z"
+    "assignedAt": "2026-01-01T00:26:31.703Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA141/5": {
     "themes": [
@@ -33174,7 +33618,12 @@
       "Mysterienwesen / Einweihung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:26:41.015Z"
+    "assignedAt": "2026-01-01T00:26:41.015Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA145/1": {
     "themes": [
@@ -33225,12 +33674,15 @@
   "GA144/4": {
     "themes": [
       "Geschichte / Kulturentwicklung",
-      "Mysterienwesen / Einweihung"
+      "Mysterienwesen / Einweihung",
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:26:42.875Z",
-    "reassignedAt": "2026-01-01T10:14:41.658Z",
+    "reassignedAt": "2026-01-03T17:14:07.242Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA145/9": {
@@ -33247,9 +33699,15 @@
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Seelenlehre / Seelenglieder",
-      "Wesensglieder"
+      "Wesensglieder",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:26:42.875Z"
+    "assignedAt": "2026-01-01T00:26:42.875Z",
+    "reassignedAt": "2026-01-03T17:14:08.880Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA145/5": {
     "themes": [
@@ -33466,9 +33924,15 @@
       "Bibel / Evangelien",
       "Böses (Luzifer, Ahriman)",
       "Christentum",
-      "Christus / Golgatha"
+      "Christus / Golgatha",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:26:51.720Z"
+    "assignedAt": "2026-01-01T00:26:51.720Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA148/12": {
     "themes": [
@@ -33547,9 +34011,15 @@
       "Christentum",
       "Christus / Golgatha",
       "Geschichte / Kulturentwicklung",
-      "Mysterienwesen / Einweihung"
+      "Mysterienwesen / Einweihung",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:26:55.782Z"
+    "assignedAt": "2026-01-01T00:26:55.782Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA150/3": {
     "themes": [
@@ -33772,7 +34242,12 @@
       "Moral",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:27:07.542Z"
+    "assignedAt": "2026-01-01T00:27:07.542Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA155/2": {
     "themes": [
@@ -34027,7 +34502,12 @@
       "Geschichte / Kulturentwicklung",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:27:17.316Z"
+    "assignedAt": "2026-01-01T00:27:17.316Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA158/6": {
     "themes": [
@@ -34306,9 +34786,14 @@
       "Anthroposophie",
       "Geistiges Erkennen",
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:27:26.386Z"
+    "assignedAt": "2026-01-01T00:27:26.386Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA161/12": {
     "themes": [
@@ -35173,7 +35658,12 @@
       "Darwinismus",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:28:01.404Z"
+    "assignedAt": "2026-01-01T00:28:01.404Z",
+    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA171/13": {
     "themes": [
@@ -35216,7 +35706,12 @@
     "themes": [
       "Weltanschauungen"
     ],
-    "assignedAt": "2026-01-01T00:28:03.390Z"
+    "assignedAt": "2026-01-01T00:28:03.390Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA172/3": {
     "themes": [
@@ -35349,7 +35844,7 @@
   "GA173/10": {
     "themes": [
       "Geschichte / Kulturentwicklung",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:28:08.874Z",
     "reassignedAt": "2026-01-03T15:59:05.507Z",
@@ -36267,7 +36762,12 @@
       "Mysterienwesen / Einweihung",
       "Weltanschauungen"
     ],
-    "assignedAt": "2026-01-01T00:28:44.642Z"
+    "assignedAt": "2026-01-01T00:28:44.642Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA180/4": {
     "themes": [
@@ -36309,7 +36809,12 @@
       "Geschichte / Kulturentwicklung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:28:46.263Z"
+    "assignedAt": "2026-01-01T00:28:46.263Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA180/8": {
     "themes": [
@@ -36318,9 +36823,11 @@
       "Geschichte / Kulturentwicklung"
     ],
     "assignedAt": "2026-01-01T00:28:46.263Z",
-    "reassignedAt": "2026-01-01T22:37:00.738Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
     "reassignedThemes": [
-      "Biographie"
+      "Biographie",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA174a/3": {
@@ -36372,7 +36879,12 @@
     "themes": [
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:28:50.271Z"
+    "assignedAt": "2026-01-01T00:28:50.271Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA174b/2": {
     "themes": [
@@ -36959,7 +37471,12 @@
     "themes": [
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:29:18.866Z"
+    "assignedAt": "2026-01-01T00:29:18.866Z",
+    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA185a/8": {
     "themes": [
@@ -40493,7 +41010,12 @@
     "themes": [
       "Pädagogik / Heilpädagogik"
     ],
-    "assignedAt": "2026-01-01T00:32:16.916Z"
+    "assignedAt": "2026-01-01T00:32:16.916Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA300b/3": {
     "themes": [
@@ -40541,9 +41063,15 @@
   "GA300b/9": {
     "themes": [
       "Anthroposophische Künste",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:32:18.446Z"
+    "assignedAt": "2026-01-01T00:32:18.446Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA300b/10": {
     "themes": [
@@ -40614,12 +41142,15 @@
   "GA300b/17": {
     "themes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:32:21.404Z",
-    "reassignedAt": "2026-01-01T22:39:55.693Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA300b/18": {
@@ -40832,7 +41363,12 @@
     "themes": [
       "Pädagogik / Heilpädagogik"
     ],
-    "assignedAt": "2026-01-01T00:32:30.737Z"
+    "assignedAt": "2026-01-01T00:32:30.737Z",
+    "reassignedAt": "2026-01-03T17:13:53.045Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA300c/20": {
     "themes": [
@@ -41005,9 +41541,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:32:40.242Z",
-    "reassignedAt": "2026-01-01T22:40:56.521Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA251/13": {
@@ -41488,7 +42026,12 @@
       "Anthroposophie",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:33:04.629Z"
+    "assignedAt": "2026-01-01T00:33:04.629Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA258/4": {
     "themes": [
@@ -41502,7 +42045,12 @@
       "Anthroposophie",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:33:04.629Z"
+    "assignedAt": "2026-01-01T00:33:04.629Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA258/7": {
     "themes": [
@@ -42179,12 +42727,14 @@
   "GA273/4": {
     "themes": [
       "Goethe (Faust, Märchen)",
-      "Mythologie"
+      "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:33:43.426Z",
-    "reassignedAt": "2026-01-03T16:46:16.918Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA273/11": {
@@ -43755,9 +44305,11 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:35:00.635Z",
-    "reassignedAt": "2026-01-01T22:41:07.513Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   },
   "GA324a/12": {
@@ -43856,9 +44408,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2026-01-01T00:35:05.094Z",
-    "reassignedAt": "2026-01-03T16:46:25.099Z",
+    "reassignedAt": "2026-01-03T16:56:41.690Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Goetheanismus"
     ]
   },
   "GA326/7": {
@@ -44710,7 +45263,12 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:39.648Z"
+    "assignedAt": "2026-01-01T00:35:39.648Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA277/94": {
     "themes": [
@@ -45142,7 +45700,12 @@
       "Anthroposophische Künste",
       "Sprache"
     ],
-    "assignedAt": "2026-01-01T00:36:00.437Z"
+    "assignedAt": "2026-01-01T00:36:00.437Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA280/5": {
     "themes": [
@@ -45185,7 +45748,12 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:36:04.241Z"
+    "assignedAt": "2026-01-01T00:36:04.241Z",
+    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA280/9": {
     "themes": [
@@ -47305,7 +47873,12 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:39.257Z"
+    "assignedAt": "2026-01-01T00:37:39.257Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA335/4": {
     "themes": [
@@ -48607,7 +49180,12 @@
       "Religionen / Weisheitslehren",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:38:42.845Z"
+    "assignedAt": "2026-01-01T00:38:42.845Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA353/8": {
     "themes": [
@@ -49898,7 +50476,12 @@
       "Menschheitsentwicklung",
       "Rosenkreuzer"
     ],
-    "assignedAt": "2026-01-01T00:39:41.942Z"
+    "assignedAt": "2026-01-01T00:39:41.942Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA266a/22": {
     "themes": [
@@ -50302,7 +50885,12 @@
       "Mysterienwesen / Einweihung",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:39:58.020Z"
+    "assignedAt": "2026-01-01T00:39:58.020Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA266a/73": {
     "themes": [
@@ -50399,9 +50987,15 @@
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung",
-      "Rosenkreuzer"
+      "Rosenkreuzer",
+      "Legenden / Märchen / Mythen"
     ],
-    "assignedAt": "2026-01-01T00:40:03.848Z"
+    "assignedAt": "2026-01-01T00:40:03.848Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA266a/96": {
     "themes": [
@@ -50793,7 +51387,12 @@
       "Reinkarnation & Karma",
       "Rhythmen & Zyklen"
     ],
-    "assignedAt": "2026-01-01T00:40:23.916Z"
+    "assignedAt": "2026-01-01T00:40:23.916Z",
+    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA266b/59": {
     "themes": [
@@ -52316,7 +52915,12 @@
     "themes": [
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:41:39.693Z"
+    "assignedAt": "2026-01-01T00:41:39.693Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
+    ]
   },
   "GA292/11": {
     "themes": [
@@ -52344,6 +52948,15 @@
     "reassignedAt": "2026-01-01T22:42:03.695Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik"
+    ]
+  },
+  "GA041b/4": {
+    "themes": [],
+    "assignedAt": "2026-01-03T17:05:18.483Z",
+    "reassignedAt": "2026-01-03T17:14:18.409Z",
+    "reassignedThemes": [
+      "Legenden / Mythologie",
+      "Legenden / Märchen / Mythen"
     ]
   }
 }

@@ -100,13 +100,8 @@ var SteinerThemesData = [
             { start: 1903, end: 1923, intensity: 0.8 }
         ],
         query: "Gnomen Undinen Sylphen Salamander Elementarwesen"
-    }
-        ranges: [
-            { start: 1903, end: 1924, intensity: 0.8 }
-        ],
-        query: "Befruchtung Embryo biogenetisches_Grundgesetz Eizelle Empfängnis"
     },
-{
+    {
         theme: "Erkenntnisstufen",
         ranges: [
             { start: 1882, end: 1924, intensity: 0.8 }
@@ -165,14 +160,6 @@ var SteinerThemesData = [
         ],
         query: "Hellsehen Exakte Clairvoyance Übersinnliche Wahrnehmung"
     },
-{
-        theme: "Goethes Naturerkennen",
-        ranges: [
-            { start: 1882, end: 1897, intensity: 0.9 },
-            { start: 1919, end: 1925, intensity: 0.7 }
-        ],
-        query: "Goethes Naturerkenntnis Morphologie Metamorphose Phänomenologie Farbenlehre Urpflanze Urphänomen Zwischenkieferknochen Ideen_mit_Augen_sehen Anschauende_Urteilskraft Lebendige_Begriffe Gespräch_mit_Schiller"
-    },
     {
         theme: "Geschichte / Kulturentwicklung",
         ranges: [
@@ -195,7 +182,7 @@ var SteinerThemesData = [
             { start: 1882, end: 1897, intensity: 1.0 },
             { start: 1898, end: 1925, intensity: 0.5 }
         ],
-        query: "Goetheanismus Metamorphose Typus Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie Lebendiges_Denken Lebendige_Begriffe Anschauende_Urteilskraft"
+        query: "Goetheanismus Metamorphose Typus Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie Lebendiges_Denken Lebendige_Begriffe Anschauende_Urteilskraft Zwischenkieferknochen Goethe_Schiller_Gespräch"
     },
         {
         theme: "Goetheanum",
@@ -291,11 +278,11 @@ var SteinerThemesData = [
         query: "Einweihung Eleusis Kabiren Delphi Samothrake Ephesus Mysterien Ägyptische Mysterien Mitras"
     },
         {
-        theme: "Mythologie",
+        theme: "Legenden / Märchen / Mythen",
         ranges: [
             { start: 1901, end: 1924, intensity: 0.8 }
         ],
-        query: "Isis Osiris Demeter Persephone Widar Wotan"
+        query: "Isis Osiris Demeter Persephone Widar Wotan Gral Parzival Artus Nibelungen Olaf_Åsteson Gilgamesch Volksmärchen Fabeln Grimms_Märchen Kyffhäuser"
     },
 {
         theme: "Naturreiche",

@@ -1820,20 +1820,6 @@
       "Säulen"
     ]
   },
-  "Märchen & Mythen": {
-    "description": "Märchen, Mythen und ihre Weisheit",
-    "keywords": [
-      "Märchen",
-      "Märchen & Weisheit",
-      "Volksmärchen",
-      "Grimm'sche Märchen",
-      "Mythen & Sagen",
-      "Mythologie",
-      "Kyffhäusersage",
-      "Gilgamesch-Epos",
-      "Fabeln"
-    ]
-  },
   "Deutsche Literatur": {
     "description": "Deutsche Literaturgeschichte und Dichter",
     "keywords": [
@@ -1950,7 +1936,6 @@
       "Volkspoesie",
       "Norwegische Dichtung",
       "Traumlied",
-      "Olaf Åsteson",
       "Osteuropa",
       "Volkssprache",
       "Paraguay",
@@ -3007,20 +2992,6 @@
       "Wärme"
     ]
   },
-  "Gralslegenden": {
-    "description": "Gralsmysterium und Gralslegenden",
-    "keywords": [
-      "Gral",
-      "Gralslegende",
-      "Gralslegenden",
-      "Gralsritter",
-      "Graltempel",
-      "Parzival",
-      "Heiliger Gral",
-      "Amfortas",
-      "König Artus"
-    ]
-  },
   "Kristallkunde": {
     "description": "Kristalle, Kristallformen und Kristallisation in der Anthroposophie",
     "keywords": [
@@ -3827,6 +3798,35 @@
       "Metamorphose",
       "Urphänomen",
       "Phänomenologie"
+    ]
+  },
+  "Gral": {
+    "description": "Gralsmysterium und Gralslegenden",
+    "keywords": [
+      "Gral",
+      "Gralslegende",
+      "Gralslegenden",
+      "Gralsritter",
+      "Graltempel",
+      "Parzival",
+      "Heiliger Gral",
+      "Amfortas",
+      "König Artus"
+    ]
+  },
+  "Legenden / Märchen / Mythen": {
+    "description": "Märchen, Mythen und ihre Weisheit",
+    "keywords": [
+      "Märchen",
+      "Märchen & Weisheit",
+      "Volksmärchen",
+      "Grimm'sche Märchen",
+      "Mythen & Sagen",
+      "Mythologie",
+      "Kyffhäusersage",
+      "Gilgamesch-Epos",
+      "Fabeln",
+      "Olaf Åsteson"
     ]
   }
 }
