@@ -14760,6 +14760,13 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer) {
     if (typeof formatAsteriskParagraphs === 'function') formatAsteriskParagraphs();
   }, 100);
   
+  // Fußnoten konvertieren (wichtig für Bücher mit progressivem Rendering)
+  setTimeout(() => {
+    if (typeof convertFootnotesToLinks === 'function') {
+      convertFootnotesToLinks();
+    }
+  }, 200);
+  
   // Scrolle zu targetIndex wenn vorhanden
   if (targetIndex) {
     setTimeout(() => {
@@ -16053,13 +16060,15 @@ function scrollToHeading(headingId) {
 
 // Hilfsfunktion: Konvertiert Fußnoten zu klickbaren Links (für Books und Lectures)
 function convertFootnotesToLinks() {
+  console.log('[FOOTNOTES] *** Funktion aufgerufen ***');
+  
   const viewer = document.getElementById('viewer');
   if (!viewer) {
     console.warn('[FOOTNOTES] Viewer nicht gefunden');
     return;
   }
   
-  console.log('[FOOTNOTES] Starte Konvertierung...');
+  console.log('[FOOTNOTES] Viewer gefunden, starte Konvertierung...');
   
   // Schritt 1: Finde alle Fußnoten-Definitionen (Format: [^1]: Text)
   const footnoteDefinitions = new Map();
@@ -16115,6 +16124,14 @@ function convertFootnotesToLinks() {
     // Zeige Beispiel-HTML für Debugging
     const sampleHtml = htmlContent.substring(0, 2000);
     console.log('[FOOTNOTES] Beispiel-HTML:', sampleHtml);
+    
+    // Zusätzliches Debugging: Zeige alle Matches für das Referenz-Pattern
+    const refMatches = htmlContent.match(/\[\^\d+\]/g);
+    console.log('[FOOTNOTES] Gefundene Referenzen im HTML:', refMatches);
+    
+    // Zeige alle Matches für das Definitions-Pattern
+    const defMatches = htmlContent.match(/\[\^\d+\]:/g);
+    console.log('[FOOTNOTES] Gefundene Definitionen im HTML:', defMatches);
   }
   
   // Schritt 2: Ersetze Fußnoten-Definitionen durch formatierte HTML-Elemente
