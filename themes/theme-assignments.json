@@ -4,7 +4,11 @@
       "Geschichte / Kulturentwicklung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T13:25:54.108Z"
+    "assignedAt": "2025-12-31T13:25:54.108Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA051/1": {
     "themes": [
@@ -21,7 +25,11 @@
   },
   "GA051/2": {
     "themes": [],
-    "assignedAt": "2025-12-31T13:26:00.345Z"
+    "assignedAt": "2025-12-31T13:26:00.345Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA051/4": {
     "themes": [
@@ -162,17 +170,22 @@
   },
   "GA051/22": {
     "themes": [],
-    "assignedAt": "2025-12-31T13:26:31.047Z"
+    "assignedAt": "2025-12-31T13:26:31.047Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA051/23": {
     "themes": [
       "Gehirn & Geist"
     ],
     "assignedAt": "2025-12-31T13:26:34.733Z",
-    "reassignedAt": "2026-01-03T16:45:28.337Z",
+    "reassignedAt": "2026-01-04T15:54:04.102Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA051/24": {
@@ -270,9 +283,10 @@
       "Menschenkunde"
     ],
     "assignedAt": "2025-12-31T13:26:49.207Z",
-    "reassignedAt": "2026-01-01T22:38:33.991Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA052/7": {
@@ -403,7 +417,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2025-12-31T13:27:09.182Z"
+    "assignedAt": "2025-12-31T13:27:09.182Z",
+    "reassignedAt": "2026-01-04T15:54:04.102Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA053/3": {
     "themes": [
@@ -422,11 +440,12 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T13:27:12.213Z",
-    "reassignedAt": "2026-01-01T22:38:35.515Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA053/6": {
@@ -443,10 +462,11 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T13:27:16.626Z",
-    "reassignedAt": "2025-12-31T23:56:21.540Z",
+    "reassignedAt": "2026-01-04T15:54:04.102Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA053/7": {
@@ -490,9 +510,10 @@
       "Naturreiche"
     ],
     "assignedAt": "2025-12-31T13:27:23.907Z",
-    "reassignedAt": "2026-01-03T15:54:02.155Z",
+    "reassignedAt": "2026-01-04T15:54:04.102Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA053/14": {
@@ -573,7 +594,11 @@
       "Theosophische Gesellschaft",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2025-12-31T13:27:38.068Z"
+    "assignedAt": "2025-12-31T13:27:38.068Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA053/19": {
     "themes": [
@@ -625,7 +650,11 @@
       "Naturreiche",
       "Tugenden"
     ],
-    "assignedAt": "2025-12-31T13:27:47.752Z"
+    "assignedAt": "2025-12-31T13:27:47.752Z",
+    "reassignedAt": "2026-01-04T15:54:04.102Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA054/1": {
     "themes": [
@@ -633,9 +662,10 @@
       "Darwinismus"
     ],
     "assignedAt": "2025-12-31T13:27:49.519Z",
-    "reassignedAt": "2026-01-03T15:54:02.155Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA054/4": {
@@ -665,11 +695,14 @@
   },
   "GA054/8": {
     "themes": [
-      "Darwinismus",
       "Soziale Dreigliederung",
       "Tugenden"
     ],
-    "assignedAt": "2025-12-31T13:27:58.761Z"
+    "assignedAt": "2025-12-31T13:27:58.761Z",
+    "reassignedAt": "2026-01-04T15:54:04.103Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA054/9": {
     "themes": [
@@ -796,7 +829,11 @@
       "Geistiges Erkennen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2025-12-31T13:28:19.645Z"
+    "assignedAt": "2025-12-31T13:28:19.645Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA054/21": {
     "themes": [
@@ -902,10 +939,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T13:28:37.512Z",
-    "reassignedAt": "2026-01-03T16:48:27.654Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA055/10": {
@@ -962,7 +1000,11 @@
       "Erkenntnisstufen",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2025-12-31T13:28:44.790Z"
+    "assignedAt": "2025-12-31T13:28:44.790Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA056/3": {
     "themes": [
@@ -1082,7 +1124,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T13:29:07.720Z"
+    "assignedAt": "2025-12-31T13:29:07.720Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA056/12": {
     "themes": [
@@ -1150,10 +1196,11 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2025-12-31T13:29:17.860Z",
-    "reassignedAt": "2025-12-31T23:56:21.540Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA057/3": {
@@ -1768,10 +1815,11 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T18:30:52.464Z",
-    "reassignedAt": "2026-01-03T16:49:08.064Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA046/13": {
@@ -1831,9 +1879,10 @@
       "Rudolf Steiner"
     ],
     "assignedAt": "2025-12-31T18:31:07.233Z",
-    "reassignedAt": "2026-01-03T16:46:48.513Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA046/28": {
@@ -1887,7 +1936,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Philosophie"
     ],
-    "assignedAt": "2025-12-31T18:31:20.285Z"
+    "assignedAt": "2025-12-31T18:31:20.285Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA046/23": {
     "themes": [
@@ -1899,7 +1952,11 @@
     "themes": [
       "Philosophie"
     ],
-    "assignedAt": "2025-12-31T18:31:23.562Z"
+    "assignedAt": "2025-12-31T18:31:23.562Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA046/38": {
     "themes": [
@@ -1968,9 +2025,10 @@
       "Geschichte / Kulturentwicklung"
     ],
     "assignedAt": "2025-12-31T18:31:37.937Z",
-    "reassignedAt": "2026-01-03T15:54:48.813Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA046/37": {
@@ -2048,11 +2106,12 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:31:54.883Z",
-    "reassignedAt": "2026-01-03T16:46:48.513Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA046/48": {
@@ -2136,9 +2195,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T18:32:12.622Z",
-    "reassignedAt": "2026-01-01T10:15:18.355Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA046/54": {
@@ -2146,9 +2206,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T18:32:13.832Z",
-    "reassignedAt": "2026-01-01T10:15:18.355Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA046/59": {
@@ -2172,9 +2233,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T18:32:16.822Z",
-    "reassignedAt": "2026-01-03T15:59:10.267Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
-      "Embryologie"
+      "Embryologie",
+      "Darwinismus"
     ]
   },
   "GA046/60": {
@@ -2243,9 +2305,10 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T18:32:32.907Z",
-    "reassignedAt": "2026-01-03T15:54:48.813Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA046/64": {
@@ -2281,9 +2344,10 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T18:32:37.385Z",
-    "reassignedAt": "2026-01-03T15:54:48.813Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA046/61": {
@@ -2311,7 +2375,11 @@
       "Philosophie",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T18:32:43.951Z"
+    "assignedAt": "2025-12-31T18:32:43.951Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA046/80": {
     "themes": [
@@ -2460,7 +2528,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T18:33:14.159Z"
+    "assignedAt": "2025-12-31T18:33:14.159Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA046/86": {
     "themes": [
@@ -2484,9 +2556,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T18:33:19.408Z",
-    "reassignedAt": "2026-01-01T10:15:18.355Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA046/93": {
@@ -2744,7 +2817,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:34:19.697Z"
+    "assignedAt": "2025-12-31T18:34:19.697Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA046/118": {
     "themes": [
@@ -3104,10 +3181,11 @@
       "Philosophie"
     ],
     "assignedAt": "2025-12-31T13:42:10.395Z",
-    "reassignedAt": "2026-01-03T15:54:02.154Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA068b/5": {
@@ -3126,7 +3204,11 @@
       "Geschichte / Kulturentwicklung",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2025-12-31T13:42:13.275Z"
+    "assignedAt": "2025-12-31T13:42:13.275Z",
+    "reassignedAt": "2026-01-04T15:56:34.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA067/5": {
     "themes": [
@@ -3345,9 +3427,10 @@
       "Darwinismus"
     ],
     "assignedAt": "2025-12-31T13:42:51.147Z",
-    "reassignedAt": "2026-01-03T15:54:02.155Z",
+    "reassignedAt": "2026-01-04T15:54:04.103Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA061/11": {
@@ -3370,7 +3453,11 @@
       "Geschichte / Kulturentwicklung",
       "Kosmologie / Kosmogonie"
     ],
-    "assignedAt": "2025-12-31T13:42:55.335Z"
+    "assignedAt": "2025-12-31T13:42:55.335Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA061/10": {
     "themes": [
@@ -3413,13 +3500,13 @@
   },
   "GA061/16": {
     "themes": [
-      "Darwinismus",
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2025-12-31T13:43:02.502Z",
-    "reassignedAt": "2026-01-03T15:54:03.484Z",
+    "reassignedAt": "2026-01-04T15:54:04.103Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA062/1": {
@@ -3466,9 +3553,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T13:43:10.422Z",
-    "reassignedAt": "2026-01-01T10:14:13.588Z",
+    "reassignedAt": "2026-01-04T15:54:04.103Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA062/9": {
@@ -3603,7 +3691,11 @@
       "Erkenntnisstufen",
       "Moral"
     ],
-    "assignedAt": "2025-12-31T13:43:31.739Z"
+    "assignedAt": "2025-12-31T13:43:31.739Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA063/9": {
     "themes": [
@@ -3641,9 +3733,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T13:43:38.091Z",
-    "reassignedAt": "2026-01-03T16:45:32.154Z",
+    "reassignedAt": "2026-01-04T15:56:45.752Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA063/12": {
@@ -3656,9 +3749,10 @@
       "Tugenden"
     ],
     "assignedAt": "2025-12-31T13:43:39.991Z",
-    "reassignedAt": "2026-01-01T22:36:21.160Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
-      "Biographie"
+      "Biographie",
+      "Darwinismus"
     ]
   },
   "GA064/1": {
@@ -3686,10 +3780,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2025-12-31T13:43:44.796Z",
-    "reassignedAt": "2026-01-03T16:45:32.154Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
       "Bewusstsein",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA064/8": {
@@ -3700,7 +3795,11 @@
       "Weltanschauungen",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T13:43:46.328Z"
+    "assignedAt": "2025-12-31T13:43:46.328Z",
+    "reassignedAt": "2026-01-04T15:54:04.103Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA064/3": {
     "themes": [
@@ -3739,9 +3838,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T13:43:52.883Z",
-    "reassignedAt": "2026-01-03T16:45:33.975Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA064/12": {
@@ -3803,7 +3903,11 @@
       "Kulturen & Völker",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2025-12-31T13:44:03.941Z"
+    "assignedAt": "2025-12-31T13:44:03.941Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA065/9": {
     "themes": [
@@ -3924,9 +4028,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T13:44:21.247Z",
-    "reassignedAt": "2026-01-01T22:36:21.160Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
-      "Biographie"
+      "Biographie",
+      "Darwinismus"
     ]
   },
   "GA066/3": {
@@ -3944,7 +4049,11 @@
       "Geistiges Erkennen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2025-12-31T13:44:24.726Z"
+    "assignedAt": "2025-12-31T13:44:24.726Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA067/7": {
     "themes": [
@@ -4038,10 +4147,11 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T13:44:37.634Z",
-    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA068a/24": {
@@ -4096,9 +4206,10 @@
       "Mysterienwesen / Einweihung"
     ],
     "assignedAt": "2025-12-31T13:44:46.310Z",
-    "reassignedAt": "2025-12-31T23:52:46.498Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA068a/25": {
@@ -4152,11 +4263,12 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T13:44:54.660Z",
-    "reassignedAt": "2026-01-03T16:45:33.975Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA068a/29": {
@@ -4332,10 +4444,11 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2025-12-31T13:45:18.190Z",
-    "reassignedAt": "2026-01-03T17:13:51.198Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA068a/51": {
@@ -4504,10 +4617,11 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T13:45:40.318Z",
-    "reassignedAt": "2026-01-03T15:54:03.484Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA068b/20": {
@@ -4582,7 +4696,11 @@
       "Reinkarnation & Karma",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2025-12-31T13:45:51.599Z"
+    "assignedAt": "2025-12-31T13:45:51.599Z",
+    "reassignedAt": "2026-01-04T15:56:49.773Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA068b/31": {
     "themes": [
@@ -4618,9 +4736,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T13:45:57.247Z",
-    "reassignedAt": "2026-01-03T15:54:03.487Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA068b/33": {
@@ -4648,7 +4767,11 @@
       "Mysterienwesen / Einweihung",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T13:46:01.960Z"
+    "assignedAt": "2025-12-31T13:46:01.960Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA068b/42": {
     "themes": [
@@ -4811,7 +4934,11 @@
     "themes": [
       "Goethe (Faust, Märchen)"
     ],
-    "assignedAt": "2025-12-31T13:46:25.871Z"
+    "assignedAt": "2025-12-31T13:46:25.871Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA068c/14": {
     "themes": [
@@ -4993,9 +5120,10 @@
       "Goethe (Faust, Märchen)"
     ],
     "assignedAt": "2025-12-31T13:46:51.011Z",
-    "reassignedAt": "2026-01-03T16:45:37.445Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA068c/34": {
@@ -5048,9 +5176,10 @@
       "Tugenden"
     ],
     "assignedAt": "2025-12-31T13:46:58.983Z",
-    "reassignedAt": "2026-01-01T22:38:42.063Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA068d/7": {
@@ -5156,9 +5285,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T13:47:16.980Z",
-    "reassignedAt": "2025-12-31T23:52:49.469Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA068d/16": {
@@ -5255,10 +5385,11 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2025-12-31T13:47:32.122Z",
-    "reassignedAt": "2026-01-03T15:54:03.487Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA068d/25": {
@@ -5421,7 +5552,11 @@
       "Geistiges Erkennen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2025-12-31T13:47:56.239Z"
+    "assignedAt": "2025-12-31T13:47:56.239Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA069a/8": {
     "themes": [
@@ -5886,7 +6021,11 @@
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T13:49:05.725Z"
+    "assignedAt": "2025-12-31T13:49:05.725Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA069d/15": {
     "themes": [
@@ -6145,7 +6284,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Gehirn & Geist"
     ],
-    "assignedAt": "2025-12-31T13:49:46.376Z"
+    "assignedAt": "2025-12-31T13:49:46.376Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA069e/18": {
     "themes": [
@@ -6401,10 +6544,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2025-12-31T13:50:35.527Z",
-    "reassignedAt": "2026-01-03T16:45:39.402Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA070b/3": {
@@ -6413,9 +6557,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T13:50:37.286Z",
-    "reassignedAt": "2026-01-03T16:45:39.402Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA070b/2": {
@@ -6531,11 +6676,12 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2025-12-31T13:50:55.802Z",
-    "reassignedAt": "2026-01-03T16:45:39.402Z",
+    "reassignedAt": "2026-01-04T15:56:52.728Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA070b/14": {
@@ -6591,7 +6737,11 @@
       "Naturwissenschaft / Mathematik",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T13:51:03.899Z"
+    "assignedAt": "2025-12-31T13:51:03.899Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA071b/3": {
     "themes": [
@@ -6622,9 +6772,10 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T13:51:09.220Z",
-    "reassignedAt": "2026-01-01T10:14:17.143Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA071b/6": {
@@ -6634,9 +6785,10 @@
       "Geistiges Erkennen"
     ],
     "assignedAt": "2025-12-31T13:51:10.782Z",
-    "reassignedAt": "2026-01-01T10:14:17.144Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA071b/4": {
@@ -6645,9 +6797,10 @@
       "Geistiges Erkennen"
     ],
     "assignedAt": "2025-12-31T13:51:12.334Z",
-    "reassignedAt": "2026-01-01T10:14:18.712Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA071b/7": {
@@ -6655,10 +6808,11 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2025-12-31T13:51:15.703Z",
-    "reassignedAt": "2026-01-03T16:48:30.464Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA071b/8": {
@@ -6747,7 +6901,11 @@
       "Erkenntnisstufen",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2025-12-31T13:51:31.826Z"
+    "assignedAt": "2025-12-31T13:51:31.826Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA077b/3": {
     "themes": [
@@ -6764,7 +6922,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Moral"
     ],
-    "assignedAt": "2025-12-31T13:51:36.155Z"
+    "assignedAt": "2025-12-31T13:51:36.155Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA077b/5": {
     "themes": [
@@ -6818,7 +6980,11 @@
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T13:51:44.374Z"
+    "assignedAt": "2025-12-31T13:51:44.374Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA080c/9": {
     "themes": [
@@ -6830,7 +6996,11 @@
       "Moral",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T13:51:46.496Z"
+    "assignedAt": "2025-12-31T13:51:46.496Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA081/2": {
     "themes": [
@@ -7035,7 +7205,11 @@
       "Schlaf & Tod",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T13:52:12.827Z"
+    "assignedAt": "2025-12-31T13:52:12.827Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA078/2": {
     "themes": [
@@ -7063,7 +7237,11 @@
       "Philosophie",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T13:52:17.030Z"
+    "assignedAt": "2025-12-31T13:52:17.030Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA078/4": {
     "themes": [
@@ -7073,10 +7251,11 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T13:52:18.570Z",
-    "reassignedAt": "2026-01-03T16:45:43.607Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA081/6": {
@@ -7122,9 +7301,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T13:52:28.118Z",
-    "reassignedAt": "2026-01-03T16:45:43.607Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA082/4": {
@@ -7142,10 +7322,11 @@
       "Anthroposophische Künste"
     ],
     "assignedAt": "2025-12-31T13:52:31.140Z",
-    "reassignedAt": "2026-01-01T22:38:53.854Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA082/5": {
@@ -7171,10 +7352,11 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2025-12-31T13:52:34.313Z",
-    "reassignedAt": "2026-01-01T22:38:55.280Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
     "reassignedThemes": [
       "Bewusstsein",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA082/7": {
@@ -7207,7 +7389,11 @@
       "Menschenkunde",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2025-12-31T13:52:38.877Z"
+    "assignedAt": "2025-12-31T13:52:38.877Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA072/6": {
     "themes": [
@@ -7309,9 +7495,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T13:52:54.226Z",
-    "reassignedAt": "2026-01-03T15:54:05.074Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA079/2": {
@@ -7483,18 +7670,23 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T13:53:17.063Z",
-    "reassignedAt": "2026-01-03T16:48:31.932Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA080a/14": {
     "themes": [
       "Anthroposophie"
     ],
-    "assignedAt": "2025-12-31T13:53:19.003Z"
+    "assignedAt": "2025-12-31T13:53:19.003Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA073a/10": {
     "themes": [
@@ -7550,10 +7742,11 @@
       "Erkenntnisstufen"
     ],
     "assignedAt": "2025-12-31T13:53:29.000Z",
-    "reassignedAt": "2026-01-01T22:39:15.038Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA080b/4": {
@@ -7578,9 +7771,10 @@
       "Goethes Naturerkennen"
     ],
     "assignedAt": "2025-12-31T13:53:32.167Z",
-    "reassignedAt": "2025-12-31T23:52:53.360Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA080b/7": {
@@ -7908,9 +8102,10 @@
       "Schlaf & Tod"
     ],
     "assignedAt": "2025-12-31T13:54:24.087Z",
-    "reassignedAt": "2026-01-01T10:14:25.269Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA084/10": {
@@ -7965,10 +8160,11 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T13:54:33.922Z",
-    "reassignedAt": "2026-01-03T16:48:33.771Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA076/3": {
@@ -7985,7 +8181,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Freiheitsphilosophie"
     ],
-    "assignedAt": "2025-12-31T13:54:36.812Z"
+    "assignedAt": "2025-12-31T13:54:36.812Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA075/6": {
     "themes": [
@@ -8146,7 +8346,11 @@
       "Naturwissenschaft / Mathematik",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2025-12-31T13:55:00.975Z"
+    "assignedAt": "2025-12-31T13:55:00.975Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA084/11": {
     "themes": [
@@ -8444,9 +8648,10 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T18:23:19.989Z",
-    "reassignedAt": "2026-01-03T15:54:44.103Z",
+    "reassignedAt": "2026-01-04T15:54:12.577Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA035/8": {
@@ -8747,7 +8952,11 @@
       "Soziale Dreigliederung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2025-12-31T18:24:21.571Z"
+    "assignedAt": "2025-12-31T18:24:21.571Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA036/16": {
     "themes": [
@@ -8803,7 +9012,11 @@
     "themes": [
       "Bibel / Evangelien"
     ],
-    "assignedAt": "2025-12-31T18:24:35.341Z"
+    "assignedAt": "2025-12-31T18:24:35.341Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA036/31": {
     "themes": [
@@ -8838,11 +9051,12 @@
       "Seelenfähigkeiten"
     ],
     "assignedAt": "2025-12-31T18:24:41.692Z",
-    "reassignedAt": "2026-01-03T16:49:04.786Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
     "reassignedThemes": [
       "Bewusstsein",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA036/22": {
@@ -8921,7 +9135,11 @@
       "Goethes Naturerkennen",
       "Goethe & Goetheanismus"
     ],
-    "assignedAt": "2025-12-31T18:24:56.429Z"
+    "assignedAt": "2025-12-31T18:24:56.429Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA036/34": {
     "themes": [
@@ -9009,9 +9227,10 @@
       "Philosophie"
     ],
     "assignedAt": "2025-12-31T18:25:15.554Z",
-    "reassignedAt": "2026-01-03T16:46:39.093Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA036/51": {
@@ -9026,10 +9245,11 @@
       "Anthroposophie"
     ],
     "assignedAt": "2025-12-31T18:25:18.606Z",
-    "reassignedAt": "2026-01-03T17:14:18.409Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA036/50": {
@@ -9109,9 +9329,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2025-12-31T18:25:47.020Z",
-    "reassignedAt": "2026-01-01T22:41:52.533Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA036/59": {
@@ -9162,9 +9383,10 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T18:25:56.341Z",
-    "reassignedAt": "2026-01-01T22:41:52.533Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA036/65": {
@@ -9172,9 +9394,10 @@
       "Sprache"
     ],
     "assignedAt": "2025-12-31T18:25:57.646Z",
-    "reassignedAt": "2026-01-01T22:41:52.533Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA036/71": {
@@ -9182,7 +9405,11 @@
       "Goethes Naturerkennen",
       "Rhythmen & Zyklen"
     ],
-    "assignedAt": "2025-12-31T18:25:59.397Z"
+    "assignedAt": "2025-12-31T18:25:59.397Z",
+    "reassignedAt": "2026-01-04T15:58:13.961Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA036/69": {
     "themes": [
@@ -9232,11 +9459,12 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T18:26:07.181Z",
-    "reassignedAt": "2026-01-01T22:41:52.534Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA036/68": {
@@ -9278,11 +9506,12 @@
       "Meditation / Schulungsweg"
     ],
     "assignedAt": "2025-12-31T18:26:15.236Z",
-    "reassignedAt": "2026-01-01T22:41:52.534Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
     "reassignedThemes": [
       "Bewusstsein",
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA030/1": {
@@ -9291,11 +9520,12 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:26:16.767Z",
-    "reassignedAt": "2026-01-03T16:46:40.981Z",
+    "reassignedAt": "2026-01-04T15:54:12.577Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA030/8": {
@@ -9326,12 +9556,13 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:26:21.373Z",
-    "reassignedAt": "2026-01-03T16:49:04.786Z",
+    "reassignedAt": "2026-01-04T15:54:12.577Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Abstammung / Evolution",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA030/2": {
@@ -9401,7 +9632,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Freiheitsphilosophie"
     ],
-    "assignedAt": "2025-12-31T18:26:30.617Z"
+    "assignedAt": "2025-12-31T18:26:30.617Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/15": {
     "themes": [
@@ -9409,9 +9644,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:26:32.554Z",
-    "reassignedAt": "2025-12-31T23:55:17.971Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA030/16": {
@@ -9439,14 +9675,14 @@
   },
   "GA030/11": {
     "themes": [
-      "Darwinismus",
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:26:36.761Z",
-    "reassignedAt": "2026-01-03T16:46:43.085Z",
+    "reassignedAt": "2026-01-04T15:54:12.578Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA030/20": {
@@ -9461,7 +9697,11 @@
       "Philosophie",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T18:26:40.311Z"
+    "assignedAt": "2025-12-31T18:26:40.311Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/14": {
     "themes": [
@@ -9513,7 +9753,11 @@
   },
   "GA030/29": {
     "themes": [],
-    "assignedAt": "2025-12-31T18:26:53.032Z"
+    "assignedAt": "2025-12-31T18:26:53.032Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/23": {
     "themes": [
@@ -9536,9 +9780,10 @@
       "Abstammung / Evolution"
     ],
     "assignedAt": "2025-12-31T18:26:58.433Z",
-    "reassignedAt": "2026-01-03T15:54:44.104Z",
+    "reassignedAt": "2026-01-04T15:54:12.578Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/21": {
@@ -9558,10 +9803,11 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T18:27:04.094Z",
-    "reassignedAt": "2026-01-03T15:54:44.104Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/22": {
@@ -9575,17 +9821,22 @@
     "themes": [
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2025-12-31T18:27:07.159Z"
+    "assignedAt": "2025-12-31T18:27:07.159Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/30": {
     "themes": [
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T18:27:08.370Z",
-    "reassignedAt": "2026-01-01T22:41:55.912Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA030/39": {
@@ -9627,9 +9878,10 @@
       "Freiheitsphilosophie"
     ],
     "assignedAt": "2025-12-31T18:27:14.542Z",
-    "reassignedAt": "2025-12-31T23:55:19.496Z",
+    "reassignedAt": "2026-01-04T15:54:12.578Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA030/37": {
@@ -9638,12 +9890,13 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:27:16.050Z",
-    "reassignedAt": "2026-01-03T16:49:06.363Z",
+    "reassignedAt": "2026-01-04T15:58:15.475Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Abstammung / Evolution",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA030/31": {
@@ -9652,21 +9905,22 @@
       "Philosophie"
     ],
     "assignedAt": "2025-12-31T18:27:17.429Z",
-    "reassignedAt": "2026-01-03T15:54:47.376Z",
+    "reassignedAt": "2026-01-04T15:58:17.281Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/33": {
     "themes": [
-      "Darwinismus",
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:27:18.813Z",
-    "reassignedAt": "2026-01-03T15:54:47.376Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/32": {
@@ -9770,9 +10024,10 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2025-12-31T18:27:37.178Z",
-    "reassignedAt": "2026-01-03T16:46:44.937Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA030/48": {
@@ -9799,11 +10054,12 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2025-12-31T18:27:41.866Z",
-    "reassignedAt": "2026-01-03T16:49:06.363Z",
+    "reassignedAt": "2026-01-04T15:54:12.578Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA030/61": {
@@ -9852,13 +10108,13 @@
   },
   "GA030/55": {
     "themes": [
-      "Darwinismus",
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T18:27:51.183Z",
-    "reassignedAt": "2026-01-03T15:54:47.376Z",
+    "reassignedAt": "2026-01-04T15:54:12.579Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/51": {
@@ -9893,7 +10149,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2025-12-31T18:28:01.734Z"
+    "assignedAt": "2025-12-31T18:28:01.734Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/60": {
     "themes": [
@@ -9911,9 +10171,10 @@
       "Anthroposophische Künste"
     ],
     "assignedAt": "2025-12-31T18:28:07.086Z",
-    "reassignedAt": "2025-12-31T23:55:19.496Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA030/70": {
@@ -9979,7 +10240,11 @@
       "Naturwissenschaft / Mathematik",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T18:28:26.017Z"
+    "assignedAt": "2025-12-31T18:28:26.017Z",
+    "reassignedAt": "2026-01-04T15:54:14.490Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/63": {
     "themes": [],
@@ -10014,7 +10279,11 @@
       "Religionen / Weisheitslehren",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T18:28:31.633Z"
+    "assignedAt": "2025-12-31T18:28:31.633Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA034/1": {
     "themes": [
@@ -10039,7 +10308,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2025-12-31T18:28:35.729Z"
+    "assignedAt": "2025-12-31T18:28:35.729Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA034/10": {
     "themes": [
@@ -10150,11 +10423,12 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T18:28:59.998Z",
-    "reassignedAt": "2026-01-03T16:46:44.938Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
     "reassignedThemes": [
       "Bewusstsein",
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA034/18": {
@@ -10270,7 +10544,11 @@
     "themes": [
       "Lebenspraxis"
     ],
-    "assignedAt": "2025-12-31T18:29:21.121Z"
+    "assignedAt": "2025-12-31T18:29:21.121Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA034/34": {
     "themes": [
@@ -10379,7 +10657,11 @@
       "Geistige Weltbereiche",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T18:29:42.841Z"
+    "assignedAt": "2025-12-31T18:29:42.841Z",
+    "reassignedAt": "2026-01-04T15:58:19.057Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA034/42": {
     "themes": [
@@ -10643,9 +10925,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T18:35:18.112Z",
-    "reassignedAt": "2026-01-01T00:55:26.491Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA030/81": {
@@ -10654,17 +10937,22 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2025-12-31T18:35:20.432Z",
-    "reassignedAt": "2026-01-03T16:49:08.065Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA030/77": {
     "themes": [
       "Darwinismus"
     ],
-    "assignedAt": "2025-12-31T18:35:22.064Z"
+    "assignedAt": "2025-12-31T18:35:22.064Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA030/79": {
     "themes": [],
@@ -10677,13 +10965,12 @@
     "assignedAt": "2025-12-31T18:35:26.709Z"
   },
   "GA030/83": {
-    "themes": [
-      "Darwinismus"
-    ],
+    "themes": [],
     "assignedAt": "2025-12-31T18:35:28.006Z",
-    "reassignedAt": "2026-01-03T15:54:50.657Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/86": {
@@ -10692,10 +10979,11 @@
       "Darwinismus"
     ],
     "assignedAt": "2025-12-31T18:35:29.327Z",
-    "reassignedAt": "2026-01-03T15:54:50.657Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA030/84": {
@@ -10716,18 +11004,23 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T18:35:33.264Z",
-    "reassignedAt": "2026-01-03T16:56:41.690Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA024/7": {
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:35:34.550Z"
+    "assignedAt": "2025-12-31T18:35:34.550Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/4": {
     "themes": [
@@ -10800,7 +11093,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:35:54.534Z"
+    "assignedAt": "2025-12-31T18:35:54.534Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/11": {
     "themes": [
@@ -10836,7 +11133,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:36:03.426Z"
+    "assignedAt": "2025-12-31T18:36:03.426Z",
+    "reassignedAt": "2026-01-04T15:58:20.709Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/16": {
     "themes": [
@@ -10849,9 +11150,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2025-12-31T18:36:05.989Z",
-    "reassignedAt": "2026-01-01T22:42:05.464Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA024/15": {
@@ -10907,7 +11209,11 @@
       "Geschichte / Kulturentwicklung",
       "Weltanschauungen"
     ],
-    "assignedAt": "2025-12-31T18:36:20.246Z"
+    "assignedAt": "2025-12-31T18:36:20.246Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/25": {
     "themes": [
@@ -10926,13 +11232,21 @@
       "Anthroposophie",
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:36:25.343Z"
+    "assignedAt": "2025-12-31T18:36:25.343Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/21": {
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:36:26.774Z"
+    "assignedAt": "2025-12-31T18:36:26.774Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/38": {
     "themes": [
@@ -10989,9 +11303,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2025-12-31T18:36:47.558Z",
-    "reassignedAt": "2025-12-31T23:55:22.451Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA024/36": {
@@ -11004,7 +11319,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2025-12-31T18:36:51.030Z"
+    "assignedAt": "2025-12-31T18:36:51.030Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA024/40": {
     "themes": [
@@ -11107,10 +11426,11 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2025-12-31T18:37:11.923Z",
-    "reassignedAt": "2026-01-01T22:42:05.464Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA024/54": {
@@ -11125,9 +11445,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T18:37:14.491Z",
-    "reassignedAt": "2026-01-03T15:54:50.657Z",
+    "reassignedAt": "2026-01-04T15:54:15.827Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA024/61": {
@@ -11567,9 +11888,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T18:38:37.022Z",
-    "reassignedAt": "2025-12-31T23:57:43.492Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA026/27": {
@@ -11683,7 +12005,11 @@
     "themes": [
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2025-12-31T18:38:55.057Z"
+    "assignedAt": "2025-12-31T18:38:55.057Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA003/7": {
     "themes": [
@@ -11738,7 +12064,11 @@
       "Freiheitsphilosophie",
       "Philosophie"
     ],
-    "assignedAt": "2025-12-31T18:39:07.447Z"
+    "assignedAt": "2025-12-31T18:39:07.447Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA005/5": {
     "themes": [
@@ -11788,10 +12118,11 @@
       "Goethe (Faust, Märchen)"
     ],
     "assignedAt": "2025-12-31T18:39:17.503Z",
-    "reassignedAt": "2026-01-03T16:46:53.572Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA006/3": {
@@ -11869,9 +12200,10 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2025-12-31T18:39:28.679Z",
-    "reassignedAt": "2026-01-03T16:46:55.477Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA007/1": {
@@ -12098,7 +12430,11 @@
     "themes": [
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2025-12-31T18:40:24.551Z"
+    "assignedAt": "2025-12-31T18:40:24.551Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA010/8": {
     "themes": [
@@ -12154,7 +12490,11 @@
     "themes": [
       "Hüter der Schwelle"
     ],
-    "assignedAt": "2025-12-31T18:40:34.489Z"
+    "assignedAt": "2025-12-31T18:40:34.489Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA010/15": {
     "themes": [
@@ -12411,7 +12751,11 @@
     "themes": [
       "Philosophie"
     ],
-    "assignedAt": "2025-12-31T18:41:24.364Z"
+    "assignedAt": "2025-12-31T18:41:24.364Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA021/4": {
     "themes": [
@@ -12449,10 +12793,11 @@
       "Goethe (Faust, Märchen)"
     ],
     "assignedAt": "2025-12-31T18:41:29.706Z",
-    "reassignedAt": "2026-01-03T16:46:55.477Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA023/1": {
@@ -12478,10 +12823,11 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2025-12-31T18:41:35.720Z",
-    "reassignedAt": "2026-01-01T22:42:13.649Z",
+    "reassignedAt": "2026-01-04T15:58:28.496Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA023/5": {
@@ -12623,7 +12969,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2025-12-31T18:42:09.302Z"
+    "assignedAt": "2025-12-31T18:42:09.302Z",
+    "reassignedAt": "2026-01-04T15:58:28.496Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA087/1": {
     "themes": [
@@ -12885,10 +13235,11 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T21:15:12.993Z",
-    "reassignedAt": "2025-12-31T23:56:26.885Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA087/25": {
@@ -13074,7 +13425,11 @@
       "Menschheitsentwicklung",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2025-12-31T21:15:37.473Z"
+    "assignedAt": "2025-12-31T21:15:37.473Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA088/18": {
     "themes": [
@@ -13110,7 +13465,11 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2025-12-31T21:15:43.307Z"
+    "assignedAt": "2025-12-31T21:15:43.307Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA089/1": {
     "themes": [
@@ -13223,9 +13582,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T21:16:00.506Z",
-    "reassignedAt": "2026-01-03T15:54:06.957Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA089/11": {
@@ -13401,7 +13761,11 @@
       "Naturreiche",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:16:26.617Z"
+    "assignedAt": "2025-12-31T21:16:26.617Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA089/27": {
     "themes": [
@@ -13506,9 +13870,10 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2025-12-31T21:16:43.615Z",
-    "reassignedAt": "2026-01-03T15:54:08.626Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA089/34": {
@@ -13517,7 +13882,11 @@
       "Naturreiche",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:16:44.947Z"
+    "assignedAt": "2025-12-31T21:16:44.947Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA089/36": {
     "themes": [
@@ -13525,10 +13894,11 @@
       "Kosmologie / Kosmogonie"
     ],
     "assignedAt": "2025-12-31T21:16:46.893Z",
-    "reassignedAt": "2026-01-03T15:54:08.626Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA089/37": {
@@ -13548,7 +13918,11 @@
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:16:51.423Z"
+    "assignedAt": "2025-12-31T21:16:51.423Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA089/40": {
     "themes": [
@@ -13592,7 +13966,11 @@
       "Kosmologie / Kosmogonie",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2025-12-31T21:17:02.678Z"
+    "assignedAt": "2025-12-31T21:17:02.678Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA090a/3": {
     "themes": [
@@ -13627,7 +14005,11 @@
       "Menschheitsentwicklung",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:17:08.198Z"
+    "assignedAt": "2025-12-31T21:17:08.198Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA090a/7": {
     "themes": [
@@ -14036,9 +14418,10 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2025-12-31T21:18:04.651Z",
-    "reassignedAt": "2025-12-31T23:53:02.271Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA090a/45": {
@@ -14152,7 +14535,11 @@
       "Seelenlehre / Seelenglieder",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:18:23.564Z"
+    "assignedAt": "2025-12-31T21:18:23.564Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA090a/57": {
     "themes": [
@@ -14319,7 +14706,11 @@
       "Reinkarnation & Karma",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2025-12-31T21:18:47.417Z"
+    "assignedAt": "2025-12-31T21:18:47.417Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA090a/72": {
     "themes": [
@@ -14605,9 +14996,10 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2025-12-31T21:19:29.811Z",
-    "reassignedAt": "2026-01-01T22:40:06.790Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA090b/15": {
@@ -14759,7 +15151,11 @@
       "Meditation / Schulungsweg",
       "Tugenden"
     ],
-    "assignedAt": "2025-12-31T21:19:55.326Z"
+    "assignedAt": "2025-12-31T21:19:55.326Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA090b/29": {
     "themes": [
@@ -14868,7 +15264,11 @@
       "Reinkarnation & Karma",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:20:13.577Z"
+    "assignedAt": "2025-12-31T21:20:13.577Z",
+    "reassignedAt": "2026-01-04T15:57:10.927Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA090c/2": {
     "themes": [
@@ -14900,9 +15300,10 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T21:20:17.666Z",
-    "reassignedAt": "2026-01-01T22:40:06.790Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA090c/5": {
@@ -15178,10 +15579,11 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T21:20:58.541Z",
-    "reassignedAt": "2026-01-03T17:13:57.614Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA093/6": {
@@ -15276,9 +15678,10 @@
       "Theosophische Gesellschaft"
     ],
     "assignedAt": "2025-12-31T21:21:11.612Z",
-    "reassignedAt": "2026-01-01T22:40:08.405Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA093/13": {
@@ -15288,9 +15691,10 @@
       "Mysterienwesen / Einweihung"
     ],
     "assignedAt": "2025-12-31T21:21:13.038Z",
-    "reassignedAt": "2025-12-31T23:56:28.844Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA093/18": {
@@ -15380,10 +15784,11 @@
       "Mysterienwesen / Einweihung"
     ],
     "assignedAt": "2025-12-31T21:21:26.396Z",
-    "reassignedAt": "2026-01-03T15:54:13.812Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA093a/1": {
@@ -15522,9 +15927,10 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2025-12-31T21:21:48.158Z",
-    "reassignedAt": "2026-01-01T22:40:10.539Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA093a/22": {
@@ -15595,9 +16001,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T21:21:56.687Z",
-    "reassignedAt": "2025-12-31T23:53:05.447Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA091/12": {
@@ -15668,16 +16075,21 @@
       "Abstammung / Evolution"
     ],
     "assignedAt": "2025-12-31T21:22:07.409Z",
-    "reassignedAt": "2026-01-03T15:54:16.156Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA091/25": {
     "themes": [
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:22:08.862Z"
+    "assignedAt": "2025-12-31T21:22:08.862Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA091/27": {
     "themes": [
@@ -15756,7 +16168,11 @@
       "Naturreiche",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:22:20.220Z"
+    "assignedAt": "2025-12-31T21:22:20.220Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA091/55": {
     "themes": [
@@ -15831,10 +16247,11 @@
       "Naturreiche"
     ],
     "assignedAt": "2025-12-31T21:22:29.868Z",
-    "reassignedAt": "2026-01-03T17:13:57.615Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA093/2": {
@@ -15894,7 +16311,11 @@
       "Theosophische Gesellschaft",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:22:37.820Z"
+    "assignedAt": "2025-12-31T21:22:37.820Z",
+    "reassignedAt": "2026-01-04T15:57:13.300Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA093/17": {
     "themes": [
@@ -15929,7 +16350,11 @@
       "Menschheitsentwicklung",
       "Naturreiche"
     ],
-    "assignedAt": "2025-12-31T21:22:43.659Z"
+    "assignedAt": "2025-12-31T21:22:43.659Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA093a/5": {
     "themes": [
@@ -15946,9 +16371,10 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T21:22:46.766Z",
-    "reassignedAt": "2025-12-31T23:53:05.447Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA093a/19": {
@@ -15957,7 +16383,11 @@
       "Elementarwesen",
       "Geistige Weltbereiche"
     ],
-    "assignedAt": "2025-12-31T21:22:48.275Z"
+    "assignedAt": "2025-12-31T21:22:48.275Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA093a/18": {
     "themes": [
@@ -16322,9 +16752,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T21:23:39.824Z",
-    "reassignedAt": "2026-01-03T15:54:18.113Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA091/38": {
@@ -16361,7 +16792,11 @@
       "Seelenlehre / Seelenglieder",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:23:45.621Z"
+    "assignedAt": "2025-12-31T21:23:45.621Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA091/46": {
     "themes": [
@@ -16376,7 +16811,11 @@
       "Gehirn & Geist",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2025-12-31T21:23:48.783Z"
+    "assignedAt": "2025-12-31T21:23:48.783Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA091/48": {
     "themes": [
@@ -16395,10 +16834,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T21:23:51.485Z",
-    "reassignedAt": "2026-01-03T15:54:18.113Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA091/50": {
@@ -16478,7 +16918,11 @@
       "Geschichte / Kulturentwicklung",
       "Böses (Luzifer, Ahriman)"
     ],
-    "assignedAt": "2025-12-31T21:24:06.015Z"
+    "assignedAt": "2025-12-31T21:24:06.015Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA097/4": {
     "themes": [
@@ -16526,10 +16970,11 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2025-12-31T21:24:13.075Z",
-    "reassignedAt": "2026-01-01T00:55:10.526Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA097/2": {
@@ -16814,7 +17259,11 @@
       "Abstammung / Evolution",
       "Naturreiche"
     ],
-    "assignedAt": "2025-12-31T21:24:53.139Z"
+    "assignedAt": "2025-12-31T21:24:53.139Z",
+    "reassignedAt": "2026-01-04T15:57:16.559Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA097/30": {
     "themes": [
@@ -16879,9 +17328,10 @@
       "Moral"
     ],
     "assignedAt": "2025-12-31T21:25:00.875Z",
-    "reassignedAt": "2026-01-01T22:40:13.415Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA098/5": {
@@ -16929,9 +17379,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T21:25:10.328Z",
-    "reassignedAt": "2025-12-31T23:53:09.026Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA098/10": {
@@ -17017,9 +17468,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T21:25:24.119Z",
-    "reassignedAt": "2026-01-01T22:40:13.415Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA099/1": {
@@ -17163,7 +17615,11 @@
       "Sprache",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:25:46.040Z"
+    "assignedAt": "2025-12-31T21:25:46.040Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA100/8": {
     "themes": [
@@ -17279,7 +17735,11 @@
       "Menschheitsentwicklung",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:26:04.774Z"
+    "assignedAt": "2025-12-31T21:26:04.774Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA094/30": {
     "themes": [
@@ -17287,7 +17747,11 @@
       "Geistiges Erkennen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2025-12-31T21:26:06.514Z"
+    "assignedAt": "2025-12-31T21:26:06.514Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA094/29": {
     "themes": [
@@ -17511,10 +17975,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2025-12-31T21:26:36.847Z",
-    "reassignedAt": "2026-01-01T22:40:15.655Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA095/8": {
@@ -18022,9 +18487,10 @@
       "Schlaf & Tod"
     ],
     "assignedAt": "2025-12-31T21:27:47.723Z",
-    "reassignedAt": "2026-01-03T15:54:19.959Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA095/1": {
@@ -18041,9 +18507,10 @@
       "Meditation / Schulungsweg"
     ],
     "assignedAt": "2025-12-31T21:27:50.553Z",
-    "reassignedAt": "2026-01-01T10:14:35.099Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA094/33": {
@@ -18119,9 +18586,10 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2025-12-31T21:28:01.540Z",
-    "reassignedAt": "2026-01-03T15:54:19.959Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA094/3": {
@@ -18260,7 +18728,11 @@
       "Kosmologie / Kosmogonie",
       "Wesensglieder"
     ],
-    "assignedAt": "2025-12-31T21:28:21.391Z"
+    "assignedAt": "2025-12-31T21:28:21.391Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA094/16": {
     "themes": [
@@ -18287,7 +18759,11 @@
   },
   "GA033/5": {
     "themes": [],
-    "assignedAt": "2025-12-31T21:28:27.729Z"
+    "assignedAt": "2025-12-31T21:28:27.729Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA033/8": {
     "themes": [],
@@ -18308,35 +18784,40 @@
       "Goethe (Faust, Märchen)"
     ],
     "assignedAt": "2025-12-31T21:28:33.311Z",
-    "reassignedAt": "2026-01-03T16:46:44.938Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA033/4": {
     "themes": [],
-    "assignedAt": "2025-12-31T21:28:36.432Z"
+    "assignedAt": "2025-12-31T21:28:36.432Z",
+    "reassignedAt": "2026-01-04T15:58:17.282Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA033/3": {
     "themes": [
-      "Darwinismus",
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2025-12-31T21:28:37.761Z",
-    "reassignedAt": "2026-01-03T15:54:47.376Z",
+    "reassignedAt": "2026-01-04T15:54:14.490Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA033/2": {
     "themes": [
-      "Darwinismus",
       "Philosophie"
     ],
     "assignedAt": "2025-12-31T21:28:40.327Z",
-    "reassignedAt": "2026-01-03T15:54:47.376Z",
+    "reassignedAt": "2026-01-04T15:54:14.491Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA033/7": {
@@ -19104,9 +19585,10 @@
   "GA216/5": {
     "themes": [],
     "assignedAt": "2025-12-31T23:34:24.149Z",
-    "reassignedAt": "2026-01-03T16:45:45.035Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA216/7": {
@@ -19202,11 +19684,12 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T23:34:35.309Z",
-    "reassignedAt": "2026-01-01T22:39:21.489Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA214/5": {
@@ -19357,10 +19840,11 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T23:34:54.659Z",
-    "reassignedAt": "2026-01-01T22:39:29.887Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA215/2": {
@@ -19374,11 +19858,12 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T23:37:28.372Z",
-    "reassignedAt": "2026-01-01T22:38:53.854Z",
+    "reassignedAt": "2026-01-04T15:56:55.146Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA220/12": {
@@ -19573,10 +20058,11 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2025-12-31T23:38:00.422Z",
-    "reassignedAt": "2026-01-01T22:39:21.489Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA308/1": {
@@ -19727,9 +20213,10 @@
   "GA217a/10": {
     "themes": [],
     "assignedAt": "2025-12-31T23:38:19.157Z",
-    "reassignedAt": "2025-12-31T23:52:57.084Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA223/2": {
@@ -19943,9 +20430,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:45.508Z",
-    "reassignedAt": "2025-12-31T23:56:25.557Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA219/1": {
@@ -20139,9 +20627,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:52.703Z",
-    "reassignedAt": "2025-12-31T23:56:32.804Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA110/1": {
@@ -20229,10 +20718,11 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:54.328Z",
-    "reassignedAt": "2025-12-31T23:56:34.549Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA110/12": {
@@ -20254,11 +20744,12 @@
   "GA111/14": {
     "themes": [],
     "assignedAt": "2025-12-31T23:43:54.328Z",
-    "reassignedAt": "2026-01-01T00:55:13.173Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Geistige Wesen",
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA111/20": {
@@ -20394,9 +20885,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:56.699Z",
-    "reassignedAt": "2025-12-31T23:56:38.232Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA121/8": {
@@ -20417,26 +20909,29 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:43:56.700Z",
-    "reassignedAt": "2025-12-31T23:56:38.232Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA122/3": {
     "themes": [],
     "assignedAt": "2025-12-31T23:43:56.700Z",
-    "reassignedAt": "2025-12-31T23:56:38.232Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA122/4": {
     "themes": [],
     "assignedAt": "2025-12-31T23:43:56.700Z",
-    "reassignedAt": "2025-12-31T23:56:38.232Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA122/2": {
@@ -20503,10 +20998,11 @@
       "Abstammung / Evolution"
     ],
     "assignedAt": "2025-12-31T23:43:58.863Z",
-    "reassignedAt": "2026-01-03T15:54:25.277Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA123/4": {
@@ -20595,9 +21091,10 @@
   "GA129/5": {
     "themes": [],
     "assignedAt": "2025-12-31T23:44:00.052Z",
-    "reassignedAt": "2025-12-31T23:56:41.353Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA129/4": {
@@ -20639,10 +21136,11 @@
   "GA131/6": {
     "themes": [],
     "assignedAt": "2025-12-31T23:44:00.058Z",
-    "reassignedAt": "2025-12-31T23:56:41.353Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA132/2": {
@@ -20689,9 +21187,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:44:01.177Z",
-    "reassignedAt": "2025-12-31T23:56:42.972Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA136/2": {
@@ -20708,9 +21207,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:44:01.177Z",
-    "reassignedAt": "2025-12-31T23:56:42.972Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA136/5": {
@@ -20718,9 +21218,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:44:01.177Z",
-    "reassignedAt": "2025-12-31T23:56:42.972Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA136/7": {
@@ -20756,9 +21257,10 @@
   "GA136/10": {
     "themes": [],
     "assignedAt": "2025-12-31T23:44:02.324Z",
-    "reassignedAt": "2025-12-31T23:56:44.378Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA137/7": {
@@ -21053,11 +21555,12 @@
   "GA159/7": {
     "themes": [],
     "assignedAt": "2025-12-31T23:44:06.918Z",
-    "reassignedAt": "2026-01-01T10:14:45.424Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Geistige Wesen",
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA159/9": {
@@ -21095,9 +21598,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:44:06.918Z",
-    "reassignedAt": "2025-12-31T23:56:48.920Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA162/2": {
@@ -21349,12 +21853,13 @@
   "GA107/19": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:15.832Z",
-    "reassignedAt": "2026-01-03T15:54:23.356Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Biographie",
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA109/22": {
@@ -21814,10 +22319,11 @@
       "Bibel / Evangelien"
     ],
     "assignedAt": "2025-12-31T23:53:25.002Z",
-    "reassignedAt": "2026-01-03T15:54:25.277Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA123/10": {
@@ -21884,12 +22390,13 @@
   "GA129/1": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:26.883Z",
-    "reassignedAt": "2026-01-03T17:14:07.242Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Goethes Naturerkennen",
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA130/2": {
@@ -21997,9 +22504,10 @@
   "GA133/7": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:30.242Z",
-    "reassignedAt": "2025-12-31T23:53:30.242Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA135/3": {
@@ -22021,9 +22529,10 @@
   "GA139/3": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:30.242Z",
-    "reassignedAt": "2025-12-31T23:53:30.242Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA139/6": {
@@ -22483,9 +22992,10 @@
   "GA175/8": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:39.659Z",
-    "reassignedAt": "2025-12-31T23:53:39.659Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA175/7": {
@@ -22560,22 +23070,24 @@
   "GA180/9": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:41.426Z",
-    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Geistige Wesen",
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA181/21": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:41.426Z",
-    "reassignedAt": "2026-01-03T16:48:40.799Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Pädagogik / Heilpädagogik",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA184/12": {
@@ -22746,9 +23258,10 @@
   "GA196/15": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:44.147Z",
-    "reassignedAt": "2025-12-31T23:53:44.147Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA196/16": {
@@ -22899,9 +23412,10 @@
   "GA226/6": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:47.837Z",
-    "reassignedAt": "2025-12-31T23:53:47.837Z",
+    "reassignedAt": "2026-01-04T15:57:46.113Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA228/8": {
@@ -23128,10 +23642,11 @@
   "GA274/12": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:52.443Z",
-    "reassignedAt": "2026-01-01T22:41:02.045Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA274/16": {
@@ -23169,9 +23684,10 @@
   "GA286/14": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:52.443Z",
-    "reassignedAt": "2025-12-31T23:53:52.443Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA287/5": {
@@ -23188,13 +23704,14 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2025-12-31T23:53:52.443Z",
-    "reassignedAt": "2026-01-03T16:48:49.891Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Biographie",
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA288/6": {
@@ -23340,11 +23857,12 @@
   "GA317/10": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:55.518Z",
-    "reassignedAt": "2026-01-03T15:54:40.439Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA317/9": {
@@ -23376,10 +23894,11 @@
   "GA330/1": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:55.518Z",
-    "reassignedAt": "2026-01-01T22:41:26.827Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA329/10": {
@@ -23486,9 +24005,10 @@
   "GA339/4": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:58.311Z",
-    "reassignedAt": "2025-12-31T23:53:58.311Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA340/12": {
@@ -23582,9 +24102,10 @@
   "GA342/6": {
     "themes": [],
     "assignedAt": "2025-12-31T23:53:59.714Z",
-    "reassignedAt": "2025-12-31T23:53:59.714Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
     "reassignedThemes": [
-      "Bibel / Evangelien"
+      "Bibel / Evangelien",
+      "Darwinismus"
     ]
   },
   "GA342/3": {
@@ -23863,10 +24384,11 @@
   "GA266a/67": {
     "themes": [],
     "assignedAt": "2025-12-31T23:55:14.405Z",
-    "reassignedAt": "2026-01-01T00:55:24.774Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
     "reassignedThemes": [
       "Bibel / Evangelien",
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA266a/86": {
@@ -24230,9 +24752,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:56:51.647Z",
-    "reassignedAt": "2025-12-31T23:56:51.647Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA174a/6": {
@@ -24303,9 +24826,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:56:52.909Z",
-    "reassignedAt": "2025-12-31T23:56:52.909Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA178/2": {
@@ -24319,9 +24843,10 @@
   "GA178/3": {
     "themes": [],
     "assignedAt": "2025-12-31T23:56:52.909Z",
-    "reassignedAt": "2025-12-31T23:56:52.909Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA179/3": {
@@ -24374,9 +24899,10 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:56:54.641Z",
-    "reassignedAt": "2025-12-31T23:56:54.641Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA174/6": {
@@ -24435,10 +24961,11 @@
   "GA181/7": {
     "themes": [],
     "assignedAt": "2025-12-31T23:56:56.158Z",
-    "reassignedAt": "2026-01-01T22:40:41.361Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA182/1": {
@@ -24463,11 +24990,12 @@
       "Geistige Wesen"
     ],
     "assignedAt": "2025-12-31T23:56:56.158Z",
-    "reassignedAt": "2026-01-03T16:48:40.799Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
       "Geistige Wesen",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA183/8": {
@@ -24558,11 +25086,12 @@
       "Abstammung / Evolution"
     ],
     "assignedAt": "2025-12-31T23:56:57.398Z",
-    "reassignedAt": "2026-01-03T15:54:32.863Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
       "Geistige Wesen",
       "Ernährung / Landwirtschaft",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA194/6": {
@@ -24585,10 +25114,11 @@
   "GA196/13": {
     "themes": [],
     "assignedAt": "2025-12-31T23:56:58.940Z",
-    "reassignedAt": "2026-01-03T15:59:05.507Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Embryologie"
+      "Embryologie",
+      "Darwinismus"
     ]
   },
   "GA196/12": {
@@ -24894,10 +25424,11 @@
   "GA230/9": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:26.888Z",
-    "reassignedAt": "2026-01-01T10:15:02.863Z",
+    "reassignedAt": "2026-01-04T15:57:46.113Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA230/11": {
@@ -25088,9 +25619,10 @@
   "GA237/9": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:30.054Z",
-    "reassignedAt": "2025-12-31T23:57:30.054Z",
+    "reassignedAt": "2026-01-04T15:57:46.114Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA237/11": {
@@ -25199,20 +25731,22 @@
   "GA254/5": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:31.906Z",
-    "reassignedAt": "2026-01-01T22:40:57.866Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
     "reassignedThemes": [
       "Geistige Wesen",
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA252/3": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:33.362Z",
-    "reassignedAt": "2026-01-03T15:54:37.353Z",
+    "reassignedAt": "2026-01-04T15:57:50.044Z",
     "reassignedThemes": [
       "Geistige Wesen",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA252/11": {
@@ -25258,11 +25792,12 @@
   "GA275/7": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:33.363Z",
-    "reassignedAt": "2026-01-03T15:59:07.301Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
     "reassignedThemes": [
       "Geistige Wesen",
       "Abstammung / Evolution",
-      "Embryologie"
+      "Embryologie",
+      "Darwinismus"
     ]
   },
   "GA283/12": {
@@ -25473,17 +26008,19 @@
   "GA266b/22": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:38.238Z",
-    "reassignedAt": "2025-12-31T23:57:38.238Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA266b/36": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:38.238Z",
-    "reassignedAt": "2025-12-31T23:57:38.238Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA266b/31": {
@@ -25529,9 +26066,10 @@
   "GA266b/64": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:39.797Z",
-    "reassignedAt": "2025-12-31T23:57:39.797Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA266b/66": {
@@ -25553,9 +26091,10 @@
   "GA266b/62": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:39.797Z",
-    "reassignedAt": "2025-12-31T23:57:39.797Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA266c/1": {
@@ -25579,9 +26118,10 @@
   "GA266c/12": {
     "themes": [],
     "assignedAt": "2025-12-31T23:57:39.797Z",
-    "reassignedAt": "2025-12-31T23:57:39.798Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Geistige Wesen"
+      "Geistige Wesen",
+      "Darwinismus"
     ]
   },
   "GA266c/23": {
@@ -25927,9 +26467,10 @@
       "Schlaf & Tod"
     ],
     "assignedAt": "2026-01-01T00:07:48.251Z",
-    "reassignedAt": "2026-01-01T10:14:18.712Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA217a/9": {
@@ -26019,7 +26560,11 @@
     "themes": [
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2026-01-01T00:07:51.726Z"
+    "assignedAt": "2026-01-01T00:07:51.726Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA216/6": {
     "themes": [
@@ -26351,7 +26896,11 @@
       "Mysterienwesen / Einweihung",
       "Rhythmen & Zyklen"
     ],
-    "assignedAt": "2026-01-01T00:08:06.473Z"
+    "assignedAt": "2026-01-01T00:08:06.473Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA220/3": {
     "themes": [
@@ -26379,10 +26928,11 @@
       "Seelenfähigkeiten"
     ],
     "assignedAt": "2026-01-01T00:08:06.473Z",
-    "reassignedAt": "2026-01-01T22:39:35.145Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
     "reassignedThemes": [
       "Bewusstsein",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA223/5": {
@@ -26643,7 +27193,11 @@
     "themes": [
       "Anthroposophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:08:17.028Z"
+    "assignedAt": "2026-01-01T00:08:17.028Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA217a/19": {
     "themes": [
@@ -26668,10 +27222,11 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2026-01-01T00:08:17.028Z",
-    "reassignedAt": "2026-01-01T22:39:40.127Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA218/14": {
@@ -26857,7 +27412,11 @@
       "Moral",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2026-01-01T00:08:27.159Z"
+    "assignedAt": "2026-01-01T00:08:27.159Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA200/2": {
     "themes": [
@@ -26871,7 +27430,11 @@
       "Soziale Dreigliederung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:08:28.823Z"
+    "assignedAt": "2026-01-01T00:08:28.823Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA200/1": {
     "themes": [
@@ -26879,7 +27442,11 @@
       "Geschichte / Kulturentwicklung",
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:08:28.823Z"
+    "assignedAt": "2026-01-01T00:08:28.823Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA200/4": {
     "themes": [
@@ -27134,7 +27701,11 @@
       "Reinkarnation & Karma",
       "Schlaf & Tod"
     ],
-    "assignedAt": "2026-01-01T00:08:38.731Z"
+    "assignedAt": "2026-01-01T00:08:38.731Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA202/10": {
     "themes": [
@@ -27233,7 +27804,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:08:42.635Z"
+    "assignedAt": "2026-01-01T00:08:42.635Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA203/5": {
     "themes": [
@@ -27265,7 +27840,11 @@
       "Anthroposophie",
       "Böses (Luzifer, Ahriman)"
     ],
-    "assignedAt": "2026-01-01T00:08:44.158Z"
+    "assignedAt": "2026-01-01T00:08:44.158Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA203/9": {
     "themes": [
@@ -27391,7 +27970,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2026-01-01T00:08:49.411Z"
+    "assignedAt": "2026-01-01T00:08:49.411Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA204/10": {
     "themes": [
@@ -27450,7 +28033,11 @@
       "Seelenlehre / Seelenglieder",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:08:51.222Z"
+    "assignedAt": "2026-01-01T00:08:51.222Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA204/16": {
     "themes": [
@@ -27677,7 +28264,11 @@
       "Christus / Golgatha",
       "Moral"
     ],
-    "assignedAt": "2026-01-01T00:08:59.949Z"
+    "assignedAt": "2026-01-01T00:08:59.949Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA207/10": {
     "themes": [
@@ -27789,9 +28380,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:09:03.623Z",
-    "reassignedAt": "2026-01-01T10:15:00.190Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA208/6": {
@@ -27823,7 +28415,11 @@
       "Kosmologie / Kosmogonie",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:09:05.871Z"
+    "assignedAt": "2026-01-01T00:09:05.871Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA209/7": {
     "themes": [
@@ -28023,9 +28619,10 @@
       "Seelenfähigkeiten"
     ],
     "assignedAt": "2026-01-01T00:09:12.936Z",
-    "reassignedAt": "2026-01-01T10:15:01.525Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA226/4": {
@@ -28191,9 +28788,10 @@
       "Menschheitsentwicklung"
     ],
     "assignedAt": "2026-01-01T00:09:18.881Z",
-    "reassignedAt": "2026-01-03T15:54:35.821Z",
+    "reassignedAt": "2026-01-04T15:57:46.113Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA228/2": {
@@ -28322,10 +28920,11 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2026-01-01T00:09:23.993Z",
-    "reassignedAt": "2026-01-03T16:48:43.913Z",
+    "reassignedAt": "2026-01-04T15:57:46.113Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA230/4": {
@@ -28481,9 +29080,10 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2026-01-01T00:09:29.337Z",
-    "reassignedAt": "2026-01-01T22:40:51.968Z",
+    "reassignedAt": "2026-01-04T15:57:46.114Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA232/4": {
@@ -28591,7 +29191,11 @@
     "themes": [
       "Anthroposophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:09:32.593Z"
+    "assignedAt": "2026-01-01T00:09:32.593Z",
+    "reassignedAt": "2026-01-04T15:57:46.114Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA233/1": {
     "themes": [
@@ -28645,7 +29249,11 @@
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung"
     ],
-    "assignedAt": "2026-01-01T00:09:34.780Z"
+    "assignedAt": "2026-01-01T00:09:34.780Z",
+    "reassignedAt": "2026-01-04T15:57:46.114Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA233/6": {
     "themes": [
@@ -28774,7 +29382,11 @@
       "Elemente / Ätherarten",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:09:41.918Z"
+    "assignedAt": "2026-01-01T00:09:41.918Z",
+    "reassignedAt": "2026-01-04T15:57:46.114Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA235/1": {
     "themes": [
@@ -28893,10 +29505,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:09:47.483Z",
-    "reassignedAt": "2026-01-01T22:40:51.969Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA235/9": {
@@ -29207,11 +29820,12 @@
       "Kosmologie / Kosmogonie"
     ],
     "assignedAt": "2026-01-01T00:10:01.568Z",
-    "reassignedAt": "2026-01-03T16:48:45.861Z",
+    "reassignedAt": "2026-01-04T15:57:46.114Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Abstammung / Evolution",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA240/1": {
@@ -29253,7 +29867,11 @@
       "Reinkarnation & Karma",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:10:04.260Z"
+    "assignedAt": "2026-01-01T00:10:04.260Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA240/8": {
     "themes": [
@@ -29267,7 +29885,11 @@
       "Anthroposophische Gesellschaft",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:10:04.260Z"
+    "assignedAt": "2026-01-01T00:10:04.260Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA240/12": {
     "themes": [
@@ -29555,7 +30177,11 @@
       "Meditation / Schulungsweg",
       "Geistiges Erkennen"
     ],
-    "assignedAt": "2026-01-01T00:10:18.579Z"
+    "assignedAt": "2026-01-01T00:10:18.579Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA245/17": {
     "themes": [
@@ -29739,7 +30365,11 @@
     "themes": [
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:10:25.240Z"
+    "assignedAt": "2026-01-01T00:10:25.240Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA250/22": {
     "themes": [
@@ -29757,7 +30387,11 @@
       "Rosenkreuzer",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:10:25.240Z"
+    "assignedAt": "2026-01-01T00:10:25.240Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA250/24": {
     "themes": [
@@ -30045,7 +30679,11 @@
       "Naturreiche",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:24:09.260Z"
+    "assignedAt": "2026-01-01T00:24:09.260Z",
+    "reassignedAt": "2026-01-04T15:57:19.660Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA102/3": {
     "themes": [
@@ -30059,7 +30697,11 @@
       "Kosmologie / Kosmogonie",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:24:10.893Z"
+    "assignedAt": "2026-01-01T00:24:10.893Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA102/4": {
     "themes": [
@@ -30080,7 +30722,11 @@
       "Elemente / Ätherarten",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:24:10.893Z"
+    "assignedAt": "2026-01-01T00:24:10.893Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA102/1": {
     "themes": [
@@ -30438,10 +31084,11 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2026-01-01T00:24:24.614Z",
-    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA107/7": {
@@ -30512,7 +31159,11 @@
       "Anthroposophische Medizin",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:24:28.245Z"
+    "assignedAt": "2026-01-01T00:24:28.245Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA107/12": {
     "themes": [
@@ -30849,10 +31500,11 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2026-01-01T00:24:46.239Z",
-    "reassignedAt": "2026-01-03T17:14:03.701Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA107/3": {
@@ -31139,11 +31791,12 @@
       "Rhythmen & Zyklen"
     ],
     "assignedAt": "2026-01-01T00:24:55.233Z",
-    "reassignedAt": "2026-01-03T15:59:01.434Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
-      "Embryologie"
+      "Embryologie",
+      "Darwinismus"
     ]
   },
   "GA109/18": {
@@ -31291,10 +31944,11 @@
       "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:25:03.831Z",
-    "reassignedAt": "2026-01-03T17:14:05.492Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA111/16": {
@@ -31302,7 +31956,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:25:05.677Z"
+    "assignedAt": "2026-01-01T00:25:05.677Z",
+    "reassignedAt": "2026-01-04T15:57:21.236Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA111/17": {
     "themes": [
@@ -31323,7 +31981,11 @@
       "Goethe (Faust, Märchen)",
       "Philosophie"
     ],
-    "assignedAt": "2026-01-01T00:25:05.677Z"
+    "assignedAt": "2026-01-01T00:25:05.677Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA111/18": {
     "themes": [
@@ -31705,10 +32367,11 @@
       "Religionen / Weisheitslehren"
     ],
     "assignedAt": "2026-01-01T00:25:24.834Z",
-    "reassignedAt": "2026-01-03T15:54:25.276Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA116/2": {
@@ -32026,10 +32689,11 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2026-01-01T00:25:40.302Z",
-    "reassignedAt": "2026-01-01T22:40:24.374Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
     "reassignedThemes": [
       "Bewusstsein",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA119/10": {
@@ -32145,7 +32809,11 @@
       "Freiheitsphilosophie",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:25:43.616Z"
+    "assignedAt": "2026-01-01T00:25:43.616Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA120/10": {
     "themes": [
@@ -32167,7 +32835,11 @@
       "Geistige Wesen",
       "Kulturen & Völker"
     ],
-    "assignedAt": "2026-01-01T00:25:45.820Z"
+    "assignedAt": "2026-01-01T00:25:45.820Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA121/5": {
     "themes": [
@@ -32329,7 +33001,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2026-01-01T00:25:53.705Z"
+    "assignedAt": "2026-01-01T00:25:53.705Z",
+    "reassignedAt": "2026-01-04T15:57:23.788Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA125/7": {
     "themes": [
@@ -32343,7 +33019,11 @@
       "Anthroposophie",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:25:53.705Z"
+    "assignedAt": "2026-01-01T00:25:53.705Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA125/10": {
     "themes": [
@@ -32352,9 +33032,10 @@
       "Meditation / Schulungsweg"
     ],
     "assignedAt": "2026-01-01T00:25:53.705Z",
-    "reassignedAt": "2026-01-01T22:40:28.152Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA125/12": {
@@ -32408,9 +33089,10 @@
       "Seelenfähigkeiten"
     ],
     "assignedAt": "2026-01-01T00:25:55.242Z",
-    "reassignedAt": "2026-01-01T22:40:28.152Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA127/3": {
@@ -32535,9 +33217,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:26:00.463Z",
-    "reassignedAt": "2026-01-01T00:55:13.173Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA128/4": {
@@ -32617,11 +33300,12 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2026-01-01T00:26:03.739Z",
-    "reassignedAt": "2026-01-03T16:45:57.741Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA129/9": {
@@ -32719,7 +33403,11 @@
       "Reinkarnation & Karma",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2026-01-01T00:26:07.773Z"
+    "assignedAt": "2026-01-01T00:26:07.773Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA130/13": {
     "themes": [
@@ -32747,7 +33435,11 @@
       "Christus / Golgatha",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:26:07.773Z"
+    "assignedAt": "2026-01-01T00:26:07.773Z",
+    "reassignedAt": "2026-01-04T15:57:25.982Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA130/20": {
     "themes": [
@@ -32992,7 +33684,11 @@
       "Anthroposophie",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:26:18.589Z"
+    "assignedAt": "2026-01-01T00:26:18.589Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA137/3": {
     "themes": [
@@ -33019,9 +33715,10 @@
       "Geistiges Erkennen"
     ],
     "assignedAt": "2026-01-01T00:26:18.589Z",
-    "reassignedAt": "2026-01-01T10:14:41.657Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA137/1": {
@@ -33030,7 +33727,11 @@
       "Geistiges Erkennen",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2026-01-01T00:26:20.436Z"
+    "assignedAt": "2026-01-01T00:26:20.436Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA137/6": {
     "themes": [
@@ -33303,7 +34004,11 @@
       "Reinkarnation & Karma",
       "Schlaf & Tod"
     ],
-    "assignedAt": "2026-01-01T00:26:29.565Z"
+    "assignedAt": "2026-01-01T00:26:29.565Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA141/1": {
     "themes": [
@@ -33693,7 +34398,11 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:26:42.875Z"
+    "assignedAt": "2026-01-01T00:26:42.875Z",
+    "reassignedAt": "2026-01-04T15:57:28.124Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA145/7": {
     "themes": [
@@ -33794,9 +34503,10 @@
       "Gehirn & Geist"
     ],
     "assignedAt": "2026-01-01T00:26:46.370Z",
-    "reassignedAt": "2026-01-01T10:14:43.395Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA146/9": {
@@ -33819,7 +34529,11 @@
       "Böses (Luzifer, Ahriman)",
       "Geistiges Erkennen"
     ],
-    "assignedAt": "2026-01-01T00:26:48.182Z"
+    "assignedAt": "2026-01-01T00:26:48.182Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA147/3": {
     "themes": [
@@ -33837,9 +34551,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2026-01-01T00:26:48.182Z",
-    "reassignedAt": "2026-01-03T15:54:28.139Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA147/1": {
@@ -34050,9 +34765,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:26:55.782Z",
-    "reassignedAt": "2026-01-01T10:14:43.395Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA150/6": {
@@ -34103,9 +34819,10 @@
       "Geschichte / Kulturentwicklung"
     ],
     "assignedAt": "2026-01-01T00:26:59.755Z",
-    "reassignedAt": "2026-01-03T15:54:28.139Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA152/3": {
@@ -34281,7 +34998,11 @@
       "Moral",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:27:07.542Z"
+    "assignedAt": "2026-01-01T00:27:07.542Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA155/10": {
     "themes": [
@@ -34335,7 +35056,11 @@
       "Christus / Golgatha",
       "Geistige Wesen"
     ],
-    "assignedAt": "2026-01-01T00:27:11.224Z"
+    "assignedAt": "2026-01-01T00:27:11.224Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA157/2": {
     "themes": [
@@ -34516,9 +35241,10 @@
       "Seelenfähigkeiten"
     ],
     "assignedAt": "2026-01-01T00:27:17.316Z",
-    "reassignedAt": "2026-01-03T15:54:28.139Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA158/7": {
@@ -34630,7 +35356,11 @@
       "Wesensglieder",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:27:20.854Z"
+    "assignedAt": "2026-01-01T00:27:20.854Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA159/8": {
     "themes": [
@@ -34638,7 +35368,11 @@
       "Seelenlehre / Seelenglieder",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:27:20.854Z"
+    "assignedAt": "2026-01-01T00:27:20.854Z",
+    "reassignedAt": "2026-01-04T15:57:30.762Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA159/14": {
     "themes": [
@@ -34668,10 +35402,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:27:22.595Z",
-    "reassignedAt": "2026-01-01T22:40:34.194Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA157a/2": {
@@ -34689,7 +35424,11 @@
       "Schlaf & Tod",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:27:22.595Z"
+    "assignedAt": "2026-01-01T00:27:22.595Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA157a/1": {
     "themes": [
@@ -34736,7 +35475,11 @@
       "Schlaf & Tod",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:27:24.778Z"
+    "assignedAt": "2026-01-01T00:27:24.778Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA161/2": {
     "themes": [
@@ -34746,10 +35489,11 @@
       "Reinkarnation & Karma"
     ],
     "assignedAt": "2026-01-01T00:27:26.386Z",
-    "reassignedAt": "2026-01-03T15:59:03.161Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Embryologie"
+      "Embryologie",
+      "Darwinismus"
     ]
   },
   "GA161/3": {
@@ -34789,10 +35533,11 @@
       "Legenden / Märchen / Mythen"
     ],
     "assignedAt": "2026-01-01T00:27:26.386Z",
-    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA161/12": {
@@ -34851,7 +35596,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Sprache"
     ],
-    "assignedAt": "2026-01-01T00:27:29.877Z"
+    "assignedAt": "2026-01-01T00:27:29.877Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA162/3": {
     "themes": [
@@ -34905,9 +35654,10 @@
       "Sinneslehre"
     ],
     "assignedAt": "2026-01-01T00:27:31.805Z",
-    "reassignedAt": "2026-01-03T15:54:28.139Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA163/1": {
@@ -35018,7 +35768,11 @@
       "Seelenfähigkeiten",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:27:35.189Z"
+    "assignedAt": "2026-01-01T00:27:35.189Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA164/4": {
     "themes": [
@@ -35036,11 +35790,12 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2026-01-01T00:27:35.189Z",
-    "reassignedAt": "2026-01-03T16:48:39.206Z",
+    "reassignedAt": "2026-01-04T15:57:35.267Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA164/9": {
@@ -35058,7 +35813,11 @@
       "Geistiges Erkennen",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:27:35.189Z"
+    "assignedAt": "2026-01-01T00:27:35.189Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA164/7": {
     "themes": [
@@ -35097,7 +35856,11 @@
       "Christus / Golgatha",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:27:39.323Z"
+    "assignedAt": "2026-01-01T00:27:39.323Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA165/1": {
     "themes": [
@@ -35214,9 +35977,10 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2026-01-01T00:27:44.914Z",
-    "reassignedAt": "2026-01-03T16:48:39.206Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
     "reassignedThemes": [
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA166/5": {
@@ -35342,7 +36106,11 @@
       "Schlaf & Tod",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:27:50.339Z"
+    "assignedAt": "2026-01-01T00:27:50.339Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA168/5": {
     "themes": [
@@ -35634,11 +36402,12 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:28:01.404Z",
-    "reassignedAt": "2026-01-03T16:46:01.741Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA171/12": {
@@ -35659,10 +36428,11 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:28:01.404Z",
-    "reassignedAt": "2026-01-03T17:14:08.881Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA171/13": {
@@ -35685,9 +36455,10 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2026-01-01T00:28:01.404Z",
-    "reassignedAt": "2026-01-03T16:46:01.741Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA172/2": {
@@ -35696,10 +36467,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:28:03.390Z",
-    "reassignedAt": "2026-01-03T16:46:05.043Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA171/16": {
@@ -35720,9 +36492,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:28:03.390Z",
-    "reassignedAt": "2026-01-01T10:14:52.867Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA172/8": {
@@ -35823,7 +36596,11 @@
       "Religionen / Weisheitslehren",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:28:06.858Z"
+    "assignedAt": "2026-01-01T00:28:06.858Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA173/6": {
     "themes": [
@@ -35915,7 +36692,11 @@
       "Weltanschauungen",
       "Weltanschauungen"
     ],
-    "assignedAt": "2026-01-01T00:28:11.434Z"
+    "assignedAt": "2026-01-01T00:28:11.434Z",
+    "reassignedAt": "2026-01-04T15:57:37.076Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA173a/7": {
     "themes": [
@@ -36356,7 +37137,11 @@
       "Geschichte / Kulturentwicklung",
       "Mysterienwesen / Einweihung"
     ],
-    "assignedAt": "2026-01-01T00:28:30.279Z"
+    "assignedAt": "2026-01-01T00:28:30.279Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA175/13": {
     "themes": [
@@ -36476,7 +37261,11 @@
       "Moral",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:28:33.456Z"
+    "assignedAt": "2026-01-01T00:28:33.456Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA176/16": {
     "themes": [
@@ -36541,7 +37330,11 @@
       "Geschichte / Kulturentwicklung",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:28:36.864Z"
+    "assignedAt": "2026-01-01T00:28:36.864Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA177/9": {
     "themes": [
@@ -36565,7 +37358,11 @@
       "Anthroposophie",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2026-01-01T00:28:36.864Z"
+    "assignedAt": "2026-01-01T00:28:36.864Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA177/11": {
     "themes": [
@@ -36585,9 +37382,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:28:38.811Z",
-    "reassignedAt": "2026-01-01T22:40:41.361Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA177/13": {
@@ -36607,10 +37405,11 @@
       "Böses (Luzifer, Ahriman)"
     ],
     "assignedAt": "2026-01-01T00:28:38.811Z",
-    "reassignedAt": "2026-01-03T16:48:40.799Z",
+    "reassignedAt": "2026-01-04T15:54:07.615Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA178/1": {
@@ -36823,11 +37622,12 @@
       "Geschichte / Kulturentwicklung"
     ],
     "assignedAt": "2026-01-01T00:28:46.263Z",
-    "reassignedAt": "2026-01-03T17:14:11.429Z",
+    "reassignedAt": "2026-01-04T15:57:39.256Z",
     "reassignedThemes": [
       "Biographie",
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA174a/3": {
@@ -37013,7 +37813,11 @@
       "Reinkarnation & Karma",
       "Schlaf & Tod"
     ],
-    "assignedAt": "2026-01-01T00:28:56.155Z"
+    "assignedAt": "2026-01-01T00:28:56.155Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA181/9": {
     "themes": [
@@ -37021,9 +37825,10 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:28:58.141Z",
-    "reassignedAt": "2026-01-03T15:54:31.417Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA181/10": {
@@ -37116,9 +37921,10 @@
       "Goetheanum"
     ],
     "assignedAt": "2026-01-01T00:28:59.768Z",
-    "reassignedAt": "2026-01-03T15:54:31.417Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA181/18": {
@@ -37143,7 +37949,11 @@
       "Schlaf & Tod",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:29:01.714Z"
+    "assignedAt": "2026-01-01T00:29:01.714Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA182/3": {
     "themes": [
@@ -37228,10 +38038,11 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2026-01-01T00:29:06.962Z",
-    "reassignedAt": "2026-01-01T22:40:43.123Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
     "reassignedThemes": [
       "Bewusstsein",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA183/5": {
@@ -37307,7 +38118,11 @@
     "themes": [
       "Böses (Luzifer, Ahriman)"
     ],
-    "assignedAt": "2026-01-01T00:29:10.217Z"
+    "assignedAt": "2026-01-01T00:29:10.217Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA184/9": {
     "themes": [
@@ -37362,9 +38177,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:29:12.058Z",
-    "reassignedAt": "2026-01-03T15:54:31.417Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA185/1": {
@@ -37408,7 +38224,11 @@
       "Geschichte / Kulturentwicklung",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2026-01-01T00:29:13.843Z"
+    "assignedAt": "2026-01-01T00:29:13.843Z",
+    "reassignedAt": "2026-01-04T15:57:41.487Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA185/6": {
     "themes": [
@@ -37884,7 +38704,11 @@
       "Soziale Dreigliederung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:29:39.331Z"
+    "assignedAt": "2026-01-01T00:29:39.331Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA191/3": {
     "themes": [
@@ -37908,9 +38732,10 @@
       "Schlaf & Tod"
     ],
     "assignedAt": "2026-01-01T00:29:41.152Z",
-    "reassignedAt": "2026-01-01T10:14:57.337Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA191/9": {
@@ -38269,7 +39094,11 @@
       "Weltanschauungen",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:29:54.862Z"
+    "assignedAt": "2026-01-01T00:29:54.862Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA196/1": {
     "themes": [
@@ -38291,7 +39120,11 @@
       "Gehirn & Geist",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:29:54.862Z"
+    "assignedAt": "2026-01-01T00:29:54.862Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA196/10": {
     "themes": [
@@ -38316,9 +39149,10 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:29:57.125Z",
-    "reassignedAt": "2026-01-03T15:54:34.493Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA196/9": {
@@ -38336,7 +39170,11 @@
       "Christus / Golgatha",
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:29:57.125Z"
+    "assignedAt": "2026-01-01T00:29:57.125Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA196/14": {
     "themes": [
@@ -38365,7 +39203,11 @@
       "Reinkarnation & Karma",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:29:59.408Z"
+    "assignedAt": "2026-01-01T00:29:59.408Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA196/17": {
     "themes": [
@@ -38478,9 +39320,10 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2026-01-01T00:30:09.344Z",
-    "reassignedAt": "2026-01-01T22:40:46.329Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA198/10": {
@@ -38501,9 +39344,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:30:10.938Z",
-    "reassignedAt": "2026-01-01T22:40:46.329Z",
+    "reassignedAt": "2026-01-04T15:57:43.119Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA198/13": {
@@ -38704,11 +39548,12 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:30:19.237Z",
-    "reassignedAt": "2026-01-03T16:48:43.913Z",
+    "reassignedAt": "2026-01-04T15:57:44.763Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA174/3": {
@@ -38944,7 +39789,11 @@
     "themes": [
       "Anthroposophie"
     ],
-    "assignedAt": "2026-01-01T00:30:53.640Z"
+    "assignedAt": "2026-01-01T00:30:53.640Z",
+    "reassignedAt": "2026-01-04T15:56:58.571Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA302a/5": {
     "themes": [
@@ -38993,10 +39842,11 @@
       "Geistiges Erkennen"
     ],
     "assignedAt": "2026-01-01T00:30:55.180Z",
-    "reassignedAt": "2026-01-03T15:54:05.074Z",
+    "reassignedAt": "2026-01-04T15:54:05.896Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA303/2": {
@@ -39099,10 +39949,11 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2026-01-01T00:30:59.888Z",
-    "reassignedAt": "2026-01-01T22:39:08.223Z",
+    "reassignedAt": "2026-01-04T15:57:00.901Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA311/3": {
@@ -39306,10 +40157,11 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2026-01-01T00:31:09.156Z",
-    "reassignedAt": "2026-01-01T22:39:11.761Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA300a/6": {
@@ -39476,7 +40328,11 @@
       "Reinkarnation & Karma",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:31:16.518Z"
+    "assignedAt": "2026-01-01T00:31:16.518Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA305/8": {
     "themes": [
@@ -39514,16 +40370,21 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:31:19.912Z"
+    "assignedAt": "2026-01-01T00:31:19.912Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA298/2": {
     "themes": [
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2026-01-01T00:31:19.912Z",
-    "reassignedAt": "2026-01-01T22:39:15.038Z",
+    "reassignedAt": "2026-01-04T15:57:00.902Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA297a/7": {
@@ -39864,10 +40725,11 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:31:30.320Z",
-    "reassignedAt": "2026-01-01T22:39:20.056Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA300a/15": {
@@ -40033,7 +40895,11 @@
       "Seelenfähigkeiten",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:31:39.618Z"
+    "assignedAt": "2026-01-01T00:31:39.618Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA293/15": {
     "themes": [],
@@ -40185,7 +41051,11 @@
       "Anthroposophie",
       "Pädagogik / Heilpädagogik"
     ],
-    "assignedAt": "2026-01-01T00:31:43.310Z"
+    "assignedAt": "2026-01-01T00:31:43.310Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA297a/5": {
     "themes": [
@@ -40195,7 +41065,11 @@
       "Meditation / Schulungsweg",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2026-01-01T00:31:44.942Z"
+    "assignedAt": "2026-01-01T00:31:44.942Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA297a/4": {
     "themes": [
@@ -40398,10 +41272,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:31:50.473Z",
-    "reassignedAt": "2026-01-01T22:39:31.726Z",
+    "reassignedAt": "2026-01-04T15:57:02.502Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA309/5": {
@@ -40686,7 +41561,11 @@
   },
   "GA298/18": {
     "themes": [],
-    "assignedAt": "2026-01-01T00:32:05.122Z"
+    "assignedAt": "2026-01-01T00:32:05.122Z",
+    "reassignedAt": "2026-01-04T15:57:06.505Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA298/14": {
     "themes": [
@@ -41197,9 +42076,10 @@
       "Pädagogik / Heilpädagogik"
     ],
     "assignedAt": "2026-01-01T00:32:22.936Z",
-    "reassignedAt": "2026-01-01T00:55:07.245Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA300b/24": {
@@ -41279,7 +42159,11 @@
       "Pädagogik / Heilpädagogik",
       "Sprache"
     ],
-    "assignedAt": "2026-01-01T00:32:24.706Z"
+    "assignedAt": "2026-01-01T00:32:24.706Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA300c/9": {
     "themes": [
@@ -41376,7 +42260,11 @@
       "Pädagogik / Heilpädagogik",
       "Sprache"
     ],
-    "assignedAt": "2026-01-01T00:32:30.737Z"
+    "assignedAt": "2026-01-01T00:32:30.737Z",
+    "reassignedAt": "2026-01-04T15:57:08.585Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA300c/21": {
     "themes": [
@@ -41470,9 +42358,10 @@
       "Anthroposophische Gesellschaft"
     ],
     "assignedAt": "2026-01-01T00:32:36.657Z",
-    "reassignedAt": "2026-01-01T00:55:17.071Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
     "reassignedThemes": [
-      "Ernährung / Landwirtschaft"
+      "Ernährung / Landwirtschaft",
+      "Darwinismus"
     ]
   },
   "GA251/9": {
@@ -41802,7 +42691,11 @@
     "themes": [
       "Goetheanum"
     ],
-    "assignedAt": "2026-01-01T00:32:51.863Z"
+    "assignedAt": "2026-01-01T00:32:51.863Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA255b/7": {
     "themes": [
@@ -41810,9 +42703,10 @@
       "Goethes Naturerkennen"
     ],
     "assignedAt": "2026-01-01T00:32:51.863Z",
-    "reassignedAt": "2026-01-03T15:54:37.353Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA255b/10": {
@@ -41881,9 +42775,10 @@
       "Anthroposophie"
     ],
     "assignedAt": "2026-01-01T00:32:58.980Z",
-    "reassignedAt": "2026-01-03T15:54:37.353Z",
+    "reassignedAt": "2026-01-04T15:54:10.321Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA255b/19": {
@@ -41906,7 +42801,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:32:58.980Z"
+    "assignedAt": "2026-01-01T00:32:58.980Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA255b/23": {
     "themes": [],
@@ -41964,9 +42863,10 @@
       "Goetheanum"
     ],
     "assignedAt": "2026-01-01T00:33:02.998Z",
-    "reassignedAt": "2026-01-01T10:15:06.435Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA257/4": {
@@ -42038,7 +42938,11 @@
       "Anthroposophie",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:33:04.629Z"
+    "assignedAt": "2026-01-01T00:33:04.629Z",
+    "reassignedAt": "2026-01-04T15:57:48.332Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA258/3": {
     "themes": [
@@ -42096,9 +43000,10 @@
       "Goetheanum"
     ],
     "assignedAt": "2026-01-01T00:33:06.255Z",
-    "reassignedAt": "2026-01-03T15:54:37.353Z",
+    "reassignedAt": "2026-01-04T15:57:50.044Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA252/8": {
@@ -42277,9 +43182,10 @@
       "Anthroposophische Gesellschaft"
     ],
     "assignedAt": "2026-01-01T00:33:21.715Z",
-    "reassignedAt": "2026-01-01T22:41:00.216Z",
+    "reassignedAt": "2026-01-04T15:57:50.044Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA259/11": {
@@ -42380,7 +43286,11 @@
     "themes": [
       "Goetheanum"
     ],
-    "assignedAt": "2026-01-01T00:33:24.797Z"
+    "assignedAt": "2026-01-01T00:33:24.797Z",
+    "reassignedAt": "2026-01-04T15:57:50.044Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA259/31": {
     "themes": [
@@ -42395,9 +43305,10 @@
       "Anthroposophische Gesellschaft"
     ],
     "assignedAt": "2026-01-01T00:33:26.431Z",
-    "reassignedAt": "2026-01-01T10:15:07.991Z",
+    "reassignedAt": "2026-01-04T15:57:50.044Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA259/32": {
@@ -42421,7 +43332,11 @@
     "themes": [
       "Anthroposophie"
     ],
-    "assignedAt": "2026-01-01T00:33:26.431Z"
+    "assignedAt": "2026-01-01T00:33:26.431Z",
+    "reassignedAt": "2026-01-04T15:57:50.045Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA259/38": {
     "themes": [
@@ -42460,7 +43375,11 @@
     "themes": [
       "Anthroposophie"
     ],
-    "assignedAt": "2026-01-01T00:33:27.925Z"
+    "assignedAt": "2026-01-01T00:33:27.925Z",
+    "reassignedAt": "2026-01-04T15:57:50.045Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA259/42": {
     "themes": [
@@ -42504,20 +43423,22 @@
       "Erkenntnis / Erkenntnistheorie"
     ],
     "assignedAt": "2026-01-01T00:33:32.300Z",
-    "reassignedAt": "2026-01-01T22:41:00.216Z",
+    "reassignedAt": "2026-01-04T15:57:50.045Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA271/3": {
     "themes": [],
     "assignedAt": "2026-01-01T00:33:36.072Z",
-    "reassignedAt": "2026-01-03T16:48:47.898Z",
+    "reassignedAt": "2026-01-04T15:57:50.045Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA271/5": {
@@ -42525,14 +43446,22 @@
       "Erkenntnisstufen",
       "Geistiges Erkennen"
     ],
-    "assignedAt": "2026-01-01T00:33:36.073Z"
+    "assignedAt": "2026-01-01T00:33:36.073Z",
+    "reassignedAt": "2026-01-04T15:57:50.045Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA271/6": {
     "themes": [
       "Erkenntnis / Erkenntnistheorie",
       "Geistiges Erkennen"
     ],
-    "assignedAt": "2026-01-01T00:33:36.073Z"
+    "assignedAt": "2026-01-01T00:33:36.073Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA271/9": {
     "themes": [
@@ -42554,9 +43483,10 @@
       "Schlaf & Tod"
     ],
     "assignedAt": "2026-01-01T00:33:37.896Z",
-    "reassignedAt": "2026-01-01T10:15:07.992Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA272/3": {
@@ -42766,9 +43696,10 @@
       "Seelenfähigkeiten"
     ],
     "assignedAt": "2026-01-01T00:33:43.426Z",
-    "reassignedAt": "2026-01-03T16:46:16.918Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA273/8": {
@@ -42905,7 +43836,11 @@
     "themes": [
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:33:55.438Z"
+    "assignedAt": "2026-01-01T00:33:55.438Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA274/15": {
     "themes": [
@@ -43043,13 +43978,21 @@
       "Anthroposophie",
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:34:00.427Z"
+    "assignedAt": "2026-01-01T00:34:00.427Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA276/6": {
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:34:00.427Z"
+    "assignedAt": "2026-01-01T00:34:00.427Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA276/5": {
     "themes": [
@@ -43064,7 +44007,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Goethes Naturerkennen"
     ],
-    "assignedAt": "2026-01-01T00:34:00.427Z"
+    "assignedAt": "2026-01-01T00:34:00.427Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA283/8": {
     "themes": [
@@ -43078,7 +44025,11 @@
       "Anthroposophie",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2026-01-01T00:34:02.301Z"
+    "assignedAt": "2026-01-01T00:34:02.301Z",
+    "reassignedAt": "2026-01-04T15:57:52.034Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA283/5": {
     "themes": [
@@ -43209,7 +44160,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:34:10.904Z"
+    "assignedAt": "2026-01-01T00:34:10.904Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA286/12": {
     "themes": [
@@ -43287,9 +44242,10 @@
       "Goetheanum"
     ],
     "assignedAt": "2026-01-01T00:34:14.250Z",
-    "reassignedAt": "2026-01-01T22:41:03.805Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA289/1": {
@@ -43363,7 +44319,11 @@
       "Anthroposophische Künste",
       "Goetheanum"
     ],
-    "assignedAt": "2026-01-01T00:34:16.198Z"
+    "assignedAt": "2026-01-01T00:34:16.198Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA288/1": {
     "themes": [
@@ -43423,11 +44383,12 @@
       "Goethe & Goetheanismus"
     ],
     "assignedAt": "2026-01-01T00:34:17.864Z",
-    "reassignedAt": "2026-01-03T16:48:49.892Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA289/5": {
@@ -43438,10 +44399,11 @@
       "Goetheanum"
     ],
     "assignedAt": "2026-01-01T00:34:17.864Z",
-    "reassignedAt": "2026-01-03T16:48:49.892Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA289/10": {
@@ -43464,10 +44426,11 @@
       "Goetheanum"
     ],
     "assignedAt": "2026-01-01T00:34:22.027Z",
-    "reassignedAt": "2026-01-03T16:48:51.393Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA289/9": {
@@ -43491,12 +44454,13 @@
       "Tugenden"
     ],
     "assignedAt": "2026-01-01T00:34:22.027Z",
-    "reassignedAt": "2026-01-03T16:48:51.393Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA291/2": {
@@ -43538,7 +44502,11 @@
       "Anthroposophie",
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:34:26.136Z"
+    "assignedAt": "2026-01-01T00:34:26.136Z",
+    "reassignedAt": "2026-01-04T15:57:53.876Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA291/8": {
     "themes": [
@@ -43565,7 +44533,11 @@
       "Anthroposophische Künste",
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:34:26.136Z"
+    "assignedAt": "2026-01-01T00:34:26.136Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA291/5": {
     "themes": [
@@ -43573,7 +44545,11 @@
       "Goethes Naturerkennen",
       "Goethe & Goetheanismus"
     ],
-    "assignedAt": "2026-01-01T00:34:27.686Z"
+    "assignedAt": "2026-01-01T00:34:27.686Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA291/11": {
     "themes": [
@@ -44159,7 +45135,11 @@
       "Anthroposophie",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2026-01-01T00:34:54.709Z"
+    "assignedAt": "2026-01-01T00:34:54.709Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA324/3": {
     "themes": [
@@ -44211,12 +45191,13 @@
       "Meditation / Schulungsweg"
     ],
     "assignedAt": "2026-01-01T00:34:57.563Z",
-    "reassignedAt": "2026-01-03T16:48:53.222Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
     "reassignedThemes": [
       "Biographie",
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA324a/5": {
@@ -44305,11 +45286,12 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:35:00.635Z",
-    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA324a/12": {
@@ -44533,7 +45515,11 @@
       "Anthroposophische Künste",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:35:10.402Z"
+    "assignedAt": "2026-01-01T00:35:10.402Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277/8": {
     "themes": [
@@ -44730,7 +45716,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:15.299Z"
+    "assignedAt": "2026-01-01T00:35:15.299Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277/22": {
     "themes": [
@@ -44891,9 +45881,10 @@
       "Anthroposophische Künste"
     ],
     "assignedAt": "2026-01-01T00:35:23.419Z",
-    "reassignedAt": "2026-01-01T22:41:14.541Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA277/43": {
@@ -44929,10 +45920,11 @@
       "Anthroposophische Künste"
     ],
     "assignedAt": "2026-01-01T00:35:23.419Z",
-    "reassignedAt": "2026-01-03T16:48:56.908Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA277/48": {
@@ -45049,7 +46041,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:28.713Z"
+    "assignedAt": "2026-01-01T00:35:28.713Z",
+    "reassignedAt": "2026-01-04T15:57:56.848Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277/63": {
     "themes": [
@@ -45067,7 +46063,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:30.877Z"
+    "assignedAt": "2026-01-01T00:35:30.877Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277/66": {
     "themes": [
@@ -45105,7 +46105,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:33.315Z"
+    "assignedAt": "2026-01-01T00:35:33.315Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277/70": {
     "themes": [
@@ -45161,7 +46165,11 @@
       "Anthroposophische Künste",
       "Sprache"
     ],
-    "assignedAt": "2026-01-01T00:35:34.883Z"
+    "assignedAt": "2026-01-01T00:35:34.883Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277/78": {
     "themes": [
@@ -45264,10 +46272,11 @@
       "Anthroposophische Künste"
     ],
     "assignedAt": "2026-01-01T00:35:39.648Z",
-    "reassignedAt": "2026-01-03T17:14:15.060Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA277/94": {
@@ -45358,7 +46367,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:35:44.886Z"
+    "assignedAt": "2026-01-01T00:35:44.886Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277a/1": {
     "themes": [
@@ -45449,7 +46462,11 @@
       "Anthroposophische Künste",
       "Erkenntnisstufen"
     ],
-    "assignedAt": "2026-01-01T00:35:49.413Z"
+    "assignedAt": "2026-01-01T00:35:49.413Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA277a/13": {
     "themes": [
@@ -45781,9 +46798,10 @@
       "Anthroposophische Künste"
     ],
     "assignedAt": "2026-01-01T00:36:06.598Z",
-    "reassignedAt": "2026-01-03T16:46:31.715Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA281/4": {
@@ -45906,7 +46924,11 @@
       "Anthroposophische Künste",
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:36:15.806Z"
+    "assignedAt": "2026-01-01T00:36:15.806Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA282/16": {
     "themes": [
@@ -45920,7 +46942,11 @@
     "themes": [
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:36:15.806Z"
+    "assignedAt": "2026-01-01T00:36:15.806Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA282/12": {
     "themes": [
@@ -46018,7 +47044,11 @@
       "Menschenkunde",
       "Naturwissenschaft / Mathematik"
     ],
-    "assignedAt": "2026-01-01T00:36:22.296Z"
+    "assignedAt": "2026-01-01T00:36:22.296Z",
+    "reassignedAt": "2026-01-04T15:57:58.499Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA312/8": {
     "themes": [
@@ -46064,7 +47094,11 @@
       "Biographie",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:36:23.994Z"
+    "assignedAt": "2026-01-01T00:36:23.994Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA312/11": {
     "themes": [
@@ -46106,9 +47140,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:36:26.279Z",
-    "reassignedAt": "2026-01-01T22:37:10.624Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
     "reassignedThemes": [
-      "Biographie"
+      "Biographie",
+      "Darwinismus"
     ]
   },
   "GA312/14": {
@@ -46136,7 +47171,11 @@
       "Menschenkunde",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:36:26.279Z"
+    "assignedAt": "2026-01-01T00:36:26.279Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA312/17": {
     "themes": [
@@ -46248,7 +47287,11 @@
     "themes": [
       "Anthroposophische Medizin"
     ],
-    "assignedAt": "2026-01-01T00:36:31.921Z"
+    "assignedAt": "2026-01-01T00:36:31.921Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA314/5": {
     "themes": [
@@ -46293,7 +47336,11 @@
       "Menschenkunde",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2026-01-01T00:36:33.510Z"
+    "assignedAt": "2026-01-01T00:36:33.510Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA313/11": {
     "themes": [
@@ -46914,10 +47961,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:36:56.660Z",
-    "reassignedAt": "2026-01-03T16:48:59.294Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA319/9": {
@@ -47139,13 +48187,21 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:04.447Z"
+    "assignedAt": "2026-01-01T00:37:04.447Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA328/4": {
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:04.447Z"
+    "assignedAt": "2026-01-01T00:37:04.447Z",
+    "reassignedAt": "2026-01-04T15:58:00.522Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA330/2": {
     "themes": [
@@ -47163,7 +48219,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:06.619Z"
+    "assignedAt": "2026-01-01T00:37:06.619Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA329/9": {
     "themes": [
@@ -47229,14 +48289,22 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:08.329Z"
+    "assignedAt": "2026-01-01T00:37:08.329Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA330/10": {
     "themes": [
       "Soziale Dreigliederung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:37:09.914Z"
+    "assignedAt": "2026-01-01T00:37:09.914Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA330/9": {
     "themes": [
@@ -47414,7 +48482,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:17.337Z"
+    "assignedAt": "2026-01-01T00:37:17.337Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA332a/5": {
     "themes": [
@@ -47436,13 +48508,21 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:20.927Z"
+    "assignedAt": "2026-01-01T00:37:20.927Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA332a/2": {
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:20.927Z"
+    "assignedAt": "2026-01-01T00:37:20.927Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA332b/6": {
     "themes": [],
@@ -47469,9 +48549,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:37:22.487Z",
-    "reassignedAt": "2026-01-03T15:54:40.439Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA332b/12": {
@@ -47535,9 +48616,10 @@
       "Anthroposophie"
     ],
     "assignedAt": "2026-01-01T00:37:24.311Z",
-    "reassignedAt": "2026-01-01T22:41:30.363Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA332b/24": {
@@ -47545,9 +48627,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:37:24.311Z",
-    "reassignedAt": "2026-01-01T22:41:30.363Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA332b/19": {
@@ -47567,9 +48650,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:37:26.155Z",
-    "reassignedAt": "2026-01-01T22:41:30.363Z",
+    "reassignedAt": "2026-01-04T15:58:02.823Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA332b/18": {
@@ -47644,13 +48728,21 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:29.442Z"
+    "assignedAt": "2026-01-01T00:37:29.442Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA332b/29": {
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:29.442Z"
+    "assignedAt": "2026-01-01T00:37:29.442Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA332b/33": {
     "themes": [
@@ -47711,14 +48803,22 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:33.111Z"
+    "assignedAt": "2026-01-01T00:37:33.111Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA334/1": {
     "themes": [
       "Anthroposophie",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:37:33.111Z"
+    "assignedAt": "2026-01-01T00:37:33.111Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA333/6": {
     "themes": [
@@ -47804,9 +48904,10 @@
       "Westen Mitte Osten"
     ],
     "assignedAt": "2026-01-01T00:37:37.668Z",
-    "reassignedAt": "2026-01-03T16:49:01.632Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
     "reassignedThemes": [
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA335/1": {
@@ -47858,7 +48959,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:39.257Z"
+    "assignedAt": "2026-01-01T00:37:39.257Z",
+    "reassignedAt": "2026-01-04T15:54:12.577Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA335/3": {
     "themes": [
@@ -47874,10 +48979,11 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:37:39.257Z",
-    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA335/4": {
@@ -47899,9 +49005,10 @@
       "Geschichte / Kulturentwicklung"
     ],
     "assignedAt": "2026-01-01T00:37:40.790Z",
-    "reassignedAt": "2026-01-03T16:46:34.996Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
     "reassignedThemes": [
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA335/6": {
@@ -48091,7 +49198,11 @@
       "Soziale Dreigliederung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:37:47.500Z"
+    "assignedAt": "2026-01-01T00:37:47.500Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA337a/9": {
     "themes": [
@@ -48120,7 +49231,11 @@
       "Soziale Dreigliederung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:37:48.992Z"
+    "assignedAt": "2026-01-01T00:37:48.992Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA337a/2": {
     "themes": [
@@ -48190,13 +49305,21 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:53.740Z"
+    "assignedAt": "2026-01-01T00:37:53.740Z",
+    "reassignedAt": "2026-01-04T15:58:04.688Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA337b/4": {
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:37:53.740Z"
+    "assignedAt": "2026-01-01T00:37:53.740Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA337b/13": {
     "themes": [
@@ -48216,9 +49339,10 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:37:55.488Z",
-    "reassignedAt": "2026-01-01T22:41:33.586Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA337b/12": {
@@ -48288,10 +49412,11 @@
       "Soziale Dreigliederung"
     ],
     "assignedAt": "2026-01-01T00:37:57.073Z",
-    "reassignedAt": "2026-01-01T22:41:35.738Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA338/6": {
@@ -48357,7 +49482,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:38:05.291Z"
+    "assignedAt": "2026-01-01T00:38:05.291Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA339/6": {
     "themes": [
@@ -48434,7 +49563,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:38:10.123Z"
+    "assignedAt": "2026-01-01T00:38:10.123Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA340/10": {
     "themes": [
@@ -48458,7 +49591,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:38:10.123Z"
+    "assignedAt": "2026-01-01T00:38:10.123Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA341/3": {
     "themes": [
@@ -48476,7 +49613,11 @@
     "themes": [
       "Soziale Dreigliederung"
     ],
-    "assignedAt": "2026-01-01T00:38:13.046Z"
+    "assignedAt": "2026-01-01T00:38:13.046Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA341/2": {
     "themes": [
@@ -49078,10 +50219,11 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:38:37.419Z",
-    "reassignedAt": "2026-01-03T16:49:01.632Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
     "reassignedThemes": [
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA351/13": {
@@ -49162,9 +50304,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:38:42.845Z",
-    "reassignedAt": "2026-01-01T22:41:43.021Z",
+    "reassignedAt": "2026-01-04T15:58:06.629Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA353/9": {
@@ -49237,7 +50380,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Philosophie"
     ],
-    "assignedAt": "2026-01-01T00:38:46.280Z"
+    "assignedAt": "2026-01-01T00:38:46.280Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA354/6": {
     "themes": [
@@ -49518,7 +50665,11 @@
       "Geschichte / Kulturentwicklung",
       "Menschheitsentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:38:55.957Z"
+    "assignedAt": "2026-01-01T00:38:55.957Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA352/1": {
     "themes": [
@@ -49598,9 +50749,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:39:00.166Z",
-    "reassignedAt": "2026-01-03T15:59:10.267Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
     "reassignedThemes": [
-      "Embryologie"
+      "Embryologie",
+      "Darwinismus"
     ]
   },
   "GA342/8": {
@@ -49620,9 +50772,10 @@
       "Böses (Luzifer, Ahriman)"
     ],
     "assignedAt": "2026-01-01T00:39:02.000Z",
-    "reassignedAt": "2026-01-01T13:00:19.025Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
     "reassignedThemes": [
-      "Christengemeinschaft"
+      "Christengemeinschaft",
+      "Darwinismus"
     ]
   },
   "GA343/2": {
@@ -49678,7 +50831,11 @@
       "Anthroposophie",
       "Religionen / Weisheitslehren"
     ],
-    "assignedAt": "2026-01-01T00:39:03.532Z"
+    "assignedAt": "2026-01-01T00:39:03.532Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA343/4": {
     "themes": [
@@ -49686,7 +50843,11 @@
       "Erkenntnis / Erkenntnistheorie",
       "Moral"
     ],
-    "assignedAt": "2026-01-01T00:39:03.532Z"
+    "assignedAt": "2026-01-01T00:39:03.532Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA343/12": {
     "themes": [
@@ -49738,10 +50899,11 @@
       "Christus / Golgatha"
     ],
     "assignedAt": "2026-01-01T00:39:06.293Z",
-    "reassignedAt": "2026-01-03T15:54:41.953Z",
+    "reassignedAt": "2026-01-04T15:54:12.577Z",
     "reassignedThemes": [
       "Christengemeinschaft",
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA343/18": {
@@ -49869,13 +51031,21 @@
     "themes": [
       "Christengemeinschaft"
     ],
-    "assignedAt": "2026-01-01T00:39:11.415Z"
+    "assignedAt": "2026-01-01T00:39:11.415Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA344/2": {
     "themes": [
       "Christengemeinschaft"
     ],
-    "assignedAt": "2026-01-01T00:39:11.415Z"
+    "assignedAt": "2026-01-01T00:39:11.415Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA344/10": {
     "themes": [
@@ -50571,7 +51741,11 @@
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:39:45.346Z"
+    "assignedAt": "2026-01-01T00:39:45.346Z",
+    "reassignedAt": "2026-01-04T15:58:08.024Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/33": {
     "themes": [
@@ -50580,9 +51754,10 @@
       "Kosmologie / Kosmogonie"
     ],
     "assignedAt": "2026-01-01T00:39:45.346Z",
-    "reassignedAt": "2026-01-03T15:54:41.953Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
     "reassignedThemes": [
-      "Abstammung / Evolution"
+      "Abstammung / Evolution",
+      "Darwinismus"
     ]
   },
   "GA266a/40": {
@@ -50665,7 +51840,11 @@
       "Erkenntnisstufen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2026-01-01T00:39:48.587Z"
+    "assignedAt": "2026-01-01T00:39:48.587Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/46": {
     "themes": [
@@ -50719,7 +51898,11 @@
       "Michael",
       "Rhythmen & Zyklen"
     ],
-    "assignedAt": "2026-01-01T00:39:50.377Z"
+    "assignedAt": "2026-01-01T00:39:50.377Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/54": {
     "themes": [
@@ -50793,7 +51976,11 @@
       "Geistiges Erkennen",
       "Meditation / Schulungsweg"
     ],
-    "assignedAt": "2026-01-01T00:39:54.074Z"
+    "assignedAt": "2026-01-01T00:39:54.074Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/53": {
     "themes": [
@@ -50850,14 +52037,22 @@
       "Elemente / Ätherarten",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:39:56.268Z"
+    "assignedAt": "2026-01-01T00:39:56.268Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/61": {
     "themes": [
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:39:58.020Z"
+    "assignedAt": "2026-01-01T00:39:58.020Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/76": {
     "themes": [
@@ -50897,7 +52092,11 @@
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:39:58.020Z"
+    "assignedAt": "2026-01-01T00:39:58.020Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/72": {
     "themes": [
@@ -50912,7 +52111,11 @@
       "Meditation / Schulungsweg",
       "Wesensglieder"
     ],
-    "assignedAt": "2026-01-01T00:39:59.581Z"
+    "assignedAt": "2026-01-01T00:39:59.581Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266a/80": {
     "themes": [
@@ -51065,7 +52268,11 @@
       "Böses (Luzifer, Ahriman)",
       "Erkenntnis / Erkenntnistheorie"
     ],
-    "assignedAt": "2026-01-01T00:40:06.096Z"
+    "assignedAt": "2026-01-01T00:40:06.096Z",
+    "reassignedAt": "2026-01-04T15:58:10.474Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266b/10": {
     "themes": [
@@ -51073,9 +52280,10 @@
       "Wesensglieder"
     ],
     "assignedAt": "2026-01-01T00:40:06.096Z",
-    "reassignedAt": "2026-01-01T10:15:13.810Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Bewusstsein"
+      "Bewusstsein",
+      "Darwinismus"
     ]
   },
   "GA266b/9": {
@@ -51282,7 +52490,11 @@
       "Meditation / Schulungsweg",
       "Reinkarnation & Karma"
     ],
-    "assignedAt": "2026-01-01T00:40:17.772Z"
+    "assignedAt": "2026-01-01T00:40:17.772Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266b/43": {
     "themes": [
@@ -51388,10 +52600,11 @@
       "Rhythmen & Zyklen"
     ],
     "assignedAt": "2026-01-01T00:40:23.916Z",
-    "reassignedAt": "2026-01-03T17:14:16.472Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
       "Legenden / Mythologie",
-      "Legenden / Märchen / Mythen"
+      "Legenden / Märchen / Mythen",
+      "Darwinismus"
     ]
   },
   "GA266b/59": {
@@ -51477,9 +52690,10 @@
       "Rosenkreuzer"
     ],
     "assignedAt": "2026-01-01T00:40:25.875Z",
-    "reassignedAt": "2026-01-01T22:41:49.202Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA266c/8": {
@@ -51488,7 +52702,11 @@
       "Meditation / Schulungsweg",
       "Seelenfähigkeiten"
     ],
-    "assignedAt": "2026-01-01T00:40:29.257Z"
+    "assignedAt": "2026-01-01T00:40:29.257Z",
+    "reassignedAt": "2026-01-04T15:58:12.492Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA266c/2": {
     "themes": [
@@ -51840,10 +53058,11 @@
       "Weltanschauungen"
     ],
     "assignedAt": "2026-01-01T00:40:44.119Z",
-    "reassignedAt": "2026-01-03T16:46:50.376Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
     "reassignedThemes": [
       "Abstammung / Evolution",
-      "Goethes Naturerkennen"
+      "Goethes Naturerkennen",
+      "Darwinismus"
     ]
   },
   "GA262/5": {
@@ -51951,7 +53170,11 @@
     "themes": [
       "Anthroposophie"
     ],
-    "assignedAt": "2026-01-01T00:40:49.749Z"
+    "assignedAt": "2026-01-01T00:40:49.749Z",
+    "reassignedAt": "2026-01-04T15:58:23.070Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA261/2": {
     "themes": [
@@ -52012,10 +53235,11 @@
       "Anthroposophische Gesellschaft"
     ],
     "assignedAt": "2026-01-01T00:40:51.361Z",
-    "reassignedAt": "2026-01-01T22:42:08.626Z",
+    "reassignedAt": "2026-01-04T15:58:24.815Z",
     "reassignedThemes": [
       "Biographie",
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA261/19": {
@@ -52149,7 +53373,11 @@
   },
   "GA261/23": {
     "themes": [],
-    "assignedAt": "2026-01-01T00:41:01.708Z"
+    "assignedAt": "2026-01-01T00:41:01.708Z",
+    "reassignedAt": "2026-01-04T15:58:24.815Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA261/34": {
     "themes": [
@@ -52190,7 +53418,11 @@
       "Reinkarnation & Karma",
       "Schlaf & Tod"
     ],
-    "assignedAt": "2026-01-01T00:41:06.464Z"
+    "assignedAt": "2026-01-01T00:41:06.464Z",
+    "reassignedAt": "2026-01-04T15:58:24.815Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA261/40": {
     "themes": [
@@ -52249,7 +53481,11 @@
       "Anthroposophie",
       "Christus / Golgatha"
     ],
-    "assignedAt": "2026-01-01T00:41:08.052Z"
+    "assignedAt": "2026-01-01T00:41:08.052Z",
+    "reassignedAt": "2026-01-04T15:58:24.815Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA261/47": {
     "themes": [
@@ -52396,18 +53632,23 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:41:12.888Z",
-    "reassignedAt": "2026-01-03T16:49:09.662Z",
+    "reassignedAt": "2026-01-04T15:54:15.827Z",
     "reassignedThemes": [
       "Pädagogik / Heilpädagogik",
       "Goethes Naturerkennen",
-      "Goetheanismus"
+      "Goetheanismus",
+      "Darwinismus"
     ]
   },
   "GA291a/20": {
     "themes": [
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:41:14.505Z"
+    "assignedAt": "2026-01-01T00:41:14.505Z",
+    "reassignedAt": "2026-01-04T15:58:24.815Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA291a/19": {
     "themes": [
@@ -52470,9 +53711,10 @@
       "Naturwissenschaft / Mathematik"
     ],
     "assignedAt": "2026-01-01T00:41:15.943Z",
-    "reassignedAt": "2026-01-01T22:42:10.259Z",
+    "reassignedAt": "2026-01-04T15:58:24.815Z",
     "reassignedThemes": [
-      "Pädagogik / Heilpädagogik"
+      "Pädagogik / Heilpädagogik",
+      "Darwinismus"
     ]
   },
   "GA291a/16": {
@@ -52834,7 +54076,11 @@
       "Menschheitsentwicklung",
       "Theosophische Gesellschaft"
     ],
-    "assignedAt": "2026-01-01T00:41:33.760Z"
+    "assignedAt": "2026-01-01T00:41:33.760Z",
+    "reassignedAt": "2026-01-04T15:58:24.816Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA264/31": {
     "themes": [
@@ -52861,7 +54107,11 @@
     "themes": [
       "Geschichte / Kulturentwicklung"
     ],
-    "assignedAt": "2026-01-01T00:41:35.606Z"
+    "assignedAt": "2026-01-01T00:41:35.606Z",
+    "reassignedAt": "2026-01-04T15:58:24.816Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA292/1": {
     "themes": [
@@ -52874,7 +54124,11 @@
       "Geschichte / Kulturentwicklung",
       "Seelenlehre / Seelenglieder"
     ],
-    "assignedAt": "2026-01-01T00:41:35.606Z"
+    "assignedAt": "2026-01-01T00:41:35.606Z",
+    "reassignedAt": "2026-01-04T15:58:24.816Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA292/9": {
     "themes": [
@@ -52902,14 +54156,22 @@
       "Geschichte / Kulturentwicklung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:41:39.693Z"
+    "assignedAt": "2026-01-01T00:41:39.693Z",
+    "reassignedAt": "2026-01-04T15:58:24.816Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA292/2": {
     "themes": [
       "Geschichte / Kulturentwicklung",
       "Westen Mitte Osten"
     ],
-    "assignedAt": "2026-01-01T00:41:39.693Z"
+    "assignedAt": "2026-01-01T00:41:39.693Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA292/12": {
     "themes": [
@@ -52928,7 +54190,11 @@
       "Elementarwesen",
       "Anthroposophische Künste"
     ],
-    "assignedAt": "2026-01-01T00:41:39.693Z"
+    "assignedAt": "2026-01-01T00:41:39.693Z",
+    "reassignedAt": "2026-01-04T15:58:27.225Z",
+    "reassignedThemes": [
+      "Darwinismus"
+    ]
   },
   "GA292/13": {
     "themes": [

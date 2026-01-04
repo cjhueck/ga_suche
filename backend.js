@@ -7839,8 +7839,7 @@ app.post('/api/get-theme-results-ai', async (req, res) => {
     
     const results = [];
     
-    // Hilfsfunktion zur Ermittlung des Jahres (identisch mit Status-API)
-    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, ID oder Titel)
+    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, ID, fileName oder Titel)
     function getYearForTextLocal(id, entry) {
       // 1. Aus fullLectures (primäre Quelle für Vorträge und Aufsätze)
       if (fullLectures[id]) {
@@ -7850,6 +7849,11 @@ app.post('/api/get-theme-results-ai', async (req, res) => {
         if (lecture.date) {
           const yearMatch = lecture.date.match(/\b(18|19)\d{2}\b/);
           if (yearMatch) return parseInt(yearMatch[0]);
+        }
+        // Dann fileName prüfen (wichtig für GA030 Aufsätze mit "(1900)" am Ende)
+        if (lecture.fileName) {
+          const fileNameMatch = lecture.fileName.match(/\((\d{4})\)\s*$/);
+          if (fileNameMatch) return parseInt(fileNameMatch[1]);
         }
         // Dann Titel prüfen (wichtig für GA001-046 Aufsätze mit "(1882)" im Titel)
         if (lecture.title) {
@@ -23025,7 +23029,7 @@ app.get('/api/theme-assignments-status', async (req, res) => {
       bookChapterSummaries = JSON.parse(await fs.readFile(path.join(__dirname, 'book-chapter-summaries.json'), 'utf8'));
     } catch (e) { /* ignore */ }
     
-    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, Büchern, ID oder Titel)
+    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, Büchern, ID, fileName oder Titel)
     function getYearForText(id, entry) {
       // 1. Aus fullLectures (primäre Quelle für Vorträge und Aufsätze)
       if (fullLectures[id]) {
@@ -23035,6 +23039,11 @@ app.get('/api/theme-assignments-status', async (req, res) => {
         if (lecture.date) {
           const yearMatch = lecture.date.match(/\b(18|19)\d{2}\b/);
           if (yearMatch) return parseInt(yearMatch[0]);
+        }
+        // Dann fileName prüfen (wichtig für GA030 Aufsätze mit "(1900)" am Ende)
+        if (lecture.fileName) {
+          const fileNameMatch = lecture.fileName.match(/\((\d{4})\)\s*$/);
+          if (fileNameMatch) return parseInt(fileNameMatch[1]);
         }
         // Dann Titel prüfen (wichtig für GA001-046 Aufsätze mit "(1882)" im Titel)
         if (lecture.title) {

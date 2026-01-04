@@ -92,7 +92,7 @@ var SteinerThemesData = [
         ranges: [
             { start: 1882, end: 1912, intensity: 0.8 }
         ],
-        query: "Darwinismus Darwin Daseinskampf"
+        query: "Darwinismus Darwin Abstammung Haeckel Affen Kampf_ums_Dasein"
     },
             {
         theme: "Elementarwesen",
