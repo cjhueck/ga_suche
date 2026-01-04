@@ -73,5 +73,44 @@ WICHTIG: Briefe (GA262, GA263a) werden NICHT vom Export berührt!
 Sie liegen separat in steiner-letters/ und werden manuell verwaltet.
 Dies verhindert, dass der Vortragsexport die Briefe-Dateien überschreibt.
 
-Erst-Popup: 
-Klicken Sie Strg+Klick, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten. Strg+Klick auf den Info-Button oben links zeigt weitere Tastenkombinationen.
+
+GA068c/33
+
+GA260 - Seitenzahlen stimmen nicht
+GA024 SZ ?
+
+Strg + Shift + A drücken, um das Analytics-Dashboard zu öffnen
+
+
+Glauben Sie nicht, bitte, dass ich in Zukunft Ihnen gegenüber an meinem Usus hängen werde, so wenig wie möglich Briefe zu schreiben. Warum dieser erst so spät kommt, werde ich Ihnen einmal mündlich sagen. Zukünftig werde ich Ihnen ganz regelmäßig schreiben. Das beifolgende Schriftstück⁵² betrachten Sie, bitte, als ein ganz vertrauliches. Ich bin in solchen Dingen nur Werkzeug von höheren Wesenheiten, die ich in *Demut* verehre. Nichts ist mein Verdienst; nichts kommt dabei auf mich an. Das einzige, was ich mir selbst zuzuschreiben habe, ist, dass ich eine strenge Trainierung durchgemacht habe, die mich vor jeder Phantastik schützt. Dies war für mich Vorschrift. Denn, was ich erfahre auf geistigen Gebieten, ist dadurch frei von jeder Einbildung, von jeder Täuschung, von jedem Aberglauben. Doch auch davon spreche ich heute zu wenigen. Die Leute mögen mich für einen Phantasten halten; ich weiß Wahrheit und Trug zu unterscheiden. Und ich weiß, dass ich den Weg gehen muß, den ich gehe.
+
+
+GA250/40
+Rudolf Steiner entwickelte nach frühen okkulten Erfahrungen und philosophischen Studien die Anthroposophie als exakte Geisteswissenschaft, nachdem er sich von der unexakten Theosophie distanziert hatte. 1912/13 gründete er nach dem Bruch mit Annie Besant die Anthroposophische Gesellschaft als eigenständige Organisation.
+
+GA291a/32
+Steiner lehnt die Ausmalung der großen Goetheanum-Kuppel ab, da er nicht alle Aufgaben übernehmen will und die anthroposophische Bewegung unter der Passivität anderer Mitglieder leidet. Er fordert mehr Eigeninitiative der Gesellschaftsmitglieder, um den Eindruck zu vermeiden, nur er könne etwas leisten.
+
+GA259/4
+Das erste Goetheanum brannte am Silvesterabend 1922 ab, möglicherweise durch Gegner der Anthroposophie, die bereits zuvor Drohungen ausgesprochen hatten. Trotz des schweren Verlustes und zynischer Pressekommentare bekräftigt Steiner seinen unerschütterlichen Willen zum Wiederaufbau und zur Fortsetzung der anthroposophischen Arbeit.
+
+GA259/5, vor Beginn des Abendvortrage
+Nach dem Brand des ersten Goetheanums am 7. Januar 1923 verliest Steiner die Anteilnahme-Bekundungen zahlreicher Persönlichkeiten, die Unterstützung für den Wiederaufbau zusagen. Die anthroposophische Arbeit soll dabei nicht nur theoretisch bleiben, sondern zu praktischer Menschheitsarbeit werden.
+
+
+
+
+
+📊 GESAMTÜBERSICHT:
+Bereich	In DB	Mit Themen	Status
+GA001-046 (Bücher)	48	34	⚠️ 14 fehlen
+GA051-100	63	63	✅ OK
+GA101-199	108	107	⚠️ 1 fehlt
+GA200-250	46	46	✅ OK
+GA251-354	109	109	✅ OK
+GESAMT	374	359	15 fehlen
+❌ Noch fehlende GA-Bände (15):
+
+GA014, GA029, GA031, GA032, GA037, GA038, GA039, GA040, GA040a, 
+GA041a, GA041b, GA042, GA043, GA044
+GA151

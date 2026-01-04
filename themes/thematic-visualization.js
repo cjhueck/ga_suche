@@ -314,10 +314,50 @@ function renderThematic2Results(container, theme, results, isSemantic, isCached,
         return;
     }
     
-    // Sortiere chronologisch
+    // Hilfsfunktion: Extrahiere sortierbares Datum (YYYY-MM-DD) aus verschiedenen Quellen
+    function extractSortDate(item) {
+        // 1. Vollständiges Datum im Format YYYY-MM-DD
+        if (item.date && item.date.match(/^\d{4}-\d{2}-\d{2}/)) {
+            return item.date.substring(0, 10);
+        }
+        // 2. Jahr + Dummy-Datum für korrekte Sortierung
+        var year = null;
+        // Aus year-Feld
+        if (item.year) year = String(item.year);
+        // Aus fileName extrahieren (z.B. "(1900)" am Ende)
+        if (!year && item.fileName) {
+            var match = String(item.fileName).match(/\((\d{4})\)\s*$/);
+            if (match) year = match[1];
+        }
+        // Aus title extrahieren
+        if (!year && item.title) {
+            var match = String(item.title).match(/\((\d{4})\)/);
+            if (match) year = match[1];
+        }
+        // Aus lectureTitle extrahieren
+        if (!year && item.lectureTitle) {
+            var match = String(item.lectureTitle).match(/\((\d{4})\)/);
+            if (match) year = match[1];
+        }
+        // Aus date-Feld (nur Jahr)
+        if (!year && item.date) {
+            var match = String(item.date).match(/(\d{4})/);
+            if (match) year = match[1];
+        }
+        if (year) return year + '-06-15'; // Mitte des Jahres als Fallback
+        return '9999-12-31'; // Ganz ans Ende
+    }
+    
+    // Hilfsfunktion: Extrahiere Jahr für die Navigation
+    function extractYear(item) {
+        var sortDate = extractSortDate(item);
+        return sortDate.substring(0, 4);
+    }
+    
+    // Sortiere chronologisch nach vollständigem Datum
     results.sort(function(a, b) {
-        var dateA = a.date || (a.year + '-01-01');
-        var dateB = b.date || (b.year + '-01-01');
+        var dateA = extractSortDate(a);
+        var dateB = extractSortDate(b);
         return dateA.localeCompare(dateB);
     });
 
@@ -327,7 +367,8 @@ function renderThematic2Results(container, theme, results, isSemantic, isCached,
     // Finde die Jahre in den Ergebnissen (als Zahlen)
     var yearsInResults = {};
     results.forEach(function(res) {
-        if (res.year) yearsInResults[parseInt(res.year)] = true;
+        var year = extractYear(res);
+        if (year && year !== '9999') yearsInResults[parseInt(year)] = true;
     });
     
     // Wenn scrollToYear nicht in den Ergebnissen ist, finde das nächste verfügbare Jahr
@@ -357,16 +398,19 @@ function renderThematic2Results(container, theme, results, isSemantic, isCached,
         var displayId = res.id;
         if (typeof formatLectureId === 'function') displayId = formatLectureId(res.id);
         
-        // Prüfe, ob das Jahr bereits im Titel vorkommt
-        var yearInTitle = res.title && res.year && res.title.indexOf(String(res.year)) !== -1;
+        // Prüfe, ob das Jahr bereits im Titel oder Location vorkommt
+        var yearStr = res.year ? String(res.year) : '';
+        var yearInTitle = yearStr && res.title && res.title.indexOf(yearStr) !== -1;
+        var yearInLocation = yearStr && res.location && res.location.indexOf(yearStr) !== -1;
+        var yearAlreadyShown = yearInTitle || yearInLocation;
         
-        // Datum: Echtes Datum anzeigen (wenn vorhanden), Jahr nur wenn nicht im Titel
+        // Datum: Echtes Datum anzeigen (wenn vorhanden), Jahr nur wenn nicht schon angezeigt
         var dateStr = '';
         if (res.date && res.date.length >= 10 && res.date !== (res.year + '-01-01')) {
             // Echtes Datum formatieren (z.B. "1905-10-04" -> "4.10.1905")
             dateStr = new Date(res.date).toLocaleDateString('de-DE');
-        } else if (res.year && !yearInTitle) {
-            // Nur Jahr anzeigen, wenn nicht schon im Titel
+        } else if (res.year && !yearAlreadyShown) {
+            // Nur Jahr anzeigen, wenn nicht schon im Titel oder Location
             dateStr = '(' + res.year + ')';
         }
         
