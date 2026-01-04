@@ -875,7 +875,7 @@ function getOriginalThemeQuery(themeName) {
         "geistiges Naturerkennen": "Naturerkennen",
         "Geschichte / Kulturentwicklung": "Geschichte Kulturentwicklung",
         "Goethe (Faust, Märchen)": "Goethe Faust Märchen",
-        "Goetheanismus": "Goetheanismus",
+        "Goethe & Goetheanismus": "Goethe & Goetheanismus",
         "Kosmologie / Kosmogonie": "Kosmologie Kosmogonie",
         "Ernährung / Landwirtschaft": "Ernährung / Landwirtschaft",
         "Meditation / Schulungsweg": "Meditation Schulungsweg",

@@ -177,12 +177,12 @@ var SteinerThemesData = [
         query: "Goethe Faust Märchen Grüne Schlange Schöne Lilie Mephistopheles Ewig-Weibliches Homunkulus Erdgeist"
     },
     {
-        theme: "Goetheanismus",
+        theme: "Goethe & Goetheanismus",
         ranges: [
             { start: 1882, end: 1897, intensity: 1.0 },
             { start: 1898, end: 1925, intensity: 0.5 }
         ],
-        query: "Goetheanismus Metamorphose Typus Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie Lebendiges_Denken Lebendige_Begriffe Anschauende_Urteilskraft Zwischenkieferknochen Goethe_Schiller_Gespräch"
+        query: "Goetheanismus Metamorphose Typus Urpflanze Farbenlehre Urphänomen Morphologie Phänomenologie Lebendiges_Denken Lebendige_Begriffe Anschauende_Urteilskraft Zwischenkieferknochen Goethe_Schiller_Gespräch Wirbeltheorie"
     },
         {
         theme: "Goetheanum",
