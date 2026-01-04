@@ -1,112 +1,112 @@
 {
-  "ga": "GA046",
-  "sourceFile": "steiner-full-lectures-046-046.json",
+  "ga": "GA034",
+  "sourceFile": "steiner-full-lectures-034-034.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 1021,
-  "breaksWithPage": 1021,
-  "inserted": 776,
-  "insertedRatio": 0.7600391772771793,
-  "failed": 92,
+  "breaksTotal": 658,
+  "breaksWithPage": 658,
+  "inserted": 611,
+  "insertedRatio": 0.9285714285714286,
+  "failed": 36,
   "failuresSample": [
     {
-      "page": 40,
+      "page": 621,
       "reason": "no-match",
-      "lecture": 1
+      "lecture": 67
     },
     {
-      "page": 79,
+      "page": 622,
       "reason": "no-match",
-      "lecture": 6
+      "lecture": 67
     },
     {
-      "page": 82,
+      "page": 623,
       "reason": "no-match",
-      "lecture": 6
+      "lecture": 67
     },
     {
-      "page": 89,
+      "page": 624,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 67
     },
     {
-      "page": 107,
+      "page": 625,
       "reason": "no-match",
-      "lecture": 8
+      "lecture": 67
     },
     {
-      "page": 154,
+      "page": 626,
       "reason": "no-match",
-      "lecture": 15
+      "lecture": 67
     },
     {
-      "page": 168,
+      "page": 627,
       "reason": "no-match",
-      "lecture": 17
+      "lecture": 67
     },
     {
-      "page": 190,
+      "page": 629,
       "reason": "no-match",
-      "lecture": 19
+      "lecture": 38
     },
     {
-      "page": 197,
+      "page": 630,
       "reason": "no-match",
-      "lecture": 21
+      "lecture": 38
     },
     {
-      "page": 198,
+      "page": 631,
       "reason": "no-match",
-      "lecture": 21
+      "lecture": 38
     },
     {
-      "page": 226,
+      "page": 633,
       "reason": "no-match",
-      "lecture": 26
+      "lecture": 38
     },
     {
-      "page": 231,
+      "page": 634,
       "reason": "no-match",
-      "lecture": 28
+      "lecture": 38
     },
     {
-      "page": 238,
+      "page": 635,
       "reason": "no-match",
-      "lecture": 29
+      "lecture": 38
     },
     {
-      "page": 246,
+      "page": 636,
       "reason": "no-match",
-      "lecture": 31
+      "lecture": 38
     },
     {
-      "page": 252,
+      "page": 637,
       "reason": "no-match",
-      "lecture": 33
+      "lecture": 38
     },
     {
-      "page": 253,
+      "page": 638,
       "reason": "no-match",
-      "lecture": 33
+      "lecture": 38
     },
     {
-      "page": 256,
+      "page": 639,
       "reason": "no-match",
-      "lecture": 34
+      "lecture": 38
     },
     {
-      "page": 285,
+      "page": 641,
       "reason": "no-match",
-      "lecture": 35
+      "lecture": 38
     },
     {
-      "page": 300,
+      "page": 642,
       "reason": "no-match",
-      "lecture": 36
+      "lecture": 38
     },
     {
-      "page": 303,
+      "page": 643,
       "reason": "no-match",
-      "lecture": 37
+      "lecture": 38
     }
   ]
 }

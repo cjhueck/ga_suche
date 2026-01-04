@@ -16275,7 +16275,8 @@ function convertFootnotesToLinks() {
           e.preventDefault();
           const footnote = document.getElementById(`fn${part.id}`);
           if (footnote) {
-            footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
+            // Scrolle zur Fußnote mit etwas Abstand oben
+            footnote.scrollIntoView({ behavior: 'smooth', block: 'center' });
             const originalBg = footnote.style.backgroundColor;
             footnote.style.backgroundColor = 'var(--highlight-color)';
             setTimeout(() => {
@@ -16349,7 +16350,8 @@ function convertFootnotesToLinks() {
       const targetId = backlink.getAttribute('href').substring(1);
       const target = document.getElementById(targetId);
       if (target) {
-        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        // Scrolle zurück zur Referenz mit etwas Abstand oben
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
   });
