@@ -11414,6 +11414,159 @@ app.post('/api/pages/bulk-correct', async (req, res) => {
   }
 });
 
+// POST /api/pages/remove - Entfernt alle Seitenzahlen aus einem einzelnen Vortrag ODER Buch
+app.post('/api/pages/remove', async (req, res) => {
+  try {
+    const { lectureId } = req.body;
+    
+    if (!lectureId) {
+      return res.status(400).json({ error: 'lectureId erforderlich' });
+    }
+    
+    // Suche in Vorträgen UND Büchern
+    let lecture = fullLectures[lectureId];
+    let isBook = false;
+    
+    if (!lecture) {
+      lecture = fullBooks[lectureId];
+      isBook = true;
+    }
+    
+    if (!lecture) {
+      return res.status(404).json({ error: 'Vortrag/Buch nicht gefunden' });
+    }
+    
+    // Extrahiere GA-Nummer
+    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+    if (!gaMatch) {
+      return res.status(400).json({ error: 'Ungültige ID' });
+    }
+    
+    let removedCount = 0;
+    
+    // Entferne alle Seitenzahlen aus den Paragraphen
+    // Format: |<Zahl>| oder |Zahl|
+    if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+      for (const paragraph of lecture.paragraphs) {
+        if (paragraph.content) {
+          const matches = paragraph.content.match(/\|<?(\d+)>?\|/g);
+          if (matches) {
+            removedCount += matches.length;
+            paragraph.content = paragraph.content.replace(/\|<?(\d+)>?\|/g, '');
+          }
+        }
+      }
+    }
+    
+    // Speichere die Änderungen
+    if (removedCount > 0) {
+      await saveLectureToSourceFile(lectureId, lecture, isBook);
+      console.log(`[PAGES/REMOVE] ${lectureId}: ${removedCount} Seitenzahlen entfernt`);
+    }
+    
+    res.json({
+      success: true,
+      lectureId,
+      removed: removedCount,
+      isBook
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/REMOVE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/pages/remove-bulk - Entfernt alle Seitenzahlen aus mehreren Vorträgen/Büchern (z.B. ganzer GA-Band)
+app.post('/api/pages/remove-bulk', async (req, res) => {
+  try {
+    const { lectureIds } = req.body;
+    
+    if (!lectureIds || !Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'lectureIds Array erforderlich' });
+    }
+    
+    let processed = 0;
+    let removed = 0;
+    let totalPageNumbers = 0;
+    let skipped = 0;
+    let errors = 0;
+    const details = [];
+    
+    for (const lectureId of lectureIds) {
+      processed++;
+      
+      // Suche in Vorträgen UND Büchern
+      let lecture = fullLectures[lectureId];
+      let isBook = false;
+      
+      if (!lecture) {
+        lecture = fullBooks[lectureId];
+        isBook = true;
+      }
+      
+      if (!lecture) {
+        errors++;
+        details.push({ id: lectureId, status: 'error', reason: 'Nicht gefunden' });
+        continue;
+      }
+      
+      // Extrahiere GA-Nummer
+      const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)/i);
+      if (!gaMatch) {
+        errors++;
+        details.push({ id: lectureId, status: 'error', reason: 'Ungültige ID' });
+        continue;
+      }
+      
+      let removedCount = 0;
+      
+      // Entferne alle Seitenzahlen aus den Paragraphen
+      if (lecture.paragraphs && Array.isArray(lecture.paragraphs)) {
+        for (const paragraph of lecture.paragraphs) {
+          if (paragraph.content) {
+            const matches = paragraph.content.match(/\|<?(\d+)>?\|/g);
+            if (matches) {
+              removedCount += matches.length;
+              paragraph.content = paragraph.content.replace(/\|<?(\d+)>?\|/g, '');
+            }
+          }
+        }
+      }
+      
+      if (removedCount > 0) {
+        try {
+          await saveLectureToSourceFile(lectureId, lecture, isBook);
+          removed++;
+          totalPageNumbers += removedCount;
+          details.push({ id: lectureId, status: 'removed', count: removedCount, isBook });
+          console.log(`[PAGES/REMOVE-BULK] ${lectureId}: ${removedCount} Seitenzahlen entfernt`);
+        } catch (saveError) {
+          errors++;
+          details.push({ id: lectureId, status: 'error', reason: saveError.message });
+        }
+      } else {
+        skipped++;
+        details.push({ id: lectureId, status: 'skipped', reason: 'Keine Seitenzahlen vorhanden' });
+      }
+    }
+    
+    res.json({
+      success: true,
+      processed,
+      removed,
+      totalPageNumbers,
+      skipped,
+      errors,
+      details
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/REMOVE-BULK] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // POST /api/export/ga - Exportiert einen GA-Band neu (ruft das passende Export-Skript auf)
 app.post('/api/export/ga', async (req, res) => {
   try {
@@ -11647,13 +11800,17 @@ app.post('/api/pages/generate', async (req, res) => {
     // Prüfe ob PDF existiert
     const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
     let pdfExists = false;
+    const gaNumLower = gaNum.toLowerCase(); // z.B. "173a" statt "173A"
+    const gaNumBase = gaNum.replace(/[a-z]/gi, ''); // z.B. "173" ohne Suffix
     if (fsSync.existsSync(pdfDir)) {
       const pdfFiles = fsSync.readdirSync(pdfDir);
       pdfExists = pdfFiles.some(f => {
         const nameLower = f.toLowerCase();
-        return nameLower.includes(`ga ${gaNum}`) || 
-               nameLower.includes(`ga${gaNum}`) ||
-               nameLower.includes(`ga ${parseInt(gaNum)}`);
+        return nameLower.includes(`ga ${gaNumLower}`) || 
+               nameLower.includes(`ga${gaNumLower}`) ||
+               nameLower.includes(`ga ${gaNumBase}`) ||
+               nameLower.includes(`ga${gaNumBase}`) ||
+               nameLower.includes(`ga ${parseInt(gaNumBase)}`);
       });
     }
     
