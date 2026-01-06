@@ -4072,14 +4072,13 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       stroke-linejoin: round;
     }
     
-    /* ONLINE Version: Gleiche Grid-Anordnung wie lokale Version */
+    /* ONLINE Version: Buttons nebeneinander in einer Reihe */
     body.online-mode .viewer-buttons-container {
-      display: grid;
-      grid-template-columns: auto auto auto; /* 3 Spalten */
-      grid-template-rows: repeat(2, auto); /* 2 Zeilen */
-      column-gap: 2px; /* Horizontaler Abstand zwischen Spalten */
-      row-gap: 2px; /* Vertikaler Abstand zwischen Zeilen */
-      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 4px;
+      align-items: center;
     }
     
     /* TOC-Toggle Button in Online-Version ausblenden */
