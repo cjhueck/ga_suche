@@ -34727,11 +34727,38 @@ async function showTimeline(keyword, clickedButton) {
                 lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
               );
               
+              // Hole vollständige Vortrags-/Aufsatz-Daten
+              const fullLectureData = fullLectures[lecture.lectureId];
+              let entryDate = lecture.date;
+              let entryYear = lecture.year;
+              
+              // Fallback: Versuche Jahr aus Titel zu extrahieren (z.B. "(1879)")
+              if (!entryYear && fullLectureData?.title) {
+                const titleYearMatch = fullLectureData.title.match(/\((\d{4})\)/);
+                if (titleYearMatch) {
+                  entryYear = parseInt(titleYearMatch[1]);
+                  // Setze auch ein pseudo-Datum mit dem Jahr
+                  if (!entryDate) {
+                    entryDate = titleYearMatch[1];
+                  }
+                }
+              }
+              
+              // Fallback: Versuche Jahr aus fullLectureData zu extrahieren
+              if (!entryYear && fullLectureData) {
+                if (fullLectureData.year) {
+                  entryYear = fullLectureData.year;
+                } else if (fullLectureData.date) {
+                  const yearMatch = fullLectureData.date.match(/\b(18|19|20)\d{2}\b/);
+                  if (yearMatch) entryYear = parseInt(yearMatch[0]);
+                }
+              }
+              
               timelineEntries.push({
                 lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                title: fullLectures[lecture.lectureId]?.title || lecture.lectureId,
+                date: entryDate,
+                year: entryYear,
+                title: fullLectureData?.title || lecture.lectureId,
                 keyword: kw,
                 heading: bestHeading || kw.heading || kw.term
               });
@@ -35059,6 +35086,12 @@ function formatDateToDDMMYYYY(dateString) {
   if (!dateString) return 'Datum unbekannt';
   
   try {
+    // Prüfe ob es nur ein Jahr ist (z.B. "1879" oder "(1879)")
+    const yearOnlyMatch = dateString.toString().match(/^\(?(\d{4})\)?$/);
+    if (yearOnlyMatch) {
+      return yearOnlyMatch[1]; // Nur das Jahr zurückgeben
+    }
+    
     // Parse verschiedene Datumsformate
     let date;
     if (dateString.includes('-')) {
@@ -35071,11 +35104,21 @@ function formatDateToDDMMYYYY(dateString) {
         date = new Date(parts[2], parts[1] - 1, parts[0]);
       }
     } else {
+      // Prüfe ob Jahr im String extrahiert werden kann (z.B. "um 1879")
+      const yearInStringMatch = dateString.toString().match(/\b(18\d{2}|19\d{2}|20\d{2})\b/);
+      if (yearInStringMatch) {
+        return yearInStringMatch[1]; // Nur das Jahr zurückgeben
+      }
       // Fallback: Versuche direkt zu parsen
       date = new Date(dateString);
     }
     
     if (isNaN(date.getTime())) {
+      // Versuche Jahr aus dem String zu extrahieren
+      const fallbackYearMatch = dateString.toString().match(/\b(18\d{2}|19\d{2}|20\d{2})\b/);
+      if (fallbackYearMatch) {
+        return fallbackYearMatch[1];
+      }
       return 'Datum unbekannt';
     }
     
@@ -35442,7 +35485,30 @@ function formatDate(dateStr) {
   if (!dateStr) return '';
   
   try {
+    // Prüfe ob es nur ein Jahr ist (z.B. "1879" oder "(1879)")
+    const yearOnlyMatch = dateStr.toString().match(/^\(?(\d{4})\)?$/);
+    if (yearOnlyMatch) {
+      return yearOnlyMatch[1]; // Nur das Jahr zurückgeben
+    }
+    
+    // Prüfe ob Jahr im String extrahiert werden kann (z.B. "um 1879" oder "(ca. 1879)")
+    const yearInStringMatch = dateStr.toString().match(/\b(18\d{2}|19\d{2}|20\d{2})\b/);
+    if (yearInStringMatch && !dateStr.includes('-') && !dateStr.includes('.')) {
+      return yearInStringMatch[1]; // Nur das Jahr zurückgeben
+    }
+    
     const date = new Date(dateStr);
+    
+    // Prüfe ob Datum gültig ist
+    if (isNaN(date.getTime())) {
+      // Versuche Jahr aus dem String zu extrahieren
+      const fallbackYearMatch = dateStr.toString().match(/\b(18\d{2}|19\d{2}|20\d{2})\b/);
+      if (fallbackYearMatch) {
+        return fallbackYearMatch[1];
+      }
+      return dateStr; // Original zurückgeben statt "Invalid Date"
+    }
+    
     return date.toLocaleDateString('de-DE', {
       year: 'numeric',
       month: 'long',
