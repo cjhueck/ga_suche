@@ -28459,6 +28459,7 @@ async function displayPagesCorrectionUI(analysisResult, lectureIds, targetDescri
               <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Bereich</th>
               <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Status</th>
               <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Korrektur</th>
+              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Entfernen</th>
             </tr>
           </thead>
           <tbody>
@@ -28495,6 +28496,15 @@ async function displayPagesCorrectionUI(analysisResult, lectureIds, targetDescri
             </button>
           `}
         </td>
+        <td style="padding: 0.5rem; text-align: center;">
+          ${lecture.pageCount > 0 ? `
+            <button class="depth-btn" onclick="removePagesForLecture('${lecture.id}')" 
+                    style="padding: 2px 8px; font-size: 0.8em; background: #d9534f; color: white; border: none;" 
+                    title="Alle Seitenzahlen aus diesem Vortrag entfernen">
+              Entfernen
+            </button>
+          ` : `<span style="color: #999;">—</span>`}
+        </td>
       </tr>
     `;
   }
@@ -28524,6 +28534,12 @@ async function displayPagesCorrectionUI(analysisResult, lectureIds, targetDescri
                 style="padding: 8px 16px; background: #6c757d; color: white; border: none;">
           🔄 Alle neu generieren/korrigieren
         </button>
+        ${summary.withPages > 0 ? `
+          <button class="depth-btn" onclick="removePagesForAll('${lectureIds.join(',')}')" 
+                  style="padding: 8px 16px; background: #d9534f; color: white; border: none;">
+            🗑️ Alle Seitenzahlen entfernen (${summary.withPages})
+          </button>
+        ` : ''}
         <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
           Schließen
         </button>
@@ -28632,6 +28648,162 @@ async function generatePagebreaksForGAs(gaList) {
 }
 
 /**
+ * Entfernt alle Seitenzahlen aus einem einzelnen Vortrag/Buch
+ */
+async function removePagesForLecture(lectureId) {
+  if (!confirm(`Möchten Sie wirklich alle Seitenzahlen aus "${lectureId}" entfernen?\n\nDiese Aktion kann nicht rückgängig gemacht werden.`)) {
+    return;
+  }
+  
+  const viewer = document.getElementById('viewer');
+  
+  viewer.innerHTML = `
+    <div style="padding: 2rem; text-align: center;">
+      <h3 style="margin-bottom: 1rem;">🗑️ Seitenzahlen werden entfernt...</h3>
+      <p>Entferne Seitenzahlen aus ${lectureId}...</p>
+    </div>
+  `;
+  
+  try {
+    const resp = await fetch(`${API_BASE}/api/pages/remove`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lectureId })
+    });
+    
+    const result = await resp.json();
+    
+    if (resp.ok && result.success) {
+      viewer.innerHTML = `
+        <div style="padding: 2rem;">
+          <h3 style="color: #5cb85c; margin-bottom: 1rem;">✓ Seitenzahlen entfernt</h3>
+          <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <p><strong>Vortrag/Buch:</strong> ${lectureId}</p>
+            <p><strong>Entfernte Seitenzahlen:</strong> ${result.removed}</p>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
+              🔄 Zurück zur Übersicht
+            </button>
+            <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
+              Schließen
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      throw new Error(result.error || 'Unbekannter Fehler');
+    }
+    
+  } catch (err) {
+    console.error('[PAGES/REMOVE] Fehler:', err);
+    viewer.innerHTML = `
+      <div style="padding: 2rem;">
+        <h3 style="color: #d9534f;">❌ Fehler beim Entfernen der Seitenzahlen</h3>
+        <p>${err.message}</p>
+        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
+      </div>
+    `;
+  }
+}
+
+/**
+ * Entfernt alle Seitenzahlen aus mehreren Vorträgen/Büchern (z.B. ganzer GA-Band)
+ */
+async function removePagesForAll(lectureIdList) {
+  const lectureIds = lectureIdList.split(',').filter(Boolean);
+  
+  if (lectureIds.length === 0) {
+    alert('Keine Vorträge/Bücher angegeben.');
+    return;
+  }
+  
+  if (!confirm(`Möchten Sie wirklich alle Seitenzahlen aus ${lectureIds.length} Einträgen entfernen?\n\nDiese Aktion kann nicht rückgängig gemacht werden.`)) {
+    return;
+  }
+  
+  const viewer = document.getElementById('viewer');
+  
+  viewer.innerHTML = `
+    <div style="padding: 2rem; text-align: center;">
+      <h3 style="margin-bottom: 1rem;">🗑️ Seitenzahlen werden entfernt...</h3>
+      <p>Entferne Seitenzahlen aus ${lectureIds.length} Einträgen...</p>
+      <div id="remove-progress" style="margin-top: 1rem; color: #666;">
+        <span id="remove-progress-text">0 / ${lectureIds.length}</span>
+      </div>
+    </div>
+  `;
+  
+  try {
+    const resp = await fetch(`${API_BASE}/api/pages/remove-bulk`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lectureIds })
+    });
+    
+    const result = await resp.json();
+    
+    if (resp.ok && result.success) {
+      viewer.innerHTML = `
+        <div style="padding: 2rem;">
+          <h3 style="color: #5cb85c; margin-bottom: 1rem;">✓ Seitenzahlen entfernt</h3>
+          <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h4 style="margin: 0 0 0.5rem 0;">Zusammenfassung</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem;">
+              <div><strong>Verarbeitet:</strong> ${result.processed}</div>
+              <div><strong>Bereinigt:</strong> ${result.removed}</div>
+              <div><strong>Entfernte Seitenzahlen:</strong> ${result.totalPageNumbers}</div>
+              <div><strong>Übersprungen:</strong> ${result.skipped}</div>
+              <div><strong>Fehler:</strong> <span style="color: ${result.errors > 0 ? '#d9534f' : '#5cb85c'};">${result.errors}</span></div>
+            </div>
+          </div>
+          
+          ${result.details && result.details.length > 0 ? `
+            <details style="margin-bottom: 1rem;">
+              <summary style="cursor: pointer; color: var(--link-color);">Details anzeigen (${result.details.length})</summary>
+              <div style="max-height: 300px; overflow-y: auto; margin-top: 0.5rem; padding: 0.5rem; background: var(--code-bg); border-radius: 4px; font-size: 0.85em;">
+                ${result.details.map(d => `
+                  <div style="padding: 0.25rem 0; border-bottom: 1px solid var(--border-color);">
+                    <strong>${d.id}:</strong> 
+                    ${d.status === 'removed' 
+                      ? `<span style="color: #5cb85c;">✓ ${d.count} entfernt</span>`
+                      : d.status === 'skipped' 
+                        ? `<span style="color: #999;">— ${d.reason}</span>`
+                        : `<span style="color: #d9534f;">✗ ${d.reason}</span>`
+                    }
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+          ` : ''}
+          
+          <div style="display: flex; gap: 1rem;">
+            <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
+              🔄 Zurück zur Übersicht
+            </button>
+            <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
+              Schließen
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      throw new Error(result.error || 'Unbekannter Fehler');
+    }
+    
+  } catch (err) {
+    console.error('[PAGES/REMOVE-BULK] Fehler:', err);
+    viewer.innerHTML = `
+      <div style="padding: 2rem;">
+        <h3 style="color: #d9534f;">❌ Fehler beim Entfernen der Seitenzahlen</h3>
+        <p>${err.message}</p>
+        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
+      </div>
+    `;
+  }
+}
+
+/**
  * Öffnet einen Dialog zur Korrektur der Seitenzahlen für einen einzelnen Vortrag
  */
 async function openPageCorrectionForLecture(lectureId) {
@@ -28735,10 +28907,16 @@ async function openPageCorrectionForLecture(lectureId) {
     html += `
         </div>
         
-        <div style="margin-top: 1.5rem;">
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
           <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px;">
             ← Zurück zur Übersicht
           </button>
+          ${details.pages.length > 0 ? `
+            <button class="depth-btn" onclick="removePagesForLecture('${lectureId}')" 
+                    style="padding: 8px 16px; background: #d9534f; color: white; border: none;">
+              🗑️ Alle Seitenzahlen entfernen
+            </button>
+          ` : ''}
         </div>
       </div>
     `;

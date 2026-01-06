@@ -114,3 +114,7 @@ GESAMT	374	359	15 fehlen
 GA014, GA029, GA031, GA032, GA037, GA038, GA039, GA040, GA040a, 
 GA041a, GA041b, GA042, GA043, GA044
 GA151
+
+
+GA093 aus korrekten pdfs neu als md generieren - aus mehreren Gründen problematisch - Seitenzahlen in GA093 und 93a löschen - Funktion für Seitenzahlen löschen einfügen
+

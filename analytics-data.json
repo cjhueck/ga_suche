@@ -46,9 +46,14 @@
       "lectures": 2
     },
     "2026-01-05": {
-      "views": 1,
-      "searches": 0,
-      "lectures": 0
+      "views": 2,
+      "searches": 2,
+      "lectures": 62
+    },
+    "2026-01-06": {
+      "views": 2,
+      "searches": 2,
+      "lectures": 21
     }
   },
   "topSearches": {
@@ -67,7 +72,10 @@
     "spirituell pädagogik": 1,
     "lebenstableu": 1,
     "aquino": 1,
-    "das ist der zukünftige gang der menschheitsentwick": 1
+    "das ist der zukünftige gang der menschheitsentwick": 1,
+    "steiner zu \"freimaurerei\" bzw. \"freimaurern\"": 2,
+    "wäre ich doch tiefer": 1,
+    "tagebücher": 1
   },
   "topLectures": {
     "GA019": 2,
@@ -147,7 +155,7 @@
     "GA170/9": 1,
     "GA096/3": 1,
     "GA261/8": 19,
-    "GA174a/1": 49,
+    "GA174a/1": 53,
     "GA322/7": 4,
     "GA170/8": 1,
     "GA170/7": 1,
@@ -259,11 +267,11 @@
     "GA168/7": 2,
     "GA173c/4": 3,
     "GA174/7": 2,
-    "GA173c/9": 1,
+    "GA173c/9": 2,
     "GA072/1": 1,
     "GA088/2": 1,
     "GA053/1": 2,
-    "GA090c/1": 1,
+    "GA090c/1": 2,
     "GA099/1": 1,
     "GA076/1": 1,
     "GA089/1": 1,
@@ -294,9 +302,44 @@
     "GA136/8": 2,
     "GA034/6": 1,
     "GA034/11": 1,
-    "GA093a/13": 1
+    "GA093a/13": 1,
+    "GA174b/1": 2,
+    "GA174b/16": 10,
+    "GA174/1": 3,
+    "GA173c/2": 4,
+    "GA173/1": 3,
+    "GA173/2": 1,
+    "GA173a/2": 5,
+    "GA173b/2": 2,
+    "GA093/1": 4,
+    "GA093/2": 9,
+    "GA093/20": 1,
+    "GA093/19": 2,
+    "GA094/1": 1,
+    "GA094/2": 1,
+    "GA094/3": 1,
+    "GA093/8": 1,
+    "GA090c/2": 1,
+    "GA090a/1": 1,
+    "GA090a/2": 1,
+    "GA090a/3": 1,
+    "GA089/2": 1,
+    "GA089/3": 1,
+    "GA089/14": 2,
+    "GA089/21": 1,
+    "GA125/1": 6,
+    "GA125/2": 2,
+    "GA125/3": 1,
+    "GA125/5": 2,
+    "GA093/3": 1,
+    "GA093/6": 1,
+    "GA093a/1": 1,
+    "GA093a/2": 1,
+    "GA093a/4": 1,
+    "GA125/8": 1,
+    "GA119/1": 1
   },
-  "totalViews": 31,
-  "totalSearches": 49,
-  "totalLectureViews": 488
+  "totalViews": 34,
+  "totalSearches": 53,
+  "totalLectureViews": 571
 }

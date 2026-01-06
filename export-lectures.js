@@ -717,12 +717,55 @@ class SteinerLecturesExporter {
     }
   }
 
-  // DEAKTIVIERT: Diese Funktion hatte einen gefährlichen Bug, der ALLE pagebreaks löschte.
-  // Pagebreaks enthalten wertvolle Seitenzahl-Informationen und sollten NIE automatisch gelöscht werden.
+  // Löscht Pagebreak-Override-Dateien für die angegebenen GA-Bände
+  // WICHTIG: Diese Dateien überschreiben sonst die neu exportierten Daten!
   removePagebreaksForGAs(gasToRemove) {
-    // Funktion deaktiviert - gibt nur eine Info-Meldung aus
-    if (gasToRemove && gasToRemove.length > 0) {
-      console.log('   [INFO] Pagebreaks werden NICHT geloescht (Feature deaktiviert)');
+    if (!gasToRemove || gasToRemove.length === 0) return;
+    
+    const pagebreaksDir = path.join(this.outputDir, 'pagebreaks');
+    if (!fs.existsSync(pagebreaksDir)) return;
+    
+    let deletedCount = 0;
+    const deletedFiles = [];
+    
+    // Für jeden GA-Band, suche passende Pagebreak-Dateien
+    for (const ga of gasToRemove) {
+      // Normalisiere GA-Nummer: "ga174b" -> "GA174B", "GA174" -> "GA174"
+      const gaUpper = ga.toUpperCase();
+      const gaNum = gaUpper.replace(/^GA/, '');
+      
+      // Suche nach Dateien die mit diesem GA-Band beginnen
+      // Pattern: GA174.json, GA174A.json, GA174B.json, etc.
+      try {
+        const files = fs.readdirSync(pagebreaksDir);
+        for (const file of files) {
+          // Match: GA174.json, GA174A.json, GA174B.json etc. (2-3 Ziffern + optionaler Suffix)
+          const match = file.match(/^(GA\d{2,3}[A-Za-z]?)\.json$/i);
+          if (match) {
+            const fileGA = match[1].toUpperCase();
+            const fileGANum = fileGA.replace(/^GA/, '');
+            // Prüfe ob die Datei zu einem der zu löschenden GAs gehört
+            // Vergleiche sowohl mit vollem GA-Namen als auch nur mit Nummer
+            if (fileGA === gaUpper || fileGANum.toUpperCase() === gaNum.toUpperCase()) {
+              const filePath = path.join(pagebreaksDir, file);
+              try {
+                fs.unlinkSync(filePath);
+                deletedCount++;
+                deletedFiles.push(file);
+              } catch (e) {
+                console.warn(`   ⚠️  Konnte ${file} nicht löschen: ${e.message}`);
+              }
+            }
+          }
+        }
+      } catch (e) {
+        // Ignoriere Fehler beim Lesen des Verzeichnisses
+      }
+    }
+    
+    if (deletedCount > 0) {
+      console.log(`   🗑️  ${deletedCount} Pagebreak-Override(s) gelöscht: ${deletedFiles.join(', ')}`);
+      console.log(`      (Werden beim nächsten Pagebreak-Generieren neu erstellt)`);
     }
   }
 
@@ -976,13 +1019,13 @@ class SteinerLecturesExporter {
     });
 
     const exportedGAs = [...new Set(lectures.map(l => l.gaNumber))].sort((a, b) => {
-      const numA = parseInt(a.replace(/^GA/, ''));
-      const numB = parseInt(b.replace(/^GA/, ''));
+      const numA = parseInt(a.replace(/^ga/i, ''));
+      const numB = parseInt(b.replace(/^ga/i, ''));
       return numA - numB;
     });
 
-    const rangeStart = exportedGAs[0].replace(/^GA/, '').padStart(3, '0');
-    const rangeEnd = exportedGAs[exportedGAs.length - 1].replace(/^GA/, '').padStart(3, '0');
+    const rangeStart = exportedGAs[0].replace(/^ga/i, '').padStart(3, '0');
+    const rangeEnd = exportedGAs[exportedGAs.length - 1].replace(/^ga/i, '').padStart(3, '0');
 
     // WICHTIG: Entferne alte Einträge für die exportierten GA-Bände aus bestehenden Dateien
     // um Duplikate zu vermeiden
