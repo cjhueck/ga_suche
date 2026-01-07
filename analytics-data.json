@@ -56,9 +56,9 @@
       "lectures": 141
     },
     "2026-01-07": {
-      "views": 4,
+      "views": 6,
       "searches": 2,
-      "lectures": 50
+      "lectures": 56
     }
   },
   "topSearches": {
@@ -425,9 +425,14 @@
     "GA163/5": 3,
     "GA163/6": 1,
     "GA163/7": 1,
-    "GA163/8": 1
+    "GA163/8": 1,
+    "GA201/1": 1,
+    "GA201/16": 2,
+    "GA201/15": 1,
+    "GA152/1": 1,
+    "GA167/1": 1
   },
-  "totalViews": 41,
+  "totalViews": 43,
   "totalSearches": 55,
-  "totalLectureViews": 741
+  "totalLectureViews": 747
 }
