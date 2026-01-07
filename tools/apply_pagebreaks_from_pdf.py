@@ -395,8 +395,25 @@ def remove_existing_markers(text: str) -> str:
     return re.sub(r"\|(\d+)\|", "", text)
 
 
+def adjust_position_after_punctuation(text: str, pos: int) -> int:
+    """
+    Verschiebt die Position nach einem Satzzeichen, falls eines direkt davor steht.
+    
+    Beispiel: "durchgemacht haben|." → "durchgemacht haben.|"
+    """
+    punctuation = ".,:;!?»\"')"
+    
+    # Prüfe ob das Zeichen an pos ein Satzzeichen ist
+    while pos < len(text) and text[pos] in punctuation:
+        pos += 1
+    
+    return pos
+
+
 def insert_marker_at_position(text: str, pos: int, page_num: int) -> str:
     """Fügt einen Marker an der angegebenen Position ein."""
+    # Position nach Satzzeichen verschieben
+    pos = adjust_position_after_punctuation(text, pos)
     marker = f"|{page_num}|"
     return text[:pos] + marker + text[pos:]
 
@@ -535,6 +552,16 @@ def process_lecture(
     last_pdf_index = start_pdf_index
     current_page = start_page
     
+    # Finde erste Inhalts-Position (überspringe kurze Titel-Absätze)
+    first_content_pos = 0
+    for start, end, idx in para_boundaries:
+        content = paragraphs[idx].get("content") or paragraphs[idx].get("text") or ""
+        # Titel sind meist kurz (<100 Zeichen) und ohne Satzzeichen
+        if len(content) > 100 or any(p in content for p in '.!?'):
+            first_content_pos = start
+            break
+        first_content_pos = end  # Nach dem Titel
+    
     # Filtere PDF-Seiten für diesen Vortrag
     relevant_pages = [(idx, pn, pe, ts) for idx, pn, pe, ts in pdf_pages 
                       if start_page <= pn <= (end_page or 9999)]
@@ -545,9 +572,9 @@ def process_lecture(
         if page_num < current_page:
             continue
         
-        # Erste Seite: Marker am Anfang
+        # Erste Seite: Marker am Anfang des ersten Inhalts-Absatzes (nicht im Titel)
         if page_num == start_page:
-            markers.append((0, page_num))
+            markers.append((first_content_pos, page_num))
             current_page = page_num + 1
             last_pdf_index = pdf_idx
             continue
@@ -587,6 +614,9 @@ def process_lecture(
                 
                 rel_pos = pos - para_start
                 rel_pos = max(0, min(rel_pos, len(content)))
+                
+                # Position nach Satzzeichen verschieben
+                rel_pos = adjust_position_after_punctuation(content, rel_pos)
                 
                 marker = f"|{page_num}|"
                 new_content = content[:rel_pos] + marker + content[rel_pos:]

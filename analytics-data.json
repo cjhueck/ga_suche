@@ -56,9 +56,9 @@
       "lectures": 141
     },
     "2026-01-07": {
-      "views": 3,
-      "searches": 0,
-      "lectures": 33
+      "views": 4,
+      "searches": 2,
+      "lectures": 50
     }
   },
   "topSearches": {
@@ -80,7 +80,8 @@
     "das ist der zukünftige gang der menschheitsentwick": 1,
     "steiner zu \"freimaurerei\" bzw. \"freimaurern\"": 2,
     "wäre ich doch tiefer": 1,
-    "tagebücher": 1
+    "tagebücher": 1,
+    "steiner zum \"wiedererscheinen des christus im äthe": 2
   },
   "topLectures": {
     "GA019": 2,
@@ -411,9 +412,22 @@
     "GA072/10": 2,
     "GA072/3": 2,
     "GA062/1": 1,
-    "GA062/13": 1
+    "GA062/13": 1,
+    "GA110/1": 1,
+    "GA110/12": 1,
+    "GA118/1": 1,
+    "GA151/1": 2,
+    "GA159/1": 1,
+    "GA163/1": 1,
+    "GA163/2": 1,
+    "GA163/3": 1,
+    "GA163/4": 2,
+    "GA163/5": 3,
+    "GA163/6": 1,
+    "GA163/7": 1,
+    "GA163/8": 1
   },
-  "totalViews": 40,
-  "totalSearches": 53,
-  "totalLectureViews": 724
+  "totalViews": 41,
+  "totalSearches": 55,
+  "totalLectureViews": 741
 }
