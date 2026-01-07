@@ -116,5 +116,99 @@ GA041a, GA041b, GA042, GA043, GA044
 GA151
 
 
-GA093 aus korrekten pdfs neu als md generieren - aus mehreren Gründen problematisch - Seitenzahlen in GA093 und 93a löschen - Funktion für Seitenzahlen löschen einfügen
+090a-... auch auf Seitenzahlen überprüfen
 
+noch eine frage: 
+in obsidian werden diese pdfs sehr schön als fortlaufende files mit seitenumbrüchen udn -zahlen an den korrekten Stellen dargestellt. Könntest du die texte mit den entsprechenden umbrüchen / zahlen direkt aus Obsidian lesen, ohne eigenes pdf umwandlung?
+
+
+---
+
+## Verfahren: Seitenumbrüche und Seitenzahlen einfügen
+
+### Übersicht
+Dieses Verfahren fügt `|XX|` Seitenmarker in die Vorträge/Aufsätze ein, basierend auf den PDFs mit Seitenzahlen aus `Steiner_GA_pdf/`.
+
+### Schnellstart (Ein Befehl für alles)
+
+```powershell
+# Einzelne GA:
+python tools/process_pagebreaks.py GA061
+
+# Bereich:
+python tools/process_pagebreaks.py 61 67
+
+# Trockenlauf (nur anzeigen, keine Änderungen):
+python tools/process_pagebreaks.py GA061 --dry-run
+```
+
+**Nach Abschluss: Server neu starten!** (`Ctrl+C`, dann `nb`)
+
+### Was das Script automatisch macht
+
+1. **PDF kopieren**: Von `Steiner_GA_pdf/` nach `Steiner_GA/GAXXX-Titel/`
+2. **Seitenmarker einfügen**: Liest Seitenzahlen aus PDF-Footer und fügt `|XX|` Marker ein
+3. **Alte Overrides inaktivieren**: Benennt `pagebreaks/GAXXX.json` um zu `.old`
+
+---
+
+### Voraussetzungen
+- PDFs mit Seitenzahlen im Format: `Steiner, Rudolf GA XXX, YYYY - Titel.pdf`
+- Die Seitenzahlen stehen im PDF-Footer als `Seite: XX`
+- Vorträge müssen bereits in `steiner-full-lectures/` exportiert sein
+
+### Einzelne Schritte (falls manuell nötig)
+
+#### Schritt 1: PDF-Dateien kopieren
+```powershell
+python tools/copy_pdfs_to_ga_folders.py GA061
+```
+Quellordner: `Steiner_GA_pdf/`
+Zielordner: `Steiner_GA/GAXXX-Titel/`
+
+#### Schritt 2: Seitenmarker einfügen
+```powershell
+python tools/apply_pagebreaks_from_pdf.py GA061 --update-source
+```
+**WICHTIG:** `--update-source` aktualisiert die Originaldatei in `steiner-full-lectures/`.
+
+#### Schritt 3: Alte Override-Dateien inaktivieren
+```powershell
+Rename-Item "pagebreaks\GA061.json" "GA061.json.old" -Force
+```
+Das Backend lädt Override-Dateien aus `pagebreaks/` die die Quelldaten überschreiben!
+
+#### Schritt 4: Server neu starten
+```powershell
+Ctrl+C
+nb
+```
+
+---
+
+### Fehlerbehebung
+
+| Problem | Ursache | Lösung |
+|---------|---------|--------|
+| Alte Marker werden angezeigt | Override-Dateien in `pagebreaks/` | Override-Dateien umbenennen zu `.old` |
+| Marker an falscher Position | Text-Matching findet falsche Stelle | `lecture-page-mapping.json` prüfen |
+| Keine Seitenzahlen im PDF | Falsches PDF verwendet | PDF aus `Steiner_GA_pdf/` verwenden |
+| "Keine Vorträge gefunden" | Vorträge nicht exportiert | Zuerst `export_master.py` ausführen |
+
+### Dateien und Ordner
+
+| Pfad | Beschreibung |
+|------|--------------|
+| `Steiner_GA_pdf/` | PDFs mit Seitenzahlen (Format: `Steiner, Rudolf GA XXX...`) |
+| `Steiner_GA/GAXXX-Titel/` | Obsidian-Ordner mit MD-Dateien und PDF-Kopie |
+| `steiner-full-lectures/` | JSON-Dateien mit Vorträgen (werden aktualisiert) |
+| `pagebreaks/` | Override-Dateien (können Quelldaten überschreiben!) |
+| `lecture-page-mapping.json` | Mapping: Vortrag-ID → Start-Seitenzahl |
+
+### Scripts
+
+| Script | Beschreibung |
+|--------|--------------|
+| `tools/process_pagebreaks.py` | **Hauptscript** - führt alles automatisch durch |
+| `tools/apply_pagebreaks_from_pdf.py` | Nur Seitenmarker einfügen |
+| `tools/copy_pdfs_to_ga_folders.py` | Nur PDF kopieren |
