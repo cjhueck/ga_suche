@@ -20,7 +20,8 @@ from apply_pagebreaks_from_pdf import (
     remove_existing_markers,
     normalize_ga,
     find_pdf_for_ga,
-    load_page_mapping
+    load_page_mapping,
+    adjust_position_after_punctuation
 )
 
 # Pfade
@@ -170,6 +171,9 @@ def insert_markers_in_md(
     new_content = content_clean
     for pos, page_num in valid_markers:
         marker = f"|{page_num}|"
+        
+        # Position nach Satzzeichen verschieben
+        pos = adjust_position_after_punctuation(new_content, pos)
         
         # Prüfe ob direkt vor einem Obsidian Block-ID (^xxxxx)
         before_pos = new_content[max(0, pos-15):pos]
