@@ -7,7 +7,9 @@ Verwendet dieselbe Logik wie apply_pagebreaks_from_pdf.py
 import re
 import sys
 import json
+import argparse
 from pathlib import Path
+from typing import Dict, List, Tuple, Optional
 
 # Import from main script
 sys.path.insert(0, str(Path(__file__).parent))
@@ -15,8 +17,81 @@ from apply_pagebreaks_from_pdf import (
     extract_pdf_pages,
     find_pagebreak_position,
     normalize_for_comparison,
-    remove_existing_markers
+    remove_existing_markers,
+    normalize_ga,
+    find_pdf_for_ga,
+    load_page_mapping
 )
+
+# Pfade
+PROJECT_DIR = Path(__file__).parent.parent
+STEINER_GA_DIR = PROJECT_DIR / "Steiner_GA"
+
+
+def find_md_folder_for_ga(ga_norm: str) -> Optional[Path]:
+    """Findet den MD-Ordner für eine GA."""
+    # Suche nach Ordner der Form GA051-*, GA052-*, etc.
+    for folder in STEINER_GA_DIR.iterdir():
+        if folder.is_dir() and folder.name.upper().startswith(ga_norm):
+            return folder
+    return None
+
+
+def find_md_files_in_folder(folder: Path) -> List[Path]:
+    """Findet alle MD-Dateien in einem Ordner."""
+    return sorted(folder.glob("*.md"))
+
+
+def extract_lecture_number_from_md(md_path: Path) -> Optional[int]:
+    """
+    Extrahiert die Vortragsnummer aus dem MD-Dateinamen.
+    Z.B. "GA051 (1.) TITEL.md" -> 1
+    """
+    name = md_path.stem
+    # Pattern: GA051 (1.) oder GA051 (12.)
+    match = re.search(r'\((\d+)\.\)', name)
+    if match:
+        return int(match.group(1))
+    return None
+
+
+def get_page_range_for_md(
+    md_path: Path,
+    ga_norm: str,
+    mapping: Dict,
+    all_md_files: List[Path],
+    pdf_pages: List
+) -> Tuple[Optional[int], Optional[int]]:
+    """
+    Ermittelt den Seitenbereich für eine MD-Datei.
+    Verwendet das lecture-page-mapping falls vorhanden.
+    """
+    lec_num = extract_lecture_number_from_md(md_path)
+    if lec_num is None:
+        return None, None
+    
+    ga_mapping = mapping.get(ga_norm, {})
+    lec_id = f"{ga_norm}/{lec_num}"
+    
+    # Start-Seite aus Mapping
+    start_page = ga_mapping.get(lec_id)
+    
+    # End-Seite: nächster Vortrag oder letzte PDF-Seite
+    end_page = None
+    next_id = f"{ga_norm}/{lec_num + 1}"
+    next_start = ga_mapping.get(next_id)
+    if next_start:
+        end_page = next_start - 1
+    
+    # Fallback: letzte Seite der PDF
+    if end_page is None and pdf_pages:
+        end_page = pdf_pages[-1][1]
+    
+    # Fallback für Start: erste Seite
+    if start_page is None and pdf_pages:
+        start_page = pdf_pages[0][1]
+    
+    return start_page, end_page
 
 
 def insert_markers_in_md(
@@ -113,89 +188,124 @@ def insert_markers_in_md(
     return len(valid_markers)
 
 
-def process_ga072():
-    """Verarbeitet alle GA072 Vorträge."""
+def process_ga_md(ga_number: str, dry_run: bool = False) -> Dict:
+    """
+    Verarbeitet alle MD-Dateien für eine GA.
+    """
+    ga_norm = normalize_ga(ga_number)
+    if not ga_norm:
+        return {"error": f"Ungültige GA-Nummer: {ga_number}"}
     
-    # Mapping: Vortragsnummer -> (Start-Seite, End-Seite)
-    lectures = {
-        1: (15, 63),
-        2: (64, 106),
-        3: (107, 149),
-        4: (150, 186),
-        5: (187, 230),
-        6: (231, 273),
-        7: (274, 306),
-        8: (307, 338),
-        9: (339, 375),
-        10: (376, 438),
-    }
+    print(f"\n{'='*60}")
+    print(f"Verarbeite {ga_norm} (MD)")
+    print(f"{'='*60}")
     
-    # MD-Dateien
-    md_files = {
-        1: "GA072 (1.) DIE MENSCHENSEELE IM REICHE DES ÜBERSINNLICHEN UND IHR VERHÄLTNIS ZUM LEIB, Basel, 18. Oktober 1917.md",
-        2: "GA072 (2.) ANTHROPOSOPHIE STÖRT NIEMANDES RELIGIÖSES BEKENNTNIS, Basel, 19. Oktober 1917.md",
-        3: "GA072 (3.) GEISTESWISSENSCHAFTLICHE (ANTHROPOSOPHISCHE9 FORSCHUNGSERGEBNISSE ÜBER DAS EWIGE IN DER MENSCHENSEELE UND ÜBER DAS WESEN DER FREIHEIT, Basel, 23. November 1917.md",
-        4: "GA072 (4.) DIE WISSENSCHAFT DES ÜBERSINNLICHEN UND DIE SITTLICH-SOZIALEN IDEEN, Basel, 24. November 1917.md",
-        5: "GA072 (5.) DAS WIRKEN DER SEELENKRÄFTE IM MENSCHEN UND IHR ZUSAMMENHANG MIT DESSEN EWIGER WESENHEIT, Bern, 28. November 1917.md",
-        6: "GA072 (6.) GEISTESWISSENSCHAFTLICHE ERGEBNISSE ÜBER DIE IDEEN DER FREIHEIT UND DES SOZIAL-SITTLICHEN LEBENS, Bern, 30. November 1917.md",
-        7: "GA072 (7.) DAS WESEN DER MENSCHENSEELE UND DIE NATUR DES MENSCHENLEIBES, Basel, 30. Oktober 1918.md",
-        8: "GA072 (8.) RECHTFERTIGUNG DER ÜBERSINNLICHEN ERKENNTNIS DURCH DIE NATURWISSENSCHAFT, Basel, 31. Oktober 1918.md",
-        9: "GA072 (9.) RECHTFERTIGUNG DER SEELENWISSENSCHAFT IM SINNE DER ANTHROPOSOPHIE, Bern, 9. Dezember 1918.md",
-        10: "GA072 (10.) SITTLICHES, SOZIALES UND RELIGIÖSES LEBEN VOM GESICHTSPUNKTE DER ANTHROPOSOPHIE, Bern, 11. Dezember 1918.md",
-    }
+    # Finde MD-Ordner
+    md_folder = find_md_folder_for_ga(ga_norm)
+    if not md_folder:
+        print(f"  FEHLER: Kein MD-Ordner gefunden")
+        return {"error": "Kein MD-Ordner"}
     
-    md_folder = Path("Steiner_GA/GA072-Freiheit Unsterblichkeit Soziales Leben")
-    pdf_path = Path("Steiner_GA_pdf/Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben.pdf")
+    print(f"  MD-Ordner: {md_folder.name}")
     
-    # Extrahiere PDF-Seiten einmal
-    print("Extrahiere PDF-Seiten...")
+    # Finde PDF
+    pdf_path = find_pdf_for_ga(ga_norm)
+    if not pdf_path:
+        print(f"  FEHLER: Keine PDF gefunden")
+        return {"error": "Keine PDF"}
+    
+    print(f"  PDF: {pdf_path.name}")
+    
+    # Extrahiere PDF-Seiten
+    print(f"  Extrahiere PDF-Seiten...")
     pdf_pages = extract_pdf_pages(pdf_path)
-    print(f"  {len(pdf_pages)} Seiten extrahiert")
-    print()
+    print(f"  {len(pdf_pages)} Seiten mit Seitenzahlen")
     
-    total_markers = 0
+    if not pdf_pages:
+        return {"error": "Keine Seiten mit Seitenzahlen"}
     
-    for num, (start_page, end_page) in lectures.items():
-        if num not in md_files:
+    # Lade Page-Mapping
+    mapping = load_page_mapping()
+    
+    # Finde MD-Dateien
+    md_files = find_md_files_in_folder(md_folder)
+    print(f"  {len(md_files)} MD-Dateien gefunden")
+    
+    # Verarbeite jede MD-Datei
+    total_inserted = 0
+    processed = 0
+    
+    for md_path in md_files:
+        lec_num = extract_lecture_number_from_md(md_path)
+        if lec_num is None:
             continue
         
-        md_path = md_folder / md_files[num]
-        if not md_path.exists():
-            print(f"  GA072/{num}: Datei nicht gefunden")
+        start_page, end_page = get_page_range_for_md(
+            md_path, ga_norm, mapping, md_files, pdf_pages
+        )
+        
+        if start_page is None or end_page is None:
+            print(f"    {ga_norm}/{lec_num}: Kein Seitenbereich")
             continue
+        
+        count = insert_markers_in_md(md_path, pdf_pages, start_page, end_page, dry_run)
+        total_inserted += count
+        processed += 1
         
         expected = end_page - start_page + 1
-        count = insert_markers_in_md(md_path, pdf_pages, start_page, end_page)
-        total_markers += count
-        
-        print(f"  GA072/{num}: {count}/{expected} Marker (S.{start_page}-{end_page})")
+        title = md_path.stem[:40]
+        print(f"    {ga_norm}/{lec_num}: {count}/{expected} Marker (S.{start_page}-{end_page})")
     
-    print()
-    print(f"Gesamt: {total_markers} Marker eingefügt")
-    return total_markers
+    print(f"\n  Gesamt: {total_inserted} Marker in {processed} Dateien")
+    
+    return {
+        "ga": ga_norm,
+        "files": processed,
+        "markers_inserted": total_inserted
+    }
 
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == "GA072":
-        process_ga072()
+    parser = argparse.ArgumentParser(description="Fügt Seitenmarker in Obsidian-MD-Dateien ein")
+    parser.add_argument("ga", nargs="+", help="GA-Nummer(n) oder Bereich (z.B. 51 67)")
+    parser.add_argument("--dry-run", action="store_true", help="Nur simulieren")
+    
+    args = parser.parse_args()
+    
+    # Parse GA-Nummern
+    ga_numbers = []
+    if len(args.ga) == 2 and args.ga[0].isdigit() and args.ga[1].isdigit():
+        # Bereich: 51 67 -> GA051 bis GA067
+        start = int(args.ga[0])
+        end = int(args.ga[1])
+        for i in range(start, end + 1):
+            ga_numbers.append(str(i))
     else:
-        # Einzelner Vortrag GA072/1
-        md_path = Path("Steiner_GA/GA072-Freiheit Unsterblichkeit Soziales Leben/GA072 (1.) DIE MENSCHENSEELE IM REICHE DES ÜBERSINNLICHEN UND IHR VERHÄLTNIS ZUM LEIB, Basel, 18. Oktober 1917.md")
-        pdf_path = Path("Steiner_GA_pdf/Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben.pdf")
-        
-        start_page = 15
-        end_page = 63
-        
-        dry_run = "--dry-run" in sys.argv
-        
-        print(f"Verarbeite: {md_path.name}")
-        print(f"PDF: {pdf_path.name}")
-        print(f"Seiten: {start_page}-{end_page}")
-        print()
-        
-        pdf_pages = extract_pdf_pages(pdf_path)
-        count = insert_markers_in_md(md_path, pdf_pages, start_page, end_page, dry_run)
-        print(f"\n{count} Marker {'würden eingefügt' if dry_run else 'eingefügt'}")
+        ga_numbers = args.ga
+    
+    results = []
+    total_markers = 0
+    
+    for ga in ga_numbers:
+        result = process_ga_md(ga, args.dry_run)
+        results.append(result)
+        if "markers_inserted" in result:
+            total_markers += result["markers_inserted"]
+    
+    # Zusammenfassung
+    print(f"\n{'='*60}")
+    print("ZUSAMMENFASSUNG")
+    print(f"{'='*60}")
+    
+    success = sum(1 for r in results if "markers_inserted" in r)
+    errors = sum(1 for r in results if "error" in r)
+    
+    print(f"  Erfolgreich: {success}")
+    print(f"  Fehler: {errors}")
+    print(f"\n  Gesamt Marker: {total_markers}")
+    
+    if args.dry_run:
+        print("\n  (Dry-Run - keine Änderungen gespeichert)")
 
 
 if __name__ == "__main__":
