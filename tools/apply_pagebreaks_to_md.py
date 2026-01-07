@@ -129,14 +129,15 @@ def insert_markers_in_md(
         if page_num < current_page:
             continue
         
-        # Erste Seite: Marker nach Header
+        # Erste Seite: Marker am Anfang des Inhalts
         if page_num == start_page:
+            # Suche nach Obsidian-Header (Quelle: [[...]])
             header_match = re.search(r'Quelle:\s*\[\[.*?\]\]\s*\n\n', content_clean)
             if header_match:
                 pos = header_match.end()
             else:
-                first_para = re.search(r'\n\n', content_clean)
-                pos = first_para.end() if first_para else 0
+                # Kein Header: Marker am Anfang (Position 0)
+                pos = 0
             
             markers.append((pos, page_num))
             search_start = pos + 1
