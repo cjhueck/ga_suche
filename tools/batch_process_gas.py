@@ -14,8 +14,8 @@ import shutil
 from pathlib import Path
 
 if sys.platform == "win32":
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace", line_buffering=True)
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace", line_buffering=True)
 
 SCRIPT_DIR = Path(__file__).parent.parent
 PDF_DIR = SCRIPT_DIR / "Steiner_GA_pdf"
@@ -54,6 +54,7 @@ def has_lectures_in_json(ga_num: int) -> bool:
 
 def run_command(cmd: list, description: str, timeout: int = 300) -> bool:
     """Führt einen Befehl aus und gibt Erfolg/Misserfolg zurück."""
+    print(f"    → {description}...", flush=True)
     try:
         result = subprocess.run(
             cmd,
@@ -65,16 +66,17 @@ def run_command(cmd: list, description: str, timeout: int = 300) -> bool:
             errors="replace"
         )
         if result.returncode != 0:
-            print(f"    ⚠️  {description} fehlgeschlagen")
+            print(f"    ⚠️  {description} fehlgeschlagen", flush=True)
             if result.stderr:
-                print(f"       {result.stderr[:200]}")
+                print(f"       {result.stderr[:200]}", flush=True)
             return False
+        print(f"    ✓ {description} OK", flush=True)
         return True
     except subprocess.TimeoutExpired:
-        print(f"    ⚠️  {description} Timeout")
+        print(f"    ⚠️  {description} Timeout ({timeout}s)", flush=True)
         return False
     except Exception as e:
-        print(f"    ⚠️  {description} Fehler: {e}")
+        print(f"    ⚠️  {description} Fehler: {e}", flush=True)
         return False
 
 
@@ -99,9 +101,10 @@ def process_ga(ga_num: int, dry_run: bool = False) -> dict:
     
     print(f"  Verarbeite {ga_str}...")
     
-    # 1. Seitenzahlen extrahieren
+    # 1. Seitenzahlen extrahieren (Script im Hauptverzeichnis)
+    export_script = SCRIPT_DIR / "export_page_markers_v4.py"
     if not run_command(
-        [sys.executable, "export_page_markers_v4.py", ga_str],
+        [sys.executable, str(export_script), ga_str],
         "Export",
         timeout=120
     ):
@@ -110,18 +113,20 @@ def process_ga(ga_num: int, dry_run: bool = False) -> dict:
         return result
     
     # 2. Mapping generieren
+    mapping_script = SCRIPT_DIR / "generate_lecture_page_mapping.py"
     if not run_command(
-        [sys.executable, "generate_lecture_page_mapping.py", ga_str],
+        [sys.executable, str(mapping_script), ga_str],
         "Mapping",
-        timeout=180
+        timeout=600  # 10 Minuten für große PDFs
     ):
         result["status"] = "error"
         result["reason"] = "Mapping fehlgeschlagen"
         return result
     
     # 3. Seitenzahlen anwenden
+    apply_script = SCRIPT_DIR / "apply_page_break_markers_v4.py"
     if not run_command(
-        [sys.executable, "apply_page_break_markers_v4.py", ga_str],
+        [sys.executable, str(apply_script), ga_str],
         "Apply",
         timeout=180
     ):

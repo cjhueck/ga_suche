@@ -1,112 +1,37 @@
 {
-  "ga": "GA080C",
-  "sourceFile": "steiner-full-lectures-014-354-part05.json",
+  "ga": "GA061",
+  "sourceFile": "steiner-full-lectures-014-354-part03.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 501,
-  "breaksWithPage": 501,
-  "inserted": 211,
-  "insertedRatio": 0.42115768463073855,
-  "failed": 33,
+  "breaksTotal": 535,
+  "breaksWithPage": 535,
+  "inserted": 6,
+  "insertedRatio": 0.011214953271028037,
+  "failed": 5,
   "failuresSample": [
     {
-      "page": 300,
+      "page": 515,
       "reason": "no-match",
-      "lecture": 8
+      "lecture": 15
     },
     {
-      "page": 408,
+      "page": 516,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 15
     },
     {
-      "page": 410,
+      "page": 518,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 15
     },
     {
-      "page": 411,
+      "page": 522,
       "reason": "no-match",
-      "lecture": 7
+      "lecture": 15
     },
     {
-      "page": 412,
+      "page": 523,
       "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 423,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 424,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 426,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 427,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 429,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 431,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 434,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 435,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 436,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 449,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 450,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 457,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 458,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 461,
-      "reason": "no-match",
-      "lecture": 7
-    },
-    {
-      "page": 462,
-      "reason": "no-match",
-      "lecture": 7
+      "lecture": 15
     }
   ]
 }
