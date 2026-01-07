@@ -20,6 +20,7 @@ if sys.platform == "win32":
 SCRIPT_DIR = Path(__file__).parent.parent
 PDF_DIR = SCRIPT_DIR / "Steiner_GA_pdf"
 PAGEBREAK_DIR = SCRIPT_DIR / "pagebreaks"
+LECTURES_DIR = SCRIPT_DIR / "steiner-full-lectures"
 
 
 def find_pdf_for_ga(ga_num: int) -> bool:
@@ -38,7 +39,8 @@ def find_pdf_for_ga(ga_num: int) -> bool:
 def has_lectures_in_json(ga_num: int) -> bool:
     """Prüft ob Vorträge für die GA in den JSON-Dateien existieren."""
     ga_str = f"GA{str(ga_num).zfill(3)}"
-    for json_file in SCRIPT_DIR.glob("steiner-full-lectures-*.json"):
+    # Suche in steiner-full-lectures Ordner
+    for json_file in LECTURES_DIR.glob("steiner-full-lectures-*.json"):
         try:
             with open(json_file, "r", encoding="utf-8") as f:
                 data = json.load(f)

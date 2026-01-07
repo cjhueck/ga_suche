@@ -1,0 +1,1520 @@
+{
+  "_info": "Extrahiert aus MD-Datei (Mistral OCR) - Neues vereinfachtes Verfahren",
+  "ga": "GA051",
+  "method": "md-extraction",
+  "markerCount": 216,
+  "breaks": [
+    {
+      "page": 1,
+      "left": "",
+      "right": "RUDOLF STEINER GESAMTAUSGABE\nVORTRÄGE\n\nÖFFENTLICHE VORTRÄGE\n\n\n---\n\n\n\n\n\n---\n\n\n# RUDOLF STEINER\n\n# Über Philosophie, Geschichte und Literatur\n\nDarstellungen an der Arbeiterbildungsschule und der Freien ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 2,
+      "left": "RUDOLF STEINER GESAMTAUSGABE\nVORTRÄGE\n\nÖFFENTLICHE VORTRÄGE",
+      "right": "# RUDOLF STEINER\n\n# Über Philosophie, Geschichte und Literatur\n\nDarstellungen an der Arbeiterbildungsschule und der Freien Hochschule in Berlin\n\nA utoreferate und Referate\nvon vierunddreißig Vorträgen",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 4,
+      "left": "\n\nAlle Rechte bei der Rudolf Steiner-Nachlaß Verwaltung, Dornach/Schweiz\n© 1983 by Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz\nPrinted in Germany by Konkordia GmbH, Bühl/Baden\nISBN 3-7274-0510-4",
+      "right": "Zu den Veröffentlichungen\naus dem Vortragswerk von Rudolf Steiner\n\nDie Grundlage der anthroposophisch orientierten Geisteswissenschaft bilden die von Rudolf Steiner (1861 — 1925) geschriebenen und ver",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 6,
+      "left": "Gesamtausgabe begonnen. Der vorliegende Band bildet einen Bestandteil dieser Gesamtausgabe. Soweit erforderlich, finden sich nähere Angaben zu den Textunterlagen am Beginn der Hinweise.",
+      "right": "Seite: 7\n\n# INHALT\n\n## I\nVORTRÄGE\nAN DER ARBEITERBILDUNGSSCHULE\nIN BERLIN\n\nWelt- und Lebensanschauungen von den ältesten Zeiten bis zur Gegenwart\n\nAUTOREFERAT. Zusammenfassung von zehn Vorträgen, geha",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 7,
+      "left": "dieser Gesamtausgabe. Soweit erforderlich, finden sich nähere Angaben zu den Textunterlagen am Beginn der Hinweise.",
+      "right": "# INHALT\n\n## I\nVORTRÄGE\nAN DER ARBEITERBILDUNGSSCHULE\nIN BERLIN\n\nWelt- und Lebensanschauungen von den ältesten Zeiten bis zur Gegenwart\n\nAUTOREFERAT. Zusammenfassung von zehn Vorträgen, gehalten in Be",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 8,
+      "left": "hen. Die Völkerwanderung. Die Goten. Arianisches und athanasisches Christentum. Die Seßhaftigkeit ab dem 6. Jahrhundert. Übergang von der Stammes- zur Dorfgemeinschaft. Entstehung des Privateigentums.",
+      "right": "DRITTER VORTRAG, 1. November 1904...114\n\nDie Völkerverschiebungen im 5. Jahrhundert. Rückblick auf die ersten drei Jahrhunderte. Vordringen der germanischen Stämme gegen das römische Reich durch den E",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 9,
+      "left": "ngszüge Karls des Großen. Die Rolle der Kirche als Großgrundbesitzer. Unterwerfung Bayerns und der Langobarden. Die Gau- oder Pfalzgrafen als weltliche Richter. Gegensatz von Adel und Bauerntum (Freie",
+      "right": "und Hörige). Die Klöster als alleinige Kulturstätten. Scholastik und Mystik. Gegensatz von Klöstern und verweltlichter Kirche. Scotus Erigena. Die Städtegründung als Reaktion auf die Unterdrückung dur",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 10,
+      "left": "20. Dezember 1904. 163\n\nEntstehung des «Reiches». Verschwinden des freien Bauerntums. Der Ritterstand. Weltlicher Klerus und gebildeter Klosterklerus. Die Zerrüttung des Wohlstandes. Der tiefreligiöse",
+      "right": "Zug der Zeit. Die Kreuzzüge und ihre Auswirkungen. Das Hereinkommen der maurischen Wissenschaft. Mittelalterliche Wissenschaft, Realismus und Nominalismus. Freiheit der Lehre. Albertus Magnus. Die Inq",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 11,
+      "left": "us. Reuchlin und Erasmus. Die Eroberung der Seewege nach Indien durch Diaz und Vasco da Gama. Entdeckung Amerikas. Die Weltanschauung des Kopernikus. Notwendigkeit der Wissenschaft der Weltgeschichte.",
+      "right": "# II\n\n# VORTRÄGE AN DER BERLINER «FREIEN HOCHSCHULE»\n\nPlatonische Mystik und Docta ignorantia\n\nKurze Zusammenfassung von drei Vorträgen aus einem Kurs von sieben Vorträgen über «Die deutsche Mystik un",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 12,
+      "left": ". Die Eroberung der Seewege nach Indien durch Diaz und Vasco da Gama. Entdeckung Amerikas. Die Weltanschauung des Kopernikus. Notwendigkeit der Wissenschaft der Weltgeschichte.",
+      "right": "# II\n\n# VORTRÄGE AN DER BERLINER «FREIEN HOCHSCHULE»\n\nPlatonische Mystik und Docta ignorantia\n\nKurze Zusammenfassung von drei Vorträgen aus einem Kurs von sieben Vorträgen über «Die deutsche Mystik un",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 14,
+      "left": "ngen im 19. Jahrhundert\n\nAcHTERVORTRAG,5. März 1905. 269\nWas kann die Gegenwart von Schiller lernen?\n\nNEUNTER VORTRAG, 25. März 1905. 276\nSchiller und der Idealismus (Ästhetik und Moral)",
+      "right": "# m\n\n# ANHANG\n\nDiskussionen und Vorträge Rudolf Steiners\nim «Giordano Bruno-Bund für einheitliche Weltanschauung»\nin Berlin im Jahre 1902\n\n## Die Einheit der Welt\n\nBerlin, im März 1902 287\n\nDiskussion",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 15,
+      "left": "rt von Otto Lehmann-Rußbüldt in «Der Freidenker» 10. Jahrgang Nr. 21 vom 1. November 1902\n\nHinweise 321\n\nSachwort- und Namenregister 343\n\nÜbersicht über die Rudolf Steiner Gesamtausgabe 359</wahrheit>",
+      "right": "# VORTRÄGE AN DER ARBEITER BILDUNGSSCHULE IN BERLIN\n\n\n---\n\n\n\n\n\n---\n\n\n\nSeite: 17\n\nWELT- UND LEBENSANSCHAUUNGEN\nVON DEN ÄLTESTEN ZEITEN\nBIS ZUR GEGENWART\n\nAutoreferat\nZusammenfassung v",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 16,
+      "left": "1902\n\nHinweise 321\n\nSachwort- und Namenregister 343\n\nÜbersicht über die Rudolf Steiner Gesamtausgabe 359</wahrheit>\n\n\n\n# VORTRÄGE AN DER ARBEITER BILDUNGSSCHULE IN BERLIN",
+      "right": "Seite: 17\n\nWELT- UND LEBENSANSCHAUUNGEN\nVON DEN ÄLTESTEN ZEITEN\nBIS ZUR GEGENWART\n\nAutoreferat\nZusammenfassung von zehn Vorträgen,\ngehalten in Berlin vom Januar bis März 1901\n\n/. Die griechischen Welt",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 17,
+      "left": "Rudolf Steiner Gesamtausgabe 359</wahrheit>\n\n\n\n# VORTRÄGE AN DER ARBEITER BILDUNGSSCHULE IN BERLIN",
+      "right": "WELT- UND LEBENSANSCHAUUNGEN\nVON DEN ÄLTESTEN ZEITEN\nBIS ZUR GEGENWART\n\nAutoreferat\nZusammenfassung von zehn Vorträgen,\ngehalten in Berlin vom Januar bis März 1901\n\n/. Die griechischen Weltanschauunge",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 19,
+      "left": "und Lebensanschauung oft sich mit Fragen befassen, die nicht einem wahren Bedürfnisse des Menschen entspringen, sondern die ihnen ihr einseitiges, an gewissen Überlieferungen haftendes Denken vorlegt.",
+      "right": "Eine wahrhafte «Welt- und Lebensanschauung» muß sich mit den Fragen beschäftigen, die sich in keiner einzelnen Wissenschaft beantworten lassen. Denn jede einzelne Wissenschaft hat es mit einem bestimm",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 24,
+      "left": "der Außenwelt alles verwandelt, weil hier ewig alles entsteht und vergeht, deswegen können wir das Wahre, das Bleibende nicht durch Beobachtung der Außenwelt gewinnen. Wir müssen das, was diese Außen-",
+      "right": "weit uns darbietet, als Schein auffassen und können das Ewige, das Bleibende nur durch das Denken selbst gewinnen. Die Außenwelt ist ein Sinnentrug, ein Traum, der ganz etwas anderes ist, als was uns ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 30,
+      "left": "en, was zum Beispiel Tugend bei dem Handwerker, was Tugend bei dem Kaufmann, was Tugend bei dem Gelehrten ist. Man wird finden, daß alle diese verschiedenen Arten des tugendhaften Lebens etwas Gemein-",
+      "right": "sames haben. Dieses Gemeinsame ist eben der Begriff der Tugend. Wenn man mit seinem Denken so vorgeht, so befolgt man das sogenannte induktive Verfahren. Man sammelt die einzelnen Erfahrungen, um eine",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 46,
+      "left": "e zu kommen. Durch ein solches Versenken kommt der Mensch zu dem Urwesen, das sich in die Welt ausgegossen hat. Diese Welt ist nur ein unvollkommener Ausfluß, ein Abfall von dem Urwesen.",
+      "right": "## 2. Die Weltanschauungen des Mittelalters und der Neuzeit\n\nEtwas ganz Neues tritt mit dem Christentum in der Weltanschauungs-Entwickelung des Abendlandes auf. Das vernünftige Denken wird von einer g",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 47,
+      "left": "n Lehre. Das Denken trat ganz in den Dienst des Glaubens, es wurde der Diener der Offenbarung. Das ganze Mittelalter arbeitet daran, mit Hilfe des Denkens die Offenbarung zu stützen. Wie in den ersten",
+      "right": "Jahrhunderten Denken und Offenbarung ineinanderarbeiten, davon gibt der Kirchenvater Augustinus ein Zeugnis; wie das in der späteren Zeit in der Kirche geschah, Thomas von Aquino. Augustinus sagt sich",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 53,
+      "left": "Das ist auch bei Wolff der Fall. Er unterscheidet sinnliche Wahrheiten, die durch Beobachtung gewonnen werden, und höhere Erkenntnisse, welche die Vernunft aus sich selbst schöpft. Diese höheren Wahr-",
+      "right": "heiten sind aber, bei Lichte besehen, nichts anderes als die alten, durch Verstümmelung und Durchsiebung gewonnenen Offenbarungswahrheiten. Kein Wunder, daß die Vernunft bei den Beweisen solcher Wahrh",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 54,
+      "left": "rzeugungen erschüttert, als er die Schriften Humes kennenlernte. Die ewigen Wahrheiten könne die Vernunft beweisen, daran hatte er vorher nicht gezweifelt; Hume hatte gezeigt, daß selbst bei den einfa",
+      "right": "chen Wahrheiten von einem Beweis nicht die Rede sein könne, sondern daß wir alles, was wir glauben, nur aus Gewohnheit annehmen. Soll es wirklich keine ewigen Wahrheiten geben, fragte sich Kant. Es mu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 58,
+      "left": "prechen. Denn es gibt nichts außer der Natur. Der Mensch gehört selbst zu dieser Natur. Wenn er also sich und die Natur betrachtet, so gibt sich ihm alles kund, wovon überhaupt gesprochen werden kann.",
+      "right": "Von dieser Weltanschauung war auch Goethe durchdrungen. Auch er suchte, was frühere Anschauungen in einer jenseitigen Welt gesucht haben, in der Natur selbst. Die Natur wurde sein Gott. Von keiner and",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 61,
+      "left": "enso auf, wie man dies auch in der leblosen Natur tut. Ernst Haeckel faßt das Glaubensbekenntnis dieser Naturwissenschaft in die Worte zusammen: «Der Magnet, der Eisenspäne anzieht, das Pulver, das ex",
+      "right": "plodiert, der Wasserdampf, der die Lokomotive treibt ... sie wirken ebenso durch lebendige Kraft, wie der Mensch, der denkt.» Diese Naturwissenschaft ist davon überzeugt, daß sie mit den Gesetzen, wel",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 65,
+      "left": "r ein freier sein; und wenn die ökonomische Ordnung allen Menschen ein menschenwürdiges Dasein bringen wird, dann werden sie auch eine Weltanschauung zu der ihrigen machen, die den Geist ganz befreit.",
+      "right": "WILLIAM SHAKESPEARE\n\nBerlin, 6. Mai 1902\n\nEinem Ausspruch des berühmten Schriftstellers Georg Brandes gemäß muß man Shakespeare den deutschen Klassikern hinzurechnen. Und wenn man den außerordentliche",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 66,
+      "left": "enn die ökonomische Ordnung allen Menschen ein menschenwürdiges Dasein bringen wird, dann werden sie auch eine Weltanschauung zu der ihrigen machen, die den Geist ganz befreit.",
+      "right": "WILLIAM SHAKESPEARE\n\nBerlin, 6. Mai 1902\n\nEinem Ausspruch des berühmten Schriftstellers Georg Brandes gemäß muß man Shakespeare den deutschen Klassikern hinzurechnen. Und wenn man den außerordentliche",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 68,
+      "left": "für die Darstellung der Persönlichkeit, wie sie Shakespeare ihnen bot. Es ist Shakespeare eben auf diese Charakterdarstellung angekommen; ihm lag es fern, seinen Zuhörern eine ethische oder moralische",
+      "right": "sehe Idee zu entwickeln. Die Idee einer tragischen Schuld beispielsweise, mit der Schiller glaubte seinen Helden belasten zu müssen, um seinen Untergang zu rechtfertigen, lag Shakespeare vollständig f",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 72,
+      "left": "Fall ist, dann wird die Wirkung von Shakespeares Kunst eine immer gewaltigere werden: durch die Kraft der Charakterschilderung, in der sie durch die Jahrhunderte lebendig und unerreicht geblieben ist.",
+      "right": "# ÜBER RÖMISCHE GESCHICHTE\n\nBerlin, 19. Juli 1904\n\nWir haben gesehen, daß etwa achthundert Jahre vor dem Beginn unserer Zeitrechnung von Rom aus ein Reich sich ausbreitete, das ursprünglich seinen Aus",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 78,
+      "left": "sche Bürgerrecht wird den Provinzen versagt. Die Provinzen haben keine Rechte, sie sind Unterjochte. Das geht Hand in Hand mit den übrigen Entwicklungsstadien, mit der Ausdehnung des Großgrundbesitzes",
+      "right": "und den damit verknüpften Problemen der Vererbung. Es geht Hand in Hand mit dem Heraufkommen eines ungeheuren Proletariats. Das Überhandnehmen des Proletariats hängt damit zusammen, daß das alte Bürge",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 80,
+      "left": "bertragen war wie in früherer Zeit, und draußen im Sinne eines zum Staate Halten der Provinzen. So entwickelte sich, man kann sagen mit Übereinstimmung der römischen Bürgerschaft, die römische Gewalt.",
+      "right": "Und dann kam während der Cäsarenzeit das Folgende. Es war tatsächlich so, daß durch die absolute Gewalt in den Provinzen die Cäsaren sich die gesamte Steuereinrichtung angeeignet hatten und die gesamt",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 84,
+      "left": " sondern weil es als ein charakteristisches Zeichen für die Denkweise des damaligen römischen Reiches gelten kann. Zwei Frauengestalten erschienen ihm im Traume, die eine war die Kunst, die andere war",
+      "right": "die Bildung. Die Kunst verlangte von ihm, daß er nach harter Arbeit strebe. Die Bildung forderte von alledem nichts. Er brauchte sich nur anzueignen ein paar Kunstgriffe, wie man möglichst gut die Leu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 85,
+      "left": "ellungen der ausgelassensten Art. Und das breitete sich immer mehr und mehr aus. Wir haben da auf der einen Seite äußersten Luxus und daneben eine Armut und ein Elend, wie es ganz unbeschreiblich ist.",
+      "right": "Nun sehen Sie, wie es dazu kam, wie in diesem ganzen römischen Reich ein Element mehr und mehr Ausbreitung gewann, welches sich von allen anderen dadurch unterschied, daß es mehr Ernst hatte, daß es e",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 88,
+      "left": "ihrer waren, die da Äcker oder Häuser hatten, die verkaufen sie und brachten das Geld des verkauften Gutes und legten es zu der Apostel Füßen, und man gab einem jeglichen, was ihm not war. Joses aber,",
+      "right": "mit dem Zunamen von den Aposteln genannt Barnabas, von Geschlecht ein Levit aus Cypern, der hatte einen Akker und verkaufte ihn und brachte das Geld und legte es zu der Apostel Füßen,» Das ist nicht e",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 90,
+      "left": "chtige Frage, die sich im Beginne des 4. Jahrhunderts entschieden hat. Das war aber zu gleicher Zeit die Epoche der Weltgeschichte, wo die Germanen immer mächtiger und mächtiger geworden waren, und es",
+      "right": "nichts mehr half, durch Umwandlung und Ummodelung das alte römische Reich zu stützen; es wurde hinweggefegt von den Germanen. Davon wollen wir das nächste Mal sprechen, wie die Germanen das alte römis",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 91,
+      "left": "stentum in dem Mönchstum aufgebäumt hat gegen die politische Gestalt des Christentums.\n\nEine Idee hängt damit zusammen. Es ist eine Idee, die schwer zu begreifen ist, weil sie gar nicht im ursprüngli-",
+      "right": "chen Christentum begründet war. Sie finden nichts von dem Mönchswesen im Christentum, weil diese Art von Vereinsamung, von Zurückziehen von der Welt, ihm ganz fremd war. Demjenigen, der das Christentu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 93,
+      "left": "on der Freiheit gesagt werden muß, daß, wenn sie noch so tief unterdrückt ist, für sie und von ihr gilt das wahre Wort:\n\nDas Alte stürzt, es ändert sich die Zeit,\nUnd neues Leben blüht aus den Ruinen.",
+      "right": "Seite: 94\n\n# GESCHICHTE DES MITTELALTERS BIS ZU DEN GROSSEN ERFINDUNGEN UND ENTDECKUNGEN\n\nVORWORT VON MARIE STEINER\n\nZUR i. AUFLAGE 1936\n\nDie Niederschrift dieser von Rudolf Steiner in der Arbeiterbil",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 94,
+      "left": "erden muß, daß, wenn sie noch so tief unterdrückt ist, für sie und von ihr gilt das wahre Wort:\n\nDas Alte stürzt, es ändert sich die Zeit,\nUnd neues Leben blüht aus den Ruinen.",
+      "right": "# GESCHICHTE DES MITTELALTERS BIS ZU DEN GROSSEN ERFINDUNGEN UND ENTDECKUNGEN\n\nVORWORT VON MARIE STEINER\n\nZUR i. AUFLAGE 1936\n\nDie Niederschrift dieser von Rudolf Steiner in der Arbeiterbildungsschule",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 95,
+      "left": "esprochen habe, ein solches Streben auch bei ihnen voraussetzend und so an ihre besten Kräfte appellierend.\n\nFür die Niederschrift dieser Vorträge sind wir Fräulein Johanna Mücke zu Dank verpflichtet.",
+      "right": "ERSTER VORTRAG, 18. Oktober 1904\n\nGoethe hat gesagt, das Beste in der Geschichte wäre der Enthusiasmus, den sie errege, der dazu führe, zu gleichen Taten zu ermuntern. In gewissem tieferem Sinne kann ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 98,
+      "left": "chte von fortwährenden Eroberungen; als es nichts mehr erobern konnte, ging es zugrunde.\n\nDer germanische Charakter prägte sich in allen seinen wesentlichen Bestandteilen vor der Eroberung aus, und er",
+      "right": "hat sich von den Berührungen mit anderen Völkern nicht unterjochen lassen. Seine Entwicklung stand fest vor dem Kampf. So sehen wir die Bildung des Volksgeistes sich vollziehen bei den Griechen nach&g",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 100,
+      "left": " keiner rechtlichen Anerkennung. Was sich aus diesen Anschauungen heraus entwickelte, war das Faustrecht, das Recht des Stärkeren; der war der Mächtige, der sein Recht durch seine Kraft geltend machen",
+      "right": "konnte. Zunächst war es die physische Kjraft, die sich behauptete; da mußte sich jeder fügen und fügte sich auch dem Stärkeren. Die Frucht dessen aber, was sich im germanischen Zeitalter vorbereitet h",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 101,
+      "left": ", Dante hervor. In den germanischen Städten entstehen zunächst praktische Erfindungen: der Kompaß, das Schießpulver, bis zu dem bedeutsamen Ereignis der Erfindung der Buchdruckerkunst. Alles dies, was",
+      "right": "hinüberführt in eine völlige Umgestaltung der Verhältnisse, war herausgeboren aus dem, was man praktisch errungen hatte. Das mag auf den ersten Blick sehr weit hergeholt erscheinen, aber, wie schon be",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 102,
+      "left": "frecht erhalten, schlägt das Herz der germanischen und slawischen Völker. Sie leben in der Seele, im Geiste. Helden wie Siegfried und Roland oder der Königssohn Marko werden in der Dichtung dieser Völ",
+      "right": "ker gefeiert. Nicht der äußere Sieg dieser Helden, sondern ihr Mut im Leiden und Untergang, ihr ungebeugter Geist wird gefeiert. Alles tritt zurück vor dem Rechte des Geistes und der Seele. Im Imperiu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 103,
+      "left": "r ausgesprochen hat, er sieht ihn dargestellt in den Brüdergemeinden wie sie auf böhmischem Boden sich entwickelten. Tief in unserem Volk liegt es, eine zwanglose Organisation als Ideal zu betrachten.",
+      "right": "Nicht nach, nicht während der Eroberung bildete es seinen Volkscharakter, sondern der Zug, der vor dieser Zeit in ihm lag, hat sich durch dieses Stadium hindurch erhalten und zu diesem Ideale endlich ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 104,
+      "left": "lichkeit kund. Der alte Grieche legte Wert auf die Vornehmheit der Rasse, der Römer auf die Vornehmheit der Person. Bei dem Germanen lag der Wert in der Kraft und Stärke der Person. Der moderne Mensch",
+      "right": "legt Wert auf den Kapitalismus, auf den Schein des Besitzes. So weist uns die Entwickelung darauf hin, daß immer mehr die Schranken fallen, die von außen die Persönlichkeit hemmen. Dann wird der Boden",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 105,
+      "left": "amaligen Verhältnissen gegenüber ist es, was Tacitus über diese Völker sagt. Er ist der Meinung, sie seien die Urbewohner jenes Landes, denn er kann sich nicht vorstellen, daß in diese unwirtlichen Ge",
+      "right": "genden andere Völker sich hätten wenden können. Er nennt jene Völkerstämme, die am Rhein, an der Lippe, an der Weser, an der Donau und in Brandenburg wohnen; nur diese sind ihm bekannt. Von ihnen erzä",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 106,
+      "left": "t war. Wir sehen also, daß die Kultur der Germanen um diese Zeit verwandt war mit der Kultur, die wir im 8. und 9. Jahrhundert v.Chr. in Griechenland antreffen. So sehen wir in Griechenland später die",
+      "right": "Ausbildung einer Kultur, die in Deutschland auf niedrigerer Stufe stehengeblieben ist.\n\nAll das weist auf eine ursprüngliche Verwandtschaft. Jene Völker, die später in Deutschland, Griechenland, Rußla",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 108,
+      "left": " Lebens im Garten des Paradieses. So sehen wir von Persien über Palästina hinüber nach Skandinavien Spuren der gleichen mythischen Vorstellungen.\n\nSo haben wir damit bei gewissen Völkern einen gemein-",
+      "right": "samen Grundcharakter nachgewiesen. Dabei ergeben sich wiederum Unterschiede zwischen einem südlicheren und einem nördlicheren Zweige des gemeinsamen Hauptstammes. Zu dem südlichen gehören die Griechen",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 110,
+      "left": "ristentum aufdrängten. Sie waren nicht athanasische, sondern arianische Christen. All diese östlichen germanischen Völkerstämme bekannten sich zu dem arianischen Glauben, einer Anschauung, die auf dem",
+      "right": "Konzil von Nicāa von den Anhängern des Athanasius für ketzerisch erklärt und verfolgt wurde.\n\nDie arianischen Christen nahmen an, daß der Gott in jeder Menschenbrust wohne. Daher glaubten die Goten an",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 117,
+      "left": "stufe lebte, große Schwierigkeiten fand und sich auf die Dauer nicht zu halten vermochte.\n\nAnders in Gallien. Dort gab es große Wälder und unbewohnte Landstriche. Auch hier verteilte man die eroberten",
+      "right": "Gebiete, und den Anführern fielen große Teile zu. Man war hier nicht in schon bestehende Verhältnisse hineingedrängt; es war die Möglichkeit zur Ausdehnung gegeben. Die Führer wurden hier zu Großgrund",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 120,
+      "left": "r anderen Geistlichen zurückstand; die gelehrten Priester und Mönche aber waren alle Kelten.\n\nSo waren in diesen Jahrhunderten allmählich die verschiedensten Völkerschaften durcheinander gerüttelt wor",
+      "right": "den; der Einfall der Hunnen hatte den Anlaß zu diesen Veränderungen gegeben. Während sich nun innerhalb der eigentlichen Kulturströmungen das gestaltete, was hier geschildert wurde, hatten sich äußerl",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 124,
+      "left": "hreiten bedeuten. Erstens die Begründung der freien Städte am Anfang des Mittelalters und zweitens die großen Erfindungen und Entdeckungen am Ende des Mittelalters. Die Geschichte rückt rascher vor um",
+      "right": "die Wende des 11. zum 12. Jahrhundert. Es entwickeln sich neue Gesellschaftsformen aus alten; daraus, daß viele Menschen ihre Wohnsitze verlassen und sich in den Städten niederlassen, entstehen durch ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 125,
+      "left": " alle diese Wanderungen der Germanen weiter zu verfolgen, zu sehen, wie Odoaker den letzten weströmischen Kaiser entthronte, wie die Goten durch Kaiser Justinian aus Italien vertrieben werden, wie die",
+      "right": "Langobarden von Norditalien Besitz ergreifen - wir sehen immer dieselben Verhältnisse sich abspielen.\n\nIn südlichen Gegenden, wo die Germanen festgefügte politische, wirtschaftliche Verhältnisse vorfi",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 128,
+      "left": "ls eine Anzahl von Großgrundbesitzungen darstellt: wir sehen Bistümer und Abteien entstehen, und Vasallen, die, wie sonst unter dem Schutz der Großgrundbesitzer, in den Schutz der Kirche sich begeben,",
+      "right": "um von ihr Lehen zu empfangen. So bildeten sich neben weltlichen geistliche Großgrundbesitzer. Dies ist der Grund, warum wir so wenig Tiefe und Wissenschaft wahrnehmen, und daß das, was wir an Geistig",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 132,
+      "left": "ergebracht in einer Zeit, wo dort ein wissenschaftsloser Geist sein Reich begründet hatte. Die maurischen Städte wurden Stätten ernster, wissenschaftlicher Arbeit: wir sehen da eine Kultur, die jeder,",
+      "right": "der sie kennt, nur bewundern kann, von der ein Humboldt sagte: «Diese Weite, diese Intensität, diese Schärfe des Wissens ist ohne Beispiel in der Kulturgeschichte.» Diese maurischen Gelehrten sind vol",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 133,
+      "left": "n nun die Wissenschaft, die man braucht, um den Gesichtskreis für Handel und Weltverkehr auszubreiten, wenn die Städtekultur entsteht, so sehen wir, daß es arabische Einflüsse sind, die hier sich gel-",
+      "right": "tend machen, ganz neue Elemente, die hier einströmen, und die versuchen, sich den alten anzupassen.\n\nDaß jemand wohl verwirrt werden konnte, der mit freiem Blick diese sich widerstrebenden Strömungen ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 135,
+      "left": "rt ausbildeten. Dabei sehen wir, daß sie sich eine Eigentümlichkeit bewahrt haben: eine Art soziale Ordnung, bestehend in der Verteilung von Privat- und Gemeineigentum. Es waren kleine soziale Verbän-",
+      "right": "de, in denen sie ursprünglich lebten, Dorfgemeinden, dann später Hundertschaften, Gaue, und in allen gab es Gemeineigentum an alledem, was Gemeineigentum sein konnte: Wald, Wiese, Wasser und so weiter",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 137,
+      "left": "al war es ein Herzog mit großen Besitztümern, starkem Heeresgefolge, Widukind, dessen Tapferkeit heftigsten Widerstand leistete. Er wurde mit der größten Grausamkeit niedergezwungen und mußte sich der",
+      "right": "Herrschaft Karls des Großen unterwerfen. Was bedeutet solche Herrschaft? Sie bedeutet folgendes: Wenn Karl der Große wieder abgezogen wäre, so wäre nichts Besonderes geschehen gewesen. Solche Stämme, ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 139,
+      "left": "hlt werden, das für Freie und Unfreie verschieden war, eine bestimmte Summe, die teils an die Familie des Gemordeten, teils an den Gau- oder Pfalzgrafen gezahlt wurde; ein Teil mußte an die königliche",
+      "right": "Zentralkasse abgeliefert werden. Für die gemeinschaftlichen Angelegenheiten, es waren eigentlich nur solche, die sich auf Abgaben und Verteidigung bezogen, und zur Beaufsichtigung, waren Landgrafen, d",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 140,
+      "left": " den Frauen betrieben; Schmiede- und Goldschmiedekunst waren die ersten Handwerke, die sich herausbildeten. Noch unbedeutender war der Handel.\n\nEigentliche Städte entwickelten sich vom 10. Jahrhundert",
+      "right": "ab. Ein geschichtliches Ereignis bereitet sich damit vor. Aber das, was von diesen Städten ausgegangen ist, der Handel, hatte damals keine Bedeutung, höchstens wurde von israelitischen Kaufleuten ein ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 142,
+      "left": "ommen; an dem geistigen Leben konnte nur der teilnehmen, der wirklich logisch denken konnte. Das wird heute nicht geachtet. Aber tatsächlich war es dies logische folgerichtige Denken, das, als die mau",
+      "right": "risch-arabische Kultur nach Europa kam, es bewirkte, daß diese Wissenschaft geschultes Denken vorfand. Die Denkformen, mit denen die Wissenschaft heute arbeitet, sie sind dort gefunden, es sind die we",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 143,
+      "left": ", die in der Vergangenheit lebten und die den Druck der Mächtigen oft zu spüren hatten.\n\nDie Kirche, die sich mit den äußeren Mächten verbündete, mußte sich vermaterialisieren, sie mußte dazu greifen,",
+      "right": "ihre Lehre und ganzes Wesen zu verweltlichen. Es gab in den ältesten Zeiten bis zu dem 12. Jahrhundert nichts, was erhabener, feierlicher war für den Christen als das Abendmahl. Es sollte ein dankbare",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 145,
+      "left": "außerordentlich wichtig, weil wir es mit einem Zeitraum zu tun haben, den wir schon besser erforschen können, in dem wir die menschliche Entwicklung verfolgen können vom einfachen Ursprung aus bis zur",
+      "right": "Entstehung dessen, was wir Staaten nennen. Und außerdem haben wir hier ein Ineinandergreifen der mannigfaltigsten Faktoren. Innerhalb einfacher Verhältnisse lebt sich ein fertiges Kulturgebilde ein, w",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 146,
+      "left": "etwas ganz anderes, völlig im Kindheitsstadium geblieben, im Vergleich zu jenen Römern.\n\nEine Art Naturleben, beschränkt auf Jagd und Kriegführung, führten sie ohne festes Recht und Gesetz. Ein großer",
+      "right": "Übergang fand nun statt in den Verhältnissen und Anschauungen dieser Völkerschaften, die in kleinen Verbänden zusammenlebten.\n\nWas hielt diese einzelnen Stämme zusammen? Das Andenken an irgendeinen Ah",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 148,
+      "left": " von Glaubenseifer, von wirklicher Überzeugung geleitet, später unter dem Einfluß der äußeren Gewalt, suchte sie selbst ein Machtverhältnis zu erringen. So war der Bischof erst ein dienendes Glied der",
+      "right": "Kirche, später selbst ein Herrscher und Grundbesitzer. So zeigt sich uns das Mittelalter etwa zur Zeit Karls des Großen. Aber wir dürfen nicht von einem Reiche Karls des Großen sprechen, wie wir heute",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 149,
+      "left": "rden zwar bei solchen Feldzügen durch die Heeresmassen gestört und beunruhigt, aber für den Fortschritt der Menschheit haben alle diese Kämpfe in der nachkarolingischen Zeit keine wirkliche Bedeutung.",
+      "right": "Dasjenige, was aber eine wirkliche Bedeutung hatte, war der Gegensatz, der sich herausgebildet hatte zwischen dem Frankenreiche und dem Reiche, das Deutschland und Österreich umfaßte. Im Westreiche wa",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 150,
+      "left": "n und beherrschen, der etwas in dem geistigen Leben leisten wollte. Die Dialektik ist die Kunst, gegenüber Angriffen eine Wahrheit in regelrechter Weise zu verteidigen. Die Gesetze der Vernunft müssen",
+      "right": "gekannt werden, um dies tun zu können. Nicht mit Scheingründen konnte gearbeitet werden, wo es galt, eine Wahrheit dauernd zu verteidigen; es war nicht die Zeit der Zeitungen, wo Gründe von heute nur ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 151,
+      "left": " sondern ein Ehrentitel. So nennt noch im 14. Jahrhundert der Meister Eckhart Plato den großen griechischen Pfaffen.\n\nDie vier höheren Wissenschaften waren Geometrie, Arithmetik, Astronomie und Musik.",
+      "right": "Geometrie ist Raumlehre. Arithmetik ist höheres Rechnen, auch Astronomie entsprach ungefähr dem, was wir heute darunter verstehen. Musik aber war nicht das gleiche, was wir heute so nennen. Musik war ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 152,
+      "left": "Weser, in das Land, plünderten überall die Küsten, besonders in Frankreich, wo sie die nördlichen Gegenden besetzten und bis nach Paris vordrangen. Dazumal regierte Karl ///., der sich vollständig un-",
+      "right": "fähig zeigte, etwas gegen dieses Volk zu unternehmen. Deshalb war es ein Leichtes, daß ein unbekannter Herzog in Österreich, Arnulf von Kärnten, der Karolingerherrschaft ein Ende machen und sich die H",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 153,
+      "left": "eit der weltlich gewordenen Kirche mit weltlicher Macht. Zwei sich ausbreitende Machtrichtungen sehen wir, und als dritte sehen wir die «freien Städte» entstehen, die über ganz Europa sich ausbreiten.",
+      "right": "SIEBENTER VORTRAG, 13. Dezember 1904\n\nVor acht Tagen habe ich Ihnen den Gegensatz entwickelt zwischen dem West- und dem Ostreich, zwischen dem, was heute Frankreich, und dem, was heute Deutschland und",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 154,
+      "left": "r gewählt, aber eigentlich nur ihrem Namen nach Könige waren, fortwährend damit zu tun hatten, die Stammesherzöge in ihre Abhängigkeit zu bringen.\n\nDie Geschichte erzählt viel von solchen Kämpfen. Auf",
+      "right": "die Karolinger folgte nach dem Franken Konrad das sächsische Königshaus, und es wird viel von den Taten Heinrichs L, Ottos L, II. und III. und Heinrichs II. erzählt, sowie der darauffolgenden fränkisc",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 156,
+      "left": "sie von Arnulf von Kärnten in der Schlacht bei Löwen besiegt worden waren und sich die Bretagne erworben hatten, aufgehört mit ihren Einfällen. Dagegen brachen jetzt von Osten finnisch-ugrische Völker",
+      "right": "Schaften herein, die Magyaren, deren Einfälle einen unbeschreiblichen Schrecken verursachten. Alle Berichte erzählen von der entsetzlichen Brutalität ihrer Eroberungszüge. Das Verdienst, sie zurückges",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 158,
+      "left": "iten ließ. Die Herzoge und Könige unterstützten diese Art von Unterwürfigkeit. Von Karl dem Großen an hat man mit dieser Herrschaft über die Seele gerechnet. - So wurde der Klerus bester und stärkster",
+      "right": "Ratgeber und nistete sich in die Seelen und Herzen des Volkes ein.\n\nDazu kam, daß in der damaligen Zeit durch die Araber ein starker Einfluß stattfand, nicht nur, wie früher geschildert wurde, durch w",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 159,
+      "left": "g der Bischöfe und Äbte konnte nicht ohne Reaktion, ohne Rückwirkung bleiben, und so verstehen wir, daß von Cluny eine mächtige Bewegung nach Reform ausgeht. Der Einfluß der Cluniazenser war ein unge-",
+      "right": "heuer großer; daß es möglich war, den Gottesfrieden durchzusetzen, ist ein Beweis dafür. In einer Zeit, wo nirgends ein einheitliches Reich vorhanden war, kann man ermessen, was es bedeutet, daß es de",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 160,
+      "left": "ch äußere Gewalt zusammengeschmiedet. Die Herzöge betrachteten sich jetzt verpflichtet, Heeresfolge und gewisse Abgaben dem Kaiser zu leisten. Alle diese Länder: Italien, Burgund, Lothringen, Franken,",
+      "right": "Sachsen, Österreich und auch Ungarn und Polen standen zeitweilig zur deutschen Krone im Lehensverhältnis.\n\nSo ist man in der Tat im 11. Jahrhundert zu einer gewissen Einheitlichkeit gekommen. Dabei wi",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 161,
+      "left": "t, der Heinrich IV., der sich das nicht gefallen lassen wollte, zum Gange nach Canossa führte.\n\nDas alles faßt sich zusammen in dem Streit zwischen weltlicher und geistlicher Macht. Haben wir noch bei",
+      "right": "Chlodwig gesehen, daß der Gott der Christen der seine wird, weil er die Heere zum Siege führte, so sehen wir, wie die Kirche jetzt selbst zur Herrschaft gelangt. Das muß man verstehen, wenn man die ne",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 162,
+      "left": " mit der Städtegründung und Sie werden empfinden, daß ein Jahrhundert heranbricht, das die Entwickelung machtvoll vorbereitet. Wenn Sie das in der rechten Weise verfolgen wollen, dann ist es nicht ge-",
+      "right": "nug, es nur verstandesgemäß in sich aufzunehmen. Niemand versteht die Ereignisse wirklich, der nur mit dem Verstande sie ergreifen will und nicht mit dem Gefühl, der sich nicht in die Feinheiten der V",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 163,
+      "left": "n Stammesherzöge zu einer Art von kaiserlichen Beamten zu machen. Vorher waren sie souverän hervorgegangen aus der Stammeseigentümlichkeit; jetzt waren sie geworden was man Ministeriale nennt, Dienst-",
+      "right": "mannen des Kaisers. Allmählich geschah eine Gleichstellung der niederen Lehensleute, die aus Freien auch zu Dienstleuten geworden waren, mit den Ministerialen. Sie bildeten mit der Zeit das heraus, wa",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 164,
+      "left": "enso ungebildet wie Ritter- und Bauernstand; nichts von dem, was wir heute Bildung nennen können, war vorhanden. So war es möglich, von Rom aus die politische Lage der Kirche immer mehr zu befestigen.",
+      "right": "Anders war es in den Klöstern. Hier wurde viel gearbeitet von Männern und Frauen. Tiefe Gelehrsamkeit war hier zu finden; alle Bildung der damaligen Zeit ist lediglich von den Klöstern ausgegangen. Si",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 165,
+      "left": " christliche Religion kein Festhalten an irgendein Dogma gekannt. Auf den Ideengehalt war es angekommen, nicht auf die äußere Einkleidung. Sie haben gesehen, wie im Heliand die Christus-Idee in freier",
+      "right": "Weise ausgestaltet wurde, wie der Dichter dabei für seine Landsleute das Christus-Leben in altsächsische Verhältnisse verlegte. Er faßte die Äußerlichkeiten dabei ganz frei auf, die ganz ebensogut bei",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 166,
+      "left": "ie allen Ständen entstammten, auch dem Adel, war eine große Menge, die nichts zu tun hatte und zu jeder Unternehmung bereit war, auch zum Kreuzzug.\n\nSo kommen wir dazu zu verstehen, daß eine große An-",
+      "right": "zahl von Faktoren tätig war: religiöse Schwärmerei, starres Dogma und materielle Bedrückung. Wie stark diese Ursachen wirkten, sehen wir daraus, daß, als der erste Kreuzzug zustande kam, es eine halbe",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 168,
+      "left": "em, was das menschliche Denken erreicht, nur blinde Zufälligkeiten zu sehen, wie Kant, auch Schopenhauer, der die Welt als Vorstellung auffaßt, bilden einen Ausfluß des mittelalterlichen Nominalismus.",
+      "right": "Diese Strömungen teilten das Heer der Mönche in zwei Lager. In so wichtigen Fragen ist es bemerkenswert, wie die Kirche keinen Zwang ausübte und, insofern es die Gelehrsamkeit betrifft, ruhig es gesta",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 169,
+      "left": "iheitsgefühl und der Sinn für den unmittelbaren persönlichen Wert. Wir sehen so auf der einen Seite auf dem Lande eine religiöse Gesinnung bei zunehmendem äußerem Druck; in den Städten ein freies Bür-",
+      "right": "gertum, zwar an eine streng geregelte Zunftverfassung gebunden, doch gerade dadurch gedieh damals die Freiheit der Städte; auf dem Lande aber ein absterbendes Leben, Faustrecht und Roheit. Das Rittert",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 170,
+      "left": "urde, ist in dieser Zeit der Städtekultur zu danken. Einer solchen reichen italienischen Städtekultur entstammte auch Dante. Auch in Deutschland finden wir bedeutende geistige Leistungen unter dem Ein",
+      "right": "fluß dieser Städtekultur. Zwar waren die ersten bedeutenden Dichter Ritter, wie Wolfram von Eschenbach, Gottfried von Straßburg und so weiter, aber ohne den Rückhalt, den die Städte boten, waren diese",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 172,
+      "left": "en nach den Schlagworten der Gegenwart zu verteilen, habe ich Ihnen diese Zeiten geschildert. Ich suchte an den Punkten zu verweilen, wo wirklicher Fortschritt vorhanden ist. Wollen wir freie Menschen",
+      "right": "sein, müssen wir ein Herz haben für die, die vor uns nach Freiheit gestrebt haben. Wir müssen verstehen, daß auch andere Zeiten Menschen hatten, die etwas auf Freiheit gegeben haben.\n\nGeschichte ist d",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 175,
+      "left": "r, was man die Hansa nennt. Im Lauf der Zeit war es nötig geworden, nicht nur Handels-, sondern auch Kriegspolitik zu treiben. Im Hintergrunde lauerten Feinde, die Ritter und Herzöge, die neidisch die",
+      "right": "Entwicklung der Städte verfolgten. Die Städte mußten sich mit Mauern umgeben und sich gegen ihre Feinde verteidigen. So wurden sie immer mehr mächtige Kulturstätten, auch Mittelpunkte des geistigen Le",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 176,
+      "left": "s Leben. Im frühen Mittelalter ist materielles und geistiges Leben eng ineinander verschlungen, das Gedeihen seiner Früchte wie sein religiöses Empfinden glaubt der Landmann durch die Kirche gefördert",
+      "right": "und gesegnet. Jetzt, wo persönliche Tüchtigkeit in den Vordergrund trat, spalteten sich diese Richtungen.\n\nDer eigentümliche Baustil des Mittelalters, den man fälschlich den gotischen nennt, kam aus S",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 177,
+      "left": "r eine vornehme Form, ihren Namen im Gedächtnis ihrer Mitbürger zu erhalten. Besonders werden überall schöne Brunnen errichtet. Wir sehen, daß damals etwas entsteht, was im Mittelalter besondere Bedeu",
+      "right": "tung erlangte, die öffentlichen Bäder, die in keiner Stadt fehlten. Im späteren Mittelalter gaben diese Bäder Anlaß zu moralischen Ausschreitungen und wurden aus diesem Grunde vom Protestantismus ausg",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 178,
+      "left": " nicht sehr alt. Im frühen Mittelalter finden wir viele Juden als Gelehrte anerkannt. In späterer Zeit kamen sie dem Geldbedürfnis der Fürsten und Ritter entgegen. Durch die eigentümlichen Verhältnis-",
+      "right": "se des Mittelalters gelangten sie zu der Stellung des Geldverleihers, der zwischen Handel und Wucher stand und ihnen Haß eintrug. Doch verschaffte ihnen die Geldnot der Könige immer wieder gewisse Rec",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 180,
+      "left": "s standen, fünf Römerzüge unternahm, um sie niederzuzwingen, mußte im Frieden von Konstanz ihnen die Unabhängigkeit zugestehen, nachdem es ihm nicht gelungen war, ihre Festung Alessandria einzunehmen.",
+      "right": "Die deutsche päpstliche Partei bestand besonders aus den Fürstengeschlechtern, die zurückgeblieben waren aus dem alten Adel. Heinrich der Stolze und sein Sohn Heinrich der Löwe kämpften für die alte H",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 183,
+      "left": " nach weltlicher Gewalt gestrebt.\n\nMan kann sich die Entwicklung nur konstruieren. Obgleich sich die Städte gebildet hatten, war doch ein Teil der Herzogsgewalt und des Raubrittertums zurückgeblieben.",
+      "right": "Nicht Begeisterung für das Christentum, sondern bloßer Egoismus war es, der es bewirkte, daß die Reste des Feudaladels sich zusammenzogen in diesen beiden deutschen Ritterorden. In diesen Gegenden war",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 184,
+      "left": "ach dem Tode des Herzogs Heinrich Jasomirgott Niederösterreich an seinen Sohn und gründete damit die habsburgische Hausmacht. Seine Nachfolger suchten diese Macht durch Eroberungen und besonders durch",
+      "right": "Heiratsverträge zu erhöhen und kümmerten sich nicht mehr um irgend etwas, was mit allgemeinen Interessen zusammenhing.\n\nSie sehen, was wirklich bedeutend für die Fortentwicklung war: Die Ereignisse, d",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 185,
+      "left": "nd Herzögen, was übriggeblieben war, sammelt wieder seine Kräfte und bestimmt durch seine familiären privaten Verhältnisse die Landkarte Europas.\n\nDer Grundbesitz war in seiner Vorherrschaft durch die",
+      "right": "Städte abgelöst worden, das Bürgertum blühte und alle eigentlichen Kulturfaktoren gingen von den Städten aus. Das Kaisertum war zu einer Schattenmacht herabgesunken; nach langem Interregnum wurde Rudo",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 186,
+      "left": "harte Kämpfe erlangten sie es, nur abhängig von kaiserlicher Gewalt – reichsunmittelbar – zu sein; sie wollten nichts wissen von fürstlicher Gewalt.\n\nDas Bestreben, die eigene Hausmacht zu vergrößern,",
+      "right": "setzt sich fort unter den folgenden Kaisern; so bemächtigt sich Adolf von Nassau eines großen Teiles von Thüringen, das er den schwächlichen Fürsten entreißt. Auch Albrecht von Österreich und dessen N",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 187,
+      "left": "n Hand; es verquickte sich religiöse Stimmung mit politischer Bewegung und diese Volksstimmung fand ihren Ausdruck in den Bauernkriegen. Wer sie erfassen will, diese geistige Ketzerstimmung unabhängig",
+      "right": "von äußerer Kirchlichkeit und Fürstengewalt, der muß sich vergegenwärtigen, daß besonders in den Rheingegenden — «des Heiligen römischen Reiches Pfaffengasse» — durch Jahrzehnte hindurch harte Kämpfe ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 188,
+      "left": "von den Fürsten verschachert.\n\nWollen wir die eigentliche Geschichte verstehen, müssen wir uns vorhalten, wie der große Umschwung vom Mittelalter zur neuen Zeit darin bestand, daß die Fürsten für ihre",
+      "right": "Privatinteressen jene unzufriedene Stimmung benutzt haben; die Staaten, die sich bilden, sehen wir ihre Fangarme ausbreiten über eine jahrhundertlange populäre Strömung, und es wird diese Strömung für",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 190,
+      "left": "e Fürstengewalt, der Hus zum Opfer gefallen ist. Die Hussiten führten ihren Krieg für ein republikanisches Christentum nicht nur gegen die Kirche, er wurde geführt gegen die herannahende Fürstenmacht.",
+      "right": "Im Protestantismus verbündet sich aber diese Macht mit der religiösen Unzufriedenheit, um sie für seine Zwecke auszunützen. Die Taten der Nachfolger des Hus waren damit zum Tode verurteilt, daß die Fü",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 194,
+      "left": "rgangenheit für die Gegenwart und Zukunft lernen in der Art, wie es uns in dem Ausspruch eines alten keltischen Barden entgegentritt, der sagt, daß es ihm die schönste Musik sei, wenn er die großen Ta",
+      "right": "ten der Vorzeit höre, die ihn aufrütteln und begeistern. So wahr es ist, daß das menschliche Dasein das wichtigste Phänomen und damit der Mensch selbst das würdigste Studium ist, so wahr ist es auch, ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 195,
+      "left": "hte lernen, daß wir an ihr beflügeln unsere Hoffnungen, unsere Gedanken und Gefühle. Bringen wir herüber aus der Vorzeit, was wir brauchen für die Zukunft, was wir brauchen für das Leben, für die Tat!",
+      "right": "---\n\n\n\n\nII\n\nVORTRÄGE AN DER BERLINER\n«FREIEN HOCHSCHULE»\n\n\n---\n\n\n\n\n\n---\n\n\n# PLATONISCHE MYSTIK UND",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 196,
+      "left": "hr beflügeln unsere Hoffnungen, unsere Gedanken und Gefühle. Bringen wir herüber aus der Vorzeit, was wir brauchen für die Zukunft, was wir brauchen für das Leben, für die Tat!",
+      "right": "II\n\nVORTRÄGE AN DER BERLINER\n«FREIEN HOCHSCHULE»\n\n\n---\n\n\n\n\n\n---\n\n\n# PLATONISCHE MYSTIK UND DOCTA IGNORANTIA\n\nERSTER VORTRAG, 29. Oktober 1904\n\nIm Aufgange dessen,",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 197,
+      "left": "herüber aus der Vorzeit, was wir brauchen für die Zukunft, was wir brauchen für das Leben, für die Tat!",
+      "right": "II\n\nVORTRÄGE AN DER BERLINER\n«FREIEN HOCHSCHULE»\n\n\n---\n\n\n\n\n\n---\n\n\n# PLATONISCHE MYSTIK UND DOCTA IGNORANTIA\n\nERSTER VORTRAG, 29. Oktober 1904\n\nIm Aufgange dessen, was wir die christliche Mystik nennen",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 198,
+      "left": "Steiner Nachlass-Verwaltung Buch:51 Seite: 195\n\n\n\n\nII\n\nVORTRÄGE AN DER BERLINER\n«FREIEN HOCHSCHULE»",
+      "right": "# PLATONISCHE MYSTIK UND DOCTA IGNORANTIA\n\nERSTER VORTRAG, 29. Oktober 1904\n\nIm Aufgange dessen, was wir die christliche Mystik nennen, zur Zeit der Gnosis, wurde die Mystik «Mathesis» genannt. Es war",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 199,
+      "left": "da an einen Namen anknüpfen, der oft verkannt wird, den des Dionysius Areopagita. In der Apostelgeschichte wird erzählt von einem Dionysius, der ein Schüler des Apostel Paulus gewesen sein soll. Im 6.",
+      "right": "Jahrhundert tauchten einige Schriften auf, die außerordentlich anregend sind für die, welche eine Religion des Gemütes brauchen. Aus dem Griechischen wurden sie ins Lateinische übersetzt, und dadurch ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 200,
+      "left": " Mensch erkennt, erkennt er den objektiven Gedanken draußen. Im Menschen wird er subjektiver Gedanke. Es gibt ein Bindeglied, welches zu gleicher Zeit den Menschen in seinem inneren Erleben trennt von",
+      "right": "dem äußeren Gedanken und verursacht, daß der Gedanke von außen hereinfließt in ihn.\n\nWenn wir einen Kristall ansehen, so ist in dem Kristall der Gedanke eines Würfels oder ein anderer Gedanke verwirkl",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 201,
+      "left": "den sein, und würden wir uns ein Bild vom Schöpfer danach machen, so würden wir doch nur ein unvollkommenes Bild von ihm haben. Wir dürfen uns nicht ein bestimmtes, begrenztes Bild von dem Weltengeist",
+      "right": "machen. Erst in Zukunft wird man erkennen, was die Welt eigentlich treibt und in Bewegung setzt. Die Welt ist in fortwährender Vervollkommnung begriffen. Derjenige, der da schafft in der Welt, ist der",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 202,
+      "left": "gionsbekenntnisse, in denen noch heute vorhanden ist die Anleitung, zum unbewegten Beweger zu gelangen. In der indischen Welt hieß der Ausdruck des Hinstrebens Veda oder Wort. Bei den Griechen hieß es",
+      "right": "Logos, Wort. Es ist das Streben des Menschen nach dem unbewegten Beweger, der uns hinzieht zu sich. Das, was verwirklicht ist, heißt in den ersten Zeiten der christlichen Mystik der Geist, der Heilige",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 203,
+      "left": "sch-Männliche, der Vater. Das, was sich befruchten läßt, ist das Seelisch-Weibliche, die Mutter-Seele, das Ewig-Weibliche. Das, wodurch der Mensch sich selbst bewußt wird, nennt der Mystiker den Sohn.",
+      "right": "Die Aspekte der Seele sind: Vater, Mutter und Sohn. Sie entsprechen den drei Aspekten im Kosmos: Vater, Sohn, Heiliger Geist, den Aspekten des Weltengeistes.\n\nIndem der Mensch durch die Empfindung sei",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 204,
+      "left": "n, daß der Mystik des Mittelalters zugrunde liegt die Anschauung von der Dreiteilung der menschlichen Natur und des ganzen Universums. Wir haben gesehen, wie der Mystiker sich den Geist vorstellte und",
+      "right": "das Leibliche und Seelische. Es Hegt in der Natur der mystischen Vorstellungsweise, daß der Mystiker im Geiste erlebt, was draußen in der Natur ist, daß er aus sich nachschafft, was draußen in der Nat",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 205,
+      "left": "ngt in der Seele, nannte man die seelische Mutter; drittens das Bewußtsein selbst, worin die Empfindung auflebt, nannte man den Sohn. Dies ist der Zusammenhang von Empfindung, Vorstellung und Gedanke.",
+      "right": "In der Seele selbst erlebt der Mystiker den Geist in seiner Innerlichkeit als Geist unmittelbar, in drei Gliedern: erstens den Vatergeist, den unbewegten Beweger des Aristoteles; zweitens die Sehnsuch",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 207,
+      "left": "nnern durch den Logos befruchten läßt. Immer wieder hielt Eckhart dies durch seine gewaltigen Predigten dem Menschen vor. Das Fünklein in der Seele ist das Wesentliche. Das Fünklein ist ein ewig Eins.",
+      "right": "Wenn der Mensch das Aufleben des Fünkleins erlebt, so fühlt er Gott selbst in der Seele. Es gibt bei den Mystikern einen Kunstausdruck: Die Seele hat sich in den Grund gelassen. — Es ist dies eine Ank",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 208,
+      "left": "heraus: sein Leben war eine Darlegung des göttlichen Lebens. Er sagt, so lange ich die höchste göttliche Weisheit nur bespreche und darstelle, habe ich nicht das Richtige erreicht. Ich muß selbst ganz",
+      "right": "verschwinden und muß Gott aus mir sprechen lassen. Er sagt, Gott sieht seine eigenen Gesetze, durch die er die Welt geschaffen hat, durch mich an, mein Selbst ist das Selbstleben: Ich muß Gott in mir ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 209,
+      "left": "d Werde, bist du nur ein trüber Gast auf der dunklen Erde.» Das Erleben der Conceptio immaculata ist das Stirb und Werde, im niederen Sinn und im höheren Sinn. Es erlebten die, welche Tauler zuhörten,",
+      "right": "die Unio mystica. Wie der Mensch alle äußeren Schönheiten empfindet, die von außen herankommen, durch die Empfindung, so empfindet der Mystiker die Schönheit der geistigen Welt durch Christus, den er ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 212,
+      "left": "er Sinne ab, wie die äußere Welt in uns eindringt. Von den spezifischen Energien unserer Sinne hängt es ab, wie wir die Welt wahrnehmen. Helmholtz hat sich darüber ausgesprochen, wie er das Verhältnis",
+      "right": "sich denkt. Er sagt: Wie kann ich wissen, wie das Licht an sich, der Ton an sich gestaltet ist? Nur Zeichen der äußeren Welt sind unsere Sinnesempfindungen.\n\nDas «Wissen» nennt der Kusaner auch in die",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 215,
+      "left": "dschrift von 1497 durch Franz Pfeiffer besorgt worden. Tiefe, gemütvolle Tone von einer historisch unbekannt gebliebenen Persönlichkeit sind in dieser Schrift enthalten. Will jemand das Sat der Vedan-",
+      "right": "taphilosophie verstehen, so muß er, wie er bei Ananda sich ausgießen muß in die Welt, bei Sat seinen Willen ganz ausgießen. Bei der Vergottung (Sat) muß das selbstlose Wollen da sein; sein Wille muß u",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 217,
+      "left": "echt geben. Ausnahmen von diesem Gesetze mögen in einzelnen Fällen gemacht werden. Eine solche Ausnahme liegt hier vor. Sie scheint mir die Regel zu bestätigen.\n\nBerlin, April 1905\n\nDr. Rudolf Steiner",
+      "right": "ERSTER VORTRAG, 21. Januar 1905\n\n# Schillers hebert und Eigenart\n\nHundert Jahre sind am 9. Mai 1905 seit Schillers Tode dahingegangen. Die deutsche gebildete Welt wird ohne Zweifel die Erinnerung an d",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 220,
+      "left": "An dem Verhältnis des Menschen zur Welt, zum Urgründe der Welt wurde nicht gerüttelt.\n\nJetzt wurde es anders. Über das menschliche Geistesleben die Grundwahrheiten in dem Sinne zu lösen, wie sie Jahr-",
+      "right": "hunderte gelöst, war unmöglich geworden. In Frankreich, angeregt durch den englischen Sensualismus, kam eine rationalistisch, materialistische Anschauung auf. Man begann die Seele abzuleiten aus mater",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 221,
+      "left": "tande glücklicher gewesen als jetzt, wo sie die Persönlichkeit in sich verkommen ließen. In den Zeiten, als der Mensch, in alten Traditionen fußend, noch etwas zu wissen glaubte von den Zusammenhängen",
+      "right": "der Welt, war er nicht so sehr auf die Persönlichkeit gestellt. Jetzt, wo die Persönlichkeit zerschnitten hatte die Verbindungsketten zwischen sich und der Welt, kam die Frage heran: Wie soll diese Pe",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 222,
+      "left": "s gerade in Deutschland diese besondere Gestaltung annahm: Frömmigkeit vereinigte sich mit unendlicher Sehnsucht nach Emanzipation. Der Persönlichkeits-Freiheitsdrang, nicht nur Religion, ist es auch,",
+      "right": "was aus Klopstocks «Messias» spricht. Gerade in seinem religiösen Empfinden wollte der Deutsche frei sein. Der «Messias» machte auf Schiller einen ungeheuren Eindruck.\n\nSchiller wählte das Studium der",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 223,
+      "left": "rliche so erniedrigt und verabscheut. Es war nicht die Weltanschauung des jungen Schiller. Für Schiller ist der Körper der Tempel des Geistes, von Weisheit auferbaut, und hat nicht umsonst Einfluß auf",
+      "right": "das Geistige. Welche Bedeutung hat der Körper für das Seelische? - Diese Frage hat Schiller, dem das Physische auch heilig war, sich zu lösen gesucht. Er schildert zum Beispiel, wie im Affekt, in der ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 224,
+      "left": "ir berühren die tiefsten kulturgeschichtlichen Fragen, wenn wir die Schillerschen Dramen betrachten. Jeder Mensch hatte damals ein Stück Marquis Posa in sich. Dadurch gewann Schillers Problem ein neu-",
+      "right": "es Gesicht. Tiefe Fragen werden aufgerollt über die Menschenseele, über die Bedeutung des Lebens. Schiller sah, wie wenig auf dem äußeren Plane sich hatte erreichen lassen. Man versuchte nun in Deutsc",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 225,
+      "left": "durch staatliche Gesetze: im ästhetischen Genüsse sah Schiller eine Erziehung zur Harmonie. Als Mensch fühlt er sich frei durch die Kunst: so möchte Schiller die ganze Welt in ein Kunstwerk umwandeln.",
+      "right": "Wir sehen hier den Unterschied jener Zeit von der unseren. Heute steht die Kunst im Winkel; damals wollte Schiller dem Leben durch die Kunst einen unmittelbaren Eindruck geben. Tolstoi muß heute die K",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 226,
+      "left": "in Verhältnis zu sich, zur Natur, zum Universum, zu Gott, hat er sich hineingestellt gefunden in dieses Universum. Er verehrte denselben Gott draußen, der in der eigenen Seele lebte; dieselben Welten-",
+      "right": "mächte, die er in der Natur fand, waren in der eigenen Seele des Menschen tätig; es war eine gewisse Einheit, die man sah in den Gesetzen des Weltalls und in der Natur des Menschen. Man braucht sich n",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 227,
+      "left": " Karl Moor wird herausgearbeitet ein Mensch, der in sich selbst den Zwiespalt zwischen der objektiven Ordnung und den menschlichen Forderungen trägt, und der sich berufen fühlt, zwischen der Natur und",
+      "right": "sich diesen Einklang hervorzurufen. Seine Tragik entsteht, weil er glaubt, durch Gesetzlosigkeit und Willkür dem Gesetz wieder aufzuhelfen. - In «Fiesco» scheitert das Sehnen nach Freiheit an dem Ehrg",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 228,
+      "left": " wiederfinden. - Dieses Urteil ist projiziert aus einer gewissen Höhe: man muß wissen, was man Schillers Große schuldig ist. - Doch es konnte nicht lange so bleiben. Schiller mußte über diesen kleinen",
+      "right": "Horizont hinauskommen, und nun sehen wir, wie er im vierten seiner Dramen, im «Don Carlos» sich hinarbeitet zu einem anderen Standpunkt. Wir können aus einer doppelten Perspektive «Don Carlos» betrach",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 229,
+      "left": "Fülle von großen Ideen ein; da ist ein Streben nach Einheitlichkeit zwischen Natur und Mensch. Vom untersten Naturprodukt, bis herauf zu dem Gedanken des Menschen, lebt ein Gesetz. Was im Menschen als",
+      "right": "Sittengesetz sich darstellt, ist im Kristall sich selbst Gesetz der Gestaltung. Eine Grundentwicklung zieht sich durch alles Bestehende hindurch, so daß, was an der Pflanze sich zur Blüte gestaltet, i",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 230,
+      "left": "ann nur äußeres geben, reicht aber nicht zu dem Wesen der Dinge. Was das Ding an sich ist, verbirgt sich hinter den Erscheinungen; der Mensch darf gar nicht darüber sprechen. Aber es lebt etwas im Men",
+      "right": "sehen, was unmöglich nur Erscheinung sein kann. Das ist das Sittengesetz. Auf der einen Seite: die Welt der Erscheinungen; auf der anderen Seite: das Sittengesetz, der kategorische Imperativ, das «Du ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 235,
+      "left": "Anlage, den Begriff des Idealen als etwas Entgegengesetztes dem Natürlichen zu fassen.\n\nAuch die Professur in Jena, die Goethe für Schiller erwirkte, ist nicht als ein Freundschaftsdienst aufzufassen.",
+      "right": "Dieses Ereignis war für Schiller von weitgehender Bedeutung. An dem Studium geschichtlicher Charaktere konnte er einen tiefen Blick in den Entwicklungsgang des Geistes tun. Auch war ihm die Möglichkei",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 237,
+      "left": "e, die heute noch nicht übertroffen ist von andern Ästhetikern, indem er sich fragt: «Wie verträgt sich dieser oder jener Begriff mit dem Geiste Goethes?», eine Darstellung der verschiedenen Arten des",
+      "right": "künstlerischen Schaffens, die er in seiner Abhandlung über «Naive und sentimentale Kunst» niederlegt. Naiv schafft der Künstler, der noch im Zusammenhange steht mit der Natur, der selbst noch Natur in",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 239,
+      "left": " denen, die sich an ihnen und dem guten Geschmack vergingen, ein weltgeschichtliches Strafgericht vollzogen, ist nicht immer zu unterscheiden, welche von Goethe und welche von Schiller herrühren. Ihre",
+      "right": "Freundschaft sollte sie als eine Person erscheinen lassen. An dem Beispiel Schillers und Goethes können wir wahrnehmen, wie Größe sich des Alltags zu erwehren weiß, und wie Freundschaft, die im Geisti",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 241,
+      "left": "Was heißt und zu welchem Ende studiert man Universalgeschichte?» — versuchte er die Bedeutung eines solchen Gesetzgebers wie Moses zu charakterisieren. Dann behandelt er die Zeit der Kreuzzüge; und es",
+      "right": "gibt vielleicht nichts Schöneres und Interessanteres als die Art, in der Schiller die Besitz- und Lehnsverhältnisse des Mittelalters schildert. Die großen Freiheitskämpfe der Niederlande werden so erf",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 242,
+      "left": "ier noch in Disharmonien unbefriedigt lebt, entwirft in der «Theosophie des Julius» sein Weltbild etwa in folgender Weise: «Alles in der Welt entstammt einem geistigen Urgründe. Auch der Mensch ist zu",
+      "right": "nächst hervorgegangen aus diesem Urgrund; er ist ein Zusammenfluß aller Kräfte der Welt. Er wirkt wie ein Auszug, wie eine Vereinigung alles dessen, was in der Natur ausgebreitet ist. Alles Dasein auß",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 243,
+      "left": "ritt uns hier Schillers Weltanschauung in den «Ästhetischen Briefen» entgegen: Auf der einen Seite ist der Mensch seiner niederen Natur, seinen Trieben unterworfen; die Natur ist hier Notwendigkeit in",
+      "right": "den Sinnendingen, die auf ihn einstürmen. Auf der anderen Seite liegt im Denken des Menschen die geistige Notwendigkeit; da ist die Logik, der er sich unterwerfen muß. Er ist Sklave der Naturnotwendig",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 244,
+      "left": " Triebe so gereinigt hat, die ästhetische Stimmung, und den Staat, in dem solche Menschen wirken, die ästhetische Gesellschaft. Der Mensch muß verwirklichen, was ihm als seine höchste Würde erscheint.",
+      "right": "In der Theosophie des Julius hatte Schiller ein ideales Weltbild aufgestellt. Eine Erziehung zu dem Ideal ist es, was Schiller vom Menschen und von der menschlichen Gesellschaft verlangt. Entwicklung ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 245,
+      "left": "te, nicht von Ideen. Gleichsam in Melodien ergoß sich in sein Inneres der Strom der im Menschen verwickelten Kräfte, die sich lösten in Harmonie oder untergingen in Disharmonie. Dann suchte er die Ge-",
+      "right": "danken, die Charaktere, die einzelnen Stimmungen. So standen ihm vor Augen die kontrastierenden Seelenkräfte Wallensteins, die diesen mit Notwendigkeit zu einer großen Katastrophe führen. - Man kann l",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 246,
+      "left": "ihm gelogen. Doch nein, die Sterne können nicht lügen: Der Mensch, der gegen die heiligsten Gesetze des Gefühls und Herzens verstößt, er bringt die Harmonie der Sterne in Unordnung. Es kann keine Ord-",
+      "right": "nung in der Natur geben, die den Gesetzen des menschlichen Geistes widerspricht. Wer in dieser Weise den Charakter Wallensteins betrachtet, wird Schillers eigene Person in tiefer Bedeutung durch die P",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 247,
+      "left": "rsuchte aufzusteigen aus seiner früheren Weltanschauung zu der Erfassung dessen, was er das rein Künstlerische nannte. Wir haben gesehen, wie Schiller versuchte, im Schonen, Künstlerischen etwas zu se",
+      "right": "hen, was die menschlichen Seelenkräfte zu erheben, in Harmonie zu bringen vermag, so daß es das künstlerische Schaffen ist, was dem Menschen die Freiheit gibt. So war ihm, wie er an Goethe gelegentlic",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 248,
+      "left": "ten, sondern nur als Künstler.\n\nEs erinnert diese Auffassung an ein Gespräch Schillers mit Goethe, in dem sie Betrachtungen über Architektur angestellt haben. In diesem hat Goethe ein tief bedeutendes",
+      "right": "Wort gesprochen, das zunächst etwas paradox klingen könnte. Goethe hat verlangt von einem schönen Gebäude, daß es nicht nur auf das Auge, sondern auch auf den, der mit verbundenen Augen hindurchgeführ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 249,
+      "left": "telpunkt; aus dem Charakter des Helden ergibt sich die Notwendigkeit der Entwicklung.\n\nGanz anders ist es im griechischen Drama. Dort ist alles schon vorherbestimmt, alles fertig. Der Mensch wird hin-",
+      "right": "eingestellt in eine höhere geistige Ordnung, aber zugleich, weil er ein Sinnenwesen ist, wird er von ihr zermalmt. Nicht der Charakter, die Persönlichkeit, sondern das übermenschliche Schicksal ist da",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 250,
+      "left": " eine große Gesetzmäßigkeit, die über das bloß Persönliche hinausgeht. Die ganze Komposition des Gedichtes beweist den Standpunkt, den Schiller erklommen zu haben glaubte. Wir haben erstens das Lager,",
+      "right": "wo Wallenstein gar nicht auftritt, zweitens die Piccolomini, wo Wallenstein eigentlich gar nicht eingreift, er erfährt, was geschehen ist, durch Max Piccolomini, und von seiner Frau hört er, was am Wi",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 251,
+      "left": " Dienste mich, ich pflegte deiner\nMit weiblich sorgender Geschäftigkeit,\nBis du, von mir erwärmt, an meinem Herzen\nDas junge Leben wieder freudig fühltest.\nWann hab' ich seitdem meinen Sinn verändert?",
+      "right": "Ich habe viele Tausend reich gemacht,\nMit Ländereien sie beschenkt, belohnt\nMit Ehrenstellen - dich hab' ich geliebt,\nMein Herz, mich selber hab' ich dir gegeben.\nSie alle waren Fremdlinge, du warst\nD",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 252,
+      "left": "usdruck gebracht, in den Visionen, wo ihr Dämonisches entgegentritt, das sie zu ihrer Sendung beruft und sich ihr entgegenstellt, als sie dem Gebot untreu geworden ist, bis sie es durch Buße versöhnt.",
+      "right": "In der «Braut von Messina» versucht er geradezu der griechischen Tragödie wieder Eingang ins moderne Leben zu verschaffen. Er drückt hier das Überpersönliche durch Einführung des Chores aus. Was wollt",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 254,
+      "left": " Schiller bei jedem seiner späteren Dramen immer von neuem versucht hat, das Problem des Dramatischen zu lösen. Es hat etwas Erhebendes, zu sehen, wie Schiller nach jedem neuen großen Erfolge - und es",
+      "right": "waren außerordentliche Erfolge, Anerkennungen der Besten seiner Zeit, wenn es auch an Anfeindungen nicht fehlte -, es hat etwas besonders Erhebendes, zu sehen, sagte ich, wie er versucht, mit jedem ne",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 255,
+      "left": "integrierender Bestandteil der die Religion, die Wissenschaft und die Kunst umfassenden Wahrheit: auf jenes Dionysosdrama, das den leidenden, sterbenden, auferstehenden Gott auf die Bühne brachte, als",
+      "right": "Repräsentanten der ganzen Menschheit. Die Handlung trug da nicht den Charakter dessen, was man heute Dichtung nennt. Das Weltendrama sollte vorgeführt werden, die Wahrheit in schöner, künstlerischer F",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 256,
+      "left": " der Gattung, er dachte sie in einer Art Symphonie. Wir sehen bei ihm das Drama aus einer musikalischen Stimmung herauswachsen: daraus ergibt sich diese Symphonie von Menschencharakteren, von handeln-",
+      "right": "den und leidenden Charakteren. Das bewirkte, daß er nötig hatte, die einzelnen Züge zu Symbolen großer Menschenerfahrung zu machen. Dadurch ist Schiller der Dichter des Idealismus geworden: er hat dur",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 257,
+      "left": " Sehr fein erscheint, daß der erste Traum von einem Araber, der zweite von einem Christen gedeutet wird; Schiller aber entscheidet sich für keinen. Hebt man alles, was mystisch, traumhaft ist, hinweg,",
+      "right": "so bleibt nur der Kampf der Brüder, und diese rationelle Handlung bleibt noch immer dramatisch. Das Geistvolle und ganz besonders Künstlerische ist, daß jedes Element etwas Ganzes ist; auch ohne das M",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 259,
+      "left": "enden, doch der Große der Aufgabe war niemand gewachsen. Der durchaus tragische Konflikt, bei reichster Handlung, beispielsweise der polnische Reichstag, ist – und das ist das Bedeutende – ganz in das",
+      "right": "Ich verlegt. Wir können nicht sagen, daß unser Sinnen, Empfinden und Fühlen unser Ich ist. Wir sind, was wir sind, weil das Denken und Fühlen der Umwelt zu uns her-eindringt. Dieser Demetrius ist so a",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 262,
+      "left": "iller darin einnimmt.\n\nEs ist im allgemeinen schwer zu sagen, wie groß der Einfluß Schillers auf die einzelnen Perioden ist; die Kanäle lassen sich nicht im einzelnen verfolgen. Schillers Einfluß läßt",
+      "right": "sich zum Teil vergleichen mit dem, welchen Herder im Anfange des Jahrhunderts ausübte, von dem Goethe zu Eckermann sagte: «Wer liest noch Herders philosophische Werke? aber überall begegnet man Ideen,",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 263,
+      "left": ", Ethische so hoch zu erheben, war ihnen etwas durchaus Unsympathisches. Harte Worte flössen von Seiten der Romantiker gegen Schiller, den spießbürgerlichen Ethiker. Diejenigen, die heute in Schiller-",
+      "right": "ehrung aufgewachsen sind, werden schwer Worte verstehen können, wie sie zum Beispiel Friedrich von Schlegel über ihn fand in Besprechungen über Schiller und Goethe. Er nennt seine Einbildungskraft «ze",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 264,
+      "left": "n. Es war ihre Theorie eigentlich herausgewachsen aus dem, was Schiller in seinen ästhetischen Aufsätzen dargestellt hatte, aber sie war eine karikierte Auffassung. Das Wort Schillers: «Der Mensch ist",
+      "right": "nur da ganz Mensch, wo er spielt», wurde ihnen zu einer Art Motto. So entstand die romantische Ironie, die alles zu einem Spiele des Genies machte. Man hatte eine Auffassung, als ob es der Willkür des",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 265,
+      "left": "rbt, ganz erfüllt von den Idealen, die Schiller ihm eingepflanzt. Er schien dazu geweiht durch die persönliche Freundschaft, die seine Familie mit Schiller verband. Eine herzliche Freundschaft war es,",
+      "right": "die Körners Vater und Schiller verknüpfte; er war der Pate Theodor Körners, von ihm war die «Leier» gekauft, die Theodor Körner überall begleitete. Schiller hat sich langsam, aber ganz sicher in die H",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 266,
+      "left": "e ans Licht kam. Vier bedeutende Erscheinungen sind es vor allem, auf die ich hier hinweisen will: 1859 erschien Charles Darwins «Abstammung der Arten». Dann Fechners «Vorschule der Ästhetik». Fechner",
+      "right": "hat einen großen Einfluß auf eine Strömung der Gegenwart gewonnen: er ist ausgegangen von Hegel, der selbst Schiller gegen die Romantiker in Schutz genommen hatte. Vischer, der aus der Goethe-Schiller",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 267,
+      "left": "icher Standpunkt, den Schiller, und unsere Klassiker überhaupt, zur Weltkultur einnahmen. Man kann sich Raffael, Michelangelo nicht denken ohne den Zusammenhang mit ihrer Zeit, aus der sie geboren wa-",
+      "right": "ren, aus der heraus sie schufen. So ist die homerische Kunst im innigen Zusammenhang mit dem, was in allen lebte. Homer brauchte nur dem Form zu geben, was als Fühlen und Denken seine Zeitgenossen dur",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 263,
+      "left": "gen aus allen Gebieten der Weltliteratur bilden ein Haupt verdienst der romantischen Schule.\n\nSchillers Stellung zur Kunst bildet etwas, was auf sein Verhältnis zum 19. Jahrhundert entscheidend wirkt.",
+      "right": "ACHTER VORTRAG, 5. März 1905\n\n# Was kann die Gegenwart von Schiller lernen?\n\nMan darf nicht verkennen, daß das Verhältnis des Publikums in der zweiten Hälfte des 19. Jahrhunderts zu Schiller ein ganz ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 269,
+      "left": "n derberen Anforderungen, gab es zwischen dem Schönen und Wahren keinen rechten Zusammenhang mehr. Auf Grundlage der naturwissenschaftlichen Erkenntnisse konnte ein Ludwig Büchner eine rein materiali-",
+      "right": "stische Weltanschauung konstruieren. Schüler aber ist nicht für ein materialistisches Zeitalter; es wird zur Phrase, wenn man sich in einem solchen auf seine Anschauungen beruft. So kam es, daß Schill",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 270,
+      "left": "in Michelangelo, sie sind herausgewachsen aus dem Leben ihrer Epoche. So war es nicht mehr nach Goethes Tode. Wir sehen, wie ein Künstler, wie Peter Cornelius, ganz aus dem Gedanken heraus schafft; er",
+      "right": "stand nicht mehr in irgendeinem Zusammenhange mit der geistigen Substanz seiner Zeit. Er fühlte sich besonders in Berlin immer fremd; hingezogen zu dem Katholizismus, in dem er sein Kunstideal gegründ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 271,
+      "left": "Alles, was den Faust ausmacht, verstand ein bedeutender Mann des 19. Jahrhunderts nicht mehr.\n\nDiese Richtung war ausschlaggebend geworden. Keiner wagt ihr zu widersprechen, niemand wagt das Recht des",
+      "right": "Idealen zu betonen. Selbst die Kunst nennt sich realistisch. Eine idealistische Deutung findet wenig Anklang bei dem Publikum. Ehrlich sind diejenigen, die gestehen, daß Schiller ihnen nicht sympathis",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 272,
+      "left": "tegrierender Bestandteil unserer Zeit. Besonders die großen Massen stehen auf rein materialistischer Grundlage, sie wollen keine andere Weltanschauung gelten lassen. Wahr gilt ihnen nur, was die Natur",
+      "right": "Wissenschaft erlaubt, wirklich zu nennen. Zu welchen Vorkommnissen das führt, dafür eine kleine Episode. Es war zum letztenmal, da eine idealistisch gefärbte, wenn auch pessimistische Weltanschauung a",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 275,
+      "left": "ständnis für Schiller haben. Erst wenn wir uns so zum Verständnis Schillers erheben, werden auch Leute da sein, die, wie Herman Grimm über Goethe, so aus tiefstem Herzen über Schiller sprechen können.",
+      "right": "NEUNTER VORTRAG, 25. März 1905\n\n# Schiller und der Idealismus\n\n(Ästhetik und Moral)\n\nIch mochte heute in der Schlußstunde eine spezielle Frage erledigen, die sich an den Vortrag über Schillers Wirkung",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 276,
+      "left": "war alles nur Theorie; er hat nie einen lebendigen Begriff erhalten von dem, was Schönheit ist, er ist nicht über drei Meilen weit von seinem Geburtsort Königsberg hinweggekommen, hat kein bedeutendes",
+      "right": "Kunstwerk gesehen; hat also nur vom Standpunkte abstrakter Philosophie geschrieben. Schiller war es, der dies Problem zuerst lebensvoll erfaßte in seinem Werk «Ästhetische Briefe».\n\nWie hat das Proble",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 277,
+      "left": "tet die Handlung. So hat Edouard Schure das Mysteriendrama neu erstehen lassen. Die dramatische Kulthandlung hatte die ganz bestimmte Aufgabe, den Menschen auf eine höhere Stufe des Daseins zu führen.",
+      "right": "Man sagte, der Mensch ist mit Leidenschaften behaftet; durch das niedere Leben gehört er ihnen an; er kann aber darüber hinauskommen, wenn das höhere, das in ihm lebt, geläutert wird; er kann sich her",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 278,
+      "left": "wieder zu vereinen, war etwas, was in Schiller ganz intensiv lebte. Der Nerv seiner Dichtungen war die Sehnsucht, diese beiden zu versöhnen: Sinnlichkeit und Sittlichkeit. Die strenge Sittlichkeit ist",
+      "right": "durch Kant so aufgefaßt worden, daß die Pflicht hinweggeführt hatte von allem, was als Neigung erschien. Schiller forderte dagegen, daß die Pflicht zur Neigung werde. So gereinigt wissen wollte Schill",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 279,
+      "left": "e der Dichter noch zeigt, daß er den Bösewicht haßt, in der Art des persönlichen Interesses, hängt er noch am Stoffe, nicht an der Form, er ist noch nicht zu der ästhetischen Anschauung gekommen. Erst",
+      "right": "</wie></was>\n\n\n---\n\n\ndann ist er zu dieser Anschauung fortgeschritten, wenn der Bösewicht so hingestellt ist, daß die Naturordnung das Strafgericht vollzieht, nicht der Dichter selbst. Dann vollzieht ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 280,
+      "left": "s wahrnehmbar ist; es fehle das Geistige darinnen; nur dann könne man sie als Wahrheit gelten lassen, wenn man das ganze Naturtableau auf einmal in ein Werk hineinbrächte; die sinnliche Natur sei aber",
+      "right": "doch immer nur ein Ausschnitt des Wirklichen. - Weil sie nach Wahrheit strebten, haben sie die unmittelbare Naturwahrheit nicht gelten lassen.\n\nSo bemühen sich Schiller und Goethe, in ihrer Zeit den I",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 281,
+      "left": "wörung geht vor sich, aber plötzlich tritt ein Fremder dazwischen, entlarvt den Beschwörer, läßt aber selbst nun eine Erscheinung an die Stelle jener des Betrügers treten, die eine wichtige Mitteilung",
+      "right": "an den Prinzen macht. Der Prinz wird von Zweifeln hin und her geworfen, der Fremde ist derselbe, der ihm die Prophezeiung machte; aber bald vermutet der Zweifler, daß die beiden unter einer Decke stec",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 282,
+      "left": "n zu immer Höherem gestrebt, bis das Physische immer mehr von ihm abfiel, bis das: «Weit hinter ihm in wesenlosem Scheine / lag, was uns alle bändigt, das Gemeine», das ihm Goethe nachrief, volle Wahr",
+      "right": "heit bei ihm geworden war. Nicht in verächtlichem, niederem Sinn hat hier Goethe dieses Wort «gemein» gebraucht; das allgemein Menschliche, die gewöhnliche Art des Menschen ist hier gemeint, über die ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 283,
+      "left": "önlich wahrhaft Goethes Wort erfüllt:\n\nNur der verdient sich Freiheit wie das Leben,\nDer täglich sie erobern muß.\n\nSo hat sich Schiller emporgerungen zum Meister der ästhetischen, geisterfüllten Form.",
+      "right": "---\n\n\n\n\nIII\n\nANHANG\n\nDiskussionen und Vorträge Rudolf Steiners im «Giordano Bruno-Bund für einheitliche Weltanschauung» im Jahre 1902\n\n\n---\n\n\n# Referate von Mitgl",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 284,
+      "left": "Wort erfüllt:\n\nNur der verdient sich Freiheit wie das Leben,\nDer täglich sie erobern muß.\n\nSo hat sich Schiller emporgerungen zum Meister der ästhetischen, geisterfüllten Form.",
+      "right": "III\n\nANHANG\n\nDiskussionen und Vorträge Rudolf Steiners im «Giordano Bruno-Bund für einheitliche Weltanschauung» im Jahre 1902\n\n\n---\n\n\n# Referate von Mitgliedern des Giordano Bruno-Bundes in der Zeitsc",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 285,
+      "left": "h sie erobern muß.\n\nSo hat sich Schiller emporgerungen zum Meister der ästhetischen, geisterfüllten Form.",
+      "right": "III\n\nANHANG\n\nDiskussionen und Vorträge Rudolf Steiners im «Giordano Bruno-Bund für einheitliche Weltanschauung» im Jahre 1902\n\n\n---\n\n\n# Referate von Mitgliedern des Giordano Bruno-Bundes in der Zeitsc",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 286,
+      "left": "anden. Es kam dabei auf die Betonung dessen an, daß es nicht zwei Weltprinzipien, Stoff und Geist, gebe, sondern daß der Geist als Einheitsprinzip alles Sein bilde.»\n\nRudolf Steiner, «Mein Lebensgang»",
+      "right": "# DIE EINHEIT DER WELT\n\nBerlin, im März 1902\n\nDiskussion im «Giordano Bruno-Bund für einheitliche Weltanschauung» mit Votum Rudolf Steiners\n\nDer Bruno-Bund hat den Zweck, einheitliche Weltanschauung z",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 287,
+      "left": "abe, monistische Weltanschauung zu begründen und ihr nachzustreben. Deshalb werde ich gleich heute bei unserer ersten Diskussion versuchen, Ihnen die ganze Schwierigkeit des Problems darzustellen, vor",
+      "right": "dem wir stehen. Dieser Hinweis auf die Schwierigkeit unserer Aufgabe soll aber nur ein rein akademischer sein.\n\nFormuliert ist der Satz, über den ich zu sprechen habe: Was bedeutet uns, oder viel mehr",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 288,
+      "left": "Begriff <tier>. Es entspricht ihm kein reales Einzelwesen, sondern die Einheit dieser siebzig Elemente ist vorderhand nur eine Hypothese.\n\nDasselbe finden wir in betreff des Begriffs Kraft seit Robert",
+      "right": "</tier></materie></kosmos></monistisch>\n\n\n---\n\n\nMayers Entdeckung von der Einheit der Kraft und der Umwandlungsfähigkeit der Energie. Sie stehen vor dem ungeheuren Rätsel, daß die mechanische Kraft un",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 289,
+      "left": "ach der Erde zu fallen, eine ganz andere, als wenn Sie fragen: Ist es unter den jetzt gegebenen Bedingungen möglich, daß dieser Fall eintritt? Es könnte ja sein, daß die von den verschiedenen Geistes-",
+      "right": "tätigkeiten gelieferten Vorstellungen miteinander in Widerstreit treten und somit schon in Ihrem Inneren keine Einheit bestände. Eine weitere Frage wäre, wie das einheitliche Bild der Welt, das Sie in",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 292,
+      "left": "den wir Elektrizität wohl niemals zurückführen können auf reine Gravitation, aber in der mathematischen Formel, nach der wir sie berechnen und umrechnen, haben wir etwas Reales, Grundlegendes; und so-",
+      "right": "mit ist uns auch zur Einheit der Kraft eine Perspektive eröffnet.\n\nOhne mich genau auf den Standpunkt von Goethes Metamorphosenlehre stellen zu wollen, der auf organischem Gebiete zum ersten Male ein ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 293,
+      "left": "nne: «Zu der Frage: Wie kommen wir zu einheitlicher Weltanschauung und wie stellen wir sie uns vor? - hat Herr Dr. Steiner viele Anregungen gegeben, mit denen ich durchaus einverstanden bin. Doch kann",
+      "right": "man in einzelnen Punkten streiten. So ist die vom Herrn Vorredner erwähnte Lehre Goethes von der Metamorphose der Pflanzen ein Beispiel dafür, wie selbst ein so großer Geist glauben konnte, eine Einhe",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 293,
+      "left": " Fortschritte ausgegangen sind. So war das Kopernikanische Weltsystem für seine Zeit eine «Fälschung» der vorliegenden Tatsachen, wie die Lamarck-Darwinsche Entwicklungstherorie nichts weiter ist. Wie",
+      "right": "</wahrheit>\n\n\n---\n\n\nTycbo de Brahe das für seine Zeit einzig mögliche Weltbild gab, so ist es dem Tatsachenfanatiker, der mit seinem Denken nicht über die objektiv gebotenen Tatsachen hinausgehen will",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 299,
+      "left": "nheitliche Weltanschauung oder überhaupt eine Weltanschauung aufzubauen zu wollen?\n\nBei dieser Frage, die schon Jahrhunderte beschäftigt hat, die ihrer Lösung näher waren als die Neuzeit, die sich den",
+      "right": "Weg der Lösung durch die sogenannte Erkenntnistheorie verbaut hat, muß man sich klar werden, vor welchem Forum überhaupt etwas ausgemacht werden kann in bezug auf Wahrheit und Wissenschaft, in bezug a",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 300,
+      "left": "und schafft. Für diesen Standpunkt, der in grotesker Weise in der heutigen Wissenschaft auch in Haeckels «Welträtsel» hervortritt, ist der Mensch nichts anderes als ein bloßes Staubkorn im Kosmos, das",
+      "right": "sich bloß quantitativ unterscheidet von dem Wurm. Macht er sich ein Weltbild, so lebt er ein Luxusleben, tut etwas, was nicht das Geringste hinzubringt zur Weltentwicklung. Vielmehr wird gefordert, da",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 301,
+      "left": "t, das, weil es ein produktives Prinzip war, weil es über dasjenige, was als abgeschlossene Wirklichkeit vorlag, hinauswies, zur Menschenbildung geführt hat, etwas, das sich nicht auf das Tatsächliche",
+      "right": "beschränkte, was, gleichsam als reale Phantasie, reale Intuition in der Natur vorhanden, diese über ihre einzelnen Stadien hinwegführt und über die unmittelbare Gegenwart hinaushebt.\n\nAuch der Mensch ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 302,
+      "left": " Maeterlinck ist zum Beispiel mit ähnlichen Anschauungen hervorgetreten in einem seiner neueren Bücher, in dem er die Hochzeit der Bienen schildert. Man fragt: Können wir von Wahrheit im Sinne wissen-",
+      "right": "schaftlicher Wahrheit, von Übereinstimmung mit der vorliegenden Wirklichkeit, die sich immer im materiellen Kleinkram befindet, reden, wenn sie Inhalt einer Weltanschauung sein soll, oder führt sie al",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 303,
+      "left": "für eine richtige Erkenntnis, daß der Mensch ein Recht hat, produktiv in seiner Weltanschauung zu sein, ein Gefühl, das zu verschiedenen Zeiten lebendig war, als uns noch nicht Tatsachenfanatismus und",
+      "right": "Erkenntnistheorie Scheuklappen angelegt hatten, Zeiten, die von vornherein von dem kosmischen Charakter dieser Hinzufügung überzeugt waren.\n\nLassen Sie mich schließen mit den Worten des Angelus Silesi",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 304,
+      "left": "enschaftlicher Erkenntnis ausgehend zwar nicht bei der einzelnen Tatsache stehenbleibt, es aber doch nicht für möglich hält, ein Bild des letzten Sachverhaltes, ein wahres Bild des Kosmos zu gewinnen.",
+      "right": "Um die dogmatische Methode zu rechtfertigen, wird auf den metaphysischen Trieb hingewiesen, der unzweifelhaft im Menschen existiert, schon im Kinde, das das Spielzeug zerbricht, um hinter den Kern der",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 306,
+      "left": " einer produktiven Einbildungskraft, aber diese ebenso eines Regulators der Vernunft, eine Einschränkung der Phantasie durch die Wirklichkeit.\n\nDiese Methode hat durch Schaffung neuer Organe etwas zur",
+      "right": "Welt hinzugefügt. Durch methodisch-vernünftige Betrachtung hat Kant auf sittlichem Gebiet dem, was wir hier gemeinhin Natur nennen, der Welt der Empfindung und Lustgefühle, ein ganz neues Moment hinzu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 307,
+      "left": "rklichkeit ist, wie Büchner will, diesen Anforderungen bisher nicht genügten, und zum Beispiel auch dieser gezwungen ist, den Tatsachen Gewalt anzutun. Man muß hier nicht auf den Willen sehen, sondern",
+      "right": "auf das Resultat. Man benimmt sich so, als wenn man ein Bild des real Vorliegenden geben wolle, kann es aber nicht. Mein Prinzip ist daher nicht ein theoretisches, sondern ein praktisches Hinausgehen ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 308,
+      "left": "men beruht. Die bedeutendsten Wahrheitsversuche, die gemacht worden sind, von der Vedantaphilosophie durch die griechische bis zur deutschen, sind Annäherungen an die Wahrheit in verschiedenen Graden.",
+      "right": "Das Forum, vor dem die Berechtigung der einen oder der anderen Anschauungsweise entschieden wird, kann allein das Forum des Menschen, seine souveräne Persönlichkeit sein, wie ich mit Dr. Schäfer übere",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 309,
+      "left": "hinauszugehen, wie Kunst und Poesie es tut, und so wenig Kunst und Poesie in blinde Phantasmen hineinkommen, wird, wenn die Menschen am Entwickelungsprinzip ihre Persönlichkeit kontrollieren, wenn sie",
+      "right": "auch noch so weit hinausgehen über die objektive Natur, in den verschiedensten Menschen Übereinstimmung entstehen, wie die Übereinstimmung philosophischer Systeme aller Zeiten das zeigt.\n\nIn dieser so",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 310,
+      "left": "n der Entwicklung, im Vereinen der Gegensätze, im lebendigen Tun.\n\nDeshalb ist die Frage nach Gültigkeit der Weltanschauung vor dem Forum des Lebens, nicht vor dem Forum der Erkenntnis zu entscheiden.",
+      "right": "# MONISMUS UND THEOSOPHIE\n\nBerlin, 8. Oktober 1902\n\nVortrag Rudolf Steiners im Giordano Bruno-Bund\n\nHerr Dr. Steiner betont zunächst, daß ein im gewöhnlichen Sinne lebenskluger Mann bei dem gegenwärti",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 313,
+      "left": "\"\" pl.2.1.1=\"\" pl.2.1.1.1=\"\" quellen=\"\" quellen.=\"\" relligionen=\"\" relligionen,=\"\" s.=\"\" s.2.1=\"\" s.2.1.1=\"\" s.2.1.1.1=\"\" s.2.1.1.1=\"\" s.2.1.1.1.1=\"\" s.2.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.",
+      "right": "</wir>\n\n\n---\n\n\nwinden, machten die deutschen idealistischen Philosophen Fichte, Schelling und Hegel. Drei Jahre nach dem Tode Hegels erschien von dem Sohne Fichtes ein Buch von der menschlichen Selbst",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 314,
+      "left": "diese <göttliche kraft=\"\"> sind.\n\nMan wird fragen: Was hat aber denn eine solche Erkenntnis überhaupt für einen Zweck? Nun, so entgegne ich, was hat das, was man gewöhnlich Erkenntnis nennt, das einfa",
+      "right": "</göttliche>\n\n\n---\n\n\nehe Registrieren der Tatsachen für eine Bedeutung? Mit ihr begnügen sich die, die ich kosmische Eckensteher nennen möchte.\n\nWer in dieser Weise den Begriff Theosophie faßt, der wi",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 319,
+      "left": "schüttet worden unter soviel Spreu der Nachplapperei indischer Vokabeln, daß der philosophische Held hochwillkommen sein soll, der ihn in eine neue Scheuer, das heißt unter neuem Namen, sammeln kann.»",
+      "right": "</ismen></theosophische>\n\n\n---\n\n\n\n\n\n---\n\n\n# HINWEISE\n\nIm Jahr 1897 übersiedelte Rudolf Steiner von Weimar nach Berlin und übernahm dort die Herausgabe und Redaktion des «Magazins für Literatur» und de",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 320,
+      "left": "rei indischer Vokabeln, daß der philosophische Held hochwillkommen sein soll, der ihn in eine neue Scheuer, das heißt unter neuem Namen, sammeln kann.»",
+      "right": "# HINWEISE\n\nIm Jahr 1897 übersiedelte Rudolf Steiner von Weimar nach Berlin und übernahm dort die Herausgabe und Redaktion des «Magazins für Literatur» und der «Dramaturgischen Blätter», Organ des deu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 321,
+      "left": "n von ihr ausgearbeitet, da sie nicht stenographieren konnte.\n\nÜber römische Geschichte: Dieser Vortrag ist der einzige des vorliegenden Bandes, der mitstenographiert wurde, und zwar von Franz Seiler,",
+      "right": "1868-1959, Mitglied der Theosophischen Gesellschaft, dem ersten Stenographen von Rudolf Steiners frühen Mitgliedervorträgen. In Franz Seilers Stenogrammheft ist das Vortragsdatum des 19. Juli 1904 ang",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 322,
+      "left": "ische Mystik und Docta ignorantia: Notizen von Mathilde Scholl. Mathilde Scholl, 1868-1941, war seit 1903 Mitglied des Vorstandes der Deutschen Sektion der Theosophischen Gesellschaft und von 1905 bis",
+      "right": "1914 Herausgeberin des Gesellschaftsorgans «Mitteilungen für die Mitglieder der Deutschen Sektion der Theosophischen Gesellschaft». Sie leitete bis 1914 die anthroposophische Arbeit in Köln und lebte ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 326,
+      "left": "ten 1524/25, nach Ferd. Bahlow «Luthers Stellung zur Philosophie», Berlin 1891.\n\n51 Adolf von Harnack (1851-1930): «Die Wissenschaft vermag nicht...»: In «Das Wesen des Christentums» 16. Vorlesung, 4.",
+      "right": "</das>\n\n\n---\n\n\nAufl. Leipzig 1901, S. 188, wörtlich: «Die Religion, nämlich die Gottes- und Nächstenliebe, ist es, die dem Leben einen Sinn gibt, die Wissenschaft vermag das nicht.»\n\nA.a.O. S. 5: «Die",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 327,
+      "left": "als Bewußtseinsfrage» (Acht Vorträge, Dornach 1919), GABibl.-Nr. 189.\n\nGeorg Wilhelm Friedrich Hegel (1770-1831), über Gesetze: In «Grundlinien der Philosophie des Rechts».\n\nCharles Darwin, 1809-1882.",
+      "right": "61 Ernst Haeckel, 1834-1919.\n\n62 Carl Vogt, 1817-1895, Naturforscher.\nJacob Moleschott, 1822-1893, materialistischer Philosoph.\nLudwig Büchner, 1824-1899, Physiologe.\nLudwig Feuerbach (1804-1872): «Go",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 328,
+      "left": "ie Ausbreitung Roms über den Erdkreis beschrieben: In den vorangehenden Vorträgen in der Arbeiterbildungsschule, von denen keine Nachschriften erhalten sind.\n\n77 Prätor: Höchster Richter im alten Rom.",
+      "right": "77 Konsul: Höchster Beamter.\nQuästor: Finanzbeamter.\n\n78 Tribun: Ursprünglich Vorsteher eines Wahlbezirks-Volkstribun: Vertreter des Volkes mit Vetorecht gegen den Senat.\n\n... Unterschied... zwischen ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 329,
+      "left": " 220, lateinischer Kirchenschriftsteller, Hauptwerk «Apologetikum oder Verteidigung der christlichen Religion und ihrer Anhänger».\n\n«Die Menge aber der Gläubigen...»: Apostelgeschichte, Kap. 4, 32-37.",
+      "right": "90 ...nach des Konstantin Vorgehen: Konstantin L, genannt «der Große», um 285-337, römischer Kaiser, anerkannte das Christentum als Staatsreligion durch das Edikt von Mailand im Jahre 313.\n\nKonstantin",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 330,
+      "left": "0.\n\nSchießpulver: Bereits vor Chr. in China bekannt. In Europa erfunden von Berthold Schwarz, Franziskaner, um 1300: Schwarzpulver.\n\nErfindung der Buchdruckerkunst: Durch Joh. Gutenberg, um 1400-1468.",
+      "right": "102 Franz Palacky, 1798-1876, tschechischer Historiker und Politiker, Panslawist.\nhussitische Bewegung: Geht zurück auf Joh. Hus (um 1369-1415), tschechischer Reformator, verbrannt 1415.\nMarko Kraljev",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 331,
+      "left": "nz Guyenne im Südwesten Frankreichs.\nAttila, König der Hunnen von 434-453.\n\n122 Schlacht auf den katalaunischen Feldern: Bei Troyes in der Champagne im Jahre 451.\nLeo der Große &gt; Papst von 440-461.",
+      "right": "125 Nikolaus Kopernikus, 1473-1543.\nOdoaker (433-493) germanischer Heerführer, stürzte 476 das weströmische Reich und den letzten weströmischen Kai$er&gt; Romulus Augustinus.\nJustinian /., 482/3 - 565",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 332,
+      "left": "t.\n\n137 Pippin dem Kleinen: Pippin III., 714 - 768, Vater Karls des Großen.\nChilderich... abzusetzen: im Jahre 751/52.\nWidukind, unterwarf sich im Jahre 785.\n\n139 Herzog Tassilo, Herzog von 748 - 782.",
+      "right": "141 Wolfram von Eschenbach, um 1170 bis nach 1220, bedeutendster mittelhochdeutscher Dichter, «Parzival», «Willehalm», «Titurel».\n\nHartmann von der Aue, um 1170 bis nach 1210, mittelhochdeutscher Dich",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 333,
+      "left": "freundet mit Kaiser Otto III.\n\nCluny: War Ausgangspunkt der auf Befreiung der Kirche von der Herrschaft des Kaisertums gerichteten Reformation.\n\n160 Gregor VII., Mönch Hildebrand, Papst von 1073-1085.",
+      "right": "160 Diese Gesinnung... ist von... Dante als gerecht anerkannt: In seinem Buche «De Monarchia».\n163 «Was ihr den Geist der Zeiten heißt...»: Goethe «Faust I», Nacht, 577-579.\n169 Konrad von Marburg, Be",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 334,
+      "left": "ll: Schlacht bei Liegnitz im Jahre 1241. Die Mongolen siegten, zogen sich aber aus nicht leicht verständlichen Gründen zurück.\n183 Jacob von Molay, um 1250-1314, letzter Großmeister des Templerordens.",
+      "right": "183 Albert von Bremen: Albert von Buxhövden, um 1165-1229, Bischof und Gründer von Riga. Missionar der baltischen Länder.\n\n184 Richard von Cornwall, 1209 -1272.\nAlfons von Castilien, 1226 -1284, regie",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 335,
+      "left": ".\nBundschuh: Namen und Feldzeichen aufständischer Bauernverbände, seit 1493.\n\n193 Johannes Reuchlin, 1455 -1522, deutscher Humanist.\nErasmus von Rotterdam, 1466-1536, Gelehrter und führender Humanist.",
+      "right": "193 Bartolomeo Diaz, 1450 -1500, Portugiese.\n194 Vasco da Gama, 1469 -1525, portugiesischer Seefahrer.\nChristoph Kolumbus, 1451 -1506.\n199 Gnosis: Wesentlichste Erkenntnislehre der ersten christlichen",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 336,
+      "left": " Karl Julius Schwer, 1825-1900, österreichischer Literarhistoriker, Professor für Literatur an der Technischen Hochschule in Wien. Siehe Rudolf Steiner «Mein Lebensgang», Seiten 54 - 58, Bibl.-Nr. 28.",
+      "right": "219 Herman Grimm, 1828-1901, deutscher Kunst- und Literarhistoriker.\nHenrik Ibsen, 1828-1906.\nEmile Zola, 1840-1902.\nLew Nikolajewitsch Graf Tolstoi 1828-1910.\n\n221 Julien Offray de Lamettrie, 1709-17",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 337,
+      "left": "ler».\n\n239 Johann Kaspar Friedrich Manso, 1760-1826, in seiner Schrift «Gegengeschenk an die Sudelkèche von Weimar und Jena. Poetische Epistel», Leipzig 1797.\n\n241 Gotthold Ephraim Lessing, 1729-1781.",
+      "right": "241 «Wenn Gott vor mir stünde...»: In «Theologische Schriften.» Lessings sämtliche Schriften, herausgegeben von Karl Lachmann, Leipzig 1897, Band 13, Seite 23 ff.\n\n243 Prosahymnus an die Natur: In «Go",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 339,
+      "left": "stian von Wolff, 1679-1754, Philosoph und Mathematiker, Professor in Halle.\n\nAlexander Gottlieb Baumgarten, 1714-1762, Philosoph.\n\nSokrates, um 470-399 v. Chr.\n\n277 Aschylos, um 525 bis um 455 v. Chr.",
+      "right": "279 «Das <wa$> bedenke...»: Goethe: Ausspruch des Homunculus in «Faust» II, Laboratorium, 6992.\n\n280 Goethe gibt dem Ausdruck indem er das Schone eine Manifestation der Naturgesetze nennt: Maximen und",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 340,
+      "left": "o-bund)=\"\" seer.=\"\" sich=\"\" son=\"\" sonst.=\"\"叛亂=\"\"叛亂=\"\"叛亂,=\"\" wolfgang=\"\" wir=\"\" wird=\"\" zunahlage=\"\" zunahs=\"\" zu=\"\" zum=\"\" zuhören.=\"\" zumalage=\"\" zürde=\"\" zürden=\"\" zürden.=\"\" zu=\"\" zuw.=\"\" zuw.=\"\">",
+      "right": "</monismus></wa$>\n\n\n---\n\n\nstattfinden. Im Verlauf des Vortrags habe ich auch Mrs. Besant und ihre ganze Geistesart charakterisiert. Es wird jetzt eben alles davon abhängen, ob wir imstande sind, so zu",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 344,
+      "left": "6,48,52,203,313\nAugustus 73,86\nAvignon 188\nAwaren 139\nBacon, Francis von Verulam 66, 305\nBarbarossa, Friedrich 169, 180, 181\nBarnabas (Ooses) 89\nBasel, Konzil von 211\nBauernbündnisse 192",
+      "right": "Baumgarten, Alexander Gottlieb 276\n«Ästhetica» 276\nBayern (Volk) 139\nBayern (Land) 138,139,155\nBeamte 82-84,128,142,147,150, 163,173,191\nBergen (Stadt) 175\nBerlin 94,271,304\nBernhard von Clairvaux 180",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 345,
+      "left": ", 129-132, 134, 144, 146, 148, 158, 162, 180-184, 189, 190, 193, 278, 317\nChristus (s.a. Jesus) 46, 47, 49, 111, 130, 160, 165, 166, 182, 204,207,210\nChrypff, Nikolaus, von Kues\ns.u. Nikolaus von Kues",
+      "right": "Cicero, Marcus Tullius 31\nClairvaux, Bernhard von 180\nClermont (Stadt) 179\nCluniazenser 159\nCluny 159,160\nColumban 129\nCornelius, Peter 270\nCurtius, Ernst 266\nCusanus s. Nikolaus von Kues\nCypern 43,89",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 350,
+      "left": " Johann Kaspar Friedrich 239\nManu 106\nMarburg 169\nMarienburg (Schloß) 183\nMarius, Gajus 79\nMarko 102\nMarlowe, Christoph 70\nMartell, Karl 133,137\nMarx, Karl 61,267\n«Kritik der politischen\nÖkonomie» 267",
+      "right": "Materialismus 24, 94, 144, 168, 200, 220, 221, 227, 272, 273, 292,312\n\nMathematik 26, 55, 58, 96, 132, 148,199\n\nMathesis 199\n\nMauren 132, 133, 139, 142,162, 167\n\nMayer, Robert 288\n\nMazedonien 37\n\nMede",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 351,
+      "left": "hes Konzil 90,111\n\nNicolai 317\n\nNiederlande 211,242\n\nNiederösterreich 184\n\nNietzsche, Friedrich 43, 247, 253, 254,256,272\n\n«Die Geburt der Tragödie aus dem Geiste der Musik» 253, 256,272\n\nNiflheim 108",
+      "right": "Nikolaus von Kues 210-216\n«De docta ignorantia (Von der gelehrten Unwissenheit)»\n212,214,215\n\nNominalismus 168,182\nNordafrika 86,132\nNorddeutschland 175\nNorditalien 126,169,175,180\nNormannen 152,153,1",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 352,
+      "left": "lai 317\n\nNiederlande 211,242\n\nNiederösterreich 184\n\nNietzsche, Friedrich 43, 247, 253, 254,256,272\n\n«Die Geburt der Tragödie aus dem Geiste der Musik» 253, 256,272\n\nNiflheim 108",
+      "right": "Nikolaus von Kues 210-216\n«De docta ignorantia (Von der gelehrten Unwissenheit)»\n212,214,215\n\nNominalismus 168,182\nNordafrika 86,132\nNorddeutschland 175\nNorditalien 126,169,175,180\nNormannen 152,153,1",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 354,
+      "left": "aben, Rudolf von 180\nSchwaben (Land) 155,189\nSchwarzes Meer 107,116\nSchweizer Eidgenossen 186,258\nSchwertbrüder 183\nScotus Erigena 120,144,200\n«Über die Einteilung der Natur» 120,144\nSeidenweberei 162",
+      "right": "Seite: 355\n\nSemnonen 115\nSensualismus 231\nShakespeare 66-72, 249, 259, 264, 268,313\n«Coriolan» 70\n«Hamlet» 69-71\n«Heinrich V.» 67\n«Julius Cäsar» 70\n«König Lear» 70\n«Macbeth» 67,69-71\n«Othello» 69,70\n«",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 355,
+      "left": "aben (Land) 155,189\nSchwarzes Meer 107,116\nSchweizer Eidgenossen 186,258\nSchwertbrüder 183\nScotus Erigena 120,144,200\n«Über die Einteilung der Natur» 120,144\nSeidenweberei 162",
+      "right": "Semnonen 115\nSensualismus 231\nShakespeare 66-72, 249, 259, 264, 268,313\n«Coriolan» 70\n«Hamlet» 69-71\n«Heinrich V.» 67\n«Julius Cäsar» 70\n«König Lear» 70\n«Macbeth» 67,69-71\n«Othello» 69,70\n«Richard m.» ",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 356,
+      "left": " 204, 208, 209, 212\nTauschhandel 141\nTempelherren 182,183\nTerczky (aus Schillers «Wallenstein») 250\nTertullian 88\nThaies 19,21,27,305\nThemistokles 23\nTheologia deutsch 171, 215, 216\nTheosophie 311-319",
+      "right": "Thomas von Aquino 42, 48, 49\nThrakien 37\nThüringen 187\nThüringer 127,147\nTieck, Ludwig 66,265\nTizian» Vecellio 176\nTolstoi, Alexei, Graf 219, 226, 272\nTotentanz 177\nTragödie 253, 254, 257\nTristan (Hel",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 357,
+      "left": " 277\nWinfried Bonifacius 129\nWissenschaft 18-20,129,131-133, 143, 146, 148, 150, 151, 162, 167-169, 172, 182, 220, 231, 254, 255, 291, 293, 298-310, 313,314,316\nWolff, Kaspar Friedrich 53, 54, 231,276",
+      "right": "Wolfram von Eschenbach 141,171\nWotan 108, 113\nWulfila (Ulfila) 110,116\nXenien 239, 263\nYmir 108\n\nZeno von Kition 43\nZölibat 161, 165\nZöllner, Kaspar 176\nZola, Emile 219\nZypern 43, 89\n\n\n---\n\n\n\n\n\n---\n\n\n",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 358,
+      "left": "ch:51\nSeite: 357\n\nWolfram von Eschenbach 141,171\nWotan 108, 113\nWulfila (Ulfila) 110,116\nXenien 239, 263\nYmir 108\n\nZeno von Kition 43\nZölibat 161, 165\nZöllner, Kaspar 176\nZola, Emile 219\nZypern 43, 89",
+      "right": "# RUDOLF STEINER GESAMTAUSGABE\n\nGliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine bibliographische Übersicht (Bibliographie-Nrn. kursiv in Klammern)\n\n## A. SCHRIFTEN\n\n###",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 359,
+      "left": "che Leitsätze, 1924/25 (26)\nGrundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)\nMein Lebensgang, 1923-25 (28)",
+      "right": "## II. Gesammelte Aufsätze\n\nAufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31) - Aufsätze zur L",
+      "confidence": "extracted",
+      "originalPage": null
+    },
+    {
+      "page": 360,
+      "left": "(26)\nGrundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)\nMein Lebensgang, 1923-25 (28)",
+      "right": "## II. Gesammelte Aufsätze\n\nAufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31) - Aufsätze zur L",
+      "confidence": "extracted",
+      "originalPage": null
+    }
+  ]
+}
