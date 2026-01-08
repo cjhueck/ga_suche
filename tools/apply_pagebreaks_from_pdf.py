@@ -497,17 +497,51 @@ def find_pagebreak_position(
 
 def map_norm_to_original(text: str, norm_pos: int) -> int:
     """Mappt eine Position im normalisierten Text zurück zum Original."""
-    norm_count = 0
+    # Optimierte Version: Berechne das Verhältnis und approximiere
+    # (viel schneller als char-by-char)
+    if norm_pos <= 0:
+        return 0
+    if norm_pos >= len(text):
+        return len(text)
     
-    for i, char in enumerate(text):
-        if norm_count >= norm_pos:
+    # Approximation: normalisierter Text ist ca. 70-90% der Länge des Originals
+    # Wir starten bei einer Schätzung und korrigieren
+    ratio = 0.8
+    estimated_pos = int(norm_pos / ratio)
+    estimated_pos = min(estimated_pos, len(text))
+    
+    # Feinjustierung: zähle normalisierte Zeichen bis zur geschätzten Position
+    text_prefix = text[:estimated_pos]
+    norm_prefix = normalize_for_comparison(text_prefix)
+    
+    # Korrigiere Schätzung basierend auf tatsächlicher Länge
+    if len(norm_prefix) < norm_pos:
+        # Wir sind zu früh - suche vorwärts
+        while estimated_pos < len(text):
+            estimated_pos += 50
+            text_prefix = text[:min(estimated_pos, len(text))]
+            norm_prefix = normalize_for_comparison(text_prefix)
+            if len(norm_prefix) >= norm_pos:
+                break
+    elif len(norm_prefix) > norm_pos:
+        # Wir sind zu weit - suche rückwärts
+        while estimated_pos > 0:
+            estimated_pos -= 50
+            text_prefix = text[:max(estimated_pos, 0)]
+            norm_prefix = normalize_for_comparison(text_prefix)
+            if len(norm_prefix) <= norm_pos:
+                break
+    
+    # Feinsuche im 100-Zeichen-Fenster um die Schätzung
+    start = max(0, estimated_pos - 50)
+    end = min(len(text), estimated_pos + 50)
+    
+    for i in range(start, end):
+        prefix_norm = normalize_for_comparison(text[:i])
+        if len(prefix_norm) >= norm_pos:
             return i
-        
-        char_norm = normalize_for_comparison(char)
-        if char_norm:
-            norm_count += len(char_norm)
     
-    return len(text)
+    return estimated_pos
 
 
 def process_lecture(
