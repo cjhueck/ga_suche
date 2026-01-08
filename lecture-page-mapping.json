@@ -1,11 +1,23 @@
 {
-  "_info": "Lecture-ID → Start-Seitenzahl im PDF",
+  "_info": "Lecture-ID → Start-Seitenzahl im PDF. Für Bücher: GA00X/1 = erste Inhaltsseite",
   "GA001": {
     "GA001/1": 7,
     "GA001/2": 9,
     "GA001/3": 121,
     "GA001/4": 252,
     "GA001/5": 302
+  },
+  "GA002": {
+    "GA002/1": 7
+  },
+  "GA003": {
+    "GA003/1": 9
+  },
+  "GA004": {
+    "GA004/1": 7
+  },
+  "GA005": {
+    "GA005/1": 9
   },
   "GA024": {
     "GA024/1": 11,
