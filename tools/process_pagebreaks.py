@@ -4,8 +4,9 @@ Komplettes Verfahren für Seitenumbrüche und Seitenzahlen
 
 Führt alle Schritte automatisch durch:
 1. PDF aus Steiner_GA_pdf/ in Steiner_GA/GAXXX-Titel/ kopieren
-2. Seitenmarker mit apply_pagebreaks_from_pdf.py einfügen
+2. Seitenmarker in JSON einfügen (apply_pagebreaks_from_pdf.py)
 3. Alte Override-Dateien in pagebreaks/ inaktivieren (.old)
+4. Seitenmarker in MD-Dateien einfügen (apply_pagebreaks_to_md.py)
 
 Verwendung:
   python tools/process_pagebreaks.py GA061
@@ -21,6 +22,7 @@ import json
 import re
 import shutil
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 from typing import Tuple
@@ -47,6 +49,12 @@ try:
 except ImportError:
     print("FEHLER: apply_pagebreaks_from_pdf.py nicht gefunden!")
     sys.exit(1)
+
+try:
+    from apply_pagebreaks_to_md import process_ga_md as apply_pagebreaks_md
+except ImportError:
+    apply_pagebreaks_md = None
+    print("WARNUNG: apply_pagebreaks_to_md.py nicht gefunden - MD wird nicht aktualisiert")
 
 
 def find_source_pdf(ga_number: str) -> Path | None:
@@ -221,8 +229,9 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
     """
     Führt das komplette Verfahren für eine GA durch:
     1. PDF kopieren
-    2. Seitenmarker einfügen
+    2. Seitenmarker in JSON einfügen
     3. Alte Override-Dateien inaktivieren
+    4. Seitenmarker in MD-Dateien einfügen
     """
     ga_norm = normalize_ga(ga_number)
     if not ga_norm:
@@ -241,11 +250,11 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
     print(f"  Typ: {content_type}")
     
     # Schritt 1: PDF kopieren
-    print(f"\n  [1/3] PDF kopieren...")
+    print(f"\n  [1/4] PDF kopieren...")
     pdf_ok = copy_pdf_to_ga_folder(ga_norm, dry_run)
     
-    # Schritt 2: Seitenmarker einfügen
-    print(f"\n  [2/3] Seitenmarker einfügen...")
+    # Schritt 2: Seitenmarker in JSON einfügen
+    print(f"\n  [2/4] Seitenmarker in JSON einfügen...")
     if dry_run:
         print(f"    → Würde Marker einfügen mit apply_pagebreaks_from_pdf.py")
         markers_inserted = 0
@@ -260,19 +269,43 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
             markers_inserted = 0
     
     # Schritt 3: Alte Overrides inaktivieren
-    print(f"\n  [3/3] Alte Override-Dateien inaktivieren...")
+    print(f"\n  [3/4] Alte Override-Dateien inaktivieren...")
     override_ok = deactivate_old_overrides(ga_norm, dry_run)
+    
+    # Schritt 4: Seitenmarker in MD-Dateien einfügen
+    print(f"\n  [4/4] Seitenmarker in MD-Dateien einfügen...")
+    md_markers_inserted = 0
+    if apply_pagebreaks_md is None:
+        print(f"    ⚠️  apply_pagebreaks_to_md.py nicht verfügbar")
+        md_ok = False
+    elif dry_run:
+        print(f"    → Würde Marker in MD-Dateien einfügen")
+        md_ok = True
+    else:
+        try:
+            md_result = apply_pagebreaks_md(ga_norm, dry_run=False)
+            md_markers_inserted = md_result.get("markers_inserted", 0)
+            if "error" in md_result:
+                print(f"    ⚠️  {md_result['error']}")
+                md_ok = False
+            else:
+                md_ok = True
+        except Exception as e:
+            print(f"    ✗ Fehler: {e}")
+            md_ok = False
     
     # Zusammenfassung
     print(f"\n  Ergebnis für {ga_norm}:")
     print(f"    - PDF: {'✓' if pdf_ok else '✗'}")
-    print(f"    - Marker: {markers_inserted if not dry_run else '(dry-run)'}")
+    print(f"    - JSON-Marker: {markers_inserted if not dry_run else '(dry-run)'}")
     print(f"    - Override: {'✓' if override_ok else '✗'}")
+    print(f"    - MD-Marker: {md_markers_inserted if not dry_run else '(dry-run)'}")
     
     return {
         "ga": ga_norm,
-        "status": "success" if (pdf_ok or markers_inserted > 0) else "error",
+        "status": "success" if (pdf_ok or markers_inserted > 0 or md_markers_inserted > 0) else "error",
         "markers_inserted": markers_inserted,
+        "md_markers_inserted": md_markers_inserted,
         "pdf_copied": pdf_ok,
         "override_deactivated": override_ok
     }
@@ -290,8 +323,9 @@ Beispiele:
 
 Das Script führt automatisch durch:
   1. PDF aus Steiner_GA_pdf/ in Steiner_GA/GAXXX-Titel/ kopieren
-  2. Seitenmarker mit apply_pagebreaks_from_pdf.py einfügen
+  2. Seitenmarker in JSON einfügen (apply_pagebreaks_from_pdf.py)
   3. Alte Override-Dateien in pagebreaks/ inaktivieren
+  4. Seitenmarker in MD-Dateien einfügen (apply_pagebreaks_to_md.py)
 
 Nach Abschluss: Server neu starten (nb)
         """
@@ -299,23 +333,39 @@ Nach Abschluss: Server neu starten (nb)
     parser.add_argument("ga", nargs="+", help="GA-Nummer(n) oder Bereich (z.B. 61 67)")
     parser.add_argument("--dry-run", action="store_true", 
                         help="Nur anzeigen, keine Änderungen")
+    parser.add_argument("--workers", "-w", type=int, default=4,
+                        help="Anzahl paralleler Prozesse (Standard: 4)")
+    parser.add_argument("--sequential", "-s", action="store_true",
+                        help="Sequentielle Verarbeitung (kein Parallelismus)")
     
     args = parser.parse_args()
     
     # Bestimme GA-Nummern
     ga_numbers = []
     
-    if len(args.ga) == 2 and args.ga[0].isdigit() and args.ga[1].isdigit():
-        # Bereich
-        start = int(args.ga[0])
-        end = int(args.ga[1])
-        ga_numbers = [f"GA{i:03d}" for i in range(start, end + 1)]
-    else:
-        # Einzelne GAs
-        for ga in args.ga:
-            ga_norm = normalize_ga(ga)
+    i = 0
+    while i < len(args.ga):
+        # Prüfe auf Bereich: zwei aufeinanderfolgende Zahlen
+        if (i + 1 < len(args.ga) and 
+            args.ga[i].isdigit() and 
+            args.ga[i+1].isdigit() and
+            int(args.ga[i]) < int(args.ga[i+1])):
+            # Bereich erkannt
+            start = int(args.ga[i])
+            end = int(args.ga[i+1])
+            for n in range(start, end + 1):
+                ga_numbers.append(f"GA{n:03d}")
+            i += 2
+        else:
+            # Einzelne GA
+            ga_norm = normalize_ga(args.ga[i])
             if ga_norm:
                 ga_numbers.append(ga_norm)
+            i += 1
+    
+    # Duplikate entfernen, Reihenfolge beibehalten
+    seen = set()
+    ga_numbers = [x for x in ga_numbers if not (x in seen or seen.add(x))]
     
     if not ga_numbers:
         print("Keine gültigen GA-Nummern angegeben")
@@ -326,13 +376,37 @@ Nach Abschluss: Server neu starten (nb)
     print(f"# GAs: {', '.join(ga_numbers)}")
     if args.dry_run:
         print(f"# MODUS: Trockenlauf (keine Änderungen)")
+    if not args.sequential:
+        print(f"# PARALLEL: {args.workers} Worker")
     print(f"{'#'*60}")
     
     # Verarbeite alle GAs
     results = []
-    for ga in ga_numbers:
-        result = process_ga_complete(ga, dry_run=args.dry_run)
-        results.append(result)
+    
+    if args.sequential or len(ga_numbers) == 1:
+        # Sequentielle Verarbeitung
+        for ga in ga_numbers:
+            result = process_ga_complete(ga, dry_run=args.dry_run)
+            results.append(result)
+    else:
+        # Parallele Verarbeitung (Threads statt Prozesse für Windows-Kompatibilität)
+        print(f"\nStarte parallele Verarbeitung mit {args.workers} Threads...")
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            futures = {
+                executor.submit(process_ga_complete, ga, args.dry_run): ga 
+                for ga in ga_numbers
+            }
+            for future in as_completed(futures):
+                ga = futures[future]
+                try:
+                    result = future.result()
+                    results.append(result)
+                    status = result.get("status", "?")
+                    markers = result.get("markers_inserted", 0) + result.get("md_markers_inserted", 0)
+                    print(f"  ✓ {ga}: {status} ({markers} Marker)")
+                except Exception as e:
+                    print(f"  ✗ {ga}: Fehler - {e}")
+                    results.append({"ga": ga, "status": "error", "reason": str(e)})
     
     # Gesamtzusammenfassung
     print(f"\n{'='*60}")
@@ -348,7 +422,9 @@ Nach Abschluss: Server neu starten (nb)
     print(f"  Fehler: {len(errors)}")
     
     total_markers = sum(r.get("markers_inserted", 0) for r in results)
-    print(f"\n  Gesamt Marker eingefügt: {total_markers}")
+    total_md_markers = sum(r.get("md_markers_inserted", 0) for r in results)
+    print(f"\n  Gesamt JSON-Marker eingefügt: {total_markers}")
+    print(f"  Gesamt MD-Marker eingefügt: {total_md_markers}")
     
     if errors:
         print(f"\n  Fehler bei:")
