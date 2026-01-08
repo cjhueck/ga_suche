@@ -191,6 +191,9 @@ def find_pdf_for_ga(ga_number: str) -> Optional[Path]:
         # Muss "steiner" enthalten (die richtigen PDFs)
         if "steiner" not in name_lower:
             continue
+        # Tafelzeichnungen-PDFs ausschließen
+        if "tafelzeichnungen" in name_lower:
+            continue
         
         for pattern in patterns:
             if pattern in name_lower.replace(",", " ").replace("  ", " "):

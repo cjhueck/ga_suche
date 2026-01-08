@@ -62,8 +62,8 @@
     },
     "2026-01-08": {
       "views": 4,
-      "searches": 1,
-      "lectures": 31
+      "searches": 3,
+      "lectures": 52
     }
   },
   "topSearches": {
@@ -87,7 +87,8 @@
     "wäre ich doch tiefer": 1,
     "tagebücher": 1,
     "steiner zum \"wiedererscheinen des christus im äthe": 2,
-    "der wert des denkens": 1
+    "der wert des denkens": 1,
+    "png": 2
   },
   "topLectures": {
     "GA019": 2,
@@ -231,7 +232,7 @@
     "GA130/1": 1,
     "GA052/15": 1,
     "GA034/28": 6,
-    "GA046/1": 9,
+    "GA046/1": 10,
     "GA046/2": 1,
     "GA046/41": 1,
     "GA069a/9": 1,
@@ -449,16 +450,20 @@
     "GA198/17": 1,
     "GA164/1": 4,
     "GA161/1": 1,
-    "GA161/13": 12,
-    "GA161/12": 4,
+    "GA161/13": 15,
+    "GA161/12": 11,
     "GA266c/7": 1,
     "GA164/3": 1,
     "GA164/4": 1,
     "GA164/9": 1,
     "GA164/11": 1,
-    "GA156/7": 3
+    "GA156/7": 5,
+    "GA110/5": 3,
+    "GA001": 1,
+    "GA046/18": 1,
+    "GA161/8": 3
   },
   "totalViews": 49,
-  "totalSearches": 56,
-  "totalLectureViews": 787
+  "totalSearches": 58,
+  "totalLectureViews": 808
 }
