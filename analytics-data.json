@@ -56,9 +56,14 @@
       "lectures": 141
     },
     "2026-01-07": {
-      "views": 6,
+      "views": 8,
       "searches": 2,
-      "lectures": 56
+      "lectures": 65
+    },
+    "2026-01-08": {
+      "views": 2,
+      "searches": 1,
+      "lectures": 31
     }
   },
   "topSearches": {
@@ -81,7 +86,8 @@
     "steiner zu \"freimaurerei\" bzw. \"freimaurern\"": 2,
     "wäre ich doch tiefer": 1,
     "tagebücher": 1,
-    "steiner zum \"wiedererscheinen des christus im äthe": 2
+    "steiner zum \"wiedererscheinen des christus im äthe": 2,
+    "der wert des denkens": 1
   },
   "topLectures": {
     "GA019": 2,
@@ -225,7 +231,7 @@
     "GA130/1": 1,
     "GA052/15": 1,
     "GA034/28": 6,
-    "GA046/1": 8,
+    "GA046/1": 9,
     "GA046/2": 1,
     "GA046/41": 1,
     "GA069a/9": 1,
@@ -430,9 +436,29 @@
     "GA201/16": 2,
     "GA201/15": 1,
     "GA152/1": 1,
-    "GA167/1": 1
+    "GA167/1": 1,
+    "GA168/1": 1,
+    "GA168/8": 1,
+    "GA186/1": 1,
+    "GA186/11": 1,
+    "GA046/40": 1,
+    "GA046/84": 1,
+    "GA046/126": 1,
+    "GA046/143": 1,
+    "GA198/1": 1,
+    "GA198/17": 1,
+    "GA164/1": 4,
+    "GA161/1": 1,
+    "GA161/13": 12,
+    "GA161/12": 4,
+    "GA266c/7": 1,
+    "GA164/3": 1,
+    "GA164/4": 1,
+    "GA164/9": 1,
+    "GA164/11": 1,
+    "GA156/7": 3
   },
-  "totalViews": 43,
-  "totalSearches": 55,
-  "totalLectureViews": 747
+  "totalViews": 47,
+  "totalSearches": 56,
+  "totalLectureViews": 787
 }
