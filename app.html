@@ -1200,7 +1200,9 @@ body.dark-mode .connection-modal-header {
     
     /* Bücher im Blocksatz - aber nicht Gedichte */
     .book-content p:not(.poem):not(.short-lines),
-    #viewer .book-content p:not(.poem):not(.short-lines) {
+    #viewer .book-content p:not(.poem):not(.short-lines),
+    .book-content .paragraph:not(.has-poem),
+    #viewer .book-content .paragraph:not(.has-poem) {
       text-align: justify;
     }
     
@@ -4149,6 +4151,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       line-height: 1.5 !important;
       font-size: var(--text-size);
       color: var(--text-color);
+      text-align: justify;
     }
     
     /* WICHTIG: Überschreibe margin für Gedicht-Paragraphen (muss nach der allgemeinen .paragraph Regel kommen) */
@@ -4158,6 +4161,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       margin-top: 0 !important;
       margin-bottom: 0 !important;
       margin: 0 !important;
+      text-align: left !important; /* Gedichte linksbündig, nicht Blocksatz */
     }
     
     #viewer .paragraph.has-poem + .paragraph.has-poem,
@@ -10067,7 +10071,98 @@ function normalizeGANumber(gaNumber) {
       
       }
     
+    // Erfasst den aktuellen Zustand des aktiven Tabs für Browser-History
+    function getCurrentTabState() {
+      const activeTab = document.querySelector('.tab-content.active');
+      if (!activeTab) return null;
+      
+      const tabId = activeTab.id.replace('-tab', '');
+      const state = { tab: tabId };
+      
+      // Je nach Tab unterschiedliche Informationen speichern
+      switch (tabId) {
+        case 'ga':
+          // Prüfe ob GA-Band angezeigt wird
+          console.log('[HISTORY] getCurrentTabState: currentGANumber =', typeof currentGANumber !== 'undefined' ? currentGANumber : 'undefined');
+          if (typeof currentGANumber !== 'undefined' && currentGANumber) {
+            state.gaVolume = currentGANumber;
+          }
+          // Prüfe ob chronologische Ansicht aktiv ist
+          if (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+            state.gaView = 'chronological';
+          }
+          // Prüfe ob Vortrag angezeigt wird (window.currentOpenLectureId wird von showLecture gesetzt)
+          if (window.currentOpenLectureId) {
+            state.lecture = window.currentOpenLectureId;
+          }
+          break;
+          
+        case 'keyword':
+          // Suchbegriffe und Ergebnisse
+          const word1Input = document.getElementById('word1');
+          const word2Input = document.getElementById('word2');
+          if (word1Input && word1Input.value.trim()) {
+            state.searchWord1 = word1Input.value.trim();
+            if (word2Input && word2Input.value.trim()) {
+              state.searchWord2 = word2Input.value.trim();
+            }
+            // Operator speichern
+            const operatorRadio = document.querySelector('input[name="wordOperator"]:checked');
+            if (operatorRadio) {
+              state.searchOperator = operatorRadio.value;
+            }
+          }
+          // Prüfe ob Vortrag angezeigt wird
+          if (window.currentOpenLectureId) {
+            state.lecture = window.currentOpenLectureId;
+          }
+          break;
+          
+        case 'texte':
+          // Prüfe ob Vortrag/Buch angezeigt wird
+          if (window.currentOpenLectureId) {
+            state.lecture = window.currentOpenLectureId;
+          }
+          break;
+          
+        case 'thematic':
+          // Thematische Suchanfrage
+          const thematicQuery = document.getElementById('thematicQuery');
+          if (thematicQuery && thematicQuery.value.trim()) {
+            state.query = thematicQuery.value.trim();
+          }
+          break;
+          
+        case 'thematic2':
+          // Themen-Tab - prüfe ob Summary-Panel offen ist
+          const summaryPanel = document.getElementById('summaryPanel');
+          if (summaryPanel && summaryPanel.style.display !== 'none') {
+            state.summaryPanelOpen = true;
+          }
+          break;
+          
+        case 'schlagworte':
+          // Ausgewählter Buchstabe
+          const activeLetterBtn = document.querySelector('#alphabet-nav .depth-btn.active, #alphabet-nav-dynamic .depth-btn.active');
+          if (activeLetterBtn) {
+            state.letter = activeLetterBtn.textContent;
+          }
+          break;
+      }
+      
+      return state;
+    }
+    
     function switchTab(mode, skipHistory = false) {
+      console.log('[HISTORY] *** switchTab aufgerufen:', mode, 'skipHistory:', skipHistory);
+      
+      // WICHTIG: Zuerst den aktuellen Zustand erfassen BEVOR irgendetwas zurückgesetzt wird!
+      let savedState = null;
+      if (!skipHistory) {
+        savedState = getCurrentTabState();
+        console.log('[HISTORY] Aktueller State vor Tab-Wechsel:', JSON.stringify(savedState));
+      }
+      
       // SOFORT: Button direkt verstecken beim Tab-Wechsel (wird später korrekt gesetzt)
       const closeSummaryBtn = document.getElementById('closeSummaryPanelBtn');
       if (closeSummaryBtn) {
@@ -10139,18 +10234,30 @@ function normalizeGANumber(gaNumber) {
       }
       
       // Füge Browser History Eintrag hinzu (außer bei popstate)
-      if (!skipHistory) {
-        // Bereinige URL: Nur Hash für aktuellen Tab, keine Query-Parameter von vorherigen Tabs
+      if (!skipHistory && savedState) {
+        const currentState = history.state;
+        console.log('[HISTORY] switchTab: Aktueller history.state:', JSON.stringify(currentState));
+        console.log('[HISTORY] switchTab: savedState:', JSON.stringify(savedState));
+        
+        // WICHTIG: Den vorher erfassten Zustand im aktuellen History-Eintrag speichern
+        const currentUrl = window.location.href;
+        history.replaceState(savedState, '', currentUrl);
+        console.log('[HISTORY] switchTab: replaceState DONE, history.state jetzt:', JSON.stringify(history.state));
+        
+        // Dann neuen Tab-Eintrag hinzufügen
         const baseUrl = window.location.origin + window.location.pathname;
         const url = `${baseUrl}#${mode}`;
-        history.pushState({ tab: mode }, '', url);
-        }
+        const newState = { tab: mode };
+        console.log('[HISTORY] switchTab: pushState für Tab:', mode);
+        history.pushState(newState, '', url);
+        console.log('[HISTORY] switchTab: pushState DONE, history.state jetzt:', JSON.stringify(history.state));
+      }
       
       // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
       savedSummaryPanelWidth = null;
       
-      // Prüfe, ob wir ZUM Suche-Tab wechseln
-      if (mode === 'keyword') {
+      // Prüfe, ob wir ZUM Suche-Tab wechseln (NUR bei Klick, NICHT bei Back-Button)
+      if (mode === 'keyword' && !skipHistory) {
         // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
         resetSearchTab();
         
@@ -11124,14 +11231,17 @@ function normalizeGANumber(gaNumber) {
 
     // Browser Zurück/Vorwärts-Button Handler
     window.addEventListener('popstate', function(event) {
+      console.log('[HISTORY] *** popstate Event:', JSON.stringify(event.state));
       if (event.state) {
         // Wechsle zu Tab ohne neuen History-Eintrag zu erstellen
         if (event.state.tab) {
+          console.log('[HISTORY] Wechsle zu Tab:', event.state.tab, 'gaVolume:', event.state.gaVolume || 'NICHT VORHANDEN');
           switchTab(event.state.tab, true);
         }
         
         // Wenn ein Vortrag im State ist, lade ihn mit allen gespeicherten Parametern
         if (event.state.lecture) {
+          console.log('[HISTORY] Lade Vortrag:', event.state.lecture, 'für Tab:', event.state.tab);
           setTimeout(() => {
             showLecture(
               event.state.lecture, 
@@ -11141,6 +11251,31 @@ function normalizeGANumber(gaNumber) {
               true // skipHistory = true
             );
           }, 200); // Kurze Verzögerung, damit Tab-Wechsel abgeschlossen ist
+        }
+        
+        // Wenn Keyword-Suche im State ist, stelle sie wieder her
+        if (event.state.searchWord1 && event.state.tab === 'keyword') {
+          setTimeout(() => {
+            const word1Input = document.getElementById('word1');
+            const word2Input = document.getElementById('word2');
+            if (word1Input) {
+              word1Input.value = event.state.searchWord1;
+              if (word2Input && event.state.searchWord2) {
+                word2Input.value = event.state.searchWord2;
+              }
+              // Operator wiederherstellen
+              if (event.state.searchOperator) {
+                const operatorRadio = document.querySelector(`input[name="wordOperator"][value="${event.state.searchOperator}"]`);
+                if (operatorRadio) {
+                  operatorRadio.checked = true;
+                }
+              }
+              // Führe die Suche erneut aus
+              if (typeof performKeywordSearch === 'function') {
+                performKeywordSearch();
+              }
+            }
+          }, 300);
         }
         
         // Wenn eine thematische Suche im State ist, führe sie aus
@@ -11163,9 +11298,12 @@ function normalizeGANumber(gaNumber) {
         
         // Wenn ein GA-Band im State ist, zeige es
         if (event.state.gaVolume && event.state.tab === 'ga') {
+          console.log('[HISTORY] Lade GA-Band:', event.state.gaVolume);
           setTimeout(() => {
             showGALectures(event.state.gaVolume, true);
           }, 300);
+        } else if (event.state.tab === 'ga' && !event.state.gaVolume) {
+          console.log('[HISTORY] WARNUNG: GA-Tab ohne gaVolume im State!', event.state);
         }
         
         // Wenn chronologische GA-Ansicht im State ist, zeige sie
@@ -11196,6 +11334,15 @@ function normalizeGANumber(gaNumber) {
         
         if (hash) {
           switchTab(hash, true);
+        } else {
+          // Kein Hash und kein State - verhindere Navigation zu index.html
+          // Setze stattdessen einen State für den aktuellen Tab
+          const activeTab = document.querySelector('.tab-content.active');
+          if (activeTab) {
+            const tabId = activeTab.id.replace('-tab', '');
+            history.pushState({ tab: tabId }, '', `${window.location.pathname}#${tabId}`);
+          }
+          return; // Beende hier, um nicht weiter zu navigieren
         }
         
         // Prüfe auf Parameter in URL
@@ -11406,6 +11553,13 @@ function normalizeGANumber(gaNumber) {
       } else {
         }
     } catch (_) {}
+    
+    // WICHTIG: Setze initialen History-State beim Seitenstart
+    // Damit der Back-Button nicht zu index.html führt, sondern zum vorherigen App-Zustand
+    if (!history.state) {
+      const initialTab = window.location.hash.substring(1).split('?')[0] || 'ga';
+      history.replaceState({ tab: initialTab, isInitial: true }, '', window.location.href);
+    }
   }
     });
 
@@ -12953,11 +13107,8 @@ function normalizeGANumber(gaNumber) {
       try {
         // Prüfe ob es ein Book ist
         if (isBookGANumber(gaNumber)) {
-          // Für Books: Lade direkt im Main Viewer
-          const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const book = await response.json();
-          await displayBook(book);
+          // Für Books: Verwende showLecture, damit History-Eintrag erstellt wird
+          await showLecture(gaNumber);
           return;
         }
         
@@ -14661,6 +14812,10 @@ async function loadSummaryDatabase() {
 // Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist
 // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
 function isBookGANumber(gaNumber) {
+  // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
+  const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+  if (gaNum === 1) return false;
+  
   // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze
   const notBooks = ['GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
   const normalized = gaNumber.toUpperCase().replace(/^GA0?/, 'GA');
@@ -14670,8 +14825,7 @@ function isBookGANumber(gaNumber) {
   }
   // Prüfe auch mit isEssayGANumber
   if (isEssayGANumber(gaNumber)) return false;
-  const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
-  return gaNum >= 1 && gaNum <= 46;
+  return gaNum >= 2 && gaNum <= 46;
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
@@ -14705,7 +14859,7 @@ function getGATypeName(gaNumber, plural = false) {
 }
 
 // Hilfsfunktion für Post-Processing nach dem Book-Rendering (für progressives Rendering)
-async function finishBookRendering(book, viewer, targetIndex, mainContainer) {
+async function finishBookRendering(book, viewer, targetIndex, mainContainer, highlightHeadingId = null) {
   const bookId = book.gaNumber || book.ID;
   
   // Bilder ersetzen
@@ -14766,6 +14920,72 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer) {
     }
   }, 200);
   
+  // WICHTIG: Setze Überschriften-IDs NACH dem Rendering (für progressives Rendering)
+  // Dies muss hier passieren, da bei progressivem Rendering der Code in displayBook zu früh ausgeführt wird
+  if (book.headings && book.headings.length > 0) {
+    setTimeout(() => {
+      let idsSetCount = 0;
+      book.headings.forEach(heading => {
+        const headingElements = viewer.querySelectorAll(`h${heading.level || 3}`);
+        const headingTextNormalized = heading.text.trim().toLowerCase();
+        
+        for (const el of headingElements) {
+          if (el.id && el.id !== '') continue;
+          
+          const elText = el.textContent.trim();
+          const elTextNormalized = elText.toLowerCase();
+          
+          if (elTextNormalized === headingTextNormalized || 
+              elTextNormalized.includes(headingTextNormalized) || 
+              headingTextNormalized.includes(elTextNormalized) ||
+              elText === heading.text) {
+            const rawIndex = heading.index || heading.id || '';
+            const headingId = rawIndex.replace(/^\^/, '');
+            el.id = headingId;
+            el.setAttribute('data-heading-id', headingId);
+            idsSetCount++;
+            break;
+          }
+        }
+      });
+      
+      console.log(`[FINISH-BOOK] ${idsSetCount} Überschriften-IDs gesetzt`);
+      
+      // Scrolle zu highlightHeadingId wenn vorhanden (nach dem Setzen der IDs)
+      if (highlightHeadingId) {
+        console.log(`[FINISH-BOOK] Scrolle zu Überschrift: "${highlightHeadingId}"`);
+        setTimeout(() => {
+          let headingElement = document.getElementById(highlightHeadingId);
+          if (!headingElement) {
+            headingElement = document.getElementById('para-' + highlightHeadingId);
+          }
+          
+          if (headingElement) {
+            const mainContainer = document.getElementById('main');
+            if (mainContainer) {
+              const header = document.getElementById('viewer-header');
+              const headerHeight = header ? header.offsetHeight + 5 : 5;
+              const mainRect = mainContainer.getBoundingClientRect();
+              const headingRect = headingElement.getBoundingClientRect();
+              const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop;
+              mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+              
+              // Markiere kurz
+              headingElement.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+              setTimeout(() => {
+                headingElement.style.backgroundColor = '';
+              }, 2000);
+            } else {
+              headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+            }
+          } else {
+            console.warn(`[FINISH-BOOK] Überschrift nicht gefunden: "${highlightHeadingId}"`);
+          }
+        }, 100);
+      }
+    }, 100);
+  }
+  
   // Scrolle zu targetIndex wenn vorhanden
   if (targetIndex) {
     setTimeout(() => {
@@ -14784,10 +15004,13 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer) {
             const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
             mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
             
-            if (typeof addHighlightingWithAutoRemove === 'function') {
-              addHighlightingWithAutoRemove(paragraphElement);
-            } else {
-              paragraphElement.classList.add('highlighted-paragraph');
+            // ABER: Überspringe Highlighting wenn Navigation vom Inhaltsverzeichnis kommt
+            if (!window.skipParagraphHighlight) {
+              if (typeof addHighlightingWithAutoRemove === 'function') {
+                addHighlightingWithAutoRemove(paragraphElement);
+              } else {
+                paragraphElement.classList.add('highlighted-paragraph');
+              }
             }
           }
         }
@@ -14941,10 +15164,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           }
           
           // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
-          if (typeof addHighlightingWithAutoRemove === 'function') {
-            addHighlightingWithAutoRemove(paragraphElement);
-          } else {
-            paragraphElement.classList.add('highlighted-paragraph');
+          // ABER: Überspringe Highlighting wenn Navigation vom Inhaltsverzeichnis kommt
+          if (!window.skipParagraphHighlight) {
+            if (typeof addHighlightingWithAutoRemove === 'function') {
+              addHighlightingWithAutoRemove(paragraphElement);
+            } else {
+              paragraphElement.classList.add('highlighted-paragraph');
+            }
           }
           
           return;
@@ -15331,7 +15557,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Verwende gleiche HTML-Struktur wie bei Vorträgen
       const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
       const cursorStyle = isLocal ? 'cursor: pointer;' : '';
-      const applyHighlight = isTargetPara && !window.membersNavigating;
+      const applyHighlight = isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight;
       
       // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
       const hasTextEdit = para._edited ? 'has-text-edit' : '';
@@ -15352,6 +15578,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   if (paragraphs.length > 0) {
     // OPTIMIERUNG: Bei großen Dokumenten progressives Rendering verwenden
+    // WICHTIG: NICHT im GA-Tab verwenden - dort wird nur TOC angezeigt, kein Content
     if (isLargeDocument && !isInGATab) {
       // Zeige sofort einen Ladeindikator
       const gaNumber = book.gaNumber || book.ID || '';
@@ -15376,6 +15603,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       const contentContainer = document.getElementById('progressive-book-content');
       const loadingIndicator = document.getElementById('book-loading-indicator');
       
+      // WICHTIG: Verstecke Viewer während Rendering, wenn highlightHeadingId vorhanden ist
+      // (verhindert Flackern - Viewer wird erst sichtbar wenn gescrollt wurde)
+      let shouldHideViewer = highlightHeadingId !== null;
+      if (shouldHideViewer && mainContainer) {
+        mainContainer.style.opacity = '0';
+        mainContainer.style.transition = 'opacity 0.1s';
+      }
+      
       async function renderNextBatch() {
         const endIndex = Math.min(currentIndex + BATCH_SIZE, paragraphs.length);
         let batchHtml = '';
@@ -15393,6 +15628,32 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         // Aktualisiere Fortschrittsbalken
         const progress = (currentIndex / paragraphs.length) * 100;
         if (progressBar) progressBar.style.width = progress + '%';
+        
+        // WICHTIG: Versuche zu scrollen, sobald der Zielbereich gerendert ist
+        // (für highlightHeadingId - frühes Scrollen verhindert Flackern)
+        if (shouldHideViewer && highlightHeadingId && currentIndex > 0) {
+          // Prüfe ob die Ziel-Überschrift bereits gerendert wurde
+          const headingElement = document.getElementById(highlightHeadingId) || 
+                                 document.getElementById('para-' + highlightHeadingId);
+          if (headingElement) {
+            // Ziel gefunden - scrolle sofort und zeige Viewer
+            setTimeout(() => {
+              const mainContainer = document.getElementById('main');
+              if (mainContainer) {
+                const header = document.getElementById('viewer-header');
+                const headerHeight = header ? header.offsetHeight + 5 : 5;
+                const mainRect = mainContainer.getBoundingClientRect();
+                const headingRect = headingElement.getBoundingClientRect();
+                const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop;
+                mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+                
+                // Zeige Viewer wieder
+                mainContainer.style.opacity = '1';
+                shouldHideViewer = false; // Verhindere weitere Scroll-Versuche
+              }
+            }, 0);
+          }
+        }
         
         if (currentIndex < paragraphs.length) {
           // Nächster Batch mit requestAnimationFrame
@@ -15412,7 +15673,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
               processAllParagraphIndices(bookContentDiv);
             }
             // Bilder und andere Post-Processing...
-            finishBookRendering(book, viewer, targetIndex, mainContainer);
+            // WICHTIG: Übergebe highlightHeadingId für Scrollen nach progressivem Rendering
+            finishBookRendering(book, viewer, targetIndex, mainContainer, highlightHeadingId);
+            
+            // Stelle sicher, dass Viewer sichtbar ist (falls er versteckt wurde)
+            if (mainContainer && shouldHideViewer) {
+              mainContainer.style.opacity = '1';
+            }
           }, 0);
           
           console.log(`[BOOK] Progressives Rendering abgeschlossen: ${paragraphs.length} Absätze`);
@@ -15708,8 +15975,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       
       console.log(`[BOOK-IDS] ${idsSetCount} IDs gesetzt für book.headings`);
       
-      // Scrolle zu markierter Überschrift NACH dem Setzen der IDs
-      if (highlightHeadingId) {
+      // WICHTIG: Scrolle zu markierter Überschrift NUR wenn KEIN progressives Rendering verwendet wird
+      // Bei progressivem Rendering wird das Scrollen in finishBookRendering durchgeführt
+      if (highlightHeadingId && !isLargeDocument) {
         console.log(`[BOOK-SCROLL] Suche Überschrift mit ID: "${highlightHeadingId}"`);
         // Scrolle direkt zur Überschrift (sie ist vorhanden, wie der Benutzer bestätigt hat)
         setTimeout(() => {
@@ -15720,18 +15988,27 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           }
           console.log(`[BOOK-SCROLL] Element gefunden:`, headingElement ? 'JA' : 'NEIN');
           if (headingElement) {
-            // Verwende scrollIntoView für zuverlässiges Scrollen
-            headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+            const mainContainer = document.getElementById('main');
+            if (mainContainer) {
+              const header = document.getElementById('viewer-header');
+              const headerHeight = header ? header.offsetHeight + 5 : 5;
+              const mainRect = mainContainer.getBoundingClientRect();
+              const headingRect = headingElement.getBoundingClientRect();
+              const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop;
+              mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+            } else {
+              headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+            }
             
             // Markiere kurz
-            headingElement.style.backgroundColor = 'var(--highlight-color)';
+            headingElement.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
             setTimeout(() => {
               headingElement.style.backgroundColor = '';
             }, 2000);
             
           } else {
             // Debug: Liste alle IDs im Viewer auf
-            const allHeadings = viewer.querySelectorAll('h3, h4');
+            const allHeadings = viewer.querySelectorAll('h2, h3, h4');
             console.log(`[BOOK-SCROLL] Alle Überschriften im Viewer (${allHeadings.length}):`);
             allHeadings.forEach((h, i) => {
               console.log(`  ${i}: id="${h.id}", text="${h.textContent.substring(0, 40)}..."`);
@@ -16419,16 +16696,13 @@ async function showGALectures(gaNumber, skipHistory = false) {
       }
     }
     
-    // Browser History Eintrag hinzufügen
+    // Browser History: Erstelle neuen Eintrag für diesen GA-Band
     if (!skipHistory) {
-      // Entferne bestehende Query-Parameter aus dem Hash, um doppelte Parameter zu vermeiden
-      const currentHash = window.location.hash.substring(1) || 'ga';
-      const tabWithoutParams = currentHash.split('?')[0];
-      const url = `${window.location.pathname}#${tabWithoutParams}?volume=${encodeURIComponent(gaNumber)}`;
-      history.pushState({ 
-        tab: 'ga', 
-        gaVolume: gaNumber 
-      }, '', url);
+      const url = `${window.location.pathname}#ga?volume=${encodeURIComponent(gaNumber)}`;
+      const newState = { tab: 'ga', gaVolume: gaNumber };
+      console.log('[HISTORY] showGALectures: pushState für GA-Band:', gaNumber, 'State:', JSON.stringify(newState));
+      history.pushState(newState, '', url);
+      console.log('[HISTORY] showGALectures: history.state nach pushState:', JSON.stringify(history.state));
       }
     
     // Speichere aktuellen GA-Band für Theme-Wechsel
@@ -18070,9 +18344,9 @@ function scrollToChronologicalYear(year) {
         // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
         const gaNumber = lectureId.split('/')[0];
         
-        // Wechsle zum Texte-Tab
+        // Wechsle zum Texte-Tab (skipHistory=true, da showLecture den History-Eintrag erstellt)
         if (typeof switchTab === 'function') {
-          switchTab('texte');
+          switchTab('texte', true);
         } else {
           console.error('[NAVIGATION] switchTab Funktion nicht verfügbar');
           return;
@@ -18169,8 +18443,12 @@ function scrollToChronologicalYear(year) {
     async function navigateToBookHeadingInTexteTab(gaNumber, headingId) {
       console.log(`[NAV-BOOK] Navigiere zu ${gaNumber}, Überschrift: ${headingId}`);
       
-      // Wechsle zum Texte-Tab
-      switchTab('texte');
+      // WICHTIG: Setze Flag um Absatz-Highlighting zu überspringen
+      // Bei Navigation vom Inhaltsverzeichnis soll nur gescrollt, aber NICHT gehighlighted werden
+      window.skipParagraphHighlight = true;
+      
+      // Wechsle zum Texte-Tab (skipHistory=true, da showLecture den History-Eintrag erstellt)
+      switchTab('texte', true);
       
       // Warte kurz, damit der Tab geladen ist
       await new Promise(resolve => setTimeout(resolve, 200));
@@ -18180,17 +18458,16 @@ function scrollToChronologicalYear(year) {
       if (texteGAFilter && gaNumber) {
         texteGAFilter.value = gaNumber;
         // Lade das Book im Hauptviewer mit der spezifischen Überschrift
-        try {
-          const apiBase = window.API_BASE || 'https://ga-suche.onrender.com';
-          const response = await fetch(`${apiBase}/api/book/${gaNumber}`);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const book = await response.json();
-          console.log(`[NAV-BOOK] Buch geladen, rufe displayBook mit headingId="${headingId}" auf`);
-          await displayBook(book, headingId);
-        } catch (error) {
-          console.error(`[NAVIGATION] Fehler beim Laden des Books:`, error);
-        }
+        // Verwende showLecture für korrekten History-Eintrag
+        console.log(`[NAV-BOOK] Buch laden: ${gaNumber}, headingId: ${headingId}`);
+        await showLecture(gaNumber, headingId);
       }
+      
+      // Flag verzögert zurücksetzen (nach allen setTimeout-Callbacks in displayBook/finishBookRendering)
+      // Die setTimeout-Callbacks dort haben bis zu 300ms Delay (mit Retries), also 1000ms sollte sicher ausreichen
+      setTimeout(() => {
+        window.skipParagraphHighlight = false;
+      }, 1000);
     }
     
     // Stelle Funktion im globalen Scope verfügbar für onclick-Attribute im GA-Tab
@@ -18819,7 +19096,7 @@ function scrollToChronologicalYear(year) {
     
     async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
       
-      // Prüfe ob es ein Buch ist (GA001-GA046)
+      // Prüfe ob es ein Buch ist (GA002-GA046, GA001 wird wie Vortragsband behandelt)
       // Extrahiere GA-Nummer aus lectureId (z.B. "GA001/1" -> "GA001")
       const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
       if (gaMatch) {
@@ -19106,7 +19383,8 @@ function scrollToChronologicalYear(year) {
             }
             
             // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
-            const highlightClass = (isTargetPara && !window.membersNavigating) ? 'highlighted-paragraph' : '';
+            // WICHTIG: Bei Navigation vom Inhaltsverzeichnis KEIN Absatz-Highlighting
+            const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight) ? 'highlighted-paragraph' : '';
             
             // NEU: Füge data-* Attribute für Context-Menü Markierungen hinzu
             // WICHTIG: Verwende paraIndex (echten Index) statt idx (numerisch) für konsistente ID-Struktur
@@ -19697,8 +19975,8 @@ function scrollToChronologicalYear(year) {
                     paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
                     
                     // Markiere den Absatz (blau unterlegen) mit automatischer Entfernung nach 5 Sekunden
-                    // ABER: Nicht bei Navigation aus Members Panel
-                    if (window.membersNavigating !== true) {
+                    // ABER: Nicht bei Navigation aus Members Panel oder vom Inhaltsverzeichnis
+                    if (window.membersNavigating !== true && window.skipParagraphHighlight !== true) {
                       if (typeof addHighlightingWithAutoRemove === 'function') {
                         addHighlightingWithAutoRemove(paragraphElement);
                       } else {
@@ -25540,6 +25818,11 @@ function showSummaryView() {
         return;
       }
       
+      // WICHTIG: Bei Navigation vom Inhaltsverzeichnis KEIN Absatz-Highlighting anwenden
+      if (window.skipParagraphHighlight === true) {
+        return;
+      }
+      
       // Entferne vorherige Markierung und Timer (ohne Fade-Out)
       clearPreviousHighlighting();
       
@@ -26154,7 +26437,8 @@ function showSummaryView() {
     const isTargetPara = lastHighlightedIndex && paraIndex === lastHighlightedIndex;
     // Highlighting aktiviert
     // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
-    const highlightClass = (isTargetPara && !window.membersNavigating) ? 'highlighted-paragraph' : '';
+    // WICHTIG: Bei Navigation vom Inhaltsverzeichnis KEIN Absatz-Highlighting
+    const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight) ? 'highlighted-paragraph' : '';
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
     const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
@@ -26874,20 +27158,29 @@ function formatAsteriskParagraphs() {
   // Analytics: Vortrag-Aufruf tracken
   analyticsTrack('lecture_view', lectureId);
   
-  // Browser History Eintrag hinzufügen (außer bei popstate)
+  // Browser History: Erstelle neuen Eintrag für diesen Vortrag
   if (!skipHistory) {
-    const currentHash = window.location.hash.substring(1) || 'ga';
-    // Entferne bestehende Query-Parameter aus dem Hash, um doppelte Parameter zu vermeiden
-    const tabWithoutParams = currentHash.split('?')[0];
-    // Entferne auch bestehende lecture= Parameter falls vorhanden
-    const url = `${window.location.pathname}#${tabWithoutParams}?lecture=${encodeURIComponent(lectureId)}`;
-    history.pushState({ 
-      tab: tabWithoutParams, 
+    // WICHTIG: Verwende den aktiven Tab aus dem DOM, nicht aus dem Hash
+    const activeTabContent = document.querySelector('.tab-content.active');
+    let currentTab = 'ga'; // Fallback
+    if (activeTabContent) {
+      currentTab = activeTabContent.id.replace('-tab', '');
+    } else {
+      const hashTab = window.location.hash.substring(1).split('?')[0];
+      if (hashTab) currentTab = hashTab;
+    }
+    
+    console.log('[HISTORY] showLecture: pushState für Tab:', currentTab, 'Lecture:', lectureId);
+    
+    const url = `${window.location.pathname}#${currentTab}?lecture=${encodeURIComponent(lectureId)}`;
+    const newState = { 
+      tab: currentTab, 
       lecture: lectureId,
       targetIndex: targetIndex,
       keywords: keywords,
       isPhraseArray: isPhraseArray
-    }, '', url);
+    };
+    history.pushState(newState, '', url);
     }
 
   try {
@@ -26904,7 +27197,30 @@ function formatAsteriskParagraphs() {
         const book = await bookResponse.json();
         
         // Zeige das Buch im Hauptviewer mit Keywords-Hervorhebung und targetIndex
-        await displayBook(book, null, keywords, isPhraseArray, targetIndex);
+        // WICHTIG: Wenn targetIndex eine Überschrift-ID ist (kein Paragraph-Index), verwende es als highlightHeadingId
+        // Prüfe ob targetIndex eine Überschrift-ID ist (beginnt nicht mit ^ oder ist eine bekannte Überschrift-ID)
+        let highlightHeadingId = null;
+        let paragraphTargetIndex = null;
+        
+        if (targetIndex) {
+          // Prüfe ob targetIndex eine Überschrift-ID ist (kein Paragraph-Index mit ^)
+          // Überschrift-IDs sind normalerweise ohne ^ und entsprechen den IDs aus book.headings
+          const isHeadingId = !targetIndex.toString().startsWith('^') && 
+                              book.headings && 
+                              book.headings.some(h => {
+                                const headingId = (h.index || h.id || '').replace(/^\^/, '');
+                                return headingId === targetIndex.toString();
+                              });
+          
+          if (isHeadingId) {
+            highlightHeadingId = targetIndex.toString();
+          } else {
+            // Es ist ein Paragraph-Index
+            paragraphTargetIndex = targetIndex;
+          }
+        }
+        
+        await displayBook(book, highlightHeadingId, keywords, isPhraseArray, paragraphTargetIndex);
         
         // WICHTIG: Wenn Navigation aus Members Panel kommt, Panel offen halten
         // (wie bei Vortragsbänden auch - verhindere Schließen/Öffnen)
@@ -27033,7 +27349,7 @@ function formatAsteriskParagraphs() {
       const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
       if (gaMatch) {
         const gaNumber = gaMatch[1];
-        // Prüfe ob es kein Buch ist (GA001-GA046 sind Bücher)
+        // Prüfe ob es kein Buch ist (GA002-GA046 sind Bücher, GA001 wird wie Vortragsband behandelt)
         if (!isBookGANumber(gaNumber)) {
           // Prüfe ob GA-Übersicht bereits für dieselbe GA-Nummer geladen ist
           const resultsContainer = document.getElementById('results');
@@ -29891,8 +30207,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const mainContainer = document.getElementById('main');
           if (!viewer || !mainContainer) return;
           
-          // Find the H3 or H4 heading that matches this TOC entry (case-insensitive)
-          const headings = viewer.querySelectorAll('h3, h4');
+          // Find the H2, H3 or H4 heading that matches this TOC entry (case-insensitive)
+          const headings = viewer.querySelectorAll('h2, h3, h4');
           let foundHeading = null;
           
           for (const heading of headings) {
@@ -29966,8 +30282,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                            (currentLectureData.gaNumber.toUpperCase() === 'GA262' || 
                             currentLectureData.gaNumber.toLowerCase() === 'ga263a');
       
-      // Für Briefe: H4 mit data-index werden automatisch gefunden (h3, h4 Selector)
-      const headings = viewer.querySelectorAll('h3, h4');
+      // Für Briefe: H4 mit data-index werden automatisch gefunden (h2, h3, h4 Selector)
+      // WICHTIG: Auch H2 einschließen für GA001 und andere Bände mit H2-Überschriften
+      const headings = viewer.querySelectorAll('h2, h3, h4');
       tocList.innerHTML = '';
       
       let headingIndex = 0;
@@ -29998,6 +30315,22 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         if (heading.tagName.toLowerCase() === 'h4' && viewerH4Collapsed) {
           tocHeading.classList.add('hidden');
           tocHeading.style.display = 'none';
+        }
+        
+        // Styling für H2-Überschriften (größer/fetter als H3/H4)
+        if (heading.tagName.toLowerCase() === 'h2') {
+          tocHeading.style.fontWeight = 'bold';
+          tocHeading.style.fontSize = '1.0em';
+          tocHeading.style.marginTop = '0.5rem';
+          tocHeading.style.marginBottom = '0.4rem';
+        } else if (heading.tagName.toLowerCase() === 'h3') {
+          tocHeading.style.fontWeight = '600';
+          tocHeading.style.fontSize = '0.95em';
+          tocHeading.style.marginLeft = '0.5rem';
+        } else if (heading.tagName.toLowerCase() === 'h4') {
+          tocHeading.style.fontWeight = 'normal';
+          tocHeading.style.fontSize = '0.9em';
+          tocHeading.style.marginLeft = '1rem';
         }
         
         // Kein Hover-Effekt für TOC-Links (unterstreichen entfernt)
@@ -30150,7 +30483,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         const activeHeadings = [];
         
         // Immer beide H3 und H4 berücksichtigen für die Aktivmarkierung
-        const visibleHeadings = Array.from(viewer.querySelectorAll('h3, h4'));
+        const visibleHeadings = Array.from(viewer.querySelectorAll('h2, h3, h4'));
         
         // Sammle alle Headings, die im sichtbaren Bereich sind
         visibleHeadings.forEach(heading => {
@@ -40968,7 +41301,7 @@ async function showSingleQuotePopup(quoteId) {
       if (quote.lectureId && quote.lectureId !== 'manual') {
         const displayId = formatLectureId(quote.lectureId);
         const paragraphIndex = quote.paragraphIndex || '';
-        sourceParts.push(`<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${quote.lectureId}', '${paragraphIndex}'), 100); closeQuotesPopup(); return false;" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
+        sourceParts.push(`<a href="#" onclick="navigateToLectureInTexteTab('${quote.lectureId}'); closeQuotesPopup(); return false;" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
       }
       if (quote.date) {
         try {
@@ -41056,7 +41389,7 @@ async function loadQuotesIntoPopup() {
       if (randomQuote.lectureId && randomQuote.lectureId !== 'manual') {
         const displayId = formatLectureId(randomQuote.lectureId);
         const paragraphIndex = randomQuote.paragraphIndex || '';
-        htmlParts.push(`<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${randomQuote.lectureId}', '${paragraphIndex}'), 100); closeQuotesPopup(); return false;" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
+        htmlParts.push(`<a href="#" onclick="navigateToLectureInTexteTab('${randomQuote.lectureId}'); closeQuotesPopup(); return false;" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
       }
       
       // Datum im Format "8. März 1904" (nicht klickbar, fett)
@@ -42583,6 +42916,9 @@ async function addKeywordToLecture() {
   const originalIsBookGANumber = window.isBookGANumber || isBookGANumber;
   window.isBookGANumber = function(gaNumber) {
     if (!gaNumber) return false;
+    // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
+    const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+    if (gaNum === 1) return false;
     const normalized = gaNumber.toUpperCase().replace(/^GA(\d)$/, 'GA00$1').replace(/^GA(\d{2})$/, 'GA0$1');
     if (aufsatzbaende.includes(normalized)) return false;
     return originalIsBookGANumber(gaNumber);
