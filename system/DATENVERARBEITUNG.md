@@ -11,28 +11,52 @@ Diese Dokumentation beschreibt die Python- und JavaScript-Skripte zur Verarbeitu
 3. [Master-Export-Workflow](#3-master-export-workflow)
 4. [Export von Büchern (GA001-GA046)](#4-export-von-büchern-ga001-ga046)
 5. [Export von Vorträgen (GA051+)](#5-export-von-vorträgen-ga051)
-6. [Page-Break-Generierung](#6-page-break-generierung)
-7. [Page-Break-Anwendung](#7-page-break-anwendung)
-8. [Lecture-Page-Mapping](#8-lecture-page-mapping)
-9. [Batch-Verarbeitung](#9-batch-verarbeitung)
-10. [Datenfluss-Diagramm](#10-datenfluss-diagramm)
-11. [Backend-Integration](#11-backend-integration)
-12. [Typische Workflow-Beispiele](#12-typische-workflow-beispiele)
-13. [Fehlerbehebung](#13-fehlerbehebung)
+6. [**SEITENZAHLEN-WORKFLOW (KOMPLETT)**](#6-seitenzahlen-workflow-komplett)
+   - [6.1 Übersicht: Von PDF zu HTML](#61-übersicht-von-pdf-zu-html)
+   - [6.2 Vorträge/Aufsätze: process_pagebreaks.py](#62-vorträgeaufsätze-process_pagebreakspy)
+   - [6.3 Bücher: process_books_v4.py](#63-bücher-process_books_v4py)
+   - [6.4 contentRange – Bereiche ausschließen](#64-contentrange--bereiche-ausschließen)
+7. [Page-Break-Generierung (Details)](#7-page-break-generierung-details)
+8. [Page-Break-Anwendung (Details)](#8-page-break-anwendung-details)
+9. [Lecture-Page-Mapping](#9-lecture-page-mapping)
+10. [Batch-Verarbeitung](#10-batch-verarbeitung)
+11. [Datenfluss-Diagramm](#11-datenfluss-diagramm)
+12. [Backend-Integration](#12-backend-integration)
+13. [Typische Workflow-Beispiele](#13-typische-workflow-beispiele)
+14. [Fehlerbehebung](#14-fehlerbehebung)
 
 ---
 
 ## 1. Übersicht der Skripte
+
+### 1.1 Export-Skripte
 
 | Skript | Funktion |
 |--------|----------|
 | `export_master.py` | **Haupt-Skript**: Führt kompletten Export-Workflow aus (Bildpfade, Bücher, Vorträge) |
 | `export_books_master.py` | Exportiert Bücher (GA001-GA046) als JSON mit Absätzen und Überschriften |
 | `export-lectures.js` | Exportiert Vorträge (GA051+) aus Markdown zu JSON (gesplittete part-Dateien) |
-| `export_page_markers_v4.py` | Extrahiert Seitenumbruch-Marker aus PDF-Dateien |
-| `apply_page_break_markers_v4.py` | Fügt die Marker in die JSON-Vortrags-/Buchdaten ein |
-| `batch_generate_pagebreaks.py` | Batch-Verarbeitung: Führt beide Pagebreak-Skripte für mehrere GA-Bände aus |
+
+### 1.2 Seitenzahlen-Skripte
+
+| Skript | Funktion |
+|--------|----------|
+| `tools/process_pagebreaks.py` | **Master-Skript für Vorträge/Aufsätze**: Kompletter Workflow (PDF→JSON→MD) |
+| `process_books_v4.py` | **Master-Skript für Bücher**: Verarbeitet GA001-028, GA045 mit v4-Verfahren |
+| `export_page_markers_v4.py` | Extrahiert Seitenumbruch-Anker aus PDF-Dateien |
+| `tools/apply_page_break_markers_v4.py` | Fügt `\|page\|`-Marker in JSON-Daten ein (verwendet Anker aus page-break-markers.json) |
+| `tools/apply_pagebreaks_from_pdf.py` | Fügt Marker direkt aus PDF in JSON ein (für Vorträge) |
+| `tools/apply_pagebreaks_to_md.py` | Überträgt Marker von JSON in Markdown-Dateien |
 | `generate_lecture_page_mapping.py` | Erstellt Mapping: Vortrag-ID → Start-Seitenzahl |
+| `batch_generate_pagebreaks.py` | Batch-Verarbeitung für mehrere GA-Bände |
+
+### 1.3 Wichtige Datendateien
+
+| Datei | Funktion |
+|-------|----------|
+| `page-break-markers.json` | Seitenumbruch-Anker (left/right-Text) pro GA |
+| `lecture-page-mapping.json` | Start-Seitenzahlen pro Vortrag/Kapitel |
+| `pagebreaks/GAXXX.json` | Override-Dateien mit eingefügten Markern |
 
 ---
 
@@ -443,7 +467,279 @@ node export-lectures.js
 
 ---
 
-## 6. Page-Break-Generierung
+## 6. SEITENZAHLEN-WORKFLOW (KOMPLETT)
+
+Dieser Abschnitt beschreibt den **vollständigen Workflow**, wie Seitenzahlen aus PDF-Dateien extrahiert und in HTML sichtbar gemacht werden.
+
+### 6.1 Übersicht: Von PDF zu HTML
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      DER KOMPLETTE SEITENZAHLEN-WORKFLOW                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+ SCHRITT 1: PDF-Analyse                    SCHRITT 2: Marker-Einfügung
+ ─────────────────────────                 ──────────────────────────────
+ 
+ ┌───────────────┐                         ┌───────────────┐
+ │   PDF-Datei   │                         │   JSON-Datei  │
+ │  (Steiner_GA_ │                         │ (steiner-full-│
+ │   pdf/*.pdf)  │                         │ lectures/*.json│
+ └───────┬───────┘                         └───────┬───────┘
+         │                                         │
+         ▼                                         ▼
+ ┌───────────────┐                         ┌───────────────────┐
+ │ Seitenzahlen  │                         │ Fuzzy-Matching    │
+ │ aus Footer    │ ──────────────────────▶ │ findet Position   │
+ │ extrahieren   │   page-break-markers    │ für jeden Break   │
+ └───────────────┘         .json           └─────────┬─────────┘
+         │                                           │
+         ▼                                           ▼
+ ┌───────────────┐                         ┌───────────────────┐
+ │ Text an       │                         │ |page|-Marker     │
+ │ Seitenumbruch │                         │ einfügen:         │
+ │ extrahieren   │                         │ "Text|14|weiter"  │
+ │ (left/right)  │                         └─────────┬─────────┘
+ └───────────────┘                                   │
+                                                     ▼
+                                           ┌───────────────────┐
+                                           │ pagebreaks/       │
+                                           │   GAXXX.json      │
+                                           └─────────┬─────────┘
+
+ SCHRITT 3: MD-Dateien aktualisieren       SCHRITT 4: HTML-Anzeige
+ ──────────────────────────────────        ─────────────────────────
+ 
+ ┌───────────────┐                         ┌───────────────────┐
+ │  JSON mit     │                         │ Backend lädt      │
+ │  Markern      │ ──────────────────────▶ │ pagebreaks/*.json │
+ └───────┬───────┘                         │ als Override      │
+         │                                 └─────────┬─────────┘
+         ▼                                           │
+ ┌───────────────┐                                   ▼
+ │ Marker in     │                         ┌───────────────────┐
+ │ MD-Dateien    │                         │ Frontend zeigt    │
+ │ übertragen    │                         │ Seitenzahlen als  │
+ │ (Obsidian)    │                         │ klickbare Badges  │
+ └───────────────┘                         └───────────────────┘
+```
+
+### 6.2 Vorträge/Aufsätze: process_pagebreaks.py
+
+**Das Master-Skript für Vorträge und Aufsätze (GA029-044, GA051+)**
+
+```powershell
+# Einzelne GA verarbeiten
+python tools/process_pagebreaks.py GA198
+
+# Bereich verarbeiten (GA151 bis GA200)
+python tools/process_pagebreaks.py 151 200
+
+# Parallel mit 4 Workern
+python tools/process_pagebreaks.py 151 200 --workers 4
+```
+
+#### Was macht das Skript?
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 1/4: PDF kopieren                                       │
+│  ───────────────────────────────────────────────────────────────│
+│  • Kopiert PDF aus Steiner_GA_pdf/ nach Steiner_GA/GAXXX-Titel/ │
+│  • Damit PDF im Obsidian-Ordner verfügbar ist                   │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 2/4: Seitenmarker in JSON einfügen                      │
+│  ───────────────────────────────────────────────────────────────│
+│  • Ruft apply_pagebreaks_from_pdf.py auf                        │
+│  • Extrahiert Seitenzahlen direkt aus PDF                       │
+│  • Findet Positionen per Fuzzy-Matching                         │
+│  • Fügt |page|-Marker in steiner-full-lectures/*.json ein       │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 3/4: Alte Override-Dateien archivieren                  │
+│  ───────────────────────────────────────────────────────────────│
+│  • Verschiebt alte pagebreaks/*.json nach pagebreaks/archive/   │
+│  • Verhindert Konflikte mit alten Versionen                     │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 4/4: Seitenmarker in MD-Dateien einfügen                │
+│  ───────────────────────────────────────────────────────────────│
+│  • Ruft apply_pagebreaks_to_md.py auf                           │
+│  • Überträgt Marker von JSON nach Markdown                      │
+│  • Seitenzahlen werden in Obsidian sichtbar                     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Beispiel-Output
+
+```
+============================================================
+Verarbeite GA198
+============================================================
+  Typ: lectures
+
+  [1/4] PDF kopieren...
+    ✓ PDF kopiert: Steiner, Rudolf GA 198 1984 - Heilfaktoren.pdf
+      Nach: GA198-Heilfaktoren für den sozialen Organismus/
+
+  [2/4] Seitenmarker in JSON einfügen...
+    GA198/1: 12 Marker (S.13-24) - ERSTER VORTRAG
+    GA198/2: 14 Marker (S.25-38) - ZWEITER VORTRAG
+    ...
+    Gesamt: 265 Marker eingefügt
+    Gespeichert in: steiner-full-lectures-198-198.json
+
+  [3/4] Alte Override-Dateien inaktivieren...
+    ✓ Keine alte Override-Datei vorhanden
+
+  [4/4] Seitenmarker in MD-Dateien einfügen...
+    GA198/1: 12/318 Marker (S.13-318)
+    GA198/2: 14/318 Marker (S.13-318)
+    ...
+    Gesamt: 265 Marker in 17 Dateien
+
+  Ergebnis für GA198:
+    - PDF: ✓
+    - JSON-Marker: 265
+    - Override: ✓
+    - MD-Marker: 265
+```
+
+### 6.3 Bücher: process_books_v4.py
+
+**Das Master-Skript für Bücher (GA001-028, GA045)**
+
+Bücher werden anders verarbeitet als Vorträge, weil:
+- Sie zusammenhängende Texte sind (keine einzelnen Vorträge)
+- Sie oft Vorbemerkungen haben, die im PDF anders sind als in der MD-Datei
+- Fußnoten die Position der Marker beeinflussen können
+
+```powershell
+# Einzelnes Buch verarbeiten
+python process_books_v4.py GA001
+
+# Bereich verarbeiten (GA001 bis GA028)
+python process_books_v4.py 1 28
+
+# Mehrere einzelne Bücher
+python process_books_v4.py GA001 GA002 GA045
+```
+
+#### Unterschied zu Vorträgen
+
+| Aspekt | Vorträge (process_pagebreaks.py) | Bücher (process_books_v4.py) |
+|--------|----------------------------------|------------------------------|
+| Datenquelle | Direkt aus PDF | Anker aus page-break-markers.json |
+| Verarbeitung | Pro Vortrag einzeln | Als zusammenhängender Text |
+| Fußnoten | Weniger problematisch | Können Positionen verschieben |
+| Output | steiner-full-lectures/*.json | pagebreaks/GAXXX.json |
+
+#### Workflow für Bücher
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  VORAUSSETZUNG: page-break-markers.json                          │
+│  ───────────────────────────────────────────────────────────────│
+│  • Muss Anker (left/right) für das Buch enthalten               │
+│  • Erzeugt durch: python export_page_markers_v4.py GA001        │
+│  • Prüfen: python -c "import json; print(json.load(             │
+│            open('page-break-markers.json'))['GA001'].keys())"   │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 1: Anker laden und filtern                              │
+│  ───────────────────────────────────────────────────────────────│
+│  • Lade breaks aus page-break-markers.json                      │
+│  • Filtere nach contentRange (z.B. [11, 104] für GA045)         │
+│  • Entferne doppelte Seitenzahlen                               │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 2: Buch-Paragraphen laden                               │
+│  ───────────────────────────────────────────────────────────────│
+│  • Lade aus steiner-books/*.json                                │
+│  • Entferne alte |page|-Marker (falls vorhanden)                │
+│  • Normalisiere Text für Matching                               │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 3: Fuzzy-Matching                                       │
+│  ───────────────────────────────────────────────────────────────│
+│  • Für jeden Anker: Suche "right"-Text im normalisierten Buch   │
+│  • Bestätige mit "left"-Text (muss kurz vorher sein)            │
+│  • Berechne exakte Einfügeposition                              │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  SCHRITT 4: Marker einfügen und speichern                        │
+│  ───────────────────────────────────────────────────────────────│
+│  • Füge |page|-Marker an berechneten Positionen ein             │
+│  • Speichere in pagebreaks/GAXXX.json                           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 6.4 contentRange – Bereiche ausschließen
+
+Die `contentRange` in `page-break-markers.json` definiert, welche PDF-Seiten verarbeitet werden sollen. Dies ist wichtig, wenn:
+
+- **Vorbemerkungen** in PDF und MD unterschiedlich sind
+- **Inhaltsverzeichnisse** übersprungen werden sollen
+- **Anhänge** nicht verarbeitet werden sollen
+
+#### Beispiel: GA045 (Anthroposophie – Ein Fragment)
+
+```json
+// In page-break-markers.json:
+{
+  "GA045": {
+    "title": "Anthroposophie. Ein Fragment",
+    "contentRange": [11, 104],  // ← Nur Seiten 11-104 verarbeiten
+    "breaks": [...]
+  }
+}
+```
+
+**Warum [11, 104]?**
+- Seiten 7-10: Vorbemerkung des Herausgebers (unterschiedlich in MD)
+- Seite 11: Beginn von "I. DER CHARAKTER DER ANTHROPOSOPHIE"
+- Ab Seite 11 stimmen PDF und MD überein
+
+#### contentRange anpassen
+
+```powershell
+# Aktuelle contentRange prüfen
+python -c "import json; f=open('page-break-markers.json','r',encoding='utf-8'); d=json.load(f); print(d['GA045'].get('contentRange'))"
+
+# contentRange ändern
+python -c "
+import json
+with open('page-break-markers.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+data['GA045']['contentRange'] = [11, 104]  # Neue Range
+with open('page-break-markers.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+print('contentRange aktualisiert')
+"
+
+# Buch neu verarbeiten
+python process_books_v4.py GA045
+```
+
+#### Typische contentRange-Werte
+
+| GA | contentRange | Grund |
+|----|--------------|-------|
+| GA001 | [7, 500] | Normale Bücher beginnen meist bei Seite 7 |
+| GA045 | [11, 104] | Vorbemerkung (S.7-10) ist unterschiedlich |
+| Vorträge | [1, 10000] | Meist alles verarbeiten |
+
+---
+
+## 7. Page-Break-Generierung (Details)
 
 ### Skript: `export_page_markers_v4.py`
 
@@ -626,7 +922,7 @@ python export_page_markers_v4.py --validate GA198
 
 ---
 
-## 7. Page-Break-Anwendung
+## 8. Page-Break-Anwendung (Details)
 
 ### Skript: `apply_page_break_markers_v4.py`
 
@@ -932,7 +1228,7 @@ python apply_page_break_markers_v4.py GA198 --out pagebreaks/GA198.json --report
 
 ---
 
-## 8. Lecture-Page-Mapping
+## 9. Lecture-Page-Mapping
 
 ### Skript: `generate_lecture_page_mapping.py`
 
@@ -1106,7 +1402,7 @@ python batch_generate_pagebreaks.py 198 198
 
 ---
 
-## 9. Batch-Verarbeitung
+## 10. Batch-Verarbeitung
 
 ### Skript: `batch_generate_pagebreaks.py`
 
@@ -1227,7 +1523,7 @@ python batch_generate_pagebreaks.py --check
 
 ---
 
-## 10. Datenfluss-Diagramm
+## 11. Datenfluss-Diagramm
 
 ### Gesamt-Workflow
 
@@ -1289,6 +1585,9 @@ python batch_generate_pagebreaks.py --check
          │   │                              ▼                              │
          │   │               ┌───────────────────────────────┐             │
          │   │               │ apply_page_break_markers_v4.py│             │
+         │   │               │ (Bücher)                      │             │
+         │   │               │ apply_pagebreaks_from_pdf.py  │             │
+         │   │               │ (Vorträge - direkt aus PDF)   │             │
          │   │               │                               │             │
          │   │               │ • Fuzzy-Matching im Text      │             │
          │   │               │ • |page| Marker einfügen      │             │
@@ -1296,39 +1595,50 @@ python batch_generate_pagebreaks.py --check
          │   │                               │                             │
          │   └───────────────────────────────┼─────────────────────────────┘
          │                                   │
-         │                                   ▼
-         │                    ┌───────────────────────────────┐
-         │                    │       pagebreaks/        │
-         │                    │  GA*.json (mit |page| Markern)│
-         │                    │  GA*-report.json (Statistik)  │
-         │                    └───────────────┬───────────────┘
-         │                                    │
-         │                                    │
-         └────────────────────┬───────────────┘
-                              │
-                              ▼
-                   ┌─────────────────────────────┐
-                   │        backend.js           │
-                   │  (lädt alle JSON-Dateien)   │
-                   │                             │
-                   │  • steiner-books/*.json     │
-                   │  • steiner-full-lectures/   │
-                   │  • pagebreaks/ (Override)│
-                   └──────────────┬──────────────┘
-                                  │
-                                  ▼
-                   ┌─────────────────────────────┐
-                   │        Frontend (Browser)   │
-                   │                             │
-                   │  • Suche in allen Texten    │
-                   │  • Seitenzahlen anzeigen    │
-                   │  • Überschriften-Navigation │
-                   └─────────────────────────────┘
+         │                      ┌────────────┴────────────┐
+         │                      │                         │
+         │                      ▼                         ▼
+         │       ┌───────────────────────┐   ┌───────────────────────┐
+         │       │   pagebreaks/         │   │ apply_pagebreaks_to_  │
+         │       │   GA*.json            │   │     md.py             │
+         │       │   (Override für       │   │                       │
+         │       │    HTML-Anzeige)      │   │ • Marker in MD-       │
+         │       └───────────┬───────────┘   │   Dateien übertragen  │
+         │                   │               │ • Für Obsidian        │
+         │                   │               └───────────┬───────────┘
+         │                   │                           │
+         │                   │                           ▼
+         │                   │               ┌───────────────────────┐
+         │                   │               │ Steiner_GA/           │
+         │                   │               │   GAXXX-Titel/*.md    │
+         │                   │               │   (mit |page| Markern)│
+         │                   │               └───────────────────────┘
+         │                   │
+         └───────────────────┼───────────────────────────────────────
+                             │
+                             ▼
+                  ┌─────────────────────────────┐
+                  │        backend.js           │
+                  │  (lädt alle JSON-Dateien)   │
+                  │                             │
+                  │  • steiner-books/*.json     │
+                  │  • steiner-full-lectures/   │
+                  │  • pagebreaks/ (Override)   │
+                  └──────────────┬──────────────┘
+                                 │
+                                 ▼
+                  ┌─────────────────────────────┐
+                  │        Frontend (Browser)   │
+                  │                             │
+                  │  • Suche in allen Texten    │
+                  │  • Seitenzahlen anzeigen    │
+                  │  • Überschriften-Navigation │
+                  └─────────────────────────────┘
 ```
 
 ---
 
-## 11. Backend-Integration
+## 12. Backend-Integration
 
 Das Backend (`backend.js`) lädt beim Start automatisch die Pagebreak-Overrides aus `pagebreaks/`:
 
@@ -1345,91 +1655,229 @@ const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
 
 ---
 
-## 12. Typische Workflow-Beispiele
+## 13. Typische Workflow-Beispiele
 
-### A) Einen neuen GA-Band komplett exportieren (mit Seitenzahlen)
+### A) EMPFOHLEN: Vorträge/Aufsätze mit process_pagebreaks.py
+
+**Der einfachste Weg für GA029-044 und GA051+:**
 
 ```powershell
-# 1. Server stoppen (falls laufend)
-Get-Process -Name "node" | Stop-Process -Force
+# Einzelne GA verarbeiten (PDF → JSON → MD)
+python tools/process_pagebreaks.py GA198
 
-# 2. Markdown exportieren
+# Bereich verarbeiten
+python tools/process_pagebreaks.py 151 200
+
+# Parallel (schneller)
+python tools/process_pagebreaks.py 151 200 --workers 4
+
+# Server neu starten!
+# Im Server-Terminal: Ctrl+C, dann: nb
+```
+
+### B) EMPFOHLEN: Bücher mit process_books_v4.py
+
+**Für GA001-028 und GA045:**
+
+```powershell
+# Voraussetzung: Anker müssen in page-break-markers.json existieren
+# Falls nicht: python export_page_markers_v4.py GA001
+
+# Einzelnes Buch
+python process_books_v4.py GA001
+
+# Bereich
+python process_books_v4.py 1 28
+
+# Mit GA045
+python process_books_v4.py 1 28 GA045
+
+# Server neu starten!
+```
+
+### C) Einen neuen GA-Band komplett exportieren
+
+```powershell
+# 1. Markdown exportieren (mit Bildpfad-Korrektur)
 python export_master.py GA068c
 
-# 3. Seitenumbrüche aus PDF extrahieren
-python export_page_markers_v4.py GA068c
+# 2. Seitenzahlen einfügen (Vorträge)
+python tools/process_pagebreaks.py GA068c
 
-# 4. Optional: Lecture-Mapping für bessere Ergebnisse
-python generate_lecture_page_mapping.py GA068c
-
-# 5. Seitenzahlen in JSON einfügen
-python apply_page_break_markers_v4.py GA068c --out pagebreaks/GA068C.json --report pagebreaks/GA068C-report.json
-
-# 6. Server starten
-node backend.js
+# 3. Server neu starten
+# Ctrl+C im Server-Terminal, dann: nb
 ```
 
-### B) Batch-Verarbeitung mehrerer GA-Bände
+### D) Batch-Verarbeitung mehrerer GA-Bände
 
 ```powershell
-# Verarbeitet GA190-GA200 automatisch
+# Alte Methode (ohne MD-Update)
 python batch_generate_pagebreaks.py 190 200
+
+# Neue Methode (mit MD-Update) - EMPFOHLEN
+python tools/process_pagebreaks.py 190 200 --workers 4
 ```
 
-### C) Wenn viele "no-match" Fehler auftreten
+### E) Wenn Vorbemerkung/Einleitung nicht passt (contentRange)
+
+```powershell
+# Beispiel: GA045 - Vorbemerkung (S.7-10) ausschließen
+python -c "
+import json
+with open('page-break-markers.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+data['GA045']['contentRange'] = [11, 104]  # Ab Seite 11
+with open('page-break-markers.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+"
+
+# Buch neu verarbeiten
+python process_books_v4.py GA045
+```
+
+### F) Prüfen welche GAs verarbeitet wurden
+
+```powershell
+# Zeige alle pagebreaks/*.json Dateien
+Get-ChildItem pagebreaks/*.json | Select-Object Name, Length, LastWriteTime
+
+# Prüfe ob Marker in JSON vorhanden sind
+python -c "
+import json, re
+with open('pagebreaks/GA198.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+lecs = data.get('lectures', [])
+for l in lecs[:3]:
+    markers = sum(len(re.findall(r'\|\d+\|', p.get('content',''))) for p in l.get('paragraphs',[]))
+    print(f'{l.get(\"ID\")}: {markers} Marker')
+"
+```
+
+### G) Wenn viele "no-match" Fehler auftreten
 
 ```powershell
 # 1. Erst Lecture-Mapping (neu) erstellen
 python generate_lecture_page_mapping.py GA198
 
-# 2. Dann Pagebreaks neu generieren
-python apply_page_break_markers_v4.py GA198 --out pagebreaks/GA198.json
+# 2. Dann mit process_pagebreaks neu verarbeiten
+python tools/process_pagebreaks.py GA198
 ```
 
-### D) Nur Seitenzahlen aktualisieren (ohne Export)
+### H) Nur MD-Dateien aktualisieren (JSON bereits fertig)
 
 ```powershell
-# 1. Page-Break-Marker aus PDF extrahieren
-python export_page_markers_v4.py GA198
+# Einzelne GA
+python tools/apply_pagebreaks_to_md.py GA198
 
-# 2. Marker in JSON einfügen
-python apply_page_break_markers_v4.py GA198
-```
-
-### E) Prüfen welche GAs noch fehlen
-
-```powershell
-python batch_generate_pagebreaks.py --check
+# Bereich
+python tools/apply_pagebreaks_to_md.py 151 200
 ```
 
 ---
 
-## 13. Fehlerbehebung
+## 14. Fehlerbehebung
 
-### Problem: Seitenzahlen nicht sichtbar
+### Problem: Seitenzahlen nicht sichtbar in HTML
 
-1. **Prüfen ob Pagebreak-Datei existiert:**
+1. **Server neu starten** (wichtigster Schritt!):
+   ```powershell
+   # Im Server-Terminal: Ctrl+C, dann:
+   nb
+   ```
+
+2. **Prüfen ob Override-Datei existiert:**
    ```powershell
    Test-Path pagebreaks/GA198.json
+   # Muss True sein!
    ```
 
-2. **Server neu starten** (lädt Overrides neu)
-
-3. **Report prüfen** für Einfüge-Quote:
+3. **Prüfen ob Marker in der Datei sind:**
    ```powershell
-   Get-Content pagebreaks/GA198-report.json
+   python -c "import json,re; d=json.load(open('pagebreaks/GA198.json','r',encoding='utf-8')); print(sum(len(re.findall(r'\|\d+\|',p.get('content',''))) for l in d.get('lectures',[]) for p in l.get('paragraphs',[])))"
+   # Sollte > 0 sein
    ```
 
-### Problem: Viele "no-match" Fehler
+### Problem: Erste Seitenzahl ist falsch (z.B. |1| statt |7|)
 
-- PDF-Qualität prüfen (OCR-Fehler?)
-- `lecture-page-mapping.json` erweitern (manuelle Start-Seiten)
-- `--validate` Flag bei Export verwenden
+**Ursache:** Die contentRange ist falsch oder fehlt.
 
-### Problem: Seitenzahlen an falscher Stelle
+**Lösung:**
+```powershell
+# 1. Prüfe aktuelle contentRange
+python -c "import json; d=json.load(open('page-break-markers.json','r',encoding='utf-8')); print(d.get('GA001',{}).get('contentRange'))"
 
-- Break-Anker in `page-break-markers.json` prüfen
-- Eventuell manuell korrigieren oder PDF mit besserer Qualität verwenden
+# 2. Setze korrekte contentRange
+python -c "
+import json
+with open('page-break-markers.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+data['GA001']['contentRange'] = [7, 500]  # Ab Seite 7
+with open('page-break-markers.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+"
+
+# 3. Neu verarbeiten
+python process_books_v4.py GA001
+```
+
+### Problem: Vorbemerkung hat falsche Seitenzahlen (PDF ≠ MD)
+
+**Ursache:** Die Vorbemerkung im PDF ist anders als in der MD-Datei.
+
+**Lösung:** contentRange so setzen, dass die Vorbemerkung übersprungen wird:
+```powershell
+# Beispiel: GA045 - Vorbemerkung ist S.7-10, Haupttext ab S.11
+python -c "
+import json
+with open('page-break-markers.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+data['GA045']['contentRange'] = [11, 104]  # Überspringe S.7-10
+with open('page-break-markers.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+"
+python process_books_v4.py GA045
+```
+
+### Problem: GA nicht in page-break-markers.json
+
+**Ursache:** Die Anker wurden noch nicht aus dem PDF extrahiert.
+
+**Lösung:**
+```powershell
+# Anker aus PDF extrahieren
+python export_page_markers_v4.py GA198
+
+# Prüfen
+python -c "import json; d=json.load(open('page-break-markers.json','r',encoding='utf-8')); print('GA198' in d)"
+```
+
+### Problem: Viele "no-match" Fehler bei Vorträgen
+
+**Mögliche Ursachen:**
+- Falsche Start-Seitenzahlen pro Vortrag
+- PDF-OCR-Fehler
+- Große Textunterschiede zwischen PDF und MD
+
+**Lösungen:**
+```powershell
+# 1. Lecture-Mapping neu generieren
+python generate_lecture_page_mapping.py GA198
+
+# 2. Prüfen ob Mapping korrekt
+python -c "import json; d=json.load(open('lecture-page-mapping.json','r',encoding='utf-8')); print(d.get('GA198',{}))"
+
+# 3. Neu verarbeiten
+python tools/process_pagebreaks.py GA198
+```
+
+### Problem: Seitenzahlen an falscher Stelle (mitten im Wort)
+
+**Hinweis:** Bei Silbentrennung im PDF ist das korrekt! 
+Beispiel: `Philo|25|sophie` bedeutet, dass Seite 25 nach "Philo-" beginnt.
+
+**Wenn wirklich falsch:**
+- Break-Anker in `page-break-markers.json` manuell prüfen
+- PDF mit besserer OCR-Qualität verwenden
 
 ### Problem: Export zeigt "Keine Absatz-Indizes gefunden"
 
@@ -1442,6 +1890,17 @@ python batch_generate_pagebreaks.py --check
 - Prüfen ob Absätze Indizes haben (`^...` am Zeilenende)
 - Überschriften müssen im Format `###` oder `####` vorliegen
 - Nach der Umwandlung sollte jede Überschrift einen `index` haben
+
+### Problem: process_pagebreaks.py hängt
+
+**Mögliche Ursachen:**
+- Sehr große GA mit vielen Vorträgen
+- Windows-spezifisches Threading-Problem
+
+**Lösung:** Sequenziell verarbeiten:
+```powershell
+python tools/process_pagebreaks.py GA198 --sequential
+```
 
 ---
 
@@ -1473,4 +1932,4 @@ Der Marker `|14|` bedeutet: "Hier beginnt Seite 14 des gedruckten Buches."
 
 ---
 
-*Letzte Aktualisierung: Dezember 2024*
+*Letzte Aktualisierung: Januar 2026*

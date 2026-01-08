@@ -34,6 +34,8 @@ LECTURES_DIR = SCRIPT_DIR / "steiner-full-lectures"
 BOOKS_DIR = SCRIPT_DIR / "steiner-books"
 PAGEBREAKS_DIR = SCRIPT_DIR / "pagebreaks"
 MAPPING_FILE = SCRIPT_DIR / "lecture-page-mapping.json"
+SUMMARY_DB_FILE = SCRIPT_DIR / "summary-database.json"
+PAGE_BREAK_MARKERS_FILE = SCRIPT_DIR / "page-break-markers.json"
 
 # Ligaturen für Normalisierung
 LIGATURES = {
@@ -41,6 +43,115 @@ LIGATURES = {
     "ﬅ": "st", "ﬆ": "st", "Ꜳ": "AA", "ꜳ": "aa", "Æ": "AE", "æ": "ae",
     "Œ": "OE", "œ": "oe",
 }
+
+
+def load_first_content_page(ga_number: str) -> Optional[int]:
+    """
+    Lädt die erste Inhaltsseite aus page-break-markers.json.
+    Verwendet entweder contentRange[0] oder den ersten Break mit isFirstPage=true.
+    """
+    if not PAGE_BREAK_MARKERS_FILE.exists():
+        return None
+    
+    try:
+        with open(PAGE_BREAK_MARKERS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        ga_data = data.get(ga_number.upper(), {})
+        if not ga_data or not isinstance(ga_data, dict):
+            return None
+        
+        # Priorität 1: contentRange[0]
+        content_range = ga_data.get("contentRange")
+        if content_range and isinstance(content_range, list) and len(content_range) >= 1:
+            first_page = content_range[0]
+            if isinstance(first_page, int) and first_page > 0:
+                return first_page
+        
+        # Priorität 2: Erster Break mit isFirstPage=true
+        breaks = ga_data.get("breaks", [])
+        for b in breaks:
+            if b.get("isFirstPage"):
+                page = b.get("page")
+                if isinstance(page, int) and page > 0:
+                    return page
+        
+        # Priorität 3: Erster Break überhaupt
+        if breaks and isinstance(breaks[0], dict):
+            page = breaks[0].get("page")
+            if isinstance(page, int) and page > 0:
+                return page
+        
+        return None
+    except Exception:
+        return None
+
+
+def load_chapter_indices(ga_number: str) -> List[str]:
+    """Lädt Kapitel-Index-IDs aus summary-database.json für ein Buch."""
+    if not SUMMARY_DB_FILE.exists():
+        return []
+    
+    try:
+        with open(SUMMARY_DB_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        ga_data = data.get(ga_number.upper(), {})
+        headings = ga_data.get("headings", [])
+        return [h["index"] for h in headings if "index" in h]
+    except Exception:
+        return []
+
+
+def split_book_into_chapters(book: Dict, ga_number: str) -> List[Dict]:
+    """
+    Teilt ein Buch in Kapitel auf, basierend auf summary-database.json.
+    Jedes Kapitel wird wie ein Vortrag behandelt.
+    """
+    chapter_indices = load_chapter_indices(ga_number)
+    if not chapter_indices:
+        # Keine Kapitel-Info -> Buch als Ganzes behandeln
+        return [book]
+    
+    paragraphs = book.get("paragraphs", [])
+    if not paragraphs:
+        return [book]
+    
+    # Finde Kapitel-Grenzen
+    chapter_starts = []
+    for i, para in enumerate(paragraphs):
+        if para.get("index") in chapter_indices:
+            chapter_starts.append(i)
+    
+    if not chapter_starts:
+        # Keine Kapitel gefunden -> Buch als Ganzes
+        return [book]
+    
+    # Erstelle Kapitel-"Vorträge"
+    chapters = []
+    for idx, start in enumerate(chapter_starts):
+        end = chapter_starts[idx + 1] if idx + 1 < len(chapter_starts) else len(paragraphs)
+        
+        chapter_paras = paragraphs[start:end]
+        if not chapter_paras:
+            continue
+        
+        # Kapitel-Titel aus erstem Absatz oder Index
+        first_para = chapter_paras[0]
+        title = first_para.get("content", "")[:50] if first_para else f"Kapitel {idx + 1}"
+        
+        chapter = {
+            "ID": f"{ga_number}/{idx + 1}",
+            "gaNumber": ga_number,
+            "title": title,
+            "lectureNumber": idx + 1,
+            "paragraphs": chapter_paras,
+            "_chapter_start_idx": start,  # Für spätere Zuordnung
+            "_chapter_end_idx": end,
+        }
+        chapters.append(chapter)
+    
+    return chapters
 
 
 def normalize_ga(ga_arg: str) -> Optional[str]:
@@ -329,12 +440,15 @@ def load_lectures_for_ga(ga_number: str) -> Tuple[Dict[Path, List[Dict]], List[D
     return files_map, all_lectures
 
 
-def load_books_for_ga(ga_number: str) -> Tuple[Optional[Path], Optional[Dict]]:
+def load_books_for_ga(ga_number: str) -> Tuple[Optional[Path], Optional[Dict], List[Path]]:
     """
     Lädt ein Buch für eine GA-Nummer.
-    Rückgabe: (Quell-Datei, Buch-Dict)
+    Rückgabe: (Quell-Datei, Buch-Dict, Liste aller Dateien die dieses Buch enthalten)
     """
     ga_upper = ga_number.upper()
+    all_files = []  # Alle Dateien die dieses Buch enthalten
+    first_book = None
+    first_path = None
     
     for path in sorted(BOOKS_DIR.glob("steiner-books-*.json")):
         try:
@@ -343,11 +457,15 @@ def load_books_for_ga(ga_number: str) -> Tuple[Optional[Path], Optional[Dict]]:
             
             for book in data.get("books", []):
                 if (book.get("gaNumber") or "").upper() == ga_upper:
-                    return path, book
+                    all_files.append(path)
+                    if first_book is None:
+                        first_book = book
+                        first_path = path
+                    break  # Nur einmal pro Datei
         except Exception:
             continue
     
-    return None, None
+    return first_path, first_book, all_files
 
 
 def load_page_mapping() -> Dict:
@@ -401,6 +519,9 @@ def adjust_position_after_punctuation(text: str, pos: int) -> int:
     Verschiebt die Position nach einem Satzzeichen, falls eines direkt davor steht.
     
     Beispiel: "durchgemacht haben|." → "durchgemacht haben.|"
+    
+    HINWEIS: Marker KÖNNEN mitten in Wörtern stehen, wenn im PDF dort
+    Silbentrennung am Zeilenende mit Seitenwechsel ist!
     """
     punctuation = ".,:;!?»\"')"
     
@@ -497,51 +618,20 @@ def find_pagebreak_position(
 
 def map_norm_to_original(text: str, norm_pos: int) -> int:
     """Mappt eine Position im normalisierten Text zurück zum Original."""
-    # Optimierte Version: Berechne das Verhältnis und approximiere
-    # (viel schneller als char-by-char)
     if norm_pos <= 0:
         return 0
-    if norm_pos >= len(text):
-        return len(text)
+    if not text:
+        return 0
     
-    # Approximation: normalisierter Text ist ca. 70-90% der Länge des Originals
-    # Wir starten bei einer Schätzung und korrigieren
-    ratio = 0.8
-    estimated_pos = int(norm_pos / ratio)
-    estimated_pos = min(estimated_pos, len(text))
+    # Schnelle Approximation
+    text_norm = normalize_for_comparison(text)
+    if not text_norm:
+        return 0
     
-    # Feinjustierung: zähle normalisierte Zeichen bis zur geschätzten Position
-    text_prefix = text[:estimated_pos]
-    norm_prefix = normalize_for_comparison(text_prefix)
+    ratio = len(text) / len(text_norm)
+    estimated = int(norm_pos * ratio)
     
-    # Korrigiere Schätzung basierend auf tatsächlicher Länge
-    if len(norm_prefix) < norm_pos:
-        # Wir sind zu früh - suche vorwärts
-        while estimated_pos < len(text):
-            estimated_pos += 50
-            text_prefix = text[:min(estimated_pos, len(text))]
-            norm_prefix = normalize_for_comparison(text_prefix)
-            if len(norm_prefix) >= norm_pos:
-                break
-    elif len(norm_prefix) > norm_pos:
-        # Wir sind zu weit - suche rückwärts
-        while estimated_pos > 0:
-            estimated_pos -= 50
-            text_prefix = text[:max(estimated_pos, 0)]
-            norm_prefix = normalize_for_comparison(text_prefix)
-            if len(norm_prefix) <= norm_pos:
-                break
-    
-    # Feinsuche im 100-Zeichen-Fenster um die Schätzung
-    start = max(0, estimated_pos - 50)
-    end = min(len(text), estimated_pos + 50)
-    
-    for i in range(start, end):
-        prefix_norm = normalize_for_comparison(text[:i])
-        if len(prefix_norm) >= norm_pos:
-            return i
-    
-    return estimated_pos
+    return max(0, min(estimated, len(text)))
 
 
 def process_lecture(
@@ -743,13 +833,21 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
     is_book = False
     book_source_file = None
     
+    all_book_files = []  # Alle Dateien die dieses Buch enthalten
+    
     if not lectures:
         # Versuche Bücher
-        book_source_file, book = load_books_for_ga(ga_norm)
+        book_source_file, book, all_book_files = load_books_for_ga(ga_norm)
         if book:
-            lectures = [book]
+            # Teile Buch in Kapitel auf (jedes Kapitel wie ein Vortrag)
+            chapters = split_book_into_chapters(book, ga_norm)
+            lectures = chapters
             is_book = True
             print(f"  Buch geladen: {book.get('title', '')[:50]}")
+            if len(chapters) > 1:
+                print(f"  → In {len(chapters)} Kapitel aufgeteilt")
+            if len(all_book_files) > 1:
+                print(f"  → In {len(all_book_files)} Dateien vorhanden")
         else:
             return {"error": "Keine Vorträge/Bücher gefunden"}
     else:
@@ -765,54 +863,167 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
     total_inserted = 0
     current_pdf_index = 0  # Für PDFs mit doppelten Seitenzahlen
     
-    for i, lecture in enumerate(lectures):
-        lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
-        lec_num = int(lecture.get("lectureNumber") or i + 1)
+    # Für Bücher: Prüfe ob Mapping vollständig ist
+    # Wenn nicht, behandle das ganze Buch als eine Einheit
+    if is_book and len(lectures) > 1:
+        # Prüfe wie viele Kapitel ein Mapping haben
+        mapped_count = sum(1 for i, lec in enumerate(lectures) 
+                          if ga_mapping.get(lec.get("ID") or f"{ga_norm}/{i+1}"))
         
-        # Start-Seite aus Mapping oder Schätzung
-        start_page = ga_mapping.get(lec_id)
-        if not start_page:
-            # Fallback: erste verfügbare Seite (Index 1 = Seitenzahl)
-            if pdf_pages:
-                start_page = pdf_pages[0][1]
-        
-        # End-Seite: nächster Vortrag oder letzte Seite
-        end_page = None
-        if i + 1 < len(lectures):
-            next_id = lectures[i + 1].get("ID") or f"{ga_norm}/{i+2}"
-            end_page = ga_mapping.get(next_id)
-            if end_page:
-                end_page -= 1
-        
-        if not end_page and pdf_pages:
-            end_page = pdf_pages[-1][1]  # Index 1 = Seitenzahl
-        
-        inserted, current_pdf_index = process_lecture(
-            lecture, pdf_pages, start_page or 1, end_page, current_pdf_index
-        )
-        total_inserted += inserted
-        
-        title = (lecture.get("title") or "")[:40]
-        print(f"    {lec_id}: {inserted} Marker (S.{start_page}-{end_page}) - {title}")
+        if mapped_count < len(lectures) * 0.5:  # Weniger als 50% gemappt
+            # Behandle Buch als eine Einheit, keine Kapitelaufteilung
+            print(f"  ⚠️  Nur {mapped_count}/{len(lectures)} Kapitel haben Mapping")
+            print(f"  → Verarbeite Buch als Ganzes (fortlaufende Seitenzahlen)")
+            
+            # Erste Inhaltsseite ermitteln - NUR aus Mapping oder page-break-markers.json
+            first_page = ga_mapping.get(f"{ga_norm}/1")
+            if not first_page:
+                # Versuche aus page-break-markers.json (isFirstPage Marker)
+                first_content = load_first_content_page(ga_norm)
+                if first_content:
+                    first_page = first_content
+                else:
+                    # KEIN Fallback auf Seite 7! Wir brauchen die echte Startseite.
+                    print(f"  ⚠️  FEHLER: Keine Startseite gefunden für {ga_norm}!")
+                    print(f"      Bitte in lecture-page-mapping.json eintragen: \"{ga_norm}/1\": <startseite>")
+                    return {"error": f"Keine Startseite für {ga_norm} - bitte Mapping erstellen"}
+            
+            # Alle Absätze aus allen Kapiteln zusammenführen
+            all_paragraphs = []
+            for chapter in lectures:
+                all_paragraphs.extend(chapter.get("paragraphs", []))
+            
+            # Ein "Gesamtbuch-Vortrag" erstellen
+            unified_book = {
+                "ID": f"{ga_norm}/1",
+                "gaNumber": ga_norm,
+                "title": book.get("title", ""),
+                "lectureNumber": 1,
+                "paragraphs": all_paragraphs,
+            }
+            
+            end_page = pdf_pages[-1][1] if pdf_pages else None
+            inserted, _ = process_lecture(unified_book, pdf_pages, first_page, end_page, 0)
+            total_inserted = inserted
+            
+            # Schreibe Absätze zurück in die Kapitel
+            para_idx = 0
+            for chapter in lectures:
+                chapter_len = len(chapter.get("paragraphs", []))
+                chapter["paragraphs"] = unified_book["paragraphs"][para_idx:para_idx + chapter_len]
+                para_idx += chapter_len
+            
+            print(f"    {ga_norm}: {inserted} Marker (S.{first_page}-{end_page})")
+        else:
+            # Vollständiges Mapping vorhanden - kapitelweise verarbeiten
+            for i, lecture in enumerate(lectures):
+                lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
+                lec_num = int(lecture.get("lectureNumber") or i + 1)
+                
+                start_page = ga_mapping.get(lec_id)
+                if not start_page:
+                    # Fallback: Vorheriges Kapitel + Schätzung
+                    if i > 0:
+                        prev_id = lectures[i-1].get("ID") or f"{ga_norm}/{i}"
+                        prev_start = ga_mapping.get(prev_id)
+                        if prev_start:
+                            # Schätze basierend auf Absatzanzahl
+                            prev_paras = len(lectures[i-1].get("paragraphs", []))
+                            start_page = prev_start + max(1, prev_paras // 10)
+                    
+                    if not start_page:
+                        first_content = load_first_content_page(ga_norm)
+                        if first_content:
+                            start_page = first_content
+                        elif pdf_pages:
+                            start_page = pdf_pages[0][1]
+                
+                end_page = None
+                if i + 1 < len(lectures):
+                    next_id = lectures[i + 1].get("ID") or f"{ga_norm}/{i+2}"
+                    end_page = ga_mapping.get(next_id)
+                    if end_page:
+                        end_page -= 1
+                
+                if not end_page and pdf_pages:
+                    end_page = pdf_pages[-1][1]
+                
+                inserted, current_pdf_index = process_lecture(
+                    lecture, pdf_pages, start_page or 1, end_page, current_pdf_index
+                )
+                total_inserted += inserted
+                
+                title = (lecture.get("title") or "")[:40]
+                print(f"    {lec_id}: {inserted} Marker (S.{start_page}-{end_page}) - {title}")
+    else:
+        # Vorträge (nicht Bücher) - normale Verarbeitung
+        for i, lecture in enumerate(lectures):
+            lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
+            lec_num = int(lecture.get("lectureNumber") or i + 1)
+            
+            # Start-Seite aus Mapping oder Schätzung
+            start_page = ga_mapping.get(lec_id)
+            if not start_page:
+                # Fallback 1: Erste Inhaltsseite aus page-break-markers.json
+                first_content = load_first_content_page(ga_norm)
+                if first_content:
+                    start_page = first_content
+                # Fallback 2: Erste verfügbare Seite aus PDF
+                elif pdf_pages:
+                    start_page = pdf_pages[0][1]
+            
+            # End-Seite: nächster Vortrag oder letzte Seite
+            end_page = None
+            if i + 1 < len(lectures):
+                next_id = lectures[i + 1].get("ID") or f"{ga_norm}/{i+2}"
+                end_page = ga_mapping.get(next_id)
+                if end_page:
+                    end_page -= 1
+            
+            if not end_page and pdf_pages:
+                end_page = pdf_pages[-1][1]  # Index 1 = Seitenzahl
+            
+            inserted, current_pdf_index = process_lecture(
+                lecture, pdf_pages, start_page or 1, end_page, current_pdf_index
+            )
+            total_inserted += inserted
+            
+            title = (lecture.get("title") or "")[:40]
+            print(f"    {lec_id}: {inserted} Marker (S.{start_page}-{end_page}) - {title}")
     
     print(f"\n  Gesamt: {total_inserted} Marker eingefügt")
     
     # Speichern
     if update_source and (files_map or book_source_file):
         if is_book and book_source_file:
-            # Buch speichern
-            with open(book_source_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
+            # Buch speichern - Kapitel-Absätze zurück zusammenführen
+            # Sammle alle Absätze aus den Kapiteln
+            all_paragraphs = []
+            for chapter in lectures:
+                all_paragraphs.extend(chapter.get("paragraphs", []))
             
-            for orig_book in data.get("books", []):
-                if (orig_book.get("gaNumber") or "").upper() == ga_norm:
-                    orig_book["paragraphs"] = lectures[0]["paragraphs"]
-                    break
+            # Speichere in ALLE Dateien, die dieses Buch enthalten
+            saved_files = []
+            files_to_update = all_book_files if all_book_files else [book_source_file]
             
-            with open(book_source_file, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
+            for book_file in files_to_update:
+                try:
+                    with open(book_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    
+                    for orig_book in data.get("books", []):
+                        if (orig_book.get("gaNumber") or "").upper() == ga_norm:
+                            orig_book["paragraphs"] = all_paragraphs
+                            break
+                    
+                    with open(book_file, "w", encoding="utf-8") as f:
+                        json.dump(data, f, ensure_ascii=False, indent=2)
+                    
+                    saved_files.append(book_file.name)
+                except Exception as e:
+                    print(f"    ⚠️  Fehler beim Speichern in {book_file.name}: {e}")
             
-            print(f"  Gespeichert in: {book_source_file.name}")
+            print(f"  Gespeichert in: {', '.join(saved_files)}")
         else:
             # Alle betroffenen Dateien aktualisieren
             saved_files = []
