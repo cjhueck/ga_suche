@@ -313,8 +313,12 @@ function isEssayGANumber(gaNumber) {
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA001-GA028 (ohne die Aufsatzbände GA019, GA024, GA026)
+// Bücher: GA002-GA028 (ohne die Aufsatzbände GA019, GA024, GA026) - GA001 wird wie Vortragsband behandelt
 function isBookGANumberBackend(gaNumber) {
+  // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
+  if (gaNumber && (gaNumber.toUpperCase() === 'GA001' || gaNumber === '1')) {
+    return false;
+  }
   if (!gaNumber) return false;
   // Wenn es ein Aufsatzband ist, ist es KEIN Buch
   if (isEssayGANumber(gaNumber)) return false;
@@ -8832,15 +8836,16 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // await applyTextEditsToLecture(bookCopy, bookIdForEdits);
 
     // Speichere Überschriften in summary-database.json für TOC-Anzeige
-    // WICHTIG: Nur für Books (GA001-GA046), niemals Vortrags-Einträge überschreiben!
+    // WICHTIG: Nur für Books (GA002-GA046), niemals Vortrags-Einträge überschreiben!
+    // GA001 wird wie Vortragsband behandelt, daher nicht hier
     const bookId = bookCopy.ID || bookCopy.gaNumber;
     
-    // Prüfe ob es wirklich ein Book ist (GA001-GA046)
+    // Prüfe ob es wirklich ein Book ist (GA002-GA046, GA001 ausgeschlossen)
     const gaMatch = bookId.match(/^GA0?([0-4][0-6]|[0-4][0-9])$/);
     if (!gaMatch) {
       const gaNum = parseInt(bookId.replace('GA', ''));
-      if (gaNum < 1 || gaNum > 46) {
-        console.warn(`[BOOK] ⚠️  ${bookId} ist kein Book (GA001-GA046) - Überschriften werden NICHT gespeichert`);
+      if (gaNum < 2 || gaNum > 46 || gaNum === 1) {
+        console.warn(`[BOOK] ⚠️  ${bookId} ist kein Book (GA002-GA046, GA001 ausgeschlossen) - Überschriften werden NICHT gespeichert`);
         // Gebe Book trotzdem zurück, aber ohne Überschriften zu speichern
       }
     }
@@ -11593,7 +11598,7 @@ app.post('/api/export/ga', async (req, res) => {
     let exportScript = '';
     let exportArgs = [];
     
-    // Bücher: GA001-GA028, GA045 (außer Aufsätze)
+    // Bücher: GA002-GA028, GA045 (außer Aufsätze) - GA001 wird wie Vortragsband behandelt
     // GA015 und GA022 werden als Vorträge/Aufsätze exportiert (nicht als Bücher)
     const essayBands = [14, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
     const letterBands = [262]; // GA262, GA263a werden separat behandelt
@@ -11605,10 +11610,15 @@ app.post('/api/export/ga', async (req, res) => {
       exportType = 'letters';
       exportScript = 'export-lectures.js';
       exportArgs = [normalizedGA];
+    } else if (gaNumeric === 1) {
+      // GA001: Wird wie Vortragsband behandelt (5 Texte aus Obsidian)
+      exportType = 'lectures';
+      exportScript = 'export-lectures.js';
+      exportArgs = [normalizedGA];
     } else if (gaNumeric >= 1 && gaNumeric <= 50 && !essayBands.includes(gaNumeric) && !isGA041b && gaNumeric !== 45) {
-      // Bücher: GA001-GA028 (außer Aufsätze und GA045)
-      // Prüfe ob es ein Multi-File Buch ist (GA001, GA014, etc.)
-      const multiFileBooks = [1, 14, 19, 24, 26, 29, 30, 31, 32, 33, 37];
+      // Bücher: GA002-GA028 (außer Aufsätze, GA001 und GA045)
+      // Prüfe ob es ein Multi-File Buch ist (GA014, etc.)
+      const multiFileBooks = [14, 19, 24, 26, 29, 30, 31, 32, 33, 37];
       if (multiFileBooks.includes(gaNumeric)) {
         exportType = 'book-multi';
       } else {
@@ -18066,6 +18076,9 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
         .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
         .sort();
       
+      // Sammle alle Bilder aus allen Part-Dateien (Bilder können über mehrere Parts verteilt sein!)
+      let allImagesForLecture = [];
+      
       for (const partFile of partFiles) {
         const partPath = path.join(imagesBasePath, partFile);
         const data = await fs.readFile(partPath, 'utf8');
@@ -18076,24 +18089,20 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
           // Suche nach Bildern für diesen Vortrag
           const imagesForLecture = partData.filter(img => img.lectureId === lectureId);
           if (imagesForLecture.length > 0) {
-            // Cache für zukünftige Anfragen
-            steinerImages[lectureId] = imagesForLecture;
-            return res.json(imagesForLecture);
+            allImagesForLecture.push(...imagesForLecture);
           }
         } else {
           // Objekt-Format (legacy)
           if (partData[lectureId]) {
             const images = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
-            // Cache für zukünftige Anfragen
-            steinerImages[lectureId] = images;
-            return res.json(images);
+            allImagesForLecture.push(...images);
           }
         }
       }
       
-      // Keine Bilder gefunden
-      steinerImages[lectureId] = []; // Cache leeres Array
-      res.json([]);
+      // Cache und Response
+      steinerImages[lectureId] = allImagesForLecture;
+      res.json(allImagesForLecture);
     }
   } catch (error) {
     console.error('[IMAGES-API] Fehler beim Laden:', error);
