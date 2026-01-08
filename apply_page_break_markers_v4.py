@@ -1147,6 +1147,17 @@ def main() -> None:
         print(f"FEHLER: {ga} hat keine paragraphs-Struktur in {src_path.name}")
         sys.exit(1)
 
+    # WICHTIG: Entferne alle existierenden Seitenmarker, bevor neue eingefügt werden
+    removed_markers = 0
+    for para in paragraphs:
+        old_content = para.get("content") or ""
+        new_content = re.sub(r'\|<?(\d+)>?\|', '', old_content)
+        if new_content != old_content:
+            para["content"] = new_content
+            removed_markers += 1
+    if removed_markers > 0:
+        print(f"[V4] {ga}: {removed_markers} Absätze mit alten Markern bereinigt")
+
     content_type = "Vorträge" if is_lectures else "Buch"
     lecture_count = len(content.get("_lectures", [])) if is_lectures else 0
     extra_info = f", {lecture_count} Vorträge" if is_lectures else ""
@@ -1193,13 +1204,26 @@ def main() -> None:
             left = b.get("left") or ""
             right = b.get("right") or ""
             hyph = bool(b.get("hyphenated"))
+            is_first_page = bool(b.get("isFirstPage"))
 
             if page <= 0:
                 continue
 
-            found = find_best_insertion(
-                norm_content, norm_para, norm_char, left, right, hyph, min_norm_pos=last_norm_pos
-            )
+            # ERSTE SEITE: Marker am Anfang des ersten Absatzes positionieren
+            if is_first_page or (not left and page <= 10 and last_norm_pos == 0):
+                # Finde ersten nicht-leeren Absatz
+                first_para_idx = 0
+                for idx, para in enumerate(paragraphs):
+                    para_text = para.get("content") or para.get("text") or ""
+                    if para_text.strip():
+                        first_para_idx = idx
+                        break
+                found = (first_para_idx, 0, 0)  # (para_idx, char_idx, norm_pos)
+                print(f"  [FIRST-PAGE] Seite {page}: Marker am Anfang des ersten Absatzes")
+            else:
+                found = find_best_insertion(
+                    norm_content, norm_para, norm_char, left, right, hyph, min_norm_pos=last_norm_pos
+                )
             
             # Bei Fehlschlag: Zweiter Versuch NUR mit RIGHT (ignoriere LEFT)
             # Grund: LEFT kann Fußnoten-Text enthalten, der im JSON am Ende steht

@@ -23,6 +23,7 @@ import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
+from typing import Tuple
 
 # Windows-Konsole UTF-8 Unterstützung
 if sys.platform == "win32":
@@ -117,6 +118,38 @@ def has_lectures(ga_number: str) -> bool:
     return False
 
 
+BOOKS_DIR = SCRIPT_DIR / "steiner-books"
+
+
+def has_books(ga_number: str) -> bool:
+    """Prüft ob ein Buch für die GA existiert."""
+    ga_upper = ga_number.upper()
+    
+    for path in BOOKS_DIR.glob("steiner-books-*.json"):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for book in data.get("books", []):
+                if (book.get("gaNumber") or "").upper() == ga_upper:
+                    return True
+        except:
+            pass
+    
+    return False
+
+
+def has_content(ga_number: str) -> Tuple[bool, str]:
+    """
+    Prüft ob Inhalte (Vorträge oder Bücher) für die GA existieren.
+    Rückgabe: (exists, type) wobei type 'lectures', 'book' oder '' ist.
+    """
+    if has_lectures(ga_number):
+        return True, "lectures"
+    if has_books(ga_number):
+        return True, "book"
+    return False, ""
+
+
 def copy_pdf_to_ga_folder(ga_number: str, dry_run: bool = False) -> bool:
     """
     Schritt 1: Kopiert PDF von Steiner_GA_pdf/ nach Steiner_GA/GAXXX-Titel/
@@ -199,10 +232,13 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
     print(f"Verarbeite {ga_norm}")
     print(f"{'='*60}")
     
-    # Prüfe ob Vorträge existieren
-    if not has_lectures(ga_norm):
-        print(f"  ⚠️  Keine Vorträge in steiner-full-lectures/ gefunden")
-        return {"ga": ga_norm, "status": "skipped", "reason": "Keine Vorträge"}
+    # Prüfe ob Vorträge oder Bücher existieren
+    content_exists, content_type = has_content(ga_norm)
+    if not content_exists:
+        print(f"  ⚠️  Keine Vorträge/Bücher gefunden")
+        return {"ga": ga_norm, "status": "skipped", "reason": "Keine Inhalte"}
+    
+    print(f"  Typ: {content_type}")
     
     # Schritt 1: PDF kopieren
     print(f"\n  [1/3] PDF kopieren...")
