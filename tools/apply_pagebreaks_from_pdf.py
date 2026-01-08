@@ -300,14 +300,14 @@ def fix_page_numbers(page_data: List[Tuple[int, int, str, str]]) -> List[Tuple[i
     return corrected
 
 
-def load_lectures_for_ga(ga_number: str) -> Tuple[Optional[Path], List[Dict]]:
+def load_lectures_for_ga(ga_number: str) -> Tuple[Dict[Path, List[Dict]], List[Dict]]:
     """
     Lädt alle Vorträge/Aufsätze für eine GA-Nummer.
-    Rückgabe: (Quell-Datei, Liste von Vorträgen)
+    Rückgabe: (Dict von Datei → Vorträge in dieser Datei, Gesamtliste aller Vorträge)
     """
     ga_upper = ga_number.upper()
-    source_file = None
-    lectures = []
+    files_map: Dict[Path, List[Dict]] = {}  # Datei → Liste der Vorträge in dieser Datei
+    all_lectures = []
     
     # Suche in steiner-full-lectures
     for path in sorted(LECTURES_DIR.glob("steiner-full-lectures-*.json")):
@@ -317,15 +317,16 @@ def load_lectures_for_ga(ga_number: str) -> Tuple[Optional[Path], List[Dict]]:
             
             for lec in data.get("lectures", []):
                 if (lec.get("gaNumber") or "").upper() == ga_upper:
-                    if source_file is None:
-                        source_file = path
-                    lectures.append(lec)
+                    if path not in files_map:
+                        files_map[path] = []
+                    files_map[path].append(lec)
+                    all_lectures.append(lec)
         except Exception:
             continue
     
     # Sortiere nach lectureNumber
-    lectures.sort(key=lambda x: int(x.get("lectureNumber") or 0))
-    return source_file, lectures
+    all_lectures.sort(key=lambda x: int(x.get("lectureNumber") or 0))
+    return files_map, all_lectures
 
 
 def load_books_for_ga(ga_number: str) -> Tuple[Optional[Path], Optional[Dict]]:
@@ -704,18 +705,23 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
         return {"error": "Keine Seiten mit Seitenzahlen"}
     
     # Vorträge laden
-    source_file, lectures = load_lectures_for_ga(ga_norm)
+    files_map, lectures = load_lectures_for_ga(ga_norm)
+    is_book = False
+    book_source_file = None
     
     if not lectures:
         # Versuche Bücher
-        source_file, book = load_books_for_ga(ga_norm)
+        book_source_file, book = load_books_for_ga(ga_norm)
         if book:
             lectures = [book]
+            is_book = True
             print(f"  Buch geladen: {book.get('title', '')[:50]}")
         else:
             return {"error": "Keine Vorträge/Bücher gefunden"}
     else:
         print(f"  {len(lectures)} Vorträge geladen")
+        if len(files_map) > 1:
+            print(f"  (verteilt auf {len(files_map)} Dateien: {', '.join(f.name for f in files_map.keys())})")
     
     # Page-Mapping laden
     mapping = load_page_mapping()
@@ -758,24 +764,43 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
     print(f"\n  Gesamt: {total_inserted} Marker eingefügt")
     
     # Speichern
-    if source_file and update_source:
-        # Originaldatei aktualisieren
-        with open(source_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        
-        # Aktualisiere Vorträge im Original
-        for orig_lec in data.get("lectures", []):
-            if (orig_lec.get("gaNumber") or "").upper() == ga_norm:
-                # Finde entsprechenden verarbeiteten Vortrag
-                for proc_lec in lectures:
-                    if orig_lec.get("ID") == proc_lec.get("ID"):
-                        orig_lec["paragraphs"] = proc_lec["paragraphs"]
-                        break
-        
-        with open(source_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        
-        print(f"  Gespeichert in: {source_file.name}")
+    if update_source and (files_map or book_source_file):
+        if is_book and book_source_file:
+            # Buch speichern
+            with open(book_source_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            
+            for orig_book in data.get("books", []):
+                if (orig_book.get("gaNumber") or "").upper() == ga_norm:
+                    orig_book["paragraphs"] = lectures[0]["paragraphs"]
+                    break
+            
+            with open(book_source_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            
+            print(f"  Gespeichert in: {book_source_file.name}")
+        else:
+            # Alle betroffenen Dateien aktualisieren
+            saved_files = []
+            for source_file in files_map.keys():
+                with open(source_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                
+                # Aktualisiere Vorträge im Original
+                for orig_lec in data.get("lectures", []):
+                    if (orig_lec.get("gaNumber") or "").upper() == ga_norm:
+                        # Finde entsprechenden verarbeiteten Vortrag
+                        for proc_lec in lectures:
+                            if orig_lec.get("ID") == proc_lec.get("ID"):
+                                orig_lec["paragraphs"] = proc_lec["paragraphs"]
+                                break
+                
+                with open(source_file, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                
+                saved_files.append(source_file.name)
+            
+            print(f"  Gespeichert in: {', '.join(saved_files)}")
     else:
         # In pagebreaks/ speichern
         PAGEBREAKS_DIR.mkdir(exist_ok=True)
