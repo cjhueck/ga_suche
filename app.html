@@ -25153,73 +25153,8 @@ function scrollToChronologicalYear(year) {
       // RETURN: Beim ersten Wechsel zu Übersicht kein H4-Toggle
       return;
     } else {
-      // Keine Zusammenfassung → generiere neue
-      if (!currentLectureData) {
-        alert('Kein Vortrag geladen');
-        return;
-      }
-      
-// ...existing code...
-
-// Auch den Übersicht-Button in Lade-Zustand setzen
-const summaryBtn = document.getElementById('viewerSummaryBtn');
-if (summaryBtn) {
-  summaryBtn.disabled = true;
-  summaryBtn.innerHTML = '<i>bitte warten...</i>';
-  summaryBtn.style.opacity = '0.5';
-}
-
-try {
-  // Generiere Zusammenfassung
-  const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lectureId: currentLectureData.ID,
-            forceRegenerate: false
-          })
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `Server Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        currentLectureSummary = {
-          summary: data.summary,
-          headings: data.headings || [],
-          tableOfContents: data.tableOfContents || [],
-          lectureKeywords: data.lectureKeywords || [],
-          version: data.version || 'v2'
-        };
-        
-        // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
-        currentLectureData.summary = data.summary;
-        currentLectureData.headings = data.headings || [];
-        currentLectureData.tableOfContents = data.tableOfContents || [];
-        currentLectureData.lectureKeywords = data.lectureKeywords || [];
-        
-        // Summary wurde bereits vom Backend in zentrale DB gespeichert
-        // Zeige Zusammenfassung
-        showSummaryView();
-        
-      } catch (error) {
-        console.error('Fehler beim Generieren der Zusammenfassung:', error);
-        alert('Fehler beim Generieren der Zusammenfassung: ' + error.message);
-        return; // Bei Fehler nicht weitermachen
-      } finally {
-        // Button immer zurücksetzen, egal ob Erfolg oder Fehler
-        const summaryBtn = document.getElementById('viewerSummaryBtn');
-        if (summaryBtn) {
-          summaryBtn.disabled = false;
-          summaryBtn.innerHTML = '≡';
-          summaryBtn.style.opacity = '1';
-        }
-      }
-      // RETURN: Nach dem Generieren einer neuen Summary kein H4-Toggle
-      return;
+      // Keine Zusammenfassung vorhanden → nur TOC-Panel togglen (keine Generierung)
+      // Falle durch zu Fall 2 (Panel öffnen/schließen)
     }
   }
   
@@ -31048,6 +30983,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           } else {
             console.error('[MARKDOWN] marked ist nicht verfügbar!');
           }
+          
+          // Konvertiere Seitenmarker |47| zu sichtbarem Format (nach Markdown-Rendering)
+          content = convertPageMarkers(content);
           
           // Prüfe ZUERST ob wir von thematischer Suche kommen
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
