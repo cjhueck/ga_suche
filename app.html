@@ -3003,9 +3003,13 @@ body.dark-mode .ga-missing-text {
       border-bottom: none;
     }
     
-    /* H3 und H4-Überschriften in TOC (rechtes Sidepanel) - jeweils 0.1rem kleiner */
-    #toc-list h3 {
+    /* H2, H3 und H4-Überschriften in TOC (rechtes Sidepanel) - konsistente Größen */
+    #toc-list h2 {
       font-size: 0.9rem !important;
+    }
+    
+    #toc-list h3 {
+      font-size: 0.85rem !important;
     }
     
     #toc-list h4 {
@@ -9177,6 +9181,14 @@ Original
 
     async function loadSummaryFromDB(lectureId) {
       try {
+        // GA046: Keine Summaries, Keywords, AI-Headings (Sonderbehandlung)
+        // Extrahiere GA-Nummer aus lectureId (z.B. "GA046/1" -> "GA046")
+        const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+        if (gaMatch && isGA046(gaMatch[1])) {
+          console.log(`[LOAD-SUMMARY] ${lectureId}: GA046 - keine Summaries/Keywords/Headings (Sonderbehandlung)`);
+          return null;
+        }
+        
         if (isLocal) {
           // Lokal: Nutze gecachte Summary-Database
           const summaryDB = await getSummaryDBCached();
@@ -9400,6 +9412,16 @@ function isEssayVolume(gaNumber) {
   return (num >= 29 && num <= 36) || num === 46;
 }
 
+// Prüft ob eine GA-Nummer ein Aufsatzband ist, bei dem max. eine Überschrift pro Absatz gilt
+// Betrifft: GA019, GA024, GA026, GA029-GA036 (nicht GA046)
+function isEssayWithSingleHeading(gaNumber) {
+  if (!gaNumber) return false;
+  const match = gaNumber.match(/GA0?(\d+)/i);
+  if (!match) return false;
+  const num = parseInt(match[1]);
+  return num === 19 || num === 24 || num === 26 || (num >= 29 && num <= 36);
+}
+
 // Entfernt manuelle Überschriften (H2, H3, H4) aus dem Content für Aufsatzbände
 // Diese werden nur entfernt, wenn AI-generierte Überschriften vorhanden sind
 function removeManualHeadingsFromContent(content) {
@@ -9425,7 +9447,8 @@ function removeManualHeadingsFromContent(content) {
 
 // Formatiert Paragraph-Content für die HTML-Darstellung:
 // 1. Normalisiert * * * zu * * * (mit einem Leerzeichen zwischen den Sternen)
-// 2. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
+// 2. Behält *** (drei Sternchen ohne Leerzeichen) für Markdown-Konvertierung zu <hr>
+// 3. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
 function formatParagraphContentForDisplay(content) {
   if (!content || typeof content !== 'string') {
     return content;
@@ -9436,7 +9459,14 @@ function formatParagraphContentForDisplay(content) {
   // WICHTIG: Markdown interpretiert `* * *` normalerweise als Text, nicht als durchgezogene Linie
   // Eine durchgezogene Linie wäre `---` oder `***` (ohne Leerzeichen)
   // Wir normalisieren es zu * * * (mit genau einem Leerzeichen), damit es konsistent dargestellt wird
+  // ABER: *** (drei Sternchen ohne Leerzeichen) wird NICHT geändert, damit es zu <hr> konvertiert wird
   content = content.replace(/\*\s+\*\s+\*/g, '* * *');
+  
+  // 2. Stelle sicher, dass *** (drei Sternchen ohne Leerzeichen) auf eigener Zeile steht
+  // für korrekte Markdown-Konvertierung zu <hr>
+  // Pattern: *** umgeben von Text → *** auf eigener Zeile
+  // Aber nur wenn es nicht bereits auf eigener Zeile steht
+  content = content.replace(/([^\n])\*\*\*([^\n])/g, '$1\n***\n$2');
   
   return content;
 }
@@ -13326,6 +13356,10 @@ function normalizeGANumber(gaNumber) {
         try {
           const parts = lecture.ID.split('/');
           if (parts.length === 2) {
+            // GA046: Keine Summaries (Sonderbehandlung)
+            if (isGA046(parts[0])) {
+              continue;
+            }
             const response = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
             if (response.ok) {
               const summaryData = await response.json();
@@ -14815,6 +14849,8 @@ function isBookGANumber(gaNumber) {
   // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
   if (gaNum === 1) return false;
+  // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
+  if (gaNum === 40) return false;
   
   // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze
   const notBooks = ['GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
@@ -14841,6 +14877,14 @@ function isEssayGANumber(gaNumber) {
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
+}
+
+// Hilfsfunktion: Prüft ob ein GA-Band GA046 ist (Sonderbehandlung: keine Summaries/Keywords/AI-Headings)
+function isGA046(gaNumber) {
+  if (!gaNumber) return false;
+  const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
+  const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
+  return gaNum === 46;
 }
 
 // Hilfsfunktion: Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'lecture')
@@ -15420,11 +15464,16 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       });
       
       // Sortiere Überschriften: h3 vor h4
-      const sortedHeadings = matchingHeadings.sort((a, b) => {
+      let sortedHeadings = matchingHeadings.sort((a, b) => {
         if (a.level === 'h3' && b.level === 'h4') return -1;
         if (a.level === 'h4' && b.level === 'h3') return 1;
         return 0;
       });
+      
+      // Bei Aufsatzbänden (GA019, GA024, GA026, GA029-036): max. eine Überschrift pro Absatz
+      if (isEssayWithSingleHeading(bookId) && sortedHeadings.length > 1) {
+        sortedHeadings = [sortedHeadings[0]]; // Nur die erste (H3 hat Priorität)
+      }
       
       // Rendere Überschriften
       sortedHeadings.forEach((heading, hIdx) => {
@@ -16384,8 +16433,8 @@ function convertFootnotesToLinks() {
     }
   });
   
-  // Prüfe ob Fußnoten-Referenzen vorhanden sind
-  const hasFootnotesRefs = /\[\^\d+\]/.test(htmlContent);
+  // Prüfe ob Fußnoten-Referenzen vorhanden sind (auch mit <mark> Tags)
+  const hasFootnotesRefs = /\[\^(?:<mark>)?\d+(?:<\/mark>)?\]/.test(htmlContent);
   
   // Debug-Ausgabe
   console.log('[FOOTNOTES] Fußnoten-Referenzen gefunden:', hasFootnotesRefs);
@@ -16401,8 +16450,8 @@ function convertFootnotesToLinks() {
     const sampleHtml = htmlContent.substring(0, 2000);
     console.log('[FOOTNOTES] Beispiel-HTML:', sampleHtml);
     
-    // Zusätzliches Debugging: Zeige alle Matches für das Referenz-Pattern
-    const refMatches = htmlContent.match(/\[\^\d+\]/g);
+    // Zusätzliches Debugging: Zeige alle Matches für das Referenz-Pattern (auch mit <mark> Tags)
+    const refMatches = htmlContent.match(/\[\^(?:<mark>)?\d+(?:<\/mark>)?\]/g);
     console.log('[FOOTNOTES] Gefundene Referenzen im HTML:', refMatches);
     
     // Zeige alle Matches für das Definitions-Pattern
@@ -16572,15 +16621,37 @@ function convertFootnotesToLinks() {
   
   // Methode 2: Fallback - Suche auch direkt im HTML-String nach Referenzen
   // (falls TreeWalker sie nicht gefunden hat, z.B. wenn sie in bestimmten HTML-Tags sind)
-  if (textNodesToProcess.length === 0 && hasFootnotesRefs) {
-    let currentHtml = viewer.innerHTML;
-    const refPattern = /\[\^(\d+)\]/g;
-    let refMatch;
-    let hasChanges = false;
+  // WICHTIG: Suche auch nach Fußnoten-Referenzen, bei denen die Zahl durch <mark> Tags markiert wurde
+  // (passiert wenn das Suchwort zufällig eine Zahl ist, die auch in einer Fußnote vorkommt)
+  let currentHtml = viewer.innerHTML;
+  let hasChanges = false;
+  
+  // Pattern 1: Standard-Fußnoten [^123]
+  // Pattern 2: Fußnoten mit markierter Zahl [^<mark>123</mark>]
+  const refPatternStandard = /\[\^(\d+)\]/g;
+  const refPatternMarked = /\[\^<mark>(\d+)<\/mark>\]/g;
+  
+  // Verarbeite markierte Fußnoten zuerst (spezifischer)
+  let refMatch;
+  while ((refMatch = refPatternMarked.exec(currentHtml)) !== null) {
+    const fnId = refMatch[1];
+    const beforeMatch = currentHtml.substring(Math.max(0, refMatch.index - 50), refMatch.index);
+    const afterMatch = currentHtml.substring(refMatch.index + refMatch[0].length, Math.min(currentHtml.length, refMatch.index + refMatch[0].length + 50));
     
-    while ((refMatch = refPattern.exec(currentHtml)) !== null) {
+    // Überspringe wenn bereits in einem Link oder sup Tag
+    if (!beforeMatch.includes('<a') && !beforeMatch.includes('<sup') && 
+        !afterMatch.includes('</a>') && !afterMatch.includes('</sup>')) {
+      const replacement = `<sup><a href="#fn${fnId}" id="fnref${fnId}" style="text-decoration: none; color: var(--accent-color); font-weight: bold;">${fnId}</a></sup>`;
+      currentHtml = currentHtml.substring(0, refMatch.index) + replacement + currentHtml.substring(refMatch.index + refMatch[0].length);
+      hasChanges = true;
+      refPatternMarked.lastIndex = refMatch.index + replacement.length;
+    }
+  }
+  
+  // Dann verarbeite Standard-Fußnoten (nur wenn TreeWalker sie nicht gefunden hat)
+  if (textNodesToProcess.length === 0 || hasChanges) {
+    while ((refMatch = refPatternStandard.exec(currentHtml)) !== null) {
       const fnId = refMatch[1];
-      // Prüfe ob diese Fußnote bereits konvertiert wurde (nicht in einem <a> Tag)
       const beforeMatch = currentHtml.substring(Math.max(0, refMatch.index - 50), refMatch.index);
       const afterMatch = currentHtml.substring(refMatch.index + refMatch[0].length, Math.min(currentHtml.length, refMatch.index + refMatch[0].length + 50));
       
@@ -16590,32 +16661,31 @@ function convertFootnotesToLinks() {
         const replacement = `<sup><a href="#fn${fnId}" id="fnref${fnId}" style="text-decoration: none; color: var(--accent-color); font-weight: bold;">${fnId}</a></sup>`;
         currentHtml = currentHtml.substring(0, refMatch.index) + replacement + currentHtml.substring(refMatch.index + refMatch[0].length);
         hasChanges = true;
-        // Setze Pattern-Index zurück, da wir den String geändert haben
-        refPattern.lastIndex = refMatch.index + replacement.length;
+        refPatternStandard.lastIndex = refMatch.index + replacement.length;
       }
     }
+  }
+  
+  if (hasChanges) {
+    viewer.innerHTML = currentHtml;
     
-    if (hasChanges) {
-      viewer.innerHTML = currentHtml;
-      
-      // Füge Event-Listener zu den neu erstellten Links hinzu
-      const footnoteLinks = viewer.querySelectorAll('a[id^="fnref"]');
-      footnoteLinks.forEach(link => {
-        const fnId = link.id.replace('fnref', '');
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const footnote = document.getElementById(`fn${fnId}`);
-          if (footnote) {
-            footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
-            const originalBg = footnote.style.backgroundColor;
-            footnote.style.backgroundColor = 'var(--highlight-color)';
-            setTimeout(() => {
-              footnote.style.backgroundColor = originalBg;
-            }, 2000);
-          }
-        });
+    // Füge Event-Listener zu den neu erstellten Links hinzu
+    const footnoteLinks = viewer.querySelectorAll('a[id^="fnref"]');
+    footnoteLinks.forEach(link => {
+      const fnId = link.id.replace('fnref', '');
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const footnote = document.getElementById(`fn${fnId}`);
+        if (footnote) {
+          footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
+          const originalBg = footnote.style.backgroundColor;
+          footnote.style.backgroundColor = 'var(--highlight-color)';
+          setTimeout(() => {
+            footnote.style.backgroundColor = originalBg;
+          }, 2000);
+        }
       });
-    }
+    });
   }
   
   // Aktiviere Backlinks
@@ -19259,11 +19329,18 @@ function scrollToChronologicalYear(year) {
             });
             
             // Sortiere Überschriften: H3 vor H4
-            const sortedHeadings = matchingHeadings.sort((a, b) => {
+            let sortedHeadings = matchingHeadings.sort((a, b) => {
               if (a.level === 'h3' && b.level === 'h4') return -1;
               if (a.level === 'h4' && b.level === 'h3') return 1;
               return 0;
             });
+            
+            // Bei Aufsatzbänden (GA019, GA024, GA026, GA029-036): max. eine Überschrift pro Absatz
+            const advSearchGaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+            const advSearchGaNumber = advSearchGaMatch ? advSearchGaMatch[1] : null;
+            if (isEssayWithSingleHeading(advSearchGaNumber) && sortedHeadings.length > 1) {
+              sortedHeadings = [sortedHeadings[0]]; // Nur die erste (H3 hat Priorität)
+            }
             
             // Füge Überschriften VOR dem Paragraph ein
             sortedHeadings.forEach((heading, hIdx) => {
@@ -26161,17 +26238,21 @@ function showSummaryView() {
              hIndexClean === paraIndex;
     });
     
-    // Sortiere Überschriften
-    const sortedHeadings = matchingHeadings.sort((a, b) => {
-      if (a.level === 'h3' && b.level === 'h4') return -1;
-      if (a.level === 'h4' && b.level === 'h3') return 1;
-      return 0;
+    // Sortiere Überschriften nach Level (H2 vor H3 vor H4)
+    let sortedHeadings = matchingHeadings.sort((a, b) => {
+      const levelOrder = { 'h2': 1, 'h3': 2, 'h4': 3 };
+      const aOrder = levelOrder[a.level] || 99;
+      const bOrder = levelOrder[b.level] || 99;
+      return aOrder - bOrder;
     });
     
-    // Gebe Überschriften aus
-    // REGEL: Nur EINE Überschrift pro Absatz - entweder H3 oder erste H4
-    let headingAlreadyShown = false;
+    // Bei Aufsatzbänden (GA019, GA024, GA026, GA029-036): max. eine Überschrift pro Absatz
+    if (isEssayWithSingleHeading(gaNumber) && sortedHeadings.length > 1) {
+      sortedHeadings = [sortedHeadings[0]]; // Nur die erste (H3 hat Priorität vor H4)
+    }
     
+    // Gebe Überschriften aus
+    // REGEL: Zeige alle Überschriften in der richtigen Reihenfolge (H2, dann H3, dann H4)
     sortedHeadings.forEach((heading, hIdx) => {
       let headingText = heading.text || heading.title || 'Überschrift';
       const level = heading.level || 'h3';
@@ -26191,17 +26272,14 @@ function showSummaryView() {
       
       const hasTextEditClass = hasEdit ? 'has-text-edit' : '';
       
-      // Nur ausgeben wenn noch keine Überschrift für diesen Absatz gezeigt wurde
-      if (!headingAlreadyShown) {
-        if (level === 'h3') {
-          html += `<h3 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h3>`;
-          headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
-        } else if (level === 'h4') {
-          html += `<h4 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h4>`;
-          headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
-        }
+      // Rendere alle Überschriften (H2, H3, H4)
+      if (level === 'h2') {
+        html += `<h2 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h2>`;
+      } else if (level === 'h3') {
+        html += `<h3 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h3>`;
+      } else if (level === 'h4') {
+        html += `<h4 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h4>`;
       }
-      // Weitere Überschriften werden übersprungen
     });
     
     let content = para.content || para.text || '';
@@ -26225,10 +26303,14 @@ function showSummaryView() {
     // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
     content = formatParagraphContentForDisplay(content);
     
-    // Bei Aufsatzbänden (GA029-GA037, GA046) ODER wenn Überschriften aus headings-Array eingefügt wurden:
+    // Bei Aufsatzbänden (GA029-GA037, NICHT GA046!) ODER wenn Überschriften aus headings-Array eingefügt wurden:
     // Entferne manuelle Überschriften aus dem Content, um Duplikate zu vermeiden
     // NEU: Auch für Briefe (GA262, GA263a) und andere Vorträge mit Headings
-    if ((gaNumber && isEssayVolume(gaNumber)) || headingAlreadyShown) {
+    // WICHTIG: Nur entfernen wenn tatsächlich Überschriften aus dem headings-Array angezeigt wurden
+    // AUSNAHME: GA046 behält manuelle Überschriften (keine AI-Summaries/Headings)
+    const hasHeadingsFromArray = sortedHeadings.length > 0;
+    const isEssayButNotGA046 = gaNumber && isEssayVolume(gaNumber) && !isGA046(gaNumber);
+    if (isEssayButNotGA046 || hasHeadingsFromArray) {
       content = removeManualHeadingsFromContent(content);
     }
     
@@ -26349,6 +26431,13 @@ function showSummaryView() {
     } else {
       console.warn(`[displayLecture] ❌ KEINE Marker nach convertPageMarkers() gefunden!`);
     }
+    
+    // Konvertiere *** (drei Sternchen ohne Leerzeichen) zu horizontaler Linie <hr>
+    // Falls marked.parse() es nicht konvertiert hat (z.B. wenn es in einem Paragraph steht)
+    // Pattern: *** auf eigener Zeile oder umgeben von Leerzeichen/Zeilenumbrüchen
+    content = content.replace(/(^|\n)\s*\*\*\*\s*(\n|$)/g, '$1<hr>$2');
+    // Auch wenn es nicht auf eigener Zeile steht, aber von Leerzeichen umgeben ist
+    content = content.replace(/(\s+)\*\*\*(\s+)/g, '$1<hr>$2');
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
@@ -26471,6 +26560,77 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
         // Lade und ersetze Bilder asynchron
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
           viewer.innerHTML = updatedHTML;
+          
+          // WICHTIG: Keyword-Highlighting NACH dem Bild-Ersetzen erneut durchführen
+          // (da replaceImageSrcWithBase64 viewer.innerHTML überschreibt und <mark> Tags verloren gehen können)
+          const isFromThematicSearchAfterImage = currentThematicQuery && keywords && keywords.length > 0;
+          if (keywords && keywords.length > 0 && !isFromThematicSearchAfterImage) {
+            keywords.forEach((word, wordIndex) => {
+              if (word && word.trim()) {
+                const isPhrase = isPhraseArray[wordIndex] || false;
+                const cleanWord = word.trim();
+                const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
+                  ? cleanWord.slice(1, -1) 
+                  : cleanWord;
+                
+                // Markiere Keywords im bereits gerenderten HTML
+                const paragraphs = viewer.querySelectorAll('.paragraph');
+                paragraphs.forEach(para => {
+                  // Verwende TreeWalker um nur Textknoten zu markieren
+                  const walker = document.createTreeWalker(
+                    para,
+                    NodeFilter.SHOW_TEXT,
+                    {
+                      acceptNode: function(node) {
+                        // Überspringe Textknoten die bereits in <mark> Tags sind
+                        let parent = node.parentNode;
+                        while (parent && parent !== para) {
+                          if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                            return NodeFilter.FILTER_REJECT;
+                          }
+                          // Überspringe Textknoten innerhalb von HTML-Tags die nicht markiert werden sollen
+                          if (parent.tagName && ['img', 'a', 'script', 'style'].includes(parent.tagName.toLowerCase())) {
+                            return NodeFilter.FILTER_REJECT;
+                          }
+                          parent = parent.parentNode;
+                        }
+                        return NodeFilter.FILTER_ACCEPT;
+                      }
+                    },
+                    false
+                  );
+                  
+                  const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  const flags = isPhrase ? "g" : "gi";
+                  const regex = new RegExp(`(${escapedWord})`, flags);
+                  
+                  const textNodesToMark = [];
+                  let textNode;
+                  while (textNode = walker.nextNode()) {
+                    if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                      textNodesToMark.push(textNode);
+                    }
+                  }
+                  
+                  // Markiere Suchwort in Textknoten
+                  textNodesToMark.forEach(textNode => {
+                    const text = textNode.textContent;
+                    const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                    const tempSpan = document.createElement('span');
+                    tempSpan.innerHTML = highlightedText;
+                    
+                    const parent = textNode.parentNode;
+                    if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                      while (tempSpan.firstChild) {
+                        parent.insertBefore(tempSpan.firstChild, textNode);
+                      }
+                      parent.removeChild(textNode);
+                    }
+                  });
+                });
+              }
+            });
+          }
           
           // WICHTIG: Gedichte NACH dem Bild-Ersetzen formatieren
           setTimeout(() => {
@@ -27370,8 +27530,31 @@ function formatAsteriskParagraphs() {
     }
     
     // NEU: Prüfe ob Zusammenfassung bereits existiert (ohne neue zu generieren)
+    // AUSNAHME: GA046 bekommt keine Summaries/Keywords/AI-Headings
     try {
       const parts = lectureId.split('/');
+      
+      // GA046: Keine Summaries, Keywords, AI-Headings (Sonderbehandlung)
+      const gaNumberForSummary = parts[0];
+      if (isGA046(gaNumberForSummary)) {
+        console.log('[LOAD-LECTURE] GA046 - keine Summaries/Keywords/Headings (Sonderbehandlung)');
+        // Zeige den Vortrag ohne Summary-Daten
+        showingSummaryInMain = false;
+        
+        let displayKeywords = keywords;
+        if (!displayKeywords || displayKeywords.length === 0) {
+          const currentWord1 = document.getElementById('word1')?.value?.trim();
+          const currentWord2 = document.getElementById('word2')?.value?.trim();
+          if (currentWord1 || currentWord2) {
+            displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+          }
+        }
+        
+        updateButtonStates();
+        displayLecture(data.lecture, targetIndex, displayKeywords);
+        return; // Beende hier für GA046
+      }
+      
       const summaryResponse = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
       if (summaryResponse.ok) {
         const summaryData = await summaryResponse.json();
@@ -30317,19 +30500,20 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           tocHeading.style.display = 'none';
         }
         
-        // Styling für H2-Überschriften (größer/fetter als H3/H4)
+        // Styling für H2/H3/H4-Überschriften im TOC
+        // Alle Größen reduziert für konsistente Darstellung über alle GA-Bände
         if (heading.tagName.toLowerCase() === 'h2') {
           tocHeading.style.fontWeight = 'bold';
-          tocHeading.style.fontSize = '1.0em';
-          tocHeading.style.marginTop = '0.5rem';
-          tocHeading.style.marginBottom = '0.4rem';
+          tocHeading.style.fontSize = '0.9em';
+          tocHeading.style.marginTop = '0.4rem';
+          tocHeading.style.marginBottom = '0.3rem';
         } else if (heading.tagName.toLowerCase() === 'h3') {
           tocHeading.style.fontWeight = '600';
-          tocHeading.style.fontSize = '0.95em';
+          tocHeading.style.fontSize = '0.85em';
           tocHeading.style.marginLeft = '0.5rem';
         } else if (heading.tagName.toLowerCase() === 'h4') {
           tocHeading.style.fontWeight = 'normal';
-          tocHeading.style.fontSize = '0.9em';
+          tocHeading.style.fontSize = '0.8em';
           tocHeading.style.marginLeft = '1rem';
         }
         
@@ -30757,11 +30941,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             });
             
             // Sort headings: h3 before h4
-            const sortedHeadings = matchingHeadings.sort((a, b) => {
+            let sortedHeadings = matchingHeadings.sort((a, b) => {
               if (a.level === 'h3' && b.level === 'h4') return -1;
               if (a.level === 'h4' && b.level === 'h3') return 1;
               return 0;
             });
+            
+            // Bei Aufsatzbänden (GA019, GA024, GA026, GA029-036): max. eine Überschrift pro Absatz
+            if (isEssayWithSingleHeading(gaNumber) && sortedHeadings.length > 1) {
+              sortedHeadings = [sortedHeadings[0]]; // Nur die erste (H3 hat Priorität)
+            }
             
             // Render headings
             sortedHeadings.forEach((heading, hIdx) => {
@@ -30803,9 +30992,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
           content = formatParagraphContentForDisplay(content);
           
-          // Bei Aufsatzbänden (GA029-GA037, GA046) in der Summary-Ansicht:
+          // Bei Aufsatzbänden (GA029-GA037, NICHT GA046!) in der Summary-Ansicht:
           // Entferne manuelle Überschriften, da AI-generierte Überschriften verwendet werden
-          if (showingSummaryInMain && gaNumber && isEssayVolume(gaNumber)) {
+          // AUSNAHME: GA046 behält manuelle Überschriften (keine AI-Summaries/Headings)
+          if (showingSummaryInMain && gaNumber && isEssayVolume(gaNumber) && !isGA046(gaNumber)) {
             content = removeManualHeadingsFromContent(content);
           }
           
@@ -30862,10 +31052,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Prüfe ZUERST ob wir von thematischer Suche kommen
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
           
-          // Im Original-Modus keine Keywords markieren
-          // Markiere Keywords nur wenn wir NICHT im Original-Modus sind
+          // Keyword-Highlighting für alle Modi (wie bei anderen GA-Bänden auch)
           // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
-          if (keywords && keywords.length > 0 && showingSummaryInMain) {
+          if (keywords && keywords.length > 0 && !isFromThematicSearch) {
             // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
             function highlightInHTML(htmlContent, searchWord) {
               // Erstelle temporäres DOM-Element für sicheres Highlighting
@@ -30966,6 +31155,71 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
           viewer.innerHTML = updatedHTML;
           
+          // WICHTIG: Keyword-Highlighting NACH dem Bild-Ersetzen erneut durchführen
+          // (da replaceImageSrcWithBase64 viewer.innerHTML überschreibt und <mark> Tags verloren gehen können)
+          if (keywords && keywords.length > 0 && !isFromThematicSearch) {
+            keywords.forEach(word => {
+              if (word && word.trim()) {
+                const cleanWord = word.trim();
+                
+                // Markiere Keywords im bereits gerenderten HTML
+                const paragraphs = viewer.querySelectorAll('.paragraph');
+                paragraphs.forEach(para => {
+                  // Verwende TreeWalker um nur Textknoten zu markieren
+                  const walker = document.createTreeWalker(
+                    para,
+                    NodeFilter.SHOW_TEXT,
+                    {
+                      acceptNode: function(node) {
+                        // Überspringe Textknoten die bereits in <mark> Tags sind
+                        let parent = node.parentNode;
+                        while (parent && parent !== para) {
+                          if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                            return NodeFilter.FILTER_REJECT;
+                          }
+                          // Überspringe Textknoten innerhalb von HTML-Tags die nicht markiert werden sollen
+                          if (parent.tagName && ['img', 'a', 'script', 'style'].includes(parent.tagName.toLowerCase())) {
+                            return NodeFilter.FILTER_REJECT;
+                          }
+                          parent = parent.parentNode;
+                        }
+                        return NodeFilter.FILTER_ACCEPT;
+                      }
+                    },
+                    false
+                  );
+                  
+                  const escapedWord = cleanWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  const regex = new RegExp(`(${escapedWord})`, "gi");
+                  
+                  const textNodesToMark = [];
+                  let textNode;
+                  while (textNode = walker.nextNode()) {
+                    if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                      textNodesToMark.push(textNode);
+                    }
+                  }
+                  
+                  // Markiere Suchwort in Textknoten
+                  textNodesToMark.forEach(textNode => {
+                    const text = textNode.textContent;
+                    const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                    const tempSpan = document.createElement('span');
+                    tempSpan.innerHTML = highlightedText;
+                    
+                    const parent = textNode.parentNode;
+                    if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                      while (tempSpan.firstChild) {
+                        parent.insertBefore(tempSpan.firstChild, textNode);
+                      }
+                      parent.removeChild(textNode);
+                    }
+                  });
+                });
+              }
+            });
+          }
+          
           // WICHTIG: Gedichte NACH dem Bild-Ersetzen formatieren, damit die Änderungen nicht überschrieben werden!
           setTimeout(() => {
             console.log('[GEDICHT-ERKENNUNG] Starte Gedicht-Erkennung für Vortrag...');
@@ -30988,6 +31242,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                   buildTableOfContents();
                 }
               });
+            } else {
+              // WICHTIG: Auch ohne Datum/Tafeln das TOC neu bauen (für Fußnoten-Link)
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
             }
           }, 200);
           
@@ -31016,9 +31275,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
-          // Auch bei Fehler Gedichte formatieren und Tafeln hinzufügen
+          // Auch bei Fehler Gedichte formatieren, Fußnoten konvertieren und Tafeln hinzufügen
           setTimeout(() => {
             detectAndFormatPoems(viewer);
+            
+            // Anmerkungen mit mehreren Sternchen behandeln
+            replaceBulletPointsWithAsterisks();
+            formatAsteriskParagraphs();
+            
+            // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
+            // WICHTIG: Auch im Fehlerfall aufrufen!
+            convertFootnotesToLinks();
             
             // Wandtafelzeichnungen auch im Fehlerfall hinzufügen
             if (lecture && lecture.ID && lecture.date) {
@@ -31028,6 +31295,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                   buildTableOfContents();
                 }
               });
+            } else {
+              // WICHTIG: Auch ohne Datum/Tafeln das TOC neu bauen (für Fußnoten-Link)
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
             }
           }, 0);
         });
@@ -31054,6 +31326,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                 buildTableOfContents();
               }
             });
+          } else {
+            // WICHTIG: Auch ohne Datum/Tafeln das TOC neu bauen (für Fußnoten-Link)
+            if (typeof buildTableOfContents === 'function') {
+              buildTableOfContents();
+            }
           }
         }, 200);
         
@@ -33683,22 +33960,50 @@ function detectAndFormatPoems(container) {
         poemContainer.style.padding = '0';
         poemContainer.style.lineHeight = '1.5';
         
-        // Verschiebe alle <p> Tags aus den einzelnen Paragraphen in den Container
+        // Verschiebe alle Elemente aus den einzelnen Paragraphen in den Container
+        // WICHTIG: Behalte nicht nur <p> Tags, sondern auch Überschriften (<h2>, <h3>, <h4>) und <hr> Tags
         poemBlock.forEach((poemDiv, idx) => {
-          const pTags = Array.from(poemDiv.querySelectorAll('p'));
-          pTags.forEach((pTag, pIdx) => {
-            // Entferne Margins vom <p> Tag
-            pTag.style.margin = '0';
-            pTag.style.padding = '0';
-            pTag.style.lineHeight = '1.5';
-            
-            // Füge <br> zwischen Zeilen hinzu (außer bei der ersten)
-            if (idx > 0 || pIdx > 0) {
-              poemContainer.appendChild(document.createElement('br'));
+          // Sammle alle direkten Kind-Elemente (nicht nur <p> Tags)
+          const allChildren = Array.from(poemDiv.childNodes);
+          
+          allChildren.forEach((child, childIdx) => {
+            // Überspringe Text-Knoten die nur Whitespace enthalten
+            if (child.nodeType === Node.TEXT_NODE && !child.textContent.trim()) {
+              return;
             }
             
-            // Verschiebe den <p> Tag in den Container
-            poemContainer.appendChild(pTag.cloneNode(true));
+            // Für Element-Knoten
+            if (child.nodeType === Node.ELEMENT_NODE) {
+              const tagName = child.tagName.toLowerCase();
+              
+              // Überschriften und horizontale Linien BEIBEHALTEN
+              if (tagName === 'h2' || tagName === 'h3' || tagName === 'h4' || tagName === 'hr') {
+                poemContainer.appendChild(child.cloneNode(true));
+                return;
+              }
+              
+              // Für <p> Tags: Entferne Margins und füge hinzu
+              if (tagName === 'p') {
+                const clonedP = child.cloneNode(true);
+                clonedP.style.margin = '0';
+                clonedP.style.padding = '0';
+                clonedP.style.lineHeight = '1.5';
+                
+                // Füge <br> zwischen Zeilen hinzu (außer bei der ersten)
+                if (idx > 0 || childIdx > 0) {
+                  poemContainer.appendChild(document.createElement('br'));
+                }
+                
+                poemContainer.appendChild(clonedP);
+                return;
+              }
+              
+              // Andere Elemente auch beibehalten (z.B. <img>, <span>, etc.)
+              poemContainer.appendChild(child.cloneNode(true));
+            } else if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) {
+              // Text-Knoten mit Inhalt beibehalten
+              poemContainer.appendChild(child.cloneNode(true));
+            }
           });
           
           // Ersetze den ursprünglichen Paragraph durch den Container (nur beim ersten)
@@ -42919,6 +43224,8 @@ async function addKeywordToLecture() {
     // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
     const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
     if (gaNum === 1) return false;
+    // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
+    if (gaNum === 40) return false;
     const normalized = gaNumber.toUpperCase().replace(/^GA(\d)$/, 'GA00$1').replace(/^GA(\d{2})$/, 'GA0$1');
     if (aufsatzbaende.includes(normalized)) return false;
     return originalIsBookGANumber(gaNumber);

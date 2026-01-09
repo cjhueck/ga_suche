@@ -118,8 +118,8 @@ GA151
 
 090a-... auch auf Seitenzahlen überprüfen
 
-noch eine frage: 
-in obsidian werden diese pdfs sehr schön als fortlaufende files mit seitenumbrüchen udn -zahlen an den korrekten Stellen dargestellt. Könntest du die texte mit den entsprechenden umbrüchen / zahlen direkt aus Obsidian lesen, ohne eigenes pdf umwandlung?
+dann als nächste
+GA 73, 74 bis 77a, 77b, 78, 79, 81-100
 
 
 ---
@@ -212,3 +212,22 @@ nb
 | `tools/process_pagebreaks.py` | **Hauptscript** - führt alles automatisch durch |
 | `tools/apply_pagebreaks_from_pdf.py` | Nur Seitenmarker einfügen |
 | `tools/copy_pdfs_to_ga_folders.py` | Nur PDF kopieren |
+
+
+
+Fehlende Bereiche (keine Reports)
+GA014-015, GA019, GA022, GA024, GA026, GA029, GA031-032
+GA035-044 (außer 40, 40A, 41A - nur Override-JSONs)
+GA047-050
+GA068B, GA068D (nur Override-JSONs)
+GA069-071 (nur Override-JSONs für 69er)
+GA077 (nur Override-JSONs)
+GA080 (nur Override-JSONs)
+GA085-087
+GA090-091
+GA151-197 (großer Bereich!)
+GA241-242, GA244, GA246-249, GA251-252, GA255-256
+GA260, GA262-266 (teilweise nur Override-JSONs)
+GA269-270
+
+ga046: die short summaries sind im verzeichnis der Texte (linkes side panel) noch vorhanden. Zeige die Short Summaries über den jeweiligen texten, wie bei Votragsbänden dort die Summaries gezeigt werden.

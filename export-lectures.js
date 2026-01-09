@@ -790,6 +790,7 @@ class SteinerLecturesExporter {
       
       // GA002-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA001 wird wie Vortragsband behandelt (5 Texte aus Obsidian)
+      // Ausnahmen: GA040 wird wie Vortragsband behandelt
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
       // Zusätzliche Ausnahmen: GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
       // BRIEFE: GA262, GA263a werden wie Vorträge exportiert (mit H2-Überschriften als Navigation)
@@ -809,20 +810,22 @@ class SteinerLecturesExporter {
         const isLetterBandCheck = gaNum === 262 || isGA263a;
         // GA001: Wird wie Vortragsband behandelt (5 Texte aus Obsidian)
         const isGA001 = gaNum === 1;
+        // GA040: Wird wie Vortragsband behandelt
+        const isGA040 = gaNum === 40;
         
         // Setze den Typ
         if (isLetterBandCheck) {
           contentType = 'letter';
         } else if (isEssayBand) {
           contentType = 'essay';
-        } else if (isGA001) {
-          contentType = 'lecture'; // GA001 wird wie Vortragsband behandelt
+        } else if (isGA001 || isGA040) {
+          contentType = 'lecture'; // GA001 und GA040 werden wie Vortragsbände behandelt
         }
         
         // Wenn selectedGAs angegeben sind UND diese GA dabei ist, dann exportieren (override)
         const isExplicitlySelected = selectedGAs.length > 0 && selectedGAs.map(g => g.toUpperCase()).includes(`GA${gaNumber.toUpperCase()}`);
-        if (gaNum >= 2 && gaNum <= 50 && !isEssayBand && !isLetterBandCheck && !isGA001 && !isExplicitlySelected) {
-          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert)
+        if (gaNum >= 2 && gaNum <= 50 && !isEssayBand && !isLetterBandCheck && !isGA001 && !isGA040 && !isExplicitlySelected) {
+          continue; // Überspringe GA002-GA050 (werden als Bücher exportiert), außer GA001 und GA040
         }
       }
       
