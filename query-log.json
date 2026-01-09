@@ -28,8 +28,8 @@
     "last": "2025-11-23T13:41:24.121Z"
   },
   "urpflanze": {
-    "count": 6,
-    "last": "2025-10-30T20:10:37.350Z"
+    "count": 15,
+    "last": "2026-01-08T23:31:40.819Z"
   },
   "angeloi": {
     "count": 6,
@@ -830,5 +830,9 @@
   "menschheitsentwickelung": {
     "count": 1,
     "last": "2026-01-02T10:40:01.044Z"
+  },
+  "pflanze": {
+    "count": 1,
+    "last": "2026-01-08T23:11:20.882Z"
   }
 }

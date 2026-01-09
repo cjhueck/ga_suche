@@ -313,10 +313,14 @@ function isEssayGANumber(gaNumber) {
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA002-GA028 (ohne die Aufsatzbände GA019, GA024, GA026) - GA001 wird wie Vortragsband behandelt
+// Bücher: GA002-GA028 (ohne die Aufsatzbände GA019, GA024, GA026) - GA001 und GA040 werden wie Vortragsbände behandelt
 function isBookGANumberBackend(gaNumber) {
   // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNumber && (gaNumber.toUpperCase() === 'GA001' || gaNumber === '1')) {
+    return false;
+  }
+  // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
+  if (gaNumber && (gaNumber.toUpperCase() === 'GA040' || gaNumber === '40')) {
     return false;
   }
   if (!gaNumber) return false;
@@ -11612,6 +11616,11 @@ app.post('/api/export/ga', async (req, res) => {
       exportArgs = [normalizedGA];
     } else if (gaNumeric === 1) {
       // GA001: Wird wie Vortragsband behandelt (5 Texte aus Obsidian)
+      exportType = 'lectures';
+      exportScript = 'export-lectures.js';
+      exportArgs = [normalizedGA];
+    } else if (gaNumeric === 40) {
+      // GA040: Wird wie Vortragsband behandelt
       exportType = 'lectures';
       exportScript = 'export-lectures.js';
       exportArgs = [normalizedGA];
