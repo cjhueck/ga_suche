@@ -8,7 +8,7 @@
     "2026-01-10": {
       "views": 3,
       "searches": 3,
-      "lectures": 70
+      "lectures": 78
     }
   },
   "topSearches": {
@@ -16,11 +16,14 @@
     "webp": 2
   },
   "topLectures": {
-    "GA002": 66,
+    "GA002": 68,
     "GA002/1": 1,
-    "GA003": 4
+    "GA003": 4,
+    "GA001/1": 1,
+    "GA001/2": 1,
+    "GA001/3": 4
   },
   "totalViews": 3,
   "totalSearches": 3,
-  "totalLectureViews": 71
+  "totalLectureViews": 79
 }
