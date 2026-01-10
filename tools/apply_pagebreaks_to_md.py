@@ -47,12 +47,20 @@ def extract_lecture_number_from_md(md_path: Path) -> Optional[int]:
     """
     Extrahiert die Vortragsnummer aus dem MD-Dateinamen.
     Z.B. "GA051 (1.) TITEL.md" -> 1
+    
+    Für Bücher (ohne Vortragsnummer) wird 0 zurückgegeben.
     """
     name = md_path.stem
     # Pattern: GA051 (1.) oder GA051 (12.)
     match = re.search(r'\((\d+)\.\)', name)
     if match:
         return int(match.group(1))
+    
+    # Prüfe ob es eine Buch-Datei ist (enthält GA-Nummer aber keine Vortragsnummer)
+    # Z.B. "GA012 - Die Stufen der höheren Erkenntnis (1905-1908).md"
+    if re.match(r'^GA\d{3}', name):
+        return 0  # 0 bedeutet "Buch" (keine Vortragsnummer)
+    
     return None
 
 
@@ -66,9 +74,17 @@ def get_page_range_for_md(
     """
     Ermittelt den Seitenbereich für eine MD-Datei.
     Verwendet das lecture-page-mapping falls vorhanden.
+    
+    Für Bücher (lec_num = 0) werden alle Seiten der PDF verwendet.
     """
     lec_num = extract_lecture_number_from_md(md_path)
     if lec_num is None:
+        return None, None
+    
+    # Für Bücher (lec_num = 0): verwende alle Seiten der PDF
+    if lec_num == 0:
+        if pdf_pages:
+            return pdf_pages[0][1], pdf_pages[-1][1]
         return None, None
     
     ga_mapping = mapping.get(ga_norm, {})

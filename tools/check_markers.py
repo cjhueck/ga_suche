@@ -1,19 +1,30 @@
-#!/usr/bin/env python3
-"""Schnelle Überprüfung ob Marker in MD-Dateien vorhanden sind."""
+import json
 import re
-from pathlib import Path
 
-gas = ['051', '063', '084', '092', '110', '152', '181', '200']
-pattern = r'\|\d+\|'
+with open('steiner-books/steiner-books-019-019.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
 
-print("Überprüfe Marker in ausgewählten GAs:\n")
-
-for ga in gas:
-    md_files = list(Path('Steiner_GA').glob(f'GA{ga}*/*1*.md'))
-    if md_files:
-        content = md_files[0].read_text(encoding='utf-8')
-        markers = re.findall(pattern, content)
-        print(f"  GA{ga}/1: {len(markers)} Marker - {md_files[0].name}")
-    else:
-        print(f"  GA{ga}/1: NICHT GEFUNDEN")
-
+for book in data.get('books', []):
+    all_text = ' '.join(p['content'] for p in book.get('paragraphs', []))
+    markers = re.findall(r'\|(\d+)\|', all_text)
+    
+    print(f'Marker: {len(markers)}, Seiten: {min(int(m) for m in markers)}-{max(int(m) for m in markers)}')
+    
+    # Prüfe Formatierung
+    good_spaces = len(re.findall(r' \|\d+\| ', all_text))
+    word_splits = len(re.findall(r'\w\|\d+\|\w', all_text))
+    punct_before = len(re.findall(r'[?!.,;:] \|\d+\|', all_text))
+    
+    print(f'  Mit Leerzeichen: {good_spaces}')
+    print(f'  Worttrennungen: {word_splits}')
+    print(f'  Satzzeichen vor Marker: {punct_before}')
+    
+    # Zeige Beispiele
+    print('\nBeispiele:')
+    count = 0
+    for m in re.finditer(r'.{25}\|\d+\|.{25}', all_text):
+        snippet = m.group(0).replace('\n', ' ')
+        print(f'  {snippet}')
+        count += 1
+        if count >= 5:
+            break
