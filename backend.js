@@ -1161,10 +1161,13 @@ async function loadBooks() {
             // Die Seitenzahlen sind nur in den Overrides, nicht in den Hauptdateien.
             const existing = fullBooks[bookId];
 
-            // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings) beibehalten
+            // WICHTIG: Nur paragraphs überschreiben, andere Felder (content, headings, fileName) beibehalten
             // Dies ermöglicht, dass Pagebreak-Overrides nur die Seitenmarker hinzufügen,
             // ohne die Überschriften aus der Hauptdatei zu verlieren
             if (fullBooks[bookId]) {
+              // WICHTIG: Behalte fileName aus der Hauptdatei (kann "_neu" enthalten)
+              const originalFileName = fullBooks[bookId].fileName;
+              
               // Merge: Überschreibe nur paragraphs aus dem Override
               if (bookObj.paragraphs) {
                 fullBooks[bookId].paragraphs = bookObj.paragraphs;
@@ -1173,9 +1176,12 @@ async function loadBooks() {
               if (bookObj.content) {
                 fullBooks[bookId].content = bookObj.content;
               }
-              // Aktualisiere Metadaten
+              // Aktualisiere Metadaten, aber behalte fileName aus Hauptdatei
               fullBooks[bookId]._sourceFileMtime = mtime;
               fullBooks[bookId]._sourceFileName = `pagebreaks/${f}`;
+              if (originalFileName) {
+                fullBooks[bookId].fileName = originalFileName;
+              }
             } else {
               // Buch existiert noch nicht, vollständig übernehmen
               bookObj._sourceFileMtime = mtime;
@@ -8821,6 +8827,19 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // VALIDIERUNG ENTFERNT - verursachte Probleme
     const gaNumberNormalized = gaNumberOriginal.toLowerCase();
 
+    // DEBUG: Zeige geladene Version für GA002
+    if (gaNumberNormalized === 'ga002') {
+      const debugBook = Object.values(fullBooks).find(b => {
+        const bookGA = (b.ID || b.gaNumber || '').toLowerCase();
+        return bookGA === gaNumberNormalized;
+      });
+      if (debugBook) {
+        console.log('[DEBUG GA002] fileName:', debugBook.fileName);
+        console.log('[DEBUG GA002] _sourceFileName:', debugBook._sourceFileName);
+        console.log('[DEBUG GA002] _sourceFileMtime:', debugBook._sourceFileMtime);
+        console.log('[DEBUG GA002] content start:', debugBook.content ? debugBook.content.substring(0, 100) : 'N/A');
+      }
+    }
 
     // Suche nach Book
     const book = Object.values(fullBooks).find(b => {
@@ -11752,6 +11771,119 @@ app.post('/api/export/ga', async (req, res) => {
   }
 });
 
+// POST /api/pages/process - Führt process_pagebreaks.py für einen GA-Band aus
+// Dieser Endpunkt wird vom "Pages"-Button im Frontend aufgerufen
+app.post('/api/pages/process', async (req, res) => {
+  try {
+    const { gaNumber } = req.body;
+    
+    if (!gaNumber) {
+      return res.status(400).json({ error: 'gaNumber erforderlich' });
+    }
+    
+    // Normalisiere GA-Nummer (z.B. "GA076" oder "ga76" → "GA076")
+    const gaMatch = gaNumber.match(/^GA?(\d{1,3}[a-z]?)$/i);
+    if (!gaMatch) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer' });
+    }
+    const gaNum = gaMatch[1].padStart(3, '0').toUpperCase();
+    const normalizedGA = `GA${gaNum}`;
+    
+    console.log(`[PAGES/PROCESS] Starte process_pagebreaks.py für ${normalizedGA}...`);
+    
+    const { spawn } = require('child_process');
+    
+    // Führe process_pagebreaks.py aus
+    const pythonScript = path.join(__dirname, 'tools', 'process_pagebreaks.py');
+    
+    // Prüfe ob Script existiert
+    if (!fsSync.existsSync(pythonScript)) {
+      return res.status(500).json({ 
+        error: 'process_pagebreaks.py nicht gefunden',
+        details: `Erwartet: ${pythonScript}`
+      });
+    }
+    
+    const pythonProcess = spawn('python', [pythonScript, normalizedGA], {
+      cwd: __dirname,
+      env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    pythonProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log(`[PAGES/PROCESS] ${data.toString().trim()}`);
+    });
+    
+    pythonProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error(`[PAGES/PROCESS] STDERR: ${data.toString().trim()}`);
+    });
+    
+    pythonProcess.on('close', (code) => {
+      console.log(`[PAGES/PROCESS] process_pagebreaks.py beendet mit Code ${code}`);
+      
+      if (code === 0) {
+        // Versuche die Anzahl der eingefügten Marker aus dem Output zu extrahieren
+        let jsonMarkers = 0;
+        let mdMarkers = 0;
+        let pdfCopied = false;
+        let overrideDeactivated = false;
+        
+        const jsonMatch = stdout.match(/Gesamt:\s*(\d+)\s*Marker eingefügt/i);
+        if (jsonMatch) {
+          jsonMarkers = parseInt(jsonMatch[1]);
+        }
+        
+        const mdMatch = stdout.match(/Gesamt:\s*(\d+)\s*Marker in \d+ Dateien/i);
+        if (mdMatch) {
+          mdMarkers = parseInt(mdMatch[1]);
+        }
+        
+        if (stdout.includes('PDF kopiert') || stdout.includes('PDF bereits vorhanden')) {
+          pdfCopied = true;
+        }
+        
+        if (stdout.includes('Override inaktiviert') || stdout.includes('Keine alte Override-Datei')) {
+          overrideDeactivated = true;
+        }
+        
+        res.json({
+          success: true,
+          gaNumber: normalizedGA,
+          jsonMarkers,
+          mdMarkers,
+          pdfCopied,
+          overrideDeactivated,
+          message: `Seitenmarker für ${normalizedGA} erfolgreich eingefügt`
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          error: `process_pagebreaks.py beendet mit Code ${code}`,
+          gaNumber: normalizedGA,
+          details: stderr || stdout
+        });
+      }
+    });
+    
+    pythonProcess.on('error', (err) => {
+      console.error(`[PAGES/PROCESS] Fehler beim Starten von Python:`, err);
+      res.status(500).json({
+        success: false,
+        error: 'Fehler beim Starten des Python-Scripts',
+        details: err.message
+      });
+    });
+    
+  } catch (error) {
+    console.error('[PAGES/PROCESS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // POST /api/pages/generate - Generiert Pagebreaks für einen GA-Band (ruft Python-Skripte auf)
 app.post('/api/pages/generate', async (req, res) => {
   try {
@@ -13341,6 +13473,10 @@ const THEME_ASSIGNMENTS_FILE_BACKUP = path.join(__dirname, 'themes', 'theme-assi
 const CLUSTERS_FILE = path.join(__dirname, 'thematic-clusters.json');
 const THEMES_KEYWORDS_TEMPLATE_FILE = path.join(__dirname, 'themes', 'themes-keywords-template.json');
 const QUOTES_DB_FILE = path.join(__dirname, 'quotes-database.json');
+const RELATIONSHIPS_DB_FILE_BACKUP = path.join(__dirname, 'relationships-database.json');
+const CONCEPTS_DB_FILE = path.join(__dirname, 'concepts-database.json');
+const CONCEPTS_NETWORK_FILE_BACKUP = path.join(__dirname, 'concepts-network.json');
+const GA_BIBLIOGRAPHY_FILE = path.join(__dirname, 'ga-bibliography.json');
 
 // Backup-Verzeichnisse
 const BACKUP_BASE_DIR = path.join(__dirname, 'backups');
@@ -13353,7 +13489,15 @@ const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
 const IMAGES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'images');
 const PAGEMARKERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagemarkers');
 const PAGEBREAK_BOOKS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagebreaks');
+const PAGE_MARKER_MD_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'page-marker-md');
 const CHALKBOARDS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'chalkboards');
+const LECTURES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'lectures');
+const BOOKS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'books');
+const QUOTES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'quotes');
+const RELATIONSHIPS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'relationships');
+const CONCEPTS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'concepts');
+const BIBLIOGRAPHY_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'bibliography');
+const LECTURE_MAPPING_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'lecture-mapping');
 
 // ============================================================================
 // AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
@@ -13371,7 +13515,15 @@ async function ensureBackupDirectories() {
     IMAGES_BACKUP_DIR,
     PAGEMARKERS_BACKUP_DIR,
     PAGEBREAK_BOOKS_BACKUP_DIR,
-    CHALKBOARDS_BACKUP_DIR
+    PAGE_MARKER_MD_BACKUP_DIR,
+    CHALKBOARDS_BACKUP_DIR,
+    LECTURES_BACKUP_DIR,
+    BOOKS_BACKUP_DIR,
+    QUOTES_BACKUP_DIR,
+    RELATIONSHIPS_BACKUP_DIR,
+    CONCEPTS_BACKUP_DIR,
+    BIBLIOGRAPHY_BACKUP_DIR,
+    LECTURE_MAPPING_BACKUP_DIR
   ];
   
   for (const dir of dirs) {
@@ -13540,6 +13692,131 @@ async function createPagebreakBooksBackup() {
   }
 }
 
+// Backup für page_marker_checker.html
+async function createPageMarkerCheckerBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceFile = path.join(__dirname, 'Steiner_GA', 'page_marker_checker.html');
+    
+    // Prüfe ob Datei existiert
+    try {
+      const stats = await fs.stat(sourceFile);
+      if (stats.size === 0) {
+        console.warn(`[BACKUP] page_marker_checker.html ist leer - kein Backup erstellt`);
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+    
+    // Erstelle Backup mit Timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupFile = path.join(HTML_BACKUP_DIR, `page-marker-checker-${timestamp}.html`);
+    
+    const data = await fs.readFile(sourceFile, 'utf8');
+    await fs.writeFile(backupFile, data, 'utf8');
+    
+    console.log(`[BACKUP] page_marker_checker.html gesichert nach ${backupFile}`);
+    
+    // Bereinige alte Backups
+    await cleanOldBackupsGeneric(HTML_BACKUP_DIR, 'page-marker-checker', 10);
+    
+    return backupFile;
+  } catch (error) {
+    console.error(`[BACKUP] Fehler beim Page-Marker-Checker-Backup:`, error);
+    return null;
+  }
+}
+
+// Backup für Seitenmarker-MD-Dateien im Steiner_GA Verzeichnis
+async function createPageMarkerMdBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const steinerGADir = path.join(__dirname, 'Steiner_GA');
+    if (!fsSync.existsSync(steinerGADir)) {
+      return null;
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupSubDir = path.join(PAGE_MARKER_MD_BACKUP_DIR, `page-marker-md-${timestamp}`);
+    
+    await fs.mkdir(backupSubDir, { recursive: true });
+    
+    // Finde alle MD-Dateien mit Seitenmarkern (|XX| Format)
+    let copiedCount = 0;
+    const filesToBackup = [];
+    
+    // Durchsuche Steiner_GA Verzeichnis rekursiv nach MD-Dateien
+    async function findMdFiles(dir, baseDir) {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        const relativePath = path.relative(baseDir, fullPath);
+        
+        if (entry.isDirectory()) {
+          // Überspringe node_modules und andere System-Ordner
+          if (!['node_modules', '.git', 'backups'].includes(entry.name)) {
+            await findMdFiles(fullPath, baseDir);
+          }
+        } else if (entry.isFile() && entry.name.endsWith('.md')) {
+          // Prüfe ob Datei Seitenmarker enthält
+          try {
+            const content = await fs.readFile(fullPath, 'utf8');
+            if (/\|\d+\|/.test(content)) {
+              filesToBackup.push({ fullPath, relativePath });
+            }
+          } catch (error) {
+            // Überspringe Dateien die nicht gelesen werden können
+            continue;
+          }
+        }
+      }
+    }
+    
+    await findMdFiles(steinerGADir, steinerGADir);
+    
+    // Kopiere Dateien in Backup-Verzeichnis (behalte Verzeichnisstruktur)
+    for (const { fullPath, relativePath } of filesToBackup) {
+      const backupPath = path.join(backupSubDir, relativePath);
+      const backupDir = path.dirname(backupPath);
+      
+      await fs.mkdir(backupDir, { recursive: true });
+      await fs.copyFile(fullPath, backupPath);
+      copiedCount++;
+    }
+    
+    if (copiedCount === 0) {
+      // Lösche leeres Backup-Verzeichnis
+      await fs.rm(backupSubDir, { recursive: true, force: true });
+      return null;
+    }
+    
+    console.log(`[BACKUP] page-marker-md: ${copiedCount} MD-Dateien gesichert nach ${backupSubDir}`);
+    
+    // Bereinige alte Backups (behalte nur die letzten 10)
+    const allBackups = await fs.readdir(PAGE_MARKER_MD_BACKUP_DIR);
+    const backupDirs = allBackups
+      .filter(d => d.startsWith('page-marker-md-'))
+      .sort()
+      .reverse();
+    
+    if (backupDirs.length > 10) {
+      for (const oldDir of backupDirs.slice(10)) {
+        const oldPath = path.join(PAGE_MARKER_MD_BACKUP_DIR, oldDir);
+        await fs.rm(oldPath, { recursive: true, force: true });
+      }
+    }
+    
+    return { path: backupSubDir, count: copiedCount };
+  } catch (error) {
+    console.error(`[BACKUP] Fehler beim Page-Marker-MD-Backup:`, error);
+    return null;
+  }
+}
+
 async function createChalkboardsBackup() {
   try {
     await ensureBackupDirectories();
@@ -13594,6 +13871,133 @@ async function createChalkboardsBackup() {
     console.error('[BACKUP] Fehler beim chalkboards Backup:', error);
     return null;
   }
+}
+
+// NEU: Backup für steiner-full-lectures (Vorträge mit Seitenmarkern)
+async function createLecturesBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceDir = path.join(__dirname, 'steiner-full-lectures');
+    if (!fsSync.existsSync(sourceDir)) {
+      console.warn('[BACKUP] steiner-full-lectures Verzeichnis nicht gefunden');
+      return null;
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupSubDir = path.join(LECTURES_BACKUP_DIR, `lectures-${timestamp}`);
+    
+    await fs.mkdir(backupSubDir, { recursive: true });
+    
+    const files = await fs.readdir(sourceDir);
+    const jsonFiles = files.filter(f => f.endsWith('.json') && !f.endsWith('.bak'));
+    
+    let copiedCount = 0;
+    for (const file of jsonFiles) {
+      const srcPath = path.join(sourceDir, file);
+      const dstPath = path.join(backupSubDir, file);
+      await fs.copyFile(srcPath, dstPath);
+      copiedCount++;
+    }
+    
+    console.log(`[BACKUP] lectures: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
+    
+    // Bereinige alte Backups (behalte 3 Versionen wegen Größe)
+    const allBackups = await fs.readdir(LECTURES_BACKUP_DIR);
+    const backupDirs = allBackups
+      .filter(d => d.startsWith('lectures-'))
+      .sort()
+      .reverse();
+    
+    for (const oldDir of backupDirs.slice(3)) {
+      const oldPath = path.join(LECTURES_BACKUP_DIR, oldDir);
+      await fs.rm(oldPath, { recursive: true, force: true });
+    }
+    
+    return { path: backupSubDir, count: copiedCount };
+  } catch (error) {
+    console.error('[BACKUP] Fehler beim lectures Backup:', error);
+    return null;
+  }
+}
+
+// NEU: Backup für steiner-books (Bücher)
+async function createBooksBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceDir = path.join(__dirname, 'steiner-books');
+    if (!fsSync.existsSync(sourceDir)) {
+      console.warn('[BACKUP] steiner-books Verzeichnis nicht gefunden');
+      return null;
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupSubDir = path.join(BOOKS_BACKUP_DIR, `books-${timestamp}`);
+    
+    await fs.mkdir(backupSubDir, { recursive: true });
+    
+    const files = await fs.readdir(sourceDir);
+    const jsonFiles = files.filter(f => f.endsWith('.json') && !f.endsWith('.bak'));
+    
+    let copiedCount = 0;
+    for (const file of jsonFiles) {
+      const srcPath = path.join(sourceDir, file);
+      const dstPath = path.join(backupSubDir, file);
+      await fs.copyFile(srcPath, dstPath);
+      copiedCount++;
+    }
+    
+    console.log(`[BACKUP] books: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
+    
+    // Bereinige alte Backups (behalte 5 Versionen)
+    const allBackups = await fs.readdir(BOOKS_BACKUP_DIR);
+    const backupDirs = allBackups
+      .filter(d => d.startsWith('books-'))
+      .sort()
+      .reverse();
+    
+    for (const oldDir of backupDirs.slice(5)) {
+      const oldPath = path.join(BOOKS_BACKUP_DIR, oldDir);
+      await fs.rm(oldPath, { recursive: true, force: true });
+    }
+    
+    return { path: backupSubDir, count: copiedCount };
+  } catch (error) {
+    console.error('[BACKUP] Fehler beim books Backup:', error);
+    return null;
+  }
+}
+
+// NEU: Backup für quotes-database.json (Zitate)
+async function createQuotesBackup() {
+  return await createBackup(QUOTES_DB_FILE, QUOTES_BACKUP_DIR, 'quotes-database', 10);
+}
+
+// NEU: Backup für relationships-database.json (Beziehungen)
+async function createRelationshipsBackup() {
+  return await createBackup(RELATIONSHIPS_DB_FILE_BACKUP, RELATIONSHIPS_BACKUP_DIR, 'relationships-database', 10);
+}
+
+// NEU: Backup für Konzept-Dateien
+async function createConceptsBackup() {
+  const backups = [
+    createBackup(CONCEPTS_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-database', 10),
+    createBackup(CONCEPTS_NETWORK_FILE_BACKUP, CONCEPTS_BACKUP_DIR, 'concepts-network', 10)
+  ];
+  const results = await Promise.all(backups);
+  return results.find(r => r !== null) || null;
+}
+
+// NEU: Backup für ga-bibliography.json
+async function createBibliographyBackup() {
+  return await createBackup(GA_BIBLIOGRAPHY_FILE, BIBLIOGRAPHY_BACKUP_DIR, 'ga-bibliography', 10);
+}
+
+// NEU: Backup für lecture-page-mapping.json (Seitenzuordnung für Vorträge)
+async function createLectureMappingBackup() {
+  const lectureMappingFile = path.join(__dirname, 'lecture-page-mapping.json');
+  return await createBackup(lectureMappingFile, LECTURE_MAPPING_BACKUP_DIR, 'lecture-page-mapping', 10);
 }
 
 async function createCodeBackup() {
@@ -13723,7 +14127,18 @@ async function createFullBackup() {
     createHtmlBackup('keyword-manager.html'),
     createHtmlBackup('app.html'),
     createMembersHtmlBackup(),
-    createMembersPanelBackup()
+    createMembersPanelBackup(),
+    // NEU: Zusätzliche Backups
+    createLecturesBackup(),
+    createBooksBackup(),
+    createQuotesBackup(),
+    createRelationshipsBackup(),
+    createConceptsBackup(),
+    createBibliographyBackup(),
+    createLectureMappingBackup(),
+    // NEU: Page Marker Backups
+    createPageMarkerCheckerBackup(),
+    createPageMarkerMdBackup()
   ]);
 
   const successful = results.filter(r => r !== null).length;
@@ -21550,6 +21965,56 @@ app.post('/api/backups/restore', async (req, res) => {
       backupDir = HTML_BACKUP_DIR;
       targetFile = path.join(__dirname, 'members-panel.js');
       backupFunc = createMembersPanelBackup;
+    } else if (backupName.startsWith('page-marker-checker-')) {
+      backupDir = HTML_BACKUP_DIR;
+      targetFile = path.join(__dirname, 'Steiner_GA', 'page_marker_checker.html');
+      backupFunc = createPageMarkerCheckerBackup;
+    } else if (backupName.startsWith('page-marker-md-')) {
+      // Spezielle Behandlung für Verzeichnis-Backups
+      const backupPath = path.join(PAGE_MARKER_MD_BACKUP_DIR, backupName);
+      
+      // Prüfe ob Backup-Verzeichnis existiert
+      try {
+        const stats = await fs.stat(backupPath);
+        if (!stats.isDirectory()) {
+          return res.status(404).json({ error: 'Backup-Verzeichnis nicht gefunden' });
+        }
+      } catch (error) {
+        console.error(`[BACKUP-API] Backup-Verzeichnis nicht gefunden: ${backupPath}`);
+        return res.status(404).json({ error: 'Backup-Verzeichnis nicht gefunden' });
+      }
+      
+      // Erstelle Backup der aktuellen Dateien vor der Wiederherstellung
+      await createPageMarkerMdBackup();
+      
+      // Stelle Verzeichnis-Backup wieder her
+      const targetDir = path.join(__dirname, 'Steiner_GA');
+      
+      // Kopiere alle Dateien aus dem Backup-Verzeichnis zurück
+      async function restoreDirectory(sourceDir, targetDir) {
+        const entries = await fs.readdir(sourceDir, { withFileTypes: true });
+        
+        for (const entry of entries) {
+          const sourcePath = path.join(sourceDir, entry.name);
+          const targetPath = path.join(targetDir, entry.name);
+          
+          if (entry.isDirectory()) {
+            await fs.mkdir(targetPath, { recursive: true });
+            await restoreDirectory(sourcePath, targetPath);
+          } else {
+            await fs.copyFile(sourcePath, targetPath);
+          }
+        }
+      }
+      
+      await restoreDirectory(backupPath, targetDir);
+      
+      return res.json({
+        success: true,
+        restored: backupName,
+        targetDir: 'Steiner_GA',
+        message: 'Seitenmarker-MD-Dateien wiederhergestellt'
+      });
     } else {
       return res.status(400).json({ error: 'Unbekannter Backup-Typ' });
     }
@@ -21622,6 +22087,20 @@ app.post('/api/backups/create', async (req, res) => {
       case 'pagebreakbooks':
         backupFile = await createPagebreakBooksBackup();
         break;
+      case 'pagemarkerchecker':
+        backupFile = await createPageMarkerCheckerBackup();
+        break;
+      case 'pagemarkermd':
+        const pageMarkerMdResult = await createPageMarkerMdBackup();
+        if (pageMarkerMdResult) {
+          return res.json({ 
+            success: true, 
+            backupFile: pageMarkerMdResult.path,
+            count: pageMarkerMdResult.count,
+            message: `${pageMarkerMdResult.count} Seitenmarker-MD-Dateien gesichert`
+          });
+        }
+        return res.status(500).json({ error: 'Page-Marker-MD-Backup fehlgeschlagen' });
       case 'chalkboards':
         const result = await createChalkboardsBackup();
         if (result) {
@@ -21643,13 +22122,51 @@ app.post('/api/backups/create', async (req, res) => {
         const appBackup = await createHtmlBackup('app.html');
         const membersHtmlBackup = await createMembersHtmlBackup();
         const membersPanelBackup = await createMembersPanelBackup();
-        const htmlBackups = [indexBackup, managerBackup, appBackup, membersHtmlBackup, membersPanelBackup].filter(b => b !== null);
+        const pageMarkerCheckerBackup = await createPageMarkerCheckerBackup();
+        const htmlBackups = [indexBackup, managerBackup, appBackup, membersHtmlBackup, membersPanelBackup, pageMarkerCheckerBackup].filter(b => b !== null);
         return res.json({
           success: true,
           backups: htmlBackups.map(b => path.basename(b)),
           count: htmlBackups.length,
           type: 'html'
         });
+      case 'lectures':
+        const lecturesResult = await createLecturesBackup();
+        if (lecturesResult) {
+          return res.json({ 
+            success: true, 
+            backupFile: lecturesResult.path,
+            count: lecturesResult.count,
+            message: `${lecturesResult.count} Vortrags-Dateien gesichert`
+          });
+        }
+        return res.status(500).json({ error: 'Lectures-Backup fehlgeschlagen' });
+      case 'books':
+        const booksResult = await createBooksBackup();
+        if (booksResult) {
+          return res.json({ 
+            success: true, 
+            backupFile: booksResult.path,
+            count: booksResult.count,
+            message: `${booksResult.count} Bücher-Dateien gesichert`
+          });
+        }
+        return res.status(500).json({ error: 'Books-Backup fehlgeschlagen' });
+      case 'quotes':
+        backupFile = await createQuotesBackup();
+        break;
+      case 'relationships':
+        backupFile = await createRelationshipsBackup();
+        break;
+      case 'concepts':
+        backupFile = await createConceptsBackup();
+        break;
+      case 'bibliography':
+        backupFile = await createBibliographyBackup();
+        break;
+      case 'lecturemapping':
+        backupFile = await createLectureMappingBackup();
+        break;
       case 'full':
         const count = await createFullBackup();
         return res.json({
@@ -21711,6 +22228,14 @@ app.get('/api/backups/list/:type', async (req, res) => {
         backupDir = PAGEBREAK_BOOKS_BACKUP_DIR;
         prefix = 'pagebreaks';
         break;
+      case 'pagemarkerchecker':
+        backupDir = HTML_BACKUP_DIR;
+        prefix = 'page-marker-checker';
+        break;
+      case 'pagemarkermd':
+        backupDir = PAGE_MARKER_MD_BACKUP_DIR;
+        prefix = 'page-marker-md';
+        break;
       case 'code':
         backupDir = CODE_BACKUP_DIR;
         prefix = 'backend';
@@ -21719,11 +22244,70 @@ app.get('/api/backups/list/:type', async (req, res) => {
         backupDir = HTML_BACKUP_DIR;
         prefix = null; // Alle HTML-Dateien
         break;
+      case 'lectures':
+        backupDir = LECTURES_BACKUP_DIR;
+        prefix = 'lectures';
+        break;
+      case 'books':
+        backupDir = BOOKS_BACKUP_DIR;
+        prefix = 'books';
+        break;
+      case 'quotes':
+        backupDir = QUOTES_BACKUP_DIR;
+        prefix = 'quotes-database';
+        break;
+      case 'relationships':
+        backupDir = RELATIONSHIPS_BACKUP_DIR;
+        prefix = 'relationships-database';
+        break;
+      case 'concepts':
+        backupDir = CONCEPTS_BACKUP_DIR;
+        prefix = null; // Alle Konzept-Dateien
+        break;
+      case 'bibliography':
+        backupDir = BIBLIOGRAPHY_BACKUP_DIR;
+        prefix = 'ga-bibliography';
+        break;
+      case 'lecturemapping':
+        backupDir = LECTURE_MAPPING_BACKUP_DIR;
+        prefix = 'lecture-page-mapping';
+        break;
       default:
         return res.status(400).json({ error: 'Ungültiger Backup-Typ' });
     }
     
     await ensureBackupDirectories();
+    
+    // Für Verzeichnis-basierte Backups (lectures, books)
+    if (type === 'lectures' || type === 'books') {
+      try {
+        const dirs = await fs.readdir(backupDir);
+        const backupDirs = dirs
+          .filter(d => d.startsWith(prefix))
+          .map(d => {
+            const dirPath = path.join(backupDir, d);
+            const stats = fsSync.statSync(dirPath);
+            return {
+              name: d,
+              path: dirPath,
+              isDirectory: true,
+              created: stats.birthtime,
+              modified: stats.mtime,
+              type: type
+            };
+          });
+        
+        backupDirs.sort((a, b) => b.modified - a.modified);
+        
+        return res.json({
+          backups: backupDirs,
+          count: backupDirs.length,
+          type: type
+        });
+      } catch (error) {
+        return res.json({ backups: [], count: 0, type: type });
+      }
+    }
     
     const files = await fs.readdir(backupDir);
     const backupFiles = files
@@ -21836,13 +22420,8 @@ app.post('/api/analytics/track', async (req, res) => {
         break;
     }
     
-    // Alte Daten bereinigen (behalte nur letzte 90 Tage)
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - 90);
-    const cutoffKey = cutoffDate.toISOString().split('T')[0];
-    for (const key of Object.keys(data.dailyStats)) {
-      if (key < cutoffKey) delete data.dailyStats[key];
-    }
+    // KEINE Bereinigung alter Daten - alle Statistiken werden kumulativ gespeichert
+    // Die täglichen Daten bleiben für immer erhalten, um historische Analysen zu ermöglichen
     
     await saveAnalyticsData(data);
     res.json({ ok: true });
@@ -21884,9 +22463,11 @@ app.get('/api/analytics/stats', async (req, res) => {
       .slice(0, 10)
       .map(([id, count]) => ({ id, count }));
     
-    // Tägliche Daten für Chart (letzte 14 Tage)
+    // Tägliche Daten für Chart (letzte 30 Tage für bessere Übersicht)
+    // Alle historischen Daten bleiben erhalten, aber für die Anzeige verwenden wir die letzten 30 Tage
     const dailyData = [];
-    for (let i = 13; i >= 0; i--) {
+    const daysToShow = 30; // Zeige letzte 30 Tage
+    for (let i = daysToShow - 1; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
       const key = d.toISOString().split('T')[0];
@@ -21900,17 +22481,42 @@ app.get('/api/analytics/stats', async (req, res) => {
       });
     }
     
+    // Berechne kumulative Werte (Gesamt seit Beginn) aus allen täglichen Daten
+    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
+    for (const key of Object.keys(data.dailyStats).sort()) {
+      const dayData = data.dailyStats[key];
+      cumulativeViews += dayData.views || 0;
+      cumulativeSearches += dayData.searches || 0;
+      cumulativeLectures += dayData.lectures || 0;
+    }
+    
+    // Stelle sicher, dass die kumulativen Werte korrekt sind
+    // Falls sie nicht übereinstimmen, korrigiere sie beim nächsten Speichern
+    if (data.totalViews !== cumulativeViews) {
+      data.totalViews = cumulativeViews;
+      await saveAnalyticsData(data); // Speichere korrigierte Werte
+    }
+    if (data.totalSearches !== cumulativeSearches) {
+      data.totalSearches = cumulativeSearches;
+      await saveAnalyticsData(data);
+    }
+    if (data.totalLectureViews !== cumulativeLectures) {
+      data.totalLectureViews = cumulativeLectures;
+      await saveAnalyticsData(data);
+    }
+    
     res.json({
       today: todayStats,
       week: { views: weekViews, searches: weekSearches, lectures: weekLectures },
       total: {
-        views: data.totalViews || 0,
-        searches: data.totalSearches || 0,
-        lectures: data.totalLectureViews || 0
+        views: cumulativeViews,  // Verwende kumulative Werte
+        searches: cumulativeSearches,
+        lectures: cumulativeLectures
       },
       topSearches,
       topLectures,
-      dailyData
+      dailyData,
+      totalDays: Object.keys(data.dailyStats).length // Anzahl der Tage mit Daten
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

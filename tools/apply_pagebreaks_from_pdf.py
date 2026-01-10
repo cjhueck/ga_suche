@@ -263,28 +263,58 @@ def normalize_for_comparison(text: str) -> str:
 def extract_page_number_from_footer(lines: List[str]) -> Optional[int]:
     """
     Extrahiert die Seitenzahl aus den Footer-Zeilen.
-    Sucht nach "Seite: XX" oder "Seite:XX" Muster.
+    
+    Unterstützte Formate:
+    1. "Seite: XX" (ältere PDFs mit Copyright-Footer)
+    2. Einzelne Zahl DIREKT gefolgt von "RUDOLF STEINER" (GA069b-Format)
+       - ABER: vorherige Zeile muss wie normaler Text aussehen (min. 30 Zeichen)
+       - Verhindert Erkennung im Inhaltsverzeichnis
+    3. "Seite XX" nur wenn es eine der letzten 3 nicht-leeren Zeilen ist
     """
-    for line in reversed(lines[-10:]):
-        # Muster: "Seite: XX" oder "Seite:XX"
+    # Finde nicht-leere Zeilen
+    non_empty = [(i, l.strip()) for i, l in enumerate(lines) if l.strip()]
+    if not non_empty:
+        return None
+    
+    last_lines = lines[-15:] if len(lines) >= 15 else lines
+    
+    # Format 1: "Seite: XX" (mit Doppelpunkt - typisch für Copyright-Footer)
+    for line in reversed(last_lines):
         match = re.search(r"Seite:\s*([\d\s]+)", line, re.IGNORECASE)
         if match:
             page_str = match.group(1).replace(" ", "").strip()
             if page_str.isdigit():
                 return int(page_str)
     
-    # Fallback: Einzelne Zahl am Ende
-    for line in reversed(lines[-7:]):
-        stripped = line.strip()
-        if stripped and re.match(r"^[\d\s]+$", stripped):
-            page_str = stripped.replace(" ", "")
-            if page_str and 1 <= len(page_str) <= 4:
-                try:
-                    page_num = int(page_str)
-                    if 1 <= page_num <= 999:
-                        return page_num
-                except ValueError:
-                    continue
+    # Format 2: Zahl DIREKT gefolgt von "RUDOLF STEINER" (auf nächster Zeile)
+    # KRITERIEN:
+    # - Die Zahl muss auf einer eigenen Zeile stehen
+    # - Direkt danach kommt RUDOLF STEINER
+    # - VOR der Zahl muss normaler Fließtext stehen (min. 30 Zeichen)
+    # - Die vorherige Zeile darf NICHT wie Inhaltsverzeichnis aussehen
+    for i in range(1, len(non_empty) - 1):  # Start bei 1, um prev_line zu haben
+        _, prev_line = non_empty[i - 1]
+        _, current = non_empty[i]
+        _, next_line = non_empty[i + 1]
+        
+        if re.match(r"^\d{1,3}$", current):
+            # Nächste Zeile muss "RUDOLF STEINER" sein
+            if "RUDOLF STEINER" in next_line.upper():
+                # Vorherige Zeile muss wie Fließtext aussehen:
+                # - Mindestens 30 Zeichen lang
+                # - Nicht nur eine Zahl
+                # - Nicht wie Inhaltsverzeichnis (diese enden typisch mit Zahlen)
+                if len(prev_line) >= 30 and not re.match(r"^\d+$", prev_line):
+                    # Inhaltsverzeichnis-Zeilen enden oft mit Seitenzahlen
+                    # Fließtext endet mit Buchstaben oder Satzzeichen
+                    if not re.search(r"\d{2,3}\s*$", prev_line):
+                        return int(current)
+    
+    # Format 3: "Seite XX" nur in den letzten 3 nicht-leeren Zeilen
+    for _, line in non_empty[-3:]:
+        match = re.match(r"^Seite\s+(\d+)$", line, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
     
     return None
 
@@ -307,12 +337,13 @@ def extract_body_text(page_text: str) -> str:
 
 def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
     """
-    Extrahiert alle Seiten basierend auf der Copyright-Zeile.
+    Extrahiert alle Seiten mit Seitenzahlen aus der PDF.
     
-    Format im PDF:
-        [Anfang Seite N] ... Text ... [Ende Seite N]
-        Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 7 2
-        Seite: N
+    Unterstützte Formate:
+    1. Copyright Rudolf Steiner...Seite: XX (ältere PDFs)
+    2. "Seite X" am Ende der Seite (neuere PDFs)
+    3. Einzelne Zahl + "RUDOLF STEINER" + "VERLAG" (GA069b-Format)
+    4. Einzelne Zahl am Ende der Seite
     
     Für Marker |N| brauchen wir:
         - prev_end: Ende von Seite N-1
@@ -322,7 +353,7 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
     """
     doc = fitz.open(pdf_path)
     
-    # Sammle alle Seiten mit Copyright-Footer
+    # Sammle alle Seiten mit Seitenzahlen
     page_data = []  # (pdf_index, page_num, text_start, text_end)
     
     for i in range(len(doc)):
@@ -332,24 +363,55 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
         if not text.strip():
             continue
         
-        # Suche nach Copyright-Zeile (auch mit OCR-Fehlern wie "Steinet" statt "Steiner")
+        lines = text.split("\n")
+        page_num = None
+        body_text = text  # Default: gesamter Text
+        
+        # Format 1: Copyright-Zeile (auch mit OCR-Fehlern)
         copyright_match = re.search(
             r'Copyright\s+Rudolf\s+Stein\w*.*?Seite:\s*([\d\s]+)',
             text,
             re.IGNORECASE | re.DOTALL
         )
         
-        if not copyright_match:
+        if copyright_match:
+            page_str = copyright_match.group(1).replace(" ", "").strip()
+            if page_str.isdigit():
+                page_num = int(page_str)
+                body_text = text[:copyright_match.start()].strip()
+        
+        # Format 2-4: Verwende extract_page_number_from_footer
+        if page_num is None:
+            page_num = extract_page_number_from_footer(lines)
+            if page_num is not None:
+                # Entferne Footer-Zeilen vom Body
+                # Suche nach der Zeile mit der Seitenzahl und entferne alles danach
+                for j in range(len(lines) - 1, -1, -1):
+                    stripped = lines[j].strip()
+                    if stripped == str(page_num):
+                        body_text = "\n".join(lines[:j]).strip()
+                        break
+                    # Auch "Seite XX" am Ende entfernen
+                    if re.match(rf"^Seite\s+{page_num}\s*$", stripped, re.IGNORECASE):
+                        body_text = "\n".join(lines[:j]).strip()
+                        break
+        
+        if page_num is None:
             continue
         
-        # Extrahiere Seitenzahl (mit Leerzeichen wie "2 2" -> 22)
-        page_str = copyright_match.group(1).replace(" ", "").strip()
-        if not page_str.isdigit():
-            continue
-        page_num = int(page_str)
+        # Entferne Footer-Elemente (RUDOLF STEINER, VERLAG, etc.)
+        body_lines = body_text.split("\n")
+        while body_lines and any(x in body_lines[-1].upper() for x in ["RUDOLF STEINER", "VERLAG"]):
+            body_lines.pop()
         
-        # Text VOR der Copyright-Zeile
-        body_text = text[:copyright_match.start()].strip()
+        # Entferne Header "Seite XX" am Anfang (GA069b-Format)
+        while body_lines and re.match(rf"^Seite\s+\d+\s*$", body_lines[0].strip(), re.IGNORECASE):
+            body_lines.pop(0)
+        
+        body_text = "\n".join(body_lines).strip()
+        
+        if not body_text:
+            continue
         
         # Anfang dieser Seite (erste 300 Zeichen)
         text_start = body_text[:300] if len(body_text) > 300 else body_text
@@ -447,11 +509,20 @@ def load_books_for_ga(ga_number: str) -> Tuple[Optional[Path], Optional[Dict], L
     """
     Lädt ein Buch für eine GA-Nummer.
     Rückgabe: (Quell-Datei, Buch-Dict, Liste aller Dateien die dieses Buch enthalten)
+    
+    WICHTIG: Bevorzugt die spezifische GA-Datei (z.B. steiner-books-012-012.json für GA012)
+    vor allgemeinen Dateien (z.B. steiner-books-001-012-part01.json)
     """
     ga_upper = ga_number.upper()
+    # Extrahiere nur die Nummer (z.B. "012" aus "GA012" oder "040a" aus "GA040a")
+    ga_match = re.search(r"(\d{3}[a-z]?)", ga_number, re.IGNORECASE)
+    ga_num = ga_match.group(1).lower() if ga_match else ga_number.lower()
+    
     all_files = []  # Alle Dateien die dieses Buch enthalten
-    first_book = None
-    first_path = None
+    specific_book = None  # Aus der spezifischen GA-Datei
+    specific_path = None
+    fallback_book = None  # Aus einer anderen Datei
+    fallback_path = None
     
     for path in sorted(BOOKS_DIR.glob("steiner-books-*.json")):
         try:
@@ -461,14 +532,29 @@ def load_books_for_ga(ga_number: str) -> Tuple[Optional[Path], Optional[Dict], L
             for book in data.get("books", []):
                 if (book.get("gaNumber") or "").upper() == ga_upper:
                     all_files.append(path)
-                    if first_book is None:
-                        first_book = book
-                        first_path = path
+                    
+                    # Prüfe ob das die spezifische GA-Datei ist
+                    # Pattern: steiner-books-XXX-XXX*.json (z.B. steiner-books-012-012.json)
+                    # NICHT: steiner-books-002-012.json (Bereich von 002 bis 012)
+                    filename = path.name.lower()
+                    # Die spezifische Datei hat die gleiche GA-Nummer zweimal
+                    is_specific = f"-{ga_num}-{ga_num}" in filename
+                    
+                    if is_specific and specific_book is None:
+                        specific_book = book
+                        specific_path = path
+                    elif fallback_book is None:
+                        fallback_book = book
+                        fallback_path = path
                     break  # Nur einmal pro Datei
         except Exception:
             continue
     
-    return first_path, first_book, all_files
+    # Bevorzuge die spezifische Datei
+    if specific_book is not None:
+        return specific_path, specific_book, all_files
+    else:
+        return fallback_path, fallback_book, all_files
 
 
 def load_page_mapping() -> Dict:
@@ -477,6 +563,262 @@ def load_page_mapping() -> Dict:
         with open(MAPPING_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
+
+
+def save_page_mapping(mapping: Dict) -> None:
+    """Speichert das Lecture-Page-Mapping."""
+    with open(MAPPING_FILE, "w", encoding="utf-8") as f:
+        json.dump(mapping, f, indent=2, ensure_ascii=False)
+
+
+def is_old_pdf_format(pdf_path: Path) -> bool:
+    """
+    Prüft, ob das PDF das "alte" Format hat (mit Copyright-Footer).
+    Altes Format: "Copyright Rudolf Steiner...Seite: XX"
+    Neues Format: Seitenzahl einzeln oder "Seite XX" am Ende
+    """
+    doc = fitz.open(pdf_path)
+    copyright_count = 0
+    pages_checked = 0
+    
+    # Prüfe 20 Seiten in der Mitte des PDFs
+    start_page = min(20, len(doc) // 4)
+    end_page = min(start_page + 30, len(doc))
+    
+    for i in range(start_page, end_page):
+        page = doc[i]
+        text = page.get_text("text") or ""
+        pages_checked += 1
+        
+        # Suche nach Copyright-Zeile
+        if re.search(r'Copyright\s+Rudolf\s+Stein\w*.*?Seite:\s*\d+', text, re.IGNORECASE | re.DOTALL):
+            copyright_count += 1
+    
+    doc.close()
+    
+    # Wenn mehr als 50% der Seiten Copyright haben → altes Format
+    return copyright_count > pages_checked * 0.5
+
+
+def extract_toc_entries(pdf_path: Path, num_lectures: int) -> List[Dict]:
+    """
+    Extrahiert Vortragstitel und Seitenzahlen aus dem Inhaltsverzeichnis.
+    Versucht verschiedene Muster zu erkennen.
+    
+    Rückgabe: Liste von {title, page}
+    """
+    doc = fitz.open(pdf_path)
+    
+    # Sammle alle Zeilen aus dem Inhaltsverzeichnis (Seiten 4-15)
+    toc_lines = []
+    for i in range(3, min(16, len(doc))):
+        page = doc[i]
+        text = page.get_text()
+        for line in text.split('\n'):
+            stripped = line.strip()
+            if stripped and stripped not in ['RUDOLF STEINER', 'VERLAG', 'INHALT', 'Inhalt']:
+                # Entferne 'Seite X' Header
+                if not re.match(r'^Seite\s+\d+$', stripped, re.IGNORECASE):
+                    toc_lines.append(stripped)
+    
+    doc.close()
+    
+    entries = []
+    
+    # Muster 1: Titel mit Datum, dann Seitenzahl auf nächster Zeile
+    # z.B. "Erkenntnis und Unsterblichkeit (Düsseldorf, 19. Februar 1910)"
+    #      "13"
+    date_pattern = r'\d{1,2}\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)'
+    
+    i = 0
+    while i < len(toc_lines):
+        line = toc_lines[i]
+        
+        # Hat diese Zeile ein Datum?
+        if re.search(date_pattern, line, re.IGNORECASE):
+            # Nächste Zeile sollte Seitenzahl sein
+            if i + 1 < len(toc_lines):
+                next_line = toc_lines[i + 1].strip()
+                if re.match(r'^\d{1,3}$', next_line):
+                    entries.append({
+                        'title': line,
+                        'page': int(next_line)
+                    })
+                    i += 2
+                    continue
+        
+        # Muster 2: Titel, Ort/Datum auf nächster Zeile, Seitenzahl auf übernächster
+        if i + 2 < len(toc_lines):
+            next1 = toc_lines[i + 1]
+            next2 = toc_lines[i + 2].strip()
+            
+            if re.search(date_pattern, next1, re.IGNORECASE) and re.match(r'^\d{1,3}$', next2):
+                entries.append({
+                    'title': f"{line} ({next1})",
+                    'page': int(next2)
+                })
+                i += 3
+                continue
+        
+        # Muster 3: "Titel ... Seitenzahl" auf einer Zeile (mit Punkten oder Leerzeichen)
+        match = re.match(r'^(.+?)\s*[\.\s]{3,}\s*(\d{1,3})$', line)
+        if match:
+            entries.append({
+                'title': match.group(1).strip(),
+                'page': int(match.group(2))
+            })
+            i += 1
+            continue
+        
+        # Muster 4: Zeile endet mit Seitenzahl
+        match = re.match(r'^(.+?)\s+(\d{1,3})$', line)
+        if match and len(match.group(1)) > 10:  # Titel mind. 10 Zeichen
+            entries.append({
+                'title': match.group(1).strip(),
+                'page': int(match.group(2))
+            })
+            i += 1
+            continue
+        
+        i += 1
+    
+    # Sortiere nach Seitenzahl und entferne Duplikate
+    entries.sort(key=lambda x: x['page'])
+    
+    # Entferne Einträge mit gleicher Seitenzahl (behalte ersten)
+    seen_pages = set()
+    unique_entries = []
+    for e in entries:
+        if e['page'] not in seen_pages:
+            seen_pages.add(e['page'])
+            unique_entries.append(e)
+    
+    # Filtere nur Einträge mit plausiblen Seitenzahlen (> 5 und < 500)
+    unique_entries = [e for e in unique_entries if 5 < e['page'] < 500]
+    
+    return unique_entries
+
+
+def find_first_text_page(pdf_path: Path, toc_page: int) -> int:
+    """
+    Findet die erste Seite mit echtem Textinhalt ab einer TOC-Seitenzahl.
+    
+    Das Inhaltsverzeichnis zeigt oft die Titelseite an, aber der eigentliche
+    Text beginnt erst 1-2 Seiten später. Diese Funktion prüft, ob die
+    angegebene Seite eine Titelseite ist und sucht dann die erste Textseite.
+    
+    Kriterien für Titelseite:
+    - Weniger als 500 Zeichen Text
+    - Enthält typische Titelseiten-Elemente
+    
+    Rückgabe: Seitenzahl der ersten Textseite
+    """
+    doc = fitz.open(pdf_path)
+    
+    # Konvertiere Seitenzahl zu PDF-Index (Seite 9 = Index 8)
+    # Wir müssen die richtige PDF-Seite finden
+    for pdf_idx in range(len(doc)):
+        page = doc[pdf_idx]
+        text = page.get_text("text") or ""
+        
+        # Prüfe ob diese Seite die gesuchte Seitenzahl hat
+        if f"Seite {toc_page}" in text or re.search(rf'\b{toc_page}\b', text[-100:]):
+            # Gefunden! Prüfe ob es eine Titelseite ist
+            # Entferne Header/Footer für Textlängenprüfung
+            body_lines = text.split('\n')
+            body_lines = [l for l in body_lines if not any(x in l.upper() for x in 
+                          ['RUDOLF STEINER', 'VERLAG', 'SEITE'])]
+            body_text = '\n'.join(body_lines).strip()
+            
+            # Weniger als 500 Zeichen = wahrscheinlich Titelseite
+            if len(body_text) < 500:
+                # Suche nächste Seite mit mehr Text
+                for next_idx in range(pdf_idx + 1, min(pdf_idx + 4, len(doc))):
+                    next_page = doc[next_idx]
+                    next_text = next_page.get_text("text") or ""
+                    
+                    # Finde Seitenzahl dieser Seite
+                    page_match = re.search(r'Seite\s+(\d+)', next_text)
+                    if not page_match:
+                        # Versuche Zahl am Ende
+                        lines = next_text.strip().split('\n')
+                        for line in reversed(lines[-5:]):
+                            if line.strip().isdigit():
+                                page_num = int(line.strip())
+                                if page_num > toc_page and page_num < toc_page + 5:
+                                    # Prüfe Textlänge
+                                    body_lines = next_text.split('\n')
+                                    body_lines = [l for l in body_lines if not any(x in l.upper() for x in 
+                                                  ['RUDOLF STEINER', 'VERLAG', 'SEITE'])]
+                                    if len('\n'.join(body_lines).strip()) > 500:
+                                        doc.close()
+                                        return page_num
+                                break
+                    else:
+                        page_num = int(page_match.group(1))
+                        # Prüfe Textlänge
+                        body_lines = next_text.split('\n')
+                        body_lines = [l for l in body_lines if not any(x in l.upper() for x in 
+                                      ['RUDOLF STEINER', 'VERLAG', 'SEITE'])]
+                        if len('\n'.join(body_lines).strip()) > 500:
+                            doc.close()
+                            return page_num
+            break
+    
+    doc.close()
+    return toc_page  # Fallback: Original-Seitenzahl
+
+
+def auto_generate_mapping(ga_number: str, pdf_path: Path, num_lectures: int) -> Dict:
+    """
+    Generiert automatisch ein Mapping aus dem PDF-Inhaltsverzeichnis.
+    Speichert es in lecture-page-mapping.json.
+    
+    Korrigiert automatisch Titelseiten: Wenn die erste TOC-Seite eine
+    Titelseite ist (wenig Text), wird die erste echte Textseite verwendet.
+    
+    Rückgabe: Das Mapping für diese GA (leer wenn nichts gefunden)
+    """
+    entries = extract_toc_entries(pdf_path, num_lectures)
+    
+    if not entries:
+        print(f"  ⚠️  Kein Inhaltsverzeichnis gefunden")
+        return {}
+    
+    # Wenn wir deutlich weniger Einträge als Vorträge haben, könnte es ein Problem sein
+    if len(entries) < num_lectures * 0.5:
+        print(f"  ⚠️  Nur {len(entries)} TOC-Einträge für {num_lectures} Vorträge gefunden")
+        # Trotzdem verwenden, wenn wir überhaupt was haben
+    
+    ga_upper = ga_number.upper()
+    ga_mapping = {}
+    
+    for i, entry in enumerate(entries, 1):
+        lec_id = f"{ga_upper}/{i}"
+        page = entry['page']
+        
+        # Für den ersten Eintrag: Prüfe ob es eine Titelseite ist
+        if i == 1:
+            actual_page = find_first_text_page(pdf_path, page)
+            if actual_page != page:
+                print(f"  ℹ️  Titelseite erkannt: S.{page} → erste Textseite S.{actual_page}")
+                page = actual_page
+        
+        ga_mapping[lec_id] = page
+    
+    # Lade bestehendes Mapping und füge hinzu
+    mapping = load_page_mapping()
+    mapping[ga_upper] = ga_mapping
+    save_page_mapping(mapping)
+    
+    print(f"  ✓ Mapping aus TOC generiert: {len(ga_mapping)} Einträge")
+    for i, entry in enumerate(entries[:5], 1):
+        page = ga_mapping.get(f"{ga_upper}/{i}", entry['page'])
+        print(f"      {ga_upper}/{i}: S.{page} - {entry['title'][:40]}")
+    if len(entries) > 5:
+        print(f"      ... und {len(entries) - 5} weitere")
+    
+    return ga_mapping
 
 
 def find_text_position(needle: str, haystack: str, start_offset: int = 0) -> int:
@@ -640,15 +982,18 @@ def map_norm_to_original(text: str, norm_pos: int) -> int:
 def process_lecture(
     lecture: Dict,
     pdf_pages: List[Tuple[int, int, str, str]],
-    start_page: int,
+    start_page: int = None,
     end_page: Optional[int] = None,
     start_pdf_index: int = 0
 ) -> Tuple[int, int]:
     """
     Fügt Seitenmarker in einen Vortrag ein.
     
-    WICHTIG: Marker werden streng sequentiell gesucht und eingefügt.
-    Jede Seitenzahl kommt nur einmal vor, in aufsteigender Reihenfolge.
+    OHNE MAPPING: Durchsucht ALLE PDF-Seiten und findet automatisch,
+    welche Seiten zu diesem Vortrag gehören (durch Text-Matching).
+    
+    start_page/end_page sind optional - wenn nicht angegeben, werden
+    alle PDF-Seiten durchsucht und nur die Matches eingefügt.
     """
     paragraphs = lecture.get("paragraphs", [])
     if not paragraphs:
@@ -674,11 +1019,11 @@ def process_lecture(
         end = len(full_text)
         para_boundaries.append((start, end, i))
     
-    # Schritt 3: Sammle Marker-Positionen (streng sequentiell)
+    # Schritt 3: Sammle Marker-Positionen durch Text-Matching
     markers = []  # (position, page_num)
     search_start = 0
     last_pdf_index = start_pdf_index
-    current_page = start_page
+    first_page_found = None
     
     # Finde erste Inhalts-Position (überspringe kurze Titel-Absätze)
     first_content_pos = 0
@@ -690,31 +1035,63 @@ def process_lecture(
             break
         first_content_pos = end  # Nach dem Titel
     
-    # Filtere PDF-Seiten für diesen Vortrag
-    relevant_pages = [(idx, pn, pe, ts) for idx, pn, pe, ts in pdf_pages 
-                      if start_page <= pn <= (end_page or 9999)]
+    # Wenn start_page angegeben, füge Start-Marker am ANFANG des ersten Absatzes ein
+    # (nicht erst nach Titel-Absätzen)
+    if start_page is not None:
+        markers.append((0, start_page))  # Position 0 = Anfang des ersten Absatzes
+        first_page_found = start_page
+        search_start = 1
     
-    for pdf_idx, page_num, prev_end, this_start in relevant_pages:
-        # Überspringe wenn Seitenzahl nicht die erwartete nächste ist
-        # (verhindert Duplikate und Rückwärts-Sprünge)
-        if page_num < current_page:
-            continue
+    # Durchsuche alle PDF-Seiten ab start_pdf_index
+    matched_pages = 0
+    expected_pages = (end_page - start_page + 1) if (start_page and end_page) else 0
+    
+    for rel_idx, (pdf_idx, page_num, prev_end, this_start) in enumerate(pdf_pages[start_pdf_index:]):
+        # Wenn start_page/end_page gegeben, filtere
+        if start_page is not None and page_num <= start_page:
+            continue  # Start-Seite wurde bereits eingefügt
+        if end_page is not None and page_num > end_page:
+            break
         
-        # Erste Seite: Marker am Anfang des ersten Inhalts-Absatzes (nicht im Titel)
-        if page_num == start_page:
-            markers.append((first_content_pos, page_num))
-            current_page = page_num + 1
-            last_pdf_index = pdf_idx
-            continue
-        
-        # Finde Position für diese Seite
+        # Finde Position für diese Seite durch Text-Matching
         pos = find_pagebreak_position(prev_end, this_start, full_text, search_start)
         
         if pos is not None and pos > search_start:
-            markers.append((pos, page_num))
-            search_start = pos + 1
-            current_page = page_num + 1
-            last_pdf_index = pdf_idx
+            # Ohne start_page: Erste gefundene Seite = Marker am Anfang
+            if first_page_found is None:
+                first_page_found = page_num
+                markers.append((first_content_pos, page_num))
+                search_start = first_content_pos + 1
+            
+            # Weitere Seiten: Marker an der Match-Position
+            if page_num > first_page_found:
+                markers.append((pos, page_num))
+                search_start = pos + 1
+                matched_pages += 1
+            
+            last_pdf_index = start_pdf_index + rel_idx
+    
+    # FALLBACK: Wenn Text-Matching für weniger als 50% der Seiten funktioniert hat,
+    # füge Marker basierend auf geschätzter Position ein
+    if start_page and end_page and expected_pages > 2:
+        if matched_pages < expected_pages * 0.3:  # Weniger als 30% gematcht
+            # Berechne durchschnittliche Zeichen pro Seite
+            text_length = len(full_text)
+            chars_per_page = text_length / expected_pages if expected_pages > 0 else 2000
+            
+            # Füge geschätzte Marker ein
+            for page_num in range(start_page + 1, end_page + 1):
+                # Prüfe ob diese Seite bereits einen Marker hat
+                if any(p == page_num for _, p in markers):
+                    continue
+                
+                # Geschätzte Position
+                pages_from_start = page_num - start_page
+                estimated_pos = int(pages_from_start * chars_per_page)
+                
+                # Nur einfügen wenn Position im gültigen Bereich
+                if 0 < estimated_pos < text_length:
+                    markers.append((estimated_pos, page_num))
     
     if not markers:
         return 0, start_pdf_index
@@ -862,6 +1239,16 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
     mapping = load_page_mapping()
     ga_mapping = mapping.get(ga_norm, {})
     
+    # Automatisch Mapping generieren für "neue" PDFs ohne Copyright-Footer
+    if not ga_mapping and not is_book and len(lectures) > 1:
+        # Prüfe ob PDF altes oder neues Format hat
+        if not is_old_pdf_format(pdf_path):
+            print(f"  Neues PDF-Format erkannt (ohne Copyright-Footer)")
+            print(f"  Versuche Mapping aus Inhaltsverzeichnis zu extrahieren...")
+            ga_mapping = auto_generate_mapping(ga_norm, pdf_path, len(lectures))
+        else:
+            print(f"  Altes PDF-Format (Copyright-Footer)")
+    
     # Verarbeite jeden Vortrag
     total_inserted = 0
     current_pdf_index = 0  # Für PDFs mit doppelten Seitenzahlen
@@ -959,40 +1346,100 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
                 title = (lecture.get("title") or "")[:40]
                 print(f"    {lec_id}: {inserted} Marker (S.{start_page}-{end_page}) - {title}")
     else:
-        # Vorträge (nicht Bücher) - normale Verarbeitung
-        for i, lecture in enumerate(lectures):
-            lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
-            lec_num = int(lecture.get("lectureNumber") or i + 1)
+        # Vorträge (nicht Bücher)
+        # 
+        # Strategie:
+        # 1. Wenn lecture-page-mapping vorhanden: Jeden Vortrag einzeln mit seinem Seitenbereich verarbeiten
+        # 2. Ohne Mapping: Alle Vorträge als Gesamttext verarbeiten
+        
+        has_mapping = bool(ga_mapping)
+        
+        if has_mapping:
+            # MIT MAPPING: Jeden Vortrag einzeln verarbeiten
+            print(f"  Verarbeite {len(lectures)} Vorträge mit Mapping...")
             
-            # Start-Seite aus Mapping oder Schätzung
-            start_page = ga_mapping.get(lec_id)
-            if not start_page:
-                # Fallback 1: Erste Inhaltsseite aus page-break-markers.json
-                first_content = load_first_content_page(ga_norm)
-                if first_content:
-                    start_page = first_content
-                # Fallback 2: Erste verfügbare Seite aus PDF
-                elif pdf_pages:
-                    start_page = pdf_pages[0][1]
+            for i, lecture in enumerate(lectures):
+                lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
+                
+                # Start-Seite aus Mapping
+                start_page = ga_mapping.get(lec_id)
+                if not start_page:
+                    # Versuche mit normalisierter ID
+                    for key, val in ga_mapping.items():
+                        if key.lower() == lec_id.lower():
+                            start_page = val
+                            break
+                
+                if not start_page:
+                    title = (lecture.get("title") or "")[:40]
+                    print(f"    {lec_id}: kein Mapping - {title}")
+                    continue
+                
+                # End-Seite: nächster Vortrag oder letzte PDF-Seite
+                end_page = None
+                if i + 1 < len(lectures):
+                    next_id = lectures[i + 1].get("ID") or f"{ga_norm}/{i+2}"
+                    end_page = ga_mapping.get(next_id)
+                    if not end_page:
+                        for key, val in ga_mapping.items():
+                            if key.lower() == next_id.lower():
+                                end_page = val
+                                break
+                    if end_page:
+                        end_page -= 1
+                
+                if not end_page and pdf_pages:
+                    end_page = pdf_pages[-1][1]
+                
+                inserted, current_pdf_index = process_lecture(
+                    lecture, pdf_pages, start_page, end_page, current_pdf_index
+                )
+                total_inserted += inserted
+                
+                title = (lecture.get("title") or "")[:40]
+                print(f"    {lec_id}: {inserted} Marker (S.{start_page}-{end_page}) - {title}")
+        else:
+            # OHNE MAPPING: Alle Vorträge als Gesamttext verarbeiten
+            print(f"  Verarbeite {len(lectures)} Vorträge als Gesamttext (kein Mapping)...")
             
-            # End-Seite: nächster Vortrag oder letzte Seite
-            end_page = None
-            if i + 1 < len(lectures):
-                next_id = lectures[i + 1].get("ID") or f"{ga_norm}/{i+2}"
-                end_page = ga_mapping.get(next_id)
-                if end_page:
-                    end_page -= 1
+            # Alle Vorträge zu einem "Gesamt-Vortrag" zusammenfügen
+            all_paragraphs = []
+            lecture_boundaries = []
             
-            if not end_page and pdf_pages:
-                end_page = pdf_pages[-1][1]  # Index 1 = Seitenzahl
+            for lecture in lectures:
+                start_idx = len(all_paragraphs)
+                paras = lecture.get("paragraphs", [])
+                all_paragraphs.extend(paras)
+                end_idx = len(all_paragraphs)
+                lecture_boundaries.append((start_idx, end_idx, lecture))
             
-            inserted, current_pdf_index = process_lecture(
-                lecture, pdf_pages, start_page or 1, end_page, current_pdf_index
+            unified_lecture = {
+                "ID": f"{ga_norm}/unified",
+                "paragraphs": all_paragraphs
+            }
+            
+            total_inserted, _ = process_lecture(
+                unified_lecture, pdf_pages,
+                start_page=None,
+                end_page=None,
+                start_pdf_index=0
             )
-            total_inserted += inserted
             
-            title = (lecture.get("title") or "")[:40]
-            print(f"    {lec_id}: {inserted} Marker (S.{start_page}-{end_page}) - {title}")
+            # Absätze zurück in die Original-Vorträge kopieren
+            for start_idx, end_idx, lecture in lecture_boundaries:
+                lecture["paragraphs"] = all_paragraphs[start_idx:end_idx]
+                
+                markers_in_lecture = 0
+                for para in lecture["paragraphs"]:
+                    content = para.get("content") or para.get("text") or ""
+                    markers_in_lecture += len(re.findall(r'\|\d+\|', content))
+                
+                lec_id = lecture.get("ID") or "?"
+                title = (lecture.get("title") or "")[:40]
+                if markers_in_lecture > 0:
+                    print(f"    {lec_id}: {markers_in_lecture} Marker - {title}")
+                else:
+                    print(f"    {lec_id}: keine Marker - {title}")
     
     print(f"\n  Gesamt: {total_inserted} Marker eingefügt")
     

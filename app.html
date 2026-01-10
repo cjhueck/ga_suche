@@ -6883,7 +6883,7 @@ Wandtafeln
     Export
   </button>
   <!-- Pages-Korrektur Button -->
-  <button id="pages-correction-btn" class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #17a2b8; border: 1px solid #17a2b8;" title="Seitenzahlen überprüfen und korrigieren">
+  <button id="pages-correction-btn" class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #17a2b8; border: 1px solid #17a2b8;" title="Seitenmarker einfügen (process_pagebreaks.py)">
     Pages
   </button>
   <!-- BATCH GENERATION (nur lokal) -->
@@ -7188,6 +7188,7 @@ Bestehende Schlagwörter überschreiben
       <li><a href="#docs-scripts" onclick="scrollToDocsSection('docs-scripts')" style="color: var(--link-color);">9. Skripte & Tools</a></li>
       <li><a href="#docs-development" onclick="scrollToDocsSection('docs-development')" style="color: var(--link-color);">10. Entwicklung & Deployment</a></li>
       <li><a href="#docs-data-display" onclick="scrollToDocsSection('docs-data-display')" style="color: var(--link-color);">11. Datenquellen für Tab-Anzeige</a></li>
+      <li><a href="#docs-pagebreaks" onclick="scrollToDocsSection('docs-pagebreaks')" style="color: var(--link-color);">12. Seitenumbrüche & Seitenzahlen</a></li>
     </ul>
   </div>
 </div>
@@ -8395,10 +8396,228 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
+<!-- 12. SEITENUMBRÜCHE & SEITENZAHLEN -->
+<div id="docs-pagebreaks" style="margin-bottom: 2rem;">
+  <h3 style="color: var(--heading-color); border-left: 4px solid var(--accent-color); padding-left: 0.8rem; margin-bottom: 1rem;">
+    12. Seitenumbrüche & Seitenzahlen
+  </h3>
+  
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Übersicht</h4>
+    <p style="margin: 0 0 0.8rem 0;">
+      Dieses Verfahren fügt <code>|XX|</code> Seitenmarker in die Vorträge/Aufsätze ein. 
+      Die Marker werden aus OCR-bearbeiteten PDFs extrahiert und sowohl in die JSON-Dateien als auch in die MD-Dateien eingefügt.
+    </p>
+    <div style="background: var(--code-bg); padding: 0.8rem; border-radius: 4px; font-family: monospace; font-size: 0.85em;">
+      PDF (Steiner_GA_pdf/)<br>
+      &nbsp;&nbsp;&nbsp;↓ Seitenzahlen + Text-Fragmente extrahieren<br>
+      JSON (steiner-full-lectures/)<br>
+      &nbsp;&nbsp;&nbsp;↓ Text-Matching → |XX| Marker einfügen<br>
+      MD (Steiner_GA/GAXXX/)<br>
+      &nbsp;&nbsp;&nbsp;↓ Marker auch in MD einfügen<br>
+      HTML (app.html)<br>
+      &nbsp;&nbsp;&nbsp;→ Marker als Seitenzahlen-Badges anzeigen
+    </div>
+  </div>
+
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">PDF-Formate</h4>
+    <p style="margin: 0 0 0.5rem 0;">Das System unterstützt <strong>drei verschiedene PDF-Formate</strong>:</p>
+    
+    <div style="margin-bottom: 0.8rem; padding: 0.6rem; background: var(--sidebar-bg); border-radius: 4px;">
+      <strong>Format 1: Ältere PDFs (vor ~2010)</strong>
+      <div style="font-family: monospace; font-size: 0.85em; margin-top: 0.3rem; color: var(--secondary-text);">
+        Text des Vortrags...<br>
+        Copyright Rudolf Steiner Nachlassverwaltung Seite: 42
+      </div>
+      <p style="margin: 0.3rem 0 0 0; font-size: 0.85em;">Seitenzahl im Copyright-Footer, Muster: <code>Copyright Rudolf Steiner...Seite: XX</code></p>
+    </div>
+    
+    <div style="margin-bottom: 0.8rem; padding: 0.6rem; background: var(--sidebar-bg); border-radius: 4px;">
+      <strong>Format 2: Neuere PDFs (ab ~2013, z.B. GA069b)</strong>
+      <div style="font-family: monospace; font-size: 0.85em; margin-top: 0.3rem; color: var(--secondary-text);">
+        Text des Vortrags endet hier.<br>
+        42<br>
+        RUDOLF STEINER<br>
+        VERLAG
+      </div>
+      <p style="margin: 0.3rem 0 0 0; font-size: 0.85em;">Seitenzahl auf eigener Zeile, gefolgt von "RUDOLF STEINER" und "VERLAG". Header "Seite XX" am Seitenanfang wird ignoriert.</p>
+    </div>
+    
+    <div style="padding: 0.6rem; background: var(--sidebar-bg); border-radius: 4px;">
+      <strong>Format 3: Aktuelle PDFs</strong>
+      <div style="font-family: monospace; font-size: 0.85em; margin-top: 0.3rem; color: var(--secondary-text);">
+        Text des Vortrags...<br>
+        Seite 42
+      </div>
+      <p style="margin: 0.3rem 0 0 0; font-size: 0.85em;">"Seite XX" am Ende der Seite (letzte 3 Zeilen)</p>
+    </div>
+    
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.9em; color: #d9534f;">
+      <strong>Wichtig:</strong> PDFs müssen OCR-bearbeitet sein, damit der Text extrahiert werden kann!
+    </p>
+  </div>
+
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Schnellstart</h4>
+    <div style="background: var(--code-bg); padding: 0.8rem; border-radius: 4px; font-family: monospace; font-size: 0.85em;">
+      # Einzelne GA verarbeiten:<br>
+      python tools/process_pagebreaks.py GA069b<br><br>
+      # Bereich verarbeiten:<br>
+      python tools/process_pagebreaks.py 61 67<br><br>
+      # Trockenlauf (keine Änderungen):<br>
+      python tools/process_pagebreaks.py GA069b --dry-run
+    </div>
+    <p style="margin: 0.8rem 0 0 0; color: #d9534f; font-weight: bold;">
+      Nach Abschluss: Server neu starten! (Ctrl+C, dann <code>nb</code>)
+    </p>
+  </div>
+
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Das Verfahren im Detail</h4>
+    
+    <p style="margin: 0 0 0.5rem 0;"><strong>Schritt 1: Voraussetzungen prüfen</strong></p>
+    <ul style="margin: 0 0 0.8rem 0; padding-left: 1.5rem; font-size: 0.9em;">
+      <li><strong>PDF vorhanden</strong> in <code>Steiner_GA_pdf/</code> (OCR-bearbeitet!)</li>
+      <li><strong>Vorträge exportiert</strong> in <code>steiner-full-lectures/</code></li>
+      <li><strong>Mapping vorhanden</strong> in <code>lecture-page-mapping.json</code> (optional aber empfohlen)</li>
+    </ul>
+    
+    <p style="margin: 0 0 0.5rem 0;"><strong>Schritt 2: Mapping erstellen (falls nicht vorhanden)</strong></p>
+    <div style="background: var(--code-bg); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; margin-bottom: 0.5rem;">
+      python tools/extract_toc.py GA069b
+    </div>
+    <p style="margin: 0 0 0.8rem 0; font-size: 0.9em;">
+      Extrahiert das Inhaltsverzeichnis aus dem PDF und zeigt das Mapping an. 
+      <strong>Mapping manuell in <code>lecture-page-mapping.json</code> eintragen!</strong>
+    </p>
+    
+    <p style="margin: 0 0 0.5rem 0;"><strong>Schritt 3: Seitenmarker einfügen</strong></p>
+    <div style="background: var(--code-bg); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; margin-bottom: 0.5rem;">
+      python tools/process_pagebreaks.py GA069b
+    </div>
+    <p style="margin: 0 0 0.8rem 0; font-size: 0.9em;">Das Script macht automatisch:</p>
+    <ol style="margin: 0 0 0.8rem 0; padding-left: 1.5rem; font-size: 0.85em;">
+      <li>PDF kopieren nach <code>Steiner_GA/GAXXX/</code></li>
+      <li>Seitenzahlen aus PDF extrahieren (~200 Zeichen vor/nach Umbruch)</li>
+      <li>Text-Matching: Position im JSON-Text finden</li>
+      <li><code>|XX|</code> Marker einfügen</li>
+      <li>Marker auch in MD-Dateien einfügen</li>
+      <li>Alte Override-Dateien deaktivieren</li>
+    </ol>
+    
+    <p style="margin: 0 0 0.5rem 0;"><strong>Schritt 4: Server neu starten</strong></p>
+    <div style="background: var(--code-bg); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.85em;">
+      Ctrl+C<br>nb
+    </div>
+  </div>
+
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Text-Matching erklärt</h4>
+    <p style="margin: 0 0 0.5rem 0; font-size: 0.9em;">
+      Das System findet die Position eines Seitenumbruchs durch <strong>Text-Matching</strong>:
+    </p>
+    <ol style="margin: 0 0 0.8rem 0; padding-left: 1.5rem; font-size: 0.85em;">
+      <li><strong>Aus PDF extrahieren:</strong> ~200 Zeichen am Ende der vorherigen Seite + Anfang der nächsten Seite</li>
+      <li><strong>Normalisieren:</strong> Kleinschreibung, Sonderzeichen entfernen</li>
+      <li><strong>Im JSON/MD suchen:</strong> Überlappung im Vortrag-Text finden</li>
+      <li><strong>Marker einfügen:</strong> <code>|XX|</code> an der gefundenen Position</li>
+    </ol>
+    <p style="margin: 0; font-size: 0.9em;">
+      <strong>Mit Mapping:</strong> Jeder Vortrag wird nur im relevanten Seitenbereich durchsucht (genauer)<br>
+      <strong>Ohne Mapping:</strong> Alle Vorträge als Gesamttext verarbeitet (Fallback)
+    </p>
+  </div>
+
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Dateien & Scripts</h4>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.85em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Datei/Ordner</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Beschreibung</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>Steiner_GA_pdf/</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Quell-PDFs (OCR-bearbeitet)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>lecture-page-mapping.json</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Mapping: Vortrag-ID → Start-Seitenzahl</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>steiner-full-lectures/</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">JSON-Dateien mit Vorträgen (werden aktualisiert)</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>pagebreaks/</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Override-Dateien (Legacy, werden deaktiviert)</td>
+      </tr>
+    </table>
+    
+    <h5 style="margin: 1rem 0 0.5rem 0; color: var(--heading-color);">Scripts</h5>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.85em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Script</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Beschreibung</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>tools/process_pagebreaks.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Hauptscript</strong> - führt alles automatisch durch</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>tools/extract_toc.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Extrahiert Mapping aus PDF-Inhaltsverzeichnis</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>tools/apply_pagebreaks_from_pdf.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Nur Seitenmarker in JSON einfügen</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>tools/apply_pagebreaks_to_md.py</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Nur Seitenmarker in MD einfügen</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Fehlerbehebung</h4>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.85em;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Problem</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Ursache</th>
+        <th style="padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;">Lösung</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">0 Seiten erkannt</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">PDF nicht OCR-bearbeitet</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">PDF mit OCR bearbeiten</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Wenige Marker</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Kein Mapping vorhanden</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>extract_toc.py</code> verwenden</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Falsche Seitenzahlen</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Falsches Mapping</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>lecture-page-mapping.json</code> prüfen</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Alte Marker angezeigt</td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Override in <code>pagebreaks/</code></td>
+        <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Datei zu <code>.old</code> umbenennen</td>
+      </tr>
+    </table>
+    <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Backup:</strong> <code>lecture-page-mapping.json</code> wird bei Backups gesichert (Typ: <code>lecturemapping</code>)
+    </p>
+  </div>
+</div>
+
 <!-- Footer -->
 <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--secondary-text); font-size: 0.85em;">
   <p style="margin: 0;">Diese Dokumentation wird nur in der lokalen Version angezeigt.</p>
-  <p style="margin: 0.3rem 0 0 0;">Letzte Aktualisierung: Dezember 2024 / Januar 2025</p>
+  <p style="margin: 0.3rem 0 0 0;">Letzte Aktualisierung: Januar 2026</p>
 </div>
 
 </div>
@@ -28669,7 +28888,7 @@ async function exportCurrentGA() {
             🔄 Seite neu laden
           </button>
           <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px;">
-            📄 Pagebreaks generieren
+            📄 Seitenmarker einfügen
           </button>
         </div>
       `);
@@ -28706,10 +28925,8 @@ async function exportCurrentGA() {
 }
 
 /**
- * Öffnet einen Dialog zur Überprüfung und Korrektur von Seitenzahlen
- * Funktioniert für:
- * - Den aktuell angezeigten GA-Band (wenn kein Vortrag ausgewählt)
- * - Die ausgewählten Vorträge (wenn Checkboxen aktiv)
+ * Führt process_pagebreaks.py für den aktuell ausgewählten GA-Band aus.
+ * Fügt Seitenmarker in JSON und MD-Dateien ein.
  */
 async function openPagesCorrectionDialog() {
   // Prüfe ob wir lokal sind
@@ -28718,788 +28935,168 @@ async function openPagesCorrectionDialog() {
     return;
   }
   
-  // Bestimme welche Vorträge/Bücher bearbeitet werden sollen
-  let lectureIds = [];
-  let targetDescription = '';
-  let isBookMode = false;
-  
-  if (selectedLectureIds.size > 0) {
-    // Ausgewählte Vorträge/Bücher verwenden
-    lectureIds = Array.from(selectedLectureIds);
-    targetDescription = `${lectureIds.length} ausgewählte(r) Eintrag/Einträge`;
-  } else {
-    // Aktuell angezeigten GA-Band verwenden
-    const gaNumber = document.getElementById('texteGAFilter')?.value;
-    if (!gaNumber) {
-      alert('Bitte wählen Sie zuerst einen GA-Band aus oder markieren Sie Einträge mit den Checkboxen.');
-      return;
-    }
-    
-    // Prüfe ob es ein Buch ist (GA001-GA045 sind typischerweise Bücher)
-    const gaNum = parseInt(gaNumber.replace(/[^0-9]/g, ''));
-    isBookMode = gaNum >= 1 && gaNum <= 45;
-    
-    targetDescription = `GA-Band ${gaNumber}` + (isBookMode ? ' (Schrift)' : '');
-    
-    // Hole alle Vorträge/Bücher des GA-Bands
-    try {
-      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
-      const data = await resp.json();
-      
-      // Für Bücher: Verwende die GA-Nummer als ID
-      if (data.isBook || isBookMode) {
-        lectureIds = [gaNumber.toUpperCase()];
-        isBookMode = true;
-      } else {
-        const lectures = data.lectures || [];
-        if (lectures.length === 0) {
-          alert('Keine Vorträge in diesem GA-Band gefunden.');
-          return;
-        }
-        lectureIds = lectures.map(l => l.ID);
-      }
-    } catch (err) {
-      alert('Fehler beim Laden: ' + err.message);
-      return;
-    }
-  }
-  
-  // Zeige Lade-Anzeige im Viewer
-  const viewer = document.getElementById('viewer');
-  viewer.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">📄 Seitenzahlen-Korrektur</h3>
-      <p style="margin-bottom: 1rem;">Analysiere ${targetDescription}...</p>
-      <p style="color: #666; font-size: 0.9em;">Lade Seitenzahlen-Informationen...</p>
-    </div>
-  `;
-  
-  try {
-    // Rufe Backend-API auf, um Seitenzahlen zu analysieren
-    const resp = await fetch(`${API_BASE}/api/pages/analyze`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lectureIds })
-    });
-    
-    if (!resp.ok) {
-      const errorData = await resp.json().catch(() => ({}));
-      throw new Error(errorData.error || `Server-Fehler: ${resp.status}`);
-    }
-    
-    const analysisResult = await resp.json();
-    
-    // Zeige Analyse-Ergebnis und Korrektur-Dialog
-    await displayPagesCorrectionUI(analysisResult, lectureIds, targetDescription);
-    
-  } catch (err) {
-    console.error('[PAGES] Fehler bei Analyse:', err);
-    viewer.innerHTML = `
-      <div style="padding: 2rem;">
-        <h3 style="color: #d9534f;">❌ Fehler bei der Seitenzahlen-Analyse</h3>
-        <p>${err.message}</p>
-        <button class="depth-btn" onclick="location.reload()" style="margin-top: 1rem;">Seite neu laden</button>
-      </div>
-    `;
-  }
-}
-
-/**
- * Zeigt die UI für die Seitenzahlen-Korrektur an
- */
-async function displayPagesCorrectionUI(analysisResult, lectureIds, targetDescription) {
-  const viewer = document.getElementById('viewer');
-  const { lectures, summary } = analysisResult;
-  
-  // Ermittle den GA-Band aus den Lecture-IDs
-  const gaNumbers = [...new Set(lectureIds.map(id => {
-    const match = id.match(/^(GA\d{3}[a-z]?)/i);
-    return match ? match[1].toUpperCase() : null;
-  }).filter(Boolean))];
-  
-  // Prüfe Pagebreaks-Status für jeden GA-Band
-  const pagebreaksStatus = {};
-  for (const ga of gaNumbers) {
-    try {
-      const resp = await fetch(`${API_BASE}/api/pages/status/${encodeURIComponent(ga)}`);
-      if (resp.ok) {
-        pagebreaksStatus[ga] = await resp.json();
-      }
-    } catch (err) {
-      console.warn(`[PAGES] Status für ${ga} konnte nicht geladen werden:`, err);
-    }
-  }
-  
-  // Prüfe ob Pagebreaks generiert werden können
-  const gasWithoutPagebreaks = gaNumbers.filter(ga => 
-    pagebreaksStatus[ga] && pagebreaksStatus[ga].canGenerate
-  );
-  const gasWithPagebreaks = gaNumbers.filter(ga => 
-    pagebreaksStatus[ga] && pagebreaksStatus[ga].hasPagebreaks
-  );
-  
-  let html = `
-    <div style="padding: 1.5rem;">
-      <h3 style="margin-bottom: 1rem;">📄 Seitenzahlen-Korrektur: ${targetDescription}</h3>
-      
-      <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-        <h4 style="margin: 0 0 0.5rem 0;">Zusammenfassung</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem;">
-          <div><strong>Vorträge:</strong> ${summary.totalLectures}</div>
-          <div><strong>Mit Seitenzahlen:</strong> ${summary.withPages}</div>
-          <div><strong>Ohne Seitenzahlen:</strong> ${summary.withoutPages}</div>
-          <div><strong>Mit Problemen:</strong> <span style="color: ${summary.withIssues > 0 ? '#d9534f' : '#5cb85c'};">${summary.withIssues}</span></div>
-        </div>
-        
-        <!-- Pagebreaks-Status -->
-        <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color);">
-          <strong>Pagebreaks:</strong> 
-          ${gasWithPagebreaks.length > 0 
-            ? `<span style="color: #5cb85c;">✓ ${gasWithPagebreaks.join(', ')}</span>` 
-            : ''}
-          ${gasWithoutPagebreaks.length > 0 
-            ? `<span style="color: #f0ad4e; margin-left: 0.5rem;">⚠ ${gasWithoutPagebreaks.join(', ')} (nicht vorhanden)</span>` 
-            : ''}
-          ${gaNumbers.length === 0 ? '<span style="color: #999;">—</span>' : ''}
-        </div>
-      </div>
-      
-      ${gasWithoutPagebreaks.length > 0 ? `
-        <div style="background: #fff3cd; color: #856404; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #ffc107;">
-          <strong>⚠ Pagebreaks fehlen für: ${gasWithoutPagebreaks.join(', ')}</strong>
-          <p style="margin: 0.5rem 0 0.75rem 0; font-size: 0.9em;">
-            Ohne Pagebreaks können keine Seitenzahlen automatisch eingefügt werden. 
-            Klicken Sie auf "Pagebreaks generieren", um die Seitenzahlen aus den PDFs zu extrahieren.
-          </p>
-          <button class="depth-btn" onclick="generatePagebreaksForGAs('${gasWithoutPagebreaks.join(',')}')" 
-                  style="padding: 8px 16px; background: #ffc107; color: #212529; border: none; font-weight: bold;">
-            📑 Pagebreaks generieren für ${gasWithoutPagebreaks.join(', ')}
-          </button>
-        </div>
-      ` : ''}
-      
-      <div style="margin-bottom: 1rem;">
-        <h4>Vorträge mit Seitenzahlen-Informationen:</h4>
-      </div>
-      
-      <div style="max-height: 60vh; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 8px;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
-          <thead style="position: sticky; top: 0; background: var(--sidebar-bg); z-index: 1;">
-            <tr>
-              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: left;">Vortrag</th>
-              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Seiten</th>
-              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Bereich</th>
-              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Status</th>
-              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Korrektur</th>
-              <th style="padding: 0.5rem; border-bottom: 2px solid var(--border-color); text-align: center;">Entfernen</th>
-            </tr>
-          </thead>
-          <tbody>
-  `;
-  
-  for (const lecture of lectures) {
-    const hasIssues = lecture.issues && lecture.issues.length > 0;
-    const statusColor = hasIssues ? '#d9534f' : (lecture.pageCount > 0 ? '#5cb85c' : '#999');
-    const statusIcon = hasIssues ? '⚠️' : (lecture.pageCount > 0 ? '✓' : '—');
-    const statusText = hasIssues ? lecture.issues.join(', ') : (lecture.pageCount > 0 ? 'OK' : 'Keine Seiten');
-    
-    html += `
-      <tr style="border-bottom: 1px solid var(--border-color);">
-        <td style="padding: 0.5rem;">
-          <a href="#" onclick="showLecture('${lecture.id}'); return false;" style="color: var(--link-color);">${lecture.id}</a>
-          <div style="font-size: 0.8em; color: #666; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${lecture.title || ''}</div>
-        </td>
-        <td style="padding: 0.5rem; text-align: center;">${lecture.pageCount}</td>
-        <td style="padding: 0.5rem; text-align: center; font-family: monospace;">${lecture.pageRange || '—'}</td>
-        <td style="padding: 0.5rem; text-align: center;">
-          <span style="color: ${statusColor};" title="${statusText}">${statusIcon}</span>
-        </td>
-        <td style="padding: 0.5rem; text-align: center;">
-          ${lecture.pageCount > 0 ? `
-            <button class="depth-btn" onclick="openPageCorrectionForLecture('${lecture.id}')" 
-                    style="padding: 2px 8px; font-size: 0.8em;" title="Seitenzahlen korrigieren">
-              Korrigieren
-            </button>
-          ` : `
-            <button class="depth-btn" onclick="generatePagesForLecture('${lecture.id}')" 
-                    style="padding: 2px 8px; font-size: 0.8em; background: #5cb85c; color: white; border: none;" 
-                    title="Seitenzahlen aus Pagebreaks generieren">
-              Generieren
-            </button>
-          `}
-        </td>
-        <td style="padding: 0.5rem; text-align: center;">
-          ${lecture.pageCount > 0 ? `
-            <button class="depth-btn" onclick="removePagesForLecture('${lecture.id}')" 
-                    style="padding: 2px 8px; font-size: 0.8em; background: #d9534f; color: white; border: none;" 
-                    title="Alle Seitenzahlen aus diesem Vortrag entfernen">
-              Entfernen
-            </button>
-          ` : `<span style="color: #999;">—</span>`}
-        </td>
-      </tr>
-    `;
-  }
-  
-  html += `
-          </tbody>
-        </table>
-      </div>
-      
-      <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-        ${summary.withoutPages > 0 ? `
-          <button class="depth-btn" onclick="generatePagesForMultiple('${lectureIds.filter(id => {
-            const lec = lectures.find(l => l.id === id);
-            return lec && lec.pageCount === 0;
-          }).join(',')}')" 
-                  style="padding: 8px 16px; background: #5cb85c; color: white; border: none;">
-            📄 Seitenzahlen generieren (${summary.withoutPages} ohne)
-          </button>
-        ` : ''}
-        ${summary.withIssues > 0 ? `
-          <button class="depth-btn" onclick="applyBulkPageCorrection('${lectureIds.join(',')}')" 
-                  style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-            🔧 Probleme korrigieren (${summary.withIssues})
-          </button>
-        ` : ''}
-        <button class="depth-btn" onclick="applyBulkPageCorrection('${lectureIds.join(',')}')" 
-                style="padding: 8px 16px; background: #6c757d; color: white; border: none;">
-          🔄 Alle neu generieren/korrigieren
-        </button>
-        ${summary.withPages > 0 ? `
-          <button class="depth-btn" onclick="removePagesForAll('${lectureIds.join(',')}')" 
-                  style="padding: 8px 16px; background: #d9534f; color: white; border: none;">
-            🗑️ Alle Seitenzahlen entfernen (${summary.withPages})
-          </button>
-        ` : ''}
-        <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
-          Schließen
-        </button>
-      </div>
-    </div>
-  `;
-  
-  viewer.innerHTML = html;
-}
-
-/**
- * Generiert Pagebreaks für die angegebenen GA-Bände
- * Ruft das Python-Skript über die Backend-API auf
- */
-async function generatePagebreaksForGAs(gaList) {
-  const gaNumbers = gaList.split(',').filter(Boolean);
-  
-  if (gaNumbers.length === 0) {
-    alert('Keine GA-Bände angegeben.');
+  // Hole den aktuell ausgewählten GA-Band
+  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  if (!gaNumber) {
+    alert('Bitte wählen Sie zuerst einen GA-Band aus.');
     return;
   }
   
-  const viewer = document.getElementById('viewer');
+  // Bestätigungsdialog
+  if (!confirm(`Seitenmarker für ${gaNumber} generieren?\n\nDies führt process_pagebreaks.py aus:\n• PDF aus Steiner_GA_pdf/ kopieren\n• Seitenmarker in JSON einfügen\n• Seitenmarker in MD-Dateien einfügen\n• Alte Override-Dateien inaktivieren\n\nDer Prozess kann einige Sekunden dauern.`)) {
+    return;
+  }
   
-  // Zeige Fortschrittsanzeige
+  // Zeige Fortschrittsanzeige im Viewer
+  const viewer = document.getElementById('viewer');
   viewer.innerHTML = `
-    <div style="padding: 2rem;">
-      <h3 style="margin-bottom: 1rem;">📑 Pagebreaks werden generiert...</h3>
-      <div id="pagebreaks-progress" style="margin-bottom: 1rem;">
-        ${gaNumbers.map(ga => `
-          <div id="progress-${ga}" style="padding: 0.5rem; margin-bottom: 0.5rem; background: var(--code-bg); border-radius: 4px;">
-            <span style="color: #17a2b8;">⏳</span> ${ga}: Warte...
-          </div>
-        `).join('')}
+    <div style="padding: 2rem; text-align: center;">
+      <h3 style="margin-bottom: 1rem;">📄 Seitenmarker generieren: ${gaNumber}</h3>
+      <div id="pages-progress" style="margin-bottom: 1rem;">
+        <p style="color: #17a2b8;">⏳ Führe process_pagebreaks.py aus...</p>
       </div>
       <p style="color: #666; font-size: 0.9em;">
-        Dies kann einige Minuten dauern. Die Seitenzahlen werden aus den PDFs extrahiert und auf die Vorträge angewendet.
+        Bitte warten Sie, bis der Prozess abgeschlossen ist.
       </p>
     </div>
   `;
   
-  let successCount = 0;
-  let errorCount = 0;
-  const results = [];
-  
-  // Generiere Pagebreaks für jeden GA-Band sequentiell
-  for (const ga of gaNumbers) {
-    const progressDiv = document.getElementById(`progress-${ga}`);
-    if (progressDiv) {
-      progressDiv.innerHTML = `<span style="color: #17a2b8;">⏳</span> ${ga}: Generiere...`;
-    }
-    
-    try {
-      const resp = await fetch(`${API_BASE}/api/pages/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gaNumber: ga })
-      });
-      
-      const result = await resp.json();
-      
-      if (resp.ok && (result.status === 'generated' || result.status === 'exists')) {
-        successCount++;
-        results.push({ ga, success: true, message: result.message });
-        if (progressDiv) {
-          progressDiv.innerHTML = `<span style="color: #5cb85c;">✓</span> ${ga}: ${result.message}`;
-        }
-      } else {
-        errorCount++;
-        results.push({ ga, success: false, message: result.error || 'Unbekannter Fehler' });
-        if (progressDiv) {
-          progressDiv.innerHTML = `<span style="color: #d9534f;">✗</span> ${ga}: ${result.error || 'Fehler'}`;
-        }
-      }
-    } catch (err) {
-      errorCount++;
-      results.push({ ga, success: false, message: err.message });
-      if (progressDiv) {
-        progressDiv.innerHTML = `<span style="color: #d9534f;">✗</span> ${ga}: ${err.message}`;
-      }
-    }
-  }
-  
-  // Zeige Zusammenfassung
-  const summaryHtml = `
-    <div style="margin-top: 1.5rem; padding: 1rem; background: ${errorCount === 0 ? '#d4edda' : '#fff3cd'}; border-radius: 8px;">
-      <strong>${errorCount === 0 ? '✓ Abgeschlossen' : '⚠ Abgeschlossen mit Fehlern'}</strong>
-      <p style="margin: 0.5rem 0;">
-        Erfolgreich: ${successCount} | Fehler: ${errorCount}
-      </p>
-    </div>
-    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
-      <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-        🔄 Erneut analysieren
-      </button>
-      <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
-        Schließen
-      </button>
-    </div>
-  `;
-  
-  const progressContainer = document.getElementById('pagebreaks-progress');
-  if (progressContainer) {
-    progressContainer.insertAdjacentHTML('afterend', summaryHtml);
-  }
-}
-
-/**
- * Entfernt alle Seitenzahlen aus einem einzelnen Vortrag/Buch
- */
-async function removePagesForLecture(lectureId) {
-  if (!confirm(`Möchten Sie wirklich alle Seitenzahlen aus "${lectureId}" entfernen?\n\nDiese Aktion kann nicht rückgängig gemacht werden.`)) {
-    return;
-  }
-  
-  const viewer = document.getElementById('viewer');
-  
-  viewer.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">🗑️ Seitenzahlen werden entfernt...</h3>
-      <p>Entferne Seitenzahlen aus ${lectureId}...</p>
-    </div>
-  `;
-  
   try {
-    const resp = await fetch(`${API_BASE}/api/pages/remove`, {
+    // Rufe Backend-API auf
+    const resp = await fetch(`${API_BASE}/api/pages/process`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lectureId })
+      body: JSON.stringify({ gaNumber })
     });
     
     const result = await resp.json();
+    const progressDiv = document.getElementById('pages-progress');
     
     if (resp.ok && result.success) {
-      viewer.innerHTML = `
-        <div style="padding: 2rem;">
-          <h3 style="color: #5cb85c; margin-bottom: 1rem;">✓ Seitenzahlen entfernt</h3>
-          <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <p><strong>Vortrag/Buch:</strong> ${lectureId}</p>
-            <p><strong>Entfernte Seitenzahlen:</strong> ${result.removed}</p>
-          </div>
-          <div style="display: flex; gap: 1rem;">
-            <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-              🔄 Zurück zur Übersicht
-            </button>
-            <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
-              Schließen
-            </button>
-          </div>
+      // Erfolg
+      progressDiv.innerHTML = `
+        <p style="color: #5cb85c; font-size: 1.2em;">✓ Seitenmarker erfolgreich eingefügt!</p>
+        <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
+          <p><strong>GA-Band:</strong> ${result.gaNumber}</p>
+          <p><strong>JSON-Marker:</strong> ${result.jsonMarkers || 0}</p>
+          <p><strong>MD-Marker:</strong> ${result.mdMarkers || 0}</p>
+          <p><strong>PDF kopiert:</strong> ${result.pdfCopied ? '✓' : '—'}</p>
+          <p><strong>Override deaktiviert:</strong> ${result.overrideDeactivated ? '✓' : '—'}</p>
+          ${result.message ? `<p style="margin-top: 0.5rem; color: #666;">${result.message}</p>` : ''}
         </div>
       `;
-    } else {
-      throw new Error(result.error || 'Unbekannter Fehler');
-    }
-    
-  } catch (err) {
-    console.error('[PAGES/REMOVE] Fehler:', err);
-    viewer.innerHTML = `
-      <div style="padding: 2rem;">
-        <h3 style="color: #d9534f;">❌ Fehler beim Entfernen der Seitenzahlen</h3>
-        <p>${err.message}</p>
-        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
-      </div>
-    `;
-  }
-}
-
-/**
- * Entfernt alle Seitenzahlen aus mehreren Vorträgen/Büchern (z.B. ganzer GA-Band)
- */
-async function removePagesForAll(lectureIdList) {
-  const lectureIds = lectureIdList.split(',').filter(Boolean);
-  
-  if (lectureIds.length === 0) {
-    alert('Keine Vorträge/Bücher angegeben.');
-    return;
-  }
-  
-  if (!confirm(`Möchten Sie wirklich alle Seitenzahlen aus ${lectureIds.length} Einträgen entfernen?\n\nDiese Aktion kann nicht rückgängig gemacht werden.`)) {
-    return;
-  }
-  
-  const viewer = document.getElementById('viewer');
-  
-  viewer.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">🗑️ Seitenzahlen werden entfernt...</h3>
-      <p>Entferne Seitenzahlen aus ${lectureIds.length} Einträgen...</p>
-      <div id="remove-progress" style="margin-top: 1rem; color: #666;">
-        <span id="remove-progress-text">0 / ${lectureIds.length}</span>
-      </div>
-    </div>
-  `;
-  
-  try {
-    const resp = await fetch(`${API_BASE}/api/pages/remove-bulk`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lectureIds })
-    });
-    
-    const result = await resp.json();
-    
-    if (resp.ok && result.success) {
-      viewer.innerHTML = `
-        <div style="padding: 2rem;">
-          <h3 style="color: #5cb85c; margin-bottom: 1rem;">✓ Seitenzahlen entfernt</h3>
-          <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <h4 style="margin: 0 0 0.5rem 0;">Zusammenfassung</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem;">
-              <div><strong>Verarbeitet:</strong> ${result.processed}</div>
-              <div><strong>Bereinigt:</strong> ${result.removed}</div>
-              <div><strong>Entfernte Seitenzahlen:</strong> ${result.totalPageNumbers}</div>
-              <div><strong>Übersprungen:</strong> ${result.skipped}</div>
-              <div><strong>Fehler:</strong> <span style="color: ${result.errors > 0 ? '#d9534f' : '#5cb85c'};">${result.errors}</span></div>
-            </div>
-          </div>
-          
-          ${result.details && result.details.length > 0 ? `
-            <details style="margin-bottom: 1rem;">
-              <summary style="cursor: pointer; color: var(--link-color);">Details anzeigen (${result.details.length})</summary>
-              <div style="max-height: 300px; overflow-y: auto; margin-top: 0.5rem; padding: 0.5rem; background: var(--code-bg); border-radius: 4px; font-size: 0.85em;">
-                ${result.details.map(d => `
-                  <div style="padding: 0.25rem 0; border-bottom: 1px solid var(--border-color);">
-                    <strong>${d.id}:</strong> 
-                    ${d.status === 'removed' 
-                      ? `<span style="color: #5cb85c;">✓ ${d.count} entfernt</span>`
-                      : d.status === 'skipped' 
-                        ? `<span style="color: #999;">— ${d.reason}</span>`
-                        : `<span style="color: #d9534f;">✗ ${d.reason}</span>`
-                    }
-                  </div>
-                `).join('')}
-              </div>
-            </details>
-          ` : ''}
-          
-          <div style="display: flex; gap: 1rem;">
-            <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-              🔄 Zurück zur Übersicht
-            </button>
-            <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
-              Schließen
-            </button>
-          </div>
-        </div>
-      `;
-    } else {
-      throw new Error(result.error || 'Unbekannter Fehler');
-    }
-    
-  } catch (err) {
-    console.error('[PAGES/REMOVE-BULK] Fehler:', err);
-    viewer.innerHTML = `
-      <div style="padding: 2rem;">
-        <h3 style="color: #d9534f;">❌ Fehler beim Entfernen der Seitenzahlen</h3>
-        <p>${err.message}</p>
-        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
-      </div>
-    `;
-  }
-}
-
-/**
- * Öffnet einen Dialog zur Korrektur der Seitenzahlen für einen einzelnen Vortrag
- */
-async function openPageCorrectionForLecture(lectureId) {
-  const viewer = document.getElementById('viewer');
-  
-  viewer.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
-      <p>Lade Seitenzahlen für ${lectureId}...</p>
-    </div>
-  `;
-  
-  try {
-    // Hole detaillierte Seitenzahlen-Informationen
-    const resp = await fetch(`${API_BASE}/api/pages/details/${encodeURIComponent(lectureId)}`);
-    if (!resp.ok) throw new Error('Fehler beim Laden der Seitenzahlen-Details');
-    
-    const details = await resp.json();
-    
-    // Prüfe ob Anker-Matching verfügbar ist
-    const hasAnchors = details.anchorInfo && details.anchorInfo.available;
-    const anchorMatchCount = hasAnchors ? details.anchorInfo.matchedAnchors : 0;
-    
-    let html = `
-      <div style="padding: 1.5rem;">
-        <h3 style="margin-bottom: 1rem;">📄 Seitenzahlen-Korrektur: ${lectureId}</h3>
-        <p style="margin-bottom: 1rem; color: #666;">${details.title || ''}</p>
-        
-        <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-            <div>
-              <p><strong>Gefundene Seitenzahlen:</strong> ${details.pages.length}</p>
-              <p><strong>Aktueller Bereich:</strong> ${details.pageRange || 'Keine Seiten'}</p>
-              ${details.mappingRange ? `
-                <p><strong>Erwarteter Bereich (Mapping):</strong> <span style="color: #17a2b8;">${details.mappingRange}</span></p>
-              ` : ''}
-              ${details.issues && details.issues.length > 0 ? `
-                <p style="color: #d9534f;"><strong>Probleme:</strong> ${details.issues.join(', ')}</p>
-              ` : '<p style="color: #5cb85c;">✓ Keine Probleme erkannt</p>'}
-            </div>
-            <div style="border-left: 1px solid var(--border-color); padding-left: 1rem;">
-              <p><strong>Anker-Matching:</strong> 
-                ${hasAnchors 
-                  ? `<span style="color: #5cb85c;">✓ ${anchorMatchCount} Anker gefunden</span>`
-                  : `<span style="color: #999;">Nicht verfügbar</span>`
-                }
-              </p>
-              ${hasAnchors ? `
-                <p><strong>Verfügbare Anker:</strong> ${details.anchorInfo.totalAnchors}</p>
-              ` : `<p style="font-size: 0.85em; color: #999;">${details.anchorInfo?.reason || 'Keine Anker in page-break-markers.json'}</p>`}
-            </div>
-          </div>
-        </div>
-        
-        <h4>Korrektur-Optionen:</h4>
-        
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
-          ${hasAnchors && anchorMatchCount > 0 ? `
-            <button class="depth-btn primary" onclick="applyPageCorrectionForLecture('${lectureId}', true)" 
-                    style="padding: 10px 20px; background: #17a2b8; border-color: #17a2b8;">
-              🎯 Mit Anker-Matching korrigieren
-            </button>
-            <p style="flex-basis: 100%; font-size: 0.85em; color: #666; margin: 0.5rem 0;">
-              Findet Textanker aus dem PDF und setzt die Seitenzahlen entsprechend.
-            </p>
-          ` : ''}
-          
-          <div style="display: flex; gap: 0.5rem; align-items: center;">
-            <label>Startseitenzahl:</label>
-            <input type="number" id="page-start-input" value="${details.firstPage || 1}" 
-                   style="width: 80px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px;">
-            <button class="depth-btn" onclick="applyPageCorrectionForLecture('${lectureId}', false)" 
-                    style="padding: 8px 16px;">
-              Sukzessiv nummerieren
-            </button>
-          </div>
-        </div>
-        
-        ${hasAnchors && details.anchorInfo.matches && details.anchorInfo.matches.length > 0 ? `
-          <h4 style="margin-top: 1.5rem;">Gefundene Anker-Matches:</h4>
-          <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; font-family: monospace; font-size: 0.85em; background: var(--code-bg);">
-            ${details.anchorInfo.matches.map(m => `
-              <div style="padding: 2px 0;">
-                Seite <strong>${m.page}</strong> (${m.anchorType}, ${m.confidence})
-              </div>
-            `).join('')}
-          </div>
-        ` : ''}
-        
-        <h4 style="margin-top: 1.5rem;">Aktuelle Seitenzahlen im Text:</h4>
-        <div style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; font-family: monospace; font-size: 0.85em;">
-    `;
-    
-    for (let i = 0; i < Math.min(details.pages.length, 50); i++) {
-      const page = details.pages[i];
-      html += `<div style="padding: 2px 0;">Position ${i + 1}: Seite <strong>${page.pageNumber}</strong> — "${page.context.substring(0, 50)}..."</div>`;
-    }
-    if (details.pages.length > 50) {
-      html += `<div style="padding: 4px 0; color: #666;">... und ${details.pages.length - 50} weitere</div>`;
-    }
-    
-    html += `
-        </div>
-        
-        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-          <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px;">
-            ← Zurück zur Übersicht
+      
+      // Füge Buttons hinzu
+      progressDiv.insertAdjacentHTML('afterend', `
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+          <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
+            🔄 Seite neu laden
           </button>
-          ${details.pages.length > 0 ? `
-            <button class="depth-btn" onclick="removePagesForLecture('${lectureId}')" 
-                    style="padding: 8px 16px; background: #d9534f; color: white; border: none;">
-              🗑️ Alle Seitenzahlen entfernen
-            </button>
-          ` : ''}
         </div>
-      </div>
-    `;
-    
-    viewer.innerHTML = html;
+        <p style="margin-top: 1rem; color: #856404; background: #fff3cd; padding: 0.5rem; border-radius: 4px;">
+          ⚠️ <strong>Wichtig:</strong> Server neu starten (Ctrl+C, dann nb), damit die Änderungen wirksam werden!
+        </p>
+      `);
+      
+    } else {
+      // Fehler
+      progressDiv.innerHTML = `
+        <p style="color: #d9534f; font-size: 1.2em;">✗ Fehler bei der Verarbeitung</p>
+        <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left; color: #721c24;">
+          <p><strong>Fehler:</strong> ${result.error || 'Unbekannter Fehler'}</p>
+          ${result.details ? `<pre style="margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.85em;">${result.details}</pre>` : ''}
+        </div>
+      `;
+      
+      progressDiv.insertAdjacentHTML('afterend', `
+        <div style="margin-top: 1.5rem;">
+          <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px;">
+            Schließen
+          </button>
+        </div>
+      `);
+    }
     
   } catch (err) {
     console.error('[PAGES] Fehler:', err);
-    viewer.innerHTML = `
-      <div style="padding: 2rem;">
-        <h3 style="color: #d9534f;">❌ Fehler</h3>
-        <p>${err.message}</p>
-        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
-      </div>
-    `;
-  }
-}
-
-/**
- * Wendet die Seitenzahlen-Korrektur für einen einzelnen Vortrag an
- * @param {string} lectureId - ID des Vortrags
- * @param {boolean} useAnchors - Wenn true, verwende Anker-Matching; wenn false, sukzessive Nummerierung
- */
-async function applyPageCorrectionForLecture(lectureId, useAnchors = true) {
-  const startPage = parseInt(document.getElementById('page-start-input')?.value || '1');
-  
-  if (!useAnchors && (isNaN(startPage) || startPage < 1)) {
-    alert('Bitte geben Sie eine gültige Seitenzahl ein (mindestens 1).');
-    return;
-  }
-  
-  const methodText = useAnchors ? 'Anker-Matching' : 'sukzessive Nummerierung';
-  
-  try {
-    const resp = await fetch(`${API_BASE}/api/pages/correct`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        lectureId,
-        startPage,
-        useAnchors
-      })
-    });
-    
-    if (!resp.ok) {
-      const errorData = await resp.json().catch(() => ({}));
-      throw new Error(errorData.error || 'Korrektur fehlgeschlagen');
+    const progressDiv = document.getElementById('pages-progress');
+    if (progressDiv) {
+      progressDiv.innerHTML = `
+        <p style="color: #d9534f; font-size: 1.2em;">✗ Verbindungsfehler</p>
+        <p style="margin-top: 0.5rem;">${err.message}</p>
+      `;
     }
-    
-    const result = await resp.json();
-    
-    // Zeige Ergebnis mit Details
-    let message = `✓ Seitenzahlen-Korrektur abgeschlossen!\n\n`;
-    message += `Methode: ${result.method === 'anchor-matching' ? 'Anker-Matching' : 'Sukzessive Nummerierung'}\n`;
-    if (result.removed > 0) {
-      message += `Duplikate entfernt: ${result.removed}\n`;
-    }
-    if (result.inserted > 0) {
-      message += `Eingefügt: ${result.inserted} neue Seitenzahlen\n`;
-    }
-    if (result.corrected > 0) {
-      message += `Korrigiert: ${result.corrected} bestehende Seitenzahlen\n`;
-    }
-    message += `Gesamt: ${result.total || (result.corrected + (result.inserted || 0) + (result.removed || 0))} Änderungen\n`;
-    
-    if (result.log && result.log.length > 0) {
-      message += `\nDetails:\n${result.log.slice(0, 8).join('\n')}`;
-      if (result.log.length > 8) {
-        message += `\n... und ${result.log.length - 8} weitere`;
-      }
-    }
-    
-    alert(message);
-    
-    // Zeige aktualisierten Vortrag
-    openPageCorrectionForLecture(lectureId);
-    
-  } catch (err) {
-    alert('Fehler bei der Korrektur: ' + err.message);
-  }
-}
-
-/**
- * Wendet automatische Korrektur auf alle übergebenen Vorträge an
- * Verwendet Anker-Matching aus page-break-markers.json wenn verfügbar
- */
-async function applyBulkPageCorrection(lectureIdsString) {
-  const lectureIds = lectureIdsString.split(',').filter(id => id);
-  
-  if (!confirm(`Möchten Sie die Seitenzahlen für ${lectureIds.length} Vorträge automatisch korrigieren?\n\nDie Korrektur verwendet Anker-Matching (Text-Vergleich mit PDF) wenn verfügbar, ansonsten sukzessive Nummerierung.`)) {
-    return;
-  }
-  
-  const viewer = document.getElementById('viewer');
-  viewer.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
-      <h3>🔧 Automatische Korrektur läuft...</h3>
-      <p id="bulk-correction-status">Verarbeite 0 von ${lectureIds.length} Vorträgen...</p>
-    </div>
-  `;
-  
-  try {
-    const resp = await fetch(`${API_BASE}/api/pages/bulk-correct`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lectureIds })
-    });
-    
-    if (!resp.ok) {
-      const errorData = await resp.json().catch(() => ({}));
-      throw new Error(errorData.error || 'Bulk-Korrektur fehlgeschlagen');
-    }
-    
-    const result = await resp.json();
-    
-    viewer.innerHTML = `
-      <div style="padding: 2rem;">
-        <h3 style="color: #5cb85c;">✓ Automatische Korrektur abgeschlossen</h3>
-        <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-          <p><strong>Verarbeitet:</strong> ${result.processed} Vorträge</p>
-          <p><strong>Korrigiert:</strong> ${result.corrected} Vorträge</p>
-          <p><strong>Übersprungen:</strong> ${result.skipped} Vorträge</p>
-          ${result.errors > 0 ? `<p style="color: #d9534f;"><strong>Fehler:</strong> ${result.errors}</p>` : ''}
-        </div>
-        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; margin-top: 1rem;">
-          Erneut analysieren
-        </button>
-      </div>
-    `;
-    
-  } catch (err) {
-    console.error('[PAGES] Bulk-Korrektur Fehler:', err);
-    viewer.innerHTML = `
-      <div style="padding: 2rem;">
-        <h3 style="color: #d9534f;">❌ Fehler bei der Bulk-Korrektur</h3>
-        <p>${err.message}</p>
-        <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="margin-top: 1rem;">Zurück</button>
-      </div>
-    `;
   }
 }
 
 // ============================================================================
-// SEITENZAHLEN-GENERIERUNG FÜR EINZELNE VORTRÄGE
+// SEITENZAHLEN-GENERIERUNG FÜR EINZELNE VORTRÄGE (LEGACY - nicht mehr verwendet)
+// ============================================================================
+
+// Die folgenden Funktionen wurden durch process_pagebreaks.py ersetzt.
+// Sie werden nur noch für Abwärtskompatibilität beibehalten.
+
+// (Alte displayPagesCorrectionUI und verwandte Funktionen wurden entfernt - ersetzt durch process_pagebreaks.py)
+// Bei Bedarf: Alte Version aus Git-Historie wiederherstellen
+
+// ============================================================================
+// SEITENZAHLEN-GENERIERUNG - ALTE FUNKTIONEN (STUB)
+// ============================================================================
+// Diese Stubs verhindern JavaScript-Fehler bei alten Aufrufen
+
+function generatePagebreaksForGAs(gaList) {
+  alert('Diese Funktion wurde durch process_pagebreaks.py ersetzt.\nVerwenden Sie den "Pages"-Button im Texte-Tab.');
+}
+
+function removePagesForLecture(lectureId) {
+  alert('Diese Funktion wurde entfernt. Bearbeiten Sie die JSON-Dateien direkt.');
+}
+
+function removePagesForAll(lectureIdList) {
+  alert('Diese Funktion wurde entfernt. Bearbeiten Sie die JSON-Dateien direkt.');
+}
+
+function openPageCorrectionForLecture(lectureId) {
+  alert('Diese Funktion wurde durch process_pagebreaks.py ersetzt.\nVerwenden Sie den "Pages"-Button im Texte-Tab.');
+}
+
+function applyPageCorrectionForLecture(lectureId, useAnchors) {
+  alert('Diese Funktion wurde durch process_pagebreaks.py ersetzt.\nVerwenden Sie den "Pages"-Button im Texte-Tab.');
+}
+
+function applyBulkPageCorrection(lectureIdsString) {
+  alert('Diese Funktion wurde durch process_pagebreaks.py ersetzt.\nVerwenden Sie den "Pages"-Button im Texte-Tab.');
+}
+
+function generatePagesForLecture(lectureId) {
+  alert('Diese Funktion wurde durch process_pagebreaks.py ersetzt.\nVerwenden Sie den "Pages"-Button im Texte-Tab.');
+}
+
+function generatePagesForMultiple(lectureIdList) {
+  alert('Diese Funktion wurde durch process_pagebreaks.py ersetzt.\nVerwenden Sie den "Pages"-Button im Texte-Tab.');
+}
+
+// ALTE PAGES CORRECTION FUNKTIONEN WURDEN ENTFERNT (siehe Git-Historie)
+// Sie wurden durch process_pagebreaks.py ersetzt.
+
+// BEGINN: GELÖSCHTER ALTER CODE (ca. 600 Zeilen entfernt)
+// Alter displayPagesCorrectionUI und verwandte Funktionen wurden gelöscht
+// Bei Bedarf aus Git-Historie wiederherstellen
+
+// =======================================================================
+// ALTER PAGES CORRECTION CODE WURDE VOLLSTÄNDIG ENTFERNT
+// (ca. 600 Zeilen gelöscht - siehe Git-Historie vor diesem Commit)
+// Ersetzt durch process_pagebreaks.py - aufgerufen via openPagesCorrectionDialog()
+// =======================================================================
+
+// ============================================================================
+// DYNAMISCHE FEATURES (LEGACY - nur noch als Stubs)
 // ============================================================================
 
 /**
- * Generiert Seitenzahlen für einen einzelnen Vortrag aus den Pagebreaks
+ * @deprecated - ersetzt durch process_pagebreaks.py
  */
-async function generatePagesForLecture(lectureId) {
+async function generatePagesForLecture_LEGACY(lectureId) {
   const viewer = document.getElementById('viewer');
   
   viewer.innerHTML = `
@@ -39897,17 +39494,20 @@ async function loadBackupList() {
     
     container.innerHTML = data.backups.map(backup => {
       const date = new Date(backup.modified);
-      const sizeKB = (backup.size / 1024).toFixed(0);
+      const sizeInfo = backup.isDirectory 
+        ? '📁 Verzeichnis' 
+        : `${(backup.size / 1024).toFixed(0)} KB`;
+      const restoreDisabled = backup.isDirectory ? 'disabled title="Verzeichnis-Backups können nicht direkt wiederhergestellt werden"' : '';
       return `
         <div style="padding: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
           <div>
             <div style="font-weight: 500; font-size: 0.9rem;">${backup.name}</div>
             <div style="font-size: 0.75rem; color: var(--secondary-text); margin-top: 3px;">
-              ${date.toLocaleString('de-DE')} • ${sizeKB} KB
+              ${date.toLocaleString('de-DE')} • ${sizeInfo}
             </div>
           </div>
-          <button class="depth-btn" onclick="restoreBackup('${backup.name}')" style="padding: 4px 12px; font-size: 0.8rem;">
-            Wiederherstellen
+          <button class="depth-btn" onclick="restoreBackup('${backup.name}')" style="padding: 4px 12px; font-size: 0.8rem;" ${restoreDisabled}>
+            ${backup.isDirectory ? 'Manuell' : 'Wiederherstellen'}
           </button>
         </div>
       `;
@@ -39934,6 +39534,12 @@ async function createManualBackup() {
         alert(`${data.backupsCreated} Backups erstellt`);
       } else if (type === 'chalkboards') {
         alert(`Wandtafeln-Backup: ${data.count} Tafeln gesichert`);
+      } else if (type === 'lectures') {
+        alert(`Vorträge-Backup: ${data.count} Dateien gesichert`);
+      } else if (type === 'books') {
+        alert(`Bücher-Backup: ${data.count} Dateien gesichert`);
+      } else if (data.message) {
+        alert(data.message);
       } else {
         alert(`Backup erstellt: ${data.backup || data.backupFile}`);
       }
@@ -39984,12 +39590,20 @@ async function restoreBackup(backupName) {
     <div style="margin-bottom: 15px;">
       <select id="backupTypeSelect" onchange="loadBackupList()" style="padding: 6px; font-size: 0.85rem; border: 1px solid var(--border-color); border-radius: 3px; margin-right: 10px; background: var(--background-color); color: var(--text-color);">
         <option value="keywords">Keywords DB</option>
-        <option value="summary">Summary DB</option>
+        <option value="summary">Summary DB (Überschriften)</option>
+        <option value="lectures">📚 Vorträge (mit Seitenmarkern)</option>
+        <option value="books">📖 Bücher</option>
+        <option value="quotes">💬 Zitate</option>
+        <option value="relationships">🔗 Beziehungen</option>
+        <option value="concepts">🧠 Konzepte</option>
+        <option value="bibliography">📋 Bibliographie</option>
         <option value="themes">Themes & Heatmap</option>
         <option value="clusters">Clusters</option>
         <option value="images">Steiner Images</option>
-        <option value="pagemarkers">Seitenzahlen</option>
+        <option value="pagemarkers">Seitenzahlen-Anker</option>
         <option value="pagebreakbooks">Pagebreak Books</option>
+        <option value="pagemarkerchecker">📝 Page Marker Checker (HTML)</option>
+        <option value="pagemarkermd">📄 Seitenmarker MD-Dateien</option>
         <option value="code">Backend Code</option>
         <option value="html">HTML Dateien</option>
         <option value="chalkboards">🖼️ Wandtafeln</option>

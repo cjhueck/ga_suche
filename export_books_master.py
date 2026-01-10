@@ -135,6 +135,129 @@ def fix_image_placeholders_in_content(content):
     return content
 
 
+def embed_images_as_base64(content, md_file_path):
+    """
+    Konvertiert Bildreferenzen im Markdown zu base64 data URLs.
+    
+    Args:
+        content: Markdown-Text mit Bildreferenzen
+        md_file_path: Pfad zur Markdown-Datei (für relativen Pfad-Auflösung)
+        
+    Returns:
+        Markdown-Text mit base64-embeddete Bildern
+    """
+    import base64
+    from urllib.parse import unquote
+    
+    md_dir = os.path.dirname(md_file_path)
+    
+    # Pattern für Markdown-Bilder: ![alt](path) oder ![alt](<path>)
+    # Erfasst: assets/path.webp, assets/path.png, etc.
+    # Überspringe URLs (http://, https://, file://)
+    image_pattern = r'!\[([^\]]*)\]\(<?((?!https?://|file://)([^)>]+\.(?:png|webp|jpg|jpeg|gif)))>?\)'
+    
+    def replace_with_base64(match):
+        alt_text = match.group(1)
+        image_path = match.group(2)
+        
+        # Entferne führende/trailing Leerzeichen und Anführungszeichen
+        image_path = image_path.strip().strip('"\'')
+        
+        # URL-Decodiere den Pfad (falls URL-codiert)
+        image_path = unquote(image_path)
+        
+        # Wenn Pfad bereits mit assets/ beginnt, verwende direkt
+        if image_path.startswith('assets/'):
+            full_path = os.path.join(md_dir, image_path)
+        else:
+            # Versuche assets/ voranzustellen
+            if not image_path.startswith('assets/'):
+                full_path = os.path.join(md_dir, 'assets', os.path.basename(image_path))
+            else:
+                full_path = os.path.join(md_dir, image_path)
+        
+        # Prüfe ob Datei existiert
+        if not os.path.exists(full_path):
+            # Fallback 1: Versuche direkt im md_dir
+            full_path = os.path.join(md_dir, image_path)
+            if not os.path.exists(full_path):
+                # Fallback 2: Suche in Unterverzeichnissen (für Multi-File-Bücher)
+                # Suche nach assets-Ordnern in allen Unterverzeichnissen
+                ga_folder = Path(md_dir).parent  # GA-Ordner (z.B. GA002)
+                for subdir in ga_folder.rglob('assets'):
+                    test_path = subdir / os.path.basename(image_path)
+                    if test_path.exists():
+                        full_path = str(test_path)
+                        break
+                else:
+                    # Fallback 3: Versuche .jpeg/.jpg wenn .webp nicht existiert
+                    if image_path.endswith('.webp'):
+                        base_name = image_path[:-5]  # Entferne .webp
+                        for ext in ['.jpeg', '.jpg', '.png']:
+                            alt_path = base_name + ext
+                            if image_path.startswith('assets/'):
+                                test_full = os.path.join(md_dir, alt_path)
+                            else:
+                                test_full = os.path.join(md_dir, 'assets', os.path.basename(alt_path))
+                            
+                            if os.path.exists(test_full):
+                                full_path = test_full
+                                break
+                            else:
+                                # Suche auch in Unterverzeichnissen
+                                for subdir in ga_folder.rglob('assets'):
+                                    test_path = subdir / os.path.basename(alt_path)
+                                    if test_path.exists():
+                                        full_path = str(test_path)
+                                        break
+                                if os.path.exists(full_path):
+                                    break
+                    
+                    if not os.path.exists(full_path):
+                        # Bild nicht gefunden, behalte Original
+                        return match.group(0)
+        
+        try:
+            # Lese Bilddatei
+            with open(full_path, 'rb') as f:
+                image_data = f.read()
+            
+            # Bestimme MIME-Type basierend auf Dateierweiterung
+            ext = os.path.splitext(full_path)[1].lower()
+            mime_types = {
+                '.png': 'image/png',
+                '.webp': 'image/webp',
+                '.jpg': 'image/jpeg',
+                '.jpeg': 'image/jpeg',
+                '.gif': 'image/gif'
+            }
+            mime_type = mime_types.get(ext, 'image/png')
+            
+            # Konvertiere zu base64
+            base64_data = base64.b64encode(image_data).decode('utf-8')
+            data_url = f'data:{mime_type};base64,{base64_data}'
+            
+            # Debug: Zeige dass Bild eingebettet wurde
+            print(f"    [IMG] Bild eingebettet: {os.path.basename(full_path)} ({len(image_data)} bytes)")
+            
+            # Ersetze Markdown-Bildreferenz durch base64 data URL
+            return f'![{alt_text}]({data_url})'
+            
+        except Exception as e:
+            print(f"    [WARN] Fehler beim Einbetten von Bild {image_path}: {e}")
+            # Bei Fehler behalte Original
+            return match.group(0)
+    
+    # Debug: Zähle wie viele Bilder gefunden wurden
+    matches = list(re.finditer(image_pattern, content))
+    if matches:
+        print(f"    [DEBUG] Gefunden: {len(matches)} Bildreferenzen in {os.path.basename(md_file_path)}")
+    
+    content = re.sub(image_pattern, replace_with_base64, content)
+    
+    return content
+
+
 class BooksExporter:
     def __init__(self, parallel_workers=4, skip_spelling=False):
         self.project_root = os.path.dirname(os.path.abspath(__file__))
@@ -299,8 +422,9 @@ class BooksExporter:
         chapter_files = []
         for md_file in md_files:
             name = md_file.name
-            # Multi-File-Kapitel: "GAXXX (N.) KAPITELNAME.md" (OHNE Komma/Datum = kein Vortrag)
-            match = re.match(r'GA\d{2,3}[a-z]?\s*\((\d+)\.\)\s+([^,]+)\.md$', name)
+            # Multi-File-Kapitel: "GAXXX (N.) KAPITELNAME.md"
+            # Erlaube Kommas und Punkte im Titel (nicht nur [^,]+)
+            match = re.match(r'GA\d{2,3}[a-z]?\s*\((\d+)\.\)\s+(.+)\.md$', name)
             if match:
                 chapter_num = int(match.group(1))
                 chapter_files.append((chapter_num, md_file))
@@ -312,6 +436,7 @@ class BooksExporter:
         
         # Sonst: Suche nach Einzeldatei (altes Verhalten)
         main_files_with_year = []
+        main_files_with_year_neu = []  # Dateien mit Jahr UND "_neu"
         main_files_without_year = []
         for md_file in md_files:
             name = md_file.name
@@ -320,13 +445,19 @@ class BooksExporter:
                 continue
             # Hauptdatei mit Jahr: "GAXXX - Titel (Jahr).md" oder "GAXXXa - Titel (Jahr).md"
             if re.match(r'GA\d{2,3}[a-z]?\s*-\s*.+\(.+\)\.md', name):
-                main_files_with_year.append(md_file)
+                # Bevorzuge Dateien mit "_neu" im Namen
+                if '_neu' in name.lower():
+                    main_files_with_year_neu.append(md_file)
+                else:
+                    main_files_with_year.append(md_file)
             # Hauptdatei ohne Jahr: "GAXXX - Titel.md" oder "GAXXXa - Titel.md"
             elif re.match(r'GA\d{2,3}[a-z]?\s*-\s*.+\.md', name):
                 main_files_without_year.append(md_file)
         
-        # Bevorzuge Dateien mit Jahr, falls vorhanden
-        if main_files_with_year:
+        # Bevorzuge Dateien mit Jahr UND "_neu", dann Dateien mit Jahr, dann ohne Jahr
+        if main_files_with_year_neu:
+            return (False, [main_files_with_year_neu[0]])
+        elif main_files_with_year:
             return (False, [main_files_with_year[0]])
         elif main_files_without_year:
             return (False, [main_files_without_year[0]])
@@ -998,6 +1129,9 @@ class BooksExporter:
             # 1.5. Konvertiere JPEG-Platzhalter zu PNG
             content = fix_image_placeholders_in_content(content)
             
+            # 1.6. Bette Bilder als base64 ein
+            content = embed_images_as_base64(content, main_file)
+            
             # 2. Konvertiere Überschriften
             content = self.convert_headings(content)
             
@@ -1153,6 +1287,9 @@ class BooksExporter:
                 
                 # 1.5. Konvertiere JPEG-Platzhalter zu PNG
                 content = fix_image_placeholders_in_content(content)
+                
+                # 1.6. Bette Bilder als base64 ein
+                content = embed_images_as_base64(content, chapter_file)
                 
                 # 2. Konvertiere Überschriften
                 content = self.convert_headings(content)
