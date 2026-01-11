@@ -11,6 +11,13 @@
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- PDF.js für PDF-Anzeige im Texte-Tab -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="themes/themes-data.js"></script>
     <script src="themes/thematic-visualization.js"></script>
@@ -24,7 +31,7 @@
     .page-break-container {
       display: inline;
       user-select: none;
-      cursor: default;
+      cursor: pointer;
     }
     
     /* Seitenzahl schwebt links - float mit negativem margin */
@@ -41,6 +48,11 @@
       color: var(--link-color, #467886);
       font-weight: 400;
       line-height: 1.3;
+      transition: color 0.2s, text-decoration 0.2s;
+    }
+    
+    .page-break-num:hover {
+      text-decoration: underline;
     }
     
     /* Seitenzahlen in eingerückten Absätzen: kompensiere Einrückung */
@@ -2790,11 +2802,147 @@ body.dark-mode .ga-missing-text {
       background: var(--background-color);
       border-left: none; /* Keine Border, da die Trennlinie vom Handle-Wrapper kommt */
       border-top: none !important;
-
     }
     
-
+    /* ========== PDF-Viewer Panel (nur im Texte-Tab) ========== */
+    #pdf-viewer-panel {
+      display: none;
+      position: fixed;
+      right: 0;
+      top: 60px;
+      bottom: 0;
+      width: 45%;
+      min-width: 300px;
+      max-width: 600px;
+      background: var(--background-color);
+      border-left: 1px solid var(--border-color);
+      z-index: 998;
+      flex-direction: column;
+      overflow: hidden;
+    }
     
+    #pdf-viewer-panel.visible {
+      display: flex;
+    }
+    
+    body.dark-mode #pdf-viewer-panel {
+      background: var(--dark-background-color);
+      border-left-color: var(--dark-border-color);
+    }
+    
+    .pdf-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+      gap: 8px;
+    }
+    
+    body.dark-mode .pdf-panel-header {
+      background: var(--dark-background-color);
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    .pdf-panel-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .pdf-panel-controls button {
+      padding: 4px 8px;
+      font-size: 0.85em;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-color);
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .pdf-panel-controls button:hover {
+      background: var(--border-color);
+    }
+    
+    body.dark-mode .pdf-panel-controls button {
+      border-color: var(--dark-border-color);
+      color: var(--dark-text-color);
+    }
+    
+    .pdf-page-info {
+      font-size: 0.85em;
+      color: var(--secondary-text);
+      white-space: nowrap;
+    }
+    
+    body.dark-mode .pdf-page-info {
+      color: var(--dark-secondary-text);
+    }
+    
+    .pdf-panel-close {
+      padding: 4px 8px;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      color: var(--secondary-text);
+      cursor: pointer;
+    }
+    
+    .pdf-panel-close:hover {
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .pdf-panel-close {
+      color: var(--dark-secondary-text);
+    }
+    
+    body.dark-mode .pdf-panel-close:hover {
+      color: var(--dark-text-color);
+    }
+    
+    .pdf-canvas-container {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      background: #525659;
+    }
+    
+    .pdf-canvas-container canvas {
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    /* Wenn PDF-Panel sichtbar: main-container anpassen */
+    body.pdf-panel-open #main-container {
+      margin-right: 45%;
+    }
+    
+    /* PDF Toggle Button im Header */
+    #pdfToggleBtn {
+      display: none;
+      padding: 4px 8px;
+      font-size: 0.85em;
+      border: 1px solid var(--link-color);
+      background: transparent;
+      color: var(--link-color);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    
+    #pdfToggleBtn:hover {
+      background: var(--link-color);
+      color: white;
+    }
+    
+    #pdfToggleBtn.active {
+      background: var(--link-color);
+      color: white;
+    }
     
     /* Erweiterte Suche: Überschriften in Snippets */
     .advanced-search-snippet h3,
@@ -8878,6 +9026,10 @@ Original
 <path d="M6 2 L10 8 L2 8 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
 </svg>
 </button>
+<!-- 0. PDF Toggle Button (nur im Texte-Tab bei GA-Bänden) -->
+<button id="pdfToggleBtn" onclick="togglePdfPanel()" title="PDF-Ansicht ein-/ausblenden">
+PDF
+</button>
 <!-- 1. Info Button für bibliographische Angaben (nur bei GA-Bänden) -->
 <button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s;">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8925,6 +9077,25 @@ Original
 <div id="toc-list"></div>
 </div>
 </div>
+
+<!-- PDF-Viewer Panel (nur im Texte-Tab) -->
+<div id="pdf-viewer-panel">
+  <div class="pdf-panel-header">
+    <div class="pdf-panel-controls">
+      <button onclick="pdfPrevPage()" title="Vorherige Seite">←</button>
+      <span class="pdf-page-info">
+        <input type="number" id="pdfPageInput" min="1" value="1" style="width: 50px; text-align: center;" onchange="pdfGoToPage(this.value)">
+        / <span id="pdfTotalPages">0</span>
+      </span>
+      <button onclick="pdfNextPage()" title="Nächste Seite">→</button>
+    </div>
+    <button class="pdf-panel-close" onclick="closePdfPanel()" title="PDF schließen">✕</button>
+  </div>
+  <div class="pdf-canvas-container" id="pdfCanvasContainer">
+    <canvas id="pdfCanvas"></canvas>
+  </div>
+</div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
@@ -22184,6 +22355,10 @@ function scrollToChronologicalYear(year) {
     else if (isInTexteTab) {
       if (currentGANumber) {
         gaInfoBtn.style.display = 'inline-flex';
+        // PDF-Button im Texte-Tab anzeigen
+        if (typeof updatePdfButtonVisibility === 'function') {
+          updatePdfButtonVisibility(currentGANumber);
+        }
       } else {
         // Prüfe ob im Titel ein GA-Band angezeigt wird
         const titleElement = document.getElementById('document-title');
@@ -22194,6 +22369,10 @@ function scrollToChronologicalYear(year) {
             // Setze currentGANumber basierend auf Titel
             currentGANumber = gaMatch[1];
             gaInfoBtn.style.display = 'inline-flex';
+            // PDF-Button im Texte-Tab anzeigen
+            if (typeof updatePdfButtonVisibility === 'function') {
+              updatePdfButtonVisibility(currentGANumber);
+            }
           }
         }
       }
@@ -42713,7 +42892,7 @@ async function addKeywordToLecture() {
     // Nur bei gedrückter Strg-Taste neues Popup öffnen
     if (!e.ctrlKey) return;
     
-    // SEITENZAHL-POPUP: Prüfe ob Klick auf Seitenzahl
+    // SEITENZAHL-POPUP: Prüfe ob Klick auf Seitenzahl (nur mit Strg)
     const pageBreakContainer = e.target.closest('.page-break-container');
     if (pageBreakContainer) {
       e.preventDefault();
@@ -43093,6 +43272,272 @@ window.cancelTextEditMode = function() {};
   });
   
   console.log('[THEMATIC-SAVE] Modul geladen');
+})();
+</script>
+
+<!-- ========== PDF-Viewer für Texte-Tab ========== -->
+<script>
+(function() {
+  // PDF-Viewer State
+  let pdfDoc = null;
+  let pdfCurrentPage = 1;
+  let pdfTotalPages = 0;
+  let pdfCurrentGANumber = null;
+  let pdfPanelVisible = false;
+  
+  // PDF laden
+  async function loadPdf(gaNumber) {
+    if (!gaNumber) return;
+    
+    // Extrahiere die GA-Nummer (z.B. "GA006" -> "6")
+    const match = gaNumber.match(/GA0*(\d+[a-z]?)/i);
+    if (!match) return;
+    
+    const gaNum = match[1]; // Ohne führende Nullen
+    pdfCurrentGANumber = gaNumber;
+    
+    try {
+      if (typeof pdfjsLib === 'undefined') {
+        console.error('PDF.js nicht geladen');
+        return;
+      }
+      
+      // Hole Liste der verfügbaren PDFs vom Server
+      const pdfListResponse = await fetch(`Steiner_GA_pdf/`);
+      if (pdfListResponse.ok) {
+        const html = await pdfListResponse.text();
+        // Parse HTML um PDF-Dateinamen zu finden
+        const pdfPattern = new RegExp(`GA ${gaNum} - [^"]+\\.pdf`, 'i');
+        const pdfMatch = html.match(pdfPattern);
+        
+        if (pdfMatch) {
+          const pdfPath = `Steiner_GA_pdf/${pdfMatch[0]}`;
+          console.log('[PDF] Versuche zu laden:', pdfPath);
+          
+          const loadingTask = pdfjsLib.getDocument(pdfPath);
+          pdfDoc = await loadingTask.promise;
+          pdfTotalPages = pdfDoc.numPages;
+          
+          document.getElementById('pdfTotalPages').textContent = pdfTotalPages;
+          document.getElementById('pdfPageInput').max = pdfTotalPages;
+          
+          // Zeige erste Seite
+          pdfCurrentPage = 1;
+          await renderPdfPage(pdfCurrentPage);
+          
+          console.log('[PDF] Geladen:', pdfPath, 'Seiten:', pdfTotalPages);
+          return true;
+        }
+      }
+      
+      // Fallback: Versuche direkten Pfad
+      const directPath = `Steiner_GA_pdf/GA ${gaNum}.pdf`;
+      console.log('[PDF] Fallback-Pfad:', directPath);
+      
+      const loadingTask = pdfjsLib.getDocument(directPath);
+      pdfDoc = await loadingTask.promise;
+      pdfTotalPages = pdfDoc.numPages;
+      
+      document.getElementById('pdfTotalPages').textContent = pdfTotalPages;
+      document.getElementById('pdfPageInput').max = pdfTotalPages;
+      
+      pdfCurrentPage = 1;
+      await renderPdfPage(pdfCurrentPage);
+      
+      console.log('[PDF] Geladen:', directPath, 'Seiten:', pdfTotalPages);
+      return true;
+      
+    } catch (error) {
+      console.warn('[PDF] Nicht gefunden:', error.message);
+      pdfDoc = null;
+      return false;
+    }
+  }
+  
+  // PDF-Seite rendern
+  async function renderPdfPage(pageNum) {
+    if (!pdfDoc) return;
+    
+    try {
+      const page = await pdfDoc.getPage(pageNum);
+      const canvas = document.getElementById('pdfCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Container-Breite für Skalierung
+      const container = document.getElementById('pdfCanvasContainer');
+      const containerWidth = container.clientWidth - 40; // Padding abziehen
+      
+      // Skalierung berechnen
+      const viewport = page.getViewport({ scale: 1.0 });
+      const scale = Math.min(containerWidth / viewport.width, 2.0); // Max 2x
+      const scaledViewport = page.getViewport({ scale: scale });
+      
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+      
+      await page.render({
+        canvasContext: ctx,
+        viewport: scaledViewport
+      }).promise;
+      
+      document.getElementById('pdfPageInput').value = pageNum;
+      pdfCurrentPage = pageNum;
+      
+    } catch (error) {
+      console.error('[PDF] Render-Fehler:', error);
+    }
+  }
+  
+  // Navigation
+  window.pdfPrevPage = function() {
+    if (pdfCurrentPage > 1) {
+      renderPdfPage(pdfCurrentPage - 1);
+    }
+  };
+  
+  window.pdfNextPage = function() {
+    if (pdfCurrentPage < pdfTotalPages) {
+      renderPdfPage(pdfCurrentPage + 1);
+    }
+  };
+  
+  window.pdfGoToPage = function(pageNum) {
+    const page = parseInt(pageNum);
+    if (page >= 1 && page <= pdfTotalPages) {
+      renderPdfPage(page);
+    }
+  };
+  
+  // Panel öffnen/schließen
+  window.togglePdfPanel = async function() {
+    const panel = document.getElementById('pdf-viewer-panel');
+    const btn = document.getElementById('pdfToggleBtn');
+    const summaryPanel = document.getElementById('summary-panel');
+    
+    if (pdfPanelVisible) {
+      // Schließen
+      closePdfPanel();
+    } else {
+      // Öffnen
+      // Zuerst TOC ausblenden
+      if (summaryPanel) {
+        summaryPanel.classList.remove('visible');
+      }
+      
+      // PDF laden falls noch nicht geschehen
+      if (!pdfDoc && pdfCurrentGANumber) {
+        await loadPdf(pdfCurrentGANumber);
+      } else if (!pdfDoc && window.currentOpenLectureId) {
+        await loadPdf(window.currentOpenLectureId);
+      }
+      
+      if (pdfDoc) {
+        panel.classList.add('visible');
+        btn.classList.add('active');
+        document.body.classList.add('pdf-panel-open');
+        pdfPanelVisible = true;
+      } else {
+        alert('PDF für diesen Band nicht verfügbar.');
+      }
+    }
+  };
+  
+  window.closePdfPanel = function() {
+    const panel = document.getElementById('pdf-viewer-panel');
+    const btn = document.getElementById('pdfToggleBtn');
+    
+    panel.classList.remove('visible');
+    btn.classList.remove('active');
+    document.body.classList.remove('pdf-panel-open');
+    pdfPanelVisible = false;
+  };
+  
+  // Zu Seite springen (wird von Seitenzahl-Klick aufgerufen)
+  window.jumpToPdfPage = function(pageNum) {
+    if (!pdfPanelVisible) {
+      // Panel öffnen wenn nicht sichtbar
+      togglePdfPanel().then(() => {
+        if (pdfDoc) {
+          pdfGoToPage(pageNum);
+        }
+      });
+    } else if (pdfDoc) {
+      pdfGoToPage(pageNum);
+    }
+  };
+  
+  // PDF-Button anzeigen/verstecken basierend auf Tab und Inhalt
+  window.updatePdfButtonVisibility = function(gaNumber) {
+    const btn = document.getElementById('pdfToggleBtn');
+    const activeTab = document.querySelector('.tab-content.active');
+    const isTexteTab = activeTab && activeTab.id === 'texte-tab';
+    
+    // Prüfe ob es ein GA-Band ist (GA001-GA354)
+    const isGA = gaNumber && /^GA\d{1,3}[a-z]?$/i.test(gaNumber);
+    
+    if (isTexteTab && isGA) {
+      btn.style.display = 'block';
+      pdfCurrentGANumber = gaNumber;
+    } else {
+      btn.style.display = 'none';
+      // Panel schließen wenn Tab gewechselt wird
+      if (pdfPanelVisible) {
+        closePdfPanel();
+      }
+    }
+  };
+  
+  // Bei Tab-Wechsel PDF-Panel schließen
+  const originalSwitchTab = window.switchTab;
+  if (originalSwitchTab) {
+    window.switchTab = function(mode, skipHistory) {
+      // PDF-Panel schließen
+      if (pdfPanelVisible) {
+        closePdfPanel();
+      }
+      // PDF-Button verstecken
+      const btn = document.getElementById('pdfToggleBtn');
+      if (btn) btn.style.display = 'none';
+      
+      return originalSwitchTab(mode, skipHistory);
+    };
+  }
+  
+  // Event-Listener für Klicks auf Seitenzahlen (ohne Strg = PDF öffnen)
+  document.addEventListener('click', function(e) {
+    // Nur ohne Modifier-Tasten
+    if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
+    
+    // Prüfe ob Klick auf Seitenzahl
+    const pageBreakNum = e.target.closest('.page-break-num');
+    const pageBreakContainer = e.target.closest('.page-break-container');
+    
+    if (pageBreakNum || pageBreakContainer) {
+      const container = pageBreakContainer || pageBreakNum.closest('.page-break-container');
+      if (!container) return;
+      
+      // Extrahiere Seitenzahl
+      const numSpan = container.querySelector('.page-break-num');
+      if (!numSpan) return;
+      
+      const pageNum = parseInt(numSpan.textContent.trim());
+      if (isNaN(pageNum)) return;
+      
+      // Nur im Texte-Tab reagieren
+      const activeTab = document.querySelector('.tab-content.active');
+      if (!activeTab || activeTab.id !== 'texte-tab') return;
+      
+      // PDF öffnen und zu Seite springen
+      e.preventDefault();
+      e.stopPropagation();
+      
+      if (typeof jumpToPdfPage === 'function') {
+        jumpToPdfPage(pageNum);
+      }
+    }
+  });
+  
+  console.log('[PDF-VIEWER] Modul geladen');
 })();
 </script>
 
