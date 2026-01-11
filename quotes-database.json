@@ -46,8 +46,9 @@
       "lectureId": "GA197/6",
       "paragraphIndex": "^gaczzv",
       "addedAt": "2025-12-14T00:02:51.255Z",
-      "isActive": false,
-      "date": "1920-07-25"
+      "isActive": true,
+      "date": "1920-07-25",
+      "displayedSince": "2026-01-11T16:00:01.886Z"
     },
     {
       "id": "1765913332314",
@@ -55,7 +56,7 @@
       "lectureId": "GA036/54",
       "paragraphIndex": "^zoetjm",
       "addedAt": "2025-12-16T19:28:52.314Z",
-      "isActive": true,
+      "isActive": false,
       "displayedSince": "2026-01-04T07:34:22.173Z"
     },
     {
