@@ -3,6 +3,10 @@ Steiner_GA/
 Steiner_GA_pdf/
 backups/
 
+# Runtime data (should persist between deployments)
+analytics-data.json
+query-log.json
+
 # Environment variables (API keys!)
 .env
 .env.local
