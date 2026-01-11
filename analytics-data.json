@@ -11,9 +11,9 @@
       "lectures": 78
     },
     "2026-01-11": {
-      "views": 3,
+      "views": 4,
       "searches": 0,
-      "lectures": 51
+      "lectures": 85
     }
   },
   "topSearches": {
@@ -21,22 +21,22 @@
     "webp": 2
   },
   "topLectures": {
-    "GA002": 72,
+    "GA002": 73,
     "GA002/1": 1,
     "GA003": 10,
     "GA001/1": 2,
     "GA001/2": 1,
     "GA001/3": 4,
     "GA008": 6,
-    "GA004": 6,
+    "GA004": 8,
     "GA005": 9,
-    "GA006": 6,
-    "GA007": 7,
+    "GA006": 33,
+    "GA007": 11,
     "GA013": 1,
     "GA009": 4,
     "GA010": 1
   },
-  "totalViews": 6,
+  "totalViews": 7,
   "totalSearches": 3,
-  "totalLectureViews": 130
+  "totalLectureViews": 164
 }
