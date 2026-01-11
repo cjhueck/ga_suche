@@ -1007,7 +1007,7 @@ def find_pagebreak_position(
             # Erweitert um kürzere Längen für bessere Trefferquote
             for length in [120, 100, 80, 60, 50, 40, 30, 25, 20, 15]:
                 if len(words_norm) < length:
-                    continue
+                continue
                 snippet = words_norm[:length]
                 
                 # Finde ALLE Vorkommen, nicht nur das erste
@@ -1037,10 +1037,10 @@ def find_pagebreak_position(
                     break
                 snippet = words_norm[:length]
                 pos = lecture_norm.find(snippet, norm_min)
-                if pos != -1:
+            if pos != -1:
                     orig_pos = map_norm_to_original(lecture_clean, pos)
-                    if orig_pos >= min_position:
-                        return orig_pos
+                if orig_pos >= min_position:
+                    return orig_pos
     
     # Strategie 2: Suche nur nach this_start (oben links, ohne prev_end)
     for length in [60, 50, 40, 30, 20]:
@@ -1082,8 +1082,8 @@ def find_pagebreak_position(
             pos = lecture_norm.find(rest_norm[:min(50, len(rest_norm))], pos)
             if pos == -1:
                 break
-            orig_pos = map_norm_to_original(lecture_clean, pos)
-            if orig_pos >= min_position:
+                orig_pos = map_norm_to_original(lecture_clean, pos)
+                if orig_pos >= min_position:
                 # NUR oben links suchen - keine Bewertung mit prev_end mehr!
                 distance = abs(orig_pos - min_position)
                 candidates.append((orig_pos, distance, pos))
@@ -1217,9 +1217,9 @@ def process_lecture(
             if pos >= search_start:
                 # Prüfe ob diese Seitenzahl bereits eingefügt wurde (verhindere Duplikate)
                 if not any(p == page_num for _, p in markers):
-                    markers.append((pos, page_num))
-                    search_start = pos + 1
-                    matched_pages += 1
+                markers.append((pos, page_num))
+                search_start = pos + 1
+                matched_pages += 1
             
             last_pdf_index = start_pdf_index + rel_idx
     
