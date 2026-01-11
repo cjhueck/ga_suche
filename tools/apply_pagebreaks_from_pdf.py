@@ -335,7 +335,64 @@ def extract_body_text(page_text: str) -> str:
     return "\n".join(body_lines)
 
 
-def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
+def extract_first_words(text: str, num_words: int = 20) -> str:
+    """
+    Extrahiert die ersten N Wörter aus einem Text.
+    Überspringt dabei Header wie "Seite XX" und leere Zeilen.
+    Optimiert für neue GA-Ausgabe: Durchsucht mehr Zeilen und ist weniger restriktiv.
+    """
+    if not text or not text.strip():
+        return ""
+    
+    lines = text.split("\n")
+    words = []
+    skipped_header_lines = 0
+    max_header_lines = 3  # Maximal 3 Header-Zeilen überspringen
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        
+        # Überspringe nur eindeutige Header-Zeilen (maximal 3)
+        is_header = False
+        if skipped_header_lines < max_header_lines:
+            # Eindeutige Header-Muster
+            if re.match(r"^Seite\s+\d+\s*$", line, re.IGNORECASE):
+                is_header = True
+            elif line.upper() in ["RUDOLF STEINER", "VERLAG"]:
+                is_header = True
+            elif "COPYRIGHT" in line.upper() and "STEINER" in line.upper():
+                is_header = True
+            elif len(line) < 5 and line.isdigit():  # Einzelne Zahl (wahrscheinlich Seitenzahl)
+                is_header = True
+        
+        if is_header:
+            skipped_header_lines += 1
+            continue
+        
+        # Sammle Wörter aus dieser Zeile
+        line_words = line.split()
+        if line_words:
+            words.extend(line_words)
+        
+        # Wenn wir genug Wörter haben, stoppe
+        if len(words) >= num_words:
+            break
+    
+    # Wenn zu wenige Wörter gefunden wurden, nimm einfach die ersten Zeichen des Textes
+    if len(words) < 5:
+        # Fallback: Nimm die ersten 150 Zeichen und extrahiere Wörter daraus
+        fallback_text = text.strip()[:150]
+        fallback_words = fallback_text.split()
+        # Entferne sehr kurze "Wörter" (wahrscheinlich OCR-Fehler)
+        fallback_words = [w for w in fallback_words if len(w) >= 2]
+        words = fallback_words[:num_words]
+    
+    return " ".join(words[:num_words])
+
+
+def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str, str]]:
     """
     Extrahiert alle Seiten mit Seitenzahlen aus der PDF.
     
@@ -347,9 +404,10 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
     
     Für Marker |N| brauchen wir:
         - prev_end: Ende von Seite N-1
-        - this_start: Anfang von Seite N
+        - this_start: Anfang von Seite N (erste 300 Zeichen)
+        - this_start_words: Erste Wörter von Seite N (für neue GA-Ausgabe)
     
-    Rückgabe: Liste von (PDF-Index, Seitenzahl N, Ende-Seite-N-1, Anfang-Seite-N)
+    Rückgabe: Liste von (PDF-Index, Seitenzahl N, Ende-Seite-N-1, Anfang-Seite-N, Erste-Wörter-Seite-N)
     """
     doc = fitz.open(pdf_path)
     
@@ -417,8 +475,20 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
         text_start = body_text[:300] if len(body_text) > 300 else body_text
         # Ende dieser Seite (letzte 300 Zeichen)
         text_end = body_text[-300:] if len(body_text) > 300 else body_text
+        # Erste Wörter vom Seitenanfang (für neue GA-Ausgabe)
+        # Erhöht auf 20 Wörter für bessere Erkennung
+        first_words = extract_first_words(body_text, num_words=20)
         
-        page_data.append((i, page_num, text_start, text_end))
+        # Fallback: Wenn extract_first_words zu wenige Wörter zurückgibt, 
+        # verwende einfach die ersten Zeichen von text_start
+        if len(first_words.split()) < 5:
+            # Nimm die ersten 100 Zeichen und extrahiere Wörter daraus
+            fallback_text = text_start[:100].strip()
+            fallback_words = [w for w in fallback_text.split() if len(w) >= 2]
+            if len(fallback_words) >= 5:
+                first_words = " ".join(fallback_words[:20])
+        
+        page_data.append((i, page_num, text_start, text_end, first_words))
     
     doc.close()
     
@@ -426,26 +496,29 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str]]:
     # z.B. wenn Seite 383 zweimal vorkommt und 388 fehlt
     page_data = fix_page_numbers(page_data)
     
-    # Für jeden Marker |N|: prev_end (Ende S.N-1) + this_start (Anfang S.N)
+    # Für jeden Marker |N|: prev_end (Ende S.N-1) + this_start (Anfang S.N) + this_start_words
     pages = []
     
-    for idx, (pdf_idx, page_num, text_start, text_end) in enumerate(page_data):
+    for idx, (pdf_idx, page_num, text_start, text_end, first_words) in enumerate(page_data):
         # prev_end = Ende der VORHERIGEN Seite (N-1)
         if idx > 0:
             prev_end = page_data[idx - 1][3]  # text_end der vorherigen Seite
         else:
             prev_end = ""
         
-        # this_start = Anfang DIESER Seite (N)
+        # this_start = Anfang DIESER Seite (N) - erste 300 Zeichen
         this_start = text_start
         
+        # this_start_words = Erste Wörter dieser Seite (für neue GA-Ausgabe)
+        this_start_words = first_words
+        
         # Marker |page_num| kommt zwischen prev_end und this_start
-        pages.append((pdf_idx, page_num, prev_end, this_start))
+        pages.append((pdf_idx, page_num, prev_end, this_start, this_start_words))
     
     return pages
 
 
-def fix_page_numbers(page_data: List[Tuple[int, int, str, str]]) -> List[Tuple[int, int, str, str]]:
+def fix_page_numbers(page_data: List[Tuple[int, int, str, str, str]]) -> List[Tuple[int, int, str, str, str]]:
     """
     Korrigiert nicht-fortlaufende Seitenzahlen.
     
@@ -457,7 +530,7 @@ def fix_page_numbers(page_data: List[Tuple[int, int, str, str]]) -> List[Tuple[i
     
     corrected = []
     
-    for idx, (pdf_idx, page_num, text_start, text_end) in enumerate(page_data):
+    for idx, (pdf_idx, page_num, text_start, text_end, first_words) in enumerate(page_data):
         expected_page = None
         
         if idx > 0:
@@ -468,10 +541,10 @@ def fix_page_numbers(page_data: List[Tuple[int, int, str, str]]) -> List[Tuple[i
             # Toleranz: max 2 Seiten Sprung (für fehlende Seiten)
             if abs(page_num - expected_page) > 2:
                 # Seitenzahl passt nicht - korrigiere sie
-                corrected.append((pdf_idx, expected_page, text_start, text_end))
+                corrected.append((pdf_idx, expected_page, text_start, text_end, first_words))
                 continue
         
-        corrected.append((pdf_idx, page_num, text_start, text_end))
+        corrected.append((pdf_idx, page_num, text_start, text_end, first_words))
     
     return corrected
 
@@ -886,16 +959,26 @@ def insert_marker_at_position(text: str, pos: int, page_num: int) -> str:
 
 
 def find_pagebreak_position(
-    prev_end: str,
+    prev_end: str,  # Wird nicht mehr verwendet, nur für Rückwärtskompatibilität
     this_start: str,
     lecture_text: str,
-    min_position: int = 0
+    min_position: int = 0,
+    this_start_words: str = ""
 ) -> Optional[int]:
     """
     Findet die exakte Position eines Seitenumbruchs im Vortrag.
     
-    Suche nach "Ende vorherige Seite" + "Anfang diese Seite" im JSON.
-    Der Marker kommt genau dazwischen.
+    WICHTIG: NUR Suche oben links (this_start_words und this_start)!
+    prev_end wird KOMPLETT IGNORIERT - keine Suche rechts unten!
+    
+    Strategien (nur oben links):
+    1. Suche mit this_start_words (erste Wörter vom Seitenanfang)
+    2. Suche mit this_start (erste 300 Zeichen vom Seitenanfang)
+    3. Suche ab erstem vollständigen Wort (überspringe Silbentrennungs-Fragment)
+    
+    Keine Fehlermeldung bei fehlendem Text - gibt einfach None zurück.
+    
+    this_start_words: Erste Wörter vom Seitenanfang (für neue GA-Ausgabe)
     """
     lecture_clean = remove_existing_markers(lecture_text)
     lecture_norm = normalize_for_comparison(lecture_clean)
@@ -903,45 +986,87 @@ def find_pagebreak_position(
     # Approximiere min_position im normalisierten Text
     norm_min = int(min_position * 0.6) if min_position > 0 else 0
     
-    # Für erste Seite (kein prev_end): Position 0
+    # Für erste Seite: Position 0
     if not prev_end:
         return 0
     
     # Normalisiere und entferne Silbentrennungen
-    prev_clean = prev_end.replace("-\n", "").replace("\n", " ")
+    # WICHTIG: prev_end wird KOMPLETT IGNORIERT - nur oben links suchen!
     this_clean = this_start.replace("-\n", "").replace("\n", " ")
-    
-    prev_norm = normalize_for_comparison(prev_clean)
     this_norm = normalize_for_comparison(this_clean)
     
-    # Strategie 1: Kombinierte Suche (prev_end + this_start)
-    for prev_len in [50, 40, 30, 25, 20, 15]:
-        for this_len in [50, 40, 30, 25, 20, 15]:
-            if len(prev_norm) < prev_len or len(this_norm) < this_len:
-                continue
-            
-            prev_snippet = prev_norm[-prev_len:]
-            this_snippet = this_norm[:this_len]
-            combined = prev_snippet + this_snippet
-            
-            pos = lecture_norm.find(combined, norm_min)
-            if pos != -1:
-                marker_norm_pos = pos + prev_len
-                orig_pos = map_norm_to_original(lecture_clean, marker_norm_pos)
-                if orig_pos >= min_position:
-                    return orig_pos
+    # NEUE STRATEGIE: Für neue GA-Ausgabe primär mit this_start_words suchen (oben links)
+    # Strategie 1: Suche mit ersten Wörtern vom Seitenanfang (PRIORITÄT für neue GA-Ausgabe)
+    if this_start_words:
+        words_clean = this_start_words.replace("-\n", "").replace("\n", " ")
+        words_norm = normalize_for_comparison(words_clean)
+        
+        # Reduziertes Minimum: Mindestens 15 Zeichen für bessere Erkennung
+        if len(words_norm) >= 15:
+            # Versuche verschiedene Längen der ersten Wörter
+            # Erweitert um kürzere Längen für bessere Trefferquote
+            for length in [120, 100, 80, 60, 50, 40, 30, 25, 20, 15]:
+                if len(words_norm) < length:
+                    continue
+                snippet = words_norm[:length]
+                
+                # Finde ALLE Vorkommen, nicht nur das erste
+                candidates = []
+                pos = norm_min
+                while True:
+                    pos = lecture_norm.find(snippet, pos)
+                    if pos == -1:
+                        break
+                    orig_pos = map_norm_to_original(lecture_clean, pos)
+                    if orig_pos >= min_position:
+                        # NUR oben links suchen - keine Bewertung mit prev_end mehr!
+                        # Bevorzuge Positionen die näher zu min_position sind (Monotonie)
+                        distance = abs(orig_pos - min_position)
+                        candidates.append((orig_pos, distance, pos))
+                    pos += 1
+                
+                if candidates:
+                    # Sortiere nach Nähe zu min_position (näher = besser)
+                    candidates.sort(key=lambda x: x[1])  # x[1] ist distance
+                    return candidates[0][0]
+        
+        # Fallback: Auch wenn weniger als 15 Zeichen, versuche es trotzdem mit kürzeren Snippets
+        elif len(words_norm) >= 10:
+            for length in [len(words_norm), len(words_norm) - 2, len(words_norm) - 5]:
+                if length < 10:
+                    break
+                snippet = words_norm[:length]
+                pos = lecture_norm.find(snippet, norm_min)
+                if pos != -1:
+                    orig_pos = map_norm_to_original(lecture_clean, pos)
+                    if orig_pos >= min_position:
+                        return orig_pos
     
-    # Strategie 2: Suche nur nach this_start (für Fälle mit starker Abweichung am Ende)
+    # Strategie 2: Suche nur nach this_start (oben links, ohne prev_end)
     for length in [60, 50, 40, 30, 20]:
         if len(this_norm) < length:
             continue
         
         snippet = this_norm[:length]
-        pos = lecture_norm.find(snippet, norm_min)
-        if pos != -1:
+        
+        # Finde ALLE Vorkommen
+        candidates = []
+        pos = norm_min
+        while True:
+            pos = lecture_norm.find(snippet, pos)
+            if pos == -1:
+                break
             orig_pos = map_norm_to_original(lecture_clean, pos)
             if orig_pos >= min_position:
-                return orig_pos
+                # NUR oben links suchen - keine Bewertung mit prev_end mehr!
+                distance = abs(orig_pos - min_position)
+                candidates.append((orig_pos, distance, pos))
+            pos += 1
+        
+        if candidates:
+            # Sortiere nach Nähe zu min_position (näher = besser)
+            candidates.sort(key=lambda x: x[1])  # x[1] ist distance
+            return candidates[0][0]
     
     # Strategie 3: Ab erstem vollständigen Wort (überspringe Silbentrennungs-Fragment)
     words = this_clean.split()
@@ -949,15 +1074,28 @@ def find_pagebreak_position(
         # Überspringe erstes Wort (könnte Fragment sein)
         rest = " ".join(words[1:])
         rest_norm = normalize_for_comparison(rest)
-        for length in [50, 40, 30, 20]:
-            if len(rest_norm) < length:
-                continue
-            pos = lecture_norm.find(rest_norm[:length], norm_min)
-            if pos != -1:
-                orig_pos = map_norm_to_original(lecture_clean, pos)
-                if orig_pos >= min_position:
-                    return orig_pos
+        
+        # Finde ALLE Vorkommen
+        candidates = []
+        pos = norm_min
+        while True:
+            pos = lecture_norm.find(rest_norm[:min(50, len(rest_norm))], pos)
+            if pos == -1:
+                break
+            orig_pos = map_norm_to_original(lecture_clean, pos)
+            if orig_pos >= min_position:
+                # NUR oben links suchen - keine Bewertung mit prev_end mehr!
+                distance = abs(orig_pos - min_position)
+                candidates.append((orig_pos, distance, pos))
+            pos += 1
+        
+        if candidates:
+            # Sortiere nach Nähe zu min_position (näher = besser)
+            candidates.sort(key=lambda x: x[1])  # x[1] ist distance
+            return candidates[0][0]
     
+    # KEIN Fallback mit prev_end mehr - nur oben links suchen!
+    # Wenn nichts gefunden wurde, gibt None zurück (keine Fehlermeldung)
     return None
 
 
@@ -981,7 +1119,7 @@ def map_norm_to_original(text: str, norm_pos: int) -> int:
 
 def process_lecture(
     lecture: Dict,
-    pdf_pages: List[Tuple[int, int, str, str]],
+    pdf_pages: List[Tuple[int, int, str, str, str]],  # (pdf_idx, page_num, prev_end, this_start, this_start_words)
     start_page: int = None,
     end_page: Optional[int] = None,
     start_pdf_index: int = 0
@@ -1043,10 +1181,20 @@ def process_lecture(
         search_start = 1
     
     # Durchsuche alle PDF-Seiten ab start_pdf_index
+    # WICHTIG: Sortiere nach Seitenzahl, damit frühere Seiten nicht übersprungen werden
+    pages_to_process = pdf_pages[start_pdf_index:]
+    pages_to_process = sorted(pages_to_process, key=lambda x: x[1])  # Sortiere nach Seitenzahl (Index 1)
+    
     matched_pages = 0
     expected_pages = (end_page - start_page + 1) if (start_page and end_page) else 0
     
-    for rel_idx, (pdf_idx, page_num, prev_end, this_start) in enumerate(pdf_pages[start_pdf_index:]):
+    for rel_idx, page_tuple in enumerate(pages_to_process):
+        # Unterstütze sowohl alte (4-Tupel) als auch neue (5-Tupel) Format
+        if len(page_tuple) == 5:
+            pdf_idx, page_num, prev_end, this_start, this_start_words = page_tuple
+        else:
+            pdf_idx, page_num, prev_end, this_start = page_tuple
+            this_start_words = ""
         # Wenn start_page/end_page gegeben, filtere
         if start_page is not None and page_num <= start_page:
             continue  # Start-Seite wurde bereits eingefügt
@@ -1054,7 +1202,7 @@ def process_lecture(
             break
         
         # Finde Position für diese Seite durch Text-Matching
-        pos = find_pagebreak_position(prev_end, this_start, full_text, search_start)
+        pos = find_pagebreak_position(prev_end, this_start, full_text, search_start, this_start_words)
         
         if pos is not None and pos > search_start:
             # Ohne start_page: Erste gefundene Seite = Marker am Anfang
@@ -1064,10 +1212,14 @@ def process_lecture(
                 search_start = first_content_pos + 1
             
             # Weitere Seiten: Marker an der Match-Position
-            if page_num > first_page_found:
-                markers.append((pos, page_num))
-                search_start = pos + 1
-                matched_pages += 1
+            # WICHTIG: Prüfe ob Position nach search_start liegt (Monotonie),
+            # nicht ob Seitenzahl größer ist (könnte falsch sein wenn Seiten nicht in Reihenfolge gefunden werden)
+            if pos >= search_start:
+                # Prüfe ob diese Seitenzahl bereits eingefügt wurde (verhindere Duplikate)
+                if not any(p == page_num for _, p in markers):
+                    markers.append((pos, page_num))
+                    search_start = pos + 1
+                    matched_pages += 1
             
             last_pdf_index = start_pdf_index + rel_idx
     

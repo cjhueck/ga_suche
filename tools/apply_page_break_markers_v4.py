@@ -308,8 +308,10 @@ def find_best_insertion(
                     return None
         return None
 
-    # Wenn RIGHT zu kurz ist, direkt Left-only versuchen
-    if not r_norm_full or len(r_norm_full) < 30:
+    # Wenn RIGHT zu kurz ist, versuche trotzdem mit kürzeren Längen
+    # Für neue GA-Ausgabe: RIGHT kann auch mit weniger Text funktionieren
+    if not r_norm_full or len(r_norm_full) < 15:
+        # Nur wenn wirklich zu wenig Text (< 15 Zeichen), versuche Left-only
         return left_only()
 
     def left_bonus(pos_start: int) -> float:
@@ -396,15 +398,17 @@ def find_best_insertion(
         return [k * 5 for k, _ in top]
 
     # Kandidatenlängen (erst lang, dann kürzer)
-    r_lens = [140, 120, 100, 80, 60]
+    # Erweitert um kürzere Längen für neue GA-Ausgabe
+    r_lens = [140, 120, 100, 80, 60, 40, 30, 25, 20, 15]
 
     best_score = -1.0
     best_pos: Optional[int] = None
 
     # 1) Schnellpfad: exakter RIGHT-Fund (nur ab min_norm_pos)
+    # Reduziertes Minimum: 15 Zeichen statt 30 für neue GA-Ausgabe
     for r_len in r_lens:
         r_key = r_norm_full[: min(r_len, len(r_norm_full))].strip()
-        if len(r_key) < 30:
+        if len(r_key) < 15:  # Reduziert von 30 auf 15
             continue
 
         start = max(0, min_norm_pos)
