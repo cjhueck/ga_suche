@@ -2810,13 +2810,14 @@ body.dark-mode .ga-missing-text {
       display: none;
       position: fixed;
       right: 0;
-      top: 60px;
+      top: 60px; /* Wird dynamisch per JS angepasst */
       bottom: 0;
-      width: auto;
-      min-width: 300px;
+      width: 35%;
+      min-width: 320px;
+      max-width: 500px;
       background: var(--background-color);
       border-left: 1px solid var(--border-color);
-      z-index: 998;
+      z-index: 1002;
       flex-direction: column;
       overflow: hidden;
     }
@@ -2838,6 +2839,8 @@ body.dark-mode .ga-missing-text {
       background: var(--background-color);
       border-bottom: 1px solid var(--border-color);
       gap: 8px;
+      flex-shrink: 0;
+      z-index: 1;
     }
     
     body.dark-mode .pdf-panel-header {
@@ -2903,9 +2906,11 @@ body.dark-mode .ga-missing-text {
     
     .pdf-canvas-container {
       flex: 1;
+      min-height: 0;
       overflow: auto;
       display: flex;
       justify-content: center;
+      align-items: flex-start;
       padding: 10px;
       background: var(--background-color);
     }
@@ -9079,24 +9084,23 @@ PDF
 </div>
 </div>
 
-<!-- PDF-Viewer Panel (nur im Texte-Tab) -->
+</div>
+<!-- PDF-Viewer Panel (außerhalb main-container für korrektes position: fixed) -->
 <div id="pdf-viewer-panel">
   <div class="pdf-panel-header">
     <div class="pdf-panel-controls">
-      <button onclick="pdfPrevPage()" title="Vorherige Seite">←</button>
+      <button onclick="window.pdfPrevPage && window.pdfPrevPage()" title="Vorherige Seite">←</button>
       <span class="pdf-page-info">
-        <input type="number" id="pdfPageInput" min="1" value="1" style="width: 50px; text-align: center;" onchange="pdfGoToPage(this.value)">
+        <input type="number" id="pdfPageInput" min="1" value="1" style="width: 50px; text-align: center;" onchange="window.pdfGoToPage && window.pdfGoToPage(this.value)">
         / <span id="pdfTotalPages">0</span>
       </span>
-      <button onclick="pdfNextPage()" title="Nächste Seite">→</button>
+      <button onclick="window.pdfNextPage && window.pdfNextPage()" title="Nächste Seite">→</button>
     </div>
-    <button class="pdf-panel-close" onclick="closePdfPanel()" title="PDF schließen">✕</button>
+    <button class="pdf-panel-close" onclick="window.closePdfPanel && window.closePdfPanel()" title="PDF schließen">✕</button>
   </div>
   <div class="pdf-canvas-container" id="pdfCanvasContainer">
     <canvas id="pdfCanvas"></canvas>
   </div>
-</div>
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
@@ -43311,15 +43315,18 @@ window.cancelTextEditMode = function() {};
     return null;
   }
   
+  // PDF-Basis-URL (WordPress-Hosting)
+  const PDF_BASE_URL = 'https://akanthosakademie.wordpress.com/wp-content/uploads/2023/06/';
+  
   // PDF laden
   async function loadPdf(gaNumber) {
     if (!gaNumber) return;
     
-    // Extrahiere die GA-Nummer (z.B. "GA006" -> "6")
-    const match = gaNumber.match(/GA0*(\d+)/i);
+    // Extrahiere die GA-Nummer (z.B. "GA006" -> "6", "GA068a" -> "068a")
+    const match = gaNumber.match(/GA0*(\d+[a-z]?)/i);
     if (!match) return;
     
-    const gaNum = match[1]; // Ohne führende Nullen
+    const gaNum = match[1]; // Nummer mit optionalem Buchstaben
     pdfCurrentGANumber = gaNumber;
     
     try {
@@ -43328,15 +43335,9 @@ window.cancelTextEditMode = function() {};
         return;
       }
       
-      // Lade PDF-Index
-      const index = await loadPdfIndex();
-      if (!index || !index[gaNum]) {
-        console.warn('[PDF] Keine PDF für GA', gaNum, 'im Index');
-        return false;
-      }
-      
-      const pdfFileName = index[gaNum];
-      const pdfPath = `Steiner_GA_pdf/${encodeURIComponent(pdfFileName)}`;
+      // PDF-Pfad generieren (ga001.pdf, ga002.pdf, ga068a.pdf, etc.)
+      const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
+      const pdfPath = `${PDF_BASE_URL}ga${gaNumPadded.toLowerCase()}.pdf`;
       console.log('[PDF] Lade:', pdfPath);
       
       const loadingTask = pdfjsLib.getDocument(pdfPath);
@@ -43349,7 +43350,7 @@ window.cancelTextEditMode = function() {};
       // Erste Seite vorbereiten (Rendering erfolgt erst nach Panel-Öffnung)
       pdfCurrentPage = 1;
       
-      console.log('[PDF] Geladen:', pdfFileName, 'Seiten:', pdfTotalPages);
+      console.log('[PDF] Geladen: GA', gaNum, 'Seiten:', pdfTotalPages);
       return true;
       
     } catch (error) {
@@ -43360,43 +43361,99 @@ window.cancelTextEditMode = function() {};
   }
   
   // PDF-Seite rendern
+  // Aktive Render-Task für Abbruch
+  let currentRenderTask = null;
+  
   async function renderPdfPage(pageNum) {
     if (!pdfDoc) return;
     
+    // Vorherigen Render abbrechen falls noch aktiv
+    if (currentRenderTask) {
+      try {
+        currentRenderTask.cancel();
+      } catch (e) {}
+      currentRenderTask = null;
+    }
+    
     try {
       const page = await pdfDoc.getPage(pageNum);
-      const canvas = document.getElementById('pdfCanvas');
-      const ctx = canvas.getContext('2d');
-      const panel = document.getElementById('pdf-viewer-panel');
+      const container = document.getElementById('pdfCanvasContainer');
       
-      // Skalierung: schmaleres Fenster
+      // Alten Canvas entfernen und neuen erstellen
+      const oldCanvas = document.getElementById('pdfCanvas');
+      if (oldCanvas) {
+        oldCanvas.remove();
+      }
+      const canvas = document.createElement('canvas');
+      canvas.id = 'pdfCanvas';
+      container.appendChild(canvas);
+      
+      // Verfügbare Größe im Container ermitteln
+      const containerWidth = container.clientWidth - 20; // Padding abziehen
+      const containerHeight = container.clientHeight - 20;
+      
+      // Original-Viewport
       const viewport = page.getViewport({ scale: 1.0 });
-      const targetWidth = 420;
-      const scale = Math.min(targetWidth / viewport.width, 2.0); // Max 2x wie vorher
+      
+      // Skalierung: passt in verfügbaren Platz (Breite UND Höhe)
+      const scaleByWidth = containerWidth / viewport.width;
+      const scaleByHeight = containerHeight / viewport.height;
+      const scale = Math.min(scaleByWidth, scaleByHeight, 2.0); // Max 2x
       const scaledViewport = page.getViewport({ scale: scale });
       
+      // Canvas-Größe setzen
       canvas.width = scaledViewport.width;
       canvas.height = scaledViewport.height;
       
-      await page.render({
+      const ctx = canvas.getContext('2d');
+      
+      currentRenderTask = page.render({
         canvasContext: ctx,
         viewport: scaledViewport
-      }).promise;
+      });
       
-      // Panel-Breite an Canvas anpassen (+ Padding)
-      const panelWidth = scaledViewport.width + 40; // 20px padding links + rechts
-      panel.style.width = panelWidth + 'px';
-      
-      // Main-container margin anpassen
-      document.getElementById('main-container').style.marginRight = panelWidth + 'px';
+      await currentRenderTask.promise;
+      currentRenderTask = null;
       
       document.getElementById('pdfPageInput').value = pageNum;
       pdfCurrentPage = pageNum;
       
     } catch (error) {
-      console.error('[PDF] Render-Fehler:', error);
+      if (error.name !== 'RenderingCancelledException') {
+        console.error('[PDF] Render-Fehler:', error);
+      }
     }
   }
+  
+  // PDF-Panel Position und Größe anpassen
+  function updatePdfPanelPosition() {
+    const panel = document.getElementById('pdf-viewer-panel');
+    const viewerHeader = document.getElementById('viewer-header');
+    const mainContainer = document.getElementById('main-container');
+    
+    if (!panel || !pdfPanelVisible) return;
+    
+    // Header-Höhe ermitteln (dynamisch je nach Überschrift)
+    const headerHeight = viewerHeader ? viewerHeader.offsetHeight : 60;
+    panel.style.top = headerHeight + 'px';
+    
+    // Panel-Breite ermitteln und margins anpassen
+    const panelWidth = panel.offsetWidth;
+    if (mainContainer) {
+      mainContainer.style.marginRight = panelWidth + 'px';
+    }
+    if (viewerHeader) {
+      viewerHeader.style.right = panelWidth + 'px';
+    }
+  }
+  
+  // Bei Fenstergrößenänderung anpassen
+  window.addEventListener('resize', function() {
+    if (pdfPanelVisible) {
+      updatePdfPanelPosition();
+      renderPdfPage(pdfCurrentPage);
+    }
+  });
   
   // Navigation
   window.pdfPrevPage = function() {
@@ -43446,18 +43503,17 @@ window.cancelTextEditMode = function() {};
       }
       
       if (pdfDoc) {
-        // Sofort Panel-Breite und main-container margin setzen (420px target + 40px padding)
-        const initialPanelWidth = 460;
-        panel.style.width = initialPanelWidth + 'px';
-        document.getElementById('main-container').style.marginRight = initialPanelWidth + 'px';
-        
         panel.classList.add('visible');
         btn.classList.add('active');
         document.body.classList.add('pdf-panel-open');
         pdfPanelVisible = true;
         
-        // Seite 1 anzeigen nachdem Panel sichtbar ist
-        setTimeout(() => renderPdfPage(pdfCurrentPage), 50);
+        // Panel-Position und Breite anpassen
+        setTimeout(() => {
+          updatePdfPanelPosition();
+          // Seite rendern
+          renderPdfPage(pdfCurrentPage);
+        }, 50);
       } else {
         alert('PDF für diesen Band nicht verfügbar.');
       }
@@ -43474,8 +43530,12 @@ window.cancelTextEditMode = function() {};
     document.body.classList.remove('pdf-panel-open');
     pdfPanelVisible = false;
     
-    // Main-container margin zurücksetzen
+    // Main-container und Header margin zurücksetzen
     document.getElementById('main-container').style.marginRight = '';
+    const viewerHeader = document.getElementById('viewer-header');
+    if (viewerHeader) {
+      viewerHeader.style.right = '';
+    }
     
     // Resize-Handle wieder einblenden
     if (resizeHandleWrapper) {
@@ -43508,6 +43568,12 @@ window.cancelTextEditMode = function() {};
     
     if (isTexteTab && isGA) {
       btn.style.display = 'block';
+      
+      // Wenn sich die GA-Nummer geändert hat, PDF zurücksetzen
+      if (pdfCurrentGANumber !== gaNumber) {
+        pdfDoc = null;
+        pdfCurrentPage = 1;
+      }
       pdfCurrentGANumber = gaNumber;
     } else {
       btn.style.display = 'none';
@@ -43582,6 +43648,45 @@ window.cancelTextEditMode = function() {};
       });
     });
     observer.observe(summaryPanelForObserver, { attributes: true });
+  }
+  
+  // Event-Listener für PDF-Panel Buttons (zuverlässiger als onclick)
+  function initPdfButtons() {
+    const closeBtn = document.querySelector('.pdf-panel-close');
+    if (closeBtn && !closeBtn._pdfListenerAdded) {
+      closeBtn._pdfListenerAdded = true;
+      closeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.closePdfPanel();
+      });
+    }
+    
+    // Navigation Buttons
+    const prevBtn = document.querySelector('#pdf-viewer-panel button[title="Vorherige Seite"]');
+    const nextBtn = document.querySelector('#pdf-viewer-panel button[title="Nächste Seite"]');
+    
+    if (prevBtn && !prevBtn._pdfListenerAdded) {
+      prevBtn._pdfListenerAdded = true;
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.pdfPrevPage();
+      });
+    }
+    if (nextBtn && !nextBtn._pdfListenerAdded) {
+      nextBtn._pdfListenerAdded = true;
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.pdfNextPage();
+      });
+    }
+  }
+  
+  // Sofort initialisieren falls DOM bereits geladen
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPdfButtons);
+  } else {
+    initPdfButtons();
   }
   
   console.log('[PDF-VIEWER] Modul geladen');

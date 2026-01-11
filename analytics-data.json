@@ -1,42 +1,21 @@
 {
   "dailyStats": {
-    "2026-01-09": {
-      "views": 0,
-      "searches": 0,
-      "lectures": 1
-    },
-    "2026-01-10": {
-      "views": 3,
-      "searches": 3,
-      "lectures": 78
-    },
     "2026-01-11": {
-      "views": 4,
-      "searches": 0,
-      "lectures": 85
+      "views": 0,
+      "searches": 2,
+      "lectures": 8
     }
   },
   "topSearches": {
-    "png": 1,
-    "webp": 2
+    "aufwecker des geisteslebens": 1,
+    "aufwecker": 1
   },
   "topLectures": {
-    "GA002": 73,
-    "GA002/1": 1,
-    "GA003": 10,
-    "GA001/1": 2,
-    "GA001/2": 1,
-    "GA001/3": 4,
-    "GA008": 6,
-    "GA004": 8,
-    "GA005": 9,
-    "GA006": 33,
-    "GA007": 11,
-    "GA013": 1,
-    "GA009": 4,
-    "GA010": 1
+    "GA008": 1,
+    "GA028": 5,
+    "GA009": 2
   },
-  "totalViews": 7,
-  "totalSearches": 3,
-  "totalLectureViews": 164
+  "totalViews": 0,
+  "totalSearches": 2,
+  "totalLectureViews": 8
 }
