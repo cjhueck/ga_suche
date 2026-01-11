@@ -172,6 +172,49 @@ app.get('/assets/*', async (req, res) => {
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
 
+// ============================================================================
+// PDF-PROXY: PDFs von WordPress laden und weiterleiten (umgeht CORS)
+// ============================================================================
+const PDF_SOURCE_URL = 'https://akanthosakademie.files.wordpress.com/2023/06/';
+
+app.get('/api/pdf/:gaNumber', async (req, res) => {
+  try {
+    const gaNumber = req.params.gaNumber.toLowerCase();
+    
+    // Validierung: nur gültige GA-Nummern erlauben (z.B. ga001, ga123a)
+    if (!/^ga\d{3}[a-z]?$/.test(gaNumber)) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer' });
+    }
+    
+    const pdfUrl = `${PDF_SOURCE_URL}${gaNumber}.pdf`;
+    console.log(`[PDF-PROXY] Lade PDF: ${pdfUrl}`);
+    
+    // PDF von WordPress holen
+    const response = await fetch(pdfUrl);
+    
+    if (!response.ok) {
+      console.warn(`[PDF-PROXY] PDF nicht gefunden: ${gaNumber} (Status: ${response.status})`);
+      return res.status(response.status).json({ 
+        error: `PDF nicht verfügbar (${response.status})` 
+      });
+    }
+    
+    // Content-Type und Caching-Header setzen
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h Cache
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    
+    // PDF-Daten als Stream weiterleiten
+    const arrayBuffer = await response.arrayBuffer();
+    res.send(Buffer.from(arrayBuffer));
+    
+    console.log(`[PDF-PROXY] PDF erfolgreich gesendet: ${gaNumber}`);
+  } catch (error) {
+    console.error('[PDF-PROXY] Fehler:', error);
+    res.status(500).json({ error: 'Fehler beim Laden der PDF' });
+  }
+});
+
 // FORCE: app.html mit no-cache Header direkt servieren
 app.get('/app.html', (req, res) => {
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
