@@ -2,20 +2,17 @@
   "dailyStats": {
     "2026-01-11": {
       "views": 0,
-      "searches": 2,
-      "lectures": 8
+      "searches": 0,
+      "lectures": 5
     }
   },
-  "topSearches": {
-    "aufwecker des geisteslebens": 1,
-    "aufwecker": 1
-  },
+  "topSearches": {},
   "topLectures": {
-    "GA008": 1,
-    "GA028": 5,
-    "GA009": 2
+    "GA013": 1,
+    "GA009": 2,
+    "GA011": 2
   },
   "totalViews": 0,
-  "totalSearches": 2,
-  "totalLectureViews": 8
+  "totalSearches": 0,
+  "totalLectureViews": 5
 }

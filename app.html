@@ -25,7 +25,7 @@ if (typeof pdfjsLib !== 'undefined') {
 <!-- Mitglieder Panel Styles -->
 <link rel="stylesheet" href="members/members-panel.css">
 <!-- SICHERHEIT: Content Security Policy (nicht zu restriktiv, um nichts kaputt zu machen) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://ga-suche.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003 https://ga-suche.onrender.com; connect-src 'self' http://localhost:3003 https://ga-suche.onrender.com https://*.supabase.co wss://*.supabase.co https://raw.githubusercontent.com; frame-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://ga-suche.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003 https://ga-suche.onrender.com; connect-src 'self' http://localhost:3003 https://ga-suche.onrender.com https://*.supabase.co wss://*.supabase.co https://raw.githubusercontent.com https://akanthosakademie.files.wordpress.com; frame-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 <style>
     /* Seitenmarker: | im Text, Seitenzahl schwebt am linken Rand */
     .page-break-container {
@@ -43315,8 +43315,11 @@ window.cancelTextEditMode = function() {};
     return null;
   }
   
-  // PDF-Basis-URL (WordPress-Hosting)
-  const PDF_BASE_URL = 'https://akanthosakademie.wordpress.com/wp-content/uploads/2023/06/';
+  // PDF-Quellen
+  const PDF_LOCAL_PATH = 'Steiner_GA_pdf/';
+  
+  // Prüfe ob lokal (file:// Protokoll)
+  const isLocalFile = window.location.protocol === 'file:';
   
   // PDF laden
   async function loadPdf(gaNumber) {
@@ -43329,16 +43332,30 @@ window.cancelTextEditMode = function() {};
     const gaNum = match[1]; // Nummer mit optionalem Buchstaben
     pdfCurrentGANumber = gaNumber;
     
+    // PDF-Pfad generieren
+    const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
+    
+    let pdfPath;
+    if (isLocalFile) {
+      // Lokales Dateisystem: verwende lokale Dateien
+      const index = await loadPdfIndex();
+      if (index && index[gaNum]) {
+        pdfPath = `${PDF_LOCAL_PATH}${encodeURIComponent(index[gaNum])}`;
+      } else {
+        pdfPath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
+      }
+    } else {
+      // Server (localhost oder Produktion): nutze Backend-Proxy
+      pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}`;
+    }
+    
     try {
       if (typeof pdfjsLib === 'undefined') {
         console.error('PDF.js nicht geladen');
         return;
       }
       
-      // PDF-Pfad generieren (ga001.pdf, ga002.pdf, ga068a.pdf, etc.)
-      const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
-      const pdfPath = `${PDF_BASE_URL}ga${gaNumPadded.toLowerCase()}.pdf`;
-      console.log('[PDF] Lade:', pdfPath);
+      console.log('[PDF] Lade:', pdfPath, isLocalFile ? '(lokal)' : '(via Proxy)');
       
       const loadingTask = pdfjsLib.getDocument(pdfPath);
       pdfDoc = await loadingTask.promise;
@@ -43354,7 +43371,8 @@ window.cancelTextEditMode = function() {};
       return true;
       
     } catch (error) {
-      console.warn('[PDF] Fehler beim Laden:', error.message);
+      console.error('[PDF] Fehler beim Laden:', error);
+      console.error('[PDF] URL war:', pdfPath);
       pdfDoc = null;
       return false;
     }
