@@ -186,20 +186,77 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
       return res.status(400).json({ error: 'Ungültige GA-Nummer' });
     }
     
+    // Extrahiere GA-Nummer ohne "ga" Präfix (z.B. "011" aus "ga011")
+    const gaNum = gaNumber.replace(/^ga0*/, ''); // z.B. "11" aus "ga011"
+    const gaNumPadded = gaNum.padStart(3, '0'); // z.B. "011"
+    
+    // SCHRITT 1: Prüfe zuerst lokales Verzeichnis
+    const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
+    let localPdfPath = null;
+    
+    if (fsSync.existsSync(pdfDir)) {
+      try {
+        // Lade pdf-index.json falls vorhanden
+        const indexPath = path.join(pdfDir, 'pdf-index.json');
+        let pdfIndex = null;
+        
+        if (fsSync.existsSync(indexPath)) {
+          try {
+            const indexData = await fs.readFile(indexPath, 'utf8');
+            pdfIndex = JSON.parse(indexData);
+          } catch (indexError) {
+            console.warn(`[PDF-PROXY] Fehler beim Laden von pdf-index.json: ${indexError.message}`);
+          }
+        }
+        
+        // Suche PDF-Datei
+        if (pdfIndex && pdfIndex[gaNum]) {
+          // Verwende Dateinamen aus Index
+          localPdfPath = path.join(pdfDir, pdfIndex[gaNum]);
+        } else {
+          // Fallback: Standard-Dateiname
+          localPdfPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
+        }
+        
+        // Prüfe ob lokale Datei existiert
+        if (fsSync.existsSync(localPdfPath)) {
+          console.log(`[PDF-PROXY] Lokale PDF gefunden: ${path.basename(localPdfPath)}`);
+          
+          // Lade lokale Datei
+          const pdfBuffer = await fs.readFile(localPdfPath);
+          
+          // Content-Type und NO-CACHE Header für lokale Dateien (können sich ändern)
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+          res.setHeader('Pragma', 'no-cache');
+          res.setHeader('Expires', '0');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          
+          res.send(pdfBuffer);
+          console.log(`[PDF-PROXY] Lokale PDF erfolgreich gesendet: ${gaNumber}`);
+          return;
+        }
+      } catch (localError) {
+        console.warn(`[PDF-PROXY] Fehler beim Laden lokaler PDF: ${localError.message}`);
+        // Fahre fort mit WordPress-Fallback
+      }
+    }
+    
+    // SCHRITT 2: Fallback zu WordPress (wenn lokal nicht gefunden)
     const pdfUrl = `${PDF_SOURCE_URL}${gaNumber}.pdf`;
-    console.log(`[PDF-PROXY] Lade PDF: ${pdfUrl}`);
+    console.log(`[PDF-PROXY] Lokale PDF nicht gefunden, lade von WordPress: ${pdfUrl}`);
     
     // PDF von WordPress holen
     const response = await fetch(pdfUrl);
     
     if (!response.ok) {
-      console.warn(`[PDF-PROXY] PDF nicht gefunden: ${gaNumber} (Status: ${response.status})`);
+      console.warn(`[PDF-PROXY] PDF nicht gefunden (lokal und WordPress): ${gaNumber} (Status: ${response.status})`);
       return res.status(response.status).json({ 
         error: `PDF nicht verfügbar (${response.status})` 
       });
     }
     
-    // Content-Type und Caching-Header setzen
+    // Content-Type und Caching-Header setzen (WordPress-Dateien können gecacht werden)
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h Cache
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -208,7 +265,7 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
     const arrayBuffer = await response.arrayBuffer();
     res.send(Buffer.from(arrayBuffer));
     
-    console.log(`[PDF-PROXY] PDF erfolgreich gesendet: ${gaNumber}`);
+    console.log(`[PDF-PROXY] WordPress-PDF erfolgreich gesendet: ${gaNumber}`);
   } catch (error) {
     console.error('[PDF-PROXY] Fehler:', error);
     res.status(500).json({ error: 'Fehler beim Laden der PDF' });
@@ -22392,13 +22449,53 @@ app.get('/api/backups/list/:type', async (req, res) => {
 // ============================================================
 
 const ANALYTICS_FILE = path.join(__dirname, 'analytics-data.json');
+const ANALYTICS_BACKUP_DIR = path.join(__dirname, 'backups', 'analytics');
+
+// Stelle sicher, dass das Backup-Verzeichnis existiert
+async function ensureAnalyticsBackupDir() {
+  try {
+    await fs.mkdir(ANALYTICS_BACKUP_DIR, { recursive: true });
+  } catch (error) {
+    console.warn('[ANALYTICS] Backup-Verzeichnis konnte nicht erstellt werden:', error.message);
+  }
+}
 
 // Analytics-Daten laden oder initialisieren
 async function loadAnalyticsData() {
   try {
     const data = await fs.readFile(ANALYTICS_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch {
+    const parsed = JSON.parse(data);
+    
+    // WICHTIG: Berechne kumulative Werte IMMER neu aus täglichen Daten
+    // Das stellt sicher, dass die Werte korrekt sind, auch wenn die Datei beschädigt wurde
+    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
+    if (parsed.dailyStats && typeof parsed.dailyStats === 'object') {
+      for (const key of Object.keys(parsed.dailyStats)) {
+        const dayData = parsed.dailyStats[key];
+        if (dayData && typeof dayData === 'object') {
+          cumulativeViews += dayData.views || 0;
+          cumulativeSearches += dayData.searches || 0;
+          cumulativeLectures += dayData.lectures || 0;
+        }
+      }
+    }
+    
+    // Aktualisiere die kumulativen Werte in den Daten
+    parsed.totalViews = cumulativeViews;
+    parsed.totalSearches = cumulativeSearches;
+    parsed.totalLectureViews = cumulativeLectures;
+    
+    // Stelle sicher, dass alle benötigten Felder vorhanden sind
+    if (!parsed.dailyStats) parsed.dailyStats = {};
+    if (!parsed.topSearches) parsed.topSearches = {};
+    if (!parsed.topLectures) parsed.topLectures = {};
+    
+    // Speichere korrigierte Daten zurück (falls sich etwas geändert hat)
+    await saveAnalyticsData(parsed);
+    
+    return parsed;
+  } catch (error) {
+    console.warn('[ANALYTICS] Fehler beim Laden, initialisiere neue Datei:', error.message);
     return {
       dailyStats: {},      // { "2025-12-27": { views: 10, searches: 5, lectures: 3 } }
       topSearches: {},     // { "karma": 15, "christus": 12 }
@@ -22413,9 +22510,67 @@ async function loadAnalyticsData() {
 // Analytics-Daten speichern
 async function saveAnalyticsData(data) {
   try {
+    // WICHTIG: Berechne kumulative Werte IMMER neu vor dem Speichern
+    // Das stellt sicher, dass die Werte immer korrekt sind
+    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
+    if (data.dailyStats && typeof data.dailyStats === 'object') {
+      for (const key of Object.keys(data.dailyStats)) {
+        const dayData = data.dailyStats[key];
+        if (dayData && typeof dayData === 'object') {
+          cumulativeViews += dayData.views || 0;
+          cumulativeSearches += dayData.searches || 0;
+          cumulativeLectures += dayData.lectures || 0;
+        }
+      }
+    }
+    
+    // Aktualisiere die kumulativen Werte
+    data.totalViews = cumulativeViews;
+    data.totalSearches = cumulativeSearches;
+    data.totalLectureViews = cumulativeLectures;
+    
+    // Stelle sicher, dass alle Felder vorhanden sind
+    if (!data.dailyStats) data.dailyStats = {};
+    if (!data.topSearches) data.topSearches = {};
+    if (!data.topLectures) data.topLectures = {};
+    
+    // Speichere mit atomarer Operation (erst Backup, dann schreiben)
+    const backupFile = ANALYTICS_FILE + '.backup';
+    try {
+      // Erstelle Backup falls Datei existiert
+      if (fsSync.existsSync(ANALYTICS_FILE)) {
+        const backupContent = await fs.readFile(ANALYTICS_FILE, 'utf8');
+        await fs.writeFile(backupFile, backupContent, 'utf8');
+      }
+    } catch (backupError) {
+      console.warn('[ANALYTICS] Backup konnte nicht erstellt werden:', backupError.message);
+    }
+    
+    // Schreibe neue Datei
     await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+    
+    // Lösche Backup nach erfolgreichem Schreiben
+    try {
+      if (fsSync.existsSync(backupFile)) {
+        await fs.unlink(backupFile);
+      }
+    } catch (unlinkError) {
+      // Ignoriere Fehler beim Löschen des Backups
+    }
   } catch (e) {
     console.error('[ANALYTICS] Fehler beim Speichern:', e.message);
+    // Versuche Backup wiederherzustellen falls Schreiben fehlgeschlagen ist
+    const backupFile = ANALYTICS_FILE + '.backup';
+    try {
+      if (fsSync.existsSync(backupFile)) {
+        const backupContent = await fs.readFile(backupFile, 'utf8');
+        await fs.writeFile(ANALYTICS_FILE, backupContent, 'utf8');
+        console.log('[ANALYTICS] Backup wiederhergestellt nach Fehler');
+      }
+    } catch (restoreError) {
+      console.error('[ANALYTICS] Backup-Wiederherstellung fehlgeschlagen:', restoreError.message);
+    }
+    throw e;
   }
 }
 
@@ -22525,28 +22680,11 @@ app.get('/api/analytics/stats', async (req, res) => {
     }
     
     // Berechne kumulative Werte (Gesamt seit Beginn) aus allen täglichen Daten
-    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
-    for (const key of Object.keys(data.dailyStats).sort()) {
-      const dayData = data.dailyStats[key];
-      cumulativeViews += dayData.views || 0;
-      cumulativeSearches += dayData.searches || 0;
-      cumulativeLectures += dayData.lectures || 0;
-    }
-    
-    // Stelle sicher, dass die kumulativen Werte korrekt sind
-    // Falls sie nicht übereinstimmen, korrigiere sie beim nächsten Speichern
-    if (data.totalViews !== cumulativeViews) {
-      data.totalViews = cumulativeViews;
-      await saveAnalyticsData(data); // Speichere korrigierte Werte
-    }
-    if (data.totalSearches !== cumulativeSearches) {
-      data.totalSearches = cumulativeSearches;
-      await saveAnalyticsData(data);
-    }
-    if (data.totalLectureViews !== cumulativeLectures) {
-      data.totalLectureViews = cumulativeLectures;
-      await saveAnalyticsData(data);
-    }
+    // WICHTIG: Diese Werte werden bereits in loadAnalyticsData() berechnet und korrigiert
+    // Hier verwenden wir die bereits korrigierten Werte aus data
+    const cumulativeViews = data.totalViews || 0;
+    const cumulativeSearches = data.totalSearches || 0;
+    const cumulativeLectures = data.totalLectureViews || 0;
     
     res.json({
       today: todayStats,
@@ -22566,11 +22704,205 @@ app.get('/api/analytics/stats', async (req, res) => {
   }
 });
 
+// API-Endpunkt: Manuelles Analytics-Backup erstellen
+app.post('/api/analytics/backup', async (req, res) => {
+  try {
+    await createAnalyticsBackup();
+    res.json({ ok: true, message: 'Backup erfolgreich erstellt' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Liste aller Analytics-Backups
+app.get('/api/analytics/backups', async (req, res) => {
+  try {
+    await ensureAnalyticsBackupDir();
+    
+    if (!fsSync.existsSync(ANALYTICS_BACKUP_DIR)) {
+      return res.json({ backups: [] });
+    }
+    
+    const files = await fs.readdir(ANALYTICS_BACKUP_DIR);
+    const backups = [];
+    
+    for (const file of files) {
+      if (file.startsWith('analytics-data-') && file.endsWith('.json')) {
+        const filePath = path.join(ANALYTICS_BACKUP_DIR, file);
+        const stats = await fs.stat(filePath);
+        const dateMatch = file.match(/analytics-data-(\d{4}-\d{2}-\d{2})\.json/);
+        
+        backups.push({
+          filename: file,
+          date: dateMatch ? dateMatch[1] : null,
+          size: stats.size,
+          created: stats.mtime.toISOString()
+        });
+      }
+    }
+    
+    // Sortiere nach Datum (neueste zuerst)
+    backups.sort((a, b) => {
+      if (a.date && b.date) {
+        return b.date.localeCompare(a.date);
+      }
+      return b.created.localeCompare(a.created);
+    });
+    
+    res.json({ backups });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Analytics-Backup wiederherstellen
+app.post('/api/analytics/restore', async (req, res) => {
+  try {
+    const { filename } = req.body;
+    
+    if (!filename || !filename.startsWith('analytics-data-') || !filename.endsWith('.json')) {
+      return res.status(400).json({ error: 'Ungültiger Dateiname' });
+    }
+    
+    const backupPath = path.join(ANALYTICS_BACKUP_DIR, filename);
+    
+    if (!fsSync.existsSync(backupPath)) {
+      return res.status(404).json({ error: 'Backup nicht gefunden' });
+    }
+    
+    // Erstelle Backup der aktuellen Datei vor Wiederherstellung
+    if (fsSync.existsSync(ANALYTICS_FILE)) {
+      const currentBackup = ANALYTICS_FILE + '.pre-restore-' + Date.now() + '.json';
+      const currentData = await fs.readFile(ANALYTICS_FILE, 'utf8');
+      await fs.writeFile(currentBackup, currentData, 'utf8');
+    }
+    
+    // Wiederherstelle Backup
+    const backupData = await fs.readFile(backupPath, 'utf8');
+    await fs.writeFile(ANALYTICS_FILE, backupData, 'utf8');
+    
+    res.json({ ok: true, message: `Backup ${filename} erfolgreich wiederhergestellt` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Überprüfe und korrigiere Analytics-Daten beim Serverstart
+async function validateAndRepairAnalytics() {
+  try {
+    const data = await loadAnalyticsData();
+    const statsCount = Object.keys(data.dailyStats || {}).length;
+    console.log(`[ANALYTICS] Statistik geladen: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
+  } catch (error) {
+    console.warn('[ANALYTICS] Warnung beim Validieren der Statistik:', error.message);
+  }
+}
+
+// Erstelle ein Analytics-Backup
+async function createAnalyticsBackup() {
+  try {
+    await ensureAnalyticsBackupDir();
+    
+    // Prüfe ob Analytics-Datei existiert
+    if (!fsSync.existsSync(ANALYTICS_FILE)) {
+      console.warn('[ANALYTICS BACKUP] Analytics-Datei existiert nicht - kein Backup erstellt');
+      return null;
+    }
+    
+    // Erstelle Backup mit Datum im Dateinamen
+    const today = new Date().toISOString().split('T')[0];
+    const backupFile = path.join(ANALYTICS_BACKUP_DIR, `analytics-data-${today}.json`);
+    
+    // Lese aktuelle Analytics-Daten
+    const data = await fs.readFile(ANALYTICS_FILE, 'utf8');
+    
+    // Schreibe Backup
+    await fs.writeFile(backupFile, data, 'utf8');
+    
+    // Bereinige alte Backups (behalte die letzten 30 Tage)
+    try {
+      const files = await fs.readdir(ANALYTICS_BACKUP_DIR);
+      const backupFiles = files
+        .filter(f => f.startsWith('analytics-data-') && f.endsWith('.json'))
+        .map(f => ({
+          name: f,
+          path: path.join(ANALYTICS_BACKUP_DIR, f),
+          date: f.match(/analytics-data-(\d{4}-\d{2}-\d{2})\.json/)?.[1]
+        }))
+        .filter(f => f.date)
+        .sort((a, b) => b.date.localeCompare(a.date));
+      
+      // Lösche Backups älter als 30 Tage
+      const maxBackups = 30;
+      for (let i = maxBackups; i < backupFiles.length; i++) {
+        try {
+          await fs.unlink(backupFiles[i].path);
+          console.log(`[ANALYTICS BACKUP] Altes Backup gelöscht: ${backupFiles[i].name}`);
+        } catch (err) {
+          console.warn(`[ANALYTICS BACKUP] Konnte Backup nicht löschen: ${backupFiles[i].name}`, err.message);
+        }
+      }
+    } catch (cleanupError) {
+      console.warn('[ANALYTICS BACKUP] Fehler beim Bereinigen alter Backups:', cleanupError.message);
+    }
+    
+    console.log(`[ANALYTICS BACKUP] Backup erstellt: ${backupFile}`);
+    return backupFile;
+  } catch (error) {
+    console.error('[ANALYTICS BACKUP] Fehler beim Erstellen des Backups:', error.message);
+    throw error;
+  }
+}
+
+// Starte tägliches Analytics-Backup-System
+function startDailyAnalyticsBackup() {
+  try {
+    // Erstelle sofort ein Backup beim Start
+    createAnalyticsBackup().catch(err => {
+      console.warn('[ANALYTICS BACKUP] Fehler beim initialen Backup:', err.message);
+    });
+    
+    // Berechne Zeit bis zur nächsten Mitternacht
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const msUntilMidnight = tomorrow.getTime() - now.getTime();
+    
+    // Setze Timer für erste Mitternacht
+    setTimeout(() => {
+      // Erstelle Backup um Mitternacht
+      createAnalyticsBackup().catch(err => {
+        console.warn('[ANALYTICS BACKUP] Fehler beim täglichen Backup:', err.message);
+      });
+      
+      // Dann alle 24 Stunden wiederholen
+      setInterval(() => {
+        createAnalyticsBackup().catch(err => {
+          console.warn('[ANALYTICS BACKUP] Fehler beim täglichen Backup:', err.message);
+        });
+      }, 24 * 60 * 60 * 1000); // 24 Stunden
+    }, msUntilMidnight);
+    
+    console.log(`[ANALYTICS BACKUP] Tägliches Backup-System gestartet. Nächstes Backup um Mitternacht (in ${Math.round(msUntilMidnight / 1000 / 60)} Minuten)`);
+  } catch (error) {
+    console.error('[ANALYTICS BACKUP] Fehler beim Starten des täglichen Backup-Systems:', error.message);
+  }
+}
+
 async function startServer() {
   try {
     console.log('\n' + '='.repeat(70));
     console.log('  STEINER GA-SUCHE SERVER - START');
     console.log('='.repeat(70));
+    
+    console.log('\n[0/9] Validiere Analytics-Daten...');
+    await validateAndRepairAnalytics();
+    console.log('  ✓ Analytics-Daten validiert');
+    
+    console.log('\n[0.5/9] Starte tägliches Analytics-Backup...');
+    startDailyAnalyticsBackup();
+    console.log('  ✓ Tägliches Backup-System aktiviert');
     
     console.log('\n[1/9] Erstelle Backups...');
 // Erstelle automatisches Backup beim Start
