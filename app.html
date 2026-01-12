@@ -6816,7 +6816,7 @@ Wandtafeln
 <option value="">GA-Bände</option>
 </select>
 </div>
-<div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
+<div id="ga-volumes-info" style="font-size: 0.85em; color: var(--text-color);">
 <span id="ga-volumes-count">--</span>
 </div>
 </div>
@@ -10538,6 +10538,43 @@ function normalizeGANumber(gaNumber) {
       
       }
     
+    function resetAdvancedSearchTab() {
+      // Leere alle Eingabefelder für erweiterte Suche (advWord1 bis advWord7)
+      for (let i = 1; i <= 7; i++) {
+        const wordInput = document.getElementById(`advWord${i}`);
+        if (wordInput) wordInput.value = '';
+      }
+      
+      // Setze alle Operatoren zurück auf UND
+      for (let i = 1; i < 7; i++) {
+        const andRadio = document.querySelector(`input[name="advOperator${i}"][value="and"]`);
+        if (andRadio) andRadio.checked = true;
+      }
+      
+      // Setze Proximity-Filter zurück
+      const advancedProximityFilter = document.getElementById('advancedProximityFilter');
+      if (advancedProximityFilter) advancedProximityFilter.value = '';
+      
+      // Setze GA-Filter zurück (Custom Dropdown)
+      if (typeof advancedGAFilterDropdown !== 'undefined' && advancedGAFilterDropdown) {
+        advancedGAFilterDropdown.clear();
+      }
+      
+      // Leere Suchergebnisse im Viewer
+      const viewer = document.getElementById('viewer');
+      if (viewer) viewer.innerHTML = '';
+      
+      // Leere Status-Anzeige
+      const advancedSearchStatus = document.getElementById('advancedSearchStatus');
+      if (advancedSearchStatus) {
+        advancedSearchStatus.textContent = '';
+        advancedSearchStatus.innerHTML = '';
+      }
+      
+      // Leere searchResults Array
+      searchResults = [];
+    }
+    
     // Erfasst den aktuellen Zustand des aktiven Tabs für Browser-History
     function getCurrentTabState() {
       const activeTab = document.querySelector('.tab-content.active');
@@ -10733,6 +10770,12 @@ function normalizeGANumber(gaNumber) {
         if (resultsDiv) {
           resultsDiv.innerHTML = '';
           }
+      }
+      
+      // Prüfe, ob wir ZUM Erweitert-Tab wechseln (NUR bei Klick, NICHT bei Back-Button)
+      if (mode === 'erweitert' && !skipHistory) {
+        // Lösche Suchfelder und Ergebnisse beim Öffnen des Erweitert-Tabs
+        resetAdvancedSearchTab();
       }
       
       const currentActiveTab = document.querySelector('.tab-content.active');
@@ -21625,53 +21668,31 @@ function scrollToChronologicalYear(year) {
       // Setze den GA-Filter
       const texteGAFilter = document.getElementById('texteGAFilter');
       if (texteGAFilter) {
+        // Setze den Filter-Wert (auch wenn er bereits gesetzt ist)
         texteGAFilter.value = gaBand;
         
-        // Prüfe ob es ein Buch ist
-        const isBook = typeof isBookGANumber === 'function' ? isBookGANumber(gaBand) : false;
-        
-        // Für GA-Bände mit Vorträgen (nicht Bücher): Lade GA-Daten und aktualisiere UI-Elemente
-        if (!isBook) {
-          try {
-            // Lade GA-Übersicht-Daten, um UI-Elemente (Anzahl Vorträge, Toggle-Buttons) anzuzeigen
-            const API_BASE = window.API_BASE || '';
-            const response = await fetch(`${API_BASE}/api/ga-overview/${gaBand}`);
-            if (response.ok) {
-              const data = await response.json();
-              
-              // Aktualisiere UI-Elemente direkt
-              const texteServerInfo = document.getElementById('texteServerInfo');
-              if (texteServerInfo) {
-                // Zeige immer die Gesamtstatistik (stabil)
-                texteServerInfo.textContent = getDefaultStatsText();
-              }
-              
-              // Zeige Toggle-Buttons
-              const texteViewToggle = document.getElementById('texteViewToggle');
-              if (texteViewToggle) {
-                texteViewToggle.style.display = 'inline-flex';
-              }
-              
-              const texteSummaryToggle = document.getElementById('texteSummaryToggle');
-              const texteAdminButtons = document.getElementById('texte-admin-buttons');
-              if (texteSummaryToggle && texteAdminButtons && texteAdminButtons.style.display !== 'none') {
-                texteSummaryToggle.style.display = 'inline-block';
-                // Initialisiere Button-Text
-                const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
-                if (texteSummaryToggleText) {
-                  const gaOverviewShowSummaries = window.gaOverviewShowSummaries || false;
-                  texteSummaryToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
-                }
-              }
-            }
-          } catch (error) {
-            console.error('[NAVIGATION] Fehler beim Laden der GA-Übersicht:', error);
-          }
+        // Setze Auswahl zurück beim Wechsel des GA-Bands
+        if (typeof selectedLectureIds !== 'undefined') {
+          selectedLectureIds.clear();
+        }
+        if (typeof updateSelectionInfo === 'function') {
+          updateSelectionInfo();
         }
         
-        // Trigger Change Event um die GA-Übersicht zu laden
-        const changeEvent = new Event('change', { bubbles: true });
-        texteGAFilter.dispatchEvent(changeEvent);
+        // Rufe direkt openGAOverview auf, um die Inhalte zu laden
+        // Dies stellt sicher, dass die Inhalte immer geladen werden, auch wenn der Filter bereits gesetzt war
+        if (typeof openGAOverview === 'function') {
+          await openGAOverview(gaBand);
+        } else {
+          // Fallback: Trigger Change Event um die GA-Übersicht zu laden
+          const changeEvent = new Event('change', { bubbles: true });
+          texteGAFilter.dispatchEvent(changeEvent);
+        }
+        
+        // Aktualisiere Button-Status (für Keywords-Regeneration)
+        if (typeof updateButtonStates === 'function') {
+          updateButtonStates();
+        }
       }
     }
     
@@ -43364,8 +43385,11 @@ window.cancelTextEditMode = function() {};
   // Prüfe ob lokal (file:// Protokoll)
   const isLocalFile = window.location.protocol === 'file:';
   
+  // Cache für PDF-Timestamps (für Cache-Busting bei lokalen Dateien)
+  const pdfFileTimestamps = new Map();
+  
   // PDF laden
-  async function loadPdf(gaNumber) {
+  async function loadPdf(gaNumber, forceReload = false) {
     if (!gaNumber) return;
     
     // Extrahiere die GA-Nummer (z.B. "GA006" -> "6", "GA068a" -> "068a")
@@ -43382,14 +43406,27 @@ window.cancelTextEditMode = function() {};
     if (isLocalFile) {
       // Lokales Dateisystem: verwende lokale Dateien
       const index = await loadPdfIndex();
+      let basePath;
       if (index && index[gaNum]) {
-        pdfPath = `${PDF_LOCAL_PATH}${encodeURIComponent(index[gaNum])}`;
+        basePath = `${PDF_LOCAL_PATH}${encodeURIComponent(index[gaNum])}`;
       } else {
-        pdfPath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
+        basePath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
       }
+      
+      // Cache-Busting für lokale Dateien: IMMER neuen Timestamp verwenden
+      // um sicherzustellen, dass geänderte Dateien neu geladen werden
+      const timestamp = Date.now() + Math.floor(Math.random() * 10000);
+      
+      // Füge Cache-Busting-Parameter hinzu
+      const separator = basePath.includes('?') ? '&' : '?';
+      pdfPath = `${basePath}${separator}_t=${timestamp}`;
     } else {
       // Server (localhost oder Produktion): nutze Backend-Proxy
+      // Backend prüft zuerst lokal, dann WordPress
+      // Cache-Busting immer hinzufügen, da lokale Dateien sich ändern können
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}`;
+      const timestamp = Date.now() + Math.floor(Math.random() * 10000);
+      pdfPath += `?_t=${timestamp}`;
     }
     
     try {
@@ -43398,17 +43435,71 @@ window.cancelTextEditMode = function() {};
         return;
       }
       
-      console.log('[PDF] Lade:', pdfPath, isLocalFile ? '(lokal)' : '(via Proxy)');
+      console.log('[PDF] Lade:', pdfPath, isLocalFile ? '(lokal)' : '(via Proxy)', forceReload ? '[FORCE RELOAD]' : '');
       
-      const loadingTask = pdfjsLib.getDocument(pdfPath);
+      // Bei forceReload oder bei lokalen Dateien: Altes PDF-Dokument schließen falls vorhanden
+      // (lokale Dateien sollten immer neu geladen werden, da sie sich ändern können)
+      if ((forceReload || isLocalFile) && pdfDoc) {
+        try {
+          pdfDoc.destroy();
+        } catch (e) {
+          // Ignoriere Fehler beim Schließen
+        }
+        pdfDoc = null;
+      }
+      
+      // Für lokale Dateien: Lade als Blob um Browser-Cache zu umgehen
+      let pdfOptions;
+      if (isLocalFile) {
+        try {
+          // Lade Datei als Blob mit Cache-Busting
+          const blobResponse = await fetch(pdfPath, { 
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache'
+            }
+          });
+          const blob = await blobResponse.blob();
+          console.log('[PDF] Datei als Blob geladen, Größe:', blob.size, 'bytes');
+          
+          pdfOptions = {
+            data: blob,
+            withCredentials: false
+          };
+        } catch (blobError) {
+          console.warn('[PDF] Blob-Laden fehlgeschlagen, verwende URL:', blobError);
+          // Fallback: URL mit Cache-Busting
+          pdfOptions = {
+            url: pdfPath,
+            withCredentials: false,
+            httpHeaders: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache'
+            }
+          };
+        }
+      } else {
+        // Server: normale URL
+        pdfOptions = {
+          url: pdfPath,
+          withCredentials: false
+        };
+      }
+      
+      const loadingTask = pdfjsLib.getDocument(pdfOptions);
       pdfDoc = await loadingTask.promise;
       pdfTotalPages = pdfDoc.numPages;
       
       document.getElementById('pdfTotalPages').textContent = pdfTotalPages;
       document.getElementById('pdfPageInput').max = pdfTotalPages;
       
-      // Erste Seite vorbereiten (Rendering erfolgt erst nach Panel-Öffnung)
-      pdfCurrentPage = 1;
+      // Bei forceReload: Aktuelle Seite beibehalten (wird in reloadPdf gesetzt), sonst Seite 1
+      if (!forceReload) {
+        pdfCurrentPage = 1;
+      }
+      // Seite-Input aktualisieren
+      document.getElementById('pdfPageInput').value = pdfCurrentPage;
       
       console.log('[PDF] Geladen: GA', gaNum, 'Seiten:', pdfTotalPages);
       return true;
@@ -43535,6 +43626,94 @@ window.cancelTextEditMode = function() {};
       renderPdfPage(page);
     }
   };
+  
+  // PDF neu laden (z.B. nach lokaler Änderung)
+  window.reloadPdf = async function() {
+    if (!pdfCurrentGANumber) {
+      console.warn('[PDF] Keine GA-Nummer zum Neuladen');
+      return;
+    }
+    
+    console.log('[PDF] Lade PDF neu:', pdfCurrentGANumber);
+    
+    // Aktuelle Seite speichern (bevor pdfDoc zerstört wird)
+    const savedPage = pdfCurrentPage || 1;
+    console.log('[PDF] Aktuelle Seite:', savedPage);
+    
+    // Altes PDF-Dokument komplett zerstören
+    if (pdfDoc) {
+      try {
+        pdfDoc.destroy();
+        console.log('[PDF] Altes PDF-Dokument zerstört');
+      } catch (e) {
+        console.warn('[PDF] Fehler beim Zerstören des alten PDFs:', e);
+      }
+      pdfDoc = null;
+    }
+    
+    // PDF mit forceReload neu laden
+    // WICHTIG: pdfCurrentPage muss VOR loadPdf gesetzt werden, damit es beibehalten wird
+    pdfCurrentPage = savedPage;
+    const success = await loadPdf(pdfCurrentGANumber, true);
+    
+    if (success) {
+      // Zur gespeicherten Seite zurückkehren (oder Seite 1 falls außerhalb des neuen Bereichs)
+      const pageToShow = (savedPage >= 1 && savedPage <= pdfTotalPages) ? savedPage : 1;
+      pdfCurrentPage = pageToShow;
+      document.getElementById('pdfPageInput').value = pageToShow;
+      
+      if (pdfPanelVisible) {
+        // Aktuelle Seite neu rendern
+        renderPdfPage(pageToShow);
+        console.log('[PDF] PDF erfolgreich neu geladen, Seite', pageToShow, 'von', pdfTotalPages);
+      } else {
+        console.log('[PDF] PDF erfolgreich neu geladen (Panel nicht sichtbar)');
+      }
+    } else {
+      console.error('[PDF] Fehler beim Neuladen des PDFs');
+      alert('Fehler beim Neuladen des PDFs. Bitte prüfen Sie die Konsole für Details.');
+    }
+  };
+  
+  // Automatisches Neuladen bei lokalen Dateien (prüft ob Datei geändert wurde)
+  async function checkAndReloadPdfIfChanged() {
+    if (!isLocalFile || !pdfCurrentGANumber || !pdfDoc) return;
+    
+    try {
+      const match = pdfCurrentGANumber.match(/GA0*(\d+[a-z]?)/i);
+      if (!match) return;
+      
+      const gaNum = match[1];
+      const index = await loadPdfIndex();
+      let basePath;
+      if (index && index[gaNum]) {
+        basePath = `${PDF_LOCAL_PATH}${encodeURIComponent(index[gaNum])}`;
+      } else {
+        const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
+        basePath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
+      }
+      
+      // Prüfe Datei-Größe als Indikator für Änderungen
+      const response = await fetch(basePath, { method: 'HEAD', cache: 'no-store' });
+      const contentLength = response.headers.get('Content-Length');
+      const lastModified = response.headers.get('Last-Modified');
+      
+      // Wenn Last-Modified vorhanden, vergleiche mit gespeichertem Wert
+      if (lastModified) {
+        const fileTime = new Date(lastModified).getTime();
+        const cachedTime = pdfFileTimestamps.get(basePath);
+        if (cachedTime && fileTime > cachedTime) {
+          console.log('[PDF] Datei wurde geändert, lade neu...');
+          pdfFileTimestamps.set(basePath, fileTime);
+          await reloadPdf();
+        } else if (!cachedTime) {
+          pdfFileTimestamps.set(basePath, fileTime);
+        }
+      }
+    } catch (e) {
+      // Ignoriere Fehler beim Prüfen
+    }
+  }
   
   // Panel öffnen/schließen
   window.togglePdfPanel = async function() {
