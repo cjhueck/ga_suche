@@ -3769,7 +3769,7 @@ gap: 4px !important;
     
     #note { margin-top: 0.5rem; font-size: 0.9em; color: var(--secondary-text); }
     #searchInfo {
-  font-size: 0.9em;
+  font-size: 0.85em;
   color: var(--secondary-text);
   margin-top: 0rem;
   margin-bottom: 0;
@@ -3780,7 +3780,7 @@ gap: 4px !important;
 }
 
 #texteSearchInfo {
-  font-size: 0.9em;
+  font-size: 0.85em;
   color: var(--secondary-text);
 }
 
@@ -4102,6 +4102,48 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
     
     body.dark-mode #h4ToggleBtn:hover {
+      background: var(--dark-accent-color) !important;
+      color: white !important;
+    }
+    
+    /* Texte View Toggle Button - identisch mit h4ToggleBtn */
+    #texteViewToggle {
+      min-width: 32px !important;
+      width: 32px !important;
+      height: 28px !important;
+      min-height: 28px !important;
+      font-size: 0.85em !important;
+      border: 1px solid var(--accent-color) !important;
+      background: transparent !important;
+      color: var(--accent-color) !important;
+      cursor: pointer !important;
+      border-radius: 4px !important;
+      transition: background 0.2s, color 0.2s !important;
+      display: none !important;
+      flex-shrink: 0 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 4px 8px !important;
+      line-height: 1 !important;
+      box-sizing: border-box !important;
+      margin-left: 8px !important;
+    }
+    
+    #texteViewToggle[style*="inline-flex"] {
+      display: inline-flex !important;
+    }
+    
+    #texteViewToggle:hover {
+      background: var(--accent-color) !important;
+      color: white !important;
+    }
+    
+    body.dark-mode #texteViewToggle {
+      border-color: var(--dark-accent-color) !important;
+      color: var(--dark-accent-color) !important;
+    }
+    
+    body.dark-mode #texteViewToggle:hover {
       background: var(--dark-accent-color) !important;
       color: white !important;
     }
@@ -7058,8 +7100,8 @@ Wandtafeln
 <div>
 <span id="texteServerInfo"></span>
 </div>
-<button id="texteViewToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: auto;">
-  <span id="texteViewToggleText">nur Titel</span>
+<button id="texteViewToggle" onclick="toggleGASummaries()" title="Nur Titel / Kurzzusammenfassungen umschalten" style="display: none;">
+▼
 </button>
 </div>
 </div>
@@ -7097,7 +7139,7 @@ Meine Abfragen
 </button>
 </div>
 </div>
-<div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
+<div id="thematicSearchInfo" style="font-size: 0.85em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
 <span id="thematicServerInfo"></span>
 </div>
 </div>
@@ -7122,7 +7164,7 @@ Meine Abfragen
   </div>
   <!-- Statistik-Anzeige -->
   <div style="display: flex; justify-content: space-between; align-items: center;">
-  <div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
+  <div id="timelineStatsDisplay" style="font-size: 0.35em; color: var(--secondary-text);">
   <em>Lade Statistiken...</em>
   </div>
   <button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
@@ -17690,7 +17732,7 @@ async function displayGAOverview(data) {
       if (isBook) {
         texteViewToggle.style.display = 'none'; // Verstecke Toggle-Button für Books
       } else {
-        texteViewToggle.style.display = 'inline-block';
+        texteViewToggle.style.display = 'inline-flex';
       }
     }
     
@@ -17805,10 +17847,11 @@ function toggleGASummaries() {
     button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
   }
   
-  // Update Toggle Button im Texte-Tab (alter Button)
-  const texteViewToggleText = document.getElementById('texteViewToggleText');
-  if (texteViewToggleText) {
-    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
+  // Update Toggle Button im Texte-Tab (Pfeil-Toggle)
+  const texteViewToggle = document.getElementById('texteViewToggle');
+  if (texteViewToggle) {
+    texteViewToggle.innerHTML = gaOverviewShowSummaries ? '▲' : '▼';
+    texteViewToggle.title = gaOverviewShowSummaries ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
   }
   
   // Update Toggle Button im Admin-Bereich (neuer Button)
@@ -18857,7 +18900,7 @@ function scrollToChronologicalYear(year) {
                 // Zeige Toggle-Buttons
                 const texteViewToggle = document.getElementById('texteViewToggle');
                 if (texteViewToggle) {
-                  texteViewToggle.style.display = 'inline-block';
+                  texteViewToggle.style.display = 'inline-flex';
                 }
                 
                 const texteSummaryToggle = document.getElementById('texteSummaryToggle');
@@ -19014,7 +19057,7 @@ function scrollToChronologicalYear(year) {
                 // Zeige Toggle-Buttons
                 const texteViewToggle = document.getElementById('texteViewToggle');
                 if (texteViewToggle) {
-                  texteViewToggle.style.display = 'inline-block';
+                  texteViewToggle.style.display = 'inline-flex';
                 }
                 
                 const texteSummaryToggle = document.getElementById('texteSummaryToggle');
@@ -21606,7 +21649,7 @@ function scrollToChronologicalYear(year) {
               // Zeige Toggle-Buttons
               const texteViewToggle = document.getElementById('texteViewToggle');
               if (texteViewToggle) {
-                texteViewToggle.style.display = 'inline-block';
+                texteViewToggle.style.display = 'inline-flex';
               }
               
               const texteSummaryToggle = document.getElementById('texteSummaryToggle');
