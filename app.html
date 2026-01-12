@@ -43585,6 +43585,7 @@ window.cancelTextEditMode = function() {};
     const panel = document.getElementById('pdf-viewer-panel');
     const btn = document.getElementById('pdfToggleBtn');
     const resizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+    const summaryPanel = document.getElementById('summary-panel');
     
     panel.classList.remove('visible');
     btn.classList.remove('active');
@@ -43598,9 +43599,21 @@ window.cancelTextEditMode = function() {};
       viewerHeader.style.right = '';
     }
     
-    // Resize-Handle wieder einblenden
+    // Resize-Handle nur einblenden wenn Summary-Panel (TOC) sichtbar ist
+    const isSummaryPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
     if (resizeHandleWrapper) {
-      resizeHandleWrapper.style.display = '';
+      if (isSummaryPanelVisible) {
+        // Summary-Panel ist sichtbar - Resize-Handle anzeigen
+        if (typeof updateResizeHandle === 'function') {
+          updateResizeHandle();
+        } else {
+          resizeHandleWrapper.style.display = '';
+        }
+      } else {
+        // Summary-Panel ist nicht sichtbar - Resize-Handle verstecken
+        resizeHandleWrapper.style.display = 'none';
+        resizeHandleWrapper.classList.remove('visible');
+      }
     }
   };
   
