@@ -13785,7 +13785,13 @@ async function createKeywordsBackup() {
 }
 
 async function createSummaryBackup() {
-  return await createBackup(SUMMARY_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-database', 10);
+  const backups = [
+    createBackup(SUMMARY_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-database', 10),
+    createBackup(SUMMARY_KEYWORDS_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-keywords-database', 10),
+    createBackup(THEMATIC_SEARCH_DB_FILE, SUMMARY_BACKUP_DIR, 'thematic-search-database', 10)
+  ];
+  const results = await Promise.all(backups);
+  return results.find(r => r !== null) || null;
 }
 
 async function createThemesBackup() {
@@ -14153,7 +14159,8 @@ async function createRelationshipsBackup() {
 async function createConceptsBackup() {
   const backups = [
     createBackup(CONCEPTS_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-database', 10),
-    createBackup(CONCEPTS_NETWORK_FILE_BACKUP, CONCEPTS_BACKUP_DIR, 'concepts-network', 10)
+    createBackup(CONCEPTS_NETWORK_FILE_BACKUP, CONCEPTS_BACKUP_DIR, 'concepts-network', 10),
+    createBackup(CONCEPTS_THEMATIC_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-thematic-search', 10)
   ];
   const results = await Promise.all(backups);
   return results.find(r => r !== null) || null;
@@ -14308,7 +14315,9 @@ async function createFullBackup() {
     createLectureMappingBackup(),
     // NEU: Page Marker Backups
     createPageMarkerCheckerBackup(),
-    createPageMarkerMdBackup()
+    createPageMarkerMdBackup(),
+    // NEU: Chalkboards Backup
+    createChalkboardsBackup()
   ]);
 
   const successful = results.filter(r => r !== null).length;
