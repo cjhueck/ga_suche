@@ -17,6 +17,15 @@ app.use(express.json({ limit: '10mb' })); // Limit für JSON-Body
 // Trust Proxy für Render (wichtig für korrekte IP-Erkennung)
 app.set('trust proxy', 1);
 
+// TEST: Middleware zum Loggen aller POST-Anfragen (MUSS vor den Routes sein!)
+app.use((req, res, next) => {
+  if (req.method === 'POST' && req.path.includes('search')) {
+    console.log(`[REQUEST-LOG] ${req.method} ${req.path} - Zeit: ${new Date().toISOString()}`);
+    console.log(`[REQUEST-LOG] Body:`, JSON.stringify(req.body).substring(0, 200));
+  }
+  next();
+});
+
 // SICHERHEIT: Einfaches Rate Limiting (TEMPORÄR DEAKTIVIERT ZUM TESTEN)
 // TODO: Wieder aktivieren nach erfolgreichem Test
 /*
@@ -3046,10 +3055,32 @@ async function performHybridSearch(query, limit = 20) {
 // ============================================================================
 
 app.post('/api/fulltext-search', async (req, res) => {
+  // TEST: Diese Meldung sollte IMMER erscheinen, wenn eine Anfrage ankommt
+  console.log('========================================');
+  console.log('[FULLTEXT-SEARCH] ENDPUNKT AUFGERUFEN!');
+  console.log('[FULLTEXT-SEARCH] Zeit:', new Date().toISOString());
+  console.log('[FULLTEXT-SEARCH] IP:', req.ip || req.connection.remoteAddress);
+  console.log('========================================');
+  
   try {
     const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, wordOperator = 'and', proximity = null, relevanceFilter = 'alle', yearFilter = '', gaFilter = '' } = req.body;
     
+    console.log(`[FULLTEXT-SEARCH] Parameter: word1="${word1}", word2="${word2}"`);
+    
+    // Analytics-Tracking auch bei ungültigen Anfragen (für Statistiken)
+    // Aber nur wenn mindestens ein Suchbegriff vorhanden ist
+    if (word1 || word2) {
+      const searchTerm = word2 ? `${word1 || ''} ${word2}` : (word1 || word2 || '');
+      if (searchTerm.trim()) {
+        console.log(`[FULLTEXT-SEARCH] Rufe trackSearch auf (validierung) für: "${searchTerm}"`);
+        trackSearch(searchTerm).catch(err => {
+          console.error('[ANALYTICS] Fehler beim Tracking der Volltext-Suche (validierung):', err.message);
+        });
+      }
+    }
+    
     if (!word1) {
+      console.log('[FULLTEXT-SEARCH] Fehler: Kein word1 vorhanden');
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
     
@@ -3301,6 +3332,18 @@ app.post('/api/fulltext-search', async (req, res) => {
     // Query-Tracking
     if (word1) trackQueryTerms(word1, filteredResults.length);
     if (word2) trackQueryTerms(word2, filteredResults.length);
+    
+    // Analytics-Tracking für externe Anfragen (non-blocking, aber mit Promise-Handling)
+    const searchTerm = word2 ? `${word1} ${word2}` : word1;
+    console.log(`[ANALYTICS] Rufe trackSearch auf für: "${searchTerm}"`);
+    trackSearch(searchTerm)
+      .then(() => {
+        console.log(`[ANALYTICS] trackSearch erfolgreich abgeschlossen für: "${searchTerm}"`);
+      })
+      .catch(err => {
+        console.error('[ANALYTICS] Fehler beim Tracking der Volltext-Suche:', err.message);
+        console.error('[ANALYTICS] Stack:', err.stack);
+      });
     
     res.json({
       query: { 
@@ -3635,6 +3678,12 @@ app.post('/api/advanced-search', async (req, res) => {
       }
     });
     
+    
+    // Analytics-Tracking für externe Anfragen (non-blocking, aber mit Promise-Handling)
+    const searchTerm = words.join(' ');
+    trackSearch(searchTerm).catch(err => {
+      console.error('[ANALYTICS] Fehler beim Tracking der erweiterten Suche:', err.message);
+    });
     
     res.json({
       results: results,
@@ -8102,6 +8151,12 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const hybridHit = findHybridCacheHit(query, effectiveDepth, limit, gaFilter, thematicDB);
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
       const cachedResult = thematicDB[hybridHit.key];
+      
+      // Analytics-Tracking auch für Cache-Hits (es ist immer noch eine Suchanfrage)
+      trackSearch(query).catch(err => {
+        console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (Cache):', err.message);
+      });
+      
       return res.json({
         ...cachedResult,
         fromCache: true,
@@ -8123,6 +8178,12 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         totalMatches: 0,
         llmUsed: false
       };
+      
+      // Analytics-Tracking auch für leere Ergebnisse
+      trackSearch(query).catch(err => {
+        console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (leer):', err.message);
+      });
+      
       // Leere Ergebnisse nur bei localhost cachen
       if (shouldCache) {
         thematicDB[cacheKey] = {
@@ -8140,6 +8201,11 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
+    
+    // Analytics-Tracking für externe Anfragen (non-blocking, aber mit Promise-Handling)
+    trackSearch(query).catch(err => {
+      console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche:', err.message);
+    });
 
     let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode);
 
@@ -22579,11 +22645,60 @@ function getDateKey() {
   return new Date().toISOString().split('T')[0];
 }
 
+// Hilfsfunktion: Tracke Suchanfrage direkt im Backend (für externe Anfragen)
+async function trackSearch(searchTerm) {
+  console.log(`[ANALYTICS] trackSearch aufgerufen mit: "${searchTerm}" (Typ: ${typeof searchTerm})`);
+  
+  try {
+    if (!searchTerm || typeof searchTerm !== 'string' || searchTerm.trim().length === 0) {
+      console.log('[ANALYTICS] Überspringe leeren Suchbegriff');
+      return; // Überspringe leere Suchbegriffe
+    }
+    
+    console.log('[ANALYTICS] Lade Analytics-Daten...');
+    const data = await loadAnalyticsData();
+    const today = getDateKey();
+    console.log(`[ANALYTICS] Heute: ${today}, Aktuelle Daten geladen`);
+    
+    // Initialisiere Tagesstatistik
+    if (!data.dailyStats[today]) {
+      data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
+      console.log(`[ANALYTICS] Neue Tagesstatistik erstellt für ${today}`);
+    }
+    
+    // Erhöhe Suchzähler
+    const oldCount = data.dailyStats[today].searches;
+    data.dailyStats[today].searches++;
+    console.log(`[ANALYTICS] Suchzähler erhöht: ${oldCount} -> ${data.dailyStats[today].searches}`);
+    
+    // Speichere Suchbegriff in Top-Searches
+    const term = searchTerm.toLowerCase().trim().substring(0, 50);
+    if (term.length > 0) {
+      const oldTermCount = data.topSearches[term] || 0;
+      data.topSearches[term] = oldTermCount + 1;
+      console.log(`[ANALYTICS] Top-Search aktualisiert: "${term}" = ${data.topSearches[term]}`);
+    }
+    
+    // Speichere Daten (mit await, damit es wirklich gespeichert wird)
+    console.log('[ANALYTICS] Speichere Analytics-Daten...');
+    await saveAnalyticsData(data);
+    console.log('[ANALYTICS] Daten erfolgreich gespeichert');
+    
+    console.log(`[ANALYTICS] ✓ Suche getrackt: "${term}" (Heute: ${data.dailyStats[today].searches} Suchen)`);
+  } catch (error) {
+    console.error('[ANALYTICS] ✗ Fehler beim Tracking der Suche:', error.message);
+    console.error('[ANALYTICS] Stack:', error.stack);
+    throw error; // Weiterwerfen, damit der Caller es sieht
+  }
+}
+
 // Track-Endpunkt
 app.post('/api/analytics/track', async (req, res) => {
   try {
     const { type, value } = req.body;
     if (!type) return res.status(400).json({ error: 'type required' });
+    
+    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, value=${value ? value.substring(0, 50) : 'null'}`);
     
     const data = await loadAnalyticsData();
     const today = getDateKey();
@@ -22597,6 +22712,7 @@ app.post('/api/analytics/track', async (req, res) => {
       case 'page_view':
         data.dailyStats[today].views++;
         data.totalViews++;
+        console.log(`[ANALYTICS] Page View getrackt (Heute: ${data.dailyStats[today].views})`);
         break;
         
       case 'search':
@@ -22605,6 +22721,9 @@ app.post('/api/analytics/track', async (req, res) => {
         if (value && typeof value === 'string' && value.length > 1) {
           const term = value.toLowerCase().trim().substring(0, 50);
           data.topSearches[term] = (data.topSearches[term] || 0) + 1;
+          console.log(`[ANALYTICS] Suche getrackt: "${term}" (Heute: ${data.dailyStats[today].searches}, Top-Searches: ${data.topSearches[term]})`);
+        } else {
+          console.log(`[ANALYTICS] Suche getrackt ohne Wert (Heute: ${data.dailyStats[today].searches})`);
         }
         break;
         
@@ -22615,6 +22734,7 @@ app.post('/api/analytics/track', async (req, res) => {
           const lectureId = value.substring(0, 20);
           data.topLectures[lectureId] = (data.topLectures[lectureId] || 0) + 1;
         }
+        console.log(`[ANALYTICS] Lecture View getrackt: ${value} (Heute: ${data.dailyStats[today].lectures})`);
         break;
     }
     
@@ -22622,8 +22742,11 @@ app.post('/api/analytics/track', async (req, res) => {
     // Die täglichen Daten bleiben für immer erhalten, um historische Analysen zu ermöglichen
     
     await saveAnalyticsData(data);
+    console.log(`[ANALYTICS] Daten gespeichert erfolgreich`);
     res.json({ ok: true });
   } catch (error) {
+    console.error('[ANALYTICS] Fehler im Track-Endpunkt:', error.message);
+    console.error('[ANALYTICS] Stack:', error.stack);
     res.status(500).json({ error: error.message });
   }
 });
