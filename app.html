@@ -7387,7 +7387,7 @@ Meine Abfragen
   </div>
   <!-- Statistik-Anzeige -->
   <div style="display: flex; justify-content: space-between; align-items: center;">
-  <div id="timelineStatsDisplay" style="font-size: 0.35em; color: var(--secondary-text);">
+  <div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
   <em>Lade Statistiken...</em>
   </div>
   <button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
@@ -9611,12 +9611,31 @@ PDF
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
       try {
-        fetch('/api/analytics/track', {
+        // Verwende API_BASE wie alle anderen API-Aufrufe
+        // WICHTIG: Verwende window.API_BASE, da API_BASE möglicherweise noch nicht im Scope ist
+        const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : '');
+        const url = apiBase ? `${apiBase}/api/analytics/track` : '/api/analytics/track';
+        
+        console.log('[ANALYTICS] Tracking:', type, value, 'URL:', url);
+        
+        fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type, value })
-        }).catch(() => {}); // Fehler ignorieren
-      } catch (e) {}
+        })
+        .then(response => {
+          if (!response.ok) {
+            console.warn('[ANALYTICS] Tracking-Fehler:', response.status, response.statusText);
+          } else {
+            console.log('[ANALYTICS] Tracking erfolgreich:', type);
+          }
+        })
+        .catch((err) => {
+          console.error('[ANALYTICS] Fehler beim Tracking:', err.message, 'URL:', url);
+        });
+      } catch (e) {
+        console.error('[ANALYTICS] Fehler beim Tracking:', e.message);
+      }
     }
     
     // Seitenaufruf tracken (einmal pro Session)
