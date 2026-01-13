@@ -76,7 +76,7 @@ if (typeof pdfjsLib !== 'undefined') {
     }
     
     /* Absätze brauchen Platz für die schwebende Seitenzahl */
-    .paragraph, .book-content p, #viewer p {
+    .paragraph, .book-content p, #viewer p, #viewer-content p {
       overflow: visible;
     }
     
@@ -2572,9 +2572,9 @@ body.dark-mode .ga-missing-text {
       flex: 1;
       overflow-y: auto;
       overflow-x: visible;
-      /* ZENTRALES PADDING - wird NUR hier festgelegt */
-      /* Linkes Padding für Seitenzahlen */
-      padding: 0.5rem 0.8rem 2rem 1.2rem !important; /* top right bottom left */
+      /* ZENTRALES PADDING - reduziert für Seitenzahlen-Sichtbarkeit */
+      /* Linkes Padding reduziert, damit Seitenzahlen nicht überdeckt werden */
+      padding: 0.3rem 0.6rem 2rem 0rem !important; /* top right bottom left - kann hier angepasst werden */
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -3901,11 +3901,56 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     
     #viewer {
       line-height: 1.4 !important;
-      /* KEIN PADDING - wird von #main übernommen */
-      padding: 0.5rem !important;
+      /* padding-left für Seitenzahlen-Platzierung (Seitenzahlen schweben mit -2.5em) */
+      padding: 0.5rem 0.5rem 0.5rem 0.4em !important;
       word-break: keep-all !important;
       cursor: text !important; /* Textauswahlwerkzeug beim Hover über Text */
       overflow-wrap: break-word !important;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: visible; /* Seitenzahlen müssen sichtbar bleiben */
+    }
+    
+    #viewer-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: visible; /* Seitenzahlen müssen sichtbar bleiben */
+      padding: 0.5rem 0rem 0.5rem 2em; /* padding-left für Text (kann hier angepasst werden) */
+      word-break: keep-all !important;
+      cursor: text !important;
+      overflow-wrap: break-word !important;
+      line-height: 1.4 !important;
+    }
+    
+    /* Alle Viewer-Selektoren gelten auch für viewer-content */
+    #viewer-content .answer-content,
+    #viewer-content .semantic-answer,
+    #viewer-content .keyword-answer,
+    #viewer-content .concept-content:not(td),
+    #viewer-content > div,
+    #viewer-content > p,
+    #viewer-content > h1,
+    #viewer-content > h2,
+    #viewer-content > h3,
+    #viewer-content > h4 {
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+      padding-right: 0 !important;
+      margin-right: 0 !important;
+    }
+    
+    #viewer-content .book-content {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      overflow: visible !important;
+    }
+    
+    /* Links im Viewer-Content behalten Pointer-Cursor */
+    #viewer-content a {
+      cursor: pointer !important;
     }
     
     /* Links im Viewer behalten Pointer-Cursor */
@@ -3914,16 +3959,16 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
     
     /* Reduziertes Padding für alle Container im Viewer */
-    #viewer .answer-content,
-    #viewer .semantic-answer,
-    #viewer .keyword-answer,
-    #viewer .concept-content:not(td),
-    #viewer > div,
-    #viewer > p,
-    #viewer > h1,
-    #viewer > h2,
-    #viewer > h3,
-    #viewer > h4 {
+    #viewer-content .answer-content,
+    #viewer-content .semantic-answer,
+    #viewer-content .keyword-answer,
+    #viewer-content .concept-content:not(td),
+    #viewer-content > div,
+    #viewer-content > p,
+    #viewer-content > h1,
+    #viewer-content > h2,
+    #viewer-content > h3,
+    #viewer-content > h4 {
       padding-left: 0 !important;
       margin-left: 0 !important;
       padding-right: 0 !important;
@@ -3931,7 +3976,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
     
     /* Book-content: overflow visible für Seitenzahlen */
-    #viewer .book-content {
+    #viewer-content .book-content {
       padding-left: 0 !important;
       padding-right: 0 !important;
       margin-left: 0 !important;
@@ -4301,7 +4346,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       z-index: 1003; /* Höher als Trennlinie (z-index: 1002), damit Header Trennlinie verdeckt */
       background-color: var(--background-color) !important;
       border-bottom: 1px solid var(--border-color);
-      padding: 1rem; 
+      padding: 1rem 1rem 1rem 0.4em; /* padding-left auf 0.4em für Ausrichtung mit Viewer */
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -6731,6 +6776,184 @@ body.dark-mode .context-help-popup strong {
   font-family: monospace;
 }
 
+/* Viewer-Suchfunktion - integriert oben im Viewer */
+#viewer-search-box {
+  display: none;
+  padding: 0.75rem 1rem;
+  background: var(--background-color);
+  border-bottom: none;
+  box-shadow: 0 0.5px 0 0 var(--border-color);
+  font-family: 'Inter', sans-serif;
+  flex-shrink: 0;
+  order: -1; /* Erscheint vor summary-buttons und summary-content */
+}
+
+/* Suchfenster im Summary-Panel: Nur anzeigen wenn Panel sichtbar ist UND visible-Klasse gesetzt */
+#summary-panel.visible #viewer-search-box.visible {
+  display: flex;
+  align-items: center;
+  gap: 0px; /* Kein Abstand zwischen Elementen (wird durch negative Margins kontrolliert) */
+}
+
+body.dark-mode #viewer-search-box {
+  background: var(--dark-background-color);
+  box-shadow: 0 0.5px 0 0 var(--dark-border-color);
+}
+
+#viewer-search-input {
+  flex: 1 1 auto; /* Nimmt verfügbaren Platz ein */
+  min-width: 0; /* Verhindert, dass Input zu breit wird */
+  max-width: calc(100% - 140px); /* Lässt Platz für Buttons und Trefferanzahl */
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: var(--background-color);
+  color: var(--text-color);
+  outline: none;
+}
+
+body.dark-mode #viewer-search-input {
+  background: var(--dark-background-color);
+  color: var(--dark-text-color);
+  border-color: var(--dark-border-color);
+}
+
+#viewer-search-input:focus {
+  border-color: var(--accent-color);
+}
+
+body.dark-mode #viewer-search-input:focus {
+  border-color: var(--dark-accent-color);
+}
+
+#viewer-search-info {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  white-space: nowrap;
+  min-width: 70px; /* Mehr Platz für Trefferanzahl-Anzeige */
+  text-align: right;
+  flex-shrink: 0; /* Verhindert, dass Info schrumpft */
+  padding: 0 4px; /* Etwas mehr Padding */
+  margin-right: 8px; /* Abstand zum X-Button */
+}
+
+body.dark-mode #viewer-search-info {
+  color: var(--dark-secondary-text);
+}
+
+#viewer-search-prev,
+#viewer-search-next {
+  padding: 4px 5px; /* Weitere Reduzierung */
+  border: 1px solid var(--border-color);
+  background: var(--background-color);
+  color: var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  flex-shrink: 0; /* Verhindert, dass Buttons schrumpfen */
+  min-width: auto; /* Keine minimale Breite */
+}
+
+/* Reduziere Abstand zwischen Next-Button und Close-Button */
+#viewer-search-next {
+  margin-right: -6px; /* Stärkerer negativer Margin */
+}
+
+body.dark-mode #viewer-search-prev,
+body.dark-mode #viewer-search-next {
+  background: var(--dark-background-color);
+  color: var(--dark-text-color);
+  border-color: var(--dark-border-color);
+}
+
+#viewer-search-prev:hover,
+#viewer-search-next:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+body.dark-mode #viewer-search-prev:hover,
+body.dark-mode #viewer-search-next:hover {
+  background: var(--dark-accent-color);
+  border-color: var(--dark-accent-color);
+}
+
+#viewer-search-prev:disabled,
+#viewer-search-next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#viewer-search-close {
+  padding: 4px 2px; /* Weitere Reduzierung */
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: color 0.2s;
+  opacity: 0.7;
+  min-width: 18px; /* Weitere Reduzierung */
+  flex-shrink: 0; /* Verhindert, dass Button schrumpft */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -6px; /* Stärkerer negativer Margin */
+}
+
+body.dark-mode #viewer-search-close {
+  color: var(--dark-text-color);
+}
+
+#viewer-search-close:hover {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+body.dark-mode #viewer-search-close:hover {
+  color: var(--dark-text-color);
+  opacity: 1;
+}
+
+/* Viewer-Container für Suchfenster und Content */
+#viewer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+#viewer-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Markierte Suchergebnisse */
+.viewer-search-highlight {
+  background: rgba(70, 120, 134, 0.2); /* Gleiches Blau wie im Tab Suche */
+  padding: 2px 0;
+  border-radius: 2px;
+  color: inherit;
+}
+
+body.dark-mode .viewer-search-highlight {
+  background: rgba(70, 120, 134, 0.5); /* Gleiches Blau wie im Tab Suche (Dark Mode) */
+  color: var(--dark-text-color);
+}
+
+.viewer-search-highlight.active {
+  background: rgba(70, 120, 134, 0.35); /* Etwas dunkler für aktiven Treffer, gleiche Größe */
+}
+
+body.dark-mode .viewer-search-highlight.active {
+  background: rgba(70, 120, 134, 0.65); /* Etwas dunkler für aktiven Treffer (Dark Mode), gleiche Größe */
+}
+
 </style>
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
@@ -9112,13 +9335,22 @@ PDF
 </div>
 </div>
 <div id="main" style="position: relative;">
-<div id="viewer"></div>
+<div id="viewer">
+  <div id="viewer-content"></div>
+</div>
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
   <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 </div>
 <div id="summary-panel">
+  <div id="viewer-search-box">
+    <input type="text" id="viewer-search-input" placeholder="Suchen..." autocomplete="off">
+    <button id="viewer-search-prev" title="Vorheriges (↑)">↑</button>
+    <button id="viewer-search-next" title="Nächstes (↓)">↓</button>
+    <span id="viewer-search-info"></span>
+    <button id="viewer-search-close" title="Schließen (Esc)">×</button>
+  </div>
   <div class="summary-buttons">
   </div>
   <div id="summary-content">
@@ -43943,6 +44175,414 @@ window.cancelTextEditMode = function() {};
   }
   
   console.log('[PDF-VIEWER] Modul geladen');
+})();
+</script>
+
+<script>
+// Viewer-Suchfunktion - integriert oben im Viewer
+(function() {
+  let searchMatches = [];
+  let currentMatchIndex = -1;
+  let originalHTML = '';
+  
+  const searchBox = document.getElementById('viewer-search-box');
+  const searchInput = document.getElementById('viewer-search-input');
+  const searchInfo = document.getElementById('viewer-search-info');
+  const searchPrev = document.getElementById('viewer-search-prev');
+  const searchNext = document.getElementById('viewer-search-next');
+  const searchClose = document.getElementById('viewer-search-close');
+  const viewerContent = document.getElementById('viewer-content');
+  
+  // Flag um zu verfolgen, ob Panel durch Strg+F geöffnet wurde
+  let panelOpenedBySearch = false;
+  
+  // Öffne Suchfenster mit Strg+F
+  function openSearchBox() {
+    // Prüfe ob PDF-Panel offen ist und schließe es
+    const pdfPanel = document.getElementById('pdf-viewer-panel');
+    if (pdfPanel && pdfPanel.classList.contains('visible')) {
+      if (typeof window.closePdfPanel === 'function') {
+        window.closePdfPanel();
+      }
+    }
+    
+    // Öffne Summary-Panel falls es geschlossen ist
+    const summaryPanel = document.getElementById('summary-panel');
+    const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+    const mainContainer = document.getElementById('main-container');
+    
+    // Stelle sicher, dass main-container Margin zurückgesetzt ist (falls PDF-Panel es gesetzt hatte)
+    if (mainContainer) {
+      mainContainer.style.marginRight = '';
+    }
+    
+    if (summaryPanel && !summaryPanel.classList.contains('visible')) {
+      panelOpenedBySearch = true; // Markiere, dass Panel durch Suche geöffnet wurde
+      summaryPanel.classList.add('visible');
+      summaryPanel.style.display = 'block';
+      
+      // Setze Standard-Breite falls keine gesetzt ist
+      if (!summaryPanel.style.width || summaryPanel.style.width === '0px') {
+        const savedWidth = window.savedSummaryPanelWidth || 280;
+        summaryPanel.style.width = savedWidth + 'px';
+        summaryPanel.style.minWidth = savedWidth + 'px';
+      }
+      
+      // Zeige Resize-Handle
+      if (verticalResizeHandleWrapper) {
+        verticalResizeHandleWrapper.classList.add('visible');
+        verticalResizeHandleWrapper.style.display = 'grid';
+      }
+      
+      // Aktualisiere Main-Container Margin (verwende main-container statt main)
+      if (mainContainer) {
+        // Warte kurz, damit Panel-Breite korrekt berechnet wird
+        setTimeout(() => {
+          const panelWidth = summaryPanel.offsetWidth || 280;
+          mainContainer.style.marginRight = panelWidth + 'px';
+        }, 10);
+      }
+      
+      document.body.classList.remove('summary-panel-collapsed');
+      
+      // Setze Flag nach kurzer Verzögerung zurück
+      setTimeout(() => {
+        panelOpenedBySearch = false;
+      }, 100);
+    } else {
+      // Panel ist bereits geöffnet - stelle sicher, dass Margin korrekt ist
+      if (mainContainer && summaryPanel && summaryPanel.classList.contains('visible')) {
+        setTimeout(() => {
+          const panelWidth = summaryPanel.offsetWidth || 280;
+          mainContainer.style.marginRight = panelWidth + 'px';
+        }, 10);
+      }
+      panelOpenedBySearch = true;
+      setTimeout(() => {
+        panelOpenedBySearch = false;
+      }, 100);
+    }
+    
+    // Suchfenster ist jetzt immer sichtbar wenn Panel offen ist (via CSS)
+    searchBox.classList.add('visible');
+    searchInput.focus();
+    searchInput.select();
+    
+    // Wenn bereits Text im Viewer ist, suche sofort
+    if (viewerContent && viewerContent.innerHTML.trim()) {
+      performSearch();
+    }
+  }
+  
+  // Schließe Suchfenster
+  function closeSearchBox() {
+    searchBox.classList.remove('visible');
+    clearHighlights();
+    searchInput.value = '';
+    searchMatches = [];
+    currentMatchIndex = -1;
+  }
+  
+  // Entferne alle Markierungen
+  function clearHighlights() {
+    if (!viewerContent) return;
+    
+    if (originalHTML) {
+      viewerContent.innerHTML = originalHTML;
+      originalHTML = '';
+    } else {
+      // Entferne alle Highlight-Klassen
+      const highlights = viewerContent.querySelectorAll('.viewer-search-highlight');
+      highlights.forEach(highlight => {
+        const parent = highlight.parentNode;
+        parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+        parent.normalize();
+      });
+    }
+  }
+  
+  // Führe Suche durch
+  function performSearch() {
+    // Verwende den Original-Wert (mit Leerzeichen), nicht trim()
+    const originalSearchTerm = searchInput.value;
+    const searchTerm = originalSearchTerm.trim();
+    
+    if (!viewerContent || !searchTerm) {
+      clearHighlights();
+      searchMatches = [];
+      currentMatchIndex = -1;
+      updateSearchInfo();
+      return;
+    }
+    
+    // Speichere Original-HTML beim ersten Durchlauf
+    if (!originalHTML) {
+      originalHTML = viewerContent.innerHTML;
+    } else {
+      // Stelle Original-HTML wieder her
+      viewerContent.innerHTML = originalHTML;
+    }
+    
+    // Erstelle Regex mit Wortgrenzen basierend auf Leerzeichen am Anfang/Ende
+    // Wenn Leerzeichen am Anfang: Wortgrenze am Anfang erforderlich
+    // Wenn Leerzeichen am Ende: Wortgrenze am Ende erforderlich
+    // Wenn kein Leerzeichen: auch innerhalb von Wörtern suchen
+    const startsWithSpace = originalSearchTerm.length > 0 && originalSearchTerm[0] === ' ';
+    const endsWithSpace = originalSearchTerm.length > 0 && originalSearchTerm[originalSearchTerm.length - 1] === ' ';
+    
+    let regexPattern = escapeRegExp(searchTerm);
+    
+    // Füge Wortgrenzen hinzu wenn Leerzeichen vorhanden sind
+    if (startsWithSpace && endsWithSpace) {
+      // Leerzeichen am Anfang und Ende: exaktes Wort
+      regexPattern = '\\b' + regexPattern + '\\b';
+    } else if (startsWithSpace) {
+      // Leerzeichen am Anfang: Wortgrenze am Anfang
+      regexPattern = '\\b' + regexPattern;
+    } else if (endsWithSpace) {
+      // Leerzeichen am Ende: Wortgrenze am Ende
+      regexPattern = regexPattern + '\\b';
+    }
+    // Wenn kein Leerzeichen: keine Wortgrenzen, suche auch innerhalb von Wörtern
+    
+    const viewerText = viewerContent.textContent || viewerContent.innerText || '';
+    const regex = new RegExp(regexPattern, 'g'); // Case-sensitive: 'g' statt 'gi'
+    searchMatches = [];
+    
+    // Finde alle Matches im Text
+    let match;
+    while ((match = regex.exec(viewerText)) !== null) {
+      searchMatches.push({
+        index: match.index,
+        length: match[0].length
+      });
+    }
+    
+    if (searchMatches.length === 0) {
+      updateSearchInfo('Keine Treffer');
+      searchPrev.disabled = true;
+      searchNext.disabled = true;
+      return;
+    }
+    
+    // Markiere alle Treffer im HTML (verwende den originalen Suchbegriff für Highlighting)
+    highlightMatches(viewerContent, searchTerm, startsWithSpace, endsWithSpace);
+    
+    // Gehe zum ersten Treffer
+    currentMatchIndex = 0;
+    scrollToMatch(0);
+    updateSearchInfo();
+  }
+  
+  // Markiere Treffer im HTML
+  function highlightMatches(container, searchTerm, startsWithSpace, endsWithSpace) {
+    // Erstelle Regex mit gleicher Logik wie in performSearch
+    let regexPattern = escapeRegExp(searchTerm);
+    
+    if (startsWithSpace && endsWithSpace) {
+      regexPattern = '\\b' + regexPattern + '\\b';
+    } else if (startsWithSpace) {
+      regexPattern = '\\b' + regexPattern;
+    } else if (endsWithSpace) {
+      regexPattern = regexPattern + '\\b';
+    }
+    
+    const regex = new RegExp(regexPattern, 'g'); // Case-sensitive: 'g' statt 'gi'
+    const walker = document.createTreeWalker(
+      container,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.match(regex)) {
+        textNodes.push(node);
+      }
+    }
+    
+    textNodes.forEach(textNode => {
+      const parent = textNode.parentNode;
+      const text = textNode.textContent;
+      const parts = text.split(regex);
+      const matches = text.match(regex);
+      
+      if (!matches) return;
+      
+      const fragment = document.createDocumentFragment();
+      let lastIndex = 0;
+      let matchIndex = 0;
+      
+      for (let i = 0; i < parts.length; i++) {
+        if (parts[i]) {
+          fragment.appendChild(document.createTextNode(parts[i]));
+        }
+        
+        if (i < parts.length - 1 && matches[matchIndex]) {
+          const highlight = document.createElement('span');
+          highlight.className = 'viewer-search-highlight';
+          highlight.textContent = matches[matchIndex];
+          fragment.appendChild(highlight);
+          matchIndex++;
+        }
+      }
+      
+      parent.replaceChild(fragment, textNode);
+    });
+  }
+  
+  // Scrolle zu einem bestimmten Treffer
+  function scrollToMatch(index) {
+    if (index < 0 || index >= searchMatches.length) return;
+    
+    const highlights = viewerContent.querySelectorAll('.viewer-search-highlight');
+    
+    // Entferne aktive Klasse von allen Highlights
+    highlights.forEach(h => h.classList.remove('active'));
+    
+    if (highlights[index]) {
+      highlights[index].classList.add('active');
+      highlights[index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+    
+    updateSearchInfo();
+  }
+  
+  // Aktualisiere Suchinfo
+  function updateSearchInfo(message) {
+    if (message) {
+      searchInfo.textContent = message;
+      return;
+    }
+    
+    if (searchMatches.length === 0) {
+      searchInfo.textContent = '';
+      return;
+    }
+    
+    searchInfo.textContent = `${currentMatchIndex + 1} / ${searchMatches.length}`;
+    searchPrev.disabled = false;
+    searchNext.disabled = false;
+  }
+  
+  // Escape-Sonderzeichen für Regex
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+  
+  // Event-Listener
+  searchInput.addEventListener('input', performSearch);
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeSearchBox();
+    } else if (e.key === 'Enter' && e.shiftKey) {
+      e.preventDefault();
+      navigateMatch(-1);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      navigateMatch(1);
+    }
+  });
+  
+  searchPrev.addEventListener('click', () => navigateMatch(-1));
+  searchNext.addEventListener('click', () => navigateMatch(1));
+  searchClose.addEventListener('click', closeSearchBox);
+  
+  function navigateMatch(direction) {
+    if (searchMatches.length === 0) return;
+    
+    currentMatchIndex += direction;
+    
+    if (currentMatchIndex < 0) {
+      currentMatchIndex = searchMatches.length - 1;
+    } else if (currentMatchIndex >= searchMatches.length) {
+      currentMatchIndex = 0;
+    }
+    
+    scrollToMatch(currentMatchIndex);
+  }
+  
+  // Strg+F Handler
+  document.addEventListener('keydown', function(e) {
+    // Strg+F oder Cmd+F (Mac)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      // Verhindere Standard-Browser-Suche nur wenn Viewer Content vorhanden ist
+      if (viewerContent && viewerContent.innerHTML.trim() && !e.shiftKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        openSearchBox();
+      }
+    }
+  });
+  
+  // Schließe Suchfenster wenn Viewer geleert wird
+  const observer = new MutationObserver(function(mutations) {
+    if (viewerContent && (!viewerContent.innerHTML.trim() || viewerContent.innerHTML === '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>')) {
+      if (searchBox.classList.contains('visible')) {
+        closeSearchBox();
+      }
+      originalHTML = '';
+    }
+  });
+  
+  if (viewerContent) {
+    observer.observe(viewerContent, { childList: true, subtree: true });
+  }
+  
+  // Beobachte Summary-Panel: Schließe Suchfenster wenn Panel geöffnet wird (außer durch Strg+F)
+  const summaryPanel = document.getElementById('summary-panel');
+  if (summaryPanel) {
+    const panelObserver = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isVisible = summaryPanel.classList.contains('visible');
+          const wasVisible = mutation.oldValue && mutation.oldValue.includes('visible');
+          
+          // Wenn Panel gerade geöffnet wurde (nicht durch Strg+F)
+          if (isVisible && !wasVisible && !panelOpenedBySearch) {
+            // Schließe Suchfenster immer beim Öffnen des Panels
+            if (searchBox.classList.contains('visible')) {
+              closeSearchBox();
+            }
+          }
+        }
+      });
+    });
+    
+    panelObserver.observe(summaryPanel, {
+      attributes: true,
+      attributeFilter: ['class'],
+      attributeOldValue: true
+    });
+  }
+  
+  // Intercept viewer.innerHTML assignments und leite sie zu viewerContent um
+  const viewer = document.getElementById('viewer');
+  if (viewer && viewerContent) {
+    // Überwache direkte innerHTML-Zuweisungen zum viewer
+    const originalDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+    const originalGetter = originalDescriptor.get;
+    const originalSetter = originalDescriptor.set;
+    
+    Object.defineProperty(viewer, 'innerHTML', {
+      set: function(value) {
+        viewerContent.innerHTML = value;
+        originalHTML = ''; // Reset original HTML when content changes
+      },
+      get: function() {
+        return viewerContent.innerHTML;
+      },
+      configurable: true,
+      enumerable: true
+    });
+  }
+  
+  console.log('[VIEWER-SEARCH] Modul geladen');
 })();
 </script>
 
