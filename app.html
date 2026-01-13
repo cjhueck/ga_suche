@@ -25422,7 +25422,14 @@ function scrollToChronologicalYear(year) {
     
     // Text als verschiedene Formate herunterladen
     window.downloadAsText = async function(format) {
-      if (!currentLectureData) {
+      // Prüfe ob Text markiert ist
+      const selection = window.getSelection();
+      const selectedText = selection.toString().trim();
+      const hasSelection = selectedText.length > 0;
+      
+      // Hole Viewer-Content Element
+      const viewerContent = document.getElementById('viewer-content') || document.getElementById('viewer');
+      if (!viewerContent && !currentLectureData) {
         alert('Kein Text zum Herunterladen vorhanden.');
         return;
       }
@@ -25431,118 +25438,178 @@ function scrollToChronologicalYear(year) {
         // Schließe Modal
         closeDownloadModal();
         
-        // Extrahiere Daten
-        const lecture = currentLectureData;
-        const lectureId = lecture.ID || lecture.id || 'text';
-        const title = lecture.title || '';
-        const location = lecture.location || '';
-        const date = lecture.date ? formatDate(lecture.date) : '';
-        const paragraphs = lecture.paragraphs || [];
-        
-        // Hole Überschriften falls vorhanden
-        const headings = currentLectureSummary?.headings || [];
-        const summary = currentLectureSummary?.summary || '';
+        // Hole Header aus document-title
+        const documentTitleEl = document.getElementById('document-title');
+        let headerLine = '';
+        if (documentTitleEl) {
+          // Entferne Links und extrahiere Text
+          const titleClone = documentTitleEl.cloneNode(true);
+          titleClone.querySelectorAll('a').forEach(a => {
+            a.replaceWith(document.createTextNode(a.textContent));
+          });
+          headerLine = titleClone.textContent.trim();
+        }
         
         // Erstelle Textinhalt
         let textContent = '';
+        let bodyContent = '';
         
-        // Header
-        let headerParts = [lectureId];
-        if (title) headerParts.push(title);
-        const headerLine = headerParts.join(' - ');
+        if (hasSelection) {
+          // Nur markierten Text verwenden
+          bodyContent = selectedText;
+        } else if (viewerContent) {
+          // Gesamten Viewer-Content verwenden
+          const clone = viewerContent.cloneNode(true);
+          
+          // Entferne Buttons und interaktive Elemente
+          clone.querySelectorAll('button, .download-btn, .copy-btn, script, style').forEach(el => el.remove());
+          
+          // Entferne alle Inline-Styles für sauberen Text
+          clone.querySelectorAll('*').forEach(el => {
+            el.removeAttribute('style');
+          });
+          
+          // Konvertiere HTML zu Text
+          if (format === 'md') {
+            // Markdown-ähnliche Konvertierung
+            clone.querySelectorAll('h1, h2, h3, h4, h5, h6, p, div, li').forEach(el => {
+              const text = el.innerText.trim();
+              if (!text) return;
+              
+              const tagName = el.tagName;
+              if (tagName === 'H1') bodyContent += `# ${text}\n\n`;
+              else if (tagName === 'H2') bodyContent += `## ${text}\n\n`;
+              else if (tagName === 'H3') bodyContent += `### ${text}\n\n`;
+              else if (tagName === 'H4') bodyContent += `#### ${text}\n\n`;
+              else if (tagName === 'H5') bodyContent += `##### ${text}\n\n`;
+              else if (tagName === 'H6') bodyContent += `###### ${text}\n\n`;
+              else if (tagName === 'LI') bodyContent += `- ${text}\n`;
+              else if (tagName === 'P' || tagName === 'DIV') {
+                // Nur wenn es keinen verschachtelten Block-Inhalt hat
+                if (!el.querySelector('h1, h2, h3, h4, h5, h6, p, div')) {
+                  bodyContent += `${text}\n\n`;
+                }
+              }
+            });
+          } else {
+            // Einfacher Text
+            bodyContent = clone.innerText || clone.textContent || '';
+          }
+        } else if (currentLectureData) {
+          // Fallback: Verwende currentLectureData (alte Logik)
+          const lecture = currentLectureData;
+          const lectureId = lecture.ID || lecture.id || 'text';
+          const title = lecture.title || '';
+          const location = lecture.location || '';
+          const date = lecture.date ? formatDate(lecture.date) : '';
+          const paragraphs = lecture.paragraphs || [];
+          
+          // Hole Überschriften falls vorhanden
+          const headings = currentLectureSummary?.headings || [];
+          const summary = currentLectureSummary?.summary || '';
+          
+          let headerParts = [lectureId];
+          if (title) headerParts.push(title);
+          headerLine = headerParts.join(' - ');
+          
+          let subHeaderParts = [];
+          if (location) subHeaderParts.push(location);
+          if (date) subHeaderParts.push(date);
+          const subHeader = subHeaderParts.join(', ');
+          
+          // Format-spezifische Formatierung
+          if (format === 'md') {
+            bodyContent = `# ${headerLine}\n\n`;
+            if (subHeader) bodyContent += `*${subHeader}*\n\n`;
+            if (summary) bodyContent += `**Zusammenfassung:** ${summary}\n\n---\n\n`;
+            
+            paragraphs.forEach((para, idx) => {
+              if (para._deleted) return;
+              const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+              const matchingHeadings = headings.filter(h => {
+                const hIndex = (h.index || '').replace(/^\^/, '');
+                return hIndex === paraIndex;
+              });
+              matchingHeadings.forEach(heading => {
+                const level = heading.level === 'h3' ? '##' : '###';
+                bodyContent += `\n${level} ${heading.text || heading.title}\n\n`;
+              });
+              let content = para.content || para.text || '';
+              content = content.replace(/<[^>]+>/g, '');
+              content = content.replace(/&nbsp;/g, ' ');
+              content = content.replace(/&amp;/g, '&');
+              content = content.replace(/&lt;/g, '<');
+              content = content.replace(/&gt;/g, '>');
+              content = content.replace(/&quot;/g, '"');
+              if (content.trim()) {
+                bodyContent += content.trim() + '\n\n';
+              }
+            });
+          } else {
+            bodyContent = headerLine + '\n';
+            bodyContent += '='.repeat(headerLine.length) + '\n\n';
+            if (subHeader) bodyContent += subHeader + '\n\n';
+            if (summary) bodyContent += 'Zusammenfassung:\n' + summary + '\n\n' + '-'.repeat(40) + '\n\n';
+            
+            paragraphs.forEach((para, idx) => {
+              if (para._deleted) return;
+              const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+              const matchingHeadings = headings.filter(h => {
+                const hIndex = (h.index || '').replace(/^\^/, '');
+                return hIndex === paraIndex;
+              });
+              matchingHeadings.forEach(heading => {
+                const headingText = heading.text || heading.title || '';
+                bodyContent += '\n' + headingText.toUpperCase() + '\n\n';
+              });
+              let content = para.content || para.text || '';
+              content = content.replace(/<[^>]+>/g, '');
+              content = content.replace(/&nbsp;/g, ' ');
+              content = content.replace(/&amp;/g, '&');
+              content = content.replace(/&lt;/g, '<');
+              content = content.replace(/&gt;/g, '>');
+              content = content.replace(/&quot;/g, '"');
+              if (content.trim()) {
+                bodyContent += content.trim() + '\n\n';
+              }
+            });
+          }
+        }
         
-        let subHeaderParts = [];
-        if (location) subHeaderParts.push(location);
-        if (date) subHeaderParts.push(date);
-        const subHeader = subHeaderParts.join(', ');
+        // Bereinige mehrfache Leerzeilen
+        bodyContent = bodyContent.replace(/\n{3,}/g, '\n\n').trim();
         
-        // Format-spezifische Formatierung
+        // Kombiniere Header und Body
         if (format === 'md') {
-          // Markdown Format
-          textContent = `# ${headerLine}\n\n`;
-          if (subHeader) textContent += `*${subHeader}*\n\n`;
-          if (summary) textContent += `**Zusammenfassung:** ${summary}\n\n---\n\n`;
-          
-          // Absätze mit Überschriften
-          paragraphs.forEach((para, idx) => {
-            // Überspringe gelöschte Absätze
-            if (para._deleted) return;
-            
-            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
-            
-            // Finde passende Überschriften
-            const matchingHeadings = headings.filter(h => {
-              const hIndex = (h.index || '').replace(/^\^/, '');
-              return hIndex === paraIndex;
-            });
-            
-            // Überschriften einfügen
-            matchingHeadings.forEach(heading => {
-              const level = heading.level === 'h3' ? '##' : '###';
-              textContent += `\n${level} ${heading.text || heading.title}\n\n`;
-            });
-            
-            // Absatzinhalt
-            let content = para.content || para.text || '';
-            content = content.replace(/<[^>]+>/g, ''); // HTML-Tags entfernen
-            content = content.replace(/&nbsp;/g, ' ');
-            content = content.replace(/&amp;/g, '&');
-            content = content.replace(/&lt;/g, '<');
-            content = content.replace(/&gt;/g, '>');
-            content = content.replace(/&quot;/g, '"');
-            
-            if (content.trim()) {
-              textContent += content.trim() + '\n\n';
-            }
-          });
-          
+          if (headerLine) {
+            textContent = `# ${headerLine}\n\n${bodyContent}`;
+          } else {
+            textContent = bodyContent;
+          }
         } else {
-          // TXT Format (auch für PDF-Vorbereitung)
-          textContent = headerLine + '\n';
-          textContent += '='.repeat(headerLine.length) + '\n\n';
-          if (subHeader) textContent += subHeader + '\n\n';
-          if (summary) textContent += 'Zusammenfassung:\n' + summary + '\n\n' + '-'.repeat(40) + '\n\n';
-          
-          // Absätze mit Überschriften
-          paragraphs.forEach((para, idx) => {
-            // Überspringe gelöschte Absätze
-            if (para._deleted) return;
-            
-            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
-            
-            // Finde passende Überschriften
-            const matchingHeadings = headings.filter(h => {
-              const hIndex = (h.index || '').replace(/^\^/, '');
-              return hIndex === paraIndex;
-            });
-            
-            // Überschriften einfügen
-            matchingHeadings.forEach(heading => {
-              const headingText = heading.text || heading.title || '';
-              textContent += '\n' + headingText.toUpperCase() + '\n\n';
-            });
-            
-            // Absatzinhalt
-            let content = para.content || para.text || '';
-            content = content.replace(/<[^>]+>/g, ''); // HTML-Tags entfernen
-            content = content.replace(/&nbsp;/g, ' ');
-            content = content.replace(/&amp;/g, '&');
-            content = content.replace(/&lt;/g, '<');
-            content = content.replace(/&gt;/g, '>');
-            content = content.replace(/&quot;/g, '"');
-            
-            if (content.trim()) {
-              textContent += content.trim() + '\n\n';
-            }
-          });
+          if (headerLine) {
+            textContent = headerLine + '\n' + '='.repeat(headerLine.length) + '\n\n' + bodyContent;
+          } else {
+            textContent = bodyContent;
+          }
         }
         
         // Dateiname erstellen
-        const safeFilename = lectureId.replace(/[^a-zA-Z0-9äöüÄÖÜß]/g, '_');
+        let safeFilename = 'text';
+        if (headerLine) {
+          safeFilename = headerLine.replace(/[^a-zA-Z0-9äöüÄÖÜß]/g, '_').substring(0, 50);
+        } else if (currentLectureData) {
+          const lectureId = currentLectureData.ID || currentLectureData.id || 'text';
+          safeFilename = lectureId.replace(/[^a-zA-Z0-9äöüÄÖÜß]/g, '_');
+        }
+        
+        if (hasSelection) {
+          safeFilename += '_Auszug';
+        }
         
         if (format === 'pdf') {
           // PDF mit jsPDF erstellen
-          await generatePdfFromText(textContent, headerLine, safeFilename);
+          await generatePdfFromText(textContent, headerLine || 'Text', safeFilename);
         } else {
           // TXT oder MD als Download
           const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
