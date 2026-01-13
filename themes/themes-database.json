@@ -612,41 +612,6 @@
       "Schöpferische Gedanken"
     ]
   },
-  "Kosmische Entwicklung": {
-    "description": "Planetarische und kosmische Entwicklungsstufen",
-    "keywords": [
-      "Erdentwicklung",
-      "Planetarische Entwicklung",
-      "Kosmische Entwicklung",
-      "Kosmische Evolution",
-      "Weltentwicklung",
-      "Planetengeister",
-      "Planetensystem",
-      "Kosmische Zyklen",
-      "Zyklische Gesetze",
-      "Schöpfung",
-      "Ursprung",
-      "Lemuria",
-      "Wurzelrasse",
-      "Rundenlehre",
-      "Involution",
-      "Vulkandasein",
-      "Alter Saturn",
-      "Manvantara",
-      "Pralaya",
-      "Lunarische Epoche",
-      "Globen",
-      "Hyperboreer",
-      "Äonen",
-      "Fischezeitalter",
-      "Urbeginne",
-      "Vorirdische Entwicklung",
-      "Entstehen und Vergehen",
-      "Weltuntergang",
-      "Eiszeiten",
-      "Saturnzustand"
-    ]
-  },
   "Kulturentwicklung": {
     "description": "Kulturelle Epochen und Entwicklungsstufen",
     "keywords": [
@@ -1630,25 +1595,6 @@
       "Insekten",
       "Dickhäuter",
       "Goldfische"
-    ]
-  },
-  "Kosmische Zusammenhänge": {
-    "description": "Kosmische Gesetzmäßigkeiten und Beziehungen",
-    "keywords": [
-      "Mikrokosmos-Makrokosmos",
-      "Kosmische Kräfte",
-      "Kosmische Ordnung",
-      "Kosmische Zusammenhänge",
-      "Kosmos",
-      "Makrokosmos",
-      "Übersonne",
-      "Mitternächtige Sonne",
-      "Kontinente",
-      "Kosmisch",
-      "Chaos",
-      "Katastrophe",
-      "Makrokosmos-Mikrokosmos",
-      "Sonnenwirkung"
     ]
   },
   "Naturerkenntnis": {
@@ -3827,6 +3773,60 @@
       "Gilgamesch-Epos",
       "Fabeln",
       "Olaf Åsteson"
+    ]
+  },
+  "Kosmologie": {
+    "description": "Kosmische Gesetzmäßigkeiten und Beziehungen",
+    "keywords": [
+      "Mikrokosmos-Makrokosmos",
+      "Kosmische Kräfte",
+      "Kosmische Ordnung",
+      "Kosmische Zusammenhänge",
+      "Kosmos",
+      "Makrokosmos",
+      "Übersonne",
+      "Mitternächtige Sonne",
+      "Kontinente",
+      "Kosmisch",
+      "Chaos",
+      "Katastrophe",
+      "Sonnenwirkung",
+      "Tierkreis"
+    ]
+  },
+  "Kosmogonie": {
+    "description": "Planetarische und kosmische Entwicklungsstufen",
+    "keywords": [
+      "Erdentwicklung",
+      "Planetarische Entwicklung",
+      "Kosmische Entwicklung",
+      "Kosmische Evolution",
+      "Weltentwicklung",
+      "Planetengeister",
+      "Planetensystem",
+      "Kosmische Zyklen",
+      "Zyklische Gesetze",
+      "Schöpfung",
+      "Ursprung",
+      "Lemuria",
+      "Wurzelrasse",
+      "Rundenlehre",
+      "Involution",
+      "Vulkandasein",
+      "Alter Saturn",
+      "Manvantara",
+      "Pralaya",
+      "Lunarische Epoche",
+      "Globen",
+      "Hyperboreer",
+      "Äonen",
+      "Fischezeitalter",
+      "Urbeginne",
+      "Vorirdische Entwicklung",
+      "Entstehen und Vergehen",
+      "Weltuntergang",
+      "Eiszeiten",
+      "Saturnzustand"
     ]
   }
 }
