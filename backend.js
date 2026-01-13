@@ -19,9 +19,13 @@ app.set('trust proxy', 1);
 
 // TEST: Middleware zum Loggen aller POST-Anfragen (MUSS vor den Routes sein!)
 app.use((req, res, next) => {
-  if (req.method === 'POST' && req.path.includes('search')) {
-    console.log(`[REQUEST-LOG] ${req.method} ${req.path} - Zeit: ${new Date().toISOString()}`);
-    console.log(`[REQUEST-LOG] Body:`, JSON.stringify(req.body).substring(0, 200));
+  if (req.method === 'POST') {
+    if (req.path.includes('search') || req.path.includes('analytics')) {
+      console.log(`[REQUEST-LOG] ${req.method} ${req.path} - Zeit: ${new Date().toISOString()}`);
+      console.log(`[REQUEST-LOG] Body:`, JSON.stringify(req.body).substring(0, 200));
+      console.log(`[REQUEST-LOG] IP:`, req.ip || req.connection.remoteAddress);
+      console.log(`[REQUEST-LOG] Headers X-Forwarded-For:`, req.headers['x-forwarded-for']);
+    }
   }
   next();
 });
@@ -22694,9 +22698,22 @@ async function trackSearch(searchTerm) {
 
 // Track-Endpunkt
 app.post('/api/analytics/track', async (req, res) => {
+  // SEHR PROMINENTES LOGGING - sollte IMMER erscheinen wenn Anfrage ankommt
+  console.log('========================================');
+  console.log('[ANALYTICS-TRACK] ENDPUNKT AUFGERUFEN!');
+  console.log('[ANALYTICS-TRACK] Zeit:', new Date().toISOString());
+  console.log('[ANALYTICS-TRACK] IP:', req.ip || req.connection.remoteAddress);
+  console.log('[ANALYTICS-TRACK] Path:', req.path);
+  console.log('[ANALYTICS-TRACK] Method:', req.method);
+  console.log('[ANALYTICS-TRACK] Body:', JSON.stringify(req.body));
+  console.log('========================================');
+  
   try {
     const { type, value } = req.body;
-    if (!type) return res.status(400).json({ error: 'type required' });
+    if (!type) {
+      console.log('[ANALYTICS-TRACK] FEHLER: Kein type vorhanden');
+      return res.status(400).json({ error: 'type required' });
+    }
     
     console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, value=${value ? value.substring(0, 50) : 'null'}`);
     
@@ -22751,8 +22768,24 @@ app.post('/api/analytics/track', async (req, res) => {
   }
 });
 
+// TEST-Endpunkt: Prüfe ob Server erreichbar ist
+app.get('/api/analytics/test', (req, res) => {
+  console.log('[TEST] Analytics Test-Endpunkt aufgerufen:', new Date().toISOString());
+  res.json({ 
+    ok: true, 
+    message: 'Analytics-Server ist erreichbar',
+    time: new Date().toISOString(),
+    ip: req.ip || req.connection.remoteAddress
+  });
+});
+
 // Stats-Endpunkt für Dashboard
 app.get('/api/analytics/stats', async (req, res) => {
+  // Verhindere Caching
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  
   try {
     const data = await loadAnalyticsData();
     const today = getDateKey();

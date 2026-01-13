@@ -6634,6 +6634,8 @@ body.dark-mode .context-help-popup strong {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
   background: var(--sidebar-bg);
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .analytics-header h2 {
@@ -6965,7 +6967,11 @@ body.dark-mode .viewer-search-highlight.active {
   <div class="analytics-panel">
     <div class="analytics-header">
       <h2>Nutzungsstatistiken</h2>
-      <button class="analytics-close" onclick="closeAnalytics()">&times;</button>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <button id="analytics-data-source-btn" onclick="toggleAnalyticsDataSource()" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; font-weight: 500; white-space: nowrap;" title="Datenquelle wechseln (Lokal ↔ Online)">🌐 Online</button>
+        <button onclick="loadAnalyticsData(window.analyticsUseOnlineData || false)" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; white-space: nowrap;" title="Aktualisieren">↻ Aktualisieren</button>
+        <button class="analytics-close" onclick="closeAnalytics()" style="flex-shrink: 0;">&times;</button>
+      </div>
     </div>
     <div class="analytics-content" id="analytics-content">
       <p style="color: var(--secondary-text);">Statistiken werden geladen...</p>
@@ -9141,6 +9147,16 @@ Bestehende Schlagwörter überschreiben
 
 <!-- Schlagwörter-Verwaltung für Themenschwerpunkte -->
 <div id="thematic2-admin-panel" style="margin-top: 2rem;">
+  <!-- Analytics-Button -->
+  <div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-bottom: 1rem;">
+    <button onclick="openAnalytics()" class="depth-btn" style="width: 100%; padding: 10px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer;">
+      📊 Nutzungsstatistiken anzeigen
+    </button>
+    <p style="font-size: 0.75rem; color: var(--secondary-text); margin: 0.5rem 0 0 0; text-align: center;">
+      Oder drücken Sie <kbd style="padding: 2px 6px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 3px; font-size: 0.85em;">Strg+Shift+A</kbd>
+    </p>
+  </div>
+  
   <!-- Schlagwort-Verwaltung -->
   <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem;">
     <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Schlagwörter verwalten</h4>
@@ -9628,6 +9644,14 @@ PDF
             console.warn('[ANALYTICS] Tracking-Fehler:', response.status, response.statusText);
           } else {
             console.log('[ANALYTICS] Tracking erfolgreich:', type);
+            // Aktualisiere Statistik-Anzeige, wenn Analytics-Overlay geöffnet ist
+            const overlay = document.getElementById('analytics-overlay');
+            if (overlay && overlay.classList.contains('visible')) {
+              // Kurze Verzögerung, damit Backend die Daten speichern kann
+              setTimeout(() => {
+                loadAnalyticsData();
+              }, 500);
+            }
           }
         })
         .catch((err) => {
@@ -9644,12 +9668,38 @@ PDF
       sessionStorage.setItem('analytics_tracked', '1');
     }
     
+    // Analytics-Datenquelle umschalten (lokal/online)
+    window.analyticsUseOnlineData = false; // Standard: lokale Daten
+    function toggleAnalyticsDataSource() {
+      window.analyticsUseOnlineData = !window.analyticsUseOnlineData;
+      const btn = document.getElementById('analytics-data-source-btn');
+      if (btn) {
+        btn.textContent = window.analyticsUseOnlineData ? '💻 Lokal' : '🌐 Online';
+        btn.title = window.analyticsUseOnlineData ? 'Zu lokalen Daten wechseln' : 'Zu Online-Daten (Render) wechseln';
+      }
+      // Lade Daten neu mit neuer Quelle
+      loadAnalyticsData(window.analyticsUseOnlineData);
+    }
+    
     // Analytics-Dashboard öffnen
+    let analyticsRefreshInterval = null;
     function openAnalytics() {
       const overlay = document.getElementById('analytics-overlay');
       if (overlay) {
         overlay.classList.add('visible');
-        loadAnalyticsData();
+        // Initialisiere Button-Text
+        const btn = document.getElementById('analytics-data-source-btn');
+        if (btn) {
+          btn.textContent = window.analyticsUseOnlineData ? '💻 Lokal' : '🌐 Online';
+          btn.title = window.analyticsUseOnlineData ? 'Zu lokalen Daten wechseln' : 'Zu Online-Daten (Render) wechseln';
+        }
+        loadAnalyticsData(window.analyticsUseOnlineData);
+        // Automatische Aktualisierung DEAKTIVIERT - zu viele Requests
+        // Benutzer kann manuell mit "↻ Aktualisieren" Button aktualisieren
+        if (analyticsRefreshInterval) {
+          clearInterval(analyticsRefreshInterval);
+          analyticsRefreshInterval = null;
+        }
       }
     }
     
@@ -9657,36 +9707,87 @@ PDF
     function closeAnalytics() {
       const overlay = document.getElementById('analytics-overlay');
       if (overlay) overlay.classList.remove('visible');
+      // Stoppe automatische Aktualisierung
+      if (analyticsRefreshInterval) {
+        clearInterval(analyticsRefreshInterval);
+        analyticsRefreshInterval = null;
+      }
     }
     
     // Analytics-Daten laden und anzeigen
-    async function loadAnalyticsData() {
+    // Parameter: useOnlineData - wenn true, lade Daten von Render (auch wenn lokal)
+    async function loadAnalyticsData(useOnlineData = false) {
       const container = document.getElementById('analytics-content');
       if (!container) return;
       
       try {
-        const res = await fetch('/api/analytics/stats');
+        let url;
+        if (useOnlineData) {
+          // Lade Daten direkt von Render, auch wenn lokal
+          url = 'https://ga-suche.onrender.com/api/analytics/stats';
+          console.log('[ANALYTICS] Lade Online-Daten von Render:', url);
+        } else {
+          // Verwende API_BASE wie alle anderen API-Aufrufe (lokal oder online je nach Umgebung)
+          const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : '');
+          url = apiBase ? `${apiBase}/api/analytics/stats` : '/api/analytics/stats';
+          console.log('[ANALYTICS] Lade lokale Daten:', url);
+        }
+        
+        // Füge Cache-Control Header hinzu, um sicherzustellen, dass keine gecachten Daten verwendet werden
+        const res = await fetch(url, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
+        });
         if (!res.ok) throw new Error('Fehler beim Laden');
         const data = await res.json();
+        window.analyticsLastLoadTime = Date.now();
+        // Stelle sicher, dass dailyData existiert und ein Array ist
+        const dailyData = Array.isArray(data.dailyData) ? data.dailyData : [];
         
-        // Chart-Höhe berechnen
-        const maxViews = Math.max(...data.dailyData.map(d => d.views), 1);
+        // Debug: Logge dailyData für Diagnose (erweitert)
+        console.log('[ANALYTICS] dailyData Details:', JSON.stringify({
+          length: dailyData.length,
+          firstFew: dailyData.slice(0, 3).map(d => ({ date: d.date, views: d.views, searches: d.searches })),
+          lastFew: dailyData.slice(-3).map(d => ({ date: d.date, views: d.views, searches: d.searches })),
+          allViews: dailyData.map(d => d.views || 0),
+          allSearches: dailyData.map(d => d.searches || 0)
+        }, null, 2));
+        
+        // Chart-Höhe berechnen (verwende maxViews für Besuche, maxSearches für Suchen)
+        const maxViews = dailyData.length > 0 ? Math.max(...dailyData.map(d => (d.views || 0)), 1) : 1;
+        const maxSearches = dailyData.length > 0 ? Math.max(...dailyData.map(d => (d.searches || 0)), 1) : 1;
+        
+        console.log('[ANALYTICS] Chart-Berechnung:', JSON.stringify({
+          maxViews,
+          maxSearches,
+          dailyDataLength: dailyData.length,
+          sampleBarHeight: dailyData.length > 0 ? Math.max((dailyData[0].views / maxViews) * 100, 2) : 0
+        }, null, 2));
+        
+        // Zeige Datenquelle an
+        const dataSource = useOnlineData ? '🌐 Online (Render)' : '💻 Lokal';
         
         container.innerHTML = `
+          <div style="margin-bottom: 1rem; padding: 8px; background: var(--sidebar-bg); border-radius: 4px; font-size: 0.85em; color: var(--secondary-text);">
+            Datenquelle: <strong>${dataSource}</strong>
+          </div>
           <div class="analytics-stats-row">
             <div class="analytics-stat-box">
               <h4>Heute</h4>
-              <div class="stat-value">${data.today.views}</div>
+              <div class="stat-value">${data.today?.views || 0}</div>
               <div class="stat-label">Besuche</div>
             </div>
             <div class="analytics-stat-box">
               <h4>Diese Woche</h4>
-              <div class="stat-value">${data.week.views}</div>
+              <div class="stat-value">${data.week?.views || 0}</div>
               <div class="stat-label">Besuche</div>
             </div>
             <div class="analytics-stat-box">
               <h4>Gesamt</h4>
-              <div class="stat-value">${data.total.views}</div>
+              <div class="stat-value">${data.total?.views || 0}</div>
               <div class="stat-label">Besuche</div>
             </div>
           </div>
@@ -9694,30 +9795,46 @@ PDF
           <div class="analytics-stats-row">
             <div class="analytics-stat-box">
               <h4>Heute</h4>
-              <div class="stat-value">${data.today.searches}</div>
+              <div class="stat-value">${data.today?.searches || 0}</div>
               <div class="stat-label">Suchen</div>
             </div>
             <div class="analytics-stat-box">
               <h4>Diese Woche</h4>
-              <div class="stat-value">${data.week.searches}</div>
+              <div class="stat-value">${data.week?.searches || 0}</div>
               <div class="stat-label">Suchen</div>
             </div>
             <div class="analytics-stat-box">
               <h4>Gesamt</h4>
-              <div class="stat-value">${data.total.searches}</div>
+              <div class="stat-value">${data.total?.searches || 0}</div>
               <div class="stat-label">Suchen</div>
             </div>
           </div>
           
           <div class="analytics-section">
-            <h3>Besuche der letzten 14 Tage</h3>
-            <div class="analytics-chart">
-              ${data.dailyData.map(d => `
-                <div class="analytics-chart-bar" 
-                     style="height: ${Math.max((d.views / maxViews) * 100, 2)}%"
-                     data-label="${d.label}"
-                     title="${d.date}: ${d.views} Besuche, ${d.searches} Suchen"></div>
-              `).join('')}
+            <h3>Besuche der letzten ${dailyData.length} Tage</h3>
+            <div class="analytics-chart" id="analytics-chart-container">
+              ${dailyData.length > 0 ? dailyData.map((d, index) => {
+                const views = Number(d.views) || 0;
+                const searches = Number(d.searches) || 0;
+                // Berechne Höhe: Wenn maxViews > 0, verwende Prozent, sonst minimale Höhe für Sichtbarkeit
+                let viewsHeight;
+                if (maxViews > 0) {
+                  viewsHeight = Math.max((views / maxViews) * 100, 2);
+                } else {
+                  // Wenn alle Views 0 sind, zeige minimale Höhe für Sichtbarkeit
+                  viewsHeight = views > 0 ? 100 : 2;
+                }
+                // Debug nur für erste 3 Balken
+                if (index < 3) {
+                  console.log(`[ANALYTICS] Bar ${index}:`, { date: d.date, views, searches, viewsHeight, maxViews });
+                }
+                return `
+                  <div class="analytics-chart-bar" 
+                       style="height: ${viewsHeight}%; min-height: 2px; background: var(--accent-color);"
+                       data-label="${d.label || d.date || ''}"
+                       title="${d.date || ''}: ${views} Besuche, ${searches} Suchen"></div>
+                `;
+              }).join('') : '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Daten verfügbar</div>'}
             </div>
           </div>
           
