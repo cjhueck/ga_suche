@@ -22788,6 +22788,16 @@ app.get('/api/analytics/test', (req, res) => {
   });
 });
 
+// Endpunkt: Vollständige Analytics-Daten abrufen (für Upload)
+app.get('/api/analytics/full', async (req, res) => {
+  try {
+    const data = await loadAnalyticsData();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Stats-Endpunkt für Dashboard
 app.get('/api/analytics/stats', async (req, res) => {
   // Verhindere Caching
@@ -22948,6 +22958,53 @@ app.post('/api/analytics/restore', async (req, res) => {
     
     res.json({ ok: true, message: `Backup ${filename} erfolgreich wiederhergestellt` });
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Analytics-Daten direkt hochladen (für Wiederherstellung von lokalen Daten)
+app.post('/api/analytics/upload', async (req, res) => {
+  try {
+    const { data } = req.body;
+    
+    if (!data || typeof data !== 'object') {
+      return res.status(400).json({ error: 'Ungültige Daten' });
+    }
+    
+    // Validiere Datenstruktur
+    if (!data.dailyStats || typeof data.dailyStats !== 'object') {
+      return res.status(400).json({ error: 'Ungültige Datenstruktur: dailyStats fehlt' });
+    }
+    
+    // Erstelle Backup der aktuellen Datei vor Upload
+    if (fsSync.existsSync(ANALYTICS_FILE)) {
+      const currentBackup = ANALYTICS_FILE + '.pre-upload-' + Date.now() + '.json';
+      try {
+        const currentData = await fs.readFile(ANALYTICS_FILE, 'utf8');
+        await fs.writeFile(currentBackup, currentData, 'utf8');
+        console.log(`[ANALYTICS UPLOAD] Backup erstellt: ${currentBackup}`);
+      } catch (backupError) {
+        console.warn('[ANALYTICS UPLOAD] Backup konnte nicht erstellt werden:', backupError.message);
+      }
+    }
+    
+    // Speichere hochgeladene Daten
+    await saveAnalyticsData(data);
+    
+    console.log(`[ANALYTICS UPLOAD] Daten erfolgreich hochgeladen: ${Object.keys(data.dailyStats || {}).length} Tage`);
+    
+    res.json({ 
+      ok: true, 
+      message: 'Analytics-Daten erfolgreich hochgeladen',
+      stats: {
+        days: Object.keys(data.dailyStats || {}).length,
+        totalViews: data.totalViews || 0,
+        totalSearches: data.totalSearches || 0,
+        totalLectures: data.totalLectureViews || 0
+      }
+    });
+  } catch (error) {
+    console.error('[ANALYTICS UPLOAD] Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
