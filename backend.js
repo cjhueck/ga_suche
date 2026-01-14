@@ -8990,6 +8990,23 @@ app.post('/api/reload-books', async (req, res) => {
   }
 });
 
+// Reload-Endpoint für Lectures (zum Neuladen ohne Server-Neustart)
+// Lädt auch die pagebreaks/GA*.json Override-Dateien neu
+app.post('/api/reload-lectures', async (req, res) => {
+  try {
+    fullLectures = {}; // Leere den Cache
+    const reloaded = await loadFullLectures();
+    res.json({ 
+      success: true, 
+      lecturesLoaded: Object.keys(reloaded).length,
+      lectures: Object.keys(reloaded).slice(0, 20) // Zeige nur erste 20 als Beispiel
+    });
+  } catch (error) {
+    console.error('[RELOAD-LECTURES] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/api/book/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
