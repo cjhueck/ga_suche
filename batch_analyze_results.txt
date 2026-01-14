@@ -1,49 +1,17 @@
-Batch-Analyse gestartet: 21:01:29
-GA-Bände: GA051, GA052, GA053, GA054, GA055, GA056, GA058, GA059, GA060
+Batch-Analyse gestartet: 21:15:26
+GA-Bände: GA051
 ======================================================================
 
-[1/9] Verarbeite GA051...
-  ✗ Keine Daten
-
-[2/9] Verarbeite GA052...
-  ✗ Keine Daten
-
-[3/9] Verarbeite GA053...
-  ✗ Keine Daten
-
-[4/9] Verarbeite GA054...
-  ✗ Keine Daten
-
-[5/9] Verarbeite GA055...
-  ✗ Keine Daten
-
-[6/9] Verarbeite GA056...
-  ✗ Keine Daten
-
-[7/9] Verarbeite GA058...
-  ✗ Keine Daten
-
-[8/9] Verarbeite GA059...
-  ✗ Keine Daten
-
-[9/9] Verarbeite GA060...
-  ✗ Keine Daten
+[1/1] Verarbeite GA051...
+  ✓ 25 Dateien, Block-IDs: 644/1385 (46.5%)
 
 ======================================================================
 ZUSAMMENFASSUNG
 ======================================================================
 GA        Dateien      Alt   Übern.      Neu    Match %
 ----------------------------------------------------------------------
-GA051      FEHLER
-GA052      FEHLER
-GA053      FEHLER
-GA054      FEHLER
-GA055      FEHLER
-GA056      FEHLER
-GA058      FEHLER
-GA059      FEHLER
-GA060      FEHLER
+GA051          25     1385      644     1030      46.5%
 ----------------------------------------------------------------------
-GESAMT          0        0        0        0       0.0%
+GESAMT         25     1385      644     1030      46.5%
 ======================================================================
-Fertig: 21:11:54
+Fertig: 21:16:49

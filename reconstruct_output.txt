@@ -1,0 +1,306 @@
+﻿*** DRY-RUN MODUS - Keine Dateien werden ge├ñndert ***
+
+
+============================================================
+Reconstruct MD from PDF: GA051
+============================================================
+  52 MD-Datei(en) zu verarbeiten
+  PDF: Steiner, Rudolf GA 051 1983 - ├£ber Philosophie, Geschichte und Literatur.pdf
+
+  Verarbeite: GA051 (1.) WELT- UND LEBENSANSCHAUUNGEN VON DEN ├äLTESTEN ZEITEN BIS ZUR GEGENWART, Berlin, 11. M├ñrz 1901.md
+    Seitenbereich: 17-65
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    49 Seiten aus PDF extrahiert
+    Block-IDs: 208 alt ÔåÆ 193 ├╝bernommen (92.8%), 15 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 89195 Zeichen
+    L├ñnge neu: 89295 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|17| Autoreferat  
+Zusammenfassung von zehn Vortr├ñgen,  
+gehalten in Berlin vom Januar bis M├ñrz 1901
+
+/. Die griechischen Weltanschauungen Da├ƒ der Mensch nicht dabei stehenbleiben kann, was ihm seine Sinne ├╝ber die Natur und ├╝ber sich selbst sagen, dar├╝ber hat Aristoteles, den der gro├ƒe mittelalterliche Dichter
+
+Dante den Meister derer nennt, die da wissen, folgende  
+sch├Ânen Worte gesprochen: ┬½Alle Menschen verlan
+
+  Verarbeite: GA051 (1.) WELT- UND LEBENSANSCHAUUNGEN VON DEN ├äLTESTEN ZEITEN BIS ZUR GEGENWART, Berlin, 11. M├ñrz 1901_backup.md
+    Seitenbereich: 17-65
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    49 Seiten aus PDF extrahiert
+    Block-IDs: 208 alt ÔåÆ 182 ├╝bernommen (87.5%), 26 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 89264 Zeichen
+    L├ñnge neu: 89295 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|17| Autoreferat  
+Zusammenfassung von zehn Vortr├ñgen,  
+gehalten in Berlin vom Januar bis M├ñrz 1901
+
+/. Die griechischen Weltanschauungen Da├ƒ der Mensch nicht dabei stehenbleiben kann, was ihm seine Sinne ├╝ber die Natur und ├╝ber sich selbst sagen, dar├╝ber hat Aristoteles, den der gro├ƒe mittelalterliche Dichter
+
+Dante den Meister derer nennt, die da wissen, folgende  
+sch├Ânen Worte gesprochen: ┬½Alle Menschen verlan
+
+  Verarbeite: GA051 (10.) SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 13. Dezember 1904.md
+    Seitenbereich: 154-162
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    9 Seiten aus PDF extrahiert
+    Block-IDs: 37 alt ÔåÆ 37 ├╝bernommen (100.0%), 0 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 16294 Zeichen
+    L├ñnge neu: 16350 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|154| SIEBENTER VORTRAG, 13. Dezember 1904
+
+Vor acht Tagen habe ich Ihnen den Gegensatz entwickelt  
+zwischen dem West- und dem Ostreich, zwischen dem, was  
+heute Frankreich, und dem, was heute Deutschland und
+
+├ûsterreich ist, wie es sich im 8., 9. und 10. Jahrhundert herausgebildet hatte. ^nhcn4o
+
+Wir haben gesehen, da├ƒ sich die beiden Reiche dadurch unterschieden, da├ƒ im Westreiche die alte r├Âmische Kultur ihre 
+
+  Verarbeite: GA051 (10.) SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 13. Dezember 1904_backup.md
+    Seitenbereich: 154-162
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    9 Seiten aus PDF extrahiert
+    Block-IDs: 37 alt ÔåÆ 37 ├╝bernommen (100.0%), 0 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 16294 Zeichen
+    L├ñnge neu: 16350 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|154| SIEBENTER VORTRAG, 13. Dezember 1904
+
+Vor acht Tagen habe ich Ihnen den Gegensatz entwickelt  
+zwischen dem West- und dem Ostreich, zwischen dem, was  
+heute Frankreich, und dem, was heute Deutschland und
+
+├ûsterreich ist, wie es sich im 8., 9. und 10. Jahrhundert herausgebildet hatte. ^nhcn4o
+
+Wir haben gesehen, da├ƒ sich die beiden Reiche dadurch unterschieden, da├ƒ im Westreiche die alte r├Âmische Kultur ihre 
+
+  Verarbeite: GA051 (11.) ACHTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 20. Dezember 1904.md
+    Seitenbereich: 163-172
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    10 Seiten aus PDF extrahiert
+    Block-IDs: 42 alt ÔåÆ 38 ├╝bernommen (90.5%), 4 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 18174 Zeichen
+    L├ñnge neu: 18191 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|163| nug, es nur verstandesgem├ñ├ƒ in sich aufzunehmen. Niemand versteht die Ereignisse wirklich, der nur mit dem Verstande sie ergreifen will und nicht mit dem Gef├╝hl, der sich nicht in die Feinheiten der Volksseele hineinleben kann, und begreift, was sich dort im Innern abspielt und vorbereitet. Und wer das nicht hat, f├╝r den gilt das Wort des Faust:
+
+Was ihr den Geist der Zeiten hei├ƒt,  
+Das ist im Grund der Herr
+
+  Verarbeite: GA051 (11.) ACHTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 20. Dezember 1904_backup.md
+    Seitenbereich: 163-172
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    10 Seiten aus PDF extrahiert
+    Block-IDs: 42 alt ÔåÆ 38 ├╝bernommen (90.5%), 4 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 18174 Zeichen
+    L├ñnge neu: 18191 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|163| nug, es nur verstandesgem├ñ├ƒ in sich aufzunehmen. Niemand versteht die Ereignisse wirklich, der nur mit dem Verstande sie ergreifen will und nicht mit dem Gef├╝hl, der sich nicht in die Feinheiten der Volksseele hineinleben kann, und begreift, was sich dort im Innern abspielt und vorbereitet. Und wer das nicht hat, f├╝r den gilt das Wort des Faust:
+
+Was ihr den Geist der Zeiten hei├ƒt,  
+Das ist im Grund der Herr
+
+  Verarbeite: GA051 (12.) NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 28. Dezember 1904.md
+    Seitenbereich: 173-184
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    12 Seiten aus PDF extrahiert
+    Block-IDs: 52 alt ÔåÆ 52 ├╝bernommen (100.0%), 0 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 21720 Zeichen
+    L├ñnge neu: 21737 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|173| sein, m├╝ssen wir ein Herz haben f├╝r die, die vor uns nach Freiheit gestrebt haben. Wir m├╝ssen verstehen, da├ƒ auch andere Zeiten Menschen hatten, die etwas auf Freiheit gegeben haben. Geschichte ist die Entwickelungsgeschichte der Menschheit zur Freiheit, und wir m├╝ssen, um sie zu verstehen, die Freiheit in all ihren Gipfelpunkten studieren. NEUNTER VORTRAG, 28. Dezember 1904 Wie sich das Leben des Mittelalter
+
+  Verarbeite: GA051 (12.) NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 28. Dezember 1904_backup.md
+    Seitenbereich: 173-184
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    12 Seiten aus PDF extrahiert
+    Block-IDs: 52 alt ÔåÆ 52 ├╝bernommen (100.0%), 0 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 21720 Zeichen
+    L├ñnge neu: 21737 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|173| sein, m├╝ssen wir ein Herz haben f├╝r die, die vor uns nach Freiheit gestrebt haben. Wir m├╝ssen verstehen, da├ƒ auch andere Zeiten Menschen hatten, die etwas auf Freiheit gegeben haben. Geschichte ist die Entwickelungsgeschichte der Menschheit zur Freiheit, und wir m├╝ssen, um sie zu verstehen, die Freiheit in all ihren Gipfelpunkten studieren. NEUNTER VORTRAG, 28. Dezember 1904 Wie sich das Leben des Mittelalter
+
+  Verarbeite: GA051 (13.) ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 29. Dezember 1904.md
+    Seitenbereich: 185-195
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    11 Seiten aus PDF extrahiert
+    Block-IDs: 48 alt ÔåÆ 46 ├╝bernommen (95.8%), 2 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 19168 Zeichen
+    L├ñnge neu: 19203 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|185| Heiratsvertr├ñge zu erh├Âhen und k├╝mmerten sich nicht  
+mehr um irgend etwas, was mit allgemeinen Interessen  
+zusammenhing. Sie sehen, was wirklich bedeutend f├╝r die Fortentwickelung war: Die Ereignisse, die zu den mittelalterlichen Verh├ñltnissen das ergaben, was endlich zu den gro├ƒen Entdekkungen und Erfindungen am Ende des Mittelalters f├╝hrten. ^3cd5e0
+
+Wir sehen die St├ñdte mit m├ñchtig aufstrebender, aber ve
+
+  Verarbeite: GA051 (13.) ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS, Berlin, 29. Dezember 1904_backup.md
+    Seitenbereich: 185-195
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+    11 Seiten aus PDF extrahiert
+    Block-IDs: 48 alt ÔåÆ 46 ├╝bernommen (95.8%), 2 neu
+    [DRY-RUN] W├╝rde speichern:
+    L├ñnge alt: 19168 Zeichen
+    L├ñnge neu: 19203 Zeichen
+    Erste 500 Zeichen:
+Quelle: [[GA051 - ├£ber Philosophie, Geschichte und Literatur (1901-1905)|GA051]]
+
+|185| Heiratsvertr├ñge zu erh├Âhen und k├╝mmerten sich nicht  
+mehr um irgend etwas, was mit allgemeinen Interessen  
+zusammenhing. Sie sehen, was wirklich bedeutend f├╝r die Fortentwickelung war: Die Ereignisse, die zu den mittelalterlichen Verh├ñltnissen das ergaben, was endlich zu den gro├ƒen Entdekkungen und Erfindungen am Ende des Mittelalters f├╝hrten. ^3cd5e0
+
+Wir sehen die St├ñdte mit m├ñchtig aufstrebender, aber ve
+
+  Verarbeite: GA051 (14.) ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, Berlin, 29. Oktober 1904.md
+    Seitenbereich: 199-202
+      WARNUNG: Sehr wenig Text extrahiert (31 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (55 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (51 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (92 Zeichen)
+      WARNUNG: Sehr wenig Text extrahiert (0 Zeichen)
