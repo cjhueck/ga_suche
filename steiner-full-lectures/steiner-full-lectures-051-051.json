@@ -12,20 +12,24 @@
       "type": "lecture",
       "paragraphs": [
         {
-          "index": "^llkvm7",
-          "content": "|17|Dass der Mensch nicht dabei stehenbleiben kann, was ihm seine Sinne über die Natur und über sich selbst sagen, darüber hat Aristoteles, den der große mittelalterliche Dichter Dante den Meister derer nennt, die da wissen, folgende schönen Worte gesprochen: «Alle Menschen verlangen von Natur nach dem Wissen; ein Zeichen dessen ist ihre Liebe zu den Sinneswahrnehmungen, die sie, auch abgesehen von dem Nutzen, um ihrer selbst willen lieben; insbesondere die des Gesichts. Nicht bloß des Handelns willen, sondern auch ohne solche Absicht, zieht man das Sehen sozusagen allem andern vor, weil dieser Sinn am meisten von allen uns Kenntnisse bringt und viele Eigenschaften der Dinge offenbart. Alle Tiere leben in ihren bildlichen Vorstellungen und haben nur wenig Erfahrung; das menschliche Geschlecht lebt dagegen auch in der Kunst und in dem vernünftigen Denken.» Und Hegel hat den scheinbar selbstverständlichen, aber doch höchst wichtigen Satz besonders betont: «Das Denken macht die Seele, womit auch das Tier begabt ist, erst zum Geiste.»"
+          "index": "^f2feec",
+          "content": "|17| Die griechischen Weltanschauungen Dass der Mensch nicht dabei stehenbleiben kann, was ihm seine Sinne über die Natur und über sich selbst sagen, darüber hat Aristoteles, den der große mittelalterliche Dichter Dante den Meister derer nennt, die da wissen, folgende schönen Worte gesprochen: «Alle Menschen verlangen von Natur nach dem Wissen; ein Zeichen dessen ist ihre Liebe zu den Sinneswahrnehmungen, die sie, auch abgesehen von dem Nutzen, um ihrer selbst willen lieben; insbesondere die des Gesichts."
+        },
+        {
+          "index": "^5f8684",
+          "content": "Nicht bloß des Handelns willen, sondern auch ohne solche Absicht, zieht man das Sehen sozusagen allem andern vor, weil dieser Sinn am meisten von allen uns Kenntnisse bringt und viele Eigenschaften der Dinge offenbart."
+        },
+        {
+          "index": "^3e9ffa",
+          "content": "Alle Tiere leben in ihren bildlichen Vorstellungen und haben nur wenig Erfahrung; das menschliche Geschlecht lebt dagegen auch in der Kunst und in dem vernünftigen Denken.» Und Hegel hat den scheinbar selbstverständlichen, aber doch höchst wichtigen Satz besonders betont: «Das Denken macht die Seele, womit auch das Tier begabt ist, erst zum Geiste.» Der Mensch kann nicht anders, als sich über die Welt und über sich selbst zahlreiche |18| Fragen vorlegen."
         },
         {
           "index": "^4ujio6",
-          "content": "Der Mensch kann nicht anders, als sich über die Welt und über sich selbst zahlreiche|18| Fragen vorlegen. Die Antworten, die er sich selbst, durch sein Denken, auf diese Fragen gibt, machen die «Welt- und Lebensanschauungen» aus. Trefflich hat Angelus Silesius, ein deutscher Denker des 17. Jahrhunderts, gesagt, dass die Rose einfach blüht, weil sie blüht; sie fragt nicht darnach, warum sie blüht. Der Mensch kann nicht so dahinleben. Er muss sich fragen, welchen Grund die Welt und er selbst haben."
+          "content": "Die Antworten, die er sich selbst, durch sein Denken, auf diese Fragen gibt, machen die «Welt- und Lebensanschauungen» aus. Trefflich hat Angelus Silesius, ein deutscher Denker des 17. Jahrhunderts, gesagt, dass die Rose einfach blüht, weil sie blüht; sie fragt nicht darnach, warum sie blüht. Der Mensch kann nicht so dahinleben. Er muss sich fragen, welchen Grund die Welt und er selbst haben. In erster Linie stellt naturgemäß der Mensch sein Denken in den Dienst des praktischen Lebens."
         },
         {
-          "index": "^74k9l4",
-          "content": "In erster Linie stellt naturgemäß der Mensch sein Denken in den Dienst des praktischen Lebens. Er macht sich Werkzeuge, Maschinen und Einrichtungen mit Hilfe des Denkens, durch die er seine Bedürfnisse in vollkommenerer Weise befriedigen kann, als dem Tiere dies mit den seinigen möglich ist."
-        },
-        {
-          "index": "^t4nf28",
-          "content": "Aber in zweiter Linie will er durch sein Denken etwas erreichen, was mit dem praktischen Nutzen nichts zu tun hat; er will sich über die Dinge aufklären, er will erkennen, wie die Tatsachen zusammenhängen, die ihm im Leben begegnen."
+          "index": "^3d010f",
+          "content": "Er macht sich Werkzeuge, Maschinen und Einrichtungen mit Hilfe des Denkens, durch die er seine Bedürfnisse in vollkommenerer Weise befriedigen kann, als dem Tiere dies mit den seinigen möglich ist. Aber in zweiter Linie will er durch sein Denken etwas erreichen, was mit dem praktischen Nutzen nichts zu tun hat; er will sich über die Dinge aufklären, er will erkennen, wie die Tatsachen zusammenhängen, die ihm im Leben begegnen."
         },
         {
           "index": "^huva5r",
@@ -33,59 +37,63 @@
         },
         {
           "index": "^z1n99t",
-          "content": "Aus den religiösen Anschauungen heraus erwachsen aber allmählich die wissenschaftlichen. Der Mensch lernt die Natur und ihre Kräfte beobachten. Er kann sich dann nicht mehr damit begnügen, sich diese Kräfte so vorzustellen, als wenn sie ähnlich den menschlichen Kräften wären. Er schafft sich nicht mehr einen Gott nach seinem Bilde, sondern er bildet sich Gedanken über den Zusammenhang der Welterscheinungen nach dem Bilde, das ihm die Beobachtung, die Wissenschaft liefert.|19|"
+          "content": "Aus den religiösen Anschauungen heraus erwachsen aber allmählich die wissenschaftlichen. Der Mensch lernt die Natur und ihre Kräfte beobachten. Er kann sich dann nicht mehr damit begnügen, sich diese Kräfte so vorzustellen, als wenn sie ähnlich den menschlichen Kräften wären."
+        },
+        {
+          "index": "^aa8103",
+          "content": "Er schafft sich nicht mehr einen Gott nach seinem Bilde, sondern er bildet sich Gedanken über den Zusammenhang der Welterscheinungen nach dem Bilde, das ihm die Beobachtung, die Wissenschaft liefert. |19| Daher entsteht eine denkende Weltbetrachtung innerhalb der abendländischen Kultur in der Zeit, in der die Naturwissenschaft zu einer gewissen Höhe gekommen ist."
         },
         {
           "index": "^v0md49",
-          "content": "Daher entsteht eine denkende Weltbetrachtung innerhalb der abendländischen Kultur in der Zeit, in der die Naturwissenschaft zu einer gewissen Höhe gekommen ist. Die ersten Männer der griechischen Kulturwelt, von denen uns eine Weltanschauung überliefert ist, die nicht mehr in religiösen Vorstellungen besteht, waren Naturforscher. Thales, der erste große Denker, von dem uns Aristoteles erzählt, war ein für seine Zeit bedeutender Naturforscher. Er hat die Sonnenfinsternis, die am 28. Mai 585 v.Chr. eintrat, während sich das medische und lydische Heer am Halysflusse gegenüberstanden, bereits vorausberechnen können. Und auch sein Zeitgenosse Anaximander war ein großer Astronom."
+          "content": "Die ersten Männer der griechischen Kulturwelt, von denen uns eine Weltanschauung überliefert ist, die nicht mehr in religiösen Vorstellungen besteht, waren Naturforscher. Thaies, der erste große Denker, von dem uns Aristoteles erzählt, war ein für seine Zeit bedeutender Naturforscher. Er hat die Sonnenfinsternis, die am 28. Mai 585 v.Chr. eintrat, während sich das medische und lydische Heer am Halysflusse gegenüberstanden, bereits vorausberechnen können."
         },
         {
           "index": "^uc5huf",
-          "content": "Wenn in unserer Zeit die Pflege der «Welt- und Lebensanschauung», die als Philosophie an unseren Hochschulen gelehrt wird, sich keines besonderen Ansehens erfreut, vielmehr als eine einseitige und für das Leben entbehrliche Schulgelehrsamkeit gehalten wird, so rührt das davon her, dass die Philosophen der Gegenwart meistens den rechten Zusammenhang mit den einzelnen Wissenschaften verloren haben."
+          "content": "Und auch sein Zeitgenosse Anaximander war ein großer Astronom. Wenn in unserer Zeit die Pflege der «Welt- und Lebensanschauung», die als Philosophie an unseren Hochschulen gelehrt wird, sich keines besonderen Ansehens erfreut, vielmehr als eine einseitige und für das Leben entbehrliche Schulgelehrsamkeit gehalten wird, so rührt das davon her, dass die Philosophen der Gegenwart meistens den rechten Zusammenhang mit den einzelnen Wissenschaften verloren haben."
         },
         {
           "index": "^pdyj2p",
-          "content": "Wer eine «Welt- und Lebensanschauung» aufbauen will, kann nicht bei einer einzelnen Wissenschaft stehen bleiben. Er muss alle Erkenntnisse seiner Zeit, alles, was wir über die Natur- und Kulturentwickelung wissen, in sich verarbeiten. Alle anderen Wissenschaften sind für den Philosophen Handwerkszeug."
+          "content": "Wer eine «Welt- und Lebensanschauung» aufbauen will, kann nicht bei einer einzelnen Wissenschaft stehen bleiben. Er muss alle Erkenntnisse seiner Zeit, alles, was wir über die Natur- und Kulturentwickelung wissen, in sich verarbeiten. Alle anderen Wissenschaften sind für den Philosophen Handwerkszeug. Bei der großen Menge, zu der allmählich die Erkenntnisse geworden sind, ist es heute allerdings schwierig, eine umfassende «Welt- und Lebensanschauung» auszubilden."
         },
         {
-          "index": "^99fssj",
-          "content": "Bei der großen Menge, zu der allmählich die Erkenntnisse geworden sind, ist es heute allerdings schwierig, eine umfassende «Welt- und Lebensanschauung» auszubilden. So kommt es, dass die Lehrer der Welt- und Lebensanschauung oft sich mit Fragen befassen, die nicht einem wahren Bedürfnisse des Menschen entspringen, sondern die ihnen ihr einseitiges, an gewissen Überlieferungen haftendes Denken vorlegt.|20|"
+          "index": "^3842e5",
+          "content": "So kommt es, dass die Lehrer der Welt- und Lebensanschauung oft sich mit Fragen befassen, die nicht einem wahren Bedürfnisse des Menschen entspringen, sondern die ihnen ihr einseitiges, an gewissen Überlieferungen haftendes Denken vorlegt. |20| Eine wahrhafte «Welt- und Lebensanschauung» muss sich mit den Fragen beschäftigen, die sich in keiner einzelnen Wissenschaft beantworten lassen. Denn jede einzelne Wissenschaft hat es mit einem bestimmten Gebiete der Natur oder des Menschenlebens zu tun."
         },
         {
-          "index": "^29r5xm",
-          "content": "Eine wahrhafte «Welt- und Lebensanschauung» muss sich mit den Fragen beschäftigen, die sich in keiner einzelnen Wissenschaft beantworten lassen. Denn jede einzelne Wissenschaft hat es mit einem bestimmten Gebiete der Natur oder des Menschenlebens zu tun. Die «Welt- und Lebensauffassung» muss einen Gedankenzusammenhang suchen in dem, was alle einzelnen Wissenschaften uns an Erkenntnissen darbieten."
+          "index": "^f5a675",
+          "content": "Die «Welt- und Lebensauffassung» muss einen Gedankenzusammenhang suchen in dem, was alle einzelnen Wissenschaften uns an Erkenntnissen darbieten. Die einzelne Wissenschaft kann auch nicht jedermanns Sache sein. Dagegen hat die «Welt- und Lebensanschauung» für alle Menschen Interesse. Nicht jeder kann sie ausbauen, weil nicht jeder sich in allen Wissenschaften umschauen kann."
         },
         {
-          "index": "^lpgdvi",
-          "content": "Die einzelne Wissenschaft kann auch nicht jedermanns Sache sein. Dagegen hat die «Welt- und Lebensanschauung» für alle Menschen Interesse. Nicht jeder kann sie ausbauen, weil nicht jeder sich in allen Wissenschaften umschauen kann. Aber wie es unzähliger Kenntnisse bedarf, um einen Tisch zustande zu bringen, die sich nicht jeder aneignen kann, der einen Tisch braucht, so bedarf es auch zum Ausbau einer «Weltanschauung» eines umfassenden Rüstzeuges, das nicht jedermann zur Verfügung stehen kann."
+          "index": "^5e2597",
+          "content": "Aber wie es unzähliger Kenntnisse bedarf, um einen Tisch zustande zu bringen, die sich nicht jeder aneigenen kann, der einen Tisch braucht, so bedarf es auch zum Ausbau einer «Weltanschauung» eines umfassenden Rüstzeuges, das nicht jedermann zur Verfugung stehen kann. Einen Tisch gebrauchen kann jeder, einen machen kann nur, wer es gelernt hat."
         },
         {
           "index": "^da8mvi",
-          "content": "Einen Tisch gebrauchen kann jeder, einen machen kann nur, wer es gelernt hat. Welt- und Lebensanschauung interessiert jeden; aufbauen und lehren kann und soll sie nur der, welcher sich das Rüstzeug dazu aus allen einzelnen Wissenschaften holen kann. Die Wissenschaften sind nur die Werkzeuge der Welt- und Lebensanschauungen."
+          "content": "Welt- und Lebensanschauung interessiert jeden; aufbauen und lehren kann und soll sie nur der, welcher sich das Rüstzeug dazu aus allen einzelnen Wissenschaften holen kann. Die Wissenschaften sind nur die Werkzeuge der Welt- und Lebensanschauungen. Kant hat die Grundfragen, die in dem Menschen das Bedürfnis nach einer Weltanschauung erzeugen, folgendermaßen gestellt: «Was kann ich wissen? Was soll ich tun?"
         },
         {
           "index": "^mc0n0h",
-          "content": "Kant hat die Grundfragen, die in dem Menschen das Bedürfnis nach einer Weltanschauung erzeugen, folgendermaßen gestellt: «Was kann ich wissen? Was soll ich tun? Was darf ich hoffen?» Goethe hat die Sache kürzer und bedeutender zum Ausdrucke gebracht, indem er sagte: «Kenne ich mein Verhältnis zu mir selbst und zur Außenwelt, so heiß ich's Wahrheit.» In der Tat will der Mensch durch eine Welt- und Lebensanschauung nichts anderes erreichen, als einen Aufschluss darüber, welchen Sinn sein eigenes Dasein hat, und wie er mit der Natur, die außer ihm ist, zusammenhängt.|21|"
+          "content": "Was darf ich hoffen?» Goethe hat die Sache kürzer und bedeutender zum Ausdrucke gebracht, indem er sagte: «Kenne ich mein Verhältnis zu mir selbst und zur Außenwelt, so heiß ich's Wahrheit.» In der Tat will der Mensch durch eine Welt- und Lebensanschauung nichts anderes erreichen, als einen Aufschluss darüber, welchen Sinn sein eigenes Dasein hat, und wie er mit der Natur, die außer ihm ist, zusammenhängt. |21| Die ältesten griechischen Denker, so erzählt uns Aristoteles, hielten die stofflichen Anfänge für die alleinigen von allen."
         },
         {
           "index": "^bn9y37",
-          "content": "Die ältesten griechischen Denker, so erzählt uns Aristoteles, hielten die stofflichen Anfänge für die alleinigen von allen. Das, woraus alle Dinge bestehen, aus dem alles entsteht und in das alles schließlich wieder vergeht: darüber dachten sie nach. In der feuchten Erde entwickeln sich die Samen der Lebewesen. Thales war Inselbewohner. Er sah, wie sich im Meere unendliches Leben entwickelt. Der Gedanke lag nahe, dass das Wasser der Urstoff sei, aus dem sich alle Dinge entwickeln. So kam es, dass der erste griechische Denker das Wasser für den Grund aller Dinge erklärte. Aus Wasser, sagt er, entstehe alles, und in Wasser verwandle sich alles."
+          "content": "Das, woraus alle Dinge bestehen, aus dem alles entsteht und in das alles schließlich wieder vergeht: darüber dachten sie nach. In der feuchten Erde entwickeln sich die Samen der Lebewesen. Thaies war Inselbewohner. Er sah, wie sich im Meere unendliches Leben entwickelt. Der Gedanke lag nahe, dass das Wasser der Urstoff sei, aus dem sich alle Dinge entwickeln. So kam es, dass der erste griechische Denker das Wasser für den Grund aller Dinge erklärte."
         },
         {
-          "index": "^92olt8",
-          "content": "Anaximander kam einen Schritt weiter. Er vertraute den Sinnen nicht mehr so viel wie Thales. Das Wasser kann man sehen. Aber alles, was man sehen kann, verwandelt sich in anderes. So dachte Anaximander. Das Wasser kann durch Gefrieren fest werden; es kann durch Verdunsten dampfförmig werden. Unter Dampf und Luft dachten sich die Alten dasselbe. Ebenso nannten sie alles Feste Erde. Das feste Wasser, die Erde, kann sich in Flüssiges, dieses in Luft verwandeln, sagte sich demnach Anaximander. Kein bestimmter Stoff ist daher etwas Bleibendes. Er suchte deshalb den Urgrund auch nicht in einem bestimmten Stoff, sondern in dem unbestimmten."
+          "index": "^b567ed",
+          "content": "Aus Wasser, sagt er, entstehe alles, und in Wasser verwandle sich alles. Anaximander kam einen Schritt weiter. Er vertraute den Sinnen nicht mehr so viel wie Thaies. Das Wasser kann man sehen. Aber alles, was man sehen kann, verwandelt sich in anderes. So dachte Anaximander. Das Wasser kann durch Gefrieren fest werden; es kann durch Verdunsten dampfförmig werden. Unter Dampf und Luft dachten sich die Alten dasselbe. Ebenso nannten sie alles Feste Erde."
         },
         {
-          "index": "^mw97tk",
-          "content": "Anaximenes nahm dann wieder einen bestimmten Urstoff, nämlich die Luft, an. Er sagt: «Wie unsere Seele, die Luft ist, uns zusammenhält, so umfasst Hauch und Luft die ganze Welt.»"
+          "index": "^1be21e",
+          "content": "Das feste Wasser, die Erde, kann sich in Flüssiges, dieses in Luft verwandeln, sagte sich demnach Anaximander. Kein bestimmter Stoff ist daher etwas Bleibendes. Er suchte deshalb den Urgrund auch nicht in einem bestimmten Stoff, sondern in dem unbestimmten. Anaximenes nahm dann wieder einen bestimmten Urstoff, nämlich die Luft, an."
         },
         {
-          "index": "^ms7ezq",
-          "content": "Eine viel höhere Stufe der Weltanschauung beschritt Heraklit. Ihm drängte sich vor allem der ewige Wechsel aller Dinge auf. Nichts bleibt, alles verwandelt sich. Nur unsere Sinne täuschen uns, wenn sie uns sagen, dass etwas bleibt. Ich kann nicht zweimal in denselben Fluss steigen. Denn nur scheinbar ist es derselbe Fluss, in den ich das zweite Mal steige. Das Wasser, aus dem doch der Fluss be|22|steht, ist ein ganz anderes geworden. Und so ist es mit allen Dingen. Der Baum von heute ist nicht der von gestern. Andere Säfte sind in ihn eingezogen; vieles, was noch gestern in ihm war, hat er mittlerweile ausgeschieden."
+          "index": "^58d3f3",
+          "content": "Er sagt: «Wie unsere Seele, die Luft ist, uns zusammenhält, so umfasst Hauch und Luft die ganze Welt.» Eine viel höhere Stufe der Weltanschauung beschritt Heraklit Ihm drängte sich vor allem der ewige Wechsel aller Dinge auf. Nichts bleibt, alles verwandelt sich. Nur unsere Sinne täuschen uns, wenn sie uns sagen, dass etwas bleibt. Ich kannsnicht zweimal in denselben Fluss steigen. Denn nur scheinbar ist es derselbe Fluss, in den ich das zweite Mal steige."
         },
         {
-          "index": "^vx15v1",
-          "content": "In den Ausspruch: «Alles fließt», fasst daher Heraklit seine Überzeugung zusammen. Deshalb wird ihm das unruhigste Element, das Feuer, zum Bild alles Entstehens und Vergehens."
+          "index": "^d41205",
+          "content": "Das Wasser, aus dem doch der Fluss be|22|steht, ist ein ganz anderes geworden. Und so ist es mit allen Dingen. Der Baum von heute ist nicht der von gestern. Andere Säfte sind in ihn eingezogen; vieles, was noch gestern in ihm war, hat er mittlerweile ausgeschieden. In den Ausspruch: «Alles fließt», fasst daher Heraklit seine Überzeugung zusammen. Deshalb wird ihm das unruhigste Element, das Feuer, zum Bild alles Entstehens und Vergehens."
         },
         {
           "index": "^1ld87o",
@@ -93,15 +101,15 @@
         },
         {
           "index": "^2b91bc",
-          "content": "Empedokles glaubt also nicht mehr daran, dass ein Ding wirklich entstehe und vergehe. Er glaubt, dass etwas scheinbar entstehe, wenn zum Beispiel Wasser und Feuer sich vermischen; und er glaubt, dass dasselbe Ding scheinbar wieder vergehe, wenn Wasser und Feuer wieder auseinandertreten. Aristoteles erzählt uns von Empedokles: «Seine vier Anfänge sollen nach ihm immer beharren, ohne Entstehen sein und sich in verschiedenen Verhältnissen zu einem Gegenstande verbinden oder daraus sondern.»"
+          "content": "Empedokles glaubt also nicht mehr daran, dass ein Ding wirklich entstehe und vergehe. Er glaubt, dass etwas scheinbar entstehe, wenn zum Beispiel Wasser und Feuer sich vermischen; und er glaubt, dass dasselbe Ding scheinbar wieder vergehe, wenn Wasser und Feuer wieder auseinandertreten."
         },
         {
-          "index": "^6kik2l",
-          "content": "Empedokles nimmt Kräfte an, die zwischen seinen vier Stoffen herrschen. Zwei oder mehrere Stoffe verbinden sich, wenn zwischen ihnen eine anziehende Kraft herrscht; sie trennen sich, wenn eine abstoßende Kraft zwischen ihnen wirkt."
+          "index": "^870b90",
+          "content": "Aristoteles erzählt uns von Empedokles: «Seine vier Anfänge sollen nach ihm immer beharren, ohne Entstehen sein und sich in verschiedenen Verhältnissen zu einem Gegenstande verbinden oder daraus sondern.» Empedokles nimmt Kräfte an, die zwischen seinen vier Stoffen herrschen. Zwei oder mehrere Stoffe verbinden sich, wenn zwischen ihnen eine anziehende Kraft herrscht; sie trennen sich, wenn eine abstoßende Kraft zwischen ihnen wirkt."
         },
         {
-          "index": "^bkufq5",
-          "content": "Diese anziehenden und abstoßenden Kräfte können, nach der Überzeugung des Empedokles, nicht bloß die leblose Natur aus den vier Stoffen aufbauen, sondern auch das ganze Reich des Lebendigen. Er stellt sich vor, dass naturgemäß, durch die Kräfte, tierische und pflanzliche Körper|23| entstehen. Und weil keine verständige Intelligenz dieses Entstehen leitet, so entstehen, bunt durcheinander, zweckmäßige und unzweckmäßige lebendige Gestalten."
+          "index": "^bdb9ce",
+          "content": "Diese anziehenden und abstoßenden Kräfte können, nach der Überzeugung des Empedokles, nicht bloß die leblose Natur aus den vier Stoffen aufbauen, sondern auch das ganze Reich des Lebendigen. Er stellt sich vor, dass naturgemäß, durch die Kräfte, tierische und pflanzliche Körper |23| entstehen. Und weil keine verständige Intelligenz dieses Entstehen leitet, so entstehen, bunt durcheinander, zweckmäßige und unzweckmäßige lebendige Gestalten."
         },
         {
           "index": "^webbwq",
@@ -109,131 +117,115 @@
         },
         {
           "index": "^5oisul",
-          "content": "Anaxagoras, der Zeitgenosse des Empedokles, glaubte nicht, wie dieser, die zweckmäßige Ordnung der Welt aus dem bloßen Wirken mechanischer Naturkräfte erklären zu können. Er nahm an, dass eine geistige Wesenheit, ein allgemeiner Weltverstand den Dingen ihr Dasein und ihre Ordnung gibt."
+          "content": "Anaxagoras, der Zeitgenosse des Empedokles, glaubte nicht, wie dieser, die zweckmäßige Ordnung der Welt aus dem bloßen Wirken mechanischer Naturkräfte erklären zu können. Er nahm an, dass eine geistige Wesenheit, ein allgemeiner Weltverstand den Dingen ihr Dasein und ihre Ordnung gibt. Er stellte sich vor, dass alles aus kleinsten Teilen, den sogenannten Hom-Öomerien, bestehe, die alle untereinander verschiedene Eigenschaften haben."
         },
         {
-          "index": "^59z4gf",
-          "content": "Er stellte sich vor, dass alles aus kleinsten Teilen, den sogenannten Homöomerien, bestehe, die alle untereinander verschiedene Eigenschaften haben. Der allgemeine Weltverstand fügt diese Ur-Teile zusammen, dass sie zweckvolle Dinge und, im Ganzen, ein harmonisch angeordnetes Weltgebäude ergeben."
-        },
-        {
-          "index": "^ma2rdy",
-          "content": "Weil er an die Stelle der alten Volksgötter einen allgemeinen Weltverstand setzte, wurde Anaxagoras in Athen der Gottesleugnung angeklagt und musste nach Lampsakos fliehen. In Athen, wohin er sich von Klazomenä aus begeben hatte, stand er in Beziehungen zu Perikles, Euripides und Themistokles."
+          "index": "^3f8717",
+          "content": "Der allgemeine Weltverstand fügt diese Ur-Te-Üe zusammen, dass sie zweckvolle Dinge und, im Ganzen, ein harmonisch angeordnetes Weltgebäude ergeben. Weil er an die Stelle der alten Volksg-Ötter einen allgemeinen Weltverstand setzte, wurde Anaxagoras in Athen der Gottesleugnung angeklagt und musste nach Lampsakus fliehen. In Athen, wohin er sich von Klazomenä aus begeben hatte, stand er in Beziehungen zu Perikles, Euripides und Themistokles."
         },
         {
           "index": "^if1uo0",
-          "content": "Die kleinsten Teile, die Homöomerien, oder Samen aller Dinge, welche Anaxagoras annahm, stellte er sich ganz verschieden voneinander vor. An die Stelle dieser kleinsten Teile setzte Demokrit solche, die sich durch nichts anderes mehr unterschieden als durch Größe, Gestalt, Lage und Anordnung im Raume. In allen übrigen Eigenschaften sol|24|len die kleinsten Bestandteile der Dinge, die Atome, einander gleich sein."
+          "content": "Die kleinsten Teile, die Homöomerien, oder Samen aller Dinge, welche Anaxagoras annahm, stellte er sich ganz verschieden voneinander vor. An die Stelle dieser kleinsten Teile setzte Demokrit solche, die sich durch nichts anderes mehr unterschieden als durch Größe, Gestalt, Lage und Anordnung im Räume. In allen übrigen Eigenschaften sol|24|len die kleinsten Bestandteile der Dinge, die Atome, einander gleich sein."
         },
         {
           "index": "^snz39f",
-          "content": "Was in der Natur wirklich vorgeht, kann nach dieser atomistischen Überzeugung nichts anderes sein, als dass die Lage und Anordnung der kleinsten Körperteile sich ändern. Wenn ein Körper seine Farbe ändert, so hat sich in Wirklichkeit die Anordnung seiner Atome geändert. Außer dem leeren Raum und den ihn erfüllenden Atomen gibt es nichts in der Welt."
+          "content": "Was in der Natur wirklich vorgeht, kann nach dieser atomistischen Überzeugung nichts anderes sein, als dass die Lage und Anordnung der kleinsten Körperteile sich ändern. Wenn ein Körper seine Farbe ändert, so hat sich in Wirklichkeit die Anordnung seiner Atome geändert. Außer dem leeren Raum und den ihn erfüllenden Atomen gibt es nichts in der Welt. Es gibt keine Macht, welche den Atomen ihre Ordnung verleiht. Diese sind in fortwährender Bewegung."
         },
         {
           "index": "^fup8jg",
-          "content": "Es gibt keine Macht, welche den Atomen ihre Ordnung verleiht. Diese sind in fortwährender Bewegung. Die einen bewegen sich langsamer, die anderen schneller. Die schnelleren müssen mit den langsameren in Berührung kommen. Dadurch ballen sich Körper zusammen. Es entsteht also nichts durch einen Verstand in der Welt oder durch eine allgemeine Vernunft, sondern durch blinde Naturnotwendigkeit, die man auch Zufall nennen kann."
-        },
-        {
-          "index": "^x6qmgf",
-          "content": "Es ist aus diesen Überzeugungen heraus erklärlich, dass die Anhänger Demokrits einen heftigen Kampf gegen die alten Volksgötter führten. Sie waren entschiedene Gottesleugner oder Atheisten. Man muss in ihnen die Vorläufer der materialistischen Weltanschauungen späterer Jahrhunderte sehen."
+          "content": "Die einen bewegen sich langsamer, die anderen schneller. Die schnelleren müssen mit den langsameren in Berührung kommen. Dadurch ballen sich Körper zusammen. Es entsteht also nichts durch einen Verstand in der Welt oder durch eine allgemeine Vernunft, sondern durch blinde Naturnotwendigkeit, die man auch Zufall nennen kann. Es ist aus diesen Überzeugungen heraus erklärlich, dass die Anhänger Demokrits einen heftigen Kampf gegen die alten Volksgötter führten."
         },
         {
           "index": "^skw9ez",
-          "content": "Von einer ganz anderen Seite als die bisher genannten Denker suchten Parmenides und seine Anhänger den Welterscheinungen beizukommen. Sie gingen davon aus, dass uns unsere Sinne kein treues, wahrhaftes Bild der Welt liefern können."
+          "content": "Sie waren entschiedene Gottesleugner oder Atheisten. Man muss in ihnen die Vorläufer der materialistischen Weltanschauungen späterer Jahrhunderte sehen. Von einer ganz anderen Seite als die bisher genannten Denker suchten Parmenides und seine Anhänger den Welterscheinungen beizukommen. Sie gingen davon aus, dass uns unsere Sinne kein treues, wahrhaftes Bild der Welt liefern können."
         },
         {
           "index": "^pjnuji",
-          "content": "Heraklit hat aus dem Umstande, dass sich alles ewig verwandelt, gerade den Schluss gezogen, dass es nichts Bleibendes gibt, sondern dass der ewige Fluss aller Dinge dem wahren Sein entspricht. Parmenides sagte genau umgekehrt: weil sich in der Außenwelt alles verwandelt, weil hier ewig alles entsteht und vergeht, deswegen können wir das Wahre, das Bleibende nicht durch Beobachtung der Außenwelt gewinnen."
+          "content": "Heraklit hat aus dem Umstände, dass sich alles ewig verwandelt, gerade den Schluss gezogen, dass es nichts Bleibendes gibt, sondern dass der ewige Fluss aller Dinge dem wahren Sein entspricht. Parmenides sagte genau umgekehrt: weil sich in der Außenwelt alles verwandelt, weil hier ewig alles entsteht und vergeht, deswegen können wir das Wahre, das Bleibende nicht durch Beobachtung der Außenwelt gewinnen."
         },
         {
           "index": "^lwswqe",
-          "content": "Wir müssen das, was diese Außenwelt|25| uns darbietet, als Schein auffassen und können das Ewige, das Bleibende nur durch das Denken selbst gewinnen. Die Außenwelt ist ein Sinnentrug, ein Traum, der ganz etwas anderes ist, als was uns die Sinne vorgaukeln. Was dieser Traum wirklich ist, was sich ewig gleich bleibt, das können wir nicht durch Beobachtung der Außenwelt gewinnen, das offenbart sich uns durch das Denken."
+          "content": "Wir müssen das, was diese Außen|25|weit uns darbietet, als Schein auffassen und können das Ewige, das Bleibende nur durch das Denken selbst gewinnen. Die Außenwelt ist ein Sinnentrug, ein Traum, der ganz etwas anderes ist, als was uns die Sinne vorgaukeln. Was dieser Traum wirklich ist, was sich ewig gleich bleibt, das können wir nicht durch Beobachtung der Außenwelt gewinnen, das offenbart sich uns durch das Denken."
         },
         {
           "index": "^cweprl",
-          "content": "In der Außenwelt ist Vielfältigkeit und Verschiedenheit; im Denken enthüllt sich uns das Ewig-Eine, das sich nicht ändert, das sich immer gleich bleibt. So spricht sich Parmenides in seinem Lehrgedicht «Über die Natur» aus."
+          "content": "In der Außenwelt ist Vielfältigkeit und Verschiedenheit; im Denken enthüllt sich uns das Ewig-Eine, das sich nicht ändert, das sich immer gleich bleibt. So spricht sich Parmenides in seinem Lehrgedicht «Über die Natur» aus. Wir haben es da also mit einer Weltanschauung zu tun, welche die Wahrheit nicht aus den Dingen selbst holen will, sondern welche den Urgrund der Welt aus dem Denken heraus zu spinnen sucht."
         },
         {
           "index": "^uewjju",
-          "content": "Wir haben es da also mit einer Weltanschauung zu tun, welche die Wahrheit nicht aus den Dingen selbst holen will, sondern welche den Urgrund der Welt aus dem Denken heraus zu spinnen sucht. Wenn man sich klarmachen will, aus welcher Grundempfindung eine solche Weltanschauung stammt, so muss man sich vor Augen halten, dass oftmals das Denken in der Tat die Wahrnehmungen der Sinne in der richtigen Weise auslegen, erklären muss, um zu einem befriedigenden Gedanken zu kommen."
+          "content": "Wenn man sich klarmachen will, aus welcher Grundempfindung eine solche Weltanschauung stammt, so muss man sich vor Augen halten, dass oftmals das Denken in der Tat die Wahrnehmungen der Sinne in der richtigen Weise auslegen, erklären muss, um zu einem befriedigenden Gedanken zu kommen. Wenn wir einen Stock ins Wasser halten, so erscheint er dem Auge gebrochen. Das Denken muss nach den Gründen suchen, warum der Stab gebrochen erscheint."
         },
         {
-          "index": "^7h79sx",
-          "content": "Wenn wir einen Stock ins Wasser halten, so erscheint er dem Auge gebrochen. Das Denken muss nach den Gründen suchen, warum der Stab gebrochen erscheint. Wir bekommen also eine befriedigende Vorstellung dieser Erscheinung nur dadurch, dass unser Denken die Wahrnehmung erklärt."
-        },
-        {
-          "index": "^wf2j6z",
-          "content": "Wenn wir den Sternenhimmel bloß mit den Sinnen betrachten, so können wir uns keine andere Vorstellung machen, als diejenige, dass die Erde im Mittelpunkt der Welt stehe, und dass sich Sonne, Mond und alle Sterne um dieselbe bewegen. Erst durch das Denken gewinnen wir eine andere Vorstellung. In diesem Falle gibt uns sogar das Denken ein ganz anderes Bild als die sinnliche Wahrnehmung."
+          "index": "^591d7c",
+          "content": "Wir bekommen also eine befriedigende Vorstellung dieser Erscheinung nur dadurch, dass unser Denken die Wahrnehmung erklärt. Wenn wir den Sternenhimmel bloß mit den Sinnen betrachten, so können wir uns keine andere Vorstellung machen, als diejenige, dass die Erde im Mittelpunkt der Welt stehe, und dass sich Sonne, Mond und alle Sterne um dieselbe bewegen. Erst durch das Denken gewinnen wir eine andere Vorstellung."
         },
         {
           "index": "^rx6yed",
-          "content": "Man kann also wohl sagen, dass die Sinne uns in gewisser Beziehung täuschen. Aber die|26| Weltanschauung des Parmenides und seiner Anhänger ist eine einseitige Übertreibung dieser Tatsache. Denn wie uns die Wahrnehmung gewisse Erscheinungen liefert, die uns täuschen, so liefert sie uns auch wieder andere Tatsachen, durch die wir die Täuschung richtigstellen können."
+          "content": "In diesem Falle gibt uns sogar das Denken ein ganz anderes Bild als die sinnliche Wahrnehmung. Man kann also wohl sagen, dass die Sinne uns in gewisser Beziehung täuschen. Aber die |26| Weltanschauung des Parmenides und seiner Anhänger ist eine einseitige Übertreibung dieser Tatsache. Denn wie uns die Wahrnehmung gewisse Erscheinungen liefert, die uns täuschen, so liefert sie uns auch wieder andere Tatsachen, durch die wir die Täuschung richtigstellen können."
         },
         {
           "index": "^szuxt1",
-          "content": "Kopernikus ist nicht dadurch zu seiner Anschauung von der Bewegung der Himmelskörper gekommen, dass er dieselbe aus dem bloßen Denken heraus gesponnen hat, sondern dadurch, dass er die eine Wahrnehmung mit anderen in Einklang gebracht hat."
+          "content": "Kopernikus ist nicht dadurch zu seiner Anschauung von der Bewegung der Himmelskörper gekommen, dass er dieselbe aus dem bloßen Denken heraus gesponnen hat, sondern dadurch, dass er die eine Wahrnehmung mit anderen in Einklang gebracht hat. Im Gegensatz zu der Anschauung des Parmenides steht eine andere ältere Weltansicht."
         },
         {
           "index": "^v1il1j",
-          "content": "Im Gegensatz zu der Anschauung des Parmenides steht eine andere ältere Weltansicht. Sie geht nicht darauf aus, die Zusammenhänge in der Außenwelt für eine Täuschung anzusehen, sondern sie will gerade durch eine tiefere Beobachtung dieser Außenwelt zu der Erkenntnis führen, dass in der Welt alles auf einer großen Harmonie beruht, dass in allen Dingen Maß und Zahl vorhanden ist. Diese Anschauung ist die der Pythagoräer."
+          "content": "Sie geht nicht darauf aus, die Zusammenhänge in der Außenwelt für eine Täuschung anzusehen, sondern sie will gerade durch eine tiefere Beobachtung dieser Außenwelt zu der Erkenntnis führen, dass in der Welt alles auf einer großen Harmonie beruht, dass in allen Dingen Maß und Zahl vorhanden ist. Diese Anschauung ist die der Pythagoräer. Pythagoras lebte im 6. Jahrhundert v.Chr."
         },
         {
           "index": "^6yp87a",
-          "content": "Pythagoras lebte im 6. Jahrhundert v.Chr. Aristoteles erzählt von den Pythagoräern, dass sie sich gleichzeitig mit den oben genannten Denkern und auch noch vor ihnen der Mathematik zuwandten. «Sie führten zuerst diese fort und, indem sie ganz darin aufgingen, hielten sie die Anfänge in ihr auch für die Anfänge aller Dinge.»"
+          "content": "Aristoteles erzählt von den Pythagoräern, dass sie sich gleichzeitig mit den oben genannten Denkern und auch noch vor ihnen der Mathematik zuwandten. «Sie führten zuerst diese fort und, indem sie ganz darin aufgingen, hielten sie die Anfänge in ihr auch für die Anfänge aller Dinge."
         },
         {
           "index": "^17ah6c",
-          "content": "«Da nun in dem Mathematischen die Zahlen von Natur das erste sind, und sie in den Zahlen viel Ähnliches mit den Dingen und dem Werdenden zu sehen glaubten, und zwar in den Zahlen mehr als in dem Feuer, der Erde und dem Wasser, so galt ihnen eine Eigenschaft der Zahlen als die Gerechtigkeit, eine andere als die Seele und der Geist, wieder eine andere als die Zeit, und so fort für alles übrige. Sie fanden ferner in den Zahlen die Eigenschaften und die Verhältnisse der Harmonie, und so schien alles andere seiner ganzen Natur nach Abbild der Zahlen und die|27| Zahlen das erste in der Natur zu sein.»"
+          "content": "Da nun in dem Mathematischen die Zahlen von Natur das erste sind, und sie in den Zahlen viel Ähnliches mit den Dingen und dem Werdenden zu sehen glaubten, und zwar in den Zahlen mehr als in dem Feuer, der Erde und dem Wasser, so galt ihnen eine Eigenschaft der Zahlen als die Gerechtigkeit, eine andere als die Seele und der Geist, wieder eine andere als die Zeit, und so fort für alles übrige."
         },
         {
-          "index": "^bgxzow",
-          "content": "Wer die Bedeutung richtig zu würdigen weiß, welche Maß und Zahl in der Natur haben, wird es nicht verwunderlich finden, dass eine solche Weltanschauung, wie die pythagoräische, entstehen konnte. Wenn eine Saite von bestimmter Länge angeschlagen wird, so entsteht ein gewisser Ton. Wird die Saite in bestimmten Zahlenverhältnissen verkürzt, so entstehen immer andere Töne. Man kann die Tonhöhe durch Zahlenverhältnisse ausdrücken."
+          "index": "^ab6945",
+          "content": "Sie fanden ferner in den Zahlen die Eigenschaften und die Verhältnisse der Harmonie, und so schien alles andere seiner ganzen Natur nach Abbild der Zahlen und die |27| Zahlen das erste in der Natur zu sein.» Wer die Bedeutung richtig zu würdigen weiß, welche Maß und Zahl in der Natur haben, wird es nicht verwunderlich finden, dass eine solche Weltanschauung, wie die pythagoräische, entstehen konnte. Wenn eine Saite von bestimmter Länge angeschlagen wird, so entsteht ein gewisser Ton."
         },
         {
           "index": "^s8fkbp",
-          "content": "Die Physik drückt auch die Farben in Zahlenverhältnissen aus. Wenn sich zwei Körper zu einem Stoffe verbinden, so geschieht das immer so, dass sich durch Zahlen ausdrückbare Gewichtsmengen des einen Körpers mit solchen des anderen Körpers verbinden. Solche Beispiele davon, welche Rolle Zahl und Maß in der Natur spielen, lassen sich unzählige anführen."
+          "content": "Wird die Saite in bestimmten Zahlenverhältnissen verkürzt, so entstehen immer andere Töne. Man kann die Tonhöhe durch Zahlenverhältnisse ausdrücken. Die Physik drückt auch die Farben in Zahlenverhältnissen aus. Wenn sich zwei Körper zu einem Stoffe verbinden, so geschieht das immer so, dass sich durch Zahlen ausdrückbare Gewichtsmengen des einen Körpers mit solchen des anderen Körpers verbinden. Solche Beispiele davon, welche Rolle Zahl und Maß in der Natur spielen, lassen sich unzählige anführen."
         },
         {
-          "index": "^iqrq5t",
-          "content": "Die pythagoräische Weltanschauung bringt diese Tatsache in einer einseitigen Weise zum Ausdruck, indem sie sagt: Maß und Zahl sind der Urgrund aller Dinge."
-        },
-        {
-          "index": "^i95jao",
-          "content": "In allen bisher besprochenen Weltanschauungen schlummert eine Frage. Sie kommt in ihnen nirgends zu einem deutlichen Ausdrucke, weil die Denker offenbar der Ansicht waren, dass sie sich mit den anderen Fragen, die sie gestellt haben, von selbst beantwortet. Es ist die Frage nach dem Verhältnis des Menschen zur Welt."
+          "index": "^6d29fd",
+          "content": "Die pythagoräische Weltanschauung bringt diese Tatsache in einer einseitigen Weise zum Ausdruck, indem sie sagt: Maß und Zahl sind der Urgrund aller Dinge. In allen bisher besprochenen Weltanschauungen schlummert eine Frage. Sie kommt in ihnen nirgends zu einem deutlichen Ausdrucke, weil die Denker offenbar der Ansicht waren, dass sie sich mit den anderen Fragen, die sie gestellt haben, von selbst beantwortet. Es ist die Frage nach dem Verhältnis des Menschen zur Welt."
         },
         {
           "index": "^8orrpg",
-          "content": "Wenn Thales alle Dinge aus dem Wasser entstanden glaubt, so denkt er sich auch den Menschen aus demselben Quell entsprungen. Heraklit war der Meinung, dass der Mensch in dem ewigen Fluss der Dinge mit allen anderen mitschwimme; und Anaxagoras dachte sich den Menschen durch seinen allgemeinen Weltverstand aus seinen Ur-Teilchen aufgebaut, wie die Atomisten sich vorstellten, dass der Zufall auch den Menschen aus den Atomen zusammengefügt habe."
+          "content": "Wenn Thaies alle Dinge aus dem Wasser entstanden glaubt, so denkt er sich auch den Menschen aus demselben Quell entsprungen. Heraklit war der Meinung, dass der Mensch in dem ewigen Fluss der Dinge mit allen anderen mitschwimme; und Anaxagoras dachte sich den Menschen durch seinen allgemeinen Weltverstand aus seinen Ur-Teilchen aufgebaut, wie die Atomisten sich vorstellten, dass der Zufall auch den Menschen aus den Atomen zusammengefügt habe."
         },
         {
           "index": "^rmj7f6",
-          "content": "Bei Empedokles taucht zuerst etwas von der Frage auf: In welchem|28| Verhältnis steht der Mensch zu der übrigen Natur? Wie kann er die Dinge erkennen? Wie ist es ihm möglich, Vorstellungen von dem zu machen, was doch außer ihm ist? Empedokles gab die Antwort: Gleiches kann nur durch Gleiches erkannt werden. - Weil der Mensch aus denselben Stoffen und Kräften besteht wie die übrige Natur, deshalb kann er diese auch erkennen."
+          "content": "Bei Empedokles taucht zuerst etwas von der Frage auf: In welchem |28| Verhältnis steht der Mensch zu der übrigen Natur? Wie kann er die Dinge erkennen? Wie ist es ihm möglich, Vorstellungen von dem zu machen, was doch außer ihm ist? Empedokles gab die Antwort: Gleiches kann nur durch Gleiches erkannt werden. - Weil der Mensch aus denselben Stoffen und Kräften besteht wie die übrige Natur, deshalb kann er diese auch erkennen."
         },
         {
           "index": "^qhzza5",
           "content": "In ganz anderer Weise nahm eine Anzahl von Denkern diese Frage in Angriff, die gewöhnlich verkannt werden. Es sind die Sophisten, deren bedeutendste Persönlichkeit Protagoras von Abdera ist. Sie werden gewöhnlich wie Menschen hingestellt, die mit dem Denken ein oberflächliches Spiel, eine eitle Disputiersucht getrieben haben, und denen aller Ernst zur Erforschung der Wahrheit gefehlt haben soll."
         },
         {
+          "index": "^916065",
+          "content": "Viel hat zu der Meinung, die sich über die Sophisten herausgebildet hat, die Art beigetragen, wie sie der reaktionäre Lustspieldichter Aristophanes in seinen Dramen verspottet hat."
+        },
+        {
           "index": "^jjnxm3",
-          "content": "Viel hat zu der Meinung, die sich über die Sophisten herausgebildet hat, die Art beigetragen, wie sie der reaktionäre Lustspieldichter Aristophanes in seinen Dramen verspottet hat. Es mag sein, dass einzelne Sophisten die Kunst des Disputierens übertrieben haben, es mag auch sein, dass unter ihnen manche waren, denen es nur um Haarspaltereien und um ein geckenhaftes Auftreten zu tun war: bei den bedeutendsten von ihnen trifft das aber nicht zu, denn es waren Männer unter ihnen, die sich durch ein umfassendes Wissen auf den verschiedensten Gebieten auszeichneten."
+          "content": "Es mag sein, dass einzelne Sophisten die Kunst des Disputierens übertrieben haben, es mag auch sein, dass unter ihnen manche waren, denen es nur um Haarspaltereien und um ein geckenhaftes Auftreten zu tun war: bei den bedeutendsten von ihnen trifft das aber nicht zu, denn es waren Männer unter ihnen, die sich durch ein umfassendes Wissen auf den verschiedensten Gebieten auszeichneten."
         },
         {
           "index": "^m7lkrb",
           "content": "Von Protagoras muss das besonders betont werden, aber auch von Gorgias wissen wir, dass er ein hervorragender Politiker war, und von Prodicus rühmt dessen Schüler Sokrates selbst, dass er ein ausgezeichneter Gelehrter war, der sich die Veredlung der Sprache bei seinen Zöglingen besonders angelegen sein ließ."
         },
         {
-          "index": "^8qtzvh",
-          "content": "Seine Grundanschauung spricht Protagoras in dem Satze aus: «Der Mensch ist das Maß aller Dinge, der seienden, dass sie sind, der nicht seienden, dass sie nicht sind.» Was kann|29| dieser Satz bedeuten?"
-        },
-        {
           "index": "^c8yuog",
-          "content": "Man kann sagen wie Parmenides: unsere Sinne täuschen uns. Und man könnte noch weiter gehen als dieser und sagen: vielleicht täuscht uns auch unser Denken. Protagoras würde antworten: was geht es den Menschen an, ob die Welt außer ihm anders ist, als er sie wahrnimmt und denkt. Stellt er denn die Welt für jemand anderen und nicht für sich vor? Mag sie für ein anderes Wesen sein wie immer: er hat sich darum nicht zu sorgen."
+          "content": "Seine Grundanschauung spricht Protagoras in dem Satze aus: «Der Mensch ist das Maß aller Dinge, der seienden, dass sie sind, der nicht seienden, dass sie nicht sind.» Was kann |29| dieser Satz bedeuten? Man kann sagen wie Parmenides: unsere Sinne täuschen uns. Und man könnte noch weiter gehen als dieser und sagen: vielleicht täuscht uns auch unser Denken. Protagoras würde antworten: was geht es den Menschen an, ob die Welt außer ihm anders ist, als er sie wahrnimmt und denkt."
         },
         {
-          "index": "^ki5e72",
-          "content": "Seine Vorstellungen sollen ja nur ihm dienen; er soll sich mit ihrer Hilfe in der Welt zurechtfinden. Der Mensch kann gar keine anderen Vorstellungen über die Welt wollen, als diejenigen, die ihm dienen. Was auch noch immer in der Welt ist: wenn der Mensch es nicht wahrnimmt, kann es ihn nicht kümmern. Für ihn ist da, was er wahrnimmt; und es ist für ihn nicht da, was er nicht wahrnimmt. Das heißt aber eben: der Mensch misst die Dinge mit dem Maße, das ihm seine Sinne und seine Vernunft an die Hand geben."
+          "index": "^4f47cb",
+          "content": "Stellt er denn die Welt für jemand anderen und nicht für sich vor? Mag sie für ein anderes Wesen sein wie immer: er hat sich darum nicht zu sorgen. Seine Vorstellungen sollen ja nur ihm dienen; er soll sich mit ihrer Hilfe in der Welt zurechtfinden. Der Mensch kann gar keine anderen Vorstellungen über die Welt wollen, als diejenigen, die ihm dienen. Was auch noch immer in der Welt ist: wenn der Mensch es nicht wahrnimmt, kann es ihn nicht kümmern."
         },
         {
           "index": "^qai3er",
-          "content": "Protagoras gibt durch seine Anschauung dem Menschen eine feste Stellung und Sicherheit in der Welt. Er befreit ihn von unzähligen bangen Fragen, die er nur aufwirft, weil er sich nicht getraut, die Dinge nach sich zu beurteilen."
+          "content": "Für ihn ist da, was er wahrnimmt; und es ist für ihn nicht da, was er nicht wahrnimmt. Das heißt aber eben: der Mensch misst die Dinge mit dem Maße, das ihm seine Sinne und seine Vernunft an die Hand geben. Protagoras gibt durch seine Anschauung dem Menschen eine feste Stellung und Sicherheit in der Welt. Er befreit ihn von unzähligen bangen Fragen, die er nur aufwirft, weil er sich nicht getraut, die Dinge nach sich zu beurteilen."
         },
         {
           "index": "^t3gct4",
@@ -241,99 +233,87 @@
         },
         {
           "index": "^nd5u73",
-          "content": "Vorher war der einzelne fest in die sozialen Zusammenhänge eingeschlossen; die Gemeinwesen und die Tradition gaben ihm den Maßstab für all sein Handeln und Denken ab. Die einzelne Persönlichkeit hatte nur als Glied eines Ganzen Wert und Bedeutung. Unter solchen|30| Verhältnissen hätte unmöglich die Frage gestellt werden können: Was ist der einzelne Mensch wert?"
+          "content": "Vorher war der einzelne fest in die sozialen Zusammenhänge eingeschlossen; die Gemeinwesen und die Tradition gaben ihm den Maßstab für all sein Handeln und Denken ab. Die einzelne Persönlichkeit hatte nur als Glied eines Ganzen Wert und Bedeutung. Unter solchen |30| Verhältnissen hätte unmöglich die Frage gestellt werden können: Was ist der einzelne Mensch wert? Die Sophistik ist ein ungeheurer Fortschritt nach der griechischen Aufklärung zu."
         },
         {
-          "index": "^0nmtmj",
-          "content": "Die Sophistik ist ein ungeheurer Fortschritt nach der griechischen Aufklärung zu. Der Mensch konnte nunmehr daran denken, sein Leben nach seiner Vernunft einzurichten. Die Sophisten zogen als Tugendlehrer im Lande herum. Wenn man die Tugend lehren will, so muss man der Überzeugung sein, dass nicht die hergebrachten sittlichen Anschauungen maßgebend seien, sondern dass der Mensch durch eigenes Nachdenken die Tugend erkennen könne."
+          "index": "^0f7edb",
+          "content": "Der Mensch konnte nunmehr daran denken, sein Leben nach seiner Vernunft einzurichten. Die Sophisten zogen als Tugendlehrer im Lande herum. Wenn man die Tugend lehren will, so muss man der Überzeugung sein, dass nicht die hergebrachten sittlichen Anschauungen maßgebend seien, sondern dass der Mensch durch eigenes Nachdenken die Tugend erkennen könne. In solchen Vorstellungen von der Tugend lebte auch Sokrates. Man muss ihn durchaus als einen Schüler der Sophistik ansehen. Man weiß wenig über ihn."
         },
         {
-          "index": "^pd4v3s",
-          "content": "In solchen Vorstellungen von der Tugend lebte auch Sokrates. Man muss ihn durchaus als einen Schüler der Sophistik ansehen. Man weiß wenig über ihn. Die Berichte über das, was er gelehrt hat, sind zweifelhaft. Klar aber ist, dass er in erster Linie Tugendlehrer war, wie die Sophisten. Und sicher ist auch, dass er durch die Art, wie er gelehrt hat, hinreissend gewirkt hat."
+          "index": "^bd6c4c",
+          "content": "Die Berichte über das, was er gelehrt hat, sind zweifelhaft. Klar aber ist, dass er in erster Linie Tugendlehrer war, wie die Sophisten. Und sicher ist auch, dass er durch die Art, wie er gelehrt hat, hinreissend gewirkt hat. Sein Lehren bestand darin, dass er im Gespräch das aus dem Zuhörer selbst herauszulocken suchte, was er als das Richtige anerkannte. Der Ausdruck «geistige Hebammenkunst» ist in bezug auf seine Lehren bekannt. Er wollte in den Geist des Schülers nichts von außen hineinbringen."
         },
         {
-          "index": "^vtliy3",
-          "content": "Sein Lehren bestand darin, dass er im Gespräch das aus dem Zuhörer selbst herauszulocken suchte, was er als das Richtige anerkannte. Der Ausdruck «geistige Hebammenkunst» ist in bezug auf seine Lehren bekannt. Er wollte in den Geist des Schülers nichts von außen hineinbringen. Er war der Ansicht, dass die Wahrheit in jedem Menschen gelegen sei, und dass man nur Hilfe zu leisten brauche, damit diese Wahrheit zutage trete."
-        },
-        {
-          "index": "^284czn",
-          "content": "Fasst man das ins Auge, so zeigt sich, dass Sokrates der Vernunft in jedem einzelnen Menschen zu ihrem höchsten Rechte verhalf. Er brachte den Schüler immer dahin, dass dieser sich von einer Sache den rechten Begriff machen könne."
+          "index": "^9e58d7",
+          "content": "Er war der Ansicht, dass die Wahrheit in jedem Menschen gelegen sei, und dass man nur Hilfe zu leisten brauche, damit diese Wahrheit zutage trete. Fasst man das ins Auge, so zeigt sich, dass Sokrates der Vernunft in jedem einzelnen Menschen zu ihrem höchsten Rechte verhalf. Er brachte den Schüler immer dahin, dass dieser sich von einer Sache den rechten Begriff machen könne. Er ging von den Erfahrungen des alltäglichen Lebens aus."
         },
         {
           "index": "^lkitk5",
-          "content": "Er ging von den Erfahrungen des alltäglichen Lebens aus. Man kann betrachten, was zum Beispiel Tugend bei dem Handwerker, was Tugend bei dem Kaufmann, was Tugend bei dem Gelehrten ist. Man wird finden, dass alle diese verschiedenen Arten des tugendhaften Lebens etwas Gemein|31|sames haben. Dieses Gemeinsame ist eben der Begriff der Tugend. Wenn man mit seinem Denken so vorgeht, so befolgt man das sogenannte induktive Verfahren. Man sammelt die einzelnen Erfahrungen, um einen Begriff von einer Sache zu erhalten."
+          "content": "Man kann betrachten, was zum Beispiel Tugend bei dem Handwerker, was Tugend bei dem Kaufmann, was Tugend bei dem Gelehrten ist. Man wird finden, dass alle diese verschiedenen Arten des tugendhaften Lebens etwas Gemein|31|sames haben. Dieses Gemeinsame ist eben der Begriff der Tugend. Wenn man mit seinem Denken so vorgeht, so befolgt man das sogenannte induktive Verfahren. Man sammelt die einzelnen Erfahrungen, um einen Begriff von einer Sache zu erhalten."
         },
         {
           "index": "^v577ho",
-          "content": "Wenn man diesen Begriff hat, so kann man die Sache definieren. Man hat die Definition der Sache. Ein Säugetier ist ein lebendiges Wesen mit einer Wirbelsäule, das lebendige junge zur Welt bringt. Dies ist die Definition des Säugetieres. Sie gibt das Merkmal - Gebären von lebendigen jungen - an, welches allen Säugetieren gemeinsam ist. So wirkte Sokrates als Lehrer eines scharfen, klaren Denkens. Das ist sein großes Verdienst."
+          "content": "Wenn man diesen Begriff hat, so kann man die Sache definieren. Man hat die Definition der Sache. Ein Säugetier ist ein lebendiges Wesen mit einer Wirbelsäule, das lebendige Junge zur Welt bringt. Dies ist die Definition des Säugetieres. Sie gibt das Merkmal - Gebären von lebendigen Jungen - an, welches allen Säugetieren gemeinsam ist. So wirkte Sokrates als Lehrer eines scharfen, klaren Denkens."
         },
         {
           "index": "^6v2rdm",
-          "content": "Der römische Redner Cicero hat von Sokrates gesagt, dass er die Philosophie vom Himmel auf die Erde herabgeholt habe. Damit ist gemeint, dass dieser seine Betrachtungen vorzüglich über den Menschen selbst angestellt habe. Wie der Mensch leben solle, das lag ihm vor allen Dingen am Herzen. Deshalb sehen wir nun in Griechenland, dass diejenigen, die sich um eine Weltanschauung bemühen, immer auch darnach fragen, welche sittlichen Ziele sich der Mensch stellen solle."
+          "content": "Das ist sein großes Verdienst. - Der römische Redner Cicero hat von Sokrates gesagt, dass er die Philosophie vom Himmel auf die Erde herabgeholt habe. Damit ist gemeint, dass dieser seine Betrachtungen vorzüglich über den Menschen selbst angestellt habe. Wie der Mensch leben solle, das lag ihm vor allen Dingen am Herzen. Deshalb sehen wir nun in Griechenland, dass diejenigen, die sich um eine Weltanschauung bemühen, immer auch darnach fragen, welche sittlichen Ziele sich der Mensch stellen solle."
         },
         {
           "index": "^dzu7of",
-          "content": "Das tritt uns gleich bei den nächsten Nachfolgern des Sokrates entgegen. Die Kyniker, deren hauptsächlichste Persönlichkeit Diogenes von Sinope ist, beschäftigen sich mit der Frage nach einem naturgemäßen Leben. Wie soll der Mensch leben, damit sein Leben dem nicht widerspricht, was die Natur an Anlagen und Fähigkeiten in ihn gelegt hat?"
+          "content": "Das tritt uns gleich bei den nächsten Nachfolgern des Sokrates entgegen. Die Kyniker, deren hauptsächlichste Persönlichkeit Diogenes von Sinope ist, beschäftigen sich mit der Frage nach einem naturgemäßen Leben. Wie soll der Mensch leben, damit sein Leben dem nicht widerspricht, was die Natur an Anlagen und Fähigkeiten in ihn gelegt hat? Die Kyniker wollten alles Verkünstelte, Unnatürliche aus dem Leben entfernen. Dass ihnen vor allem die größte Einfachheit als das Beste erschien, ist erklärlich."
         },
         {
           "index": "^1oy1lg",
-          "content": "Die Kyniker wollten alles Verkünstelte, Unnatürliche aus dem Leben entfernen. Dass ihnen vor allem die größte Einfachheit als das Beste erschien, ist erklärlich. Natürlich ist, was allen Menschen ein gemeinsames Bedürfnis ist. Der Proletarier kam in dieser Lebensauffassung zu seinem Recht. Man kann sich daher denken, dass den sogenannten|32| höheren Ständen diese Philosophie wenig gefiel. Was die Kyniker forderten, stimmte ja mit den künstlich geschaffenen Bedürfnissen nicht überein."
-        },
-        {
-          "index": "^zi2puf",
-          "content": "Während ursprünglich der Name Kyniker nur von der Lehranstalt - Kynosarges - herrührte, wo die Kyniker Unterricht gaben, bekam er später einen verächtlichen Beigeschmack."
+          "content": "Natürlich ist, was allen Menschen ein gemeinsames Bedürfnis ist. Der Proletarier kam in dieser Lebensauffassung zu seinem Recht. Man kann sich daher denken, dass den sogenannten |32| höheren Ständen diese Philosophie wenig gefiel. Was die Kyniker forderten, stimmte ja mit den künstlich geschaffenen Bedürfnissen nicht überein. Während ursprünglich der Name Kyniker nur von der Lehranstalt - Kynosarges herrührte, wo die Kyniker Unterricht gaben, bekam er später einen verächtlichen Beigeschmack."
         },
         {
           "index": "^147zrq",
-          "content": "Neben den Kynikern wirkten die Kyrenaiker und die Megariker. Auch sie waren vor allem auf das praktische Leben bedacht. Die Kyrenaiker suchten der Lust zu ihrem Rechte zu verhelfen. Die Lust entspricht der Natur des Menschen. Die Tugend kann nicht darin bestehen, dass man die Lust in sich ausrottet, sondern darin, dass man sich nicht zum Sklaven der Lust macht. Wer nach Lust strebt, aber immer so, dass er Herr seiner Lüste bleibt, der ist tugendhaft. Nur wer zum Sklaven seiner Leidenschaften wird, ist tugendlos."
+          "content": "Neben den Kynikern wirkten die Kyrenaiker und die Megariker. Auch sie waren vor allem auf das praktische Leben bedacht. Die Kyrenaiker suchten der Lust zu ihrem Rechte zu verhelfen. Die Lust entspricht der Natur des Menschen. Die Tugend kann nicht darin bestehen, dass man die Lust in sich ausrottet, sondern darin, dass man sich nicht zum Sklaven der Lust macht. Wer nach Lust strebt, aber immer so, dass er Herr seiner Lüste bleibt, der ist tugendhaft."
         },
         {
           "index": "^z08nq7",
-          "content": "Die Megariker hielten fest an dem Satze des Sokrates, dass die Tugend lehrbar sei, dass also die Vervollkommnung des Denkens auch tugendhafter machen muss. Der wichtigste Vertreter der megarischen Lehre ist Euklides. Ihm war das Gute ein Ausfluss der höchsten Weisheit. Deshalb war es ihm in erster Linie um Erlangung der Weisheit zu tun."
+          "content": "Nur wer zum Sklaven seiner Leidenschaften wird, ist tugendlos. Die Megariker hielten fest an dem Satze des Sokrates, dass die Tugend lehrbar sei, dass also die Vervollkommnung des Denkens auch tugendhafter machen muss. Der wichtigste Vertreter der megarischen Lehre ist Euklides, Ihm war das Gute ein Ausfluss der höchsten Weisheit. Deshalb war es ihm in erster Linie um Erlangung der Weisheit zu tun."
         },
         {
           "index": "^4d222i",
-          "content": "Und aus dieser seiner Schätzung der Weisheit wird ihm wohl der Gedanke erwachsen sein, dass die Weisheit selbst der Urquell der Welt sei. Wenn - so dachte er der Mensch sich durch sein Denken zu Begriffen erhebt, so erhebt er sich zugleich zu den Ursprüngen der Dinge. Mit Euklid nimmt die Weltanschauung eine entschieden idealistische Färbung an."
+          "content": "Und aus dieser seiner Schätzung der Weisheit wird ihm wohl der Gedanke erwachsen sein, dass die Weisheit selbst der Urquell der Welt sei. Wenn - so dachte er - der Mensch sich durch sein Denken zu Begriffen erhebt, so erhebt er sich zugleich zu den Ursprüngen der Dinge. Mit Euklid nimmt die Weltanschauung eine entschieden idealistische Färbung an. Man muss sich den Gedankengang des Euklid etwa so vorstellen: Es gibt viele Löwen. Die Stoffe, aus denen diese bestehen, bleiben nicht zusammen."
         },
         {
-          "index": "^o3j8rl",
-          "content": "Man muss sich den Gedankengang des Euklid etwa so vorstellen: Es gibt viele Löwen. Die Stoffe, aus denen diese bestehen, bleiben nicht zusammen. Der einzelne Löwe entsteht und vergeht. Er nimmt Stoffe aus der Außenwelt auf und gibt sie wieder an diese ab. Das, was ich mit den Sinnen wahrnehme, das ist das Stoffliche. Was|33| an den Dingen sinnlich wahrnehmbar ist, entsteht also und vergeht."
-        },
-        {
-          "index": "^sjm9av",
-          "content": "Dennoch hat ein Löwe, der vor hundert Jahren gelebt hat, mit einem Löwen, der heute lebt, etwas Gemeinsames. Die Stoffe können es nicht sein. Es kann nur der Begriff, die Idee des Löwen sein, die ich durch mein Denken erfasse. Der Löwe von heute und der Löwe vor hundert Jahren sind nach derselben Idee aufgebaut. Das Sinnliche vergeht; die Idee bleibt. Die Ideen verkörpern sich in der Sinnenwelt immer aufs neue."
+          "index": "^ee9560",
+          "content": "Der einzelne Löwe entsteht und vergeht. Er nimmt Stoffe aus der Außenwelt auf und gibt sie wieder an diese ab. Das, was ich mit den Sinnen wahrnehme, das ist das Stoffliche. Was |33| an den Dingen sinnlich wahrnehmbar ist, entsteht also und vergeht. Dennoch hat ein Löwe, der vor hundert Jahren gelebt hat, mit einem Löwen, der heute lebt, etwas Gemeinsames. Die Stoffe können es nicht sein. Es kann nur der Begriff, die Idee des Löwen sein, die ich durch mein Denken erfasse."
         },
         {
           "index": "^uxorlg",
-          "content": "Ein Schüler des Euklides war Plato. Er hat die Vorstellung seines Lehrers von der Ewigkeit der Ideen zu seiner Grundüberzeugung gemacht. Die Sinnenwelt hat nur einen untergeordneten Wert für ihn. Das Wahre sind die Ideen. Wer bloß auf die Dinge der Sinnenwelt sieht, hat nur ein Scheinbild, ein Trugbild der wahren Welt."
+          "content": "Der Löwe von heute und der Löwe vor hundert Jahren sind nach derselben Idee aufgebaut. Das Sinnliche vergeht; die Idee bleibt. Die Ideen verkörpern sich in der Sinnenwelt immer aufs neue. Ein Schüler des Euklides war Plato. Er hat die Vorstellung seines Lehrers von der Ewigkeit der Ideen zu seiner Grundüberzeugung gemacht. Die Sinnenwelt hat nur einen untergeordneten Wert für ihn. Das Wahre sind die Ideen."
         },
         {
-          "index": "^4x6vng",
-          "content": "Platos Überzeugung ist scharf in folgenden Worten zum Ausdruck gebracht: Die Dinge dieser Welt, die wir mit den Sinnen wahrnehmen, haben kein wahres Sein; sie bleiben nicht. Man kann ihr ganzes Sein ebensogut ein Nichtsein nennen. Wer nach dem Wahren strebt, kann sich folglich mit den Dingen der Sinnenwelt nicht begnügen. Denn das Wahre kann nur daher kommen, wo das Bleibende ist."
+          "index": "^b6d9e6",
+          "content": "Wer bloß auf die Dinge der Sinnenwelt sieht, hat nur ein Scheinbild, ein Trugbild der wahren Welt. Platos Überzeugung ist scharf in folgenden Worten zum Ausdruck gebracht: Die Dinge dieser Welt, die wir mit den Sinnen wahrnehmen, haben kein wahres Sein; sie bleiben nicht. Man kann ihr ganzes Sein ebensogut ein Nichtsein nennen. Wer nach dem Wahren strebt, kann sich folglich mit den Dingen der Sinnenwelt nicht begnügen. Denn das Wahre kann nur daher kommen, wo das Bleibende ist."
         },
         {
           "index": "^aescds",
-          "content": "Wenn man sich bloß auf die sinnliche Wahrnehmung beschränkt, gleicht man einem Menschen, der in einer finsteren Höhle festgebunden sitzt, so dass er nicht einmal den Kopf drehen kann, und der nichts sieht, als beim Lichte einer hinter ihm brennenden Lampe die Schattenbilder der Dinge hinter ihm und auch seinen eigenen Schatten."
+          "content": "Wenn man sich bloß auf die sinnliche Wahrnehmung beschränkt, gleicht man einem Menschen, der in einer finsteren Höhle festgebunden sitzt, so dass er nicht einmal den Kopf drehen kann, und der nichts sieht, als beim Lichte einer hinter ihm brennenden Lampe die Schattenbilder der Dinge hinter ihm und auch seinen eigenen Schatten. Die Ideen sind zu vergleichen mit den wirklichen, wahren Dingen, und die Schatten mit den Dingen der Sinnenwelt."
         },
         {
           "index": "^98htus",
-          "content": "Die Ideen sind zu vergleichen mit den wirklichen, wahren Dingen, und die Schatten mit den Dingen der Sinnenwelt. Auch von sich selbst erkennt derjenige, der sich auf die Sinnenwelt beschränkt, nur einen Schatten. Der Baum, den ich sehe, der Blütenduft, den ich atme: sie sind nur Schattenbilder. Erst,|34| wenn ich mich durch mein Denken zu der Idee des Baumes erhebe, habe ich das, was wahrhaft bleibend und nicht ein vergängliches Trugbild von dem Bäume ist."
+          "content": "Auch von sich selbst erkennt derjenige, der sich auf die Sinnenwelt beschränkt, nur einen Schatten. Der Baum, den ich sehe, der Blütenduft, den ich atme: sie sind nur Schattenbilder. Erst, |34| wenn ich mich durch mein Denken zu der Idee des Baumes erhebe, habe ich das, was wahrhaft bleibend und nicht ein vergängliches Trugbild von dem Baume ist. Man muss nun die Frage aufwerfen: wie denkt sich Plato das Verhältnis seiner Ideenwelt zu den Gottesvorstellungen der Griechen?"
         },
         {
-          "index": "^hekqt6",
-          "content": "Man muss nun die Frage aufwerfen: wie denkt sich Plato das Verhältnis seiner Ideenwelt zu den Gottesvorstellungen der Griechen? Dieses Verhältnis ist aus Platos Schriften keineswegs mit vollkommener Klarheit festzustellen. Er spricht wiederholt von außerweltlichen Göttern. Doch kann man der Meinung sein, dass er sich mit solchen Aussprüchen bloß an die griechische Volksreligion anlehnen wollte; und man wird nicht fehlgehen, wenn man seine Götterbezeichnungen nur als bildliche Verdeutlichungen auffasst."
+          "index": "^91fdf6",
+          "content": "Dieses Verhältnis ist aus Platos Schriften keineswegs mit vollkommener Klarheit festzustellen. Er spricht wiederholt von außerweltlichen Göttern. Doch kann man der Meinung sein, dass er sich mit solchen Aussprüchen bloß an die griechische Volksreligion anlehnen wollte; und man wird nicht fehlgehen, wenn man seine Götterbezeichnungen nur als bildliche Verdeutlichungen auffasst. Was Plato selbst als Gottheit auffasst, das ist eine erste bewegende Ursache der Welt."
         },
         {
           "index": "^7rfsb6",
-          "content": "Was Plato selbst als Gottheit auffasst, das ist eine erste bewegende Ursache der Welt. Man muss sich, im Sinne Platos, vorstellen, dass die Welt aus den Ideen und der Urmaterie besteht. Die Ideen verkörpern sich in der Urmaterie fortwährend. Und den Anstoß zu dieser Verkörperung gibt Gott, als der Urgrund aller Bewegung. Gott ist für Plato zugleich das Gute. Dadurch erhält die Welt einen großen einheitlichen Zweck. Das Gute bewegt alles Sein und Geschehen. Die höchsten Weltgesetze stellen also eine moralische Weltordnung dar."
+          "content": "Man muss sich, im Sinne Platos, vorstellen, dass die Welt aus den Ideen und der Urmaterie besteht. Die Ideen verkörpern sich in der Urmaterie fortwährend. Und den Anstoß zu dieser Verkörperung gibt Gott, als der Urgrund aller Bewegung. Gott ist für Plato zugleich das Gute. Dadurch erhält die Welt einen großen einheitlichen Zweck. Das Gute bewegt alles Sein und Geschehen. Die höchsten Weltgesetze stellen also eine moralische Weltordnung dar."
         },
         {
           "index": "^1mcir2",
-          "content": "Plato hat seine Weltanschauung in Gesprächsform niedergeschrieben. Seine Darstellungsform bildete in der ganzen Folgezeit einen Gegenstand der Bewunderung innerhalb der abendländischen Kulturentwickelung. Plato stammt aus einem altadeligen Geschlecht in Athen. Aus Berichten wissen wir, dass er ein zur Schwärmerei geneigter Kopf war. Er wurde der treueste und verständnisvollste Schüler des Sokrates, der an dem Meister mit unbedingter Verehrung hing."
+          "content": "Plato hat seine Weltanschauung in Gesprächsform niedergeschrieben. Seine Darstellungsform bildete in der ganzen Folgezeit einen Gegenstand der Bewunderung innerhalb der abendländischen Kulturentwickelung. - Plato stammt aus einem altadeligen Geschlecht in Athen. Aus Berichten wissen wir, dass er ein zur Schwärmerei geneigter Kopf war. Er wurde der treueste und verständnisvollste Schüler des Sokrates, der an dem Meister mit unbedingter Verehrung hing."
         },
         {
           "index": "^yuvgm1",
-          "content": "Nach der Hinrichtung seines Lehrers begab er sich nach Megara zu Euklides. Später unternimmt er große Reisen nach Cyrene, Ägypten, Großgriechenland|35| - d. i. Süditalien - und Sizilien. Im Jahre 389 v.Chr. kehrte er nach Athen zurück. Doch unternahm er noch eine zweite und dritte Reise nach Sizilien. Nach der Rückkehr von seiner ersten sizilischen Reise gründete er in Athen seine Schule, aus der viele der bedeutenden Männer jener Zeit hervorgingen."
+          "content": "Nach der Hinrichtung seines Lehrers begab er sich nach Megara zu Euklides. Später unternimmt er große Reisen nach Cyrene, Ägypten, Großgriechenland |35|d. i. Süditalien - und Sizilien. Im Jahre 389 v.Chr. kehrte er nach Athen zurück. Doch unternahm er noch eine zweite und dritte Reise nach Sizilien. Nach der Rückkehr von seiner ersten sizilischen Reise gründete er in Athen seine Schule, aus der viele der bedeutenden Männer jener Zeit hervorgingen."
         },
         {
           "index": "^p5dbz2",
@@ -349,103 +329,119 @@
         },
         {
           "index": "^xzpe33",
-          "content": "In ihrer Verbindung mit dem Körper bildet die Seele des Menschen keine Einheit. Sie zerfällt in drei Teilseelen. Die|36| unterste Seele ist die des sinnlichen Lebens; sie hat den Ernährungs- und Fortpflanzungstrieb zu besorgen. Die mittlere Seele bezeichnet Plato als die Willenskraft im Menschen. Auf ihr beruht der persönliche Mut, die Tapferkeit. Und die höchste Seele ist die rein geistige. Sie hat die höchste Erkenntnis zu besorgen. Sie ist im Ideenreich heimisch. Sie ist der eigentliche unsterbliche Teil der Menschenseele."
+          "content": "In ihrer Verbindung mit dem Körper bildet die Seele des Menschen keine Einheit. Sie zerfällt in drei Teilseelen. Die |36| unterste Seele ist die des sinnlichen Lebens; sie hat den Ernährungs- und Fortpflanzungstrieb zu besorgen. Die mittlere Seele bezeichnet Plato als die Willenskraft im Menschen. Auf ihr beruht der persönliche Mut, die Tapferkeit. Und die höchste Seele ist die rein geistige. Sie hat die höchste Erkenntnis zu besorgen. Sie ist im Ideenreich heimisch."
         },
         {
           "index": "^jerh7z",
-          "content": "Seine Unsterblichkeitsgedanken bringt Plato in Zusammenhang mit der Vorstellung des Sokrates, dass das Lehren nur in einer Art Hebammenkunst bestehe. Wenn das so ist, dann müssen alle Gedanken, die in dem Menschen erweckt werden, schon in ihm liegen. Sie liegen in ihm, weil er sie auch schon vor seiner Geburt, da ja auch schon die Seele vorhanden war, gehabt hat. Er erinnert sich also im Leben nur an die Gedanken, die ihm vor seiner Geburt schon eigen waren."
+          "content": "Sie ist der eigentliche unsterbliche Teil der Menschenseele. Seine Unsterblichkeitsgedanken bringt Plato in Zusammenhang mit der Vorstellung des Sokrates, dass das Lehren nur in einer Art Hebammenkunst bestehe. Wenn das so ist, dann müssen alle Gedanken, die in dem Menschen erweckt werden, schon in ihm liegen. Sie liegen in ihm, weil er sie auch schon vor seiner Geburt, da ja auch schon die Seele vorhanden war, gehabt hat."
         },
         {
           "index": "^jnpsa5",
-          "content": "Mit Platos Seelenlehre hängt wieder seine Ansicht von dem Staate zusammen. Auch der Staat ist die Verkörperung einer Idee. Und er ist eine solche Verkörperung nach dem Bilde der menschlichen Natur, wenn er vollkommen ist. Die einzelnen Seelenkräfte sind im Staate durch die verschiedenen Stände dargestellt. Die oberste Seele stellen die Regierenden dar, die mittlere Seele findet in den Wächtern, welche für die Verteidigung da sind, und die unterste Seele in den Handwerkern ihr Ebenbild."
+          "content": "Er erinnert sich also im Leben nur an die Gedanken, die ihm vor seiner Geburt schon eigen waren. Mit Platos Seelenlehre hängt wieder seine Ansicht von dem Staate zusammen. Auch der Staat ist die Verkörperung einer Idee. Und er ist eine solche Verkörperung nach dem Bilde der menschlichen Natur, wenn er vollkommen ist. Die einzelnen Seelenkräfte sind im Staate durch die verschiedenen Stände dargestellt."
         },
         {
-          "index": "^ekvlao",
-          "content": "Der platonische Staat ist ein kommunistischer Staat, aber mit einer streng aristokratischen Ständegliederung. Für die beiden oberen Stände empfiehlt Plato die Ehe- und Besitzlosigkeit. Es soll klösterliche Gemeinschaft und Güterkommunismus herrschen. Die gesamte Jugenderziehung, mit Ausnahme der von der Familie zu besorgenden ersten leiblichen Kinderpflege, soll Aufgabe des Staates sein."
+          "index": "^b0edeb",
+          "content": "Die oberste Seele stellen die Regierenden dar, die mittlere Seele findet in den Wächtern, welche für die Verteidigung da sind, und die unterste Seele in den Handwerkern ihr Ebenbild. Der platonische Staat ist ein kommunistischer Staat, aber mit einer streng aristokratischen Ständegliederung. Für die beiden oberen Stände empfiehlt Plato die Ehe- und Besitzlosigkeit. Es soll klösterliche Gemeinschaft und Güterkommunismus herrschen."
         },
         {
           "index": "^k9tfaq",
-          "content": "Platos bedeutendster Schüler ist Aristoteles von Stagira in|37| Thrakien. Er wurde mit achtzehn Jahren Platos Zögling. Aber er war ein Schüler, der bald seine eigenen Wege ging. Im Jahre 343 wurde Aristoteles Erzieher Alexanders, des Sohnes König Philipps von Mazedonien. Als Alexander seine asiatischen Eroberungszüge unternahm, ging Aristoteles wieder nach Athen und eröffnete dort eine Schule."
+          "content": "Die gesamte Jugenderziehung, mit Ausnahme der von der Familie zu besorgenden ersten leiblichen Kinderpflege, soll Aufgabe des Staates sein. Platos bedeutendster Schüler ist Aristoteles von Stagira in |37| Thrakien. Er wurde mit achtzehn Jahren Platos Zögling. Aber er war ein Schüler, der bald seine eigenen Wege ging. Im Jahre 343 wurde Aristoteles Erzieher Alexanders, des Sohnes König Philipps von Mazedonien."
         },
         {
-          "index": "^q023z7",
-          "content": "Das Verhältnis der Weltanschauung des Aristoteles zu derjenigen Platos kann man durch folgenden Vergleich veranschaulichen. Platos Ideen sind der Materie, in der sie sich verkörpern, ganz fremd. Sie sind wie die Idee zu dem Kunstwerk, die im Kopfe des Künstlers lebt, und die er in seinen Stoff hineinbildet. Dieser Stoff, der Marmor einer Statue, ist etwas ganz Fremdes zur Idee des Künstlers."
+          "index": "^7e1d47",
+          "content": "Als Alexander seine asiatischen Eroberungszüge unternahm, ging Aristoteles wieder nach Athen und eröffnete dort eine Schule. Das Verhältnis der Weltanschauung des Aristoteles zu derjenigen Platos kann man durch folgenden Vergleich veranschaulichen. Platos Ideen sind der Materie, in der sie sich verkörpern, ganz fremd. Sie sind wie die Idee zu dem Kunstwerk, die im Kopfe des Künstlers lebt, und die er in seinen Stoff hineinbildet."
         },
         {
-          "index": "^qadjl1",
-          "content": "So denkt sich nun Aristoteles das Verhältnis der Ideen zur Materie nicht. Für ihn liegt die Idee in der Materie selbst. Es ist, wie wenn ein Kunstwerk nicht vom Künstler seine Idee eingeprägt erhielte, sondern wie wenn es von selbst sich seine Gestalt durch eine dem Stoff innewohnende Kraft gäbe. Aristoteles nennt die dem Stoff eingeborenen Ideen die Formen der Dinge. Es gibt also, im Sinne des Aristoteles, keine vom Stoffe getrennte Idee des Löwen zum Beispiel. Diese Idee liegt im Stoffe selbst. Es gibt, nach Aristoteles, keine Materie ohne Form und keine Form ohne Materie."
+          "index": "^a32bf6",
+          "content": "Dieser Stoff, der Marmor einer Statue, ist etwas ganz Fremdes zur Idee des Künstlers. So denkt sich nun Aristoteles das Verhältnis der Ideen zur Materie nicht. Für ihn liegt die Idee in der Materie selbst. Es ist, wie wenn ein Kunstwerk nicht vom Künstler seine Idee eingeprägt erhielte, sondern wie wenn es von selbst sich seine Gestalt durch eine dem Stoff innewohnende Kraft gäbe. Aristoteles nennt die dem Stoff eingeborenen Ideen die Formen der Dinge."
         },
         {
-          "index": "^ltmuui",
-          "content": "Ein Lebewesen entwickelt sich vom Keim im Mutterleibe bis zu seiner ausgebildeten Gestalt, weil die Form in dem Lebensstoffe tätig ist und wie eine ihm eingeborene Kraft wirkt. In der ersten Anlage eines Lebewesens ist diese Kraft oder Form schon vorhanden; nur ist sie da noch äußerlich nicht sichtbar; sie schlummert gleichsam noch. Aber sie arbeitet sich heraus, so dass der Stoff die Gestalt annimmt, die als schlummernde Kraft schon anfangs in ihm liegt."
+          "index": "^c72b03",
+          "content": "Es gibt also, im Sinne des Aristoteles, keine vom Stoffe getrennte Idee des Löwen zum Beispiel. Diese Idee liegt im Stoffe selbst. Es gibt, nach Aristoteles, keine Materie ohne Form und keine Form ohne Materie. Ein Lebewesen entwickelt sich vom Keim im Mutterleibe bis zu seiner ausgebildeten Gestalt, weil die Form in dem Lebensstoffe tätig ist und wie eine ihm eingeborene Kraft wirkt."
         },
         {
-          "index": "^bev6ns",
-          "content": "Im Anfange der Dinge gab es nur äußerliche formlose Materie. Die Kraft oder der Stoff schlummerte noch ganz in dersel|38|ben. Es war ein Chaos vorhanden mit einer unermesslichen in ihm schlafenden Kraft. Um diese Kraft zu erwecken, damit sich das Chaos zu der mannigfaltigen Welt der Dinge bilde, war ein erster Anstoß notwendig. Deshalb nimmt Aristoteles einen ersten Beweger der Welt, eine göttliche Weltursache an."
+          "index": "^4f8099",
+          "content": "In der ersten Anlage eines Lebewesens ist diese Kraft oder Form schon vorhanden; nur ist sie da noch äußerlich nicht sichtbar; sie schlummert gleichsam noch. Aber sie arbeitet sich heraus, so dass der Stoff die Gestalt annimmt, die als schlummernde Kraft schon anfangs in ihm liegt. Im Anfange der Dinge gab es nur äußerliche formlose Materie. Die Kraft oder der Stoff schlummerte noch ganz in dersel|38|ben. Es war ein Chaos vorhanden mit einer unermesslichen in ihm schlafenden Kraft."
+        },
+        {
+          "index": "^c4b338",
+          "content": "Um diese Kraft zu erwecken, damit sich das Chaos zu der mannigfaltigen Welt der Dinge bilde, war ein erster Anstoß notwendig. Deshalb nimmt Aristoteles einen ersten Beweger der Welt, eine göttliche Weltursache an."
         },
         {
           "index": "^e85xf3",
-          "content": "Wenn die Idee oder, wie Aristoteles sich ausdrückt, die Form in jedem Dinge selbst liegt, so kann man nicht, wie Plato meint, die Dinge als bloße Trugbilder und Schatten ansehen und sich mit seinem Denken in eine ganz andere Welt erheben, falls man das Wahre erlangen will, sondern man muss sich vielmehr gerade an die sinnlichen Dinge selbst wenden und das in ihnen liegende Wesen an den Tag bringen."
+          "content": "Wenn die Idee oder, wie Aristoteles sich ausdrückt, die Form in jedem Dinge selbst liegt, so kann man nicht, wie Plato meint, die Dinge als bloße Trugbilder und Schatten ansehen und sich mit seinem Denken in eine ganz andere Welt erheben, falls man das Wahre erlangen will, sondern man muss sich vielmehr gerade an die sinnlichen Dinge selbst wenden und das in ihnen liegende Wesen an den Tag bringen. Die denkende Beobachtung selbst gibt also Aufklärung über die Welt."
         },
         {
           "index": "^4y2uhi",
-          "content": "Die denkende Beobachtung selbst gibt also Aufklärung über die Welt. Weil Aristoteles davon überzeugt war, deshalb wandte er seine Aufmerksamkeit vor allem der Beobachtung zu. Er ist dadurch ein Bahnbrecher der Wissenschaften geworden. Er hat die einzelnen Naturwissenschaften gepflegt in einer so umfassenden Weise, wie es für seine Zeit nur irgend möglich war. Er ist der anerkannte «Vater der Naturgeschichte». Von ihm liegen zum Beispiel feine und geistvolle Untersuchungen über die Entwickelung der Lebewesen von dem Keimzustande an vor."
+          "content": "Weil Aristoteles davon überzeugt war, deshalb wandte er seine Aufmerksamkeit vor allem der Beobachtung zu. Er ist dadurch ein Bahnbrecher der Wissenschaften geworden. Er hat die einzelnen Naturwissenschaften gepflegt in einer so umfassenden Weise, wie es für seine Zeit nur irgend möglich war. Er ist der anerkannte «Vater der Naturgeschichte». Von ihm liegen zum Beispiel feine und geistvolle Untersuchungen über die Entwickelung der Lebewesen von dem Keimzustande an vor."
         },
         {
-          "index": "^szzfcf",
-          "content": "Solche Untersuchungen hingen mit seinen Weltanschauungsgedanken auf das natürlichste zusammen. Er musste ja der Ansicht sein, dass zum Beispiel im Ei schon das ganze Lebewesen vorhanden sei, nur noch nicht auf äußerlich sichtbare Art. Er sagt sich: wenn aus dem Ei ein Lebewesen entsteht, dann muss es dieses Lebewesen selbst sein, das sich in dem Ei zum Dasein herausarbeitet. Sehen wir ein Ei an, so hat es im Grunde eine doppelte Wesenheit. Es ist erstens so, wie es unseren Augen erscheint. Aber es hat noch eine unsichtbare Wesenheit, die erst später zum Vor|39|schein kommen wird, wenn es ein ausgebildeter Vogel sein wird."
+          "index": "^9818c7",
+          "content": "Solche Untersuchungen hingen mit seinen Weltanschauungsgedanken auf das natürlichste zusammen. Er musste ja der Ansicht sein, dass zum Beispiel im Ei schon das ganze Lebewesen vorhanden sei, nur noch nicht auf äußerlich sichtbare Art. Er sagt sich: wenn aus dem Ei ein Lebewesen entsteht, dann muss es dieses Lebewesen selbst sein, das sich in dem Ei zum Dasein herausarbeitet. Sehen wir ein Ei an, so hat es im Grunde eine doppelte Wesenheit. Es ist erstens so, wie es unseren Augen erscheint."
         },
         {
-          "index": "^lyw72s",
-          "content": "Diese Anschauung führt Aristoteles für die ganze Natur durch. Nur vor dem Menschen macht er halt. Im menschlichen Ei ist auch schon der ganze Mensch, sogar auch die Seele, insofern diese niedrige Verrichtungen vollzieht, die auch das Tier ausführen kann. Anders soll es aber mit dem Geiste des Menschen sein, der die höheren Tätigkeiten des Denkens ausführt. Dieser Geist ist noch nicht in dem menschlichen Keime. Wenn der Keim sich selbst überlassen bliebe, so könnte er es bloß bis zu einem tierischen Wesen bringen. Ein denkender Geist entstände nicht."
+          "index": "^f8f475",
+          "content": "Aber es hat noch eine unsichtbare Wesenheit, die erst später zum Vor|39|schein kommen wird, wenn es ein ausgebildeter Vogel sein wird. Diese Anschauung fuhrt Aristoteles für die ganze Natur durch. Nur vor dem Menschen macht er halt. Im menschlichen Ei ist auch schon der ganze Mensch, sogar auch die Seele, insofern diese niedrige Verrichtungen vollzieht, die auch das Tier ausführen kann. Anders soll es aber mit dem Geiste des Menschen sein, der die höheren Tätigkeiten des Denkens ausführt."
         },
         {
-          "index": "^cyl7a7",
-          "content": "Damit ein solcher werden kann, muss in dem Augenblicke, wo die rein tierische Entwickelung des Menschen weit genug vorgeschritten ist, eine höhere Schöpferkraft eintreten und den Geist in den Leib hineinschaffen. In der menschlichen Entwickelung geschieht alles auf natürliche Weise bis zu einem bestimmten Augenblicke, nämlich bis dahin, wo der Leib so weit ist, dass er den Geist beherbergen kann."
+          "index": "^d10445",
+          "content": "Dieser Geist ist noch nicht in dem menschlichen Keime. Wenn der Keim sich selbst überlassen bliebe, so könnte er es bloß bis zu einem tierischen Wesen bringen. Ein denkender Geist entstände nicht. Damit ein solcher werden kann, muss in dem Augenblicke, wo die rein tierische Entwickelung des Menschen weit genug vorgeschritten ist, eine höhere Schöpferkraft eintreten und den Geist in den Leib hineinschaffen."
         },
         {
-          "index": "^1ua8dx",
-          "content": "Dann, wenn das eingetreten ist, wenn durch natürliche Entwickelung der Leib so weit gediehen ist, dass er alle notwendigen Organe hat, die der Geist zu seinen Zwecken braucht, dann wird der Geist in seine leibliche Wohnstätte hineingeschaffen. So denkt sich Aristoteles, dass die Geistseele des Menschen in der Zeit entstanden ist; aber er lässt sie nicht durch dieselben Kräfte entstehen, durch die der Leib entsteht, sondern durch einen höheren Einfluss."
+          "index": "^681470",
+          "content": "In der menschlichen Entwickelung geschieht alles auf natürliche Weise bis zu einem bestimmten Augenblicke, nämlich bis dahin, wo der Leib so weit ist, dass er den Geist beherbergen kann. Dann, wenn das eingetreten ist, wenn durch natürliche Entwickelung der Leib so weit gediehen ist, dass er alle notwendigen Organe hat, die der Geist zu seinen Zwecken braucht, dann wird der Geist in seine leibliche Wohnstätte hineingeschaffen."
+        },
+        {
+          "index": "^d9d144",
+          "content": "So denkt sich Aristoteles, dass die Geistseele des Menschen in der Zeit entstanden ist; aber er lässt sie nicht durch dieselben Kräfte entstehen, durch die der Leib entsteht, sondern durch einen höheren Einfluss. Zu betonen ist jedoch, dass die Organe, deren sich der Geist bedient, durch die Entwickelung des Leibes entstanden sind. Wenn also sich der Geist des Auges bedient, um sich über das Gesehene Gedanken zu machen, so kann er das nur innerhalb des Leibes, der ihm ein Auge zuerst entwickelt hat."
         },
         {
           "index": "^6z7i12",
-          "content": "Zu betonen ist jedoch, dass die Organe, deren sich der Geist bedient, durch die Entwickelung des Leibes entstanden sind. Wenn also sich der Geist des Auges bedient, um sich über das Gesehene Gedanken zu machen, so kann er das nur innerhalb des Leibes, der ihm ein Auge zuerst entwickelt hat. Deshalb kann Aristoteles auch nicht in dem Sinne von einer Un|40|sterblichkeit sprechen, dass nach dem Tode der Geist in demselben Sinne fortbestehe, wie er vor dem Tode ist. Denn durch den Tod gehen seine Organe zugrunde. Er kann nicht mehr wahrnehmen. Er steht mit der Welt in keinem Zusammenhange mehr."
+          "content": "Deshalb kann Aristoteles auch nicht in dem Sinne von einer Un- |40| Sterblichkeit sprechen, dass nach dem Tode der Geist in demselben Sinne fortbestehe, wie er vor dem Tode ist. Denn durch den Tod gehen seine Organe zugrunde. Er kann nicht mehr wahrnehmen. Er steht mit der Welt in keinem Zusammenhange mehr."
         },
         {
           "index": "^t5oeup",
-          "content": "Man darf also nicht behaupten, dass sich Aristoteles die Unsterblichkeit so vorstelle, als wenn der Geist seinen Leib wie ein irdisches Gefängnis verlasse und mit den Eigenschaften weiter existiere, die man an ihm kennt. Es werden ihm vielmehr alle die Eigenschaften entzogen, die er in seinem irdischen Dasein hat. Er führt also dann in der Tat eine Art Schattendasein wie etwa die griechischen Helden in der Unterwelt. Und von diesem Leben in der Unterwelt tut ja Achilleus den berühmten Ausspruch: «Lieber ein Tagelöhner im Lichte der Sonne, als ein König über die Schatten.»"
+          "content": "Man darf also nicht behaupten, dass sich Aristoteles die Unsterblichkeit so vorstelle, als wenn der Geist seinen Leib wie ein irdisches Gefängnis verlasse und mit den Eigenschaften weiter existiere, die man an ihm kennt. Es werden ihm vielmehr alle die Eigenschaften entzogen, die er in seinem irdischen Dasein hat. Er führt also dann in der Tat eine Art Schattendasein wie etwa die griechischen Helden in der Unterwelt."
+        },
+        {
+          "index": "^0ff381",
+          "content": "Und von diesem Leben in der Unterwelt tut ja Achilleus den berühmten Ausspruch: «Lieber ein Tagelöhner im Lichte der Sonne, als ein König über die Schatten.» Bei einer solchen Ansicht von dem Geiste musste Aristoteles auch das sittliche Handeln als ein solches ansehen, das dieser Geist mit Hilfe der tierischen Seele ausübt. Der tierische Teil der Seele ist ja auf natürlichem Wege entstanden."
         },
         {
           "index": "^kxhmfl",
-          "content": "Bei einer solchen Ansicht von dem Geiste musste Aristoteles auch das sittliche Handeln als ein solches ansehen, das dieser Geist mit Hilfe der tierischen Seele ausübt. Der tierische Teil der Seele ist ja auf natürlichem Wege entstanden. Wenn dieser Teil allein handelt, wenn also der Mensch seinen tierischen Trieben und Leidenschaften allein folgt, dann kann er kein tugendhafter Mensch sein. Er wird es erst, wenn der Geist sich der tierischen Triebe und Leidenschaften bemächtigt und ihnen das rechte Maß gibt. Die tierische Wesenheit des Menschen würde in allen Dingen entweder zuviel oder zuwenig tun. Der bloß seinen Leidenschaften folgende Mensch ist entweder tollkühn oder feige. Der Geist allein findet die rechte Mitte zwischen Tollkühnheit und Feigheit, nämlich die besonnene Tapferkeit."
+          "content": "Wenn dieser Teil allein handelt, wenn also der Mensch seinen tierischen Trieben und Leidenschaften allein folgt, dann kann er kein tugendhafter Mensch sein. Er wird es erst, wenn der Geist sich der tierischen Triebe und Leidenschaften bemächtigt und ihnen das rechte Maß gibt. Die tierische Wesenheit des Menschen würde in allen Dingen entweder zuviel oder zuwenig tun. Der bloß seinen Leidenschaften folgende Mensch ist entweder tollkühn oder feige."
         },
         {
-          "index": "^qob07j",
-          "content": "In bezug auf den Staat bekennt sich Aristoteles zu der Ansicht, dass das Gemeinwesen den Bedürfnissen aller seiner Angehörigen Rechnung tragen müsse. Es gehört zum Wesen des Menschen, in einem Gemeinwesen zu leben.|41| Einer der Aussprüche des Aristoteles ist: «Wer für sich allein leben will, muss entweder ein Gott oder ein Tier sein... Der Mensch aber ist ein politisches Tier.»"
+          "index": "^aa196a",
+          "content": "Der Geist allein findet die rechte Mitte zwischen Tollkühnheit und Feigheit, nämlich die besonnene Tapferkeit. In bezug auf den Staat bekennt sich Aristoteles zu der Ansicht, dass das Gemeinwesen den Bedürfnissen aller seiner Angehörigen Rechnung tragen müsse."
         },
         {
-          "index": "^nhnuy9",
-          "content": "Eine für alle Menschen richtige Staatsform nimmt Aristoteles nicht an, sondern er findet in jedem einzelnen Falle diejenige Staatsform für die beste, die den Bedürfnissen des in Frage kommenden Volkes am besten entspricht. Jedenfalls aber legt er dem Staate die Pflicht auf, für das heranwachsende Geschlecht zu sorgen. Die Erziehung ist ihm somit Staatssache; und als Zweck der Erziehung erscheint ihm die Heranbildung zur Tugend."
+          "index": "^d338bb",
+          "content": "Es gehört zum Wesen des Menschen, in einem Gemeinwesen zu leben. |41| Einer der Aussprüche des Aristoteles ist: «Wer für sich allein leben will, muss entweder ein Gott oder ein Tier sein... Der Mensch aber ist ein politisches Tier.» Eine für alle Menschen richtige Staatsform nimmt Aristoteles nicht an, sondern er findet in jedem einzelnen Falle diejenige Staatsform für die beste, die den Bedürfnissen des in Frage kommenden Volkes am besten entspricht."
+        },
+        {
+          "index": "^8f5f4c",
+          "content": "Jedenfalls aber legt er dem Staate die Pflicht auf, für das heranwachsende Geschlecht zu sorgen. Die Erziehung ist ihm somit Staatssache; und als Zweck der Erziehung erscheint ihm die Heranbildung zur Tugend. Wer die griechische Kultur in ihrer Eigenart ganz verstehen will, der darf nicht vergessen, dass sich diese Kultur auf der Grundlage der Sklaverei aufbaute."
         },
         {
           "index": "^ptejch",
-          "content": "Wer die griechische Kultur in ihrer Eigenart ganz verstehen will, der darf nicht vergessen, dass sich diese Kultur auf der Grundlage der Sklaverei aufbaute. Die Gebildeten innerhalb des Griechentums konnten zu ihrer Bildungsform nur dadurch gelangen, dass ihnen die Möglichkeit dazu durch das große Heer der Sklaven geboten wurde. Ohne Sklaverei konnte sich auch der fortgeschrittenste Grieche keine Kultur denken."
+          "content": "Die Gebildeten innerhalb des Griechentums konnten zu ihrer Bildungsform nur dadurch gelangen, dass ihnen die Möglichkeit dazu durch das große Heer der Sklaven geboten wurde. Ohne Sklaverei konnte sich auch der fortgeschrittenste Grieche keine Kultur denken. Deshalb sieht selbst Aristoteles die Sklaverei als eine Naturnotwendigkeit an."
         },
         {
-          "index": "^ghu96y",
-          "content": "Deshalb sieht selbst Aristoteles die Sklaverei als eine Naturnotwendigkeit an. Er hält sie einfach für selbstverständlich, denn er glaubt, dass viele Menschen durch ihr ganzes Wesen so beschaffen seien, dass sie zur vollen Freiheit gar nicht taugen. Nicht übersehen darf aber werden, dass sich der Grieche das Wohl seiner Sklaven angelegen sein ließ; und auch Aristoteles spricht von der Verpflichtung des Herrn, für seine Sklaven gewissenhaft zu sorgen und in ihnen die Menschenwürde zu achten."
+          "index": "^e0b06b",
+          "content": "Er hält sie einfach für selbstverständlich, denn er glaubt, dass viele Menschen durch ihr ganzes Wesen so beschaffen seien, dass sie zur vollen Freiheit gar nicht taugen. Nicht übersehen darf aber werden, dass sich der Grieche das Wohl seiner Sklaven angelegen sein ließ; und auch Aristoteles spricht von der Verpflichtung des Herrn, für seine Sklaven gewissenhaft zu sorgen und in ihnen die Menschenwürde zu achten. Aristoteles hat durch mehr als ein Jahrtausend die abendländische Bildung beherrscht."
         },
         {
           "index": "^zu4koa",
-          "content": "Aristoteles hat durch mehr als ein Jahrtausend die abendländische Bildung beherrscht. Viele Jahrhunderte hindurch beschäftigte man sich nicht mit den Dingen der Natur selbst, sondern mit den Meinungen des Aristoteles über diese Dinge. Seinen Schriften wurde vollkommene Autorität zugemessen. Alle Gelehrsamkeit bestand darin, die|42| Schriften des alten Weisen zu erklären."
+          "content": "Viele Jahrhunderte hindurch beschäftigte man sich nicht mit den Dingen der Natur selbst, sondern mit den Meinungen des Aristoteles über diese Dinge. Seinen Schriften wurde vollkommene Autorität zugemessen. Alle Gelehrsamkeit bestand darin, die |42| Schriften des alten Weisen zu erklären. Dazu kommt, dass man lange Zeit hindurch diese Schriften nur in einer sehr unvollkommenen und unzuverlässigen Gestalt hatte."
         },
         {
-          "index": "^iccz1p",
-          "content": "Dazu kommt, dass man lange Zeit hindurch diese Schriften nur in einer sehr unvollkommenen und unzuverlässigen Gestalt hatte. Deshalb galten die verschiedensten Meinungen als solche, welche von Aristoteles herrühren sollten. Erst durch den christlichen Philosophen Thomas von Aquino wurden die Schriften des «Meisters derer, die da wissen» in einer Weise hergestellt, dass man sagen konnte, man habe es mit einem einigermaßen zuverlässigen Text zu tun."
+          "index": "^9218df",
+          "content": "Deshalb galten die verschiedensten Meinungen als solche, welche von Aristoteles herrühren sollten. Erst durch den christlichen Philosophen Thomas von Aquino wurden die Schriften des «Meisters derer, die da wissen» in einer Weise hergestellt, dass man sagen konnte, man habe es mit einem einigermaßen zuverlässlichen Text zu tun. Bis zum 12. Jahrhundert beschäftigte man sich außerdem fast einzig und allein mit einem Teil des aristotelischen Denkens, mit seinen logischen Untersuchungen."
         },
         {
-          "index": "^bbwani",
-          "content": "Bis zum 12. Jahrhundert beschäftigte man sich außerdem fast einzig und allein mit einem Teil des aristotelischen Denkens, mit seinen logischen Untersuchungen. Man muss allerdings sagen, dass Aristoteles auf diesem Gebiete ganz besonders bahnbrechend geworden ist. Er hat die Kunst, richtig zu denken, das heißt die Logik, in einer Weise begründet, dass noch Kant am Ende des 18. Jahrhunderts der Ansicht sein konnte, die Logik sei seit Aristoteles um keinen wesentlichen Schritt vorwärtsgekommen."
+          "index": "^70d21f",
+          "content": "Man muss allerdings sagen, dass Aristoteles auf diesem Gebiete ganz besonders bahnbrechend geworden ist. Er hat die Kunst, richtig zu denken, das heißt die Logik, in einer Weise begründet, dass noch Kant am Ende des 18. Jahrhunderts der Ansicht sein konnte, die Logik sei seit Aristoteles um keinen wesentlichen Schritt vorwärtsgekommen."
         },
         {
           "index": "^xo19db",
@@ -453,47 +449,51 @@
         },
         {
           "index": "^ea0qvk",
-          "content": "Was Aristoteles wirklich gelehrt hatte, das wurde bald nach seinem Tode getrübt durch die Auslegungen, die seine Nachfolger seinen Anschauungen gaben, und auch durch andere Meinungen, die sich an die seinigen anschlossen. Wir sehen in den nächsten Jahrhunderten nach Aristoteles zunächst drei Weltanschauungen auftauchen, den Stoizismus, den Epikureismus und den Skeptizismus.|43|"
+          "content": "Was Aristoteles wirklich gelehrt hatte, das wurde bald nach seinem Tode getrübt durch die Auslegungen, die seine Nachfolger seinen Anschauungen gaben, und auch durch andere Meinungen, die sich an die seinigen anschlössen. Wir sehen in den nächsten Jahrhunderten nach Aristoteles zunächst drei Weltanschauungen auftauchen, den Stoizismus, den Epikureismus und den Skeptizismus. |43| Die stoische Schule stiftete Zeno von Kition auf Zypern, der von 342-270 v.Chr. lebte."
         },
         {
-          "index": "^yty6nc",
-          "content": "Die stoische Schule stiftete Zeno von Kition auf Zypern, der von 342 - 270 v.Chr. lebte. Die Schule hat ihren Namen von der bunten Säulenhalle (Stoa) in Athen, wo ihre Lehrer den Unterricht erteilten. Das öffentliche Leben in Griechenland war seit den Tagen der Sophisten einer noch stärkeren Lockerung verfallen. Das hat ja seinen bedeutsamsten Ausdruck in den Peloponnesischen Kriegen, 431-404 v.Chr., gefunden. Vorher war der einzelne fest in die sozialen Zusammenhänge eingeschlossen; die Gemeinwesen und die Tradition gaben ihm den Maßstab für all sein Handeln und Denken ab. Die einzelne Persönlichkeit hatte nur als Glied eines Ganzen Wert und Bedeutung. Unter solchen Verhältnissen hätte unmöglich die Frage gestellt werden können: Was ist der einzelne Mensch wert?"
+          "index": "^e61fb3",
+          "content": "Die Schule hat ihren Namen von der bunten Säulenhalle (Stoa) in Athen, wo ihre Lehrer den Unterricht erteilten. Das Öffentliche Leben in Griechenland war seit den Tagen der Sophisten einer noch stärkeren Lockerung verfallen. Der einzelne stand immer mehr für sich da. Die Privattugend trat immer mehr an die Stelle der öffentlichen in den Mittelpunkt des Denkens. Die Stoiker sehen als das Höchste, was der Mensch erreichen könne, den vollkommenen Gleichmut im Leben an."
         },
         {
           "index": "^xqv07n",
-          "content": "Die Stoiker sehen als das Höchste, was der Mensch erreichen könne, den vollkommenen Gleichmut im Leben an. Wer durch seine Begierden, durch seine Leidenschaften in seelischen Aufruhr versetzt werden kann, dem kann ein solcher Gleichmut nicht zuteil werden. Er wird durch Lust und Begierde dahin und dorthin getrieben, ohne dass er sich befriedigt fühlen kann. Man soll es daher so weit bringen, dass man von Lust und Begierde unabhängig ist und allein ein solches Leben führt, das durch weise Einsicht geregelt ist."
+          "content": "Wer durch seine Begierden, durch seine Leidenschaften in seelischen Aufruhr versetzt werden kann, dem kann ein solcher Gleichmut nicht zuteil werden. Er wird durch Lust und Begierde dahin und dorthin getrieben, ohne dass er sich befriedigt fühlen kann. Man soll es daher so weit bringen, dass man von Lust und Begierde unabhängig ist und allein ein solches Leben führt, das durch weise Einsicht geregelt ist. Die Welt dachten sich die Stoiker aus einer Art Urfeuer entstanden."
         },
         {
           "index": "^cgecrp",
-          "content": "Die Welt dachten sich die Stoiker aus einer Art Urfeuer entstanden. Sie waren der Ansicht, dass aus dem Feuer alles hervorgegangen sei, und dass auch in das Feuer alles zurückkehre. Dann erneuert sich wieder aus dem Feuer genau dieselbe Welt, die schon da war. Die Welt besteht also nicht einmal, sondern unzählige Male in der ganz gleichen Weise. Jeder einzelne Vorgang ist schon unendlich oft dagewesen und wird unendlich oft wiederkehren."
+          "content": "Sie waren der Ansicht, dass aus dem Feuer alles hervorgegangen sei, und dass auch in das Feuer alles zurückkehre. Dann erneuert sich wieder aus dem Feuer genau dieselbe Welt, die schon da war. Die Welt besteht also nicht einmal, sondern unzählige Male in der ganz gleichen Weise. Jeder einzelne Vorgang ist schon unendlich oft dagewesen und wird unendlich oft wiederkehren."
         },
         {
           "index": "^dbmf8o",
-          "content": "Es ist das die Lehre von der ewigen Wiederkunft aller Dinge und Vorgänge, die in unseren Tagen Friedrich Nietzsche in genau derselben Weise erneuert hat. Mit der Sittenlehre der Stoiker stimmt eine solche Welterklärung in der besten Weise überein. Denn wenn alles schon dagewesen ist, dann kann der Mensch nichts Neues schaffen. Es ist daher natürlich, dass er in dem Gleichmut gegenüber allem, das auf jeden Fall kommen muss, die höchste sittliche Weisheit sieht.|44|"
+          "content": "Es ist das die Lehre von der ewigen Wiederkunft aller Dinge und Vorgänge, die in unseren Tagen Friedrich Nietzsche in genau derselben Weise erneuert hat. Mit der Sittenlehre der Stoiker stimmt eine solche Welterklärung in der besten Weise überein. Denn wenn alles schon dagewesen ist, dann kann der Mensch nichts Neues schaffen."
+        },
+        {
+          "index": "^ef8c81",
+          "content": "Es ist daher natürlich, dass er in dem Gleichmut gegenüber allem, das auf jeden Fall kommen muss, die höchste sittliche Weisheit sieht. |44| Die Epikureer sahen das Lebensziel in der Befriedigung, die das Dasein dem Menschen gewährt, wenn er die Lust und das Glück in einer vernunftgemäßen Weise anstrebt."
         },
         {
           "index": "^1b3gbc",
-          "content": "Die Epikureer sahen das Lebensziel in der Befriedigung, die das Dasein dem Menschen gewährt, wenn er die Lust und das Glück in einer vernunftgemäßen Weise anstrebt. Es ist unvernünftig, kleinlichen Genüssen nachzujagen, denn diese müssen in den meisten Fällen zu Enttäuschungen, ja zum Unglücke führen; aber es ist ebenso unvernünftig, die edlen, hohen Genüsse zu verschmähen, denn sie führen zu der dauernden Befriedigung, die das Lebensglück des Menschen bildet."
+          "content": "Es ist unvernünftig, kleinlichen Genüssen nachzujagen, denn diese müssen in den meisten Fällen zu Enttäuschungen, ja zum Unglücke führen; aber es ist ebenso unvernünftig, die edlen, hohen Genüsse zu verschmähen, denn sie führen zu der dauernden Befriedigung, die das Lebensglück des Menschen bildet. Die ganze Natur anschauung Epikurs trägt ein Gepräge, dem man es ansieht, dass es sich ihr um dauernde Befriedigung im Leben handelt."
         },
         {
           "index": "^2qlvpk",
-          "content": "Die ganze Naturanschauung Epikurs trägt ein Gepräge, dem man es ansieht, dass es sich ihr um dauernde Befriedigung im Leben handelt. Es wird vor allem auf eine richtige Ansicht von der Urteilskraft gesehen, damit der Mensch sich durch sein Denken im Leben zurechtfindet. Denn die Sinne täuschen uns nicht, nur unser Denken kann uns täuschen. Wenn das Auge einen ins Wasser getauchten Stab gebrochen sieht, so täuscht uns das Auge nicht. Die wirklichen Tatsachen sind so, dass der Stab uns gebrochen erscheinen muss. Die Täuschung entsteht erst, wenn sich unser Denken ein falsches Urteil darüber bildet, wie es kommt, dass der Stab gebrochen erscheint."
+          "content": "Es wird vor allem auf eine richtige Ansicht von der Urteilskraft gesehen, damit der Mensch sich durch sein Denken im Leben zurechtfindet. Denn die Sinne täuschen uns nicht, nur unser Denken kann uns täuschen. Wenn das Auge einen ins Wasser getauchten Stab gebrochen sieht, so täuscht uns das Auge nicht. Die wirklichen Tatsachen sind so, dass der Stab uns gebrochen erscheinen muss."
         },
         {
           "index": "^046luo",
-          "content": "Epikurs Ansicht fand am Ende des Altertums zahlreiche Anhänger, namentlich die nach Bildung strebenden Römer suchten in ihr Befriedigung. Der römische Dichter T. Lucretius Carus hat ihr in seinem genialen Lehrgedicht «Über die Natur» einen formvollendeten Ausdruck gegeben."
+          "content": "Die Täuschung entsteht erst, wenn sich unser Denken ein falsches Urteil darüber bildet, wie es kommt, dass der Stab gebrochen erscheint. Epikurs Ansicht fand am Ende des Altertums zahlreiche Anhänger, namentlich die nach Bildung strebenden Römer suchten in ihr Befriedigung. Der römische Dichter T. Lucretius Carus hat ihr in seinem genialen Lehrgedicht «Über die Natur» einen formvollendeten Ausdruck gegeben. Der Skeptizismus ist die Weltanschauung des Zweifels und des Misstrauens."
         },
         {
           "index": "^sz3g4m",
-          "content": "Der Skeptizismus ist die Weltanschauung des Zweifels und des Misstrauens. Ihr erster bedeutsamster Bekenner ist Pyrrho, der schon ein Zeitgenosse des Aristoteles war, damals aber noch wenig Eindruck gemacht hat. Erst seine Nachfolger fanden Anhänger für ihre Meinung, dass die Erkenntniskräfte des Menschen nicht ausreichen, um eine Vorstellung von der wahren Wirklichkeit zu gewinnen. Sie glaubten, man könne nur menschliche Meinungen über die|45| Dinge äußern; ob sich die Dinge wirklich so verhielten, wie uns unser Denken das mitteilt, darüber ließe sich nichts entscheiden."
+          "content": "Ihr erster bedeutsamster Bekenner ist Pyrrhöy der schon ein Zeitgenosse des Aristoteles war, damals aber noch wenig Eindruck gemacht hat. Erst seine Nachfolger fanden Anhänger für ihre Meinung, dass die Erkenntniskräfte des Menschen nicht ausreichen, um eine Vorstellung von der wahren Wirklichkeit zu gewinnen."
         },
         {
-          "index": "^kgd38o",
-          "content": "Die mannigfaltigen Versuche, durch das Denken zu einer Weltanschauung zu kommen, hatten zu so verschiedenartigen, zum Teil einander widersprechenden Vorstellungen geführt, dass man am Ende des Altertums zu einem Misstrauen gegenüber aller Sinneswahrnehmung und allem Denken kam. Dazu kamen Vorstellungen, wie diejenigen Platons, dass die sinnliche Welt nur ein Traum- und Trugbild sei."
+          "index": "^e5bda3",
+          "content": "Sie glaubten, man könne nur menschliche Meinungen über die |45| Dinge äußern; ob sich die Dinge wirklich so verhielten, wie uns unser Denken das mitteilt, darüber ließe sich nichts entscheiden. Die mannigfaltigen Versuche, durch das Denken zu einer Weltanschauung zu kommen, hatten zu so verschiedenartigen, zum Teil einander widersprechenden Vorstellungen geführt, dass man am Ende des Altertums zu einem Misstrauen gegenüber aller Sinneswahrnehmung und allem Denken kam."
         },
         {
-          "index": "^hrf1ie",
-          "content": "Solche Vorstellungen verknüpften sich nun mit gewissen morgenländischen Gedanken, welche die Nichtigkeit und Wertlosigkeit des Lebens predigten. Aus diesen Einzelheiten baute sich in Alexandrien in den Jahrhunderten des zu Ende gehenden Altertums der Neuplatonismus auf. Als die wichtigsten Bekenner dieser Lehre sind Philo, der zur Zeit Christi lebte und Plotin zu nennen."
+          "index": "^c3d308",
+          "content": "Dazu kamen Vorstellungen, wie diejenigen Piatons, dass die sinnliche Welt nur ein Traum- und Trugbild sei. Solche Vorstellungen verknüpften sich nun mit gewissen morgenländischen Gedanken, welche die Nichtigkeit und Wertlosigkeit des Lebens predigten. Aus diesen Einzelheiten baute sich in Alexandrien in den Jahrhunderten des zu Ende gehenden Altertums der Neuplatonismus auf. Als die wichtigsten Bekenner dieser Lehre sind Philo, der zur Zeit Christi lebte und Plotin zu nennen."
         },
         {
           "index": "^bdh4eb",
@@ -501,23 +501,31 @@
         },
         {
           "index": "^5we31t",
-          "content": "Plotin sucht dann diesen Gott nicht durch das vernünftige Erkennen zu erreichen, denn dieses kann sich nur auf das Endliche, Vergängliche beziehen: er sucht zu dem ewigen Urwesen durch innere Erleuchtung, durch ekstatisches Versenken in die Tiefen der Seele zu kommen. Durch ein solches Versenken kommt der Mensch zu dem Urwesen, das sich in die Welt ausgegossen hat. Diese Welt ist nur ein unvollkommener Ausfluss, ein Abfall von dem Urwesen."
+          "content": "Plotin sucht dann diesen Gott nicht durch das vernünftige Erkennen zu erreichen, denn dieses kann sich nur auf das Endliche, Vergängliche beziehen: er sucht zu dem ewigen Urwesen durch innere Erleuchtung, durch ekstatisches Versenken in die Tiefen der Seele zu kommen. Durch ein solches Versenken kommt der Mensch zu dem Urwesen, das sich in die Welt ausgegossen hat."
+        },
+        {
+          "index": "^c7ndt6",
+          "content": "Diese Welt ist nur ein unvollkommener Ausfluss, ein Abfall von dem Urwesen.\n\n2. Die Weltanschauungen des Mittelalters und der Neuzeit"
         },
         {
           "index": "^w4fjzs",
-          "content": "Etwas ganz Neues tritt mit dem Christentum in der Weltanschauungs-Entwickelung des Abendlandes auf. Das vernünftige Denken wird von einer ganz anderen Autorität, von der Offenbarung, in den Schatten gedrängt. Die Wahrheit kommt nicht aus dem Denken, sondern stammt von einer höheren Macht, die sie dem Menschen enthüllt hat: das wird nunmehr die Überzeugung. Es ist der Glaube an Tatsachen von überirdischer Bedeutung und der Unglaube gegenüber der Vernunft, der das Wesen des Christentums ausmacht."
+          "content": "|46| Etwas ganz Neues tritt mit dem Christentum in der Weltanschauungs-Entwickelung des Abendlandes auf. Das vernünftige Denken wird von einer ganz anderen Autorität, von der Offenbarung, in den Schatten gedrängt. Die Wahrheit kommt nicht aus dem Denken, sondern stammt von einer höheren Macht, die sie dem Menschen enthüllt hat: das wird nunmehr die Überzeugung."
+        },
+        {
+          "index": "^a31040",
+          "content": "Es ist der Glaube an Tatsachen von überirdischer Bedeutung und der Unglaube gegenüber der Vernunft, der das Wesen des Christentums ausmacht."
         },
         {
           "index": "^5d68qr",
-          "content": "Die Bekenner der christlichen Lehre wollen nicht an ihr Denken glauben, sondern an sinnenfällige Ereignisse, durch welche sich die Wahrheit kundgegeben habe. «Was von Anfang her geschehen ist, was wir gehört, was wir mit Augen gesehen haben, was wir selbst geschauet, was unsere Hände berührt haben von dem Worte des Lebens... was wir sahen und hörten, melden wir Euch, damit Ihr Gemeinschaft mit uns habt.» So heißt es in der 1. Epistel Johannis. Und Augustinus sagt: «Ich würde dem Evangelium nicht glauben, wenn mich die Autorität der katholischen Kirche nicht dazu bewegte.»"
+          "content": "Die Bekenner der christlichen Lehre wollen nicht an ihr Denken glauben, sondern an sinnenfällige Ereignisse, durch welche sich die Wahrheit kundgegeben habe. «Was von Anfang her geschehen ist, was wir gehört, was wir mit Augen gesehen haben, was wir selbst geschauet, was unsere Hände berührt haben von dem Worte des Lebens... was wir sahen und hörten, melden wir Euch, damit Ihr Gemeinschaft mit uns habt.» So heißt es in der 1. Epistel Johannis."
         },
         {
           "index": "^k48pno",
-          "content": "Was die Zeitgenossen Christi gesehen und gehört und was die Kirche als solch Gehörtes und Gesehenes durch Überlieferung aufbewahrt, das wird nun Wahrheit; nicht mehr das gilt als solche, was der Mensch durch sein Denken erreicht."
+          "content": "Und Augustinus sagt: «Ich würde dem Evangelium nicht glauben, wenn mich die Autorität der katholischen Kirche nicht dazu bewegte.» Was die Zeitgenossen Christi gesehen und gehört und was die Kirche als solch Gehörtes und Gesehenes durch Überlieferung aufbewahrt, das wird nun Wahrheit; nicht mehr das gilt als solche, was der Mensch durch sein Denken erreicht."
         },
         {
           "index": "^poe35q",
-          "content": "Im Christentum treten uns einerseits die religiöse Gedankenwelt des Judentums, andererseits die Vorstellungen der griechischen Weltanschauung entgegen. Die Religion des Judentums war ursprünglich eine national-egoistische. Gott hat sein Volk auserwählt zur irdischen Macht und Herrlichkeit. Aber dieses Volk hatte die bittersten Enttäuschungen erleben müssen. Es war in die Gefangenschaft und Untertänigkeit anderer Völker gekommen."
+          "content": "Im Christentum treten uns einerseits die religiöse Gedankenwelt des Judentums, andererseits die Vorstellungen der griechischen Weltanschauung entgegen. Die Religion des Judentums war ursprünglich eine national-egoistische. Gott hat sein Volk auserwählt zur irdischen Macht und Herrlichkeit. Aber dieses Volk hatte die bittersten Enttäu|47|schungen erleben müssen. Es war in die Gefangenschaft und Untertänigkeit anderer Völker gekommen."
         },
         {
           "index": "^6hqcy3",
@@ -525,51 +533,55 @@
         },
         {
           "index": "^ho8zk0",
-          "content": "Von solchen Vorstellungen war Jesus ganz erfüllt. Zu den Armen und Bedrückten wollte er sprechen, nicht zu denen, welche an den Schätzen dieses Lebens hängen. Das Himmelreich, das bald kommt, wird denen gehören, die vorher im Elend gelebt haben. Und Jesus stellte sich das Himmelreich in zeitlicher Nähe vor. Nicht auf ein geistiges jenseits verwies er die Menschen, sondern darauf, dass in der Zeit, und zwar bald, der Herr kommen und den Menschen die Herrlichkeit bringen werde."
+          "content": "Von solchen Vorstellungen war Jesus ganz erfüllt. Zu den Armen und Bedrückten wollte er sprechen, nicht zu denen, welche an den Schätzen dieses Lebens hängen. Das Himmelreich, das bald kommt, wird denen gehören, die vorher im Elend gelebt haben. Und Jesus stellte sich das Himmelreich in zeitlicher Nähe vor. Nicht auf ein geistiges Jenseits verwies er die Menschen, sondern darauf, dass in der Zeit, und zwar bald, der Herr kommen und den Menschen die Herrlichkeit bringen werde."
         },
         {
           "index": "^t0rhio",
-          "content": "Schon durch Paulus, noch mehr durch die Glaubenslehrer der ersten christlichen Jahrhunderte trat an die Stelle des naiven Glaubens eine Verbindung der Lehren Christi mit den Vorstellungen der späteren griechischen Philosophen. Das zeitlich nahe Himmelreich wurde so zum Jenseits. Der Christenglaube wurde mit Hilfe griechischer Weltanschauungsgedanken umgedeutet. Aus dieser Umdeutung, aus dieser Zusammenarbeitung von ursprünglich naiven Vorstellungen mit den überlieferten Anschauungen entwickelte sich im Laufe der Zeiten der dogmatische Inhalt der christlichen Lehre."
+          "content": "Schon durch Paulus, noch mehr durch die Glaubenslehrer der ersten christlichen Jahrhunderte trat an die Stelle des naiven Glaubens eine Verbindung der Lehren Christi mit den Vorstellungen der späteren griechischen Philosophen. Das zeitlich nahe Himmelreich wurde so zum Jenseits. Der Christenglaube wurde mit Hilfe griechischer Weltanschauungsgedanken umgedeutet."
         },
         {
-          "index": "^63oz3f",
-          "content": "Das Denken trat ganz in den Dienst des Glaubens, es wurde der Diener der Offenbarung. Das ganze Mittelalter arbeitet daran, mit Hilfe des Denkens die Offenbarung zu stützen. Wie in den ersten Jahrhunderten Denken und Offenbarung ineinanderarbeiten, davon gibt der Kirchenvater Augustinus ein Zeugnis; wie das in der späteren Zeit in der Kirche geschah, Thomas von Aquino."
+          "index": "^29ce97",
+          "content": "Aus dieser Umdeutung, aus dieser Zusammenarbeitung von ursprünglich naiven Vorstellungen mit den überlieferten Anschauungen entwickelte sich im Laufe der Zeiten der dogmatische Inhalt der christlichen Lehre. Das Denken trat ganz in den Dienst des Glaubens, es wurde der Diener der Offenbarung. Das ganze Mittelalter arbeitet daran, mit Hilfe des Denkens die Offenbarung zu stützen."
         },
         {
-          "index": "^ayurb5",
-          "content": "Augustinus sagt sich: Wenn wir auch zweifeln: die eine Tatsache bleibt doch bestehen, dass das Denken, der denkende Mensch selbst da sein muss; sonst könnte er ja nicht zweifeln. Wenn ich zweifle, so denke ich; also bin ich, ist meine Vernunft da. Und in der Vernunft offenbaren sich mir gewisse Wahrheiten. Aber meine Vernunft erkennt niemals alle Wahrheit, sondern immer nur einzelne Wahrheiten. Diese einzelnen Wahrheiten können nur von dem Wesen herstammen, bei dem alle Wahrheit ist, von Gott. Es muss also eine göttliche Wesenheit geben. Meine Vernunft beweist mir das. Meine Vernunft gibt mir aber nur Teile der Wahrheit; in der Offenbarung liegt die höchste Wahrheit."
+          "index": "^62eaf4",
+          "content": "Wie in den ersten |48| Jahrhunderten Denken und Offenbarung ineinanderarbeiten, davon gibt der Kirchenvater Augustinus ein Zeugnis; wie das in der späteren Zeit in der Kirche geschah, Thomas von Aquino. Augustinus sagt sich: Wenn wir auch zweifeln: die eine Tatsache bleibt doch bestehen, dass das Denken, der denkende Mensch selbst da sein muss; sonst könnte er ja nicht zweifeln. Wenn ich zweifle, so denke ich; also bin ich, ist meine Vernunft da."
+        },
+        {
+          "index": "^70e194",
+          "content": "Und in der Vernunft offenbaren sich mir gewisse Wahrheiten. Aber meine Vernunft erkennt niemals alle Wahrheit, sondern immer nur einzelne Wahrheiten. Diese einzelnen Wahrheiten können nur von dem Wesen herstammen, bei dem alle Wahrheit ist, von Gott. Es muss also eine göttliche Wesenheit geben. Meine Vernunft beweist mir das. Meine Vernunft gibt mir aber nur Teile der Wahrheit; in der Offenbarung liegt die höchste Wahrheit."
         },
         {
           "index": "^4ka02q",
-          "content": "Thomas von Aquino ist ein umfassender Denker, welcher das ganze Wissen seiner Zeit in erstaunlich scharfsinniger Weise verarbeitet. Man darf sich durchaus nicht vorstellen, dass sich dieser christliche Philosoph der Naturerkenntnis und der Vernunft feindlich gegenüberstellte. Die Natur war für ihn die eine Quelle der Wahrheit; die Offenbarung aber die andere."
+          "content": "Thomas von Aquino ist ein umfassender Denker, welcher das ganze Wissen seiner Zeit in erstaunlich scharfsinniger Weise verarbeitet. Man darf sich durchaus nicht vorstellen, dass sich dieser christliche Philosoph der Naturerkenntnis und der Vernunft feindlich gegenüberstellte. Die Natur war für ihn die eine Quelle der Wahrheit; die Offenbarung aber die andere. Von Gott rührt, nach seiner Meinung, alles in der Welt her. Auch die Naturerscheinungen sind ein Ausfluss der göttlichen Wesenheit."
         },
         {
           "index": "^8kyb17",
-          "content": "Von Gott rührt, nach seiner Meinung, alles in der Welt her. Auch die Naturerscheinungen sind ein Ausfluss der göttlichen Wesenheit. Wenn wir über die Natur forschen, so forschen wir mit unserem Denken über die Taten Gottes. Bis zu den höchsten Taten Gottes können wir aber mit unserem menschlich schwachen Denken nicht dringen."
+          "content": "Wenn wir über die Natur forschen, so forschen wir mit unserem Denken über die Taten Gottes. Bis zu den höchsten Taten Gottes können wir aber mit unserem menschlich schwachen Denken nicht dringen."
         },
         {
           "index": "^7pzfb0",
-          "content": "Wir können, nach Thomas von Aquino, wohl noch aus unserer Vernunft beweisen, dass es einen Gott gibt; aber von dem Wesen Gottes, von seiner Dreieinigkeit, von der Erlösung der Menschen durch Christus, von der Macht der Sakramente und so weiter, können wir aus der Vernunft nichts erfahren; darüber unterrichtet uns die Offenbarung durch die Autorität der Kirche."
+          "content": "Wir können, nach Thomas von Aquino, wohl noch aus unserer Vernunft beweisen, dass es einen Gott gibt; aber von dem Wesen Gottes, von seiner Dreieinigkeit, von der Erlösung der Menschen durch Christus, von der Macht der Sakramente und so weiter, können wir aus der Vernunft nichts |49| erfahren; darüber unterrichtet uns die Offenbarung durch die Autorität der Kirche."
         },
         {
           "index": "^xlqjm1",
-          "content": "Nicht weil diese Dinge überhaupt nichts mit der Vernunft zu tun haben, meint Thomas, kann der Mensch sie durch sein Denken nicht erreichen, sondern nur, weil die menschliche Vernunft zu schwach ist. Eine stärkere Vernunft könnte also auch die geoffenbarten Wahrheiten begreifen. Diese Anschauung stellt sich in der Scholastik des Mittelalters dar."
+          "content": "Nicht weil diese Dinge überhaupt nichts mit der Vernunft zu tun haben, meint Thomas, kann der Mensch sie durch sein Denken nicht erreichen, sondern nur, weil die menschliche Vernunft zu schwach ist. Eine stärkere Vernunft könnte also auch die geoffenbarten Wahrheiten begreifen. Diese Anschauung stellt sich in der Scholastik des Mittelalters dar. Einen anderen Weg als die Scholastik schlug die deutsche Mystik zur Erreichung der Wahrheit ein."
         },
         {
           "index": "^jx1dqi",
-          "content": "Einen anderen Weg als die Scholastik schlug die deutsche Mystik zur Erreichung der Wahrheit ein. Die wichtigsten Mystiker sind: Meister Eckbart, Johannes Tauler, Heinrich Suso, Paracelsus, Jakob Böhme und Angelus Silesius. Sie bilden insofern die Vorläufer der neueren Weltanschauungen, als sie nicht von einer äußeren Autorität ausgingen, sondern die Wahrheit in der Seele des Menschen und in den Erscheinungen der Natur suchen wollten."
+          "content": "Die wichtigsten Mystiker sind: Meister Eckhart, Johannes Tauler, Heinrich Suso, Paracelsus, Jakob Böhme und Angelus Silesius. Sie bilden insofern die Vorläufer der neueren Weltanschauungen, als sie nicht von einer äußeren Autorität ausgingen, sondern die Wahrheit in der Seele des Menschen und in den Erscheinungen der Natur suchen wollten."
         },
         {
           "index": "^eb7c4j",
-          "content": "Nicht ein äußerer Christus kann, nach ihrer Meinung, dem Menschen den Weg zu seinem Ziele zeigen, sondern allein die Geisteskräfte im menschlichen Innern weisen diesen Weg. «Der Arzt muss durch der Natur Examen gehen», sagt Paracelsus, um darauf hinzuweisen, dass in der Natur selbst die Quelle der Wahrheit ist."
+          "content": "Nicht ein äußerer Christus kann, nach ihrer Meinung, dem Menschen den Weg zu seinem Ziele zeigen, sondern allein die Geisteskräfte im menschlichen Innern weisen diesen Weg. «Der Arzt muss durch der Natur Examen gehen», sagt Paracelsus, um darauf hinzuweisen, dass in der Natur selbst die Quelle der Wahrheit ist. Und Angelus Silesius betont, dass nicht außer den Dingen der Natur eine göttliche Wesenheit sei, sondern dass Gott in der Natur sei."
         },
         {
-          "index": "^hp2wne",
-          "content": "Und Angelus Silesius betont, dass nicht außer den Dingen der Natur eine göttliche Wesenheit sei, sondern dass Gott in der Natur sei. Wie die Natur selbst das Göttliche ist und als Göttliches schafft, das drückt er in schönen Sätzen aus, wie zum Beispiel: «Ich weiß, dass ohne mich Gott nicht ein Nu kann leben; werd' ich zu nicht, er muss vor Not den Geist aufgeben.» Gott hat kein Leben außer den Dingen, sondern nur in den Dingen. Von einer solchen Vorstellung ist auch die Weltanschauung Jakob Böhmes ganz beherrscht."
+          "index": "^809cdc",
+          "content": "Wie die Natur selbst das Göttliche ist und als Göttliches schafft, das drückt er in schönen Sätzen aus, wie zum Beispiel: «Ich weiß, dass ohne mich Gott nicht ein Nu kann leben; werd' ich zu nicht, er muss vor Not den Geist aufgeben.» Gott hat kein Leben außer den Dingen, sondern nur in den Dingen. Von einer solchen Vorstellung ist auch die Weltanschauung Jakob Böhmes ganz beherrscht."
         },
         {
           "index": "^kneyvv",
-          "content": "An der Scholastik ist ersichtlich, dass sie immerfort bestrebt war, einen Einklang zwischen Vernunft und Offenbarung herzustellen. Das ging nicht ohne verkünstelte Logik, ohne die spitzfindigsten Schlussfolgerungen ab. Von solchen Schlussfolgerungen wollten sich die Mystiker frei machen. Das Höchste, was der Mensch erkennen kann, scheint ihnen unmöglich auf logische Spitzfindigkeiten aufzubauen zu sein, es muss sich klar und unmittelbar in der Natur und im menschlichen Gemüte offenbaren."
+          "content": "An der Scholastik ist ersichtlich, dass sie immerfort bestrebt war, einen Einklang zwischen Vernunft und Offen|50|barung herzustellen. Das ging nicht ohne verkünstelte Logik, ohne die spitzfindigsten Schlussfolgerungen ab. Von solchen Schlussfolgerungen wollten sich die Mystiker frei machen. Das Höchste, was der Mensch erkennen kann, scheint ihnen unmöglich auf logische Spitzfindigkeiten aufzubauen zu sein, es muss sich klar und unmittelbar in der Natur und im menschlichen Gemüte offenbaren."
         },
         {
           "index": "^yrs19y",
@@ -577,103 +589,119 @@
         },
         {
           "index": "^0idsns",
-          "content": "Das geoffenbarte Wort ist die Quelle des Glaubens. Mit diesem Glauben hat die Vernunft gar nichts gemein; er geht sie nichts an. Sie kann ihn nicht widerlegen und auch nicht beweisen. Er steht fest für sich da. Wenn sich die Vernunft an die religiösen Wahrheiten heranmacht, dann gibt es nur eitel Gezänk und Geschwätz."
+          "content": "Das geoffenbarte Wort ist die Quelle des Glaubens. Mit diesem Glauben hat die Vernunft gar nichts gemein; er geht sie nichts an. Sie kann ihn nicht widerlegen und auch nicht beweisen. Er steht fest für sich da. Wenn sich die Vernunft an die religiösen Wahrheiten heranmacht, dann gibt es nur eitel Gezänk und Geschwätz. Deshalb schmähte Luther den Aristoteles, auf dessen Lehre sich die Scholastiker gestützt hatten, wenn sie dem Glauben durch die Vernunft eine Grundlage geben wolllten."
         },
         {
           "index": "^23ux8e",
-          "content": "Deshalb schmähte Luther den Aristoteles, auf dessen Lehre sich die Scholastiker gestützt hatten, wenn sie dem Glauben durch die Vernunft eine Grundlage geben wollten. Er sagt: «Dieser gottverfluchte Aristoteles ist ein wahrhafter Teufel, ein gräulicher Verleumder, ein verruchter Sycophant (Verleumder), ein Fürst der Finsternis, eine Bestie, ein hässlicher Betrüger der Menschheit, fast aller Philosophie bar, ein offener und anerkannter Lügner, ein geiler Bock.»"
+          "content": "Er sagt: «Dieser gottverfluchte Aristoteles ist ein wahrhafter Teufel, ein gräulicher Verleumder, ein verruchter Sycophant (Verleumder), ein Fürst der Finsternis, eine Bestie, ein hässlicher Betrüger der Menschheit, fast aller Philosophie bar, ein offener und anerkannter Lügner, ein geiler Bock.» Man sieht, um was es sich handelt."
         },
         {
           "index": "^yqsecc",
-          "content": "Man sieht, um was es sich handelt. Aristoteles hatte durch menschliches Denken die höchsten Wahrheiten erreichen wollen; Luther wollte diese höchsten Wahrheiten vor der Bearbeitung durch die Vernunft ein für allemal sicherstellen. Deshalb nennt er auch die Vernunft «des Teufels Hure, die nichts kann, denn lästern und schänden, was Gott redet und tut»."
+          "content": "Aristoteles hatte durch menschliches Denken die höchsten Wahrheiten erreichen wollen; Luther wollte diese höchsten Wahrheiten vor der Bearbeitung durch die |51| Vernunft ein für allemal sicherstellen. Deshalb nennt er auch die Vernunft «des Teufels Hure, die nichts kann, denn lästern und schänden, was Gott redet und tut». Wir sehen die Vorstellungen Luthers auch heute noch in der gleichen Gestalt fortwirken, wenn auch die moderne Theologie ein fortschrittliches Mäntelchen um sie breitet."
         },
         {
           "index": "^v162ty",
-          "content": "Wir sehen die Vorstellungen Luthers auch heute noch in der gleichen Gestalt fortwirken, wenn auch die moderne Theologie ein fortschrittliches Mäntelchen um sie breitet. In dem vielgepriesenen «Wesen des Christentums» von Adolf Harnack lesen wir: «Die Wissenschaft vermag nicht, dem Leben einen Sinn zu geben... Die Religion, nämlich die Gottes- und Nächstenliebe, ist es, die dem Leben Sinn gibt... Jesu eigentliche Größe ist, dass er die Menschen zu Gott geführt hat... Die christliche Religion ist ewiges Leben mitten in der Zeit.»"
+          "content": "In dem vielgepriesenen «Wesen des Christentums» von Adolf Harnack lesen wir: «Die Wissenschaft vermag nicht, dem Leben einen Sinn zu geben... Die Religion, nämlich die Gottesund Nächstenliebe, ist es, die dem Leben Sinn gibt... Jesu eigentliche Größe ist, dass er die Menschen zu Gott geführt hat... Die christliche Religion ist ewiges Leben mitten in der Zeit.» Kurze Zeit nach Luthers Auftreten gelang der von ihm geschmähten Vernunft ein Sieg nach dem andern."
         },
         {
           "index": "^9bioyg",
-          "content": "Kurze Zeit nach Luthers Auftreten gelang der von ihm geschmähten Vernunft ein Sieg nach dem andern. Kopernikus stellte seine neue Anschauung von der Bewegung der Himmelskörper auf. Kepler stellte die Gesetze fest, nach denen sich die Planeten um die Sonne bewegen; Galilei richtete das Fernrohr hinaus in ungemessene Himmelsräume und gab der Natur dadurch Gelegenheit, aus sich heraus eine Fülle von Tatsachen zu enthüllen."
+          "content": "Kopernikus stellte seine neue Anschauung von der Bewegung der Himmelskörper auf. Kepler stellte die Gesetze fest, nach denen sich die Planeten um die Sonne bewegen; Galilei richtete das Fernrohr hinaus in ungemessene Himmelsräume und gab der Natur dadurch Gelegenheit, aus sich heraus eine Fülle von Tatsachen zu enthüllen. Durch solche Fortschritte musste die Naturforschung zu sich selbst und zur Vernunft Vertrauen gewinnen."
         },
         {
           "index": "^ji517a",
-          "content": "Durch solche Fortschritte musste die Naturforschung zu sich selbst und zur Vernunft Vertrauen gewinnen. Galilei gibt die Empfindungen wieder, die sich in einem Denker der damaligen Zeit festsetzten. Man glaubte jetzt nicht mehr im Sinne des Aristoteles zu wirken, wenn man an dem festhielt, was er mit seinen beschränkten Kenntnissen behauptet hat. Dies hat das Mittelalter getan. Jetzt war man der Meinung, man schaffe im Geiste des Aristoteles, wenn man, wie er, den Blick in die Natur richte."
+          "content": "Galilei gibt die Empfindungen wieder, die sich in einem Denker der damaligen Zeit festsetzten. Man glaubte jetzt nicht mehr im Sinne des Aristoteles zu wirken, wenn man an dem festhielt, was er mit seinen beschränkten Kenntnissen behauptet hat. Dies hat das Mittelalter getan. Jetzt war man der Meinung, man schaffe im Geiste des Aristoteles, wenn man, wie er, den Blick in die Natur richte."
+        },
+        {
+          "index": "^4ac2ce",
+          "content": "Es sind goldene Worte, die in dieser Hinsicht Galilei gesprochen hat. «Ihr habt es immer» sagt er - «mit eurem Aristoteles, der nicht sprechen kann."
         },
         {
           "index": "^d4l8kd",
-          "content": "Es sind goldene Worte, die in dieser Hinsicht Galilei gesprochen hat. «Ihr habt es immer» - sagt er - «mit eurem Aristoteles, der nicht sprechen kann. Ich aber sage euch, dass, wenn Aristoteles hier wäre, er entweder von uns überzeugt würde, oder unsere Gründe widerlegte und uns eines Besseren belehrte... Die Philosophie ist in diesem größten Buche geschrieben, das fortwährend offen vor unseren Augen liegt, ich meine das Universum, das man aber nicht verstehen kann, wenn man nicht vorher die Sprache verstehen und die Zeichen kennengelernt hat, in denen es geschrieben ist.»"
-        },
-        {
-          "index": "^suqcu5",
-          "content": "Giordano Bruno ist einer derjenigen Geister dieses aufblühenden Denkens, der zwar imstande war, eine Welterklärung im Sinne der Naturanschauung aufzubauen, der aber daneben völlig an den hergebrachten Dogmen festhielt, ohne sich Rechenschaft zu geben, wie eines mit dem anderen sich vereinigen lässt."
+          "content": "Ich aber sage euch, dass, wenn Aristoteles hier wäre, er ent|52|weder von uns überzeugt würde, oder unsere Gründe widerlegte und uns eines Besseren belehrte... Die Philosophie ist in diesem größten Buche geschrieben, das fortwährend offen vor unseren Augen liegt, ich meine das Universum, das man aber nicht verstehen kann, wenn man nicht vorher die Sprache verstehen und die Zeichen kennengelernt hat, in denen es geschrieben ist.» Giordano Bruno ist einer derjenigen Geister dieses aufblühenden Denkens, der zwar imstande war, eine Welterklärung im Sinne der Naturanschauung aufzubauen, der aber daneben völlig an den hergebrachten Dogmen festhielt, ohne sich Rechenschaft zu geben, wie eines mit dem anderen sich vereinigen lässt."
         },
         {
           "index": "^falxjh",
-          "content": "Wollte das menschliche Denken nicht sich selbst verleugnen, wollte es sich nicht in eine völlig untergeordnete Stellung drängen lassen, so konnte es nur in neuer Weise den Weg wieder betreten, den schon die griechischen Weltanschauungen gesucht haben. Es musste aus sich selbst heraus zu den höchsten Wahrheiten vorzudringen suchen."
+          "content": "Wollte das menschliche Denken nicht sich selbst verleugnen, wollte es sich nicht in eine völlig untergeordnete Stellung drängen lassen, so konnte es nur in neuer Weise den Weg wieder betreten, den schon die griechischen Weltanschauungen gesucht haben. Es musste aus sich selbst heraus zu den höchsten Wahrheiten vorzudringen suchen. Rene Descartes (Cartesius) war einer der ersten, der einen Versuch machte. Sein Weg hat viel Ähnlichkeit mit dem des Augustinus."
         },
         {
           "index": "^lo2hgl",
-          "content": "René Descartes (Cartesius) war einer der ersten, der einen Versuch machte. Sein Weg hat viel Ähnlichkeit mit dem des Augustinus. Auch Descartes ging von dem Zweifel an aller Wahrheit aus. Und auch er sagte sich: Wenn ich auch an allem zweifeln kann, daran kann ich nicht zweifeln, dass ich bin. Ich denke, wenn ich zweifle; dächte ich nicht, so könnte ich nicht zweifeln. Wenn ich aber denke, so bin ich. «Ich denke, also bin ich» (cogito, ergo sum), das ist der berühmte Grundsatz des Descartes."
+          "content": "Auch Descartes ging von dem Zweifel an aller Wahrheit aus. Und auch er sagte sich: Wenn ich auch an allem zweifeln kann, daran kann ich nicht zweifeln, dass ich bin. Ich denke, wenn ich zweifle; dächte ich nicht, so könnte ich nicht zweifeln. Wenn ich aber denke, so bin ich. «Ich denke, also bin ich» (cogito, ergo sum), das ist der berühmte Grundsatz des Descartes. Und von dieser Grundwahrheit sucht Descartes zu den höheren Erkenntnissen aufzusteigen."
         },
         {
           "index": "^aa7g2s",
-          "content": "Und von dieser Grundwahrheit sucht Descartes zu den höheren Erkenntnissen aufzusteigen. Er sagt sich: Was ich so klar und deutlich einsehe, wie, dass ich selbst bin, das muss auch ebenso wahr sein. Und nun tritt bei ihm eine eigentümliche Erscheinung ein. Die christlichen Vorstellungen von Gott, Seele und Unsterblichkeit, die eine Jahrhundertelange Erziehung der abendländischen Menschheit eingeimpft hat, glaubt er in seiner Vernunft als ebenso sichere Wahrheiten zu finden, wie die Erkenntnis, dass er selbst ist."
+          "content": "Er sagt sich: Was ich so klar und deutlich einsehe, wie, dass ich selbst bin, das muss auch ebenso wahr sein. - Und nun tritt bei ihm eine eigentümliche Erscheinung ein. Die christlichen Vorstellungen von Gott, Seele und Unsterblichkeit, die eine jahrhundertelange Erziehung |53| der abenländischen Menschheit eingeimpft hat, glaubt er in seiner Vernunft als ebenso sichere Wahrheiten zu finden, wie die Erkenntnis, dass er selbst ist."
         },
         {
           "index": "^0915kc",
-          "content": "Diese wesentlichen Bestandteile der alten Theologie kommen da wieder als angebliche Vernunftswahrheiten zum Vorschein. Wir finden bei Descartes sogar die alte Seelenvorstellung wieder. Er denkt sich diese Seele als ein selbständiges geistiges Wesen, das sich des Körpers nur bedient. Wir sind einer solchen Idee bei Aristoteles begegnet. Die Tiere haben, nach Descartes, nichts von einer Seele. Sie sind Automaten. Der Mensch hat eine Seele, die im Gehirn ihren Sitz hat und durch die Zirbeldrüse mit dem seelenlosen Körper in Wechselwirkung tritt."
+          "content": "Diese wesentlichen Bestandteile der alten Theologie kommen da wieder als angebliche Vernunftswahrheiten zum Vorschein. Wir finden bei Descartes sogar die alte Seelenvorstellung wieder. Er denkt sich diese Seele als ein selbständiges geistiges Wesen, das sich des Körpers nur bedient. Wir sind einer solchen Idee bei Aristoteles begegnet. Die Tiere haben, nach Descartes, nichts von einer Seele. Sie sind Automaten."
         },
         {
           "index": "^296y2w",
-          "content": "Wir sehen bei Descartes ein Bestreben, das auch bei den Scholastikern vorhanden ist, nämlich die von der alten Überlieferung hergebrachten «höchsten Wahrheiten» durch die Vernunft beweisen zu wollen. Nur gestehen die Scholastiker offen zu, dass sie dies wollen, während Descartes glaubt, alle Beweise rein aus der Vernunft selbst zu schöpfen. Descartes bewies also scheinbar aus der Vernunft, was nur aus der Religion stammte."
+          "content": "Der Mensch hat eine Seele, die im Gehirn ihren Sitz hat und durch die Zirbeldrüse mit dem seelenlosen Körper in Wechselwirkung tritt. Wir sehen bei Descartes ein Bestreben, das auch bei den Scholastikern vorhanden ist, nämlich die von der alten Überlieferung hergebrachten «höchsten Wahrheiten» durch die Vernunft beweisen zu wollen. Nur gestehen die Scholastiker offen zu, dass sie dies wollen, während Descartes glaubt, alle Beweise rein aus der Vernunft selbst zu schöpfen."
         },
         {
-          "index": "^6669yz",
-          "content": "Diese verkappte Scholastik herrschte nunmehr lange noch; und in Deutschland haben wir in Leibniz und in Wolff ihre hauptsächlichsten Vertreter. Leibniz rettet die alte Seelenvorstellung dadurch, dass er alles zu einer Art selbständiger belebter Wesen macht. Diese entstehen nicht und vergehen nicht. Und er rettet die Gottesvorstellung dadurch, dass er ihr zuschreibt, sie bringe alle Wesen in eine harmonische Wechselwirkung. Es kommen immer wieder die alten religiösen Vorstellungen als angebliche Wahrheiten der Vernunft zum Vorschein. Das ist auch bei Wolff der Fall. Er unterscheidet sinnliche Wahrheiten, die durch Beobachtung gewonnen werden, und höhere Erkenntnisse, welche die Vernunft aus sich selbst schöpft. Diese höheren Wahrheiten sind aber, bei Lichte besehen, nichts anderes als die alten, durch Verstümmelung und Durchsiebung gewonnenen Offenbarungswahrheiten."
+          "index": "^523779",
+          "content": "Descartes bewies also scheinbar aus der Vernunft, was nur aus der Religion stammte. Diese verkappte Scholastik herrschte nunmehr lange noch; und in Deutschland haben wir in Leibniz und in IFo^ihre hauptsächlichsten Vertreter. Leibniz rettet die alte Seelenvorstellung dadurch, dass er alles zu einer Art selbständiger belebter Wesen macht. Diese entstehen nicht und vergehen nicht."
+        },
+        {
+          "index": "^ef4f86",
+          "content": "Und er rettet die Gottesvorstellung dadurch, dass er ihr zuschreibt, sie bringe alle Wesen in eine harmonische Wechselwirkung. Es kommen immer wieder die alten religiösen Vorstellungen als angebliche Wahrheiten der Vernunft zum Vorschein. Das ist auch bei Wolff der Fall. Er unterscheidet sinnliche Wahrheiten, die durch Beobachtung gewonnen werden, und höhere Erkenntnisse, welche die Vernunft aus sich selbst schöpft."
         },
         {
           "index": "^txryti",
-          "content": "Kein Wunder, dass die Vernunft bei den Beweisen solcher Wahrheiten sich auf höchst fragwürdige Begriffe stützte, die bei näherer kritischer Prüfung nicht standhalten konnten."
+          "content": "Diese höheren Wahr|54|heiten sind aber, bei Lichte besehen, nichts anderes als die alten, durch Verstümmelung und Durchsiebung gewonnenen Offenbarungswahrheiten. Kein Wunder, dass die Vernunft bei den Beweisen solcher Wahrheiten sich auf höchst fragwürdige Begriffe stützte, die bei näherer kritischer Prüfung nicht standhalten konnten."
         },
         {
           "index": "^momwqo",
-          "content": "Eine solche kritische Prüfung des Beweisverfahrens der menschlichen Vernunft nahmen die englischen Denker Locke, David Hume, und der deutsche Philosoph Immanuel Kant vor. Locke prüfte das menschliche Erkenntnisvermögen und glaubte zu finden, dass wir nur durch die Beobachtung der Naturvorgänge selbst zu Erkenntnissen kommen können."
+          "content": "Eine solche kritische Prüfung des Beweisverfahrens der menschlichen Vernunft nahmen die englischen Denker Locke, David Hume, und der deutsche Philosoph Immanuel Kant vor. Locke prüfte das menschliche Erkenntnisvermögen und glaubte zu finden, dass wir nur durch die Beobachtung der Naturvorgänge selbst zu Erkenntnissen kommen können. Hume fragte nun, welcher Art diese Erkenntnisse seien."
         },
         {
           "index": "^uzql2x",
-          "content": "Hume fragte nun, welcher Art diese Erkenntnisse seien. Er sagte sich: Wenn ich heute beobachte, dass die Sonnenwärme die Ursache der Erwärmung des Steines ist: habe ich ein Recht zu sagen, dass das immer so sein wird? Wenn ich eine Ursache wahrnehme und dann eine Wirkung: darf ich sagen, jene Ursache werde immer und notwendig diese Wirkung haben? Nein, das darf ich nicht. Ich sehe den Stein zur Erde fallen und nehme wahr, dass er in der Erde eine Höhlung macht. Dass das so sein muss, dass es nicht auch anders sein könnte, davon kann ich nichts behaupten. Ich sehe gewisse Vorgänge und gewöhne mich auch daran, sie in einem bestimmten Zusammenhange zu sehen. Obaber ein solcher Zusammenhang wirklich besteht, ob es Naturgesetze gibt, welche mir etwas Wirkliches über den Zusammenhang der Dinge sagen können, davon weiß ich nichts."
+          "content": "Er sagte sich: Wenn ich heute beobachte, dass die Sonnenwärme die Ursache der Erwärmung des Steines ist: habe ich ein Recht zu sagen, dass das immer so sein wird? Wenn ich eine Ursache wahrnehme und dann eine Wirkung: darf ich sagen, jene Ursache werde immer und notwendig diese Wirkung haben? Nein, das darf ich nicht. Ich sehe den Stein zur Erde fallen und nehme wahr, dass er in der Erde eine Höhlung macht. Dass das so sein muss, dass es nicht auch anders sein könnte, davon kann ich nichts behaupten."
         },
         {
-          "index": "^9a4fxq",
-          "content": "Kant, der in den Vorstellungen der Wolffschen Weltanschauung gelebt hatte bis in sein Mannesalter, wurde in allen seinen Überzeugungen erschüttert, als er die Schriften Humes kennenlernte. Die ewigen Wahrheiten könne die Vernunft beweisen, daran hatte er vorher nicht gezweifelt; Hume hatte gezeigt, dass selbst bei den einfachen Wahrheiten von einem Beweis nicht die Rede sein könne, sondern dass wir alles, was wir glauben, nur aus Gewohnheit annehmen."
+          "index": "^544a0b",
+          "content": "Ich sehe gewisse Vorgänge und gewöhne mich auch daran, sie in einem bestimmten Zusammenhange zu sehen. Ob aber ein solcher Zusammenhang wirklich besteht, ob es Naturgesetze gibt, welche mir etwas Wirkliches über den Zusammenhang der Dinge sagen können, davon weiß ich nichts. Kant, der in den Vorstellungen der Wölfischen Weltanschauung gelebt hatte bis in sein Mannesalter, wurde in allen seinen Überzeugungen erschüttert, als er die Schriften Humes kennenlernte."
         },
         {
-          "index": "^vx5kxr",
-          "content": "Soll es wirklich keine ewigen Wahrheiten geben, fragte sich Kant. Es muss solche geben. Dass die Wahrheiten zum Beispiel der Mathematik immer und notwendig wahr sein müssen, daran mochte er nicht zweifeln. Ebensowenig daran, dass so etwas ewig gültig sein muss wie: jede Wirkung hat eine Ursache. Davon hat ihn aber Hume überzeugt, dass diese Erkenntnisse nicht ewig wahr sein könnten, wenn wir sie aus der Beobachtung von außen gewonnen hätten. Denn die Beobachtung kann uns nur sagen, was immer gewesen ist; nicht aber, ob dieses auch immer so sein muss."
+          "index": "^d0fc89",
+          "content": "Die ewigen Wahrheiten könne die Vernunft beweisen, daran hatte er vorher nicht gezweifelt; Hume hatte gezeigt, dass selbst bei den einfa|55|chen Wahrheiten von einem Beweis nicht die Rede sein könne, sondern dass wir alles, was wir glauben, nur aus Gewohnheit annehmen. Soll es wirklich keine ewigen Wahrheiten geben, fragte sich Kant. Es muss solche geben. Dass die Wahrheiten zum Beispiel der Mathematik immer und notwendig wahr sein müssen, daran mochte er nicht zweifeln."
         },
         {
-          "index": "^bz5wrd",
-          "content": "Kant fand einen Ausweg. Er sagte: es hängt gar nicht von den Dingen in der Natur ab, wie sie uns erscheinen. Das hängt einzig und allein von uns selbst ab. Ich bin so eingerichtet, dass für mich «zweimal zwei vier» sein muss; ich bin so eingerichtet, dass für mich jede Wirkung eine Ursache haben müsse. Mag es also draußen, im «Ding an sich», zugehen, wie es immer mag, mögen da einmal die Dinge so sein, dass «zweimal zwei drei» ist, ein andermal, dass «zweimal zwei fünf» ist; das kann alles nicht an mich herankommen. Ich kann nur wahrnehmen, dass «zweimal zwei vier» ist, folglich erscheint mir alles so, dass «zweimal zwei vier» ist."
+          "index": "^0124d6",
+          "content": "Ebensowenig daran, dass so etwas ewig gültig sein muss wie: jede Wirkung hat eine Ursache. Davon hat ihn aber Hume überzeugt, dass diese Erkenntnisse nicht ewig wahr sein könnten, wenn wir sie aus der Beobachtung von außen gewonnen hätten. Denn die Beobachtung kann uns nur sagen, was immer gewesen ist; nicht aber, ob dieses auch immer so sein muss. Kant fand einen Ausweg. Er sagte: es hängt gar nicht von den Dingen in der Natur ab, wie sie uns erscheinen."
+        },
+        {
+          "index": "^a35644",
+          "content": "Das hängt einzig und allein von uns selbst ab. Ich bin so eingerichtet, dass für mich «zweimal zwei vier» sein muss; ich bin so eingerichtet, dass für mich jede Wirkung eine Ursache haben müsse. Mag es also draußen, im «Ding an sich», zugehen, wie es immer mag, mögen da einmal die Dinge so sein, dass «zweimal zwei drei» ist, ein andermal, dass «zweimal zwei fünf» ist; das kann alles nicht an mich herankommen."
         },
         {
           "index": "^n8s6jr",
-          "content": "Ich kann nur eine Wirkung an eine Ursache knüpfen; folglich erscheint mir alles so, als wenn immer Wirkungen mit Ursachen verknüpft seien. Obauch im «Ding an sich» Ursachen mit Wirkungen zusammenhängen, das weiß ich nicht. Ich bin wie mit einer blauen Brille behaftet. Mögen die Dinge draußen was immer für Farben haben, ich weiß im voraus, dass mir alles in einem blauen Farbentone erscheinen wird. Wie die «Dinge an sich» sind, weiß ich also nicht; ich weiß nur, wie sie mir erscheinen."
+          "content": "Ich kann nur wahrnehmen, dass «zweimal zwei vier» ist, folglich erscheint mir alles so, dass «zweimal zwei vier» ist. Ich kann nur eine Wirkung an eine Ursache knüpfen; folglich erscheint mir alles so, als wenn immer Wirkungen mit Ursachen verknüpft seien. Ob auch im «Ding an sich» Ursachen mit Wirkungen zusammenhängen, das weiß ich nicht. Ich bin wie mit einer blauen Brille behaftet."
         },
         {
-          "index": "^59jnyu",
-          "content": "Da nun Gott, Unsterblichkeit und Freiheit des menschlichen Willens überhaupt nicht beobachtet werden können, nicht erscheinen, so kann das menschliche Denken, die Vernunft über diese Dinge nichts ausmachen. Sie gehen die Vernunft nichts an. Gehen sie aber deswegen den Menschen überhaupt nichts an? So fragt sich Kant. Sie gehen den Menschen sehr viel an, gibt er zur Antwort. Nur kann man ihr Dasein nicht begreifen; man muss es glauben. Ich weiß, dass ich meine Pflicht tun soll. Ein kategorischer Imperativ spricht in mir: Du sollst. Also muss ich auch können. Wenigstens muss ich daran glauben, dass ich kann."
+          "index": "^b36b22",
+          "content": "Mögen die Dinge draußen was immer für Farben haben, ich weiß im voraus, dass mir alles in einem blauen Farbentone erscheinen wird. Wie die «Dinge an sich» sind, weiß ich also nicht; ich weiß nur, wie sie mir erscheinen. Da nun Gott, Unsterblichkeit und Freiheit des |56| menschlichen Willens überhaupt nicht beobachtet werden können, nicht erscheinen, so kann das menschliche Denken, die Vernunft über diese Dinge nichts ausmachen. Sie gehen die Vernunft nichts an."
+        },
+        {
+          "index": "^8306f3",
+          "content": "Gehen sie aber deswegen den Menschen überhaupt nichts an? So fragt sich Kant. Sie gehen den Menschen sehr viel an, gibt er zur Antwort. Nur kann man ihr Dasein nicht begreifen; man muss es glauben. Ich weiß, dass ich meine Pflicht tun soll. Ein kategorischer Imperativ spricht in mir: Du sollst. Also muss ich auch können. Wenigstens muss ich daran glauben, dass ich kann. Und zu diesem Glauben brauche ich einen andern."
         },
         {
           "index": "^zed6yj",
-          "content": "Und zu diesem Glauben brauche ich einen andern. Ich selbst kann den Verrichtungen meiner Pflicht nicht den notwendigen Nachdruck geben. Ich kann die Welt nicht so einrichten, dass sie dem entspricht, was ich als sittliche Weltordnung ansehen muss. Also muss es einen Gott geben, der diese sittliche Weltordnung bestimmt. Er gibt meiner Seele auch die Unsterblichkeit, damit sie im ewigen Leben die Früchte ihrer Pflichten genießen könne, die ihr in diesem vergänglichen, unvollkommenen Leben nimmer beschieden sein können."
+          "content": "Ich selbst kann den Verrichtungen meiner Pflicht nicht den notwendigen Nachdruck geben. Ich kann die Welt nicht so einrichten, dass sie dem entspricht, was ich als sittliche Weltordnung ansehen muss. Also muss es einen Gott geben, der diese sittliche Weltordnung bestimmt. Er gibt meiner Seele auch die Unsterblichkeit, damit sie im ewigen Leben die Früchte ihrer Pflichten genießen könne, die ihr in diesem vergänglichen, unvollkommenen Leben nimmer beschieden sein können."
         },
         {
           "index": "^8kh075",
-          "content": "Man sieht, bei Kant taucht als Glaube alles wieder auf, was das Wissen niemals erreichen kann. Kant hat auf anderem Wege ein ähnliches erreicht, was Luther auf seinem Wege angestrebt hat. Luther wollte die Erkenntnis von den Gegenständen des Glaubens ausschließen. Kant wollte das gleiche. Sein Glaube ist nicht mehr der Bibelglaube; er spricht von einer «Religion innerhalb der Grenzen der bloßen Vernunft». Aber die Erkenntnis, das Wissen, sollten nur auf die Erscheinungen beschränkt sein; über die Glaubensgegenstände sollten sie nicht mitzureden haben."
+          "content": "Man sieht, bei Kant taucht als Glaube alles wieder auf, was das Wissen niemals erreichen kann. Kant hat auf anderem Wege ein ähnliches erreicht, was Luther auf seinem Wege angestrebt hat. Luther wollte die Erkenntnis von den Gegenständen des Glaubens ausschließen. Kant wollte das gleiche."
+        },
+        {
+          "index": "^4e2e83",
+          "content": "Sein Glaube ist nicht mehr der Bibelglaube; er spricht von einer «Religion innerhalb der Grenzen der bloßen Vernunft». Aber die Erkenntnis, das Wissen, sollten nur auf die Erscheinungen beschränkt sein; über die Glaubensgegenstände sollten sie nicht mitzureden haben. Kant ist mit Recht der Philosoph des Protestantismus genannt worden."
         },
         {
           "index": "^7px1ev",
-          "content": "Kant ist mit Recht der Philosoph des Protestantismus genannt worden. Er hat, was er erreicht zu haben glaubt, selbst am besten mit den Worten bezeichnet: «Ich musste also das Wissen aufheben, um zum Glauben Platz zu bekommen.» Die Erkenntnis soll es also, im Sinne Kants, nur mit der untergeordneten Welt zu tun haben, die dem Leben keinen Sinn gibt; was dem Leben Sinn gibt, das sind Gegenstände des Glaubens, an die kein Wissen heran kann."
+          "content": "Er hat, was er erreicht zu haben glaubt, selbst am besten mit den Worten bezeichnet: «Ich musste also das Wissen aufheben, um zum Glauben Platz zu |57| bekommen.» Die Erkenntnis soll es also, im Sinne Kants, nur mit der untergeordneten Welt zu tun haben, die dem Leben keinen Sinn gibt; was dem Leben Sinn gibt, das sind Gegenstände des Glaubens, an die kein Wissen heran kann."
         },
         {
           "index": "^stgtob",
@@ -681,99 +709,115 @@
         },
         {
           "index": "^kwrs54",
-          "content": "Man kann zum Beispiel sagen: Was will denn die Naturwissenschaft? Sie kann ja nur untergeordnete Weisheit zum besten geben. Durch Kant, den man so gern den großen Reformator der Philosophie nennt, ist ein für allemal bewiesen, dass das Wissen beschränkt, untergeordnet ist, dass es dem Leben keinen Sinn geben kann.|46| Die Weltanschauungen der Gegenwart, die sich auf solche Selbstverstümmelung der Erkenntnis berufen, sind noch nicht einmal bis zum Standpunkt der Scholastik vorgedrungen, die sich wenigstens verpflichtet fühlte, einen Einklang zwischen Wissen und Glauben herbeizuführen."
+          "content": "Man kann zum Beispiel sagen: Was will denn die Naturwissenschaft? Sie kann ja nur untergeordnete Weisheit zum besten geben. Durch Kant, den man so gern den großen Reformator der Philosophie nennt, ist ein für allemal bewiesen, dass das Wissen beschränkt, untergeordnet ist, dass es dem Leben keinen Sinn geben kann."
         },
         {
-          "index": "^wig7e5",
-          "content": "Du Bois-Reymond hat sogar diesem Standpunkte in seinem berühmten Vortrag: «Über die Grenzen des Naturerkennens» ein naturwissenschaftliches Mäntelchen umgehängt."
+          "index": "^2a5af4",
+          "content": "Die Weltanschauungen der Gegenwart, die sich auf solche Selbstverstümmelung der Erkenntnis berufen, sind noch nicht einmal bis zum Standpunkt der Scholastik vorgedrungen, die sich wenigstens verpflichtet fühlte, einen Einklang zwischen Wissen und Glauben herbeizuführen."
         },
         {
-          "index": "^29w1ui",
-          "content": "Eine andere Weltanschauungsströmung, die bis in die Gegenwart heraufreicht, nimmt ihren Ausgangspunkt von Spinoza. Er ist ein Denker, der ein unbedingtes Vertrauen in die menschliche Vernunft hat. Was so erkannt werden|58| kann, wie die mathematischen Wahrheiten, das nimmt die Vernunft als ihre Erkenntnisse an. Und die Dinge der Welt stehen in einem ebensolchen notwendigen Zusammenhange, wie die Glieder einer Rechnung oder wie die mathematischen Figuren."
+          "index": "^plggk8",
+          "content": "Du Bois-Reymond hat sogar diesem Standpunkte in seinem berühmten Vortrag: «Über die Grenzen des Naturerkennens» ein naturwissenschaftliches Mäntelchen umgehängt.\n\n3. Die neuen Weltanschauungen"
         },
         {
-          "index": "^cq0eqa",
-          "content": "Alles Geistige ist ebenso wie alles Körperliche von solchen notwendigen Naturgesetzen beherrscht. Es ist eine kindliche Vorstellung, zu glauben, dass eine menschenähnliche allweise Vorsehung die Dinge einrichtet. Die Verrichtungen der Lebewesen, die Handlungen des menschlichen Geistes unterliegen ebenso den Naturgesetzen, wie der Stein, der gemäß den Gesetzen der Schwere zur Erde fällt."
+          "index": "^4a16f4",
+          "content": "Eine andere Weltanschauungsströmung, die bis in die Gegenwart heraufreicht, nimmt ihren Ausgangspunkt von Spinoza. Er ist ein Denker, der ein unbedingtes Vertrauen in die menschliche Vernunft hat."
         },
         {
-          "index": "^ki2jnt",
-          "content": "Es ist ein Irrtum, zu glauben, dass eine schöpferische Macht nach bestimmten Zwecken irgendwelche Wesen geschaffen habe. Man täuscht sich, wenn man zum Beispiel glaubt, ein Schöpfer habe dem Stier Hörner gegeben, damit er stoßen könne. Nein, der Stier hat seine Hörner nach ebenso notwendigen Gesetzen bekommen, wie eine Billardkugel nach Gesetzen weiterrollt, wenn sie gestoßen wird. Er hat naturnotwendig die Hörner und deshalb stößt er. Man kann auch sagen: der Stier hat nicht Hörner, damit er stoßen könne, sondern er stößt, weil er Hörner hat."
+          "index": "^3ffad5",
+          "content": "Was so erkannt werden |58| kann, wie die mathematischen Wahrheiten, das nimmt die Vernunft als ihre Erkenntnisse an. Und die Dinge der Welt stehen in einem ebensolchen notwendigen Zusammenhange, wie die Glieder einer Rechnung oder wie die mathematischen Figuren. Alles Geistige ist ebenso wie alles Körperliche von solchen notwendigen Naturgesetzen beherrscht. Es ist eine kindliche Vorstellung, zu glauben, dass eine menschenähnliche allweise Vorsehung die Dinge einrichtet."
         },
         {
-          "index": "^kzwp7a",
-          "content": "Gott ist im Sinne Spinozas nichts als die allen körperlichen und geistigen Erscheinungen innewohnende natürliche Notwendigkeit. Wenn der Mensch hinaussieht in die Welt, dann erblickt er Gott; wenn er über die Dinge und Vorgänge nachdenkt, dann stellt sich ihm die göttliche Weltordnung dar, die aber nichts ist als die natürliche Ordnung der Dinge."
+          "index": "^b077f9",
+          "content": "Die Verrichtungen der Lebewesen, die Handlungen des menschlichen Geistes unterliegen ebenso den Naturgesetzen, wie der Stein, der gemäß den Gesetzen der Schwere zur Erde fällt. Es ist ein Irrtum, zu glauben, dass eine schöpferische Macht nach bestimmten Zwecken irgendwelche Wesen geschaffen habe. Man täuscht sich, wenn man zum Beispiel glaubt, ein Schöpfer habe dem Stier Hörner gegeben, damit er stoßen könne."
         },
         {
-          "index": "^02g8uj",
-          "content": "Im Sinne Spinozas kann man von einem Zwiespalt zwischen Glauben und Wissen nicht sprechen. Denn es gibt nichts außer der Natur. Der Mensch gehört selbst zu dieser Natur. Wenn er also sich und die Natur betrachtet, so gibt sich ihm alles kund, wovon überhaupt gesprochen werden kann.|59|"
+          "index": "^c47b70",
+          "content": "Nein, der Stier hat seine Hörner nach ebenso notwendigen Gesetzen bekommen, wie eine Billardkugel nach Gesetzen weiterrollt, wenn sie gestoßen wird. Er hat naturnotwendig die Hörner und deshalb stoßt er. Man kann auch sagen: der Stier hat nicht Hörner, damit er stoßen könne, sondern er stößt, weil er Hörner hat. Gott ist im Sinne Spinozas nichts als die allen körperlichen und geistigen Erscheinungen innewohnende natürliche Notwendigkeit."
         },
         {
-          "index": "^6zaz0p",
-          "content": "Von dieser Weltanschauung war auch Goethe durchdrungen. Auch er suchte, was frühere Anschauungen in einer jenseitigen Welt gesucht haben, in der Natur selbst. Die Natur wurde sein Gott. Von keiner anderen göttlichen Wesenheit wollte er etwas wissen."
+          "index": "^93fe22",
+          "content": "Wenn der Mensch hinaussieht in die Welt, dann erblickt er Gott; wenn er über die Dinge und Vorgänge nachdenkt, dann stellt sich ihm die göttliche Weltordnung dar, die aber nichts ist als die natürliche Ordnung der Dinge. Im Sinne Spinozas kann man von einem Zwiespalt zwischen Glauben und Wissen nicht sprechen. Denn es gibt nichts außer der Natur. Der Mensch gehört selbst zu dieser Natur."
         },
         {
-          "index": "^l7r7f8",
-          "content": "Was wär' ein Gott, der nur von außen stieße,"
+          "index": "^87wpfp",
+          "content": "Wenn er also sich und die Natur betrachtet, so gibt sich ihm alles kund, wovon überhaupt gesprochen werden kann. |59| Von dieser Weltanschauung war auch Goethe durchdrungen. Auch er suchte, was frühere Anschauungen in einer jenseitigen Welt gesucht haben, in der Natur selbst. Die Natur wurde sein Gott. Von keiner anderen göttlichen Wesenheit wollte er etwas wissen."
         },
         {
-          "index": "^clxgik",
+          "index": "^ph9sbf",
+          "content": "Was war' ein Gott, der nur von außen stieße,"
+        },
+        {
+          "index": "^7cad12",
           "content": "Im Kreis das All am Finger laufen ließe!"
         },
         {
-          "index": "^vvzm3s",
-          "content": "Ihm ziemt's, die Welt im Innern zu bewegen,"
+          "index": "^547m16",
+          "content": "Ihm ziehmt's, die Welt im Innern zu bewegen,"
         },
         {
-          "index": "^ajdy38",
+          "index": "^ff2hex",
           "content": "Natur in sich, sich in Natur zu hegen,"
         },
         {
-          "index": "^dxahvv",
+          "index": "^5682qp",
           "content": "So dass, was in ihm lebt und webt und ist,"
         },
         {
-          "index": "^mj8era",
+          "index": "^0wr432",
           "content": "Nie seine Kraft, nie seinen Geist vermisst."
         },
         {
           "index": "^eqcev4",
-          "content": "So sagt Goethe. Die Natur ist ihm Gott, und die Natur offenbart auch Gott. Es gibt keine andere Offenbarung. Und es kann neben den Wesenheiten der Natur keine anderen mehr geben, die nur durch den Glauben erreicht werden sollen. Deshalb hat Goethe mit der Kantschen Unterscheidung von Glauben und Wissen niemals etwas zu tun haben wollen."
+          "content": "So sagt Goethe. Die Natur ist ihm Gott, und die Natur offenbart auch Gott. Es gibt keine andere Offenbarung. Und es kann neben den Wesenheiten der Natur keine anderen mehr geben, die nur durch den Glauben erreicht werden sollen."
+        },
+        {
+          "index": "^0b57d9",
+          "content": "Deshalb hat Goethe mit der Kantschen Unterscheidung von Glauben und Wissen niemals etwas zu tun haben wollen. Und dass alles, was der Mensch an Wahrheit wünschen kann, auch durch die Betrachtung der Natur und des Menschen selbst erreicht werden kann, das ist auch die Überzeugung der Denker, die im Beginne des 19. Jahrhunderts sich um Weltanschauungen bemühen."
         },
         {
           "index": "^jf8ht2",
-          "content": "Und dass alles, was der Mensch an Wahrheit wünschen kann, auch durch die Betrachtung der Natur und des Menschen selbst erreicht werden kann, das ist auch die Überzeugung der Denker, die im Beginne des 19. Jahrhunderts sich um Weltanschauungen bemühen. Das ist auch die Überzeugung der Denker, die in der zweiten Hälfte des 19. Jahrhunderts aus den Erkenntnissen der Naturwissenschaft heraus sich eine Weltanschauung erbauen wollen. Diese letzteren Denker, wie zum Beispiel Haeckel, sind der Meinung, dass die Naturgesetze, die sie erforschen, nicht bloß untergeordnete Dinge sind, sondern dass sie dasjenige wahrhaft darstellen, was dem Leben einen Sinn gibt."
+          "content": "Das ist auch die Überzeugung der Denker, die in der zweiten Hälfte des 19. Jahrhunderts aus den Erkenntnissen der Naturwissenschaft heraus sich eine Weltanschauung erbauen wollen. Diese letzteren Denker, wie zum Beispiel Haeckel, sind der Meinung, dass die Naturgesetze, die sie erforschen, nicht bloß untergeordnete Dinge sind, sondern dass sie dasjenige wahrhaft darstellen, was dem Leben einen Sinn gibt."
         },
         {
           "index": "^1d68tl",
-          "content": "Johann Gottlieb Fichte stellt das eigene «Ich» des Menschen in den Mittelpunkt seiner Betrachtungen. Was haben|60| frühere Weltanschauungen mit diesem «Ich» alles gemacht? Sie haben es aus dem Menschen herausgehoben und zum Gott gemacht. Dadurch entstand der menschenähnliche Schöpfer der Welt. Fichte lässt alle solchen Gottesvorstellungen auf sich beruhen. Er sucht das Bewusstsein da auf, wo es allein wirklich zu finden ist, im Menschen. Etwas, was man früher als Gott verehrt hat, ein solches geistiges Wesen, findet Fichte nur im Menschen."
+          "content": "Johann Gottlieb Fichte stellt das eigene «Ich» des Menschen in den Mittelpunkt seiner Betrachtungen. Was haben |60| frühere Weltanschauungen mit diesem «Ich» alles gemacht? Sie haben es aus dem Menschen herausgehoben und zum Gott gemacht. Dadurch entstand der menschenähnliche Schöpfer der Welt. Fichte lässt alle solchen Gottesvorstellungen auf sich beruhen. Er sucht das Bewusstsein da auf, wo es allein wirklich zu finden ist, im Menschen."
         },
         {
-          "index": "^2v1o4z",
-          "content": "Der Mensch hat es also, wenn er das Verhältnis sucht zwischen dem Geiste und der Welt, nicht mit einem Zusammenhang von «Gott und Welt» zu tun, sondern nur mit einer Wechselwirkung des Geistes, der in ihm ist, mit der Natur. Dies ist der Sinn der Fichteschen Weltanschauung; und alles, was man Fichte angedichtet hat: als ob er zum Beispiel hätte behaupten wollen, der einzelne Mensch schaffe sich aus sich heraus die Natur, beruht nur auf einer ganz kurzsichtigen Auslegung seiner Gedanken."
+          "index": "^9e0b2f",
+          "content": "Etwas, was man früher als Gott verehrt hat, ein solches geistiges Wesen, findet Fichte nur im Menschen. Der Mensch hat es also, wenn er das Verhältnis sucht zwischen dem Geiste und der Welt, nicht mit einem Zusammenhang von «Gott und Welt» zu tun, sondern nur mit einer Wechselwirkung des Geistes, der in ihm ist, mit der Natur."
+        },
+        {
+          "index": "^f89fd6",
+          "content": "Dies ist der Sinn der Fichteschen Weltanschauung; und alles, was man Fichte angedichtet hat: als ob er zum Beispiel hätte behaupten wollen, der einzelne Mensch schaffe sich aus sich heraus die Natur, beruht nur auf einer ganz kurzsichtigen Auslegung seiner Gedanken. Schelling hat dann auf Fichtes Vorstellungen weitergebaut. Fichte hat nichts anderes gewollt, als den menschlichen Geist belauschen, wenn dieser sich seine Vorstellungen über die Natur bildet."
         },
         {
           "index": "^ize1ia",
-          "content": "Schelling hat dann auf Fichtes Vorstellungen weitergebaut. Fichte hat nichts anderes gewollt, als den menschlichen Geist belauschen, wenn dieser sich seine Vorstellungen über die Natur bildet. Denn kein Gott gibt ihm ja diese Vorstellungen; er bildet sich dieselben allein. Nicht wie Gott es macht, das war für Fichte die Frage, sondern wie der Mensch es macht, wenn er sich in der Welt zurechtfindet. Schelling baute darauf die Anschauung, dass wir die Welt von zwei Seiten betrachten können, von der äußeren Seite, wenn wir die körperlichen Vorgänge betrachten, und von der inneren Seite, wenn wir den Geist betrachten, der ja auch nichts anderes ist als die Natur."
+          "content": "Denn kein Gott gibt ihm ja diese Vorstellungen; er bildet sich dieselben allein. Nicht wie Gott es macht, das war für Fichte die Frage, sondern wie der Mensch es macht, wenn er sich in der Welt zurechtfindet. Schelling baute darauf die Anschauung, dass wir die Welt von zwei Seiten betrachten können, von der äußeren Seite, wenn wir die körperlichen Vorgänge betrachten, und von der inneren Seite, wenn wir den Geist betrachten, der ja auch nichts anderes ist als die Natur."
         },
         {
           "index": "^g0g41n",
-          "content": "Hegel ging dann noch einen Schritt weiter. Er fragte sich: Was ist denn das eigentlich, was uns unser Denken über die Natur offenbart? Wenn ich durch mein Denken die Gesetze der Himmelskörper erforsche, enthüllt sich in diesen Gesetzen nicht die ewige Notwendigkeit, die in der Natur|61| herrscht? Was geben mir also alle meine Begriffe und Ideen? Doch nichts anderes, als was draußen in der Natur selbst ist. In mir sind dieselben Wesenheiten als Begriffe, als Ideen vorhanden, die in der Welt als ewige, eherne Gesetze alles Dasein beherrschen. Sehe ich in mich, so nehme ich Begriffe und Ideen wahr; sehe ich außer mich, so sind diese Begriffe und Ideen Naturgesetze."
+          "content": "Hegel ging dann noch einen Schritt weiter. Er fragte sich: Was ist denn das eigentlich, was uns unser Denken über die Natur offenbart? Wenn ich durch mein Denken die Gesetze der Himmelskörper erforsche, enthüllt sich in diesen Gesetzen nicht die ewige Notwendigkeit, die in der Natur |61| herrscht? Was geben mir also alle meine Begriffe und Ideen? Doch nichts anderes, als was draußen in der Natur selbst ist."
         },
         {
-          "index": "^aivckl",
-          "content": "Im einzelnen Menschen spiegelt sich als Gedanke, was die ganze Welt als Gesetz beherrscht. Man missversteht Hegel, wenn man behauptet, er hätte die ganze Welt aus der Idee, aus dem menschlichen Kopfe, herausspinnen wollen. Es wird einst als eine ewige Schande der deutschen Philosophie angerechnet werden müssen, dass sie Hegel so missverstanden hat."
+          "index": "^0f938a",
+          "content": "In mir sind dieselben Wesenheiten als Begriffe, als Ideen vorhanden, die in der Welt als ewige, eherne Gesetze alles Dasein beherrschen. Sehe ich in mich, so nehme ich Begriffe und Ideen wahr; sehe ich außer mich, so sind diese Begriffe und Ideen Naturgesetze. Im einzelnen Menschen spiegelt sich als Gedanke, was die ganze Welt als Gesetz beherrscht. Man missversteht Hegel, wenn man behauptet, er hätte die ganze Welt aus der Idee, aus dem menschlichen Kopfe, herausspinnen wollen."
         },
         {
-          "index": "^8lezal",
-          "content": "Wer Hegel versteht, dem fällt es gar nicht ein, irgend etwas aus der Idee herausspinnen zu wollen. Wirklich verstanden, im fruchtbaren Sinne des Wortes, hat Marx Hegel. Deshalb hat Marx die Gesetze der ökonomischen Entwickelung gesucht da, wo sie allein zu finden sind. Wo sind die Gesetze zu finden? Auf diese Frage antwortete Hegel: Dort, wo die Tatsachen sind, sind auch die Gesetze. Es gibt sonst nirgends eine Idee, als wo die Tatsachen sind, die man durch diese Idee begreifen will. Wer die Tatsachen des wirklichen Lebens erforscht, der denkt hegelisch. Denn Hegel war der Ansicht, dass nicht abstrakte Gedanken, sondern die Dinge selbst zu ihren Wesenheiten führen."
+          "index": "^ce5e10",
+          "content": "Es wird einst als eine ewige Schande der deutschen Philosophie angerechnet werden müssen, dass sie Hegel so missverstanden hat. Wer Hegel versteht, dem fällt es gar nicht ein, irgend etwas aus der Idee herausspinnen zu wollen. Wirklich verstanden, im fruchtbaren Sinne des Wortes, hat Marx Hegel. Deshalb hat Marx die Gesetze der ökonomischen Entwickelung gesucht da, wo sie allein zu finden sind. Wo sind die Gesetze zu finden?"
+        },
+        {
+          "index": "^989d6e",
+          "content": "Auf diese Frage antwortete Hegel: Dort, wo die Tatsachen sind, sind auch die Gesetze. Es gibt sonst nirgends eine Idee, als wo die Tatsachen sind, die man durch diese Idee begreifen will. Wer die Tatsachen des wirklichen Lebens erforscht, der denkt hegelisch. Denn Hegel war der Ansicht, dass nicht abstrakte Gedanken, sondern die Dinge selbst zu ihren Wesenheiten führen. Ebenso verfährt die neuere Naturwissenschaft im Geiste Hegels."
         },
         {
           "index": "^bmit1z",
-          "content": "Ebenso verfährt die neuere Naturwissenschaft im Geiste Hegels. Diese neue Naturwissenschaft, deren großer Begründer Charles Darwin durch sein Werk «Die Entstehung der Arten» (1859) geworden ist, sucht die Naturgesetze im Reiche der Lebewesen ebenso auf, wie man dies auch in der leblosen Natur tut."
+          "content": "Diese neue Naturwissenschaft, deren großer Begründer Charles Darwin durch sein Werk «Die Entstehung der Arten» (1859) geworden ist, sucht die Naturgesetze im Reiche der Lebewesen ebenso auf, wie man dies auch in der leblosen Natur tut."
         },
         {
           "index": "^qacxm7",
-          "content": "Ernst Haeckel fasst das Glaubensbekenntnis dieser Naturwissenschaft in die Worte zusammen. «Der Magnet, der Eisenspäne anzieht, das Pulver, das ex|62|plodiert, der Wasserdampf, der die Lokomotive treibt ... sie wirken ebenso durch lebendige Kraft, wie der Mensch, der denkt.» Diese Naturwissenschaft ist davon überzeugt, dass sie mit den Gesetzen, welche die Vernunft aus den Dingen herausholt, zugleich das Wesen dieser Dinge enthüllt."
+          "content": "Ernst Haeckel fasst das Glaubensbekenntnis dieser Naturwissenschaft in die Worte zusammen: «Der Magnet, der Eisenspäne anzieht, das Pulver, das ex|62|plodiert, der Wasserdampf, der die Lokomotive treibt ... sie wirken ebenso durch lebendige Kraft, wie der Mensch, der denkt.» Diese Naturwissenschaft ist davon überzeugt, dass sie mit den Gesetzen, welche die Vernunft aus den Dingen herausholt, zugleich das Wesen dieser Dinge enthüllt."
         },
         {
           "index": "^19flwu",
@@ -789,7 +833,7 @@
         },
         {
           "index": "^oqbdw4",
-          "content": "Was jeder Gott außer der Natur ist, darauf hat Ludwig Feuerbach die Antwort gegeben, indem er zeigte, wie eine solche Gottesvorstellung von dem Menschen, nach dessen Bilde, geschaffen ist. «Gott ist das offenbare Innere, das ausgesprochene Selbst des Menschen, die Religion ist die feierliche Enthüllung der verborgenen Schätze des Menschen, das Eingeständnis seiner innersten Gedanken, das öffentliche Bekenntnis seiner Liebesgeheimnisse.» Was der Mensch|63| in sich selbst hat, das setzt er in die Welt hinaus und verehrt es als Gott."
+          "content": "Was jeder Gott außer der Natur ist, darauf hat Ludwig Feuerbach die Antwort gegeben, indem er zeigte, wie eine solche Gottesvorstellung von dem Menschen, nach dessen Bilde, geschaffen ist. «Gott ist das offenbare Innere, das ausgesprochene Selbst des Menschen, die Religion ist die feierliche Enthüllung der verborgenen Schätze des Menschen, das Eingeständnis seiner innersten Gedanken, das öffentliche Bekenntnis seiner Liebesgeheimnisse.» Was der Mensch |63| in sich selbst hat, das setzt er in die Welt hinaus und verehrt es als Gott."
         },
         {
           "index": "^oyej0p",
@@ -797,23 +841,27 @@
         },
         {
           "index": "^sy8lbw",
-          "content": "Der Weg, der von ihnen befreit, wurde einzig und allein von den auf naturwissenschaftlicher Grundlage aufgebauten Weltanschauungen in der zweiten Hälfte des 19. Jahrhunderts betreten. Andere Weltanschauungen, wie zum Beispiel die Arthur Schopenhauers und Eduard v. Hartmanns sind wieder nur Rückfälle in veraltete Vorstellungen. Schopenhauer hat statt des ganzen menschlichen «Ich» nur einen Teil, den Willen, zum göttlichen Wesen gemacht; und Hartmann hat mit dem «Ich» dasselbe gemacht, nachdem er zuerst das Bewusstsein aus diesem «Ich» hinausbefördert hat. Dadurch ist er zum «Unbewussten» als Urgrund der Welt gekommen."
+          "content": "Der Weg, der von ihnen befreit, wurde einzig und allein von den auf naturwissenschaftlicher Grundlage aufgebauten Weltanschauungen in der zweiten Hälfte des 19. Jahrhunderts betreten. Andere Weltanschauungen, wie zum Beispiel die Arthur Schopenhauers und Eduard v. Hartmanns sind wieder nur Rückfälle in veraltete Vorstellungen."
+        },
+        {
+          "index": "^e8a36d",
+          "content": "Schopenhauer hat statt des ganzen menschlichen «Ich» nur einen Teil, den Willen, zum göttlichen Wesen gemacht; und Hartmann hat mit dem «Ich» dasselbe gemacht, nachdem er zuerst das Bewusstsein aus diesem «Ich» hinausbefördert hat. Dadurch ist er zum «Unbewussten» als Urgrund der Welt gekommen. Es ist begreiflich, dass diese beiden Denker, von solchen Voraussetzungen aus, zur Überzeugung kommen mussten, dass die Welt die denkbar schlechteste sei."
         },
         {
           "index": "^j2m5eh",
-          "content": "Es ist begreiflich, dass diese beiden Denker, von solchen Voraussetzungen aus, zur Überzeugung kommen mussten, dass die Welt die denkbar schlechteste sei. Denn sie haben das «Ich» zum Urgrunde der Welt gemacht, nachdem sie aus demselben die Vernunft entweder ganz oder teilweise hinausbefördert haben. Die früheren Denker dieses Charakters haben das «Ich» zuerst idealisiert, das heißt mit noch mehr Vernunft ausgestaltet, als es im Menschen hat. Dadurch wurde die Welt zu einer Einrichtung von unendlicher Weisheit."
+          "content": "Denn sie haben das «Ich» zum Urgründe der Welt gemacht, nachdem sie aus demselben die Vernunft entweder ganz oder teilweise hinausbefördert haben. Die früheren Denker dieses Charakters haben das «Ich» zuerst idealisiert, das heißt mit noch mehr Vernunft ausgestaltet, als es im Menschen hat. Dadurch wurde die Welt zu einer Einrichtung von unendlicher Weisheit. Die wahrhaft moderne Weltanschauung kann nichts mehr von alten religiösen Vorstellungen in sich aufneh|64|men."
         },
         {
           "index": "^uqiezn",
-          "content": "Die wahrhaft moderne Weltanschauung kann nichts mehr von alten religiösen Vorstellungen in sich aufneh|64|men. Ihre Grundlage hat schon Schiller ausgesprochen, als er Goethes Naturanschauung in seinem Briefe an diesen kennzeichnete: «Von der einfachen Organisation steigen Sie, Schritt vor Schritt, zu der mehr verwickelten hinauf, um endlich die verwickeltste von allen, den Menschen, naturgemäß aus den Materialien des ganzen Naturgebäudes zu erbauen.»"
+          "content": "Ihre Grundlage hat schon Schiller ausgesprochen, als er Goethes Naturanschauung in seinem Briefe an diesen kennzeichnete: «Von der einfachen Organisation steigen Sie, Schritt vor Schritt, zu der mehr verwickelten hinauf, um endlich die verwickeltste von allen, den Menschen, naturgemäß aus den Materialien des ganzen Naturgebäudes zu erbauen.» Wenn der Mensch sein Dasein aus etwas hervorgehen lassen will, so kann er es nur aus der Natur selbst hervorgehen lassen."
         },
         {
           "index": "^lfes14",
-          "content": "Wenn der Mensch sein Dasein aus etwas hervorgehen lassen will, so kann er es nur aus der Natur selbst hervorgehen lassen. Der Mensch ist aus der Natur nach ewigen, ehernen Gesetzen gebildet; aber er ist noch in keiner Weise, weder als Gott noch als anderes Geistwesen, in der Natur schon gelegen. Alle Vorstellungen, welche sich die Natur beseelt oder vergeistigt vorstellen (z.B. Paulsens u. a.), sind Rückfälle in alte theologische Ideen."
+          "content": "Der Mensch ist aus der Natur nach ewigen, ehernen Gesetzen gebildet; aber er ist noch in keiner Weise, weder als Gott noch als anderes Geistwesen, in der Natur schon gelegen. Alle Vorstellungen, welche sich die Natur beseelt oder vergeistigt vorstellen (z. B. Paulsens u.a.), sind Rückfälle in alte theologische Ideen. Der Geist ist entstanden, nicht aus der Natur herausentwickelt."
         },
         {
           "index": "^zg8xtk",
-          "content": "Der Geist ist entstanden, nicht aus der Natur herausentwickelt. Dies muss erst begriffen sein, dann kann das Denken sich über diesen innerhalb der Naturordnung entstandenen Geist eine Anschauung bilden. Eine solche Weltanschauung kann erst von einer wirklichen Freiheit sprechen. Das habe ich in meiner «Philosophie der Freiheit», und in meinem Buche «Welt- und Lebensanschauungen im 19. Jahrhundert» eingehend gezeigt."
+          "content": "Dies muss erst begriffen sein, dann kann das Denken sich über diesen innerhalb der Naturordnung entstandenen Geist eine Anschauung bilden. Eine solche Weltanschauung kann erst von einer wirklichen Freiheit sprechen. Das habe ich in meiner «Philosophie der Freiheit», und in meinem Buche «Welt- und Lebensanschauungen im 19. Jahrhundert» eingehend gezeigt."
         },
         {
           "index": "^mm0qq4",
@@ -821,11 +869,11 @@
         },
         {
           "index": "^mex8n4",
-          "content": "Eine wahre Freiheitsphilosophie kann nicht mehr mit Adolf Harnack davon sprechen, dass das Wissen dem Leben keinen Sinn zu geben vermag; sie zeigt vielmehr, dass der Mensch durch Naturnotwendigkeit entstanden ist, dass er allerdings keinen vorherbestimmten Sinn mitbekommen hat, dass es aber an ihm selbst liegt, sich einen Sinn zu geben."
+          "content": "Eine wahre Freiheitsphilosophie kann nicht mehr mit Adolf Harnack davon sprechen, dass das Wissen dem Leben keinen Sinn zu geben vermag; sie zeigt vielmehr, dass der Mensch durch Naturnotwendigkeit entstanden ist, dass er allerdings keinen vorherbestimmten Sinn mitbekommen hat, dass es aber an ihm selbst liegt, sich einen Sinn zu geben. Die alten Weltan|65|schauungen stehen mit den alten ökonomischen Ordnungen, aber sie werden auch mit diesen fallen."
         },
         {
-          "index": "^lpy9px",
-          "content": "Die alten Weltan|65|schauungen stehen mit den alten ökonomischen Ordnungen, aber sie werden auch mit diesen fallen. Der ökonomisch befreite Mensch wird auch als wissender und sittlicher ein freier sein; und wenn die ökonomische Ordnung allen Menschen ein menschenwürdiges Dasein bringen wird, dann werden sie auch eine Weltanschauung zu der ihrigen machen, die den Geist ganz befreit."
+          "index": "^456e9c",
+          "content": "Der ökonomisch befreite Mensch wird auch als wissender und sittlicher ein freier sein; und wenn die ökonomische Ordnung allen Menschen ein menschenwürdiges Dasein bringen wird, dann werden sie auch eine Weltanschauung zu der ihrigen machen, die den Geist ganz befreit."
         }
       ]
     },

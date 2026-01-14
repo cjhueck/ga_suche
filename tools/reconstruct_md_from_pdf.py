@@ -215,10 +215,8 @@ def is_verse_line(line: str, ignore_page_marker: bool = True) -> bool:
     """
     Prüfe ob eine Zeile eine Gedichtzeile sein könnte.
     Kriterien:
-    - Weniger als 55 Zeichen (inkl. Leerzeichen, ohne Seitenmarker)
+    - Weniger als 50 Zeichen (inkl. Leerzeichen, ohne Seitenmarker)
     - Endet nicht mit Bindestrich (Silbentrennung)
-    - Endet nicht mit Doppelpunkt (das wäre eine Prosa-Einleitung)
-    - Enthält keinen Punkt gefolgt von Großbuchstabe (das wäre Prosa nach dem Gedicht)
     
     ignore_page_marker: Wenn True, wird |XXX| aus der Zeile entfernt bevor die Länge geprüft wird
     """
@@ -231,17 +229,10 @@ def is_verse_line(line: str, ignore_page_marker: bool = True) -> bool:
     if ignore_page_marker:
         line_for_check = re.sub(r'\|\d+\|\s*', '', line)
     
-    if len(line_for_check) >= 55:
+    if len(line_for_check) >= 50:
         return False
     # Silbentrennungen sind keine Gedichtzeilen
     if line_for_check.endswith('-'):
-        return False
-    # Zeilen die mit Doppelpunkt enden sind Prosa-Einleitungen, keine Gedichtzeilen
-    if line_for_check.endswith(':'):
-        return False
-    # Wenn die Zeile einen Punkt/!/? gefolgt von Leerzeichen und Großbuchstabe enthält,
-    # ist es wahrscheinlich Gedicht + Prosa gemischt (z.B. "mit Donnergang. So muß es")
-    if re.search(r'[.!?]\s+[A-ZÄÖÜ]', line_for_check):
         return False
     return True
 
@@ -251,34 +242,52 @@ def detect_verse_sequences(lines: List[str]) -> List[Tuple[int, int]]:
     Finde Sequenzen von Gedichtzeilen im Text.
     Rückgabe: Liste von (start_index, end_index) für Gedichtblöcke.
     
-    Ein Gedichtblock besteht aus mindestens 2 aufeinanderfolgenden kurzen Zeilen.
-    Die erste Zeile darf nicht mit Punkt enden (das wäre Prosa-Ende).
-    Gedichte können durch Seitenmarker (|XXX|) unterbrochen sein - diese werden ignoriert.
+    Ein Gedichtblock besteht aus mindestens 2 aufeinanderfolgenden kurzen Zeilen (<50 Zeichen).
+    WICHTIG: Innerhalb eines Gedichts gibt es nur einfache Zeilenumbrüche (keine Absatzabstände).
+    Wenn nach einer Zeile ein Absatzabstand kommt (doppelte Leerzeile), ist das das Ende des Gedichts.
     """
     sequences = []
     i = 0
+    
+    def _has_paragraph_break_after(idx: int) -> bool:
+        """
+        Prüfe ob nach Zeile idx ein Absatzabstand (doppelte Leerzeile) kommt.
+        WICHTIG: Orientiert sich am PDF-Text!
+        """
+        if idx + 1 >= len(lines):
+            return True  # Ende des Textes = Absatzabstand
+        
+        # Prüfe ob die nächste Zeile leer ist
+        if not lines[idx + 1].strip():
+            # Prüfe ob die übernächste Zeile auch leer ist
+            if idx + 2 < len(lines):
+                # Wenn übernächste Zeile leer ist → doppelte Leerzeile = Absatzabstand
+                if not lines[idx + 2].strip():
+                    return True
+                # Wenn übernächste Zeile nicht leer ist → einfache Leerzeile = noch im Gedicht
+                return False
+            else:
+                # Ende des Textes nach Leerzeile = Absatzabstand
+                return True
+        return False
     
     while i < len(lines):
         # Suche nach Start einer möglichen Verssequenz
         if is_verse_line(lines[i]):
             start = i
-            # Zähle aufeinanderfolgende kurze Zeilen (Seitenmarker werden ignoriert)
+            # Zähle aufeinanderfolgende kurze Zeilen
+            # ABER: Stoppe wenn nach einer Zeile ein Absatzabstand kommt
             while i < len(lines) and is_verse_line(lines[i]):
+                # Prüfe ob nach dieser Zeile ein Absatzabstand kommt
+                if _has_paragraph_break_after(i):
+                    # Absatzabstand = Ende des Gedichts
+                    break
                 i += 1
             end = i
             
             # Mindestens 2 Zeilen für ein Gedicht
             if end - start >= 2:
-                # Prüfe ob die erste Zeile mit Punkt endet → wahrscheinlich Prosa-Ende
-                # Entferne dabei Seitenmarker für die Prüfung
-                first_line = re.sub(r'\|\d+\|\s*', '', lines[start].strip())
-                if first_line.endswith('.'):
-                    # Überspringe diese Zeile, starte Sequenz ab der nächsten
-                    start += 1
-                
-                # Nochmal prüfen ob mindestens 2 Zeilen übrig
-                if end - start >= 2:
-                    sequences.append((start, end))
+                sequences.append((start, end))
         else:
             i += 1
     
@@ -287,32 +296,23 @@ def detect_verse_sequences(lines: List[str]) -> List[Tuple[int, int]]:
 
 def join_lines_to_paragraphs(text: str) -> str:
     """
-    Füge Zeilen zu Absätzen zusammen (wie in pdf_to_md_converter.py).
-    Entfernt falsche Zeilenumbrüche, behält echte Absätze.
-    ERKENNT GEDICHTE und behält deren Zeilenstruktur bei.
+    Füge Zeilen zu Absätzen zusammen.
+    SCHNELLE VERSION: Einfache Heuristiken ohne komplexe Gedichterkennung.
+    Gedichte werden direkt anhand kurzer Zeilen (<50 Zeichen) erkannt.
     """
     if not text.strip():
         return text
     
     lines = text.split('\n')
-    
-    # Finde Gedichtsequenzen
-    verse_sequences = detect_verse_sequences(lines)
-    
-    # Erstelle ein Set von Zeilenindizes, die zu Gedichten gehören
-    verse_lines = set()
-    for start, end in verse_sequences:
-        for idx in range(start, end):
-            verse_lines.add(idx)
-    
     out = []
     
     for i, curr in enumerate(lines):
+        curr = curr.rstrip()
         prev = out[-1] if out else None
         
         # Leere Zeilen bleiben als Absatz-Trenner
         if not curr.strip():
-            if prev and prev.strip():  # Nur wenn vorherige Zeile nicht leer war
+            if prev and prev.strip():
                 out.append('')
             continue
         
@@ -335,67 +335,46 @@ def join_lines_to_paragraphs(text: str) -> str:
         last_char = prev_trim[-1] if prev_trim else ''
         first_char = curr_stripped[0] if curr_stripped else ''
         
-        # GEDICHTERKENNUNG: Wenn diese Zeile Teil eines Gedichts ist
-        if i in verse_lines:
-            is_first_verse_line = (i - 1) not in verse_lines
-            
-            if is_first_verse_line:
-                # Erste Zeile eines Gedichts → Absatzabstand davor
-                if out and out[-1].strip():
-                    out.append('')  # Leerzeile vor dem Gedicht
-                out.append(curr_stripped)
-            else:
-                # Folgezeile im Gedicht → Markdown-Zeilenumbruch (zwei Leerzeichen)
-                if not prev_trim.endswith('  '):
-                    out[-1] = prev_trim + '  '
-                out.append(curr_stripped)
-            continue
+        # GEDICHT-HEURISTIK: Kurze Zeilen (<50 Zeichen) ohne Silbentrennung
+        prev_is_short = len(prev_trim.rstrip('  ')) < 50 and not prev_trim.rstrip('  ').endswith('-')
+        curr_is_short = len(curr_stripped) < 50 and not curr_stripped.endswith('-')
         
-        # Prüfe ob VORHERIGE Zeile die LETZTE eines Gedichts war → Absatzabstand danach
-        if (i - 1) in verse_lines:
-            if out and out[-1].strip():
-                out.append('')  # Leerzeile nach dem Gedicht
+        if prev_is_short and curr_is_short:
+            # Beide Zeilen sind kurz → wahrscheinlich Gedicht
+            # Füge Markdown-Zeilenumbruch hinzu (zwei Leerzeichen)
+            if not prev_trim.endswith('  '):
+                out[-1] = prev_trim + '  '
             out.append(curr_stripped)
             continue
         
         # Silbentrennung mit Bindestrich → OHNE Leerzeichen zusammenfügen
         if last_char in '-–—' and first_char.islower():
             out[-1] = prev_trim[:-1] + curr_stripped
-        # Wenn vorherige Zeile mit Punkt/Komma endet und nächste mit Großbuchstabe beginnt → prüfe ob neuer Absatz
+        # Wenn vorherige Zeile mit Satzzeichen endet und nächste mit Großbuchstabe beginnt
         elif last_char in '.!?' and first_char.isupper():
-            # Prüfe ob es wirklich ein neuer Absatz ist (nicht nur neuer Satz)
-            # Wenn vorherige Zeile sehr kurz ist (< 50 Zeichen), wahrscheinlich Überschrift → neuer Absatz
+            # Wenn vorherige Zeile kurz ist (<50 Zeichen) → neuer Absatz
             if len(prev_trim) < 50:
                 out.append(curr_stripped)
             else:
                 # Normaler Satzende → zusammenfügen mit Leerzeichen
                 out[-1] = prev_trim + ' ' + curr_stripped
-        # Wenn vorherige Zeile mit Kleinbuchstabe endet → zusammenfügen
+        # Wenn vorherige Zeile mit Kleinbuchstabe oder Komma endet → zusammenfügen
         elif last_char.islower() or last_char in ',;:':
             out[-1] = prev_trim + ' ' + curr_stripped
-        # Wenn vorherige Zeile mit Großbuchstabe endet und nächste mit Großbuchstabe beginnt → prüfe
-        elif last_char.isupper() and first_char.isupper():
-            # Wenn vorherige Zeile sehr kurz (< 30 Zeichen), wahrscheinlich Überschrift → neuer Absatz
-            if len(prev_trim) < 30:
-                out.append(curr_stripped)
-            else:
-                # Zusammenfügen mit Leerzeichen
-                out[-1] = prev_trim + ' ' + curr_stripped
         # Alles andere → MIT Leerzeichen zusammenfügen
         else:
             out[-1] = prev_trim + ' ' + curr_stripped
     
-    # Füge Leerzeilen zwischen Absätzen ein (wenn Zeile mit Punkt endet und nächste mit Großbuchstabe beginnt)
+    # Füge Leerzeilen zwischen Absätzen ein
     result_lines = []
     for i, line in enumerate(out):
         result_lines.append(line)
-        # Wenn Zeile mit Punkt endet UND nächste Zeile mit Großbuchstabe beginnt → Leerzeile einfügen
         if line.strip() and line.strip()[-1] in '.!?' and i + 1 < len(out):
             next_line = out[i + 1]
             if (next_line.strip() and 
                 not next_line.startswith(('#', '!', '[')) and
                 next_line.strip()[0].isupper() and
-                len(line.strip()) > 50):  # Nur bei längeren Absätzen
+                len(line.strip()) > 50):
                 result_lines.append('')
     
     return '\n'.join(result_lines)
@@ -449,7 +428,12 @@ def find_md_files_for_ga(ga_number: str) -> List[Path]:
     
     md_files = []
     for folder in folders:
-        md_files.extend(folder.glob("*.md"))
+        for md_file in folder.glob("*.md"):
+            # Backups nicht erneut verarbeiten
+            name_lower = md_file.name.lower()
+            if name_lower.endswith("_backup.md") or name_lower.endswith(".md.backup"):
+                continue
+            md_files.append(md_file)
     
     return md_files
 
@@ -681,8 +665,26 @@ def split_into_paragraphs(text: str, target_length: int = 500) -> List[str]:
         if not sentence:
             continue
         
+        # Prüfe ob current mit Gedicht endet (erkennbar an "  \n" am Ende)
+        current_ends_with_verse = current.rstrip().endswith('  \n') or current.rstrip().endswith('  ')
+        
+        # Prüfe ob sentence Teil eines Gedichts ist (enthält "  \n")
+        sentence_is_verse = '  \n' in sentence
+        
+        # Wenn current mit Gedicht endet und sentence nicht Teil des Gedichts ist → Absatzabstand
+        if current_ends_with_verse and not sentence_is_verse:
+            # Entferne Markdown-Zeilenumbruch vom Ende von current
+            current = current.rstrip()
+            if current.endswith('  \n'):
+                current = current[:-3].rstrip()
+            elif current.endswith('  '):
+                current = current[:-2].rstrip()
+            # Speichere current als Absatz
+            if current.strip():
+                paragraphs.append(current.strip())
+            current = sentence
         # Wenn current + sentence zu lang wird, speichere current und starte neu
-        if current and len(current) + len(sentence) > target_length:
+        elif current and len(current) + len(sentence) > target_length:
             paragraphs.append(current.strip())
             current = sentence
         else:
@@ -868,7 +870,13 @@ def process_ga(ga_number: str, dry_run: bool = False, single_file: str = None) -
     
     # Filter auf einzelne Datei wenn angegeben
     if single_file:
-        md_files = [f for f in md_files if single_file.lower() in f.name.lower()]
+        # Wenn single_file eine Zahl ist (z.B. "1"), suche nach "(1.) " im Dateinamen
+        # WICHTIG: Mit Leerzeichen danach, damit "(1.)" nicht "(10.)" matcht!
+        if single_file.isdigit():
+            pattern = f"({single_file}.) "
+            md_files = [f for f in md_files if pattern in f.name]
+        else:
+            md_files = [f for f in md_files if single_file.lower() in f.name.lower()]
         if not md_files:
             print(f"  FEHLER: Datei mit '{single_file}' nicht gefunden")
             return {"error": f"Datei '{single_file}' nicht gefunden"}
@@ -930,7 +938,12 @@ def process_ga(ga_number: str, dry_run: bool = False, single_file: str = None) -
         print(f"    {len(pdf_pages)} Seiten aus PDF extrahiert")
         
         # Rekonstruiere MD
+        print(f"    Starte Rekonstruktion...")
+        import time
+        start_time = time.time()
         new_md_content, stats = reconstruct_lecture_md(pdf_pages, old_md_content, metadata)
+        elapsed = time.time() - start_time
+        print(f"    Rekonstruktion abgeschlossen in {elapsed:.2f}s")
         
         # Akkumuliere Statistiken
         for key in total_stats:
@@ -949,7 +962,7 @@ def process_ga(ga_number: str, dry_run: bool = False, single_file: str = None) -
             print(new_md_content[:500])
         else:
             # Backup erstellen
-            backup_path = md_file.with_suffix('.md.backup')
+            backup_path = md_file.with_name(f"{md_file.stem}_backup.md")
             backup_path.write_text(old_md_content, encoding='utf-8')
             print(f"    Backup erstellt: {backup_path.name}")
             
@@ -979,17 +992,21 @@ def main():
         print("Verwendung: python reconstruct_md_from_pdf.py GA057 [--dry-run] [--file DATEINAME]")
         print("  --dry-run       Keine Änderungen speichern, nur Preview")
         print("  --file NAME     Nur Datei mit NAME im Dateinamen verarbeiten")
+        print("  ODER: python reconstruct_md_from_pdf.py GA051 1  (nur Vortrag 1)")
         sys.exit(1)
     
     ga_number = sys.argv[1]
     dry_run = '--dry-run' in sys.argv
     
-    # Parse --file Argument
+    # Parse --file Argument oder zweiten Parameter als Dateifilter
     single_file = None
     if '--file' in sys.argv:
         idx = sys.argv.index('--file')
         if idx + 1 < len(sys.argv):
             single_file = sys.argv[idx + 1]
+    elif len(sys.argv) >= 3 and not sys.argv[2].startswith('--'):
+        # Zweiter Parameter ohne -- wird als Dateifilter interpretiert
+        single_file = sys.argv[2]
     
     if dry_run:
         print("*** DRY-RUN MODUS - Keine Dateien werden geändert ***\n")
