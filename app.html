@@ -7315,8 +7315,11 @@ Wandtafeln
   <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #d9534f; border: 1px solid #d9534f;">
     S&H&C&K
   </button>
+  <button id="batch-headings-btn" class="depth-btn" onclick="batchGenerateHeadingsOnly()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #f0ad4e; border: 1px solid #f0ad4e;">
+    H
+  </button>
   <button id="batch-short-summary-btn" class="depth-btn" onclick="batchGenerateShortSummaries()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #5cb85c; border: 1px solid #5cb85c;">
-    ShortSum
+    Short
   </button>
   <select id="batch-provider-select" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--sidebar-bg); color: var(--text-color);">
     <option value="claude">Claude</option>
@@ -16808,13 +16811,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         });
       }
       
-      // Rendere Markdown
+      // Rendere Markdown (mit expliziten Optionen für Zeilenumbrüche/Gedichte)
+      const markedOptions = { breaks: true, gfm: true };
       if (marked.parse) {
-        content = marked.parse(content);
+        content = marked.parse(content, markedOptions);
       } else if (marked.marked) {
-        content = marked.marked(content);
+        content = marked.marked(content, markedOptions);
       } else {
-        content = marked(content);
+        content = marked(content, markedOptions);
       }
       
       // Manuelle Bild-Konvertierung falls nötig
@@ -20856,12 +20860,14 @@ function scrollToChronologicalYear(year) {
               });
             }
             
+            // Mit expliziten Optionen für Zeilenumbrüche/Gedichte
+            const markedOpts = { breaks: true, gfm: true };
             if (marked.parse) {
-              fullContent = marked.parse(fullContent);
+              fullContent = marked.parse(fullContent, markedOpts);
             } else if (marked.marked) {
-              fullContent = marked.marked(fullContent);
+              fullContent = marked.marked(fullContent, markedOpts);
             } else {
-              fullContent = marked(fullContent);
+              fullContent = marked(fullContent, markedOpts);
             }
           }
           
@@ -23435,8 +23441,8 @@ function scrollToChronologicalYear(year) {
         // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
         const processedText = preprocessObsidianLineBreaks(text);
         
-        // Konvertiere Markdown zu HTML
-        let html = marked.parse(processedText);
+        // Konvertiere Markdown zu HTML (mit breaks für Gedichte)
+        let html = marked.parse(processedText, { breaks: true, gfm: true });
         
         // ZUSÄTZLICH: Entferne auch HTML-Links, die von marked.parse() erstellt wurden
         // Falls marked.parse() die Links bereits in <a> Tags konvertiert hat (z.B. <a href="...">GA066/1</a>)
@@ -23511,8 +23517,8 @@ function scrollToChronologicalYear(year) {
           // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
           const processedText = preprocessObsidianLineBreaks(text);
           
-          // Konvertiere Markdown zu HTML
-          let html = marked.parse(processedText);
+          // Konvertiere Markdown zu HTML (mit breaks für Gedichte)
+          let html = marked.parse(processedText, { breaks: true, gfm: true });
           
           // Entferne HTML-Links, die von marked.parse() erstellt wurden
           html = html.replace(/<a[^>]*>([^<]*\|)?(GA\d+[a-z]?\/\d+)<\/a>/gi, '$2');
@@ -28154,7 +28160,7 @@ function formatAsteriskParagraphs() {
         mangle: false
       });
       
-      answerDiv.innerHTML = marked.parse(processedContent);
+      answerDiv.innerHTML = marked.parse(processedContent, { breaks: true, gfm: true });
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
       removeInlineStyles(answerDiv);
@@ -30578,6 +30584,117 @@ async function batchRegenerateAll() {
     
   } catch (err) {
     console.error('[BATCH-REGENERATE] Fehler:', err);
+    resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+/**
+ * BUTTON: Nur Überschriften (H3/H4) generieren
+ * Generiert nur die Zwischenüberschriften, keine Summary, TOC oder Keywords
+ */
+async function batchGenerateHeadingsOnly() {
+  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  if (!gaNumber) {
+    alert('Bitte wählen Sie zuerst einen GA-Band aus.');
+    return;
+  }
+  
+  let lectureIds;
+  
+  // Prüfe ob Vorträge ausgewählt sind
+  if (selectedLectureIds.size > 0) {
+    lectureIds = Array.from(selectedLectureIds);
+    if (!confirm(`${lectureIds.length} ausgewählte Vorträge: Nur H3/H4-Überschriften generieren. Fortfahren?`)) {
+      return;
+    }
+  } else {
+    if (!confirm(`Alle Vorträge in ${gaNumber}: Nur H3/H4-Überschriften generieren. Fortfahren?`)) {
+      return;
+    }
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('batch-headings-btn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>...</em>';
+  btn.disabled = true;
+  
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = `
+    <div class="batch-progress" id="batch-progress-ui">
+      <div id="batch-status">Vorbereiten...</div>
+      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
+        <div class="bar" id="batch-progress-bar"></div>
+      </div>
+    </div>
+  `;
+  
+  try {
+    setUILocked(true);
+    
+    // Verwende entweder ausgewählte Vorträge oder alle
+    if (!lectureIds) {
+      // Hole alle Vorträge des GA-Bands
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
+      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
+      const data = await resp.json();
+      const lectures = data.lectures || [];
+      
+      if (lectures.length === 0) {
+        resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
+        return;
+      }
+      
+      lectureIds = lectures.map(l => l.ID);
+    }
+    
+    // Rufe Backend-API auf
+    const statusEl = document.getElementById('batch-status');
+    if (statusEl) statusEl.textContent = `Generiere H3/H4 für ${lectureIds.length} Vorträge...`;
+    
+    const batchResp = await fetch(`${API_BASE}/api/batch-generate-headings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: lectureIds,
+        preferredProvider: selectedProvider
+      })
+    });
+    
+    if (!batchResp.ok) {
+      const errorData = await batchResp.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    const result = await batchResp.json();
+    const doneMsg = `✓ Überschriften generiert: ${result.processed} erfolgreich, ${result.failed} Fehler`;
+    if (statusEl) statusEl.textContent = doneMsg;
+    
+    const barEl = document.getElementById('batch-progress-bar');
+    if (barEl) barEl.style.width = '100%';
+    
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    
+    // Cache löschen und GA-Übersicht aktualisieren
+    externalSummaryDBCache = null;
+    setTimeout(() => {
+      openGAOverview(gaNumber);
+    }, 800);
+    
+  } catch (err) {
+    console.error('[BATCH-HEADINGS] Fehler:', err);
     resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
     setUILocked(false);
     
@@ -37439,12 +37556,8 @@ async function showHelpContent(type) {
     
     // Konvertiere Markdown zu HTML mit marked.js
     if (typeof marked !== 'undefined') {
-      // Konfiguriere marked für besseres Rendering
-      marked.setOptions({
-        breaks: true,
-        gfm: true
-      });
-      contentText.innerHTML = marked.parse(processedMarkdown);
+      // Konfiguriere marked für besseres Rendering (mit expliziten Optionen für Gedichte)
+      contentText.innerHTML = marked.parse(processedMarkdown, { breaks: true, gfm: true });
     } else {
       // Fallback: Zeige Markdown als Text
       contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;

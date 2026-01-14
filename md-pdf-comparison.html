@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD-PDF Textvergleich</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    <style>
+        :root {
+            --text-color: #333333;
+            --heading-color: #467886;
+            --link-color: #467886;
+            --accent-color: #467886;
+            --background-color: #FAF8F3;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --diff-added: #d4edda;
+            --diff-removed: #f8d7da;
+            --diff-changed: #fff3cd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 2px solid var(--accent-color);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            color: var(--heading-color);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-right: auto;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:hover {
+            background: #3a6a7a;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title {
+            font-weight: 600;
+            color: var(--heading-color);
+            flex: 1;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .diff-highlight {
+            background-color: var(--diff-changed);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .diff-added {
+            background-color: var(--diff-added);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .diff-removed {
+            background-color: var(--diff-removed);
+            padding: 2px 4px;
+            text-decoration: line-through;
+            border-radius: 3px;
+        }
+
+        .diff-removed-block {
+            background-color: var(--diff-removed);
+            padding: 2px 4px;
+            border-radius: 3px;
+            border-left: 3px solid #dc3545;
+            display: inline-block;
+            margin: 1px 0;
+        }
+
+        .diff-added-block {
+            background-color: var(--diff-added);
+            padding: 2px 4px;
+            border-radius: 3px;
+            border-left: 3px solid #28a745;
+            display: inline-block;
+            margin: 1px 0;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+        }
+
+        .notification.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .file-input-label:hover {
+            background: #3a6a7a;
+        }
+
+        .comparison-controls {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>MD-PDF Textvergleich</h1>
+        <div class="file-input-wrapper">
+            <input type="file" id="mdFileInput" accept=".md,.txt">
+            <label for="mdFileInput" class="file-input-label">MD-Datei laden</label>
+        </div>
+        <div class="file-input-wrapper">
+            <input type="file" id="pdfFileInput" accept=".pdf">
+            <label for="pdfFileInput" class="file-input-label">PDF-Datei laden</label>
+        </div>
+        <button class="btn" id="compareBtn" disabled>Vergleichen</button>
+    </div>
+
+        <div class="comparison-controls" id="comparisonControls" style="display: none;">
+        <label>PDF-Seite:</label>
+        <input type="number" id="pdfPageInput" min="1" value="1" style="width: 80px; padding: 4px;">
+        <span id="pdfTotalPages">/ 0</span>
+        <button class="btn" id="prevPageBtn">←</button>
+        <button class="btn" id="nextPageBtn">→</button>
+        <button class="btn" id="extractPageBtn">Seite extrahieren</button>
+        <button class="btn" id="extractRangeBtn">Bereich extrahieren</button>
+        <button class="btn" id="extractAllBtn">Alle Seiten extrahieren</button>
+        <label style="margin-left: 20px;">Von:</label>
+        <input type="number" id="rangeStart" min="1" value="1" style="width: 60px; padding: 4px;">
+        <label>Bis:</label>
+        <input type="number" id="rangeEnd" min="1" value="1" style="width: 60px; padding: 4px;">
+    </div>
+
+    <div class="content-wrapper">
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Markdown-Text</span>
+            </div>
+            <div class="panel-content" id="mdContent">
+                <div class="loading">Bitte laden Sie eine MD-Datei</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">PDF-Text</span>
+            </div>
+            <div class="panel-content" id="pdfContent">
+                <div class="loading">Bitte laden Sie eine PDF-Datei</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats" id="stats" style="display: none;">
+        <div class="stat-item">
+            <span class="stat-label">MD-Zeichen</span>
+            <span class="stat-value" id="mdChars">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">PDF-Zeichen</span>
+            <span class="stat-value" id="pdfChars">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Übereinstimmung</span>
+            <span class="stat-value" id="similarity">0%</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Unterschiede</span>
+            <span class="stat-value" id="differences">0</span>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        let mdText = '';
+        let pdfText = '';
+        let pdfDoc = null;
+        let currentPdfPage = 1;
+        let totalPdfPages = 0;
+        let differences = [];
+
+        // Normalisiere Text für Vergleich
+        function normalizeText(text) {
+            return text
+                .replace(/\|\d+\|/g, '')  // Entferne Seitenmarker wie |186|
+                .replace(/\^[\w]+/g, '')   // Entferne Block-IDs wie ^27pviq
+                .replace(/\s+/g, ' ')     // Mehrfache Leerzeichen zu einem
+                .replace(/[^\w\säöüÄÖÜß]/g, '') // Entferne Interpunktion, behalte Umlaute
+                .toLowerCase()
+                .trim();
+        }
+
+        // Zeige Benachrichtigung
+        function showNotification(message, duration = 3000) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, duration);
+        }
+
+        // Lade MD-Datei
+        document.getElementById('mdFileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    mdText = event.target.result;
+                    // Entferne Markdown-Syntax für Vergleich (behalte nur Text)
+                    const mdDisplay = mdText.replace(/\|(\d+)\|/g, '<span style="color: #999; font-size: 0.85em;">|$1|</span>');
+                    document.getElementById('mdContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + escapeHtml(mdDisplay) + '</pre>';
+                    document.getElementById('mdChars').textContent = mdText.length.toLocaleString();
+                    checkReady();
+                    showNotification('MD-Datei geladen: ' + file.name);
+                };
+                reader.readAsText(file, 'UTF-8');
+            }
+        });
+
+        // Lade PDF-Datei
+        document.getElementById('pdfFileInput').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    const arrayBuffer = await file.arrayBuffer();
+                    pdfjsLib.getDocument({ data: arrayBuffer }).promise.then(function(pdf) {
+                        pdfDoc = pdf;
+                        totalPdfPages = pdf.numPages;
+                        currentPdfPage = 1;
+                        document.getElementById('pdfTotalPages').textContent = '/ ' + totalPdfPages;
+                        document.getElementById('comparisonControls').style.display = 'flex';
+                        extractPdfPage(1);
+                        showNotification('PDF geladen: ' + file.name + ' (' + totalPdfPages + ' Seiten)');
+                    }).catch(function(error) {
+                        console.error('Fehler beim Laden des PDFs:', error);
+                        showNotification('Fehler beim Laden des PDFs', 5000);
+                    });
+                } catch (error) {
+                    console.error('Fehler:', error);
+                    showNotification('Fehler beim Laden des PDFs', 5000);
+                }
+            }
+        });
+
+        // Extrahiere Text von PDF-Seite
+        async function extractPdfPage(pageNum) {
+            if (!pdfDoc) return;
+            
+            try {
+                const page = await pdfDoc.getPage(pageNum);
+                const textContent = await page.getTextContent();
+                
+                // Kombiniere alle Text-Items
+                let text = '';
+                textContent.items.forEach(item => {
+                    if (item.str) {
+                        text += item.str + ' ';
+                    }
+                });
+                
+                pdfText = text.trim();
+                document.getElementById('pdfContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + escapeHtml(pdfText) + '</pre>';
+                document.getElementById('pdfChars').textContent = pdfText.length.toLocaleString();
+                document.getElementById('pdfPageInput').value = pageNum;
+                currentPdfPage = pageNum;
+                
+                checkReady();
+            } catch (error) {
+                console.error('Fehler beim Extrahieren der PDF-Seite:', error);
+                showNotification('Fehler beim Extrahieren der PDF-Seite', 5000);
+            }
+        }
+
+        // PDF-Seiten-Navigation
+        document.getElementById('prevPageBtn').addEventListener('click', function() {
+            if (currentPdfPage > 1) {
+                extractPdfPage(currentPdfPage - 1);
+            }
+        });
+
+        document.getElementById('nextPageBtn').addEventListener('click', function() {
+            if (currentPdfPage < totalPdfPages) {
+                extractPdfPage(currentPdfPage + 1);
+            }
+        });
+
+        document.getElementById('pdfPageInput').addEventListener('change', function() {
+            const page = parseInt(this.value);
+            if (page >= 1 && page <= totalPdfPages) {
+                extractPdfPage(page);
+            } else {
+                this.value = currentPdfPage;
+            }
+        });
+
+        document.getElementById('extractPageBtn').addEventListener('click', function() {
+            extractPdfPage(currentPdfPage);
+        });
+
+        document.getElementById('extractRangeBtn').addEventListener('click', async function() {
+            const start = parseInt(document.getElementById('rangeStart').value);
+            const end = parseInt(document.getElementById('rangeEnd').value);
+            if (start >= 1 && end >= start && end <= totalPdfPages) {
+                await extractPdfRange(start, end);
+            } else {
+                showNotification('Ungültiger Seitenbereich', 3000);
+            }
+        });
+
+        document.getElementById('extractAllBtn').addEventListener('click', async function() {
+            if (pdfDoc) {
+                await extractPdfRange(1, totalPdfPages);
+            }
+        });
+
+        // Extrahiere Text von mehreren PDF-Seiten
+        async function extractPdfRange(startPage, endPage) {
+            if (!pdfDoc) return;
+            
+            try {
+                let fullText = '';
+                const total = endPage - startPage + 1;
+                showNotification(`Extrahiere Seiten ${startPage}-${endPage}...`, 2000);
+                
+                for (let pageNum = startPage; pageNum <= endPage; pageNum++) {
+                    const page = await pdfDoc.getPage(pageNum);
+                    const textContent = await page.getTextContent();
+                    
+                    let pageText = '';
+                    textContent.items.forEach(item => {
+                        if (item.str) {
+                            pageText += item.str + ' ';
+                        }
+                    });
+                    
+                    fullText += pageText.trim() + '\n\n';
+                }
+                
+                pdfText = fullText.trim();
+                document.getElementById('pdfContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + escapeHtml(pdfText) + '</pre>';
+                document.getElementById('pdfChars').textContent = pdfText.length.toLocaleString();
+                
+                checkReady();
+                showNotification(`Text von ${total} Seiten extrahiert`, 2000);
+            } catch (error) {
+                console.error('Fehler beim Extrahieren des PDF-Bereichs:', error);
+                showNotification('Fehler beim Extrahieren', 5000);
+            }
+        }
+
+        // Finde Seitenmarker im MD-Text und extrahiere entsprechenden PDF-Bereich
+        function findPageMarkersInMd() {
+            const markers = [];
+            const markerRegex = /\|(\d+)\|/g;
+            let match;
+            
+            while ((match = markerRegex.exec(mdText)) !== null) {
+                const pageNum = parseInt(match[1]);
+                markers.push({
+                    page: pageNum,
+                    position: match.index
+                });
+            }
+            
+            return markers.sort((a, b) => a.page - b.page);
+        }
+
+        // Automatisch PDF-Bereich basierend auf MD-Seitenmarkern extrahieren
+        document.getElementById('compareBtn').addEventListener('click', async function() {
+            if (!mdText || !pdfText) {
+                showNotification('Bitte laden Sie beide Dateien', 3000);
+                return;
+            }
+
+            // Wenn noch keine PDF-Seiten extrahiert wurden, versuche automatisch Bereich zu finden
+            if (pdfText.length < 100 && pdfDoc) {
+                const markers = findPageMarkersInMd();
+                if (markers.length > 0) {
+                    const firstPage = markers[0].page;
+                    const lastPage = markers[markers.length - 1].page;
+                    showNotification(`Extrahiere PDF-Seiten ${firstPage}-${lastPage}...`, 2000);
+                    await extractPdfRange(firstPage, lastPage);
+                }
+            }
+
+            // Warte kurz, damit PDF-Text extrahiert werden kann
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            if (!pdfText || pdfText.length < 100) {
+                showNotification('Bitte extrahieren Sie zuerst PDF-Text (Seite oder Bereich)', 3000);
+                return;
+            }
+
+            // Normalisiere Texte für Vergleich
+            const normalizedMd = normalizeText(mdText);
+            const normalizedPdf = normalizeText(pdfText);
+
+            // Berechne Ähnlichkeit (für große Texte vereinfacht)
+            let similarity = 0;
+            const maxLen = Math.max(normalizedMd.length, normalizedPdf.length);
+            
+            if (maxLen > 50000) {
+                // Für sehr große Texte: verwende vereinfachte Berechnung
+                const wordsMd = normalizedMd.split(/\s+/).filter(w => w.length > 0);
+                const wordsPdf = normalizedPdf.split(/\s+/).filter(w => w.length > 0);
+                const minWords = Math.min(wordsMd.length, wordsPdf.length);
+                const maxWords = Math.max(wordsMd.length, wordsPdf.length);
+                
+                if (minWords > 0) {
+                    // Zähle Übereinstimmungen in einem Sample
+                    const sampleSize = Math.min(1000, minWords);
+                    let matches = 0;
+                    for (let i = 0; i < sampleSize; i++) {
+                        if (wordsMd[i] === wordsPdf[i]) matches++;
+                    }
+                    similarity = ((matches / sampleSize) * 100).toFixed(1);
+                } else {
+                    similarity = '0.0';
+                }
+            } else {
+                // Für kleinere Texte: verwende Levenshtein-Distanz
+                try {
+                    const distance = levenshteinDistance(normalizedMd, normalizedPdf);
+                    similarity = maxLen > 0 ? ((maxLen - distance) / maxLen * 100).toFixed(1) : 100;
+                } catch (error) {
+                    console.warn('Levenshtein-Distanz zu groß, verwende vereinfachte Berechnung:', error);
+                    similarity = '~';
+                }
+            }
+
+            showNotification('Berechne Unterschiede...', 1000);
+
+            // Finde Unterschiede (mit Progress-Feedback für große Texte)
+            try {
+                differences = findDifferences(mdText, pdfText);
+                const diffCount = differences.filter(d => d.type !== 'equal').length;
+                
+                if (diffCount > 10000) {
+                    showNotification('Viele Unterschiede gefunden. Visualisierung kann einige Zeit dauern...', 3000);
+                }
+            } catch (error) {
+                console.error('Fehler beim Berechnen der Unterschiede:', error);
+                showNotification('Fehler beim Berechnen der Unterschiede. Text zu groß?', 5000);
+                return;
+            }
+            
+            const diffCount = differences.filter(d => d.type !== 'equal').length;
+
+            // Zeige Statistiken
+            document.getElementById('similarity').textContent = similarity + '%';
+            document.getElementById('differences').textContent = diffCount.toLocaleString();
+            document.getElementById('stats').style.display = 'flex';
+
+            // Markiere Unterschiede (optimiert für große Texte)
+            try {
+                showNotification('Markiere Unterschiede...', 1000);
+                
+                const normalizedMd2 = normalizeText(mdText);
+                const normalizedPdf2 = normalizeText(pdfText);
+                const mdWords = normalizedMd2.split(/\s+/).filter(w => w.length > 0);
+                const pdfWords = normalizedPdf2.split(/\s+/).filter(w => w.length > 0);
+                
+                // Finde zusammenhängende Bereiche mit Unterschieden im MD-Text
+                const mdDiffRanges = [];
+                let currentRangeStart = -1;
+                let lastRemovedIndex = -1;
+                
+                differences.forEach((diff) => {
+                    if (diff.type === 'removed' && diff.mdIndex >= 0) {
+                        if (currentRangeStart === -1) {
+                            currentRangeStart = diff.mdIndex;
+                        }
+                        lastRemovedIndex = diff.mdIndex;
+                    } else if (diff.type === 'equal') {
+                        // Wenn wir auf eine Übereinstimmung stoßen, beende den aktuellen Bereich
+                        if (currentRangeStart >= 0 && lastRemovedIndex >= 0) {
+                            mdDiffRanges.push({
+                                start: currentRangeStart,
+                                end: lastRemovedIndex
+                            });
+                            currentRangeStart = -1;
+                            lastRemovedIndex = -1;
+                        }
+                    }
+                });
+                
+                // Füge letztes Range hinzu falls vorhanden
+                if (currentRangeStart >= 0 && lastRemovedIndex >= 0) {
+                    mdDiffRanges.push({
+                        start: currentRangeStart,
+                        end: lastRemovedIndex
+                    });
+                }
+                
+                // Erstelle Set für schnelle Lookup
+                const mdDiffSet = new Set();
+                mdDiffRanges.forEach(range => {
+                    for (let i = range.start; i <= range.end; i++) {
+                        mdDiffSet.add(i);
+                    }
+                });
+                
+                // Markiere Unterschiede im MD-Text als zusammenhängende Bereiche
+                let mdHtml = '';
+                const mdOriginalTokens = mdText.split(/(\s+)/);
+                let mdWordIdx = 0;
+                let inDiffBlock = false;
+                const mdChunkSize = 1000;
+                
+                // Für sehr große Texte: zeige Progress
+                const totalChunks = Math.ceil(mdOriginalTokens.length / mdChunkSize);
+                let processedChunks = 0;
+                
+                for (let chunkStart = 0; chunkStart < mdOriginalTokens.length; chunkStart += mdChunkSize) {
+                    const chunkEnd = Math.min(chunkStart + mdChunkSize, mdOriginalTokens.length);
+                    let chunkHtml = '';
+                    
+                    for (let i = chunkStart; i < chunkEnd; i++) {
+                        const token = mdOriginalTokens[i];
+                        if (/\s/.test(token)) {
+                            // Leerzeichen/Zeilenumbrüche - behalte sie im Diff-Block
+                            chunkHtml += escapeHtml(token);
+                        } else {
+                            const normalizedToken = normalizeText(token);
+                            if (normalizedToken && mdWordIdx < mdWords.length && mdWords[mdWordIdx] === normalizedToken) {
+                                const isDiff = mdDiffSet.has(mdWordIdx);
+                                
+                                if (isDiff && !inDiffBlock) {
+                                    // Starte neuen Diff-Block
+                                    chunkHtml += '<span class="diff-removed-block" title="Bereich nicht im PDF gefunden">';
+                                    inDiffBlock = true;
+                                } else if (!isDiff && inDiffBlock) {
+                                    // Beende Diff-Block
+                                    chunkHtml += '</span>';
+                                    inDiffBlock = false;
+                                }
+                                
+                                chunkHtml += escapeHtml(token);
+                                mdWordIdx++;
+                            } else {
+                                // Token konnte nicht zugeordnet werden - behalte es im aktuellen Block-Status
+                                chunkHtml += escapeHtml(token);
+                            }
+                        }
+                    }
+                    
+                    mdHtml += chunkHtml;
+                    processedChunks++;
+                    
+                    // Gib Browser Zeit zum Rendern bei großen Texten
+                    if (totalChunks > 10 && processedChunks % 10 === 0) {
+                        // Zeige Progress für sehr große Texte
+                        showNotification(`Verarbeite MD-Text: ${Math.round((processedChunks / totalChunks) * 100)}%`, 500);
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                    } else if (processedChunks % 5 === 0) {
+                        await new Promise(resolve => setTimeout(resolve, 10));
+                    }
+                }
+                
+                // Schließe offenen Diff-Block falls vorhanden
+                if (inDiffBlock) {
+                    mdHtml += '</span>';
+                }
+
+                // Finde zusammenhängende Bereiche mit Unterschieden im PDF-Text
+                const pdfDiffRanges = [];
+                let currentPdfRangeStart = -1;
+                let lastAddedIndex = -1;
+                
+                differences.forEach((diff, idx) => {
+                    if (diff.type === 'added' && diff.pdfIndex >= 0) {
+                        if (currentPdfRangeStart === -1) {
+                            currentPdfRangeStart = diff.pdfIndex;
+                        }
+                        lastAddedIndex = diff.pdfIndex;
+                    } else if (diff.type === 'equal' || diff.type === 'removed') {
+                        if (currentPdfRangeStart >= 0 && lastAddedIndex >= 0) {
+                            pdfDiffRanges.push({
+                                start: currentPdfRangeStart,
+                                end: lastAddedIndex
+                            });
+                            currentPdfRangeStart = -1;
+                            lastAddedIndex = -1;
+                        }
+                    }
+                });
+                
+                // Füge letztes Range hinzu falls vorhanden
+                if (currentPdfRangeStart >= 0 && lastAddedIndex >= 0) {
+                    pdfDiffRanges.push({
+                        start: currentPdfRangeStart,
+                        end: lastAddedIndex
+                    });
+                }
+                
+                // Erstelle Set für schnelle Lookup
+                const pdfDiffSet = new Set();
+                pdfDiffRanges.forEach(range => {
+                    for (let i = range.start; i <= range.end; i++) {
+                        pdfDiffSet.add(i);
+                    }
+                });
+                
+                // Markiere Unterschiede im PDF-Text als zusammenhängende Bereiche
+                let pdfHtml = '';
+                const pdfOriginalTokens = pdfText.split(/(\s+)/);
+                let pdfWordIdx = 0;
+                let pdfInDiffBlock = false;
+                const pdfChunkSize = 1000;
+                
+                // Für sehr große Texte: zeige Progress
+                const pdfTotalChunks = Math.ceil(pdfOriginalTokens.length / pdfChunkSize);
+                let pdfProcessedChunks = 0;
+                
+                for (let chunkStart = 0; chunkStart < pdfOriginalTokens.length; chunkStart += pdfChunkSize) {
+                    const chunkEnd = Math.min(chunkStart + pdfChunkSize, pdfOriginalTokens.length);
+                    let chunkHtml = '';
+                    
+                    for (let i = chunkStart; i < chunkEnd; i++) {
+                        const token = pdfOriginalTokens[i];
+                        if (/\s/.test(token)) {
+                            chunkHtml += escapeHtml(token);
+                        } else {
+                            const normalizedToken = normalizeText(token);
+                            if (normalizedToken && pdfWordIdx < pdfWords.length && pdfWords[pdfWordIdx] === normalizedToken) {
+                                const isDiff = pdfDiffSet.has(pdfWordIdx);
+                                
+                                if (isDiff && !pdfInDiffBlock) {
+                                    // Starte neuen Diff-Block
+                                    chunkHtml += '<span class="diff-added-block" title="Bereich nicht im MD gefunden">';
+                                    pdfInDiffBlock = true;
+                                } else if (!isDiff && pdfInDiffBlock) {
+                                    // Beende Diff-Block
+                                    chunkHtml += '</span>';
+                                    pdfInDiffBlock = false;
+                                }
+                                
+                                chunkHtml += escapeHtml(token);
+                                pdfWordIdx++;
+                            } else {
+                                chunkHtml += escapeHtml(token);
+                            }
+                        }
+                    }
+                    
+                    pdfHtml += chunkHtml;
+                    pdfProcessedChunks++;
+                    
+                    // Gib Browser Zeit zum Rendern bei großen Texten
+                    if (pdfTotalChunks > 10 && pdfProcessedChunks % 10 === 0) {
+                        // Zeige Progress für sehr große Texte
+                        showNotification(`Verarbeite PDF-Text: ${Math.round((pdfProcessedChunks / pdfTotalChunks) * 100)}%`, 500);
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                    } else if (pdfProcessedChunks % 5 === 0) {
+                        await new Promise(resolve => setTimeout(resolve, 10));
+                    }
+                }
+                
+                // Schließe offenen Diff-Block falls vorhanden
+                if (pdfInDiffBlock) {
+                    pdfHtml += '</span>';
+                }
+
+                document.getElementById('mdContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + mdHtml + '</pre>';
+                document.getElementById('pdfContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + pdfHtml + '</pre>';
+            } catch (error) {
+                console.error('Fehler beim Markieren der Unterschiede:', error);
+                showNotification('Fehler beim Markieren der Unterschiede. Zeige Text ohne Markierung.', 5000);
+                // Zeige vollständigen Text ohne Markierung
+                document.getElementById('mdContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + escapeHtml(mdText) + '</pre>';
+                document.getElementById('pdfContent').innerHTML = '<pre style="white-space: pre-wrap; font-family: inherit;">' + escapeHtml(pdfText) + '</pre>';
+            }
+
+            showNotification('Vergleich abgeschlossen: ' + similarity + '% Übereinstimmung, ' + diffCount + ' Unterschiede');
+        });
+
+        // Prüfe ob beide Dateien geladen sind
+        function checkReady() {
+            const compareBtn = document.getElementById('compareBtn');
+            if (mdText && pdfText) {
+                compareBtn.disabled = false;
+            } else {
+                compareBtn.disabled = true;
+            }
+        }
+
+        // HTML-Escape
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Levenshtein-Distanz berechnen
+        function levenshteinDistance(str1, str2) {
+            const len1 = str1.length;
+            const len2 = str2.length;
+            const matrix = [];
+
+            for (let i = 0; i <= len1; i++) {
+                matrix[i] = [i];
+            }
+            for (let j = 0; j <= len2; j++) {
+                matrix[0][j] = j;
+            }
+
+            for (let i = 1; i <= len1; i++) {
+                for (let j = 1; j <= len2; j++) {
+                    if (str1[i - 1] === str2[j - 1]) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j - 1] + 1
+                        );
+                    }
+                }
+            }
+
+            return matrix[len1][len2];
+        }
+
+        // Optimierter Diff-Algorithmus für große Texte
+        function findDifferences(text1, text2) {
+            // Normalisiere Texte
+            const normalized1 = normalizeText(text1);
+            const normalized2 = normalizeText(text2);
+            
+            const words1 = normalized1.split(/\s+/).filter(w => w.length > 0);
+            const words2 = normalized2.split(/\s+/).filter(w => w.length > 0);
+            
+            // Für sehr große Texte: verwende vereinfachten Algorithmus
+            if (words1.length > 10000 || words2.length > 10000) {
+                return findDifferencesSimple(words1, words2);
+            }
+            
+            // Für mittlere Texte: verwende optimierten LCS
+            return findDifferencesOptimized(words1, words2);
+        }
+        
+        // Vereinfachter Algorithmus für sehr große Texte
+        function findDifferencesSimple(words1, words2) {
+            const diff = [];
+            const maxLen = Math.max(words1.length, words2.length);
+            const minLen = Math.min(words1.length, words2.length);
+            
+            // Vergleiche Wort für Wort bis zum Minimum
+            for (let i = 0; i < minLen; i++) {
+                if (words1[i] === words2[i]) {
+                    diff.push({ type: 'equal', text: words1[i], mdIndex: i, pdfIndex: i });
+                } else {
+                    diff.push({ type: 'removed', text: words1[i], mdIndex: i, pdfIndex: -1 });
+                    diff.push({ type: 'added', text: words2[i], mdIndex: -1, pdfIndex: i });
+                }
+            }
+            
+            // Füge restliche Wörter hinzu
+            for (let i = minLen; i < words1.length; i++) {
+                diff.push({ type: 'removed', text: words1[i], mdIndex: i, pdfIndex: -1 });
+            }
+            for (let i = minLen; i < words2.length; i++) {
+                diff.push({ type: 'added', text: words2[i], mdIndex: -1, pdfIndex: i });
+            }
+            
+            return diff;
+        }
+        
+        // Optimierter LCS-Algorithmus (verwendet weniger Speicher)
+        function findDifferencesOptimized(words1, words2) {
+            const diff = [];
+            const m = words1.length;
+            const n = words2.length;
+            
+            // Verwende einen einfacheren Ansatz: suche nach Übereinstimmungen in Fenstern
+            let i = 0, j = 0;
+            const windowSize = 100; // Fenstergröße für Suche
+            
+            while (i < m || j < n) {
+                // Suche nach nächster Übereinstimmung in einem Fenster
+                let found = false;
+                const searchWindow = Math.min(windowSize, Math.min(m - i, n - j));
+                
+                for (let k = 0; k < searchWindow && i + k < m && j + k < n; k++) {
+                    if (words1[i + k] === words2[j + k]) {
+                        // Übereinstimmung gefunden
+                        if (k > 0) {
+                            // Füge Unterschiede vor der Übereinstimmung hinzu
+                            for (let l = 0; l < k; l++) {
+                                diff.push({ type: 'removed', text: words1[i + l], mdIndex: i + l, pdfIndex: -1 });
+                                diff.push({ type: 'added', text: words2[j + l], mdIndex: -1, pdfIndex: j + l });
+                            }
+                        }
+                        diff.push({ type: 'equal', text: words1[i + k], mdIndex: i + k, pdfIndex: j + k });
+                        i += k + 1;
+                        j += k + 1;
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    // Keine Übereinstimmung gefunden, füge als Unterschied hinzu
+                    if (i < m) {
+                        diff.push({ type: 'removed', text: words1[i], mdIndex: i, pdfIndex: -1 });
+                        i++;
+                    }
+                    if (j < n) {
+                        diff.push({ type: 'added', text: words2[j], mdIndex: -1, pdfIndex: j });
+                        j++;
+                    }
+                }
+            }
+            
+            return diff;
+        }
+
+    </script>
+</body>
+</html>
+
