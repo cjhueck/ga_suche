@@ -9627,23 +9627,47 @@ PDF
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
       try {
-        // Verwende API_BASE wie alle anderen API-Aufrufe
-        // WICHTIG: Verwende window.API_BASE, da API_BASE möglicherweise noch nicht im Scope ist
-        const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : '');
+        // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
+        // Prüfe NICHT auf lokale API_BASE Variable, da diese möglicherweise noch nicht initialisiert ist
+        let apiBase = '';
+        try {
+          apiBase = window.API_BASE || '';
+        } catch (e) {
+          // Ignoriere Fehler beim Zugriff auf window.API_BASE
+          console.warn('[ANALYTICS] window.API_BASE nicht verfügbar:', e.message);
+        }
+        
+        // Fallback: Bestimme API_BASE basierend auf Hostname
+        if (!apiBase) {
+          const isLocal = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.hostname.startsWith('192.168.') ||
+                         window.location.hostname.startsWith('172.') ||
+                         window.location.hostname.startsWith('10.') ||
+                         window.location.protocol === 'file:';
+          apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        }
+        
         const url = apiBase ? `${apiBase}/api/analytics/track` : '/api/analytics/track';
         
         console.log('[ANALYTICS] Tracking:', type, value, 'URL:', url);
         
-        fetch(url, {
+        // Return Promise für besseres Error Handling
+        return fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type, value })
         })
         .then(response => {
           if (!response.ok) {
-            console.warn('[ANALYTICS] Tracking-Fehler:', response.status, response.statusText);
+            const errorMsg = `HTTP ${response.status}: ${response.statusText}`;
+            console.error('[ANALYTICS] Tracking-Fehler:', errorMsg, 'URL:', url);
+            return response.text().then(text => {
+              console.error('[ANALYTICS] Fehler-Details:', text);
+              throw new Error(errorMsg);
+            });
           } else {
-            console.log('[ANALYTICS] Tracking erfolgreich:', type);
+            console.log('[ANALYTICS] ✓ Tracking erfolgreich:', type, 'URL:', url);
             // Aktualisiere Statistik-Anzeige, wenn Analytics-Overlay geöffnet ist
             const overlay = document.getElementById('analytics-overlay');
             if (overlay && overlay.classList.contains('visible')) {
@@ -9652,21 +9676,145 @@ PDF
                 loadAnalyticsData();
               }, 500);
             }
+            return response.json();
           }
         })
         .catch((err) => {
-          console.error('[ANALYTICS] Fehler beim Tracking:', err.message, 'URL:', url);
+          console.error('[ANALYTICS] ✗ Netzwerkfehler beim Tracking:', err.message, 'URL:', url);
+          console.error('[ANALYTICS] Vollständiger Fehler:', err);
+          throw err; // Weiterwerfen für Promise-basierte Fehlerbehandlung
         });
       } catch (e) {
-        console.error('[ANALYTICS] Fehler beim Tracking:', e.message);
+        console.error('[ANALYTICS] ✗ Exception beim Tracking:', e.message);
+        console.error('[ANALYTICS] Stack:', e.stack);
+        return Promise.reject(e);
       }
     }
     
     // Seitenaufruf tracken (einmal pro Session)
-    if (!sessionStorage.getItem('analytics_tracked')) {
-      analyticsTrack('page_view');
-      sessionStorage.setItem('analytics_tracked', '1');
+    // WICHTIG: Warte bis API_BASE gesetzt ist, besonders auf der Online-Version
+    function trackPageView() {
+      console.log('[ANALYTICS] trackPageView() aufgerufen');
+      const alreadyTracked = sessionStorage.getItem('analytics_tracked');
+      console.log('[ANALYTICS] Bereits getrackt?', alreadyTracked);
+      
+      if (!alreadyTracked) {
+        // Prüfe ob API_BASE gesetzt ist (wichtig für Online-Version)
+        // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
+        let apiBase = '';
+        try {
+          apiBase = window.API_BASE || '';
+        } catch (e) {
+          // Ignoriere Fehler
+        }
+        
+        // Fallback basierend auf Hostname
+        if (!apiBase) {
+          const isLocal = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.hostname.startsWith('192.168.') ||
+                         window.location.hostname.startsWith('172.') ||
+                         window.location.hostname.startsWith('10.') ||
+                         window.location.protocol === 'file:';
+          apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        }
+        
+        const isOnline = !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
+        
+        // Auf Online-Version muss API_BASE gesetzt sein oder wir verwenden die Render-URL direkt
+        if (isOnline && !apiBase) {
+          console.log('[ANALYTICS] Warte auf API_BASE Initialisierung...');
+          // Warte bis API_BASE gesetzt ist (max. 2 Sekunden)
+          let attempts = 0;
+          const checkInterval = setInterval(() => {
+            attempts++;
+            let currentApiBase = '';
+            try {
+              currentApiBase = window.API_BASE || '';
+            } catch (e) {
+              // Ignoriere Fehler
+            }
+            if (!currentApiBase) {
+              const isLocal = window.location.hostname === 'localhost' || 
+                             window.location.hostname === '127.0.0.1' ||
+                             window.location.hostname.startsWith('192.168.') ||
+                             window.location.hostname.startsWith('172.') ||
+                             window.location.hostname.startsWith('10.') ||
+                             window.location.protocol === 'file:';
+              currentApiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+            }
+            if (currentApiBase || attempts > 20) {
+              clearInterval(checkInterval);
+              if (currentApiBase) {
+                console.log('[ANALYTICS] API_BASE gefunden, tracke Page View');
+                executePageViewTracking();
+              } else {
+                console.warn('[ANALYTICS] API_BASE nicht gefunden, verwende direkte Render-URL');
+                executePageViewTrackingWithDirectUrl();
+              }
+            }
+          }, 100);
+        } else {
+          executePageViewTracking();
+        }
+      } else {
+        console.log('[ANALYTICS] Page View bereits in dieser Session getrackt');
+      }
     }
+    
+    function executePageViewTracking() {
+      console.log('[ANALYTICS] Tracke Page View (erste Session)');
+      analyticsTrack('page_view').then(() => {
+        console.log('[ANALYTICS] ✓ Page View erfolgreich getrackt');
+        sessionStorage.setItem('analytics_tracked', '1');
+      }).catch((err) => {
+        console.error('[ANALYTICS] ✗ Page View Tracking fehlgeschlagen:', err);
+        // Versuche es erneut nach kurzer Verzögerung
+        setTimeout(() => {
+          console.log('[ANALYTICS] Retry: Tracke Page View erneut');
+          analyticsTrack('page_view').then(() => {
+            sessionStorage.setItem('analytics_tracked', '1');
+          }).catch((retryErr) => {
+            console.error('[ANALYTICS] ✗ Retry fehlgeschlagen:', retryErr);
+          });
+        }, 1000);
+      });
+    }
+    
+    function executePageViewTrackingWithDirectUrl() {
+      // Fallback: Verwende direkte Render-URL wenn API_BASE nicht verfügbar
+      console.log('[ANALYTICS] Tracke Page View mit direkter Render-URL');
+      fetch('https://ga-suche.onrender.com/api/analytics/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'page_view', value: null })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        console.log('[ANALYTICS] ✓ Page View erfolgreich getrackt (direkte URL)');
+        sessionStorage.setItem('analytics_tracked', '1');
+      })
+      .catch((err) => {
+        console.error('[ANALYTICS] ✗ Page View Tracking fehlgeschlagen (direkte URL):', err);
+      });
+    }
+    
+    // Starte Page View Tracking nach kurzer Verzögerung, damit API_BASE gesetzt werden kann
+    console.log('[ANALYTICS] ========================================');
+    console.log('[ANALYTICS] Initialisiere Page View Tracking...');
+    console.log('[ANALYTICS] sessionStorage analytics_tracked:', sessionStorage.getItem('analytics_tracked'));
+    console.log('[ANALYTICS] window.API_BASE:', window.API_BASE);
+    console.log('[ANALYTICS] Hostname:', window.location.hostname);
+    console.log('[ANALYTICS] ========================================');
+    
+    // Warte etwas länger, damit window.API_BASE definitiv gesetzt ist
+    setTimeout(() => {
+      console.log('[ANALYTICS] Timeout abgelaufen, starte trackPageView()');
+      console.log('[ANALYTICS] window.API_BASE jetzt:', window.API_BASE);
+      trackPageView();
+    }, 1000); // Erhöht auf 1 Sekunde für mehr Sicherheit
     
     // Analytics-Datenquelle umschalten (lokal/online)
     window.analyticsUseOnlineData = false; // Standard: lokale Daten
@@ -9728,7 +9876,23 @@ PDF
           console.log('[ANALYTICS] Lade Online-Daten von Render:', url);
         } else {
           // Verwende API_BASE wie alle anderen API-Aufrufe (lokal oder online je nach Umgebung)
-          const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : '');
+          // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
+          let apiBase = '';
+          try {
+            apiBase = window.API_BASE || '';
+          } catch (e) {
+            // Ignoriere Fehler
+          }
+          // Fallback basierend auf Hostname
+          if (!apiBase) {
+            const isLocal = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' ||
+                           window.location.hostname.startsWith('192.168.') ||
+                           window.location.hostname.startsWith('172.') ||
+                           window.location.hostname.startsWith('10.') ||
+                           window.location.protocol === 'file:';
+            apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+          }
           url = apiBase ? `${apiBase}/api/analytics/stats` : '/api/analytics/stats';
           console.log('[ANALYTICS] Lade lokale Daten:', url);
         }
@@ -9747,9 +9911,12 @@ PDF
         // Stelle sicher, dass dailyData existiert und ein Array ist
         const dailyData = Array.isArray(data.dailyData) ? data.dailyData : [];
         
-        // Debug: Logge dailyData für Diagnose (erweitert)
-        console.log('[ANALYTICS] dailyData Details:', JSON.stringify({
-          length: dailyData.length,
+        // Debug: Logge alle Daten für Diagnose (erweitert)
+        console.log('[ANALYTICS] Vollständige API-Antwort:', JSON.stringify({
+          today: data.today,
+          week: data.week,
+          total: data.total,
+          dailyDataLength: dailyData.length,
           firstFew: dailyData.slice(0, 3).map(d => ({ date: d.date, views: d.views, searches: d.searches })),
           lastFew: dailyData.slice(-3).map(d => ({ date: d.date, views: d.views, searches: d.searches })),
           allViews: dailyData.map(d => d.views || 0),
@@ -9777,17 +9944,17 @@ PDF
           <div class="analytics-stats-row">
             <div class="analytics-stat-box">
               <h4>Heute</h4>
-              <div class="stat-value">${data.today?.views || 0}</div>
+              <div class="stat-value" style="color: ${(Number(data.today?.views) || 0) > 0 ? 'var(--text-color)' : 'var(--secondary-text)'}">${Number(data.today?.views) || 0}</div>
               <div class="stat-label">Besuche</div>
             </div>
             <div class="analytics-stat-box">
               <h4>Diese Woche</h4>
-              <div class="stat-value">${data.week?.views || 0}</div>
+              <div class="stat-value" style="color: ${(Number(data.week?.views) || 0) > 0 ? 'var(--text-color)' : 'var(--secondary-text)'}">${Number(data.week?.views) || 0}</div>
               <div class="stat-label">Besuche</div>
             </div>
             <div class="analytics-stat-box">
               <h4>Gesamt</h4>
-              <div class="stat-value">${data.total?.views || 0}</div>
+              <div class="stat-value" style="color: ${(Number(data.total?.views) || 0) > 0 ? 'var(--text-color)' : 'var(--secondary-text)'}">${Number(data.total?.views) || 0}</div>
               <div class="stat-label">Besuche</div>
             </div>
           </div>
@@ -9818,22 +9985,35 @@ PDF
                 const searches = Number(d.searches) || 0;
                 // Berechne Höhe: Wenn maxViews > 0, verwende Prozent, sonst minimale Höhe für Sichtbarkeit
                 let viewsHeight;
-                if (maxViews > 0) {
-                  viewsHeight = Math.max((views / maxViews) * 100, 2);
+                if (maxViews > 0 && maxViews > 1) {
+                  viewsHeight = Math.max((views / maxViews) * 100, views > 0 ? 2 : 0);
+                } else if (maxViews === 1 && views > 0) {
+                  // Wenn maxViews = 1 und views > 0, zeige volle Höhe
+                  viewsHeight = 100;
                 } else {
                   // Wenn alle Views 0 sind, zeige minimale Höhe für Sichtbarkeit
-                  viewsHeight = views > 0 ? 100 : 2;
+                  viewsHeight = views > 0 ? 100 : 0;
                 }
                 // Debug nur für erste 3 Balken
                 if (index < 3) {
                   console.log(`[ANALYTICS] Bar ${index}:`, { date: d.date, views, searches, viewsHeight, maxViews });
                 }
-                return `
-                  <div class="analytics-chart-bar" 
-                       style="height: ${viewsHeight}%; min-height: 2px; background: var(--accent-color);"
-                       data-label="${d.label || d.date || ''}"
-                       title="${d.date || ''}: ${views} Besuche, ${searches} Suchen"></div>
-                `;
+                // Zeige Balken nur wenn views > 0 oder wenn es der einzige Tag mit Daten ist
+                if (views > 0 || maxViews > 0) {
+                  return `
+                    <div class="analytics-chart-bar" 
+                         style="height: ${viewsHeight}%; min-height: ${views > 0 ? '2px' : '0px'}; background: var(--accent-color);"
+                         data-label="${d.label || d.date || ''}"
+                         title="${d.date || ''}: ${views} Besuche, ${searches} Suchen"></div>
+                  `;
+                } else {
+                  return `
+                    <div class="analytics-chart-bar" 
+                         style="height: 0%; min-height: 0px; background: transparent;"
+                         data-label="${d.label || d.date || ''}"
+                         title="${d.date || ''}: ${views} Besuche, ${searches} Suchen"></div>
+                  `;
+                }
               }).join('') : '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Daten verfügbar</div>'}
             </div>
           </div>
@@ -14389,7 +14569,16 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
   
   try {
     // WICHTIG: Verwende window.API_BASE falls API_BASE nicht im Scope verfügbar ist
-    const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.API_BASE || 'https://ga-suche.onrender.com');
+    // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
+    let apiBase = '';
+    try {
+      apiBase = window.API_BASE || '';
+    } catch (e) {
+      // Ignoriere Fehler
+    }
+    if (!apiBase) {
+      apiBase = 'https://ga-suche.onrender.com'; // Fallback für Online-Version
+    }
     
     // Lade GA-Liste mit Titeln
     let gaListResponse;
