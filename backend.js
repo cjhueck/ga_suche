@@ -4872,6 +4872,130 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
   }
 });
 
+/**
+ * BUTTON: Nur Überschriften (H3/H4) generieren
+ * Generiert nur die Zwischenüberschriften, keine Summary, TOC oder Keywords
+ * WICHTIG: ShortSummary und alle anderen Daten bleiben erhalten!
+ */
+app.post('/api/batch-generate-headings', async (req, res) => {
+  try {
+    const { 
+      lectureIds = [], 
+      preferredProvider = null,
+      parallelChunkSize = 10  // Parallele Verarbeitung in 10er-Chunks
+    } = req.body;
+    
+    if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
+    }
+    
+    console.log(`[BATCH-HEADINGS] Starte Generierung für ${lectureIds.length} Vorträge (Chunks à ${parallelChunkSize})`);
+    
+    const results = {
+      processed: 0,
+      failed: 0,
+      errors: []
+    };
+    
+    // Hilfsfunktion: Verarbeite einen einzelnen Vortrag
+    const processLecture = async (lectureId) => {
+      try {
+        // Extrahiere existierende Obsidian-Überschriften aus dem Lecture-Content (HTML)
+        const lecture = fullLectures[lectureId];
+        const obsidianHeadings = lecture ? extractExistingHeadingsFromHTML(lecture) : [];
+        
+        // Generiere S+H+TOC, aber speichere nur H
+        const generatedData = await generateUnifiedLectureData(lectureId, 'structure', {
+          provider: preferredProvider,
+          forceRegenerate: true
+        });
+        
+        // MERGE: Obsidian-Überschriften haben Priorität, generierte werden ergänzt
+        let mergedHeadings = [...obsidianHeadings]; // Obsidian zuerst
+        const obsidianIndices = new Set(obsidianHeadings.map(h => h.index));
+        
+        // Füge generierte Überschriften hinzu, wenn kein Konflikt
+        for (const genHeading of generatedData.headings) {
+          if (!obsidianIndices.has(genHeading.index)) {
+            mergedHeadings.push(genHeading);
+          }
+        }
+        
+        // Sortiere nach Reihenfolge im Vortrag (falls möglich)
+        if (lecture?.paragraphs) {
+          const paragraphOrder = lecture.paragraphs.map(p => p.index);
+          mergedHeadings.sort((a, b) => {
+            const idxA = paragraphOrder.indexOf(a.index);
+            const idxB = paragraphOrder.indexOf(b.index);
+            return idxA - idxB;
+          });
+        }
+        
+        console.log(`[BATCH-HEADINGS] ${lectureId}: ${obsidianHeadings.length} Obsidian + ${generatedData.headings.length} generiert → ${mergedHeadings.length} merged`);
+        
+        // Lade existierende Summary-Daten und aktualisiere NUR Headings
+        // WICHTIG: Alle anderen Felder (summary, shortSummary, tableOfContents, lectureKeywords etc.) bleiben erhalten!
+        const summaryDB = await loadSummaryDatabase();
+        const existingData = summaryDB[lectureId] || {};
+        
+        // Speichere in Summary-DB (nur Headings aktualisieren, ALLES ANDERE bleibt!)
+        await saveSummaryToDatabase(lectureId, {
+          ...existingData,  // Behält: summary, shortSummary, tableOfContents, lectureKeywords, version, generated etc.
+          headings: mergedHeadings,
+          headingsGenerated: new Date().toISOString()
+        });
+        
+        return { success: true, lectureId };
+        
+      } catch (error) {
+        console.error(`[BATCH-HEADINGS] ✗ ${lectureId} fehlgeschlagen:`, error.message);
+        return { success: false, lectureId, error: error.message };
+      }
+    };
+    
+    // Verarbeite in parallelen Chunks (10 gleichzeitig)
+    for (let i = 0; i < lectureIds.length; i += parallelChunkSize) {
+      const chunk = lectureIds.slice(i, i + parallelChunkSize);
+      const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
+      const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
+      
+      console.log(`[BATCH-HEADINGS] Chunk ${chunkNumber}/${totalChunks}: ${chunk.length} Vorträge parallel...`);
+      
+      // Verarbeite Chunk parallel
+      const chunkResults = await Promise.allSettled(
+        chunk.map(lectureId => processLecture(lectureId))
+      );
+      
+      // Sammle Ergebnisse
+      chunkResults.forEach(result => {
+        if (result.status === 'fulfilled' && result.value.success) {
+          results.processed++;
+        } else {
+          results.failed++;
+          const error = result.status === 'rejected' 
+            ? result.reason?.message || 'Unbekannter Fehler'
+            : result.value?.error || 'Unbekannter Fehler';
+          results.errors.push({ 
+            lectureId: result.value?.lectureId || 'unknown', 
+            error 
+          });
+        }
+      });
+    }
+    
+    console.log(`[BATCH-HEADINGS] Fertig: ${results.processed} erfolgreich, ${results.failed} Fehler`);
+    
+    res.json({
+      success: true,
+      ...results
+    });
+    
+  } catch (error) {
+    console.error('[BATCH-HEADINGS] Kritischer Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
     const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;

@@ -1450,6 +1450,13 @@
           <li><a href="members.html" target="_blank" rel="noopener noreferrer">Mitgliederbereich</a> <span class="description">- persönliche Bookmarks setzen, Zitate und Themenabfragen speichern</span></li>
         </ul>
         
+        <h3>Tools</h3>
+        
+        <ul class="nav-links">
+          <li><a href="page-marker-checker.html" target="_blank" rel="noopener noreferrer">Seitenmarker Checker</a> <span class="description">- Seitenmarker in MD-Dateien mit PDF abgleichen</span></li>
+          <li><a href="md-pdf-comparison.html" target="_blank" rel="noopener noreferrer">MD-PDF Textvergleich</a> <span class="description">- Markdown-Text mit PDF-Text vergleichen und Unterschiede finden</span></li>
+        </ul>
+        
         <h3>Sammlungen zu einzelnen Themen</h3>
         
         <ul class="nav-links">
@@ -1660,12 +1667,8 @@
         
         // Konvertiere Markdown zu HTML mit marked.js
         if (typeof marked !== 'undefined') {
-          // Konfiguriere marked für besseres Rendering
-          marked.setOptions({
-            breaks: true,
-            gfm: true
-          });
-          contentText.innerHTML = marked.parse(processedMarkdown);
+          // Konfiguriere marked für besseres Rendering (mit expliziten Optionen für Gedichte)
+          contentText.innerHTML = marked.parse(processedMarkdown, { breaks: true, gfm: true });
         } else {
           // Fallback: Zeige Markdown als Text
           contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
@@ -1780,13 +1783,9 @@
         // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
         const processedMarkdown = preprocessObsidianLineBreaks(markdown);
         
-        // Konvertiere Markdown zu HTML mit marked.js
+        // Konvertiere Markdown zu HTML mit marked.js (mit expliziten Optionen für Gedichte)
         if (typeof marked !== 'undefined') {
-          marked.setOptions({
-            breaks: true,
-            gfm: true
-          });
-          let html = marked.parse(processedMarkdown);
+          let html = marked.parse(processedMarkdown, { breaks: true, gfm: true });
           
           // Setze HTML-Inhalt ZUERST (damit Inhalt immer angezeigt wird)
           contentDiv.innerHTML = html;
