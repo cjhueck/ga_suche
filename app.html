@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
@@ -7304,7 +7304,7 @@ Wandtafeln
 </div>
 <div id="texte-admin-buttons" style="display:none; gap:8px; align-items:center; margin-top: 0.5rem; flex-wrap: wrap;">
   <!-- Export Button -->
-  <button id="export-ga-btn" class="depth-btn" onclick="exportCurrentGA()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #28a745; border: 1px solid #28a745;" title="GA-Band neu exportieren (aus Markdown-Quellen)">
+  <button id="export-ga-btn" class="depth-btn" onclick="exportCurrentGA()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #28a745; border: 1px solid #28a745;" title="GA-Band oder einzelnen Vortrag exportieren">
     Export
   </button>
   <!-- Pages-Korrektur Button -->
@@ -29703,7 +29703,8 @@ async function startBatchAllSummaries() {
 // ============================================================================
 
 /**
- * Exportiert den aktuell ausgewählten GA-Band neu.
+ * Exportiert den aktuell ausgewählten GA-Band oder einzelnen Vortrag neu.
+ * Wenn ein Vortrag im Side Panel angeklickt ist, wird nur dieser exportiert.
  * Erkennt automatisch den Typ (Bücher, Vorträge, Briefe) und ruft das passende Export-Skript auf.
  */
 async function exportCurrentGA() {
@@ -29720,17 +29721,32 @@ async function exportCurrentGA() {
     return;
   }
   
+  // Prüfe ob ein einzelner Vortrag angeklickt ist
+  const lectureId = window.currentOpenLectureId;
+  const isLectureExport = lectureId && lectureId.startsWith('GA');
+  
   // Zeige Bestätigungsdialog
-  const confirmMsg = `GA-Band ${gaNumber} neu exportieren?\n\nDies wird:\n• Die Markdown-Quellen aus Steiner_GA/ lesen\n• Die JSON-Dateien neu generieren\n• Bestehende Pagebreaks für diesen Band löschen\n\nDer Export kann einige Sekunden dauern.`;
+  let confirmMsg;
+  let exportTarget;
+  
+  if (isLectureExport) {
+    confirmMsg = `Einzelnen Vortrag "${lectureId}" exportieren?\n\nDies wird:\n• Die Markdown-Quelle für diesen Vortrag lesen\n• Die JSON-Daten für diesen Vortrag aktualisieren\n\nDer Export kann einige Sekunden dauern.`;
+    exportTarget = lectureId;
+  } else {
+    confirmMsg = `GA-Band ${gaNumber} neu exportieren?\n\nDies wird:\n• Die Markdown-Quellen aus Steiner_GA/ lesen\n• Die JSON-Dateien neu generieren\n• Bestehende Pagebreaks für diesen Band löschen\n\nDer Export kann einige Sekunden dauern.`;
+    exportTarget = gaNumber;
+  }
+  
   if (!confirm(confirmMsg)) {
     return;
   }
   
   // Zeige Fortschrittsanzeige im Viewer
   const viewer = document.getElementById('viewer');
+  const exportLabel = isLectureExport ? `Vortrag: ${lectureId}` : `GA-Band: ${gaNumber}`;
   viewer.innerHTML = `
     <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">📤 Export: ${gaNumber}</h3>
+      <h3 style="margin-bottom: 1rem;">📤 Export: ${exportLabel}</h3>
       <div id="export-progress" style="margin-bottom: 1rem;">
         <p style="color: #17a2b8;">⏳ Export wird gestartet...</p>
       </div>
@@ -29742,10 +29758,14 @@ async function exportCurrentGA() {
   
   try {
     // Rufe Backend-API für Export auf
+    const requestBody = isLectureExport 
+      ? { gaNumber, lectureId } 
+      : { gaNumber };
+    
     const resp = await fetch(`${API_BASE}/api/export/ga`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ gaNumber })
+      body: JSON.stringify(requestBody)
     });
     
     const result = await resp.json();
@@ -29753,10 +29773,14 @@ async function exportCurrentGA() {
     
     if (resp.ok && result.success) {
       // Erfolg
+      const lectureInfo = result.lectureId 
+        ? `<p><strong>Vortrag:</strong> ${result.lectureId}</p>` 
+        : '';
       progressDiv.innerHTML = `
         <p style="color: #5cb85c; font-size: 1.2em;">✓ Export erfolgreich!</p>
         <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
           <p><strong>GA-Band:</strong> ${result.gaNumber}</p>
+          ${lectureInfo}
           <p><strong>Typ:</strong> ${result.type}</p>
           <p><strong>Exportierte Dateien:</strong> ${result.files?.length || 1}</p>
           ${result.lectureCount ? `<p><strong>Vorträge:</strong> ${result.lectureCount}</p>` : ''}

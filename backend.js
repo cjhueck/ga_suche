@@ -5239,10 +5239,12 @@ AUFGABE:
    
    H3 = HAUPTTHEMA (große thematische Abschnitte)
    - Markiert einen neuen Hauptgedanken oder großes Themengebiet
+   - Überschreibt größere Sinnabschnitte des Vortrags
    - Beispiele: "Die Entwicklung des Bewusstseins", "Die Mysterien der Antike"
    
-   H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
-   - Gehört IMMER zu einem H3-Thema und vertieft/untergliedert dieses
+   H4 = UNTERTHEMA (kleinere Sinnabschnitte innerhalb eines H3-Hauptthemas)
+   - Gehört IMMER zu einem H3-Thema und markiert kleinere Sinnabschnitte innerhalb dieses Hauptthemas
+   - Untergliedert das H3-Thema in spezifischere Aspekte
    - Beispiele unter H3 "Die Entwicklung des Bewusstseins":
      * H4: "Das alte Bewusstsein in Atlantis"
      * H4: "Der Übergang zur nachatlantischen Zeit"
@@ -5253,10 +5255,22 @@ AUFGABE:
    - In solchen Bereichen DARFST DU ABSOLUT KEINE Überschriften (H3 oder H4) einfügen!
    - Prüfe VOR jeder Überschrift, ob der Bereich ein Gedicht ist!
    
-   🎯 STRUKTUR-REGEL:
-   - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
-   - JEDES H3 MUSS 2-4 H4-Unterthemen haben
-   - H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
+   🎯 STRUKTUR-REGEL - 🔴 KRITISCH WICHTIG:
+   
+   1. H3-ÜBERSCHRIFTEN:
+      - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
+      - Jedes H3 markiert einen größeren Sinnabschnitt
+      - Sinnabschnitte sollen NICHT zu kleinteilig sein - wähle angemessene Größe
+   
+   2. H4-ÜBERSCHRIFTEN - WICHTIGE REGELN:
+      - Direkt nach einer H3-Überschrift darf HÖCHSTENS EINE H4-Überschrift stehen
+      - Die nächste H4-Überschrift kommt erst über dem NÄCHSTEN Sinnabschnitt (nicht direkt hintereinander)
+      - H4 markieren kleinere Sinnabschnitte innerhalb des H3-Themas
+      - Zwischen H4-Überschriften muss immer Text stehen (keine direkte Abfolge)
+      - Ein H3-Thema kann mehrere H4-Unterabschnitte haben, aber diese müssen über den Text verteilt sein
+   
+   3. ALLGEMEIN:
+      - Der Text kann in kleinere Absätze aufgeteilt werden, aber die Überschriften sollen sinnvolle, nicht zu kleinteilige Abschnitte markieren
 
 3. INHALTSVERZEICHNIS - Für jede H3: Prägnante Kurzbeschreibung (10-15 Wörter) was in diesem Abschnitt behandelt wird
    ⚠️ ABSOLUT VERBOTEN - KEINE META-SPRACHE in Beschreibungen!
@@ -5779,21 +5793,35 @@ REGELN FÜR HEADINGS - 🔴 HIERARCHIE BEACHTEN:
 
 H3 = HAUPTTHEMA (große thematische Abschnitte)
 - Markiert einen neuen Hauptgedanken oder großes Themengebiet
+- Überschreibt größere Sinnabschnitte des Vortrags
 - Beispiele: "Die Entwicklung des Bewusstseins", "Die Mysterien der Antike", "Das Verhältnis von Geist und Materie"
 
-H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
-- Gehört IMMER zu einem H3-Thema und vertieft/untergliedert dieses
+H4 = UNTERTHEMA (kleinere Sinnabschnitte innerhalb eines H3-Hauptthemas)
+- Gehört IMMER zu einem H3-Thema und markiert kleinere Sinnabschnitte innerhalb dieses Hauptthemas
+- Untergliedert das H3-Thema in spezifischere Aspekte
 - Beispiele unter H3 "Die Entwicklung des Bewusstseins":
   * H4: "Das alte Bewusstsein in Atlantis"
   * H4: "Der Übergang zur nachatlantischen Zeit"
   * H4: "Das moderne Ich-Bewusstsein"
 
-🎯 STRUKTUR-REGEL:
-- Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
-- JEDES H3 MUSS 2-4 H4-Unterthemen haben
-- H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
-- Verwende die Index-Markierungen [Index: ^abc123] aus dem Text
-- Überschriften sollen das kommende Thema ankündigen
+🎯 STRUKTUR-REGEL - 🔴 KRITISCH WICHTIG:
+
+1. H3-ÜBERSCHRIFTEN:
+   - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
+   - Jedes H3 markiert einen größeren Sinnabschnitt
+   - Sinnabschnitte sollen NICHT zu kleinteilig sein - wähle angemessene Größe
+
+2. H4-ÜBERSCHRIFTEN - WICHTIGE REGELN:
+   - Direkt nach einer H3-Überschrift darf HÖCHSTENS EINE H4-Überschrift stehen
+   - Die nächste H4-Überschrift kommt erst über dem NÄCHSTEN Sinnabschnitt (nicht direkt hintereinander)
+   - H4 markieren kleinere Sinnabschnitte innerhalb des H3-Themas
+   - Zwischen H4-Überschriften muss immer Text stehen (keine direkte Abfolge)
+   - Ein H3-Thema kann mehrere H4-Unterabschnitte haben, aber diese müssen über den Text verteilt sein
+
+3. ALLGEMEIN:
+   - Verwende die Index-Markierungen [Index: ^abc123] aus dem Text
+   - Überschriften sollen das kommende Thema ankündigen
+   - Der Text kann in kleinere Absätze aufgeteilt werden, aber die Überschriften sollen sinnvolle, nicht zu kleinteilige Abschnitte markieren
 
 🚨 KRITISCH: KEINE ÜBERSCHRIFTEN IN GEDICHTE!
 - Ein Gedicht besteht aus mindestens zwei aufeinanderfolgenden Zeilen, die durch Absatzmarken getrennt sind und weniger als 90 Zeichen pro Zeile haben
@@ -5999,20 +6027,34 @@ AUFGABEN:
    
    H3 = HAUPTTHEMA (große thematische Abschnitte)
    - Markiert einen neuen Hauptgedanken oder großes Themengebiet
+   - Überschreibt größere Sinnabschnitte des Vortrags
    - Beispiele: "Die Entwicklung des Bewusstseins", "Die Mysterien der Antike", "Das Verhältnis von Geist und Materie"
    
-   H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
-   - Gehört IMMER zu einem H3-Thema und vertieft/untergliedert dieses
+   H4 = UNTERTHEMA (kleinere Sinnabschnitte innerhalb eines H3-Hauptthemas)
+   - Gehört IMMER zu einem H3-Thema und markiert kleinere Sinnabschnitte innerhalb dieses Hauptthemas
+   - Untergliedert das H3-Thema in spezifischere Aspekte
    - Beispiele unter H3 "Die Entwicklung des Bewusstseins":
      * H4: "Das alte Bewusstsein in Atlantis"
      * H4: "Der Übergang zur nachatlantischen Zeit"
      * H4: "Das moderne Ich-Bewusstsein"
    
-   🎯 STRUKTUR-REGEL:
-   - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
-   - JEDES H3 MUSS 2-4 H4-Unterthemen haben
-   - H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
-   - Nutze die Index-Markierungen [Index: ^abc123] aus dem Text
+   🎯 STRUKTUR-REGEL - 🔴 KRITISCH WICHTIG:
+   
+   1. H3-ÜBERSCHRIFTEN:
+      - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
+      - Jedes H3 markiert einen größeren Sinnabschnitt
+      - Sinnabschnitte sollen NICHT zu kleinteilig sein - wähle angemessene Größe
+   
+   2. H4-ÜBERSCHRIFTEN - WICHTIGE REGELN:
+      - Direkt nach einer H3-Überschrift darf HÖCHSTENS EINE H4-Überschrift stehen
+      - Die nächste H4-Überschrift kommt erst über dem NÄCHSTEN Sinnabschnitt (nicht direkt hintereinander)
+      - H4 markieren kleinere Sinnabschnitte innerhalb des H3-Themas
+      - Zwischen H4-Überschriften muss immer Text stehen (keine direkte Abfolge)
+      - Ein H3-Thema kann mehrere H4-Unterabschnitte haben, aber diese müssen über den Text verteilt sein
+   
+   3. ALLGEMEIN:
+      - Nutze die Index-Markierungen [Index: ^abc123] aus dem Text
+      - Der Text kann in kleinere Absätze aufgeteilt werden, aber die Überschriften sollen sinnvolle, nicht zu kleinteilige Abschnitte markieren
 
 3. TABLE OF CONTENTS: Für jede H3 eine Kurzbeschreibung (10-15 Wörter, KEINE Meta-Sprache)
 4. KEYWORDS: 8-15 Keywords
@@ -11906,10 +11948,10 @@ app.post('/api/pages/remove-bulk', async (req, res) => {
   }
 });
 
-// POST /api/export/ga - Exportiert einen GA-Band neu (ruft das passende Export-Skript auf)
+// POST /api/export/ga - Exportiert einen GA-Band oder einzelnen Vortrag neu (ruft das passende Export-Skript auf)
 app.post('/api/export/ga', async (req, res) => {
   try {
-    const { gaNumber } = req.body;
+    const { gaNumber, lectureId } = req.body;
     
     if (!gaNumber) {
       return res.status(400).json({ error: 'gaNumber erforderlich' });
@@ -11925,7 +11967,14 @@ app.post('/api/export/ga', async (req, res) => {
     const gaSuffix = gaNum.match(/[a-z]$/i)?.[0]?.toLowerCase() || '';
     const normalizedGA = `GA${gaNum.padStart(3, '0')}${gaSuffix}`.toUpperCase();
     
-    console.log(`[EXPORT] Starte Export für ${normalizedGA}...`);
+    // Prüfe ob einzelner Vortrag exportiert werden soll
+    const isSingleLecture = lectureId && lectureId.match(/^GA\d{3}[a-z]?\s*\(\d+\.\)/i);
+    
+    if (isSingleLecture) {
+      console.log(`[EXPORT] Starte Export für einzelnen Vortrag: ${lectureId}...`);
+    } else {
+      console.log(`[EXPORT] Starte Export für ${normalizedGA}...`);
+    }
     
     // Bestimme den Typ des GA-Bands
     let exportType = 'lectures'; // Default: Vorträge
@@ -12047,13 +12096,19 @@ app.post('/api/export/ga', async (req, res) => {
           console.warn(`[EXPORT] Warnung beim Nachladen: ${loadErr.message}`);
         }
         
+        // Bei Einzelvortrag: angepasste Meldung
+        const exportMessage = isSingleLecture
+          ? `Vortrag "${lectureId}" erfolgreich exportiert (GA-Band ${normalizedGA} aktualisiert)`
+          : `Export für ${normalizedGA} erfolgreich abgeschlossen`;
+        
         res.json({
           success: true,
           gaNumber: normalizedGA,
+          lectureId: isSingleLecture ? lectureId : undefined,
           type: exportType,
           files: files,
           lectureCount: lectureCount > 0 ? lectureCount : undefined,
-          message: `Export für ${normalizedGA} erfolgreich abgeschlossen`
+          message: exportMessage
         });
         
       } else {
@@ -14589,14 +14644,15 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
         // Lade immer die aktuellste Version der Datenbank (Cache umgehen)
         const summaryDB = await loadSummaryDatabase(true);
         
-        // Füge neue Summary hinzu oder aktualisiere bestehende
+        // WICHTIG: Behalte existierende Daten und aktualisiere nur die übergebenen Felder
+        // Dies stellt sicher, dass shortSummary, summary, keywords etc. nicht verloren gehen
+        const existingData = summaryDB[lectureId] || {};
+        
+        // Merge: Existierende Daten behalten, neue Daten haben Priorität
         summaryDB[lectureId] = {
-          summary: summaryData.summary,
-          headings: summaryData.headings || [],
-          tableOfContents: summaryData.tableOfContents || [],
-          lectureKeywords: summaryData.lectureKeywords || [],
-          version: summaryData.version || 'v1',
-          timestamp: new Date().toISOString()
+          ...existingData,  // Behält alle existierenden Felder (shortSummary, summary, etc.)
+          ...summaryData,   // Überschreibt nur die übergebenen Felder
+          timestamp: new Date().toISOString()  // Aktualisiere Timestamp
         };
         
         // Speichere Datenbank
