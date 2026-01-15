@@ -1,0 +1,286 @@
+{
+  "main": {
+    "id": "956c98d206c31f32",
+    "type": "split",
+    "children": [
+      {
+        "id": "58e8e74e559531d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6b6b15552a54fd28",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen"
+            }
+          },
+          {
+            "id": "75963239c476a3e6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung"
+            }
+          },
+          {
+            "id": "8c75f42236b6d848",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit"
+            }
+          },
+          {
+            "id": "4ad73a0d45528b06",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung"
+            }
+          },
+          {
+            "id": "bdec84d3c1653212",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen"
+            }
+          },
+          {
+            "id": "f0957c1848e85305",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen"
+            }
+          },
+          {
+            "id": "5547e03f8c341d77",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final"
+            }
+          }
+        ],
+        "currentTab": 6
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c8ee53daef157e20",
+    "type": "split",
+    "children": [
+      {
+        "id": "72c89da248152db7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "189fb7af378e87fa",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9e7337fa573c0bb2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "efe385c595022ef6",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 623.5
+  },
+  "right": {
+    "id": "4efcffdc424c60f2",
+    "type": "split",
+    "children": [
+      {
+        "id": "28eddbfc00e27700",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4fd6ead527d644aa",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung"
+            }
+          },
+          {
+            "id": "8fffce21632f6806",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung"
+            }
+          },
+          {
+            "id": "7690b2a8e70e7ae8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "4063a30883559928",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "3720149161e1c7d4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "ocr-extractor:Extract text": false
+    }
+  },
+  "active": "5547e03f8c341d77",
+  "lastOpenFiles": [
+    "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.pdf",
+    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf",
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.docx",
+    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.md",
+    "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung_extracted.md",
+    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.md",
+    "pdf/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.pdf",
+    "pdf/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung 1.pdf",
+    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.pdf",
+    "pdf",
+    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.md",
+    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie",
+    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen/Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.md",
+    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen",
+    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit",
+    "Welcome.md"
+  ]
+}
