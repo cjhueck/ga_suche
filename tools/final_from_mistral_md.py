@@ -29,6 +29,146 @@ if sys.platform == "win32":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
+# Optional: PIL für Bildkonvertierung
+try:
+    from PIL import Image
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
+
+
+def convert_jpeg_to_png_in_folder(folder_path: Path) -> int:
+    """
+    Konvertiert alle JPEG-Dateien in einem Ordner zu PNG.
+    
+    Args:
+        folder_path: Pfad zum Ordner (z.B. assets/)
+        
+    Returns:
+        Anzahl konvertierter Dateien
+    """
+    if not HAS_PIL:
+        print("  WARNUNG: PIL nicht installiert, Bildkonvertierung übersprungen")
+        return 0
+    
+    if not folder_path.exists():
+        return 0
+    
+    converted = 0
+    
+    # Finde alle JPEG-Dateien
+    jpeg_files = list(folder_path.glob('*.jpeg')) + list(folder_path.glob('*.jpg')) + \
+                 list(folder_path.glob('*.JPEG')) + list(folder_path.glob('*.JPG'))
+    
+    for jpeg_file in jpeg_files:
+        try:
+            png_file = jpeg_file.with_suffix('.png')
+            
+            # Öffne und konvertiere Bild
+            with Image.open(jpeg_file) as img:
+                # Konvertiere zu RGB für maximale Kompatibilität
+                if img.mode in ('RGBA', 'LA', 'P'):
+                    img.save(png_file, 'PNG', optimize=True)
+                else:
+                    rgb_img = Image.new('RGB', img.size, (255, 255, 255))
+                    rgb_img.paste(img)
+                    rgb_img.save(png_file, 'PNG', optimize=True)
+            
+            # Lösche Original-JPEG
+            jpeg_file.unlink()
+            converted += 1
+            
+        except Exception as e:
+            print(f"    FEHLER bei {jpeg_file.name}: {e}")
+    
+    return converted
+
+
+def fix_image_placeholders_in_content(content: str) -> str:
+    """
+    Korrigiert Bildplatzhalter im Markdown-Text.
+    Konvertiert .jpeg/.jpg Referenzen zu .png.
+    
+    Args:
+        content: Markdown-Text
+        
+    Returns:
+        Korrigierter Text
+    """
+    # Pattern 1: Pfad mit .jpeg/.jpg → .png
+    jpeg_pattern = r'!\[([^\]]*)\]\(([^)]*\.jpe?g)([^)]*)\)'
+    
+    def convert_jpeg_to_png(match):
+        alt_text = match.group(1)
+        path_before_ext = match.group(2)
+        path_after_ext = match.group(3)
+        
+        # Konvertiere auch Alt-Text von .jpeg/.jpg zu .png
+        alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+        
+        # Entferne .jpeg oder .jpg und füge .png hinzu
+        path_without_ext = re.sub(r'\.jpe?g$', '', path_before_ext, flags=re.IGNORECASE)
+        png_path_full = path_without_ext + '.png' + path_after_ext
+        
+        return f'![{alt_text_converted}]({png_path_full})'
+    
+    content = re.sub(jpeg_pattern, convert_jpeg_to_png, content)
+    
+    # Pattern 2: Alt-Text mit .jpeg/.jpg, aber Pfad bereits .png
+    alt_jpeg_pattern = r'!\[([^\]]*\.jpe?g)\](\([^)]*\.png[^)]*\))'
+    
+    def convert_alt_jpeg_to_png(match):
+        alt_text = match.group(1)
+        path_part = match.group(2)
+        alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+        return f'![{alt_text_converted}]{path_part}'
+    
+    content = re.sub(alt_jpeg_pattern, convert_alt_jpeg_to_png, content)
+    
+    return content
+
+
+def process_images(md_path: Path, content: str) -> str:
+    """
+    Verarbeitet Bilder in einer MD-Datei:
+    1. Konvertiert JPEG zu PNG im assets-Ordner
+    2. Aktualisiert Platzhalter im Text
+    
+    Args:
+        md_path: Pfad zur MD-Datei
+        content: Inhalt der MD-Datei
+        
+    Returns:
+        Aktualisierter Inhalt
+    """
+    # Suche nach Bild-Platzhaltern
+    image_pattern = r'!\[[^\]]*\]\([^)]*\.(jpe?g|png|webp|gif)[^)]*\)'
+    matches = re.findall(image_pattern, content, re.IGNORECASE)
+    
+    if not matches:
+        return content
+    
+    # Prüfe auf assets-Ordner
+    assets_folder = md_path.parent / 'assets'
+    
+    converted = 0
+    if assets_folder.exists():
+        # Konvertiere JPEG zu PNG
+        converted = convert_jpeg_to_png_in_folder(assets_folder)
+        if converted > 0:
+            print(f"  {converted} JPEG-Bilder zu PNG konvertiert")
+    
+    # Aktualisiere Platzhalter im Text
+    original_content = content
+    content = fix_image_placeholders_in_content(content)
+    
+    if content != original_content:
+        placeholder_changes = len(re.findall(r'\.png', content)) - len(re.findall(r'\.png', original_content))
+        if placeholder_changes > 0:
+            print(f"  {placeholder_changes} Bild-Platzhalter aktualisiert")
+    
+    return content
+
 
 def remove_copyright_lines(content: str) -> str:
     """Entferne Copyright-Zeilen und 'Seite: XX' Zeilen."""
@@ -960,7 +1100,11 @@ def prepare_reference_md(input_path: Path, pdf_path: Path = None, output_path: P
     print("5. Formatiere Vortragstitel und verarbeite Seitenumbrüche...")
     content = format_lecture_titles(content, ga_number, toc_dates)
     content = process_page_breaks(content)
-    
+
+    # Verarbeite Bilder (JPEG zu PNG, Platzhalter aktualisieren)
+    print("5b. Verarbeite Bilder...")
+    content = process_images(input_path, content)
+
     # Speichere Zwischenergebnis (_prepared.md)
     prepared_path = input_path.parent / f"{input_path.stem}_prepared.md"
     prepared_path.write_text(content, encoding='utf-8')

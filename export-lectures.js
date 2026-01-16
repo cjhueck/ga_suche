@@ -1214,34 +1214,10 @@ class SteinerLecturesExporter {
         continue;
       }
       
-      // Prüfe ob PDF-Extraktion für diesen GA-Ordner bereits versucht wurde
+      // PDF-Extraktion deaktiviert - Bilder werden jetzt separat mit final_from_mistral_md.py verarbeitet
+      // Dies beschleunigt den Export erheblich
       if (!pdfExtractionCache[gaNumber]) {
         pdfExtractionCache[gaNumber] = true;
-        // Versuche Bilder aus PDF zu extrahieren, falls assets-Ordner leer oder unvollständig ist
-        const assetsDir = path.join(gaDir, 'assets');
-        const hasAssets = fs.existsSync(assetsDir) && fs.readdirSync(assetsDir).length > 0;
-        
-        if (!hasAssets) {
-          console.log(`   📄 ${gaNumber}: Versuche Bilder aus PDF zu extrahieren...`);
-          try {
-            // Rufe Python-Skript für PDF-Extraktion auf
-            const { execSync } = require('child_process');
-            const pythonScript = path.join(__dirname, 'extract_images_from_pdf.py');
-            const gaDirPath = gaDir.replace(/\\/g, '/'); // Normalisiere Pfad für Python
-            
-            if (fs.existsSync(pythonScript)) {
-              execSync(`python "${pythonScript}" "${gaDirPath}"`, {
-                encoding: 'utf8',
-                stdio: 'inherit'
-              });
-              console.log(`   ✅ PDF-Extraktion für ${gaNumber} abgeschlossen`);
-            } else {
-              console.warn(`   ⚠ ${gaNumber}: extract_images_from_pdf.py nicht gefunden`);
-            }
-          } catch (error) {
-            console.warn(`   ⚠ ${gaNumber}: PDF-Extraktion fehlgeschlagen: ${error.message}`);
-          }
-        }
       }
       
       for (const img of images) {
@@ -1278,32 +1254,7 @@ class SteinerLecturesExporter {
           }
           
           if (!fullImagePath) {
-            // Letzter Versuch: Versuche PDF-Extraktion für dieses spezifische Bild
-            const assetsDir = path.join(gaDir, 'assets');
-            const pdfFiles = fs.readdirSync(gaDir).filter(f => f.endsWith('.pdf'));
-            
-            if (pdfFiles.length > 0 && !pdfExtractionCache[`${gaNumber}_extracted`]) {
-              console.log(`   📄 ${lectureId}: Versuche Bilder aus PDF zu extrahieren...`);
-              try {
-                const { execSync } = require('child_process');
-                const pythonScript = path.join(__dirname, 'extract_images_from_pdf.py');
-                const gaDirPath = gaDir.replace(/\\/g, '/');
-                
-                if (fs.existsSync(pythonScript)) {
-                  execSync(`python "${pythonScript}" "${gaDirPath}"`, {
-                    encoding: 'utf8',
-                    stdio: 'pipe'
-                  });
-                  pdfExtractionCache[`${gaNumber}_extracted`] = true;
-                  
-                  // Versuche erneut zu finden nach PDF-Extraktion
-                  fullImagePath = this.findImageFile(gaDir, decodedPath);
-                }
-              } catch (error) {
-                // PDF-Extraktion fehlgeschlagen, ignoriere
-              }
-            }
-            
+            // PDF-Extraktion deaktiviert - Bilder werden jetzt separat verarbeitet
             if (!fullImagePath) {
               console.warn(`   ⚠ ${lectureId}: Bild nicht gefunden: ${decodedPath}`);
               failedImages++;
@@ -1681,7 +1632,10 @@ if (require.main === module) {
   let selectedGAs = [];
   if (gaArgs.length > 0) {
     selectedGAs = exporter.parseGAInput(gaArgs.join(','));
+    console.log(`[EXPORT] CLI-Argumente: ${gaArgs.join(', ')}`);
+    console.log(`[EXPORT] Ausgewählte GAs: ${selectedGAs.join(', ') || 'ALLE'}`);
   } else {
+    console.log(`[EXPORT] Keine GA-Argumente - exportiere ALLE GAs`);
   }
   
   if (noSync) {
