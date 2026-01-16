@@ -57,12 +57,174 @@ def remove_copyright_lines(content: str) -> str:
     return '\n'.join(cleaned_lines)
 
 
+def extract_toc_entries(content: str) -> list:
+    """
+    Extrahiert Vortragstitel und Daten aus dem Inhaltsverzeichnis.
+    Gibt eine Liste von Dictionaries zurück: [{'title': ..., 'date': ..., 'number': ...}, ...]
+    """
+    toc_entries = []
+    lines = content.split('\n')
+    
+    # Finde Inhaltsverzeichnis (mit oder ohne #)
+    toc_start = None
+    toc_end = None
+    toc_pattern = re.compile(r'^#?\s*(INHALT|Inhalt|INHALTSVERZEICHNIS|Inhaltsverzeichnis)\s*$', re.IGNORECASE)
+    
+    for i, line in enumerate(lines):
+        if toc_pattern.match(line.strip()):
+            toc_start = i + 1
+            continue
+        # TOC endet bei nächster echter Überschrift (nicht TOC-Eintrag)
+        if toc_start is not None:
+            stripped = line.strip()
+            # Echte Überschrift = # gefolgt von Text, der kein TOC-Eintrag ist
+            if stripped.startswith('#') and not re.match(r'^#?\s*(INHALT|Inhalt)', stripped):
+                # Prüfe ob es eine echte Vortragsüberschrift ist (Großbuchstaben, kein römische Zahl)
+                if re.match(r'^#\s+[A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»,\.]+$', stripped):
+                    toc_end = i
+                    break
+            # Hinweise am Ende
+            if re.match(r'^#?\s*(Hinweise|HINWEISE)\s*$', stripped, re.IGNORECASE):
+                toc_end = i
+                break
+    
+    if toc_start is None:
+        return toc_entries
+    
+    if toc_end is None:
+        toc_end = min(toc_start + 150, len(lines))  # Max 150 Zeilen im TOC
+    
+    # Pattern für TOC-Einträge
+    # Format 1: "I. Titel\nOrt, Datum Seite"
+    # Format 2: "Titel Ort, Datum Seite"
+    roman_pattern = re.compile(r'^(I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV?)[\.\s]+(.+)$')
+    date_pattern = re.compile(r'([A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s*\d{4})')
+    
+    current_title = None
+    current_number = None
+    
+    for i in range(toc_start, toc_end):
+        line = lines[i].strip()
+        if not line:
+            continue
+        
+        # Ignoriere Copyright-Zeilen und Seitenzahlen
+        if 'Copyright' in line or re.match(r'^\d+$', line):
+            continue
+        
+        # Prüfe auf römische Zahl am Anfang
+        roman_match = roman_pattern.match(line)
+        if roman_match:
+            current_number = roman_match.group(1)
+            rest = roman_match.group(2).strip()
+            
+            # Prüfe ob Datum in derselben Zeile
+            date_match = date_pattern.search(rest)
+            if date_match:
+                title = rest[:date_match.start()].strip()
+                date = date_match.group(1)
+                toc_entries.append({
+                    'number': current_number,
+                    'title': title,
+                    'date': date,
+                    'title_normalized': re.sub(r'\s+', ' ', title.upper().strip())
+                })
+                current_title = None
+            else:
+                current_title = rest
+            continue
+        
+        # Prüfe ob Datum in dieser Zeile (für mehrzeilige Einträge)
+        date_match = date_pattern.search(line)
+        if date_match and current_title:
+            title_part = line[:date_match.start()].strip()
+            if title_part:
+                current_title = current_title + ' ' + title_part
+            date = date_match.group(1)
+            toc_entries.append({
+                'number': current_number,
+                'title': current_title.strip(),
+                'date': date,
+                'title_normalized': re.sub(r'\s+', ' ', current_title.upper().strip())
+            })
+            current_title = None
+            continue
+        
+        # Fortsetzung des Titels
+        if current_title:
+            current_title = current_title + ' ' + line
+    
+    return toc_entries
+
+
+def extract_toc_dates(content: str) -> dict:
+    """
+    Extrahiert Vortragstitel und Daten aus dem Inhaltsverzeichnis.
+    Gibt ein Dictionary zurück: {titel_normalisiert: vollständiges_datum}
+    """
+    entries = extract_toc_entries(content)
+    return {e['title_normalized']: e['date'] for e in entries}
+
+
+def validate_against_toc(final_content: str, toc_entries: list) -> None:
+    """
+    Vergleicht die formatierten Vortragstitel mit dem Inhaltsverzeichnis.
+    Gibt Warnungen aus bei Abweichungen.
+    """
+    if not toc_entries:
+        return
+    
+    # Extrahiere Titel aus final_content
+    final_titles = []
+    for line in final_content.split('\n'):
+        match = re.match(r'^#\s+([^,]+)', line)
+        if match:
+            title = match.group(1).strip()
+            # Entferne " - I", " - II" etc. am Ende für den Vergleich
+            title_base = re.sub(r'\s*-\s*(I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV?)\s*$', '', title)
+            final_titles.append({
+                'full': title,
+                'base': title_base,
+                'normalized': re.sub(r'\s+', ' ', title_base.upper().strip())
+            })
+    
+    # Vergleiche
+    toc_normalized = {e['title_normalized'] for e in toc_entries}
+    final_normalized = {t['normalized'] for t in final_titles}
+    
+    # Fehlende Vorträge (im TOC aber nicht im Final)
+    missing = []
+    for entry in toc_entries:
+        found = False
+        for ft in final_titles:
+            # Fuzzy-Vergleich: Prüfe ob Titel teilweise übereinstimmt
+            if entry['title_normalized'] in ft['normalized'] or ft['normalized'] in entry['title_normalized']:
+                found = True
+                break
+            # Oder erste 30 Zeichen
+            if entry['title_normalized'][:30] == ft['normalized'][:30]:
+                found = True
+                break
+        if not found:
+            missing.append(entry)
+    
+    if missing:
+        print(f"  WARNUNG: {len(missing)} Vorträge aus TOC nicht gefunden:")
+        for m in missing[:5]:  # Max 5 anzeigen
+            print(f"    - {m['number']}. {m['title'][:50]}...")
+    
+    # Anzahl-Vergleich
+    if len(toc_entries) != len(final_titles):
+        print(f"  INFO: TOC hat {len(toc_entries)} Einträge, Final hat {len(final_titles)} Vorträge")
+
+
 def extract_lectures_only(content: str) -> str:
     """
     Extrahiert nur die Vorträge aus dem Dokument.
     Entfernt:
     - Bibliographische Angaben am Anfang (vor dem ersten Vortrag)
     - Inhaltsverzeichnis (# INHALT oder ähnlich)
+    - "Zu dieser Ausgabe" / "Xu dieser Ausgabe" Abschnitte
     - Hinweise am Ende (nach dem letzten Vortrag)
     """
     lines = content.split('\n')
@@ -78,17 +240,30 @@ def extract_lectures_only(content: str) -> str:
     )
     
     # Alternative: H1 in Großbuchstaben gefolgt von Datum in nächsten Zeilen
-    h1_caps_pattern = re.compile(r'^#\s+[A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»]+$')
+    # Erlaubt auch Kommas im Titel (z.B. "HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE")
+    h1_caps_pattern = re.compile(r'^#\s+[A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»,\.]+$')
+    # Titel OHNE # in Großbuchstaben (z.B. "BIBEL UND WEISHEIT")
+    no_hash_caps_pattern = re.compile(r'^[A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»,\.]+$')
+    # Römische Zahl (I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV, XV)
+    roman_numeral_pattern = re.compile(r'^(I{1,3}|IV|VI{0,3}|IX|XI{0,3}|XIV|XV?|V)$')
+    # Datum mit Jahr: "Berlin, 10. Oktober 1907"
     date_pattern = re.compile(r'^[A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s*\d{4}$')
+    # Datum ohne Jahr: "Berlin, 10. Oktober"
+    date_pattern_no_year = re.compile(r'^[A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s*$')
     
     # Inhaltsverzeichnis-Pattern
     toc_pattern = re.compile(r'^#\s*(INHALT|Inhalt|INHALTSVERZEICHNIS|Inhaltsverzeichnis)\s*$', re.IGNORECASE)
     
-    # Hinweise-Pattern (am Ende)
-    notes_pattern = re.compile(r'^#\s*(HINWEISE|Hinweise|ANMERKUNGEN|Anmerkungen|ZU DIESER AUSGABE)\s*$', re.IGNORECASE)
+    # Hinweise-Pattern (am Ende) - alles nach diesem Punkt wird gelöscht
+    # Erkennt auch "# HINWEISE, Textunterlagen:" etc.
+    notes_pattern = re.compile(r'^#\s*(HINWEISE|Hinweise|ANMERKUNGEN|Anmerkungen|PERSONENREGISTER|Personenregister|RUDOLF STEINER GESAMTAUSGABE)', re.IGNORECASE)
+    
+    # "Zu dieser Ausgabe" Pattern (oft als "Xu dieser Ausgabe" durch OCR-Fehler)
+    zu_dieser_ausgabe_pattern = re.compile(r'^#?\s*[XZ]u dieser Ausgabe', re.IGNORECASE)
     
     i = 0
     in_toc = False
+    in_skip_section = False  # Für "Zu dieser Ausgabe" etc.
     lecture_indices = []  # (start_idx, end_idx) für jeden Vortrag
     current_lecture_start = None
     
@@ -101,16 +276,24 @@ def extract_lectures_only(content: str) -> str:
             i += 1
             continue
         
-        # Prüfe auf Hinweise am Ende
+        # Prüfe auf "Zu dieser Ausgabe" (auch "Xu dieser Ausgabe")
+        if zu_dieser_ausgabe_pattern.match(line):
+            in_skip_section = True
+            i += 1
+            continue
+        
+        # Prüfe auf Hinweise am Ende (alles danach wird ignoriert)
         if notes_pattern.match(line):
-            # Alles ab hier ignorieren
+            # Speichere letzten Vortrag und beende
             if current_lecture_start is not None:
                 lecture_indices.append((current_lecture_start, i - 1))
+                current_lecture_start = None  # Verhindere doppeltes Hinzufügen
             break
         
         # Prüfe auf Vortragstitel (mit Datum in Zeile)
         if lecture_pattern.match(line):
             in_toc = False
+            in_skip_section = False
             if current_lecture_start is not None:
                 lecture_indices.append((current_lecture_start, i - 1))
             current_lecture_start = i
@@ -118,16 +301,43 @@ def extract_lectures_only(content: str) -> str:
             continue
         
         # Prüfe auf H1 in Großbuchstaben (könnte Vortragstitel sein)
-        if h1_caps_pattern.match(line) and not toc_pattern.match(line):
+        if h1_caps_pattern.match(line) and not toc_pattern.match(line) and not notes_pattern.match(line):
             # Prüfe ob in den nächsten 5 Zeilen ein Datum kommt
             found_date = False
             for j in range(i + 1, min(i + 6, len(lines))):
-                if date_pattern.match(lines[j].strip()):
+                line_j = lines[j].strip()
+                if date_pattern.match(line_j) or date_pattern_no_year.match(line_j):
                     found_date = True
                     break
             
             if found_date:
                 in_toc = False
+                in_skip_section = False
+                if current_lecture_start is not None:
+                    lecture_indices.append((current_lecture_start, i - 1))
+                current_lecture_start = i
+        
+        # Prüfe auf Titel OHNE # in Großbuchstaben (z.B. "BIBEL UND WEISHEIT")
+        # Gefolgt von römischer Zahl und/oder Datum
+        elif no_hash_caps_pattern.match(line) and not in_toc:
+            # Prüfe ob in den nächsten 6 Zeilen ein Datum kommt (evtl. mit römischer Zahl dazwischen)
+            found_date = False
+            for j in range(i + 1, min(i + 7, len(lines))):
+                line_j = lines[j].strip()
+                if not line_j:
+                    continue
+                if date_pattern.match(line_j) or date_pattern_no_year.match(line_j):
+                    found_date = True
+                    break
+                # Wenn es eine römische Zahl ist, weitersuchen
+                if roman_numeral_pattern.match(line_j):
+                    continue
+                # Wenn es kein Datum und keine römische Zahl ist, abbrechen
+                break
+            
+            if found_date:
+                in_toc = False
+                in_skip_section = False
                 if current_lecture_start is not None:
                     lecture_indices.append((current_lecture_start, i - 1))
                 current_lecture_start = i
@@ -194,27 +404,108 @@ def convert_fragebeantwortung_to_h2(content: str) -> str:
     return '\n'.join(result)
 
 
-def format_lecture_titles(content: str, ga_number: str = "") -> str:
+def format_lecture_titles(content: str, ga_number: str = "", toc_dates: dict = None) -> str:
     """
     Formatiere Vortragstitel:
     - Einzeilig: "# TITEL\n\nBerlin, Datum" → "# TITEL, Berlin, Datum"
     - Zweizeilig: "# TITEL\n## UNTERTITEL\n\nBerlin, Datum" → "# TITEL -  UNTERTITEL, Berlin, Datum"
     
+    Wenn das Datum nicht korrekt erkennbar ist, wird es aus dem Inhaltsverzeichnis geholt.
+    Falls auch das nicht möglich ist, wird die Zeile nach dem Titel dennoch angehängt.
+    
     Args:
         content: Der MD-Inhalt
         ga_number: GA-Nummer (optional, für Debugging)
+        toc_dates: Dictionary mit Titeln und Daten aus dem Inhaltsverzeichnis
     """
+    if toc_dates is None:
+        toc_dates = {}
+    
     lines = content.split('\n')
     result = []
     i = 0
+    formatted_count = 0
+    toc_corrected_count = 0
+    
+    # Erweiterte Datumspatterns
+    # Standard: "Berlin, 5. Oktober 1905"
+    date_pattern_strict = re.compile(r'^([A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s*\d{4})$')
+    # Lockerer: auch mit OCR-Fehlern wie "Oktobcr" statt "Oktober"
+    date_pattern_loose = re.compile(r'^([A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-Za-zäöüß]+\s*\d{4})$')
+    # Sehr locker: Ort, gefolgt von irgendwas mit Zahl und Jahr
+    date_pattern_very_loose = re.compile(r'^([A-ZÄÖÜ][a-zäöüß]+,\s*.+\d{4})$')
+    # Ohne Jahr: "Berlin, 10. Oktober" (Jahr fehlt)
+    date_pattern_no_year = re.compile(r'^([A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+)\s*$')
     
     while i < len(lines):
         line = lines[i]
         
         # Prüfe auf H1-Überschrift (Vortragstitel) - muss in Großbuchstaben sein
-        h1_match = re.match(r'^#\s+([A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»]+)$', line)
+        h1_match = re.match(r'^#\s+([A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»,]+)$', line)
         if h1_match:
             title1 = h1_match.group(1).strip()
+            title1_normalized = re.sub(r'\s+', ' ', title1.upper().strip())
+            
+            # Prüfe ob nächste nicht-leere Zeile auch H1 ist (zweizeiliger Titel mit zwei H1)
+            # z.B. "# SCHULFRAGEN\n\n# VOM STANDPUNKT DER GEISTESWISSENSCHAFT\n\nBerlin, 24. Januar 1907"
+            # ODER: "# ERDENANFANG UND ERDENENDE\n\n# Berlin, 9. April 1908" (zweite H1 ist Datum)
+            next_h1_idx = None
+            next_h1_title = None
+            for j in range(i + 1, min(i + 4, len(lines))):
+                stripped = lines[j].strip()
+                if not stripped:
+                    continue
+                next_h1_match = re.match(r'^#\s+(.+)$', stripped)
+                if next_h1_match:
+                    next_h1_idx = j
+                    next_h1_title = next_h1_match.group(1).strip()
+                break  # Erste nicht-leere Zeile gefunden
+            
+            if next_h1_idx and next_h1_title:
+                # Prüfe ob die zweite H1 ein Datum ist (z.B. "Berlin, 9. April 1908")
+                is_date_h1 = False
+                for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                    if pattern.match(next_h1_title):
+                        is_date_h1 = True
+                        break
+                
+                if is_date_h1:
+                    # Zweite H1 ist das Datum - direkt anfügen ohne " - "
+                    result.append(f"# {title1}, {next_h1_title}")
+                    formatted_count += 1
+                    i = next_h1_idx + 1
+                    continue
+                
+                # Zweite H1 ist ein Untertitel - suche nach Datum danach
+                # Suche nach Datum in den nächsten Zeilen nach der zweiten H1
+                date = None
+                date_idx = None
+                for j in range(next_h1_idx + 1, min(next_h1_idx + 6, len(lines))):
+                    stripped = lines[j].strip()
+                    if not stripped:
+                        continue
+                    if stripped.startswith('#'):
+                        break  # Nächste Überschrift erreicht
+                    # Versuche verschiedene Patterns
+                    for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                        date_match = pattern.match(stripped)
+                        if date_match:
+                            date = date_match.group(1)
+                            date_idx = j
+                            break
+                    if date:
+                        break
+                    # Wenn keine leere Zeile und kein Datum, prüfe ob es eine Ort/Datum-Zeile ist
+                    if stripped and ',' in stripped and any(c.isdigit() for c in stripped):
+                        date = stripped
+                        date_idx = j
+                        break
+                
+                if date:
+                    result.append(f"# {title1} - {next_h1_title}, {date}")
+                    formatted_count += 1
+                    i = date_idx + 1
+                    continue
             
             # Prüfe ob nächste Zeile H2 ist (zweizeiliger Titel)
             if i + 1 < len(lines):
@@ -222,24 +513,39 @@ def format_lecture_titles(content: str, ga_number: str = "") -> str:
                 if h2_match:
                     title2 = h2_match.group(1).strip()
                     
-                    # Suche nach Datum in den nächsten 5 Zeilen (kann leere Zeilen dazwischen sein)
+                    # Suche nach Datum in den nächsten 5 Zeilen
                     date = None
                     date_idx = None
                     for j in range(i + 2, min(i + 7, len(lines))):
                         stripped = lines[j].strip()
                         if not stripped:
-                            continue  # Überspringe leere Zeilen
-                        # Erweitere Regex für Datum: unterstütze Umlaute und verschiedene Formate
-                        date_match = re.match(r'^([A-ZÄÖÜ][a-zäöüß]+,\s*\d+\.\s+[A-ZÄÖÜ][a-zäöüß]+\s+\d{4})$', stripped)
-                        if date_match:
-                            date = date_match.group(1)
+                            continue
+                        # Versuche verschiedene Patterns
+                        for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                            date_match = pattern.match(stripped)
+                            if date_match:
+                                date = date_match.group(1)
+                                date_idx = j
+                                break
+                        if date:
+                            break
+                        # Wenn keine leere Zeile und kein Datum, prüfe ob es eine Ort/Datum-Zeile ist
+                        if stripped and not stripped.startswith('#') and ',' in stripped:
+                            # Könnte Ort, Datum sein auch wenn Format nicht erkannt
+                            date = stripped
                             date_idx = j
                             break
                     
+                    # Versuche Datum aus TOC zu korrigieren
+                    if date and toc_dates:
+                        toc_date = toc_dates.get(title1_normalized)
+                        if toc_date and toc_date != date:
+                            date = toc_date
+                            toc_corrected_count += 1
+                    
                     if date:
-                        # Kombiniere zu: # TITEL -  UNTERTITEL, Datum (mit zwei Leerzeichen nach Bindestrich)
-                        result.append(f"# {title1} -  {title2}, {date}")
-                        # Überspringe H1, H2, leere Zeilen und Datum
+                        result.append(f"# {title1} - {title2}, {date}")
+                        formatted_count += 1
                         i = date_idx + 1
                         continue
             
@@ -249,26 +555,110 @@ def format_lecture_titles(content: str, ga_number: str = "") -> str:
             for j in range(i + 1, min(i + 6, len(lines))):
                 stripped = lines[j].strip()
                 if not stripped:
-                    continue  # Überspringe leere Zeilen
+                    continue
                 if stripped.startswith('Seite:'):
-                    continue  # Überspringe "Seite: XX" Zeilen
-                # Unterstütze auch Umlaute im Datum
-                date_match = re.match(r'^([A-ZÄÖÜ][a-zäöüß]+,\s*\d+\.\s+[A-ZÄÖÜ][a-zäöüß]+\s+\d{4})$', stripped)
-                if date_match:
-                    date = date_match.group(1)
+                    continue
+                if stripped.startswith('#'):
+                    break  # Nächste Überschrift erreicht
+                
+                # Versuche verschiedene Patterns
+                for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                    date_match = pattern.match(stripped)
+                    if date_match:
+                        date = date_match.group(1)
+                        date_idx = j
+                        break
+                if date:
+                    break
+                # Wenn keine leere Zeile und kein Datum, prüfe ob es eine Ort/Datum-Zeile ist
+                if stripped and ',' in stripped and any(c.isdigit() for c in stripped):
+                    # Könnte Ort, Datum sein auch wenn Format nicht erkannt
+                    date = stripped
                     date_idx = j
                     break
             
+            # Versuche Datum aus TOC zu korrigieren
+            if date and toc_dates:
+                toc_date = toc_dates.get(title1_normalized)
+                if toc_date and toc_date != date:
+                    date = toc_date
+                    toc_corrected_count += 1
+            elif not date and toc_dates:
+                # Kein Datum gefunden, versuche aus TOC
+                toc_date = toc_dates.get(title1_normalized)
+                if toc_date:
+                    date = toc_date
+                    date_idx = i  # Kein extra Index zu überspringen
+                    toc_corrected_count += 1
+            
             if date:
-                # Kombiniere zu: # TITEL, Datum
                 result.append(f"# {title1}, {date}")
-                # Überspringe H1, leere Zeilen und Datum
-                i = date_idx + 1
+                formatted_count += 1
+                if date_idx and date_idx > i:
+                    i = date_idx + 1
+                else:
+                    i += 1
+                continue
+        
+        # Prüfe auf Titel OHNE # in Großbuchstaben (z.B. "BIBEL UND WEISHEIT")
+        # Gefolgt von römischer Zahl (I, II, III...) und Datum
+        no_hash_match = re.match(r'^([A-ZÄÖÜ][A-ZÄÖÜ\s\-\?!«»,\.]+)$', line.strip())
+        if no_hash_match and line.strip():
+            title_no_hash = no_hash_match.group(1).strip()
+            
+            # Suche nach römischer Zahl und/oder Datum in den nächsten Zeilen
+            roman_numeral = None
+            date = None
+            date_idx = None
+            
+            for j in range(i + 1, min(i + 7, len(lines))):
+                stripped = lines[j].strip()
+                if not stripped:
+                    continue
+                
+                # Prüfe auf römische Zahl
+                roman_match = re.match(r'^(I{1,3}|IV|VI{0,3}|IX|XI{0,3}|XIV|XV?|V)$', stripped)
+                if roman_match:
+                    roman_numeral = roman_match.group(1)
+                    continue
+                
+                # Prüfe auf Datum
+                for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                    date_match = pattern.match(stripped)
+                    if date_match:
+                        date = date_match.group(1)
+                        date_idx = j
+                        break
+                if date:
+                    break
+                
+                # Wenn keine leere Zeile und kein Datum und keine römische Zahl, abbrechen
+                if stripped and ',' in stripped and any(c.isdigit() for c in stripped):
+                    date = stripped
+                    date_idx = j
+                    break
+                break
+            
+            if date:
+                if roman_numeral:
+                    result.append(f"# {title_no_hash} - {roman_numeral}, {date}")
+                else:
+                    result.append(f"# {title_no_hash}, {date}")
+                formatted_count += 1
+                if date_idx and date_idx > i:
+                    i = date_idx + 1
+                else:
+                    i += 1
                 continue
         
         # Normale Zeile
         result.append(line)
         i += 1
+    
+    if formatted_count > 0:
+        print(f"  {formatted_count} Vortragstitel formatiert")
+    if toc_corrected_count > 0:
+        print(f"  {toc_corrected_count} Daten aus Inhaltsverzeichnis korrigiert")
     
     return '\n'.join(result)
 
@@ -415,7 +805,7 @@ def run_add_page_numbers(md_path: Path, pdf_path: Path, output_path: Path) -> bo
         print(f"  WARNUNG: Skript nicht gefunden: {script_path}")
         return False
     
-    print(f"\n5. Füge Seitenzahlen aus PDF hinzu...")
+    print(f"\n6. Füge Seitenzahlen aus PDF hinzu...")
     print(f"   PDF: {pdf_path.name}")
     
     try:
@@ -463,17 +853,25 @@ def prepare_reference_md(input_path: Path, pdf_path: Path = None, output_path: P
     if ga_number:
         print(f"  GA-Nummer erkannt: GA{ga_number}")
     
-    print("\n1. Entferne Copyright-Zeilen...")
+    print("\n1. Extrahiere Daten aus Inhaltsverzeichnis...")
+    toc_entries = extract_toc_entries(content)
+    toc_dates = {e['title_normalized']: e['date'] for e in toc_entries}
+    if toc_entries:
+        print(f"  {len(toc_entries)} Einträge gefunden")
+    else:
+        print("  Kein Inhaltsverzeichnis gefunden")
+    
+    print("2. Entferne Copyright-Zeilen...")
     content = remove_copyright_lines(content)
     
-    print("2. Extrahiere nur Vorträge (ohne Bibliographie, Inhalt, Hinweise)...")
+    print("3. Extrahiere nur Vorträge (ohne Bibliographie, Inhalt, Hinweise)...")
     content = extract_lectures_only(content)
     
-    print("3. Konvertiere Fragebeantwortungen zu H2...")
+    print("4. Konvertiere Fragebeantwortungen zu H2...")
     content = convert_fragebeantwortung_to_h2(content)
     
-    print("4. Formatiere Vortragstitel und verarbeite Seitenumbrüche...")
-    content = format_lecture_titles(content, ga_number)
+    print("5. Formatiere Vortragstitel und verarbeite Seitenumbrüche...")
+    content = format_lecture_titles(content, ga_number, toc_dates)
     content = process_page_breaks(content)
     
     # Speichere Zwischenergebnis (_prepared.md)
@@ -494,8 +892,15 @@ def prepare_reference_md(input_path: Path, pdf_path: Path = None, output_path: P
         # Führe add_page_numbers aus
         success = run_add_page_numbers(prepared_path, pdf_path, output_path)
         if success:
+            final_content = output_path.read_text(encoding='utf-8')
+            
+            # Validiere gegen Inhaltsverzeichnis
+            if toc_entries:
+                print("\n7. Validiere gegen Inhaltsverzeichnis...")
+                validate_against_toc(final_content, toc_entries)
+            
             print(f"\n✓ Finale Ausgabe: {output_path.name}")
-            return output_path.read_text(encoding='utf-8')
+            return final_content
         else:
             print(f"\n   Seitenzahlen konnten nicht hinzugefügt werden.")
             print(f"   Ausgabe ohne Seitenzahlen: {prepared_path.name}")
