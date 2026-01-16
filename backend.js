@@ -12027,10 +12027,11 @@ app.post('/api/export/ga', async (req, res) => {
     }
     
     console.log(`[EXPORT] Typ: ${exportType}, Skript: ${exportScript}`);
-    
+    console.log(`[EXPORT] GA-Nummer: ${normalizedGA}, Args: ${JSON.stringify(exportArgs)}`);
+
     const { spawn } = require('child_process');
     let command, args;
-    
+
     if (exportScript.endsWith('.py')) {
       command = 'python';
       args = [path.join(__dirname, exportScript), ...exportArgs];
@@ -12038,6 +12039,7 @@ app.post('/api/export/ga', async (req, res) => {
       command = 'node';
       args = [path.join(__dirname, exportScript), ...exportArgs];
     }
+    console.log(`[EXPORT] Befehl: ${command} ${args.join(' ')}`);
     
     const exportProcess = spawn(command, args, {
       cwd: __dirname,
