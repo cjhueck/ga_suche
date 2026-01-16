@@ -1338,11 +1338,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:55 Seite: 139
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:55
 Seite: 140
 
-DER IRRSINN
-
-VOM STANDPUNKTE DER GEISTESWISSENSCHAFT
-
-Berlin, 31. Januar 1907
+# DER IRRSINN VOM STANDPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 31. Januar 1907
 
 Gerade die Geisteswissenschaft muß über die sogenannten Geisteskrankheiten etwas zu sagen haben. Zunächst ist schon der Name nicht richtig gewählt. Man sollte nicht von Geisfeikrankheiten reden. Ferner sind gerade auf diesem Gebiete in der Laienwelt die größten Irrtümer verbreitet, sowohl in gelehrten wie in den ungelehrten Kreisen und ihrer Literatur. Die Erscheinungsformen werden für die Sache selbst angesehen. Man spricht von Größenwahn, Verfolgungswahn, religiösem Wahn. Diese Ausdrücke bezeichnen alle nur Symptome. Niemand kann durch eine religiöse Idee wahnsinnig werden. So kann man zum Beispiel den merkwürdigen Satz lesen, Hölderlin sei an der Disharmonie zwischen moderner und antiker Weltanschauung erkrankt. Wäre Hölderlin kein Dichter gewesen, so wäre doch dieselbe Art Wahnsinn über ihn gekommen, nur hätte sie sich anders, in anderen Ideen zum Ausdruck gebracht. Wenn jemand in religiösen Ideen lebt und erkrankt dann, so werden sich seine religiösen Ideen verzerren. Hat er in materialistischen Ideen gelebt, so verzerren sich diese. Die Gründe für die Geisteskrankheit liegen tief in der menschlichen Natur. Die heutige Medizin schafft auf diesem Gebiete nichts Positives zutage; sie hat nur Hypothesen, Zweifel, Mutmaßungen. Allerdings ist es schwer, ja unmöglich für den Materialisten, sich in diesen Fragen Klarheit zu schaffen. Gar vieles, was der Arzt nicht mehr zu den Geisteskrank-
 
@@ -1479,11 +1475,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:55
 
 ---
 
-DER LEBENSLAUF DES MENSCHEN
-VOM GEISTESWISSENSCHAFTLICHEN
-STANDPUNKTE
-
-' Berlin, 28. Februar 1907
+# DER LEBENSLAUF DES MENSCHEN VOM GEISTESWISSENSCHAFTLICHEN STANDPUNKTE, Berlin, 28. Februar 1907
 
 Der alte Wahrspruch eines griechischen Mysterientempels: «Erkenne dich selbst» geht durch die Menschheit als eine Aufforderung zu der tiefsten menschlichen Betrachtungsweise. Er stellt eine der größten Wahrheiten dar, aber es geht mit diesem Ausspruch wie mit allen eigentlichen großen Wahrheiten: Richtig verstanden, bedeuten sie etwas Universelles, etwas Gewaltiges. Aber nur allzu leicht können sie mißverstanden werden- und dieser insbesondere. Er ist niemals im ursprünglichen Sinne so gemeint gewesen, daß der Mensch sein alltägliches Selbst betrachten soll, auch niemals so, daß der Mensch die Summe alles Wissens in sich selbst finden könne. Wenn wir ihn richtig verstehen, so bedeutet er eine Aufforderung, das Selbst, das höhere Selbst des Menschen zu erkennen.
 

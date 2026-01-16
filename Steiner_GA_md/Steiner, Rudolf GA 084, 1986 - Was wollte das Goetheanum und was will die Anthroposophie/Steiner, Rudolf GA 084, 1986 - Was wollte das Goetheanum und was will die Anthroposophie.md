@@ -1,0 +1,2989 @@
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 1
+
+RUDOLF STEINER GESAMTAUSGABE
+VORTRÄGE
+
+ÖFFENTLICHE VORTRÄGE
+
+---
+
+Zu den Veröffentlichungen
+aus dem Vortragswerk von Rudolf Steiner
+
+Die Grundlage der anthroposophisch orientierten Geisteswissenschaft bilden die von Rudolf Steiner (1861-1925) geschriebenen und veröffentlichten Werke. Daneben hielt er in den Jahren 1900 bis 1924 zahlreiche Vorträge und Kurse, sowohl öffentlich wie auch für die Mitglieder der Theosophischen, später Anthroposophischen Gesellschaft. Er selbst wollte ursprünglich, daß seine durchwegs frei gehaltenen Vorträge nicht schriftlich festgehalten würden, da sie als «mündliche, nicht zum Druck bestimmte Mitteilungen» gedacht waren. Nachdem aber zunehmend unvollständige und fehlerhafte Hörernachschriften angefertigt und verbreitet wurden, sah er sich veranlaßt, das Nachschreiben zu regeln. Mit dieser Aufgabe betraute er Marie Steiner-von Sivers. Ihr oblag die Bestimmung der Stenographierenden, die Verwaltung der Nachschriften und die für die Herausgabe notwendige Durchsicht der Texte. Da Rudolf Steiner aus Zeitmangel nur in ganz wenigen Fällen die Nachschriften selbst korrigieren konnte, muß gegenüber allen Vortragsveröffentlichungen sein Vorbehalt berücksichtigt werden: «Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.»
+
+Nach dem Tode von Marie Steiner (1867-1948) wurde gemäß ihren Richtlinien mit der Herausgabe einer Rudolf Steiner Gesamtausgabe begonnen. Der vorliegende Band bildet einen Bestandteil dieser Gesamtausgabe. Soweit erforderlich, finden sich nähere Angaben zu den Textunterlagen am Beginn der Hinweise.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 2
+
+---
+
+RUDOLF STEINER
+
+Was wollte das Goetheanum und was soll die Anthroposophie?
+
+Elf öffentliche Vorträge
+
+Basel, 9.; Dornach, 14., 15., 20.-22.;
+
+Prag, 27. und 30. April 1923
+
+Wien, 26. und 29. September 1923
+
+Paris, 26. Mai 1924
+
+1986
+
+RUDOLF STEINER VERLAG
+
+DORNACH/SCHWEIZ
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 3
+
+---
+
+Nach vom Vortragenden nicht durchgesehenen stenographischen Mitschriften herausgegeben von der Rudolf Steiner-Nachlaß Verwaltung Die Herausgabe besorgten Hella Wiesberger und Konrad Donat
+
+1. Auflage, Gesamtausgabe Dornach 1961
+2. Auflage, Gesamtausgabe Dornach 1986
+
+Frühere Veröffentlichungen:
+
+Vortrag I in «Die Drei», 10. Jg., Heft 11, 1931;
+«Was wollte das Goetheanum und was soll die Anthroposophie?», Dornach 1938
+
+Vortrag IX und X «Die übersinnliche Erkenntnis (Anthroposophie) als Zeitforderung — Anthroposophie und die ethisch-religiöse Lebenshaltung des Menschen», Dornach 1937
+
+Bibliographie-Nr. 84
+
+Zeichnungen im Text nach den Original-Wandtafelzeichnungen Rudolf Steiners, ausgeführt von Assja Turgenieff
+
+Alle Rechte bei der Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz
+© 1961 by Rudolf Steiner-Nachlaß Verwaltung, Dornach/Schweiz
+Printed in Germany by Konkordia Druck GmbH, Bühl/Baden
+
+ISBN 3-7274-0840-5
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+# INHALT
+
+I. Was wollte das Goetheanum und was soll die Anthroposophie?
+Basel, 9. April 1923. 7
+
+II. Die Steigerung der menschlichen Erkenntnisfähigkeit zu Imagination, Inspiration und Intuition
+Dornach, 1. Vortrag, 14. April 1923 (halböffentlich) . 47
+
+III. Das Seelenleben des Menschen und seine Entwicklung zur Imagination, Inspiration und Intuition
+Dornach, 2. Vortrag, 15. April 1923 (halböffentlich) . 67
+
+IV. Das Anschauungserlebnis der Denktätigkeit und der Sprachtätigkeit
+Dornach, 3. Vortrag, 20. April 1923 (halböffentlich) . 91
+
+V. Die physische Welt und die moralisch-geistigen Impulse - Vier Stufen des inneren Erlebens
+Dornach, 4. Vortrag, 21. April 1923 (halböffentlich) . 112
+
+VI. Die menschliche Erkenntnisfähigkeit in der ätherischen Welt
+Dornach, 5. Vortrag, 22. April 1923 (halböffentlich) . 134
+
+VII. Die Seelenewigkeit im Lichte der Anthroposophie
+Prag, 1. Vortrag, 27. April 1923. 154
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 5
+
+---
+
+VIII. Die Menschenentwicklung und Menschenzerziehung im Lichte der Anthroposophie
+Prag, 2. Vortrag, 30. April 1923. 179
+
+IX. Die übersinnliche Erkenntnis - Anthroposophie - als Zeitforderung
+Wien, I. Vortrag, 27. September 1923. 209
+
+X. Die Anthroposophie und die ethisch-religiöse Lebenshaltung des Menschen
+Wien, 2. Vortrag, 29. September 1923. 237
+
+XI. Wie erlangt man Erkenntnis der übersinnlichen Welt?
+Paris, 26. Mai 1924. 268
+
+Hinweise. 289
+
+Ausführliche Inhaltsangaben. 295
+
+Personenregister. 301
+
+Übersicht über die Rudolf Steiner Gesamtausgabe. 303
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 6
+
+---
+
+# WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE?
+
+Basel, 9. April 1923
+
+Die schreckliche Brandkatastrophe der letzten Silvesternacht, welche das Goetheanum vernichtet hat, das vielen, die es lieb hatten, in so schmerzlicher Erinnerung bleiben wird, diese Katastrophe mag Veranlassung geben, daß ich die heutige Betrachtung über anthroposophische Welterkenntnis und Weltanschauung an dieses Goetheanum anknüpfe. Nur eine Anknüpfung soll damit beabsichtigt sein. Die Betrachtung selbst, welche ich mir erlauben werde, hier vor Ihnen anzustellen, soll sich aber in ihrer Art nicht wesentlich unterscheiden von denjenigen Betrachtungen, die ich nun schon seit vielen Jahren hier in Basel auch in demselben Saale halten durfte. Gerade gelegentlich des schrecklichen Brandunglücks kam es wiederum zutage, welche abenteuerlichen Vorstellungen sich in der Welt knüpfen an alles das, was mit diesem Goetheanum in Dornach gemeint war, und was in ihm getrieben werden sollte. Es wird gesprochen von dem schrecklichsten Aberglauben, der dort verbreitet werden soll. Es wird gesprochen von allerlei Religionsfeindlichem, das dort getrieben werden soll, ja sogar von allerlei spiritistischen Geisterzitierungen, von nebulosem Mystischen, dem man sich dort hingeben würde, und dergleichen. Gegenüber all dem möchte ich heute wenigstens skizzenhaft die Frage beantworten: Was soll jene Anthroposophie, welcher das Goetheanum gewidmet war?
+
+Schon an dem Namen Goetheanum nahmen ja zahlreiche
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+Menschen Ärgernis. Man bedachte dabei nicht, aus welchen Untergründen dieser Name hervorgegangen ist, und wie er mit dem, was dort als Anthroposophie gepflegt wird, zusammenhängt. Diese Anthroposophie ist mir selbst lebendig hervorgegangen aus einer Hingabe an Goethes Weltanschauung und an Goethes ganzes Wirken seit eigentlich schon mehr als vier Jahrzehnten. Allerdings, wenn man Goethes Weltanschauung und Goethes Wirken so ins Auge faßt, daß man unmittelbar nur dasjenige nimmt, was in Goethes Werken steht, und gewissermaßen logisch ableiten will, was nun Goethisch heißen darf, dann wird man das nicht treffen, was Veranlassung gegeben hat, den Dornacher Bau gerade Goetheanum zu nennen. Allein es gibt, ich möchte sagen, eine Logik des Denkens und eine Logik des Lebens. Und derjenige, der sich nicht bloß durch eine Logik des Denkens in Goethe vertieft, sondern der die Goethesen voller Impulse steckenden Anregungen lebendig nimmt und nun versucht, dasjenige aus ihnen zu gewinnen, was gewonnen werden kann, nachdem über die Menschheitsentwicklung so viele Jahrzehnte seit Goethes Tode hinweggegangen sind, der wird glauben, mag er sonst auch über den Wahrheitswert der Anthroposophie denken, wie er will, daß durch die lebendigen Anregungen des Goetheanismus - wenn ich mich des Ausdrucks bedienen darf - gerade diese Anthroposophie hat entstehen können durch Logik des Lebens, durch Erleben dessen, was in Goethe liegt, und durch Wachsenlassen in bescheidener Weise des von Goethe Angeführten.
+
+Nun wurde dieses Goetheanum zuerst Johannesbau genannt, und zwar von denjenigen Freunden der anthroposophischen Weltanschauung, welche vor nun mehr als zehn Jahren die Veranlassung gegeben haben, einen solchen Bau aufzuführen. Der Name Johannesbau wurde keineswegs
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 8
+
+---
+
+von dem Evangelisten Johannes genommen, sondern er wurde — nicht von mir, sondern von anderen - nach einer der Figuren in meinen Mysteriendramen, Johannes Thomasius, benannt, weil zunächst dieses Goetheanum neben der Pflege des übrigen der anthroposophischen Weltanschauung der Aufführung dieser Mysterien gewidmet sein sollte. Allein es war ja selbstverständlich, daß dieser Name «Johannesbau» zu dem Mißverständnisse führen konnte, daß damit ein Anklang gegeben werden soll an den Schreiber des Johannes-Evangeliums.
+
+Daher sprach ich es oftmals aus, und ich glaube, auch hier an dieser Stelle im Laufe der Jahre, während welcher am Goetheanum gebaut wurde, daß für mich, der ich in lebendiger Weise meine Weltanschauung von Goethe abgeleitet habe, dieser Bau ein Goetheanum ist. Und dann wurde dieser Name auch offiziell von Freunden der anthroposophischen Sache diesem Bau gegeben. Ich habe das nie anders aufgefaßt als eine Art von Dankbarkeit gegenüber dem, was man aus Goethe gewinnen kann, als einen Akt der Huldigung gegenüber der alles überragenden Persönlichkeit Goethes. Nicht als ob etwa das, was unmittelbar in Goethe gegeben ist, am besten oder am schönsten im Dornacher Goetheanum gepflegt werden sollte, sondern weil anthroposophische Weltanschauung für ihre Entstehung den tiefsten Dank fühlt gegenüber dem, was durch Goethe in die Welt gekommen ist.
+
+Nimmt man so den Namen Goetheanum als hervorgehend aus einem Akt der Huldigung, hervorgehend aus einem Akt der Dankbarkeit, so wird man, wie ich glaube, keinen Anstoß daran nehmen können. Im übrigen ist es ja begreiflich, daß jemand, der unbekannt mit der anthroposophischen Weltanschauung dem Bau auf dem Dornacher Hügel entgegentrat, zunächst absonderlich berührt wurde
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 9
+
+---
+
+von den beiden ineinandergefügten Kuppelbauten, von den befremdlichen Formen außen und innen und so weiter. Allein dieser Bau ist mit einer inneren künstlerischen Konsequenz herausgeflossen aus dem, was anthroposophische Weltanschauung sein soll. Und daher werde ich an dasjenige, was der Bau wollte, am besten anknüpfen können, wenn ich zunächst versuche, heute in einer etwas anderen Weise als ich es hier schon durch viele Jahre getan habe, die Frage zu beantworten: Was soll Anthroposophie?
+
+Anthroposophie will zunächst sein eine Erkenntnis der geistigen Welt, eine solche Erkenntnis der geistigen Welt, welche sich durchaus an die Seite stellen kann dem, was wir heute in einer so großartigen Weise als Naturwissenschaft haben. Sie will sich an die Seite stellen dieser Naturwissenschaft sowohl durch wissenschaftliche Gewissenhaftigkeit, wie auch dadurch, daß derjenige, der in ernster Weise nicht bloß Anthroposophie in sein Gemüt aufnehmen, sondern sie aufbauen will, daß der vor allen Dingen durchgegangen sein muß durch alle die strengen und ernsten Methoden, welche die Naturwissenschaft heute übt.
+
+Durch alles das will Anthroposophie das volle Gegenteil von dem sein, was ich Ihnen ja angeführt habe als die Meinung der Welt über sie. Und man kann eigentlich gegenüber diesen Urteilen, die ich ja nur zum Teil angeführt habe, nur erstaunt sein darüber, wie es möglich ist, daß sich in der Öffentlichkeit Ideen über eine Sache festsetzen können, die das genaue Gegenteil sind von dem, was eigentlich in Wirklichkeit mit der Sache beabsichtigt wird. Denn man könnte geradezu sagen: Alles das, was ich an Meinungen der Welt angeführt habe, ist Anthroposophie nicht, sondern sie will sein eine ernste Erkenntnis der geistigen Welt.
+
+Nun wissen Sie, daß heute alles, was überhaupt Erkenntnis der geistigen Welt sein will, mit etwas verächtlichen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 10
+
+---
+
+Blicken oder wenigstens mit großem Zweifel angesehen wird. Die wissenschaftliche Erziehung, welche die Menschheit seit drei bis vier Jahrhunderten genossen hat, war ja eine solche, daß allmählich im neunzehnten und im Beginn des zwanzigsten Jahrhunderts das Urteil heraufgekommen ist: Man kann durch die strengen Methoden, die heute die Naturwissenschaft hat, dasjenige erkennen, was den Sinnen in der Umgebung des Menschen gegeben ist, und was mit Hilfe der Experimentier- und Beobachtungsmethoden der menschliche Verstand aus der Sinnesbeobachtung machen kann. Dagegen wird überall, wo man gerade glaubt, auf dem strengsten Boden dieser naturwissenschaftlichen Weltanschauung zu stehen, die Erkenntnis des Geistigen abgelehnt, indem, sei es mit einem gewissen Hochmut, sei es mit einem gewissen Kleinmut, gesagt wird, dem Geistigen gegenüber seien eben dem Menschen in seiner Erkenntnis Schranken gegeben, dem Geiste gegenüber sei der Mensch lediglich auf Glaubensvorstellungen angewiesen.
+
+Dadurch gerade ergibt sich aber für sehr viele Menschen, die ihre Erziehung genießen durch das, was heute ja überall popularisiert wird aus der Naturwissenschaft, ein ernster innerer Seelenzwiespalt. Die Glaubensvorstellungen sind aus alten Zeiten überliefert. Man weiß nicht, daß sie auch Erkenntnisvorstellungen entsprechen, die sich auf früheren Stufen die Menschheit errungen hat, und daß diese in der Tradition, in der Überlieferung geblieben sind. Wenn sie so hingenommen werden als Glaubensvorstellungen, so versetzt sich die Seele in einen Zustand, der sie in Widerspruch bringt mit allem, in das sie sich hineinarbeitet, wenn sie das aufnimmt, was heute in so strenger Weise durch naturwissenschaftliche Methode für die Menschheit und auch für das praktische Leben erobert wird.
+
+Dasjenige, was so erobert wird, ist ja wahrhaftig nicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 11
+
+---
+
+etwa bloß etwas, was man Besitz einer kleinen gebildeten Menscfaenschar nennen könnte, sondern diese besondere Art des Denkens, die von der Naturwissenschaft herkommt, ist ja bereits eingedrungen in unseren niedersten Unterricht. Und man möchte sagen: Immer weiter und weiter, bis in die äußersten, primitivsten menschlichen Ansiedelungen hinein, überall verbreitet sich, wenn auch nicht Naturwissenschaft, so doch eben die Art der Seelenverfassung, die von der Naturwissenschaft kommt. Das macht, daß viele zwar nicht wissen, daß ihre Sehnsucht, ihre Seelensehnsucht darnach geht, über das Geistige ähnliche Vorstellungen zu gewinnen wie über das Natürliche, daß aber dennoch bei sehr vielen Menschen heute dadurch ein Seelenzwiespalt zustande kommt, der sich in allerlei Unbefriedigtheiten des Lebens äußert. Man fühlt eine gewisse innere Unruhe und Unsicherheit. Man weiß nicht recht, wie man sich mit seinen Vorstellungen, mit seinen Empfindungen in das Leben hineinstellen soll. Man schreibt das mancherlei Dingen zu; aber die wirkliche Ursache ist in dem Gesagten gelegen.
+
+Die Menschen verlangen heute eigentlich nach wirklichen Erkenntnis-, nicht nach Glaubensvorstellungen über die geistige Welt. Solche Vorstellungen strebt Anthroposophie an. Indem sie dies tut, muß sie allerdings einen ganz anderen Erkenntnisbegriff geltend machen, als der ist, an den man sich heute gewöhnt hat. Und wenn ich charakterisieren soll, welches dieser Erkenntnisbegriff ist, so möchte ich das zunächst durch eine Art von Vergleich tun, der aber mehr sein soll als ein bloßer Vergleich, durch etwas, was direkt hineinführen soll in die Art und Weise, wie Anthroposophie das Übersinnlich-Geistige zu erkennen strebt.
+
+Denken wir zunächst an die merkwürdige Welt, die jeder gewissermaßen als die andere Seite des menschlichen Daseins, des menschlichen Bewußtseins kennt, denken wir an
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 12
+
+---
+
+die Traumeswelt. Jeder kann sich vor die Seele stellen die bunten, mannigfaltigen, farbenreichen Bilder, welche ihm auftauchen aus den dunklen Tiefen des Schlafzustandes. Man findet, wenn man vom wachen Zustande aus auf die Träume hinschaut, daß diese in irgendeiner Weise zusammenhängen mit dem, was der Mensch im wachen Zustande ist und vorstellt. Selbst wenn sie, was ja gar nicht abgeleugnet werden soll, zuweilen wie prophetische Träume wirken, es hängen diese Träume dennoch zusammen mit dem, was der Mensch erlebt hat. Nur wirkt eine, ich möchte sagen, natürlich gestaltende Phantasie in der ausschweifendsten Weise mit, um das, was der Mensch erlebt, umzugestalten. In anderer Weise hängen solche Träume zusammen mit den menschlichen leiblichen Zuständen; Atembeschwerden, zu schnelle Herzbewegung, Störungen im Organismus werden in der mannigfaltigsten Weise im Traume symbolisch erlebt.
+
+Denken wir uns einmal, nur um den Gedanken auszubilden, der hier nötig ist, der Mensch lebte in dieser Traumeswelt; er hätte keine andere Welt. Der Mensch wäre nicht imstande, aus dieser Traumeswelt jemals herauszukommen, er würde sie für seine Wirklichkeit halten. Wenn durch irgendwelche äußeren Kräfte das Menschenleben genau ebenso verliefe, wie es jetzt verläuft, wenn durch die Wirkung anderer geistiger Wesenheiten dieses Menschenleben genau ebenso verliefe, daß wir in den Städten herumgehen, unsere Arbeit tun, aber nicht mit Bewußtsein hinsehen auf diese Arbeit, sondern immer nur träumten, so würden wir als Menschen die Traumeswelt für die einzige Wirklichkeit halten, geradeso, wie der Träumer ja seine mannigfaltig ausstaffierte Traumeswelt in dem Momente des Träumens für seine Wirklichkeit hält. Wachen wir auf, dann können wir vom Standpunkt des Wachens durch die Art und Weise, wie wir dann zur Welt unserer Umgebung
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 13
+
+---
+
+stehen, eigentlich erst ein Urteil über den Wirklichkeitswert und die Wirklichkeitsbedeutung des Traumes gewinnen. Innerhalb des Traumes stehenbleibend, kann man kein solches Urteil über die Wirklichkeitsbedeutung des Traumes selbst gewinnen. Inwiefern der Traum mit den Lebensreminiszenzen zusammenhängt, inwieferne er zusammenhängt mit körperlichen Zuständen, darüber ein Urteil zu gewinnen ist nur möglich von dem Standpunkte des Wachens aus. Man muß erst aufwachen, um über den Traum ein Urteil zu haben.
+
+Nun lebt ja der Mensch auch in seinem Willen, denn der Wille ist hauptsächlich eingeschaltet beim Aufwachen in die Vorgänge der äußeren Sinneswelt, er lebt nun in den Bildern, die ihm diese Sinneswelt für seine Seele überliefert. Ein anderes Urteil als das Sich-hinein-Fühlen in die Sinneswelt, das Sich-verbunden-Empfinden mit dieser Sinneswelt haben wir gar nicht über die Wirklichkeit. Und von diesem Gesichtspunkte des, ich möchte sagen, mit seinem ganzen Seelenwesen durch den Körper Eingeschaltetseins in die Sinneswelt, von diesem Gesichtspunkte aus beurteilen wir diese Sinneswelt zunächst als die Wirklichkeit, und das, was uns der Traum vorgaukelt, als nicht zu dieser Wirklichkeit gehörig. Nun aber taucht ja bei jedem Menschen einmal die Frage auf, namentlich wenn er alles das überblickt, was die Bilder der äußeren Sinneswirklichkeit ihm geben: Wie verhält sich dasjenige, was er selbst in seinem Innern als sein Seelisch-Geistiges erlebt, zu den Verwandlungen und zu der Veränderlichkeit dieser äußeren Sinneswelt?
+
+Die großen Fragen des Daseins tauchen auf, indem der Mensch vergleicht, was er in der äußeren Sinneswelt schaut, und was er als sein eigenes Wesen in seinem Denken und Fühlen und Empfinden in seinem Willen aus den Tiefen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+seiner Menschlichkeit aufsteigen fühlt. Jene großen Fragen des Daseins, die sich einschließen etwa darin: Welchen Wirklichkeitswert hat das Seelische? - was sich dann erweitert zu der großen Frage der Seelenunsterblichkeit - die Frage nach der menschlichen Freiheit und zahlreiche andere Fragen tauchen auf. Denn der Mensch fühlt ja bald, wie ganz anders das Erlebnis ist, wenn er nach außen schaut und die Sinneseindrücke empfängt, und wenn er nach innen schaut und seine seelischen Erlebnisse hat. Und aus solchen Erfahrungen muß ja die Frage auftauchen: Ist es denn vielleicht in einer ähnlichen Weise möglich, durch eine Art zweiten Erwachens, durch ein höheres Erwachen auch von einem höheren Standpunkt aus Aufschluß über die Sinneswirklichkeit selbst zu erlangen, so wie man von der Sinneswirklichkeit aus, wenn man in natürlicher Weise erwacht am Morgen, ein Urteil gewinnt über die Traumeswelt?
+
+Wenn man überzeugt ist davon, daß die Einbildung des Traumes ihrem Wirklichkeitswert nach nur beurteilt werden kann vom Standpunkte des Wachens, dann muß man danach streben, einen Standpunkt zu gewinnen, der nun wiederum über den Wirklichkeitswert, über den höheren Wirklichkeitswert der sinnlichen Erfahrung selber etwas aussagen kann. Und so geht die große Frage nach einer Geist-Erkenntnis danach: Können wir etwa in einem höheren Sinne aus unserem alltäglich wachenden Bewußtsein heraus noch einmal aufwachen, und ergibt sich durch ein solches zweites Aufwachen eine Erkenntnis über die Sinneswelt, so wie sich von der Sinneswelt aus eine Erkenntnis über den Traum ergibt?
+
+Nun kann man schon fühlen, aber eine genaue Betrachtung gibt Gewißheit darüber, wie der Traum eigentlich wirkt. Wenn man träumt, fühlt man gewissermaßen sein ganzes Seelenleben von unbestimmten Machten ergriffen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 15
+
+---
+
+In dem Momente, wo der Mensch aufwacht, fühlt er, daß er gewissermaßen seinen physischen Leib nun in der Hand hat. Er fühlt, daß die ausschweifenden Vorstellungen des Traumes durch den physischen Leib diszipliniert werden. Und er fühlt auch, diese Vorstellungen des Traumes sind ausschweifend aus dem Grunde, weil im Aufwachen oder im Einschlafen ein Moment da ist, wo wir den physischen Leib nicht vollständig in der Hand halten. Kann in derselben Weise, wie wir durch die Kräfte unseres Organismus selbst aus dem Traum, aus dem Schlafe überhaupt herausgerissen werden zum sinnlichen Wachsein, kann in derselben Weise durch bewußte Seelentätigkeit ein höheres, ein zweites Aufwachen bewirkt werden?
+
+Durch die Beantwortung dieser Frage, die nur beantwortet werden kann, indem man, ich möchte sagen, in einem höheren Sinne probiert, ob die Seele in sich Kräfte findet zu einem solchen höheren Erwachen, dadurch allein kann eine andere Gestalt des Erkenntnisbegriffes geschaffen werden als derjenige, den man heute gewöhnt ist, und der ja nur dazu führt, daß man ein Ignorabimus, ein «Wir-werden-nicht-Erkennen» gegenüber der geistigen Welt ausspricht.
+
+Nun wird man sich zunächst wenden müssen – und so verfährt die Anthroposophie – an diejenigen Seelenkräfte, die wir schon haben, und wird fragen müssen: Kann aus diesen Seelenkräften heraus ein Höheres, ein noch Kräftigeres entwickelt werden, so wie das wache Seelenleben kräftiger ist als das träumende? Man wird sich sagen, auch dieses wache Seelenleben des erwachsenen Menschen ist ja allmählich entwickelt worden aus dem träumerischen Seelenleben, das wir bei unserem Antritt des Seelenlebens als ganz kleine Kinder gehabt haben. Wären wir stehengeblieben bei dem Seelenleben, das wir etwa in den ersten drei Jahren unseres Seelenlebens, unseres Erdenlebens hatten, wir wür-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 16
+
+---
+
+den die Welt in einer Art Traumform betrachten. Wir sind herausgewachsen aus dieser Traumform.
+
+Das kann Mut geben, zunächst gewisse Seelenkräfte aufzusuchen, die nun noch weiter zu entwickeln sind, als sie sich seit der ersten Kindheit entwickelt haben. Und es wird sich derjenige, der es mit einer solchen Frage ernst nimmt, zunächst an eine seelische Kraft wenden, von der auch bedeutendere philosophische Geister der Gegenwart schon aus rein philosophischen Erwägungen herauszugeben, daß sie auf eine geistige, vom Leibe mehr oder weniger unabhängige Betätigung des Menschen hinweist. Das ist unsere Erinnerungskraft, dasjenige, was in unserem Gedächtnisse lebt.
+
+Vergegenwärtigen wir uns einmal, was in unserem gewöhnlichen Gedächtnisse lebt. Zunächst ist dieses Gedächtnis selbstverständlich keine Kraft, um in übersinnliche geistige Welten hinaufzudringen. Zunächst wissen wir auch von diesem Gedächtnisse, daß es in vollständiger Ordnung nur ist, wenn wir das Seelische in dem Leiblichen zum Ausdrucke bringen. Aber dennoch, etwas Eigentümliches liegt vor. Innerhalb der Erinnerungen treten auf die Bilder von Erlebnissen, die vielleicht jahrzehntelang hinter uns liegen. Je nachdem der Mensch organisiert ist, tritt in mannigfaltigen Bildern, die eigentlich den Traumbildern sehr ähnlich und nur disziplinierter sind, dasjenige auf, was wir durchgemacht haben in unserem Verhältnis zur sinnlichen Welt und zum gewöhnlichen Menschen. Und wenn unser Gedächtnis treu ist, so kommt aus den Seelentiefen heute ein lebendiges Wissen von dem herauf, was vor Jahren war, was heute nicht in sinnlicher Wirklichkeit vor uns steht. Das ist allerdings nur ganz populär gesprochen, aber man muß ja zunächst ausgehen von irgendeinem sicheren Gesichtspunkt. Und so können wir sagen: In der Erinnerung
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 17
+
+---
+
+sind uns Vorstellungen gegeben, welche innerlich etwas abbilden, was zwar einmal da war, mit dem wir einmal gelebt haben, was aber zunächst nicht da ist.
+
+Und so kann die allerdings zunächst noch vage Frage entstehen, die natürlich erst eine Bedeutung bekommt, wenn man sie beantworten kann - aber wir werden sehen, daß man sie beantworten kann -: Kann der Mensch vielleicht durch innere geistig-seelische Arbeit eine weitere Seelenkraft, gewissermaßen eine Umwandlung der Erinnerungskraft sich erringen, durch die er nicht nur dasjenige vorstellt, was jetzt nicht mehr da ist, aber einmal da war, sondern durch die er etwas vorstellt, was zunächst im Erdenleben überhaupt durch keine Sinneswahrnehmungen und durch keine Verstandeskombinationen da ist? - Diese Frage kann nur durch ernstliche innere Seelenarbeit entschieden werden, und diese Seelenarbeit besteht darin, daß der Mensch dasjenige, worauf ja zunächst das Gedächtnis abgestellt ist, das Vorstellungsvermögen selbst, ich möchte sagen, in eine innere Erziehung nimmt.
+
+Wie verlaufen denn die Vorstellungen, und wie vollzieht sich die Vorstellungstätigkeit im gewöhnlichen Leben? Nun, die äußeren Dinge machen auf uns einen Eindruck. Zunächst haben wir die sinnlichen Wahrnehmungen. Dann machen wir uns aus diesen sinnlichen Wahrnehmungen unsere Vorstellungen, die wir dann in der Erinnerung tragen. Und wir wissen ja, wenn wir etwas, was vor Jahren vor uns gestanden hat, in das wir hineinverwickelt waren, in der Vorstellung erinnerungsgemäß heraufrufen wollen, dann brauchen wir eine gewisse Kraft dazu. Aber wir wissen auch, daß der Mensch gerade, um treu die äußere Welt in seinen Vorstellungen zu haben, um nichts Phantastisches in die Bilder von dieser äußeren Welt hineinzubringen, sich passiv der äußeren Welt hingibt. Und dieses passive Sichhingeben,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 18
+
+---
+
+das noch dazu durch alle möglichen Experimentiermethoden unterstützt wird, ist ja auch das Richtige für die Naturwissenschaft. Aber man kann mit dem Vorstellungsleben noch etwas anderes anfangen. Man kann versuchen, mit innerlicher Aktivität, in innerlicher Tätigkeit Vorstellungen aufzunehmen, sie mögen einen Inhalt haben, welchen auch immer; nur müssen sie einen leicht überschaubaren Inhalt haben, der nicht suggestiv wirken kann. Schwer überschaubare Inhalte, solche Inhalte, die wir aus den Tiefen der Seele heraufholen, können leicht suggestiv wirken. Man kann nun versuchen, einen solchen einfachen Vorstellungsmhalt innerlich tätig zu verarbeiten, so daß man sich mit seinem ganzen Seelenleben diesem Inhalte immer wieder und wieder hingibt.
+
+Ich habe die Technik, möchte ich sagen, einer solchen Hingabe an ein aktives Vorstellungsleben in meinen Büchern «Wie erlangt man Erkenntnisse der höheren Welten?» und in meiner «Geheimwissenschaft» genauer beschrieben; hier will ich das Prinzipielle angeben. Wenn man sich immer wieder und wieder diesem Inhalte hingibt, ganz unabhängig davon, ob die Vorstellungen, die man innerlich verarbeitet, auf denen man innerlich ruht, die man innerlich in Verbindung bringt, in denen man sein ganzes Seelenleben aufgehen läßt, ob diese Vorstellungen äußerlich dies oder jenes bedeuten, wenn man sich so diesem Inhalte hingibt, dann merkt man allmählich, daß in diesem innerlichen Arbeiten, im Denken und Vorstellen, eine merkwürdige Lebendigkeit sich entwickelt, eine Lebendigkeit, die man eben erst kennenlernen muß, um über sie ein Urteil haben zu können. Lernt man sie kennen, dann fängt man auch an, etwa in der folgenden Weise zu denken. Man sagt sich: Wie ein Muskel, mit dem man immer arbeitet, sich verstärkt, so verstärkt sich gerade die Denkkraft unseres Seelenlebens, wenn man
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 19
+
+---
+
+in dieser Weise, indem man sich nicht den Eindrücken der Außenwelt passiv hingibt, sondern indem man innerlich arbeitet, wenn man in dieser Weise vorstellungsgemäß ganz lebendig innerlich sein Seelenleben immer wieder und wieder in eine gewisse Verfassung bringt. Auf diese Art gelangt man endlich dazu, daß in der Tat das Denken, das sich sonst auch für die Erinnerungsbilder schattenhaft ausnimmt, das sich eben in bloß angeschauten Bildern erschöpft, einen innerlich, aber geistig-seelisch erfüllt, so wie man sich mit seinem Atmen, mit seiner Blutzirkulation im Leben erfüllt empfindet. Es strömt, wenn ich so sagen darf, Lebenskraft in das aktiv gewordene Denken ein.
+
+Ja, wahre Anthroposophie als Geist-Erkenntnis ist etwas, was auf innerlichen intimen Methoden der Seele beruht, nicht auf irgendwelchen Geisterzitationen, sondern darauf, daß die Seele selbst ihre Erkenntniskräfte umkehrt, um sie zu etwas anderem zu machen. Und wenn der Mensch in dieser Weise immer mehr und mehr sein Denken erkraftet, so kommt er einmal, sei es auch nach Jahren, zu einem ganz besonderen inneren Erlebnis, zu dem Erlebnis, das man so schildern kann: Wenn man nur äußere Gegenstände oder äußere Handlungen erinnert, dann taucht man bis in eine gewisse Tiefe des Seelenlebens hinunter, und aus dieser Tiefe muß man dann die Erinnerungen herausschöpfen. Wenn man aber so, wie ich es geschildert habe, lebendig arbeitet an seinem Denken, dann kommt man endlich dazu, mit diesem Denkleben genau zu wissen, man taucht tiefer hinunter, als die Kraft der Erinnerung reicht.
+
+Das ist ein wichtiges Erlebnis, wenn man dazu gekommen ist, die Erinnerungen gewissermaßen wie eine Art Niveau zu betrachten, bis zu dem man hinuntertaucht beim gewöhnlichen Bewußtsein, und von dem aus man die Erinnerungsvorstellungen heraufholt, und wenn man dann spürt, wie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 20
+
+---
+
+tiefer unten ein anderes Niveau liegt im Seelenleben, zu dem man jetzt hinuntergedrungen ist, und von dem man durch das erkraftete Denken nun Vorstellungen heraufschöpfen kann, die nicht dieselben sind, denen man sich zuerst hingegeben hat, sondern die nun ganz andere sind. Und während man durch die Erinnerung vorstellen kann das, was nicht mehr da ist, aber einmal da war im Menschenleben, so erfährt man jetzt, wie man von diesem tieferen Niveau aus, wenn man aus ihm heraufschöpft, zu Vorstellungen kommt über etwas, das man sonst im Leben niemals hat.
+
+Jetzt ist man durch dieses Erkenntnistor in die geistige Welt eingedrungen. Und die erste Erfahrung, die sich da ergibt, ist diese, daß man einen wirklichen tableauartigen Rückblick auf sein gesamtes bisher verbrachtes Erdenleben gewinnt. Man möchte sagen: Wie in einem einzigen Augenblicke - das ist etwas radikal gesprochen, aber es ist fast so - liegt, indem förmlich die Zeit in Raum verwandelt ist, das bisherige Erdenleben vor dem Bewußtsein ausgebreitet in mächtigen Bildern. Aber diese Bilder unterscheiden sich doch von dem, was man etwa gewinnen würde, wenn man sich hinsetzen und in der Erinnerung alles heraufholen würde, was man aus seinem Erdenleben heraufholen kann, und nun sozusagen fortlaufende Vorstellungen bis nahe zu seiner Geburt hin aus diesem Erdenleben gewinnen würde.
+
+Das Tableau, das man auf die geschilderte Weise bekommt, unterscheidet sich ganz wesentlich von dem letzteren. Die in der gewöhnlichen Erinnerung doch passiv gebildeten Vorstellungen enthalten überhaupt mehr die Art und Weise, wie die Außenwelt an einen herangetreten ist. In der Erinnerung lebt man etwa in dem, wie ein Mensch einem begegnet ist, wie ein Mensch auf einen gewirkt hat, wie ein Mensch einem Freundschaft entgegenbrachte; oder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 21
+
+---
+
+man lebt darin, wie ein Naturereignis auf einen gewirkt hat, welchen Eindruck dieses Naturereignis auf einen gemacht hat, was man an Leid und Freude von diesem Naturereignis oder von dem Einflüsse des Menschen erfahren hat und so weiter.
+
+Dasjenige, was man in dem Tableau hat, wie ich es geschildert habe, das man erlangt durch das erkraftete, verstärkte Denken, das ist: Man schaut sich selber, wie man durch seine eigenen Temperamentseigenschaften, durch seinen Charakter, durch das, was in einem selber als Sehnsucht, als Liebe gelebt hat, sich einem andern Menschen genähert hat. Während einem die bloße Erinnerung dasjenige gibt, was von außen einem entgegengetragen wird, gibt einem dieses Erinnerungstableau mehr das, was man selbst beigetragen hat zu dem Erlebnis, was aus einem selber herausgekommen ist. Und wenn man bei der gewöhnlichen Erinnerung etwa einem Naturereignis gegenüber dasjenige hat, was dieses Naturereignis an Leid oder Freude gebracht hat, wie also die Außenwelt auf einen gewirkt hat, so hat man in dem Erinnerungstableau mehr, sagen wir, die Sehnsucht, sich irgendeiner Gegend der Erde zu nähern, auf welcher man dieses Erlebnis hatte. Das, was man selber dazugetan hat, das erlebt man in diesem Erinnerungstableau. Kurz, es ist, ich möchte sagen, abgelenkt von der Außenwelt dieser Totaleindruck, den man von seinem Leben hat, und es ist in diesem Totaleindruck alles das enthalten, was eigene Tätigkeit des Lebens war. Man sieht sich wirklich wie einen zweiten Menschen. Indem man dieses Erinnerungstableau hat, hat man nicht viel Eindruck von seinem physischen Raumesleib; aber man fühlt sich in alledem darinnen, was man zum Erlebnis gebracht hat, und man fühlt zu gleicher Zeit, wie alles, was man da zum Erlebnis gebracht hat, gewissermaßen eine ätherisch strömende
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 22
+
+---
+
+Welt ist. Und man lernt zu gleicher Zeit erkennen mit dieser ätherisch strömenden Welt, welche in mächtigen Bildern wie in einem fortströmenden Flusse das eigene Leben enthält, wie diese ätherisch verlaufende Welt des eigenen Daseins zusammenhängt mit der allgemeinen ätherischen Welt. Wenn man als physischer Mensch mit seinen physischen Sinnen der Außenwelt gegenübersteht, so fühlt man sich selber innerhalb seiner Haut eingeschlossen. Man fühlt die anderen Dinge als äußere Dinge. Man fühlt einen strengen Kontrast zwischen Subjekt und Objekt, wenn ich mich philosophisch ausdrücken will. Das ist nicht der Fall, wenn man nun in ein verstärktes Denken, in die fluktuierende Welt, ich möchte sagen, des zweiten Menschen, des Zeitmenschen gegenüber dem physischen, leiblichen Raumesmenschen eintritt.
+
+Man kann wirklich von einem Zeitleib sprechen, denn man empfindet wie auf einmal dieses ganze bisher verbrachte Erdenleben, und man fühlt dieses bisher verbrachte Erdenleben sich bewegend in einer allgemeinen, ihm gleichen Welt. Einen Sinn bekommt es, zu sagen: Zu der harten, dichten physischen Welt tritt eine feinere Welt hinzu, in der man strömend sein Leben vollbracht hat, eine ätherische Welt. Man lernt jetzt erst erkennen, was eine ätherische Welt ist, und was man selbst als zweiter Mensch, als zweites Menschenwesen in dieser ätherischen Welt ist. Aber damit hat man erst die erste Stufe des Übersinnlich-Geistigen beschritten. Man weiß gewissermaßen in unmittelbarer Anschauung nur deshalb, weil man sich selbst fühlt als geistseelisches Wesen innerhalb einer geist-seelischen Welt, man weiß, daß die ganze Welt durchwellt und durchwebt ist von einer geistig-seelischen Wesenheit, welche man selbst in sich hält. Aber mehr weiß man zunächst noch nicht. Und man weiß vor allen Dingen zunächst noch nicht von einer
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 23
+
+---
+
+anderen geistig-seelischen Welt, als diejenige ist, die einen als Erdenmenschen verbindet mit der umgebenden, eben auch ätherischen Welt.
+
+Aber man kann nun weitergehen. Hat man einmal diese Fähigkeit erlangt, im Ätherischen sich zu erleben, die ätherische Welt mit sich zu erleben, dann kann man aufsteigen zu einer anderen Art der Ausbildung der Seelenkräfte. Sie besteht darinnen, daß man, ich möchte sagen, den entgegengesetzten Vorgang des zuerst Charakterisierten in der Seele bewirkt. Zuerst versuchte man, das Denken innerlich recht aktiv, recht lebendig zu machen, so daß man statt des passiven Denkens ein innerlich regsames Strömen und Kräften und Wellen und Weben in sich hat. Nun muß man versuchen, dasjenige, was man als Gedanken, als frei in der Seele schwebenden Gedanken in diese Seele versetzt hat, mit derselben innerlichen Willkür und Willenskraft wieder zu unterdrücken.
+
+Alles, was ich Ihnen schildere, muß sich bei den Seelenübungen, auf die ich hinziele, so ausführen lassen, wie der Mathematiker seine Probleme ausführt. So daß der Mensch mit voller Besonnenheit das alles ausführt, daß nichts von irgendwelcher falschen Mystik, von Träumerei oder gar von Suggestion oder dergleichen darinnen ist. Mit derselben, ich möchte sagen, nüchternen Kälte – denn die Wärme und der Enthusiasmus kommen durch das, was man dann sieht, nicht durch die Methode –, mit derselben nüchternen Kälte, mit der man geometrische Probleme löst, muß man in der Seele seine Übungen anstellen. Aber trotzdem stellt sich eines heraus. Wenn man dazu kommt, dieses erkraftete Denken zu haben bei den Vorstellungen, die man dann bekommt, namentlich bei den Vorstellungen des bisherigen Lebens, die einen ganz erfüllen können, wenn man auf ihnen ruhen will, dann kommt man schwer von ihnen los.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 24
+
+---
+
+Aber man muß die starke Kraft in sich entwickeln, ebenso die Vorstellungen wiederum zu unterdrücken, wie man sie selbst in eigener Tätigkeit hervorrufen kann. Man muß mit anderen Worten die Fähigkeit gewinnen, alles Vorstellen, alles Denken im Bewußtsein auszulöschen, nachdem man es in höchster Regsamkeit angefacht hat. Das Auslöschen der gewöhnlichen Vorstellungen ist schon sehr schwer; aber es ist verhältnismäßig leicht gegenüber dem Auslöschen von solchen Vorstellungen, die man zuerst durch eine gesteigerte Aktivität in sein Bewußtsein versetzt hat.
+
+Daher bedeutet auch dieses Auslöschen etwas ganz anderes. Und gelangt man, wiederum durch lange Übungen – aber man kann diese Übungen gleichzeitig mit den anderen machen, so daß beide Fähigkeiten auch wiederum gleichzeitig auftreten – gelangt man dahin, durch lange Übungen dieses herbeizuführen, daß man ebenso kraftvolle aktive Denkprozesse in das Bewußtsein bringen kann, wie sie wieder auslöschen, dann kommt über die Seele etwas, was ich nun nennen möchte – Ausdrücke muß man ja haben für diese Dinge – das innere Schweigen der Menschenseele.
+
+Dieses innere Schweigen kennt man in dem Bewußtsein des gewöhnlichen Lebens eben gar nicht. Das erste, was der Geistesforscher, der den anthroposophischen Weg forschend gehen will, braucht, ist das verstärkte Vorstellungs-, das verstärkte Denkleben, wodurch er in der angedeuteten Weise zur Selbsterkenntnis kommt. Das andere ist, daß er sich ausbilden muß ein vollständig leeres Bewußtsein, wodurch alles, was sonst an Denken, Fühlen und Wollen in der Seele ist, zum Schweigen gebracht wird; zum Schweigen gebracht wird aber erst, nachdem diese Seelentätigkeit vorher in der höchsten Weise gesteigert worden ist. Dann ist dieses Schweigen der Seele etwas ganz Besonderes. Und ich kann dieses Schweigen der Seele, das gewissermaßen die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 25
+
+---
+
+zweite Stufe der Geist-Erkenntnis darstellt, etwa in der folgenden Weise schildern.
+
+Denken wir uns, wir seien in einer großen Stadt, wo furchtbarer Tumult ist. Ganz betäubt werden wir von dem Tumult. Wir gehen aus dieser Stadt weg, entfernen uns. Wenn wir eine Weile gegangen sind, so hören wir hinten noch die Geräusche, hören das Pfeifen und Dröhnen, aber es ist schon etwas stiller geworden. Und je weiter wir gehen, desto stiller wird es. Kommen wir endlich in die Stille des Waldes, so kann es sein, daß um uns herum Ruhe ist. Wir haben den ganzen Weg durchgemacht von tobenden Geräuschen bis zur äußeren Ruhe. Aber ich kann jetzt weitergehen. Das wird zwar in der äußeren Wirklichkeit nicht eintreten, aber der Begriff wird ein vollständig realer, wenn man zu dem kommt, was ich eben bezeichnet habe als Schweigen der Seele.
+
+Ich will einmal einen ganz trivialen Vergleich gebrauchen: Man kann ein gewisses Vermögen haben und immer mehr und mehr davon ausgegeben. Dann hat man immer weniger, und zuletzt gar nichts. Dann hat man «Null»-Vermögen. Man kann aber noch weitergehen, man kann Schulden machen. Dann hat man weniger als nichts. Das kennt man aus der Mathematik. Man hat weniger als nichts. So kann es nun auch mit der Ruhe werden, mit dem Schweigen. Es kann gewissermaßen von dem Geräusch der Welt aus hergestellt werden die vollständige Stille, gleich Null. Dann kann es aber noch heruntergehen, stiller werden als die Stille, die gleich Null ist, immer stiller und stiller werden, negative Stille, negative Ruhe, mehr als Ruhe. Und so wird es, wenn man dies verstärkte Seelenleben auslöscht, in der Seele schweigsamer als das bloße, wenn ich mich so ausdrücken darf, Null-Schweigen. Es wird eine nach der entgegengesetzten Seite hin zielende Ruhe im Seelenleben
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+hergestellt, ein Schweigen, das mehr ist als das bloße Schweigen, wenn wir im gewöhnlichen Bewußtsein ruhig sind.
+
+Und wenn wir vorgedrungen sind zu diesem Schweigen, wenn die Seele fühlt, daß sie gewissermaßen der Welt entrückt ist, nicht nur indem die Welt um die Seele herum still ist, sondern indem die Seele fühlt, die Welt kann nur ruhig sein gleich Null; du aber selber, du Seele, bist in einer tieferen Schweigsamkeit, als die Schweigsamkeit der Welt ist - dann, wenn dieses eintritt, wenn diese negative Schweigsamkeit eintritt, dann beginnt von der anderen Seite des Daseins her die geistige Welt zu sprechen, wirklich zu sprechen. Sonst unterbricht man selbst als Mensch mit den in der Luft nach außen geformten Worten die Ruhe der Welt. Indem man diese Ruhe, die tiefer ist als die Nullruhe, dieses Schweigen, das tiefer ist als das bloße Schweigen, in sich hergestellt hat, beginnt es aus der geistigen Welt heraus zu sprechen, eine Sprache aber, in die man sich erst hineingewöhnen muß, eine Sprache, die ganz und gar nicht etwa ähnlich ist der Wortsprache, eine Sprache, die sich einem so gestaltet, daß man sich nach und nach in sie hineingewöhnt, indem man dasjenige nimmt, was man gut aus der Sinneswelt kennt, Farben, Töne, kurz alles was man aus der Sinneswelt kennt. Das braucht man, um nach den Erlebnissen, die man mit diesen Sinneserfahrungen hatte, die besonderen Eindrücke der geistigen Welt zu schildern.
+
+Ich will auf einige Details aufmerksam machen. Nehmen wir an, wir haben in diesem innerlichen Schweigen der Seele etwas erlebt, was auf uns den Eindruck macht: Aus Geistestiefen heraus ist etwas da, was gewissermaßen aggressiv auf uns losgeht, was auf uns in einer gewissen erregenden Weise wirkt. Zunächst ist das ein geistiges Erlebnis, man weiß, daß das Geistige sich offenbart. Man vergleicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+nun das, was man so erlebt, mit einem Erlebnis, das man in der Sinneswelt gehabt hat, und man bekommt dann heraus: Das Erlebnis, das man in der Sinneswelt hat, ist ungefähr dasjenige, was man bei der Wirksamkeit der gelben Farbe hat. Geradeso, wie man ein Wort prägt, um In der Sinneswelt etwas auszudrücken, so nimmt man jetzt die gelbe Farbe, um dieses Geist-Erlebnis auszudrücken, oder in einem anderen Falle nimmt man einen Ton, um dieses Geist-Erlebnis auszudrücken. Wie man die Sprache gebraucht, um sich über die Sinneswelt auszudrücken, so redet man von dem, was man an Sinnesqualitäten, an Sinneseindrücken hat, über dasjenige, was man aus der geistigen Welt auf geistige Art im Schweigen der Seele empfängt.
+
+Und so schildert man die geistige Welt. So habe ich sie geschildert in meinem Buche «Theosophie» und in meinem Buche «Geheimwissenschaft», und man muß nur diese Schilderung in der richtigen Weise verstehen. Man muß verstehen, daß dem Schweigen der Seele gegenüber eine neue Sprache entsteht. Während man die äußere artikulierte Sprache hat, um nach außen als Mensch hinauszureden, tötet uns von der geistigen Welt etwas herein, was man gewissermaßen mit anschaulichen Worten belegen muß, was dann aber nur mit der entsprechenden Feinheit geschaut werden kann, was dann übersetzt werden kann in die Menschensprache, wenn man sie belegen will mit Worten, die eben aus der Sinneswahrnehmung gebildet sind.
+
+Und gelangt man nun dazu, wenn man auf diese Weise die Erfahrungen der schweigenden Seele erlebt, zu erkennen: Was du da zuerst gehabt hast, diese Welt des verstärkten Denkens, das ist ja im Grunde genommen nur ein Bild, ein Bild von dem, was du jetzt erst schaust, wofür du jetzt erst eine Sprache hast, ein Bild, von dem du eingedrungen bist in das Schweigen der Seele. Jetzt spricht durch das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+Schweigen der Seele die Geisteswelt zu dir. Und jetzt kommt man auch in die Lage, dieses ganze Lebenstableau, das man sich erst gebildet hat, das das Erdenleben ätherisch vor uns hinzaubert, auch auszulöschen, so daß gegenüber dem eigenen Leben, wie wir es auf Erden führen, nun auch die innere Schweigsamkeit der Seele auftritt. Die Illusion jenes Ichs, das nur mit dem physischen Leibe leben kann, die hört jetzt auf.
+
+Derjenige, der zu stark durch einen theoretischen oder praktischen Egoismus an seinem Ich festhält, der kommt nicht dazu, dieses Schweigen der Seele gegenüber dem eigenen Lebenstableau herzustellen. Bekämpft man den theoretischen und praktischen Egoismus, wird man sich klar darüber, daß man zunächst ja dieses Ich dadurch hat, daß man sich im physischen Leben seines Körpers bedienen kann, daß der Körper uns die Möglichkeit gibt, zu uns Ich zu sagen. Kommt man dann von diesem körperlichen Ich-Empfinden in das, was ich als ätherische Welt geschildert habe, hinein, wo man zusammenströmt mit der Welt, wo die Welt ätherisch eins ist mit dem eigenen Ätherischen, dann kommt man schon dazu, an diesem Ich nicht mehr festzuhalten, und dann erlebt man dasjenige, von dem dieses Lebenstableau, zu dem man sich aufgeschwungen hat, ein Abbild ist. Man erlebt sein vorirdisches Dasein. Man erlebt dieses vorirdische Dasein, in welchem man in einer geistigen Welt war, bevor man durch die Empfängnis und Geburt in einen physischen Menschenleib herabgestiegen ist. Antroposophie redet nicht aus philosophischen Spekulationen heraus über die Unsterblichkeit, über die Ewigkeit der menschlichen Seele, sondern sie redet davon, wie man sich zunächst durch eine besondere Entwicklung der Seelenkräfte zu der Anschauung des Seelenwesens, bevor es heruntergestiegen ist auf die Erde, durchringt.
+
+Jetzt erscheint tatsächlich der schweigenden Seele die ewig
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 29
+
+---
+
+in der Geisteswelt daseiende Seele in unmittelbarer Anschauung. Wie man in der Erinnerung hinschaut auf das, was man auf Erden erlebt hat, wie da das Verflossene des Erdenlebens in der Vorstellung aufwacht, so wachen jetzt, nachdem man die Sprache der Geisterwelt, so wie ich es geschildert habe, in der schweigenden Seele kennengelernt hat, so wachen jetzt auf diejenigen Ereignisse, die überhaupt nicht im Erdenleben vorhanden sind, durch die sich der Mensch vorbereitet hat zu diesem Erdenleben, bevor er in dieses Erdenleben heruntergestiegen ist.
+
+Und jetzt schaut man hin auf das, was man war, bevor man in das Erdenleben heruntergestiegen ist. Solange man noch das Lebenstableau angesehen hat, solange wußte man: Geistdurchwebt und geistdurchwellt bin ich selber, ist die Welt; aber es ist gewissermaßen ein zwar feiner ätherischer, aber noch eine Art Naturgeist, den man in der Welt findet, und als den man sich selber erlebt. Jetzt aber, indem man in das vorirdische Dasein hineinschaut und sich verbunden hat mit dem, was Vater und Mutter geben in der Geburt, indem man dieses sieht, sieht man die Einheit zwischen moralischer Weltordnung und physischer Weltordnung. In diesem vorirdischen Dasein liegen alle die Kräfte, die dann in Nachbildern während des physischen Erdenlebens sich ausgestalten. Da sieht man dann, wie auch im physischen Erdenleben die geistigen Kräfte am Menschenleibe walten und weben. Man bewundert den Bau des menschlichen Gehirns, wie er sich allmählich herausgestaltet. Man lenkt seine Aufmerksamkeit darauf, wie undifferenziert dieses Gehirn war, als das Kind geboren wurde, wie es geworden ist im siebten Lebensjahre, etwa in der Zeit des Zahnwechsels. Man lenkt seinen Blick hin auf die inneren plastischen Gestaltungskräfte. Man bleibt nicht stehen bei dem unbestimmten Worte der Vererbung.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 30
+
+---
+
+Man weiß, was das Kind allein in den ersten Lebensjahren herausarbeitet an plastischer Ausgestaltung seines Gehirns und seines ganzen Organismus, das ist die Nachwirkung, das Nachbild dessen, was als umfangreiche, universelle Ereignisse erlebt worden ist in der geistigen Welt, wo man ebenso inmitten geistiger Wesenheiten war, wie man inmitten der Wesen der Naturreiche und des Menschen auf Erden ist. Und man lernt jetzt erkennen, wie die geistige Welt in die physische Erdenwelt hereinwirkt, wie in alledem, was in uns innerlich organisierend tätig ist, die Nachwirkungen dieses vorirdischen Daseins enthalten sind. Da lernt man sich seelisch-geistig innerhalb des Physisch-Leiblichen kennen.
+
+Und im weiteren Verlaufe muß zu dem, was ich schon geschildert habe, noch ein Drittes hinzutreten. Ich habe ja schon aufmerksam darauf gemacht, daß man die Illusion des Ich zunächst überwinden muß, daß man überwinden muß, was der gewöhnliche alltägliche theoretische oder praktische Egoismus ist, daß man einsehen muß, dieses Ich des Erdenlebens ist ja an den physischen Leib gebunden, und in der Empfindung des physischen Leibes lebt zunächst das Ich auf. Aber es steht da schon im physischen Erdenleben etwas, das, wenn ich es nenne, vielleicht so ein leises erkenntnistheoretisches Gruseln dem einen oder dem andern verursachen könnte, weil es gewöhnlich gar nicht zu den Erkenntniskräften gerechnet wird, weil man es vielleicht horribel findet, das zu den Erkenntniskräften zu rechnen. Aber es muß dennoch geschehen. Und daß es geschehen muß, das sieht derjenige ein, der in der Weise, wie ich es geschildert habe, erst zu dem denkenden Erkraften, dann zu dem Schweigen der Seele gekommen ist. Es muß als Drittes hinzutreten eine höhere Ausbildung, eine intensivere Ausbildung dessen, was im gewöhnlichen Leben da ist als die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:31
+
+---
+
+Liebe, die Liebe zu den Menschen, die Liebe zu der Natur, die Liebe zu allen unseren Werken, die Liebe zu unseren Taten; all das, was schon im gewöhnlichen Leben da ist, kann gerade angefacht werden dadurch, daß man in der geschilderten Weise den theoretischen und praktischen Egoismus wegbringt. Die Liebe muß sich steigern. Und indem sich diese Liebe steigert, indem sich die Liebekraft, das Aufgehen in anderes hinzugesellt zu dem verstärkten Denken und zu dem Schweigen der Seele, kommt man an ein Drittes. Man kommt jetzt zum erkennenden Eingreifen der wahren Gestalt des menschlichen Ich, indem man nicht nur das vorirdische Dasein kennenlernt, sondern indem man jetzt dadurch erkennen lernt, daß eine verstärkte Liebekraft die anderen ausgebildeten, verstärkten Erkenntniskräfte weiter energisiert. Man gelangt dazu, nun genau zu erleben: Alles, was du dir errungen hast, das hat ja nichts mehr mit dem physischen Leibe zu tun; du erlebst dich selbst außer dem physischen Leibe, du erlebst die Welt so, wie du sie durch den physischen Leib nicht erleben kannst. Du erlebst statt Naturerscheinungen geistige Wesenheiten. Du erlebst dich selbst nicht als eine natürliche Wesenheit zwischen Geburt und Tod, du erlebst dich als eine geistige Wesenheit im vorirdischen Dasein.
+
+Hat man sich das errungen, und tritt dazu eine erhöhte, eine verstärkte Liebefähigkeit, die Möglichkeit, sich aufzuopfern in dem, was man da schaut, sich hinzugeben mit seinem ganzen leibbefreiten Sein, dann tritt die Erkenntnis von dem ein, was man in unmittelbarer Gegenwart hat, unabhängig vom physischen und auch ätherischen Menschenleibe. Man erlangt eine unmittelbare Anschauung desjenigen, was in einem ruht, und was durch die Pforte des Todes in das nachirdische Dasein geht, wo wir wiederum eintreten in eine geistige Welt. Dadurch, daß der Mensch kennen-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 32
+
+---
+
+gelernt hat, was er ist im leibfreien Zustande, dadurch lernt er auch dasjenige kennen, was leibfrei weiterexistiert, wenn der physische Leib mit dem Tode abgelegt ist.
+
+Sie sehen, alles läuft darauf hinaus, zur Anschauung zu kommen über das Ewige der Menschenseele. Aber man gelangt dadurch überhaupt zu der Anschauung des wahren Ich, jenes Ich, das durch die Geburt, durch den Tod geht, das im Leibe, man kann nicht sagen wohnt, sondern im Leibe ruht. Aber dieses Ich lernt man zugleich erkennen, wie es sich bewegt, wie es tätig ist in der geistigen Welt im vorirdischen Dasein. Man lernt es so erkennen, wie man hier im sinnlich-physischen Dasein den Menschen durch sinnliche Anschauung kennenlernt. Wie der Mensch da herumgeht zwischen den Naturdingen, zwischen den Naturereignissen, zwischen anderen Menschen, so lernt man erkennen, wie die Seele im vorirdischen Dasein in der geistigen Welt, ich möchte sagen, sich herumbewegt. Aber man lernt auch erkennen, wie da ihr Bewegen, ihr Verhalten abhängig ist von einem früheren Erdenleben. Ich sagte, man lernt erkennen, die Einheit des Moralischen und des Natürlichen, man lernt erkennen, wie der Mensch im vorirdischen Dasein nicht nur von Geistigem durchsetzt ist, sondern auch von moralischen Impulsen. Während man, wenn man das ätherische Lebenstableau vor sich hat, bloß dazu kommt, einzusehen, daß die ganze Welt von Geist durchwallt ist, lernt man nun erkennen, daß unser seelisch-geistiges Wesen im vorirdischen Dasein durchpulst war von den moralischen Impulsen, die dann im Gedächtnisse, die überhaupt in der moralischen Anlage während des physischen Lebens auftreten. Man lernt die Einheit der moralischen und der physischen Welt kennen.
+
+Aber man lernt auch erkennen, wie in dieser moralisch-physischen Welt, die die Seele im Geistigen durchlebt hat -
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+die physische Welt nur in den Bildern, die in den Geist hinaufleuchten vom physischen Dasein —, wie die Seele, wie das eigentliche Ich des Menschen in der geistigen Welt in Gemäßheit des vorigen Daseins lebt. Ja, wenn man über die Illusion des gewöhnlichen Erden-Ichs hinauskommt, wenn man zu geistigem Anschauen kommt, dann kommt man dazu, das Ich zu erkennen, wie es schon hindurchgegangen ist durch die geistige Welt zwischen dem Tod und einer neuen Geburt, wie es sich innerhalb dieser mit moralischen Impulsen ausgerüsteten Welt verhalten hat gemäß seinem vorigen Erdenleben, und wie es als eine innerliche Bestimmung zum Schicksal all das in dieses Erdenleben hereinträgt, was wir dann sehen, wie es sich in den Neigungen des Menschen auslebt, wie es sich auslebt in der besonderen Färbung jener Sehnsucht, durch die der Mensch im Erdenleben zu dem oder jenem getrieben wird.
+
+Das beeinträchtigt nicht die Freiheit. Die Freiheit ist in gewissen Grenzen geradeso vorhanden, wie wir frei sind, wenn wir uns ein Haus gebaut haben, es zu beziehen oder nicht zu beziehen; aber wir werden es beziehen, weil wir es ja aus einem gewissen Grunde für uns gebaut haben. Ebenso bleiben wir frei, auch wenn wir wissen, daß wir in unserem physischen Leibe bestimmte Triebe haben, da oder dorthin im Leben uns zu wenden oder so oder so unseren Aufenthalt zu nehmen. Auf der einen Seite können wir das betrachten als ein Schicksal, das wir uns gewoben haben aus früheren Erdenleben heraus, aus der Welt, die nicht nur Geistgesetze enthält, die auch moralische Gesetze enthält, durch die wir hindurchgegangen sind, und welche das, was wir in einem vorigen Erdenleben gewesen sind, durchsetzt haben mit bestimmten geistigen Impulsen und daraus unser Schicksal für unser Erdenleben gebildet haben. Ebenso aber bemerken wir, wenn wir in der vorher ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 34
+
+---
+
+schilderten Weise dasjenige anschauen, was aus dem vorherigen Erdenleben stammt, daß es das Ewige ist der Seele, was unser Schicksal während des Erdenlebens bestimmt hat. Das tragen wir hinaus in die Welt, nachdem wir die Pforte des Todes durchschritten haben, indem wir das, was seelisch, moralisch ist, mit unserem Seelischen vereinigt haben, um es weiter in Einklang zu bringen nach unserem Verhalten mit den Anforderungen der moralischen Welt, und dann wiederum, ich möchte sagen, mit dem resultierenden Ergebnis aus dem, was wir im Leben waren, und dem, was die geistige Welt zwischen Tod und neuer Geburt aus uns macht, in ein neues Erdenleben herunterzukommen.
+
+So handelt es sich wirklich darum, ein gewisses Erkenntnisvermögen erst auszubilden, durch das man in die geistige Welt hinauf schauen kann. Bedenken Sie, nicht jeder Mensch ist durch seine Veranlagung ein Mathematiker. Sogar wird es den meisten Menschen sehr schwer, diese eigentlich nur in der Phantasie zu schöpfenden, sagen wir, geometrischen Vorstellungen zu haben. In der Natur ist ja die Geometrie nicht unmittelbar darinnen, aber wir verstehen die Natur durch die Geometrie. Wir müssen aber die Geometrie erst erschaffen in uns, und durch die Geometrie erschaffen wir Gebilde, die uns einführen in das Gebilde des Toten. In ebensolcher innerlichen Strenge erschaffen wir innerliches Anschauen, indem wir ausbilden das verstärkte Denken, das Schweigen der Seele, die zur Erkenntniskraft gewordene Liebe. Nur daß wir dann das Lebendige ergreifen, das Empfindende, das Selbstbewußte. Wie wir durch die Mathematik das Leblose ergreifen, so ergreifen wir, indem wir ganz nach mathematischer Art vorgehen und streng und exakt eine Art von Schauen ausbilden, verständnisvoll das Lebendige, das Empfindende, das Selbstbewußte.
+
+So darf man sagen: Wer im Ernste Anthroposophie treibt,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 35
+
+---
+
+der treibt sie so, als ob er genötigt wäre, dem strengsten Mathematiker Rechenschaft zu geben über das, was er mit seinen Erkenntniskräften macht. Das Ausbilden mathematischer Vorstellungen ist, wenn man so sagen darf, die elementare Anthroposophie. Und wenn man für das Tote der Welt gelernt hat, dieses Selbstschöpferische der Mathematik auszubilden, dann bekommt man schon den Antrieb, auch weiterhin die Erkenntnisarten auszubilden, die dann zum Schauen dessen führen, was ich Ihnen angeführt habe. Man lernt die Welt in einem anderen Inhalte kennen: die tote Welt, wenn man sie mathematisch kennenlernt – Mathematik ist elementare Anthroposophie –, die lebendige, empfindende, selbstbewußte Welt, wenn man sie anthroposophisch verständnisvoll verfolgen kann.
+
+Daher darf nicht mit dem, was man im gewöhnlichen Leben Hellsehen oder dergleichen nennt, verwechselt werden, was in Anthroposophie auftritt zur Erkenntnis der geistigen Welt. Wenn man das, was in Anthroposophie auftritt zur Erkenntnis der geistigen Welt, Hellsehen nennt – man kann ja den Ausdruck gebrauchen —, dann muß man ebenso, wie man bei der Mathematik von Exaktheit spricht, von exaktem Hellsehen, von exakter Clairvoyance sprechen gegenüber der verworrenen mystischen Clairvoyance, die man gewöhnlich im Auge hat, wenn man von Clairvoyance spricht.
+
+Nun, man wird vielleicht den Eindruck empfangen haben von meiner Schilderung, daß Sie sich sagen werden: Ja, das ist schwierig. – Ja, es ist schwierig, es ist nicht leicht! Daher unterlassen es auch sehr viele Leute, die sich ein Urteil bilden wollen über das, was in Dornach vorgeht, die ihnen schwierige Sache kennenzulernen, und beurteilen sie, wie Sie das triviale, verworrene Hellsehen und dergleichen beurteilen. Und es kommt dann alles das zustande, was ich im An-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 36
+
+---
+
+fange meines Vortrags gesagt habe. Diejenige Anthroposophie aber, um die es sich handelt, ist eine exakte Erkenntnisart, die aber jeder geradeso verstehen kann mit seinem gesunden Menschenverstand, wie man ein Bild verstehen kann, ohne daß man selbst Maler zu sein braucht. Um Anthroposophie zu bekommen, muß man anthroposophischer Forscher sein, um ein Bild zu malen, muß man Maler sein; aber alles, was ich geschildert habe, kann man mit dem gesunden Menschenverstand einsehen, wenn man sich nur nicht selbst Hemmnisse und Hindernisse in den Weg legt.
+
+Um ein Bild zu malen, muß man Maler sein. Um es zu beurteilen, muß man die gesunde menschliche Natur walten lassen. Um Anthroposophie aufzubauen, muß man Geistesforscher sein. Um Anthroposophie zu verstehen, muß man nur sein gesundes, von naturwissenschaftlichen und ähnlichen Vorurteilen ungetrübtes freies Menschengemüt demjenigen entgegenhalten, was dann als Schilderung, mehr oder weniger gut natürlich, herauskommt. Aber Anthroposophie ist ja erst in ihrem Anfange, und was ich heute vielleicht nicht gut geschildert habe, es wird schon mit der Zeit immer besser und besser geschildert werden. Und dann wird die Zeit kommen, die ja schließlich für alles, was als Neues in der Menschheit aufgetreten ist, einmal gekommen ist. Wie lange hat es gedauert, bis man die kopernikanische Weltanschauung akzeptiert hat! Sie hat nicht minder alle Begriffe, die man bis dahin gehabt hat, umgewälzt. Heute ist sie eine Selbstverständlichkeit und wird in den Schulen gelehrt. Was heute für die Leute der Ausbund der Phantastik, des Unsinns und vielleicht der Tollheit ist - so war es ja auch bei der kopernikanischen Weltanschauung —, das wird nachher eine Selbstverständlichkeit. Anthroposophie kann warten, bis sie eine Selbstverständlichkeit ist.
+
+Im Dornacher Goetheanum sollte zunächst diese Anthro-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 37
+
+---
+
+posophie gepflegt werden. Daher haben, lassen Sie mich das am Schlüsse anführen, vor mehr als zehn Jahren Freunde unserer Sache den Plan gefaßt und mich mit der Ausführung dieses Planes beauftragt - ich war nur der Ausführende —, um dieser Anthroposophie eine Stätte zu bauen. Diese Stätte wurde eben das Goetheanum, Wäre Anthroposophie eine theoretische Weltanschauung oder auch ein bloßer Reformgedanke, was würde geschehen sein in dem Augenblicke, wo der Gedanke aufgetaucht ist, der Anthroposophie ein Heim zu bauen? Man würde zu einem Baumeister gegangen sein, der hätte in einem antiken, oder Renaissance- oder gotischen oder Rokoko-Stil oder dergleichen eben ein Haus aufgebaut. Aber Anthroposophie ist nicht irgend etwas, was bloß theoretisch, bloß als wissenschaftliche Erkenntnis wirkt, Anthroposophie geht in den ganzen Menschen über, nimmt den ganzen Menschen in Anspruch. Das merkt der anthroposophische Forscher sehr bald.
+
+Sehen Sie, man braucht seinen Kopf, wenn man sich Gedanken über die äußere Natur machen will, oder wenn man philosophische Spekulationen machen will, erst recht. Dasjenige, was man in der Weise schaut, wie ich es Ihnen für die geistige Welt geschildert habe gegenüber der schweigenden Seele, das ist etwas, was sich flüchtiger darstellt. Man braucht Geistesgegenwart, um es rasch aufzufassen. Aber man braucht auch seinen ganzen Menschen dazu. Der Kopf reicht nicht aus. Der ganze menschliche Organismus muß sich in den Dienst des Geistes stellen, um das nun in das Gedächtnis, in die Erinnerung hereinzubringen, was man ohne den Leib geistig schaut. Lassen Sie mich, um das zu illustrieren, eine persönliche Erfahrung, etwas Persönliches anführen.
+
+Ich habe zum Beispiel niemals die Gewohnheit, irgend-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 38
+
+---
+
+einen Vortrag so vorzubereiten, wie man eben Vorträge vorbereitet, sondern ich habe die Gewohnheit, die Gedanken, die sich zu einem Vortrag als notwendig erweisen, eben geistig zu erleben, wie man auch dasjenige, was man als Ergebnisse der geistigen Forschung haben will, geistig erleben muß. Aber das bloße Denken, in das ja herübergetragen werden muß, was man im verstärkten Denken und in der menschlichen Seele erlebt hat, das bloße Kopfdenken reicht dazu nicht aus. Man muß inniger verbunden werden mit dem ganzen Menschen, wenn man dann aussprechen will, was man im Reiche des Geistes erlebt. Da gibt es verschiedene Anhaltspunkte, um das auch wirklich in das gewöhnliche Bewußtsein hereinzubringen, daß man davon reden kann. Ich habe im Gebrauche, eigentlich alles das, was sich mir ergibt aus der geistigen Welt, immer mit dem Stift in der Hand aufzuschreiben, zu formulieren, entweder in Worten oder in irgendwelchen Zeichnungen. Dadurch ist die Anzahl meiner Notizbücher viele Wagenladungen. Ich habe sie aber nicht wieder angeschaut. Sie sind da; sie sind nur dagewesen, um mit dem ganzen Menschen das zu verbinden, was im Geiste erforscht wird, so daß es sozusagen nicht bloß mit dem Kopf aufgefaßt ist, um in Worten mitgeteilt zu werden, sondern mit dem ganzen Menschen erlebt ist.
+
+Anthroposophie ergreift eben den ganzen Menschen. Dadurch wird sie noch in einer anderen Beziehung ein Ausdruck der Goetheschen Weltanschauung. Sie ist zunächst ein Ausdruck der Goetheschen Weltanschauung, indem sie angeregt worden ist durch die Art und Weise, wie Goethe das Pflanzenleben, das Tierleben betrachtete in seinen Metamorphosen, in seinen Verwandlungen. In dieser Goetheschen Betrachtung wird der Gedanke so lebendig, daß dann versucht wird, ihn so zu verstärken, wie ich es geschildert
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 39
+
+---
+
+habe. Aber Goethe war auch diejenige Persönlichkeit, welche die Brücke hinübergebaut hat von dem Erkennen zur Kunst. Goethe hat ja aus seiner künstlerischen Überzeugung heraus das schöne Wort ausgesprochen: Die Kunst ist eine Offenbarung geheimer Naturgesetze, die ohne diese Kunst niemals offenbar würden. - Das heißt, Goethe wußte, in der wirklichen Erkenntnis ergreift man geistiges Walten und Weben, das man dann dem Stoff einpflanzt, sei es als Plastiker, sei es als Musiker, sei es als Maler. Goethe wußte, wie die Phantasie eine Art willkürlicher Projektion desjenigen ist, was der Mensch in seiner reinen Gestalt mit dem Geiste erleben kann.
+
+Solche Erkenntnis, die so im Leben des Geistes wurzelt, wie die Anthroposophie, die strömt von selbst auch in das künstlerische Schaffen ein. Sie wirkt in das künstlerische Schaffen hinein, wenn man den Menschen auf die Art erkennt, wie ich es dargestellt habe, daß man die vorirdischen Kräfte hereinspielen sieht in sein irdisch-leibliches Dasein. Dann hat man das Gefühl: Mit den bloßen Begriffen, mit dem bloßen Verstande, da fassest du den Menschen nicht. Du mußt in einem bestimmten Punkt übergehen lassen deine abstrakten Begriffe in künstlerisches Anschauen, damit du fühlst: Der Mensch ist von der Natur als ein Kunstwerk geschaffen.
+
+Selbstverständlich kann darüber leicht gespottet werden, denn nichts ist den Menschen heute greulicher, als wenn man sagt, es solle etwas, um erkannt zu werden, künstlerisch aufgefaßt werden. Aber man mag noch so lange deklamieren darüber, daß der Mensch logisch sein soll und nicht künstlerisch, wenn er erkennen soll - wenn die Natur künstlerisch wirkt, so kommt man ihr eben mit der Logik nicht bei. Da muß man übergehen in die künstlerische Anschauung, um die eigentlichen Geheimnisse der Natur zu er-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 40
+
+---
+
+kennen. Das meinte Goethe, wenn er sagt: Die Kunst ist eine Manifestation geheimerNaturgesetze, die ohne sie niemals offenbar würden. - Das meinte Goethe auch, als er nach langer Sehnsucht Italien erreichte und sein Ideal der Kunst erlangt zu haben glaubte und sagte: Sehe ich diese Kunstwerke an, so habe ich den Gedanken, daß die Griechen bei der Schaffung ihrer Kunstwerke nach denselben Gesetzen verfuhren, nach denen die Natur schafft, und denen ich auf der Spur bin.— Goethe ist eine Persönlichkeit, die immer das, was bloß Erkenntnisverfassung der Seele ist, übergehen lassen will in das Kunstwerk. Weil Anthroposophie dieser Gesinnung auch ist, konnte nicht einfach zu einem Baumeister gegangen und gesagt werden: Baue uns eine Hülle für die Anthroposophie - und dann hatte der sie gebaut in Renaissance- oder antikem oder in Rokoko-Stil und so weiter -, sondern es mußte eine ganz andere Anschauung und Lebensauffassung und Kunstauffassung zugrunde liegen.
+
+Ich habe oftmals das, was da zugrunde liegen mußte, verglichen in einer etwas banalen Weise mit dem Verhältnis der Nußschale zu dem Nußkern. Der Nußkern, den wir essen, ist nach bestimmten Gestaltungsgesetzen gebildet, aber die Nußschale auch nach denselben Gestaltungsgesetzen. Sie können sich nicht denken, daß von außen eine Schale der Nuß angepaßt wäre. Aus denselben Bildungsgesetzen entsteht die Schale wie der Kern. So mußte der äußere sichtbare Bau in seinen Formen, in dem, was gemalt wurde in den Kuppeln, in dem, was sonst plastisch hineingestellt wurde, nach denselben Gesetzen, gewissermaßen wie die Schale dessen gebildet werden, was darinnen durch das Wort, durch die gesprochene oder gesungene Kunst verkündet worden ist. Wie die Nußschale zur Nuß, so mußte sich dieser Bau verhalten zu dem, was drinnen gepflegt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 41
+
+---
+
+worden ist. Das hat sich auch nicht nur nach meiner Überzeugung, sondern nach der Überzeugung von vielen wirklich ergeben. Wir haben Eurythmie-Vorstellungen gehabt, Vorstellungen aus der Kunst, die in der Bewegung eine besondere Sprache hat, wo das Bühnenbild in bewegten Menschen oder Menschengruppen besteht, und die Bewegungen nicht Tanzbewegungen und nicht mimische Bewegungen sind, sondern eine wirklich sichtbare Sprache, wir haben da eine ausdrucksvolle Bewegungskunst entwickelt auf der Bühne des Goetheanums. Die Linien, in denen die menschliche Seele sich ausgelebt hat in der eurythmischen Kunst, sie harmonisierten sich in einer schönen Weise mit den Linien an den Architraven, den Linien an den Kapitalen der Säulen, mit der ganzen Form des Baues, mit der Malerei des Baues. Was darinnen gepflegt wurde, und die äußere Umhüllung waren eines. Wenn vom Podium aus gesprochen wurde, wenn dasjenige, was in geistiger Anschauung erkannt worden war, in Worte geprägt wurde und in den Zuschauerraum hineintonte, so war das, was man vom Podium aus sprach, der Kern; das, was im Innern lebte. Die künstlerische Form mußte dem Kern entsprechen. Der Baustil in allen seinen Einzelheiten mußte aus demselben Impuls, aus denselben Quellen hervorgehen wie die Anthroposophie selbst. Denn die Anthroposophie ist keine abstrakte theoretische Erkenntnis, sondern ein Ergreifen des Lebens, des vollen Lebens. Sie wird daher von selbst zur Kunst. Sie erfüllt, was wiederum Goethe gesagt hat: «Wer Wissenschaft und Kunst besitzt, hat auch Religion, wer jene beiden nicht besitzt, der habe Religion.»
+
+Ich mochte sagen: Als etwas, in dem zusammengefaßt ist alles das, was an Formen lebte, und was jemals gesagt oder künstlerisch hätte dargestellt werden können im Goetheanum, sollte dienen eine neun Meter hohe plastische
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 42
+
+---
+
+Gruppe aus Holz, in der der Mensdiheitsrepräsentant als Christus dargestellt war in der Versuchung von Ahriman und Luzifer. Nicht als ob Anthroposophie mit irgendeiner Sektenbildung etwas zu tun hätte. Anthroposophie ist weit davon entfernt, irgendeiner religiösen Überzeugung gegnerisch gegenüberzutreten oder etwa gar eine neue Religion begründen zu wollen. Aber Anthroposophie hat die Möglichkeit, zu zeigen, wie nach dem Höhepunkte der religiösen Entwicklung, nach dem Menschheits-Repräsentanten Christus hin, nach dem im Leibe des Jesus von Nazareth verkörperten Christus-Gotte, wie nach dem hin auch die wirkliche Geist-Erkenntnis hintendiert, wie man das Bild dieses Mittelpunktes aller Erdenentwickelung, das Bild des Geheimnisses von Golgatha, in der Geist-Erkenntnis braucht. Religiös gestimmt wird der Mensch ganz gewiß durch Anthroposophie, eine Religionsgründung aber ist Anthroposophie nicht.
+
+Was Anthroposophie künstlerisch im Goetheanum hat leisten wollen, das sollte eben hervorgehen aus denselben Impulsen, aus denen auch das gesprochene Wort, der Gesang hervorgeht. Und man kann ja sogar das sagen: Trat man auf das Podium – ich möchte in aller Bescheidenheit das aussprechen –, so waren die Formen der Säulen, die ganze Form der Innenarchitektur, der Innenplastik und der Innenmalerei, alles das war wie eine Mahnung, die Worte in einem Sinne zu halten, der an das Wesen des Menschen wirklich heranging. Es war wie eine fortwährende Aufforderung an den Redner, in würdiger Weise sein Wort hineinzustellen in diesen Bau.
+
+Also eine äußere Umhüllung für die Anthroposophie, die ganz aus dem Geiste der Anthroposophie heraus, aber für das sinnliche Anschauen da war, sollte der Bau sein. Da war nichts Symbolisches, nichts Allegorisches. Der ganze
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 43
+
+---
+
+Bau war so geschaffen in seiner Architektur, in seiner Plastik, in seiner Malerei, in allem, was an ihm war, daß dasjenige, was lebendig in Geistesschau ergriffen wurde, sich auslebte; nicht indem man verstandesmäßig symbolische Formen brachte, sondern was man an lebendigen Ideen, an bewegten innerlichen Gedanken über die geistige Welt hatte, das lebte sich aus in der unmittelbaren künstlerischen Empfindung, in der unmittelbaren Anschauung. Im ganzen Bau war kein Symbolum, und wenn man sagt, der Bau hätte etwas Symbolisches gehabt, so redet man eben so wie diejenigen, die über Anthroposophie reden, ohne sie kennenzulernen.
+
+Und so war der Bau für das Auge, was Anthroposophie für die Seele des Menschen sein soll. Anthroposophie soll ja sein diejenige Geistesart, welche erkennt, wie die Sehnsucht nach einer Erschließung des Übersinnlich-Geistigen die gegenwärtige Menschheit durchzittert und durchzuckt, wie die gegenwärtige Menschheit durch ihre wissenschaftliche Erziehung, die ganz allgemein populär werden will und schon in gewissem Grade geworden ist, nicht mehr stehenbleiben kann bei überlieferten Glaubensvorstellungen, wie Erkenntnisvorstellungen kommen müssen, die auch in die übersinnliche Welt hinauf streben, und wie Unruhe und Unbefriedigtheit der Seele aus dem NichtVorhandensein solcher Erkenntnisvorstellungen hervorgehen.
+
+Anthroposophie will der Gegenwart dienen, um in der rechten Weise dem zu dienen, was die Menschen von dieser Gegenwart aus in die nächste Zukunft hinein brauchen. Was Anthroposophie unsichtbar den Menschenseelen sein will, als Hülle, als Heim, das hat das Goetheanum für das Auge sein wollen. Wäre das Goetheanum nur ein symbolischer Bau gewesen, der Schmerz um seinen Verlust wäre kein so großer, denn man konnte ja in der Erinnerung die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 44
+
+---
+
+Sadie immer wieder wachruf en. Aber das Goetheanum war nichts für die bloße Erinnerung. Das Goetheanum war etwas, was, wie jedes Kunstwerk sich unmittelbar der Anschauung, sich unmittelbar der Sinnenwelt hinstellen will, was vom Geiste für die Sinnenwelt künden wollte. Daher ist mit dem Niederbrennen des Goetheanums alles das verloren, was das Goetheanum hat sein wollen. Aber es hat vielleicht doch gezeigt, daß Anthroposophie nichts einseitig Theoretisches sein will, nicht eine bloße Erkenntnis sein will, sondern ein Lebensinhalt nach allen Seiten sein kann und sein soll. Deshalb mußte sie in einem eigenen Stil ihr Heim erbauen.
+
+Es wollte das Goetheanum den Geist vor das Auge stellen, den die Anthroposophie vor die Seele stellt. Und es soll die Anthroposophie vor die menschliche Seele stellen, was diese Seele eigentlich aus dem innersten Bedürfnis der Neuzeit heraus für eine Anschauung, eine Erkenntnis, ein künstlerisches Erfassen der geistigen Welt verlangt, was die Seelen verlangen, weil sie immer mehr und mehr fühlen, daß sie nur dadurch, daß sie die volle Menschenbestimmung erleben, die volle Menschenwürde erfühlen können.
+
+Das Goetheanum, es konnte abbrennen. Eine Schicksalskatastrophe hat es hinweggenommen. Der Schmerz derjenigen, die es lieb gehabt, ist wegen seiner Größe nicht zu schildern. Dasjenige, was aus denselben Quellen, aus denen die Anthroposophie fließt, und durch sie der Menschheit dienen will, für das sinnliche Auge geschaffen werden mußte, das mußte aus physischem Stoff geformt werden. Und wie der menschliche Leib selbst gerade nach meiner heutigen Schilderung das sinnliche Abbild und die sinnliche Wirkung des ewigen Geistigen ist, dann aber mit dem Tode abfällt, so daß sich das Geistige in anderen Formen entwickelt, so konnte auch dasjenige - lassen Sie mich jetzt die Betrach-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 45
+
+---
+
+tung schließen, indem ich sozusagen das Dornacher Unglück vergleiche mit dem, was sich auch sonst im Weltenlaufe vollzieht -, so konnte dasjenige, was aus Stoff geprägt werden mußte, um fürs Auge hingestellt zu werden, von den physischen Flammen verzehrt werden. Das aber, was Anthroposophie soll, das ist aus dem Geiste heraus gebaut; über das können nur Flammen des Geistes kommen. So wie das menschliche Geist-Seelische über das Leibliche siegt, wenn dieses vernichtet wird im Tode, so fühlt sich Anthroposophie lebendig, trotzdem sie ihr Dornacher Heim, das Goetheanum verloren hat. Und gesagt werden darf: Physische Flammen, sie konnten, was für das Auge aus dem äußeren physischen Stoff auferbaut werden mußte, zerstören; was als Anthroposophie da sein soll zur Weiterentwicklung der Menschheit, das Ist aus dem Geiste heraus gebaut, das wird durch die Flammen des geistigen Lebens nicht aufgezehrt, nicht getötet. Die Flammen des geistigen Lebens sind nicht verzehrende Flammen, sie sind verstärkende Flammen, sie sind Flammen, die erst recht Leben geben. Und dasjenige Leben, das als Erkenntnisleben der höheren Welt durch Anthroposophie sich offenbaren soll, das muß durch die Flammen höchster menschlicher, seelischer und geistiger Begeisterung gehärtet werden. Dann wird Anthroposophie sich weiter wandeln.
+
+Wer so im Geistigen lebt, der empfindet zwar nicht minder den Schmerz über den Hingang des Irdischen, allein er weiß auch, daß das Erheben über all das darin liegt, daß man weiß, gerade durch die Geist-Erkenntnis gelangt man zu der Überzeugung: Der Geist wird doch immer über den Stoff siegen und sich immer neuerdings in Stoff verwandeln.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 46
+
+---
+
+# DIE STEIGERUNG DER MENSCHLICHEN ERKENNTNISFÄHIGKEIT ZU IMAGINATION, INSPIRATION UND INTUITION
+
+Domadh, 14. April 1923
+
+Während dieser Kursus für Lehrer und pädagogisch Interessierte stattfindet, werde ich die Vorträge, die gleichzeitig mit diesem Kursus als besondere anthroposophische Kurse stattfinden, so halten, daß sie auch für diejenigen Persönlichkeiten verständlich sein können, welche in der letzten Zeit erst sich zur Anthroposophie gefunden haben, oder ganz in ihrem Anfange stehen. Daher wird manches von dem, was ich gerade im Laufe dieser Woche hier in diesen Vorträgen vorbringen werde, für die «erleuchteten Anthroposophen» eine Art Wiederholung sein. Aber ich denke, auch eine solche Wiederholung kann von dem einen oder dem anderen Gesichtspunkte aus ganz nützlich sein.
+
+Was ich heute vorbringe, soll zunächst eine Art weiterer Ausgestaltung sein dessen, was ich in dem öffentlichen Vortrag vorbrachte, den ich in der letzten Woche an verschiedenen Orten der Schweiz zu halten hatte. Es soll an diesen Vortrag anknüpfen und einiges davon weiter ausführen.
+
+Wenn wir das menschliche Leben in seiner Ganzheit überblicken, so finden wir ja, daß dieses Leben zerfällt in zwei voneinander streng getrennte Lebensinhalte: in einen Lebensinhalt, den wir immer durchmachen in der Zeit zwischen dem Aufwachen und Einschlafen, also im gewöhnlichen Tagesbewußtsein; der andere Teil des Lebens, der beim normalen Menschen ja der kürzere ist, das ist der, den wir
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 47
+
+---
+
+durchmachen jeweilig zwischen dem Einschlafen und Aufwachen. Es ist derjenige, welcher in die Unbewußtheit getaucht ist, und in das Bewußtsein nur dadurch her auf leuchtet, daß er in dieses Bewußtsein die bunte Mannigfaltigkeit der Traumwelt hineinfließen läßt. So daß, wenn wir vom Gesichtspunkt des menschlichen Bewußtseins sprechen, wir sagen müssen: Dieses Bewußtsein ist erfüllt während des Tagwachens von dem Inhalt, den uns unsere Sinne liefern. Was durch unsere Sinne uns von der Welt bekannt wird, das ist, sagen wir, in bildhafter Weise in unserem Bewußtsein vorhanden. Das erleben wir. Wir knüpfen, sei es im gewöhnlichen Leben, sei es in der Wissenschaft, an dasjenige an, was uns die Sinne überliefern, unsere Vorstellungen, unsere Gedanken; das heißt, wir kombinieren die Sinneswahrnehmungen, versuchen auch in der Welt der Sinneswahrnehmungen Gesetzmäßiges zu finden.
+
+Das alles treiben wir mit unserem Denkvermögen. Wir schließen die Gedanken, die Vorstellungen, die wir durch unser Denkvermögen erhalten können, an die Sinneseindrücke an. Dann entwickeln wir aber innerhalb unseres tagwachen Lebens noch etwas anderes. Wir sind von dem einen Ereignis, von dem einen Eindruck des Tages angenehm, von dem andern unangenehm berührt; wir sympathisieren mit dem einen Eindruck, der andere Eindruck ist uns antipathisch. In der mannigfaltigsten Weise und in den mannigfaltigsten Abstufungen ist diese Sympathie und Antipathie vorhanden. Und wir bezeichnen ja das, was wir da, ich möchte sagen, nach unserem menschlichen Inneren zu gelegen, an den Dingen so erleben, daß sie uns Freude machen, daß sie uns Schmerz machen, daß sie uns erheben, daß sie uns bestürzt machen, wir bezeichnen ja das als unser Fühlen mit den Dingen, und wir unterscheiden wohl deutlich zwischen unserem Fühlen und unseren Gedanken, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 48
+
+---
+
+uns etwas Äußerliches repräsentieren. Unsere Gedanken leben nicht bloß in uns, sie repräsentieren uns etwas Äußerliches. Durch unsere Vorstellungen gewinnen wir etwas über die äußere Welt. Es liegt ja schon im Worte «Vorstellung», daß wir dadurch etwas über die äußere Welt gewinnen. Dasjenige, was wir vorstellen, das stellen wir nicht in_y sondern wir stellen es vor uns. Der Gedanke weist uns also nach außen. Das Gefühl weist uns nach innen. Wir haben das deutliche Erlebnis, daß dasjenige, was wir fühlen, nach innen zu erlebt wird, und daß es mit dem Äußeren nicht in demselben Maße etwas zu tun hat wie der Gedanke, wie die Vorstellung.
+
+Aber wir erleben noch ein Weiteres an der Welt. Wenn bei manchem Menschen es vorkommt, daß ihm, sagen wir, da oder dort ein bösartiger Hund begegnet, so läuft er davon. Mancher läuft schon davon, wenn er eine Maus sieht; aber auch unter anderen Eindrücken der Außenwelt geschieht etwas Ähnliches. Wir sagen in diesem Falle, es wird unser Wille erregt. Während das Fühlen so verläuft, daß wir dabei ruhig bleiben, bringen wir durch unseren Willen, zunächst grob gesprochen, unseren ganzen Organismus in bezug auf die Außenwelt in Bewegung.
+
+So sprechen wir, wenn wir von unserem Bewußtsein sprechen wollen, wie es während des Tagwachens sich entwickelt. Von diesem Bewußtsein unterscheiden wir deutlich die Unbewußtheit, die ja auch zu unserem Leben gehört, und die wir zubringen zwischen dem Einschlafen und dem Aufwachen. Nur strömt eben aus dieser Unbewußtheit des Schlafens die bunte Mannigfaltigkeit der Traumeswelt herauf.
+
+Nun wollen wir uns einmal ein wenig aufklären über das, was so für das gewöhnliche menschliche Bewußtsein einen bestimmten Wert hat. Wir können sagen: Für dieses
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 49
+
+---
+
+gewöhnliche menschliche Bewußtsein spielt aus dem Unbewußten heraus die Traumeswelt. Sie glänzt herein in das Bewußtsein. Und dann tritt im Bewußtsein auf aus den Erlebnissen des Tages heraus, aus den Erlebnissen des Wachzustandes heraus Denken, Fühlen und Wollen.
+
+Wie können wir zunächst in einer, ich möchte sagen, populär-äußerlichen Weise diesen Unterschied angeben zwischen dem unbewußten Zustand des Menschen, aus dem die Träume herausglänzen, und dem vollwachen Zustand?
+
+Nun, Sie werden nicht lange nachzudenken brauchen darüber, Sie werden finden, daß der Mensch im Wachzustand sich in dasjenige eingeschaltet fühlt, was er seinen physischen Organismus nennt.
+
+Nehmen Sie die Welt des Traumes. Sie läuft in Bildern vor Ihnen ab. Sie müssen sich sagen, während die Welt des Traumes in Bildern vor Ihnen abläuft, sind Sie*in Ihren physischen Organismus nicht eingeschaltet. Beim Aufwachen fühlt der Mensch vor allen Dingen: der Wille durchdringt seinen physischen Organismus. Auch unsere Sinne brauchen wir ja wachend dadurch, daß wir sie durch unseren Willen beherrschen. So also können wir sagen: Der Schlaf zustand, aus dem der Traum herausquillt, geht in den Wachzustand dadurch über, daß wir den Willen einschalten gewissermaßen in den physischen Organismus.
+
+Sehen wir also einmal jetzt auf diesen physischen Organismus hin. Schon indem ich sage: Sehen wir auf den physischen Organismus hin - appellere ich eigentlich an Ihr sinnliches Anschauungsvermögen. Ich appelliere an dasjenige, was Sie durch dieses sinnliche Anschauungsvermögen wissen. Sie können zunächst von diesem physischen Organismus des Menschen auch nichts anderes wissen, als was Ihnen die Sinne überliefern, was Sie über den physischen Organismus denken können. Auch keine Anatomie, auch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 50
+
+---
+
+keine Physiologie weiß über diesen physischen Organismus anderes als dasjenige, was die Sinne erkennen lehren, und was durch das Denken, die Sinneswahrnehmungen kombinierend, von dem Menschen erfaßt werden kann.
+
+Dadurch werden wir aber darauf aufmerksam gemacht, daß es zunächst die Sinne sind - wir werden uns darüber ja auch im Gebrauch unseres Bewußtseins klar -, an die wir uns wenden müssen, wenn wir über die Welt im allgemeinen und über den physischen Organismus des Menschen etwas wissen wollen - die Sinne und das Denken.
+
+Sehen wir uns einmal die Sinne an und prüfen wir in ganz populärer Weise, was wir durch die Sinne haben in bezug auf die zwei charakteristisch unterschiedenen Zustände des Wachens und des Schlafens.
+
+Der Mensch denkt über dasjenige, was da in Betracht kommt, allzuwenig nach, weil, wenn er nicht gerade blind ist, der Löwenanteil dessen, was er in seinem Erleben bewußt hat, von den Augen her kommt, und die Augen gerade diejenigen Organe sind, die im schlafenden Zustand beim Menschen geschlossen werden, wodurch die äußeren Eindrücke abgehalten werden. Aber denken Sie einmal an die anderen Sinne. Können Sie glauben, daß Ihr Ohr, wenn Sie es nicht verstopfen, Ihnen andere Erlebnisse während des Schlafes liefert als während des Tages in bezug auf den physischen Leib? Wenn Sie den physischen Leib ordentlich ins Auge fassen und Ihr Ohr nicht verstopfen in der Nacht, so können Sie unmöglich denken, daß durch das Ohr in Ihrem physischen Organismus, wenn Sie schlafen, etwas anderes vorgeht, als wenn Sie wachen. Es ist ja gar kein Grund dazu da. Daß Sie das nicht wissen, das ist eine ganz andere Sache.
+
+Oder fragen wir in bezug auf den Wärmesinn. Wir nehmen Wärme und Kälte wahr. Ja, glauben Sie, daß die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 51
+
+---
+
+Wärme, die Sie während des Tages wahrnehmen, vor Ihrer Haut haltmacht, wenn Sie schlafen? Sie wird selbstverständlich auf die Haut ganz dieselbe Wirkung ausüben. Sie sind also während des Schlafens mit Ausnahme des Gesichtes genau denselben Eindrücken ausgesetzt, denen Sie während des Wachens ausgesetzt sind.
+
+Wenn das nicht der Fall wäre, müßten Sie ja annehmen, daß Sie während des Schlafens einen Wärmemantel um sich haben, der die Wärme abhält. Sie müßten denken, daß Ihnen ein guter Geist die Ohren zustopfe, damit die Vorgänge, die sonst von außen bewirkt werden, nicht bewirkt werden. Wenn Sie sich das alles vorhalten, kommen Sie darauf, sich zu sagen: Nun ja, das Auge ist eben so empfindlich, daß sich der menschliche Organismus darauf eingerichtet hat, seinen Willen dazu zu benützen, die Vorhänge der Lider über die Augen zu hängen während des Schlafzustandes.
+
+Allerdings, ein wenig sorgt ja die Außenwelt dafür, daß die Sinneseindrücke ausbleiben während der Schlafenszeit. Aber wenn auch erst neulich hier in der Zeitung zu lesen war, daß es angenehmer wäre für diejenigen Leute in Basel, die schlafen wollen und in der Nähe von Wirtschaften wohnen, daß für die Konzerte der Schluß schon um halb elf sei und nicht um elf, so weist das deutlich darauf hin, daß man die Ohren geschützt haben will; aber man muß sie von außen schützen. Wenn das auch alles der Fall ist, so muß man doch sagen: Wie auch die Außenwelt während des Schlafens gestaltet ist, wie sie einmal ist, so wirkt sie auf unsere Sinne mit Ausnahme der Augen.
+
+Und dann müssen wir uns weiter fragen: Wie ist es denn nun mit unserem Denken, mit unseren Gedanken? Sehen Sie, man könnte, um diese Frage zu beantworten, von mancherlei Gesichtspunkten ausgehen; aber für den heutigen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 52
+
+---
+
+Menschen ist ja nun einmal die moderne Wissenschaft populär geworden, und daher weiß der moderne Mensch, daß von jedem Sinn nach dem Innern des Organismus eine Fortsetzung geht, nämlich die Nervenstränge, und daß dadurch, daß die Nervenstränge als Fortsetzung der Sinne nach innen gehen, sich an die Sinnesempfindung das Denken, das Vorstellen anschließt.
+
+Ja, wenn Sie nun, und sei es auch nur die relative Stille in der Nacht, hören – und es ist ja ganz natürlich, daß Sie sie hören, denn Ihr Ohr ist offen, dasjenige, was in Ihrer Umgebung ist, ist hörbar, das verursacht dieselben Vorgänge, die es verursachen würde, wenn Sie wach wären –, warum sollte denn das haltmachen vor den Nerven, das heißt vor dem Denken?
+
+Sie müssen sich also sagen, durch Ihren physischen Organismus halten Sie – wie gesagt, immer mit der Ausnahme der Augen – die Sinneseindrücke nicht ab. Aber Sie halten auch die Gedanken nicht ab. Und Sie können sogar – es bleibt das ja zunächst für die äußere Beobachtung hypothetisch – vorstellen; wenn auch durch die sozialen Einrichtungen eine relative Ruhe da ist während der Nacht für gewisse Sinne — für andere Sinne ist sie ganz gewiß nicht vorhanden; für den Wärme- und Kältesinn zum Beispiel ganz gewiß nicht, für den Tastsinn auch nicht, denn, nicht wahr, wenn Sie mit dem Daumen auf die Tafel drücken, nehmen Sie den Druck wahr. Warum sollte denn das Wahrnehmen des Druckes just nicht der Fall sein, wenn Sie Ihren Rücken auf das Bett legen? Sie müssen natürlich diesen Druck, den der Tastsinn vermittelt, während der ganzen Nacht wahrnehmen. Ebenso wenn Sie etwas auf Ihre Hand legen, nehmen Sie das wahr. Warum sollten Sie nicht die ganze Nacht hindurch die Bettdecke wahrnehmen, die Sie auf sich legen, und so weiter? Aber nicht nur das,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 53
+
+---
+
+sondern die Fortsetzung nach innen, die Ausbildung der Vorstellungen und Gedanken, warum sollte denn vor denen haltgemacht werden? Denn die sind ja durch den Organismus vermittelt.
+
+So daß wir, wenn wir unbefangen betrachten, was da eigentlich vorliegt, uns sagen müssen: Auch wenn der physische Leib während des Schlafes im Bette liegt, hat er die gewöhnlichen Eindrücke durch die Sinne. Er hat auch die gewöhnlichen Erlebnisse, die uns beim Tagwachen als bewußte Vorstellungen auftreten. Geradeso, wie wir bei Nacht nichts wissen von den Sinneseindrücken und sie doch da sein können, so wissen wir nichts von unseren Gedanken; sie sind aber da.
+
+Das macht sich der Mensch gewöhnlich nicht klar, daß, wenn er schläft, er fortwährend denkt. Nur weiß er nichts davon. Geradesowenig, wie er von dem Druck der Bettdecke etwas weiß, die auf ihm liegt, so weiß er nichts von den Gedanken, die fortwährend im Schlafe ablaufen. Die sind da. Der Mensch denkt die ganze Zeit seines Lebens, nicht nur während des Tages. Wenn er auch nicht bewußt Gedanken hat, so denkt er doch, so sind diese Gedanken doch eben in ihm. So daß wir da geführt werden darauf, wie der Mensch auch vom Einschlafen bis zum Aufwachen von einer Gedankenwelt durchsetzt ist.
+
+Nun nehmen Sie den aufwachenden Menschen. Er wacht auf. Er wacht aus den Träumen auf, sagen wir. Man kann sehr leicht dadurch, daß man gewisse Träume studiert, wahrnehmen, wie rasch der Traum abläuft, so, daß er unmittelbar eigentlich im Erwachen sich abgespielt hat. Sie brauchen sich nur daran zu erinnern, daß Sie etwa träumen können - ich will natürlich keinem das zumuten, jeder einzelne ist ausgenommen, aber es könnte doch einem Menschen passieren-, daß Sie mit jemandem in heftigen Wortwechsel kommen, der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+in eine Rauferei ausartet. Sie wissen, in den Träumen ist man manchmal viel unartiger als während des Tages. Es artet in eine Rauferei aus; der andere haut Ihnen eine herunter, wie man sagt, und siehe da, Sie wachen auf: Da bemerken Sie, daß ein Regentropfen auf Ihre Backe gefallen ist. Der hat Sie sogar aufgeweckt, der Regentropfen. Der ganze Traum, der so aussieht, als wenn er lange Zeit gedauert hätte, ist nur durch diesen Regentropfen verursacht im Moment des Aufwachens.
+
+So können Sie das bei unzähligen Träumen erleben. Sie verlaufen eigentlich im Nu, durch irgend etwas veranlaßt, haben einen ganz dramatischen Inhalt. Wir können also sagen: Sie wachen auf mit einem Traum. Sie werden finden, wenn Sie wirklich richtig zu Werke gehen, daß der Traum Ihnen irgend etwas gibt, was Sie nach Ihren Erlebnissen sonst auch hätten denken können, aber Sie würden es wachend anders gedacht haben. Wir wissen, daß der Traum dasjenige, was er zum Erleben bringt, in eine gewisse Phantastik kleidet.
+
+Nehmen Sie das Beispiel, das ich eben gesagt habe. Wenn Ihnen bei Tag ein Regentropfen auf die Backe fällt, so haben Sie andere Bilder von dem ganzen Vorgang als jenen dramatischen Vorgang, wo Sie mit jemandem in Wortwechsel kommen und zu raufen beginnen; der Wortwechsel kann vielleicht sehr lange dauern, das Raufen auch noch verhältnismäßig lange, und dann kommt, sagen wir, der Backenstreich, und das ist das Ende, da wachen Sie auf. Bei Tag hätten Sie ein sehr einfaches Erlebnis gehabt, eine Sinneswahrnehmung und eine sich daran knüpfende Vorstellung. Im Aufwachen haben Sie ein sehr dramatisches Erlebnis. Es ist ausgeschmückt. Aber sehen Sie, Sie werden kaum anderes träumen, als was sich zusammensetzt aus Sinneserlebnissen, die Sie irgendwie schon gehabt haben
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 55
+
+---
+
+oder haben könnten, oder etwa innere Leibeserlebnisse und dergleichen. Das träumen Sie dann.
+
+Sehen Sie sich den ganzen Vorgang an, so werden Sie, je mehr Träume Sie beobachten, desto mehr darauf kommen, worin das Träumen eigentlich besteht. Wenn Sie wach sind, da sehen Sie durch Ihre Augen Farben - hell, dunkel; Sie hören dies oder jenes, Sie nehmen Warme und Kälte wahr. Sie kombinieren das durch Ihren Verstand. Sie haben das deutliche Gefühl: Wenn Sie das alles tun, so wirken Sie von innen nach außen. Sie haben innen den Willen, mit dem Sie das alles durchdringen. Sie wirken von innen nach außerhalb. Lassen wir zunächst ganz unberührt, was da von innen nach außen wirkt; aber Sie haben das Gefühl: Sie ergreifen Ihre Sinneseindrücke. Sie bringen die Sinneseindrücke durch die Vorstellungen irgendwie in Ordnung. Sie kombinieren diese Sinneseindrücke und so weiter. Aber das machen Sie alles von innen aus. Ja, wenn Sie träumen, denken Sie nur einmal darüber nach, da haben Sie ähnliche Bilder, wie die Sinneseindrücke sind. Sie brauchen sich nur an einen lebhaften Traum zu erinnern, so werden Sie sich sagen: Da sind ähnliche Bilder. Sie sehen Farben, Sie sehen, wie sich jemand bewegt und so weiter; Bilder sind da, wie sie zuletzt auch da sind in der Sinneswelt. Nur daß bei der Sinneswelt gewissermaßen diese Bilder über die harten Gegenstände darübergelegt sind; im Traume schweben sie frei, diese Sinnesbilder. Und Vorstellungen sind auch darinnen im Traum, sogar Ursache und Wirkung, auf die die Naturwissenschaft so stolz ist. Man träumt ja nicht bloß Bilder, man träumt Zusammenhänge. Das ist alles darinnen.
+
+Nur, wenn Sie genau hinschauen auf den Traum, dann werden Sie sich sagen müssen: Ja, wie ich im Traum erlebe, das ist eigentlich just umgekehrt, als wie ich während des Wachens erlebe. Es ist umgekehrt. Während des Wachens
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 56
+
+---
+
+weiß ich, ich empfange Sinneseindrücke, ich beherrsche diese durch meine Gedanken. Wenn ich träume, da überfallen mich zunächst die Sinneseindrücke, und dann lebt so in den Sinneseindrücken drinnen eine Art Zusammenhang, wie er sonst durch die Gedanken lebt. So wie wenn der Zusammenhang hinter den Sinnesbildern stünde, so ist es im Traume. Und denken Sie über diese Dinge ordentlich nach, so werden Sie finden: dieses Träumen ist eigentlich umgekehrt. Da ist es so, wie wenn Sie zuerst auf die Sinnesempfindungen auftreffen würden und dann das Denken nicht recht erhaschen könnten. Daher sind die Sinnesbilder so inkonsequent, so unlogisch. Sie können das Denken nicht erhaschen. Wenn Sie wach sind, dann haben Sie mehr oder weniger, je nachdem Sie mehr Philister oder phantasievoller Mensch sind, die Sinnesbilder in Ihrer Gewalt, in Ihrer Kraft. Sie wissen, da ist das Denken in Ihnen selbst drinnen, und mit dem Denken beherrschen Sie die Sinnesbilder, die etwas weiter von Ihnen sind. Beim Traume, da stoßen Sie auf die Sinnesbilder auf. Das Denken, das ist jetzt weiter weg, das können Sie nicht erhaschen. Kurz, Sie bekommen, wenn Sie die Sache vernünftig betrachten, den Eindruck: Wenn Sie wachen, so leben Sie von innen nach außen, da sind die Sinnesbilder außen (gelbe Pfeile), und da drinnen ist das Denken (violette Pfeile). Das macht sich geltend.
+
+Wenn Sie träumen, dann ist es umgekehrt (rote Pfeile), dann nähern Sie sich erst den Sinnesbildern, können aber nicht das Denken dahinten erhaschen; an das kommen Sie nicht ordentlich heran. Daher spielt das Denken im Traum drinnen so bunt.
+
+Sie können durch eine richtige Beobachtung unterscheiden, wie es mit Traum und sinnlicher Wirklichkeit ist. Bei der gewöhnlichen tagwachenden sinnlichen Wirklichkeit leben Sie von innen nach außen. Da sind Sie mit Ihrem Den-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 57
+
+---
+
+
+
+\ \varepsilon r i %
+
+ken redit intim zusammen. Da ist Ihnen das Denken näher. Mit diesem Denken kombinieren Sie die Sinneseindrücke.
+
+Beim Träumen - es ergibt sich das aus der Betrachtung —, da muß man draußen sein, denn an das Denken kommt man nicht ordentlich heran. Daher spielt der Traum eine so kuriose Logik, weil das Denken jenseits ist. Man ist also, wenn man wacht, da, und wenn man träumt, dort draußen (siehe Zeichnung). Aber man ist gerade eben hereingekommen, denn das geht dann über in den gewöhnlichen Wachzustand, wo man mit dem Denken intim ist. Fühlen Sie nur, wenn der Traum verläuft, verläuft er ja in das gewöhnliche Tagesbewußtsein. Sie sausen hinein in Ihr ordentliches Denken, Sie passieren Ihre Körperoberfläche. Sie passieren die Augen, aber von außen. Sie haben noch nicht den Sehnerv. Sie haben die Augen, die passieren Sie. Und der Sehnerv, der wirkt von der andern Seite, von einer Art Jenseits, gaukelt da mit den Bildern noch herum, wenn Sie hereinschlüpfen; dann sind Sie mit dem Nerv intim, der macht aus den Bildern eine ordentliche Welt. So ist es mit allen übrigen Sinnen.
+
+Sie können also sehen, einfach indem Sie die Tatsachen konstatieren, wie das Erwachen wirklich in einem Hineinschlüpfen in den Leib besteht. Worin muß denn also der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 8 4
+
+---
+
+Schlaf bestehen? Sie brauchen nur diesen Tatbestand ordentlich sich vor das Seelenauge zu rücken, so werden Sie sich sagen: Da muß ich irgendwie außer meinem Leibe sein.
+
+Und jetzt gehen wir einmal das gewöhnliche Bewußtsein des Tages durch. Die «Erleuchteten», die werden eben nur eine Wiederholung in dem haben, was ich jetzt zu sagen habe. Gehen wir die Vorstellungen durch, da werden wir finden: In dem Vorstellen wachen wir wirklich, da sind wir mit unserem Denken intim zusammen, da wachen wir wirklich. Also mit dem, was da als unser Denken in uns sitzt, mit dem sind wir intim zusammen im Wachen, mit Bezug auf das wachen wir wirklich.
+
+Aber nehmen wir nun das Fühlen. Sie werden, wenn Sie wiederum das, was Sie im Erleben haben, ordentlich beobachten, sich nicht sagen können, daß das Fühlen ebenso intensiv da ist wie das Denken. Sie werden sich sagen müssen: Das Fühlen, das ist weniger logisch schon als das Denken. Man gestattet sich ja auch im Fühlen eine viel geringere Logik als im Denken. Was einem sympathisch oder antipathisch ist, darüber gestattet man sich eine viel größere Freiheit und Willkür als über das, was mathematisch ist. Es ist ja klar, wenn es auf das Gefühl ankäme, wäre es den Hausfrauen lieber, wenn sie zwei Franken und wieder zwei Franken nehmen würden, daß das fünf Franken waren statt vier, und nicht nur den Hausfrauen, sondern ich glaube, allen Leuten wäre es wahrscheinlich lieber. Allein, da kommt es beim Denken eben nicht auf Unbestimmtheit, sondern auf Bestimmtheit an.
+
+Kurz, wenn wir auch sehen, wie verschieden in bezug auf den Erlebnisinhalt das Fühlen vom Träumen ist, an Unbestimmtheit gibt das Fühlen dem Träumen gar nichts nach. Indem wir fühlen, sind wir in demselben Zustand, wie wenn wir träumen. Nur daß der Traum uns Bilder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 59
+
+---
+
+gibt, dagegen das Fühlen eben jenen eigentümlichen Lebens-inhalt, den wir Gefühle nennen. Fühlen ist seinem Zustande nach durchaus ein wachendes Träumen.
+
+Wir wissen ja auch, wenn wir unsere logischen Vorstellungen in Künstlerisches tauchen wollen, da müssen wir das Gefühl anwenden. Ohne Fühlen gibt es kein Künstlerisches. Wir müssen es in das Gefühl eintauchen. Wir empfinden, wir müssen ihm ein Element verleihen, das dem Träumen ähnlich ist. Dadurch schaffen wir nach innen etwas Ähnliches, wie die Traumeswelt von außen her schafft. Wir scharfen nach innen nicht logische Vorstellungen, sondern Bilder der Phantasie. Und das hat man ja zu allen Zeiten gefühlt, wie die Träume von außen mit aller Unbekanntheit und allem Frappierenden, was von außen kommt, angefüllt sind, aber doch ähnlich sind wie die Phantasievorstellungen, die nach innen gehen.
+
+Und gehen wir zum Wollen über - nun, da seien wir uns nur ganz klar: Vom Wollen weiß das tagwachende Bewußtsein nichts. Es hat zunächst den Gedanken, du willst da- oder dorthin gehen. Wenn wir auch vom Wollen sprechen müssen gerade dann, wenn wir aufwachen, weil wir spüren, wir bemächtigen uns dann unseres Körpers, wissen tun wir aber trotzdem nichts vom Wollen. Wir haben einen Gedanken: Du willst da- oder dorthin gehen. Wie der nun hinunterschießt in den Organismus und die Beine bewegt, so daß Wille daraus wird, das bleibt unbekannt. Sie sehen erst wiederum an sich selber, wie Sie sich bewegen. Was zwischen dem Gedanken und der Offenbarung des Willens verfließt, das ist für das Bewußtsein eben unbekannt, so unbekannt wie das, was man verschläft. Sie schlafen in der Tat, indem Sie einen Willen entfalten, in Ihren Organismus hinein.
+
+Wir können also sagen: Das Fühlen ist ein Träumen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+während des Tagwachens; das Wollen ist ein Schlafen während des Tagwachens. In bezug auf das Wollen wacht man mit dem gewöhnlichen Tagesbewußtsein gar nicht auf. Das verläuft auch während des Tagesbewußtseins im Schlafe. So daß wir sagen können: Wir schlafen zwar, wenn wir anständige Menschen sind, durchschnittlich nur ein Drittel unseres Lebens - ganz ernsthaftig -, manche mehr, manche weniger. Aber auf der andern Seite werden wir dadurch entschädigt, daß wir auch während des Wachens das Schlafen in uns tragen, nämlich im Willen. Und wenn man das zusammenrechnet, dann wird schon was anderes herauskommen als ein Drittel.
+
+Und das Fühlen, das sind die Träume, die aus dem Wollen, also wiederum aus dem Schlaf heraussteigen und das Vorstellen erregen. Wie aus dem Schlaf heraus die Träume sich offenbaren, so offenbart sich aus dem Willen heraus das Fühlen. Das können Sie auch in einer gewissen Weise beobachten. Denken Sie nur einmal, Sie haben, sagen wir, eine Blume vor sich. Wenn Sie in der Lage sind, sie zu pflücken und mit sich zu nehmen, so haben Sie sie dann. Da haben Sie einen Willensimpuls angewendet. Wenn Sie nicht in der Lage sind, sie mitzunehmen, so begnügen Sie sich mit dem Duft, mit dem Angenehmen des Duftes, mit dem Sympathischen. Sie erleben die Blume nur im Innern, im Gefühlsleben. Aber man könnte fast sagen: Was ist ein angenehmes Gefühl? Ein angenehmes Gefühl ist das innere, das abgeschwächte Erlebnis für dasjenige, wofür das starke Erlebnis, das man eigentlich anstrebt, ein Willensentschluß ist. Man möchte das haben, was einem sympathisch ist; kommt man nicht zum Haben, so bleibt es einem bloß sympathisch. Also das Gefühl ist abgeschwächter Wille. Das Träumen kommt nur auf eine andere Weise während des Tagwachens zustande als während des Schlafens. Das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 61
+
+---
+
+Träumen wahrrend des Schlafens ist ein zurückgehaltener Schlaf. Das Fühlen während des Tagwachens ist ein nicht ganz zustande gekommenes Wollen.
+
+Hätten wir nicht Hemmungen in uns, so würden wir alles wollen, was uns sympathisch ist, alles von uns stoßen, auch eine Willensäußerung, was uns nicht sympathisch ist. Wir halten nur an uns das Wollen, wenn wir fühlen. Wir träumen bloß vom Wollen, statt wirklich zu wollen, wenn wir fühlen.
+
+Ich
+
+
+
+Nun, so können wir sagen: Wenn wir uns durch einen gewöhnlichen Strich die Grenze zwischen Schlafen und Wachen ziehen, dann haben wir während des Wachens das Denken. Da haben wir nichts dafür während des Schlafens; das ist weg. Wir haben während des Schlafens das Träumen. Dem entspricht während des Wachens das Fühlen. Wir haben während des Wachens das Wollen. Dem entspricht während des Schlafens eben der wirkliche Schlaf, der Schlafzustand, der traumlose Schlaf.
+
+Nun sehen Sie sich das einmal an. Wir haben herausbekommen: Fühlen und Träumen, Wollen und Schlafen lebt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+eigentlich in demselben Element. Das Träumen ist gewissermaßen das, was wir in der Nacht tun, und das Fühlen ist das, was wir bei Tag tun. Es ist dasselbe, derselbe Zustand. Es muß also einmal dasjenige, was bei Tag fühlt, träumen, und was bei Tag will, traumlos schlafen. Also damit ich bei Tag fühlen und wollen, beim Schlafen träumen und diesen Schlafzustand des Wollens ausleben kann, muß das im Körper darinnen sein. Sie bekommen also eine Anschauung von einem Wesen des Menschen, das drinnen und draußen sein kann in bezug auf den Leib. Ist es außer dem Leibe, schläft es traumlos oder läßt die Träume aufsteigen; ist es in dem Leibe, will es oder fühlt es. Nur wenn es in den Leib kommt, begegnet es dem Denken. Das Denken können Sie äußerlich nicht sehen. Das ist also etwas, was im ganzen Leben, wie wir gesagt haben, im Menschen ist, aber als ein Unsichtbares. Nun, nennen wir, weil es ein Unsichtbares ist - wir werden schon sehen, daß man es auch aus einem anderen Grunde so nennen kann —, zu dem physischen Sichtbaren dazu Ätherleib dasjenige, was denkt. Dieser Ätherleib bleibt das ganze Leben schlafend und wachend im physischen Leib drinnen.
+
+Dasjenige, was fühlt, bleibt nicht darinnen; das spaziert heraus während des Schlafens und gibt die Möglichkeit der Träume. Wir nennen es astralischen Leib.
+
+Und dasjenige, was will, und was im traumlosen Schlaf verharrt, das nennen wir das Ich. Und so bekommen wir durch die bloße Beobachtung diese drei unsichtbaren Glieder der menschlichen Wesenheit: Ätherleib, astralischen Leib und Ich. An dem physischen Leib brauchen wir nicht zu zweifeln.
+
+Nun handelt es sich darum: Den physischen Leib sehen wir mit den physischen Sinnen. Was sonst noch am Menschen ist, das ist mit den physischen Sinnen nicht wahrzu-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 63
+
+---
+
+nehmen. Kann es irgendwie sichtbar, wahrnehmbar, anschaubar gemacht werden? Das kann eben geschehen dadurch, daß man folgendes im Menschen bewirkt.
+
+Ich sagte Ihnen, lebt man wach, so lebt man von innen nach außen. Nun stellen Sie sich vor, Sie haben meinetwillen das Auge oder irgendein anderes Sinnesorgan. Von dem gehen die Nerven aus. Die endigen im Auge drinnen, haben irgendwo Enden. Nun betrachten wir diesen wachenden Zustand. Wir leben intim mit unserem Denken zusammen, das heißt im physischen Leib mit dem Nerv. Mit diesem Nerv leben wir da zusammen. Aber wir leben nicht nur im Denken, wir leben in dem Sinneseindruck. Der Nerv strahlt gewissermaßen in dasjenige, was das Sinnesbild ist, hinein. Man kann es auch physiologisch ausdrücken: Der Nerv berührt sich mit der Blutzirkulation, und dadurch kommt er ins Sinnesbild hinein. Da nehmen wir wahr die Außenwelt.
+
+Denken Sie aber, wir nehmen nicht wahr die Außenwelt, wir entwickeln bloß das Leben im Nerv selbst und kommen bloß bis zum Ende des Nerven. Wir gehen nicht in die Blutzirkulation des Auges hinein, sondern wir machen halt da, wo der Nerv seine Stümpfe hat; wir gehen bloß bis zum Ende des Nerven. Da haben wir eine Einnerungsvorstellung, also auch einen Gedanken. Da bleibt die Sache Erinnerung. Die ist daher schattenhaft, weil sie nicht ans Blut herandringt.
+
+Sehen Sie, im gewöhnlichen Leben, da macht man das so, daß man die Wahrnehmungen hat. Die gehen in die Nerven über. Die Nerven endigen im Körper drinnen. Dann wird erlebt in der Erinnerung bis zum Endzustand des Nerven hin. Da stößt die Vorstellung an, da wird sie Erinnerungsvorstellung. Stößt sie durch bis zum Ende des Nerven, so wird sie Wahrnehmung; kommt es bloß bis zum Stumpf hin, stößt es nicht durch, wird es Erinnerung. Aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+man kann zunächst nichts anderes erinnern als das, was man in sich trägt. Nun stellen Sie sich vor, daß man durch gewisse Übungen nicht nur das, was man in sich trägt, bis zum Ende des Nerven bringt, sondern dasjenige, was man von der anderen Seite, von außen aufnimmt. Denken Sie sich also, Sie stoßen nicht nur bis zu Ihren Nervenendigungen dasjenige, was Sie zuerst hereingelassen haben in Ihren Kopf, sondern dasjenige, was Sie von der Welt ohne Wahrnehmung aufnehmen, oder was Sie durch Ihren Rückenmarksnerv ohne Wahrnehmung aufnehmen, dann kommt das Erleben auf der andern Seite in den Nerv herein. Es stößt hier auf. (Siehe Zeichnung.) Das geht nicht an die
+
+
+
+Wahrnehmung. Dann bekommen Sie diejenigen Bilder, die wir den Inhalt der Imagination nennen. Und dann nehmen Sie diesen Ätherleib, der die Tätigkeit des Denkens in sich enthält, wahr.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+Und ebenso kann man, wie wir morgen sehen werden, auch in das Fühlen dasjenige hineinnehmen, was nicht erst von außen kommt und reflektiert wird, sondern was man gewissermaßen von rückwärts hereinnimmt in den Körper. Dann kommt die Inspiration. Die geht nun nicht in die Nerven, die geht in den Atmungsprozeß und in den Zirkulationsprozeß hinein. Dadurch begreift man den astralischen Leib. Und wenn man endlich die Intuition ausbildet, wenn man nicht nur das, was man im Leben gelernt hat, als Gehen empfindet, sondern wenn man sich als den anderen Menschen fühlt, der wirkt und ist, wenn man ganz übergeht in den anderen Menschen, dann kommt die Intuition. Und dadurch begreift man das Ich und das Wollen. So daß man sagen kann:
+
+Den Ätherleib begreift man durch die Imagination,
+den Astralleib begreift man durch die Inspiration,
+das Ich begreift man durch die Intuition.
+
+Im gewöhnlichen Leben hat man ja nicht das Ich, sondern das Ich schläft. Man weiß nur etwas von seinem Ich, das schläft, wie man im Dunklen auch weiß, daß es dunkel ist. Aber man hat nicht die Gegenstände, die da sind. So schläft auch das Ich.
+
+Man kann im allerstrengsten Denken sozusagen diejenigen Dinge finden, die Sie in meiner «Theosophie» von Anfang an beschrieben finden: Physischen Leib, ätherischen Leib, astralischen Leib, Ich. Und dann kann man darauf hinweisen, wie diese Glieder der menschlichen Natur durch Imagination, Inspiration, Intuition eben auch schaubar erfaßt werden können.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 66
+
+---
+
+# DAS SEELENLEBEN DES MENSCHEN UND SEINE ENTWICKELUNG ZUR IMAGINATION, INSPIRATION UND INTUITION
+
+Domach, 15. April 1923
+
+Ich habe gestern versucht, über die Wesenheit des Menschen und die Wesenheit des menschlichen Lebens einiges von dem Gesichtspunkte aus zu betrachten, der sich ergibt, wenn man das menschliche Leben in seiner Vollständigkeit vor die Seele hinstellt. Ich sagte, es verfließt dieses menschliche Leben nicht bloß während des Tagwachens, sondern ungefähr ein Drittel des menschlichen Gesamtlebens verfließt im Schlafe. Und wir stehen zunächst, wenn wir nur das gewöhnliche menschliche Bewußtsein ins Auge fassen, so vor diesem Menschenleben, daß, wenn wir erinnerungsgemäß ins Erdendasein zurückblicken, wir eigentlich nur immer die Tage, diejenigen Zeiten unseres Lebens, die wir wachend zubringen, im Gedächtnisse haben. Wir übersehen gewissermaßen immer dasjenige, was in der Zeit verläuft, die wir verschlafen haben. Nun muß ja allerdings gesagt werden: Für das, was wir äußerlich für die Erdenkultur, das Erdenleben zu schaffen haben, kommt unser waches Tagesleben in Betracht; es handelt sich aber darum, ob auch nach dem Innern^ des Menschen hinein nur diejenigen Vorstellungen in Betracht kommen, die sich im wachen Tagesleben vor dem gewöhnlichen Bewußtsein abspielen.
+
+Daß das nicht der Fall ist, kann schon eine oberflächliche Betrachtung lehren. Allein diejenigen Betrachtungen, die ich heute und in den letzten Tagen dieser Woche anstellen will,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+werden zeigen, daß allerdings die Ereignisse, die die menschliche Seele vom Einschlafen bis zum Aufwachen erlebt, verborgen bleiben, daß diese Ereignisse aber für das Innere des Menschenwesens auf Erden ungleich wichtiger noch sind als die Ereignisse, welche sich während des Tages abspielen.
+
+Heute wollen wir zunächst in Fortsetzung des gestern Ausgeführten einiges betrachten, was sich wiederum aus einem Vergleiche des Schlafeslebens und des gewöhnlichen wachenden Lebens ergibt. Das Schlafesleben verläuft ja zum Teil in vollständigem traumlosen Schlaf. Da ist dann die Zeit, die wir mit unserem Erdenleben während dieses traumlosen Schlafes zubringen, falls sie Ereignisse für unser Leben enthält, ganz unbewußt. Aus dieser Unbewußtheit, aus dieser vollständigen Finsternis des Bewußtseins tauchen dann die Träume herauf, und aus den Träumen wachen wir entweder auf zum gewöhnlichen Bewußtsein, indem uns durch die Sinneswahrnehmung und durch die Verstandeskombination die irdische Wirklichkeit gegeben ist, oder auch wir schlafen aus dieser Wirklichkeit durch den Traum in das traumlose Bewußtsein hinein.
+
+Machen wir uns noch einmal klar, worin eigentlich für die gewöhnliche äußere Beobachtung der Unterschied des Träumens von der äußeren Sinnesbeobachtung, die in Bildern und Verstandesbegriffen lebt, besteht.
+
+Wir können sagen: Für viele Menschen enthält der Traum seinem Inhalte nach eine oftmals lebendigere Wirklichkeit, als diejenige ist, die im wachen Tagesleben abläuft. Aber es ist dies eine Bildwirklichkeit, der wir nicht mit unserem Willen, sondern zwangsmäßig mit der Seele folgen. Und wir können den Unterschied zwischen dem Verfolgen dieser Traumesbilder und dem Verfolgen der gewöhnlichen Wirklichkeitsbilder des wachen Tageslebens ganz genau angeben. Auf besondere philosophische Spekulationen wol
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 68
+
+---
+
+len wir uns dabei nicht einlassen. Die könnten auch angestellt werden, wir wollen sie aber jetzt unterlassen. Wir wollen nur auf das hinschauen, was das ganz populäre Bewußtsein gibt. Da können wir sagen: Die Traumesbilder sind so, daß wir in ihnen leben. Wir leben in den Bildern selbst. Wir leben mit den Bildern. Beim wachen Tagesleben haben wir natürlich Farbenbilder, Tonbilder und so weiter in derselben Art vor uns wie im träumenden Erleben. Aber wir sind genötigt, diese Bilder, seien sie Gesichtsbilder, seien sie Tonbilder, Wärmebilder, Tastbilder und so weiter, gewissermaßen auf die harte Wirklichkeit zu beziehen. Wir sehen in der Tageswirklichkeit überall die Notwendigkeit, gewissermaßen auch mit unserem Willen auf das zu stoßen, was uns das Bild zeigt.
+
+Das ist nicht der Fall bei der, nun, sagen wir Traumeswirklichkeit. Die Traumeswirklichkeit ist gewissermaßen, wenn ich mich grob ausdrücken darf, überall zu durchstoßen. Wir können den Gesichtspunkt, von dem aus wir die Wirklichkeitsbedeutung des Traumes beurteilen, nur innerhalb des wachen Tageslebens finden. Solange wir träumen, halten wir den Traum für Wirklichkeit, und wenn wir unser ganzes Leben träumen würden, so würde die Traumeswirklichkeit die einzige Wirklichkeit für uns sein. Wir brauchen uns gar nicht vorzustellen, daß dann das äußere Leben anders verliefe, als es jetzt verläuft. Wir konnten uns ja vorstellen, die einzelnen Menschen begegneten sich im Leben nicht durch ihren Willen, sondern durch Naturkräfte wie automatisch zueinander geschoben oder auch durch irgendwelche höheren Wesen zueinander geschoben. Wir könnten uns auch vorstellen, die Menschen würden an ihre Arbeit getrieben, von höheren Wesen oder von Naturkräften geschoben. Kurz, alles, was wir so im wachen Tagesleben vor uns haben, könnte geschehen. Wir
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 69
+
+---
+
+brauchten nichts davon zu wissen. Wenn wir nur träumten, würden wir eine Traumeswirklichkeit vor uns haben. Wir würden gar nicht darauf kommen, irgendwie durch diese Wirklichkeit durchstoßen zu wollen auf eine andere Wirklichkeit. Wir wachen durch die naturgemäße Organisation unseres Organismus auf und gewinnen dann innerhalb der Sinneswirklichkeit den Gesichtspunkt, um den anderen relativen Wirklichkeitswert des Traumes zu beurteilen.
+
+Also erst wenn wir diesen Lebensruck durchmachen vom Träumen zum Wachen, gewinnen wir den Gesichtspunkt, um den relativen Wirklichkeitswert des Traumes zu beurteilen.
+
+Wir müssen uns nun aber fragen: Ist alles das, was wir während des Tagwachens erleben, wirklich wacher Zustand? Nun, ich habe gestern im einzelnen ausgeführt, daß das nicht der Fall ist. Ich habe im einzelnen ausgeführt, daß eigentlich nur unsere Vorstellungen, aber diese auch nur insofern sie die äußere Wirklichkeit abbilden, uns ins Wachen versetzen. So daß wir eigentlich nur in unseren Vorstellungen wachen. In unseren Gefühlen haben wir keine andere Wirklichkeit in bezug auf die Seelenverfassung vor uns als im Traume; nur daß der Traum uns in Bildern erscheint, die Gefühle in jener Unbestimmtheit, mit der sie eben aus den Tiefen des Seelenlebens heraufkommen.
+
+Ist man aber nicht ein gewöhnlicher Psychologe, der alles nach irgendwelchen Vorurteilen zurechtschmiedet, sondern geht man unbefangen beobachtend auf den Gefühlsinhalt der Seele, so sieht man, wie die Gefühle, die ja allerdings gegen das Vorstellungsleben, wenn ich mich so ausdrücken darf, heraufschießen, eine Verschwommenheit, ein fluktuierendes Ineinanderübergehen zeigen wie die Traumbilder. Fühlend träumen wir auch, wenn wir wachen. Nur weil, ich möchte sagen, die Substanz, in der die Traumbilder erscheinen, anders ist als die Substanz der Gefühle, kom-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 70
+
+---
+
+men wir nicht darauf, daß eigentlich alles Fühlen nur die Wirklichkeitsbedeutung hat, die der Traum auch hat. So daß, während wir wirklich wachend vorstellen, unsere Vorstellungen fortwährend durchflutet werden von den unbestimmten subjektiven Gefühlsinhalten.
+
+Stellen Sie sich lebhaft vor, wie beim Aufwachen hereinspielen die Traumbilder in das wache Tagesbewußtsein, wie in den Traumbildern alles fluktuierend vergrößert, verkleinert ist — je nachdem —, so werden Sie sich sagen können: Da kommt, scheinbar natürlich, in Bildern etwas an den Menschen heran, was sonst im Gefühlsleben wiederum verschwommen, die Dinge subjektiv vergrößernd, verkleinernd, von innen heraus an den Menschen herankommt.
+
+Und mit Bezug auf unser Wollen sind wir auch im Wachen im tiefen Schlaf. Wir wissen ja vom Wollen nur die Absichten. Das sind aber Gedanken, Vorstellungen. Wenn ich einen Spaziergang machen will, habe ich zunächst die Vorstellung, diesen Spaziergang zu machen. Dies ist meine Absicht. Wie nun diese Absicht stetig in meinen Organismus hineingeht, das zeigt ja das gewöhnliche Bewußtsein ebensowenig, wie es das zeigt, was vom Einschlafen bis zum Aufwachen verfließt. Den Erfolg kann ich wiederum erst an der Bewegung ermessen, die ich mache, an der Veränderung der Aspekte, die vor mir auftreten, wenn ich den Spaziergang mache — also wiederum an Vorstellungen. Was zwischen der Vorstellung der Absicht und der Vorstellung des Erfolges eigentlich im Organismus vor sich geht, das verschlafe ich für das gewöhnliche Bewußtsein ebenso, wie ich das verschlafe, was sich abspielt vom Einschlafen bis zum Aufwachen.
+
+So können wir sagen, daß der Mensch wollend, auch wenn er wacht, im tiefen traumlosen Schlaf ist, daß er fühlend träumend ist, auch wenn er wacht, und daß er
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 71
+
+---
+
+nur in einer gewissen Weise wach ist, wenn er in Vorstellungen lebt. Aber wenn der Mensch wirklich ehrlich nach seinem Innern hinschaut, so merkt er: diese Vorstellungen sind auch nur wach in bezug auf die äußere Natur, nicht in bezug auf ihr eigenes Leben. In bezug auf das eigene Leben der Vorstellung kann der Mensch nicht zu einem rechten Wachen kommen. Man muß sich nur klar sein darüber, wie ja für die meisten Menschen, wenn sie nichts Äußerliches vorstellen können, eine vorstellende Tätigkeit überhaupt nicht mehr vorhanden ist. Aber das ist ja eigentlich nur deshalb, weil insbesondere in der heutigen Kultur der Mensch an die Außenwelt hingegeben ist, so daß wir dieses Hingegebensein vergleichen können mit dem Dasein in einer tosenden, brausenden Welt.
+
+Denken Sie sich einmal, hier spiele jemand Piano oder irgendein Instrument, und da draußen tosten die Maschinen in einer ganz außerordentlichen Weise. Sie würden die Maschinen hören. Das Piano würden Sie wenig wahrnehmen können, besonders wenn Sie etwas weiter weg davon waren. So ist es im Grunde genommen auch gegenüber dem, was eigentlich im Innern des Menschen von der Denktätigkeit lebt. Nur müssen wir da den Vergleich richtig gebrauchen. Wenn wir heute die äußere Naturwissenschaft lernen, wenn wir da alle die Begriffe aufnehmen, die in der äußeren Evolutionslehre dem Menschen gebracht werden, dann ist das im Grunde genommen ein Denkgetöse, ein Denklärm. Und dieser Denklärm, dem sich der heutige Mensch, insbesondere auch wenn er Wissenschaftler ist, hingibt, stört ihm die feinere Wahrnehmung der inneren Denktätigkeit. Daher verschläft er auch die innere Denktätigkeit.
+
+Ich habe in meiner «Philosophie der Freiheit» auf dieses reine Denken, das nicht etwas Äußerliches denkt, sondern das ganz im Innern des Menschen verläuft, hingewiesen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 72
+
+---
+
+Aber ich bin mir auch bewußt, daß ich mit diesem reinen Denken eigentlich etwas geschildert habe, von dem viele unserer Zeitgenossen sagen, daß es ja gar nicht; so wie derjenige, der das Getöse von Maschinen da draußen hören würde und das Piano nicht, sagen würde, daß es ja gar nicht.
+
+Aber wenn das so ist, können wir etwas außerordentlich Wichtiges daraus ersehen, nämlich dieses, daß wir eigentlich nur für das Denken, insofern es einen äußeren Naturinhalt hat, wachen, daß wir aber in bezug auf die innere Tätigkeit, die wir da vollbringen, schon höchstens träumen. Außerdem träumen wir die Gefühle und verschlafen den Willen. Also die Seelentätigkeit, dasjenige, was uns im Innern lebt, das ist im Grunde genommen nicht erwacht, wenn wir für die Sinneswelt wachen. Wir schlafen fort, auch während des Tagwachens, für unsere Denktätigkeit, für das Fühlen, für das Wollen. Wir wachen nur für die äußere Natur auf. Und dieses Aufwachen, das bilden wir ja noch durch Instrumente, durch Experimentiermethoden aus und gelangen dadurch gerade zu der bedeutungsvollen Naturwissenschaft der Gegenwart. Die muß entstehen, indem sich die äußeren Vorgänge gewissermaßen in den Vorstellungen spiegeln. Aber wir wachen nicht in demselben Maße für unser Denken, Fühlen und Wollen auf. Und wer unbefangen betrachten kann, wie sich eigentlich der Traum von der äußeren physisch-sinnlichen Wahrnehmungswelt unterscheidet, der wird das Seelenleben nach Denken, Fühlen und Wollen nicht ähnlich finden demjenigen, was äußere sinnliche Wahrnehmungseindrücke sind, sondern er wird dieses Seelenleben höchstens ähnlich finden seinem bedeutsamsten Elemente, dem Träumen. Mit Bezug auf unseren Seeleninhalt träumen und schlafen wir eigentlich fortwährend. Wir wachen nur zum Naturinhalte auf. Wir wachen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 73
+
+---
+
+gar nicht zu unserem Seeleninhalt auf im gewöhnlichen Bewußtsein, da schlafen wir sanft fort. Und wir sagten ja: Die Traumesbilder sind gewissermaßen so, daß man sie durchstoßen kann, daß sie nicht auf einer harten äußeren Wirklichkeit aufliegen, die dem Willen unterliegt. So ist aber unser Seeleninhalt auch. Er lebt in Bildern. Und wer die Fähigkeit hat, Qualitäten zu vergleichen, nicht bloß Quantitäten, der wird schon finden, daß, wenn er dem Trauminhalt Bildcharakter beilegt, der zunächst nicht auf eine Wirklichkeit weist, er dem eigenen Seeleninhalt auch Bildcharakter beilegen muß.
+
+Dann aber entsteht daraus gerade eine bedeutungsvolle Frage. Lebe ich in Träumen, so wache ich zu der physischen Wirklichkeit auf, fühle mich dann dadurch, daß ich mit meinem Willen in meinen Leib eingeschaltet bin, mit der physischen Wirklichkeit als mit einer Realität verbunden, und ich spreche vom Gesichtspunkte dieser physischen Wirklichkeit aus dem Traum höchstens eine relative, eine ganz andersartige Realität zu.
+
+Kann ich nun - so ist die Frage - in derselben Weise für das Seelenleben aufwachen, wie ich für die Natur aufwache? Kann ich mich einschalten, wie ich durch meinen Willen, den ich in meinen Leib hineinrücke, die Traumesbilder einschalte in das, was die Struktur der Wirklichkeit ist, kann ich ebenso das Denken, Fühlen und Wollen durch ein höheres Erwachen einschalten in eine entsprechende Wirklichkeit? Das, sehen Sie, ist die Frage: Kann ich für das Seelenleben ebenso aufwachen, wie ich für die Natur aufwache? Der Naturinhalt, den ich als Mensch während des Erdendaseins mit der äußeren physisch-sinnlichen Wirklichkeit erlebe, erscheint mir bildhaft im Traume, Aber das ganze Seelenleben erscheint mir auch nur bildhaft wie im Traume. Also, kann ich für das Seelenleben aufwachen?
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+Ja, man kann aufwachen. Man kann dadurch aufwachen, daß man sich eben durch solche Übungen, wie ich sie angegeben habe in dem Buche «Wie erlangt man Erkenntnisse der höheren Welten?» und in meiner «Geheimwissenschaft», zunächst das Denken verschärft, verinnerlicht, daß man nicht bloß sich anregen läßt zu einem Gedankeninhalt von außen, sondern daß man sich einen überschaubaren Gedankeninhalt, der einem nicht suggeriert wird, von innen gibt, dann auf diesem Gedankeninhalt ruht, sich konzentriert auf einen solchen aktiv von innen der Seele gegebenen Gedankeninhalt. Dann kommt man auf diese Weise nach und nach zum wirklichen Bewußtsein des Denkens.
+
+Man hat ja gar nicht das Bewußtsein des Denkens, wenn man sich für die Vorstellungen nur von außen anregen läßt. Nur wenn man immer wieder und wiederum sich von innen zum Denken anregt durch Meditation, durch Konzentration auf Gedankeninhalte, dann wird man sich gewahr innerhalb des Denkens. Dann geht einem auf, daß man eigentlich in diesem Denken lebt, aber daß man es nur nicht weiß, wenn man sich allein von außen anregen läßt. Das Denken wird auf diese Weise lebendig, während es sonst abstrakt und tot ist. Das Denken wird etwas, was nicht bloß in den Denkschatten besteht, die wir von außen bekommen, sondern etwas, was sich wie ein Seelenblut innerlich regt. Man wird wie ausgefüllt mit einer zweiten Menschlichkeit.
+
+Die Gedanken werden lebendige Kräfte, Bildekräfte, wie ich sie auch in meinem Buche «Theosophie» genannt habe. Und man wird gewahr, daß man das Denken eigentlich als einen zweiten Leib in sich trägt, als den Ätherleib, als den Bildekräfteleib; denn man wird gewahr, daß dasjenige, was sonst nur abgeschattet in Gedanken besteht, eigentlich dieselben Kräfte sind, die unser Wachstum bewirken. Man zieht sich zurück in das Wachstum seines menschlichen We
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 75
+
+---
+
+sens, und man kommt darauf, wie das, was als die Prozesse, die sonst bloß chemisch verlaufen würden nach Maßgabe der Eigentümlichkeiten der Stoffe, die wir aufnehmen, wie das durch dieselbe innere Geistleiblichkeit, ätherische Leiblichkeit, die unsere Gedanken bildet, verarbeitet wird, wie wir ein einheitlicher innerer Mensch werden durch diese innerlich lebendigen, sich regenden Gedanken. Man lernt also in sich einen zweiten Menschen auf diese Weise kennen.
+
+Aber man kommt noch auf etwas anderes. Dieser zweite Mensch, den man da kennenlernt, der ist nicht etwa bloß eine Wolke, die den räumlichen physischen Leib unbestimmt ausfüllt. Dieser zweite Mensch ist eigentlich in fortwährender Bewegung, und es ist gar nicht möglich, ihn in einem Momente festzuhalten. Sehen Sie, da ist es eigentlich so: Wenn wir den physischen Leib des Menschen in einem bestimmten Punkte des Lebens haben, dann können wir das, was wir so erleben, und was mit unserem Denken identisch ist – nur daß wir im gewöhnlichen Denken die Schatten der Gedanken haben, nicht die lebendigen Gedanken selbst – für einen Moment da hinzeichnen (siehe Zeichnung). Was als ein solcher zweiter Äther- oder Bildekräfteleib den Menschen durchzieht, ist eben nur für einen Augenblick festzuhalten. Im vorigen Augenblick war das ganz anders; im nächsten Augenblick wird es wieder anders sein, und so weiter zurück und weiter vorwärts.
+
+Dadurch aber ergibt sich, wenn man im inneren, anschauenden Erleben darauf kommt, daß dieser Bildekräfteleib, der sich für das gewöhnliche Bewußtsein als die schattenhaften abstrakten Gedanken durchdrückt, überhaupt nichts Räumliches ist, daß er etwas ist, was in der Zeit verläuft. Das führt uns zurück als ein lebendiges Tableau bis zu einem gewissen Momente unserer ersten Kindheit. Ich will jetzt das schematisch zeichnen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 76
+
+---
+
+
+
+Stellen wir uns vor, wir seien schon ein älterer Mensch in dieser Zeit; aber dieser Bildekräfteleib ist nicht auf eine Zeit beschränkt, sondern führt zurück bis in unsere Kindheit. Wir überschauen unser Leben nicht erinnerungsgemäß, sondern wie ein Tableau auf einmal. Was ich hier räumlich zeichne, ist zeitlich. Das führt jetzt zurück bis in unsere Kindheit, bis zu dem Zeitpunkt in unserer Kindheit, bis zu dem wir uns in der Regel erinnern.
+
+Da ist jetzt auch dieser Ätherleib, dieser Bildekräfteleib. Aber wenn man durch sorgfältige Übungen die Fähigkeit erwirbt, bis dahin zurückzuschauen, dann kommt man bis zu dem Zeitpunkt, wo man als kleines Kind denken gelernt hat. Da ist es so, wie wenn man mit dem Denken, zunächst mit dem gewöhnlichen Denken, an eine Grenze käme. Für das gewöhnliche Bewußtsein, für die gewöhnliche Erinnerung kommt man an diese Grenze. In der Imagination kommt man weiter zurück an die andere Seite. Man schaut in denjenigen Seeleninhalt des Kindes hinein, den man gehabt hat, als man noch nicht hat denken können, als man als Kind sich hereingeträumt hat in die Welt. Denn in einem bestimmten Momente ist ja erst das Denken, und zwar nach dem Sprechen, aufgetreten.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+Nun sieht man dadurch in die Zeit hinein, sieht, wie es war in der Seele, bevor man die schattenhaften abstrakten Gedanken gehabt hat. Da hat man eben noch das lebendige Denken gehabt. Und das lebendige Denken hat wuchtig plastizierend gearbeitet an dem menschlichen Gehirn, an der ganzen menschlichen Organisation. Später, wenn vieles von diesem Denken in die Abstraktheit hineingenommen wird, in das Tote hinein, da sind auch nur noch Reste für die Bearbeitung der menschlichen physischen Organisation da. Während man als Kind träumt, noch nicht denken kann, da ist das Denken regsam. Eben weil man im späteren Leben durch das Getöse der Welt nicht auf solches Denken hinschauen kann, kommt es auch gar nicht vor, daß man da in das Denken, das noch regsam tätig war, zurückblickt. Jetzt kann man zurückschauen. Und dann erscheint dieses Denken als die Summe der Kräfte, die einen eigentlich menschlich aufgebaut hat, als Wachstumskräfte, als Ernährungskräfte und so weiter. Man merkt, wie aus dem Äther der Welt, denn darinnen liegen diese Kräfte, die menschliche Organisation herausgebaut wird. Man kommt an den Ätherleib immer mehr und mehr heran. Man weiß, wie dieser Ätherleib am tätigsten ist von außen herein in das Kind in den allerersten Jahren, wenn das Kind noch nicht denken kann, wenn es das Leben noch träumend verbringt. So rückt man zur Imagination vor.
+
+Aber etwas kann einem bleiben. Man merkt es nicht, wenn man eben nicht unserer heutigen, in ihrer Wissenschaftlichkeit tosenden Kultur gegenüber Übungen macht, wie ich sie in den genannten Büchern angegeben habe. Dann aber kommt man darauf, daß einem etwas geblieben ist von diesem Denken von der anderen Seite her, wie man es als kleines Kind gehabt hat. Dieses Denken, das aufbauend, bildend ist für den Organismus, dem man seinen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 78
+
+---
+
+äußeren physischen Organismus erst verdankt, dieses regsame Denken habe ich in meinen Büchern das imaginative Denken genannt. Aber es bleibt einem eben etwas von diesem imaginativen Denken, und durch Übung kann man es auch im späteren Leben wieder erforschen, so daß man an den Ätherleib heran kann.
+
+
+
+Ich habe schon gestern darauf aufmerksam gemacht, aber da nicht alle da waren, möchte ich noch einmal darauf hinweisen: Nehmen Sie das menschliche Auge, von dem menschlichen Auge den Sehnerv, der nach innen geht, sich im Auge ausbreitet. Wenn Sie mit dem Bildekräfteleib (lilarot), der im wesentlichen den äußeren physischen Nervenvorgängen (gelb) folgt, so weit gehen, daß Sie herankommen an diejenigen Vorgänge (rot), wo sich durch das Auge die Außenwelt spiegelt, dann haben Sie Wahrnehmung der äußeren Welt. Und was dann im Nerv sich festlegt - ich will jetzt nur dieses approximativ bezeichnen, es würde zuviel Zeit in Anspruch nehmen, wenn ich den genauen Vorgang schildern würde - das, was sich durch den Nerv festlegt im Bildekräfteleib, das kann dann immer wiederum zur Tätigkeit angeregt werden. Da kommt man mit der Tätigkeit des Bildekräfteleibes, des Nervensystems, bis dahin, wo die Nerven endigen (gelb). Man durchstößt gewissermaßen nicht den Nerv bis hinein zu den Vorgängen,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+die die äußere Welt spiegeln, man gibt nur dem, was in ihnen lebt im Bildekräfteleib, einen Anstoß, stößt diesen Bildekräfteleib bis dahin, wo die Nervenstumpfe auslaufen, dann bekommt man den Erinnerungseindruck. Der Erinnerungseindruck besteht im wesentlichen darin, daß man mit der inneren Tätigkeit bloß bis zu den Nervenendigungen kommt; während man für die Sinneseindrücke die Nervenendigungen durchstößt und bis an die hauptsächlich durch das Blut bewirkten Vorgänge in den Sinnen vorrückt.
+
+Da sehen Sie die lebendige Tätigkeit des Bildekräfteleibes. Aber alles das, was Sie da in die Erinnerung hineinschieben, das muß ja ins Nervensystem hineingegangen sein, also rührt es her erst seit jener Zeit, seit wir denken gelernt haben als ganz kleines Kind. Was vorher war, das ist nun so-und wenn man jetzt durch Übungen das Denken geschult hat und zurückblickt, so sieht man dieses im Rückblick durch den zeitlich verlaufenden zweiten Menschen –: Da wird man gewahr, wie auf denselben Wegen, auf denen sonst die außen hineingehenden Eindrücke wiederum umkehren durch das Gedächtnis im Erinnerungsvermögen, wie da gewissermaßen von hinten hereinkommt dasjenige, was nun auch Tätigkeit des Bildekräfteleibes ist. Fortwährend hat man eigentlich diese zwei Tätigkeiten. Nur weiß der Mensch im gewöhnlichen Bewußtsein nur von der einen, von der Erinnerung. Man hat aber diese zwei Tätigkeiten: Das, was herrührt von den äußeren Sinneswahrnehmungen, die zurückgeschoben werden, wiederum bis an die Nervenstumpfe vorgeschoben werden können, so daß eben die Erinnerungsbilder auftauchen; man hat aber auch etwas, was gewissermaßen menschenschöpferisch von derjenigen Seite her in das ganze Nervensystem sich ergießt, wo man eben nicht in derselben Stärke wie an der Vorderseite des Körpers sinnlich wahrnimmt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 80
+
+---
+
+Von rückwärts - es ist das natürlich nicht ganz genau gesprochen - kommen die schöpferischen Kräfte in den Menschen herein: In der ersten Kindheit, wo man noch nicht denken kann, ganz mächtig, später schwächer. Das ist das Denken, das nicht aus der Sinneswelt, das aus dem gesamten Weltall genommen ist, das aus dem Weltenäther genommen ist, das wir uns aneignen, indem wir vom vorirdischen Dasein in das irdische heruntersteigen, das wir noch übermenschlich behalten bis zu dem Momente, wo wir denken lernen. In dem Momente, wo wir denken lernen, machen wir gewissermaßen nach dem fortlaufenden Strom unseres Lebens hin das Tor zu für dieses regsame Denken, für diese Entwicklung der menschlichen Bildekräfte im Bildekräfteleib, im Ätherleib. Für die äußere Sinneswelt denken lernen heißt: das Tor für die universellen weltenbildenden Gedankenkräfte zumachen.
+
+Wir haben also, als wir in der Kindheit waren, das Tor für die weltenbildenden Gedankenkräfte zugemacht. Sie bleiben aber in uns, denn wir brauchen diese Bildekräfte in der ersten Zeit unseres Lebens fortwährend, solange wir wachsen als Wachstumskräfte, später als die Verarbeitungskräfte für das, was wir als Ernährung und so weiter in uns aufnehmen. Aber wir bemerken sie nicht. Wir bemerken nur dasjenige, was der Bildekräfteleib spiegelt aus den aufgenommenen Eindrücken, die dann in den Erinnerungen bis an die Nervenendigungen stoßen.
+
+Aber wir können durch Übungen der Konzentration und Meditation dasjenige gewahr werden, was uns nun selbst aus dem Weltenätherischen herein bildet. Da werden wir in unserer Selbstwahrnehmung Vorgänge gewahr, welche auch in der Zeit verlaufen, die wir nicht aufgenommen haben durch äußere Eindrücke, sondern die nur den Strom nach der einen Seite haben. Wenn wir diese dann verfolgen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 81
+
+---
+
+bis zu dem Punkt, wo die Nerven auslaufen, wo wir sonst die Erinnerungen von äußeren Eindrücken haben, dann bekommen wir nicht nur das Bild unseres Ätherleibes, sondern das Bild davon, wie wir als Mensch im ganzen Weltenäther drinnen enthalten sind. Wir werden uns als zweiter Mensch gewahr. Wir lernen erkennen, wie die Ätherkräfte aus- und einziehen, und wie alles, was da als universelles Spiel der Weltenkräfte überall draußen ist und in uns hineinzieht, wie das dasselbe ist, was im Schattenbild das Weben der Gedanken in uns ist. Wir werden gewahr, wie die Gedanken in uns das Schattenbild des Äther leibes sind, wie der Ätherleib eigentlich ein Lebendiges ist, wie er ein Glied im ganzen Weltenäther ist. Wir haben die erste Stufe der übersinnlichen Erkenntnis erstiegen.
+
+
+
+Man könnte sagen: Was im Denken zum Vorschein kommt, ist eigentlich wie durch einen Spiegel gebildet (siehe Zeichnung). Da ist der Belag des Spiegels. So ist der Spiegel nach vorn, nach den Sinnen gerichtet (roter Pfeil). Das, was durch die Sinne aufgenommen wird, wird zurückgeworfen, kommt zum Bewußtsein, wenn es eben an die Ner
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 82
+
+---
+
+venstumpfe kommt. Aber es gibt eben auch eine innere Tätigkeit, welche nicht so verläuft, sondern welche durch den Spiegel durchgeht (Hla Pfeile). Verfolgen wir diese, dann haben wir einen Bildekräfteleib, der ein Teil der Bildekräfte des ganzen Universums ist. Dadurch aber sind wir gewissermaßen für das Denken an die andere Seite gekommen.
+
+Was ist denn eigentlich dieses Üben, damit man zum imaginativen Denken kommt? Es besteht darin, daß, während man sonst immer bloß bis zum Spiegel seines Innern sieht, zu dem, was innen herausgespiegelt ist, was aber nichts anderes ist als die äußere Natur, man sich jetzt die Fähigkeit erwirbt, hinter den Spiegel zu sehen. Da ist nicht dasselbe, wie in der äußeren Natur; da sind die menschen-schöpferischen Kräfte. Das ist die andere Seite des Denkens. Hier ist das tote Denken, auch abstraktes Denken genannt. Da ist das lebendige Denken. Und im lebendigen Denken sind die Gedanken Kräfte.
+
+Das ist eben das Geheimnis bezüglich des Denkens, daß dasjenige, was man im gewöhnlichen Denken eigentlich in sich hat, nur das Schattenbild dessen ist, was das wahre Denken ist. Aber das wahre Denken durchzieht die Welt, ist als Kräftestruktur in der Welt, nicht bloß im Menschen.
+
+Es ist gar nicht sehr gescheit, wenn der Mensch glaubt, das Denken sei nur in ihm. Das ist ungefähr so, wie wenn er Wasser aus einem Bache schöpft und das trinkt und nun die Meinung hat: Ja, meine Zunge, die hat fortwährend das Wasser hervorgebracht. Wir schöpfen das Wasser aus dem gesamten Wasservorrat der Erde. Wir geben uns dabei natürlich nicht der Illusion hin, daß unsere Zunge das Wasser hervorbringe. Nur beim Denken tun wir das. Da reden wir davon, daß das Gehirn das Denken hervorbringt, während wir bloß aus dem Gesamtdenken, das in der Welt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 83
+
+---
+
+universal ausgebreitet ist, schöpfen, was wir dann in uns als Gedankensumme haben.
+
+Der Mensch gibt sich ja noch einer anderen Illusion hin, wenn er an sein Vorstellen denkt, einer Illusion, die ich mit folgendem vergleichen kann. Denken Sie sich einmal, hier wäre ein Weg, wie jetzt ungefähr der nach Ariesheim und Dornach hinunter, so ein weicher Weg! Da gehe ich nun drüber. Sie sehen dann die Spuren meiner Füße (siehe Zeichnung, rot). Jetzt kommt einer vom Mars, hat niemals so etwas auf der Erde gesehen, sieht da die Spuren. Menschen kennt er nicht, denn er kommt eben vom Mars, und es ist zu einer Tageszeit, wo noch keiner gegangen ist. Da sieht er die Spuren. Aha, denkt er, da ist die Erde, da sind die Spuren; da unten ist Erde, das da ist Substanz – das weiß er schon vom Mars her –, da unten in der Erdensubstanz sind allerlei Kräfte, schwingende Kräfte, oder was immer, meinetwillen Ionen oder Elektronen, was es halt sein kann. Diese Kräfte, die spielen unten, und die bewirken hier die Spuren, und deshalb sieht man die Spuren.
+
+
+
+Der gute Marsbewohner irrt sich aber, er beachtet nicht, daß ich da drüber gegangen bin und die Erde gar nichts getan hat, diese Erde bis hinunter nach Ariesheim höchst unschuldig ist an diesen Spuren. Da unten sind keine Kräfte, die das bewirkt haben, daß sie konfiguriert worden ist, sondern das kam von außen.
+
+Der Mensch gibt sich auch diesen Illusionen hin in bezug auf das Gehirn. Es sind auch solche Strukturen da, und er
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 84
+
+---
+
+meint, daß von innen heraus diese Strukturen bewirkt werden, und daß das dann in den Gedanken erscheine. Aber es sind die von außen gemachten Spuren. Wir finden wirklich in dem Gehirn einen vollständigen Abdruck des Denkens. Man kann gar nichts Besseres tun als zu verfolgen, wie das Denken eines Menschen bis ins kleinste hinein in den Formen des Gehirnes abgebildet ist. Aber ebensowenig, wie die Fußspuren in der Erde da von unten herauf entstanden sind, ebensowenig sind diese Formationen des Gehirns von etwas anderem als von Eindrücken entstanden, die das lebendige Denken, das aus dem Weltenäther stammt, das im Weltenäther west und lebt, hineingegraben hat.
+
+Das, was ich Ihnen jetzt sage, wird eben lebendige Anschauung, wenn man zu diesem imaginativen Denken vordringt. Und ebenso, wie man das Denken gewissermaßen von der anderen Seite erfassen kann, so kann man jetzt ein anderes Element, das man im normalen Menschenleben etwas früher erlebt, das Sprechen, auch gewissermaßen von hinten, von der anderen Seite erfassen.
+
+Denken Sie sich einmal, Sie lassen die Luft durch Ihre Lunge, durch den Kehlkopf und durch die anderen Sprachorgane nach innen strömen. Durch die Formation des Kehlkopfes, durch die Formation der Zunge, des Gaumens und so weiter bilden sich nach außen die Laute. Wenn Sie diesen ganzen Vorgang von einem bestimmten Punkte des Organismus an verfolgen, so haben Sie nach außen gehend das Sprechen. Aber denken Sie sich, Sie verfolgen das Sprechen nicht von den Sprachorganen nach außen, sondern Sie verfolgen die Sache rückwärts (siehe Zeichnung, rot) bis zum Sprechen hin. Das kann man wieder nicht mit dem gewöhnlichen Bewußtsein, das muß man durch Übungen erreichen, daß man bis zu dem Punkt, wo das Sprechen des irdischen Lebens nach außen hin sich bildet, daß man bis zu diesem
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 85
+
+---
+
+Punkte hin, wo die Sprache sich erst bildet, das Innere verfolgt. Das findet man nicht im physischen und nicht im ätherischen Leib, das findet man nun in einem noch höheren Gliede des menschlichen Organismus, als der Ätherleib oder der Bildekräfteleib ist, das findet man in dem, was ich in meinen Büchern den astralischen Leib genannt habe.
+
+
+
+Was nach außen gesprochen wird, ist Sprache für das Erdenleben. Was gewissermaßen von hinten an den Menschen herankommt, was bis zu den Sprachorganen kommt, was nicht als Sprache nach außen tönt, sondern was da hereinspricht, das also, was nicht vom Kehlkopf nach außen als irdisch hörbare Sprache entsteht, sondern was von hinten kommt, am Kehlkopf aufhört, da stumm wird, statt daß da die Sprache beginnt, die eben irdisch hinausgeht: das ist eine geistige Sprache. Das ist etwas, was man die geistige Sprache nennen kann, die zu uns aus der geistigen Welt gesprochen wird.
+
+Die Beeindruckung, die man dadurch erhält, das ist die Inspiration, in ganz rationellem Sinne jetzt gemeint. Diese Inspiration muß man dadurch herbeiführen, daß man das Bewußtsein, wiederum durch die Übungen, die ich in den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 86
+
+---
+
+genannten Büchern geschildert habe, abzieht von dem Hingegesebenen an die äußeren Worte. Besonders stark war wiederum das, was da bis an den Kehlkopf beziehungsweise die Sprachorgane herandringt, und was aus der Welt zu uns spricht, während wir sonst durch unsere Sprachorgane zur Welt sprechen – besonders stark war dieses Inspirierende in der Kindheit, bis wir sprechen gelernt haben. Indem wir die äußere Sprache gelernt haben, haben diese Kräfte aufgehört, so zu wirken. Die sind jetzt nur noch in uns vorhanden, und wir erlangen sie, wenn wir uns zu der Gabe der Inspiration aufschwingen.
+
+Dann werden wir ein drittes Element in uns gewahr, einen dritten Menschen, der nun nicht dem Raum und der Zeit angehört, der aber in uns kräftig und bildend ist. Das ist der astralische Leib. Das ist der astralische Leib, in dem die Vorgänge Inspirationen sind, wo wir erfahren, was eigentlich in Wirklichkeit hinter unserem Gefühlsleben sitzt. Das Gefühlsleben ist das Träumen von dem, was da inspirierend in uns einfließt. Und dieses Gefühlsleben hängt innig zusammen mit dem Atmungs- und Sprechprozeß.
+
+Daher hat man in älteren Zeiten, wo man auf andere Weise in die geistige Welt hinaufwollte, auf diesen Atmungsprozeß, den innerlichen Atmungsprozeß eingewirkt durch Übungen. Und die alten Yoga-Übungen waren darauf berechnet, eben die Aufmerksamkeit hinzulenken auf das, was hinter der Sprache sitzt. Dadurch, daß man ein künstliches Atmen an die Stelle des natürlichen setzte, wurde man das gewahr, wie man überall etwas gewahr wird, wenn man vom Gewöhnlichen abweicht.
+
+Denken Sie nur einmal, daß Sie in verschiedener Weise das Wasser in einem Flusse um sich herum wahrnehmen, wenn Sie mit der Schnelligkeit des fließenden Wassers schwimmen, oder wenn Sie langsamer oder schneller schwimmen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+men. Wenn Sie mit der Schnelligkeit des fließenden Wassers schwimmen, so nehmen Sie einen gewissen Gegendruck nicht wahr. Wenn Sie langsamer schwimmen, nehmen Sie ihn wahr. Dadurch, daß der indische Yogi das Atmen in einer anderen Weise gestaltet, als es natürlich verläuft, dadurch nimmt er dasjenige wahr, was da im Atmungsstrom als Geistiges darinnen ist, jenes Geistige, wodurch wir unseren astralischen Leib haben, und wodurch wir wiederum in eine höhere Welt, als die Ätherwelt ist, hineinragen.
+
+Für uns sind diese Übungen die richtigen - denn die Menschheit schreitet vorwärts -, die ich in «Wie erlangt man Erkenntnisse der höheren Welten?» geschildert habe. Aber Sie sehen, überall kann man hinweisen auf die konkreten Vorgänge, welche dem zugrunde liegen, was die Außenwelt so phantastisch findet, wenn in der Anthroposophie davon gesprochen wird, der Mensch bestehe nicht aus dem physischen Leib allein, sondern aus physischem Leib, ätherischem Leib, astralischem Leib und Ich. Wir werden davon dann das nächstemal reden. Aber diese Dinge sind nicht aus den Fingern gesogen, diese Dinge sind auch nicht erspekuliert, sondern durch ein sorgfältiges Forschen, das gerade die naturwissenschaftliche Methode weiterführt bis an den Menschen heran, bis an das Gesamtwesen des Menschen, zustande gekommen — allerdings ein Forschen, das davon abhängig ist, daß man die menschlichen Erkenntnisfähigkeiten immer mehr und mehr erhöht.
+
+Worin besteht also die Imagination, durch die man in die Ätherwelt und in das eigentliche Ätherleben eindringt? Diese Imagination besteht darin, daß man nicht nur bis in die Sinne hineinverfolgt die Vorgänge, die durch die Sinne erst nach rückwärts gestoßen sind und dann wiederum bis an die Nervenendigungen nach vorne gestoßen werden
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 88
+
+---
+
+können, sondern daß man dasjenige, was aus dem Universum, aus dem Kosmos, von gleicher Art wie die Sinneswahrnehmungen ist, aber jetzt der übersinnlichen Welt angehört, daß man das gewahr wird, wie sonst nur die Erinnerungen.
+
+Wird man die weltschöpferischen Kräfte gewahr, wie man sonst die Erinnerungen wahrnimmt, dann hat man imaginatives Wesen, dann erlebt man das Ätherwesen der Welt. Wird man gewahr hinter der Sprache dasjenige, was nun nicht vom Kehlkopf nach vorne hinausgeht, sondern von der anderen Seite aus dem Universum, aus dem Kosmos hereinspricht, aber an dem Kehlkopf verstummt, dann wird man durch Inspiration eine weitere Welt gewahr, der wir mit unserem dritten menschlichen Organismus, mit dem astralischen Leibe angehören.
+
+Dabei zeigt sich allerdings eines. Hier in der physisch-sinnlichen Welt haben wir auf der einen Seite die physischen Vorgänge und auf der andern Seite die moralischen Impulse, die aus unserem Innern aufsteigen. Die stehen so nebeneinander, daß heute schon die Theologie gerne möchte, daß die Sinnenwelt nur sinnlich aufgefaßt werden sollte, und für die moralische Welt eine ganz andere Erkenntnisart da wäre. In dem Augenblick, wo man bis zur Inspiration vorrückt, wo man nicht nur in der Welt lebt, in der man spricht vom Kehlkopf vorwärts, sondern wo man in der Welt lebt, die da durch unseren ganzen Menschen hindurch spricht, aber am Kehlkopf verstummt, weil wir da das Tor vorschieben, wenn wir die äußere Sprache erlernen, so daß wir die äußere Sprache als ein Ersatzmittel gegen die Himmelssprache erleben - in dem Augenblick, wo wir uns in diese Welt hineinleben, die nun am Kehlkopf aufhört, dann erleben wir den Inspirationsinhalt der Welt, dann erleben wir die Geheimnisse der Welt, und dann erleben wir nicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 89
+
+---
+
+bloß eine Natur, an die die moralischen Impulse nicht herankönnen, sondern wir erleben hinter dem natürlichen Dasein eine Welt, wo Naturimpulse, Naturgesetzmäßigkeiten und moralische Gesetzmäßigkeiten ineinander verwoben sind, wo sie eins sind. Wir haben den Schleier gehoben und haben eine Welt gefunden, in der Moralisches und Physisches ineinanderklingt. Und wir werden sehen, daß das die Welt ist, in der wir im vorirdischen Dasein waren, bevor wir zur Erde heruntergestiegen sind, in die wir wieder eintreten, nachdem wir durch die Pforte des Todes gegangen sind.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 90
+
+---
+
+# DAS ANSCHAUUNGSERLEBNIS DER DENKTÄTIGKEIT UND DER SPRACHTÄTIGKEIT
+
+Domach, 20. April 1923
+
+Ich bin in den letzten Vorträgen auf das Wesen des Menschen so eingegangen, daß ich glauben kann, die Betrachtungen, die da angestellt worden sind, können auch für diejenigen verehrten Besucher verständlich sein, die uns jetzt die Freude machen, zum Lehrerkurs hier zu sein. Und ich habe im Beginn dieser Betrachtungen ja schon bemerkt, daß das, was ich sage, in vieler Beziehung für die «erleuchteten Anthroposophen» eben eine Art Wiederholung sein muß. Nun möchte ich heute in diesen Betrachtungen insofern fortfahren, als ich nach einer kurzen Wiederholung wesentlicher Punkte übergehen werde zu dem, was sich dann an den vorigen Vortrag anschließt.
+
+Ich habe bemerklich gemacht, wie der Mensch für die äußere Anschauung, für dasjenige, was der Sinnesbeobachtung gegeben ist, was dann der Verstand aus den Sinnesbeobachtungen vielleicht auch mit Hilfe des Experimentes kombinieren kann, wie der Mensch für all das zunächst nur seinen physischen Leib offenbart. Zugrunde liegt nun diesem physischen Leibe das, was man den Äther- oder Bildekräfteleib nennen kann, eine feinere Menschheitsorganisation, gewissermaßen ein zweiter Mensch im Menschen. Wie kommt man zu einer wirklichen Anschauung dieses zweiten Menschen? Es ist — das muß immer wieder betont werden — eigentlich gar nicht einmal so besonders schwie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 91
+
+---
+
+rig, zu einer wirklichen Anschauung dieses zweiten Menschen zu kommen, die ebenso gültig vor einem steht wie das, was die Sinne beobachten und was der Verstand kombinieren kann. Man muß nur - weil der Mensch in der heutigen Zeit nicht so stark, wie das in früheren Zeiträumen der Menschheitsentwicklung der Fall war, in dem Gedankenelemente selbst lebt, sondern sich in dem Gedankenelement mehr einem passiven Verhalten hingibt und Eindrücke erwartet von der Sinneswelt -, man muß nur durch Übungen dieses Gedankenelement verstärken. Gewiß, der Mensch hat auch heute Gedanken, aber er kann kaum zu einer wirklichen Einsicht in die Wesenheit des Denkens, der Denktätigkeit kommen, weil er ganz und gar gewöhnt ist, in seine Gedanken sogleich einfließen zu lassen, wenn er erwacht, die äußeren Sinneseindrücke; weil er eigentlich nur auf diese äußeren Sinneseindrücke etwas gibt. Er kommt dadurch zwar dazu, für seine Gedanken einen Inhalt zu haben, nämlich den äußeren Sinnesinhalt; aber er kommt nicht dazu, die eigene Tätigkeit des Denkens zu fühlen, zu empfinden. Dies wird für den heutigen Menschen eben durch solche Übungen erreicht, wie ich sie besprochen habe zum Beispiel in meinem Buche «Wie erlangt man Erkenntnisse der höheren Welten?».
+
+Solche Übungen verlangen vom Menschen, daß er gewissermaßen sich mit seinem ganzen Wesen in die Denktätigkeit hineinversetzt, daß er sich hingibt mit aller inneren Gewalt dem Denken, und daß ihm bei diesem Denken dann gleichgültig ist, was die äußeren Sinne ihm überliefern, daß er also ganz bewußt nur in der Denktätigkeit lebt.
+
+Helfen kann einem viel zu dieser inneren Denkübung, wenn man sich einmal mit Mathematik beschäftigt hat, namentlich mit Geometrie. Diese Denktätigkeit, die man in der Geometrie auszuüben hat, braucht man nur - ich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 92
+
+---
+
+möchte sagen durch einen mächtigen Ruck in das eigene Wesen - in ihrer Selbständigkeit, in ihrer Bildhaftigkeit, in ihrem inneren Leben und Weben zu erfahren, dann hat man schon, wenn man ein Dreieck aufzeichnet, eben ein Erleben der Aktivität des Denkens. Sie können ja allerdings ein Dreieck auf die Tafel zeichnen. (Es wird gezeichnet.) Aber ist das ein Dreieck? Das, was auf der Tafel steht, ist kein Dreieck, das ist eine große Anzahl von Kreideklümpchen, die da an der schwarzen Tafel kleben, die man sogar, wenn man ein hinreichend starkes Mikroskop hätte, abzählen könnte. Das ist ja kein Dreieck. Es ist ein Unsinn zu glauben, daß da auf der Tafel das Dreieck ist. Das Dreieck können Sie nur in Ihrer Seele haben, in dem Gedanken, den Sie sich an der Hand dieser Kreideklümpchen, die da an der Tafel kleben, machen. Und wenn Sie auch absehen von den Kreideklümpchen, die an der Tafel sind - Sie können meinetwillen recht oft diese Tafelbeschmiererei mit Kreide gemacht haben —, dann können Sie, ohne daß Sie eine Tafel haben, wenn Sie einfach sitzen oder stehen, selbst ohne einen Finger zu bewegen, bloß in Gedanken die Vorstellung des Dreiecks haben, und dann können Sie verfolgen, wie Sie - aber alles nur in Gedanken - hier anfangen einen Strich zu ziehen, dann einen zweiten, dann einen dritten. Sie können leben in dieser inneren Tätigkeit, ohne daß Sie irgend etwas da außen machen. Sie können immer mehr und mehr solche Übungen machen, insbesondere auch kompliziertere Übungen. Zum Beispiel denken Sie sich einmal, Sie haben hier noch einmal die Tafel beschmiert mit roten Kreideklümpchen und beschmieren sie jetzt mit grünen Kreideklümpchen. Und jetzt mache ich noch einmal die Schmiererei, und Sie machen meinetwillen das Folgende: Sie haben sich an diesen beiden Figuren veranschaulicht, was Sie innerlich machen sollen, und jetzt stellen Sie sich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 93
+
+---
+
+
+
+
+
+vor, schnell nur, geradeso, wie Sie vorhin das Dreieck in Gedanken gezeichnet haben: das Rote wächst in das Grüne hier hinaus, hört hier auf, und das Grüne schiebt sich unter dem Roten durch, so daß aus dieser Figur diese Figur entsteht, und diese Figur aus jener - bloß im Denken. Da haben Sie das Rote in der Mitte, das Grüne ringsherum. Jetzt stellen Sie sich vor: das Rote wächst, das Grüne zieht sich zusammen. Nun haben Sie vor sich den grünen Kreis zusammengezogen, das Rote hier herum, das rote Rad; jetzt wiederum umgekehrt: das Rote schiebt sich herein, das Grüne dehnt sich aus, und das lassen Sie abwechseln, ganz in rhythmischer Folge, indem innerlich ein Kreis ist, außen ein Rad: rot, grün; grün, rot; rot, grün; grün, rot. Sie stellen sich das vor, ohne daß Sie irgendwie nötig haben, etwas äußerlich zu tun. Da werden Sie allmählich gewahr werden, daß Denken heißt: geradeso innerlich etwas tun, wie etwas äußerlich tun heißt, seine Hand gebrauchen, seinen Arm gebrauchen. Wenn Sie Ihren Arm gebrauchen, das spüren Sie. Nun müssen Sie spüren lernen, was es heißt: die Gedankenkräfte gebrauchen. Wenn Sie Ihre Arme gebrauchen und spüren, so erleben Sie Ihren physischen Leib. Wenn Sie anfangen, in dieser Weise Ihre Gedanken zu gebrauchen, so spüren Sie Ihren zweiten Menschen, Ihren
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+Ätherleib, Ihren Bildekräfteleib. Sobald Sie wirklich das so weit gebracht haben, daß Sie sich nur einen Ruck zu geben brauchen, um überzugehen vom Armbewegungen-Spüren, Beinbewegungen-Spüren zum Spüren der inneren Denkkräfte, in diesem Augenblicke erleben Sie Ihren zweiten Menschen, Ihren Äthermenschen, Ihren Bildekräftemenschen. Aber Sie erleben ihn so, daß er eigentlich ganz aus Gedanken gewoben ist. Und in diesem Augenblick wird Ihnen zugleich Ihr ganzes Erdenleben wie gegenwärtig. Wie in einer einzigen Überschau sehen Sie Ihr ganzes Erdenleben zurück bis in die erste Kindheit hinein.
+
+Was Sie da als den zweiten Menschen erleben, ist eben nicht ein Raumesleib, ist ein Zeitleib. Und man kann, das sagte ich schon in diesen Vorträgen, wenn man den physischen Menschen zeichnet, dann hineinzeichnen diesen Zeitleib. Aber es ist nur eine Phase festgehalten, also so, wie wenn man eine Phase des Blitzes festhält. Dieser Bildekräfteleib lebt nicht im Räume; er lebt nur für einen Augenblick im Räume. Im nächsten Augenblick ist er etwas anderes. Er ist in fortwährendem Fluktuieren, in fortwährender Veränderung. Und diese Veränderung erlebt man als das Lebenstableau.
+
+Aber zu gleicher Zeit damit erlebt man, daß man nun sich als einen Teil des ganzen Universums fühlt, daß man nicht mehr der Meinung ist, man sei in seiner Haut abgeschlossen, sondern daß man selbstverständlich zu der Meinung kommt, man fluktuiere innerhalb des ganzen Universums, man ist eigentlich nur eine Welle im ätherischen Universum.
+
+Und man bekommt noch andere Anschauungen über diesen zweiten Menschen. Man bekommt noch die Anschauung, daß er fortwährend das Bestreben hat, die physische Materie, die man in sich trägt, in ihr Nichts aufzulösen. Ich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 95
+
+---
+
+habe in diesen Tagen zu einer Anzahl von Ihnen in einem anderen Zusammenhange gesagt: Die physische Materie, der physische Stoff drückt; dasjenige, was im Ätherischen lebt, saugt, bringt das, was den Raum erfüllt, aus dem Raum heraus, saugt alles auf. Und wir leben eigentlich in unserem Erdenleben fortwährend in diesem Wechselspiel. Wir ernähren uns, bringen dadurch in uns physische Materie hinein. Diese physische Materie strömt durch die Ernährung ein Stück in unseren Leib hinein, richtet da allerlei Prozesse, Vorgänge an, die im Sinne dieser physischen Materie orientiert sind. Wenn wir Sauerkohl essen, so benimmt sich der Sauerkohl zunächst so - indem er ein Stück hineingeht in unseren Organismus -, wie er eben nach seinen chemischen und physischen Eigenschaften als Sauerkohl sich benehmen kann. Wenn wir Milch trinken, benimmt sich die Milch nach Milchesart. Aber das wird der Milch und dem Sauerkohl bald ausgetrieben. Da beginnt der Ätherleib seine Tätigkeit und hat das Bestreben, nun das Milchsein und Sauerkohlsein auszulöschen, so daß ein fortwährender Kampf in uns ist zwischen Sauerkohlsein und Milchsein einerseits und dem Ausgelöschtwerden von Sauerkohlsein und Milchsein. Dieser Kampf ist da, und er spielt sich ab. Es zeigt sich das Vorhandensein dieses Kampfes in dem, was der Mensch absondert, und in demjenigen, was als Bildekräfte, als übersinnliche Menschheitsorganisation, nach dem Kopfe hin wandert. Genau ebensoviel, wie wir absondern durch die verschiedenen Absonderungsorgane, verwandelt sich nach der anderen Seite in negative Materie, in negativen Stoff, der als saugendes Prinzip in unserem Nervensystem, insbesondere in unserem Gehirn lebt. Und niemand kann den Menschen kennenlernen, der nur auf den physischen Leib hinschaut, denn da lernt man sozusagen nur von der Peripherie herein ein Stück der Vor-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 96
+
+---
+
+gänge kennen, die im menschlichen Organismus sind. Da lernt man ein Stück dieser Vorgänge kennen, die längs des Ernährungstraktes verlaufen. Und dann lernt man erkennen dasjenige Stück, das sich durch Schweiß oder durch Sonstiges absondert. Aber für alles solches Absondernde, das heißt ins Grobmaterielle Verfallende, ist der andere Pol da, das, was sich nach dem Nervensystem als das Ätherische hinzieht. Für alles das, was wir als äußere materielle Substanz absondern, geht in uns Ätherisches hinein. Dieses Ätherische, das wirbelt und wellt und webt in unserem ätherischen oder Bildekräfteleib, der uns in der Weise, wie ich es beschrieben habe, ganz durchsetzt.
+
+Und sich selbst lernt man, wie ich schon angedeutet habe, als diesen zweiten Menschen dadurch kennen, daß man beachtet, wie die Erinnerungskraft, das Erinnerungsvermögen sich verändern kann. Im gewöhnlichen Leben nehmen wir die äußeren Eindrücke wahr. Sie setzen sich nach innen zu fort in den Gedanken, in den Vorstellungen, und stocken dann. Wir können sie wieder hervorrufen. Aber wenn wir sie wieder hervorrufen, dann kommen wir mit unserer inneren Kraft nur bis zu den Nervenendigungen. Wenn wir also das Auge betrachten, wenn wir eine äußere Wahrnehmung machen, so stoßen wir durch die Nervenendigungen des sich im Auge ausbreitenden Sehnervs hindurch bis in die Blutzirkulation des Auges. Dadurch entsteht die Wahrnehmung. Wenn wir uns bloß erinnern, so stoßen wir nur bis zu dem Ende des Nerven im Auge, bis da, wo der Nerv gewissermaßen ausläuft. Wir stoßen nicht durch die Nervenendigungen durch bis ins Blut mit unserem ätherischen oder Bildekräfteleib.
+
+Wenn wir dann das Denken verstärken, dann ist es so, als ob wir nicht bloß jenen Rückstoß erfahren würden, den wir in der gewöhnlichen Erinnerung haben, wo wir erst die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 97
+
+---
+
+Wahrnehmung aufgenommen haben, sie zu Vorstellungen umgebildet haben, die dann in uns stocken, zurückgestoßen werden; sondern wenn wir, gewissermaßen von rückwärts herkommen, noch dasjenige aufnehmen, was ätherisch in der Welt ist, dann stoßen wir mit diesem ätherischen Gedankeninhalt der Welt in unserem Organismus gerade so weit vor, wie wir sonst mit den Erinnerungen, die aber nur Reminiszenzen des Lebens sind, vorstoßen. Dann eignen wir uns eben ein Bewußtsein von dem ätherischen Geschehen in der Welt an, dann leben wir in dem Äthergeschehen der Welt drinnen. Und derjenige Mensch, der sich in dem Äthergeschehen der Welt erlebt, der erlebt sich, wenn ich das skizzenhaft aufzeichnen soll, so; Da ist das Äthergeschehen der Welt in mannigfaltigster Weise (gelb). Sie müssen es sich konfiguriert denken. Da webt und lebt alles drinnen. Und dann erlebt sich der Mensch in diesem Äthergeschehen. Es wird sonderbar da aussehen, aber es ist so - was ich hier aufzeichne (rot), muß man so auffassen —: die Füße, die Beine bemerkt man kaum. Man erlebt nun das Äthergeschehen so, daß man gewissermaßen an einem Punkte aus diesem Äthergeschehen herauswächst. Man erlebt das Äthergeschehen bis zu seinen Nervenendigungen hin. Das geht durch den Rücken durch und geht bis zu den Nervenendigungen des Vorderleibes, und man ist so der letzte Ausläufer der Ätherwelt. So nimmt sich das gegenüber der gegenwärtig vorhandenen Ätherwelt aus. Man nimmt die Ätherwelt durchaus so wahr, daß, wenn man sich da so hinausgedrängt sieht wie in eine letzte Ecke des Äthergeschehens, das letzte Stück noch in einen hereinragt und bei einem dann dieses Äthergeschehen aufhört. Kurz, man lebt sich auf diese Weise in das Äthergeschehen der Welt ein.
+
+Und es ist wirklich wahr: Es wäre gar nicht so schwierig
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 98
+
+---
+
+
+
+zu erreichen, wenn die Menschen nur in der gegenwärtigen Zeit die Neigung hätten, sich, wie ich es beschrieben habe, in die Denktätigkeit selbst einzuleben.
+
+Man kommt ja am leichtesten dazu, sich in diese Denktätigkeit selbst einzuleben, wenn man das, was in meiner «Philosophie der Freiheit» enthalten ist, richtig durchlebt. Dort ist zum Beispiel hingewiesen auf dieses Denkerleben für die ethische, für die moralische Welt. Qualitativ ist es dasselbe, was ich da beschrieben habe. Und wenn man in der richtigen Weise die «Philosophie der Freiheit» studiert, so kommt man darauf, was eigentlich dieses Äthererleben, dieses Bildekräfteerleben ist.
+
+Das nächste Erleben kann dann so entstehen, daß man nicht bloß die Denktätigkeit ergreift, sondern daß man die Sprachtätigkeit ergreift, daß man sich zur Anschauung der Sprachtätigkeit erhebt. Hier kann man sogar bei der ganz gewöhnlichen Sprachtätigkeit des alltäglichen Lebens beginnen. Nur muß man es mit der Sprachtätigkeit ebenso
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 99
+
+---
+
+weit bringen wie mit der Denktätigkeit. Mit der Denktätigkeit muß man es so weit bringen, daß die Sinne schweigen, daß man nur aktiv im Denken lebt, daß man von den Sinnen nicht beeindruckt wird. Mit der Sprachtätigkeit muß man es dazu bringen, daß man vieles auszusagen hat, daß man nicht Worte-arm, sondern Worte-reich ist, daß man furchtbar vieles zu erzählen hat, aber auch nach Willkür für eine gewisse Zeit der Übung alles verschweigen kann. Ich weiß, daß das für manche Menschen eine äußerst starke Zumutung ist; aber für das Erkennenlernen des dritten Menschen ist das durchaus notwendig. Man muß geradezu verstehen, was das heißt: Man hat alle Vorbereitungen innerlich dazu gemacht, daß einem das Wort aus der Zunge herausfahren sollte; aber man lernt schweigen, aktiv schweigen. Passiv schweigen lernen, wenn man in einem leeren Raum ist - natürlich nicht in einem luftleeren, sondern in einem menschenleeren Raum -, wo man zu niemandem etwas zu sagen hat, bloß passiv schweigen lernen, das hilft nichts, sondern aktiv muß man schweigen lernen.
+
+Nun können Sie sagen: Da wird man ja ein recht langweiliger Kerl werden, wenn man unter den Menschen herumgeht und sich im Schweigen übt, das heißt, sich vor die Menschen hinstellt, und statt daß man ihnen etwas erzählt, sie anschweigt. Nun will ich durchaus nicht leugnen, daß das, so wenig erfreulich es in sozialer Beziehung wäre, sogar in bezug auf das geistige Vorwärtskommen außerordentlich viel Fruchtbares erbringen könnte. Ja, es könnte schon ganz fruchtbare Resultate liefern, wenn zum Beispiel irgendein Mensch in eine Gesellschaft ginge, wo man gewöhnlich nicht schweigt, und wo er auch sonst nicht gewohnt ist, zu schweigen, und er nun anfängt zu schweigen. Er redet nichts, trotzdem er ungeheuer viel weiß, und eigentlich aus demselben, was er da weiß, früher immer furchtbar viel ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 100
+
+---
+
+schwatzt hat. Ich sage, man könnte das tun; aber man braucht es nicht äußerlich zu tun, und es wird, trotzdem es fruchtbar sein könnte, dennoch wiederum in bezug auf höhere Intentionen nicht allzuviel liefern. Es handelt sich vielmehr darum, daß man den ganzen Vorgang, den ich beschrieben habe, innerlich macht, daß man alle Veranstaltungen zum Reden macht, aber es innerlich nicht zum Reden kommen läßt.
+
+Sie werden besser verstehen, was ich meine, wenn ich Ihnen zum Beispiel sage, daß man ja im gewöhnlichen Leben gar nicht wirklich denkt. Man denkt zum Beispiel über Mathematik, wenn man ein Dreieck in der Weise macht, wie ich es vorhin beschrieben habe; man denkt insbesondere, wenn man solch absonderliche Dinge macht, für die es in der Sprache keine Worte gibt. Aber wenn man nur in den Dingen denkt, die so landläufig unter den Menschen heute leben, so denkt man eigentlich nicht wirklich, denn in diesem Denken vibrieren fortwährend die Sprachorgane mit, wenn auch so leise, daß man es nicht hört. Das Denken der Menschen heute, wo sie so wenig das Denken lieben, dem nichts Äußerlich-Sinnliches entspricht, ist gar kein wirkliches Denken. Es ist nur ein seelisches Weben in Wortschatten. Man prüfe sich nur einmal, und man wird sehen, wie dieses seelische Weben in Wortschatten vorhanden ist. Wenn man nun in der Lage ist, seinen Kehlkopf wirklich auch innerlich vollständig zur Ruhe zu bringen und dennoch die innerliche Tätigkeit in der Seele ausübt, die sonst der Kehlkopfbewegung zugrunde liegt, wenn also die Übung, aus den Worten herauszukommen, eine ganz innerliche bleibt, wenn man mit der Sprachfähigkeit mit anderen Worten dasselbe macht, was man vorher mit der Denktätigkeit gemacht hat, die eine umgewandelte Erinnerungsfähigkeit ist - da stößt man nur bis zu den Nervenendigun-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 101
+
+---
+
+gen, jetzt übt man die Sprachtätigkeit nur bis zum Kehlkopf aus, gerade bis zu dem Punkte, wo er anfangen will zu sprechen —, dann bildet sich nach und nach eben dasjenige aus, was ich in der letzten Zeit in den öffentlichen Vorträgen «das tiefe Schweigen der menschlichen Seele» genannt habe. Nämlich, es nicht zum innerlichen Reden kommen zu lassen, heißt, das tiefe Schweigen der Seele ausbilden.
+
+Das tiefe Schweigen der Seele muß man so verstehen: Denken Sie sich, Sie sind in einer Stadt, vielleicht nicht gerade in Basel, sondern in London oder in einer noch tosenderen Stadt. Sie sind im lauten Tosen drinnen. Jetzt entfernen Sie sich von der Stadt. Das Tosen wird schwächer. Sie gehen weiter, und das Tosen wird immer schwächer. Sie kommen vielleicht in die einsame Stille des Waldes. Sie sagen: es ist ganz ruhig innen und außen. Es wird einen Punkt geben, wo die Ruhe Null eintritt, also die Nullruhe eintritt. Erst ist das Geräusch, jetzt wird es ruhiger, nun kommt die Nullruhe. Nun kann das aber weitergehen. Und daß es weitergeht, daß man nicht nur jene Ruhe hat, wo die äußere Welt auch in der Seele schweigt, sondern daß man das tiefe Schweigen bekommt, das kann eben ein Ergebnis dieses Sichenthaltens der Worte sein, trotzdem man all die innere Tätigkeit, die es zu den Worten bringen kann, ausübt, nur nimmt man den physischen Leib nicht in Anspruch. Die einzelnen Übungen habe ich in dem Buche «Wie erlangt man Erkenntnisse der höheren Welten?» beschrieben. Da merkt man dann, daß es noch etwas mehr gibt als die Nullruhe. Und ich habe in den öffentlichen Vorträgen einen trivialen Vergleich gebraucht, ich habe gesagt: Denken wir, einer habe ein bestimmtes Vermögen. Er gibt davon aus; da hat er weniger. Er gibt weiter aus, da hat er wieder weniger. Endlich hat er Null. Ja, jetzt gibt er
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 102
+
+---
+
+weiter aus, da macht er Schulden, da hat er noch weniger als Null. Und so geht es weiter. Die Mathematiker haben ja da die negativen Zahlen eingeführt - 6 - 4 - 202468 usw. So können Sie sich auch vorstellen, daß die Nullruhe übergeht in das Negative, in dasjenige, was stiller als die Stille, ruhiger als die Ruhe ist. Das können Sie in der Seele herstellen.
+
+Dann aber, wenn auf diese Weise die äußere Welt nicht nur schweigt, sondern mehr tut als schweigen, wenn die Reaktion der Seele über die Nullruhe hinausgeht in das Negative des äußeren Tönens und Lautens, dann beginnt aus dem tiefen Schweigen der Seele heraus der Geist zu sprechen, und dann nehmen wir unseren dritten Menschen wahr, den wir dann den astralischen Menschen nennen. Ausdrücke sind gleichgültig, es ist eine Terminologie, man könnte ihn auch anders nennen. Dieser astralische, dieser dritte Mensch, den werden wir gewahr, wenn wir bei dem tiefen Schweigen der Seele ankommen, und aus dem tiefen Schweigen der Seele heraus das andere, das Geistige tönt, was das entgegengesetzte Tönen des physischen Tönens ist. Und dieser astralische Leib führt uns in jeder Beziehung weiter als der bloße ätherische Leib. Um das zu verdeutlichen, lassen Sie mich etwas Kosmisches anführen.
+
+Der heutige physische Forscher oder Astronom, überhaupt der heutige Naturwissenschaftler, was tut er? Er erforscht Naturgesetze. Er beobachtet und gewinnt dadurch Naturgesetze; oder aber er experimentiert und gewinnt dadurch Naturgesetze. Jetzt hat er sie, diese Naturgesetze; sie sind seine Wissenschaft, sie geben ihm dasjenige, was in den Dingen liegt. Mehr sollte er eigentlich nicht sagen. Aber jetzt fängt er an, auf seine Naturgesetze stolz und hochmütig zu werden und tut jetzt eine Behauptung, die er eigentlich gar nicht tun könnte, nämlich: daß diese Natur-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 103
+
+---
+
+gesetze im ganzen Universum gelten. Er sagt, wenn ich auf der Erde in meinem Laboratorium etwas erforscht habe, und wenn die Bedingungen ebenso hergestellt werden könnten auf den fernsten Sternen des Weltenalls, von denen das Licht so und so viele Lichtjahre braucht, um zur Erde zu kommen - die Menschen geben ja vor, daß sie sich bei diesen Dingen etwas vorstellen können —, so würden, wenn eben dort die Bedingungen ebenso hergestellt werden könnten, die Naturgesetze selbstverständlich dort auch gelten, denn diese Naturgesetze sind eben von absoluter Gültigkeit.
+
+Ja, aber so ist es nicht. Wenn hier eine Lichtquelle ist, so leuchtet sie in der Umgebung zunächst stark. In weiterer Verbreitung ist die Lichtstärke wesentlich geringer; wenn wir noch weiter gehen, noch geringer, und wenn wir ganz weit gehen, wird sie lichtschwach. Es nimmt da die Lichtstärke mit dem Quadrate der Entfernung ab. Das ist so beim Licht. Und das ist kurioserweise auch so auf der Erde bei Naturgesetzen.
+
+Was Sie auf der Erde als Naturgesetze konstatieren, das wird immer ungültiger, je weiter Sie sich von der Erde entfernen. Nicht wahr, es ist ja furchtbar, so etwas auszusprechen, und vor dem geregelten Naturforscher muß man eben ein wirklicher Idiot sein, wenn man so etwas ausspricht, selbstverständlich. Das versteht man ja ganz gut, denn wenn man zu diesen Dingen kommt, so kann man sich sehr leicht in die Seele eines gegenwärtigen Naturforschers hineinversetzen. Nur das Umgekehrte ist nicht der Fall: er kann sich nicht in die Seele des Geistesforschers hineinversetzen. Wie der Naturforscher zu alledem kommt, was er behauptet, das weiß der Geistesforscher sehr gut, nur eben das Umgekehrte ist nicht der Fall. Daher sind auch zumeist die Kritiken über die Geistesforschung, die von naturfor
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 104
+
+---
+
+seherischer Seite ausgehen, von jener Seite ja vollständig berechtigt; aber sie besagen weiter nichts, als daß sich der Naturforscher bei den Aussagen des Geistesforschers nichts denken kann. Das muß man ihm aber glauben, denn das ist so. Er kann sich eben nichts denken. Er muß eben zuerst ein Geistesforscher werden, wenn man überhaupt mit ihm polemisieren will. Daher ist alles Polemisieren mit demjenigen, der ein Naturforscher bleiben will und sich nichts denken kann bei den Ergebnissen der Geistesforschung, etwas ganz Vergebliches.
+
+Nun, das bezüglich des Lichtes wird ja der Naturforscher zugeben — das ist ja natürlich sein eigenes Resultat —, bezüglich der Naturgesetze wird er es nicht zugeben. Aber schon bezüglich des Lichtes muß der Geistesforscher eine Einschränkung machen. Sehen Sie, der Naturforscher sagt, wenn das Licht da ausstrahlt, so nimmt seine Lichtstärke immer mehr und mehr ab, eben je weiter man hinauskommt, und zuletzt wird es so, daß man die Lichtstärke von der Null nicht mehr unterscheiden kann. Aber sehen Sie, eine solche Behauptung ist genau ebenso gescheit, wie wenn einer sagt: Ich habe hier einen Ball, der ist elastisch; den drücke ich jetzt ein. — Nun, in Wirklichkeit hat der Ball dann das Bestreben, wie Sie wissen, nach der anderen Seite auszuschlagen. Die Elastizität treibt die Oberfläche hin und her. Nun sagt einer: Das kann ja gar nicht sein; wenn ich da überhaupt etwas Elastisches einbiege, so muß das immer weiter und weiter sich biegen; nur wird es zuletzt hier so schwach, daß man es nicht mehr sieht, nicht mehr wahrnehmen kann. — Aber es ist eben nicht so. Das Elastische schnellt wieder zurück. Geradeso ist es mit dem Licht. Das Licht breitet sich ja nicht so aus, daß man sagen kann: da draußen ist es so schwach, daß es schon bald in die Finsternis hineinkommt, aber es breitet sich immer weiter aus. Das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 105
+
+---
+
+
+
+
+
+ist eben nicht wahr. Es breitet sich nur bis zu einem gewissen Punkte, bis zu einer gewissen Kugelschale aus, und dann schnellt es zurück. Und indem es zurückkommt, sieht es nur der Geistesforscher, nicht der Naturforscher. Denn wenn das Licht seine Elastizität erschöpft hat und zurückschnellt, kommt es als Geist, als Übersinnliches zurück. Da wird es dann vom Naturforscher nicht wahrgenommen. Es strahlt kein Licht aus, das nicht an eine gewisse Grenze kommt,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 106
+
+---
+
+wieder zurückstrahlt und als Geist zurückkommt. Aber dasjenige, was ich Ihnen hier für das Licht sagen möchte, ist auch für die Naturgesetze so. Die Naturgesetze nehmen in bezug auf ihre Gültigkeit ab, je weiter ich da in die Umgebung hinauskommen würde. Aber das geht nur bis zu einer gewissen Kugelschale; dann kommt alles wieder zurück. Dann aber kommen die Naturgesetze als sinnvolle Gedanken zurück. Und das ist der Weltenäther.
+
+Der Weltenäther hat nicht eine radial ausstrahlende Bewegung in bezug auf die Erde, sondern eine hereinkommende Bewegung, eine von allen Seiten herankommende Bewegung. Aber das, was in dieser Einstrahlung auf die Erde lebt, das sind überall sinnschöpferische Gedanken. Eine Gedankenbildekräftewelt ist zugleich der Weltenäther. Aber noch einen Haken hat dieses. Wenn ich hier auf Erden Gedanken so fasse, wie man sie faßt, daß man zu Naturgesetzen kommt, da sind die Gedanken so hübsch eben in Linien gebildet, wenn ich mich figürlich ausdrücken darf, daß man dann sagen kann: es gibt eine gewisse Konstanz des Stoffes, eine Konstanz der Kraft. Es gibt einen Brechungsexponenten der Lichtlehre und so weiter. Man formuliert durch Gedanken dasjenige, was im Materiellen lebt. Wenn die Gedanken aber zurückkommen, wenn man es erlebt, wie die Gedanken im Weltenäther leben, da sind sie nicht solche logischen Gedanken und nicht solche Gedanken mit scharfen Konturen, da sind sie Bildgedanken, Bilder, Imaginationen.
+
+In diesen Dingen erlebt man ja gerade gegenüber dem heutigen Geistesleben ganz merkwürdige Dinge. Ich habe wiederum zu einigen von denen, die hier sitzen, vor einigen Tagen gesagt: Über den Weltenäther sind ja im Laufe der letzten vierzig, fünfzig Jahre Theorien über Theorien oder Hypothesen meinetwillen geformt worden. Der Welten-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 107
+
+---
+
+äther wurde von einigen als starrer Körper, von anderen als flüssiger Körper aufgefaßt, von anderen als Weltengas, als etwas, was in einer Art von wirbelnder Bewegung lebt und so weiter. Aber was geschieht denn da, wenn man solche Hypothesen aufstellt? Wenn man solche Hypothesen aufstellt, dann fährt man eben mit dem Denken so fort, wie man dieses Denken gewöhnt worden ist an den sichtbaren Naturwesen und Naturvorgängen. Aber das, was einem da zurückkommt, das hat ja längst aufgehört in solche Gedanken sich fassen zu lassen, welche die Naturgesetze formulieren. Was da zurückkommt, ergreift man nur, wenn man anfängt, in Bildern zu denken, imaginativ zu denken. Man möchte sagen: Der Inhalt, die Formulierung unserer Naturgesetze nimmt mit dem Quadrat der Entfernung an Gültigkeit ab, bis zu einer gewissen Kugelschale hin. Dann haben die Naturgesetze überhaupt aufgehört zu sein. Da verwaschen sie sich alle ineinander, da verschwimmen sie ineinander, und da kommen sie wiederum zurück, aber jetzt als Bilder; in Formungen, in Gestaltungen kommen sie zurück.
+
+Und nun schaut man, wenn man eben in solche Lage des Schauens gekommen ist, wie ich es vorhin beschrieben habe, die Welt ätherisch an, das heißt in Bildform, und man muß sich das Geständnis machen: Jetzt siehst du für die Weile, während du in diesem Ätherischen lebst, nichts von deinem physischen Leib, aber es ist dir auch das Denken verdunstet, das du in der gewöhnlichen Welt anwendest. Jetzt ist es so, wie wenn das Universum überall zurückstrahlte, Bilder schickte, Imaginationen schickte. So daß man anfängt, das logische Denken in plastisch-malerisches Denken überzuführen, wenn man den Äther begreifen will. Daher wird es ganz selbstverständlich, daß der Äther nicht begriffen werden konnte von allen den Hypothesen, die ihre Rech-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 108
+
+---
+
+nungen von dem Standpunkte hier anstellten; denn bis dahin, wo der Äther ausstrahlt, haben alle Rechnungen und all das Zeug, das man über die physischen Naturerscheinungen macht, ihre Bedeutung verloren. Da findet gar nicht das Ausstrahlen mehr statt, sondern das Hereinkommen, und da kommt nicht dieses Denken herein, das man hier im gewöhnlichen Bewußtsein anwendet, sondern da kommt ein Denken herein, das im Grunde genommen nur in der Kunst lebt, aber in der Kunst auch nur eben in irdischer Weise.
+
+So paradox das ist, was ich Ihnen jetzt sagen muß, es ist Wahrheit einfach für denjenigen, der die Welt durchschaut. Denken Sie sich, ich mache eine Holzplastik, und mache diese Holzplastik in der Form, in der Gestaltung eines Menschen; also meinetwillen einen Menschen forme ich. Ich mache diese Holzplastik in der Form, in der Gestaltung eben recht menschenähnlich. Sagen wir, es gelingt mir wirklich, die äußere Formung so zu bekommen, wie die äußere Formung des Menschen ist. Nur das eine bringe ich als Plastiker nicht zustande: daß der Raum ausgesaugt wird. Ich bringe als Plastiker es nur zustande, die physische Materie zu bemeistern. Könnte ich an der Stelle des Raumes, wo ich diese Holzplastik mache, auch die Äthergesetze des Weltenalls in Tätigkeit bringen, das heißt würde dieses tiefe Schweigen äußerlich eintreten, würde die negative Ruhe, nicht bloß die Nullruhe da sein, würde nicht bloß Raum da sein, sondern etwas, wo auch noch der Raum heraus ist, dann würde zwar aus meiner Holzplastik nicht der Mensch entstehen, aber etwas Pflanzenähnliches. Die Holzplastik bleibt nur eine Plastik, weil eben nur mit dem Physischen gerechnet wird, also bloß der Abdruck der Form gemacht wird, weil nicht auch dasjenige, was der Form eigentlich eigentümlich wäre, gemacht wird, das Aussagen des Rau
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 109
+
+---
+
+mes. Das kann eben nicht geschehen, sonst würde meine Holzplastik ein wachsendes Gebilde sein. So müssen Sie sich klar sein darüber, daß Sie mit einem gewöhnlichen künstlerischen Denken, mit einem gewöhnlichen künstlerischen Empfinden allerdings nicht an die Ätherwelt herankommen, weil dieses Herankommen an die Ätherwelt etwas ist, wo man nicht nur in den Raum etwas hineinschaut, sondern wo man den Raum ergreift, so daß der Äther den Raum leer macht. Und dann erlebt man das Lebendige in diesem ausgesaugten Räume, oder eigentlich besser gesagt, in dem Aussagen des Raumes. Es muß eben ein ganz anderes Denken eintreten, wenn man zu diesen höheren Welten hinaufkommen will.
+
+Und dann, wenn man das andere noch erlebt hat, was ich Ihnen gesagt habe, das tiefe Schweigen der Seele, dann tritt noch etwas anderes ein. Da erleben Sie, wie die Gestaltungen, die Äthergestaltungen aus dem Weltenall an Sie herankommen. Aber zu gleicher Zeit erleben Sie in den Äthergestaltungen empfindende Geistwesen. Es kommen jetzt nicht nur Äthergestaltungen, sondern wirkliche Geistwesen der sogenannten höheren Hierarchien an Sie heran. Sie erleben als Geist unter Geistern. Sie erleben eine wirkliche geistige Welt. Die kommt mit diesem Rückstrahlen heran; überall wo die Äthergestaltungen an uns herankommen, erscheint die geistige Welt. Das Physische ist hinausgegangen, kommt in Äthergestaltungen zurück. Mit den Äthergestaltungen können aber jetzt Geistwesen zurückkommen. Nur, wenn Sie sich jetzt fragen: Wo kommen denn die her — da hat das «Wo» keine räumliche Bedeutung mehr. Die räumliche Bedeutung haben Sie dadurch, daß sie von der Peripherie des Weltenalls herkommen, sie kommen von allen Seiten des Weltenalls her, weil sie im Weltenäther sich tragen lassen. Der Weltenäther gibt ihnen ein räumliches
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 110
+
+---
+
+«Wo»; dieses räumliche «Wo» ist nun aber ein Von-außen-Her ankommen.
+
+Diese zwei Substantialitäten, die ich auf diese Weise in der Welt entdecke, das Bildekraftmäßige, das mir in Äthergestaltungen entgegenkommt und mich überflutet, und dasjenige, was in dem als Geist-Wesenhaftes lebt, die eignet sich der Mensch an, indem er aus dem vorirdischen Leben in das irdische Leben heruntersteigt und sich ausfüllt mit etwas, was er nun in sich zusammenhält mit einem Teil der unendlichen Bildekraftwelt – unendlich im relativen Sinne, nämlich nur so weit, als das Universum reicht — und angefüllt selbst mit dem astralischen Leib, mit demjenigen, was da hereinkommt, und was ein «Wo» nur durch den Äther hat.
+
+Wir tragen in uns den physischen Leib, der aus den physischen Ingredienzien der Erde besteht. Wir tragen in uns den Ätherleib, der eigentlich uns zukommt aus den Weiten des Kosmos, und wir tragen innerhalb dieses Ätherleibs den Astralleib, der Geist aus dem Geist des Kosmos ist. Wir grenzen dasjenige, was unbestimmt, grenzenlos erscheint für das Universum, in uns ab.
+
+Und wenn wir nun noch höhere Übungen machen, wo wir nicht bloß bis zum tiefen Schweigen der Seele kommen, sondern wenn wir dieses tiefe Schweigen noch durchdringen und in unserem eigenen Wollen aufwachen, wie wir sonst nur im Denken, im Vorstellen aufwachen, dann erleben wir unsere vierte Menschlichkeit, unser Ich. Und von diesem Erleben des Ich will ich dann morgen um dieselbe Zeit zu Ihnen sprechen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+# DIE PHYSISCHE WELT UND DIE MORALISCH-GEISTIGEN IMPULSE VIER STUFEN DES INNEREN ERLEBENS
+
+Domach, 21. April 1923
+
+Wir haben in den letzten Betrachtungen uns damit beschäftigt, wie dem Menschenwesen außer dem physischen Leib der ätherische und der astralische Leib innewohnt. Und wir haben auch darauf hingewiesen, wie der ätherische oder Bildekräfteleib erfasst werden kann, wenn der Mensch sich bewußt wird des inneren Lebens des Denkens. Wenn der Mensch sich so dieser inneren Lebendigkeit des Denkens bewußt wird, daß er in diesem Denken leben kann, auch wenn er nicht von äußeren Sinneswahrnehmungen beeindruckt wird, und wenn dieses Denken nicht dadurch angeregt wird, daß es die äußeren Sinneswahrnehmungen kombiniert, sondern der Mensch sich aufrafft, aus der reinen inneren Kraft, ohne die Anregung, die das Denken sonst hat durch die äußeren Sinneswahrnehmungen, ein eigenes, in ihm bestehendes Weben und Wellen des Denkens zu erleben, dann kann dieser Bildekräfteleib erfasst werden.
+
+Dieses Erleben des Denkens ist zu gleicher Zeit das Erleben der ätherischen Welt. Und ich habe ja gestern ausgeführt, wie dann, wenn man durch ein solches inneres Aufraffen und Denken, das eigentlich gar nicht so schwer zu erreichen ist, sich in seinem zweiten Menschen fühlt, man erlebt, daß man in diesem zweiten Menschen eine Art von Zeitleib hat, etwas, was nicht so in Ruhe im Räume abgeschlossen ist, wie der physische Leib, sondern etwas, das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 112
+
+---
+
+fortwährend fluktuiert, das fortwährend in Bewegung ist, das nur für einen Augenblick räumlich angeschaut werden kann, und auch da kaum in Konturen bestehend. Aber dieser Zeitleib, der enthüllt sich selbst in seinem Erleben als das Lebenstableau, das uns Menschen unsere ganze bisherige Erdenlaufbahn als eine Einheit vor das Seelenauge stellt.
+
+Nun ist es im Grunde genommen ein recht seelisch-geistiger Vorgang, in dem man da lebt, wenn man so durch innere Erfassung des Denkens in das Ätherleben des Universums sich hinein begibt. Man fühlt in diesem imaginativen Weben und Leben der Seele, das zum Erleben des Ätherischen wird, nicht jene innere Schattenhaftigkeit, die das Seelenleben des gewöhnlichen Bewußtseins hat, man fühlt nicht mehr das Traumhafte, das das Seelenleben des gewöhnlichen Bewußtseins hat. Man fühlt sich auch nicht mehr so abgeschlossen von der Welt, wie im physischen Leib, wo man sich in seiner Haut abgeschlossen fühlt. Man fühlt die äußere Welt in sich einströmen, das eigene Wesen in die Welt ausströmen. Man fühlt sich als ein bewegtes, und mit der Welt sich bewegendes Glied des ganzen ätherischen Universums. Aber immerhin, das, was man da erlebt, hat gerade etwas von einem stark bangemachenden Unwirklichen. Während sich der Mensch durch Gewöhnung in seinem physischen Leib feststehend auf der Erde fühlt, empfindet er in dem Erleben im Ätherischen eine gewisse Unsicherheit seines eigenen Daseins. Er fühlt sich hinausgehoben über die physische Welt und noch nicht fest begründet in der geistigen Welt.
+
+Dieses Fest-begründet-Sein in der geistigen Welt tritt aber ein, wenn von dem strebenden Menschen das erreicht wird, was ich gestern hier genannt habe: das tiefe Schweigen der Seele. Der Mensch muß dahin kommen, diejenige Kraft, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 113
+
+---
+
+er sonst braucht als eine modifizierte Atemkraft, in Gemäßheit dessen, was ich in «Wie erlangt man Erkenntnisse der höheren Welten?» beschrieben habe, nicht dazu zu verwenden, um im Atmungsprozeß die äußeren Worte der äußeren Sprache erstehen zu lassen, sondern er muß das, was in Worten überfließen will, zurückhalten. Aber er muß dennoch innerlich jene Tätigkeit entfalten, die sonst in die Worte ausfließt, er muß die innerlichen Anstrengungen machen, wie sonst zum Lautreden, und dadurch muß er zum innerlichen Schweigen gelangen. Und wenn die Seele nicht nur bis zum Schweigen gleich Null kommt, sondern noch unter das Schweigen gleich Null hinuntergeht zu dem negativen Schweigen, zu dem, was unter das Niveau des Schweigens im Erleben hinuntersinkt, wenn wir uns gleichsam nicht selbst übertönen in unserem Geistigsein durch die Kräfte, die in den Atem hineinwollen, indem gesprochen wird, und wir dennoch innerlich den Impuls zum Sprechen entwickeln, aber das Sprechen zurückhalten, bevor es den Kehlkopf ergreifen will, wenn wir das Sprechen also zurückhalten und dennoch innerlich die Sprachfähigkeit entwickeln, so gelangen wir nicht bloß zu einer innerlichen Stille, sondern zu etwas, was eben das tiefe Schweigen der Seele ist. Zu diesem tiefen Schweigen der Seele gelangen wir, das sich zu der Entfaltung der Sprache, der Worte, die äußerlich in der physischen Welt ertönen, nicht nur so verhält, wie die Null, sondern wie die negative Größe. Dann tönt aus diesem tiefen Schweigen heraus das, was uns die geistige Welt, was uns, um ein altes Wort zu gebrauchen, der Logos aus dem Universum herein offenbaren will. Dann sprechen nicht wir, dann sind wir das Instrument geworden, durch das der Logos hier spricht. Und dann werden wir gewahr unseren eigenen astralischen Leib in uns und jene astralische Welt, von der ich gestern gesprochen habe.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 114
+
+---
+
+Diese astralische Welt ist eine wesentlich andere, als die Welt, die man durch die Sinne und den kombinierenden Verstand im gewöhnlichen Bewußtsein erlebt.
+
+In dieser Welt der Sinne und des kombinierenden Verstandes im gewöhnlichen Bewußtsein nehmen wir in derber Dichtigkeit die stofflichen Dinge und stofflichen Vorgänge wahr, welche den Raum erfüllen, welche, wenn ich mich zwar ungenau, aber populär ausdrücken will, auf unsere Sinne drücken, so daß wir sie eben sinnlich wahrnehmen können. Wenn wir auf der einen Seite gewissermaßen stehen haben für unser Erleben durch die Sinne und durch den kombinierenden Verstand die derb stofflichen Dinge und Vorgänge der Außenwelt, dann stehen auf der andern Seite die unwirklichen Gedanken, die unwirklichen Empfindungen, wie wir sagen, jene unwirklichen Gedanken und unwirklichen Empfindungen, über die zu allen Zeiten philosophierende Menschen gestritten haben, wie sie sich zu der Wirklichkeit verhalten. Der Mensch, der nur des gewöhnlichen Bewußtseins sich bedient, möchte sozusagen immer, wenn vor seiner Seele bloß Gedanken und Empfindungen auftauchen, irgendwo in der stofflichen Welt mit seinen Händen anfassen, um sich des realen Daseins zu versichern.
+
+So steht also auf der andern Seite das Dasein in den Gedanken und Empfindungen, das nicht sogleich als ein reales wirkt, und aus diesen Gedanken und Empfindungen heraus kommt ja für den Menschen, gewissermaßen herausflutend, die moralische Welt, die Welt der moralischen Impulse. Wenn der Mensch die Welt in ihrer Zweiheit so anschaut – einmal das derb Materiell-Konkrete, was für ihn zunächst das Wirkliche ist, dann die in ihrer Wirklichkeit zweifelhaften Gedanken und Empfindungen, welche die moralischen Impulse enthalten –, so hat es für ihn etwas, man
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 115
+
+---
+
+möchte sagen, Bedrückendes, wenn er nun hinschaut und naturwissenschaftlich bewiesen findet, daß durch die Erhaltung von Materie und Kraft das äußerlich Wirkliche eine gewisse Ewigkeit hat, daß aber das, was sich als moralische Weltordnung heraushebt aus den bloßen Gedanken und Empfindungen, dann vernichtet wird innerhalb eines gewissen großen Friedhofes im materiellen Dasein, der ja aus der hypothetischen Verfolgung der Naturerscheinungen unbedingt hervorgeht. Es steht vor dem gewöhnlichen Bewußtsein eben als eine Zweiheit da die materielle Welt auf der einen Seite, die moralisch-geistige Welt auf der andern Seite, und der Mensch steht innerhalb dieser Welt, oder eigentlich dieser zwei Welten, die so wenig miteinander zu tun haben. Er steht darinnen, er ist mit der einen Seite seines Wesens übergeben der materiellen Welt, in welcher seine Ernährungsvorgänge vor sich gehen, in welcher aus den Ernährungsvorgängen heraus sich seine Triebe erheben, in welcher seine Sinne Eindrücke empfangen, in welcher sein Verstand die Sinneseindrücke kombiniert. Der Mensch wird sich bewußt, daß er dieser materiellen Welt angehört, er wird sich aber auch bewußt, daß seine Menschenwürde nur erfüllt ist, wenn für ihn eine reale Bedeutung hat, was an moralisch-geistigen Impulsen ihm aus den in bezug auf ihre Wirklichkeit strittigen Gedanken und Empfindungen erfließt.
+
+Da tritt an den Menschen des gewöhnlichen Bewußtseins die Forderung heran, den physischen Körper, durch den er in die physische Welt eingegliedert ist, zu erfüllen mit dem, dessen Wirklichkeit ihm zweifelhaft erscheinen muß. Er sieht, wie in der äußeren Natur nirgends zur Herrschaft gelangt, was in den Impulsen des Moralisch-Geistigen gegeben ist. Da sieht er die Steine, die nach ehernen Gesetzen ihre Vorgänge bewirken, da fließt in dieses Geschehen in-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 116
+
+---
+
+nerhalb der mineralischen Welt nichts von den moralisch-geistigen Impulsen hinein. Da sieht er die Pflanzenwelt in ihrer sanften Stille, er sieht sie zu ihrem blühenden Dasein aufgerufen durch das neutrale Sonnenlicht und die neutrale Sonnenwärme, und er wird auch da nicht gewahr, wie die moralischen Impulse irgendwie hineinströmen sollen in die weckende Wärme der Sonne, in das weckende Licht der Sonne, das die Pflanzendecke der Erde zur Entfaltung bringt.
+
+Und endlich, er sieht hin auf das dritte Reich des Natürlichen, auf die Tierheit, mit der er seiner physischen Organisation nach selber so viel gemein hat, und er muß sich sagen: In der Tierheit ist das Moralische in solche Formen hineingegangen, daß es nicht mehr als Moralisches erscheint. Da übt das Raubtier die Grausamkeit, ohne daß man ein Recht hat, das als Grausamkeit auch im moralischen Sinne zu bezeichnen, weil das Tier hinuntergegangen ist unter dasjenige Niveau, wo der moralische Impuls als ein moralisch-geistiger Impuls bezeichnet werden darf. Und dann schaut der Mensch wohl auf seine eigene physisch-materielle Natur hin und findet, daß er mit einem Teil seines Wesens ebenso hinuntergegangen ist. Dennoch steht vor ihm die Forderung, wenn er seine volle Menschenwürde erfüllen will, in diese heruntergesunkene Wesenheit, in sich selber einzuführen die moralischen Impulse. Da gibt es innerhalb des gewöhnlichen Bewußtseins keine Möglichkeit, einen harmonischen Einklang, ein Ineinanderschlagen der physisch-materiellen Impulse und der geistig-moralischen Impulse zu erkennen. Da fallen das Geistige und das Stoffliche auseinander. Und der Mensch blickt hin auf seinen vor ihm stehenden Erdenlauf bis zum Tode und sagt sich, er werde bis zum Tode in bezug auf sein eigenes Wesen in diesem Z wiespalte leben, daß er auf der einen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 117
+
+---
+
+Seite seine physisch-materielle Organisation hat, für welche die Forderung besteht, einzuführen die moralisch-geistigen Impulse, und auf der anderen Seite ihm die Natur zeigt, daß überall die moralisch-geistigen Impulse in den unmittelbaren Naturgesetzen nicht zur Wirksamkeit gelangen können. In diesen Dualismus sieht er sich hineinversetzt bis zu seinem Tode.
+
+Dann aber, wenn der Mensch in der Weise, wie ich es beschrieben habe, aus dem tiefen Schweigen seiner Seele herauftönen vernimmt seinen astralischen Leib und diejenige Welt, der er angehört durch seinen astralischen Leib, dann tritt vor seinem Seelenerleben eine Welt auf, die er hier mit dem gewöhnlichen Bewußtsein nicht haben kann, eine Welt, die er aber hier mit seinem gewöhnlichen Bewußtsein ersehnt, wenn er die Dualität von Physisch-Materiellem und Geistig-Moralischem vor sich hat. Dann gewinnt er den Ausblick in eine Welt, die nicht unwirklich ist, die ihm geradeso wirklich erscheint, wie ihm die derb-materiell konkrete Welt des Physisch-Sinnlichen wirklich erscheint, aber auch eine Welt, die überall da, wo Vorgänge stattfinden, einlaufen läßt in die physisch-materiellen Impulse die moralisch-geistigen Impulse. Da schaut der Mensch in eine Welt hinein, in der es auf einer höheren Stufe so ist, als wenn in dieser Erdenwelt dann, wenn chemische Prozesse vor sich gehen, in das chemische Verbinden und Zersetzen einlaufen würden moralische Impulse. Es schaut der Mensch in eine Welt hinein, in der es so etwas nicht gibt, daß sich Wasserstoff und Sauerstoff nur nach gleichgültigen neutralen Naturgesetzen verbinden, sondern in der sich Wasserstoff und Sauerstoff so verbinden, daß sie moralischen Impulsen folgen in ihrer Verbindung. Da gibt es keine Vorgänge, die nicht zu gleicher Zeit einen moralisch-geistigen Sinn haben.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 118
+
+---
+
+Jetzt aber kommt der Mensch darauf: Die Welt, in der das dort gesteigerte Materielle und das zu wirklicher schöpferischer Macht gelangte Moralisch-Geistige sich innerlich durchdringen, betrittst du, wenn du durch die Pforte des Todes gegangen bist. Aus dieser Welt bist du heruntergestiegen in die physische Erdenwelt, als du vom vorirdischen Leben in das irdische heruntergestiegen bist. Da lernt der Mensch wissen, daß nur diese physische Erdenwelt die Welt des Dualismus, die Welt der Zweiheit ist, wo sich Natur und Geist gegenüberstehen, wie wenn sie durch einen Abgrund getrennt waren, wo das eine nicht in das andere hinein kann. Da lernt der Mensch aber auch kennen, wie er versetzt werden mußte in diese physische Erdenwelt, damit er erleben kann, wie der Geist in dieser physischen Erdenwelt an die Materie nicht herankann, so daß er, dieser Mensch, das alleinige Wesen innerhalb dieser physischen Erdenwelt ist, das nun aus seiner eigenen Freiheit, aus seinem eigenen innersten individuellen Impulse diese Verbindung bewirken kann.
+
+Würde in dieser physischen Welt irgendwo an einer Stelle ein moralisch-geistiger Impuls in einen chemischen Prozeß, in ein Pflanzenwachstum, in ein tierisches Triebleben durch objektive Gesetze hineinfließen, dann würde, weil der Mensch eine Zusammenfassung ist alles dessen, was im Kosmos ist, der Mensch innerlich niemals haben zur Freiheit kommen können, zu dem selbst eigenen Verbinden des Geistigen mit dem Materiellen.
+
+Nun aber stehen im menschlichen Erdenleben zwei Zustände einander entgegen: Der Zustand des Wachens vom Aufwachen bis zum Einschlafen, der Zustand des Schlafens vom Einschlafen bis zum Aufwachen. Während des Zustandes des Wachens lebt der Mensch durchaus in derjenigen Welt, wo sich Geist und Materie streng gegenüber-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 119
+
+---
+
+stehen, wo der Geist nicht herankann an die Materie, um sie zu durchsetzen, wo die Materie ohnmächtig ist, sich zum Geistigen in ihren Vorgängen zu erheben. Dann aber, wenn der Mensch eingedrungen ist in jene Welt, von der ich gesagt habe, daß sie herauftöne aus dem tiefen Schweigen der Seele, dann erblickt der Mensch jene Tätigkeit, der er sich hingibt zwischen dem Einschlafen und Aufwachen, der Tätigkeit seines astralischen Leibes. Und dann weiß er, daß er das Erdenleben mit jedem Einschlafen verläßt und mit jedem Aufwachen wieder zurückkommt. Dann weiß er, daß er in diesen schlafenden Unterbrechungen des Erdenlebens in jener Welt lebt, in der er zunächst vorbereiten kann die Verbindung des Geistes mit der Materie. Aber in alledem, was da in den Schlafzuständen zwischen der Geburt und dem Tode in einem dünnen ätherisch-astralischen Elemente gewoben wird, so daß es wiederum eintritt beim Aufwachen in die Dualität zwischen Geist und Materie als das, was der Mensch lebt und webt in allen den Lebensperioden, die er schlafend zwischen der Geburt und dem Tode durchmacht: In alledem lebt dasjenige, was dann, wenn der Mensch sein Wesen durch die Pforte des Todes trägt, eintritt in jene Welt, in der es das nicht gibt, daß die Materie ohnmächtig ist, sich mit ihren Prozessen zur Geistigkeit zu erheben, daß der Geist nicht an die Materie herankommen kann. Sondern der Mensch tritt da mit alledem, was er sich im Schlaf gewoben hat, in diejenige Welt ein, in der alles der Materie Ähnliche sich zu geistigen Vorgängen erhebt, in der der Geist fortwährend in die Materie eingreift. Und er sieht, daß die Dualität zwischen Geist und Materie nur in der Welt vorhanden ist, die er episodisch durchmacht zwischen der Geburt und dem Tode. Er weiß ferner, daß er da in eine ganz andere Welt eintritt, die ihm nur wie im Spiegelbild, wie in einer Fata Morgan a er-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 120
+
+---
+
+scheint zwischen dem Einschlafen und Aufwachen, wo er sich vorbereitet für die Realität dieser Welt.
+
+Aber wenn er durch die Pforte des Todes gegangen ist, tritt er in diese Welt wirklich ein, und er webt nun weiter an dem Leben, das er durchgemacht hat zwischen der Geburt und dem Tode. Aber er webt jetzt so weiter, daß nicht auf der einen Seite der materiefreie Geist steht, der gewärtig sein muß, daß er einmal verschwindet in seinen geistig-moralischen Impulsen, wenn die Erde zum Beispiel beim Wärmetod angekommen sein wird. Der Mensch tritt in eine Welt ein, wo das, was ihm zwischen dem Einschlafen und Aufwachen wie im Bilde, wie in einer geistig-seelischen Fata Morgana erschienen ist, in einer realen Welt drinnensteht, in der es keine Dualität zwischen Geist und Materie gibt, in der die geistige Substantialität fortwährend die materielle Substantialität, die materienähnliche Substantialität durchdringt, in der es keine bloßen Naturgesetze gibt, sondern in der die Naturgesetze nur die untersten geistigen Gesetze sind, in der es keine bloß abstrakten geistigen Geistgesetze gibt, sondern in der die unteren Geistesprozesse, Geistesgesetze schon hinüberspielen in die dort befindlichen, materienähnlichen Prozesse. In diese Welt tritt der Mensch ein, um nun durchzumachen, was zwischen dem Tod und einer zukünftigen Geburt liegt.
+
+Mit dieser Welt macht sich der Mensch bekannt, indem er aus dem tiefen Schweigen der Seele heraus hört, wie der Geist, der universelle Logos - aber in seinen Individualitäten - zu ihm spricht; nicht in einer physisch hörbaren Sprache zu ihm spricht, sondern in einer Sprache, die nicht nur unhörbar, sondern weniger als unhörbar ist, und die eben deshalb gerade wiederum geistig wahrnehmbar ist. Und indem er das innere Wort gewinnt, das nicht äußeres Wort wird, und dennoch jene Kraft innerlich aufwendet,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 121
+
+---
+
+die sonst nur durch Vermittlung des Atems im äußeren Worte sich offenbart, arbeitet sich der Mensch durch, jene Welt kennenzulernen, aus der er heruntergestiegen ist als aus einer geistigen Welt, aber als einer solchen, bei deren Wirklichkeit nicht der geringste Zweifel mehr sein kann, daß der Mensch aus ihr heruntergestiegen ist zum physischen Erdendasein und zu ihr hinaufsteigen wird, nachdem er die Pforte des Todes durchschritten hat. In dieser Welt ist aller Geist zu gleicher Zeit so wirksam, wie hier auf der Erde das Materielle wirksam ist. In dieser Welt ist alles Materielle so weit hinauf gehoben, daß es nicht durch seine Derbheit, durch seine Dichtigkeit den Einflüssen der moralisch-geistigen Impulse Widerstand entgegensetzt.
+
+Wenn man hineingelangen will in die ätherisch-imaginative Welt, da muß man gewissermaßen hinter das Denken, hinter das abstrakte tote Denken gelangen, zu dem innerlich lebendigen Denken. Wenn man hineingelangen will in die Welt des tiefen Schweigens, das heißt in die Welt, wo alles materienähnliche Wirken geistig, und alles geistige Leben in der Materie schöpferisch ist, so muß man nicht nur hinter das gewöhnliche tote Denken zum lebendigen Denken kommen, sondern hinter die hörbare Sprachfähigkeit zu der hinter ihr liegenden unhörbaren Sprachfähigkeit, die nicht Lautheit ist, die tiefes Schweigen ist, aus der nicht hörbare Worte, sondern der aus der Stille, gerade durch die verstärkte Stille wirkende Logos spricht.
+
+Will man aber noch weiter gelangen, dann muß man nicht nur aufsteigen von dem lebendigen Denken, was verhältnismäßig nur ein bildhafter Prozeß ist, zu demjenigen, was, wie ich sagen möchte, durch die Welt webt und flutet, was aber im Weben und Fluten aus dem tiefen Schweigen heraus spricht, so daß man sich darinnen fühlt als in etwas,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 122
+
+---
+
+was eben die Welt durchströmt und in dem man selber strömt mit dem Hören, mit seinem dritten Menschenwesen, sondern wenn man noch weiter gelangen will, muß man sich erheben zu einem anderen Prozesse, zu einem noch anderen Vorgange im Innern.
+
+Man lebt in dem lebendigen Denken für das Ätherische. Man lebt in dem nicht von uns in Bewegung gesetzten, sondern durch den Logos erleuchteten Prozeß, der sonst nur in der physischen Luft beim Sprechen lebt, auf der zweiten Stufe. Auf der dritten Stufe muß man etwas erkennen, was das Gegenbild eines Zerstörungsprozesses im physischen Leben der Erde ist. Da muß man jetzt nicht nur durch eine Steigerung des Denkens, durch eine in die Stille hinein erfolgende Steigerung des Sprachvermögens, sondern da muß man durch eine Verinnerlichung desjenigen, was vorgeht, wenn wir als Menschen hier auf der Erde etwas tun, zu der dritten Stufe gelangen. Man muß sich nur klar sein darüber, daß mit «Tun» dabei nicht bloß gemeint ist das äußere physische Tun. Wir tun auch etwas, wenn wir bloß innerlich in Gedanken arbeiten, denn auch da entfaltet sich der Wille. Alles das, wodurch der Mensch sich zur Aktivität aufrafft, sei es ein innerlicher, sei es ein äußerer Prozeß, verfließt im Tun und nicht im bloßen Leiden. Aber jedesmal, wenn ein solches Tun erfolgt, selbst wenn es nur erfolgt im Denken, das eine Initiative hat für Aktivität, erfolgt in ihm ein physischer Prozeß. So wie im physischen Denken ein Gehirnprozeß erfolgt, wie im physischen Sprechen ein modifizierter Atmungsprozeß erfolgt, so erfolgt bei einer solchen in die Tat, in die Handlung überfließenden Willensinitiative ein innerlicher Prozeß, ein Prozeß, den wir vergleichen können mit jener Vernichtung materiellen Wesens, die wir in allen Verbrennungsprozessen gewahr werden. Sehen wir, wie eine Flamme die Kerzensub
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 123
+
+---
+
+stanz zerstört, so sehen wir - ich will jetzt nicht auf irgendwelche feinere chemische Position eingehen, sondern eben nur in populärer Weise auseinandersetzen, was als sinnlich-physischer Vorgang angeschaut werden kann und soll -, wir sehen da, ganz gleichgültig, ob das sich metamorphosiert und in anderes, mehr Unsichtbares hineinverschwindet, wie die Flamme, wie das Verbrennen die Konstitution des Materiellen vernichtet.
+
+Solche Prozesse, wo etwas erfaßt wird von etwas Ähnlichem, wie von der Flamme die Kerzensubstanz, solche Vorgänge sind es immer, wenn Willensinitiativen in uns vor sich gehen, jene dunklen Prozesse des Willens, die der Mensch sonst im gewöhnlichen Bewußtsein verschläft, zu denen er nicht hinuntersieht. Er weiß nichts davon, was geschieht zwischen der Absicht, die er für die Handlung einer Handbewegung hat, und dem Heben der Hand. Er weiß nicht, wie die Absicht, die im Gedanken lebt, hineinschießt in die Muskeln und dann die Hand zum Heben bringt. Er sieht erst wiederum die Entfaltung in der sich bewegenden Hand. Aber was dazwischen liegt, ist ein verbrennungsähnlicher Prozeß. Nur haben wir innerhalb des menschlichen Organismus nicht die Möglichkeit, so zu sprechen, wenn wir durch ein höheres Geistiges diesen Verbrennungsprozeß anschauen, der der materielle Prozeß ist für die menschliche Willensentfaltung. Wenn wir diesen Verbrennungsprozeß verfolgen, haben wir nicht die Möglichkeit, da festzustellen, daß nur Materie umgewandelt wird, sondern es kommt dabei auf die Vernichtung derjenigen Prozesse an, die erst angefacht werden, indem der Mensch sich der gewöhnlichen Ernährung unterzieht. Alle diejenigen physischen verbrennungsähnlichen Prozesse, welche sich abspielen als die Grundlage der Willensentfaltungen, alle diese Prozesse, die eben, wie gesagt, verbrennungsähnlich sind,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 124
+
+---
+
+spielen sich ab zwischen der Fortsetzung des Ernährungsvorganges und der Blutbildung.
+
+Wo wir das Blut sich bilden sehen, sehen wir in diese verbrennungsähnlichen Prozesse hinein. Da sehen wir aber auch hinein, wie innerhalb dieser verbrennungsähnlichen Prozesse der menschliche Wille sprüht und kraftet. Wir sehen in einen absteigenden materiellen Prozeß hinein. Da sehen wir, zunächst populär gesprochen, wie Materie verschwindet. Aber da können wir etwas Ähnliches gewahr werden, wie wir es bei einer sorgfältigen Meditation gewahr werden, wenn wir von dem äußerlich angeregten Denken übergehen zu dem innerlich bewegten Denken. Wir haben dann im innerlich bewegten Denken etwas, was wir eben erst durch unsere eigene Aktivität gewahr werden. Wir haben in dem tiefen Schweigen der Seele etwas, was hinter unserem physischen Atmungsprozeß steckt und aus der geistig-seelischen Welt hereintönt in dem entgegengesetzt Negativen als der aus dem Schweigen heraustönende Logos.
+
+Wir kommen aber auch hinter diejenigen Prozesse, die als Verbrennungsprozesse in unserem Organismus wirken, wenn wir dasjenige schauen können, was in unserem Organismus dahinter ist, wenn wir schauen können, wie eben in dem Zerstören, in dem Entwickeln der Verbrennungen in unserem Organismus der Weltenwille wirkt: So wie die Kraft des Logos hinter der Atmungskraft des äußerlich hörbaren Wortes, so sprüht hinter dieser Verbrennungskraft, die fortwährend an unserem Organismus wirkt, die schöpferische Kraft des Weltenwillens, der in uns hereinwirkt. Lernen wir im modifizierten Atem (rot), der aus unserem Kehlkopf zum äußerlich hörbaren Worte sich entwickelt, das dahinterliegende Geistige (hellblau, weiß) kennen, das aus dem tiefen Schweigen heraus in entgegengesetzter Rich-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 125
+
+---
+
+
+
+tung der physischen Worte kommt, so aber, daß wir es nicht herauslassen dürfen über den Kehlkopf, lernen wir dieses Geistige kennen, das uns gegenwärtig macht die schweigsame, aber deshalb doch deutlich sprechende Stimme des Weltenlogos, so nehmen wir wahr in all den verbrennungsähnlichen Prozessen (rot, siehe Zeichnung Seite 127), die wir schauen können innerhalb unseres Organismus, den in ihnen flutenden und wellenden Weltenwülen (gelblich), an dem wir selber teilnehmen; nicht den Schopenhauerschen gedankenlosen Willen, sondern einen überall vom Geiste sprühenden und durchsetzten Willen.
+
+Wir fühlen einen vierten Menschen nun in uns. Wir fühlen überall da, wo im physischen Organismus Verbren-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 126
+
+---
+
+nungsprozesse, Prozesse des Abbaues walten, schöpferische Prozesse. Wir fühlen uns in der schöpferischen Welt drinnen. Und in dieser schöpferischen Welt werden wir nun gewahr alles das, was in uns selbst schöpferisch ist.
+
+
+
+Und wenn wir vorher, indem wir unseren eigenen dritten Menschen, den astralischen Menschen, gewahr wurden, eine Welt kennengelernt haben, in der es den Unterschied von Materie und Geist nicht gibt, so lernen wir jetzt eine Welt kennen, in der der Geist nicht nur in allen Vorgängen lebt, sondern in der der Geist in allen Vorgängen das Schöpferische ist, in der es keine materienähnliche Substanz gibt, die nicht aus dem Geiste heraus geformt ist. Und wir lernen in uns selbst dasjenige kennen, was so schöpferischer Art ist, daß innerhalb seines Bereiches kein Materienähnliches ist, das nicht seine Schöpfung wäre. Und wenn wir eben vorher eine Welt kennengelernt haben, in der es die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 127
+
+---
+
+Dualität zwischen Geist und Materie nicht gibt, so lernen wir jetzt eine Welt kennen, in der die moralisch-geistigen Impulse selbst das einzig Wirkliche sind. Und indem wir hineinschauen in diese Welt, von der eben der entsprechende Tropfen in uns selbst waltet, indem wir hineinschauen in das, was als vierter Mensch unser Anteil an dieser Welt ist, zu der wir jetzt aufgestiegen sind, da lernen wir in diesem vierten Menschen kennen ein Schöpferisches in uns, aber ein solches Schöpferisches, von dem wir uns sagen: Das ist ja nirgends vorhanden hier in dieser Welt der natürlichen Umgebung, wo der Geist nicht an die Materie herankommt, das ist ja nirgends vorhanden zunächst in der Welt, die uns erscheint innerhalb unseres eigenen astralischen Leibes. Aber das macht sich überall geltend, wo noch ein Höheres, ein Wesenhaftes eintritt in diese astralische Welt. So wie der Mensch als physischer Mensch in die für ihn als physischen Menschen durchdringliche Luft eintritt, so werden wir das Astralleben gewahr, eine geistig-seelische Atmosphäre, und innerhalb dieser Atmosphäre herumwandelnde Geistwesen, wie wir hier als physische Menschen in der physischen Luftatmosphäre herumwandeln. Wir schauen hinein jetzt nicht nur in den im allgemeinen sprechenden Logos der astralischen Welt, wir schauen hinein in das, was als Geistwesen sich bewegt und west in dieser astralischen Welt.
+
+Und da lernen wir unsere eigene Wesenheit erkennen als diejenige, die jetzt gar nicht da sein kann, die aber durchgegangen ist durch diese ätherische Welt im vorirdischen Dasein, und die in einem vorigen Erdenleben da war. Da werden wir gewahr, wie dem zerstörenden Verbrennungsprozesse die moralischen Impulse aus unserem vorigen, oder aus unseren verschiedenen vorigen Erdenleben innewohnen, wie dieser vierte Mensch in uns lebt, der zu glei-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 128
+
+---
+
+eher Zeit der Schöpfer unseres grundlegenden Schicksals ist. Da entdecken wir hinter dem Brand unseres Leibes die schöpferische Macht des Inhaltes unseres vorigen Erdenlebens, das jetzt zu dieser Region hat aufsteigen können, wo es der zerstörenden Macht der Verbrennung als die schöpferische Macht entgegenwirkt, weil es eben nicht gegenwärtiges Dasein ist, sondern lang vergangenes Erdenleben, das alles abgestreift hat, was mit der Dualität von Geist und Materie zusammenhängt, was durchgegangen ist durch die geistige Welt und in dieser geistigen Welt den Charakter des Geistig-Schöpferischen angenommen hat. Da entdecken wir gerade innerhalb desjenigen, was in den Tiefen unseres sonst so dunklen Willens heraufpulst in unserer Menschenwesenheit, das, was da hereinsprüht, hereinkraftet als etwas, was einmal so war, wie wir jetzt im Erdenleben dastehen, was aber anders geworden ist, indem es erst sich ätherisiert hat, dann in einer astralischen Welt gelebt hat, und in dieser astralischen Welt zu einer dritthöheren Stufe aufgestiegen ist. Und jetzt erscheint es in uns als das, was in unserem nur schattenhaften Ich der Gegenwart als der es erhärtende, mit Realität durchsetzende, schöpferische Kraftwille der vorangegangenen Erdenleben darinnen ist.
+
+Da sind wir aufgestiegen von der physischen Wesenheit des Menschen zu seinen drei höheren Wesenheiten: zu der ätherischen Wesenheit oder der Bildekraftwesenheit, zu der astralischen Wesenheit, der eigentlich seelischen Wesenheit, und zu der eigentlichen Ich-Wesenheit, welche das Ergebnis früherer Erdenleben ist, während dasjenige, was als Ich im jetzigen Erdenleben in gleicher Art webt, in uns nur west zwischen dem Einschlafen und Aufwachen. Ich habe Ihnen vorhin beschrieben, wie zwischen dem Einschlafen und Aufwachen der astralische Leib in der Wesenheit der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 129
+
+---
+
+astralischen Welt drinnen webt und west; aber innerhalb dieses astralischen Leibes tragen wir noch an uns, zwischen dem Einschlafen und Aufwachen, das Ich, so wie ich es geschildert habe. Das ist aber noch nicht fähig, insofern es das Ich der Gegenwart ist, hineinzukraften in den physischen Leib. Denn hier teilt der Mensch das Schicksal der übrigen Natur, die Dualität des Geistes mit der Materie. Hier steht dem Menschen selbst gegenüber der in der Materie noch nicht wirksame Geist, die Materie, die ohnmächtig ist und nicht an den Geist herankann.
+
+Was da im Menschen in diesem Kampf zwischen Geist und Materie, der in ihn hereinleuchtet, der da besteht in dem Überwindenwollen des Dualismus von Geist und Materie in der äußeren physischen Erdenwelt, als ein innerer Konflikt hinter den Kulissen seines Daseins sich auch wachend im bloßen Willen abspielt, das spielt sich hinter den Kulissen des Daseins im Schlafe ab zwischen dem Einschlafen und Aufwachen. Das ist für den Menschen zunächst, wie er sich im gewöhnlichen Bewußtsein entfaltet, verdeckt durch den Schlaf. Da aber wird dasjenige im Schlafe verwoben, was nun, wenn es sich wiederum ätherisiert und astralisiert nach dem Tode, eben zu jener schöpferischen Kraft aufsteigt, was aber ein neues Glied hinzugefügt haben wird, wenn die nächste Zeit zwischen dem Tod und einer neuen Geburt verflossen sein wird, zu dem, was in unserem Willen kraftet aus den lang vergangenen Erdenleben her.
+
+Und so können wir hinschauen auf das menschliche Leben. Wir schauen zunächst nicht hinunter in den Willen, wir schauen nicht hinein in den Schlaf. Eine wirkliche Geistesschau aber enthüllt uns, was da eigentlich wirkt als schöpferisches, der Verbrennung entgegengesetztes Prinzip aus lang vergangenen Erdenleben. Und wir werden ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 130
+
+---
+
+
+
+wahr, wie durch unseren Willen pulsen, aus moralischen Impulsen unser Schicksal bereitend, die früheren Erdenleben, wiey wenn wir in den Schlaf hineingehen, das, was sonst aus seinen Trieben, Emotionen, aus den bewußten Absichten der menschliche Wille auch im Wachen schlafend vollbringt, wie das zwischen dem Einschlafen und Aufwachen sich webt zu dem Wesen, das dem Menschen in der Gegenwart verhüllt ist durch das Schlafen, das aber in unserem nächsten Erdenleben als wirksamer Wille unser Blut durchpulsend in dem Verbrennungsprozeß des künftigen Leibes sich als das schöpferische Ich entfalten wird - dieses schöpferische Ich, das dann wiederum um dasjenige Glied vermehrt worden sein wird, das wir in diesem Erdenleben zwischen Geburt und Tod entfaltet haben und hinzugefügt haben zu demjenigen, was in der geschilderten Weise aus den früheren Erdenleben zu uns herübergekommen ist.
+
+In dieser Weise kann hineingeschaut werden in die Kon-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 131
+
+---
+
+stitution des Menschen aus vier Wesensgliedern. Und indem wir gewahr werden, wie diese vier Wesensglieder im Menschen real sind, blicken wir zu gleicher Zeit hin auf das gesamte menschliche Leben. Es erweitert sich, wie ich gestern gezeigt habe, das, was irdisches Leben ist, zu dem Leben im Weltenäther, der bis zu einer gewissen Kugelschale geht, aber das Kosmisch-Astralische überall zurückstrahlt. Wir leben mit unserem astralischen Leib mit diesem Kosmisch-Astralischen, das für das irdische Beobachten unwahrnehmbar ist. Leben wir uns aber in dieses Kosmisch-Astralische so ein, wie ich es heute geschildert habe, dann tont dieses Kosmisch-Astralische nicht nur als der Weltenlogos, sondern aus den Worten des Weltenlogos treten an uns heran, wie durch reale Untergründe des geistigen Lebens, die realen Wesenheiten der höheren und niederen Hierarchien, und unter diesen unsere eigene Geistwesenheit aus lang vergangenen Erdenleben.
+
+So erweitert sich, indem wir den Menschen erkennen, zu gleicher Zeit unser geistig-seelisches Erkennen über den Kosmos, über das Universum, nicht nur über den Kosmos als einen physischen, als einen ätherischen, sondern über den Kosmos auch als einen geistig-seelischen. Es erweitert sich die Menschenerkenntnis zur Welterkenntnis. So wie wir im physischen Erdenleben niemals einseitig haben können Einatmung und Ausatmung, wie die Einatmung in stetiger Wechselwirkung mit der Ausatmung uns durchdringen und durchwellen muß, wie wir in der Einatmung und Ausatmung rhythmisch leben, so können wir nicht einseitig auf einer höheren Stufe bloß Menschenerkenntnis oder Welterkenntnis erwerben, sondern Menschenerkenntnis fordert, wie die Einatmung die Ausatmung, die Welterkenntnis, und Welterkenntnis fordert, wie die Ausatmung die Einatmung, Menschenerkenntnis. Systole und Diastole des großen phy
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 132
+
+---
+
+sisdi-seelisdi-geistigen Weltenlebens ist Welterkenntnis und Menschenerkenntnis, die nidit nebeneinander sein können auf einer höheren Stufe, sondern nur ineinander, auseinander, ineinander, auseinander, in ewig wediselndem Rhythmus einander durdidringend und wirkend, wie das unsterblidie Leben des Kosmos selbst, dem audi der unsterblidie Mensdi angehört.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 133
+
+---
+
+# DIE MENSCHLICHE ERKENNTNISFÄHIGKEIT IN DER ÄTHERISCHEN WELT
+
+Domadi, 22. April 1923
+
+In diesen letzten Tagen versuchte ich den Menschen hineinzustellen in das ganze Universum, so daß man auf der einen Seite die Gliederung des Menschen erkennt nach dem physischen Leib, dem ätherischen oder Bildekräfteleib, dem astralischen Leib und dem eigentlichen Ich, das von Erdenleben zu Erdenleben geht. Zugleich aber versuchte ich darauf hinzuweisen, wie die Glieder der menschlichen Wesenheit, jedes in anderer Weise, zusammenhängen mit dem Universum. So kann man sagen, hängt der physische Leib des Menschen zusammen mit alledem, was physisch-sinnliche irdische Welt ist. Dieser physische Leib des Menschen gehört also der physisch-sinnlichen Welt an. Wollen wir aber an den ätherischen oder Bildekräfteleib herangehen, dann müssen wir uns bewußt sein, daß dieser eigentlich einer ganz andersartigen Welt angehört, daß er derjenigen Welt angehört, die selbst ätherisch ist, und von der ich Ihnen gesagt habe, daß eigentlich der Mensch sie empfinden muß als aus den Weiten des Kosmos an sich herankommend. Wenn man also sich etwa vorstellt: Die Kräfte der Erde verbreiten sich von der Erde aus nach allen Seiten, und der Mensch lebt innerhalb dieser Kräfte, die die Kräfte der physischen Welt sind, dann müssen wir uns vorstellen, daß die ätherische Welt von allen Seiten, von der ganzen Kugelschale des Weltalls, des Kosmos ausgeht und gegen die physischen Kräfte, diesen also entgegenkommend, an
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 134
+
+---
+
+den Menschen herantritt. Dadurch ist der Ätherleib des Menschen ja ganz anderen Gesetzmäßigkeiten unterworfen als der physische Leib. Und wiederum, wenn wir an den astralischen Leib des Menschen herangehen, dann finden wir diesen zusammenhängend mit Welten, die wir nun überhaupt in jenem Kosmos nicht antreffen, der im Physischen, der im Ätherischen beschlossen ist, in dem wir leben zwischen Geburt und Tod, sondern wir finden, daß wir mit unserem astralischen Leibe einer Welt angehören, die wir betreten zwischen dem Tode und einer neuen Geburt.
+
+Und endlich mit dem Ich selbst gehört man einer Welt an, welche wie eine Strömung durch Welten durchgeht, die, wie zum Beispiel unsere Welt, wiederum dreigliedrig sind. Unsere Welt ist dreigliedrig: physisch, ätherisch, astralisch. Die Welt des Ich geht durch diese Welt hindurch und durch andere ähnliche dreigliedrige Welten. Sie ist also eine viel umfassendere Welt. Sie ist eine Welt, die wir überhaupt bezeichnen müssen als die Welt des Ewigen gegenüber dem Zeitlichen.
+
+Nun ist sie aber außerdem so, daß wir, wenn wir an diejenigen Wahrnehmungs- und Erkenntnisfähigkeiten des Menschen herantreten, welche uns bekanntmachen mit dem ätherischen oder Bildekräfteleib, dem astralischen Leib und dem Ich, daß wir dann eigentlich immer ganz andere Welten betreten. Wir müssen in die Sphäre des aktiven Denkens, des erlebten Denkens übertreten, wenn wir an unseren Ätherleib herankommen wollen. Wir müssen uns nur vorstellen, wie ja dann alles, was um uns als Welt ist, anders ist, als solange wir innerhalb der physisch-sinnlichen Welt sind. Vor allem nehmen sich die Dinge und Vorgänge, mit denen wir aus der physischen Welt bekannt sind, ganz anders aus in diesen höheren Welten. Wir haben ja nur die letzten Wirkungen an den Dingen und an den physischen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 135
+
+---
+
+Vorgängen in der physischen Welt um uns. Diese Dinge und diese Wirkungen sind aber in den höheren Welten begründet. Wir sehen also dann gewissermaßen dasjenige, was ursprünglicher ist von diesen Dingen, als das, was uns in der physischen Welt vorliegt. Aber abgesehen davon: Wenn wir in der physischen Welt sind, so haben wir ja zunächst jene Welt, die dem gewöhnlichen Bewußtsein gut bekannt ist, die Welt, in der der Mensch umgeben ist von den drei Naturreichen und von seinem eigenen Reiche; wenn wir aber aufsteigen zu denjenigen Erkenntniskräften – ich habe sie in meinen Büchern die imaginative Erkenntnis genannt –, durch die wir gewährwerden unseren eigenen Äther- oder Bildekräfteleib, dann betreten wir eben die ätherische Welt. Und wenn wir uns so weit erkraftet haben, wenn wir uns innerlich so durchleuchtet haben, und uns gewissermaßen in dem zweiten Menschen, in dem Bildekräfteleib erleben, dann treten wir auch ein in die Welt, die sich uns wenigstens zunächst in ihren Bildern offenbart, in die Welt der Angeloi, Archangeloi, Archai.
+
+Es ist so, daß, wenn man gewissermaßen durchbricht in diejenige Weltsphäre, in der der Ätherleib oder Bildekräfteleib für uns ansichtig wird, dann innerhalb der flutenden Bilderwelt, in die man da eintritt, die Offenbarungen jener Wesenheiten erscheinen, die der dritten Hierarchie angehören: Angeloi, Archangeloi, Archai. Wir sind also da von Wesenheiten umgeben, die in der physisch-sinnlichen Welt nicht um uns sind. Die Art, wie wir von diesen Wesenheiten umgeben sind, ist eine solche, daß sie uns erscheint in den Qualitäten, möchte ich sagen, die auch hier in der Sinneswelt durch unsere Sinne uns gegeben sind.
+
+Aber hier in der Sinneswelt sind zum Beispiel die Farben so, daß sie über die Oberfläche der Dinge hingebreitet sind oder daß sie uns in einer bloß physischen Konfiguration
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84
+
+---
+
+tion, wie zum Beispiel am Regenbogen, erscheinen. Es sind die Töne so, daß sie für uns zusammenhängend erscheinen. J.mit diesen oder jenen Dingen der physisch-sinnlichen Welt. Es sind auch Wärme und Kalte zum Beispiel so, daß sie von diesen oder jenen Dingen der physisch-sinnlichen Welt ausgehen. Betrachten wir diese Welt, in der uns die dritte Hierarchie erscheint, dann haben wir nicht an den Dingen haftende Farben, nicht von den Dingen her klingende Töne und so weiter, sondern wir haben, man kann nicht einmal sagen, durch den Raum, sondern in der Zeit flutende Farben, flutende Töne, vibrierendes Warmes und Kaltes. Das ist nicht über die Oberfläche der Dinge hingespannt*, was farbig ist, sondern das fluktuiert, das wellt. Nur weiß man einfach durch diejenigen Kräfte, durch die man sich in diese Welten versetzt hat, daß ebenso, wie man in der physischen Welt hinter dem Farbigen etwas Materielles vermutet, daß, wenn man irgendeine flutende Farbenwolke, einen flutenden, man kann schon sagen, Farbenorganismus in dieser Welt erblickt, darinnen ein Geistig-Seelisches waltet und webt, das zur dritten Hierarchie gehört. In dem Augenblicke also, wo dem Menschen jenes Lebenstableau erscheint, von dem ich gesprochen habe, das anschaulich zeigt, wie in einem Momente überschaubar, was wir durchlebt haben seit unserer Geburt, in diesem Augenblick lebt auch in dieser Strömung unserer eigenen Lebensereignisse drinnen dasjenige, von dem man sagen kann: Innerhalb der von der Materie freigewordenen flutenden Farben-, Tonwelt und so weiter, lebt nun die dritte Hierarchie.
+
+Wenn wir uns dann durch die Kraft unseres Erkenntnisvermögens aufschwingen dazu, unseren eigenen astralischen Leib zu überblicken, also das, was von uns vorhanden war, ehe wir zum Erdendasein heruntergestiegen sind, was wir wiederum an uns tragen werden, wenn wir durch die Pforte
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 137
+
+---
+
+des Todes geschritten sind, dann wissen wir: das ist eine weitere Welt, aber eine Welt, die wir auch nicht im Äther des Kosmos finden, die hinter dem Tor der Geburt und des Todes liegt. Es ist eine weitere Welt, die wir da betreten. Es ist die Welt des Astralischen.
+
+Die Dinge fallen nicht genau zusammen mit dem, was ich in meiner «Theosophie» beschrieben habe; da ist die Sache von einem anderen Gesichtspunkte aus charakterisiert. Aber ebenso, wie wir die dritte Hierarchie treffen, wenn wir uns zu unserem Bildekräfteleib hinauf organisieren, ebenso treffen wir in dieser Welt, in der für uns ansichtig wird unser eigener astralischer Leib, die zweite Hierarchie: Exusiai, Kyriotetes, Dynamis. Und diese zweite Hierarchie erscheint uns jetzt für den wirklichen Anblick nicht in flutenden Farben, in flutenden Tönen, sondern sie erscheint uns so, daß sie uns einzelne Bedeutungen innerhalb des die Welt durchwellenden Logos verkündet und offenbart. Sie spricht zu uns.
+
+Will man andeuten, wie man sich zu diesen Welten verhalten kann nach Erlangung der entsprechenden Erkenntniskräfte, will man das so andeuten, daß man Worte, an die man gewöhnt ist, zu diesen Andeutungen verwendet, Worte, die natürlich dann nicht mehr ihre ursprüngliche Bedeutung für die Sinneswelt haben, aber aus denen man doch etwas entnehmen kann für dieses Verhältnis zu den höheren Welten, so muß man sagen: Für die Ätherwelt wird das innerlich lebendige Denken eine Art Tastorgan. Mit dem innerlich lebendigen Denken berühren wir diese flutende Farbenwelt und so weiter. Wir dürfen uns nicht vorstellen, daß das so ist, daß wir das Rot so ähnlich sehen, wie wir das Rot der Sinne sehen, das über die Dinge hingespannt ist, gewissermaßen mit einem Auge sehen, sondern wir spüren, berühren Rot und Gelb und so weiter. Wir be
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 138
+
+---
+
+rühren die Töne. So daß wir sagen können: In der Ätherwelt ist das lebendige Denken Berührung dessen, was in der Welt der dritten Hierarchie lebt.
+
+Kommen wir dann in die Welt hinein, der unser eigener astralischer Leib gewissermaßen angehört, so können wir nicht mehr von dieser astralischen Welt sagen, daß wir sie nur berühren, sondern wir müssen sagen: Diese Welt verstehen wir als Offenbarung der Wesen der zweiten Hierarchie. Jede einzelne Äußerung verstehen wir als ein Glied, als einen Teil des Weltenlogos. Durch das tiefe Schweigen kommt die Sprache der Geistwesen. Also nach der Berührung die Sprache, die Mitteilung.
+
+Und wenn wir uns in der Art, wie ich das gestern angedeutet habe, hindurchringen zum Erleben des Ich, das von Erdenleben zu Erdenleben geht, und dazwischen die anderen Leben durchmacht zwischen dem Tode und einer neuen Geburt jeweilig, dann betreten wir eine Welt, die die eigentliche Geistwelt ist, die höhere Geistwelt. In dieser Welt ist es ja zunächst so, daß wir in ein ganz besonderes Verhältnis zu unserem wahren Ich kommen. Dasjenige Ich, das wir hier erleben innerlich im Erdendasein zwischen Geburt und Tod, das ist ja an die physische Leiblichkeit gebunden. Das ist wahrnehmbar für uns, solange wir uns in der physischen Leiblichkeit erleben, und wir werden in einer gewissen Weise zur Selbstlosigkeit gezwungen, wenn wir aufsteigen in die Ätherwelt, in die astralische Welt. Da haben wir höchstens etwas wie eine Erinnerung dieses Erden-Ichs.
+
+Aber wir finden dann das wahre Ich in der angedeuteten Weise, wie es von Erdenleben zu Erdenleben geht. Wir finden dieses wahre Ich so, daß es uns zunächst vorkommt wie ein ganz anderes Wesen. Wir sagen uns: Hier stehe ich innerhalb dieses Lebens zwischen Geburt und Tod im ir
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 139
+
+---
+
+dischen Dasein. Ich blicke zurück durch das Stück Ätherwelt, das mir erscheint, bis zu meiner Erdengeburt hin. Dann blicke ich weiter durch in Welten, in weite Gefilde, die eigentlich nur zeitliches Dasein haben, wo vom Räume zu sprechen im Grunde genommen ein Unding ist; aber es erscheint mir wie eine weite Perspektive die Welt mit all ihrem Inhalt, wie sie um uns herum lebt zwischen dem Tode und einer neuen Geburt. Indem ich durch den Äther hindurchschaue, durch die Welt der dritten Hierarchie, indem ich durch das Astralische hindurchschaue, in dem ich war zwischen dem Tode und einer neuen Geburt wie in einer in der Offenbarung des Logos lebenden, wie sich selbst durch die Weltensprache offenbarenden übersinnlichen Welt, indem ich durch das alles hindurchschaue, schaue ich endlich hin zu einem zunächst weit von mir entfernten Wesen, zu demjenigen, was mein Lebensinhalt im vorigen Erdenleben war. Da erscheint mir zunächst die Sache so, daß ich mir sage: Ich stehe eben hier im irdischen Leben mit meinem jetzigen gespensterartigen Ich, und dann sehe ich weit zurück durch alles das hindurch, was ich eben bezeichnet habe, auf den Inhalt meines vorigen Erdenlebens. Aber ich schaue zugleich, wie der als sich loswindendes Ich durchgegangen war durch die Welten, durch die ich wie perspektivisch hindurchgeschaut habe, bis in mein gegenwärtiges Erdenleben herein. Ich schaue zunächst wirklich mein lebendes wahres Ich wie ein fremdes fernes Wesen. Und ich erkenne mich wieder in diesem mir zunächst erscheinenden gleichsam fremden Wesen.
+
+In diesem Satze müßte eigentlich jedes Wort ganz intensiv genommen werden, denn jedes einzelne Wort hat in diesem Satze eine ganz besondere Wichtigkeit. Zu dem ganzen Erleben gehört es, daß man sich aus der Wahrnehmung des eigenen Ich wie eines zunächst Fremden durch-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 140
+
+---
+
+ringt dazu, daß man sich sagt: Das, was dir da zunächst als Fremdes erschienen war, das bist du ja selbst. Dir ist es so erschienen, als ob in ferner Vergangenheit ein anderes Wesen gelebt hätte, aber du bist es ja selbst.
+
+Und dann wird man gewahr, wie dieses Selbst eben hergeströmt ist vom vorigen Erdendasein in dieses Erdenleben herein, wie es aber jetzt gewissermaßen in diesem Erdenleben zugedeckt ist, und nur erscheinen würde, wenn all die Ereignisse, die zwischen dem Einschlafen und Aufwachen vorkommen, vor die Menschenseele hintreten würden. Da drinnen webt und lebt weiter dasjenige, was aus dem vorigen Erdenleben, durch Astral- und Ätherwelt durchströmend, bis zu uns gelangt ist.
+
+Sehen Sie, es liegt eine Welt von irdischen Widersprüchen und himmlischen Einklängen in diesem Sichdurchringen: Irdische Widersprüche so, daß man durch alles dasjenige, was man zunächst für das alltägliche Leben hier auf Erden hat, im Grunde genommen an dieses eigene wahre Ich nicht herangelangen kann. In diesem Erden-Ich lebt eigentlich nur das erste Rudiment der Liebe. Und schon dadurch ist dem Leben auf Erden ein Glanz verliehen, daß die Kraft der Liebe in dieses irdische Leben hereinstrahlt. Aber diese Liebe muß gesteigert werden. Diese Liebe muß so gesteigert werden, daß der Mensch fähig wird, durch die Steigerung der Liebe die Ätherwelt und die Astralwelt wahrzunehmen, und damit eigentlich dasjenige, was als sein Ich, als der Egoismus, als das Gegenteil der Liebe in ihm lebt, was im Leben als das Gegenteil der Liebe ihm die Möglichkeit gibt, als eigenes Ich sich zu empfinden innerhalb des Erdenlebens, das zu überwinden. Die Liebe muß so stark werden, daß man lernt, dieses Ich der Erde zu übersehen, es zu vergessen, nicht mehr achtend auf es hinzuschauen. Liebe ist das Aufgehen des eigenen Wesens in dem anderen. Das muß
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 141
+
+---
+
+so stark sein, daß man des eigenen Ichs, wie es im irdischen Leibe lebt, nicht mehr achtet. Dann tritt der Widerspruch auf, daß man gerade durch Selbstlosigkeit, durch höchste Liebefähigkeit an das eigene wahre Ich herandringt, das in der Ferne der Zeiten dann uns entgegenleuchtet.
+
+Man muß schon sein Erden-Ich verlieren, um sein wirkliches wahres Ich in der Anschauung zu bekommen. Und derjenige, der nicht diese Hingabe entwickeln würde, der kann eben an dieses wahre Ich nicht herankommen. Man möchte sagen: Das wahre Ich will nicht gesucht sein, wenn es erscheinen soll, wenn es sich offenbaren soll; und es verbirgt sich, wenn es gesucht wird. Denn es wird nur in der Liebe gefunden. Und Liebe ist Hingabe des eigenen Wesens an das fremde Wesen. Daher muß das wahre Ich wie ein fremdes Wesen gefunden werden.
+
+Und in demselben Augenblicke, in dem man eintritt in dieses Ansichtigwerden des eigenen wahren Ichs, wird man zugleich ansichtig dessen, was nunmehr in einer weiteren Welt lebt, in der eigentlichen Geistwelt. Man trifft zusammen mit den Wesen der ersten Hierarchie: Seraphime, Cherubime, Throne.
+
+Und geradeso, wie man da sein Ich wiederfindet, von dem man eigentlich nur einen Abglanz hier im irdischen Leben hat, so findet man für die ganze Welt der irdischen Umgebung deren wahre Geistgestalt. Man muß auch diese irdische Welt verlieren für diese Erkenntnis, um deren wahre Ursprungswelt zugleich mit unserem wahren Ich zu finden.
+
+So daß man sagen kann: Was sich in der Geistwelt offenbart, ist Wiedererkennen, Berührung, Sprache, Wiedererkennen, aber Wiedererkennen von etwas, das man eigentlich vorher nur im Abglanz, im Abbild kennengelernt hat.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 142
+
+---
+
+So lebt man sich, indem man den eigenen Menschen erlebt, mit der Erkenntnis des eigenen Menschen in die Totalität des Universums hinein. Und vollständig dargestellt ist diese Gliederung des Menschen im physischen Leib, Ätherleib, astralischen Leib und Ich eigentlich nur dann, wenn man zugleich schildert, wie diese einzelnen Glieder der Menschennatur mit den entsprechenden Welten des Universums zusammenhängen.
+
+Das, was ich eben jetzt dargestellt habe, das muß gut verstanden und durchschaut werden, wenn man auf dasjenige kommen will, was da zugrunde liegt, wenn man überhaupt an die Aufzählung dieser vier Glieder der menschlichen Natur herantritt. Das ist schon durchaus einer derjenigen Punkte, wo sich recht deutlich zeigt, daß der Mensch nicht nur anderes denken muß, wenn er zur "Wahrheit der geistigen Welt aufsteigen will, sondern daß er in anderer Art denken muß. Er muß das ganze Denken, das eigentlich nur ein Bildhaft-Totes ist innerhalb der bloß sinnlich-physischen Anschauung, in ein Lebendiges überführen.
+
+Und da kann man aus der Kultur der Gegenwart, aus dem Geistesleben der Gegenwart etwas ganz Besonderes erleben, was einem zeigt, welche Hindernisse zu überwinden sind, wenn Anthroposophie in die Seele der Menschen einziehen soll.
+
+Als meine «GeheimWissenschaft» erschienen war, da machte sich ein vielgenannter Philosoph der Gegenwart über diese Geheimwissenschaft her. Nun, dieser Philosoph der Gegenwart las zunächst das Kapitel, wo von der Gliederung der menschlichen Natur in physischen Leib, ätherischen Leib, astralischen Leib, Ich und so weiter die Rede ist. Diese «GeheimWissenschaft» haben auch viele naive Menschen gelesen, die aber gesunden Menschenverstand haben. Die konnten sich dabei doch etwas vorstellen, weil
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 143
+
+---
+
+die Dinge immer mit dem gesunden Menschenverstand zu verfolgen sind, geradeso wie man ein Bild verstehen kann, auch wenn man kein Maler ist. Aber bei gar manchem, der in der Gegenwart eben ein vielgenannter Philosoph ist, hapert es wesentlich mehr mit dem Verstehen als bei dem naiven Menschenkind. Denn dieser vielgenannte Philosoph, der las nun: physischer Leib, Ätherleib, astralischer Leib, Ich - ja, merkwürdig, was soll ich daraus machen? Was ist das alles? Physischer Leib, selbstverständlich; Ätherleib - nun ja, das kann ja sein; was im physischen Leib dichte Materie ist, das kann ja feinere Materie sein, aber es ist doch Materie. Also ist das doch ein willkürlicher Trennungsstrich zwischen dem physischen Leib und dem Ätherleib. Astralleib - man weiß etwas, sagte sich dieser vielgenannte Philosoph, von einer Seele, aber Astralleib? In der Seele ist Denken, Fühlen und Wollen. Das sind Funktionen des physischen Leibes. Hat man den physischen Leib begriffen, so hat man ja auch Denken, Fühlen und Wollen damit erfaßt. Und Ich - das ist ja nur die Zusammenfassung von alledem.
+
+Und nun, sehen Sie, wie formulierte sich jetzt der kritische Gedanke dieses vielgenannten Philosophen? So formierte er sich: Er betrachtete dasjenige, was er da in der «GeheimWissenschaft» vor sich hatte, so wie man ungefähr auch einen Sessel betrachtet, und er sagte sich: Man kann ja auch den Sessel einteilen in die Beine, in den Sitz und in die Lehne, erster, zweiter, dritter Teil. So, glaubte er, kann ich nun auch den Menschen einteilen, wie man einen Sessel einteilt. Nun, da fand er: Das ist ja ganz schon zur Übersicht des Menschen, aber damit ist ja nichts besonders Neues gesagt - weil er eben meinte, wenn man den Menschen in diese vier Glieder einteile, dann sei es so, wie man einen Sessel einteilt.
+
+Sehen Sie, in der Naturforschung ginge ja die Sache
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 144
+
+---
+
+schon besser. Da könnte man nicht mehr so von bloßen Einteilungen sprechen. Denn wenn man Wasser hat, so zerlegt der Chemiker dieses Wasser in Wasserstoff und Sauerstoff, H2O; der Naturforscher wird es nicht gelten lassen, daß man das Wasser bloß abstrakt in zwei Teile einteilt, in Wasserstoff und Sauerstoff. Das kann er nicht gelten lassen, denn er weiß, der Wasserstoff braucht nicht bloß an den Sauerstoff gebunden zu sein, wie im Wasser, sondern er kann an etwas ganz anderes, zum Beispiel wie in der Salzsäure, an das Chlor gebunden sein. Also der Wasserstoff, der im Wasser ist, ist nicht nur ein Stückchen, ein Teil von dem Wasser, sondern, wenn er aus dem Wasser heraußen ist, kann er ganz andere Verbindungen eingehen. Und wiederum der Sauerstoff, wenn er aus dem Wasser heraußen ist, kann ganz andere Verbindungen eingehen, kann an ganz andere Stoffe gebunden sein, zum Beispiel an das Kalzium im Kalk. Also, es kann der Wasserstoff fortgehen und mit Chlor zusammen Salzsäure werden, der Sauerstoff kann fortgehen, mit dem Kalzium zusammen Kalk werden. Da geht es nicht, daß man sagt, du hast das Wasser bloß abstrakt einzuteilen wie einen Sessel.
+
+Mit dem Menschen steht man auf einer noch höheren Stufe. Da hat man es nicht mit einer bloßen Einteilung zu tun, mit physischem Leib, Ätherleib, Astralleib und Ich, sondern da muß man sagen: Dasjenige, was des Menschen physischer Leib ist, das gehört zur Erde. Und wenn der Mensch durch die Pforte des Todes geht und zurückläßt seinen physischen Leichnam, dann geht der physische Leib zur Erde, der Ätherleib aber steigt zum Äther auf. Der astralische Leib aber geht von beiden weg in diejenigen Welten, wo die zweite Hierarchie drinnen ist. Und das Ich gehört wieder einer anderen Welt an, der Welt, in der die erste Hierarchie drinnen ist. Diese vier Glieder sind nicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 145
+
+---
+
+Einteilungsglieder, diese vier Glieder gehören ganz verschiedenen Sphären des Weltenalls an. Mit der Einteilung ist zugleich auf das Wesen des Menschen hingewiesen. Da ist das auf einer weit höheren Stufe vorhanden, als dasjenige, was man schon auf dem Wege vom Sessel zum Wasser suchen muß.
+
+Aber da ist nun natürlich innerhalb unserer gegenwärtigen Geistesentwicklung wiederum ein bedeutsames Hemmnis geschaffen, denn der vielgenannte Philosoph könnte lernen, schon bei der Chemie, daß man nicht immer nur von abstrakten Einteilungen zu reden hat, daß man das wohl beim Sessel tun kann, nicht aber beim Wasser. Aber die Philosophie des sogenannten Philosophen reichte eben nicht vom Sessel bis zum Wasser. Sie reichte nicht von der Auffassung der Lebenstrivialitäten, die nur in abstrakte Begriffe gebracht werden, bis in die Naturwissenschaft hinein. Und die Naturwissenschaft auf der anderen Seite reicht wiederum nicht in die Philosophie herein. So daß der Chemiker heute überhaupt nicht nachdenkt über solche Dinge.
+
+Also in der Philosophie, die man von diesem Gesichtspunkte aus auch eine Sessel-Lehre nennen könnte, in dieser Philosophie herrscht noch nicht naturwissenschaftliches Denken. In der Chemie, in der Naturwissenschaft, da herrscht wiederum keine Philosophie. So sind die Bedingungen gar nicht vorhanden, gerade innerhalb der Gelehrtenwelt nicht vorhanden, um an die tiefere innere Wahrheit des Universums in seinem Zusammenhange mit dem Menschen heranzukommen.
+
+Jener Mann, der sich kritisch so an die Sache herangemacht hat, hat mir ja auch den Aufsatz zunächst im Manuskript geschickt. Aber was soll man denn anfangen mit so etwas? Man kann mit so jemandem ja nicht diskutieren;
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 146
+
+---
+
+ihm fehlen ja die allerersten Vorbedingungen. Ich habe ihn liegen lassen, den Aufsatz. Dann habe ich ihn wiedergefunden, eben gedruckt mit all den Fehlern, mit all dem Unsinn eigentlich, der da in dieser Sessel-Philosophie enthalten war. Das sind eben solche Schicksals-Tücken der Anthroposophie auf ihrem Wege. Und gesehen werden muß, wie die Lage ist zwischen der Anthroposophie und dem, was oftmals kritisch sich über sie hermacht. Es ist gerade auf dieser Seite zunächst nicht die geringste Möglichkeit des Verstehens vorhanden.
+
+Und dieser, unter Philosophen heute vielgenannte Philosoph, gibt sogar gewisse Dinge zu, die so mehr an die gewöhnlichen Vorstellungen der heutigen Zivilisation erinnern. So zum Beispiel gibt er zu, daß es einstmals eine Atlantis gegeben hat, einen Kontinent zwischen Europa und Amerika, und daß da die alten Atlantier, daß da eine Vormenschheit gelebt hat. Nun findet sich in jenem Aufsatze von ihm die Hypothese - nicht genau mit denselben Worten ausgedrückt -: Wie kommt denn jemand dazu, heute noch, wo es nun doch eine ordentliche Physiologie, eine ordentliche Psychologie gibt, den Menschen so einzuteilen? - Natürlich teilt man ihn in der Anthroposophie nicht wie einen Sessel ein, aber er glaubt das. Das entstand für diesen in seiner Art ja ganz gewissenhaften Philosophen als eine Rätselfrage: Wie kommt einer dazu, solch eine Einteilung zu machen? Das ist ja etwas so Primitives gegenüber dem, was der heutige Philosoph hat! - Nun, der heutige Philosoph hat zwar nicht gerade besonders viel vom Gesichtspunkt der Wahrheit, aber er denkt, er habe ganz besonders viel. Ich habe vor zwei Tagen den verehrten Besuchern des Lehrerkurses einmal vorgeführt, wie man eigentlich das, was heute als sogenannte Psychoanalyse auftritt, aufzufassen hat.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 147
+
+---
+
+Diese Psychoanalyse, ich möchte das auch hier wiederholen, hat nämlich das Eigentümliche, daß sie auf der einen Seite aus einer dilettantischen Physiologie hervorgeht, die nicht bis zum Geiste in der Seele heraufkommt, die unten stehenbleibt beim Leibe, und auf der andern Seite wiederum ausgeht von einer dilettantischen Psychologie. Die zwei kommen nicht zusammen. Und dadurch werden groteske Beziehungen aufgesucht zwischen dem, was man an Dilettantismus versucht in der Psychologie und dem, was man an Dilettantismus versucht in der Physiologie. Und der Dilettantismus ist ungeheuer groß und in beiden Fällen gleich groß. Der psychologische Dilettantismus ist bei den Psychiatern selbst ebenso groß wie der physiologische Dilettantismus; wenn aber beide Größen gleich groß sind und zusammenarbeiten, so multipliziert es sich miteinander. Das ist der Dilettantismus im Quadrat, nach einer sehr einfachen Rechnung. So daß eigentlich die Psychoanalyse für eine wirkliche Anschauung eben der Dilettantismus im Quadrat ist, weil sie aus der Multiplikation des Dilettantismus mit Dilettantismus entsteht.
+
+Da war für diesen vielgenannten Philosophen die Sache so: Er konnte sich nicht erklären, wie jemand heute dazu kommt, in so primitiver Weise, wie man einen Stuhl einteilt in drei Glieder, den Menschen in vier Glieder einzuteilen. Das konnte er sich nicht erklären. Daher stellte er die Hypothese auf, ich sei ein wiederauferstandener Atlantier. Das ist eigentlich ganz geistreich vom Standpunkte der Stuhl-Philosophie.
+
+All diese Dinge aber weisen darauf hin, daß man eben tatsächlich, will man zur wahrhaftigen Anthroposophie herankommen, sich schon entschließen muß, einiges zu überwinden. Und zu dem, was zu überwinden ist, gehört zum Beispiel das Folgende: Man lernt das Seelische, das Geistige
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 148
+
+---
+
+direkt erkennen und kann dann vom Seelischen und Geistigen außerhalb des Physischen sprechen. Man spricht nicht vom Seelischen und Geistigen durch irgendwelche Schlußfolgerungen, sondern man spricht vom Seelischen und Geistigen, weil man es eben in seiner Realität betrachtet. Heute kommen dann Leute, die schon nicht mehr anders können, als das Seelische als ein inneres Bedürfnis irgendwie zuzulassen. Aber sie sagen dann, man muß aus den Wirkungen des Physischen das Seelische erschließen.
+
+Ich sagte ja, daß für manchen von den «erleuchteten» Anthroposophen das eine Wiederholung sein wird. Also es wiederholt sich so manches, was Sie schon wissen. Zum Beispiel, daß es heute naturphilosophierende Philosophen oder philosophierende Naturhistoriker gibt, die sagen: Da gibt es eine Pflanze, die Venusfliegenfalle. Sie hat eigentümlich gestaltete Blätter und Blüten. Wenn ein Insekt in die Nähe kommt, dann schließt sie sich. Die Venusfliegenfalle fängt dieses Insekt ab und zehrt es auf. - Ja, wenn man aus solchem äußerlichen Verhalten die Seele erschließen will, sagen will, die Pflanze habe auch eine Seele, dann kann ich Ihnen etwas nennen, was dann auch eine Seele haben muß. Das ist ein gewisses, sogar von Menschen zusammengestelltes Instrument. Man gibt etwas angeräucherten Speck hinein, und es hat eine Klappe daran, die zufällt, wenn eine Maus kommt, die durch den Speck angezogen wird und sich in dieses Instrument hineinbegibt. Wenn die Klappe zufällt, so ist es ganz dasselbe, wie bei der Venusfliegenfalle, bei der Pflanze. Man kann genau ebenso auf die Seele der Mausefalle schließen, wie jener Literatur-Naturphilosoph auf die Seele der Pflanzen schließt. Aus solchen Äußerlichkeiten lassen sich eben die Dinge durchaus nicht herleiten.
+
+Nun muß man sich aber klar sein darüber, daß hier
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 149
+
+---
+
+etwas vorliegt, was überhaupt hinausgeht über die Vorstellungen vom gewöhnlichen Beweisen oder Widerlegen, die die Leute zumeist haben. Denn sehen Sie, lernt man von diesem wahren Gesichtspunkte aus den Menschen kennen, so erfährt man dasjenige, was als physische Natur sich äußert im Menschen; das wird im Erdenleben ein vollständiger Abdruck dessen, was der Mensch als geistiges Wesen ist. Und Sie können ebenso wahr, wie Sie im Siegellack das Eingravierte des Petschafts haben, im physischen Leib des Menschen überall den Abdruck finden von dem, was der Mensch geistig-seelisch ist. Was der Mensch geistig-seelisch ist, Sie können es überall nachweisen in den Windungen des Gehirnes. Und wenn Sie also sich stumpf machen wollen gegen die geistige Welt, so können Sie sagen: es ist ja alles im Physischen enthalten. Man kann, wenn man will, durchaus Materialist sein. Es fehlt einem gar nichts beim Menschen von der Natur. Man muß eben nicht nur pochen auf Beweise oder Widerlegungen nach gewöhnlichem Zuschnitt, wie sie in der Welt sonst gesucht werden, sondern man muß sich klar sein, daß man den Zug hin haben muß zum Geiste, daß man das Geistige als etwas Selbstständiges erkennen muß. Dann wird man nicht leugnen, daß es ein Petschaft gibt, weil es den Abdruck im Siegellack gibt. Der Materialist sagt: Petschaft gibt's nicht, das ist alles aus dem Siegellack heraus geworden. So kann er beweisen, daß ja im Petschaft auch nichts anderes ist: da steht Josef Müller, der steht im Siegellack; der ganze Mensch ist im Siegellack drinnen.
+
+Man kann Materialist sein, wenn man keine Möglichkeit hat, aus den Kräften der Seele, in der Selbsterfassung des Geistig-Seelischen, den Ausgangspunkt für den Weg zu finden ins Geistig-Seelische, ins Urbild hinein. Mit den groben Beweisen ist es ja nicht getan, denn Sie können den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 150
+
+---
+
+Materialismus beweisen, wenn Sie eben mit Ihren Beweisen in der physischen Welt bleiben. Das ist es, um was es sich handelt. Es muß eine innere menschliche Tat sein, sich vom Physischen in das Geistige hineinzufinden, nicht ein abstraktes Beweisen. Zur wahren Anthroposophie kommt man eben durch eine innere menschliche Tat, die aktiv das Erkennen weiterführt. Und alle Beweise-Plänkelei nützt nichts, denn bei dem, der mit seinen Beweisen in der physisch-sinnlichen Welt stehenbleibt, klappen alle Beweise zusammen, und Sie können einem Menschen, der eben nicht aus der Urkraft des menschlichen Eigenlebens heraus den Anfang des Weges in die geistige Welt findet, seine Beweise gar nicht widerlegen.
+
+Diesen Tatbestand muß man einsehen. Man muß einsehen, daß es in den Menschen Freiheit gegeben ist, vom Physischen in das Geistige sich zu erheben, daß es nicht eine Tat der unfreien Beweise ist, sondern eine Tat des inneren menschlichen bewußten Erlebens, dieses Aufsteigen zu den geistigen Welten. Und wenn man das wirklich innerlich erfüllt, dann erst hat man das, was man braucht, um in der richtigen Weise die Stellung der Anthroposophie zu den bloß physischen Erkenntnisarten zu durchschauen.
+
+Das aber ist unserer Zeit so sehr notwendig. Wir können nicht von einer Philosophie, die mit Bezug auf ihre Analyse bloß anwendbar ist auf Stühle, verlangen, daß sie dasjenige, was menschenwürdig ist, wirklich begreift; sie kann nur begreifen, was sesswürdig ist. Die Menschheit braucht aber heute das, was den Menschen zum Menschen selbst hinführt, nicht bloß zu seinem Abdruck. In der Anschauung bietet der Abdruck alles, was im Urbilde in der geistigen Wesenheit drinnen ist, im Erleben aber nicht. Denn im Erleben muß der Mensch sich als geistseelisches Wesen finden. Dann findet er auch die Welt als geistseelisches We
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 151
+
+---
+
+sen. Daher ist im Grunde genommen aller Erkenntnisweg damit verbunden, daß man sich selber als das Bild des wahren Menschen erkennt.
+
+Steigt man in der Erhöhung der Liebe so weit in der Erkenntnis auf, daß einem zunächst das eigene Ich wie ein Fremdes erscheint und man es erst wiedererkennt, und steigt man so auf, daß man die Erdenwelt in der Umwelt wiedererkennt, dann steht man nicht bloß in einem abstrakten Erkenntnisprozeß drinnen, sondern in einem lebendigen Erkenntnisprozeß.
+
+Und in diesem lebendigen Erkenntnisprozeß ist es, daß sich die Welt dem Menschen durch sein eigenes Wesen offenbart und daß sich das eigene Wesen des Menschen in dem Erleben der Welt draußen offenbart. Da wird wirklich der Mensch ein Wesen, das sich wiederfindet im ganzen Universum, denn, sich erkennend, lernt er die Welt erkennen, und die Welt erkennend, lernt er sich erkennen. Und im Wechselverhältnis zwischen Welt und Mensch enthüllt sich dasjenige, was dann den Menschen verbindet mit dem Göttlich-Geistigen, was den Menschen innerlich durchglüht mit der religiösen Stimmung aller wirklichen höheren Erkenntnis. Und wenn so sich abrundet zuletzt das ernste Erkennen in dem religiösen Erleben, dann wird der Glanz des Religiösen dem Erkennen verliehen, und dann wird die Durchsichtigkeit des Erkennens hinaufgehoben in das Gebiet, wo der Glaube zum Wissen wird durch seine eigene innere Erkenntniskraft. Es wird gefunden die Welt im Menschen, der Mensch in der Welt, durch den erkennenden Gang durch die Welt.
+
+Da wird Welt und Mensch zu dem einen allumfassenden kosmischen geistig-göttlichen Wesen vereinigt, in dem dann der Mensch sich und die Welt findet und dadurch erst aufsteigt zu seiner wirklichen wahren Menschenwürde, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 152
+
+---
+
+dann auch in sein religiöses, in sein sittliches Ethos wahrhaft übergehen kann und ihn zum vollen Menschen macht.
+
+In der Ätherwelt durch das lebendige Denken: Berührung.
+In der Astralwelt durch das tiefe Schweigen: Sprache.
+In der Geistwelt: Wiedererkennen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 153
+
+---
+
+# DIE SEELENEWIGKEIT IM LICHTE DER ANTHROPOSOPHIE
+
+Prag, 27. April 1923
+
+Vom Gesichtspunkte der Anthroposophie sprechen, heißt heute noch in ganz begreiflicher Weise eine große Gegnerschaft haben, denn Anthroposophie will über Dinge des Lebens und der Wirklichkeit in einer Weise sprechen, wie es in unserer Zeit vielen als etwas ganz Absonderliches erscheint. Und insbesondere, wenn über ein Thema gesprochen wird, wie dasjenige, das für den heutigen Abend bestimmt worden ist, die Seelenunsterblichkeit, dann erheben sich ja sogleich gerade aus den mehr wissenschaftlich gebildeten Kreisen unserer Gegenwart heraus ganz gewichtige Stimmen, die da vermeinen, daß überhaupt vom Gesichtspunkte der Erkenntnis aus über solche Dinge gar nicht gesprochen werden könne, weil diese Dinge überlassen werden müßten den Glaubensvorstellungen, den Offenbarungen des ja nicht auf unmittelbarer Erkenntnis beruhenden menschlichen Fühlens, und weil in bezug auf sie nun einmal dem Menschen unübersteigbare Schranken seines Erkennens gesetzt seien.
+
+Nun vermeint aber Anthroposophie, gerade über solche Dinge des Lebens sprechen zu können ganz in der Art, wie heute mit strengen Methoden und mit einer sich ihrer Verantwortlichkeit bewußt seienden Disziplin vom Gesichtspunkte der Naturwissenschaften aus gesprochen wird. Nur handelt es sich darum, daß Anthroposophie sich richten muß an Erkenntniskräfte, die zwar durchaus im gewöhnlichen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 154
+
+---
+
+Leben und in der gewöhnlichen Wissenschaft vorhanden sind, aber vorhanden sind nur für die Ausgangspunkte ihrer Entwicklung, nicht aber für die weiteren Schritte. Und diese weiteren Schritte müssen gemacht werden, um gerade vom Gesichtspunkte einer wirklichen Erkenntnis aus, nicht von dem einer nebulosen Mystik, in die geistigen Gebiete des Lebens einzudringen. Der Ausgangspunkt muß dabei sein, was ich nennen möchte eine Vereinigung intellektueller Bescheidenheit auf der einen Seite und dem unbedingten Vertrauen in die Vervollkommnung der menschlichen Erkenntniskräfte auf der anderen Seite. In dem Anthroposophie zu einer Vereinigung dieser beiden Seelenimpulse führen will, kommt sie eben dazu, mit derselben Sicherheit über das sogenannte übersinnliche Gebiet etwas erforschen zu können, wie mit Hilfe der Sinne und der Naturwissenschaften heute mit so großem Glück und so sicherem Erfolg in das Gebiet der Sinnenwelt, des physischen Daseins, eingedrungen wird.
+
+Was soll nun in diesem Zusammenhange intellektuelle Bescheidenheit genannt werden? Wir wissen ja, wir sind ausgegangen innerhalb unseres Seelenlebens von der kindlichen Seelenverfassung. Wir können ganz gut diese kindliche Seelenverfassung vergleichen mit einem Träumen, ja sogar in gewisser Beziehung mit einem Schlafe. Und ebenso, wie wir jeden Morgen erwachen aus dem gewöhnlichen Schlafe, so sind wir erwacht aus unserer kindlichen Seelenverfassung zu demjenigen, was uns Erkenntnisfähigkeit für die Wissenschaft und für die Zwecke des praktischen Lebens ist. Wenn man sich nun auf den Standpunkt intellektueller Bescheidenheit stellt, so sagt man sich: Diejenigen Kräfte, die du damals als kleines Kind gehabt hast, die hast du durch Erziehung und durch den Einfluß des Lebens und der Umgebung vervollkommnet, und du hast dich her-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 155
+
+---
+
+anentwickelt zu demjenigen Gesichtspunkte, von dem aus du heute deine Erkenntnisse und deine Impulse für das menschliche Leben gewinnst. Man sagt das mit voller Intensität nicht ohne intellektuelle Bescheidenheit. Man sagt viel mehr: Von dem Gesichtspunkt, den ich mir einmal errungen habe, muß ich, wenn ich nur die richtigen, heute üblichen Methoden anwende, über alles Mögliche ein Ja und ein Nein sagen können. Ich muß auch entscheiden können darüber, was erkennbar ist und was in das Gebiet der bloßen Glaubensvorstellung zu versetzen ist. - Dem tritt Anthroposophie gegenüber, indem sie geltend macht, daß ja vielleicht über das, was man sich an Seelenkräften als erwachsener Mensch errungen hat, ebenso hinausgeschritten werden könne, wie über die Erkenntnisfähigkeiten der träumerischen Seelenverfassung des kleinen Kindes. Natürlich kommt es ganz darauf an, ob ein solches Hinausschreiten wirklich gelingt, und von diesem Hinausschreiten möchte ich zu Ihnen heute abend mit Bezug auf das Gebiet der Seelenunsterblichkeit sprechen.
+
+Andererseits hat aber Anthroposophie ein volles intensives Vertrauen eben dazu, daß die jeweilig vom Menschen errungenen Erkenntniskräfte immer mehr und mehr vervollkommnet werden können. Dadurch wagt sie sich auf einen solchen Weg der Vervollkommnung, und sie sagt zunächst etwa das Folgende: Wir haben nun einmal heute durch die großartigen Erfolge der Naturwissenschaften zunächst einen gewissen Erkenntnisbegriff" errungen. Ist aber dieser Erkenntnisbegriff wirklich aus den vollen Tiefen des Lebens herausgenommen? Er ist gewiß berechtigt für alles dasjenige, was man für sein Gebiet anstrebt. Aber ist er aus den vollen Tiefen des Lebens herausgenommen, indem man gerade diejenigen Fragen des Menschendaseins betrachtet, die zusammenhängen erstens mit den tiefsten
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 156
+
+---
+
+Sehnsuchten des menschlichen Lebens, zweitens aber mit all demjenigen, was der Mensch das Bewußtsein seiner Menschenwürde nennt, drittens mit all demjenigen, woraus er herleitet, was den eigentlichen Sinn des Lebens bedeutet: die moralischen Impulse?
+
+Das alles führt dennoch dahin, zu Hilfe zu nehmen auch gewisse Grenzgebiete und Grenzerscheinungen des Lebens, wenn es sich darum handelt, gerade über diese intimsten Bedürfnisse und Fragen namentlich des Seelendaseins Aufschlüsse zu gewinnen.
+
+Nicht um etwa damit irgend etwas für die Erkenntnis Gültiges von vornherein sagen zu wollen, sondern um einen vergleichsweisen Ausgang zu gewinnen, lassen Sie mich auf etwas hinweisen, das sich als ein dunkles Gebiet und dennoch als ein viele Rätsel herausforderndes Gebiet ins Leben hereinstellt. Es ist das Gebiet, das ja der Mensch gut kennt, das Gebiet des Träumens, wie es der Mensch schlafend erlebt. Ich möchte ausdrücklich betonen: Nichts soll für die Erkenntnis ausgemacht werden dadurch, daß ich den Traum und den Schlaf anführe, sondern nur ein Ausgangspunkt soll gewonnen werden zu unserer heutigen Verständigung. Stellen wir uns einmal vor die Seele diese mannigfaltigen und bunten Bilderwelten, die uns der Traum vorgaukelt. Wir können gewiß sein, sie kommen aus denselben Tiefen des menschlichen Lebens, aus denen sonst unsere Tagesvorstellungen heraufkommen. Allein wir sind uns auch während des Wachens durchaus bewußt, daß wir es bei dieser so außerordentlich interessanten Traumwelt höchstens mit einer relativen Wirklichkeit zu tun haben, die wir nur verstehen können, wenn wir sie vom Gesichtspunkte des wachen Lebens heraus auffassen. Man kann sich ja immerhin zunächst hypothetisch vorstellen, der Mensch träume das ganze Leben hindurch, er hätte niemals in seinem Bewußt-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 157
+
+---
+
+sein etwas anderes als die bunten, mannigfaltigen Traumbilder erlebt. Könnte da nicht das Leben trotzdem in derselben Weise verlaufen, wie es heute verläuft? Wir könnten durch gewisse Naturmächte oder Geistesmächte, ohne daß wir ein waches Bewußtsein hätten, zu unserer täglichen Arbeit und - wenn es auch einigen Hörern tadelnswert erscheinen mag — vielleicht sogar zur wissenschaftlichen Tätigkeit getrieben werden; wir könnten diese unsere Tätigkeit gewissermaßen schlafwandelnd verrichten. In uns selbst aber könnte nichts ablaufen als dasjenige, was wir als Traumwelt kennen; es würde dann die Außenwelt sich vollständig unterscheiden von dem, was wir im innerlichen Bewußtsein haben.
+
+Wenn man sich das recht überlegt, so kommt man darauf, sich zu sagen: Diese Welt des Traumes, wir kennen sie ja niemals, wenn wir in ihr selber sind. Als eben unsere Wirklichkeit würden wir die Traumwelt ansehen, die wir von unserem Lebensanfang bis zum Lebensende in der geschilderten Weise bei unserer Tätigkeit träumen würden. Daß wir den untergeordneten Wirklichkeitswert des Traumes einsehen, hängt davon ab, daß wir den Lebensruck vom Schlaf zum Erwachen durchmachen, daß wir uns dessen - ich spreche jetzt nicht in philosophischer Erwägung, sondern vom Standpunkte des populären Bewußtseins aus - durch diesen Lebensruck bewußt werden. Wir schalten durch ihn dasjenige, was unser Menschenwesen ist, namentlich dasjenige, was willensartiger Natur ist, in unseren physischen Leib ein. Wer genau zusieht, weiß auch, daß alles das, was uns im wachen Leben durch die Sinne vermittelt wird, durchaus auf der Entfaltung des wirklichen Lebens in dem physischen Leibe während des Wachens beruht. Durch diese Einschaltung unseres Willens in den physischen Leib kommen wir zu dem Gesichtspunkte, von dem aus wir
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 158
+
+---
+
+den untergeordneten Wirklichkeitswert des Träumens unterscheiden von jenem Wirklichkeitswert, den die Sinnenwelt für unser erwachendes Bewußtsein hat. Wir wissen nunmehr, wie stehen durch den in unseren Leib eingeschalteten Willen mit einer äußeren Wirklichkeit in Verbindung. Ich will wiederum darüber nicht in philosophischen Erwägungen, sondern ganz vom Standpunkt des populären Bewußtseins aus sprechen.
+
+Nun entsteht die Frage: Könnte es vielleicht aus diesem gewöhnlichen Tagwachen heraus auf einer höheren Stufe ein zweites Erwachen, einen zweiten Lebensruck geben, durch den wir unsere Lebenskräfte in ein neues Element einschalten, wie wir unseren Willen einschalten, wenn wir aus dem Träumen heraus ins gewöhnliche Wachsein kommen? - Natürlich ist das nur eine Frage, und ihre Beantwortung hängt ganz und gar davon ab, ob man sich auf einen Weg begeben kann, der erstens innerlich sicher ist und zweitens von jedem Menschen durch eigene Anstrengung gegangen werden kann. Kamen wir zu einem solchen zweiten Erwachen, dann würden wir ja durch dieses zweite Erwachen einen Gesichtspunkt gewinnen, durch den wir den Wirklichkeitswert unseres wachen Lebens, von einer höheren Warte aus beobachtend, erkennen, wie wir ihn beim Traum von der höheren Warte des gewöhnlichen Bewußtseins beobachten.
+
+Anthroposophie wendet sich nun zunächst, um es zu einem zweiten Erwachen zu bringen, an Seelenkräfte, wie sie nun einmal im gewöhnlichen Leben vorhanden sind, aber die doch durch die gewöhnliche Natur, die sie haben, schon andeuten, daß sie einer Entwicklung fähig sind. Nun wird ja selbst schon von Philosophen zugegeben, daß, was wir menschliches Erinnerungsvermögen, Gedächtnis nennen, hinweist auf eine, ich möchte sagen, mehr geistige Na-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 159
+
+---
+
+tur des menschlichen Seelenwesens; daß wir das Gedächtnis nicht so behandeln können, wie wir diejenigen Seelenfähigkeiten behandeln, die unmittelbar an die Eindrücke der äußeren Sinnenwelt gebunden sind. Halten wir uns wieder nicht an philosophische Erwägungen, sondern, so wie wir es im gewöhnlichen Bewußtsein halten, an das, was als Erinnerung im Menschen eine Rolle spielt. Durch die Erinnerung können wir Bilder heraufrufen von Erlebnissen, die wir durchgemacht haben vor vielen Jahren. Je nachdem wir so oder so veranlagt sind, sind diese Bilder lebhafter oder schattenhafter, aber sie stehen eben vor uns. Wenn wir uns dem gewöhnlichen Sinnenbeobachten hingeben, muß dasjenige, was wir vorstellen, gegenwärtig sein; das, was die Erinnerung gibt, ist nicht gegenwärtig, es kann lange vergangen sein. Wir zaubern gewissermaßen durch unsere vorstellende Kraft aus unserem eigenen Inneren vor unsere Seele etwas, was zwar einmal da war, was aber jetzt nicht mehr da ist, was kein gegenwärtiges Dasein haben kann. Dadurch gewinnen wir die Erkenntnis, daß wir in der Lage sind, aus dem menschlichen Innern Erkenntniskräfte hervorzutreiben, welche etwas nicht in der Gegenwart Vorhandenes vorstellen. Und die Frage entsteht: Kann vielleicht durch eine gewisse Weiterentwicklung der Seelenkräfte, wie wir sie entwickelt haben seit unserer ersten Kindheit, dasjenige, was unserer Erinnerungskraft zugrunde liegt, weiter entwickelt werden? Kann es so entwickelt werden, daß wir nicht nur dasjenige vorstellen, was gegenwärtig nicht da ist, aber einmal da war während unseres Erdenlebens, sondern daß wir etwas vorstellen, was überhaupt gar nicht da ist? Da würden wir den Lebensruck machen in eine höhere Wirklichkeit hinein, in eine Wirklichkeit, von der aus das gewöhnliche Erdenleben so erscheint, wie das träumende Leben gegenüber dem wachenden Bewußtsein.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 160
+
+---
+
+Einen solchen Versuch zur Entwicklung dessen, was der Erinnerungsfähigkeit zugrunde liegt, macht nun die Anthroposophie, um durch die innere Lebenspraxis zu jenem zweiten Erwachen zu kommen. Sie wendet sich dabei an die menschlichen Gedankenkräfte. Sie sind es ja, die in Vorstellungen dasjenige heraufzaubern, was wir einmal erlebt haben. Und die anthroposophische Forschung verfährt dabei so, daß sie mit dem Gedanken etwas unternimmt, was eigentlich im heutigen Zeitalter mit dem Denken nicht unternommen wird. Das heutige Denken ist - und zwar von gewissen Gesichtspunkten aus mit Recht - mehr darauf ausgehend, sich hinzugeben an die Außenwelt. Die Eindrücke der Außenwelt zunächst auf die Sinne wirken zu lassen, sie zu verarbeiten durch Zählen, Messen, Wagen, sie mit dem Denken zu kombinieren, ist ein passives Denken, ein Denken, das der Mensch für um so sicherer hält in bezug auf die Erkenntnis, je mehr es passiv ist, je mehr es sich hingibt dem, was die äußeren Sinne und Organe aussagen. Ja, um dadurch nicht eine phantastische Erkenntnis zu gewinnen wie manche Philosophen, wendet sich die Anthroposophie derart an das Denken, daß sie dieses Denken weiter zu entwickeln sucht, als wie es im gewöhnlichen Leben ist. Dazu werden leicht überschauliche Vorstellungen, bei denen man zunächst gar nicht darauf sieht, was sie bedeuten, in den Mittelpunkt des gewöhnlichen Bewußtseins gerückt und man konzentriert das ganze Seelenleben auf solche Vorstellungen. Man zieht das Seelenleben von äußeren Eindrücken und dem Außenleben ganz und gar ab, indem man immer mehr sucht, dieses Seelenleben stärker und stärker zu machen auf einer oder einer Reihe überschaubarer Vorstellungen. Dabei kommt etwas heraus, was bei dem einen kürzer, bei dem anderen länger - je nach seiner Seelenanlage - dauert. Der eine braucht drei Monate,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 161
+
+---
+
+der andere viele Jahre. Wiederholt man diese Übungen in rhythmischer Folge, so kommt man in einiger Zeit dazu, etwas an seinem Seelenleben zu bemerken, was ich vergleichen möchte mit etwas im äußeren Leben: Wenn man einen Muskel immer wieder anstrengt, so erkraftet er, wird dadurch stark. Ebenso fühlt man das Seelenvorstellungsvermögen erkraften, indem es sich immer auf eine leicht überschaubare Vorstellung konzentriert; und man fühlt zuletzt, wie das ganze Denken in Aktivität kommt, wie wirkliches Leben, im wahren Sinne inneres Leben in dieses Denken einzieht. Man fühlt allmählich den großen Unterschied, der nicht nur ein bildlicher, sondern ein realer ist, zwischen dem toten und abstrakten Denken und jenem, zu welchem wir hinstreben und welches wir aufnehmen wollen zu einem innerlichen Leben im denkerischen Elemente.
+
+Ich sagte, man muß von einer überschaubaren Vorstellung ausgehen. In dem, was ich Ihnen heute über die Übungen des Seelenlebens anführen werde, handelt es sich darum, daß jeder Schritt mit voller menschlicher Besonnenheit so verfolgt wird, wie sonst nur der Mathematiker seine Schritte verfolgt oder der Geometer, der sich bewußt ist, wenn er das eine aus dem anderen hervorholt, wie Figur an Figur sich schließt, wie Zahl auf Zahl folgt. Dieses Bewußtsein, welches der anthroposophische Forscher empfindet wie der strenge Mathematiker: Rechenschaft schuldig zu sein als Forscher - dieses Bewußtsein muß walten.
+
+Dabei müssen natürlich ausgeschlossen sein alle Selbstsuggestionen, alles irgendwie Subjektive. Das kann aber niemals ausgeschlossen werden, wenn wir uns beliebige Vorstellungen aus unserem Seelenleben heraufnehmen; die haben viele Anklänge an das Leben in sich, die suggerieren uns vielfach irgend etwas. Wenn wir uns aber Vorstellungen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 162
+
+---
+
+zusammenstellen, die vielleicht gar keine äußere Bedeutung für uns haben, wie «Licht — Weisheit» — und immer wieder auf eine solche Vorstellung, deren Wirklichkeitswert uns dabei gleichgültig bleibt, uns mit dem ganzen Seelenleben konzentrieren, so erstarkt die denkerische Fähigkeit in uns. Dadurch gelangen wir dazu – wie gesagt, bei dem einen dauert es kürzer, bei dem andern länger –, zu wissen, was das heißt: Leben im Denken; denn es findet in der Tat nach und nach eine Art Loslösung eines höheren Menschen statt von demjenigen Menschen, von dem wir wissen, er wohnt in unserem physischen Leibe. So wie wir uns in unserem physischen Leibe bewußt werden, es ist etwas Lebendes, wenn wir die Beine bewegen, die Hände bewegen, so werden wir uns durch eine solche Übung bewußt: Es ist etwas Wirkliches, Lebendes, Reales, Lebenswirkliches, wenn ich mich in dem erkrafteten Denken bewege.
+
+Man könnte grob sagen: Wir kommen endlich durch diese Krafterscheinungen, durch die man geistig tastet, wie man sonst mit seinen Fingern physisch tastet, dazu, einen höheren Menschen an uns zu erleben. Dadurch erfährt man nach und nach, wie man einen höheren Menschen, der in diesem Denken erlebt ist, losreißt vom physischen Menschen; und man ist beim übersinnlichen Erlebnis angekommen, beim Erlebnis des übersinnlichen Menschen, insofern er zwischen Geburt und Tod durchs Erdenleben geht. Dadurch, daß man sich da in der innerlichen Denkfähigkeit zur Beobachtung aufgeschwungen hat, kommt man dazu, daß man durch jene Denkfähigkeit den Raum überwindet, die Gegenwart überhaupt überwindet und zu einem Erleben in der Zeit kommt. Ja, man fühlt dasjenige, was man als den zweiten, losgelösten Menschen erlebt, nicht eigentlich als Raumesmenschen. Der ist der physische Mensch. Man findet, daß man den zweiten so erlebt als einen nur
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 163
+
+---
+
+in der Zeit fluktuierenden Menschen. Und dasjenige, was man da erlebt, gliedert sich zu einer Art Tableau zusammen, das in verhältnismäßig sehr kurzer Zeit einen überschauen läßt das Erdenleben von allererster Kindheit bis zu dem Zeitpunkt, den man eben erreicht hat.
+
+Es ist ein großer Unterschied zwischen den zwei Dingen: dem Lebenstableau und meinen Erinnerungen. Man könnte sagen: Ich kann mir ja auch dieses Erdenleben zusammenstellen aus meinen Erinnerungen. Ich kann mir aus meinem Gedächtnis zusammenstellen, was ich erlebt habe vor kürzerer oder längerer Zeit. Und wenn ich mir die Mühe gebe und wenn ich mir Zeit lasse, dann werde ich ein Gesamterinnerungsbild meines Erdenlebens haben. Und es könnte sein, daß ich mich darüber selbst täusche, daß ich bei einer solchen Überprüfung in meinem Lebenstableau, das überschaubar ist in kurzer Zeit, etwas habe, was mit Hilfe unterbewußter Seelenkräfte mir etwas ähnliches wie ein bewußtes Erinnerungsbild vor meinen Geist brächte. - Aber man bemerkt nach und nach, daß ein großer Unterschied ist zwischen dem, was man im Gedächtnis zusammenstellt, und einem solchen Seelenlebenstableau, das als eine erste übersinnliche Erkenntnis, zunächst als eine Selbsterkenntnis vor der Seele dasteht. Denn wenn man sich als Erinnerungsbild die Erlebnisse zusammenstellt, dann sieht man eigentlich immer dasjenige vor sich, was von außen auf einen gewirkt hat. Man sieht Menschen, Naturereignisse, die äußeren Dinge, die für einen Interesse haben.
+
+Bei diesem Lebenstableau ist es ganz anders. Da hat man sozusagen viel weniger im Auge dasjenige, was von außen an einen herangekommen ist, sondern man hat dasjenige im Auge, was von innen heraus gewirkt hat. Habe ich einen Menschen im Leben kennengelernt, so erinnere ich mich durch dieses Lebenstableau viel weniger daran, wie er mir
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 164
+
+---
+
+entgegengetreten ist, sondern welche Sehnsüchten in meiner eigenen Brust erregt worden sind, um gerade an diesem Menschen etwas Besonderes zu finden. Habe ich in diesem Lebenstableau irgendeine Naturerscheinung, so machen sich dabei nicht so sehr die interessanten Seiten der Naturerscheinung geltend, sondern diejenigen Impulse, die aus dem eigenen Menschenleben diese Naturerscheinung mit besonderer Sympathie oder Antipathie verfolgen. Dasjenige, was sich in diesem Tableau vor meine Seele hinstellt, das bin ich selbst, wie ich mich verhalten habe zu dem, was ich durchgemacht habe. Man könnte sagen, wenn man grobe Vergleiche ziehen will: Dieses Erinnerungstableau, das ich geschildert habe, das erst nach einer solchen Überprüfung erlangt werden kann, unterscheidet sich von einem gewöhnlichen, durch das Gedächtnis zustande gebrachten Erinnerungstableau so, wie der Eindruck im Petschaft vom Eindruck im Siegellack. Es ist wie das Negativbild zu dem Positivbild desjenigen, was wir durch das gewöhnliche Erinnerungsbild zusammenstellen können.
+
+So sind wir zunächst, wenn wir die erste Stufe des seelischen Übens durchgemacht haben, zu einer wahren Selbsterkenntnis unseres Erdenlebens gekommen. Denn eine solche Selbsterkenntnis ist da. Immer mischen sich Nuancen hinein. In diesem Erinnerungstableau sieht man, was einen vorwärts gebracht hat; dann sagt man sich: Da ist etwas, was dich unvollkommen gemacht, zurückgebracht hat. - Man stellt sich mit Menschenwert und Menschenwürde in dieses Erinnerungstableau, und man erlangt durch die erst geweckte Erkenntnis eine Vorstellung desjenigen, was man gegenüber der äußeren Wirklichkeit und den sinnlichen Kräften eigentlich erst jetzt berechtigt ist, den «Äther» der Welt zu nennen. Den Äther der Welt, der nur im Zeitlichen lebt und der uns in gewissem Maße ein Stück gibt zu dem,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 165
+
+---
+
+was ich jetzt als die erste Gestalt des vom physischen losgelösten höheren Menschen geschildert habe.
+
+Aber man hat nicht viel erlangt mit diesem ersten Schritte. Will man mehr, so muß man eben unternehmen, diese Seelenübungen fortzusetzen. Die nächsten Seelenübungen bestehen darin, daß man einen stark aktivierten inneren Willen aufwendet, um die Vorstellungen aus dem Bewußtsein wieder fortzuschaffen, wie man einen Willen aufgewendet hat, um solche Vorstellungen zur Kräftigung des Wesens ins Bewußtsein hineinzustellen und sich darauf zu konzentrieren. Wie gesagt, es muß volle Besonnenheit herrschen wie beim Mathematiker. Denn es muß gesagt werden: Wir werden in einer gewissen Weise hingenommen mit unserem ganzen Seelenleben von der Vorstellung, die bald in den Mittelpunkt des Bewußtseins rückt. Und namentlich dann, wenn das Denken schon so lebendig geworden ist, daß wir nur diese Vorstellung selbst im Bewußtsein haben, und daß nicht nur solche Vorstellungen da sind, sondern daß auftritt wie in mächtigen Bildern in dem geschilderten Tableau das eigene innere Erleben - da wird man stark hingenommen von dem, was man in einem solchen bis zur Lebendigkeit gesteigerten Bilde vor der Seele hat. Es ist eine höhere Kraft notwendig, um solche Vorstellungen wieder fortzuschaffen aus dem Bewußtsein, als notwendig ist, um gewöhnliche Vorstellungen aus dem Bewußtsein wegzubringen. Man weiß ja übrigens, was es heißt, gewöhnliche Vorstellungen aus dem Bewußtsein wegzubringen. Man versuche sich das ehrlich zu gestehen.
+
+Wenn die Sinne schweigen, überdies das sinnlich Wahrgenommene schweigt, wenn die Denkkombination schweigt und die Vorstellungen und Empfindungen gewissermaßen aus dem Bewußtsein fortgeschafft werden, dann schläft der Mensch ein. Wenn nicht die Anregung da ist durch das Vor-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 166
+
+---
+
+Stellungsvermögen, hat er nicht die Stärke, den wachenden Zustand aufrecht zu erhalten. Hat man aber jene Seelenstärke, die notwendig ist zu dem, was ich geschildert habe, dann hat man auch die Stärke, die erworbenen Vorstellungen, die auf diese Art durch ein inneres verstärktes Leben dann in uns hereinkommen, wiederum fortzuschaffen, das ganze Bewußtsein leer zu halten vom Vorstellen und dennoch wach zu bleiben. Nur wach sein, nichts vorstellen, das ist dasjenige, was als zweiter Zustand angestrebt werden muß: Inhaltleeres wachendes Bewußtsein! Aber dieses inhaltleere wachende Bewußtsein, man kann es innerlich gewahr werden, es bleibt aber nicht lange so. Hat man es jedoch einmal hergestellt, so tritt die zweite Stufe geistigen Erkennens ein. Dann wird man nicht nur gewahr das vorhin Geschilderte, das im Menschen lebt, dann drangt herein in dieses wache, inhaltsfreie Bewußtsein, in dieses leere Bewußtsein, der geistige Inhalt unserer Weltumgebung. Und der zweite Mensch, der sich erst losgelöst hat vom physischen, körperlichen Menschen, der seiner selbst bewußt war im Verlaufe seines ganzen Erdenlebens, der wird jetzt nicht nur seiner selbst bewußt sein, sondern er nimmt durch dieses höhere Selbstbewußtsein eine Geisteswelt seiner Umgebung auf.
+
+Wieder taucht vor unserer Seele etwas auf, was dem gegenwärtigen Menschen absonderlich und fremd erscheint, was aber doch in dem enthalten ist, was ich die zweite Stufe der geistigen Erkenntnis des Menschen, die Inspiration genannt habe. Eine exakte Inspiration tritt da auf; wie überhaupt alles dasjenige, was ich hier geschildert habe, nicht verwechselt werden darf mit dem, was man oft in einer nebulosen Mystik das sogenannte Hellsehen nennt. Will man diesen Ausdruck gebrauchen, so darf man nur sprechen von einer exakten Voyance, die nur beruht auf der Entwicklung der Seelenkräfte, so wie das mathematische Den-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+ken, das ja keine äußere Wirklichkeit in sich hat, sondern nur eine, welche innerlich geformt ist, und der nur das mathematische Denken hinzugefügt werden muß, wenn es sich auf die Sinneswelt erstreckt, wie beim Messen, Zählen, Wägen und so weiter.
+
+Diesem, was man sich in einem innerlich lebendigen Denken gedacht hat, das nachgebildet ist dem besonderen mathematischen Denken, diesem lebendigen Denken muß hinzugefügt werden, was ich Ihnen hier geschildert habe. Und man kommt durch diese geistige Arbeit so zu einer Erkenntnis, wie wir durch das Messen, Zählen und Wägen zu einer Erkenntnis gelangen. Und dasjenige, was eintritt, ist ein Zustand des Seelenlebens, den man im gewöhnlichen Bewußtsein nicht kennt, weil man ihn nicht nötig hat. Ich möchte klarmachen, welcher Zustand des Seelenlebens eintritt, wenn waches leeres Bewußtsein erreicht ist.
+
+Wir denken uns zunächst in einer modernen Weltstadt, mit allem ihrem Getöse, ihrem Lärm; wir kommen selbst nicht zur Ruhe, wir gehen selbst auf in diesem Lärm, in diesem Getöse. Dann entfernen wir uns von dieser Weltstadt das Getöse, der Lärm werden immer stiller; wenn wir uns noch weiter entfernen, noch stiller. Wir stellen uns vor, wir kommen in die Einsamkeit des Waldes. Da ist eine Stille erreicht, die wir gegenüber dem Getöse der Stadt mit Null bezeichnen können in bezug auf das Lautsein. Stille um uns, Stille in uns. Aber nun kann noch etwas anderes eintreten, obwohl es im gewöhnlichen Leben nicht beobachtet wird. Da müssen wir uns eines zweiten Vergleiches bedienen. Sie wissen ja, wenn jemand ein bestimmtes Vermögen hat, so kann dieses Vermögen nach und nach ausgegeben werden; er besitzt immer weniger und weniger. Wenn er nichts dazu verdient, wenn er weiter ausgibt, dann ist er heruntergekommen bis zu Null. Wenn er gar nichts mehr hat und er
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 168
+
+---
+
+noch weiter ausgibt, macht er Schulden; dann hat er weniger als Null. Die Mathematiker bezeichnen das mit negativen Größen, mit Minus. Nun stellen Sie sich vor: Wir sind heruntergestiegen von dem lauten Getöse, dem Lärm der Großstadt zur Stille Null und steigen weiter hinunter, und es wird stiller und ruhiger als Stille und Ruhe Null, so daß wir weniger um uns haben als bloß Stille, daß es stiller ist, ruhiger als ruhig. Das ist der Seelenzustand, der nach und nach eintritt, wenn wir hindurchgehen durch das leere aber doch wache Bewußtsein. Wir fühlen nach und nach ganz klar dasjenige, was ich nennen möchte: das tiefe Schweigen der menschlichen Seele. Dieses tiefe Schweigen ist nicht nur Ruhe, es ist mehr oder weniger, wie Sie wollen, als Ruhe. Es geht in bezug auf das Ruhigsein noch unter die Ruhe Null herunter. Dann aber tritt, wenn dieses tiefe Schweigen der Seele wirklich erlebt wird, alles dasjenige aus diesem tiefen Schweigen der Seele hervor, was um uns herum von geistiger Wesenheit ist. Und die volle Inspiration tritt ein.
+
+Dann werden wir in die Lage versetzt, wenn wir dieses tiefe Schweigen der Seele erlebt haben, tatsächlich auch jetzt geistig zu hören dasjenige, was in der geistigen Welt lebt. Und es wird die gewöhnliche sinnliche Welt für uns zum Mittel, um das anzudeuten, was in dieser geistigen Welt lebt. Ich möchte ganz konkret von wirklicher geistiger Erkenntnis sprechen. Es tönt aus dem tiefen Schweigen der Seele heraus etwas, was auf mich den Eindruck macht: es erregt mich, es geht mit einer gewissen Lebendigkeit auf mich los. Ich sage, das ist etwas, was auf mich den Eindruck macht, wie bei einem lebhaften Seelenleben die gelbe Farbe auf mich Eindruck macht. Dann habe ich in der Sinneswelt etwas, wodurch ich ausdrücken kann, was ich in der geistigen Welt erlebt habe. Ich bezeichne diese Erkenntnis, indem ich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 169
+
+---
+
+sage: Es wirkt auf mich wie die gelbe Farbe der Sinnes weit, oder wie der Ton c oder eis, wie Wärme oder Kälte. Kurz, es wird für mich dasjenige, was ich in der Sinnenwelt erlebt habe, ein Material, wie in gewöhnlichen Worten das zu beschreiben ist, was mir in der geistigen Welt erscheint. Die ganze Sinnenwelt wird so etwas wie eine Sprache, um das auszudrücken, was man in der geistigen Welt erlebt. Das verstehen diejenigen nicht, die allzuschnell vorankommen wollen und deshalb beim oberflächlichen Urteil stehenbleiben. Ein Erlebnis tritt dem Forscher entgegen, das den gleichen Eindruck auf ihn macht, wie die sinnliche Farbe, und deshalb bezeichnet er dasjenige, was er geistig erlebt, durch Farben, Töne und so weiter. Geradeso, wie jemand nicht verwechseln sollte das Wort «Tisch» mit dem wirklichen Tische, so sollte jetzt nicht verwechseln werden mit demjenigen, wodurch sie beschrieben wird, die geistige Welt selbst, die aus dem tiefen Schweigen ersprießt.
+
+Hat man diesen Standpunkt erreicht, so kommt man dazu, dieses ganze Lebenstableau, das man zuerst heraufgezaubert hat, in sich auszulöschen; nicht nur einzelnen Vorstellungen gegenüber leeres Bewußtsein hervorzurufen, sondern dem ganzen Erdenleben des Menschen gegenüber, und zwar gerade in seiner innerlichen Gestalt. Man löscht sich dann gewissermaßen selbst als Erdenmensch aus. Dadurch aber, daß man jetzt die Möglichkeit hat, nach dem Auslöschen des Erdenselbst, das an den physischen Leib des Menschen gebunden ist, das tiefe Schweigen der menschlichen Seele zu erleben, dadurch erlebt man nun dasjenige, was man als geistig-seelischer Mensch geworden ist, bevor man aus der Geisteswelt heruntergestiegen ist und den physischen Leib um sich herumgekleidet hat. Man erlebt aus dem tiefen Schweigen der Seele heraus das Geistig-Seelische, das man war im vorirdischen Dasein. Und ebenso, wie man
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 170
+
+---
+
+im physischen Leibe zu seiner physischen Umgebung gelangte, so gelangt man, indem man sich in dasjenige hereinversetzt, was man in der geistig-seelischen Welt war, dazu zu erkennen, wie man im vorirdischen Dasein in der Umgebung von geistig-seelischen Wesen war, selbst als ein seelisch-geistiges Wesen, als ein gleichartiges Wesen. Man gelangt vollständig anschauend in jene Geisteswelt hinein, aus der man herabgestiegen ist zum Erdendasein.
+
+Man kann gewahr werden, daß im gewöhnlichen Leben die Ewigkeit der Menschenseele nur nach der einen Seite hin erforscht wird, der Seelenunsterblichkeit. Aber diese Seelenunsterblichkeit hat eine andere Seite, für welche die ältere Sprache noch ein Wort hatte, doch nicht mehr die moderne Sprache. Diese Seelenewigkeit hat nicht nur die eine Seite, die der Unsterblichkeit, sondern auch die der Ungeborenheit, und erst aus der Ungeborenheit und Unsterblichkeit setzt sich die volle Seelenewigkeit zusammen. So gelangt man nicht durch metaphysische Spekulationen, sondern indem man die Seele selbst weckt, und aus dem tiefen Schweigen der Seele heraus zu dem, was ewig ist in der menschlichen Seele, ewig war und geistig dagewesen ist, bevor der Mensch heruntergestiegen ist zum irdischen Dasein, und ewig bleibt, indem es wohnt zwischen Geburt und Tod im physischen Menschenleibe.
+
+Aber nur stufenweise können wir uns dem Ewigkeitscharakter nähern auch durch anthroposophische Geistesforschung. Als die dritte Stufe muß ich etwas erwähnen, was insbesondere denen, die hier mit den gewohnten wissenschaftlichen Vorstellungen sitzen, vielleicht ein leichtes Gruseln verursacht, vielleicht einen innerlichen Hohn. Ich kann das sehr gut verstehen, wie überhaupt alle gegnerischen Einwendungen gegen Anthroposophie. Etwas, was man im gewöhnlichen Leben schon hat, kann weiter entwickelt wer-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 171
+
+---
+
+den zu einer höheren Erkenntniskraft, wie die Kräfte des Kindes zu dem, was wir im erwachsenen Zustande weiterentwickelt haben, und das ist die Kraft des Liebens. Lieben ist etwas ganz anderes, wenn es an den menschlichen Leib gebunden ist, wenn dieser sich den Leidenschaften hingibt, die sich im Lieben ausleben, als wenn es, nachdem so, wie ich es geschildert habe, das physische Ich, ja sogar das Erden-Ich von der Geburt bis zum Tod, abgestreift ist, wenn sich der Mensch hineinlebt aus dem physischen Dasein in den Zustand, in dem er rein Geistigem gegenübersteht. Wenn er dabei die Kräfte des Liebens, des völligen Hingegebenseins entwickelt, da gestaltet sich dasjenige, was er anschauend erkennend erlebte, was er im vorirdischen Zustande war, was er jetzt voll einsieht, um in der Erkenntnis. Er erfährt, was es heißt, außerhalb seines physischen Leibes mit Realität ein volles Bewußtsein zu erleben. Und wenn er dieses Hingegebensein an das geistige Erleben so erfährt, dann wird ihm sein Ich in einer neuen Weise zurückgegeben. Das Ich, welches im Erdenleben in Selbstsucht und Egoität lebt, welches überwunden wird, indem man solche Selbsterkenntnis erwirbt, wie sie erworben wird dann, wenn dieses Ich zweimal ausgelöscht ist, entwickelt so auf einer seelisch-geistigen Stufe das volle Lieben, und es tritt einem dann etwas entgegen, was zunächst einem erscheint wie ein völlig fremder Mensch, wie eine völlig fremde Persönlichkeit. Wenn man dies anstrebt, so kommt es am allerwenigsten. Anstreben soll man jene Liebe, die ich geschildert habe. Dann tritt, weil man ganz aus sich herausgehen kann, einem das entgegen, was man selbst ist, aber wie eine fremde Persönlichkeit, und man sieht dann erst ein, wie dieses Selbst war im vergangenen Erdenleben, das man durchgemacht hat, bevor man zu diesem Erdenleben gekommen ist; man sieht erst dann ein, wie das Ich vorhanden war
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 172
+
+---
+
+in früherer Daseinsstufe auf der Erde, wenn man in der Lage ist, durch erhöhte, erkraftete Liebe sich wie ein zweiter Mensch zu fühlen. Man sieht zurück bis zu einem gewissen Punkte der Zeitenentwickelung, wo das Ich als Ich einen Anfang genommen hat, wo die wiederholten Erdenleben einen Anfang genommen haben. Aber davon kann jetzt nicht gesprochen werden. Es kann nur davon gesprochen werden, daß auf eine Reihe von Erdenleben, die durchgemacht werden zum vollen Menschenleben, zurückgeblickt werden kann, zwischen denen immer Leben liegen in vor- oder nachirdischem Dasein zwischen Tod und einer neuen Erdengeburt.
+
+Das ist das eine, was man vom Ewigkeits- und Unsterblichkeitscharakter der Seele erlebt, wenn man sich zu dem erkennenden Anschauen durchgerungen hat. Das andere aber, was man erwirbt durch die zur Erkenntnis gesteigerte Liebe, ist, den höheren Menschen außerhalb seines physischen Leibes erleben zu können. Dasjenige, was man sich weiter erwirbt, ist, daß man anschaut, wie dieses Wesen ohne Leib ist, und die Erkenntnis, wie der Leib zum Leichnam wird im Tode, wie dieser Leib abfällt, wie der Mensch in das nachirdische Leben hineingeht. Ebenso, wie man Anschauung hat vom vorirdischen Leben, von der Ungeborenheit, so hat man jetzt ein Schauen in die Unsterblichkeit, in das nachirdische Leben. Was man als Erdenmensch sich angeeignet hat an moralischen Impulsen, die man durch die Pforte des Todes trägt, und wie man im Erleben mit der geistigen Welt zusammen ein neues Erdendasein sich vorbereitet, um als Erdenmensch auf die Erde herabzusteigen, das tritt jetzt in lebendiger Anschaulichkeit vor die Seele, die ausgegangen ist von der intellektuellen Bescheidenheit, aber auch von einem gewissen Vertrauen in die Seelenkräfte des Menschen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 173
+
+---
+
+Das führt die Erkenntnis heran an jenes Lebensgebiet, das den Sehnsuchten und Lebensbedürfnissen des Menschen so naheliegt. Wir schauen hin auf diejenigen, die wir im Leben liebgewonnen haben, die uns durch Blutsbande oder Seelenbande nahestehen; wir schauen hin auf die Pforte des Todes und fragen: Was wird aus den Banden, die das Blut gesponnen hat, und aus den Banden, die Seele und Geist gewoben haben, wenn der Mensch durch die Pforte des Todes gegangen ist? Hat man dieses Anschauen, so weiß man, wie von dem, was der Mensch als ewiges Wesen ist, die äußere körperliche Hülle des physischen Leibes abfällt, wie der Mensch mit denjenigen Gesetzen sich in die geistige Welt erhebt und dort mit den Kräften lebt, die er schon heruntergebracht hat und mit denen er in seinem physischen Erdenleben gelebt hat. Wir erfahren dann, wie das, was wir mit anderen Menschen als Blutsbande, als Freundschaftsbande, als Liebesbande gemeinsam haben, ebenso abfällt von unseren Gemeinschaften, wie der physische Leib des Menschen selbst abfällt; und wir wissen aus der Erkenntnis, daß wir wiederbegegnen den Seelen, mit denen uns ein Band verbunden hat, in reiner Gemeinschaft der geistigen Welt, weil die physischen Hindernisse nicht mehr da sind. Dasjenige, was die Menschen nicht aus einem neugierigen Triebe heraus zu wissen verlangen, das, was menschliche Würde war, das Schicksal der Seelen, das wird auf diese Art eine wirkliche Erkenntnis.
+
+Und noch anderes wird eine wirkliche Erkenntnis. Es entzieht sich ja die Wirklichkeit der äußeren physischen Welt dem Traume, weil der Wille nicht eingeschaltet ist in den physischen Leib. Der Mensch hält im Traum die Bilderwelt für Wirklichkeit; so halten wir vieles für Wirklichkeit, bevor wir in der geschilderten Weise zu dem tiefen Schweigen der Seele, zum geistigen Leben aufwachen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 174
+
+---
+
+Wenn wir da zum wachen geistigen Leben aufwachen, nachdem wir den zweiten Lebensruck durchgemacht haben und uns die wach erlebte physische Wirklichkeit als bloßes Träumen erscheint, dann erscheint uns auch manches, was uns im physisch-leiblichen Leben Realität war, im höheren Sinne, im Sinne des physisch-geistigen Lebens als ein Traum. So wie die Traumeswirklichkeit gefangengenommen wird von der physisch erschaubaren Wirklichkeit, so wird jetzt dasjenige, was wir im physischen Leben als moralische oder religiöse Menschen erleben, gefangengenommen durch das, wozu wir durch den zweiten Lebensruck erwachen. Und wir werden gewahr, was eigentlich gemeint haben Menschen wie Knebel, Goethes Freund, der als alter Mann sagte: Wenn man alt geworden ist, so findet man, daß gegenüber den entscheidenden Ereignissen des Daseins alles so scheint, wie wenn es von langer Hand vorbereitet gewesen wäre. Alles erscheint planvoll vom Menschen selbst veranstaltet, was auf ihn einen tiefen Einfluß genommen hat als Mann oder als Jüngling. Und alle seine Schritte als Jüngling scheinen auf dieses Erlebnis hinzudeuten. - Diese Vorstellung bildet sich immer weiter aus und bewahrheitet sich im Ausbilden. Wenn man diese Vorstellung weiter durchdringt mit der Erkenntnis, die man auf die geschilderte Art gewinnt, so sieht man, daß es in der Tat so ist im Leben. Man erlebt etwas ganz Entscheidendes. Man wird hingeführt zu einem Menschen, mit dem die weitere Lebensbahn gemeinschaftlich durchwandelt werden soll. Man schaut auf die Schritte, die einen hingeführt haben zu dem Menschen. Sie kommen aus der Sehnsucht, gerade so etwas zu erleben, wie man es mit diesem Menschen erleben kann, bis man zu dem Ziele kommt, das einer Sehnsucht der Seele, einer Prüfung der Seele in der richtigen Weise entspricht. Dasjenige, was im Menschen lebt, wodurch er wie aus sich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84
+
+---
+
+selbst heraus sein Schicksal zaubert, muß man anschließen an die Anschauung von den durchlebten Erdenleben, in denen man ein moralisch so und so gearteter Mensch war, das und jenes getan hat. Und man sieht, daß das, was man jetzt tut, in diesem Leben instinktiv, wie Zufall erscheint; es ist schicksalsmäßig daran geknüpft, was man Im vorhergehenden Erdenleben war.
+
+Das scheint ein niederschmetternder Gedanke zu sein. Aber geradesowenig, wie es die Freiheit, die Würde, die volle Verantwortlichkeit des Menschen beeinflußt, daß wir blonde oder schwarze Haare, blaue oder braune Augen, magere oder volle Hände haben, so wenig beeinträchtigt es dasjenige, was wir als freie, verantwortungsvolle Menschen sind, wenn wir wissen, daß es die Seele ist, die uns konfiguriert, daß wir uns als freie Menschen unser Lebensschicksal auf schicksalsmäßig gegebener Grundlage zimmern müssen. Aber das Leben wird dadurch verständlich, indem der Mensch es anschauen lernt, durchdrungen von dieser mit Freiheit durchaus zu vereinbarenden Schicksalsidee, daß er nicht im Leben so darinnensteht, daß jeder Augenblick ihm wie Zufall begegnet, sondern daß er sich hineinversetzt fühlt in die Welt der Naturnotwendigkeit, wie in die Welt einer wirklichen Geistigkeit, in der er als höherer Mensch mit seinen moralischen, schicksalsmäßigen Kräften darinnensteht. So führt eine solche Erkenntnis den Menschen heran vom äußeren Leben an die Unsterblichkeit der Seele.
+
+Man kann noch etwas einwenden: Ja, das können einzelne Geistesforscher allerdings erkennen, aber was bedeutet es für den gewöhnlichen Menschen? - Es bedeutet ebensoviel wie ein künstlerisch gemaltes Bild für denjenigen, der nicht Maler geworden ist. Es wäre traurig, wenn man Maler sein müßte, um ein malerisches Kunstwerk zu verstehen. Man braucht nur ein gewisses gesundes Empfinden,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 176
+
+---
+
+um das Künstlerische zu erleben, und nur gesundes Menschenurteil, um dasjenige zu erleben, was der Geistesforscher schildert. Nur wenn man sich die leider so zahlreichen Vorurteile selbst in den Weg wirft, dann stellt man sich vor die Bilder, die der anthroposophische Geistesforscher entwirft, wie man sich vor ein Bildnis hinstellt, in dem man, statt eine Welt zu erschauen, nichts erblickt als nebeneinandergestellte Farbenkleckse. Auch für denjenigen, der im einfachen, gewöhnlichen Leben steht, ist diese Welt aus der Schilderung des anthroposophischen Geistesforschers voll verständlich, obwohl er durch Bücher, wie zum Beispiel «Wie erlangt man Erkenntnisse der höheren Welten?» immer in der Lage ist, soweit sich auf den Weg der Geistesforschung zu begeben, ohne sein äußeres Leben zu beeinflussen, daß er prüfen kann, was der anthroposophische Geistesforscher ihm sagt, daß er nachprüfen kann, ob dieser anthroposophische Geistesforscher aus der Phantasie heraus spricht oder ob seine Ansicht etwas ist, was fest errungen ist, wie die mathematischen Urteile, das Messen, Zählen, Wägen und so weiter selbst fest errungen sind.
+
+Das ist es, was die Geisteswissenschaft einfügen möchte in das gegenwärtige Geistesleben der Menschheit. Es ist dasjenige, wovon sie glauben muß, daß es den zahlreichen innersten Seelenbedürfnissen entspricht. Denn so ist es, daß heute instinktiv, unbewußt, viele Menschen eben durch das, was man geworden ist durch Bildung, aus den naturwissenschaftlichen Voraussetzungen heraus, die Sehnsucht gewinnen, in ähnlicher, die Erlebnisse umfassender Weise etwas zu wissen über dasjenige, was der Seele so naheliegt und wovon ich heute nur gesprochen habe als von einem Beispiele der Seelenunsterblichkeit und dem, was mit der Unsterblichkeit zusammenhängt.
+
+Damit aber ist natürlich in die Welt etwas hineingestellt,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 177
+
+---
+
+was so ist, wie einstmals die kopernikanische Weltanschauung gegenüber der damals gewohnten. Aber es ist so, daß dasjenige, was eine menschliche «Narrheit» scheint, nach und nach zu einer Selbstverständlichkeit wird. Die kopernikanische Weltanschauung hat sogar sehr lange warten müssen, bevor sie selbstverständlich wurde. Anthroposophie kann warten. Aber sie muß aus einer Kultur- und Zivilisationsverpflichtung heraus schon sagen, daß es ihr voll verständlich ist, wenn die gewöhnliche Naturwissenschaft, die sich für souverän hält mit ihren Mitteln, durch ein gewöhnliches Verfolgen des Seelenlebens mit den äußern Mitteln des Rechnens, Zählens, Wagens, zu einer Seelenlehre gekommen ist ohne Seele, und daß sie geradezu darinnen ein Ideal findet. Anthroposophie möchte aber zu demjenigen, dem sie die Berechtigung auf der einen Seite nicht abstreitet, zu einer aus der Naturwissenschaft heraus gewonnenen Lehre, hinzufügen durch entwickelte volle Erfassung des innersten Wesens der Menschenseele, was seelisch-geistig ist im Menschen als ewiges Leben, was seelisch-geistig ist in der ganzen Welt, im ganzen Kosmos als ewiges Leben, so daß der Mensch sich selbst erkennen kann als Ewiges, innig verbunden mit dem Ewigen im Kosmos, als unsterblich im Kosmos. Die Anthroposophie möchte also geben Erkenntnis des gegenwärtigen Menschenlebens und des Menschenlebens der nächsten Zukunft, so daß sie dadurch entgegenkommme einer Zeitnotwendigkeit, daß sie hinzufügen zur heutigen Seelenlehre ohne Seele eine lebendig aus der Menschenseele heraus erweckte Seelenlehre, der dann aus einer solchen Lehre heraus wieder folgt eine von Seele durchdrungene, von Geist durchsetzte Weltenlehre. Und die wird man immer mehr und mehr brauchen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 178
+
+---
+
+# DIE MENSCHENENTWICKELUNG UND MENSCHENERZIEHUNG IM LICHTE DER ANTHROPOSOPHIE
+
+Prag, 30. April 1923
+
+Wie eine tiefe geistige Mahnung tont herüber aus dem griechischen Altertum das Wort, an den Menschen gerichtet: «Erkenne dich selbst!» Und man darf wohl dieses Wort beziehen auf die allgemeine Menschenerkenntnis, nicht so sehr auf die persönliche, und es wird damit die Menschenerkenntnis gewissermaßen als der Gipfel bezeichnet alles menschlichen Wissens und Strebens. Und wir können ja auch fühlen aus der Art und Weise, wie dieses Wort zu uns herübertönt, daß es nicht bloß im wissenschaftlich-theoretischen Sinne gemeint ist, sondern daß es durchaus gemeint ist als ein geistiges Mahnwort im moralisch-religiösen Sinne. Und man möchte sagen: Nach Ablauf einer vieles in sich schließenden geistigen Entwicklungsepoche der Menschheit steht heute vor unserer Seele eine Art Gegenwort. Dieses Gegenwort ist zwar schon vor nahezu fünfzig Jahren ausgesprochen und heute in einer gewissen Weise sogar vergessen worden, aus dem Bewußtsein der Menschen entschwunden. Dennoch lebt die ganze moderne Seelenverfassung, dasjenige, was man heute als die großen Seelenkonflikte in sich trägt, unter dem Einfluß dieses neueren Wortes. Es ist das Wort, das DuBois-Reymond ausgesprochen hat, das Wort: «Wir können nicht erkennen», das Wort: «Ignoramus, Ignorabimus». Wenn auch viele heute hinaus zu sein glauben über das Bekenntnis zu diesem Worte; in
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 179
+
+---
+
+der Art und Weise, wie wir uns erkennend und glaubend als Menschen zur Welt verhalten, steckt noch heute intensiv dieses Wort dahinter. Es ist gewissermaßen das ausgesprochene oder unausgesprochen bleibende Bekenntnis zu den Ergebnissen der naturwissenschaftlichen Forschung in ihrer Bedeutung für eine allgemeine Welterkenntnis und Lebensansicht.
+
+Nun aber wird jeder, der das geistige Leben seit Jahrzehnten mitgemacht hat und der angesehen hat, wie sich dieses geistige Leben heraufentwickelt hat im Laufe der letzten drei bis vier Jahrhunderte, nicht anders können, als dasjenige, was heute als Erkenntnis angesehen wird, gewissermaßen zu rechtfertigen gegenüber der Naturwissenschaft. Die Naturwissenschaft hat ja in bezug auf Erforschung der äußeren Sinnenwelt so Großartiges geleistet; sie hat so Großartiges geleistet in bezug auf Anwendung von Instrumenten, von Experimentiermethoden für die Erforschung dieser äußeren Sinnenwelt und ihrer großen Gesetze und sie hat erhärtet und bekräftigt dasjenige, was sie erkannt hat, durch die mannigfaltigen empirisch-technisch-praktischen Anwendungen, ohne die wir uns ja unser modernes Leben gar nicht mehr denken können. Diese Naturwissenschaft geht davon aus, eine Erkenntnis von der Welt zu gewinnen, die so unabhängig wie möglich ist von dem, was der Mensch aus seinen Wünschen und aus seinen Vorurteilen und Vorempfindungen zu den Erkenntnissen des Wesens der Dinge und der Weltvorgänge hinzubringen kann. Und gerade durch die Ausschaltung alles persönlichen Wesens hat die Naturwissenschaft ihre ganzen Erfolge erzielt. Nun wird aber gerade derjenige, der ganz ehrlich auf dem Boden der Naturwissenschaft steht, der durchschaut, wie segensreich diese Naturwissenschaft eben für die Erkenntnis der äußeren Natur gewirkt hat, aus der Hand-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 180
+
+---
+
+habung der angewendeten Methoden heraus sich immer mehr und mehr sagen müssen: Zu denjenigen Regionen, in denen das menschliche Seelisch-Geistige waltet, kann gerade die Naturwissenschaft, wie sie sich heute ausgebildet hat, nicht vordringen. Man möchte sagen, nicht wegen ihrer Mängel, sondern gerade wegen ihrer Vorzüge.
+
+Überblickt man dasjenige, was auf den verschiedenen Gebieten der Naturwissenschaft geleistet worden ist, so wird man sich sagen: diese Naturwissenschaft strebt ja natürlich auch darnach, wiederum zurückzukommen zum Menschen. Sie strebt darnach, ihre Methoden anzuwenden auf das Wesen des Menschen. Aber sie kann nicht mehr als das äußerliche, körperliche, leibliche Wesen des Menschen erforschen. Wir sehen das am besten dann, wenn die naturwissenschaftliche Methode an den Menschen herangeht, zur experimentellen Seelenkunde wird, und mit einer wirklich großartigen naturwissenschaftlichen Forschungsmethode heute zu Werke geht. Wir sehen da, wie die seelischen Äußerungen in der menschlichen Konstitution untersucht werden. Aber wir werden gewahr, daß wir durch alle diese Untersuchungen gerade an dasjenige nicht herankommen können, was das Ewige in der Menschennatur genannt werden kann, was dasjenige in der Menschennatur genannt werden muß, demgegenüber der Mensch die tiefe Sehnsucht in sich trägt, es in seiner wahren Wesenheit zu erkennen, und von dem er zunächst wenigstens Hoffnung hat, daß es sich für ihn ergibt als über die Grenze des irdischen Lebens, als über Geburt und Tod hinausliegend und hinauswirkend. Nichts soll hier gegen solche experimentelle Methoden, wie die der experimentellen Seelenkunde, eingewendet werden. Gerade der Boden jener Forschung, von dem aus ich mir erlaube, heute abend zu Ihnen zu sprechen, erkennt diese Methoden in ihrer vollen Gültigkeit an.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 8 4
+
+---
+
+Aber gerade weil sie von diesem Gesichtspunkte aus auch in ihren Grenzen durchschaut werden können, deshalb muß gesagt werden, daß diese Methoden an das eigentliche Wesen des Seelisch-Geistigen nicht herantreten können. Und das war es auch, was einzelne einsichtige Forscher zu dem Bekenntnisse nötigte, daß die Naturwissenschaft eben an das nicht heranreichen kann, was auf der einen Seite das Wesen der Materie selbst, auf der anderen Seite das Wesen des menschlichen Bewußtseins ist. Aber wenn der Mensch nicht erforschen kann, wie sein Bewußtsein, das heißt sein in ihm wirkendes Seelisches, die Materie ergreift, dann muß er Abschied nehmen von jener großen Forderung: «Erkenne dich selbst!» Dann hätten wir abgeschlossen jenen Zeitraum menschlicher Geistesentwicklung seit dem griechischen Altertum mit dem Mahnworte «Erkenne dich selbst!» als einer zwar schönen, gewaltigen – aber dennoch nur einer Illusion der Menschheit. Dann müssen wir bekennen: diese Forderung ist nicht zu erfüllen. Je tiefer man eindringt in den Geist der Naturforschung, desto mehr muß man vom Gesichtspunkt der Anthroposophie recht geben denjenigen, welche vom «Ignorabimus» der Naturwissenschaft sprechen, welche davon sprechen, daß der Naturforschung eben Grenzen gezogen sind, die sie ihrerseits nicht überschreiten kann. Es fragt sich aber, ob das menschliche Gemüt sich ohne weiteres bei der Feststellung solcher Grenzen beruhigen kann und ob es von vornherein dasjenige, was in dieser Beziehung das Menschenherz an Wünschen in sich trägt, als etwas besonders Vorurteilsvolles nicht zu berücksichtigen sucht.
+
+Darauf sucht Antwort zu geben dasjenige, was ich heute abend Ihnen charakterisieren möchte als anthroposophische Forschung. Sie sucht zu erkennen, inwiefern diese Forderung des Gemütes irgendwie berechtigt ist. Viele Menschen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 182
+
+---
+
+der Gegenwart sehen auf dasjenige, was die Naturwissenschaft auf der einen Seite Großartiges leistete, und sie fühlen andererseits: an das eigentliche Seelisch-Geistige kann Naturwissenschaft nicht heran. Und so wenden sich viele von denen, die beim Bekenntnis von den Grenzen des menschlichen Wissens nicht stehen bleiben wollen, zu der oder jener Art von Mystik, jener mystischen Anschauungsweise, welche versucht, dasjenige, was sich auf das Ewiges des menschlichen Wesens bezieht, durch Versenkung in das eigene Innere zu erreichen. Und durch solche mystische Versenkung ist ja manches Schöne aus den Tiefen der Menschenseele, aus den Tiefen des sonst im Unterbewußten oder Unbewußten bleibenden Lebens heraufgeholt worden. Durch solche mystische Versenkung sind so manche Menschen dazu gekommen zu glauben, daß das, was da aus den Tiefen der Seele heraufgeholt wird, was im Menschen so vorhanden ist, unmittelbar im göttlich-geistigen Dasein wurzelt, so daß, indem man es heraufholt, man das Göttlich-Geistige im Erkennen des Menschen selbst zur Offenbarung brächte, und dadurch zur Erforschung des Ewigkeitscharakters des Menschen und zum Zusammenhange des Menschen mit dem Göttlichen vordringe.
+
+So steht derjenige, der heute die großen Fragen des menschlichen Seelendaseins aufwirft, ich möchte sagen, zwischen zwei Klippen, welche der Erkenntnis unübersteigliche Grenzen zu setzen scheinen: die naturwissenschaftliche auf der einen Seite, die mystische auf der anderen Seite. So viel aber auch die Mystik verspricht, so Schönes und Großartiges auch von vielen Mystikern heraufgeholt wird aus der menschlichen Seele, vor einer wirklich an der Wissenschaft geschulten und disziplinierten Erkenntnis konnten die meisten mystischen Versuche eben nicht bestehen. Denn derjenige, der durch die gewissenhaften Methoden der Natur-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 183
+
+---
+
+Wissenschaft gewöhnt worden ist, alle Dinge zu beurteilen, auch die im Menschen selbst sind, der findet alsbald, wie dasjenige, was der Mystiker oft aus den Tiefen seiner Seele herausholt, dennoch nichts anderes ist, als dasjenige, was er vielleicht in irgendeiner Weise an Jahren weit zurückliegend in der Außenwelt an Vorstellungen, an Gefühlen erhalten, erworben hat, welche dann von ihm noch vielleicht durch eine schon wirkende Phantasie zu gewaltigen Bildern angewachsen sind, welche Vorstellungen und Gefühlsinhalte dann aber, indem sie sich in die Tiefen des Menschenwesens herabgesenkt haben, von dem Organismus des Menschen, der für die äußere Erkenntnis einen so geheimen sinnvollen Zusammenhang mit dem Seelischen hat, verändert worden sind. Und gerade dem tiefen Seelenkenner offenbart es sich, wie dasjenige, was man, auf mystische Weise gewonnen, für ewig hält, nichts anderes ist, als verändertes, ja, durch den menschlichen Organismus selbst verändertes Erinnerungsergebnis.
+
+Und so gesteht man sich zuletzt, wenn man an tieferes Erleben, an die großen Fragen des Menschendaseins, herantreten will: Die Naturwissenschaft gibt keine Möglichkeit, in diese Frage irgendwie hereinzudringen. Sie schließt ihre Erkenntnisse in einem Gebiet ab, so daß man mit ihren Erkenntnissen nur das Äußerliche des Menschen erkennen kann, daß man mit ihr nicht an den Menschen herankommt. Das ist zuletzt das notwendige Geständnis, das man sich machen muß. Gerade ernste und ehrlich gemeinte Naturwissenschaft kommt nicht an den Menschen heran. Und Mystik, sie kommt so, wie sie zunächst meistens auftritt, nicht aus dem Menschen heraus. Die Naturwissenschaft kommt, indem sie in die Welt eindringt, von der Welt nicht zum Menschen; die Mystik kommt, indem sie in den Menschen eindringt, von dem Menschen nicht in die Welt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 184
+
+---
+
+hinaus. Wenn man dann empfindungsgemäß dasjenige, was sich der Seele ergibt aus diesen beiden Ausblicken, so recht auf sich wirken läßt, dann fragt man sich doch noch einmal: Ist es nicht vielleicht möglich, auch noch hinauszugehen über dasjenige, was Mystik auf der einen Seite gibt, und was Naturerkenntnis auf der anderen Seite gibt?
+
+Nun habe ich mir schon erlaubt, in dem Vortrage, den ich vor einigen Tagen in der «Urania» halten durfte, darauf aufmerksam zu machen, wie Anthroposophie als Geistesforschung bestrebt ist, auf dasjenige genau hinzuschauen, was der Mensch sich aneignet in der Erinnerung. Und so stellt sich doch zuletzt die Erinnerung als dasjenige heraus, was vertieft werden kann. Auch heute möchte ich, gerade wie vor einigen Tagen, mich nicht in tiefe philosophische, erkenntnistheoretische Erörterungen einlassen, sondern beim populären Bewußtsein bleiben. Diese Erörterungen könnten gemacht werden; aber das, was von dem Gesichtspunkt, von dem hier gesprochen wird, gemeint ist, werden wir am besten verstehen, wenn ich beim Populären bleibe.
+
+Was in unserer Erinnerung lebt, was den Inhalt unserer Person voll macht dadurch, daß wir in jedem Augenblick in der Lage sind, dasjenige, was wir durchgemacht haben, vor unsere Augen zu zaubern, ist ja hereingetragen in die Menschenseele durch die Eindrücke aus der Außenwelt. Es sind Sinneseindrücke, die wir aufnehmen und mit unseren Vorstellungen verarbeiten, und die unbekannterweise im Menschen sich verändern und die dann wieder heraufkommen; die frei wirkend heraufkommen, oder mit Mühe, wenn der Mensch sie braucht, vom Menschen aus der Seele heraufgeholt werden. Und wenn wir uns das vergegenwärtigen wollen, was da eigentlich für die menschliche Seele in der Erinnerung lebt, so können wir zu nichts anderem kommen, als uns zu sagen: Es ist wie etwas, was aus dem Spie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 185
+
+---
+
+gel der Seele, der tief und immerwährend in unserem menschlichen Sein liegt, wenn auch nach langer Zeit, zurückgespiegelt wird. Die Außenwelt spiegelt sich in unserer Seele, indem wir das Gedächtnis haben, indem wir Erinnerungsfähigkeit haben. Und wie gesagt, wenn ich der Kürze der Zeit und der Umstände halber jetzt auch nicht unmittelbar in der Lage bin, das Wesen dieses Seelenspiegels zu erörtern, so wird das Bild zu unserer Verständigung genügen. Wir gelangen mit unserer Erinnerung nicht auf den Grund des Wesens unserer Seele. Genau so, wie, wenn wir einen Spiegel vor uns haben, wir dasjenige, was vor dem Spiegel ist, aus dem Spiegel sehen, so bietet uns die Erinnerung in den mystisch hieraufgebrachten Vorstellungen nichts anderes, als das Spiegelbild der äußeren Welt. Will man ansichtig werden desjenigen, was hinter dem Spiegel ist, dann muß der Spiegel entweder weggenommen werden, oder der Spiegel muß zerschlagen werden. In einem gewissen Sinne müssen wir diesen inneren Spiegel, diese Kraft des Erinnerungsvermögens in uns durchbrechen, um tiefer in unser Wesen hineinzuschauen. Und wir durchbrechen diesen Seelenspiegel, das heißt wir gehen auch über dasjenige, was uns dieser Spiegel als Mystik erscheinen läßt, noch tiefer in das menschliche Wesen hinein, wenn wir unser Denken, das wir sonst durch Experimente anregen lassen, innerlich zur Aktivität bringen, wenn wir meditierend und uns konzentrierend auf einen bestimmten Gedankeninhalt immer wieder die seelischen Kräfte stärken.
+
+Ich habe es im Urania-Vortrag genau beschrieben, ich habe es in meinen Büchern besprochen, wie man durch eine besondere Betätigung des Denkens noch unter den Erinnerungsspiegel herunterkommen kann, wie man tiefer in sein Wesen hineinschauen kann. Da könnte man vermuten,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 186
+
+---
+
+daß man dann hereinschauen würde in dasjenige, was unsere physische Organisation ist. Denn zweifellos: Für das gewöhnliche Bewußtsein dringen wir seelisch nur bis zum Erinnerungsspiegel vor, und dabei verändern die Vorgänge der physischen Organisation das Bild von außen, das wir im Seelenspiegel erblicken, zu einem Zerrbild. Schaffen wir uns aber ein immer mehr aktiviertes Denken, mit dem wir innerlich leben wie mit unserem Blute und unserem Atem, so daß sich unser ganzer Mensch beteiligt an diesem innerlich lebendigen Denken, dringen wir tiefer in unser Menschenwesen ein, dann enthüllt sich uns nicht ein physischer Mensch, dann enthüllt sich uns ein Geistig-Seelisches, das nur durch dieses erkraftete, erstarkte Denken offenbar werden kann. Dann enthüllt sich uns dasjenige am Menschen, was durchaus geistig-seelischer Natur ist, was dem Bewußtsein unbewußt bleibt, was aber durch sein eigenes Wesen zeigt, daß es vorhanden war, bevor der Mensch durch die Geburt, ja durch die Empfängnis, sein irdisches Dasein angetreten hat.
+
+Daß dies der Fall sein kann, macht man sich begreiflich, wenn man sich sagt, wie ja die Erinnerung durch ihren eigenen Inhalt uns anzeigt, daß wir es nicht zu tun haben mit der Vorstellung eines gegenwärtigen Ereignisses, sondern mit einem vergangenen, so haben wir dieselbe Gewißheit über den Charakter unseres Erlebens, wenn wir an das gekennzeichnete Erlebnis herantreten, das uns tiefer führt als die mystische Versenkung. Dann erlangen wir ein Geistesbild von alledem, was das eigentlich Schaffende ist in jener ersten Lebensepoche des Menschen, in der ja am Sinnes-Nervensystem, am Gehirn und an der übrigen Organisation des Menschen eine so wunderbare plastische Tätigkeit ausgeübt wird. Aber wir verfolgen durch eine solche Versenkung das menschliche seelisch-geistige Wesen über Geburt und Tod hinaus, wir schauen hinein in eine geistige
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 187
+
+---
+
+Welt, in der wir waren als geistig-seelische Menschenwesen mit unserem Wesenskern, bevor wir hinabgestiegen sind in diese Erdenwelt und uns umkleidet haben mit demjenigen, was uns unsere Vorfahren gegeben haben, mit einem physischen Menschenleibe.
+
+Es ist durchaus so, daß man zu dieser Anschauung kommt, nicht nur durch jene nebulose Begabung des Menschen, die man heute als «Hellsehen» bezeichnet. Wenn man auch für das, wovon ich jetzt gesprochen habe, das Wort «Hellsehen» verwendet, so muß man dieses ansprechen als exaktes Hellsehen. Denn derjenige, der sich auf den Boden der geistigen Forschung begibt wie ein exakter Wissenschaftler, aktiviert das Denken so, daß dieses Denken aus dem Menschen nicht nur hervorholt die Erinnerungsvorstellungen, sondern Dinge, die unter dem Erinnerungsvermögen liegen, die schaffend im Menschen waren, bevor das Erinnerungsvermögen sich entwickelt hatte, bevor der Mensch sein irdisches Dasein angetreten hat.
+
+Das ist die eine Seite, zu der sich anthroposophische Forschung wendet, wenn sie vor den beiden charakterisierten Prinzipien steht. Sie sucht das Geistige durch exakte Gedankenverarbeitung zu vertiefen und gelangt nach der einen Seite hin über die Geburt hinaus zur Erkenntnis des ewigen Wesenskernes des Menschen. Aber ebenso, wie man das, was der Mystiker so schön als seine Versenkung ausbildet, was ihn zu Illusionen führt, wie man das erkennen muß, wenn man zu einer wissenschaftlichen Erkenntnis gelangen und nicht stehen bleiben will bei denjenigen Punkten, bei denen der Mystiker oft stehen bleibt, wie man gewissermaßen in der Fortsetzung des Mystischen die Erkenntnis des vorgeburtlichen Menschen erstreben muß, ebenso muß man auf der anderen Seite durch die Vertiefung der naturwissenschaftlichen Forschung versuchen, einen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 188
+
+---
+
+weiteren Schritt in der geistigen Erkenntnis zu machen. Und das ergibt sich in der folgenden Weise.
+
+Ja, wir kommen zu Grenzen, gerade wenn wir in ehrlicher Weise die naturwissenschaftlichen Methoden auf die Welt anwenden; wir kommen zu Grenzen, gerade wenn wir sie in realer Weise auf die Naturvorgänge anwenden, wir kommen da zu Grenzen, die wir in dem Begriff «materielles Bewußtsein» und so weiter formulieren. Aber es ist etwas anderes, in diesen Grenzen zu stehen und zu sagen, darüber kann das Menschenwesen nicht hinaus, da muß man sich beruhigen, oder aber zu beginnen, gerade an diesen Grenzen aus seinem ganzen Menschen heraus zu ringen, indem man sagt: Vielleicht rühren diese Grenzen davon her, daß man die Fähigkeiten, die man in sich trägt, hier begrenzt, um die Naturwissenschaft vollkommen zu machen – dann aber eben doch, wenn man weiterringt, seine ganzen menschlichen Fähigkeiten einsetzt, um mit diesen Vorstellungen, die nun Grenzen gewinnen werden, zu ringen; vielleicht kommt man dann über diese Grenzen hinaus. — Ich weiß, daß sich leicht ein Einwand ergibt; man wird sagen: Ja, es ist ja so gut, so segensreich, daß die Naturwissenschaft es verstanden hat, das Menschliche auszuschließen von den naturwissenschaftlichen Methoden, sich an Messen, Zählen, an die Ergebnisse der Waage zu halten und so weiter, also dasjenige, was man als Forschungsmethoden bezeichnet, was man erkennt, loszulösen von dem Menschen. Es ist gefährlich, den Menschen wieder hineinzumischen.
+
+Wenn man dies in der Art tut, wie die anthroposophische Forschung es will, nämlich daß man zuerst voll stehe auf dem Gesichtspunkte der Naturwissenschaft, daß man sich vollständig durchgerungen hat, in objektiver Weise losgelöst zu haben die Forschungsmethoden vom Menschen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 189
+
+---
+
+und das persönliche Ringen eingeführt zu haben in das Losgelöste, dann kommt doch etwas anderes heraus. Dann achtet man die Forderung der Naturwissenschaft und führt zugleich das Menschliche ein in das Objektive der Naturwissenschaft. Und da muß man schon sagen: Hat man sich durchdrungen mit der Erkenntnis der Naturwissenschaften seit den letzten Jahrhunderten, besonders des neunzehnten Jahrhunderts, indem man sich gewissermaßen seelisch durchaus erfüllt hat mit dem, was der Geist der Naturwissenschaften ist, und kann man dann dennoch mit seiner ganzen Persönlichkeit sich hingeben, gerade an die Dinge, die die Naturwissenschaft schildert, dann wird eine Gabe der menschlichen Natur, die sonst durchaus nicht als eine Erkenntniskraft betrachtet wird, zu einer Erkenntniskraft. Diese Hingabe an etwas, was als etwas Objektives errungen ist, sie wird zuletzt auch zu einer objektiven Ausgestaltung der menschlichen Liebe. Wenn man mit voller Achtung der naturwissenschaftlichen Denkweise, nachdem man vom naturwissenschaftlichen Gesichtspunkte aus, soweit es möglich ist, die Welterscheinungen überschaut hat, sich dieser Denkweise entäußern kann, wenn man so viel Heroismus beim Forschen aufbringt, daß man sich in das naturwissenschaftliche Gegebene mit einer solchen Hingabe versenkt, wie man sich sonst nur versenkt, wenn man in der Welt Liebe, besonders menschliches Lieben, entwickelt, dann wird die Liebe selbst zur Erkenntnis, und dann dringt man mit der Liebe, die die Metamorphose durchgemacht hat, um zur Erkenntniskraft zu werden, hinter dasjenige, was die Naturwissenschaft zu geben vermag.
+
+Das ist die Arbeit nicht eines Tages, sondern langer Epochen des Menschenlebens, hindurchzudringen zu denjenigen Wesenheiten, die hinter den Grenzen des Naturwissenschaftlichen liegen. Was sich aber dann ergibt, ist Folgendes: In
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 190
+
+---
+
+dem Augenblicke, wo man gewissermaßen jene Grenzen durchbricht und hinter die Kulissen schaut, die aufgerichtet sind durch die naturwissenschaftliche Erkenntnis, wird einem an dem Menschen selbst merkwürdigerweise etwas durchsichtig, was vorher immer undurchsichtig geblieben ist: Wir wachen des Morgens auf, verbringen unser Tagewerk mit wachendem Bewußtsein aus den Kräften des Erdenfühlens und unserer Seele heraus, wir schlafen des Abends ein. Dasjenige, was geschieht mit dem Seelisch-Geistigen im Physisch-Leiblichen, das entzieht sich dem menschlichen Bewußtsein. Was da hereinspielt in das menschliche Leben, sind die verworrenen Träume ohne Erkenntniswert. So daß wir sagen können: Die gesamte Entwickelung des menschlichen Lebens setzt sich zusammen aus demjenigen, was wir wachend durchleben und demjenigen, was wir schlafend verbringen. Und wir achten nicht darauf, daß, wenn wir zurückschauen, wir immer den Morgen an den Abend anstückeln, und dasjenige aus dem Bewußtsein herausfallen lassen, was wir mit ihm nicht erreichen können, was sich dem Bewußtsein entzieht, daß wir ausschalten die Strecken, die wir verschlafen haben. Nun fragt es sich, ob denn für den Menschen dasjenige, was ihm seelisch-geistig der Schlaf gibt, nicht ebenso wichtig sein könne wie dasjenige, was ihm der Wachzustand gibt.
+
+Gewiß, für das äußere Leben kann nur der Wachzustand in Betracht kommen, und je mehr sich die Zivilisation zugewendet hat der bloßen Beachtung des äußeren Lebens, desto mehr gibt sie etwas auf die Beobachtung des wachen Zustandes. Aber für das Leben der Menschen selbst - das haben auch schon besonnene Philosophen zugestanden - ist dasjenige, was geschieht in dem reichlichen Drittel des Erdenlebens, das wir verschlafen, nicht minder wesentlich als das, das wir durchwachen. Aber es zeigt sich anschaulich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 191
+
+---
+
+erst dann, wenn wir die die Dinge bezeichnenden Grenzen nach dem Ringen mit der Natur durch letzte Vorstellungen, durchbrochen haben. Dann geschieht das, daß der leere Erlebnisraum, den wir sonst durchschlafen, der sonst außer dem Träumen ein Nichts für uns enthält, daß sich dieser leere Erkenntnisraum mit Inhalt anfüllt, daß wir lernen, auf dasjenige hinzuschauen, was sich sonst in die Finsternis des Schlafes hüllt. Wie wir zurückschauen können auf das, was sich im Wachen als jene Erkenntnis gibt, die wir als physisch-sinnliche Menschen mit der Erde und ihren Erscheinungen erlebt haben, so ergibt sich jetzt die Erkenntnis geistig-seelischer Art von jenem Zustande, in dem der Mensch vom Einschlafen bis zum Aufwachen steht. Es erhellt sich die Finsternis zwischen Einschlafen und Aufwachen, dieses Drittel unseres Lebens wird uns durchsichtig, und das, was wir erblicken, das ist dann unser wahres Ich, die Gestalt von Denken, Fühlen und Wollen. Wir erblicken dasjenige, was in uns, ohne daß es unser Bewußtsein weiß, fortwährend arbeitet an unserem geistig-seelischen Menschenwesen, und wir durchschauen den Inhalt als dasjenige, was durch die Pforte des Todes von uns getrennt ist, wenn wir den physischen Leichnam ablegen. Indem uns der Schlaf durchsichtig wird, lernen wir erkennen die wahre Natur der menschlichen Unsterblichkeit. Wenn wir durch das Mystische hindurchschauen, wenn wir weitergehen als die gewöhnliche Mystik, lernen wir das vorgeburtliche Wesen des Menschen kennen, wenn wir Naturwissenschaft ehrlich nehmen, aber zu ringen anfangen an der Grenze, lernen wir kennen, was der Mensch an unsterblichem Dasein in sich trägt. Und so setzt sich für uns das Menschenwesen in seiner Entwicklung zusammen, indem wir gewissermaßen in dieser Art sehen, wie ein vorgeburtliches Menschenwesen hineindringt in die physische Menschen-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 192
+
+---
+
+Organisation, ich möchte sagen, immer mehr und mehr in dieser physischen Menschenorganisation untergeht, wie die physische Menschenorganisation immer mächtiger und mächtiger wird, wie dasjenige, was durch die Geburt eingezogen ist in den Menschen, im physischen Menschendasein. In der weiteren Entwicklung des Menschen immer mehr und mehr schwindet, wie sozusagen der Mensch von dieser Seite aus immer mehr und mehr ein physisch-leibliches Wesen wird. Aber in demselben Maße, in dem diese Entwicklung verläuft, in demselben Maße, in dem der uns angeborene Geist, die uns angeborene Seele in dem physischen Leibe untertauchen, so taucht auf dasjenige, was uns, wenn wir den Schlaf betrachten, als das zukünftige Wesen des Menschen erscheint.
+
+Indem wir immer mehr hinsehen gegen das Ende des normalen Menschenlebens, sehen wir, wie andererseits auftaucht gegenüber dem untergehenden geistigen Menschenleben des vorgeburtlichen Daseins, das geistig-seelische Wesen des geistigen nachtodlichen Menschendaseins. Da sehen wir in jedem einzelnen Zeitpunkte des Erdenlebens ein Maß dessen, was der Mensch sich mitgebracht hat aus den Ewigkeitswelten ins Erdendasein, was er sich zimmert, um es hindurchzutragen durch die Pforte des Todes in eine geistige Welt; erkennend dringen wir zur Unsterblichkeit vor. Der Weg, den ich Ihnen schildere, um durch Überschreitung der Mystik, der Naturwissenschaft zur Erkenntnis des Menschen zu kommen, ist keiner, den man abtun kann, indem man ihn obenhin als «hellseherisch» bezeichnet; das ist ein Weg, bei dem man weiß, wie jeder Schritt auf den vorhergehenden so folgt, wie der Mathematiker weiß, wie eine mathematische Ableitung auf die andere folgt. Der Weg, den ich Ihnen skizzieren konnte – wobei ich auf die genannten Bücher verweise –, ist der Weg der Anthropo
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 193
+
+---
+
+sophie, jener Weg, welcher erkenntnismäßig, so daß man über jeden Schritt dem strengen Mathematiker Rechenschaft ablegen könnte, zum Ungeborensein und Unsterblichkeit der Menschenseele hinführt, und der zeigt, wie man dann nicht mit der Naturwissenschaft innerhalb der Welt stehen zu bleiben hat, um in den Menschen hereindringen zu können, wie man nicht in der Mystik beim Menschen stehen bleiben muß, um an die Welt heranzudringen, sondern wie man erkenntnismäßig Weltendasein mit der Erkenntnis des Menschendaseins verbinden kann. Wenn so genügend Naturwissenschaft, wenn so genügend Mystik weitergeführt wird, dann wird sich für die künftige Geisteszivilisation der Menschheit wiederum die Möglichkeit bieten, das Wort, das an den Menschen so gewaltig mahnend herantritt, das Wort «Erkenne dich selbst!» zu erfüllen.
+
+Eine solche Erkenntnis, wie ich sie eben geschildert habe, unterscheidet sich allerdings von der Erkenntnis, die an das Nervensystem gebunden ist, die im wesentlichen eine Kopferkenntnis ist. Und gestatten Sie mir, daß ich eine persönliche Bemerkung mache, die aber vollkommen sachlich ist. Indem man als Geistesforscher versucht, in dieses Gebiet einzudringen, das ich bezeichne als Welten, die man vor der Geburt und nach dem Tode zu durchlaufen hat, ist man sich bewußt: Du kommst nicht aus mit demjenigen Denken, das dir sonst im Leben dient, du mußt ein erkraftetes Denken entwickeln, das den ganzen Menschen in Anspruch nimmt. - Man wird nicht zum Medium dadurch; aber es muß doch der ganze Mensch von einem solchen Denken in Anspruch genommen werden. Ein solches Denken dringt in das Empfinden, in das Gefühl ein, beansprucht sogar, daß der Mensch sich ihm mit seinem ganzen Willensinhalt ergibt. Dabei ist das Denken über geistige Inhalte wiederum
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 194
+
+---
+
+so, daß man es nicht in gewöhnlicher Weise dem Gedächtnis einverleiben kann wie ein anderes. Auch da mache ich eine persönliche Bemerkung: Sehen Sie, wenn der Geistesforscher einen solchen Vortrag hält, wie ich hier, dann kann er einen solchen nicht wie sonst wissenschaftliche Vorträge vorbereiten. Dann würde er nur an das Gedächtnis appellieren. Aber was durch eine solche Vertiefung entstanden ist, das läßt sich nicht dem Gedächtnis einverleiben, das muß in jedem Augenblick immer wieder erlebt werden. Es kann zwar heruntergebracht werden in jene Regionen, wo wir über unsere Erkenntnis Worte machen, aber man muß sich mit seinem ganzen Menschen darum bemühen. Und deshalb ist es von mir tief erlebt, daß ich nun nur in der Lage bin, dasjenige, was mir gelingt in der geistigen Welt zu forschen, der menschlichen Sprache einzuverleiben, - und indem man es der menschlichen Sprache einverleibt, so verleibt es sich auch dem Gedächtnis ein; es gelingt mir nur, wenn ich einige Striche zeichne oder aufschreibe, so daß nicht nur der Kopf, sondern auch die ganzen anderen Organsysteme beteiligt sind. Man muß das Bedürfnis fühlen, das eine oder das andere zu Hilfe zu nehmen, denn man kommt nicht zurecht, es fluktuiert, wenn man es mit dem Kopfe fassen will. Das Wesentliche daran ist, daß ich dem Gedanken durch Striche Ausdruck verleihe und ihn so fixiere. So kann man bei mir ganze Wagenladungen von alten Notizbüchern finden, die ich nie wieder ansehe. Sie sind auch nicht dazu da, sondern damit dasjenige, was ich mit Mühe aus dem Geiste herausgeholt habe, so weit gebracht werden kann, um es in Worte einzukleiden und es damit an das Gedächtnis heranzubringen. Hat man es geschrieben, hat man mit etwas anderem in seinem Organismus an der geistigen Produktion teilgenommen als bloß mit dem Kopfe, mit den Gedanken, dann ist man imstande, dasjenige, was
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84
+
+---
+
+einem entfliehen will, festzuhalten. Die übrige Organisation des Menschen ist ja zunächst unbeteiligt, unbewußt schlafender als die Kopfvorgänge, und wenn wir irgend etwas unserem Willen einverleiben, so nehmen wir jene Organe in Anspruch, die in einem solchen Zustande befindlich sind, den wir im Wachzustand als schlafend bezeichnen. Wir wachen ja eigentlich nur in unseren Gedanken, in unseren Vorstellungen, denn wie dasjenige, was wir vorstellen, als Willensentschluß hinunterrängt in unseren Organismus, um ganz zur Hand- oder zur Fingerbewegung zu werden, bleibt im gewöhnlichen Bewußtsein ganz in Finsternis getaucht. Was zwischen dem Vorgang im Gehirn bis zur Bewegung geschieht, das wird nur der Geistesforscher erkennen. Und so vertraut man eben die geistige Erkenntnis, die nicht gewöhnliches Kopfwissen ist, der ganzen menschlichen Organisation an. Dadurch, daß man sich aus dem ganzen Menschen heraus Menschenerkenntnis erwirbt, ist man imstande, diese Menschenerkenntnis, die das Vorgeburtliche und Nachtodliche dinghaft nehmen kann, in ganz anderer Weise auf das praktische Leben anzuwenden, als man ohne diese wahre Erkenntnis des Menschenwesens dazu imstande ist.
+
+Nun wagen diejenigen, die auf dem Boden der anthroposophischen Forschung stehen, ich möchte sagen, durch eine Schicksalsfügung, die allerdings auch auf die anderen Gebiete der Menschenerziehung sich erstreckt, Pädagogik und Didaktik, Menschenerziehung ins praktische Leben einzuführen. Derjenige, der sich mit einer Menschenerkenntnis durchdringt, die hervorgeholt ist aus solcher Forschung, wie ich angeführt habe, der eignet sich einen feineren Instinkt, einen vergeistigten Instinkt an für alles dasjenige, was im Menschen sich entwickelt durch die verschiedenen Lebensalter hindurch von der Geburt bis zum
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 196
+
+---
+
+Tode. Wir müssen dann nur den Mut haben, die Menschenentwickelung, deren Erkenntnis wir brauchen, auf einer höheren Stufe so anzusehen, wie wir sonst irgend etwas mit strengen wissenschaftlichen Methoden, was innerhalb der wissenschaftlichen Welt liegt, anschauen.
+
+Da ergibt sich zum Beispiel Folgendes: Wir denken ja immer nach, wie eigentlich die Schicksalswirkung des Seelisch-Geistigen im Physisch-Leiblichen des Menschen sein könnte. Aber wir beachten nicht, daß wir ja für solche Fragen nicht die Methoden der Spekulation anwenden sollen, sondern auch auf solche Fragen die Methoden der Beobachtung anwenden sollen. Wenn wirkliche Menschenbeobachtung menschlich entwickelt ist, dann sehen wir - ich spreche da vom populären Gesichtspunkte —, wie in dem ersten Lebensalter des Kindes, von der Geburt bis zum Zahnwechsel, in einer wunderbaren Weise gerade die bedeutendsten Fähigkeiten des Menschen sich herauslösen aus unbestimmten Tiefen seines Wesens. Wir sehen, wie jene Dynamik sich entwickelt, durch die der Mensch sich als ein aufrecht gehendes Wesen in seinem Gleichgewicht in die Welt hineinstellt, wie die Sprache, wie das Denken herauskommt aus der Tiefe des Seelenwesens und sich körperlich auslebt. Aber das, was wir sehen, es gipfelt organisch im Zahnwechsel. Dieser hat ja das Eigentümliche an sich, daß er ein einmaliges Ereignis im menschlichen Leben ist. Es wiederholt sich nicht, was im Zahnwechsel geschieht. Gewissermaßen ein Schlußpunkt wird mit einer Summe von Kräften in die menschliche Organisation gemacht. Nur derjenige, der diese menschliche Organisation nicht kennt, kann glauben, daß der Zahnwechsel für sich allein dasteht. Nein, er steht nicht für sich da, er steht da als der äußerlich wahrnehmbare Ausdruck für das, was im ganzen menschlichen Organismus vor sich geht. Der Mensch macht etwas durch, was er im späteren
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 197
+
+---
+
+Leben nicht mehr durchmachen wird, sonst würde er ja in periodischer Reihenfolge immer die Zähne wechseln. Aber derjenige, der den Menschen beobachtet, kennt diese bedeutende Verwandlung des geistig-seelischen Wesens des Menschen in jenem Zeitabschnitt. Aber man beachtet jenen Umschwung nicht, der sich in dieser Lebensepoche des Menschen vollzieht. Sollte ich das darstellen, was die Pädagogen und Didaktiker wissen sollten, was der Menschenerkenntnis, von der ich hier sprechen will, zugrunde liegt, so würde das weh über den Rahmen eines Vortrages hinausgehen, und daher will ich bloß skizzieren.
+
+Man betrachte zum Beispiel das Gedächtnis. Betrachtet man es oberflächlich, dann sagt man sich, das Gedächtnis tritt in einer gewissen Weise auf bis zum Zahnwechsel, dann verändert es sich etwas. Aber es ist etwas anderes, das Gedächtnis vor dem Zahnwechsel und das Gedächtnis nach dem Zahnwechsel. Für solche intime Kraftäußerungen des menschlichen Wesens haben wir heute eben aus der wissenschaftlichen Gesinnung heraus nicht die richtige Beobachtungsbegabung. Für eine richtige Beobachtung zeigt sich, daß das wunderbare Gedächtnis vor dem Zahnwechsel nichts anderes, als die Vollziehung von innen heraus sich äußernder Gewohnheiten ist. Aus den Kräften, der Macht der Gewohnheit baut sich das Gedächtnis bis zum Zahnwechsel auf. Wenn es sich handelt um eine Erinnerung, die man mit einer gewohnheitsmäßigen Bewegung vergleichen kann, dann kann man sagen, daß für das Gedächtnis eine Vorstellung die andere nach sich zieht.
+
+Kurz, dasjenige, was wir Gedächtnis nennen, macht eine Metamorphose durch, indem das Kind den Zahnwechsel um das siebente Lebensjahr passiert. Es macht eine Metamorphose durch von dem mehr physisch-leiblichen Erleben zu dem geistig-seelischen Erleben. Wer einmal einsetzt mit
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 198
+
+---
+
+einer solchen Beobachtung, dem ergeben sich weitere, die ungeheuer charakteristisch sind für die weitere Menschenentwicklung. Da sieht man zum Beispiel, wenn man Beobachtungsinstinkt sich erworben hat, wenn man sich einverleibt, die Erkenntnis der geistigen Forschung, daß das Kind bis zum Zahnwechsel ein nachahmendes Wesen ist. Natürlich, man darf solche Dinge nicht grob nehmen, aber das Kind ist in dem ersten Lebensabschnitt gewissermaßen ein einziges großes Sinnesorgan. Wir können das ganze Leben des Kindes im ersten Lebensabschnitt vergleichen mit einem einzigen Sinnesorgan, wir können es vergleichen mit der innerlichen Organisation des Auges. Wie das Auge aufnimmt das Äußere und durch Aufwendung der Willenskraft, durch das Werkzeug des Organischen innerlich aufbaut das Bild von dem, was als Eindruck auf das Organische ausgeübt wird, so ist das Kind fortwährend bestrebt, in Nachahmung, die herauskommt aus der inneren Wesenheit, das wiederzugeben, was in seiner Umgebung vorhanden ist. Das Kind ist ganz Sinnesorgan, ganz wirkendes Sinnesorgan. Weil eben das ganze Wesen des Kindes als Sinnesorgan wirkt, wird von dem Kinde nicht nur dasjenige aus seiner Umgebung nachgeahmt und innerlich durchlebt, in träumerischem Zustande, ganz unbewußt, was äußerliche Bewegung, Geste, was Sprachlaut ist, was Gedanke im Sprachlaut ist, sondern es ergibt sich immer - und das ist das Eigentümliche - von diesem Ausgangspunkte: Das nachahmende Kind beobachtet die moralische Bedeutung der Geste, die Vater und Mutter machen. Die moralische Bedeutung zum Beispiel des Gesichtsausdruckes hat ihre Gegenäußerung im Sinne des Kindes, sie gräbt sich ein in das Kind, in die physische Organisation. Bis in die Gefäße hinein organisiert sich das Kind, indem es mitfühlt, was in seiner Umgebung geschieht. Erst wenn man die Tragweite dessen ins Auge fassen wird, wird
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 199
+
+---
+
+man in Wirklichkeit unterscheiden können, was ererbt ist und was in dieser Weise in der ersten kindlichen Lebens- epoche nachahmend aus der Umgebung erworben wird. Dann wird man jene wunderbare Wechselwirkung sehen zwischen der Umgebung und dem Kinde, und der wirkliche, für den nüchternen Erkenner mystische Begriff der Wissenschaft von der Vererbung wird auf eine ganz andere Grundlage gestellt werden können. Da zeigt sich aber auch, welche besondere Natur der Mensch hereinbringt, indem er als geistig-seelisches Wesen durch die Geburt in das Erden-dasein hereintritt mit einem Ätherleib, womit man etwas bezeichnet, was dem heutigen Vorstellungsleben ungewohnt ist. Dasjenige, was das Kind charakterisiert, ist ein leiblich-religiöses Wesen. Es ist tatsächlich so, daß das Kind mit seinem Leibe an die physische Außenwelt und deren moralischen Inhalt hingegeben ist, wie wir in der religiösen Stimmung an etwas, das sich uns als göttlich erweist, hingegeben sein können. Es ist in einer leiblich-religiösen Stimmung; weil diese Stimmung lediglich leiblich-religiös ist, hat sie natürlich nicht die Stimmung der Frömmigkeit und dergleichen Zustände in sich, die dann später zur seelischen Religiosität werden. Aber können wir die Entwicklung des Menschen verfolgen, so sehen wir, wie dasjenige, was im Leibe west bis zum Zahnwechsel, dann verändert erscheint, wie dasjenige, was in der ersten Epoche ganz im Leiblich-Physischen beschlossen ist, in Fühlens- und Willensimpulse einzieht. Und wenn wir das Kind in die Volksschule bringen, müssen wir uns klar werden: da macht das innere Leben des Kindes eine Metamorphose durch. Da wird das, was leiblich-physisches Erleben war, nach dem erwähnten Schlußpunkte, den der Zahnwechsel bildet, was in der leiblich-physischen Entwicklung aufgetreten ist, zum Teil zurückgelassen und tritt in anderer Form als Seelisch-Geistiges
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 200
+
+---
+
+auf, tritt auf als Seele und Gefühl. Dasjenige, was zuerst in den Wachstumskräften war, in den plastisch gestaltenden Kräften, was als Geistig-Seelisches im Leibe gewirkt hat im Zahnwechsel, von dem löst sich ein Teil los und verwandelt sich in das freie Seelisch-Geistige nach dem Zahnwechsel. Und was wir als das Wachstum bezeichnen, was im Leibe gewirkt, stufenweise wandelt es sich um in das Geistig-Seelische. Wenn wir dies beachten und wenn wir ausgerüstet sind mit dieser Erkenntnis, dann stehen wir als Lehrer und Erzieher mit unserer ganzen Gesinnung und unserem ganzen Wissen dem zu erziehenden Kinde richtig gegenüber. Dann wissen wir, daß in diesem physisch-leiblich-sinnlichen Wesen, das für seine Umwelt in einer religiösen Hingabestimmung ist, wie in dieses hereinwächst einem Leiblich-Religiösen gegenüber das geistig-seelische Wesen, das im vorirdischen Dasein da war. Versetzen wir uns einmal in die Seele eines Erziehers, der dem Kinde so gegenübersteht. Er wird sich seiner Verantwortung bewußt sein, er weiß, daß ihn die Geisteswelten heruntergeschickt haben, um ein Wesen, das er durch seine leiblichen Äußerungen zu erraten, zu enträtseln hat, zu leiten. Er wird so vor dem Wesen stehen, daß er sich in Hingabe hergibt, mitzuhelfen, daß alles dasjenige, was im Kinde mitgebracht ist aus geistig-seelischen Welten, wirklich zur Erscheinung kommen kann. Und mit Ehrfurcht vor seinem Berufe wird der Erzieher vor dem Kinde stehen, da er mit jedem Monat, mit jedem Jahr sieht, daß das alles, was es sich mitgebracht hat aus der geistig-seelischen Welt, sich verwandelt zum Physisch-Leiblichen. Und er wird hinschauen auf die Art und Weise, wie er auf das Kind wirken kann, und er wird gewahr werden können dasjenige, was leiblich-physisch war vor der Umwandlung, in der ersten Epoche bis zum Zahnwechsel; in der zweiten Epoche, vom Zahnwechsel bis zur Geschlechts-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:201
+
+---
+
+reife, wandelt es sich als Übergang in das Seelische, und erst mit der Geschlechtsreife wandelt es sich um in das Geistige. Der Mensch tritt uns dann so entgegen, daß, was in seiner Organisation in den ersten Kindesjahren erlebt worden ist, sich nun auslebt in seiner geistigen Erfassung der Welt: das Leiblich-Religiöse wird geistig-religiös. Jetzt merken wir den Zusammenhang, wie dasjenige, was leiblich ist, seelisch-geistig wird. Jetzt spekulieren wir nicht mehr über Physisch-Leibliches, über Geist und Seele, jetzt sehen wir, wie in den verschiedenen Lebensaltern in der Menschenentwicklung das eine Mal das Geistig-Seelische sich unmittelbar offenbart, das andere Mal sehen wir, wie das geistig-seelische Ewigkeitswesen im Leiblich-Physischen wirkt. Jetzt gewinnen wir Menschenanschauung auf Grundlage der Wechselwirkung zwischen Leib und Seele, auf Grund einer Menschenbeobachtung, die zur Grundlage einer richtigen Menschenerziehung wird.
+
+Durch Schicksalsfügung hat sich die Möglichkeit ergeben, dasjenige, was sich aus solcher Beobachtung ergibt, praktisch didaktisch und pädagogisch anzuwenden in den Jahren, in denen man imstande ist, die Schicksale des Kindes zu lenken. In Stuttgart wurde durch Herrn Emil Molt die «Waldorf-Schule» als freie Volksschule gegründet, zu der später noch die unteren Klassen der Mittelschule hinzukamen. Die Leitung wurde mir übergeben. Ich konnte nun diejenigen Methoden bringen, die sich aus der geschilderten Menschenerkenntnis ergeben. Da handelt es sich darum, daß man zunächst beiseite läßt, was man sonst «Lehrziel» nennt, daß man das abliest von der Menschenentwicklung selbst.
+
+Ich habe das, was ich geschildert habe, nur skizzenhaft dargestellt, aber es nimmt sich so aus, daß man von Tag zu Tag in neuer Gestalt an dem Kind beobachten kann durch den pädagogischen Instinkt, der durch die Arbeit mit
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 202
+
+---
+
+dem Kind, am Kind entsteht, daß man dadurch ablesen kann, wie das kindliche Leben verläuft; daß man ablesen kann, was man in jeder Woche, in jedem Monat zu tun hat, daß man es sich von der Wesenheit des Menschen diktieren läßt, was man als Erzieher an das Kind heranzubringen hat: zum Beispiel, daß zunächst, wenn man das Kind in die Volksschule gibt, das Kind in dieser Entwicklungsphase einen ganz selbstverständlichen Widerwillen hat gegen das unmittelbare Schreiben- und Lesenlernen. Und das kann man begreifen. Bedenken Sie, daß ja diese sonderbaren Zeichen, die wir Buchstaben nennen, durch die wir lesen und schreiben, die ja etwas dem Menschen ganz Fremdes sind, entstanden sind aus den ursprünglichen Schriftzeichen in einer langen Kulturentwickelung. Die ursprüngliche Schrift ist ja entstanden aus den Bildern und Zeichen von dem, was sie darstellte; sie war noch näher im Ausdruck dem, was sie bedeutete; da war sie noch ähnlich dem, was man unmittelbar wahrnahm. Das Kind, das zur Schule kommt und die abgeleiteten Schriftzeichen lernen soll, fühlt keine Verwandtschaft mit den seinem Empfinden fremden Zeichen. Dieses Verständnis erwacht erst mit der Geschlechtsreife und ist ein ganz anderes als das zwischen dem sechsten und achten Jahre und zwischen dem vierzehnten, fünfzehnten, sechszehnten Lebensjahre. Das Kind, weil es erst seelisch da ist, ist angewiesen auf das Bildhafte, das sich ihm so ergibt, wie die Sinneswahrnehmung und Sinnesanschauung. Erkennt man dies, dann wird man für dieses Lebensalter die richtigen Erziehungsimpulse hereinbringen; dann muß man aber zu jenen Dingen übergehen, zu denen wir übergingen in unserer Schulpraxis in unserer Schule in Stuttgart. Es handelt sich darum, das Kind zu einem malenden Zeichnen, zu einem zeichnenden Malen zu bringen. Man muß sie sich nicht nur mit dem Kopfe, den Augen betätigen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 203
+
+---
+
+lassen, sondern mit dem ganzen Menschen beschäftigen lassen, und es ist wunderbar, was herauskommt an merkwürdiger Bildhaftigkeit, was die Kinder zeichnend malend, malend zeichnend erreichen. Lenkt man das in richtiger Weise, so kann man herausentwickeln aus dem, was den Kindern nahe liegt, die Buchstaben, das Schreiben, das Lesen. Wir lassen das Lesen nach dem Schreiben lernen, weil beim Lesen der Mensch nur kopfmäßig beteiligt ist, beim Schreiben jedoch mit dem ganzen Menschen.
+
+Das ist ein Beispiel, wie wir versuchen, aus Menschen-erkenntnis heraus in praktischer Pädagogik und Didaktik dasjenige zu erreichen, was Menschenzerziehung erreichen soll. Derjenige, der da schaut, wie der Mensch veranlagt ist in bezug auf sein religiöses Leben, der findet auch die Möglichkeit, die sittlich-religiösen Impulse hereinzubringen. Auf diese Weise enthüllt sich dann das Folgende: Es ist merkwürdig, wie Kinder, die zwischen dem neunten und zehnten Lebensjahr stehen, im ersten Drittel des zweiten Lebensabschnittes, wie solche Kinder in diesem Lebensabschnitte etwas durchmachen. Das alles spielt sich unbewußt ab. Wir sehen, wie das Kind, indem es den Zahnwechsel überschritten hat, den Übergang findet vom nachahmenden Wesen zu demjenigen Wesen, das auf die Autorität des Erziehers und Lehrers hin sich alles aneignet. Sie werden demjenigen, der vor dreißig Jahren die «Philosophie der Freiheit» geschrieben hat, glauben, daß er nicht an Sie herantreten wird als ein Anwalt für die Autorität, aber gerade, wenn man aus jener «Philosophie der Freiheit» erkannt hat, was Freiheit bedeutet, dann kann man auch ermessen, daß es aus der Gesetzmäßigkeit des Menschen heraus ist, daß das Kind vom Zahnwechsel an bis zum Zeitpunkt der Geschlechtsreife ein Wesen ist, das vollkommen nachahmt dasjenige, was es beim Lehrer oder Erzieher sieht. Wir sehen,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 204
+
+---
+
+daß es nicht nur durch die Sprache sich nach ihm richten will, aus seiner inneren Gesetzmäßigkeit heraus, sondern daß es nach der ganzen menschlichen Lebensäußerung sich nach ihm richten will. Wenn das Kind sich in dieses notwendige, selbstverständliche Autoritätsgefühl hereingelebt hat, sieht man, wie es zwischen dem neunten und zehnten Lebensjahr ein Art Krisis durchmacht. Alles geschieht gefühls- und empfindungsgemäß, es gibt sich nicht Rechenschaft darüber; aber das Kind kommt an den Erzieher heran und will etwas Besonderes. Und wenn wir es in Worte kleiden wollen, so meint das Kind: Bis dahin war das Schöne schön, weil der Lehrer und Erzieher es für schon gehalten hat, bis dahin war das Wahre wahr, weil der Lehrer und Erzieher es für wahr gehalten hat. - Von diesem Zeitpunkte an aber empfindet es: Wer rechtfertigt diese Autorität vor der gesamten Welt, woher hat sie das Wahre und Schöne als wahr und schön? Das Kind macht eine Krisis durch, es weiß nichts von dem, was ich hier formuliert habe, empfindet nur so etwas. Und wir müssen als Lehrer und Erzieher diesen Moment beobachten, daß das rechte Wort, wenn nötig, fort und fort gesprochen werde vom Erzieher zum Kinde. Denn es handelt sich darum: Von demjenigen, was wir da tun in diesem Krisisaugenblicke, hängt das ganze spätere Leben ab, ob es lebensfreudig und sicher ist oder ob es fremd und innerlich wie gelähmt ist.
+
+Darauf weist uns eine solche Erziehungsmethode des Menschen, daß wir dasjenige tun müssen als Erzieher, was dem ganzen Leben frommt. Dann werden wir, wenn wir in eine solche Lebensbeobachtung eindringen, sehen, wie etwas, was im kindlichen Lebensalter richtig in das Kind hereingebracht wird, erst im späteren Leben zur Reife kommt. Ich will Ihnen hier ein Beispiel anführen. Wir kennen Menschen, welche, wenn sie älter geworden, vielleicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 205
+
+---
+
+wenn sie schon sehr alt geworden sind und in irgendeine Gesellschaft hereinkommen, so brauchen sie gar nicht viel zu reden, sie sind etwas, was Ruhe, Frieden, was etwas Segnendes in die Gesellschaft hereinbringt. Das sind Menschen, die oftmals nur durch die Nuance der Worte, durch die Art und Weise wie sie sprechen, in großartiger Weise mit moralischen Impulsen, Gnade spendend auf ihre Mitwelt wirken können. Gibt man sich nicht zufrieden mit der Beobachtung des Lebens in kürzeren Zeiträumen, und gibt man sich die Mühe und kann man das ganze Menschenleben beobachten, dann weiß man, daß solche Menschen, die so segensbringend wirken, als Kinder das Glück hatten, zu anderen Menschen oder zu etwas, was ihnen entgegengebracht wurde, verehrend aufzuschauen. Aus dieser Verehrung zwischen dem zehnten und vierzehnten Lebensjahr entwickelt sich dasjenige, was uns zu Wohltätern macht im späteren Lebensalter, was ich, bildlich ausgedrückt, so sagen will: Keine Hand kann sich segnend erheben im späteren Lebensalter, die nicht gelernt hat im kindlichen Lebensalter, sich zum Gebet zu falten. Das soll nur bildhaft darauf hinweisen, wie eine wahre Menschenerkenntnis solches an das Kind heranbringt, daß wachse und lebe das Gefühl für das moralisch Gute, die Antipathie für das Böse, daß es wachse, wie der menschliche Leib selbst wächst. Man hat das Gefühl, wenn man scharfe Konturen in Definitionen an das Kind heranbringt, daß das so wäre, wie wenn man dem kindlichen Organismus Fesseln anlegen würde. Wir müssen dem Kinde Begriffe, Impulse geben, die wachsen können wie der Organismus, die geistig-seelisch wachsen können, die geistig in sich tragen die innere Möglichkeit, immer reicher und reicher zu werden, auf daß man später in der Erinnerung froh zurückblickt, daß das kindliche Leben aufsprießt in dem altgewordenen Menschenkörper. Durch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:206
+
+---
+
+wenige Bilder möchte ich Ihnen zeigen, wie eine wirkliche Menschenerkenntnis, die so errungen wird, wie ich es gleich zu Anfang meines Vortrages geschildert habe, auf die Pädagogik und Entwicklung des Kindes Anwendung findet. Man wird ja sehen an der Schule von Stuttgart, wie Ihnen diese wird beweisen müssen, was ich Ihnen hier geschildert habe, wie sie gewissermaßen den lebenspraktischen Beweis erbringt, der in gewissem Grade vorliegt, wenn wir in bezug auf die Ergebnisse auch bescheiden sein wollen.
+
+Es könnte nun eingewendet werden, daß nur derjenige Interesse haben kann für eine solche Menschenerkenntnis, der durchgemacht hat, was zum Hineinschauen in die geistige Welt befähigt. So ist es aber nicht. Obwohl, wer den Erkenntnisweg durchgemacht hat, der geschildert ist, zum Beispiel in dem Buch «Wie erlangt man Erkenntnisse der höheren Welten?» selbst nachprüfen kann, was die Geistesforschung sagt, so ist das zur Beurteilung nicht einmal notwendig, wie jeder, der nicht selbst Maler ist, die Schönheit eines Bildes beurteilen kann. Zwar kann allein nur der Forscher die geistige Welt schildern; diejenigen aber, die sich gesunden Menschensinn bewahrt haben, können durchaus durchschauen die Wahrheit oder Unwahrheit desjenigen, was aus der geistigen Welt erforscht wird. Deshalb darf man nicht diejenigen, die sich zu dieser Geistesforschung bekennen, als eine Sekte darstellen oder als blind schildern.
+
+Das will Anthroposophie nicht sein, sie will eine Fortsetzung sein der wissenschaftlichen Forschung, die sich durch Jahrhunderte hindurch bis zur Kulmination im neunzehnten Jahrhundert entwickelt hat, in deren Entwicklung wir heute noch stehen. Nur in diesen Richtlinien kann sie zur wirklichen Menschenerkenntnis werden und dadurch zur Grundlage einer menschheitsgemäßen und der Menschenwürde gemäßen Menschenerziehung. Denn nicht aus der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 207
+
+---
+
+Erkenntnis der Welt allein kommen wir im Leben zurecht, da weder Naturwissenschaft noch Mystik den Menschen zur vollen Erkenntnis seines Menschenwesens führen können. Denn es ist mit ihr wie mit dem Atmen: sie muß eine Wechselwirkung sein, gewissermaßen ein Einatmen und Ausatmen, zwischen Welterkenntnis und Menschenerkenntnis. Solche Erkenntnis allein kann aber nur die Grundlage sein einer Erziehung, die das Geistig-Seelische bis zu seiner Umwandlung ins Physisch-Leibliche verfolgt, eine Grundlage für das, was am Zustand der menschlichen Kultur einer Umwandlung bedarf. Denn derjenige, der das heutige Leben betrachtet, wird sich sagen können: Durch äußere Umwandlung kann nicht umgewandelt werden dieser Zustand, durch sie allein kann nicht herbeigeführt werden, was wir zum Fortgange unserer Zivilisation, die bedroht ist, wünschen, sondern allein durch dasjenige, was aus dem Geiste kommt, und nur diejenigen Menschentaten, Menschenhandlungen werden sich dem sozialen Fortschritte einfügen, die vom Geiste getragen sind.
+
+Lassen Sie mich kurz zusammenfassen: Geist-Erkenntnis gibt dem Menschen, in Geist getaucht, die Ideen, die sein ganzes Wesen erfüllen können, die zu geisterfüllten Taten, zu geisterfüllten Handlungen und zu einem geisterfüllten sozialen, zu einem geistig in Liebe getränkten menschlichen Zusammenleben führen können. Und das ist dasjenige, was wir für die nächste Zukunft am allernotwendigsten haben werden.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 208
+
+---
+
+# DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG
+
+Wien, 26. September 1923
+
+Wer heute von übersinnlichen Welten spricht, setzt sich ja von vornherein dem durchaus begreiflichen Vorwurf aus, daß er gegen eine der allerwichtigsten Zeitforderungen verstoße, gegen die Zeitforderung: daß im Ernst über die höchsten Fragen des Daseins von einem wissenschaftlichen Standpunkte aus nur so gesprochen werden könne, daß die Wissenschaft sich ihrer Grenzen bewußt sei und eben eine klare Einsicht habe in die Tatsache, daß sie sich beschränken müsse auf die sinnliche Welt des irdischen Daseins und einer gewissen Phantastik verfallen würde, wenn sie über diese Grenzen hinausginge. - Nun, gerade diejenige Richtung geisteswissenschaftlicher Anschauung, von der aus ich beim letzten Wiener Kongreß der anthroposophischen Bewegung gesprochen habe und von der aus ich auch heute wiederum sprechen will, nimmt für sich in Anspruch, nicht nur nicht gegnerisch zu sein gegen wissenschaftliche Gesinnung und wissenschaftliche Verantwortlichkeit unserer Zeit, sondern auch durchaus im Sinne dessen zu arbeiten, was gerade als Aufgaben von den gewissenhaftesten wissenschaftlichen Anforderungen auch derjenigen gestellt werden kann, die auf dem Boden strengster Naturforschung stehen. Nun kann man allerdings in verschiedenem Sinne von den wissenschaftlichen Zeitforderungen sprechen, die uns durch das gestellt werden, was in einer so großartigen Weise im Laufe der letzten drei bis vier Jahrhunderte, insbesondere aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 209
+
+---
+
+des neunzehnten Jahrhunderts an theoretischen und praktischen Ergebnissen in der Menschheitsentwicklung herausgekommen ist. Ich will heute deshalb von übersinnlicher Erkenntnis sprechen, insofern sie gerade diese Zeitforderung erfüllen will, und ich möchte im nächsten Vortrage dann sprechen von der übersinnlichen Menschenerkenntnis als einer Forderung des menschlichen Herzens, des menschlichen Gemütes in der gegenwärtigen Zeit.
+
+Man kann hinsehen auf das, was uns bis in die jüngsten Tage herein die naturwissenschaftliche Forschung Großartiges gebracht hat - Großartiges gebracht hat an Ergebnissen von Zusammenhängen über die äußere Welt. Aber man kann auch in einem anderen Sinne von den Errungenschaften sprechen, die gerade bei dieser Entwicklungsströmung der Menschheit gewonnen worden sind. Man kann nämlich davon sprechen, daß bei den gewissenhaften, ernsten Beobachtungen der Gesetze und Tatsachen der äußeren Sinneswelt, wie sie die Naturwissenschaft geliefert hat, sich ganz besondere menschliche Fähigkeiten ausgebildet haben, und daß gerade von Beobachtung und Experiment ein Licht ausgegangen ist auch auf die menschlichen Fähigkeiten selbst. Aber ich möchte sagen: Viele, die im anerkennenswertesten Sinne auf dem Boden naturwissenschaftlicher Forschung stehen, möchten gerade von diesem Lichte, das auf den Menschen selbst durch seine Forschungen zurückgeworfen wird, nicht viel hören. Wenn wir nur ein wenig uns besinnen auf das, was dieses Licht beleuchtet, so sehen wir, wie das menschliche Denken dadurch, daß es enge und weite Zusammenhänge - das Mikroskopische und das Teleskopische - gesetzmäßig durchforschen konnte, dadurch selber Unendliches für sich gewonnen hat, gewonnen hat an Unterscheidungsvermögen, gewonnen hat an eindringlicher Kraft, die Dinge der Welt zusammenzustellen, so daß sie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 210
+
+---
+
+ihre Geheimnisse verraten, die Gesetze der Weltenzusammenhänge festzustellen und so weiter. Wir sehen, indem dieses Denken entfaltet wird, eine Anforderung an dieses Denken gestellt, und zwar gestellt gerade von den ernstst zu nehmenden Forschern: die Forderung, daß dieses Denken so selbstlos als möglich sich entwickeln müsse in der Beobachtung der äußeren Natur und im Experimentieren im Laboratorium, in der Klinik und so weiter. Und eine große Gewalt hat der Mensch in dieser Beziehung gewonnen. Es ist ihm ja gelungen, immer mehr und mehr Maßregeln solcher Art zu treffen, daß nichts von dem, was im Denken selber als innere Herzenswünsche des Menschen, als Anschauungen, vielleicht auch als Phantasien über sein eigenes Wesen aufsteigt, hineingetragen werde in dasjenige, was er mit dem Mikroskop und Teleskop, mit Maßstab und Waage über die Zusammenhänge des Lebens und des Daseins feststellen soll.
+
+Unter diesen Einflüssen hat sich allmählich ein Denken herausgebildet, von dem man sagen muß, daß es mit einem gewissen inneren Fleiß seine passive Rolle herausgearbeitet hat. Das Denken ist heute durchaus an der Beobachtung, am Experiment, abstrakt geworden, so abstrakt geworden, daß es sich nicht zutraut, etwas an Erkenntnissen und an Wahrheiten aus seinem eigenen Inneren herauszuzaubern.
+
+Diese Eigenschaft des Denkens, die sich da allmählich herausgebildet hat, ist es ja vor allen Dingen, die, wie es zunächst scheint, alles abweisen muß, was der Mensch seinem inneren Wesen nach selbst ist. Denn das, was er so selbst ist, muß er in Aktivität aus sich herausstellen; das kann niemals eigentlich ganz ohne den Einschlag seines Willens sein. Und so sind wir denn - und auf dem Gebiete der äußeren Forschung mit Recht - dazu gekommen, gerade die Aktivität des Denkens abzuweisen, in der wir uns aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 211
+
+---
+
+doch bewußt sind, was wir als Menschen im Universum, im ganzen Weitenzusammenhange bedeuten. Ausgeschaltet hat sich in einer gewissen Beziehung der Mensch bei seinem Forschen; er verbietet sich seine innere Aktivität. Wir werden gleich sehen, wie das, was in bezug auf dieses äußere Forschen mit Recht verboten werden muß für das eigene Selbst des Menschen, nun besonders kultiviert werden muß, wenn der Mensch über das Geistige, über das Übersinnliche seines Wesens Aufschluß haben will.
+
+Aber auch ein zweites Element in der menschlichen Wesenheit hat seine besondere Seite darbieten müssen, die menschheitsfremd, wenn auch weltenfreundlich ist in der neueren Forschung mit Bezug auf das menschliche Gemüt, auf das menschliche Gefühl. Es darf in der neueren Forschung dieses menschliche Gefühl nicht mitsprechen; der Mensch muß kalt und nüchtern bleiben. Dennoch könnte man fragen: Wäre es denn aber nicht möglich, innerhalb dieses Fühlens dennoch Kräfte für Welterkenntnis zu gewinnen? Gerade wenn man auf der einen Seite sagen muß: Im Gefühl arbeitet die innere menschliche Willkür, die menschliche Subjektivität, und das Gefühl ist der Quell der Phantasie - so muß man auf der anderen Seite doch wieder sagen: Gewiß, so wie das Gefühl zunächst im alltäglichen oder im wissenschaftlichen Leben ist, so kann diese menschliche Gefühlsseite keine besondere Rolle spielen. Aber wenn wir uns erinnern, wie uns ja die Wissenschaft selbst darstellen muß, daß die menschlichen Sinne in der gesamten Menschheitsentwicklung nicht immer so waren, wie sie heute sind, sondern daß sie sich aus verhältnismäßig unvollkommenen Zuständen zu den heutigen Zuständen heraufentwickelt haben, daß sie ganz gewiß in früheren Zeiten nicht so objektiv über die Dinge gesprochen haben wie heute, dann dämmert doch vielleicht die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 212
+
+---
+
+Ahnung auf, daß auch in dem subjektiven Gefühlsleben irgend etwas drinnenstecken konnte, was so herausgeholt werden könnte, wie die menschlichen Sinne selbst, und was aus einem Erleben der eigenen menschlichen Wesenheit hinüberführen könnte zu einem Erfassen der Weltenzusammenhänge in einem höheren Sinne. Gerade wenn man das Zurückziehen des Gefühls innerhalb der heutigen Forschung erblickt, muß die Frage aufgeworfen werden: Könnte sich nicht im Gefühl irgendein höherer Sinn erschließen, wenn dieses Gefühl besonders entwickelt würde?
+
+Aber hervorragend anschaulich finden wir bei einem dritten Element in der menschlichen Wesenheit, wie wir von der durchaus anerkennenswerten naturwissenschaftlichen Auffassung hinausgetrieben werden zu irgend etwas anderem: das ist die Willensseite des menschlichen Seelenlebens. Wer wirklich im naturwissenschaftlichen Denken drinnensteht, der weiß, wie es diesem Denken unmöglich ist, anders die Zusammenhänge in der Welt zu denken als im Sinne der ursächlichen Notwendigkeit. In strenger Art verknüpfen wir die nebeneinander im Räume befindlichen Erscheinungen, in strengem Sinne verknüpfen wir die nacheinander in der Zeit folgenden Erscheinungen. Ursache und Wirkung verknüpfen wir, man möchte sagen, nach ihren ehernen Gesetzen. Wer nicht als Dilettant, wer als ein in der Naturwissenschaft Drinnenstehender spricht, der weiß, welche Gewalt einfach die Betrachtung der naturwissenschaftlichen Tatsachen weiten in dieser Beziehung ausübt; er weiß, wie er gefangengenommen wird von dieser Idee einer Allursächlichkeit, und wie er dann gar nicht anders kann, als bei allem, was ihm entgegentritt, in seinem Denken diese Idee der Ursächlichkeit auch geltend zu machen.
+
+Da aber steht dann der menschliche Wille, dieser menschliche Wille, der uns in jedem Augenblicke unseres wachen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 213
+
+---
+
+Tageslebens sagt: Was du in einem gewissen Sinne aus dir selber heraus, aus deinem Willen unternimmst, das ist nicht in demselben Sinne ursächlich bedingt wie irgendwelche äußeren Naturerscheinungen. - Deshalb wird auch ein Mensch, der einfach natürlich über sich selber fühlt, der in unbefangener Selbstbeobachtung in sich hineinschaut, kaum etwas anderes können, als aus der unmittelbaren Erfahrung heraus sich die Freiheit des Willens zuzuschreiben. Wenn er dann aber hinüberblickt zu dem naturwissenschaftlichen Denken, dann kann er diese Willensfreiheit nicht zugeben. Hier ist einer der Konflikte, in die uns die heutige Zeitlage hineinbringt. Wir werden im Verlaufe dieser zwei Vorträge noch manches andere von diesen Konflikten kennenlernen. Aber dieser Konflikt ist für den, der ihn in seiner ganzen Intensität fühlen, man möchte sagen, durchfühlen kann - weil er ehrlich sein muß auf der einen Seite gegen die naturwissenschaftliche Forschung, auf der anderen Seite gegen die Selbstbeobachtung - etwas Zerwühlendes, etwas so Zerwühlendes, daß es ihn in den Zweifel hineintreiben kann, ob überhaupt im Leben irgendwie ein Anhaltspunkt da sei, die Wahrheit zu erforschen.
+
+Man muß solche Konflikte von der rechten menschlichen Seite nehmen können. Man muß sich sagen können: Es treibt einen die Forschung dazu, dasjenige, was man täglich gewahr wird, eigentlich nicht zugeben zu können; da muß irgendwie etwas liegen, was noch andere Zugänge zur Welt bietet als das, was eben in nicht zu widerlegender Weise in der äußeren Naturordnung gegeben ist. Gerade indem wir in einer so starken Weise durch die Naturordnung selbst in solche Konflikte hineingetrieben sind, wird es für uns Menschen der Gegenwart eine Zeitforderung, uns zu gestehen, daß es unmöglich ist, über die übersinnlichen Welten so zu sprechen, wie bis vor verhältnismäßig kurzer Zeit noch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 214
+
+---
+
+gesprochen worden ist. Wir brauchen nur in die erste Hälfte des neunzehnten Jahrhunderts zurückzugehen, und wir finden, daß damals Geister, die von ihrem Zeitbewußtsein aus die Naturwissenschaft durchaus ernst genommen haben, dennoch hingewiesen haben auf die übersinnliche Seite des menschlichen Lebens, auf diejenige Seite, die dem Menschen eröffnet die Aussicht auf das Göttliche, auf seine eigene Unsterblichkeit, und daß sie damit immer hingewiesen haben auf dasjenige, was wir heute nennen können die «Nachtseiten» des menschlichen Lebens. Ganz ernst zu nehmende Menschen haben hingewiesen auf jene wundersame, aber höchst problematische Welt, in die der Mensch jede Nacht versetzt wird: auf die Traumwelt. Sie haben hingewiesen auf manche geheimnisvollen Zusammenhänge, die diese chaotische Bilderwelt der Träume dennoch mit der Wirklichkeit hat; sie haben darauf hingewiesen, wie das Innere der menschlichen Organisation, insbesondere bei Krankheiten, sich in den phantastischen Bildern des Traumes dennoch in einer gewissen Weise spiegelt, und wie das gesunde menschliche Leben in Sinnbildern, in Symbolen in die chaotischen Traumerlebnisse einzieht. Sie haben darauf hingewiesen, wie manches, was der Mensch mit seinen wachen Sinnen nicht überschauen kann, in den halbwachen Seelenzustand gelegt wird, und man hat aus solchen Dingen seine Schlüsse gezogen. Diese Dinge grenzen dann an das, was auch heute noch von vielen Menschen gepflegt wird, an die unterbewußten Zustände des menschlichen Seelenlebens, die in einer ähnlichen Weise sich äußern.
+
+Alles aber, was in dieser Art an den Menschen herantritt, was eine Vormenschheit noch in einer gewissen Weise befriedigen konnte, das kann für uns heute nicht mehr gelten, kann aus dem Grunde nicht mehr gelten, weil die Art, wie wir in die äußere Natur schauen, eine andere ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 215
+
+---
+
+worden ist. Man muß da schon hineinschauen in die Zeiten, wo es zum Beispiel nur eine mystisch gefärbte Astrologie gegeben hat. Da hat der Mensch in die Sinneswelt so hineingeschaut, daß dieses Hineinschauen weit entfernt war von der Exaktheit, die wir heute als Forderung an die Wissenschaft stellen. Und so konnte er vielleicht auch, weil er sich gestattete, im Sinnlichen nicht jene volle Klarheit zu haben, die wir heute haben, so konnte er im Mystischen, in gewissen halbbewußten Zuständen etwas finden, was ihm Aufschlüsse geben konnte. Das können wir heute nicht. Ebensowenig wie wir imstande sind, aus dem, was die Naturwissenschaft uns direkt gibt, etwas anderes zu holen als Fragen in bezug auf das eigentliche Wesen des Menschen, ebensowenig können wir bei der Naturwissenschaft unmittelbar stehenbleiben und etwa unsere übersinnlichen Bedürfnisse in einer ähnlichen Art befriedigen, wie es die Vorzeit getan hat.
+
+In diese Zeitforderung hinein schaut jene übersinnliche Erkenntnisart, von der ich hier sprechen will. Sie schaut darauf hin, wie das Denken, Fühlen und Wollen des Menschen geworden sind gerade durch die Naturwissenschaft, und sie fragt auf der anderen Seite: Ist es möglich, gerade mit dem, was sich der heutige Mensch da im Denken, Fühlen und Wollen erobert hat, nun mit derselben Klarheit, die auf naturwissenschaftlichem Gebiete herrscht, weiter zu schreiten in das Übersinnliche hinein? Durch Schlußfolgerungen, durch Logik und so weiter kann das nicht geschehen, denn mit Bezug auf ihr eigenes Wesen deutet die Naturwissenschaft mit Recht ihre Grenzen an. Aber ein anderes kann geschehen: daß die inneren menschlichen Seelenfähigkeiten von dem Punkte an, an dem sie stehen, wenn wir innerhalb der gewöhnlichen wissenschaftlichen Forschung sind, weiterentwickelt werden; so daß wir jetzt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 216
+
+---
+
+jene Exaktheit, an die wir uns in bezug auf das äußere Forschen im Laboratorium und in der Klinik gewöhnt haben, anwenden auf die Entwicklung unserer eigenen Geistesfähigkeiten. Vorerst will ich das in bezug auf das Denken selber ausführen.
+
+Es kann das Denken, das sich für das äußere Forschen seiner passiven Rolle immer mehr und mehr bewußt geworden ist und diese nicht verleugnen will, innerlich sich zur Aktivität erkraften, so erkraften, daß es jetzt nicht in der Weise exakt ist, wie man sonst mit Messen, Wägen und so weiter in der äußeren Forschung exakt ist, aber so exakt, daß es in bezug auf seine eigene Ausbildung exakt ist, so wie der äußere Forscher, der Mathematiker zum Beispiel gewohnt ist, jeden Schritt mit vollem Bewußtsein zu verfolgen. Das aber geschieht, indem jene übersinnliche Erkenntnisart, von der ich hier spreche, an die Stelle des alten verschwommenen Meditierens, an die Stelle des alten verschwommenen Sichversenkens in das Denken nun eine wirkliche exakte Entwicklung dieses Denkens setzt.
+
+Ich kann das, was ich in bezug auf eine solche exakte Entwicklung des Denkens in meinen Büchern «Geheimwissenschaft im Umriß» oder «Wie erlangt man Erkenntnisse der höheren Welten?» und in anderen ausgeführt habe, hier nur prinzipiell andeuten. Der Mensch sollte es wirklich über sich bringen, solange als es für jeden notwendig ist - was sich ergibt aus der verschiedenen menschlichen Veranlagung —, die Rolle, die er sonst im Denken einnimmt und mit Recht einnimmt: sich passiv der äußeren Welt hinzugeben —, zu vertauschen mit jener anderen: seine ganze innere Seelenaktivität in dieses Denken zu legen, indem er zum Beispiel Tag für Tag, wenn auch jeweils nur für kurze Zeit, mit Zurückziehung seines Gemütes von der Außenwelt, irgendeinen Gedanken, auf dessen Inhalt es
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 217
+
+---
+
+zunächst nicht ankommt, in seine Seele hereinnimmt und alle seine inneren Seelenkräfte in innerer Konzentration auf diesen einen Gedanken hinlenkt. Dann tritt dadurch etwas ein, was man in bezug auf die Ausbildung jener Seelenfähigkeiten vergleichen kann mit dem, was sich ergibt, wenn irgendwelche Muskeln am menschlichen Leibe, zum Beispiel die Armmuskeln, ausgebildet werden sollen: die Muskeln werden durch Gebrauch, durch Übung stärker, werden kräftiger. So werden die Seelenfähigkeiten durch das Hinlenken auf einen bestimmten Gedanken innerlich aktiver, kräftiger. Und man muß nun die Sache so einrichten, daß man wirklich exakt vorgeht, daß man jeden Schritt, den man mit seinem Denken macht, so überschaut, wie der Mathematiker seine Operationen überschaut, wenn er ein geometrisches oder arithmetisches Problem lösen will. Das kann man auf die verschiedenste Weise machen. Trivial sieht es aus, wenn ich sage, man solle zu diesem Konzen¹ trationsinhalt etwas benutzen, was man in irgendeinem Buche findet, meinetwillen in einem alten Schmöker, von dem man ganz bestimmt weiß, daß man ihn noch nicht zu Gesicht bekommen hat. Es kommt zunächst nicht darauf an, was der Wahrheitsgehalt dieser Sache ist, sondern es kommt darauf an, daß man einen solchen Gedankeninhalt voll überschaut. Das kann man nicht, wenn man aus seinem Gedächtnis heraus einen Gedankeninhalt nimmt; denn mit einem solchen hängt vieles in der unbestimmtesten Weise für den Menschen zusammen, vieles, was im Unterbewußten oder Unbewußten spielt, und man kann nicht exakt sein, wenn man sich darauf konzentriert. Etwas also, was einem ganz neu ist, was man nur seinem unmittelbaren Inhalte nach vor sich hat, womit sich noch nicht eine seelische Erfahrung verknüpft hat, das stellt man in den Mittelpunkt seines Bewußtseins. Es kommt auf die Konzentration der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 218
+
+---
+
+Seelenkräfte an und auf die daraus hervorgehende Verstärkung. Ebenso ist es gut, kein Vorurteil dagegen zu haben, wenn man zu jemanden geht, der auf diesem Gebiete Fortschritte gemacht hat, und sagt, er solle einem einen solchen Inhalt geben. Dann ist einem der Inhalt neu und man kann ihn überschauen. Viele Menschen fürchten, sie würden dadurch abhängig werden von dem anderen, der ihnen einen solchen Inhalt übermittelt. Das ist aber nicht der Fall; in Wahrheit werden sie unabhängiger, als wenn sie aus ihren Erinnerungen und Erfahrungen einen solchen Gedankeninhalt, der mit allerlei unterbewußten Erlebnissen verbunden ist, hervorholen. Und für den, der im wissenschaftlichen Arbeiten einige Erfahrungen hat, ist es gut, wenn er wissenschaftliche Ergebnisse als Konzentrationsstoff benutzt; die erweisen sich sogar als dafür am allerfruditbarsten.
+
+Wenn man dies durch längere Zeit, vielleicht durch Jahre tut – das alles muß mit Geduld und Ausdauer geschehen, bei manchem dauert es wenige Wochen oder Monate, bis ein Erfolg sich einstellt, bei manchem Jahre –, dann kann der Mensch dahin kommen, diese Methode auf die innere Ausgestaltung seines Denkens so exakt anzuwenden, wie der Physiker oder Chemiker die Methoden des Messens und Wagens anwendet, um der Natur ihre Geheimnisse abzulauschen; was man da gelernt hat, wendet man auf die Weiterentwicklung des eigenen Denkens an. Es kommt dann in einem gewissen Zeitpunkt eine bedeutsame innere Erfahrung des Menschen. Die besteht darin, daß man sich nun nicht nur im Bilddenken fühlt, das die äußeren Ereignisse und Tatsachen abmalt, und das im Grunde genommen um so treuer ist, je weniger es Kraft in sich selbst hat, je mehr es bloßes Bild ist; sondern man kommt dazu, zu diesem Denken hinzuzufügen die innere Erfahrung von er-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 219
+
+---
+
+lebtem Denken, von innerlich durchkraftetem Denken. Das ist eine bedeutsame Erfahrung. Und ich möchte sagen, es wird dadurch das Denken etwas, was man anfängt so zu erleben, wie man sonst seine Muskelkräfte erlebt, wenn man irgend etwas angreift oder an etwas stößt. Das Erlebnis einer Realität, wie man es sonst hat in bezug auf seine Atmungszirkulation oder in seiner Muskeltätigkeit, dieses innere Aktive zieht in das Denken ein. Und da man jeden Schritt auf diesem Wege exakt erforscht hat, so erlebt man sich mit voller Besonnenheit, mit voller Klarheit in diesem erstarkten, aktiven Denken. Wenn etwa eingewendet wird, daß Wissenschaft ausgehen müsse von Erfahrung und Logik, so ist das kein Einwand; denn was da erlebt wird, das wird erlebt mit voller innerer Klarheit, aber zugleich wird es so erlebt, daß dieses Denken eine Art seelisches Tasten wird. Man fühlt sich, indem man einen Gedanken ausbildet, wie wenn man einen Fühler ausstreckt - jetzt nicht wie wenn die Schnecke einen Fühler ausstreckt in der physischen Welt, sondern wie wenn man einen Fühler ausstreckt in einer geistigen Welt, die, wenn man bis zu dieser Stufe gediehen ist, zunächst nur gefühlsmäßig da ist, aber die man mit Recht erwarten kann. Denn man hat die Empfindung: Dein Denken hat sich verändert zu einem geistigen Tasten; wenn das immer mehr und mehr in dir der Fall sein kann, dann darfst du erwarten, daß dieses Denken auch auf geistig Wesenhaftes aufstößt, wie dein Finger hier in der physischen Welt auf physisch Wesenhaftes aufstößt.
+
+Wenn man eine Zeitlang in diesem innerlich erkrafteten Denken lebt, dann ist erst die volle Selbsterkenntnis dem Menschen möglich. Denn man weiß dann: Durch diese Konzentration ist das Seelische zu einer erlebbaren Realität geworden.
+
+Man kann jetzt in seinem Üben fortfahren und kann
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 220
+
+---
+
+dazu schreiten, diese Gedankeninhalte, auf die man sich konzentriert hat, die einen dazu gebracht haben, ein reales seelentastendes Denken zu haben, diese Seeleninhalte nun auszuschalten, wegzuschaffen, gewissermaßen das Bewußtsein von dem, was man selbst in dieses Bewußtsein hineingebracht hat, leer zu machen. Es ist verhältnismäßig leicht, im gewöhnlichen Leben das Bewußtsein leer zu bekommen; man braucht nur einzuschlafen. Aber es ist eine intensive Kraft dazu notwendig, wenn man sich zu konzentrieren gewöhnt ist auf einen bestimmten Gedankeninhalt, gerade bei verstärktem Denken, bei realisiertem Denken einen solchen Gedankeninhalt wegzuschicken. Aber ebenso, wie man zuerst die starke Kraft bekommen hat, sich zu konzentrieren, so bringt man es jetzt dazu, diesen Gedankeninhalt wieder wegzuschaffen. Hat man es aber dazu gebracht, dann tritt etwas vor die Seele, was man vorher nur in Form eines episodischen Erinnerungsbildes haben konnte: Es tritt in einer neuen Weise das ganze innere Leben des Menschen vor sein Seelenauge, wie er es in diesem irdischen Dasein durchgemacht hat seit der Geburt oder seit dem Zeitpunkt, bis zu dem man sich zurückerinnert, wo man bewußt in dieses irdische Dasein eingetreten ist. Für gewöhnlich kennt man ja von diesem irdischen Dasein nur das, woran man sich gedächtnismäßig erinnert; man hat die Bilder der Erlebnisse. Was man aber jetzt durch das erkraftete Denken erlebt, ist nicht von derselben Art. Es tritt auf wie in einem mächtigen Tableau, so daß man sich an das, was man vor zehn Jahren etwa durchgemacht hat, nicht wie in einem blassen Bilde bloß erinnert, sondern es tritt so auf, daß man das innere Erlebnis hat: Man geht im Geiste die Zeit zurück. Macht man meinetwillen in seinem fünfzigsten Jahre eine solche Übung, die zu dem Angedeuteten führt, dann wird es so, daß
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 221
+
+---
+
+einem die Zeit gestattet, wie durch einen «Zeitweg» zurückzugehen bis meinetwillen zu den Erlebnissen in seinem fünfunddreißigsten Jahre. Man schreitet durch die Zeit, man fühlt nicht bloß eine blasse Erinnerung an das, was man vor fünfzehn Jahren durchgemacht hat, sondern man fühlt sich in aller Lebendigkeit drinnen wie in einem gegenwärtigen Erlebnis. Man schreitet durch die Zeit, der Raum verliert seine Bedeutung, die Zeit liefert einem ein mächtiges Erinnerungstableau. Dasjenige wird exaktes Bild des Menschenlebens, wovon selbst naturwissenschaftliche Denker zugeben, daß es in einer episodischen Weise auftritt, wenn der Mensch zum Beispiel beim Ertrinken einem großen Schreck, einem Schock ausgesetzt ist, wo er für Augenblicke etwas von seinem ganzen Erdenleben in Bildern vor die Seele gestellt hat, an die er dann später mit einem gewissen schauernden Entzücken noch zurückdenkt. Was sich also in einem solchen Falle wie in einer Naturgewalt vor die Seele stellt, das tritt aber dann in dem angedeuteten Zeitpunkte wirklich vor die Seele hin, indem das ganze Erdenleben wie in einem mächtigen, aber nur zeitlich angeordneten Geist-Tableau vor einem steht. Jetzt erst erkennt man sich selber, jetzt erst hat man wirkliche Selbstbeobachtung.
+
+Man kann sehr wohl dieses Bild des menschlichen Inneren von dem unterscheiden, was bloß Erinnerungsbild ist. Das bloße Erinnerungsbild zeigt, wie Menschen, Naturereignisse oder Kunstwerke von außen an den Menschen herankommen; man hat mehr die Art, wie die Welt an einen herankommt, in diesem Erinnerungsbilde vor sich. In demjenigen aber, was da als ein übersinnliches Erinnerungstableau vor den Menschen hintritt, tritt ihm mehr dasjenige entgegen, was von ihm selbst ausgegangen ist. Hat man zum Beispiel in einem bestimmten Zeitpunkte seines Lebens
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 222
+
+---
+
+die Freundschaft mit einer geliebten Persönlichkeit begonnen, so tritt einem im Bilde entgegen, wie diese Persönlichkeit in einem gewissen Zeitpunkte auf einen zugekommen ist, wie sie zu einem gesprochen hat, was man ihr verdankt und so weiter. In diesem Lebenstableau tritt einem entgegen, wie man sich zu diesem Menschen hingesehnt hat, und wie man jeden Schritt zuletzt so gemacht hat, daß er einen hinführen mußte zu dem Wesen, von dem man erkannt hat, daß es zu einem paßt.
+
+Was sich durch die Entfaltung der Seelenkräfte gebildet hat, das tritt einem in diesem Lebenstableau mit exakter Klarheit entgegen. Viele Menschen lieben solche exakte Klarheit nicht, weil sie ihnen Aufschluß gibt über manches, was sie lieber in einem anderen Lichte sehen würden als in dem Lichte der Wahrheit. Aber man muß es ertragen, daß man in voller Unbefangenheit auf sein eigenes Innere schauen kann, auch wenn dieses eigene Innere vor dem forschenden Blicke vorwurfsvoll einem begegnet. Ich habe diese Stufe des Erkennens die imaginative Erkenntnis oder Imagination genannt.
+
+Nun kann man aber von dieser Stufe aus weiterschreiten. In dem, was man erkennt durch dieses Erinnerungstableau, hat man diejenigen Kräfte gegeben, die einen in Wirklichkeit als Mensch gebildet haben. Man weiß jetzt, indem man vor diesem Lebenstableau steht: In dir entwickeln sich die Kräfte, die an den Substanzen deines physischen Leibes gestalten; in dir haben sich, besonders in der Kindheit, diejenigen Kräfte entwickelt, welche die nach der Geburt noch ungeordnete Gehirn-Nervenmasse zur plastischen Ausgestaltung bis etwa zum siebenten Jahre hin gebracht haben. Man hört endlich auf, dasjenige was da innerlich gestaltet im Menschen, jenen Kräften zuzuschreiben, die an den materiellen Substanzen haften; man hört damit auf, wenn
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 223
+
+---
+
+man dieses Erinnerungstableau vor sich hat, wenn man schaut, wie in alle Ernährungs- und Atmungskräfte und in alle Blutzirkulation hineinströmen die Inhalte dieses Erinnerungstableaus, die selbst Kräfte sind - Kräfte, ohne die keine Blutwelle kreist, ohne die kein Atmungsvorgang sich vollzieht. Man lernt jetzt erkennen, wie der Mensch seinem inneren Wesen nach geistig-seelisch ist.
+
+Was einem da aufgeht, läßt sich am besten durch einen Vergleich charakterisieren. Denken Sie sich, Sie gehen eine Strecke über einen Boden, der durch den Regen erweicht ist, und Sie haben auf Ihrem Wege überall Spuren oder Furchen, welche Menschenfüße oder vielleicht Wagenräder gemacht haben. Nehmen wir nun an, es käme ein Wesen vom Monde und sähe diesen Zustand des Bodens, aber keine Menschen, so käme es vielleicht darauf, zu sagen: Da unter der Erde müssen allerlei Kräfte sein, die diese Spuren aufgewühlt und die Erde so konfiguriert haben. - Ein solches Wesen könnte in der Erde die Kräfte suchen, die die Furchen veranlaßt haben. Wer aber die Sache durchschaut, der weiß, das hat nicht die Erde gemacht, sondern das ist durch Menschenfüße und Wagenräder entstanden.
+
+Wer nun die Dinge so überschaut, wie ich es eben beschrieben habe, der schaut dadurch wahrhaftig nicht mit geringerer Ehrfurcht zum Beispiel in die Furchungen des menschlichen Gehirnes hinein. Aber wie er weiß, daß jene Spuren auf der Erde nicht von Kräften in der Erde herstammen, so weiß er jetzt: Diese Furchungen des Gehirns rühren nicht von Kräften her, die in dem materiellen Gehirn stecken, sondern da ist das Geistig-Seelische des Menschen, das man selbst jetzt geschaut hat, und das arbeitet so, daß unser Gehirn diese Furchungen hat. Das ist das Wesentliche: hingetrieben werden zu dieser Anschauung, so daß der Mensch zur Anschauung des eigenen geistig-seelischen We
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:224
+
+---
+
+sens kommt, daß der Seelenblick wirklich hingelenkt wird auf das Geistig-Seelische und auf sein Auftreten im äußeren Leben.
+
+Aber es kann nun weitergeschritten werden. Nachdem man erst im Konzentrieren auf einen bestimmten Gedankeninhalt das eigene Innere erkraftet hat und dann das Bewußtsein leer gemacht hat, so daß einem statt der eigenen geformten Bilder jetzt der eigene Lebensinhalt vor die Seele getreten ist, kann man nun auch dieses Erinnerungstableau so aus dem Bewußtsein wieder herausbringen, wie man vorher eine einzelne Vorstellung herausgebracht hat, so daß das Bewußtsein von ihr leer geworden ist. Jetzt kann man die starke Kraft anwenden lernen, dasjenige was man zuerst in einer gesteigerten Selbstbeobachtung als ein geistig-seelisches Wesen erkannt hat, nun wieder aus seinem Bewußtsein auszulöschen. Man löscht ja dabei nichts Geringeres aus als das Innere seines Seelenlebens selbst. Das Äußere von sich auszulöschen, hat man zunächst gelernt in der Konzentration; man hat dann gelernt, den Seelenblick auf das eigene Geistig-Seelische hinzulenken; das füllt dieses ganze Erinnerungstableau aus. Gelangt man jetzt dazu, dieses Erinnerungstableau selbst auszulöschen, dann tritt das ein, was ich wirklich «leeres» Bewußtsein nennen möchte. Man hat vorher gelebt in dem Erinnerungstableau oder in dem, was man selbst vor die Seele gestellt hat; jetzt tritt etwas ganz anderes auf. Was in einem selbst lebte, hat man unterdrückt, und man setzt sich nun mit leerem Bewußtsein der Welt aus. Das bedeutet für das Erleben der Seele etwas außerordentlich Bedeutsames. Und im Grunde genommen kann ich es zunächst nur vergleichsweise schildern, was da für die Seele eintritt, indem man durch eine starke innere Kraft, die man anwendet, den eigenen Seeleninhalt auslöscht. Man braucht nur dessen zu gedenken, wie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 225
+
+---
+
+ein Mensch, vor dem die äußeren Sinneseindrücke allmählich schweigen, bei dem das Sehen, das Hören, vielleicht auch das deutliche Tasten aufhört, in einen Zustand versinkt, der einem Schlafzustande durchaus ähnlich ist. Jetzt aber, wenn man den eigenen Seeleninhalt auslöscht, kommt man zu einem zwar leeren Bewußtsein, aber nicht zu einem schlafenden; man kommt zu einem Zustande, den ich den Zustand des «bloßen Wachens», nämlich des Wachens mit leerem Bewußtsein, nennen möchte. Dieses leere Bewußtsein kann sich uns vielleicht dadurch vor die Seele stellen, daß ich sage: Man denke sich eine moderne Großstadt mit all ihrem Lärmen und Getöse. Man kann sich von ihr entfernen, es wird immer stiller und stiller um einen. Dann aber kommt man vielleicht in das Innere eines Waldes; es ist ein völliger Kontrast gegenüber dem Lärmen der Großstadt da: man lebt in völliger innerer Stille, lautlose Ruhe ist um einen.
+
+Sehen Sie, ich muß einen trivialen Vergleich anwenden, wenn ich das Weitere charakterisieren will. Die Frage müssen wir auf werfen: Kann diese Ruhe, diese Stille noch zu etwas anderem gemacht werden? Wir können ja diese Ruhe, diese Stille als «Null» bezeichnen, in unserem Wahrnehmen der Außenwelt. Aber wenn wir zum Beispiel ein gewisses Vermögen haben, und wir nehmen von diesem etwas weg: es wird weniger, wir nehmen noch mehr weg: es wird wieder weniger; dann kommen wir zur Null, haben nichts mehr - können wir dann noch weiter gehen? Vielleicht ist es für die meisten nicht erwünscht, aber für viele ist es so, daß sie es durchaus tun: man verringert das Vermögen, indem man Schulden macht. Man hat weniger als die Null und kann immer weniger haben. Gerade so kann auch wenigstens zunächst gedacht werden, die Ruhe, die der Null des Wachens gleicht, noch über diese Null
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:226
+
+---
+
+weiterzutreiben in eine Art negativen Zustand hinein. Es kann eine Ober-Ruhe, eine Ober-Stille zur Ruhe hinzukommen. Das erfährt derjenige, der seinen eigenen Seeleninhalt auslöscht: er kommt in einen Zustand der negativen, der unter der Null liegenden Seelenruhe hinein. Innere Seelenstille in gesteigertstem Maße tritt auf bei vollem Wachsein.
+
+Das allerdings ist nicht zu erreichen, ohne daß es von etwas anderem begleitet ist; das ist nur zu erreichen, wenn man einen gewissen Zustand, der mit den Bildvorstellungen auch des eigenen Selbstes verknüpft ist, in einen anderen übergehen fühlt. Derjenige, der zunächst das erste Übersinnliche im eigenen Selbst empfindet, anschaut, er ist in dem Zustande eines gewissen Wohlbehagens, jenes Wohlbehagens und jenes inneren Glückes, auf welches ja die verschiedenen Bekenntnisse hinweisen, indem sie auf das Übersinnliche hindeuten und zugleich den Menschen aufmerksam machen, wie das Übersinnliche ihm in seinem inneren Erleben Glückseligkeit bringt. Ja, bis zu dem Punkte, wo man sein Inneres selbst ausgeschaltet hat, war es ein gewisses Wohlbehagen, eine gesteigerte Glückseligkeit. In dem Moment aber, wo die innere Seelenruhe auftritt, da tritt an die Stelle des inneren Wohlbehagens durchaus innerer Schmerz, innere Entbehrung, wie man sie vorher nicht gekannt hat, daß man jetzt fern ist von dem, womit man im irdischen Leben durchaus verbunden ist, fern nicht nur von dem Erfühlen seines eigenen Leibes, sondern fern von dem Erfühlen der eigenen Erlebnisse seit der Geburt. Und das bedeutet eine Entbehrung, die sich zu einem ungeheueren seelischen Schmerz steigert. Vor dieser Stufe schrecken manche zurück; sie finden nicht den Mut, den Übergang zu tun von einem gewissen niederen Hellsehen, und unter Ausschaltung des eigenen Seeleninhaltes nun ein-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 227
+
+---
+
+zutreten in ein Bewußtsein, wo jene innere Ruhe vorhanden ist. Tritt man aber mit vollem Bewußtsein in dieses Stadium ein, dann beginnt an die Stelle der Imagination dasjenige zu treten, was ich in meinen schon genannten Büchern - man stoße sich bitte jetzt nicht an den Ausdrücken - die Inspiration genannt habe: das Erleben einer wirklichen geistigen Welt. Nachdem man so vorher die Sinneswelt ausgeschaltet hat und ein leeres Bewußtsein in unsäglichem Seelenschmerz hergestellt hat, tritt einem die äußere geistige Welt entgegen. Man wird in der Inspiration gewahr, daß in der Umgebung des Menschen, wie die Sinneswelt für die äußeren Sinne, so eine geistige Welt vorhanden ist.
+
+Und das erste, was man wiederum in dieser geistigen Welt erblickt, ist das eigene vorirdische Dasein. Wie man sonst durch die gewöhnliche Erinnerung auf Erdenerlebnisse zurück schaut, so geht einem jetzt ein kosmisches Gedächtnis auf: Man schaut zurück in vorirdische Erlebnisse, wie man war als geistig-seelisches Wesen in einer rein geistigen Welt, bevor man durch die Geburt zu diesem irdischen Dasein heruntergestiegen ist, indem man von seinem geistigen Wesen aus eingriff in die Ausgestaltung des eigenen Leibes. So schaut man zurück auf das Geistige, Ewige in der menschlichen Natur, auf das, was sich einem enthüllt als das vorirdische Dasein, von dem man jetzt weiß, es hängt nicht ab von Geburt und Tod des physischen Leibes, denn es ist das, was vor der Geburt, vor der Empfängnis war, was diesen physischen Leib aus der Materie, der Vererbung, selbst erst zum Menschenwesen gemacht hat. Jetzt erst gelangt man zu einem wahren Begriff auch der physischen Vererbung, da man sieht, was in diese hineinspielt an übersinnlichen Kräften, die man aus der rein geistigen Welt - mit der man sich jetzt verbunden fühlt wie hier im Erden-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:228
+
+---
+
+leben mit der physischen Welt - sich aneignet. Und jetzt wird man gewahr, wie trotz der großen Fortschritte, welche die Entwicklung der Menschheit durchgemacht hat, manches verloren gegangen ist, was älteren instinktiven Anschauungen, die wir heute nicht mehr brauchen können, noch eigen war. Dieses vorirdische Leben stand vor der instinktiven übersinnlichen Anschauung einer Menschheit der Vorzeit so, wie die menschliche Unsterblichkeit, von der wir gleich nachher sprechen werden. Denn in alten Zeiten hat man die Ewigkeit so verstanden, daß man ihre zwei Seiten aufgefaßt hat. Wir sprechen heute - selbst unsere Sprache hat nur dieses Wort - von der Unsterblichkeit der Menschenseele; aber man hat einmal gesprochen, und die älteren Sprachen weisen noch solche Worte auf, von der «Ungeborenheit» als der anderen Seite der Ewigkeit der Menschenseele. Jetzt sind ja die Zeiten etwas andere geworden. Was aus der Menschenseele wird nach dem Tode, dafür interessieren sich die Menschen, weil es erst kommt; für das aber, was war vor der Geburt oder der Empfängnis, dafür interessiert man sich weniger, weil es ja «vergangen» ist und man doch da ist. Aber eine wirkliche Erkenntnis der menschlichen Unsterblichkeit kann nur aufgehen, wenn man die Ewigkeit nach den beiden Seiten betrachtet: nach der Unsterblichkeit und der Ungeborenheit.
+
+Aber gerade um mit der letzteren zusammenzuhängen, und zwar gerade in einem exakten Hellsehen, dazu ist noch ein Drittes notwendig. Wir fühlen uns eigentlich recht als Menschen, wenn wir unser Gefühl jetzt nicht mehr ganz aufgehen lassen im Erdenleben. Denn das, was wir als vorirdisches Leben nun erkennen, das dringt bildhaft in uns ein, stellt sich hinzu zu dem, was wir von dieser unserer Menschheit erfühlt haben, macht uns erst zu einem Vollmenschen. Da wird unser Fühlen wie von einem inneren
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:229
+
+---
+
+Licht durchschlagen, und wir wissen: wir haben jetzt unser Gefühl zürn Sinnesorgan für das Geistige ausgebildet. - Aber wir müssen weitergehen und müssen auch das Willenselement zu einem Erkenntnisorgan für das Geistige machen können. Dazu muß etwas eintreten für die menschliche Erkenntnis, was sonst mit Recht von denjenigen, die auf dem Erkenntnisgebiete ernst genommen werden wollen, nicht als eine Erkenntniskraft angesehen wird. Daß es eine Erkenntniskraft ist, wird man erst gewahr, wenn man in die übersinnlichen Gebiete eintritt: es ist die Kraft der Liebe. Man muß nur beginnen, diese Kraft der Liebe in einem höheren Sinne auszubilden, als der ist, durch den uns die Natur die Liebe geschenkt hat mit all ihrer Bedeutung für das natürliche und menschliche Leben. Es wird vielleicht paradox erscheinen, was ich als die ersten Schritte zu schildern habe für das Entfalten einer höheren Liebe im menschlichen Leben.
+
+Wenn Sie versuchen, mit voller Besonnenheit der einzelnen Schritte in einem gewissen Sinne anders die Welt zu erfühlen, als man sie gewöhnlich fühlt, dann kommen Sie zu dieser höheren Liebe. Nehmen Sie an, Sie gehen am Abend, vor dem Schlafengehen, daran, das Tagesleben so vorzustellen, daß Sie beim letzten Ereignis des Abends beginnen, es möglichst genau vorstellen, dann das vorletzte in derselben Weise vorstellen, dann das drittletzte und so, bis zum Morgen rückwärtslaufend, Ihr Tagesleben überschauen, dann ist das ein Vorgang, bei dem es viel mehr auf die innere Energie ankommt als darauf, ob man das einzelne Ereignis mehr oder weniger genau vorstellt. Es kommt auf diese «Umdrehung» des Vorstellens an. Wir betrachten sonst die Ereignisse so, daß erst das Frühere und dann das Folgende betrachtet wird in einer fortlaufenden Gliederung. Durch eine solche Übung, wie ich sie eben an-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 230
+
+---
+
+gegeben habe, drehen wir das ganze Leben um: wir denken und fühlen dem Tageslauf entgegengesetzt. Wir können es an unseren Tageserlebnissen machen, wie ich es andeutete, und man braucht dazu auch nur einige Minuten; man kann es aber auch anders machen: Man versuche, den Hergang eines Dramas sich so vorzustellen, daß man es, von dem fünften Akt angefangen, zum vierten, dritten, nach vorwärts vorstellt; oder man kann eine Melodie in umgekehrter Tonfolge sich vorstellen. Wenn man auf diese Weise immer mehr solche inneren Seelenerlebnisse durchmacht, dann wird man finden, wie sich das innere Erleben losreißt von dem äußeren Naturgange, wie man tatsächlich immer selbständiger und selbständiger wird. Aber trotzdem man sich so immer mehr und mehr individualisiert und es zu immer größerer und größerer Selbständigkeit gebracht hat, lernt man auch, sich mit voller Bewußtheit an das andere, äußere Leben hinzugeben; denn jetzt erst wird man gewahr: je stärker wir diese vollbewußte Hingabe an das andere Wesen übend in uns entwickeln, desto größer wird dadurch unsere Selbstlosigkeit, und desto größer muß die Liebe dafür sein. Auf diese Weise fühlt man, wie dieses Nicht-in-sich-Leben, sondern In-einem-anderen-Wesen-Leben, dieses Hinüberschreiten von dem eigenen Wesen in das andere Wesen immer stärker und starker wird. Und man gelangt dazu, daß man zu der Imagination und Inspiration, die man zuerst ausgebildet hat, nun hinzufügen kann das wahre intuitive Hineinsteigen in ein anderes: Man gelangt zur Intuition, so daß man nicht mehr sich selbst nur erlebt, sondern in aller Individualisiertheit, aber auch in aller Selbstlosigkeit das andere erleben lernt.
+
+Da wird die Liebe zu etwas, was einem allmählich möglich macht, noch weiter zurückzuschauen als in das vorirdische geistige Leben. Wie man in seinem jetzigen Leben
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 231
+
+---
+
+zurückschaut auf die gegenwärtigen Ereignisse, so lernt man durch eine solche Steigerung der Liebe zurückzuschallen auf frühere Erdenleben, und man lernt auf diese Weise das ganze Menschenleben erkennen als eine Folge von aufeinanderfolgenden Erdenleben. Daß sie einmal einen Anfang haben und ebenso ein Ende haben werden, soll im nächsten Vortrage berührt werden. Aber man lernt das Menschenleben erkennen als eine Folge von Erdenleben, zwischen denen immer rein geistige Leben sind zwischen dem Tode und der nächsten Geburt; denn auch den Tod lernt man durch diese gesteigerte, ins Geistige hinaufgetragene und zur Erkenntniskraft gewordene Liebe in seiner wahren Bedeutung kennen. Nachdem man, wie ich es für die Imagination und Inspiration geschildert habe, so vorgeschritten ist, um diese gesteigerten inneren Kräfte geistig liebebfähig zu machen, lernt man tatsächlich im unmittelbaren exakten Hellsehen jenes innere Erlebnis kennen, von dem man sagt: der Mensch erlebt sich geistig ohne seinen Körper, außer seinem Körper. Das Heraustreten aus seinem Körper wird auf diese Weise für die Seele, wenn ich mich so ausdrücken darf, wirklich erlebbar, gegenständlich. Hat man dieses Geistige in dem Dasein in der Erkenntnis «hellseherisch», möchte ich sagen, einmal erlebt, außer dem Körper, dann weiß man, was das Ereignis bedeutet: den physischen Leib im Tode ablegen, durch die Todesporte hindurchschreiten zu einem neuen, geistigen Leben. So lernt man auf der dritten Stufe einer exakten Clairvoyance die Bedeutung des Todes und damit auch die Bedeutung der Unsterblichkeit für den Menschen kennen.
+
+Durch die Art und Weise, wie ich geschildert habe, wollte ich anschaulich machen, wie diejenige übersinnliche Erkenntnisart, von der ich hier spreche, darauf hinarbeitet, in die menschlichen Erkenntnisfähigkeiten selber etwas zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 232
+
+---
+
+tragen, was im Hineintragen ganz exakt, Schritt für Schritt, wirkt. Der Naturforscher wendet die Exaktheit auf das äußere Experiment, auf die äußere Beobachtung an; er will die Gegenstände so nebeneinander sehen, daß sie exakt im Messen, Zählen, Wägen ihre Geheimnisse offenbaren. Der Geistesforscher, von dem ich hier spreche, wendet die Exaktheit auf die Entwickelung der eigenen Seelenkräfte an. Was er aus sich macht, damit dann eine geistige Welt und mit ihr die ewige Wesenheit des Menschen, das Wesen der menschlichen Unsterblichkeit vor die Seele tritt, das was er aus sich macht, wird auf eine exakte Weise gemacht, um das Goethesche Wort zu gebrauchen. Bei jedem Schritt, den so der Geistesforscher macht, damit zuletzt die geistige Welt vor seinem Seelenauge ausgebreitet liege, fühlt er sich vor dem Erkenntnisgewissen so verantwortlich, wie nur der Mathematiker sich verantwortlich fühlt für jeden seiner Schritte; denn so wie dieser in voller Klarheit alles durchschauen muß, was er auf das Papier bringt, so muß der Geistesforscher in voller Exaktheit das durchschauen, was er aus seinen Erkenntniskräften macht. Dann weiß er, daß er mit derselben inneren Notwendigkeit ein «seelisches Auge» aus der Seele herausgeformt hat, wie die Natur aus dem Körperlichen ein körperliches Auge. Und er weiß, daß er mit demselben Recht von geistigen Welten reden darf, wie er für das physische Auge von physisch-sinnlichen Welten spricht. In diesem Sinne wird die Geistesforschung, von der hier die Rede ist, der Zeitforderung genügen, die mit der herrlichen Naturwissenschaft - deren Gegner diese Geistesforschung nicht ist, sondern die sie gerade weiter ausbilden will - gegeben ist.
+
+Ich weiß gar wohl: Jeder, der irgend etwas im Leben vertreten will, sei es aus diesem oder jenem Motiv heraus, macht sich dadurch wichtig, daß er es als eine «Zeitforde
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 233
+
+---
+
+rung» hinstellt. Das habe ich nicht beabsichtigt, will es auch im nächsten Vortrage nicht, sondern ich möchte im Gegenteil zeigen, wie die Zeitforderungen schon da sind, und wie gerade diese Geisteswissenschaft sich bei jedem ihrer Schritte bemüht, diesen Zeitforderungen Genüge zu tun. Und so kann man sagen: Nicht einer, der in dilettantischer oder laienhafter Art auf die Natur hinschaut, will der Geistesforscher sein, von dem hier gesprochen werden soll. Nein, er will gerade im wahren Sinne und in der wahren Gewissenhaftigkeit dieser Naturwissenschaft weiterschreiten; er will die wahrhaft exakte Clairvoyance für das Beschreiben einer geistigen Welt. Aber ihm ist zugleich klar: Indem man im Laboratorium den menschlichen Leichnam zu erforschen versucht, um das Leben, das aus ihm gewichen ist, zu deuten, oder indem man mit dem Teleskop in die Weltenräume hineinschaut, da entwickelt man Fähigkeiten, die sich zunächst nur anpassen wollen dem Mikroskop oder Teleskop, die aber ein inneres Leben haben und die sich verleugnen in ihrer Form. Wenn wir den menschlichen Leichnam sezieren, wissen wir: Wahr ist, daß nicht die Natur dies unmittelbar aus dem Menschen gemacht hat, sondern das hat die menschliche Seele, die jetzt aus ihm gewichen ist, aus ihm gemacht. Wir deuten die menschliche Seele aus dem, was wir hier als ihr physisches Resultat haben, und derjenige wäre wahnsinnig, der etwa voraussetzen wollte, jene Gestaltung der menschlichen physischen Kräfte und Formen sei nicht aus dem gekommen, was dem jetzigen Zustande dieses Menschen vorangegangen ist. Aber aus allem, was wir dann zurückhalten, indem wir auch die tote Natur durchforschen mit denjenigen Kräften, bei denen der Mensch mit Recht die innere Aktivität verleugnet, wird durch diese Zurückhaltung die Anlage geschaffen zu einer Weiterbildung dieser menschlichen Seelenkräfte. Gerade so wie der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 234
+
+---
+
+Pflanzenkeim unsichtbar unter der Erde liegt, wenn wir ihn in die Erde gesenkt haben, wie aber aus ihm die Pflanze wird, so versenken wir in die Seele, gerade wenn wir gewissenhafte Naturforscher sind, einen Keim. Und wer ernsthafter Forscher in dieser Beziehung ist, in dem ruht der Keim zur imaginativen, inspirierten und intuitiven Erkenntnis. Er braucht ihn nur zu entwickeln. Und er kann dann wissen: wie die Naturwissenschaft eine Zeitforderung ist, so ist auch übersinnliche Forschung eine Zeitforderung. Man möchte sagen: Es spricht jeder, der aus dem Geiste der Naturwissenschaft spricht, auch im Geiste übersinnlicher Forschung, nur weiß er es nicht. Und was für viele Menschen heute - auch das wird sich im nächsten Vortrage zeigen - eine unbewußte, tief innerste Sehnsucht ist: übersinnliche Forschung will sich aus dem Keim entfalten.
+
+Gerade denjenigen gegenüber, die sich dann von einem vermeintlichen naturwissenschaftlichen Standpunkte aus gegen diese Geistesforschung wenden, möchte man schon sagen, obwohl hier nichts Schlimmes damit gemeint ist, man wird an einen allzubekannten Ausspruch des Goethehen Faust erinnert, den man dann in einer anderen Weise wendet: «Den Teufel spürt das Völkchen nie, und wenn er sie beim Kragen hätte.» Nun, darüber will ich mich jetzt nicht auslassen. Aber in einer anderen Wendung tritt einem das, was in diesem Ausspruch liegt, entgegen in dem, was als Zeitforderung heute vorhanden ist. Die, welche heute richtig über die Natur sprechen, sie sprechen eigentlich schon unbewußt den «Geist» selbst aus. Und man möchte sagen: Viele sind es, die den Geist niemals bemerken wollen, wenn er spricht, obgleich sie in ihren eigenen Reden ihn fortwährend zum Ausdruck bringen!
+
+Der Keim zu übersinnlicher Schauung ist eigentlich heute viel verbreiteter, als man denkt - aber er muß entwickelt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 235
+
+---
+
+werden. Daß er entwickelt werden muß, das lehrt uns wahrhaftig auch der Ernst der Zeit in bezug auf die äußeren Erlebnisse. Wie gesagt, über das einzelne möchte ich das nächste Mal sprechen; aber es darf zum Schluß noch angedeutet werden, daß ja heute draußen in der Welt furchtbar Katastrophales zur ganzen Menschheit eigentlich aus den verschiedensten Zeichen heraus spricht, und daß man gewahr werden kann, wie diesem großen Ernste der Zeit sich Aufgaben entringen werden, an denen die Menschen der allernächsten Zukunft viel, viel werden zu arbeiten haben. Dieser äußere Ernst, mit dem uns heute die Welt, namentlich die Welt der Menschheit anschaut, er deutet auf einen notwendigen inneren Ernst. Und von diesem inneren Ernste, in der Hinlenkung des menschlichen Gemütes auf die eigenen Geisteskräfte des Menschen, die seine eigentlichen Wesenskräfte sind, von diesem Ernste wollte ich heute sprechen. Denn wenn es wahr ist, daß der Mensch gerade die stärksten äußeren Kräfte wird aufwenden müssen gegenüber den ernsten Ereignissen, die ihm über die ganze Erde hin bevorstehen, dann wird er auch einen energischen inneren Mut dazu brauchen. Solche Kräfte und solcher Mut wird aber nur kommen können, wenn der Mensch sich bewußt mit seinem innersten Wesen, nicht nur theoretisch sich ergreifend, sondern praktisch wissend, erfühlen und auch wollen kann. Das kann er nur, wenn er dieses sein Wesen als aus jenem Quell stammend erkennt, aus dem es in Wirklichkeit stammt: aus dem Geistesquell; wenn er immer mehr und mehr - nicht nur theoretisch, sondern praktisch - erlebend wissen lernt: Der Mensch ist Geist, im Geiste kann er nur seine wirkliche Befriedigung finden, und seine höchsten Kräfte wie sein höchster Mut kann ihm nur aus dem Geist, das heißt aus dem Übersinnlichen kommen!
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 236
+
+---
+
+# DIE ANTHROPOSOPHIE UND DIE ETHISCH-RELIGIÖSE LEBENSHALTUNG DES MENSCHEN
+
+Wien, 29. September 1923
+
+Am letzten Mittwoch durfte ich hier darlegen, wie eine übersinnliche Erkenntnis Zustandekommen kann aus einer Fortbildung derjenigen menschlichen Seelenfähigkeiten, die der Mensch im gewöhnlichen Leben hat, und die auch, methodisch angewendet, in der Wissenschaft anerkannt werden. Ich habe zu zeigen versucht, wie durch eine systematische Fortbildung dieser Seelenfähigkeiten in der Tat ein Schauen des Menschen zustande kommt, durch das er gewahr werden kann eine übersinnliche Welt, wie er durch seine physischen Sinne in seiner Umgebung die physisch-sinnliche Welt gewahr wird. Durch ein solches Schauen dringt man nicht etwa bloß in abstrakter Art hinauf zu der Überzeugung, es gäbe außer der Sinneswelt noch eine Geisteswelt, sondern man dringt vor zu einer wirklichen Erfahrung, zu einem wirklichen Erlebnis geistiger Wesenheiten, die um den Menschen, insofern er sich selbst zu einer Geistigkeit erhebt, eine Umwelt bilden, wie Pflanzen und Tiere seine Umwelt in der physischen Welt bilden.
+
+Eine solche übersinnliche Erkenntnis ist ihrem ganzen Wesen nach etwas anderes als dasjenige, was man im gewöhnlichen Leben für das alltägliche Bewußtsein und auch für die gewöhnliche Wissenschaft Erkenntnis nennt. Da versetzt man sich ja gewissermaßen in den Besitz von Ideen, zum Beispiel von solchen Ideen, welche Naturgesetze
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 237
+
+---
+
+umspannen. Aber dieser Besitz von Ideen dringt eigentlich nicht so in die Seele ein, daß er eine unmittelbare Kraft der Seele wird, vergleichbar als geistige Kraft etwa mit der in Aktivität übergehenden menschlichen Muskelkraft. Gedanken bleiben etwas Schattenhaftes, und der Mensch kennt ja aus seinem unmittelbaren Erleben, wie gleichgültig in einer gewissen Beziehung die Gedanken auf das menschliche Herz wirken, wenn es sich darum handelt, die tiefsten Angelegenheiten dieses menschlichen Herzens zu berühren.
+
+Nun glaube ich schon im ersten Vortrage gezeigt zu haben, daß der Mensch, indem er durch ein solches Schauen, wie es hier gemeint ist, tatsächlich hineindringt in die geistige Welt, dann gewahr wird seine übersinnliche Wesenheit, wie sie war, bevor sie zum irdischen Dasein heruntergestiegen ist. Und dadurch, daß er ähnliches für die geistige Welt in bezug auf sein eigenes Selbst sich erringt, dadurch läßt er, ich möchte sagen, sein Herz, seine tiefsten Gemütsbedürfnisse nicht in der gleichen Art unberührt, wie durch die abstrakten Erkenntnisse. Gewiß, wer selbst ein Erkenntnisleben geführt hat, unterschätzt nicht, was alles an innerer Dramatik der Seele auch in dem gewöhnlichen anerkannten Erkenntnisringen liegt; aber immerhin bleiben die Erkenntnisse, die wir uns also erwerben, Bilder der Außenwelt. Ja, wir sind heute, wenn wir wissenschaftlich gebildet sind, am meisten darauf stolz, daß diese Bilder ganz objektiv die Außenwelt gewissermaßen nur abspiegeln, ohne daß sie mit einer gewissen inneren Schlagkraft das seelische Leben so durchzucken, wie etwa im physischen Leibe die Blutzirkulation durch das menschliche Wesen ihre Wellen schlägt. Es ist eben das, was hier als übersinnliche Erkenntnis gemeint ist, etwas, was in ganz anderer Art auf den Menschen wirkt als die gewöhnliche Erkenntnis. Und damit ich mich gerade über diesen Punkt klarmachen kann, möchte ich von einer
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:238
+
+---
+
+Art Vergleich ausgehen, der aber mehr ist als ein Vergleich, der die Sache durchaus in ihrer Wirklichkeit treffen kann.
+
+Ich möchte davon ausgehen, wie der Mensch auch im gewöhnlichen Leben in zwei Bewußtseinszustanden lebt – man könnte auch sagen drei, aber fassen wir Schlaf und Traum jetzt als einen Bewußtseinszustand zusammen –, wie er im Schlaf zustande völlig abgeschnitten ist von der Außenwelt, und wie eine nur innere Welt sich gewissermaßen grotesk, oftmals chaotisch in ihren Wirkungen zeigt durch den Traum. Wir können mit vielen anderen Menschen in einem Räume sein: unsere Traumeswelt ist unsere eigene, wir teilen sie nicht mit den anderen Menschen. Und gerade ein tieferes Betrachten der Traumwelt kann uns zeigen, wie das, was wir als unser inneres menschliches Wesen betrachten müssen, mit dieser Traumwelt zusammenhängt. Schon das körperliche Wesen des Menschen spiegelt sich in merkwürdiger Art im Traume; in phantastischen Bildern spiegelt es sich. Dieser oder jener Zustand eines Organs, ein krankhafter oder erregter Zustand, kann in einem besonderen Sinnbilde im Traume auftauchen, oder es symbolisiert sich etwas, was Geräusch in unserer Umgebung ist, ganz dramatisch im Traume. Der Traum schafft Bilder aus unserem Inneren und aus der Außenwelt. Das alles aber hängt wiederum innig mit unserem ganzen Lebenslauf auf der Erde zusammen. Aus der entferntesten Epoche dieses Lebens zieht der Traum in sein chaotisches, aber immerhin dramatisches Geschehen die Schatten der Erlebnisse hinein. Und je genauer man gerade auf alles das eingeht, desto mehr kommt man darauf, daß wenn auch in einer instinktiven, unterbewußten Art, das innerste menschliche Wesen dennoch mit demjenigen zusammenhängt, was im Traume waltet und webt. Und wer einen Sinn dafür hat, zum Beispiel den Augenblick des Erwachens zu beobachten und von ihm aus
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:239
+
+---
+
+das gewöhnliche Tagesleben nicht in jener oberflächlichen Art, wie es oftmals geschieht, sondern in einer tieferen Art ins Seelenauge zu fassen, der wird darauf kommen, wie eigentlich dieses wache Tagesleben sich dadurch charakterisiert, daß was wir im Traume, im Schlafe in einer abgeschlossenen Weise erleben, in einer Weise, die wir mit anderen Menschen höchstens in besonderen Fällen teilen, daß das als Seelisch-Geistiges untertaucht in unser Leibliches, gewissermaßen sich in den Willen und damit auch in die willensdurchströmten Gedankenkräfte und Sinneskräfte einschaltet und sich dadurch auf dem Umwege durch den Leib in Beziehung setzt zu der äußeren Welt. Das Erwachen bedeutet dadurch den Übergang in einen ganz anderen Bewußtseinszustand, als wir ihn im Traume haben. Wir werden eingeschaltet in das äußere Geschehen dadurch, daß wir mit unserem Seelischen teilnehmen an Geschehnissen unseres eigenen Organismus, die wiederum mit äußeren Geschehnissen zusammenhängen. Beweise, daß ich den Vorgang eigentlich durchaus objektiv schildere, ergeben sich natürlich nicht auf rechnerisch abstrakte Art, auch nicht auf experimentelle Art; aber sie ergeben sich für den, der auf diesem Gebiet beobachten kann, namentlich beobachten kann, wie auf dem Grunde des nüchternen, trockenen Seelenlebens, des Verstandeslebens, immer etwas vorgeht wie ein «wachendes Träumen», ein unterbewußtes Imaginieren, ein Leben in Bildern. Es ist so, daß wir - wie wir von der Oberfläche eines strömenden Wassers in den tieferen Grund hinunterdringen -, so auch von unserem Verstandesleben in die tieferen Regionen der Seele dringen können. Da dringen wir hinein in das, was uns eigentlich, wenn es auch mit der äußeren Welt einen weniger exakten Zusammenhang hat, intimer angeht als das Verstandesleben. Datreffen wir ja auch alles das, was das Verstandesleben anregt zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 240
+
+---
+
+seiner selbständigen, erfinderischen Kraft, was dieses Verstandesleben anregt, wenn es übergeht in künstlerisches Schaffen, und was sogar - ich werde es später zu zeigen haben - das Verstandesleben anregt, wenn das menschliche Herz sich vom gewöhnlichen Weitenbetrachten hinsenkt zu der religiös-frommen Verehrung der Weltgeistigkeit.
+
+Im Erwachen des gewöhnlichen Lebens ist es eigentlich so, daß wir, durch die Einschaltung unseres Seelischen in unsere Leibesorgane mit der Außenwelt in eine solche Verbindung kommen, daß wir dann über das, was der Traum ist, über sein Recht und Unrecht, über seine Wahrheit und Unwahrheit, nicht den Traum, sondern lediglich das wache Tagesleben urteilen lassen können. Es wäre krankhaft, wenn jemand glauben würde, in den chaotischen, wenn auch dramatischen Vorgängen des Traumes irgendwie ein «Höheres» sehen zu können als das, was er als Bedeutung dieses Traumlebens durch das wache Erleben feststellt.
+
+In diesem wachen Erleben, gewissermaßen auf demselben Niveau der Erfahrung, bleiben wir nun auch, wenn wir uns dem Verstandesleben, dem gewöhnlichen Wissenschaftsleben, der alltäglichen Erkenntnis hingeben. Durch jene Versenkung, Vertiefung und, ich möchte sagen, Erkraftung der Seele, von der ich das letztemal gesprochen habe, übt der Mensch bewußt für sein Seelenleben auf einer höheren Stufe ein Ähnliches aus, als er unbewußt durch seine Leibesorganisation ausübt für das gewöhnliche Erwachen. Und das Aufgehen in jener übersinnlichen Erkenntnis ist ein «höheres Erwachen». Und wie wir irgendein Traumbild beziehen auf das wache Tagesleben, indem wir Erinnerung und andere Seelenkräfte zu Hilfe nehmen, um dieses Traumbild, sagen wir, auf eine körperliche Erregung oder ein äußeres Erlebnis zu beziehen und dadurch einzureihen in den Gang der Wirklichkeit, so kommt man durch ein solches übersinnliches
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:241
+
+---
+
+Erkennen, wie ich es geschildert habe, dazu, nun dasjenige, was man in der gewöhnlichen sinnlichen Umgebung hat, was man auch durch Beobachtung und Experiment feststellt, einzureihen in eine höhere Welt, in eine geistige Welt, in die man jetzt durch jene Übungen, von denen ich sprach, so eingegliedert wird, wie man beim gewöhnlichen Erwachen durch seinen eigenen Organismus eingegliedert wird in die körperliche Welt. Und so ist es das Aufgehen einer neuen Welt, ein wirkliches Erwachen zu einer neuen Welt, ein Erwachen auf einer höheren Stufe, was eigentlich die übersinnliche Erkenntnis darstellt. Und dieses Erwachen wiederum nötigt dann den Erwachenden, nun die ganze sinnlich-physische Welt so von diesem Erleben aus zu beurteilen, wie er vom Wachleben aus das Traumleben beurteilt. Was ich hier in meinem Erdenleben tue, was mir erscheint durch meine physische Erkenntnis, das lerne ich dann so auf die Vorgänge zu beziehen, die ich als geistig-seelisches Wesen durchgemacht habe in einer rein geistigen Welt vor meinem Heruntersteigen in die irdische Welt, wie ich den Traum auf das wache Leben beziehe. Ich lerne alles, was in der physischen Natur da ist, beziehen - nun nicht «im allgemeinen» auf eine phantastische Geistwelt, sondern auf eine konkrete geistige Welt -, auf eine geistige Welt, die vollinhaltlich ist, die eben durch jene Erkenntniskräfte, die ich geschildert habe - Imagination, Inspiration und Intuition - zu einer geschauten menschlichen Umgebung wird.
+
+Wie aber der Mensch im gewöhnlichen Leben als ein Erwachter in einer anderen Seelenverfassung sich fühlt, denn als ein Träumender, so wird die ganze Seelenverfassung des Menschen eine andere, indem er zu diesem höheren Erwachen kommt. So daß man, indem man in der Art, wie ich es hier getan habe, übersinnliche Erkenntnis schildert, nicht bloß das formale Aufnehmen von Bildern über die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 242
+
+---
+
+übersinnliche Welt schildert, sondern das Obergehen des Menschen von dem einen Bewußtseinszustande in den anderen, von einer Seelenverfassung in die andere. Dadurch aber werden auch diejenigen Seeleninhalte, denen man sich im gewöhnlichen Leben hingibt, durchaus andere. So wie man durch das gewöhnliche Erwachen eben ein anderer Mensch wird, so wird man in gewissem Sinne durch diese übersinnliche Erkenntnis eben ein anderer Mensch. Und was man an Vorstellungen, an Ideen im gewöhnlichen Bewußtsein gehabt hat, das ändert sich. Es geschieht nicht nur ein begrifflicher Umschwung in einem, ein Umschwung dahingehend, daß man mehr versteht, sondern es geschieht ein Lebensumschwung. Das geht nun hinein in die allertiefsten menschlichen Begriffe. Gerade in den allertiefsten menschlichen Begriffen, ich möchte sagen, in der Wurzel des Seelenseins, ändert sich der Mensch dadurch, daß er - es geschieht ja immer nur für kurze Augenblicke des Lebens - eintreten kann in das Gebiet dieser übersinnlichen Erkenntnis.
+
+Da muß ich Ihnen zwei Vorstellungen, welche die denkbar größte Rolle im gewöhnlichen Leben spielen, anführen; Vorstellungen, die ihre volle, tiefe Gültigkeit im gewöhnlichen Leben haben, und die in dem Augenblick, wo man in die übersinnliche Welt hinaufsteigt, eine ganz andere Gestalt bekommen. Das sind die beiden Begriffe, durch die wir unsere Urteile in der Welt bilden: die Begriffe wahr und falsch, richtig und unrichtig. Glauben Sie nicht, daß ich in einer Art Erkenntnisfrivolität mit meiner Auseinandersetzung irgendwie rütteln will an der Gültigkeit der Begriffe wahr und falsch, richtig und unrichtig. Rütteln an demjenigen, was für das gewöhnliche Leben heilsam ist, das ist überhaupt nicht nach der Art einer wahrhaftigen übersinnlichen Erkenntnis. Es wird durch diese übersinnliche Erkenntnis etwas hinzuerworben zu dem gewöhn-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:243
+
+---
+
+liehen Leben, aber ihm nichts genommen. Jene Menschen, die — sei es wirklich oder sentimental — unwahr werden im gewöhnlichen Leben, die für dieses gewöhnliche Leben unpraktisch-mystisch werden, die taugen auch nicht zu einer wahrhaften übersinnlichen Erkenntnis. Eine wahrhaftige übersinnliche Erkenntnis wird nicht aus Phantasten, nicht aus Träumern geboren, sondern gerade aus denjenigen, die sich voll mit ihrer Menschlichkeit als wirkliche Lebenspraktiker in das irdische Dasein hineinstellen können. Also nicht an demjenigen, was wir im alltäglichen Leben durchmachen und was in seiner Wurzel an den Begriffen wahr und falsch, richtig und unrichtig hängt, soll gerüttelt werden; im Gegenteil: Wahrhaftigkeit auf diesem Gebiete wird, ich möchte sagen, gefühlsmäßig durch dasjenige gerade befestigt, was nun für eine höhere Erkenntnis eintritt durch eine Metamorphose, durch eine Umgestaltung der Begriffe wahr und falsch, richtig und unrichtig.
+
+Man redet, wenn man wirklich in diese höhere, übersinnliche Welt hineinkommt, nicht mehr in so abstrakter Weise: etwas ist wahr, etwas ist falsch, dies ist richtig, jenes unrichtig, sondern der Begriff des Wahren, des Richtigen geht über in einen solchen, den wir ja auch, aber auf eine mehr instinktive Art, aus dem gewöhnlichen Leben kennen, nur verwandelt sich dieser Begriff des gewöhnlichen Lebens in eine geistige Form. «Wahr, richtig» geht über in den Begriff, in die Vorstellung «gesund»; «falsch» und «unrichtig» geht über in die Vorstellung «krankhaft». Während man also im gewöhnlichen Leben, wenn man über irgend etwas nachdenkt oder irgend etwas fühlt, empfindet oder will, dann sagt: das ist richtig, jenes ist unrichtig — kommt man eigentlich, wenn man im Gebiete der übersinnlichen Erkenntnis lebt, nicht zu diesem «richtig» oder «unrichtig», sondern man kommt eigentlich zu der Empfindung: etwas
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 244
+
+---
+
+ist gesund, etwas ist krankhaft. Sie werden sagen, gesund und krank sind Begriffe, denen eine Unbestimmtheit anhaftet. Aber sie haften ihnen eben nur an im gewöhnlichen Leben oder im gewöhnlichen Bewußtsein. Die Unbestimmtheit hört auf, wenn die höhere Erkenntnis so exakt gesucht wird, wie ich es im ersten Vortrage dargestellt habe. So tritt die Exaktheit auch ein in das, was man dann auf diesem Gebiete höherer Erkenntnis eben erlebt. «Gesund» und «krank», so nennt man das, was man im Verkehr mit den Wesenheiten der übersinnlichen Welt, die man durch eine solche Erkenntnis gewahr wird, erlebt.
+
+Nun bedenken Sie einmal, wie unendlich nahe einem dadurch dasjenige gehen kann, was eben Gegenstand der übersinnlichen Erkenntnis wird; es geht einem so nahe wie Gesundheit und Krankheit des Leibes. Man sagt von dem einen, das man im Übersinnlichen erlebt: Ich lebe mich in es hinein, es fördert, regt an mein Leben, es erhöht mein Leben; ich werde gewissermaßen «wirklicher» dadurch, es ist gesund. Ich sage von dem anderen: Es lähmt, ja, es ertötet mein eigenes Leben; ich erkenne daran, daß es ein Krankhaftes ist. Und so wie man durch «richtig» und «unrichtig» sich in der gewöhnlichen Welt forthilft, wie man seinen eigenen Menschen in das sittliche, in das soziale Leben hineinstellt, so stellt man sich in die übersinnliche Welt hinein durch «gesund» und «krank». Dadurch aber ist man in diese übersinnliche Welt mit seinem ganzen Wesen auf eine viel wirkliches Art eingeschaltet, als man in die Sinneswelt eigentlich eingeschaltet ist. In der Sinneswelt sondert man sich von den Dingen in diesem Richtig oder Unrichtig. Ich möchte sagen: «richtig» tut wenig intensiv wohl, «unrichtig» tut – insbesondere manchen Menschen — wenig intensiv wehe. In der übersinnlichen Welt ist es gar nicht möglich, daß die Erlebnisse
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:245
+
+---
+
+in dieser Weise an uns herantreten. Da steht unser ganzes Sein, unsere ganze Realität in der Art drinnen, wie wir diese übersinnliche Welt erleben. Daher hört für dieses Gebiet alles Streiten auf wie: Sind die Dinge Wirklichkeiten? Sind sie bloß Erscheinungen? Zeigen sie uns bloß die Wirkungen auf unsere eigenen Sinnesorgane? und so weiter, Dinge, von denen ich hier nicht sprechen möchte, weil die Zeit dazu fehlen würde. Alles das aber, worüber man auf diese Weise diskutieren kann für die physische Wirklichkeit, das zu diskutieren hat eigentlich keinen Sinn für die geistige, übersinnliche Welt; denn ihre Wirklichkeit und Unwirklichkeit erprobt man daran, daß man sagen kann: Das eine berührt mich gesund, das andere berührt mich krank - kränkend, möchte ich sagen, das Wort in seiner vollen Bedeutung und Schwere nehmend. In dem Augenblick, wo der Mensch zur übersinnlichen Welt aufsteigt, bemerkt er sogleich, wie das, was sonst kraftlose Erkenntnis ist, zu einer innerlichen Kraft der menschlichen Seele selbst wird. Wir durchdringen die Seele mit dieser übersinnlichen Erkenntnis, wie wir unseren Körper mit dem Blut durchdringen. Daher lernen wir auch in einer solchen Erkenntnis das ganze Verhältnis der Seele und des Geistes zum menschlichen Leibe kennen, lernen dadurch hinschauen, wie aus einem übersinnlichen vorgeburtlichen Dasein das Geistig-Seelische des Menschen heruntersteigt und sich mit dem vererbten Leibe verbindet. Um das zu durchschauen, muß man eben erst das Geistig-Seelische wirklich so kennenlernen, daß man durch diese Realität - wie gesund und krank - die Wirklichkeit, ich kann hier nicht sagen, am eigenen Leibe, aber an der eigenen Seele erlebt.
+
+So ist übersinnliche Erkenntnis, so schwer man das Wort ausspricht, weil man scheinbar sogleich in eine Sentimentalität verfällt, nicht eigentlich ein bloßes Verstehen, son-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 246
+
+---
+
+dem übersinnliche Erkenntnis, ist ein «Beseelen» des Menschen. Es ist Seele selber, Seeleninhalt, der in uns hereinsteigt, wenn wir zu dieser übersinnlichen Erkenntnis dringen. Wir werden unsere Ewigkeit, unsere Unsterblichkeit ja nicht durch ein philosophisches Problem gewahr; wir werden sie gewahr im unmittelbaren Erleben, wie wir durch unsere Sinne die äußeren Dinge im unmittelbaren Erleben gewahr werden.
+
+Was ich so geschildert habe, steht allerdings vor dem Einwand: Ja, so kann vielleicht derjenige sprechen, der solcher übersinnlichen Erkenntnis teilhaftig ist; aber was soll denn zu diesen Dingen jemand sagen, der noch nicht dieser übersinnlichen Erkenntnis selbst teilhaftig ist? Nun, es ist die schönste Art des menschlichen Zusammenlebens, wenn der eine Mensch an dem anderen sich heranentwickelt, wenn seelisch der eine durch den anderen wird. Dadurch wird gerade in einer wunderbaren Weise die menschliche Gemeinschaft gestiftet. Und so darf gesagt werden: Geradeso wie nicht alle Menschen Astronomen oder Botaniker sein können, wie aber für alle Menschen das, was Astronomie und Botanik hervorbringen, von Wichtigkeit und Bedeutung - wenigstens in den Haupt-ergebnissen - sein kann und aufgenommen werden kann durch das, was man durch den gesunden Menschenverstand einsehen kann, so ist es auch möglich, daß durch das gesunde menschliche Gemüt im unmittelbaren Aufnehmen dasjenige erfaßt wird, was durch einen Geistesforscher, der in der Lage ist, in die übersinnliche Welt einzudringen, dargestellt wird. Denn der Mensch ist nicht für die Unwahrheit, sondern für die Wahrheit geboren! Und das, was der Geistesforscher zu sagen hat, wird ja immer in solche Worte und Wortfügungen gekleidet sein, daß es schon in der Formulierung abweicht von dem, was wir gewohnt sind, als Bilder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 247
+
+---
+
+aus der sinnlich-physischen Welt zu empfangen. Und so kann, indem der Geistesforscher seine Schauungen offenbart, dies auf den ganzen Menschen, auf den einfachen, gesunden Menschensinn so wirken, daß dieser gesunde Menschensinn erweckt wird, so erweckt wird, daß er wirklich sich hineinfindet in jenes Erwachen, von dem ich heute gesprochen habe. Daher muß ich immer wieder und wieder sagen: Gewiß, in meinen Büchern «GeheimWissenschaft im Umriß», «Wie erlangt man Erkenntnisse der höheren Welten?» und in anderen habe ich darzustellen versucht, wie man durch systematische Übungen dasjenige erreichen kann, was ich bezeichnen muß als «Hineinschauen in die geistige Welt», so daß heute ein jeder in der Lage ist, bis zu einem gewissen Grade ein Geistesforscher zu werden; aber man braucht es nicht zu werden. Denn die gesunde menschliche Seelenverfassung ist so, daß das, was der Geistesforscher zu sagen hat, indem es an die Menschenseele heranschlägt, von dieser Seele, wenn sie nur unbefangen genug dazu ist, so empfangen werden kann wie eine alte Erkenntnis. Denn gerade das ist das Eigentümliche dieser Geistesforschung, dieser übersinnlichen Erkenntnis, die hier gemeint ist, daß sie nichts bringt, was nicht unterbewußt in jedem Menschen schon vorhanden ist. So daß jeder Mensch fühlen kann: Das habe ich ja gewußt, es steckt ja in mir; hätte ich mich nur nicht in einer gewissen Weise betäuben lassen durch die autoritativen und anderen naturwissenschaftlichen Vorurteile, so hätte ich durch dieses oder jenes Erlebnis schon früher das eine oder das andere von dem erfaßt, was im Zusammenhange diese Geistesforschung vorbringen kann.
+
+Dadurch aber, daß so etwas eintritt wie die Verwandlung der Begriffe wahr und falsch in gesund und krank, dadurch wird das innere Erleben der Seele immer intensiver und intensiver. Der Mensch stellt sich auf einer höheren
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 248
+
+---
+
+Stufe eben intensiver in eine Wirklichkeit hinein, als er sich beim bloßen Erwachen des Alltages in die physische Wirklichkeit hineinstellt. Dadurch werden für die Erkenntnisse, die durchaus exakt sind, geradeso wie durch hingestellte äußere Dinge, Gefühle, Empfindungen, Seelenerlebnisse erregt. Der ganze Mensch wird durch das, was die übersinnliche Erkenntnis geben kann, in Anspruch genommen, wie eigentlich sonst nur der Kopf in Anspruch genommen wird durch das, was eine sinnliche Erkenntnis geben kann. - Sie gestatten mir, daß ich dieses Vollmenschliche der übersinnlichen Erkenntnis auch noch dadurch veranschauliche, daß ich auf etwas Persönliches hinweise; aber das Persönliche ist ja auf diesem Gebiete auch ein Sachliches, denn die Sachen werden intensiv mit dem Persönlichen verknüpft.
+
+Um zu veranschaulichen, wie die übersinnliche Erkenntnis wirklich nicht eine bloße Kopf erkenntnis sein kann, sondern wie sie unendlich viel lebendiger und intensiver den Menschen ergreift als die Kopferkenntnis, möchte ich das Folgende sagen. Wer gewohnt ist - und das sollte eigentlich jeder wahrhaftige übersinnliche Erkenner - in gewöhnlicher Erkenntnis zu leben, der weiß, wie der Kopf beteiligt ist an dieser gewöhnlichen Erkenntnis. Steigt er dann auf, gerade wenn er durch sein ganzes Leben sich sozusagen auch in gewöhnlicher Erkenntnis betätigt hat, zu der übersinnlichen Erkenntnis, so wird die Sache so, daß er alle Kräfte anstrengen muß, um diese übersinnliche Erkenntnis, die an ihn herankommt, die sich ihm offenbart, festzuhalten. Er merkt: Die Kraft, durch die man eine Idee über die Natur, ein Naturgesetz, den Verlauf eines Experimentes oder einer klinischen Beobachtung festhält, diese Kraft ist ein Geringeres gegen die innere Seelenkraft, die man entfalten muß, um die Anschauung einer übersinnlichen Wesenheit festzuhalten. Und da fand ich mich denn immer genötigt, nicht nur
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:249
+
+---
+
+sozusagen den Kopf zu benützen, um diese übersinnlichen Erkenntnisse festzuhalten, sondern die Kraft, die der Kopf anwenden kann, zu unterstützen durch andere Organe, zum Beispiel durch die Hand. Wenn man irgend etwas, was sich einem übersinnlich ergibt, in einigen Strichen aufzeichnet, wenn man es in charakteristischen, aphoristischen Sätzen oder auch bloßen Worten fixiert, dann ist das, was man da nun nicht bloß als eine durch das Nervensystem, das man beim gewöhnlichen Erkennen anwendet, hervorgerufene Kraft zustande bringt, sondern was man durch eine weit im Organismus ausholende Kraft als Unterstützung des Erkennens zustande bringt, etwas, was bewirkt, daß man die übersinnlichen Erkenntnisse nicht als vorübergehende hat, daß sie einem nicht entfallen wie Träume, sondern daß man sie behalten kann. Ich darf Ihnen daher verraten, daß ich im Grunde genommen immer in dieser Weise arbeiten muß und Wagenladungen von Notizbüchern in meinem Leben dadurch zustande gebracht habe, die ich niemals wieder angeschaut habe. Denn das, was da notwendig ist, liegt in der Betätigung; und die Betätigung bewirkt, daß man im Geiste das erhält, was sich einem offenbaren will, nicht daß man es hinterher wieder ablesen muß. Dieses Schreiben oder Zeichnen ist selbstverständlich kein automatisches, mediumhaftes, sondern ein ebenso bewußtes wie das, was man bei einer wissenschaftlichen oder anderen Arbeit anwendet. Es ist auch nur da, weil das, was in übersinnlicher Erkenntnis an einen herandringt, eben mit dem ganzen Menschen festgehalten werden muß. Dadurch aber wirkt es auch wieder auf den ganzen Menschen, ergreift den ganzen Menschen, bleibt nicht bei Eindrücken des Kopfes stehen, schreitet fort zu Eindrücken auf das ganze menschliche Herzens- und Gemütsleben. Und was man sonst erlebt, indem das Leben der Erde an einem vorübergehst, was man über dieses
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 250
+
+---
+
+oder jenes erlebt an Freude, Freude mit all ihrer inneren Lebendigkeit, was man erlebt an kleineren oder tieferen Schmerzen, was man erlebt durch die äußere Sinneswelt, durch das Zusammensein mit anderen Menschen, an den auf- und absteigenden Wogen des Lebens, das tritt auf einer höheren, auf einer seelisch-geistigen Stufe wieder ein, indem man hinaufkommt in diejenigen Regionen des Übersinnlichen, wo man nicht mehr sprechen kann von wahr und falsch, wo man sprechen muß von gesund und krankhaft.
+
+Und wenn dann insbesondere alles das durchgemacht ist, was ich das letztemal beschrieben habe, namentlich auch das große Schmerzgefühl auf einer gewissen Stufe auf dem Wege zum Übersinnlichen, da dringt man dann vor zu einem solchen Niveau des Erlebens, wo man mit dem Herankommen an übersinnliche Erlebnisse und Erkenntnisse eine solche innere Lebensdramatik durchmacht: Wo einem Erkenntnisse Freude, Lust bereiten können, wie das sonst nur im physischen Leben möglich ist, oder wo einem Erkenntnisse tiefsten Schmerz verursachen können; wo man das ganze seelische Leben, ich möchte sagen, auf einer höheren Stufe erneut hat, mit aller inneren Farbigkeit, mit allem inneren Kolorit, mit aller intimen Innigkeit des seelisch-gemüthfheten Lebens, die man durch sein Zusammengewachsensein mit der körperlichen Organisation im alltäglichen Dasein hat. Und hier ist es, wo sich die höhere Erkenntnis, das übersinnliche Erleben begegnet mit demjenigen, was in das gewöhnliche Leben hereinspielt als das sittliche Dasein des Menschen, dieses sittliche Dasein des Menschen mit alledem, womit es zusammenhängt, mit dem religiösen Empfinden, mit dem Bewußtsein der Freiheit. In dem Augenblick, wo man hinaufsteigt zu einem unmittelbaren Erleben des gesundenden oder kränkenden Geisteslebens, trifft man sozu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 251
+
+---
+
+sagen auf die Wurzel des sittlichen Lebens des Menschen, auf die Wurzel des ganzen moralischen Daseins. Auf diese Wurzel des moralischen Daseins trifft man erst, wenn man zuder Anschauung kommt, wie das sinnlich-physische Leben mit demjenigen, was aus dem Menschen fließt, eigentlich für ein höheres Leben eine Art «Traum» ist, so wie der Traum für das gewöhnliche Leben eben ein Traum ist. Und dasjenige, was wir aus unbestimmten Tiefen unseres menschlichen Wesens heraus als Gewissen empfinden, woraus wir handeln können im gewöhnlichen Leben, woraus wir wohltätig oder unheilvoll für unsere Mitmenschen werden, dies, was so, ich möchte sagen, aus Untiefen unseres menschlichen Wesens heraufleuchtet, was uns anregt sittlich oder unsittlich, das wird hell, das wird eingereiht in eine Wirklichkeit, wie der Traum beim Erwachen eingereiht wird in eine Wirklichkeit. Man lernt das Gewissen dennoch als etwas erkennen, was da ist als der im Menschen in einer schattenhaften Weise vorhandene Spiegelglanz des Sinnes und der Bedeutung der geistigen Welt — der übersinnlichen Welt, der wir als Menschen mit dem Tiefsten unseres Wesens doch angehören. Und man begreift jetzt, wenn man die sittliche Weltordnung betrachten und zu einer Wirklichkeit dieser sittlichen Weltordnung kommen will, warum man dann ausgehen muß von dem, was uns die Sinneswissenschaft bieten kann zu einer übersinnlichen Erkenntnis.
+
+Das war es, was ich vor jetzt dreißig Jahren darzustellen versuchte bloß als ethisches Problem, bloß als moralisches Welträtsel in meiner «Philosophie der Freiheit». Da versuchte ich, ohne Rücksicht zu nehmen auf übersinnliche Erkenntnis, rein durch Verfolgen der moralischen Impulse des Menschen, festzustellen, wie das Sittliche in jedem Falle entspringt - nicht aus dem Denken, das in sich aufnimmt die äußeren Dinge, die äußeren Geschehnisse oder die Ge-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:252
+
+---
+
+schehnisse des eigenen Leibes, sondern wie das Sittliche hervorgeht aus jenem denkerischen Seelenleben, das das Gemüt, das den Willen ergreift, das aber in seiner Grundlage doch denkerisches Seelenleben ist, das in sich selbst begründet ist, das im Geistigen der Welt urständet. Ein Seelenleben mußte ich dazumal in meiner «Philosophie der Freiheit» suchen, das unabhängig ist auch von der menschlichen Leiblichkeit, das zwar wie in schattenhafter Unwirklichkeit gegenüber der robusten Wirklichkeit der äußeren Sinnlichkeit erscheint, das aber in seiner wahren Wesenheit in die Geistgrundlage der Welt eingewurzelt ist. Und das Hervorgehen der sittlichen Impulse aus diesem, von der äußeren Sinneswelt gereinigten, aber im Menschen durchaus lebendigen Denken gibt dem Menschen seinen sittlichen Charakter. Und wenn man durch übersinnliche Erkenntnis nun schauen lernt, wie das, was als Gewissen in uns wurzelt, im Grunde genommen die in unserem Inneren befindliche Spiegelung der realen geistigen Welt ist, die durch die Sinnlichkeit webt und west, dann lernt man die Sittlichkeit des Menschen als das erkennen, was ihn — ohne daß er es weiß, auch wenn er es nur als dumpfe Stimme in seinem Inneren vernimmt — immerdar an jene geistige Welt bindet, die uns dann durch übersinnliche Erkenntnis erschlossen werden kann. Aber man sage nicht, daß diese übersinnliche Erkenntnis deshalb für das sittliche Leben bedeutungslos sein könne, weil wir ja die Stimme des Gewissens, weil wir die praktischen Intentionen des Lebens für die einzelnen Lebenssituationen haben. Wer insbesondere heute sieht, wie alte Geistestraditionen, übersinnliche Erkenntnisse von Urzeiten, die sich erhalten haben, abgeblaßt sind und als blasse Bekenntnisse heute fortleben, der wird auch sehen können, wie gerade auf diesem Gebiete eine neue Anregung des Menschen notwendig ist. Es geben sich ja auf diesem Felde viele
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 25 3
+
+---
+
+Menschen einem großen Irrtum hin. Wir können sehen, wie durch die naturwissenschaftliche Erkenntnis, die ja von vielen auch heute noch als die einzig gültige angesehen wird, wie durch die Gestalt, die diese naturwissenschaftliche Erkenntnis mit ihrem Ignorabimus, ihrem «Wir können nicht erkennen», angenommen hat, viele überhaupt an der Erkenntnis schon verzweifeln, indem sie sagen: Sittliche Impulse, religiöse Intentionen können wir nicht aus irgend etwas gewinnen, was Erkenntnis ist; wir müssen diese ethisch-religiösen Impulse der Lebenshaltung, unabhängig von der Erkenntnis, aus besonderen Anlagen des Menschen heraus entwickeln. So weit ist es ja gekommen, daß man der Erkenntnis alle Fähigkeit abspricht, den Menschen so zu impulsieren, daß er durch die Aufnahme seines eigenen Geisteswesens - denn das ist es ja, was er in der übersinnlichen Erkenntnis aufnimmt - auch in seinem sittlich-religiösen Dasein bereichert wird. So weit ist es gekommen, daß man dies bezweifelt! Aber auf der anderen Seite wird man einsehen - gerade wenn man nicht ein solcher Praktiker ist, wie es die «Praktiker» des heutigen Lebens sind, die ja nur Routiniers sind, sondern wenn man als ein wirklicher Praktiker auf die ganze Welt eingeht, die aus Leib, Seele und Geist besteht -, dann wird man schon einsehen, wie man in den einzelnen Lebenssituationen, für die man sich im realen Dasein mit sittlich-religiösem Gehalt durchdringen kann, mehr braucht als die abgeblaßten Traditionen, die eigentlich den Menschen doch nicht mehr vollsittlich inspirieren. So etwas sieht man.
+
+Lassen Sie mich da ein besonderes Beispiel anführen. Aus all dem Unbefriedigenden, das ja auch im Erziehungsleben heute an einen herantritt, galt es die Frage zu beantworten: Wie soll eigentlich der Mensch erzogen werden?, als in Stuttgart aus dem Impuls von Emil Molt heraus die «Wal-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 254
+
+---
+
+dorfschule» begründet werden sollte. Mit dieser Frage an die übersinnliche Welt, von der ich hier spreche, traten wir an diese Aufgabe heran. Ich will nur ganz kurz anführen, was da für Intentionen zugrunde gelegt werden mußten.
+
+Vor allen Dingen mußte die Frage aufgeworfen werden: Wie erzieht man das Kind zum wirklichen, sein ganzes Wesen in sich tragenden, aber auch sein ganzes Wesen in der ethisch-religiösen Lebenshaltung offenbarenden Menschen? Eine wirkliche Menschenerkenntnis nach Leib, Seele und Geist war dazu notwendig. Aber eine solche Menschenerkenntnis nach Leib, Seele und Geist ist heute aus demjenigen, was man gelten lassen will, durchaus nicht möglich, am wenigsten eine solche, welche unmittelbar praktisch werden kann, so daß man durch sie im Leben die mannigfaltigen Aufgaben angreifen kann. Lassen Sie mich das daran erörtern, daß ich ganz kurz zeige, wie eigentlich das, was wir heute so vielfach als unseren Stolz empfinden, die äußere Wissenschaft, die sich experimentierend und beobachtend mit dem Materiellen beschäftigt, nicht imstande ist, gerade in die Geheimnisse des Materiellen einzudringen. Was ich jetzt sage, will ich nur ganz kurz anführen; es kann aber in meinen Schriften, namentlich in meinem Buche «Von Seelenrätseln», mit allen Belegen nachgelesen werden. Wenn wir heute auf die gebräuchliche Wissenschaft hinhören, so bekommen wir von ihr die Vorstellung, zum Beispiel über das menschliche Herz, daß dieses Herz eine Art Pumpe sei, welche das Blut durch die Organe des Menschen wie ein Pumpwerk treibt. Geisteswissenschaft, wie sie hier gemeint ist, die uns einführt in die Anschauung desjenigen, was am Menschen nicht nur sein physischer Leib ist, sondern was im Menschen geistig-seelisches Wesen ist, sie zeigt uns, wie dieses geistig-seelische Wesen das leibliche Wesen durchdringt, wie das Blut nicht durch die Wirkung des «Herz-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 255
+
+---
+
+Pumpwerkes» durch den Menschen getrieben wird, sondern unmittelbar durch das Geistig-Seelische selbst, und wie dieses Geistig-Seelische in die Blutzirkulation so eingreift, daß dieses Geistig-Seelische die Kraft wird, welche das Blut durch unseren Organismus pulsieren macht. Dann aber wird das Herz geschaut als etwas wie ein Sinnesorgan. Wie ich durch meine Augen die äußere Welt bewußt wahrnehme und sie mir in meinen Vorstellungen bewußt zu eigen mache, so nehme ich das, was ich in meinem Blute unbewußt durch meine geistig-seelischen Kräfte als Pulsation entwickele, durch dieses innere Sinnesorgan des Herzens, wiederum auf eine unbewußte Weise wahr. Das Herz ist keine Pumpe, das Herz ist das innere Sinnesorgan, durch welches man dasjenige wahrnimmt, was das Geistig-Seelische an unserem Blute innerlich entwickelt, so wie man durch die äußeren Sinne die äußere Welt wahrnimmt. In dem Augenblicke, wo man vom verstandesmäßigen Zergliedern des menschlichen Organismus übergeht zum Anschauen des ganzen Menschen, in diesem Augenblicke enthüllt sich das Herz in seiner wahren Wesenheit, in seiner wahren Bedeutung: als innerliches Sinnesorgan. Im Herzen offenbaren sich die Wirkungen der menschlichen Blutzirkulation mit ihren Lebensimpulsen, nicht ist das Herz der Veranlasser dieser Pulsation. - Es ist dies ein Beispiel dafür, wie es sozusagen die Tragik gerade der materialistisch gefärbten Wissenschaft ist, in die Geheimnisse des materiellen Lebens nicht eindringen zu können, und wie man in die Geheimnisse des Materiellen erst dadurch eindringt, daß man den Geist in seiner wahren Arbeit, in seinem Schaffen an der Materie beobachtet.
+
+Wenn man aber so auf der einen Seite gerade in dem Geschehen im Materiellen den schaffenden Geist gewahr wird, dann wird man auf der anderen Seite den kraft-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:256
+
+---
+
+vollen, nicht bloß den abstrakt denkenden Geist, den we-senhaften, den wirklichen Geist gewahr durch eine solche übersinnliche Erkenntnis. Und dann erst ergibt sich eine wirkliche Menschenerkenntnis, wie man sie braucht, wenn man in dem werdenden Kinde das heranbilden will, was nun im Menschen bis zum Tode kraftvoll, lebensgemäß, wirklichkeitsentsprechend wesen kann. Und so wird durch eine solche intensive Verlebendigung der Menschenerkenntnis das Kind für den Erzieher im Grunde genommen etwas ganz anderes, als es für den äußeren Betrachter bloß ist. Das werdende Kind ist ja vom ersten Augenblicke seines Erdenlebens an im Grunde genommen die wunderbarste irdische Erscheinung. Wie so aus dem tiefsten, zunächst rätselhaft unbestimmten Inneren das herauskommt, was die unbestimmten Gesichtszüge zu immer bestimmterem macht, was das erst verwaschene Antlitz zur sprechenden Physiognomie macht, wie die unbestimmten, ungelenken Bewegungen der Gliedmaßen zu zweck- und zielentsprechenden werden, das zu beobachten ist etwas Wunderbares. Und das auszubilden macht eine große Verantwortlichkeit notwendig.
+
+Steht man vor dem werdenden Menschen so, daß man mit aller inneren Inbrunst, wie sie an übersinnlicher Erkenntnis haften kann, sagt: In diesem Kinde offenbart sich das, was im vorirdischen Dasein geistig-seelisch in übersinnlicher Schöne gelebt hat, was gewissermaßen seine übersinnliche Schöne verlassen hat, untergetaucht ist in denjenigen Leib, der ihm in der physischen Vererbung gegeben werden konnte; du aber, als Erzieher, du hast herauszulösen, was gottgegeben im menschlichen Leibe ruht, daß es ergreifen kann von Jahr zu Jahr, von Monat zu Monat, von Woche zu Woche den physischen Leib, ihn durchdringen kann, ihn plastisch der Seele ähnlich machen kann; du
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 257
+
+---
+
+hast im Menschen weiter zu erwecken, was sich in diesem Menschen offenbart - dann steht man nicht nur mit verstandesmäßigen Grundsätzen vor der Erziehung des Kindes, sondern dann steht man mit seinem ganzen Menschen, mit seinem ganzen menschlichen Gemüt, mit seiner umfassenden menschlichen Verantwortlichkeit vor dem Erziehungsproblem. Dann lernt man allmählich wissen, daß man nicht nur das Kind zu beobachten hat, wenn man wissen will, was man zu irgendeiner Zeit mit dem Kinde zu tun hat, sondern daß man den ganzen Menschen überschauen muß.
+
+Das ist unbequem zu beobachten. Aber es ist eine Wahrheit, daß dasjenige, was unter Umständen an einem Menschen sich offenbart, sagen wir, im zartesten Kindesalter, in einer besonderen Gestalt erst im höchsten Alter, nachdem es lange im Innern des Menschen verborgen geblieben ist, sich entweder als gesundend oder krankmachend offenbart. Wir haben als Erzieher nicht nur das unmittelbare kindliche Alter in der Hand, wir haben als Erzieher das ganze menschliche Erdenleben in der Hand. Wer von einem oberflächlichen pädagogischen Standpunkte aus oftmals sagt, man müsse dem Kinde nur das beibringen, was es schon verstehen kann, der irrt gar sehr; er lebt im Augenblick, er lebt nicht in der Beobachtung des ganzen Menschenlebens. Denn es gibt ein kindliches Alter, das vom Zahn Wechsel bis zur Geschlechtsreife geht, wo es dem Kinde außerordentlich wohltätig ist, wenn es auch dasjenige, was es noch nicht begreift, was für es noch nicht anschaulich werden kann, auf die Autorität des geliebten Erziehers hin annimmt - zum größten Segen für das Menschenleben, weil es Lebenskräfte selbst erweckend wirkt, wenn das Kind in der selbstverständlichen Autorität des Lehrenden und Erziehenden gewissermaßen die Verkörperung von Wahrheit, Schönheit
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 258
+
+---
+
+und Güte sieht, wenn es die Welt verkörpert sieht in dem Erzieher. Das ist nicht etwas, was gegen die Freiheit des Menschen verstoßt, das ist etwas, was appelliert an die selbstverständliche Autorität, die in ihrer Weiterentwicklung eine Kraftquelle für das ganze Leben ist.
+
+Wenn wir, fünfunddreißig Jahre alt geworden, nunmehr in unser reifes Gemüt etwas hereinbringen, was im Grunde genommen veranlagt ist, erst jetzt von uns als reife Menschen verstanden zu werden, und was wir nur auf die Autorität der geliebten Erzieherpersönlichkeit schon im achten Lebensjahr in unser Herz aufgenommen haben, wenn wir das heraufbringen, was wir schon besessen haben, was durch Liebe in uns lebte und jetzt erst im reifen Alter von uns verstanden wird, dann ist dieses Verstehen dessen, was in uns wie im Keime vorhanden ist, die Quelle einer reichen inneren Belebung. Diese innere Belebung wird dem Menschen genommen, wenn man in trivialisierender Weise nur das an das Kind heranbringen will, was es schon verstehen kann. Man schaut ja nur dann auf das kindliche Erleben richtig hin, wenn man auf den ganzen Menschen und vor allem auf das, was noch mehr in das menschliche Gemüt hineingeht, einzugehen vermag.
+
+Man lernt zum Beispiel Menschen kennen, die, wenn sie in eine Gemeinschaft von anderen Menschen kommen, etwas wie Segen-Ausstrahlendes haben. Sie wirken beruhigend, friedensstiftend selbst auf aufgeregte und aufeinanderplatzende Gemüter. Und wenn wir wirklich in der Lage sind—das ist, wie gesagt, unbequem — zurückzuschauen, wodurch solche Menschen, abgesehen von ihren Anlagen, auch durch Erziehung so etwas ausgebildet haben, dann kommen wir oftmals zurück in ein sehr zartes Lebensalter, wo diese Kinder dadurch, daß die Erzieherpersönlichkeiten ihnen im Inneren in recht herzlicher Weise nahe gestanden haben, ver-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 259
+
+---
+
+ehrend aufzuschauen gelernt haben zu diesen Erzieherpersönlichkeiten. Dieses Aufschauen, dieses Verehrenkönnen wirkt wie ein Gebirgsbach, der unter das Gestein tritt und erst später wieder an der Oberfläche erscheint. Es wirkt das, was sich die Seele da im Kindesalter angeeignet hat, hinunter in die Tiefen der Seele, äußert sich erst im hohen Alter und wird dann zu etwas wie Segen ausstrahlender Kraft.
+
+Man kann das, was ich eben ausführte, im Bilde andeuten, indem man sagt: Auch der Welt gegenüber kann der Mensch so erzogen werden, daß er die verehrenden Kräfte des zarten Kindesalters in segnende Kräfte im hohen Alter verwandeln kann. Im Bilde möchte ich andeuten, was ich meine: Niemand wird im Alter die Hand zum Segnen ausbreiten können, der nicht im zarten Kindesalter gelernt hat, in Ehrfurcht, ich möchte sagen, betend die Hände zu falten!
+
+Das kann uns zeigen, wie in einem solchen speziellen Falle eine Lebensaufgabe - die Erziehung - zur ethisch-religiösen Stimmung führen kann, wie auch das, was das Hineinleben in die Geist-Erkenntnis aus unserem Gemüt, aus unserem Willen macht, sich hineinkleben kann in unsere Lebenshaltung, so daß das, was wir sonst nur äußerlich-technisch vielleicht ausbilden, zu einem Bestandteil unserer sittlich-religiösen Lebenshaltung wird. Indem jedoch Unterricht und Erziehung in der Stuttgarter Waldorfschule und in den anderen Schulen, die als ihre Dependancen entstanden sind, in eine solche Atmosphäre gerückt worden ist, ist wahrhaftig das Sachliche, das rein Pädagogische nicht etwa unberücksichtigt geblieben, sondern voll berücksichtigt worden. Aber es ist wirklich die Erziehungsaufgabe etwas geworden, was mit aller seiner erzieherischen Technik, mit aller Erzieherpraxis und allem Methodischen zugleich eine
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:260
+
+---
+
+ethisch-religiöse Atmosphäre auf das Kind ausstrahlt. Erzieherhandlungen werden zu ethisch-religiösen Handlungen, weil das, was getan wird, aus den tiefsten sittlichen Impulsen heraus getan wird. Weil erzieherische Praxis aus Erzieher-Gewissen fließt, weil in dem werdenden Menschen geschaut wird das gottgegebene Seelenwesen, deshalb wird die erzieherische Handlung zugleich zu einer religiösen. Und es braucht nichts Sentimentales gemeint zu sein, sondern es kann gerade das gemeint sein, was eigentlich unser so nüchtern gewordenes Leben besonders notwendig hat: In ganz unsentimentalem Sinne kann dadurch, daß Geisteswissenschaft eine Leuchte wird, die auf unsere Lebenshandlungen, auf unsere ganze Lebenshaltung Licht wirft, kann das Leben, wie in dem angezeigten einzelnen Beispiele der Erziehung, so eine Art göttlicher Weltendienst werden. Weil wir durch übersinnliche Erkenntnis nicht zu Abstraktionen, sondern zu menschlichen Kräften kommen, wenn diejenigen Erkenntnisse, die im übersinnlichen Erkennen gewonnen werden, unmittelbar eben Lebenskräfte werden: deshalb können sie auch überfließen in unsere ganze Lebenshaltung, können sie durchdringen mit dem, was den Menschen über den Menschen hinausführt, aus dem Sinnlichen zum Übersinnlichen, was ihn zu einem sittlichen Wesen erhebt; können ihn dazu bringen, daß er wirklich in hingebungsvoller Liebe eins wird mit dem Geist der Welt und dadurch zum wahrhaft religiösen Frommsein kommt.
+
+Das offenbart sich ja insbesondere auch in der Erziehung. Wenn wir das Kind bis zu seinem siebenten Lebensjahr beobachten, so ist es ganz hingegeben, physisch hingegeben an die Umgebung; es ist ein Nachahmer, bis in die Sprache hinein ein nachahmendes Wesen. Und wenn wir diese physische Hingabe ansehen, wenn wir das beobachten, was Naturumgebung des Kindes ist, was für das Kind auch,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 261
+
+---
+
+weil die Seele noch nicht erwacht ist, Naturumgebung bleibt, dann möchten wir sagen: Es ist die naturhafte Ausgestaltung des religiösen Hingegebenseins an die Welt, was uns im Kinde naturhaft entgegentritt. Das Kind lernt deshalb so viel, weil es naturhaft-religiös an die Welt hingegeben ist. Dann sondert sich der Mensch aus der Welt heraus; und vom siebenten Jahre ab wird schon seine erzieherische Umgebung das, was seiner Seele eine andere, ahnende Richtung gibt. Dann kommt er mit der Geschlechtsreife zum selbständigen Urteil, dann wird er das, was sich aus sich selbst heraus Richtung und Ziel gibt. Wohl ihm, wenn er jetzt, da er auch aus seinem sinnlichen Organismus losgelöst wird, dem Gedanken, dem Geist folgen kann und hineinwächst in das Geistige, wie er als Kind naturhaft in der Welt gelebt hat, wenn er als Erwachsener für den Geist zurückkehren kann zu der Naturhaftigkeit des kindlichen Welt-Erfühlens! Wenn unser Geist, nachdem wir geschlechtsreif geworden sind, so in dem Geist der Welt leben kann, wie der Leib des Kindes in der Welt der Natur lebt, dann dringen wir mit dem Innersten unseres Menschenwesens in wahrer religiöser Hingabe in den Geist der Welt hinein, dann werden wir religiöse Menschen!
+
+Man muß sich eben durchaus bequemen, die gewöhnlichen Erkenntnisvorstellungen in lebendige Kräfte umzuwandeln, wenn man das Wesen, den Nerv der übersinnlichen Erkenntnis erfassen will. Und so ist es auch, wenn man durch das, was ich das letztemal als übersinnliche Erkenntnis der Imagination geschildert habe, den Menschen anschaut. Wenn man gewahr wird, wie in ihm nicht nur dieser physische Leib lebt, den wir durch die Physiologie studieren, den wir in der Klinik zergliedern und eben dadurch die Physiologie aufbauen, wenn man sieht, wie in ihm ein übersinnliches Wesen lebt, das so angeschaut wird, wie ich es beschrieben
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:262
+
+---
+
+habe, dann wird man gewahr, wie diese übersinnliche Wesenheit ein Plastiker ist, der am physischen Leibe selber arbeitet. Dann muß man aber auch die Möglichkeit haben, von den gewöhnlichen abstrakten Vorstellungen, die uns nur Naturgesetze liefern, überzugehen zu einer künstlerischen Erfassung des Menschen. Dann müssen die Gesetzmäßigkeiten, durch die man sonst die menschliche physische Gestalt erfaßt, zu gestalteten Inhalten werden; dann muß Wissenschaft in Kunst übergehen können. Der übersinnliche Mensch läßt sich nicht durch abstrakte Wissenschaft ergreifen. Die Wissenschaft vom übersinnlichen Menschen erlangt man nur durch ein Anschauen, das ganz und gar die Wissenschaft in ein künstlerisches Erleben hineinführt. Man darf nicht sagen: Wissenschaft müsse etwas Logisches, Experimentierendes bleiben. Gewiß, eine solche Forderung kann man aufstellen; aber was kümmert sich die Welt um das, was wir als «Forderungen» aufstellen! Wenn wir die Welt erfassen wollen, müssen wir uns nach der Welt, nicht nach unseren Forderungen und nicht einmal nach unseren logischen Gedanken richten, denn die Welt könnte sich aus den bloßen logischen Gedanken in ein Künstlerisches überleiten. Und das tut sie auch. Daher gelangt nur der zu einer richtigen Lebensauffassung, der das, was man in den gedachten Naturgesetzen vor sich hat, überleiten kann durch «anschauende Urteilskraft», wie Goethe dies Wort so schön geprägt hat, in gestaltete Naturgesetze. Da steigt man dann durch die Kunst - wie Schiller sagte: «durch das Morgenrot des Schönen» - hinauf in der Erkenntnis - aber auch in des Frommseins, in des Religiös-Seins Land.
+
+Und dann-lassen Sie mich das zum Schluß aussprechen - wird man gewahr, was es eigentlich für eine Bewandtnis hat mit all den Zweifeln, die dem Menschen kommen, wenn er sagt: Die Erkenntnis kann uns ja die religiösen, die ethi-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 263
+
+---
+
+sehen Impulse nicht geben; dazu bedarf es besonderer Kräfte, die von den Erkenntniskräften weitab liegen. Auch von mir hier wird aus den Grundlagen übersinnlicher Erkenntnis niemals behauptet werden, daß irgendeine Erkenntnis als solche den Menschen in die sittlich-religiöse Lebenshaltung hineinbringen kann. Dasjenige aber, was den Menschen in Wahrheit in die sittlich-religiöse Lebenshaltung hineinbringt, das liegt nicht auf sinnlichem Gebiete, das kann erst erforscht werden auf übersinnlichem Gebiete. Daher erlangt man erst eine wirkliche Erkenntnis von der menschlichen Freiheit, wenn man eindringt in das Übersinnliche. Und ebenso erlangt man auch erst eine wirkliche Erkenntnis vom menschlichen Gewissen, wenn man zum Übersinnlichen vordringen kann. Denn dadurch gelangt man in jenes Geistige, das den Menschen nicht naturgesetzlich zwingt, sondern ihn als freies Wesen wirken läßt, ihn aber zugleich durchdringt und durchströmt mit den Impulsen, die sich im Gewissen offenbaren. Dadurch aber offenbart sich dem Menschen das, was er als naiver religiös-frommer Mensch in aller Unschuld ahnt als das Göttliche der Welt. Gewiß braucht man die Erkenntnis, wie ich sie geschildert habe, nicht unmittelbar, um ein religiös-frommer Mensch zu sein; das kann man in aller Naivität sein. Aber so liegt ja die Sache nicht, und die Geschichte beweist das. Wer davon spricht, daß das religiös-ethische Leben des Menschen aus einer anderen Wurzel erblühen müsse als aus der Erkenntnis Wurzel, der weiß eben nicht aus der geschichtlichen Entwickelung, daß alle religiösen Befreiungen - die religiösen Anlagen sind natürlich im Menschen immer vorhanden - aus den Erkenntnissen hervorgegangen sind, wie sie eben aus den vorzeitlichen Epochen auch als übersinnliche da waren. Kein sittlicher und religiöser Inhalt, der nicht aus der Erkenntnis Wurzel entsprang! Heute ist aus der Er-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 264
+
+---
+
+kenntnis Wurzel das naturwissenschaftliche Denken entsprungen, das aber nicht bis zum Geist vordringen kann. Dafür haften viele Menschen in bezug auf die religiöse Lebenshaltung an den Traditionen, und sie glauben, was in den Traditionen lebt, das offenbare sich aus so etwas wie einem «religiösen Genie» heraus. In Wahrheit sind es die atavistischen, die vererbten Traditionen. Sie sind aber heute so verblaßt, daß wir einen neuen Impuls der Erkenntnis brauchen, der nicht abstrakt wirkt, der für die Erkenntnis Kraft ist, damit durch das, was in der Erkenntnis liegt, dem Menschen der Impuls gegeben werde, nun auch in die Lebenshaltung des praktischen Lebens mit ethisch-religiösen Impulsen in aller Ursprünglichkeit wieder einzutreten.
+
+Das brauchen wir. Und wenn auf der einen Seite behauptet wird - ganz gewiß auch mit einem gewissen Recht -, Erkenntnis als solche brauche der Mensch nicht, um eine ethisch-religiöse Lebenshaltung zu entwickeln, so muß aber auf der anderen Seite gesagt werden - das lehrt wieder die Geschichte -: Auch Erkenntnis darf den Menschen nicht beirren in seinem religiösen, in seinem ethischen Sinne. Der Mensch muß die Möglichkeit haben, die höchste Erkenntnisstufe zu erringen, aber mit dieser Erkenntnisstufe - die ihm natürlich zu erlangen möglich ist, denn es bleibt immer noch viel darüber - in derjenigen Heimat anzulangen, in welcher er gelebt hat gottgewollt, gottgeführt, als er noch nicht zur Erkenntnis gekommen war. Dasjenige, was ahnend war und als Ahnung sein Recht hatte, muß wiedergefunden werden, auch wenn nach dem höchsten Erkenntnislche gestrebt wird. Dann kann Erkenntnis nicht etwas sein, was auf die sittliche Lebenshaltung auslöschend wirkt, sondern dann kann Erkenntnis nur dasjenige sein, was, anfeuernd und recht sie durchströmend, auf alle moralisch-religiöse Lebenshaltung wirken wird. Der Mensch aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 265
+
+---
+
+wird durch eine solche Erkenntnis den tieferen Sinn des Lebens gewahr werden, von dem doch gesprochen werden darf. Er wird gewahr werden, daß er durch Fügung der Weltengeheimnisse, der ganzen Weltenlenkung zunächst ahnungsvoll als ein geistgewolltes Wesen dasteht, daß er als ein geistgewolltes Wesen weiter sich entwickeln kann, daß er allerdings dann in einer äußeren Erkenntnis nur auf ein unbestimmtes Meer hinauskommt, wo er schon auf Zweifel geführt und zerrissen werden kann gegenüber dem, was als Einheit in ihm gelebt hat, als er noch naiv ahnend war. Wacht er aber aus der gewöhnlichen Erkenntnis auf zur übersinnlichen Erkenntnis, dann gelangt er wiederum zurück zu dem, was in ihm gottgegeben, geistdurchwirkt ist.
+
+Und so wird schon auch das, was unsere schwergeprüfte Zeit so notwendig hat: einen neuen Einschlag in der ethisch-religiösen Lebenshaltung – dadurch allein wirklich gefördert werden können, daß so wie die Erkenntnis bisher vom dunkelahnenden, träumenden Erkennen zu der heutigen wachen Klarheit vorgeschritten ist, nun auch von dieser wachen Klarheit zu einem höheren Erwachen fortgeschritten werde, zu einem Verbundensein mit der übersinnlichen Welt. Dadurch wird auch dem Menschen jener Impuls gegeben werden können, den er insbesondere für die Erneuerung seines sozialen Daseins in dieser Zeit der schweren Prüfung der Menschheit an allen Orten der Erde so notwendig braucht, und man kann schon sagen: für das ganze soziale Denken der Gegenwart braucht. Als Wurzel in der ethisch-religiösen Lebenshaltung müßte Verständnis dafür erwachsen, daß der Mensch von der gewöhnlichen Erkenntnis durch künstlerisches und übersinnliches Erwachen hineinkomme in eine religiös-ethische Lebenshaltung, in ein wirkliches unsentimentales Frommsein, wodurch sozusagen der Lebensdienst zum Geistesdienst wird; daß er da hineinkommt,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:266
+
+---
+
+indem sein Erkennen zum Lichte des Übersinnlichen strebt, so daß dieses Licht des Übersinnlichen ihn erwachen läßt in einer übersinnlichen Welt, in der er sich erst wirklich als freie Seele gegenüber den Naturgesetzen fühlen kann, in der er erst mit einer wirklichen menschlichen Würde, mit einer wahren Frömmigkeit und echten Innigkeit und wahrer Religiosität als Geistesmensch in der Geisteswelt stehen kann.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 267
+
+---
+
+# WIE ERLANGT MAN ERKENNTNIS DER ÜBERSINNLICHEN WELT?
+
+Paris, 26. Mai 1924
+
+Wer heute aus seinem Innern heraus nach Erkenntnis der übersinnlichen Welt strebt, wird in der Regel verwiesen auf die Art und Weise und auf die Ergebnisse, die aus alten Zeiten stammen. Geht man dann demjenigen näher nach, auf das so verwiesen wird, so stößt man in der Menschheitsentwicklung auf die sogenannten Mysterien. Das waren Stätten, in denen auf der einen Seite gepflegt wurde das religiös-kultische Leben – das Spirituelle strömte durch das Religiös-Kultische –, auf der anderen Seite wurde gepflegt, was wir heute wissenschaftliche Erkenntnis nennen. Das Spirituelle strömte in diese andere Form der menschlichen Auffassung hinein. Und ein Drittes war das Künstlerische, das in den Mysterien zum Ausdruck kam. Auf der einen Seite offenbarte sich der sinnlichen Anschauung, der unmittelbar sinnenfälligen Lebensauffassung das, was durch Religion, Kultus und Wissenschaft strömte, auf der andern Seite, was durch die Kunst strömte. Und im Grunde genommen lebt die nach dem Übersinnlichen strebende Menschheit heute noch immer von demjenigen, was die Tradition aus vergangenen alten Zeiten erhalten hat.
+
+In dem heutigen Vortrage möchte ich nicht sprechen von diesen alten Traditionen, auch nicht von den alten Mysterien; aber sprechen möchte ich von der Möglichkeit eines neuen Mysterienlebens, von der Möglichkeit eines neuen Weges nach den übersinnlichen Welten, der in seiner Be
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 268
+
+---
+
+deutung und in der Auffassung gewachsen sein kann demjenigen, was man heute an wissenschaftliche Erkenntnis als Anforderung stellt durch die gewaltigen Fortschritte des naturwissenschaftlichen Denkens der neueren Zeit.
+
+Wenn wir in unser eigenes Inneres hineinschauen, finden wir innerhalb der Betätigung dieses Inneren: Denken, Fühlen, Wollen. Von diesen Seelentätigkeiten ist nur unser Denken unabhängig von unserer Körperlichkeit, solange dieses Denken gesund ist. Derjenige, welcher sich mit der Seele dem Charakter des Denkens ganz hinzugeben vermag, der weiß, daß es nur dadurch unabhängige, logische Gesetze geben kann, weil das gesunde Denken im natürlichen Menschen unabhängig ist von der Körperlichkeit. Erst wenn der Mensch anfängt pathologisch zu denken, wenn in sein Denken Krankhaftes hineinkommt, wird er abhängig von dem Körperlichen. Was heißt das aber? Das heißt nichts anderes als: Solange das Denken gesund ist, hält es sich außerhalb des Körperlichen; es taucht erst in den Körper unter, wird erst in das Unbewußte aufgenommen, indem es in den Körper aufgenommen wird, wenn es krank wird.
+
+Nicht so ist es mit unserem Fühlen, nicht so ist es mit unserem Wollen. Unser Fühlen taucht in seinem ganz normalen Zustand in die Körperlichkeit unter und ist uns kaum so bewußt wie irgend etwas Traumhaftes. Es west ganz in der Körperlichkeit. Ebenso ist es mit dem Wollen. Wir werden uns im gewöhnlichen Leben des eigentlichen Vorganges des Wollens nicht bewußt, weil es tief unten in der Körperlichkeit untergetaucht ist.
+
+Wollen wir nun eine höhere Erkenntnis erlangen, dann müssen wir Fähigkeiten als Mensch entwickeln, welche ebenso unabhängig sind wie unser gewöhnliches Denken von dieser Körperlichkeit, welche aber imstande sind, höhere
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 269
+
+---
+
+Welten wahrzunehmen als dieses gewöhnliche Denken, das in der gegenwärtigen Menschheitsverfassung nur imstande ist, die physisch-sinnliche Umwelt wahrzunehmen, zu zergliedern.
+
+In den alten Mysterien wurde dieses Freimachen geistiger Fähigkeiten von der körperlichen Organisation durch äußere Vorgänge veranlaßt. Machen wir uns einmal klar, welche Wirkung auf unsere Seele zum Beispiel ein Klang, ein Schall, ein Ton hat, der schnell verläuft, der uns in Schreck versetzt. Dieser schnelle Eindruck läßt uns nicht dazu kommen, das, was in unserer Seele gefühlsmäßig vor sich geht, unterzutauchen in die Körperlichkeit. Und gestalten wir gar hintereinander Schreck, Angst, Furcht, so kommen wir dazu, das Seelenhafte außerhalb des Körperlichen zu halten. Die ganz methodischen Veranstaltungen der alten Mysterien bestanden darin, auf diese Art das Seelische vom Körperlichen freizumachen. Schreck, ganze dramatische Vorgänge, die das Seelenleben hinaufführen zu einem Gipfel und dann fallen ließen, sie waren darauf eingerichtet, den Menschen so erleben zu lassen, daß dieses Seelenleben sich außerhalb des Körperlichen hält, nicht untertaucht in das Körperliche. Kam der Mensch nach solchen Vorgängen wieder zu sich, so war ihm klar: während solcher Erlebnisse hatte er Einsicht gewonnen in eine Welt, in die er sonst nicht hineinsieht. Und er nannte diese Welt die «übersinnliche». Solche äußere Verrichtungen, die zum größten Teil in den alten Mysterien kultische Form angenommen haben, taugen nicht mehr für die moderne Menschheit. Sie setzen auch voraus, daß diejenigen, welche zu höherer Erkenntnis geführt wurden, sich absonderten. Die Mysterien waren streng abgesonderte Stätten, die streng geleitet wurden durch Priesterweise, welche diese äußere Verrichtung so anordnen konnten, daß der Mensch wirklich, indem er sie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 270
+
+---
+
+durch Jahre durchmachte, Gewohnheit darin bekam, seine Seele unabhängig vom Leiblichen zu halten und mit diesem unabhängig Seelischen in die geistige Welt, in die spirituelle Welt einzutreten.
+
+Zu Menschen, die auf diese Weise in die geistige Welt hinein den Weg suchen müssen, würde der moderne Mensch kein Vertrauen haben. Denn diese Methoden erforderten strenge Absonderung des geistig Suchenden von der Welt, und es war in alten Zeiten so, daß man eigentlich nur Vertrauen hatte zum Geistesmenschen, wenn er sich absonderte von der übrigen Menschheit. Heute kann man Vertrauen zum Menschen der Erkenntnis nur haben, wenn er im Leben voll darinnen steht, wenn ihm nichts fremd ist aus dem vollen unmittelbaren Menschenleben. Daher bedarf die heutige Zeit und wird bedürfen die nächste Zukunft Methoden für den Weg in die spirituelle Welt, welche mehr innerlich seelisch sind, so daß der Mensch in der Verfolgung dieser Methoden unabhängig von äußeren Verrichtungen, von äußeren Einwirkungen ist. Von Methoden für den Weg in die geistige Welt mochte ich Ihnen sprechen, die ganz still im Inneren der Seele wirksam sind, die aber in ebenso sicherer Weise zur Erkenntnis der geistigen Welt, das heißt zur Initiation führen, wie die älteren Methoden der Mysterien zu dieser Initiation geführt haben.
+
+Ich habe in meinem Buche «Wie erlangt man Erkenntnisse der höheren Welten?», das ins Französische unter dem Titel «Initiation» übersetzt ist, die modernen Methoden der Initiation auseinandergesetzt. Ich möchte mir gestatten, am heutigen Abend zu sprechen im Prinzip von demjenigen, was solche moderne Methoden der Initiation sind.
+
+Der Anfang auf dem Wege zur Erkenntnis spiritueller Welten muß gemacht werden durch eine besondere innere seelische Behandlung unserer Gedankenwelt, unserer Ge-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:271
+
+---
+
+dankenkräfte. Im gewöhnlichen Leben geben wir uns hin der Außenwelt oder dem, was aus unserem Inneren an Gedanken aufsteigt. Und so sehr wir auch in diesem gewöhnlichen Bewußtsein relativ Aktivität entwickeln, so sind wir im ganzen in unserem Denken doch passiv, hingegeben an die sinnliche oder an die innere seelische Welt. Ja, der moderne Mensch legt sogar einen großen Wert darauf, bei dieser Passivität des Gedankens zu bleiben, weil er Furcht hat davor, daß im Augenblick, wo er aus sich selber seine Gedanken formt, er in das Unwirkliche, in das Gebiet der Phantasie komme. Diese ganze Stellung zum Denken muß anders werden, wenn der Mensch in die übersinnliche Welt eintreten will. Er muß sein Denken aktivieren. Ich habe nach einem alten Gebrauch dieses Aktivieren des Denkens «Meditation» genannt. Sie besteht darin, daß wir nun ganz und gar uns nicht hingeben an unser Denken, an irgendein Objektives, sondern daß wir aus der inneren Kraft unseres Seelenlebens einen übersichtlichen Gedankeninhalt möglichst einfacher Art in den Mittelpunkt unseres Bewußtseins stellen, und durch eine gewisse Zeit hindurch, mit Ausschluß jeglicher anderen Aufmerksamkeit, die ganze Aufmerksamkeit der Seele auf diesen einen seelischen Inhalt richten.
+
+Indem wir so mit unserer ganzen Seele aktiv ruhen auf einem Seeleninhalte, tritt mit den Seelenkräften etwas ein, was sonst mit den körperlichen Kräften eintritt, wenn wir zum Beispiel einen Muskel zu einer Arbeit gewohnheitsmäßig immer wieder gebrauchen. Der Muskel erstarkt. So verstärken sich, erkraften sich innerlich die Seelenkräfte, wenn die Aktivität der Seele immer wiederum auf einen Inhalt gerichtet ist. Übersichtlich muß der Inhalt sein aus dem Grunde, weil er nichts enthalten darf, was aus dem Unbewußten kommen kann. Wir müssen völlig mit aller
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 272
+
+---
+
+Besonnenheit, der wir nur fähig sind, auf diesem Seeleninhalte ruhen. Nimmt man irgend etwas, was kompliziert ist, was vielleicht aus der Erinnerung heraufgeholt ist als Reminiszenzen, was als alte Seeleninhalte verstandesmäßig oder gefühlsmäßig mit diesen Inhalten verknüpft ist - das darf nicht sein. Wir tun daher am besten, wenn wir einen solchen Seeleninhalt entweder dadurch an uns herankommen lassen, daß wir, sagen wir zum Beispiel ein ganz unbekanntes Buch nehmen, das wir ganz gewiß noch nie gelesen haben, wir schlagen es irgendwo auf, wir lesen einen Satz, der uns sonst gar nicht interessiert, dessen Inhalt sonst kein Interesse für uns hat. Wir versetzen diesen Satz in den Mittelpunkt des Bewußtseins und ruhen darauf. Wir konzentrieren auf einen solchen Inhalt durch lange Zeit hindurch alles Seelenleben. Noch besser ist es, wenn wir das Vertrauen fassen können, zu jemandem, der in diesen Dingen wirklich Kenntnis hat, hinzugehen und uns von ihm einen Seeleninhalt der charakterisierten Art geben zu lassen. Dann wird er, wenn er schon Geistesforscher ist, Praxis darin haben, einfach aus dem Anblick von uns zu sagen, was für ein geistiger Inhalt für unsere Meditation der beste ist. Wenn wir uns so einen ganz im Bewußtsein präsenten, leicht überschaubaren Inhalt nehmen, uns auf ihn konzentrieren, in der Konzentration ganz meditativ verweilen, wird allmählich unser Denken ganz verwandelt. Alle Abstraktheit aus unserem Denken schwindet, alle Kälte schwindet. Das Denken wird ganz bildlich, wir gewinnen die Fähigkeit, in gesättigten, bis zum Farbigen sich sättigenden Bildern zu denken. Bilder, die allmählich wie lebendige Traumbilder sind, aber einen ganz anderen Seelencharakter haben, treten in unser Bewußtsein ein, wir erfahren etwas, was wir früher niemals in diesem Bewußtsein erfahren haben. Wir erfahren die Möglichkeit, so be-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 273
+
+---
+
+sonnen zu denken, wie nur der besonnenste Logiker oder Mathematiker denken kann, aber nicht abstrakt zu denken, nicht Naturgesetze zu denken, sondern in Bildern zu denken, von denen wir zunächst nicht wissen, woher sie kommen.
+
+Diese erste Stufe der Erkenntnis des Übersinnlichen sei genannt die imaginative Erkenntnis. Ihre Fähigkeiten müssen wir entwickeln, wenn wir in die erste Sphäre der übersinnlichen Welt eintreten wollen. Werden solche Übungen genügend lange fortgesetzt – bei dem einen Menschen, je nach der Individualität, dauern sie jahrelang, bei manchem monatelang –, dann kommt der Mensch endlich dazu, in einer in gewissem Sinne vollendeten Art, so wie man sonst im gewöhnlichen Bewußtsein abstrakt denken kann, ein Bilderbewußtsein zu entwickeln; in Bildern nicht träumen, sondern denken zu können. Dann aber, wenn man genügend weit mit einem solchen bildhaften Denken fortgeschritten ist, dann weiß man durch das unmittelbare Bewußtsein: dieses Bilddenken taucht nicht unter in die Körperlichkeit, ist frei und unabhängig von der Körperlichkeit. Man fühlt sich nun in diesem unabhängigen Bilddenken, man lebt ganz darinnen, man lebt jetzt so in diesem unabhängigen Bilddenken, wie man sonst in seinem physischen Leibe lebt. Wie man in seinem physischen Leibe fühlt mit den allgemeinen Körpergefühlen, mit all demjenigen, was man vielleicht an Schmerz oder allgemeinem Wohlbehagen von diesem Körper in das Seelische hineinströmen fühlt, wie man sich sonst, kurz gesagt, in seinem physischen Leibe fühlt, fühlt man sich jetzt in einem feineren, in einem zweiten Menschen. Man hat gelöst von diesem physischen Leibe diesen zweiten Menschen und man kann dann aus innerer Erfahrung, aus dem unmittelbaren Leben heraus sagen: Ich erlebe mich als Mensch nicht nur im physischen Leibe, ich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:274
+
+---
+
+erlebe mich als Mensch in einem ätherischen Leibe, in einem Leibe von feinerer Substantialität. Man weiß nun aus Erfahrung, daß ein zweiter Mensch in dem ersten darinnensteckt. Ebenso, wie man durch die physischen Werkzeuge des physischen Leibes in der physischen Welt wahrnehmen kann, durch das Auge die Farben, durch die Ohren die Töne, so kann man jetzt - wenn man sich im ätherischen Leibe fühlt und sich weiß wie ein zweiter Mensch durch diesen ätherischen Leib, der ebenso organisiert ist wie der physische - eine neue Welt wahrnehmen, die für den physischen Leib undurchdringlich bleibt.
+
+Die erste neue Welt, die man wahrnimmt, ist die Welt des eigenen letzten Erdenlebens. In einem mächtigen Tableau, majestätisch dastehend, alles dasjenige, was der Zeit nach hintereinander war - gleichzeitig wie in einem Panorama -, steht unser Erdenleben von dem gegenwärtigen Zeitpunkt, in dem wir leben, durch Rückblick bis zur Geburt vor uns. So, wie sonst im Räume die Dinge nebeneinander stehen, so steht in dieser Rückschau das Erlebnis, das wir zum Beispiel im achten Lebensjahre durchgemacht haben, gleichzeitig da mit demjenigen, was wir im zwanzigsten, fünfzigsten Lebensjahre durchgemacht haben. Die Zeit wird wie zum Räume. Und was wir da in anschaulichen Bildern in einem majestätischen Lebenspanorama erleben, lernen wir gut unterscheiden von gewöhnlicher Erinnerung. Die gewöhnliche Erinnerung, die wir in einzelnen Gedanken, Vorstellungen, Bildern aus unserem Menschenwesen hervorholen, ist schwach und blaß. Dasjenige, was wir so überschauen, das ist vollinhaltlich, mächtig koloriert, wenn ich den Ausdruck gebrauchen darf. Aber es erscheint uns auch alles so, wie uns äußere Dinge erscheinen. Wir wissen nun in der Überschau eines sich allerdings etwas ausdehnenden Augenblickes, wie unser Leben auf einen Seelenblick hin
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 275
+
+---
+
+erscheint. Und da zeigt sich uns, daß in uns wallt und webt in jedem Augenblick unseres Erdendaseins seit unserer Geburt, oder besser gesagt seit unserer Konzeption, ein Geistig-Seelisches. Dieses Geistig-Seelische verdichtet sich zur Wachstumskraft, zur Ernährungskraft, zu all dem, was in unserem physischen Leibe wallt und webt, aber es ist zuletzt ein Geistiges, das wir schauen, indem wir also zur ersten Stufe der übersinnlichen Erkenntnis aufsteigen. Wir lernen aber zugleich damit erkennen, außer unserem eigenen ätherischen Leibe, die ätherische Welt, die um uns herum ist und der unser ätherischer Leib angehört; wir lernen erkennen, wie anders wir uns verhalten zu dieser ätherischen Welt - die so da ist wie die physische - als zur physischen Welt. In der physischen Welt ist das Ding da, ich bin da. Ich spreche von den physischen Dingen als einem streng von mir Geschiedenen; ich weise darauf hin. Mit der ätherischen Welt bin ich durch meinen Ätherleib so verbunden, wie ein Glied meines Organismus mit dem ganzen Organismus verbunden ist. Und so wie ein Glied, mein Finger, sich aussondert aus meinem Organismus, so sondert sich der Ätherleib von dem ätherischen Universum aus, aber er bildet doch ein Glied darinnen. Wir sind viel mehr eine Einheit mit derjenigen Welt, die hinter der physischen Welt steht, als der physische Leib mit der physischen Welt eine Einheit bildet. Das ist die erste Stufe der übersinnlichen Welt, und das ist auch die erste übersinnliche Welt, die wir erreichen auf dem Wege zur übersinnlichen Erkenntnis.
+
+Weiter kommt man mit der Stufe der übersinnlichen Erkenntnis, die ich bisher geschildert habe, nicht, als bis zur Einsicht in dieses Wesen der Menschennatur, das von der Geburt bis zum Tode als eine Einheit sich entwickelt, sich wandelt, aber dauernd bleibt während unseres ganzen Erdenlebens hindurch, während die einzelnen Stoffe, die wir
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:276
+
+---
+
+aufnehmen, von uns aufgenommen werden, wiederum von uns ausgestoßen werden, so daß wir als physischer Mensch uns stets erneuern, auch während unseres Erdenlebens. Dasjenige, was ätherischer Leib ist, bleibt von der Geburt bis zum Tode als Einheit vorhanden.
+
+Will man aber über dieses erste Übersinnliche hinauskommen, dann muß eine zweite Erkenntnisstufe im Innern der Seele entwickelt werden. Das kann dadurch geschehen, daß wir nun, nachdem wir für die erste Erkenntnisstufe das Denken aktivieren, erkraften mußten, damit wir uns erfassen und ergreifen in unserem ätherischen Leibe, zur zweiten Erkenntnisstufe alles, was wir in dieser Weise an erkraftetem Denken gewinnen, wiederum aus unserem Bewußtsein fortschaffen. Haben wir erst ganz kräftig einen Bewußtseinsinhalt in unsere Seele hereingeschafft, indem wir mit aller Gewalt uns konzentrierten, so müssen wir ihn jetzt wiederum weglassen. Sie wissen, in welchen Zustand der Mensch kommt, wenn er seinen gewöhnlichen Seeleninhalt, die Welt, die ihm die Sinne geben, wegschaffen muß: Er schläft ein. Allmählich versinkt er in einer Seelenlähmung. Das darf nicht eintreten und tritt auch nicht ein. Ja, es ist schwierig, einen Seeleninhalt, den wir mit aller Kraft ins Bewußtsein hineingeschafft haben, wiederum wegzuschaffen. Es ist schwerer, diesen Inhalt wegzuschaffen, als den Inhalt des gewöhnlichen Bewußtseins. Wenn es uns aber gelingt, ihn wegzuschaffen, so ist etwas eingetreten, was sonst nie da ist. Im menschlichen Seelenleben ist dann eingetreten eine völlige Leerheit des Bewußtseins. Durch dasjenige, was der Mensch durchgemacht hat im kraftvollen Erleben seines eigenen Ätherleibes, wird er fähig wie zu abstrahieren, abzusehen von aller Sinnenwelt und von allem gewöhnlichen Denken. Er lebt in einer höheren Region. Schafft er sich nun wiederum diese höhere Region, sein eigenes Lebenstableau
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84
+
+---
+
+weg, dann wird sein Bewußtsein leer und wir sind in jenem Zustand, der bedeutungsvoll ist für alle höhere Erkenntnis: Wir sind in dem Zustand des bloßen Wachens, ohne daß dieses Wachen einen Seeleninhalt hat. Wir richten ein verstärktes, erkraftetes Bewußtsein in die Leerheit der Welt hinaus. Wir schlafen nicht ein, indem wir diese Verrichtung machen, sondern wirbleiben wach, aber wir stehen zunächst wie für einen Augenblick nur dem Nichts gegenüber. Das bleibt nicht lange. Wenn wir also bloßes Wachen in unserem Bewußtsein gehalten haben, wirkliches leeres Bewußtsein, dann dringt eine geistige Welt in uns ein, die nicht unser Ätherleib ist, nicht dasjenige, was mit ihm verwandt ist, sondern die eine nun zunächst ganz fernstehende geistige Welt ist. In das bloße Wachen und das leere Bewußtsein dringt die wirkliche geistige Welt hinein, nur muß dieses leere Bewußtsein und Wachsein durch lange Seelenübungen, die ich nur im Prinzip schildern konnte, erworben werden. Denn dieses Unterdrücken alles Inhaltes, es gelingt nicht auf den ersten Anhub. Es muß wiederum und wiederum geübt werden. Wieder dauert es bei manchem Jahre, bei manchem, wenn er dazu veranlagt ist, je nach seinem Schicksal, Monate, daß er dazu gelangt, das Bewußtsein, ohne es einzuschläfern, leer zu halten, so daß die geistige Welt in ihn hineindringen kann.
+
+Gewiß, man kann sagen, wenn ein Mensch also zur geistigen Welt kommt, so könne das eine bloße Suggestion, eine Autosuggestion sein. Wodurch unterscheidet man, so kann man fragen, eine Suggestion von dem, was der Geistesforscher, der Initiierte also, eine reale geistige Welt nennt? Man kann es nur durch das Leben unterscheiden. So wie man durch das Leben ein vorgestelltes heißes Eisen von einem wirklichen heißen Eisen unterscheidet, weil man sich an einem vorgestellten heißen Eisen nicht verbrennt,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 278
+
+---
+
+an dem wirklich ergriffenen Eisen aber verbrennt, so erlebt man in der geistigen Welt, die ins leere Bewußtsein hineinströmt, reale Tatsachen. Man weiß einfach, ebenso wie man ein angegriffenes heißes Eisen von einem vorgestellten unterscheiden kann, durch das Leben, wodurch sich diese geistige Realität von einer bloßen Autosuggestion unterscheidet.
+
+In dem vorhin genannten Buche bezeichnete ich diese zweite Stufe der übersinnlichen Erkenntnis nach einem alten Wortgebrauch, an dem man sich nicht stoßen muß – man braucht eine Terminologie – als die inspirierte Erkenntnis. Kommt man zu einer inspirierten Erkenntnis, so erlebt man sich gewissermaßen noch in einem dritten Menschen. Zuerst steht der physische Mensch da, dann der ätherische Mensch, nun erlebt man sich in einem dritten Menschen. Aber indem man sich in diesem dritten Menschen erlebt, weiß man sich nicht nur wie mit dem erkrafteten, imaginativen Denken unabhängig von seiner Leiblichkeit, sondern völlig außerhalb seiner Leiblichkeit. Man hat den Zustand erreicht, den man nennen kann: Leben im Geiste außerhalb des physischen Leibes. Dann ist der Mensch auch imstande, den ätherischen Leib zu verlassen, das heißt, wie er im leeren Bewußtsein überhaupt allen, auch imaginativen Inhalt getilgt hat, so dieses Lebenstableau, zu dem er zuerst gekommen ist, vollständig auszutilgen; das heißt, dasjenige, was er im Erdenleben hat, hinunterzutauchen in das Unbewußte und außerhalb seines physischen und ätherischen Daseins zu leben. Dann aber, wenn der Mensch das erreicht, dann reicht der Rückblick nicht bloß bis zur Geburt oder Konzeption, dann geht der Rückblick weiter in die Vergangenheit hinein: Wir schauen hin in eine geistige Welt, in der wir waren als geistig-seelisches Wesen, bevor wir in die physische Welt hinuntergestiegen sind. Wir schauen uns
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 279
+
+---
+
+handelnd, lebend in dieser geistigen Welt, ebenso wie wir uns als physisches Menschenwesen in der physischen Welt schauen. Wir lernen erkennen, daß dasjenige, was die Natur ausbildet als unseren physischen Menschenkeim, sich vereinigen muß mit dem, was hinuntersteigt aus den geistigen Welten, denn das schauen wir jetzt selber an. Und wenn wir diese Erkenntnis erreicht haben, durch die wir ganz herausgehen aus unserem physischen und ätherischen Leibe, dann schauen wir, wenn wir wieder zurückgehen - das heißt, wenn der Augenblick unseres Sdiauens der geistigen Welt aufgehört hat - in unseren eigenen physischen und Ätherleib hinein und finden, wie unser Erdenleben im Seelisch-Geistigen ein Abbild ist von demjenigen, was wir eben schon geistig-seelisch waren, bevor wir auf die Erde heruntergestiegen sind. Und gerade indem wir wiederum hineinkommen in unseren Leib, in den physischen und Ätherleib, erobern wir uns die Kraft eines, ich möchte sagen, konfigurierten, individualisierten Sdiauens. Jetzt lernen wir, während wir mehr eine allgemeine geistige Welt, die wir durchgemacht haben im vorirdischen Dasein, außer unserem physischen Leibe und unserem Ätherleibe erleben, jetzt, wo wir wieder zurückkommen in den physischen und Ätherleib, jetzt lernen wir, indem wir zwar nicht untertauchen, aber ich möchte sagen einkehren, darinnen wohnen in unserem physischen und Ätherleib, jetzt lernen wir unterscheiden zwischen den geistigen Wesenheiten einer höheren Welt, mit denen wir vereint waren, bevor wir zum irdischen Leben hinuntergestiegen waren, wie wir hier unterscheiden zwischen einzelnen Menschenindividualitäten. Wir lernen Wesen erkennen, die niemals auf die Erde hinuntersteigen, die niemals einen physischen Leib annehmen, geistig-göttliche Wesen. Wir sind die Mitbewohner der geistigen Welt mit ihnen, bevor wir auf diese Erde hinuntergestiegen sind.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 280
+
+---
+
+Und wir lernen schauen, eben dadurch, daß wir nun abwechselnd außerhalb und innerhalb unseres Leibes sein können mit dem Geistig-Seelischen, wir lernen auch erkennen, wie unter diesen höheren geistig-seelischen Wesen, unter denen wir waren, bevor wir auf die Erde gestiegen sind, nun die Menschenseelen sich befinden, die warten auf ihr Heruntersteigen auf die Erde, um es zu erleben in einer späteren Zeit, als wir es erlebt haben.
+
+Und so lernen wir durch diese Stufe der inspirierten Erkenntnis denjenigen Teil der Ewigkeit des Menschenwesens erkennen, der von unserem Zeitbewußtsein, selbst von dem Religiösen, sehr wenig ins Auge gefaßt wird. Die Gegenwart liebt es nicht, hinzublicken auf das vorirdische Dasein. Es interessiert den Menschen zwar, dasjenige ins Auge zu fassen — wenn auch nur durch einen Glauben oder durch Tradition -, was hinter dem Tode liegt; denn das muß erst kommen, während der Mensch ja da ist und deshalb nicht besonders zu reflektieren braucht auf dasjenige, was vor der Geburt vorhanden war. Er ist ja da! Aber ob er auch da bleibe, das interessiert ihn; in seinem Egoismus interessiert ihn der zweite Teil der Ewigkeit, die Unsterblichkeit. Wir haben in den modernen Sprachen nicht einmal ein Wort für die andere Hälfte der Ewigkeit, für das vorirdische Dasein, das nach rückwärts so unendlich ist, wie die Unsterblichkeit nach vorwärts. Denn in Wahrheit lernt man die Ewigkeit des Menschenlebens nur erkennen, wenn man wieder hinweisen kann auf die Worte, die die Ursprachen gehabt haben für die Ewigkeit, und die ebenso bedeutungsvoll sprachen von der Ungeborenheit wie von der Unsterblichkeit. Neuere Initiationswissenschaft setzt wiederum die Ewigkeit des Menschenwesens zusammen aus Ungeborenheit und Unsterblichkeit. Die Ungeborenheit braucht man allerdings weniger für den Egoismus als für die wirkliche
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:281
+
+---
+
+Erkenntnis. Für die Unsterblichkeit können die Menschen beim bloßen Glauben bleiben. Die Ungeborenheit, die Sicherheit darüber, daß ein schon vor meiner physischen Bildung existierendes Spirituelles mein Wesen ist, das lerne ich nur erkennen, wenn ich hinzuschauen vermag auf das Ungeborene in mir, nicht nur auf das Unsterbliche, das wir gleich im letzten Teile des Vortrages besprechen wollen.
+
+Wenn man auf diese Weise aus seinem physischen und Ätherleibe herausgetreten ist und sich unter geistigen Wesenheiten fühlt, wie man sich vorher im physischen Leibe unter physischen Wesenheiten und Dingen gefühlt hat, so weiß man sich aber immer als Mensch, als dieses bestimmte Ich. Und man hat gewissermaßen – so erlebt man es – nur die Reise zurück anzutreten, durch die Zeitenfolge rückwärtsgehend bis In diejenige Welt, die man durchlebt hat vor dem Erdenleben. Will aber der Mensch, wenn er sich so innerhalb einer geistigen Welt außer seinem physischen und Ätherleibe fühlt, hinabblicken dann zur Sternenwelt, und die Sterne ihm nun nicht mehr als Sterne erscheinen, sondern als Welten, wo höhere oder auch tiefere Wesenheiten weilen, so ist überall, wo für das physische Auge ein Stern ist, eine Weltensphäre von anderen Wesenheiten. Wenn der Mensch, so wie er sich sonst im physischen Leibe auf der Erde fühlt, sich nun in der Sternenwelt in einer geistigen Welt fühlt, so kann man, wie man bei der ersten Stufe der übersinnlichen Erkenntnis vom Ätherleibe spricht, jetzt sprechen von dem astralischen Leibe, weil man jetzt innerhalb der Geistigkeit der Sternenwelt ist.
+
+Will der Mensch weiterschreiten, dann muß er zu der Imagination und zu dem leeren Bewußtsein eine dritte Erkenntnisfähigkeit hinzutragen, eine Erkenntnisfähigkeit, die von dem heutigen Bewußtsein sehr häufig nicht als eine Erkenntnisfähigkeit angesehen wird. Eine Fähigkeit, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:282
+
+---
+
+zwar im Menschenleben die denkbar größte Rolle spielt, der man aber nicht das Recht zuerkennt, im Wissen irgendwie etwas auszumachen. Das ist die menschliche Kraft der Liebe: Die Liebe, die den Menschen mit anderen zusammenführt in der Art, daß er sich dem Wesen, das er liebt, nähert durch den physischen Leib oder durch die im physischen Leib verkörperte Seele oder den verkörperten Geist. Durch die Weiterausbildung dieser Liebe, so daß diese Liebe hineinreichen kann in das Erleben des Ätherleibes zuerst, daß man aber diese Liebe auch hinüberbringen kann in das Erleben im astralischen Leibe, durch das Weiterentwickeln dieser Liebefähigkeit gelangen wir zuletzt dazu, nicht nur unseren physischen Leib erkennend zu erleben, sondern wir gelangen dazu, nach und nach die Liebe so weit steigern zu können, daß wir nicht nur andere Wesen sehen, sondern auch mit diesen anderen geistigen Wesenheiten - wir selbst sind dann Geist - so in Beziehung treten können, wie wir mit physischen Menschen auf der Erde in Beziehung getreten sind. Die Intuition gibt die Möglichkeit, mit Geistwesen zu verkehren, wie die physischen Fähigkeiten dem Menschen die Möglichkeit geben, auf der Erde mit physischen Menschen zu verkehren. Haben wir aber die Liebefähigkeit soweit getrieben, daß uns das Geistige objektiv wird, wie uns in der physischen Welt das Sinnliche objektiv ist, dann gelangen wir dazu, nicht nur zurückzuschauen in unser vorirdisches geistiges Dasein, sondern wir schauen zurück in frühere Erdenleben, und Tatsache wird für uns, daß wir das ganze Menschenleben durchgehen in Daseinsformen zwischen Geburt und Tod und dann zwischen dem Tod und einer neuen Geburt, wiederum von der Geburt bis zum Tode, wiederum vom Tode bis zur neuen Geburt, daß wir das Leben durchleben in aufeinanderfolgenden Erdenleben und in aufeinanderfolgenden rein geistigen Leben.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 283
+
+---
+
+Wir lernen zurückschauen auf unsere früheren Erdenleben und sehen das jetzige, gegenwärtige Leben als eine Wiederholung dieser früheren an.
+
+Aber niemand gelangt zur Anschauung dessen, wie er war, was er war, daß er überhaupt da war in einem früheren Leben, der es nicht so weit gebracht haben kann, daß er die Liebe ausgebildet hat bis zu der Stufe, daß er sich ebenso wie einem anderen gegenüberstehen kann, wie ein anderes Wesen ihm gegenübersteht. Ein mächtiger Unterschied muß sein zwischen der gewöhnlichen Erkenntnisfähigkeit und jener liebedurchtränkten Erkenntnisfähigkeit, durch die wir unsere früheren Erdendaseine schauen wie das Dasein eines anderen Menschen in der Gegenwart. Dann, wenn wir zu dieser Stufe aufsteigen, die ich die intuitive, die wahrhaft intuitive Stufe genannt habe, dann schauen wir uns selbst in wiederholten Erdenleben vor unserem Geistesauge stehend als geistig wirksame Wesen. Dann sind wir erst völlig außerhalb unseres Leibeslebens. Der aber, der dies erlebt, der weiß, was der Tod ist. Der Tod steht jetzt vor ihm als die äußere, objektive Realisierung desjenigen, was er selbst in der Erkenntnis vollzogen hat. Wie er in der Erkenntnis seinen physischen, seinen Ätherleib abgelegt hat, so weiß er, daß der Tod nur den physischen und Ätherleib ablegt und der Mensch durch die Pforte des Todes eintritt in eine geistige Welt. Der Glaube wird zum Wissen, das Meinen zur Erkenntnis. Sichere, exakte, anschauliche Wissenschaft wird uns von demjenigen, was wir sonst im Leben Unsterblichkeit nennen. Wir schauen hin auf die Unsterblichkeit des eigenen Menschenlebens, auf den Eintritt dieses eigenen Menschenwesens in ein nachtodliches Leben, wie wir hinschauen auf ein vorgeburtliches Geistleben, auf ein vorirdisches Leben.
+
+Wir schauen aber auch hin auf dasjenige, was sich im
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 284
+
+---
+
+physischen Erdenleben, zwischen Menschen im physischen Leben angesponnen hat an jenen Verhältnissen, die in der Familie sind, wo Mensch zu Mensch in eine Beziehung kommt, zu jenen Verhältnissen, die durch die Liebe, durch Freundschaft im Menschenleben veranlaßt werden. Auf das alles schauen wir hin. Wie im Tode beim einzelnen Menschen abfällt die physische Körperlichkeit, und die Seele aufsteigt in eine Geistwelt, so fällt auch, was an Freundschaft, an Liebebeziehungen auf der Erde physisch ist, ab, und ein durchseeltes, um so innigeres Zusammenleben tritt dann auf, wenn die Menschen, die hier auf der Erde durch ihr Schicksal zusammengeführt worden sind, durch die Pforte des Todes gegangen sind und sich dort unter höheren Wesen wiederfinden. Es kann durch moderne Initiation nur gezeigt werden, wie der Weg beschaffen ist, um dasjenige, was sonst Sache des bloßen Glaubens ist, durch Schauen zu finden, zu sichern für das Wissen dasjenige, was Unsterblichkeit, die andere Seite der Ewigkeit ist.
+
+So steigt der Mensch auf durch die imaginative Erkenntnis zu der Ansicht desjenigen, was lebt zwischen Geburt und Tod. Es steigt der Mensch auf dann, wenn er diese Erkenntnis erwirbt, zu seinem ätherischen Leibe. Die inspirierte Erkenntnis führt den Menschen zu seinem astralischen Leibe, und er tritt dadurch ein in diejenige Welt, die er durchgemacht hat vor seiner Geburt, in die er wiederum eintritt nach dem Tode. Im astralischen Leibe lernt man die vorirdische und nachtodliche Lebenssphäre des Menschen kennen. Beim Aufstieg zur Intuitionserkenntnis lernt man das vierte Glied der Menschenwesenheit kennen, das wahre, das ewige Ich, das von Erdenleben zu Erdenleben geht, und das zwischen dem einzelnen Erdenleben rein geistige Daseinsformen hat.
+
+Lassen Sie mich zum Schluß, nachdem dieser Weg der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 285
+
+---
+
+modernen Initiation mit einigen Strichen, wenigstens prinzipiell, hat gezeichnet werden können, dieses aussprechen: Wenn man hinschaut auf die alte Erkenntnis, die in der eingangs geschilderten Art errungen worden ist durch äußere kultische und andere Veranstaltungen, so war diese Erkenntnis mehr traumhaft, instinktiv. Und aus alter instinktiver, traumhafter Erkenntnis sind schließlich die Überzeugungen der Menschen über das Obersinnliche, über das Spirituelle hervorgegangen und als Tradition geblieben. Man kann es aber heute schon spüren, daß mehr Menschen, als es von sich selbst glauben, den Drang, die tiefe Sehnsucht haben, die Wege wiederzufinden nach den spirituellen Welten. Wenige Menschen sind es erst, die das ganz bewußt sich sagen, aber im Unterbewußten sieht man heute, wenn man solche Dinge zu sehen vermag, wie zahlreich die Menschen sind, die wieder nach Mysterien lechzen, weil sie den Weg in übersinnliche Welten finden möchten.
+
+Wir konnten nur einen schüchternen Anfang machen mit demjenigen, was wir in der Nordwest-Schweiz das Goetheanum nennen, in dem geschaffen wurde eine Mysterienstätte, in der in ähnlicher Weise der Mensch einen Weg ins Übersinnliche finden sollte auf moderne besonnene Art, wie er in alten Zeiten auf mehr instinktive Art einen Weg in den Mysterien gefunden hat. Feinde haben uns diese Stätte entrissen. Sie ist ja vor einiger Zeit durch Brandstiftung zugrunde gegangen. Auch diese Dinge haben ihre Ewigkeit. Das physische Feuer konnte uns den physischen Bau, das Goetheanum nehmen, den physischen Bau, in welchem bis dahin gepflegt worden ist jene spirituelle Wissenschaft, von der ich Ihnen eine Andeutung machen durfte. Allein es gibt auch ein geistiges Feuer. Dieses geistige Feuer verbrennt keine physischen Stätten, sondern wird sie immer wieder erstehen lassen. Still und nicht so geräuschvoll wie in den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 286
+
+---
+
+alten Mysterien werden in den neuen Mysterien die Schüler der spirituellen Weisheit sich nähern, die wiederum den Menschen die ihnen so notwendige Kunde vom Ewigen des Menschen und der Welt bringen. Denn der Mensch braucht sie für sein Denken, für das Fühlen und Wollen, damit er in sich zur Klarheit, zu einem in sich harmonischen Leben komme, damit er auch Kraft und Sicherheit für das äußere Leben gewinne. Er braucht die Verbindung mit der spirituellen Welt. Und so etwas wie die spirituelle Schule in Dornach an der Grenze der Schweiz gegen den Nordwesten hin, so etwas wird immer mehr als eine Sehnsucht erwachen aus den Menschenseelen, als eine Sehnsucht herausgeboren aus dem ewigen Drang der Menschheit nach dem Spirituellen. Dieser Drang ruhte einstweilen eine Weile durch Jahrhunderte. Diese Jahrhunderte haben den Menschen gebracht die äußere großartige Naturerkenntnis. Heute steht der Mensch da und klopft wiederum an die Pforte, die ins Übersinnliche führt, weil er mit der Naturerkenntnis seine Seele nicht weiterbringen kann. Dasjenige, was in wenigen Menschen bewußt, in einem großen Teile der Menschheit aber unbewußt lechzt nach der spirituellen Welt, wird nur durch die modernen Mysterien befriedigt werden können. Derjenige, der es ehrlich meint mit der spirituellen Welt, der schaut hin auf einen Willen der Menschen, der ganz gewiß geboren werden wird, nach neuen Mysterien, denn Spiritualität wird unter die Menschen erst wieder kommen, wenn neue Mysterien entstehen werden, in denen die Menschen auf besonnenere, lichtvollere Art als in den alten Mysterien, den Geist finden werden, aber in denen sie auf eine entwickeltere, vollkommenere Art durch die Mysterien wiederum in die geistige, göttliche Welt und damit zum Quell der Menschheit geführt werden können.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 287
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 288
+
+---
+
+# HINWEISE
+
+Durch die Vernichtung des ersten Goetheanumbaues in der Silvesternacht 1922/23 wurde das Jahr 1923 für Rudolf Steiner bestimmt von den Bemühungen um den Wiederaufbau und eine Reorganisierung der Anthroposophischen Gesellschaft. Bei seinen hierzu nötigen Reisen nach Deutschland, der Tschechoslowakei, Norwegen, England, Österreich und Holland hat er zahlreiche Vorträge für die Mitglieder der Anthroposophischen Gesellschaft, aber auch Fachkurse gehalten. Eine Übersicht hierüber gibt der Band «Die Zivilisationsaufgaben der Anthroposophie und der Anthroposophischen Gesellschaft», GA Bibl.-Nr. 259. Die außerdem im Jahre 1923 gehaltenen öffentlichen Vorträge sind mit dem in Paris noch im Jahre 1924 gehaltenen in vorliegendem Band zusammengefaßt. Davon waren die Dornacher Vorträge halböffentlich insofern, als zu diesen, zu den regelmäßigen Wochenendvorträgen für die Mitglieder der Anthroposophischen Gesellschaft in Dornach gehörigen Vorträgen auch die Teilnehmer eines öffentlichen Kurses für Schweizer Lehrer (siehe «Die pädagogische Praxis vom Gesichtspunkte geisteswissenschaftlicher Menschenerkenntnis. Die Erziehung des Kindes und jüngeren Menschen», GA Bibl.-Nr. 306) eingeladen waren.
+
+Das Thema des ersten Vortrages «Was wollte das Goetheanum und was soll die Anthroposophie?» wurde nach dem Brandunglück in verschiedenen Städten der Schweiz dargestellt (am 5. April in Bern, am 9. April in Basel, am 10. in Zürich, am 11. in Winterthur und am 12. in St. Gallen). Für den Druck wurde der in Basel gehaltene gewählt.
+
+Der Titel des Bandes wurde von den Herausgebern der 1. Auflage gewählt nach dem 1. Vortrag in diesem Band,
+
+Von den Titeln der Vorträge wurden nur diejenigen der öffentlichen von Rudolf Steiner selbst gegeben.
+
+Textgrundlagen: Der gedruckte Text beruht auf der von den Stenographen vorgenommenen Übertragung ihrer Stenogramme in Klartext. Der Basler und die Dornacher Vorträge wurden mitstenographiert von der Berufsstenographin Helene Finckh, die seit dem Jahre 1915/16 die meisten Vorträge Rudolf Steiners mitstenographierte. Die beiden Wiener Vorträge wurden von Walter Vegelahn, Berlin, mitstenographiert, auf den ebenfalls viele Mitschriften zurückgehen. Der Pariser Vortrag wurde von Karl Day, Dornach, mitgeschrieben. Der Name des Stenographen der beiden Prager Vorträge ist nicht bekannt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 289
+
+---
+
+Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen mit der Bibliographie-Nummer angegeben. Siehe auch die Übersicht am Schluß des Bandes.
+
+Zu Seite
+
+7 die schreckliche Brandkatastrophe: Der unter Rudolf Steiners Leitung nach seinen Modellen und Angaben in den Jahren 1913-1922 erbaute und seit 1920 in Betrieb genommene künstlerisch gestaltete Holzbau des ersten Goetheanums wurde in der Silvesternacht 1922/23 durch Feuer vernichtet. Siehe auch «Wege zu einem neuen Baustil - Und der Bau wird Mensch», GA Bibl.-Nr. 286, sowie «Der Dornacher Bau als Wahrzeichen geschichtlichen Werdens und künstlerischer Umwandlungsimpulse», GA Bibl.-Nr. 287.
+
+Betrachtungen, die ich nun schon seit vielen Jahren hier . . . halten durfte: Seit 1906 hielt Rudolf Steiner immer wieder in Basel Vorträge mit allgemein geisteswissenschaftlichen Themen über «Die Erneuerung der pädagogisch-didaktischen Kunst» (GA Bibl.-Nr. 301), und die soziale Dreigliederung («Die Befreiung des Menschenwesens als Grundlage für eine soziale Neugestaltung», GA Bibl.-Nr. 329; «Vom Einheitsstaat zum dreigliedrigen sozialen Organismus», GA Bibl.-Nr. 334).
+
+8 Diese Anthroposophie ist mir selbst lebendig hervorgegangen: Rudolf Steiner lernte Goethes Werk über seinen Lehrer in Wien, Karl Julius Schröer, kennen und arbeitete seit Anfang 1880 an Goethes naturwissenschaftlichen Studien. Innerhalb der von Joseph Kürschner veranstalteten «Deutschen Nationalliteratur» übernahm Rudolf Steiner 1882 die Herausgabe und Kommentierung von Goethes naturwissenschaftlichen Schriften (siehe GA Bibl.-Nr. 1). 1890-1897 war er Mitarbeiter am Goethe-Schiller-Archiv in Weimar. Aus seiner Beschäftigung mit Goethes Wesen und Gedankenwelt entstanden die «Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung» (1886), GA Bibl.-Nr. 2. Siehe hierzu auch «Mein Lebensgang», GA Bibl.-Nr. 28, sowie «Rudolf Steiner/Marie Steiner-von Sivers: Briefwechsel und Dokumente 1901-1925», GA Bibl.-Nr. 262.
+
+9 meine Mysteriendramen: «Vier Mysteriendramen» (1910-13), GA Bibl.-Nr. 14.
+
+16 Ignorabimus: Eine von Rudolf Steiner öfters gebrauchte Formel, die die gegenwärtigen Grenzen des Erkennens zu Grenzen für alle Zukunft machen will. Sie wurde besonders prägnant postuliert von Emil Du Bois-Reymond (1818-1896) in seinem Vortrag in der 2. Sitzung der 45. Versammlung Deutscher Naturforscher und Ärzte zu Leipzig am 14. August 1872 «Über die Grenzen der Naturerkenntnis».
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:290
+
+---
+
+17 bedeutendere philosophische Geister der Gegenwart: Beispielsweise schreibt Henri Bergson (1859-1941) in «Matiere et memoire - Materie und Gedächtnis, Essays zur Beziehung zwischen Körper und Geist», Jena 1908: «... Man begreift jetzt, warum die Erinnerung nicht aus dem Gehirnzustande hervorgehen konnte. Der Gehirnzustand setzt die Erinnerung fort; er gibt ihr Macht über die Gegenwart durch die Materialität, die er ihr verleiht; aber die reine Erinnerung ist eine geistige Kundgebung. Mit dem Gedächtnis sind wir recht eigentlich in das Gebiet des Geistes eingetreten.» (Übersetzt von W. Windelband.)
+
+39 Dadurch ist die Anzahl meiner Notizbücher viele Wagenladungen: Der vermutlich größte Teil davon - mehrere hundert größere und kleinere - ist erhalten geblieben und wird im Archiv der Rudolf Steiner-Nachlaßverwaltung verwahrt. Viele auf die Vorträge bezügliche Eintragungen sind inzwischen veröffentlicht, entweder in den Bänden der Gesamtausgabe oder in «Beiträge zur Rudolf Steiner Gesamtausgabe», siehe «Register der Hefte 1-85/86», Dornach 1985.
+
+40 Goethe-Zitat: Wörtlich «Das Schöne ist eine Manifestation geheimer Naturgesetze, die uns ohne dessen Erscheinung ewig wären verborgen geblieben.» Maximen und Reflexionen 183.
+
+41 Goethe-Zitat: Wörtlich «... Die zweite Betrachtung beschäftigt sich ausschließlich mit der Kunst der Griechen und sucht zu erforschen, wie jene unvergleichlichen Künstler verfuhren, um aus der menschlichen Gestalt den Kreis göttlicher Bildung zu entwickeln, welcher vollkommen abgeschlossen ist, und worin kein Hauptcharakter, so wenig als die Übergänge und Vermittlungen fehlen. Ich habe eine Vermutung, daß sie nach eben den Gesetzen verfuhren, nach welchen die Natur verfährt, und denen ich auf der Spur bin. Nur ist noch etwas anderes dabei, das ich nicht auszusprechen wüßte.» Italienische Reise, Rom den 28. Januar 1787.
+
+41 So mußte der äußere sichtbare Bau in seinen Formen: Siehe Hinweis zu Seite 7 und Carl Kemper «Der Bau. Studien zur Architektur und Plastik des ersten Goetheanums», Stuttgart 1966.
+
+42 ausdrucksvolle Bewegungskunst: Siehe «Eurythmie als sichtbarer Gesang», GA Bibl.-Nr. 278, und «Eurythmie als sichtbare Sprache», GA Bibl.-Nr. 279.
+
+Goethe-Zitat: Zahme Xenien IX.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 291
+
+---
+
+42f. eine neun Meter hohe plastische Gruppe aus Holz: Seit dem Herbst 1914 arbeiteten Rudolf Steiner und die englische Bildhauerin Edith Maryon an einer Holzplastik, die beim Goetheanum-Brand 1922/23 noch im Atelier stand und daher unversehrt blieb. Sie steht heute im sogenannten Gruppenraum des Goetheanums. Siehe auch Äke Fant «Die Holzplastik Rudolf Steiners», Dornach 1969.
+
+47 dieser Kursus: Rudolf Steiner «Die pädagogische Praxis vom Gesichtspunkte geisteswissenschaftlicher Menschenerkenntnis», GA Bibl.-Nr. 306.
+
+in dem öffentlichen Vortrag . . ., den ich in der letzten Woche an verschiedenen Orten der Schweiz zu halten hatte: Vergleiche Vortrag I dieses Bandes und die Einleitung zu den Hinweisen.
+
+102 in der letzten Zeit in den öffentlichen Vorträgen: Siehe Hinweis zu Seite 47.
+
+126 nicht den Schopenhauerschen gedankenlosen Willen: Arthur Schopenhauer (1788-1860) schreibt in «Die Welt als Wille und Vorstellung»: «... Der Willensakt und die Aktion des Leibes sind nicht zwei objektiv anerkannte verschiedene Zustände, die das Band der Kausalität verknüpft, stehen nicht im Verhältnis von Ursache und Wirkung; sondern sie sind eins und dasselbe, nur auf zwei gänzlich verschiedene Weisen gegeben: einmal ganz unmittelbar und einmal in der Anschauung für den Verstand.»
+
+143 ff. ein vielgenannter Philosoph der Gegenwart: Wincenty Lutoslawski (1863-1954), polnischer Philosoph, Fortbildner des polnischen Messianismus, Platoforscher, damals Privatdozent an der Universität in Genf, kritische Haltung zur Anthroposophie. Das Manuskript seines Aufsatzes «Rudolf Steiners sogenannte <geheimwissenschaft>» wurde am 24. Mai 1910 abgesandt und erschien in «Hochland. Monatsschrift für alle Gebiete des Wissens, der Literatur und Kunst», hrsg. v. Karl Muth, 8. Jg., Heft 1, Oktober 1910, Kempten und München.
+
+173 davon kann jetzt nicht gesprochen werden: Siehe hierüber Rudolf Steiner «Die Geheimwissenschaft im Umriß», GA Bibl.-Nr. 13, sowie «Aus der Akasha-Chronik», GA Bibl.-Nr. 11.
+
+175 Karl Ludwig Knebel, 1744-1834. Das Zitat heißt wörtlich: «Man wird bei genauer Beobachtung finden, daß in dem Leben der meisten Menschen sich ein gewisser Plan findet, der, durch die eigene Natur oder durch die Umstände, die sie führen, ihnen gleichsam vorgezeichnet ist. Die Zustände ihres Lebens mögen noch so abwechselnd
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:292</geheimwissenschaft>
+
+---
+
+und veränderlich sein, es zeigt sich am Ende doch ein Ganzes, das unter sich eine gewisse Übereinstimmung bemerken läßt. - Die Hand eines bestimmten Schicksals, so verborgen sie auch wirken mag, zeigt sich auch genau, sie mag nun durch äußere Wirkung oder innere Regung bewegt sein: ja, widersprechende Gründe bewegen sich oftmals in ihrer Richtung. So verwirrt der Lauf ist, so zeigt sich immer Grund und Richtung durch.» Aus: Knebels literarischer Nachlaß und Briefwechsel, hrsg. v. Varnhagen von Ense, 2. Aufl., Band 3.
+
+179 Ignoramus, Ignorabimus: Siehe Hinweis zu Seite 16.
+
+182 die Naturwissenschaft nicht heranreichen kann . . . [an] das Wesen der Materie . . . [und] des menschlichen Bewußtseins: Hierüber spricht Rudolf Steiner ausführlicher im Vortrag Dornach vom 27. Sept. 1920 in «Grenzen der Naturerkenntnis», GA Bibl.-Nr. 322.
+
+185 Vortrag . . . in der «Urania»: Am 27. April 1923 in Prag.
+
+195 Wagenladungen von alten Notizbüchern: Siehe Hinweis zu Seite 39.
+
+202 In Stuttgart wurde durch Herrn Emil Molt die «Waldorf-Schule» . . . gegründet: Kommerzienrat Dr. h.c. Emil Molt (1876—1936). Inhaber der Waldorf-Astoria-Zigarettenfabrik und Begründer der Freien Waldorf schule in Stuttgart (1919), deren Einrichtung und Leitung auf seine Bitte hin Rudolf Steiner übernahm.
+
+209 beim letzten Wiener Kongreß: Vom 1. -12. Juni 1922, bei dem Rudolf Steiner einen Vortragszyklus hielt über «Westliche und östliche Weltgegensätzlichkeiten», GA Bibl.-Nr. 83.
+
+235 Zitat aus Goethes «Faust»: Auerbachs Keller, Zeile 2181.
+
+250 Wagenladungen von Notizbüchern: Siehe Hinweis zu Seite 39.
+
+354 Ignorabimus: Siehe Hinweis zu Seite 16.
+
+in Stuttgart aus dem Impuls von Emil Molt: Siehe Hinweis zu S.202.
+
+260 den anderen Schulen, die . . . entstanden sind: Bis zum Herbst 1923 wurden weitere Waldorf schulen gegründet, in Dornach (1. Febr. 1921), Köln (1921), Hamburg-Wandsbek (22. Mai 1922), Essen (2. Nov. 1922), King's Langley, Herts/England (Anfang 1923) und Den Haag (1923).
+
+263 Goethe-Zitat: Mit «Anschauende Urteilskraft» betitelt Goethe einen Aufsatz in «Bildung und Umbildung organischer Naturen». Siehe auch «Goethes Naturwissenschaftliche Schriften», herausgegeben, eingeleitet und kommentiert von Rudolf Steiner, GA Bibl.-Nr. 1a.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 293
+
+---
+
+263 durch das Morgenrot des Schönen: Aus Schillers Gedicht «Die Künstler». In den Schiller-Ausgaben heißt es «Nur durch das Morgentor des Schönen . . .». Hierzu äußert Rudolf Steiner im Vortrag Stuttgart 4. Dez. 1922 in «Geistige Zusammenhänge in der Gestaltung des menschlichen Organismus» GA Bibl.-Nr. 218: «... Schiller hat Recht, wenn er sagt: <nur durch="" das="" dringst="" du="" erkenntnis="" land="" morgenrot="" schonen="" so="" späucher="">, was gewöhnlich in den Büchern so gedruckt steht: <nur durch="" das="" der="" doser="" morgentor="" schönen="" sonn="">. Wenn einmal ein Künstler einen Schreibfehler macht, so wird natürlich von der Nachwelt dieser Schreibfehler weiter überliefert. Es heißt natürlich: <nur durch="" das="" das="" der="" doser="" morgenrot="" schönen="" sonn="">. Das heißt mit anderen Worten: Alles Wissen ist aus der Kunst genommen. Es gibt im Grunde genommen kein Wissen, das nicht mit der Kunst innig verwandt wäre.»
+
+271 ins Französische . . . übersetzt: Rudolf Steiner «L'Initiation ou la Connaissance des Mondes superieurs», traduit par Jules Sauerwein, Paris 1909 und 1922.
+
+286 das Goetheanum: Siehe die Hinweise zu den Seiten 7 und 41.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 294</nur></nur></nur>
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:295
+
+AUSFÜHRLICHE INHALTSANGABEN
+
+erstellt von Konrad Donat
+
+I. Was wollte das Goetheanum und was soll die Anthroposophie?
+
+Basel, 9. April 1923. 7
+
+Der Name Goetheanum als Dank an Goethe. Erkenntnisse der geistigen Welt neben der naturwissenschaftlichen Weltanschauung. Menschen verlangen Erkenntnisse der geistigen Welt. Das Gedächtnis findet in geistige Welten nicht zurück. Aktiviertes Denken bringt Erkennen der ätherischen Welt. Bei vertieftem Schweigen des Menschen beginnt das Sprechen der geistigen Welt. Überwundener Egoismus fördert Erkenntniskräfte. Mathematik als elementare Anthroposophie. An der Bewährung geistig GeschAutem ist der gesamte menschliche Organismus beteiligt. Notizbücher. Der Goetheanumbau als Hülle dessen, was darin gepflegt wurde. Die Gruppe mit dem Menschheitsrepräsentanten. Die Zukunft braucht Anthroposophie.
+
+II. Die Steigerung der menschlichen Erkenntnisfähigkeit zu Imagination, Inspiration und Intuition
+
+Dornach, 14. April 1923. 47
+
+Über Sinneseindrücke wird die äußere Welt erschlossen. Der Gedanke weist nach außen, das Gefühl nach innen. Einschalten des Willens beim Übergang vom Schlaf zum Wachen. Denken, Fühlen und Wollen während des Wachens. Gefühl als abgeschwächter Wille. Denken sowie Ätherleib beim Schlafen und beim Wachen. Zusammenhang des astralischen Leibes mit Fühlen und Träumen. Berühren der Nerven mit der Blutzirkulation. Tätigkeit des Denkens als Inhalt der Imagination. Bezug vom Astralleib zur Inspiration, vom Ich zur Intuition.
+
+---
+
+III. Das Seelenleben des Menschen und seine Entwicklung zur Imagination, Inspiration und Intuition
+
+Dornach, 15. April 1923. 67
+
+Traumbilder aus der Sicht der Tageswirklichkeit. Vorstellungen beim Wachsein. Bei «Denkgetöse» keine feinere Wahrnehmung. Anregungen beim Meditieren und beim aktivierten Denken. Vom Erleben der Bildekräfte der Zeit. Denken als Summe der Wachstumskräfte. Äußere Sinnes weit allein verschließt weltenbildende Gedankenkräfte. Konzentrationsübungen lassen Weltätherisches gewahr werden. Gedanken als Schattenbild des Ätherleibes. Ätherleib als Glied des Weltenäthers. Vom Denken sowie Gesamtdenken in der Welt. Gefühlsleben in bezug auf Inspiration. Moralisches und Physisches im Inspirationsgehalt der Welt.
+
+IV. Das Anschauungserlebnis der Denktätigkeit und der Sprachtätigkeit
+
+Dornach, 20. April 1923. 91
+
+Aktivität des Denkens bei Beschäftigung mit Geometrie. Denken als innerliches Tun. Aktiviertes Denken läßt den Zeitleib als Teil des Universums erleben. Wechselspiel der Ernährung: physische Ernährung für den Leib, Ätherisches anstelle von Absonderungen. Vom Einleben in das Äthergeschehen der Welt. Sprachtätigkeit wie auch Schweigen lernen und das Wahrnehmen des astralischen Menschen. Spiegelung der Naturgesetze aus dem Weltall zurück zur Erde. Weltenäther als gedankenbildende Welt. Aussagen des Raumes durch den Äther. Rückstrahlen des Physischen aus dem Weltall als Äthergestaltungen, das Erleben einer geistigen Welt.
+
+V. Die physische Welt und die moralisch-geistigen Impulse - Vier Stufen des inneren Erlebens
+
+Dornach, 21. April 1923. 112
+
+Das Erleben des tiefen Schweigens. Vom Heran tönen des Logos aus dem Universum. Das Gewahrwerden der astralischen Welt. Der Mensch zwischen materieller und geistig-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 296
+
+---
+
+moralischer Welt. Die Welt der Schlaf zustände. Naturgesetze als unterste geistige Gesetze. Verbrennungsprozesse im Menschen in bezug auf den Weltenwillen. Moralisch-geistige Impulse als das einzig Wirkliche. Schöpferischer Kraftwille vorangegangener Erdenleben. Erweiterung der Menschen-erkenntnis zur Welterkenntnis.
+
+## VI. Die menschliche Erkenntnisfähigkeit in der ätherischen Welt
+
+Dornach, 22. April 1923. 134
+
+Gesetzmäßigkeit unserer dreigliedrigen Welt. Welt des Ich gegenüber Zeitlichem. Erleben der dritten Hierarchie im Bildekräfteleib. Offenbarung der zweiten Hierarchie durch den Logos. Das wahre Ich beim Zusammenreffen mit der ersten Hierarchie. Gegenwärtige Philosophen zur «Geheimwissenschaft im Umriß». Die «Stuhl-Philosophie» lebender Philosophen. Freiheit des Menschen, sich ins Geistige zu erheben. Innere Erkenntniskraft macht Glaube zum Wissen.
+
+## VII. Die Seelenewigkeit im Lichte der Anthroposophie
+
+Prag, 27. April 1923. 154
+
+Erkenntniskräfte in der Naturwissenschaft und in der Anthroposophie. Der Wille beim Übergang vom Schlaf zum Wachen. Erkenntniskräfte kommen auch aus dem Erinnerungsvermögen. Aktivität des Denkens führt zu übersinnlicher Erkenntnis. Zur Selbsterkenntnis über unser Erdenleben. Die Stufen des geistigen Erkennens. Das Gewahrwerden der Seelenewigkeit. Das Hingegebensein dem Geistigen. Die zur Erkenntnis gesteigerte Liebe. Bluts- und Seelenbande. Der Zufall im Erdenleben.
+
+## VIII. Die Menschheitsentwicklung und Menschenerziehung im Lichte der Anthroposophie
+
+Prag, 30. April 1923. 179
+
+Vom griechischen «Erkenne dich selbst!» zum Bekenntnis «Ignorabimus». Menschlicher Wissensdrang in bezug auf Naturwissenschaft und auf Mystik. Die Außenwelt gespie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 297
+
+---
+
+gelt im Gedächtnis. Menschliches Wesen offenbart sich bei aktiviertem Denken. Was führt hinter die Grenzen der Naturwissenschaft? Erkenntnisse über den Zustand zwischen Einschlafen und Aufwachen. Die Erfüllung des Wortes «Erkenne dich selbst!» Erkraftetes Denken fordert den gesamten Menschen. Notizbücher. Das Kind bis sieben Jahre erlebt physisch-leiblich, es ahmt nach. Die Bedeutung der Autorität des Erziehers. Das Kind im zehnten Lebensjahr, die Krisis. Malendes Zeichnen. Vom Buchstaben über das Schreiben zum Lesen.
+
+IX. Die übersinnliche Erkenntnis — Anthroposophie - als Zeitforderung
+
+Wien, 26. September 1923. 209
+
+Naturwissenschaft lehrt ohne Gefühl. Die Idee der Allursächlichkeit. Wie naturwissenschaftliche Methodik Übersinnliches bei Denken, Fühlen und Wollen beurteilt. Aktiviertes Denken wird geistiges Tasten. Vom übersinnlichen Erinnerungstableau (Imagination). Von der Über-Ruhe zur Inspiration. In Selbstlosigkeit ein anderes Wesen-Leben erleben führt zur Intuition. Übersinnliche Forschung als Zeitforderung.
+
+X. Die Anthroposophie und die ethisch-religiöse Lebenshaltung des Menschen
+
+Wien, 29. September 1923. 237
+
+Wie wirken übersinnliche und wie naturwissenschaftliche Erkenntnisse? Die zwei Bewußtseinszustände Schlafen und Wachen. Der Übergang der Begriffe wahr/falsch bei übersinnlicher Erkenntnis in die geistigen Vorstellungen gesund/krank. Übersinnliche Erkenntnis erfaßt den gesamten Menschen. Notizbücher. Die Wurzel des moralischen Daseins. Gewissen als Spiegel der geistigen Welt. Sittliches geht aus dem Seelenleben hervor. Das Herz ein Sinnesorgan, keine Pumpe. Das Nachahmen beim Kinde bis siebentes Jahr. Was bedeutet die Autorität des Erziehers für das Kind? Der Übergang der Naturgesetze zum gestalteten Inhalt, sowie der Übergang von Wissenschaft zu Kunst.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 298
+
+---
+
+XL Wie erlangt man Erkenntnis der übersinnlichen Welt?
+Paris, 26. Mai 1924 268
+
+Denken, Fühlen und Wollen in Beziehung zum menschlichen Körper. In alten Mysterien brachten äußere Vorgänge höhere Erkenntnis. Aktivität des Denkens bringt imaginative Erkenntnis. Rückblick bis zur Geburt, die Zeit wird zum Räume. Die zweite Erkenntnisstufe, geistige Welten im Bewußtsein. Intuition als gesteigerte Erkenntnis. Das Kennenlernen vorirdischer wie auch nachtodlicher Sphären. Die Aufgabe des alten Goetheanums. Der Drang der Menschheit nach Spirituellem, nach neuen Mysterien.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite: 299
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:300
+
+---
+
+# PERSONENREGISTER
+
+(Die kursiv gesetzten Zahlen geben jeweils die Seite an, zu welchen ein Hinweis besteht.)
+
+Du Bois-Reymond, Emil (1818-1896) 179
+Goethe, Johann Wolf gang von (1749-1832) 8,9,39,40,41, 42,175,235,263
+Johannes (Evangelist) 9
+Knebel, Karl Ludwig von (1744-1834) 175
+Molt, Emil (1876-1936) 202, 254
+Schiller, Friedrich von (1759-1805) 263
+Schopenhauer, Arthur (1788-1860) 126
+
+Register der von Rudolf Steiner erwähnten eigenen Werke
+
+Die Philosophie der Freiheit 72, 99, 204, 252, 253
+Theosophie 28, 66, 75, 138
+Wie erlangt man Erkenntnisse der höheren Welten? 19, 75, 88, 92,114,177, 207,217,248,271
+Die Geheimwissenschaft im Umriß 19, 28, 75,143,144,217,248
+Mysteriendramen 9
+Von Seelenrätseln 255
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:301
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite:302
+
+---
+
+# RUDOLF STEINER GESAMTAUSGABE
+
+Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine bibliographische Übersicht (Bibliographie-Nrn. kursiv in Klammern)
+
+## A. SCHRIFTEN
+
+### 1. Werke
+
+Goethes Naturwissenschaftliche Schriften, eingeleitet und kommentiert von R. Steiner, 5 Bände, 1883-97, Neuausgabe 1975 (la-e); separate Ausgabe der Einleitungen, 1925 (1)
+Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung, 18S6(2)
+Wahrheit und Wissenschaft. Vorspiel einer «Philosophie der Freiheit», 1892 (3)
+Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung, 1894 (4)
+Friedrich Nietzsche, ein Kämpfer gegen seine Zeit, 1895 (5)
+Goethes Weltanschauung, 1897 (6)
+Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung, 1901 (7)
+Das Christentum als mystische Tatsache und die Mysterien des Altertums, 1902 (8)
+Theosophie. Einführung in übersinnliche Welterkenntnis und Menschenbestimmung, 1904 (9)
+Wie erlangt man Erkenntnisse der höheren Welten? 1904/05 (10)
+Aus der Akasha-Chronik, 1904-08 (11)
+Die Stufen der höheren Erkenntnis, 1905-08 (12)
+Die Geheimwissenschaft im Umriß, 1910 (13)
+Vier Mysteriendramen, 1910-13 (14)
+Die geistige Führung des Menschen und der Menschheit, 1911 (15)
+Anthroposophischer Seelenkalender, 1912 (in 40)
+Ein Weg zur Selbsterkenntnis des Menschen, 1912 (16)
+Die Schwelle der geistigen Welt, 1913 (17)
+Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt, 1914 (18)
+Vom Menschenrätsel, 1916 (20)
+Von Seelenrätseln, 1917 (21)
+Goethes Geistesart in ihrer Offenbarung durch seinen Faust und durch das Märchen von der Schlange und der Lilie, 1918 (22)
+Die Kernpunkte der sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft, 1919 (23)
+Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921(2^
+Kosmologie, Religion und Philosophie, 1922 (25)
+Anthroposophische Leitsätze, 1924/25 (26)
+Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)
+Mein Lebensgang, 1923-25 (28)
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 84 Seite: 303
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:84 Seite:304
+
+## II. Gesammelte Aufsätze
+
+Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31) - Aufsätze zur Literatur 1886-1902 (32) - Biographen und biographische Skizzen 1894-1905 (33) - Aufsätze aus «Lucifer-Gnosis» 1903-1908 (34) - Philosophie und Anthroposophie 1904-1918 (35) - Aufsätze aus «Das Goetheanum» 1921-1925 (36)
+
+## III. Veröffentlichungen aus dem Nachlaß
+
+Briefe - Wahrspruchworte — Bühnenbearbeitungen — Entwürfe zu den Vier Mysteriendramen 1910-1913 - Anthroposophie. Ein Fragment aus dem Jahre 1910 - Gesammelte Skizzen und Fragmente - Aus Notizbüchern und -blättern - (38-47)
+
+## B. DAS VORTRAGSWERK
+
+### I. Öffentliche Vorträge
+
+Die Berliner öffentlichen Vortragsreihen, 1903/04 bis 1917/18 (51-67) - Öffentliche Vorträge, Vortragsreihen und Hochschulkurse an anderen Orten Europas 1906-1924 (68-84)
+
+### II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft
+
+Vorträge und Vortragszyklen allgemein-anthroposophischen Inhalts - Christologie und Evangelien-Betrachtungen - Geisteswissenschaftliche Menschenkunde - Kosmische und menschliche Geschichte - Die geistigen Hintergründe der sozialen Frage - Der Mensch in seinem Zusammenhang mit dem Kosmos - Karma-Betrachtungen - (91-244)
+
+Vorträge und Schriften zur Geschichte der anthroposophischen Bewegung und der Anthroposophischen Gesellschaft (251-263)
+
+### III. Vorträge und Kurse zu einzelnen Lebensgebieten
+
+Vorträge über Kunst: Allgemein Künstlerisches - Eurythmie - Sprachgestaltung und Dramatische Kunst - Musik - Bildende Künste - Kunstgeschichte (271-292) - Vorträge über Erziehung (293-311) - Vorträge über Medizin (312-319) - Vorträge über Naturwissenschaft (320-327) - Vorträge über das soziale Leben und die Dreigliederung des sozialen Organismus (328-341) - Vorträge für die Arbeiter am Goetheanumbau (347-354)
+
+## C. DAS KÜNSTLERISCHE WERK
+
+Originalgetreue Wiedergaben von malerischen und graphischen Entwürfen und Skizzen Rudolf Steiners in Kunstmappen oder als Einzelblätter: Entwürfe für die Malerei des Ersten Goetheanums - Schulungsskizzen für Maler - Programmbilder für Eurythmie-Aufführungen - Eurythmieformen - Entwürfe zu den Eurythmiefiguren, u. a.
+
+Die Bande der Rudolf Steiner Gesamtausgabe
+sind innerhalb einzelner Gruppen einheitlich ausgestattet
+leder Band ist einzeln erhältlich

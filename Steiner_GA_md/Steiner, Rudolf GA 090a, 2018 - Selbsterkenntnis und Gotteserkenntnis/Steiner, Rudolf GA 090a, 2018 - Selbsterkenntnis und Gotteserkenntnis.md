@@ -1,0 +1,6446 @@
+RUDOLF STEINER GESAMTAUSGABE
+
+Abteilung B: Vorträge
+
+II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft
+
+Herausgegeben von der Rudolf Steiner Nachlassverwaltung
+
+Band GA 90a
+
+RUDOLF STEINER
+
+Selbsterkenntnis und Gotteserkenntnis
+
+I
+
+Theosophie, Christologie und Mythologie
+
+Frühe Vortragsreihen und Einzelvorträge für Mitglieder in Berlin 1903–1904 nach fragmentarischen und ausführlichen Mitschriften
+
+RUDOLF STEINER VERLAG
+
+---
+
+Nach von Rudolf Steiner nicht durchgesehenen Vortragsmitschriften herausgegeben von der Rudolf Steiner Nachlassverwaltung
+
+Die Herausgabe besorgte Hans-Christian Zehnter.
+
+Band GA 90a
+
+1. Auflage 2018
+
+© 2018 Rudolf Steiner Nachlassverwaltung, Dornach
+© 2018 Rudolf Steiner Verlag, Basel
+
+Die Skizzen wurden nach den Vorlagen der Archivdokumente von Mathias Buess angefertigt.
+
+Alle Rechte, auch die des auszugsweisen Nachdrucks, der fotomechanischen und elektronischen Wiedergabe, vorbehalten.
+
+Druck: Druckhaus Nomos, Sinzheim
+Bindung: Josef Spinner, Großbuchbinderei, Ottersweier
+ISBN 978-3-7274-0900-4
+
+www.steinervorlag.com
+
+# Zu den Veröffentlichungen aus dem Vortragswerk von Rudolf Steiner
+
+Rudolf Steiner hat seine Vorträge stets frei, also ohne Manuskript, gehalten. Viele seiner Vorüberlegungen hielt er lediglich in Stichworten, manchmal auch in kurzen Sätzen, Schemata oder Skizzen in seinen Notizbüchern fest, ohne dass er sie weiter schriftlich ausgearbeitet hatte. Nur in ganz wenigen Fällen liegen vorbereitete schriftliche Zusammenfassungen vor, die für Übersetzer bestimmt waren. Er hat jedoch der Veröffentlichung von Mitschriften seiner Vorträge zugestimmt, auch wenn er selbst nur einige wenige für den Druck vorbereiten konnte.
+
+Die in der Rudolf Steiner Gesamtausgabe veröffentlichten Vorträge basieren in der Regel auf Übertragungen stenografischer Aufzeichnungen, die während des Vortrags von Zuhörern oder hinzugezogenen Fachstenografen angefertigt wurden. Verschiedentlich – dies gilt vor allem für die Anfangsjahre seiner Vortragstätigkeit, etwa bis 1905 – dienen auch Notizen und Referate von Zuhörern als Textgrundlage. Für die Drucklegung werden die Übertragungen in Langschrift oder die Zuhörernotizen von den Herausgebenden einer eingehenden Prüfung unterzogen, insbesondere hinsichtlich Sinn, Satzbau und Genauigkeit der Wiedergabe von Zitaten, Eigennamen oder Fachbegriffen. Bei auftretenden Komplikationen, wie zum Beispiel nicht entschlüsselbaren Satz- und Wortgebilden oder Lücken im Text, werden, soweit vorhanden, die Originalstenogramme zur Abklärung hinzugezogen.
+
+Spezifisches zur Textgestalt und Textredaktion sowie zur Entstehungsgeschichte findet sich am Schluss des Bandes.
+
+Die Herausgeber
+
+---
+
+# INHALT
+
+## WELTENWEISHEIT UND MENSCHENWEISHEIT
+Berlin, 28. September 1903 ... 23
+Kosmische Weisheit (Mahat); Weisheit im Menschen (Mala); Ahankara als verbindendes Glied. Durch die Entwicklung von Manas, Budhi und Atma Vereinigung von Menschenweisheit und Weltenweisheit.
+
+## HAT ALLES IN DER WELT EINEN NÜTZLICHEN ZWECK?
+Berlin, 30. Oktober 1903 ... 28
+Der alte Mond als Ausgangspunkt für Mensch und heutigen Mond
+
+## KOSMISCHE EPOCHEN UND ZUSTÄNDE UND DEREN ENTSPRECHUNG IN DER MENSCHLICHEN ENTWICKLUNG. DIE ACHTE SPHÄRE
+Berlin, 10. November 1903 ... 29
+Der Kosmos der Erde als der Kosmos der &gt;göttlichen Liebe&lt;; vorhergehend&gt; :Kosmos der Weisheit&lt;; folgend&gt; :Kosmos des göttlichen Feuers&lt;. Entwicklung in sieben Stufen. Zur Entstehung und Aufgabe der sogenannten &gt;achten Sphäre&lt;.
+
+## WOHER MANNIGFALTIGKEIT? – AUS DER EINHEIT
+Berlin, 16. November 1903 ... 32
+Die heutige Runde ist Gegenwart; alles Vorhergehende: Vergangenheit; alles Folgende: Zukunft. Die Mannigfaltigkeit ergibt sich aus der Einheit so wie einzelne Tropfen sich aus einem großen Wassertropfen ergeben können. Jedes Ich ist dem Ursprung gleich.
+
+## ÜBER SINNETTS «ESOTERISCHER BUDDHISMUS»
+Berlin, 17. November 1903 ... 35
+Eduard von Hartmanns Aufsatz über Sinnetts Buch. Planetarische Entwicklung und die Ausbildung von Atma, Budhi, Manas. Vom Zweck des Weltprozesses.
+
+---
+
+# ÜBER DEN WERDE-PROZESS DER MENSCHHEITSRASSEN
+
+Berlin, 1. Dezember 1903 39
+
+Entwicklung zur vierten Runde und deren fünften Rasse. Übergang vom alten Mond zur Erde. Entwicklung der Naturreiche.
+
+# ÜBER DIE ENTSTEHUNG DER PLANETENSYSTEME
+
+Berlin, 15. Dezember 1903 44
+
+Kant-Laplace'sche Theorie, Keplers Planeten-System. Durchgang der Planeten durch arupischen, rupischen, mentalen, astralen, physischen Zustand. Entwicklung der Erde aus dem alten Mond.
+
+# KOSMOLOGIE UND PLANETEN
+
+Berlin, 22. Dezember 1903 49
+
+Kopernikanisches, ptolemäisches und Dantes Planetensystem; die Planetenkette aus geisteswissenschaftlicher Sicht. Manas, Budhi, Atma. Die dreifache Dreiteilung des Menschen.
+
+# PITRIS
+
+Berlin, vermutlich Anfang 1904 55
+
+Monden- und Sonnenpitris. Wirksamkeit der Pitris im Umkreis für die eigene Inkarnation. Ehe zwischen Geist und Seele als Erdenaufgabe.
+
+# SCHILDERUNG DER RUNDEN
+
+Berlin, 5. Januar 1904 57
+
+Die Metamorphose der Planeten-Kugeln, der Runden. Die sieben Zustände der ersten Kugel, Herausbildung des Mineralreiches. Die Zustände der zweiten Kugel, Herausbildung des Pflanzenreiches. Die dritte Kugel, Herausbildung von Tier- und Menschenreich.
+
+# DIE BILDUNG DER AURA I
+
+Berlin, 12. Januar 1904 64
+
+Das Verständnis der menschlichen Aura als Voraussetzung für das Verständnis des Kosmos. Äther-Doppelleib, Astralleib, Mentalleib. Schwarzer Punkt im Gehirn der Lemurier: Ich-Anlage. Höheres Selbst. Übergang vom alten Mond zur Erde. Pitri-Samen und Weltenstaub. Eingreifen höherer Wesen.
+
+# DIE BILDUNG DER AURA II
+
+Berlin, 19. Januar 1904 71
+
+Entwicklung der Aura seit der lemurischen Zeit. Gottbegeisterte Seher in der atlantischen Zeit, selbstbegeisterte Seher in der sechsten Wurzelrasse. Der esoterische Grund der Himmelsbläue. Die Aura des Fortgeschrittenen.
+
+# DIE BILDUNG DES KOSMOS NACH ANNIE BESANTS «URALTER WEISHEIT»
+
+Berlin, 26. Januar 1904 79
+
+Entwicklung der Planetarischen Kugeln. Übergang von Mond zur Erde. Rolle der Pitris. Drei Logoi und weitere Entwicklungsstadien.
+
+# DER ZWEITE LOGOS
+
+Berlin, 2. Februar 1904 83
+
+Entwicklung der Runden nach Annie Besants «Uralter Weisheit» und deren Entwicklungsprinzip. Zusammenspiel von erstem, zweitem und drittem Logos. Die Bedeutung der achten Sphäre bzw. des Weltenstaubes.
+
+# ÜBER DIE BILDUNG DES KOSMOS
+
+Berlin, 9. Februar 1904 90
+
+Die Sonne als Leib des Logos. Die Bedeutung des Siebener-Systems.
+
+# DIE ENTWICKLUNG DER WESEN
+
+Berlin, 16. Februar 1904 91
+
+Ausbildung verschiedener Bewusstseinsstufen. Je weniger bewusst, desto näher die geistigen Wesen; je bewusster desto selbstständiger.
+
+# ÜBER DAS DEVACHAN
+
+Berlin, 18. Februar 1904 93
+
+Durchgang durch das untere und obere Devachan. Die menschliche Aura und ihre Entwicklung im Devachan. Die drei Welten, das höhere Selbst, Gut und Böse.
+
+# DIE MOSAISCHE SCHÖPFUNGSGESCHICHTE UND DIE RUNDEN
+
+Berlin, 22. Februar 1904 107
+
+Die Religionsurkunden erhalten durch die Theosophie ihre ursprüngliche Bedeutung. Die sieben Schöpfungstage der Genesis entsprechen den sieben Runden der Entwicklung.
+
+---
+
+# MIKROKOSMOS UND MAKROKOSMOS
+
+Berlin, 3. März 1904 115
+
+Die Entwicklung der Runden in Bezug auf den Menschen. Der achtgliedrige Pfad: Makrokosmisch: Gedanke, Entlassen des Gedankens, Tönen des Gedankens, Tätigkeit, Leben, Hinaufstreben, Nirwana; mikrokosmisch: Richtiges Denken, richtiges Entschließen, richtiges Wort, richtiges Tun, richtiges Leben, richtiges Streben, richtiges Erinnern, richtiges Versenken. Leben in Tamas, in Rajas, in Sattva, in Durga.
+
+# ÜBER DEN SATTVA-ZUSTAND
+
+Berlin, 11. März 1904 121
+
+Die beiden Lehrsätze des Buddhismus: »Das bist Du« und »Ich bin Brahma«. Buddhas neue Lehre über die Passivität und über die Befreiung aus zehn Fesseln – Überwindung des Vergänglichen. Der Glaube an Karma, Leben und Bruderschaft im Geist.
+
+# DIE GENESIS I
+
+Berlin, 1. April 1904 128
+
+Der Mensch vor der lemurischen und atlantischen Katastrophe. Erstes Paar: die unergründliche Tiefe und die Vorstellung. Zweites Paar: Verstand und Wahrheit. Drittes Paar: Rede und Leben. Viertes Paar: Der Mensch und die Verbrüderung.
+
+# DIE GENESIS II
+
+Berlin, 29. April 1904 135
+
+Die drei oberen und unteren Prinzipien. In den Himmeln: Vater, Wort, Heiliger Geist; auf Erden: Geist, Wasser, Blut. Der Geist entspricht dem göttlichen Prinzip; Wasser entspricht Kama (Seele); Blut entspricht dem, was in der Erde fließt.
+
+# ZUM WEISSEN LOTUSTAG
+
+Berlin, 2. Mai 1904 141
+
+Hinweis auf die esoterische Verwandtschaft von Theosophie und Rosenkreuzertum durch Goethes »Die Geheimnisse«. Zwischen den drei Tugenden der Naturreiche (das Mineralreich entspricht der »Majestät«; das Pflanzenreich entspricht der »Seligen Heiterkeit«; dem Tierreich entspricht »Leid und Freude«) und den drei Tugenden des Menschen (Geduld, Liebe, Ehrfurcht) steht das Ich.
+
+# RETTUNG DER MENSCHHEIT
+
+Berlin, Mai 1904 148
+
+Nachirdische Chancen der Menschheit zum Aufstieg; Autonomisierung des Menschen vom Naturrhythmus.
+
+# ZUR APOKALYPSE I
+
+Berlin, 21. Mai 1904 150
+
+Zusammenhang des Schicksals des Erdenmenschen mit dem Schicksal der luziferischen Wesenheiten. Drei Arten des nachirdischen Bösen: Luziferische Wesenheiten; Menschen, die in ihrer Tierheit stecken bleiben; soratische Schwarzmagier, die mit der Zahl 666 verbunden sind. Die Apokalypse als Darstellung der dreifachen Siebener-Entwicklung der Erde.
+
+# ZUR APOKALYPSE II
+
+Berlin, Mai 1904 156
+
+Die Übergangssituation der fünften nachtatlantischen Kulturepoche: Ausbildung der Bewusstseinaseele mit Blick auf das »christisierte Geist selbst«. Überwindung des apokalyptischen Babylons. Die Offenbarung früherer Einweihungsriten durch Golgatha. Die Theosophie als zeitgemäßer Kommentar zur Apokalypse.
+
+# ÜBER DIE BEDEUTUNG DER ÄLTESTEN TEILE DES ALTEN TESTAMENTES
+
+Berlin, 27. Mai 1904 165
+
+Johannes der Evangelist als Schüler des Philon von Alexandrien. Philon lehrte den ursprünglichen Sinn der fünf Bücher Moses. Einweihungsgrade: Rabe, Streiter, Löwe, Okkulter, Mensch, Sonnenläufer, Vater.
+
+# DAS PRINZIP DER KORRELATION
+
+Berlin, 12. Juni 1904 173
+
+Goethes Kompensationsprinzip als Antrieb der Evolution: Zur Höherentwicklung muss der Mensch die Naturreiche aus sich heraussetzen. Entstehung von Gut und Böse.
+
+# DER BEGRIFF DES OBJEKTIV-VORHANDEN-SEINS UND DES SUBJEKTIV-ERFASSENS
+
+Berlin, 13. Juni 1904 176
+
+Heraussetzen der Naturreiche in den ersten drei Runden (Objektivieren); wieder Assimilieren der Naturreiche in den letzten drei Runden (subjektiv Erfassen).
+
+---
+
+FOLGENDE RUNDEN
+
+Berlin, 15. Juni 1904 179
+
+Ausbildung der Zweigeschlechtlichkeit und Einzug der Möglichkeit zur Leidenschaft. In der fünften Runde Ausbildung des Herzrhythmus-systems zu einem neuen Ausdrucksorgan; Spaltung der Menschheit im jüngsten Gericht. In der sechsten Runde wird alles Innere nach außen offenbar. Siebte Runde: Zustand der Gottseligkeit.
+
+EIN HAUPTGESETZ ALLER RUNDEN-EVOLUTION
+
+Berlin, 16. Juni 1904 182
+
+Retardation, Beharrung, Akzeleration. Die Entwicklung der Gottesvorstellungen in den sieben Entwicklungsschritten.
+
+REINKARNATION UND KARMA
+
+Berlin, undatiert 1904 185
+
+Reinkarnation: Erhaltung des Geistigen im Körperlichen. Karma: Was erst Tätigkeit ist, wird später Bildung oder Eigenschaft.
+
+WAS HAT DER MENSCH DAVON, DASS ER SEINE VERGANGENHEIT KENNT?
+
+Berlin, undatiert 1904 189
+
+Luzifer als göttlicher Bringer der Weisheit; Jahve als göttlicher Bringer der Liebe. Christus als persönlich inkarnierte Liebe.
+
+ARTEN, UM ZUM WISSEN UND WOLLEN ZU KOMMEN
+
+Berlin, Juni 1904 193
+
+Lernen durch Eingabe vom göttlichen Geist oder durch Ablesen von der Schöpfung. Hereinwickeln und Herauswickeln von Mahat.
+
+UNTERSCHIEDE IM GEFÜGE DES GEISTES ZWISCHEN DEM ZWEITEN RAMA, KRISHNA UND BUDDHA
+
+Berlin, 25. Juni 1904 196
+
+Das »Wort« entspricht »Budhi«, der »Heilige Geist« entspricht »Manas«; Rama empfängt die ungeteilte Einheit des Wissens; Krishna empfängt das als »Heiliger Geist« in der Welt ausgebreitete Wissen. Rama als Eroberer, Krishna der Lehrer. Krishna war der Weg, Buddha die Wahrheit und Christus das Leben.
+
+ÜBER DIE ATLANTISCHE KULTUR
+
+Berlin, 26. Juni 1904 200
+
+Die atlantische Kultur war keine Verstandeskultur, aber stattdessen ein stark ausgebildetes Gedächtnis. Nutzung der »Vrilkraft«. Aus den Turaniern gingen die schwarzen Zauberer hervor. Rettung durch das Rechner- und Handelsvolk der Ursemiten.
+
+ÜBER DIE ATLANTIS
+
+Berlin, 27. Juni 1904 203
+
+Ausbildung des Gedächtnisses – Ahnentempel. Nutzung der »Vrilkraft«. Naturgärten, Naturbauten. Akkadier bilden eine Art Urjurisprudenz aus. Drei Typen griechischer Götterbilder: Zeus, Satyr, Hermes.
+
+ÜBER LEMURIEN
+
+Berlin, 28. Juni 1904 208
+
+Lemurier noch nicht wirkliche Menschen, sondern quellartige Wesen, beseelt durch Pitris: Söhne des Feuernebels. Die arupische, die rupische und die mannweibliche Unterrasse. Erste Arhats sowie traumsinnige Menschen, stumpfsinnige Menschen und Tiere. Vermischung von Mensch und Tier, Bildung der Zweigeschlechtlichkeit, Ausbildung des Gehirns, sodass es geeignet ist für Pitris. Ausbildung des Luft- und Wärmemenschen.
+
+DIE FÜNFTE WURZELRASSE. DAS FEUER
+
+Berlin, 29. Juni 1904 211
+
+Das Feuer als das wichtigste Element der fünften Wurzelrasse. Die Inder verehren den Gedanken als Geist. Die Perser verehren ihn als Naturgewalt. Die Juden verehren den Gedanken selbst. Die griechisch-lateinische Rasse betet den im Fleisch inkarnierten Gott an. Das Abstraktwerden des Gedankens in der germanisch-englischen Rasse als Voraussetzung zur Wiedererhebung ins Spirituelle.
+
+PLANETARISCHE KETTEN
+
+Berlin, 30. Juni 1904 217
+
+Der Zustand der Erde vor dem Hintergrund der Entwicklung durch sieben Runden mit je sieben Rassen. In unserer jetzigen Entwicklung ist der Makrokosmos zum vierten Mal dem Mikrokosmos vermählt worden.
+
+---
+
+# NOUMENON, PHENOMENON
+
+Berlin, 1. Juli 1904 221
+
+- Noumenon- als das innere Wirken der Pitris in der Menschheitsentwicklung. - Phenomenon- als das, was sich im Makrokosmos draußen abspielt. Aufgabe der germanischen Rasse, das Innere auf das Äußere anzuwenden. Aufgabe der slawischen und der amerikanischen Kulturepoche.
+
+# DAS UNIVERSUM VON AUSSEN
+
+Berlin, 8. Juli 1904 225
+
+Der Standpunkt des Universums: Betrachtung der Welt nach Sein (Leib, Adi-Buddha), Leben (Seele, Adi-Atma) und Bewusstsein (Geist, Adi-Deva). Jeweils sieben Stufen. Planetarische, Runden- und Globentwicklung. Zuordnung der Hierarchien zu den Stufen des Geistes (Bewusstseins).
+
+# WEITERE ENTWICKLUNG UNSERES PLANETEN
+
+Berlin, 10. Juli 1904 230
+
+Die jeweils sieben Metamorphosen des Vater-, Sohn- und Heiliger Geist-Prinzipes. Menschenstufe, Christusstufe, Väterstufe.
+
+# MODERNE BIBELFORSCHUNG
+
+Berlin, 11. Juli 1904 235
+
+Die Theosophie als Vertiefung der verschiedenen Religionsbekenntnisse. Die Wirksamkeit des Johannes-Evangelium, die Mystik, die Scholastik, die Rosenkreuzer. Die Wissens-Unsicherheiten der modernen Bibelforschung.
+
+# OKKULTE FORSCHUNG ÜBER DIE EVANGELIEN
+
+Berlin, 18. Juli 1904 251
+
+Stufen der okkulten Erkenntnis bei Origines: Reinigung, Erleuchtung und Einweihung. Vom Lesen in der okkulten Bildsprache der Evangelien. Der -Berg- bedeutet das -innere Heiligtum-. Die Hochzeit zu Kana: Die -Mutter- bedeutet das -jüdische Volk-; -Maria, des Kleophas Weib- bedeutet Schülerschaft; als dritte Gruppe solche, die Beweise brauchten. Der Jünger, den Jesus lieb hatte (Lazarus, Johannes). Vereinigung zweier Logos-Stromungen.
+
+# EVANGELIEN UND EINWEIHUNG
+
+Berlin, 25. Juli 1904 268
+
+Das Markus-Evangelium als uralte Initiationsurkunde. Lazarus-Wunder, Hochzeit zu Kana. Die okkulte Wirksamkeit des Johannes-Evangeliums. Devotion.
+
+# EIN ÜBERBLICK ÜBER UNSERE ENTWICKLUNG
+
+Berlin, 26. Juli 1904 274
+
+Dreieinigkeit. Indem der Mensch sich entwickelt, entwickelt sich die Gottheit. Brahma, Vishnu, Schiwa als Erinnerungen an Menschenrassen der Lemurier. Übergang von den Lemuriern zu den Ariern. Entwicklung der europäischen Kulturen.
+
+# FLEISCHWERDUNG
+
+Berlin, 2. August (1904?) 285
+
+Wie die Seele in die und aus der Welt kommt. Der Unterschied zwischen Väter- und Götterweg. Der Mensch als Resultat einer fünffachen Opferung der Trinität.
+
+# AUSBLICK AUF DIE NÄCHSTEN RUNDEN
+
+Berlin, 10. August 1904 287
+
+Aus der vergangenen Entwicklung lernen, auf die Aufgaben der Zukunft zu schauen. Die Auflösung von Mineral-, Pflanzen und Tierreich bis zur sechsten Runde. In der siebten Runde tritt alles Innere des Menschen nach außen. Erlangung der Gottseligkeit.
+
+# DIE AUFGABE DER ZWEITEN HÄLFTE DER ENTWICKLUNG
+
+Berlin, 11. August 1904 290
+
+Die zweite Hälfte der Erdenentwicklung dient der fortwährenden Reinigung. In der fünften Runde ist die Erde Kamaloka; nicht mehr Leben und Tod, sondern Gut und Böse. In der sechsten Runde Scheidung zwischen Wahrheit und Lüge.
+
+# WOHER KOMMT DAS BÖSE?
+
+Berlin, 12. August 1904 293
+
+Das Böse als das Vollkommene zum falschen Zeitpunkt. Freiheit als Voraussetzung für gottebenbildliche Wesen. Freiheit setzt Irrtum voraus. Freiheit auch Voraussetzung für wahre Liebe. Erde daher auch der Kosmos der Liebe: Das Handeln aus Liebe ist seine Aufgabe.
+
+---
+
+# URALTE WEISHEIT
+
+Berlin, 13. August 1904 297
+
+Zwei Arten von Wissen und Erkenntnis: Schaffen und Nachschaffen. Beide sind dasselbe: Mahat und Manas. Manas ist in uns, Mahat ist das in der Welt ausgebreitete Tableau. Sinn der Evolution: Zu Anfang ist Mahat außer dem Ich, am Ende ist Mahat im Ich. Nicht Mahat, sondern das Ich hat eine Entwicklung durchgemacht.
+
+# WESSEN, WAHRNEHMUNG UND TATEN
+
+Berlin, 14. August 1904 300
+
+Unterscheidung zwischen Wesen und Organen des Wesens. Zwei Organarten: Organe der Wahrnehmung und Organe der Tat. Ewig ist das durch die Organe Aufgenommene; die Organe sind vergänglich. Organe für das Physische, für das Seelische und Geistige. Seelisch-geistige Wahrnehmungen sind die Devas. Astrale Wahrnehmungen sind die Elementarwesen.
+
+# VON DER AUFGABE UND DER HEIMAT DES MENSCHEN
+
+Berlin, 16. August 1904 (?) 303
+
+Leben entsteht aus Leben, Seelisches aus Seelischem, Reinkarnation. Läuterungsstufen der Seele. Durch die eigene Höherentwicklung erlösen wir nicht nur uns, sondern auch die Welt.
+
+# DIE GESTALTUNG DES MENSCHEN I
+
+Berlin, undatiert 1904 310
+
+Mensch als Bürger der physischen, der seelischen und geistigen Welt. Atma entspricht dem Mineralreich, Budhi entspricht der Lebenswelt, Manas entspricht der Tierwelt. Physischer Leib, Lebensleib, Empfindungsseele, Verstandesseele und Bewusstseinsseele.
+
+# DIE GESTALTUNG DES MENSCHEN II
+
+Berlin, undatiert 1904 313
+
+In der lemurischen Zeit ergreift das Ich Wohnung im Menschen. Entwicklung des Menschen durch sieben Bewusstseinszustände.
+
+# DIE REICHE
+
+Berlin, 5. September (1904?) 316
+
+Der Mensch muss sich zur Erkenntnis der Naturreiche bringen, um diese wieder zu vergeistigen. Entwicklung ist das Hineinragen des Späteren in das Frühere.
+
+# MITTELALTERLICHE WEISHEIT
+
+9. September 1904 319
+
+Die Dichtungen des Heinrich von der Aue als Beispiel für mittelalterliche Weisheit im Sinne der Theosophie.
+
+# APOKALYPSE I: DER PFAD DER ERKENNTNIS – EINFÜHRUNG IN DIE APOKALYPSEN
+
+Berlin, 3. Oktober 1904 323
+
+Der Pfad der Erkenntnis als Voraussetzung zum Verständnis der Apokalypsen. Liebe für das Ungreifbare, Kontrolle der Gedanken, Gleichmut, Duldsamkeit, Glauben, Gleichgewicht, Sehnsucht nach wirklicher Freiheit. Erste Stufe der Schülerschaft: Heimatlosigkeit; zweite Stufe Einsicht in Reinkarnation und Karma; dritte Stufe: Schwan: Befähigung zum Verfassen von Apokalypsen. Die Apokalypse des Johannes schildert die sieben Unterrassen der fünften Wurzelrasse.
+
+# APOKALYPSE II
+
+Berlin, 10. Oktober 1904 334
+
+Die Verdichtung des Ätherleibes im Verlaufe der Rassenentwicklung. Der lemurische Mensch (Adler), der atlantische Mensch (Löwe), der arische Mensch (Stier). Aufgabe der gegenwärtigen Menschheit und der Theosophie: Bruderliebe, Pneumatologie, Selbstautorität. Die sieben Gemeinden der Apokalypse entsprechen den sieben Unterrassen der fünften Wurzelrasse.
+
+# ÜBER DEN ANFANG DER BIBEL – SIEBEN RUNDEN – GENESIS
+
+Berlin, 12. Oktober 1904 343
+
+Beginn der Bibel in vorarchäologischen Zeiten. Werbung des Menschen in der siebten Runde durch Aufsaugen von Mineral-, Pflanzen- und Tierreich. Den sieben Schöpfungstagen entsprechen sieben Runden. Geburt und Tod als Folge der Ausbildung des Zentralnervensystems und der Zweigeschlechtlichkeit; Bedingung dafür, dass der Mensch sich wieder zum Geistigen wendet.
+
+# APOKALYPSE III
+
+Berlin, 17. Oktober 1904 351
+
+Insel Patmos als Bild für eine Mysterienstätte. Intuition als Voraussetzung für das Schauen in die Zukunft jenseits der eigenen Wurzelrasse. Dreieinigkeit. Ähnlichkeit der Buddha- und der Christus-Geschichte. Buddhas Leben endet mit der Verklärung, das Wirken des Christus be
+
+---
+
+ginnt mit der Verklärung, die ihn als den »Weg«, die »Wahrheit« und das »Leben« offenbart. Das mystische Lamm.
+
+## APOKALYPSE IV
+
+Berlin, 24. Oktober 1904 360
+
+Der Leidensweg Christi als öffentliches Abbild der Vorgänge in den Mysterienstätten. Das Evangelium als Offenbarung der Mysterienweisheiten: Öffnung der Siegel. Die geistige Führung der Menschheit durch »Heilige Geister«, durch »Gottessöhne« und durch »Väter«. Der Durchgang des Logos durch ein Engelstadium, durch das Fleisch zum Vaterstadium. Die Posaunen und die drei Drittel der Menschheit.
+
+## ÜBER DAS HELLSEHEN
+
+Berlin, 30. Oktober 1904 374
+
+Die Bewusstseinszustände des Menschen (Wachbewusstsein, das traumerfüllte Schlaf-Bewusstsein, das traumlose Schlaf-Bewusstsein) als Voraussetzung für die geistige Höherentwicklung. Das Ich-Erlebnis. Stufen höherer Erkenntnis. Kontinuierliches Bewusstsein.
+
+## APOKALYPSE V
+
+Berlin, 1. November 1904 384
+
+Die Zukunft der Menschheit der fünften Wurzelrasse. Das Entsiegeln des Buches mit sieben Siegeln: Die sieben Einheiten einer Entwicklungsreihe. Die sieben Etappen der Menschheitsentwicklung: Der Auszug in die Welt (physischer Körper), Einleben in das Lebensprinzip, Gerechtigkeit, Liebe. Mit dem Untergang der fünften Wurzelrasse fallen auch die anderen Siegel. Die Posaunen: Die sechste Wurzelrasse lebt mit Karma-Erkenntnis; Kampf Michaels mit dem Drachen; die siebente Wurzelrasse führt zum himmlischen Jerusalem.
+
+## ZUSAMMENFASSUNG DER VORHERGEHENDEN VORTRÄGE
+
+Berlin, 1. November 1904 399
+
+Der Einweihungsgrad des Apokalyptikers. Die Entwicklung der Menschheit über Adler-, Löwe- und Stier-Menschen. Die neue Menschheit mit drei Idealen: Bruderliebe, Pneumatologie und Selbstautoriät. Die Irrungen der Wurzelrassen. Dreieinigkeit. Die Inkarnation des Logos.
+
+## APOKALYPSE VI
+
+Berlin, 7. November 1904 404
+
+Der Mensch kann sich durch die Beobachtung der göttlichen Gesetze seinem göttlichen Ziele nähern. Das Evangelium als die frohe Botschaft des fleischgewordenen Gottes und der Befreiung des Menschen aus der Materie, um durch den Sohn zum Vater gelangen zu können. Die Apokalypse kann als geheime Offenbarung begriffen werden durch die Kraft der Gnade, die entwickelt werden muss.
+
+## DIE SIEBEN NACHATLANTISCHEN UNTERRASSEN
+
+Berlin, 11. November 1904 408
+
+Die Welt ist nach Gedanken gebaut. Die Bezeichnungen der Wochentage zeugen davon. Die Vierteilung eines jeden Tages. Die sieben Unterrassen, die zugehörigen inspirierenden Plane und Motive. Die Aufgabe der Theosophischen Gesellschaft besteht im Gemeinschaftsleben und im Prinzip der Liebe.
+
+## ÜBER DIE WANDERUNGEN DER RASSEN
+
+Berlin, 1904 416
+
+Die Wanderungen der Rassen in der fünften nachatlantischen Rasse unter der Leitung des Manu. Ausgangszentrum im Bereich der Wüste Gobi. Drei Aussendungen zur Schaffung der Religion, der materiellen Kultur und zur Schaffung von Staaten (zwecks Konsolidierung der Leidenschaften). Römer: Persönlichkeitskultur; Griechen: Kunst; Vorderasien: Geist. Zusammenschluss der vorhergehenden Kulturen in der vierten Unterrasse durch Golgatha: Die Juden bilden Christus, die Griechen verstehen Christus, die Römer werden Christen. Gralsströmung und Rosenkreuzer.
+
+## APOKALYPSE VII
+
+Berlin, 14. November 1904 428
+
+Die Apokalypse als die Darstellung der Menschheitsentwicklung. Das Erleben des schaffenden Lichtes in den Sinnen als Voraussetzung zum Erleben der Mysterien. Sieben Bruderlogen als die Leuchter der sieben Unterrassen. Die Gemeinschaft als Ort der Inkarnation höherer Wesenheiten: die sieben Engel. Die sieben Gemeinden und die sieben Unterrassen.
+
+## ENTSTEHUNG VON KARMA
+
+Berlin, 14. November 1904 434
+
+Persönliches Karma entsteht durch Geburt und Tod; es beginnt in der Mitte der lemurischen Rasse und hört Ende der sechsten Wurzelrasse auf.
+
+---
+
+In der Mitte der lemurischen Zeit Bildung von drei Menschen-Wesen: höhere Tiere, dumpfe Menschen, Träumer. Sündenfall als Voraussetzung für Freiheit. Berufung der Tiergattungen zur Menschwerdung. Wir verdanken dem Pferd unsere Verstandeskultur.
+
+## DIE GEBURT DES LICHTES – EINE WEIHNACHTSBETRACHTUNG
+
+Berlin, 19. Dezember 1904 441
+
+Der Weihnachtsbaum. Die Entwicklung der Menschheit der fünften Wurzelrasse durch die Kulturepochen; deren Motive in den Tierkreiszeichen des Frühlingspunktes. Vom Eingottes- über den Zweitgottes-Glauben zur Dreieinigkeit. Die Einweihungsstufen des Mithras-Dienstes. Die Geburt des Lichtes zur Zeitenwende als Voraussetzung für die erneute Harmonie von Menschen- und Götterwelt.
+
+## KOSMOLOGISCHE UND BEWUSSTSEINSENTWICKLUNG
+
+Berlin, 24. Dezember 1904 459
+
+Sieben Bewusstseinszustände. Jeder Bewusstseinszustand durchläuft sieben Lebenszustände, jeder Lebenszustand durchläuft sieben Formzustände. Der Pitri als durchgehendes Prinzip durch alle 343 Zustände.
+
+## DIE ENTWICKLUNG DES MENSCHEN
+
+Berlin, 25. Dezember 1904 464
+
+Höherentwicklung vollzieht sich erst durch Heraussetzen des Niederen, um es anschließend wieder aufzunehmen, zu vergeistigen. Als nächste Aufgabe steht an, den Astralleib zu bearbeiten: Ausbildung der Chakren.
+
+## DIE RUNDEN AUF DEN SIEBEN PLANETEN
+
+Berlin, 26. Dezember 1904 468
+
+Die Elemente- und Ätherarten als Aggregatzustände der physischen Materie. Sinn der physischen Entwicklung ist die Zentrums-Bildung. Bildung von subjektiv und objektiv. Saturn-, Sonne-, Monden-, Erden-Entwicklung. Durchgang durch die Wurzelrassen mit dem Ziel der Verwirklichung des Christus-Prinzips im menschlichen Körper.
+
+## RASSENBILDUNGEN BIS ZUR BEFRUCHTUNG MIT MANAS (TIERABSPALTUNGEN)
+
+Berlin, 27. Dezember 1904 474
+
+Wie verbindet sich der astrale Mensch mit dem Äthermenschen? Äthermensch entspricht der polarischen Rasse. Heraussetzen der Amphibien. Hyperboreische Rasse setzt das Vogelgeschlecht heraus. Schließlich Abspaltung der niederen und höheren Säugetiere, sodass Bildung eines Säugetier-Menschen möglich war. Dieser wird umschwebt von göttlicherer Liebe und Manas; in ihm geht die sinnliche Liebe auf. Bildung von Karma sowie von Gut und Böse als Voraussetzung für Liebe und Freiheit.
+
+## VORGÄNGE IN DER ZWEITEN HÄLFTE DER LEMURISCHEN RASSENENTWICKLUNG
+
+Berlin, 28. Dezember 1904 480
+
+Der Gott der Weisheit wird abgelöst vom Gott der Liebe. Christus-Prinzip zur Erlösung vom luziferischen Prinzip. Entstehung des Bösen als Bedingung zur Freiheit.
+
+## BILD VON DER ENTWICKLUNG AUF DEM MOND UND AUF DER ERDE
+
+Berlin, 29. Dezember 1904 483
+
+Die Konstitution der Naturreiche auf dem Mond. Schritt vom Mond zur Erde verbunden mit dem Heruntersteigen der Naturreiche um eine Stufe. Mit dem Mineralreich Ausbildung des Knochensystems des Menschen; mit dem Pflanzenreich Ausbildung des empfindenden Muskel systems; mit dem Tierreich bilden sich die Menschenrassen aus.
+
+## VERGANGENE UND KÜNFTIGE RUNDEN
+
+Berlin, 30. Dezember 1904 487
+
+Die sieben Formen des Pitris während einer planetarischen Entwicklung: Sieben Runden mit sieben verschiedenen Formen: erstens Spiegelung im andern, Objektivität; zweitens Zahl, Maß und Gewicht; drittens Wahlverwandtschaft; viertens Geburt und Leben; fünftens das Böse; sechstens das Wort – Logos; siebtens die Gottseligkeit.
+
+## DAS DREIKÖNIGSFEST
+
+Berlin, 30. Dezember 1904 491
+
+Identität von Dreikönigsfest und Fest des wiedergefundenen Osiris. Die drei Magier als Vertreter der drei Wurzelrassen; Lemurier, Atlantier, Arier. Der aurische Stern von Nazareth. Die sieben Bewusstseinsstufen des Menschen, die sieben Reiche der Natur, die sieben Formzustände.
+
+## TRENNUNG IN MÄNNLICH UND WEIBLICH
+
+Berlin, 31. Dezember 1904 503
+
+Erste Menschheit hermaphroditisch. Trennung in Geschlechter verbunden mit einem Fall der Menschheit. Arhats ohne Karma; Menschen mit
+
+---
+
+Karma. Arhats heilig, aber unfrei. Mensch kann heilig werden, in Freiheit. Erlöst der Mensch sich selbst, erlöst er auch Luzifer. Das Willensprinzip des Männlichen, das zur sinnigen Seelenvertiefung neigende Weibliche. Die atlantische Verführung.
+
+# ANHANG
+
+Faksimile der Übertragung des Johannesprologs durch Rudolf Steiner (zum Vortrag vom 11. Juli 1904), Notizzettel 3477–3478 508
+
+Faksimile zum Vortragsmanuskript vom 7. November 1904 (Apokalypse VI) 510
+
+Zu dieser Ausgabe 515
+
+Hinweise zum Text 517
+
+Glossar zu den indisch-theosophischen Begriffen 561
+
+Namenregister 570
+
+Sonderhinweis zu Äußerungen über *Rassen* in der Rudolf Steiner Gesamtausgabe 573
+
+# WELTENWEISHEIT UND MENSCHENWEISHEIT
+
+Berlin, 28. September 1903
+
+Ich möchte heute noch auf einiges zurückkommen, das die menschlichen Prinzipien betrifft. Wir müssen das, was in der Welt ist, aufsuchen so, wie es in uns selbst ist. Die Uhr ist eine Einrichtung, die nur möglich ist durch eine Intelligenz, die sie gefügt hat, zusammengestellt hat. Es ist töricht zu sagen: Die Uhr hat sich diese weise Einrichtung selbst gegeben. Ebenso töricht wäre es zu sagen: Der Mensch hat sich in seiner Gestaltung selbst geschaffen.
+
+Wir haben ein kleines Klavier in unseren Ohren, das *Corti’sche Organ*. Es sind da Härchen daran; und das Härchen ist so, dass es auf einen bestimmten Ton gestimmt ist. Das tont mit, wenn ein Ton am Klavier angeschlagen wird. So übertragen sich die Schwingungen der Luft auf die Härchen, welche dann mitschwingen. Ebenso verhält es sich mit dem Auge. Auch das Auge ist ein komplizierter Apparat, der durch die Weisheit entstanden ist. Der Mensch ist in dieser Weise materialisierte Weisheit. Die Welt ist nach den Gedanken gemacht worden.
+
+Die Weisheit im Raume nennen wir *kosmische Weisheit* oder [*Mahat*]. Mahat ist die Summe der Weisheit, die in der Welt ausgebreitet ist. So ist es ein Herausschälen der Weisheit aus der Uhr. Das ist ebenso, wie der Mensch die Weisheit aus der Natur zieht.
+
+Mahat ist das Urbild der Weisheit. *Mala* ist das Bild von Mahat in dem Menschen. Nach indischer Lehre ist es so: Brahma war zunächst allein, hat geschlummert, dann erwachte er. Eine Nacht des Brahma war vorüber. Es erwacht in ihm die schöpferische Weisheit. Nichts war noch da außer der schöpferischen Weisheit des Brahma. Und diese schöpferische Weisheit ist Mahat. Ein Sonnensystem ist als Gedanke im Geiste Brahmas vorhanden. Wir denken ihm diesen kosmischen Gedanken nach.
+
+Überall in der Welt ist Weisheit vorhanden. Sie fließt aus einer Art geistigen Keim in unsere Seele. In der Seele ist die kosmische
+
+---
+
+Weisheit. Mala lebt in vielen. Mahat lebt nur einmal. Indem Mahat individuell wird, also Mala wird, braucht er ein Verbindungsglied. Das ist Ahankara. Durch Ahankara hängt jeder Mensch zusammen mit der allgemeinen Weltenweisheit.
+
+Ich versenke mich in mich und trete zurück von der äußeren Sinnenwelt. Indem ich abbreche diese Brücke, ist mir gestattet, nach innen zu schauen. Das Gemeinsame von allem habe ich in mir durch Ahankara. Ich muss zur Weltenweisheit zurückgehen. Zuerst findet der Mensch in sich Manas und dann findet er Ahankara, das ihn wieder zur Einheit führt, zur göttlichen Weisheit. Wenn wir durch Ahankara gehen, werden Sie sich klar werden darüber, dass wir einen wichtigen geistigen Prozess vollziehen. Wir gehen im Allgemeinen mehr auf. Es ist das Bewusstsein [davon], dass das eigene Selbst, ein Stück des göttlichen Selbst ist. Ich beharre dann nicht in meinem Selbst, sondern ich fange an, mich als ein Glied des allgemeinen Mahat zu fühlen. Ich bin nur dadurch, dass ich ursprünglich durch einen göttlichen Gedanken in die Welt hineingesetzt worden bin. Ahankara führt zum Aufgehen in der Gedankenwelt Gottes. Ich und der Vater sind eins. Ich spreche nicht, weil ich es will, sondern weil ich Ahankara einfließen lasse. Für die physische Sinneswelt würden wir einen Fehler begehen zu sagen: «Ich und die anderen sind eins.» Mahat ist zugleich das, was wir in der Theosophie Atma nennen.
+
+Ich denke zwei Gedanken. Erstens: «Ich will morgen in die Stadt gehen.»; und zweitens: «Ich will einen Freund besuchen.» Das sind zwei Gedanken, die in meiner Seele als Einheit vorhanden sind. So sind die Menschen Gedanken von Mahat. Die Menschen sind gemeinsam in Mahat. Mahat hat viele Atmas, aber alle Atmas sind beisammen in Mahat. Dieser Mahat des Weltensystems, in dem wir uns entwickeln, ist der «dritte Logos». Und so können wir sagen: Wir bestehen aus drei Prinzipien, erstens aus Manas, zweitens durch Budhi und drittens durch Atma. Erheben wir uns dazu, so sind wir nicht mehr Einzelne.
+
+Auf der Stufe des Atma nennen wir den Gedanken Bild. Wir wollen den Unterschied jetzt noch deutlicher zu fassen versuchen. Was in uns als Gedanken lebt, ist seiner wahren Bedeutung nach ein Schatten-
+
+bild, seiner wahren Wesenheit nach. Er verhält sich seiner wahren Wesenheit nach wie der Schatten zum Gegenstand. Das Schattenbild ist nur da, wenn die Lampe da ist und ich da bin. Man kann aber auch so sitzen, dass man immer nur die Schattenbilder sieht. Wenn wir hinausgehen könnten in jene Sphäre, wo die wahren Wesen dieser Schattenbilder sind, so würden wir die Urbilder erkennen. Und auch diese Urbilder nennen wir «Spirit». Spirit ist geistige Wesenheit, die zugleich Gedanke und Wille ist. Dadurch ist sie schöpferischer Gedanke. Die lebendigen Wesenheiten sind Wirklichkeiten, sind die Individualität. Ein intellektueller Gedanke ist das, was mit Kama-Manas lebt. Wenn wir den intellektuellen Gedanken frei machen von den Sinnbildern, so bleibt uns nur eine graue Allgemeinheit, ein abstrakter Gedanke. Durch dieses abstrakte Denken muss die Seele durchgegangen sein. Dann fließt statt von unten neuer Inhalt von oben herein. Wenn wir über die Straße gehen, so werden die Gedanken von außen angeregt. Sie müssen aber auch von innen heraus Eindrücke erhalten können.
+
+Wir können uns passiv machen, das heißt man kann sich Mahat, dem dritten Logos hingegeben. Das nennen wir dann «Spirituelles» oder auch «Intuition».
+
+So fließt das Geistige durch Ahankara, durch Manas in uns hinein. Deshalb kann Manas von oben, von Budhi, und von unten, von Brahma, von der Sinnenwelt beeinflusst werden. Wir haben damit neun Prinzipien. Sodann haben wir noch mit dem Zehnten zu tun. Das siebente Prinzip ist der dritte Logos. Wir können [auch] nur von sieben Prinzipien sprechen. Wenn ein Prinzip nach unten verschwindet, so muss eines von oben eintreten.
+
+Der Mensch hat gegenwärtig vier Prinzipien ausgebildet. Das fünfte Prinzip ist im Entstehen begriffen, und die zwei folgenden sind noch ganz unentwickelt. Was wir unten abwerfen, muss oben ersetzt werden. Wir füllen mit unserm Bewusstsein nicht den ganzen Körper aus. Wir haben den Manas-Körper im Kamaloka ebenso wenig in der Gewalt, wie Sie den physischen Körper hier in der Gewalt haben. Kommen wir nach dem Devachan, dann tritt Ahankara oder Budhi ein.
+
+24
+25
+
+---
+
+26
+
+Im Devachan ist es nicht so kalt, wie es oft hingestellt wird, weil die Geister, die durchgehen, nicht fühlen. Während wir im physischen Leben und im Kamaloka am Besonderen hängen, fühlen wir hier das Große, das Ganze, das große Urwesen der Welt, in dem alle Dinge zusammenfließen. Umso mehr wird Ahankara lebendig, als wir uns von der Besonderheit im Kamaloka befreit haben. Je mehr Kama verschwindet, umso mehr tritt bei uns Budhi auf.
+
+Die Entwicklung des Budhi ist eine wesentliche Entwicklung des Gefühlslebens, aber so, dass die Welt der Sonderinteressen sich verwandelt in die Welt der Einheitsinteressen. Der Myste nennt das die Reinigung des Astralkörpers. Es wäre falsch zu glauben, dass der Myste gefühllos werden soll. Im Gegenteil: Man soll nicht kalt der Welt gegenüber stehen, sondern hingeordnet nach dem Mittelpunkt, von dem jedes Einzelwesen ein Teil ist. Wir müssen objektiv werden.
+
+Gerechtigkeit im Fühlen, das ist dasselbe, was Paulus das Gesetz nennt. Paulus sagt: Durch das Gesetz ist die Sünde in die Welt gekommen. Ohne das Gesetz wäre die Sünde tot.
+
+Die Kama-Natur beim Löwen, beim Tiger werden Sie nicht Sünde nennen können. Weil das Tier nicht imstande ist, das, was draußen als Kama lebt, veredelt in sich wiederzuerwecken. Anders ist es, wenn das Wesen imstande ist, alle die Sonderinteressen unter dem Gesetz zu vereinigen. Budhi unterliegt dem Gesetz. Gäbe es nur tierische Kama-Naturen, so gäbe es keine Sünde auf der Welt.
+
+Aus Budhi heraus ist das Gesetz geboren. Solange Kama nur in der Natur auftritt, ist keine Sünde vorhanden. Erst nachdem es Wesen gibt, durch die Budhi wirken konnte, das heißt Wesen, die das Gesetz gestalten konnten, gab es Sünde. Ich verwende die Kraft des Fühlens, um zur großen Einheit der Natur hinzukommen. Das Tier kann Befriedigung im Sinnengenuss finden. Der Mensch nicht, denn Budhi verlangt mehr. Budhi ist die Summe der Gefühlswelt. Dieselbe ist verteilt worden in die einzelnen Geschöpfe. Kein Tropfen der Gefühlswelt soll verloren gehen. Was ungeläutert zurückbleibt, das lebt zwar, aber unsere Aufgabe ist es, alles das wieder zurückzuführen zu dem gemeinsamen Reservoir, aus dem es hervorgegangen ist. Deshalb verlangt die Theosophie das gemeinsame Wirken. Unsere
+
+27
+
+Aufgabe ist es, die Gefühle zu sammeln, damit sie als Einheit auf den neuen Planeten übergehen können. Was vom Mond zurückgeblieben ist, ist als achte Sphäre unverarbeitet zurückgeblieben. Dieser zurückgebliebene Rest unseres Mondes hängt mit dem unverarbeiteten Teil unserer Vorfahren zusammen. Es ist das, was uns herunterzieht. Das sind Marksteine, die mitgeschleppt werden müssen, und damit hängen die Verzögerungen der kosmischen Entwicklung zusammen. Dies hängt auch mit dem zusammen, was wir unter den Brüdern des Schattens und deren Einfluss kennengelernt haben.
+
+---
+
+28
+29
+
+# HAT ALLES IN DER WELT EINEN NÜTZLICHEN ZWECK?
+
+Berlin, 30. Oktober 1903
+
+Heutige fünfte Menschenrasse in der vierten Runde. Jede Runde sieben Rassen. In früheren Runden waren wir anders gestaltet. Unser Mond heute ist Überrest eines Planeten, wo wir uns zu solchen Wesen, wie wir heute sind, entwickelten.
+
+Mond = Kosmos der Weisheit, Erde = Kosmos der Liebe. Vierte Runde Erde, dritte Runde Mond. Mondbewohner ohne Gehirn und Nerven –, Wesen leichterer Beschaffenheit, mit dem ›Sonnennetz‹ [...].
+
+Eine geistige Hülle umgab den Mond –, leitete die Wesen – wie heute die Bienen, die weise handeln, ohne dass die einzelne weise ist.
+
+Nach Ablauf dieser Runde verblieb der Same aufgehoben und leitete sich zur nun entstehenden Erde hinüber. Der nun fertige Mondplanet wurde der Mond unserer Erde.
+
+Aus dem ›Samen‹ entwickelte sich der Mensch –, und von der Geisthülle, welche den Mond umgab und die Wesen von außen leitete, senkte sich in jedem Menschen ein Tropfen. Dadurch konnte der Mensch selbst etwas wollen und schaffen und sich fortentwickeln.
+
+# KOSMISCHE EPOCHEN UND ZUSTÄNDE UND DEREN ENTSPRECHUNG IN DER MENSCHLICHEN ENTWICKLUNG. DIE ACHTE SPHÄRE
+
+Berlin, 10. November 1903
+
+Im großen Weltenzusammenhang nennt man den irdischen Kosmos den Kosmos der göttlichen Liebe, den vorhergehenden Kosmos den Kosmos der Weisheit und den folgenden den Kosmos des göttlichen Feuers. Außer diesen drei Zuständen ist es dem seherischen Blick recht schwer, nach vorn oder nach rückwärts zu sehen.
+
+Auch in dieser kosmischen Entwicklung ist eine Art Parallelismus mit der menschlichen Entwicklung zu bemerken. Man nennt den Kosmos, welcher dem Mondenkosmos vorangegangen ist, den Kosmos der göttlichen Allmacht. Diesem würde vorangehen der Kosmos des Seins. Der sechste ist der Kosmos der Göttlichkeit, der siebente der Kosmos des Seins. In Sinnetts »Esoterischer Buddhismus« finden Sie einen Begriff, der aber immer unaufgeklärt bleibt: die sogenannte achte Sphäre.
+
+Wir würden also dann zu unterscheiden haben die irdische Sphäre, dann die drei, welche ihr vorangehen, und die drei, welche ihr nachfolgen. Ich will Ihnen einmal ein kosmisches Grundgesetz klarmachen, indem ich Ihnen schildere, wie sich ein Kosmos ausnimmt am Ende seiner Entwicklung. Er entwickelt während seiner Entwicklung sieben Runden und sieben Rassen. Was geschieht nun, wenn Sein oder Weisheit in das Pralaya kommt und nach der nächsten Epoche hinübergeschoben werden soll? Die Gesamtsumme würde in einen Keim treten und auf den neuen Kosmos übergehen. Beim Übergang von einer kosmischen Entwicklung zur nächsten geschieht es, dass ein gewisses Ergebnis zu dem Pralaya hinübergeschickt wird, und der Rest übrigbleibt. Der Rest unseres früheren Kosmos ist der Mond. Zu ihm gehören auch die Kräfte, welche in und auf demselben sind. Er ist umgeben von kosmischen
+
+---
+
+Kräften. Ebenso wird es sich verhalten, wenn einmal die Erde in den nächsten Zustand übergeht. Alles, was an Kama da ist und an Kama-Manas, wird im höheren Manas geläutert. Die künftigen Bewohner werden einen mehr aktiven Gesichtssinn haben. Es wird ein astrales Schauen der Untermenschlich-Entwickelten und ein astrales Schauen der Übermenschlich-Entwickelten geben. Das astrale Schauen der Mondmenschen war undifferenziert gegenüber unserem Schauen. Das Schauen der künftigen Menschen wird noch differenzierter sein.
+
+Der Rest, die achte Sphäre, ist also immer noch in den sieben anderen kosmischen Sphären vorhanden. Es ist also so, dass der Mond mit der Kama-Masse unsere achte Sphäre bildet. Der Mond hängt mit der chemischen Entwicklung des Menschen zusammen, mit der Entwicklung des Embryo und mit dem ganzen Sexualleben. Die Grundlagen dazu werden gelegt in der lunarischen Epoche. Das Körperliche des Menschen wird lange vorher weisheitsvoll vorbereitet. Das Triebleben muss so vorbereitet werden, dass es sich so äußern kann, wie es sich auf der Erde zeigt. Das Triebleben muss Hunger verspüren, und das Körperliche muss so sein, dass der Hungertrieb angeregt wird. Die Anregung zum Hunger geschieht in der astralen Sphäre. Die Wirkung zeigt sich am physischen Körper.
+
+Die Doppelgeschlechtlichkeit tritt erst auf in der vierten Runde. Vorher gibt es diese nicht. Ich erinnere an Adam-Kadmon. In der Natur als solcher ist tatsächlich die Zweigeschlechtlichkeit nicht vorgesehen. Sie braucht sie eigentlich auch nicht. Wir wissen, dass zur Fortpflanzung die Zweigeschlechtlichkeit nicht notwendig ist. Es gibt heute viele Wesen, welche keine Zweigeschlechtlichkeit haben. Ein Wesen geht da aus dem anderen hervor. Die Natur kam nur dem höheren Mentalplan entgegen. Der wirkte in der Richtung, möglichst differenzierte Wesen zu schaffen. Nach zweitausend Jahren würde ein menschliches Wesen keinen wesentlich verschiedenen Körper finden, wohl aber eine Mischung zwischen Vater- und Mutter-Charakter-Eigentümlichkeiten. Eine größere Qualitätenmischung wird dadurch herbeigeführt. Die physische Entwicklung ist nur der andere Pol der mentalen, sie ist das Spiegelbild.
+
+Der Mond ist mit allen lunarischen Epochen noch bekleidet. Er hat fortwährend das Bestreben, den Menschen wieder zurückzuziehen nach den lunarischen Epochen. Er wirkt also fortwährend im Menschen, um ihn aufzuhalten in dem Streben nach dem höheren Manas.
+
+
+
+Der Mond trennt sich ab. In diesem Abschnitt stecken die Kräfte, welche schwarze Magier herauszuziehen vermögen.
+
+Der große astrale Körper unserer Erde, bevor der physische Körper der Erde entsteht.
+
+Der Mars ist als ein vorhergehender Planet, der Merkur als ein nachfolgender Planet im «Esoterischen Buddhismus» dargestellt. Der Mars ist in einem Zustand, der noch astral ist. Der Merkur ist in einem Zustand, der schon wieder astral ist; der ist aber schwer zu unterscheiden.
+
+In jedem Menschen sind noch Kräfte vorhanden, welche aus der achten Sphäre stammen. Deshalb pendelt der Mensch immer zwischen Kama und Manas hin und her.
+
+---
+
+32
+33
+
+# WOHER MANNIGFALTIGKEIT? - AUS DER EINHEIT
+
+Berlin, 16. November 1903
+
+Der Mensch besteht aus Körper, Seele, Geist, aus drei Epochen des Kosmos: Vergangenheit, Gegenwart und Zukunft.
+
+Unsere heutige Runde: Gegenwart; die vorhergegangene Vergangenheit; was kommen wird, die nachfolgenden Runden: Zukunft. [...]
+
+›Vergangenheit‹ als Ausdruck des Urgeistes. Man denke sich den Urgeist als Wasser; alles Körperliche ist der erstarrte Zustand des Wassers. ›Gegenwart‹ ist die Seele; die ›Zukunft‹ liegt in uns als Keim. Noch können wir die Seele nicht sehen, doch gehen wir der Zeit entgegen, da auch die Seele zu sehen ist. Die Vergangenheit ist gleich der Zukunft –, der Inhalt beider ist die Gegenwart. Verschieden und mannigfaltig ist der Inhalt –, vom Einen ausgegangen –, die Vielheit zur Einheit zurück. – Der Urgeist als Schöpferkraft gedacht als Zentrum.
+
+Nun gibt die Schöpferkraft Gedanken von sich als Strahlen vom Zentrum ausgehend. Ein jeder solcher Strahl ist eine Seele. Nun ist nicht jede Seele [...] die Schöpferkraft, wohl aber ein Teil davon –, betätigt sich und strebt dem Ganzen wieder zu. Könnten wir die
+
+
+
+Seele selbst mit dieser Schöpferkraft vergleichen: Die Seele produziert fortwährend Gedanken und entsendet sie in den Raum; aber nicht jeder Gedanke ist selbstständig und kann als Wesen selbstständig wirken wie die Seele als Gottesgedanken. Die Bahn der Entwicklung ist zweierlei: Urquell als Schöpferkraft – und Gedanken.
+
+Wir können den Grund der Hingabe Gottes nicht erforschen. Von einer Maschine können wir durch Studium derselben wissen, wie sie arbeitet. Bei einer Pflanze, obgleich wir auch hier die Gesetze studieren können, ist es schon schwieriger, ihre Gestaltung und ihr Werden zu bestimmen. Beim Tier ist es noch schwieriger. Beim niederen Menschen können wir noch durch Beobachtung bestimmen, was er tut, was beim höher Entwickelten nicht mehr möglich ist. Da ist es ein Akt der Freiheit. So ist der höchste Akt der Freiheit des Schöpfers diese grundlose Hingabe an die Welt aus Liebe. Kein Zwang. Es ist also kein logischer Grund für uns beim großen Geist da. Platon als Initiierter – wie auch andere Weise – nannten die Liebe den Grund des Weltalls.
+
+
+
+Summe der Geschöpfe
+diese Gedankenstrahlen
+— Vergangenheit
+
+Gegenwart als Verbindung zwischen Vergangenheit und Zukunft ist die Kraft in uns als Astralkörper.
+
+Dritter Logos Weisheit. Deshalb Verzicht auf Warum? Weil Gott als Schöpfer im Akt seiner höchsten Freiheit die Welt erschaffen:
+
+Gott, Urquell, Einheit, von sich durch Hingabe an die Welt aus Liebe eine Vielheit. – Beispiel: Wasser versprengt in lauter Tropfen; der Tropfen ist doch dasselbe Wasser –, dann Annic Besant: Feuer, und aussprengend – Funken.
+
+Da wir nun Gedanken – Tropfen, Funken – des Höchsten sind, erinnern wir uns unseres Ursprungs. Erinnerung = Gedächtnis – Platon.
+
+---
+
+34
+Im Anfang war das Wort – unaussprechlich! Spreche ich es aus, so besteht es aus Buchstaben; jeder Buchstabe hat einen andern Laut. Wir sind – jedes Wesen – ein solcher Buchstabe zum Wort. Deshalb die Verschiedenheit der Wesen, weil, um ein Wort zu sprechen, verschiedene Laute notwendig sind.
+
+Wort – Mannigfaltigkeit –, das bist Du – es bin ich – ich bin ich!
+
+I. Logos Allmacht – II. Logos Kraft – III. Logos Weisheit
+
+35
+# ÜBER SINNETTS
+«ESOTERISCHER BUDDHISMUS»
+
+Berlin, 17. November 1903
+
+Zwei Einwände gibt es, die häufig gemacht werden. Sie sind jetzt gerade am leichtesten zu fassen. Das Sinnett’sche Buch war das erste populäre [theosophische] Buch. Dieses Buch hat viele Mitglieder, die jetzt einen Namen haben, erst für die Gesellschaft erworben. Das Buch ist entstanden unter dem Einfluss eines Meisters. Der Meister wollte dem Abendlande diese Lehren zugängig machen. Teilweise ist es auch aus Fragen entstanden, die Sinnett selbst an den Meister gerichtet hat. Der Verkehr ist vermittelt worden durch Frau von Blavatsky.
+
+Das Buch hat eine große Reihe von Leuten, die jetzt führende Persönlichkeiten sind, für die Sache erst gewonnen. Das Buch «Isis unveiled» war ein viel zu schweres Buch. Die «Geheimlehre» ist erst viel später erschienen.
+
+Dieses Sinnett’sche Buch enthält alle Fragen – wenigstens angedeutet –, auch diejenigen, von welchen ich neulich gesprochen habe, aber nicht in der Ausführung, die ich gegeben habe, sondern aus zwei Formen: Erstens aus der Weisheit selbst, dem Geheimgut der Meister unserer Loge seit Urzeiten; und zweitens aus dem anderen Teil, der äußeren Gestalt. Diese Gestalt ist angepasst den Betrachtungsweisen und der Vorstellungsart des Abendlandes. Aus diesen beiden Bedürfnissen ist das Buch hervorgegangen. Das Buch hat bis zu einem gewissen Grade schiefe Vorstellungen. Das beruht darauf, dass sie im Beginne nicht in ihrer ganzen Tiefe verstanden werden konnten. Die Arbeit im Einzelnen hängt immer ab von der Persönlichkeit des betreffenden Bearbeiters. Das, was Inspiration ist, ist der Weisheitskern, ein Vergleich aus höheren Regionen. Die Weisheit wird nicht in der Form erhalten, in der sie in unseren Büchern steht. Sie wird empfangen in der Arupa-Form. In die Form hat es der betreffende Bearbeiter zu bringen, sodass sich diese von dem ursprünglich Empfangenen immer noch unterscheidet.
+
+---
+
+36
+37
+
+Wir sind heute vielleicht imstande, noch deutlicher die Sachen zu sagen, als sie in der «Geheimlehre» stehen. Dieselben esoterischen Lehren leben nämlich auch in der Geheimlehre der Rosenkreuzer. Einige wenige haben sich mit dem Sinnett’schen Buch befasst. Eduard von Hartmann hat dazumal über das Sinnett’sche Buch eine Abhandlung geschrieben. Diese Abhandlung gipfelt darin, dass man es zu tun habe mit Gebilden der Phantasie, und in einem Satze, welcher warnt davor. Er kommt aber mit einer gewissen Unbefangenheit, die sonst im Abendlande nicht anzutreffen ist, dem Buch entgegen. Eduard von Hartmann hat sich bekannt gemacht mit der Siebenteilung. Er hat begriffen, dass das Höhere der Menschennatur aus Atma, Budhi, Manas besteht, und dass es unsterblich wird, wenn es zu einem Höheren hingezogen wird. Dadurch wird es eben auch unsterblich. Eduard von Hartmann sagt sich ganz richtig, dass erst im Verlaufe der dritten Runde eine Befruchtung eintritt von der Individualität, sodass also nicht gesprochen werden kann von einem Fortleben von dem, was von der dritten Runde an und in derselben sich entwickelt. Er kann nicht einsehen, was das im Menschen ist, das sich wiederverkörpert, wenn Sie den sechsten Teil noch nicht entwickelt haben. Sie sind also nicht unsterblich. Er kann also nicht einsehen, wie von einer Unsterblichkeit der Wesen aus der ersten, zweiten und dritten Runde gesprochen werden kann. Dann kommt die fünfte, sechste und siebte Runde; ist von Anfang an, das heißt von der ersten Epoche unserer ersten irdischen Entwicklungsreihe an, lunarisch. Dann kommt die irdische Epoche und nach unserer irdischen Epoche haben wir noch drei folgende. In jeder Runde haben wir sieben Rassen. Wenn auch der sechste Grundteil in unserer Menschheit noch nicht zur Entwicklung gekommen ist – von Anfang an war das, was unsterblich im Menschen liegt, schon vorhanden und zwar in einer viel vollkommeneren, in einer glänzenderen Weise war es vorhanden. Es war da. Was heute gleichsam untergetaucht ist, das war in einer früheren Epoche auch schon vorhanden – aber leibbefreit, noch nicht in den Leib eingezogen. Wir alle, die wir jetzt leben, dürfen, können Gedanken des göttlichen Urgeistes genannt werden. Unten entwickelt sich die physische Grundlage, die ätherische und die kamische Grundlage. Das ist die erste Kette der Entwicklung.
+
+Und nun stellen Sie sich vor, dass im Beginne der Entwicklung alle individuellen Seelen als Geister, als Spirits, vorhanden waren. Denken Sie sich diese ursprüngliche Kugel, die jetzt zerstoben ist, von grober Materie. Diese Kugel war in einer Atmosphäre rein geistiger Art, in welcher die einzelnen Seelen lebten. Sie waren noch jungfräulich und unberührt von jeder Stofflichkeit. Diese einzelnen Seelen lebten damals noch im innigen Einklang mit Atma. Sie waren noch eins mit Atma. Das erste Stadium der Seelenentwicklung ist noch «Sein bei Atma». Die Materie-Bildung geht weiter, aber die Geistentwicklung steigt herunter. Die Budhi kommt dem Körperlichen entgegen. Die Mondepoche entwickelt Manas in der schwebenden Atmosphäre, sodass jetzt schon Atma, Budhi, Manas entsteht, und vorbereitet wurde: Körper, Lebenskraft, Kama. In der dritten Runde vereinigen sie sich, die beiden, in Kama und Manas können sie sich verschlingen.
+
+In unserer Runden- und Rassenentwicklung sind zwei Strömungen, zwei Ströme zusammengeflossen. Einer, der herabgestiegen, und einer, der emporgestiegen war. Stellen Sie sich vor, auf einer Wiese eine Menge versammelt; sie wird geleitet von einem Führer. Jeder Einzelne baut sich ein Zelt und macht Fenster hinein. Die Gruppenseele denkt die Einzelnen. Die Einzelwesen waren zu der Gruppenseele in einem Verhältnis, wie meine linke und meine rechte Hand zu dem menschlichen Organismus. Von Anfang an waren die Wesenheiten da. Zuerst ist das Zelt noch zusammen und bequem. Dann wandelt es sich um zur Körperlichkeit. Denken Sie sich wieder die Lampe, die sich in vielen Kugeln spiegelt. Die Spiegelbilder werden dann selbst leuchtend. Jede einzelne Kugel wird selbst leuchtend und ein selbstsüchtiges Wesen.
+
+Und nun etwas von dem Zweck des Weltprozesses: Da haben wir die zwei Begriffe von der «Absicht» und von dem «Erreichen» zu vergleichen. Die Absicht ist das nach außen Wollende, und das Ende ist das, worin die Absicht sich verwirklicht hat. Am besten macht man sich das klar an einem konkreten Fall. Nehmen wir ein Mondmanvantara oder eine Erdepoche und darin das Pralaya. Im Mondmanvantara hat sich entwickelt: Kama.
+
+---
+
+38
+39
+
+Wodurch waren diese Menschen zustande gekommen? Sie wurden von außen her zusammengefügt durch Kama. Kama hat mit Liebe in ihnen gearbeitet, um sie zustande zu bringen. Sie gehen mit einem bestimmten Ziele aus dem Manvantara heraus. Was hineingezogen wurde, ist universelles Kama; was herausfließt ist jetzt Liebe. Es ist eine Umkehrung des Stromes. Brahma hat im Anfang die Tendenz, alles Kama auszuströmen. Das kommt dann zurück in einer anderen Form. Es geht durch Sonderwesen hindurch. Ausgestromte Weisheit und ausgestromte Liebe kommen zu Brahma wieder zurück. Der Weltenzweck ist das. Der Hunger ist gleich der Nahrung, weil vor der Sättigung derselbe Zustand vorhanden ist wie nachher.
+
+Weil Gott den Menschen die Schöpferkraft gibt, geben sie sie ihm wieder zurück. Was als Opfer gegeben wurde, das wird wieder als Opfer gegeben.
+
+Im Ganzen kann die Welt nur als Tat der Liebe, als Freiheit und als Opferung aufgefasst werden. Man darf den Weltprozess nicht von sich aus kritisieren. Die Gabe des Denkens ist nur den Menschen der fünften Runde eigen, während der fünften Runde wird er noch eine ganz andere Entwicklung haben, und in der sechsten wird er [Abbruch der Mitschrift].
+
+# ÜBER DEN WERDE-PROZESS DER MENSCHHEITSRASSEN
+
+Berlin, 1. Dezember 1903
+
+Ich werde heute über den Werde-Prozess der drei Menschheitsrassen bis zu den Anfangszuständen herauf sprechen. Bleiben wir zunächst bei unserer Runde und unserer Rasse. Es ist die vierte Runde und die fünfte Rasse, in der wir leben. Ich will beschreiben den Werdegang unserer jetzigen Rasse. [Ihr geht die atlantische] Rasse voran. Diese lebte auf einem Kontinent zwischen Amerika und Afrika. Teile von Afrika gehören noch dazu, zu gewissen Zeiten auch Ägypten – obwohl Ägypten wiederholt unter Wasser gestanden hat –, auch Grönland. Dieser Rasse ging voran die lemurische Rasse. In dieser Rasse nahm der Mensch von Kama das Manas auf. Dieser gingen zwei andere Menschheitsrassen voran. Man tut zu viel, wenn man die vorangehenden Rassen Menschenrassen nennt.
+
+Diejenigen Individualitäten, die unseren Kausalkörper ausmachen – das war vor der Mitte der dritten Rasse –, die waren eigentlich nicht inkarniert, sondern sie waren dazumal in einem Zustande geistig-kosmischer Senkung. Stellen Sie sich das zunächst einmal richtig vor. Ich werde ein Bild gebrauchen, um das völlig klar zu machen.
+
+Denken Sie sich: Ein Kind lernt schreiben, und man fängt dabei so an, dass man ein bestimmtes Buch nimmt, sagen wir ein Buch über Physik, und man lässt Sätze aus der Physik abschreiben. Es kommt aber nicht darauf an, dass wir a, c, i, u schreiben lassen, denn der Inhalt des Physikbuches schwebt gleichsam über dem Ganzen. Der Lehrer bildet die Vermittlung. Nehmen wir an, ich lasse das Kind deshalb die Sätze des Physikbuches schreiben, damit es sich daran gewöhnt, den Inhalt zu erkennen. Zunächst wird der Inhalt noch außerhalb bleiben. Aber es wird der Zeitpunkt eintreten, wo der Inhalt in das Kind hineingesenkt ist, und das Kind schreibt dann von innen heraus den Inhalt, der ihm von außen aufgedrängt ist. Denken Sie sich nun als den Inhalt des Physikbuches den lebendigen Inhalt
+
+---
+
+40
+41
+
+aller Kausalkörper, die sich seit der dritten Menschenrasse fortwährend inkarnieren. Denken Sie sich auch, dass sie sich auch noch inkarnieren werden. Dieser Inhalt war damals noch nicht inkarniert, als jungfräuliche Individualität [schwebte] über dem, was sich jetzt hier unten abspielt.
+
+Zunächst müssen wir uns vorstellen, dass alles dasjenige, was sich später inkarniert, vorhanden ist in einer vollständigen Einheit. Es war gleichsam alles Weltseele, die alles das, was sich später als Kausalkörper entwickelte, in sich noch enthielt. Eine Vorstellung des Giordano Bruno wird uns das in ganz wunderbarer Weise klarmachen. Die Vorstellung steht nicht im Buche, aber man muss sie sich bilden. Die Welt vergleichen wir mit der einzelnen Menschenseele, und dann denken wir uns statt der Menschenseele mit ihren Gedanken die Weltseele mit ihren Gedanken. Die sind lebendige Wesen. Die Menschen-Gedanken müssen zu lebendigen Wesenheiten erweitert werden. Sie würden dann die Kausalkörper als die Wesenheiten der Gedanken erleben.
+
+Alles, was in uns lebt, war vordem in der dritten Menschenrasse, die voller Gedanken der Weltseele war. Dann geschah die kosmische Senkung. Es war alles das wie lauter Ströme, die aus dem göttlichen Zentrum heraus kamen. Die christliche Esoterik sagt: Die Engel verkündigen die Herrlichkeit Gottes. Jeder Gedanke verkündigt die Herrlichkeit Gottes. Er ist sozusagen das Sprachrohr Gottes. Das senkt sich jetzt in die Ruparegion der Mentalwelt. Das nimmt in der verschiedensten Weise Formen an. Jetzt erst können wir davon sprechen, dass die einzelne Individualität geformt ist. Jetzt fängt der Mensch an, sich selbst zu fühlen. Er ist in der Ruparegion. Jetzt senkt er sich dann weiter in die astrale Region. Die Wesen sind dann astralische Wesenheiten geworden.
+
+Nun besteht ein Gesetz in dem geistigen Kosmos, welches heißt, dass sich das Untere mit dem Oberen verbindet, wenn das Untere und das Obere gleichartig geworden sind. Das Obere ist astralisch geworden. Genau so, wie sich die menschlichen Gedanken mit Astral-Materie umgeben, so umgeben sich die Weltgedanken mit materiellen und astralischen Wesenheiten.
+
+Vom Monde her waren Wesenheiten gekommen, die schon einmal richtig physisch waren, Wesenheiten, die plumpe Wesenheiten waren, die nicht nur Tierformen ähnlich waren. Sie waren gigantische Gestalten, Wesenheiten, die nicht denken konnten, in denen nur die chemischen Kräfte sich geformt haben. Was manasisch war, wirkte wie ein Faden von außen, so wie die einzelne Biene durch die Bienenseele geleitet wird. Was hier lenkt, ist dasselbe wie dasjenige, was sich später senkt. Das verrichtet jetzt schon die Arbeit. So wie sich Kama entwickelt, geschieht von oben das Heruntergreifen. Sie sind von der physischen Gestalt astralisch geworden, sie sind wieder in den Keimzustand gegangen.
+
+Die Wesen, welche wir Pitris nennen, gehen herüber nach dem Pralaya und werden befruchtet von dem, was früher über ihnen geschwebt hat. Alles, was in uns chemisch ist, das kommt herüber. Gehirn hatten die Mond-Pitris nicht; sie hatten ja keinen Intellekt. Sie waren nur beherrscht von dem, was heute als sympathisches Nervensystem zurückgetreten ist, und was jetzt die unbewussten Funktionen ausführt.
+
+Nun spaltet sich zunächst von dem Überschäumenden der Weltseele das, was Kama-Manas ist. Das geht nun durch drei Elementarreiche durch. Es bildet sich arupisch, rupisch und astral aus. Und in dem Momente, in dem der Intellekt astral geworden ist, da beginnt unsere Runde. Von dem Planeten kommen die Mond-Pitris wie Samenkörner. Die erste Kugel ist eine arupische Kugel. Da schweben zunächst die Samenkörper. Da bildet sich der arupische Intellekt aus. Dann kommt ein kleines Pralaya. Die zweite Kugel folgt. Sie arbeiten sich ineinander so, dass jetzt merkwürdige Gebilde entstehen, Gebilde, welche auf der einen Seite etwas feiner geformt sind. Die äußeren plumpen Wesenheiten der Mond-Pitris erhalten sich. Das zieht sich zusammen während der Zeit, wo die zweite Kugel sich bildet. In der dritten Kugel wird der Intellekt astral, und die frühere Kama-Natur wird auch wieder astral. Jetzt sind sie zusammen, und jetzt beginnt auch die vierte Kugel, die eigentliche Menschenrasse.
+
+Jetzt entwickelt sich der Mensch in die Ätherform hinein. In der ersten Rasse waren die Wesen oder Menschen ganz ätherisch, bis in
+
+---
+
+42
+43
+
+der dritten Rasse dann das Ich sich hineinsenkte, wo dann das, was hineingearbeitet wird, sich verbinden kann mit Manas und mit Manas, dem Intellekt, arbeiten kann. Äußerlich erscheint Kama-Manas. Der Mensch erkennt Gut und Böse. Jetzt fängt er an, sich weiter und weiter zu inkarnieren. In der zweiten Rasse wird das Weitere vorbereitet. Wir beginnen, erst Inkarnationen in der Mitte der dritten Rasse in der lemurischen Rasse zu bilden.
+
+Was ich jetzt gebrauchen werde, ist ein richtiges Bild. Wir sind erst in der Weltseele vorhanden, gleichsam wie in einem Füllhorn. Dann senken wir uns immer tiefer, und während dieser Abstieg passiert, besteht eine geheimnisvolle Verwandtschaft zu irgendeinem Körper da unten. Weil ich jetzt Atma bin, so ist unten ein physischer Körper, der in okkulter Weise zu mir gehört. Dann senke ich mich in Prana, dann kommt Kama, welches sich zu Manas hinauf gestaltet. Zusammen: Die Egos in Atma werden verteilt auf die in Kama sich herauf entwickelnden Wesen.
+
+Als die lemurische Rasse sich entfaltete, da gab es noch nicht Tiere in dem Sinne, wie wir sie heute kennen, sondern sie waren ganz anders geartete Wesen. Was fertig war, das war das gesamte Mineralreich. Das waren keine einzelnen Mineralien, sondern ein durcheinander wogendes Reich. Zu festen Formen gefroren ist auch das Mineralreich. Innen entwickelte sich in dem Menschen Kama-Manas, außen das Mineralreich. Nun war aufgelöst in dem allgemein schwebenden Mineralreich das Prinzip des Pflanzenreichs. Sie waren noch nicht einzelne Pflanzen – wie beim »Opodeldok« die ätherischen Pflanzenformen sich durchziehen –, denn das Pflanzenprinzip lebt darin. Ebenso lebt das, was zu Tieren wurde, noch nicht in physischen Formen, sondern es war eine quellende, weiche Masse, obwohl individualisiert bis zu einem gewissen Grade.
+
+Der Geist schwebte über den Wassern. Der Weltengeist hatte sich noch nicht in die einzelnen Wesen eingesenkt. Zuerst festigte sich das Mineralreich, dann das Pflanzenreich und dann das Tierreich. Die Festigung des Menschenreiches ging gleichzeitig vor sich. Man darf nicht annehmen, dass die Menschen sich aus den Tieren, die wir Affen nennen, entwickelt haben. Die Affen sind solche Wesen,
+
+welche seinerzeit den Anschluss verfehlt haben, die also nicht mit Manas inkarniert worden sind. Die Affen-Egos werden von dekadenten Körpern aufgenommen. Innerhalb des Mentalreiches sind noch unzählige andere Tierseelen vorhanden, die sich inkarnieren würden, wenn innerhalb der jetzigen Zeit sich Tierkörper ihnen entgegenheben würden. Wir dürfen uns dies nicht in moralischer Weise vorstellen, sondern mehr kosmisch, die Weltenseele betreffend.
+
+Nehmen wir an, dass unsere Theosophische Gesellschaft jetzt keinen Erfolg hat, dann würde die amerikanisch-europäische Entwicklung in Dekadenz kommen. Wenn wir aber siegen, dann werden [Lücke in der Mitschrift]
+
+In der Wüste Gobi wurde eine Kultur angelegt, und von da aus wurde die ganze damalige Entwicklung ausgestrahlt. Jetzt soll keine geographische Abschließung gebildet werden, sondern mehr eine moralische; ein Kern soll gebildet werden, der zur Grundlage für die nächste Rasse dienen soll. Wenn nun nicht die richtigen Egos gefunden werden, so würde ein Misserfolg zu verzeichnen sein, und es würde eine Verzögerung stattfinden. In der normalen Entwicklung können sich erst Nirmanakayas entwickeln, wenn sich der physische Körper wieder ins Mentale aufgelöst hat.
+
+Platon ist ein sogenannter Fünftrunder. Der Zustand ist künstlich errungen. Dann werden Sie aber alle Astralkörper haben. Die Buddha- oder Christusnaturen sind nicht nur Fünftrunder oder Sechstrunder. Sie wirken aus dem mentalen Körper heraus. Diese sind dann eine Art Doppelnaturen, die jetzt [im] physischen Körper das schon entwickeln, was andere erst in viel späteren Zeitperioden erreichen werden.
+
+---
+
+44
+45
+
+# ÜBER DIE ENTSTEHUNG DER PLANETENSYSTEME
+
+Berlin, 15. Dezember 1903
+
+Zuerst die rein physische Theorie, die gewöhnlich in unseren Schulen entwickelt wird. Man nimmt an nach Kant-Laplace’scher Theorie, dass an der Stelle, wo heute unser Sonnensystem ist, einst ein dünner, gasförmiger Nebel war, ähnlich wie die Masse des Orionnebels, sodass die gesamten Planeten wie Jupiter, Saturn, Mars, Venus, Erde – in Analogie – wie einfache Fettkügelchen waren, wie Fettkügelchen, die auf dem Wasser schwimmen.
+
+[Dr. Steiner nimmt ein Kartenblatt, das in seinem Durchmesser so groß ist wie ein Fettkügelchen, schiebt es durch das Fettkügelchen, das dann in zwei Teile geteilt ist. Dann steckt er eine Nadel als Achse durch, stellt es ins Wasser und bringt es in Rotation. Es wird eine Linse, und dann spalten sich Fettkügelchen ab, die sich um den ursprünglichen Tropfen weiterbewegen.]
+
+Kepler hat die Kreisbewegung durch die Ellipse ersetzt. Alle physischen Theorien sind auf Analogien aufgebaut. Andere Beweise gibt es nicht. Solange wir innerhalb der physischen Masse bleiben, solange können wir durchaus den Vorgang, den wir beschrieben haben, ins Große übertragen und ihn annehmen. Wenn jemand sich damals außerhalb der Entstehung hingesetzt hätte, um die Entstehung zu beobachten, der hätte nichts anderes gesehen.
+
+Setzen Sie aber den Fall, dass irgendetwas, was dem physischen Auge nicht sichtbar wäre, im Vorangegangenen und Nachfolgenden sichtbar würde für den, der anfängt hellzusehen, der könnte sagen: Jetzt ist etwas vorhanden, in dem Augenblicke, in dem sich das Astrale zu dem Physischen verdichtet. Das Vorhergehende lässt er vollständig unberücksichtigt. Und das ist das Geheimnis, dass alles Übrige ausgeschaltet wird und nur das Physische dableibt. Eine solche physische Darstellung ist nicht zu bekämpfen. Sie ist eine Teilwahrheit. Niemals hätte der Kant’sche Urnebel da sein können, wenn er nicht aus etwas anderem sich verdichtet hätte.
+
+Können Sie sich vorstellen, dass sich aus einer Gas-Masse organische Keime absondern? Daraus können Sie ja ersehen, dass innerhalb dessen, was Kant beschreibt, noch etwas vorhanden gewesen sein muss, das Kant nicht beschreibt. Wenn wir die Zustände unserer Erde zurückverfolgen: Heute ist sie fest, vorher war sie flüssig, noch vorher hatte sie gasförmige Gestalt. Bevor sie aber die gasförmige Gestalt angenommen hat, war sie eine astrale Kugel.
+
+Und das kann die physische Theorie nicht beschreiben. Den Raum, wo jetzt die Erde ist, müssen Sie sich mit Astralmaterial ausgefüllt denken. Kama wird in einem Zeitpunkte geschieden in zwei Pole. Der eine Gegensatz ist das Physisch-Materielle, der andere das Kamisch-Manasische. Nun sieht er gleichsam aus dem Nichts hervorkommen das Materielle.
+
+Das Kama-Manasische kann er nicht erkennen. Das bildet den Menschen, und der Mensch bildet die Tiere als Seitenzweige. Der astralen Erde muss etwas anderes vorangehen. Dieser geht eine mentale Erde voran, die rupisch-mentale Erde. Aber als die rupisch-mentale Erde entstand, da entstand gleichzeitig die rupisch-mentale Sonne, Venus und so weiter, das ganze Planetensystem. Alle Planeten wurden gleichzeitig rupisch-mental. Das Ursprüngliche war die Sonne. Die erste Teilung, die entsteht, ist aus dem Arupischen heraus entwickelt. Es vollzieht sich die Absonderung der Planeten so, dass dies ein rein gedanklicher Vorgang ist. Die Dhyan-Chohans sind die mentalen Geister der Planeten.
+
+Betrachten wir den Jupiter. Aus der arupischen Mentalsonne ist der rupische Mental-Merkur geworden und so weiter. Alle Vorgänge, die sich auf das Planetensystem beziehen, haben wir als rupisch-mental. Alles, was in den einzelnen Planeten hineingeht, das ist astral. Das Astral-Irdische hat also nichts zu tun mit irgendeinem anderen Planeten. Dagegen haben wir die rupisch-mentale Sphäre mit allen anderen Planeten gemeinschaftlich. Die kamischen Wesenheiten sind solche, die nur unserem physischen Dasein angehören. Der auf dem Stuhle sitzende Beobachter könnte die Körper erst dann aufglänzen sehen, wenn sie ins Physisch-Materielle eingegangen sind. Ein Christ, der sich Gott als Mann mit langem Bart vorstellt, ist spirituell aber-
+
+---
+
+gläubisch. Wer an die Kant-Laplace’sche Theorie glaubt, den nennen wir materialistisch abergläubisch.
+
+Wenn wir die lunarische Epoche verfolgen, so haben wir es zu tun mit einem physischen Mond. Der wird astral. Nehmen wir die Erde. Sie war zuerst arupisch, dann rupisch, dann mental, astral, physisch, dann wieder astral, rupisch, arupisch. Dies haben wir schon durchgemacht.
+
+Es ist die Pitri-Natur astral und so weiter. In dem astralen Zustande würden wir niemals den Übergang finden können von dem einen Planeten zum anderen. Nur wenn wir uns bis zum Mentalen erheben und da wiederum das Rupisch-Mentale erreichen, das noch demselben Planeten angehört, und bis zum Formlosen kommen, nur dann können wir in das Pralaya hinübergehen und in einen anderen Planeten steigen. Wir müssen die arupische Stufe erreichen, um von einem Planeten zum anderen gehen zu können.
+
+Den Vorgang, wie sich die Erde aus dem Monde herausgebildet hat, will ich jetzt schildern. In den heutigen Physikbüchern wird der Vorgang sehr roh geschildert. Die Verhältnisse werden da so ähnlich geschildert denjenigen auf unserer Erde. Unsere Erde macht in 24 Stunden einen Umkreis. Der Mond vollendet dasselbe in 29 Tagen. Das ist ein Mondmonat. Er kreist einmal um die Achse. Sein Tag dauert die Hälfte von 29 Tagen = 14¾ Tage Tag und 14¾ Tage Nacht. Wenn die Sonne so lange scheint, wird eine solche Wärme entwickelt, dass das Blei, wenn es auf dem Monde vorhanden ist, mittags vollständig schmelzen würde und auf dem Monde fließen würde. Blei könnte niemals einen Tag festbleiben. Die anderen Metalle würden alle Wasser sein. Und wenn wir die Nacht betrachten, so würde es vor Sonnenuntergang so kalt geworden sein, dass das Thermometer 150 Grad unter dem Gefrierpunkt sein würde. Alles, was nach irdischem Leben aussieht, müsste in jeder Mondnacht untergehen. Sie sehen, die Verhältnisse sind radikal anders, wenn wir sie rein physikalisch betrachten.
+
+Nun will ich Ihnen zeigen, wie die Zustände waren, bevor unsere Erde entstanden ist. Der Körper, der heute Mond ist, ist nicht der Mond, von dem wir in der okkulten Wissenschaft reden. Das
+
+war ein Weltenkörper, den es heute nicht mehr gibt, auf dem die Seelen-Vorfahren gelebt haben, die es zu einer höchst ausgebildeten Kama-Natur gebracht haben, die lang behaart waren, gigantisch groß waren, in gewissen Rassen sogar ausgesehen haben ähnlich wie ein Nikelmann [...], feucht, die Vorfahren waren in den Keim geschlossen. Ihre physische Gestalt war astral geworden; von da rupisch, arupisch, dann Keim [...] und von da herüber nach der Erde. Die Samen wurden befruchtet von Kama-Manas. Dann bildete sich das Astrale, und dann hatten wir die astrale Erde.
+
+In dieser Linie drinnen waren die Pitris, die im Wesentlichen schon verschmolzen waren mit Kama-Manas, und die meisten der Pitris waren verschmolzen mit solchen Kama-Manas-Samen. Daneben aber waren eine Anzahl Pitris-Naturen, die in der früheren lunarischen Epoche nicht ihre Entwicklungshöhe erreicht hatten. Nicht jene, die die Entwicklung überschnappt hatten, die die Entwicklung stören, sondern die zurückgeblieben waren, die die Entwicklung nicht erreicht haben. Sie waren da mit der ganzen Summe kamischer Kraft, die zu ihnen gehört, die anderen nicht verwendbar war. Diese wurde ausgeschieden, und die Kugel, die vorhanden war, verlängerte sich, es entstand ein Ellipsoid, eine Eiform.
+
+In dieser Form bildeten sich zwei feste Kerne, ein großer und ein kleiner. Und nun schnürten sich die kleine Kugel und die große Kugel ab. Der Mond verlor seine astrale Hülle, eine Schlackenmasse, die nur solche kamischen Kräfte enthält, die mehr festsitzen in seiner Masse als die magnetischen Kräfte im Magneten. Mondmagnetismus ist eine sehr verdichtete kamische Kraft. Das Äußere verdichtet sich dann auch und wurde zur festen Erde. Hoch im astralen Zustande findet dieser Vorgang des Herauswerfens statt. Die Rupa-Erde unterscheidet sich dadurch von dem früheren Mond, dass der Same von Kama-Manas hinzukommt. Die Tatsache, dass wir beim Mineralischen kosmischen Körpern gegenüber keine moralischen Forderungen stellen, beruht darauf, dass der Astralkörper derselben zur Ruhe gekommen ist. Man wird den Vesuv nicht verantwortlich machen dafür, dass er überfließt und Feuer speit.
+
+Der Mensch wird einem Stern ähnlicher, je mehr er das [Kama]
+
+46
+47
+
+---
+
+verbrannt hat. Der Astralkörper wird sich nicht als wogendes Kampfesfeld zwischen dem Astralischen und Physischen ausnehmen, sondern in sich zur gleichförmigen Ruhe kommen. In der Durchastralisierung des Astralkörpers besteht eben das Verbrennen des [Kama].
+
+48
+
+# KOSMOLOGIE UND PLANETEN
+
+Berlin, 22. Dezember 1903
+
+Sobald wir über die Verhältnisse der Erde hinausgehen, werden alle Kenntnisse selbst für Eingeweihte etwas lückenhaft und namentlich auch kompliziert. Wenn ich heute irgendetwas sage über Zusammenhänge, die außerhalb von Sonne und Erde sind und über sie hinausgehen, dann ist es möglich, dass es in gewisser Beziehung einseitig wird – schon dadurch, weil sie wenig bekannt und teils zu kompliziert sind. Es werden sich aber doch einige Dinge ergeben, die aufhellend sind für die Frage, welche Franz Seiler gestellt hat.
+
+Wir müssen festhalten daran, dass für die Betrachtung unseres Sonnensystems der Gesichtspunkt vor allen Dingen in Betracht kommt, dass man heute bei dem kopernikanischen Weltsystem die Sonne in den Mittelpunkt unseres Sonnensystems rückt. Und die Astronomie der Gegenwart betrachtet das frühere Weltsystem, das ptolemäische, als ein überwundenes und als ein solches, das geradezu falsch ist. Es ist aber nur eine Verschiedenheit der Perspektive. Die Astronomie stellt alle Rechnung in Bezug auf die Erde an, und Kopernikus stellt sie mit der Sonne als Mittelpunkt dar, so als wenn man eine Gegend in Bezug auf einen Berg beschreibt und dieselbe Gegend von einem anderen Berg aus beschreibt. Die Dinge sind durchaus relativ. Was wir Ruhe und Bewegung nennen, ist richtiger wiedergegeben im kopernikanischen Weltsystem. Was aber Ruhe und Bewegung im Astralen betrifft, so ist dieses richtiger wiedergegeben im ptolemäischen System.
+
+Das Mittelalter ist auch nicht in genau demselben Sinne aufzufassen, wie unsere jetzigen Auffassungen sind. Wenn Sie bei Dante die Erde in der Mitte finden, und dann Sphären von Mond, Venus, Sonne, Mars, Jupiter, Saturn und dann die Sphäre der Fixsterne, so bedeutet das nicht in demselben physischen Sinne den Raum wie das von der Astronomie im physischen Sinne aufgefasst wird, sondern dieses bedeutet geistige, mentale Zusammenhänge. Unter dem
+
+49
+
+---
+
+50
+51
+
+Physischen hat der Astronom des Mittelalters, der im Grunde genommen kein Astronom, sondern Theosoph war, nur eine Versinnlichung des geistigen Zusammenhangs verstanden. Er hat nicht dasselbe verstanden, nicht die grobklotzigen Tatsachen gegeben, wie der heutige Astronom sie gibt, sondern er wollte sie auffassen als eine Versinnlichung des geistigen Weltenzusammenhanges. Es wurde nur ein anderer Gesichtspunkt an die Stelle des alten Gesichtspunktes gerückt.
+
+Und nun einiges über die Zusammenhänge selbst. Wir müssen uns klar sein, dass Planeten, von denen die alte Welt gesprochen hat, nicht im gleichen Stadium ihrer Entwicklung sind. Während sich uns die Erde auf dem Standpunkte von Kama-Manas zeigt, ist der Planet Merkur heute in einem weit vorgerückten Zustand. Er ist bereits auf dem Standpunkte angekommen, auf dem die irdische Entwicklung angekommen sein wird, wenn wir das Budhi-Prinzip in der gesamten Menschheit entwickelt haben werden, wenn innerhalb der irdischen Entwicklung das Budhi-Prinzip das Tonangebende sein wird.
+
+Merkur ist ganz in Budhi getaucht. Auf der Venus haben wir Manas, das reine Manas, das da dieselbe Rolle spielt wie auf der Erde Kama-Manas. Venus und Merkur sind Planeten, die unserer Erde voranleuchten. Das sind also Vorbilder für die irdische Entwicklung. [...] Der Venusbewohner und der Merkurbewohner sind im Grunde genommen im ganzen Sonnensystem anwesend. Sie brauchen nicht zu wirken, aber sie können wirken. Sodass also auf unserer Erde das auftreten konnte, was wir das Auftreten der sogenannten Venussöhne nennen. Sie konnten Lehrer werden für die Erde als in der dritten lemurischen Rasse dieses stattfand, weil die Erde diesen Einfluss brauchte. Es bedarf für die Venus-Söhne nur der Gelegenheit von außen. Wenn die Erde den Einfluss nicht braucht, ist er nicht da, wenn sie ihn braucht, ist er da. Das ist der Einfluss zwischen Erde und Venus.
+
+Dann der Planet Mars. Er stellt in gewisser Beziehung einen Zustand dar, über den die Erde bereits hinausgewachsen ist, bevor sie in die lunarische Epoche eingetreten ist. Das würde aber nicht der heutige Mars sein. Er ist nicht mehr in dem Zustande, in dem der
+
+heutige Mond ist. Der Mond stellt einen äußerlich überwundenen Zustand der irdischen Entwicklung dar. Der Mars war bereits Mond und ist schon wieder in eine neue Entwicklungslinie eingetreten, sodass er früher einmal den Zustand darstellte und heute gleichsam nur an dem Orte ist, wo unsere Erde ihre vorlunarische Epoche durchgemacht hat, diejenige Epoche, die sie im Zustande des reinen Prana durchgemacht hat. Die lunarische Epoche im Kama, die Marsepoche im Zustand des reinen Kama. Pflanze und Mensch, die nun das pranische Prinzip als höchstes Prinzip entwickelt haben. Dieses nahm bei ihnen dieselbe Rolle ein, wie Kama-Manas bei uns. Es wäre eine falsche Vorstellung, wenn wir glaubten, dass dies verknüpft gewesen wäre mit Lust und Unlust. Das kam erst in der lunarischen Epoche hinzu.
+
+Diese Wesen waren in reiner Fortpflanzung begriffen. Noch vorher war die Erde im Zustande, in dem sie das physische, rein elementarische Prinzip entwickelte. Damals also, bevor die Marsepoche gekommen war, waren die Erde, respektive der Vorläufer der Erde, rein physisch. Damals war der Vorläufer des Menschen auch schon vorhanden. Er war aber bloß im physischen Leben wandelbar. Er war Automat, ein automatischer Mensch. Alles Geistige war über dem Menschen. Er selbst war nur Automat. Der Weltkörper, den der Mensch damals bewohnte, war so sehr elementar, dass er keine Zusammenhaltekraft hatte, dass er zersplitterte. Und das bildete den Ring der Planetoiden: Die vielen Planeten, die wie ein Ring die Sonne umkreisen.
+
+Wie kommt es nun, dass der Mars sich weiter entwickeln konnte, obgleich der Körper zerstoben ist? Der Mars hatte schon das Lebensprinzip in sich und lebte daher weiter, während das andere nur physisch war und zerstäubten musste. Wir haben also die vier Stufen der Entwicklung vor uns.
+
+Unser Mond wird später ganz verschwunden sein, und an seiner Stelle wird ein neuer Weltkörper aufleuchten, der das kamische Prinzip in anderer Weise befruchten wird. Auf diese Weise sind wir bis zu den Planetoiden vorgerückt und kommen nun aus dem Kreis der Planeten hinaus, wo wir antreffen Jupiter, Saturn, Uranus. Von
+
+---
+
+dem Neptun zu sprechen ist noch keine Veranlassung. Er nimmt eine besondere Stellung ein. Er gehört nicht allein unserem Planetensystem an, sondern noch einem anderen. Er ist ein Grenzkörper. Dagegen müssen wir Jupiter, Saturn und Uranus betrachten. Sie können sagen: Uranus kannte man damals noch nicht. Er wurde erst im achtzehnten Jahrhundert entdeckt. Im esoterischen Unterricht war er aber bekannt. Die drei äußeren Planeten Jupiter, Saturn und Uranus zählten mit. Die Planetoiden aber stellten die Zersplitterung des elementaren Reiches dar.
+
+Alles Übrige ist Reinkarnation dessen, was früher schon da war. Unsere ganze Planetenkette war nichts weiter als die Wiederverkörperung von früher bestandenen Zuständen. Jupiter, Saturn und Uranus stellen dar die drei höheren kosmischen Prinzipien, welche sich einfach reinkarnierten, zuerst im Elementaren, dann im Pranischen und so weiter, sodass wir im Jupiter, Saturn, Uranus zu erkennen haben die drei Prinzipien Atma, Budhi, Manas – Jupiter, Saturn, Uranus.
+
+Nun will ich Ihnen den Saturn charakterisieren. Er stellt diese obere Trias in einer ganz besonderen Art dar. Ich charakterisiere ihn von dem Gesichtspunkte des Geistes unserer Erde. Er stellt sich dar als das Verlangen, sich zu reinkarnieren in der irdischen Planetenkette. Sie können sich etwa denken, dass die obere Trias den Wunsch hegt, zur irdischen Planetenkette zu werden. Diese Höhe des Wunsches stellt der Saturn dar. Stellen Sie sich vor, er sagt sich, ich will eine Planetenkette bilden, in welcher Kama-Manas das mittlere Prinzip wird: elementar-physisch, pranisch, kamisch – Kama-Manas, Manas, Budhi.
+
+Die Erde wird eine Art Venus-Jupiter-Sonne werden, wenn sie Sonne ist. Dieser Wunsch ist im Wesentlichen ausgedrückt in der Konfiguration des Saturns dadurch, dass der Saturn alle Prinzipien neben sich auseinandergelegt enthält. Eigentlich sind es nicht sieben, sondern neun Prinzipien. Damit können wir auch die Konfiguration des Saturns begreifen. Der Mensch ist dreimal dreiteilig. Er besteht aus Körper, Seele und Geist. Jeder Teil besteht wieder aus drei Teilen. Nehmen wir zuerst den Körper. Er besteht erstens aus physischem
+
+Körper, zweitens Lebenskörper, drittens körperlicher Gestalt. Zuerst denken Sie sich den physischen Körper. Sie haben da den Magen als chemisches Laboratorium, dann das Herz, ein Pumpwerk und so weiter. Darin muss das Prana wirken. Diese pranischen Teile müssen dann zusammengefügt sein.
+
+Zweitens die Seele: Sie besteht erstens aus der empfindenden Seele, zweitens aus der Verstandesseele – sie kann das Empfundene verstehen, drittens: Sie ist sich bewusst als Bewusstseinsseele.
+
+Drittens Geist: Erstens Allgeist, zweitens Menschengeist, drittens Menschenselbst-Geistselbst. Was der Menschengeist ist, drückt die christliche Esoterik so aus: Die Engel verkündigen die Herrlichkeit Gottes. Der Menschengeist ist sich nur bewusst der Herrlichkeit Gottes, er ist es nicht selbst.
+
+[Stadium] 3, 4, 6 und 7 verbinden sich und bilden nur eins. Dadurch erhält man eins. Damals, als beschlossen wurde, die Weltenkette zu bilden, da waren es noch neun. Diesen Plan stellt der Saturn dar. Er stellt den Kama-Manas dar, der in der Mitte drinnen steht. Wir haben also vier Prinzipien vorn und vier hinten. Daher hat der Saturn acht Monde. Das gibt mit ihm zusammen neun, und das sind die neun zusammen als Vorplan der Welten-Entstehung, während der Ring das Zusammenfassen bedeutet zu einer Einheit. Diese zusammengefassten Prinzipien sind der Vorbild-Mensch. Der Ring heißt daher auch »spiritus mundi«. So wäre der Saturn die Vorzeichnung des Planetensystems. Er sieht aus wie unser Sonnensystem für sich herausgestellt. Er ist Archetypus unseres ganzen Sonnensystems. Innerhalb der oberen Trias bleibt dann noch eins als Atma für sich. Das ist Uranus.
+
+Und nun Atma als Einheit, als obere Trias mit der Tetraktys. Die stellt sich dar als gemeinsame Kugel für die oberen Prinzipien, die unten herum gruppiert sind als die vier vorbildlichen Monde, die der Jupiter hat. Sie sind also noch nicht Mond in unserem Sinne, sondern sie sind das Prinzip des Mondes, bevor der Mond da ist. Unser Mond ist ein ausgeschiedener Teil. Die vier Jupitermonde sind treibend, die also erst in den Jupiter aufgenommen werden können. Unsere Prinzipien gelten nur für unsere Entwicklung. Die Deva-Entwicklung ist
+
+---
+
+54
+55
+
+schon so, dass wir nicht sagen können, sie hat dieselben Prinzipien. Kama ist schon so verschieden, dass wir es nicht brauchen könnten. Das manasische Prinzip der Devas ist ganz anders, hat ganz andere Eigenschaften, obgleich es verbündet ist mit uns und wir es zu verstehen vermögen.
+
+Diese Andeutungen sind unter gewissen Voraussetzungen zu beobachten. Vieles aber ist nur durch Tradition zu unserer Kenntnis gekommen. Selbst Meister wissen von solchen Dingen nur dadurch etwas, dass Aufzeichnungen vorhanden sind aus Zeiten, als diese Dinge noch gewusst waren. In der Mitte der lemurischen Rasse waren damals die großen Lehrer gekommen. Wir können etwas wissen über die Dhyani-Chohans. Die Geheimlehre ist geschöpft aus diesen Aufzeichnungen. Ursprünglich waren es nur die Dzyan-Strophen. Die waren nur in uralten Aufzeichnungen vorhanden, zugänglich nur unter besonderen Voraussetzungen.
+
+# PITRIS
+
+Berlin, vermutlich Anfang 1904
+
+Die Pitris des Mondes – Manvantara – hatten als Aufgabe, das Empfindungsvermögen in seiner idealsten Art auszubilden. Sie hatten das Ebenbild des Jahve erreicht und wurden Samen. Die solaren Pitris waren diejenigen, welche vorangeschritten waren der lunarischen Entwicklung. Die lunaren Pitris hatten die Ebenbildlichkeit erreicht. Diejenigen, die sich auf dem Monde als Meister ausgebildet hatten, waren verstandesmäßig höher als die Mondgottheit. Die irdische Gottheit reicht so weit als die irdische Entwicklung.
+
+Jahve ist nur durch einen Irrtum zur ersten Person der Dreifaltigkeit avanciert.
+
+Menschen oder niedere Dhyanis sind solche, die der lunarischen Epoche voraneilen.
+
+Niemand von den lunarischen Pitris hatte den Kausalkörper entwickelt.
+
+1. Inkarnation der planetarischen Kette: Planetoiden,
+2. Mars,
+3. Mond,
+4. Erde.
+
+Die Pitris als leere Bälge sogen. die Elementaressenz in sich auf, um Körperlichkeit zu gewinnen.
+
+Alles das ging im Dunkel vor sich und nun hebt sich die erste rote Kugel aus dem Weltenall heraus. Die hochentwickelten kosmischen Wesen ziehen nun die Essenz an sich und die Bildner, die planetarischen Geister, formen nach den Urbildern, setzen sie hinein als Samenbilder. Die haben eine über den einzelnen planetarischen Manvantaras stehende Aufgabe. Sie stehen nicht innerhalb unserer Entwicklung.
+
+Es werden die höchsten Gedanken als Keime versenkt, und nun kommen die nächsten Bildner und geben Gestalt; das Urbild des Menschen, des Tiers, des Kristalls, die erst nur Punkte waren.
+
+---
+
+Als drittes kommt nun die astrale Materie hinein, wie Farbe in die Tusche. Kugel D zum ersten Mal in physischer Materie gestaltet.
+
+E. – F. – G.: Entwicklung des Lebens statt der Form.
+
+Zuerst waren es automatische Menschen; jetzt fangen sie an, von innen heraus zu wollen: sich zu bewegen, zu regen.
+
+Erst wird der Punkt belebt, dann die Gestalt, dann die Materie, und das Urbild geht in Samen über.
+
+Die Pitris waren die Seelen – vollkommene Empfindung; die Körperlichkeit aus der Elementaressenz; der Geist wird aus dem Logos gesenkt als schwarzer Punkt; und die Erdenaufgabe ist die vollkommene Ehe zwischen Geist und Seele. In die Seele wird der Geistessame gesenkt.
+
+Zuerst müssen die Seelen die Formen zur Reife bringen, dann sie bewohnen.
+
+Absonderung des Mineralreichs: Die Mineralien sind als Urbilder vorhanden und können sich selbst reproduzieren. – Ätherfeuer.
+
+2. Runde,
+3. Runde,
+4. gallertartige, gigantische Wesen.
+
+Die solaren Pitris greifen nun ein, um die Führung zu übernehmen.
+
+# SCHILDERUNG DER RUNDEN
+
+Berlin, 5. Januar 1904
+
+Heute will ich Ihnen die Runden einfach schildern. Sie müssen dabei etwas Geduld haben, denn die Tatsachen werden mannigfaltig sein. Ich kann sie daher nur skizzieren. Es ist auch außerordentlich schwer, sie mit Worten auszudrücken und zu beschreiben, weil sie ganz unähnlich sind unseren gegenwärtigen Zuständen.
+
+Ich werde dasjenige zu beschreiben versuchen, was man die erste Runde nennt. Ich schildere einfach die tatsächlichen Vorgänge. Wenn wir den Beginn der ersten Runde schildern wollen, so müssen wir uns denken, dass sich aus dem dunklen Weltenraum eine Kugel heraus sondert. Diese Kugel hat für denjenigen, der auf so hohen Planen sehen kann, der Farbe nach eine rötliche Färbung. Eine rötliche Kugel sondert sich aus dem Dunkel des Weltenraumes heraus. Diese rötliche Kugel hat in sich alle diejenigen Wesen und Stoffe, welche später auf der Erde auftreten, aber gleichsam in einem vollständig gelösten Zustande. Nichts hat darin zunächst eine Form. Alles ist formlos in diesem roten Nebel, der dünner ist als der dünnste Äther, wenn man sich ihn überhaupt vorstellen kann. Diese rote Kugel stellt also dasjenige dar, was wir aufgezeichnet erhalten als erste Arupa-Kugel unserer sieben zur Erde gehörigen Globen.
+
+Nun bitte ich zu verfolgen, was man den Übergang von einer Kugel zur anderen nennt. Es ist nicht wirklich ein Übergang, sondern ein Verwandeln des Aussehens der Kugel, die an demselben Orte bleibt. Die Kugel wird nämlich heller und heller und gleichzeitig dichter und dichter, und es sind darin wahrnehmbar Linien, die eine gewisse Anordnung haben, von bestimmten Punkten ausgehen, gleichsam strahlende Linien. Die Kugel nimmt allmählich eine orange Färbung für das geöffnete Auge des Sehers an. Dann ist sie dasjenige, was wir die Rupa-Kugel nennen. Darin sind Zustände, innerhalb derer sie sich verfinstert und wieder erhellt – die Pralaya-Zustände.
+
+Dann wird sie dichter und erstrahlt in Gelb; sie besteht jetzt aus
+
+---
+
+58
+
+Astralmaterie, in welcher jetzt Linien gehen nach allen Seiten, die Figuren bilden. Das sind die Kräfte, welche später das Mineralreich als solches zusammensetzen. Dann kommen wieder kleine Pralaya-Zustände. Die Kugel kommt dann in einen Zustand, derart, dass sie eine Art grünlicher Färbung annimmt. Das ist der erste physische Zustand, den dann die ganze erste Runde annimmt.
+
+Alles dasjenige, was früher bloß sinnenhafte Andeutungen waren, das ist jetzt bis zu einem gewissen Grade der Dichtigkeit vorgeschritten. Die physische Materie, in welcher sich diese Erde befindet, gibt es gegenwärtig nicht mehr auf der Erde. Es ist eine Art Ätherluft, aber Sie können bei allen, die etwas wissen, eine Andeutung von diesem physischen Zustand finden. Ich erinnere da an eine Stelle in Goethes «Faust»: «Macht ein wenig Feuerluft.» Feuerluft ist die erste physische Materie, eine Feuerluft, die grünlich ist und alles Spätere enthält [...], in der sich der Erdball in diesem Zustande darstellt.
+
+Nun kommt wieder ein kleines Pralaya. Die Kugel bildet sich jetzt so aus, dass sie eine ganz andere Form erhält. In dem nächsten Zustande kann man sie vergleichen mit einer Maulbeere. Sie sondert sich so, dass sie gegliedert ist in kleinere Kugeln, und sie nimmt jetzt eine Färbung an, die ins Bläuliche hinüber schimmert. Die Linien sind jetzt auf einzelne Kugeln verteilt, und dasjenige, was früher gleichsam in der ganzen Kugel tätig war – die Elementarkräfte –, ist jetzt in den einzelnen kleinen Kugeln tätig. Immer bestimmtere Formen treten auf. Würfelförmige, zwölfflächige Formen und so weiter, treten auf und werden immer klarer.
+
+Der nächste Zustand zeigt an, wie und wann er anfängt auseinanderzufallen. Das Ganze hat jetzt eine Färbung zwischen Blau und Violett. Es geht über ins Violette und geht so durch den Pralaya-Zustand hindurch. In diesem siebten Zustand sind alle Formen der Mineralien entstanden. Während diese Bildung entstanden ist, während also diese Art Maulbeere entstanden ist, ist die Materie immer dünner und dünner geworden. Zuerst war es Arupa-Materie, dann im letzten Zustande kommen da, wo früher die Arupa-Kugel war, vollständig ausgebildete Mineralkeime darin vor. Das ganze Mineralreich ist jetzt urbildlich vorhanden.
+
+59
+
+Und nun geht es in einen Dämmerzustand über. Es sind also sieben aufeinander folgende Zustände da gewesen, sie hatten die Aufgabe, das Mineralreich bis zu den Urbildern der Mineralien zu bringen. Ich betone ausdrücklich: Das ist im ganzen Gewühle von Tatsachen auch schon immer dasjenige, was aus der lunarischen Epoche herüber gekommen ist, als die entwickelten Wesenheiten der lunarischen Epoche. Das sind im Wesentlichen die Menschenseelen, welche die ganzen Zustände der lunarischen Epoche mit durchgemacht haben und auf den verschiedensten Entwicklungsstufen stehen. Nicht alle haben das Ziel erreicht, das erreicht werden konnte. Manche dagegen sind weiter vorgeschritten. Es hat damals auch – wenn ich so sagen darf – «Mosesse», «Platons», «Pythagorasse» gegeben. Die sind noch nicht in der Lage, sich zu betätigen bei den ganzen Vorgängen, die ich bis jetzt geschildert habe. Diese Vorgänge sind zu niedrig. Dagegen müssen die Wesen, welche die Höhe nicht erreicht haben, das jetzt nachholen. Sie haben sich zu beteiligen an der Herausbildung dieser Formen. Sie haben gleichsam die Lektionen nachzuholen, die sie früher verabsäumt haben. Das ist kaleidoskopisch die Aufeinanderfolge der Zustände, die ich geschildert habe. Es ist so, als wenn Sie in ein Kaleidoskop hinein sehen, und wie da die verschiedenen Aufeinanderfolgen zu sehen sind, so ist es vorzustellen.
+
+Der zweiten Runde erster Zustand zeigt sich dadurch, dass wir wiederum eine rötliche Kugel aufschimmern sehen. Diese ist aber viel reicher gegliedert als die vorhergehende. Vor allen Dingen sehen wir in der Kugel auftretende sich verschlingende Wirbelsysteme, welche so aussehen, dass man sie vergleichen kann mit dem bekannten Schlangenstab des Hermes. Zunächst nur in ganz leichter, heller Andeutung. Solche Gebilde heben sich ab. Und nachdem die Kugel wieder in den Pralaya-Zustand gekommen ist und orange aufleuchtet, wird sie so, dass sie in Bewegung übergeht. Die Schlangen, die zuerst um die Achse herum in Ruhe waren, fangen jetzt an, sich um die Achse zu bewegen. Das Gebilde kommt in einen vollkommen in sich bewegten Zustand.
+
+---
+
+60
+61
+
+
+
+Dann kommt wieder ein Pralaya-Zustand, und eine Astralkugel in schöner, leuchtender gelber Färbung geht hervor. Und die Gebilde, die ich beschrieben habe, zeigen sich jetzt auf einer höheren Stufe, dadurch, dass sie das, was sie früher nur als Bewegung gezeigt haben, jetzt überall mit Spuren von Formen zeigen, sodass aus den Windungen jetzt astrale Zylinder, Scheiben, Linien und alle möglichen Gebilde entstanden, von den mannigfaltigsten Formen, in großartiger Schönheit. Es entstehen strahlenförmige Figuren, die fortwährend neue Gebilde aus sich heraustreiben. Das Ganze ist in großer Bewegung. Dann kommt wieder ein Pralaya, und es bildet sich die grünliche Kugel, die vierte Kugel, der physische Zustand.
+
+Der ist wieder in einer Materie, die heute nicht mehr vorhanden ist. Man nennt sie den Zustand der Feuerluft, und das ist in der jetzigen Stunde ein kritischer Zustand. Dann sind Zwischenzustände vorhanden. Diese sind von einer Art Form zwischen dem Wässerigen und dem Luftförmigen. Alles ist in einem Nebelzustand von grüner Farbe. Das ganze Gebilde könnten Sie nur vergleichen mit einem Wassertümpel mit allen möglichen grünen Wasserpflanzen, die sich bewegen und regen. Die Gebilde, die da drinnen sind, haben alle die durchsichtige leuchtende grüne Färbung. Dann kommt wieder ein Pralaya, und es tritt wieder das ein, was ich als Maulbeere geschildert habe. Der Zustand wird astralisch. Das Einzelne wird aus sich heraus gebildet, während früher die Veränderung nur am Ganzen der Kugel stattfindet. Dann kommt wieder ein Pralaya.
+
+Die Indigo-Kugel kommt hervor, und die ganzen Gebilde werden jetzt bloße Devachan-Gebilde, bloße Mental-Gebilde, aber von großer Bestimmtheit. Der nächste Zustand ist der, in dem die Urbilder des ganzen Pflanzenreiches herausgebildet sind. Es ist eine violette Kugel geworden. Die Urbilder sind gebildet, das Ganze verschwindet dem Blick. Ein Dämmerzustand tritt ein. Dieser Zustand ermöglicht es dem Bewusstsein jetzt, dass schon etwas höher stehende Pitris oder Seelen, die herüber gekommen sind aus der lunarischen Epoche, teilzunehmen in der Lage sind, mit ihren Kräften an dem Aufbau dieser Gebilde. Wir haben jetzt das absolviert, was wir die zweite Runde nennen. Früher war das Mineralreich bis zur zweiten Runde gekommen. Es ist jetzt fortgeschritten, was ich früher als physischen Zustand geschildert habe, sodass es ist, wie wenn Sie sich im großen Eis Schneefiguren denken, aber in deutlichen wässerigen, nebelförmigen Gebilden. So sind die Mineralien jetzt darinnen in diesem nebelförmigen Zustand. Das ist so, während die Kugel eine grünliche Färbung hat. Damit haben wir das, was als zweite Runde beschrieben worden ist, den tatsächlichen Verhältnissen nach geschildert.
+
+Und jetzt kommt die dritte Runde. Der Zustand der Verfinsterung tritt ein. Und nun bemerke ich, dass während dieser Pralaya-Zustände, die ich schildern werde, mit den Urbildern des Mineralischen und des Pflanzlichen, wenn sie in den Dämmerzustand übergehen, auch etwas geschieht. Aber sogar für den Seherblick ist es schwierig, etwas zu sehen. Es ist nicht ein vollständiges Verlöschen der Kugel da. Das ist wichtig zu betonen. Es ist so, wie wenn man den Mond sieht, der zur Hälfte beleuchtet ist, und doch noch auch die andere dunkle Seite zu bemerken ist. Zum dritten Mal kommt jetzt eine rötliche Kugel zum Vorschein. In dieser tritt das ein, was man in der okkulten Sprache die Grenze nennt. Die Wesenheiten begrenzen sich nach außen, sie überziehen sich mit Häuten. Das Ganze ist jetzt so, dass lebendige, sich mit Häuten umziehende Wesenheiten auftreten. Das ist ein Arupa-Zustand. Dann kommt ein Pralaya-Zustand. Die orange gefärbte Kugel tritt auf. Die Gebilde erhalten eine größere Bestimmtheit. Sie fangen an, sich zu bewegen. Ein Pralaya-Zustand tritt wieder auf. Das Ganze wird jetzt zu einer astralen Kugel, eine Kugel von sternglänzender Farbe, in welcher alle drei Arten von
+
+---
+
+Gebilden sind. Regelmäßige Gestalten von Metallen, von Mineralien, die Urbilder von Pflanzen nehmen die astralische Form wieder an, und die mit einer Haut sich überziehenden Gebilde fangen an, aneinander zu stoßen, für einander wahrnehmbar zu sein. Sie empfinden sich gegenseitig, sie spüren, dass sie da sind.
+
+Nun wieder ein Pralaya, und der vierte, der physische Zustand tritt ein. Das ist wiederum ein kritischer Zustand, der verglichen werden kann, seiner Konsistenz nach, mit dem, was man im Eiweiß sieht. Alle Gebilde, welche sich herausgebildet haben, nehmen auch diese eiweißartige Materie an, vom dichtesten Eiweiß bis zum vollständig gallertartigen Eiweiß. Das ganze ist grün geworden, und die Wesenheiten, die aufgetreten sind mit der Grenze, sind so weit, dass sie die schleimartige Tierbildung aufweisen; in Gestalten von strahlenförmigen Formen bis herauf zu affenförmigen Formen. Die Pitris – Seelen – haben schon die Möglichkeit, in diesen Gestalten sich anfänglich zu inkarnieren – unvollkommen. Man nennt sie auch Wassermenschen. Das sind Menschen, die aufrecht stehen können, trotz ihrer quellenden, gallertartigen Materie.
+
+Nun kommt wieder der bläuliche astralische Zustand, in dem die Konsistenz keine so dichte ist. Sie ist nicht mehr mit der Maulbeere zu vergleichen, sie ist nur mit dem Astralraum zu vergleichen. Es ist nur keine Intelligenz darinnen. Ein Pralaya wird wieder formiert, und es kommt die Indigo-Kugel. Alle Formen werden bestimmter. Sie werden lebendiger von innen heraus. Sie sind Gedankenwesen. Und dann kommt die violette Kugel. Die ganze Summe von Wesenheiten ist in Urbilder übergegangen. Sie sind keimförmig geworden und gehen nun über in die Urbilder der Tierwelt, die entstanden sind. Und nachdem wieder ein Pralaya stattfand, wenn wiederum die rote Kugel aufdämmert, da beginnt das, was wir die vierte Runde nennen. Es bereitet sich allmählich dasjenige vor, was später den Körper, den Leib abgeben kann für das eigentliche Menschengeschlecht: die Urbilder des Mineralreiches, des Pflanzenreiches, des Tierreiches. Immer bestimmtere Formen treten heraus. Der Orange-Zustand tritt ein, der astralische Zustand. Es sind schon bestimmte Wesenheiten da, welche der Gestalt nach den späteren Tieren und Menschen ähnlich sehen. Es kommt dann wieder zum Pralaya-Zustand, und es tritt, in dem, was wir jetzt Äther-Materie nennen, die eigentliche Erde auf, unsere jetzige Erde, innerhalb der vierten Runde, auf welcher Erde, in Äthersubstanz, der Mensch da ist. Er ist noch Tiermensch, aber bereits geleitet und umgeben von den solaren Pitris, den höheren Intelligenzen, welche herübergekommen sind, die eine höhere Entwicklungsstufe erreicht haben und auch geleitet sind von höheren Intelligenzen, die beschrieben sind in der Genesis als die Elohim. Sie alle waren tätig, um den Menschen in der Entwicklung weiter zu bringen.
+
+Er macht da die zweite Rasse durch und verdichtet sich. Dann kommt das, was wir die dritte Rasse nennen, und was wir öfter schon beschrieben haben.
+
+Das Folgende ist der Vorgang, wie er sich darstellt:
+
+
+
+---
+
+64
+65
+
+# DIE BILDUNG DER AURA I
+
+Berlin, 12. Januar 1904
+
+Wir verstehen den Kosmos am besten, wenn ich etwas über die menschliche Aura vorausschicke, und wir werden dadurch besser die Entwicklung der Runden und Rassen mit Rücksicht auf den Einfluss der sogenannten Pitris darstellen können. Sie werden sehen, warum ich das hier einfüge.
+
+Dasjenige, was man als physischen Menschen bezeichnet, ist nur ein Teil des Menschen; der vollständige Mensch besteht aus einer Reihe von Gliedern, die für denjenigen, dessen Sinnesorgane dafür offen sind, auch wirklich sichtbar sind. Obwohl Sie im Wesentlichen alles das kennen, so muss ich es doch, um es genau beschreiben zu können, mit dem verbinden, was ich zu sagen habe. Der physische Mensch hat sodann den sogenannten Äther-Doppelleib – wie ich ihn nennen möchte – in sich; sichtbar für denjenigen, der das Äthersehen hat. Es ist ein getreues Doppelbild des gewöhnlichen physischen Körpers.
+
+Dann durchdringt diese beiden ein sogenannter Seelenleib oder Astralleib. Dieser Astralleib ragt über den physischen Leib hinaus, ist etwas größer und hat die Form eines Ovals, eines Eies, da er am Kopf etwas mehr über den Körper hinausragt und etwas schmäler ist. Er enthält alle Gefühle, Leidenschaften und Begierden, die das menschliche Innenleben enthält. Alle Dinge, welche vom physischen Leben bewirkt werden, sind als dunkle Wolkengebilde darin enthalten. Je reiner er ist, desto mehr erinnert er an die Sterne. Er hat eine Farbe, die vom Orange ins Gelb spielt. Wenn Sie den physischen Leib wegdenken, so haben Sie eine Art längliche Kreisform, welche als Grundton die Orange-Farbe hat. Sie können darin die verschiedensten Wolkengebilde flimmern und die winzigsten Figuren darin spielen sehen. Bei dem Menschen, wie er als Durchschnittsmensch heute existiert, ist dies für den Seher sichtbar.
+
+Diesen Astralleib finden Sie dann durchdrungen mit einer anderen Gestalt, mit dem, was wir den Mental-Leib nennen. Dieser Mental-
+
+Leib ist nun bei den Menschen erst vorhanden seit der Mitte der dritten Rasse; die Lemurier, welche im Anfange ihrer Entwicklung waren, hatten noch keinen Mentalleib. Wenn wir uns zurückversetzen in die Gegend südlich von Vorder- und Hinterindien gegen Australien hin, wo die Lemurier gelebt haben, da hatten diese einen physischen Leib, in der Mitte etwas verdichtet, und dann den Astralleib. Sonst konnte man in ihnen nichts sehen. Je mehr sich nun die lemurische Rasse entwickelte, desto mehr zeigte sich im Innern dieser Astralleiber, an einer Stelle – und zwar, wenn man diese Stelle bezeichnen will, da, wo unser physisches Gehirn seine Mitte hat – eine dunkle, schwarze, kugelförmige Stelle. Dieser schwarze Punkt, diese kugelförmige Stelle bedeutete innerhalb des Astralleibes dasjenige, was man eigentlich als das Ich des Menschen bezeichnet, das sich dann seit der lemurischen Zeit her entwickelt hat. Das ist die äußere Gestalt für das Ich!
+
+Innerhalb dieses Punktes sitzt seit der Entwicklung der lemurischen Rasse der Anfang dessen, was ich Mental-Leib genannt habe. In diesem Punkte beginnt ein Ausstrahlen, das immer größer und größer wird und das die Aura durchdringt, sodass die Aura von innen heraus belebt wird. Bei den Lemuriern war der Punkt noch sehr klein; er wurde immer größer und größer, und jetzt ragt er beim Durchschnittsmenschen über den Astralleib hervor in dem Maße, als er durch Denken, durch den Verstand, durch sittliches Gefühl ein Übergewicht über die Leidenschaften und Triebe gewinnt; das ist es, was sich entwickelt hat seit der lemurischen Rasse.
+
+Wir müssen uns nun fragen: Warum entwickelt sich das? Die Beantwortung der Frage nach dem »Warum« dieses Mental-Leibes liegt darin, dass jetzt erst in den Menschen dasjenige auftritt, was man eigentlich Geist zu nennen berechtigt ist. Seit jener Zeit, seitdem der geistige Einschlag bei den Menschen stattgefunden hat – also Mitte der Lemuris –, findet das Herausdringen des Mental-Leibes des Menschen statt.
+
+Nun bitte ich Sie zu berücksichtigen, dass die Triebkraft zu dem, was den Mental-Leib herausquellen lässt, das höhere Selbst ist: Atma-Budhi-Manas; dieses quellt. Wenn wir es allein sehen könnten in
+
+---
+
+seinem Aufquellen, so würde es eine blaue Masse sein, die, je weiter sie nach auswärts kommt, immer mehr und mehr dem Violett zugeht. Dadurch, dass es auch vermischt ist mit den früheren Gebilden des Astralleibes, bekommt es noch verschiedene andere Nuancen; es ist vermischt. Dasjenige, was das Ich im Menschen ist, ist nur in der Zeit der Lemurischen Rasse dieser Punkt gewesen, denn in Wahrheit wird dieser Punkt dann die Grenze der mentalen Aura, sodass Sie sich vorstellen müssen – sagen wir – den Astralkörper des lemurischen Zeitalters so, dass das, was zuerst bloß ein schwarzer Punkt war, eine geistige Haut bildete, die immer größer und größer wird [siehe Skizze]; und in der geistigen Haut befindet sich das Ich.
+
+
+
+Wir sind bis jetzt in der Entwicklung vorwärts gegangen. Gehen wir jetzt einmal zurück bis dahin, wo sozusagen außer dem Astralleib der lemurische Mensch vollständig im absoluten Dunkel schwebte und nur der Astralleib leuchtend war, indem der schwarze Punkt auftrat und der Astralleib zu strahlen begann.
+
+Vor dem war der Astralleib umgeben von einer bläulichen Hülle. Sie waren in einem Astralleibe, der von außen umgeben war von einer blauen Hülle. Diese war aber nicht für sich vorhanden; sie setzte sich fort bis zur blauen Hülle des nächsten Lemuriers. Diese blaue Atmosphäre stellt den gemeinsamen Menschengeist vor, der von außen her zusammenhält, was da organisiert war. Die Entwicklung besteht darin, dass diese blaue Masse eingesogen, absorbiert wird; die gesamte blaue aurische Masse wird endlich eingesogen, dass sie ganz absorbiert ist.
+
+Dann sind die Lemurier reine Astralkörper. Das kommt nun auch in dem Punkte, den ich erwähnt habe, zum Vorschein und quellt von innen heraus. Dann ist die ganze mentale Welt eingesogen, und der Astralkörper leuchtet nun im Dunkeln.
+
+Wir gehen jetzt immer mehr und mehr zurück. Die ganzen Astralleiber waren also eingeschlossen in der allgemeinen, ihnen zugehörigen Aura. Würden wir zurückgehen bis zum Beginne unserer Erdenentwicklung, dann würden wir dasjenige haben, was der Entwicklung zugrunde liegt. Wenn wir diese Naturen, diese astralen Kugeln betrachten, so sind diese nämlich die Nachkommenschaft dessen, was wir als die Pitris bezeichnen. Alles dasjenige, was in diesen astralen Auren darinnen ist, stammt von den Pitris her, die von der lunarischen Epoche herübergekommen sind in unsere Entwicklung. Diese Gesamt-Materie, die in der Aura darinnen ist, stammt von der lunarischen Epoche.
+
+In der Zwischenzeit zwischen der lunarischen und irdischen Epoche sind diese gesamten astralischen Gebilde als Samen vorhanden und schlummerten herüber. Sodass Sie sich jetzt vorstellen müssen die blaue Gesamtaura als eine Gesamtmasse, die eingesogen wird, die als Gesamtmasse in einem ganz dunklen Violett erscheint, sodass sie gesehen werden konnte auch während des Pralayas, sodass sie gesehen werden konnte, während sie sich herüber entwickelte von der lunarischen nach der irdischen Entwicklung; man würde sehen, wie sie in einem dunklen Violett vorhanden ist.
+
+Wenn die irdische Entwicklung beginnt, ist die Erde in einem roten Zustande; sie leuchtet rötlich auf; sie hat aber die blaue Atmosphäre um sich. Die rötliche Erdkugel ist das, was aus den Pitri-Samen sich gebildet hat. Die Pitri-Samen bilden die rötliche Arupa-Kugel, und das, was Geist ist, umgibt diese Arupa-Kugel als blaue Atmosphäre. Dieser Geist, der da vorhanden war, ist aber als solcher differenziert; er ist in sich differenziert, das heißt er trägt für jeden später entstehenden Menschen den geistigen Keim bereits in sich. Wie unsere Seele einzelne Gedanken enthält, so trägt er – der Geist – den einzelnen Menschen als Gedanke in sich. An den Kreuzungspunkten sind dunkle Stellen [siehe Skizze].
+
+66
+67
+
+---
+
+68
+69
+
+
+
+Als der alte Mond in seinem Nirwana war, waren die einzelnen Pitris vollkommen getrennt voneinander vorhanden; sie hatten die vollkommensten Astralleiber, die denkbar waren. Das, was ich eben beschrieben habe, kommt von der lunarischen Epoche herüber. Was kommt herüber? Die Pitri-Samen und ihre ganze aurische Atmosphäre; sie machen da das Pralaya durch. Sie würden sich aber nicht in der irdischen Entwicklung weiter entwickeln können, wenn ihnen nicht jetzt etwas begegnete, was überall im Weltall vorhanden ist, was aber nur in einer bestimmten Gestalt für sie tauglich sein kann, nämlich dasjenige, was später die physische Stofflichkeit werden kann und was überall im Weltenraum als Weltenstaub vorhanden ist.
+
+Welten entstehen immerfort, und Welten vergehen immerfort und erfüllen den ganzen Weltenraum mit Weltenstaub. Nehmen Sie als Beispiel den Kometen, der von Biela entdeckt worden ist. Der teilte sich in zwei Teile, dann in mehrere Teile, endlich in viele Teile; er wird schließlich in Weltenatome zerfliegen. Der Weltenstaub ist eine Entdeckung des neunzehnten Jahrhunderts. Er macht es, dass, wenn wir eine Planetenbahn berechnen, wir eine etwas zu große Zahl bekommen, weil die Planeten die Staubmassen zu überwinden haben.
+
+Nun muss man sich vorstellen, dass dieses, was da herüberkommt als die Pitri-Samen und die aurische Atmosphäre den Weltenstaub mit sich vereinigen, aber solchen Weltenstaub, welcher von ihnen selbst mit einer magnetischen Kraft angezogen wird, der so ist, wie sie ihn brauchen, damit sie ihn sich eingliedern und fest werden können. Dadurch bekommen sie den physischen Körper. Den Welten-
+
+staub organisieren also die Pitris; der Pitri ist darauf angewiesen, den Weltenstaub aufzunehmen wie die Pflanze den Erdenstaub aus dem Boden. Dieser Vorgang wird so ausgedrückt in den theosophischen Schriften: Die Pitris bilden die Samenformen und bauen dann mit Materie die Formen aus, sodass die blaue geistige Atmosphäre eingesogen werden kann.
+
+Von zwei Seiten her wird gebaut: Von innen, von den Pitri-Samen, wird der physische Körper gebaut; und die blaue Atmosphäre bildet von außen einströmend den Mental-Körper aus.
+
+Die Pitris sind in verschiedenen Vollkommenheitsgraden vorhanden; nicht alle haben dieselbe hohe Stufe erreicht. Es ist genau so wie bei Platon, Pythagoras und so weiter, die, wenn das Nirwana der Erde erreicht sein wird, weiter sein werden als die allgemeine Menschheit; sie waren eben weiter vorgeschritten. Die am weitesten Vorgeschrittenen waren die solarischen Pitris. Zwei Gattungen gibt es von ihnen. Dann aber gibt es noch zwei Gattungen von lunarischen Pitris, welche eine ziemlich normale Entwicklung erreicht hatten, nämlich eine solche, dass sie imstande waren, schon eine Art Karma in sich auszubilden, ein Karma, das ähnlich war, wie das Karma unserer Tiere sein wird am Ende unserer Erd-Entwicklung. Es werden gewisse Tiere soweit sein, dass man bei ihnen von Schuld und Sühne wird sprechen können. Unsere Tiere haben das noch nicht, aber am Ende der Entwicklung werden sie es haben. Das karmische Prinzip war bei einigen Gattungen bereits vorhanden. Bei anderen Gattungen war es nur in der Entwicklung begriffen, und bei noch anderen war es nur andeutungsweise vorhanden. Sieben Stufen gibt es da, die wieder zusammenhängen mit den sieben Menschenrunden. Im allerersten Anfangsstadium waren die Solarpitris nicht imstande einzugreifen; sie hatten es auch gar nicht nötig. Da waren sie, aber sie umschwebten gleichsam die Erde und warteten auf eine Aufnahme. Ich will das vergleichen mit Folgendem:
+
+Denken Sie sich einmal in die alten Zeiten der Pfahlbauten in Deutschland zurück. Denken Sie sich, da wären ausgebildete Ingenieure vorhanden gewesen; die würden da nichts haben anfangen können, die hätten nichts tun können; es mussten primitivere Naturen
+
+---
+
+da sein: Das waren die noch wenig vollkommenen Pitris. Als ein späteres Stadium der Entwicklung erreicht war, hatten erst die vollkommeneren Pitris eine Aufnahmemöglichkeit. So ging es dann weiter, bis während der vierten Runde die solarischen Pitris eingreifen konnten. Während der lemurischen Rasse konnten sich die solarischen Pitris erst inkarnieren. Die ganze aurische Atmosphäre war eingesogen, um sie von innen heraus zum Quellen zu bringen. Das war etwas, was mit der Erde überhaupt nichts zu tun hat, das aber Einfluss gewann. Da mussten die vollkommeneren Wesen, welche in sich schon die Kraft hatten, etwas aus sich hervorzulocken, und die wir kennen als die Venus-Söhne – die Manasa-Putras, Wesenheiten höherer Art, die nicht innerhalb der irdischen Entwicklung vorgesehen waren –, eingreifen. Sie waren da, und als sie inkarniert waren, konnten die ersten der noch niederen Menschenwesen den ersten Unterricht empfangen.
+
+70
+
+# DIE BILDUNG DER AURA II
+
+Berlin, 19. Januar 1904
+
+Heute möchte ich Ihnen die Auren-Bildung darlegen, möchte Ihnen zeigen, wie sie sich nach und nach herausbildet. Das andere werden Sie dann leicht verstehen. Ich werde zeigen, wie sich die Aura entwickelt hat seit der Mitte der lemurischen Rasse. Ich werde Ihnen eine Art Beschreibung davon geben, sodass sie Ihnen ohne Weiteres aus sich selbst verständlich sein wird.
+
+In der Mitte der lemurischen Rassenentwicklung ist ein wichtiger Punkt für das Menschengeschlecht vorhanden. Bis dahin wurde der menschliche Leib von außen aufgebaut, sodass also der menschliche Leib fertig vorliegt in der Mitte der lemurischen Rasse als physischer Leib, Ätherkörper und Astralkörper. Diese drei sind in der Aura des lemurischen Vorfahren vorhanden. In dem Augenblicke, wo wir in der Mitte der lemurischen Rasse angelangt sind, wird in der Mitte der Aura der lemurischen Vorfahren ein schwarzer Punkt sichtbar.
+
+Wenn man den physischen Körper wegdenkt, bleibt der ätherische und astralische Körper übrig. Das ist der lemurische Mensch. Er erhält dann über dem Haupte einen schwarzen Punkt; es ist dasjenige, was wir als das eigentliche Ich des Menschen bezeichnen. Ich werde gleich, anknüpfend daran, den atlantischen Menschen aufzeichnen.
+
+Der atlantische Mensch würde nun etwa, wenn das der physische Körper wäre, so aussehen [siehe Skizze]. Der atlantische Mensch sieht seiner Aura nach ganz anders aus als der lemurische Mensch und der jetzige Mensch; der atlantische Mensch hat eine schwarze Eiform, und der astralische Mensch ist die ganze Aura. Innerhalb der astralen Aura dehnt sich der schwarze Punkt aus und wird zur Hülle für den inneren Kern. Die Überreste der atlantischen Rasse haben noch immer diese eigentümliche Aura. Der Geist glänzt im Innern des schwarzen Punktes auf; er fängt an zu glänzen. Das, was zu glänzen anfängt, ist an sich blau, erscheint aber, je nach dem Astralleib,
+
+71
+
+---
+
+72
+73
+
+
+Der lemurische Mensch
+blau (schraffiert) = Astralleib
+schwarzer Punkt = Ich
+
+
+Der atlantische Mensch
+blau (schraffiert) = Astralleib
+violett (punktiert) = Mentalleib
+schwarzer Ring = Ich
+
+in verschiedenen Nuancen blau-rot, indigofarben und so weiter. Es wird also, wenn man alles wegdenkt, etwas wie ein Indigo-Ei sichtbar sein. Bei einem Menschen, welcher besonders gedankenreich ist, erscheint es durch verschiedene grüne Gedankenhüllen hindurch. Bei einem Menschen, der sehr reine Gedanken, abstrakte Gedanken hat, erscheint es durch die gelbe Hülle hindurch. Dann auch erscheint es in einer sehr schönen, mehr nach dem Violetten hin geneigten Färbung. Dieses nun, was so der atlantische Mensch hat, wird immer größer und größer, sodass bei einem Durchschnittsmenschen unserer jetzigen Rasse dieses schwarze Ei zusammenfällt mit dem Umriss des Astralkörpers.
+
+Unser heutiger Mensch hält ungefähr das Gleichgewicht. Er beschäftigt seinen Geist soweit, als es ihn interessiert, und er beherrscht seine Lüste und Triebe mit dem Verstande. Unsere ganze äußere Kultur ist im Grunde genommen dazu da, um Triebe, Instinkte und
+
+Leidenschaften zu befriedigen. Das drückt sich dadurch aus, dass Ihre astrale Aura zusammenfällt mit der mentalen Aura.
+
+Wenn Sie in der gegenwärtigen Entwicklung einen höher entwickelten Menschen betrachten, so ist das etwas anders. Da geht die mentale Aura über die astrale Aura hinaus; sie steht etwas vor. Das Ich geht noch darüber hinaus.
+
+Bei einem Chela oder einem Adepten haben Sie in der Mitte den Astralleib, dann den Mentalleib und dann erst das schwarze Ei, das Ich, sodass er das Astrale von dem Mentalen umgeben hat und das erst mit dem Ich überzogen ist, sodass das Astrale für mentale Zwecke gebraucht wird.
+
+Das Ich ist ein Punkt im Momente der Ichwerdung in der Mitte der lemurischen Rasse. Das Ich ist die äußerste Hülle jetzt. Das Gehirn wird immer mehr der Mittelpunkt des ganzen Organismus.
+
+Bei der ersten Rasse unserer arischen Bevölkerung ist der eigentlich bewegende Punkt in der mentalen Aura noch etwas über dem physischen Gehirn gelegen und wandert in das physische Gehirn erst nach und nach hinein. Diejenigen, welche innerhalb der atlantischen Rasse als Adepten inkarniert waren, standen unter einer wesentlich höheren Intuition, einer Intuition, die noch unpersönlich war. Dann wanderte diese in das Wesen allmählich hinein, und es kommt erst später wieder das Spirituelle aus dem Persönlichen heraus.
+
+Die Adepten der vierten – also der atlantischen Rasse – waren noch Gott-begeisterte Seher; die der sechsten Rasse werden Selbstbegeisterte Seher sein!
+
+Das ist der Unterschied zwischen den Anfängen unserer eigenen Rasse [also der fünften] und uns! Darin ist auch ein Grund zu suchen, warum im Beginn der theosophischen Entwicklung oder Bewegung die Adepten, die unsere Adepten sind, schwer verstanden werden konnten; warum sie selbst fühlten, wie sie sich so schwer verständlich machen konnten. Daher kam es, weil die Adepten, die der frühesten Bevölkerung angehörten, ein noch viel spirituelleres Leben hatten, das noch nicht in die bloße Verständigkeit heruntergedrungen war. Der abendländische Mensch will verstehen. Daher, wenn Sie in der «Geheimlehre» lesen, werden Sie die Stelle finden, wo der Meister
+
+---
+
+sagt: Ihr mit Eurem abendländischen Urteil versteht es doch nur schwer!
+
+Alles in der Aura ist für den Seher zu sehen, unbedingt alles. Das Einzige, was er nicht sieht, und worin kein Seher etwas sehen kann, ist das Wesenhafte des Dunklen, das das Ich bedeutet, sei es nun der schwarze Punkt oder sei es der schwarze Reifen. Sichtbar ist, was von außen gebildet wurde und was vom Inneren heraus gebildet wurde. Das, was des Menschen eigentliches Ich ausmacht, ist für keinen Seher zu sehen! Man kann genau verfolgen, was die Natur hervorgebracht hat als Ich, aber man kann es niemals in seiner Selbst-eigenheit erschaffen. Für jeden, selbst für den höchsten Seher, gibt es den dunklen Punkt im Menschen. Ebenso wenig, wie einer zu einem anderen Menschen ›Ich‹ sagen kann, ebenso wenig können wir das sehen, was in der Aura des anderen Ich ist.
+
+Etwas über das Bewusstsein: Sie bestehen aus lauter Zellen. Jede Zelle hat ein Zellenbewusstsein. Ihr Bewusstsein ist die Gesamtheit der Zellenbewusstseine. Das Bewusstsein, von dem ich hier rede, wird niemals in einem anderen zusammenfließen. Wie Sie sich inkarnieren in einem Zellenkörper, so wird sich ein höheres Bewusstsein inkarnieren in dem, was aus den verschiedenen Egos kommt. Bei jeder Sitzung ist die Gesamtheit der Teilnehmer der Körper für eine höhere Wesenheit. Das eigentliche Ego ist also nicht zu durchblicken.
+
+Bei dem Lemurier ist daher ein dunkler Punkt, bei dem Atlantier ist ein Kreis oder eine Eiform innerhalb der Aura, bei uns deckt sich dieses Schwarze ungefähr mit der Grenze der Aura, beim Adepten geht die mentale Aura über die astrale Aura hinaus, und da, wo sie das tut, wird sie im schönsten Sinne glänzend; sie spielt dann ins Blaue oder Violette hinein. Das Rosenrot ist das eigentlich Schöpferische, das, wo das Ego in den schöpferischen Kräften die Welt auf geistige Weise umzuarbeiten beginnt, und wo der Adept ein wirklicher Planetengeist zu werden beginnt.
+
+Und jetzt etwas darüber, was man in Wirklichkeit versteht unter der sogenannten leblosen Natur: Auch die höheren Geister haben ein Ego. Wenn ein Geist so groß ist, dass er ein Sonnensystem baut, dann ist er nicht in der Sonne, sondern am äußersten Rand des Systems zu suchen.
+
+Das Sonnensystem ist dadurch scheinbar ein unlebendiges, weil es das Ich schon hinausgestellt hat. Wenn wir an die Grenze des Sonnensystems kommen könnten, würden wir das Ego dort auffinden. Das ist der esoterische Grund der Himmelsbläue! Der Weltenraum erscheint deshalb blau, weil er nichts anderes darstellt als außen die schwarze Hülle! Und außerhalb dieser schwarzen Hülle erscheint der Geist durch die verschiedenen Hüllen in verschiedenen gefärbten Regionen! Wenn Sie es also betrachten, so muss es Ihnen so erscheinen, als wenn Sie eine schwarze Fläche durch ein Glas, das erhellt ist, sehen, da erscheint sie Ihnen blau. Es erscheint zum Beispiel auch die Mitte einer Flamme blau. Da, wo die Flamme blau ist, ist ein dunkler Raum; da brennt nichts. An einer Kerzenflamme ist das gut zu sehen; in Wahrheit ist es aber schwarz. Jede Flamme ist hell. Das Blau des Himmels ist wirklich anzusprechen als eine ›Feste‹, wie die Genesis sagt; es ist dies möglichst wörtlich zu verstehen, genau so, wie außerhalb des Ich der allgemeine Geist ist. Nichts in der Welt ist ohne Geist; es gibt nur Geist, der noch nicht zum Ich geworden ist; innerhalb ist der Geist, mit dem das Ich sich bereits erfüllt hat. Das Ich ist die Grenze zwischen dem Geist von außen und dem Geist, der im Menschen lebt. Diese Feste ist das Ich des betreffenden Sonnensystems.
+
+Die Genesis ist ein inspiriertes Buch; sie ist nicht etwas, was von Menschen ausgedacht ist. Solange, als das Mentale noch nicht eingezogen war in den menschlichen Verstand, wurde von außen inspiriert. Und die von außen inspirierten Bücher nennen wir den Inhalt der Uroffenbarungen. Diese stimmen deshalb alle miteinander überein, wenn wir durch die Hülle, die die Menschen darüber gezogen haben, hindurchsehen. Wir können gehen zu den indischen Büchern oder zu den Traditionen der dekadenten Stämme in Amerika: Sie stimmen überein, weil sie als Offenbarungen empfangen worden sind. Das ist etwas, was nicht nur den Okkultisten bekannt ist, sondern was offensichtlich immer erkannt wurde. Herder hat das auch durchschaut. Das neunzehnte Jahrhundert, das sich mit der Kritik hauptsächlich befasst hat, bemisst diese Dinge nach menschlichen Meinungen. Der richtige Standpunkt ist gegenüber diesen Büchern derjenige, von dem
+
+---
+
+76
+77
+
+aus gesagt werden kann: Wenn wir diese Bücher nicht verstehen, so braucht nicht das Buch absurd zu sein, sondern wir selbst können absurd sein.
+
+Ich möchte nun zurückkommen auf die Aura der vorgeschrittenen Menschen, zum Beispiel auf Platon im griechischen Altertum. Die Entwicklung, die Platon erreicht hat, werden die Durchschnittsmenschen der gegenwärtigen Rasse erst in der nächsten Runde erreichen; deshalb nennt man solchen Menschen wie Platon ‚künstliche Fünftrunder‘. Nun unterscheiden sie sich aber auch wesentlich von den übrigen Menschen. Wenn die gegenwärtigen Menschen in der fünften Runde angelangt sein werden, werden die Leiber nicht mehr physische Leiber sein wie jetzt, sondern Astralleiber, sodass also der Unterschied noch immer da ist. Platon war im physischen Leibe der vierten Runde schon dasjenige, was die anderen Menschen erst im Astralleibe der fünften Runde sein können!
+
+Platon ist also im physischen Leibe der vierten Runde gewesen, was andere Menschen im Astralleibe der fünften Runde sein werden! Das bedingt einen wesentlichen Unterschied im Fortschritt der Entwicklung. Dadurch wird Platon, wenn die irdische Entwicklung vollendet sein wird, in einen ganz anderen Zustand kommen als die anderen. In der fünften Runde wird er vielleicht ein Buddha sein und in der sechsten noch wesentlich höher stehen! Gehen wir noch einmal zurück und sehen uns Platon an. Während der vierten Runde hat er mit dem physischen Gehirn bereits geleistet, was der Durchschnittsmensch in der fünften Runde mit dem Astralgehirn wird leisten können. Dadurch wird es ihm möglich sein, in der nächsten Runde in entsprechender Weise zurückzuwirken; er hat dadurch eine Fähigkeit sich angeeignet, die andere noch nicht haben: nämlich die, auf das physische Gehirn zurückzuwirken!
+
+Das ist ebenso, wie wenn ein Ingenieur plötzlich versetzt würde in einen wilden Völkerstamm; er wird dort mit seinen künstlerischen Fähigkeiten und Kenntnissen alle Dinge in viel höherem Maße umgestalten können; er wird ein Lehrer sein können dieses wilden Völkerstammes. Während einer, der aus dem wilden Volksstamme herauswächst, die Entwicklung nur einen kleinen Schritt weiter führen kann, wird der, welcher mit einer großen Entwicklung in den Volksstamm hineinkommt, den Volksstamm viel weiter bringen können. Ein Hochentwickelter wird natürlich nicht in den ersten Stadien der Entwicklung eingreifen, sondern erst später, wenn die Entwicklung bis zu einem gewissen Punkt vorgeschritten ist. Das ist die Aufgabe der vorgeschrittenen Menschen! Sie werden hinübergehen in die nächste Entwicklungsepoche, aber warten, bis sie eingreifen können!
+
+## [Vermutlich aus der Fragenbeantwortung:]
+
+Mit dem Zurückwirken meinte ich, dass er Fähigkeiten erlangt hat, die andere nicht haben. Die anderen sind gebunden an das physische Gehirn, und dann wieder gebunden an ein einzelnes Gehirn. Er wird in der sechsten Runde auf das astrale Gehirn, in der siebenten Runde auf das mentale Gehirn einwirken, sodass er zurückwirken kann auf die früheren Gehirne, dass er von außerhalb sie leiten kann.
+
+Unter der Wirksamkeit der Pitri hat man also etwas Ähnliches zu verstehen, in welchem Sinne sich das Frühere an dem Aufbau des neuen Weltenkörpers beteiligen kann. Diejenigen, welche in normaler Weise ihre Entwicklung vollendet haben, die richtige Menschen geworden sind, werden an diesem Aufbau von außen entsprechend mitwirken können.
+
+Wie weit sind wir gekommen am Ende der siebenten Runde? So weit, dass wir alles das, was der Geist von innen aufgebaut hat, wieder von außen aufbauen können. Wenn wir also neuen Weltenstaub finden, werden wir sofort einen Körper aufbauen, der unserer Entwicklungsstufe entsprechen wird. Wir werden die ‚Menschen‘ künftiger Entwicklungsstufen aufbauen! Die aber, die zurückgeblieben sind, die nicht so weit gekommen sind, die werden die untersten Formen aufbauen müssen; sie werden dementsprechend diejenigen sein, welche gleichsam die Wände im neuen Weltsystem von unten aufbauen, und die Entwickelten werden da eingreifen, wo es für sie zu tun gibt.
+
+Das Ego in uns kann niemals verloren gehen; es verwandelt sich nur. Gegenwärtig denkt es, und das ist die höchste Fähigkeit, die es heute besitzt. Die nächstfolgenden Wesenheiten werden wir wieder beseelen, aber nicht mit manasischen Egos, sondern mit höheren
+
+---
+
+Egos. Die Gedanken der Entwickelteren überlassen wir zur Bildung einer neuen Sonne; wir legen sie auf den Altar der Gemeinsamkeit. Einer Spaltung eines Volkes in zwei Teile geht immer ein Kampf der Dhyan-Chohans auf höheren Ebenen voran.
+
+78
+
+# DIE BILDUNG DES KOSMOS NACH ANNIE BESANTS «URALTER WEISHEIT»
+
+Notizen zu einer Besprechung mit Rudolf Steiner vom 26. Januar 1904
+
+Heute möchte ich über die Bildung des Kosmos nach Annie Besants «Uralter Weisheit» sprechen. Ich möchte zeigen, wie man versuchen soll, das Betreffende zu lesen. Es beginnt auf Seite 325, wo Annie Besant zu schildern versucht, wie der Übergang von der Mondepoche stattgefunden hat, in welcher unsere Vorfahren ihre Entwicklung durchgemacht haben und dann auf unsere Erde gekommen sind. Während des lunarischen Manvantaras brachte die Evolution sieben Klassen von Wesen hervor, welche Vater genannt wurden, weil sie die Wesen der terrestrischen Evolution hervorbrachte.
+
+Genau ebenso, wie wir während unserer irdischen Epoche die Aufgabe haben, den Verstand und so weiter zur höchsten Entwicklung zu bringen, hatten diese Wesen auf dem Monde das Empfindungswesen zur höchsten verfeinerten Gestalt zu bringen. Das ist das chemische Prinzip, sodass sie in der idealisierten Weise das Empfindungsleben ausgestaltet hatten. Als die siebente Runde abgelaufen war, trat für diese Wesen ein Nirwana-Zustand ein. Das war die volle Ebenbildlichkeit des Jahres, des Wesens, das ihr Ideal war. Wie die Samen überwintern, so überwinterten sie durch ein Pralaya hindurch. Sie entwickelten also Seele.
+
+Es waren also noch zwei andere Rassen. Solarische Pitris, das waren diejenigen, welche der gewöhnlichen lunarischen Entwicklung vorangeschritten waren. Sie hatten die höchste Stufe der Ebenbildlichkeit mit ihrer Gottheit erlangt. Dann gab es aber schon während der Mondepoche Mondpitris, Mondpithakas. Die weiter entwickelten Wesen waren solarische Pitris. Diejenigen, welche auf dem Monde schon Meister geworden waren, waren in Bezug auf die Entwicklung des Menschenverstandes höher als die Mondgötter. Die Mondgötter haben das Element des Verstandes nicht ausgebildet. Es wäre zweck-
+
+79
+
+---
+
+80
+81
+
+los, wenn die Gottheit nur so weit kommen würde, als sie im Anfang war. Es muss etwas hervorgebracht werden, was weitergeht als der Anfang war. Wenn sie die Meister am Ende der Entwicklung unseres Lebens ansehen würden, dann würden sie finden, dass ihre Weisheit eine viel höhere ist als die, welche inkarniert worden ist als die irdische Weisheit. Die inkarnierte Weisheit reicht nur aus, um die irdische Entwicklung bis zum Ende zu führen. Deshalb muss man festhalten, dass der Meister da unter Umständen viel höher ist als der Deva.
+
+Jahve ist nur durch einen Irrtum zur ersten Person der Dreifaltigkeit avanciert. Er ist der Gott der irdischen Formen, der daher den Adam aus der Materie formt. Da haben die Juden natürlich den Vater-Gott. Aber von dem reden sie nicht. Das ist nämlich derjenige, der nie ausgesprochen wurde.
+
+Menschen nennt man solche Wesen der Mondepoche, welche den Pitris voraneilen – Dhyanis. Niemand hatte den Kausalkörper entwickelt auf der Mondepoche. Diejenigen, welche Kausalkörper hatten, waren über die Mondepoche hinausgeschritten in die irdische, in die Menschenepoche hinein. Platon wird die höchste Entwicklung des Kausalkörpers in die nächste Runde hinüberbringen.
+
+Die lunarischen Pitris hatten eine gewisse Intelligenz, ähnlich wie die der Tiere. Die Erde ist die vierte Inkarnation. Die erste Inkarnation ist das Planetoiden-Heer, die zweite ist an der Stelle des Mars, die dritte an der Stelle des Mondes. Die vierte Inkarnation der planetarischen Kette ist die Erde. Die Elementaressenz ist das, was ich als Weltenstaub geschildert habe. Wie die Samen aus der Erde die Stoffe aufsaugen, so saugen die Pitris irdische Stofflichkeit ein. [...]
+
+Kugel a) ist die urbildliche Welt. Die rote Kugel aus dem Urbilde sich herausbildend, aus dem Dunkel sich heraus entwickelnd. Die urbildliche Welt. Die Urbilder alles Verständigen. Der Verstand muss gestaltet werden. Er muss hineingebildet werden in den Körper. Es hat da nur Sonnengeflecht gegeben, kein Nervengeflecht, das vom Kopfe ausging. Die planetarischen Geister stehen über der entsprechenden Entwicklung. Die Planetengeister sind von außen am Werke, sie haben die höchste Aufgabe. Sie ordnen an, wie die
+
+Aufeinanderfolge ist, sie haben eine über dem Einzelnen stehende Aufgabe. Sie kommen niemals herein.
+
+Die mentale Welt ist begrenzt von einer Art von Sphäre. Statt der Sterne und Sternbilder erscheint da die Akasha-Chronik. Die Bildner sind nicht im Mentalen tätig, sie sind im Budhireich tätig, die planetarischen Bildner sind also nur in der Budhisphäre zu treffen. Der Gedanke ist zuerst nur ein Punkt, dann bekommt er Gestalt. Es entsteht das Urbild der Pflanze, das Urbild der Mineralien. Auf der Kugel b) werden die Formen von Bildnern niederen Ranges reproduziert, bis sie zu einer dichteren Materie reif geworden sind. Es sind kleine Zeichen und Farben darin. Die Farbe ist die astrale Materie. Die Kugel, die rot war, ist in orange übergegangen, und nun wird sie gelb. Jetzt wird sie mit Astralmatie ausgefüllt.
+
+Und nun Kugel c). Auf der Kugel c erreicht die Form die dichteste Beschaffenheit. Von diesem Punkte ab ändert sich die Natur. Es folgen die Kugeln c), f), g). Auf den Kugeln e) und f) äußert sich das Bewusstsein zuerst auf der Ätherebene. Auf der blauen Kugel fangen die Wesen an, von innen heraus zu wollen, sie fangen an, sich zu bewegen. Es äußert sich also der erste automatische Verstand. Die Lunarpitris sind die Seelenkräfte der Form; sie bringen sie zur Reife und bewohnen sie später. Das, was sie hier schwarz haben, ist die Seele. Dass sie denken, ist Geist.
+
+Die irdische Epoche ist dazu bestimmt, die Ehe zwischen Geist und Seele zu einer vollständigen zu machen. Das Feuer ist das Element der ersten Runde. Es ist eigentlich Feuerluft, Ätherfeuer. In der zweiten Runde setzen die Pitris erster Klasse ihre Involution fort. In der zweiten Runde kommen die urbildlichen Formen der Pflanzen zustande, die dann in der fünften Runde ihre Vollendung anziehen. Das Mineral ist auf der Stufe der höchsten Vollkommenheit. Das menschliche Gehirn, als Mineralstoff, ist nur Träger. Das Mineralreich löst sich jetzt schon auf. In der nächsten Runde löst sich das Pflanzenreich auf, in der folgenden das Tierreich. Und in der siebten Runde wird der Mensch erst seine Vollkommenheit erreichen. Das Mineral hat sieben Prinzipien ausgebildet. Es ist das Vollkommenste, was wir haben.
+
+---
+
+Wir haben drei geistige Reiche: den ersten, zweiten und dritten Logos; dann das erste Elementarreich, das arupische Reich; zweitens das rupische Reich; drittens das astrale, viertens das physische, das mineralische. Das Mineral ist in der vierten Runde vollkommen. Die Pflanze wird ihre Vollkommenheit erlangt haben, wenn sie astral geworden ist. Die Genesis deutet mit ihren sieben Tagen die sieben Runden an. Die vier ersten Tage sind die vier ersten Runden, der siebente Tag ist das In-Ruhe-Tretende. Der vierte Tag ist die gegenwärtige Runde. Der fünfte, sechste und siebte Tag kommen erst.
+
+Je mehr Sie die Genesis kennenlernen, desto mehr werden Sie sie wörtlich verstehen müssen. Wenn man soweit ist, dass man den Sinn der Genesis wörtlich nehmen kann, dann hat man sie erst richtig verstanden. Luft ist das Element der zweiten Runde. Die Pitris erlangen hier die beginnende menschliche Stufe. Die Solarpitris machen hier die ersten Erscheinungen, auf der Kugel d), um in der menschlichen Evolution die Führung zu übernehmen. Die Wesen sind immer vier Runden später fertig. Die Urbilder der menschlichen Formen waren schon in der vierten Runde gegeben.
+
+82
+
+# DER ZWEITE LOGOS
+
+Berlin, 2. Februar 1904
+
+[Ich spreche heute zu Ihnen,] um zu zeigen, wie man die schwierige Materie der Runden nach [dem Buch] «Uralte Weisheit» von Annie Besant [verstehen kann].
+
+Ich will zuallererst davor warnen, zu abstrakt über den Logos zu sprechen. Man ist so sehr versucht, in allgemeinen Vorstellungen von erstem, zweitem, drittem Logos zu sprechen. Besonders Anfänger sprechen sehr gern gleich von ‹Logos› und wollen mit Auseinandersetzungen, was erster, zweiter, dritter Logos für eine Aufgabe haben, die ganze Welt erörtern. Das ist nicht das, was wir tun wollen.
+
+Wir wollen uns klar machen, was innerhalb der Entwicklung des Welt[ganzen] die einzelnen Wesen, die sich entwickeln, für eine Aufgabe haben, wodurch sie irgendein Glied im Logos werden. Denn selbstverständlich müssen wir uns ja klar sein, dass, wenn zum Beispiel eine Evolutionsepoche in die andere sich herüberentwickelt – zum Beispiel [die] lunarische in [die] terrestrische sich herüberentwickelt –, [dass] also [zum Beispiel] alles, was während der Mondentwicklung stattgefunden hat, durch [ein] Pralaya durchgeht und wieder in [Erscheinung] kommt, [und] dass [alles] das in ein inverses Pralaya [eingeht]. Was früher geschah, geht wieder in den Logos und in [Lücke in der Mitschrift] wird. [Es] ruht also gleichsam im Logos, schläft nicht, [es ist] bereit, eine neue Aufgabe zu erhalten.
+
+Nun klärt man sich am besten dadurch auf, dass man sich fragt: Was wird aus allem, was sich zum Beispiel heute bei unserer gegenwärtigen terrestrischen Entwicklung nach und nach während der verschiedenen Runden und Rassen heranbildet? Was wird aus alldem? Die Summe aller dieser Wesen wird, wenn [die] irdische Evolution zu Ende ist, die Summe dieser Wesenheiten wird eine zusammenhängende Masse von neuen Samen sein, welche in der nächsten Epoche sich weiter entwickeln soll. Sie kehren noch einmal in [den] Logos zurück.
+
+83
+
+---
+
+Das alles, was heute während unserer irdischen Epoche sich entwickelt, was übrig bleibt, was durch [ein] Pralaya hindurchgeht, wird für die nächste Epoche [ein] zweiter Logos sein. Das Ergebnis einer vorübergehenden Epoche ist für die nächste Epoche zweiter Logos.
+
+Ich bitte zu berücksichtigen, dass man besser tut, dass man sich fragt: Wie wird der zweite Logos? Statt einfach zu sagen: erster, zweiter, dritter Logos. Man bleibe beim Konkreten und mache sich klar, dass alles dasjenige, was aus einer Epoche in die andere herüberkommt, für die nächste Epoche der zweite Logos ist.
+
+Und nun teilen wir uns die ganze Evolution während unserer irdischen Entwicklung in zwei Teile. Wir haben es mit sieben Runden zu tun. Zuerst nehmen wir die drei ersten und die erste Hälfte der vierten Runde. Das ist die Hälfte. Gerade bis zu diesem Zeitpunkt, in dem erst eine Hälfte der vierten Runde verflossen ist, hat sich alles dasjenige entwickelt, ist dasjenige zum Ausdruck gekommen, was als dritter Logos sich mit [dem] zweiten Logos verbunden hat. Der dritte Logos ist etwas, was [Lücke in der Mitschrift]. Logos [ist] im Allgemeinen noch nicht verwendet worden, ist etwas, was neu hinzugefügt worden ist.
+
+Nehmen Sie Pflanzensamen, in [die] Erde hineingelegt. Die Samen, die Sie aussäen, die sind der zweite Logos. Das Beet, der Stoff, aus dem die neuen Formen entstehen, das ist der dritte Logos. Der dritte Logos wird verwendet, um Formen aufquellen zu lassen während der ersten Hälfte der Rundenentwicklung. Das ist das, was Annie Besant die Entwicklung der Form, die Involution nennt. [Es ist] das, was ich Weltenstaub nennen würde, sofern man es das substantielle Beet nennen würde. [Der zweite mit dem dritten Logos bauen die Formen auf, von außen hinein.]
+
+
+
+Der Mensch ist von außen heran aufgebaut. Die Pitris – zweiter Logos – sind herübergekommen. Sie haben befruchtet den dritten Logos. Aus der Befruchtung des dritten Logos durch den zweiten Logos entsteht die tierische Grundlage der Menschen. [Das ist] bis zur Mitte der vierten Runde die lemurische/lunarische Rasse.
+
+Und nun geschieht die zweite Befruchtung aus dem, was bis hierher entstanden ist. Vom zweitem und drittem Logos entsteht jetzt dadurch, dass [der] erste Logos sich hier direkt verbindet, entsteht jetzt der weitere zweite Teil. [So entsteht die] zweite Hälfte der vierten Runde und die drei folgenden Runden.
+
+Sodass wir uns vorstellen müssen: [Der] zweite Logos ist dasjenige, was herüberkommt von außen, [er] gliedert sich [mithilfe des dritten Logos] Form heran, quillt an. Alle Hüllen sind aufgebaut.
+
+
+
+Und nun kommt [die] Befruchtung vom ersten Logos. Es strahlt von innen heraus. Das ist die Befruchtung des ersten Logos. Das ist es, was in der Aura zu sehen ist.
+
+Bis zur vierten Runde ist die Aura wolkenartig [von außen] gebildet, bis zur lemurischen Rasse. In der Mitte der lemurischen Rasse fängt [das] strahlenförmige Bild der Aura an. Und dies ist [die] Einströmung des ersten Logos. Und das ist, was Annie Besant die Entwicklung des Lebens nennt oder Evolution. Von innen heraus beginnt das Leben oder die Evolution. [Dritter Logos: Evolution des Lebens.]
+
+[Der] Mensch der lemurischen Rasse hat [eine] physische Hülle, [eine] astrale Hülle [und ein] Kama-Manas gebildet. Das alles hat sich
+
+---
+
+aufgebaut. Jetzt entsteht ein schwarzer Punkt. In der Mitte über dem Kopf, der gleichsam den Platz anzeigt, von dem aus die Einströmung des ersten Logos einstrahlt.
+
+Jede Evolutionsepoche hat eine ganz bestimmte Absicht des Logos auszuführen. Unsere jetzige Runde – terrestrische Epoche – hat den Menschen von vornherein beabsichtigt und hat den Menschen zur Vollendung zu bringen. Die gegenwärtige [Runde] hat die bestimmte Aufgabe, den Menschen von vornherein zu veranlagen und zur Entwicklung zu bringen.
+
+Zu diesem Zweck geschieht immer eine zweifache Befruchtung. Die erste besteht darin, [dass] das Ergebnis der vorhergehenden Epoche selbst befruchtet. Das, was aus der Befruchtung hervorgeht, sind die Tatsachen der ersten Hälfte der Evolution. Dann geschieht [die] zweite Befruchtung [durch den] ersten Logos. Das sind die Tatsachen der zweiten Hälfte der Evolution. Die eine Hälfte geht von außen nach innen und bildet die Form. Die andere geht von innen nach außen und bildet das Leben.
+
+Ich bezeichne [den] dritten Logos deshalb als Weltenstaub, weil alles in ihn aufgenommen wird, was von den anderen Welten abgestoßen ist. Um [Pflanzen]-Samen wachsen und blühen zu lassen, muss erst Materie herbeigezogen werden. Der [Pflanzen]-Samen muss in [den] Boden hineingesenkt werden, der für ihn gleichsam präpariert ist, [sodass] er die Kraft, die er braucht, herausziehen kann. So ist es auch mit [dem] dritten Logos. Er besteht aus Stoff mit lauter [Quell]-Kraft ausgefüllt. Die kamischen Wesenheiten ziehen den Stoff an und bilden einen Kosmos.
+
+Die achte Sphäre gibt den Stoff ab, sie wird bei der Entstehung eines neuen Kosmos in die neue Entwicklung aufgenommen. [Die achte Sphäre, der Leichnam eines jeden Kosmos, gibt den Stoff zum Künftigen.] Jeder Weltenkörper wird am Schluss der Entwicklung hell-lila und verschwindet. Sämtliche Samen sind in demselben enthalten und [Lücke in der Mitschrift]
+
+Man muss sich von der Raumvorstellung emanzipieren. Sie gibt nicht alles wieder.
+
+Von der dritten Runde werden keine neuen Formen mehr gebil-
+
+
+
+det. Äußerlich haben die Menschen die vollkommenste Form erreicht. Das nächste, was Menschen erreichen werden, ist, dass sie von innen her die anderen Hüllen vollkommener machen.
+
+
+
+Jetzt schon hat die Rückwirkung auf den Astralleib begonnen. Die vierte Runde wird vollendet sein, die fünfte kommt, und dann wird immer mehr auf [den] Astralleib eingewirkt werden. Und auf der fünften Kugel/Runde wird der Astralleib so sein.
+
+[Von der Mitte der vierten Runde an sind die Formen vollendet; jetzt beginnt von innen heraus die Einwirkung auf den Astralleib.]
+
+---
+
+88
+89
+
+
+
+Er wird lauter Räder im Astralkörper haben. Die Chakras bewegen sich, wie schon [heute] bei denen, die seelisch schauen können. Die Chakras drehen [sich].
+
+Während der sechsten Runde bildet sich der Mentalleib aus. Es werden sich nicht nur Chakras bewegen, sondern von innen heraus glänzt immer mehr und mehr strahlend der Mentalleib. Jetzt ist er der strahlende Mentalleib. Das ist auf der sechsten Kugel vollkommen.
+
+In der siebten Runde bildet sich zur größten Vollkommenheit der Kausalkörper aus. [Er überragt die Grenze des Astralleibes, bis am Ende nichts als Kausalleib da ist.] Nämlich die Strahlen werden wirksamer Kausalkörper werden.
+
+
+
+Sie die [Lücke in der Mitschrift]
+
+Am Ende der siebten Runde ist nichts anderes da als der Kausalleib.
+
+Die oberste Schichte wird gebildet in der vierten Runde. Im obersten Gehirn ist das Werkzeug gegeben zur selbstständigen Betätigung. Bis dahin wirkt der dritte Logos von außen. Von dem Gehirn aus können dann die Kräfte ausströmen und die Chakras wieder in Bewegung setzen.
+
+Das, was von vorhergehender Entwicklung kommt, nennen wir Prakriti, was von der zweiten Hälfte, Mahat, und das, was von der dritten herüberkommt, Purusha.
+
+
+
+Körper ist Mahat, Seele Prakriti, Geist Purusha. [Im Samen sind Mahat und Purusha verschwunden; weitergetragen wird Prakriti.]
+
+Der Körper wird bereit durch den in ihm wohnenden Geist. Der Körper würde keine Fehler machen, wenn er nicht durch Geist [verführt] würde. Es gibt keine körperliche Sünde. Alle Sünde ist geistiger Natur. Grausam kann erst [ein] Mensch sein, der aufgegeben hat das Kama zu zügeln. Erst von [der] Mitte der lemurischen Rasse ab gibt es ein ‚Gut und Böse‘, vorher noch nicht. Geist und Körper sind zwei vollkommene Teile. In der Mitte von beiden liegt Kama, die Seele, sie ist der Träger der Unvollkommenheit.
+
+[Der Körper ist der Geist von außen, Mahat. Die Seele ist Prakriti.]
+
+Es gibt nichts so Vollkommenes wie Ihre Lunge, Ihren Magen, Ihr Herz. Wären die geistigen Fähigkeiten so vollkommen [wie die Organe], so hätten Sie [die] geistige Vollendung erreicht. Das Physische irrt sich nicht, das Mineralische irrt sich überhaupt nicht. Es kann sich nicht irren.
+
+---
+
+90
+91
+
+# ÜBER DIE BILDUNG DES KOSMOS
+
+Berlin, 9. Februar 1904
+
+Da die Theosophie nur aus ihrer Erfahrung heraus spricht, geht sie von einem aus, von unserem Logos aus. – Was der Mensch heute als Sonnenball sieht, *Sonne* zu nennen, ist eine Eigentümlichkeit unseres materialistischen Zeitalters. Vor sechs Jahrhunderten noch sagte der Mensch: Dies ist ein Leib; und dazu gehört eine Sonnenseele und ein Sonnengeist. Der Geist der Sonne ist nun der Logos; der physische Körper der Sonne seine niederste Manifestation. Was in ihr herrscht, ist der Geist. Man stelle sich vor, dass die geistigen Kräfte mit diesen in Verbindung stünden. Das Sonnen-Atma wäre der Sonnenlogos –, und es folgen die anderen Prinzipien, bis zum physischen Leib, wie bei uns. – Das Licht war bei den Alten der Leib für eine Seele. – Die menschliche Vollkommenheit der Intelligenzen wird auf sieben reduziert –, die sieben weißen Brüderschaften; die sieben Geister vor dem Thron Gottes; die sieben Hierarchien – je ein großer Geistkörper, der viele Zellen umschließt. – Die *Sieben Heiligen* vor dem Herrn sind das eine Grundleben des Kosmos. Als die vierte Runde kam, wurde sie geleitet vom Herrn der Form, Jahve.
+
+Unter diesen sieben stehen die andern Intelligenzen –, die Lipika sind so hohe Intelligenzen, dass sie zum Kreise *Rühr* mich nicht angehören, gezählt werden können oder müssen. … Die Engel verhüllen ihr Angesicht vor dem Geheimnis der Geburt; sie selbst haben keine Einsicht darin.
+
+Die sieben Laya-Zentren sind die sieben, ein Sonnensystem bildenden Reihen […]: das *Büro* der Brüderschaften.
+
+Die führenden Sieben sind also immer das Ergebnis der weißen Brüderschaften der vorigen Evolution. Die Sonne ist die Sthula Sharira des Logos.
+
+# DIE ENTWICKLUNG DER WESEN
+
+Berlin, 16. Februar 1904
+
+Sieben Stufen und Zustände. In der vierten Runde arupa, rupa, astral, physisch.
+
+Das Innenleben der Menschen entwickelt vollständig verschiedene Bewusstseinszustände. Das Wachbewusstsein ist der bekannteste Zustand. Unterhalb liegt zunächst der Zustand des träumenden Menschen – es ist jetzt dasjenige der meisten Tiere, gradweise verschieden, trotz der wachen Sinnestätigkeit.
+
+Das nächst niedere ist das Bewusstsein, das unser Leib hat während wir schlafen, das ganz in die physischen Funktionen hineingeht – es ist das der Pflanze, identisch mit dem unseren, während wir schlafen. Das niederste ist dasjenige der Trance – dasjenige der ganzen mineralischen Natur; es lebt mit der ganzen Natur, erstreckt sich deshalb über die ganze Umgebung; deshalb Wahrnehmung von Dingen, die Erkenntnisse des Weltgebäudes sind; ein Hinuntersteigen und *schrauben* ist das All. – Wenn wir ganz tief hinuntersteigen, werden wir allwissend auf Kosten unseres höheren Bewusstseins. – Über dem Wachbewusstsein liegen Zustände ähnlich den vorigen, in denen wir uns frei bewegen auf dem Astralplan, der psychische zunächst bei hellem Bewusstsein. – Hyperpsychisch auf dem Devachanplan, wo die geistigen Urbilder in uns hineinarbeiten und das Physische Hohlraum wird, verschwindet – wenn wir es wollen.
+
+Die Astralwelt ist Duplikat, die Geisterwelt baut von außen herein. – Das spirituale Bewusstsein, wo man anfängt kosmisches Sehen zu bekommen, ist das Höchste innerhalb unserer irdischen Entwicklung. – Jede Runde hat die Aufgabe, einen Zustand normal zu entwickeln. – In der dritten Runde: höchst vollkommener Traumbewusstseinszustand – die Wirkung ging von Mahat aus durch Rapport. – Noch vorher hatten sie das Pflanzenbewusstsein, um so mehr sorgten die geistigen Wesen außerhalb. – Während der ersten waren alle in der tiefsten Trance. So haben sich die Bewusstseine allmählich
+
+---
+
+92
+93
+
+[Lücke in der Mitschrift]
+
+Je tiefer das menschliche Bewusstsein, desto wirklicher sind die Menschen umschwebenden Mächte. Je selbstständiger der Mensch wird, desto mehr ziehen sie sich zurück. In den drei nächsten Runden werden nun die drei nächsten Zustände entwickelt; Jonas im Haifisch und die schwimmende Schildkröte: physisch aufgefasste devachanische Erlebnisse.
+
+In der zweiten Runde ist keine bestimmte Grenze zwischen Mensch, Tier und Pflanze –, Wesen, die alles in allem sind. – In der dritten ist die Pflanze abgeschnürt, aber Mensch und Tier sind noch nicht getrennt. Während der vierten geschieht die volle Differenzierung.
+
+ÜBER DAS DEVACHAN
+
+18. Februar 1904
+
+Wir haben vor acht Tagen den Menschen verfolgt durch die verschiedenen Stufen des sogenannten Geisteslandes, des Devachan. Wir haben gesehen, wie das Schicksal des Menschen zwischen zwei Verkörperungen in diesem Geisteslande, im Devachan, verläuft. Wir haben gesehen, dass der Mensch je nach dem Grade seiner Entwicklung, sich immer höher und höher oder immer länger und länger in die Gebiete dieses Landes der Ursachen emporzuschwingen vermag, um aus diesem Lande der Ursachen in diese irdische Welt herein die Fähigkeiten zu immer höherer und höherer Entwicklung zu bringen. In seinem Wirken und Schaffen in diesem Geisteslande liegen die eigentlichen Ursachen. In diesem Wirken und Schaffen im Geisteslande liegen für denjenigen, dessen Sinn erschlossen, geweckt ist, um schon während der Verkörperung die uns immer umgebenden geistigen Verhältnisse, die ich Ihnen geschildert habe, zu beobachten, für den liegen die drei Teile des Menschen, deren Schicksal wir kennengelernt haben, immer offen vor dem geistigen Auge. Diese drei Teile des Menschen, von denen ich gesprochen habe als nach und nach gleichsam sich heraushüllend, gleichsam verlassend die irdische, die fleischliche Hülle – der eine im sogenannten Kamaloka, dem Orte der Begierden, des Wunsches; der zweite im Devachan oder dem Geisteslande; und der dritte in der obersten Region des Devachan, wo das eigentlich tiefste Selbst sich zu entwickeln, sich zu entfalten vermag, um dann mit erhöhter Kraft wieder zurückkehren zu können. Diese drei Teile des Menschen sind sein sogenannter Astralleib, der Leib, welcher umfasst alle seine Begierden, Wünsche und Leidenschaften, alles dasjenige, was der Mensch auch mit dem Tiere gemeinschaftlich hat, alles dasjenige, was sozusagen die Vermittlung bildet zwischen seiner eigenen geistigen Natur und der sinnlichen Natur, alles das legt er ab im Lande der Läuterung, der Reinigung, im Kamaloka.
+
+---
+
+94
+95
+
+Und dann steigt er auf in das Land des eigentlichen Geistes, in das Land der Geister oder in das Devachan, um da auch seinen zweiten Körper, den Körper der Vorstellungswelt, der höheren menschlichen Fähigkeiten abzulegen, der ihn immer noch an das Menschliche kettet und hemmt, um dann gleichsam leibbefreit, je nach dem Entwicklungszustande längere oder kürzere Zeit in dem eigentlichen leiblosen Geisteszustande zu verweilen. Wir nennen jenen Leib des Menschen, der sich erhebt bis zu diesen obersten Regionen des Geisteslandes, der da seine Schwingen ausbreitet, um sich zu entfalten, diesen Leib nennen wir den Ursachenträger oder Kausalleib. Dieser Kausalleib, den wir uns bewahren zwischen zwei Inkarnationen, den wir immer wieder mitbringen, dieser Leib, der die Ursache bildet dessen, was wir uns selbst herangeschaffen haben, der uns von der einen Verkörperung in die andere trägt, das ist der, welcher in der obersten Region des Devachan lebt. Der andere ist der, welcher in der zweiten Region des Devachan ist, der sich dann in das Reich der Wünsche versenkt, und das ist der Astralleib, um dann in den fleischlichen Leib einzuziehen. Diese drei Leiber hat jeder Mensch in sich.
+
+Ich habe bereits gesprochen von der sogenannten Aura, ich habe bereits gesagt, dass der Mensch, den man mit physischen Augen sieht, eingehüllt ist in eine Wolke von Licht, in eine ovale Form, welche die mannigfaltigsten Lichterscheinungen darbietet für denjenigen, der dafür empfänglich ist. Kleiner und größer ist das Ei, je nach dem Grade der Entwicklung. Klein bei dem, der noch auf der untersten Stufe der geistigen Entwicklung steht. Da ist die Aura nur wie ein schwacher Lichtschein, der um den Körper sich ausbreitet, der aber immer größer und größer wird, je mehr Verkörperungen der Mensch durchgemacht hat und auf einer je höheren und späteren Entwicklungsstufe der Mensch steht. Dann zeigt diese Aura die verschiedensten Licht- und Farbenerscheinungen. Diese Aura ist eine dreifache, und dreifach kann auch der Blick für diese Aura sein.
+
+Es gibt Menschen mit sogenanntem ‚psychischem Sehen‘, die nur dasjenige zu sehen imstande sind, was im Astralraum vorgeht. Sie sehen nur das als Lichterscheinung, was man auch am Tier wahrnehmen kann. Sie sehen das, was in dem Menschen lebt an Wünschen,
+
+Begierden und Leidenschaften in Formen von Lichterscheinungen. Der Mensch kann sich auch aus diesem Gebiete erheben. Dann wird ihm der Vorstellungsleib sichtbar, die höheren geistigen Entwicklungsmöglichkeiten als eine zweite feinere Substanz, als eine die erstere durchstrahlende und durchdringende Aura.
+
+Und endlich noch das, was sich als noch feinere Substanz innerhalb dieser zweiten Aura ausbreitet, was ganz schwach entwickelt ist bei den auf den untersten Stufen stehenden Menschen, aber immer höher entwickelt wird und in wunderbarer Weise auftritt bei den hohen Geistesträgern unserer Kultur. Das ist dasjenige, was sich von Inkarnation zu Inkarnation herüberzieht, der Kausalkörper. Er ist auch im unentwickelten Menschen vorhanden, aber nur klein wie ein geringer Lichtschein über seinem Haupt. Je mehr der Mensch sich entwickelt, desto mehr breitet er sich aus, wird gleichsam zur Sonne. Und je mehr er die Wesenheit durchleuchtet und durchglüht, desto besser kann man diese drei Körper, wenn der Geistesblick eröffnet ist, verschieden sehen.
+
+Man kann seine Augen bloß richten auf die astrale Welt, man kann absuggerieren das, was der niederen und der höheren Sphäre angehört und bloß die Blicke auf die astrale Aura richten. Dann sieht man nur die Triebe, Begierden und Leidenschaften als Farbenerscheinungen vor sich. Richtet man dann die Aufmerksamkeit auf den Vorstellungskörper, dann sieht man den Mentalkörper. Und richtet man den Blick auf das Ewige, auf den Ursachenkörper, dann sieht man die leuchtendste Aura des Menschen. Dieser Ursachenträger ist nur für diejenigen sichtbar, deren geistiges Auge in den höchsten Regionen der Geisteswelt erweckt ist.
+
+Dieser Ursachenträger, äußerlich sichtbar in seiner Lichterscheinung gesehen, zeigt uns bei den verschiedensten Menschen die verschiedensten Anblicke. Wenn Sie einen unentwickelten Menschen betrachten, sei es ein Neger in Afrika, oder selbst ein Unentwickelter in unseren Gegenden, einen Menschen, der noch wenig Gedanken bei sich ausgebildet hat, wenig in der Vorstellung zu leben vermag, nichts weiß von höheren Ideen oder geistigen Interessen, der nur in seinen animalischen Trieben, in der Stillung seines Hungers und seines leib-
+
+---
+
+96
+97
+
+lichen Wohlbefindens lebt, dann erscheint uns, wenn wir alle übrigen Auren wegdenken und nur die Ursachenaura ansehen, dann erscheint sie uns mit einem mehr oder weniger dunklen Oval. Dieses zeigt an, dass der Ursachenkörper noch wenig entwickelt ist, dass das eigentliche Selbst noch lange bearbeitet werden muss, bis es sich entwickelt hat. Das sind diejenigen Menschen, welche in ihren braunen Ovalen nichts anderes zeigen als einzelne grünliche oder schmutzig indigofarbige Streifen. Diese wenigen Streifen sind die einzige Andeutung des Kausal- oder Ursachenkörpers. Das ist der Anblick, der denjenigen mit Leid erfüllt, der die Aura beobachten kann, weil es dem, der beobachten kann, zeigt, wie viel wir mit unentwickelten Menschen noch zu leisten haben. Wir können sehen, wie Lichtstrahlen in denselben auftauchen, wenn wir ihnen Geisteskultur überliefern.
+
+Aber auch der niedere Geistkörper, der Vorstellungskörper des unentwickelten Menschen zeigt noch die bräunliche Form und einige wenige ausgebildete grünliche Partien, die abwechseln mit rötlichen Partien oder mit Partien, welche ins Bläuliche hineinspielen. Diese grünlichen und bläulichen Partien werden immer häufiger und häufiger, je mehr Vorstellungen in dem betreffenden Menschen ausgebildet sind. Und dann, wenn wir einen solchen Menschen auf seinen Astralkörper hin prüfen, dann treten uns plötzlich in den grell leuchtenden Farbenerscheinungen Erscheinungen von geradezu furchtbarer Wirkung entgegen, es treten uns blutig rote Wolken entgegen, welche fast den ganzen Astralkörper ausfüllen, darin durcheinanderwogen. Nur an der oberen oder unteren Schicht des Ovals sehen wir einen grünlichen oder indigofarbenen Ansatz, und das wechselt ab mit den bräunlichen Färbungen, wechselt aber auch ab mit allerlei Gebilden, die je nach den verschiedenen Temperamentsarten verschieden sind. Bei den zornigen Menschen sehen wir rote Blitze den Astralkörper durchzucken, bei anderen sehen wir bläulich-graue Wolken.
+
+Das ist die Aura eines unentwickelten Menschen. Dann haben wir die Aura zu betrachten eines Menschen auf der höheren Stufe, das heißt eines Menschen, der hier in unserer Gegend eine gute Bildung genossen hat. Bei einem solchen Menschen stellt sich der Kausalkörper als ein schon mehr mit Farben ausgestattetes Gebilde dar, als eine Form, welche von schönen Farben durchzogen wird. Namentlich sind es hier die grünen Farben, grüngelb und gelbe Farbennuancen. Das sind die Nuancen, die der Europäer hat. Nur dadurch, dass diese Farben sich etwas weiter ausdehnen, erscheint der niedere Geistkörper. Und wenn wir auf den Astralkörper des Menschen sehen, erscheint er im Allgemeinen etwas ähnlich gestaltet wie der Astralkörper des unentwickelten Menschen. Nur haben die Farben andere Nuancen. Der Unentwickelte hat schwärzliche Farben; je entwickelter der Mensch ist, desto leuchtender sind die Farben. Sie werden von innen heraus durchleuchtet, sie ziehen den Blick an, üben eine sympathische Wirkung auf den Blick aus.
+
+Und wenn wir zum hochentwickelten Geistmenschen gehen, zu dem, der in sich höhere geistige Fähigkeiten ausgebildet hat, der bereits durch viele Inkarnationen hindurch sich einem geistigen Leben gewidmet hat, dann erscheint auch der Astralkörper in ganz anderen Veränderungen. Erscheint nicht mehr in den Gebilden von Wolken durchzogen, sondern von innen heraus strahlend auf einem blauen Grunde. Der Grund des Ursachenkörpers hat eine mehr oder weniger helle oder dunkelbläuliche Färbung, und in diese strahlt hinein der ewige Mensch. Je reiner und edler er sich im Geistigen entwickelt, desto mehr zeigt er die Färbung des Geistigen. Wir sehen von innen heraus eine schöne goldgelbe Strahlung, die übergeht in ins Rosenrote gehende Strahlungen, und diese gehen über in schöne bläulich-violette Strahlungen. Der Kausalkörper ist von Strahlen durchzogen, breitet sich immer mehr und mehr aus, nimmt größere und größere Dimensionen an. Der Adept ruht inmitten dieses Ursachenkörpers, welcher sich von goldgelben Strahlen im Innern nach violetten Strahlen im Äußeren verliert, sodass er umgeben ist von dieser Lichtflut, von ihr eingeschlossen ist, dass er so groß werden kann, dass er seine Menschen oft zehn-, zwanzig-, dreißigmal an Länge von oben und unten übertreffen kann.
+
+Das sind die Ursachenträger der großen Führer und Leiter der Menschen. Und wer dann den Vorstellungskörper der niederen Menschen aufsucht, der wird auch da noch finden Gebilde, aber wird finden, dass sie von innen heraus leuchtend, funkelnd, strahlend ge
+
+---
+
+98
+
+worden sind. Wir dürfen wohl schließen, dass es davon herrührt, dass das, was solche Menschen wollen und fühlen, von dem Geist, den geistigen Fähigkeiten gestaltet ist. Das sind die Fähigkeiten, die sich dem Geistesauge enthüllen, wenn es seine Umgebung beobachtet. In ihm ist zu sehen, was vergänglich ist und was bleibend ist.
+
+Alle Körper, die ich genannt habe, namentlich der flutend in rötlichen Nuancen erscheinende Astralkörper, gehen im Kamaloka und im Devachan völlig verloren. In den unteren Partien des Devachan und des Astrallandes lösen sich die feineren Partien auf. Der Mensch verliert, was er an niederen sinnlichen Werten enthält. Der Astralleib kann sich vollständig auflösen im Kamaloka und geht nur mit dem Ursachenträger, dem Geistleib nach dem Devachan.
+
+In der vierten Region vom Kamaloka wird das vollständig aufgesaugt von der Materie, was wir menschliche Selbstsucht, menschlichen Egoismus nennen. Was sich noch kettet an die Welt, das geht in der vierten Region verloren. Der Mensch empfindet die Wertlosigkeit der niederen Selbstsucht und fängt an zu begreifen, dass er seine Schwingen ausspannen muss, dass er das, was nicht ihn angeht, zu begreifen hat. Und kommt er dann im Geisteslande an, so sind seine Empfindungen, seine Gefühle und Vorstellungen, die man mit dem Worte Selbstsucht zusammenfassen kann, gewichen. Er ist auf der Stufe angelangt, wo er erfahren kann, das «Das bist du!» und das «Ich bin Brahma». Er kann die niederen Geistkörper der Auflösung übergeben und sein Selbst hinübernehmen in die höheren Gebiete des Geisteslandes, wo es sich vollständig entfalten kann. Hier erscheint dem Menschen alles in seiner wahren Gestalt. Hier erscheint er selbst als das, was er ist, als das, was sich verkörpert.
+
+Da erscheint dieses bläuliche Oval als eigentlicher Körper des Menschen, und innerhalb des bläulichen Ovals erstrahlt dasjenige, was wir die eigentliche Wesenheit des Menschen nennen müssen. Diesen Leib kann ein Mensch jetzt noch nicht haben. Er ist aus den drei feinsten Stoffen des Geisteslandes gewebt, und die zeigen sich in ihrer rein bläulichen Färbung. Ich betone ausdrücklich, dass diese rein bläuliche Färbung nur dann beobachtet werden kann, wenn man ganz absieht von dem, was der Mensch sonst noch hat, und nur das
+
+99
+
+Geistige betrachtet. So erscheint er nur in seinem bläulichen Oval, durchzogen von seiner Wesenheit.
+
+Das ist dasjenige, was die platonische Philosophie den sogenannten Lichtmenschen, den funkelnden, den glänzenden genannt hat. Das ist dasselbe, was der Initiierte Paulus den sogenannten geistlichen Leib genannt hat. Nichts anderes bedeutet das als das, was wir hier in den höchsten Regionen des Devachan finden. Dieser feine blaue Leib ist aus den feinsten Stoffen des Geisteslandes, des Devachan gewoben. Das, was darin strahlt, funkelt, das stammt aus keiner der Welten, die wir bisher angeführt haben. Was da in diesem Leib funkelt, das stammt aus noch höheren Welten.
+
+Nehmen Sie die irdische Welt, die astrale Welt und die Geisteswelt, das Devachan, so haben Sie die drei Welten, innerhalb welcher der Mensch seine Inkarnationen innerhalb der Welt vollzieht. Er kehrt immer wieder zurück, um dort neue Fähigkeiten auszubilden, die er dann in der irdischen Welt anwendet. Das sind die drei Welten, von denen Paulus spricht: Geisteswelt, Seelenwelt und Körperwelt. Aus diesen drei ist alles in den physischen Leib gewoben. Wenn wir in die physische Welt kommen, dann breiten wir die physische Hülle um uns. Wir nehmen Stoffe aus der physischen Materie, aus der physischen Welt. Wir leben in irgendeiner Welt mit denjenigen Stoffen, die dieser Welt entnommen sind, sodass, wenn wir aus dem Geisteslande heruntersteigen, wir zuerst unser eigentliches Selbst umgeben mit dem Körper, der aus den unteren Partien des Geisteslandes gewoben wird; der steigt dann herunter in die astrale Welt und bildet da den Astralkörper. Dieser zieht endlich die physische Stofflichkeit an, und dann wird der Mensch neuerdings verkörpert.
+
+Was sich aber innerhalb des eigentlich blauen Geistleibes ausdehnt, innerhalb dieses funkelnden Gebildes, das ist nicht aus diesen drei Welten. Das eigentliche Selbst stammt nicht aus diesen drei Welten. Das, was als blaues Oval herumgelagert ist, das ist das oberste, das feinste, was nur aus dem Geisteslande genommen ist. Aber dasjenige, was sich verkörpert, das Selbst, das stammt aus noch höheren Gebieten. Das stammt aus der eigentlichen göttlichen Heimat des Menschen, aus den Regionen, welche der Theosoph die Budhi-Region
+
+---
+
+und die Nirwana-Region nennt. Aus diesen zwei Regionen stammt der Mensch.
+
+In diesem Geistkörper ruht die Wesenheit des Menschen, welche vorhanden war, bevor der Mensch angefangen hat, sich zu inkarnieren, und welche wieder in anderen Welten vorhanden sein wird, wenn der Mensch aufhören wird, sich zu inkarnieren. Dies ist die eigentliche, ewige, himmlische, göttliche Wesenheit des Menschen. Es ist dasjenige, was Giordano Bruno die ewige Monade genannt hat, die ewig durch alle Verkörperungen hindurchgeht, das himmlische Selbst des Menschen. Dieses nimmt nun in der angedeuteten Weise teil an dem, was sich allmählich herausbildet. Zunächst strahlt es in wunderschöner goldgelber Farbe, dann dehnt es sich immer mehr und mehr aus, und in den äußersten Partien nimmt es eine violett-rötliche Farbe an, je nach den verschiedenen Charaktereigenschaften, die der Mensch sich angeeignet hat, denn alles das übt seine Wirkungen auf das Selbst aus. Bei einem Menschen, der in seinen bisherigen Inkarnationen die Eigenschaften des Stolzes oder des Ehrgeizes ausgebildet hat, sehen wir, wie dieser goldig strahlende Teil des Menschen eine orange-rötliche Färbung annimmt. Das zeigt die Wirkung, die der Stolz auf das Selbst ausgeübt hat. Und in anderer Weise zeigen andere Eigenschaften die Einflüsse, die Ausgleich erhalten müssen. Das ist es, was aus noch höheren Welten sich heruntergesenkt hat, um sich in unserer irdischen Welt zu inkarnieren. Das ist es, was aus Budhi und Nirwana stammt; das ist es, was wir bezeichnen als Atma-Budhi, das was zusammengesetzt ist aus der höchsten Essenz, die hervorgeht aus der göttlichen Wesenheit selbst.
+
+Ich habe das letzte Mal davon gesprochen, dass der Mensch allmählich, wenn er durch viele Inkarnationen hindurchgeht, in die drei höheren Regionen des Geisteslandes aufsteigt, das heißt, jeder Mensch wird eine mehr oder weniger lange Zeit zwischen zwei Inkarnationen in der ersten höheren Region zu verweilen haben. Selbst der unentwickelte Wilde erlebt ein Aufblitzen seines Selbstes in der Geistesregion, und immer länger wird der Aufenthalt in dieser Region. Und wenn die Eigenschaften des Mitleids, die höheren geistigen Eigenschaften ausgebildet sind, dann steigt er zwischen zwei
+
+Verkörperungen zur zweiten Region empor. Und wenn er dann wiederkommt auf unsere Erde, ist er das geworden, was wir einen Sendboten nennen. Dann ist er ein solcher geworden, welcher über die Absichten der Welt sprechen kann, dann ist er ein solcher, der teilgenommen hat zwischen zwei Inkarnationen an der Enthüllung der Lebensimpulse, dann weiß er, warum sich das Tier, die Pflanze, der Mensch entwickeln. Dann weiß er über die Erde zu sprechen, woraus sie entstanden ist und was mit ihr in der Zukunft geschehen wird, dann weiß er aus Erfahrung darüber zu sprechen, was die theosophische Weisheit uns enthält. Wenn er dann dazu gekommen ist, ein sogenannter Eingeweihter zu werden – das heißt in der Verkörperung –, dann kennt er aus eigener Erfahrung die Gattung des höheren Lebens und ist imstande, das Gute zu erkennen. Dann steigt er in der nächsten Verkörperung in die höchste Region des Geisteslandes auf, wo jene verkehren, denen die Ursachen der Weltgeschehnisse offen vor Augen liegen – auch wenn sie in der irdischen Welt verkörpert sind.
+
+Und dann ist die Region erreicht, in welche hineinleuchtet das Gebilde der höheren Welten, der Budhi-Welt und der Nirwana-Welt. Wie Budhi in unsere Geisteswelt hineinleuchtet, so leuchtet da hinein das höchste der Dinge, es leuchten hinein die Keime der Menschen-Selbste. Diese Keime sind da und treten ein in die dritte Welt, um sich zu umhüllen mit dem Stoff der dritten Region. Sie werden fragen, wenn ein Seher jetzt in die dritte Region des Geisteslandes kommt, kann er dann auch noch Menschen sehen im Keimzustande? Ja, das kann er, denn in dieser Region hat längst das aufgehört, was in der Urzeit ist. Da liegt der Zustand offen, wie wenn er jetzt geschehen würde, der Zustand, in welchem gegenwärtig die menschlichen Seelen angefangen haben, ihre Entwicklung zu vollbringen.
+
+Da ist dasjenige mit dem Menschen eingetreten, was Jakob Böhme ausgesprochen hat, indem er sagte: Wenn jemand zu mir sagte: „Bist du denn dabei gewesen, als das wurde, was du uns vom Anfange des irdischen Daseins erzählt hast?“, dann könnte ich sagen: „Jawohl, ich bin dabei gewesen.“ Denn in ihm war längst der Sinn geöffnet, dass er sagen konnte, dass er im Anfang dabei gewesen war, dass er wirklich teilgenommen hat an der Entstehung der Welt.
+
+---
+
+102
+103
+
+Was ich jetzt erzählt habe, zeigt Ihnen, dass wir es zu tun haben mit drei Welten: mit der Geistwelt, der astralen Welt und der irdischen oder physischen Welt. Das zeigt aber auch, dass es noch höhere Welten gibt, die die eigentliche Heimat des menschlichen Selbstes sind. Diese drei Welten sind selbst wiederum geschaffen, geformt, sie sind selbst wieder hervorgegangen aus einer geistigen Wesenheit. Die Sinnenwelt hat einen anderen Ursprung im Geist, und die astrale Welt um uns hat ihren Ursprung im Geiste. Aber wir können, wenn wir uns mehr und mehr entwickeln nach dem Geistigen hin, die Ursachen der Dinge erforschen. Wir können erforschen, was als Geist dem Astralen zugrunde liegt, und wir können in der höchsten Region des Devachan beobachten. Aber solange nicht hereinscheint, was im Budhi leuchtet, solange können wir über eines nicht sprechen, das zu demjenigen gehört, was wir die tiefsten Wahrheiten des Weltendaseins nennen. Wir können nicht sprechen, und wir haben keine Macht dazu, solange wir in diesen drei Welten verweilen, über die Ursache des Bösen, über die Ursache des Unvollkommenen zu sprechen. Innerhalb dieser Welt haben wir neben dem Guten das Böse, neben dem Vollkommenen das Unvollkommene. Es gehört zu dieser Welt. Es ist begründet in dieser Welt, dass das Böse dem Guten und das Unvollkommene dem Vollkommenen beigegeben ist. Die Beantwortung dieser Frage erfordert, dass man den Sinn des Daseins erkennt. Es gibt einen Sinn des Daseins, des Lebens und des ganzen Werdens. Den kann man nicht erkennen, wenn man bloß innerhalb der drei Welten bleibt. Und es ist die Frage: Warum ist innerhalb der drei Welten das Gute dem Bösen und das Vollkommene dem Unvollkommenen beigemischt?
+
+Von Nirwana und Budhi aus sind diese drei Welten geschaffen, und wenn wir da hinausblicken können, in Nirwana und Budhi, dann sehen wir, wie das Böse gleichsam im Ratschluss der göttlichen Weltordnung liegt, aus dem Guten hervorsprießt. Zuletzt löst sich alles Böse in das Gute auf. Das Gute ist nach den Aussprüchen aller großen Geister der eigentliche Ursprung der Welt. In dem Guten urständet die Welt. Aber wie sie das tut, das können wir in den drei Welten nicht erkennen. Wenn wir über unseren Drei-Welten-Kreis
+
+hinausschauen – das habe ich in den ersten Stunden entwickelt –, wird uns an der Grenze dieser drei Welten, gleichsam von Budhi herein irgendeine geheimnisvolle Schrift wahrnehmbar. Es erscheint die Akasha-Schrift. Diese ist es, die uns auch von der äußeren Welt, die nicht unseren drei Welten angehört, mitgeteilt wird. Diese enthält das Schicksal jedes einzelnen Menschen und der ganzen Menschheit. In dieser Schrift sind aufgezeichnet die Taten der Menschen, und es sind aufgezeichnet die Dinge, die der Mensch selbst durch sein Leben in das Schuldbuch eingetragen hat. Warum der Mensch schuldig werden kann in der Aufeinanderfolge der Inkarnationen, das wird erst kund beim Anblick dessen, was aus den anderen Sphären hereinglänzt, wenn gelesen werden kann, was in dem Akasha-Stoff aufgezeichnet ist. In dem steht aufgeschrieben das Gesetz vom Karma.
+
+Dieses Gesetz kann vollständig nur verstanden werden, wenn man weiß, wie alles Böse und Unvollkommene sich in das Gute auflöst, wie selbst das Böse nur beiträgt zur Erhöhung des Guten. Wenn im Menschen aufleuchtet das höchste Selbst, dann enthüllt sich das große Gesetz der Weltgerechtigkeit, dann enthüllt sich ihm der Sinn des Daseins, der Sinn der Welt. Die Welt hat ihren Sinn von außerhalb der drei Welten, und der Mensch ergründet diesen Sinn der Welt, wenn er über die drei Welten des Devachan hinauskommt. Es erfordert Bescheidenheit. Wenn der Mensch seine innerste Natur gefunden, wenn er in sich den lebendigen Geist, der aus den anderen Welten stammt, gefunden hat, wenn der glänzende Funke in ihm aufgeleuchtet ist, dann enthüllt sich ihm auch, woher der glänzende Funke stammt und damit auch der Grund seines Daseins. Dann fließt Budhi zusammen mit dem, was über ihm liegt, mit dem, was der Sinn der Körperwelt ist. Dann fängt der Mensch zu wissen an, was zu den höchsten Geheimnissen des Daseins gehört, warum der Mensch in diesem oder jenem Körper inkarniert wird.
+
+Wir können mit dem höheren Schauen leicht einsehen, warum der Mensch einen Geistkörper um sich herum bildet, warum er einen Astralkörper um sich legt. Aber nun beginnt das Geheimnis der irdischen Menschwerdung, warum der Mensch in dieser Familie, in diesem Lande, in diesem Volk geboren ist, warum er da hineinge-
+
+---
+
+104
+105
+
+boren ist. Wir kennen ganz bestimmte Menschenkeime. Es beginnt dasjenige, was von Wesenheiten höchster Ordnung geleitet wird, von Wesenheiten, deren Wesenheit ganz in Budhi und Nirwana ruht, von den Wesenheiten, welche wir die Lipika nennen, welche das physische Dasein der Welt regieren, welche das Selbst bestimmen, in dieser oder jener Familie geboren zu werden. Das ist etwas, was mit dem tiefsten Sinn des Daseins zusammenhängt. Erst wenn der Mensch sich bis zur Ergründung dieses Sinnes erhoben hat, dann verschwinden auch jene Schuppen, die ihm verhüllen die Beantwortung der Frage: «Wie kommt es, dass der Mensch in diesem Körper geboren und durch diesen oder jenen Körper dieses oder jenes Leiden, diese oder jene Unvollkommenheit an sich trägt?»
+
+Der Mensch ist durch sein physisches Dasein für ein bestimmtes Fatum, ein bestimmtes Schicksal ausgestattet. Das ist eine der großen Fragen des Daseins, die zusammenhängt mit dem ganzen Sinn des Daseins, der sich dann enthüllt, wenn er die Ratschlüsse der Lipika, der Herren des Schicksals kennt. Die christliche Esoterik hat in einer sehr schönen Weise das auszudrücken verstanden. Sie können dieses Geheimnis übrigens in jeder Religion finden. Man muss sie nur zu lesen verstehen. Auch die christliche Religion hat das Verhülltsein dieses Geheimnisses ausgesprochen. Sie kennen die Wesen, welche im Geisteslande leben: Engel oder Boten. Sie haben ihre Aufgabe innerhalb des Devachan, innerhalb ihres Geisteslandes. Dadurch, dass sie hier ihre Aufgabe haben, nicht jenseits von Budhi oder Nirwana, dadurch sind sie mit ihren Anschauungen gebunden an das, was innerhalb des eigentlichen Geisteslandes vor sich geht. Aber innerhalb des Geisteslandes enthüllt sich nicht das Geheimnis, warum dieses Selbst in diesem, jenes in jenem physischen Körper wohnt. Deshalb drückt das die christliche Religion aus mit den Worten: Die Engel verhüllen ihr Angesicht vor dem Geheimnis der Menschwerdung und sprechen nur: «Heilig, heilig, heilig.»
+
+Das nur als Beispiel, wie man in der Esoterik der großen Religionsbekenntnisse manches findet, wenn man sie nur zu lesen versteht. So haben wir den Menschen verfolgt durch die drei Welten hindurch und sind an jene Grenze gelangt, wo mit monumentaler Schrift
+
+gleichsam das Schicksal dieser drei Welten geschrieben steht: das ist die Akasha-Chronik. Was von dieser Akasha-Chronik gleichsam von außen in diese drei Welten hineinleuchtet, das erscheint uns, wenn wir innerhalb dieser drei Welten sind, ungefähr so, wie wenn wir hinausschauen in den Sternenraum, gleichsam eine Himmelsschrift in den Sternbildern sehen, so erscheint uns als Firmament der drei Welten die Akasha-Chronik. Die Entzifferung dieser Schrift ist es, wozu der Mensch kommt, wenn er sich bis in die höchsten Regionen vom Devachan durchzuarbeiten vermag.
+
+Die Eingeweihten sind imstande, diese Akasha-Schrift zu lesen und dann, wenn der Mensch mehr oder weniger von dieser Akasha-Schrift zu lesen vermag, dann wird er ein Teilnehmer an den Geschicken der Menschheit, dann wird er einer der geistigen Führer der Menschheit, welcher auf Jahrhunderte hinaus die Kräfte lenkt, die geistigen Ströme sendet, die nicht aus den drei Welten stammen, sondern aus noch höheren Welten in diese drei Welten hineingesandt werden.
+
+Das, was der Mensch erlebt in der dritten Geistwelt, was man die sogenannten ‹Wonnen des Devachan› nennt, das, was in uns lebt und aufblitzt, wenn wir im Devachan die Zwischenzeit zwischen zwei Verkörperungen verbringen, das genau zu schildern, lassen Sie die Aufgabe der nächsten Stunden sein. Ich möchte darstellen, warum das Devachan das ‹Land der Wonnen› genannt wird, warum man es die Himmelsregion nennt. Das soll der Kern unserer nächsten Betrachtung sein.
+
+Das möchte ich noch sagen, dass von der Grenze dieses höchsten Gebietes des Devachan erhabene Meister aus Budhi und Nirwana die großen Impulse für die Menschheit senden, senden dasjenige, was Wirkung auf Jahrhunderte hat und wodurch diese innerhalb der Menschen-Geschichte die größten Führer sind. Sie geben die Impulse, sie schaffen aus dem Geheimnisvollen heraus oder nach christlicher Esoterik aus dem heraus, vor dem die Engel ihr Angesicht verhüllen. Sie sind die Messiasse, die größten der Führer der Menschheit. Sie werden nach diesem Reiche genannt, aus dem sie stammen, aus Budhi Buddha; Christus genannt werden daher dieje
+
+---
+
+nigen, welche lehren können, was von Budhi aus einfließt. Buddha, Christus, sie sind es, die die Wahrheiten aus den höheren Regionen in unsere drei Welten hereinsenden. Ein solcher kennt die Welt. Er weiß, was über die drei Welten hinaus liegt. Dort liegt das, was wir das Geheimnis des Bösen nennen. Das enthüllt sich an der Grenze vom Devachan. Da lernt man den Sinn der Welt kennen, was ich das ‹Wort› genannt habe. Das ist dasjenige, was das Geheimnis tönend gibt. Deshalb heißt Christus: das inkarnierte Wort. Deshalb heißt es: Alle Dinge sind durch das Wort gemacht. Deshalb heißt es im Evangelium: Alles ist durch das Wort gemacht.
+
+Das ist die sechste Stufe, wo die Absichten, die Tendenzen der Menschheit bestimmt werden. Deshalb, weil derjenige, welcher aus diesem Gebiete heraus in die Menschen-Geschichte die großen und hohen Impulse sendet, weil er das Geheimnis kennt und kennen muss, das Geheimnis, das über dem Geheimnis von Gut und Böse liegt, deshalb kann man sagen, dass er mehr weiß als die Engel. Das drückt auch die christliche Esoterik dadurch aus: ‹Christus macht die Engel zu seinen Boten.› Wer die christliche Religion in den Tiefen versteht, wird Theosoph, und wer wahrer Theosoph ist, wird zu nichts anderem beitragen wollen als zur Vertiefung des Wahrheits-Kernes der großen Religionen der Menschheit.
+
+# DIE MOSAISCHE SCHÖPFUNGSGESCHICHTE UND DIE RUNDEN
+
+Berlin, 22. Februar 1904
+
+Ich habe versucht, die theosophische Auffassung von Runden und Rassen, wie sie in der «Uralten Weisheit» angegeben ist, in Einklang zu bringen mit der Bibel und angedeutet, dass die Genesis, die Darstellung der mosaischen Schöpfungsurkunde, in wirklich wörtlichem Sinne zu nehmen ist, und dass man dann vollständig die theosophische Auffassung erhält. Es ist überhaupt das festzuhalten, dass die wahren, großen Religionsurkunden durch die Theosophie ihre ursprüngliche und wirkliche Bedeutung erhalten.
+
+Um einen Begriff davon zu geben, was die mosaische Schöpfungsurkunde bedeutet, möchte ich nochmals wiederholen: Wir haben zu unterscheiden sieben Runden und in jeder Runde sieben Rassen. In der ersten Runde haben wir die Urbilder des Mineralreichs, in der zweiten Runde die Urbilder des Pflanzenreichs, in der dritten Runde die Urbilder des Tierreichs, in der vierten Runde die Urbilder der Menschen. Wenn unsere jetzige vierte Runde zu Ende sein wird, werden die Urbilder der Menschen gebildet sein. Wir haben es bis jetzt nicht einmal zu den Urbildern gebracht. Wenn unsere Runde zu Ende sein wird, werden wir die menschlichen Urbilder zum Ausdruck gebracht haben. Das Mineralreich wird in der Runde seine Vollendung schon erreicht haben. Es wird sich wieder auflösen, zurückbilden. In der nächsten Runde, in der fünften, wird das Pflanzenreich, in der sechsten das Tierreich, und in der siebten Runde das Menschenreich seine Vollendung finden.
+
+In der siebenten Runde wird die Menschheit das völlige Ebenbild der Gottheit in der irdischen Entwicklung sein. Was die Gottheit am Anfange war, das wird die Menschheit am Ende der siebenten Runde sein. Die Gottheit wird ihre Aufgabe vollendet haben und wird dann ruhen. Nirwana wird erreicht sein. Sie wird ihre Aufgabe abgeben können an die Meister und an die Meisterlogen, an die Bruderschaft-
+
+---
+
+ten, die sich dann zum vollständigen Ebenbilde werden entwickelt haben. Dies schildert uns die biblische Schöpfungsurkunde.
+
+Die sieben Schöpfungstage bedeuten im esoterischen Sinne sieben Runden, sodass also das erste Kapitel in der folgenden Weise aufzufassen ist.
+
+Am Anfang schuf Gott Himmel und Erde, und die Erde war wüst und leer, und es war finster auf der Tiefe; und der Geist Gottes schwebte über den Wassern – und Gott sprach: Es werde Licht!, und es ward Licht. Und Gott sah, dass das Licht gut war. Da schied Gott das Licht von der Finsternis und nannte das Licht Tag und die Finsternis Nacht. Da ward aus Abend und Morgen der erste Tag. [1 Mos 1,1–5]
+
+Ich bitte Sie, sich das genau vorzustellen, was ich geschildert habe, wie die erste Runde war. Es war zunächst eine rötliche, hell leuchtende Kugel, die dann durch verschiedene Stadien der Entwicklung durchging bis zur violetten Kugel, dann verschwindet in dem Pralaya, um danach wieder als rote Kugel hervorzutreten. Der erste Tag ist damit vollendet. Während dieser Runde wurden die Urbilder des Mineralreiches gebildet.
+
+Nun beginnt die zweite Runde.
+
+Und Gott sprach: Es werde eine Feste zwischen den Wassern, dass sie die Wasser voneinander scheide. Da machte Gott die Feste und schied das Wasser unter der Feste von dem Wasser über der Feste. Und es geschah also. Und Gott nannte die Feste Himmel. Da ward aus Abend und Morgen der zweite Tag. [1 Mos 1,6–8]
+
+Gott sprach: Es werde eine Feste zwischen den Wassern, und dies sei ein Unterschied zwischen den Wassern. Als noch kein Mineralreich da war, da konnte auch keine Feste sein. Die Wasser bedeuten die geistigen Materien. Die schieden sich erst voneinander, als die Urbilder des Mineralreichs gebildet waren, sodass jetzt Brocken darin erschienen. Da machte Gott die Feste und schied das Wasser unter der Feste von dem Wasser über der Feste. Gott nannte sie Himmel und Erde. Nur das Mineralreich war da ins Irdische gedrängt, das andere war noch himmlisch.
+
+Und Gott sprach: Es sammle sich das Wasser unter dem Himmel an besondere Örter, dass man das Trockene sehe, und es geschah also. Und Gott nannte das Trockene Erde, und die Sammlung der Wasser nannte er Meer. Und Gott sah,
+
+dass es gut war. Und Gott sprach: Es lasse die Erde aufgehen Gras und Kraut, das sich besame, und fruchtbare Bäume, deren jeder nach seiner Art Frucht trage und darin seinen eigenen Samen habe. Und es geschah also. Die Erde ließ aufgehen Gras und Kraut, das sich besamte, ein jedes nach seiner Art, und Bäume, die da Frucht trugen und darin ihren eigenen Samen hatten, ein jeder nach seiner Art. Und Gott sah, dass es gut war. Da ward aus Abend und Morgen der dritte Tag.
+
+Und Gott sprach: Es werden Lichte an der Feste des Himmels, die da scheiden Tag und Nacht und Zeichen seien für Zeiten, Tage und Jahre, und sie seien Lichte an der Feste des Himmels, auf die Erde zu scheinen. Und es geschah also. Gott machte zwei große Lichter: ein größeres, das den Tag regiere und ein kleineres, das die Nacht regiere: dazu die Sterne. Und Gott setzte sie an die Feste des Himmels, auf die Erde zu scheinen und dem Tag und der Nacht vorzustehen und Licht und Finsternis zu scheiden. Und Gott sah, dass es gut war. Da ward aus Abend und Morgen der vierte Tag. [1 Mos 1,9–19]
+
+Hier ist hervorgehoben, dass am vierten Tage zu Ende kommt die Vollendung des Mineralreichs. In der fünften Runde wird das Pflanzenreich seine Vollendung erreichen. Das kommt erst. Jetzt wird das Mineralreich seine Vollendung erreichen. In der fünften Runde wird das Pflanzenreich seine Vollendung erreichen. Man drückt das so aus, dass man sagt: Der Pflanzengedanke wird seine Vollendung erreichen. Alles dasjenige, was jetzt mit dem eigentümlichen Leben, das in dem Mineralreich ist, zusammenhängt, wird in der fünften Runde vollständig heraus sein. In der fünften Runde wird das Mineralreich sich allmählich auflösen, und der Mensch wird ein ganz anderes Verhältnis zur Umwelt haben. Der Pflanzengedanke wird verwirklicht sein. Das Verhältnis zum Mineralreich wird nicht mehr da sein, sodass wir, statt umgeben zu sein von einer Welt des Mineralischen, in der fünften Runde umgeben sein werden von einer Welt des Pflanzlichen. Alles, was der Mensch heute abscheidet, wird dann Pflanzenprodukt sein. Nicht mehr Mineralisches wird da sein; dann wird der Mensch in der Pflanzennatur leben, wie er jetzt in der mineralischen Natur lebt. Der Mensch wird Herr sein über das Pflanzenreich, er wird gebieten über das Pflanzenreich. Das drückt die Genesis in der Weise aus:
+
+Und Gott sprach: Es sollen die Wasser wimmeln von Tieren, lebendigen Wesen, und Vögel sollen fliegen über der Erde, unter der Feste des Himmels. Und Gott schuf die großen Walfische und allerlei Tiere, die da leben und weben, von denen
+
+---
+
+110
+111
+
+das Wasser wimmelt, ein jedes nach seiner Art, und allerlei beflügelte Wesen, ein jedes nach seiner Art. Und Gott sah, dass es gut war. Und Gott segnete sie und sprach: Seid fruchtbar und mehret Euch und erfüllet das Wasser im Meer, und die Vögel sollen sich mehren auf Erden. Da ward aus Abend und Morgen der fünfte Tag. [1 Mos 1,20–25]
+
+In der sechsten Runde haben wir es zu tun mit der vollständigen Auflösung des Pflanzenreichs. Da ist ein hoher lebender Tiergedanke verwirklicht, sodass dann ein Unterschied zwischen Lebendigem und Nicht-Lebendigem nicht mehr existieren wird. Man wird nur unter Lebendigem leben. Es wird überhaupt nicht ein Element da sein als Medium, es gibt nur noch tierisch-lebendige Wesenheit. In der sechsten Runde ist alles längst verschwunden, was die geschlechtliche Fortpflanzung betrifft, wir haben es nur mit Lebendigem zu tun in der sechsten Runde. Die Reinkarnation hört auf in der Mitte der fünften Runde.
+
+Und Gott sprach: Die Erde bringe hervor lebendige Tiere, ein jegliches nach seiner Art: Vieh, Gewürm und Wild des Feldes, ein jegliches nach seiner Art. Und es geschah also. Gott machte das Wild des Feldes, ein jegliches nach seiner Art und das Vieh nach seiner Art und allerlei Gewürm auf Erden nach seiner Art. Und Gott sah, dass es gut war. Und Gott sprach: Lasset uns Menschen machen, ein Bild, das uns gleich sei, die da herrschen über die Fische im Meer, über die Vögel unter dem Himmel, über das Vieh und über die ganze Erde und alles Gewürm, das auf Erden kriecht. Und Gott schuf den Menschen ihm zum Bilde, zum Bilde Gottes schuf er ihn. Mann und Weib schuf er sie. Gott segnete sie und sprach zu ihnen: Seid fruchtbar und mehret Euch und erfüllet die Erde und machet sie Euch Untertan und herrscht über die Fische im Meere, über die Vögel unter dem Himmel und über alle Tiere, die auf Erden kriechen. Und Gott sprach: Sehet da, ich gebe Euch allerlei Kraut, das sich besamet auf der ganzen Erde, und allerlei fruchtbare Bäume, die sich besamen. Die sollen Euch zur Speise dienen und allen Tieren auf Erden, allen Vögeln unterm Himmel und allem Gewürm, das da lebet auf Erden, gebe ich allerlei grünes Kraut zur Speise. Und es geschah also. Und Gott sah alles an, was er gemacht hatte, und siehe da, es war sehr gut. Da ward aus Abend und Morgen der sechste Tag. [1 Mos 1,24–31]
+
+Alles ist aufgegangen im tierischen Dasein. Nach der vierten Runde das Mineralische, nach der fünften Runde das pflanzliche Dasein, nach der sechsten Runde auch das tierische. In der siebenten Runde
+
+ist alles ins Menschliche übergegangen. Gott schuf die Menschen als Mann und als Weib, also nicht mehr zweigeschossig, sondern eingeschlechttlich, und also ruhte Gott am siebenten Tage.
+
+Das ist die Geschichte der sieben Runden. Die drei ersten Tage sind vorüber, der vierte Tag ist die jetzige Runde, und die drei letzten, die folgen noch. Das zweite Kapitel stellt die Geschichte der vierten Runde als solcher dar. Speziell betrachtet stellt die vierte Runde also dar, wie Himmel und Erde geworden sind, dass sie geschaffen sind von Gott, der Himmel und Erde gemacht hat und so weiter. Der Mensch war noch nicht da, als die Pflanze gemacht wurde.
+
+Dann kam die Schilderung der vierten Runde. Wir hatten da zuerst die rote Kugel, die dann orange, gelb wird, in einen Nebel übergeht, und nun geht der Nebel ins Physische über. Gott blies dem Menschen, nachdem er ihn aus dem Erdenkloß gemacht hat, eine lebendige Seele ein – die zwei ersten Rassen. Und Gott der Herr pflanzte einen Garten in Eden und setzte den Menschen hinein, den er gemacht hatte. Das ist der Mensch, der noch ungeschlechtlich ist. Wir sind noch durchaus in den zwei ersten Rassen.
+
+Früher waren das Pflanzenreich und das Tierreich nicht so streng getrennt. Der Mensch hatte eine Fortsetzung, die ins Pflanzliche überging. Dann scheidet sich das Pflanzliche und dann das Tierreich ab. Es gab noch während unserer vierten Runde eine Zeit – ganz am Anfang, als die ersten Tiere sich abgespaltet hatten – da hingen die Menschen noch mit dem Mittelpunkte der Erde zusammen, ähnlich so, wie gewisse Wasserpflanzen, die an einem langen Stängel hängen. Ursprünglich waren die Menschen Pflanzen, damals, als die Menschen noch nicht ins Tierische hinabgestiegen waren. Sie waren da noch mehr Pflanzenmenschen, Menschen, die noch nicht das Pflanzenreich aus sich herausgesetzt hatten.
+
+Ein solcher Mensch hieß Adam Kadmon. Der Mensch, der das Pflanzenreich und das Tierreich noch in sich enthält, es später erst ausstößt, das ist Adam Kadmon. Dann haben wir in einem neuen Vers auf der einen Seite den Baum des Lebens und auf der anderen Seite eine Steigerung des Bewusstseins, den Baum der Erkenntnis.
+
+---
+
+Gott der Herr bildete den Menschen – Adam – aus Staub von der Erde und hauchte den Odem des Lebens in seine Nase. Also war der Mensch eine lebendige Seele.
+
+Und Gott der Herr pflanzte einen Garten in Eden gegen Morgen und setzte den Menschen, den er geschaffen hatte, hinein. Und Gott der Herr ließ aus der Erde aufwachsen allerlei Bäume, lieblich anzusehen und gut davon zu essen, und den Baum des Lebens mitten im Garten und den Baum der Erkenntnis des Guten und Bösen. Und ein Strom ging aus von Eden, den Garten zu tränken. Der teilte sich von da aus in vier Flüsse. [...] Und Gott der Herr nahm den Menschen und setzte ihn in den Garten Eden, dass er ihn bebaue und bewahre. Und Gott der Herr gebot dem Menschen und sprach: Von allen Bäumen des Gartens magst Du essen, nur von dem Baume der Erkenntnis des Guten und des Bösen sollst Du nicht essen, denn welchen Tages Du davon issest, wirst Du des Todes sterben. [1 Mos 2,7–17]
+
+Vers 16: Du magst essen von allerlei Bäumen im Garten, aber von dem Baume der Erkenntnis des Guten und des Bösen sollst Du nicht essen, denn sonst musst Du des Todes sterben. Jetzt beginnt die Inkarnation. In dem Augenblicke, wo Kama-Manas eintritt, beginnt die Inkarnation. Das war in der Mitte der dritten Rasse, und sie hört auf in der Mitte der vierten Rasse der fünften Runde. Dann schildert der Text auch die einzelnen Rassen. Die vierte Rasse aber schildert er ganz besonders.
+
+Bei den Urturaniern ist eine Art Verrat der tieferen Geheimnisse eingetreten. Die Priester haben sich herbeigelassen, die Menschen zu lehren dasjenige, was priesterliche Geheimnisse waren. Die Seele des Menschen wird da ausgedrückt als das Weibliche. Der inkarnierte Wille ist das Männliche. Die Seele, das Weibliche. Die initiierten Priester haben sich nun verbunden mit der Menschenseele und haben ihr die Geheimnisse übergeben. Das war in der vierten Rasse der Atlantier. Dieser Verrat ist geschildert im sechsten Kapitel des Ersten Buch Moses.
+
+Da sich aber die Menschen begannen zu mehren, da sahen die Gottessöhne nach den Töchtern der Menschen, und sie sahen, wie sie schön waren [1 Mos 6,1–2] ...
+
+... denn sie sind Fleisch. Nun beschließt Gott den Untergang, die Sintflut, den Untergang von Atlantis. Dass Noah von jedem Tiere ein Paar mit in die Arche nahm, dem liegt ein wirkliches Ereignis zu-
+
+grunde. Da zeigt es sich, wie unendlich zeitgemäß die Theosophie in unsere Kultur hineinkommt. Vor kurzer Zeit waren der Darwinismus und die Schöpfungsgeschichte noch auf einem anderen Standpunkte als heute. In den letzten Jahren hat die Naturwissenschaft wichtige Umwälzungen durchgemacht. Man hat gedacht, dass die Tiere durch den Kampf ums Dasein und durch die Auslese sich entwickeln, die unvollkommenen gehen zugrunde, die vollkommenen bleiben übrig. Naturforscher sprechen schon von der Ohnmacht des Kampfes ums Dasein. De Vries, der holländische Naturforscher, hat nachgewiesen, dass die größte Rolle in der Deszendenz der Lebewesen die sogenannte Mutation spielt. Man hat gefunden, dass Lebewesen, wenn sie in andere Lebensverhältnisse gebracht werden, rasch in ganz andere Formen übergehen. Man muss sie in ganz andere Lebensverhältnisse bringen, das ist die einzig wirkliche Methode, neue Arten hervorzubringen. Die Mutation ist es, wodurch neue Rassen entstehen. Das geschieht nicht nach und nach, sondern sprungweise. Die Tomate zum Beispiel ist auf rasche Weise entstanden, aus einer Pflanze, die die rote Frucht nicht hatte. An einer Stelle entstand sie, und dann hat sich dieselbe über die ganze Erde verbreitet. Alle übrigen Arten der Fortpflanzung und Entwicklung treten zurück gegenüber der Mutation.
+
+Nun fragt sich die Naturwissenschaft: Wie konnte die Mutation einst eine so große Rolle spielen? Die Atlantier kannten die Geheimnisse der Keimkraft der Samen soweit, um sie zu akkumulieren, sogar als Triebkraft sie zu [verwenden]. Sie verstanden aber auch die Samen von Tieren zu kreuzen und neue Formen hervorzubringen. Was jetzt auf der Erde lebt, ist durch bewusste Kreuzungsmethoden, durch das wirkliche Züchten entstanden, sodass tatsächlich die Menschen die Tierarten geschaffen haben. Aus den wenigen Tierarten haben die Atlantier die ganze lebendige Tierwelt geschaffen. Es liegt in der Menschennatur begründet, dass der, welcher Größe besitzt, dieselbe zu missbrauchen geneigt ist.
+
+Von den Tieren wurden wenige Exemplare ausgesondert und in die Wüste Gobi mitgenommen – Arche. Das Übrige ging zugrunde. Der Erzählung der Sintflut liegt das also zugrunde. Die Verirrung
+
+---
+
+114
+115
+
+der Atlantier, die Aussonderung der Tiere, die durch die Fehler der Atlantier entstanden sind, und die Rettung derselben mit den reinen Priestern in der Wüste Gobi. Wir müssen nun fragen: Wer hat die Rassen gezogen? Die Theosophie antwortet: die Atlantier. Die Zeit aber drängt auch dahin. Der Weizen zum Beispiel ist direkt von einem Weltkörper heruntergekommen, von der Venus. Wir müssen also hier eine Verkuppelung vornehmen zwischen Wissenschaft und Theosophie. [...]
+
+Nachdem der Mensch von der Erkenntnis genossen hatte, musste er sterben, er konnte nicht mehr leben, er konnte nicht zu gleicher Zeit auch von der Lebensseite genießen.
+
+# MIKROKOSMOS UND MAKROKOSMOS
+
+Berlin, 3. März 1904
+
+Ich möchte im Zusammenhang mit dem uralten okkultistischen Satze zeigen, wie die ganze Rundenlehre noch in einer ganz bestimmten Weise zusammenhängt mit den Gedanken, die wir das letzte Mal geäußert haben. Zunächst möchte ich das Folgende betonen: Jeder große Religionsstifter, auch wenn er kein Religionsstifter ist, sondern nur teilgenommen hat an den Arbeiten der Menschheit, geht von den Leitsätzen aus. Und einer der Leitsätze heißt: Der Mensch entspricht den Vorgängen in der großen Welt, dem Makrokosmos.
+
+Nun bitte ich Sie einmal zu bedenken, dass, wenn wir die Entwicklung innerhalb der Runden betrachten, wenn wir die sieben Runden betrachten, wir während der drei ersten Runden eine Art absteigender Entwicklung haben, denn die ganze Erde und auch der Mensch entfernen sich gleichsam von der Gottheit. Der Mensch war anfangs der Gottheit nahe, in einem kindlichen, unschuldsvollen Zustand. Während der irdischen Entwicklung macht er seine Erfahrung und erreicht seinen tiefsten Standpunkt während der vierten Runde, um in den folgenden drei Runden, in der fünften, sechsten, siebenten Runde, wieder aufzusteigen. Es wird immer gefragt, ob es einen Zweck hat, sich von der Gottheit zu entfernen und sich ihr wieder zu nähern. Darüber möchte ich, wenn es einen Zweck hat, in einem späteren Vortrage einmal sprechen.
+
+Betrachten wir das erste Stadium, dann alle mittleren und dann die letzten Stadien der [Lücke in der Mitschrift]. Während der drei ersten Stadien wird sozusagen der Mensch von außen hereingeformt. Es wird der Mensch aufgebaut so, dass er während der vierten Runde so weit ist, dass sein ganzer physischer Körper aufgebaut ist. Dieser physische Körper ist um das Selbst herumgelagert. Das Selbst ist im Inneren, und der physische Körper ist darum herumgelagert. Es brauchte die ersten drei und die Hälfte der vierten Runde, damit der Körper um das Selbst herum aufgebaut werden konnte.
+
+---
+
+Denken Sie, was der Mensch vorher war. Er war vorher ein rein tätiges Wesen. Er war vorher ein Wesen, welches nicht darauf eingerichtet war, von außen Eindrücke zu empfangen, sondern ein Wesen, das ganz auf sich angewiesen war, so fremdartig auch das klingen mag. Wenn der Mensch im Gang seiner irdischen Entwicklung einen Gegenstand hat haben wollen, so hat er ihn selbst gemacht. Er war aktiv, tätig. Das ist auch heute noch immer bei den höheren Stufen des Daseins der Fall. Die Einweihung geschieht heute so, dass der Betreffende zuerst lernt, den sogenannten »Mayavi-Rupa-Körper« zu bilden. Das ist kein Körper, der sich um uns herum lagert, sondern, wenn das Selbst aus dem Körper entschlüpft, so muss es den Mayavi-Rupa-Körper bilden können. Man muss ihn selbst bilden können, während der andere Körper um uns herumgelagert wird, wobei wir passiv bleiben. Diese Passivität kommt beim Menschen in Betracht, wenn der Körper von uns nicht geformt wird. Das ist das, was jeder zuerst im Abstieg hat tun müssen. Das hat er nicht selbst getan, sondern die sind ihm gebildet worden.
+
+Der Schüler muss lernen, das, was mit ihm getan worden ist, jetzt selbst zu tun. Den Mayavi-Rupa-Körper bilden wir selbst. Wir legen ihn um uns herum. Der Schüler lernt zuerst diesen Körper bilden. In der zweiten Hälfte arbeitet sich das Selbst wieder heraus und lernt allmählich diesen Körper bilden. Der Stoff vom Devachan gibt den Stoff für den Mayavi-Rupa-Körper ab. Wenn der Mensch schläft, verlässt das Selbst seinen Körper. Aber der Mayavi-Rupa-Körper ist nicht gebildet. Der Stoff ist da. Man nennt ihn den Mentalkörper, wenn er im Devachan auftritt. In dem Falle, wo er durchorganisiert wird, nennt man ihn Mayavi-Rupa-Körper.
+
+Es ist so, dass wir Folgendes haben: Wir haben während der drei ersten Stadien und während der Hälfte des vierten Stadiums die drei Körper aufgebaut. Dann fühlt sich das Selbst in diesen Körper eingeschlossen. Es ist passiv, wird aber immer aktiver und aktiver. Will man sich in würdiger Weise auf diesen Standpunkt der Aktivität vorbereiten, dann muss man erkennen, dass man jetzt passiv ist und dass man immer aktiver werden muss.
+
+Eingeschlossensein in seinen Körper heißt: passiv sein. Das ist der Sinn der buddhistischen Lehren. Leiden heißt bei Buddha nicht Schmerz empfinden, sondern passiv sein. Geboren-Werden und Sterben ist Passivsein. Kranksein kann man nur im Körper. Der Geist kann nicht krank sein. Der Astralkörper und der Mayavi-Rupa-Körper können sogar noch krank sein. Von Geliebtem getrennt sein, mit Unliebem vereint sein, heißt passiv sein. Begehren, was man nicht erlangen kann, kann man auch nur, wenn man im Körper ist.
+
+Sie sehen also, dass der Buddhismus durchaus keine Religion ist, die das Leiden in seinem tiefsten Sinne [Lücke in der Mitschrift], sondern das Leiden ist ein Vehikel. Schmerz oder Leiden erkennt er durchaus nicht als das Wesen der Welt. Es gibt ein Verbot im Buddhismus, das zeigt, wie weit der Buddhismus davon entfernt ist, Leid und Leben als leidvoll zu betrachten. Ein Gebot heißt da: Wenn ein Mönch mordet oder zum Morde verleitet oder wenn er öffentlich davon predigt, dass Sterben besser sei als das Leben, so ist er nicht wert ein buddhistischer Mönch zu sein. Ein Mörder, oder der zum Morde verleitet, der predigt, dass das Leiden nicht lebenswert sei, der ist nicht wert, buddhistischer Mönch zu sein. Strebet danach, tätig zu sein, sagt Buddha. Auch das hat Buddha aus dem esoterischen Buddhismus herausgenommen, den Menschen zu einem Abbild der ganzen Evolution zu machen.
+
+Das erste Stadium ist, wenn die erste Evolutionswelle vorgebildet wird, wenn der Gedanke da ist, bevor das Dasein beginnt. In dem ersten Zustande liegt der Gedanke, wie das Dasein werden soll, das im Begriffe ist, zu verwirklichen den Satz: Der Mensch soll sich versetzen in den Zustand, in dem die Gottheit war, wenn sie sagt: Es soll Licht werden.
+
+Der zweite Zustand ist der, dass herausgeboren wird der ganze Wille. Zuerst war der Gedanke, dann das Entlassen des Gedankens, dann das Hinuntersinken[lassen] in [Lücke in der Mitschrift].
+
+Das dritte ist das, was man nennt: Die Stimme erschallt. Nicht bloß der Gedanke wird herausgelassen, sondern der Gedanke fängt an zu tönen. Das vierte Stadium ist, wo nicht bloß Stimme da ist, sondern wo wirkliche Tätigkeit beginnt, wo das Tun beginnt. [Fünftens:] Nach dem Tun kommt das Leben; der mittlere Zustand [sechstens].
+
+116
+117
+
+---
+
+Und wenn das erreicht ist, geht es wieder aufwärts. [Siebtens: Das Hinaufstreben.]
+
+Nach der siebenten Runde ist der Übergang in das Nirwana, nach der sechsten [Lücke in der Mitschrift]. [Das Zurückblicken auf die ganze vorhergehende Illusion.] Du sollst nachstrebens dieser kosmischen Entwicklung. Dies ist dein Pfad, dein achtteiliger Pfad. So sollst du leben wie der Kosmos. Es kommt darauf an, dass du pflegst das richtige Denken; dann zweitens das richtige Entschließen und drittens das richtige Wort; viertens das richtige Tun; fünftens das richtige Leben; sechstens das richtige Streben; siebtens richtiges Erinnern, achtens richtiges Versenken. Da haben Sie die ganze kosmische Entwicklung, die der Schüler in seinem Pfad nachzubilden sich bemühen soll. Der achtteilige Pfad ist die Wiederholung der kosmischen Entwicklung.
+
+Als Buddha heranging, eine Religion zu stiften, da sagte er sich: «Ich muss kosmische Wahrheiten zum Strebens-Ziele machen.» Wodurch wird ein Mensch Religionsstifter? Dass er kosmische Wahrheiten zu Vorschriften macht. Der Stifter liest im Kosmos, was er sieht. Deshalb sagt er: «Ich und der Vater sind eins.» Was er gibt, ist dasselbe, was in den Sternen geschrieben ist. Dieser Gedanke, diese Zusammenstimmung gibt dem Buddhismus einen tieferen Charakter. Ich zweifle, dass der Singhalese das erkennt. Es kommt aber auch nicht darauf an. Die Buddhisten erkennen die Berechtigung des Esoterischen an. Der Buddhist strebt den achtteiligen Pfad an. Er tut alles, um das zu erfüllen.
+
+Der Priester, der Mönch, der die Leitung der Religionsgemeinschaft hat, der weiß es, und es ist nicht Usus, dass man dort alles nach außen mitteilt. Es ist wie im Katholizismus. Der Katholizismus ist eine Religion des Opfers. Der Priester, der weiß es. Er weiß die Esoterik. Der Gläubige tut nur die Vorschriften. Es kann auch einer Hohepriester sein oder Verwaltungsbeamter, ohne Esoteriker zu sein. Dies ist mehr bewusst ein Dominikaner- und Franziskanerorden, daher auch gebaut in gewissen [Breitengraden]. Was können Sie einfließen lassen?
+
+Es wird ein Moral-Kodex approbiert von einem scheinbar untergeordneten Mönch. Er hat ein Buch verfasst. Der Bischof hat es
+
+approbiert, seinen Namen daruntergesetzt. Dieses Buch wird nun in allen Schulen verwendet. Wer hat nun den wahren geistigen Einfluss? Es kommt darauf an, dass der Richtige das Buch schreibt, der sich dazu berufen fühlt. Der Bischof schreibt nicht selbst ein Buch. Der Mönch, warum wird er nicht Bischof? Er will keine Ablenkung, keine äußere Stellung, er will sich dem inneren Leben widmen.
+
+Und der Papst, der kennt die Esoterik. Es kann vorkommen, dass keiner da ist. Leo war Esoteriker, Pius IX nicht. Der jetzige ist wohl ganz harmlos.
+
+Die Übereinstimmung des achtteiligen Pfades mit dem kosmischen Gesetze – wenn sie durchgeführt wird, wird die Evolution wahrgenommen. Wenn sich der Mensch zum Mikrokosmos macht, nimmt er auch den Makrokosmos wahr. Es ist dies nicht bloß eine Bußübung, es ist eine Erweiterung des Wesens des ganzen Menschen. Die Nachbildung des Menschen bringt ihn mit dem Makrokosmos wieder zusammen.
+
+Nun noch etwas: Wir haben den Zustand beschrieben, wo der Mensch am weitesten von der Gottheit entfernt ist. Das ist der Zustand, wo einer den anderen von außen sieht. Wenn der eine einen anderen von außen sieht, dann ist das Selbst immer durch eine Hülle abgeschlossen. Dieses Anschauen nennt man das «Anschauen in Tamas», in Finsternis. So sieht man, in vollständiger Passivität um sich herum «in Tamas».
+
+Wenn wir anfangen, miteinander zu fühlen, dann geht uns von dem Selbst des anderen etwas auf, indem wir fühlen. Auch indem wir begehren, suchen wir unser Selbst über uns hinaus zu verbreiten. Indem ich einen Teller dicke Bohnen begehre, strebe ich schon über mich hinaus. Dieses über sich Hinausgehen im bloßen Fühlen, Begehren, was bloß den Astralkörper betrifft, das nennt man das «Leben in Rajas».
+
+Und der nächsthöhere Zustand ist der, wo man nicht bloß mit dem Fühlen und Empfinden aus sich herausgeht, sondern mit dem Gedanken. Da fallen wirklich auch schon im Leben die Schranken, wenn man in Gedanken herausgeht. Wir werden durch Gedanken ruhig. Es hört auf das Getäuschtsein durch die Begierden. Wenn ich
+
+118
+119
+
+---
+
+bis zum Gedanken aufsteige, bin ich nicht mehr durch Begierden getäuscht. Ich denke nach dem höheren Sinn. Das ist das ‹Leben in Sattva›. Dies ist der Zustand, den man erreichen kann durch Denken.
+
+Dann kommt der Zustand durch Intuition. Das sind die, in denen leitend die Weisheit zieht durch die Welt, in Weisheit. Das ist der höhere Zustand. Das ist der Durga-Zustand. Das ‹Leben im Durga-Zustand› ist der Lebenszustand, den der Chela anstrebt: zu allen seinen Handlungen einen göttlichen Auftrag zu haben. Der Mensch fragt sich gewöhnlich immer: Ist es gut oder böse? Man hat verschiedene solche logischen Antriebe angestellt. Aber der, welcher Schüler werden soll, der muss nicht mehr nach logischen und sittlichen Antrieben handeln, sondern er muss sich auch fragen, ob eine göttliche Sendung für ihn vorliegt. Denken Sie sich einen Mönch. Richtiges Handeln ist sehr viel. Nehmen Sie an, er soll ein Buch schreiben, niemand kann es ihm schlecht anrechnen, wenn er kein Buch schreibt. Er schreibt das Buch, weil er den göttlichen Auftrag zum Buch ausführt. Das ist das Handeln im Durga-Zustand. Es ist ein innerer Drang dazu da.
+
+120
+
+# ÜBER DEN SATTVA-ZUSTAND
+
+Berlin, 11. März 1904
+
+Nur auf geometrischer und mathematischer Grundlage kann man die Menschheit zum Sattva-Zustand erheben. Deshalb hat Platon auch verlangt, dass jeder Schüler eine mathematische Vorbereitung haben müsse. Denn nur in der Mathematik ist der Sattva-Zustand erreicht. Alle anderen Sachen werden in einer Art von Selbstsucht erforscht.
+
+Wenn die Menschen sich einmal durchgerungen haben werden, werden sie allem Übrigen auch so objektiv gegenüberstehen, wie man heute den mathematischen Wahrheiten gegenübersteht. Durch die Art, wie die abendländische Wissenschaft zur Mathematik steht, wie sie studiert, kann sie nicht zu den tieferen Wahrheiten gelangen. Unsere Wissenschaft hat es nur in der Mathematik so weit gebracht, objektive Wahrheiten zu erlangen. Deshalb ist es eine Art Idealzustand.
+
+Erinnern Sie sich der Einleitung, die ich einmal gegeben habe, als ich über die Unsterblichkeit der Seele sprach? Da sagte ich, dass in den Mysterien erst die Schüler vorbereitet wurden und dass sie weder das eine noch das andere wollten. Heute kann man finden, dass man sagt: «Ich will nicht reinkarniert werden!» oder «Ich will reinkarniert werden!» Diese durften nicht in die Mysterien aufgenommen werden, weil sie unfähig erachtet wurden, die höheren Wahrheiten objektiv zu erfassen. Die Menschen mussten sich erst abgewöhnen zu wünschen. Ebenso ist es auch mit dem Kamaloka. Wir dürfen keine Wünsche haben, denn dadurch wird ein objektives Anschauen nicht möglich.
+
+Und jetzt noch einige Worte darüber, wie der Buddhismus aufzufassen ist in Bezug auf seine Weltstellung. Als der Buddhismus gegründet wurde durch Buddha, da war es keine neue Religion, und es sollte auch keine neue Religion sein. Der Buddha wollte, dass die Religion, die damals nur Priesterweisheit war, allem Volke zugänglich gemacht werde; er sollte sie populär machen. Er wollte, dass auch die, welche nicht eingeweiht werden konnten, nicht einem
+
+121
+
+---
+
+122
+123
+
+bloßen Bilderdienst verfallen, sondern dass sie eingeführt werden sollen in gewisse Heilswahrheiten, damit sie durch die Teilnahme an den Heilswahrheiten nicht so verloren gehen, wie wenn es sich um bloßen Bilderdienst handelt.
+
+Die Brahmanen waren damals im Besitze ganz hoher Weisheiten, die dem Volke zu verkündigen ganz unmöglich gewesen wäre. Niemand hätte sie verstanden. Nach und nach hatte das Volk dann die Bilder für Wirklichkeiten genommen, geradeso wie im Katholizismus. Wir können das bemerken, wenn wir nach Tirol kommen, wo die Heiligenbilder wie eine Art Fetisch angebetet werden. Der Buddhist sagte sich: Es ist ein zu großer Abstand zwischen dem Bilderdienst des Volkes und der hohen Weisheit der Brahmanen. Nehmen wir nur die zwei höchsten Sätze der brahmanischen Weisheit.
+
+Der eine ist: «Das bist Du!» Das heißt: Es ist nur eine Wesenheit, und mein Körper und diese Schiefertafel sind genau in demselben Grade außer mir. Ebenso fremd wie mein eigener Körper ist mir diese Tafel von Schiefer. Die ganze sinnliche Welt ist ein Ganzes. Jedes Stück darin soll uns nicht näher stehen. Das Stück Fleisch, das ich herumtrage, steht mir nicht näher als irgendein anderer Gegenstand.
+
+Der zweite Satz heißt: «Ich bin Brahman!» Ich bin das wirkliche göttliche Wesen, ein Funke der Gottheit.
+
+Ich muss mich so erheben, dass ich alles als ‹Du› erkenne und das göttliche Brahman als ‹Ich›. Das sind die zwei Leitsätze. Alles Übrige sind Erklärungen dazu. Das Brahman wird abgeschlossen durch eine Hülle, es wird mein Brahma oder Atma – das sind Ausführungen der zwei Sätze.
+
+Die ganzen theosophischen Lehren, die wir kennen, waren im Wesentlichen von den unteren Lehren. Karma und Reinkarnation waren Brahmanen-Lehren. Von dieser Brahmanen-Lehre, die viele Jahrtausende vor Christi Geburt zurückgeht, ist es nicht verwunderlich, dass sie etwas Eigentümliches hat. Und was ist das, was die Brahmanen-Lehre Eigentümliches hat? Denken Sie sich, Sie lernen Theosophie bis zu einem gewissen Grade. Wenn Sie dann in die Brahmanen-Lehre eindringen, so werden Sie finden, dass alles, was die Theosophie hat, schon in der Brahmanen-Lehre zu finden ist.
+
+Das, was Jakob Böhme gesagt hat, ist schon eher eine Stufe höher. Gehen Sie aber wieder zur Brahmanen-Lehre, so werden Sie finden: Auch das war schon da. Sie gehen weiter, sie bekommen die Chela-Schaft, gehen wieder zur Brahmanen-Lehre und finden, dass auch das schon darinnen steht. Wir kommen schließlich darauf, dass wir gar nicht ausmachen können, wie tief die Brahmanen-Weisheit ist. Und wenn uns noch tiefere Weisheiten aufgehen werden, so ist es wahrscheinlich, dass wir noch tiefere darin finden.
+
+Nun sagte sich aber Buddha: Es muss so viel wie möglich die Brahmanen-Lehre populär gemacht werden. Die Weisheit zu popularisieren geht aber nur bei Einzelnen – durch die Einweihung. Das geht nicht, dass man Weisheit durch Forschen herbeiführt. Wir sollen sie vielmehr durch das Leben gestalten. Und nun denken Sie sich, es gäbe eine Methode, um dem Menschen zu sagen, wie er leben soll, so würde das ein Ersatz sein dafür, ihn einzuweihen. Ich kann jeden als Schüler annehmen und ihn nach und nach einweihen. Dadurch wirke ich auf den Intellekt, auf die Intuition und nach und nach auf die höheren Gebiete des Geisteslebens. Ich kann es aber auch anders machen. Ich kann sein Leben so einrichten, dass sein Leben immer besser und besser wird. Dann wird er ganz von selbst dem Weisheitsschatze entgegenleben. Er wird auf halbem Wege der Weisheit entgegenkommen. Wie man beim Bau des Gotthardtunnels von zwei Seiten gebohrt hat und zusammengetroffen ist, so will es auch Buddha. Daher gibt er keine Aufschlüsse über die Weisheitsschätze. Er will nicht reden über den Weisheitsschatz, er will das Volk lehren. Das Volk soll über die beste Art zu leben belehrt werden. Um den Weisheitsschatz wollen wir uns gar nicht kümmern. Buddha unterscheidet sich nur durch die Methode. Keinen Satz der alten Lehre hat er nicht anerkannt. Aber er sagt: Es ist zunächst nutzlos, das Volk mit Lehren zu behelligen. Wir müssen das Volk dahin bringen, dass es durch das Leben verstehen lernt. Er sagt nicht: Lehre den Satz «Du bist Brahma», sondern er sagt: «Hafte nicht an der Materie!» Erlebt man den Satz «Hafte nicht an der Materie», dann wird einem leicht das Verständnis für den Satz aufgehen: «Ich bin Brahma.»
+
+Das sehen wir auch aus dem Folgenden: Der Buddha hat einmal
+
+---
+
+ein Gespräch geführt, in dem er ungefähr sagte: «Hier ist ein Wagen. Der Wagen besteht aus den Rädern, dem Sitz, der Deichsel und so weiter. Die Räder sind nicht der Wagen, der Sitz ist nicht der Wagen, die Deichsel ist nicht der Wagen. Jeder einzelne Teil ist nicht der Wagen und doch besteht der Wagen aus den einzelnen Teilen. Siehe, wie in keinem einzelnen Teile der Wagen ist, so ist auch in keinem einzelnen Teile beim Menschen die Seele. Nicht dein physischer Körper, nicht dein Kleid des physischen Körpers, nicht deine Begierden, nicht dein Vorstellen sind deine Seele!» Wenn also Buddha sagt, was nicht die Seele ist, so wollte er damit die Menschen dahin bringen, zu erleben, was Seele ist. Deshalb sagte er nicht: «Ich bin Brahma», sondern er sagte: «Tod, Geburt, Begehren und so weiter ist Passivität.»
+
+Wer den Satz erkennt: «Ich bin Brahma», der weiß das alles. Buddha sagt also: «Macht euch so viel wie möglich frei von alledem, was der Geburt, dem Tod, dem Alter, der Krankheit unterworfen ist!» Der alte Brahmane hat den Leuten gesagt, was das Bleibende ist. Deshalb sagt er auch nicht: «Sucht euer höheres Selbst!», sondern er sagt: «Befreit euch von dem niederen Selbst, legt ab die Fessel des niederen Selbst!» Und deren gibt es zehn. Wie der Brahmane gesagt hat: «Ich bin Brahma», so sagt der Buddha: «Ich zähle dir die zehn Fesseln auf, und dann wird das höhere Selbst aus dir schon hervorgehen.»
+
+Die erste Fessel ist die Täuschung durch das niedere Selbstbewusstsein. Buddha sagt nicht: «Erkenne das höhere Selbst», sondern er sagt: Das niedere Selbst ist eine Täuschung, eine Zusammensetzung aus vorübergehenden Prinzipien:
+
+1. Körperlichkeit, 2. Wahrnehmung, 3. Gefühl, 4. Begierde, 5. Bewusstsein.
+
+Diese fünf Dinge setzen das niedere Selbst zusammen. Das höhere Selbst steckt da drinnen, aber vom höheren Selbst spricht Buddha nicht. Er sagt nur, diese fünf Dinge sind Illusionen; das müsst ihr erkennen! Und er ist überzeugt, wenn er den Leuten sagt: «Das ist die Scheide des Schwertes», dass sie auch gewahr werden, was darinnen steckt.
+
+Die zweite Fessel ist die, dass man glauben könnte, es gäbe keine moralische Weltordnung, also Unglaube an eine moralische Welt-
+
+ordnung. Buddha hat nicht gesagt: «Glaubt an göttliche Wesen!» Er sagte sich: «Davon hat der Mensch nichts. Er soll an eine moralische Weltordnung glauben und sich frei machen von dem Glauben, als ob irgendetwas ungerecht sein könnte, was uns treffen kann. Es scheint uns nur ungerecht, weil wir es nicht durchschauen können. Es kann mir zum Beispiel ein Ziegelstein auf den Kopf fallen. Habe ich in früherer Zeit dies nicht verdient, so werde ich in einer späteren Zeit einen Ausgleich erleben.»
+
+Die dritte Fessel ist der Glaube, dass unsere Riten und Zeremonien eine Bedeutung haben können, etwas anderes sein können als Gleichnisse. Wer das Symbol für die Wirklichkeit nimmt, der leidet unter der dritten Fessel des Daseins. Symbolik ist schön und hoch erhaben – aber man darf sie nicht als Wirklichkeit nehmen.
+
+Die vierte Fessel ist der Glaube an die Sinnlichkeit, die Meinung, dass das Sinnliche ein Wirkliches ist. Denken Sie sich dieses Buch! In dem Augenblicke, wo die Temperatur hundert Grad höher ist, sind wir und auch dieses Buch nicht mehr da. In dem Momente, wo diese unsere Temperatur nicht mehr da ist, ist die ganze physische Welt nicht mehr möglich.
+
+Die fünfte Fessel ist dasjenige, was uns selbst in unsere Sinnlichkeit bannt, was uns den Glauben beibringt, dass wir Sonderwesen sein dürfen, dass wir anderen Wesen mit Antipathie begegnen, sie hassen dürfen. Antipathie gegenüber anderen Wesen ist diese Fessel. Dadurch dass wir Antipathie mit anderen Wesen haben, geben wir uns der Illusion der Absonderung hin. Das ist die fünfte Fessel.
+
+Die sechste Fessel ist die Liebe zur sinnlichen Persönlichkeit.
+
+Die siebente Fessel ist die Sehnsucht nach einer Erhaltung des persönlichen Daseins. Das ist das, was besonders im Christentum stark ausgeprägt ist, die Sehnsucht nach der Erhaltung des persönlichen Daseins in der irdischen Persönlichkeit. Das ist nach Buddha die siebente Fessel. [...]
+
+Die achte Fessel ist der Stolz, der Kampf um die Erhöhung des persönlichen Daseins.
+
+Die neunte Fessel ist der Glaube, dass man ohne Karma, durch Selbstgerechtigkeit etwas in der Welt erreichen kann. Der Buddha
+
+---
+
+bezieht sich in allem auf Karma. Er sagt: «Niemand kann ohne Karma etwas erreichen.»
+
+Die zehnte Fessel ist etwas, was nur der Buddhismus ausgebildet hat, und durch Betonung der zehnten Fessel deutet der Buddhismus darauf hin, dass er eine der erhabensten Religionen ist, die je gelehrt worden sind. Der Buddha bezeichnet nämlich als die zehnte Fessel die religiöse Unwissenheit.
+
+Das Christentum hat in der Bergpredigt den ersten Satz gründlich missverstanden: «Selig sind die Armen im Geiste». «Selig sind die Unwissenden», übersetzt der Christ. Buddha jedoch sagt: «Es gibt viele Arten des Schmutzes. Der größte Schmutz aber der einem anhaften kann, ist die Unwissenheit!» Vom Christentum werden diejenigen, welche wissen wollen, als von Dämonen besessen angesehen. Der Protestant begnügt sich damit, im Glauben mit Gott vereint zu sein. Der Weise aber ist in Weisheit mit Gott vereinigt.
+
+So also hat Buddha gelehrt. Die Brahmanen-Religion bleibt ganz bestehen, sie ist das Höchste. Aber wir können sie zunächst nicht dem Volke bringen. Deshalb lehren wir dem Volke, wie es sich befreien soll, aus den Banden des vergänglichen Daseins. Die Brahmanen lehrten: «Wie kann man das Ewige erkennen?» Buddha wollte lehren: «Wie kann man das Vergängliche überwinden?» Buddha hat nur die Methode geändert. Wir wollen nicht das Ewige lehren, sondern wir wollen lehren, wie man leben soll, um das Vergängliche zu überwinden.
+
+Die zweite Wahrheit ist: Erkenne, dass im Vergänglichen die Ursache der Passivität ist! Die dritte Wahrheit ist: Ertöte das Haften am Vergänglichen! Dadurch kommt das Ewige von selbst zum Durchbruch.
+
+Was ich heute gesagt habe, bezieht sich auf die vier großen Wahrheiten und auf die Lehre von den zehn Fesseln und darauf, dass die Ursache von allen Leiden nur im Nichtwissen liegt. Dieses nennt man alles zusammen: Die Herbeiführung einer göttlichen Zukunft. Wissen, Erkennen nennt man die Herbeiführung einer göttlichen Zukunft. Der Buddhist lebt um dessen willen, was der Mensch wird. Und das Leben und seine Anwendung in diesem Sinne, das nennt er «Dharma».
+
+Und nun ist er von Folgendem überzeugt:
+
+Erstens: Dass Buddha kein Gott ist, sondern dass er erleuchtet ist, dass in ihm Budhi, die Erkenntnis aufgegangen ist, denn auch Buddha ist ein Vergängliches. Den Buddha anzusehen für etwas Ewiges, wäre Aberglaube im Sinne des Buddhismus. Der Buddhist sagt also: «Ich glaube an die Erleuchtung des Buddha!»
+
+Das Zweite ist: «Ich glaube an Dharma».
+
+Und das Dritte ist: «Ich glaube an die Bruderschaft», an «Sangha», an die Bruderschaft derer, welche soweit sind, dass sie das Sondersein überwunden haben, das heißt: Ich glaube an die Möglichkeit, dass sie das Sondersein überwunden haben.
+
+Ich glaube an: erstens eine Ursache – Karma; zweitens an das Leben – Dharma; drittens an das, was erreicht ist – Bruderschaft Sangha; gleich: «Ich glaube an die Gemeinschaft der Heiligen.»
+
+126
+127
+
+---
+
+128
+129
+
+# DIE GENESIS I
+
+Berlin, 1. April 1904
+
+Heute möchte ich Ihnen eine Art Vorlesung über die Anfangsworte der Genesis vor Augen führen, wie sie in den ersten Zeiten des Christentums an geheimen Stätten gepflegt worden sind. Was ich sagen werde, wird etwas sein, was oftmals vorgetragen worden ist, aber immer nur an geheimen Stätten vor ein paar Leuten und was niemals so richtig popularisiert worden ist. Es ist nicht etwas, was sich genau auf die Genesis bezieht, sondern etwas, was sich bezieht auf das lemurische Zeitalter. Ich werde also nichts anderes sagen als das, was in okkulten Logen oft und oft vorgetragen worden ist.
+
+Zuerst müssen wir uns klarmachen, dass wir zwei große Katastrophen überschritten haben, die eine, welche geführt hat von der atlantischen Zeit bis in unsere Zeit, und eine andere, die von den Lemuriern zu den Atlantiern geführt hat. Wir gehen zurück in die Zeit, die vor diesen Katastrophen liegt, zurück in eine Zeit, in der die Menschen schon vorhanden waren, aber noch nicht warmes Blut hatten. Sie hatten kaltes, weißes Blut. Dieses kalte, weiße Blut war die Ursache, dass diese Wesen leben konnten in einem wässrigen Element. Damals war die Trennung zwischen Luft und Wasser noch nicht so wie heute. Alles Wasser war noch eine Art feiner Nebel oder Dunst, sodass alles, was Erde war, bedeckt war mit diesem feinen Nebel oder Dunst. Luft und Meer waren noch nicht da, nur Wasser und Nebel, die sich wie Dampf über der Erde lagerten, und dieser Dampf war zugleich etwas, was die Lebenskeime enthielt für alles das, was dazumal auf Erden leben konnte. Die Lebenskeime waren selbst dampfförmig, sie waren nicht kleine Körner, nicht kleine Keime, sondern dampfförmige, wirbelartige Gebilde in dem allgemeinen Weltenleben. Ein solches dampfförmiges Gebilde, wie eine dichtere Wolke, war zuerst noch der Mensch selbst. Der Mensch hatte eine Form, welche sich aus solchem verdichteten Dampf zusammensetzte. Innerhalb dieses Dampfes bewegte sich eine dünne Flüssigkeit.
+
+Und dasjenige, was am Menschen das Hervorstechendste war, war ein Organ auf seinem Kopf, das in seinem vorderen Teile weit herausragte über seinen Körper, ein Organ, welches einen Stiel und am Ende des Stieles eine Art Kugel hatte. Das war ein Organ, das nicht Licht, sondern Wärme wahrnehmen konnte. Was besonders wichtig war in der damaligen Zeit, das waren die verschiedenen Wärmeunterschiede. Man musste wissen, dass es da zu heiß war und dort zu kalt; man musste dem ausweichen können, und dazu war also das Wärmeorgan nötig. Man konnte die Wärmegrade wahrnehmen mit dem Organ und konnte sich so da- oder dorthin wenden. Das Organ hat sich später vollständig verloren. Es war aber das Organ, das damals den Menschen zur vollständigen Orientierung diente.
+
+Den damaligen Zustand nannte man die „unergründliche Tiefe“. Er wurde deshalb so genannt, weil diese Wesen nichts sehen, nichts hören, nichts sprechen, nichts verstehen konnten. Alle diese Fähigkeiten hatten sie noch nicht. Die Geheimlehre bezeichnet dieses ganze Gebiet mit all den lebenden Wesen darin als „die Wasser“, weil in diesen Wassern die Wesen noch nicht vorstellend für sich selbst waren. Sie konnten noch nicht vorstellen. Der ganze Erdenkörper war begabt mit einer einzigen Vorstellungsfähigkeit. Es war ein großes lebendes Wesen, was man als den Geist ansah. Die Menschen waren einzeln da, aber ihre Vorstellungen waren noch gemeinsam. Von dieser Gemeinsamkeit der Vorstellungswelt sagte man in den Geheimschulen:
+
+„Der Geist Gottes schwebte über den Wassern.“ [1 Mos 1,2]
+
+Das heißt, dieses Gebiet hatte eine gemeinsame Vorstellung, und diese schwebte über den Wassern, sie war noch nicht eingezogen in die Menschen.
+
+Wir haben also zweierlei nebeneinander: erstens die „unergründliche Tiefe“ und zweitens die „Vorstellung“, welche die Genesis den „Geist Gottes“ nennt.
+
+Das nächste ist Folgendes: Der Auswuchs an der vorderen Seite der Wesen, den wir beschrieben haben, schrumpfte zusammen. Und dieses heute zusammengeschrumpfte Organ, das aus diesem Auswuchs
+
+---
+
+entstanden ist, ist die Zirbeldrüse. Die Menschen hatten damals noch keine Knochen. Es waren Dunstmenschen, Fischmenschen. Wenn Sie in den ersten Wochen der Schwangerschaft den keimenden Menschen ansehen, dann finden Sie diesen Fischmenschen beim Menschenkeim angedeutet. Der Mensch wiederholt wirklich diese Zustände in der ersten Zeit der Schwangerschaft. Der kleine Fischkörper, den der Mensch da hat, besitzt das kleine Organ, das dann verschrumpft. Es ist ein[es jener zurückgebildeten Organe] wie die Milz, von welchem die heutigen Ärzte nicht wissen, welche Aufgaben sie haben. Je mehr dieses Stielorgan sich rückbildete, desto mehr bildete sich im Innern des menschlichen Organismus das Augenpaar aus. Die Augen entstanden, zwei Augen bildeten sich anstelle des ursprünglichen Stielorgans. So wie das Stielorgan ein Wärmeorgan war, so wurden die Augen ein Lichtorgan. Diese unergründliche Tiefe wirkte in allen Wesen und sonderte, indem sie das Wärmeorgan zurückzog, das Augenpaar heraus. Diese unergründliche Tiefe heißt in der Geheimlehre auch der «Vorvater».
+
+Früher haben die Menschen nur Wärme und Kälte empfunden. Jetzt aber nehmen sie durch die Augen die Gegenstände wahr, das heißt, der Vorvater ließ aus ihrem Innern heraus die Fähigkeit entstehen, nicht nur Wärme, sondern auch Licht wahrzunehmen.
+
+Und Gott sprach: Es werde Licht! Und es ward Licht. [1 Mos 1,3]
+
+Nun sind wir so weit, dass diese Wesen um sich herum das Licht und folglich auch die begrenzten Gegenstände wahrnehmen konnten. Nun bitte ich Sie Folgendes zu bedenken. Vorher war die unergründliche Tiefe da; darinnen war alles beschlossen. Es war da die Vorstellung und dann das Licht. Das Licht war begrenzt durch das Auge oder die Fähigkeit, ringsherum zu sehen, was Augen sehen konnten: das Sichtbare. Alles Übrige war nicht sichtbar geworden. Das war jenseits des Sichtbaren. [Die Grenze des Sichtbaren war die Feste.]
+
+Und Gott setzte eine Feste, da, wo das Sichtbare aufhört und das Unsichtbare anfängt. [1 Mos 1,6–7]
+
+Das Weitere war, dass der Mensch anfing, das Sichtbare zu empfinden, sodass für ihn ein ganz neuer Sachverhalt auftrat. Sie müssen sich einmal vergegenwärtigen, was es für Sie bedeuten würde, wenn Sie nicht sehen könnten und auch nicht hören könnten. Von Hören konnte damals allerdings keine Rede sein. Die damaligen Menschen waren ja in einem flüssigen Elemente selbst ein Flüssiges. Und indem Sie so hinschwimmen würden, da würden Sie nicht genau die Grenze wahrnehmen zwischen sich und dem anderen. Grenzen nimmt man erst wahr, wenn es ein Sichtbares gibt.
+
+Die Einzelwesen wurden zusammengehalten durch die Vorstellung. Das Einzelwesen unterschied sich nicht so scharf. Jedes Wesen fühlte sich zugehörig zum Ganzen, zum Allgemeinen. Es wäre so, wie wenn sich heute Ihr Magen selbstständig fühlen sollte; er muss sich im Körper fühlen als dazugehörig. Erst in dem Augenblick, in dem eine Lichtempfindung auftritt, entsteht die Möglichkeit, das andere als etwas anderes zu empfinden. Ein Gegenstand ist erst etwas außer uns, wenn wir seine Grenzen außer uns sehen. Das Licht war dasjenige, was die einzelnen Wesen voneinander unterschied. In dem Augenblicke, wo die Menschen voneinander unterschieden wurden, war es notwendig, dass das Verständnis für die Umwelt sich eröffnete. Die Wesen mussten die Vorstellung nicht nur außer sich haben, sondern sie mussten die Vorstellung auch in sich haben können. Ein Gegenstand, den ich bloß anschaue, würde etwas ganz Rätselhaftes für mich sein, wenn ich ihn nicht selbst vorstellen könnte. Dieses Verständnis [für die Umwelt] wurde vermittelt durch Wesenheiten, welche höher geartet waren als die auf der Erde lebenden Wesen. Die lichtempfindenden Wesenheiten wurden von Wesenheiten geführt, die in ihnen den Verstand anregten. So wurden sie verstandesbegabt. Sie wurden die «Söhne des Manas».
+
+Damit kommt die Möglichkeit, sich eine falsche oder eine richtige Vorstellung zu bilden. Deshalb sagt die Geheimlehre: Es entstand als das zweite Paar «Verstand und Wahrheit». Sie entstanden durch den Einfluss der Söhne des Manas. [Ich kann nicht eine falsche Kälte oder eine falsche Wärme empfinden, aber der Verstand kann sich eine falsche Vorstellung bilden.] Jetzt erst, als die Vorstellung, der
+
+---
+
+132
+133
+
+Verstand in den Wesen selbst darinnen war, hielten sich die Wesen in einer Art Gemeinsamkeitsempfindung zusammen. Früher war die Vorstellung draußen; jetzt aber war ein Funke davon in den Wesen selbst. Ich habe gesagt: Wärme und Kälte waren verschieden draußen in der Welt. Diese Wärme ziehen die Wesen in sich selbst hinein und unterscheiden sich als Wärme- und Kältewesen. Ein Wärmewesen ist ein solches, das nicht mehr Wärme wahrnehmend ist, sondern Wärme erzeugend ist. Es entstand jetzt im Menschen warmes Blut.
+
+Was war also geschehen? Der Mensch war früher aus Wasser geboren worden. Jetzt war das in ihm erzeugt worden, was die Geheimlehre das »Blut« nennt. Der Mensch war also zuerst aus »Wasser«, dann aus »Blut« geboren. Und wenn wir noch weiter zurückgehen könnten in die Zeit, die noch vor der lemurischen Zeit liegt, so würden wir vor dem Wasser noch den »Geist« finden, der noch nicht Wasser geworden war. Wir haben also: Geist – Wasser – Blut. Die Wärme, die allgemein war, ist dann als die Blutwärme der Wärmewesen aufgetreten. Der Mensch ist aus dem Blute geboren – das ist der Moment, wo der Mensch das warmblütige Wesen geworden ist. Dadurch ist er imstande, alles, was früher außer ihm organisiert war, in sich zu organisieren. Wärme und Kälte waren etwas Verschiedenes draußen. Jetzt unterscheidet er Wärme und Kälte in sich. Wie früher die Schöpfung draußen war, so wurde der Mensch jetzt Schöpfer in sich. Und als erstes, wodurch der Mensch nicht nur ein inneres Wesen ist, sondern als inneres Wesen sich nach außen kundgibt, entstand die »Rede«. Und mit der Rede entstand das »Leben«. [Der Mensch konnte sich nach außen kundgeben; was hineingezogen war, dringt nach außen – das ist die Rede.] Dann erst ist menschliches Leben da, wenn der Mensch nicht nur als Wesen da ist, sondern sich auch als solches kundgibt – [ein selbstständiges, in sich geschlossenes, differenziertes Leben, nicht Mitleben. Das Wesen ist selbstständig geworden, kann sich kundgeben, kann sich offenbaren.]
+
+Das dritte Paar ist also »Rede und Leben«. Tiere, welche nicht imstande sind, Töne herauszubringen, sind kaltblütig. Nur warmblütige Wesen sind imstande, der Seele durch den Ton nach außen hin Ausdruck zu verleihen. Ein Wesen, das Stimme haben soll, muss
+
+sich in der Wärme von seiner Umgebung unterscheiden. Es muss ein von seiner Umgebung differenziertes Leben haben. Das dritte Paar ist also »Rede – oder Stimme – und selbstständiges Leben«. Der Fisch hat dieselben Wärmegrade wie das Wasser, in dem er lebt.
+
+Nun sind wir so weit, dass das Wesen selbstständig geworden ist, dass das Wesen sich offenbaren kann und dadurch für seine Umgebung als selbstständiges lebendiges Wesen erscheint.
+
+Das eine bitte ich zu berücksichtigen, dass nicht die heutigen Begriffe auf die damalige Zeit übertragen werden dürfen. In der späteren Zeit haben sich die kaltblütigen Wesen auch verschiedentlich verändert. Die Fische waren damals noch viel größer und den Menschen ähnlicher.
+
+Die Fortpflanzung der damaligen Wesen war aber noch immer so, dass sie eines aus dem anderen einfach hervorgingen. Sie müssen sich vorstellen, dass, wenn ein neuer Nachkomme entstehen sollte – Begattung oder Befruchtung gab es damals noch nicht, auch Inkarnation gab es noch nicht, die Inkarnation existiert erst, seit es die Geschlechtlichkeit gibt, seit es zwei Geschlechter gibt [wir haben es nicht mit Inkarnationen, sondern mit Materialisationen zu tun] –, wenn also ein neues Wesen entstehen sollte, so ließ das eine Wesen die Materie zu dem neuen Wesen aus sich hervortreten. Die Bestimmung zu diesem Prozess ging von dem allgemeinen Weltengeist aus. Durch Wahlverwandtschaft wurde ein neues Wesen hervorgebracht. Ein Wesen wurde überschattet von einem Geist. Es ist genau so, wie wenn das Medium [bei einer spiritistischen Sitzung] einem Geist, der sich in der Materie verkörpern, materialisieren, sich manifestieren will, den Stoff dazu liefert. Die Materie war immer brauchbar, immer jungfräulich, ein Nahrungsprozess. Das ursprüngliche Wesen blieb, wie es war. Der Prozess ist so da, wie er beschrieben worden ist anlässlich der Schilderung seines Pflanzenaspektes. Die Materie wurde dann abgebraucht, sie war unfähig geworden, [ohne neue Anfachung] eine neue Anordnung aus sich selbst hervorgehen zu lassen, und es trat die Differenzierung in Geschlechter ein. In dieser Weise geschah im Wesentlichen das Herabkommen der Lemurier; sie hatten die Fähigkeit verloren, in sich die jungfräuliche Materie zu haben. Sollte ein
+
+---
+
+neues Wesen sich manifestieren, so musste ein Keim da sein, um das Leben anzuregen. Damit [trat die Sexualität ein und damit] Geburt und Tod und auch die Inkarnation. Und der Mensch wurde, wie man hinzufügt, der Anfang der ‹Versammlung›, der ‹Verbrüderung›.
+
+Von der Mitte der lemurischen Zeit an beginnt der Vereinigungsprozess, der Verbrüderungsprozess, der zu dem Punkte führen muss, an dem die Mysterien-Stätten sich vereinigen, um dann hinüberzuleben in eine neue Weltepoche. [Jetzt kommt das vierte Paar: ‹Der Mensch – die Versammlung, die zur Verbrüderung führt›.]
+
+Diese Darlegung wurde auch in den Pythagoreer-Schulen wiederholt gegeben. Es wurde gesagt: Da der Geist in jeden Menschen hineingekommen ist, so kamen Geburt und Tod in die Welt. [Und in der Genesis heißt es:] Unter Schmerzen sollst du Kinder gebären, heißt es jetzt. Früher waren diese einfach durch Überschattung hervorgegangen.
+
+Das ist der Sinn von Blut, Wasser und Geist, wie er sich auch ergibt aus den Worten: Wahrlich, wahrlich, wer nicht wiedergeboren ist aus dem Wasser und aus dem Geist, der wird die Glückseligkeit nicht erlangen.
+
+[...]
+
+134
+
+# DIE GENESIS II
+
+Berlin, 29. April 1904
+
+Ich möchte heute über die Genesis noch einmal in einem anderen Sinne sprechen. Ich möchte einige Begriffe geben, welche Sie in den Stand setzen werden, die Genesis allmählich wörtlich zu nehmen. Um das zu können, möchte ich zunächst auf eine Stelle in der Epistel des Johannes verweisen. Da werden Sie eine sehr interessante Stelle finden im fünften Kapitel der ersten Johannes-Epistel, Vers 7–8:
+
+Drei sind es, die da zeugen im Himmel: der Vater, das Wort und der heilige Geist; und diese drei sind eins. Und drei sind es, die da zeugen auf Erden: der Geist, das Wasser und das Blut, und diese drei sind beisammen. [1 Joh 5,7–8]
+
+In diesen Worten haben Sie eine Differenzierung der drei oberen und der drei unteren Prinzipien, wie sie im Sinne der christlichen Esoterik, des Gnostizismus aufzufassen sind. Das ist der Vater, Atma; das ist das Wort, Budhi, das Schöpferische, der die ganze Welt durchdringende Spiritus; und drittens Manas oder Mahat, der heilige Geist. ‹Heilig› ist das Wort, welches bedeutet: noch nicht dem Körperlichen unterworfen. Atma, Budhi, Manas sind mit diesen drei im Himmel Zeugenden gemeint.
+
+Zu diesen drei kommen die drei seelischen Elemente im Menschen. Die seelischen Elemente sind in der ganzen jüdischen Kabbala bis zurück zu den ursprünglichen Büchern Moses und in der christlichen Esoterik: das Blut, das Wasser und der Geist. Man muss sich nur zuerst klar sein, was die jüdische Esoterik mit ‹Blut› meint. Es ist das unterste Glied der Seele, das, was wir in der Theosophie das Astrale nennen – nicht unser physisches Blut. Die jüdische Esoterik glaubt, dass die Bewegung des Blutes vom Astralkörper herrührt, und das ist richtig. Alle Einflüsse, die nicht nur unmittelbar durch die Seele gehen, sondern etwas Körperliches noch bewirken, das nennt die jüdische Esoterik das Blut. Es ist das Tätige, das Treibende. Wir nennen nur den roten Saft, der durch den Körper strömt, das Blut.
+
+135
+
+---
+
+136
+137
+
+Das zweite ist das «Wasser». In jeder Art von Geheimsprache ist «Kama» überall das Wasser. Es sind die Gefühle, die Leidenschaften, die Begierden und so weiter. Und nun will ich Ihnen sagen, warum das Wasser genannt wird. Sie müssen sich schon einmal vertraut machen mit der Vorstellung, dass die heutige Menschheit daran gewöhnt ist, sich vieles materialistischer vorzustellen, als es in früheren Zeiten der Fall war. Wenn Sie sich einen alten Kabbalisten vorstellen, so sah der in diesem Wasser nicht bloß das fließende Element, sondern ein Gleichnis. Und er kam dazu auf folgende Art. Er sagte sich: Im Wasser leben diejenigen Tiere, welche wir zu den ursprünglichen rechnen müssen. Aus dem flüssigen Element ging ursprünglich das Tierische hervor: Seetiere, Quallen, Amphibien. Diese gingen dann aus dem Wasser heraus ans Land. Nirgends entstanden Leidenschaften und Gefühle als aus dem Wasser. Erst später entstand das Land, und da entstand dann auch dasjenige, was höher organisiert ist. Die Seele, das Fühlen von Lust und Unlust, sie kamen aus dem Wasser hervor. Das Wasser war das Element, das Lust und Unlust im Menschen macht. Deshalb nannte er das Wasser den Quell dessen, was Lust und Unlust ist.
+
+Wir unterscheiden die untere Seele, die das Blut wallen macht. Das Blut ist die eigentliche, tiefer liegende Seele. Wo wir Lust und Unlust empfinden, die eigentlichen inneren Schmerzen, das nennt er das Wasser, weil er dieses Seelenelement aus dem Wasser herleitet.
+
+Dann kommt die denkende Seele, der Geist. Wir haben also die Empfindungsseele, die innere Seele, dann die verständige Seele, die Verstandesseele, und als drittes die Bewusstseinsseele, die höhere Seele, den Teil der Seele, in dem der Geist hereinleuchtet in die Seele.
+
+Nun sagte sich der Jude: Da, wo Seele entspringt, da ist Seele. Der Jude sah daher im Meere und überall da, wo das flüssige Element war, ein Gleichnis für das Seelische. Nur weil sich die Menschen das Seelische zu sehen abgewöhnt haben, sehen sie das äußere physische Wasser.
+
+Das Gespräch Jesu mit Nikodemus kann uns hier noch weiteren Aufschluss geben.
+
+Es war aber ein Mensch unter den Pharisäern mit Namen Nikodemus, ein Oberster unter den Juden. Der kam zu Jesu bei der Nacht und sprach zu ihm: Meister, wir wissen, dass du bist ein Lehrer von Gott gekommen, denn niemand kann die Zeichen tun, die du tust, es sei denn Gott mit ihm. Jesus antwortete und sprach zu ihm: Wahrlich, wahrlich, ich sage dir: Es sei denn, dass jemand von Neuem geboren werde, so kann er das Reich Gottes nicht sehen. Nikodemus spricht zu ihm: Wie kann ein Mensch geboren werden, wenn er alt ist? Kann er auch wiederum in seiner Mutter Leib gehen und geboren werden? Jesus antwortete: Wahrlich, wahrlich, ich sage dir: Es sei denn, dass jemand geboren werde aus Wasser und Geist, so kann er nicht in das Reich Gottes kommen. Was vom Fleisch geboren wird, das ist Fleisch; und was vom Geist geboren wird, das ist Geist. Lass dich es nicht wundern, dass ich dir gesagt habe: Ihr müsst von Neuem geboren werden. Der Wind bläst, wo er will, und du hörst sein Sausen wohl; aber du weißt nicht, von wannen er kommt und wohin er fährt. Also ist ein jeglicher, der aus dem Geist geboren ist. [Joh 3,1–8]
+
+So will Jesus ihm das begreiflich machen. Weil Nikodemus in der damaligen Zeit ein kleiner Mahatma, ein Meister war, so sagte er ihm: Es sei denn, dass jemand geboren werde aus Wasser und Geist, so kann er nicht in das Reich Gottes kommen. Aus der Mutter wird der Mensch geboren aus dem Blut, wiedergeboren muss er werden aus Wasser und Geist. Was von Blut geboren wird, ist Blut, was von Geist geboren wird, ist Geist.
+
+Nikodemus aber sprach zu ihm: Wie mag solches zugehen? Jesus antwortete und sprach zu ihm: Bist du ein Meister in Israel und weißt das nicht? [Joh 3,9–10]
+
+Nun können wir auch die ersten Worte der Genesis im richtigen Sinne nehmen. Der erste Vers kann in folgender Art übersetzt werden:
+
+Zu seinem Urbeginne zeugte Gott sein Karma als Himmel und Erde.
+
+Der Begriff des Schaffens, wie wir ihn jetzt haben, ist in den alten Sprachen nicht vorhanden. «Creare» ist lateinisch und heißt «Schaffen», stammt aber von dem Sanskritwort «Kri», und dieses von Karma; es heißt also «Schaffen», und der Satz heißt dem Sinne nach:
+
+Es beginnt das Karma Gottes zu strömen.
+
+Unserer Erdenentwicklung ist vorangegangen die Entwicklung, in welcher sich bis zur höchsten Stufe, die es erreichen konnte, die
+
+---
+
+Welt des Kama, die Welt der Triebe, Begierden und Leidenschaften entwickeln konnte, die in der Mondepoche den eigentlichen Inhalt der Wesenheiten ausmachte. Sie hatte sich bis zum höchsten Grade entwickelt. Die Menschen, die jetzt in der irdischen Weltentwicklung leben, haben den Verstand. Unsere Vorfahren dachten nicht, sie fühlten nur, was sie zu vollbringen hatten. Das Denken ist dasjenige, was der Erde auszubilden zukommt. Wir haben ein Gefühl, das unter dem Denken steht. Wir folgen dem Gefühl nicht unmittelbar, wir lassen es regulieren durch den Gedanken. Es wird in die richtigen Bahnen gebracht durch das Denken. Die Mondbewohner konnten sich ihren Gefühlen hingeben. Sie brauchten nicht nachzudenken über die Angelegenheiten ihres Lebens. Sie fühlten unmittelbar, was sie zu tun hatten. Dieses Gefühlsleben, das in allen Wesen lebte, entwickelte sich dort bis zu einer unendlichen Höhe. Heute, wo es auf das Verstandesleben ankommt, haben wir keine Ahnung mehr von der unendlichen Milde und Güte und von der Größe dieses Gefühlslebens. Bis zur Göttlichkeit gebracht waren diese Wesen, die auf dem Monde sich entwickelten. Die Meister, die auf dem Monde sich entwickelten, waren die reine Weisheit, die aus dem Gefühle strömte. Diese Meister fügten sich dazumal zu großen Bruderschaften zusammen, und eine große Einheit bildeten sie, als der Mond abdämmerte. Alles war in eine große Einheit zusammengeflossen. Diese göttliche Wesenheit, die sozusagen die Spitze der Mondepoche war, die spricht die Genesis als den Gott – Jahve oder Jehova – an. Der Gott ist hier nichts anderes als der Gipfel der Wesensentwicklung auf dem Mond. Jahve ist eine Mondgottheit und wird von Helena Petrowna Blavatsky auch eine Mondgottheit genannt. Sie hat es vielleicht etwas zu stark betont, aber es ist so. Die große Wesenheit, die das Gefühlsleben aufs Höchste ausgebildet hatte, das war Jehova oder Jahve.
+
+Was herüberkam vom Monde – Kama in höchster Vollendung, das Wasser in höchster Vollendung, die Flut –, das entwickelte sich nach zwei Richtungen. Nach der einen Seite verdichtete es sich und nahm Materie an, das Blut; nach der anderen Seite verdünnte es sich und setzte Geist an. Oben erhellte es sich im Geiste, unten dämmerte es im Blut. So differenzierte sich Jahve. Das Urwasser zeugt nach der
+
+einen Seite den Himmel, seinen geistigen Pol, nach der anderen Seite die Erde, seinen physischen, seinen materiellen Pol.
+
+Wie war also die Situation? Denken Sie sich, das Kama-Wasser kommt herüber, der Geist ist oben, das Physische, das Blut, ist unten. Die Erde war chaotisch, ungeordnet war das Blut. Nichts als ein wirr und wüst durcheinanderflutendes Physisch-Materielles. Das war der eine Pol.
+
+Die Erde war wüst und wirr und Finsternis war über dem Wasser. Unter dem Wasser war Finsternis, Finsternis war in der Tiefe. Und über diesem Wasser war der Geist. Das Wasser war das Mittlere. Der Geist schwebte oben über dem Kama-Wasser wie eine Aura.
+
+Seien Sie sich ganz klar, was diese Aura ist. Wir haben ja schon davon gesprochen. Der physische Körper ist keine Aura, und was im physischen Körper lebt, ist auch keine Aura, denn das kann man mit physischen Augen sehen. Der Geist ist auch keine Aura. Aura liefert nur die Seele; alles, was seelisch ist, liefert Aura. Diese Aura wird vom Körper beeinflusst von innen oder vom Geist von außen. Daher gibt es auch drei Auren: die vom Körper getrübte, die vom Geist erhellte und das eigentliche glimmende Seelenlicht. Die eine ist das Gebiet, wodurch der Körper sich in der Seele spiegelt, die andere ist das Gebiet, wodurch der Geist sich in der Seele spiegelt. Nun sind Sie sich klar darüber, wie der Geist Gottes über den Wassern oder über der Seele schwebt, und dass das Kama dadurch vom Geist erleuchtet wird. Der Geist braucht nicht Licht zu sein. Wenn aber der Geist eintritt in die Aura, so verstärkt er das Licht.
+
+Und Gott sprach: Es werde Licht! [1 Mos 1,3]
+
+Heißt: Es entstehe in den Wassern der Widerschein des Geistes.
+
+Die drei ersten Sätze der Genesis möchte ich wörtlich aufgefasst haben. Es handelt sich nicht darum, diese Sätze sich zurechtzulegen, sondern darum, sich bei den Worten das Richtige zu denken. Bei Wasser: Kama, bei Gott: das Höchstentwickelte, was von der Mondepoche an Kama herüberkam. «Das ist mein Blut» – es ist dasselbe wie das, was in der Erde fließt.
+
+Die Genesis ist hervorgegangen aus den Schriften der ägypti-
+
+---
+
+140
+141
+
+schen Tempelmysterien. Diese hatten zwei große [Moral]-Bücher. Das eine war das Buch des Mikrokosmos, das andere war das Buch des Makrokosmos. Das letztere beschrieb, wie der große Kosmos entsteht aus dem Wasser durch das Wort. Das erstere, das Buch des Mikrokosmos, war das Buch vom vollkommenen Menschen. Beide waren vollständig parallele Beschreibungen. Es muss damit angedeutet sein, dass der Mensch ein Mikrokosmos ist. Das hat nur ein solcher zustande gebracht, der eingeweiht war.
+
+Denjenigen, welchen der Meister liebhat, weiht er ein. Das Lazarus-Wunder ist eine Einweihung. Daher heißt es auch von Lazarus: Der, den Jesus lieb hatte.
+
+Das Johannes-Evangelium beginnt mit demselben Worte: «Im Anfang war das Wort.»
+
+Nur dann versteht man die großen Bücher der Welt, wenn man das Vertrauen hat, dass jedes Wort erst dann verstanden wird, wenn man wirklich tief in die Dinge eingeht und erst so spät wie möglich etwas gegen die Sachen habe. Das ist das Vertrauen, das wir nötig haben, denn zu den großen Büchern der Welt müssen wir Vertrauen haben. Das ist es, was wir durch die theosophische Bewegung wieder allmählich lernen müssen, diese Bücher wirklich wörtlich zu nehmen.
+
+*Berg* ist das Schlüsselwort für höhere Wahrheiten, für Einweihungen. Jesus ging mit seinen Jüngern auf den Berg, als er das Volk sah. Wir lernen kennen in den heiligen Schriften die Autorität, mit der sie geschrieben sind. Wir erkennen sie als Meisterwerke, wenn wir sehen, wie alles wunderbar zusammenstimmt und wie dasjenige, was wir seit dem letzten Drittel des neunzehnten Jahrhunderts durch unsere Meister gewonnen haben, wieder den Schlüssel dazu bildet, diese großen Bücher zu verstehen.
+
+# ZUM WEISSEN LOTUSTAG
+
+Berlin, 2. Mai 1904
+
+In wenigen Tagen wird es dreizehn Jahre sein, dass die Begründerin der theosophischen Gesellschaft das irdische Dasein verlassen hat. Sie wirkte zunächst in geheimen Gesellschaften, denn nicht durch das freie Wort, sondern in geheimen Zirkeln wurde die theosophische Weisheit vorgetragen, hinter streng verschlossenen Türen.
+
+Das ist indessen mehr bildlich als wörtlich zu nehmen. Die Rosenkreuzer haben den Weisheitsschatz bewahrt, der jetzt in populärer Form in der Theosophie fließt. Die Taktik und Diplomatik sind durch Helena Petrowna Blavatsky geändert worden. [Mehr als in früherer Zeit sind die Menschen heute zur Selbsteinkehr und zur Selbsterkenntnis genötigt, um des eigenen Herzens geheime Tiefen kennenzulernen. Deshalb ist bei den Leitern der Menschheit der Entschluss reif geworden, die Wahrheit hineinzutragen in die Menschlichkeit und zu allen Menschen von dem zu sprechen, was sonst in den Mysterien verborgen war.] Aber nicht nur die Ergebnisse drangen aus den geheimen Brüderschaften heraus, sondern auch das Wort selbst. Was wir heute verkündigen, ist mehr ein Buchstabieren. Es soll aber hinführen zum Lesen der tiefsten Wahrheiten der Menschen.
+
+Bedeutende Persönlichkeiten haben in irgendeiner Beziehung zu diesen geheimen Gesellschaften gestanden. Goethe knüpft im Märchen bewusst an das Geheimnissen aller Zeiten an. Es gibt ein Gedicht, das er zur Verherrlichung der rosenkreuzerischen Gesinnung geschrieben hat, ein Gedicht in welchem das ausgesprochen worden ist, was heute den Lebensnerv der theosophischen Bewegung ausmacht. Das Gedicht heißt «Die Geheimnisse».
+
+Dort sucht der demütige Pilger Bruder Markus nach einem Ruheplatz der menschlichen Seele, nach dem Montserrat – geistig –, der ein Höhepunkt menschlich geistiger Entwicklung war. Er kommt bei diesem Suchen in ein merkwürdiges Kloster. Zwölf Einsiedler
+
+---
+
+sind darin. Der dreizehnte ist der Träger der größten Weisheit, ein Führer der Menschheit. Durch je einen der zwölf Einsiedler wird symbolisiert eine der Kräfte der Völker. Markus, der Dreizehnte, soll vereinigen, was die Menschheit auf verschiedenen Wegen gesucht hat. In den zwölf Brüdern sind die menschlichen Meinungen symbolisiert. Der Dreizehnte ist derjenige, welcher sie vereinigt. Wenn wir heute die im Gedichte gekennzeichnete Gesinnung betätigen, so sind wir auf dem ideellen Montserrat.
+
+Am Eingange des Klosters findet sich das Symbolum, das Kreuz mit Rosen umschlungen, [Platon sagt:] das Weltenkreuz der Materie, an dem die Weltenseele gekreuzigt sei. Mehr wie sonst lastet auf uns die Notwendigkeit der Selbsterkenntnis. Wir müssen dieses Rätsel lösen, des Menschen Vergangenheit, des Menschen Gegenwart und des Menschen Zukunft. Diese Selbstschau ist zu üben, um dann darüber in der Sprache öffentlich zu sprechen, welche auf der ersten Stufe des Geheimlernens gegeben worden ist.
+
+Einige Worte über einen Einleitungsvortrag in den Geheimschulen finden Sie in einem der Monologe in Goethes «Faust», den Goethe erst nachher geschrieben hat. Was er da sagt, ist das Bekenntnis, dass der Mensch innerhalb des Universums leben muss und seine Grundregeln daraus zu holen hat. Es geht um die Szene «Wald und Höhle» aus «Faust I», da heißt es:
+
+Erhabner Geist, du gabst mir alles, warum ich bat
+Du hast mir nicht umsonst dein Angesicht im Feuer zugewendet
+Gabst mir die herrliche Natur zum Königreich.
+Kraft sie zu fühlen, zu genießen. Nicht
+Kalt staunenden Besuch erlaubst du nur,
+Vergönnest mir in ihre tiefe Brust,
+Wie in den Busen eines Freundes zu schauen
+Du fährst die Reihe der Lebendigen
+Vor mir vorbei und lehrst mich meine Brüder
+Im stillen Busch, in Luft und Wasser kennen.
+Und wenn der Sturm im Walde braust und knarrt
+Die Riesenfichte stürzend Nachbaräste
+Und Nachbarstämme quetschend niederstreift
+Und ihrem Fall dumpf hohl der Flügel donnert
+Dann führst du mich zur sicheren Höhle, zeigst
+
+Mich dann mir selbst und meiner eigenen Brust
+Geheime tiefe Wunder öffnen sich.
+Und steigt vor meinem Blick der reine Mond
+Besänftigend herüber, schweben mir von Felsenwänden
+Aus dem feuchten Busch
+Der Vorwelt silberne Gestalten auf
+Und lindern der Betrachtung strenge Lust
+O, dass dem Menschen nichts Vollkommenes wird,
+Empfind ich nun. Du gabst zu dieser Wonne,
+Die mich den Göttern nah und näher bringt
+Mir den Gefährten, den ich schon nicht mehr
+Entbehren kann, wenn er gleich kalt und frech,
+Mich vor mir selbst erniedrigt und zu Nichts,
+Mit einem Worthauch, deine Gaben wandelt.
+Er facht in meiner Brust ein wildes Feuer
+Nach jenem schönen Bild geschäftig an.
+So taum! ich von Begierde zu Genuss
+Und im Genuss verschmacht ich nach Begierde.
+[Faust I, Vers 3217–3250]
+
+[Wir sehen zuerst seine tief innerliche Naturempfindung, den großen Blick, den der Weltengeist ihm gestattete, und Goethe fährt dann aber mit der Zeile fort:]
+
+zeigst mich dann mir selbst und meiner eigenen Brust
+Geheime tiefe Wunder öffnen sich.
+
+[In den Mysterienschulen riefen im Frühling die Lehrer ihre Schüler zusammen, damit sie von den Tatsachen der Natur lernten.] Eröffnung der inneren Tiefen. Im Frühling, wenn die Natur erwacht, ist alles voller Wunder. Diese Wunder der Natur sollen nicht nur angestaunt, sondern auch entziffert werden. Die Mystik führt uns in die Natur auf allen Stufen, und wir können lernen, wie wir selbst als Menschen uns zu verhalten haben. In der Natur ist geschrieben, was theosophische Mystik ist. Verstehen wir die Wunder der Natur, dann verstehen wir auch die eigenen Wunder [dann begreifen wir, was in uns lebendig ist, den geheimen Sinn des Lebens. Keusch und stumm liegen die beiden untersten Reiche der Natur, das Steinreich und das Pflanzenreich, vor uns.]
+
+Das Steinreich steht vor uns wie ein Erinnerungszeichen an unsere
+
+---
+
+frühere Vergangenheit. [Das Steinreich erinnert uns an eine Ferne, wo wir im dumpfen Trancezustand uns einst des hell leuchtenden Kristalls erfreuten; der Himmel selbst steht vor uns als Erinnerungssprache, die wir selber durchgemacht haben. Die Sternenwelt und das Steinreich erinnern uns an die Schöpferkraft, der wir entsprossen sind.]
+
+Und an eine andere Stufe erinnert uns das Pflanzenreich. Zurückgelassen haben wir nicht allein die Kristalle, sondern auch alles, was als scheinbar Lebloses vor uns steht. Majestätisch ist die scheinbar leblose Natur mit den Millionen von Sternen. An eine Allmacht majestätischer Schöpferkraft, der wir entsprossen sind, erinnert uns dieses Reich. Es ist nicht bloß unsere Erde, auf der wir eine kurze Spanne unseres Daseins zubringen, nein, es sind alle übrigen Welten, die der Okkultist kennt.
+
+[Majestätisch ist die ganze, scheinbar leblose Natur der Mineralien. Darauf baut sich auf das Reich des Wachstums, des Lebens.] Dann kommt das Pflanzenreich [ebenfalls als eine Erinnerungsstufe unseres eigenen Daseins anzuschauen]. Es ist etwas von ruhiger Seligkeit in jeder Pflanze vorhanden, eine selige Heiterkeit, welche sprießt und sproßt und durch die wir selbst hindurchgegangen sind [als wir uns aus dem majestätischen Reich der Mineralien herausgefunden hatten]. Diese zwei Regionen gehören den Welten an, die nur ein Geheimwisser erreichen kann.
+
+[Majestätische] Felsengebilde und Pflanzengebilde in seliger Heiterkeit finden sich überall. Eines gehört aber lediglich unserer Erde [, ein Reich findet der Seher nur auf unserer Erde, das Reich der höheren Tiere, da, wo Empfindung auftritt, wo das Lebendige in sich selbst beschlossen wird und Selbstgefühl entwickelt.] Das Tierreich können Sie nicht auf anderen Welten finden, wie es sich auf unserer Erde findet. Da, wo wir aus der seligen Heiterkeit heraus Lust und Schmerz, Freude und Leid entwickeln, entstehen die Gestalten, die wir kennen und für welche unsere Erde allein ein Schauplatz ist.
+
+Es ist oft gesagt worden, dass auf dem Antlitz der Tiere sich etwas ausdrückt, was man nur als Mitleid bezeichnen könnte. Die Tierheit sitzt wirklich im Leid. Die Tierheit ist entstanden, damit der Mensch
+
+sich losringen kann zu höheren Stufen. Er musste die Tierheit hinter sich lassen. Er musste aussondern das, was als lebendige Tierheit um uns herum lebt. [Daraus folgt für uns das Erbarmen gegen die Tiere, das die Ethik zum Führer hat.] Des Menschen Höhenzug musste erkauft werden mit der Ablösung der Tierheit. Dieser verfielen die, welche nicht die Fähigkeit hatten, sich vom Schmerz durch hohe Gedanken frei zu machen. Dann ging der Mensch den Qualen-Weg des Ich, um hinüberzugehen in eine andere, höhere Welt. Alles Lehren und Lernen soll nur dazu da sein, um uns zu dem zu führen, was jenseits des Lebens liegt[, denn des Menschen Wesen ist geistiger Natur]. Alles, was die Theosophie lehrt und nicht gelebt werden könnte, wäre vergebliche Mühe.
+
+[Wir können von der Natur lernen, wie sie uns in ihren drei Reichen drei Tugenden vorhält.] Es gibt drei Fundamentaltugenden des Menschen:
+
+- Majestät – im ersten Reiche
+- Selige Heiterkeit – im zweiten Reiche
+- Leid und Freude [Erbarmen] – im dritten Reiche.
+
+Was sollen wir lernen von Lust und Leid? [Lust und Leid in Geduld ertragen lernen, das lehrt uns] Die Lehre von den Wiederverkörperungen. Das Tier kann sich nicht über den Zustand von Leid und Lust erheben. Des Menschen Wesenskern ist aber geistiger Natur. Und der Geist sucht einen Aufenthalt in dem, was Lust und Leid, Freude und Schmerz ist.
+
+Warte in Geduld – das ist es, was uns aus der großen Lehre der Reinkarnation folgt.
+
+Was lernen wir von dem Pflanzenreich in seiner seligen Heiterkeit? Wir lernen das, was uns fließen kann aus dem großen Gesetze, das uns ebenfalls die theosophische Weltbewegung in populärer Form gegeben hat, aus dem Gesetze von Karma, dem Gesetze der ewigen Verursachung aller geistigen Dinge.
+
+Es scheint das Wesen der Pflanzen zu sein, schmerzlos und ruhig in seliger Heiterkeit wieder hervorzubringen ihresgleichen. Sie sind ganz hingegeben dem Hervorbringen von ihresgleichen. Im Sprießen, Wachsen und Knospen besteht das opferwillige Leben der ganzen
+
+---
+
+Pflanze, wenn wir der Welt gegenübertreten, nicht richten, nicht urteilen, sondern das, was sie tut, von uns aus zu verstehen suchen, wenn wir nicht richten, sondern zu begreifen suchen, dann tauchen wir in die Mitwesen ein und holen die Mittel, sie zu verstehen aus ihnen heraus. Das ist das, was das zweite Reich uns lehrt. Das Karmagesetz lehrt uns als den zweiten sittlichen Grundsatz die Liebe. Das Pflanzenreich erinnert uns an eine Vorstufe der Liebe.
+
+[Alsdann können wir auch das keusche, majestätische Reich der Steine begreifen. Durch unsere Selbsterkenntnis lernen wir das Selbst in jedem anderen Menschen schätzen, das uns ebenso groß gegenübersteht wie das Steinreich; und haben wir dieses begriffen, wie wir jedem Menschen gegenübertreten sollen mit Ehrfurcht, so haben wir drei Fundamentaltugenden, die uns die drei Naturreiche lehren: Ehrfurcht vor jedem Ich, das Reich der Mineralien; Liebe zu jedem Wesen, das Pflanzenreich und Geduldhaben, das Tierreich.]
+
+Unseres Herzens geheimste tiefste Wunder sind es, die uns die Theosophie gibt. Selbsterkenntnis sollen wir üben. Dann geht uns auf der tiefe Sinn eines okkulten Goethewortes, das scheinbar einfach ist: Erkenne dich und lebe mit der Welt in Frieden.
+
+Was in jedem Menschen zu sich Ich sagt, sagt in jedem anderen Menschen auch zu sich Ich. Diese Selbsterkenntnis führt zu wahrer, höchster Menschenachtung. Wir dürfen nicht eingreifen in das Leben der anderen Menschen, ebenso wenig wie wir in das Leben des Steinreiches hineindringen dürfen oder können. Das menschliche Selbst muss uns ein Heiligtum sein. Ehrfurcht vor jedem menschlichen Ich – das ist der dritte ethische Grundsatz, den die theosophische Bewegung wieder zu Ehren bringen will.
+
+Geduld, Liebe und Ehrfurcht sind die drei Tugenden im Reiche des Menschen. Durch Ehrfurcht nähern wir uns dem stummen Steinreich. Daraus fließt dann das, was in den Geheimschulen als Grundsatz vorhanden gewesen ist. Mache dir das stumme keusche Reich der leblosen Natur zu deinem Ideale, sodass du ehrfürchtig vor jedem anderen Ich stehst und es dein geistiges Schamgefühl verletzen würde, hineinzugreifen mit grober Hand in dasjenige, was ein menschliches Ich ist. Wenn das bei dir eintritt, dann hast du verstanden
+
+den dieses höchste Ideal. Das ist es, was als die Siebenheit von Natur und Mensch verkündigt worden ist. Drei Tugenden im Reiche der Natur, drei Tugenden im Reiche des Menschen. Und dazwischen das Ich. Das Ich steht in der Mitte und entwickelt sich in derselben aber rückläufigen Stufenfolge, wie die Natur sie uns bietet. Wir schreiten also durch Geduld über Liebe zur Ehrfurcht fort.
+
+---
+
+148
+149
+
+# RETTUNG DER MENSCHHEIT
+
+Berlin, Mai 1904
+undatierte Notizen
+
+Wird nicht die ganze Menschheit gerettet werden? – Ja, wenn sie will.
+
+Abgrundstadium nach Ablauf der sieben Rassen, aber wegen der Erdenmetamorphose selber wird noch die Möglichkeit sein, nachzuholen. Dann kommt Jupiter, Jupiterstadium wird einen starken Unterschied aufweisen zwischen guten und bösen Menschen, aber auch da wird in der zweiten Hälfte die Möglichkeit bestehen, wieder den Anschluss zu finden. Und erst in der sechsten Metamorphose, Venus, wird die Entscheidung fallen. Dann werden diejenigen, die an die Materie gefesselt sind, in einen verhärteten planetarischen Zustand fallen. Das sind aber nur die schwarzen Magier, solche, die sich unerlaubter magischer Mittel bedienen im Dienste des Egoismus. Von der Verruchtheit dieser Menschen kann sich schon heute der gewöhnliche Erdenbürger keine Vorstellung machen.
+
+Durch schwarze Magie wird der Mensch fähig, ein eigenes Reich neben dem Reich der Entwicklung zu gründen. Es gibt schon solche, die es beschlossen haben, diesen Nebenplaneten zu bilden, und es gibt Versuche dazu, von denen der gewöhnliche Mensch sich auch keine Vorstellung machen kann, diesen Weg abseits der Entwicklung zu gehen. Heute hat niemand, der in Frage kommt, die Gelegenheit, keinen Anschluss für Rettung zu finden, weil man noch nicht weiß, wie man es anfangen soll, ein schwarzer Magier zu werden, also das eigene Reich zu gründen.
+
+Aus gewissen Gründen, weil die Gegnerkraft sich oft stärker erweist als die positive Kraft, haben wir den Skorpion stehen statt des Adlers im Tierkreis.
+
+Throne, Cherubime, Seraphime und so weiter sind die geistigen Hierarchien, die hinter den Tierkreisbildern stehen.
+
+Der Mensch hat den innerlichen Rhythmus in vielen Dingen beibehalten, aber ihn verschoben gegenüber dem äußeren Rhythmus.
+
+Vom äußeren Naturrhythmus macht er sich innerhalb seiner individuellen Entwicklung frei, und es ist eine Versündigung gegen den Fortschritt, durch sogenanntes Anlehnen an die Natur den Menschen zurückschrauben zu wollen.
+
+Anlässlich der Frage über Mazdasnan-Sekte.
+
+---
+
+150
+151
+
+ZUR APOKALYPSE I
+
+Berlin, 21. Mai 1904
+
+Gestern kamen wir zu dem Punkt, wo die Erde überging in die Vergeistigung; die reifen Menschen machen es mit und gehen zurück mit ihr zur Sonne.
+
+Die Modenkräfte sind ausgeschieden, nicht mehr da. Diese Entwicklung führt zunächst zu einer immer stärkeren Vergeistigung; dann erst erhebt sich der Mensch mit seinem Planeten in den astralischen, dann in den devachanischen Zustand. Die Sonne mit der Erde vergeistigt sich. Dies machen nicht mit die Wesen, die nicht gesorgt haben für solch eine Spiritualisierung. Zunächst kann ja kein Klumpen zurückbleiben, alles astralisiert sich, aber die Unreifen bilden eine Art von Auswurf in diesem Entwicklungsstadium. Es gibt ein solches Astralisches, welches rein, edel, höher als das Physische ist.
+
+Aber ein anderes Astralisches, in dem diejenigen Wesen sind, die bösartiger und tiefer sind als die der physischen Entwicklung.
+
+- devachanisch
+- astralisch
+- physisch
+- unter der physischen stehende astralische Welt
+
+In dieser Welt sind die Wesen, die drin sind, nicht in solch einem physischen Körper, wie ein Mensch, aber sie haben eine furchtbare Kraft des Bösen. In ihr hausen alle Mächte, die sich unserer Entwicklung entgegen stämmen. In ihr haust der Geist Mammon, der Geist der Hindernisse, der überall bremst, wo es einen Fortschritt geben will. Er ist heute schon tätig.
+
+Wenn nun die Erde selber in einen astralischen Zustand übergeht, dann müssen alle diejenigen Wesen, die nicht in die höhere astralische Welt gehen konnten, hinuntergehen in diese tiefere.
+
+So haben wir nach den Posaunen eine Welt, die herausgeworfen ist, und dies ist eine Welt der Finsternis. Im astralischen Leibe sind dort
+
+alle Wesen vorhanden, die nicht konnten den Reifegrad erlangen, um in die Sonne hineinzusteigen. Vor der lemurischen Entwicklung ist der Mensch in den physischen Leib hinuntergestiegen. Damals waren eigentümliche Wesen geistiger Art mit Erde in Verbindung. Jeder der planetarischen Stufen hat eine Menschheitsstufe sich entwickeln sehen: auf Mond, Sonne, Saturn ...
+
+Es gibt solche Wesen, die im bestimmten planetarischen Zustand nicht fertig wurden mit ihrer Entwicklung. So auch auf dem Monde. Die wurden auf die Erde herüberversetzt. Die Welt schreitet hinaus über eine gewisse Stufe, aber gewisse Wesen bleiben zurück. Die nicht reif gewordenen Engel standen zwischen Mensch und Engel; luziferische Scharen. Sie waren diejenigen, die die Menschen zurückgezogen haben in ihrer Entwicklung, die ein tieferes Verstrickt-Sein in die Materie bewirkt haben. So ist mit dem Menschen die luziferische Entwicklung verknüpft. Sie hat ihr Gutes und Schlimmes. Das Gute besteht darin, dass der Mensch ohne die luziferische Einwirkung kein freies Wesen hätte werden können. Er hat sich unabhängig gemacht von der unmittelbaren Lenkung durch höhere Wesen. Aber dadurch wurde möglich der Fall ins Böse. Zum Heil der Menschen haben also auch die luziferischen Wesen ein Opfer gebracht, indem sie ihre Entwicklung zurückgehalten haben.
+
+Jetzt ist es anders. Die Verhältnisse liegen ganz anders vor der Mitte einer Entwicklung und nachher. Die materialistischen Menschen bringen also jetzt kein Opfer, sondern im Gegenteil die fortschrittlichen. – Nicht schematisieren.
+
+Worin besteht das Positive, das die luziferischen Wesen getan haben?
+
+Auf dem Saturn hatte der Mensch nur in Anlage einen physischen Leib.
+
+Sonne     ätherischer Leib
+Mond     astralischer Leib
+Erde      Ich
+
+Das Physische ist das älteste Glied, das am meisten Umwandlungen gemacht hat. Wunderbau des Herzens, Gehirns usw.
+
+Sonne     Mond     auf Erde Ich-Aura.
+
+Wären die luziferischen Wesen nicht da gewesen in lemurischer Zeit,
+
+---
+
+wo das Ich anfing sich zu entwickeln, waren die höheren Wesenheiten beim Menschen geblieben. Und Jahve [Lücke in der Mitschrift]
+
+Die luziferischen Wesen konnten sich nicht beteiligen an der Entwicklung des Ich, nur an dem astralischen Leib. Sodass dahin die Wirkung der luziferischen Wesen hineinkam. Sie gaben dem astralischen Leib Selbstständigkeit, aber auch die Möglichkeit, ins Böse zu fallen. Dadurch machen luziferische Wesen eine gewisse Entwicklung durch. Sie holen nach im astralischen Leib des Menschen, was sie auf dem Mond versäumt haben, und erreichen, was sie dort hätten erreichen sollen. Sie können im Menschen stellvertretend durchmachen, was sie versäumt haben auf dem Mond. Sie kommen mit uns weiter. Wenn die Erde sich mit der Sonne vereinigt, wird es solche luziferischen Wesen geben, die mit ihr sich mit der Sonne vereinen. Und so, indem der Mensch arbeitet an der Veredelung seiner Triebe, kann er Luzifer erlösen. Aber nur so weit er sich erlösen lässt. Es wird solche geben, die sich sträuben, die bleiben während der Erdenzeit in dem Zustand, in dem sie waren, als sie auf die Erde kamen. Sie werden ausgeworfen und erscheinen als die böse astralische Welt. Dort taucht auf die Gruppe der luziferischen Wesenheiten, die nicht weiter hat kommen wollen. Ausgeworfen wird die alte Schlange, und es tritt hervor der erste der Drachen. Beim Eintreten der Erde in die Sonne ist es das Zurückgebliebene.
+
+Aber es gibt noch andere Zurückgebliebene: Die Menschen, die nicht weiter kommen. Es gibt solche, die nichts dafür können, die nicht kommen zum Zustand der Erweckung, der nötig ist zur Spiritualität. Sie bleiben Sklaven ihrer tierischen Instinkte. Wenn sie auch nichts dafür können, so sind sie doch eine böse Macht. Das ist das zweite der Tiere, die in der Tierheit Steckengebliebenen, ausgeworfen als das zweite der Tiere. Die »alte Schlange« sagt die Apokalypse – die luziferischen Wesen – erscheint vom Himmel herunter; der zweite Drache steigt aus dem Meere, das ist das, was in der Entwicklung der Erde selbst zurückgeblieben ist in niederer Natur, »das Tier« in seiner Gesamtheit – im Instinkte zurückgeblieben.
+
+Jetzt noch die dritte Art von Wesen, die zurückbleiben. Das sind solche, die sich auf der Erde die Anlage erwerben zum schwarzen
+
+Magier. Sie bleiben innerhalb der Menschheit zurück, entwickeln Fähigkeiten, die hineinführen in die übersinnliche Natur, aber sie gebrauchen diese Fähigkeit im Dienste schwarzer Magie. Nicht im Instinkt, sondern im vollen Bewusstsein haben sie sich abgewendet und geben fleischliche Materie her für Sorat. Er inkarniert sich in ihnen als ihre Gruppenseele. Die Menschen werden die Verfleischung sein des Sonnendämons. Wann werden sie hervortreten?
+
+Stellen wir uns den weiteren Entwicklungsverlauf der Erde vor. Vereinigung mit Sonne. Dadurch, dass sich nicht alles reif gemacht hat, muss der Mensch noch einmal zur Physis zurück. Noch einmal trennt sich das Sonnenhafte. Hier liegt auch eine Rettungsmöglichkeit für die aus Instinkt Zurückgebliebenen. Die reif Gewordenen beschließen in dem Augenblick der höchsten Vereinigung, noch einmal einen anderen Weltenkörper zu bilden neben der Sonne, und da aufzunehmen die Wesen, die zurückgeblieben sind, um beim nächsten Zyklus der Sonne wieder zurückgenommen zu werden.
+
+Dieser jetzige Zyklus bedeutet was? Ein jeder Weltenkörper muss Wiederholungen durchmachen von dem, was er schon durchgemacht hat. Bevor die Erde in die Lage kam, als Erde anzufangen, musste sie wiederholen [Lücke in der Mitschrift]
+
+Nachdem sich die Erde mit der Sonne vereinigt hat, muss sie die künftigen planetarischen Entwicklungen wie prophetisch vorausnehmen. Eine Vorausnahme des Jupiter-, Venus-, Vulkan-Zustandes. Während des vorausgenommenen Jupiter-Zustandes treten die Wesen heraus, und die Jupiter-Erde ist da neben der Sonne. Auf der Jupiter-Erde haben die Wesen Gelegenheit, zurückgenommen zu werden; die Unterzustände sind nur in Andeutungen da, und auf dem Vulkan-Zustand geht alles ineinander über. Also erleben wir nach unserer Erde eine Jupiter-Erde. Da haben sogar die schwarzen Magier – Sorat – eine Möglichkeit zur Sonne zurückzukehren. Aber eine Anzahl wird es nicht tun. Und jetzt, da sie auf der Jupiter-Erde zurückgeblieben sind, auch eine Anzahl Menschen, vergeistigt sich die Erde wiederum. Noch einmal beschließen die, die sich spiritualisiert haben, zurückzukehren und bilden eine Zwischenerde. Noch einmal lassen sich einige Sorat-Wesen erlösen; andere sträuben sich
+
+---
+
+154
+155
+
+hartnäckig auf der Venus-Erde noch; und für die gibt es keine Möglichkeit der Erlösung mehr auf der Vulkan-Erde. Der sechste, der Venus-Zwischenzustand, ist also das Entscheidende. Erst im sechsten Zustande des Venus-Erdenplaneten kommt dieses Entscheidende. In diesem gibt es wieder etwas, was den Unterrassen parallel geht, also wartet die Entwicklung auf den kleinsten Zyklus, also auf den sechsten Unterzustand dort, um noch zu erretten. Und erst da, im sechsten Unterzustand des sechsten Hauptzustands des Venuszyklus ist alles aus: 666.
+
+Die also ihre Leiblichkeit hergeben, um den Sonnendämon als ihre Gruppenseele zu inkarnieren, haben hier endgültig beschlossen, ihre Kräfte in den Dienst des Bösen zu stellen. Der erste Drache ist also kein Mensch – Luzifer. Der zweite auch nicht – Tier. Aber im eminentesten Sinne sind es Menschen, die sich dem Sorat ergeben haben. 666 ist also nicht eines Tieres Zeichen, sondern eines Menschen. «Hier ist Weisheit.»
+
+Der Apokalyptiker hat also wohl gewusst, was wir kennen als die Entwicklung der Erde durch 7x7x7 Zustände. Wahrhaftig ist diese Apokalypse ein Abriss der ganzen Entwicklung. Betrachten wir die Venus-Erde. Bunt her geht es. Auf der Jupiter-Erde lassen sich noch viele retten. Für die Venus-Erde bleibt das schlechteste Menschenmaterial zurück. Da ist aber auch nicht viel zu hoffen. Die, welche sich spiritualisieren, haben nur beschränkte Macht zum Retten. Die Kräfte reichen nicht aus zum Retten. Die Schlechtesten müssen warten auf den künftigen Jupiter und die künftige Venus, auf denen die spirituellen Menschen stärkere Kräfte haben. Also herrscht das Wüsteste auf dieser Venus-Erde. Da muss in der Tat vieles ausgestoßen werden; es muss überwunden werden das Laster, für das keine Macht ist, es zu erlösen. Das zeigt sich dem Apokalyptiker als das Hinunterstoßen in den Abgrund des bösen Babylon. Das Weib – der Geist der Venus-Erde – ist ganz erfüllt von bösen Lastern. So ist der Sturz der Venus-Erde in dem Fall von Babylon vorausgesehen.
+
+Die Menschen, die versucht haben zu retten, was noch zu retten ist, entwickeln sich weiter; es erhebt sich zu einem letzten Erden-
+
+Zustand, zur Vulkan-Erde, was die Reife erlangt hat. Da ist alles gereinigt und geläutert.
+
+Auf welchem Gebiete ist heute der Mensch schöpferisch? Er ist fähig, die leblosen Naturkräfte in seinen Dienst zu stellen, indem er eine Leinwand bemalt, indem er Marmor behaut. Aber er kann nicht den Marmor lebendig machen. Er beherrscht nicht das Lebendige, er bemeistert die leblose Natur. Im weißmagischen Sinn wird er erst auf dem künftigen Jupiter Pflanzenkräfte beherrschen können.
+
+Was wird aus den Kathedralen, Domen werden, aus den Raffael-Madonnen? Ihre physische Materialität wird zerfallen – Leonardos Abendmahl. Hinschwinden werden sie aber nicht. Analog dazu die heutigen Kristalle, die sich aus den Bergen herausgestalten. Der Ausspruch der ägyptischen Weisen: [Lücke in der Mitschrift] So, wie wir heute bauen und Kunstwerke verfertigen, sind früher im Kosmos nach und nach die Formen ausgearbeitet worden. Dies wächst jetzt als Naturwesen aus der Erde heraus. Wenn die Erde an ihren Zielpunkt angelangt sein wird, werden die Kunstwerke herauswachsen wie Naturprodukte aus der sich erneuernden Erde. Die Madonna auf der Leinwand wird vergehen, aber heutige Menschenarbeit wird den Wohnplatz geben, in den spätere Menschheit hineingeboren wird. Diesen Wohnplatz nennt der Apokalyptiker das «Neue Jerusalem». Da wird die menschliche Arbeit auferstehen. Die Keime zum Neuen Jerusalem werden die hineingelegte menschliche Arbeit sein. So entsteht die neue Erde, und diese wird bewohnt werden können von Menschen, die hineinpassen in diesen neuen Zustand, die Schritt gehalten haben mit der Entwicklung. Diese Menschen werden sich sagen können: Das ist die Stätte für uns, die wir aus der Weisheit Liebe entwickelt haben werden, sodass Friede sein kann. «Jeru Salem» bedeutet die «Stätte des Friedens».
+
+---
+
+156
+157
+
+# ZUR APOKALYPSE II
+
+Berlin, undatierte Mitschrift,
+Mai 1904
+
+Es waren ein paar Direktiven, die ich geben konnte, um dies bedeutungsvolle Werk besser zu verstehen. Heute wollen wir uns mit einer Einzelfrage der menschlichen Entwicklung beschäftigen, denn sie wird wieder Licht werfen auf die ganze Entwicklung.
+
+Es gibt sieben Zeiträume in der nachatlantischen Kultur, wir stehen im fünften. Jeder Zeitraum hat in Bezug auf den Menschen eine bestimmte Aufgabe. Der Mensch wird wiedergeboren, weil sich die Verhältnisse auf der Erde geändert haben. Die großen Entwicklungsspechen arbeiten wirklich am Menschen. Fassen wir ins Auge, dass der Mensch aus physischem Leib, aus Ätherleib, Astralleib und Ich besteht. Als der Mensch seine Erden-Entwicklung begonnen hatte, hatte er die ersten drei Leiber ausgebildet. Erdenaufgabe ist es, das Ich zu entwickeln.
+
+Blicken wir zurück auf die Atlantis, auf das letzte Drittel. Im letzten Drittel hatte der Mensch die erste Anlage empfangen, zu sich „Ich“ zu sagen. Das war nur eine erste Keimanlage. Die zwei vorhergehenden nachatlantischen Drittel mussten dieses Ich nach und nach heranziehen. Hauptmoment für Entwicklung des Ich – Ereignis von Golgatha. Worin besteht Tatsache, dass der Mensch im letzten Drittel der Atlantis sein Ich erhalten hat? Bevor der Mensch zu diesem Keim des Ich gekommen ist, war der Zusammenhang zwischen dem physischem Leib und dem Ätherleib ganz anders als später. Heute hat der Ätherleib des Kopfes ungefähr dieselbe Größe und Form, das war in der Atlantis nicht der Fall, da ragte der Ätherleib noch hinaus, ein gewisser Punkt des Ätherkopfes musste hinein, um sich mit Punkt in Vorderhirn zu verbinden. Durch dieses „Decken“ wurde Mensch reif, nach und nach sein Ich zu entwickeln. Zur Erziehung dieses Ich brauchte der Mensch die Bearbeitung des ganzen physischen Leibes, und dieser ganze Rest der atlantischen
+
+Entwicklung wurde dazu verwendet, den physischen Leib des Menschen zu einem Ich-Träger zu machen.
+
+Erst nach der atlantischen Katastrophe war das menschliche Gehirn so verdichtet, dass es ein Ich-Träger werden konnte. Der Wasserkopf, Hydrocephalus, ist ein Atavismus aus alten Zeiten. Ein fester kompakter Kopf wurde dadurch gemacht, dass der Ätherkopf hineinging. Und so konnte die indische Kultur entstehen, in der ein schon ähnliches Gehirn vorhanden war. Aber der Ätherleib drinnen im physischen Leib war noch nicht erzogen, vollständig ein Ich-Träger zu sein. Deshalb sehnte sich der Inder heraus aus dieser Welt.
+
+So beginnt in der nachatlantischen Kultur der Mensch mit seinem Ätherleib diejenigen Veränderungen vorzunehmen, die es möglich machen, dass der Leib sich zum Ich-Träger gestaltet. Das Ich arbeitet von innen heraus die anderen Leiber um. Weil die Arbeit an der Umarbeitung des physischen Leibes damit beginnt, dass man den Atem reguliert, heißt der Geistesmensch „Atma“. So können wir von sieben Grundteilen sprechen. Wenn wir genauer eingehen wollen im Sinn und Geist der nachatlantischen Kultur, dann müssen wir zugrunde legen die Teilung in neun Glieder wie in meiner „Theosophie“. In nordischen Mysterien wurde immer die Neunteilung gelehrt.
+
+In einer gewissen Weise muss vorausgenommen werden das künftige bewusste Hineinarbeiten in die niederen Glieder. Ein unbewusstes Hineinarbeiten muss vorangehen. Das geschah schon im atlantischen Leib – und auch jetzt. Nur Eingeweihte arbeiten ganz bewusst. Zuerst haben wir also ein unbewusstes Umgestalten des astralischen Leibes durch den Einfluss höherer Mächte vom Ich. Das Ergebnis dieses unbewussten Umgestaltens des astralischen Leibes nennt man nun Empfindungsseele. Der umgewandelte Ätherleib ist die Verstandsseele, und der umgewandelte physische Leib ist das, was wir Bewusstseinsseele nennen.
+
+Aber auch noch unter der Leitung höherer geistiger Wesen fängt der Mensch dann an, bewusster zu arbeiten und das Geistselbst heranzubilden.
+
+Physischer Leib, Ätherleib, Astralleib, Empfindungsseele, Verstandsseele, Bewusstseinsseele, Geistselbst, Lebensgeist, Geistesmensch-
+
+---
+
+das sind die neun Glieder des Menschen. Das waren die neun Glieder die in den alt-nordischen Mysterien gelehrt worden sind. Nach und nach wird ausgebildet, was sich zwischen Astralleib und Geistselbst hineinschiebt. Im ersten Anstoß umgestaltet zur Bewusstseinsseele hat die Ich-Einstrahlung in der atlantischen Zeit. Diese Bewusstseinsseele muss die andern erziehen, um sich selbst dann zu erziehen; dann muss sie sich vom Christusprinzip durchdringen lassen, um das Geistselbst heranzubilden.
+
+In der indischen Kultur wird der Ätherleib durchzogen vom christisierten Ich.
+
+In der persischen Kultur Empfindungsleib
+In ägyptischer Kultur Empfindungsseele
+In griechisch-römischer Kultur Verstandesseele
+In unserer Kultur Bewusstseinsseele
+
+In Philadelphia [der Apokalypse] wird unter dem Einfluss des Christusprinzips der erste Funke des Geistselbst eingeschlagen.
+
+Wir stehen also in der Kultur, die die Bewusstseinsseele ausbildet, und haben uns vorzubereiten, zu empfangen das christisierte Geistselbst. In Philadelphia wird Christus wieder erscheinen in einem feineren Leib, der sichtbar sein wird für diejenigen, die sich vorbereitet haben.
+
+So macht die theosophische Bewegung den Menschen fähig, den Christus zu sehen. So wird gründlich vollzogen nach und nach diese Durcharbeitung der Leiber. So stehen wir darin, durch Weisheit – Theosophia – das Ich des Menschen dazu zu führen, dass er sich über sich erhebe, nicht beim Persönlichen stecken zu bleiben, um dadurch fähig zu werden, Christus wiederzuerkennen. Weil es im Sinne der Erden-Entwicklung notwendig war, ist die Theosophie in unser Leben eingetreten.
+
+Im sechsten Zeitraum werden meteorische Erscheinungen wachgerufen, die sich materialisiert haben, und die andern beginnen höher hinaufzusteigen. Aber die Unterzeiträume darin, die durch die Pferde charakterisiert sind – weiße Kleider und so fort –, gehen nicht spurlos an der Menschenentwicklung vorbei. Inniger durchdringen sich die drei Leiber mit den drei Seelen und mit dem, was als Geistselbst
+
+erworben sein wird. Was also ist dann im sechsten Zeitraum eingetreten? In ganz anderem Maße werden durchgearbeitet sein die vier Glieder, und die feineren Gliederungen des Ich. Das wird miteinander verbunden sein, innig werden hineingewachsen sein die drei Seelen in die drei Leiber.
+
+Was heißt: Diese Glieder sind miteinander verwachsen? Sie werden die Fähigkeit erlangt haben, sich Ausdruck im physischen Leibe zu schaffen. Diese Fähigkeit wird erlangt dadurch, dass der Mensch durch drei Zeiträume hindurch hineingearbeitet hat. Dadurch dass der Mensch in den sechsten Zeitraum hineinbringt eine Entwicklung, in der er gearbeitet hat an seiner Seele, hat er sich bemüht, sich zu spiritualisieren. Die dritte und die vierte werden sich innig durchdringen, wenn sie absolviert haben die drei Zyklen oder Epochen. Man nennt dieses Durchgehen durch einen Zyklus, in welchem er wirklich aufgenommen hat alles das, was ein Zyklus bietet, man bezeichnet das mit O. Der Mensch ist dann fertig mit der Absolvierung des Zyklus bis zu seiner Neige.
+
+Sie haben die gegenseitige Durchdringung der Drei mit der Vier erreicht
+
+O O O
+
+E.S. V.S. B.S.
+
+Empfindungsseele / Verstandesseele / Bewusstseinsseele
+
+Erst die Zahl Sieben. Dann für den nächsten Zeitraum ist die charakteristische Zahl die Zwölf, Multiplikator. Die Zwölfer-Menschen gehen durch Absolvieren der drei Zyklen hervor. Drei Nullen neben der Zwölf: 12 000.
+
+Und ich hörte die Zahl derer, die versiegelt wurden: hundertvierundvierzigtausend, die versiegelt waren von allen Geschlechtern der Kinder Israel: Von dem Geschlechte Juda zwölftausend versiegelt; von dem Geschlechte Ruben zwölftausend versiegelt; von dem Geschlechte Gad zwölftausend versiegelt; von dem Geschlechte Asser zwölftausend versiegelt; von dem Geschlechte Naphthali zwölftausend versiegelt; von dem Geschlechte Manasse zwölftausend versiegelt; von dem Geschlechte Simeon zwölftausend versiegelt; von dem Geschlechte Levi zwölftausend versiegelt; von dem Geschlechte Isaschar zwölftausend
+
+---
+
+versiegelt; von dem Geschlechte Sebulon zwölftausend versiegelt; von dem Geschlechte Joseph zwölftausend versiegelt; von dem Geschlechte Benjamin zwölftausend versiegelt. [Off 7,4-8]
+
+Nun werden die verschiedenen Gruppen der Menschen mit 12 und 3 Nullen bezeichnet, die es zu Philadelphia zur Bruderschaft gebracht. Aus den zwölf Gruppen (12x12), die sich also herausgebildet haben, multipliziert man 144000. Die so die Macht über ihre Seele ausgebildet haben, werden auch die Macht haben, in den andern Seelen. Wenn Seele sich in Seele hineinarbeitet, multiplizieren sich die Taten der Menschen. So wird uns tiefgründig gezeigt von dem Apokalyptiker, dass er das ganze Geheimnis der menschlichen Entwicklung kennt. Die Wahrheit wird so gesagt, dass der Mensch erzogen wird, einzudringen von der Umhüllung in die wirkliche Gestalt, damit wird auch die Bewusstseinsseele entwickelt. Es ist wichtig, dass man gewisse Dinge selbst findet. Deshalb wird später die Theosophie in anderer Form der Weisheit vorgetragen. Auch was heute gesagt wird, ist noch Umhüllung.
+
+Diejenigen, die zur Zeit der Apokalypse eingeweiht waren, haben den Sinn schon empfangen. Aber was in einem Zeitalter esoterisch ist, wird später exoterisch. Das ist der Sinn der Entwicklung. Das Esoterische verwandelt sich im Werdegang des Menschen ins Exoterische. So ist es auch mit dem Geheimnis von Golgatha. Der letzte Akt in Mysterien-Einweihung. Erweckung aus lethargischem Tode und Kreuzigung, Grablegung und Auferstehung des zu Initiierenden. Dann trat es heraus, wurde äußere geschichtliche Tatsache, historisch gewordene Mysterienweisheit der alten Zeit. Der konservative Sinn wehrt sich immer dagegen, dass das, was esoterisch ist, hinausgetragen wird in die Welt. Als ein solcher, der die Mysterien in das öffentliche Leben hinaustrage, wurde Christus betrachtet. Das Innerliche wird immer mehr im Äußeren erscheinen, Glanz und Farbe entfalten. Hätten sie folgen können dem Apokalyptiker da, wo er mit seinen intimen Schülern gesprochen hat, hätten sie genau dasselbe gehört.
+
+Der sechste Zeitraum hat überall etwas von Entscheidung. Philadelphia-Kultur hinüber in andere Zeit. Das sechste Siegel bringt die Zwölfzahl. Auch die sechste Posaune bringt etwas Entscheidendes.
+
+5 Jupitererde, 6 Venus-Erde – Überwindung des großen Babylon.
+
+Gerettet alle, die gerettet werden können. Entschieden wird, wer warten muss bis in nächste Zeit.
+
+Wiederholung von Saturn 1, Sonne 2, Mond 3, Erde 4, Jupiter 5, Venus 6, Vulkan 7.
+
+Wenn die Erde zum sechsten Mal sich in Weltenkörper bildet, fünf Runden hinter sich hat, ist der sechste Zustand da, der siebte noch nicht. Daher wird für die Zeit, in der Babylon überwunden ist, uns gesagt:
+
+Hier ist Weisheit. [Off 13,18]
+
+Fünf sind gefallen, das heißt Saturn, Sonne ...
+
+Sie sind dahin für die Auserwählten – nur Auswurf als Tier –, und der sechste ist, und der siebte ist noch nicht gekommen. Bis in dieses hinein charakterisiert der Apokalyptiker genau.
+
+Noch eines: Wir haben also sieben Zustände, das sind die regelrechten, die durchgemacht werden, um hinaufzusteigen. Aber auch die, die sich als unreif erwiesen haben, sind gestellt unter Sorat. Was wird aus diesen? Die müssen sich jetzt eine eigene Weltenkugel absondern, auf der sie ihre Entwicklung fortführen. Sodass sich absondert eine besondere Kugel, sie fällt heraus.
+
+
+
+Eine kleine Kolonie der Verruchten, die schwarzen Magier, siedeln sich dort an. Lesen Sie von der geheimnisvollen achten Sphäre in der theosophischen Literatur, die links geht, während die andere rechts. [Lücke in der Mitschrift] wird er eine Zeit bleiben, und das Tier ist der Achte und ist von der Sieben gekommen und führt in den Untergang. Auch das weiß der Apokalyptiker, dass außer den sieben Kugeln noch eine Achte existiert. Alle Theosophie könnte man herausholen.
+
+---
+
+Je mehr die Entwicklung vorschrieet, desto mehr Kraft ist notwendig, um diejenigen, die sich von der Spiritualisierung abgewendet haben, doch zu ihr hinzuführen. Daher muss der Versuch gemacht werden, durch die Besten zu retten, was noch zu retten ist. Daher werden Moses und Elias aufgerufen. Und wir sehen sie Weisheit sagen in einer späteren Erdenepoche. Moses und Elias gehören zu denjenigen, die sehr früh eingeweiht sind. Daher müssen sie später wirken. Karma wirkt in der Welt. Die Höchststehenden sind ihm unterworfen wie die Tiefsten. Diejenigen müssen die karmische Entsprechung erlangen, die vor Golgatha eingeweiht sind. Was ist früher geschehen?
+
+Dreieinhalb Tage in lethargischem Zustand im physischen Leibe gelebt. Was getan? Nichts. Überlassen den äußeren Mächten. Diese Dreieinhalb fallen aus der Entwicklung heraus bei diesen Eingeweihten. Das sind die einzigen Dreieinhalb, die der alte Eingeweihte unberücksichtigt gelassen hat bei der Arbeit seines Ich. Auch eine solche Sache muss ihren karmischen Ausgleich finden. Da, wo sie in ihrem Entwicklungszustand auftreten, müssen sie während dreieinhalb Tagen wieder ihren physischen Leib der äußeren Welt überlassen. Daher lesen wir:
+
+Und wenn sie ihr Zeugnis geendet haben, so wird das Tier, das aus dem Abgrund aufsteigt, mit ihnen einen Streit halten und wird sie überwinden und wird sie töten. Und ihre Leichname werden liegen auf der Gasse der großen Stadt, die da heißt geistlich «Sodom und Ägypten», da auch der Herr gekreuzigt ist. Und es werden etliche von den Völkern und Geschlechtern und Sprachen ihre Leichname sehen drei Tage und einen halben und werden ihre Leichname nicht lassen in Gräber legen. Und die auf Erden wohnen, werden sich freuen über sie und wohleben und Geschenke untereinander senden; denn diese zwei Propheten quälten die auf Erden wohnten.
+
+Und nach drei Tagen und einem halben fuhr in sie der Geist des Lebens von Gott, und sie traten auf ihre Füße; und eine große Furcht fiel über die, so sie sahen. Und sie hörten eine große Stimme vom Himmel zu ihnen sagen: Steiget herauf! und sie stiegen auf in den Himmel in einer Wolke, und es sahen sie ihre Feinde. [Off 11, 7–12].
+
+Da haben Sie die karmische Erfüllung des Überlassens des Leibes den äußeren Mächten. Selbst die Taten, die als Opfer gebracht werden,
+
+müssen ihren karmischen Ausgleich finden. Bis auf die Namen finden wir in der Apokalypse so, was Christus ist. Christus ist der tiefste Impuls, der in das Ich des Menschen hineingeht. Das Ich nimmt den Christus. Das Ich können wir charakterisieren durch intime Betrachtung. Alle äußeren Dinge kann jeder mit seinem Namen bezeichnen. Der Ich-Name muss aus dem Innern herausklingen. In dieses Prinzip des Menschen taucht der Christus hinein, durchdringt es allmählich. Ein Name, der nicht in der Außenwelt geschrieben ist, den nur derjenige mit dem Namen befruchten kann, der ihn hat – erkennen.
+
+Und hatte einen Namen geschrieben, den niemand wusste [erkannte], als er selbst. [Off 19,12]
+
+Dass am Ende die Erde in der Sonne vergeistigt sein wird, dass alles vergeistigt sein wird im äußeren Jerusalem, ist ausgedrückt:
+
+Und die Stadt bedarf keiner Sonne noch des Mondes, dass sie scheinen; denn die Herrlichkeit Gottes erleuchtet sie, und ihre Leuchte ist das Lamm. [Off 21,23]
+
+Erst sieht der Apokalyptiker den Führer, der als Vishnu Karma dann als Ahura Mazdao und so fort unsere Erde leitete. Er sieht ihn als denjenigen, der die sieben Sterne trägt, der den ehernen Stab, die Geister der Entwicklung in seiner Hand hat und das Schwert im Munde. Das Wort [Lücke in der Mitschrift]
+
+Alles unterliegt einer gewissen Verwandlung. Auch die Organe, der Herzmuskel als Beispiel; er ist auf dem Wege, ein willkürlicher Muskel zu werden. Der Kehlkopf ist auf dem Wege, ein Reproduktionsorgan zu werden. Durch das Stimmorgan wird der Mensch seinesgleichen hervorbringen. Heute kann der Mensch dasjenige, was seine Seele beseelt, nur so mitteilen, dass er sich der Luft mitteilt. Aber immer mehr vom Menschen wird auf diese Weise mitgeteilt. Und der Mensch wird sich aus sich selbst heraus vervielfältigen durch Stimme. «Im Urbeginn» und am Ende wird sein der Logos – Wortschaffend. Und so ist die mächtige Vision des Schwertes aus dem Munde auf höherer Stufe die Wiedererweckung der Atlantis.
+
+Vision: Lamm statt vier Tiere. Hinuntergestoßen Sorat von einem Erzengel – Sorat.
+
+---
+
+«In der Kürze» ist eine falsche Übersetzung: Gemeint ist nicht «in kurzer Zeit», sondern «in einem kurzem Abriss» wird der Apokalyptiker erzählen. Die Theosophie ist der Kommentar der Apokalypse – und zwar in unserer Zeit der einzig mögliche Kommentar.
+
+# ÜBER DIE BEDEUTUNG DER ÄLTESTEN TEILE DES ALTEN TESTAMENTES
+
+Berlin, 27. Mai 1904
+
+Ich wollte über die Bedeutung der ältesten Teile des Alten Testamentes noch einiges sprechen, bevor ich zu anderem übergehe. Ich habe Ihnen öfters gesagt, dass man in Bezug auf die Auslegung des Alten Testamentes zu einem Punkt kommt, wo man anfängt, es mehr oder weniger wörtlich nehmen zu können. Nun erlebten wir im neunzehnten Jahrhundert ein Zeitalter, das so wenig wie möglich geeignet war, so etwas wie die fünf Bücher Moses zu begreifen. Wer diese fünf Bücher Moses begreift, der sieht sich selbst zunehmen nicht nur an Einsicht in die Welt, sondern auch zunehmen an innerer Schätzung und Verehrung gegenüber alledem, was an Schriften zu uns spricht, wie etwas, was nicht allein menschliche Stimme, sondern – lassen wir das vorläufig in unbestimmter Art ausgesprochen sein – was zu uns herabklingt von höheren Sphären, als es die menschlichen Sphären sind.
+
+In der Tat, wir könnten und werden es vielleicht auch einmal tun können, zurückgehen auf den Ursprung, auf die eigentlichen Urtheorien solcher Schriften, auf die ersten Anreger. Aber wir wollen das heute nicht tun. Wir wollen die Frage berühren, die auf eine historische Tatsache zurückgeht, zunächst, welche sich zwar mit den äußeren Mitteln des Schrifttums heute nicht feststellen lässt, die sich aber, wenn die theosophische Bewegung einmal mehr Wurzel gefasst haben wird, als ziemlich selbstverständlich ergeben wird. Also, auf eine historische Tatsache möchte ich zunächst Rücksicht nehmen. Zur Zeit, als das Christentum seinen ersten Ausgangspunkt bekommen hat, als Jesus von Nazareth lebte, da war im berühmten Alexandrien die Schule des Philon. Unter den mannigfaltigen Lehren, welche dieser Philon gab, waren diejenigen die hervorragendsten, die er seinen Schülern über die fünf Bücher des Moses gab.
+
+Ich bemerke, dass zu diesen Schülern auch der Evangelist gehörte, welcher das Evangelium des Johannes geschrieben hat. Der Geist lebt
+
+---
+
+166
+167
+
+also in dem vierten Evangelium, welcher in den ägyptischen Schulen lebte. Diese Auslegung bedurfte einer ganz besonderen spirituellen Eigenart, und Philon sagte zunächst seinen Schülern, dass diese fünf Bücher Moses nicht geschrieben worden seien, um das auszudrücken, was zunächst in ihnen erzählt wird, sondern dass dieses nur ein äußeres Kleid sei, um tiefe innere menschliche Wahrheiten auszudrücken. Zeile für Zeile ist im Alten Testament sinnbildlich, symbolisch für menschliche innere Vorgänge zu verstehen, für solche Vorgänge, welche sich zu gleicher Zeit auch in der Zeit abspielten, das heißt die Vorgänge haben sich in den Besten des Volkes abgespielt durch viele hundert Jahre hindurch, in der Zeit in welcher Abraham nach dem kanaaischen Lande gewandert ist bis zu der Zeit, in der die Juden in die babylonische Gefangenschaft geführt worden sind. Da haben sich Vorgänge abgespielt, die sich nicht äußerlich, sondern in den Seelen abspielten, die allerdings zusammenhingen mit geschichtlichen Vorgängen. Allein, man versteht die geschichtlichen Vorgänge nicht, wenn man sie nicht in Zusammenhang bringt mit den inneren Geschehnissen. Vor allem gerieten die Schüler in eine Stimmung hinein, dass ihnen das ganze Testament als eine Offenbarung des inneren menschlichen Selbst erschien.
+
+Ich will Ihnen gleich einige Proben geben. Das, was ich Ihnen erzählt habe, wurde von den Gelehrten des neunzehnten Jahrhunderts als bloße Mythe angesehen, vor allen Dingen auch die Erklärungen, die Philon gegeben hat. Er hat diese noch in eindringlicher Weise in mündlicher Auseinandersetzung gegeben. Alles das, was davon auf die Nachwelt gekommen ist, hat man als allegorische Auslegung betrachtet, dem nichts weiter beizulegen ist. Man ist im neunzehnten Jahrhundert daran gegangen, vor allen Dingen auf dem physischen Plan zu bleiben und die Tatsachen zu prüfen, die sich dem Geschichtsforscher ergeben. Wenn auch die Bibel ihrer Chronologie nach angezweifelt wurde, wenn man auch davon abgekommen war, dass die Welt 4000 Jahre vor Christi Geburt erschaffen worden ist, so nahm man doch im Anfange des neunzehnten Jahrhunderts die Bibel als eine Art historisches Dokument, als etwas, das uns Mitteilungen über geschichtliche Vorgänge machte. Man nahm die Vorgänge, die
+
+erzählt wurden – wenn sie auch ungenau erzählt wurden –, so, als wenn es auf sie ankäme. Ich rede jetzt vom Standpunkte der äußeren gelehrten Forschung. Das andere, was im okkulten Gebiete vorkam, beachtete man gar nicht.
+
+Aus der Errungenschaft der Keilschriften-Entzifferung ergab sich aber etwas. Es stellte sich heraus, dass man das, was man an Erzählungen im Alten Testament finden kann, auch in den babylonischen Sagen und Mythen findet. Namentlich schildern uns dieselben eine Weltentstehung, die ganz ähnlich ist der biblischen Weltentstehung. Auch die Geschichte vom Sündenfall wird ganz ähnlich in der babylonischen Mythe erzählt. Bezeichnend ist der Inhalt der bedeutenden Siegelabdrücke. Es ist der Abdruck, der zwei Personen unter einem Baum sitzend und eine Schlange dabei zeigt. Wir haben da auf einem Siegelabdruck, der viel älter ist als die Schriften selbst sind, den Sündenfall dargestellt. In Keilschrift also haben wir die Geschichte des Sündenfalls, die Rettung der Menschheit ähnlich wie durch Noah und so weiter, sodass man sich klar darüber wurde, dass die Auffassung, die Urkunde des Alten Testamentes beruhe auf göttlicher Offenbarung, sei unmittelbar dem Moses durch Gott gegeben worden, nicht aufrechterhalten werden konnte. Es ist selbstverständlich, dass die weltliche Gelehrsamkeit den Schluss daraus gezogen hat, dass die Juden diese Sagen nicht geoffenbart erhalten haben, sondern dass sie sie damals, als sie aus ihrer Stammesheimat heruntergekommen sind, mit hinuntergebracht haben und diese dann von außen beeinflusst worden sind.
+
+Je weiter man im Alten Testament heraufkommt, desto klarer wird es. Man muss annehmen, dass das, was uns erzählt wird von Joseph, der um die Zeit der Pharaonen gelebt hat und der den Juden zu einer angesehenen Stellung in Ägypten verholfen hat, richtig ist. Und es muss ferner angenommen werden, dass es ebenso einen solchen Moses gegeben hat.
+
+Da hat man wenigstens verspürt, dass es zusammen eine Geschichte geben würde. Die geschichtlichen Urkunden haben in späterer Zeit auch da wieder der rein historischen Forschung den Boden abgegraben. Wir haben Dokumente, die bezeugen, dass in der Zeit, in
+
+---
+
+welcher die Geschichte mit Joseph gespielt hat, Völker, die wir nicht anders bezeichnen können als mit dem Wort Hebräer, gelebt haben in dem Lande Kanaan, und dass sie sich gewandt haben an den Pharao, um Unterstützung in einer Hungersnot zu erhalten. Diese Briefe sind in babylonischer Sprache geschrieben und an den ägyptischen Pharao gerichtet. Daraus ist zu entnehmen, dass die babylonische Sprache ein großes Ansehen gehabt haben muss. Die Sprache der Gebildeten war damals die babylonische Sprache, wie es in früheren Jahrhunderten bei uns die französische Sprache war.
+
+Es hat sich aber noch etwas anderes ergeben. Die Person des Joseph ist höchst zweifelhaft geworden. Die Geschichte hat diese Figur allmählich verflüchtigt. Es hat sich herausgestellt, dass eine Persönlichkeit, die Statthalter war in einem jüdischen Lande, identisch ist mit Joseph, sodass die Geschichte in der Bibel einem Statthalter entspricht, der die Geschichte nicht erlebt haben kann. Er hat am pharaonischen Hofe die Gesuche der Juden bei den Pharaonen befürwortet. Wir würden also nicht einen Joseph haben, der für sein Volk in der Weise gesprochen hat, wie es in der Bibel steht, sondern der sich als Statthalter der Juden angenommen hat, und dass sie auch damals den Ägypterzug gemacht haben. Heute erscheint es fraglicher denn je, dass der Zug der Israeliten nach Ägypten wirklich stattgefunden hat. Es ist ganz unmöglich, dass der Rückzug unter Moses sich so abgespielt haben kann, wie er erzählt wird. Es wird erzählt, dass die Juden in die Wüste gezogen sind, es wird dies so erzählt, als ob keine anderen Völker dort gewesen wären. Gerade in jener Zeit aber muss diese Gegend von anderen Völkern bewohnt gewesen sein, die sich mächtig dagegen gewehrt haben würden. Wenn wir also dies alles wörtlich verstehen, so schwebt alles in der Luft.
+
+Die profane [Geschichtsschreibung] hat dazu beigetragen, die Bibel zu zerpflücken. Wenn der Kritiker anfängt, mit seiner Kritik einzusetzen, so sieht er sich vor dem Nichts stehen. Der Kritiker muss zuletzt damit enden: Ich kann gar nichts sagen. Es kann so sein, es kann aber auch anders sein – das ist der Schluss, auf den der profane Kritiker notwendig kommen muss.
+
+Ich kann diesbezüglich ja nur eine Skizze geben. Wenn Sie aber die
+
+Sache durchgehen, durchsehen würden, so würden Sie finden – was ich ja angedeutet habe –, dass nichts anderes das Resultat sein kann, als was ich angedeutet habe: Höhere Kritik und absolute Ergebnislosigkeit. Das hat wahrscheinlich die Wirkung, dass man sich fragen wird: Sind denn jene Auslegungen, die Philon von Alexandrien gegeben hat, dass es nur ein Spiel mit Worten ist, richtig, oder sind die alten Dokumente vielleicht in dem Sinne geschrieben, wie Philon von Alexandrien es noch wissen konnte, was aber später vergessen worden ist?
+
+Nicht nur im ersten Buche Moses, sondern auch in den späteren Büchern ist eine Antwort zu finden, wenn man sie esoterisch prüft und wenn man sich fragt: Hat sich das wörtlich so abgespielt, wie es da scheinbar steht, oder waren die Schriftsteller solche, die Esoterik verfochten, waren es Geister, welche mit dem, was sie äußerlich darstellten, einen inneren Sinn verbanden? Die ganzen Gegenden, um die es sich handelt und von denen gesagt wird, dass Abraham sie durchzogen habe, dass Abraham darin in der Zeit gewohnt haben muss, die einer großen Invasion des Volkes vorangegangen war, die Gegenden im Norden des Euphrat; Persien, Indien, dann aber auch Ägypten, alle diese Gegenden waren übersät mit okkulten Schulen. Sie waren mehr oder weniger in Ruhe gelassen worden, namentlich bis zum Jahre Zweitausendfünffhundert vor Christi Geburt. Aber in der Mitte des dritten Jahrtausends vor Christi Geburt fanden große Völkerwanderungen statt. Das, was man als das babylonische Volk bezeichnet, hat sich auch in ungefähr dieser Zeit da niedergelassen. Früher waren es noch mehr Völker, die wussten, was Priesterherrschaft bedeutet.
+
+In all diesen Gegenden hatte man sieben Grade der Einweihung. Der erste Grad war der Grad der «Raben». Eingeweihte dieses Grades waren diejenigen, welche die Verbindung der Außenwelt mit den Geheimstätten besorgten. Daher sind die Raben die Kundschafter, die dem, der im Innern des Tempels ist, Nachrichten von der Außenwelt bringen, aus denen er die Möglichkeit des Wirkens findet. Wenn der alte Barbarossa von Jahrhundert zu Jahrhundert fragt, ob die Raben noch um den Berg herumfliegen, so ist das nichts als die
+
+---
+
+okkulte Ausdeutung dafür, ob die Verbindung mit der Außenwelt noch besteht.
+
+Im zweiten Grad der Einweihung waren diejenigen, die das Wort gebrauchen konnten, diejenigen, welche so viel gelernt hatten, dass sie inspiriert waren von dem spirituellen Leben. Man hieß sie die *Streiter*.
+
+Im dritten Grad der Einweihung waren diejenigen, welche durch die Tat wirken konnten, welche fest standen durch ihre Kraft. Man nannte sie die *Löwen*. Streiter ist derjenige, welcher durch das Wort wirkte, er ist das, was man auch Prophet nannte. Diejenigen aber, die Löwen geworden sind, wirken durch die Tat. Ihre Wirkung bleibt indessen manchmal mehr oder weniger unbemerkt. Sie werden oft gar nicht erkannt.
+
+Die im vierten Grade Eingeweihten hießen die *Okkulten*, [die im Innern des Tempels arbeiteten].
+
+Die im fünften Grad Eingeweihten wurden in jedem Lande so genannt, wie der Name des betreffenden [Volkes] war. In Indien wurden sie genannt: *Der Mensch* – *Manas*. Der war erst im wahren Sinne Mensch, dem Manas aufgegangen war. Bei den Persern hießen sie *Perser*, bei den alten Chaldäern hießen sie *Chaldäer*. Das ganze Volk hieß ja Chaldäer, aber ganz besonders hießen so die Initiierten im fünften Grad. Deshalb hat man es auch immer verwechselt, wann das Volk und wann die initiierten Priester bezeichnet waren. Die Eingeweihten dieses Grades waren Priester, die sich mit Astronomie und Astrologie beschäftigten.
+
+Die im sechsten Grade Eingeweihten hießen überall die *Sonnenläufer*. Deren Leben war so rhythmisch geworden, dass es ablief so regelmäßig wie der Lauf der Sonne. Eine Verwirrung hätte er angerichtet, wenn er von seiner Bahn abgewichen wäre, so wie die Sonne eine Verwirrung anrichten würde, wenn sie einmal einen Schritt aus ihrer Bahn herausträte. Die Sonnenläufer waren diejenigen, welche dazu berufen wurden, die Völker zu regieren. Die Könige Vorderasiens, Südasiens und Ägyptens waren dazu vorbereitet dadurch, dass sie im sechsten Grade initiiert worden waren. In den Statthaltern von Ägypten haben wir also Sonnenläufer zu finden, die einen hohen Grad
+
+der Entwicklung erreicht hatten, die die Geheimsprache der Welt verstanden, und die es auch verstanden, die spirituellen Geheimnisse auszuleben. Von solchen Menschen wurde dann gesagt, dass sie ein Leben führten wie die Sonne und dass sich vor ihnen neigen Sonne, Mond und Sterne, so wie sich vor der Sonne neigen Mond und Sterne.
+
+Von solchen Sonnenläufern oder Sonnenhelden wird in den verschiedensten Sagen und Mythen erzählt. Herkules ist nichts anderes als ein Sonnenheld. Die zwölf Arbeiten sind der Durchgang durch die zwölf Bilder des Tierkreises. Jason ist auch solch ein Sonnenläufer, der aus dem rauen Lande der Barbaren das goldene Vlies zu holen auszog. So können sie bei den verschiedenen Völkern Mythen mit Sonnenhelden finden. Die Gelehrten haben sich viel gewundert, warum die Helden der Mythen so vielfach ähnlich dargestellt werden. Man hat sich gewundert, dass das Buddha-Leben, das Leben des Herkules und des Zarathustra, das Osiris-Leben und das Christus-Leben so ähnlich sind. Wenn sie gewusst hätten, dass diese Eingeweihte waren im sechsten Grade und dass einfach erzählt worden ist das Leben eines Sonnenläufers, dann hätten sie sich nicht zu wundern brauchen. Selbst die Christus-Erzählung gehört dazu, und es geht daraus hervor, dass es wirkliche Ereignisse in ihrem Leben waren, die aber vorherbestimmt waren durch ihre Mitbrüder. Ihr Lebenslauf war Jahrtausende vorher vorgezeichnet. Man beschrieb das Leben eines Sonnenläufers vorher, denn durch Jahrtausende hindurch ist das Leben eines solchen Heros in derselben Weise abgelaufen.
+
+Ich möchte Sie auf die Erzählung von Joseph aufmerksam machen. Lesen Sie sie und hören Sie, was ich zur Anleitung gesprochen haben möchte. Israel, der Vater des Joseph, machte ihm einen bunten Rock. Bei den Persern hießen die im fünften Grade Eingeweihten *Perser*, bei den Israeliten hießen sie *Israel*. Es war ein wirklicher Vorgang, dass die im fünften Grade Initiierten sich an einem bestimmten Tag vor den im sechsten Grade Initiierten verbeugten. Joseph erzählt seinen Brüdern seinen Traum mit den Garben, die sich vor der seinigen verneigten, worauf die Brüder zu ihm sagten: Solltest du unser König werden und über uns herrschen? – Sie verstanden aber nicht alles. Nun sprach er sich noch deutlicher aus, indem er seinen Brüdern
+
+---
+
+noch einen anderen Traum erzählte: Siehe, die Sonne und der Mond und elf Sterne neigten sich vor mir. Hier sprach Joseph davon, dass er initiiert werden will im sechsten Grade. – Lasst uns ihn in eine Grube werfen, sagten die Brüder. Die ‚Grube‘ ist die Stätte der Initiation. Ein ‚wildes Tier‘ hat Josef zerrissen. Das Zerreißen der irdischen Kleider ist das Absterben des Niedrigen. Die Erzählung zeigt uns, dass Joseph herangewachsen ist zum Sonnenläufer, zum Sonnenheros.
+
+Ägypten war der Ort derjenigen Tempelstätten, wo die höchsten Initiierten waren. Der siebente Grad ist der Grad der ‚Väter‘. Abraham gehörte nur in Chaldäa zu den Vätern. Moses konnte dann auch durch Joseph in die ägyptischen Mysterien eingeweiht werden, und daraus ging dann das hervor, was Moses zu seinem Volke gesprochen hat.
+
+Dies ist andeutungsweise eine Probe aus dem Unterricht, wie ihn Philon seinen Schülern hat angedeihen lassen. Die Gelehrten hatten keine Ahnung davon, dass hier geistige Vorgänge vorliegen, sondern sie glaubten, dass da wirkliche geschichtliche Vorgänge geschildert worden seien. Nun begreifen wir aber auch, weshalb der Bibelkritik nichts übrig bleibt. Sie hält sich nicht an den wirklichen Inhalt, den lässt sie zwischen den Fingern hindurchrinnen.
+
+Die Juden der ersten Christen-Gemeinden erzählten die Initiation in einer ähnlichen Weise von Jesus. Der Schlüssel dazu liegt in den alten Kommentaren, die für die Bibel und die Veden vorhanden sind.
+
+[Geistige Vorgänge, die esoterisch gelesen werden müssen, sind auch die Märchen, beispielsweise: ‚Die sieben Geißlein‘. – Den wirklichen Inhalt lässt die äußere Kritik immer durchschlüpfen, sie nimmt die Symbole als Taten. – Die Schlüssel hat die äußere Gelehrsamkeit nicht, sie weiß nicht, wie solche Sachen zu lesen sind.]
+
+Das nächste Mal werde ich eine der bedeutsamsten Erzählungen durchnehmen, die Sie oftmals gehört haben, deren innere Bedeutung aber so unendlich tief ist wie kaum etwas anderes – die Geschichte von Kain und Abel. Einerseits haben wir den Totschlag Kains, und andererseits wird von Kain abgeleitet das ganze Menschengeschlecht. In dem die Tiere des Waldes opfernden Abel und dem die Früchte des Feldes opfernden Kain liegt das große Geheimnis.
+
+172
+
+# DAS PRINZIP DER KORRELATION
+
+Berlin, 12. Juni 1904
+
+Denken wir uns ein Tier, das eine besondere Organgruppe stark ausgebildet hätte. Das ist nicht möglich, ohne dass ein anderes weniger ausgebildet wäre. Überall in der Natur sehen wir dies Prinzip der Korrelation. Die mannigfaltigsten Dinge kommen dabei in Betracht, nicht Raumverhältnisse zum Beispiel, wie man beim Elefanten einwenden könnte. Goethe sagt das gut: Keinem Teile kann etwas zugelegt werden, ohne dass einem andern etwas abgelegt wird.
+
+Die ganze Sieben-Runden-Bildung des irdischen Planeten hat den Sinn, das menschliche Wesen dazu zu bringen, sich selbst in der Außenwelt zu erkennen. Wir haben die Aufgabe, durch Sinne, Verstand und andere Tätigkeit erkennend in Wechselverkehr mit der Außenwelt zu treten.
+
+Wir brauchen dazu ein Nervensystem, das aufnimmt und eine Zentralstelle bildet: das Rückenmark. Nicht aufgrund der Wahrnehmung allein könnte man Lust und Schmerz empfinden, nicht durch Wechselverkehr mit der Außenwelt. Zu Lust und Unlust muss noch die Erkenntnis hinzutreten. Erkenntnis des Grundes von Lust und Unlust ist ohne Nervensystem unmöglich. Das Nervensystem gab es nicht in der lunarischen Epoche, obgleich Lust und Unlust noch feiner empfunden wurden. Die lunarische Epoche hat das ausgebildet, was das Bett des Nervensystems wurde: das Knochengerüst. Schmerzen lebten dumpf im Astralbewusstsein ohne Wahrnehmung. Die Natur bildet in der lunarischen Epoche vollkommener, ohne die Kraft ihres Budgets auf das Nervensystem zu verwenden. Nun tritt das Gesetz der Korrelation hier ein.
+
+Der Sinn der irdischen Epoche ist, das Nervensystem zu bilden, und die dadurch vermittelte Erkenntnis der Außenwelt soll hinübergeführt werden auf die andere Epoche. Zu diesem Zweck der Bildung des Nervensystems müssen die Organe so ausgebildet werden, dass sie dienstbar werden, hingeordnet darauf; die Bildung muss umge-
+
+---
+
+baut werden. Drei Runden mussten dazu verwendet werden, um noch einmal zu wiederholen, was früher gewesen war. Kama muss hinuntergedrängt werden, um Erkenntnis, Wahrnehmung auszubilden. Lunge und Herz waren so ausgebildet, dass Lust und Schmerz in einer raffinierten Weise empfunden werden konnten; subjektiv auf die höchstmögliche Stufe gestellt. Jetzt mussten sie so hinuntergedrängt werden, dass Wahrnehmung und Erkenntnis ausgebildet werden –, gewisse Partien herausgedrängt werden, um die andern in den Dienst zu stellen. Diese herausgenommenen Partien bildeten in der ersten Runde das Mineralreich. – Vollkommener auch in der lunarischen Epoche waren Wachstum und Fortpflanzungstrieb, das Pflanzliche; das wurde herausexpediert in der zweiten Runde. Wir hatten das früher in uns, konnten es aber jetzt nicht bewältigen und haben es aus uns herausgesetzt, den Elementargeistern überlassend.
+
+Dann mussten wir das Tierreich heraussetzen und sich selbst überlassen, um jetzt imstande zu sein, das Menschenreich zu bilden. Um unsere Nervenkraft herauszubilden, musste mit anderer Kraft an dem Material gearbeitet werden, das er im Überschuss hatte – der Überschuss des astralischen Lebens, an Lust und Unlust, das er in der lunarischen Epoche noch haben durfte. Der Mensch musste etwas von der Wut des Löwen zum Beispiel heraussetzen, damit die Kraft, die sie bewältigt, zurückbleibt zu anderen Zwecken – kosmische Schuld! Wir haben die bändigende Kraft entzogen, um erkenntnisfähige Kraft zu bilden; verdanken also unsere menschliche Höhe dem Zurückziehen einer Kraft, welche sonst Kama organisiert hätte. Sodass dieses Kama unorganisiert bleibt, deswegen wäre es, beim wütenden Kampf ums Dasein der Tiere von Schuld zu sprechen, ein Unsinn. – Setzen wir den Gedanken fort in der irdischen Entwicklung; der Asket muss geben und dadurch ersetzen, was er entzieht.
+
+Die dhyanische Natur des Menschen konnte also in der lunarischen Epoche nicht heraustreten – die Reiche waren in ganz anderer Art vorhanden –, das unterste wurde achte Sphäre, die nun zerstiebt.
+
+Der Mensch hat an sich jetzt das Spirituelle des Tiers, das damals noch in ihm war, sodass wir uns in der lunarischen Epoche den Menschen nicht direkt als Tier vorstellen müssen. Es war die höchste
+
+Blüte der Leidenschaft, während jetzt ihre Degeneration im Tier erscheint. Damals gab es also kein ‹Gut und Böse› für die Leidenschaft, die ist erst ein Kennzeichen unserer Epoche. Nur jetzt kann sie böse werden, weil eine Kraft ihr entzogen ist und sie hinuntergedrängt ist.
+
+Jetzt fängt der Verstand, der früher geleitet war, an, sich selbst überlassen zu sein und verfällt manchmal in Atavismus; bei den Atlantiern war die Entwicklung in ihrer Mitte. In unserer fünften Rasse haben wir den Tiefpunkt etwas überschritten, und es kommen die Rückfälle vor: ein unbewusstes Erinnern von Gut und Böse, das jenseits des Bewusstseins lag. Zum Beispiel Nietzsches Philosophie. Sie war richtig in einer Zeit, wo es kein Philosophieren gab, sondern diese Kraft zur Leitung der Leidenschaft war –, deswegen tritt das Böse als ein versetztes Gutes auf. Es ist disharmonisch, weil es im Moment nicht am Platz ist. Jetzt ist das deplaziert, was damals Bildungstrieb gehabt hatte. ‹Wer behauptet, es gibt ein an sich Böses, der lästert Gott› – sagt die Bibel. ‹Warum nennt Ihr mich vollkommen, vollkommen ist nur der Vater.›
+
+Es gibt also kein an sich Böses, Böses ist nur das deplazierte Gute. – Nur der darf Herrscher sein, der die Kraft zum Herrschen dadurch nimmt, dass er überwindet.
+
+---
+
+176
+177
+
+# DER BEGRIFF DES OBJEKTIV-VORHANDEN-SEINS UND DES SUBJEKTIV-ERFASSENS
+
+Berlin, 13. Juni 1904
+
+Das Auge ist berufen, wahrzunehmen. Empfindung – Wahrnehmung – kann erst entstehen, wenn ein Nervensystem sich zu entwickeln beginnt. Das Auge ist zur Hälfte ein lebendiger physikalischer Apparat, zur andern Hälfte ist es vom Nervensystem durchzogen. – Der Sehnerv würde niemals wahrnehmen, wenn nicht das Physikalische in einer bestimmten Weise gebaut wäre; bei gleichen physikalischen Gesetzen; wie ein lebloser Apparat, plus Leben.
+
+Diese zwei Dinge sind also zu bilden beim Menschen: ein Apparat, um aufzunehmen, und einer, um zu vermitteln. Draußen in der Natur haben wir das Mineralreich, und das Mineralreich hat uns den Apparat aufgegeben, aus den Bestandteilen desselben Reiches wird das gebildet, womit wir dies Reich aufnehmen. Alles was in der Außenwelt ist, haben wir auch; nach und nach müssen wir das ganze Mineralreich aufnehmen.
+
+In der vierten Runde assimilieren wir das Mineralreich, und am Ende der vierten Runde werden wir das ganze Reich verzehrt, aufgesogen haben. Während der ersten Runde haben wir das Mineral ausgesetzt, während der vierten saugen wir es auf. Während der zweiten geschieht dasselbe mit den Pflanzen, während der dritten dasselbe mit dem Tier.
+
+Während der siebten ist der Mensch in sich selbst; er hat alle Reiche aufgesogen. Wie geschieht das? Man hat im neunzehnten Jahrhundert, dem materialistischen, angefangen, die Lebenskraft ganz zu leugnen. Zum Beispiel wurde der Harnstoff im Laboratorium produziert, von dem man früher annahm, dass nur der Organismus ihn produziert. Die Forscher meinten, dass, wenn sie nun chemisch darstellen könnten, was früher vom Lebendigen zu stammen, geglaubt wurde, sei kein Unterschied zwischen Lebendigem und Leblosem – nur ein komplizierterer Organismus. Sie hätten sagen müssen: Auch im Mineralischen ist Leben.
+
+Der Mensch ist zuerst fähig, das Unorganische zu erkennen, erst später wird man das Pflanzen- und Tierleben begreifen. – Der Sinn, indem sich der Nerv ausbreitet, nimmt von Außen den mineralischen Vorgang wahr. Der Nerv wird aber darauf das im Auge enthaltene Leben erfassen, das einströmende Prana so erfassen, wie heute das Licht. Das Auge wird so weit fortgeschritten sein, dass das Pflanzliche unmittelbar einströmt. Das Mineralische hat aufgehört zu existieren. – Das Mineral ist zu seiner größten Dichtigkeit in der vierten Runde gelangt und wird als Weltenstaub demnächst zerstieben. – Der Stein ist deshalb das Bild des Vollkommenen innerhalb unserer Runde –, das Blatt die nächstliegende Hülle. Das Bild des Juwels inmitten der Lotosblume ist das Symbol der Tendenz des heutigen menschlichen Strebens. Buddha in der Lotusblume sitzend ist ein solches Symbol. – Der Mensch nimmt heute so stark mineralisch wahr, dass der Forscher sogar alles andere leugnet. Aber in ihm ist das Leben – Prana –, das nun alles Assimilierte mit sich durchs Pralaya hinübernimmt und das Verarbeitete nun als geistiges Innenleben, als in ihm Absorbiertes besitzt. – So in jeder Runde, bis der Mensch – alles absorbierend – nur in Gott bleibt.
+
+Während der ersten Runde hatte also der Mensch sein Physikalisches ausgebildet, es entstand das Knochensystem in der Anlage; in der zweiten wurde es belebt, der Mensch wurde eine Pflanze. Er ist hohl, die Pflanze als Umriss.
+
+In der fünften Runde wird er den Kern in sich haben. Der Mensch als Pflanzenmensch in der zweiten Runde pflanzt sich fort, Leben bringt Leben. In der ersten Runde herrschte die Einheit –, in der zweiten die Zahl, das Hervorgehen des einen aus dem andern. Es herrscht auch die Form – Gestalt –, weil sich die Zahl zusammentut.
+
+In der dritten fangen die Wesen an, im Innern zu leben. Wechselwirkung herrscht – Lust und Unlust.
+
+In der vierten Runde beginnt etwas Neues. Bis jetzt war überall noch die Schale. Das Mineralreich fängt an, als Kern sich anzusetzen. Wir haben erst jetzt zwischen Schale und Kern zu unterscheiden.
+
+---
+
+Der Kern kann sich trennen und immer neue Schalen beherrschen. Es herrschen Geburt und Tod. Der Kern kann einen Keim behalten, der alle Hüllen überdauert, und wir bekommen Geburt und Tod.
+
+In den drei ersten Runden bis zur Mitte der vierten ist ein Herausgeben des Tochterwesens aus dem Mutterwesen, es schnürt sich ab. Alles war da, solange die Runde dauert, erst mit der vierten Runde ist Geburt und Tod möglich.
+
+Dass Oberste ist die Einheit, sie beherrscht die erste Runde. Das Zweite ist die Zahl, sie beherrscht die zweite Runde, das Dritte ist die Wechselwirkung, sie beherrscht die dritte Runde. Das Vierte sind Geburt und Tod, sie beherrschen die vierte Runde.
+
+Die Vereinigung der Pitri mit den Dhyan Chohan ist der Kern. [...]
+
+# FOLGENDE RUNDEN
+
+Berlin, 15. Juni 1904
+
+Dadurch, dass innerhalb der vierten Runde ein Kern in die Hüllen eintritt, kann sich dieser Kern erhalten, während die Hüllen abfallen. Geburt und Tod. Dieses abfallende und immer sich fortbildende in der vierten Runde ist das Mineralreich. Der Stoff an sich ist jetzt unsterblich. Dadurch, dass sich ein Kern erhalten hat, der im Nervensystem einen äußeren Anhaltspunkt findet, hat sich Manas mit dem Menschen verbinden können. Kama-manasisch ist nur der Mensch.
+
+Auf der einen Seite ist nun Geburt und Tod und damit Zweigeschlechtlichkeit. Vor der vierten Runde ist ein zweigeschlechtliches Tiergeschlecht nicht vorhanden gewesen. Erst wenn Manas einzieht in das Nervensystem, entzieht es den Hüllen die Kraft, ein Gleichmäßiges hervorzubringen. Sie müssen erst angeregt werden. Was die Sexualität bietet ist von außen das, was früher von innen gewesen ist. Die kombinierende Verstandestätigkeit ersetzt das frühere produktive Aus-sich-heraus-Schaffen, Manas entzieht die Eingeschlechtlichkeit. Eingeschlechtliche Tiere haben bis jetzt keinen manasischen Funken. Der Mensch hat, indem er das Tiergeschlecht heraussetzte [Lücke in der Mitschrift], gab ihm als Dankesgeschenk die Zweigeschlechtlichkeit. Das Manasische will nach außen wirken –, daher war in der dritten Runde das Menschengeschlecht stumm, und es ist noch Tier; erst das den Übergang bildende Tier wird tönend. Stimme und Sexualität sind zwei Pole, die eng zusammenhängen. Immer höher und höher wird sich in der vierten Runde die Sprache entwickeln –, immer tiefer und tiefer zu führen ist die Gefahr der Sexualität.
+
+Es trat die Produktionskraft nach innen in den Kern und wurde als Wort herausgepresst während der vierten Runde. Wort und Sexualität sind das äußere Gepräge des Menschen. Manas hat jetzt die Aufgabe der Kern-Beherrscher, der Regulator für das zu werden, was jetzt nach außen gekommen ist – das Böse, die Leidenschaft.
+
+Dieses alles wird als Keim in die fünfte Runde hinübergenommen.
+
+---
+
+180
+181
+
+Eine neue Organreihe wird das Ausdrucksmittel werden. Die Lunge, das Atmungsorgan, das sich zum Kehlkopf, Sprechorgan ausgebildet hatte. Herz und Zirkulationsorgane werden in der fünften Runde ein eigenes Ausdrucksorgan gebären. Wie er jetzt das Wort ausstrahlt, wird er sein ganzes inneres Wesen ausstrahlen, und es wird unmöglich sein, dass der Mensch sein eigenes Wohl vom Wohl des anderen trennt. Wie durch das Wort jetzt Manas ausgestrahlt wird, wird Budhi durch das Herz ausgestrahlt werden und unmittelbar umfassen.
+
+Die es noch nicht erreicht haben, werden Wilde sein! Dies ist die Normalentwicklung.
+
+Mit dem Wort kann man noch verwunden, mit dem Herz-Atem unmöglich. Wir müssen das Wort so umzugestalten versuchen, dass es nicht mehr verwunden kann:
+
+Eh' vor den Meistern kann die Stimme sprechen, muss das Verwunden sie verlernen.
+
+[Dies] zu dem Zwecke, dass das nicht verwundende Wort sich in den Kern zurückzieht und das Herz entwickelt. Das Herz tritt also nach außen –, die Sexualität fällt ab, und es wird Körperhülle, was jetzt durch Geburt und Tod ausgebildet wird. Wie die Produktionskraft die Sexualität nach außen getrieben hatte und Gut und Böse entstand, so drängt er jetzt das Böse nach außen. Die äußere Gestalt ist gewoben aus dem, was jetzt die Leidenschaften sind. Das äußere Antlitz wird genau das sein, was er jetzt vorbereitet als Gut und Böse. Mit dem Abzeichen ihrer Leidenschaft werden [die Menschen] geboren werden. Wie das Böse jetzt ihre innere Kraft ist, tragen sie sie in der fünften Runde nach außen.
+
+Die fünfte Runde wird durch die Enthüllung des Geheimnisses die Menschheit spalten in Kains und Zeichen.
+
+Das ist der esoterische Sinn, der ganz entstellt ist im christlichen Jüngsten Gericht.
+
+Die sechste Runde ist schwieriger darzustellen.
+
+Das, was jetzt Organ geworden ist, das Herz, ist so weit geworden, dass es nach außen sich ergießt. In der fünften Runde ist das Wort innere Kraft, es drängt nach außen das Herzensorgan und ist
+
+noch Inspirator. In der sechsten Runde geht alles nach außen, der Mensch wird ganz Herz, das Wort ist sein äußerer Leib, der Mensch wird Tonwelle, das Herzblut hat sich ganz nach außen gedrängt, der Ton wird sprießen –, der Tiergedanke ist verwirklicht, was sich von innen drängt, ist sinnvolles Wort, wandelnde Sprache geworden.
+
+Deshalb müssen wir lernen, vor den Meistern zu stehen. Das Herzblut ist nach außen geflossen, der Mensch Ton geworden. [Lücke in der Mitschrift]
+
+In der sechsten Runde ist das Äußere das Wort selbst, der Ton, und das Innere ist der Mensch selbst, der sich ganz lebt.
+
+Jetzt in der siebten Runde ist er, was er ist, der selbstbewusste Gedankenmensch, der in sich selig ist. Zustand der Gottseligkeit, kein Unterschied zwischen Äußerem und Innerem.
+
+Während der vierten Runde ist also die Freiheit in die Welt getreten, und wir haben es in der Hand, so wenig wie möglich Kains zu [werden]. So ist Luzifer der Lichtbringer, der aber zugleich das Böse in die Welt gebracht: In Eure Hand ist gelegt, Kains und Abels zu werden. Das wurde in der ganzen furchtbaren Größe in den Mysterien vor die Griechen gestellt.
+
+Ohne die Möglichkeit unterzugehen, hätte der Mensch nie frei werden können.
+
+---
+
+182
+183
+
+# EIN HAUPTGESETZ
+ALLER RUNDEN-EVOLUTION
+
+Berlin, 16. Juni 1904
+
+Jede Runde verläuft in sieben Abschnitten, und zwar die drei die [Lücke in der Mitschrift], der mittleren, die der Wendepunkt, Hauptpunkt, das Entscheidende ist und die drei abflutenden, wo alles in das Innere sich wendet. Eine immer sich verzögernde Bewegung hat die niedersteigende Bewegung; eine Abnehmung, Verzögerung findet statt in der Evolution der drei ersten Zustände, jetzt am langsamsten und dann eine zunehmende Schnelligkeit, eine Beschleunigung bis die siebte dieselbe Bewegung hat wie die erste. Drei verschiedene Zustände haben wir geschaffen
+
+1. Retardation
+2. scheinbare Beharrung
+3. Akzeleration.
+
+In jeder nächsten Runde werden diese Zustände kurz wiederholt, und zwar in den ersten Runden. Sodass wir uns wenig zu befassen haben mit den drei ersten Runden, weil sie eine kurze Wiederholung sind. Auch in der vierten ist der erste Zustand eine kurze Wiederholung. Diesen teilen wir wieder in drei Teile – sieben Rassen in drei Teile. Sieben Drittel – zwei und ein Drittel müssen wir uns nun denken.
+
+So haben wir zwei erste Rassen: vorbereitende Rasse; die dritte ist in ihrem ersten Drittel auch noch vorbereitend, und im zweiten Drittel beginnt das Charakteristische der Rasse.
+
+Die weiteren zwei und ein Drittel geben vier und zwei Drittel. Sodass wir den nächsten Zustand haben bis ins zweite Drittel der fünften Rasse. Und vom letzten Drittel der fünften Rasse findet die Abflutung wieder statt.
+
+Unsere fünfte hat einen wichtigen Wendepunkt, eben den des Abflutens, wo wir die letzten Ergebnisse zu ziehen haben und die Entwicklung hinüberzuführen haben zur sechsten Rasse, wo das Vorbereitende für die künftige Runde stattfinden wird.
+
+In den ersten Rassen also keine
+in der zweiten und vierten vorbereitende Früchte
+in der fünften Höhe der Rassenentwicklung,
+letzte Ergebnisse
+in der sechsten und siebten Vorbereitung für die nächste Zeit.
+
+## Bekenntnisse:
+
+1/3 a. Rasse. Eine Art pantheistisch-unklare Form, aber esoterisch einheitlich.
+Brahminischer Pantheismus.
+b. Die Einheitsgotteslehre spaltet sich dann in die verschiedenen Formen des Polytheismus
+
+2/3 a. Der Polytheismus geht über in den
+b. sogenannten Theomorphismus, zurückkehrend zum einheitlichen Gottesbegriff, aber gestaltend, theomorphisierend.
+
+3/3 a. Vierte Rasse bildet den Anthropomorphismus, der in der Mitte die Christologie hat. Der eine Mensch ist der Sohn Gottes.
+b. Fünfte Unterrasse. Wir haben Gott hinuntergebracht bis zum Menschen, zum physischen Plan, und bilden aus den physischen Materialismus.
+
+4. Die sechste Unterrasse, die wir vorbereiten. Innerhalb der Sophia, Weisheit, vorbereitend die Wissenschaft von Gott: Theosophie.
+Siebte Rasse: Praktische Theosophie, theosophisches Darleben, Vollbringung des Erkannten. Den Gott, den er erfasst hat, wird der Mensch hinausstellen. Er heiligt die Gegenstände, wird alles weihen, was er tut. Früher ragte das Göttliche zu ihm hinein.
+Jetzt: Zeitalter des Sakramentalismus, er wird den Gegenstand weihen –, während für ihn zeremoniell geweiht wurde.
+
+Die denkende Erkenntnis ist dasjenige, was in der fünften Rasse erstrebt und vollbracht werden muss. Sie ist die Aufgabe –, das Ringen nach der Erkenntnis von P [Lücke in der Mitschrift] zum Sakr. [Lücke in der Mitschrift]
+
+Begriffe im Menschen zum Leben zu bringen. – Bevor der Mensch zur begrifflichen Erkenntnis kommen konnte, musste er Vorstellun-
+
+---
+
+gen erst bilden. Die vierte [Rasse] hatte die Aufgabe also, die Kraft der Vorstellung zu entwickeln. Die atlantische war die vorstellende Rasse, während die arische die denkende ist. Gedächtnis und Vorstellung ist die atlantische. Die Lehre der Reinkarnation hat [der Atlantier] nicht, dagegen hat er die Erinnerung der früheren Inkarnation. Atlantische Tempel bestanden aus aufgestellten Büsten der Atlantier, die sich interessierten, ihr früheres Bild zu sehen.
+
+Lemurier hatten auch noch nicht die Fähigkeit, Vorstellung auszubilden. Vor ihnen leuchteten die Menschen noch Farben heraus, Ohren tonten. In der dritten Rasse fing die Fähigkeit an, Empfindung auszubilden. Von außen Empfindung aufzunehmen. Cis. G., Farbe. Sie leben ganz in der Gegenwart.
+
+Im Anfang der lemurischen Rasse haben wir den Ansatz zum Rückenmark – Nervenstrang und Ansatz zum Gehirn. Andere Körper gab es nicht. In der atlantischen Zeit setzt sich die Bildung fort, bis in der arischen sich das Vorderhin ausbildet – Denkerhirn.
+
+## Avatar:
+
+- der Fisch, weil der höchste Leiter sich nur in dem vorhandenen Körper inkarnieren konnte. Nervenstrang mit Ansatz . . wie beim Fisch.
+- Schildkröte: der Amphibialzustand;
+- der Ansatz des Gehirns am Nervenstrang vergrößert sich bis zum Übergang zum Säugetier, als dessen Repräsentant und Avatar der Bär ist; gedächtnismäßige Gelehrigkeit wie in der atlantischen Rasse, Vorstellungsmäßigkeit, ungetrübt durch das Denkbewusstsein, wie im Trance-Tanz.
+- Als Führer und Avatar aus der vierten in die fünfte Rasse der Mann, Löwe, mit dem Ansatz als Vorherhirn schon, als Denkhirn.
+
+## REINKARNATION UND KARMA
+
+### Undatierte Mitschrift aus dem Jahr 1904
+
+Wenn man die individuelle Entwicklung verfolgt, darf man sich nicht auf den Menschen beschränken, weil dessen Entwicklung nur ein Spezialfall in der ganzen Natur ist. Entwicklung ist der Wechsel von Tag und Nacht, alles was in der Zeit abläuft, Ebbe und Flut – überall in der leblosen Natur findet ein Ähnliches statt: Veränderungen im zeitlichen Geschehen. Was [in diesem Veränderlichen] bleibt, ist das Gesetz. Die Sonne steht im Frühling in einem gewissen Sternbild, dem des Widders – am 21. März. Sie war das Sinnbild des Logos – der Widder oder das Lamm ist deshalb das Zeichen des wiedererschienenen Sonnenlogos: das Lamm Gottes. Griechische Argonautensage: Heimholen des Widders, des Sonnengottes. Die Sonne befolgt dasselbe Gesetz. Was sich verändert, ist die Erscheinung und was die Erscheinung im selben rhythmischen Spiel sich wiederholen lässt, ist das Gesetz.
+
+Aber im gewissen Sinne ändert sich auch das Gesetz. Achthundert Jahre vor Christus fing die Sonne an, im Widder aufzugehen, früher im Stier; ganz langsam rückt sie weiter. Daher gab es bei den Ägyptern also den heiligen Stier ‹Apis›, auch bei den Persern. Solange sich die Sonne im Zeichen des Stiers bewegte, wurde sie so verehrt.
+
+Vorher ging die Sonne in den Zwillingen auf, und in uralten Völkern hören wir von ihrer Verehrung bei den Persern, auch bei den Urdeutschen. Ungefähr alle zweitausend Jahre rückt die Sonne ganz langsam vorwärts. Verhältnismäßig ist also das Gesetz dauernd, macht aber auch eine Entwicklung durch. Das Gesetz ist das Dauernde, [Lücke in der Mitschrift] das ewig Wechselnde sind die Erscheinungen.
+
+Rücken wir nun von der leblosen in die lebendige Natur. Die einzelne Pflanze stirbt immerfort, die Art geht aus dem Samen hervor. So wie in der leblosen Natur die Erscheinungen vorübergehen, und das Gesetz bleibt, so erhält sich in der lebendigen Natur die Art, und die Einzelwesen vergehen. Das gilt für die Pflanzen- und Tierwelt.
+
+---
+
+186
+187
+
+Aber auch hier bleibt die Art und ändert sich zugleich im Lauf der Zeit: Aus der Felsentaube hat sich die zahme Stadttauche entwickelt. Das Wesentliche der Art bleibt, aber es verändert sich etwas. Wodurch hat die Art diese Entwicklung durchgemacht? Durch die äußeren Lebensverhältnisse, in welche die Arten kommen. Die Wirkung des Äußeren auf das Innere verändert die Art. Alles dasjenige, was vorher als äußerliche Verhältnisse an ein Wesen herantritt, wird nachher ein Fortbildungsprozess im Wesen selbst. Die Höhlen von Kentucky nehmen dem Tiere das Augenlicht, das Tier nimmt die Finsternis auf.
+
+Die Sonne würde bleiben, wenn nicht andere mächtige Himmelskörper sie weiterziehen würden. Jedes Wesen nimmt auf und bildet sich danach fort. Jeder Fortbildungsprozess ist daher Wechselwirkung. Das Tier bildet sich so um, dass es sorgt für das nächste Geschlecht.
+
+Rücken wir zur Persönlichkeit hinauf. Sie ist imstande vorzustellen, kann daher in eine neue Art von Lebensverhältnissen kommen, geistige Eindrücke aufnehmen. Sie gerät in neue, in eine geistige Umgebung. Genau wie in der Art, wird in der Persönlichkeit durch die neuen geistigen Verhältnisse der Fortentwicklungsprozess gebildet. Die Persönlichkeit geht vorüber wie die Erscheinung und die Einzelwesen, und wie das Gesetz und die Art bleibt die Individualität. Es wäre ein Durchbrechen des Gesetzes, wäre es anders, und wir sehen so die Reinkarnation ein. Wie die Lebensverhältnisse auf die Art wirken, wird das Geistige von der Persönlichkeit von innen aufgenommen und entwickelt sich fort. Das ist die Übereinstimmung des Gesetzes der Reinkarnation mit dem der Erhaltung der Art und des Gesetzes.
+
+Wenn wir verfolgen die sich fortentwickelnde Art, beobachten wir die Anpassung an die äußeren Lebensverhältnisse, die dann vererbt wird. Anpassung und Vererbung sind die großen Gesetze, welche die lebendige Natur beherrschen. Alle Vererbung ist ein Übertragen erworbener Merkmale auf die Erben. Wenn ich die Kropftauche ansehe, werde ich sie nur verstehen, wenn ich auf die Vorfahren zurückgehe, indem ich die Ursachen suche, wodurch ihre Organe entstanden sind. Die gegenwärtigen Bildungen muss man in den Tätigkeiten verflossener Zeiten suchen. Was früher Tätigkeit ist, wird später Organ. Dasselbe geschieht auf geistigem Wege mit der Individualität. Sie passt sich an und vererbt auf den Nachfolger der Persönlichkeit die Individualität, was sie erworben hat auf geistigem Gebiet. Was durch Erfahrung aufgenommen ist, wird in dem Entwicklungsprozess weitergebracht.
+
+Nehmen wir die Bohne, sie entwickelt sich bis zum Keim, alles andere fällt ab, nur der kleine Teil bleibt, auch der stirbt ab, nur das Leben selbst mit der Art geht zur Nachkommen-Pflanze hinüber. Geblieben ist nur die Art, aber die Bohnenart selbst war, als sie Keim wurde, noch umgeben mit einem Teil von pflanzlicher Materie, der auch abfallen muss. Die ausgestaltete Pflanze ist die Art längst nicht mehr, sie hat aber etwas von den Hüllen, die der Keim hinüberretten muss. Erst wenn alles abgefallen, kann er neu entstehen. Es ist eine neue Inkarnation. Ganz wie in der Individualität, die mit allen Hüllen umgeben ist und sich nur inkarnieren kann, wenn alle Reste abgefallen sind. Der Mensch hat noch mehr Hüllen; die müssen dorthin zurückkehren, woher sie genommen sind. Dann ist sein Keim frei und ledig, in der Welt, in der allein er sich entwickeln kann – zu einem neuen Dasein. Der Mensch gehört der Erde an, ohne sie wär er nicht denkbar. Er kann nur unter diesem Luftdruck bestehen; das bezieht sich auch auf die geistigen Verhältnisse. Das kommt, weil er sich in diese Erde hineinentwickelt hat, in ihre physisch-astrale und mentale Sphäre, die ineinander getaucht sind. Aus diesen drei Kugeln ist der Mensch als Erdenmensch aufgebaut. Die Individualität selbst steckt erst im höheren Mentalen drin, dieses ist nicht an die Erde gebunden, gehört zur Sonnensphäre; darin ruht die Erde mit ihren drei Sphären, aber auch die Sonne und alle anderen Planeten. So bestehen wir aus einem Stoff noch, der sich nicht verändert, das ungeschriebene Blatt, in der die Erfahrungen eingetragen werden.
+
+Wir nennen die mentale Sphäre, insofern sie der Erde gehört, *Rupa*, geformt; die andere, die sich hinausstreckt *Arupa*, mental. Hierher gehört [die] Individualität]. Kinder der Sonne sind wir in gewisser Beziehung, deshalb nennen wir auch unsere Lehrer Sonnenkinder.
+
+---
+
+188
+So wie die Pflanze alle Stoffe, die sie genommen hat, um sich aufzubauen, langsam zurückgibt und nur behält, was Art ist, so behält der Mensch – Individualität – nur was Arupa, mental ist, um sich wieder zu inkarnieren. Arupa ist diejenige Region, die aus der Erde hinaus in das Allgemeine führt. Dann ist sie der befreite Schmetterling, der sich im Arupa-Mentalen frei ausbreiten kann, dann [Lücke in der Mitschrift] muss er zurückkehren, um neu zu erfahren.
+
+Der Mensch hat, wenn er sein Physisches abgegeben hat, auch dem Astralen das zurückzugeben, was von dort zu seinem Aufbau gedient hat, dann lebt er in Kamaloka.
+
+Was er lernt in diesem, wird Anlage, in Arupa muss es sich entwickeln, dann wird es zur vollen Entfaltung gelangen. Der Mensch ist nicht nur Erdenbürger, sondern Sonnenkind durch seine Zugehörigkeit zu der Sphäre. In der dritten Rasse wurde der Funke angezündet. Woher kam dieser Funke, den die Manasaputra brachten? Das erste Wissen war nicht irdisch gegeben, sondern von einem früheren Zustand herübergebracht; es ist etwas, was über die Wirkungssphäre hinausgeht; also bleibt es, wenn diese Wirkungen aufhören. Nur dadurch, dass der Mensch fähig ist, durch Arupa hindurchzugehen, wird er dauernd, sonst müsste er zerschellen. Aber ebenso ist die fortschreitende Entwicklung des Geistigen ein Gesetz, das für die Individualität gilt.
+
+Das Äußere wird zum Innern, was äußerlich erlebt ist, wird inneres Prinzip des Fortschritts. Was an die Individualität herantritt, wird inneres Gesetz. Der Strom des Makrokosmos fließt in das Einzelwesen hinein und wird dadurch Mikrokosmos. Veranlagungen sind Ergebnisse früherer Erfahrung: Unser Gewissen ist frühere Erfahrung. Genau wie in der Naturforschung müssen wir es erklären; das ist das Gesetz von Karma: Verursachung durch die verschiedenen Inkarnationen hindurch. Du hast die Ursache zu einer heutigen Anlage in früherer Tätigkeit zu suchen.
+
+Vedanta: Was du heute denkst, bist du [morgen].
+
+Reinkarnation heißt: Erhaltung des Geistigen in dem Körperlichen.
+
+Karma heißt: Was erst Tätigkeit ist, wird später Bildung oder Eigenschaft.
+
+189
+# WAS HAT DER MENSCH DAVON, DASS ER SEINE VERGANGENHEIT KENNT?
+
+Undatierte Mitschrift aus dem Jahr 1904
+
+Durch seine Vergangenheit lernt er seine Zukunft kennen. Er verbindet Vergangenheit mit Zukunft. Die Alten nannten den Tod den Bruder des Schlafs. Was wir heute sind, ist eine Fortsetzung des Gestrigen; der Schlaf verbindet, das Gestern ist Ursache für das Karma von heute. Der Mensch erhält sich, indem er an das Vorherige anknüpft. So ist es mit dem Menschengeschlecht. Wir lernen unsere Vergangenheit, um unsere Zukunft zu beherrschen; auch an der Zukunft lernen wir die Gegenwart kennen.
+
+Höher entwickelte Menschen wie Platon haben von den höheren Grundteilen mehr zur Offenbarung gebracht als die andern; was er war, müssen andere werden. Platon ist ein künstlicher Fünftrunder. Buddha, Christus, Zarathustra sind Sechstrunder. Auch sie entwickeln sich weiter. Am Ende der siebten Runde wird die Menschheit bei einem gewissen Grade harmonischer Entwicklung angelangt sein.
+
+Unharmonisch wurde die lunarische Epoche erst als neues Prinzip. So wird es auch am Ende der siebten Runde sein. Die Sünde ist nicht von Gott, sie ist durch das Gesetz in die Welt gekommen, aber das Gesetz ist von Gott, so Paulus. An Kama trat Manas heran, um es auf eine neue Stufe zu bringen. Kama musste sich hereinfügen, also gesägt und gefeilt werden, wie ein Rad für eine Uhr. Durch das Gesetz; Kama oder das Fleisch an sich waren gut. Am Ende unserer terrestrischen Epoche kommen die Erstlinge mit weit höherer Entwicklung als die harmonische der Massen. Dhyan Chohans nennt es die Theosophie.
+
+So war es am Ende der lunarischen Epoche: Die ersten Pitris waren so voraus und kamen hinüber, um in der Erdepoche eine über das Regelmäßige hinausgehende Entwicklung durchzumachen. Sie konnten erst dann eingreifen, als die Erdwesen etwas von Manas in sich verspüren konnten. Sie waren zuerst mit der Bildung der
+
+---
+
+Menschen tätig, um später von ihnen verstanden zu werden. [Zum Beispiel: Die] Elohim des Alten Testamentes, die erst verstanden wurden, als der Funken des Geistes in ihnen [, den Menschen,] erwacht war. Insbesondere konnten sie Jahve-Elohim, den Herrn der Form verstehen, der alles mit der physischen Hülle umkleidete.
+
+Die großen Lehrer, Söhne des Lichts, Manasaputras, waren so – lehrend – aufgetreten. In der Offenbarung kann alles nur in der Polarität, in zweifacher Gestalt auftreten; der Mensch muss durch Gegensätze begreifen; er genießt das Licht, wenn er den Schatten sieht. Auch hier trat die Polarität in Gott Michael – Jahve – und Luzifer entgegen. Jahve-Elohim und seine Gruppe ist bestimmt, des Menschen Intellekt auf das Äußere in der Form zu richten; die andere Gruppe richtet die Aufmerksamkeit mehr auf das rein Geistige, auf das Innere im Menschen. So erscheinen Gott und die Schlange in den Mythen als Gegensätze: Gott will die Liebe lehren; die Schlange will die Weisheit lehren. Gott will die Form lehren; die Schlange will das Leben lehren.
+
+Die Differenzierung in Vorstellung und Sinnlichkeit, in der Geschlechtlichkeit, die früher nicht dagewesen waren, traten nun auf. Damit auch die Sprache, als Ausdruck des Vorstellens.
+
+Sodass zweierlei Intelligenzen einwirkten: «Ihr sollt erkennen!», sprach Luzifer, und vermittelte die Sprache mit dem Denken. Er vermittelte das innere Leben. Jehova war der Gott der Form und Zeugung, auch der Liebe –, der die äußere Sinnlichkeit durch edlere Gefühle geheiligt hat. Du sollst mit Schmerzen Kinder gebären.
+
+Wir sehen also das Eingreifen höherer Intelligenzen in der Form des Gottes der Liebe und des Gottes der Weisheit. – Als die Liebe Persönlichkeit werden sollte in Jesus, musste der Schlange der Kopf zertreten werden.
+
+Wir haben also die drei Strömungen: Lunarische Pitris in Keimform, die belebt werden durch das Mineralreich und sich reif machen müssen, um den Einfluss der Elohim zu empfangen. Die Elohim haben die Aufgabe, zu führen bis zu diesem Punkt. Sodass in den drei ersten Runden die normalen Wesenheiten vorschreiben, bis sie reif sind, sich zu verbinden mit den Elohim und mit ihnen zusammen weiterzuschreiben.
+
+Was geschah, ist also, was geschildert wird als Fall in die Materie, als Sündenfall. Die Menschheit wurde der Sinnlichkeit erst gewahr, als sie da war, deshalb macht sie sich Kleider aus Blättern. Die Söhne der Form und Liebe und die der Weisheit führten nun die Menschen bis zur vierten Rasse, in der etwas Neues auftrat. Die Söhne der Weisheit haben mit Denken und Vorstellen zu tun; die Söhne der Liebe mit der Heiligung der menschlichen Sinnlichkeit. Das ist die größte Aufgabe, denn sie soll zur Göttlichkeit geführt werden. Schwierig ist es, weil in der Sinnlichkeit das Begehren, das Verlangen ist – also der Hang, innerhalb der Sinnlichkeit zu verbleiben. Erst war der Fall in die Materie; jetzt der Hang zu verbleiben, wenn er nicht hinaufgewiesen würde. Es war ein Opfer der Söhne des Lichts, Führer der Sinnlichkeit zu werden, ein größeres als Führer des Denkens zu werden. Die Söhne des Lichts werden allen Gefahren der Sinnlichkeit ausgesetzt; sie wurde immer verführerischer, je mehr sie sie entwickelten. Und es trat das Unterliegen eines Teils der Söhne des Lichts unter die Gewalt der Materie. Das führte zu den großen Katastrophen in der atlantischen Periode. Das ist das, was schwarze Magie genannt wird. Der zweite Fall ist es; die Gefahr wurde zum Fall für einen Teil der Söhne des Lichts: materielle Selbstsucht statt Führung aus der Materie. Sündflut – mythischer Bericht.
+
+Die Söhne des Lichts fanden die Erdentöchter schön: Dies Geschlecht musste unterliegen. Es wurde abgeworfen, was nicht mitzunehmen war. Und nun haben wir, was weiter kam; unsere Wilden sind die dekadenten Abkömmlinge jener alten Rassen, die umkamen. Innerhalb Asiens waren abgesondert diejenigen, die das Equilibrium behalten hatten und zur fünften Rasse schritten. Dieser kleine Teil ging nach Indien, teilweise nach Babylonien, Ägypten, Europa und so weiter.
+
+Was damals geschehen war, geschieht heute auf einer höheren Stufe des Bewusstseins. Heute kann nicht geographisch ein Landstrich – die Arche – abgesondert werden. Heute muss statt der räumlichen eine Absonderung des Denkens und der Gesinnung stattfinden.
+
+Auch von den zugrunde gegangenen Atlantiern können sich nun Individuen inkarnieren – nur ihre Kultur und ihr geographischer
+
+190
+191
+
+---
+
+Boden waren der Vernichtung anheimgefallen. Auch die Kultur der fünften Rasse, insofern sie schlecht wird, wird vernichtet werden. Ein Teil muss gesammelt werden, um den Grundstock zur sechsten Rasse zu bilden; verbunden durch das, was den Kern machen wird: die Liebe. Im Sinne der Liebe muss nun gesammelt werden, wir müssen bewusst tun, was früher unbewusst geschah – aus allen Völkern zur Bruderschaft heranrufend. Wir haben die hohe Aufgabe, für die sechste Rasse das zu sein, was früher für die fünfte getan war.
+
+Diejenigen, die ein Interesse für die künftige Kultur haben, arbeiten daran. Von den Früchten werden diejenigen auch genießen, die nichts für sie tun; hätten die untergegangenen Atlantier das gefunden, was sie gesät hatten, hätten sie eine Hölle vorgefunden; so auch würde die der fünften sie in der sechsten Rasse vorfinden, wenn wir nicht daran arbeiten würden, neues Karma für die sechste Rasse vorzubereiten. Was wir säen, werden wir ernten, auch in Bezug auf Rassenkarma.
+
+192
+
+# ARTEN, UM ZUM WISSEN UND WOLLEN ZU KOMMEN
+
+Berlin, vermutlich zwischen 16. und 25. Juni 1904
+
+Der Erfinder hat eine Idee – zum Beispiel der Uhr – im Kopf, dann sucht er Gerätschaften. Ist die Uhr fertig, so weiß er, wie sie gemacht wird, er hat Kenntnis der Uhr. Die Idee ist vorangegangen, [dem folgt] die Ausführung in physischer Tatsächlichkeit. Aus dem mentalen Plan wurde die Idee geschöpft, dann versetzt in den physischen Plan. Nehmen wir an, der Uhrmacher sei gestorben. Ein anderer, um die Uhr nachzumachen muss Stück für Stück nehmen und dann die Gesetze studieren, um andere zu formen. Also zuerst die Betrachtung, dann wird die Idee abgeleitet, um zu formen. Es gibt also zwei Arten, Erkenntnis zu schöpfen: wo die Idee originaliter liegt oder aus Betrachtung geschöpft wird.
+
+Im Kosmischen liegt allem die Idee zugrunde. *Mahat* nennen wir sie, den universellen Geist, nach dem alles Physische zusammengesetzt ist. Die Wesen, die anstelle des Uhrmachers sind, können noch nicht auf dem physischen Plan wirken. *Dhyanis*, sie haben die Ideen zum physischen Plan, sie würden andere unterrichten, so wie der Erfinder, wenn er nicht gleich gestorben wäre.
+
+Zweifache Art des Unterrichts: Ursprüngliche Art des Unterrichts, dass die rein geistigen Naturen – Dhyanis – die Ideen ins Mentale unmittelbar versetzen, der vorangehenden Rasse; ein Unterrichten durch unmittelbares Übertragen der Intuition. Die ersten Menschen wurden also so unterrichtet, wie man von den Schöpfern unterrichtet wird; später so wie von denen, die an Objekten des physischen Plans gelernt haben. Auch von dieser Art des unmittelbaren Einfließens ist ein Rest enthalten in der Natur. Wie heute der Biber baut, seinen Damm so anlegt, dass ein Ingenieur den Winkel mit aller Verstandeskunst nicht besser anlegen könnte. Der Biber hat diese Art der Aufnahme in degeneriertem Zustande.
+
+193
+
+---
+
+Es gab einen Zustand, wo die Menschen ebenso die Weisheit bekamen und sich ihre Baue zurechtlegten. Moeris-See, nicht mehr vorhanden, aber einst künstlich gebaut in Ägypten, mit einem Kanalisationssystem, wie es heute nicht erfunden werden könnte. Die Menschheit hat einst mehr gekonnt, aber auf andere Art, das sie nicht in mathematischen Formen in abstrakten, sondern in symbolischen Formen aufzeichnen konnten. Ein unmittelbares Einfließen des Mahat; ein Herausziehen aus dem physischen Plan Manas aus Mahat.
+
+Heute muss man sorgfältig berechnen, wie Balken gelegt werden sollen; damals tastete er an, konnte mehr tun in Bezug auf den Unterricht; die unmittelbare Telepathie von Mensch zu Mensch – ein Einströmen des Willens in die Zirbeldrüse. Bei alten Völkern noch ähnliche Einrichtungen, die sinnlos scheinen: [Couvade,] das Kindbett des Mannes. Meinung, dass dies für das Kind eine entsprechend günstige Bedeutung hat, stammt von der Zeit, in der die psychischen Kräfte noch lebhaft wirkten, sodass die psychischen Vorgänge von Seiten des Mannes ebenso wirkten wie die physischen von Seiten der Frau. [Couvade:] ein Ruhen, Konzentrieren der psychischen Kräfte des Vaters zum Wohle des Kindes.
+
+Es findet ein Abstieg statt, eine andere Art von Wissens- und Willensübertragung, und muss von unten herauf wieder erobert werden. Keine Aufnahme war damals von den Sinnen nötig, um Mahat aufzunehmen; der Führer der Rasse braucht also kein verfeinertes Verstandesorgan zu haben, sondern das dritte Auge. Dies ist die Organisation des Menschen-Löwen. Er ist mehr differenziert; Spiritualität einerseits, tierische Natur andererseits.
+
+Die Lehrart von unten beginnt – Spiritualität ist gröber geworden. Sie beginnt mit der Empfindung; Mahat fängt an von außen einzudringen. Durch die Sinne fließt der Weltverstand ein. Dadurch wird der äußere Eindruck für ihn ein Anlass, nachzudenken. Sein Verstand ist noch sehr gering, erste Regung; der Mensch, der auf der höchsten Stufe dann steht, der Führer, wird überall die Schrift des Weltengeistes lesen, Gedächtnis hat er aber noch nicht. Dieser zwerghafte Geist, der auf das Firmament blickt – der Astrologie aus den Empfindungseindrücken ableitet –, wird als Avatar, durch den
+
+Zwerg symbolisiert: erstes Anschauen von Mahat aus dem Verstand heraus. Man vergaß gleich, aber sah auf den Grund, nicht ergrübeln, erdenken, sondern anschauen.
+
+Astrologie und Alchemie, das Absehen vom Gegenstand, was er für Gesetze hat.
+
+1. Erst kommt also Mahat von außen durch die Empfindung, drinnen entwickelt.
+2. Durch die Vorstellung, wo er die Empfindung festhält, gedächtnismäßig; der Mensch wird Mahat erst empfangen, wenn er durch die Vorstellung an ihn herantritt.
+
+Das hat zwei Stufen, nämlich das Aufgehen von Mahat in der Vorstellung.
+
+Die Rama-Entwicklung: erstens den Rama des Mittelpunktes und zweitens den des entwickelten Vorstellungslebens.
+
+Das nächste ist, dass der Mensch schon Begriffe heranbildet.
+
+Zum Beispiel Tollkirschen, an der äußeren Erfahrung ist die Vorstellung herangebildet. Tollkirschen sind nicht essbar; Begriff: Wo solch ein Stoff ist, ist der Gegenstand nicht essbar.
+
+Avatar – Krishna, der die Welt mit Ideen erfüllt, die für den physischen Plan gelten, überall anwendbar sind, für ihn zugeschnitten, obgleich sie hoch über ihm schweben.
+
+Nachdem der Mensch bis zur Bildung der Ideen herangewachsen ist, offenbart sich wieder die Weisheit, der Urquell der Ideen, aus dem die Welt herausgeflossen ist. Er nimmt die Idee selbst wahr: Führer der Buddha, für eine Menschheit taugend, die ganz auf dem physischen Plan lebt, aber schon zur Spiritualität heransteigt.
+
+Mythologie, der Sternenhimmel vom Weisen angeschaut, bevölkert, verkommt zum Götzendienst und steigt auf der andern Seite als Ideenlehre auf.
+
+Reinheit der Bhagavad Gita, mit Idee erfüllt, die Mythologie verlassend, verkommt auf der einen Seite zum Mystizismus und steigt auf der andern Seite zur Weisheit auf, – niedersteigend zum vollkommenen Materialismus und Mechanismus, aufsteigend zum Christentum.
+
+---
+
+196
+197
+
+# UNTERSCHIEDE IM GEFÜGE DES GEISTES ZWISCHEN DEM ZWEITEN RAMA, KRISHNA UND BUDDHA
+
+Berlin, 25. Juni 1904
+
+Ein gewaltiger Unterschied ist zwischen dem Geistgefüge dieser drei. Den ersten Rama lassen wir aus, den der Axt, der esoterisch noch der atlantischen Rasse gehört. Dieser zweite Rama hat einen Buddha-Geist, der aber durch Manas, Weisheit, erscheint.
+
+Budhi ist Urquell der Weisheit, Offenbarung, Inspiration – einerlei, von wo es kommt. Denken wir uns einen Tropfen Quecksilber in schöner, geometrischer Figur. Quecksilber ist ihre Figur; wie sie angeordnet sind, ist ihre Form [Lücke in der Mitschrift]. So kann man Weisheit als ein Ganzes betrachten, aber angeordnet in den verschiedenen Systemen des Kosmos. Man könnte sein ganzes Wissen in einem Satz wissen, dann würde dieses synthetische Wissen Budhi sein und Manas d[Lücke in der Mitschrift].
+
+Manas ist Budhi in einer gewissen Anordnung.
+
+Nun nennt die christliche Esoterik die «Zusammenfassung» «das Wort» und die «Anordnung» den «Heiligen Geist». Die indische Esoterik nennt das Wort «Budhi» und den heiligen Geist «Manas».
+
+Legende: Das wussten alle Esoteriker, dass man das gesamte «Wissen» in eine «Wissenssonne» zusammenfassen könnte. Der Esoteriker hat das eine Wort, in dem alles zusammengedrängt liegt – alles Übrige leitet er aus diesem Wort. Der betreffende Inspirator, der einem Religionssystem zugrunde liegt, geht – immer der Legende nach – in den Tempel, um sich des Wortes zu bemächtigen. – Jesus drang in den Tempel ein, schnitt sich eine Wunde, ergriff das Wort, verbarg es in seinem Leib und übte nun das Wort aus. Dies ein Exempel.
+
+Denken wir uns das Bild des Quecksilbers. Die Kugel ist dasselbe wie die Tröpfchen, nur in Anordnung. Man kann sie auseinanderlegen – Budhi in Manas verteilt –, auch zusammenbringen.
+
+Denken wir das Wissen vom Kosmos als astrologisches Wissen ausgehändigt einem Wesen, sodass es imstande ist, den Weisheitsblick über die Welt zu erhalten. Ein solches Wesen ist Rama, welcher [das Wissen] noch in seiner synthetischen Einheit ausgehändigt bekommen [hat]. Er war gleichsam der Feldherr des Wissens.
+
+Denken wir, einer erhält das Wissen nicht als Einheit, sondern schon verteilt in der Welt, nicht mehr das Wort, sondern den heiligen Geist: Krishna. So auf das Einzelne bezüglich spricht auch Krishna in der Bhagavad Gita. Rama nicht als der große Eroberer der Welt, sanft an der Hand führend. Krishna ist schon der Lehrer.
+
+Gehen wir ein Stück weiter. Das Zerstreute wieder zusammenfassend. Die Einheit von oben zusammengefasst aus den Einzelheiten.
+
+Der Buddhismus ist geworden, indem auf einen Ausschnitt der Welt gezeigt ist: Das und das ist anwendbar darauf. Buddhismus ist zugeschnitten auf den Geist des indischen Volkes. Rama-Wissen ist zugeschnitten auf die ganze Welt.
+
+Das waren die Avataren der fünften Rasse. Wir haben das Budhi-Wissen charakterisiert. Buddha ist also der Budhi-Lehrer für Manas, für den heiligen Geist. Es handelt sich nun [darum], diese Lehre in den physischen Plan einzuführen. [Buddha] ist der von der Gottheit gesandte Lehrer. Soll eine Lehre in den physischen Plan, so muss aus dem Fühlen, Empfinden und kama-manasischen Denken des Volkes selbst entstehen; zum Beispiel Zoroaster, Hermes waren gesandt, nicht herausgewachsen. Einmal musste ein Volk seinen eigenen Inspirator haben, und das war nur möglich, wenn ein Chela wie Jesus von Nazareth [Lücke in der Mitschrift].
+
+Da haben wir das Wissen auf die einzelne Persönlichkeit zugeschnitten, die dadurch wieder international wird. Das gibt die kosmische Bedeutung des Christentums, er versuchte, dem Menschen als Menschen etwas zu geben. Er war deshalb nicht nur der «Weg» wie Krishna – Anordnung –, nicht «Wahrheit» wie Buddha – Zusammenfassung –, sondern das «Leben». Er hat deshalb nichts aufgeschrieben, er hat die Sachen gelebt, unabhängig von der nationalen Färbung, die in der Sprache gegeben wird. Vorbildliches Leben, Zentrum und Mittelpunkt für das neue Bekenntnis, das in dem Ihm-Gehören zu
+
+---
+
+suchen ist. Eine Versammlung der Bekenner um die Persönlichkeit ist nötig. Nicht nur verstehen muss ich, was er lehrt, sondern im Leben muss man in ihm vereinigt sein. Wir haben unsere Hände in seine Wunden gelegt [Lücke in der Mitschrift]
+
+Zeugnis legen die Jünger ab.
+
+Damit erklärt sich die mystische Vereinigung des Christus mit Jesus. Brüderlich vereinigt sein in Christus ist das Leben.
+
+Bei Buddha inkarnierten sich von Anfang an Budhi und Manas, und es kam auf die Persönlichkeit nicht an. Bei Christus Jesus kam die Persönlichkeit in mystischer Verknüpfung zur Geltung.
+
+Ein Körper von Persönlichkeiten wird auch die christliche Vereinigung, in der sich Christus inkarniert. Auf dem Devachanplan nach indischem Zuschnitt findet man nicht die Christusfigur, die sich drei Jahre inkarniert hat. Es gibt noch einen anderen Plan. [Lücke in der Mitschrift]
+
+Es liegt hinter der kirchlichen Gemeinschaft der fortlaufend inkarnierte Christus, unser Maitreya, nicht in menschlicher Gestalt, sondern in uns. Den Christen heiligend, ohne dass er etwas von der Inkarnation wusste, kein persönlicher Avatar, sondern sich auslebend in der Christenheit und in allem, was von ihr bewirkt wird. Maitreya – zehnter Avatar – wird von den Indern noch erwartet, von den Christen als ihr mystischer Bruder immer verehrt. Deshalb tötet der Buddhismus die Persönlichkeit ab, [der Buddhist] wird Asket. Das Christentum hebt die Persönlichkeit hinauf, erfüllt, was der Grieche träumte, das irdische Paradies.
+
+Einzelne Christen sind wie die Zellen, deshalb der Ausgleich durch Heilige, die da büßen für Verbrecher. Deshalb ist die Kirche die Substanz, der Körper für den Maitreya Jesus von Nazareth, der verstand; immer inkarniert, um das Richtige zu vollbringen. – Der Christus – die Seele.
+
+Erst in der sechsten Rasse wird der Christus wirklich seine äußere Gestalt bekommen; alle so vereinigt, dass der Einzelne nicht trennt sein Wohl von dem der Gesamtheit.
+
+Wenn wir Sonderheit und Vereinigung nun betrachten, müssen wir es im Gegensatz zur früheren Einheit. Die jetzigen Vereinigungen
+
+gen werden etwas darstellen, wo die einzelnen Glieder sind –, das Ziel ist die Seele.
+
+Das Christentum soll diese Brüderschaft anstreben. Die weißen Logen sind vorgeschobene Posten, verschiedene Aufgaben sich stellend, aber zusammenwirkend. Sie sind die Kerne, um die sich die Einzelnen gruppieren. Am Ende unserer planetarischen Entwicklung werden sieben solche Logen sein, mit einem Ziele, harmonisch. Diese Kerne bleiben, gehen durch ein Pralaya durch und erscheinen als die sieben führenden Geister der künftigen Entwicklung. Diese nennt die hebräische Lehre ›Elohim‹, und der eine ist ›Jahve‹ – Herr der Form.
+
+So ist im Christentum nicht eine nationale Gottheit verkörpert, sondern eine vereinigende, die hinführt zur neuen Entwicklung. Es gibt den Wendepunkt an, hinunter in die physische Entwicklung und wieder hinauf – hat deshalb eine kosmische Bedeutung –, enthält die Lehren der andern alle, kann aber nur in seinem Zusammenhang mit dem Kosmos verstanden werden.
+
+---
+
+200
+201
+
+# ÜBER DIE ATLANTISCHE KULTUR
+
+Berlin, 26. Juni 1904
+
+Nichts in der Welt ist zufällig, sondern jedes Zeitalter, jedes Volk, jeder Mensch hat bestimmte Aufgaben. Die jetzige Wurzelrasse hat die Aufgabe, den menschlichen Verstand auszubilden und alles, was mit ihm zusammenhängt: Rechnen, Maschinen bauen.
+
+Der Verstand hängt im Wesentlichen an der Persönlichkeit. In früheren Wurzelrassen kam es auf etwas anderes an, selbst noch bei den ägyptischen Pyramiden, zu deren Bau Menschen ihr ganzes Leben hinopferten. Fest überzeugt waren sie von der Reinkarnation. Und unter diesem festen Glauben tat der Arbeiter willig alles das, was ihm oblag. Das war den Anfängen der Wurzelrasse noch aus früherer Zeit geblieben.
+
+So lang die Individualität [noch nicht] im Vordergrund war, brauchte man andere Religionsformen, und andere Kulturen waren zu finden. Die jetzige Wurzelrasse mit der Kultur des Verstandes der Persönlichkeit reicht bis vor zehntausend Jahre zurück.
+
+Die erste Unterrasse war die, die sich auf der indischen Halbinsel niedergelassen hatte. Die zweite Rasse in Persien verbreitete sich über die Erde. Die dritte war die ägyptische. Die vierte, die römische, nahm das Christentum auf. Die fünfte ist die germanisch-angelsächsische, die sechste wird die slawische und die siebente wird die amerikanische sein. Diese wird ein Reich gründen, das die ganze Erde umfassen wird, aber kurze Dauer haben wird und wie Chinesen [Lücke in der Mitschrift]
+
+Die atlantische Kultur, die voranging, war ganz anders. Die hauptsächlichste Stätte war auf dem Boden des jetzigen atlantischen Ozeans, aber dehnte sich weiter aus über andere Gebiete.
+
+Man muss sich total verschieden die atlantischen Menschen vorstellen von uns.
+
+Erster Atlantier vor zirka einer Million von Jahren, hatte Verstand noch gar nicht, aber sehr ausgebildet das Gedächtnis. Wenn eine
+
+Fähigkeit besonders in den Vordergrund tritt, treten andere zurück. Weil bei fortschreitender Entwicklung die kombinierende Verstandestätigkeit hervortreten musste, trat da Gedächtnis zurück.
+
+Er hatte keine Regel, aber das Bild, das hervortrat im Gedanken, war das Maßgebende. In charakteristischen Bildern erzählte man Menschen Wichtiges, das begegnen könnte, nicht Regeln. Deshalb waren sie sehr konservativ. Ein junger Mensch hatte nicht zu hoher Stellung kommen können, weil man viele Erfahrungen hinter sich haben musste. Alles, was wir ähnlich einem Areopag haben, stammt noch von der Atlantis.
+
+Alle Kräfte, die der Natur näher waren, wie bei Unentwickelten. Sie konnten zum Beispiel Lebenskraft oder Pflanzensamenkraft benutzen. Kohlen enthalten Wärme aufgespeichert, die man in Lokomotiven hineinheizt. Ebenso wie Dampfwärme sich in Fortbewegungskraft versetzt, so kann man aus Haufen von Getreidekörnern die Kraft herauskriegen. So hatte der Atlantier eine kleine Art von Luftschiffen, die die umgewandelte Vrilkraft als Fortbewegungskraft hatten.
+
+Dieser Einrichtung kam der Umstand zugute, dass die Wasser dünner waren und die Luft dicker. Pflanzen wurden gepflanzt, wie heute Kohlengruben angelegt werden, um dem Verkehr zu dienen. Menschen und Tiere, die sich mit dünnerem Wasser nähren, haben ganz andere Organ naturen. Er konnte durch seine Willkür seine Kraft erhöhen. Wasser war mehr verwandt zu seiner Willenskraft. Er hatte den Organismus mehr in der Hand.
+
+Bei den Städten machten sie keine Pläne, kombinierenden Verstand hatten sie nicht. Sie säten Bäume in einer Ellipse; die wuchsen schneller. Früchte außen – Wohnungen innen. Das war die erste atlantische Zeit bis vor sechshunderttausend Jahren.
+
+Die erste Rasse der Rmoahals, die waren so; dann nähern sie sich der jetzigen Rasse. Aber noch die zweite Rasse der Tlavatli und die dritte der Tolteken waren ähnlich. In der dritten Rasse setzten sich Keime der Verstandestätigkeit an. Die Völker waren sehr gehorsam, das nahm bei den Turaniern ab. Die waren die berüchtigten schwarzen Zauberer der Atlantis. Sie waren auch große Techniker, machten
+
+---
+
+keine großen Pläne, hatten aber die Sache im Griff; sie wussten, wenn sie Fels herausschlugen, wie viel er tragen konnte. Alles beruhte auf persönlicher Geschicklichkeit. Dies notierten sie sich dann in symbolischen Zeichnungen. Viele Geheimnisse wurden verraten, die Sittlichkeit fiel, der Untergang war heraufbeschworen. Nur noch gerettet durch die Ursemiten, die waren die fünfte Unterrasse. Es war ein Rechner- und Handelsvolk, aus der die ganze jetzige Wurzelrasse heraus gewachsen ist. Es waren die grundlegenden Kombinierer.
+
+Dann sechstens, die Akkadier, das eigentlich kolonisatorische Volk. Sie sind zum Beispiel nach Irland gegangen, wo vor der keltischen noch diese hochentwickelte akkadische Kultur geblüht hatte. Siebtens: Die Mongolen, die natürlich überlebten.
+
+Dann kommen wir zurück zu Katastrophen. Bei den Atlantiern: Überflutung durch Wasser. Den Rmoahals ging die Zerstörung durch Feuer voran, also bei den Lemuriern – Australien und benachbarte Gebieten. Wir müssen genau unterscheiden zwischen den ersten Lemuriern und den zweiten; im ganzen auch eine Million Jahre. Erst von der Mitte der lemurischen Rasse gibt es zwei Geschlechter. Den Geschlechtslosen nennt die Urlehre Adam Kadmon. Die hatten nicht Gedächtnis, sondern Vorstellungskraft. Der Lemurier hat das Bild noch nicht behalten können, es ist bald verflogen. Daher haben dekadente Lemurier in Australien noch kein Gedächtnis. Die Vorstellungskraft war aber viel lebhafter. Zum Beispiel Unterschied zwischen Wärme und Kälte.
+
+In dieser Zeit waren die Elemente noch nicht so differenziert wie jetzt. Das Meer war ausgefüllt wie mit ziehenden Nebeln. Dichtere und dünnere Nebel gab es, aber noch nicht Wasser und Luft geschieden.
+
+202
+
+# ÜBER DIE ATLANTIS
+
+Berlin, 27. Juni 1904
+
+Die grünen Teile = Überreste des lemurischen Kontinentes. Auf der Erde ist alles in Entwicklung. Wir würden in Lemurien eine ganz andere Konfiguration der Erde antreffen; eine viel höhere Temperatur. Alles, was heute fest ist, würden wir dann in flüssigem Zustand finden. Metalle würden rinnen. Diese Temperatur denken wir uns als unschädlich für ihre Wesenheiten. Die lemurischen Kontinent-Teile waren ganz anderer Natur, nicht hervorragend aus dem flüssigen Elemente, sondern leicht flüssige Teile in einem Feuermeere, und erst bei Abkühlung wurde dieses Feuer den festeren Teilen gefährlich. Die Zerstörung geschah dadurch, dass das übrige Feuer den abgekühlten Teilen gefährlich wurde. Das Feuer war, was die Lemurier benutzten, um alles zu formen; ein feiner Ätherstoff war rund um die feurig-flüssige Masse, in der die Kontinente schwammen; die Menschen waren wolkenartig feurig-flutende Gestalten.
+
+Wie die Differenzierung eintrat, wurde das Feuer in Feuerbecken gebannt, die Menschen konnten mit Feuerkraft arbeiten, kamen bis zur schwarzen Magie und gingen durch das Feuer unter. Vor ungefähr einer Million Jahren war mehr Differenzierung.
+
+Das Rote waren weiche Massen, wachsartigere Kontinente; die Luft war viel dichter als heute; das Wasser viel dünner, noch verwandt mit dem, was wir das Element nennen, aus dem das Leben mit der Form entstanden ist [...]. Noch verwandter mit dem Wässrigen in den Pflanzen, sodass die Menschen verwandter waren mit dem, was sie umgab. Die Luft konnten sie noch nicht so leicht durchdringen; das Wasser viel dünner, wie heutiger Nebel, ihnen verwandter. In diesem verdünnten Wasser war mehr Lebenskraft als in dem heutigen dichteren mehr differenzierten. Die Menschen, [unleserlich] diese Verwandtschaft, fühlten sich viel ähnlicher den Elementen. Die Folge war, dass sie benutzen konnten die in ihnen enthaltene Kraft. Beispiel der Lokomotive mit mineralischer Dampf-Fortbewegungskraft.
+
+203
+
+---
+
+Samenkörner haben ähnliche aufgespeicherte Kraft wie die Kohlen. Der heutige Mensch kann sie nicht umwandeln in fortbewegende Kraft; der Atlantier war imstande, seine Bewegungsmaschinen mit Samenkraft zu versorgen.
+
+Die wenigen Pflanzenarten kreuzte er, um die Kraft zu verwenden, und hat durch geschickte Kreuzungsversuche die vielen Sorten von Pflanzen und Tieren hervorgebracht. Hier liegt der Unterschied zu der Darwin’schen Theorie. Kein Wissenschaftler will leugnen, dass diese vielen Arten aus wenigen hervorgegangen sind; nur sind alle Hypothesen in die Brüche gegangen, wie ‚Kampf ums Dasein‘, ‚geschlechtliche Zuchtwahl‘, weil die Wissenschaft vor der Tatsache steht, dass der Mensch selbst der Züchter ist.
+
+Der Atlantier war ausgerüstet mit der Samenkraft, Vril. Die vierte Wurzelrasse hat den Plan des Lebens zu ihrer Verfügung gehabt und mit der Samenkraft alles beherrscht; die fünfte Wurzelrasse kann nur mineralische Kraft anwenden. Der Atlantier hatte die kleinen Luftschiffe, die er mit der Samenkraft heizte, sie bewegten sich in der dichten Luft, nah dem Erdboden, und steuerten über die Berge. Das Wasser war dünner und wurde daher zu schönen Künsten verwandt, namentlich in der Stadt der goldenen Tore.
+
+Innerhalb der Wurzelrasse sind sieben Unterrassen, die Wanderungen durchmachten. Zuerst die ursprüngliche Völkerschaft.
+
+Rmoahals, Menschen, welche noch sehr den letzten Lemuriern ähnlich waren, mit ziemlich physischer Organisation, die in der Natur selbst leben. Ihre Nachkommen, die Tlavatli-Völker, organisierten sich herauf, das tonangebende Element des Atlantier, das Gedächtnis zu entwickeln, das seinen ersten Höhepunkt in der dritten Rasse, bei den Tolteken fand. Sie hatten Städte, die ganz erbaut waren nach dem Prinzip der intuitiven Baukunst – wie heute degeneriert beim Biber.
+
+Ein Fels, ein Naturgarten wurden gleichsam fortgesetzt in den Bauten. Ganz im Bunde mit der Natur machten sie märchenhaft schöne Wohnungen; das Kanalisierungssystem war großartig, Reinlichkeit größer.
+
+Allmählich hatten diese Völker eine immer höher geartete Weise
+
+ausgebildet. Die Söhne des Feuernebels waren herangewachsen zu Adepten mit Adepten-Schulen, die Herrscher waren aus den Adepten selbst genommen. Es war unmöglich, dass sie unwürdig waren, weil die Menschen wussten, durch die Wahl der entsprechenden Eltern die Vererbung zu regeln. Dieses Geheimnis, das Geheimnis der Geburt, ging fast ganz verloren. Alles war auf das Gedächtnis gebaut, es reichte hinaus über das, was sie zwischen Geburt und Tod erlebten. Es war selbstverständlich, dass der Sohn mit Vater, Großvater und so weiter ein gemeinsames Gedächtnis hatte, sodass sie durch Intuition, das Wissen und die Künste der Väter beherrschten. Es kam also mehr auf Züchtung als auf Erziehung an. Alles Können war daher mehr ein Probieren als ein Studieren. Daher auch andere Schulen: mehr Werkstätten, wo man Handgriffe lernte. Von Zählen war nicht die Rede, sondern die Menschen merkten es sich, erinnerten sich. [Niemand war gebildet; niemand hatte nicht angeben können, wie seine Ahnenreihe ausgesehen hatte.] Die Tempel waren Ahnentempel, der spätere Ahnenkultur ist eine Degeneration dieser auf das Gedächtnis aufgebauten Ahnenkultur. Geschichte wurde in Symbolen aufgezeichnet, bis zur Mitte der dritten Rasse war die Beherrschung der Vrilkraft streng von den Adepten in Händen gehalten, sie verstanden die Symbole, die man erst lernen musste.
+
+Die vierte Rasse, die Urturanier, war die erste, die heruntergekommen war. Sie entrissen das Geheimnis der Vrilkraft und wurden schwarze Magier.
+
+In der fünften Rasse erste Ankündigung des Denkens, Kombinierens: Urisraeliten. Sie blieben vermengt zwischen der sechsten und siebten Rasse; sie waren die Stammrasse der heutigen arischen Wurzelrasse, hinüberbringend die Gedächtniskraft und hinzufügend das Kombinieren.
+
+Die sechste Rasse war die der Akkadier, mehr gen Asien hin. Es war das Volk, das schon im Sinne praktischer Unternehmung die kombinierende rechnerische Tätigkeit verstand. Handelsvolk. Sie sind diejenigen, die etwas von dem gebracht haben, was es früher nicht gab: Die Urjurisprudenz, also Regeln der gegenseitigen Beziehungen der Menschen.
+
+---
+
+Die siebte Unterrasse, die Mongolen, haben das atmische Prinzip der Einheit in religiöser Beziehung verwirklicht. Die andern sahen hinauf zum Sternenhimmel und hatten in der Sternenkraft ihr Göttliches. Die Tolteken hatten die Vrilkraft als Göttliches empfunden, dann verstandesmäßig ausgearbeitet, bis sie bei den Mongolen als ‚Tao‘ angebetet wurde.
+
+Die Griechen in ihrer Tradition haben manches zum Ausdruck gebracht. Drei Typen in den Götterbildern:
+
+- der Zeustypus, derjenige der fünften Wurzelrasse,
+- davon unterscheidet sich der Satyr, Faunkreis, verwandt mit den urägyptischen Mumien im Gesicht, darstellend die Erinnerung an atlantischen Typus. Satyr – ostwärts = Faun: Westwärts lebenden Völker zur Erinnerung bringend.
+- Hermes: Gott der Kaufleute, alles bei sich tragend, was tonangebend war bei den Atlantiern: die Schlange als Symbol der heilenden Vrilkraft, Gott der Ärzte. Flügel wiesen auf innige Verwandtschaft mit der Natur hin; beflügelter Gott, der die Flut überlebt.
+
+Sodass in den drei Typen wirklich historische Dokumente sind. Die griechische Mythologie, verwandt mit griechischer Esoterik: der ägyptische Hermes, in Ägypten hatten sich die Adepten zurückgezogen – und die großen Künstler der Atlantier verwandt; unter dem Namen Hermes fassten sie zusammen ihr Adepten-Wissen. Daher die Verwandtschaft des esoterischen Hermes und des Handelsgottes.
+
+Nun kam die Zeit ähnlich wie in der lemurischen. Die Kontinente verdichteten sich, die Turanier-Künste mit der Vrilkraft zogen heran Wasser, sodass durch seine eigene Kraft die Kontinente erschütterten. Durch Verdichtung des Wassers war es nicht möglich, das Wasser an seinen Punkten festzuhalten; die bösen Künste, das Böse waren das Ferment des Fortschritts. Durch Überhandnehmen des Unfugs verdichtete sich das Meer. Die herausgezogene Lebenskraft, wodurch die Moleküle auseinandergedrängt wurden, bewirkte den Gegenpol, die Kraft über dem verdichteten Meer ging verloren. Sie zogen selbst heraus die Kraft, die das Meer zusammengehalten hatte.
+
+Die Lebenskraft in den Pflanzen des Atlantiers stand noch im Konnex mit der Lebenskraft des Atlantiers selbst; wenn er Veränderungen vornahm mit sich selbst, konnte er hervorrufen, dass die Pflanzen langsamer oder schneller wuchsen.
+
+So müssen wir unsere Vorstellungen verändern, um den Begriff der Entwicklung zu haben.
+
+---
+
+208
+209
+
+# ÜBER LEMURIEN
+
+Berlin, 28. Juni 1904
+
+Der Anfang der lemurischen Rasse ist im Prinzip verschieden von dem, was heute Mensch genannt wird. Diese Menschen werden von einer ganz anderen Seite beeinflusst, als es am Ende der Fall ist. Es waren Wesen, die unfähig waren, einen Licht- und Farbeneindruck aufzunehmen, nur fähig, Temperaturunterschiede wahrzunehmen. Eine Haut hatten diese Wesen nicht, wie Wesen, die in einem Wasserreservoir schwimmen und etwas dichtere Quellart haben; empfinden darin dichtere und dünnere Partien, kühlere und wärmere. Pitriartiges seelisches Wesen, das aus der umgebenden neblig-wässrigen Masse – die Pitris, die früher astralisch waren, werden physisch in diesem Feuernebel – sich seinen Körper bildet. Quellig, quallig, ändernd in anderer Temperatur, ein Selbstgeborener. Diese Pitris haben das Schöpferische, das materialisiert, und das Materielle, den Feuernebel; das Licht, das von innen strahlt, und das Dunkle, das von außen herangezogen wird: Söhne des Zwielichts.
+
+Diese Nebelmassen sind fortwährend veränderlich wie Wolken, Fetzen reißen ab, nehmen zu. Der Pitri bekommt Tendenz, immer klarere und schärfere Umrisse seiner Materie zu geben [Lücke in der Mitschrift]. Vorher war ihm die Form gleichgültig, jetzt liebt er sie, behält sie bei, und wenn sie sich auflöst, bildet er sie neu.
+
+1. Die arupischen
+2. Die rupischen Nebelgeborenen – Schweißgeborenen
+3. Zustand unterscheidet sich von dem zweiten dadurch, dass Pitri die Materie, früher gewonnene Gestalt, noch dichter gestaltet, und durch Abschnürung eine andere aus sich hervorgehen lässt: Ei-Geborene.
+
+Die dritte mannweibliche Unterrasse: Adam Kadmon.
+
+Jetzt tritt zum ersten Mal auf, dass etwas von innen im Menschen vorgeht; in sich selbst ein Zentrum geschaffen. Erster Ansatz des Nervensystems. Wir haben nunmehr eine bestimmte Gestalt schon.
+
+Jetzt ist erst ein menschliches Individuum da, das menschliche Prinzip ist in die Materie eingezogen. Jetzt kommen die Söhne des Lichts und Feuernebels und ergreifen Besitz von diesen noch sehr feinen Körpern und strahlen das helle Geisteslicht zum ersten Mal aus sich heraus: Arhats, die ersten großen Lehrer der Menschen.
+
+Solche waren da, die nicht bewohnt werden konnten durch Adepten, sondern entwickelt. Das Gehirn wird so weit ausgebildet, dass es schon spiegeln kann das Geistige, aber nicht erkennen; es bleibt dumpf in ihnen; Menschen mit traumartigem Bewusstsein, denen das Höchste geboten wird.
+
+Eine dritte Art kommt nicht einmal so weit. Diese nennt man amanasisch. Die menschlichen Pitris sind da, wartend, sich zu verkörpern. – Die oben beschriebenen Schatten, Menschenschablonen, Elementarwesen waren makrokosmische Pitris. – Hinein gehen die solarischen [unleserlich]. «In die amanasischen Menschen verkörpern wir uns nicht», sagen die Pitris.
+
+Dadurch, dass ein Zentrum geschaffen, der Ruck in die dichtere Materie gegangen ist, kann die Losschnürung nicht mehr stattfinden. Die Stumpfsinnigen und Traumsinnigen müssen vollkommener werden; es gibt keine Fortpflanzung. Das sind schon die drei unteren Reiche, Tiere die schon entwickelt waren:
+
+Die Wurzelrasse der Adepten,
+- Traumsinnige
+- Stumpfsinnige
+- Tiere.
+
+Nun soll sich das Gehirn so entwickeln, dass die Pitris hineinkommen. Da vermischt sich der amanasische Mensch mit dem Tier und verunreinigt die menschliche Natur. Er nimmt etwas auf, was er sich vom Tierischen holt, was nicht zum Menschlichen gehört. Die Schuld.
+
+So entsteht die Zweigeschlechtlichkeit. Die Differenzierung entsteht und die Fortpflanzung. Auf der einen Seite spaltet sich das menschliche Zweigeschlechtliche ab, auf der andern das tierische Zweigeschlechtliche. So entstanden die Menschen, die das Gehirn entwickelten und das Tierische aufnahmen, das zum Geschlechtlichen wurde.
+
+---
+
+Hätten sich die Pitris inkarniert in den Traumbewussten, hätte jedes die Fähigkeit, Pitri aufzunehmen, in seiner ganzen Natur. Aber es wäre keine freie Selbstbestimmung da.
+
+Jetzt ist einer entstanden, der nicht den ganzen Pitri aufnehmen kann; die Kraft des Pitri reicht weit über den Menschen hinaus, nur ein Teil kann zur Darstellung gebracht werden. Der Pitri will sich hell ausleben, nicht traumartig, aber er kann es nur in vielen Inkarnationen. Der verdichtete, sündhaft gewordene Körper konnte nicht auf einmal im Pitri aufgehen. Wir nähern uns dem Ende der lemurischen Rasse. Pitri ist verkörpert, nicht imstande sein völliges Genüge räumlich und zeitlich zu finden.
+
+Nun gab es eine Blase im Körper – Atmungsorgan –, sodass der Mensch sich in Verbindung mit der Luft setzen kann, die jetzt entstanden ist. Der Wasserdampf war immer dichter geworden und hatte sich endlich als Wasser von der nun dünner gewordenen Luft gesondert. Lungenmenschen treten auf, und eine Menge Tiere, die früher nur im Wasser gelebt haben, werden nun Luftbewohner: Vögel. Dadurch, dass sie [Wärme] im Innern brauchen, ziehen die Menschen die Kraft des Feuers in sich, und es entsteht das Zirkulationssystem; Organwärme entsteht, und indem er innen sein Herz entwickelt, schafft er das Feuer außen, das ihn selbst verzehrt, und in welchem der lemurische Kontinent untergeht. Die kamische Kraft, die vom Menschen angewendet wurde, zündete die feinere Luft an.
+
+210
+
+# DIE FÜNFTE WURZELRASSE DAS FEUER
+
+Berlin, 29. Juni 1904
+
+Wir wissen, dass die Materie unseres Erdballs sich allmählich verdichtet hat und dass die Stoffe, die wir heute haben, nicht die wirklichen sind. Die Zustände, die im Laufe der Zeiten durch Differenzierung entstanden, sind anders als die früheren. Während der ersten Rasse gab es einen Stoffzustand, der viel dünner war als unsere heutige Luft und den man in der okkulten Sprache als Äther bezeichnet; während der zweiten Rasse erhalten wir einen Zustand, der schon unserer heutigen Erde insofern entspricht, als er ähnlich ist dem, was wir als Dampf bezeichnen; bei der dritten Rasse entsteht ein Zustand, der in der Mitte liegt zwischen Festem und Flüssigem; er ist koaguliertem Eiweiß gleich; es ist eine Quellmaterie, wie wir sie heute in niederen Tierformen finden. Der Stoffzustand während der vierten Rasse ist noch etwas dichter und ist schwieriger zu beschreiben, weil er seither eine viel größere Verdichtung erfahren hat. In jedem verdichteten Stoffe liegt aber alles andere latent. Eine solche latente Kraft war während dieser Zeit, die Samenkraft, mit der der Atlantier alles verrichten konnte, und die er als ‚Tao‘ bezeichnete. Bei dem Grade von Verdichtung aber, die während der fünften Wurzelrasse erreicht wurde, trat eine andere Kraft ins Spiel, die früher nicht hat herausgeschlagen werden können, nämlich das Feuer. Daher ist für die fünfte Rasse die wichtigste Erfindung diejenige des Feuers, und daher sagt die Prometheus-Sage, dass Prometheus das Feuer von den Göttern stiehlt, dass er das okkulte Feuer offenbar gemacht hat. Dies ist das Licht, das ausgegossen wird über die Grundstruktur der Zivilisation der fünften Rasse. Wirksamer, heiliger als das aus der mineralischen Welt herausgezogene Feuer, wurde das aufgefangene Naturfeuer betrachtet. Diese Anschauung führte zum Feuerdienst des Zarathustra, zum Vestadienst. Dieses Feuer durfte, wie bekannt, wenn einmal angezündet, nie ausgehen.
+
+211
+
+---
+
+212
+213
+
+Das Geheimnis der vierten Rasse, die Anwendung der Samenkraft, auch Vrilkraft genannt, ging verloren mit der zu Ende gegangenen Kultur der Atlantier. Die überlebenden Initiierten wählten namentlich aus der fünften Unterrasse, den Urhebräern, ein gewisses Geschlecht, sonderten sie aus und brachten sie unter der Führung des Manu in die Wüste Gobi. Sie wirkten zunächst auf die Veredelung des Körpers, welcher fähig werden musste, das Gedankliche aufzunehmen. Damit aber der Gedanke den Charakter des Spirituellen trüge, mussten reine Körper gezüchtet werden, indem aus der kamischen Kraft alles herausgemerzt wurde, was unmittelbar mit der Lebenskraft in Verbindung stand. Alles, was mit dem Geschlechtlichen zusammenhing, durfte nicht als Nahrung genossen werden. Ausgewählt wurden alle diejenigen Stoffe, welche nur lebendige Nährstoffe waren und die keine Abfallprodukte lieferten. Nur solche Nährstoffe wurden genommen, die keine Ausscheidung gaben: im Tierreiche gar nichts; im Pflanzenreiche nur das, was aufbauend wirkte.
+
+Es war nur eine äußerliche primitive Kultur damals geschaffen, da sie nur das Wenige hervorbringen musste, was die Menschen genossen. – Heute wird unsägliche Gedanken-, Seelen- und physische Kraft dazu verwendet, um die Menschen zu nähren. Als Schlacke und abgebrauchtes Produkt wird sie abgeworfen in das, was man die achte Sphäre nennt. Die stärkste mentale Kraft wird in den Dienst der Schlacken gestellt. – Der Drang der Stammrasse war darauf gerichtet, das Spirituelle zu entwickeln. Das Physische zu versorgen, bedeutet: Kraft dem Spirituellen entziehen. So aber wurde ungeheure Kraft akkumuliert zum spirituellen Leben, und es strömte in der indo-arischen Unterrasse noch vollständig aus. Sie hatte es noch nicht nötig, aus der dicht gewordenen Materie das Feuer herauszuziehen, und verehrte den Geist spirituell. – Nun achtet der Mensch in solchem Zustande die Vrilkraft besonders hoch und weiß, dass er, psychisch wenigstens, die Kräfte erzeugen soll, die mit der Vrilkraft in Zusammenhang stehen.
+
+Es ist nun ein wichtiges okkultes Gesetz: Du entziehst Dir selbst so viel an Vrilkraft, als du Vrilkraft zerstörst. – Mit jedem getöteten Wesen, gleichviel, ob es das armseligste Insekt ist, entzieht sich
+
+der Mensch so viel Vrilkraft, als er tötet. Daher ist die Zerstörung des Lebens in der fünften Rasse ebenso ein Mittel, zur schwarzen Magie zu gelangen, wie die Pflege der Vrilkraft in der Turanischen. Der Schmerz erhöht die Lebenskraft außer mir und stumpft sie ab in mir. Daher tötet der schwarze Magier in sich die Lebensvrilkraft: Er entzieht sich so viel vom Tao, dass in ihm das Entgegengesetzte erweckt wird. – Dadurch dass ich mir die helle Vrilkraft entziehe, setze ich mich in Beziehung mit der unteren Kraft des Feuers, die in der dichtgewordenen Materie schlummert. Dies ist ein okkulter Vorgang in der fünften Wurzelrasse, dass sie durch Tötung – wie bei den Jagdvläkern – sich niedriger macht und die Feuerkraft wachruft. Für diese okkulte Tatsache haben die Religionen ein Symbol geschaffen, das Tieropfer; ein Symbol der Wahrheit, dass das Feuer, das auf dem Altar entzündet wird, verbrennt, was in der vierten Rasse das Tonangebende war, nämlich das Leben. – Der schwarze Magier wird durch noch tiefer liegende Kräfte des Feuers dazu kommen, seine Künste auszuführen. Daraus wird uns begreiflich, warum eine bestimmte Art von zeremonieller Magie den Menschen dazu verführt, Selbstmord zu begehen.
+
+Weil das alles dem ursprünglichen Manu bekannt war, verbot er streng der ersten Unterrasse jede Tötung, weil sie bestimmt war, das spirituelle Leben auszuleben. Später war es nur möglich, die Heiligung der ganzen Rasse zu erreichen, indem sich einige enthielten und den andern das physische Leben überließen. Dies liegt der Kasteneinteilung zugrunde.
+
+Die indische Rasse ist daher die religiöse, und das Brahmanentum ist die Hauptreligion der fünften Wurzelrasse –, die übrigen sind Abschattierungen.
+
+Die zweite Unterrasse musste anfangen, den physischen Plan zu erobern, musste dort wohnen, wo Bebauung des Bodens nötig war, und es wandern Zweige in die Gegenden zwischen Euphrat und Tigris und nach Ägypten, wo sie die ägyptische Kultur der fünften Rasse begründen und die babylonisch-medisch-persische Kultur. Um den materiellen Plan zu erobern, wird das Feuer das äußere Kulturmittel. Der Inder brauchte es noch nicht. Doch war es nötig,
+
+---
+
+214
+215
+
+die Kunst verschwinden zu lassen, welche das Feuer auf innere Weise aus der unmittelbaren Natur hervorbringen konnte. Wo irgendetwas in seiner Kehrseite zu bösen Künsten führen kann, wird es nötig, es in die Religion zu bannen. Das Feuer wurde in den Mittelpunkt des religiösen Kultus gestellt. Der Feuerdienst bedeutet: «Euch ist das Feuer gegeben, aber in dem Augenblick, in dem Ihr es nicht verehrt, werdet Ihr nicht ins rechte Verhältnis dazu kommen.» Daher führte der erste Zoroaster den Feuerdienst, den Ahura Mazdao-Dienst ein. Wenn der Mensch die Woche über zu seinem Dienst gebraucht, muss er knieend verehren an einem Tage: daher der Sabbat-Tag. Für die Perser war das Feuer das direkt Verehrte; für die Juden erschien Gott in der Feuerwolke; das Christentum nennt Gott ein verzehrendes Feuer.
+
+Auf alle diejenigen, die den Feuerdienst versehen, ob rechts oder links, wird schon das Wort «Magier» verwendet. Aller Magismus führt seinen Ursprung zum Feuer. Mit ihm war der Boden gegeben, aus dem die Kultur der fünften Rasse quillen konnte.
+
+Von den Ursemiten stammte ja diese Gobi-Rasse, und man war nun so weit, dass man die ursprüngliche semitische Urkulturgrundlage verwenden konnte. Das Gedankliche konnte zum Ausdruck kommen, und die nächste Unterrasse war dazu ausersehen.
+
+Der Gedanke, unmittelbar auf dem physischen Plan ausgesprochen, ist das Gebot. Das Gebot, die Fassung des Lebens in Gedanken, ist die Mission des israelitischen Volkes. Vorher war das Leben Gewohnheit; jetzt tritt es in mentaler Gestalt auf, als Gebot. Hammurabi ist ein Verkünder des Gebots, dann Moses. Es ist die Mission des semitischen Stammes, deren Hauptausprägung das israelitische Volk ist. – Vorher war noch das Psychische ausgearbeiteter; jetzt fing man auf mentalem Wege an, das Leben zu regeln. Daher die eigentümliche Charakteristik des jüdischen Volkes.
+
+In der indo-arischen Rasse war der Gedanke da, aber zunächst spirituell. Die Veden sind spirituell-intuitiv.
+
+Bei den persisch-chaldäischen Völkern treffen wir den Gedanken als Empfindung, als Naturdienst. – Das Dritte ist der Gedanke in seiner unmittelbaren Gestalt, als Gebot. So unterscheiden wir dreierlei:
+
+Die Inder verehren den Gedanken als Geist.
+
+Die Perser verehren ihn als Naturgewalt.
+
+Die Juden verehren den Gedanken selbst.
+
+Der Gedanke aber auf dem physischen Plane muss einem Wesen zugeschrieben werden, muss einen Träger haben. Der Inder erkennt ihn als Geist; der Jude kennt nicht den kosmischen, sondern den menschlichen Gedanken und muss daher seinen Gott, Jahve, vermenschlichen, anthropomorphisieren.
+
+Alles was zeitlich ist, geht über zu einer Vermenschlichung des Gottesprinzips, wie die Griechen und andere Völkerschaften. Daher sehen wir, wie überall in der dritten Unterrasse spiritualistischer Pantheismus und naturalistischer Pantheismus übergehen in anthropomorphistische Religion.
+
+Nun handelt es sich darum, auch die andere Art Zivilisation kennenzulernen. Der Staat erscheint als Theokratie bei den Juden, Gott als König. Daher der ethische Charakter des jüdischen Staatsorganismus. Das Sündenprinzip durchzieht das Leben; alles wird gestraft.
+
+Allmählich macht sich der Mensch so heimisch auf dem physischen Plan, dass er jenes große Verständnis gewinnt, wie es uns zum Beispiel beim Griechen entgegentritt, der das Künstlerische ausarbeitet. Das Dasein zwischen Geburt und Tod wird ihm jetzt das Wesentliche. Achill sagt zum Beispiel: «Lieber ein Bettler in der Oberwelt, als ein König im Reich der Schatten.» Der Mensch achtet jetzt das, was jenseits des physischen Planes ist, als ein Schattenland. Das Reelle liegt für den Griechen in der spirituellen schönen Form: in der Kunst.
+
+Nun kommen wir dazu, dass dieser physische Plan geheiligt werden muss. Der Inder hat aufgeschaut zum spirituellen Plan. Der Perser hat ihn als Empfindung erkannt. Der Jude durchdrang mit ihm schon Kama, er hat einen leidenschaftlichen Gott. Der Griechen Götter sind voll von Leidenschaften. Was noch nicht vergöttlicht ist, das ist der unmittelbare physische Plan. Das biblische Wort sagt uns: Drei zeugten auf Erden: der Geist, das Wasser und das Blut.
+
+Wir wissen, dass in der biblischen Sprache mit Wasser das Astrale, Kamische, mit Blut das Irdisch-Fleischliche gemeint ist.
+
+---
+
+216
+217
+
+Alle Leidenschaften hatten schon den göttlichen Ausdruck bekommen: Kama war vergöttlicht. Nun war das Fleisch, der Ausdruck des Physischen, zu erobern. Bei dem Christentum, das der vierten, der lateinischen Rasse obliegt, wird zur Wahrheit die Reinigung des Fleisches. Das Wort wird im Fleisch verkörpert; der Leib wird verklärt; im verklärten Leibe wandelt dann das Göttliche.
+
+Das Neuhinzugekommene ist die Heiligung des Fleisches, die in der Auferstehung des Fleisches ihre Aufgabe sieht. Soll das materielle Leben gereinigt werden, um die aufsteigende Linie zu beginnen, muss das Fleisch geheiligt werden.
+
+Den im Fleische inkarnierten Gott anzubeten, war Aufgabe der lateinischen Rasse, wie den in Leidenschaften inkarnierten [Gott anzubeten], die [Aufgabe] der jüdischen Rasse war.
+
+Als der Gedanke in das Materielle ausgegossen wurde, war die ursprüngliche Form immer mehr verlorengegangen. Der Christ betet den persönlich gewordenen Gott an; es entwickelt sich bei ihm eine persönliche Zugehörigkeit. Er hält sich an das Blut. – Durch diese Zugehörigkeit musste der Gedanke selbst verlorengehen. Das jüdische Volk, das den Gedanken zuerst auf den physischen Plan gebracht hatte, musste aber noch einmal ihn aufleben lassen und zwar in dem Prinzip, dass außer dem Einigen kein andrer Gott sein kann; andre nur seine Propheten sind. Aus dem stammverwandten Maurentum, als semitischer Nachschub, erwächst das Prinzip der abstrakten Wissenschaft und wird fortgepflanzt in die germanische Rasse.
+
+In der kopernikanisch-galileischen Zeit wird es tatsächlich. Das mächtige Aufblühen der germanisch-englischen Rassen geschieht innerhalb der abstrakten Wissenschaft.
+
+Nun kann sich der Gedanke, nachdem er den physischen Plan erobert, wieder zum Spirituellen hinaufbewegen.
+
+# PLANETARISCHE KETTEN
+
+Berlin, 30. Juni 1904
+
+Um die Evolution unseres Planeten ganz zu verstehen, müssen wir eine andere Evolution zu Hilfe nehmen. Der Sinn der Entwicklung besteht darin, dass die Schar der Pitri um eine gewisse Stufe weiter gebracht wird. Aus Kama ins Manasische, durch Kama-Manas hindurch. Es besteht der Sinn darin, alles zu tun, was das Bewusstsein der Pitris weiter bringt. Sie hatten ein dumpfes Bewusstsein, ganz ohne M. ähnlich [Lücke in der Mitschrift]
+
+Das intellektuelle, das Verstandesbewusstsein soll nun alle 7×7 Rassen hindurch entwickelt werden. Sodass die irdische [Lücke in der Mitschrift]
+
+Wir haben die 7×7 Stufen bis zu einem gewissen Grade kennengelernt. Viele Stufen der Evolution gehörten dazu, um den Menschen dahin zu bringen. Diese Stufe des Bewusstseins ist auch nicht einfach da, sondern unterliegt einer gewissen Entwicklung.
+
+höheres Tier göttlicher Mensch
+
+Sodass wir die Menschen kennengelernt haben von der Bewusstseinsstufe des Pitris – Tiermensch – bis zu der des Mahatma – Gottmensch. Drei Stufen gehen voran dem Bewusstsein des Tiermenschen, drei folgen dem des Gottmenschen. Die erste im Verhältnis zur letzten ist in einer gewissen Stufe niedriger, in einer andern höher.
+
+1. – 2. – 3. – 4. unsere Bewusstseinsstufe
+5. – 6. – 7. die kommen.
+
+Die erste ist eine solche, bei welcher sie alles wissen, aber mit ungeheurer Dumpfheit. Nichts hat vor sich gehen können, das sie nicht wussten, aber dumpf. Dumpfes Allbewusstsein, tiefste Trance. Wenn der Yogi nicht mehr mit dem Gehirn, sondern mit dem Knochensystem
+
+---
+
+wahrnimmt. Alles steht in ihm still außer den chemischen Prozessen; es ist ein dumpfes Allbewusstsein, eine längst überwundene Stufe; das, wenn es atavistisch hervorgerufen wird, eine Art Gesicht unseres ganzen Universums bewirkt. Bei weiblichen Individuen ist das noch möglicher, das Mineralbewusstsein hervorzurufen, durch Rausch, pathologische Mittel und dergleichen.
+
+Der zweite Bewusstseinszustand, wo nur eingeschläfert wird oder noch nicht entwickelt ist, ist das animalische Bewusstsein, wo nur das Bewusstsein entwickelt ist, das verbunden ist mit dem Verdauungs- und Atmungssystem. Es war jenes der zweiten Pitris; bloß die gastrischen Organe nehmen wahr; es ist das Pflanzenbewusstsein, nicht so allwissend und nicht so dumpf, mit den Lebensorganen wahrnehmend.
+
+Der Kohlengehalt im Innern erregt das vegetarische Leben, der Sauerstoff das animalische. Um den Körper mit Kohlengehalt zu imprägnieren, macht der Yogi [Lücke in der Mitschrift] und erwirbt die Kenntnis alles Lebens auf der Erde.
+
+Die dritte Höhe des Bewusstseins ist das tierische, das die Pitris durchmachen bis sie uns ausgeliefert werden in der irdischen Entwicklung. Traumtrance ist das animalische Bewusstsein. Das Tier hat ein ähnliches, künstlich erreicht durch [Lücke in der Mitschrift]
+
+So haben wir jetzt drei Bewusstseinshöhen durchgemacht. Die vierte ist unsere irdische. So muss
+
+7 Runden mit 7 Rassen zur Entwicklung des mineralischen Bewusstseins,
+7 Runden mit 7 Rassen zur Entwicklung des Pflanzenbewusstseins,
+7 Runden mit 7 Rassen zur Entwicklung des animalischen Traumbewusstseins,
+7 Runden mit 7 Rassen zur Entwicklung des intellektuellen Bewusstseins.
+
+Nun kommen die Zukunftsstufen:
+
+7 Runden mit 7 Rassen zum psychischen Bewusstsein – eine Wiederholung des animalischen auf höherer Stufe. Das Medium wird zurückversetzt, der Hellseher hinausgeführt. Helles Bewusstsein
+
+mit Traumwahrnehmung. Deshalb verpönt Theosophie die Mediumschaft.
+
+7 Runden mit 7 Rassen im hyperpsychischen Bewusstsein, wo der Mensch alles Lebende unmittelbar wahrnimmt, aber bei wachem Bewusstsein.
+7 Runden mit 7 Rassen im spirituellen Bewusstsein. Der Verstand bleibt, aber wird erweitert zum Allsehen.
+
+Das sind die sieben planetarischen Ketten, und wenn in alten Schriften von sieben Planeten gesprochen wird, so sind diese gemeint. Die vierte ist die Erde, esoterisch und natürlich auch exoterisch. Die dritte war der Mond, da haben sich die Pitris entwickelt. Wir müssen ihn esoterisch betrachten, vom Standpunkt der alten Mystik.
+
+Der fünfte ist der Merkur, esoterisch.
+
+Dann haben wir die zwei esoterischen Planeten; die Sonne, nicht als Sonne aufgefasst, sondern als esoterischer Planet.
+
+Dann den sechsten esoterischen Planeten, die Venus, hyperpsychisch, wo alles mit der Liebe zusammenhängen wird, Budhi.
+
+Der erste esoterische Planet ist der Mars, der siebte ist der Jupiter. Namen für die betreffenden 7x7 Runden. Wir wissen nun, wovon die Astrologen sprechen, von sieben verschiedenen Höhen des Bewusstseins zu sieben verschiedenen kosmologischen Zuständen.
+
+Das ist das Sonnensystem, zu dem unsere Erde gehört. Jedes Mal, wenn eine solche planetarische Rundenentwicklung vor sich geht, kommt sie sieben Mal in den physischen Zustand. Beim zweiten Planeten, der Sonne, beim dritten, dem Mond und so fort, kam immer einmal ein physischer Zustand.
+
+Immer zuerst arupa, rupa, astral, physisch und aufwärts.
+
+Als Mensch auf die Erde versetzt und in den Himmel hineinschauend sehen wir die Sterne, die augenblicklich in ihrer Rundenentwicklung im physischen Zustand sind. Daneben sind unzählige andere sichtbar für denjenigen, der auf anderer Bewusstseinshöhe steht. Der jetzige Mars ist auf der [unleserlich] Stufe der 7x7-Rundenentwicklung.
+
+Sodass wir zu unterscheiden haben zwischen der siebenfältigen Pitri-Entwicklung – auf siebenfältigen Bewusstseinshöhen. Diese
+
+---
+
+220
+221
+
+Pitris in dieser Entwicklungsreihe nennt man esoterisch Mikrokosmos. Denken wir ihn uns auf seiner ersten Bewusstseinshöhe, da geht auf ihm alles andere durch. Auf jedem Planeten werden dem Pitri alle Naturreiche zugeführt. Diese Naturreiche nennen wir den Makrokosmos.
+
+Sodass wir sagen können:
+
+Okkulter Satz: Unsere jetzige Entwicklung besteht darin, dass der Makrokosmos zum vierten Mal mit dem Mikrokosmos zusammentrifft. In unserer jetzigen Entwicklung ist der Makrokosmos zum vierten Mal dem Mikrokosmos vermählt worden.
+
+Nun müssen wir uns klar sein, was da geschieht: Der Kosmos hat nun zum vierten Mal sich vereinigt, und dadurch wird das Manas erweckt. Dadurch allein das Böse erweckt. Manas musste in die Sonderwesenheit hinuntersteigen, Intellektuelles erwecken. Wenn der Makrokosmos zum vierten Mal mit dem Mikrokosmos zusammentrifft, wird Vier mit Fünf vermählt.
+
+Nachsatz: Weil nun Manas in der Sonderheit ist, kann er aus sich selbst heraus die Materie bearbeiten und einen Teil aus der Evolution hinauswerfen. Daraus folgt der dritte okkulte Satz:
+
+Wenn zum vierten Mal der Makrokosmos mit dem Mikrokosmos zusammentrifft, wird Vier mit Fünf vermählt und dadurch ein Teil der Materien in den Raum geschleudert, sodass sie den Planeten als ein Trabant begleiten. Dieser Trabant heißt die ‹Achte Sphäre›, und alles, was sie hier verwandt macht, trennt seine Wege von der irdischen Entwicklung.
+
+# NOUMENON, PHENOMENON
+
+Berlin, 1. Juli 1904
+
+Je mehr man zur Gegenwart hinaufrückt in der Betrachtung der Evolution muss man berücksichtigen, dass Zeit ein Element der Täuschung ist und Quelle zahlreicher Irrtümer in der Geschichte. Man muss unterscheiden, was durch die Evolution immer geht, [was immer] da ist, ein gesamtes Sterben oder Tod ist: und das ist Entwicklung der Bewusstseinsstufen der Pitris. Alles, worauf es zuletzt ankommt, ist diese Entwicklung. Es mag noch so viel auf dem ersten Planeten vorgegangen sein: In dem Augenblick, als die Pitris den ersten Bewusstseinszustand hatten, war alles aufgelöst, was die Pitris in sich hatten. Das Ergebnis nur ging über. Alle Arbeiten, die verwendet wurden, sind zusammengezogen in einen Punkt. Es rankt sich alles da herum wie eine Spirale um den Knotenpunkt, in welchem der Pitri sich zusammengezogen hat wie die Schlange um den Hermesstab. So tun wir es in der Erdenevolution. Wir werfen ab das Detail. Pitri hat hiermit Bewusstseinserhöhung erreicht. Die Stufen sind bestimmt, die Schlange bleibt einer gewissen Willkür unterworfen, ihre Windungen sind das, was die Täuschungen in der Zeit bewirkt.
+
+Wir können die Bewusstseinsstufen eines Pitris voraussagen. Die Wege der Schlange sind mannigfaltige, können vom Seher in ihrem Ergebnis gesehen werden – nicht in Zukunft. Man kann also sagen für die Zukunft: Es wird so und so sein, aber nicht, ob in zweihundert oder dreihundert Jahren. Man weiß nicht, wie sehr die Evolutionsetappen in die Länge gezogen werden. A kann in fünf, C in einhundert Jahren erreicht werden oder umgekehrt. Daher ist es möglich, den Weg zu bestimmen, aber nicht die Zeitlänge. Daher die Täuschung, und man kann nicht in Bezug auf die Zeit vorher sagen, weil die Zeit der makrokosmischen Entwicklung gehört, die mikrokosmische ist zeitlos.
+
+Dies muss man betrachten, wenn man Gegenstände in Bezug auf Gegenwart und Zukunft verfolgt, weil die mikrokosmische Entwick-
+
+---
+
+lung richtig ist, aber die makrokosmische Entwicklung der Freiheit unterliegt, indem er die äußeren Verhältnisse in verschiedener Weise benutzen kann.
+
+Daraus folgt ein okkulter Satz: Die Willkür oder Freiheit des menschlichen Mikrokosmos drücken sich in seiner Hinneigung zur Schlange aus.
+
+Der Stab ist er selbst, und daher das Schlangensymbol als das Symbol der Freiheit. Also ist zwar der Weg strikt vorgezeichnet, dagegen wäre es vergeblich, versuchen zu wollen dasjenige, was an Schlangenfreiheit des Menschen, an äußeren Ereignissen vorausgesehen werden kann. Es können zwar äußere Ereignisse vorausgesehen werden, aber die Führer und Leiter benutzen die äußeren Ereignisse nach ihrem Ermessen.
+
+Der Pitri ist eigentlich zur Freiheit noch nicht erwacht, und sein zukünftiges Tun ist ihm meistens durch den Makrokosmos vorgeschrieben.
+
+Wollen wir dies berücksichtigen bei Betrachtung der Gegenwart, der lateinischen Rassen. Was die Pitris tun, kann man nur durch inneres Schauen wahrnehmen; was sich im Makrokosmos abspielt von außen.
+
+Deshalb zerfällt die weltgeschichtliche Betrachtung in Ereignisse, die wir von außen sehen und in die wesentlichen Entwicklungsstufen, die wir von innen zu betrachten haben. Sie nennen wir Noumenon und alles äußere Phenomenon.
+
+Alles Phenomenon hat auch seine innere Seite, ist Phenomenon, insofern wir sein Noumenon noch nicht sehen. Nun hat noumenal betrachtet die germanische Rasse die Aufgabe, die Intelligenz, das Manasische anzuwenden auf äußere Vorgänge. Daher wurde durch Jahrhunderte hindurch alle Wissenschaft auf den äußeren physischen Plan übertragen. Ein Dante in seinem Gedicht schildert die dreistufige Welt. Er hat natürlich nicht geglaubt, dass es im Raume befindliche Lokas sind, sondern sie sind als Symbole für geistige Vorgänge genommen. Man legte damals keinen großen Wert auf die Schilderung äußerer Vorgänge, sondern auf das Wesen der geistigen Sachen.
+
+In der Heliand-Sage wird Christus zum deutschen Heerführer
+
+gemacht; der Dichter sagte sich: Es kommt nicht darauf an, ob durch palästinensische oder sächsische Vorgänge geschildert wird, sondern man benutzt sie beliebig für innere Vorgänge, weil Zeitliches Maya ist.
+
+Die eigentliche Mission der germanischen Rasse bestand darin, das Äußere und Zeitliche wirklich ernst zu nehmen. Früher benutzte man das Weltsystem unter einem anderem Gesichtspunkt. Von Kopernikus an galt, unabhängig vom Menschen und nach materiellen Vorgängen das Weltgebäude zu schildern. Es wird so weit ernst genommen das Äußere, dass unmittelbarer menschlicher Wille das Ausschlaggebende wird. Früher wurden die Intentionen zum sozialen Leben des Menschen noch von oben geholt, und die Führer waren Vermittler. Jetzt wird unmittelbar persönliche Freiheit das Ausschlaggebende. Vernunft und Eigenwille des Einzelnen, Freiheit, Gleichheit und Brüderlichkeit wird [Lücke in der Mitschrift]
+
+Daher ist die Französische Revolution nur zu inszenieren gewesen unter Führung von Meistern [Lücke in der Mitschrift]
+
+Voltaire, Rousseau, d'Alembert haben nicht so einfach äußerlich geschichtlich [Lücke in der Mitschrift] sondern Meister wussten [Lücke in der Mitschrift] Daher als Noumenon vollzogen.
+
+Alles das, was Schlange ist, sind die Greul ..., alles das, was Fortschritt der Stab. Die äußerlich führenden Meister mussten sich und der Schlange die Führung überlassen. Namentlich Rosenkreuzer sich zurück [Lücke in der Mitschrift]
+
+Materialismus am höchsten in den vierzig Jahren; er treibt seine Blüten im Willen aus.
+
+Beschränkung auf das äußere phänomenale Erkenntnisprinzip; wir können nur [Lücke in der Mitschrift]
+
+Kant eingeführt und Spencer ausgedrückt.
+
+Ignorabimus.
+
+Der Wille musste so gelenkt werden, dass er völlig auf den physischen Plan heruntergezwungen wird, zusammengedrängt, konzentriert in eine Persönlichkeit. Um zu konstatieren, was es für einen Eindruck macht, was die letzte Konsequenz [Lücke in der Mitschrift] Unfehlbarkeit des Papstes
+
+---
+
+Man hat [nicht] zu erforschen die Ratschlüsse Gottes, sondern auf physischem Plan, [Lücke in der Mitschrift]
+
+In eine Persönlichkeit will die Autorität zusammengedrängt.
+
+Agnostizismus von einer Seite, Unfehlbarkeit von anderer.
+
+Einheit auf physischem Plan wäre nur möglich, wenn einer über alle gebietet; auf höheren Planen ist Einheit von selbst da [Lücke in der Mitschrift]
+
+Aufgabe der nächsten Rasse wird sein, mit Verzicht auf die ganze Kultur der fünften Rasse aus der ursprünglichen Menschennatur heraus mit elementarer Kraft eine Kultur zu schaffen.
+
+Die Segnungen der Kultur des Westens benutzt die slawische Rasse und liefert eine Erneuerung der Kultur; wird sechste Unterrasse. Gibt über ihren Inhalt der amerikanischen Rasse, die eine ähnliche Rolle spielen wird wie die Mongolen für die künftige Hauptrasse [Lücke in der Mitschrift].
+
+224
+
+# DAS UNIVERSUM VON AUSSEN
+
+Berlin, 8. Juli 1904
+
+Stellen wir uns auf den Standpunkt des Universums, und betrachten wir die Welt nach dem Gesichtspunkt des Bewusstseins, Lebens und Seins oder umgekehrt. Auch da hat man zu unterscheiden zwischen Leib, Seele und Geist. Leib würde dem Sein entsprechen, Seele dem Leben, Geist dem Bewusstsein. Dabei bekommen wir auch eine Dreifaltigkeit.
+
+Wenn wir kosmisch den Leib nehmen, diesen nennt die indische Philosophie: Adi-Buddha = All-Leib. Die christliche Esoterik bezeichnet dasselbe mit Kyriotetes – Reich. Die All-Seele bezeichnet die indische Philosophie mit Adi-Atma. Die christliche Esoterik bezeichnet dasselbe mit Dynamis – Macht. Dann All-Geist: indisch Adi-Deva, christlich-esoterisch: Exusiai – Offenbarung oder Gewalt. So dass wir vom Standpunkt des Mikrokosmos zu unterscheiden haben:
+
+|  Adi-Buddha | Adi-Atma | Adi-Deva  |
+| --- | --- | --- |
+|  Erstes Elementarreich | Tieftrance | Göttliche Gewalt  |
+|  Zweites Elementarreich | Schlafbewusstsein | Äthergewalt  |
+|  Drittes Elementarreich | Traumbewusstsein | Feuergewalt  |
+|  Mineralreich | Tagesbewusstsein | Lichtgewalt  |
+|  Pflanzenreich | Psychisches Bewusstsein | Kraftgewalt  |
+|  Tierreich | Überpsychisches Bewusstsein | Schöpferische Gewalt  |
+|  Menschenreich | Spirituelles Bewusstsein | Selige Gewalt, Götter  |
+
+Die Götter umkreisen 7×7-mal die Achse/den Stab, und je sieben Kreise sind die sieben Reiche. Dabei aber rücken beim jedesmaligen Umkreise die Götter selbst um eine Stufe vor, sodass der Mensch in dem gegenwärtigen Mineralreiche von den Lichtgöttern, im Mineralreich der nächsten Runde aber schon von den Kraftgöttern regiert wird.
+
+225
+
+---
+
+226
+227
+
+Adi-Buddha  Kyriotetes  Reich
+Adi-Atma      Dynamis     Macht
+Adi-Deva       Exusiai     Offenbarung, Gewalt
+
+Bei allen dreien haben wir sieben Stufen zu unterscheiden, sieben Regionen des Adi-Buddha, dann des Adi-Atman – sieben Stufen des lebendigen Bewusstseins. – Bei Adi-Deva haben wir auch sieben Stufen zu unterscheiden.
+
+Das Tagesbewusstsein offenbart sich in der vierten Runde der Erde im Mineralreich, und von außen offenbaren sich dabei die Gewalten des Lichtes.
+
+Wenn wir also die dreiteilige Welt vom Standpunkt des Universums betrachten, haben wir im Innern des Mineralreiches das helle Tagesbewusstsein. Wenn wir auf den Körper blicken, sehen wir, dass es sich [Lücke in der Mitschrift] Mineralreich [Lücke in der Mitschrift] und was sich in ihm offenbart, sind die Gewalten des Lichtes.
+
+Wenn sich das Licht auf dem physischen Plan offenbart, muss sich mit ihm die Finsternis offenbaren, denn die Gegen [Lücke in der Mitschrift] des Reiches stellen sich ihm entgegen und bewirken Trübungen.
+
+Auf dem Plane der Täuschung können sich die Gewalten nicht anders offenbaren als in der Zw [Lücke in der Mitschrift], sodass notwendig den Gewalten des Lichtes die Gewalten der Finsternis entgegenstehen.
+
+Wenn wir die Entstehung der Erde von diesem Gesichtspunkt betrachten, offenbaren sich zunächst die Gewalten des Lichtes und damit die der Finsternis. Betrachten wir zunächst die Gewalten des Lichtes: Elohim.
+
+Nun durchläuft die Erde, während sich eine Art Gewalt offenbart, alle Reiche: das erste, das zweite und das dritte Elementarreich, das mineralische, das pflanzliche Reich und das Tierreich.
+
+Adi-Atma macht sieben Stufen durch, und diese nennt man „Planetarische Entwicklungen“ oder „Ketten“.
+
+| Adi-Atman | Adi-Buddha |
+| --- | --- |
+| 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| 0 | 0 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
+| 0 | 0 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
+| 10 | 0 | 20 | 0 | 30 | 4 | 40 | 4 | 50 | 4 | 60 | 4 | 70 |
+| 0 | 0 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 |
+| 0 | 0 | 6 | 6 | 6 | 6 | 6 | 6 | 6 | 6 | 6 | 6 |
+| 0 | 0 | 7 | 7 | 7 | 7 | 7 | 7 | 7 | 7 | 7 | 7 |
+
+Bei jedem dieser Reiche werden durchlaufen sieben Stufen. In jeder Runde wiederum sieben Globen; das sind die Gewalten. 343 Kreisläufe muss ein Atman durchgehen, um zum Ziele zu gelangen.
+
+7 x 7–7 Stufen des Bewusstseins, 7 Runden, in jeder 7 Globen.
+
+Planetarische Entwicklung
+
+Runden-Entwicklung
+
+Globen-Entwicklung
+
+Früher waren die Gewalten der Wärme außer uns, jetzt in uns.
+
+1. Die Seele erreicht 7 Bewusstseinsstufen. Jede Bewusstseinsstufe heißt „Planetenkette“.
+2. Auf jeder Bewusstseinsstufe schreitet die Seele durch alle 7 Reiche – Buddhas. Jedes Reich heißt eine „Runde“.
+3. In jeder Runde regiert eine Art der 7 verschiedenen Devas. Jede Regierungsart eines Devas ist ein „Globus“ oder ein „Planet“.
+
+In christlichen Schriften werden die Devas „Engel der Umlaufzeiten“ genannt. Die Menschen selbst sind Manifestationen der Weltseele im Mineralreich.
+
+Vorher also, bevor unsere Erde zum Standpunkte kam, dass sich auf ihr die Elohim offenbarten, war sie umflutet von einem Meer von Wärme. Da hatten wir ein Organ, die Zirbeldrüse, herausgewachsen, sie war auch das eine Auge der Zyklopen; die waren die Menschen des Feuers. Ein großes Wärmeauge, mit dem würde er herumschwimmen in diesem Meere, was dann die Erde war, und überall wahrnehmen.
+
+---
+
+Das war der Wärmeglobus. Noch früher der Ätherglobus und vorher der Globus, der nur Leben war.
+
+Hinter diesen Zustand zurückgehend würden wir auf die dritte Runde kommen. Bei der dritten Runde würden wiederum die verschiedenen Gewalten sieben Mal erscheinen. Gewalten der Wärme im Mineralreich. Bei der vorhergehenden zweiten Runde haben wir im Mineralreich herrschend die Gewalten des Feuers.
+
+1. Die Arupa-Devas herrschen während der ersten Runde im Mineralreich.
+2. Die Rupa-, Feuer-Devas herrschen während der zweiten Runde im Mineralreich.
+3. Die Astral-Devas oder Wärmegeister herrschen während der dritten Runde im Mineralreich.
+4. Die Lichtgeister herrschen während der vierten Runde im Mineralreich.
+5. Die Kraftgeister herrschen während der fünften Runde im Mineralreich.
+6. Schaffende Geister herrschen während der sechsten Runde im Mineralreich.
+7. Göttliche Geister herrschen während der siebten Runde im Mineralreich.
+
+Wenn wir dies verfolgen, haben wir: «Im Anfang schuf Gott Himmel und Erde» – Arupa-Devas entstanden.
+
+«Es war die Erde wüst und leer» – Es entwickelt sich weiter von Globus zu Globus.
+
+«Da schied Gott das Licht von der Finsternis und nannte das Licht Tag und die Finsternis Nacht.»
+
+Beschreibung der ersten Runde. Die erste Runde ist der erste Schöpfungstag; die Finsternis ist Pralaya, die jetzt hinübergeht zur zweiten Runde.
+
+Nach den Licht-Geistern herrschen in der zweiten Runde die Kraft-Geister, die sollen hinübergehen zu der nächsten Runde. «Da machte Gott die Feste.»
+
+Wenn die dritte Runde zu Ende ist, entlässt sie ihre Gottheiten als schaffende Geister. Die vierte Runde wird gottselige Geister entlassen.
+
+Genau dasselbe, was früher involviert war, das ist jetzt evolutioniert. Dementsprechend wird die vierte Runde in der Bibel beschrieben:
+
+«Es sollen Leuchten entstehen» – Lichtgeister, Exusiai, Elohim.
+
+Der fünfte, sechste und siebente Tag stellen die Zukunft dar.
+
+---
+
+230
+# WEITERE ENTWICKLUNG UNSERES PLANETEN
+
+Berlin, 10. Juli 1904
+
+Wir haben es zu tun mit einer fortschreitenden Entwicklung unseres Planeten. Diese unsere Erde hat den Zweck, dies in uns liegende Bewusstsein zu entwickeln. Jeder [Planet macht durch] Metamorphosen von sieben aufeinander folgenden Bewusstseinsstufen:
+
+1. Trance-Bewusstsein
+2. Tiefschlaf-Bewusstsein
+3. Traum-Bewusstsein
+4. Wach-Bewusstsein
+5. Seelisches Bewusstsein
+6. Überseelisches Bewusstsein
+7. Geistiges Bewusstsein
+
+Nun haben wir die [sieben] Metamorphosen des Vaterprinzips konstatiert damit. Jede dieser sieben Metamorphosen des Vaterprinzips macht nun wieder sieben Prinzipien für sich durch. Sieben mal sieben.
+
+Jetzt kommen wir zum Sohnprinzip:
+
+1. Elementarreich
+2. Elementarreich
+3. Elementarreich
+4. Mineralreich
+5. Pflanzenreich
+6. Tierreich
+7. Menschenreich = 49 Metamorphosen
+
+Jede von diesen 49 Metamorphosen sieben Verwandlungen durchlaufend, und zwar die Verwandlungen durchlaufend durch das Geistprinzip.
+
+Jedes Reich macht einmal die sieben Gewalten durch. Zum Beispiel das Pflanzenbewusstsein macht einmal durch die sieben Reiche und sieben mal sieben die Gewalten – jedes Reich sieben mal die Gewalten.
+
+Der Vater metamorphosiert sieben mal in sieben Bewusstseinsstufen. All – Pflanzen – Tier – Mensch [Lücke in der Mitschrift]
+
+Puruscha: Der Vater metamorphosiert sich siebenmal in sieben Bewusstseinsstufen: All-Bewusstsein – Pflanzen-Bewusstsein – Tier-Bewusstsein – Mensch-Bewusstsein – Seelen-Bewusstsein – Überseelen-Bewusstsein – Geist-Bewusstsein.
+
+Pakriti: Der Sohn metamorphosiert sich auf jeder dieser Stufen siebenmal: Erstes Elementarreich, zweites Elementarreich, drittes Elementarreich, Mineralreich, Pflanzenreich, Tierreich, Menschenreich
+
+Mahat: Der Geist metamorphosiert sich in jedem Reich sieben Mal: Göttlicher Geist, Feuergeist, Wärmegeist, Lichtgeist, Kraftgeist, Schöpferischer Geist, Seliger Geist.
+
+
+
+Wie sich die Reiche anordnen in den einzelnen Bewusstseinsstufen, macht aber, wie wir sie beschienen denken [Lücke in der Mitschrift]
+
+Die Lichtgewalten beherrschen auf der ersten Planetenkette das erste Elementarreich in der vierten Runde. Das ist ein fester Punkt. Auf der zweiten Kette oder Bewusstseinsstufe beherrschen die Lichtgewalten in der vierten Runde das zweite Elementarreich hauptsächlich. Auf der dritten Kette oder Bewusstseinsstufe beherrschen die Lichtgewalten das dritte Elementarreich, und auf der
+
+231
+
+---
+
+vierten, unserer Bewusstseinsstufe beherrschen die Lichtgewalten das Mineralreich. Wichtig, weil die Regenten nicht immer dieselben sind. Während jeder Runde werden alle sieben Gewalten durchgemacht, aber nicht in gleicher Weise. Auf dem Monde war das Mineralreich beherrscht von den Wärmegewalten, – vorher von den Feuergewalten, auf der ersten [Lücke in der Mitschrift] von den Lebensgewalten. Als der Mars seine vierte Stufe absolvierte, seinen mineralischen Zustand, war sein Engel der Umlaufzeit der göttliche Geist. Das Bewusstsein war ein All-Bewusstsein. Als die Wesen im Mineralreich angelangt waren, wurden sie beherrscht von göttlichen Geistern.
+
+Auf dem ersten Globus (arupa) herrscht der Kraftgeist.
+Auf dem zweiten Globus (rupa) herrscht der Schöpfergeist.
+Auf dem dritten Globus herrscht der Selige Geist.
+Auf dem vierten Globus herrscht der Göttliche Geist.
+Auf dem fünften Globus herrscht der Feuergeist.
+Auf dem sechsten Globus herrscht der Wärmegeist.
+Auf dem siebten Globus herrscht der Lichtgeist.
+
+Weil das im Kreis geht, der Mars schließt mit der höchsten Entfaltung des Lichts. Nun hat er das Licht im höchsten Grade entwickelt; es beginnt der zweite Planet. Und kriegt sich hinüber, was er im vorigen erobert hat, das Licht. Nun leuchtet er und heißt esoterisch: die Sonne. Nun hat er während seiner
+
+Arupa-Stufe den Schöpfergeist,
+Rupa-Stufe den Seligen Geist,
+astralen Stufe den Göttlichen Geist.
+
+Nun offenbart sich die Sonne während ihres mineralischen Zustandes als Feuer, die Pflanzen werden gekocht. – Nun geht es weiter:
+
+Feuer
+Wärme
+Licht
+Kraft
+
+und gibt die Kraft an den Mond über, und die Kraft wird das, was den Mond durchdringt, daher organisiert er [Lücke in der Mitschrift]
+
+Mondperiode beginnt mit schöpferischem Geist, entwickelt die Willkür, Mensch entsteht als Lust und Unlust.
+
+|  Arupa Stufe | Seliger Geist  |
+| --- | --- |
+|  Rupa Stufe | Göttlicher Geist  |
+|  Astralische Stufe | Feuer-Geist  |
+|  Mineralische Stufe | Wärme  |
+
+Die Wärme enthüllt sich auf dem Monde, während er physisch ist.
+
+Die Erde beginnt mit
+
+|  Arupa Stufe | Göttlicher Geist  |
+| --- | --- |
+|  Rupa Stufe | Feuergeist  |
+|  Astralische Stufe | Wärmegeist  |
+|  Physische Stufe | Lichtgeist  |
+
+Wir sind von dem Lichtgeist beherrscht, daher leuchtet uns die Sonne.
+
+Nun kommt es darauf an, wann eine bestimmte Stufe der Pitri erreicht ist. Denken Sie, Sie bleiben zurück, es kommt eine bestimmte Sternkonstellation, in der die Gewalt anders zum Reiche steht; der Geist zum Sohn in einem andern Verhältnis, und das ist maßgebend, wie wir uns in unserem Entwicklungszustand befinden. Das ist die esoterische Astrologie. Er muss wissen, auf welcher Stufe der Pitri steht und wie dann das Verhältnis vom Vater zum Sohne ist.
+
+Das ist auch die Gefahr der Höherentwicklung des Menschen, er kommt heraus und in andere kosmische Einflüsse. – Übt schwarze Magie dadurch, dass er mitgerissen wird und hineinkommt in eine andere Sphärenwirkung. – Schema ansehen:
+
+Jedes Mal haben wir sieben Reiche, die gewisse Entwicklungsstadien durchmachen. Die sind das Sohnesprinzip; daher 343 Zustände, nur aber nach je 49 Zuständen –, sodass der Mensch jedes Mal, wenn er 49 Zustände durchgemacht hat, einen besonderen Knotenpunkt seiner Entwicklung hat. Da offenbart sich ihm etwas Besonderes. Er tritt eine neue Serie von 49 an. Es offenbart sich ihm der Sohn. – Der Mensch wird innerlicher. – Das Reichsprinzip wird durch den Sohn hervorgerufen, es offenbart sich also der Sohn Christus. Christus erscheint also jedes Mal [Lücke in der Mitschrift]
+
+Unser Christus ist der eine. Und wenn in einem Menschen das Erlebnis von Christus im Innern aufgeht, hat er die 172. Metamorfe
+
+---
+
+234
+235
+
+# MODERNE BIBELFORSCHUNG
+
+Berlin, 11. Juli 1904
+
+Meine lieben theosophischen Freunde! Die theosophische Bewegung will keine Sekte in die Welt setzen, sie will keine sektiererische Bewegung sein, sie will nicht irgendein neues religiöses System stiften, sie will auch nicht irgendjemanden auf ganz bestimmte Dogmen oder Lehrsätze verpflichten, sie will nicht einmal jemanden veranlassen, an solche Lehrsätze zu glauben. Alle Lehren, die wir verbreiten, die wir vertreten, sind nur das Mittel, um das Leben selbst zu vertiefen.
+
+Es sind ja viele Irrtümer über die theosophische Bewegung verbreitet. Man glaubt, die Theosophie sei eine Lehre, ein Dogmensystem, eine Philosophie, eine Religion, und aufgrund solcher Anschauungen glaubt mancher, er werde seiner Weltanschauung entfremdet, wenn er sich der Theosophie widmet. Dies ist nicht der Fall, und dies liegt nicht in dem Plane derjenigen, die die theosophische Bewegung ins Leben gerufen haben. Im Gegenteil, die theosophische Bewegung soll eine solche sein, die es ermöglicht, dasjenige, was man im Leben Wissenschaft, Religion nennt – in die man je nach den Verhältnissen hineingeboren ist und die man als die Seinige anerkennt –, erst recht zum vollen Verständnis zu bringen. Genauso wie wir die Erscheinungen der Natur überblicken und diese nur verstehen lernen durch ein tieferes Eingehen auf diese Erscheinungen, so lernen wir auch die Erscheinungen des Menschenlebens nur durch ein vertieftes Eingehen darauf kennen. Die verschiedenen Religionssysteme, die verschiedenen wissenschaftlichen Systeme und auch die verschiedenen philosophischen Weltanschauungen sind Erscheinungen des menschlichen Geisteslebens. Sie zeigen dem Menschen ihre Außenseite. Die theosophische Bewegung will die Menschen tiefer in das Wesen der eigentlichen geistigen Erscheinungen hineinführen. Deshalb soll niemand glauben, dass er seinem religiösen Bekenntnis oder seiner wissenschaftlichen Überzeugung entfremdet zu werden braucht, wenn er Theosoph wird. Unsere theosophische Gesellschaft
+
+230
+
+231
+
+232
+
+233
+
+234
+
+phase durchgemacht. Nach der 343. Metamorphose ist er zum Vater zurückgekehrt. Daher kann Christus sagen: «Niemand kommt zum Vater denn durch mich.» Es gibt
+
+343 Menschenstufen
+
+49 Christüsse
+
+7 Väter.
+
+Unser Christus war der fundundzwanzigste, in jedem Reiche offenbart sich einmal der Sohn. 49 Mal in einer planetarischen Entwicklung. Der Vater offenbart sich in der Konstellation.
+
+Auf unserer Erde ist es der vierte, auf der Planetenkette der fünfundzwanzigste.
+
+$$7 \times 49 = 343$$ Der Sohn offenbart sich jedesmal nach 49 Seinen.
+
+49
+
+49
+
+49
+
+343
+
+21 172 Entwicklungsstufen
+
+3
+
+171 171
+
+---
+
+ist auch in Indien verbreitet, und die indischen Brahmanen haben gefunden, dass die alte Tiefe ihrer eigenen uralten Weisheit ihnen wiedergebracht worden ist durch die theosophische Bewegung. Auf dem Religionskongress in Chicago hat der indische Brahmane Chakravarti hervorgehoben, dass auch sein Volk, wie die anderen Völker, in Äußerlichkeiten, in Materialismus verfallen war, abgekommen war von der hohen spirituellen Weltanschauung, die von den alten Rishis herstammt, und dass die theosophische Bewegung durch Vertiefung in diese uralten Weisheiten dem indischen Volk wieder gelehrt hat, welche unendliche Tiefe sich offenbart, wenn man das Hindu-System oder das buddhistische Religionssystem in ihrem wahren Wesenskern und nicht bloß von ihrer Außenseite her versteht.
+
+Ebenso können wir tiefer und immer tiefer dringen in jenes gewaltige Weltanschauungssystem, welches wir als das althebräische System kennen, als das der alten Juden. Ich möchte sagen, dass uns nur in gebrochenen Strahlen diese Weisheit im Alten Testament aufgeschrieben ist. Aber das Alte Testament enthüllt sich dennoch demjenigen, der sich in dasselbe mit theosophischem Verständnis vertieft, als eine Weisheit von außerordentlicher Tiefe.
+
+Vor allen Dingen möchte ich hervorheben, dass auch das Christentum, die christliche Weltanschauung selbst, eine Vertiefung, ein volles Verständnis erfahren kann durch die theosophische Methode, durch das theosophische Leben. Dieses Christentum, das durch Jahrhunderte hindurch dasjenige gewesen ist, was unzähligen Menschen die Wege zu ihrem höchsten Ziele gezeigt hat, dieses Christentum, das heute noch immer für unzählige Menschen das ist, was sie im Leben suchen, was sie im Tode tröstet, dieses Christentum verstehen wir gewiss auch, wenn wir es so kennenlernen, wie es uns dargeboten wird durch die verschiedenen Mittel der verschiedenen Kirchen. Aber, meine lieben theosophischen Freunde, das Christentum ist etwas, in das man sich vertiefen kann und immer mehr vertiefen kann, und jeder Grad von Vertiefung bringt uns immer auch aus dem Christentum selbst heraus Lehren von unendlich tiefer Art. Es gibt keinen Grad von Vertiefung, der uns nicht immer Neues heraufbrächte aus den Schichten, aus denen die größte christliche Weisheit
+
+quillt. So braucht vor allen Dingen niemand seinem Christentum entfremdet zu werden, wenn er Theosoph wird. Heute ist für denjenigen, welcher durch die moderne Wissenschaft – durch das naturwissenschaftliche Streben der Gegenwart und auch durch die Kritik, welche die theologische Wissenschaft selbst an diesem Christentum geübt hat – irre werden konnte an dem Christentum, heute ist für ihn der Weg, die christlichen Wahrheiten wieder zu verstehen, einzig und allein der theosophische.
+
+Wenn wir zurückblicken in das Mittelalter – niemand kann das Mittelalter wieder heraufbeschwören –, aber wenn wir es psychologisch, aber nicht äußerlich wie die heutige Psychologie, betrachten, dann werden wir sehen, was durch die Seelen der Menschen damals hindurchgegangen ist, dann begreifen wir, welcher Zug von Spiritualität damals durch die Seelen der Menschen hindurchgegangen ist, dann begreifen wir, dass sie nicht christliche Dogmen hatten, sondern dass sie mehr oder weniger spürten, was durch die christlichen Mystiker zum Ausdruck gekommen ist – sie spürten etwas von dem Aufglimmen des Christus-Wesens, wie es in dem Spruch von Angelus Silesius zum Ausdruck kommt: «Und wäre Christus tausendmal zu Bethlehem geboren und nicht in dir, du wärest ewiglich verloren.» – Ebenso ist es bei Meister Eckhart, wenn er fordert, dass der Mensch das Wesen des Christus in sich erlebt haben soll, denn dann erst könne er verstehen, was das Ereignis in Palästina wirklich bedeutet.
+
+Nun haben die Menschen durch Jahrhunderte hindurch ihre gefühls- und empfindungsmäßige und auch ihre spirituelle Anleitung zum Erleben des christlichen Wesens vor allem im Johannes-Evangelium gehabt, in dem Evangelium, das wir als das vierte bezeichnen, in dem Evangelium, welches festhält – für heutige Begriffe scheinbar starr festhält – an der christlichen Grundwahrheit, dass der in Palästina einstmals wandelnde große Lehrer – der Christus Jesus – der wahre Gottmensch war, dass in ihm das göttliche Prinzip unseres Universums Fleisch geworden ist. Heute kritisiert man vor allen Dingen das am Anfang des Johannes-Evangeliums stehende Wort vom Standpunkt des sogenannten Menschen. Der aufgeklärte Mensch kann mit dem Eingangswort des Johannes-Evangeliums kaum einen
+
+---
+
+Sinn verbinden. Er weiß nicht, was es heißen soll: das Wort – das Wort, das zu gleicher Zeit Gott ist.
+
+Gehen Sie dahin, wo die Führer der Menschheit waren, dann werden Sie finden, dass der Gipfel der Wirksamkeit dazu aufgewendet wurde zu verstehen, zu begreifen, was es heißt: Der Christus ist zur Welt gekommen. Das war eine Sehnsucht der Forscher, zu verstehen, was in diesen Worten liegt. Dann hat in den Zeiten, in denen es als selbstverständliche Wahrheit hingenommen wurde, dass ein Christus gelebt hat, dass ein Christus durch Jahrhunderte hindurch gewirkt hat, die mittelalterliche Theologie auch daran geglaubt, in der die Theologen nicht im entferntesten daran gedacht hatten, an der wahren Natur des wirklichen Jesus zu zweifeln. Sie alle bemühten sich, ausgedehnte wissenschaftliche Systeme zu bauen, welche die geoffenbarten Wahrheiten enthielten, die einfach hingenommen wurden, so wie sie da waren und wie sie vorgeschrieben wurden von der Kirche; sie begnügten sich damit, dass sie sie auslegten.
+
+Wir haben da die sogenannte Zeit der Scholastik und in etwas anderer Form der Mystik. Wir haben die Zeit, wo es feststehend war, dass der Christ nur dadurch Christ sein kann, dass er sich verbunden fühlt, lebendig verbunden fühlt mit dem Christus Jesus. Diejenigen, welche den Gipfel des Geistes zu erringen suchten, strebten danach, den Christus in sich zu erwecken, das Leben und das Wesen. Sie lebten den tiefen, in jener Zeit verstandenen Ausspruch Goethes:
+
+Wär’ nicht das Auge sonnenhaft,
+Die Sonne könnt’ es nie erblicken.
+Läg’ nicht in uns des Gottes eigne Kraft,
+Wie könnt’ uns Göttliches entzücken?
+
+Das geistige Auge muss erst fähig gemacht werden, den Gott in der Außenwelt zu finden. Niemand hätte damals sich für berechtigt geglaubt, etwas über den historischen Christus Jesus auszumachen, der nicht erst verstanden hätte, was das Wesen des Christus, was Christologie ist. Ebenso wenig, wie heute sich jemand berufen fühlt, über Blitz und Donner zu urteilen, wenn er nicht Physik studiert hat, ebenso wenig fühlte sich damals jemand berufen, zu urteilen über Christologie, wenn er dieselbe nicht studiert hatte.
+
+Es kam dann noch etwas herauf, das an den Namen der Rosenkreuzer anknüpft. Diese Bewegung ist der Theosophie ähnlich. Sie bemühte sich, die verschiedenen Religionen, namentlich aber das Christentum, in den Tiefen zu verstehen. Diese Rosenkreuzer unterscheiden sich dadurch von uns, dass wir öffentlich vor das Volk hintreten und das, was wir selbst gelernt haben, dem Volke mitteilen, während die Rosenkreuzer geheim wirkten. Aber was sie wirken wollten, das war, den Menschen verständlich zu machen, was Christologie ist. Sie waren im tiefsten Innern überzeugt und wussten es, dass die Erscheinungen nur der begreifen kann, der das Wesen des Christus-Jesus in sich erlebt hat.
+
+Eine Tatsache der Rosenkreuzer-Bewegung möchte ich hervorheben. Jeder Rosenkreuzer ließ denjenigen, der ein Schüler werden wollte, vor allen Dingen eines üben: Er verlangte von dem außenstehenden Schüler, der noch lange im Vorhofe zu bleiben hatte, der sich also erst annähern wollte den Lehren, die sich im Rosenkreuzer-Heiligtum befanden, er verlangte, legte ans Herz, das Johannes-Evangelium vom 13. Kapitel an innerlich aufzunehmen. Das galt als Grundsatz dieser okkulten Schulung. Und derjenige, der sich aus der Rosenkreuzer-Bewegung herausgebildet hatte, der alles, was da steht, zu erfassen sich bemühte, der wird etwas erleben, was nicht jeder erleben kann, wenn er in dem Sinne, was wir „meditieren“ nennen, sich in das Johannes-Evangelium vertieft. Er erfährt eine Menge okkulter Kräfte, sodass derjenige, welcher sich unter den Einfluss dieser Sätze stellt, eine Metamorphose erlebt. Er erlebt in sich durch, was eine Wiederholung des Mysteriums ist, das Jesus uns vorgelebt hat. Sie können Punkt für Punkt, von der Fußwaschung an bis zur Kreuzigung und Auferstehung, das Leben Jesu durchleben anhand des Johannes-Evangeliums – nicht durch die Begriffe, die da stehen, sondern durch die in den Begriffen verborgenen okkulten Kräfte.
+
+Wie man etwas nicht durch bloße Theorie klarmachen kann, so konnten auch die Rosenkreuzer niemandem das bloß vortragen. Sie ließen es ihre Schüler erfahren. Und es sind nicht wenige solcher Schüler im neunzehnten Jahrhundert gewesen, die erfahren haben, wirkliche Wundmale an sich zu erleben.
+
+238
+239
+
+---
+
+Dann kam ein Zeitpunkt, wo sie wussten, dass diese Dinge mehr sind als abstrakte Symbole, dass sie wirklich wörtlich zu nehmen sind. Bevor man das in sich vollzogen hat, weiß man gar nicht, was in diesem Evangelium steht, weiß man gar nicht, was in ihm verborgen ist. So suchten diejenigen, welche durch okkulte Art ihre Schüler zum Christentum hinbringen wollten, durch das Johannes-Evangelium es zu tun. Aber zu gleicher Zeit waren sie davon überzeugt, dass derjenige, der begabt ist – das heißt, derjenige, welcher die entsprechende Kraft entwickelt hat –, wenn er spricht, imstande ist, in seiner Gemeinde Kräfte auszulösen, auch wenn die Gemeinde es nicht wusste. Darauf beruhte die öffentliche Predigt. In den Kirchen des Mittelalters verstand man noch etwas von dieser okkulten Seite. Aber auch in neuerer Zeit wusste man noch in dem Johannes-Evangelium eine Zauberkraft, eine okkulte Kraft. Nicht umsonst hat noch Luther gerade das Johannes-Evangelium zu seinem Lieblings-Evangelium gemacht. Er wusste, was es heißt, wenn er und seine Freunde auch nicht alle Okkultisten waren. Aber jeder Mensch erlebte eine Läuterung, die ihn zu einem Verständnis hinaufführte, wenn er mit einem Kapitel lebte, sodass er Satz für Satz zu durchleben suchte, dass er an einem Vers nicht Tage, sondern Wochen und Monate lang hing, ihn anfängt zu lieben, anfängt mit ihm zu leben, sodass er sein ganzes Sein erfüllte, ohne dass er die Pflichten seines äußeren Lebens zu versäumen braucht.
+
+Im Laufe der neuzeitlichen Entwicklung ist das anders geworden. Ohne dass irgendein Wort gegen die neuzeitlichen Kirchenhäupter gesagt sein soll, muss doch betont werden, dass das Verhältnis des religiösen Menschen zu dem religiösen Führer in der neueren Zeit ein wesentlich anderes geworden ist. Sehen Sie sich die Gestalten [der religiösen Führer] im Mittelalter bis herauf in unser Jahrhundert an: Sie waren erfüllt mit wahrem Glauben und mit heiligen Geheimnissen und Anschauungen; sie lehrten durch innere Erfahrungen. Das Volk, das sie hörte, wusste, dass jemand sprach, der aus tiefem Wissen heraus sprach. Es waren keine Autoritätsgläubigen. Sie empfanden, dass im Innern des religiösen Führers etwas lebte, was durch die Worte strömte, was aber nicht in abstrakter und verstandesmäßiger
+
+Weise ausgesprochen werden kann. Es war das mehr in den Worten des Gemeinschaftslebens.
+
+Anders wurde das in der neueren Zeit. Die ganze Art und Weise, die Welt anzuschauen, wurde eine andere. Man verstand so etwas, wie ich es heute vom Johannes-Evangelium gesagt habe, überhaupt nicht mehr, man wusste nicht mehr, dass es verborgene Seiten des Evangeliums gibt. Immer mehr und mehr nahm man die Evangelien als wissenschaftliches Objekt, als reinen Gegenstand methodischer, geschichtlicher Forschung. Und so sehen wir im Laufe der Zeit eine Theologie entstehen, die mit der Evangelium-Forschung eine wirklich tragische Geschichte bietet.
+
+Nun lassen Sie mich einen kurzen Überblick darüber geben, was die heutige Theologie in Bezug auf Wert und Wahrheit der Evangelien kennt. Was heute auf der Universität vertreten wird, will eine solche Wissenschaft sein wie jede andere. Es ist heute nicht mehr so, wie es selbst noch vor hundert Jahren war, als noch ein Schleiermacher mit der ganzen Kraft des Redners zu den Gebildeten sprach. Heute wird zwar vielfach für Geld das Wort des Evangeliums gebraucht, aber die eigentlichen Führer haben das Evangelium einer Theologie, einer Wissenschaft unterworfen, welches für das Evangelium in einer eigentümlichen Weise tragisch geworden ist.
+
+Das erste, was in Wegfall gekommen ist, ist gerade dieses Johannes-Evangelium. Sie alle wissen, dass der Christ von dem Stifter seiner Religion, von demjenigen, von dem die Lehre ausgegangen ist, vom Christus selbst, durch die Evangelien weiß. Der Christ lässt die Evangelien auf sich wirken. In den Evangelien wird ihm erzählt von der Lehre des Christus-Jesus, von den Lehren und Taten. Durch Jahrhunderte hindurch wurde das, was erzählt worden ist, hingenommen, weil man von dem eigentlichen Faktum, dass Jesus gelebt hat, überzeugt war. Man hat keinen Wert darauf gelegt, ob sie [, das heißt, die Evangelien,] im Einzelnen sich widersprechen oder nicht, man hat das eine durch das andere zu vertiefen gesucht. Was sie auch in verschiedener Art ausgeführt haben mögen, im Mittelpunkt stand doch die einzige Gestalt dieses Gottmenschen. Und die Evangelien waren dazu geeignet, dazu hinzuführen. Der Wortlaut der Evangelien
+
+---
+
+242
+243
+
+war nicht von Bedeutung. Das kam besonders erst im neunzehnten Jahrhundert, dass man das Evangelium unter die Lupe nahm, unter die ja auch jedes andere Werk der Menschen genommen wird. Da fragten sich die gelehrten Theologen zunächst: Inwiefern können die Evangelien Urkunden sein für den Jesus, der in Palästina gelebt hat? Sind sie Urkunden dafür, dass richtig ist das, was als Lehre verkündet wird? – Die objektive Wirklichkeit des Jesus von Nazareth geschichtlich festzustellen, war die Grundlage der Forschung des neunzehnten Jahrhunderts. Nun kam die Frage: Können uns die Evangelien geschichtliche Urkunden sein wie andere geschichtliche Urkunden? – Immer mehr hat sich gezeigt, dass die Evangelien geschrieben worden sind, als das Christentum bereits seinen Anfang genommen hatte. Kein Forscher wird sich heute auf den Standpunkt stellen, dass sie im ersten Jahrhundert unserer Zeitrechnung geschrieben worden sind. Man hat gefunden, dass sie erst später geschrieben wurden.
+
+Die Frage, die uns interessiert, ist vor allen Dingen diese: Wenn man die Evangelien vergleicht und sieht, dass die einzelnen Evangelisten sich in ihren Angaben direkt widersprechen, wie können wir diese Angaben als eine Urkunde für Jesus auffassen? Was können wir damit machen, wenn Markus anders als Johannes und Matthäus, anders als Markus und Lukas spricht? Da man immer mehr und mehr einsah, dass die Evangelien sich widersprechen, so legte man Wert darauf zu untersuchen, ob sich nicht andere Zeugnisse, Zeugnisse und Berichterstattungen von Geschichtsschreibern fänden. Das Ergebnis war – es ist ja allbekannt –, dass solche Urkunden nicht da sind. Sowohl die Mitteilungen, die uns Josephus macht, wie auch diejenigen, welche uns Tacitus macht, verbürgen uns über einen Jesus von Nazareth nichts.
+
+Wenig Wert legt die protestantische Theologie auf die christliche Tradition. Aber diese ist da. Und Irenäus betont, dass er noch Apostelschüler gekannt habe, die den Herrn noch gekannt hatten. Das sind aber Überlieferungen, die nicht als historisch gelten können. Kurz gesagt, alles, was wir haben, um eine Biografie des Jesus zu gestalten, sind die Evangelien. Man musste sich also fragen: «Was bezeugen die Evangelien?» Denn alles andere wurde als wertlos befunden.
+
+Die nächste Anschauung war nun die, dass das Johannes-Evangelium in vielen Dingen etwas ganz anderes berichtet als die drei anderen Evangelien. Sie wissen, dass sie genannt werden «nach» Matthäus, «nach» Markus, «nach» Lukas und «nach» Johannes. Man legte vor allen Dingen immer mehr Wert darauf, dass das Bild des Jesus von Nazareth, wie es sich bei dem Johannes-Evangelium ergibt, ein anderes ist, als bei den anderen Evangelisten. Hier einige Grundzüge: Der Jesus des Johannes-Evangeliums ist aufgefasst als der Mensch gewordene Gott. Das ist derjenige, welcher Dinge tut, die nur aus der göttlichen Kraft selbst fließen können. Allmachtswunder sind es. Das gibt ein anderes Bild als bei den anderen Evangelisten. Das gibt das Bild, dass er Jesus schilderte als den, der in sich fühlt, dass er Gott sei, dass er der in die Welt gekommene Gott sei, um die Menschen auf dieser Gottgläubigkeit festzuhalten.
+
+Auch in Äußerlichkeiten stimmt das Johannes-Evangelium nicht zu den anderen Evangelien. Es wird uns niemals erzählt, dass die Mutter Jesu und die Jünger am Kreuze gestanden haben. Noch viele andere Punkte gibt es, in denen es sich radikal unterscheidet von den anderen. Deshalb kam man dahin, das Johannes-Evangelium auszuschalten, wenn es sich um die Biografie Jesu handelt. Das Johannes-Evangelium wird als eine Bekenntnisschrift angesehen, die keinen Anspruch machen kann, etwas anderes zu sein als ein hymnenartiger Gesang. Das Johannes-Evangelium gilt der modernen Theologie nicht als ein geschichtliches Dokument. Matthäus, Markus, Lukas zeigen mehr Übereinstimmung untereinander als diese drei Evangelien mit dem Johannes-Evangelium. Man nennt diese drei Evangelien die synoptischen und deren Verfasser die Synoptiker. Das, was bei Markus steht, steht bis zu einem hohen Grade in allen drei synoptischen Evangelien. Matthäus ist also derjenige, der gestrichen werden könnte, und man würde alles bei Markus und Lukas wiederfinden. Bei Markus ist nichts, was nicht auch bei Matthäus und Lukas steht. Daher gilt das Markus-Evangelium als das ursprüngliche. Auch ist es ein ganz altes Griechisch, in dem es abgefasst ist. Daher wiesen die Forscher darauf hin, dass das Markus-Evangelium als das erste anzusehen sei. Man hat das Markus-Evangelium also angenommen als das
+
+---
+
+erste, und die anderen haben demnach von dem, was Markus gesagt hat, aufgenommen. Bei Matthäus und Lukas findet man Bestandteile, die bei Markus nicht sind, sogenannte «Herrenworte», Kernsprüche, weil sie von dem Christus-Jesus stammen. Sie stimmen überein bei Matthäus und Lukas. Man kann, da sie übereinstimmen, nur annehmen, dass sie aus derselben Quelle herstammen. Diesen Herrenworten soll eine griechische Quelle unterliegen, eine Sammlung von Weischeitsprüchen, aus welcher man diese eingefügt hat in das, was sie aus dem Markus abgeschrieben haben. Die Übereinstimmung bei Matthäus und Lukas ist groß, aber die Anlage ist ganz anders. Voneinander abgeschrieben haben können sie also nicht, aber sie können eine gemeinsame Spruchsammlung als Grundlage gehabt haben.
+
+Was haben wir nun? Erstens das Markus-Evangelium, das in der Hauptsache die Taten Jesu erzählt, beginnend mit der Taufe. Zweitens das Matthäus-Evangelium und drittens das Lukas-Evangelium. Man hat da an die Taten immer die dazu passenden Herrenworte hinzugefügt. Dann findet sich aber bei jedem von beiden, bei Matthäus und Lukas, noch etwas Besonderes, das bei keinem anderen sich findet. Matthäus hat Einschiebungen, die einen entschieden jüdischen Charakter tragen. Es ist dasjenige, was Matthäus für sich hat, sodass es vorzugsweise als ein Evangelium zu betrachten ist, das für die Judenschaft bestimmt war. Lukas hat mehr für andere geschrieben, namentlich für Arme und Unterdrückte. Daher macht das ganze Evangelium des Lukas, soweit nicht Herrenworte und Markus-Stoff in Betracht kommen, den Eindruck, dass es für die Armut und aus einem Herzen voll Barmherzigkeit geschrieben ist.
+
+Die Theologie hat also merkwürdige Bilder entworfen. Zunächst, dass das Johannes-Evangelium überhaupt nicht in Betracht kommt; dann, dass Matthäus und Lukas jeder für sich etwas Besonderes haben, und dass jeder in einem bestimmten Maße ausschlaggebend sein kann für den wahren Tatbestand des Lebens von Jesus von Nazareth. Woher stammen aber die Herrenworte? Es muss eine griechische Sammlung von Sprüchen bestanden haben, die den Evangelien hinzugefügt worden sind. Über die Frage, woher sie stammen, kann die historische Forschung nichts ausmachen. Es ist ihr unmöglich zu sagen,
+
+woher diese Spruchsammlung kommt. Man wird also wieder auf Markus zurückgeführt. Man hat also einmal das Markus-Evangelium und dann die Spruchsammlung. Von demjenigen, was Matthäus und Lukas für sich haben, konnte man sagen, dass es auf Jesus zurückgeht und Nacherzählungen von Taten sind, aber beweisen können wir es nicht. Es kann sich an wahre Tatsachen anknüpfen, aber es braucht nicht der Fall zu sein. Ebenso kann das, was als Herrenworte bezeichnet wird, auf Jesus zurückgehen, aber wir wissen es nicht. Und so werden wir zurückgeführt zu dem Markus-Evangelium. Es erzählt Taten, aber sie sind eigentümlicher Art. – Was sagt die moderne Theologie dazu? Sie sagt: Prüfen wir die Tatsachen. Da finden wir, dass Markus in einer Weise erzählt, wie jemand erzählt hätte, wenn er es selbst gehört hätte oder der Augenzeuge gewesen wäre. Markus spricht von einem Werk. Dann aber reiht er die Dinge so aneinander, dass dieses Aneinanderreihen der einzelnen Tatsachen eine künstlerische Komposition ist. Dass er die Tatsachen so aneinandergereiht hat, wie er sie am besten zusammenfügen konnte, etwa so wie ein Dichter die Einzelheiten zu einem ganzen Werk zusammenmacht. Die Erzählung selbst ist die Komposition des Markus – die Tatsachen können Überlieferung sein. Sie sind aber so erzählt, dass sie einen ganz allgemeinen Charakter haben. – Markus erzählt also Tatsachen, die einen allgemeinen Charakter haben. Wir sehen also, dass die Komposition das Werk des Markus ist. Die Tatsachen aber sind so, dass er etwa sagt: Christus tat dieses oder jenes, aber so, dass es nur drei oder vier Jünger sehen und diese es nicht mitteilen dürfen. Es ist schwer, die Juden zum Glauben an Jesus zu bringen. Deshalb sucht Markus das Werk so zu gestalten, dass es für die Christen erklärlich wurde, warum die Juden so schwer an Jesum glaubten.
+
+Wir finden zweierlei – so sagt also der moderne Theologe: erstens, dass Jesus nicht verstanden wird. Und zwar erklärt sich das dadurch, dass Markus es den Juden schwer macht, Jesus zu verstehen. Wenn Jesus Wunder tut, verbietet er denjenigen, die es gesehen haben, es zu erzählen. – Davor steht der moderne Theologe wie vor einem Rätsel. Der moderne Theologe gibt da nur zu: Es muss hier irgendeine geheime Tradition bestanden haben, die aber nur zwischen Jesus und
+
+---
+
+246
+247
+
+seinen Auserwählten bestanden hat. Mit diesem kann der moderne Theologe nichts anfangen.
+
+Wir haben eine Tradition, dass Markus der Evangelist ein Schüler des Petrus gewesen sein soll, der das aufgezeichnet hat, was Petrus gesagt hat. Das ist ohne Zweifel, dass Petrus nicht geschrieben hat, sondern dass er im Allgemeinen Jesu Lehre gelehrt hat und namentlich Wert darauf gelegt hat, über den irdischen Tatsachen zu schweben, sodass die Nachschreiber nicht imstande waren, irgend etwas Lokales zu schildern. Dadurch werden wir in eine spätere Zeit geführt, in der das Markus-Evangelium entstanden ist. Eine lange Spanne Zeit trennt uns von dem ältesten Evangelium, von dem wahren Jesus. Wir wissen nicht, was wir entnehmen können von dem Urevangelium für den Jesus von Nazareth. Wir können daraus keine Biografie von dem Leben des Jesus konstruieren.
+
+Das Einzige, was die Theologie glaubt, ist, einen Anhaltspunkt zu gewinnen für ein ältestes Stück des Markus-Evangeliums. Das ist eine Stelle, die im 13. Kapitel enthalten ist:
+
+Wenn sie euch nun führen und überantworten werden, so sorget nicht, was ihr reden sollt, und bedenkt auch nicht zuvor; sondern was euch zu der Stunde gegeben wird, das redet. Denn ihr seid es nicht, die da reden, sondern der heilige Geist.
+
+Es wird aber überantworten ein Bruder den anderen zum Tode und der Vater den Sohn, und die Kinder werden sich empören wider die Eltern und werden sie helfen töten.
+
+Und ihr werdet gehasst sein von jedermann um meines Namens willen. Wer aber beharrt bis an das Ende, der wird selig.
+
+Wenn ihr aber sehen werdet den Greuel der Verwüstung, von dem der Prophet Daniel gesagt hat, dass er stehet, da er nicht soll (wer es liest, der vernehme es), alsdann, wer in Judäa ist, der fliehe auf die Berge. Und wer auf dem Dache ist, der steige nicht hernieder in das Haus und komme nicht darein, etwas zu holen aus seinem Hause. Und wer auf dem Felde ist, der wende sich nicht um, seine Kleider zu holen. [Mk 13,11–16]
+
+Von dieser Stelle meint die moderne Theologie, dass sie geschrieben sein könnte unmittelbar unter dem Eindruck der bevorstehenden Zerstörung Jerusalems. Hier an dieser Stelle muss etwas vorliegen, was alt ist, so alt, dass wir es versetzen könnten in die Zeit vor der Zerstörung Jerusalems. Das soll ein Pamphlet, eine Flugschrift gewe
+
+sen sein, um die Leute zu warnen und ihnen zu sagen, wie sie sich zu verhalten haben, wenn dieses Ereignis eintritt. Markus konnte diese Flugschrift benutzt und seinem Evangelium eingefügt haben.
+
+Noch eine andere Stelle ist für den modernen Theologen von besonderer Wichtigkeit. Das ist eine Stelle bei Lukas im 11. Kapitel, 48. Vers:
+
+So bezeugt ihr zwar und bewilliget in eurer Väter Werke; denn sie töteten sie, so bauet ihr ihre Gräber.
+
+Lesen Sie diese Stelle bei Matthäus im 10. Kapitel, 15. Vers, so ist der Vergleich sehr interessant:
+
+Wahrlich ich sage euch: Dem Lande der Sodomer und Gomorrher wird es erträglicher gehen am Jüngsten Gericht denn solcher Stadt.
+
+Bei Matthäus ist es ein Jesu-Wort, bei Lukas ist es ein Zitat. Darum spricht die Weisheit Gottes. Das Letztere muss also aus einer Quelle stammen, die man die *Weisheit Gottes* nennt. Da nimmt die Theologie an, dass es eine Spruchsammlung war, eine Sammlung von Weisheitssprüchen, aus der jener Theologe zitiert und gelehrt hat, indem er sagte: So spricht die Weisheit Gottes. Bei Matthäus wird das schon anders. Die sogenannten Herrenworte werden von den modernen Theologen auch auf die Spruchsammlung zurückgeführt.
+
+Überblicken Sie das Ganze in der groben Skizzenhaftigkeit, die nötig ist und vergleichen Sie, was da bleibt von der wissenschaftlichen Evangelienforschung. – Es bleibt nichts. Das Johannes-Evangelium ist ausgeschaltet, Matthäus und Lukas sind auf die Spruchsammlung zurückgeführt. Die Spruchsammlung kann auf griechische Quellen zurückgehen und ist weiter nicht zu verfolgen; wir verlieren den Faden. Markus kann nur längere Zeit nach Jesus geschrieben worden sein. Daher sagt der moderne Theologe: Das können wir alles nicht aus dem Evangelium gewinnen. Wir können nicht gewinnen eine Biografie von Jesus, wir können nicht das gewinnen, was Jesus gelehrt hat, wir können nicht gewinnen, was er vom Zwischengericht und vom Gottesreiche gelehrt hat. Über alles dieses sagen uns modernen Menschen die Evangelien nichts. Und was sie uns sagen,
+
+---
+
+kann nicht im Sinne materialistischer Wissenschaft ausschlaggebend sein.
+
+Ich nenne diese Erforschung der Evangelien eine tragische Geschichte. Sie sehen, Sie haben das Evangelium gemessen nach dem Maßstabe der äußeren Wissenschaft, und es passiert Ihnen jetzt, dass der ganze Wahrheitsgehalt – als Forschungsergebnis – nicht da ist.
+
+Das bezeichnet einen ganz anderen Standpunkt, auf dem sich heute der Gläubige zu dem Theologen befindet, als das früher der Fall war. Früher blickte der Gläubige zu dem Theologen auf, der den Wahrheitsgehalt der Evangelien nur verkündigte. Der stand fest. Auch das Buch von Harnack, das soviel Aufsehen erregt hat, beruht auf dieser modernen Theologie. So stehen heute die Gläubigen dem Theologen gegenüber, der nicht weiß, was in den Worten der Evangelien steckt, sondern nur sagen kann: Ich bin außerstande, wissenschaftlich zu sagen, was der Stifter des Christentums gelehrt hat, ob er überhaupt gelebt hat und so weiter. – Ein völlig negatives Resultat hat die Wissenschaft in dieser Richtung erbracht. Daraus können Sie ersehen, dass es dem, der sich auf das Christentum [der Theologen] verlässt, recht schwer wird, darauf zu bauen. Wenn man den Theologen glaubt, deren Wissenschaft das sagt, so kann man ins Wanken kommen.
+
+Da muss es als eine neue Quelle der Weisheit hypothetisch gelten, wenn die theosophische Bewegung jetzt wieder eine Vertiefung in das Johannes-Evangelium ins Leben ruft und versucht, das Johannes-Evangelium wieder zum wahren Verständnis zu bringen. Die theosophische Bewegung ist nicht darauf angewiesen, ewig buddhistische Dogmen zu reiten. Sie sind nur Mittel, das Dogma ist nur Mittel. Heute wird aus dem Schoße der Theosophischen Gesellschaft eine Bewegung geboren, welche ein wahres Verständnis des Christentums, des in den Evangelien verborgenen Evangeliums bringen wird, das man nicht im gewöhnlichen Sinne hat.
+
+Wer Erfahrung hat, darf darüber sprechen. Ich selbst kann mit ein paar Worten darauf hindeuten, dass ich mein neues Buch betitelt habe «Das Christentum als mystische Tatsache». Ich habe dieses Buch nicht aus historischen Quellen heraus geschrieben, ich habe es ab-
+
+sichtlich geschrieben ohne jede historische Quelle. Ich habe die historischen Quellen liegen gelassen und lediglich mich auf die okkulten Quellen gestützt. Dieses Buch ist aus der Akasha-Chronik heraus geschrieben, könnte man sagen. Wenn man die Dinge beleuchtet von dem Gesichtspunkte aus, wie Annie Besant es getan hat in dem Buche «Esoterisches Christentum» und ich es getan habe in dem Buche «Das Christentum als mystische Tatsache», dann bekommt die Sache eine ganz andere Wirkung. Ich werde Ihnen das nächste Mal zeigen, welch ganz anderes Bild wir bekommen. Diese Wissenschaft wird uns von einem anderen Gesichtspunkte aus zur größtmöglichen Vertiefung, zur Wiederbelebung der christlichen Wahrheit führen. Diese Wiederbelebung strebt eine Nebenströmung an, und es handelt sich zunächst um die Wiederbelebung des Johannes-Evangeliums. Man wird sie wieder verstehen, diese großen Worte, mit denen ich – in einer Übersetzung, die einigermaßen richtig ist – für heute schließen möchte, um das nächste Mal davon wieder auszugehen:
+
+Im Urbeginne war das Wort; und das Wort war bei Gott, und ein Gott war das Wort.
+
+Dieses war im Urbeginne bei Gott.
+
+Alles ist durch Dasselbe geworden; und außer durch dieses ist nichts von dem Entstandenen geworden.
+
+In diesem war das Leben, und das Leben war das Licht der Menschen. Und das Licht schien in die Finsternis, aber die Finsternis hat es nicht begriffen.
+
+Es ward ein Mensch, gesandt von Gott, mit seinem Namen Johannes.
+
+Dieser kam zum Zeugnis, auf dass er Zeugnis ablege von
+
+Dem Licht, auf dass durch ihn alle glauben sollten.
+
+Er war nicht das Licht, sondern ein Zeuge des Lichtes.
+
+Denn das wahre Licht, das alle Menschen erleuchtet, sollte in die Welt kommen.
+
+Es war in der Welt, und die Welt ist durch es geworden, aber die Welt hat es nicht erkannt.
+
+In die einzelnen Menschen [Bis zu den Ich-Menschen] kam es; aber die einzelnen Menschen [Ich-Menschen] nahmen es nicht auf.
+
+---
+
+Die ihn [es] aber aufnahmen, die konnten sich durch ihn als Gottes Kinder offenbaren.
+
+Die seinem Namen vertrauten, sind nicht aus Blut, nicht aus dem Willen des Fleisches, und nicht aus menschlichem Willen, sondern aus Gott geworden.
+
+Und wir haben seine Lehre gehört; die Lehre von dem einzigen Sohn des Vaters, erfüllt von Hingabe und Wahrheit.
+
+Wer diese Worte richtig versteht, der wird sehen, dass die Forschung von diesem Verständnis erst das richtige Wort wird finden können. Man soll nicht mäkeln an dem Wort. Und dieses Wort wollen wir wieder verstehen, das größte Wort:
+
+Und der Logos ist Fleisch geworden und hat unter uns gewohnt.
+
+# OKKULTE FORSCHUNG ÜBER DIE EVANGELIEN
+
+Berlin, 18. Juli 1904
+
+Vor acht Tagen habe ich mir gestattet, die Ergebnisse der theologischen Leben-Jesu-Forschung im Umrisse vorzuführen, und wir haben gesehen, dass diese Leben-Jesu-Forschung, die auf der Untersuchung der geschichtlichen Denkmäler basiert, dass diese Forschung ins Ungewisse ausläuft, dass sie uns bis zu einem Zeitraume führt, der sehr weit abliegt und später ist als die angenommene Lebenszeit des Stifters des Christentums. So hat sich uns gezeigt, dass die historische, physische Forschung auf Grundlage der Wortgelehrsamkeit außerstande ist, etwas auszumachen über den Tatbestand, der sich bei der Gründung des Christentums abgespielt hat.
+
+Heute möchte ich Ihnen als Ergänzung dazu die Ergebnisse der okkulten Forschung vortragen, auch nur im Umriss, und ich bemerke, dass diese Ergebnisse für denjenigen, der imstande ist, sie zu prüfen, Tatsachen sind, die aber nur mit besonders ausgebildeten Fähigkeiten zu prüfen sind, mit Fähigkeiten, die aber nicht jeder hat, die infolgedessen leicht angezweifelt werden können. Was darüber zu sagen ist, wird nicht erst heute gelehrt. Was ich zu sagen habe, ist in den okkulten Schulen aller Zeiten seit der Begründung des Christentums gelehrt worden und am lebhaftesten in den ersten Jahrhunderten des Christentums. Die Lehrer haben durchaus, wenn nicht wörtlich, aber doch getreu in dem Sinne gesprochen, in dem wir vom okkulten Standpunkte aus das Zeugnis des Johannes-Evangeliums betrachten wollen. Schon der gelehrte Theologe Bunsen hat gesagt, dass mit dem Johannes-Evangelium das Christentum steht und fällt. Und wir haben gesehen, dass die Buchstabengelehrsamkeit das Johannes-Evangelium zuerst ausgeschaltet hat und es nicht gelten lassen will.
+
+Dasjenige, was ich zu sagen habe, ist auch schon in den Schulen der ersten christlichen Jahrhunderte von demselben Gesichtspunkte
+
+---
+
+252
+253
+
+aus gelehrt worden auf der Grundlage der sogenannten okkulten oder geheimen Methoden. Wir dürfen uns nicht wundern, wenn diejenigen, welche aus den Schriften die Wahrheit des Christentums beweisen wollen, aus dem, was geblieben ist, wenn sie geschichtlich diese Wahrheit belegen wollen, zu keinem rechten Resultat kommen können, so wie andererseits auch heute noch der Okkultist nicht in der Lage ist, das Wichtigste, was er zu sagen hat, in Schriften niederzulegen. So ist es auch heute noch. Nicht die Evangelisten, noch ihre Nachfolger waren in der Lage, das Wichtigste mitzuteilen. Aber in den okkulten Schulen waren die Methoden erhalten geblieben, wodurch diese Wahrheiten gefunden werden konnten; sie wurden teilweise fortgesetzt, fortgepflanzt. Diese Wahrheiten sind teilweise den Schülern der okkulten Schulen „gezeigt“ worden. Ich sage „gezeigt“ worden, nicht „gelehrt“. Wer über solche Wahrheiten sprechen will, muss sie als Tatsache gesehen haben.
+
+Schon in den Schulen des Origines in Asien wurden drei Stufen des Aufstieges zu den okkulten Erkenntnissen anerkannt. Diese wurden bezeichnet durch die drei Worte: Reinigung, Erleuchtung und Einweihung. Wer die erste Stufe der Schülerschaft, die Stufe der Reinigung erlangt hatte, der konnte einsehen, wie sich die geschichtlichen Ereignisse abspielten. Er hatte die sogenannte historische Erklärung des Christentums. Wer weiter war, wer die Stufe der Erleuchtung erreicht hatte, der konnte einsehen, was Origines die Weisheitserklärungen nannte, der konnte einsehen jene Erklärungen, welche auf der Verbreitung moralischer Wahrheit beruht. Und wer die Stufe der Einweihung erreicht hatte, der konnte die sogenannte typische Grundlage des Christentums erreichen.
+
+Wenn wir das einmal erkannt haben, können wir das alles auch in den Schriften finden. Wer die Stufe der Reinigung erstiegen hat, wer nicht mehr imstande ist, von seinem Standpunkte, von seiner persönlichen Meinung zu reden, wer ganz zurücktreten lässt, was er will, was seine persönliche Meinung ist, lediglich sich zum Mundstück dessen macht, welcher zu ihm spricht in der astralischen Welt, der ist imstande, den geschichtlichen Verlauf auch ohne äußere historische Denkmäler zu sehen. Das ist das sogenannte Sehen in der astralen Welt, jenes Sehen, das ein ganz anderes ist, als das Sehen mit physischen Augen. In dieser astralischen Welt sind uns die Bilder aller Vorgänge im Spiegelbild erhalten, nicht in der Wirklichkeit. Diese Bilder der astralen Welt der Vergangenheit unterscheiden sich wesenhaft von den Bildern der physischen Welt. Sie haben Leben und handeln selbst, sie sind beweglich, sodass man auf diese Weise in der astralen Welt die Geschichte im tätigen Handeln vor sich abspielen sieht. Wer die Stufe der Reinigung erreicht hat, sieht gleichsam nur die Spiegelbilder der wahren inneren Vorgänge. Erst derjenige, der die zweite Stufe, die Stufe der Erleuchtung erstiegen hat, sieht weiter. Er sieht die Gedanken der Menschen, von denen sie beseelt waren, nachdem er sie im Bilde gesehen hatte. Und steigt jemand bis zur Stufe der Einweihung, dann sieht er eine noch viel höhere Welt, dann erkennt er die Intentionen, die Absichten, die in der Geschichte durch die Inkarnation der großen Individualitäten selbst herrschen.
+
+Das sind die drei Stufen, die der Initiierte zu ersteigen hat und von denen man auch geschichtlich eine Art von Abglanz erhalten kann, wenn man liest, was Gregorios Thaumaturgos über seinen Lehrer Origines sagt. Was er sagt, ist eine Schilderung, die mit einem höheren Enthusiasmus geschrieben ist über das, was Origines ihn gelehrt hat. Das, was sie geschrieben haben, ist so aufzufassen wie die Worte eines jener christlichen Schriftsteller aus dem dritten Jahrhundert, wie des Clemens von Alexandrien, welcher sagt: Ich weiß wohl, dass die Niederschrift meiner Erinnerungen schwach ist im Vergleich zu der Gnade, welcher ich gewürdigt wurde zu hören; aber es wird eine Erinnerung für denjenigen, den der Thyrsus traf. – Den Ausdruck „Thyrsus“ weiß jeder Okkultist zu deuten. Jeder Okkultist kennt das Instrument; jeder Okkultist weiß, dass die Wahrheit mündlich überliefert wurde von Mensch zu Mensch, und dass das Tiefste nicht in den Schriften aufgezeichnet worden ist. Das mag Ihnen mit völliger Klarheit daraus aufgehen, wenn ich ausspreche, dass in dem, was sie geschrieben haben, die letzten Wahrheiten nicht aufgeschrieben worden sind; so können sie natürlich auch nicht darin gefunden werden.
+
+Ich habe mein Buch betitelt „Das Christentum als mystische Tatsache“. Der Titel ist nicht umsonst gewählt. Jedes Wort ist da
+
+---
+
+wichtig. Es soll nicht bloß der mystische Gehalt dargelegt werden. Es hat sich vielmehr darum gehandelt zu zeigen, dass die Tatsachen des Johannes-Evangeliums zwar mystische Tatsachen sind, dass sie aber deshalb doch auch historische Tatsachen sind. Es soll nicht das Christentum als mystisch gezeigt werden, als mystische Auffassung, sondern das Christentum als eine mystisch zu erklärende, aber historisch wirkliche Tatsache. Derjenige, den der Thyrsus traf, der kann zu den Urbildern dessen, was die Bücher erzählen, geführt werden. Hier knüpfen wir mit diesem Wort an etwas an, was ich das letzte Mal in Bezug auf die historisch-kritische Evangelien-Forschung gesagt habe. Ich habe gesagt, dass die Kritik das Markus-Evangelium hat gelten lassen, dass dieses Markus-Evangelium zwar viel später geschrieben wurde, dass es, wie die Kritik sagt, nicht von Zeitgenossen geschrieben worden ist. Von ihnen habe ich gleichzeitig gesagt, dass dieser Schreiber des Markus-Evangeliums so spricht, dass er die Orte, an denen sich die Ereignisse abgespielt haben, nicht schildert, dass ihm die Ereignisse, die Lokalitäten vollständig gleichgültig zu sein scheinen. Ich habe auch gesagt, dass das, was Markus verknüpft als Tatsachen, eine Art dichterische Komposition sei, dass also auch die zeitliche Folge nicht maßgebend sein kann. Deshalb gibt die Kritik zweierlei zu: dass wir nichts entnehmen können aus der Zeitfolge und nichts aus Lokalitäten und Orten.
+
+Wenn Markus sagt «der Berg», so ist das so, als ob es nur einen einzigen Berg gegeben hätte. Das zeigt uns, wie wir aus dem Historischen heraus das Okkulte zu suchen haben, das zeigt uns, wie sich das Wirkliche zu den Schattenbildern verhält. Niemals kann man das Schattenbild an der Wirklichkeit prüfen, aber es darf auch niemals das Schattenbild der Wirklichkeit widersprechen.
+
+Das ist auch eine Anforderung der okkulten Forschung, dass wir nie etwas vortragen, was der historisch-kritischen Forschung widerspricht. Aber diese Wertung hört auf, wenn wir das betrachten, was hinter dem Markus-Evangelium liegt. Von dem «Berge» spricht Markus, und auch Matthäus spricht ähnlich in der Bergpredigt. Nur derjenige, der, wie Clemens von Alexandrien sagt, zu den Urbildern zurückgehen kann, der zur typischen Erklärung vordringen kann,
+
+nur der ist imstande, die Urbilder, das heißt das Raum- und Zeitlose zu finden.
+
+Die Evangelien sind nämlich alle in oder mit einer gewissen Geheimsprache geschrieben. Sie sind so geschrieben, dass sie zwar für die einfältigsten Menschen verständlich sind, dass es aber keinen Grad des Verständnisses gibt – er kann noch so hoch sein –, dass er nicht immer tiefere und tiefere Wahrheiten darin finden könnte. Derjenige, der weiß, was ein profanes Wort eigentlich in der Geheimsprache bedeutet, der kann den geheimen Sinn der Evangelien enträtseln. Wer nur liest, was am Anfang von dem steht, was wir die Bergpredigt nennen, der wird finden, dass da ganz im Allgemeinen etwas gesagt wird: Er setzte sich auf einen Berg und tat seinen Mund auf und sprach zu seinen Jüngern. Er sprach nicht zu dem Volke, er ging mit den Jüngern hinweg und sprach zu ihnen. Der Eingeweihte versteht das sofort, weil er weiß, dass die Worte «auf den Berg gehen» eine gewisse Bedeutung haben. Es heißt: in das Innere eines Heiligtums gehen, wo man geheime Lehren empfängt, sodass mit diesen Zeilen nichts anderes gesagt ist als: Jesus sah, dass dem Volke etwas gelehrt werden müsse; da führte er die Jünger in einen Tempel und setzte ihnen auseinander, was dem Volke nun überliefert werden sollte. – In uralten Traditionen lernte jeder Schüler, was seit uraltesten Zeiten diese Worte bedeuten. Sie können die Religionsbücher aller Zeiten durchgehen, und Sie werden die Bedeutung dieser Worte «auf den Berg gehen» immer finden. Es ist notwendig, dass man diese Sprache wirklich erkannt hat, um Okkultes zu lernen.
+
+Heute will ich Ihnen vor allen Dingen einiges unter dem Gesichtspunkt aus der Geheimlehre anführen unter dem Gesichtspunkt, der uns in das Verständnis des Johannes-Evangeliums einführen und zu einem Verständnis führen kann. Die gelehrten Forscher haben sich die größte Mühe gegeben, das Johannes-Evangelium zu verstehen. Nun gibt es aber viele Punkte, die für die reine Wortforschung nicht zu verstehen sind. Ebenso wenig wie man verstehen kann, was «auf den Berg gehen» heißt, wird man noch andere Ausdrücke verstehen können. Sie können ganze Bände gelehrter Forscher durchgehen, so werden Sie finden, dass nur ein einziger, Betke, dem Sinne sehr nahe
+
+---
+
+256
+gekommen ist, aber nur nahe. Er müsste die Geheimsprache kennen. Dass aber jemand dem nahe gekommen ist, daran sehen Sie, dass der geheime Sinn in den Worten liegt.
+
+Ein Punkt, den ich noch berühren möchte, ist da, wo die Hochzeit zu Kana geschildert wird. Sie erinnern sich der Worte:
+
+Am dritten Tage ward eine Hochzeit zu Kana in Galiläa, und die Mutter Jesu war da. Jesus aber und seine Jünger wurden auch auf die Hochzeit geladen. Und da es an Wein gebrach, spricht die Mutter zu ihm: Sie haben nicht Wein. Jesus spricht zu ihr: Weib, was habe ich mit dir zu schaffen? Meine Stunde ist noch nicht gekommen. Seine Mutter spricht zu den Dienern: Was er euch saget, das tuet. [Joh 2,1–5]
+
+Hier muss es auffallen, dass nicht gesagt ist, wie die Mutter Jesu geheißen hat. Und was den Kern, die Hauptschwierigkeit ausmacht, ist, dass Jesus sagt: «Weib, was habe ich mit dir zu schaffen?» Und die folgenden Worte: «Meine Stunde ist noch nicht gekommen.» – Nehmen Sie dazu eine andere Stelle bei Johannes, wo davon geredet wird, wer die Kreuzigung mitangesehen hat. Vergleichen Sie das mit den anderen Evangelien, so werden Sie finden, dass dies dort ganz anders geschildert ist. Wenn Sie das nur im Johannes-Evangelium lesen, können Sie kaum einen Sinn damit verbinden. Ebenso ist es mit der Stelle bezüglich der Verteilung des Rockes:
+
+Die Kriegsknechte aber, da sie Jesus gekreuzigt hatten, nahmen sie seine Kleider und machten vier Teile, einem jeglichen Kriegsknecht ein Teil, dazu auch den Rock. Der Rock aber war ungenäht, von oben an gewirket durch und durch. Da sprachen sie untereinander: Lasset uns den nicht zerteilen, sondern darum losen, wess er sein soll, auf dass erfüllet würde die Schrift, die da sagt: «Sie haben meine Kleider unter sich geteilt und haben über meinen Rock das Los geworfen.» [Joh 19,24].
+
+Es stand aber bei dem Kreuz Jesu seine Mutter und seiner Mutter Schwester, Maria, des Kleophas Weib und Maria Magdalena. [Joh 19,25]
+
+Es wird nicht von der Mutter Jesu gesagt, dass sie Maria heißt, ebenso wenig wie bei der Hochzeit zu Kana. Es heißt, die Schwester der Mutter Jesu hat Maria geheißen. Wenn man hier nach dem Wortlaut gehen wollte, müssten bei dem Kreuz zwei Schwestern gestanden haben, die beide Maria geheißen haben.
+
+257
+Da nun Jesus seine Mutter sah und den Jünger dabeistehen, den er liebhatte, spricht er zu seiner Mutter: Weib, siehe, dies ist dein Sohn.
+
+Lesen Sie das bei Johannes. Ein Jünger wird immer genannt: «ein Jünger, den er liebhatte». [...]
+
+Da sprach er zu seiner Mutter: Weib, siehe, das ist dein Sohn! Darnach spricht er zu dem Jünger: Siehe, das ist deine Mutter! Und von der Stunde an nahm sie der Jünger zu sich. [Joh 19, 26–27]
+
+Es wird uns also gesagt, dass am Kreuz der Jünger stand, den Jesus liebhatte, dass er ihn zum Sohne seiner Mutter gemacht hat und dass dieser Sohn die Mutter zu sich nahm. Das kann natürlich nur dieselbe Mutter sein, von der zu Kana in Galiläa gesprochen wird. Das hat den Erklärern die allergrößten Schwierigkeiten gemacht, und wir müssen uns fragen: Was steckt nun eigentlich dahinter? Was ist dazu zu sagen? Wir kommen nur darauf, die Evangelien richtig zu erfassen, wenn wir wissen, was in der Geheimsprache die Mutter einer geistbehafteten Persönlichkeit ist. Wir müssen uns klar sein darüber, von wem Jesus redet, wenn er von seiner Mutter spricht, und wir müssen diese Rede in dem Sinne auffassen, den wir in okkulten Schulen lernen.
+
+Derjenige, der als Initiierter in diese Welt kommt – sei er wie Buddha oder noch höher, wie Jesus, der Christus –, leitet seine Herkunft nicht aus dieser Welt her. Was in ihm lebt, stammt aus einer anderen Welt. Er ist der Bote einer anderen Welt. Er ist nur seinem physisch-zeitlichen Dasein nach geboren aus dieser Welt heraus, an einem bestimmten Ort. Wer als Initiierter die Welt betritt, hat im höchsten Grade dasjenige, was man Toleranz nennt. Niemals können Sie bei einem Initiierten auch nur eine Spur von dem finden, was irgendwie Intoleranz wäre. Wenn ein Initiierter irgendwo hingeht, um eine Lehre zu verkünden, wird er im höchsten Maße das Prinzip der Toleranz üben. Er wird niemandem etwas in seinem Gefühle zu Leide tun. Der Initiierte weiß, dass die Wahrheit bei allen Völkern gelebt hat. Er weiß, dass die Wahrheit in einer gewissen Gestalt überall vorhanden ist. Er weiß, dass die Welt fortschreitet, er betrachtet sich selbst als ein Werkzeug des jenseits der physischen Wirklichkeit
+
+---
+
+258
+gelegenen Weltengeistes, der die Welt ein Stück vorwärts zu bringen hat. Er führt die Menschen nicht dadurch, dass er eine sie verletzende Lehre verbreitet, sondern er verkehrt vor allen Dingen mit denjenigen, die nach Befreiung aus alten Banden lechzen, er verkehrt nicht mit Schriftgelehrten und Sadduzäern, sondern mit denjenigen, die im Sinne dieser Schriftgelehrten Sünder sind, die aber nach etwas lechzen, das erst in der Zukunft erscheinen soll.
+
+Diejenigen, zu denen er kommt, sind völlig verwachsen mit ihrem Volk, mit ihrer Zeit. Jesus kam zu den Juden, obzwar er nicht aus diesem Volke heraus geboren ist, und hatte unter ihnen zu wirken. Er hatte aus der Volkssubstanz das Höhere zu schaffen, das blühen sollte in der Welt. Aus drei Gruppen gingen seine Anhänger hervor. Die erste Gruppe waren diejenigen, die an das Judentum geknüpft waren, an die Gesetze, die er gekommen war nicht aufzulösen, sondern in voller Toleranz zu erfüllen. Das war das Volk, in das er seine Lehre wie ein Senfkorn hineinlegte, auf dass es aufgehen sollte. Die zweite Gruppe, wo er mit voller Liebe und Toleranz seine Lehre verbreitete. Das war diejenige Gruppe, die wegen seiner persönlichen Macht und seines persönlichen Einflusses an ihn glaubte. Das waren diejenigen, die ihm nahegestanden haben, die wussten, was sie an ihm hatten. Und eine dritte Gruppe gab es noch. Das waren diejenigen, die glaubten wegen der Taten, die er tat, trotzdem sie ihm nicht besonders nahestanden, die aber durch seine Erscheinung gefesselt waren, die daher in dem Augenblicke, wo diese Erscheinung heruntergezerrt war – nach der Kreuzigung – nicht mehr glauben konnten, bis sie Beweise hatten.
+
+Diese drei Gruppen waren es, zu denen er gesprochen hatte. Diese müssen im Sinne der Geheimsprache eine ganz bestimmte Bezeichnung haben. Die Zeit und das Volk, in die der Initiierte hineingeboren wird, die nennt er seine *Mutter*. Mutter nennt er also das jüdische Volk. Wenn Jesus von *Mutter in Galiläa* gesprochen hat, so ist das jüdische Volk damit gemeint: Ihm zeigt er das Wasser des Alten Testamentes und den Wein des Neuen. Die Seelen, in die man eine Lehre legt, werden durch weibliche Persönlichkeiten dargestellt. Diejenigen, die ihm nahestanden, werden repräsentiert durch Maria,
+
+259
+des Kleophas Weib. Diese hingen an Jesu wegen der persönlichen Beziehung. Die dritte Gruppe waren Personen, die Beweise brauchten. Jetzt wissen wir, dass Jesus einem anderen die Sendung aufgetragen hat, sich des judenchristlichen Volkes anzunehmen. Jetzt wissen wir, warum er zu der Mutter, dem Judenchristentum, sagt: Das ist dein Sohn! Das ist derjenige, der den christlichen Fortschritt zu tragen hat, das ist der Jünger, den er liebhat. Und jetzt wissen wir, dass der Jünger die Aufgabe aufnahm. Das bezieht sich auf die Worte: Und von der Stunde an nahm er die Mutter zu sich. Das heißt, er war derjenige, der aus dem Judentum das Christentum entwickeln sollte.
+
+Ein Wort bleibt noch unverständlich, das Wort: «der Jünger, den Jesus liebhatte». Da müssen wir erkennen, wer der Jünger ist. Das Wort bedeutet: Den Betreffenden hat Jesus selbst eingeweiht. Man sieht daraus, der Meister ist dieses einen Jüngers Freund – er hat ihn lieb.
+
+Das Lazarus-Wunder finden Sie in meinem Buch «Das Christentum als mystische Tatsache» näher erklärt. Nur Andeutungen kann ich hier geben für das, was dieses Lazarus-Wunder ist. Derjenige, der weiß, wie die Einweihungen vollzogen worden sind, weiß, wie die dreitägige Prozedur der Grablegung stattgefunden hat, er weiß, dass nach drei Tagen die Auferstehung war, der liest in der Auferweckung des Lazarus die Geschichte der Initiation, der liest selbst in den einzelnen Worten genau die Schilderung einer Initiation. Nichts anderes ist da geschehen, als dass der Christus, der Meister, den Lazarus initiiert hat, das heißt, er hat dessen niedere Persönlichkeit sterben lassen und nach drei Tagen seine höhere Persönlichkeit auferweckt. Lesen Sie auch die Worte: «Ich bin die Auferstehung und das Leben.» – Wenn Sie diese Worte richtig zu lesen verstehen nach dem Geiste, der lebendig macht, so werden Sie finden, dass Lazarus ein Auferweckter im Sinne des Christus war. Sie finden da, wo das Lazarus-Wunder erzählt wird, auch wieder den Ausdruck «Jesus hatte Lazarus so lieb».
+
+Wie kommt es nun aber, dass das Lazarus-Wunder sich nur im Johannes-Evangelium findet? Wie kommt es, dass im Johannes-Evangelium diesem Lazarus-Wunder eine so große Bedeutung beigelegt wird? Und wie kommt noch etwas anderes, was Sie auch be-
+
+---
+
+260
+261
+
+merken müssen, wie kommt es, dass der Jünger, den Jesus lieb hatte, erst nach dem Lazarus-Wunder auftritt? Lesen Sie von diesem Gesichtspunkte aus betrachtet das Johannes-Evangelium, und Sie werden zwar nicht einsehen können, aber Sie werden es demjenigen, der es wissen kann, glauben, dass dieses Lazarus-Wunder des Jüngers, den Jesus lieb hatte, ein Selbstbekenntnis ist für etwas, das Johannes selbst erlebt hat. Damals ist er der erweckte Jünger geworden, den Jesus lieb hat. Dieses Selbstbekenntnis weiß derjenige zu würdigen, der den Stil solcher Darstellungen der uralten Zeiten kennt, wo sie nicht niedergeschrieben wurden, aber immer und immer wieder von den Lehrstühlen verkündigt worden sind. Solche Selbstbekenntnisse, dass der oder jener einem lieb war, finden Sie nicht sehr oft. Das ist der Grund, warum das Wunder nur im Johannes-Evangelium erzählt wird, eben weil es ein Selbstbekenntnis ist. Das ist auch der Grund, warum im Johannes-Evangelium das Tiefste erzählt wird, nämlich das Jesu-Leben selbst. Das ist auch der Grund, warum derjenige, der es ursprünglich gelebt hat – nicht der Schreiber –, es am besten gewusst hat. Lesen wir das Johannes-Evangelium typisch, und entziffern wir darin den tieferen Sinn.
+
+Es ist nicht zu verwundern, dass die christlichen Kirchenlehrer, die damaligen Gelehrten der ersten Jahrhunderte, nicht müde wurden, gerade das Johannes-Evangelium zu interpretieren; gerade dieses Johannes-Evangelium wollten sie verstehen. Wenn man weiß, dass der Jünger, den Jesus lieb hatte, die Mutter zu sich genommen hat, dann versteht man auch den Anfang:
+
+Im Anfang war das Wort, und das Wort war bei Gott, und ein Gott war das Wort. [Joh 1,1]
+
+Das ist aber nur dem okkulten Forscher klar; ihm aber ist es ganz klar. Bekanntlich steht an der Stelle, wo die deutsche Übersetzung das »Wort« hat, der Ausdruck »Logos«. Im Anfang war der Logos. Was ist nun der Logos? Der Begriff des Logos, wie er hier gemeint ist, ist schwer zu verstehen. Er hat einen uralten Ursprung. Nun ist es zwar richtig, dass das Johannes-Evangelium, so wie es uns vorliegt, eine starke Nuance griechischer Schriftstellerei hat. Wer es aber genau
+
+prüft, wird auf der anderen Seite wieder sehen, dass der Schreiber des Johannes-Evangeliums wohl das eingehalten hat, was es ursprünglich war, nämlich ein von dem Jünger, den der Meister lieb hatte, geschriebenes Buch, ein Buch, welches darstellen sollte, dass dieser Jünger die Mutter Jesu zu sich genommen hat. Da muss man freilich die tiefere jüdische Lehre kennen. Diese tiefere jüdische Lehre finden Sie nicht bei Pharisäern und Sadduzäern. Sie finden sie eher noch bei den Sadduzäern. Sie finden sie aber bei einer großen Persönlichkeit in Alexandrien. Sie finden da aber auch die Lehre vom Logos. Dieses Wort ist aber auch nicht in Alexandrien entstanden. Dieses Wort können Sie zu allen Zeiten verfolgen. Ich möchte nur an ein paar Beispielen klarmachen, was der Mensch von damals mit dem Worte Logos für einen Begriff verbunden hat. So wie das Wort uns vorliegt, ist es nur ein griechischer hebräischer Begriff. Weil Platon in seiner Lehre den Logos angenommen hat, hat man gesagt, dass er ein attisch redender Moses sei. Wir dürfen uns nicht wundern, dass wir die Logoslehre in einer etwas griechischen Gestalt vermittelt erhalten.
+
+Gehen Sie zu der uralten Lehre der Inder; da werden Sie zu dem Urgesetz kommen. Das ist alles, was zu den Veden gehört. »Veda« heißt nichts anderes als »das heilige Wissen«, und Wissen bedeutet für all diese alten Zeiten etwas, was von Gott selbst stammt. Die Bedeutung dieser Auseinandersetzung würde uns aber zu weit führen. Der bedeutendste Teil der Veden ist der Rig-Veda. »Rig« heißt das »Wort«, und die Lehren des Rig-Veda wurden so vorgestellt, dass die großen Lehrer sie von Gott selbst empfangen haben. Es ist das Wissen, und dieses Wissen wurde im Rig-Veda niedergeschrieben. Es ist das Wissen, das den Rishis geoffenbart worden war. Auch bei den alten Indern ist das Wort schon so verstanden worden, dass nicht bloß das Wort ist, das gesprochen wird, sondern das, wodurch das Wort gemacht ist. Wie durch den Schall das Wort geschaffen wird, so wurde durch das Wort auch das Universum gebildet.
+
+Wenn wir zu den Persern kommen, so finden wir da das heilige Buch der Perser, das »Zend-Avesta«. Ich kann jetzt nicht auseinandersetzen, dass es eigentlich heißen müsste Avesta-Zend. »Zend« ist das Wort. Es ist genauso wie im Indischen. Das Wort der Schöpfung
+
+---
+
+262
+263
+
+wurde das Wort, durch welches der persische Magier das Geheimnis der Schöpfung erhalten hat.
+
+Und gehen Sie nach Babylonien, so werden Sie wieder finden, dass da ein Buch ist – «Buch» ist ungefähr dasselbe wie Wort, die Lehren wurden damals mündlich fortgepflanzt –, Oanes, das den alten Priestern geoffenbart hat alles, was sie zu ihrer religiösen und weltlichen Kultur brauchten. Wenn Sie zu all diesen Völkern und ihren Religionen zurückgehen, so werden Sie den Begriff des Wortes finden. Sie werden finden, dass der Begriff des Logos bei Ihnen vorhanden ist, genauso wie er im späteren, geheim gelehrten Judentum vorhanden ist. Aber Sie werden dabei eines finden, dass bei all diesen alten Völkern, die den Begriff des Logos vor dem Judentum anwenden, dieses Wort Logos etwas viel Lebensvolleres hat, und dass es im Judentum zu etwas Abstraktem wird. Der Perser stellte es sich so vor, dass das Wort verkündigt dem Magier von lebendigen Wesen, von Engeln, Devas. Sie sind die Träger des Wortes. Die Devas sind es, welche bei den Indern das Wort in die irdische Welt hineintragen. Da wird dann noch der Bote mitgedacht. Es ist das lebendige Wort, welches ausgesprochen wird von Gott und hinuntergebracht wird zu den Menschen durch göttliche Sendboten, durch Devas oder Engel. Ähnlich ist es auch bei den Babyloniern. Alles, was sich zwischen Gott selbst und den Menschen schiebt, ist durch eine besondere Mission der Weltgeschichte, die volle Berechtigung hat, im jüdischen Bekenntnis ausgelöscht.
+
+Das jüdische Bekenntnis löscht den vertraulichen Umgang mit all den Mittelwesen aus, welche zwischen Gott und dem Menschen stehen. Gott wird zu dem jenseitigen Jehova, von dem sich niemand ein Bild machen darf, und das, was der Mensch von ihm wissen darf, ist das Gesetz, das er gegeben hat. Das ist der Logos, der nur zu einer Vorstellung im Menschen werden kann; das ist der ganz abstrakte, schemenhaft gewordene Logos. Dieser Tatbestand liegt vor. Aus dem Judentum mit seiner Auffassung der Logos-Lehre und der Gesetzeslehre heraus hatte der Jünger, den Jesus lieb hatte, die Wahrheit zu verkünden: dass dieser Jesus, der da gelebt hat unter seinen Jüngern, selbst der Bote, der Sohn Gottes war. Mit anderen Worten:
+
+Wie früher Devas, Engel und so weiter Träger des Wortes waren, so ist es jetzt so geworden, dass der Christus gewordene Jesus das Fleisch gewordene Wort war. Schwer war es in jener Zeit, da in der folgenden Zeit der Zusammenhang mit den Mittelgliedern zwischen Mensch und Gott verlorengegangen war, dieses verständlich zu machen: Der Logos war Fleisch geworden, der Logos war Gott selbst.
+
+Wir sehen, dass bis ins dritte Jahrhundert hinein eine Sekte sich gebildet hat, die entschiedener Gegner des Johannes-Evangeliums war. Sie nannten sich Alogoi; sie wollten nichts wissen davon. Diese Alogoi bestanden schon im zweiten Jahrhundert, und das Johannes-Evangelium hatte damals viele Gegner. Woher kommt es, dass das Verständnis für das Johannes-Evangelium verlorengegangen ist? Das begreifen wir nur, wenn wir uns klar machen, wie sich der Mensch in früherer Zeit zu seinen Göttern gestellt hat. Brahma und die anderen Götter, sie waren nichts anderes als das, was in der Welt und mit der Welt lebt; sie waren genau das, was sich in jedem Einzelnen Ding und vor allem in jedem einzelnen Menschen kundgibt. Zwar ist der Mensch ein schwaches Wesen, aber der Mensch entwickelt sich höher und höher, und der Gott, der in dem Worte ist, kommt immer mehr und mehr zum Ausdruck.
+
+Das ist kein Pantheismus, kein verwaschener Gottesbegriff, auch keine Leugnung des Gottes, sondern ein Begriff, so erhaben, wie er nur erhaben sein kann. In einer Benennung ist es noch erhalten, in «Pontifex maximus», der Brückenmacher, der Priester. Und warum das? Weil er ein entwickelter Mensch sein musste, ein solcher, der das innere Selbst schon eine Stufe [höher] hatte als die anderen, ein Mensch, der eine höhere Entwicklung erreicht hat. Wer zu forschen versteht, kann es schon geschichtlich belegen, dass die alten Götter der Griechen ursprünglich Menschen waren, Menschen, die ursprünglich gelebt haben und die so vorgestellt worden sind, dass sie sich zu einer höheren Stufe der Göttlichkeit hinaufgearbeitet haben. So war es auch bei den Persern. Auch sie hatten Wesen wie die Devas und Engel, welche graduell verschieden waren, die aber eine Stufe weiter führten – hinauf.
+
+Auch der Mensch konnte göttlich werden. Er konnte hinauf ge-
+
+---
+
+langen zu der Stufe, wo sich in seiner eigenen Brust das Wort enthüllt; da gab es für denjenigen, der sich soweit entwickeln konnte, eine Vereinigung des Logos in seiner eigenen Brust mit dem Logos draußen. Er konnte aufsteigen mit dem Logos-Bewusstsein. Er konnte es erreichen, dass der Logos selbst Fleisch wird. Das war eine Vorstellung, die die Völker damals verstehen konnten. Sie konnten verstehen, dass durch eine weitergehende Entwicklung das Bewusstsein des inneren Wortes erhalten werden kann, das Wort, durch das alle Dinge gemacht sind, das bei Gott war ursprünglich, welches das Leben der Menschen wie das Leben der ganzen Welt war – und dieses Wort wurde das Licht des Menschen. Es leuchtete im Innern des Menschen auf, und die es aufnahmen, wurden genannt „Kinder Gottes“.
+
+So sehen Sie, dass im Johannes-Evangelium anklingt, dass im Menschen der Logos bewusst werden kann und dass jene, welche sich dieses Zustandes bewusst werden können, Söhne Gottes genannt werden. Deshalb sagte er an anderer Stelle: Ihr seid Götter –, und er erklärt damit, warum er sich einen Sohn Gottes nennt. Wenn wir das festhalten, so hatte Johannes zwei Dinge zu geben, erstens dass das uralte Bewusstsein, dass der Mensch ein Gottesbewusstsein in sich hat, zum Ausbruch kommen, zum Erlebnis werden kann, und zweitens, dass derjenige, der in Palästina gelebt hat, die Offenbarung desselben Logos war, der in jedem Menschen lebt im Allgemeinen und der als Logos unter die Menschen gekommen ist. Von ihm hatte man zu begreifen, dass er an diesem ausgezeichneten Ort und zu der ausgezeichneten Zeit zum Logos geworden ist.
+
+Nur den Logos verstanden sie, mit dem sie aber keine Verbindung mehr wussten. Und weil sie die Verbindung mit dem Menschen nicht mehr wussten, deshalb wurde es ihnen schwer, den Logos, der Fleisch geworden ist, zu verstehen. Es musste daher der griechische Standpunkt, der die Vergöttlichung des Menschen im eigenen höheren Dienst entwickelt, und der von dem alexandrinischen Christentum vermittelt werden. Davon musste der Ausgang genommen werden. Diese zwei Dinge mussten verknüpft werden. Der Logos, der sich nur als Gesetz offenbaren kann, der musste vermittelt werden mit dem ursprünglichen Logos-Begriff. Wenn Sie das festhalten, so werden Sie begreifen, dass zwei Strömungen notwendig sein mussten im ursprünglichen Christentum.
+
+Die eine war diejenige Strömung, welche noch nicht entfremdet war dem ursprünglichen Begriff des Logos-Bewusstseins, welche festhält, dass die Entwicklung des Menschen gerade hinaufführt zu der Göttlichkeit und dass der Logos zu begreifen ist. Diese stand neben der anderen Strömung, welche den Logos in blauer Ferne sah, die den Logos nur als eine Offenbarung von außen ansehen konnte und die daher schwer verstehen konnte, dass der Logos Mensch geworden ist. Für diese zwei Strömungen mussten andere Begriffe geschaffen werden, sodass dieser eine Logos „Jesus“ wesenseins gewesen sei als Mensch mit dem Logos als Gott. Nur dadurch konnte ein Verständnis herbeigeführt werden. Diese beiden Strömungen lebten nebeneinander. Man kann sagen, die eine Strömung verstand das Johannes-Evangelium, die andere verstand es weniger. Sie hielten zwar auch daran fest, aber sie interpretierten es anders. „Denen gab er Macht, ‚Gottes Söhne‘ zu werden“ – das wurde nicht verstanden. Das hatte aber Arius auf dem Konzil zu Nicäa zu vertreten. Er vertrat die Wesenseinheit des Logos mit Jesus und den Keim des Gottes im Menschen. Die andere Strömung machte das Wort des Fleisch gewordenen Gottes zum Dogma und zum Bestandteil der Dreieinigkeitslehre, welche etwas ganz anderes geworden ist, als ihre ursprüngliche Bedeutung war. Diese Strömung suchte die Offenbarung in ein solches Licht zu rücken, dass nur die Kirche sie vertreten konnte, da sie über alle menschlichen Verstandeskräfte hinausgehe. Auf dem Konzil von Nicäa wurde das Johannes-Evangelium falsch angenommen gegen die arianische Auffassung.
+
+Seit dem Mittelalter hat die Scholastik gelehrt, frei von aller sinnlichen Erfahrung zu denken, aber auch noch selbstlos, hingebungsvoll an einem vorhandenen Wort mit Treue zu hängen und nicht eigensüchtige Kritik und den eigensüchtigen Verstand geltend zu machen. Das ist etwas, was Jahrhunderte hindurch der christliche Denker hingenommen hat, eine Schulung, die gut war, eine Schule in hingebungsvollem Denken. Das verstehen diejenigen nicht, die heute – ohne sie zu kennen – über die Scholastik abfällig reden und sie ver-
+
+264
+265
+
+---
+
+achten. Wer die Scholastik kennt, der weiß, was hier an selbstlosem Denken geleistet wurde, wo der Betreffende nicht sagt: «Ich, ich habe das gefunden, ich bin berufen, hier unbedingt eine Überzeugung zu finden!», sondern wo er sagt: «Was bin ich, wer ist es und was ist es, wenn ich da denke, wenn die Lehre vom Geist gegeben war». Da wurde aller selbstsüchtige Intellekt hingeopfert für die Erkenntnis einer Lehre, die selbstlos sich der Wahrheit hingab. Dazu musste uns die Überlegung führen, dass unser Geschlecht uralt ist, dass die Menschen immer und immer gedacht haben, und dass nicht auf uns gewartet worden ist, auch nicht auf das, was wir vorbringen werden.
+
+Lernen wir in den Schriften der Väter forschen, dann werden wir uns reif machen, die wahre Gestalt immer mehr und mehr zu erkennen. Ein demütiges Wahrheitssuchen ist es, was die Bewegung der Theosophischen Gesellschaft, die die Erforschung des Johannes-Evangeliums heben will, überall will. Wir wissen, dass das Devotionelle in unserer Zeit besonders fehlt. Diejenigen, die für diese Strömung sprechen, wissen, dass sie es selbst gelernt haben in ihrem Suchen nach Wahrheit: demütig zu sein, devotionell zu sein. Das ist ein Erlebnis, das nicht einer, sondern viele durchgemacht haben. Sie haben sich die Wissenschaft zu ihrer eigenen gemacht. Sie haben die Wahrheit da und dort gesucht, in der Naturwissenschaft, in der Philosophie, in der Geschichtswissenschaft. Sie wissen die Methoden, die da und dort befolgt werden. [...]
+
+Wer aber, ich möchte sagen, das Glück hatte, etwas tiefer zu gehen, der weiß, dass in der Wissenschaft unserer Tage – sei es Philosophie, Naturwissenschaft, Medizin, Theologie und so weiter –, derjenige, der sie in sich aufgenommen hat, nicht mehr glaubt: «Ich bin berufen zu entscheiden.» Wenn wir demütig geworden sind, dann lesen wir noch einmal das Buch des Johannes-Evangeliums, dann werden wir finden, dass manches zwar anders abgeschrieben ist von dem Schreiber, als es war, aber man dachte es durch nach materialistischen und auch höheren Gesichtspunkten und fand, dass wir den Sinn nicht auf unserem Plane finden. Das ist nicht so, als wenn ich rhetorisch etwas schön sagen wollte, sondern ich spreche das unter voller Verantwortung im Sinne derjenigen, die die heutige Wissenschaft aufgenommen
+
+haben, und dann, nachdem sie das getan, sich vertieft haben in dieses Buch der Weisheit, in dieses Buch der Wahrheit. Da haben sie eines gefunden, sie haben gefunden, dass, als sie daran gingen, dieses Buch zu studieren, ihnen die Wahrheit in einer hohen Form entgegenströmt, und dass alle ihre Gelehrsamkeit der heutigen Zeit ihnen nur dienen kann, die Glorie dieser Wahrheit in sie einströmen zu lassen. Aber das ist noch nicht alles. Es kommt dazu, dass für die, welche solche Erlebnisse haben, ein Neues sich einstellt, dass sie sich bewusst geworden sind, dass – sooft sie wieder zum Johannes-Evangelium zurückkehren, dass sie jedes Mal gestärkt und gekräftigt worden sind. Wenn sie so vom Johannes-Evangelium zurückkommen, dann bekommen sie das Gefühl, dass die Wahrheit, die darinnen liegt, ein Unendliches ist, dass es etwas ist, das von unendlicher Tiefe ist. Und sie sagen sich: Hier bin ich ein Anfänger, auch die Fortgeschrittensten unserer Tage sind hier Anfänger. Sie haben es erlebt, dass sie Anfänger sind. Das gibt einen Offenbarungsbegriff, nicht in dem Sinne des Mittelalters, aber einen solchen, der das Tor zur Wahrheit, die Pforte zur Wahrheit – wie Jesus gesagt hat –, ein Quell der Wahrheit ist. Das Johannes-Evangelium ist einer der Führer. Dies zum Grundsatz zu machen und es in weitesten Kreisen wahr zu machen, das ist die Aufgabe des Johannes-Evangeliums und der Johannes-Gesellschaft. Jemand, der weiß, was hier zu suchen ist, was hier zu lernen ist, der darf aus vollem Herzen sich dieser Johannes-Gesellschaft und diesem Studium des Johannes-Evangeliums anschließen.
+
+---
+
+EVANGELIEN UND EINWEIHUNG
+
+Berlin, 25. Juli 1904
+
+Das Evangelium des Markus war vorhanden Jahrhunderte bevor das Christentum begründet worden ist. Es ist nichts anderes als eine uralte Initiationsurkunde darüber, wie man in Indien, in Mittelasien und in den iranischen Gegenden initiiert worden ist, wie man aufgestiegen ist zu den okkulten Erkenntnissen, sich angeeignet hat das höchste Wissen, wie man ein Eingeweihter, ein Sonnenläufer geworden ist, wo man eingeweiht worden ist bis zu dem, was man die Himmelfahrt nennt. Das stand in diesen Initiationsurkunden.
+
+Sie waren nicht in dieser oder jener Sprache geschrieben, sie waren sogar sehr selten überhaupt geschrieben. Aber aufbewahrt waren sie in einer unvergänglichen Sprache, in der gemeinsamen Sprache aller Okkultisten, in einer symbolischen Sprache. Um sie zu verstehen, müssen okkulte Studien gemacht werden. Diese Initiationsurkunden waren streng geheim gehalten durch die Jahrtausende herauf. Sie waren geheim gehalten sowohl von den Priestern Ägyptens wie auch von den Druidenpriestern in Europa. Das geschah auch deshalb, weil sie niemand etwas nützen konnten. Nur dem, der sie verstehen konnte, konnten sie etwas nützen.
+
+Nun spielte sich auf dem Schauplatz der Geschichte eine historische Tatsache ab, die wir Taufe, Leiden, Sterben und Auferstehung des Christus Jesus nennen. Diese äußerlich zum Ausdruck gekommene Tatsache ist zugleich eine mystische Tatsache. Sie ist etwas, was man als historische Tatsache nur verstehen kann, wenn man versteht, was diese bestimmte Einweihung ist, die in der Initiationsurkunde stand, von der ich gesprochen habe. Mit anderen Worten ausgedrückt, ist dasjenige, was sich in den Jahren 30 bis 33 abgespielt hat als das Leiden und Sterben Christi, etwas, was sich unzählige Male im Innern der Tempel abgespielt hat. Der Vorgang wurde zu einem typischen Bild für alle, nachdem jemand die Stufenreihe der Entwicklung auf ein äußeres Ereignis übertragen hatte.
+
+Die ersten Lehrer des Christentums traten daher etwa in der folgenden Weise vor diejenigen hin, denen sie Unterricht geben wollten: «Für euch und um euretwillen hat sich ein großer geschichtlicher Prozess abgespielt. Dies könnt ihr aber nur verstehen, wenn wir euch das Leben im Innern der Tempel erzählen.» – Und nun erzählten sie ihnen predigtweise, wie man initiiert wird. Das, was sich sonst symbolisch im Innern der Tempel abgespielt hatte, wurde jetzt erzählt, damit die, welche nicht sehen konnten, nun glauben konnten.
+
+Nachschriften davon sind solche Urkunden wie das Markus-Evangelium. Nun habe ich Ihnen dargestellt, wie sich zu alledem das Johannes-Evangelium verhält. Johannes stellte sich als der eigentliche Testamentsvollstrecker Christi dar. Die Worte, die Jesus am Kreuze sprach, sind nicht ohne Bedeutung. Er übergibt der Mutter den Jünger, den er lieb hat. Und der Jünger, den Jesus lieb hatte, war, nach den Aufzeichnungen der Akasha-Chronik, der von Jesus eingeweihte Lazarus. Damit stellt sich das Lazarus-Wunder als ein Initiationsvorgang dar. Das heißt nichts anderes, als dass er der Jünger war, der eingeweiht worden ist, der also auch das Tiefste, was zu sagen ist, sagen kann. Deshalb ist das Johannes-Evangelium das tiefste und deshalb ist es auch eine Botschaft geworden, deren Erklärung kein Ende nehmen kann. Immer tiefer dringt man, immer neue Punkte findet man, selbst der Gelehrte.
+
+Wir finden da die Verwandlung des Wassers des alten Bundes in den Wein des neuen Bundes. Die «Mutter» bedeutet das «jüdische Volk», dem Jesus das Wasser in den Wein des neuen Christentums verwandelt. Darin liegt auch der Grund, warum das Johannes-Evangelium als das eigentlich okkulte angesehen worden ist. Vom 13. Kapitel ab ist es nicht nur verstandesmäßig zu begreifen, sondern jeder Satz, der da steht, ist außerdem erfüllt mit okkulter Kraft.
+
+Namentlich von den Schülern der Rosenkreuzer ist das Johannes-Evangelium als Lebenselixier betrachtet worden. Von der Fußwaschung an ist der ganze Inhalt mystisch zu erleben. Wer ihn auf den ganzen Menschen anwendet und lebendig sich damit durchdringt, der wird etwas in sich erleben und dann verstehen, dass vieles in dem Evangelium ohne dieses Erlebnis gar nicht verstanden werden kann.
+
+---
+
+Jeder Mensch kann jeden einzelnen Satz mystisch durchmachen und durchleben. So ist die Stellung des großen Lehrers aufzufassen, der im Beginne des Christentums steht. Das Neue an dem Christentum war, dass durch dasselbe offenbar geworden ist, was früher Mysterienweisheit war.
+
+Ein Grunderlebnis des Theosophen ist die Devotion. Dass der Jünger Jesu in das Grab hineingeht, um zu sehen, ob er da ist oder nicht, ist nicht das Wichtige. Wichtig ist dabei das Getragensein von Devotion. Es gibt keinen Pfad, der nicht durchsetzt wäre von Devotion. Und je weiter man auch auf dem Erkenntnisweg vorwärtsdringt, umso mehr wird man sich auch Devotion aneignen müssen. Man wird immer devotioneller und devotioneller werden. Aus dieser Devotion fließt dann die Kraft zu den höchsten Erkenntnissen. Wer es dazu bringt, darauf zu verzichten, seine Gedanken zu verbinden, der gelangt zu dem Lesen der Schrift in der Akasha-Chronik. Eines ist aber dabei notwendig: das persönliche Ich so weit ausgeschaltet zu haben, dass es keinen Anspruch darauf macht, die Gedanken selbst zu verbinden. Es ist gar nicht so leicht, das zu verstehen, denn der Mensch macht darauf Anspruch, das Prädikat mit dem Subjekt zu verbinden. Solange er das aber tut, ist es ihm unmöglich, wirklich okkulte Geschichte zu studieren. Wenn er in Selbstlosigkeit, aber auch in Bewusstheit und Klarheit die Gedanken aufsteigen lässt, dann tritt ein Ereignis ein, welches von einem gewissen Gesichtspunkte aus jeder Okkultist kennt, nämlich das Ereignis, dass sich die Vorstellungen, die Gedanken, die er früher nach seinem persönlichen Standpunkte zu Sätzen, zu Einsichten geformt hat, jetzt durch die geistige Welt selbst formen, sodass nicht er urteilt, sondern dass in ihm geurteilt wird. Es ist dann so, dass er sich hingeopfert hat, auf dass ein höheres Selbst geistig durch seine Vorstellungen spricht. Das ist – okkult aufgefasst – das, was man im Mittelalter das Opfer des Intellektes genannt hat. Es bedeutet das Aufgeben meiner eigenen Meinung, meiner eigenen Überzeugung. Solange ich selbst meine Gedanken verbinde und meine Gedanken nicht höheren Gewalten zur Verfügung stelle, die dann gleichsam auf der Tafel des Intellektes schreiben, solange kann ich nicht okkulte Geschichte studieren. Es ist das ein Widersprechen gegenüber den höheren Gewalten, es ist das, was man gewöhnlich in unserer Zeit als etwas besonders Bemerkenswertes betrachtet. Das, was da nötig ist, bezeichnet der Theosoph als devotionelle Hingabe. Diese Hingabe fließt aus solchen Tatsachen, wie sie im Johannes-Evangelium erzählt werden.
+
+## Fragenbeantwortung
+
+Da hier eine Frage über die Brüdergemeinschaft gestellt worden ist, so muss ich sagen, dass man nicht gut über solche okkulten Gemeinden sprechen kann, weil hinter denselben okkulte Mächte stehen. Wir haben es an mehr Stellen, als wir gewöhnlich glauben, mit okkulten Traditionen und okkulten Kenntnissen zu tun. In diesem oder jenem wirklich Vorhandenen sind okkulte Kräfte und Wahrheiten vorhanden. Und diese okkulten Strömungen haben einen ganz bestimmten Grund. Es kann niemand durch eigene Macht in solche Strömungen eingefasst werden. Es handelt sich darum, wie sie hineingeführt worden sind, was sie darin für eine Rolle spielen und was wer durch sie spricht. – Dies hängt damit zusammen, dass in aller Welt immer dafür gesorgt wird, dass die Flüsse der Gottesweisheit niemals ganz versiegen. Wenn einst auch aller Okkultismus verschwunden sein würde aus den gebildeten Kreisen, es werden immer noch Stellen da sein, wo der Okkultismus herausfließen kann.
+
+Im Herbst werde ich sprechen über das, was man Apokalypsen nennt. Erstens über die Johannes-Apokalypse, zweitens über die Zukunft des Gedankens, drittens über die Zukunft des Pneuma und viertens über die Zukunft der Harmonie.
+
+Johannes, Lazarus, der Jünger, den der Herr liebhatte und der Jünger am Kreuze sind ein und dieselbe Person.
+
+Ob der Christus nur für einen Initiierten gelten kann, das kann uns die Schrift lehren, die auf viererlei Weise gelesen werden kann. Die erste Stufe ist die, wo sie gelesen wird nach dem einfachen naiven
+
+---
+
+Wort, die zweite Stufe ist die, wo man zweifelt, die dritte Stufe ist die, wo man sie symbolisch liest, die vierte Stufe ist die, wo man die wirkliche Bedeutung der Symbole erkennt und so erreicht die wirklich wörtliche Bedeutung der Schriften.
+
+Die Herabkunft des Heiligen Geistes bei der Taufe Jesu in der Gestalt einer Taube ist ein wichtiger Abschnitt im Leben Jesu. Die Teile vor und nach der Taufe kann man als ein höheres und als ein Höchstes unterscheiden. Markus und Johannes erzählen uns daher nur die höchsten Formen, in denen uns der Christus entgegentritt. Die drei Grade der Chelaschaft kann man unterscheiden bis zur Taufe. Dann aber findet eine wirkliche Vertauschung der Wesenheit Jesu durch den Christus statt. Diese Christus-Natur ist identisch mit dem, was in allen Religionen als Gott bezeichnet wird und oft auch die Vater-Natur genannt wird. Bis zu seinem dreißigsten Jahre haben wir Jesus aufzufassen wie jeden anderen Initiierten. Von da ab aber tritt die Christus-Wesenheit in ihn ein, und von da ab gewinnt die Jesus-Christus-Persönlichkeit eine kosmologische Bedeutung. Diese göttliche Wesenheit war, ehe denn Abraham war.
+
+Wenn Sie mich über das Judas-Problem fragen, so muss ich sagen, Judas war in gewisser Beziehung eine Opferung. Es musste sich einer opfern, damit das Hauptopfer stattfinden konnte. Derselbe, der zur Zeit des Jesus von Nazareth den Verräter spielte, war später im Christentum wirksam. Es ist von großer Bedeutung, wenn man weiß, in welcher Persönlichkeit Judas sich wiederverkörpert hat. Das ist aber ein recht verwickeltes und kompliziertes Problem.
+
+Die ‚Mutter Jesu‘ charakterisiert die Juden als Nation, die Juden, die im Lande gelebt haben und unter dem jüdischen Gesetz stehen, und die, welche über die ganze Welt verstreut sind.
+
+‚Galiläer‘ bedeutet so viel wie ‚Heidenmaul‘. An dem Orte, wo Jesus geboren wurde, war ein reger Reiseverkehr. Es sind sehr viele fremde Leute da durchgezogen.
+
+Auf die Frage bezüglich der Himmelfahrt Jesu können Sie die Antwort im Johannes-Evangelium finden. Jesus wurden nicht die Knochen zerbrochen, während den anderen, den Schächern, die Knochen zerbrochen worden sind. Wenn Sie verstehen, was das Knochensystem ist, dann werden Sie auch verstehen, was es heißt: Die Auferstehung im verklärten Leib.
+
+---
+
+274
+275
+
+# EIN ÜBERBLICK ÜBER UNSERE ENTWICKLUNG
+
+Berlin, 26. Juli 1904
+
+Ich möchte heute einen Überblick geben über eine gewisse Zeit unserer Entwicklung und werde dabei manches wiederholen müssen, was ich in diesen Stunden schon gesagt habe. Aber wir werden es in einem großen Zusammenhange sehen und dabei auch manches, was wir schon kennen, von einer neuen Seite beleuchtet finden. Tatsächlich muss man sich klar sein darüber, dass man die Grundtatsache der Weltevolution nur erkennen kann, wenn man sie von den verschiedensten Gesichtspunkten her beleuchtet bekommt, um sich erst dann allmählich ein Bild zu machen davon, wie man sich den Zusammenhang eigentlich vorzustellen hat.
+
+Ich möchte heute kurz einige Fragen berühren, welche in der theosophischen Lehre oftmals besprochen werden, bei denen aber gewöhnlich etwas Dunkles bleibt, weil nicht erwähnt wird, wie die betreffenden Fragen zusammenhängen mit der unmittelbaren menschlichen Erfahrung.
+
+Das ist vor allen Dingen die Frage nach der sogenannten Dreieinigkeit. Es wird immer und immer wieder betont, dass in allen Religionen die Idee der Dreieinigkeit sich findet und dass sie eine der ältesten Religionslehren ist. Es wird vor allen Dingen betont, dass wir, gleichgültig ob wir nach Indien gehen, nach Persien oder nach Ägypten, zu den Deutschen, Germanen oder Kelten, überall drei Aspekte der Gottheit finden, die ungefähr mit denselben Eigenschaften begabt sind. Die indische Dreieinigkeit Brahma, Vischnu und Schiwa können Sie immer wieder finden.
+
+Ich möchte Ihnen nun zeigen, wie diese Dreiheit aus einer menschlichen Erfahrung erwachsen ist, allerdings einer Erfahrung ganz anderer Natur, als unsere heutigen Erfahrungen gewöhnlich sind. Diese Erfahrung gehört zu den ältesten Bestandteilen der menschlichen Weisheit, und schon Lehrer der Lemurier-Zeit haben diese Lehre
+
+gelehrt. Wenn wir aber zurückgehen und die eigentlichen okkulten Überlieferungen dabei prüfen, so finden wir, dass mit diesen drei Aspekten der Gottheit neben allem Übrigen auch zugleich drei bestimmte Entwicklungszustände des Menschen selbst gemeint sind. Mehr, als das in einer späteren Zeit wiederum gekommen ist, war sich der Mensch der dritten Wurzelrasse, der Mensch von der Mitte der lemurischen Zeit, bewusst, dass sein innerstes Selbst mit dem großen göttlichen Selbst ein und dasselbe ist.
+
+Mehr als es in einer späteren Zeit wiederum Erkenntnis geworden ist, war es damals eine unmittelbare intuitive Überzeugung. Denjenigen, die auf einer gewissen Entwicklungsstufe standen, war es klar, dass indem sich der Mensch entwickelt, die Gottheit selbst sich entwickelt. Und so wollen wir die drei wichtigsten Stadien der Menschheitsevolution heute einmal betrachten.
+
+Aber wie konnte man diese Stadien damals betrachten. Dazumal war das Wissen auf eine ganz andere Weise gewonnen worden. Ein Wissen, welches so gewonnen wird dadurch, dass man die Dinge beobachtet und sich dann Vorstellungen von den Dingen bildet, gibt es erst seit der Mitte der dritten Wurzelrasse. Vor der Mitte der dritten Wurzelrasse hat niemand auf diese Weise Erkenntnisse erworben, dass er die Dinge angeschaut, beobachtet hat. Dieses Wissen durch äußere Beobachtung, die Erfahrung, beginnt erst in der Mitte der lemurischen Rasse. Alles ist in einer gewissen Weise im Fluss, und so beginnt dieses Wissen für die zwei vorzüglichsten Sinne, vorzugsweise in der Mitte der lemurischen Rasse. Die anderen Sinne, Geruch und Geschmack, hatten schon vorher Empfindung. Aber das Gehör und das Gesicht begannen erst in der Mitte der lemurischen Rasse. Vorher stieg das Wissen auf, wie wenn von der Erde heraus eine Art Wasser sprudelte, es war gleichsam, dass der Mensch herüberbrachte über den Mittelpunkt der lemurischen Rasse, dass er zeigte im Besonderen seine vorhergehenden Zustände selbst, seine Zustände während der ersten, zweiten und der ersten Hälfte der dritten Menschenrasse. Dies war eine Art von intuitivem Erinnerungswissen, und es war so, dass der Mensch sich dazumal, als er nach außen hin sehend, hörend und wahrnehmend wurde, sich an drei wichtige Zustände erinnerte.
+
+---
+
+Erstens an seine Erlebnisse in der ersten Menschenrasse, dann an die Erlebnisse in der zweiten Menschenrasse und drittens an die Erlebnisse der ersten Hälfte der dritten Menschenrasse. Diese drei Zustände benannte er so: Der Zustand der ersten Menschenrasse entsprach Brahma, der Zustand der zweiten Menschenrasse Vischnu, der Zustand der ersten Hälfte der dritten Menschenrasse Schiwa.
+
+Wir haben also in Brahma die Evolution des in der Menschheit sich entwickelnden Gottes in dem Zustande zu sehen, in dem der Mensch während der ersten Menschenrasse war. Damals lebte der Mensch in rein ätherischer Materie. Er war leuchtend wie der Ätherkörper. Es war also der Körper, den der Mensch damals hatte, ein bloßer Ätherkörper. Aber er war ähnlich wie der Astralkörper. Wollten die alten Inder sich vorstellen diesen Ätherkörper der ersten Rasse, so stellten sie ihn sich unter dem Namen Brahma vor. Brahma wurde daher auch als der Gott des ätherleuchtenden Lichtes angesehen.
+
+Dieser Zustand wird abgelöst von dem sogenannten Luftzustand. In diesem lebte die zweite Rasse. Wenn Sie sich eine Vorstellung davon machen wollten nach unseren gegenwärtigen Begriffen, so würde sie sehr unklar sein, denn die zweite Menschenrasse war in einem Körper inkarniert, der dichter war als die heutige Luft, der aber doch noch luftförmig war. Es war etwas, von dem man sagen konnte, das göttliche Wesen sendet seine Engel wie Winde daher. Es war kein Äthergeschlecht mehr, sondern ein verdichtetes Luftgeschlecht. Wenn daher die Naturforscher versuchen, den Vormenschen zu suchen und sich darüber wundern, dass sie über eine gewisse Stufe hinüber keine Überreste mehr finden, so brauchen wir uns nicht zu wundern, da der Mensch damals keine Steinabdrücke liefern konnte. Das ist also Vischnu.
+
+Der dritte ist Schiwa, der „Zerstörer“ einerseits und andererseits der „Aufbauer“ genannt. Adam-Kadmon war der geschlechtsfreie Mensch. Der wurde von dem Gotte Schiwa zerstört. Aber es wurde dafür ein anderer hergestellt, daher [wird Schiwa auch der Gott] der Wiedergebärer, der Gott der Zeugung [genannt]. Überall, wo Schiwa oder diejenige Gottheit, welche dem Schiwa entspricht, dargestellt wird, wird er als der Gott der Zeugung dargestellt.
+
+Das sind die drei Aspekte der Gottheit, die der Mensch aus der Erfahrung nahm. Es sind dies Zustände, die er selbst durchlaufen hat.
+
+Dann sprechen wir von den „Söhnen des Feuernebels“. Durch Feuer ist der lemurische Kontinent zerstört worden, nicht durch Wasser, wie der atlantische Kontinent. Ich bitte dies zu beachten, es ist nicht ganz leicht zu fassen. Während der zweiten Menschenrasse, also während der sogenannten hyperboreischen Zeit, waren die Menschen Luftwesen. Sie waren Wesen, die inkarniert waren in Luft und sie waren vollständig in schwingender, vibrierender Bewegung. Die Anlage zu Organen hat er sich schon mitgebracht. Ausgebildet waren sie aber noch nicht. Was sich zunächst ausbildete, war die Anlage zum Ohr. Der Mensch war damals ein tönendes Wesen. Er war so, wie wenn man ihn hätte hören können. In der Vischnu-Lehre hat sich das erhalten. Vischnu hat die Weisheit in der Trompetenschnecke gefunden. Das ist eine Andeutung, dass die Menschheit damals schon zum Gehör veranlagt wurde. Während der Entwicklung der dritten Rasse, in der lemurischen Zeit, bildete sich die Fähigkeit aus, Formen zu sehen, Gegenstände zu unterscheiden. Das Innenleben war schon früher vorhanden. Aber das von Außen an uns Herantretende konnte damals noch nicht unterschieden werden. Das Auge konnte noch keine Formen wahrnehmen. Die Fähigkeit Räumliches zu sehen wurde damals erst entwickelt. Dadurch wuchs der Mensch hinaus in die physische Welt. Diese Entwicklung war abgeschlossen in der Mitte der lemurischen Zeit.
+
+Jetzt tritt auf das, was vorzugsweise die Aufgabe des Menschengeschlechtes ist: Manas war nach allen Seiten hin auszubilden. Von Manas konnte man vorher überhaupt nicht sprechen. Vorher konnte man nur von Mahat sprechen. Der Mensch der hyperboreischen Zeit wird, wenn er die Sterne gesehen hat, sie nach Gesetzen haben laufen sehen. Aber es war das nicht eine Fähigkeit des Manas. Manas war nicht eine uns angeborene Fähigkeit.
+
+Mahat war da als großes Welttableau. Manas ist im Grunde etwas, was seit der Mitte der lemurischen Zeit erst in den Menschen eingezogen ist. Menschliche Entwicklung ist seit jener Zeit eine Erziehung der früher angeeigneten Eigenschaften und Fähigkeiten durch
+
+---
+
+das jetzt in den Menschen eingezogene Manas. Also Manas hat zu erziehen die früher in den Menschen entwickelten verschiedenen Fähigkeiten.
+
+Während jeder Epoche, die jetzt kommt, hat Manas eine ganz bestimmte Aufgabe. Die erste Epoche, die wir antreffen, ist die von der Mitte bis zum Ende der lemurischen Zeit. Da erzieht Manas die äußere Wahrnehmung, die der Mensch sich in der lemurischen Rasse zu erwerben hatte. Dann hat der Mensch – das kommt dazu – mit dem, was er sieht, Vorstellungen zu verbinden. Was der Mensch da aber noch nicht hat, das sind das Gedächtnis und die Denkkraft. Gedächtnis und Logik gibt es da noch nicht. Der Mensch kann zwar etwas sehen und mit dem Gesehenen eine Vorstellung verbinden, aber er ist unfähig, diese Vorstellung gedächtnismäßig festzuhalten. Sein Vorstellungsvermögen ist jedoch umso intensiver. Es ist ungeheuer intensiv und von ungeheurer Lebhaftigkeit, sodass sie an ihm nicht vorübergehen, ohne ein ganz bestimmtes Gefühl zurückgelassen zu haben. Sie werden nicht gedächtnismäßig zurückgehalten, denn ein solches Gedächtnis hat der lemurische Mensch noch nicht. Aber er behält es im Gefühl. Überreste der lemurischen Rasse finden sich in den dekadenten Stämmen in Australien. Sie haben auch noch kein Gedächtnis, das über vierundzwanzig Stunden reicht.
+
+Das tiefe Gefühl bei der Wahrnehmung bewirkt etwas ganz Besonderes. Diese zweite Rasse hat ein gefühlsmäßiges Wissen von der Reinkarnation. Und das kommt von dem Folgenden her. Es waren nicht sehr viele, die sich damals inkarnierten. Sie hatten ein lebhaftes Gefühl, weil ihnen zurückblieb ein tiefes Gefühl von jedem Erlebnis. Und dieses Gefühl blieb dem Kausalkörper einverleibt, den er in die folgende Inkarnation herübernahm.
+
+Dies ist als eine Tatsache aus der zweiten Epoche der lemurischen Zeit festzuhalten. Der Verkehr mit der Umgebung war so lebhaft, dass der Mensch schon einer Außenwelt gewahr wurde und dass er mit den Dingen verknüpft war. Wenn er dann wieder in diese Welt kam, so spürte er seine Verwandtschaft mit den Dingen. Es war dann wie bei Menschen, die einen besonders ausgeprägten Geruchssinn haben und sich dann sagen können, das habe ich schon einmal ge-
+
+rochen. So war es ungefähr mit diesen Lemuriern der zweiten Hälfte der lemurischen Zeit.
+
+Der lemurische Kontinent bildete ungefähr den Boden vom Süden Indiens und südlich von Indien. Dieser Kontinent wurde durch Feuer zerstört. Zurückgeblieben waren aber noch Völkerschaften in den angrenzenden Gebieten. Die durchlebten die ganze atlantische Zeit. Zum Teil vermischten sie sich mit den Atlantiern. Es lebten also hier Menschen mit einem ungeheuer intensiven Gefühl von den Reinkarnationen.
+
+Halten wir jetzt fest: Lemurien war untergegangen, und wir kommen zu der nächsten, zu der atlantischen Menschenrasse. Die hatte die Aufgabe, das Innenleben weiterzubilden. Was da auftrat als neues menschliches Vermögen, das ist das Gedächtnis, das bei den Lemuriern noch nicht vorhanden war, das aber bei den Atlantiern vorhanden war. Sie hatten ein ungeheuer ausgebildetes Gedächtnis. Logisches Denken gab es damals noch nicht. Rechenkunst, Einmaleins und so weiter gab es damals noch nicht. Sie machten sich ein objektives Bild von – sagen wir – siebzehn oder von zwanzig Bohnen, von so und so großen Haufen. Das erste Vermögen war also das Vorstellungsvermögen. Das zweite war das Gedächtnis.
+
+Zu diesem Gedächtnis kommt in der Mitte der toltekischen Unterrasse der erste Ansatz des Denkvermögens. Ein ziemlich rohes Denkvermögen entwickelt sich nun langsam. Ein Vermögen, das nicht nur ermöglichte, gedächtnismäßig zu merken, sondern auch zu kombinieren. Das war noch sehr roh bei den Tolteken, das war noch roh bei den Turaniern. Das erlangte aber einen gewissen hohen Grad bei den Ursemiten. Daher sind die Juden dazu berufen gewesen, die folgende Rasse weiter zu bilden, eben aus dem Grunde, weil sie das Denken am besten kultiviert hatten. In einem schematischen Denken bildete sich dieses Kombinatorische aus. [...]
+
+Die ursemitische Rasse hat den Grundstock für unsere arische Rasse abgegeben. Jetzt will ich zeigen, was in der arischen Rasse entwickelt werden soll. In der lemurischen Rasse war es das Vorstellungsvermögen, in der atlantischen Rasse das Gedächtnis. Jetzt in der arischen Rasse ist es das, was man das Denkvermögen nennt. Jede
+
+---
+
+Rasse in der Welt, jede Stufe, jede Etappe der Entwicklung hat eine bestimmte Aufgabe. Immer wird mit Hilfe eines späteren Prinzips das frühere weiter entwickelt. Was früher da war, wird jetzt mit Manas weiter entwickelt. In der fünften Wurzelrasse entwickelte sich Manas nun weiter. Dieses Denkvermögen ist das innerlichste, was wir erblicken können. Das hat daher einen ganz persönlichen Charakter. Während der Lemurier ein unmittelbares Bewusstsein hatte von der Reinkarnation, hatte der Atlantier bei seinem Innenleben ein sehr geschwächtes Erinnerungsvermögen an die Reinkarnation. Er hatte zwar, wenn etwas entwickelt worden war, in sich auffrischen können das Bewusstsein der lemurischen Rasse, und dann erinnerten sich die Leute an Vorgänge im früheren Leben. Aber im Großen und Ganzen war bei den Atlantiern, bei denen die kombinatorische Fähigkeit sich entwickelte, das Gefühl für die Reinkarnationen ganz erstorben. Und noch mehr natürlich war es, dass innerhalb der fünften Wurzelrasse dieses Gefühl nicht da sein konnte. Das Denken ist eine innerlichste persönliche Angelegenheit. Die Persönlichkeit des Menschen verfolgt hauptsächlich das Leben zwischen Geburt und Tod. Daher ist in der Kraft, welche die fünfte Wurzelrasse auszubilden hatte, nur wenig vorhanden, was dazu hätte führen können, die Reinkarnation zu bekennen. Dann haben die Führer der fünften Wurzelrasse in der mannigfaltigsten Weise ein sehr vernünftiges Netz über die Welt ausgespannt.
+
+Ich brauche wohl kaum zu wiederholen, dass diese Wurzelrasse von der Wüste Gobi ausgegangen ist, wo eine Anzahl auserlesener Menschen hingesetzt worden ist von dem sogenannten Manu. Von den Ursemiten aus wurden von da die Menschen nach den verschiedensten Teilen der Welt gesandt. Die erste Kulturströmung ging also von der Wüste Gobi aus und befruchtete Indien. Hier wurde von den Initierten gewirkt, und ich bemerke ausdrücklich, dass Initierte immer im Besitze der Weisheit sind und dass es niemals eine Initierten-Loge gegeben hat, in der nicht das Wissen von der Reinkarnation gewesen wäre. Also es geht die Strömung hinunter nach Indien. Dort wird eine Kultur begründet, wie überhaupt immer von Initierten Kulturen begründet werden, indem mit voller Toleranz dessen, was da angetroffen wird, ein neuer Einschlag gegeben wird.
+
+Es wird also diesem lebhaften Gefühl, das der Lemurier noch hat von der Reinkarnation, die Denkkraft eingeimpft. Da wird die Ehe geschlossen des Besten, was aus der lemurischen Zeit übrig geblieben war mit dem Besten, was die arische Rasse zu geben hatte. Das bildet die Vereinigung. Daher werden Sie auch begreifen, warum Sie in den alten Schriften der Veden keine Nachrichten von Reinkarnation finden. Die Kenntnis, das Wissen von der Reinkarnation ist entstanden durch die Verbindung des Gefühls der Lemurier mit der Denkkraft der Arier. Diese hohe Weisheit der ursprünglichen Menschenrassen, die auf unmittelbarer Gewissheit fußt, war hier verbunden worden mit dem reinen spirituellen Leben der Menschen der fünften Wurzelrasse. Das ist die ursprüngliche indische Weisheit. Ein Zweig davon wurde herübergeschickt nach Ägypten unten. Daher ist da auch eine Ähnlichkeit mit dieser Kulturschicht zu finden. Dies ist die erste große Kulturströmung, die innerhalb der fünften, der arischen Menschenrasse stattgefunden hat. Sie wurde von den Initierten eingeleitet mit dem bewunderungswürdigen Zweck, durch Benutzung dessen, was schon da war, ein Höchst zu erreichen.
+
+Auf allen übrigen Gebieten der Erde waren Überreste vorhanden der atlantischen Rassen, namentlich um das Gestade des Mittelmeers herum bis nach Asien hinein waren Reste der atlantischen Rasse zu finden. Nur in unseren Gegenden, in Deutschland, da lebte noch – Sie müssen sich das mit den entsprechenden Aggregatzuständen vorstellen –, es lebte noch etwas von der hyperboreischen Art. Sehen Sie, von dieser alten hyperboreischen Art dürfen Sie sich nicht vorstellen, dass diese im Blute lebte; das wäre zu grobsinnlich. Sie lebte in ihrer ganzen Geistesart so, dass hier zunächst es auch möglich war, eine sehr spirituelle Anschauungsweise zu begründen. In Europa ist daher, fast ganz ähnlich mit der ursprünglichen indischen Lehre, eine spirituelle Lehre begründet worden, welche später schon etwas – und nun erinnern Sie sich an das, was ich schon darüber gesagt habe – verwässert in der alten Druidenkultur erscheint. Hier konnte man noch an Altes anknüpfen.
+
+Aber Sie werden zu gleicher Zeit sehen, wenn Sie genau vergleichen diese alte Druidenkultur mit der alten Vedenkultur, dass
+
+280
+281
+
+---
+
+ein Unterschied doch wieder vorhanden ist. Das, was die alte Druidenkultur hat, ist ein unbedingter Glaube an die Unsterblichkeit des Seelischen, an die Ewigkeit des Seelischen. Aber es ist nicht so, dass es eine ausgesprochene Reinkarnationslehre wäre, und das wird Ihnen verständlich sein. Geradeso wie im Süden die Überreste der Lemurier gefunden worden sind, so sind sozusagen hier vorhanden Völkerschaften, die – weil sie Überreste der Atlantier waren – wenig wussten von Reinkarnation. Und von der anderen Seite stammten sie von der hyperboreischen Rasse. Sie waren Teile der zweiten Rasse. Während der zweiten Menschenrasse, während der hyperboreischen Rasse, gab es aber noch keine Reinkarnation. Deshalb trat hier bei den Druiden eine so intensive Unsterblichkeitslehre auf. Es war dies der Rest der alten hyperboreischen Erkenntnis.
+
+Nun findet, hier zunächst eine Befruchtung statt, und es entstehen verschiedene Strömungen. Die zweite Strömung, die sich zunächst ergießt, strömte aus, indem überallhin Initiative in Kolonien geschickt werden – wie in das alte Persien, in die alte iranische Kultur. Es wird dann um das Mittelmeer herum eine Kultur geschaffen, die überall ähnlich ist, von den Völkern, die Überbleibsel sind von den verschiedenen Rassen. Am reinsten ausgeprägt ist das bei den Iranern, die sich ausbildeten zu dem, was man die Zarathustra-Lehre nennt. Sie ist eine absolute Unsterblichkeitslehre. Aus den Gründen, die angedeutet worden sind, ist sie hier nicht gegründet auf eine Reinkarnationslehre. Und das wird Ihnen erklären, warum Sie in der persischen Lehre eine wirkliche Reinkarnationslehre nicht finden können. Die Initiierten haben immer das, was da war, benutzt, und es ein Stückchen weitergeführt.
+
+Dann kam die zweite Kulturströmung. Diese kam in Europa so zum Ausdruck, dass die Erinnerung daran geblieben ist, vor allen Dingen an die Initiierten der zweiten Kulturströmung. Die sind im Gedächtnis der verschiedenen europäischen Völker überall vorhanden geblieben. Diese Initiierten haben Sie hier im Norden als Wodan, Wili, Loki und so weiter, in Griechenland als die Götter, wie Zeus und so weiter erhalten. Die verschiedenen Götterkreise, das sind die Initiierten, die diese Kultur über die ganze Welt verbreitet haben.
+
+Nun kommt der dritte Initiierten-Einschlag. Der ergab vorzugsweise das, was wir in Ägypten sehen, was ägyptische historische Kultur ist. Das ist der dritte Einschlag. Und was in Griechenland Heroenkultur ist. Alle die Initiierten der dritten Strömung haben sich erhalten als Heroennamen, wie Herkules und so weiter. Sie haben sich weiter erhalten bei uns. Es sind dies die deutschen Heroen, die deutschen Initiierten – wie zum Beispiel in der Sage von Dietrich von Bern, die ganz ähnliche Züge hat wie die griechische Herkules-Sage. Das ist die als Heroenzeit erhaltene Kultur. Das ist die dritte Unterrasse der fünften Wurzelrasse. Sie brachte hervor das, was man die künstlerische Kultur auf den verschiedenen Gebieten nennt, sowohl in Bezug auf Mythenbildung als auch in Bezug auf die plastische Kunst in Asien, Griechenland und auch hier.
+
+Nun beginnt eine neue Rassenbildung. Die griechische Kultur geht herüber nach Italien. Die neue Rassenbildung beginnt wenige Jahrhunderte vor Christi Geburt und zwar wiederum, indem die semitischen Völkerschaften um das Gestade des Mittelmeeres herumziehen. Es sind immer semitische Einschläge, die ich geschildert habe. Jetzt haben wir die Begründung der lateinischen Rasse, die von dem Christentum befruchtet wird. Diese entwickelt sich bis ins neunte, zehnte Jahrhundert hinein. Da hängt alles von der lateinischen Rasse ab.
+
+Dann findet neuerdings eine Befruchtung statt durch den Zug der Araber nach dem Westen. Dieses geschieht wiederum aus dunklen Quellen. Mohamed ist nur ein vorgeschobener Posten. Hinter ihm steht die geheime große Loge.
+
+Und jetzt kommt die germanische Rasse, in der wir gegenwärtig leben. Das ist die Entwicklung der Rassen, die sich radienförmig über die Welt ausbreiten. Die Initiierten-Kolonien haben nie anders gearbeitet als mit völliger Berücksichtigung dessen, was in den betreffenden Gebieten schon vorhanden war.
+
+Das ist es, was ich als einen großen Überblick habe geben wollen über die Evolution von den Hyperboreern bis in unsere Gegenwart hinein.
+
+282
+283
+
+---
+
+284
+285
+
+# Aus der Fragenbeantwortung
+
+Während der Hyperboreer-Zeit wurden solche Sachen vorbereitet, welche in den Schwingungen lagen. Die Menschen hatten damals sozusagen andere Ohren. Ja, sie unterschieden sich durch verschiedene Schwingungsart. Die Ähnlichkeit der Schwingungen machte die Verwandtschaft aus. Die Atlantier hatten schon längst angefangen, sich zu entwickeln, während noch immer Hyperboreer-Entwicklung vorhanden war, sodass tatsächlich auch ein wirklicher Verkehr stattgefunden hat zwischen den Atlantiern, welche in Europa lebten und den Luftmenschen.
+
+# FLEISCHWERDUNG
+
+Berlin, 2. August (1904?)
+
+1. Weißt du, wie die Seele in die Welt gekommen ist?
+2. Weißt du, wie die Seele aus der Welt kommt?
+3. Kennst du den Unterschied des Väterweges von dem Götterweg?
+4. Weißt du, warum jene Welt nicht voll ist?
+5. Weißt du, warum bei der fünften Opferspende die Wasser mit Menschenstimme zu reden beginnen?
+
+Die drei unteren Prinzipien des Menschen werden von der ätherischen Hülle ebenso zusammengehalten und umschlossen wie die drei oberen von der aurischen Hülle. Was das Auseinanderfallen der physischen Zellen verhindert, ist der Ätherkörper.
+
+Prana ist nur ein Teil von Shiva, umschlossen und dadurch gesondert, für sich bestehend. Kama und Kama-Manas liegen in der Schablone des Ätherkörpers, die auf dem Rückwege zu einer Inkarnation von der Seele dadurch gebildet wird, das sie aus dem allgemeinen Rupa-Manas und Kama-Stoff grade die Bestandteile an sich heranzieht, die vor ihrem Arupa-Aufenthalt, ihren Kama- und Rupa-Körper ausgemacht hatten. Einen Arupa-Aufenthalt hat jede Seele, denn nur dadurch ist sie Seele, das heißt Kausalkörper, dass der Ansatz zum selbstlosen Gedankenleben gelegt ist. Selbst der Wilde hat den Keim dazu, und wie gering auch dieser Keim ist, er verschafft ihm den Durchgang durch die Arupa-Sphäre, durch Devachan. Unsere Gedanken, sich in den Mentalstoff bauend, haben gewöhnlich noch undefinierte, nicht präzise Formen, weil sie so viele Hüllen zu durchbrechen haben, sich an sie stoßen.
+
+In die Arupa-Sphäre nehmen wir bloß ihre Essenz, ihren Keim mit, dort quellen sie auf und leben erst ihr eigenes Leben. Vor jeder Neuverkörperung muss der Mensch durch den Samenzustand,
+
+---
+
+das heißt durch die Arupa-Sphäre des Devachan gehen. Auf dem Rückwege nun muss dieser Same durch die magnetische Kraft seiner eigenen früheren Gebilde, das heißt Handlungen, Empfindungen und Gedanken, sich wieder mit dem Stoff umkleiden, aus dem sie bestanden haben. Das präzise gewordene Gedankenbild findet in der Astralsphäre die ihm durch den Lipika, den Herrn des Karma, nach ewigen Gesetzen zuerteilten, durch ihn selbst erschaffenen Formen, Schablonen; durch die Maharajas wird der Ätherstoff diesen Schablonen gleichsam zugeführt, von allen vier Winden tragen sie ihn her. So ist die untere persönliche Hülle, der ätherische Doppelkörper verfertigt, der sich nun in die Physis einsenkt.
+
+Unter „Väterweg“ haben wir jene Welt unserer Wünsche zu verstehen, die uns noch durch Genießen an sich kettet; erst wenn wir uns gewöhnt haben, die drei unteren Reiche bloß als Halle des Lernens zu betrachten und nichts mehr von ihr zu verlangen, sind wir reif für den Götterweg, der uns das Leben im Geiste erschließt.
+
+Devajani, Pitrijani. Solange wir noch zu selbstischem Glücke streben, solange kann jene Welt, Devajani, nicht voll werden. Nur wenn wir den Früchten unserer Taten entsagen, sind wir nicht an die Welt der Väter, die Welt des Kama, gebunden. Die Tat allein bindet uns nicht.
+
+Das erste Opfer: Teilung der Einheit in die Dreiheit. Das zweite und dritte: die Ausgießungen des dritten Logos; das vierte: Beseelung durch den zweiten Logos; das fünfte: die materielle Welt wird durch den ersten Logos geistig befruchtet, der Mensch ersteht, das Wort wird Fleisch.
+
+# AUSBLICK AUF DIE NÄCHSTEN RUNDEN
+
+Berlin, 10. August 1904
+
+Letzten Endes dient alles Wissen dazu, unsere Zukunft vorzubereiten. Andere Wesen werden geführt; das Gesetz der Kristallisation ist dem Kristall vorgeschrieben, er braucht es sich nicht vorzuzeichnen. So ist es mit Pflanzen und Tieren. Erst der Mensch beginnt in der Mitte der lemurischen Zeit, sich Ziele vorzusetzen. Eine wirksame Erkenntnis der Zukunft ist nur dann möglich, wenn man die Vergangenheit kennt. So ist jedes menschliche Wissen bestimmt, das Ideal für die Zukunft vorzuhalten.
+
+Um zu verstehen, wie die früheren und die jetzige Runde gegangen ist, muss man verstehen, dass das höchste Reich, das Mineralreich, seine höchste Vollendung erreicht hat, deshalb hört es Ende der vierten Runde auf. Wir müssen das mineralische nicht verwechseln mit dem physischen Reich. Wenn wir nach der fünften Runde einen Ausblick tun könnten, würden wir sehen, dass es kein Mineralreich mehr gibt. Das schließt nicht das Physische aus. Denken wir uns ineinandergeschlungene Pflanzen, inmitten der Mensch; alles in der niederen Welt wird zu Pflanzen verwandelt sein. Der Mensch wird am Ende der vierten Runde die höchste Vollkommenheit seiner mineralischen Grundlage erreicht haben. In der fünften hat er sie nicht mehr, er wird nichts Mineralisches aus sich hervorbringen.
+
+Nicht sogleich kann er in dieses Pflanzenleben eintreten, sondern drei vorhergehende Stadien muss er durchmachen. Sein astralisch-mentaler Leib würde nicht passen zu diesem Pflanzenleib. Daher muss er sie vorbereiten und die drei Stadien durchmachen, die man Globen nennt. Dann passen sie in das neue physische Stadium hinein. Was aufgehört hat, ist nur, was mit dem Mineralreich zusammenhängt.
+
+So auch Geburt und Tod; die kommen in der vierten Runde nur dadurch zustande, dass zwei verschiedene Dinge, höhere Individualität und niedere Natur des Menschen [Lücke in der Mitschrift]
+
+---
+
+288
+Wenn Sie an Ihre Individualität denken, kommt sie aus wesentlich höheren Reichen, während sich der Körper aufgebaut hat aus Luft, Wasser und Erde. Nur ein Teil dessen, was die Individualität vermag, kann sie im Körper ausdrücken. Es ist so wie ein Zelt, das vom Menschen überdauert wird. Er muss sich immer wieder ändern, weil er mehr ist. Während der fünften Runde haben wir es zu tun mit dem Hervorgehen immer neuer Menschen aus den andern.
+
+Es stirbt nichts ab, es ist immer fort alles Leben. Dasjenige, was in gewisser Beziehung der Schattenseite entspringt, ist, dass der astralische Mensch seine eigentliche Organisation erreicht haben wird. Heute ist er unorganisiert, noch nicht Träger des Ebenbildes Gottes; erst das Physische wird am Ende der vierten Runde Ebenbild Gottes. In der fünften Runde wird der Mensch astrale Tat- und Sinnesorgane haben. Die Sinnesorgane werden die sogenannten Chakren sein – fünf. Man nennt sie nach ihrer Form:
+
+- die sechsblättrige Lotusblume, in der Mitte des Leibes, bei gewissen Menschen angedeutet, bei Hellsehenden dreht sie sich,
+- etwas weiter ist ein zehnblättriges Organ,
+- im Herzen ein zwölfblättriges,
+- sechzehnblättrig an der Kehle,
+- zwischen den Augenbrauen achtzehnblättrig.
+
+Nach diesen Organen wird sich der äußere Körper bilden. Zur Folge hat es etwas Bestimmtes. Jetzt wird der äußere Körper von der äußeren Natur gegeben, vom Tierreich. Jetzt kommt er aus dem, was aus dem Astralkörper fließt; aus dem astralen Reich ist er aufgebaut und deshalb ein Abbild von dem, was in der astralen Natur des betreffenden Individuums lebt. Sodass die christliche Esoterik das so ausgedrückt hat, dass sie den Priestern klargemacht hat, dass ‚Kains‘ und ‚Abels‘ die äußeren Abzeichen an Menschen sein werden.
+
+Während der sechsten Runde wird vollendet sein das Pflanzenreich und nur vorhanden das Tierreich, auf seine höchste Spitze gebracht; nur empfindsam Lebendes wird vorhanden sein. Die ganze Erde wird Empfindung und Bewegung sein. Während in der fünften Runde als äußerer Leib das Astrale sich ausdrückte, wird sich in der sechsten Runde der Gedanke ausdrücken, in dem der ganze Tier
+
+289
+Körper rhythmisch sich bewegt. Das, was in den Seelen lebt, wird Ausdruck sein, der Gedanke wird Ausdruck sein, eine sich mitteilende, tönende Welt. Daher sagt die christliche Esoterik: In der sechsten Runde ist alles tönendes Wort.
+
+Des Menschen denkendes Leben wird unmittelbarer Ausdruck. Die vorhergegangene Verkündigung des wandelnden Wortes war das fleischgewordene Wort. Der Hinweis darauf in der vierten Runde war Christus.
+
+In der siebten Runde wird des Menschen ganzes Innere nach außen gewendet sein. Von dem, was auf dem Arupa-Plan lebt, stammelt der Mensch nur. Dann wird das „Ich bin“ ausfließen. Es ist nicht in einen Körper eingespannt, der es abtrennt vom anderen Ich; alle Ichs werden Töne in einer großen Symphonie sein. Das nennt man in der christlichen Esoterik die ‚Gott Seligkeit‘. Das muss der Mensch erreichen, um zum Merkur hinüberzugehen, wie er vorher vom Monde gekommen ist. Dazu müssen wir alle Kräfte so in den Dienst unseres Ichs gestellt haben, dass wir ebenso gern nehmen wie geben. Diese Gott Seligkeit bedeutet auch das Ruhen in sich selbst. Denn alle früheren Zustände sind Streben; hier ist ein Zurückblicken auf alles das, was gesammelt ist.
+
+In dieser Ebenbildlichkeit Gottes wird ein weiteres Schaffen nicht mehr sein; es ruhet die Gottheit, sieht zurück und freut sich ihrer Werke. „So wurden vollendet Himmel und Erde mit dem ganzen Menschenheer …“
+
+Heilig – ist absolut gesund, wie
+
+selig – ganz von Seele durchdrungen ist.
+
+---
+
+290
+291
+
+# DIE AUFGABE DER ZWEITEN HÄLFTE DER ENTWICKLUNG
+
+Berlin, 11. August 1904
+
+Der Zusammenhang des einzelnen Menschen mit der ganzen Entwicklung wird nun durchsichtiger. Wir unterscheiden nun:
+
+1. Lebenslauf zwischen Geburt und Tod
+2. Aufenthalt in Kamaloka
+3. Aufenthalt in Devachan – mit
+a) rupischen, das heißt niederen mentalen und
+b) arupischen.
+
+Jeder Mensch, selbst ein unentwickelter Mensch, betritt auf kurze Zeit Arupa. So hätten wir vier Zustände. Diese entsprechen genau den vier Zuständen auch des Planetenkörpers, beim Niederstieg wie beim Rückgang.
+
+Während die ganze Menschheitsentwicklung bevor sie physisch wurde, durch drei Zustände durchgegangen ist, können wir sagen: Alle Wesen, die in Betracht kamen, waren
+
+1. im höheren Devachan,
+2. abwechselnd auf dem oberen und unteren,
+3. auf der Erde in vier Zuständen.
+
+Da in der nächsten Runde nicht mehr das Mineralreich sein wird, alles in lebendiger Art, wird ein Wechsel zwischen Geburt und Tod nicht sein. Es wird fortwährendes Leben sein. Der Wechsel von Geburt und Tod wird nicht mehr auftreten, und an seiner Stelle wird nur Wechsel zwischen gut und böse sein. Es kann noch ein Wechsel zwischen den höheren Zuständen eintreten; das was Kamaloka ist, wird tiefster Zustand sein. Unterscheidung von heute, dass jetzt nur Kamaloka ist; in der fünften Runde aber noch physisch.
+
+Wie heute jeder Mensch im Kamaloka astral plastisch gebildet wird, mit Lastern und Tugenden, so wird er auf Erden sein. Sodass während der fünften Runde das Kamaloka vollkommen irdisch sein wird. Ein Wechsel wird noch da sein, obgleich nicht Geburt und Tod,
+
+sondern Wechsel zwischen astral und mental. Es wird möglich sein, dass der Mensch sich hin und wieder zurückzieht vom Mentalen, wenn das Maß seines Bösen so voll ist, dass er in diesen höheren Zustand eintreten kann. In der Regel wird es so sein, dass, wenn jemand alles ausgetragen hat, er nicht mehr zurückzukehren braucht. Sodass wir von selbst in den devachanischen Zustand übergehen und nur diejenigen, die so viel des Bösen mitgebracht haben, dass sie nicht die Möglichkeit gefunden haben, es abzutragen, die werden in der fünften Runde ausgeschieden.
+
+Diejenigen, die mitgehen, kommen in die sechste Runde, wo alles, was mental ist, ausgelebt wird. Es gibt dann nicht die Möglichkeit, Böses zu tun, die höchste tierische Art lebt sich aus.
+
+Die Aufgabe der sechsten Runde ist es, alles dasjenige noch harmonisch zu gestalten, was im Mentalen organisiert ist. Alles wird voneinander geschieden, was logisch und was unlogisch ist. Sodass in die siebte Runde nur das kommt, was absolut logisch ist. Ein unrichtiger Gedanke tönt als unrichtiger Rhythmus, als unrichtige Gestalt, und wird von selbst vernichtet. Daher sagt der Okkultist: Alles das, was als Lüge, als Unwahrheit in die sechste Runde hinübergebracht wird, bedeutet einen Selbstmord des Wesens. Unrichtiges Tun ist schon hier Selbstvernichtung, in der sechsten Runde ist schon unrichtiges Denken Selbstvernichtung. Und daher folgt, dass die Erde alles Unwahre ausschaltet und nur lauter Wahrheit in die siebte Runde hineinbringt.
+
+In der vierten Runde haben sich karmische Konti ausgeglichen. In der fünften ist etwas geblieben, es wird in die achte Sphäre abgeschieden. Hinübergenommen kann werden höchstens das Unwahre, das sich selbst vernichtet. So wird der siebte Zustand die Seligkeit, die als Samenkorn hinübergeht auf den neuen Planeten.
+
+Sie sehen, dass wir es in der zweiten Hälfte der Erdenentwicklung zu tun haben mit fortwährender Reinigung. Das einzige, was nun bleibt, ist, was nicht berührt werden kann von den vier Dingen, die eben genannt wurden, das, was hinüber geht zur nächsten Entwicklung: der Grad der Entwicklung. Ein Wesen kann ein wenig reicher und inhaltvoller sein Leben gelebt haben und wenig im Karma haben,
+
+---
+
+andere reichlich. Der Grad kann nicht geändert werden. Wer viel Hässliches aufgespeichert hatte, musste durch große plastische Kraft den Ausgleich schaffen. Die Wesen kommen mit verschiedenen Graden der Vollkommenheit hinüber – wie die Pitris hierherkamen. Nichts, was im Monde erfüllt ist, ist zu uns hinübergekommen, sondern nur, was seine Grade der Entwicklung durchgemacht hat.
+
+# WOHER KOMMT DAS BÖSE?
+
+Berlin, 12. August 1904
+
+Die Frage nach dem Ursprung des Bösen muss jede Religion beschäftigen. Woher kommt das Böse, das Unvollkommene? Eine Frage, mit der sich die Lehrer aller großen Religionen immer wieder beschäftigt haben und die sie beantwortet haben. Sie muss gestellt werden, weil man sich vorstellt, dass der göttliche Ursprung der vollkommene sein muss. Wenn nun die Welt aus dem Göttlichen hervorkommt, ist natürlich die Frage: Wie kann aus ursprünglich Gutem etwas Böses entstehen? Warum lässt das Vollkommene etwas Unvollkommenes zu?
+
+Man muss das Wesen des Bösen in richtiger Weise erfassen und dann die Notwendigkeit einsehen. Ein Bild: Klavierwerkstätte, darin ein vollkommener Klavierbauer, der nicht nur höchste technische Fertigkeit hat, sondern auch mit Liebe an der Verfertigung der Klaviere arbeitet. Innerhalb der Werkstätte werden wir nichts Unvollkommenes finden. Wenn wir ein Klavier in den Konzertsaal bringen, und ein Virtuose sich dran setzt, wird wieder etwas Vollkommenes kommen. Jeder an seinem Platz leistet Vollkommenes. Nehmen wir aber an, der Klavierbauer wäre zu enthusiastisch und hämmerte weiter, während der Virtuose spielt, so würde diese am unrechten Orte verrichtete Tätigkeit etwas Unvollkommenes hervorbringen. Wir werden finden, dass sich dieses Bild überall anwenden lässt, wenn wir etwas tiefer gehen.
+
+Denken wir uns die Aufgabe auf dem Monde – ähnlich, aber etwas anderes als die irdische Entwicklung. Das Vorstellungsvermögen war nicht, ebenso all die in den Menschen sich ausbildenden Geistigkeiten. Ein Traumbewusstsein war vorhanden, es hatte die Aufgabe, an den tierischen Organen des Menschen zu bauen. Die tierische Körperlichkeit war gebildet, ging in Samen über. Aber veranlagt waren sie auf dem Mond und so ausgebildet, wie sie sein müssen, wenn sie nicht Träger eines Rückenmarks und eines Gehirns sind. Darin lag
+
+---
+
+294
+295
+
+der Unterschied in der Bildung der Organe. Ein Knochenbau kann anders sein, wenn er sich nicht zuzuspitzen braucht zu Rückenmark und Schädelkapsel. Damit das alles ausgebildet würde in sieben Runden mit je sieben Globen, musste das Traumbewusstsein sein, der Regulator aller tierischen Organe. Es musste, wenn er seine Aufgabe vollends erfüllte, besondere Sorgfalt verwendet werden, die unter der Sphäre der Gehirnbildung liegende Bildung auszuführen. Große Weisheit war nötig, aber kein helles Bewusstsein, Gattungsweisheit. Diese ungeheure Weisheit musste auf die plastische Ausbildung eines jeden Organes große Sorgfalt legen. Alles was damals geleistet worden war, war geleistet und ebenso überwunden. Wie aber verschiedengradig war die Ausbildung der Pitris?
+
+Denken wir uns einen Zurückgebliebenen jetzt versetzt in die irdische Laufbahn. Er hat die Tendenz nachzuholen, was damals versäumt wurde und würde große Sorgfalt verwenden, alles auf die Befriedigung niederer Organe anzuwenden. Solche Pitri-Naturen sind teils im menschlichen Organismus, teils als Verführer im Astralen, sie wollen der Menschen Organe zurückhalten. Sie haben nicht den richtigen Anschluss gefunden, sie können nicht hineinschlüpfen in die irdische Hülle und umschwirren die Menschen, verführen sie, wollen sie erhalten in dem niederen Dienst, der auf dem Monde höherer Dienst war. Der irdischen Tätigkeit widerspricht diese zurückgebliebene Tätigkeit; und durch diese an den falschen Ort versetzte Vollkommenheit ist das Böse entstanden.
+
+Die Entwicklung verläuft so, dass Lektionen gelernt werden müssen, dass man nicht automatisch in die Bahn geschoben werden kann; das kann zur Sonderheit führen. Dadurch, dass die Weltentwicklung in Raum und Zeit vorgeht, entsteht durch die versetzte Vollkommenheit das Unvollkommene.
+
+Verfolgen wir den großen Strom der Bewusstseinsentwicklung, so ist dieser der klare, vollkommene; aber nun muss er sich in Raum und Zeit ausleben und wird nun in Sonderheit verflochten, das heißt, verschiedene Entwicklungsströmungen schieben sich ineinander und stehen dann auf verschiedenen Entwicklungsstufen nebeneinander; so wirken Dinge aufeinander, die an sich am rechten Orte vollkommen wären, und doch im Zusammenwirken ein Unvollkommenes erzeugen.
+
+Deshalb darf kein in Raum und Zeit vorhandenes Wesen von sich die Vollkommenheit behaupten, sondern nur der göttliche Ursprung ist vollkommen.
+
+Die christliche Esoterik nennt nun diesen vollkommenen Ursprung aller Wesen den <vater>. <nennt 1st="" am="" auch="" auf="" aufgeben="" den="" die="" die,="" die:="" die:="" durch="" ein="" einflöchten="" er="" er:="" er:l.="" er:sten:="" es="" esoterik="" esoterik.="" esoterik.="" esoterik.="" esoterik.="" esoterik.="" esoterik.="" esoterik.="" einflöchten,="" einflöchten.="" einfluss="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" einfluss.="" ein
+
+Ist es aber nicht widersprechend dem Begriff der Gottheit, trotz Raum und Zeit das Böse zu lassen? Wenn wir denken, dass alle anderen Wesen unseretwegen da sind, dass wir die Reiche aus uns ausgesondert haben, werden wir sagen: Eigentlich kommt es nur auf des Menschen Entwicklung an, denn unseretwegen sind sie da. Wir müssen mit in den Kauf nehmen [Lücke in der Mitschrift]
+
+Ein Böses in dem Sinne, wie wir es kennen, gibt es nur in der irdischen Entwicklung. Wie weit ist es in dem göttlichen Urgesetz berechtigt? Könnte die Menschenwelt ohne das Böse sein? Es fragt sich, wie sich die leitende Wesenheit zum Menschen verhält. Er könnte ihm die gebundene Marschroute für das Leben geben, dann wäre die Gottheit allmächtig, aber die Geschöpfe ohnmächtig. Dies ist unmöglich, wenn die Gottheit solche Geschöpfe wollte, die ihr Ebenbild sind. Wollte die Gottheit sich selbst entäußern, so musste sie Spiegelbilder schaffen, den Geschöpfen die Möglichkeit geben, aus sich heraus die Freiheit ihres Seins [Lücke in der Mitschrift] In der Liebe Gottes liegt die völlige Entäußerung Gottes.
+
+Zuerst haben wir die leitende Gottheit, dann die Spiegelbilder und das Leben darin – Sat; noch in der Fülle, nicht entäußert; die Hingabe – Ananda – und das Aufgehen im Geschöpf – Chit. Das ist das Verhältnis der göttlichen Wesenheit zu den Geschöpfen.
+
+Ohne Freiheit sind keine gottebenbildlichen Wesen möglich; mit der Freiheit ist aber die Notwendigkeit gegeben, dass Wesen auch irren können.
+
+In der irdischen Entwicklung ist den Wesen dadurch eine der</nennt></vater>
+
+---
+
+höchsten Kräfte gegeben, die der Liebe. Ein Wesen, dem eine gebundene Marschroute vorgezeichnet ist, könnte das Gute nicht aus sich heraus, frei aus Liebe tun. Ein freies Wesen tut es aus Liebe. Also hat Gott die Wesen in hingebender Liebe gebildet und ihnen die Möglichkeit gegeben, das Leben in freier Liebe zu erwidern. Deshalb nennt man den Kosmos der Erde im Unterschied zu allen anderen den der Liebe. Das Handeln aus Liebe ist seine Aufgabe.
+
+296
+
+# URALTE WEISHEIT
+
+Berlin, 13. August 1904
+
+Wie eigentlich ursprünglich das beschaffen war, was man <uralte weisheit=""> nennt und wie sie auf die Erde gekommen ist, ist das heutige Thema.
+
+Zwei Arten von Wissen und Erkenntnis gibt es. Denken wir uns den Erfinder einer Uhr –, er macht eine, zwei, drei Uhren nach dem Plan, der ursprünglich bei ihm vorhanden war. Es war also erst der Gedanke, dann kam die reale Wirklichkeit. Dies ist eine Art des Wissens von einer Sache.
+
+Um die andere Art kennenzulernen, wollen wir uns denken, dass der Uhrmacher gestorben sei; die Uhren sind da und ein anderer studiert sie, findet den Plan heraus und macht andere Uhren. Er hat dasselbe Wissen, aber auf andere Art erhalten; für ihn war zuerst die Sinnesuhr, dann die Idee, für den andern zuerst die Idee.
+
+Diese zwei Arten, Wissen zu erwerben, sind auch im großen Weltall vorhanden. Solch einen Gedanken, der den Gesetzen der Wirklichkeit entspricht und da ist vor dem Sinnesobjekt, nennt man <intuitiver Gedanke="">. Er ist aus dem Geiste selbst geboren, ein Kind der mentalen Welt. Der andere ist ein Kind der Sinneswelt, man nennt ihn <induktiver Gedanke="">.
+
+Jetzt wollen wir sehen, wie sich der Unterschied ausmachen würde zwischen den Vorigen und den Schülern. Der Erfinder wird seine Gedanken mitteilen können, weil er Bildner, Schöpfer ist, weil er dabei war, als aus dem Mentalen heraus das Sinnliche entstand. Der, welcher nachgebildet hat, wird auch [Lücke in der Mitschrift]
+
+Derselbe Unterschied ist zwischen den ersten Lehrern der Menschheit und allen späteren. Denn die ersten Lehrer der Menschheit sind mitbeteiligt gewesen an der Schöpfung, sind mit die Bildner gewesen, sie haben, als die Welt noch kosmischer Gedanke war, mitgewirkt. Sie [Lücke in der Mitschrift]
+
+Die ersten Arhat oder Maha sind mitbeteiligt gewesen an der
+
+297</induktiver></intuitiver></intuitiver>
+
+---
+
+Schöpfung der Welt. In der Mitte der dritten Wurzelrasse, als das Menschenreich entstand, verkörperten sich auch A [Lücke in der Mitschrift]. Sie brachten Wissen aus der Werkstätte mit, und das ist «uralte Weisheit»; Miterlebtes brachten sie.
+
+Die Erkenntnis, die man hinterher gewinnt, ist dieselbe wie diejenige, die die ursprünglichen großen Geister aus den Schaffensgesetzen selbst haben. [Lücke in der Mitschrift] Wenn man wirklich etwas weiß, dann hat man auch diejenigen Gesetze, nach denen die Welt geschaffen ist. Manas und Mahat ist daher dasselbe dem Inhalte nach. Nur Manas ist in uns: Ich. Und Mahat ist ausgebreitet als Tableau über die ganze Welt. Nur die Art zu sein, ist verschieden, der Inhalt ist derselbe. Je mehr wir zunehmen an Wissen, desto mehr [Lücke in der Mitschrift]
+
+Was damals aus der schöpferischen Tätigkeit der Bildner gelehrt worden ist, war die erste Weisheit, und sie ist deshalb mehr, als was alle Wissenschaft erwerben kann. Dieser okkulte Satz, dass die Welt in kosmischen Gedanken ihren Ursprung hat und dass die Erkenntnis in menschlicher Gedankenbildung gipfelt [Lücke in der Mitschrift]
+
+Das Ich tritt ein in die Weltenbildung; außerhalb des Ich – Mahat. Das Ich, der Bildner umfasst Mahat. Die Entwicklung besteht darin, dass das Ich seine Sphäre über den ganzen Mahat ausdehnt, und am Ende ist Mahat selbst im Ich darinnen. Worin besteht der Unterschied? Anfang: Mahat ist außer dem Ich, Ende: Mahat ist in dem Ich.
+
+Anfang und Ende unterscheiden sich somit nur dadurch, dass das Ich sich als Sonderwesen geopfert hat und als Gewinn dieses Opfers Mahat als Inhalt erworben hat.
+
+Der Weltbildungsprozess besteht darin, dass das Ich, das vorher ausgeschlossen war von Mahat, hinterher Mahat zu seinem Inhalt hat. Nicht Mahat, sondern das Ich hat eine Entwicklung durchgemacht. Bedeutungsvoller Satz: Die Welt ist in kosmischer Gedankenbildung geschl [Lücke in der Mitschrift], das Ich draußen.
+
+Das ist nur zum Teil wahr, denn in Wirklichkeit ist das Ich ein Teil von Mahat. Bei uns ist jeder Gedanke ein Teil von Mahat; versuchen wir uns einen als Inhalt zu symbolisieren. Nehmen wir den Satz: Die Evolution besteht darinnen, dass jeder Teil von Mahat soweit wächst, dass er mit dem ganzen Mahat identisch wird.
+
+Es geschieht die Anähnlichung aller Einzelnen an den ganzen Mahat. Es geschieht das große Opfer. Der ganze Mahat gibt sein Wesen an alle Teile ab, das ist Entwicklung. Zweck der Welt besteht darin, dass das Ganze sein Wesen an jeden seiner Teile abgibt. Gewiss ist, dass das Ganze am Anfang vollkommen war; aber hätte es keine Teile, würde es bleiben wie es ist. Da er sie hat, hat er jedem der Teile sein ganzes Wesen abgegeben, damit seine eigene Vollkommenheit am Ende in jedem seiner Teile enthalten ist.
+
+Anfang: Mahat ist außer dem «Ich»
+
+Ende: Mahat ist in dem «Ich»
+
+Anfang und Ende unterscheiden sich somit nur dadurch, dass das Ich sich als Sonderwesen geopfert hat, und als Gewinn dieses Opfers Mahat als Inhalt erhalten hat.
+
+
+
+Die Evolution besteht darinnen, dass jeder Teil von Mahat so weit wächst, dass er mit dem ganzen Mahat identisch wird. Es geschieht das «große Opfer»: Der ganze Mahat gibt sein Wesen an alle seine Teile ab. Das ist Entwicklung.
+
+
+
+
+
+---
+
+300
+301
+
+# WESEN, WAHRNEHMUNG UND TATEN
+
+Berlin, 14. August 1904
+
+Wir müssen unterscheiden zwischen dem Wesen als solchem und zwischen den Wahrnehmungen und Taten des Wesens. Die hängen ab nicht bloß von dem Wesen, sondern auch von der Welt, in die er versetzt ist. Der Mensch ist zu verschiedenen Zeiten in verschiedenen Welten, er macht Planeten durch, Globen. Vier – drei Welten haben wir kennengelernt. Wenn er wahrnehmen und tätig sein soll, muss er sich Organe aus der betreffenden Welt bilden. Damit er auf der physischen Erde wirken kann, muss er sich Wahrnehmungsorgane aus Stoffen der Erde bilden. Sodass wir unterscheiden müssen zwischen dem Wesen, das der Welt des Ewigen angehört, und den Organen, die es gebildet hat aus den Stoffen der Welten, die es durchwandert.
+
+Würden wir nicht eine physische Hand haben, würden wir nicht einen Gegenstand rücken können, sondern durchfahren durch die Materie. Die Hand muss undurchdringlich sein [Lücke in der Mitschrift] Ebenso ist es mit den Sinnesorganen [Lücke in der Mitschrift] Augen. Diese Organe nennt man Indriyas, und man unterscheidet Indriyas der Sinne oder Wahrnehmung und Indriyas der Tat. Jedes Wesen bildet sich aus den Stoffen der Welt, die es durchwandert, Tätigkeits- und Sinnesorgane. Mit seinem Wesen gehört der Mensch der ewigen Welt an, mit den Organen – der Welt, die er durchwandert. Hat er diese Welten durchwandert, nimmt er gerade durch seine Organe etwas aus den Welten mit, das sein Besitz bleibt. Sie haben Augen –, als Sie dem Schoße des Ewigen entstiegen, hatten sie keine [Lücke in der Mitschrift]
+
+Was Sie wahrgenommen haben, das bleibt. Die Augen als Organe der physischen Welt vergehen.
+
+Wir sehen daraus, dass die Menschen Unrecht haben mit dem, was sie wirklich nennen. Gerade das ist wirklich, bleibend, was als Wirkung der Vorgänge erscheint. So saugt das Wesen durch seine von Zeit zu Zeit erhaltenen Organe die Früchte aus den verschiedenen
+
+Welten heraus, die es dann mitnimmt. Deshalb hatten die Griechen schöne Symbole in den Mysterien: Sie nannten die Seelen Bienen, weil die Seele den Honig aus den Welten sammelt und am Altar des Ewigen niederlegt.
+
+Warum gebrauchen die Eingeweihten solche Bilder für das Volk, hat es einen Wert? Alles was Mythen sind, sind äußere Einkleidungen tief innerer Wahrheiten.
+
+Wie werden wir Bildsäulen leichter arbeiten? Werden wir das Bild erst roh bearbeiten in dem Steinblock oder mit der feinsten Ausübung beginnen? Ich meine das Erste. Nach diesem Prinzip handelten die Priester verschiedener Zeiten. Sie sagten sich [Lücke in der Mitschrift]
+
+Ich senke in diese Seele eine bildliche Vorstellung, die die Leute gar nicht verstehen. Aber es präpariert seinen Geist, damit er später die reine Wahrheit wahrnehmen kann. Das hatte Wert, solange die Priester so durchdrungen waren von Reinkarnation [Lücke in der Mitschrift]
+
+Zurück zum Hauptgedanken: Die Wesen entnehmen den Welten, was sie zu ihren Organen brauchen. Für uns: physische, seelische und geistige Welt, aus denen wir aufgebaut sind. Der Mensch lebt in diesen drei Welten, der physischen, astralen und mentalen, ist also ein dreigliedriges Wesen.
+
+Über der geistigen und unter der physischen gibt es noch andere Welten, in denen lebt der Mensch zunächst nicht, aber andere Wesen. Denken wir uns solche, die nur seelisch und geistig – zweigliedrig – für uns sind. Solche Wesen nennt man Devas, die nicht in der physischen Welt inkarniert sind, deren niederste Körperlichkeit das Astrale ist. Die Mythen haben die Erkenntnis von solchen Wesen sinnbildlich behandelt, entweder dadurch, dass sie solche Wesen erscheinen lassen in feurigen Wolken. Aber auch werden wir finden in Mythen, dass sie erscheinen in Form von Tieren – Zeus.
+
+Das Tier gilt oft für eine astrale Wesenheit, weil sie das Leidenschaftliche klarer ausdrückt als der Mensch. Das entspricht also einer astralen Wirklichkeit, ist aber nicht physisch zu denken im gewöhnlichen Sinne, sondern die Menschen, denen es erschienen, waren für den Augenblick in Trance.
+
+---
+
+302
+303
+
+Neben dem gibt es noch andere Wesenheiten, welche nur körperlich-seelisch sind, denen das Geistige fehlt. Die Tiere sind es nicht, denn die gehören mit ihrem Gattungscharakter dem Geistigen an; ihre Gattungsseele gehört dem Devachan an. Solche Wesenheiten gibt es, die gar keine geistige Äußerung haben. Nur möglich ist es, zu ihnen zu kommen, wenn man nicht angewiesen ist auf geistige Äußerung. Astral hellsehend müsste ich sein, um ihre Astral-Wesenheit wahrzunehmen. Die Erde ist viel bevölkerter, als man glaubt, in jedem Felsen, jedem Baum lebt ein Wesen, die nur darum sich nicht [Lücke in der Mitschrift], weil sie kein geistiges Äußerungsvermögen haben. Man nennt sie Elementarwesen.
+
+Der Mensch nimmt nur ihre Wirkungen wahr, wenn sie ihm – wie es scheint – sich zufällig äußern.
+
+Es gibt Devas, die Naturen haben, die über dem Geistigen sind, und Elementarwesen, die unter dem Physischen stehen. Aber die gehen uns nichts an. Diese haben Organe, die denselben Welten angehören wie wir. Die Devas verrichten keine Taten, die unmittelbar der sinnlichen Welt angehören, deshalb nehmen wir diese nicht wahr; die Elementarwesen haben keine Organe, die sich geistig äußern können, deshalb sind sie für den Menschen nicht da.
+
+# VON DER AUFGABE UND DER HEIMAT DES MENSCHEN
+
+Berlin, 16. August 1904 (?)
+
+Erst durch Pasteur ist die Wissenschaft in der Lage zu beweisen, dass Lebendiges niemals aus Leblosem entstehen kann: Die Luft allein ist voll von Lebenskeimen; wenn man sie durch Glut gehen lässt, entsteht kein Leben mehr. «Jedes Leben entsteht aus dem Lebendigen», sagt die moderne Wissenschaft. Sie glaubt aber noch, dass Geistiges aus Körperlichem entstehen könne. Durch die Theosophie wissen wir, dass im Lebendigen nie Seelisches entsteht, ohne dass der Seelenkeim hinzukomme.
+
+Im Strome der Entwicklung bringt Lebloses Lebloses hervor; soll Lebendiges entstehen, muss ein neuer Strom entstehen mit Lebenskeimen. Soll aber Seelisches entstehen, muss ein neuer Strom mit Seelenkeim entstehen. Das Leblose ist also der Boden und der Schauplatz, innerhalb dessen sich das Lebendige verwirklicht; niemals dessen Ursache. Das Lebendige ist immer nur der Schauplatz, innerhalb dessen sich das Seelische verwirklicht, niemals dessen Ursache. Das ist es, was uns führt zu dem großen Gesetz der Reinkarnation; wir müssen für alles, was wir in der Seele finden, die Ursachen in dem seelischen Selbst suchen.
+
+Die Art wird dort geboren, wo die äußeren Verhältnisse der Art entsprechen. Wenn sie es nicht tun, geht das einzelne Wesen zugrunde; die Art erhält sich. So geht es mit der Seele, die ihrer ganzen Vergangenheit nach sich in rohem Lebenswandel bewegt hat, sogleich in einem guten Gedeihen. Die Seele hängt gefühlsmäßig mit ihrer Umgebung zusammen; unter denen, die gleich sind, behält die Seele die Neigung, in ihre früheren Gewohnheiten zurückzukehren.
+
+Physischer, kamischer und mentaler Körper setzen sich zusammen aus Stoff von entsprechender Gesetzmäßigkeit. Dieselbe Gesetzmäßigkeit kehrt zurück, nachdem die Stoffe abgefallen sind und sie
+
+---
+
+sich devachanisch entfaltet hat; zieht aber zu sich eine verwandte Gesetzmäßigkeit in ihrer neuen Stoffansammlung. Das ist das Gesetz des Karma: Jedes frühere Leben bleibt als Ursache für die folgenden Leben erhalten, und zwar werden sich die mentalen Eigenschaften der folgenden Leben nach den mentalen der früheren, die kamischen nach den kamischen der früheren und die physischen nach den physischen Eigenschaften der früheren richten.
+
+Die größte Schwierigkeit beginnt bei der Inkarnation im physischen Körper. Nur im Leben kann eine Wechselwirkung der drei Körper bestehen; die Physis muss zum Instrument werden. Wir wissen, dass die Tugenden, die hinauf- und hinabstreben in des Menschen Leben, in Wechselwirkung treten. Der ‚Kampf ums Dasein‘ führt in die unterste Stufe von Kamaloka. ‚Genuss-Sucht‘, ‚Richtungslosigkeit‘ und ‚Täuschung‘ bringen den Menschen in die zweite, dritte und vierte Abteilung von Kamaloka.
+
+Die Läuterung in den drei oberen Stufen besteht in denjenigen, die die Verneinung der drei höheren Eigenschaften bilden: Verwechselung des Symbols mit der Sache; Lesen des B[unleserlich] Worts in der Bibel statt des Geistes; Buchstabenglaube und Symbolverehrung finden ihre Läuterung in der fünften Region des Kamaloka.
+
+Echte Frömmigkeit ist Hingabe an das Geistige. Es kann sich auf das Zeitliche oder das Ewige im Geiste richten. Schwelger im Reiche des Geistes, die die Schöngeistigkeit als Genuss treiben, läutern sich in der sechsten Abteilung. In der siebten Abteilung finden sich die Idealisten, die Gott in der Natur suchen, die theoretischen Materialisten. Die Untugenden sind nichts anderes, als die Schattenbilder der Kama-Welt in unserer physischen Welt.
+
+Die Gerechtigkeit, die Kama-Manas zu Manas hinzieht, muss noch geläutert werden, aber im Devachan, da sie zur Einheit führt. Der Sinn, die Gerechtigkeit auszudehnen über die Grenzen der nächsten Umgebung, wird in der ersten Region des Devachan erweckt. Die Tugend der Enthaltsamkeit dem Weltlichen gegenüber, die Hingabe an den Geist bilden sich auf der zweiten Stufe des Devachan aus. Die im gewöhnlichen Sinne frommen Leute. – Die werktätige Anteilnahme am Leben, der äußere Ausdruck der Standhaftigkeit, wird
+
+geläutert im dritten Reich des Devachan. Leute, die Initiative haben, nicht sich gehen lassen.
+
+Klugheit – jeder, der von innen heraus die physische Welt beherrschen kann – führt zur vierten Stufe. Führer und Leiter der Menschheit in der äußeren Kultur – Musiker, Pädagogen.
+
+[Wer zum] Ewigen neigt, [dem] wird es zum Symbol. Steigerung der Enthaltsamkeit: wahre Schönheit. – Wenn der Mensch sich durch das Ewige bestimmen lässt statt durch das Vergängliche, haben wir die Frömmigkeit, das Leben in geistiger Standhaftigkeit. Klugheit hinaufgesteigert ist Weisheit. Siebte Tugend des Manas ist [Lücke in der Mitschrift].
+
+Wie die Waagschale des Manas ausschlagen kann, so [kann es auch] die des Verlangens und härtere Untugenden erzeugen. In Kama ist alles verwandt; wer darin verstrickt ist, hat keinen Kampf mehr zu führen; die Wesenheiten, die es wollen, kommen an ihn heran. – Genuss-Sucht gesteigert, dann lebt der Mensch nicht in sich, sondern im Äußeren: Hingabe an den Genuss – fünfte Untugend. Epidemien – Wollust ... Wenn der Mensch vollständig von außen bestimmt ist, absolut die Richtung verliert, aufgeht in Begierde, dann bekommen wir die sechste Untugend, die ihn fast bis zur Vernichtung des eigenen Wesens heranbringt: die Haltlosigkeit. Wenn er sich jeder beliebigen Täuschung hingibt, nichts durch Klugheit durchschaut, wenn sich Täuschung zur Dumpfheit verliert, so haben wir die letzte Untugend.
+
+Die Persönlichkeit hält also alles zusammen, sie ist zwischen Leben und Tod. Wenn sie abfällt, bleiben die zwei Seiten, die hinauf und hinunter drängen. Zum Kamaloka führt ihn das Maß der Untugenden – die andern zum Devachan. Solange die Persönlichkeit zusammenhält den Kampf ums Dasein und die Gerechtigkeit, pendelt der Mensch – wenn er auseinanderfällt, wird er nach beiden Richtungen hingezogen. In der Persönlichkeit war der Ausgleich. Ohne Persönlichkeit verfallen die Tugenden oder Untugenden ihren eigenen Reichen, eigenen Gesetzen. Pflanze – Salze – Same.
+
+Nun müssen wir bedenken, dass alle Tugenden beim Menschen sich innerhalb des V.o. des Verlangens entwickelt haben. Solange ein
+
+---
+
+Wesen im Unteren lebt, haftet es am Unteren; es kann nicht im Höheren leben. Alles, was von Kama am Menschen haftet, muss [er ans] Kamaloka übergeben; erst dann kann er ins Devachan hinauf. Solange etwas Physisches an der Pflanze haftet, muss sie im Physischen leben. – Kamaloka ist der Ort, wo dem, was am Menschen Verlangen war, genügt werden muss; der Mensch muss seine Tugenden dort ausleben, während im sinnlichen Leben die physische Hülle sie zusammenhalten konnte. – Thanatos, Sisyphos.
+
+Sieben Abteilungen sind in beiden Reichen, weil für je eine Untugend od. J. die entsprechende Tilgung vorhanden sein muss; es sind die Gesetze zur Abstreifung der sieben disharmonischen Eigenschaften, und die sieben Abteilungen des Devachans sind da zum Entfalten der sieben harmonischen Eigenschaften. Die drei unteren zur Abstreifung der groben unteren, die drei höheren zur Reinigung des Kampfes ums Dasein –, die höchste zur Abstreifung der Täuschung.
+
+Alles, was als Tugend im Leben erworben ist, findet seine Ausbildung im Devachan, die Fracht wird hinaufgenommen ins Devachan. Alles, was im sinnlichen Leben auftritt, ist das Phänomenale, die Erscheinung; es weist uns hin auf das Noumenale, was hinter den Dingen steckt. Wir müssen die Persönlichkeit in diesem zweifachen Aspekte sehen. Hier liegt auch, was wir freien Willen nennen, was uns verliehen ist, um diesen Kampf zu führen. Untugend durch Freiheit reinigen lassen – Schule der Inkarnation. Immer neue Wechselwirkungen.
+
+Des Menschen eigentliche Heimat ist Arupa des Devachan. Er steigt hinab in Rupa und füllt sich mit dem Gedanken-Körper. In der Arupa-Region sieht er, was sein eigenes Selbst ist, er genießt das unmittelbare Anschauen des Ewigen. Nun soll er die Schule des Daseins durchmachen. In Arupa würde er nie mit der Welt der Sonderung in Berührung kommen. Er muss nun das Schauen des Ewigen [verwandeln] in das Denken über das Gesonderte.
+
+Erstens: Das menschliche Wesen umgibt sich mit Gedankenstoff, damit es das Ewige im Zeitlichen denken kann. Das bringt ihn in die Welt des Sonderseins nach Rupa.
+
+Zweitens: Das menschliche Wesen umgibt sich mit Astralstoff, damit es das Ewige im Zeitlichen fühlen kann. – Kama oder Astralwelt.
+
+Drittens: Das menschliche Wesen umgibt sich mit physischem Stoff, damit es das Ewige im Zeitlichen wollen kann. Jetzt ist es wieder inkarniert und unterliegt nun den Gesetzen der physischen Welt, bis es wieder den Weg hinauf nimmt.
+
+Das ist, was wir die Pilgerschaft der Seele nennen, die durch die drei Welten führt. Dann kommt erst die höhere Welt, welche die eigentliche Heimat der Seele ist, die formlose Welt.
+
+Alle Gedanken, die wir aus den Dingen herausschälen, müssen in den Dingen liegen. Ihren bestimmten charakteristischen Inhalt nennen wir Form; nichts kann aber geformt sein, ohne eine dünne Materie zu haben. Als Wesenheit ist also das vorhanden, was wir uns in Gedankenmaterie vergegenwärtigen.
+
+Die drei oberen Prinzipien ruhen im Innern, während die drei unteren die äußere Hülle bilden. Sie sind objektiv und subjektiv vorhanden. Die drei ersten nur subjektiv. Wir können sie nicht beobachten. Im 4 Prana-Kama-Manas werden die Gedanken; sie erscheinen als Schatten. Würde Manas, die Seele, die Gedanken hegen, würden diese Gedanken so Kama-Manas gegenüberstehen, dass sie ihre Wirklichkeiten wären. Je nach der Stufe des Bewusstseins, auf der ein Wesen steht, nennt er etwas ein Wirkliches. Wenn der Mensch seine Physis verliert, verliert er das physische Prinzip. Verdunkelt sich aber ein Prinzip, tritt ein Neues ein.
+
+Es leuchtet im Innern der Seele 8 auf. Verliert er Prana und Kamaloka, tritt 9 ein; [verliert er] Kama-Manas, dann tritt 10 ein. Was ist es, das da tätig wird?
+
+Wenn er Kama-Rupa verliert, tritt in den Tiefen seiner Seele ein neues Wesen ein; das ist verwandt mit Kama-Rupa, hat aber ein anderes Gesetz. Das zieht ihn in die Welt des Geistes hinein. Man nennt es das geistige Feuer im Okkultismus. «Es wird einer kommen, der euch mit Feuer tauft.» Was für die Physis eintritt, ist das, was alles enthält, was das Physische beherrscht, mit vollkommener Weisheit. Wir nennen es «Mahat» oder die «kosmische Weisheit». Sie glänzt auf, indem wir die Physis abstreifen.
+
+Die Stoffe gehen ab, die Gesetze werden zum höheren Prinzip. Was Tendenz und Kraft wird, leuchtet als höheres Prinzip wieder auf.
+
+---
+
+Gibt er Kama-Manas ab, das, was eigentlich unser Selbst in dieser Welt ist, tritt unser wahrstes Ich auf – dadurch, dass wir dieses Wesen sind, unser Selbstbewusstsein. Nun sprechen wir Manas als unsern Körper an, das kosmische Gedankenfeuer, das wir tragen. Wir sprechen Manas als unser Objektives an, wie früher unsern physischen Körper. Erwacht unser Selbstbewusstsein, fühlen wir uns als einheitliches Wesen, zum Ganzen gehörig. Augustinus: Wir Menschen sehen die Dinge, weil sie sind; die Dinge sind, weil Gott sie sieht.
+
+Wir sind, von einem höheren Plane gesehen, Gedanken des Weltengeistes, die in eine Form gegossen sind. Im Seelenleben des Weltengeistes, da sind alle Dinge wirklich vorhanden. Wenn wir die Verkörperung abstreifen, bleiben wir erhalten im Seelenleben. Das, was wir im gewöhnlichen Sinne Wirklichkeit nennen, entsteht nur dadurch, dass sich die höheren Prinzipien verdunkeln und in der Welt der Sonderheit auftauchen.
+
+Der Mensch unterliegt als Individualität den Gesetzen, die in den sechs höheren Reichen herrschen – als Persönlichkeit denjenigen, die in den vier unteren herrschen. Deshalb müssen die unteren immer wieder erneuert werden. Der Mensch muss sterben und wiederverkörpert werden, weil er in einer Welt lebt, die den Gesetzen von Geburt und Tod unterworfen ist. Nicht der Mensch steht unter dem Gesetze von Geburt und Tod, sondern die unteren Welten, in denen der Mensch sich von Zeit zu Zeit verkörpert.
+
+Tag und Nacht wechseln, aber das Gesetz ist ewig. Das Gesetz tragen wir hinauf, es erglänzt in seiner Schönheit, wenn wir das Physische abgestreift haben. Der Mensch trägt das Geeinte, das Ewige fortwährend hinauf in das höhere Reich. Herauszuholen aus der unteren Welt, so viel von der höheren Welt, als in ihr verborgen ist, ist des Menschen Aufgabe. Deswegen wird er esoterisch mit einer Biene verglichen. Das Zeitliche muss er heraufheben, um es mit dem Ewigen zu vereinigen. Weil er es nicht auf einmal tun kann, macht er es in aufeinanderfolgenden Verkörperungen. Da die Welt sich nicht auf einmal verkörpert, sondern nacheinander in Epochen, muss auch der Mensch dasselbe tun. Der Grund der Wiederverkörperung liegt in der Weltentwicklung. Wir erlösen also nicht nur uns, sondern auch
+
+die Welt, indem wir uns entwickeln, und versäumen unsere Aufgabe gegenüber dem Ewigen, wenn wir unsere Entwicklung nicht befördern.
+
+---
+
+310
+311
+
+# DIE GESTALTUNG DES MENSCHEN I
+
+Berlin, undatierte Mitschrift, 1904
+
+Wir wollen zunächst in Kürze wiederholen, was sich aus der Betrachtung der sieben Grundteile des Menschen ergeben hat. Der Mensch ist Bürger dreier Welten, der physischen, der seelischen und der geistigen. Die physische Welt ist ein Abglanz der geistigen, gleichsam ihr Gegenpol. Wie wir in einem Wasserspiegel eine Berglandschaft sich so abspiegeln sehen, dass der Fuß des Berges zunächst im Wasser sichtbar wird, der Gipfel aber am tiefsten unten, so ist es auch mit der Geisteswelt. Sie erlebt ihre Umkehrung in der physischen Welt – das tiefste Physische entspricht dem höchsten Geistigen. Atma entspricht dem Mineral, Budhi der Lebenswelt, Manas der Tierwelt, deren äußerer Ausdruck das Tierreich ist.
+
+Das Seelische ist das, was beide Welten verbindet. Der Mensch ist eine Zusammenfassung alles dessen, was uns in den andern Welten begegnet – der Mikrokosmos im Makrokosmos. Abgekürzt und zusammengedrängt finden wir in ihm alles wieder, was sich im Kosmos abspielt. Wir können verfolgen, wie sich die drei Welten in ihm einen Ausdruck schaffen, um sich selbst gleichsam durch ihn anzuschauen. Der Mensch ist das über dem Kosmos geöffnete Auge, von ihm selbst erbaut.
+
+Sehen wir zunächst, wie die mineralischen Kräfte auf ihn wirken: Sie ballen den Stoff zusammen – durch Anziehung und Abstoßung, durch Zahl und Maß. Dadurch entsteht die physische Grundlage des Menschen. Sie wäre an sich starr und leblos, gleich dem Bergkristall, der nach denselben Gesetzen der Stoffverbindung entsteht.
+
+Da setzt die Lebenskraft ein, das, was Wachstum und Fortpflanzung bedingt, Dehnbarkeit und über sich Hinausgehen, was die Arten schafft. Diese artbildende Kraft ist konzentriert im Keim enthalten, hat in der Vererbung ihren markantesten Ausdruck und beherrscht den Stoff, der an sich der Auflösung unterworfen ist, durch das Gesetz der Form. Die ererbte Gestalt ist das, was sich
+
+erhält. Wir nennen diesen Lebensleib auch Ätherdoppelleib, weil er den ganzen physischen Leib ausfüllt. Er ist für denjenigen, der das betreffende Organ zum Schauen hat, deutlich sichtbar.
+
+Diese beiden Körper werden durch die Kräfte der Außenwelt aufgebaut, die in ihnen Organe baut, durch die sie sich selbst wahrnehmbar macht. Die physische Welt webt die Haut des Menschen und stülpt ihr die Sinnesorgane ein. Das Auge ist eine Einstülpung in der Haut. Durch die Sinneswahrnehmungen entstehen die Sinnesempfindungen. Diese bewirken schon etwas Neues. Etwas reagiert im Innern des Menschen. Ein Tätigkeitsquell öffnet sich, der mit Eindrücken auf die Sinnesempfindungen antwortet. Damit beginnt das Eigenleben des Menschen.
+
+Hier haben wir den Übergang zum Seelischen. Das Seelische im Menschen ist sein Eigenstes, das, was durch die Eindrücke und Erfahrungen in ihm entsteht, was in jedem anders ist oder sein kann, denn keiner kann wissen, ob der andere »rot« genau ebenso empfindet wie er selbst. Dieses Neue nennen wir »Empfindungsseele«; sie ragt über den physischen Leib hinaus, sichtbar für denjenigen, dem die seelischen Organe geöffnet. Sie ist aber von dem physischen und von dem Lebensleib abhängig, da sie durch diese zu ihren Eindrücken gelangt und in ihren Grenzen durch deren Kraft bestimmt wird. Diese Grenze nennen wir Seelenleib. Wir haben es also zu tun mit einem empfindenden Seelenleib, das heißt einer Einheit mit Hinblick auf den ganzen Menschen. Betrachten wir den Leib als solchen, so ist dieser Seelenleib sein drittes Glied; die Empfindungsseele dagegen das erste Glied der seelischen Wesenheit des Menschen; in ihr entstehen die Gefühle der Lust und Unlust, die Triebe und Leidenschaften der Menschen. Durch diese ist sie der Leiblichkeit unterworfen.
+
+Nun aber kommt sie mit dem Geiste in Berührung, der sich im Denkorgan, im Gehirn, ein leibliches Werkzeug geschaffen hat. Das Denken dient ihr zunächst; der Mensch denkt über seine Empfindungen und Leidenschaften nach. Um diese zu befriedigen, führt er Gelegenheiten herbei, handelt – dadurch stellt die Denkkraft die Seele in eine höhere Gesetzmäßigkeit hinein, der sie als bloße Empfindungsseele nicht angehört; sie wächst hinaus über das, was sie
+
+---
+
+312
+313
+
+beim Tiere oder bei ganz unentwickelten Menschen ist. Sie wird zur Verstandesseele. Diese wird vom Hellseher als besondere Wesenheit innerhalb des Seelenleibes geschaut, als zweites Glied. Durch die Verstandesseele wird der Mensch über das Eigenleben hinausgeführt. Er erschließt sich immer mehr dem Geist. Insofern er sich der Erkenntnis des Wahren und Guten erschließt, nimmt er das Ewige in sich auf, das, was in sich selbst besteht und nicht von Eindrücken abhängt. Das, was als Ewiges in der Seele aufleuchtet, sei ‹Bewusstseinsseele› genannt. Die Leiblichkeit wirkt auf sie begrenzend, die Geistigkeit erweiternd.
+
+# DIE GESTALTUNG DES MENSCHEN II
+
+Berlin, undatierte Mitschrift, 1904
+
+Während der lemurischen Zeit ist etwas geschehen, das seit vielen Millionen Jahren zum Wichtigsten gehört: Das eigentliche Ich des Menschen hat Wohnung genommen im menschlichen Körper. Des Menschen eigentliche Seele war weiter als die Körper, die damals schon aufgebaut waren. Bevor die Körper fertig waren, hatten die Seelen auf anderen Planeten eine andere Entwicklung. Pitris: verschiedene Grade der Entwicklung. Anderer Bewusstseinsgrad. Dieses Bewusstsein, was wir jetzt haben, ist allmählich aufgebaut.
+
+Durch lange Zeiträume hindurch haben wir das, was jetzt auf der Erde ist, auf dem Mond entwickelt. Dann schlief es hinüber. Wenn der Mensch seine Erdlaufbahn antritt, ist er weiter als die Erde. Er muss im Verein mit anderen hohen Wesen Körper bauen. «Die Erde war wüst und wirr.» Es müssen aus dem Material die Formen aufgebaut werden; dies geschieht in den drei ersten Runden. Er baut Formen auf, wie man ein Haus aufbaut. Eine Art Verwandtschaft mit der irdischen Materie bewirkt es. Wenn er die vierte Runde beginnt, sind die Körper so weit bereit, dass das gesamte physische System – Knochen-, Muskel-, Verdauungs-, Blutzirkulationssystem – fertig ist. Das menschliche Gehirn noch in der Anlage. Die vierte Runde ist dafür, um für das Bewusstsein dieses körperliche Organ aufzubauen.
+
+Drei Hauptstadien zunächst:
+
+Erstens: rein Geistiges, arupa, formlos; zweitens: geistiger Gestaltungszustand, rupa, Astralzustand. Am Ende des astralen Zustandes ist im Innersten
+
+1. ein arupes Wesen
+2. umhüllt von Gedankenkörper oder rupa
+3. von einem astralen Körper oder Empfindungskörper.
+
+Nun beginnt er die physische Gestaltung damit, dass er in zunächst feinster Materie, in Äther einen Abdruck dessen bildet, was er astralisch war. In früherer planetarischer Entwicklung hatte der Mensch
+
+---
+
+314
+315
+
+einen ganz anderen Ätherkörper, der denjenigen, den wir jetzt kennen, aber aufgebaut hat, im vierten Zustand der vierten Runde, als die Erde selbst Ätherstoff war. Er ist Schablone des physischen Körpers, in ungefähr der Farbe der Pfirsichblüte. Während dieser Zeit war der Ätherleib der einzige menschliche Körper. Es war die erste Wurzelrasse, feinstoffliche Menschen schwebten in dem Ätherraum und vermehrten sich, indem einer aus dem anderen hervorging.
+
+Immer dichter und dichter, sieben Stufen macht der Mensch durch – Rassen –, und nun kommt der zweite Zustand, der Luftmensch. Der Äther zieht die Luft an, durchsetzt sich mit ihr, bildet Körper. Was wir in Märchen finden, beruht auf uralter Erinnerung. Hyperboreer nennt man sie: «Und der Herr machte die Winde zu seinen Boten.» Heißt: Er bildet den seelischen Geistern einen Körper aus Luft. Hyperboreer wurde immer dichter; Luft war sehr dick damals; dennoch waren die Menschen wunderbar schön. Äthermenschen waren leuchtende Feuergestalten. Die astralische Erde wäre für ein physisches Auge ganz dunkel gewesen; während der Äthererde hätte sie zu glänzen begonnen. Die feurigen Gestalten werden so charakterisiert: «Und Gott sprach, es werde Licht.»
+
+Die Lemurier sind so wichtig, weil in der Mitte dieser wichtige Abschnitt lag. Frühere Katastrophen waren nicht so gewaltsam, weil die Erde noch nicht so dicht war. Hyperboreer durch Umlagerung der Hitze, indem der Kontinent vom Nordpol zum Süden.
+
+Wassergeschwängerte, dichte Materie: Darin waren erste Lemurier gestaltet; nicht so dicht wie niedere Quallentiere – man nennt sie «Eier-sich-fortpflanzende» Menschen, genauso wie gewisse Tiere, Amöben, zunächst Einkerbungen haben, in denen sich der Kern verteilt, dann schnürt es sich ab. Dadurch war der Mensch damals materiell unsterblich, er teilt sich, doch geht nicht unter, sodass der Mensch materiell als solcher unsterblich ist. Damals umschwebten noch Pitri den Körper; erst in der Mitte der lemurischen Zeit kann er Besitz ergreifen. Er hatte alles, nur nicht das richtige Gehirn. Nun entstand ein Ansatz dazu. Feuernebel war eiweißartig geworden, Gehirnansatz entstand und Seele konnte Besitz ergreifen. Nur die sehr vorgerückten Pitri konnten nun von innen heraus den Körper bilden.
+
+Sogenannte Söhne des Feuernebels, Arhats, Initiierte, und zwar von höchsten Wesenheiten. Weniger starke Pitris hätten noch nicht Körper gestalten können. Erste Vertreter der Weisheit. Es hätten jetzt auch andere Pitris Besitz ergreifen können, aber dann hätten nicht solche Wesen entstehen können wie jetzt. Der Mensch wäre nie zur vollen Freiheit gelangt; hätte dumpfes Bewusstsein gehabt. Gegen das Ende der zweiten lemurischen Zeit fangen erst an, sich weitere Pitris zu verkörpern.
+
+Jene Körper aber, die damals von Pitris nicht bewohnt wurden, entwickelten sich zur Tierheit. Wäre im Körper kein Gehirn, könnte kein hochentwickelter Pitri darin wirken auf unserm irdischen Plan. Dieses In-der-Tierheit-sich-Entwickeln bezeichnen alle Religionen als Sündenfall. Auf Kosten des Gehirns ist der übrige Mensch hinuntergedrängt in die Tierheit. Indem der Mensch innerlich Besitz ergreift, muss er sich Sinne entwickeln, um wahrzunehmen. Der Sündenfall schafft das erste Karma.
+
+Äußerlich physisch waren die ersten Menschen viel vollkommener, aber dumpfer. Damals gab es keine Affen; diejenigen Körper, die bewohnt wurden, entwickelten sich nun zu Menschen; die unbewohnten verkamen; es waren seelenlose, amanasische. Während der zweiten lemurischen Zeit wird also ein entwickelter Bewusstseinszustand dadurch erreicht, dass er tiefer in die Sinnlichkeit sinkt. Die Aufgabe der achten Runde, der ganzen irdischen Entwicklung, ist die Erreichung dieses Bewusstseinszustandes.
+
+Auf dem Monde hatte er eine niedrige, früher noch niedriger [Lücke in der Mitschrift]
+
+So entwickelt er durch sieben Planeten sieben Bewusstseinszustände. Als sie vom Monde hinüberwandern, hatten sie Traumtrance, vorher Pflanzentrancen, vorher Tieftrancen. Sieben Planeten oder Bewusstseinszustände. Sieben Reiche, sieben Rassen.
+
+---
+
+316
+317
+
+# DIE REICHE
+
+Berlin, 5. September (1904?)
+
+Im Menschen muss etwas sein, was einem jeglichen Ding in der Außenwelt entgegenkommt. In den äußeren Dingen muss etwas sein, was dem entspricht, das in uns ist. Wir begegnen uns mit den Dingen auf einem gemeinsamen Schauplatz. Sie begegnen uns auf dreifache Art:
+
+- mineralisch, der Mensch ist da entstanden, wo sich die Mineralkraft Gottes verdichtet hat
+- Lust und Unlust erregend
+- Gedanken erweckend.
+
+Im Manasischen muss etwas sein, was die Gedanken draußen hervorbringt. Das, was in uns die Gedanken aufnimmt, muss etwas sein, was aus den Gedanken hervorgeht. Alles ist oben so wie unten. Der Mensch kam herunter, der schöpferischen Tätigkeit entgegen. Die Entwicklung war so, dass sich das Schöpferische mit dem Nachschöpferischen begegnete. Das Mineralreich ist der Schauplatz dieser Begegnung. Der Mensch hat sich ins Mineralreich hereinentwickelt und muss sich nun herausentwickeln.
+
+So begegnen sich im Mineralreich der Mikrokosmos und der Makrokosmos. Indem sich der Gott herunterentwickelt, begegnet er dem Menschen durch seine Beziehung mit dem Mineralreich.
+
+|  1. Elementarreich | Mittelalterliche Benennungen
+Reich der Vernunft  |
+| --- | --- |
+|  2. Elementarreich | Das himmlische Reich
+Heraussprießen des Gedankens aus
+der allgemeinen Vernunft  |
+|  3. Elementarreich | Das Elementarreich  |
+|  4. Elementarreich oder Mineralreich | Das Mineralreich (oder die kleine Welt)  |
+
+Alle menschliche Entwicklung ist da, um einst der Gottheit frei gegenüberzutreten: Brief des Paulus an die Römer Kapitel 8, Vers 19: «Denn die ängstliche Kreatur wartet auf die Annahme an Kindesstatt.» Alle Entwicklung ist ein Sehnen.
+
+Das buddhistische Selbstbewusstsein wird dem Mahabuddha entgegentreten.
+
+Deswegen die Entwicklungsversuche: Der Mensch muss auf den verschiedenen Schauplätzen die entsprechenden Organe entwickeln. Er lebt im Physischen ein Doppelleben, um alles zu kennen, was dort heimisch ist, so im Astralen, so im Devachan. Im reinen Devachan wird er leben können, wenn er keine Neigung mehr zu den andern Welten hat. Der Mensch kann die Neigung nach unten oder nach oben haben; er soll die Lust zum Enthusiasmus haben, das Unten zum Oben machen, das Zeitliche zum Ewigen erheben. Der Mysterienschüler hat das Quantum von Lust, das in ihm lebte, nach der geistigen Seite hin entwickelt, die Lust wird zum Aufschauen.
+
+Das Astrale ist ein Zwischenreich; neigt die Lust nach unten, ist des Menschen Astrales kamisch; neigt es nach oben, ist es gereinigt und mental.
+
+Der Mensch hat eine kosmische Aufgabe: die Kräfte des Mineralreichs heraufzuentwickeln. Weil er sich mit der Gottheit im Mineralreich begegnet, muss er die Kräfte, die er da findet, der Gottheit entgegenbringen. Deshalb das Gleichnis der Biene.
+
+In den drei Reichen hat er zu sammeln und mit der Gottheit zu vereinigen. Durch das irdische Leben vereinigen wir unsere doppelte Aufgabe: das Seufzen in der Disharmonie zur Harmonie zu entwickeln. Wenn wir diese Aufgabe nicht vollbringen, versäumen wir etwas.
+
+Wir stehen jetzt an der Grenzlinie, an welcher wir die Umkehrung vollziehen müssen. Es ist das Entgegenkommen zweier Reiche, ist die Kreuzung auf der Stufe des Mineralreichs.
+
+Theosophie ist deshalb eine Theorie, die zu Leben werden muss.
+
+Der Mensch bringt alles ins Bewusstsein, was das Tier als unbewusste Erinnerung in sich trägt. Indem der Mensch den Gedanken durch die Meditation ausbildet, bringt er die Erinnerung an frühere
+
+---
+
+Erdenleben zurück. Das Christentum hatte die Aufgabe, die Persönlichkeit zu heiligen; deswegen musste der Begriff der Individualität eine Zeit lang zurücktreten.
+
+Entwicklung ist das Hineinragen des Späteren in das Frühere; die Erstlinge der Menschheit sind die Vorverkünder späterer Entwicklung.
+
+318
+
+# MITTELALTERLICHE WEISHEIT
+
+Berlin, 9. September 1904
+
+In jedem Kirchenfenster, in jeder Sage, in jedem Volksbau, in den Vorstellungen des alltäglichen Lebens des Mittelalters können wir den Ausdruck tiefer Wahrheiten finden. Dichtungen, die man heute nicht versteht, sind herausgeboren aus dem Geiste tiefster Weisheit. Aus dem Kreise europäischer Eingeweihter hat sich auch der Stoff von «Heinrich von der Aue» genommen. Der «Arme Heinrich». Nirgends wird hingedeutet, dass man es mit theosophischer Dichtung zu tun hat, am wenigsten wusste es G. von H.
+
+Ein adeliger Dienstmann in Schwaben auf dem Großgut Aue ist Heinrich von der Aue. Er ist ein außerordentlich tüchtiger Ritter in allen weltlichen Dingen, kümmert sich aber nicht viel um Dinge, die über das Weltliche hinausgehen. Deshalb wurde er bestraft mit einer Krankheit, die man nannte: Miselsucht – ein unheilbar geltender Aussatz. Alle deutschen Ärzte – und dazumal waren es Ärzte, die mit Hilfe von geistigen Kräften heilten – hatten Heinrich von der Aue aufgegeben, nur ein Meister in Salerno hatte Rettung in Aussicht gestellt. Ein reines Mädchen musste ihr Leben zum Opfer bringen. Daran aber glaubt er nicht; er sieht ein, dass es die Strafe ist für sein weltliches Rittertum. Er verschenkt seine Güter und zieht sich auf einen Meierhof zurück, wo er von der Tochter gepflegt wird. Die beschließt, sich für ihn zu opfern; er reist mit ihr nach Salerno. Dann begreift er, dass es nicht sein darf, und will lieber krank bleiben. Das genügende Opfer ist aber nicht der physische Tod, sondern der Wille, der freudige, geistige Wille.
+
+Ein Grundsatz wurde von allen Dichtern angenommen. Man soll halten das Maß, die Harmonie. «Diumaasze». Ein theosophischer Grundsatz spricht es oft aus: Es kommt nicht auf den äußeren Erfolg an, sondern auf den richtigen Willen. «Wer» – sagt der Dichter – «im Gemüte anstrebt Reinheit und Edelsinn und das Rechte will, findet Salde und Ehr.» – die Beseligung, die vom sechsten Prinzip ausströmt.
+
+319
+
+---
+
+320
+321
+
+Durch solche Worte deutet Heinrich von der Aue an, dass er Tieferes erstrebt hat. Alles was er geschrieben, atmet denselben Geist.
+
+«Erek und Enita» schildert, wie das Maß gesucht wird, aus Sonderheit Liebe erwächst, aus Disharmonie Harmonie. Erek vermählt sich mit Enita. Ein kühner Ritter, der die Bedingung stellt, dass die Gattin ihn nie warnt vor Gefahren. Aus den Prüfungen aber erwächst die Harmonie.
+
+Iwein heiratet die Tochter eines Riesen, verlässt sie aber ein Jahr nach der Vermählung, weil Gawan ihm den Rat gibt, er solle sich nicht ‹verliegen›, nicht faul und lässig werden. Er geht auf ein Jahr weg, um Prüfungen zu bestehen, verspricht, kommt aber nicht und verliert die Gunst der Gattin und den Verstand. Er wird gerettet, indem er Löwen und Drachen bekämpft. Siebzehn Jahre Irrfahrt.
+
+Nur durch geistige Ritterschaft erlangt man die Fähigkeit, geistige Herrschaft auszuüben. Die höhere, reine Seele wird in den Sagen immer durch eine weibliche Seele symbolisiert; das höhere Bewusstsein wird als das jungfräulich Weibliche dargestellt. Durch seine reine höhere Seele, die weiß, was Liebe eigentlich ist, durch den Meister von Salerno, der ihn darauf weist, wie das höhere Spirituelle sich mit ihm verbindet durch das Opfer.
+
+Was ist Miselsucht für denjenigen, der weiß, was Geistiges und Physisches eigentlich ist? Wir wissen, dass der Mensch in früheren Entwicklungen ein höheres Tier war, erst die irdische Entwicklung ist dazu da, hineinzuversetzen Manas in Kama. Im Grunde nehmen alle Wesen unserer Entwicklung Teil an dieser kama-manasischen Art. Beim Tier ist Manas nicht im Kopf, es wird von Manas dirigiert. In den verschiedenen Reichen kommen die Weisheitsgesetze zum Vorschein. Das war noch nicht auf dem Mond, der war nur von einer Weisheitsatmosphäre umhüllt.
+
+Eine Unregelmäßigkeit wäre es auf der Erde, wenn unmittelbar auf Kama selbst ein neues Kama aufgepfropft würde. Wenn ein Wesen von Kama lebte, wäre es das Lebensverhältnis vom Monde. Solche gibt es auf Erden: Das sind Parasiten, Insekten, die auf anderen Wesen leben. Und das ist bei den Pflanzen die Mistel, ein Schmarotzer, der schon vorhandenes Leben saugt. Was Kama-Unterlage zum
+
+Leben braucht, das ist, was nachgeblieben ist aus der Mondepoche. So ist die Mistel zurückgeblieben, nur verkümmert, und muss parasitisch leben, um die Entwicklung abzuschließen.
+
+Daher auch der Bau von Insekten, die oft in einer Hornschale sind, unfertig hereinkamen in die irdische Entwicklung und [Lücke in der Mitschrift]. Tiere mit Außenskelett sind solche, die Nachzügler sind von der lunarischen Epoche. So ist es begreiflich, dass die Mistel eine solche Rolle spielt in alten Mythen und Sagen. Sie steht im Zusammenhang mit denjenigen [Lücke in der Mitschrift] und die deshalb an den Mond noch hängen, an das Kamische, das früher berechtigt war.
+
+In der Sage hängen die Wesen, die das Böse bewirken, ihre Triebe mit dem Kamischen verbinden, in geistvollster Weise zusammen mit der Mistel. [Baldur] wird von einer Mistel getötet, was von einer früheren Epoche herrührt. Wenn es hineinragt in unsere, bewirkt es den Untergang. Das irdische Kama muss von Manas regiert werden. Das Leben auf der Erde wird durch die Mondparasiten zerstört. Daher wird der Teufel Herr der Fliegen genannt.
+
+Wenn nun der Mensch selbst sich in der irdischen Entwicklung zu sehr Kama überlässt, pfropft er in sich selbst Kama auf Kama drauf und wird dann in sich disharmonisch. Diese Disharmonie sieht man in der Krankheit, die das Maß durchbricht. Er wird von der Sucht befallen, die dieser Pflanze zugrundeliegt. Wer sich den Leidenschaften überlässt, bleibt stecken in dem, was dem Lunarischen gehört. Dieses Stauen der Lebenswelle bringt die Miselsucht hervor.
+
+Wer dem geistigen Licht nicht nachstrebt, erfährt eine Erstauung seines ganzen Lebens. Das kann kein physischer Arzt verstehen, nur wer den Zusammenhang aller Plane kennt. Wenn die verstaute Lebenswelle hinaufgehoben wird, die Selbstsucht wirklich geopfert wird, dann tritt Heilung ein.
+
+Eine tief symbolische Dichtung ist auch der «Iwein». Wieder ein weibliches Wesen, das das höhere Selbst darstellt. Hier ist es die Tochter des Riesen – eine der Menschheit vorhergehende Rasse. Das Zusammengewachsensein des Menschen in der Natur wie in [Lücke in der Mitschrift] war das Riesenhafte. Im Anfang seiner Entwicklung steht Iwein noch nah dieser ursprünglichen Entwicklung. Er
+
+---
+
+322
+323
+
+muss nun Manas in sich selbst erwecken. Manas war ursprünglich eine Göttergabe, hing zusammen mit der Seele. Nun verliert er die höhere Gabe, um ihn wieder als inneren menschlichen Verstand zu erringen. Als er sich aussöhnt mit dem höheren Selbst, erringt er sie, aber dadurch, dass der Löwe vom Drachen befreit wird, also von der Selbstsucht, von der Klugheit, die aufs Weltliche gerichtet ist.
+
+Wunderbar, wenn wir die Mithrasmysterien dazu halten: ihre sieben Grade. Der vierte Grad ist der Löwe. Wo das vierte Prinzip – Löwe – im höheren Sinn erwacht, strebt es hin zum fünften und will vom dritten, vom Drachen, befreit werden.
+
+Aus ungeheuren Tiefen entsprungen sind diese Dichtungen; bis zum sechzehnten Jahrhundert dauert es. Mit der kopernikanischen Entwicklung verweltlicht sich die Dichtung. Im zwölften und dreizehnten Jahrhundert ungeheure esoterische Tiefe.
+
+# APOKALYPSE I
+
+## DER PFAD DER ERKENNTNIS – EINFÜHRUNG IN DIE APOKALYPSEN
+
+Berlin, 3. Oktober 1904
+
+Diese Montage sollen sich zu recht intimen Zusammenkünften unserer theosophischen Gemeinde gestalten. Die Anwesenden sollen so viel wie möglich selbst zu Worte kommen. Ich glaube, dass dies am besten ist, um eine wirkliche Aussprache, ein Fragen und Antworten aus dem Kreise zu ermöglichen.
+
+Über Apokalypsen möchte ich sprechen, weil dieses Thema geeignet ist, in die ganze Strömung, die wir die theosophische nennen, immer mehr und mehr hineinzuführen. Wir werden uns, wenn wir über Apokalypsen sprechen, über alle möglichen tiefergehenden, theosophischen Fragen zu unterhalten haben. Heute soll dazu nur eine kurze Einleitung gegeben werden. Wir werden dann auch Gelegenheit haben, uns über die verschiedensten Themen zu unterhalten.
+
+Von allen Apokalypsen ist die bekannteste die geheime Offenbarung des Johannes, die sich am Ende des Neuen Testamentes findet. Für diese Apokalypse sind ja Auslegungen in großer Anzahl vorhanden. Wer sich etwas in diese Auslegungen vertieft, wird finden, dass sie oft sehr tief ins Theologische hinein gehen; manche sind aber auch sehr flach. Ich selbst werde versuchen, Sie aus der mystischen Anschauung heraus in die Apokalypse des Johannes einzuführen und dann auch in andere Apokalypsen.
+
+Man könnte vielleicht fragen, warum ich dieses Thema berühre. Die Zuhörer mögen sich aber klar sein darüber, dass wir tief in der Theosophie darin stecken werden, wir werden tiefe theosophische Fragen berühren, und wir würden kaum Worte finden, wenn in Anknüpfung an dieses Thema die Grundfragen und Grundziele noch besonders erörtert werden sollten.
+
+Wenn man über ein so hohes Thema spricht wie die Apokalypse, so muss vorausgesetzt sein, dass die hauptsächlichen Grundbegriffe
+
+---
+
+des theosophischen Wissens und der theosophischen Ziele vorhanden sind, und dass Sie überzeugt davon sind, dass die Theosophie eine Berechtigung hat in der Welt und dass sie nicht bloß eine allgemein menschliche, sondern auch eine gute wissenschaftliche Grundlage hat. Man kann nicht über Apokalypsen sprechen, wenn man noch zweifelt, ob die Theosophie Aberglaube ist oder wirkliches Wissen ist. Über diese Grundfrage muss man klar sein. Die Fragen, welche dazugehören, der Theosophie den Boden zu bereiten, werden alle berührt werden. Ich werde nicht nur die Grundbegriffe der Theosophie geben, sondern es sollen auch die damit zusammenhängenden Fragen besprochen werden. Indem ich also über Apokalypsen spreche, möchte ich voraussetzen, dass im Allgemeinen die Grundlage der theosophischen Weltanschauung gegeben ist.
+
+Was heißt es, über Apokalypsen zu sprechen? Zunächst möchte ich nur bemerken, dass eine Apokalypse eine ganz bestimmte Art und Weise der Weltanschauung ist. Man sieht in der Form einer Apokalypse die Welt. Derjenige, der selbst eine Apokalypse aussprechen kann, hat einen gewissen Standpunkt der Weltanschauung erreicht. Man kann eine Apokalypse anderer lesen, und man wird ungeheuer tiefe Wahrheiten dadurch erfahren. Man kann aber nicht, ohne eine bestimmte Stufe der Erkenntnis erreicht zu haben, aussprechen, was in einer Apokalypse enthalten ist. Es hat bei allen Völkern und zu allen Zeiten Apokalypsen gegeben. Auch wir in der Theosophie haben Apokalypsen.
+
+Wer kann nun in Apokalypsen sprechen? Ich will diese Frage beantworten, und das wird uns tiefer in das Wesen der Apokalypsen hineinführen als eine Definition. Der Pfad der Erkenntnis wird uns vorgeschrieben; es wird uns gesagt, wie wir zur Erkenntnis und dadurch zu einer wirklichen geistigen Wirksamkeit kommen. Sie haben vielleicht die Stufen verfolgt, die man durchzumachen hat, um den Pfad zu betreten und zu gehen. Sie wissen, dass man ganz bestimmte Eigenschaften auszubilden hat, um diejenige Freiheit des Blickes zu erlangen, die von uns wegschafft das bloß sinnlich Erkannte und uns einen Blick tun lässt in die geistige Welt. Dazu ist notwendig, dass der Mensch unterscheiden lernt zwischen dem ‹Ewigen› und dem
+
+›Zeitlichen›, dass er den Blick richtet nicht auf das Zeitliche, nicht auf das Vorübergehende, sondern auf das Ewige, auf das Bleibende, dass er dann seine ganze Empfindung gegenüber der Umwelt zu einer anderen werden lässt, nämlich dass ihm gewisse Dinge, die dem alltäglichen Menschen ungeheuer wichtig sind, unwichtig werden und dafür andere Dinge an Wichtigkeit gewinnen. Dasjenige, was der Alltagsmensch wichtig findet, wie die Befriedigung der Begierden und alles, wozu unser Eigennutz uns vorschreibt, das muss unwichtig werden. Wichtig muss werden, was uns als ewiges Ziel der Menschheit vorschwebt. Wir müssen einen Sinn haben für das Ideale, für das, was sich nicht bestimmen lässt nach allen möglichen Vorteilen, sondern von der Einsicht, dass es sich um den Menschen handelt, um des Menschen Willens. Wenn wir den Sinn haben für das Ideale, so müssen wir auch den Sinn ausbilden, dass wir es lieben lernen. Das Ideale ist ungeheuer wertvoll. Wie viele können aufrichtig in ihr Herz schauen und sich sagen, dass sie das Ideale wirklich aufrichtig lieben, wie man ein Kind oder einen geliebten Menschen liebt? Dazu ist das Ideale den Menschen viel zu wenig greifbar. Aber das Ungreifbare, das, was nur im Geist vorhanden ist, das müssen wir lieben lernen.
+
+Dann ist eine weitere Eigenschaft, die wir auszubilden haben, die ‹Kontrolle der Gedanken›. Wir dürfen nicht die Gedanken hin und her fluten lassen, sondern müssen uns in deren Beherrschung üben, sodass wir imstande sind, einen Gedanken so lange festzuhalten, als es notwendig ist, um durch ihn ganz bestimmte Kenntnisse zu erlangen und in einer bestimmten Weise durch ihn klar zu werden. Der Mensch muss sich darüber klar werden, dass die Gedanken in der Regel ihn beherrschen. Die Gedanken kontrollieren heißt: die Gedanken beherrschen. Wir dürfen uns nicht von diesem oder jenem Antrieb hinreißen lassen zu dieser oder jener Handlung. Wir müssen eine sichere Richtung erhalten. Wir müssen uns lediglich durch den Mittelpunkt in unserem eigenen Innern kontrollieren.
+
+Das dritte ist, dass wir uns eine gewisse gleichmäßige Stimmung gegenüber den Ereignissen des täglichen Lebens aneignen, die den Menschen gewöhnlich einerseits himmelhoch jauchzend und an-
+
+---
+
+326
+327
+
+dererseits zum Tode betrübt machen. Wir müssen einen gewissen ‚Gleichmut‘ haben sowohl den Ereignissen gegenüber, die uns in den Himmel heben, als auch gegenüber denjenigen, die uns in äußerste Betrübnis tauchen. Nur wenn wir in der Mittelstimmung durch die Ereignisse hindurchgehen, finden wir den Weg, um die Dinge erkenntnismäßig zu beurteilen.
+
+Sodann müssen wir das entwickeln, was wir ‚Duldsamkeit‘ nennen. Das ist ein Wort, das sich leicht ausspricht, aber viel mehr bedeutet, als man gewöhnlich denkt. Wie oft verurteilen wir im Leben, ohne zu fragen, warum dieser oder jener Mensch zu dieser oder jener Handlung gekommen ist. Wir müssen immer fragen: Wie und warum? Wir dürfen uns nicht zur Kritik hinreißen lassen. Verstehen, alles verstehen im weitesten Umfange müssen wir. Wenn wir diese Stimmung ausbilden, dann kommen wir in die Gemütslage, die in uns das Erkenntnisleben anfacht. Glauben Sie nicht, dass das Gemüt ohne Einfluss ist auf das Erkenntnisleben. Der Mensch von heute überschätzt den einseitigen Verstand und unterschätzt die Eigenschaften, die tiefer in der Seele liegen. Er glaubt überhaupt nicht, dass das Dinge sind, die zu einem Erkennen führen. Man kann ein großer Gelehrter sein, man kann ein großes Wissen haben und braucht trotzdem nicht die freie Beurteilung zu haben. Ein Weiser würde es ziemlich leicht haben, sich über ein Kind in seiner Einfalt erhaben zu fühlen. Es wäre aber ganz falsch, wenn er dieser Stimmung nachgeben würde. Der Weise weist den Gedanken ab, weiser zu sein als ein Kind. Wer darauf pocht, dass er verständiger, klüger ist als andere, der kann nie weise werden. Wer das Urteil eines anderen gleichmütig hinnimmt, der kann ein Weiser werden, der kann verstehen lernen dadurch, dass er sich ausschaltet und aus dem anderen heraus urteilt. Der Umstand aber, dass er das Einfältige versteht – und sei es das Einfältigste –, das ist erhebend, ist nützlich für das wirkliche Vorwärtskommen und bedingt durch die ungeheure Duldsamkeit.
+
+Eine weitere Eigenschaft ist dann zu entwickeln, die man in der Theosophie ‚Glauben‘ nennt. Wer glaubt, mit seiner Erkenntnis abgeschlossen zu haben, der kommt nicht weiter. Der Weise muss sich immer in die Stimmung versetzen, dass er eigentlich ungeheuer wenig
+
+weiß und dass ihn jeder Augenblick etwas ganz Neues lehren kann, dass ihm jede Äußerung des Lebens eine Offenbarung sein kann. Derjenige, der wirklich den Pfad der Erkenntnis geht, treibt das so weit, dass er sich sagt: Ich kann in der nächsten Minute etwas erfahren, das alles, was ich bisher geglaubt und angenommen habe, über den Haufen wirft. Im gewöhnlichen Leben wird man das nicht bis zum Extrem treiben, aber in dem Augenblick, wo man erkenntnissuchend sich irgendetwas nähert, da muss man es wirklich so weit bringen, dass man den Glauben an sein bisheriges Wissen aufgibt. Der Weise wird nie sagen: Das kann nicht sein –, sondern er wird sagen: Alles ist möglich. – Durch das, was ich schon weiß, darf ich also nie ein Urteil über die Möglichkeit oder Unmöglichkeit von irgendetwas aufkommen lassen. Der Glaube an die Möglichkeit, fortzuschreiten zu immer neuen Offenbarungen, das ist eine Eigenschaft, die der Pfadsucher entwickeln muss.
+
+Sodann kommt eine Eigenschaft von selbst, eine Eigenschaft, die man als ‚Objektivität‘ oder als ‚Gleichgewicht‘ bezeichnet. Dies hilft uns hinweg über die Klippen des Lebens, die uns dazu verurteilen, überall eine scheinbare Wahrheit auszusprechen. Dieses Gleichgewicht ist nicht nur eine Summe von allem Übrigen. Wer weise werden will, muss im Gleichgewicht bleiben; er darf sich nicht aus der Bahn treiben lassen.
+
+Hat man diese Eigenschaften in sich entwickelt, dann kommt die höchste, die auf der Vorstufe der Entwicklung erlangt werden kann, nämlich die, dass der Mensch die ‚Sehnsucht‘ hat, wirklich ‚frei zu sein‘. Nur wenige Menschen haben die Sehnsucht, frei zu sein; alle wollen mehr oder weniger sich leiten lassen. Aber nicht derjenige, der sich leiten lässt, kann zur Erkenntnis kommen. Überlegen Sie, ob Sie geleitet sind durch sich selbst oder durch irgendeinen Anlass. Das Ideal, das uns vorschweben muss, ist das, dass wir nicht auf äußeren Anlass hin, sondern nur auf inneren Anlass hin etwas unternehmen. Dann haben wir den Willen, frei zu sein, frei zu sein von äußeren Verhältnissen. Frei werden kann man aber nur allmählich und nicht dadurch, dass man sich vornimmt, frei zu werden, sondern dadurch, dass man in seine Seele möglichst viel von dem gießt, was
+
+---
+
+aus der Freiheit entsprungen ist. Wenn Sie sich nur mit den Dingen des alltäglichen Lebens beschäftigen, dann werden Sie niemals frei werden können. Sie sind geboren zu einem bestimmten Zeitpunkt des neunzehnten Jahrhunderts. Sie haben die Ereignisse erlebt, die im neunzehnten Jahrhundert abgelaufen sind; von alledem sind Sie beeinflusst. Und wenn Sie sich fragen, was Sie denken und fühlen, so werden Sie finden, dass das davon abhängt, dass Sie in eben diesem Jahrhundert geboren sind. Stellen Sie sich vor, Sie wären in Petersburg oder in Budapest geboren; da würden Sie ganz andere Gefühle und Gedanken haben. Gerade dadurch ist der Mensch unfrei. Er ist bestimmt durch dasjenige, was er an einem bestimmten Ort und zu einer bestimmten Zeit erlebt. Versuchen Sie einmal, sich die Gedanken vorzuhalten, die in einer Viertelstunde durch Ihren Kopf gehen, und wie viel davon übrigbleibt, wenn sie von Ort und von Zeit abstrahieren. Was frei macht, das sind inspirierte Schriften, die uns für Momente frei machen können von dem Alltagsleben. Wenn Sie «Licht auf den Weg» von Mabel Collins lesen, das scheinbar so einfach ist – Sie könnten geboren sein, an welchem Ort und zu welcher Zeit auch immer, selbst vor Jahrtausenden, die Sätze, die darin stehen, würden immer für Sie gelten. Nehmen Sie dagegen irgendein anderes Buch – es ist beeinflusst von gegenwärtigen Dingen und steht nicht über dem Horizont der Gegenwart. Dadurch, dass wir uns in inspirierte Bücher vertiefen, uns Dingen hingeben, die über Ort und Zeit erhaben sind, dadurch machen wir uns allmählich frei.
+
+Die theosophische Bewegung will die Menschen frei machen, indem sie mit allwaltender Duldsamkeit von dem spricht, was für alle Menschen zu allen Zeiten gelten kann.
+
+Das ist das, was der Pfadsucher entwickelt. Wenn er diese Eigenschaften bis zu einem gewissen Grade entwickelt hat, dann wird er reif für das, was man die Schülerschaft nennt.
+
+Dann kommt der Augenblick, wo er ein großes Erlebnis, von ungeheuer weittragender Bedeutung hat: Nämlich, er vernimmt von diesem Zeitpunkt an Eindrücke von der geistigen Welt, von einer ganz anderen Welt, von einer Welt, die hinter unserer Welt liegt, von der unsere Welt nur die Wirkung ist. Er tritt ein in die Welt des
+
+Geistigen. Von der anderen Seite blickt er dann die Welt an. Da hört für ihn das auf, was wir Raum und Zeit nennen. Es ist für ihn gleichgültig, dass er in dieser bestimmten Inkarnation lebt. Er könnte auch in einer anderen Inkarnation leben. Er könnte vor Jahrtausenden gelebt haben – wenn er auf das sieht, was er jetzt sieht, dann würde er es in derselben Weise sehen, ja, er könnte in der Zukunft leben, und er würde doch alles in derselben Weise erleben.
+
+Das ist die erste Stufe der Schülerschaft. Einen solchen Menschen bezeichnet man als einen Heimatlosen; er ist herausgehoben aus der «Heimat». Dafür spricht er auch Dinge aus, die sich nicht mehr auf diesen oder jenen Ort, auf dieses oder jenes Volk, auf diese oder jene Rasse beziehen, sondern er spricht Dinge aus, die sich auf alle Rassen, auf alle Zeiten und alle Völker beziehen.
+
+Die erste Stufe befähigt ihn, nur das Nächste zu sehen. Auf dieser Stufe überblickt er nur das, was einer sogenannten «Wurzelrasse» angehört. Der Schüler sieht also das, was sich auf unsere gegenwärtige Wurzelrasse bezieht, zurück bis zu dem Zeitpunkt, wo die Atlantier verschwunden sind.
+
+Dann beginnt die zweite Stufe der Schülerschaft, die nicht durch Theorie, nicht durch Begriffe und Ideen, sondern durch eine wirkliche Anschauung erlangt wird, dann beginnt er zu wissen, dass Reinkarnation und Karma Wahrheiten sind. Die theosophische Weltanschauung verbreitet nämlich die Anschauung, dass der Mensch nicht nur einmal in der Welt lebt, sondern viele Male, dass er sich immer wieder verkörpert und dass seine Handlungen in Beziehung miteinander stehen. Die einzelnen Leben hängen nach Ursache und Wirkung zusammen. Das kann man einsehen, wenn man das Leben verfolgt. Man wird auch theoretisch zu dieser Anschauung durchdringen können. Viele Anhänger der Theosophie stehen noch auf der Stufe, dass sie Reinkarnation und Karma nur als begriffliche und verstandesmäßige Erkenntnis für wahr halten. Die zweite Stufe der Schülerschaft hat aber das Wissen von der Wahrheit von Reinkarnation und Karma. Der Schüler vermutet die Wahrheit von Reinkarnation und Karma nicht –, er weiß sie.
+
+Nun kommt die dritte Stufe der Schülerschaft. Die Wiederver-
+
+---
+
+körperung ist nicht eine ewige Sache. Vor der Mitte der lemurischen Zeit gab es noch nicht das, was wir Reinkarnation nennen, und nach der Mitte der sechsten Wurzelrasse wird diese Art der Reinkarnation wieder aufhören. Eine andere Art des Lebens und der Wiederverkörperung wird dann da sein. Bis zur Mitte der sechsten Wurzelrasse wird der Mensch reinkarniert. Die Wiederverkörperung wird dann abhängen von dem Willen des Menschen; heute ist sie unabhängig davon. Wir können sagen, ein erster und ein letzter Augenblick ist da, vor der Reinkarnation ein erster und nach der Reinkarnation ein letzter Augenblick. Vorher war der Mensch ein sich nicht Inkarnierender, und nachher wird er sein ein nicht mehr sich Reinkarnierender.
+
+Hinauszublicken über das Gebiet, wo es Reinkarnation gibt, das ist die Eigenschaft der dritten Stufe der Schülerschaft. Schwan nennt man diesen Schüler, diesen Chela auf der dritten Stufe. Wenn er zum Ersten und zum Letzten blickt, also zu dem, was höher ist als alle Reinkarnation, dann ist er fähig, Apokalypsen zu schreiben, in Apokalypsen zu sprechen. Was in irgendeiner Apokalypse steht, geht zunächst von solchen Initiierten aus, die nicht bloß die Reinkarnationszeit überblicken, sondern vom Ersten bis zum Letzten blicken. Zu zeigen, wie der Mensch in diese Reinkarnation hineingekommen ist und wie er wieder hinauskommt, das ist die Aufgabe jeder Apokalypse. Sie hat eine ferne Vergangenheit und eine ferne Zukunft zu schildern, und dadurch hat sie auch die Gegenwart eingeschlossen.
+
+In der Apokalypse des Johannes finden Sie die sieben Unterrassen unserer fünften Wurzelrasse geschildert, denn das, was von den sieben Gemeinden gesagt wird, bezieht sich auf die sieben Unterrassen der fünften Wurzelrasse. Die Ermahnungen, die der Apokalyptiker Johannes an die Gemeinden richtet, sind die Ermahnungen, die der Chela Johannes den einzelnen Unterrassen zuruft. Jede Unterrasse steht mit einer ganz bestimmten Himmelskontstellation in Zusammenhang. Daher wird gesprochen von sieben Sternen, die die sieben Engel darstellen: Die leiten die Genien der sieben Unterrassen. Dann wird man zum Ersten und zum Letzten geführt. Der Erste ist der Mensch, der vor der Reinkarnation dasteht, und der Letzte ist der, welcher nach der Überwindung der Reinkarnation noch dasteht.
+
+Johannes war in einer sogenannten Einweihungshülle. Er sagt ja auch, er war im Geiste. Und das, was da enthüllt wird, ist nichts anderes als die Inspiration eines im dritten Grade der Schülerschaft befindlichen Chelas, es ist eine Apokalypse des Schwans. Der Schwan ist derjenige, der die Verbindung herstellt zwischen den Höchstinspirierten und den Menschen. Das ist in den wichtigsten Sagen ausgedrückt.
+
+Heimatlos also wird der Schüler auf der ersten Stufe. Wer zum Schwan geworden ist, kann zu den höheren Offenbarungen gelangen. Es sind diejenigen, die in unsere Welt hineinkommen, die man aber nicht nach ihrem Namen fragen darf, weil sie aus einer jenseitigen Welt stammen. In einer großen, gewaltigen Allegorie, die gleichzeitig eine tief mystische Bedeutung hat, wird das zum Ausdruck gebracht. Es ist eine sehr tiefe Wahrheit, die in der Lohengrin-Sage zum Ausdruck kommt; durch Lohengrin, der mit dem Schwan kommt, der also ein Schüler – ein Chela – dritten Grades war. Bei ihm finden sich große Wahrheiten. Wer die Sage von Lohengrin versteht, versteht erst die Weltgeschichte vom elften, zwölften, dreizehnten Jahrhundert.
+
+Nun habe ich Ihnen auseinandergelegt, woher das stammt, wer apokalyptisch sprechen kann, wer ein Bild entwerfen kann von der Welt, unabhängig von Raum und Zeit. Wir werden noch von der fernen Vergangenheit, von der Gegenwart, aber auch von der Zukunft sprechen. Das wird sich finden, wenn wir über die, durch die Theosophie sich enthüllende Apokalypse sprechen werden. Da werden wir dasjenige sehen, was der Mensch sich als großes Ziel vorsetzen kann, weil es wirklich ein großes Ziel ist.
+
+## Aus der Fragenbeantwortung
+
+Der Materialist sagt, wir verfolgen die Tierheit bis zu der Stufe, wo sie Mensch geworden ist, und nun folgen wir auf einer gewissen höheren Stufe, dem Triebe, der im Menschen vorhanden ist.
+
+Das aber baut sich nicht auf Erkenntnis auf, das baut sich auf dem materialistischen Dogma auf. Man folgt nicht den Gesetzen der
+
+---
+
+Natur, wenn man diese Gesetze der Natur dogmatisch auf einem ganz bestimmten Punkt abgrenzt und sagt: bis hierher und nicht weiter. Den Gesetzen kann man nur folgen, wenn man sie erkennt. Man muss die Erkenntnis der Gesetze verbinden mit dem Befolgen derselben.
+
+Ein Beispiel dafür: Der religiöse Mensch wird nicht bloß darauf bauen, dass er sagt: Ich lüge nicht, weil das mir Nachteil bringt oder mich verächtlich macht in den Augen der Mitmenschen. Er ist viel mehr der Überzeugung, dass die Lüge eine weitergehende Bedeutung hat, dass sie etwas ist, was gegen den göttlichen Weltengang verstößt und was seine Strafe, seine Wirkungen nach sich zieht. Wenn Sie die Wahrheit unterstützen, so unterstützen Sie die Förderung einer bestimmten Entwicklung. Schildern Sie die Ereignisse anders, als sie sind, so machen Sie dasselbe, wie wenn Sie einen Pflanzenkeim unterdrücken würden: Sie halten eine ganz bestimmte Entwicklungsrichtung zurück. Das erscheint nicht so schlimm, solange Sie kein Bewusstsein davon haben, dass man auch etwas im geistigen Wachstum zurückhalten kann. Der Okkultist aber sagt daher: Die Lüge ist ein Mord. Was sich als Lebewesen entwickelt hätte, das wird durch die Lüge getötet.
+
+Die Teilung der Geschlechter steht im Zusammenhang mit Geburt und Tod.
+
+Die zweite Stufe der Schülerschaft löst den Zweifel und macht den Aberglauben unmöglich.
+
+Die Untersuchung der Reinkarnation eines anderen Menschen muss völlig unpersönlich sein. Wird der Forscher gefragt, dann kann er sich darauf einlassen.
+
+Auf die Frage, welcher Schüler würde in der Akasha-Chronik lesen können, möchte ich antworten: In der Akasha-Chronik lesen kann schon derjenige, der reif ist zur Schülerschaft. Es gibt zweierlei Lesen in der Akasha-Chronik: Das eigentliche Lesen wird schon möglich,
+
+wenn man überhaupt Schüler wird. Man muss aber erst buchstabieren gelernt haben. Die Akasha-Chronik wirft Spiegelbilder in die Astralebene. Sie befindet sich ja an der Grenze zwischen Rupa- und Arupa-Ebene. Man kann aber zum Beispiel den Kriegszug des Cäsars im Astralraum als Spiegelbild der Aufzeichnungen in der Akasha-Chronik finden.
+
+---
+
+334
+335
+
+# APOKALYPSE II
+
+Berlin, 10. Oktober 1904
+
+Ich habe das letzte Mal von der Entwicklungstufe des Menschen gesprochen, auf der er fähig wird, von einer Apokalypse zu sprechen. Ich habe gezeigt, dass er die Welt so betrachten soll, dass sein Blick hinübergeht über so große Zeiträume, dass von ihm die Zeit, bevor der Mensch angefangen hat, seine individuellen Inkarnationen durchzumachen, überschaut wird, überschaut wird auch diejenige Zeit, die nach diesen Wanderungen durch Geburt und Tod liegt. Ich habe ferner gesagt, dass dazu notwendig ist, dass der sogenannte Chela den dritten Grad der Chelaschaft errungen hat.
+
+Auch die Apokalypse des Johannes ist aus einer solchen Schule hervorgegangen. Derjenige, der so die Welt überblickt, der sieht sie nicht etwa anders, als andere Eingeweihte sie sehen. Das ist etwas, womit Sie sich vor allen Dingen bekannt machen müssen, dass die «Gesichte», die «höheren Erfahrungen» oder wie Sie es sonst nennen mögen, nicht von einander verschieden sind, dass – so merkwürdig es auch dem Uneingeweihten erscheinen muss –, wenn zum Beispiel von den vier Tieren erzählt wird, es aus dem Munde des einen nie anders klingen wird als aus dem Munde des anderen. Zwei Eingeweihte werden über dieselbe Sache nicht in verschiedener Art berichten.
+
+Um Ihnen ein Bild zu geben, möchte ich von dem sprechen, was jeder so geartete Eingeweihte über den Entwicklungsgang der Menschheit erfährt. Derjenige also, der die Mitteilungen gemacht hat, die in der Apokalypse enthalten sind, der überblickte jenen Zeitraum, der vor unserer gegenwärtigen Wurzelrasse liegt, er überblickte die unserer Rasse vorangehenden beiden Rassen, er überblickte die Zeit, in der der Mensch seine gegenwärtige Gestalt erst angenommen hat in der Mitte der lemurischen Zeit, und er überblickte das Leben über Geburt und Tod hinaus. Nun liegt vor dem Zeitpunkt, was wir den Zeitpunkt der Menschwerdung in der Mitte der lemurischen Zeit nennen, eine ganz bestimmte Ausgestaltung der Menschheit, die sich
+
+anders ausnimmt als das, was wir jetzt Mensch nennen. Ich will von einem ganz bestimmten Punkte ausgehen.
+
+Der gegenwärtige Mensch besteht, wie Sie wissen, aus sieben Körpern. Wir haben da zunächst den physischen Körper, dann den Ätherdoppelkörper, drittens den Astralkörper und weitere vier. Zunächst interessieren uns nur die drei unteren Körper: Der physische Körper, der mit den gewöhnlichen Sinnen wahrzunehmen ist, dann der sogenannte Ätherdoppelkörper, der nicht mit gewöhnlichen Sinnen wahrgenommen werden kann. Dieser Ätherdoppelkörper kann von denjenigen, die sich die Fähigkeit dazu erworben haben, gesehen werden, wenn sie sich den physischen Körper absuggerieren. Sie sehen dann im Raume einen Doppelgänger des Menschen, der ungefähr die Farbe hat, wie sie die Pfirsichblüte besitzt. In diesen ist gleichsam eingebettet der Astralkörper, ein leuchtendes Oval. Wenn der Mensch stirbt, so bedeutet das Ereignis des Todes zunächst, dass sich die ganze Summe der höheren Körper, der Ätherkörper mit den höheren Körpern heraushebt aus dem physischen Körper. In der ersten Zeit nach dem Tode ist der Astralkörper mit dem Ätherdoppelkörper vereinigt. Später, in wenigen Tagen, verlässt der Astralkörper den Ätherdoppelkörper. Der Astralkörper geht dann die Wege, die er durchzumachen hat zwischen dem Tode und einer neuen Geburt. Heute hat der Ätherdoppelkörper nur eine vermittelnde Stellung. Er vermittelt die Tätigkeit des Astralkörpers mit dem physischen Körper. Während der Mensch heute auf der Erde wandelt, hat der physische Körper für ihn die größte Bedeutung. Das physische Gehirn ist das Instrument der höchsten geistigen Tätigkeit des Menschen. Der Ätherdoppelkörper vermittelt als ein Bindeglied die Tätigkeit des physischen Körpers mit den höheren Körpern. Die Auflösung [des Ätherkörpers] fand noch nicht statt in der Zeit der ersten Rassen und auch noch nicht in der ersten Zeit der dritten Rasse. Dies war noch nicht der Fall in der ersten Zeit der dritten Wurzelrasse. Bei der sogenannten polarischen Rasse war der Ätherkörper das Bedeutsamste. Eine feine dünne Äthermaterie war der ganze Körper. Erst später verdichtete sich der Ätherkörper dadurch, dass er sich durchtränkte mit physischer Materie. Am Ende
+
+---
+
+336
+337
+
+der ersten Wurzelrasse war der Mensch auf unserer Erde noch nicht in jener Weise an den Boden gefesselt wie heute; er durchschwebte die ätherhafte Erde, und auch seine Organe waren ätherisch. Der Mensch war ein Ätherwesen. Allmählich verdichtete er sich, bis er in der Mitte der lemurischen Zeit so weit war, dass er in physische Körperlichkeit überging. Aber auch in der Mitte der lemurischen Zeit war der Mensch noch nicht in der Dichtigkeit vorhanden wie heute. Die Materie am Anfang unserer dritten Wurzelrasse war etwas dichter als die Materie, die Sie heute in den Nebelwolken, welche über die Berge hinziehen, verfolgen können. Wie feurige Wolken würden uns heute diese Menschen erscheinen. Daher nennt man auch diejenigen, die dazumal als die höchsten Intelligenzen von anderen Regionen auf die Erde kamen, um die Menschen zu unterrichten, die ‹Söhne des Feuernebels›.
+
+Wenn der Geologe uns zurückführt bis zu dem bestimmten Punkt der Erde, wo zuerst die physischen Überreste der Menschen aufhören, so verliert sich die physische Spur. Der Mensch war eben in einer gewissen Zeit von so feiner Materie, dass sich von ihr keine physischen Abdrücke in den frühen Erdschichten finden. Jenen Übergang von der feineren Materie zu der physischen Materie, jene Wesen, welche sich heraufentwickelt haben bis zur physischen Dichtigkeit, die bezeichnet der Esoteriker – um ein Wort dafür zu haben in unserer Sprache – als das ‹Adler›-Stadium des Menschen. Er bezeichnete den physischen Menschen von damals als den Adler. Der Adler ist in der esoterischen Sprache der Mensch der lemurischen Rasse, der Mensch, der sich heraufarbeitet aus der ätherischen Materie in die dichte Materie.
+
+Dann folgt die atlantische Rasse. Sie war zunächst nur mit einem dichteren Ätherkörper versehen. Der Mensch bemeisterte damals noch die Samenlebenskräfte in den Pflanzen. Mit dem Prana der Pflanzen heizte er die Schiffe, wie Sie in dem Buch «Atlantis» von Scott-Elliot geschildert sind. Das zeigt uns, dass damals der Mensch eine größere Herrschaft über seinen Ätherdoppelkörper hatte als der heutige Mensch. Später wird der Mensch die Herrschaft über die höherstehenden Körper erringen. Diesen Vorgang, der ein wirklicher,
+
+realer Vorgang ist, schildert der Apokalyptiker in seinen Einzelheiten.
+
+Das zweite Stadium, in welchem der Mensch noch Herrschaft hat über den Ätherkörper, bezeichnet man mit dem esoterischen Kunstausdruck als das Stadium des ‹Löwenmenschen›. Dies ist ein technischer Ausdruck für den Atlantier.
+
+Dann kommt der Mensch der fünften, der arischen Rasse, der mit dem Worte ‹Stier› bezeichnet wird, weil da die physische Kraft vorzugsweise zum Ausdruck kommt.
+
+Wenn Sie diese drei Bezeichnungen nehmen, so haben Sie damit drei ganz bestimmte aufeinanderfolgende Stadien der Menschheitsentwicklung bezeichnet. Derjenige, der in gewissen Mysterienschulen eingeweiht wird, lernt eine ganz bestimmte Sprache und Schrift, in welcher sich diejenigen, die die umfassenden Wahrheiten kennenlernen, auszudrücken verstehen, in denen sie ihre Erfahrungen kennenlernen. Es ist eine Sprache, die alle Eingeweihten auf dem Erdenrund schreiben und sprechen. Es ist eine symbolische Sprache. Jeder, der sie gelernt hat, versteht sie und weiß, wenn er ein bestimmtes Zeichen in alten Urkunden findet, dass damit etwas ganz Bestimmtes gemeint ist.
+
+Einzelne dieser Schriftzeichen, die elementarsten, werde ich im Laufe dieser Vorträge anführen. Ein häufig gebrauchtes Schriftzeichen, das diese Stufe der Menschheit kennzeichnen soll, sind zwei ineinander gehende Dreiecke, die zusammen eine sechseckige Figur bilden. Diese zwei Dreiecke haben immer noch etwas anderes in sich, wenn sie in okkulten Werken auftreten. [Hier – siehe Zeichnung – in den mit A, L und St ausgefüllten Winkeln befinden sich die Bilder von Adler, Löwe und Stier.] Und hier unten liegt ein Dreieck, das die vorhergehenden Zustände symbolisiert. Die drei Winkel bleiben unausgefüllt. Sie bedeuten die ursprünglichen drei Zustände der Menschheit. In der Mitte ist immer der eigentliche Mensch. Dieses Bleibende, das sich durch alle Inkarnationen hindurchzieht, bleibt durch alle Stadien hindurch. Das bezeichnet man als Mensch.
+
+---
+
+338
+339
+
+
+
+Sie haben hier die vier Wesensarten, durch die der Mensch Mensch geworden ist im Verlaufe seiner Entwicklung. Die haben Sie in den zwei ineinander verschlungenen Dreiecken angegeben. Wenn Sie dieses Zeichen sich betrachten, so werden Sie verstehen, warum diese Tiere überall auftreten, wo ein Apokalyptiker über diese drei Entwicklungsstadien spricht. Bei dem Propheten Hesekiel treten sie auch auf. Bei Johannes werden sie in einer ganz besonderen Weise geschildert.
+
+Die Apokalyptiker überwinden jene Hülle, die den Menschen trennt von den Gebieten, in denen er jene früheren Stadien schauen kann. Damit der Mensch wirklich durchblicken kann auf das, was sich auf der Erde vollzogen hat, dazu müssen sich ihm andere Organe entwickeln. [Diese Organe sind dem heutigen Menschen fremd.] Diejenigen Entwicklungsstadien, die die Menschheit durchgemacht hat, und die für sie unwahrnehmbar, unbewusst geworden sind, müssen wieder belebt werden. Es muss also bei dem Apokalyptiker der Ätherkörper belebt werden, er muss anfangen, wirklich sehend zu werden, Auge, ganz Auge zu werden.
+
+Daher muss sich der Apokalyptiker nicht nur zurückversetzen können in das Stadium des Adlers, in das Stadium des Löwen und des Stiers, sondern er muss sich auch sehend zurückversetzen können. Auf der dritten Stufe erreicht der Chela wirklich dieses Sehen.
+
+Was ich hier beschrieben habe, ist das, was Sie im vierten Kapitel der Apokalypse [des Johannes] finden. Die Apokalypse schildert uns nicht nur die vergangenen Stadien der Menschheit, sondern auch die zukünftigen Stadien der Menschheitsentwicklung. Nur derjenige begreift dieses Künftige, der einen Blick hat für das Aufsteigen zum Gebrauche des Ätherkörpers und der höheren Körper, die im Laufe der Entwicklung sozusagen außer Gebrauch gekommen sind. Der Mensch der fünften Rasse kann sich nur frei bewegen, sich nur bewusst werden im physischen Körper. Nun entwickelt er sich aber so, dass er sich später wieder in den höheren Körpern bewusst werden kann.
+
+Eine sehr tiefe Entwicklung, die Entwicklung des rein physischen Verstandes, haben wir in der jetzigen Unterrasse der fünften Wurzelrasse gebildet, erreicht. Unsere jetzige Unterrasse wird von der sechsten und diese von der siebenten gefolgt sein. Damit ist unsere Wurzelrasse zu Ende. Dann kommt eine neue, höhere Wurzelrasse und dann noch eine weitere. Diese Entwicklung besteht also darin, dass der Mensch sich immer mehr und mehr hineinfindet in den Gebrauch seiner höheren Körper.
+
+Wir steuern einem ganz bestimmten Ziele zu, denn wir sind ja auf dem Wege von der fünften zur sechsten Rasse. Bei allem bedient sich der Mensch des physischen Verstandes, er bedient sich einer ganz bestimmten Sittenlehre und einer Religion. Das beherrscht ihn aus dem Grunde, weil der physische Verstand herrscht. Der einzelne muss im Wesentlichen sein Glück auf Kosten des anderen suchen. Der Einzelne, der nach dem Höheren strebt, strebt schon über das, was das allgemeine Leben bedingt, hinaus. In okkulten Schulen hat man drei Worte, die das neue Zeitalter, das Zeitalter einer neuen, späteren Menschheit bezeichnen. Auf dem Gebiete des gesellschaftlichen Lebens ist es die «Bruderliebe», Gemeinsamkeitsliebe.
+
+Deshalb hat die Theosophische Gesellschaft die allgemeine Brüderlichkeit als den wichtigsten ihrer Programmpunkte aufgenommen, weil sie vorbereiten will für das Leben in der sechsten Wurzelrasse. Der Mensch wird sich da nur glücklich fühlen, wenn das Glück nicht auf Kosten der anderen erlangt wird. Das ist Sittlichkeit. Unsere Wissenschaft ist materialistisch. Diese wird anders sein in der nächsten Unterrasse. Wir streben einem anderen wissenschaftlichen Zustand zu. Das heißt: «Pneumatologie», die Lehre vom Geist und vom Geistigen wird in der neuen Rasse ausschlaggebend sein. Und vor allem auf dem Gebiete der Religion wird etwas maßgebend sein, was heute noch nicht möglich ist, weil der Verstand sich davor lagert:
+
+---
+
+340
+341
+
+Selbstautorität. Der Mensch wird selbst die Kunde von dem Dasein eines göttlichen Weltengeistes vernehmen. Das ist das freie religiöse Prinzip der nächsten Rasse. Brüderlichkeit, Pneumatologie und Selbstautorität in religiösen Dingen charakterisieren die Rasse, die sich allmählich, langsam vorbereitet, und die die Zukunft bezeichnen. Eine siebente Rasse wird noch ganz andere Gestaltungen annehmen, mit denen wir uns ein anderes Mal beschäftigen werden.
+
+Diejenige Rasse, in der sich das Christentum entwickelt hat, ist die vierte. Dieser ging die dritte Rasse voran. In gewissen Zeitläufen wird das wiederholt, was sich schon abgespielt hat. Die drei ersten Unterrassen wiederholten kurz das Adler-, Löwen- und Stierstadium. Das waren vorbereitende Rassen, während dasjenige, was die dann folgende Rasse zur Aufgabe hatte, herauskam innerhalb der vierten Unterrasse, die im Wesentlichen bezeichnet wird mit dem Menschen oder mit dem Mensch-gewordenen Gott. Das Christentum ging innerhalb der vierten Unterrasse auf. Ungefähr in der Mitte des Mittelalters wurde sie abgelöst durch die fünfte, unsere gegenwärtige Unterrasse, die wir im weitesten Sinne als die „germanische“ bezeichnen. Sie löste die sogenannte „lateinische“ Rasse ab; unter dieser verstand man alles dasjenige, was den Strom des Christentums langsam aufgenommen hat und sich auch langsam in geistiger Beziehung in Europa entwickelte. Ihr gingen vorher drei andere Rassen, die im Wesentlichen die früheren Zustände kurz wiederholten.
+
+Innerhalb der Apokalypse kommen diese sieben Zustände als die sieben Gemeinden zum Ausdruck. Die Gemeinden sind die Repräsentanten der sieben Unterrassen. Was gesprochen wird zu der Gemeinde von Ephesus, zu der Gemeinde von Smyrna und so weiter, das sind die Worte, die gerichtet werden an die verschiedenen Unterrassen. Es leben auch heute in der Welt noch Angehörige der verschiedenen Rassen, es leben noch Mitglieder der ersten Unterrasse der fünften Wurzelrasse. Das indische Volk gehört im Wesentlichen dazu. Das indische Volk hat die Denkkultur im höchsten Sinne zum Ausdruck gebracht. Die höchste Vergöttlichung des Gedankens kam im alten Indien zum Ausdruck. Dieses musste kurz wiederholen, was der lemurische Mensch entwickelt hatte. Der lemurische Mensch war Empfindungsmensch. Die Mitglieder unserer Rasse sind Denkmenschen. Das Gedächtnis entwickelte sich erst in der atlantischen Rasse. Der Lemurier hatte noch kein Gedächtnis. Der Mensch in der ersten Unterrasse dachte zwar, aber er dachte in Empfindungen, und was er dachte, das finden Sie dargestellt in der alten Veden-Kultur. Sie lesen diese Werke richtig, wenn Sie sie lesen in dem Gedanken, dass der Gedanke schweigt in einer wunderbaren Welt der Empfindung. In den Kulturen, die mehr den Gedanken mit dem Gedächtnis dienen, in denen dann äußere Sitte die Gedächtniskultur festhält im Heroendienst, da das Gedächtnis eines großen Erfinders oder Entdeckers oder Königs in der Sittlichkeit festgelegt wird und in der die langen Kataloge angelegt werden, die dann zu dem Kalender geführt haben. Es wurde viel notiert in den ersten Rassen von den alten Indern und von den persischen Magiern. Und aus diesen Notierungen sind die ersten Anfänge des Kalenders hervorgegangen. Aus diesen ersten Unterrassen sind die heutigen Menschen hervorgegangen. Der Mensch ist zur fünften Rasse vorgerückt, weil er verstanden hat: In ihm selbst ist der Gott; weil er verstanden hat das apokalyptische Vorrücken.
+
+Aber die erste Rasse, die sich in den Veden ausdrückt, konnte auch am leichtesten dem Irrtum verfallen. Die Empfindung ist noch nicht stark genug, dass der Gedanke sich verinnerlichen kann. So ist es gekommen, dass die indische Kulturepoche zweierlei nebeneinander hat. Auf der einen Seite haben wir die wunderbaren hohen Vorstellungen von geistigen Gottheiten, wie wir sie in der alten Veden-Kultur finden, jene wunderbare Religion, von der sich der, welcher sie nicht kennt, keine Vorstellung machen kann von der Tiefe der Vedanta. Dieses alles ist eine rein geistige Lehre von einer Klarheit, dass in Europa gesagt wird – was aber mehr oder weniger bloß stimmt: Jeder Tag, an dem man neu eindringt in diese wunderbaren Tiefen, ist für den, der sich schon angewöhnt hat, still und ruhig zu bleiben, doch wieder ein Quell neuer Bewunderung. Gegenüber dem, was die alte Veden-Kultur Indiens bietet, kann die Bewunderung, welche sich auf unser heutiges Leben bezieht, nicht nachhaltig sein. Da gibt es nichts, was sich damit vergleichen lässt, was diese uralte indische Kultur bietet.
+
+---
+
+342
+Auf der anderen Seite haben wir den wüstesten Götzendienst, in den das Volk verfallen ist. Was man gewöhnlich in Büchern über die indische Kultur findet, ist ein buntes Durcheinander von Götzenvorstellungen und religiösen Vorstellungen und gibt gar kein Bild. Der Götzendienst im Volke und die große und gewaltige Geisteswelt der Brahmanen müssen auseinandergehalten werden. Die großen Lichtseiten der Menschheit haben immer auch große Schattenseiten. Menschen, die innerhalb ihrer Nation, innerhalb ihres Stammes oftmals Mitglieder haben von höchster, spiritueller Vollendung, sind selbst oft am Alleräußerlichsten hängen geblieben. Diese Erscheinungen, die ich Ihnen geschildert habe, sucht uns die Apokalypse anschaulich zu machen in der Gemeinde von Ephesus, auf der einen Seite in denen, die sich die erste Liebe bewahrt haben, und auf der anderen Seite die Werke der ersten Liebe verlassen haben und hinuntergesunken sind. Die Nikolaiten werden angeführt, die nur im Äußerlichen sehen, was der Mensch anzustreben hat. Ein monumentales Wort soll gerichtet werden an diejenigen, welche in einer solchen Gemeinde leben.
+
+Ich wollte nur zeigen, wie weltbedeutsame Vorgänge getroffen werden durch eine solche Stelle, wie sie an die Gemeinde von Ephesus gerichtet ist, als Repräsentant für diese Zustände:
+
+Ich weiß deine Werke und deine Arbeit und deine Geduld und dass du die Bösen nicht tragen kannst; und hast versucht die, so da sagen, sie seien Apostel und sind es nicht, und hast sie Lügner erfunden. Und verträgst und hast Geduld und um meines Namens willen arbeitest du und bist nicht müde geworden. Aber ich habe wider dich, dass du die erste Liebe verlässest. Gedenke, wovon du abgefallen bist und tue Buße und tue die ersten Werke. Wo aber nicht, werde ich dir kommen bald und deinen Leuchter wegstoßen von seiner Stätte, wo du nicht Buße tust. Aber das hast du, dass du die Werke der Nikolaiten hassest, welche ich auch hasse. Wer Ohren hat, der höre, was der Geist den Gemeinden sagt: Wer überwindet, dem will ich zu essen geben von dem Holz des Lebens, das im Paradiese Gottes ist. [Off 2,2–7]
+
+343
+# ÜBER DEN ANFANG DER BIBEL
+## SIEBEN RUNDEN – GENESIS
+
+Berlin, 12. Oktober 1904
+
+Wenn man den Anfang der Bibel verstehen will, muss man wissen, worauf die Dinge sich beziehen. Wir haben gesprochen von den Hyperboreern. Das war keine Rasse so dicht, dass man nicht hätte durchgreifen können. – Luftwesen. Daher brauchen wir uns nicht zu wundern, wenn sie keine Erinnerungszeichen, Knochen und so weiter hinterlassen haben. Nur was physische Härtigkeit hatte, konnte Überreste lassen. Was im ersten Kapitel der Genesis sich abspielt, liegt noch viel höher als die hyperboreische Zeit. Lediglich bis zum Astralen, über allem Physischen [Lücke in der Mitschrift].
+
+Überblicken wir die sieben Runden: Menschen, wie die gegenwärtigen sind, hat erst die vierte Runde hervorgebracht; Urbild eines solchen Menschen geschaffen, der innerhalb des Mineralreichs sich verwirklichen konnte. Vorher hatte er die Elementarreiche durchgemacht.
+
+5. Runde Pflanzenreich
+6. Runde Tierreich
+7. Runde Menschenreich
+
+Sodass man von der jetzigen Runde eigentlich noch nicht sagen kann, dass der Mensch ein Ebenbild der Gottheit ist. Erst in der siebten Runde wird er seiner menschlichen Natur nach gottähnlich sein. Erst der physische Körper hat seine Vollkommenheit erlangt. Die Weiterentwicklung ist wieder das Erreichen früherer Stufen, aber in einer höheren Form. Der Mensch ist so physisch geworden wie heute, als er warmes Blut bekam.
+
+Wir müssen genau unterscheiden zwischen warm- und kaltblütigen Tieren. Die Fische haben keine Leidenschaften. Den Zustand der Kaltblütigkeit hat der Mensch auch durchgemacht. Die lemurische Rasse waren Kaltblütler bis zum Auftreten der Geschlechtlichkeit. Wir müssen in einer höheren Form diesen Zustand wieder erreichen.
+
+---
+
+Die Entwicklung des Kaltblutes strebt das Christentum wieder an. Es will die Leidenschaften dammen und veredeln. Der Esoteriker sagt, Christen seien Fische, die alles das, was aus der Warmblütigkeit stammt, überwinden.
+
+Der Astralkörper wird erst in der nächsten Runde vollkommen sein. Wenn unsere vierte Runde verflossen ist, wird das Mineral nicht mehr da sein. Der Mensch wird nicht gefesselt sein an den Boden; er hat sich auch aus der Form des Luftbewegens heraus entwickelt: daher die Bezeichnung des Adlers. Während der sechsten Runde saugt er die Pflanzenwelt auf. Menschen und Tiere werden sich teilen in dem Aufsaugen der Pflanzenwelt. Tiere werden das Rankenwerk verarbeiten; Menschen die Samenkraft.
+
+In der siebten Runde ist dann der Mensch als Ebenbild Gottes vorhanden.
+
+Also in der ersten Runde ist nur das erste Elementarreich vorhanden; das Mineralreich fängt an.
+
+Was einen Gegenstand wahrnehmbar macht, ist das Mineralreich, der Mensch braucht höhere Organe, um nicht physisch zu sehen; muss neue Sinne entwickeln. Während der vier ersten Runden war die Welt sichtbar, weil sie nach und nach das Mineralische entwickelte. In dem Augenblick, wo das Mineralreich aufblitzt, leuchtet die Welt. Vorher wäre sie ganz lichtlos gewesen. Zunächst war dieses Licht dunkelrot; alles das, was später sich entwickeln soll, ist noch in der Finsternis vorhanden. Licht war alles, was sich anschickte, mineralische Erde zu werden. Finsternis war alles andere, was vom Monde herübergekommen war, mit Ausnahme des Mineralischen. Alles, was Licht ist, ist nun Sonne, was Finsternis ist Mond.
+
+Himmel ist alles Geistige. Gewässer dasjenige, woraus die Erde gebildet wurde, ihr astraler Grundkeim. Wenn wir nun das Mineralreich betrachten, konnte man nicht unterscheiden zwischen einem Stein und anderem; nichts war getrennt. Erst in der zweiten Runde wurden einzelne Wesen herausgeschnitten; dies wird angedeutet dadurch, dass Geistiges von Physischem abgesondert wurde. Wenn nicht das Bild vom Geistigen bliebe, könnte eine Pflanze nicht wiedererschaffen werden. Der Stein bleibt, braucht keine Trennung. Die
+
+Pflanze braucht sie; dies ist die Aufgabe der zweiten Runde. *Gewässer* sind die Wesen, das Einheitliche. Die Scheidung liegt in der Sonderung des Geistigen vom Physischen.
+
+Es waren Pflanzen, die wir heute bezeichnen würden mit Schwämmen, Algen; nicht was wir heute als Kräuter bezeichnen. Sie haben andere Natur, aber sind pflanzliche Wesen. Vorzüglich solche, die noch nicht richtige grüne Farbe haben.
+
+Während der dritten Runde entsteht alles, was Leben nicht nur aus dem Grunde entnimmt, sondern Leben weiterträgt. Unterschied zwischen samentragenden Pflanzen und Schwämmen. Der Schwamm nimmt noch Leben aus der allgemeinen Natur. Wenn wir den astralen Körper des Tieres während der dritten Runde betrachten, ist er etwas ganz Unvollendetes, es ist lediglich der mineralische Grundboden, der fertig wird. Das Tier hat Pflanzennatur, es pflanzt sich fort und hat astrale Empfindungsnatur, es empfindet. Was uns aber hier angeht, ist nur der mineralische Abdruck. Sodass, was geschaffen wird während der dritten Runde, ist der mineralische Abdruck, und er besteht darin, dass er pflanzlichen Körper hat, der Samen trägt. Der Genesisbeschreiber beschreibt von Pflanzen und Tier nur, was geblieben ist, das feste Gehäuse; das Ätherische und Astrale lässt er weg. – Schnecke im Gehäuse als Beispiel. Das Samentragende beschreibt er.
+
+Während der vierten Runde geht das Mineralische so weit weiter, dass es Schale werden kann für Pflanzen, Tiere und Menschen. In der dritten Runde konnten Tiere nicht etwa Mond und Sterne sehen, denn die waren noch nicht mineralisch; jetzt werden sie es.
+
+Was vom Lunarischen herübergekommen ist, verdichtet sich als Mondkörper; die Sonne ist verdichtetes Licht.
+
+Noch nicht sind wir mit dem vierten Tage ganz zu Ende, denn die Runde ist nicht abgelaufen. Was geschieht später? Die Vögel sind die künftigen Astralkörper der Menschen; geflügelte Tiere sind Cherubim und Engel. Dieses Mehren ist nun kein geschlechtliches Mehren.
+
+Die sechste Runde: Man muss sich den Vorgang ins mentale Reich gehoben denken, wo alles rein wird. Gott gibt den Menschen die Pflanzen zur Nahrung: Absorption des Pflanzenreichs. Alles, was
+
+---
+
+346
+347
+
+jetzt Tier ist, wird dann gleichsam zusammengerufen werden in seinen Astralkörper. Der Löwe strebt erst hin zu seiner Art, er ist noch nicht in seiner Art. Erst in der sechsten Runde wird jedes Tier in seiner Art sein; dann wird ihre irdische Entwicklung aufhören und eine höhere anfangen. Jetzt erst ist der Mensch Herrscher: Er muss magisch herrschen können. Dann wird der Mensch wieder männlich-weiblich sein. Alles Kraut und Rankenwerk den Tieren.
+
+Der Himmel, das höchste Geistige, wird auch vollendet. Gott kann erst ruhen, wenn der Mensch auch vollendet ist. Die späteren Zustände sind immer Wiederholungen der früheren. Für unseren vierten Zustand können wir uns auch vorstellen, dass wir die Zukunft in der Gegenwart angedeutet finden. Ein abgeleiteter Sinn ist möglich, weil jeder folgende auf höherer Stufe das Vorhergehende wiederholt: drei erste Schöpfungstage auf die drei ersten Runden. Die vier letzten Schöpfungstage auf die Arupa-, Rupa-, astrale und ätherisch-physische Phase der Erde bis zum Zeitpunkt in der lemurischen Rasse.
+
+Der wirklich ursprüngliche Sinn: sieben Runden und im geistigsten Sinne genommen. Dann aber ein abgeleiteter [Lücke in der Mitschrift]
+
+Weil jedes Folgende auf höherer Stufe das Vorhergehende wiederholt.
+
+Nur ganz wenige wussten, was die Genesis bedeutet; der Zeitpunkt, an dem das zum ersten Mal in der Literatur niedergelegt wurde, fällt zusammen mit den Anfängen des Christentums. Philon-Judaeus von Alexandrien gibt zuerst etwas, wie wir es heute durchgenommen haben. Die Zeit, in der zum ersten Male eine esoterische Lehre dem Buche anvertraut wurde, fällt zusammen mit der Zeit, wo das Mysterium überwunden wurde. Derjenige, der eingeweiht war, erlebte in den Mysterien den Opfertod des Gottes, wenn er höher eingeweiht wurde, seinen eigenen Opfertod. Was früher von dem Einzelnen in der Krypta erlebt worden war, wurde hinausgetragen auf den Weltschauplatz. Was früher nur diejenigen hatten, die schauten, sollten auch diejenigen haben, die glaubten. Während Philon soweit es geht, das Esoterische zum ersten Mal publiziert, stellt es
+
+das Christentum als mystische Tatsache dar. Geschichte wird, was früher in den Mysterien allein erlebt wurde.
+
+Hier liegt die zentral-kosmische Bedeutung des Christentums und seines Gründers. Alles Frühere weist darauf hin, alles Spätere weist darauf zurück. Was früher in den Mysterien vorging, war wie eine Prophetie. Daher ist das Christentum eine Erfüllung. «Ich bin nicht gekommen aufzulösen, sondern zu erfüllen.»
+
+Das zweite Kapitel der Genesis beginnt da, wo in unserer jetzigen Rundenbildung der physische Zustand eintritt. In dem Ätherzustand waren noch nicht Tiere und Pflanzen vorhanden, denn eigentlich ist der Mensch Erstling. Die Polarrasse ist noch ätherisch, aber schon physisch. Während der Mensch sich von dem Äthermenschen, der noch männlich-weiblich ist, entwickelt, entstehen als Abfälle Tiere und Pflanzen. Im Beginne hatte der Mensch all die Eigenschaften mit, die jetzt auf die übrigen Pflanzen und die Tiere verteilt sind, das Wüten des Löwen, das Schlaue des Fuchses. So ist die Mitte der lemurischen Zeit ein wichtiger Zeitpunkt für alle Wesen. Wesen mit warmem Blut gab es früher nicht.
+
+Nun, die sieben Schöpfungstage sind die sieben Runden; die Zustände, die unserem physischen vorangingen, können auch [Lücke in der Mitschrift]
+
+die vierte Runde beginnt [Lücke in der Mitschrift]
+
+In den ägyptischen Mysterien wurde festgehalten, dass die sieben Tage sieben Runden sind. Unsere eigene physische Entwicklungsgeschichte ist in dem zweiten Kapitel dargestellt. Jetzt ist der siebte Tag bloß bezüglich der mineralisch-physischen Entwicklung gemeint.
+
+Es war das Ätherische da, und im Ätherischen sonderten sich wie Nebelgestalten die Menschen ab – ätherische Doppelkörper.
+
+Der niedere indische Yogi versucht, zu den psychischen Erlebnissen zu kommen dadurch, dass er den Atmungsprozess ändert. Ein Körper, in dem die Kohlensäure tätig ist, ist nicht imstande, Spirituelles in sich zu bergen, wohl aber Psychisches. Wer länger, als es im normalen Prozess der Fall ist, die Kohlensäure in sich birgt, wird dadurch pflanzenähnlicher. Die Psychen, Seelen sind hinübergekommen und nehmen nun Besitz von dem Ätherkörper, den sie vorfinden, von
+
+---
+
+den Göttern der Form gestaltet; Vereinigung der Seele mit dem Staub der Erde, physisch mineralischer Ätherkörper. In dem Äthermeer ist alle Materie vereinigt, die heute getrennt ist in zwei Himmelskugeln. Im Mittelpunkt zwischen der heutigen Erde und dem Mond war die Ätherkugel; in der war vereinigt, was später sich trennte, Töchterkugeln sind es von der Mutterkugel, die als »Paradiso« bezeichnet wird. Erst dadurch wurde die Erde reif, die physische Dichtigkeit zu erlangen, durch die der Mensch so geworden ist. Also war in der Tat das Paradies vorhanden, aus dem der Mensch vertrieben worden ist.
+
+Jetzt erst, nach der Trennung, entstehen die Pflanzen, der Mensch könnte sich nicht höher entwickeln, wenn er nicht gewisse Teile abgeben würde, aus denen die Pflanzen wurden. «Hätten die nicht ein tieferes Dasein gewählt, hätte ich mich nicht höher entwickelt», so muss sich der Mensch sagen.
+
+Aus Nehmen und Geben entsteht die ganze Evolution. Daraus entsteht auch das Böse, das nur in der Zeit liegt und später ausgeglichen werden muss. Für das Böse wird in späterer Zeit das entsprechende Gute geschaffen; dadurch kommt Entwicklung hinein.
+
+Nun war das, was der Mensch braucht, auf der Erde vorhanden. Alle Lebenskraft, die der Mensch nicht braucht, ist in den Pflanzen; in der Mitte im Lebensbaum, das was er braucht, die Lebenskraft. Es ist des Menschen eigenes Prana gereinigt für ihn, dadurch, dass er Einiges abgegeben hat.
+
+Das sympatische Nervensystem breitet sich wie ein Baum in seinem Leibe aus. Im Universum kann nichts entstehen, ohne dass sein Gegenbild erscheint. Seine Ergänzung muss nun der Mensch in dem andern Baum, im polarischen finden: Rückenmark und Gehirn. Neben dem bloßen Prana entwickeln sich seine Organe für die Erkenntnis. Die Menschengeister konnten sich mit ihm verbinden und ihren Sitz im Baum der Erkenntnis nehmen. – Die vier Ströme übergehen wir diesmal.
+
+[Lücke in der Mitschrift] wirst du sterben. Alles Leben, das bis jetzt vorhanden war, kannte nicht, was wir heute Geburt und Tod nennen. Unsterblich war das, was physisch war. Damit ein Organ geschaffen wird für den Geist, [Lücke in der Mitschrift] war eine Zweiheit geschaffen.
+
+348
+
+Die Fülle des menschlichen Geistes verhielt sich wie eine große Menge Flüssigkeit zu einem Gefäß, das es nicht halten kann; die Reihe der Leben sind die verschiedenen Gefäße. Es ist natürlich, dass der Mensch vor die Wahl gestellt wird, entweder seine Unsterblichkeit in den niederen Reichen zu behalten oder sie zu erkaufen durch viele Leben.
+
+Damit der Mensch sich wendet zum Geistigen, ist notwendig, dass Geburt und Tod entsteht. Weil der Geist mannigfaltige Seiten hat, handelte es sich darum, dass der Mensch in verschiedene Lagen kommt. Die Verschiedenheit in den Eigenschaften würde nicht erreicht werden und verschiedene Schicksale nicht entstehen, wenn die Mutter nur die Tochter hervorbringen würde ohne das Mittel der Geschlechtlichkeit; jetzt erst kam die Mischung und mit ihr die Verschiedenheit: die Mannigfaltigkeit unter den Menschen und dadurch die Möglichkeit, die verschiedensten Schicksale zu schaffen. Die geschlechtliche Fortpflanzung ist ein notwendiges Gegenstück zu Geburt und Tod.
+
+Bei den Hermaphroditen können nur die Eigenschaften des Vorfahren sich vererben; damit ganz neue Eigenschaften entstehen konnten, musste die Mischung von Zweien dazukommen. Amphimixis ist das nötige Korrelat zu Geburt und Tod. In der Zeit, als die Menschen Knochen, das heißt mineralisches Grundgerüste bekamen, teilte sich der Mensch in Mann und Frau; in der persischen Genesis ist der Sinn noch gut enthalten.
+
+In diesem Moment entstehen mit dem physischen Dichterwerden des Menschen alle Warmblüter – »ihm entsprechend« bedeutet wesensgleich. Im Gefolge des Menschen entstanden die Tiere.
+
+Der Schlaf, in den Adam verfällt: Vorher war der Mensch ein physisches Wesen, in das der Geist von außen hineingetrieben wurde; jetzt muss im Innern sprießen, muss das hervorbrechen, was früher von außen kam. Das Bewusstsein von außen kann nur dadurch zum Innern werden, dass der Mensch eine Pforte überschreitet. Er schläft hinüber.
+
+Mit dem Männlich- und Weiblich-Werden des Menschen beginnt zugleich die Arbeit auf dem physischen Plan. Jetzt ist er auf sich
+
+349
+
+---
+
+350
+351
+
+selbst angewiesen. Früher war er verbunden mit der höheren Materie und dem Geiste.
+
+Und nun merken sie, dass sie nackt sind. Was jetzt gekommen war, das ist die Materie, denn früher war es feinere Materie, in der noch nicht die Sinnesorgane so gebildet waren. Zu sehen war erst möglich, als Augen gebildet waren. Der Moment, wo die geistigen Organe der Vorzeit Sinnesorgane wurden, war derjenige, in dem der Mensch ein Sonderwesen wurde. Er sah sich in seiner Selbstheit.
+
+# APOKALYPSE III
+
+Berlin, 17. Oktober 1904
+
+Ich möchte heute die Betrachtungen über die Apokalypse fortsetzen. Derjenige, welcher den ganzen Sinn und den Geist eines solchen Schriftwerkes, wie die Apokalypse es ist, verstehen will, muss sich vor allen Dingen klar machen, wie die Religionen wirken, und wie auch das Christentum in seinem Anfang wirkte, das heißt, welches die Kräfte waren, die es ermöglichten, dass das Christentum sowie die anderen Religionssysteme dieses gewaltige und großartige Leben des Geistes über die Menschheit hin ergossen hat.
+
+Es ist heute nur zu sehr der Glaube verbreitet, dass das einfache, schlichte, jedem verständliche Wort eigentlich die Wahrheit enthalten müsse, und es ist eine gewisse ‹Neigung› heute vorhanden gegen die Erhebung des Geistes zu den Höhen des Gedankens, zu den Höhen des übersinnlichen Schauens – also eine ‹Abneigung›. Wir hören vielfach selbst von Theologen sagen: Alles das, was sich nicht in schlichteste Worte kleiden lässt, die jeder Mensch unbedingt verstehen kann, das könne der Wahrheit wenig dienlich sein. Wer so denkt, wird den ganzen Sinn und den ganzen Geist eines solchen Schriftwerkes, wie es die Apokalypse ist und wie es schon das mystische Johannes-Evangelium ist, nicht verstehen können. Zwar soll nichts gesagt sein gegen die Richtigkeit des Wortes, dass die Wahrheit in einfachen Worten verkündigt werden muss, denn wer die Wahrheit verkündigen will, muss die Wege finden, um zu den einfachsten Herzen sprechen zu können. Er muss das Wort finden, um sowohl zu denen zu sprechen, die auf den Höhen der Wissenschaft, Kultur und Bildung stehen, wie auch zu denen, die man mit dem Ausdruck des ‹schlichten Mannes aus dem Volke› bezeichnet. Aber die Kraft, die innere Kraft kann sich nicht in dem schlichten, einfachen Wort Ausdruck verschaffen. Diese Kraft stammt aus den höchsten Höhen des Geisteslebens.
+
+---
+
+352
+353
+
+Auch das Christentum hatte in den ersten Jahrhunderten Mysterien-Einweihungsstätten, in denen nicht allein schlichte Worte, nicht nur allgemein Verständliches verkündet worden ist, sondern in denen verkündigt worden ist die Offenbarung des höchsten spirituellen Schauens, das im Johannes-Evangelium hinaufreicht bis zu den Regionen, in welchen Raum und Zeit keine Bedeutung haben. Nicht jeder Außenstehende konnte dann von diesen Offenbarungen der höchsten Regionen sprechen. Der Kirchenvater und Kirchenlehrer der ersten Jahrhunderte fand dann das ganz populäre, einfache Wort, durch das er zu den Ungebildeten den Zugang fand. Er selbst hatte die Kraft, die Gewalt der geistigen Verkündigung von den höchsten Höhen des Geisteslebens. Und so etwas ist auch in der Apokalypse wie von selbst angedeutet. Sie brauchen nur mit Verständnis die wichtigsten Stellen in der Apokalypse zu lesen, so werden Sie finden, dass das, was von den Höhen des Geistes heruntergeholt ist, in ein Weltbild gefasst ist, dass daraus ein Weltbild entworfen ist.
+
+Ich, Johannes, der auch euer Bruder und Mitgenosse an der Trübsal ist und am Reich und an der Gewalt Jesu Christi, war auf der Insel, die da heißt Patmos, um des Wortes Gottes willen und des Zeugnisses Jesu Christi. Ich war im Geist an des Herrn Tage. [Off 1,9–10]
+
+Damit sprach er aus, dass er auf der «Insel Patmos» war – er meinte damit an einer Mysterienstätte –, und diese Offenbarung erhalten hatte. Und im Geiste hatte er sie erhalten. Und an anderen Orten spricht er noch anders. Am Anfang des vierten Kapitels sagt er:
+
+Darnach sah ich, und siehe, eine Tür war aufgetan im Himmel; und die erste Stimme, die ich gehört hatte mit mir reden wie eine Posaune, die sprach: Steige her, ich will dir zeigen, was nach diesem geschehen soll. [Off 4,1]
+
+In den ersten drei Kapiteln ist das enthalten, was ich schon in der letzten Stunde zu skizzieren versuchte. Dann aber wird das Schicksal der Wurzelrasse geschildert, die die unsere ablösen wird. Daher unterscheidet die Apokalypse genau zwischen den beiden Arten des Schauens, der Inspiration und der Intuition. Das ist nötig, wenn man das eine und das andere verkündigen will. Eine niedrige Intuition genügt, um die Schicksale einer Wurzelrasse zu verkündigen, aber eine höhere Intuition ist nötig, um das zu sehen, was nach dieser
+
+unserer Wurzelrasse geschieht, zum Beispiel, wenn die sechste und siebente Wurzelrasse heraufgekommen sein werden. Das kann man nicht sehen in der Art, wie das Schauen verläuft, das den drei ersten Kapiteln zugrunde liegt; das kann man nur, wenn man aufsteigt ins Devachan. Niemals kann sich uns in der Region des hochentwickelten astralen Sehens das Schicksal einer Wurzelrasse entrollen. Daher sagt Johannes, dass er im Geiste die Stimme gehört habe. Bis zum Ende des dritten Kapitels in der Apokalypse haben wir es mit höherem astralischen Schauen zu tun, vom vierten Kapitel an haben wir es mit devachanischem Schauen zu tun. So wie der Apokalyptiker spricht, so sprechen die Eingeweihten aller Zeiten.
+
+Nur eines ist in der Apokalypse anders als in den anderen tiefen Einweihungsschriften. In der Apokalypse ist der Gesichtspunkt ein anderer. Der Theologe Johannes spricht in der Apokalypse als Christ, vom christlichen Gesichtspunkt aus. Wer also mit der richtigen Empfindung, mit richtigem Gefühl die Apokalypse lesen will, der muss sich ganz hineinversetzen in das Bekenntnis, und zwar vor allen Dingen in das ganz menschliche Bekenntnis, nicht bloß in das Theologenbekenntnis, der muss sich hineinversetzen in das Gefühl eines hochinitiierten Christen, in das Gefühl, wie es der Christ hat, wenn die ganze Kraft der christlichen Offenbarung in ihm gewaltet hat. Das muss man wissen.
+
+Ein bedeutsames Wort findet sich im ersten Johannes-Brief:
+
+Drei sind, die da zeugen auf der Erde: Blut, Wasser und Geist.
+Und drei sind, die da zeugen im Himmel: der Vater, das Wort und der heilige Geist. [1 Joh 5,7–8]
+
+Dem Theosophen sind diese drei im Himmel zeugenden Prinzipien als Atma, Buddhi und Manas bekannt. Der Christ nennt die Prinzipien, die der Welt zugrunde liegen: Vater, Wort und heiliger Geist. Über den Vater zu sprechen, hätte der Christ der ersten Jahrhunderte abgelehnt, denn
+
+Niemand kommt zum Vater denn durch mich. [Joh 14,6]
+
+Und derjenige, der das sprach, ist der große christliche Meister selbst, derjenige, durch den das Christentum selbst in die Welt gekommen
+
+---
+
+ist. Ich spreche jetzt ganz im Sinne eines eingeweihten Christen der ersten Zeit. An den Vater glaubte er, und er glaubte, ihn nicht anders kennenlernen zu können als durch das Wort.
+
+Und was war das Wort? Nur eine schwache Vorstellung ist dem Uneingeweihten zu geben möglich von dem, was der eingeweihte Christ der ersten Zeit das Wort nennt, und zwar zunächst durch einen Vergleich. Das Höchste, wozu sich der Mensch erheben kann, ist der Gedanke, das Mentale. Der Mensch erhebt sich durch den Gedanken immer bis zum Leben im Devachan. Er lebt im Devachan, er ist sich dessen nur nicht bewusst. Das ist das Charakteristische des irdischen Menschen, dass er zu gleicher Zeit in drei Welten lebt: in der physischen Welt, in der astralischen Welt und in der devachanischen Welt. Bewusst ist er sich aber nur in der physischen Welt. Die höchste Äußerung, die es in der Welt gibt, war für alle Religionen, auch für die erste christliche Religion, der weltschöpferische Wille. Und wenn der Christ von dem Vater überhaupt etwas aussagt, dann ist es einzig und allein das, dass der Vater der weltschöpferische universelle Wille sei. Wenn der Mensch das Höchste, das in ihm lebt, das Devachanische, den Gedanken, durch den Willen, also durch das weltschöpferische Prinzip zum Ausdruck bringen will, so geschieht es zunächst durch die Sprache. Das Wort ist beim Menschen der Verkündiger des Geistes durch den Willen. Und so sagte der erste Christ: Alles dasjenige, was unsere Welt ist, ist im höchsten Sinne gefasst durch das Wort – aber jetzt durch das Wort, das durch den höchsten weltschöpferischen Willen entstanden ist. So wie der Mensch sein Höchst durch die Kraft des Willens zum Wort zum Ausdruck bringt, so sagt der Christ: Der Vater brachte seinen Geist, den heiligen Geist, durch die Kraft des Wortes zum Ausdruck. Deshalb heißt es auch im Evangelium: Alles ist durch das Wort gemacht, und es ist nichts, was nicht durch das Wort gemacht wäre.
+
+Die dritte Person ist der heilige Geist. Er ist für das Weltall dasselbe, was der Geist des einzelnen Menschen für den Menschen ist. Dieser Geist kommt in dem Weltenwort herab. Wollte sich der Christ ein Bild machen, dann sagte er sich: So wie ein Mensch spricht, wie sein Wort in die Luft hinaustört, die Luft in Wellenbewegung versetzt und wie so sein Gedanke in den Wellen der Luft weiterlebt und das Wort die Verkörperung des Menschengeistes ist, so ist die Welt die Verkörperung des Gotteswortes.
+
+Alles ist durch das Wort gemacht, und es ist nichts, was nicht durch das Wort gemacht wäre. [Joh 1,3]
+
+Damit ist zugleich gesagt, dass das eigentliche Grundprinzip das Höchste ist, das der Mensch in der Welt verkörpert sehen kann, das ist das Wort. Und dieses Wort wird als die zweite göttliche Person oder als der Sohn Gottes bezeichnet, als das höchste Wesen, nicht als abstraktes, im pantheistischen Sinne vorgestelltes Weltseelenbild, sondern als ein Wesen, viel persönlicher und individueller als die menschliche Persönlichkeit, die menschliche Individualität. Das ist durchaus festzuhalten, dass wir es mit einem höchsten Wesen zu tun haben und dass das Wort ein Ausdruck ist für das höchste Wesen, durch das das ganze Universum wie der Mensch mit Augen sehen, mit Ohren hören, mit dem Verstand begreifen kann. Das ist für den ersten Christen Mensch geworden in demjenigen, den er als den Verkündiger des Evangeliums erkennt.
+
+So hatte für die ersten Christen das Ereignis in Palästina einen kosmischen Wert. Der da gewandelt ist in Palästina, war für die ersten Christen nicht ein Mensch wie die anderen Menschen. Er war für sie das fleischgewordene Wort, dasjenige, was im ganzen Universum mit Augen sehen, mit Ohren hören, mit dem Verstand begreifen kann, und dieses unendliche Wesen in der Gestalt eines Menschen. Wer das nicht so versteht, wer deuteln will an dem fleischgewordenen Gott, an diesem Wort vom fleischgewordenen Gott, wer nicht der Anschauung ist, dass es hier die Inkarnation Gottes in Jesu ist, der kann sich nicht zurückversetzen in die Denkweise der ersten Christen.
+
+Er war eine einzigartige Persönlichkeit. Das drückt auch das Evangelium in einer herrlichen, großartigen, gewaltigen Weise aus. Dass der Christus zur Erhebung bis ins devachanische Schauen emporge-stiegen ist, das drückt das Evangelium klar aus für denjenigen, der diese Dinge lesen kann.
+
+Um zum vollen Verständnis des Christentums zu kommen, bitte
+
+---
+
+356
+357
+
+ich Sie aber eines zu berücksichtigen. Wir haben eine große Ähnlichkeit in dem, was wir die Erzählung des Lebens Jesu nennen und in dem, was wir die Erzählung von Buddhas Leben nennen. Diese Ähnlichkeit in der Verkündigung, diese Ähnlichkeit der Lehrjahre und so weiter ist schon mannigfaltig hervorgehoben worden. Woher diese Ähnlichkeit stammt, das weiß der Mystiker, weil er weiß, dass sich ein solches Leben zunächst wiederholt in gewissen Zeitepochen der Menschheit. Aber das Christus-Leben hat noch etwas anderes, etwas wesentlich anderes als das Buddha-Leben, und das verstanden die ersten christlichen Initiierten. Wenn Sie das Jesus-Leben verfolgen, so kommen Sie bis zu einem Punkte, der als die Verklärung geschildert wird. Jesus ging mit seinen Jüngern Petrus, Johannes, Jakobus zum Berge und wurde verklärt, er wurde von innen heraus leuchtend, und Moses und Elias schwebten zu beiden Seiten von ihm. Die Jünger erhielten damals bedeutende Offenbarungen. Damit ist ein allerwichtigstes Moment angedeutet. Moses und Elias erscheinen zu Seiten des Christus Jesus. Die Zeit ist aufgehoben, die Vergangenheit ist gegenwärtig. So ist es im Devachan. Hier in der physischen Welt haben wir Raum und Zeit. In der astralischen Welt haben wir nur noch die Zeit. Zeit- und raumlos aber ist die devachanische Welt. Moses und Elias, die längst Vergangenen, sind unmittelbar gegenwärtig. Das heißt also, bei der Verklärung sind die drei Jünger Petrus, Jakobus und Johannes erhoben worden zu devachanischem Schauen.
+
+Von dieser Verklärung ausgehend sehen wir erst, was bedeutsam ist: Es ist der eigentliche Opfertod, das Leiden, Sterben und der Opfertod, also das, was Sie im Buddha-Leben nicht haben. Buddha ging mit seinem Schüler Ananda hinaus und wurde leuchtend. Wenn Sie diese Szene im Buddha-Leben geschildert sehen, so sehen Sie sie in einer anderen Gestalt; das ist von der Volksauffassung abhängig. In dem letzten Augenblick aber haben wir die Verklärung. Buddhas Leben schließt mit der Verklärung. Das Jesus-Leben beginnt seine eigentlich bedeutsame Epoche erst mit dieser Tatsache. Damit ist angedeutet, was der Christus sagen wollte gegenüber allen alten Religionssystemen der vorhergehenden Unterrassen der fünften Wurzelrasse. Der Christ wollte damit sagen: Wohl verstehen wir die Vor-
+
+herverkündigung dessen, was durch die Evangelien gekommen ist in den vorhergehenden Religionssystemen, wohl erkennen wir, dass in den alten Mysterien das Wort der Wahrheit gelehrt und geschenkt worden ist. Aber eines ist erst durch das Christentum geworden, und das ist ausgedrückt durch das Merkwort: «Selig sind diejenigen, die nicht schauen und doch glauben.» – Das ist die große, die welthistorische Bedeutung des Christentums in seinem Evangelium.
+
+Das, was früher in den Mysterientempeln abgeschlossen von aller Welt für einige Auserlesene erreicht worden ist durch die Einweihung, durch das Schauen der großen Weltenwahrheiten im Innern der Mysterienkrypten, so seelisch, so innerlich frei und hoch sollten auch diejenigen werden können und werden, die es nicht bis zum Schauen bringen, sondern die bloß glauben können. Deshalb wurde dasjenige im Christentum, was sich früher in der Verborgenheit der Mysterien abgespielt hat, das Höchste, das Mysterium, bei dem der Mensch selbst durch die Pforte des Todes hindurchgeht, um in einem höheren Leben wieder aufzuerstehen, dieses tiefste Mysteriengeheimnis, das ein Uneingeweihter in seiner wahren Bedeutung nicht verstehen kann, das wurde hinausgerückt auf den großen Horizont des Weltendaseins. Das, was sich abgespielt hat in Palästina, hat sich abgespielt als historische, wirkliche Tatsache, die in allen Einzelheiten so verlaufen ist wie vorher die Mysterienhandlungen im Innern der Mysterienstätten. In den Mysterien wurden wiederholt Opfer und Opfertod. In populärer Form mussten die alten Mysterienlehren vor die Welt getragen werden. Damit aber ist ein weiter Schritt durch das Christentum vollzogen worden, ein Schritt in der Auffassung eines Eingeweihten der ersten Christenheit, ein Schritt, welcher den Menschen hinausführt über die Stufe, die die alten Religionen ihm haben sein können.
+
+Wer waren die alten Religionslehrer? Lehrer der Menschheit waren sie. Das, was sie gelehrt haben, das war es, worauf es ankam. Die Lehrsätze Buddhas, Zoroasters, Konfuzius, Hermes, Pythagoras, Laotses, [Sokrates, Platons] – die Worte selbst waren es, auf die es ankam. Gleichsam auf einem hohen Berge standen sie, und von da aus verkündigten sie das Höchste, das heilige Wort. Aber noch ein
+
+---
+
+anderes war möglich. Es war möglich, dass dieses Wort selbst hinunterstieg und menschliche Gestalt annahm und dass es einmal nicht ankam darauf, was verkündigt wird, sondern darauf, was gelebt wird, gelebt im tiefsten Sinne des Wortes. Das Ziel war da. In uralten Zeiten ist unserer fünften Wurzelrasse der Weg angegeben worden. Dazu kamen die Lehren und Gebote der alten Religionsstifter, des Laotse, des Konfuzius, des Moses, des Buddha – ihre Wahrheiten. Dann aber kam das Wort selbst in fleischlicher Gestalt herunter und lebte unter uns. Und wahr wurde das dreifach geteilte Wort
+
+Ich bin der Weg, die Wahrheit und das Leben. [Joh 14,6]
+
+Und so sah der christliche Bekenner und der Initiierte in seinem Religionsstifter den ‹Weg›, die ‹Wahrheit› und das ‹Leben›. In einem tiefen Wort hat der christliche Initiierte das, was ich gesagt habe, angedeutet. Alle alten Religionsstifter sind als verkörperte Engel aufgefasst worden, die Boten der Gottheit waren. ‹Engel› heißt nichts anderes als Bote der Gottheit. Nun aber kam einer, vor dem die Engel in Ehrfurcht ihr Angesicht verhüllten und sich hinlegten zu den Füßen des mystischen Lammes, den Füßen des fleischgewordenen Gottes. Das ist das Mysterium, dass in dem fleischgewordenen Lamm ein tieferes Herabsteigen zu den Menschen, ein Leben mit den Menschen gesehen werden kann. Vom Berge herunter haben die Früheren das Wort verkündigt. Christus ist aber heruntergestiegen in das Tal und hat gelebt als Mensch unter Menschen. Nicht befohlen hat er, was zu tun ist, nicht gesagt hat er, was wahr ist, sondern er hat gezeigt durch das, wie er das Leben lebte, das verwirklichte Wort. Darin sah der Christ seine Religion von den anderen Religionen unterschieden. Dadurch rückte er auch in den Mittelpunkt dessen, was der christliche Eingeweihte als Apokalypse oder geheime Offenbarung zu verkündigen hat. Warum das fleischgewordene Wort auch das ‹Lamm› genannt wird, davon wollen wir das nächste Mal sprechen.
+
+Das wird uns klar geworden sein, dass wir in den Mittelpunkt der Apokalypse dieses Lamm stellen müssen, und dass durch dieses Lamm allein die Zukunft der Menschheit sich verkündigen kann. Im vierten Kapitel der Apokalypse, da, wo der Mensch hinaufgeführt wird, da, wo der Himmel offensteht, da verkündigen sich ihm die Wahrheiten des Jenseits. Das ist das mystische Lamm, das die Siegel der Welt löst. Da trifft sich das verklärte Fleisch. Daher die Frage: Was tat sich dir kund, als du hinausschrittest über die bloße Höhe des christlichen Schauens? Da tat sich ihm kund das mystische Lamm. Aufgegangen ist ihm die devachanische Welt und die Möglichkeit, das eigentliche Geheimnis zu enthüllen, das offenbar werden muss, wenn die Zeit erfüllt ist, wenn die siebente Unterrasse unserer fünften Wurzelrasse um ist und eine neue Rasse der Menschheit mit einer neuen Entwicklungsstufe vorangeht.
+
+So haben wir in der Apokalypse geschildert das Schicksal der fünften Unterrasse und die Anfänge zu einer neuen Gestaltung der Welt, die mit drei Leitworten geschildert wird: ‹Pneumatologie›, ‹Gemeinschaftsleben›, das auf Liebe gebaut ist, ‹Sittenlehre›. Diese Welt kündet sich an in dem Weltengeheimnis, das durch die sieben Siegel, die geöffnet werden, geoffenbart wird durch denjenigen, der dadurch, dass der unter die Menschen gegangen ist, dieses Geheimnis erst möglich gemacht hat, und der es erfüllen wird, wenn der Zeitpunkt herangekommen sein wird, in dem unsere Wurzelrasse reif geworden ist, um in jene Welt hinüberzuleben und jene Evolutionsstufe zu erreichen, die durch diese drei Worte bezeichnet ist. Aus solchen Tiefen muss der Gehalt der Apokalypse geholt werden. Damit soll nicht gesagt werden, dass nur aus diesen Höhen das wahre Christentum geholt werden könne. Aber es muss durchsetzt sein vom Feuer, und dieses Feuer kann der Mensch nur dann gewinnen, wenn er die Kraft sich aus dem höheren Schauen holt, und das Resultat des höheren Schauens auf christlichem Gebiet ist eben die Apokalypse.
+
+---
+
+360
+361
+
+# APOKALYPSE IV
+
+Berlin, 24. Oktober 1904
+
+Bevor ich in der Erklärung der Apokalypsen weitergehe, möchte ich nicht versäumen, nochmals zu wiederholen, dass diese Erklärung der Apokalypsen wirklich nur für denjenigen eigentlich einen richtigen Wert hat, der schon längere Zeit in der theosophischen Bewegung steht und mit einem gewissen wohlwollenden Verständnis der theosophischen Weltanschauung gegenübertritt. Es muss hier manches gesagt werden, was Bekämpfern der Theosophie sehr leicht den Anstoß geben kann, allerlei phantastische Dinge der Theosophie zu unterschieben, es muss manches gesagt werden, was dem vernünftigen Menschen, dem Rationalisten zunächst als Hirngespinst erscheint. Man muss vertraut sein mit der Art des Denkens und Empfindens eines Theosophen, wenn man nicht zu sehr missverstehen will, was in der Apokalypse gesagt wird.
+
+Die Erklärung, die ich über die Stellung des Christentums zu Jesus dem Christus gegeben habe, und auch die Erklärung über das Verhältnis des Apokalyptikers zu Jesus müssen wir uns durchaus vor Augen halten, wenn wir das Weitere verstehen wollen. Der größte Wert für die Erfassung der Weltstellung des Christentums liegt in dem richtigen Verständnis des Ausspruchs: «Selig sind, die da glauben, auch wenn sie nicht schauen.» – Ich habe schon darauf hingewiesen, dass dieser Spruch seine Bedeutung dadurch hat, dass das Christentum sozusagen das größte Weltmysterium geworden ist, dass durch das Christentum dasjenige, was früher in den Tiefen der Tempel sich vollzogen hat, hinausgetragen wurde auf den großen Weltenplan. Bercits bemerkt habe ich, dass damit auch nicht ein Strichelchen hinweggenommen wird von der historischen Tatsächlichkeit des Vorganges, der sich zwischen dem Jahre 1 und dem Jahre 33 in Palästina abgespielt hat, sondern vielmehr steht derjenige, der die Dinge durchschaut, durchaus auf dem Standpunkt, dass die gebräuchliche christliche Tradition eine historische
+
+Wahrheit ist, sodass die Theosophie in dieser Beziehung mit dem Glauben der Christen in jedem einzelnen Punkte übereinstimmt. Aber diese historische Tatsache vom Beginne unserer Zeitrechnung ist außerdem noch etwas anderes, und wir verstehen die Tatsache im richtigen Sinne, wenn wir sie als mystische Tatsache auffassen, wenn wir uns klar sind, dass der Leidensweg, der Tod, die Auferstehung, die Himmelfahrt, die welthistorischen Vorgänge sind, die sich früher in den Mysterien zugetragen haben. Das Christentum hat ein Wort, welches darauf hindeutet, wie sich das alte Mysterium zu der Erfüllung dieses Mysteriums zum Christentum verhält. Das Christentum nennt alles, was vor dem Erscheinen des Christus schon auf den Christus hingedeutet hat «Verheißung». Wer die Dinge durchschaut, weiß, dass Verheißung nichts anderes bedeutet, als dass der Vorgang, der sich in Palästina abgespielt hat, verheißen worden ist in den Tiefen der Mysterien.
+
+Wir können das geradezu wörtlich verstehen, wenn wir in den alten Schriften lesen. Gehen wir zu den Mysterien in Griechenland zurück. Was sich in ihnen vollzogen hat, tief geheimnisvoll, was nur die Eingeweihten erfuhren, das war: das Leiden, Sterben und die Auferstehung des Gottessohnes. Allerdings erfuhren sie es dadurch, dass die Eingeweihten vorbereitet waren durch eine Schulung auf höheren Planen. Die Eingeweihten schauten in den Mysterien also das Leiden, Sterben und die Auferstehung des Gottessohnes. Das wurde vor ihrem geistigen Auge ihnen dargestellt. Das ist die Verheißung. Und dann erfüllte sich diese Verheißung in Palästina. So erklärt sich eben der Ausspruch: Selig sind nicht bloß diejenigen, die in den Mysterien schauen, sondern auch die, die da glauben können, nicht bloß an das dem Mysten gezeigte Wort, sondern an das fleischgewordene Wort. Das ist die Bedeutung dieses Ausspruches. Von diesem Gesichtspunkte ausgehend müssen wir den Zusammenhang und das Verhältnis erfassen, in dem der Apokalyptiker Johannes zu den Mysterien des Altertums und zu dem christlichen Mysterium steht, und der so zwischen die Mysterien des Altertums und den christlichen Mysterien zu stehen kommt. Dann verbreitet sich uns Licht über so manche Worte.
+
+---
+
+362
+363
+
+In der Apokalypse bekommen wir gesagt, dass sieben Siegel geöffnet werden. Was bedeutet überhaupt das ‚Öffnen von Siegeln‘ in der Sprache, in der die Apokalypse geschrieben ist?
+
+Den Mysten war seit Urzeiten das Geheimnis der Menschwerdung des Gottessohnes vorherverkündigt worden. Und die Darstellung dieses Geheimnisses auf dem physischen Plane nennt man in der Sprache des Apokalyptikers das Aufschließen eines Siegels. Nichts anderes heißt ‚Aufschließen eines Siegels‘ in der Geheimsprache, als etwas verkündigen, was vorher nur dem Eingeweihten verkündigt und was vorher nur in den Mysterien dargestellt worden ist. Das geht so weit, dass das Bild bis in alle Einzelheiten hinein stimmt. Was später enthüllt wird, war vorher nur in den Mysterien angeschaut worden. Während der Zeit der Mysterien gab es kein Buch, in dem das, was in den Mysterien sich abgespielt hat, geschrieben stand. Erst nachher gab es diese. Und ein solches Buch ist eben das Evangelium. Da steht es drinnen geschrieben, was vorher in den Mysterien dargestellt wurde, und was drinnen geschrieben steht, das wird denjenigen entsiegelt, die dazu reif sein werden.
+
+Wer wird reif sein? Hier liegt etwas, was Sie in seinem ganzen eigentlichen Zusammenhang in der Apokalypse erfassen müssen. Wir haben gesehen, dass an sieben Gemeinden etwas verkündet wird. Sie haben gesehen, dass diese Gemeinden die Repräsentanten der sieben Unterrassen der fünften Wurzelrasse sind. Wer sind nun diejenigen, die verkündigen? Und wer sind diejenigen, denen verkündigt wird? Da müssen wir vom esoterischen Gesichtspunkt aus einmal die Erscheinung Christi im Vergleich mit anderen Erscheinungen betrachten. Wenn Sie das letzte Heft des ‚Luzifer‘ in die Hand genommen haben, so werden Sie dort etwas mitgeteilt gefunden haben, das ich hier kurz wiederholen will. Die Menschheit steht in ihrer Evolution unter der Leitung von großen Führern. Diese Führer regeln den Fortgang der Evolution der Menschheit. Man nennt in der esoterischen Sprache diese Führer ‚Manus‘. Ein Manu also ist derjenige, welcher am Beginne einer Rasse den großen Impuls gibt, die Richtung gibt, nach der sich diese Rasse entwickeln soll. Wir stehen jetzt in der fünften Wurzelrasse. Als diese fünfte Wurzelrasse nach dem
+
+Untergang der atlantischen, der vierten Wurzelrasse, ihre Laufbahn begann, wurde ihr der große Impuls gegeben von dem Manu unserer fünften Wurzelrasse. Dieser Manu ist nicht in derselben Weise Mensch unter Menschen wie die anderen hervorragenden menschlichen Individualitäten. Dieser Manu war vielmehr schon auf einer hohen Stufe der Entwicklung, bevor die Menschheit auf der Erde überhaupt mit Geist erfüllt wurde. Wenn wir zurückgehen in die dritte Wurzelrasse, wo in der Mitte der lemurischen Zeit der Menschengeist zuerst in dem menschlichen Körper aufblitzte, da haben wir solche Führer des Menschengeschlechtes bekommen. Damals, als die Menschen ‚jung‘ waren, als sie noch Kinder waren, konnten sie sich nicht selbst führen. Ihre Führer waren aber nicht ihresgleichen. Diese Wesenheiten, die eine höhere Entwicklung schon in einer früheren Evolution erlangt hatten, die nicht die menschliche ist, sie waren so weit, dass sie menschliche Führer sein konnten, bevor der Geist sich in den Menschenkörpern inkarniert hatte.
+
+Das waren übermenschliche Wesenheiten. Es gibt zweierlei Arten solcher übermenschlicher Wesenheiten. Die einen, die damals, als die Menschen in geistiger Beziehung noch Kinder waren, schon so weit fortgeschritten waren, dass sie eine Stufe erlangt hatten, welche die Menschheit erst in ferner Zukunft erreichen wird, diese hochentwickelten Individualitäten, diese Manus, nennt man in der esoterischen Sprache ‚die heiligen Geister‘.
+
+Dann gab es eine zweite Art von Wesen, die den Menschen schon näherstanden, aber noch immer übermenschlicher Natur waren. Sie nennt man ‚Gottessöhne‘. Und die nächste Gruppe von Individualitäten waren diejenigen, die schon Menschen unter Menschen waren.
+
+Wenn wir zurückgehen in die Mitte der lemurischen Zeit und den Menschen in seiner Entwicklung verfolgen, dann haben wir innerhalb der Evolution, die mit der Menschheit etwas zu tun hat, drei Stufen von Individualitäten. Wir haben eine hohe Gruppe von Individualitäten, die weit erhabener sind und in längst verflossenen Zeiten diejenigen Entwicklungsstufen durchgemacht haben, welche der Mensch erst in ferner Zukunft erlangen wird: die heiligen Geister. Die zweite Gruppe sind die Göttersöhne; es sind diejenigen, welche
+
+---
+
+den Menschen näherstehen, aber doch weit erhaben über ihnen sind. Und die dritte Gruppe sind diejenigen, welche damals als Menschen noch Kinder waren, aber unter den ersten Menschen doch am weitesten vorgeschritten waren. Sie nannte man die ‚Väter‘, die ‚Pitris‘.
+
+Sie haben also drei Stufen, und Wesenheiten dieser drei Stufen sind es, die die Menschen führen.
+
+Gehen wir jetzt noch einmal zum Beginn der fünften Wurzelrasse zurück, so finden wir im Beginne den übermenschlichen Manu, der den großen Impuls gegeben hat. Dann geht aber im Laufe der fünften Wurzelrasse etwas ganz Eigentümliches vor – nämlich: Es kommen im Laufe der fünften Wurzelrasse die Menschen selbst so weit, dass einige von ihnen die Führung des Menschengeschlechts in geistiger Beziehung werden in die Hand nehmen können. Diejenigen, die wir Väter oder Älteste nennen, werden dann imstande sein, die Menschheit so zu führen, wie vorher die übermenschlichen Wesenheiten die Menschen geführt haben. Es geht also die Führung der Menschheit von den Manus über auf die Menschenbrüder selbst. Die heiligen Geister, die Gottessöhne, die Väter, sie waren in den aufeinanderfolgenden Zeiten die Führer des Menschengeschlechts. [...]
+
+Als das Wort Menschengestalt annahm – so sagt der Apokalyptiker in seiner Sprache –, nahm dieses Wort, der Logos, Menschengestalt an in der Form dieses Sohnes, so wie früher das Wort Menschengestalt angenommen hat in der Form eines Geistes. Oder – da die christliche Esoterik den Geist ‚Engel‘ nennt, so war früher das Wort, bevor es Fleisch geworden war, ein Engel. Das ist christliche Esoterik. Zuerst ist das Wort, der Logos, ein Engel. Dann ist es Fleisch geworden als Sohn, und dann wird es Ältester, Vater werden. Das ist die Aufeinanderfolge der Stufen. Das haben die christlichen Eingeweihten immer verkündigt. Man muss nur ihre Worte in der richtigen Weise verstehen.
+
+Einer der hervorragendsten christlichen Eingeweihten, Paulus, konnte nur in andeutungsvoller Sprache die tiefsten Geheimnisse zum Ausdruck bringen. Er hat auch das, was ich gesagt habe, andeutungsweise gesagt. Als das Wort noch ein Engel war, da stand das Wort noch auf dem übersinnlichen Plan. Das Wort wird gesprochen
+
+aus den Wolken heraus, aus dem Übersinnlichen, wenn die Gebote verkündigt werden. Die Zeit des Gesetzes ist die Zeit der Verheißung. Als das Wort ein Engel war, war die Zeit des Gesetzes. Dann ist das Wort Fleisch geworden. Später wird das Wort Ältester oder Vater. Dies verkündigte Paulus, der ein Eingeweihter war, in seinem Brief an die Galater. Da lesen Sie, was ich jetzt gesagt habe, mit folgenden Worten:
+
+Das Gesetz aber ist nicht des Glaubens; sondern «der Mensch, der es tut, wird dadurch leben.» Christus aber hat uns erlöst von dem Fluch des Gesetzes, da er ward ein Fluch für uns (denn es steht geschrieben: «Verflucht ist jedermann, der am Holz hängt!»), auf dass der Segen Abrahams unter die Heiden käme in Christo Jesu und wir also den verheißenen Geist empfingen durch den Glauben. Liebe Brüder, ich will nach menschlicher Weise reden: Verwirft man doch eines Menschen Testament nicht, wenn es bestätigt ist, und tut auch nichts dazu. Nun ist ja die Verheißung Abraham und seinem Samen zugesagt. Er spricht nicht: «durch die Samen», als durch viele, sondern als durch einen: «durch deinen Samen», welcher ist Christus. Ich sage aber davon: Das Testament, das von Gott zuvor bestätigt ist auf Christum, wird nicht aufgehoben, dass die Verheißung sollte durchs Gesetz aufhören, welches gegeben ist vierhundertdreißig Jahre hernach. Denn so das Erbe durch das Gesetz erworben würde, so würde es nicht durch Verheißung gegeben; Gott aber hat’s Abraham durch Verheißung frei geschenkt.
+
+Was soll denn das Gesetz? Es ist hinzugekommen um der Sünden willen, bis der Same käme, dem die Verheißung geschehen ist, und ist gestellt von den Engeln durch die Hand des Mittlers. Ein Mittler aber ist nicht eines Mittler; Gott aber ist einer. Wie? Ist denn das Gesetz wider Gottes Verheißungen? Das sei ferne! Wenn aber ein Gesetz gegeben wäre, das da könnte lebendig machen, so käme die Gerechtigkeit wahrhaftig aus dem Gesetz. [Gal 3,12–21]
+
+Auch an anderen Stellen finden Sie darauf hingewiesen, dass das Wort Engel war, später aber Fleisch geworden ist. Was ist geschehen dadurch, dass das Wort Fleisch geworden ist? Dadurch ist den Unterrassen der fünften Wurzelrasse verkündigt worden, wie sie sich in die Zukunft hinein entwickeln sollen. Der Apokalyptiker stellt uns nun dar in den Briefen an die sieben Gemeinden, wie diese Entwicklung vor sich geht. Nicht alle erreichen das Ziel, nicht alle diejenigen, die in die Entwicklung hineingelangt sind, erreichen auch in der Zeit, um die es sich hier handelt, dieses Ziel. Hier geht etwas Besonderes vor. Fragen wir uns aber, um das richtig zu verstehen: Wie legt uns
+
+---
+
+weiter der Apokalyptiker dieses zu Recht von den Vätern, von den Ältesten? Treten uns die Ältesten selbst entgegen im Evangelium? Ja, sie treten uns entgegen zu der Zeit, als der Engel zum Sohn geworden ist. Da sind die Väter noch nicht so weit, das Wort in sich aufzunehmen. Sie mussten auf die Zukunft verwiesen werden. Zur Zeit der Verheißung sind die Väter noch nicht so weit. Sie werden das Wort erst verstehen, wenn sie am Ende der fünften Wurzelrasse angelangt sind, wo sie in ihrem Innern, als Väter, erst verstehen werden, was ihnen zur Zeit Christi, ihres Meisters, verhüllt blieb. Die zwölf Jünger sind die Ältesten. Sie sind dazu ausersehen, wieder hinzutreten vor den Christus. Dann wird ihnen aber das Buch, das ihnen verschlossen gegeben wurde, am Ende der fünften Wurzelrasse entsiegelt werden.
+
+Da aber geht während der Evolution noch etwas Besonderes vor. Es wird uns erzählt, wie es dann aussehen wird, wenn die fünfte Wurzelrasse so weit sein wird, dass es zur Entscheidung kommt, herüberzuleben in die sechste Wurzelrasse. Nur andeuten will ich, was ich später in den folgenden Stunden weiter ausführen werde. Und als, wie wir hören werden, verkündigt wird mit den Posaunen das Hereinbrechen der sechsten Wurzelrasse:
+
+Und der vierte Engel posaunte: Und es ward geschlagen der dritte Teil der Sonne und der dritte Teil des Mondes und der dritte Teil der Sterne, dass ihr dritter Teil verfinstert wurde und der Tag dem dritten Teil nicht schien und die Nacht desgleichen. [Off 8,12]
+
+Das ist das Drittel, das zurückgeblieben ist, was aber nicht notwendig gewesen wäre. In den Briefen an die Gemeinden sind nicht nur Ermahnungen, sondern auch scharfer Tadel enthalten. Nicht alle gelangen zum Ziel. Der dritte Teil fällt vollständig ab von der Evolution. Wir haben also ein Drittel, welches das Ziel erreichen wird, ein mittleres Drittel, welches zurückbleibt, und ein letztes Drittel, das nicht sein Ziel erreicht und vollständig abfällt. Ein Drittel erreicht sein Ziel nicht, ein zweites Drittel wird erst später sein Ziel erreichen, das gibt zusammen zwei Drittel, und nur ein Drittel derer, die die Evolution begonnen haben, werden am Ende der fünften Wurzelrasse die entsprechende Stufe der Evolution erreicht haben.
+
+72 Älteste waren dazu berufen, in die Evolution einzutreten und sollten sich weiter entwickeln. Die Ermahnungen an die sieben Gemeinden, die sie zu führen gehabt haben, zeigen uns, dass davon nur ein Drittel das Ziel erreicht. Wenn wir von den 72 Ältesten ein Drittel nehmen, so kommen wir auf 24 Älteste, die noch da sein werden, wenn die sieben Siegel des Buches enthüllt werden. Diese Offenbarung der Majestät Gottes ist etwas, was mit der Erscheinung Christi verkündigt worden ist. Im vierten Kapitel der Apokalypse heißt es:
+
+Darnach sah ich, und siehe, eine Tür war aufgetan im Himmel; und die erste Stimme, die ich gehört hatte mit mir reden wie eine Posaune, die sprach: Steig her, ich will dir zeigen, was nach diesem geschehen soll.
+
+Und alsobald war ich im Geist. Und siehe, ein Stuhl war gesetzt im Himmel, und auf dem Stuhl saß einer; und der da saß, war gleich anzusehen wie der Stein Jaspis und Sarder; und ein Regenbogen war um den Stuhl, gleich anzusehen wie ein Smaragd. Und um den Stuhl waren vierundzwanzig Stühle, und auf den Stühlen saßen vierundzwanzig Älteste, mit weißen Kleidern angetan, und hatten auf ihren Häuptern goldene Kronen.
+
+Und von dem Stuhl gingen aus Blitze, Donner und Stimmen; und sieben Fackeln mit Feuer brannten vor dem Stuhl, welches sind die sieben Geister Gottes. Und vor dem Stuhl war ein gläsernes Meer gleich dem Kristall, und mitten am Stuhl und um den Stuhl vier Tiere, voll Augen vorn und hinten. Und das erste Tier war gleich einem Löwen, und das andere Tier war gleich einem Kalbe, das dritte hatte ein Antlitz wie ein Mensch, und das vierte Tier war gleich einem fliegenden Adler. Und ein jegliches der vier Tiere hatte sechs Flügel, und sie waren außenherum und inwendig voll Augen und hatten keine Ruhe Tag und Nacht und sprachen: Heilig, heilig, heilig ist Gott der Herr, der Allmächtige, der da war und der da ist und der da kommt!
+
+Und da die Tiere gaben Preis und Ehre und Dank dem, der da auf dem Stuhl saß, der da lebt von Ewigkeit zu Ewigkeit, fielen die vierundzwanzig Ältesten nieder vor dem, der auf dem Stuhl saß, und beteten an den, der da lebt von Ewigkeit zu Ewigkeit, und warfen ihre Kronen vor den Stuhl und sprachen: Herr, du bist würdig, zu nehmen Preis und Ehre und Kraft; denn du hast alle Dinge geschaffen, und durch deinen Willen haben sie das Wesen und sind geschaffen. [Off 4,1–11]
+
+Das ist die zukünftige Evolutionsstufe, wo diejenigen, die überwunden haben, wirkliche Väter geworden sein werden.
+
+Ich sagte, was in den Tiefen der Mysterien sich zugetragen hat, das wird später entsiegelt werden. Nun habe ich Ihnen gesagt, dass in den griechischen Mysterien die Erscheinung Christi auf Erden dargestellt
+
+---
+
+368
+369
+
+worden ist. Was damals Geheimnis war, das wurde enthüllt durch die Erscheinung Christi. Wir hätten hineingehen können in die griechischen Mysterien, und wir würden da Leiden, Sterben, Auferstehung und Himmelfahrt geschaut haben. Die sieben Siegel fallen in der Zukunft. Wird auch da ein Mysterium verkündigt, so wird es wieder ein Mysterium sein, dem das Siegel in einer späteren Zukunft fällt.
+
+Ich will Ihnen ein Mysterium, so weit es geht, in unserer Konfiguration erzählen, ein Mysterium, das gefeiert wird seit der Zeit der alten indischen Rishis und von tiefster Bedeutung ist. Ich werde versuchen, es in folgender Weise symbolisch wiederzugeben:
+
+Da ist ein Pferd mit erhobenem Vorderfuß. Auf diesem Pferd ist eine Göttergestalt mit einem Bogen. Sie gibt ein gewisses Zeichen, dann tritt das Pferd mit dem Vorderfuß einer Schlange auf den Kopf. Das ist das Pferd Kalki. Dadurch wird dargestellt, dass alles dasjenige, was noch niederer Natur ist, abfällt, dass eine Zukunft kommen wird, wo der Göttersohn – das ist derjenige, der auf dem Pferde sitzt –, kommen wird und als König, mit der Krone geschmückt, die Offenbarung dessen bringen wird, was in dem Buche mit den sieben Siegeln versteckt ist. Das ist ein Mysterium, das Sie überall finden können.
+
+Nur ganz äußerlich konnte ich es andeuten. Das ist aber heute noch etwas, was als Mysterium nur erlebt und geschaut werden kann von einem Apokalyptiker, das aber in derselben Weise in der Zukunft in uns erschlossen werden wird, wie ja auch Johannes uns die Entsiegelung der alten Welt erschlossen und aufgeschrieben hat. Dann werden wir begreifen, dass es hindeutet auf die Zeit, wo die Ältesten, die Väter, die Offenbarung dessen empfangen, was diesem Mysterium zugrunde liegt und bei seiner Entsiegelung erscheint.
+
+Im sechsten Kapitel der Apokalypse heißt es:
+
+Und ich sah, dass das Lamm der Siegel eines auftat; und ich hörte der vier Tiere eines sagen wie mit einer Donnerstimme: Komm und siehe zu! Und ich sah, und siehe, ein weißes Pferd, und der darauf saß, hatte einen Bogen; und ihm ward gegeben eine Krone, und er zog aus zu überwinden und dass er siegte. Und als es das andere Siegel auftat, hörte ich das andere Tier sagen: Komm und siehe zu! [Off 6,1–3]
+
+Das wird viermal wiederholt. Die Entsiegelung des Mysteriums der Väter, wie sie in dem Christentum enthalten ist, ist das bedeutendste Wort, das in den Mysterien gesprochen worden ist. Woher kommt der Mensch? Wohin entwickelt er sich? Vom Vater zum Vater. Es offenbart sich das im Vater durch den Mittler.
+
+Niemand kommt zum Vater denn durch mich. [Joh 14,6]
+
+Sehen Sie, die ganze Weltrevolution, die der Vergangenheit und die der Zukunft, liegt in der Apokalypse wirklich ausgesprochen. Das sind übrigens noch Andeutungen elementarster Art. Man muss nur erst die Worte der Apokalypse in ihrem wahren Sinn gebrauchen können. Wir werden immer mehr davon erfahren.
+
+Ich wollte heute Abend nur ein Gefühl davon hervorrufen, dass man sich in diese Schrift vertiefen kann, um dann zu sehen, dass sie von unergründlicher Tiefe ist. Nur das eine kann ich noch versichern. Diese Apokalypse gehört zu denjenigen Schriften, denen gegenüber man wirklich demütig, wirklich devotionell wird, und durch die man lernt, was der indische Esoteriker den ‚Glauben‘ nennt. Es gibt ein Erlebnis, das uns im tiefsten Sinne diesen Glauben beibringt. Das ist das folgende: Nachdem wir uns bemüht haben, zum Verständnis einer solchen Schrift zu kommen, glaubt man zuerst, einiges zu wissen von einer solchen Schrift. Wenn man sie aber weiter zu verfolgen sucht und dann nochmals an diese Schrift herantritt, so finden wir, dass unsere frühere Auslegung eine ganz kindliche war. Wir sehen, dass wir jetzt erst die Sache richtig verstehen. Und haben wir das getan und leben wieder eine Weile und nehmen das Buch wieder zur Hand, dann geht es uns wie das letzte Mal. Wenn es einem ein paar Mal so gegangen ist, dann erhält man ‚Shraddha‘, den Glauben. Man wird sich dann mehr und mehr vertiefen und auch immer mehr darin finden. Das ist der unversiegliche Quell solcher Schriften, die wir mit der festen Zuversicht lesen können, aber nie in ihnen auslernen können. Das ist gleichzeitig ein Ansporn, demütig zu sein gegenüber solchen Schriften, darin zu forschen und diese Forschung immer weiter zu treiben. Klar wird es uns dann, dass, wenn scheinbar auch eine recht tiefe Erklärung gefunden worden ist, sie in der Zukunft
+
+---
+
+doch noch tiefer und tiefer werden wird. Daraus quillt dann das Bewusstsein, dass das Beste, was dem Menschen gegeben ist, nicht von menschlicher Unvollkommenheit stammt, sondern von göttlicher Vollkommenheit, denn es ist göttliche Weisheit, das ist Offenbarung göttlicher Weisheit. Dokumente der Weisheit sind uns in diesen Büchern gegeben. Unser Verständnis derselben ist zwar noch schwach, denn nicht von Menschen, von unten, sondern durch Götter, von oben kommen diese Schriften zu uns. Wir müssen uns hinaufentwickeln zum Verstehen derselben. Das gibt dem Esoteriker eine Empfindung der Wahrheit des Spruches, in dem er leben muss, der sein Leitspruch werden muss, der immer mehr die Theosophen durchdringen muss, denn nicht Dogmenkenntnis, nicht Lehrsatzkenntnis machen den Theosophen aus, sondern das Durchdrungensein von der Weisheit dieses Spruches, das Erfülltsein in seiner Gesinnung mit dem, was der Spruch enthält. Der Spruch ist:
+
+Das Höchste – es ist gegeben von Anbeginn.
+Das Höchste – es wird verstanden durch den Menschen am Ende der Tage.
+
+## Nachwort
+
+Den zu erwartenden Fragen möchte ich noch ein Wichtigstes vorausschicken. Die Theosophische Gesellschaft ist keine solche, welche die Annahme eines Dogmas oder die Annahme der Erkenntnis eines Einzelnen fordert. Wir sind in Bezug auf unsere Wahrheiten eine völlig freie Verbindung. Die Gesellschaft ist bloß eine Stätte, in der diese Wahrheiten vertreten werden, je nachdem, was der Einzelne zu sagen weiß über diese Wahrheiten, sodass insbesondere dann, wenn es sich um diese schwierigsten Probleme handelt, Sie dann sehr wohl erleben können, dass aus der theosophischen Grundstimmung heraus eine Verschiedenheit zwischen dem, was die einzelnen Persönlichkeiten kundgeben, sich herausstellt. Sie brauchen da nicht zu denken, dass der eine den anderen in irgendeiner Weise bekämpft; denn wir
+
+wissen, dass die Wahrheit hoch über uns steht und dass wir uns dieser Wahrheit nur von verschiedensten Seiten her nähern können. Es ist so, wie wenn wir eine Stadt von verschiedenen Gesichtspunkten ansehen. Durch die Perspektive kann sich uns manches etwas anders darstellen. Jeder kann und darf die Dinge nicht anders darstellen, als wie er sie sieht. Und in Bezug auf die Frage des Christusproblems ist nicht eine Einigkeit sondern eine Verschiedenheit im Anschauen wirklich vorhanden, die aber wahrscheinlich in den nächsten Jahren zu einer Vereinigung der Anschauungen sicher führen wird. Aber die Sache liegt heute noch so, dass jeder nur dasjenige verkündigen kann, was ihm seine Anschauung gibt. Damit bekämpft er nicht die des andern, sondern er wird vielleicht etwas dazu beitragen, dass sich die Ansichten harmonisieren. Es besteht bei einer Gruppe derjenigen, die über solche Dinge sprechen können, die Anschauung, dass die Geburt Jesu von Nazareth 105 Jahre vor unserer Zeitrechnung stattgefunden hat, und dass die Art des Todes nicht die der Kreuzigung sondern der Steinigung war. Ich habe nie ein Hehl daraus gemacht, dass ich nicht dieser Anschauung sein kann, sondern dass ich das, was ich darüber weiß, darstellen muss. Ich habe auch nie ein Hehl daraus gemacht, dass meine Anschauung dahin geht, dass an der sogenannten Tradition, wie sie gegeben ist, festzuhalten ist und auch daran festzuhalten ist in Bezug auf den historischen Verlauf, soweit er sich aus einer wirklichen Anschauung ergibt, die ja dann die Anschauung der Evangelien rektifizieren kann. Nun müssen Sie darin nichts Sonderbares finden, dass zwei okkulte Lehrer über einen und denselben Punkt verschiedene Anschauungen haben können. Wenn Sie sich vorhalten, dass zwei Reisende, die in ein fremdes Land kommen, und davon Reisebeschreibungen geben, oftmals sehr wenig übereinstimmen, indem sie, obgleich beide dasselbe gesehen haben, das Geschehene doch ganz verschieden beschrieben. Wenn das schon auf dem physischen Plane möglich ist, dann ist es ohne Weiteres verständlich, dass auf den höheren Planen sich ebensolche Verschiedenheiten ergeben können. Denn auf diesen höheren Planen ist die Beobachtung zwar sicher, aber nicht etwa leichter als auf dem physischen Plane. Die perspektivischen Verhältnisse, durch die
+
+---
+
+man ein Phänomen erschaut, sind so schwer zu entwirren, dass sehr leicht eine Verrückung der Perspektive eintreten kann. Das Folgende kann beispielsweise vorkommen: Wenn Sie im okkulten Felde ein Ereignis schauen, das vor 1900 Jahren stattgefunden hat, so können Sie zwei Gestalten nebeneinander haben. Diese zwei Gestalten, trotzdem sie im okkulten Felde nebeneinander erscheinen, können 100 Jahre voneinander entfernt sein. Also: Obgleich Sie die Dinge beieinander sehen, können sich die Sachen im Zusammenhang mit 100 Jahren früher oder 100 Jahren später befinden. Ich will damit nichts weiter sagen, sondern nur andeuten, dass die Beobachtung solchen Irrtümern unterliegt. Ich könnte also kein anderes, besseres Wort aussprechen, als dass ich auf dem Standpunkt der Tradition stehen bleiben muss. Das gilt auch in Bezug auf die Kreuzigung, denn es ist okkult schwer, eine Kreuzigung von einer Steinigung zu unterscheiden. Es ist daher nicht verwunderlich, wenn zwei Meinungen auftreten.
+
+## Aus der Fragenbeantwortung
+
+## War der Tod des Christus schuldhaft oder unschuldig?
+
+Auch bei Sokrates findet man, dass er scheinbar unschuldig zum Tode verurteilt worden ist. Aischylos wurde zum Tode verurteilt, weil er ein Geheimnis der Mysterien veröffentlicht hat. Deshalb wurde auch Sokrates verurteilt. Der Verrat der Mysterien wurde unter allen Umständen mit dem Tode bestraft, auch in derjenigen Gemeinschaft, in welcher Jesus lebte. Es wurde ja auch von Jesus gesagt: Man kann mit diesem Manne nicht zusammenleben, denn er tut zu viele Zeichen. – In der Auferweckung des Lazarus wird ja dann auch der Grund zur Verurteilung gefunden. Renan hat das sehr wohl bemerkt, dass mit der Auferweckung des Lazarus die Verurteilung Christi zusammenhängt. Dieser Grund wird aber niemals angegeben. Das ist einer derjenigen Fälle, wo die Evolution Tragik hervorruft. – Der Tod Jesu war kein im Karma begründeter Tod. Das Karma fängt auf einer Stufe an und hört einmal auf.
+
+War das Leiden notwendig zur Begründung seiner Lehre?
+
+Das hängt zusammen mit der Involution und mit der Evolution. Es musste sich die Involution in den Tod vollziehen. Es kann kein Senfkorn sich entwickeln, wenn es nicht vorher der Auflösung im Erdboden unterliegt.
+
+---
+
+ÜBER DAS HELLSEHEN
+
+Berlin, 30. Oktober 1904
+
+Jeder Okkultist kennt die großen Gefahren, die darin liegen, okkulte Wahrheiten, okkulte Erkenntnisse in einer leichtfertigen Weise zu popularisieren. Auf der andern Seite sollte aber auch berücksichtigt werden, dass die Theosophie unter anderem die Pflicht auferlegt, gewisse okkulte Lehren, die nur aus den okkulten Forschungen stammen, zu verbreiten und zu vertreten. Wenn wir dies tun, so haben die, welche sich mit solchen Lehren bekanntgemacht haben, das Bedürfnis, etwas zu erfahren über die Methoden, wie denn eigentlich solche Erkenntnisse erlangt werden. Die Theosophie spricht von der Menschheitsentwicklung und von der Weltentwicklung, von Rassen, Runden und so weiter, von Planetensystemen und anderen Dingen. Der, welcher diese Wahrheiten bört, wird doch, auch wenn er glaubt, dass dem Intellekt diese Wahrheiten einleuchten, einmal das Bedürfnis haben, zu fragen, welches denn die Wege sind, auf denen solche Erkenntnisse erlangt werden.
+
+Nun ist im Allgemeinen über diesen Weg nicht leicht zu sprechen. Es sollen heute jedoch ein paar Bemerkungen über das Wesen dessen gemacht werden, was der Okkultist das Hellsehen nennt. Man darf Okkultismus und Theosophie nicht verwechseln. Theosophie ist im Grunde genommen nur der äußere Ausdruck für die Erfahrungen, die auf dem Gebiete des Okkultismus gewonnen werden. Der Okkultismus ist die Quelle der theosophischen Lehren. Von einem Kapitel dieses Okkultismus soll heute die Rede sein.
+
+Die Erfahrungen, die den theosophischen Lehren zugrunde liegen, werden in ganz anderen Bewusstseinszuständen gemacht, als die sind, die dem gewöhnlichen Menschen eigen sind. Zwei solcher anderer Bewusstseinszustände kommen insbesondere in Betracht. Es soll von dem ausgegangen werden, was der gewöhnliche Mensch erlebt. Dieser hat sein alltägliches, waches Tagesbewusstsein – durch das er die Sinnendinge um sich herum wahrzunehmen in der Lage und
+
+imstande ist –, um durch seinen Verstand, durch seine Vernunft, kurz durch seine Intellektualität, sich über Ursache und Wirkung und über die anderen Gesetze dieser physischen Welt zu unterrichten.
+
+Dieser Bewusstseinszustand ist aber nicht der einzige Erfahrungszustand des Alltagsmenschen. Die Erfahrung des Menschen reicht weit über das hinaus, was seinem Bewusstsein zugänglich ist. Der normale Mensch hat noch zwei andere Erfahrungszustände, das sind der sogenannte Traumschlaf und der traumlose Tiefschlaf.
+
+Dieser zweite Bewusstseinszustand, der von Träumen durchzogene Schlaf, versenkt den Menschen nicht ganz ins Unbewusste. Der Mensch ist in der Lage, etwas herüberzubringen ins wache Bewusstsein. Das, was er da ins Bewusstsein herüberbringt, ist aber nicht der Inhalt der eigentlichen Erfahrung, die er während des vom Traum erfüllten Schlafes gemacht hat. Die Erfahrung ist etwas ganz anderes als das, wessen er sich hinterher bewusst wird. Es ist sozusagen nur ein Herüberbringen von einzelnen Fragmenten, von fragmentarischen Spiegelbildern. Was der Mensch in einer ganz anderen Welt erlebt während des traumerfüllten, also nicht ganz tiefen Schlafes, sind zusammenhängende, in sich geordnete Tatsachen. Und von diesen Tatsachen, die er zwar erfährt, deren er sich aber nicht bewusst wird, hat er einige Erinnerung. Er hat sie für das wache Bewusstsein ins Gedächtnis herübergebracht und erinnert sich später an das, was drüben gewesen ist. Der Inhalt wird jedoch nur spärlich und verzerrt erinnert. Dieser Inhalt lässt sich in keiner Weise vergleichen mit dem, was drüben erfahren wird.
+
+Das ist eine Welt, die, wenn sie durchschaut werden könnte, erfüllt wäre von Tatsachen der sogenannten astralen Welt. Ebenso wie die physische Welt von den Tatsachen der sinnlichen Welt erfüllt ist, erlebt man hier die spirituellen Tatsachen. Aber drüben erleben wir Gefühle, Leidenschaften, Wünsche, Begierden, Triebe als Tatsachen. Wir erleben sie nur so, wie sie als seelische Vorgänge vorhanden sind, nicht so, wie sie sonst sind in unserer persönlichen, durch das Erdenleben sich brechenden Gestalt. Es ist eben eine andere Welt, die der Mensch da erfährt und von der er nur Stücke herüberbringt in das gewöhnliche wache Tagesbewusstsein. Niemals dürfte irgend-
+
+---
+
+376
+377
+
+jemand nach dem, was er vom Trauminhalt in das wache Tagesbewusstsein herüberbringt, die Erlebnisse im sogenannten Astralen charakterisieren. Das ist eine ebenso reiche, ja viel reichere Welt als die Sinnenwelt, die hinsichtlich dessen, was sie an Gegensätzen bietet, sich nicht vergleichen lässt mit dem, was in unserer Sinnenwelt vor sich geht. Das, was gut, hell leuchtend, strahlend erscheint und was auf der anderen Seite an furchtbaren, abstoßenden grauenhaften Erscheinungen auftritt, lässt sich seiner Mannigfaltigkeit nach nicht vergleichen mit dem, was unsere Sinnenwelt bietet.
+
+Der dritte Zustand ist der traumlose Schlaf. Bei den meisten Menschen kommt von den Erlebnissen, die man während des traumlosen Schlafzustandes durchmacht, sehr wenig in das wache Tagesbewusstsein herüber. Was herüberkommt, wird für gewöhnlich nicht bewusst. Das Erlebnis des traumlosen Schlafes erscheint nicht seiner Ursächlichkeit nach, sondern seiner Wirkung nach im wachen Tagesbewusstsein. Was da erlebt wird, das sind die großen Gesetze der Wirklichkeit, die wahren, bis zu einem gewissen Grade viel wahreren Ur-Sachen und Wesenheiten unserer Welt. Was in den äußeren physischen Daseinsformen des Tier- und Pflanzenreiches sich abspielt – das Mineralreich gehört hier nicht her, denn über das wahre Wesen desselben kann nichts im traumlosen Schlaf erfahren werden –, die Art und Weise, wie sich das Leben in diesen Reichen gestaltet, wie sich die Formen von einer zur andern entwickeln, welche großen Gesetze das Leben eigentlich hat –, das, was, wenn wir es in seiner wahren Gestalt durchdringen würden, blitzartig in dem gewöhnlichen Bewusstsein manche Zusammenhänge des Lebens, die sonst rätselhaft und dunkel sind, erleuchten würde, alles dies macht der Mensch durch, ohne in bewusster Weise etwas im wachen Tagesbewusstsein zu behalten.
+
+Das ist nichts anderes als eine Schilderung der drei Zustände, von denen nur einer ein wirklicher Bewusstseinszustand ist, den wir beim Menschen antreffen.
+
+Nun ist es selbstverständlich, dass von den Erfahrungen, die so gewonnen werden, nichts Inhalt der okkulten Lehre sein kann. Okkulte Erfahrung beginnt erst dann, wenn eine ganz bestimmte
+
+Wandlung des Bewusstseinszustandes vor sich gegangen ist. Diese Wandlung soll kurz charakterisiert werden.
+
+Es gibt im gewöhnlichen menschlichen Bewusstsein einen Punkt, der für die Entwicklung eines jeden Menschen, der einigermaßen sinnend oder sinnig ist, Epoche macht. Das ist das Erwachen des Selbstbewusstseins. Sie alle wissen, dass das Kind zunächst nicht in der Ich-Form spricht, sondern sagt: «Karlchen will», «Mariechen will». Es ist eine ganz bestimmte Entwicklungsstufe im Leben des Menschen, bei der die Möglichkeit auftritt, dass er zu sich Ich sagt. Dieses Erwachen des Ich-Bewusstseins unterscheidet sich von allen anderen Tatsachen, die man erleben kann. Es ist ein ganz intimes Erlebnis. Zu sich selbst kann jeder Ich sagen. Jedem anderen Ding kann man einen anderen Namen beilegen. Ich kann nur jeder von sich selbst sagen und niemand kann zu einem anderen Ich sagen. Nur ein Mensch kann sich mit dem ganz bestimmten Namen, mit dem Ich bezeichnen.
+
+Selbstbewusstsein ist etwas ganz anderes. Der Gedanke des Ich ist ein ausschließlicher und mit keinem anderen zu vergleichen. Es gibt nun eine Möglichkeit, an dem Ich so zu arbeiten, dass es, wie es im gewöhnlichen Selbstbewusstsein nur in sich selbst ist, seine ganze Gedankenwelt so aus dem Mittelpunkte des Ich heraus gestaltet, wie gewöhnlich nur der Gedanke des Ich auftritt. Wenn der Mensch durch sorgfältige anhaltende Meditation sich dazu bringt, dass er seiner ganzen Gedankenwelt so gegenübersteht – und nicht bloß seiner Gedankenwelt, sondern der Gedankenwelt überhaupt –, wie der gewöhnliche Mensch einzig und allein dem Punkte des Ich gegenübersteht, dann nennt man ihn einen intuitiven Menschen. Dann geht aus dem Mittelpunkt seines Wesens selbst die Gedankenwelt hervor. Er produziert dann in demselben Sinne Gedanken, wie er vorher den Ich-Gedanken produziert hat.
+
+Diese Stufe der Ich-Entwicklung kann erreicht werden. Durch richtiges Meditieren in einem gewissen Sinne kann der Mensch dahin kommen, sich so zu seiner Gedankenwelt zu stellen, wie er vorher sich nur zu seinem Ich gestellt hat. Zwei Sätze in «Licht auf den Weg» haben die Kraft, wenn sie in richtiger Weise angewendet werden, das
+
+---
+
+Ich zu diesem Standpunkte zu bringen. Es sind keine bloß abstrakten Sätze, es sind Sätze, die aus der astralen Erfahrung von Jahrtausenden heraus geschrieben sind. Diese zwei Sätze, die ein Erziehungsmittel von außerordentlicher Art sind, heißen:
+
+Bevor das Auge schon kann, muss es der Tränen sich entwöhnen.
+Bevor das Ohr vermag zu hören, muss die Empfindlichkeit ihm schwinden.
+
+Kraft und Leben ist in diesen Sätzen, sie brauchen nur in der richtigen Weise angewendet zu werden. Hat der Mensch diese Stufe erreicht, dann tritt notwendig noch etwas anderes ein: Dann ist er in der Lage, das, was sonst nur im traumlosen Schlaf erfahren wird und was sonst nur in Fragmenten herüberkommt, in einer geordneten Weise zu erfahren. Dadurch wird diese Welt, die im Astralen sich abspielt, für ihn ebenso tatsächlich, wie vorher die sinnliche Welt für ihn Tatsache war. Der Mensch hat dann die Erinnerung an die Tatsachen der Kama-Welt.
+
+Die nächsthöhere Stufe ist die, auf welcher der Mensch den traumerfüllten Schlaf nicht mehr hat, sondern durch Intuition in der Lage ist, in die höhere Welt hineinzuschauen. Die ist voller geistiger Klarheit; Willkür gibt es da nicht mehr. Mit diesem intuitiven Zustande sind zwei Wahrnehmungen verbunden. Der Mensch nimmt, wenn er diese Entwicklungsstufe erreicht hat, in eigener Erfahrung die gefährlichen Feinde des Menschenlebens wahr: die Elementargeister von Geburt und Tod, die in den anstoßenden Naturreichen fortwährend lauern, die immer da sind, die den Menschen zu verführen versuchen und so weiter. Diese Elementarwesen, die in den Astralkörper ziehen und seine Wünsche beeinflussen, sind immerfort da. Im gewöhnlichen Leben sind sie vom Schleier der Maja verdeckt.
+
+Diese Feinde in den anstoßenden Naturreichen wird der Mensch zunächst auf dieser Stufe der Entwicklung gewahr. Und das ist für die Entwicklung im Okkultismus von größter Bedeutung. In diesem Zustande, der sich vergleichen lässt mit dem traumlosen Schlaf, nimmt der Mensch wahr – das ist sein erstes Erlebnis, das er in diesem Bewusstseinszustande hat –, welches die herunterziehenden, zum Niederen hinlenkenden Feinde in ihm sind. Es ist gut, dass diese
+
+Kräfte, die im Menschen also walten, dem gewöhnlichen Menschen verborgen sind. Es ist gut, dass hier ein Schleier darübergebreitet ist. Denn nicht das Sprechen davon, sondern das wirkliche Kennenlernen ist es, was erst der ertragen kann, der eine gewisse Stufe von Selbstvertrauen und moralischer Festigkeit in seinem Innern erlangt hat. Deshalb wird auch kein wahrer Okkultist eine Anleitung geben, eine solche Stufe zu erreichen, bevor der Mensch eine entschiedene Ausbildung des Charakters nach der Richtung des Selbstvertrauens, der Moralität, der Geistesgegenwart erreicht hat, damit er nicht in die Gefahr kommt, sich selbst zu verlieren, sondern seine Kräfte zusammenhalten kann. Diese drei Eigenschaften sind erforderlich für jeden Okkultisten.
+
+Man nennt das, was dem Tagesbewusstsein in dieser Art verborgen ist, auf dieser Stufe dem Menschen entgegentritt, den Hüter der Schwelle. Er hütet die Schwelle deshalb, weil er den gewöhnlichen Menschen nicht hereinschauen lassen darf in das, was dahintersteckt. Er verliert aber wesentlich von seinem Grauenhaften, wenn der Mensch die bezeichneten Charaktereigenschaften hat beziehungsweise sich bis zu einem gewissen Grade angeeignet hat. Am Ende der atlantischen Zeiten hatte man aufgehört, diese moralischen Kräfte genügend zu entwickeln. Daher traten jene eigentümlichen Verhältnisse ein, die aus der Schilderung von Atlantis bekannt sind.
+
+In der Fortsetzung dieses Weges muss dann der Mensch nicht nur dazu gebracht werden, die Gedankenwelt als seine eigene zu erleben, sondern er muss dann, um auf einer höheren Stufe mit der Wirklichkeit richtig verbunden sein zu können, auch die gesamte Empfindungswelt umwandeln. Dann beginnt die Fähigkeit, in den höheren Welten die Dinge unmittelbar während des wachen Tagesbewusstseins zu schauen, zum Beispiel die menschliche Aura; zunächst erst in den niedrigeren Stufen. Wenn der Mensch so weit ist, dann hat er im Grunde genommen sich schon einen Quell von außerordentlich hoher Erfahrung eröffnet. Dann lebt er ebenso bewusst im Geistigen, wie der gewöhnliche Mensch innerhalb der Sinnendinge lebt.
+
+Auf der dritten Stufe aber lebt er da, wo für den gewöhnlichen Menschen nichts mehr von bewusster Erfahrung ist. Da erlebt er
+
+---
+
+so, wie der gewöhnliche Mensch in der äußeren Sinnenwelt, nur auf einer höheren Stufe. Er erlebt dann die Gesetze der Welt der Ursachen. Da ist kein Unterschied mehr zwischen den Erlebnissen im sogenannten bewusstlosen Schlafzustand und dem bewussten Tageszustand. Das ist die Kontinuität des Bewusstseins, die gradweise und ganz allmählich erlangt wird. Aber verhältnismäßig bald wird die Abtrennung der Seele so weit fortgeschritten sein, dass sie nicht nur in Gedanken, sondern auch in Empfindungen leben kann. Dann kann er sich daraus Begriffe machen, wie die Dinge in Wirklichkeit aussehen.
+
+«Licht auf den Weg» gibt die richtige Anweisung, um diese Stufe zu erreichen. Sie erfordert Geduld, Ausdauer und Standhaftigkeit in ganz außerordentlichem Grade. Die Möglichkeit dazu liegt in den Kräften, die in den nächsten zwei Sätzen verborgen sind:
+
+Eh' vor den Meistern kann die Stimme sprechen, muss das Verwunden sie verlernen.
+Eh' vor ihnen stehen kann die Seele, muss ihres Herzens Blut die Füße netzen.
+
+Sie enthalten die Kräfte, die Menschen bis zum unmittelbaren Erleben und zur unmittelbaren Empfindung zu führen.
+
+Wer auf dieser Stufe steht und so zu seiner Empfindungswelt – Ich zu sagen vermag, der ist nun imstande, alle diejenigen Wahrheiten, die sich auf das Devachan beziehen, in bewusster Weise zu erleben. Die Lehren vom Devachan sind auf dieser Stufe des Bewusstseins bewusst erlebbar als wirkliche Erfahrung.
+
+Man kann nun glauben, dass der Mensch, wenn er die Entwicklung bis zu dieser Stufe durchmacht, zum Träumer wird, dass er seine gewöhnliche Nüchternheit und Urteilskraft verliert. Im Gegenteil, es hört da jede Möglichkeit auf, sich einem Aberglauben, einem Dogma hinzugeben. Auch Zweifelsucht und Skeptizismus verschwinden aus der Seele, wenn der Mensch dahin gelangt, sich einen Begriff von dieser Stufe der Entwicklung zu machen. Es gibt nun einen dem traumerfüllten Schlaf und einen dem Tiefschlaf analogen Zustand. Wenn der Mensch so weit fortgeschritten ist, das Devachan zu schauen, so gibt es für ihn noch andere Zustände, in die er sich mit Bewusstsein
+
+versetzen kann. Es sind solche, in denen er etwas viel Höheres erleben kann. Diese Zustände bestehen in Folgendem.
+
+Aus eigener Anschauung lernt man erkennen, wie sich die verschiedenen Formen des Universums ineinander verwandeln und metamorphosieren. Es wird bewusst, wie sich eine Gedankenform bildet aus Mental-Substanz, dann mit Astral-Substanz umschließt und den astralen Stoff plastisch beherrscht. Aber es wird auch gelernt, wie die Wesen von höheren Plänen, vom mentalen Plan durch den astralen Plan bis zur physischen Welt sich hinabbewegen. Die ganze Summe der Formverwandlungen, die möglich sind im Universum, liegt vor dem Blick des Einzuweihenden. Er kann Antwort darauf geben, welche Formen zum Beispiel eine Pflanze in früheren, längst verflossenen Epochen durchgemacht hat. Die verschiedenen Verwandlungsformen, die zu unserem Planetensystem gehören, enthüllen sich auf dieser Stufe der Erkenntnis. Dies wird in der Esoterik die bewusste Erfahrung der Formen-Entwicklung genannt.
+
+Der Zustand, der analog dem traumlosen Tiefschlaf ist, zeigt, wie in die verschiedenen Formen das Leben, die Wesenheit selbst sich hineingeignet. Im konkreten Fall besteht der Unterschied darin, dass während des zweiten Zustandes die verschiedenen Formen in ganz anderen Farben wahrgenommen werden als im dritten Stadium. Wenn eine Gedankenform wahrgenommen wird, kann sie zum Beispiel in leuchtend gelben Farben erscheinen. Es gibt Gedankenformen, die so wahrgenommen werden. Es gibt auch Gedankenbilder, die haben eine bestimmte geistige Gestalt. Im dritten Stadium strömt in diese Gedankenformen jener Lebensäther ein, welcher zum Beispiel die schöne helle Farbe der Pfirsichblüte haben kann. Sie können dann nicht nur starre oder ganz bewegliche, ineinander sich verwandelnde Formen sehen, sondern gewahren, wie diese Formen aus ihrem Mittelpunkte heraus belebt sind.
+
+Die Folge, die eintritt, ist, dass man sich in die verschiedenen Ätherformen des Bewusstseins versetzen kann, sodass man nicht nur die Gesetze des devachanischen Lebens erkennen kann, sondern auch die Verwandlungen unserer Erde – nur unserer Erde, weiter geht es noch nicht –, die sie durchgemacht hat während der Zeit der sogenannten
+
+---
+
+382
+383
+
+Runden-Entwicklungen. Es wird das Durchlaufen von mehreren Planeten oder Globen, von Arupa-Planeten und von Rupa-Planeten und dergleichen durchgemacht. Diese Verwandlungen kann man in diesem Bewusstseinszustand kennenlernen. Und dann können die verschiedenen Runden selbst durchgemacht werden, kennengelernt werden.
+
+Der Mensch kann also durch entsprechende Übungen einen Teil der Lehre, welche die theosophische Bewegung in die Welt gebracht hat, verstehen lernen. Der weitere Weg kann jetzt nicht mehr dargestellt werden. Jenseits beginnt jener Zustand des Bewusstseins, der darin besteht, sich gegenüber der Möglichkeit der äußeren Empfindung unempfänglich zu machen. Und damit beginnt das eigentliche Leben des Adepten. Aus den Erfahrungen des Adepten kann erst dasjenige gewonnen werden, was über die bezeichnete Grenze hinausgeht.
+
+Was hier dargestellt worden ist, sollte den Zweck haben, auf die Methoden hinzudeuten, die zu dem Wissen führen, das in den theosophischen Lehrbüchern vorhanden ist.
+
+Es ist ja zum Teil das Mitteilen und das Aufnehmen der Theosophie auf Vertrauen aufgebaut. Das muss auch heute so sein. Aber es kann gefordert werden, dass Ausführungen gemacht werden, woher dieses Wissen stammt, zu dem zu gelangen wir im Abendlande wieder die Möglichkeit haben. Darin haben die führenden geistigen Individualitäten, die Meister, Gelegenheit, es möglich zu machen, nicht allein die Lehren, sondern auch die esoterischen Gesichtspunkte zu geben, die, wenn sie richtig gebraucht werden, die Entwicklung nach einer entsprechenden spirituellen Richtung hin fördern können.
+
+Neben dem bedeutsamen Werk der «Secret Doctrine» von H. P. Blavatsky ist auch jenes Buch «Licht auf den Weg» inspiriert worden, das wirklich ein Licht auf den Weg ist, der doch von jetzt ab in der Zukunft von der Menschheit beschritten werden soll. Wenn dieser Weg beschritten wird oder wenigstens verstanden wird, dann erst wird man etwas davon wissen können, wie dieses Wissen und dieses Wollen, die zu unserem Ziele führen sollen, erlangt werden können und wie sie erlangt werden müssen in der Zukunft. Für wenige erst
+
+mag ja heute der Weg gangbar sein. Darüber soll nicht weiter gesprochen werden. Aber darüber können wir uns klar sein, dass jenes menschliche Erleben, bei dem der Sinnenschein aufhört und höhere Erfahrung eintritt, nicht anders erlangt werden kann als durch eine bestimmte Entwicklung des geistigen Lebens.
+
+In intensiverer Weise als auf irgendeinem anderen Wege kann gerade durch diese geistige Entwicklung, die durch Lehre und Wort in der theosophischen Bewegung leben sollte, das große Ziel der Entwicklung erreicht werden, das in jener tiefen Erkenntnis, jener großen esoterischen Wahrheit ausgesprochen worden ist, die leicht gesagt, aber schwer verstanden werden kann, und die zu der urältesten Weisheit der Menschheit gehört:
+
+Ein Leben wohnt in allen Wesen, eines ist es und auch ein Vieles, wie der Mond, der sich in vielen Bildern im Wasser spiegelt.
+
+---
+
+384
+385
+
+# APOKALYPSE V
+
+Berlin, 1. November 1904
+
+Sie haben gesehen, dass wir die Apokalypse nur dann richtig verstehen können, wenn das Grundwesen der christlichen, mystischen Tatsache ins richtige Licht gerückt wird. Wir haben angeknüpft an den Spruch «Selig sind die da glauben, auch wenn sie nicht schauen», um das Grundwesen darzustellen.
+
+Was in den Jahrhunderten, bevor das Christentum begründet wurde, geschaut worden ist von den Eingeweihten, was sich da abgespielt hat in den Tiefen der Mysteriengrotten und der Tempel, das wurde, wie wir gesehen haben, eine welthistorische Tatsache, das wurde hinausgetragen auf den großen Plan der Weltgeschichte. Die Geschichte von dem Leiden, dem Sterben, der Auferstehung und Himmelfahrt, diese Phasen des mystischen Lebens, wie sie der Myste in den Mysterientempeln nach der gehörigen Vorbereitung geschaut hat, das konnte der Gläubige nunmehr eben glauben als eine historische Tatsache. So war dasjenige, was vorher Geheimnis oder Mysterium war, Glaubenssache geworden, verkündigt, Evangelium geworden. In dem Evangelium ist also nichts anderes gegeben als der Inhalt der alten Mysterienbücher. Vorher wurde der Inhalt – namentlich des Johannes-Evangeliums vom dreizehnten Kapitel ab bis zum Schluss – in den verborgenen Büchern der Mysterien den Eingeweihten verkündigt. Jetzt aber wurde es aller Welt verkündigt, auch denen, die nicht unmittelbar durch den psychischen, den mystischen Augenschein von den Mysterien sich überzeugen konnten. Selig sollten die sein, die nicht schauten und doch glaubten. So war das alte Mysterium enthüllt durch das Christentum. Das Evangelium war die Offenbarung alter Mysterienbücher geworden.
+
+Aber, was zu einer Zeit Mysterium war und zu einer anderen Zeit offenbar geworden ist, das ist, wenn es gleichzeitig wäre, an Inhalt ein und dasselbe. Immer ist das, was später aller Welt offenbar geworden ist, schon in den vorhergehenden Zeiten in den Mysterien verkündigt worden, wo die Menschheit [außerhalb der Mysterienstätten] noch nicht reif dafür war. Was zur Zeit der Verkündigung des Christentums in den ersten christlichen Jahrhunderten als Evangelium offenbares Mysterium geworden war, das war früher verborgen. Dafür erscheint für die ersten Zeiten im Christentum wieder das Mysterium als Offenbarung, die einer ganz fernen Zukunft Vorbereitung sein soll. Die Aufzeichnung der ganz fernen Zukunftsereignisse ist enthalten in der Apokalypse des Theologen Johannes. Und nun wollen wir sehen, wie.
+
+Wir kennen alle die Entwicklung der fünften Wurzelrasse der Menschheit durch die verschiedenen Unterrassen hindurch. Wir wissen, dass diejenige Unterrasse der arischen Rasse, in welcher das Christentum aufgegangen ist, die vierte Unterrasse war, und dass wir selbst jetzt in der fünften Unterrasse leben, und dass diese abgelöst werden wird von der sechsten. Um zu verstehen, was in der Apokalypse steht, wollen wir einen Blick werfen auf die Entwicklung, wie wir sie uns nach unserer gegenwärtigen theosophischen Apokalypse von der Zukunft der nächsten Rasse und des Restes unserer eigenen fünften Kulturepoche vorstellen müssen.
+
+Knüpfen wir noch einmal an den Satz an: Mit dem Christentum sind die vorhergehenden Mysterien bis zu einem gewissen Grade offenbar geworden. Die vierte Unterrasse[, die griechisch-lateinische Kulturepoche,] hatte zunächst damit zu tun – und es war ihre Aufgabe –, diesen Glauben an das Christentum als einer mystischen Tatsache, diesen Glauben an dieses große, auf dem Schauplatz der Weltgeschichte sich abspielende Mysterium zu begründen. Nun kam die fünfte Unterrasse, die unsrige; sie ist die Unterrasse des Verstandes, die alles begreifen will. Das Begreifen, Erklären und Verstehen ist die Aufgabe unserer Epoche. Diese wird ihre Aufgabe erfüllt haben, wenn alles dasjenige begriffen sein wird, was dem Verstande möglich ist zu begreifen. Die Führung dieser unserer Unterrasse wird ihre Aufgabe erfüllt haben, wenn diese zu dem Punkte hingeführt ist, wenn der Verstand, was vorher geglaubt worden ist, begreifen, verstehen wird, sodass wir es erklären können. Diese Apokalypse unserer fünften Unterrasse wird uns in der Weise dargestellt, dass uns
+
+---
+
+gesagt wird: Es wird eine Zeit kommen, wo die Persönlichkeit, die das Christentum begründet hat, das mystische Lamm, das Buch mit den sieben Siegeln entsiegeln wird. Was bloßer Glaube war, das blieb noch versiegelt. Nach und nach werden aber die sieben Siegel fallen von dem Buche, das vorher bloß ein Glaubensbuch und deshalb ein für den Verstand verschlossenes Buch war.
+
+Was steht in diesem Buche? In diesem Buche stehen die Geheimnisse der aufeinanderfolgenden Entwicklungen, die sieben Geheimnisse, die sich immer und immer wiederholen, bei jeder Runden- und Rassenentwicklung, auch sonst bei allen zyklischen Entwicklungen – auch im Menschen. Betrachten wir sie einmal, wie sie sich im Menschen darstellen, diese sieben Geheimnisse. Ich werde nur auf einige dieser Geheimnisse ein kleines Licht zu werfen brauchen, dann werden Sie sogleich sehen, um was es sich dabei handelt.
+
+Betrachten Sie den Menschen, wie er uns siebenteilig entgegentritt in der theosophischen Einteilung. Zunächst den physischen Körper, in welchen er einzieht, um in ihm seine Weltlaufbahn zu vollführen. Das ist das erste, der Auszug in die Welt. Das zweite ist das Einleben in das sogenannte Lebensprinzip. In Prana, in dem die Wesen lebendig werden, treten sie ein in das Reich des Kampfes, in das Reich des Krieges aller gegen alle, in das Reich, worin die Sonderheit sich gegen die Sonderheit stellt. Damit dieser Kampf, dieses Stellen der Sonderheit gegen die Sonderheit, in äußere Harmonie gebracht werden kann, ist es notwendig, dass der Wille des Menschen in dieses Reich des Kampfes die Gerechtigkeit hineinträgt. Die Gerechtigkeit ist aber nicht die alleinige Schöpferin der Harmonie in der Außenwelt. Was hineingebracht werden muss, das tritt eben auf der vierten Stufe auf, wo der Mensch nicht nur äußerlich die Gerechtigkeit herstellt, sondern wo er die äußere Gerechtigkeit durchdringt mit dem Prinzip der Liebe, das von oben, von den höheren Prinzipien herunterleuchtet.
+
+Wenn Sie sich demgegenüber die Eröffnung der sieben Siegel in der Apokalypse einmal vorhalten, so werden Sie sehen, dass wir es damit zu tun haben ganz in derselben Weise:
+
+Und ich sah, und siehe, ein weiß' Pferd, und der darauf saß, hatte einen Bogen; und ihm ward gegeben eine Krone, und er zog aus, zu überwinden und dass er siegte. [Off 6,2]
+
+Da haben wir zunächst das Ausziehen in die Materialisierung.
+
+Und da es das andere Siegel auftat, hörte ich das andere Tier sagen: Komm und siehe zu! Und es ging heraus ein anderes Pferd, das war rot, und dem, der darauf saß, ward gegeben, den Frieden zu nehmen von der Erde, und dass sie sich untereinander erwürgten; und ihm war ein groß' Schwert gegeben. [Off 6,3-4]
+
+Hier kämpft die Sonderheit gegen die Sonderheit im Lebensprinzip.
+
+Und da es das dritte Siegel auftat, hörte ich das dritte Tier sagen: Komm und siehe zu! Und ich sah, und siehe, ein schwarz' Pferd; und der darauf saß, hatte eine Waage in seiner Hand. [Off 6,5]
+
+- die Waage der Gerechtigkeit.
+
+Und ich hörte eine Stimme unter den vier Tieren sagen: Ein Maß Weizen um einen Groschen und drei Maß Gerste um einen Groschen; und dem Öl und Wein tue kein Leid. [Off 6,6]
+
+Und da es das vierte Siegel auftat, hörte ich die Stimme des vierten Tieres sagen: Komm und siehe zu! Und ich sah, und siehe, ein fahl' Pferd, und der darauf saß, des Name hieß Tod, und die Hölle folgte ihm nach. Und ihnen ward Macht gegeben zu töten das vierte Teil auf der Erde, mit dem Schwert, und Hunger, und mit dem Tod, und durch die Tiere auf Erden. [Off 6,7-8]
+
+Die niedere Natur wird abgetötet, die höhere Natur tritt hervor. Das Niedere stirbt, auf dass das höhere Geistige erlöst werden kann.
+
+Wenn wir das Bild nicht auf den einzelnen Menschen, sondern auf die fünfte Rasse anwenden, so ist sie ausgezogen, um die Mission zu lösen, zu erlösen die zweite Unterrasse, die die kriegerische war. Wir betreten damit die Zeit des Kampfes der einzelnen Völker gegeneinander. Dann kommt das Reich der Gerechtigkeit, das Reich, das nach dem biblischen Geschichtsschreiber von Abraham aus gerechnet wird. Sie finden da das allmähliche Heraufsteigen des dritten Prinzips, der Gerechtigkeit. Mit dem vierten Prinzip ist der Eintritt des Christentums selbst gemeint. Die Besiegung des Todes durch die Liebe ist ein höheres Reich als das Reich der bloßen Gerechtigkeit.
+
+Dann wird das Reich kommen, welches der fünften Unterrasse entspricht. Dieses Reich, wenn es zu Ende geht, wird die ganze Auf-
+
+---
+
+gabe der fünften Wurzelrasse verstehen. Es wird von innen heraus dasjenige verstehen, was früher nur von außen geglaubt werden konnte. Damit fallen auch die Siegel, die das übrige Verständnis der Welt verschlossen haben. Die Welt wird ein offenes Buch. Wenn die fünfte Kulturepoche vollendet sein wird, wird die Welt vor unserem Verstande wie ein offenes Buch liegen.
+
+Danach tritt Ruhe ein. Dieses ist nichts anderes als die Stunde, in welcher sich die sechste Unterrasse vorbereitet. Die Siegel sind gefallen, offen liegen die Wahrheiten vor den Augen der Menschen. Und das wird das Charakteristische der Menschen der sechsten Unterrasse sein, dass die Wahrheiten offen vor den Augen der Menschen liegen, dass sie nicht mehr geglaubt oder mit dem Verstande begriffen werden brauchen, sondern dass sie mit den Augen geschaut, mit einem intuitiven Geiste geschaut werden. So werden sich die Wahrheiten für die Menschen in der sechsten Kulturepoche darstellen. Auf einer höheren Stufe wird die Menschheit angelangt sein in dieser sechsten Kulturepoche.
+
+Auf einer noch höheren Stufe werden die Menschen noch einmal die Entschleierung, die Offenbarung der Geheimnisse erfahren. Dieses nochmalige Offenbarwerden der Geheimnisse ist in der Apokalypse als das Posaunen der Engel dargestellt. Wie aufgeschlossen werden dann die Wahrheiten sein, nicht bloß wie in einem Buche, sondern so, dass sie zu uns sprechen von allen Seiten. Nicht wie eine gedachte, sondern wie eine laute Sprache werden die Wahrheiten sein. Das bedeutet das Posaunen der Engel. Und es ist wie ein Herausgehen der Stimmung der sechsten Unterrasse, wenn uns beschrieben wird das Posaunen der Engel. Im Einzelnen werden wir das ein anderes Mal genauer verfolgen.
+
+Verfolgen Sie von da aus die ganze Entwicklung weiter, so werden Sie sehen, dass auch jene wichtigen Punkte, die im Verlaufe der Entwicklung der sechsten Unterrasse eintreten werden, in der Apokalypse berührt werden, auch der wichtigste Punkt, der damit charakterisiert werden kann, dass die Menschen in ganz anderer Weise aufgeklärt sein werden über die Natur des Guten und Bösen. Da die Wahrheiten offenbar daliegen werden, werden geradezu der
+
+Charakter des Guten und der Charakter des Bösen vor den Menschen offenbar sein. Sie werden lernen, zu lesen in dem Kontobuche ihres Karma. Das ist der wichtige Zeitpunkt, der für die Menschen der sechsten Kulturepoche eintreten wird, wo das Karmagesetz den Menschen in Fleisch und Blut übergehen und das Bewusstwerden der Gerechtigkeit eintreten wird. So leben dann diejenigen herüber, die ein solches Bewusstsein aufnehmen, um die nächste Wurzelrasse fortzusetzen.
+
+In dieser nächsten Wurzelrasse tritt dann ein großes, bedeutsames Ereignis ein. Es ist schon vorbereitet durch die Erkenntnis des Guten und Bösen, und in höherem Grade wird es vorbereitet werden während der sechsten Unterrasse; denn da tritt noch etwas ganz anderes ein, und das müssen wir verstehen, wenn wir die Apokalypse verstehen wollen. Wir erinnern uns, dass die Art und Weise, wie die gegenwärtige Menschheit lebt, nicht eine absolute ist, dass sie einmal entstanden ist, dass sie in der Mitte der lemurischen Rasse geschlechtlich geworden ist. Erst in der Mitte der lemurischen Zeit hat diese Art von Fortpflanzung in der Menschheit und auch diese Art des Zusammenlebens angefangen, wie es in der Menschheit jetzt ist. Was wir jetzt Geburt und Tod nennen, ist damals erst in die Menschheit hineingekommen. Vorher war die Art und Weise, wie das Leben sich ausgelebt hat, ein ganz anderes. Mit Geburt und Tod ist jenes individuelle Karma hineingekommen sowie auch die Reinkarnation oder Wiederverkörperung. Alles, was wir jetzt beschreiben und erkennen als Wiederverkörperung und Karma und als Verlauf des einzelnen Menschenlebens zwischen Geburt und Tod, das hat seinen Anfang erst in der Mitte der lemurischen Zeit genommen. Damals haben die Menschen erst die Form angenommen, in der sie sich gegenwärtig verkörpern. Vorher hatten sie andere Formen. Diese Form, die einmal ihren Anfang genommen hat, dieses Durchgehen durch Geburt und Tod und dieses Sich-immer-wieder-Verkörpern, das wird alles auch ein Ende nehmen. So wie es in der Mitte der lemurischen Zeit seinen Anfang genommen hat, so wird es ein Ende nehmen in der Mitte der sechsten Wurzelrasse. Da wird bei einem Teile der Menschheit, der dann schon die entsprechende Entwicklungstufe
+
+---
+
+390
+erlangt haben wird, bei denen, die in der Apokalypse die Erstlinge der Menschheit genannt werden, der Zustand wieder eintreten, der auf einer niederen Stufe vor der lemurischen Zeit da war. Da war der Mensch noch ungeschlechtlich und noch nicht verstrickt in Geburt und Tod. Das wird wiederkommen, nachdem der Mensch seine Lehrzeit durch die Reinkarnationen durchgemacht haben wird. Für ihn wird der Zeitpunkt eintreten, wo er auf höherer Stufe wiederum jene von der physischen, unmittelbar jetzigen physischen Form befreite Geistigkeit haben wird, die er vorher auf niedrigerer Stufe hatte.
+
+Nun nennt man – das müssen Sie klar erfassen – in der christlichen Esoterik diejenigen Wesenheiten, welche weben und wirken in der Evolution der Welt, in dem Gestalten der Welt auf den verschiedensten Gebieten, Engel. Diese Wesenheiten sind höher als die gegenwärtigen menschlichen Wesenheiten. Der Mensch wirkt auf der Erde, aber den Menschen selbst haben höhere Wesenheiten gewirkt. Dasjenige, was in der Weltentwicklung von höheren Wesenheiten geleistet werden muss, was also höherer Art ist, das nimmt die christliche Esoterik an als bewirkt von Wesen, die sie Engel nennt. In der theosophischen Lehre sprechen wir von der dhyänischen Natur, die in ihrer Kraft und Weisheit über der menschlichen Entwicklung liegt. Nun nennt die christliche Esoterik diejenigen Bildner, die nicht auf unserer Bewusstseins- und Wirkensebene liegen, die höhere Wesenheiten sind, Engel, und denjenigen Engel, welcher damals in der lemurischen Zeit, in der Mitte derselben, die Menschenform bildete, den spricht sie an als den Erzengel Michael. Michael ist der Bildner der menschlichen Form, wie sie Geburt und Tod unterliegt, wie sie der Geschlechtlichkeit unterliegt. Dadurch, dass der Mensch eingetreten ist in Geburt und Tod und der Engel der Form, Michael, ihm eben diese Gestalt gegeben hat, dadurch ist – wie in der Welt überhaupt Polarität gegeben ist – auf der anderen Seite der Widersacher des Michael aufgetreten, der immer im Verlaufe der Evolution wirkt und der in der christlichen Esoterik der Drache oder die Schlange genannt wird. Wenn man also die menschliche Evolution seit der Mitte der lemurischen Zeit auffasst als Kampf des Erzengels Michael mit dem Drachen, so muss in der Mitte der sechsten Wurzelrasse dieser
+
+391
+Kampf wieder in ein anderes Stadium treten. Das Reinste muss in der menschlichen Gestalt erreicht sein, der Mensch muss bei seinem Ziele in Bezug auf die menschliche Gestalt angelangt sein. Alles, was hemmend war, muss überwunden sein. Diesen Kampf, der sich in der Mitte der sechsten Wurzelrasse abspielt, finden Sie geschildert im zwölften Kapitel der Apokalypse.
+
+Und es erhob sich ein Streit im Himmel: Michael und seine Engel stritten mit dem Drachen; und der Drache stritt und seine Engel, und siegten nicht, auch ward ihre Stätte nicht mehr gefunden im Himmel. Und es ward ausgeworfen der große Drache, die alte Schlange, die da heißt der Teufel und Satanas, der die ganze Welt verführt, und ward geworfen auf die Erde, und seine Engel wurden auch dahin geworfen. [Off 12,7–9]
+
+Im Anfang musste das Menschenwesen einziehen in die menschliche Gestalt und musste auf sich nehmen, was die Gestalt mit sich bringt und sie überwinden in der Zeit der Entwicklung allein. Die Geschlechtlichkeit, Geburt und Tod musste der Mensch auf sich nehmen. Als Hermaphroditen, als ungeschlechtliche Wesen traten die Menschen in die Evolution ein und wurden zweigeschlechtlich, wurden Mann und Weib. Wieder wird die Ungeschlechtlichkeit auftreten müssen in der Mitte der sechsten Wurzelrasse.
+
+Lesen Sie die Apokalypse entsprechend weiter, so finden Sie im vierzehnten Kapitel die ganze Sache weiter geschildert.
+
+Und hörte eine Stimme vom Himmel wie eines großen Wassers und wie eine Stimme eines großen Donners; und die Stimme, die ich hörte, war wie von Harfenspielern, die auf ihren Harfen spielen.
+
+Und sie sangen wie ein neues Lied vor dem Stuhl und vor den vier Tieren und den Ältesten; und niemand konnte das Lied lernen, denn die hundertundvierzigtausend, die erkauft sind von der Erde.
+
+Diese sind es, die mit Weibern nicht befleckt sind, denn sie sind Jungfrauen und folgen dem Lamm nach, wo es hingeht. Diese sind erkauft aus den Menschen zu Erstlingen Gott und dem Lamm. [Off 14,2–4]
+
+Diese mystische Tatsache der Rückentwicklung zur Gottheit ist in dieser Stelle der Apokalypse zum Ausdruck gebracht. Nun finden Sie alles das geschildert, was notwendig damit verbunden ist: dass überwunden ist Geburt und Tod, und dass die erste neue Auferstehung gefeiert wird. Die anderen Toten aber werden nicht wieder lebendig.
+
+---
+
+Im einundzwanzigsten Kapitel, Vers 4, wird gesagt:
+
+Und Gott wird abwischen alle Tränen von ihren Augen, und der Tod wird nicht mehr sein, noch Leid, noch Geschrei, noch Schmerz wird mehr sein; denn das Erste ist vergangen. [Off 21,4]
+
+Wenn der Mensch sich bis zu der höchsten Blüte entwickelt haben wird, dann – in diesen hohen Zuständen – kann er nicht mehr leiden. Der Mensch wird dann die höchste Stufe seiner Siebenteilung erreicht haben. Die Sonderheit, die gerade durch die Form der Materie erreicht wurde, wie sie in der Mitte der lemurischen Zeit eintrat, wird die derbste Ausgestaltung erlangt haben. Nicht mehr wird der Mensch innerhalb dieser Physis eingeschlossen sein, die sich nur durch die Tore der Sinne Kenntnis verschaffen kann von der Umwelt. Andere, neue Sinne wird er haben. Das finden Sie in der Apokalypse dargestellt dadurch, dass es nicht mehr nötig ist, dass Sonne und Mond scheinen, weil eine andere Art der Wahrnehmung für die Menschen eintreten wird. Dann wird weiter gesagt, dass für die Menschen eine neue Stadt auf die Erde kommen wird.
+
+Was wird da aufgefasst als neue Stadt? Die Menschen haben sich heranentwickelt in diesen ihren jetzigen Wohnstätten. Es gibt einen esoterischen Ausdruck für die jetzigen Wohnstätten der Menschen. Welches sind die gegenwärtigen Wohnstätten des Menschen? Es ist die Summe aller menschlichen Leiber, und jeder menschliche Leib ist ein Haus innerhalb dieser einen großen Menschenstadt, worin alle wohnen. Jeder Leib wird in der christlichen Esoterik als ein Haus aufgefasst, worin die Seele wohnt. Nun wird die Menschengemeinschaft in der Gestalt, in welcher sie in der Mitte der lemurischen Zeit vorhanden ist, das älteste Jerusalem genannt. Diejenige Gestalt, in der diese Menschenstadt vorhanden war zur Zeit, als das Christentum begründet wurde, wird das «mittlere», und diejenige Form, die dann in der Mitte der sechsten Wurzelrasse da sein wird, wird das «neue» Jerusalem genannt.
+
+Die Begründung dieses neuen Jerusalems schildert wieder die Apokalypse, und sie schildert sie so, dass selbst für den Ungläubigsten es klar sein muss, was da geschildert wird. Was wird uns für
+
+eine Antwort gegeben werden, wenn wir fragen: Was werden die Häuser sein? Da sagt uns der Apokalyptiker:
+
+Und der mit mir redete, hatte ein goldenes Rohr, dass er die Stadt messen sollte, und ihre Tore und Mauer.
+
+Und die Stadt liegt viereckig, und ihre Länge ist so groß als die Breite. Und er maß die Stadt mit dem Rohr auf zwölftausend Feld Wegs. Die Länge und die Breite und die Höhe der Stadt sind gleich.
+
+Und er maß ihre Mauer hundertundvierundvierzig Ellen, nach dem Maß eines Menschen, das der Engel hat. [Off 21,15–17]
+
+Die Stadt wird so befunden, dass sie das Maß des Menschen hat. Das ist das Maß, das der Mensch einst haben wird; bis zu diesem Maß wird sich der Mensch in der sechsten Wurzelrasse entwickeln.
+
+So, sehen Sie, ward das Evangelium das enthüllte Mysterium der alten Zeit. Die Apokalypse ist das neue Mysterium der ersten christlichen Zeit. So wie die alten Mysterien enthielten Geburt, Leiden, Sterben, Auferstehung und Himmelfahrt des Menschen, so wie dieses mystische Leiden, Sterben und Auferstehen und das In-den-Himmel-Fahren der Inhalt der alten Mysterien war, der im Evangelium offenbar geworden ist, so enthält die Apokalypse das neue Mysterium von der Zukunft der Menschheit in den ersten christlichen Mysterien. Die Apokalypse des Theologen Johannes ist nichts anderes als dasjenige, was gelehrt und interpretiert worden ist in den ersten christlichen Mysterien.
+
+So wie Sie in den griechischen Mysterien finden würden, wenn dort in der Gestalt des leidenden, des zerstückelt werdenden und erhöht werdenden Dionysos in dem Mysterientempel die Vorfeier vom Leiden, Sterben und Auferstehen Christi gefeiert wird, dass das Mysterium gerade darin besteht, dass den Eingeweihten das Geheimnis übertragen wird, damit sie die Zeit reif dafür machen. So wird den ersten Christen, die das große Ereignis als welthistorisches erlebt haben, in den ersten christlichen Mysterien dasjenige gelehrt, was vorbereitet werden soll durch die christliche Erziehung.
+
+Und das bringen Sie wiederum zusammen mit der Auffassung, die die Theosophie hat von dem esoterischen Christentum. Wir wissen, dass die Beschreibung dessen, was in Palästina sich abgespielt
+
+---
+
+hat «Evangelium», die «frohe Botschaft» genannt wird und exoterisch ist. Daneben wurde aber auch in den christlichen Mysterien gelehrt: Nach der Auferstehung hat Christus in den ersten christlichen Mysterien jahrelang intime Schüler belehrt, und die Lehre, die da erteilt worden ist, ist in der Apokalypse enthalten. Die Interpretation war die, welche wir erst heute wieder imstande sind, durch die Theosophie zu geben. Allerdings wurde die Apokalypse in unserem theosophischen Sinn interpretiert. Nichts anderes als dies ist gemeint mit der Einleitung, die der Theologe Johannes selbst gibt. Er sagt es ganz klar, wer ihm erscheint: Es erscheint ihm derjenige, der der Erste und der Letzte, das Alpha und Omega war, derjenige, der allein so rein ist, wie der Mensch war, bevor er in das Entwicklungsleben in der Mitte der lemurischen Zeit eingetreten ist, und wie er wieder sein wird, nachdem er in der Mitte der sechsten Wurzelrasse hinausgehen wird aus der Entwicklung: Das ist Christus, der Erste vor dem Beginn von Geburt und Tod und der Letzte, nachdem Geburt und Tod abgeschlossen sein werden. Der Erste und der Letzte enthüllt auch hier im Mittelpunkte der Entwicklung das christliche Mysterium, das Geheimnis der sechsten Wurzelrasse.
+
+Ich war im Geiste an des Herrn Tag und hörte hinter mir eine große Stimme wie einer Posaune. [Off 1,10]
+
+Ihm ist besonders, als einem intimen Schüler, die Gnade zuteil geworden, schon jetzt die Posaunen zu hören. In diesem Zeitpunkt der Begründung des Christentums ist dies eine Vorausnahme. Die Stimme sprach:
+
+Ich bin das A und das O, der Anfang und das Ende, der Erste und der Letzte, und was du siehst, das schreibe in ein Buch und sende es zu den Gemeinden in Asien: gen Ephesus und gen Smyrna und gen Pergamus und gen Thystira und gen Sardes und gen Philadelphia und gen Laodicea.
+
+Und ich wandte mich um, zu sehen nach der Stimme, die mit mir redete. Und als ich mich wandte, sah ich sieben goldene Leuchter.
+
+Und mitten unter den sieben Leuchtern einen, der war eines Menschen Sohne gleich, der war angetan mit einem langen Gewand und begürtet um die Brust mit einem goldenen Gürtel.
+
+Sein Haupt aber und sein Haar waren weiß wie weiße Wolle, wie der Schnee, und seine Augen wie eine Feuerflamme.
+
+Und seine Füße gleich wie Messing, das im Ofen glüht, und seine Stimme wie großes Wasserrauschen. [Off 1,11–15]
+
+Diese Beschreibung ist diejenige, die der mystische Seher entwirft, auch von der ersten Menschwerdung, von dem ersten Herabsteigen in die Materie, wo die Materie noch nicht so weit verdichtet ist, wo die Augen noch leuchten, noch tätig sind, und nicht bloß Tore für die Außenwelt; und dann wieder, wo die feste Materie der ganzen Körperwelt überging in flüssige Materie, wo sie flüssig ist wie glühendes Metall.
+
+Das, sehen Sie – wir werden von den Einzelheiten noch Weiteres hören –, ist das, was in der Apokalypse, in der Art, wie man in Mysterienbüchern spricht, verkörpert ist. Und zu gleicher Zeit sehen Sie daraus das Wesen des Mysteriums, das darin besteht, dass vorher einzelnen Eingeweihten das verkündigt wird, was erst später einer Mehrheit offenbar werden soll. Es gibt keine Geheimnisse, keine geheimen Wahrheiten, die nicht zu irgendeiner Zeit offenbares Geheimnis, offenbare Wahrheit werden. Sie können erst offenbar werden, wenn die Menschen dazu reif sind. Und dass sie dazu reif werden – deshalb müssen Einzelne da sein, die die Menschheit führen. Diese werden in die Geheimnisse eingeweiht, in welche erst später andere Menschen eingeweiht werden. Nur wer das Ziel kennt, kann dazu hinführen. Nur die, welche das Ziel kannten, konnten als Propheten das Christentum weißsagen. Aus den Mysterien das Evangelium zu verkündigen, heißt weißsagen. Gleichzeitig sollte den Menschen das offenbar werden, was in ferner Zukunft Gemeingut aller werden kann.
+
+Dies ist der Gang der geistigen Weltgeschichte, dies ist die Evolution in der Weltgeschichte, eingehüllt durch Umstände, von denen wir heute nicht mehr sprechen können. Eingehüllt waren die großen Entwicklungsgesetze der Menschheit zuerst. Ausgewickelt, evolviert werden sie im Laufe der Zeit. Geheimnis um Geheimnis wird enthüllt. Was nur von Eingeweihten gekannt und gehütet worden war, wird im Laufe der Zeit offenbar, wird enthüllt werden. Dasjenige, was zuerst versiegelt war, wird entsiegelt; das, was die Augen gelesen haben, das klingt später dem geöffneten geistigen Ohr entgegen wie
+
+---
+
+eine Offenbarung von außen, von der äußeren Welt, wie durch eine Posaune.
+
+## Aus der Fragenbeantwortung
+
+[Herr Schouten stellt einige Fragen über die vierte Dimension]
+
+Ich habe vor, über die vierte Dimension einen Vortrag zu halten und möchte dann in Anknüpfung an die Ausführungen des Herrn Schouten auch hier versuchen, eine Anschauung dieser vierten Dimension herbeizuführen. Es wird dann besser sein, wenn ich anknüpfend an das unmittelbare Experiment über die vierte Dimension spreche.
+
+### Ist der Theologe Johannes derselbe wie der Verfasser des Johannesevangeliums?
+
+Der Schreiber des Johannes-Evangeliums ist der intimste Schüler Jesu. Dadurch war er auch imstande, die tiefste Gestalt der Lehre zu geben. Heute ist sie für die meisten Menschen nicht zu verstehen. So heißt es im neunzehnten Kapitel:
+
+Es stund aber bei dem Kreuze Jesu seine Mutter und seiner Mutter Schwester Maria, Kleophas Weib und Maria Magdalena. Da nun Jesus seine Mutter sah und den Jünger dabei stehen, den er lieb hatte, spricht er zu seiner Mutter: Weib, siehe das ist dein Sohn. [Joh 19,25–26]
+
+Einen Jünger lieb haben heißt, ein Einweihers sein. Danach spricht er zu dem Jünger:
+
+Siehe, das ist deine Mutter und von der Stunde an nahm sie der Jünger zu sich. [Joh 19,27]
+
+Das ist eine bedeutungsvolle Stelle. Sie erfahren da, dass die Mutter nicht Maria geheißen haben kann. Johannes bezeichnet die Mutter Jesu niemals als Maria. Dazu eine andere Stelle aus dem zweiten Kapitel.
+
+Und da es an Wein gebrach, spricht die Mutter Jesu zu ihm: Sie haben nicht Wein. Jesu spricht zu ihr: Weib, was habe ich mit dir zu schaffen? Meine Stunde ist noch nicht gekommen. [Joh 2,3–4]
+
+Ich möchte nur kurz bemerken, dass damit gesagt ist, dass die Mutter Jesu etwas ganz Besonderes hier andeutet. Sie ist diejenige spirituelle Substanz, aus der heraus er sein Werk schafft. Das alte Judentum, das zum Christentum werden soll, bezeichnet Jesus, als er Christ geworden war, als seine Mutter. Diese Mission seines Volkes ruft ihn, ruft ihn zuerst, als er das alte Wasser zu Wein verwandeln soll. Dann sagt er: Weib, meine Stunde ist noch nicht gekommen. Dem Sohne des jüdischen Volkes ist das jüdische Volk übergeben worden mit den Worten: Siehe, das ist deine Mutter. Dieser Johannes ist es dann auch, der das Evangelium und die Apokalypse geschrieben hat.
+
+### Kann durch der Menschen brüderliches Zusammenwirken nicht tatsächlich die lange Zeit der Entwicklung verkürzt werden?
+
+Durch das brüderliche Zusammenwirken der Menschen kann tatsächlich die lange Zeit der Entwicklung verkürzt werden. Die Jahre sind auf den höheren Planen nicht gleich lang. Nur für den physischen Plan sind die Jahre gleich lang. Denken Sie sich einmal, ob Sie überhaupt noch ein Maß für die Zeit haben, wenn Sie keine physischen Ereignisse mehr haben. Oder denken Sie sich, die Sonne würde sich rascher bewegen, dann würden die Jahre kürzer werden.
+
+### Ist die Theosophische Gesellschaft auch auf Entwicklung begründet?
+
+Die Theosophische Gesellschaft ist mit ihrem Ziel auf dem Entwicklungsstandpunkt gegründet.
+
+### Was bedeuten die Worte: Was in Kürze geschehen wird?
+
+Das ist eine Stelle, die besagt soviel als das, was Ihr in Kürze erreichen werdet.
+
+### Was versteht man unter der „Gemeinschaft der Heiligen“?
+
+Die „Gemeinschaft der Heiligen“ ist die große Bruderloge der Meister, der Adepten. Es ist leicht für diejenigen, welche von Ihnen nichts wissen, spöttische Bemerkungen zu machen, was ja auch hinlänglich geschehen ist. Die höheren Individualitäten sind in Bruderlogen zusammengeschlossen. Diese sind die Vorausnahme dessen, was die
+
+---
+
+ganze Menschheit in der Mitte der sechsten Wurzelrasse erreichen wird. Und dieses Prinzip der Verbrüderung ist es, was in der sechsten Wurzelrasse erreicht werden soll. Und was nur erreicht werden kann durch das Herausgehen des Geistigen aus dem Physisch-Materiellen. Diese Gemeinschaft der Heiligen ist dasjenige, was als die nächste Entwicklungsetappe hingestellt wird. Die geistige Evolution hat zwei Stufen: Das Seligwerden und das Heiligwerden. Selig ist von Seele abgeleitet. Die acht Seligkeiten sind eine Anleitung, selig zu werden in sich selbst. Um die Seligkeit aber außer sich zu finden, muss man heilig werden. Die Heiligen leben in absoluter Gemeinschaft.
+
+# ZUSAMMENFASSUNG DER VORHERGEHENDEN VORTRÄGE
+
+Berlin, datiert auf den 1. November 1904
+
+Wir können die Apokalypse nur dann verstehen, wenn wir das Grundwesen des Christentums als mystische Tatsache nehmen. Dieses Grundwesen liegt enthalten in den Worten: «Selig sind, die da glauben und nicht schauen.» Was einst sich in dem Innern der Krypten abgespielt hat, das wurde nun hinausgetragen auf den Schauplatz der Weltgeschichte selbst. Das alte Mysterium wurde im Christentum enthüllt: Das, was zu einer Zeit Mysterium ist, wird offenbar zu andern [Zeiten]. In den Evangelien ist der Inhalt alter Mysterienbücher wiedergegeben; die Aufzeichnung der Zukunftsereignisse ist enthalten in der Apokalypse des Johannes.
+
+Wer den Geist solcher Schriften verstehen will, muss vor allen Dingen wissen, wie Religionen wirken.
+
+Es ist heute der Glaube sehr verbreitet, dass das schlichte Wort die Wahrheit enthält, und es gibt eine Abneigung gegen die Erhöhung des Geistes. Nichts soll gesagt werden gegen die Einfachheit des Wortes: Aber die innere Kraft, aus der solches Sprechen fließt, entspringt den höchsten Höhen des Geistes. Nicht jeder konnte sprechen von den Offenbarungen der höchsten Regionen. Der Kirchenvater besaß die Kraft, die Gewalt des [Lücke im Text]
+
+Ein im Mysterium erschautes Schicksal wird uns geschildert in der Apokalypse. Eine niedere Initiation genügt, um über eine Wurzelrasse hinwegzusehen, eine höhere ist notwendig, um über viele zu sehen. Um eine Apokalypse zu gestalten, ist der dritte Grad der Chelaschaft notwendig. In der Region eines hochentwickelten astralen Sehens entrollt sich uns das Schicksal einer Wurzelrasse. Vom vierten Kapitel an ist die Apokalypse devachanisches Schauen. Der, welcher die Apokalypse schrieb, übersah den Zeitraum bis in die Mitte der lemurischen Rasse und die Zukunft so weit, bis wo die Geschlechtlichkeit aufgehört hat. Die höheren Erfahrungen sind nicht
+
+---
+
+voneinander verschieden. Niemals berichten zwei Eingeweihte in verschiedener Art. So wie der Apokalyptiker sprachen die Eingeweihten aller Zeiten. In der Apokalypse spricht der Verfasser von dem christlichen Gesichtspunkt aus.
+
+Blicken wir zurück auf die Gestaltung der Rassen.
+
+Vor der lemurischen Rasse liegt eine Ausgestaltung der Menschheit, die sich ganz anders ausnahm. Der Ätherkörper hatte sich noch nicht verdichtet; er wandelte nicht auf dem Boden, sondern durchschwebte die selbst ätherhafte Erde. Seine Organe waren leuchtend. – In feurigen Wolken inkarnierte sich der Mensch im Anfang der lemurischen Rasse. – Jenen Übergang von feiner zu physischer Materie, jene Wesen, die sich entwickelten zu physischer Dichtigkeit, bezeichnet der Esoteriker als den Adlerzustand des Menschen. Der Adler ist also der Mensch, der sich heraufentwickelt hat aus dem Äther zu physischer Materie.
+
+Bei den Atlantiern hatte der Mensch eine verstärkte Lebenskraft, er konnte Prana beherrschen, die Samenkraft benutzen. Während der gegenwärtigen Rasse, seit ungefähr dreizehn Millionen Jahren, beherrscht er nur die Physis. Später wird er sich die Herrschaft wieder erobern über den Ätherkörper und den Astralkörper.
+
+Dieses zweite Stadium, wo der Mensch noch die Herrschaft hat über den Ätherkörper, bezeichnet der Esoteriker als den Löwenmenschen.
+
+Für den Arier, den ganz in die Physis heruntergestiegenen Menschen, gilt als Sinnbild der Stier.
+
+Drei ganz bestimmte aufeinanderfolgende Stadien der Menschheit sind damit bezeichnet.
+
+Die symbolische Sprache versteht jeder, der sie gelernt hat; er weiß, was mit den besonderen Zeichen gemeint ist.
+
+Ein häufig gebrauchtes Schriftzeichen sind zwei ineinandergehende Dreiecke: oben ein Adler, links ein Löwe, rechts ein Stier; in der Mitte ein Menschenantlitz. Das bedeutet, dass hier unten ein Dreieck liegt, das vergangene Zustände charakterisiert. Die drei Winkel bleiben daher zunächst [Lücke im Text]
+
+In der Mitte ist der innere Mensch, die eigentlich bleibende Wesenheit.
+
+Es sind die vier Wesensarten, durch die der Mensch eigentlich Mensch ist, zu sehen in den zwei ineinandergeschlungenen Dreiecken.
+
+Diese drei Tiere treten überall da auf, wo über die Entwicklung des Menschen gesprochen wird. Aber in der Apokalypse des Johannes wird noch auf besondere Weise gesprochen. Der Apokalyptiker überwindet jene Hüllen, die ihn von den früheren Stadien trennen. Damit er sich sehend zurückversetzen kann, müssen die früheren Organe belebt werden. Sehende, schauende Tiere muss er sehen. Auge, ganz Auge.
+
+Die zukünftigen Stadien begreift nur derjenige, welcher einen Blick hat für das Aufsteigen, den Gebrauch der höheren Körper. Jetzt sind wir im Stadium des rein physischen Verstandes. Dieser Verstand bedingt eine bestimmte Sittenlehre und bestimmte Religion. Der Einzelne muss im Wesentlichen sein Glück auf Kosten des Andern suchen. Schon, wer das Höhere erstrebt, muss über den andern hinaus. In der okkulten Schule hat man drei Worte, die das neue Zeitalter bezeichnen. Es sind:
+
+Bruderliebe: die Gemeinsamkeitsliebe als sittliches Ideal.
+
+Pneumatologie: die Lehre vom Geist und Geistigem als das Ausschlaggebende: wissenschaftliches Ideal.
+
+Freies Religionsprinzip: Selbstautorität in religiösen Dingen.
+
+Dieses wird die sechste Rasse sein.
+
+Ein bekanntes okkultes Gesetz ist, dass in gewissen Zeitläufen das wiederholt wird, was sich vorher abgespielt hat. Adler, Stier und Löwe wurden in den ersten drei Unterrassen wiederholt. Die vierte Unterrasse wird bezeichnet mit «Mensch». In ihr ging das Christentum auf.
+
+Das Volk der ersten Unterrasse, das indische Volk, hatte die Denkkultur zum Ausdruck gebracht, die höchste Vergöttlichung des Gedankens. Es musste in Kürze wiederholen, was der Lemurier erlebt hatte. Der Lemurier war Empfindungsmensch, der Inder dachte in Empfindungen; was der Gedanke ausströmt in Empfindungen, finden wir in der alten Veden-Kultur – der Gedanke ergreift beim Inder die Empfindungen.
+
+---
+
+402
+403
+
+In den Kulturen, die dem Gedanken mehr mit dem Gedächtnis dienen, haben wir die Heroenkultur, die langen Kataloge, die zum Gedächtnis geführt haben. Es wurde viel notiert. Und aus den Notierungen der alten Perser, der Magier, der Chaldäer, sind die Kalenderbücher entstanden. Aus ihnen entwickelten sich Astronomie, Astrologie, Technik, Mathematik und so fort.
+
+So kam der Mensch zu der Rasse, wo er verstanden hat, was es heißt: Im Menschen selbst ist der Gott lebendig geworden.
+
+Die erste Rasse konnte am allerleichtesten verfallen. Die Empfindung ist noch nicht stark genug, dass der Gedanke sich wirklich verinnerlichen könnte.
+
+Jeder Tag, in dem man neu eindringt in die Vedantalehre, ist ein Quell neuer Bewunderung. Auf der anderen Seite tritt uns der wüsteste Götzendienst entgegen, in den das Volk verfallen ist. Die großen Tugenden der Menschen haben aber auch immer neben sich die größten Schattenseiten. Diese Erscheinung sucht uns der Apokalyptiker begreiflich zu machen an der Gemeinde von Ephesus, versinnbildlicht durch die Sekte der Nikolaiten; sie soll uns zeigen, wie in der fünften Wurzelrasse neben dem Höchsten das Äußerlichste lebt.
+
+Vergegenwärtigen wir uns, wie der Christ der ersten Zeit sein Christentum angesehen hat.
+
+«Drei sind es, die da zeugten auf Erden, und drei im Himmel.» – Atma, Buddhi, Manas. Vater, Sohn und Geist.
+
+Über den Vater zu sprechen, hätte der Christ der ersten Zeit abgelehnt. Den Vater glaubte er nicht anders erkennen zu können, als durch den Sohn, durch das Wort: «Niemand kommt zum Vater, es sei denn durch mich.»
+
+Das Höchste, wozu sich der Mensch erheben kann, ist der Gedanke, das Mentale. Es ist für den irdischen Menschen charakteristisch, dass er zugleich in drei Welten lebt: der geistigen, der seelischen, der physischen – bewusst aber nur in der physischen.
+
+Das Höchste für alle Religionen war der weltschöpferische Wille. Wenn der Mensch durch den Willen den Gedanken zum Ausdruck bringen will, so ist es zunächst durch das Wort. Das Wort ist der Ausdruck des Geistes durch den Willen. So sagte denn der Christ:
+
+Der Vater brachte seinen Geist durch die Kraft des Wortes in der Welt zum Ausdruck. Das ist die zweite Person der Dreieinigkeit, die dritte ist der heilige Geist, und der kommt in dem Wort zum Ausdruck. Die Welt ist die Verkörperung des Geistes und ist entstanden durch das Gotteswort, wie die Luftschwingung durch das menschliche Sprechen. Dieses Wort ist als zweite Person zu denken, als höchstes Wesen, viel persönlicher, als Menschenindividualität. Dieses höchste Wesen ist für den ersten Christen Mensch geworden in Demjenigen, den er als den Verkünder des Evangeliums erkannte. Wer das nicht versteht, deuteln will an dem Fleisch gewordenen Wort, kann sich nicht in die Denkweise der ersten Christen zurückversetzen. Dass der Christ zum devachanischen Schauen emporgestiegen ist, ist klar für denjenigen, der das Evangelium zu lesen versteht.
+
+Das Christusleben hat noch etwas wesentlich anderes als das Buddhaleben, und das verstanden die ersten Initiierten. Die Zeit ist aufgehoben, das Vergangene ist gegenwärtig: So ist es im Devachan. Bei der Verklärung Christi sind die drei Jünger emporgehoben zu devachanischem Schauen.
+
+Wir haben hier etwas, was wir im Buddhaleben nicht haben. Buddha wurde leuchtend ... hier schließt es. Das Christusleben beginnt seine bedeutsamste Epoche mit dieser Tatsache. So sagten die ersten Christen: Wohl verstehen wir die Vorverkündigung dieses, was gegenwärtig erfüllt ist, durch die alten Religionen ... Selig sind aber die da glauben, nicht schauen.
+
+Was früher erreicht worden ist durch das Schauen der großen Weltenwahrheiten im Innern der Krypten, das könnten jetzt auch die nur Glaubenden erleben. Das Mysterium wurde herausgerückt auf den offenen Weltenschauplatz. Das Kreuz von Golgatha ist dieselbe Handlung, vor allen Augen aufgerichtet. In populärer Form musste die alte Mysterienlehre vor die Welt getragen werden. Ein Schritt ist getan, der weiter hinausführt als die alten Religionen.
+
+---
+
+404
+405
+
+# APOKALYPSE VI
+
+Berlin, 7. November 1904
+Manuskript von Rudolf Steiner
+
+Sehr verehrte Anwesende!
+
+Wir sind an einem wichtigen Punkte in der Betrachtung der Apokalypse angelangt. Was weiter darüber zu sagen sein wird, soll uns noch tiefer in gewisse verborgene Wahrheiten hineinführen. Wir werden sehen, wie dieses schwer verständliche Werk die theosophischen Wahrheiten in einer großartigen Gestalt wiedergibt. Wenn wir zurückblicken auf das, was hier schon ausgesprochen worden ist, so müssen wir die Apokalypse als die *geheime Offenbarung* dessen bezeichnen, was der Menschengeist in seiner zukünftigen Entwicklung erleben soll. Aber es wäre ganz unrichtig, wenn jemand denken wollte, dass ja durch eine solche Vorherbestimmung aller Wille des Menschen unterdrückt werde, wenn man glauben wollte: Es muss ja doch alles so und so kommen, was auch der Mensch tue. Nein, das ist durchaus nicht der Fall. Die großen Weltgesetze des Geistes werden nicht so gegeben, dass sie von außen her über den Menschen verhängt werden, sondern zu dem Zwecke, dass sie der Mensch innerlich aufnehme, und sich selbst in ihrem Sinne entwickele. Nach einem ganz bestimmten Naturgesetze müssen sich Sauerstoff und Wasserstoff zu Wasser vereinigen; aber der menschliche Wille kann die Bedingungen herbeiführen, dass sie sich vereinigen, und er kann also der Grund sein, dass die Gesetze in Wirksamkeit treten. Wenn er sich in die Naturgesetze vertieft, so wird er selbst zum Ausführer dieser Gesetze. Er nimmt sie in seinen Geist auf, und wird so selbst zum Mitschöpfer der Natur. Nicht anders ist es mit den geistigen Gesetzen. Es ist in der Welt bestimmt, dass sie sich in geistiger Gesetzmäßigkeit entwickele, wie es in der Natur begründet ist, dass sie sich nach natürlichen Gesetzen gestalte. Und wie der Mensch nur dadurch ein würdiger Mitschöpfer der Natur wird, dass er sich ein Wissen von den Naturgesetzen erwirbt, so kann er auch im Geistesleben nur tätig sein, wenn er die geistigen Gesetze zu seinem Wissen macht. Wissen wir nichts von den Gesetzen des Sauerstoffes und Wasserstoffes, so können wir keinen Anteil nehmen an der Art, wie sich diese zusammensetzen. Wir erfüllen unsere menschliche Aufgabe durch das Wissen, die Erkenntnis der Naturgesetze. Diese wären vorhanden und gültig auch ohne unsere Erkenntnis. Aber ohne diese unsere Erkenntnis würde die Natur über uns hinwegschreiten. Wir verblieben in unserer Dumpfheit und könnten nur willenlose Werkzeuge ihres Schaffens sein.
+
+Auch die großen Geistesgesetze wären ohne unsere Erkenntnis für die Welt tätig. Was in der Apokalypse gesagt ist, wäre wahr, auch wenn es niemals ein Mensch begriffe, so wie das Gesetz von der Verbindung der chemischen Stoffe wahr wäre, auch wenn nie ein Mensch davon etwas wüsste. In die Hand des Menschen aber ist es gelegt, sich durch Beobachtung dieser Gesetze seinem göttlichen Ziele zu nähern. In seine Seele muss das Licht hineinleuchten, das sich durch göttliche Kraft in der Welt offenbart. In diesem höchsten Sinne muss die «Kindschaft Gottes» von Seiten des Menschen aufgefasst werden. Ein Vater behält sein Wissen nicht für sich, sondern teilt es dem Kinde mit, damit es sich im Sinne dieses Wissens selbst entwickele. Gewiss, das Kind würde auch älter, wenn es sich um die Gesetze nicht kümmerte, und untätig zusähe, wie der Vater handelt. Aber das Kind bliebe unentwickelt. Die Liebe des Vaters aber besteht darin, dass er es zur Entwicklung bringe. Und die Liebe Gottes zu dem Menschen besteht darinnen, dass sich sein Wille in der Menschen-seele offenbare. Gott hat den Menschen dazu berufen, dass dieser vollkommen werde. Gott schafft nicht nur, sondern er offenbart sich; und des Menschen Wills muss die Offenbarungen der Gottheit zu Antrieben seines Willens machen. Was geschehen soll, ist allerdings vom Anfange an bestimmt; aber es ist ebenso bestimmt, dass der Mensch selbst die Offenbarungen der Gottheit ausführe. Gott hat eben das Handeln des Menschen nicht ausgeschlossen von seinem Weltenplane, sondern von Anfang an in denselben einbezogen. Gewiss geschähe alles, was notwendig ist, durch den Vater, wenn das Kind untätig wäre. Aber dann wäre das Kind ohne Anteil an allem.
+
+---
+
+Zum Evangelium wurde die Apokalypse hinzugefügt. Das Evangelium stellt für den Christen die frohe Botschaft von der Menschwerdung Gottes oder des göttlichen Wortes dar. Dieses «Wort» ist Fleisch geworden, auf dass es unter den Menschen wohne. Dieses Opfer Gottes bedeutet die Befreiung des Menschen aus den Banden der Materie. Der Mensch soll durch den Christus im Geiste vereint sein mit seinem Gott. Indem er sich an Christus hält, trägt er den Gottesgeist im Herzen. Aber dieser Gottesgeist ist der Führer zu dem Willen des «Vaters». Und der Wille des Vaters offenbart sich in den heiligen Schriften, wie die Apokalypse eine ist. Aus Christus soll dem Christen die Kraft fließen, zu verstehen, was der Vater vom Anbeginn an mit der Welt beschlossen hat. Christus ist gestorben, auf dass der Mensch lebe, im Geiste lebe. In der Apokalypse liegt der Geisteswille des Vaters. Wer durch Christus im Glauben eingeweiht wird, der erhält die Kraft, durch Christus zum Vater zu gelangen. «Niemand kommt zum Vater, es sei denn durch mich.» Aber der Christ soll auch zum Vater gelangen, das heißt, er soll in der Offenbarung den Willen des Vaters erkennen. Das Evangelium ist die frohe Botschaft von der Opferung Christi um des Menschen willen; die Apokalypse ist die Offenbarung des göttlichen Vaterwillens. Christus hat gesagt, dass er nach seinem Tode den «Geist» sende. Und der Theologe Johannes hat nur getreulich aufgeschrieben, was ihm der von Christus verheißene Geist geoffenbart hat.
+
+Sieht der Christ auf Christus, fühlt er sich mit ihm vereinigt, so empfängt er die Kraft und das Leben zum Verständnis des Geistwillens; sieht er auf die Offenbarung, so weiß er, in welchem Sinne er die von Christo empfangene Kraft anwenden soll. Die Apokalypse ist ein Buch. Und jedes Buch hat nur einen Wert, wenn man die Kraft hat, es zu verstehen. Das Leben in Christo soll dem Christen die Kraft geben, die «geheime Offenbarung» zu verstehen. Die Kraft wird verliehen durch Gnade, wie alle geistige Kraft eine Gnadengabe ist. Diese Kraft aber muss entwickelt werden. Christus wollte die Menschen zu einer Gemeinschaft von Gotteskindern vereinigen; der Geist der Offenbarung aber soll die Gotteskinder zur reifen Entwicklung bringen.
+
+Von diesem Punkte ausgehend, wollen wir das nächste Mal noch tiefer in die Apokalypse eindringen. –
+
+---
+
+408
+409
+
+# DIE SIEBEN
+## NACHTLANTISCHEN UNTERRASSEN
+
+Berlin, 11. November 1904
+
+Wir wollen uns heute beschäftigen mit einer Umschreibung des Satzes, dass die ganze Welt sinnvoll ist, dass die ganze Welt Gedanke ist. Dadurch, dass wir schöpferische Gedanken in der Welt sehen, können wir den Gedanken finden. Die Mystiker haben niemals in einer willkürlichen Weise die Dinge eingerichtet, sondern so, dass auch die menschlichen Einrichtungen ein Abbild der Weltgedanken sind.
+
+Die Benennungen der Wochentage haben etwas Regelmäßiges. Die Wochentage sind benannt nach den Planeten. Wir wollen erkennen lernen, wie bei den chaldäischen Magiern die Namen der Wochentage festgesetzt worden sind. Die alten chaldäischen Magier haben gesagt: Jeder Tag hat vier Teile – Vormittag, Nachmittag, Vormitternacht, Nachmitternacht. Diese vier Teile des Tages mussten sie ansehen als das erste Element in der Zeit, als den nächstliegenden Zeitabschnitt. Sie bezogen den vierteiligen Tag auf die sieben bekannten Planeten.
+
+[Mond, Merkur, Venus, Sonne, Mars, Jupiter, Saturn = Tageszyklus
+Sonne, Mond, Mars, Merkur, Jupiter, Venus, Saturn = Wochentag-Benennungen]
+
+Sie haben die sieben Planetenzyklen beschreiben lassen durch den vierteiligen Tag hindurch, bis sie auf den Ausgangspunkt zurückkamen, eine Anzahl von Tagen hintereinander. Durch den vierteiligen Tag ließen die alten chaldäischen Magier die Planetenzyklen laufen. Sie weihten den ersten Vormittag dem Monde. Das Ende eines Zyklus fiel zusammen mit dem siebenten Tag. Jeder Planet hat einen vierfachen Zyklus am Ende der Woche durchlaufen. Sie benannten jeden Wochentag nach dem Planeten, dem der Vormittag geweiht war.
+
+Vormittag – Mond = Montag
+Nachmittag – Merkur
+Vormitternacht – Venus
+Nachmitternacht – Sonne
+
+Vormittag – Mars = Marstag = Tuesday – Tin
+Nachmittag – Jupiter
+Vormitternacht – Saturn
+Nachmitternacht – Mond
+
+Vormittag – Merkur = Mittwoch, Merkurtag, Wednesday – Wotan
+Nachmittag – Venus
+Vormitternacht – Sonne
+Nachmitternacht – Mars
+
+Vormittag – Jupiter = Donnerstag – Donar –, Jupitertag
+Nachmittag – Saturn
+Vormitternacht – Mond
+Nachmitternacht – Merkur
+
+Vormittag – Venus = Freitag, Venustag
+Nachmittag – Sonne
+Vormitternacht – Mars
+Nachmitternacht – Jupiter
+
+Vormittag – Saturn = Samstag, Saturnstag, Saturday
+Nachmittag – Mond
+Vormitternacht – Merkur
+Nachmitternacht – Venus
+
+Vormittag – Sonne = Sonntag
+Nachmittag – Mars
+Vormitternacht – Jupiter
+Nachmitternacht – Saturn
+
+---
+
+Die kaufmännische Kultur hatte kein Verständnis mehr für die Benennung der Wochentage nach den Sternen. Es ist nämlich ein ganz bestimmtes Verhältnis, nämlich von Vier zu Sieben, die Vierheit auf die sieben Prinzipien bezogen. Die Namensgebung der Wochentage ist eine menschliche Einrichtung. Sie wurde aber nicht willkürlich gemacht, sondern so, wie sie vorgezeichnet war durch die Verhältnisse. Die Menschen damals ließen die kosmischen Verhältnisse aus allem hervorklingen und ließen die Einrichtungen sich verhalten, wie sich diejenige vom Mikrokosmos zum Makrokosmos verhält.
+
+Wenn man sich die Umgebung recht vorhält, wird man sehen, dass eine ganz bestimmte Auffassung von Welt und Leben ihr zugrunde liegt. Sie ist eine kama-manasische Auffassung, die dem niederen Mentalplan angehört. Wollten die Völker zu solchen Bestimmungen übergehen, die Maß und Zahl enthalten, so müssten sie sich inspirieren lassen von dem Rupaplan des Mentalen.
+
+Halten wir fest, dass die Zeit, wo so etwas geschehen konnte, sich inspirieren lassen musste vom Rupaplan des Mentalen. Also stammten diese Bezeichnungen aus einer Zeit, in der die Menschen inspiriert wurden vom Rupaplan des Mentalen.
+
+Der nächste Plan, von dem sie inspiriert wurden, ist der Astralplan. Das Verhältnis der Inspiration zu den verschiedenen Planen, wie sie zum Ausdruck kommt in den verschiedenen Unterrassen der fünf Wurzelrassen, ist das Folgende.
+
+|  1. | Unterrasse | Arupaplan | das Göttliche  |
+| --- | --- | --- | --- |
+|  2. | Unterrasse | Rupaplan
+Maß und Zahl | Das Himmlische  |
+|  3. | Unterrasse | Astralplan
+Gerechtigkeit | Das Volkliche  |
+|  4. | Unterrasse | Physischer Plan
+Liebe |   |
+|  5. | Unterrasse | Astralplan | Gemeinschaftsleben,
+Gerechtigkeit  |
+|  6. | Unterrasse | Rupaplan | Gemeinschaftsorganisation, Maß und Zahl  |
+| --- | --- | --- | --- |
+|  7. | Unterrasse | Arupaplan | Gemeinschaftliches Bewusstsein  |
+
+Nehmen wir an, dass die Inspiration vom Astralplan ausgeht und dass also Kama geordnet ist. Aus dem Mentalplan kam auch die Inspiration zu den Raumverhältnissen – zum Beispiel die Inspiration zum Pyramidenbau, deren Verhältnisse sich nach den Sternenbahnen richten. Vom Astralplan kann Kama geordnet werden, indem man es durchdringt mit der Idee der Gerechtigkeit; Ordnung der menschlichen Instinkte und Gefühle nach der Gerechtigkeit.
+
+Steigen wir einmal tiefer herab, so kommen wir auf den physischen Plan. Dort lassen sich die Handlungen der Menschen nicht mehr nach der Idee der Gerechtigkeit ordnen. Dort muss das Prinzip des Handelns in jeden einzelnen Menschen hineingelegt werden. Was früher Gerechtigkeit auf dem Astralplan sowie Maß und Zahl auf dem Mentalplan waren, muss auf dem physischen Plan in das eigene Herz des Menschen hineingelegt werden.
+
+Über dem Rupaplan liegt der Arupaplan, Maß und Zahl hören auf; die Bestimmung nach ganz bestimmten Verhältnissen und Formen hört auf; es gibt dort nur das unmittelbare Einfließen des Göttlichen. Also in der Zeit des Arupaplanes, als der Geist sich noch vom Arupaplan inspirieren ließ – in der ersten Unterrasse, der indischen –, bestand eine unmittelbare Inspiration des Göttlichen. Damals bestand die Rischi-Kultur. Die Veden entstanden mit unglaublicher Schnelligkeit. Nachher verlangsamte sich der Einfluss bis herab zum physischen Plan und wurde immer langsamer. Was auf dem physischen Plan das Prinzip der Liebe im Einzelnen war, steigt nun wieder hinauf, um eine Mehrheit zu ergreifen. Auf dem nächsten Rupaplan wird nun das Gemeinschaftsleben nach Maß und Zahl geordnet. Die Völker bestimmen selbst über Rassen und Klassen nach ihrer eigenen Vernunft. Auf dem Arupaplan folgt dann ein vollständig gemeinschaftliches Bewusstsein.
+
+---
+
+412
+413
+
+Diese sieben Zeiträume sind in der Tat verteilt auf die sieben Unterrassen der fünften Wurzelrasse.
+
+1. Der Inspiration vom Arupaplan gehört die erste Unterrasse, die indische, an, die Rishikultur.
+2. Die Völker, die sich haben inspirieren lassen vom Rupaplan, sind die persischen und chaldäischen Magier, die persische Rasse.
+3. Inspiriert vom Astralplan werden alle diejenigen, die demselben Prinzip entsprechen, dem Prinzip der Gerechtigkeit. Es waren die Gebote gebenden Völker, die alten Israeliten, alle die, welche in der Zeit vor dem Christentum das Christentum vorbereiteten, die semitisch-keltische Unterrasse.
+4. Die griechisch-lateinische Rasse, die an ihrem Ende das Prinzip der Liebe im Christentum entwickelt.
+5. Das Gemeinschaftliche nach und nach auszubilden, ist das, was unserer Rasse vorbehalten ist. Sie wird es aber erst an ihrem Ende erreichen, die germanische Unterrasse.
+6. Die sechste
+7. und siebente Unterrasse sind Rassen der Zukunft, die den aus dem Spirituellen hervorgehenden Sozialismus auszubilden haben. Die Völker werden sich selbst ihre Organisation geben.
+
+Um in sich selbst Ordnung zu bringen, muss man so etwas begreifen. Wir waren in allen Rassen verkörpert. In der zweiten Unterrasse wurden Maß und Zahl in uns involviert. In der nächsten Inkarnation mussten wir Maß und Zahl ausbilden. Dies wird Fruchtbares als Karma der sechsten Unterrasse, in der der Mensch nach Maß und Zahl Einrichtungen treffen wird. Ebenso wird die Inspiration auf dem Arupaplan in der siebenten Unterrasse zum Vorschein kommen. Wir, in der fünften Unterrasse, leben dasjenige aus, was in der dritten Unterrasse gelehrt worden ist: Gerechtigkeit.
+
+Die vierte Unterrasse ist eine besondere Erscheinung: die Liebe. Sie wirkt in allem zurück, bringt aber ihre eigene Natur erst in der sechsten Wurzelrasse zum Ausdruck. Das wahre Christentum kommt erst in der sechsten Wurzelrasse zum Ausdruck. In der sechsten Unterrasse werden die Formen geschaffen, in die das Leben der sechsten Wurzelrasse gegossen werden wird. Unsere Unterrasse hat es nicht weiter gebracht als zu einer genügenden Form des Rechtsbewusstseins; das war in der dritten Unterrasse veranlagt. Das Prinzip der Gerechtigkeit.
+
+Das Gemeinschaftsleben der fünften Unterrasse soll die Theosophische Gesellschaft vorbereiten. Das kann erst in der zweiten Hälfte der sechsten Unterrasse zur Geltung kommen. Die Theosophische Gesellschaft hält das Prinzip der Liebe durch die Weiterentwicklung hindurch aufrecht. Das Gemeinschaftsleben muss geschaffen werden; das ist physische Notwendigkeit. Die Liebe aber muss aufrecht erhalten werden – durch Menschheitspflege.
+
+In der slawischen Rasse leben auf diejenigen, die ihre Tätigkeit kennengelernt haben in der zweiten Unterrasse, in der Maß und Zahl waren. Persönlichkeiten wie Robespierre sind auch anwesend gewesen in der dritten Unterrasse.
+
+In der sechsten Unterrasse leben wieder auf die Magier aus der zweiten Unterrasse.
+
+Die in der siebenten Unterrasse werden die sein, die im Verborgenen gewirkt haben – Adepten oder Meister – während der anderen Unterrassen. Nach der ersten Unterrasse bleiben sie im Verborgenen.
+
+Das, was Sein ist, muss zuerst Tätigkeit gewesen sein. Die Tätigkeit der dritten Unterrasse wird Sein in der fünften Unterrasse. Die Tätigkeit der vierten Unterrasse ist in sich abgeschlossen.
+
+Laokoon ist der Repräsentant für den alten Priesterstand der Gerechtigkeit, der von dem Odysseus, von dessen Schlange – von der Schlauheit – überrumpelt wird, wie Troja von den Griechen, wie die dritte von der vierten Unterrasse. Die Sage von dem hölzernen Pferde ist von einem Initiierten verfasst worden. Es ist dies die große karmische Frage, die durch die zyklische Natur den Menschenlauf bestimmt.
+
+Die Entwicklung durch die Rassen ging in einem immer langsameren Tempo bis zum physischen Zustand, dann aber immer schneller. Die künftigen Ereignisse werden gar nicht so lange auf sich warten lassen; es wird dann eine bestimmte Anzahl von Menschen gerettet werden, die die Kultur von der fünften [Wurzelrasse] zur sechsten [Wurzelrasse] hinüberbringen.
+
+---
+
+414
+415
+
+# Aus der Fragenbeantwortung
+
+Während der Entwicklung streifte der Mensch nach und nach die verschiedenen, unter ihm stehenden Reiche ab, die dann als Mineralreich, Pflanzen- und Tierreich – Kalt- und Warmblüter – neben ihm weiter bestanden. Die Kräfte, aus denen sich diese Reiche weiter entwickelten, waren vorher dem Menschen selbst zu seiner Entwicklung notwendig. Dann aber kamen stufenweise Zeiten, in denen ihn diese Kräfte an seiner Entwicklung gehindert hätten. Deshalb wurden sie abgestreift, herausdestilliert aus der Menschennatur. Als das geschah, sahen die entsprechenden Anlagen ganz anders aus als die jetzigen Mineral-, Pflanzen- und Tierformen. Durch Abstreifen bestimmter Wesen hat der Mensch nach und nach bestimmte höhere Kräfte erlangt. Darum stehen auch die übrigen Reiche, und besonders das Tierreich, mit ihm in einem ganz bestimmten Verhältnis, das man bis in die einzelnen Tiergattungen verfolgen kann. Das Pferdesymbol deutet auf einen solchen Zusammenhang hin. – In der Zeit der zweiten Rasse, der Hyperboreer, erlangte der Mensch die Anlage zur Aufnahme der Verstandestätigkeit dadurch, dass er das abstreifte, aus dem sich später im Tierreich das Pferd entwickelte. Er musste das abstreifen, sonst hätte er später nicht Manas aufnehmen können. Er war bereit, Manas aufzunehmen in der dritten Rasse, in der Mitte der lemurischen Zeit. Das Pferd entwickelte sich in der Art, wie wir es kennen, erst in der vierten Rasse, in der atlantischen Zeit.
+
+So steht also die Entwicklung des Verstandes beim Menschen in gewisser Beziehung zum Pferd, zur Pferdenatur. Daher wurde das Pferd bei allen alten Völkern heilig gehalten und oft als Symbol gebraucht, in der Apokalypse zum Beispiel. Die alten Völker, besonders auch die Atlantier, hatten ein Bewusstsein von diesen Zusammenhängen, ohne sie direkt zu kennen. Eine Gestalt der Sage, der Kentaur, hat tatsächlich bestanden in der Übergangszeit, als der Mensch allmählich das abstreifte, was die Pferdenatur wurde. Das Denkvermögen war nun das, wodurch der Mensch sich zum Höheren, Göttlichen erheben konnte. Daher wurde dem, der seine niedere
+
+Natur überwunden hatte, der die Erhebung ganz zu vollziehen verstand, der ein Initiierter in das Wesen der höheren Natur geworden war, ein Pferd als Symbol gegeben.
+
+---
+
+416
+417
+
+# ÜBER DIE WANDERUNGEN DER RASSEN
+
+Berlin, undatiert 1904
+
+Wenn wir uns die Wanderungen der fünften nachatlantischen Rassen klar machen wollen, müssen wir uns vor allem bewusst sein, dass es schwer ist, in diesem Chaos klar zu sehen. Es haben sich bei uns Nachkommen von allen früheren Rassen verpflanzt, und wir arbeiten schon in der vierten [Wurzel-]Rasse mit einer gleichsam strahlenartig sich ausbreitenden Bevölkerung, die selbst durchmischt ist mit Nachkommen anderer Rassen. In der fünften Rasse liegt die Sache am kompliziertesten. Überall finden wir Bevölkerungsreste, die einst schon eine Kultur hatten. Soweit wir die Völker des südlich-asiatischen Kontinents betrachten, haben wir Überreste der alten lemurischen Bevölkerung. Im Inneren Australiens findet man noch ihre Abkömmlinge. In West- und Nordasien, in Mittelasien und Südeuropa finden wir Reste der vierten atlantischen Epoche. Das ist der Boden, in den sich die Zweige der fünften nachatlantischen Epoche hineinsenken. So haben wir hier das Ergebnis von zwei Strömungen: Der lemurisch-arischen einerseits, der atlantisch-arischen andererseits. Alle diese Kulturen aber haben eine noch ältere in sich aufgenommen; Sibirien, Skandinavien, Nordrussland, China haben sogar Reste der hyperbo-reischen Kultur. Diese Mischungen sind schwer zu enträtseln. Suchen wir den Gang des arischen Kultureinschlages zu verfolgen.
+
+Von einem Punkt in Mittelasien, etwa in der Nähe der Gobi- und Chamo-Wüste, breitete sich diese Kultivierung radienartig aus. Es war eine entschiedene Priesterkultur, die eine spirituell hochgebildete Rasse dazu vorbereitete, in das Völkerchaos hineinzusteigen, Kolonien zu entsenden, aus denen neue Zivilisationen entstehen sollten. Hervorgegangen war dieses kleine Stammvolk aus der fünften Unterrasse, den Ursemiten der vierten atlantischen Epoche. Wir müssen bedenken, dass diese Ursemiten ihre bestimmte Aufgabe bekamen, die im Gesetze des Manu ausgedrückt sind, im weitesten Umfange den Menschen das zu bieten, was im Jesu-Wort ausgedrückt ist:
+
+«Das Reich Gottes kommt nicht mit äußeren Gebärden, sondern das Reich Gottes ist unter Euch.» Alles Frühere war nur Vorbereitung auf diesen Zeitpunkt hin. Es war das, was die Geleittendenz des Christentums wurde: Die Heiligung der Persönlichkeit, das volle Hinuntersteigen auf den physischen Plan. Diese Mission musste erst sorgsam vorbereitet werden.
+
+Von Anfang an legte nun der Manu in der Stammrasse sehr geringen Wert auf das, was über Geburt und Tod beim Menschen hinausgeht. Diese Lehren hatten früher eine große Rolle gespielt und glommen nun langsam ab, um allmählich zu verschwinden. Der Manu der fünften nachatlantischen Epoche wollte die Menschen auf den physischen Plan hinunterführen, um sie in Stand zu setzen, das physische Herz, Gehirn, Lunge zu verstehen. So glommen denn diese über Geburt und Tod hinausgehenden Lehren in den ersten drei nachatlantischen Kulturen langsam ab. Denn auch ein Manu kann nicht Geschicke und Ereignisse lenken, wie er will, sondern er muss alles den großen Naturgesetzen gemäß vollbringen. Zwei Dinge lagen für ihn vor: Die Kultur, die noch aus der lemurischen Bevölkerung vorhanden war im südlichen Asien, und die Reste der atlantischen Kultur in Afrika. Dahin entsandte er seine Kolonien mit eingeweihten Priestern. Die einen nach Indien, die andern nach Afrika. Er gab ihnen mit die Lehre von der Non-Reinkarnation, die Lehre [über das Leben] zwischen Geburt und Tod. In den ältesten Veden ist in der Tat nichts enthalten von dem, was über Geburt und Tod hinausgeht. Er sagte sich: Da kommen Völker zusammen, die nichts wissen von der Reinkarnation, mit solchen, die eine genaue Kenntnis davon haben. Das Ergebnis wird das Richtige sein.
+
+In Ägypten kamen sie mit den Atlantiern zusammen, die keine so scharfe Reinkarnationslehre hatten. Denn während die letzten Lemurier sie im höchsten Maße ausgebildet hatten, war sie bei den Atlantiern schon verbildet; bei ihnen hatte sich alles aufs Gedächtnis zugespitzt; das Gedächtnis war bei den Atlantiern so scharf, dass es alles andere überwog, dass alles Physische durch Vererbung in ihm lebte. So haben wir denn in diesem ersten Auszug zwei Zweige: die Indo-Arier und die Hamiten.
+
+---
+
+418
+419
+
+In Indien nahmen die einwandernden Indo-Arier, die mit der alten Lehre des von Gott geoffenbarten Wortes – Veda-Wort – kamen, die Reinkarnationslehre auf, und im Brahmanentum haben wir das, was so schön herauskommt als Reinkarnationslehre. Das hat der Manu bewirkt. Aus den unterjochten Lemuriern wurden indessen die Paria, aus den Indern die vier Kasten. Es ist das Prinzip der Eingeweihten: Die Vermischung des neu Hinzugekommenen mit dem, was schon da ist, hier der mächtigen manasischen Spiritualität mit der Reinkarnationslehre.
+
+Bei dem hamitischen Zweig – drei Söhne des Noah: Sem, Ham und Japhet – trat die Reinkarnationslehre etwas mehr zurück. Sie war äußerlich weniger klar. Die Ägypter haben mehr Gewicht auf die Konservierung der Leichen gelegt. Das Vererbungssystem war mehr betont, welches auf die physische Kontinuität den Hauptwert legt. Der Wert des einzelnen Lebens fand Betonung und bildete schon die alte Rishi-Lehre um. Eine weniger entschiedene Reinkarnationslehre vermischte sich hier mit der Persönlichkeitslehre.
+
+Die zweite Wanderung besteht darin, dass gleichsam ein neuer Zweig ausgeschickt wurde. Wir können ihn verfolgen, wenn wir zunächst nach Osten hin die Meder und Perser betrachten und dann den Stamm, welcher durch Chaldäa geht und seinen historischen Ausdruck in den Wanderungen des Abraham gefunden hat – aus Ur in Chaldäa. Auf der einen Seite kam der Stamm, der nach Westen ging, auch in Berührung mit den Überresten der atlantischen Kultur, und zwar mit der vierten Unterrasse der Atlantier, der turanischen Bevölkerung, die sich mit Ackerbau beschäftigt hatte.
+
+Es entsteht so ein eigentümliches Gemisch. Aufgepfropft wird auf jenen turanischen Zweig, der früher Magie getrieben – und zwar muss kräftig aufgepfropft werden! Von hier aus ging die Lehre der Meder und Baktrer. Hier wirkten die ersten Zarathustras, bemüht, im Dienst der äußeren Kultur die äußeren Handgriffe der magischen Zeit zu verwenden. Das Ergebnis ist ein mächtiges Aufblühen des Ackerbaues und der Weinkultur; in ihnen haben wir das Wiederaufleben der alten magischen Fertigkeiten.
+
+Ein Kolonistenzweig geht weiter nach Westen und stieß auf Überreste der nicht ausgelösten Ursemiten der atlantischen Rasse, und diese bilden, was man den alten semitischen Stamm nennt: Chaldäer, Babylonier, Phönizier, Araber. Sie bilden eine neue semitische Kultur.
+
+Die bedeutsamsten Ereignisse haben wir zuerst bei den Medern und Persern. Sie sind in einer alten Sage enthalten, die viele Neugestaltungen erlebt und uns zuletzt bei Cyrus entgegentritt: Der König Astyages hatte eine Tochter, Mandane, die sich nicht mit einem Meder, sondern mit einem Perser vermählte. Dem Vater träumte, dass ein Baum dem Schoße seiner Tochter entsteige. Der Traum wurde so gedeutet, dass der persische Stamm den medischen überschatten würde. Die alte Sage des Cyrus hat eine uresoterische Bedeutung. Cyrus ist der Repräsentant des ackerbautreibenden Persers gegenüber dem nicht ackerbautreibenden Meder, und der [Bauer] bedeutet, dass die Ackerbaukultur den Sieg gewinnt: Die alte Kultur geht über zu den Ackerbauern.
+
+Wie die Sache sich vollzog, können wir aus der Einrichtung des persischen Wesens sehen. Physisch stark sollten sie werden. Lemurier gab es hier nicht; die Atlantier hatten das vorbereitet, was zur Entfaltung der Persönlichkeit führt. Bei den Persern wurden persönliche Tugenden vor allem betont. Es ist ein bemerkenswerter Zug, dass sie Unterricht im Wahrheit-Sagen hatten; dies war ein Hauptgegenstand für die Knaben neben den gymnastischen Übungen. Und das ist sehr wichtig. Es bereitet sich vor, was dazu führte, dass persönliche Tüchtigkeit zum Höhepunkt kommen konnte.
+
+Nun kommen wir dahin, wo das ursprüngliche semitische Element sich mit dem Neuen vermischte. Priester-Rishis wanderten hinüber und fanden dekadente Alt-Semiten und ebenfalls dekadente Akkadier. So bildete der Manu einen neuen Zweig dadurch, dass er seine Einwanderer verband mit den dekadenten Semiten, denjenigen, die während ihrer atlantischen Blütezeit die Rechenkunst ausgebildet hatten. Was daraus hervorging, war die chaldäische Weisheit. [...] Es entstanden Astrologie, Astronomie, die Sternwarten, der Kalender, Maß und Gewicht. Diejenigen Einwanderer, die auf die Akkadier, das alte Handelsvolk, gestoßen waren, wurden benutzt, um in dieser Mischung neue Kolonien zu schaffen. Es waren die Phönizier.
+
+---
+
+Ein weiterer Auszug folgte: Eine Rishi-Kolonie mit Anhängern ging nach Europa hinüber. Hier fand er das alte hyperboreische Element vor, und im Süden das atlantische. Die Hyperboreer hatten sich schon mit den Atlantiern vermischt; es war also nur noch ein kleiner Anklang an sie geblieben. Im Süden war Hyperboreisches fast gar nicht mehr vorhanden. Hier, auf dem Boden des alten Griechenlands entsteht nun die pelasgische Bevölkerung mit einer Art von Naturdienst, der vielfach an Ägyptisches erinnert; nur ist er hier mehr Lokalkultus, statt Ahnenkultus: Heilige Bäume, Heilige Höhlen finden wir vor; er knüpft sich mehr an die Natur. Es war der Glaube da, dass sich das Heilige mehr an den Ort als an den Stamm knüpft – Zeus von Dodona und andere. Der physische Ort wird heilig. Das war die Neubildung.
+
+Auch in Italien wird wieder eine Mischung von alter atlantischer und Rishi-Kultur auf den physischen Plan gebracht. Hier drang das durch, was sich bei den Atlantiern als soziales Wesen und als ein Hängen an technischer Kultur ausgebildet hatte: in der sozialen Gesetzgebung und technischen Fertigkeit der Etrusker.
+
+Im Norden gibt die Mischung von hyperboreischer- und Rishi-Kultur die Neubildung der keltischen Kultur. Vorgefunden ist ein Atlantisch-Hyperboreisches, mit dem wenig anzufangen war. Es musste ein neuer Einschlag gegeben werden, und das Ergebnis ist die keltische Mischung mit der Druiden-Kultur. Diese hat so viel Geistiges, weil sie noch das Hochspirituelle, das über das Spirituelle des Atlantischen und Lemurischen hinausging, aufnahm. Weil es das hyperboreische Element in sich hatte, konnte das Keltische nicht recht standhalten und ging auf in den späteren Kulturen.
+
+Wir kommen nun zu der dritten Aussendung. Sie ist sehr kompliziert. Sie geht zum Teil hinein in das, was früher von den zwei ersten vorbereitet war. Wir haben sie in den Darstellungen der verschiedenen Völker erhalten. Überall da, wo in den Traditionen die starken kräftigen Menschen schon im Vordergrund stehen. So ging vor allen Dingen eine Gruppe von Initiierten nach Westen und befruchtete das schon einmal befruchtete ursemitische Element noch einmal. Denn es handelt sich darum, zusammenzufassen alles, was ursprünglich
+
+hineingegossen war zu der großen Idee der Staatenbildung. Das Ergebnis dieser dritten Aussendung nach dieser Dichtung hin ist die Genesis, das Alte Testament.
+
+Eine weitere Aussendung war diejenige, welche nach Kleinasien hinüberging und dort das bildete, was erhalten ist in der trojanischen Kultur sowie in ihren Tochterkulturen, von denen die eine die albalongische ist. Diese Initiierten hatten die Aufgabe, die Staatenbildung zu übernehmen, sowie es zu den verschiedenen Völkern passte.
+
+Wir haben also drei Gruppen von Initiierten kennengelernt, von denen die erste die Aufgabe hatte, die religiöse Kultur zu schaffen, die zweite, die materielle Kulturgrundlage zu schaffen – Persien –, die dritte den Staat zu bilden, die Leidenschaften zu konsolidieren. Dies geschieht in den Formen, die den verschiedenen Völkern angepasst sind, wie in Troja also oder Alba Longa oder dem theokratischen Gottesstaat Palästina. Im Wesentlichen waren das aber nur Vorbereitungen, bei Völkern gemacht, die zur Staatenbildung gar nicht berufen waren. Bei dem Volk, das am meisten dazu berufen war, durch seine Kultur das Geistige auf den physischen Plan hinauszutragen, gelingt die Staatenbildung am wenigsten: Die Griechen sind vor allem das Kunstvolk. Das höchste Persönliche, auf den physischen Plan herausgebracht: Das ist die Kunst. Der Initiierte der dritten Gruppe – bei den Griechen – ist der Heros, der starke Mensch.
+
+Drüben in Asien sind die Völker schon wiederholt gemischt. Und diejenigen, welche die höchste Gesetzgebung bekommen hatten, die Juden, waren so gemischt, dass sie schon hypertrophiert waren. Dagegen war in Europa, in Mittelitalien, eine einfachere Mischung gewesen. Wir finden dort ein sehr starkes atlantisches Element. Die Etruskische Kolonie hatte mit Alba Longa, dem Priesterstaat, zusammengewirkt und Rom zustande gebracht. Hier war einfache Rassenbildung und sehr viel Atlantisches darin. Die zwei Züge hatten hingereicht, um das zu begründen, was man die etruskisch-römische Kultur nennt, mit dem Priester-Einschlag, der zur Institution des Pontifex Maximus führen musste. Die Verhältnisse lagen einfach, und so ging aus ihnen das Volk der römischen Republik hervor, das persönliche Tapferkeit rein für sich ausbildete. Der römische Bürger,
+
+420
+421
+
+---
+
+422
+423
+
+der Cives, war der vollwertige Mensch, der sich ganz als Persönlichkeit fühlte. Die Griechen mussten sich vor allem als Weise und Künstler fühlen. Als sie das pflegten, was am meisten aus der Persönlichkeit hervorgeht, die Redekunst und das Recht, mussten sie untergehen. Privatrecht und Redekunst, Eloquenz, werden erst in Rom zur Vollendung ausgebildet. Der Grieche hat erst geahnt [...] und dann die vollkommene Persönlichkeit ausgebildet, indem er sie in seinen Göttern darstellte. Der Römer stellt in seiner Person die in sich vollendete Persönlichkeit als Bürger dar, als wirklicher Mensch. Die Werke der griechischen Bildner stehen gleichsam in den Römern auf und werden Leben.
+
+In Rom bereitete sich also etwas vor, was die Loge der Initiierten benützen konnte, um einen weiteren Einschlag zu geben. Die höchste Spitze des Geisteslebens musste dazu genommen werden. Die war nur da zu finden, wo die meisten geistigen Einschläge gegeben waren, nämlich in Vorderasien. Dort war Geist auf Geist gepfropft:
+
+1. Der Selbst einschlag: die fünfte Unterrasse der Atlantier-Ursemiten auf die erste Unterrasse der arischen Bevölkerung.
+2. Der Einzug in die Gegend des Euphrat und Tigris.
+3. Die patriarchalische Zeit – die Zeit der Heroen.
+4. Der Gottesstaat.
+
+Diese wunderbare Mischung drückt sich in allen Zweigen des Geisteslebens aus. Der neue Einschlag dort konnte nur kommen von einer Persönlichkeit, die fernab, nicht aus dem eigenen Lande kam.
+
+Es wurde von der Loge sorgfältig die Familie ausgesucht, aus der ein Initiierter hervorgehen sollte. Durch die alte Rishi-Kultur war vorbereitet, vorverkündet der Initiierte, der jetzt kommen musste. In den Sibyllinischen Büchern war es niedergeschrieben.
+
+So wird im Verborgenen, abseits vom Judentum, in Galiläa, der Messias der vierten Unterrasse vorbereitet. Dort in Galiläa hatte das Judentum nie festen Fuß gefasst; es war dort nicht hineingedrungen. Die Galiläer sind dem Rassencharakter nach sehr gemischt. Es handelte sich darum, dass er auch nichts vom Galiläer habe, dass er wie aus dem Verborgenen komme. Daher erzählen die Apokryphen von ihm, dass er ein Muttersohn sei, sprachen von seiner unehelichen Erzeugung.
+
+Dies war Jesus von Nazareth, der Galiläer. Er war bis zum dritten Grade eines Schülers initiiert. Nun handelte es sich darum, ihn zum höchsten Initiierten für alles zu machen, was überhaupt auf dem physischen Plan verwirklicht werden sollte. Das geschah dadurch, dass die ganze Persönlichkeit von einem anderen in Besitz genommen wurde, der die ganze fünfte Wurzelrasse darstellt, von dem Christus. In der griechisch-lateinischen Kultur kam die ganze fünfte nachatlantische Epoche heraus, und das ist symbolisch dargestellt in dem Herabkommen der Taube. Wollte man die Wahrheiten ausdrücken, um die es sich hier handelt, konnte man nur die höchste Form wählen.
+
+Der Manu sagte sich, ich will die vierte Unterrasse zu einem Wesenszusammenschluss aller früheren Einschläge machen und sie mit dem Geist der ganzen fünften Wurzelrasse begaben. Das kann der Christus tun, der der eigentliche Einschlag der ganzen fünften Wurzelrasse ist. Der Manu hat es vorbereitet, Christus sich gleichsam in das Vorbereitete hineinbegeben. Es sollte die Offenbarung des eigentlichen Geheimnisses der vierten Rasse vor sich gehen. Früher war es nur vorbereitet worden, die höchsten Initiierten hatten es gesehen, die anderen vorbereitet. Das war die Finsternis, in die das Licht kam.
+
+Überblicken wir den Werdegang, so haben wir Ergebnisse, die dadurch vorbereitet sind, dass die drei ersten Unterrassen stufenweise zur Persönlichkeit erzogen werden – bis in der vierten das Tiefinnerlichste der Persönlichkeit ergriffen wird, als Gleichheit aller Menschen vor Gott.
+
+Initiierte, die ausgesandt wurden, waren nicht von Vater und Mutter der betreffenden Rasse gezeugt. Sie waren überall geschlechtslos.
+
+Das ist im Johannes-Evangelium wirklich gesagt:
+
+Zu den Einzelnen kam er, und die Seinen nahmen ihn nicht auf, die ihn aber aufnahmen, denen hat er die Macht verliehen, Gottessöhne zu werden, und die auf seinen Namen vertrauten, waren nicht aus Fleisch und Menschenwillen, sondern aus Gott erzeugt. [Joh 1,11–13]
+
+Christus ist das innerlich göttliche Prinzip; er muss sich in die Formen gießen und nimmt die Gesetzesform aus dem theokratischen Staat auf, aus dem Judentum. Diese, die Juden, konnten die neuen
+
+---
+
+424
+425
+
+Formen nicht annehmen, sie hatten schon die ihren; das war die Höchste. Er musste sie aber annehmen, stufenweise musste er heraustreten auf den physischen Plan. Er sprach also seine Weisheit aus durch die Weisheit des alten Judentums. Nun musste diese Weisheit verstanden werden. Verstehen konnte man diese Weisheit da, wo man den physischen Plan schon erobert hatte, wo man Philosophie hatte. Daher stammten die ersten Kirchenväter von den Griechen. Diese hatten in ihrer Philosophie die Möglichkeit ausgebildet, das was auf den physischen Plan heraustrat, zu verstehen. Sie konnten, als in der Persönlichkeit der Wille heraustrat, auch diese Persönlichkeit verstehen.
+
+Das Volk, das einen Zeus gebildet, einen Gott selbst in seiner Bildhauerkunst inkarniert hatte, konnte auch die Idee des inkarnierten Gottes verstehen. Leben konnte diese Idee zunächst nur durch das, was aus dem römischen Volke heraustrat. Der Mensch, der die Persönlichkeit herausgebildet hatte, konnte diese Idee haben. Das war der Römer.
+
+Der Christus selbst wird im jüdischen Volke gebildet, er wird verstanden durch die griechische Gnosis und die griechischen Apostel: Paulus und der Griechen-Evangelist Johannes. Das alles hätte aber nicht zur Ausbreitung des Christentums auf dem physischen Plan führen können, sondern höchstens zu einem Verständnis. Die Römer, die sich griechische Bildung aneignen, Jerusalem zerstören, nach Asien gehen, werden Christen.
+
+Also:
+
+Die Juden bilden Christus.
+
+Die Griechen verstehen Christus.
+
+Die Römer werden Christen.
+
+Daher breitete sich das Christentum auch erst nach der Zerstörung Jerusalems aus und hat eine spezifisch römische Form. In Rom war schon vorbereitet das physische Gefäß für den Christus, und zwar der Staat, der schon das Weltreich begründet, und der Priester, der es verwalten konnte, der Pontifex Maximus. Damit haben wir die vierte Unterrasse. Wir haben gesehen, dass sie sorgfältig vorbereitet war. Die fünfte Unterrasse ist ja noch im Werden.
+
+Wir sind auf dem Gipfel oder in dem Zentrum angelangt. Die folgenden Lehrer sind daher solche, die zu bewahren haben, was entstanden ist, um es auf dem besonderen Physischen wieder anzuwenden. Es handelt sich darum, dass einige Initiative diese erstiegenen Gipfel für die Einzelnen spezifizieren. So haben wir die christliche Tradition bewahrt in der Bruderschaft vom Heiligen Gral. Fortwährend verkommt und degeneriert das Christentum. Es handelt sich also darum, fortwährend neue Einschläge zu geben aus dem, was man den Berg Montsalvatsch, den Gral nennt. Diese Einschläge nehmen einen anderen Charakter an. Wiederum sind es Rishis, die die eigentliche Unterweisung auf christliche Art erleben und nur immer das ursprüngliche Christentum schützen wollen gegen die Degeneration.
+
+Auf diese Weise sind die verschiedensten Regenerationsversuche gemacht worden. Der erste Versuch führt zurück auf einen Initiierten, der geschichtlich noch keine Rolle spielen kann, weil auf diesem Boden noch Vorgeschichte ist. Er wird aber in der Sage genannt. Der deutsche Apostel Bonifatius ist es. Von ihm stammt die ursprüngliche Form, in welcher das Christentum von Irland nach Deutschland kam, mit einem Gemisch von Druidenkultur, indischem Einfluss, Einschlag des Dionysius Areopagita.
+
+Ein neuer Einschlag war gegeben und eine neue Möglichkeit geschaffen durch den Initiierten, den man als Lohengrin bezeichnet. Diese Initiation ging unter einem sehr komplizierten Gesichtspunkt vor sich; wie auch alle Initiationen kompliziert werden. Denn es war zu verbinden das ursprüngliche Christentum, welches sich kontinuierlich ausgebildet hatte von Dionysius dem Areopagiten an durch Scotus Eriugena bis herauf zu der Scholastik und Mystik. Es konnte diese Strömung zwar auf die Völker durch Predigt wirken; allmählich aber war sie dem Volke verlorengegangen, weil sie zu den höchsten Höhen des Gedankens ging. Daher musste eine Befruchtung von dem ursprünglichen spirituellen Element geholt werden. Es war ein Höhepunkt erreicht worden, der aber zugleich eine Sackgasse war, und um auf den Initiierten Lohengrin zu wirken, musste eine neue Befruchtung aus dem Orient, und zwar durch die Kreuzzüge bewirkt werden. Das Wesentliche, was daraus hervorgegangen ist, sind
+
+---
+
+426
+427
+
+die Tempelritter, die eigentlichen Sendboten des Heiligen Gral. Die bauen am Orte des Salomonischen Tempels eine Weisheitsstätte und nachdem sie dort vorbereitet sind, werden sie Diener des Heiligen Gral, werden dort vom Gral eingeweiht. Dies geschieht um die Wende des dreizehnten und vierzehnten Jahrhunderts und wird vorbereitet im elften und zwölften Jahrhundert.
+
+Nun sind wir im Vorbereitungsstadium der fünften Unterrasse, der germanisch-englischen. Aus dem Tempeldienst können wir ersehen, dass es sich um die Anwendung des Christentums auf eine neue Rasse handelt. Der Tempelherrendienst bereitet vor das Überschlagen des Christentums zur vollen Äußerlichkeit [...] im Christentum, die später zum Protestantismus führt. Dadurch verstehen wir das eigentliche Bekenntnis der Tempelherren und ihren Geheimkultus. Sie sagten sich: Der Christus, den die Abendländische Kirche vertritt, ist uns nichts, denn dieser ist der Christus am Kreuz. Wir aber verkündigen den Christus, der in Jerusalem gewandelt ist und vom Täufer die Initiation empfangen hat; unsere Lehrer über Christus sind daher nicht Kirchenlehrer und Kirchenväter, sondern Johannes der Täufer, der Initiator selbst. Daher bestand die Hauptzeremonie darin, dass sie das Kruzifix-Symbol des abendländischen Gottesdienstes und die Hostie, die nicht geweihte, ausspien. Darinnen war symbolisch ausgedrückt die ganze Verachtung des römischen Christentums, desjenigen, das sich als Katholizismus ausgebildet hatte, und es war vorbereitet das: Zurück vom katholischen Christus zum evangelischen Christus. Das war ein Grundsatz. Ein anderer war:
+
+1. Wir nehmen wieder an den Glauben an die Elementarkräfte der Welt.
+2. Wir glauben, dass die Schicksale der Menschen ein Ergebnis der Gestirnzusammenhänge sind und dass der Mensch selbst herausgeboren ist aus den großen Gestirnzusammenhängen, den Naturgesetzen.
+
+Aus diesen zwei Grundsätzen ist die Kultur der germanisch-englischen Rasse herausgewachsen: Die religiös-protestantische einerseits, die wissenschaftliche der physischen Welt anderseits.
+
+Dies war aber nur das Gefäß. Der Inhalt kam auf dem Umwege
+
+durch die Mauren. Wiederum haben wir also hier einen semitischen Einschlag. Fünf semitische Einschläge waren es, die den Inhalt gaben. Vorbereitet wurde immer die Form.
+
+Die Rosenkreuzer bewachten den gemeinsamen Grundstock dessen, was auseinanderging in einer rein weltlichen Wissenschaft und einer materialistischen Religion. Sie waren es, die zusammenhalten wollten. Die Rosenkreuzer pflegten im Wesentlichen das Studium der Evolution im Konkreten innerhalb der fünften Unterrasse, bereiteten die sozialen Gesetzgebungen vor und werden die eigentlichen Führer der sechsten Unterrasse sein.
+
+---
+
+428
+429
+
+# APOKALYPSE VII
+
+Berlin, 14. November 1904
+
+Die Apokalypse muss betrachtet werden als ein Dokument, durch welches einer der christlichen Eingeweihten – welche ihren Unterricht erhalten haben nach der Verkündigung durch die Tat – das Tiefste gesagt hat, was als Geheimnis erst später offenbar werden soll. Es tritt uns in dieser Lehre eine Übereinstimmung mit der Urweisheit entgegen: die Darstellung der Menschheitsentwicklung in der Apokalypse. Diese tiefe Übereinstimmung mit den großen anderen Weisheitsreligionen übersehen wir an diesem Dokument.
+
+Das andere, was aus ihr hervorgeht ist, dass sie einen esoterischen und einen exoterischen Gehalt hat – einen Gehalt für jedermann; das er auch demjenigen bietet, der durch Vorbereitung zu einer solchen Gestalt kommt.
+
+Durch die Apokalypse sind die alten Lehren bestätigt, verfasst im Sinne des Spruches: «Selig sind die da glauben»; aber auch für die, die schauen. Verstehen kann nur der die Apokalypse, der tiefer in sich selbst eindringen kann. Sie führt uns hinaus, dass sie die großen Welträtsel löst, durch die wir wieder hineinblicken in das eigene Innere. Zwar sieht das Auge hinaus – will es aber sich unterrichten von dem, was da draußen vorgeht, muss es sich umwenden und in sich blicken. Wie kommt das?
+
+Es liegt dem zugrunde, dass der Mensch Geist des allgemeinen Gottesgeistes ist, er schafft immer von vorher und auch in fernen Jahren. Wenn aber der Menschengeist ein Teil des Gottesgeistes ist – das ist er in sich –, so sieht in dich – du bist etwas, das verwandt ist mit allem Schaffen. «Ich und die Gottheit sind eins.»
+
+Der Mensch lebt für sich, aber er versetzt sich in die fernste Vergangenheit, und in die Zukunft. Was in mir lebt – da bin ich dabei gewesen. Nicht nur abstrakt die Gedanken zu denken, sondern unser Gefühl damit zu durchdrücken; und wenn dieser Gedanke in uns lebt, dann sind wir auch solche Kraft, wir müssen unser Gefühl entflammen.
+
+Der Materialist sagt: Das Auge wird vom Licht berührt und das Auge empfindet es; der Mystiker sagt: Indem ich das Licht wahrnehme, weiß ich, es kommt von außen; aber wie kommt es, dass mein Auge es wahrnimmt? Da müssen wir uns sagen, dass der Mensch Organe an sich selbst herangebildet hat. Im Keimzustande wiederholt der Mensch alles, was er früher durchgemacht. Tiere, die in eine dunkle Höhle kriechen, verlieren das Auge[nlicht], sodass die Nachkommen augenlos zur Welt kommen. Das Licht hat also einstmals gewirkt, dass wir Organe haben. Eine Kraft ist das Licht, welche uns das Auge geschaffen. Das Licht ist auch von innen – und schafft das geistige Auge. «Wäre nicht das Auge sonnenhaft, wie könnten wir das Licht erblicken.» In uns ist das Licht hinein.
+
+Das schaffende Licht können wir in uns erleben. Platon hat gesprochen vom Lichte in uns. Um Platon zu verstehen, muss man sich tief in ihn hineinleben, man muss ihn nicht so schülerhaft kritisieren. Er sagt: Das Auge sendet Strahlen aus, wie wenn das Auge das Tätige wäre. Platon wusste es noch, lebte es noch, das helle Licht, das das Auge gebildet. Dies Licht, von dem die Mysterien sagen, ist ein Licht innen. Von hier strömt das Licht, Äonenlicht, Astrallicht, in dem wir leben; es erscheint uns nur von außen, wir erleuchten damit die Welt. Wir leuchten hinein in die Undurchsichtigen [...]
+
+Wer das schaffende Licht in sich selbst erlebt, der erlebt die Mysterien; der Mystiker erlebt von solchem Schauen; der wird ein Schauender, wie Johannes einer war – eine Wirklichkeit, an der der Materialist zweifelt.
+
+Wenn wir diese Wirklichkeit erfassen, wenn wir uns so stellen dem Mystischen gegenüber, kommen wir in die Stimmung hinein, die Apokalypse zu verstehen. Der Buchstabe tötet, aber der Geist macht lebendig. Aber Funken sprühen aus dem Buchstaben heraus, wenn wir sie durch den Geist lesen.
+
+Nun versteht man, was es heißt «das Erkennen der Wirklichkeit der Symbole». Die sieben Gemeinden durch sieben Leuchter benannt. Sieben Sterne sind die sieben Engel. Fassen wir diesen Begriff näher ins Auge.
+
+Es ist doch aber von sieben Gemeinden in Asien die Rede?
+
+---
+
+Alles was in der Zeit ist, hat seine Darstellung. Die sieben Unterrassen sind so vorzustellen, dass die eine fortdauert, während die andere anfängt.
+
+I – Unterrasse Inder. Es lebt noch diese alte Rishikultur.
+
+II – Persische Rasse
+
+III – Chaldäer, Babylonier
+
+IV –
+
+Es lebten schon Weisheitsschulen, welche das Geheime erst der Zukunft bewahrten.
+
+Die sieben Repräsentanten der sieben Unterrassen waren damals schon vorhanden. Solche sieben Bruderlogen werden die sieben Gemeinden genannt, es sind die sieben Leuchter der sieben Unterrassen, die sieben Führenden der sieben Unterrassen. Sie haben nichts zu tun mit dem Äußerlichen, aber mit einer realisti [Lücke in der Mitschrift]
+
+Aber was bedeuten solche Bruderlogen? Wenn ein Mensch sich vor uns darlegt, so hat er Organe, die in Gesamtheit ihn ausmachen, und in diesem Menschen kann die Seele nur innerhalb ihr Dasein führen, sie wohnt in diesem Tempel – Körper. Wollte die Hand ihren eigenen Weg gehen, so wäre die Persönlichkeit nicht möglich. Eine selbstlose Hingabe eines jeden Organs. Der Mensch muss so werden, wie seine Organe es ihm zeigen.
+
+Das Auge macht keine Ansprüche auf eigenes Leben, es gibt sich hin. Das Ohr ist komplizierter als das Klavier. Der Mensch ist nicht so weit. Als wenn das Auge die Farbe in sich selbst erleben möchte, es gibt sich hin – stellt sich in den Dienst der anderen Organe. Die Organe des Menschen also leben viel höher als er selbst. [...] Der Mensch könnte durch das Ohr nicht hören, wenn es selbst empfinden möchte. Er aber muss so werden. Er muss sich hingeben den anderen Menschen, als Organ sich hingeben, um einen Geistesmenschen zu ergeben.
+
+Diejenigen, die sich so hingeben – das nennt man eine Bruderloge. Wie die Seele sich in den Organismus hineinsenken kann, so kann sich eine höhere Wesenheit in eine Bruderloge hineinsenken. Wenn Menschen so vereinigt sind, dass ihrer mehrere die Organe sind, senkt eine hohe Wesenheit sich hinein; sodass also eine höhere
+
+Seelenwesenheit sich verkörpern kann. Weil sie – die Menschen – wie Organe geworden sind, kann innerhalb der Gemeinschaft ein höheres Wesen sich hineinsenken, um sich zu verkörpern.
+
+Pythagoreische Schule auch so.
+
+Da, wo alle gleichsam empfinden, wo jeder, was er hat, hinlegt auf den Altar der Gemeinschaft, da senkt sich das Höhere hinein.
+
+Wem Erfahrungen von solchem Herabkommen geworden sind, weiß es: Dann sind solche höheren Wesen Leuchter, dann sind sie Führer geworden, welche aus dieser Gemeinschaft den Stoff nehmen, um sich zu materialisieren.
+
+Das sind die sieben Engel: Das liegt einem christlichen Spruch zugrunde. Er sprach: «Ich bin bei Euch alle Tage bis ans Ende der Welt.» – Dazu gehört noch: «Wenn zwei oder drei in meinem Namen vereinigt sind.» –
+
+Ohne die Gemeinschaft kann kein höheres Wesen sich verkörpern, einzeln sind wir nichts. «Wenn zwei oder drei in meinem Namen vereinigt sind, dann bin ich mitten unter ihnen.»
+
+Durch alle Zeiten war diese Wirksamkeit – die davon erzählen, waren Eingeweihte. Johannes erzählt, dass er auf der Insel Patmos war. Diese Insel ist die Mysterienschule; ein Engel verkündete heißt: mystische Darstellung einer Tatsache; lebendiger Bezug zur Wurzelrasse. Es wird die Bruderhand hinübergereicht zu allen Unterrassen.
+
+An die Gemeinde zu Ephesus:
+
+Dem Engel der Gemeinde zu Ephesus schreibe: Das sagt, der da hält die sieben Sterne in seiner Rechten, der da wandelt mitten unter den sieben goldenen Leuchtern: Ich weiß deine Werke und deine Arbeit und deine Geduld und dass du die Bösen nicht tragen kannst; und hast versucht die, so da sagen, sie seien Apostel, und sind’s nicht, und hast sie als Lügner erfunden; und verträgst und hast Geduld, und um meines Namens willen arbeitest du und bist nicht müde geworden. Aber ich habe wider dich, dass du die erste Liebe verlässest. [Off 2,1–4]
+
+Die erste Liebe verlassen – da sind die Rishis gemeint.
+
+Die zweite Rasse, die persische, musste sich mehr auf das Praktische hinneigen: Sei getreu bis in den Tod und so weiter. Hier wird schon vom Teufel gesprochen, davon die Teufelsvorstellung – die Asuras.
+
+---
+
+432
+433
+
+Und dem Engel der Gemeinde zu Smyrna schreibe: Das sagt der Erste und der Letzte, der tot war und ist lebendig geworden: Ich weiß deine Werke und deine Trübsal und deine Armut (du bist aber reich) und die Lästerung von denen, die da sagen, sie seien Juden, und sind's nicht, sondern sind des Satans Schule. Fürchte dich vor der keinem, das du leiden wirst! Siehe, der Teufel wird etliche von euch ins Gefängnis werfen, auf dass ihr versucht werdet, und werdet Trübsal haben zehn Tage. Sei getrost bis an den Tod, so will ich dir die Krone des Lebens geben. [Off 2,8–10]
+
+Bei der dritten Rasse, vorasiatische Religion, wird die Gerechtigkeit ausgebildet.
+
+Und dem Engel der Gemeinde zu Pergamus schreibe: Das sagt, der da hat das scharfe, zweischneidige Schwert: Ich weiß, was du tust und wo du wohnst, da des Satans Stuhl ist; und hältst an meinem Namen und hast meinen Glauben nicht verleugnet auch in den Tagen, in welchen Antipas, mein treuer Zeuge, bei euch getötet ist, da der Satan wohnt. Aber ich habe ein Kleines wider dich, dass du daselbst hast, die an der Lehre Bileams halten, welcher lehrte den Balak ein Ärgernis aufrichten vor den Kindern Israel, zu essen Götzenopfer und Hurerei zu treiben. Also hast du auch, die an der Lehre der Nikolaiten halten: das hasse ich. Tue Buße; wo aber nicht, so werde ich dir bald kommen und mit ihnen kriegen durch das Schwert meines Mundes. [Off 2, 12–16]
+
+Vierte Rasse, die unmittelbare Verehrung des Christentums:
+
+Und dem Engel der Gemeinde zu Thyatira schreibe: Das sagt der Sohn Gottes, der Augen hat wie Feuerflammen, und seine Füße sind gleichwie Messing: Ich weiß deine Werke und deine Liebe und deinen Dienst und deinen Glauben und deine Geduld und dass du je länger, je mehr tust. Aber ich habe wider dich, dass du lässest das Weib Isebel, die da spricht, sie sei eine Prophetin, lehren und verführen meine Knechte, Hurerei zu treiben und Götzenopfer zu essen. Und ich habe ihr Zeit gegeben, dass sie sollte Buße tun für ihre Hurerei; und sie tut nicht Buße. Siehe, ich werfe sie in ein Bett, und die mit ihr die Ehe gebrochen haben, in große Trübsal, wo sie nicht Buße tun für ihre Werke, und ihre Kinder will ich zu Tode schlagen. Und alle Gemeinden sollen erkennen, dass ich es bin, der die Nieren und Herzen erforscht; und ich werde geben einem jeglichen unter euch nach euren Werken. Euch aber sage ich, den andern, die zu Thyatira sind, die nicht haben solche Lehre und die nicht erkannt haben die Tiefen des Satans (wie sie sagen): Ich will nicht auf euch werfen eine andere Last: doch was ihr habt, das haltet, bis dass ich komme. [Off 2,18–25]
+
+Dann die folgenden in der Zukunft: [Gemeinde zu Sardes, Gemeinde zu Philadelphia, Gemeinde zu Laodizea].
+
+Man versteht so die führenden Wesenheiten, wenn es mit dem ganzen Menschen studiert wird, es kann nicht mit dem Verstande allein begriffen werden, dann wird es bezweifelt, aber es sind reale Wirklichkeiten. Man wird nun fragen: Warum wurde solches nicht sogleich verkündet? Weil die Stifter des Christentums die Wahrheit erlebten [Lücke in der Mitschrift]
+
+Die erste Art, die Apokalypse zu lesen, ist, in naiver Gläubigkeit das Wort hinnehmen. Die zweite Art ist die, in ihr den allegorischen Sinn zu suchen; das ist gut, weil das hinführt zur dritten höchsten Art zu lesen, das ist: alles wörtlich zu nehmen.
+
+Wir müssen Bekenner der Reinkarnationslehre sein, wir müssen sagen: Der Mensch, der vor mir steht, ist da gewesen und wird wiederkommen; die Wahrheit in ihm anzunehmen als das Samsara – die Welt, in der wir leben, die Welt des ewigen Wechsels, des Kreislaufes der Wiedergeburten. An die Wiederverkörperung glauben – ich erlebe dann die Wiederverkörperung. Sie lehrten sie und lebten in diesem Sinne. Sie ist gelehrt worden zu allen Zeiten; was vor vielen Jahrhunderten gelehrt worden, es wächst der Gemeinschaftsglauben heraus aus diesem Glauben. Das ist der tiefste Wesenskern der Theosophie. Indem wir dieses erklären, fühlen wir aufleuchten, was damals geschehen. Derjenige, der war, sitzt neben uns, wir fühlen uns vereint mit dem, der nach uns kommt. So erheben wir uns, so können wir das höhere Geistige herunterbannen. Ich wollte zeigen, was das Gemeinschaftsleben ist – aus jeder Zeile der Apokalypse kann so etwas tief hervorgeholt werden, die ganze theosophische Bewegung kann daraus erklärt werden.
+
+---
+
+ENTSTEHUNG VON KARMA
+Berlin, 14. November 1904
+
+Wir verstehen unter Karma etwas, was in der Mitte der lemurischen Zeit begonnen hat und Ende der sechsten Wurzelrasse sein Ende finden wird. Individuelles Karma entsteht durch Geburt und Tod. Ein Wesen, das nicht mit einem Teil in die Erscheinungsform hinausragt, hat kein individuelles Karma. Ein Weltenkörper geht über aus einer Erscheinungsform in die andere. Wir nennen aber Karma, was sich ausdrückt durch Gut und Böse; nur was zwischen Geburt und Tod liegt, gehört zu der Verkettung, die wir individuelles Karma nennen. Wie ist Karma in die Welt gekommen?
+
+Vergegenwärtigen wir uns die Situation in der Mitte der lemurischen Zeit. Die Formgestaltung war so weit vorhanden, dass ein menschlicher Körper da war, in den Gedanken einziehen konnte. Vorher hatte sich aber mit diesem Körper verbunden das, was wir menschliche Seele nennen; die war herübergekommen aus dem Mond-Menschen, und nach seinem Muster waren Körper entstanden. Sie waren begabt zunächst so, dass sie zweigeschlechtlich waren. Auferbaut, aber nicht vollkommen. Diese Körper müssen wir noch als vollkommene Tiere behandeln; sie werden erst nach dem Einziehen von Manas Menschen. Wir können also wie auch beim Tier ebensowenig beim Menschen von Karma sprechen.
+
+Die Körper waren also gradweise vollkommen; ebenso waren die herübergekommenen Seelen nach verschiedenen Graden der Vollkommenheit gestaltet: Solare, Pitris, sieben niedrige Pitris; es gab auch normale und solche, die immer auf einer Stufe zurückgeblieben sind. Also sieben Grade von Entwicklung. Die Vollkommensten konnten schon Macht gebrauchen, die Körper zu beherrschen. Die andern waren noch nicht auf der Stufe; die Menschen waren wie eine Maschine, die sie nicht die Macht gehabt hätten zu dirigieren. Solche Pitris wurden Menschen aller vollkommenster Art: die ersten Arhats. Sie besaßen vollkommene Körper, vollkommene kamische Schaffens-
+
+kraft, vollkommene Manas, wenige aber außerordentlich und aus-erlesen: Lehrer, Herrscher, Regierer. Durch ausgeprägte hohe Arhats wurde Kamisches bewirkt. Sie besaßen übermenschliche Fähigkeiten und hatten vollkommene Einsicht in das, was Schaffenskraft ist, fast auf der Stufe früherer Etappen. Der Mensch war als Materie viel feiner und daher zum Schaffen leichter. Sie waren natureingeweiht. Den anderen hat der Funke von Manas nicht rasch geholfen, denn das kann nur sein, wenn Kama die physischen Teilchen des Gehirns in Bewegung bringt. Die Gedanken sind wie in einem Bett. Es war ein traumartiges Denken, das hier Platz griff: Träumer, höher entwickelte Tiere, dumpfe Menschen.
+
+Die hätten fort und fort existiert auf der Erde, wenn nicht eine dritte Gruppe eingeschlagen hätte. Arhats konnten kein Karma bilden, weil sie alles überschauten und Gutes wählten; diese, weil sie nicht zu erkennen vermochten.
+
+Es waren drei Gruppen von Pitris, die sich weigerten, von diesen Körpern Besitz zu ergreifen, und die warten wollten, bis sie selbst von den Körpern Besitz ergreifen, bis sie von sich aus sie vollständig beherrschen konnten. Die Körper damals hatten nur automatisch Manas bewegen können. Sie warteten, daraus entstand die dritte Gruppe; die warteten, bis sie von den zweiten dhyanischen Wesenheiten so weit vorbereitet waren, dass sie selbst lenken konnten. Die Körper waren also da, wurden aber nicht besetzt. Sie wurden von viel niedrigeren kamischen Wesenheiten ergriffen. Die Folge war, dass sie herunterkamen, dass sie sich rückentwickelten, den Tieren gleich wurden, und dies sind die amanasischen Wesenheiten. Das ist die Ursünde, die darin besteht, dass Manas nicht Besitz ergriffen hat von den Körpern, und deshalb etwas anderes entstanden ist, als im normalen Weltenplane vorhergesehen war. Es war eine Handlung aus Freiheit.
+
+Die Arhats vererbten natürlich nur vollkommene Eigenschaften, die Traumwesen vererbten in immer gesteigerter Potenz auch die menschlichen Eigenschaften. Diese vererbten eine verschlechterte menschliche Form, und das ist die Erbsünde. Durch diesen Schritt der Freiheit ist der Mensch ein sich selbst bestimmendes bewusstes
+
+434
+435
+
+---
+
+Wesen. Nur diese Pitris, die wir die luziferischen nennen, haben es dazu bringen können, die Freiheit zu erreichen.
+
+Im Willen der Elohim wäre es gewesen, dass alle sich verkörperten. Diese Wesen kamen unter den Einfluss der Wesen, die auf einer früheren dhyanischen Stufe stehen geblieben waren; diese weigerten sich zu inkarnieren. Jetzt kam auch die Möglichkeit der Krankheit. Diese Körper, die sich selbst überlassen blieben, waren den elementaren Einflüssen unterworfen. Als die Pitris reif geworden waren, fanden sie schon verschlechterte Leiber. Der Ruck, der hinuntergemacht wurde in die physische Natur, muss verbessert werden, und das ist Karma; die Erbsünde, der eigene sündige Leib.
+
+Die Bibel stellt dies dar zunächst als den Einfluss der Schlange. Weiterhin in großartigen Bildern. Zunächst diejenigen, die unter dem Einfluss der Elohim Arhats geworden waren; sie waren absolut unter der Führung des Elohim. Sie konnten die Naturkräfte benutzen, die schon da waren, nicht lernen. Die andern, die nachkamen und die später die Körper beseelten, mussten nach ihrer eigenen unmittelbaren Ansicht schaffen. Sie standen den eigenen schöpferischen Wesen nun ferner, und das ist sehr schön dargestellt in Kain und Abel.
+
+Ohne Sünde gäbe es keine Freiheit, keine Möglichkeit des selbstbewussten Menschen. Damit schließt sich zusammen das, was wir das luziferische Prinzip genannt haben mit der Entwicklung des Menschen. Dass der Mensch die Samenkraft benutzen konnte während der atlantischen Zeit, verdankt er dem luziferischen Prinzip.
+
+Nur durch die auf diese Art entstandenen Menschen konnten Wissenschaft und Künste in die Welt kommen. Was Arhats lehrten, war überirdisches Wissen, die uralte Weisheit, die unsere Theosophie bringt. Das irdische Wissen entstand durch diese dem Karma unterworfenen Wesen.
+
+Die Vermischung der Menschen mit Tieren: Dadurch, dass die Körper verschlechtert waren, entstanden die affenähnlichen Wesen, und diese vermischten sich mit den von niedrigeren Pitris bewohnten Körpern. Die höchst entwickelten Affen sind solche Menschen, die sich in einer Sackgasse verloren und den Anschluss versäumt haben.
+
+Sie haben manchmal entwickeltere Astralkörper als niedrige Menschen, weil sie ein schuldfreies Kama haben.
+
+Die Tiergattungen sind dazu berufen, Mensch zu werden, nicht die einzelnen Tiere; Haustiere werden schneller, Affen langsamer. Die menschliche Gattungsseele ist dhyanisch; die Gattungsseelen jener Pitris weigerten sich und diese waren Luzifere.
+
+Die Arhats sind nicht zu verwechseln mit den Buddhas und Boddhisatvas.
+
+## Aus der Fragenbeantwortung
+
+Hätte der Mensch behalten, was er abgestoßen, so hätte er sich nicht so fein entwickelt. Seine hohe Entwicklung dankt [Lücke in der Mitschrift]
+
+Im Volke leben uralte Tatsachen, denen nicht Willkür sondern tiefe Zusammenhänge zugrunde liegen. Sie alle kennen das hölzerne Pferd. Odysseus ist der kluge, listige Vertreter des Verstandes, somit also der Haupteigenschaft unserer fünften Wurzelrasse. Damals wurde die Sage so ausgestaltet, dass Odysseus ein hölzernes Pferd ausgedacht hat.
+
+Wir finden das Pferd auch als Repräsentanten der fünften Wurzelrasse. Pegasus; in der Bibel oft; in indischer Sage, in der Vishnu auf dem Pferd Kalki reitet. Alles vor Christus. In der Apokalypse, als uns die Siegel eröffnet werden, erscheint uns auch das Pferd, erst dann [Lücke in der Mitschrift] dann gelb. Es wird das Pferd als etwas Besonderes dargestellt, als im Zusammenhang mit der fünften Wurzelrasse. Auch bei alten Deutschen, die es von Druidenpriestern empfangen. Kaum gibt es eine Nation der fünften Wurzelrasse, bei der nicht das Pferd eine besondere Ehre genießt. Okkulte Tatsachen.
+
+Ganz bestimmte Tiere mussten abgestreift werden, damit sich ganz bestimmte Eigenschaften entwickeln können. Früher war bloß Gedächtnis, jetzt bildete sich aus die verstandesmäßige Geistestätigkeit. Nur hätte er nicht diese Tätigkeit ausbilden können, wenn er nicht die Eigenschaften, die ihn daran verhindert haben, an Unpaarhufer abgegeben. Wir müssen zurückgehen in noch ältere als lemurische
+
+---
+
+Zeiten. Damals wurde herausgeschält, was zu Unpaarhufern werden sollte. Damals war es anders gestaltet. Jedes Wesen kann sich nur entwickeln, wie seine Umgebung es gestattet, damals waren wässrige Luftmassen, dünnes Wasser. Alles war Nebel. Niflheim.
+
+Die mussten sich durch die Verdichtungszustände durcharbeiten und wurden so zu dem, was sie heute sind. Ihre Form hat sich aus ganz andern Gestalten heraus entwickelt, und diese Form entstand damals, als sich bei den Atlantiern der Verstand entwickelte. Diese waren also für sie zusammenhängend. Sie sagten sich [Lücke in der Mitschrift]
+
+Wir müssen uns daher zum Pferde in einer ganz besonderen Weise stellen. Hätten wir diese Organisation in uns, hätten wir nie zu unserer Verstandestätigkeit aufsteigen können. Es ist gleichsam die Kehrseite. So verehrt der Mensch der fünften Wurzelrasse im Pferde dasjenige, dem er seine Verstandestätigkeit verdankt. Deshalb die Lösung der Siegel in der Apokalypse.
+
+Die Naturwissenschaft müsste das doch auch erkennen bzw. beweisen können, wenn die Erfahrung der Okkulten richtig ist. Die Ahnen unseres Pferdes müssten wir im Schutt finden in dieser Zeit der Atlantis.
+
+Oberste Schichte der Erde ist das Alluvium, darunter Diluvium, weiter Tertiärschichte. Dann Pliozän, Miozän, Eozän, Gestaltungen im Gestein. Da finden wir auch schon menschenähnliche Skelette. Graben wir tiefer, kommen wir zur Kreide, Juraformation. Nun finden wir in den Eozänschichten versteinerte Pferdeknochen, und dies ist die Schichte der atlantischen Rasse. Das Verstandeswissen charakterisiert sich darinnen, dass es den Gegenstand außer sich hat und sich darüber Begriffe bildet. Das war bei den ursprünglichen Atlantiern und Lemuriern anders. Sie hatten ein instinktives Wissen, das am Gehirn haftete. Dieses Gefühl ist verloren gegangen, nur noch vorhanden in der reinen Sexualität, instinktives Zusammengehörigkeitsgefühl, das früher der Mensch im Geiste hatte. Sie hatten auch so wahrgenommen die Verwandtschaft ihres Verstandes mit dem Pferde. So verdankt der Mensch seine höheren Eigenschaften dem, was er in der Natur zurückgelassen hat.
+
+Wenn wir zurückgehen in die Zeit der hyperboreischen Rasse, finden wir, dass ganz bestimmte menschliche Eigenschaften dadurch erworben sind, dass ganz bestimmte Tiergruppen sich abgespalten haben. Ein lebhaftes Bewusstsein von ihrer ursprünglichen Verwandtschaft mit ganz bestimmten Tierformen haben die Urvölker immer gehabt. Auf diesem Gefühl beruht der Totemismus gewisser Völker. Sie töten alles außer gewissen Tieren; das gilt ihnen als Tabu. Nach diesem Tier benennt sich der Stamm und erklärt das Tier als Tabu, nicht tötbar. Der Totemismus führt also okkult zurück auf das Abstreifen gewisser Tierwesenheiten.
+
+Es ist in der neuesten Kulturwissenschaft immer wieder aufgefallen, dass gewisse Völkerschaften den Darwinismus in sich hatten als Gefühl. Das ist kein Phantasiespiel, sondern aus einem Urbewusstsein heraus haben sie die Tierspaltung als Inhalt ihres Gedächtnisses gehabt. Es ist eine Kraftspaltung. Bei einzelnen Stämmen findet sich eine Einrichtung, die den heutigen Menschen nicht erklärbar ist, die aber darauf zurückgeführt werden kann, dass es Wechselwirkungen gibt, die anderen Wahrnehmungen als den äußeren Wahrnehmungen entspringen: psychische Kräfte. Daher Einrichtung des Mannes-Kindbettes bei einzelnen Urvölkern. Jenes ursprüngliche Wirken des Menschen auf den Menschen, das in der fünften Wurzelrasse ganz verlorengegangen ist. Es erhalten sich Dinge als Bräuche, die den Sinn verloren haben. Grade so ging ein Einfluss von der ganzen Natur auf den Menschen, er fühlte eine ursprüngliche Verwandtschaft mit dem Tier: Totembär, -bär -tabu, unverletzlich. Die Naivität denkt nicht Symbole aus, diese beruhen auf Tatsachen. Ganz anschaulich hat es sich dargestellt in den Kentauren. Der Mensch hat sich herausgezogen aus dem Pferd, und hat dies Erinnerungsbild festgehalten. Odysseus hat die Schlauheit in sich, und er stellt sie äußerlich dar, in dem, wodurch Troja erobert wird.
+
+Nun liegt der Liebe zum Pferd noch etwas zugrunde. In den nächsten Runden wird wieder aufgesogen, was abgestoßen worden war. Die Gattungsselen werden wieder erlöst. Was der Mensch in der fünften Runde entwickelt, wird wieder das sein, wodurch er das Pferd erlösen wird. Sodass der Mensch jetzt seinen Verstand ent-
+
+---
+
+wickelt auf Kosten der Gattungsseele der Pferde. Er schafft in der sechsten Runde in das Manasisch-Tierische hinein. Selbst Leben wird er geben, die Eigenschaften, die er gerade dem Pferde verdankt, wird in ihm Tätigkeit, Weltenkarma werden. Das Pferd trägt ihn hinüber, dem Pferde verdankt er es, dass er später manasisch-schaffend wird. Daher gebraucht Platon das Bild der beiden Pferde, die die Seele ziehen; daher Pegasus, daher die Rosse des Sonnenwagens.
+
+# DIE GEBURT DES LICHTES EINE WEIHNACHTSBETRACHTUNG
+
+Berlin, 19. Dezember 1904
+
+Wer heute auf der Straße zwischen den aufgestellten Weihnachtsbäumen hindurchgeht, der könnte wohl leicht auf den Gedanken verfallen, dass der Weihnachtsbaum selbst etwas sehr Altes sei. Gerade am Weihnachtsbaum aber können Sie die Veränderung in den Gebräuchen und Sitten der Menschen sehen, denn der Weihnachtsbaum, der heute fast in keinem Hause fehlt, ist noch nicht einmal hundert Jahre alt. Vor einem Jahrhundert würden Sie nicht durch solche von Weihnachtsbäumen besetzten Straßen haben gehen können. Sie würden sich auch vergeblich in der Dichtung vor hundert oder hundertzwanzig Jahren umsehen nach einem Lied, nach einem Gedicht, welches den Weihnachtsbaum besingt. Das müsste Ihnen aber doch eine auffällige Erscheinung sein, denn der Weihnachtsbaum ist jedenfalls etwas, was von den Dichtern besungen worden ist in der Zeit, in der er einmal da war. Er ist eine ganz neue Erscheinung, er ist etwas, was erst in der zweiten Hälfte des neunzehnten Jahrhunderts in Europa so allgemein geworden ist. Der Weihnachtsbaum als Symbol des Weihnachtsfestes tritt erst auf um das Jahr 1800 herum, das Weihnachtsfest aber ist uralt, ist nicht erst christlich. Es wurde in derselben Weise gefeiert in allen Zeiten, von denen wir geschichtlich Nachricht haben können.
+
+Im Christentum selbst ist das Weihnachtsfest als solches symbolisch genommen worden für die Geburt des christlichen Erlösers erst seit dem vierten Jahrhundert unserer Zeitrechnung. Keineswegs wurde in den ersten christlichen Jahrhunderten der 25. Dezember als der Geburtstag des Stifters des Christentums gefeiert; erst im vierten Jahrhundert wurde er als solcher aufgefasst. Aber ein Fest wurde in dieser Zeit doch gefeiert im römischen Reiche, ein Fest wurde auch gefeiert in derselben Zeit bei den alten keltischen und bei den germanischen Völkern und mit einem ähnlichen Gedanken
+
+---
+
+442
+443
+
+auch schon im alten Ägypten und noch in mancher anderen Gegend. Was da gefeiert worden ist, war noch etwas anderes; erst im vierten Jahrhundert unserer Zeitrechnung wurde es zusammengebracht mit dem Geburtstage des Stifters des Christentums.
+
+Nun könnte man daraus den Schluss ziehen, dass die christliche Kirche etwas getan hätte, was geschichtlich gegen jedes Herkommen wäre, und sozusagen damit etwas korrigieren wollte. Das ist aber nicht der Fall. Wer wirklich die Bedeutung des Weihnachtsfestes versteht, der erkennt die uralte Weisheit, die in einem solchen Feste verborgen liegt. Feste, wie das Weihnachtsfest, das Oster-, das Pfingstfest, sind nichts anderes als Daten, als in die Zeit eingeschriebene Daten unserer Altvordern, unserer Vorfahren, mit denen sie uns, ihren Nachkommen, gezeigt haben, wie sie das Verhältnis von Welt und Mensch und die großen Geheimnisse des Daseins verstanden haben. Wer zu entziffern weiß die Schrift, die uns in den großen Festen niedergelegt ist, wer zu entziffern weiß die Hieroglyphen, die uns die Zeit selbst darbietet, der blickt in tiefe, in bedeutungsvolle Mysterien alles menschlichen Werdens. Ich sagte – und wir werden gleich sehen, in welchem Sinne das gilt –, dass das Weihnachtsfest gefeiert worden ist seit der Zeit, in der wir Geschichte haben. Die Zeiten, über die wir Geschichtsurkunden kennen, gehen zurück bis in die dritte Unterrasse der fünften Wurzelrasse. Bis zum fünfzehnten, sechzehnten Jahrhundert gehen die Zeiten unserer eigenen Unterrasse, in der sich physische Wissenschaft und physische Kultur entwickelt haben. Dieser ging eine andere Rasse voran, und diese geht zurück bis ins neunte, achte Jahrhundert vor unserer Zeitrechnung, in die Zeiten, in denen Homer seine Dichtungen den Griechen vorgesungen hat. Diese Zeit berichtet uns von den Gefühlen und Taten der uns vorangegangenen vierten Unterrasse.
+
+Dann kommen wir zurück zu den noch älteren Zeiten, die uns aber schon in das graue Altertum zurückführen, in die Zeit des alten Babylons und Assyriens, in die alten Zeiten des jüdischen Volkes, in die Zeiten, in denen die ägyptischen Priester ihre Weisheit bewahrt haben und sie nur in exoterischer Weise in das Volk gebracht haben. Dann hört die geschichtliche Überlieferung auf. Was uns von der
+
+persischen Geschichte überliefert ist, das ist erst viel später aufgezeichnet worden. Was uns als die erhabene Religion des alten Indien mitgeteilt wird, was in den Veden und in der Vedanta-Philosophie verzeichnet ist, das sind späte Aufzeichnungen gegenüber denjenigen Zeiten, in denen die großen Gedanken der alten indischen Rishis, die sie unmittelbar von den göttlichen Geistern selbst empfangen haben, durch diese der Menschheit zugeflossen sind. So blicken wir zurück aus der Zeit, in der wir selbst sind und die noch lange dauern wird, in die römisch-griechische Epoche, die in das Christentum übergeführt wird, dann in die Epoche, in welcher die ägyptischen Priester wirkten. Dann aber verlieren sich die Wege. Nur derjenige, welcher auf anderen Wegen die Geschichte verfolgen kann, kann vom alten Persien etwas wissen. Noch weiter zurück werden wir geführt in die Zeiten, in die nur der Okkultist hineinzusehen vermag.
+
+Nun, wer das Christfest verstehen will, der muss in der Zeitenwende bis zu dem Punkte zurückblicken, wo zum ersten Male eine neue Weisheit wiederum die neuerstandene Menschheit gelehrt worden ist. Wir sind damit zurückgekommen bis zu der Zeit, wo durch die ungeheuren Überflutungen eines großen Kontinents die alte atlantische Kultur verschwunden war und eine neue Menschheitskultur – zu der diese Epochen, die ich schon aufgezählt habe, gehören – begründet worden ist. Eine ganz neue Denk- und Empfindungsweise ist mit dieser neuen Menschheit heraufgezogen. Nichts ist von der eigentlichen Kultur der Atlantier, geschweige denn von der noch älteren Kultur der lemurischen Völker, die einst in uralten Zeiten gelebt haben und durch Feuer untergegangen sind, unmittelbar erhalten geblieben. Das, was die Menschheit aber einmal durchlebt hat, muss dann, wenn ein neuer Wendepunkt der Entwicklung erreicht worden ist, nochmals kurz durchgemacht werden. So sind in der Tat die ersten Unterrassen der fünften Wurzelrasse dazu bestimmt gewesen, drei wichtige Entwicklungsepochen der Menschheit kurz zu wiederholen.
+
+Im alten Indien blickten die weisen Rishis zurück auf jene Zeiten, in denen die Menschheit noch auf einer ganz anderen Stufe war, auf jene Zeiten, in denen es noch nicht ein männliches und ein weibliches
+
+---
+
+Geschlecht gab, in denen der Mensch noch eine Einheit war. Da blickten sie zurück auf jene große Einheit im Menschengeschlecht, auf jenen Urmenschen Adam, der in verschiedenen Geheimlehren auch Adam Kadmon genannt wird, der Mann und Weib zugleich war. Sie brachten in geistiger Art jene Ureinheit des Menschentums zum Ausdruck, indem sie das oberste Weltwesen mit dem unbestimmten heiligen Namen Brahman andeuteten. Brahman ist ursprünglich dasjenige, aus dem als aus der Alleinheit, aus dem göttlichen Einheitsgrunde hervorgegangen ist alle Mannigfaltigkeit. Auf der Erde selbst war diese Einheit für den Menschen in gewisser Weise nur vorhanden in den Zeiten, in denen es noch nicht Männliches und Weibliches gegeben hat, in den Zeiten, in denen noch nicht die Mannigfaltigkeit, wie wir sie jetzt haben, vorhanden war. Es ist wie ein Spiegelbild aus dem Geiste der großen indischen Rishis, was uns da entgegentritt: die göttliche Ureinheit der Menschen, der vormenschliche Adam Kadmon, in dem noch Friede, Geist, Klarheit und Eintracht war; der redet aus dem Vedenwort, wie es den Lippen der indischen Rishis entströmte. Das war die erste Epoche unseres Menschengeschlechtes nach der großen Flut. Da war es noch nicht so, dass man auf unserer Erde sprach von einer Dreieinigkeit, von einer dreifachen göttlichen Person. Lediglich von einer Ureinheit, von Brahman sprach man, in dem alles beschlossen ist, von dem alles stammt.
+
+Dann kam eine Zeit, in der die persischen Zarathustra-Priester, die Weisen der Parsen, zurückblickten auf jene Epoche, in der aus dem Feuer herausgeboren wurde der zweigeschlechtige Mensch, in der geboren wurde jener Mensch, welcher ein Duales, ein Zweifaches vorstellt. Und mit jener Geburt des Menschen aus dem Feuer kam etwas in unsere irdische Welt, was vorher noch nicht da war, es kam da erst das Böse in die Welt. Das Böse ist im menschlichen Sinne nicht vorhanden gewesen vor der Entstehung der Geschlechter. Diese entstanden seit der Mitte der lemurischen Zeit. Und Gut und Böse gibt es auch erst seit jener Zeit. Gut und Böse erfüllte die letzte lemurische Zeit und die erste atlantische Zeit.
+
+Interessant ist es, zu erforschen nach den spirituellen Urkunden, die man die «Akasha-Chronik» nennt, wie sich diese zweierlei Gestaltung der Menschheit auslebt. Sie werden im nächsten Heft der Zeitschrift «Lucifer – Gnosis» eine Darlegung finden, wie sich die Zweiheit im Menschen ausgestaltet, wie wirklich, als der Mensch in zwei Geschlechtern erschien, des Menschen Seele und des Menschen physische Willenskraft zunächst verteilt waren unter die Geschlechter. Selbst derjenige, der heute als Okkultist die wunderbaren Urkunden entziffert, die uns in der Akasha-Chronik erhalten sind, kann – weil das so verschieden ist von den Vorstellungen, die man sich über diese Zeiten macht – erstaunt sein über die Art und Weise, wie grundverschieden von dem heutigen Zustande das Männliche und Weibliche in diesen ersten Zeiten auf unserer Erde auftrat. Die Frau bildete zunächst die Seele aus, unter der Führung der weisen Menschheitsführer; der Mann bildete das Willenselement aus. So entsteht eine Zweiheit von Wille und Seele. Sie stehen einander gegenüber in der atlantischen Epoche in den zwei Geschlechtern der Menschheit. Dadurch, dass Seele in den physischen Leib und dadurch in die Menschheit kam, ist das Böse in die Menschheit gekommen. Und dadurch, dass unsere Menschheit jene Epoche wiederholen musste, welche sich charakterisiert durch den Unterschied von Gut und Böse, dadurch kam die Feuerreligion, die Parsenreligion, die Lehre von Ormuzd und Ahriman heraus. Dies geht unserer Geschichte voran als persische Kulturperiode.
+
+Das «Gut und Böse» lebte in der Religion des Zarathustra. Da sprach man noch nicht von einer Dreiheit. Das kam erst später, ungefähr in der Zeit, da unsere geschichtlichen Dokumente beginnen. Nichts meldet die Akasha-Chronik von einer Dreieinigkeit in der vorgeschichtlichen Zeit. Erst als die Menschen zu unterscheiden wussten zwischen Gut und Böse, da waren sie in die Notwendigkeit versetzt, zu einem Dritten aufzublicken. Da tritt uns in der Gestalt des Mittlers, in der Gestalt, die uns in den sogenannten Mithrasmysterien am klarsten entgegentritt, die von Persien über die ganze Welt verbreitet werden, da tritt uns in der Dreieinigkeit der Mittler, der Versöhner, der Erlöser der Menschheit vom Bösen, der Hinführer vom Bösen zum Guten auf.
+
+In diesen alten Zeiten hat man immer in dem Irdischen ein Abbild
+
+---
+
+des Göttlichen sehen müssen, ein Abbild dessen, was sich am großen Himmelsgewölbe zugetragen hat. Wenn Sie sich den Tierkreis ansehen, so werden sie sehen, dass in diesem Tierkreis aufeinanderfolgen die Zeichen des Krebses, der Zwillinge, des Stiers und des Widders oder Lammes. Nach gewissen Gesetzen rückt die Sonne oder besser der Frühlingspunkt der Sonne vor, sodass in uralten Zeiten die Sonne im Frühling aufgegangen ist im Zeichen des Krebses, später im Zeichen der Zwillinge, noch später im Zeichen des Stiers, und noch später im Zeichen des Widders oder Lammes. Ungefähr um die Zeit des achten Jahrhunderts vor Christi Geburt hatte die Sonne am Himmelsgewölbe das Sternbild des Widders oder Lammes erreicht. Jetzt, in unserer Kulturzeit tritt sie in das Sternbild der Fische ein.
+
+Je nachdem nun, was im Geistigen geschieht, gestaltet sich das aus, was auf der Erde sich ereignet. Das Krebszeichen ist Ihnen ja bekannt, aber seine wahre Bedeutung ist nicht immer bekannt. Dieses Zeichen des Krebses muss man verstehen; dann wird man auch verstehen, wie es hindeutet auf das Aufgehen einer ganz neuen Zeit. Es sind zwei ineinandergeschlungene Spiralen oder zwei ineinander geschlagene Wirbel. Wenn etwas Wichtiges in der Welt geschieht, wenn ein Entwicklungsabschnitt von einem anderen abgelöst wird, wenn etwas ganz Neues eintritt in der Welt, dann verschlingen sich zwei solche Wirbelbewegungen. In diesem einen Wirbel haben Sie das Aufhören der atlantischen Kultur, und in dem anderen haben Sie den Anfang der arischen Kultur bezeichnet. Am Himmel oben haben unsere Vorfahren das äußere Zeichen für das Aufgehen der neuen arischen Kultur erblickt. Dann, in späterer Zeit, trat die Sonne in das Zeichen der Zwillinge. Die Zwillinge sind ein Zeichen für Gut und Böse; die Zwillinge sind das Tierkreiszeichen, welches das persische Denken beherrschte. Dann tritt die Sonne in das Zeichen des Stieres. Damit kommen wir in die dritte Unterrasse; sie hat die Stierverehrung, den ägyptischen Apis, in Babylonien den Stierdienst, und endlich im damaligen späteren Persien das Stieropfer, den Mithrasdienst. Das Stieropfer hat der Mensch vom Himmel heruntergeholt, weil es da eingezeichnet war.
+
+Die vierte Unterrasse, in welche das Aufgehen des Christentums fällt, beginnt damit, dass die Sonne in den Widder eintritt. Eine wichtige Sage – das Herüberholen des Widderfelles durch den griechischen Helden Jason – zeigt uns diesen wichtigen Wendepunkt der Geschichte an. Und einen weiteren wichtigen Wendepunkt zeigt uns die Opferung des mystischen Lammes am Kreuze an. Das ist der geschichtliche Ausdruck des Mysteriums, der damit angedeutet ist, dass die Sonne, der Regent der Welt, den Punkt am Himmelsgewölbe erreicht hat, der bezeichnet wird mit Lamm oder Widder.
+
+Nun müssen wir aber diese ganze Entwicklung in der richtigen Weise verstehen. Nach der Zweiheit von Gut und Böse tritt im menschlichen Bewusstsein die Dreieinigkeit auf. In verschiedenen Religionen tritt dies auf. Wir brauchen sie nur kennenzulernen in dem, was wir in den verschiedenen Ländern am Mittelmeer kennen als Mithrasmysterien. Blicken wir auf einen solchen Mysterientempel hin. Es vollzieht sich da für diejenigen, welche nur teilnehmen an den kleinen Mysterien, eine symbolische Handlung. Für diejenigen, die an den großen Mysterien teilnehmen dürfen, vollzieht sich das selbe als Tatsache im Astralraum. Nur über die kleinen Mysterien des Mithrasdienstes kann ich sprechen. Der symbolische Stier wird sichtbar. Auf ihm reitet der Mittler, der Gott. Er hält dem Stiere dann die Nüstern zu und stößt ihm das Schwert in die Seite. Eine Schlange kommt, ein Skorpion; über dem Haupte des Mithras sieht man einen Vogel, und oben über der ganzen Gruppe sieht man auf der einen Seite den Genius mit gesenkter und auf der anderen Seite mit erhobener Fackel, was symbolisiert die Sonne auf ihrem Gange durch das Himmelsgewölbe.
+
+Das Menschenleben, wie es sich abspielt im Bewusstsein der damaligen Zeit, wird uns damit dargestellt. Der Mensch war dahin gelangt, in sich selbst zunächst die Erlösung zu suchen, das dritte göttliche Prinzip, das ihn hinwegführt über das Böse, und das das Böse mit dem Guten versöhnen kann. Das Böse sind die Leidenschaften, das, was den Menschen herunterzieht zur Erde, bis in das, was durch den Stier symbolisiert wird. Was aber den Menschen zum höheren Selbst hinaufführen kann, was als Unsterbliches erscheint, ist der Mittler, der das Niedere ertötet hat, wenn er symbolisch das
+
+446
+447
+
+---
+
+Schwert in die Lenden des Stieres gestoßen hat. So tritt als Mittler zwischen Gut und Böse, also in der dritten Unterrasse, eine Dreiheit im Göttlichen auf, und damit hat die Menschheit das begriffen, was in der Theosophie Atman-Budhi-Manas genannt wird. In dem Augenblick, wo der Mittler erscheint, wird das mystische Geheimnis vollzogen: Die Dreiheit im Bewusstsein des Menschen erwacht.
+
+So wurde der Mensch geführt durch die menschliche Erkenntnis der Einheit, der Zweiheit und der Dreiheit zu Atman, Budhi, Manas. Atman oder der Geistesmensch ist die Einheit, die der Mensch in sich selbst wahrzunehmen in der Lage ist, wenn er sich dazu entwickelt haben wird. Budhi oder der Lebensgeist wird im Menschen dadurch zum Ausdruck kommen, dass das Böse durch das Gute überwunden wird, dass die Zweiheit einerseits die niederen Instinkte oder das Verlangen läutert und andererseits höhere sogenannte Feuerinstinkte oder die Liebe versöhnt sein werden, indem alles Böse im Feuer der Liebe verzehrt sein wird. Manas oder das Geistselbst ist das geistige Prinzip, das jetzt schon die menschliche Entwicklung regiert. Wie durch den Messias, den Erlöser, in der Welt ein Einklang geschaffen wird, der von der Disharmonie zur Harmonie führen muss, so löst die Zweiheit sich auf durch die Dreiheit, in der das Böse durch das Gute überwunden wird.
+
+Damit war das Menschengeschlecht so weit gekommen, dass es in der Dreiheit sein ganzes Schicksal erblickt. Aber es erblickt in dieser Dreiheit das Schicksal so, wie es als eine ewige Weltordnung über die Menschen verhängt ist. Der Mensch blickt zu dem dreifachen Aspekt der Gottheit hinauf, erblickt eine göttliche Dreieinigkeit in der Welt und sich selbst abhängig von dieser göttlichen Dreieinigkeit. Wahrhaft erfahren musste er zuerst, dass diese göttliche Dreieinigkeit unmittelbar, in einem Menschenbruder, selbst zu ihm herunterstieg. Das war das große Ereignis, das im Beginne unserer Zeitrechnung steht. Damit wird für das menschliche Bewusstsein die Dreieinigkeit zu etwas ganz Neuem.
+
+Nun verstehen wir aber die tiefere Bedeutung des Weihnachtsfestes nur, wenn wir den Mittler in der richtigen Weise auffassen. Aus der Einheit hat sich die Zweiheit entwickelt, aus der Zweiheit
+
+ein Chaos, aus dem sich wieder Harmonie entwickeln soll. Diese Harmonie kann sich nur dadurch entwickeln, dass der Mittler diese Harmonie schafft. Diese Harmonie kann nur ihren Ausdruck finden in einer urewigen Gesetzlichkeit, und diese urewige Gesetzlichkeit fand ihren symbolischen Ausdruck – in der Zeit, in der der Mithrasdienst entstanden ist – dadurch, dass in dem Menschen selbst ein Abbild gesehen wurde dieses die urewigen Weltenharmonien schaffenden Weltgesetzes.
+
+In denselben Mysterien, von denen ich schon hier gesprochen habe, in den Geheimnissen der persischen Religion, finden Sie eine siebenfache Einweihung derjenigen, welche zugelassen wurden zu den heiligen Geheimnissen. Zu dem ersten Grad gehörten diejenigen, die etwas erfuhren von den allerersten Geheimnissen: Das war der Grad der «Raben», wie der symbolische Name heißt. Der zweite Grad war derjenige der «Okkulten». Der dritte Grad war derjenige der «Kämpfer» oder «Streiter» für die heilige Wahrheit. Der vierte Grad waren die sogenannten «Löwen», und der fünfte Grad waren die «Perser». Erst der wurde als voller Perser angesehen, in dem erwacht war das Bewusstsein des höchsten Geistigen im Menschen, das wir mit Manas bezeichnen. Derjenige, in dem das erwacht war, konnte als ein im fünften Grade Eingeweihter bezeichnet werden, und den bezeichnete man als Perser. Er war ein Angehöriger eines Volkes im wahrsten Sinne des Wortes. Er repräsentierte das Schicksal seines Volkes. Und wurde er einen Grad höher eingeweiht, so repräsentierte er nicht mehr das Persönliche seines Volkes, sondern das der ganzen Menschheit. Er repräsentierte dann nicht das Karma eines Volkes, sondern der ganzen Menschheit, insofern sie sich entwickelt hat von der Mitte der lemurischen Rasse und weiter in die fünfte Wurzelrasse hinein. Dann nannte man einen solchen Eingeweihten einen «Sonnenläufer» oder einen «Sonnenhelden». Alle diejenigen, welche Sie in den Büchern als Sonnenhelden finden, sind nichts anderes als solche Eingeweihte im sechsten Grade. Dann kam der «Vater»; der war verknüpft mit der Menschheitsentwicklung der Zukunft.
+
+Was bedeutet der Name Sonnenläufer? Wenn Sie zurückblicken könnten in die Urzeiten unseres Sonnensystems, so würden Sie sehen,
+
+448
+449
+
+---
+
+dass dieses Sonnensystem hervorgegangen ist aus dem Kampf des Wärmechaos, und dass sich die Harmonie selbst in unserer Welt aus Disharmonie hergestellt hat, dass sich der Friede und die Gesetze aus Unfriede und Disharmonie herausentwickelt haben. Aber wie sind sie entstanden? Sie sind so entstanden: Die Sonne hat einen so geregelten Lauf, dass wir uns gar nicht vorstellen können, dass die Sonne auch nur einen Augenblick abweichen könnte von ihrer Bahn; so fest in Harmonie begründet ist unsere Welt, dass die Sonne von ihrer Bahn durch die Welt fest bestimmt in ihrer Richtung ist, dass nichts sie aus dieser Richtung herausbringen kann. In diesem Gang der Sonne über das Himmelsgewölbe sah der alte persische Eingeweihte im sechsten Grad sein eigenes inneres Schicksal. So fest musste die Sonne seines eigenen Inneren ihm leuchten, die Sonne seines Geistes, dass er ebenso unmöglich von der Bahn des Guten und des Weisen abweichen konnte wie die Sonne von ihrer Bahn. So durchdrungen von dieser Gesetzmäßigkeit musste der Mensch sein, der die sechste Stufe der Einweihung erreicht hatte, dass er unmöglich aus seiner Bahn herausweichen konnte; dann war er ein Sonnenheld, ein Sonnenläufer.
+
+Alle früheren Grade der Einweihung hatten keinen anderen Zweck, als dem Menschen diese innere Sicherheit, diese innere Sonnenhaftigkeit zu geben. So sah der Mensch, der etwas wusste von diesen Mysterien, eine tiefe Harmonie zwischen dem menschlichen Schicksal und dem Gang der Sonne über das Himmelsgewölbe. Die Sonne – so sagte er –, sie bewirkt, dass die Tage immer kürzer und kürzer werden, dass die Natur gegen den Herbst hin abstirbt, dass alles sich zurückzieht in das Innere. Und wenn wir zu dem Zeitpunkt herankommen, der heute als das Weihnachtsfest gefeiert wird, dann tritt eine neue Wende ein: Das Licht tritt hervor, die Tage werden länger in der Natur, die Natur kann wieder erwachen. Die Geburt des Lichtes, das war der Moment, der gefeiert worden ist seit den Zeiten, in denen man gesprochen hat davon, dass das Licht das Symbol der Offenbarung in der Welt und im Menschen ist. Sodass im Morgenlande alle Völker unserer Wurzelrasse das Licht als das Kleid für die weise Einrichtung der Welt betrachteten. In dem Licht sahen
+
+sie das Kleid für die Weltenweisheit. Wenn wir das Auge in den Weltenraum hinausrichten, so erscheint das Licht, harmonisch und fest eingeprägt, in den Sternen draußen. In Wirklichkeit offenbaren sich die Geister der Weisheit durch das Licht, das die alten Religionen als das Kleid der Weisheit der Welt angesehen haben.
+
+So erschien den alten Religionen die Dreiheit, dass sie zuerst die Einheit feierten, die Urweisheit, dann die Zweiheit, Licht und Finsternis, und endlich, als Dreiheit, auch den erleuchteten Menschen, den Lehrer und Mittler, den Mithras.
+
+Aber nicht eher konnte der Menschheit ein Heil werden im Sinne dieses Bewusstseins, bis aus den Menschenherzen selbst hervorgebracht wird das Bewusstsein von dieser ganzen Weltenharmonie. Das, was draußen lebt in der Welt als Licht, als die Geburt des Lichtes, das muss in dem Zeitpunkte, an den wir jetzt herantreten, dem Menschenherzen selbst aufgehen. Davon ist die äußere mystische Tatsache, die sich vollzogen hat, die Begründung des Christentums. In dem Christus ist dasjenige erschienen auf unserer Erde, was von Anbeginn an da war, was aber durch die Zeit hindurch, von der wir jetzt gesprochen haben, der Menschheit verborgen blieb. Während dieser Zeit hat die Menschheit jene drei Stufen nach und nach wiederholt. Jetzt aber kann ein neuer Standpunkt, ein neuer Höhepunkt erreicht werden: Das Licht kann neu geboren werden. So wie nach dem immer schwächer und schwächer Werden des Lichtes, indem wir uns dem Herbst nähern, dann, wenn wir zur Winter-Sonnenwende kommen, das Licht neu geboren wird, so wurde auch in der vierten Unterrasse der Heiland, der Christus, der Menschheit geboren. Er ist der neue Sonnenheld, der nicht nur in den Tiefen der Mysterientempel eingeweiht war, sondern vor aller Welt erschien, auf dass selig sein können auch diejenigen, die nicht sehen und doch glauben! Damit war es von selbst gegeben, dass, als man erkannte, dass bis zu der Persönlichkeit heruntersteigen kann das Göttliche, man in dem Momente setzen konnte an die Stelle des Geburtsfestes des Lichtes das Geburtsfest des Sonnenhelden der vierten nachatlantischen Rasse.
+
+Das geschah im vierten Jahrhundert unserer vierten Unterrasse. Was früher nie da war, war jetzt da, nämlich die Möglichkeit, dass
+
+---
+
+452
+453
+
+der Mensch das Licht in sich selber gebären konnte. Er konnte es, weil das Lichtprinzip zum ersten Male in einem Menschen inkarniert war. Damit, dass dies geschehen war, war notwendigerweise das Wintersonnenwendfest in Zusammenhang gebracht mit dem Christfest. Die ganze Bedeutung der vorhergehenden Unterrassen ist festgelegt und festgestellt mit der Verlegung des Geburtsfestes Christi auf das Wintersonnenwendfest. Von außen war zuerst den Menschen die Weisheit und das Licht erschienen, jetzt aber soll das Licht hervorgebracht werden aus dem eigenen menschlichen Herzen. Christus sollte im Menschen selbst geboren werden. Deshalb musste auch das Ereignis in Palästina eintreten, ein mystisches Ereignis und eine historische Tatsache.
+
+Wir haben es also mit einem historischen Ereignis zu tun, und das ist gerade das große Mysterium, das so wenig begriffen wird: dass sich das, was sich in Palästina abgespielt hat, wörtlich so abgespielt hat, wie es beschrieben worden ist im Johannes-Evangelium, und dass es zugleich eine mystische Tatsache ist. Wer das Ereignis nicht so auffasst, der versteht das Ereignis noch nicht. Wenn Sie es aber so auffassen, dann werden Sie auch verstehen, warum von diesem Momente an Gott als Persönlichkeit vorzustellen ist, und dass die Dreieinigkeit, die vorher anders vorgestellt worden war, in der Form von drei göttlichen Personen vorzustellen ist. Christus war jetzt Person geworden, und damit war der Beweis geliefert, dass das Göttliche im Menschen verwirklicht werden kann. Damit war ein Erstling auf der Erde erschienen, in dem einmal das Göttliche gewohnt hat. Und das konnte fortan ein bleibendes, ein nimmer zu zerstörendes Ideal für die Menschen werden.
+
+Alle früheren großen Weisheitslehrer – der ägyptische Hermes, die alten indischen Rishis, der chinesische Konfuzius, der persische Zarathustra –, sie haben das Wort des Göttlichen ausgesprochen, sie waren die großen Lehrer. Mit Jesus, der der Christus war, hat zum ersten Male in einer lebendigen Gestalt das Göttliche selbst auf der Erde gewandelt. Vorher hatten wir auf der Erde nur den Weg und die Wahrheit. Jetzt haben wir den Weg, die Wahrheit und das Leben. Das ist der große Unterschied zwischen den früheren Religionen
+
+und dem Christentum, dass das Letztere die Erfüllung der vorhergehenden Religionen ist, dass man es bei Christus nicht mit einem Weisheitslehrer zu tun hat – denn Weisheitslehrer sind auch in allen anderen Religionen vorhanden –, sondern mit einer menschlichen Persönlichkeit, die zugleich als göttliche Persönlichkeit verehrt werden muss. Daher ist die Botschaft der Jünger so wichtig: Wir haben die Hände in seine Wunden gelegt, wir haben seine Botschaft gehört. – Daher auch das Bauen auf den Augenschein, auf den unmittelbaren Sinneseindruck; dass man nicht bloß auf das Wort zu hören, sondern auch auf die Persönlichkeit zu sehen hätte. Und daher auch die Überzeugung, dass er der Welten-Sonnenheld in ganz einziger Art war.
+
+Wenn wir das begreifen, dann verstehen wir auch, dass das alte Fest der Wintersonnenwende früher etwas anderes bedeutet hat als das heutige Christfest. In Ägypten finden wir Horus, Isis und Osiris, das Urbild dessen, was auch im Christentum lebt. Im alten Indien haben wir die Geburt des Krishna von der heiligen Jungfrau. Überall finden wir Anklänge an diese Mythe. Aber das, worauf es bei dem Christentum ankommt, ist dasjenige, was ich soeben ausgesprochen habe: Es ist der Umstand, dass nicht nur die Dreiheit, sondern die Vierheit heilig geworden ist, dass das Heilige heruntergestiegen ist bis zur Persönlichkeit. Vorher war das Heilige göttlich und thronte in unerreichbarer Höhe über den Menschen. Die alten Weisheitslehrer, die heiligen Rishis, verehrten es als das unbestimmte, nicht auszusprechende Brahman; die alten Zarathustra-Schüler sahen es in dem Doppelausdruck des Guten und Bösen; in Ägypten ist, wie gesagt, die Dreiheit von Isis, Osiris und Horus – aber dass das Göttliche gewohnt hat unter den Menschen, dass es Persönlichkeit geworden ist, das war das Geheimnis der vierten Unterrasse. Das ist das wichtigste Ereignis unserer Menschheitsepoche, dass das Weihnachtsfest, das immer dargestellt hat die Geburt eines Eingeweihten, jetzt darstellt die Geburt des größten Sonnenhelden, des Christus selbst. So sehen wir notwendig diese zwei Dinge im Weltenlauf zusammenklingen.
+
+Wenn wir hinblicken auf die vierte Unterrasse und sie vergleichen mit dem Zeitpunkt, an dem wir selbst stehen, dann sehen wir das Göttliche noch weiter heruntergerückt. Und es hat eine eigentüm-
+
+---
+
+454
+455
+
+liche Gestalt in unserer jetzigen Zeit angenommen, eine Gestalt, die man verstehen muss, wenn man das Weihnachtsfest völlig entziffern will. Gehen Sie zurück in die vierte Unterrasse, bis in das zwölfte, dreizehnte Jahrhundert: Überall werden Sie volles Verständnis für die wirkliche Persönlichkeit Christi bei denen finden, die das wissen; wobei diese Persönlichkeit Christi so umfassend geschildert wird, dass zum Beispiel in der Dichtung «Heliand» deutsche Verhältnisse auf den Christus übertragen werden. Der Christus steht so fest innerhalb der Menschheit, dass man die Verhältnisse anderer Länder in Beziehung bringen kann zu seiner erlösenden Tat. So fest steht er in der allgemeinen Menschheit drinnen als Persönlichkeit. Dann aber kommt eine andere Stimmung. Es kommt eine gewisse Erschütterung des Glaubens an dieses Urbild der Menschheit. Etwas, was auf der einen Seite ein Fortschritt ist, tritt ein: Ein viel größerer Kreis der Menschheit tritt ein in die weitere Evolution des Christentums. Aber dafür hört der Mensch auf, zu begreifen, dass in der einzelnen Persönlichkeit des Christus der Mittelpunkt seines Denkens, Fühlens und Wollens liegen könne. Immer weniger werden diejenigen, welche sich zu sagen getrauen, dass es sich nicht um die Lehre, sondern um die Persönlichkeit Christi handelt. Schließlich löst sich das gar auf in der Verehrung des abstrakten Ideals, das man nur noch geistig denkt und dem der Mensch zustrebt. Zur Zeit der ersten Unterrasse war es Brahman, zur Zeit der zweiten war es Licht und Finsternis, zur Zeit der dritten war es die Dreieinigkeit. Dann, zur Zeit der vierten Unterrasse, war diese Dreieinigkeit heruntergestiegen und Person geworden. Es ist das Persönliche zuletzt noch weiter heruntergestiegen, bis zum bloßen Verstande, der das Menschheitspersönliche aufgelöst hat und nur noch als abstraktes Ideal verehrt.
+
+In unserer fünften Unterrasse bereitet sich aber schon der Zeitpunkt vor, der da noch kommen muss, und der uns bringen muss den Glauben an die neuen Eingeweihten, an die «Väter». Die im siebenten Grad Eingeweihten nennt man die Väter, und wir sprechen in der geisteswissenschaftlichen Weltanschauung von der Erkenntnis der Meister, weil es nicht bloß der eine ist, sondern weil es die Meister sein werden, zu denen der Mensch in Dankbarkeit und Verehrung hinblicken wird als zu den großen Führern der Menschheit. So verbindet uns die fünfte Unterrasse mit unserer Zukunft. Und so erscheint uns diese vierte Unterrasse mitten hineingestellt in den großen Prozess, den wir durchmachen, in den Prozess des Advents, das heißt der drei vorangegangenen Rassen, wovon der dreiwöchige Advent ein Abbild ist, weil der Mensch in Kürze noch einmal durchmacht die Art und Weise, wie in früherer Zeit das Aufgehen des Lichtes zur Weihnachtszeit erfolgte. Dann folgt darauf das Leben im Lichte. Deshalb ist auch für den Christen das Weihnachtsfest nicht etwas Vorübergehendes, nicht ein Erinnerungsfest an das, was vorübergegangen ist; denn das Weihnachtsantiphon heißt nicht: Christus ist geboren worden, oder Christus war geboren, sondern es heißt: Heute ist Christus geboren. – Immer wird von «heute» gesprochen. Das ist wichtig und bedeutungsvoll. Von «heute» wird gesprochen in dem Sinne, wie Christus selbst gesprochen hat: «Ich bin bei euch bis ans Ende der Tage.» – Das ist etwas, was mit jedem Jahre neu vor uns steht und uns enthüllt den Zusammenhang zwischen Mensch und Himmel. Er zeigt uns, dass auch im Menschen sich das vollziehen muss, was sich im Himmel vollzogen hat. Und wie die Sonne aus ihrer Bahn nicht einen Zentimeter hinausgehen könnte, ohne Verwirrung anzurichten, so muss auch der Mensch seinen Weg einhalten. Er muss jene innere Harmonie, jenen inneren Rhythmus erreichen, den ihm darlebt Christus, der in dem Jesus inkarniert war und der wirken wird in den Vätern, deren Führung der Mensch in Zukunftszeiten nachleben muss.
+
+Das ist der Zusammenhang zwischen Mensch und Himmel: Die Sonne soll nicht nur unbeirrbar am Himmel wandeln und zur Wintersonnenwende neue Kräfte gewinnen, sie soll auch im Menschen bewirken eine Geburt des Lichtes aus dem tiefsten Inneren heraus, ein Auferstehen, ein Sonnenheldentum der fünften Wurzelrasse. Daher heißt auch der Weihnachtsspruch: «Gloria in excelsis deo et in terra pax», «Friede den Menschen auf Erden, die eines guten Willens sind.» Der innere Friede wird auch die Menschheitsevolution in einen rhythmischen Gang bringen, so wie die Sonne ihren eigenen Gang in einen regelmäßigen Rhythmus gebracht hat. In der Sonne haben wir
+
+---
+
+456
+457
+
+ein Abbild des urewigen Kreislaufs des Kosmos. Sie hat das Chaos in sich selbst überwunden und zum Frieden gebracht. In diesem Sinne ist das Weihnachtsfest ein Fest des Friedens, von dem auch ausströmen soll die Stimmung des Friedens und der Harmonie. Dann wird es in der richtigen Weise begangen, wenn von diesem Feste ausströmt die Kraft des Friedens und der Harmonie. Es ertönen mit den Weihnachtsglocken nicht allein kirchliche Klänge, es ertönen uns die Klänge der ganzen strebenden Menschheit, die an der gegenwärtigen Kultur und ihrer Fort-Entwicklung arbeitet und gearbeitet hat, seitdem die Erde mit ihrer Geistigkeit wieder aus dem großen Froste emporsteigt.
+
+Was die vorhergehenden Rassen als ihre Zukunft ersehnt haben, das wurde der vierten nachatlantischen Unterrasse geboren. Und das, was die drei nachfolgenden erstreben müssen, das tönt heraus aus den Weihnachtsklängen. Die Harmonien der Himmel sprechen wirklich zu uns, wenn wir verstehen, was das Weihnachtsfest ausdrückt. So fest begründet ist in der uralten Weisheit ein jegliches Fest des Jahres.
+
+Nicht zufällig sind diese Feste festgesetzt worden, nicht der Willkür sind sie entsprossen, sondern aus der tiefsten Weisheit der Welt sind sie geschöpft, und wer sie wirklich verstehen und mit vollem Verständnis feiern kann, der findet darin die Schriftzeichen der uralten Weisheit für das, was geschehen ist von Anbeginn und geschehen wird in die Zukunft hinein. Dadurch gewinnen die Feste eine neue Bedeutung; sie hören auf, die konventionelle Bedeutung zu haben, die sie ja für viele nur noch haben. So die großen Weltenwahrheiten lesen, heißt, die großen Weltenfeste im richtigen Sinne feiern. Mit dem Herzen, mit dem Sinn, mit dem Gemüte lesen Sie die Urwahrheiten des Himmels, wenn Sie die großen Weltenfeste feiern. Dann sind sie auch wieder echt aus dem Geiste heraus gefeiert, dann sind sie der Menschheit wieder etwas.
+
+Nicht bloße abstrakte Gedanken, nicht ein Dogmengeflecht ist die Geisteswissenschaft. Sie hat eine große Aufgabe und eine Weltmission, um das, was die Menschheit vergessen hat, wieder zu beleben, das Feuer wieder herauszuschlagen aus dem, was uns von unseren Altvordern gegeben worden ist. Dann wird auch der Egoismus der
+
+Menschen aufhören. Sie werden lernen, in dem Einheitsgeist der Welt zu leben. Das ist die Weisheit, welche, neben vielem anderen, von der Geisteswissenschaft ausströmt, und sie ist in gutem Sinne praktisch; sie gibt uns den inneren Halt und die sichere Hoffnung. Und deshalb wird jene Friedensstimmung und Geisteszuversicht, die von dem Weihnachtsfest ausströmt, den zur Geist-Erkenntnis Strebenden im tiefsten Inneren durchseelen können.
+
+Die erhabenen geistigen Führer der Menschheit haben uns in Urzeiten selbst einmal dieses Fest vorgeschrieben. Lassen Sie uns das als echte Weihnachtsweisheit heute am Schluss dieser Stunde noch vor das innere Auge stellen: Vorgeschrittene Menschenbrüder sind die Führer der spirituellen Bewegung, vorgeschrittene Menschenbrüder, die bei dem Beginne der fünften Wurzelrasse damals, als die großen Weltenfeste festgelegt worden sind, schon zugegen waren, und die uns auch heute noch als die großen Lehrer der Menschheit solche Wahrheiten wieder enthüllen. Die Weisheitslehren geben sie uns nicht aus Spekulation, aus eigener Meinung heraus, sondern weil sie dabei waren, als die Dinge sich offenbarten. Sie haben den Frieden vorbereitet, der einst über die Menschheit strömen soll, und sie haben in den Festen die heilige Schrift verfasst, aus der wir lesen sollen die Botschaft des Friedens, die Botschaft der inneren Seelenseligkeit, die wir durch die Geisteswissenschaft wieder erlangen sollen. Leben wir im Sinne der Meister des Einklangs, dann leben wir immer mehr dem großen Ideal entgegen, das sie uns selbst darleben. An jene erhabenen Führer der Menschheit lässt uns die Geisteswissenschaft denken, wenn uns die Weihnachtsstimmung ergreift, die uns vom Frieden spricht, und von den Opfergaben der großen Meister. Es strömt dieser Friede in die Menschheitszukunft hinein. Wir sehen sie ganz umflossen von dem Glanze dieses geistigen Lichtes und des Zusammenklangs der Empfindungen. In dieser Glorie, in der sie uns erscheinen, erkennen wir sie als die Väter, die uns der Zukunft entgegenführen. Wir streben ihnen nach, und aus unserer eigenen Seele wird ein Leben geboren, das in Frieden getaucht ist, in Harmonie und Eintracht – in jene Harmonie, die ein Abbild ist des Ganges der Sonne um die Welt.
+
+---
+
+Die Geburt des Friedens zur Weihnachtszeit ist ein Abbild des Ganges der Sonne um das Himmelsgewölbe. Das lehren uns die weißen Magier, die großen Meister, das sprechen diejenigen, die nicht nur einen blinden Glauben an diese Meister haben, sondern die da wissen und aus ihrem vollen Wissen heraus sagen: Die Meister, sie sind, und die spirituelle Weltbewegung unter der Führung der Meister ist die große erhabene Friedensbewegung, die den Menschen hinführt zu jener Weltenharmonie, in welcher die Menschenseelen mit der harmonischen Regelmäßigkeit und Unbeirrbarkeit leben werden, mit der die Sonne durch die Welten zieht und uns die Wege weist zur leuchtenden Schönheit der geistigen Sonne.
+
+458
+
+# KOSMOLOGISCHE UND BEWUSSTSEINSENTWICKLUNG
+
+Berlin 24. Dezember 1904
+
+Wir wollen einiges Kosmologische an uns vorbeiziehen lassen. Die Entwicklung hat es abgesehen auf die Herausbildung der Bewusstseinszustände. Der jetzige Bewusstseinszustand ist eine Etappe – er ist der vierte. Drei sind ihm vorangegangen; drei werden ihm folgen. Es ist der Wachzustand, in dem wir uns jetzt befinden.
+
+Der Seher, der in die Vergangenheit zurückblickt, findet, dass diesem zunächst ein Traumzustand voranging; etwas heller, als bei unsern höher entwickelten Tieren; und dumpfer, aber umfassender, als wie der gegenwärtige Mensch vorstellen kann. Dieses Bewusstsein umfasste die Pflanzenwelt. Der Mensch konnte damals das Leben durch die Pflanzen fließen sehen, Keimen, Aufsprühen. Es ist etwas, was wir bei einigen Medien noch finden: ein dumpferer, aber umfassender Bewusstseinszustand.
+
+Vorher finden wir einen Zustand, den wir Schlaftrance nennen können; er ist noch dumpfer und noch umfassender; die Wesenheiten waren imstande, nicht nur das Leben zu sehen, sondern auch unmittelbar den Schmerz, die Freude; heute sind uns nur die Gebärden davon sichtbar. Der Traumzustand symbolisierte Schmerz und Freude durch Gestalt, so wie auch heute der Traum noch symbolisiert. Alles zeigte sich damals in symbolischen Formen, und unser heutiges Symbolisieren ist ein Atavismus des früheren Bewusstseinszustandes. Auch die Schlaftrance, dieses traumlose Schlafbewusstsein, kann heute noch bei Medien studiert werden.
+
+Der dritte Bewusstseinszustand – nach rückwärts blickend – ist die tiefe Trance; man nennt ihn auch die induzierte Trance. Sie ist heute sehr selten, kann aber in pathologischen Zuständen erreicht werden, und dann konstruiert das Medium Weltenketten.
+
+So haben wir vier Bewusstseinszustände kennengelernt: die Tief trance, den traumlosen Schlaf, den Traumzustand und das wache
+
+459
+
+---
+
+Tagesbewusstsein. Diese vier Zustände hat der Mensch durchlaufen. Was auf jeder Stufe erreicht worden ist, muss zusammengefasst werden und im Keim zur nächsten herübergeführt werden.
+
+Diese Zusammenraffung nennt man Pralaya, die Entfaltung Manvantara; den Bewusstseinszustand selbst nennt man einen Planeten.
+
+Der weitere Zustand, der uns bevorsteht, ist der psychische, er ist dem vorausgegangenen ähnlich und ist verknüpft mit einer Erweiterung, aber zugleich einer Erhaltung des Wachbewusstseinszustands. Stufenweise schreitet das Bewusstsein nun vor: Die Erweiterung tritt ein, aber bei wachem Tagesbewusstsein. Dies ist die Entwicklung des Hellsehers. Alle theosophischen Lehren stammen aus diesem erweiterten Zustand des Tagesbewusstseins. Dieser psychische Bewusstseinszustand nun gewährt dem Hellseher den Einblick in den wunderschönen Lebensstrom, der durch alle Pflanzen fließend zu sehen ist; man sieht ihn, wenn man die Pflanze absuggeriert, er ist am besten mit der Farbe der Pfirsichblüte zu vergleichen und ist auch beim Menschen zu sehen, nur – getrübt von Kama.
+
+Das nächste überpsychische Bewusstsein erstreckt sich über alle Empfindungen, über Schmerzen und Gefühle. Der Hellseher lernt sie sehen, wenn er den Astralkörper stehen macht – und auch die niedere Mentalwelt.
+
+Der höchste spirituelle Bewusstseinszustand gewährt den Einblick in die höhere Mentalwelt und erstreckt sich über die Planeten.
+
+So liegen denn sieben Bewusstseinszustände aller übrigen Entwicklung zugrunde.
+
+Jeder Bewusstseinszustand hat sieben Lebenszustände zu durchlaufen. Diese nennt man auch die sieben Reiche. Es sind: das erste, das zweite, das dritte Elementarreich, das mineralische, das pflanzliche, das tierische Reich und das Menschenreich.
+
+Der physische Körper hat schon die sieben Stadien durchgemacht, der Astralkörper wird sich erst in der nächsten Runde dazu durchdringen.
+
+Den Durchgang durch ein Reich nennt man eine Runde.
+
+Jeder Lebenszustand muss wieder sieben Formzustände durchmachen.
+
+Zwischen jedem Lebenszustand und dem nächsten liegt wieder ein kleines Pralaya.
+
+Die Formzustände werden bezeichnet als arupa (das eigentlich noch formlose, erst nach Entfaltung ringende), rupa, astral, physisch, plastisch, intellektuell, archetypisch. Der siebente Zustand ist das Ergebnis der sechs vorangegangenen; nachdem er sich selbst plastisch und intellektuell hat formen können, schafft er gleichsam das Skelett, an das sich das Folgende wird angliedern können, das wiederum aus dem Keim zu schießen hat. Es ist das Urbildliche.
+
+Jenseits des spirituellen Bewusstseinszustandes ist die Meisterschaft; der spirituelle Bewusstseinszustand ist der höchste, den der Chela erreicht, in welchem er alle andern überschauen kann. Darnach beginnt für ihn die Meisterschaft.
+
+Unser jetziger physischer Zustand würde für den Hellseher in einer Farbe erglänzen, die einem schönen Grün am meisten ähnlich sieht; der astrale in einem lichtvollen Gelb; der Rupa-Formzustand in Orange; der Arupa-Formzustand in Rosenrot. Die Farbentöne der künftigen Phasen sind Blau, Indigo, Violett.
+
+In der esoterischen Sprache nennt man die vorangegangenen Planeten den ‹Mond› und die ‹Sonne›.
+
+Der Bewusstseinszustand, den der Mensch auf dem Mond erreichte, hat ein Resultat gegeben, ebenso der vorige; das tiefste Resultat hat der erste Bewusstseinszustand gegeben.
+
+Der Mystiker findet in sich, was er um sich ausgebreitet gesehen hat; was jetzt unser Innenleben ist, war früher rings um uns herum; was jetzt unser Leben mit der Welt ist, wird später unser Innenleben sein; alles müssen wir verarbeiten. Unsere ganze äußere Natur wird schwinden, aber Innenleben wird sie werden. Man nennt das, was Ausbreitung ist, ‹Evolution›, was Zusammenraffung ist, ‹Involution›.
+
+So wird der Mystiker die früheren Stadien der Ausbreitung in sich finden, wenn er sich in sich vertieft. Das Ergebnis dieser früheren Stadien ist das Ich-Bewusstsein; die Erde hat die Aufgabe dieses Ich-bewusstsein – Ahamkara nennt es der Inder – auszubilden.
+
+Die Fähigkeit wahrzunehmen, ist mit dem dritten Bewusstseinszustand verknüpft, dem des Traumschlafs; der Mystiker erlebt
+
+---
+
+es wieder, unmittelbar im Strom des Lebens zu schwimmen, und er erlebt es in erhöhtem Maße, da er sein jetziges Tagesbewusstsein auf jenen Zustand überträgt. Der Inder nennt diesen Zustand Chita, die mystische Sprache nennt ihn <die wasser="">, das Meer des Lebens; Suso, Ruysbroek, Böhme – sprechen von einem <aufgehen be="" den="" himmlischen="" in="" tinktur="" tinktur,="" unter="" von="" sonn="" sonn,="" tinken="" tinken,="" unmittelbare="" wasser,="" zustand="" zureck,="" zu="" zureckwandern="">
+
+Gehst man noch weiter zurück, findet man einen Bewusstseinszustand, den nur derjenige Chela kennt, der sich die Kontinuität des Bewusstseins auch durch den Schlaf erhalten hat. Die Naturgesetze sind das einzige, was man von diesem Bewusstseinszustand erfassen kann. Heute sind sie vorhanden im rudimentären Manas; Manas ist das, was davon erhalten ist. Der Chela nimmt im Zustand des tiefen Schlafes die Gedanken wahr – Devachan. Erzeugt wird dieser Zustand, indem der traumlose Schlaf zum Bewusstsein erhoben wird. Der Inder nennt ihn <jujuksha>; der Mystiker <die be="" den="" himmlischen="" erlebt="" erlebt="" im="" den="" den,="" von="" sonn="" tinken="" tinker="" von="" zureck,="" zureckwandern="">
+
+Der letzte Bewusstseinszustand, in dem erlebt wird alles, was an Runden und Planeten-Entwicklung zu schauen ist, ist die Vergottung oder die Vereinigung mit Gott, tatsächlich: die Vereinigung mit der Urschöpferkraft eines Kosmos. <mokscha> nennt ihn der Inder. Nur unmittelbar vor der Adeptschaft erreicht ihn der Chela. Was aufleuchtet im Menschen, ist nicht nur die Wahrnehmung der Gedanken, sondern der Iche. Es ist ein Zusammenfassen mit der Menschheit; es ist die Erkenntnis: Budhi. Jene Lehre, die herausgeflossen ist aus dem bewussten Sehen von Budhi, nennt man daher <esoterischen buddhismus>.
+
+Wir haben also die eben beschriebenen Bewusstseinszustände kennengelernt unter den Namen: Ahamkara, Chita, Jujuksha oder Manas, Mokscha oder Budhi.
+
+Durch Ahamkara wird sich der Mensch seiner selbst bewusst.
+
+Durch Chita wird er sich der Äußerungen der Wesen um sich bewusst.
+
+Durch Manas wird er sich des Innenlebens der Wesen bewusst.
+
+Durch Budhi des Wesenkernes der Wesen um sich.
+
+Diesen durchgehenden Faden der Entwicklung, der die Bewusstseinszustände durch 343 Stadien macht, nennen wir den Pitri.</esoterischen></mokscha></jujuksha></aufgehen></die>
+
+---
+
+464
+465
+
+# DIE ENTWICKLUNG DES MENSCHEN
+
+Berlin, 25. Dezember 1904
+
+Wie geht eine Evolution vor sich? Man hat eine Summe von Daseinskreisen vor sich, die sich später verinnerlichen. Das ist im ganzen Universum so.
+
+Betrachten wir die Entwicklung des Menschen. Sein physischer Leib ist in der jetzigen Rasse ausgebildet. Aber der Astralleib des Menschen ist gegenwärtig in einer unentwickelten Periode. Er muss so weit kommen, dass er Sinnesorgane hat, wie der physische Leib. Diese Sinnesorgane, die auf dem Astralplane dem Menschen gestatten werden, bewusst zu leben, nennt man Chakren. Die sind heute in der Anlage. Eines sitzt über dem Kehlkopf, man nennt es wegen seiner Form die sechzehnblättrige Lotusblüte. Sie wird dadurch ausgebildet, dass der Mensch heute spricht. Einer Tätigkeit auf dem unteren Plane entspringt ein Organ auf dem höheren Plane. Darauf bezieht sich auch unter anderem der dritte Vers in «Licht auf den Weg». Dies ist eine Anleitung. Alle diejenigen Worte nämlich, welche Kritik, Urteil, Ablehnung, Spitzen, die nach außen gehen, enthalten, tragen nichts dazu bei, das Rad in Bewegung zu bringen. Sodass nur das selbstlose Sprechen hier dies Organ wirksam auf dem höheren Plan macht. Sodass nicht Askese, Zurückziehen vom physischen Plan, den Theosophen macht, sondern das Arbeiten daran. Wenn unser Dienst Opferdienst wird, wird die zweiblättrige Lotusblüte auf der Stirn in Bewegung gebracht.
+
+Alles was ist, ist das Ergebnis von Tätigkeit oder Karma. – Wie sind Augen entstanden? Der Mensch hatte Tätigkeit auszuführen, die zur Bildung der Augen führte. Die jetzt rudimentäre Zirbeldrüse, sie war eine Art von Wärmeorgan, wie ein bewegliches Auge, als die Körper noch nicht leuchteten und der Mensch sich im Feuernebel bewegte. Er sondierte damit das Milieu, konnte im weiten Kreis die Temperaturunterschiede wahrnehmen. Das Ergebnis dieser Wahrnehmung ist die Wahrnehmung solcher Körper, die durch Erhitzung
+
+leuchten. Dann trat dies Organ zurück, und es bildeten sich als Ergebnis die zwei Augen. Die Zyklopensage ist eine Erinnerung daran.
+
+Wie grandios die Metamorphosen sind, die der Mensch durchgemacht, wird uns klar: Sie müssen so vor sich gehen, dass die äußere Formbildung innere Kraft wird.
+
+Wir stehen in der vierten Runde. Als der Mensch vom Monde herüberkam, war er im Allgemeinen Mondpitri. Er hatte zur höchsten Entfaltung das Traumbewusstsein gebracht. Das war nicht imstande, ein Objekt, das außen war, wahrzunehmen. Ein solches war nicht einmal da. Dazu hätte ein Gegenstand dem andern gegenüberstehen müssen. Die drei ersten Runden waren so, dass alles innerlich war, der Mensch sich in sich abschied. Die Pitris trugen alle verfügbare Materie in sich, es gab nur Menschen. Hätte der Mensch das Mineralreich in sich behalten, wäre er nie zu seiner Entwicklung gekommen. Daher musste er es aus sich herausstellen. Er sondert in der ersten Runde alles, was er nicht brauchen kann, aus sich heraus; indem er ein tiefer stehendes Wesen zurücklässt, hebt er sich hinauf. Das ist ein tiefes Gesetz des Okkultismus.
+
+Während der zweiten Runde bevölkert er seine Erde mit dem Pflanzenreich; während der dritten Runde lässt er alles zurück, was kaltblütige Tiere sind. Jetzt schläft das hinüber in die vierte Runde als Keim. Er macht den arupa, rupa und astralen Zustand durch und tritt in die dünnste Physis. Wie er ist, könnte er aber nicht intelligent werden, er muss noch eines abstreifen, und dies sind die warmblütigen Tiere, sie sind sozusagen dekadente, verkümmerte Menschen.
+
+Zur Mitte der lemurischen Zeit war die Entwicklung so weit, dass Folgendes eintreten konnte. Bis dahin konnte ein Wesen aus dem andern hervorgehen, geschlechtliche Fortpflanzung gab es nicht. Damals, als die Wesen alle sich ungeschlechtlich fortpflanzten, war die Erde in ganz anderem Zustand. Alles, was feste Masse ist, war damals aufgelöst, flüssiges Element. Durch die Veränderung ist das bedingt, was man geschlechtliche Fortpflanzung nennt. Mit der Verhärtung hängt die Sexualität zusammen, ein Wesen konnte nicht mehr allein ein anderes hervorbringen, daher mussten auch die Weichtiere sich den neuen Bedingungen fügen.
+
+---
+
+Wie ist die Sexualität entstanden? Ein Maß von Kraft – „1“ wollen wir es nennen – war notwendig, um ein neues Wesen hervorzubringen. Bei der Verhärtung ist dies nicht möglich. 1 wird in 2 gespalten, die eine Hälfte der Kraft geht auf die Fortpflanzung ab, die andere wird abgespalten. Die eine Hälfte ballt sich zum Gehirn zusammen, wird geistig, ist also veredelte Reproduktionskraft, die andere Kraft wird dadurch brutaler. Es sind die zwei Pole.
+
+Die abgespaltene Kraft, das Geistige, konnte durch Manas befruchtet werden, wird zum Träger von Manas. Daher sind vom Sexuellen die Symbole genommen, um das Höchste zu versinnbildlichen. Als die späteren Rassen kamen, wurden die reinen Symbole missverstanden und führten auch zu Ausschreitungen. Die materielle Wissenschaft, die nur vom physischen Plan ausgeht, hat nur dieses gesehen.
+
+Diese geistige Kraft, bevor sie zu der Phase gekommen ist, wo wir heute stehen, hat viele Phasen durchgemacht. Zunächst war die Vorstellungskraft viel getränkter von vollsaftigen sinnlichen Vorstellungen; sie war noch nicht so verdünnt, dass sie als Gedächtnis leben konnte, und sie hatte magische Kraft, konnte reproduzierend wirken bei entsprechendem Training. Das bloß Sinnliche des Menschen wurde in rauer Weise abgehärtet, dann wirkte die Produktionskraft. Diese musste er aufgeben in dem Maße, als er sich höher entwickelte. Das Gedächtnis war, was sich während der atlantischen, die Verstandeskraft während der arischen Rasse entwickelte. So schwand die Kraft auf Kosten der Verfeinerung.
+
+Der Sinn der Evolution ist, dass ein Höheres sich entwickelt, während ein Niederes zurückgelassen wird. So haben wir die wilden Völkerschaften zurückgelassen, von denen irrtümlich die Kulturgeschichte uns ableitet.
+
+Nun sind wir, nachdem das höhere Tierreich abgestoßen ist, in der Mitte der vierten Runde. Der Mensch muss nach und nach alles wieder aufnehmen, was er früher von sich abgestoßen; er muss alles erlösen. Im astralen Zustand wird er dazu fähig sein. Das ganze ausgebreitete höhere Tierreich sind die Leidenschaften, die der Mensch herausgestellt hat. Mit den mächtigeren Organen des entwickelten,
+
+gereinigten Astralleibes, kann er die ausgelagerte Kraft wieder aufnehmen und sie gebrauchen, um sich zu erhöhen. Das ist die Entwicklung der drei künftigen Globen. Sodass, wenn unsere Entwicklung zu Ende sein wird, das höhere Tierreich, das ein mineralisches Gerüste hat, nicht mehr sein wird; das ganze Mineralreich wird aufgesogen.
+
+Während der fünften Runde ist also nur da: das Pflanzenreich, das niedere Tierreich und der Mensch selbst. Er absorbiert nun das Pflanzenreich und das Höhere des niederen Tierreichs. Es ist ein anderer physischer Zustand, das Mineralreich wird nicht sein, aber die Pflanze wird einen noch dichteren physischen Zustand haben. Es findet keine Verflüchtigung in den Äther statt, sondern eine Verphysischung des Pflanzlichen. Es wird ein wachsendes Knochenskelett sein, mit Absonderungen pflanzlicher Art. Gewisse Substanzen, die heute noch Luft sind, werden Wasser sein, in dem Keime aufquellen können.
+
+Wenn die sechste Runde beginnt, ist nur das Tierreich da und zwar die fortgeschrittenen, heute niedrigeren Formen, und der Mensch. Das Tierreich saugt er auf. Und in der siebten Runde erreicht der Mensch die Gottähnlichkeit. – Gott ruht am siebten Tage. Der Mensch selbst ist Schöpfer und entwickelt sich zu jener Reife, die nötig ist, um eine neue Entwicklung zu beginnen.
+
+466
+467
+
+---
+
+468
+469
+
+# DIE RUNDEN AUF DEN SIEBEN PLANETEN
+
+Berlin, 26. Dezember 1904
+
+Wollen mir nun den Blick auf alle sieben Planeten erweitern, auf unsere ganze Planetenkette.
+
+Bei jedem Planeten muss ein physischer Zustand eintreten; alle früheren sind Vorbereitungen dazu, alle späteren Abflutungen. Sie bereiten zunächst die Materie vor, in die das Physische dann hineinfließen kann. Der Ätherkörper gehört zum Physischen, ist die Verfeinerung davon. – Wir haben bekanntlich die physische Materie in sieben Aggregatzuständen zu denken, davon den Äther in vier; also: fest, flüssig, Gas und die entsprechenden Ätherarten.
+
+Der physische Zustand in der Mitte mit seinen festen Formen wird eingehüllt und durchdrungen von der astralen Aura. Es ist ein wesentlicher Unterschied zwischen dieser Aura vor und nach der physischen Entwicklung. Vorher ist sie abhängig von den Kräften, die von außen auf sie wirken, ist kosmisch; die physische Entwicklung muss sie von innen heraus organisieren. Sie zeigt sich – getrennt vom physischen Körper – ungefähr in der Form eines Ringes, so sieht sie wenigstens der gewöhnliche Hellscher. Es ist aber ein Ring, der entstanden ist, indem zwei Wirbel, zwei Spiralen, sich ineinander verschlungen haben; scheinbar in nichts verschwindend, hängen sie gleichsam an den Fäden des Universums.
+
+Durch Beherrschung der Gedanken, der Gefühle, wird der Mensch selbstständig, schnürt sich gleichsam ab; im Mittelpunkt der beiden Wirbel entwickeln sich die Chakren, gleichsam an der Achse. Sodass man sagen kann, dass das physische Leben im Wesentlichen dazu da ist, dass, statt an Fäden gezogen zu werden im Universum, man sein Zentrum in sich hat. Wenn der Astralkörper nach dem physischen Zustand abflutet, hat er das Ergebnis davon in sich.
+
+Jede Runde arbeitet also das Selbst heraus. Die erste Runde arbeitet das mineralische, die zweite das pflanzliche, die dritte das kamische oder tierische, die vierte das eigentliche Selbst heraus.
+
+Vorher werden die Materien vorbereitet, hinterher fluten sie ab, und dieser Vorgang wiederholt sich auf jedem Planeten.
+
+Die Grundlage für den ursprünglichen Planeten war das Ergebnis einer früheren planetarischen Entwicklung. Die Wesenheiten hatten das Tieftrancebewusstsein entwickelt. Sie sind die menschlichen Monaden, die Pitris. Sie waren ursprünglich da. Diese Wesenheiten fingen an, sich selbst objektiv zu werden. Um dies zu verstehen, denken Sie sich in einer Nacht in eine ganz andere Himmelsphäre versetzt, mit ausgelöschtem Gedächtnis. Sie würden nicht die Möglichkeit haben, sich mit sich selbst zu identifizieren, in dieser neuen Umgebung. Dies wäre nur möglich, wenn Sie das ganze Gedächtnis bewahrt hätten, nicht aber, wenn es verloren und die Umgebung eine andere wäre.
+
+Dies gibt Ihnen den Unterschied zwischen objektiv und subjektiv. Zum ersten Mal müssen nun die ganz subjektiven Wesen zu einer Objektivität kommen; sie müssen sich spiegeln, etwas anschauen. Und das ist die Aufgabe des ersten Planeten. Indem gleichsam ein Stein auf den andern stößt, kommt das erste dumpfe Bewusstsein. Sodass das Wesentliche darin besteht, dass die subjektiven Pitris sich jeder in ein anderes verloren haben. In der esoterischen Sprache nennt man diesen Moment ‚das Hinuntersteigen in den Abgrund‘. Das heißt, sie werden sich objektiv, haben ein Zweites außer sich.
+
+Anschaulich gedacht, kommen sie im Physischen bis zur Kugelbildung oder Eibildung. Der ursprüngliche Punkt ist in der Spiegelung ein Ei oder eine Kugel.
+
+Der Planet ist dann äußerst dünn und besteht aus Kugeln. Man kann sagen, dass er das Aussehen einer großen Brombeere hat. Alles ist durcheinanderwirbelnd; der Mensch ist selbst Mineral in einer geistig materiellen Form; es ist ein rasches Entstehen und Vergehen, wie bei Seifenblasen. Alles ist in sich beweglich.
+
+Dasjenige, was während der folgenden sechs Runden durchgemacht wird, ist ein Abfluten dieser ersten Eindrücke, eine Befestigung dieses Zustandes.
+
+Der zweite Planet hat zwischen sich und dem ersten schon ein Pralaja; und jedes dieser Wesen tritt schon mit einer besonderen
+
+---
+
+470
+471
+
+Erfahrung ein. Denn es gab zum Beispiel schon einen Unterschied in der Raumlage, es gab Nordpol und Südpol. Diese Erfahrungen kommen jetzt heraus.
+
+Während des ersten Stadiums wird kurz wiederholt, und ein höherer Bewusstseinszustand muss sich in die früheren Erfahrungen hineinfinden. Während dieses zweiten Stadiums beginnt das Anordnen nach Zahl, Maß, Gewicht und Harmonie. Die mentale Entwicklung beginnt. Sodass die Kugeln, die sich früher nicht unterschieden, jetzt durch verschiedene Größenverhältnisse anfangen, ihre Erfahrungen in Ausdruck zu bringen. Dies ist die erste rudimentäre Entwicklung des Pflanzenreichs; die Wesen ordnen sich so an, dass sie zu drei und drei, zu vier und vier, und so weiter einander gegenüberstehen. Alles was an Zahl, Maß, Gewicht und Harmonie in der Welt ist, ist damals entstanden und hat sich in den folgenden Etappen nur verändert. Der Mensch ist eine Pflanze; die Sagen, die auf diese Abstammung anspielen, haben hier ihren Ursprung. Das ist eine schöne Welt, in der keuschen Form des Pflanzenreichs. Esoterisch nennt man diesen Planeten die «Sonne» oder «Jupiter». Es ist ein paradiesischer Zustand wirklicher Unschuld; deshalb ist auch die Beschreibung dieses Zustandes diejenige, die den Einzuweihenden immer mit heiliger Scheu erfüllt.
+
+Die folgenden Zustände – Runden – sind nun wieder da zur Befestigung und zum Abfluten. Alles, was wir an Kristallformen, an Gattungen der Pflanzen haben, entstand in der Anlage damals.
+
+Auf dem Mondplaneten haben wir es wieder, nach einem Pralaya, mit einem kurzen Wiederholen der zwei Zustände zu tun, und erst beim dritten kommt das Neue heraus: der Zustand der Wesen, die sich heraufentwickeln zur Begierde, zum Kamischen, das nicht nur mit anderem sich anordnet, sondern es begehrt. Hier fängt die Unkeuschheit an; die Zahl stellt sich nicht neben die andere, um schön zu sein, sondern begehrt. Die Zwei begehrt die Drei. Es entstehen die chemischen Affinitäten, wir stehen in den Wahlverwandtschaften.
+
+Dann folgt das Abfluten: Die astralen Zustände entwickeln sich. Besonders starke machen den Eindruck – wenn man sich hineinversegt – des Glutenden, des Bebrütenden. Es ist das Umfangensein von der Glut der Leidenschaft; die Luft ist es, die einen umflutet mit der Leidenschaft, der Wind ist wehende Leidenschaft gewesen.
+
+Von denjenigen, die nicht höher eingeweiht waren, die nicht wussten, dass dies nur ein Durchgangspunkt ist, wurde diese Welt mit Recht als Dämonenwelt, als Hölle beschrieben. Daher hat es Sinn, von «höllischem Feuer» zu sprechen. Dasselbe finden wir, wenn auch abgekühlt, in den niederen Regionen der astralen Welt, und es wird daher mit Recht gesagt, dass die stärksten Feinde der Menschen dort thronen. – Die folgenden Runden waren dazu bestimmt, dies aufzunehmen: Die glühenden Leidenschaften wurden absorbiert; was früher Atmosphäre war, ging in die Wesen über. Leidenschaftswesen wurden es – Kamawesen, Mondpitris –, die Wesenheiten, die diese Dinge ausgebildet.
+
+Sie hatten natürlich Gelegenheit, auf jeder der folgenden Stufen zurückzubleiben, daher gibt es sieben Klassen von Pitris, von denen die höchste die letzte Phase der raffinierten Kama-Entwicklung erreicht haben, des edlen geläuterten Kama. Diejenigen der fünften Stufe zum Beispiel haben schon die Leidenschaften auf höhere Dinge gebracht, auf etwas, was zum Beispiel dem Fanatismus ähnlich sieht; oder die der sechsten haben die Leidenschaft der Schönheit als Anlage; die der siebenten Stufe: Die Leidenschaft für das Gute. – Es fehlt zum ruhig Beschaulichen der Manas.
+
+Manas kommt nun herein auf den vierten Planeten, auf unserer Erde. Die drei vorangegangenen Zustände, die mineralische, die pflanzliche, die kamische Runde werden wiederholt, denn der Mensch muss jetzt abwerfen, was er nicht brauchen kann, um in seiner Entwicklung vorzuschreiten; bei der vierten Runde kommt der neue Bewusstseinszustand erst heraus, das helle Tagesbewusstsein. Etwas ganz Neues tritt nun auf. Es ist das Mineralische, Pflanzliche und Tierische abgestreift worden. Als Ergebnis der Leidenschaften entsteht die Warmblütigkeit, und es wird behalten die Kraft, die das Neue aufnimmt.
+
+Der Abstieg dauert noch bis zur dritten Rasse; die atlantische steht gerade in der Mitte, die arische ist im Aufstieg. Während der
+
+---
+
+lemurischen Rasse wurde Manas in die brütende Kama-Masse gleichsam hineinversetzt und versuchte dort, Dasein zu gewinnen, um sich später in der atlantischen Rasse als Gedächtnis zu entwickeln; dieser durchgehende Faden von Manas befestigt sich in der fünften Rasse zur verstandesmäßigen Kombination; Manas arbeitet nun in sich hinein.
+
+Während der sechsten Wurzelrasse, die unsere arische ablösen wird, wird das Hineinarbeiten von Manas immer weiter vor sich gehen. Die Chakren, die mentalen Organe, und das menschliche Ich werden während der folgenden Runde sich ausbilden.
+
+Wie geht so eine Entwicklung vor sich? Was findet bei einer Einweihung statt? Kein Körper kann sich über sein Milieu hinausentwickeln; der physische Körper ist von physischen Mächten abhängig; der Mensch kann sich also als physisches Wesen nicht über sich hinausentwickeln. Aber er kann seinen Astralkörper entwickeln, sodass er heimisch wird in der Erkenntnis dessen, was wir das astralische Leben nennen. Er wird die Ursprünge des Bösen kennenlernen, das dort liegt. Er ist auf diese Art ein künstlicher Fünftrunder geworden. Doch muss bei ihm eine gewisse Diskrepanz eintreten, denn bei einer normalen Weiterentwicklung wäre ja auch sein physischer Körper ein anderer geworden. Er muss entweder verzichten auf das, was das Leben jetzt ausmacht, oder es wird ein gewisses Nicht-Zusammenstimmen stattfinden.
+
+Während der fünften Runde können sie dann als Lehrer und Führer für die Menschheit der fünften Runde wirken, wie sie auch jetzt schon für die Menschheit der vierten Runde wirken. Solche Fünftrunder können weit hinausragen über die jetzige Entwicklung; aber wenn sie noch am Anfang und nicht auf der höchsten Stufe der Fünftrunderschaft stehen, werden sie den andern wie Träumer vorkommen. Das sind die Genies, die, wenn sie ins praktische Leben eingreifen, wie Reformatoren wirken. Als Beispiel könnte man Cromwell anführen. Wenn sie in der Mitte stehen, können sie uns solch tiefe Lehren geben, wie zum Beispiel Goethe; oder wenn sie am Gipfelpunkt angelangt sind und schon reif sind für die sechste Runde, solche wie die des Heraklit oder Platon. Die Menschheit kann nur dadurch fortschreiten, dass solche künstlichen Fünftrunder menschliche Gestalt annehmen.
+
+Die künstliche Sechstrunderschaft besteht darin, dass bei vollständiger Klarheit Einblick in die mentale Welt gewonnen wird. Einen vollständigen Einblick in die Zusammenhänge, die schöpferischen Kräfte der Welt, gibt ein Führer wie Buddha. Diesem bleibt nur noch übrig, seinen mentalen Körper zu absolvieren; er ist vollständig frei im Astralen und im Physischen. Ein solcher Sechstrunder kann fast reif sein, die menschliche Gottähnlichkeit zu erlangen. Doch ist dies beim jetzigen Durchschnittskörper nicht möglich. Ein solcher Körper muss langsam vorbereitet werden durch die Chelaschaft, sodass erst im späteren Leben der Gott unserer Erde Besitz ergreifen kann von diesem Körper. Solch ein Vorgang trat ein in der dritten Rasse, als der Chela-Sig, seinen Körper einem künstlichen Siebenrunder zur Verfügung stellte. In höherem Maße war dies der Fall, als der Chela Jesus von Nazareth im dreißigsten Jahre dem Christusprinzip, dem Gottmenschen, seinen Leib zur Verfügung stellte. Erst in der sechsten Wurzelrasse wird die Menschheit so weit sein, dass ein Siebenrunder, der alle Stadien der Menschheit absolviert hat, den menschlichen Körper mit dem in ihm ausgedrückten Christusprinzip erfüllen wird. [...]
+
+472
+473
+
+---
+
+474
+475
+
+# RASSENBILDUNGEN BIS ZUR BEFRUCHTUNG MIT MANAS (TIERABSPALTUNGEN)
+
+Berlin, 27. Dezember 1904
+
+Verfolgen wir die Entwicklung innerhalb unserer Runde, und zwar von der Mitte an. Die Erde ist zum vierten Mal im physischen Stadium, sie ist ganz feine Materie, ätherisch. In dieser Äthermaterie sind schon vorhanden: die Mineralien in ihrer Anlage, die niederen Tiere in der Anlage, Pflanzen in der Anlage und der Mensch als ein astrales Wesen.
+
+Denn er hat es innerhalb der drei ersten Runden nicht weiter gebracht; er hat nur die anderen Reiche hinausgesetzt; er beginnt sich in Äthermaterie zu verwirklichen, und wartet darauf, in die Astralform die Äthermaterie einzugliedern. Der Mensch hat also nur den Ätherdoppelkörper. Wir wollen diese Verbindung des astralen Menschen und der Äthermaterie betrachten.
+
+Der Äther hat nur eine Äußerung: Er kann schwingen, und deshalb konnte sich beim Menschen nur das Organ ausbilden, das auf Schwingungen reagiert: der Gehörsinn. Der Mensch konnte nur durch das Gehör wahrnehmen. Es war noch ein Nachklang von jener Sphärenharmonie, von der die Pythagoreer sprechen.
+
+Ursprünglich war dieser Ätherkörper ein viel komplizierteres Wesen, denn er hatte alle Tiere, die sich später abspalteten – Amphibien, Vögel, niedere und höhere Säugetiere – noch in sich. Wir nennen diese Äthermenschen die „polarische Rasse“, denn diese lebte in der Zone um den Nordpol herum. Geologische Überreste konnten selbstverständlich von dieser Rasse nicht bleiben.
+
+Das erste, was sich heraussonderte, waren natürlich die amphibischen Tiere, zunächst die Fische. Die Fortpflanzung dieses Menschen war folgende: Zunächst war er ein astraler Mensch und nahm die Materie in dieses Astrale auf, sodass er sich selbst formte. Man nennt es Selbsterzeugung. Diese geht über in die Art, dass, indem der Mensch Materie aufnimmt, er sich vergrößert und dann spaltet. Man nennt diese Art: „Sprossung“.
+
+Blavatsky nennt es „Schweißgeburt“; der Ausdruck ist nicht schön gewählt, der Vorgang erinnert mehr an das Hervorgehen eines Gegenstandes aus dem andern, wie bei spiritistischen Sitzungen.
+
+Dadurch kann sich ein zweites Organ bilden. Die Luft hat verschiedene Dichtigkeit, man kann sie zusammendrücken, während der Äther nicht komprimierbar ist. Daher entsteht der Unterschied von Wärme und Kälte, und es bildet sich ein Tastorgan aus, mit dem Sinn für Wärme und Kälte. Von dieser zweiten, der „hyperboreischen Rasse“ leben noch hinüber riesige Amphibien, die später zum Geschlecht der Ichthyosaurier und so weiter werden. Zunächst waren diese fliegenden Drachen ein schönes Geschlecht, sie wurden dekadent in der Verdichtung. In den Sagen hat sich die Erinnerung an sie erhalten.
+
+Während der Hyperboreer-Zeit war der Mensch anfänglich noch vereinigt mit dem, was wir als Vogelgeschlecht und als das niedere Säugetiergeschlecht kennen. Nun trennte sich zunächst von ihm ab das Vogelgeschlecht, das innerhalb der Luft ein eigenes Geschlecht wurde. Es war aber nicht, wie es später wurde, denn es hatte das Säugetiergeschlecht noch in sich. Die Sage hat dies wieder wunderbar in Symbolen erhalten. Sie registriert die Taten der uralten Vergangenheit, wenn sie noch von den Instinkten der Atlantier herstammt, und zwar: den Vogelmenschen als Greif. Erst dann versteht jemand die Symbole aus den Geheimschulen, wenn er weiß, dass sie nicht stroherne Allegorien, sondern Registrationen von Tatsachen sind. Der Kentaur zum Beispiel ist der Pferdemensch, der Säugetiermensch. Diese Abspaltung geschah in verschiedensten Formen, da es viele Rassen gab: in Pferdemenschen, in Stiermenschen und so fort. Es spaltete sich in der sehr dicht gewordenen Luft der Vögel vom niederen Säugetier ab: Eine Erinnerung daran sind die Säugetiere, die Eier legen, oder ihre Jungen bebrüten, wie die Schnabeltiere und die Beuteltiere.
+
+Vom Menschen spalteten sich ab die höheren Tierklassen, und mit jeder Spaltung bekam der Mensch eine neue Eigenschaft in der Anlage. Als er die Pferde abspaltete, bildete sich bei ihm der Verstand aus; daher gilt das Pferd als Symbol des Verstandes. Wir finden es
+
+---
+
+in der Apokalypse, in der indischen Sage: das Pferd Kalki; in der Mitte der dritten Unterrasse, zur Zeit des trojanischen Krieges, bei Odysseus, wodurch diese Rasse unterworfen wird. Ein Rudiment dieser Sache ist noch erhalten darin, dass, wenn der eigentliche Held, der Avatar unserer Rasse auftreten wird, er etwas zu tun haben wird mit Kalki, dem Pferd.
+
+Ebenso entstanden bei einer anderen Spaltung andere Eigenschaften. Der Mensch hätte zum Beispiel seinen moralischen Mut nicht haben können, wenn er den Löwen nicht abgespalten hätte.
+
+Betrachten wir nun näher die dritte, die lemurische Zeit. Der Mensch hat jene Dichtigkeit mitgemacht, die die Erde erhalten hat: Die Luft verdichtet sich zum Feuernebel. Wir können uns diesen Zustand vorstellen wie Nebel am Gebirge. Aber an manchen Stellen war er so dicht wie heiße Gluten: Alles floss noch darin, das Gold, der Diamant. Nun geschahen die Abkühlung und damit auch die Verdichtung des Menschen. Und der Mensch musste nicht nur anders hervorbringen, sondern er musste auch beschützen.
+
+Dieselbe Art und Weise der Fortpflanzung dauert noch bis zur Mitte der lemurischen Rasse. Innerhalb des glühenden Nebels ist noch aufgelöst, das was man Kama nennt. Wir müssen nach dem Grund fragen, weshalb die Verhärtung geschah. Kama war noch aufgelöst, und der Astralkörper des Menschen war noch in Verbindung mit den allgemeinen Kama-Massen, obgleich er schon ein Zentrum hatte. Jetzt geschah die Abschnürung der einzelnen Kama-Wesen. Dadurch entzogen sie ihre eigene Kraft den umliegenden dünneren Kama-Massen. Diese verdichteten sich, wurden fest dadurch, dass der Mensch sein Kama eingezogen hatte, das früher in ihnen aufgelöst war; damit war gegeben, dass das, was früher in der früheren Kama-Masse schwamm, jetzt von innen tätig wurde, und es entstand die Warmblütigkeit. Mit ihr verbunden ist das Hingezogensein von einem Wesen zu einem anderen. An Stelle der früheren, äußeren, chemischen Wahlverwandtschaft, traten nun Sympathie und Antipathie ein, und damit war die Grundlage gegeben für die Sexualität.
+
+Wir haben nun: Amphibien, die allmählich in Dekadenz kommen;
+
+die Vögel; dann die niederen und höheren Säugetiere; und endlich den Menschen, der jetzt erst so beschaffen ist, dass er in diese verdichtete Kama-Masse einziehen kann. Er ist so weit, dass diese Kraft, die außen war, nun von innen in ihm wirkt. Wir haben den Säugetiermenschen; er ist viel plastischer und weicher als jetzt, deshalb starken Metamorphosen unterworfen, bildsam und elastisch.
+
+Mit anderen Daseinsbedingungen und Empfindungen kommen andere Formen. Einen Nachklang davon finden wir noch bei den Dichtern, zum Beispiel in Ovids «Metamorphosen».
+
+Dadurch dass der Mensch jetzt alle Tierformen abgestreift hat – zumindest im Wesentlichen, den Affen freilich hat er noch nicht abgestreift –, war für seinen entwickelten Kama-Körper ein im hohen Grade gereinigter Organismus da, und er war imstand etwas auszusondern: einen Teil des Organismus, auf den er eine andere Kraft übertragen konnte. Es konnte das Nervensystem ausgebildet werden, und so entstand ein zweifaches Wesen. Einerseits hatte es die höchste Tiergestalt mit Knochenbau und Drüsenbau, andererseits erhielt es das Nervensystem, wo diese Kraft sich herausheben wird – das Rückenmark. Diese Anlage konnte etwas aufnehmen, was bis jetzt nur in der Umgebung der Erde schwebte, nämlich Manas. Dies ist die Befruchtung des Menschen mit dem Manas-Prinzip.
+
+Halten wir daran fest, dass der Mensch früher ein Kama-Wesen war, welches in näherer Beziehung zu dem ihn umgebenden Kama stand, zu dem Kama der Offenbarung, das nicht selbstsüchtig und begierdevoll war, sondern sich hingab.
+
+Schaffendes und geschaffenes Kama haben wir. Dieses Kama, aus dem sich der Mensch herauszog, hat eine Erhöhung der Selbstlosigkeit dadurch erhalten, dass der Mensch die Selbstsucht einsog. Dadurch, dass dieses selbstsüchtige Kama sich herauszog, ist der Mensch irdisch liebend geworden. Und außen umschwebt ihn die göttliche Liebe in erhöhter Selbstlosigkeit. Innen arbeitet sein Manas.
+
+So haben wir im Menschen dreierlei:
+
+1. die in ihm aufgehende sinnliche Liebe,
+2. die ihn umschwebende göttliche Liebe,
+3. der ihn umschwebende Manas.
+
+---
+
+Jetzt tritt etwas ganz Neues auf: das Durchgehen durch Karma im menschlichen Sinne, überhaupt eine Ordnung so, wie wir sie jetzt haben – das Unterscheiden von Gut und Böse in der Welt.
+
+Es ist eine der häufigsten Fragen, die gestellt wird: Woher kommt das Unvollkommene in der Welt? Bei der Befruchtung mit Manas trat es in seiner schärfsten Weise als Böses auf [Lücke in der Mitschrift] Wie aber – fragen wir – kommt es, dass aus einem vollkommenen Weltengrunde etwas Unvollkommenes entstehen kann? Wie kommt es, dass aus etwas Vollkommenem etwas Unvollkommenes entstehen kann?
+
+Solange wir die Sache in ihrer Abstraktheit betrachten, werden wir unmöglich eine Antwort finden. Dagegen wohl, wenn wir sie so betrachten, dass der Urgrund sich in einer Mannigfaltigkeit ausbreitet, einer Mannigfaltigkeit im Raum und in der Zeit. Ihre Seele mag noch so vollkommen sein: Sie wird die rechte Hand, wie die linke dirigieren – das ist, weil sie die Hände nicht zu ihrem Ebenbilde gemacht hat. Das ist aber, was der allliebenden Gottheit zukommt. Gerade dadurch, dass Gott in unendlicher Liebe die Ebenbildlichkeit an die Mannigfaltigkeit abgibt, ist die Möglichkeit des Kampfes ums Dasein gegeben.
+
+Noch mehr begreifen wir das Unvollkommene in der Zeit. Wir brauchen hier nur an das Beispiel des Klavierbauers und des Klaviersvirtuosen zu denken. Jeder leistet an seinem Platze Ausgezeichnetes. Der Klavierbauer ist ein Künstler in seiner Art. Wäre er aber in seine technische Arbeit so verliebt, dass er auch im Konzertsaal anfangen würde zu klopfen und zu hämmern, während der Virtuose spielt, entstände Disharmonie. Versetzt an den falschen Ort, respektive in die falsche Zeit, wäre das Gute. Dies Beispiel hilft uns, vieles zu verstehen. Ein versetztes Gutes ist das Böse.
+
+Der Begriff der Zeit in Verbindung mit dem Begriff der Freiheit, lässt uns die verschiedenen Grade der Vollkommenheit oder auch das relativ Unvollkommene verstehen, dadurch dass es die verschiedenen Stufen der Entwicklung in sich schließt.
+
+Halten wir daran fest, dass die Wesen nicht gleich schnell an ihr Ziel gelangen. Am Ende der lunarischen Epoche gab es Wesenheiten,
+
+die es grade so weit gebracht hatten, als die Entwicklung es erforderte. Andere blieben zurück.
+
+Wir haben noch nicht betrachtet, was befruchtete. Wir haben den Stoff betrachtet, aus dem sich der Pitri entwickelte und die Seele des Pitri. Aber noch nicht den Tropfen Manas, ein Stück vom Höheren, das die Erde umschwebte. Dass der Tropfen sich hineinsenken kann, ist nur möglich dadurch, dass diese höheren Wesen, diese schöpferischen Mächte, die jetzt den Menschen mit Manas begabten, sich auch dazu entwickelt haben.
+
+Jeder menschliche Manas ist ein Gedanke in diesen Wesen, die die Erde umschweben –, in den Dhyan-Chohans, in den Elohim –, die so weit reifen mussten. Dass diese überirdischen Wesen reif wurden zur Begabung mit Manas, ist dadurch entstanden, dass sie auf dem Monde etwas gelernt haben. Es ist auf dem Monde etwas geschehen, was sich nur mit dem Worte „übermenschliche Kunsttätigkeit“ bezeichnen lässt – in größter kosmischer Weisheit eingerichtet. Der Mensch hätte nicht herausholen können seinen ganzen künstlichen Bau, so weisheitsvoll wie es lungen-, herz- und magenbegabte Wesen sind. Deshalb nennt man die lunarische Epoche die der „kosmischen Weisheit“. Diese wurde abgelöst auf Erden von der „kosmischen Liebe“. In Bezug auf seine Liebe ist der Mensch ebenso abhängig von Wesen, die über ihm sind, wie damals in Bezug auf Weisheit. Die Weisheit, die involviert ist, tritt als Manas auf.
+
+---
+
+480
+481
+
+# VORGÄNGE IN DER ZWEITEN HÄLFTE DER LEMURISCHEN RASSENENTWICKLUNG
+
+Berlin, 28. Dezember 1904
+
+Die lunarische Epoche nennt man auch die der ‹kosmischen Weisheit›. Sie wurde abgelöst auf der Erde von der ‹kosmischen Liebe›. In Bezug auf seine Liebe ist der Mensch ebenso abhängig von Wesen, die über ihm sind, wie damals in Bezug auf Weisheit. Die Weisheit, die involviert ist, tritt als Manas auf, und die Fähigkeit, die hereingegossen wird, ist Liebe. Daher sagt man esoterisch, dass der Gott der Weisheit abgelöst wird von dem Gott der Liebe.
+
+Die Errungenschaft, in die Wesen Sexualität eingießen zu können, haben sich die Mächte erworben durch die in Weisheit erlernte Lektion auf dem Monde. Was sie dem Menschen nun bringen konnten, war der Funke von Manas, und von außen mussten sie arbeiten in der Durchglühung des menschlichen Körpers mit Liebe. Insbesondere zeigt es sich so klar, dass Jehovah in Verbindung stand mit der menschlichen Liebe durch den Menschen.
+
+Es ist möglich geworden, von oben zu befruchten, dadurch dass gewisse Wesen vorangeeilt waren in der Entwicklung. Sie waren die guten Führer des menschlichen Manas, die ersten Eingeweihten – Arhats. In einer kühlen Offenbarung von oben würde die Weisheit an ihn getreten sein. Es gab andere Wesen, die, was sie auf dem Mond noch nicht erreicht hatten, mit menschlichem Kama, jetzt weiter erwirkten: Sie begabten ihn mit Leidenschaft für die Weisheit. Diese Wesenheiten mussten mit den Menschen, ihr Schicksal teilend, zu dem aufsteigen, was sie noch nicht auf dem Monde erreicht hatten. Sie wurden zugleich des Menschen bester Freund. Damit haben wir das luziferische Prinzip.
+
+Mit der göttlichen Liebe in dem Christusprinzip ist das luziferische Prinzip ein anderes geworden. Dieses wird uns den Schlüssel geben zu der Erzählung des Sündenfalls im Paradiese. Dass nun der Luzifer sozusagen der Gegensatz zu Christus ist, das war vor Christi
+
+Menschwerdung allen Religionen eine selbstverständliche Wahrheit. Und dass der Zeitpunkt kommen würde, an dem der Mensch in sich Luzifer erlösen würde, ist ein schöner Prozess, der noch nicht zu Ende gekommen ist. Und das Ganze liegt auch dem Christentum zugrunde. Am allerbesten ist es ausgedrückt in der Sage und in der Bedeutung vom Christfest. Den für die Menschheit kämpfenden Lichtgeist, den Paraklet, sendet Christus. In den vatikanischen Archiven findet sich die Erklärung des luziferischen Prinzips.
+
+Wenn Sie das zusammenfassen mit dem, wovon ich ausgegangen bin, werden Sie sehen, dass Luzifer noch eine andere Bedeutung hat. Er macht eine Entwicklung durch, die er eigentlich auf der lunarischen Epoche hätte durchmachen müssen. Daher ist mit der großen Gabe der menschlichen Freiheit etwas gekommen, was deplaziert ist – und das moralisch Böse hat hier seinen Ursprung. Der Fähigkeit, das Böse zu tun, verdankt der Mensch seine weitere Entwicklungsstufe.
+
+Auf einer noch höheren Stufe haben wir das Mysterium noch einmal vor uns, dass eine höhere Entwicklung nur dadurch zu erreichen ist, dass etwas anderes auf einer niedrigeren Stufe zurückbleibt. Die höheren Dhyan Cohans mussten aus sich heraus das luziferische Prinzip stellen, um die Fähigkeit zu erlangen, mit Manas begabte Wesen zu gestalten. Luzifer ist zurückgeblieben, damit die Gottheit höher steigen konnte. Sodass ihm die Gottheit ihre Stufe in dem jetzigen Rundkreis verdankt.
+
+Der Mensch ist da, damit er ein Ebenbild Gottes werden kann. Die Gottheit musste aber etwas zurücklassen, um weiter zu kommen. Wenn das luziferische Prinzip in der Menschheit erlöst sein wird, wird die Gottheit erlöst sein davon, dass es Luzifer herausgesetzt hat. Der Mensch ist nicht um seiner selbst willen da, sondern dass er zur Herrlichkeit Gottes beitrage – so der Apostel Paulus. Ein guter Gott würde als solcher nie freie Menschen schaffen können; dazu musste er ein Gott sein, der nur von der einen Seite den Menschen mit Impulsen begabte, und musste ein Wesen zurücklassen, das von der andern Seite den Menschen mit Impulsen begabte.
+
+Die pythagoreischen Schüler mussten erst sich die Vorbedingungen zu den höchsten Fragen schaffen, bevor sie sie stellten.
+
+---
+
+Nun werden Sie auch begreifen, dass es verschiedene Stufen des luziferischen Prinzips gibt in diesen zurückgebliebenen Wesen. Die Weisheit kann um ihrer selbst gesucht werden, aber auch in den Dienst von Kama gestellt werden.
+
+Das luziferische Prinzip hat daher auch die Künste und Wissenschaften geschaffen, die auch in den Dienst der sinnlichen Befriedigung gestellt werden können.
+
+# BILD VON DER ENTWICKLUNG
+## AUF DEM MOND UND AUF DER ERDE
+
+Berlin, 29. Dezember 1904
+
+Damals war schon ein Mineralreich entwickelt, ein Pflanzenreich, ein Tierreich. Das Tierreich ragte hinauf bis zum Menschen. Dieses ist ja ein Produkt der Erde. Ganz anders waren die Reiche als gegenwärtig.
+
+Das Mineralreich hatte noch ein unmittelbares Leben in sich. Der Mond war sozusagen wie eine Frucht im physischen Zustand, eine vollsaftige Frucht. Die feste Schale innen, und außen die Fruchtteile, die gehen in die geistige Atmosphäre über. Die feste Schale war die physische Materie. Die Frucht, das Mineralreich des Mondes, wuchs mächtig von außen; saftende strotzende Fruchtbarkeit der Kristalle und so weiter. Die Ägypter sprachen hierauf anspielend von der fruchtbaren und üppigen Isis.
+
+Das zweite war das Pflanzenreich, das wuchs wie üppige Vegetation und unterschied sich nur gradweise von den wachsenden Kristallen. Die Pflanzen streckten ihre Luftwurzeln heraus in diese weiche Wassermasse der Umgebung, geleartig mit aufgelöstem Kama in sich. In den Wurzeln, die die Pflanzenwelt hinausstreckte, nahm sie damals nicht nur Luft und Licht, sondern auch Kama auf, das aufgelöst war in der dichten Luft; sie hatten also Empfindung, aber nicht Sonderempfindung, sondern die des allgemeinen Lebens. Unsere Venusfliegenfalle ist noch so etwas wie eine Erinnerung. Die Erde hatte ein allgemeines Empfindungsleben, und die Pflanzen waren ihre Organe.
+
+Die Tierwelt war noch nicht niedrig wie unsere gegenwärtige Tierwelt, sondern im Wesentlichen verwandt mit dem umliegenden Kama-Element, schwebend und nur hin und wieder tastend, wie Wassermenschen ganz verwandt mit der Umgebung; deshalb dieses dumpfe traumartige Bewusstsein, welches es nicht dazu bringt, schon „Ich“ zu sich zu sagen. Wahrnehmung für das Astrale hatte der träumerische Mensch des Mondes in ganz ausgezeichnetem Maße. Unser jetziges Meerwasser ist eine Verdünnung des damaligen Gele-
+
+482
+483
+
+---
+
+Wassers. Aber da das Wasser noch verwandt ist mit dem Astralen, wenn auch nicht unmittelbar vermischt wie damals, haben Seeleute berechtigte visionäre Anschauungen; die Ablehnung davon ist eher Aberglaube als die Anerkennung.
+
+Noch nicht konnten diese Wesen ‚Ich‘ zu sich sagen; die Icke schwebten als bloße Gedanken in dem umliegenden Weisheitsmeer.
+
+Wir haben also: Im Innern eine feste Kruste von vegetativem Metall und Stein; dann Vegetation mit Empfindung begabt; eine noch nicht bis zur Luft verdichtete Weisheitsschicht, in der die Icke lebten. Diese sollten noch Verkörperung annehmen auf der Erde selbst. Deshalb nennt man den Mond auch den Kosmos der Weisheit. Diese Weisheitsschicht ist eher eine Kugel, die alles durchdringt, durchzogen mit Fäden, und an den Kreuzungspunkten entsteht so etwas wie ein Knoten, das ist ein Ich.
+
+Die Gedanken durchlaufen die ganze Kugel, wie ein gemeinschaftliches Nervensystem, ein manasisches Geflecht. Das war der weisheitsvolle Vorgang, durch den alle verstandesmäßigen Verrichtungen auf dem Monde vor sich gingen. Wie elektrische Fäden ohne das Drahtgeflecht; dies ist ‚Fohat‘ – Verwandtschaft unseres Gedankens mit Elektrizität, [unleserlich].
+
+Sie haben im Grunde genommen die ganze Vierheit des Menschen als die drei unteren Reiche, aber das unterste ist noch nicht bis zur harten Mineralität gerückt. Damit die Fäden zerrissen, war es nötig, dass die Gelee-Masse bis zu ihrer äußersten Grenze rückte. Der Mensch ist nichts, als das durch die Verhärtung herausgerissene Stück Nervensystem.
+
+Viel herrlicher für das äußere Anschauen ist diese Mondvegetation und Mondtierheit. Denn diese Tierheit ist ganz keusch, alles ist durch den gemeinsamen Manas geregelt, und sie treten nur zueinander in Beziehung durch Weisheit.
+
+Bei der Erdentstehung müssen wir uns denken, dass jedes Reich um eine Stufe hinunterstieg:
+
+- Das Mineral verliert Leben.
+- Die Pflanze verliert das Empfinden.
+- Das Tier verliert den Manas.
+
+Die Icke aber rücken vor und umschließen sich mit der jetzt physisch gewordenen Erdenmaterie. Sodass die Icke wirklich durchlaufen alle drei Zustände, die sie von außen beherrscht haben. Jetzt hat der Mensch einen mineralischen Körper, in der nächsten Runde einen pflanzlichen Körper, in der sechsten Runde einen tierischen Körper.
+
+Was wir beschrieben haben als Mondform, war so in der dritten Runde des Mondes, denn das war der eigentliche Zustand, auf den es beim Mond ankam – so wie bei der Erde die vierte Runde. Später flutete er ab und saugte die Reiche auf, die er gebildet. Sodass sie in der Anlage waren, aber wie in den Keim geschossen. Und auf der Erde saugt der Mensch das Leben aus dem Mineral heraus und lässt es als totes Gestein zurück. Daraus bildet er in der vierten Runde sein Knochensystem; das konnte er herauskristallisieren als Grundlage seines eigenen Lebens, indem er leblos das des Mineralreich zurücklässt – Adam und Eva, die Persermythe, Deukalion und Pyrrah.
+
+Dadurch, dass in der zweiten Runde der Pflanze die Empfindung entzogen ist, bildete der Mensch sein empfindendes Muskelsystem. Und dadurch, dass den Tieren die allgemeine Weisheit entzogen ist, bildete er sein besonderes Manas – und ließ die Tierheit weisheitslos zurück.
+
+Während der Abflutung der Mondrunde beginnen sich vorzubereiten die Verhärtungen nach außen. Das ganze weiche Steinmaterial bildet Häute um sich herum, die Pflanzen eine Epidermis, die Tiere sogar Häute mit Borsten. Alles hat also die Tendenz, Hüllen zu bilden, eine hüllenbildende Entwicklung ist es.
+
+Wenn wir uns vorstellen, dass die Wesen, die wir als Luzifere kennengelernt haben, dort auf dem Monde das Schaffen abgrenzen, das Sondersein, Hüllen bilden, so sehen wir, dass sie so die Schaffer des Sonderseins und der Freiheit sind; und sie haben natürlich die Tendenz, Hüllen zu bilden, behalten, sodass, wenn sie auf der Erde herauskommen, sie die Bildner der Tiere sind, die mit dem äußeren Skelett begabt sind, und im Pflanzenreich solcher, die nicht in der Erde wurzeln, sondern im Lebenselement selbst, wie die Mistel, die Schmarotzerpflanzen.
+
+484
+485
+
+---
+
+486
+
+Weich waren bei der ersten Rassenentwicklung der Erde alle unsere Tiere, aber sie haben die Tendenz, Festes im Innern zu schaffen, während auf dem Monde außen Festes geschaffen wurde.
+
+Wenn die Mondgeister weiter geschaffen hätten, würden sie eine Erde geschaffen haben, die alles, was an Weisheit und Liebe und Kraft existiert, nach außen bringt in einem wunderbaren Kunstwerk. Ein herrliches Marmorwerk wäre entstanden. Dass nun Kunst auf Erden existiert, dass abgerungen werden konnte ein Teil von den Menschen, verdanken wir dem luziferischen Prinzip.
+
+Umdrehung des Wirbels, als die Erde so weit gekommen war, dass sie ans Verhalten kam. Luzifer ist der Gott des äußeren Heroentums, der Schönheit, der äußeren Weisheit; er hat es noch abgerungen für die Menschheit. Daher auch der Gegensatz zwischen mystischer Verinnerlichung und äußerem Schönheitssinn. Dieser Gegensatz kann nur auf einer sehr hohen Stufe überwunden werden. Dann liebt der Mystiker das Leben in der Schönheit. Die theosophische Gesellschaft muss immer lebensfreundlicher werden, weil sie das Leben durchgeistigen soll, nicht dem Leben entfremden.
+
+487
+
+# VERGANGENE UND KÜNFTIGE RUNDEN
+
+Berlin, 30. Dezember 1904
+
+Wenn man von den folgenden Runden spricht, so könnte es dann scheinen, als ob man etwas, was nicht gewusst wird, erzählt. Das [, was erzählt wird,] ist aber unzweifelhaft, insofern es sich auf die Gesetze bezieht. Der Mensch muss mitarbeiten an der Zukunft und sich mit diesen Gesetzen bekannt machen. Es muss immer Wasser entstehen, wenn Wasser und Sauerstoff zusammenkommen. Die Gesetze sind ewig, und insofern sie gesetzmäßig sind, enthüllt sich die Zukunft.
+
+In den nächsten Runden wissen wir, dass die Reiche aufgesogen werden und dass der Mensch Mensch wird in der siebten Runde. Es fragt sich, welches die äußere Form des künftigen Pflanzenreichs sein wird. Denn zu Bewusstsein und Leben kommt die Form. Wir haben die Form der ersten Runde kennengelernt, der zweiten, der dritten und jetzt die der vierten, die darin besteht, dass der mineralische Mensch der Geburt und dem Tod unterliegt. Das dritte Reich verlief unter dem Zeichen der Wahlverwandtschaft. Das zweite stand im Zeichen der Zahl.
+
+Welches ist die Form der nächsten Runde? Sie ist dadurch bedingt, dass der Mensch dann viel plastischer sein wird, kein starres Mineralreich ihm entgegensteht. Nach was wird diese Form gebildet? Immer von demjenigen, was zurückbleibt auf Kosten dessen es sich weiter entwickelt. Das ist jetzt das Böse. Der Mensch entwickelt sich durch Karma durch zum Guten. Er überwindet Karma ganz schon in der vierten Runde; saugt das Gute heraus und lässt zurück das Böse. So dass aus diesem Bösen die Formen der nächsten, der fünften Runde gebildet werden. Sodass die fünfte Runde äußerlich zur Schau tragen wird den plastischen Abdruck aller bösen Taten der vierten Runde. Das Neue Testament gibt uns das Bild dieser Wahrheit im jüngsten Gericht. Das Böse wird sichtbar sein. Die Menschen werden im Gesicht das Gute tragen, das sie erworben haben, und werden Wesen
+
+---
+
+erzeugen durch die vorangegangenen bösen Taten. Das karmische Schuldbuch wird offen liegen.
+
+Erste Runde: Abgrund; das Sich-Erblicken im Spiegel
+Zweite Runde: Zahl, Maß, Gewicht
+Dritte Runde: Wahlverwandtschaft
+Vierte Runde: Geburt und Tod
+Fünfte Runde: das Böse.
+
+Das wirkt wie schuppenlösend, indem es zeigt, dass der Mensch nicht verbergen kann sein Böses. Er wird es wie vergraben finden, ein neues Reich das zwischen Tierreich und Menschenreich sich einschiebt; niedere Menschen, welche die Taten tragen von der Schuld der jetzigen Menschheit. Nun kann der Mensch nur wieder aufsaugen, was er aus sich herausgesetzt hat. So macht er es mit den Reichen, mit Geburt und Tod, mit dem Bösen, das er heraussetzt, um es in der Form wieder aufzusaugen. Persönlich wird er es tilgen können schon in dieser Runde und ausgleichen, aber es werden seine Taten vergraben sein in ein neues Reich, in der Objektivität. Er kann es befreien, weil er auf Kosten des herausgesetzten Bösen die Unschuld erreichen kann.
+
+Alles Kamische, welches mit dem Bösen imprägniert ist, ist jetzt außer ihm. Dieses Böse macht es ihm unmöglich, das höhere Selbst zu erreichen. Es ist jetzt außer ihm. Das höhere Selbst kann jetzt seine Aura gestalten, das Äußere kann das Innere gestalten. Wenn das Äußere dann ganz das Innere gestalten wird ohne Hindernis durch Kama, dann haben wir das unmittelbare Mentale selbst. Sodass in der sechsten Runde die Menschheit den mentalen Körper hat.
+
+Das Innere prägt sich im Äußern aus, wenn wir das, was wir sprechen, den Wellen der Luft übergeben. Das ist, was wir in der sechsten Runde tun werden. Kein Verbergen des Innern mehr, was der Mensch ist, strömt er aus, seine ganze Seele liegt offen. Indem der Mensch durch sein ganzes Wesen sich selbst ausspricht, ist die sechste Runde die des Wortes. Das Wort wird zwar nicht Fleisch, das konnte es nur in Christus werden, aber Form, Gestalt. Ähnlich war es schon in der zweiten Runde; nur waren die Schälle unartikuliert, sprachen nicht die Wesen aus; jetzt sprechen sich aber die Namen aus. Jeder Mensch spricht seinen Namen in die Weltwesenheit hinein.
+
+Novalis’ Schriften sind in dieser Beziehung wie Ahnungen großer theosophischer Wahrheiten. Die Vereinigung mit der himmlischen Sophia ist dann bewusst erreicht.
+
+In der siebten Runde wird nun die völlige Vereinigung erreicht. Die menschliche Seele verliert sich nicht in der Gesamtheit; jeder Mensch hat seinen Namen, aber diese Namen klingen zusammen in einer großen Satzharmonie. Und dieser Name ist der der Erdengottheit. Kein Grad des Bewusstseins, der erreicht ist, kann verloren werden, aber zusammen klingen alle diese Namen und geben den der Erdengottheit. Goethe: Gewoben ist [Lücke in der Mitschrift]
+
+Das ist das unsterbliche Kleid, das da bleibt, und in der esoterischen Sprache nennt man es die ‹Gottseligkeit›. Also ist die
+
+erste Form: Spiegelung im andern, Objektivität
+zweite Form: Zahl, Maß und Gewicht
+dritte Form: Wahlverwandtschaft
+vierte Form: Geburt und Leben
+fünfte Form: das Böse
+sechste Form: das Wort – Logos
+siebte Form: Die Gottseligkeit
+
+Das sind die sieben Formen, durch die der Pitri geht, während einer planetarischen Entwicklung.
+
+Warum entwickelt sich, wenn ein bestimmtes Reich in die Sackgasse kommen würde, die Evolution weiter? Die Frage deckt sich mit dieser: Warum wird eingefügt [Lücke in der Mitschrift]? Weil: In dem Augenblick, wo ein betreffendes Reich in zweifacher Gestalt vorhanden ist, dann erkennt es sich selbst. Der Mensch hat das Mineralreich herausgesetzt, kann es nicht erkennen; in der zweiten Runde das Pflanzenreich, in der dritten Runde das Tierreich. Wenn er zu sich aber sagen kann ‹Ich bin›, dann ist er auch imstande, auf sich selbst durch seinen Willen einzuwirken. Im Schlaf kann er es nicht. Wenn er zum Astralischen, Prana, Mineralischen ‹Ich bin› sagen kann, wird er sie erkennen. Weil er ein mineralisches Wesen ist, erkennt er sich als ein Ich.
+
+In der nächsten Runde wird er sagen können ‹Ich will› und plastisch formen. In der sechsten Runde wird er sagen können ‹Ich fühle
+
+488
+489
+
+---
+
+490
+491
+
+mich ein, und er wird sein ganzes Wesen in Wellenlinien hinausströmen, sein Wort.
+
+In der siebten Runde strömt er sein Wesen so aus, dass sein Ich sich der ganzen Erdensphäre einfügt.
+
+Nachdem eine Dreiheit entstanden ist, in der das Selbst sich heraussetzt, entsteht eine Dreiheit, während er es aufnimmt. Ich bin. Das ist die Errungenschaft der vierten Runde. Versteht das Selbst sich recht, muss es sein eigenes Wesen zurücknehmen. Das luziferische Prinzip wollte es weiter führen. Die achte Sphäre ist, was hinausstürmen wollte über den Punkt, an dem es sich zurücknehmen musste.
+
+Es ist in höchster Form – Selbsterkenntnis.
+
+In gewissem Sinne sind die künftigen Runden das, was sie in den vorigen gewesen sind, nur hat jeder Mensch sein Zentrum in sich. Was früher automatisch ist, wird Leben.
+
+Unartikulierte Laute, die in der zweiten Runde als Sphärenharmonie tönen, werden Namen. Gott selbst spricht seinen Namen in der ersten Runde, und alle Wesen sprechen ihn in der letzten.
+
+# DAS DREIKÖNIGSFEST
+
+Berlin, 30. Dezember 1904
+
+Bevor ich ein neues Kapitel anfange, werde ich, wie ich das letzte Mal sagte, etwas einfügen und anfügen an die Weihnachtsbetrachtung, die ich in den Montagsvorträgen gegeben habe. Sie erinnern sich, wie ich die Bedeutung des Weihnachtsfestes angeschlossen habe an die ganze Entwicklung unserer Kulturepochen, und wie gerade dadurch das Weihnachtsfest nach rückwärts und vorwärts seine Bedeutung in der Zeitenwende erhält.
+
+Heute möchte ich sprechen über ein Fest, das für die neueren Völker weniger Bedeutung zu haben scheint als das Weihnachtsfest, über das Fest der ‚Heiligen Drei Könige‘, das am sechsten Januar gefeiert wird, über das Fest der Magier, die aus dem Morgenlande kommen und den eben geborenen Jesus von Nazareth begrüßen. Dieses Fest der Epiphanien wird immer mehr Bedeutung gewinnen, wenn man wiederum die wahre, tatsächliche Symbolik auch dieses Festes verstehen wird. Wir haben es da mit etwas Wichtigem zu tun. Das können Sie schon daraus ersehen, dass eine sehr ausgebildete Symbolik diesem Feste der drei Magier aus dem Morgenlande zugrunde liegt. Es wurde diese Symbolik – wie alle Mysterien – sehr geheim gehalten bis ins fünfzehnte Jahrhundert hinein, und bis dahin hat man auch keine besonderen Andeutungen gemacht. Vom fünfzehnten Jahrhundert ab wird aber einiges Licht auf dieses Fest der Magier aus dem Morgenlande geworfen, dadurch dass exoterische Abbildungen erschienen, welche die Heiligen Drei Könige darstellen als einen Mohren – einen Bewohner Afrikas –, das ist Balthasar; dann einen Weißen – einen Europäer –, das ist Melchior; und einen asiatischen König, der die Hautfarbe der Bewohner Indiens hat –, das ist der Kaspar. Sie bringen Gold, Weihrauch und Myrrhen dem Jesuskindlein in Bethlehem als ihre Opfergaben dar.
+
+Das sind drei sehr bedeutende Opfergaben, und das klingt zusammen mit der bedeutungsvollen Symbolik dieses Festes vom sechsten
+
+---
+
+Januar. Esoterisch ist das Fest aber ein sehr wichtiges. Der sechste Januar ist dasselbe Datum, an welchem im alten Ägypten das sogenannte Osiris-Fest gefeiert wurde, das Fest des wiedergefundenen Osiris. Osiris wird bekanntlich überwunden von seinem Gegner Typhon, er wird von der Isis gesucht und wiedergefunden. Dieses Wiederfinden des Osiris, des Sohnes Gottes, wird dargestellt durch das Fest vom sechsten Januar. Das Dreikönigsfest ist dasselbe Fest, nur dass es christlich geworden ist. Dieses Fest finden wir auch bei den Assyrern, den Armeniern und den Phöniziern. Überall ist es da ein Fest, das verknüpft ist mit einer Art von allgemeiner Taufe, wo aus dem Wasser heraus eine Wiedergeburt stattfindet. Das deutet schon den Zusammenhang an mit dem wiedergefundenen Osiris.
+
+Was ist überhaupt der verschwundene Osiris? Der verschwundene Osiris stellt uns dar jenen Übergang, der stattfindet zwischen den Zeiten vor der Mitte der lemurischen Rasse und den Zeiten nach der Mitte der lemurischen Rasse. Vor der Mitte der lemurischen Rasse gab es keinen Menschen, der mit Manas begabt war. Erst in der Mitte der lemurischen Zeit senkte sich Manas hernieder und befruchtete den Menschen. In jedem einzelnen Menschen wird ein Grab geschaffen für den in die Menschheit aufgeteilten Manas – für Osiris, der dargestellt wird als zerstückelt. Es werden so und so viele Gräber in Ägypten gezeigt – das ist die manasische Gottheit, die aufgeteilt worden ist und in den Menschen wohnt. „Gräber des Osiris“ heißen die menschlichen Körper in der ägyptischen Geheimsprache. [Gräber nennt noch Platon die menschlichen Körper.] Manas ist so lange nicht befreit, bis die wiedererscheinende Liebe Manas befreien kann.
+
+Was ist die wiedererscheinende Liebe? Dasjenige, was entstanden ist mit der Manas-Befruchtung in der Mitte der lemurischen Zeit – etwas vorher und etwas nachher –, das war das Einziehen des Leidenschaftsprinzips in die Menschheit. Vor dieser Zeit hat es kein eigentliches Leidenschaftsprinzip gegeben. Die Tiere der vorhergehenden Zeiten waren Kaltblüter. Und auch der Mensch selbst war damals noch nicht mit warmem Blute begabt. Vergleichsweise wie Fische sind die Menschen auf dem Monde gewesen, und auch
+
+die Menschen der dritten Runde, sie hatten gleiche Wärme mit ihrer Umgebung.
+
+„Der Geist Gottes brütete über den Wassern“, heißt es in der Bibel von dieser Zeit. Das Prinzip der Liebe war noch nicht im Innern der Wesen, sondern draußen als sich offenbarendes irdisches Kama und irdische Leidenschaft. Das ist die egoistische Liebe. Der erste Bringer der egoismusfreien Liebe ist nun Christus, der in Jesus von Nazareth erscheinen sollte.
+
+Wer sind nun die Magier? Das sind die Initiierten der vorhergehenden drei Rassen, die Initiierten der Menschheit bis zum Erscheinen des Christus-Wesens, der Egoismus-freien Liebe, des wiedererstandenen Osiris. Die Initiierten waren mit Manas begabte Wesen, sind Magier. Sie bringen Gold, Weihrauch, Myrrhen als Opfergabe dar. Und warum erscheinen sie in den drei Farben Schwarz, Weiß und Gelb? Schwarz als Afrikaner, weiß als Europäer, gelb als Inder. Das hängt zusammen mit den Wurzelrassen. Schwarz sind die Überreste der lemurischen Rasse, gelb sind die Überreste der atlantischen Rasse, und weiß sind die Repräsentanten der fünften Wurzelrasse, der Arier. So haben wir in den drei Königen oder Magiern die Repräsentanten der Lemurier, der Atlantier und Arier. Sie bringen die drei Opfergaben: Der Europäer bringt Gold, das Symbol der Weisheit, der Intelligenz, die vorzugsweise in der fünften Wurzelrasse zum Ausdruck gekommen ist. Die Initiierten der vierten Wurzelrasse, der Atlantier, haben als Opfer das, was für sie das Wichtigste ist. Sie hatten eine nicht mehr unmittelbare Verbindung mit der Gottheit, so eine Art suggestiven Einfluss, etwas wie eine universelle Hypnose. Dieses In-Verbindung-Stehen mit der Gottheit wird durch die Opferung unterhalten. Das Gefühl muss sich erheben, damit Gott auch das Gefühl befruchtet. Das findet seinen symbolischen Ausdruck in dem Weihrauch. Das ist das allgemeine Symbol für die Opferung, die etwas zu tun hat mit der Intuition.
+
+Die Myrrhen sind in der esoterischen Sprache das Symbol der Abtötung. Was bedeutet Abtötung, was Wiedererstehen, wie wir es haben zum Beispiel im wiedererstandenen Osiris? Ich verweise hier nur auf Goethe, der da sagt:
+
+---
+
+Und solang du das nicht hast,
+dieses Stirb und Werde,
+hist du nur ein trüber Gast
+auf der dunklen Erde.
+
+Jakob Böhme bringt denselben Gedanken zum Ausdruck mit den Worten:
+
+Wer nicht stirbt, eh er stirbt, der verdirbt, wenn er stirbt.
+
+Die Myrrhen sind nun das Symbol des Absterbens des niederen Lebens und der Auferstehung des höheren Lebens. Sie werden daher auch dargebracht von dem Initiierten der dritten Wurzelrasse. Eine tiefe Bedeutung liegt darin. Erinnern Sie sich daran, wer Jesus von Nazareth ist. Ein hochentwickelter Chela ist in ihm geboren. Er hat im dreißigsten Jahre seines Lebens sein Leben dem herunterkommenden Christus, dem herabsteigenden Logos hingegeben. Das alles sahen die Magier voraus. Das ist ein großes Opfer des Jesus von Nazareth, dass er sein Ich vertauscht mit dem Ich des zweiten Logos. Das tritt aus einem ganz bestimmten Grunde ein. Erst wenn die sechste Unterrasse herangekommen sein wird, dann wird sich allmählich die Möglichkeit vorbereiten, dass der Mensch, der menschliche Körper, von frühester Kindheit an so weit sein wird, so etwas aufzunehmen wie das Christus-Prinzip. Erst in der sechsten Wurzelrasse wird die Menschheit so völlig reif sein, dass nicht die Körper erst durch Jahre hindurch vorbereitet, zubereitet werden müssen, sondern von Anfang an dazu fähig sind, das Christus-Prinzip aufzunehmen. In der vierten Unterrasse der fünften Wurzelrasse musste der Körper noch dreißig Jahre vorbereitet werden. Das ist gerade so, wie es in den nordischen Gegenden war, wo dem Sig sein Körper vorbereitet wurde, sodass Sig seinen Körper einer höheren Wesenheit zur Verfügung stellen konnte und gestellt hat.
+
+In der sechsten Wurzelrasse wird es möglich sein, dass der Mensch seinen Leib einer so hohen Wesenheit zur Verfügung stellen kann, wie Jesus es tat bei der Stiftung des Christentums. Als das Christentum gestiftet wurde, da war es noch notwendig, dass ein Chela sein Ich opferte, abtötete, es hinaufsandte nach dem Astralraum, damit
+
+der Logos in dem Körper wohnen konnte. Es ist dies etwas, das auch beleuchtet wird durch das letzte Moment am Kreuz, wenn Sie die letzten Worte betrachten: Wer könnte sonst die Worte verstehen:
+
+Mein Gott, mein Gott, warum hast du mich verlassen? [Mt 27,46]
+
+Sie werden darin einen Ausdruck finden für die Tatsache, die sich vollzogen hat. In dem Augenblick, da Christus stirbt, hat Gott den Leib verlassen, und der Leib des Jesus von Nazareth spricht jene Worte aus – der Leib, der so hoch entwickelt war, dass er diese Tatsache ausdrücken konnte. Daher ist in diesen Worten ein unglaublich großes Ereignis ausgedrückt. Und dieses alles drückt sich aus in den Myrrhen, die das Symbol der Opferung, der Abtötung sind, der Opferung des Irdischen, um das Höhere aufleben zu lassen.
+
+In der Mitte der lemurischen Zeit musste Osiris sein Grab finden, musste Manas in die Menschen einziehen. Unter der Leitung der Magier mussten die Menschen erzogen werden, bis das Budhi-Prinzip, das Prinzip der Liebe aufleuchtete in dem Christus Jesus. Budhi ist die himmlische Liebe. Das niedere, geschlechtliche Prinzip wird veredelt durch die christliche Liebe. Dadurch ist in Glorie aufgegangen das Kama-Prinzip, es wurde im Feuer der göttlichen Liebe gereinigt.
+
+Dass wir es bei Melchior zu tun haben mit dem Prinzip der Weisheit, der Intelligenz der fünften Wurzelrasse, das wird symbolisiert durch das Gold – das drückt das Opfer aus. Dass wir es zweitens zu tun haben mit einem Prinzip des Kultus-Opfers, das drückt uns der Weihrauch aus. Es ist das das Prinzip der vierten Wurzelrasse, der Atlantier. Das wird dann weiterentwickelt, bis das Christentum seine Aufgabe erfüllt haben wird in der sechsten Wurzelrasse, die wieder einen Sakramentalismus haben wird, sodass sie das sinnliche Dasein mit Kultushandlungen, mit Opferhandlungen erfüllen wird. Die Sakramente haben ja heute größtenteils ihre Bedeutung verloren, der Sinn dafür ist nicht mehr da. Er wird wieder für sie da sein durch das, was durch den Weihrauch symbolisiert ist: Der höhere Mensch wird geboren. In der lemurischen Rasse findet Osiris seinen Tod, in der siebten Wurzelrasse steht er wieder [vollständig] auf.
+
+So sehen Sie, dass das Fest der «Heiligen Drei Könige» durch das,
+
+---
+
+was diese verkünden mit ihrer Opferung, die Geschichte der dritten, vierten, fünften und sechsten Wurzelrasse ist.
+
+Wodurch werden die Heiligen Drei Könige geführt, und wohin werden sie geführt? Sie werden durch einen Stern geführt, und sie werden hingeführt nach Bethlehem in eine Grotte. Das ist etwas, was nur derjenige wirklich verstehen kann, der bekannt ist mit den sogenannten niederen oder astralen Mysterien. Von einem Stern geführt sein, heißt nichts anderes, als die Seele selbst als einen Stern sehen. Wann sieht man aber die Seele als einen Stern? Man sieht dann die Seele als Stern, wenn man sie als leuchtende Aura wahrnehmen kann. Dann ist die Seele ein Stern. Was für eine Aura leuchtet so, dass sie führen kann? Zuerst haben Sie die Aura, die nur glimmt, die nur ein mattes Licht hat. Die kann nicht führen. Dann haben Sie die höhere Aura, die Intelligenz-Aura. Die hat zwar ein flüssiges Licht, ein quellendes Licht, ist aber noch nicht führend. Aber die helle, von Budhi durchglänzte Aura ist wirklich ein Stern, ist etwas Strahlendes und Führendes. In Christus geht im Fortschritt der Menschheit der in der Rassenentwicklung leuchtende Budhi-Stern auf. Was den Magiern leuchtet, ist nichts anderes als die Seele des Christus selbst. Der zweite Logos selbst, der leuchtet ihnen, und er leuchtet über der Grotte in Bethlehem.
+
+Die Grotte ist nichts anderes als das, worin die Seele wohnt: der Leib. Der astrale Seher sieht den Leib von innen. Dem astralen Schauenden kehrt sich alles um, man sieht alles umgekehrt. Man sieht zum Beispiel 365 anstatt 563. So sieht man also den menschlichen Körper als Grotte, als Höhle, und so leuchtet in dem Körper des Jesus von Nazareth der Stern Christi, die Seele des Christus. Das ist vorzustellen als eine Wirklichkeit, vor sich gehend im Astralen. Es ist ein Vorgang in den niederen Mysterien. Es leuchtet da tatsächlich die Christus-Seele als ein aurischer Stern, und der führt die Initiierten der drei Rassen zu Jesus nach Bethlehem.
+
+Das ist also ein Fest, das jedes Jahr am sechsten Januar gefeiert worden ist. Es ist eines von denen, die in «Licht auf den Weg» angedeutet sind. Es findet jedes Jahr eine Anzahl von Festen statt. Das ist eines davon, bei dem den Weisen der Stern von Bethlehem
+
+aufgeht. Die vier ersten Sätze aus «Licht auf den Weg» sind die Mitte der vier Feiern:
+
+Eh' vor den Meistern kann die Stimme sprechen, muss das Verwunden sie verlernen.
+
+Das ist die Vorbereitung für die fünfte Runde. An der Eingangspforte des Tempels erscheint dieser Satz. Und dann kommt die große Tatsache. Das Fest des sechsten Januar wird immer mehr zunehmen. Man wird mehr und mehr verstehen, was ein Magier ist und was die Meister sind. Man wird dann vom Verständnis des Christentums zum Verständnis der Theosophie kommen. In diesen Tagen, am sechsten Januar, wird das Fest der großen Magister, der Meister, auch bei den Theosophen stattfinden. – Das Neujahrsfest ist das Beschneidungsfest Jesu, denn der Christus war da noch nicht geboren. Der Jahresanfang bei den Juden ist im Oktober. Aber das Fest der Beschneidung des Jesus von Nazareth ist herübergenommen worden in das Christentum. Dass Jesus auch vorher Jude war, das wird mit dem Neujahrsfest im Christentum noch gefeiert.
+
+[Notizen vermutlich aus der Fragenbeantwortung zum Vortrag am 30. Dezember 1904]
+
+Der Mensch erreicht auf dem nächsten Planeten das psychische Bewusstsein, auf dem folgenden Planeten das überpsychische Bewusstsein und auf dem siebten Planeten das spirituelle Bewusstsein. Der Adept kann sich künstlich in diese Bewusstseinszustände versetzen.
+
+Der Kreuzestod hat dem Christus Schmerz verursacht.
+
+Auf dem Devachanplan empfindet man nur den eigenen Schmerz und das eigene Leid nicht, aber den ganzen Schmerz der Menschheit kann man wahrnehmen und empfinden. Alles fremde Leid wird empfunden, über das eigene Leid ist man erhaben.
+
+---
+
+498
+499
+
+Von den Bewusstseinsstufen:
+
+1. Das Tagesbewusstsein.
+2. Ein dumpferes, traumerfülltes Bewusstsein.
+3. Das traumlose Schlafbewusstsein, die Schlaftrance bei Medien.
+4. Die Tieftrance oder [induzierte] Trance; kann von Medien erreicht werden; Weltenketten.
+5. Das psychische Bewusstsein – das ist das Bewusstsein, das man hat, wenn man das Leben sieht.
+6. Das überpsychische Bewusstsein, bei dem es gelingt, den Astralkörper stehend zu machen.
+
+Der physische Körper hat die sieben Stadien durchgemacht. Der Astralkörper wird sie erst demnächst durchmachen. Jenseits des spirituellen Bewusstseins steht die Meisterschaft. Das spirituelle Bewusstsein ist gleichbedeutend mit Chelaschaft.
+
+Esoterisch sind die Zustände, die unserer Erdentwicklung vorangegangen sind, die alten Mond- und Sonnenzustände.
+
+Das, was jetzt unser Innenleben ist, war früher um uns herum. Der Mystiker hat in sich, was früher außerhalb von ihm um ihn herum verbreitet war.
+
+Die Lehre, welche aus Budhi herausgeflossen ist, nennt man esoterischen Buddhismus.
+
+Das Bewusstsein, das 343 Stadien durchmacht, entspricht einer Pitri-Entwicklung.
+
+Die Planetenkette
+
+Physische Bewusstseinszustände.
+
+Kama war zuerst in der Luft, es war die Leidenschaft für das Gute.
+
+Atavismus nennt man ein Zurückbleiben in früheren Entwicklungszuständen.
+
+Man unterscheidet Bewusstseinszustände, Lebenszustände und Formzustände.
+
+Eine Individualität ist ein Wesen, das mit Manas befruchtet ist.
+
+Bewusstseinszustände in der Planetenentwicklung:
+
+1. Tieftrancebewusstsein
+2. Traumloses Schlafbewusstsein
+3. das psychische Bewusstsein
+4. der Wachzustand
+5. der urbildliche Bewusstseinszustand
+
+Die Bewusstseinszustände beim Menschen:
+
+1. das Tieftrancebewusstsein
+2. das traumlose Schlafbewusstsein
+3. das traumerfüllte Schlafbewusstsein
+4. der Wachzustand
+5. der psychische Bewusstseinszustand
+6. der überpsychische Bewusstseinszustand
+7. der spirituelle Bewusstseinszustand
+
+Die Wesen haben ihre Form vom Mineralreich. Sie sind ein Zentrum nur dadurch, dass das Leben bewusst wird. Die Seele ragt in den Leib hinein. Das Niedere hat das Leben nur dadurch, dass sich das Höhere hineinsenkt, hineinverbreitet. Das Bewusstsein entsteht dadurch, dass sich das Höhere über Leben und Tod verbreitet. Bewusstsein heißt so viel wie dhyanisch. Substanz bedeutet so viel wie Gleichgewicht. Bewusstseinswesen sind etwas Umfassendes – Engel der Umlaufzeiten – planetarische Dhyanis. Unsere Erde hat auch ihren Dhyani.
+
+Am Ende der siebten Runde wird die Erde so weit sein, dass dem Menschen Pflanzen und Tiere übergegeben sind.
+
+---
+
+Das Bewusstsein und die Form sind im Gleichgewicht, wenn die Form vom Bewusstsein gelenkt wird. Die unbeherrschte Form strebt zum Bewusstsein hinauf.
+
+Elementargeister bedeutet so viel wie Wesen, die in der Form mächtiger sind als im Bewusstsein und im Leben. Das Gegenteil davon sind die Dhyanis. Die Elementargeister sind die hemmenden Kräfte. Alle parasistischen Wesen sind von Elementarwesen erfüllt, so beispielsweise die Mistel, dann die Spinne, die ihre Materie aus sich herausspinnnt. Alles Parasitische ist ein Ausdruck der achten Sphäre des Mondes. – Alptraum. Sphynx.
+
+In der atlantischen Rasse sind die Turanier mit den Elementargeistern bekannt geworden.
+
+Bewusstsein, Leben und Form – jedes Wesen muss diese durchlaufen in vielen Malen – in je sieben Stadien.
+
+## Bewusstseinszustände:
+
+1. Das Trancebewusstsein ist das Allbewusstsein, es ist der dumpfste Bewusstseinszustand, er entspricht den Formen von Kristallen und Sternen, nicht aber von Menschen.
+2. Der traumlose Schlaf ist weniger dumpf, aber enger, ein Pflanzenbewusstsein ist da vorhanden. Es ist ein außerordentliches Zeichen von [...] keine Weltsysteme werden da wahrgenommen.
+3. Der traumerfüllte Schlaf – bei ihm ist das Bewusstsein nicht so umfassend aber schon im Mineralischen, Pflanzlichen und Tierischen.
+4. Der Wachzustand – er umfasst Mineral, Pflanze, Tier und Mensch.
+5. Das psychische Bewusstsein – es ist das Bewusstsein der astralen Welt. Man sieht da nicht nur das saure Gesicht, sondern hat auch das saure Gefühl.
+6. Das überpsychische Bewusstsein.
+7. Das spirituelle Bewusstsein – dieses begabt mit unmittelbarer Wahrnehmung des Geistigen.
+
+Die sieben Reiche und was sich darin geltend macht:
+
+1. Das erste Elementarreich – das Sein macht sich geltend
+2. Das zweite Elementarreich – das Leben macht sich geltend
+3. Das dritte Elementarreich – die Empfindung oder das Bewusstsein nach außen machen sich geltend
+4. Das Mineralreich – das Sein wird objektiv
+5. Das Pflanzenreich – das Leben wird objektiv
+6. Das Tierreich – die Empfindung und das Bewusstsein werden objektiv
+7. Das Menschenreich – das höhere Bewusstsein und das Ich sind in Objektivität getreten.
+
+## Formzustände:
+
+1. Die arupische Form
+2. Die rupische Form
+3. Die astrale Form
+4. Die physische Form
+5. Die plastische Form – sie ist nicht starr, sondern von innen nach außen sich geltend machend.
+6. Die intellektuelle Form
+7. Die archetypische Form
+
+Leben, Form und Bewusstsein – der jetzige Wachzustand der Erde. Die sieben Globen – die Phasenzustände. Wir werden aus den physischen sehenden Wesen solche Wesen, die auch in die höheren Gebiete des Seins hineinsehen können, wir kommen da in die Region der Durchlässigkeit. Wir können jetzt nur einen Teil des Kosmos sehen. Wenn man heute sagt, ein Himmelskörper ist sichtbar, so heißt das: Er befindet sich im Stadium des vierten Zustandes, im Zustand des Mineralreichs. Weltenjahr – Weltenmonat – Weltentag.
+
+Bewusstsein entspricht der Sonne, Form dem Monde, Leben der Erde.
+
+Es gibt $7 \times 7 = 49$ Metamorphosen des Lebens, die das Bewusstsein geben. Diese machen ein Weltenjahr aus. Auf dem höheren Plan ist das Bewusstsein wiederum Form.
+
+---
+
+Die Tiere, welche das Skelet nach außen haben, gehören zur Mond-epoche – Krebsentwicklung.
+
+TRENNUNG IN MÄNNLICH UND WEIBLICH
+
+Berlin, 31. Dezember 1904
+
+Diese Trennung in männlich und weiblich, wir müssen sie so verstehen, dass sie im Anfang der lemurischen Rasse viel mehr Bedeutung gehabt hat als später, wo sich die Charaktere des Männlichen und Weiblichen mehr neutralisierten. Die Sache ist tiefergehend und hängt zusammen mit der ganzen Evolution. Den zwei Geschlechtern geht voran eine zweigeschlechtliche Menschheit, bei der jedes Individuum beides in sich hat; eine hermaphroditische Menschheit. Die ältesten Götter wurden immer als zweigeschlechtlich beschrieben. Wir finden es noch bei alten Griechen. In den Mysterientempeln waren lauter hermaphroditische Gestalten. Auch die Bibel selbst enthält noch durchaus ein Bewusstsein davon, indem sie die Geschlechtstrennung als das Hervorgehen der zwei Geschlechter aus dem Zweigeschlechtlichen andeutet. Noch deutlicher zeigt sich dies in der persischen Mythe.
+
+Damals bei der Trennung waren alle Kräfte des Menschen noch magischer, unmittelbarer als jetzt, sodass wir nach der Trennung in der Wesenheit finden zwei auf Mann und Weib getrennte, noch magische seelische Kräfte. Die des Männlichen muss man bezeichnen als mehr dem Willen verwandte Kräfte, die des Weiblichen als dem Gemüte und Gedächtnis verwandte Kräfte. So ist die Menschheit geteilt. Im Sanskrit ist Iccha Shakti die dem Männlichen mehr ähnliche Kraft; Kriya Shakti, die dem Weiblichen mehr ähnliche. Beide Kräfte sind in der ursprünglichen Form gar nicht vorhanden, indem in der weiteren Entwicklung die Anähnlichung der weiblichen gemütsartigen dem männlichen willensartigen eingetreten ist.
+
+Die hermaphroditische Menschheit war der Träger der allerersten am weitesten vorgeschrittenen Pitris, welche noch nicht in diese mit der Hälfte behafteten Geschlechter sich inkarnieren konnten, und deshalb auch in physischen Leibern die Kräfte hatten, um den Menschen doppelt zum Ausdruck zu bringen. Das sind die großen
+
+---
+
+Söhne des Feuernebels, die Arhats. Der bekannteste ist Hermes Trismegistos, der ägyptische. Sie sehen, dass diese ersten Arhats den Moment erfassten, in dem sie eine Menschheit hatten, die das Höchste erreichen konnte, denn bei dem Zerfall in Männliches und Weibliches war nur eine einseitige Inkarnation möglich, und diese einseitige Inkarnation bewirkte auch, dass zunächst ein Teil der zur Inkarnierung reifen dhyanischen Naturen gar nicht sich inkarnierten. Nur ein Teil – der war aber von vornherein in eine starke einseitige Ausbildung des Menschentums gestoßen, weil er nur die Hälfte vom Menschentum übersehen konnte – war abhängig von den leitenden Weltenmächten. Es ist daher nicht zu verwundern, dass die vorgeschrittenen Pitris sich weigerten, sich zu inkarnieren. Die Folge war eine niedrige Stufe der Menschheit neben den Arhats. Nun entstand auch die Trennung des Menschentieres und des Tiermenschen. Der Unterschied war nicht sehr groß, und die Folge war, dass Mensch und Tier miteinander lebten, dass sie Geschlechtsgemeinschaft hatten. Dadurch war eine gewisse Strecke weitergeführt, was gekommen wäre, wenn gar keine manasische Befruchtung gekommen wäre.
+
+Was im Wesentlichen eingetreten ist, war eine Verschlechterung des niedrigen Menschentums. So gab es für die Arhats kein Karma.
+
+Erst jetzt, dadurch, dass sich die menschliche Natur weiterentwickelt hat, war es nötig, dass sie wieder höher gebracht wurde. Erst in der Mitte der sechsten Wurzelrasse wird die Menschheit so hoch gebracht sein, wie damals die Arhats, aber mit dem Durchgang durch Karma. Was wird der Unterschied sein? Der, dass die großen Hermaphroditen vollkommen waren, wie diese auf dem Gipfel angelangten Menschen. Aber vollkommen unter dem direkten Beistand Gottes, geleitet von den Göttern selbst. Heilig ist also, was ausgeht von diesen Arhats. Was ihnen aber fehlt, ist die Freiheit. Für die ist es eine Unmöglichkeit, Böses zu tun. Die rein menschlich erzeugten Arhats, ohne Einschlag von Seiten überirdischer Mächte, haben überwunden aus eigener Kraft die Freiheit zum Bösen.
+
+Was hat die Menschheit dann vollbracht? Aufgesogen hat sie die zurückgebliebenen Individuen vom Mond, erlöst die luziferischen Wesenheiten. Und daraus folgt jene große Wahrheit von der Verwandtschaft der höheren Natur Luzifers mit der niederen Natur der Menschheit.
+
+Diese Wahrheit, dass die Entwicklung der Menschheit durch Karma hindurch mit Hilfe der Menschheit erlöst zu werden hat, ist die Grundlage des Manichäismus, von dem immer Sekten sich entwickelt haben seither. Diese wissen davon, dass die Menschen jetzt das Böse durch das Gute zu überwinden haben, um es zu erlösen. Von Katharer und Waldensern gab es Sekten, die sich direkt ‚Luziferianer‘ nennen. Die Sekten sind oft systematische Stiftungen von Eingeweihten, nachdem sie in nächster Inkarnation in viel bewussterer Weise unter Menschen wirken können.
+
+Das ist der ganze Sinn der Entwicklung durch die lemurische, atlantische und arische Wurzelrasse durch. Nichts anderes ist Karma als das Heruntersinken der Menschheit um eine Stufe niedriger, als es im Menschheitsschicksalsplan vorausgesehen worden – um einen Teil des Göttlichen, des nicht menschlichen Planes zu erlösen, um Luzifer zu erlösen, der darum den Menschen die Freiheit gegeben.
+
+Beim Männlichen wurde vorzugsweise die Willensnatur ausgebildet, sie war mehr eine Naturkraft in der Seele. Diese stand zunächst unter der Einwirkung der großen Hermaphroditen; und es war zunächst dem Weiblichen streng verboten, an Kulthandlungen teilzunehmen. Dagegen entwickelte sich die seelische Kraft beim Weiblichen, und wenn wir bedenken, dass Luzifer auf dem Umweg durch das menschlich Niedere auf das Seelische wirkt, so war die Frau dazu berufen, den Einfluss des luziferischen Prinzips aufzunehmen.
+
+Und daher ist die Menschheit gespalten auf die zur Willenskräftigung neigende männliche Natur und auf die zur sinnigen Seelenverteilung neigende weibliche Natur. Durch die grausame Erziehung der Knaben wurde das Fleischliche abgetötet und die iceha-shaktische Kraft ausgelöst, die verwandt ist mit den rhythmischen Bewegungen des Universums. Von alledem ist der Kalender nur noch eine dekadente Erinnerung.
+
+Die weibliche Erziehung war mehr darauf bedacht, mit der Seele einzusaugen den ganzen Sinn der umliegenden Natur. Der Mensch ist geradezu systematisch damals zum Mikrokosmos gemacht worden.
+
+---
+
+In einer Art somnambuler Träume hat sie die Natur aufgenommen, die ganze plastische Kraft, Kriya-Shakti, war da und wirkte ungeheuer auf die Nachkommenschaft. Es neutralisierte sich so allmählich das Männliche und Weibliche.
+
+Damit sehen wir, dass das, was Religion ist, nämlich eine freie Verehrung des Göttlichen, unter dem Einfluss des Weibes entstanden ist. Die Männer wirkten mehr wie göttliche Kräfte. [...]
+
+Kain ging in fremde Länder und nahm ein Weib. Das ist so gemeint, dass er aus dem zweigeschlechtlichen Wesen überhaupt ein Weib nahm. Kain vermischt sich mit etwas, was schon fremdes Geschlecht ist. Adam *erkannte* sein Weibliches, nicht eine andere Wesenheit, Selbstbefruchtung, so entstand Abel – und auch Kain natürlich. Allmählich bildete sich aus ein Gegensatz zwischen der allgemeinen Menschheit und jenem kleinen Häuflein, das bestimmt war, in die atlantische Rasse überzugehen. Das stand allerdings unter dem Einfluss der Frauen mit der Neigung zu freier Religionsübung, Gesang, Tanz – in der Anlage eine Art dionysischer Kultus. Die Männer wurden befruchtet von diesem Seelenelement der Frau, während das Seelenelement von dem Willenselement des Mannes befruchtet wird und so neutralisiert; daher das Streben der menschlichen Natur zu etwas Höherem immer symbolisiert wird als Frau.
+
+So lebt die Menschheit im Anfang der atlantischen Rasse. Nur ist damals das luziferische Prinzip so stark, dass es in der vierten Unterrasse zur Verführung durch schwarze Magie wird, und wir haben eine Art Entgleisung der Menschheit.
+
+ANHANG

@@ -13977,14 +13977,14 @@ async function cleanOldBackupsGeneric(backupDir, prefix, maxBackups) {
 
 // Spezifische Backup-Funktionen für jede Datei
 async function createKeywordsBackup() {
-  return await createBackup(KEYWORDS_DB_FILE, KEYWORDS_BACKUP_DIR, 'keywords-database', 10);
+  return await createBackup(KEYWORDS_DB_FILE, KEYWORDS_BACKUP_DIR, 'keywords-database', 2);
 }
 
 async function createSummaryBackup() {
   const backups = [
-    createBackup(SUMMARY_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-database', 10),
-    createBackup(SUMMARY_KEYWORDS_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-keywords-database', 10),
-    createBackup(THEMATIC_SEARCH_DB_FILE, SUMMARY_BACKUP_DIR, 'thematic-search-database', 10)
+    createBackup(SUMMARY_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-database', 2),
+    createBackup(SUMMARY_KEYWORDS_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-keywords-database', 2),
+    createBackup(THEMATIC_SEARCH_DB_FILE, SUMMARY_BACKUP_DIR, 'thematic-search-database', 2)
   ];
   const results = await Promise.all(backups);
   return results.find(r => r !== null) || null;
@@ -13992,30 +13992,30 @@ async function createSummaryBackup() {
 
 async function createThemesBackup() {
   const backups = [
-    createBackup(THEMES_DB_FILE, THEMES_BACKUP_DIR, 'themes-database', 10),
-    createBackup(THEMES_DATA_FILE, THEMES_BACKUP_DIR, 'themes-data', 15),
-    createBackup(THEME_ASSIGNMENTS_FILE_BACKUP, THEMES_BACKUP_DIR, 'theme-assignments', 10),
-    createBackup(THEMES_KEYWORDS_TEMPLATE_FILE, THEMES_BACKUP_DIR, 'themes-keywords-template', 10),
-    createBackup(THEMES_VIZ_FILE, THEMES_BACKUP_DIR, 'thematic-visualization', 10),
-    createBackup(THEMES_CSS_FILE, THEMES_BACKUP_DIR, 'thematic-css', 10)
+    createBackup(THEMES_DB_FILE, THEMES_BACKUP_DIR, 'themes-database', 2),
+    createBackup(THEMES_DATA_FILE, THEMES_BACKUP_DIR, 'themes-data', 2),
+    createBackup(THEME_ASSIGNMENTS_FILE_BACKUP, THEMES_BACKUP_DIR, 'theme-assignments', 2),
+    createBackup(THEMES_KEYWORDS_TEMPLATE_FILE, THEMES_BACKUP_DIR, 'themes-keywords-template', 2),
+    createBackup(THEMES_VIZ_FILE, THEMES_BACKUP_DIR, 'thematic-visualization', 2),
+    createBackup(THEMES_CSS_FILE, THEMES_BACKUP_DIR, 'thematic-css', 2)
   ];
   const results = await Promise.all(backups);
   return results.find(r => r !== null) || null;
 }
 
 async function createClustersBackup() {
-  return await createBackup(CLUSTERS_FILE, CLUSTERS_BACKUP_DIR, 'thematic-clusters', 10);
+  return await createBackup(CLUSTERS_FILE, CLUSTERS_BACKUP_DIR, 'thematic-clusters', 2);
 }
 
 async function createImagesBackup() {
   const imagesFile = path.join(__dirname, 'steiner-images.json');
-  return await createBackup(imagesFile, IMAGES_BACKUP_DIR, 'steiner-images', 10);
+  return await createBackup(imagesFile, IMAGES_BACKUP_DIR, 'steiner-images', 2);
 }
 
 async function createPageMarkersBackup() {
   // V4: Nutze page-break-markers.json (ersetzt alte page-markers.json)
   const pageMarkersFile = path.join(__dirname, 'page-break-markers.json');
-  return await createBackup(pageMarkersFile, PAGEMARKERS_BACKUP_DIR, 'page-break-markers', 10);
+  return await createBackup(pageMarkersFile, PAGEMARKERS_BACKUP_DIR, 'page-break-markers', 2);
 }
 
 async function createPagebreakBooksBackup() {
@@ -14045,14 +14045,14 @@ async function createPagebreakBooksBackup() {
     
     console.log(`[BACKUP] pagebreaks: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
     
-    // Bereinige alte Backups (behalte 5 Versionen)
+    // Bereinige alte Backups (behalte 2 Versionen)
     const allBackups = await fs.readdir(PAGEBREAK_BOOKS_BACKUP_DIR);
     const backupDirs = allBackups
       .filter(d => d.startsWith('pagebreaks-'))
       .sort()
       .reverse();
     
-    for (const oldDir of backupDirs.slice(5)) {
+    for (const oldDir of backupDirs.slice(2)) {
       const oldPath = path.join(PAGEBREAK_BOOKS_BACKUP_DIR, oldDir);
       await fs.rm(oldPath, { recursive: true, force: true });
     }
@@ -14091,8 +14091,8 @@ async function createPageMarkerCheckerBackup() {
     
     console.log(`[BACKUP] page_marker_checker.html gesichert nach ${backupFile}`);
     
-    // Bereinige alte Backups
-    await cleanOldBackupsGeneric(HTML_BACKUP_DIR, 'page-marker-checker', 10);
+    // Bereinige alte Backups (behalte 2 Versionen)
+    await cleanOldBackupsGeneric(HTML_BACKUP_DIR, 'page-marker-checker', 2);
     
     return backupFile;
   } catch (error) {
@@ -14168,15 +14168,15 @@ async function createPageMarkerMdBackup() {
     
     console.log(`[BACKUP] page-marker-md: ${copiedCount} MD-Dateien gesichert nach ${backupSubDir}`);
     
-    // Bereinige alte Backups (behalte nur die letzten 10)
+    // Bereinige alte Backups (behalte nur die letzten 2)
     const allBackups = await fs.readdir(PAGE_MARKER_MD_BACKUP_DIR);
     const backupDirs = allBackups
       .filter(d => d.startsWith('page-marker-md-'))
       .sort()
       .reverse();
     
-    if (backupDirs.length > 10) {
-      for (const oldDir of backupDirs.slice(10)) {
+    if (backupDirs.length > 2) {
+      for (const oldDir of backupDirs.slice(2)) {
         const oldPath = path.join(PAGE_MARKER_MD_BACKUP_DIR, oldDir);
         await fs.rm(oldPath, { recursive: true, force: true });
       }
@@ -14226,14 +14226,14 @@ async function createChalkboardsBackup() {
     
     console.log(`[BACKUP] chalkboards: ${totalCount} Tafeln gesichert nach ${backupSubDir}`);
     
-    // Bereinige alte Backups (behalte 3 Versionen wegen Größe)
+    // Bereinige alte Backups (behalte 2 Versionen)
     const allBackups = await fs.readdir(CHALKBOARDS_BACKUP_DIR);
     const backupDirs = allBackups
       .filter(d => d.startsWith('chalkboards-'))
       .sort()
       .reverse();
     
-    for (const oldDir of backupDirs.slice(3)) {
+    for (const oldDir of backupDirs.slice(2)) {
       const oldPath = path.join(CHALKBOARDS_BACKUP_DIR, oldDir);
       await fs.rm(oldPath, { recursive: true, force: true });
     }
@@ -14274,14 +14274,14 @@ async function createLecturesBackup() {
     
     console.log(`[BACKUP] lectures: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
     
-    // Bereinige alte Backups (behalte 3 Versionen wegen Größe)
+    // Bereinige alte Backups (behalte 2 Versionen)
     const allBackups = await fs.readdir(LECTURES_BACKUP_DIR);
     const backupDirs = allBackups
       .filter(d => d.startsWith('lectures-'))
       .sort()
       .reverse();
     
-    for (const oldDir of backupDirs.slice(3)) {
+    for (const oldDir of backupDirs.slice(2)) {
       const oldPath = path.join(LECTURES_BACKUP_DIR, oldDir);
       await fs.rm(oldPath, { recursive: true, force: true });
     }
@@ -14322,14 +14322,14 @@ async function createBooksBackup() {
     
     console.log(`[BACKUP] books: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
     
-    // Bereinige alte Backups (behalte 5 Versionen)
+    // Bereinige alte Backups (behalte 2 Versionen)
     const allBackups = await fs.readdir(BOOKS_BACKUP_DIR);
     const backupDirs = allBackups
       .filter(d => d.startsWith('books-'))
       .sort()
       .reverse();
     
-    for (const oldDir of backupDirs.slice(5)) {
+    for (const oldDir of backupDirs.slice(2)) {
       const oldPath = path.join(BOOKS_BACKUP_DIR, oldDir);
       await fs.rm(oldPath, { recursive: true, force: true });
     }
@@ -14343,20 +14343,20 @@ async function createBooksBackup() {
 
 // NEU: Backup für quotes-database.json (Zitate)
 async function createQuotesBackup() {
-  return await createBackup(QUOTES_DB_FILE, QUOTES_BACKUP_DIR, 'quotes-database', 10);
+  return await createBackup(QUOTES_DB_FILE, QUOTES_BACKUP_DIR, 'quotes-database', 2);
 }
 
 // NEU: Backup für relationships-database.json (Beziehungen)
 async function createRelationshipsBackup() {
-  return await createBackup(RELATIONSHIPS_DB_FILE_BACKUP, RELATIONSHIPS_BACKUP_DIR, 'relationships-database', 10);
+  return await createBackup(RELATIONSHIPS_DB_FILE_BACKUP, RELATIONSHIPS_BACKUP_DIR, 'relationships-database', 2);
 }
 
 // NEU: Backup für Konzept-Dateien
 async function createConceptsBackup() {
   const backups = [
-    createBackup(CONCEPTS_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-database', 10),
-    createBackup(CONCEPTS_NETWORK_FILE_BACKUP, CONCEPTS_BACKUP_DIR, 'concepts-network', 10),
-    createBackup(CONCEPTS_THEMATIC_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-thematic-search', 10)
+    createBackup(CONCEPTS_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-database', 2),
+    createBackup(CONCEPTS_NETWORK_FILE_BACKUP, CONCEPTS_BACKUP_DIR, 'concepts-network', 2),
+    createBackup(CONCEPTS_THEMATIC_DB_FILE, CONCEPTS_BACKUP_DIR, 'concepts-thematic-search', 2)
   ];
   const results = await Promise.all(backups);
   return results.find(r => r !== null) || null;
@@ -14364,13 +14364,13 @@ async function createConceptsBackup() {
 
 // NEU: Backup für ga-bibliography.json
 async function createBibliographyBackup() {
-  return await createBackup(GA_BIBLIOGRAPHY_FILE, BIBLIOGRAPHY_BACKUP_DIR, 'ga-bibliography', 10);
+  return await createBackup(GA_BIBLIOGRAPHY_FILE, BIBLIOGRAPHY_BACKUP_DIR, 'ga-bibliography', 2);
 }
 
 // NEU: Backup für lecture-page-mapping.json (Seitenzuordnung für Vorträge)
 async function createLectureMappingBackup() {
   const lectureMappingFile = path.join(__dirname, 'lecture-page-mapping.json');
-  return await createBackup(lectureMappingFile, LECTURE_MAPPING_BACKUP_DIR, 'lecture-page-mapping', 10);
+  return await createBackup(lectureMappingFile, LECTURE_MAPPING_BACKUP_DIR, 'lecture-page-mapping', 2);
 }
 
 async function createCodeBackup() {

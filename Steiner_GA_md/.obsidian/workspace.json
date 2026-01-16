@@ -6,6 +6,7 @@
       {
         "id": "58e8e74e559531d9",
         "type": "tabs",
+        "dimension": 55.70552147239264,
         "children": [
           {
             "id": "6b6b15552a54fd28",
@@ -34,73 +35,53 @@
             }
           },
           {
-            "id": "8c75f42236b6d848",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit"
-            }
-          },
-          {
-            "id": "4ad73a0d45528b06",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung"
-            }
-          },
-          {
-            "id": "bdec84d3c1653212",
+            "id": "81933d39317a3c2f",
             "type": "leaf",
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf"
+                "file": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen"
-            }
-          },
-          {
-            "id": "f0957c1848e85305",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen"
-            }
-          },
-          {
-            "id": "5547e03f8c341d77",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final"
+              "title": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 2
+      },
+      {
+        "id": "5ad89a4c92707216",
+        "type": "tabs",
+        "dimension": 44.29447852760736,
+        "children": [
+          {
+            "id": "94e4105983a13fbd",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino"
+            }
+          },
+          {
+            "id": "67d537b690530371",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final"
+            }
+          }
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -157,7 +138,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 623.5
+    "width": 761.5
   },
   "right": {
     "id": "4efcffdc424c60f2",
@@ -235,13 +216,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final.md",
+                "file": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final"
+              "title": "Outline of Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final"
             }
           }
         ],
@@ -249,7 +230,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -263,24 +244,47 @@
       "ocr-extractor:Extract text": false
     }
   },
-  "active": "5547e03f8c341d77",
+  "active": "67d537b690530371",
   "lastOpenFiles": [
-    "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
-    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.pdf",
-    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.pdf",
-    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.docx",
-    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.md",
-    "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung_extracted.md",
+    "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins.pdf",
+    "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II_final.md",
+    "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final.md",
+    "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II.pdf",
+    "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_prepared.md",
+    "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I.pdf",
+    "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I_final.md",
+    "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II_prepared.md",
+    "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I_prepared.md",
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.md",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.md",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-4.jpeg",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-3.jpeg",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-2.jpeg",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-1.jpeg",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-0.jpeg",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino",
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.pdf",
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist_final.md",
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist_prepared.md",
+    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes.pdf",
+    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.pdf",
+    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes_final.md",
+    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes_prepared.md",
+    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes.md",
+    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.pdf",
+    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit_final.md",
+    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit_prepared.md",
     "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.md",
-    "pdf/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.pdf",
-    "pdf/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung 1.pdf",
-    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.pdf",
-    "pdf",
+    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final.md",
+    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_prepared.md",
     "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.md",
-    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie",
-    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen/Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen.md",
-    "Steiner, Rudolf GA 053, 1981 - Ursprung und Ziel des Menschen",
-    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit",
-    "Welcome.md"
+    "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers/Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers.md",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen.md",
+    "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
+    "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium.md",
+    "Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis/Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis.md",
+    "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I.md"
   ]
 }

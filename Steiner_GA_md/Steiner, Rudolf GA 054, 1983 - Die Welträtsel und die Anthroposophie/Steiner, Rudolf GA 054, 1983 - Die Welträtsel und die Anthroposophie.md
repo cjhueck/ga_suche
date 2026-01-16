@@ -116,50 +116,6 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
-# INHALT
-
-Zu dieser Ausgabe. 8
-
-I. Haeckel, die Welträtsel und die Theosophie
-Berlin, 5. Oktober 1905. 9
-
-II. Unsere Weltlage. Krieg, Frieden und die
-Wissenschaft des Geistes
-Berlin, 12. Oktober 1905. 35
-
-III. Grundbegriffe der Theosophie. Seele und Geist
-des Menschen
-Berlin, 19. Oktober 1905. 57
-
-IV. Geisteswissenschaft und soziale Frage
-Hamburg, 2. März 1908 (statt Berlin, 26. Oktober 1905). 80
-
-V. Die Frauenfrage
-Hamburg, 17. Nov. 1906 (statt Berlin, 2. Nov. 1905). 105
-
-VI. Die Grundbegriffe der Theoposophie.
-Menschenrassen
-Berlin, 9. November 1905. 132
-
-VII. Der Weisheitskern in den Religionen
-Berlin, 16. November 1905. 155
-
-VIII. Bruderschaft und Daseinskampf
-Berlin, 23. November 1905. 179
-
-IX. Innere Entwickelung
-Berlin, 7. Dezember 1905. 200
-
-X. Das Weihnachtsfest als Wahrzeichen des Sonnensieges
-Berlin, 14. Dezember 1905. 229
-
-XI. Die Weisheitslehren des Christentums
-Berlin, 1. Februar 1906. 251
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
-
----
-
 XII. Wiederverkörperung und Karma
 Berlin, 15. Februar 1906 279
 
@@ -273,7 +229,7 @@ nur als einzelne, gesetzmäßig verlaufende Stürme des sich herausentwickelnden
 
 Die ganz gewaltigen Fortschritte auf dem Gebiete der Naturerkenntnis, der Astronomie, der Physik und Chemie, durch die Spektralanalyse, durch die erweiterte theoretische Kenntnis der Wärme und durch die Lehre von der Entwicklung der Lebewesen, die man die Darwinsche Theorie nennt, fallen in diese Periode des Materialismus. Wenn diese Entdeckungen in eine Zeit gefallen wären, in der man noch so gedacht hätte wie um die Wende des 18. zum 19. Jahrhundert, als man noch eine mehr spirituelle Empfindung hatte, dann hätte man in denselben noch ebenso viele Beweise für das Walten und Wirken des Geistes in der Natur gesehen. Gerade zum Beweise des Primats des Geistes würden die wunderbaren Entdeckungen der Naturwissenschaft geführt haben. Man sieht hieraus, daß die naturwissenschaftlichen Entdeckungen an sich nicht notwendig und unter allen Umständen zum Materialismus hinführen mußten; sondern nur, weil viele Träger des Geisteslebens in dieser Zeit materialistisch gesinnt waren, wurden diese Entdeckungen materialistisch gedeutet. Der Materialismus wurde in
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 15
 
 ---
 
@@ -461,7 +417,7 @@ Das humane und hochherzige Streben Sr. Majestät des Kaisers, meines erhabenen H
 
 In diesem Schriftstück finden sich ferner die folgenden Worte: «Da die finanziellen Lasten eine steigende Richtung verfolgen und die Volkswohlfahrt an ihrer Wurzel treffen, so werden die Arbeit und das Kapital zum großen Teile von ihrer natürlichen Bestimmung abgelenkt und in unproduktiver Weise aufgezehrt. Hunderte von Millionen werden aufgewendet, um furchtbare Zerstörungsmaschinen zu beschaffen, die heute als das letzte Wort der Wissenschaft be-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 36
 
 ---
 
@@ -539,7 +495,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 dem das, was das Wesen selbst gewußt hat. Selbstbewußtsein gehört zu einer Biographie, und in diesem Sinne hat nur der Mensch eine Biographie. Diese entspricht dem, was beim Tiere eine Beschreibung der ganzen Gattung oder Art ist. Daß jede Tiergruppe eine Gruppenseele hat, ist der äußere Ausdruck für die Tatsache, daß jeder individuelle Mensch eine Seele in sich trägt.
 
-Ich habe es auch hier schon auseinandersetzen dürfen, daß unmittelbar mit unserer physischen Welt eine verborgene Welt verbunden ist, die astrale Welt, die nicht aus solchen Gegenständen und Wesenheiten besteht, die man mit den Sinnen wahrnehmen kann, sondern die aus dem Stoff gewoben ist, aus dem unsere Leidenschaften und Begierden gewoben sind. Wenn Sie den Menschen prüfen, so können Sie sehen: er hat seine Seele bis herunter auf den physischen Plan oder auf die physische Welt geführt. Auf dieser physischen Welt gibt es keine individuelle Seele für das Tier. Sie finden aber für das Tier eine individuelle Seele, die auf dem sogenannten Astralplan ist, auf der hinter unserer physischen Welt verborgenen astralen Welt. Die Tiergruppen haben individuelle Seelen in der astralen Welt. Da haben wir den Unterschied zwischen dem Menschen und dem Tierreiche. Wenn wir uns nun fragen: Was kämpft denn in Wahrheit, wenn wir im Tierreiche den Kampf ums Dasein verfolgen? - dann müssen wir sagen: Die Wahrheit ist, daß hinter diesem Kampf, der zwischen den Arten im Tierreich ausgef ochten wird, der astrale Kampf der seelischen Leidenschaften und Begierden steht, der in den Gattungs- oder Gruppenseelen wurzelt.—Würde aber innerhalb der Gattung im Tierreich von einem Daseinskampf die Rede sein, dann wäre das so, als wenn sich im Menschen die eigene Seele in ihren verschiedenen Teilen bekämpfen würde. Dies ist eine wichtige Wahrheit. Es kann die Regel nicht sein, daß inner-
+Ich habe es auch hier schon auseinandersetzen dürfen, daß unmittelbar mit unserer physischen Welt eine verborgene Welt verbunden ist, die astrale Welt, die nicht aus solchen Gegenständen und Wesenheiten besteht, die man mit den Sinnen wahrnehmen kann, sondern die aus dem Stoff gewoben ist, aus dem unsere Leidenschaften und Begierden gewoben sind. Wenn Sie den Menschen prüfen, so können Sie sehen: er hat seine Seele bis herunter auf den physischen Plan oder auf die physische Welt geführt. Auf dieser physischen Welt gibt es keine individuelle Seele für das Tier. Sie finden aber für das Tier eine individuelle Seele, die auf dem sogenannten Astralplan ist, auf der hinter unserer physischen Welt verborgenen astralen Welt. Die Tiergruppen haben individuelle Seelen in der astralen Welt. Da haben wir den Unterschied zwischen dem Menschen und dem Tierreiche. Wenn wir uns nun fragen: Was kämpft denn in Wahrheit, wenn wir im Tierreiche den Kampf ums Dasein verfolgen? - dann müssen wir sagen: Die Wahrheit ist, daß hinter diesem Kampf, der zwischen den Arten im Tierreich ausgefochten wird, der astrale Kampf der seelischen Leidenschaften und Begierden steht, der in den Gattungs- oder Gruppenseelen wurzelt.—Würde aber innerhalb der Gattung im Tierreich von einem Daseinskampf die Rede sein, dann wäre das so, als wenn sich im Menschen die eigene Seele in ihren verschiedenen Teilen bekämpfen würde. Dies ist eine wichtige Wahrheit. Es kann die Regel nicht sein, daß inner-
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
@@ -691,7 +647,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
-Alle die großen Führer der Menschheit, die uns da von der Seele gesprochen haben: glauben Sie nicht, daß sie nur leere Phrasen und Worte im Sinne hatten. Man weiß, wenn man bloß an die sinnliche Welt glaubt, nichts von den Tiefen, weldie die Menschenkultur bewegt und bewirkt haben. Aus der unmittelbaren Anschauung wird gewöhnlich gesprochen. Fassen Sie zum Beispiel das Verhältnis von Seele und Körper ins Auge, wie ich es eben besprochen habe, dann müssen Sie sich sagen, dieses Verhältnis von Seele und Körper ist ein solches, daß das Körperliche, das vor uns steht, durchströmt und durchsetzt wird von einem Seelischen. Und so wahr es ist, daß dieser Körper, den Sie Ihr eigen nennen, von außen durch Nahrungsmittel genährt wird und dadurch von außen sich belebt und ergänzt, ebenso wahr ist es, daß dieser Körper durch das Seelische belebt, durchhellt und durchströmt wird. Wenn dieser Körper schläft, ist das Seelische zunächst nicht in ihm, dann ist es von ihm getrennt, es ist außer ihm. Dann können wir nicht davon sprechen, daß das Seelische in den Körper einströmt. Ein deutscher Theosoph, ein tiefer Geist, hat sich über dieses Verhältnis von Seele und Leib in einer wunderbar reizvollen Art ausgesprochen, die man nur dann richtig versteht, wenn man solche Voraussetzungen macht, wie wir sie eben gemacht haben. Dieser Theosoph – so dürfen wir ihn nennen — spricht von dem Schlafe, wenn die Seele nicht in dem Körper ist, in einer eigentümlichen Art. Er sagt: «Schlaf ist Seelen Verdauung; der Körper verdaut die Seele. Wachen ist Einwirkungszustand des Seelenreizes – der Körper genießt die Seele.» Es ist dies ein wunderbarer Vergleich. Wie man bei der Nahrungsaufnahme die Nahrung genießt, so genießt – meint dieser Theosoph – der Körper die Seele, die in ihm lebt. Und so wie der Körper, nachdem er die Nahrung genossen hat, sie verdaut, so verdaut der Körper
+Alle die großen Führer der Menschheit, die uns da von der Seele gesprochen haben: glauben Sie nicht, daß sie nur leere Phrasen und Worte im Sinne hatten. Man weiß, wenn man bloß an die sinnliche Welt glaubt, nichts von den Tiefen, weldie die Menschenkultur bewegt und bewirkt haben. Aus der unmittelbaren Anschauung wird gewöhnlich gesprochen. Fassen Sie zum Beispiel das Verhältnis von Seele und Körper ins Auge, wie ich es eben besprochen habe, dann müssen Sie sich sagen, dieses Verhältnis von Seele und Körper ist ein solches, daß das Körperliche, das vor uns steht, durchströmt und durchsetzt wird von einem Seelischen. Und so wahr es ist, daß dieser Körper, den Sie Ihr eigen nennen, von außen durch Nahrungsmittel genährt wird und dadurch von außen sich belebt und ergänzt, ebenso wahr ist es, daß dieser Körper durch das Seelische belebt, durchhellt und durchströmt wird. Wenn dieser Körper schläft, ist das Seelische zunächst nicht in ihm, dann ist es von ihm getrennt, es ist außer ihm. Dann können wir nicht davon sprechen, daß das Seelische in den Körper einströmt. Ein deutscher Theosoph, ein tiefer Geist, hat sich über dieses Verhältnis von Seele und Leib in einer wunderbar reizvollen Art ausgesprochen, die man nur dann richtig versteht, wenn man solche Voraussetzungen macht, wie wir sie eben gemacht haben. Dieser Theosoph - so dürfen wir ihn nennen — spricht von dem Schlafe, wenn die Seele nicht in dem Körper ist, in einer eigentümlichen Art. Er sagt: «Schlaf ist Seelen Verdauung; der Körper verdaut die Seele. Wachen ist Einwirkungszustand des Seelenreizes - der Körper genießt die Seele.» Es ist dies ein wunderbarer Vergleich. Wie man bei der Nahrungsaufnahme die Nahrung genießt, so genießt - meint dieser Theosoph - der Körper die Seele, die in ihm lebt. Und so wie der Körper, nachdem er die Nahrung genossen hat, sie verdaut, so verdaut der Körper
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
@@ -785,7 +741,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 76
 
 ---
 
-im Laufe des Lebens diesen Gedanken mit seiner Seele. Er lernt fühlen und mitempfinden mit dem Geistigen und hat zuletzt das Geistige gern und liebt es, wie er vorher nur das Sinnliche gern und lieb gehabt hat. Die Begierde erstreckt sich schließlich über alles Geistige. Die Selbstsucht wird zu einer selbstlosen Liebe zum Unvergänglichen. In der Selbstsucht wird des Menschen Liebe in der Seele erfaßt. Aber indem wir sie tief im Inneren als Geist erfassen, wird uns klar, daß wir dieses Selbst in der ganzen übrigen Welt finden, daß wir verbunden sind mit der ganzen übrigen Welt und daß, wie wir aus dem Physischen geboren sind, es ebenso wahr ist, daß wir als Geist stündlich aus dem geistigen Universum, der geistig-göttlichen Welt heraus geboren werden. Suchen wir daher unser höheres Selbst, das wie ein Funke in uns vorhanden ist, dann werden wir das Geistige in der ganzen Umwelt sehen. Das ist die große Weisheitserkenntnis, welche die Vedantaphilosophie zusammengefaßt hat in dem Spruch: Tat tvam asi — Das bist du. - Wenn der Mensch seines Geistes sich bewußt ist und seine Entwicklung beginnt im Hinausschreiten in die Welt, dann erweitert sich sein Selbst zu dem Geiste des Universums, zu einem Geistselbst-Dasein, und wir sind dann unserer ureigenen Wesenheit nach überall. Dann wird für uns das, was bloßes Begreifen war, seelisch verwandter Inhalt, und das ist wirkliche Erhebung der Seele zum Geist, Erhebung in wirkliches geistiges Leben.
+im Laufe des Lebens diesen Gedanken mit seiner Seele. Er lernt fühlen und mitempfinden mit dem Geistigen und hat zuletzt das Geistige gern und liebt es, wie er vorher nur das Sinnliche gern und lieb gehabt hat. Die Begierde erstreckt sich schließlich über alles Geistige. Die Selbstsucht wird zu einer selbstlosen Liebe zum Unvergänglichen. In der Selbstsucht wird des Menschen Liebe in der Seele erfaßt. Aber indem wir sie tief im Inneren als Geist erfassen, wird uns klar, daß wir dieses Selbst in der ganzen übrigen Welt finden, daß wir verbunden sind mit der ganzen übrigen Welt und daß, wie wir aus dem Physischen geboren sind, es ebenso wahr ist, daß wir als Geist stündlich aus dem geistigen Universum, der geistig-göttlichen Welt heraus geboren werden. Suchen wir daher unser höheres Selbst, das wie ein Funke in uns vorhanden ist, dann werden wir das Geistige in der ganzen Umwelt sehen. Das ist die große Weisheitserkenntnis, welche die Vedantaphilosophie zusammengefaßt hat in dem Spruch: Tat tvam asi — Das bist du. — Wenn der Mensch seines Geistes sich bewußt ist und seine Entwicklung beginnt im Hinausschreiten in die Welt, dann erweitert sich sein Selbst zu dem Geiste des Universums, zu einem Geistselbst-Dasein, und wir sind dann unserer ureigenen Wesenheit nach überall. Dann wird für uns das, was bloßes Begreifen war, seelisch verwandter Inhalt, und das ist wirkliche Erhebung der Seele zum Geist, Erhebung in wirkliches geistiges Leben.
 
 Es gibt einen Anfang des geistigen Lebens, der ist aber dürr und kalt. Da gibt es nun Menschen, welche nur warm werden, wenn es sich um Seelisches handelt, Menschen, die sich freuen und die leiden, nur wenn es sich um Seelisches, um Schmerz und Lust handelt. Sie sagen, es bleibe das Geistige etwas ödes und Kaltes. Schauen sie hinauf in die Sternen weit, dann finden sie die Gedanken darüber abstrakt;
 
@@ -863,7 +819,7 @@ Beispiel ein vor nicht langer Zeit erschienenes Buch vom Regierungsrat Kolb: «A
 
 Nun, man möchte sagen, eine ganze Welt von Menschenempfindungen und Menschenwirken spricht aus solchem Satze. Wir haben einen Mann vor uns, der es zu einer solchen Stellung gebracht hat, die man äußerlich als Regierungsrat bezeichnet. Der verrät, daß er das Leben so wenig gekannt hat, daß er jeden, der nicht arbeitete, als Lump bezeichnete, daß er sich erst hat aus seinem Amt herausschälen müssen und weit weg nach Amerika gehen, um das Leben, für das er Rat erteilen sollte, auf das sich seine Handlungen bezogen, kennenzulernen. Man kann also studieren, es zu einem hervorragenden Platz bringen und kann solches nötig haben! Man hat nicht Augen, um nach
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 86
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -1376,7 +1332,7 @@ beibehält und wie ein Erinnerungszeichen davon ist, das kommt herunter, weil es
 
 Die Sache wird viel verständlicher, wenn wir so in sie hineinblicken. Da werden wir begreifen, daß die indianische Bevölkerung Amerikas, die uns so rätselhaft erscheint mit ihren sozialen Gliederungen und ihren eigentümlichen Instinkten, ganz anders sein muß. Wieder anders ist die afrikanische, die äthiopische, die Negerrasse. Da sind Instinkte, welche sich an das niedere Menschliche anknüpfen. Und bei den Malayen finden wir ein gewisses traumhaftes Element. Innerhalb der mongolischen Bevölkerung sind diejenigen Eigenschaften vorhanden, welche sich auf eine besondere Energie des Blutes begründen, auch gewisse geistige Eigenschaften, die in ganz charakteristischer Weise ausgebildet sind. Daher wird die mongolische Rasse es immer ablehnen, eine pantheistische Anschauung anzunehmen. Ihre Religion ist ein Dämonenglaube, ein Totenkult. Die Bevölkerung, die man die kaukasische Rasse nennt, stellt die eigentliche Kulturrasse dar, welche berufen ist, durch die Ausbildung des logischen Denkens Werkzeuge zu schaffen für eine Bearbeitung der Natur durch den bloßen Verstand des Menschen, welcher nicht mehr die magischen Kräfte handhaben kann, sondern sich auf das Mechanische verlassen muß. Alles, was der Mensch in den Zeiten der alten Atlantis in dieser Weise hatte, ging verloren, und deshalb
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 144
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -1474,7 +1430,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:54 Seite: 155
 
 ---
 
-Tatsachen aus einem andern Gebiete an den Menschen heranbringen wollen, nämlich gegenüber den sogenannten Religionsschriften. Im Grunde genommen ist es kein anderes Verhältnis als dasjenige, welches ich soeben geschildert habe. Auch gegenüber den Religionsschriften fragt sich der Mensch zunächst: Spricht das überzeugend zu meiner Empfindung, meinen Gefühlen und meiner Vernunft? — Auch hier setzt er oder setzte er in den abgelaufenen Zeiten wenigstens immer voraus — und es gibt heute noch zahlreiche Religionsbekenntnisse, in denen ein gleiches der Fall ist —, daß es ebenso wie für äußere, sinnliche Tatsachen, die wir etwa kennenlernen aus der «Natürlichen Schöpfungsgeschichte» von Haeckel oder aus populären Darstellungen der Astronomie, es auch für diese religiösen Wahrheiten einen kleinen Kreis von Menschen gibt, welche die Methoden kennen, den Schlüssel dazu haben, diese Tatsachen festzustellen. So setzte also der Mensch den Religionsurkunden gegenüber auch voraus, daß es einzelne gibt, welche imstande sind, diese Wahrheiten nicht nur zu lesen, sondern auch festzustellen; daß es einzelne Menschen gibt, die den Schlüssel dazu haben und die Methoden kennen, wie man sich unmittelbar von ihnen überzeugen kann. Kurz, es muß den religiösen Schriften gegenüber, wie jeder andern Darstellung von Tatsachen, die Voraussetzung gemacht werden, daß sie aus einem Wissen, einer unmittelbaren Erfahrung stammen.
+Tatsachen aus einem andern Gebieten an den Menschen heranbringen wollen, nämlich gegenüber den sogenannten Religionsschriften. Im Grunde genommen ist es kein anderes Verhältnis als dasjenige, welches ich soeben geschildert habe. Auch gegenüber den Religionsschriften fragt sich der Mensch zunächst: Spricht das überzeugend zu meiner Empfindung, meinen Gefühlen und meiner Vernunft? — Auch hier setzt er oder setzte er in den abgelaufenen Zeiten wenigstens immer voraus – und es gibt heute noch zahlreiche Religionsbekenntnisse, in denen ein gleiches der Fall ist —, daß es ebenso wie für äußere, sinnliche Tatsachen, die wir etwa kennenlernen aus der «Natürlichen Schöpfungsgeschichte» von Haeckel oder aus populären Darstellungen der Astronomie, es auch für diese religiösen Wahrheiten einen kleinen Kreis von Menschen gibt, welche die Methoden kennen, den Schlüssel dazu haben, diese Tatsachen festzustellen. So setzte also der Mensch den Religionsurkunden gegenüber auch voraus, daß es einzelne gibt, welche imstande sind, diese Wahrheiten nicht nur zu lesen, sondern auch festzustellen; daß es einzelne Menschen gibt, die den Schlüssel dazu haben und die Methoden kennen, wie man sich unmittelbar von ihnen überzeugen kann. Kurz, es muß den religiösen Schriften gegenüber, wie jeder andern Darstellung von Tatsachen, die Voraussetzung gemacht werden, daß sie aus einem Wissen, einer unmittelbaren Erfahrung stammen.
 
 Gegenüber den Schriften, die von den sinnlichen Tatsachen handeln, setzt der Mensch voraus, daß es einzelne Leute gibt, welche mit Fernrohren, Mikroskopen, mit biologischen und andern Untersuchungsmethoden diese Tatsachen feststellen. Gegenüber den Mitteilungen, die in den Religionsurkunden enthalten sind, müssen wir auch voraussetzen, daß es Menschen gibt, welche die Methoden kennen, um durch Erfahrung in das Gebiet einzudringen, das in den
 
@@ -1510,7 +1466,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 159
 
 gegen diese offizielle Wissenschaft gesagt sein. Diese ganze Wissenschaft ist aber nichts anderes als eine Beschäftigung mit den Dingen der Vergänglichkeit. Es gibt aber noch eine andere Möglichkeit, die Welt zu betrachten, nämlich durch diejenigen Fähigkeiten im Menschen, die selbst unvergänglich sind. Die menschliche Wesenheit trägt einen unvergänglichen Kern in sich. Und diesen unvergänglichen Kern, den wir in uns durch Selbstschau, durch eigene Betrachtung finden, wird der Mensch hinaustragen zu einem neuen Dasein in den Zeiten, in denen die Erde zerstoben sein wird. Er wird diesen unvergänglichen Kern in andere Welten hinaustragen, und was er erkannt hat, wird er als die Frucht dieses Erdenlebens in eine andere Welt hinaustragen. Was so erkannt wird durch den göttlichen Wesenskern, ist der Inhalt der Geisteswissenschaft. Nicht eine Erkenntnis anderer Dinge ist die Theosophie, sondern eine Erkenntnis anderer Art, eine Erkenntnis des andern Gliedes der menschlichen Wesenheit. Die Theosophie oder Geisteswissenschaft kommt daher nicht von solchen Menschen, welche mit dem gewöhnlichen Verstand, mit den gewöhnlichen Sinnen sich erheben wollen zu einer Betrachtung des Geistigen von dem Sinnlichen aus, sondern von solchen, welche die im Menschen schlummernden Fähigkeiten erweckt haben und dadurch imstande sind, das Übersinnliche, das Unvergängliche zu erforschen. Die gewöhnliche Wissenschaft betrachtet Pflanze, Tier und Mensch nach den gewöhnlichen Eigenschaften, wie sie sich den Sinnen darbieten. Auch die Geistesforschung betrachtet nur dasjenige, was uns in der Welt umgibt. Aber sie betrachtet es durch andere Kräfte und andere Fähigkeiten und lernt daher an den Dingen ihre ewigen und unvergänglichen Eigenschaften kennen. Das ist Theosophie. Und solche Forscher, welche in sich solche Fähigkeiten erweckt haben, das sind diejenigen, welche imstande sind, die übersinnlichen
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 160
 
 ---
 
@@ -1598,7 +1554,7 @@ Versetzen wir uns noch einmal in die das Tao empfindenden Völker. Sie versuchen
 
 Ein solches Bewußtsein fanden die hinunterziehenden Einwanderer damals vor. Die alten indischen Lehrer, welche den Indern die erste Brahmakultur gaben, fanden damals noch eine lebendige Anschauung von der Wiederverkörperung vor. Daher haben alle Religionen, welche von dieser Stätte ausgegangen sind, die Lehre von der Wiederverkörperung. Das Tao wurde empfunden, in seiner verschiedenen Gestaltung der menschlichen Tätigkeit wurde es empfunden. Es ist nur natürlich, daß der Mensch unseres Zeitraums, der sein Seelenleben getrennt hat von den großen äußeren Gewalten, nicht die vielen Leben überblicken konnte, sondern nur noch sah, daß er das Eingeschränkte dieses Seelenlebens darstellte. Von jeder darauffolgenden Stufe, die sich nun nordwärts ausdehnt, von der uralten persischen Religion angefangen, schwand das Bewußtsein davon, daß des Menschen Seele eine Hülle um den ewig sich wiederverkörpernden Kern ist. Das Bewußtsein schränkte sich auf den
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 171
 
 ---
 
@@ -1695,7 +1651,7 @@ auch eine Soziologenschule, welche aus diesem Prinzip des Kampfes ums Dasein her
 
 Nur mit flüchtigen Worten möchte ich nochmals darauf aufmerksam machen, was ich schon in dem Vortrag über die Friedensidee gesagt habe, daß selbst die Naturwissenschaft von heute nicht mehr auf dem Boden steht, auf dem sie noch vor einem Jahrzehnt gestanden hat. Ich habe schon auf den grundlegenden Vortrag des russischen Forschers Keßler vom Jahre 1880 hingewiesen, in dem gezeigt worden
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 182
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -1753,7 +1709,7 @@ Vom 16. Jahrhundert ab sehen wir das geistige Leben mehr unter den Grundsätzen 
 
 Jetzt hat sich eine Jurisprudenz herausgebildet der Art, daß den Richter und den Anwalt nur das Gesetzbuch interessiert, daß beide nur einen «Fall» sehen, auf den sie das Gesetz anzuwenden haben. Betrachten Sie nur, wie alles, was moralisch gedacht ist, von der Rechtswissenschaft losgelöst ist. Diesen Zustand haben wir immer mehr im letzten Jahrhundert sich entwickeln sehen, während im Mittelalter unter dem Prinzip der Bruderschaft sich etwas herausgebildet hatte, was notwendig und wichtig ist für jeden gedeihlichen Fortschritt: Sachverständigkeit und Vertrauen, die heute als Prinzip immer mehr in Fortfall kommen. Das Urteil des Sachverständigen ist heute fast ganz zurückgetreten gegenüber der abstrakten Jurisprudenz, gegenüber dem abstrakten Parlamentarismus. Der Allerweltsverstand, die
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 189
 
 ---
 
@@ -1987,7 +1943,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 Die fünfte Eigenschaft ist die volle Unbefangenheit gegenüber allem Neuen, das uns entgegentritt. Die meisten Menschen beurteilen das Neue, das ihnen entgegentritt, nach dem Alten, was ihnen schon bekannt ist. Wenn jemand kommt, um ihnen etwas zu sagen, so erwidern sie gleich: Darüber bin ich anderer Meinung. - Wir dürfen aber einer Mitteilung, die uns zukommt, nicht gleich unsere Meinung gegenüberstellen, wir müssen viel mehr auf dem Ausguck stehen, um herauszufinden, wo wir etwas Neues lernen können. Und lernen können wir selbst von einem kleinen Kinde. Selbst wenn einer der weisste Mensch wäre, so muß er geneigt sein, mit seinem Urteil zurückzuhalten und andern zuzuhören. Dieses Zuhörenkönnen müssen wir entwickeln, denn es befähigt uns, den Dingen die größtmöglichste Unbefangenheit entgegenzubringen. Im Okkultismus nennt man dies «Glaube», und das ist die Kraft, die Eindrücke, die das Neue auf uns macht, nicht durch das, was wir demselben entgegenhalten, abzuschwächen.
 
-Die sechste Eigenschaft ist das, was jeder von selbst erhält, wenn er die angeführten Eigenschaften entwickelt hat. Das ist die innere Harmonie. Die innere Harmonie hat der Mensch, der die andern Eigenschaften hat. Dann ist es auch notwendig, daß der Mensch, der die okkulte Entwicklung sucht, das Freiheitsgefühl im höchsten Maße ausgebildet hat, das Freiheitsgefühl, durch das er in sich selbst das Zentrum seines Wesens suchen und auf eigenen Füßen stehen kann, daß er nicht jedem zu fragen braucht, was er zu tun hat, sondern daß er aufrecht steht und frei handelt. Das ist auch etwas, was man sich aneignen muß.
+Die sechste Eigenschaft ist das, was jeder von selbst erhält, wenn er die angeführten Eigenschaften entwickelt hat. Das ist die innere Harmonie. Die innere Harmonie hat der Mensch, der die andern Eigenschaften hat. Dann ist es auch notwendig, daß der Mensch, der die okkulte Entwickelung sucht, das Freiheitsgefühl im höchsten Maße ausgebildet hat, das Freiheitsgefühl, durch das er in sich selbst das Zentrum seines Wesens suchen und auf eigenen Füßen stehen kann, daß er nicht jedem zu fragen braucht, was er zu tun hat, sondern daß er aufrecht steht und frei handelt. Das ist auch etwas, was man sich aneignen muß.
 
 Hat der Mensch diese Eigenschaften in sich entwickelt, dann ist er über alle Gefahr erhoben, die die Spaltung seiner Natur in ihm bewirken könnte, dann können die Eigenschaften seiner niederen Natur nicht mehr auf ihn wirken,
 
@@ -2097,7 +2053,7 @@ In ganz bedeutsamer Weise ist der Mensch ein Spiegelbild seiner Umgebung. Nehmen
 
 Nur wenige Andeutungen konnte ich Ihnen hierüber machen; wir werden aber nach Weihnachten nochmals über die weiteren und tieferen Dinge sprechen. Die eine Vorstellung, die ich erwecken wollte, ist die, daß das höhere Leben nicht tumultuarisch ausgebildet wird, sondern ganz intim, in tiefster Seele, und daß der große Tag, an dem die Seele erwacht und in das höhere Leben eintritt, tatsächlich kommt wie der Dieb in der Nacht. Die Entwicklung zum höheren Leben führt den Menschen in eine neue Welt hinein, und wenn er eingetreten ist in diese neue Welt, dann sieht er sozusagen die andere Seite des Daseins, dann eröffnet sich
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 227
 
 ---
 
@@ -2941,7 +2897,7 @@ nis gelegt wird, so wird der Trieb, die Liebe, zum Träger gemacht eines unbewu�
 
 Das ist in einer modernen Form ausgesprochen dasjenige, was in allen Religionsbekenntnissen, in allen okkulten Weltanschauungen als das Prinzip des Gottes und das Prinzip des Luzifer sich findet. Nur jene Religionsbekenntnisse, welche immer mehr und mehr dazu übergegangen sind, bloß auf die Offenbarung, bloß auf den Glauben sich zu begründen, haben das, was im Menschen wirkt und als das eigene Vervollkommnungsprinzip lebt, als den Träger des Bösen empfunden. So kommt es, daß Luzifer, der Lichtträger, aus dem, was den Menschen zur Freiheit, zur Selbständigkeit, zur hellen, klaren Erkenntnis aufruft, geworden ist zu dem, was ihn verführt. Das ist die eine Seite. Alle jene Religionen, die ihren Ausgangspunkt verlassen haben – denn alle haben an ihrem Ausgangspunkt die richtige Anschauung von Gott und Luzifer –, die nur auf der einen Seite den Gott suchen, der die Menschen in Unbewußtheit führt zur Seligkeit, alle empfinden zu gleicher Zeit das, worin der Gott selbst wirkt, auch als etwas Verderbliches. Die Natur empfinden sie als Sünde; den Geist, die helle, lichte, klare Erkenntnis empfinden sie als den verderblichen Luzifer. Das hat Goethe schon ausgesprochen: «Natur ist Sünde, Geist
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 321
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -2963,7 +2919,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 322
 
 sprießen und die Tiere durch das Triebleben hindurchgehen läßt, und auch den Menschen vom Unvollkommenen zum Vollkommenen führt. Stiege auch der Mensch herauf zu den höheren Gebieten, so würde er ein bloßes Naturwesen bleiben, wenn nicht der andere Geist, aber der dem Menschen wohltätige Geist, Luzifer, in ihm waltete, der die Selbstsucht zwar, aber auch die Selbständigkeit und Freiheit wachruft, der den Menschen zu einem Eigenen, zu einem Sonderwesen macht, ihn aber dadurch auch erhebt über die bloße Naturgewalt. So wahr es ist für das Empfinden der Jehovadiener, daß Jehova selbst die Grundlage der Menschenwelt, die Gottheit ist, so wahr ist Luzifer derjenige, der sich empört, auflehnt gegen diese Naturgewalt, der den Menschen in ein Wissen führt, ihn aufruft zu einem klaren Bewußtsein.
 
-So hebt sich der Mensch zur Selbständigkeit herauf. Er macht sich los aus den Banden der Blutsverwandtschaft, aus den Banden des Stammes und des Volkes. Er wird allmählich zur Persönlichkeit, allerdings zur selbstsüchtigen Persönlichkeit. Da tritt ihm aus demselben Geist heraus der Jehova, der Ordner des höheren Lebens entgegen, der nur die Entwickelung regelt durch das Gesetz, durch das Gebot. Haben wir in der Natur den durch die sinnliche Liebe mit Notwendigkeit wirkenden Gott, so haben wir ihn jetzt in dem Gesetzgeber, in dem Gotte der Zehn Gebote. In ihm haben wir den Jehova, der den Menschen ein Gesetz gibt, dem sie sich zu fügen haben, das Ordnung in die erwachende Persönlichkeit hineinbringen soll, das sie zusammenfassen soll in Harmonie und Ausgleich. Was unten sinnliche Liebe ist, das ist oben Gebot der Sittlichkeit, das ist Gesetz, das ist Gebot. Heraufgehoben soll auch dasjenige werden, was nicht nur als Naturgewalt, als Gebot wirkt, was nicht nur aus der Göttlichkeit zur Vollkommenheit strebt, sondern
+So hebt sich der Mensch zur Selbständigkeit herauf. Er macht sich los aus den Banden der Blutsverwandtschaft, aus den Banden des Stammes und des Volkes. Er wird allmählich zur Persönlichkeit, allerdings zur selbstsüchtigen Persönlichkeit. Da tritt ihm aus demselben Geist heraus der Jehova, der Ordner des höheren Lebens entgegen, der nur die Entwicklung regelt durch das Gesetz, durch das Gebot. Haben wir in der Natur den durch die sinnliche Liebe mit Notwendigkeit wirkenden Gott, so haben wir ihn jetzt in dem Gesetzgeber, in dem Gotte der Zehn Gebote. In ihm haben wir den Jehova, der den Menschen ein Gesetz gibt, dem sie sich zu fügen haben, das Ordnung in die erwachende Persönlichkeit hineinbringen soll, das sie zusammenfassen soll in Harmonie und Ausgleich. Was unten sinnliche Liebe ist, das ist oben Gebot der Sittlichkeit, das ist Gesetz, das ist Gebot. Heraufgehoben soll auch dasjenige werden, was nicht nur als Naturgewalt, als Gebot wirkt, was nicht nur aus der Göttlichkeit zur Vollkommenheit strebt, sondern
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 323
 
@@ -3237,7 +3193,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
-offenbarende Gott, so ist der Gott, dem der gottgewordene Mensch begegnen wird, Luzifer. Christus und Luzifer gehören, im richtigen Sinne verstanden, zusammen. So finden wir Phosphorus, indem er durch keinen Cäsarismus, durch keine Weltunterdrückung des freien Dionysos-Prinzips sich abhalten läßt, hineilen zu dem Tempel des unbekannten Gottes, um dort das Licht zu empfangen, das ihn hinaufträgt, um so selbst zu einem Sohne des Luzifer zu werden.
+offenbarende Gott, so ist der Gott, dem der gottgewordene Mensch begegnen wird, Luzifer. Christus und Luzifer gehören, im richtigen Sinne verstanden, zusammen. So finden wir Phosphorus, indem er durch keinen Cäsarismus, durch keine Weltunterdrückung des freien Dionysos-Prinzips sich abhalten läßt, hinein zu dem Tempel des unbekannten Gottes, um dort das Licht zu empfangen, das ihn hinaufträgt, um so selbst zu einem Sohne des Luzifer zu werden.
 
 Wie Phosphorus diesen Weg verfolgt und dabei seinen Geist hinaufhebt zu derjenigen Anschauung, die Luzifer als das Entwicklungsprinzip anerkennt, so entwickelt sich Kleonis von einer christlichen Jungfrau zu einem universellen Prinzip. Ihre Liebe soll einzig und allein dem menschgewordenen Gotte gelten. Sie entwickelt sich dahin, wo ihr die Ahnung aufsteigt, daß sich die Liebe im Menschen so veredeln kann, daß die göttliche Liebe im menschgewordenen Gotte sich verbindet mit der menschlichen Liebe in der menschlichen Natur selbst. So schwingt sich die christliche Jungfrau hinauf bis zu dem Punkte, wo sie sich treffen kann mit dem unbekannten Gott. Der Christus ist in der christlichen Jungfrau lebendig geworden dadurch, daß sie sich nicht nur in der Anschauung und Verehrung mit dem Göttlichen vereint, sondern dahin kommt, daß sie sich zur christlichen Liebe emporhebt. Phosphorus ist hinaufgestiegen bis zu dem Punkte, wo ihm der Geist im Lichte entgegenstrahlt. So ist der Geist im Mann und die Seele im Weibe auf einer und derselben Stufe. Und nun wirken sie zusammen auf derselben Stufe, und zwar so, daß immer statt Dionysos zunächst das freie Menschenpaar steht, welches die Ahnung einer Zukunft verkörpert, die erst noch erstehen soll. Das Christentum und der Cäsarismus haben sich zu dem entwickelt, was in Dionysia sich entfaltet hat: dieses unterjochte und knechtete die Menschen. Aufrecht und frei stehen
 
@@ -3373,7 +3329,7 @@ dem Traumzustand. Nachgewiesen hat er, daß die Mittagsfrau nichts anderes ist a
 
 Nun sind aber Traumerlebnisse nur Rudimente von einem andern Bewußtseinszustand. Diesen andern Bewußtseinszustand kann derjenige erreichen, der eine gewisse innere Entwicklung, über die wir noch sprechen werden im zwölften Vortrag am 19. April, durchmacht. Derjenige, welcher diese Vorträge besucht hat, weiß, daß, wenn er gewisse Übungen durchmacht, geistig sich schult, er dann die sonst chaotische, ungeordnete Traumwelt verwandeln kann in eine ganz regelmäßige Welt, die ihm dann nicht bloß Teile der gewöhnlichen Wirklichkeit als Reminiszenzen zeigt, sondern ihn auch einführt in die höhere geistige Welt, die er dann herübernehmen kann in die Wirklichkeit. Das ist der höhere Bewußtseinszustand, das ist das astrale oder imaginative Bewußtsein. Es beginnt damit, daß das Traumerlebnis regelmäßig wird und daß der Mensch sich eines Tages darüber klar wird, daß er eine neue seelische Wirklichkeit erlebt. Dann kann er sich zu einer noch höheren, einer geistigen Wirklichkeit erheben. Daß der Mensch vor-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 371
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -3443,7 +3399,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 380
 
 ---
 
-Dasein und eine gewaltige Kraft gehabt hat, als die Leidenschaft und das Feuer noch nicht getrennt waren, als die Leidenschaft noch das brodelnde Feuer durchströmt hat. Ein solches Feuerwesen war Loki. Und dann hat sich die Welt weiter so entwickelt, daß sich aus Loki, dem Feuer, die niedere Natur bildete und aus den Äsen die höhere Natur. Aus Lokis Natur ist beides hervorgegangen. Das liegt der germanischen Sage zugrunde. Das ist das Geheimnis der germanischen Götterlehre, daß, indem sich die Wesen hinaufentwickelten, die Götterwelt hervorging, die auch ihren Ursprung in den leidenschaftlichen Urgründen hat wie auch in dem Geistigen. Da wird uns gesagt, wie diese drei die Kinder des Loki sind. Das erste Kind ist der Fenriswolf, das zweite die Midgardschlange und das dritte die Toten-göttin Hei, die auf der einen Seite hell ist und auf der andern Seite einen schwarzen Leib hat. Was stellt sie dar? Sie stellt die untere menschliche Natur dar, die Geburt und Tod bewirkt. Daher erscheint die Hei schwarz und weiß. Die Midgardschlange, die in der gegenwärtigen Welt um die Kontinente herumgeschlungen ist, stellt den Ätherleib dar, der an die gegenwärtige niedere Menschennatur gefesselt ist. Das dritte Glied stellt das vor, was aus den niederen Leidenschaften hervorgegangen ist. Loki ist aus einer früheren Entwicklung übriggeblieben. Er mußte seine Kinder abgeben, damit die gegenwärtige Welt entstehen konnte, die dadurch zum Widerstand getrieben wird und dem zum Opfer fällt, was die Anschauung der früheren Welt war.
+Dasein und eine gewaltige Kraft gehabt hat, als die Leidenschaft und das Feuer noch nicht getrennt waren, als die Leidenschaft noch das brodelnde Feuer durchströmt hat. Ein solches Feuerwesen war Loki. Und dann hat sich die Welt weiter so entwickelt, daß sich aus Loki, dem Feuer, die niedere Natur bildete und aus den Äsen die höhere Natur. Aus Lokis Natur ist beides hervorgegangen. Das liegt der germanischen Sage zugrunde. Das ist das Geheimnis der germanischen Götterlehre, daß, indem sich die Wesen hinaufentwickelten, die Götterwelt hervorging, die auch ihren Ursprung in den leidenschaftlichen Urgründen hat wie auch in dem Geistigen. Da wird uns gesagt, wie diese drei die Kinder des Loki sind. Das erste Kind ist der Fenriswolf, das zweite die Midgardschlange und das dritte die Toten-göttin Hei, die auf der einen Seite hell ist und auf der andern Seite einen schwarzen Leib hat. Was stellt sie dar? Sie stellt die untere menschliche Natur dar, die Geburt und Tod bewirkt. Daher erscheint die Hei schwarz und weiß. Die Midgardschlange, die in der gegenwärtigen Welt um die Kontinente herumgeschlungen ist, stellt den Ätherleib dar, der an die gegenwärtige niedere Menschennatur gefesselt ist. Das dritte Glied stellt das vor, was aus den niederen Leidenschaften hervorgegangen ist. Loki ist aus einer früheren Entwickelung übriggeblieben. Er mußte seine Kinder abgeben, damit die gegenwärtige Welt entstehen konnte, die dadurch zum Widerstand getrieben wird und dem zum Opfer fällt, was die Anschauung der früheren Welt war.
 
 Baidur muß hinunter zur Hei, in die Tiefe. Die Tiefe symbolisiert die gewöhnliche körperliche Menschennatur. Was ist Baidur? Baidur ist als Unterbewußtsein vorhanden, wenn zum Beispiel im Trance das gewöhnliche Oberflächenbewußtsein ausgelöscht und das alte Bewußtsein wieder auferweckt wird. Für uns ist Baidur jetzt getötet. Aber bei
 
@@ -3471,7 +3427,7 @@ lichkeit hat denn die indische Geheimlehre, daß sie sich ausbildet in andern Bi
 
 Diese Lehren haben eine verschiedene Ausgestaltung erhalten. Wie wir zwei Ausgestaltungen in Europa und Indien sehen, so sehen wir noch eine andere, in der Mitte sozusagen, in Griechenland. Wir können sehen, daß durch zwei ganz verschiedene Kräfte in der Natur die indische und die germanische Eigenart bedingt ist. Die indische Eigenart ist eine mehr nach dem heutigen Ich hingehende, nach dem Ich des Menschen hingehende. Der Inder hat daher sein höheres Bewußtsein gesucht in der Versenkung in das eigene Innere. Er hat gesucht hinaufzukommen von Avidya zum Vidya, von dem empfangenden Wissen zu dem schaffenden Wissen. Eine Wissenslehre, eine höhere Lehre als eine astrale Bilderlehre ist die indische Anschauung, und eine astrale Bilderlehre ist dasjenige, was in der germanischen Mythologie zum
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 384
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -3529,7 +3485,7 @@ Nachdem wir viele rein populäre Vorträge gehört haben, wollen wir heute einen
 
 Das menschliche Erkenntnisvermögen im Sinne der Kantschen Philosophie ist begrenzt. Zum «Ding an sich» kann es nicht vordringen. Welche Vorstellungen und Begriffe wir uns auch bilden, was wir auch erfahren in der Welt, wir haben es im Sinne der Kantschen Philosophie mit Erscheinungen zu tun, nicht mit dem wahrhaften «Ding an sich». Das verbirgt sich immer hinter den Erscheinungen. Damit ist vielleicht einer blinden Spekulationssucht Vorschub geleistet – und wir haben es an der Geistesentwicklung Deutschlands zur Genüge gesehen —, die das menschliche Erkenntnisvermögen nach allen Seiten abzirkeln und einengen möchte. Zu gleicher Zeit sollte aber der Tendenz des Menschen, zum Wahren vorzudringen, in die Tiefen des Daseins hineinzuforschen, ein Riegel vorgeschoben werden.
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 391
 
 ---
 
@@ -3985,7 +3941,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 445
 
 sie das aus der Menschheit wegscheuchen. Notwendig ist $\mathfrak{es}$ daß sie das Heiligtum vor profanen Blicken und Fragen bewahren. So ist es auch, wenn dem menschlichen Verständnis nahegebracht wurde das Wesen eines solchen Eingeweihten. In einem solchen Augenblicke würde ein solches Wesen auch verschwinden, wie das Lohengrin auch tat. Und daß die Befreiung des mittelalterlichen Bürgertums unter dem Einflüsse des Christentums geschehen ist, selbst das wird dargestellt dadurch, daß uns Lohengrin als Sohn des Parzival genannt wird.
 
-So blicken wir in die Sagen des Mittelalters hinein und sehen, wie die Tatsachen des geistigen Lebens in den beiden Sagen schön zum Ausdruck kommen. Die Mission des Christentums für die mittelalterliche Kultur wurde damit die Mission der Befreiung des Menschen von dem irdischen Menschenleib. Diese Mission wurde in den beiden Sagen dargestellt. Sie wirkte besonders auf Richard Wagner. Er hat es immer versucht darzustellen: die reine Liebe, die den Menschen hellsehend macht. Schon im Jahre 1856 hat er ein Drama angefangen, «Die Sieger» genannt: Ananda, ein Brahmanenjüngling, wird geliebt von einem Tschandalamädchen. Ananda aber ist durch das Kastenvorurteil weit getrennt von der Liebe des Tschandalamädchens. Er darf der Liebe des Tschandalamädchens nicht nachgehen. Er wird Sieger über die eigene Natur dadurch, daß er ein Zögling des Buddha wird. In der Anhängerschaft des Buddha findet er den Sieg, da findet er sich zurück, da überwindet er die menschliche Neigung, und dem Tschandalamädchen wird eröffnet, daß es in einem früheren Leben ein Brahmanenmädchen war und die Liebe eines Tschandalajünglings ausgeschlagen hat. Sie wird dann auch Siegerin und ist vereinigt im Geiste mit dem Ananda, dem Brahmanenjüngling. Später wollte Wagner die Figur des Jesus von
+So blicken wir in die Sagen des Mittelalters hinein und sehen, wie die Tatsachen des geistigen Lebens in den beiden Sagen schön zum Ausdrucke kommen. Die Mission des Christentums für die mittelalterliche Kultur wurde damit die Mission der Befreiung des Menschen von dem irdischen Menschenleib. Diese Mission wurde in den beiden Sagen dargestellt. Sie wirkte besonders auf Richard Wagner. Er hat es immer versucht darzustellen: die reine Liebe, die den Menschen hellsehend macht. Schon im Jahre 1856 hat er ein Drama angefangen, «Die Sieger» genannt: Ananda, ein Brahmanenjüngling, wird geliebt von einem Tschandalamädchen. Ananda aber ist durch das Kastenvorurteil weit getrennt von der Liebe des Tschandalamädchens. Er darf der Liebe des Tschandalamädchens nicht nachgehen. Er wird Sieger über die eigene Natur dadurch, daß er ein Zögling des Buddha wird. In der Anhängerschaft des Buddha findet er den Sieg, da findet er sich zurück, da überwindet er die menschliche Neigung, und dem Tschandalamädchen wird eröffnet, daß es in einem früheren Leben ein Brahmanenmädchen war und die Liebe eines Tschandalajünglings ausgeschlagen hat. Sie wird dann auch Siegerin und ist vereinigt im Geiste mit dem Ananda, dem Brahmanenjüngling. Später wollte Wagner die Figur des Jesus von
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:54 Seite:446
 
@@ -4459,7 +4415,7 @@ Wenn man das Geistesleben des 19. Jahrhunderts genau kennt, namentlich dasjenige
 
 1575 wurde Jakob Böhme geboren als Kind armer Leute. Er war zuerst Viehhirt und konnte kaum lesen und schreiben. Während er das Vieh hütete, gingen ihm schon manche merkwürdige Geistesblitze auf. Ihm kam es manchmal vor, wie wenn jedes Blatt an den Bäumen, wie wenn die Tiere des Waldes ihm etwas zu sagen hätten, wie wenn alle Wesen der Natur zu ihm sprächen. Dann trat er bei einem Schuhmacher als Lehrling ein. Während seiner Lehrzeit ist ein merkwürdiges Erlebnis zu verzeichnen, welches seiner eigentlichen Grundlage nach zu erörtern in der Öffentlichkeit nicht möglich ist. Jakob Böhme war einmal vom Meister und der Meisterin beauftragt, den Laden zu hüten, während diese ausgegangen waren. Verkaufen sollte er aber nichts. Da trat zu ihm hinein eine Persönlichkeit, deren Augen einen ganz besonderen Eindruck auf ihn machten.
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 499
 
 ---
 
@@ -4551,7 +4507,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 508
 
 Zeit nennen. Die Imagination nennt Jakob Böhme die große Jungfrau der Natur, die Jungfrau Weisheit. Nun geht er zurück bis zur Schöpfung des Adam und weiter hinauf zu der ursprünglichen göttlichen Imagination. Er sagt, die göttliche Imagination hat nach ihrem Spiegelbilde den ursprünglichen geistigen Menschen in die Materie eingeformt. Diesen Geistesmenschen nennt er den ursprünglichen Adam. Indem dieser geistige Mensch von Anfang an da ist, zeigt er, wie der geistige Mensch in der ursprünglichen Tinctura schon vorhanden war, wie dann aber eigentlich eine geistige vollständige Umwandlung in der Weltenschöpfung vor sich gegangen ist. Diese Umwandlung verlegt er auf den vierten Schöpfungstag. Dieser ursprüngliche Mensch, den er den Tincturamenschen nennt, der hat nicht mit eigentlichen Augen gesehen, aber im Innern war er hellseherisch, so daß er hellseherisch alles wahrnehmen konnte, was in ihm vorging. Dann trat für diesen Menschen die Selbstheit ein, die Selbstständigkeit, die kam am vierten Tag und der hellseherische Mensch wurde sich selbst gewahr, fing an, seine eigene Wesenheit zu schauen. Ursprünglich war geistig-göttliche Schöpfung ringsherum. Das sah der Urmensch hellseherisch. Jetzt sah er sich. Das war sein Abfall von Gott. Nun wäre dieser Mensch ganz zur Verhärtung gekommen, aufgegangen in der Herbigkeit, wenn nicht etwas anderes möglich wäre. Nicht mehr sah der Mensch die Welt hellseherisch. Es trat der Zeitpunkt ein, wo der hellseherische Mensch äußerlich wahrnehmen konnte, was göttlich ist. Sonne, Mond und Sterne sind zunächst Bilder des Göttlichen, was er früher in sich gesehen hatte. So war der Mensch abgefallen von der Göttlichkeit, aber durch die Sinne war für ihn die Welt wahrnehmbar geworden. Die Vorstellung der sinnlichen Wahrnehmung ist es, welche den Menschen aus dem alten Tincturamenschen zum materiellen Menschen machte. Er
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 509
 
 ---
 
@@ -4819,7 +4775,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 520
 340 Marie von Sivers. Von 1902 an engste Mitarbeiterin Rudolf Steiners und seit 1914 Marie Steiner. Über die Beziehungen Marie Steiner-von Sivers und Rudolf Steiners zu Edouard Schure siehe Rudolf Steiner, «Mein Lebensgang», GA Bibl.-Nr. 28, sowie «Aus dem Leben von Marie Steiner-von Sivers», Dornach 1956.
 341 Friedrich Nietzsche: «Die Geburt der Tragödie aus dem Geiste der Musik», 1869.
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54 Seite: 521
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 54
 
 ---
 
@@ -4905,7 +4861,7 @@ Justinus Kerner: «Die Seherin von Prevorst», Stuttgart 1828.
 
 446 Wagners «Die Sieger»: Vgl. Richard Wagners Gesamte Schriften, herausgegeben von B. Kapp, Hesse und Becker Verlag, Leipzig o. J., 6. Band: Entwürfe, Fragmente, Gedichte, S. 278: «Die Sieger», Entwurf 1856.
 
-447 erzählt Wagner: «Am Karfreitage (1857, im <asyl am="" müffe="" grünen="" un="" grünen="" hügel="">, kleines Landhaus neben der Villa Wesendonk in Zürich) erwachte ich bei vollem Sonnenschein: das Gärtchen war ergrünt, die Vögel sangen, und endlich konnte ich mich auf die Zinne des Häuschens setzen, um der langersehnten, verheißungsvollen Stille mich zu erfreuen. Hiervon erfüllt, sagte ich mir plötzlich, daß heute ja Karfreitag sei und entsann mich, wie bedeutungsvoll diese Mahnung mir schon einmal in Wolframs <parsifal> aufgefallen war.» Wagner, Mein Leben, Bd. III, München 1915, S. 133 f.</parsifal></asyl>
+447 erzählt Wagner: «Am Karfreitage (1857, im <asyl am="" mügel="" grünen="">, kleines Landhaus neben der Villa Wesendonk in Zürich) erwachte ich bei vollem Sonnenschein: das Gärtchen war ergrünt, die Vögel sangen, und endlich konnte ich mich auf die Zinne des Häuschens setzen, um der langersehnten, verheißungsvollen Stille mich zu erfreuen. Hiervon erfüllt, sagte ich mir plötzlich, daß heute ja Karfreitag sei und entsann mich, wie bedeutungsvoll diese Mahnung mir schon einmal in Wolframs <parsifal> aufgefallen war.» Wagner, Mein Leben, Bd. III, München 1915, S. 133 f.</parsifal></asyl>
 
 ---
 

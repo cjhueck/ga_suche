@@ -1,0 +1,3908 @@
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 1
+
+RUDOLF STEINER GESAMTAUSGABE
+VORTRÄGE
+
+ÖFFENTLICHE VORTRÄGE
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 2
+
+---
+
+RUDOLF STEINER
+
+Die Erkenntnis der Seele und des Geistes
+
+Fünfzehn öffentliche Vorträge
+gehalten zwischen dem 10. Oktober 1907
+und dem 14. Mai 1908
+im Architektenhaus in Berlin,
+am 3. und 5. Dezember 1907
+und 18. März 1908 in München
+
+1985
+
+RUDOLF STEINER VERLAG
+DORNACH/SCHWEIZ
+
+Copyright Rudolf Steiner Nachlass-Verwaltung  Buch: 56  Seite: 3
+
+---
+
+Nach vom Vortragenden nicht durchgesehenen, nicht wörtlichen und teilweise lückenhaften Nachschriften herausgegeben von der Rudolf Steiner-Nachlaßverwaltung Die Herausgabe besorgte Robert Friedenthal
+
+1. Auflage, Gesamtausgabe Dornach 1965
+2. Auflage (fotomechanischer Nachdruck)
+Gesamtausgabe Dornach 1985
+
+Einzelausgabe
+
+Vortrag IX und X: «Krankheitswahn und Gesundheitsfieber».
+Schriftenreihe der Medizinischen Sektion am Goetheanum, 3. Heft, Dornach 1946
+
+Bibliographie-Nr. 56
+
+Zeichen auf dem Umschlag nach einem Entwurf Rudolf Steiners
+Alle Rechte bei der Rudolf Steiner-Nachlaß Verwaltung, Dornach/Schweiz
+© 1965 by Rudolf Steiner-Nachlaß Verwaltung, Dornach/Schweiz
+Printed in Germany by Konkordia Druck GmbH, Bühl/Baden
+
+ISBN 3-7274-0560-0
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 5 6
+Seite: 5
+
+Xu den Veröffentlichungen
+aus dem Vortragswerk von Rudolf Steiner
+
+Die Grundlage der anthroposophisch orientierten Geisteswissenschaft bilden die von Rudolf Steiner (1861-1925) geschriebenen und veröffentlichten Werke. Daneben hielt er in den Jahren 1900 bis 1924 zahlreiche Vorträge und Kurse, sowohl öffentlich wie auch für die Mitglieder der Theosophischen, später Anthroposophischen Gesellschaft. Er selbst wollte ursprünglich, daß seine durchwegs frei gehaltenen Vorträge nicht schriftlich festgehalten würden, da sie als «mündliche, nicht zum Druck bestimmte Mitteilungen» gedacht waren. Nachdem aber zunehmend unvollständige und fehlerhafte Hörernachschriften angefertigt und verbreitet wurden, sah er sich veranlaßt, das Nachschreiben zu regeln. Mit dieser Aufgabe betraute er Marie Steiner-von Sivers. Ihr oblag die Bestimmung der Stenographierenden, die Verwaltung der Nachschriften und die für die Herausgabe notwendige Durchsicht der Texte. Da Rudolf Steiner aus Zeitmangel nur in ganz wenigen Fällen die Nachschriften selbst korrigieren konnte, muß gegenüber allen Vortragsveröffentlichungen sein Vorbehalt berücksichtigt werden: «Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.»
+
+Nach dem Tode von Marie Steiner (1867-1948) wurde gemäß ihren Richtlinien mit der Herausgabe einer Rudolf Steiner Gesamtausgabe begonnen. Der vorliegende Band bildet einen Bestandteil dieser Gesamtausgabe. Soweit erforderlich, finden sich nähere Angaben zu den Textunterlagen am Beginn der Hinweise.
+
+---
+
+# INHALT
+
+Zu dieser Ausgabe. 8
+
+I. Die Mission der Geheimwissenschaft in unserer Zeit
+Berlin, 10. Oktober 1907. 9
+
+II. Die Naturwissenschaft am Scheidewege
+Berlin, 17. Oktober 1907. 37
+
+III. Die Erkenntnis der Seele und des Geistes
+Berlin, 24. Oktober 1907. 64
+
+IV. Mann und Weib im Lichte der Geisteswissenschaft
+München, 18. März 1908 (statt Berlin, 14. Nov. 1907). 89
+
+V. Initiation oder Einweihung
+Berlin, 28. November 1907. 102
+
+VI. Die sogenannten Gefahren der Einweihung
+Berlin, 12. Dezember 1907. 131
+
+VII. Mann, Weib und Kind
+im Lichte der Geisteswissenschaft
+Berlin, 9. Januar 1908. 158
+
+VIII. Die Seele der Tiere
+im Lichte der Geisteswissenschaft
+Berlin, 23. Januar 1908. 166
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+IX. Der Krankheitswahn
+im Lichte der Geisteswissenschaft
+München, 3. Dezember 1907 (statt Berlin, 13. Febr. 1908). 191
+
+X. Das Gesundheitsfieber
+im Lichte der Geisteswissenschaft
+München, 5. Dezember 1907 (statt Berlin, 27. Febr. 1908). 210
+
+XL Beruf und Erwerb
+Berlin, 12. März 1908. 227
+
+XII. Sonne, Mond und Sterne
+Berlin, 26. März 1908. 253
+
+XIII. Erdenanfang und Erdenende
+Berlin, 9. April 1908. 264
+
+XIV. Die Hölle
+Berlin, 16. April 1908. 287
+
+XV. Der Himmel
+Berlin, 14. Mai 1908. 313
+
+Hinweise. 345
+
+Personenregister. 355
+
+Ausführliche Inhaltsangaben. 359
+
+Übersicht über die Rudolf Steiner Gesamtausgabe. 371
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 7
+
+---
+
+ZU DIESER AUSGABE
+
+Die Vorträge dieses Bandes gehören dem Teil von Rudolf Steiners Vortragswerk an, mit dem er sich an die Öffentlichkeit wandte. «Berlin war der Ausgangspunkt für diese öffentliche Vortragstätigkeit gewesen. Was in anderen Städten mehr in einzelnen Vorträgen behandelt wurde, konnte hier in einer zusammenhängenden Vortragsreihe zum Ausdruck gebracht werden, deren Themen ineinander übergriffen. Sie erhielten dadurch den Charakter einer sorgfältig fundierten methodischen Einführung in die Geisteswissenschaft und konnten auf ein regelmäßig wiederkehrendes Publikum rechnen, dem es darauf ankam, immer tiefer in die neu sich erschließenden Wissensgebiete einzudringen, während den neu Hinzukommenden die Grundlagen für das Verständnis des Gebotenen immer wieder gegeben wurden.» (Marie Steiner).
+
+Die vorliegenden während des Winterhalbjahres 1907/08 gehaltenen 15 Vorträge bilden die fünfte der öffentlichen Vortragsreihen, welche Rudolf Steiner in Berlin seit 1903 regelmäßig durchführte. Kurz zusammengefasst wird darin folgendes dargestellt:
+
+Das Verhältnis der Geisteswissenschaft zur Naturwissenschaft ist kein gegensätzliches, sondern beruht auf gegenseitiger Ergänzung. Geisteswissenschaft erweitert die Erkenntnis und ermöglicht der Menschenseele, neue Fähigkeiten zu entwickeln. Sie gibt auch Anweisungen, wie dabei Irrwege vermieden werden können. Im rein Menschlichen werden die Gegensätze von Mann und Frau betrachtet und gezeigt, wie im Kind sich entfaltet, was aus ewigen Bereichen stammt und die Hemmnisse der Vererbung überwindet. Das Wesen der Krankheit wird offenbar und Gesundungskräfte erstehen im geistgemäßen Leben. Auch werden Voraussetzungen für den Erwerb wahrer sozialer Gesinnung geschaffen. Der Mensch wird in eine kosmische Ordnung hineingestellt. Die mit dem Rätsel des «Woher» und des «Wohin» zusammenhängenden Fragen finden eine dem modernen Bewußtsein angemessene Beantwortung. Das Leben nach dem Tod empfängt ein neues Licht: die Wandlung der Seelenkräfte und das Leben in geistigen Bereichen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# DIE MISSION DER GEHEIMWISSENSCHAFT IN UNSERER ZEIT
+
+Berlin, 10. Oktober
+
+Wer heute von Geheimwissenschaft spricht, oder gar, wie unser heutiges Thema lautet, von der Mission der Geheimwissenschaft in unserer Zeit, der darf sich wohl darauf gefaßt machen, daß er den allerverschiedensten Stimmungen begegnet. Auf der einen Seite dürfen wir uns nicht verhehlen, daß das Wort «Geheimwissenschaft» nur ausgesprochen zu werden braucht, um bei einer großen Reihe unserer Zeitgenossen die Meinung hervorzurufen, es handle sich hier um etwas im höchsten Grade Dunkles, oder, wie man es gern ausdrückt, im schlimmsten Sinne Mystisches, um etwas, was nur entstehen oder Interesse erregen könne bei Menschen mit unklarem Denken, zumindest nur bei solchen, die keine Ahnung haben von dem, was man in unserer Zeit die großen Fortschritte auf dem Gebiete der Erkenntnis nennt. Wie viele werden Ihnen sagen, das Wort Geheim wissenschaft werde nur von denjenigen in den Mund genommen, die abseits stehen von den großen Fortschritten der Naturwissenschaft oder anderer Erkenntnisse in unserer Zeit.
+
+Wenn auf der einen Seite schon durch das Aussprechen des Wortes Geheimwissenschaft manche Gegnerschaft hervorgerufen wird, so dürfen wir uns doch auch durchaus nicht verhehlen, daß in solcher Gegnerschaft viel Berechtigtes liegt. Denn, so sonderbar es erscheinen kann - die ganze Serie der Vorträge wird Ihnen ja zeigen, wie das gemeint ist -, aber man kann nicht umhin, es auszusprechen: Der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+wirkliche Geheimwissenschafter, der sich bewußt ist, nicht Obskurant zu sein gegenüber den sogenannten Wissenschafts- oder Erkenntnisfortschritten in unserer Zeit, der ganz auf dem Boden unserer Zeitbildung stehen und nur über gewisse ihrer Oberflächlichkeiten hinausgehen will, der darf, ja er muß gemäß seiner Geistesrichtung und Einsicht in die Zeitverhältnisse sagen, daß diejenigen Gegner, die so sprechen, wie wir es eben jetzt charakterisiert haben, vielleicht die für ihn weniger gefährlichen Zeitgenossen sind, seiner Geistesströmung weniger schädlich sind als andere, die in gewisser Beziehung sich sogar zu den Anhängern, ja zu den Aposteln der sogenannten Geheimwissenschaft rechnen. Nicht wahr, es ist sonderbar, wenn so etwas ausgesprochen wird, doch es ist wahr.
+
+Das Wort Geheimwissenschaft hat für viele heute etwas Verlockendes. Was dem Geheimwissenschafter so leicht vorgeworfen wird von seinen Gegnern, ist, daß die Menschen nur zu leicht zu bewegen sind, da, wo von irgend etwas Geheimnisvollem, von etwas Dunklem, Rätselhaftem gesprochen wird, herbeizulaufen, so daß die, welche unklaren Geistes oder zu bequem sind, um sich auf den Boden der Erkenntnis zu stellen, oder zu schwach, um Erkenntnisse auf sich wirken zu lassen, voller Interesse sind, wenn von etwas Dunklem, Geheimnisvollem die Rede ist. So habe der Geheimwissenschafter viel Zuspruch, und in gewissem Sinne rechne er auf diesen merkwürdigen Instinkt in der Menschennatur, auf den Zug in der Menschennatur nach dem Geistigen im schlimmsten Sinne des Wortes.
+
+Es soll nicht geleugnet werden, daß es in unserer so chaotischen Zeit wirklich viele Leute gibt, die nur durch diesen dunklen Instinkt der Menschennatur zu dem, was man Geheimwissenschaft nennt, getrieben werden. Und wenn dann die Gegner der Geheimwissenschaft sehen, was
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 10
+
+---
+
+solche scheinbaren Anhänger anrichten, was sie oftmals für Behauptungen aufstellen und wie sie vielfach zu der Erkenntnis unserer Zeit stehen, dann braucht man sich ja nicht, aber auch gar nicht zu wundern, wenn unsere Gegner zu dem soeben charakterisierten Urteil kommen. Wenn der Geheimwissenschaftler Furcht haben könnte, so könnte man vielleicht die groteske, aber wahre Behauptung aufstellen, daß er heute noch mehr Furcht haben müßte vor einer großen Zahl seiner Anhänger als vor seinen Gegnern. Denn diese Gegner werden eine solche Wendung machen müssen, wie wir sie vielleicht schon im Verlaufe des heutigen Vortrages charakterisieren werden, wie es aber namentlich im nächsten Vortrag, wenn von der «Naturwissenschaft am Scheideweg» geredet wird, klar herauskommen wird. Für heute soll es sich darum handeln, durch diese Charakteristik von links und rechts in rein erzählender Form die Aufgabe, den Sinn, die Bedeutung und die Mission der sogenannten Geheimwissenschaft in unserer Zeit klarzulegen.
+
+Wenn Sie das Programm, das Ihnen für diese Winter-vorträge vorgelegt worden ist, durchschauen, so werden Sie sehen, daß mit dem Wort gewechselt worden ist. Bei einigen Vorträgen steht Geheimwissenschaft, bei anderen Geisteswissenschaft. Das ist an jeder einzelnen Stelle mit vollem Bedacht geschehen, obwohl die Geisteswissenschaft, wie sie hier vertreten wird, ziemlich gleichbedeutend ist mit dem, was man Geheimwissenschaft nennt. Fassen Sie zunächst das Wort «geheim» in der Zusammensetzung von Geheimwissenschaft oder geheimwissenschaftlich nicht so auf, als ob damit etwas absolut Geheimes und Dunkles gemeint sei. Der Vortrag selbst soll Ihnen zeigen, warum gerade dieses Wort Geheimwissenschaft für die Summe von Wahrheiten und Erkenntnissen, von denen wir im Laufe des Winters sprechen wollen, gebraucht wird.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 11
+
+---
+
+Wenn wir sagen wollen, worauf die Geheimwissenschaft beruht, so müssen wir zunächst eine ganz einfache Antwort geben. Wir müssen sagen, die Geheimwissenschaft ruht auf zwei Überzeugungen: Erstens auf der Überzeugung, daß hinter dem, was unsere Sinne uns in der Außenwelt zeigen, was unser Verstand an Sinneswahrnehmungen und Erfahrungen aufnehmen kann, hinter dem, was Augen sehen und Hände greifen können, es eine höhere, eine unsichtbare, eine übersinnliche Welt gibt. Dies ist die eine Überzeugung. Die andere Überzeugung ist die, daß der Mensch imstande ist, diese übersinnliche, unsichtbare Welt durch Entwicklung seiner eigenen Erkenntniskräfte und Fähigkeiten zu erfassen, zu schauen. Wenn wir diese beiden Dinge aussprechen, so haben wir das gesagt, worauf alle sogenannte Geheimwissenschaft beruht.
+
+Sogleich aber erheben sich hier aus den Reihen unserer Zeitgenossen heraus wichtige Einwände. Unsere Zeitbildung hat erstlich eine Richtung, die da sagt: Wir haben es durchaus nicht nötig, von irgendeiner übersinnlichen Welt, irgendeiner unsichtbaren Welt zu sprechen; das sind die Vorurteile einer - Gott sei Dank - verflossenen Vergangenheit. So sagen viele. Und es ist noch nicht lange her - heute werden zwar solche Stimmen schon seltener -, da sagten die, welche sich für die Aufgeklärtesten, die Fortgeschrittensten hielten: die Hinwendung zu unsichtbaren, zu übersinnlichen Hintergründen der Dinge gehöre einem kindlichen, naiven Zeitalter der Menschheitsentwicklung an, wo man noch nicht fest auf dem Boden der wissenschaftlichen Erkenntnis gestanden hat, wo man noch durch allerlei Erdichtungen und Ausflüsse der Phantasie die Rätsel Fragen des Daseins zu lösen glaubte. Die neuere Zeit hat aber die Menschen gelehrt, daß die Forschung, welche sich der Erfahrung der äußeren Sinne bedient, nicht nötig hat,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 12
+
+---
+
+auf solche übersinnliche Kräfte oder Wesenheiten zurückzugreifen, sondern daß die Welt, wie wir sie sinnlich sehen, aus sich heraus erklärbar ist. Und wenn wir die Welt aus sich selbst erklären können – so sagen die Materialisten und auch die, welche sich Monisten nennen, und das sind viele unserer Zeitgenossen –, wenn wir innerhalb der sinnlichen Welt die sinnlichen Ursachen entdecken können, so haben wir keinen Grund, uns auf übersinnliche Wesenheiten zu berufen.
+
+Das ist eine radikale Richtung, die überhaupt brechen will mit allen Anschauungen vom Übersinnlichen. Gewichtiges, das ist nicht zu leugnen, hat diese Anschauung für sich anzuführen. Wer wollte die unermeßlich großen Fortschritte der äußeren Naturwissenschaft im Verlaufe der letzten Jahrhunderte und namentlich des letzten Jahrhunderts verkennen? Wer wollte diese Forschungsergebnisse nicht bewundern, die auf der einen Seite hinaufgehen bis zu den Erscheinungen des gestirnten Himmels, und auf der anderen Seite hinabtauchen in die Geheimnisse der kleinsten Lebewesen, in die Geheimnisse der Stoffe und des sinnlichen Daseins? Wer würde nicht bewundernd stehen selbst vor gewagten Spekulationen, wie sie in der neueren Zeit durch solche schöne Entdeckungen, wie die des Radiums, von einzelnen Forschern ausgehen? Und wer wird nicht sehen, daß es etwas Blendendes hat, wenn jetzt derjenige, der auf dem Boden eines solchen radikalen Positivismus oder Materialismus – auf Namen kommt es da nicht an – steht, sagt: Der Forscher ist noch weit davon entfernt, durch die sinnliche Erforschung alle Rätsel des Daseins zu lösen; aber man habe Geduld, die Zeit wird kommen, wo das, was heute noch mit einem dichten Schleier bedeckt ist, klargeligt wird durch die Naturwissenschaft selbst; die Zeit wird kommen, wo die Altertumsforscher die in den heute noch bedeckten Erdschichten liegende vergangene Welt, die Natur
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+in ihrem Schaffen, enträtseln werden, wo die rein sinnliche Forschung hineinleuchten wird in die Vergangenheit. Kommen wird auch die Zeit - so wird mit Recht sagen, wer auf dem Boden der Forschung steht -, wo man im Laboratorium gewisse Stoffe zu unlebendigen Substanzen hinzumischen wird, so daß es gelingen wird, die lebendige Substanz im Laboratorium selbst herzustellen. Vielleicht erscheint das heute noch als eine waghalsige Idee; aber die Entwicklung geht in dieser Richtung, und dann kannst du, Geheimwissenschaftler, einpacken, weil du kein Recht mehr haben wirst, von übersinnlichen Dingen zu sprechen, wenn wir gezeigt haben werden, daß selbst das Leben durch eine Kombination von Stoffen und Kräften herzustellen ist.
+
+Die Antwort auf solche Einwendungen muß die ganze Serie der Vorträge geben. Es wäre leichtsinnig, heute schon eine Antwort geben zu wollen. Nur eines will ich sagen, was in typischer Weise zeigen soll, wie mißverständlich die Einwände sind, die gegen die scheinbar obskurantische Geheimwissenschaft geführt werden: "Während die Naturwissenschaft heute mit einem gewissen Recht die Behauptung aufstellt, es werde einst die Zeit kommen, wo aus bloß unlebendigen Substanzen Lebendiges dargestellt werden wird, und diese Forschung, die sich zum Bekenntnis einer Art von Religion erhebt, dadurch etwas anzuführen glaubt, was die Geheimwissenschaft ohne weiteres in Grund und Boden bohrt, ist es in Wahrheit so, daß die Geheimwissenschaft das immer gewußt hat! Ja, weil sie das gewußt hat, konnte sie so fest und sicher stehen! Es ist ein völliges Verkennen des wahren Charakters der Geheimwissenschaft, wenn man solche Einwände gegen sie erhebt. Die vollständige Antwort wird sich im Verlaufe der Vorträge ergeben.
+
+Es gibt andere Zeitgenossen, die sagen: Es mag ganz gut sein, daß es hinter unserer Sinnenwelt ein Übersinnliches
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+gibt; aber der Mensch kann mit seinen Kräften und Fähigkeiten von einer solchen übersinnlichen Welt nichts wissen und darf daher über sie nicht sprechen, wenn von Wissenschaft die Rede sein soll. - Das ist eine noch viel weiter verbreitete Meinung. Man möchte überhaupt die Frage nach dem Übersinnlichen nicht entscheiden, man möchte es ganz unbestimmt lassen, es zum Gegenstand eines rein subjektiven, willkürlichen Glaubens machen, ob es Sinne gibt, um das Übersinnliche wahrnehmen zu können. Der Mensch könne unmöglich hinter die äußere Natur schauen und er entferne sich von dem Boden des Wissens, bewege sich auf dem Gebiete willkürlichen Glaubens, wenn er die Schranken der äußeren Natur zu überschreiten suche.
+
+Dieser Anschauung begegnet die Geheimwissenschaft in folgender Art. Sie sagt: Ihr habt das Erkenntnisvermögen untersucht, das den Menschen zur Verfügung steht. Ihr habt gezeigt, daß, wenn der Mensch dieses Erkenntnisvermögens anwendet, er unmöglich hinter die Natur kommen kann, wo das Übersinnliche beginnt. Und nun sagt ihr: Weil wir dieses bewiesen haben, ist die Geheimwissenschaft oder die Wissenschaft des Übersinnlichen unmöglich. - Wer so spricht, setzt voraus, daß ihm die Geheimwissenschaft unrecht gibt. Das ist aber nicht der Fall. Die Geheimwissenschaft gibt ihm ganz recht, sie steht akkurat auf dem gleichen Standpunkt. Die Geheimwissenschaft sagt: Ihr habt euer Erkenntnisvermögen untersucht, habt genau gezeigt, wie weit man damit kommen kann. Ihr habt gezeigt, daß man damit nicht ins Übersinnliche hineinkommen kann. Ihr habt vollkommen recht; aber ihr macht nur einen Fehler, den Fehler, daß ihr nicht beim Positiven bleibt, daß ihr nicht bloß dasjenige behauptet, was ihr wißt, sondern noch etwas dazu, was ihr nicht wissen könnt, indem ihr behauptet, daß es kein Mensch wissen kann.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Hier begegnen wir einem Zug bei unseren auf sogenannter wissenschaftlicher Basis stehenden Zeitgenossen, der gar nicht aus der "Wissenschaft, aus der Erkenntnis kommt, sondern aus einem allgemeinen Gefühl, einem unausgesprochenen Instinkt unserer Zeit. Freilich wird dieser Instinkt nur dann sichtbar, wenn man als ein ganz unbefangener, ruhiger Beobachter unser Zeitgeschehen ein wenig prüft. Versuchen Sie es einmal, ein Journal, eine Zeitung, irgendein populäres oder selbst ein gelehrtes Buch in die Hand zu nehmen, das sich heutzutage von irgendeiner Richtung her mit solchen Fragen, wie ich sie angeschlagen habe, beschäftigt. Sie werden nichts öfter finden als in irgendeiner Abwandlung das Wort, das von einem höheren geistigen Gesichtspunkt aus ein verhängnisvolles ist: Wir können nur das oder jenes wissen. Man kann über dies oder jenes kein Urteil fällen. — Überzeugen Sie sich selbst, ob, wenn von diesen Dingen die Rede ist, dieses «Man» oder «Wir» nicht immer zu finden ist! Recht unscheinbar ist es, aber aus einem tief eingenisteten Instinkt heraus geboren. Es ist der Glaube, daß jeder einzelne durch das, was er einsehen kann, durch das, was er weiß, für alles Erkennen eine gewisse Unfehlbarkeit habe, und daß ein jeder sagen könne, was nicht nur er, sondern die Menschen überhaupt, was «wir» wissen und nicht wissen können. Aus diesem Instinkt heraus können es unsere Zeitgenossen gar nicht über sich bringen, zu glauben, daß es eine wirkliche Entwicklung in bezug auf das Erkennen geben könne. Und doch, wie absurd ist diese Auffassung, wenn sie der Mensch nur in bezug auf sein eigenes Leben ins Auge faßt! Man denke nur einmal nach: Wann tritt für den einzelnen Menschen der Punkt ein, wo er entscheiden kann, wo die Grenze seines Unterscheidungsvermögens liegt? Kann er mit fünfundzwanzig, mit sechsunddreißig, sechzig oder gar schon mit
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+zehn Jahren entscheiden, wo die Grenzen des Erkenntnisvermögens sind? Gibt es nicht in jedem Leben eine Entwicklung? Stellen wir nicht im Kindesalter andere Behauptungen auf als im späteren Leben? Dürfen wir den Gedanken hegen, wir könnten von niemandem in der Welt etwas lernen, niemand in der Welt könne mehr wissen als wir? Das aber liegt doch als Instinkt in der Natur unserer Zeitgenossen, daß jeder von sich aus die Grenzen des Erkenntnisvermögens bestimmt. Und aus diesem Instinkt geht nicht nur diese Behauptung hervor, sondern zahlreiche Werke, die sich auf Tausenden von Seiten damit beschäftigen. Sie gehen, wenn man hinter die Kulissen schaut, letztlich aus nichts anderem hervor, als daß der Mensch in diesem Instinkt lebt.
+
+Der Geheimwissenschafter aber stellt dem das Folgende entgegen. Er sagt: Für diejenigen Erkenntnisse, von denen du meinst, daß sie dir klar sind, hast du vollständig recht, mehr kannst du da nicht erkennen. Aber es gibt eine Entwicklung des Erkenntnisvermögens. Willst du in die übersinnliche Welt eindringen, so mußt du übersinnliches Erkenntnisvermögen entwickeln. Und das ist möglich! - So widerspricht der Standpunkt, den die Geheimwissenschaft einnimmt, durchaus nicht dem, was diese Menschen sagen. Sie ist sogar mit ihnen einverstanden. Sie sagt nur, der Mensch hat noch ein anderes Erkenntnisvermögen in sich, das ohne diese Grenzen ist, und das er in sich entwickeln kann. Nun, hat irgend jemand in der Welt - betrachten wir es einmal vom Standpunkte eines klaren logischen Denkens - ein Recht zu sagen, daß es so etwas wie eine Entwicklung des Erkenntnisvermögens nicht gibt? Was kann er sagen? Er kann nur sagen, ich kenne es nicht, mir ist es unbekannt. Er kann sich selbst die Grenze ziehen, durch die er nicht hineinsehen kann in eine solche Entwicklung.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 17
+
+---
+
+Wenn er sagt, meine Grenze des Erkenntnisvermögens reicht nicht dazu aus, so ist er verbunden, zu sagen: Ich weiß nicht. - Dann darf er auch nichts entscheiden wollen über solche Tatsachen. Nicht derjenige, der nichts weiß über die übersinnliche Welt, kann sagen, ob es eine solche gibt oder nicht, sondern derjenige, der etwas darüber weiß. Die Geheimwissenschaft steht gerade auf dem Standpunkte des Positivismus in seiner ganzen Universalität. Der Geheimwissenschafter sagt: Niemand hat zu entscheiden, was man wissen oder nicht wissen kann, sondern jeder hat nur zu entscheiden über das, was er selbst weiß.
+
+Damit ist ein Gefühlsmoment berührt, das nicht ohne Bedeutung ist in unserer Geheimwissenschaft. Man sagt, die Geheimwissenschaft führe zu geistigem Hochmut, weil die Geisteswissenschafter behaupten, sie könnten über die gewöhnliche Erkenntnis hinausdringen. Aber gerade das Umgekehrte ist der Fall. Es gibt keinen größeren Hochmut als den, der von sich aus entscheiden will, nicht nur über das, was er nicht weiß, sondern sogar entscheiden will darüber, was der Mensch wissen darf oder nicht wissen darf. Das ist der Hochmut, der sich selbst als Norm hinstellt für alle Menschen. Dagegen ist es geistige Demut, wenn der, welcher auf dem Boden der Geheimwissenschaft steht, selbst über nichts anderes entscheiden will, als was er wissen kann. Über das, was jenseits unserer Grenzen der Erkenntnis liegt, reden wir nicht. Das ist die Gesinnung, die zur wahren Demut führt. Daher wird das, um was es sich in der Geheimwissenschaft handelt, immer einen persönlichen Charakter tragen müssen. Das ist kein Schaden. Das spricht auch nicht gegen die Gültigkeit der geheimwissenschaftlichen Wahrheiten. Wir müssen uns darüber klar sein, daß der Mensch das, was er über höchste und übersinnliche Dinge finden will und finden soll, in seiner innersten Seele finden muß durch die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 18
+
+---
+
+Kraft, die er im geistigen Leben immer durch sich selbst entwickelt. Wenn das aber so ist, so muß im Grunde genommen jeder, der die Tatsachen der Geheimwissenschaft selber sehen will, auf sein eigenes Inneres hingewiesen werden. Hieraus leiten viele Gegner ihre Einwände ab, indem sie sagen, daß etwas, was nur im menschlichen Innern ergründet wird, nur dem Glauben anheimgestellt werden könne, keine allgemeine Gültigkeit beanspruchen dürfe.
+
+Dem unbefangenen Beobachter zeigt sich, wie engherzig dieser Schluß ist. Es gibt etwas, das freilich die wenigsten zum Vergleich heranziehen können, das aber für den, der in der Lage dazu ist, ein sehr gutes Beispiel bietet. Es ist etwas, was wir ebenso wie die geheimwissenschaftlichen Wahrheiten in unserem Innern erleben müssen; jegliches Äußerliche kann uns dabei nichts anderes sein als ein Beispiel, eine Anregung: Das sind die mathematischen Wahrheiten. Diese sind zugleich die allgemeinsten Wahrheiten. Wer sie zum Vergleich heranziehen kann, der wird diesen Vergleich vollständig passend finden. Die mathematische Wahrheit ist etwas, was der Mensch niemals durch die äußeren Sinne finden kann. Sie können die drei Winkel eines Dreiecks noch so viel messen, niemals können Sie die unerschütterliche Wahrheit finden, daß diese drei Winkel zusammen 180 Grad sind. Das müssen Sie im Innern erkennen. So ist es mit allen geometrischen und allen mathematischen Wahrheiten.
+
+Zweierlei kommt gegenüber solchen Wahrheiten, die man im Inneren erkennt, in Betracht. Das erste ist etwas heute im strengsten Sinne Unpopuläres. Man sagt: Wie kann man bei etwas, was bloß im Innern des Menschen lebt, auf die Zustimmung der anderen rechnen? Wie können wir glauben, daß etwas wahr ist, was wir nur in uns erkennen? — Gerade das Umgekehrte ist aber richtig. Für die wirkliche Wahr-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch: 5 6 Seite: 19
+
+---
+
+heit entscheidet die Mehrheit gar nichts. Wenn Sie irgendeinen mathematischen Satz kennengelernt, ihn eingesehen, sich von seiner Wahrheit innerlich überzeugt haben, dann gilt für Sie zweierlei: Erstens, wenn eine Million Menschen Ihnen widerspricht und nicht Ihrer Meinung ist, so erschüttert Sie das gar nicht. Das ist das eine. Das zweite ist, daß Sie sich klar darüber sind, daß jeder, der in sich selbst die gleichen Bedingungen wie Sie herstellt, um zu erkennen, mit Ihnen, trotzdem Sie die Wahrheit im Innern gefunden haben, gleicher Meinung sein muß. So wahr es ist, daß Majorität gar nichts entscheidet über mathematische Wahrheiten, so wahr ist es, daß - wenn die Bedingungen richtig hergestellt werden, und jedem kann dies beigebracht werden - die Menge nichts entscheiden kann über die Ergebnisse der Geheimwissenschaft. Wir können sie in unserem Inneren finden, und nichts Äußeres kann uns davon abbringen, wenn wir sie einmal in unserem Inneren erkannt haben. In den alten Zeiten hießen die Anhänger der Geheimwissenschaft, die sich Gnostiker nannten, diese Geheim Wissenschaft Mathesis; nicht um damit zu sagen, daß sie eine Mathematik sei, sondern weil diese Geheimwissenschaft den Charakter der mathematischen Wahrheiten hat. Es ist aber lange her, daß man den Charakter der Geheim Wissenschaft in dieser Reinheit schaute. Es ist bedauerlich, daß vieles sich da hineingefunden hat, was den Blick trübt, so daß diejenigen, welche auf dem Standpunkte der Wissenschaft stehen, einen Horror bekommen, wenn ihnen so etwas wie Geheimwissenschaft begegnet.
+
+So werden wir auf Fragen geführt, die uns hinweisen auf zwei Worte, die die Menschen in der Gegenwart nicht oft genug anwenden können: auf die Worte Wissen und Glauben. Man sagt: über die Dinge, über die sich die Wissenschaft verbreitet, könne man etwas wissen, über die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 20
+
+---
+
+anderen Dinge könne man nur etwas glauben, das sei dann eine persönliche Sache. Nur weil diejenigen, die das sagen, nicht einsehen, wie man die Bedingungen herstellt, damit ein jeglicher Glaube zu einem Wissen werden kann, nur deshalb können sie so sprechen. Wer nicht imstande ist, den mathematischen Beweis zu führen, daß die drei Winkel des Dreiecks 180 Grad betragen, der muß es glauben. Wer nicht imstande ist, den Beweis zu führen, der in der Geheimwissenschaft geführt ist für das Leben des Menschen zwischen Tod und neuer Geburt, der wird diese Dinge glauben müssen. Aber er wird auch die Möglichkeit finden, für sich diesen Beweis zu führen, wie wir es im Verlaufe dieser Vorträge noch sehen werden.
+
+Von anderer Seite wird gegen die Geheimwissenschaft eingewendet, daß sie, aus dem Chaos unserer Zeit herausgeboren, auch so etwas sei wie eine neue religiöse Sekte, entstanden im Gehirn einzelner Schwärmer und Träumer. Was von dieser Seite vorgebracht wird, beruht auf einer solchen Verkennung der Sache, daß es schwer ist, sich damit auseinanderzusetzen. Die Geheimwissenschaft hat nichts zu tun mit Dingen, die in irgendeinen Zwiespalt, in eine Kollision mit einer bestehenden Religion kommen konnten, auch nicht mit irgend etwas, was man an die Stelle einer neuen Religion setzen will. Diejenigen Gegenstände, die bis jetzt Gegenstand aller Religionen waren, sind auch die Gegenstände des Obersinnlichen, der Geheimwissenschaft. Daher gibt es manche Berührungspunkte zwischen beiden. Nur eines kann ein richtiges, tiefes Verständnis dessen geben, was in den Religionen gegeben wird, nur eines ermöglicht es, die Religionen zu verstehen, und das ist: das, was in der Religion Glaube ist, zum Wissen zu erheben. Diener dessen zu sein, was die Religion auf anderem Wege sucht, das gehört gerade zur Mission der Geheimwissenschaft.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Wer hier den Einwand erhebt, es sei sündhaft, die Gegenstände der übersinnlichen Welt erforschen zu wollen, sie seien etwas, was nie aus der Menschennatur kommen könne, der Mensch müsse Vertrauen haben zu einer höheren Offenbarung und es sei vermessen, diese ergründen zu wollen -, dem kann entgegnet werden, daß es eine Sünde ist, dasjenige, was in der Welt im Keime vorhanden ist, brachliegen zu lassen. Denn die Keime hat der göttliche Weltengrund in die Welt gelegt, damit sie aufgehen, damit sie Blüten und Früchte tragen. Demjenigen, der die menschliche Erkenntniskraft beschränken will, indem er sagt, der Mensch solle sich nicht so vermessen, kann erwidert werden, daß es gerade eine Sünde wäre, die Erkenntniskraft veröden zu lassen. Nicht veröden lassen, sondern entwickeln sollen wir sie; dafür haben wir sie. Wer sich klarmachen kann, was es für eine Versündigung an der Menschennatur bedeutet, die Kräfte brachliegen zu lassen, sich abzusperren vor der übersinnlichen Welt, der wird diesen Einwand bald als ganz unmöglich aufgeben. So stellt sich die Geheimwissenschaft mit ihrer Gesinnung in die Strömungen der Zeit.
+
+Nicht beweisen will ich Ihnen heute, sondern erzählen, wie sich die Geheimwissenschaft in unserer Zeit darbietet. Dasjenige, was ihr Gegenstand ist, worauf sie ruht, ist in den weitesten Kreisen völlig unbekannt. Unbekannt ist es, daß es immer in der Menschheitsentwicklung einzelne Personen gegeben hat, welche sich in ernstester Art dieser Geheimwissenschaft hingegeben haben, welche aus eigener Erfahrung die Erlebnisse kannten, die man in der übersinnlichen Welt haben kann, für die persönliche Erfahrung war, was in solchen Vorträgen von uns dargelegt wird. Unbekannt ist es auch, daß es noch heute Menschen gibt, die in dieser Weise in die geistige Welt hineinschauen können.
+
+Nun kann da die Frage aufgeworfen werden: Warum
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 22
+
+---
+
+wurde so etwas vor der Menge verborgen, warum ist da etwas, was nicht allgemein bekanntgemacht worden ist? Wir werden sehen, wenn wir von den Gefahren der Geheimwissenschaft sprechen, warum für die, welche sich mit Recht Geheimforscher genannt haben, der Grundsatz bestand, nur solche mit der Geheimwissenschaft bekanntzumachen, die sich durch gewisse Eigenschaften ihres Lebens dazu reif gemacht haben. Heute hat man allerdings ganz andere Anschauungen über die Verbreitung des Wissens, als sie in der Geheimwissenschaft von jeher üblich waren. Wenn heute jemand etwas weiß, kann er nicht schnell genug sehen, daß das, was er weiß, als schwarze Tinktur aus seiner Feder fließt und mit Druckerschwärze in Buchstabenform hinausfliegt in alle Welt. Die Geheimforscher hatten aber ihre Gründe, ihr Wissen nur denen zu übergeben, die vorbereitet waren.
+
+Warum treten dann aber heute einzelne auf und berichten über die Ergebnisse der Geheim Wissenschaft? Auch das hat seine guten Gründe. Es hängt zusammen mit dem ganzen geistigen Fortschritt der Menschheit. Was heute jeder wissen kann durch populäre Schriften, die auf unserer ganz gewöhnlichen Sinneserkennnis beruhen, das ist, richtig angewendet, eine gute Vorbereitung für die Geheimwissenschaft. Auf der anderen Seite ist es eine völlige Verkennung der Tatsachen, zu glauben, daß unsere Naturwissenschaft zur Leugnung des Übersinnlichen führen muß. Vielmehr führt diese Naturwissenschaft, richtig verstanden, zur vollen Anerkennung des Übersinnlichen! Wer die naturwissenschaftlichen Tatsachen, die heute jedem zugänglich sind, in richtiger Weise aufnimmt und weiterverfolgt, der kommt direkt in die Sphäre des Übersinnlichen und Unsichtbaren. Wer aber diese naturwissenschaftlichen Wahrheiten in falscher, irrtümlicherweise weiterführt, der kommt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+zu der die heutige Menschheit vielleicht noch nicht so sehr, aber die zukünftige Menschheit sicher entnervenden, materialistischen Welt. Deshalb besteht heute die Notwendigkeit, jedem den Weg zu zeigen, um von diesen naturwissenschaftlichen Wahrheiten, soweit sie zugänglich sind, auch den geeigneten Gebrauch zu machen. In früheren Jahrhunderten war es nicht so. Jeder mußte eine lange Vorbereitung durchmachen, in der sein Denkvermögen, seine Logik, sein Charakter geschult wurden. Heute ist das naturwissenschaftliche Denken, richtig angewendet, schon eine Schulung dafür, um das, was aus der Geheimwissenschaft veröffentlicht wird, zu verstehen. Dieses naturwissenschaftliche Denken kann zur Wohltat für die Menschheit werden.
+
+Dasjenige, was die Menschen in die übersinnliche Welt hinaufführt, werden wir nach und nach als auf drei Wegen erreichbar kennenlernen. Wenn man von diesen drei Wegen spricht, setzt man sich der Gefahr aus, bei manchem als Träumer, und namentlich wenn man den dritten Weg schildert, als vollständiger Narr angesehen zu werden, obwohl diejenigen, die so urteilen, gar nichts wissen über das, worum es sich handelt. Drei Wege werden uns gezeigt: Die Imagination oder das Hellsehen, die Inspiration und die Intuition. Diese drei Wege bestehen seit Jahrtausenden in der Menschheitsentwicklung und sind von jeher gegangen worden. Es hat immer Menschen gegeben, welche durch die Methoden, die gelehrt werden, den Weg beschreiten durften in die übersinnliche Welt.
+
+Was sind nun solche Eingeweihte? Denken Sie sich, es gäbe Menschen, die in einer fernen Gegend wohnen, wo keine Eisenbahnen und keine Maschinen sind. Nun macht sich einer auf den Weg nach Europa und sieht, daß es Eisenbahnen und Maschinen gibt. Er geht nach Hause und erzählt seine Erfahrungen, dasjenige, was er selbst gesehen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+hat. Das ist dann ein in solche Dinge Eingeweihter. Solche Eingeweihte gibt es nun auch in bezug auf übersinnliche Dinge. Sie werden in den Geheimschulen zu einem Einblick in die übersinnliche, unsichtbare Welt geführt und können erzählen von dem, was sie dort erfahren haben.
+
+Die auf diese Weise Eingeweihten teilt man wiederum in zwei Klassen: in eigentliche Eingeweihte und in hellsichtige Menschen. Was ist nun ein Eingeweihter im engeren Sinne? Da müssen wir uns bekanntmachen mit einer Eigenschaft der Geheimwissenschaft, die nicht allgemein anerkannt werden wird, die aber doch vorhanden ist. Es ist nämlich so, daß, wenn die geheimwissenschaftlichen Wahrheiten einmal verkündigt, wenn sie vor den Menschen ausgesprochen worden sind, man nicht Hellseher zu sein braucht, um sie einzusehen und zu begreifen. Denn das Hellsehen ist wohl für das Auffinden, nicht aber zum Begreifen der geheimwissenschaftlichen Wahrheiten notwendig. Alles, was im Laufe dieses Winters als Ergebnis der Forschung in der höheren Welt gesagt werden wird, konnte nicht ohne hellseherische Gabe gefunden werden, nicht ohne daß die in jedem Menschen schlummernden geistigen Augen und geistigen Ohren entwickelt wurden. Hierüber wird im Zusammenhang mit der Einweihung Näheres besprochen werden. Werden diese Ergebnisse aber einmal ausgesprochen und in solche Formen gekleidet, daß sie dem heutigen Denken entsprechen, dann kann sie jeder begreifen. Niemals kann der Einwand gelten, daß man hellsichtig sein müßte, um die Dinge zu begreifen, die aus der Geheimwissenschaft heraus mitgeteilt werden. Nicht demjenigen sind sie unverständlich, der nicht hellsichtig ist, sondern demjenigen, der seinen logischen Verstand nicht im ganzen Umfange anwenden will. Einsehen kann man alles, wenn es einmal ausgesprochen ist, bis in die höchsten Gebiete hinauf.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 25
+
+---
+
+Derjenige nun, der, ohne selbst hellsichtig zu sein, alles einsieht, was die Geheimwissenschaft zu sagen hat, ist ein Eingeweihter. Wer aber selbst eintreten kann in diese Welten, die wir die unsichtbaren nennen, der ist ein Hellseher. In alten Zeiten, die noch gar nicht so lange hinter uns liegen, bestand in den Geheimschulen eine strenge Trennung zwischen Hellsehern und Eingeweihten. Man konnte als Eingeweihter, ohne Hellseher zu sein, hinaufsteigen zu den Erkenntnissen der höheren Welten, wenn man nur in richtiger Weise den Verstand anwendete. Auf der anderen Seite konnte man Hellseher sein, ohne in besonders hohem Grade eingeweiht zu sein. Es wird Ihnen schon klar werden, wie das gemeint ist. Denken Sie sich zwei Menschen, einen sehr gelehrten Herrn, der alles mögliche weiß, was die Physik und die Physiologie über das Licht und die Lichterscheinungen zu sagen haben, jedoch so kurzsichtig ist, daß er kaum zehn Zentimeter weit sehen kann: er sieht nicht viel, ist aber eingeweiht in die Gesetze des Lichtwirkens. So kann jemand eingeweiht sein in die übersinnliche Welt und schlecht darin sehen. Ein anderer kann ausgezeichnet in der äußeren sinnlichen Welt sehen, aber so gut wie nichts wissen von dem, was der gelehrte Herr weiß. So kann es auch Hellseher geben, vor deren geistigen Augen die geistigen Welten offen daliegen. Sie können hineinschauen in die geistige Welt, haben aber keine Wissenschaft, keine Erkenntnis von derselben. Daher hat man eine lange Zeit hindurch den Unterschied gemacht zwischen dem Hellseher und dem Eingeweihten. Um die Fülle des Lebens zu umfangen, brauchte man oft nicht einen, sondern viele Menschen. Die einen wurden, um weiterzukommen, nicht hellsichtig gemacht. Anderen wurden die geistigen Augen und Ohren geschaffen. Das, was in der Geheimwissenschaft vorhanden war, ist durch Mitteilung und Gedankenaustausch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 26
+
+---
+
+zwischen Geheimwissenschaftern und Hellsehern zustande gekommen.
+
+In unserer Zeit kann diese strenge Trennung zwischen Hellsehern und Eingeweihten gar nicht durchgeführt werden. Heute ist es notwendig, daß jedem, der einen bestimmten Grad der Einweihung erreicht hat, wenigstens auch die Möglichkeit gegeben wird, einen bestimmten Grad des Hellsehens zu erlangen. Der Grund dafür ist, daß in unserer Zeit das große restlose Vertrauen von Mensch zu Mensch nicht herzustellen ist. Heute will ein jeder selbst wissen und selbst sehen. Jener tiefe, hingebungsvolle Glaube, wie er früher von Mensch zu Mensch geherrscht hat, machte es möglich, daß es eine besondere Art von Hellsehern gab, von denen man vernahm, was sie in den höheren Welten wahrnahmen. Andere ordneten dann systematisch, was diese wahrgenommen hatten. Heute ist eine Art Harmonie in der Entwicklung der Fähigkeiten zum Eingeweihten und zum Hellseher geschaffen. Daher kann ein Drittes, das Adeptentum, heute sehr stark zurücktreten. Unsere Zeit ist dieser Adeptenschaft im höchsten Grade feindlich. Sie können sich ein Bild machen von dem Unterschied zwischen einem Adepten und einem Eingeweihten, wenn Sie sich folgendes vorstellen: Denken Sie sich eine Gegend, wo es Eisenbahnen gibt, und Sie haben diese gesehen. Ich frage nun, werden Sie, der Sie durch eigenes Schauen die positive Überzeugung bekommen haben, daß es so etwas gibt wie eine Eisenbahn, auch schon eine bauen können? Um sie bauen zu können, ist Übung und noch manches andere notwendig. Derjenige nun, der sich durch Übungen, von denen der Mensch heute kaum eine Vorstellung hat, nicht nur anschauende Kenntnisse in der geistigen Welt, sondern auch Übung erworben hat im Handhaben der geistigen Kräfte, die der äußeren sinnlichen Welt zugrunde liegen, der ist im Gegensatz zum Hellseher
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ein Adept. Dazu gehört eine viel längere Vorbereitung als selbst zum Hellseher. Außerdem ist unsere gegenwärtige Kulturentwicklung dem Unterricht in der Handhabung der geistigen Kräfte noch viel feindlicher als dem Bestreben, durch die Erkenntnis in die geistige Welt einzudringen.
+
+Daß es die Möglichkeit gibt, auf diesen drei Wegen in die höheren Welten einzudringen, daß es die Möglichkeit gibt, eine tiefere Erkenntnis zu erlangen als die gewöhnliche und sie zu erweitern, das der Menschheit zum Bewußtsein zu bringen, ist die Mission der Geheimwissenschaft. Und wenn wir uns fragen: Ist es Neugierde, ist es bloßer Erkenntnistrieb, die uns der Geheimwissenschaft zuführen, dann müssen wir darauf antworten: Nein, es handelt sich um etwas durchaus anderes! Um was es sich handelt - was viele, die heute zur Geheimwissenschaft kommen, auch wenn sie es nicht klar wissen, wenigstens dunkel ahnen -, das ist etwas, was tief in der sinnlichen Wissenschaft unserer Zeit schlummert, was aber in ihr niemals herauskommen kann und worüber wir im Vortrag über die Naturwissenschaft sprechen können. Es handelt sich nicht um das Erkennen, sondern um das Leben, um die Fortführung und die Steigerung des Lebens. Für viele ist es ja eine Sorge, daß die Geheimwissenschaft sie abwende vom unmittelbaren Leben. Aber gerade das Gegenteil ist richtig. Sie macht die Menschen tüchtig und stellt sie in das Leben hinein. Nur müssen sie die Fähigkeit und Stärke haben, sich in das geheimwissenschaftliche Gebiet hineinzubegeben.
+
+Schon seit Jahren sind hier Vorträge über die mannigfaltigsten Gegenstände gehalten worden. An diese Vorträge schlössen sich Diskussionen an. Auf diese Diskussionen soll hier nicht näher eingegangen werden. Aber wenn wir von der Mission der Geheimwissenschaft in unserer Zeit sprechen, soll eine Erscheinung berührt werden, weil sie als
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 28
+
+---
+
+besonders charakteristisch gelten muß. Sie trat uns besonders lebensvoll entgegen, als wir über «Bibel und Weisheit» sprachen. Da war es nicht nur eine, sondern es waren zahlreiche Persönlichkeiten, die gegen diese Dinge aus der Tiefe ihres Herzens heraus etwas eingewendet haben. Einwände wurden gemacht, die aus tiefer Empfindung kamen, und darunter war einer, der ungefähr so lautete: Da wird in der Geheimwissenschaft vieles gesagt über die siebengliedrige Menschennatur, über Reinkarnation und Karma, den Aufenthalt der Menschen in der übersinnlichen Welt zwischen dem Tod und einer neuen Geburt, die Entwicklung des Menschen durch die verschiedenen planetarischen Zustände und so weiter; Anforderungen werden gestellt an unseren Geist, an unser Denken. Was wir suchen, ist aber nicht so sehr Befriedigung des Geistes, sondern Vertiefung der Seele, inneres Leben. Das Göttliche im Gefühl, das Göttliche in der Empfindung wollen wir finden.
+
+Dieser Einwand wird aus der Tiefe der Empfindung heraus gemacht, und gerade Menschen, die fest in der Geheimwissenschaft stehen, können die Bedeutung eines solchen Einwandes voll würdigen, der da sagt: Gib uns Seele! Wir wissen, das Göttliche, das in uns lebt, führt uns in unsere eigenen Herzen hinein, bringt uns aber nicht Vorstellungen über Menschenwesen und Welt, über Geburt und Tod; es ist nicht das Geistige, was wir suchen.
+
+Menschen, die das sagen, ahnen nicht, daß sie selbst das größte Hindernis für die Lösung ihrer Herzensfrage sind. Sie ahnen nicht, daß durch das, was ihrem Geist gegeben werden soll, gerade ihre Seele das erhält, was sie verlangt. Sie ahnen nicht, daß wenn sie so reden, sie gerade das verwerfen, wessen ihre Seele bedarf. Es gibt nichts, was der Seele so sehr das Göttliche einträufelt, als die Erkenntnis der Weltenentwicklung. Wenn wir wissen, daß so, wie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 29
+
+---
+
+der Regenbogen in die sieben Farben des Regenbogenlichtes zerfällt, das Menschenwesen in sieben Glieder zerfällt, und uns nicht gegen diese Ideen verhärten, dann sind gerade diese Ideen das Lebensvolle für unsere Seele, um zu überwinden, was sich der Versenkung in das Geistige entgegenstellt. Einwände dieser Art begegnen Ihnen vor allem bei solchen Naturen, die es gerade so tief meinen, als der Wunsch, auf bequeme Weise die Vertiefung der Seele zu finden, es zuläßt, und die sich scheuen, in die wirkliche Tiefe der Seele einzudringen. Der Geheimforscher kann nicht die Empfindung aus der Seele der Menschen herausholen, sondern er muß die Menschen durch Erkenntnis in die geistige Welt hineinführen, muß ihnen zeigen, wie durch Erkenntnis die höchste Vertiefung zu erlangen ist, die man nur irgendwie anstreben kann. Eine Sehnsucht nach Befriedigung der Seele ist für den strebenden Menschen der größte Feind. Aber das ist es gerade, was viele von der Theosophie und von der Geistesforschung abhalf, sie wollen nicht hinein in diese energische Geistesarbeit, die zu gleicher Zeit eine Labsal der Seele ist. Nichts gibt es, was die Seele in dieser Weise hinaufheben könnte zum Göttlichen, als die Erkenntnis, die selbst eigene Vertiefung in die geistige Welt.
+
+Damit stehen wir an dem Punkte, wo die Erkenntnis unmittelbar in das Leben eingreift, wo sich das eröffnet, was wir das Gemütsmäßige, das Herzensmäßige der Geheimwissenschaft nennen können. Wie viele sind in unserer Zeit geplagt von Zweifeln, von allen möglichen Qualen in bezug auf Daseinsfragen und Weltenrätsel. Und dann wird in materialistischen Schriften gesagt, daß ein Gehirn nicht ohne krankhafte Veränderung zu solchen Anschauungen kommen kann, wie die Geisteswissenschaft sie darbietet. Man wird vom Standpunkte des Psychiaters aus die Geisteskrankheit ziemlich genau angeben können, die zu sol-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 30
+
+---
+
+dien Ausführungen führt, wie sie hier gegeben werden. Wenn wir uns die Freude madien wollten, zu arbeiten, wie die Psychiater es tun, so könnten wir uns auch so klassifizieren, daß der Gelehrte, welcher das sonst tut, seine helle Freude an uns haben würde. Es gibt eine kleine Schrift, die Sie ganz billig kaufen können, wo etwas berichtet wird, was absolut wahr ist. Es handelt sich um folgendes: In einer Reihe von Zeitungsartikeln wurde die Arterienverkalkung behandelt und die Symptome angegeben, an denen man diese Krankheit an sich selbst beobachten kann. Da hat der Verfasser der Schrift, ein Arzt, erleben müssen, daß eine ganze Menge Menschen zu ihm gekommen sind, die sich einbildeten, die Symptome der Arterienverkalkung zu haben. Und was wird nun daraus abgeleitet? Daß sehr viele Menschen durch das Chaotische unserer Kultur - selbst wenn sie sich einbilden, Nerven wie Stränge zu haben - in einem Zustand sind, daß, wenn sie von einer solchen Krankheit hören, sie sogleich von Furcht befallen und tatsächlich krank werden, wenn auch in einer psychischen Form. - Es wird auch gesagt, daß es eine Menge Menschen gibt, die nur Vorträge von Professor Soundso oder dem Naturheilkundigen Soundso zu hören brauchen, um die Krankheit zu haben, über die gesprochen wird. Was aber dabei nicht bedacht wird, ist, daß schon eine gewisse Form von geistiger Erkrankung dazugehört, um überhaupt so zu denken! Und das ist ein pathologischer Zug, der heute noch verhältnismäßig unschädlich auftritt, der aber immer schädlicher und schädlicher werden wird. Wir werden über solche Fragen und Tatsachen im Vortrag über «Krankheitswahn und Gesundheitsfieber» noch sprechen.
+
+Die Gründe der Gewißheit, auf denen der Mensch fußen kann, müssen immer aus dem Inneren kommen. Da muß aber der Geist stärker sein. Er muß die Fähigkeit haben,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 31
+
+---
+
+die Gewißheit im eigenen Inneren zu finden. Schwäche des Geistes ist es, nicht an sich zu glauben, nicht zu glauben, daß man in sich die Gründe finden kann. Schwäche des Geistes ist es, nur das zu glauben, was Augen sehen und Hände tasten, und nur mit der Hand die Wahrheit greifen zu wollen. Der Materialismus ist ein Zeichen geistiger Dekadenz, eine Aushöhlung des Inneren. Und wäre es nur eine theoretische Aushöhlung, so wäre es noch verhältnismäßig unschädlich. Aber diese theoretische Aushöhlung führt zur praktischen Untergrabung zuerst der seelischen und dann der physischen Gesundheit. Was wahr ist an dem Beispiel, das ist, daß kranke, unrichtige Gedanken wirklich Krankheiten hervorbringen. Wir werden in dem Vortrage über «Krankheitswahn und Gesundheitsfieber» aber hören, wie Gesundheit und physisches Wohl von den wahren oder unwahren Gedanken, die wir hegen, abhängen. Wir werden hören, wie in der Theosophie etwas verbreitet werden soll mit gesunden Gedanken, wie die Theosophie Verbreiter sein soll von gesundem Leben und brauchbaren Menschen für die Welt.
+
+Schon wenn wir innerhalb des Seelenlebens selber bleiben, sehen wir, wie derjenige, der stündlich von Zweifeln gequält wird, der kein Wissen erringen kann über die Fragen, die seine tiefsten Seelenbedürfnisse betreffen, untauglich ist zur Arbeit, und eine solche Seele wird zuletzt unfähig sein, den Körper gesund zu erhalten. Im Grunde genommen macht die Geheimwissenschaft nur das zur Tat, zur Wirklichkeit, was auch die Naturwissenschaft geahnt hat. Wenn zum Beispiel ein Naturwissenschafter wie Karl von Baer, dem Ernst Haeckel sein Werk «Ziele und Wege der heutigen Entwickelungsgeschichte» gewidmet hat, sagt: Ein Gedanke ist es, der die ganze Welt durchzieht, der die Planeten ordnet, der aus der Materie die lebendigen Wesen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+hervorgerufen hat, der in seinen Budistaben und in seinem Sinn in den mannigfaltigen Lebensformen erscheint und im Grunde genommen das Leben selber ist - dann darf man wohl hinzufügen: Und wenn dieser Gedanke, der in der übersinnlichen Welt allein gefunden werden kann, gehegt und gepflegt wird, wenn er bewußt Eingang findet in die Menschennatur, dann wird er die Menschen gesund, stark und tüchtig machen. Wird er dann nicht zuerst die Zweifel zerstreuen, die Gemüter beruhigen, die Herzen erheben und die Menschennatur gesund machen? Das ist eine tiefere Mission der Geheim Wissenschaft in unserer Zeit.—Einer Wissenschaft, die an der Oberfläche des Sinnlichen bleibt, ist es zuzuschreiben, daß der Mensch innerlich ausgehöhlt ist, und daß das Zeitalter des Materialismus auch das Zeitalter der Nervosität und der Dekonzentriertheit ist. Diese Zustände würden sich noch verschlimmern, wenn diejenigen die Oberhand behielten, die nur am Äußeren hängen.
+
+Die Geheimwissenschaft wird Gewißheit schaffen über die größten Rätsel des Daseins. Daher heißt sie Geheimwissenschaft, nicht weil sie etwas verbirgt, sondern weil ihre Lehren im Innersten gefunden werden müssen. Sie ist Geheimwissenschaft genau so, wie die Mathematik Geheimwissenschaft ist.
+
+Nur was als Gesinnung, als Aufforderung dem zugrunde liegt, was Geheimwissenschaft ist und was als Geheimlehre ihre Mission ausmacht, konnten wir in dem heutigen einleitenden Vortrag ausführen. Die Geheimwissenschaft gibt sich, wie Sie gesehen haben, keiner Illusion hin, weder über ihre Anhänger noch über ihre Gegner. Über alle Illusionen muß sie hinweg. Dadurch gibt sie dem Menschen die große harmonische Gesundheit nach allen Seiten. Das ist es, was als Gesinnung den einzelnen Wahrheiten, um die es sich handelt, zugrunde liegt. Auf diese Gesinnung kommt es im
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Grunde genommen an. Wozu kommt diese Gesinnung, wenn sie sich verbindet mit wirklichem Geheimforschen? Das sollen die Wintervorträge zeigen, dazu sollte der heutige Vortrag nur eine Art Ankündigung, eine Art Programm sein.
+
+Nun wird gegen das heute Gesagte vielleicht gerade von denen, die sich für sehr gescheit halten, viel eingewendet werden. Es wird vielleicht gesagt: Seht euch einmal eure Anhänger an! Das sind doch nicht Leute, die auf der Höhe der heutigen Wissenschaft stehen! Erst wenn ihr Leute haben werdet, die auf der Höhe der heutigen Wissenschaft stehen, werden wir an eine Zukunft, an eine Mission der Geheimwissenschaft glauben. - Wer so spricht, kennt nicht die geheimen und intimen Wege, welche der Geist der Menschheit geht. Wer fest auf dem Boden steht, den wir als den Boden der Geheim Wissenschaft charakterisiert haben, wer sich bewußt ist, daß die Wahrheit in der Seele gefunden werden muß und daß die Zustimmung nichts ausmacht, der bekennt sich im weitesten Umfange zu einem Satz, den ein großer Wahrheitsfreund und Wahrheitsforscher ausgesprochen hat. Ein solcher Wahrheitsforscher war Leonardo da Vinci der ein ebenso großer Forscher wie Maler und Künstler war, und der bekannt war mit den geheimnisvollen Strömen und Gesetzen, die die Welt durchfluten. Kein denkender Kopf wird glauben, daß in seinem Herzen nicht die wirkliche geheimwissenschaftliche Gesinnung gewaltet hat. An einer Stelle gibt er sein Bekenntnis zur einsam gefundenen Wahrheit, die ihre Mission gefunden hat in der Welt. Sie enthält das Bekenntnis: «Es ist von solcher Verächtlichkeit die Lüge, daß, wenn sie von Gott große Dinge sagte, sie seiner Göttlichkeit die Gnade raubte, und es ist von solcher Vortrefflichkeit die Wahrheit, daß, wenn sie ganz geringe Dinge lobte, dieselbigen edel werden.» - Machen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+wir uns einen solchen Grundsatz zum innersten Beweggrund unseres Seelenlebens, dann werden wir begreifen, wie der, welcher in der Geheimwissenschaft steht, über die Mission der Geheimwissenschaft unseres Zeitalters denkt.
+
+Zwei Bilder stehen vor der Seele des Geheimwissenschaftlers. Wer heute die große Kulturschöpfung des Christentums überblickt, wer das, was das Christentum in der Welt getan hat, ermessen will, der stelle sich zwei Bilder vor die Seele: Zuerst das alte kaiserliche Rom in der Zeit der ersten christlichen Jahrhunderte. Er sehe hin auf die Trümmer des alten Roms, die heute noch künden von dem, was damals in der gebildeten Welt vorgegangen ist. Aus diesem Bild wird er Trost und Sicherheit schöpfen können, wenn gesagt wird, die Gelehrten und Gebildeten wollen nichts wissen von Theosophie oder Geisteswissenschaft. Was wollten diejenigen, die da oben in diesen verfallenen Prachtgebäuden waren? Sie wollten – die Schaustellungen des Kolosseums! Und was hielten sie vom Christentum? Sie haben die Christen zu Pechfackeln gemacht und verbrannt! Rufen wir uns das so recht ins Gedächtnis.
+
+Und dann wenden wir den Blick zu einem anderen Bild. Dieses müssen wir allerdings an einem ganz anderen Orte suchen. Unter der Erde müssen wir es suchen, in den weit ausgedehnten Katakomben Roms, wo Mühselige und Beladene waren, die abseits standen von der Bildung und der tonangebenden Welt. Dahin, wo diese ihre Altäre aufrichteten, wo sie ihre Toten begruben und ihre heiligen Opfer darbrachten, dahin wenden wir unseren Blick.
+
+Und nachdem wir diese Bilder in unserer Seele hervorgerufen haben, fragen wir uns: Wie änderte sich das Bild im Laufe der Jahrhunderte? – Die unten waren, trugen in der Seele dasjenige, was die Welt eroberte, und das, was sich oben abspielte, ging zugrunde. Es mußte zurückweichen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 35
+
+---
+
+vor dem, was aus den verborgenen Stätten heraufdrang. So war der Gang der Dinge, und das ist für uns Trost und Hoffnung. Wir wissen es ganz genau, daß wir durch die eigentümlichen Zeitverhältnisse nur Spott und Hohn finden können. Wir finden, daß wir in ähnlicher Weise still und schlicht wirken müssen gerade bei denen, die vielleicht verachtet werden von den sogenannten Aufgeklärten. Wir wissen aber auch, daß das Bild ein ähnliches sein wird wie damals. Wir wissen, daß das, was früher verachtet wurde, entweder die anderen ergreifen und mitziehen wird, oder daß es über sie hinweggeht. Verwandeln wird ein richtiger Gesichtspunkt gegenüber der Geheimwissenschaft unsere Gesinnung, unsere Gefühle und Empfindungen. So gibt uns schon diese erste Betrachtung etwas von geistiger Gesundheit, die hervorgeht aus dem Willen zur Arbeit in der Welt, im Sinne der Aufwärtsentwicklung der Menschheit. Und diese Arbeit im Sinne unserer Gegenwart zu leisten, ist die Mission der Geheimwissenschaft in unserer Zeit.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# DIE NATURWISSENSCHAFT AM SCHEIDEWEGE
+
+Berlin, 17. Oktober 1907
+
+In dem einleitenden Vortrage, den ich vor acht Tagen hier zu halten die Ehre hatte, machte ich schon darauf aufmerksam, welches die beiden Grundvoraussetzungen der sogenannten Geisteswissenschaft oder, wenn Sie wollen, Theosophie sind. Es wurde gesagt, daß die Geisteswissenschaft auf zwei Säulen ruht: erstens darauf, daß sich der Mensch klar ist, daß es hinter unserer Sinnenwelt, die man mit Augen sehen und mit Händen greifen kann, eine geistige, übersinnliche Welt der Tatsachen, Begebenheiten und Wesenheiten gibt; zweitens, daß der Mensch fähig werden kann, in diese geistige Welt erkennend und auf einer höheren Stufe auch handelnd einzugreifen. Daß es eine geistige Welt gibt und daß diese dem Menschen zugänglich ist - so können wir kurz die Überzeugung der Geisteswissenschaft zum Ausdruck bringen.
+
+Von den verschiedensten Seiten her soll im Verlaufe dieser Wintervorträge diese Geisteswissenschaft beleuchtet werden. Heute soll ein Blick geworfen werden auf ihre Beziehung zu dem, was man Naturwissenschaft nennt. Zwar werden diejenigen unter Ihnen, welche zu diesen Vorträgen speziell aus dem Grunde kommen, um hier von den Ergebnissen der Geisteswissenschaft selbst und den Erlebnissen in den höheren Welten zu erfahren, vielleicht in dem heutigen Vortrage eine Art Abirrung von der regelmäßigen Strömung erblicken. Eigentliche Theosophen sind im allgemeinen der Auffassung, daß sie ihr Verhältnis zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+den naturwissenschaftlichen Ergebnissen gefunden haben, und so erscheint ihnen manchmal die Erörterung solcher Dinge wie auch die der Beziehung der Geisteswissenschaft zu anderen, aus der Naturwissenschaft folgenden Ergebnissen, etwas langweilig. Allein, wir kommen in den nächsten Vorträgen zu so spezifisch geisteswissenschaftlichen Themen, daß das heutige Intermezzo wohl geduldet werden darf, namentlich mit Rücksicht darauf, daß die schärfsten Angriffe und auch die stärksten Mißverständnisse in bezug auf die Geisteswissenschaft gerade von denen kommen, die fest auf dem Boden der Naturwissenschaft zu stehen vorgeben. Vor allen Dingen seien Sie sich klar darüber, daß in dem heutigen Vortrage nicht von einer der Naturwissenschaft gegnerischen Seite aus gesprochen wird. Bei der großen Kraft, welche heute die naturwissenschaftlichen Vorstellungen auf unsere Zeitgenossen ausüben, wäre es wahrlich ein mißliches Unterfangen, in eine Gegensätzlichkeit zu der Naturwissenschaft hineinzugeraten. Denn immer und immer wieder kann man hören: Die Naturwissenschaft steht auf dem Boden der Tatsachen, der Erfahrung, und alles, was mit diesen Tatsachen und Erfahrungen nicht übereinstimmt, muß in das Gebiet der Phantastik verwiesen werden. Das ist die Auskunft, die von vielen Seiten gegenüber solchen Dingen gegeben wird, wie sie gerade in diesen Wintervorträgen über Geisteswissenschaft ausgeführt werden sollen.
+
+Es wird, angesichts der allgemeinen Bildungsverhältnisse in unserer Zeit, am angemessensten sein, wenn der heutige Vortrag so objektiv, so ohne Anteil in bezug auf das Für und Wider wie möglich, bloß das Verhältnis der Naturwissenschaft zur Geisteswissenschaft darlegt. Aber von vornherein sei bemerkt, daß die Geisteswissenschaft als solche gar kein Interesse daran haben kann, sich mit der Natur-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Wissenschaft da besonders auseinanderzusetzen, wo es sich wirklich nur um die naturwissenschaftlichen Tatsachen handelt. Das könnte gar nicht ihre Aufgabe sein. Wem sollte es jemals einfallen, das Gebäude strenger Tatsachen irgendwie angreifen zu wollen? Wem sollte es einfallen, gegen das, was durch Experiment und Erfahrung auf naturwissenschaftlichem Gebiete feststeht, irgend etwas einzuwenden? Die Geisteswissenschaft fußt ja selbst durchaus auf der Erfahrung. Freilich auf Erfahrungen, wie sie das letzte Mal charakterisiert worden sind, auf Erfahrungen in den höheren, in den geistigen Welten. In bezug auf die methodischen Grundsätze ist sie aber durchaus im Einklang mit dem, was heute so oft gefordert wird in bezug auf die Naturwissenschaft. Sie geht ganz einig mit der Naturwissenschaft darin, daß allem Erkennen zuletzt die Erfahrung, das Erlebnis zugrunde liege. So wird es sich also in der Einleitung zu einer Reihe geisteswissenschaftlicher Vorträge weniger darum handeln, zu bestimmten naturwissenschaftlichen Ergebnissen der Gegenwart Stellung zu nehmen – weil dies nicht notwendig ist –, als darauf hinzuweisen, wie man den Naturwissenschafter in seinem naturwissenschaftlichen Denken ansehen muß. Das ist wichtig: daß wir den naturwissenschaftlichen Denkprozeß, wie er uns geboten wird, verfolgen.
+
+Da wird es sehr gut sein, wenn wir eine kurze Weile den Blick zurückwerfen auf das deutsche Geistesleben, das ein Bild des ganzen Geisteslebens der letzten Jahrzehnte bietet. Da kommt vor allem eines in Betracht: Heute ist die Naturwissenschaft für viele etwas geworden, was sie früher niemals war. Langsam und allmählich, durch vier Jahrhunderte hindurch hat sich das vorbereitet. Aber im 19. Jahrhundert ist es erst zum Höhepunkt dessen gekommen, was sich da langsam vorbereitete. Die Naturwissenschaft ist etwas ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 39
+
+---
+
+worden, was man bezeichnen könnte als eine Art Religion, eine Art Bekenntnis, oder besser gesagt, einzelne Menschen haben geglaubt, aus den naturwissenschaftlichen Ergebnissen unserer Zeit eine Art Bekenntnis, eine Art Religion bilden zu können. Viel wichtiger als Auseinandersetzungen über die naturwissenschaftlichen Tatsachen ist es für die Geisteswissenschaft, einen Blick zu werfen auf die Art und Weise, wie eine Art neuer Religion, eine Art neuen Bekenntnisses zustande gekommen ist auf Grund vermeintlicher naturwissenschaftlicher Tatsachen. Wer unbefangen unser Geistesleben betrachtet, kann nicht verkennen, daß heute Menschen entgegentreten der Annahme der geistigen Welt, entgegentreten dem religiösen Gefühl, indem sie sich darauf berufen, daß jedes Hinweisen auf eine geistige Welt widerlegt sei durch die neuen Ergebnisse der Naturwissenschaft. Man glaubt geradezu in gewissen Kreisen, mit den Ergebnissen der Naturwissenschaft jeden Hinweis auf eine geistige Welt beiseite geräumt zu haben. Vor hundert Jahren hätte noch niemand daran denken können, aus den naturwissenschaftlichen Tatsachen eine solche Folgerung zu ziehen. Gewiß hat es auch früher schon materialistische Bekenntnisse radikalster Art gegeben; aber sie haben niemals die Behauptung aufgestellt, man könne gemäß der «wahren Wissenschaft» die Welt nur materialistisch erklären. Und das Wort «wahre Wissenschaft» hat eine unsägliche Zauberkraft für unsere Zeitgenossen!
+
+Es wird viel gesprochen von früheren finsteren Zeiten der religiösen Wut, religiösen Streitigkeiten und religiösen Verfolgungen. Nicht im entferntesten soll beschönigt oder verteidigt werden, was damit getroffen wird. Aber wenn es in früheren Jahrhunderten zu diesen, die Menschheit in ihrem Denken und Fühlen wahrhaft erniedrigenden Dingen gekommen ist, bei einem unbefangenen Blick auf die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Entwicklung der Menschenseele, bei einem Vergleich des Denkens und Fühlens unserer Zeit mit dem Denken und Fühlen früherer Zeiten ergibt sich doch etwas Eigentümliches. Wer unbefangen nachdenkt, wird das, was jetzt nur als Behauptung hingestellt werden soll, überall bestätigt finden können.
+
+Zwar sind viele Zeiten finster und intolerant gewesen, aber eine Intoleranz mit einem ungeheuren Unfehlbarkeitsdünkel ist unserer Zeit geblieben! Diese innere Intoleranz begeht keine äußeren Ausschreitungen und äußeren Verfolgungen, obwohl man es auch schon erleben kann, daß gegen den, der über die geistige Welt vorträgt, nach der Polizei und dem Staatsanwalt gerufen wird. Doch das sind Ausnahmen; äußerlich ist unsere Zeit tolerant. Nur in bezug auf das Denken gilt jeder als Dummkopf, als Phantast oder zumindest als unverständig, welcher nicht das Glaubensbekenntnis derer teilen kann, die da sagen: Auf Grund der naturwissenschaftlichen Tatsachen ergibt sich, daß unmöglich etwas über die geistige Seite der Welt auszusagen ist. - Langsam hat sich das vorbereitet. Im 19. Jahrhundert ist man damit auf den Höhepunkt gekommen. Es ist wohl begründet, daß es so gekommen ist. Und wenn wir nach dem Grund forschen, so müssen wir sagen, der Grund ist ein solcher, der mit großen und gewaltigen Fortschritten der Menschheit zusammenhängt. Da sehen wir, wie in der neueren Zeit die Menschen die äußere physische Welt mit allen erdenklichen Instrumenten und kunstvoll ausgebauten Methoden erforscht haben, die nach und nach in ihrer Art ans Wunderbare grenzen. Wir sehen, wie es begonnen hat mit der Astronomie und mit der Anschauung des astronomischen Weltgebäudes, wie dann Stück für Stück der physischen Welt erobert worden ist von dem, was sich mit dem bewaffneten Auge erforschen und mit
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+dem Verstande begreifen läßt. Und im 19. Jahrhundert hat sich gezeigt, daß diese Art von Forschung nicht nur hineinzublicken vermag in die leblose Natur, sondern sie hat auch hineingeleuchtet, tief und bedeutsam, in die lebendige Natur.
+
+Wer das Geistesleben mit objektivem Blick zu verfolgen vermag, der weiß, daß es einen ungeheuren Fortschritt bedeutete, als in den dreißiger Jahren des 19. Jahrhunderts Schieiden für die Tier- und Pflanzenwelt den kleinsten Teil als ein gewissermaßen lebendiges Wesen entdeckte: die Zelle. Es war auf einmal klar, daß durch die Tatsachen, die man jetzt durch das Mikroskop und die neue Forschungsrnethode entdeckte, eine große Reihe früherer Vermutungen hinwegfallen mußte. Man hat viel darüber nachgedacht, was dieser Organismus im Inneren eigentlich sei, der unsere Lebewesen zusammensetzt. Nun hatte man das entdeckt, was dem Denken und Fühlen des 19. Jahrhunderts so sehr entsprach: Man sah augenscheinlich, wie sich der Organismus aufbaut aus unzähligen und äußerst kleinen Lebewesen. Man sah jetzt, wie sie zusammenwirkten und den Menschenorganismus ergaben. Dasjenige, worüber man viel gemutmaßt und sich viele Gedanken gemacht hatte, lag für die tatsächliche Forschung jetzt vor.
+
+Hatte man so einen Blick in die Welt des Lebens getan, so war es ein großer Fortschritt, als durch Kircbhoff und Bunsen die Spektralanalyse bekannt wurde. Durch dieses wunderbare Instrument, das Spektroskop, konnte jetzt nachgewiesen werden, daß dieselben Stoffe, welche unsere irdische Welt hier zusammensetzen, auch in der übrigen Welt vorhanden sind. Man sah es an den Tatsachen, die das Spektroskop uns lieferte. Und als dann Darwin kam mit der großen, ja überreichen Fülle von Tatsachen, welche zeigen, wie die Lebewesen sich unter dem Einfluß äußerer Be
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 42
+
+---
+
+dingungen verändern, abhängig sind von dem Ort, an dem sie leben, und es ihm gelang, die Reste uralter Lebewesen, welche in den Schichten unserer Erde sind, tatsächlich zu erforschen, und als dann noch hinzutrat die paläontologische Forschung, welche eine Brücke bildet zwischen der Geschichte und der Naturwissenschaft, da war für dieses Fühlen und Denken des 19. Jahrhunderts etwas außerordentlich Wesentliches gegeben. Es war das gegeben, was man eine feste, sichere Stütze nennen konnte.
+
+Insbesondere in Deutschland empfand man den Segen einer solchen festen, sicheren Stütze. Man hatte gerade in Deutschland eine große, idealistisch-philosophische geistige Weltanschauung, die sich knüpfte an Namen wie Fichte, Schelling, Hegel. Man hatte hinter sich eine Reihe von kühnen, überragenden Denkversuchen. Man war nun der Meinung, diese Denkversuche hätten etwas Subjektiv-Willkürliches, etwas, was jeder andere mitmachen könne oder nicht. Was Hegel, was Fichte gedacht haben, das haben sie für sich gedacht; ein anderer mag anders denken. Damit kommen wir - so meinte man - in ein Gewirre von Weltanschauungen hinein. Aber das geschieht eben nur, wenn wir den sicherern Boden der Tatsachen verlassen, wenn wir zum Beispiel unterlassen, zu sehen, wie der kleinste Organismus aus kleinsten Lebewesen zusammengesetzt ist. Denn da würden wir feststellen, daß Tausende, die in das Mikroskop hineinsehen, das gleiche sehen und das gleiche beschreiben. Die Schichten der Erdbildung muß jeder, der sie kennt, in der gleichen Weise beschreiben. Das ist der sichere, feste Boden der Tatsachen.
+
+Es ist nicht dabei geblieben, daß man gesagt hat: Wer auf diesem Boden der Tatsachen steht, der geht sicher, und alles übrige wollen wir unberührt lassen. Wäre man auf dem Boden der Tatsachen stehengeblieben, niemals hätten
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+daraus Bekenntnisse, ja religiöse Probleme entstehen können. Die wahre Naturwissenschaft, die sidi auf Beobachtung stützt, mit Ausschluß der übersinnlichen Welt, wird immer sicher gehen, selbst wenn sie sich sinnlich begrenzt. Sie wird zu sicheren Tatsachen kommen. Aber diese Tatsachen haben suggestiv, ja hypnotisierend gewirkt! Aus diesen naturwissenschaftlichen Tatsachen heraus hat man eine Art auf Naturwissenschaft gegründeter atheistischer oder materialistischer Religion, eine Art Bekenntnis gemacht. Nun könnte man sagen, durch jedes Bekenntnis sei es möglich, daß der Mensch fest und stark sei im Leben, das Richtige werde sich finden im Laufe der Menschheitsentwicklung, es komme nicht darauf an, wie der Mensch zu den Fragen der übersinnlichen Welt stehe. Aber gerade das wird sich uns zeigen im Verlaufe der Vorträge, daß es nicht richtig ist, zu denken, es sei gleichgültig, wie der Mensch empfindet und vorstellt. Gerade das werden wir nachweisen, daß Empfindung und Vorstellung eine reale Welt sind, und daß die Zukunft nicht nur der Erde, sondern des ganzen Menschengeschlechts davon abhängt, wie der Mensch denkt.
+
+Wie tief und wahr dieser Satz ist, das werden wir im Laufe der Wintervorträge sehen. Nicht um theoretisches Gezanke ist es der Geisteswissenschaft zu tun, sondern darum, in nützlicher und der menschlichen Wesenheit entsprechender Weise zu wirken. Ob der einzelne materielle Körper aus Atomen besteht oder nicht, ob der einzelne materielle Organismus aus einzelnen Zellen zusammengesetzt ist oder nicht, ob in den übrigen Weltkörpern dieselben Stoffe sind wie auf der Erde oder nicht, das alles sind rein tatsächliche Fragen. Aber durch die Entscheidung dieser tatsächlichen Fragen wird niemals etwas ausgesagt über das Schicksal dessen, was wir im Menschen Seele oder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Geist nennen. Und bleibt man dabei, die Tatsachen zu konstatieren und zu beschreiben, und überschreitet diese Grenze nicht ins Seelengebiet hinein, dann kann es keinen Zwiespalt geben zwischen Naturwissenschaft und Geisteswissenschaft. Aber dabei ist es eben nicht geblieben. Es wurden Theorien aufgebaut, Vorstellungen konstruiert, mit denen sich überhaupt kein Seelenwesen, kein geistiges Dasein vereinen läßt.
+
+Wir brauchen nur einen Blick auf einige Jahrzehnte der Entwicklung zurückzuwerfen. Heute ist es schon fast vergessen, wie im 19. Jahrhundert die sogenannte Kraft- und Stofflehre aufgetaucht ist; aber es würde gerade für den außerhalb der Geisteswissenschaft Stehenden gut sein, den eigentlichen Grund der Kraft- und Stofflehre ins Auge zu fassen.
+
+Stellen wir uns das Bild der trockenen Kraft- und Stofflehre vor, wie sie damals war. Sie ging philosophisch hervor aus dem, was die naturwissenschaftlichen Tatsachen gebracht hatten. Man hatte gefunden, daß der Mensch aus einzelnen Zellen bestand. Man hatte chemische und physische Prozesse entdeckt und gesagt, alle unsere Körper bestünden aus Molekülen und Atomen, und durch das Spiel und die Bewegung der Atome entstünden die Erscheinungen um uns herum. Diejenigen, die so im vierzigsten, fünfzigsten Jahre stehen und die Gelehrtenbildung hinter sich haben, die wissen sich lebhaft zu erinnern an die Zeit, in der die sogenannte Wärmetheorie alles beherrschte. Da waren die großen Entdeckungen auf dem Gebiete der Wärmelehre zu einer solchen Gestalt gekommen, daß man sich irgendein Gas so vorgestellt hat, daß es aus Millionen kleinster Teile, Moleküle und Atome bestehe, die in einer unendlich komplizierten Bewegung sind, sich dabei stoßen und zurückprallen und dadurch die Erscheinungen der Wärme hervor-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+bringen. Was war da Wärme? Nichts anderes als ein Ergebnis dessen, was draußen im Raum existiert als ein mannigfaltiges Spiel von durcheinander sich bewegenden und stoßenden Atomen. Man sagte es trocken heraus in der damaligen Zeit: Das, was du als Wärme empfindest, ist nichts als eine Bewegung, die die kleinsten Teile der Körper ausführen, und von der Stärke der Stöße, von der Heftigkeit der Bewegung hängt der Grad der Wärme ab. So war in der Außenwelt für die Wärmetheorie nichts vorhanden als die durcheinanderwirbelnden Atome, und was man mit dem Worte Wärme meinte, war eine subjektive Empfindung, eine Wirkung auf den menschlichen Organismus oder auf das Gehirn, die man sich auch materiell vorstellte. Aber nicht nur die Wärme, alles wurde vorgestellt als eine solche Bewegung der Atome! Das muß man festhalten. Denn kommt man einmal zu der materialistischen Vorstellung, dann ist sie wie ein Moloch: Sie verschlingt das Geistige, so wie die Moleküle und Atome es verschlungen haben.
+
+Nehmen Sie Bücher jener Zeit über die Lichterscheinungen zur Hand, so können Sie trocken ausgesprochen finden: Das, was ihr rot oder blau nennt, ist nur eine Wirkung auf eure Nerven, ist nur in euch. Draußen in der Welt gibt es kein Licht und keine Farbe, da gibt es nur den die ganze Welt durchdringenden Äther, und die eigentümliche Bewegung dieses Äthers wirkt auf euch und bewirkt die Empfindung der Farbe. So ist objektiv draußen in der Welt das Licht vorhanden als Bewegung des Weltenäthers, und was ihr empfindet, ist eigentlich ein Nichts. - Kurz, die eigentliche Realität wurde der leere Raum, erfüllt von in Bewegung befindlichen Atomen. Aus diesem, so nahm man an, gingen alle Erscheinungen hervor. Jemand, der sich radikal hätte ausdrücken wollen, hätte folgendes sagen können: Man denke sich alle Gehirne der Menschen weg,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 46
+
+---
+
+was bleibt dann? Nichts als der leere Raum, ausgefüllt mit Atomen, meinetwillen mit Atomen des Äthers und der mit Gewicht behafteten Materie, die in bestimmter Bewegung sind. Aber alles das, was Wahrnehmung, Empfindung in euch ist, was Geruchs-, Geschmacks-, Wärmeempfindung ist, das ist nicht mehr da, das ist subjektiv und nicht objektiv.
+
+Nur die Konsequenz aus dieser Voraussetzung zeigen Leute wie Büchner und Vogt um die Mitte des 19. Jahrhunderts. Sie finden in meiner Schrift «Welt- und Lebensanschauungen im 19. Jahrhundert» die Verdienste dieser Männer hervorgehoben, weil sie die eiserne Konsequenz gehabt haben, die Folgerungen einer solchen Anschauung zu ziehen. War draußen für die Farben- und Tonerscheinungen nichts anderes vorhanden als die bewegten Atome und Moleküle, dann war es selbstverständliche Folge, daß der Denker sagt: Dann ist auch im Menschen nichts anderes vorhanden als Materie, bestehend aus Atomen und Molekülen, die sich bewegen. - Es war nur die absolut eindeutige Konsequenz zu ziehen, die Vogt gezogen hat: Durch die Bewegung der Gehirnmoleküle werden Gedanken abgeschieden wie andere Dinge durch Leber und Nieren und so weiter. - Dieses Wort, das viel böses Blut gemacht hat, war im Grunde genommen nur eine Konsequenz von Voraussetzungen, die auch andere machten, die nur nicht so weit gingen. Damit war notwendig verknüpft, daß man diese Welt der Atome und Moleküle, die man als das Absolute betrachtete, aufteilte in Stoffe, die man entdecken konnte. Man war der Meinung, daß alle Materie nur Bewegung sei und sich teilen lasse in Atome und Moleküle. Auch das Lebendige, das Leben selbst galt nur als eine komplizierte Bewegung der Atome in den lebendigen Körpern. Man erkannte, daß einzelne Körper sich in ihre einfachen Teile zerlegen lassen, Wasser zum Beispiel in Wasserstoff und Sauerstoff, Schwe-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+feisäure in Wasserstoff, Schwefel und Sauerstoff. - Nun kommt aber eine Grenze, wo die Forschungsmittel der Chemie keine weitere Zerlegung gestatten. Woher kommt das? Das kommt daher, daß unseren Stoffen einfache Elemente zugrunde liegen. Es gibt deren etwa siebzig und man sagt, alle unsere Stoffe seien Zusammenfügungen dieser siebzig Elemente, und diese bestünden wieder aus Atomen und Molekülen.
+
+Wie entsteht das Wasser? Dadurch, daß seine Elemente Sauerstoff und Wasserstoff, die sonst auseinander-, nebeneinanderliegen, sich ineinanderschieben. Das war es, auf was die Materialisten des 19. Jahrhunderts sich hauptsächlich stützten, daß man eine ganz bestimmte Anzahl von Elementen annahm. In jedem Chemiebuch können Sie sie finden: Wasserstoff, Sauerstoff, Kohlenstoff, Schwefel, Phosphor, Fluor, Chlor, Brom, Jod und so weiter. Alles Lebendige und Leblose entstehe durch mehr oder weniger komplizierte Aneinanderlegung der Moleküle, und den Komplex, den man Menschenseele nennt - alles, was der Mensch an Gefühlen, Empfindungen, Vorstellungen, Idealen und so weiter in sich habe -, betrachtete man auch als nichts anderes als das Ergebnis des Zusammenwirkens seiner kompliziert zusammengefügten Atome und Moleküle. Zwar haben einzelne wie Haeckel gesagt, daß es ein Unding sei, das, was man Seele nennt, als bloßes Ergebnis des Zusammenwirkens lebloser kleiner Atome zu erklären. Haeckel bildete sich daher die Anschauung, daß das Atom für sich schon eine Seele habe. Er ist der Meinung, daß alle diese Atome, die einen solchen Organismus aufbauen, eine kleine Seele haben und daß die vielen kleinen Seelen die Menschenseele ergeben.
+
+Nun, es ist wohl der kühnste, allерabenteuerlichste Aberglaube, von einer solchen Atomseele zu sprechen! Hier be-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ginnt ein Kapitel naturwissenschaftlichen Aberglaubens, das dann hineinläuft in das, was man Zellenseele, Seelenzelle und dergleiden nennt. Das weiter zu verfolgen, würde uns zu weit führen. Für uns handelt es sich darum, den Sinn und den Geist der Naturwissenschaft, wie er sich dargeboten hat, zu diarakterisieren. Aber wir blicken zurück in die Zeit, wo sich an die naturwissenschaftliche Suggestion angeschlossen hat eine Art materialistisches Bekenntnis. Dieses hat wirklich gewaltige geistige Folgen. Wer die Sachen nicht ernst nimmt, kann leicht darüber hinweggehen. Aber wahr ist es, daß dieses naturwissenschaftliche Bekenntnis jede Selbständigkeit der Seele und des Geistes ausschließt, daß es ausschließt, von Geist und Seele zu sprechen. Für diese Anschauung beginnt das, was die menschliche Seele erlebt, mit der ersten Regsamkeit des Organismus und verschwindet mit dem Zerfall des Organismus. Da ist der Mensch nichts anderes als eine aufgebaute Maschine, die, während der sechzig bis achtzig Jahre ihres Bestehens, aus sich heraus Erscheinungen erzeuge, wie Gedanken, Empfindungen und Gefühle, und wenn sie zerfalle, sei es aus, denn alle diese Erscheinungen seien nichts als die Zusammenfügung der Moleküle.
+
+So hat Vogt gedacht und alle jene, welche den kühnen, radikalen Schluß aus den naturwissenschaftlichen Voraussetzungen gezogen haben. Dann kam eine andere Partei in die Naturwissenschaft hinein. Einer ihrer Leute ist der berühmte Du Bois-Reymond. Er hat einen bedeutungsvollen Vortrag in einer Leipziger Naturforscherversammlung gehalten, in dem er etwas ins Gespräch hineingeworfen hat, das im Grunde genommen bis heute den Gegenstand vieler Besprechungen bildet und noch bilden muß. Er hat gesagt: Wir sind in der Naturwissenschaft so weit, daß sich in uns ein naturwissenschaftliches Ideal herausgebildet hat, das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 49
+
+---
+
+darin besteht, alles, was es gibt, zum Beispiel die Licht-, Farben- und Tonerscheinungen, zurückzuführen auf das Wirken von Atomen und Molekülen. Alles übrige ist Erscheinung; das aber sind die Realitäten. Alles, was entsteht, entsteht und besteht dadurch, daß sich diese in der Welt vorhandenen Atome aneinanderlagern, aneinanderstoßen, in schwingende Bewegung geraten. Wenn es möglich wäre - so meint Du Bois-Reymond -, für jede Erscheinung die entsprechende Bewegung und Lage der Atome anzugeben, dann wäre die Welt naturwissenschaftlich erklärt. Aber mit dieser naturwissenschaftlichen Erklärung sei etwas nicht erklärt und könne damit nicht erklärt werden. Du Bois-Reymond wies dazumal auch hin auf Lehren des großen deutschen Philosophen Leibniz. - Nehmt einmal an - so führte Du Bois-Reymond etwa aus —, ihr konntet ein menschliches Gehirn in allen seinen Bewegungen klar zergliedern und beschreiben, und nun denkt es euch vergrößert, so daß ihr darin Spazierengehen könnt wie in dem Räderwerk einer Fabrik. Schaut hinein in das Ganze: Ihr werdet ungeheuer komplizierte Bewegungen darin sehen, ihr werdet Kompliziertheiten darin finden, mit denen sich nichts in der Welt vergleichen läßt; aber ihr werdet nur Bewegungen sehen. Den Übergang, der macht, daß man sagen kann: Ich rieche Rosenduft - den wird die Naturwissenschaft niemals erklären können. Hier liegt eine unüberschreitbare Grenze der Erkenntnis. Wie die menschliche Natur bewußt wird, das kann nicht erklärt werden. Daher spricht er sein «ignorabimus»: Wir werden niemals erkennen. - Er sagt also: Niemals wird die Möglichkeit geboten sein, diese Grenzen zu überschreiten, niemals wird der Mensch wissen, wie das Bewußtsein aus der Bewegung entsteht.
+
+Du Bois-Reymond hat nicht nur dieses eine Rätsel vor
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 50
+
+---
+
+die Welt hingestellt, sondern noch sechs andere. In «Die sieben Welträtsel» finden Sie, daß er zugibt, nicht zu begreifen, wie das Leben entstanden ist und wie die erste Verteilung der Materie zustande kam. Er gibt zu, daß die Materie von Anfang an verteilt gewesen, ineinandergelagert gewesen sein muß. Auf die Frage, woher die Bewegung kommt, sagt er: Niemals kann man das wissen! - Das alles zahlt Du Bois-Reymond zu den sieben Welträtseln, und in Haeckels Buch «Die Welträtsel» können Sie lesen, daß dieses als eine Art Erwiderung auf DuBois-Reymonds «Sieben Welträtsel» geschrieben worden ist. Dann heißt es weiter: Es ist wahr, daß es siebzig Elemente gibt, die aus Stoffen bestehen, die durchaus verschieden sind in bezug auf die einzelnen Elemente; aber alles entsteht durch die Aneinanderlagerung der Atome und Moleküle. - Eines nahm man eben als feststehend an: die Unveränderlichkeit der Atome. Was Atom ist, bleibt ein Atom. Das ist ein Satz, den Büchner immer wieder und wieder betont: Die Bewegung der Atome ändert sich, aber was ein Atom Schwefel, ein Atom Sauerstoff und so weiter ist, das bleibt ein Atom Schwefel, ein Atom Sauerstoff. Das ist das, was nun verkündigt wurde als die Unveränderlichkeit der Stoffe in den Elementen, die Ewigkeit der Atome. In den «Welträtseln» betont Haeckel nichts stärker als die Ewigkeit des Stoffes. Das war die eine Sache, die man festlegte. Und das andere, was Du Bois-Reymond festlegte, war, daß der Naturwissenschaft Grenzen gesetzt sind: Niemals könne man erkennen, wie das Bewußtsein entsteht.
+
+Auf der Grundlage dieser Voraussetzungen bildeten sich verschiedene, man könnte sagen Gruppen. Die einen sagten: Wie die Dinge auch immer stehen mögen, wir bleiben bei unserer alten religiösen Überzeugung. Wir lassen die Forscher denken, was sie wollen, wir glauben; aber in bezug
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+auf die Wissenschaft halten wir uns an die festgestellten Tatsachen. - Die anderen, kühneren, sagten: Gewiß, wenn das wahrhaft Wirkliche die in Bewegung begriffenen Atome, die siebzig Elemente und dazwischen die Ätheratome sind, so ist alles übrige eine Erscheinung, die nur so lange besteht, als eine Bewegungsform besteht. — Das ist nun nicht mehr Wissenschaft, das ist Bekenntnis! Das ist etwas, was übergreift auf alles, was die geistige Welt betrifft, die für ein solches Bekenntnis nichts anderes ist als eine Erscheinungsform der rein materiellen Tatsachen.
+
+Es war schon ein kühnes Wagnis, als auf der Lübecker Naturforscherversammlung, Ende der achtziger Jahre, der Chemiker Wilhelm Ostwald einen Vortrag hielt: «Die Überwindung des wissenschaftlichen Materialismus.» Ostwald zeigte, daß für das logische Denken der Stoffbegriff überhaupt in nichts zerfällt. Man kann ja sehr leicht dieses logisch-konsequente Denken entfalten: Was sehen Sie denn in der Welt? Sie sehen Körper! Was sind diese Körper? Sie sind etwas, was eine gewisse Farbe, einen gewissen Glanz, eine gewisse Wärme hat, etwas, was Sie hören können, was Sie riechen und schmecken können. Versuchen Sie, alles das, was Sie an solchen Körpern wahrnehmen, festzuhalten. Wenn Sie dann das, was Sie wahrnehmen als Geruch, Geschmack, Tastbares und so weiter wegnehmen, was bleibt Ihnen da? Rein gar nichts! Ein Körper ist vor dem logischen Denken nichts weiter als ein Konglomerat, die Summe seiner Eigenschaften.
+
+Was war es, was man dem Licht, der Farbe zugrunde gelegt hat? Nichts als Ätherbewegung! Den ganzen Raum erfüllte man mit Äther. Wer mit der theoretischen Physik bekannt ist, weiß, wie man Ätherwellen und so weiter berechnet, und daß alles, was man da findet, Ergebnis von Rechnungen ist. Niemals kann der Äther Gegenstand der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+unmittelbaren Beobachtung sein. Wenn er die wahrnehmbaren Dinge hervorbringen soll, wie sollte man ihn selbst wahrnehmen? Der Äther war der phantastisdiste Gedanke, den man nur annehmen konnte. So fußt also die Naturwissenschaft auf etwas rein Ausgedachtem. Niemals ist etwas anderes als ein Rechnungsresultat dagewesen. Das Absolute und Sicherste, was für das naturwissenschaftliche Denken da sein sollte, war nichts anderes als etwas Errechnetes. In meiner «Philosophie der Freiheit» können Sie nachlesen, wie dieser Gedanke sich selbst aufhebt, so daß er zu vergleichen ist mit Münchhausen, der sich am eigenen Schopf in die Hohe zieht. Das ist dort klargemacht. Aber auf die Menschen, und wenn sie glauben noch so exakt zu sein, wirken niemals logische Gründe, niemals wirkliche Tatsachen, sondern Suggestionen. Es wirken alle möglichen Begriffe, die durch tausend und aber tausend Kanäle durch die Seelen ziehen. So waren die Elemente und Atome eine selbstverständliche Voraussetzung geworden auch bei denen, die keine Möglichkeit hatten, die Sache zu überschauen, und die gar nicht wußten, warum man solche Dinge annimmt. Es war eine allgemeine Suggestion.
+
+In diese Zeit fiel nun einer der größten und schönsten Fortschritte der menschlichen Erforschung der Natur, nämlich die Erforschung des Lebendigen, wie sie durch Darwin so populär gemacht worden war. Jene schöne, unendliche Fülle von Tatsachen, die da der Welt bekannt geworden sind, sie war so, daß man sagen mußte: Wäre sie hineingefallen in eine geistige Zeit, wo man gewußt hatte, daß allen materiellen Erscheinungen Geist zugrunde liegt, dann hätte man gerade in diesen Tatsachen unzählige Gründe für das Wirken und Wesen des Geistes gefunden. In der Umwandlung und Umgestaltung der Organismen hätte man das Walten und Wirken des Geistes gefunden. Der Darwinismus
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+hat niemals den Materialismus erzeugt. Der Materialismus, der aus den Vorstellungen, wie ich sie eben charakterisiert habe, kommt, hat den Darwinismus materialistisch gemacht. Er hat auch einen so hochsinnigen Denker und Forscher wie Ernst Haeckel materialistisch gemacht. Während Haeckel durch seine schönen Forschungen Großartiges hätte leisten können für die Geisteswissenschaft, ist er durch die suggestiven Einflüsse seiner Zeit in das materialistische Fahrwasser gekommen.
+
+Wenn die Sache heute noch so stünde, dann könnte man gar nicht daran denken, von Geisteswissenschaft zu reden, und vorläufig ist es auch noch unmöglich, diejenigen, welche auf dem Boden der naturwissenschaftlichen Erklärungen stehen, zu überzeugen. Man muß sie ihre eigenen Wege gehen lassen, und der Geistesforscher muß auch seine Wege gehen. Wenn das heute noch so wäre wie damals, dann müßte man sagen: Die Geistesforschung kann sich in sich selbst zufrieden geben. — Aber die Dinge haben sich geändert. Gerade die, welche alles, was als Naturwissenschaft gilt, mitgemacht haben, haben auch mitansehen können, wie sich, wenn auch nur langsam, der größte Umschwung gerade auf dem Gebiete des naturwissenschaftlichen Denkens vollzieht. Es werden Zeiten kommen, wo man nicht wird begreifen können, daß man jemals so etwas hat denken können, wie es heute noch populär ist. Wohl kann es scheinen, als ob die Naturwissenschaft in unserer Gegenwart siegreich vordringen würde mit dieser materialistischen Weltanschauung, als ob es durch wohlvorbereitete Untersuchungen gelingen würde, Lebendiges aus dem Eiweiß im Laboratorium zu erzeugen. Dann würden sie sagen, wir können den lebendigen Stoff erzeugen, aus dem sich ganze Lebewesen zusammensetzen, und es gibt ja da für den Naturforscher geradezu entzückende Tatsachen, die zeigen, daß man leblose Sub-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 54
+
+---
+
+stanz mit gewissen Giftsubstanzen behandeln kann, wodurch Wirkungen sich ergeben, die ähnlich einer Vergiftungserscheinung auftreten. Die daraus resultierenden Stoffe sehen aus wie lebendige Kristalle: durch ihre Form machen sie den Eindruck, lebendig zu sein, obgleich sie es noch nicht sind. So kann man denken, daß man dahin kommen wird, zu zeigen, wie aus Molekülen und Atomen das Leben und auf der anderen Seite der Geist hervorgeht.
+
+Das scheint auf der einen Seite vorzuliegen. Und auf der anderen Seite, was liegt da vor? Etwas, was stärker wirken wird als alles, was Ostwald vom Standpunkte einer naturwissenschaftlichen Logik gegen den Materialismus gesagt hat. Da sehen wir, wie sich langsam vorbereitet eine andere naturwissenschaftliche Denkart und wie dies eine Notwendigkeit wird. In der Mitte der neunziger Jahre war es, daß Becquerel, der große physikalische Forscher, an gewissen Substanzen, die Uran enthielten, das Vorhandensein gewisser Ausstrahlungen entdeckte. Diese haben ganz bestimmte Wirkungen, die sich dadurch äußern, daß sie die Luft elektrisch leitend machen oder eine gewisse Veränderung der photographischen Platte hervorrufen, wie zum Beispiel die X-Strahlen. Sie wissen, daß man in der neuesten Zeit auch dazu gekommen ist, solche Strahlen im Zusammenhang mit dem, was man das Element des Radiums nennt, zu finden. Aber so interessant es ist, daß es etwas gibt, was man früher nicht gekannt hat, die ganze Art und Wirkensweise dieser Strahlen war so fremd, so ganz anders als die Vorstellungen, die man bisher hatte, daß viele heute bereits dazu gekommen sind, sich erschüttern zu lassen in ihrer Anschauung, daß die Atome etwas Absolutes seien, ewig dauern und nur sich in- und aneinanderlagern. Wir haben da Substanzen, welche sich ganz sonderbar benehmen im Weltzusammenhang, eben wie das Radium und das Uran.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 55
+
+---
+
+Sie strahlen aus, besonders das Radium, aber ihre Strahlungen sind seiner unerschöpflich. Das alles würde sich mit der alten Anschauung vertragen; aber das Wichtigste ist, daß man einen solchen Stoff wie das Radium ausstrahlen lassen kann, daß man gewisse Teile abtrennen und einen Teil zurückbehalten kann; daß es zum Beispiel solche Ausstrahlungen gibt, welche die Luft elektrisch machen, und die man dann so abtrennen kann, daß man ihre Wirkung auf der photographischen Platte hat. Es ist so, daß man die verschiedenen Eigenschaften abtrennen kann, so daß man Substanzen hat, die nicht mehr die ersten Eigenschaften haben. Eine Eigenschaft wird der einen Substanz weggenommen und die andere bekommt sie. In jeder Buchhandlung können Sie heute Abhandlungen darüber bekommen.
+
+Das ist aber noch nicht das Bedeutsame. Bedeutsam ist, daß endlos immer wieder Strahlen sich lostrennen und wieder hinaus nach dem Weltenraum gehen. Allerdings zwingen gewisse Gründe dazu, anzunehmen, daß sich diese Strahlen doch einmal erschöpfen. Man kann heute schon nachweisen, daß gewisse Substanzen in kurzer Zeit, in einer kaum auszusprechenden Zeit sich mindern, daß aber die Substanzen, welche sich loslösen können, merkwürdigerweise sich umwandeln in ganz andere Substanzen, so daß für eine große Anzahl von Forschern die Tatsache vorliegt, daß Ausstrahlungen des Radiums sich umwandeln in das sogenannte Helium.
+
+Wir sehen, daß das Radium in den Weltenraum hinaus seine Ausstrahlungen sendet. Nach der alten Theorie, was müßte da geschehen? Es könnten sich doch höchstens die Atome loslösen, trennen, wenn sie etwas Unveränderliches sind. Da sehen wir aber, daß sie fortwährend Ausstrahlungen aussenden, und wir können nun nichts anderes annehmen, als daß die Atome bis ins kleinste hinein zerfallen,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 56
+
+---
+
+zersplittern. Andere zeigen uns wieder klar, daß für eine große Anzahl von Stoffen dieser Zerfall der Atome möglich ist. So sehen wir, daß dasjenige, was man für das Dauerhafteste gehalten hat, für das Absolute - während alles andere nur als ein Ergebnis davon galt —, heute auch zerfällt. Das zerstäubt heute. Und es ist begründete Hoffnung vorhanden, daß es mit allen Atomen so geht. Was wird also das Atom in der Zukunft sein? Es wird etwas sein, was entsteht und sich bildet. Jedes Atom bildet sich, hat eine bestimmte Lebenszeit und löst sich nach einer bestimmten Zeit wieder auf. Da haben Sie das, was für den Materialismus das Festeste war, das Atom, in ein Wesen verwandelt, das entsteht und vergeht. Wenn man sieht, daß das Radium übergeht in das Heliumelement, so sieht man eben, daß da Stoff sich in Stoff verwandelt. Da kommt man darauf, daß der alte Alchimistentraum, daß sich Stoffe in andere Stoffe verwandeln lassen, doch Wirklichkeit hat.
+
+In manchen Büchern finden wir schon Andeutungen, daß die modernen naturwissenschaftlichen Forschungen uns etwas nahelegen, was die Alchimisten geträumt haben. Es gibt schon Naturforscher, die interessante Betrachtungen angestellt haben über gewisse Vorgänge. Früher hat man gesagt, es gibt Kupfersalze, die zum Beispiel zusammengefügt sind aus Kupfer und Chlor. Wenn man diese trennt, so hat man wieder Kupfer und Chlor. Daran sehe man, daß die Atome zusammenliegen, und wenn man sie wieder auseinandertreibt, dann ist es Chlor und Kupfer. Allerdings ist einigen Menschen, die angefangen haben zu denken, eines aufgefallen, was wesentlich ist, und was der Geisteswissenschafter immer wieder betonen muß: Wenn Sie die Stoffe, die Sie als Kupfer und Chlor getrennt haben, wieder vereinigen, so ist dies nicht anders möglich, als daß
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+dabei Wärme entsteht. Wenn sich diese zwei Substanzen vereinigen, so wird Wärme verbreitet. Daß da Wärme erscheint, ist doch etwas ebenso Reales und Wirkliches wie das durch Kupfer und Chlor Zusammengefügte. Wenn man diese beiden wieder trennen will, so muß man die Wärme wieder hinzufügen. Die Wärme nehmen wir wahr. Atome und Moleküle hat nie jemand wahrgenommen. Sehen wir es aber der Erscheinung nicht gleichsam an, was da vorliegt? Wenn Sie Kupfer und Chlor zusammenbringen, so ist das, wie wenn Sie die Wärme herauspreßten, gleichsam wie Mehl aus den Mehlsäcken. Wenn man die Mehlsäcke dann wieder voll haben will, so muß man eben wieder Mehl hineintun. Die Wärme würde also eine Füllung sein. - Damit haben wir der Wärme eine Wirklichkeit zugeschrieben und klarglegt, daß man nicht nur mit molekularer Wirkung zu rechnen hat, sondern daß diese Stoffe selbst nur durch diese Wärme möglich sind.
+
+Wenn wir nun in Betracht ziehen, daß die Atome unter unseren Händen zerfallen, so müssen wir uns fragen: Führt diese Naturwissenschaft auf ihrem Scheidewege, wo die Atome - das bis jetzt Sicherste - zerstäuben, dahin, dasjenige anzuerkennen, was sie früher nur als äußeren Ausdruck, als Erscheinung betrachtet hat? Das ist es, wozu die Naturwissenschaft heute führt! Die ganze atomistische Theorie, die lange Zeit die Unterlage der Naturwissenschaft gewesen ist, wankt heute. Heute sind die Tatsachen so, daß die Theorien, die nicht auf Tatsachen beruhen, fallen müssen. Atome und Moleküle sind nichts Tatsächliches, sondern Erdachtes. Wenn das fällt, weil es selbst eine Wirkung ist, so müssen wir fragen: Wovon ist es eine Wirkung? Zunächst werden die Menschen versuchen, wieder dahin zu kommen, daß etwas anderes zugrunde liegt. Heute sind sie schon dabei, von einer flüssigen Elektrizität
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+zu sprechen. Sehr schön ist das, was der englische Minister Balfour gesagt hat: Wenn wir uns heute Atome vorstellen, so können wir nur sagen, es flutet etwas durch die Welt wie eine Flüssigkeit, und die Atome sind darin wie Eisklumpen im Wasser. - Das ist eine schöne Vorstellung. Aber wohin führt sie? Versuchen Sie einmal, sie weiterzuführen. Sie führt dahin, daß die Naturwissenschaft dazu kommt, dasjenige, was sie früher geleugnet hat, was früher nur Erscheinung für sie war, als das eigentlich Wirkliche und Reale zu erkennen. Das war ein sonderbarer Glaube, daß das, was Farbe ist und was ich Rot nenne, nur in meinem Kopfe existiert, daß draußen nur kleine Kugelchen existieren, die sich stoßen und pressen und dadurch die Licht-, Farben- und Schallempfindungen hervorbringen. Diese Vorstellungen werden bald verschwinden müssen durch die Macht der Tatsachen. Klar wird es werden, daß das, was wir sehen und hören, Wirklichkeit ist, und daß es eine tolle Phantastik war, hinter dieser Welt eine materielle Welt zu denken. Diese materielle Welt wird zerstäuben und zerfallen. Anerkannt wird werden, was dahinter ist. Dann wird nachrücken müssen, was man erlebt und erleben kann. Dann wird man erkennen, daß das Atom nichts anderes sein kann als gefrorene Elektrizität, gefrorene Wärme, gefrorenes Licht. Und dann wird man noch weitergehen müssen, daß man in allem verdichteten und gebildeten Geist zu sehen hat. Materie gibt es nicht! Was Materie ist, verhält sich zum Geist wie Eis zum Wasser. Lösen Sie das Eis auf, so gibt es Wasser. Lösen Sie Materie auf, so verschwindet sie als Materie und wird Geist. Alles, was Materie ist, ist Geist, ist die äußere Erscheinungsform des Geistes.
+
+Es wird noch lange dauern, bis man diese letzte Konsequenz ziehen muß, daß nicht das Auge das Licht, sondern
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+das Licht das Auge gebildet hat, und die Töne, die wir hören, das Ohr. Dann wird man dahin kommen, einzusehen, daß alle Materie aus dem Geist heraus geboren ist, und man wird die wahren naturwissenschaftlichen Tatsachen, ohne logische Unterbrechung, in die Geisteswissenschaft herüberleiten. Die schönste Grundlage für die Geisteswissenschaft werden die naturwissenschaftlichen Tatsachen sein. Wer auf dem geistesforscherischen Standpunkt steht, betrachtet bewundernd die Naturwissenschaft am Scheideweg. Die Suggestionen haben sie zu dem Glauben verführt, daß die Materie das einzige ist. Sie haben sich nicht damit begnügt, die materielle Welt zu untersuchen, sondern sie haben noch eine andere Welt dazu erdacht. Das war die Tragik, das Unmögliche. Die vorliegende natürliche Welt erkennt der Geistesforscher voll an. Die erdachte und phantasierte Welt von unveränderlichen Atomen und Schwingungen des erdachten Äthers, diese erträumte und phantastische Welt des Materialismus kann der Geisteswissenschafter niemals zu der seinigen machen. Er weist sie als Aberglauben zurück. Und Aberglaube war der Glaube an materielle Atome hinter unseren Wahrnehmungen. Jedes Atom würde sich wahrnehmen lassen, wenn man die Instrumente dazu hätte, so hieß es. - Nichts steckt hinter dem, was wir wahrnehmen, als nur der Geist und die geistige Welt, in die wir eindringen! Das ist es, was wir suchen hinter den Erscheinungen. Nicht eine durcheinanderwogende Atomwelt, sondern die Welt des Geistes suchen wir in der Welt der sinnlichen Erscheinungen. Auf dem Holzwege ist, wer hinter den äußeren Erscheinungen eine andere materielle Welt zu finden glaubt. Diejenigen, die heute noch darauf bauen wie auf Tatsachen, werden sich berichtigen lassen müssen. Es wird die Zeit kommen, wo dieser phantastische Aberglaube als solcher erkannt werden
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+wird und wo vieles von dem, was man heute von dieser Seite als Aberglauben ansieht, sich als richtig erweisen wird.
+
+Das richtige Grundprinzip der Naturwissenschaft, das Stehenbleiben auf dem Boden der Tatsachen, führt die Naturwissenschaft selbst an den Scheideweg, wo sich herausstellt, ob die Tatsachen den Theorien recht geben. Und die Tatsachen geben ihnen nicht recht, die Theorien zerstäuben wie nichts! Das, was als die festeste Grundlage angesehen worden ist, das, woraus man den Geist und das Bewußtsein hat erklären wollen: das Element und das Atom, das zerfällt. Was wir wollen, ist Gewißheit, und die können wir nur dadurch bekommen, daß wir in uns den Geist wahrnehmen.
+
+So wird die Naturwissenschaft in die Geisteswissenschaft einmünden. Heute steht sie am Scheidewege. Mancher erkennt ihn noch nicht, andere können ihn sehen. Es wird die Zeit kommen, wo eine wunderbare Harmonie bestehen wird zwischen der Erkenntnis naturwissenschaftlicher Tatsachen und dem, was die Geisteswissenschaft behauptet. Nie wird sie etwas behaupten, was dem widerspricht, was die Naturwissenschaft gefunden hat. Die Geisteswissenschaft bewundert auch heute die Werke des Geistes im Materialismus; aber sie errichtet sich kein Wolkenkuckucksheim. Die Geisteswissenschaft will die Welt verstehen, um in ihr zu wirken. Vor ungefähr hundert Jahren hatte man in Deutschland eine Naturwissenschaft, die mit vollen Segeln in den Materialismus des 19. Jahrhunderts hineinführte, eine Naturwissenschaft, die anfing, nichts anderes anzuerkennen als das, was man mit Augen sehen und mit Händen greifen kann. Die Folge davon war, daß auch das, was erdacht wurde, ein Materielles, ein Konkretes wurde. Die großen Philosophien, die in Ausdrücken und Begriffen, die nicht jedermanns Sache waren, sich bewegten, wurden bei
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+seite geschoben. Die Leute, die über Hegel und Schelling den Stab brechen, verstehen aber in der Regel gar nichts von diesen Geistern, die so tief hineingesehen haben in die Welt, wie kaum einer von denen, die heute über sie hinaus zu sein glauben, es ahnt. Es waren allerdings stark sublimierte Begriffe, dünne Begriffe, in denen sie sich bewegten.
+
+Goethe stand zwischen diesen zwei Parteien mitten drinnen. Er konnte daher ahnen, wie die Naturwissenschaft in den Materialismus hineinsegeln würde, und er fand auf der anderen Seite Gelegenheit, hineinzudringen in die Probleme und die Verbindungsbrücke zu schlagen zwischen Religion und Naturwissenschaft. Deshalb konnte er so schön sagen, daß einmal die Zeit kommen würde, wo die Philosophie und die Naturwissenschaft sich vereinigen werden. Aber, so fügte er hinzu, eine Weile müssen sie noch getrennte Wege gehen. - Sie sind getrennte Wege gegangen, ohne Verständnis der einen Strömung für die andere. Heute haben wir auch zwei Strömungen, den Materialismus, der sich selbst überlebt hat, der durch seine eigene Methode seine festeste, absoluteste Grundlage in der Hand zerfallen sieht, der sich selbst zerstört, und eine Philosophie, die in die Theosophie oder Geisteswissenschaft einmündet; die nicht das Abstrakt-Geistige, sondern das Konkret-Geistige, die Tatsachen der höheren Welt der Menschheit vorzuführen sucht, die nicht mehr als abstrakte, sondern als konkrete Geisteswissenschaft da sein wird.
+
+Wir werden in nicht zu ferner Zeit jenes schöne Bündnis erleben zwischen der naturwissenschaftlichen und der geisteswissenschaftlichen Anschauung. Wir werden sehen, wie die naturwissenschaftlichen Tatsachen brauchbar sein werden für die Geistesanschauung und die Geistesanschauung brauchbar sein wird für die Naturwissenschaft. Deshalb wird die Brücke geschaffen. Der menschliche Geist kann nur
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 62
+
+---
+
+gedeihen, wenn seine Tätigkeitsweisen in Harmonie miteinander stehen. Verkrüppeln müßte der Geist, wenn die Naturwissenschaft ohne Geisteswissenschaft bliebe und die Geisteswissenschaft sich begnügen müßte mit dem Gedanken: Du kannst ja doch die Naturwissenschaft nicht auf das Geistige hinüberbringen. - Aber der Gang der Weltentwickelung wird den Frieden bringen. Er wird die Brücke schaffen zwischen Glaube und Erkenntnis. Sie wird einen unendlichen Fortschritt und Harmonie bringen zwischen Glauben und Wissen.
+
+Wie viele ersehnen heute äußeren Frieden, äußere Harmonie und äußeres Glück der Menschen! Aber alles Äußere ist ja Erscheinung des Inneren, und das äußere Menschenleben kann nur eine Folge des inneren sein. Ein glückliches äußeres Menschenleben wird entstehen, wenn es hoffnungsfrohe, zukunftssichere Seelen gibt. Die werden den richtigen sozialen Frieden zu gründen wissen, und aus dem inneren Frieden wird der äußere Frieden kommen. Deshalb scheint es nicht ohne Bedeutung zu sein, diese Naturwissenschaft am Scheideweg zu betrachten und zu zeigen, wie das eine in eine Sackgasse gehen wird, das andere aber ganz klar hineinführen muß in die Gebiete, die auch die der Geisteswissenschaft sind. So werden sie künftig zusammenwirken und das Weltgebäude wird von zwei Seiten bereichert sein. Es wird eine große, vollkommene Harmonie sein, und das wird im Menschen die innere Harmonie der Seele sein, die das letzte Ziel der Geisteswissenschaft ist.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# DIE ERKENNTNIS DER SEELE UND DES GEISTES
+
+Berlin, 24. Oktober 1907
+
+Der ganze Zyklus dieser Vorträge ist gewidmet der Erkenntnis des Geistes, und wenn heute im besonderen gesprochen werden soll über die Erkenntnis des Geistes und der Seele, so geschieht das deshalb, weil wir uns dadurch in einer gewissen Weise verständigen können über den Begriff des Geistes selbst, indem wir ihn in Beziehung bringen, in ein Verhältnis setzen zu dem Begriff der Seele. Denn für solche, welche sich mit der Geisteswissenschaft beschäftigen, wirkt es in unserer Gegenwart besonders störend, daß bei der Betrachtung des Menschen die beiden Begriffe Geist und Seele fortwährend durcheinandergeworfen werden.
+
+Sie alle wissen wohl, daß wir eine sogenannte Psychologie oder Seelenwissenschaft haben, die heute in verhältnismäßig großem Umfang schulmäßig betrieben wird. In den Vorlesungsverzeichnissen der Hochschulen finden Sie auch Vorlesungen über Psychologie, was wörtlich die Lehre, die Kunde von der Seele wäre. Dabei ist zu bemerken, daß bei allen, die in solcher Art von Psychologie oder Seelenwissenschaft reden, kein deutliches Bewußtsein davon vorhanden ist, daß man beim Menschen sprechen muß von Seele und Geist. Es wird alles, was mit des Menschen Innenleben, also, wenn wir die Ausdrücke gebrauchen dürfen, mit des Menschen Denken, Fühlen und Wollen in Zusammenhang gebracht wird, betrachtet unter dem Begriff der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Seele. Seele gilt geradezu als der Gegensatz zum Leiblichen und Körperlichen beim Menschen, und man sagt - wenn man sich überhaupt zu so etwas herbeiläßt, wenn man nicht einer vollkommen materialistischen Denkweise verfallen ist -, der Mensch bestehe aus Leib und Seele.
+
+Wir wollen zunächst nur diejenigen Meinungen berücksichtigen, welche sich auf den Standpunkt stellen, daß die Seele ein wirkliches Wesen ist. Wenn gesagt wird, daß der Mensch aus Leib und Seele besteht, so ist man sich meist gar nicht der Tatsache bewußt, daß man damit einer verhältnismäßig spät, im Verlaufe der christlichen Entwicklung herausgebildeten Dogmatik zum Opfer fällt. Sogar das ältere Christentum, das noch von den Weisheitslehren ausgegangen ist, unterschied, wie alle Weisheitslehren der verschiedenen Zeiten und Völker, in der menschlichen Wesenheit Leib, oder Körper, Seele und Geist. Erst spätere Konzilbeschlüsse haben sozusagen den Geist abgeschafft, und erst seit dem Konzil von Konstantinopel spricht man nur von Leib und Seele. Die moderne Gelehrsamkeit, die sich überhaupt mit so etwas befaßt, die also nicht materialistisch denkt, glaubt, auf dem Boden völlig freier Forschung zu stehen und ahnt gar nicht, daß sie nur diesen späteren christlichen Begriff der Seele, der vom Geist absieht, als Vorurteil, als vorgefaßte Meinung in sich aufgenommen hat. So ist es überhaupt mit vielen Begriffen, welche in unserer Gelehrsamkeit figurieren und so hingenommen werden, als wenn sie wirklich ein Ergebnis der Forschung wären, während sie nur ein jahrhundertealtes Vorurteil bedeuten.
+
+Nun werden wir uns die landläufige Psychologie selber ansehen in den verschiedensten Richtungen. Es soll hier aber nicht kritisiert, sondern nur charakterisiert werden. Die Psychologie hat, das dürfen wir wohl sagen, am mei
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+sten und gründlichsten unter der materialistischen Gesinnung und Denkungsweise gelitten. Nach und nach ist nämlich nicht nur der äußeren Wissenschaft von den Sinneserscheinungen der Begriff des Geistes verlorengegangen, sondern der Psychologie ist sogar der Begriff der Seele, das heißt ihr eigener Gegenstand, verlorengegangen. Es ist eine interessante Entwickelung, die das Geistesleben da durchgemacht hat. Ein kühner Forscher und Denker, der auf manchem Gebiete ganz Außerordentliches geleistet hat, hat den Mut gehabt, auch auszusprechen, was bei anderen sozusagen bloß eine Grundgesinnung und Grundempfindung innerhalb der modernen Psychologie ist. Dieser kühne Denker war Friedrich Albert Lange. Sie alle können heute in Reclams Universalbibliothek seine «Geschichte des Materialismus» erhalten. Es ist dies ein ausgezeichnetes Buch, weil gerade derjenige, der es gründlich studiert, wenn er überhaupt denkt, zu der Überzeugung kommen muß — ich habe das im letzten Vortrage ausgeführt —, daß der Materialismus als Weltanschauung zu vergleichen ist einem Mann, der sich durch eigene Kraft am eigenen Haarschopf in die Höhe zieht. Dieser Friedrich Albert Lange hat in bezug auf die Seelenkunde etwas ausgesprochen, das sich in drei Pforte zusammenfassen läßt: «Psychologie ohne Seele.» Das ist von Friedrich Albert Lange. Diese Konsequenz haben andere Forscher sich nicht auszusprechen getraut; aber sie handeln und forschen in der Psychologie so, als ob ein Begriff der Seele sie nichts anginge. Auch heute werden Sie allerlei Begriffe über die Seele in den berühmtesten Werken der Schulpsychologie finden. Wenn Sie aber wirklich etwas erfahren und erkennen wollen über die Seele, werden Sie sich vergeblich dort Rat holen, denn diese Psychologie hat — das soll keine Kritik, sondern nur eine Charakteristik sein — den Begriff Seele vollständig verlo
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ren, wenn dies auch nicht immer ausgesprochen wird. Ob Sie bei Wundt oder anderen sich Rat holen, über diejenigen Fragen, die den Menschen interessieren in bezug auf das Leben der Seele, erhalten Sie nirgends Auskunft. Sie finden allerlei Fragen beantwortet über die Art und Weise, wie die Menschen Gegenstände in ihrer Umgebung wahrnehmen. Sie finden auch allerlei Spekulationen darüber, wie sich die Wahrnehmung zum Bewußtsein verhält. So fragt man zum Beispiel: Wie lange dauert es, bis der Mensch, nachdem er einen Reiz empfangen hat, diesen zum Bewußtsein erhebt? Sie finden da Fragen behandelt über die Aufmerksamkeit, Fragen darüber, wie der Mensch urteilt, wie er die Dinge miteinander vergleicht, wie er sich erinnert und so weiter. Aber wer könnte ableugnen, daß die unbefangen empfindende Seele - jetzt im gewöhnlichen Sinne gemeint -, wenn sie nach ihrer eigenen Wesenheit fragt, vor allen Dingen eines im Auge hat: Was ist das Wesen dieser meiner Seele? Teilt sie das Schicksal des Körperlichen, zu zerfallen und aufzuhören, wenn der Tod eintritt? Nimmt sie nur teil an dem Leben der sinnlichen Umgebung oder nimmt sie teil an einem weit höheren, einem übersinnlichen Leben, das nicht in der physischen Welt sich erschöpft? Diese Fragen, die für die Menschen Lebensfragen sind, werden Sie vergeblich in den heutigen Psychologien auch nur als Fragen suchen. Alles im Menschenleben weist auf sie hin; aber wenn das wirkliche Wesen der Seele in Betracht kommt, so sagt man, das gehe über die Grenzen der menschlichen Erkenntnis hinaus.
+
+Wenn Sie ein wenig Geduld haben und sich eine solche Psychologie ansehen, werden Sie gewahr, daß ganz genau dieselben Methoden und Forschungsweisen die heute gegenüber der physischen Natur, dem Leben um uns herum, geltend gemacht werden, und die man gewohnt geworden
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ist, die naturwissenschaftlichen Methoden zu nennen, auch auf die Seelenforschung angewendet werden. Ja, wenn man diese Methoden anwendet, so kann eben nichts anderes herauskommen, als was uns in dieser psychologischen Literatur entgegentritt. Mehr als auf irgendeinem anderen Gebiete handelt es sich in der Seelenforschung darum, wer diese Forschungen anstellt. Da, wo man materialistisch denkt, ist man immer mehr zu der Überzeugung gekommen, daß die Forschungsergebnisse nur von der Art sein können, daß sie jedem von außen entgegentreten. Wer versteht heute noch ganz und gründlich den Sinn der schönen Goetheschen Worte:
+
+War' nicht das Auge sonnenhaft,
+Wie könnten wir das Licht erblicken?
+Lag' nicht in uns des Gottes eigene Kraft,
+Wie könnt' uns Göttliches entzücken?
+
+Nichts tritt uns in der Außenwelt entgegen, wenn wir nicht mit dem betreffenden Ding oder Wesen oder mit der betreffenden Kraft in der Außenwelt verwandt sind, wenn wir nicht etwas damit Verwandtes in uns selbst tragen. So kann auch nur derjenige die Seele erforschen, der außerhalb seines Selbst etwas aufsucht, was er in sich selber erlebt, erfahren hat. Nicht ein jeder - das muß insbesondere in bezug auf die Seelenforschung betont werden - kann Psychologe sein; denn der Mensch merkt nur so viel von den Geheimnissen der anderen Seelen, als in ihm selbst Wirklichkeit geworden ist.
+
+Die Geisteswissenschaft, sagten wir gleich am Anfang, beschäftigt sich mit dem Geist als solchem. Und alle diese Vorträge sind der Betrachtung des Geistes gewidmet. Wie die Titel im einzelnen auch heißen mögen, der Geist soll überall gesucht werden. Wie schon aus dem Vortrag her-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+vorgeht, der vor vierzehn Tagen hier gehalten worden ist, wird die Geisteswissenschaft zu zeigen haben, daß hinter allem, was uns entgegentritt, Geist lebt und Geist wirkt.
+
+Was ist der Geisteswissenschaft die Materie? Nur eine andere Form des Geistes! Spricht die Geisteswissenschaft von Materie, Stoff und Körper, so spricht sie davon so, wie sie von Eis in Beziehung auf Wasser spricht. Eis ist Wasser in anderer Form. Nun könnte aber jemand kommen und sagen: Dann leugnet ja die Geisteswissenschaft die Materie und die Körperlichkeit, wenn sie behauptet, alles sei Geist - und dann gibt es für die Geisteswissenschaft keine Materie. Auf diesem sonderbaren Standpunkt steht die Geisteswissenschaft keineswegs. Bleiben wir bei unserem Vergleich von Eis und Wasser. Dasjenige, was in Betracht kommt für das Leben, das sind nicht leere Worte, nicht leere Definitionen, sondern Wirkungen, denen Sie im Leben begegnen. Wenn man auch sagt, Eis sei Wasser in anderer Form - und man hat damit vollständig recht -, so sind doch die Wirkungen des Wassers andere als die von Eis, wie jeder bemerken kann, wenn er sich ein Stück Eis auf die Hand legt, statt Wasser darauf zu schütten. Wer leugnen wollte, daß Eis Wasser ist in anderer Form, der würde sich gründlich blamieren. So fällt es auch der Geisteswissenschaft nicht ein, die Materie zu leugnen. Sie ist da, nur ist sie Geist in anderer Form. Und in welcher Form? In der Form, daß sie von außen durch die Sinne beobachtet, angeschaut werden kann. Das ist das Wesentliche an der Materie. Da knüpft sich der heutige Vortrag an den vor acht Tagen an, wo wir haben zeigen können, wie jede materialistische Anschauung vor dem Fortschritt der Naturwissenschaft in Nichts zerfällt, wie sich der phantastische Begriff der Materie durch die neuen Forschungen in Dunst und Nebel auflöst. Das, was vor dreißig Jahren noch ein sicherer Begriff
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 69
+
+---
+
+war, wie Äther, Materie, das zerstiebt heute vor den weiteren Forschungen. Und was bleibt uns übrig von dem, was in der Außenwelt an uns herantritt? Das, was wir sehen und hören, Ton, Farbe, Wärme und so weiter: das, was wir wahrnehmen. So gut wir nur können, sollen wir uns aufschwingen zu der Anschauung, daß hinter der Wärme, hinter dem Ton, hinter dem Licht nichts ist von diesem schrecklich brutalen Wirbeln von Atomen, das während der langen Zeit des Materialismus das einzig Wirkliche war. Wirklich ist in diesem Sinne das, was wir sehen, was wir hören, was wir als Wärme empfinden. Und wenn wir hinter die Farbe, hinter den Ton, hinter die Wärme, wie wir sie empfinden, schauen, was finden wir dahinter? Wir finden dahinter, wenn wir den Ton nehmen, solange er in der sinnlichen Welt bleibt, bewegte Luft. Aber wir dürfen nicht hinter die sinnliche Welt gehen mit unseren Spekulationen. Wir müssen in der Sinneswelt stehenbleiben. Ein gewaltiges Wort hat wiederum einer ausgesprochen, der von den Gelehrten nicht für voll genommen wird, der nicht nur Dichter, sondern auch Denker war, das große Wort: «Man suche nur nichts hinter den Phänomenen; sie selbst sind die Lehre.»
+
+Wenn wir hinter den Ton, hinter das Licht gehen, so finden wir nicht materielle Atome, welche in unsere Netzhaut eintauchen, sie imprägnieren und durch dieses Imprägnieren die Vorstellung der Farbe und des Lichtes hervorbringen. Wenn wir wirklich dahinterschauen, was finden wir da? — Geist! Farbe verhält sich zum Geist wie Eis zu Wasser. Ton verhält sich zum Geist wie Eis zu Wasser. Statt jener phantastischen Welt von durcheinanderwirbelnden Atomen findet der wahre Denker und Geistesforscher hinter dem, was er sieht und hört, Geist, geistige Wirklichkeit, so daß die Frage nach dem Wesen der Materie allen Sinn
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+verliert. Denn wie beantwortet sich die Frage nach dem Wesen der Materie für den Geistesforscher? Was ist dasjenige, dem Wesen nach, was uns draußen in der Welt umgibt und uns als Materie erscheint? Geist ist es! Und den Geist kennen wir! Wir müssen sein Wesen in uns selbst aufsuchen. Was wir selbst sind in unserem innersten Wesen, das sind alle Dinge draußen in der Welt, nur in anderer Form. Sie sind es in solcher Form, daß man sie von außen ansehen kann, wenn der Geist sich eine Oberfläche gibt. Lassen Sie mich ein Wort aussprechen, das jeder Naturforscher als Tollheit ansehen wird: Wenn der Geist nach außen geht, dann erscheint er als Farbe, als Ton. Nichts anderes ist Farbe und Ton als lauter Geist, ganz dasselbe, was wir in uns selbst finden, wenn wir uns richtig verstehen. So ist uns in der Geisteswissenschaft ein jedes Mineral Geist. Das niederste Glied der menschlichen Wesenheit, das, was wir den physischen Leib oder den physischen Körper nennen, ist für uns in seiner wahren Wesenheit nichts anderes als Geist in der Form, in der er eben auch vorhanden ist in der scheinbar leblosen Natur.
+
+Wodurch unterscheidet sich nun das, was wir Menschengeist nennen, von dem Geist, der uns draußen als Mineral und Pflanze, als Berg, als Donner und Blitz, als Bäume und Gewässer und so weiter entgegentritt, wodurch unterscheidet sich von alledem der Geist, den wir im engeren Sinn als Geist ansprechen? Dadurch, daß dieser Geist im engeren Sinne sich als Geist in seiner ureigenen Gestalt zeigt, in der Gestalt, die ihm selbst als Geist zukommt. Was man gewöhnlich Natur nennt, ist zwar Geist, aber Geist, der seine Außenseite den Sinnen zuwendet, und was man im engeren Sinn Geist nennt, ist, dem Wesen nach, genau dasselbe. Die Natur ist der Form nach das, was sich, seiner ureigenen Gestalt nach, dem Innersten unseres Wesens zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+wendet. Suchen wir den Geist draußen in der Natur, so finden wir ihn leblos in den Mineralien, belebt in den Pflanzen und empfindend in den Tieren. Der Mensch vereinigt in sich selbst diese dreifache Gestalt des Geistes in den drei Gliedern seiner Wesenheit, wie wir sie vom Standpunkte der Geisteswissenschaft kennen. Dadurch allein kommt man zu einer wirklichen Erkenntnis des Menschen, daß man diese komplizierte Natur des Menschen betrachtet und sich nicht begnügt mit der abstrakten Unterscheidung zwischen Leib und Seele, sondern sich fragt: Wie ist der Mensch erbaut?
+
+Wir unterscheiden in der Geisteswissenschaft zunächst den physischen Leib des Menschen, dasjenige, was er an Stoffen und Kräften gemein hat mit der ganzen sogenannten leblosen Natur. In dem physischen Leib des Menschen sind dieselben Stoffe und dieselben Kräfte, die wir draußen in der mineralischen Welt finden. Aber darüber hinaus hat der Mensch ein anderes Glied, das wir seinen Äther- oder Lebensleib nennen. Wenn wir von Äther sprechen, so hat das nichts zu tun mit dem phantastischen Äther, der in der Wissenschaft so lange eine Rolle gespielt hat und in der nächsten Zeit ganz abgesetzt werden dürfte. In bezug auf den Ätherleib werden wir uns noch nicht einlassen können auf die Methoden des höheren Schauens. Wir verstehen den Ätherleib aber dann am besten, wenn wir die Sache so fassen: Nehmen wir eine Pflanze, ein Tier, den Menschen selber: Dieselben Stoffe, dieselben Kräfte hat der physische Leib, aber in einer unendlich komplizierten Mischung und Mannigfaltigkeit, so daß diese Stoffe durch sich selbst nicht den physischen Leib bilden können. Kein Pflanzenleib kann durch die physischen Kräfte das sein, was er ist, kein Tierleib, kein Menschenleib. Da ist die Komplikation, die Mannigfaltigkeit der Mischung und Mengung, die den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Leib zerfallen machen würde, wenn er seinen eigenen physischen und chemischen Kräften überlassen würde. In jedem Augenblick des Lebens wirkt gegen den Zerfall der physischen Leiber ihr sogenannter Äther- oder Lebensleib. Ein immerwährender Kampf findet statt in ihnen. Und in dem Augenblick des Todes, wo sich der Äther- oder Lebensleib trennt von dem physischen Leib, da folgen die Stoffe und Kräfte des physischen Leibes ihren eigenen Gesetzen. Daher sagen wir in der Geisteswissenschaft: der physische Leib ist physisch und chemisch eine unmögliche Mischung, er kann sich nicht in sich selbst erhalten. Was in jedem Augenblick gegen den Zerfall des physischen Leibes kämpft, das ist der Äther leib. - Das dritte Glied in der menschlichen Wesenheit ist das, was wir oft genannt haben den Träger von Lust und Schmerz, von Freude und Leid, von Instinkten und Leidenschaften. Wenn das Leben anfängt, innerlich zu werden, dann fangen wir in der Geisteswissenschaft an, von einem sogenannten Astralleib zu sprechen. Das ist das dritte Glied der menschlichen und das dritte Glied der tierischen Wesenheit.
+
+Heute hat man einen so unklaren Begriff von dem, was die einzelne Wesenheit ausmacht, daß gewisse Forscher gar nicht mehr unterscheiden können zwischen einem Tier und einer Pflanze. Natürlich gibt es da Obergänge; aber die interessieren uns hier nicht. Sie können in populären Werken, die sonst sehr verdienstlich sind, lesen, daß die Pflanze dieselben Äußerungen von sich gibt wie ein Tier oder ein Mensch, und man redet daher von einer «Pflanzenseele» im gewöhnlichen Sinne. Man verwechselt die tierische Seele und die menschliche Seele mit dem, was in der Pflanze einfache Lebensäußerungen sind. Wann sprechen wir von einer tierischen oder menschlichen Seele oder von einem Astralleib? Dann, wenn zu der äußeren Erscheinung inneres Le
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ben, inneres Erleben hinzukommt. Auf das Innere kommt es an. Wenn Sie eine Pflanze sehen, sie berühren, und diese Pflanze zieht ihre Blätter zusammen, so ist ein Reiz auf die Pflanze ausgeübt, und diese zeigt Ihnen eine gewisse Antwort auf diesen Reiz. Diese Antwort eine Seelenäußerung zu nennen, ist der unglaublidiste Dilettantismus. Nicht dann schon darf man von Seele oder Astralleib sprechen, wenn irgendeine Gegenwirkung stattfindet; sonst müssen Sie auch dem Lackmuspapier, wenn es sich in der Säure rötet, Seele zuschreiben. Nicht auf irgendeine äußere Reaktion kommt es an, sondern ob im Innern eines solchen Wesens etwas geschieht. Wenn Sie ein Wesen anstoßen und es zeigt Ihnen eine Formveränderung oder sonst irgendeine äußere Reaktion, so mögen Sie das Lebenserscheinung nennen; aber da von Empfindung oder Seele zu reden, heißt alle Begriffe auf den Kopf stellen. Von Seele oder Astralleib kann man erst sprechen, wenn zu dem, was äußerlich vorgeht, im Innern ein neues Ereignis, eine neue Tatsache hinzukommt, wenn auf einen Stoß oder Druck Schmerz oder ein anderer Reiz hinzukommt, etwas, was als Freude erlebt wird. Das, was ein Wesen zum Seelenwesen macht, sind nicht die Äußerungen, die es nach außen kundgibt, sondern die Vorgänge, die es in seinem Innern erlebt. Erst wo die Empfindung anfängt, wo das Leben sich innerlich umwandelt in Lust und Leid, wo irgendein Gegenstand draußen nicht bloß eine Anziehung ausübt auf irgendein Wesen, sondern wo im Inneren des Wesens ein Erlebnis gegenüber dem äußeren Gegenstand auftritt, erst da können wir von Seele oder Astralleib sprechen. Wenn eine Pflanze sich spiralförmig um einen Stab oder Stock windet, so sind das Wirkungen, die die Antwort auf Reize sind: Lebenserscheinungen. Selbst wenn es bei manchen Pflanzen vorkommt, daß wenn Sie einen Finger in ihre Nähe brin-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+gen, sie dem Finger und nicht dem Stabe folgt, so haben Sie es nicht mit einem inneren Vorgang zu tun. Von einem solchen kann erst die Rede sein, wenn ein Trieb im Inneren des Wesens sich regt und es dann mittels dieses Einflusses dem Reize folgt. Wer diese Dinge nicht strikt unterscheidet, ist unfähig, sich zu dem Begriffe der Seele, des Astralleibes, zu erheben. Diese hat der Mensch gemeinschaftlich mit den Tieren, nicht mehr aber mit den Pflanzen.
+
+Dann haben wir, wie schon öfter erwähnt, ein viertes Glied, wodurch der Mensch in sich etwas erlebt, was ihn zur Krone der Erdenschöpfung macht, dasjenige, was wir das Ich nennen. Dieses Ich in seiner Wesenheit zu erkennen, ist eine außerordentlich wichtige Sache für alle Erkenntnis.
+
+In früheren Vorträgen habe ich darauf aufmerksam gemacht, daß es im ganzen Umkreis unserer Sprache nur ein einziges Wort, einen einzigen Namen gibt, der sich von allen übrigen Namen unterscheidet. Jeden anderen Gegenstand können Sie mit seinem Namen bezeichnen, die Uhr, den Tisch, das Heft. Nicht können Sie so dasjenige, was das Ich ist, mit seinem Namen bezeichnen. Versuchen Sie einmal zu einem anderen Wesen Ich zu sagen! Sie können nur zu sich selbst Ich sagen. Ein jedes Wesen ist für einen anderen ein Du, und für jedes Wesen ist der andere ein Du. Soll der Name des Ich ausgesprochen werden, so muß dieser Name aus dem Innersten des Wesens heraus erklingen. Das haben auch die Religionen, die auf Geisteswissenschaft gebaut waren, empfunden, und deshalb in richtiger Weise gesagt: Hier spricht die Gottheit einen ersten Ton, ein erstes Wort in der menschlichen Seele in ihrer ureigenen Gestalt, und so ist ihnen der Ausdruck für dieses Ich als etwas Heiliges vorgekommen. Sie haben ihn deshalb, weil kein anderer ihn aussprechen kann, weil nur die Seele ihn aussprechen kann, den «unaussprechlichen Namen Gottes»
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+genannt. Was zu späterer Zeit die hebräische Religionslehre mit dem Ausdruck Jahve bezeichnet hat, ist nichts anderes als der Ausdruck für das Ich, das sich selbst in sich bezeichnet. Das ist das vierte Glied der menschlichen Wesenheit.
+
+Und nun, wenn wir diese viergliedrige Wesenheit betrachten — physischer Leib, Ätherleib, Astralleib und Ich —, so müssen wir sagen: Mit diesen vier Gliedern, die kein anderes Wesen auf der Erde hat als der Mensch, steht ein jeder, der ungebildete Wilde und der höchstentwickelte Geistes mensch, vor uns. Wodurch unterscheiden sich aber die einzelnen Menschen auf der Erde, wenn alle vier Glieder haben? Dadurch, daß der eine mehr, der andere weniger von seinem Ich aus an seinen drei Gliedern gearbeitet hat. Vergleichen wir den noch ganz wilden Menschen, der jedem Trieb, jeder Begierde, jeder Leidenschaft folgt, mit einem hochsinnigen Moralisten, der reine, heilige moralische Begriffe hat und diesen folgt, der nur dasjenige gelten läßt von seinen Trieben und Leidenschaften, wozu der Geist «ja» zu sagen vermag. Wodurch unterscheiden sich beide? Dadurch, daß der hochsinnige Geistes mensch von seinem Ich aus gearbeitet hat an seinem astralischen Leibe. Der ungebildete Wilde hat an seinem astralischen Leibe wenig gearbeitet, hat ihn noch fast so, wie er ihn von der Natur, von den göttlichen Mächten empfangen hat. Der hochsinnige Moralist und Idealist hat ihn umgearbeitet, geläutert, gereinigt.
+
+Ein astralischer Leib besteht aus zwei Gliedern; aus dem einen Glied, das der Mensch ohne sein Zutun hat, und dem anderen, das er bearbeitet hat, das die Arbeit seines Ich ist. Menschen, die auf einer solchen Höhe stehen wie zum Beispiel Franz von Assist — Sie mögen sonst über ihn denken wie Sie wollen —, haben fast ihren ganzen astralischen Leib unter die Herrschaft des Ich gestellt, so daß nichts in
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ihrem astralischen Leibe geschieht, was nicht durch das Ich beherrscht ist. Wie unterscheidet sich ein solcher Mensch von dem Wilden? Im Wilden geschieht alles durch das, was das Ich nichts angeht; im hochsinnigen Menschen geschieht alles durch das, was er aus seinem astralischen Leibe gemacht hat. So viel von dem astralischen Leibe umgestaltet worden ist durch das Ich, so viel ist im Menschen Geistselbst oder Manas vorhanden.
+
+Da haben wir fünf Glieder der menschlichen Wesenheit: Physischer Leib, ätherischer Leib, astralischer Leib, Ich und Geistselbst. Und dann haben wir die Möglichkeit, als Menschen nicht nur unseren astralischen Leib, nicht nur die Summe unserer Begierden, Triebe und Instinkte umzuwandeln, zu läutern und zu veredeln, sondern wir haben auch die größere Fähigkeit, unseren Ätherleib umzuwandeln. Im gewöhnlichen Leben arbeiten die Menschen in der Geistesentwicklung daran, nach und nach ihren Astralleib zu veredeln, schon durch die gewöhnlichen Impulse des Lebens, die moralischen Begriffe, die intellektuellen Vorstellungen. Alles, was wir lernen, gestaltet den Astralleib um. Wenn wir uns einen Begriff machen wollen von dem Gegensatz der Umgestaltung des Astralleibes und der Umgestaltung des Ätherleibes durch das Ich, so müssen wir uns einmal erinnern, wie wir als achtjährige Kinder waren. Da haben wir manches nicht gewußt, was wir heute wissen. Vieles haben wir gelernt. Unter den Empfindungen, die wir so aufgenommen haben, hat sich der Astralleib umgewandelt, hat er sich Geistselbst oder Manas eingegliedert. Alles aber, was, als wir ein achtjähriges Kind waren, unser Temperament, unsere Neigungen und so weiter ausgemacht hat, das hat sich nicht in der gleichen Weise umgestaltet. Wenn Sie mit acht Jahren ein jähzorniges, ein bockbeiniges Kind waren, dann sind Sie wahrscheinlich heute noch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+manchmal jähzornig oder bockbeinig. Die Umwandlung des Temperaments und der Neigungen geht viel langsamer vorwärts. Man kann das Fortschreiten des Astralleibes mit der Bewegung des Minutenzeigers und den Fortschritt des Ätherleibes mit dem Vorrücken des Stundenzeigers vergleichen. Es ändern sich die Neigungen aber nur, wenn sich der Ätherleib wandelt, und es gehören dazu stärkere Impulse als zur Umwandlung des Astralleibes. Solche starken Impulse hat der Mensch, der in der Geisteswissenschaft steht, und er kann sie schon haben, wenn er dem Eindruck eines Kunstwerks ausgesetzt wird, hinter dem der Mensch den unendlichen Sinn, sagen wir von Wagners «Parsifal» oder von Beethovens Neunter Symphonie, sieht. Diese Impulse sind nicht bloß wirksam auf den Astralleib, sondern sie sind so stark, daß der Ätherleib des Menschen geläutert, gereinigt und verwandelt wird. Ebenso ist es, wenn der Mensch vor einem Bild RafFæls oder Michelangelos steht und durch die Farbe ein Impuls von dem Ewigen ihn durchdringt. Aber die stärksten Impulse sind doch die religiösen Impulse der Menschheit. Was als religiöse Impulse durch die Zeiten hindurchgegangen ist, hat die Menschen so stark verwandelt, daß es ihren Ätherleib ergriffen hat, so daß die Menschen auch in bezug auf ihren Ätherleib zwei Teile in sich tragen, den unverwandelten, wie von der Natur empfangenen Teil, und den umgewandelten. Der umgewandelte Teil heißt Lebensgeist oder Buddhi.
+
+Tritt dann an den Menschen das heran, was wir kennenlernen, wenn wir einen Vortrag über die Einweihung oder Initiation hören, so tritt das noch stärker hervor, was den Ätherleib umwandelt. Die Initiation besteht darin, dem Menschen die Mittel zu geben, immer mehr den Ätherleib umzuwandeln. Daher gilt es auch für den, den man Geheimschüler nennt, daß alles intellektuelle Lernen, alles,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+was er schulmäßig aufnehmen kann, nur Vorbereitung ist. Wichtiger als alles intellektuelle Aufnehmen ist für den, der sich einer geisteswissenschaftlichen Schulung unterwirft, nur eine einzige Neigung in bewußter Weise in eine andere umzuwandeln, und wenn es nur eine Handbewegung ist. Eine solche umzuwandeln, hat unter Umständen mehr Wert als noch so viel angeeignetes theoretisches Wissen. Im Grunde genommen besteht die Einweihung, die Initiation, in Impulsen, die den menschlichen Ätherleib reinigen und läutern. Diese Impulse setzen sich dann fort in denen, die zur Reinigung und Läuterung des physischen Leibes aufsteigen, und das ist das Höchste, was der Mensch in seiner jetzigen Laufbahn erlangen kann.
+
+Nun könnte einer sagen, der physische Leib ist doch der niederste; wenn also der Mensch auf den physischen Leib wirkt, ist das etwas Besonderes? — O ja! Eben weil der physische Leib das niederste Glied ist, müssen die stärksten Kräfte angewendet werden, um diesen in seine ursprüngliche Form, in die Form des reinen Geistes zu verwandeln. Die Läuterung dieses physischen Körpers beginnt mit bestimmten Methoden, den Atmungsprozeß zu regulieren. Deshalb nennt man den Teil, der so umgewandelt wird, Atma oder den eigentlichen Geistesmenschen; Atma heißt nur Atmen. Dann geht, wenn der Körper umgewandelt ist — der aber äußerlich bleibt wie sonst —, die menschliche geisteswissenschaftliche Schulung auf der höchsten Stufe vor sich. Dadurch erlangt dann der Mensch nicht nur die Fähigkeit, bewußt in seinem physischen Leib zu leben, sozusagen jedes Blutkügelchen, jede Nervenströmung zu kennen, er gelangt auch dazu, hinaus in die große Natur zu wirken, aus einem, wenn man so sagen darf, vorher in die Haut eingeschlossenen Menschen ein Mensch zu werden, der auf die Kräfte des Universums und des Kosmos
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+zu wirken vermag. So geht der Mensch in denjenigen Zustand über, durch den er eins wird mit dem Kosmos. Alles übrige Reden vom Einswerden mit dem Kosmos, das nicht auf dem Wege wahrer Schulung und Entwicklung geschieht, ist Geschwätz und Phrase.
+
+Der Mensch wird dadurch eins mit dem Kosmos, daß er zuerst seinen astralischen Leib umwandelt, dann den Äther leib und endlich den physischen Leib. Er wird dadurch eins mit dem ganzen Kosmos, wie der kleine Finger eins ist mit dem physischen Leib, an dem er sich befindet. Das ist ein ganz regulärer und regelmäßiger Gang der menschlichen Entwicklung, den viele Menschen durchgemacht haben, den wir alle durchmachen bis zu einem gewissen Grade schon jetzt, und den alle durchmachen werden in der Zukunft.
+
+Was geschieht da nun eigentlich? Versuchen wir uns einmal zu vergegenwärtigen: Was ist der astralische Leib? Er ist nichts anderes als die Summe von Begierden, Trieben und Leidenschaften, von Lust und Leid, Freude und Schmerz. Alles, was da zusammenwirkt im Menschen, ist Äußerung des Geistes, Geist in irgendeiner Form; weil alles Geist ist. Wodurch ist es denn möglich, daß das Ich an dem astralischen Leib arbeitet? Es ist dadurch möglich, daß sich dem Ich der Geist in seiner ureigenen Gestalt erschließt. In den Leidenschaften, Trieben und Begierden ist der Geist verborgen, da erscheint er in seinen Äußerungen. In das Ich strömt er in seiner ureigenen Gestalt ein, und das Ich läßt ihn wieder verströmen in den Astralleib, so daß das Ich vermittelt zwischen der ureigenen Gestalt des Geistigen und der seiner Äußerung. So ist es mit dem Ätherleib und endlich auch mit dem physischen Leib, und so findet eine fortwährende Vergeistigung während der Umwandlung der drei menschlichen Leiber oder Glieder der menschlichen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Wesenheit statt. So wahr es ist, daß alles, was uns entgegentritt an Mineralien, Geist ist - aber Geist in seiner äußeren Wirkung -, so wahr ist es, daß das, was uns im Menschen entgegentritt, auf dem Wege zur Vergeistigung ist durch das, was das Ich selbst in die niedere Wesenheit hineingießt. Aber nur indem zwischen dieser Äußerung, dem Materiellen des Menschen, seinem physischen Leib, Ätherleib und astralischen Leib, und den Gliedern des Geistes, die hineinleuchten in die drei Leiber - Geist selbst oder Manas, Lebensgeist oder Buddhi, Geistesmensch oder Atma -, das Ich steht, ist diese Überleitung des Geistes in die drei Leiber möglich. Das Ich muß dazwischenstehen. Dann kann das Obere das Untere bearbeiten.
+
+Und das Wesen dieses Ich, worin haben wir es kennengelernt? Wir haben es kennengelernt schon in seinem Namen. Niemals kann der Name, dieses Ich, von außen an unser Ohr klingen, wenn er uns selbst bedeutet. Damit ist mehr gesagt als mit allen Phrasen, die in den gewöhnlichen Psychologien stehen. Würde man ordentlich begreifen, was das Ich ist dadurch, daß dieser Name niemals von außen an uns herantreten kann, dann würde man mehr geleistet haben als alle Schulpsychologie. Der Philosoph Fichte hat das schon gesagt: Das Schönste ist ein Mensch als ein Ich. Die meisten Menschen würden sich aber lieber für ein Stück Lava im Monde halten als für ein Ich, wozu sie die selbst eigene Kraft brauchen, um es anzuschauen, es zu erblicken.
+
+Wir werden bei dem Vortrage über die Tierseele sehen, daß das Tier auch ein Ich hat, aber nicht in der physischen Welt. Der Mensch unterscheidet sich dadurch von dem Tier, daß er das Ich in der physischen Welt hat. Das Ich ist dasjenige, was den Geist von innen heraus einfließen läßt in das, was andere Form des Geistes ist, in die verschiedenen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Materien, sogar in das Seelische selber, was wir als den astralischen Leib bezeichnen. Wir können daher das Wesen des Ich geradezu bezeichnen als Verinnerlichung. Diese Verinnerlichung wird beim Tiere erst vorbereitet. Da wir von der Tierseele noch sprechen werden, lassen Sie uns das heute nur andeuten. Man darf also nicht vergessen, daß auch das Tier ein Ich hat, aber nicht das einzelne Tier, sondern eine ganze Tierspezies. Alle Löwen zusammen, alle Tiger zusammen haben ein Ich, und dieses Ich ist in der übersinnlichen Welt. Es ist so, wie wenn von einem Tiere, das zu einer Gattung gehört, in die höhere Welt hinauf unsichtbare Stränge oder Faden gingen zu der gemeinschaftlichen Gruppen- oder Gattungsseele. Und eine solche Gattungsseele ist die menschliche individuelle Seele geworden. Was eine ganze Tiergruppe hat, das hat jeder einzelne Mensch. Daher bereitet sich beim Tier die Verinnerlichung zur Seele erst vor. Wir sehen es, wenn wir die sogenannte Seele des Tieres studieren, den Astralleib. Die eigentliche Verinnerlichung dieser Seele, das erste Einstrahlen des Geistes ist da möglich in unserer Welt, wo das Ich in dieser Welt selbst vorhanden ist, als individuelle Seele. Die Seele, die in sich das Ich hat, ist dadurch imstande, den Geist einströmen zu lassen in die Materie. So sehen wir, wie Geist und Leib oder auch Geist und Materie zwei Wesenheiten, wenn wir so sagen dürfen, sind, wovon aber die eine Wesenheit im Grunde genommen dasselbe ist wie die andere, nur in anderer Form. Materie und Körper sind Geist in anderer Form. Sie sind in der Welt überhaupt nur voneinander verschieden wie Eis und Wasser. Sie sind verschieden, trotzdem sie dasselbe sind. Und mitten drinnen steht die Seele. Sie ist das Verbindende von Geist und Leib.
+
+So verstehen wir den Menschen nur, wenn wir ihn in dieser dreigliedrigen Zusammensetzung begreifen, beste
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+hend aus dem Leib oder eigentlich dem dreigliedrigen Leib, aus physischem Leib, Ätherleib und Astralleib; bestehend aus werdendem Geist: Manas, Buddhi, Atma oder Geistselbst, Lebensgeist und Geistesmensch - und der Seele als der Wesenheit, die das eine in das andere verwandelt, die teilnimmt am Leibe und am Geist. Nur dann können wir die Seele im richtigen Lichte verstehen, wenn wir sie so vom Geiste aus am Leibe arbeiten sehen. Wenn wir sie von diesem Gesichtspunkte aus studieren, werden uns durch die Geisteswissenschaft gerade diejenigen Fragen beantwortet, die der Mensch der wirklichen Seelenwesenheit gegenüberstellen muß- Wir sehen, wie beim Menschen in jedem Augenblick seines Lebens die Seele hineingestellt ist zwischen Leib und Geist. Beim Wilden zum Beispiel wird die Seele nur ein Tröpfchen Geist hereinsaugen können in den Leib. Er steht noch ganz unter dem Einfluß der äußeren Einwirkungen, unter Hunger und Durst, unter dem, was der Äther- oder Lebensleib ihm als die Lebenserscheinung aufprägt, unter dem Einfluß der bis zum Tierischen hingehanden Instinkte und Begierden. Die Seele des hochentwickelten Idealisten, wie zum Beispiel Schillers oder des Heiligen Franz von Assisi, neigt zum Geiste hin, erwirbt sich ein höheres Bewußtsein und macht sich frei vom materiellen Dasein. Die Geisteswissenschaft zeigt uns, daß Verwandlung besteht in den Formen. Das ist es, was wir den Stoff nennen. Oft wird uns das begegnen in den Vorträgen des Winters, oft können wir das vor Ihnen aufbauen, und niemand darf hoffen, daß er in einem einzigen Vortrag das Begriffliche dessen, was zur Geisteswissenschaft gehört, aufnehmen kann.
+
+Wenn wir von diesem geisteswissenschaftlichen Standpunkte aus die Welt um uns herum betrachten, so zeigt sie sich in einer fortdauernden Verwandlung, wie sich uns
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+auch äußerlich die Natur in einer fortdauernden Verwandlung zeigt. Wir sehen die Blume im Frühling aus dem Samenkorn heraus erstehen. Im Herbst sehen wir sie wieder verfallen, aber das Wesen wird aufbewahrt im Samenkorn, um neuerdings wieder zu erstehen. So wird auch die Geisteswissenschaft uns zeigen, wie tatsächlich der Leib vom Geist aufgebaut wird, und wie das Wesen dieses Geistes, wenn der Leib zerfällt, sich erhält als geistiger Same, der immer wieder und wieder erscheint.
+
+Wir können Eis in Wasser und Wasser in Eis verwandeln. So verwandelt sich auch Geist in Leib. Der Leib zerfällt, aber der Geist in ihm bleibt und erscheint in immer neuen Formen. Da werden wir zu dem Gesetze geführt, das wir das Gesetz des Wechsels im menschlichen Leben nennen. Der Mensch lebt hier im physischen, ätherischen und astralischen Leib. Aber er hat noch ein anderes Leben, das da war vor diesem Leben und sein wird nach diesem Leben. Da lebt er, so wie er hier in diesen drei Leibern lebt, in der geistigen Welt. Und von dorther bringt er sich die Kräfte, die seine Leiber aufbauen, die ihm diejenige Form geben, die er hat, wenn auch im Geist das Leben anders ist. Das Ist es, was sich uns zeigt, wenn wir die Geisteswissenschaft in der richtigen Weise verstehen. Es zeigt sich da, wie der Mensch ein Wechselleben führt zwischen Geburt und Tod: das Leben im Leib, und das zwischen dem Tod und einer neuen Geburt, bis er zu einer neuen Verkörperung schreitet - das Leben im Geistigen. Und das, was hier im Leibe und dort im Geiste lebt und wechselt zwischen dem Leben im Leibe und dem Leben im Geiste, ist die Seele. Jedesmal aber, wenn sie eine Verkörperung durchgemacht hat, hat der Mensch an seinem Leib gearbeitet und kommt als Seele mit den Früchten des Erdenlebens bereichert in das Geisterland zurück. Die Seele entwickelt sich immer
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+weiter, immer hoher. So ist sie auch die Vermittlerin zwischen Geist und Leib. Und so werden wir an die Grenze geführt, die uns bei richtiger Betrachtung von Geist, Seele und Leib zeigt, wie das Verhältnis der drei zueinander ist. Wir lernen alles das, was zerfällt, was zerstäubt, als eine Verwandlung dessen erkennen, was das innerste Wesen der Seele ausmacht, wie wir alles Zeitliche als Form des Ewigen erkennen. Eine solche Geisteswissenschaft führt zu einer Wissenschaft, die wirklich die Fragen beantwortet nach dem Zeitlichen und Ewigen und nach dem Schicksal des Menschen nach dem Tode, die Fragen, die das menschliche Herz überhaupt hat, wenn es von einer solchen Wissenschaft etwas wissen will. Eine Wissenschaft, die sich Grenzen setzt, sieht das Wichtigste nicht. Daher ist unsere Schulpsychologie so begrenzt. In gewissem Sinne ist es wichtig, zu lernen, was sie bietet. Die Geisteswissenschaft verschmäht es nicht, aber sie findet es unzureichend, solange nicht auf das Wesen des Geistes und der Seele eingegangen wird. Das ist der richtige Weg zur Erkenntnis des Geistes und der Seele: Die Seele hängt dadurch, daß sie ein zeitliches Leben durchmacht, mit ihren Leibern zusammen, wenn wir so sagen dürfen, sie ist verstrickt in diese Leiber, und das, was sie zu diesen Leibern hinzieht, ist derjenige Teil, der ein Hindernis ist für das reine, geläuterte Leben im Geiste zwischen dem Tode und einer neuen Geburt. Da lernen wir allmählich begreifen, wo die Hindernisse der Seele sind für die neue Geburt. Wir lernen auch begreifen, daß die Seele nach dem Tode sich erst ganz freimachen muß nicht nur von dem Leibe – denn das tut schon der Tod –, sondern von dem Hang zum Leibe. Durch die richtigen Begriffe von Geist, Seele und Leib kommen wir auch zum Schicksal der Seele auf der leiblichen und geistigen Lebenspilgerschaft.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Heute habe ich versucht, Ihnen ohne Rücksicht auf das, was durch die Methoden des Hellsehens und der Initiation, von denen wir in den nächsten Vorträgen sprechen werden, gewonnen wird, bloß durch Anwendung der gewöhnlichen menschlichen Verstandesweisheit zu zeigen, wie auf diese Art zu reinen richtigen Begriffen über die Seele und den Geist zu gelangen ist. Das müssen wir festhalten: Was im Verlaufe dieses Winters uns entgegentreten wird, das werden Ergebnisse der Geistesforschung sein. Aufgefunden können sie nur werden durch die Methoden, wie sie in den Vorträgen über Einweihung und so weiter angegeben sind. Begriffen und verstanden können sie aber werden durch die gewöhnliche Logik und gründliches Denken. Derjenige, der die Ausflucht gebraucht: Was geht mich die Geisteswissenschaft an, da ich kein Hellseher bin? - der wendet sich von der Geisteswissenschaft nicht aus Mangel an Hellsehen ab, sondern deshalb, weil er nicht sein Denken gründlich und umfassend genug auf sie anwendet. Gerade die Seelenwissenschaft hat in unserer Zeit des Materialismus - den manche für abgetan halten, der auch abgetan ist in der Philosophie, aber gerade in der Denkweise der Psychologie floriert - viel gelitten. Heute haben die Begriffe von Seele und Geist am meisten gelitten unter diesem Materialismus. Die Geisteswissenschaft wird es zu ihrer Mission machen müssen, reine und geläuterte Begriffe über Seele und Geist wieder in die Menschheit zu bringen. Dadurch wird sie die beste Dienerin sein der hohen Religionsüberlieferungen, die den Unterschied machen zwischen dem Menschengeist und dem umfassenden Weltengeist, den die Religionsüberlieferungen den Heiligen Geist nennen. Nur dann verstehen wir diese Schriften, wenn wir sie tief genug fassen und alles in großen und gewaltigen umfassenden Bildern betrachten, die der Ausdruck wahrer Tatsachen sind, als Mittel zum Verständ-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch: 5 6 Seite: 8 6
+
+---
+
+nis. Wir verstehen aus der Geisteswissenschaft heraus auch noch vieles, was die Menschheit in Zukunft wissen wird, und was sie in früheren Zeiten durch ihre bedeutendsten Geister nur geahnt hat. Viele merkwürdige Gefühle gehen durch die menschliche Seele, wenn sie sich hineinfühlt in das geistige Getriebe. Diejenigen, die zu der Geisteswissenschaft sagen: Du gibst uns etwas für den Geist, aber nichts für die Seele; ich suche Seele und du gibst mir geistige Errungenschaften, - die wissen nicht, daß das, was sie ablehnen, gerade dasjenige ist, was der Seele das gibt, was sie verlangen. Sie dürsten nach den Willensimpulsen der Seele. Die Seele kann aber nur glücklich und selig sein, wenn sie den Geist in sich einfließen läßt und von ihm aus die Leiber gestaltet.
+
+Was uns von außen entgegentritt, ist gestalteter Geist, und was die Materie zu Gestalt ruft, das strömt aus der geistigen Welt herunter. Was das Auge an der Gestalt sieht als Farbe, das ist sozusagen verdichteter Geist, und die Kraft, die hineinschießt in die Materie und die Gestalt bewirkt, stammt aus dem Ewigen. So kann leicht einem Geist, der sich das zwar nicht in geisteswissenschaftlicher Weise zur Klarheit bringt, es aber empfindet und ahnt, das, was um ihn herum lebt, so erscheinen, daß er sich sagt: Alles, was hier ist, erscheint mir wie aus der geistigen Welt heraus gestaltet. Die Gestalt erscheint mir als das Heilige, das wie ein Blitz hineingefahren ist in den bloßen Stoff, und wenn ich die Gestalt selbst erblicke, so scheint sie sich hineinzusenken und wieder zurückzuziehen aus dem Stoff. Das ahnte der Dichter von der Geisteswissenschaft, als er den Gegensatz aufstellte zwischen dem Körper, der menschlichen Seele und dem Geist, die beide im Leib gestaltend sind. Schiller kam es als eine Ahnung, eine Empfindung, wie die Seele in Realität den Geist in die Materie einfließen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ßen läßt, wodurch die Materie vor den Blicken verschwindet. Indem er das bedachte, ließ er die Empfindung ausfließen in die schönen Worte:
+
+Nur der Körper eignet jenen Machten,
+Die das dunkle Schicksal flechten.
+Aber fern von jeder Zeitgewalt,
+Die Gespielin seliger Naturen
+Wandelt oben in des Lichtes Fluren,
+Göttlich unter Göttern, die Gestalt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# MANN UND WEIB
+IM LICHTE DER GEISTESWISSENSCHAFT
+
+München, 18. März 1908
+
+Anthroposophische Geisteswissenschaft soll nicht dazu da sein, durch schwärmerische Mystik irgendwelcher Art den Menschen dem Leben zu entfremden. Sie soll den Menschen durchaus nicht abführen von den Aufgaben des Alltags und der Zeit; im Gegenteil, Geisteswissenschaft soll just das sein, was dem Menschen Stärke und Energie, Umsicht und Unbefangenheit gibt für die Aufgaben des Lebens, für die Forderungen der unmittelbaren Wirklichkeit. Darum darf auch wohl innerhalb dieser Geisteswissenschaft zuweilen nicht nur von den großen Weisheitsfragen der Menschheit gesprochen werden, dem Wesen der Menschheit, dem Wesen der Welt, sondern es wird auch gesucht werden müssen, von dem Gesichtspunkt der Geisteswissenschaft Licht zu verbreiten über Fragen, die uns unmittelbar beschäftigen. Und so werden wir es in diesen Vorträgen zu tun haben mit Betrachtungen, die durchaus das betreffen, was man Zeitfragen nennt.
+
+Derjenige aber, der auf dem Boden der Geisteswissenschaft steht, sieht sich in eine besondere Lage versetzt gegenüber solchen unmittelbaren Zeitfragen, denn er erregt die Erwartung, daß er sich mischt in die Debatten des Tages. Und leicht kann er diese Erwartung erregen, wenn es sich handelt um die Frage: Mann und Weib - Mann, Weib und Kind. Und gerade weil der Geistesforscher genötigt ist, vermöge seines Standpunktes solche Fragen von einer höheren Warte herab zu betrachten, so kann es scheinen, als ob eine
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+solche Betrachtung hinwegleite von dem, was man in den üblichen Debatten des Tages anschlägt an Meinungen, Anschauungen und so weiter. Aber, wenn es auch wahr ist, daß Geisteswissenschaft solche Fragen in ein höheres Licht rücken muß, so ist gerade diese Geisteswissenschaft befähigt, unmittelbar praktisch einzugreifen in die Probleme des Tages. Denn das ist das Eigentümliche geisteswissenschaftlicher Betrachtung, daß sie auf der einen Seite solche Fragen hinaufhebt zu den Gesichtspunkten des Ewigen, dadurch aber zu gleicher Zeit auch die Handhaben bietet für das alltägliche Leben, während alles parteimäßige Betrachten in etwas hineinführt, was im Leben des Alltags sich als unanwendbar erweist. Das hat man sich vor Augen zu führen, wenn unternommen werden soll, von einem höheren Gesichtspunkt aus das Verhältnis von Mann und Weib zu betrachten. Es wird manches ganz sonderbar erscheinen, was da zu sagen ist. Aber wenn Sie tiefer eingehen auf diese Dinge und die Tatsachen des Lebens daran messen, so werden Sie finden, daß Sie eine viel gründlichere Antwort durch Geisteswissenschaft gewinnen können als durch das, was man sonst darüber hört.
+
+Geisteswissenschaft geht aus von der Grundanschauung, daß hinter allem Sinnlich-Sichtbaren ein Seelisch-Geistiges steht. Gerade die uns beschäftigenden Fragen werden erst dann in der richtigen Weise uns vor Augen stehen, wenn wir hinblicken auf das geistig Wesenhafte, das hinter dem Sinnlichen steht. Und so müssen wir uns denn fragen: Was steht als ein Geistiges hinter den beiden Geschlechtern? - Und da kann uns vielleicht das Wesen der Geschlechter dadurch enthüllt werden, daß wir auf dieses Geistige eingehen, das hinter der sinnlichen Verschiedenheit der Geschlechter liegt. Da aber werden wir sehen, daß Geisteswissenschaft aus ihrem Wesen heraus hinführt zu allerlei Wahrheiten, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+unsere heutige Zeit auf ihre Weise schon ahnt auch aus der materialistischen Weltanschauung heraus. Aber weil hinter diesen Ahnungen nur eine materialistische Weltanschauung steht, erweisen sie sich als trügerisch.
+
+Was hat nun der Materialismus über das Wesen der Geschlechter zu sagen? Am besten können wir uns darüber dadurch orientieren, daß wir das betrachten, was die letzten Zeiten über diese Frage zutage gefördert haben. Seit geraumer Zeit sucht ja die Frau immer mehr sich der Epoche der Menschheitsentwicklung zu nähern, welche die volle Gleichberechtigung der beiden Geschlechter hat. Indem also die Frau eingetreten ist in den Kampf für ihre Rechte, wird es uns interessieren, was der Materialismus über das Wesen der Frau zu sagen hat. So werden wir einen Maßstab gewinnen, wie man in der Gegenwart über eine so wichtige Frage denkt. Nun könnte man die allerverschiedensten Stimmen über das Wesen des Weiblichen anführen, wie sie etwa zusammengestellt sind in dem Buche «Zur Kritik der Weiblichkeit» von Rosa Mayreder. Man tut gut daran, solche Urteile bei führenden Persönlichkeiten der Gegenwart zu suchen. Bei einem sehr bedeutenden Naturforscher des 19. Jahrhunderts ist als Grundeigenschaft der Frau angegeben das Gefühl der Demut. Ein anderer, der auch ein Recht hat mitzusprechen, findet als weibliche Grundqualität die Zornmütigkeit. Ein anderer Naturforscher, der viel Aufsehen erregt hat, kommt zu dem Ergebnis, daß das Grundwesen der Frau am besten sich ausdrücken lasse mit Ergebenheitsgefühl; ein anderer mit Herrschsucht, ein anderer mit konservativem Sinn, und wieder ein anderer findet, die Frau sei das eigentlich revolutionierende Element in der Welt. Und noch ein anderer sagt, bei der Frau finde sich ganz besonders ausgeprägt die Fähigkeit der Analyse, wogegen ein anderer feststellt, der Frau fehle die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Fähigkeit der Analyse vollständig, sie habe nur die Möglichkeit der Synthese entwickelt.
+
+Man könnte diese Blütenlese beliebig vermehren, herausbekommen würde man am Schlüsse nur, daß das äußerliche Anschauen gescheite Menschen zu den entgegengesetzten Urteilen bringt. Wer tiefer auf die Sache eingehen will, der müßte sagen: Diese Betrachter gehen vielleicht von ganz falschen Voraussetzungen aus; nicht das Äußerliche bloß sollte man ansehen, sondern das ganze Wesen. - Aufgedrängt durch die Tatsachen ging manchem Forscher eine Ahnung auf, aber sie wurde eingetaucht in materialistisches Denken. So schreibt da zum Beispiel ein junger Geist, Otto Weininger, ein Buch über «Geschlecht und Charakter». Otto Weininger war ein Mensch von großen Anlagen, der aber diese großen Anlagen versprüht hat, weil die ganze Schwere der materialistischen Weltanschauung unserer Zeit auf seiner Seele lastete. Er meinte nämlich: Das Wesen des Menschen kann nur so betrachtet werden, daß man in dem einzelnen Menschen nicht einseitig das Männliche und das Weibliche betrachtet, sondern bemerkt, daß dem Männlichen zugemischt ist das Weibliche und umgekehrt. - Die Ahnung einer Idee dämmert also auf in der Seele dieses Weininger. Aber diese Ahnung ist durch die Suggestionen der Zeit gepreßt in materialistisches Denken. Und so glaubt denn Weininger in einer gewissen stofflichen Mischung das Ineinanderwirken des Männlichen und Weiblichen zu sehen, so daß wir in jedem Manne ein verborgenes Weibliches zu finden hätten und in jeder Frau ein verborgenes Männliches. Daraus ergeben sich ihm aber sonderbare Konsequenzen. Weininger sagt da zum Beispiel: der Frau gehe ab ein Ich, Individualität, Charakter, jegliche Persönlichkeit, alle Freiheit und so weiter. Und da es sich für seine Anschauung um eine rein stoffliche, sozusagen quantitative Mischung männ-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+licher und weiblicher Eigenschaften handelt, so hat also der Mann dies alles in sich. Aber offenbar wird dies durch seine männlichen Eigenschaften zunichte gemacht. Sie sehen, wenn man den Dingen zu Leibe geht, stoßen wir auf eine Anschauung, die sich in sich selbst vernichtet. Aber es liegt, wie wir sehen werden, durchaus eine richtige Ahnung zugrunde.
+
+Nun werden wir in bezug auf diese Dinge einzutreten haben in die geisteswissenschaftliche Grundanschauung. Es ist von mir immer und immer wieder betont worden, daß es der Geisteswissenschaft nicht so leicht gemacht wird, das Wesen des Menschen zu betrachten, wie es bei der materialistisch orientierten Wissenschaft der Fall ist. Denn das, was man physisch-sinnlich am Menschen sieht, ist der Geisteswissenschaft nur ein Glied der ganzen Wesenheit, der physische Leib. Darüber hinaus unterscheidet Geisteswissenschaft den ätherischen Leib oder den Bildekräfteleib, den der Mensch mit Pflanzen und Tieren gemein hat. Als drittes Glied der menschlichen Wesenheit erkennt sie dasjenige, was Träger ist von Lust und Leid, was da lebt in unseren Empfindungen und Gefühlen, den Astralleib oder Seelenleib, den der Mensch mit den Tieren gemein hat. Und als viertes Glied wird erkannt dasjenige, was den Menschen erst zum Menschen macht, das Bewußtsein seiner selbst, das Ich. So beschreibt Geisteswissenschaft den Menschen als aus vier Gliedern bestehend.
+
+Zunächst berühren uns der physische und der ätherische Leib. Und hier ist auch verborgen die Lösung des Rätsels in bezug auf das Verhältnis der Geschlechter. Und nun muß der Geistesforscher etwas sagen, was ihm bei vielen Zeitgenossen den Vorwurf der Narretei erweckt: Der Mensch ist seiner Wesenheit nach ein eigentümlicher Organismus; nur teilweise ist nämlich der Ätherleib eine Art Abklatsch des physischen Leibes. In bezug auf die Geschlechtlichkeit
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+liegt die Sache anders. Beim männlichen Geschlecht ist der Ätherleib weiblich, beim weiblichen Geschlecht männlich. So sonderbar das zunächst erscheinen mag, eine tiefere Beobachtung muß dahin führen, diese außerordentlich bedeutsame Tatsache einzusehen: Im Verborgenen jedes Menschen ruht etwas vom andern Geschlecht. Dabei soll jedoch gar nicht auf alle möglichen abnormen Lebenserscheinungen Rücksicht genommen werden, sondern nur auf das, was die normalen Verhältnisse sind.
+
+Angesichts dieser Tatsache aber hört die Möglichkeit auf, im strengen Sinne des Wortes von Mann und Weib zu sprechen, sondern man muß sprechen von männlichen und weiblichen Eigenschaften. Die Frau kehrt gewisse Eigenschaften nach außen, entgegengesetzte nach innen. Das Weib hat im Innern männliche Eigenschaften, der Mann weibliche. Wenn also der Mann durch seine äußere Körperlichkeit beispielsweise zum Krieger wird, indem diese äußere Tapferkeit gebunden ist an die äußere Organisation seines Körpers, so hat die Frau die innere Tapferkeit, die Fähigkeit der Aufopferung, der Hingabe. Der Mann geht, wenn er sich zum Schaffen erhebt, in dem auf, was draußen ist. Die Frau wirkt in hingebungsvoller Passivität in der Welt. Unzählige Erscheinungen des Lebens werden uns klar werden, wenn wir die menschliche Wesenheit aus zwei Polen zusammenwirkend denken, den männlichen Pol nach außen, den weiblichen nach innen beim Mann, bei der Frau den weiblichen Pol nach außen, den männlichen nach innen.
+
+Geisteswissenschaft zeigt uns aber auch die tieferen Gründe davon auf, warum in dem Männlichen ein Weibliches sich findet, im Weiblichen ein Männliches. Geisteswissenschaft spricht davon, daß der Mensch durch viele Leben durchgeht zu immer höherer Vollkommenheit. Das gegenwärtige Leben ist immer die Folge der früheren. Und
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+indem der Mensch dergestalt durch viele Leben hindurchschreitet, geht er auch durch männliche und weibliche Verkörperungen.
+
+So drückt sich also aus in dem, was so entsteht, die Wirkung dessen, was wir an Erfahrungen, Erlebnissen nach beiden Seiten hin als Erdenmenschen machen können. Wer so, wie es geschildert worden ist, in das männliche und in das weibliche Wesen hineinschauen kann, weiß, daß die intimeren Erlebnisse der beiden Geschlechter ganz andere sind, ganz andere sein müssen. Unser ganzes Erdenleben ist ein Aufsammeln der allerverschiedensten Erlebnisse und Erfahrungen. Allseitig aber können diese Erlebnisse und Erfahrungen nur werden dadurch, daß der Mensch diese Erlebnisse und Erfahrungen von beiden Geschlechtern aus macht. So zeigt sich uns, wenn wir den Menschen auch nur schon hinsichtlich seiner zwei niederen Glieder betrachten, daß er in Wahrheit ein Doppelwesen ist. Solange man jedoch nur den physischen Leib anerkennt, kann etwas Vernünftiges nicht herauskommen. Man muß das Geistige anerkennen, das dahinter ist. Durch das Männliche erscheint uns in dem Manne seine innere Weiblichkeit, und durch das Weibliche in der Frau ihre innere Männlichkeit. Nun begreift man auch, wie so viele Beurteiler, die Mann und Weib äußerlich anschauen, in die Irre gehen; es kommt eben ganz darauf an, ob man auf das Innere oder auf das Äußere blickt. Ganz dem Zufall ist derjenige unterworfen, der nur die eine Seite des menschlichen Wesens kennt. Wenn zum Beispiel der eine Forscher als Haupteigenschaft der Frau die Demut findet und ein anderer den Zorn, so hat jeder eben nur eine Seite derselben Wesenheit betrachtet. Der Irrtum muß bei dieser Art des Ansehens auftreten. Um die volle Wahrheit zu erkennen, müssen wir auch den vollen Menschen ansehen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 95
+
+---
+
+Zu einer solchen Erkenntnis der vollen Wahrheit gehört aber auch, daß man noch etwas anderes berücksichtigt: Wir müssen den Menschen betrachten in seinen wechselnden Zuständen von Wachen und Schlafen. Im Schlafe ist herausgehoben aus der physisch-ätherischen Organisation des Menschen der astralische Leib und das Ich. Mit dem Einschlafen verliert der Mensch das gewöhnliche Tagesbewußtsein; er tritt ein durch den Schlaf in ein anderes Bewußtsein, das Schlafbewußtsein. Die Wahrnehmungen und Erlebnisse, die Ich und astralischer Leib während des Schlafes in der geistigen Welt machen, bleiben dem gewöhnlichen Bewußtsein verborgen. In seiner gegenwärtigen Entwicklung ist der Mensch so organisiert, daß Ich und Astralleib sich im Wachzustande bedienen müssen der physischen Sinnesorgane, um zu einem Bewußtsein der physischen Welt zu gelangen. Heute ist man freilich der Anschauung, daß die physischen Apparate unserer Sinnesorganisation es sind, welche sehen, hören, schmecken, tasten und so weiter. Aber noch ein Denker wie Fichte sagt: Nicht das Ohr hört, sondern ich höre. - So ist auch alle Sinneswahrnehmung ausgehend von dem Ich, der eigentlichen inneren Wesenheit des Menschen. Und jeden Morgen, wenn der Mensch aufsteht, verschaffen Ich und astralischer Leib durch die Sinnesorgane sich Kenntnis von ihrer physischen Umgebung. Anders verhält es sich während des Schlafes: Ich und astralischer Leib weilen in der geistigen Welt. Doch hat der Mensch in seinem astralischen Leibe die entsprechenden Sinnesorgane, um im Astralraum sehen zu können, gewöhnlich nicht ausgebildet. Wer das nicht zugeben will, müßte konsequenterweise sagen: Eigentlich stirbt der Mensch jeden Abend. - So befindet sich also der Mensch während der Nacht in einer geistigen Welt.
+
+Nun aber hängen geistige Welt und physische Welt in
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+eigentümlicher Weise zusammen, denn alles Physische ist nur eine Art Verdichtungszustand des Geistigen. Wie Eis verdichtetes Wasser ist, so sind physischer Leib und Ätherleib Verdichtungen des astralischen Leibes. Der heutige Materialismus wird allerdings sehr schwer nur zugeben, daß der Geist der Schöpfer alles Stofflichen ist, aber die Tragik des Materialismus beruht ja gerade darauf, daß der Materialismus just von der Materie am allerwenigsten versteht. Und so kommt man denn auch zu sehr sonderbaren Dingen, wenn man ableugnet, daß alles Materielle nur ein verdichtetes Geistiges ist. Wenn man allerdings bei den populären Begriffen stehenbleibt, so wird den meisten Menschen nicht gleich das aller Vernunft Hohnsprechende sichtbar bei einem Satze wie diesem: Das Leibliche sei die Grundlage für das eigentlich Seelische, alles sogenannte Geistige sei aus dem Leiblichen abzuleiten. - Deutlicher wird es schon, wenn man die letzten Konsequenzen zieht, wie es zum Beispiel der Pragmatismus tut, der aus Amerika stammt, aber auch schon Europa angesteckt hat. Aus einem einzigen Satze kann man da sehen, wie diese Theorie allem gesunden Menschenverstand Hohn spricht; so heißt es da etwa: Der Mensch weint nicht, weil er traurig ist, sondern er ist traurig, weil er weint! - Man nimmt nicht wahr, daß da eine seelische Stimmung einwirkt auf das Physische, sondern man glaubt, daß irgendwelche äußeren Ursachen die Tränen herauspressen, und dann wird der Mensch eben traurig. Das ist die Konsequenz des Materialismus ins Absurde getrieben.
+
+Geisteswissenschaft weiß, daß die zwei höheren Wesensglieder des Menschen, Ich und astralischer Leib, in der Nacht heraus sind und ätherischen Leib und physischen Leib zurückgelassen haben. So läßt eben im Schlafe der Mensch auch seine männliche und weibliche Organisation zurück und verweilt in einer geistigen Welt als ein Wesen, das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 97
+
+---
+
+nichts Männliches und Weibliches mehr an sich trägt, als geschlechtlich undifferenziertes Wesen. So also teilt jeder Mensch schon hier sein Leben in Geschlechtliches und Ungeschlechtliches.
+
+Hat nun das Geschlechtliche keine Bedeutung in der geistigen Welt? Hat der Gegensatz zwischen physischem Leib und Ätherleib, der die Erscheinung der beiden Geschlechter in dieser Welt hervorbringt, kein Gegenbild in den höheren Welten? Nun, damit verhält es sich so, daß wir zwar das Geschlechtliche nicht mit hinaufnehmen in die höheren Welten, aber den Ursprung der beiden Geschlechter finden wir in der astralischen Welt. So wie das Eis aus dem Wasser, so ist das, was in der physischen Welt als Männliches und Weibliches uns entgegentritt, aus dem Gegensatz höherer Prinzipien gebildet. Dieser Gegensatz stellt sich uns am besten dar, wenn wir ihn charakterisieren als den Gegensatz von Leben und Form. Diese Polarität finden wir auch in der Natur ausgedrückt. Der Baum zeigt sprießende Lebenskraft und zugleich auch das, was in die feste Form drängt, was das Wachstum aufstaut, die sprossende Kraft zum festen Stämme bildet. So müssen in allem Leben und Dasein zusammenwirken Leben und Form. Und wenn wir von diesem Gesichtspunkte aus das Wesen der Geschlechter betrachten, so können wir sagen: Das Abbild des Lebens ist das Männliche, das jedoch, was das Leben in eine gewisse Form bringt, drückt sich aus im Weiblichen. - Wenn zum Beispiel der Künstler den Stoff formt, dann geschieht ja folgendes: Was da der Künstler dem Marmor einformt, das ist ja nicht zu finden in der sinnlichen Natur; nur das Wesen des Künstlers, das in der geistigen Welt wurzelt und dort seine Befruchtung holt, kann künstlerisch schaffen, künstlerisch gestalten. Und so ist es eben in Wahrheit so, daß in Astral-leib und Ich immerfort einströmen die Kräfte und Wesen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+der geistigen Welt. Und dasjenige, was der Künstler hineinschaffl in den Stoff, der Materie einprägt, das ist die Erinnerung daran, was in der geistigen Welt in ihm angeregt worden ist. Würde der Mensch nicht stets im Schlafe in seine Urheimat zurückkehren, in der geistigen Welt verweilen, dann brächte er in das physische Dasein nicht herüber die Befruchtungskime zu allen großen und edlen Tätigkeiten. Nichts Schlimmeres also kann geschehen, als wenn sich der Mensch auf die Dauer dem Schlafe entzieht.
+
+Dasjenige also, was der Künstler von der geistigen Welt her aufgenommen hat und unbewußt in sein Werk hineingegt, es erscheint als Leben und Form. Und so könnte man darauf kommen, einmal zu fragen: Warum erscheint uns denn eigentlich die «Juno Ludovisi» so wunderbar? - Da ist das große Antlitz, die breite Stirn, die eigentümliche Nase. Wenn wir mit unserer Empfindung wie tastend darüber hinführen, könnten wir sagen: Hier ist ein Bild, von dem wir uns gar nicht vorstellen können, daß ein Geistiges zurückgeblieben ist; in diesem Gesichte sehen wir ganz in die Form eingeschlossen Seele und Geist. Diese Form kann für die Ewigkeit so bestehen. Hier ist das innere Leben ganz Form geworden, in der Form erstarrt, hier ist Form gewordene Seele und Geist. Dann aber blicken wir hin auf den Zeuskopf. Der eigentlich schmalen Stirn liegt auch Geist und Seele zugrunde, aber man hat das Gefühl, diese Form müßte sich jeden Moment ändern. Aus einer tiefen Inspiration des Künstlers heraus ist da festgehalten Leben und Form in aller Wirklichkeit.
+
+Aber wie der Künstler in großen Momenten in solchen Werken tatsächlich von Leben und Form einen Abguß schafft, so ist unser ganzes Wesen in Wahrheit Leben und Form. Dadurch aber zeigt sich in der Tat, daß die Wesenheit des Menschen herausgebildet ist aus der geistigen Welt,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+aus dem immer werdenden Leben, und dem, was das Leben festhält, ihm Dauer verleiht. Der Mensch hat Teil an Leben und Tod als dem Ausdruck dieser höheren Polaritäten des Daseins. Und in diesem Sinne konnte Goethe sagen: «Der Tod ist der Kunstgriff der Natur, viel Leben zu haben.» Und so findet das Leben eine Form, nicht für ein einseitiges Leben, nidit für einen einseitigen Tod, sondern für das, was aus Leben und Tod ein höheres harmonisches Ganzes bildet. Dergestalt wirken Geistiges und Physisches zusammen durch die Medien des Männlichen und Weiblichen; das ewig werdende Leben im Männlichen und das Leben in der Form gehalten im Weiblichen.
+
+So wird nicht von einer einseitigen Betrachtung des physischen Daseins ausgegangen, wenn das Wesen der Geschlechter ergründet werden soll, sondern eine Antwort gegeben auf den geistigen Gebieten des Daseins. So nur finden wir die über geschlechtliche Harmonie, die insofern entsteht, als sich die beiden Geschlechter zu ihr erheben. Wenn wir also kraft der Erkenntnisse, die Geisteswissenschaft zu geben hat, in Stand gesetzt werden, das Übergeschlechtliche im praktischen Leben wirken zu lassen, dann ist die Geschlechterfrage gelöst. Das aber führt nicht vom Leben hinweg. Denn was uns in den beiden Erscheinungen der menschlichen Wesenheit entgegentritt, können wir in richtiger Weise läutern, wenn wir diese höhere Harmonie bewußt anstreben. So wird die Geschlechterfrage vertieft und der Gegensatz harmonisiert. Alles Geschlechtliche erlangt eine ganz andere Form und Bedeutung. Nicht durch Dogmen können wir die Geschlechterfrage lösen, sondern dadurch, daß wir einen gemeinsamen Boden aufsuchen, Empfindungen und Gefühle finden, die über die Geschlechter hinausführen. Im unmittelbaren sozialen Verkehr wird die Geschlechterfrage so zu lösen sein, wie es einer vor
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 100
+
+---
+
+geschrittenen Menschheit gemäß ist. Wenn der Mensch das Übergeschlechtliche findet, dann ist für ihn diese Zeitfrage gelöst.
+
+Und so hat sich uns auch bei dieser Betrachtung gezeigt, was sich immer und immer wieder zeigt: daß wir von dem Sinnenschein die Wesenheit trennen müssen. Wir müssen den ganzen Menschen betrachten, den Menschen nach der Seite der Sinne, den Menschen nach der Seite des Geistes, wenn wir die Rätsel des Lebens lösen wollen. Über dem Sinnengegensatz zeigt sich, daß Mann und Weib nur Kleid sind, Hüllen, die die eigentliche Wesenheit des Menschen verbergen. Suchen müssen wir hinter dem Kleide. Da steht der Geist. Wir dürfen also nicht bloß auf die äußere Seite des Geistes eingehen, wir müssen eingehen auf den Geist selbst.
+
+Dasselbe aber könnte auch so ausgesprochen werden: Von der Weisheit gesättigte Liebe, von der Liebe durchdrungene Weisheit ist das Höchste. «Das Ewig-Weibliche zieht uns hinan.» Das Weibliche ist das Element in der Welt, das hinausstrebt, um sich befruchten zu lassen von den ewigen Tatsachen des Lebens.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# INITIATION ODER EINWEIHUNG
+
+Berlin, 28. November 1907
+
+Manches in der Gegenwart unbeliebte und nur geduldete Thema mußte schon im Verlaufe unserer Wintervorträge über die Geisteswissenschaft berührt werden. Man kann aber sagen, daß kaum eines so wenig beliebt ist und so wenig toleriert wird wie dasjenige, was den Gegenstand unserer heutigen Betrachtung bilden soll: die Einweihung oder Initiation.
+
+Wenn man in dem Sinne, wie es durch die ganze Reihe von Vorträgen geschehen soll, von den geistigen, höheren Welten spricht, so wird selbstverständlich auch der Gedanke auftauchen: Wie kommt der Mensch zur Erkenntnis, zur Einsicht in bezug auf diese höheren Welten? Eine wenigstens vorläufige Antwort – eine volle Antwort können ja nur alle Vorträge dieses Winters geben – soll uns die heutige Betrachtung über die Einweihung geben. Voraussetzen müssen wir dabei die zwei Grundsätze aller Geisteswissenschaft, die wir schon im allerersten dieser Vorträge berührt haben: Der erste ist die Erkenntnis, daß es hinter und außer unserer durch die Sinne wahrnehmbaren, durch den gewöhnlichen Verstand begreifbaren Welt eine andere oder sogar eine Reihe von anderen Welten gibt, übersinnliche, überphysische Welten, wie wir sie genannt haben. Die zweite Erkenntnis ist, daß dem Menschen diese Welten, die außer unserer sinnlichen, sichtbaren Welt vorhanden sind, nach und nach zugänglich werden können, so daß es ihm möglich ist, sie durch seine eigene Entwickelung zu erkennen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 102
+
+---
+
+Damit ruft natürlich die Geisteswissenschaft von vornherein die Gegnerschaft aller derjenigen hervor, die wir in den letzten Vorträgen genannt haben die «Wir»-Menschen und die «Man»-Menschen der Gegenwart. «Wir»-Menschen sind diejenigen, welche, wenn sie über diese Dinge reden, am häufigsten die Worte gebrauchen: «Man» kann oder «wir» können nicht erkennen. - Damit wird von vornherein eine Art Erkenntnis-Absolutismus, eine Art Unfehlbarkeit des betreffenden Sprechers hingestellt, der sich und das, was er erkennen kann, zum Normalmaß aller menschlichen Erkenntnis macht. Genau auf dem entgegengesetzten Standpunkte steht die Geisteswissenschaft. Sie steht auf dem Standpunkt, daß der Mensch Fähigkeiten und Erkenntniskräfte hat, die keimhaft in ihm liegen und immer höher und hoher entwickelt werden können. Wohl muß zugegeben werden, daß es ganz richtig ist, wenn jemand sagt, er könne gewisse höhere Welten nicht erkennen. Aber zu gleicher Zeit muß gesagt werden, daß diese höheren Welten eben nur mit denjenigen Erkenntniskräften nicht zu durchdringen sind, die er meint, und daß logischerweise niemand ein Recht hat zu sagen: Meine Erkenntniskräfte sind die absolut einzigen; was ich erkenne, bedeutet die Grenze aller möglichen Erkenntnis. - Denn damit lehnt man ja die menschliche Entwicklungsfähigkeit ab, leugnet von vornherein, daß der Mensch zu höheren und immer höheren Stufen aufsteigen könne. Daß er hierzu imstande sei, ist aber die Grundüberzeugung eines jeden Menschen, der die Welt unbefangen betrachtet, und besonders innerhalb unserer deutschen Bildung ist es ein leichtes, sich hinaufzuringen zu der Anerkennung dieses Prinzipes.
+
+Dasjenige, was eine Denkweise begründet, die zur Einweihung oder Initiation hinführt, hat in den verschiedensten, wunderschönen Sätzen und Wendungen Goethe im
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 103
+
+---
+
+mer wieder ausgesprochen und betont. Es sei - wir werden darauf im Verlaufe der heutigen Betrachtungen zurückkommen - an die Spitze dieses heutigen Vortrages jenes Wort gestellt, mit dem Goethe in dem tiefgedachten Fragment «Die Geheimnisse» hindeutet auf jene innere menschliche Kraft, die immer weiter und weiter, immer höher und höher strebt, die zwar eingeengt wird von dem, was uns umgibt, die gehemmt wird in jedem Augenblick von dem, was uns von außen, von allen Seiten als das Sinnliche, als die hemmende Kraft aufgedrängt wird, die aber dennoch ein Mittel hat, zur inneren, zur Welterkenntnis zu kommen. Goethe sagt in diesem Gedichte «Die Geheimnisse», in dem er von einer besonderen Einweihung der Rosenkreuzer spricht und damit das Prinzip der Einweihung in tiefsinnigen Worten andeutet:
+
+Denn alle Kraft dringt vorwärts in die Weite,
+Zu leben und zu wirken hier und dort;
+Dagegen hemmt und engt von jeder Seite
+Der Strom der Welt und reißt uns mit sich fort;
+In diesem inneren Sturm und äußern Streite
+Vernimmt der Geist ein schwer verstanden Wort:
+Von der Gewalt, die alle Wesen bindet,
+Befreit der Mensch sich, der sich überwindet.
+
+Es liegt ganz in Goethes Denkweise, diese Kraft des Menschen, die entwickelt werden kann zu höheren Erkenntniskräften, zu suchen, Mittel und Wege zu suchen zu einer wirklichen objektiven, in das Innere, das heißt Geistige der Dinge hineinschauenden Erkenntnisweisheit. Es liegt in seiner Denkweise, wenn wir ihn belauschen da, wo er am intimsten seinen Erkenntnisstandpunkt zum Ausdruck bringt. Da finden wir viele Hinweise, die uns das deutlich aussprechen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 104
+
+---
+
+Am Beginne seiner Farbenlehre, dieses vielverkannten Werkes - es ist heute überhaupt noch nicht die Zeit gekommen, um dieses Werk Goethes zu verstehen, vielleicht aber in einiger Zeit, wenn sich die Perspektiven, die ich in meinem Vortrage «Die Naturwissenschaft am Scheidewege» erwähnt habe, geltend machen -, sagt Goethe, das Auge sei «am Lichte für das Licht» gebildet. Er sagt, es sei ein gleichgültiges, nicht lichtempfindliches Organ gewesen. Durch das Licht sei es aufgerufen worden zu dem Organe, das jetzt das Licht sehen, die beleuchteten, lichterhellten Gegenstände wahrnehmen kann. So also ist im Sinne Goethes zu denken, was ich im Sinne der Geisteswissenschaft gesagt habe: daß in fernen Urzeiten das menschliche Wesen keine Augen gehabt habe, die Licht haben wahrnehmen können, daß die Augen hervorgegangen sind aus ganz anders gearteten Organen. Und welche Kraft war es, die diese Umwandlung vollbracht hat? Das Licht selbst! Es hat hervorgezaubert das Auge, das lichtempfindlich geworden war. Und gleichzeitig deutet Goethe an, daß es vielleicht andere, unbekannte und verkannte Fähigkeiten im Menschen gibt, die, wenn sie entwickelt werden, geradeso eine neue Welt erschließen, wie das Auge, wenn es hervorgelockt wird, die Welt des Lichtes und der Farben erschließt. Und in keinem anderen Sinne sprechen wir in der Geisteswissenschaft von den höheren, übersinnlichen Welten.
+
+Genau im Sinne des Ausspruches von Johann Gottlieb Fichte, des großen Denkers, sprechen wir von solchen übersinnlichen Wahrnehmungen. Fichte sagt: Wenn ein einziger Sehender unter die Leute geht, die alle blind sind, und ihnen von Licht und Farben erzählt, so werden sie ihn wahrscheinlich für einen Phantasten halten. Ebenso sei das, was er, Fichte, dazumal seinen Zuhörern zu sagen hatte, nur für ein Organ, das erst hervorgehen müsse, und das -
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 105
+
+---
+
+nur auf einer höheren Stufe - zu vergleichen sei mit dem Organe des Blindgeborenen, der vor der Operation die Welt nur durch Tasten erkannt habe, danach aber sie in Farben und Licht aufleuchten sehe. So sei es möglich, durch die Entwicklung von im Menschen schlummernden Kräften auch Fähigkeiten hervorzulocken, um in der Umgebung neue Kräfte und Objekte wahrzunehmen, die nur für geistige Fähigkeiten wahrzunehmen sind. Nicht in einem unlogischen Sinne, sondern in diesem durchaus logischen Sinne spricht man in der Geisteswissenschaft von höheren Welten.
+
+Wer die höheren Welten bezweifelt, der steht auf derselben Stufe der Urteilskraft wie der, welcher blind geboren ist und sagt: Es gibt keine Welt des Lichtes und der Farben, weil ich sie nicht sehe. - Über die Möglichkeit vermag niemand ein wirkliches Urteil abzugeben. Über die Wirklichkeit aber kann derjenige entscheiden, der es weiß. Nicht derjenige hat über eine Sache zu entscheiden, der nichts über sie weiß, sondern nur der, welcher etwas von ihr weiß. So hat in der Tat nur das Prinzip der Erfahrung, des Erlebnisses über das zu entscheiden, was man die Einweihung nennt.
+
+Ist es aber deshalb unnötig, über diese Dinge zu reden? Nein, es ist nicht unnötig; denn in welchem Sinne redet derjenige, der von solchen höheren Welten Mitteilung macht? Er redet über sie, weil er weiß, daß rein durch diese Mitteilungen, rein durch diese Kunde, die in allen Menschen schlummernden Fähigkeiten und Kräfte, um zu diesen Welten wirklich vorzudringen, geweckt werden können. Und derjenige, der sich sträubt, von diesen Welten Kunde zu erhalten, der gleicht einem, der sich einstmals gesträubt hatte, die Entwicklung mitzumachen von der Stufe der menschlichen Organisation, wo noch keine Augen herausentwickelt waren, zur Entstehung dieser Organe, mit denen der Mensch die Sonne sehen kann. Dieser hätte auch sagen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 106
+
+---
+
+können: Warum soll ich mir etwas entwickeln lassen, damit ich die Sonne und das Licht erkennen kann? Vorher hat er die Sonne und das Licht nicht gekannt. Erst durch eine fremde Gewalt, die an uns herantritt, kann sich die innere Keimanlage im Menschen entwickeln. Nur wenn wir die Seele frei Öffnen können den Mitteilungen über die höheren Welten, bekommen wir den ersten Anstoß, die höheren Kräfte zu entwickeln, die uns zuletzt zu Sehenden, zu Eingeweihten machen.
+
+Von dem Prinzip der Einweihung sprach man zu allen Zeiten der Menschenentwicklung. Nur war das Verhältnis zum öffentlichen Wirken anders, als es in unserem Zeitalter sein muß. Ob wir nun zurückgehen in die alten indischen, chaldäischen, babylonischen, ägyptischen, griechisch-römischen Kulturen, ob wir die Zeit des Mittelalters heraufwandern, durch das 16., 17. Jahrhundert bis zu uns, immer gab es Eingeweihte und Schüler der Eingeweihten. Nur sprach man nicht öffentlich darüber. Eingeweiht! Was war es? Es ist ein Unterschied zwischen einem Eingeweihten, einem Hellseher, und solchen, die höhere Kräfte anwenden im Dienste der physischen Welt. Auf diese feineren Unterschiede wollen wir uns aber heute nicht einlassen. Hellseher ist derjenige, der hineinschauen kann in die übersinnlichen Welten, für den dasjenige, was für den gewöhnlichen Menschen verborgene Welten sind, offenbare, wahrnehmbare Welten sind. Warum wurde die Einführung in solche höheren Welten sozusagen im Geheimen betrieben? Warum sprach man in früheren Zeiten öffentlich nicht davon? Wir werden das nächste Mal von den Gefahren der Einweihung sprechen. Heute soll nur darauf aufmerksam gemacht werden, daß an der Grenze zwischen der sinnlichsichtbaren Welt und der unsichtbar-übersinnlichen Welt in der Tat eine gewisse Gefahr für den Menschen lauert, und
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 107
+
+---
+
+daß derjenige, der ein Eingeweihter werden soll, diese Gefahr zunächst zu überwinden hat. Sie besteht darin, daß es an der Grenze der physischen und der überphysischen Welt außerordentlich schwer ist, Illusion von Wirklichkeit, Träume von Realität, Vision von wirklicher Anschauung zu unterscheiden. Hier auf diesem Gebiete ist es sehr leicht, die eigenen phantastischen Gebilde seiner Seele mit dem, was real, objektiv, wirklich ist, zu verwechseln. Es bedarf verschiedener Eigenschaften, die im folgenden auseinandergesetzt werden, um an der Grenze gerade kaltes Blut, Sicherheit der Seele, Mut, Ausdauer und Energie zu bewahren, denn, wenn der Mensch an dieser Grenze die Klarheit über das, was Schein und was Wirklichkeit ist, verlieren würde, dann hätte er den Verstand verloren, dann wäre er ein Narr statt eines Eingeweihten.
+
+Nun besteht bei den meisten Menschen gewiß, wenn sie von solchen Dingen hören, eine ungeheure Gier, eine wahre Wut, doch etwas zu sehen von den höheren Welten. Es besteht aber nicht in gleicher Weise bei den meisten Menschen die Ausdauer und der Wille, und vor allen Dingen auch nicht die Kraft, alles dasjenige zu überwinden, was nötig ist, um die Gefahren, die angedeutet worden sind, zu beseitigen. Daher war es zu allen Zeiten notwendig, daß man sich die Leute, die man zugelassen hat zur Einweihung, erst anschaute in bezug auf ihren Intellekt, ihre geistigen und moralischen Fähigkeiten und auf ihre Empfindungen. Nur diejenigen, die vor dem sicheren Blick des Eingeweihten die Probe bestehen konnten, konnten zur Einweihung zugelassen werden. Das mußten solche sein, die vermöge ihrer ganzen Lebenslage imstande waren, sich wirklich dem zu unterwerfen, was sie fähig machte, an der Grenze zwischen der physischen und der geistigen Welt Schein und Wahrheit, Vision und Wirklichkeit zu unterscheiden.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 108
+
+---
+
+Die Frage kann nun entstehen: Warum schweigen denn, wenn man so lange hat schweigen können, diejenigen, die über diese Dinge etwas wissen, nicht auch heute? Warum wird nicht auch heute das Prinzip der strengen Abgeschlossenheit in bezug auf die Einführung in die höheren Welten durchgeführt? Warum wird es gebrochen? Das hat seine gute Begründung. Die Menschheit schreitet vorwärts. Sie ist in den verschiedenen Epochen ihrer Entwicklung verschieden geartet. Und auch die Geschichte ist viel verschiedener in ihrer Gestaltung und in ihren Entwicklungsstufen, als der Laie es glaubt. Wer die Dinge nicht kennt, stellt sich vor, daß die Menschen heute so seien, wie sie vor Jahrhunderten waren. Stillschweigend haben auch die, welche die Geschichte und die Anthropologie studierten, dieselbe Vorstellung. Tatsächlich unterscheiden sich die Menschen verschiedener Jahrhunderte, die für eine äußere Anatomie und für die Physiologie scheinbar gleich sind, recht sehr voneinander. In den groben Dingen Hegen meistens die Unterschiede nicht, und von dem, worin sie liegen, weiß die äußere Anatomie und Physiologie gar nichts. Die Menschheit schreitet fort, und wir sind in unserer Epoche zu einer Gestaltung des Menschengeistes und der Menschenseele gelangt, in welcher man die Erkenntnisse über die Weltengeheimnisse, die Anschauungen, Begriffe und Ideen, die uns hineinführen in die Tiefe der Dinge, die sonst immer bewahrt waren in den sogenannten Geheimschulen, zum allgemeinen Besten und zum Fortschritt der Menschheit benötigt.
+
+Das Genauere wird in den folgenden Vorträgen zur Darstellung kommen. Wir brauchen heute nur auf den gewaltigen Unterschied hinzuweisen, der sich im Verlaufe weniger Jahrhunderte in der Menschheit vollzogen hat. Nur eines brauchen wir zu erwähnen, was tief eingegriffen hat in die menschliche Entwicklung: die Buchdruckerkunst.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 109
+
+---
+
+Denken Sie einmal, wie die Menschen in bezug auf ihre Seele, in bezug auf ihre geistige Bildung gelebt haben vor der Buchdruckerkunst, wie die Mitteilung war zwischen denjenigen, die etwas wußten, und denen, die etwas lernen wollten, bevor es Bücher gab, und wie heute die Mitteilungen der Wissenschaft und der Gelehrsamkeit durch tausend und aber tausend Hilfsmittel, durch populäre Schriften und Zeitungsartikel zu jeder Seele dringen. Und wenn Sie sich das weiter ausmalen, dann werden Sie sich ein Bild machen können, daß es in den Seelen heute anders ausschaut, und nicht meinen, daß das, was an Empfindungen, Gedanken und Impulsen in den Seelen lebt, keinen Einfluß auf das Leben im ganzen hätte. Derjenige, der glaubt, daß alles Offenbare ein Abdruck des Geistigen ist, wird sich sagen, daß die Menschen heute andere körperliche und soziale Bedürfnisse haben als in den verflossenen Zeiten. Früher war es möglich, daß einzelne Menschen über gewisse Ereignisse, über die Wahrheit und über Weisheit etwas gewußt haben. Heute aber muß dasjenige, was das Prinzip der Einweihung war, jedermann zugänglich gemacht werden. Aus einer Pflicht gegenüber der Menschheit wurde die strenge Geheimhaltung und Abgeschlossenheit früherer Zeiten durchbrochen, so daß heute nicht nur über dasjenige gesprochen wird, was vom Standpunkte der Geistesforschung über die höheren Welten zu sagen ist, sondern auch in einer gewissen Weise wenigstens in den Elementen gesprochen wird über die Art, wie der Mensch selbst in diese Welten hinaufkommen, wie er die ersten Stufen zur Einweihung absolvieren kann. Von vornherein muß aber darauf aufmerksam gemacht werden, daß niemand glauben soll, daß deshalb das Prinzip der Einweihung leicht und mit geringem Ernst zu nehmen sei, weil heute im Grunde genommen die ersten Stufen der Einweihung einem jeden zugänglich sind. Diese
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 110
+
+---
+
+ersten Stufen sind, wie Sie hören werden, verhältnismäßig für jeden und in jeder Lebenslage zu absolvieren. Aber dann beginnen immer höhere Stufen bis hinauf zu dem, was man überhaupt erst, im wahren Sinne des Wortes, einen Eingeweihten nennt.
+
+Es obliegt mir zuerst, diesen Begriff zu charakterisieren. Was ist ein Eingeweihter? Wenn ich voraussetze, daß es hinter unserer sinnlichen Welt immer höhere und höhere Welten gibt, so wäre ein Eingeweihter derjenige, der einen Einblick in diese höheren Welten hat. Die Schulung zur Einweihung besteht darin, daß der Mensch die Mittel und Anweisungen erhält, wie er seine geistigen Augen und Ohren entwickeln kann, um in diese geistige Welt hineinsehen zu können, wie er mit seinen physischen Organen in die physische Welt hineinsieht.
+
+Im Grunde genommen ist das alles nur Vorbereitung zur eigentlichen Einweihung. Derjenige, der ein Schüler der Einweihung wird, erhält gewisse Anweisungen von seinem Lehrer, wie er die in ihm schlummernden Fähigkeiten entwickeln kann. Das alles zielt nach einem Punkte hin, der im höchsten Sinne des Wortes den Menschen in eine vorläufige Weltentiefe hineinführt, in ein Zentrum, von dem aus die Strahlen des Weltenschaffens und der Weltgesetzmäßigkeit ausgehen. So etwas gibt es. Dieses Geheimnis wäre sogar in Worten aussprechbar und wird doch nicht ausgesprochen. Gestatten Sie von vornherein diese Andeutung, denn, wenn sie auch scheinbar geheimnisvoll klingt, derjenige, der etwas darüber nachdenkt, wird finden, daß sogar die Art, wie so etwas ausgesprochen wird, sehr bedeutsam ist für die Empfindung, die man sich aneignen soll, um das Prinzip der Einweihung zu verstehen.
+
+Man bereitet den Schüler vor zur Entgegennahme des Weltengeheimnisses, das aussprechbar wäre, wenn es aus-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+gesprochen werden dürfte. Der Eingeweihte ist derjenige, der ein gewisses, für das Leben der Menschen im höchsten Grade wichtiges Geheimnis weiß. Ein Geheimnis deshalb, weil, wenn es der Alltäglichkeit gegenüber ausgesprochen würde, es närrisch, verrückt, töricht, paradox erscheinen würde. Nun, das wäre noch das Geringere. Aber es liegen andere Gründe vor, warum derjenige, der das Geheimnis aussprechen könnte, es doch nicht aussprechen darf. Der Grund ist ein so tiefer, daß dieses Geheimnis, welches den Abschluß gewisser Einweihungsstufen bildet, niemandem, aber auch gar niemandem, der es kennt, abgerungen werden könnte, selbst nicht, wenn man ihn quälen und foltern würde. Dies ist ein Geheimnis, das er sich niemals abringen lassen kann. Denn nicht so wird dieses Geheimnis von Mensch zu Mensch gebracht, daß es in Worten mitgeteilt wird, sondern das Wesentliche besteht darin, daß man den Schüler so weit bringt, daß er durch die angedeutete Entwicklung seiner eigenen Fähigkeiten und Kräfte dazu kommt, aus sich selbst sich das Rätsel, das hinter der Sache liegt, zu lösen, so daß sozusagen der Schüler dem Lehrer gegenübersteht mit jenem leuchtenden Auge, aus dem sich ankündigt: Ich habe es gefunden!
+
+Schulung ist hier: Hinführung zu dem Selbstfinden. Ein großer Teil dessen, was sich der Mensch zu erringen hat zu einem Eindringen in die höheren Welten, liegt gerade in jener großen und gewaltigen Empfindung, die in der Seele Platz greift, wenn, nach dem Hinaufführen in die höheren Fähigkeiten und Stufen der Entwicklung, die Seele erwacht, sich wie neugeboren fühlt. Es ist so, wie auf einer niedrigeren Stufe der Blindgeborene sich fühlt, der bisher nur tasten konnte, und dem aus den dunklen Finsternissen nach der Operation nach und nach Licht und Farbe, Glanz und Formen erscheinen. Nur dann, wenn dieses Verhältnis zwischen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 112
+
+---
+
+Lehrer und Schüler besteht, ist das Verhältnis ein gesundes. Es ist auf das Höchste gebaut, was es zwischen Mensch und Mensch geben kann: auf die Freiheit. Dasjenige Verhältnis muß da sein, in dem nichts, aber auch gar nichts von einem unberechtigten Einfluß von Seiten des Lehrers da ist, weil alles, was entwickelt werden soll, aus dem Schüler selbst herausgeholt wird.
+
+Nachdem wir auf diese Weise die Stimmung, wie sie das Prinzip der Einweihung beherrschen soll, charakterisiert haben, wollen wir ein wenig genauer auf das eingehen, was man die Entwicklung der im Menschen schlummernden Fähigkeiten nennt. Wir werden da von dem Naheliegenden ausgehen und zu dem Fernerliegenden vorwärtsschreiten. Drei Fähigkeiten sind für die gewöhnliche Beobachtung schon da: Denken, Fühlen und Wollen, Gedanke, Gefühl und Wille. Das ist das, was Sie in den Menschen Seele finden. So ist die Stufe des Durchschnittsmenschen. Alle drei Fähigkeiten sind der Entwicklung fähig. Zunächst das Denken: Dieses Denken kann den Menschen, auch wenn es noch so fein, noch so intim entwickelt wird, allerdings nicht über diese physische Welt hinausführen. Dennoch aber ist das Denken die erste Stufe der Entwicklung, wenn es gilt, hinauszukommen über die physische Welt. Das ist ein scheinbarer Widerspruch, der sich uns aber sogleich auflösen wird. Ich werde gleich zu sprechen haben von denjenigen Einweihungsprinzipien, die im Laufe der letzten Jahrhunderte in den Geheimschulen üblich waren und welche heute von denen, die etwas davon wissen, in ihren Anfangsgründen der Öffentlichkeit mitgeteilt werden dürfen.
+
+Dasjenige, was der Schüler zuerst zu entwickeln hat, ist: sinnlichkeitsfreies Denken. Was heißt sinnlichkeitsfreies Denken? Wenn der Mensch durch seine Sinne die Welt um sich betrachtet, so macht er sich in seinen Vorstellungen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 113
+
+---
+
+Bilder der Welt, Ideen der Welt. Diese Vorstellungen und Ideen machen ihm die Welt begreiflich. Das alles ist aber kein sinnlichkeitsfreies Denken. Wenn auch die heutige Wissenschaft, aus einer gewissen inneren Schwäche heraus, ein anderes Denken vielfach nicht gelten lassen will, so gibt es doch ein anderes Denken, das seinen Quell einzig und allein im menschlichen Inneren, in des Menschen Seele hat. Nur ist von dem weitaus größten Umkreis dieses sinnlichkeitsfreien Denkens dem heutigen Menschen noch sehr wenig bekannt, und wenn einmal etwas zu ihm dringt, dann weist er es ab, dann will er es nicht gelten lassen.
+
+Der Mensch kann nämlich Gedanken nicht nur haben in Anlehnung an die Sinneswelt, an das, was er sieht und hört, riecht und schmeckt; er kann auch Gedanken haben, die aus einer inneren Kraft selbst entspringen, die niemals durch ein Äußeres angeregt sein können. Selbst Philosophen sehen das heute noch nicht ein. Den Beweis kann ich erbringen. Eine Wissenschaft, die wenig im Publikum verbreitet ist, die Mathematik, die Geometrie, kann ihn liefern. Niemand kann in der Wirklichkeit draußen einen wirklichen Kreis sehen, niemand kann draußen dasjenige sehen, was ihm die Gesetzmäßigkeit eingibt: $2 \times 2 = 4$. Man kann aber durch reine innere Meditation, ohne daß man Bohnen zusammenlegt, herausbekommen, daß $2 \times 2 = 4$ ist, oder man kann sich den Kreis durch innere Anschauung konstruieren, so daß die Kreislinie von dem Mittelpunkte immer gleich weit entfernt ist. Was schrieb der große Plato über seine Schule? Er sagte, daß keiner ohne Kenntnis der Geometrie aufgenommen werden könnte. Damit war nicht gesagt, daß er die ganze Geometrie kennen müßte, sondern daß er einen entsprechenden Sinn dafür hatte. Würden wir in Begriffen nur den äußeren Kreis nachbilden, so würden wir nie einen wahren Kreis bilden können. Wir können aber im Geiste
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+einen Kreis bilden und so die Gesetze des Kreises uns bilden. So müssen wir den Kreis aus dem eigenen Geist herausarbeiten. Das ist es, was man in den Geheimschulen sinnlichkeitsfreies Denken genannt hat. Die Mathematik ist nicht beliebt, und doch ist sie das einzige sinnlichkeitsfreie Denken, das in unseren Schulen getrieben wird. Die meisten werden einen aber auslachen, wenn man sagt, daß es noch andere Begriffe gibt, die rein geistig gefunden werden können, als die über Raum und Zahl und Figuren. Man mißachtet und verachtet die Philosophen und Denker, die behauptet haben, daß der Mensch ein Ideengebäude aufstellen könne, das mit der Welt im Einklänge steht.
+
+Derjenige, der innerhalb unserer deutschen Bildung und Kultur für andere Gebiete als für Raumgebilde in der Geometrie solche sinnlichkeitsfreien Ideen aufgestellt hat, ist wiederum Goethe, und es ist eine wunderbare, eine gewaltige Errungenschaft des Geisteslebens der Menschheit, was Goethe geleistet hat mit dem Typus der Pflanzen, mit der Urpflanze, und dem Typus der Tiere, dem Urtier. Was sind das für Gedanken? Goethe selbst sucht sie in seiner Weise klarzumachen. Viele haben darüber geschrieben. Aber das meiste ist Unsinn, weil die meisten nicht die Möglichkeit haben, zu verstehen, wie sich ein geistig konstruierter Kreis, dessen Gesetze wir einsehen können, verhält zu dem auf der Tafel gezeichneten Kreis, der nichts ist als eine Anzahl Kreidepartikelchen. So aber verhält sich dasjenige, was Goethe die Urpflanze nennt, zu der äußerlich-sinnlich wahrnehmbaren Pflanze. Draußen sind die verschiedenen Pflanzen – so dachte Goethe –, die eine sieht so, die andere so aus. Aber in uns lebt eine innere geistige Kraft, durch die wir imstande sind, aus innerer Produktion heraus den Begriff der Urpflanze zu finden. Die Botaniker haben gedacht, Goethe habe eine unvollkommene Pflanze gemeint. Unsinn
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ist das! Er meinte die geistig geschaute Pflanze! Das ist es, was ich in einem meiner Bücher versucht habe nachzukonstruieren als diese Urpflanze, so wie man auch den Kreis im Geiste konstruiert. Goethes Urpflanze enthält, wenn man im Geiste in der Lage ist, alle Möglichkeiten aus ihr hervorzuzaubern, alle möglichen Pflanzen; sein Urtier enthält alle möglichen Tiere. Es ist eine geistige Organik, was Goethe da geschaffen hat. Sie gibt uns die Möglichkeit, das, was nicht unseren Sinnen erscheinen kann, im Geiste zu erschaffen. Da gehen wir allerdings von einer tiefen, bedeutsamen geistigen Tatsache aus. Und Goethe ging von dieser Tatsache aus, von welcher ihm das, was er als Urpflanze fand, zuteil wurde. Das war für ihn nicht eine bloße Idee, sondern es war das Schaffende in allen Pflanzen. Das Urtier war für ihn das Schöpferische in jedem Tier.
+
+Berühmt geworden ist das von mir oft angeführte Gespräch, das gleich im Anfange ihrer Bekanntschaft Goethe und Schiller miteinander über die Pflanzen führten, als sie aus einem Vortrag der Naturforschenden Gesellschaft in Jena kamen. Da sagte Schiller, es sei unbefriedigend, die Wesen so zu betrachten, daß man nicht ihren Zusammenhang sehen könne. Goethe antwortete, daß es ja auch eine andere Art geben könne, wo man das Gemeinsame, das geistige Band, das alle zusammenhält, sehen könne. Goethe schildert uns das Gespräch, und wie er dann seinen Bleistift nahm und mit einigen charakteristischen Strichen das Bild seiner Urpflanze hinzeichnete. Da sagte Schiller, der spekulative Dichter: Das ist aber keine Tatsache, das ist eine Idee, keine Wirklichkeit. - Dann, sagte Goethe, wenn das eine Idee ist, sehe ich die Ideen draußen mit den Augen! - In der Pflanze ist die das Leben schaffende Kraft. Wegen der tiefen Anschauung, die der Goethesche Geist von einem solchen Sein hatte, war es möglich, daß in seinem Geiste
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 116
+
+---
+
+dasjenige auferweckt wurde, was in allen Tieren und Pflanzen schafft. Es besteht ein geheimes Band zwischen dem menschlichen Innern und dem, was in der ganzen Tier- und Pflanzenwelt ausgebreitet ist. Wenn der Mensch in sich hervorzaubert die Urpflanze, so zaubert er jene Form hervor, nach der die Pflanzen geschaffen worden sind. Wir empfinden uns auf diese Weise als geistige Teilnehmer an den Produktionen der Natur. Es ist für Goethe ein Untertauchen in die Dinge und ein Hervorzaubern des Geistes, der in den Dingen lebt, in seinem Geiste. Das stellt Goethe vor den Menschen hin.
+
+Man kann auch in höheren Gebieten dasselbe versuchen. Ein deutscher Philosoph hat es getan, nicht in ausreichender Weise, aber in prinzipieller und in ungeheuer tiefer Weise, die nicht verstanden worden ist. Wenn eine Anekdote, die erzählt wird, wahr wäre, sie würde diese Tatsache in ihrer Tiefe bezeugen! Der vielgeschmähte Hegel soll nämlich gesagt haben: «Nur einer hat mich verstanden, und auch der hat mich mißverstanden.» Hegel hat versucht, in sinnlichkeitsfreie Begriffe zu schaffen, was in des Menschen Umgebung und in der menschlichen Geschichte lebt. Jetzt ist in der Reclamschen Universalbibliothek Hegels «Philosophie der Geschichte» erschienen, worin er einen großen Überblick gibt über die ganze Weltgeschichte. Vieles darin ist nicht richtig, vieles ist leider so einseitig, wie eben nur Hegel einseitig sein konnte, so daß das Buch nur zur Anregung dienen kann. Es wird aber gut dazu dienen können, um das Prinzip zu finden. Hegel hat sich bemüht um sinnlichkeitsfreies Denken, so daß er im eigenen Geiste, der derselbe Geist ist wie der, welcher die Menschheit geleitet hat, alles auftreten läßt. Wer das tun will, der braucht eine intimere Kenntnis des Geistes des Menschen und der Völker, als sie Hegel besitzen konnte. Es erscheint daher alles ab-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+strakt, grau, im schlechten Sinne logisch; aber die Dinge sind geistreich und anregend. Und da muß man sagen: Was da falsch ist, kann der Menschheit noch viel mehr nützen, als noch so viel Richtiges, das trivial ist.
+
+Ebenso wie man in der Mathematik sinnlichkeitsfrei denken und schaffen kann, wie man es auch in der Geschichte machen kann, so soll meine «Philosophie der Freiheit» für die innere Entwicklung des Menschen mit seinem ganzen Erkenntnisvermögen ein Bild geben, wie dieses aus dem sinnlichkeitsfreien Denken heraus erfaßt werden kann. Das ist ein Buch wie ein Organismus, wo ein Satz dem anderen folgt, ein Buch von einem in sich sich fortbewegenden und in sich geschlossenen Denken. Ich habe darin zeigen wollen, wie der Mensch, der allmählich aus der Sinnlichkeit in das Übersinnliche hineingehen will, sein Denken kultivieren muß. Heute gibt es allerdings leichtere Mittel, und zwar diejenigen, welche die Geisteswissenschaft mitteilt. Was wir in den geisteswissenschaftlichen Werken über die verschiedenen Wesensglieder des Menschen, über Wiederverkörperung und Karma, das Leben nach dem Tode, über die Entwicklung der Menschenrassen und Kulturen lesen können, und von dem wir noch sprechen werden, ist etwas, was Sie nicht mit Sinnen sehen können, sondern es ist etwas, was Sie begreifen können, wenn Sie sich überhaupt auf menschliches Begreifen einlassen. Das, was die Geisteswissenschaft gibt, ist für die Menschen sinnlichkeitsfreies Denken, wie es in den Geheimschulen früher gegeben wurde, und wie der Mensch es haben muß, bevor er hineinschauen kann in die geistigen Welten. Zum Aufsuchen dessen, was in den geistigen Welten ist, gehört Hellsehen, Einweihung. Wer sich aber in gewisser Weise die Möglichkeit verschafft hat, Mitteilungen zu geben, der kann eine Brücke bilden. So kann dann jeder durch umfassendes logisches Denken
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 118
+
+---
+
+und eine gesunde Urteilskraft sich davon überzeugen, daß die Dinge richtig sind. Zum Aufsuchen gehört Hellsehen, zum Begreifen der höheren Weisheiten gehört nur gesunder Verstand und Logik.
+
+Allerdings sind heute viele von einem mehr oder weniger materialistischen Denken oder von jenem Unfehlbarkeitsdünkel wie besessen, der von der positivistischen Wissenschaft herrührt. Diese ist ja die reine Phantasterei. Wenn die Leute nur wüßten, daß sie im Grunde genommen nur unter Suggestionen leben, daß sie nicht wissen, was wirklich und was nicht wirklich ist! Die Unfehlbarkeit des Papstes wollen sie zwar nicht anerkennen, sich selbst aber halten sie für unfehlbar. Der, welcher auf dem Standpunkte der Wissenschaft steht, ist heute am alleruntolerantesten. Den Geisteswissenschafter betrachtet er als einen Toren, und sich? Nun, als einen unfehlbaren Menschen! Ober die den Sinnen nicht zugängliche Welt kann nur in sinnlichkeitsfreiem Denken etwas mitgeteilt werden. Daher ist die erste Schulung die Schulung des Denkens, die es erst ermöglicht, das Denken auszubilden und zu einem eigentlichen Hineinblicken in die geistigen Welten zu führen.
+
+Das zweite ist die Ausbildung des Fühlens. Niemand sollte das Fühlen ausbilden, bevor er das sinnlichkeitsfreie Denken nicht bis zu einer gewissen Stufe gebracht hat. Derjenige, der weiß, wie es in diesen höheren Welten aussieht, der sagt Ihnen eines: Wenn Sie hinaufkommen in die höheren Welten, die über unseren physischen liegen, so kommen Sie in die astralische und dann in die geistige oder devachanische Welt. Da sind die Eindrücke ganz anders, als der Mensch sie sich vorstellen kann, der nur die physische Welt kennt. Wenn auch alle Erlebnisse, alle Erfahrungen anders sind, eines bleibt: Die Logik, das gesunde Denken. Der Mensch, der sich das gesunde Denken aneignet, der ein ver-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+nünftiger, sicher auf seinen Beinen stehender Mensch ist, der wird nicht entgleisen können, wenn er in die Welten, die hinter der physischen Welt liegen, die für ihn Überraschungen über Überraschungen bieten, hinaufsteigt. Derjenige, der dieses aus dem inneren Quell der Seele schaffende, seiner selbst gewisse Denken bei sich ausbildet, der hat einen sicheren Führer auch über jene Grenze hinüber, wo zwischen dem Physischen und Überphysischen schwer zu unterscheiden ist. Mit gesundem Denken kommt man über den Abgrund, der sich da auftut, hinweg. Segelt man ohne gesundes Denken und sagt: Ihr gebt mir nur Gedanken; in mir aber lebt die Kraft eines Gottes, warum soll ich nicht in die höheren Welten aufsteigen können? - so kann ich nur erwidern: Die so sprechen, haben keine Ahnung, wie es sich ausnimmt in den höheren Welten, wo wir nicht zurechtgerückt werden durch die äußere Welt, wo wir den Führer in uns haben müssen, wenn wir nicht entgleisen sollen.
+
+Die Ausbildung des Fühlens geschieht mit Hilfe der Imagination in der Schule der Einzuweihenden. Der Schüler schafft sich zunächst eine bildliche Vorstellung der Welt; dann muß er so recht still seine Weltbetrachtung vornehmen unter dem Goetheschen Spruch: «Alles Vergängliche ist nur ein Gleichnis.» Ich möchte Ihnen an einem Beispiel, das ich schon mehrfach gegeben habe, zeigen, wie man den, der eine geistige Entwicklung anstrebt, hineinführt in die Tiefen der Dinge, wie man ihm durch Imagination eine Schulung des Gefühls beibringt. Wenn Sie mit Ihrem Denken die Entwicklung der Wesen erfassen wollen und beim Denken stehenbleiben, so können Sie niemals aus dieser Sinneswelt einen ordentlichen Schritt hinausmachen. Sie können sich die verschiedensten Begriffe aneignen, wie sich untergeordnete Wesen immer höher bis zum Menschen entwickeln, Sie können sogar die geisteswissenschaftliche Ent
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 120
+
+---
+
+wickelungslehre nehmen, wie sich der Logos ergossen hat und immer kompliziertere Formen und Welten gebildet hat: Pflanzen, Tiere, Menschen und Menschenreiche, wie alle Differenzierungen sich gebildet haben, Evolutionen und Involutionen und so weiter. Das sind Lehren, die Sie in theosophischen Büchern finden, schöne und interessante Begriffe. Aber in die höheren Welten hineingelangen können Sie auf diesem Wege nicht. Sie können sich dadurch Vorstellungen bilden, die Analogien sind von höheren Welten, niemals aber können Sie damit in diese Welten hineinkommen. Dazu brauchen Sie Imagination. Es ist das nicht etwas Eingebildetes. Es ist etwas, was mit einer produktiven Kraft hervorgebracht wird und nicht bloß in Begriffen sich ausgestaltet, so daß diese Begriffe, wie Goethes Urpflanze und Urtier, den äußeren Wirklichkeiten entsprechen; sondern es werden Bilder ausgestaltet, die viel Tieferem entsprechen, die dem Geist entsprechen, der hinter diesen Dingen schafft.
+
+Ich möchte in der Form eines Dialoges darstellen, was in solchen Geheimschulen immer den Geheimschülern gesagt worden ist. Das sage ich Ihnen, um das Prinzip, die Methode der Einweihung klarzumachen. Was ich in ein paar Worten ausspreche, nimmt bei der Schulung einen langen Zeitraum ein. Der Dialog, den ich schildere, hat auch nie stattgefunden; aber das, was er darstellt, hat in jeder Geistesschule immer stattgefunden. Man sagt zum Schüler: Sieh dir die Pflanze an, die mit der Wurzel in die Erde hineinweist, die ihren Stengel, ihre Blätter und Blüten nach oben wachsen läßt, und vergleiche sie mit dem Menschen. Du würdest falsch den Vergleich anstellen, wenn du den Kopf mit der Blüte und den Fuß mit der Wurzel vergleichen wolltest. - Als Einschaltung möchte ich sagen, daß auch derjenige, der die neuere Naturwissenschaft in so großartige
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 121
+
+---
+
+ger Weise begründet hat, auf diese Anschauung kommt. Er vergleicht die Wurzel mit dem Kopf des Menschen und sieht in der Pflanze den umgekehrten Menschen und im Menschen die umgekehrte Pflanze. - Die Wurzel ist der Kopf, den die Pflanze zum Mittelpunkte der Erde hinstreckt, ebenso wie der Mensch seinen Kopf, den er in der entgegengesetzten Richtung hält, der Sonne oder den Himmelskräften des Universums entgegenstrecken kann. Dasjenige, was die Pflanze als ihr Fortpflanzungsorgan hat, die Blüte, aus der hervorgeht der Keim zu einer neuen Pflanze, dreht sie keusch dem Sonnenstrahl entgegen, den man in den mittelalterlichen Geheimschulen nennt «die heilige Liebeslanze», der den Fruchtknoten berührt und nach der Befruchtung den neuen Pflanzenkeim herauszaubert, der überhaupt die Pflanze nach dieser Richtung wachsen macht. Genau umgekehrt ist der Mensch. Er streckt dem Mittelpunkte der Erde seine Befruchtungsorgane zu, den Kopf hinaus in den Raum. Dazwischen, so sagt man dem Schüler, ist das Tier, das eine halbe Wendung macht, so daß das Rückgrat horizontal ist. Sieh dir an Pflanze, Tier, Mensch, und du begreifst den Ausspruch Piatons, daß die Weltseele an das Kreuz der Welt geschlagen sei. Unter der Welt versteht Piaton Pflanze, Tier und Mensch. Die Pflanze ist es, die senkrecht steht, umgekehrt zu ihr ist der Mensch, der den Blick mit dem Haupte in den freien Weltenäther hinauswendet, und der Querbalken ist das Tier. Das ist die Urform des Kreuzes, die m den alten Zeiten und in allen Geheimschulen bekannt war.
+
+Nun sagt man dem Schüler folgendes: Stelle dir vor die Pflanze in ihrer reinen, keuschen Substanz. Der Mensch steht auf einer höheren Stufe als die Pflanze. Sie können das Weitere entnehmen aus den Vorträgen, die ich in der verflossenen Zeit gehalten habe. Die Pflanze gleicht dem
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+schlafenden Menschen. Sie hat, so wie sie vor uns steht, physischen Leib und Ätherleib oder Lebensleib. Beim schlafenden Menschen liegen im Bette auch nur der physische Leib und der Äther- oder Lebensleib. Der Mensch ist als Schlafender eigentlich außerhalb des physischen und Ätherleibes. Das, was in ihm denkt und fühlt, Lust und Schmerz erlebt, ist im Schlafzustande ausgeschaltet. Die Pflanze hat also ein Bewußtsein, das wir kennen als Schlafbewußtsein und auch so bezeichnen können.
+
+Was bedeutet die Entwickelung durch die Horizontallinie bis zur vollständigen Umdrehung? Sie bedeutet, daß der Mensch sein gegenwärtiges helles Tagesbewußtsein erlangt hat. Durch den Durchgang durch die Tiere ist der Mensch ein Wesen mit hellem Tagesbewußtsein geworden. Dafür hat er etwas anderes einbüßen müssen. Sehen Sie die Pflanze an: Sie ist nicht durchdrungen von dem Begierdenleib, von dem Astralleib. Die Pflanzensubstanz hat physischen Leib und Ätherleib. Der Mensch muß durch das Tier gehen und sich eingliedern Instinkte, Begierden und Leidenschaften. Der Mensch ist höher gestiegen, indem er in den Pflanzenleib die Begierdennatur eingegliedert hat.
+
+Nun stellt ihm die Geisteswissenschaft ein großes Ideal hin, ein reales Ideal. Diese Geisteswissenschaft zeigt dem Menschen, wie er in sich nach und nach die Kraft entwickeln kann, die wieder zurückführt zur Läuterung und Reinigung der Begierdennatur, die ihn dahin führt, wo er unter Beibehaltung seines jetzigen Bewußtseinszustandes wieder im reinen, keuschen Leibe auf höheren Entwickelungsstufen leben wird, auf Zukunftstufen der Entwicklung, wo er das überwunden haben wird, was er notwendigerweise in sich hineinnehmen mußte beim Durchgang zu den höheren Stufen. Was da der Lehrer dem Schüler hinstellte, das war ein reales Zukunftsideal: Du wirst die Pflanzennatur wieder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+haben! Und man gab ihm die Mittel an, es zu erlangen. Man sagte ihm, die ganze Menschheit wird einstmals wieder auf dieser Stufe ankommen, wo der Mensch die rein geistige Kraft aus sich heraus entwickelt haben wird. Dann wird er nicht mehr an die Begierdennatur gebunden sein, kein begierdenhaftes Befruchtungsorgan mehr dem geistigen Sonnenstrahl entgegenhalten. Man nennt dieses Organ, das der Mensch dann erlangt haben wird, und das man als reales Organ hinstellte, obwohl es ein geistiges Organ ist, das in der Zukunft dem geistigen Sonnenstrahl entgegengehalten werden wird, in der Einweihungsschulung den Heiligen Gral.
+
+Und nun denken Sie sich den Unterschied zwischen den trockenen abstrakten Begriffen, die man in der Mathematik oder in idealistischen Schriften Ihnen hinstellt, und dieser Imagination, wo wir heraufgehen durch das Tier zum Menschen und wieder herauf zu weiteren Zukunftsstufen der Menschheit. Wenn wir ein solches Zukunftsbild vor die Seele hinstellen, dann werden wir, wenn wir überhaupt dazu fähig sind, den Geist nicht nur zu denken, sondern zu fühlen und zu empfinden, mit unseren Gefühlen und Empfindungen diese Imagination begleiten. Wir werden diese Entwicklung nicht nur im Geiste sehen, wir werden sie fühlen und empfinden. Groß und gewaltig wird uns die Entwicklung im Weltenall erscheinen, wenn wir sie so im Bilde erfassen, nicht in abstrakten Begriffen. So wurde den Geheimschülern das ganze Weltall ringsherum, mit allen Welträtseln, vorgeführt. Das nahm nicht nur sein Denken, sondern auch sein Fühlen und Empfinden in Anspruch. Es war ihm, wie wenn seine ganze Seele herausginge und sich hineinlebte in alles, was um ihn herum ist. Wie beim Goetheschen Urtypus etwas in uns geschaffen wird, was in allen Pflanzen und Tieren lebt, so ist es auch, wenn sich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 124
+
+---
+
+das entwickelte Fühlen aus uns heraushebt, als ob wir die Weltseele fühlten, die als Kraft durch alle Wesen strömt.
+
+So wurde alles, was rings um den Schüler war, lebendig für ihn, es wurde Imagination. Wo er ging durch Flur und Feld, überall wirkten die Bilder in seiner Seele. Das loste in ihm die innere Kraft und er blickte allmählich hinter die Wesen und hinter die Dinge. Wenn man das so erzählt, so erscheint es einem schier unglaublich. Wenn der Schüler unter der Anleitung des Lehrers hineingeführt wurde in das Imaginative der Welt, dann wurde er nicht nur an das Denken herangeführt, sondern in das Gefühl und die Impulse hineingeführt, die hervorgequollen sind aus der Seele des Weltenschöpfers. Er wurde eingeführt in eine wesenhafte Welt. Und weiter geht es dann von der Entwicklung des Fühlens zu der Entwicklung des Wollens.
+
+Wie das Fühlen durch die Bilder, so wird das Wollen durch die Zeichen der okkulten Schrift entwickelt. Dieses Wollen ist das Tiefste der verborgenen Kraft. Es wird dieses Wollen wie zu einem Knochengerüst, das der Mensch durch dieses Wollen hinausdrängt in die äußere Welt. Wenn Sie sich an die Bilder des Münchener Kongresses erinnern, an die Säulen und Siegel: diese sind dazu da, den Willen zu schulen. In der Mappe, die wir als «Bilder okkulter Siegel und Säulen» haben erscheinen lassen, haben Sie dieses wiedergegeben. Ich will Ihnen das Prinzip dieser okkulten Siegel und Säulen einmal erörtern und ihre Bedeutung für die Einweihung angeben. Da stellt jedes der Siegel dar, was Sie in der «Apokalypse» oder der «Geheimen Offenbarung des Johannes» finden können. In dieser Mappe finden Sie Zeichen. Jedes Zeichen ist von einer gewaltigen, impulsierenden Wirkung auf den Menschen. Da finden Sie auf dem ersten Siegel eine menschliche Figur; die Füße sind wie aus flüssigem Messing, aus dem Munde
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+heraus geht ein feuriges Schwert. Alles übrige will ich nicht weiter beschreiben. Wer sich in dieses Siegel vertieft, der wird sehen, daß ihm gerade dieses Siegel, namentlich durch diesen Kontrast, etwas Wunderbares gibt. Wir werden in dem letzten Vortrage dieser Winterreihe über «Sonne, Mond und Sterne» hören, daß wir durch die Geisteswissenschaft auch in Zustände der Erde zurückgeführt werden, wo die Erde in einem feuerflüssigen Zustande war und daß – dies im Gegensatz zu der materialistischen Wissenschaft – der Mensch schon da war. Den Einwand, daß der Mensch nicht in einem Feuerflüssigen leben konnte, kann sich die Geisteswissenschaft selber machen. Der Mensch war damals selber geformt aus feuerflüssiger Masse. Dieser Erdenanfang wird uns dargestellt in den feuerflüssigen Metallfüßen. Ein späterer Zukunftszustand wird uns dargestellt durch das feurige Schwert, das aus dem Munde kommt, das in allen Mythen wiedererscheint. Ich kann nur andeuten, um was es sich hier handelt. Sie werden sehen, wie die Geisteswissenschaft tief zusammenhängt mit dem innersten Wesenskern der Welt.
+
+Wenn wir heute sprechen: Wie geschieht die Vermittlung, wenn ich zu Ihnen spreche? Was ich spreche, sind zunächst meine Gedanken. Diese nehmen Töne an, die die Luft in Schwingungen versetzen. Dadurch wird in diesem Saale die Luft in Bewegung gesetzt. Die Schwingungen der Luft kommen an Ihr Ohr, kommen an Ihre Seele, teilen sich Ihrer Seele mit. Meine Worte leben hier in dem Räume in bestimmten Schwingungsformen. Könnten Sie sie sehen, so würden Sie, wenn ich das Wort Seele ausspreche, ganz bestimmte Schwingungen sehen. So wie der Mensch heute imstande ist, die Luft zu formen und das, was in seiner Seele lebt, in schwingender Luft erstehen zu lassen, so wird er imstande sein, auch Organe zu formen. Es gibt Organe im
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 126
+
+---
+
+Menschen, die am Anfang, und Organe, die am Ende der Entwicklung stehen. Am Anfang der Entwicklung stehen der Kehlkopf und das Herz des Menschen. Ich weiß, daß ich damit etwas Ungeheuerliches sage für die positive Wissenschaft, denn diese beiden werden ja hingestellt wie mechanische Apparate, das Herz wie eine Pumpe. Gerade die Theorien des Herzens und der Blutzirkulation werden aber in nicht zu ferner Zukunft gehörige Umbildungen erfahren. Man wird finden, daß die Zirkulation des Blutes von ganz etwas anderem herrührt als vom Herzen, und daß das Herz sich nur durch die Blutzirkulation bewegt. Wenn der Mensch Schamgefühl hat, so wird er rot, er errötet. Das ist ein Einfluß des Blutes. Das Herz wird in Zukunft ein willkürlicher Muskel sein, und es bereitet sich vor, ein willkürlicher Muskel zu werden.
+
+Es ist hier etwas gegeben, was die Zukunft des Menschen äußerlich-physisch geradezu ausprägen wird. Für die gewöhnliche Anatomie und Physik ist das Herz eine Crux. Es hat die Konfiguration wie ein willkürlicher Muskel, während es heute noch kein willkürlicher Muskel ist. Ein willkürlicher Muskel hat quergestreifte Muskelfasern. Das Herz hat solche quergestreiften Fasern, obwohl es heute noch nicht willkürlich ist. Es ist aber auf dem Wege dazu, ein willkürlicher Muskel zu werden.
+
+Auch der Kehlkopf wird in der Zukunft eine andere Funktion haben. Er wird das Fortpflanzungsorgan des Menschen sein. Der Kehlkopf, der heute Worte der Seele hervorbringt, wird später die Fortpflanzung auf sich nehmen. Das Feuerprinzip ist die Rede, und das Feuerprinzip der Rede wird ein schöpferisches Prinzip sein; daher das Schwert im Munde. Dieses Feuerschwert steht in inniger Beziehung zu den Weltenkräften. Wenn der Mensch sich in dessen Bild vertieft, so stärkt das seine Willenskraft. Das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 127
+
+---
+
+alles kann nur so gesagt werden. Wer es tut, wird es erfahren. Er wird dann nicht nur ahnen, denken und fühlen, sondern mit seinen Willenskräften hineindringen in die Dinge. Dies ist der Weg durch die okkulte Schrift.
+
+Man kann also ganz konkret angeben, in welcher Weise man Denken, Fühlen und Wollen entwickeln soll. Hat man die im Menschen schlummernden Kräfte erweckt, dann werden Denken, Fühlen und Wollen ganz bestimmte Organe, diejenigen Organe, die man heute Gottesaugen, Geistesaugen nennt. Aus ihnen werden die geistigen Augen, die uns die Welt des flutenden geistigen Lichtes und seiner Farben zeigen und die geistigen Kräfte hinter unserer physischen Welt. Die geschulten Willenskräfte werden die geistigen Ohren, von denen auch Goethe spricht, der tief in diese Dinge eingeweiht war:
+
+Die Sonne tönt nach alter Weise
+In Brudersphären Wettgesang,
+Und ihre vorgeschriebene Reise
+Vollendet sie mit Donnergang.
+
+Und Goethe bleibt im richtigen Bilde. Wenn man eingeführt wird in die höhere geistige Welt, so wird man eingeführt durch das Ohr. Wenn man in das geistige Gebiet hineinkommt, wird gleich gesagt: «Tönend wird für Geistesohren schon der neue Tag geboren.» Denjenigen, die glauben, Goethe zu verstehen und zu kennen, die aber sagen, das sei Unsinn, und dafür eine Erklärung brauchen, die man dem Dichter nicht zumuten kann, ist zu antworten: Nein, man kann einem Dichter wie Goethe nicht zumuten, daß er Unsinn schrieb: «Die Sonne tönt . . .» ist nur dann ein Unsinn, wenn man es auf die physische Welt anwendet.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+So haben wir gesehen, daß das Prinzip der Einweihung darauf beruht, daß man ganz bestimmte Kräfte, die im Inneren des Menschen schlummern, herausholt, so daß diese Kräfte den Menschen hineinführen in die ihn umgebende geistige Welt. Was ist es denn, was diese Kräfte aus dem Menschen herausholt? Ganz im Sinne Goethes müssen wir uns die Sache erklären. Einstmals gab es ein sinnliches Organ, ein gleichgültiges Organ in seinem sinnlichen Leibe, das vom Licht umflutet war. Das Licht machte es zum Auge, so daß der Mensch durch das Auge die Farben und Formen um sich herum sehen konnte. So entstand das Auge. Unbekannte und unerkannte Organe, die man nicht anerkennen will, schlummern in dem Menschen. Aber auch andere Welten sind um uns herum, außer der Welt des Lichtes und der Farben. So wie bei dem Blinden das Auge erweckt wurde zum Sehen, so werden beim Hellsehen und Hellhören die geistigen Ohren und Augen herangebildet, so daß der Mensch hineinschauen kann in die umliegende geistige Welt.
+
+Heute hat der Mensch in sich selbst das Selbstbewußtsein errungen. Er ist so geworden, daß er imstande ist, alles auf sich zu beziehen. Aber dadurch, daß er die geistigen Augen und Ohren entwickelt, daß er dem Prinzip der Einweihung folgt, taucht er wieder unter in die äußere Welt. Sein höheres Selbst findet er in dieser Welt. Wir dürfen nicht sagen, daß wir in uns das Göttliche und Geistige finden. Das ist ein unrichtiger Ausdruck. «Erkenne dich selbst!» ist ein altes Wort. Aber man muß es so fassen, wie der alte Adam erkannt hat sein Weib. Das hat er befruchtet. So ist es auch mit den Organen. Befruchte dich selbst, laß dich von der Welt befruchten. - So ist dasjenige, was der Mensch erreichen soll, die Entwicklung der in ihm schlummernden Kräfte... Wahr ist, was Goethe sagt:
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 129
+
+---
+
+War* nicht das Auge sonnenhaft,
+die Sonne könnt es nie erblicken;
+lag nicht in uns des Gottes eigne Kraft,
+wie könnt uns Göttliches entzücken!
+
+Gewiß liegt in uns die Sonnenkraft, und das Auge erschafft nicht das göttliche Wesen, erschafft nicht die Sonne, sondern es sieht sie, nachdem es selbst geschaffen worden ist.
+
+Das ist der Weg, wie wir höhere Kräfte entwickeln und immer tiefer in die Welt eindringen können. Dann erscheint uns die äußere Welt nicht mehr als etwas, was uns hemmt und einengt, sondern als das, was uns wahre, echte und geistige Wirklichkeit vorführt. Dann wird der Einklang geschaffen zu der Kraft, die vorwärts und immer vorwärts will. Harmonie wird geschaffen zwischen Mensch und Welt. Dadurch überwinden wir das niedere Selbst, das hinausschaut in die sinnliche Welt. Wir erlangen das höhere Selbst, das höhere Ich des Menschen, das in dem ganzen Universum ausgebreitet ist. Das meint Goethe, indem er in dem Gedichte «Die Geheimnisse» das Prinzip der Einweihung andeutet mit dem Worte, mit dem wir schließen wollen, und das zeigt, wie der Mensch durch Selbstüberwindung ausfließt und hineinfließt in das durch die Welt strömende Fühlen, in das Geistige der Welt, in den durch die Welt pulsierenden Willen der Weltengeister:
+
+Denn alle Kraft dringt vorwärts in die Weite,
+Zu leben und zu wirken hier und dort;
+Dagegen engt und hemmt von jeder Seite
+Der Strom der Welt und reißt uns mit sich fort;
+In diesem innern Sturm und äußern Streite
+Vernimmt der Geist ein schwer verstanden Wort:
+Von der Gewalt, die alle Wesen bindet,
+Befreit der Mensch sich, der sich überwindet.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# DIE SOGENANNTEN GEFAHREN DER EINWEIHUNG
+
+Berlin, 12. Dezember 1907
+
+Es ist nicht der einzige Vorwurf, der der Geheimwissenschaft gemacht wird, daß sie phantastisch, träumerisch sei, sondern es besteht bei vielen auch der Glaube, daß für denjenigen, der dieser Geheimwissenschaft oder Geisteswissenschaft nähertritt, auch Gefahren mit ihr verbunden seien. Es herrschen in gewissen Kreisen geradezu abenteuerliche Anschauungen über diese sogenannten Gefahren der Geisteswissenschaft. Zunächst wird viel im allgemeinen auf solche Gefahren hingedeutet, ohne auch nur zu versuchen, die angeblichen Gefahren des näheren zu charakterisieren oder anzugeben, worin sie bestehen; denn da, wo zuweilen so viel von diesen Gefahren gesprochen wird, herrscht ebensooft eine, man darf sagen tiefsinnige Unkenntnis dessen, was die Geheimwissenschaft in sich birgt. Man hat nur so die unbestimmte Vorstellung, daß sie etwas Gefahrvolles in sich schließt. Man geht dabei auch nicht näher auf das ein, worauf man unbedingt eingehen müßte: ob die Geheimwissenschaft selbst das Gefahrvolle sein soll oder erst das tiefere Eindringen in sie dadurch, daß man sich bekannt macht mit den Methoden, den Übungen, die den Menschen hineinführen in die uns umgebende, für die gewöhnlichen Sinne unsichtbare und unwahrnehmbare, für die höheren Sinne aber durchaus wahrnehmbare geistige Welt. Wer überhaupt von Gefahren sprechen will auf diesem Gebiete, der muß aber diese Unterscheidung machen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Nur handelt es sich, wie gesagt, oftmals gar nicht um einen Hinweis auf bestimmte Gefahren, sondern es wird nur gesagt: Ach, diese Geheimwissenschaft oder diese Theosophie macht die Menschen weltfremd, entfernt sie von demjenigen, womit sie sich eigentlich im Leben befassen müßten, wofür sie Interesse haben sollten. - Und mancher Kreis findet es ungeheuer bedauerlich, daß dieses oder jenes Mitglied ihm scheinbar entrissen wird dadurch, daß es anfängt, sich für die Theosophie oder die ihr zugrunde liegende Geheimwissenschaft zu interessieren. Dadurch ist wohl auch das schon oft ausgesprochene Urteil entstanden, daß die Theosophie den Menschen unpraktisch mache, ihn abbringe von den unmittelbaren Pflichten des Lebens, ihn zur Askese und Weltfremdheit treibe.
+
+Obwohl es hier schon erwähnt worden ist von der einen oder anderen Seite, darf vielleicht doch noch einmal darauf aufmerksam gemacht werden, daß es der unbilligste und zu gleicher Zeit der unmöglichste Vorwurf ist, den man der Geheimwissenschaft und ihrer Arbeit machen kann, daß sie die Menschen irgendwie weltfremd, weltfern mache oder sie zur Askese verführe. Immer wieder muß es betont werden, daß, weil unserer Welt der Sinne, unserer Welt des physischen Lebens eine geistige Welt mit ihren Wesenheiten und Kräften zugrunde Hegt, die fortwährend in unsere Sinnes weit her ein wirkt, derjenige weltfremd und weltfern genannt werden muß, der sich nicht um die wahren und eigentlichen Kräfte des Daseins kümmert und sich nur auf die äußere Welt, auf das, was die Sinne sagen und was sie genießen können, beschränken will. Es ist keine Rede davon, daß die Theosophie ihre Bekenner zu einem asketischen Leben, zu Entbehrungen oder zur Weltfremdheit hindränge. Wahr ist aber, daß derjenige, welcher Interesse entwickelt für dasjenige, was aus der Geheim Wissenschaft fließt, was
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+sie zu bieten vermag, andere Wünsche, andere Sympathien und Antipathien haben muß, als viele Menschen sie haben.
+
+In einer großen Anzahl der Fälle ist es jedoch nicht so, daß diejenigen, die an die Geheimwissenschaft herankommen, etwa erst innerhalb eines geheimwissenschaftlichen oder theosophischen Kreises sich dieses Interesse, diese Sympathien und Antipathien aneignen. Die Gefühle bringen die Leute in der Regel mit; die Interessen tragen sie hinein in die theosophischen Kreise, und dasjenige, was die Theosophie oder Geheimwissenschaft ihnen bieten will oder soll, ist nichts anderes, als was sie verlangen. Nicht deshalb werden sie aus den Kreisen, die sagen: ... sie werden uns fremd, - hinweggetrieben, weil sie durch die Theosophie weggenommen werden, sondern weil diese Kreise sie mit ihrer scheinbaren Zugewendheit zur Welt, mit ihren egoistischen Interessen selbst immer fremder und fremder werden lassen. Wenn ein solcher Kreis jammert, daß dieses oder jenes Mitglied ihm entzogen wird, so sollte er sich fragen: Hat die Theosophie mir dieses Mitglied genommen oder haben wir es durch Langeweile hinausgetrieben? - Wenn man vergleicht das Leben, wie es im theosophischen Kreise sein soll, mit dem Leben eines «weltfreudigen» Kreises, der sagt, man dürfe sich nicht der Askese hingeben, man müsse das Leben nehmen, wie es ist, so ist darauf zu antworten, daß der Theosoph sich nicht deshalb von gewissen Dingen zurückzieht, weil er sich aus dem Leben herausreißen, dem Leben entfliehen will, sondern weil er in das wahre, echte Leben hineinwill.
+
+Es gibt keine größere Askese, keine furchtbarere Entbehrung für die, welche Interesse für die Geisteswissenschaft haben, als sich hinzugeben dem Treiben, das man in vielen Kreisen eben das «Leben» nennt. Wenn man das Leben nennt: Morgens aufstehen, seine Zeitung lesen, diesem oder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 133
+
+---
+
+jenem nachgehen, von dem man einsehen kann, daß es einen praktischen Nutzen hat, am Abend dieses oder jenes Banale mitmachen — wenn man das Leben nennt, dann gibt es in der Tat eine «Askese» für den Theosophen, eine schreckliche Entbehrung, nämlich, wenn man ihn zwingt, dieses Leben mitzumachen. Wenn daher trotz allen widerstrebenden Kräften das Interesse für die Theosophie und für dasjenige, was von der Geheimwissenschaft öffentlich gebracht werden darf, heute immer größer und größer wird, so ist das nur ein Beweis dafür, daß es immer mehr und mehr Leute gibt, die dem «asketischen» Leben der gewöhnlichen Vergnügungen entfliehen und sich dem wirklichen Leben einmal in die Arme werfen wollen. Das würden die Menschen einsehen müssen, wenn sie einmal mit sich zu Rate gehen würden; denn ein Gejammer und ein Gewimmer unter Leiden und Entbehrungen ist eben das Leben in der Geheim Wissenschaft durchaus nicht. Und die Lebenspraxis ist ja ein Kapitel, das in den verschiedenen Vorträgen auch schon besprochen worden ist.
+
+Wenn diejenigen, die sich häufig so viel einbilden auf ihre Lebenspraxis sagen, die Theosophie mit ihren weltfremden Ideen setzte den Menschen nur Mucken in den Kopf, und die Leute, die sich an so etwas hingeben, brachten es niemals zu einer wirklichen Arbeit im Leben, nur einmal einen Blick in die Welt werfen würden und auf das, was man einerseits Praxis, andererseits unpraktischen Idealismus nennt, so würden sie vielleicht anders sprechen. Es war ein deutscher Philosoph, Johann Gottlieb Fichte, der das schöne Wort gesprochen hat: Daß Ideale nicht unmittelbar im Leben anzuwenden sind, das wissen die Idealisten ebensogut wie die sogenannten praktischen Leute, vielleicht besser. Daß aber gewisse Leute nicht einsehen können, daß alles Leben aus dem Lebensideal herausfließt, aus dem, was
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+noch nicht da ist, was erst werden soll, das zeigt nur, daß auf sie, wie Fichte sich ausdrückt, im Plane der Veredelung der Menschheit nicht gerechnet ist. Möge ihnen daher die Gottheit zur rechten Zeit Regen und Sonnenschein, Nahrung, und dabei kluge Gedanken verleihen! - Der Theosoph mag sich aus einer objektiven Betrachtung des Lebens heraus trösten, wenn auf die Gefahr des sogenannten Unpraktischen hingewiesen wird. Da kann nämlich als Beispiel dafür, was Praxis ist, jenes kluge Kollegium von Praktikern in einem Lande des südlichen Deutschland angeführt werden. Als man in Deutschland die erste Eisenbahn bauen wollte, fragte man bei ihnen an, ob es gut sei, wenn diese Eisenbahn gebaut würde. Das Kollegium sagte - jeder kann sich überzeugen, daß das Dokument vorhanden ist -, man solle keine Eisenbahn bauen, denn die Menschen würden schwere Schädigungen ihres Nervensystems erleiden; sollte es aber Menschen geben, die doch mit einer Eisenbahn fahren wollen, und sollte sie gebaut werden, so müßte man links und rechts von ihr hohe Bretterwände aufrichten, damit diejenigen, an denen sie vorbeifährt, nicht Gehirnerschütterung bekommen. - Das ist noch nicht lange her! Es ist auch noch nicht lange her, daß ein Mann, der kein Praktiker, sondern ein «unpraktischer Lehrer» war, den Rat gab, statt der teuren Porti die billigeren Postkarten einzuführen. Es war Rowland Hill, der Nichtpraktiker. Da war aber ein Postmeister, der sagte: Ich kann es nicht recht einsehen, daß man dadurch, daß man auf diese Art und Weise die Portoerhebung einführt, einen Vorteil hat; denn wenn der Verkehr sich in einer solchen Weise entwickeln würde, so würde das Postgebäude nicht mehr ausreichen, um alle Briefschaf ten und Postsachen aufzunehmen und zu befördern. - So erscheint einem manches Urteil, das heute aus den Kreisen der Leute kommt, die der Theosophie feindlich gesinnt sind.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+Die Gefahren, die da geschildert werden, sie gleichen denen, welche die Leute von der Eisenbahn erfahren haben, nachdem sie nun seit Jahrzehnten damit fahren. Die Zukunft wird dafür den Beweis erbringen. Sowenig wie das bayrische Medizinalkollegium den Bau der Eisenbahn, der Postmeister in London die Ausbreitung des Postverkehrs verhindern konnte, ebensowenig kann der Ausbreitung der Theosophie, welche sich als notwendig in unserer Zeit herausgestellt hat, durch ähnliche Einwände Einhalt geboten werden.
+
+Es richten sich aber viele der Besorgnisse nicht auf das Allgemeine, man wittert etwas Besonderes. Man darf daher auch einmal öffentlich von dem sprechen, was eventuell zu solchen Besorgnissen und solchem Reden von Gefahren Veranlassung gibt. Zunächst dürfen wir eines nicht vergessen: Etwas, was wirken soll, was eine Bedeutung und Kraft haben soll in der Welt, das wirkt auf die verschiedenen Menschen verschieden. Es wirkt in der Weise, wie die Menschen sich davon beeinflussen und beeindrucken lassen. Nun ist die Theosophie und die Geheimwissenschaft so etwas wie ein reinigendes Gewitter in unserer geistigen Atmosphäre und wird es immer mehr sein. Womit ist denn diese geistige Atmosphäre erfüllt? Sie ist erfüllt von allen möglichen siegesgewissen und zuversichtlichen Urteilen, die um so siegesgewisser auftreten, je weniger tief sie in das Wesen der Dinge einführen. Insbesondere ist es das materialistische Denken und Fühlen, die materialistische Gesinnung, die mit einer ungeheuren Unfehlbarkeitsmeinung von sich, mit ungeheurem Hochmut und Dünkel sich heute als die alleinseligmachende Lehre betrachtet und alles, was in die geistige Welt weisen will, mit Hohnlachen übergießt, wie wenn es sich nur um Phantasien handeln würde.
+
+Derjenige freilich, der sein Denken schult in jener Logik,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 136
+
+---
+
+die notwendig ist, um die Gebiete zu beherrschen, die außerhalb der sinnlichen Welt liegen, ist immer in der Gefahr, daß man ihn mit der Logik der Materialisten von heute krank machen möchte. Die oberflächlichen Urteile, die heute geprägt werden, die heute gang und gäbe sind und mit einer Sicherheit und einem Unfehlbarkeitsdunkel ohnegleichen auftreten, sind aber manchmal sehr kurzatmig, und wenn ihnen jene Logik gegenübertritt, die mit innerer Denkergeduld von Begriff zu Begriff schreitet, wie es notwendig ist, wenn man nicht auf der Brücke der äußeren sinnlichen Erlebnisse vorwärtsschreiten kann, sondern darauf ausgeht, eine sichere Stütze in sich selbst und eine innere Gewißheit zu haben, dann wird ihre Fadenscheinigkeit sehr bald sichtbar. Schon in dieser Beziehung muß uns das Denken, wie es aus der Geheimwissenschaft für die Gegenwart fließt, vielfach wie ein reinigendes Gewitter erscheinen. Es erscheint so für die große Menschenmasse und auch für den einzelnen Menschen. Da können wir nicht umhin, zu betonen, daß das doch keine Gefahr ist. Für die große Masse besteht höchstens die Gefahr, daß es Unsicherheit in die Urteile bringt, die wert sind, so hingestellt zu werden.
+
+Beim einzelnen Menschen steht die Sache schlimmer. Es kommt da etwas in Betracht, was im Geheimsten seiner Seele wirkt, eine Disharmonie zwischen dem Fühlen und dem Urteilen des Menschen. Und diese Disharmonie ist heute am größten bei denjenigen Menschen, die am sichersten zu sein glauben in irgendeinem materialistischen Glaubensbekenntnis. Ein materialistisches Glaubensbekenntnis hat nämlich die Eigentümlichkeit, daß es letzten Endes nur den Verstand, nur das abstrakte Urteil befriedigen kann. Die tieferen Interessen der Seele, alle Wünsche, alle Gefühle, alle Empfindungen sind bei sämtlichen Menschen viel wahrer und viel tiefer, als oftmals ihr Urteil ist. Und
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+während jeder mit seinem Urteile, mit seinen materialistischen Begriffen und seiner materialistischen Gesinnung an der Oberfläche haften bleibt, lebt in der Tiefe seiner Seele - für ihn oft ganz unbewußt - das Drängen und das Sehnen nach einem Geistigen. Für feinere Menschenbeobachter kommt das zuweilen recht anschaulich zum Vorschein, indem man sieht, wie viele Disharmonien in den Reden und Aussprüchen der Menschen sind. Da kann man sehen, daß sie eigentlich gar nicht übereinstimmend fühlen mit dem, was sie sagen. In geringem Maße ist bei einem großen Prozentsatz der heutigen Menschen der Fall, was ein Dichter grotesk ausgedrückt hat mit den Worten, die er eine seiner Gestalten sagen läßt: So wahr ein Gott im Himmel ist, bin ich ein Atheist, - Das ist, nur radikal, grotesk ausgedrückt, das gefühlsmäßige Stehenbleiben bei etwas Traditionell-Hergebrachtem und das Stehenbleiben des oberflächlichen Urteils bei einem radikalen Verneinung. In dieser radikalen Form wird es heute bei wenigen Menschen vorkommen. Aber für den, der feiner beobachten kann, bietet fast jedes Gespräch Beispiel um Beispiel, daß die Menschen in ihren Seelen heute so leben.
+
+Unter welcher Voraussetzung kann man so leben? Man kann so leben unter der Voraussetzung, daß man in seinem Seelenleben oberflächlich bleibt. Denn niemand, der in die Tiefe seiner Seele hinuntersteigt, wird eine solche Disharmonie dulden können, wie sie heute vielfach vorhanden ist. Für den, der gewohnt ist an Logik, zeigt sich das in dem ganzen Umfang materialistischer oder — wie man es nobler nennt — monistischer Literatur. Nehmen wir einen Menschen an, der eingebettet ist in unsere Zeitatmosphäre und nicht aus innerer Freiheit, aus innerem starkem Drang aus ihr herausstrebt: Er bleibt eingebettet, er lebt allgemein, dumpf, aber zufrieden fort. Aber es hängt ja heute nicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 138
+
+---
+
+mehr von den Dingen, bei denen viele stehenbleiben wollen, ab, ob der Mensch so dumpf leben kann, ob es ihm möglich ist, so dumpf zu leben. Zahlreichen Menschen ist es nicht mehr möglich. Und dasjenige, was populäre Literatur ist - Zeitschriften, populäre Bücher, Zeitungen sogar -, was sie bietet, das ist für feinere Köpfe und tiefere Gemüter durchaus nicht etwas, was einer Antwort gleicht auf die großen Rätsel Fragen des Daseins, sondern es dient nur dazu, um neue Fragen zu erzeugen.
+
+Ja, auch die heutige Wissenschaft selbst, wie sie auftritt mit ihrem Haften an den Tatsachen: nur für den oberflächlichen Geist gibt sie Antwort. Für den gemütstiefen Menschen, für den feingeistigen Menschen ist diese Wissenschaft etwas ganz anderes. Sie ist eine Summe von Fragezeichen. Und da, wo viele glauben, daß sie fertig sein können, wenn sie eine Weltanschauung zimmern aus den naturwissenschaftlichen Tatsachen heraus, da fängt für viele Leute das Fragen gerade erst an. Nur merken die Leute, die fertig zu sein glauben, nichts davon. So sehen Sie heute zahlreiche Menschen, die zu einem Buche wie Haeckels «Welträtsel» greifen, um die Welträtsel gelost zu bekommen. Haben sie dieses Buch gelesen, dann fangen sie erst an, die großen Fragen aufzuwerfen. Denn nicht Lösungen sind es, sondern Fragen, die da aufgeworfen sind. Solche Gemüter und solche Köpfe können dann, auf diesem oder jenem Wege, einmal zur Theosophie gebracht werden.
+
+Nun tritt ihnen die Theosophie und die Geheimwissenschaft entgegen mit ihrem strengen, in sich logischen Denken, das den Quell der Gewißheit, wie die Mathematik, in sich selbst hat, und eine ungeheure Disharmonie zwischen dem, was sie bisher von der Außenwelt gewohnt waren, und den Anforderungen, die plötzlich an sie gestellt werden, tritt ihnen entgegen. An der Oberfläche der Dinge hafteten sie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+bisher; in Abgründe sehen sie jetzt hinein. Ein halbes Leben und mehr haben sie oftmals verloren. Besorgt sind sie, ob der Rest des Lebens noch ausreichen möchte, um alles, was ihnen entgegentritt, in die Löcher ihrer Seele, die ihnen die Welt geschlagen hat, hineinzugießen. Oder aber sie kommen aus diesen oder jenen Gesellschaftskreisen her und können sich dem nicht entreißen; dann entstehen ihnen daraus die furchtbarsten Hindernisse. Der praktischste und auf Sicherheit gebaute Weg, der ihnen werden kann, wäre, wenn sie sich einließen auf die geheimwissenschaftliche Forschung; aber tausend Fäden ziehen sie zurück. Da treten ihnen die Disharmonien entgegen, die erscheinen müssen, wenn ihnen das Tiefe, dasjenige, wonach die Seele sich sehnt, entgegentritt gegenüber dem Oberflächlichen, dem Äußerlichen. Da tritt eine eigentümliche Erscheinung bei manchen Menschen hervor, die wir uns am besten durch einen Vergleich klarmachen. Denken Sie sich, in irgendeiner Ecke eines Zimmers wäre wochenlang nicht gereinigt worden, viel Schmutz sei da — verzeihen Sie das Gleichnis. Wenn nun in diesem Zimmer keine ordentliche Beleuchtung ist, so können die, die hineinsehen, glauben, daß alles reinlich sei. Wird aber einmal ordentlich hineingeleuchtet, so fällt die Unordnung auf. Es hängt nur davon ab, daß man ordentlich hineinleuchtet.
+
+So ist es mit der Seele. Sie ist gewohnt, den gewöhnlichen Gang des Schlendrians zu gehen. Sie ist vielleicht gezwungen, oberflächlich unter Oberflächlichen zu sein. Nun kommt sie aber an das Licht, das diese Oberflächlichkeit beleuchtet, das diese Oberflächlichkeit in ihrer ganzen Minderwertigkeit erscheinen läßt. Wenn diese Seele empfindend ist, was tritt dann für sie ein? Ist sie gewohnt an oberflächliches Urteilen, dann muß sie das Licht, das über sie hereinfällt, erst recht in Verwirrung bringen. Daher sehen wir, daß zahl-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 140
+
+---
+
+reiche Seelen durch die Berührung mit den geheimwissenschaftlichen Wahrheiten vielleicht zunächst etwas in Verwirrung oder auch in etwas mehr als Verwirrung gebracht werden. Hat die Geheimwissenschaft schuld daran? Wahrhaftig, wer hier logisch denkt, wird nicht der Geheimwissenschaft, die das Licht ist, die Schuld geben, sondern der Tatsache, daß die Seele sich so sehr der Oberflächlichkeit des Urteils ergeben hat.
+
+Und die Sache geht noch viel weiter. Wir sehen Menschen, die überhaupt nicht mehr gewachsen sind unserer komplizierten Kultur, sie kranken an unserer komplizierten Kultur, und warum? Sie finden sich nicht mehr zurecht mit ihrem Urteil! Die Theosophie oder die Geheim Wissenschaft ist das Mittel, um sich in unserer Kultur zurechtzufinden, und sie kann gesundend wirken für denjenigen, den unsere Kultur krank gemacht hat. Aber kann nicht auch noch etwas anderes vorkommen? Auch das können wir uns durch einen Vergleich klarmachen. Eine Speise kann äußerlich gesund sein; es kann aber einer einen total verdorbenen Magen mitbringen. Wenn die Speise auch recht gesund ist für den Gesunden, so kann unter Umständen der verdorbenen Magen gerade diese gesunde Speise nicht vertragen. Und so ist es auch in vielen Fällen, wenn die Menschen mit kranken Seelen herauskommen aus unserer Kultur in die heitere und beseligende Luft der Geheimwissenschaft. Dann kann es vorkommen, daß sie mit ihren kranken Seelen die gesunde Speise nicht vertragen können. Das sind jedoch Ausnahmefälle.
+
+Aber über sie wird am meisten geschrieben in der Welt. Es wird gesagt: Die Theosophie ist etwas, was die Leute verrückt macht. - Es soll nicht geleugnet werden, daß sie auch störend wirken kann für diese oder jene Seele, wie die gesunde Speise für den verdorbenen Magen. Hat aber die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+gesunde Speise den Magen verdorben? Viele sogenannte entgleiste Seelen kommen an die Theosophie heran; es ist geradezu auffällig, wie viele entgleiste Seelen an sie herankommen. Der, welcher genötigt ist, in dieser Bewegung zu wirken, könnte Ihnen manches traurige Kapitel erzählen, könnte erzählen, wie von da und dort der Hilferuf kommt: Ich finde mich nicht mehr zurecht mit der Welt, ich weiß nicht mehr, wie ich die Sehnsucht meines Herzens befriedigen soll. - Die jammervollsten Hilferufe, sie kommen jeden Tag in größerer Zahl. Das hat unsere materialistische Kultur, unsere materialistische Gesinnung gemacht, die den Menschen - verzeihen Sie den trivialen Ausdruck - Steine gereicht hat statt Brot. Die Oberflächlichkeit des Urteils konnte manchmal befriedigt werden. Die in der Seele ruhenden Wünsche und Interessen konnten nicht befriedigt werden. Eine Weile lassen sie sich zurückdrängen und stumpf machen, dann aber drängen sie sich an die Oberfläche, und die Menschen kommen mit ihren Hilferufen. Es ist - das ist nicht zu leugnen - bei manchem dann zu spät.
+
+Heute kann aber die Geisteswissenschaft nicht so betrieben werden, daß sie sich nur an einzelne Ausgesuchte richtet. Die Dinge müssen vor die große Öffentlichkeit gebracht werden. Niemandem können die elementaren Grundbegriffe vorenthalten werden, und nicht einmal die Anfangsgründe der Einweihung, wie sie in dem letzten Vortrage angedeutet wurden, können heute jemandem versagt werden. Wenn heute einzelne Menschen, zugrunde gerichtet durch die zeitgenössische Kultur, an die Theosophie herankommen und als so entgleiste Seelen durch das reinigende Gewitter zunächst noch mehr in Unordnung gebracht werden, sollte deshalb allen Seelen das Heilmittel vorenthalten werden, nur weil einzelne, durch ihre verkehrte Denkweise, in seelisches Unglück gebracht worden sind? So redet heute
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+keineswegs irgendein Fanatismus, so redet die Erfahrung auf dem Gebiete des Geisteslebens unserer Zeit.
+
+Freilich besteht auf der anderen Seite eine ernste Gefahr für das Verhältnis zwischen unseren Zeitgenossen und der geheimwissenschaftlichen Weltanschauung. Diese Gefahr wird herbeigeführt dadurch, daß unsere Zeitgenossen mit ihrer Weltanschauung und solchen Charakteren, die unsere Zeit gezüchtet hat, an die geheimwissenschaftliche Weltanschauung herankommen. Was bringen sie nicht an Vorurteilen, an oberflächlichen Urteilen in diese geisteswissenschaftliche Weltanschauung mit herein! Wieviel Gefahr ist da vorhanden, daß zunächst aus unserer Zeitströmung heraus da und dort die Geheimwissenschaft, die theosophische Weltanschauung selbst, verdorben wird! Hier liegt eine Gefahr vor. Und da muß auf einzelnes hingewiesen werden, damit wir tiefer und tiefer in die sogenannten und in die wirklichen Gefahren des geheimwissenschaftlichen Strebens hineinschauen können.
+
+Um den Menschen herum sind geistige Welten – das haben wir in den vorangegangenen Vorträgen dargestellt, und wir werden immer tiefer und tiefer in diese Weisheiten eindringen –, Welten, welche sich zu der gewöhnlichen Sinneswelt verhalten wie die Welt der Farbe, des Glanzes und des Lichtes zu der Welt des Tastens beim Blinden; und es gibt eine Welt, die viel höher ist als das, was der Blinde erlebt, wenn er operiert wird, und ihm aus der Finsternis und der Öde Licht und Farbe entgegenzuglänzen beginnen. Das gibt es auf dem höheren Gebiete. Diese Welten sind um uns herum. Diese Welten aber sind nicht nur Welten des Paradieses, nicht nur Welten der Seligkeit, obwohl Paradies und Seligkeit in ihnen ist, sondern sie sind auch Welten, die furchtbar sein können für den Menschen, gefährlich durch Tatsachen und Wesenheiten. Will der Mensch Kennt-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+nis erhalten von dem Großen und Beselegenden dieser Welten, dann kann er das nicht anders, als daß er auch Bekanntschaft macht mit dem Gefährlichen, mit dem Furchtbaren, das sie enthalten. Das eine ist nicht ohne das andere möglich.
+
+Nun müssen wir uns einmal klarmachen, inwiefern hier eine Gefahr liegt. Denken Sie sich einen Menschen, der, ohne es zu wissen, in der Nähe eines Pulvermagazins ist. Er weiß nichts davon. Plötzlich erfährt er es aber, und er bekommt eine ungeheure Angst bei dem Gedanken, daß er in die Luft gesprengt werden könnte, wenn das Pulvermagazin explodiert. Draußen hat sich nichts geändert; dennoch ist für ihn das Leben ein anderes. Das einzige, was anders ist als früher, ist, daß er jetzt von der Gefahr weiß. Das Wissen unterscheidet ihn von dem, der nichts weiß. So ist es auch mit den höheren Welten. Die Gefahr, das Furchtbare, das in ihnen enthalten ist, ist immer um den Menschen herum. Ja, es lauern ungeheure Gefahren für den Menschen Seele in Welten, von denen die Menschen keine Ahnung haben. Der einzige Unterschied in bezug auf diese Gefahren und Furchtbarkeiten für den, der niemals an die Geisteswissenschaft herangetreten ist, und dem, der an sie herangetreten ist, ist, daß der letztere von dieser Gefahr weiß und der erstere nicht. Und doch ist es vielleicht nicht ganz so, und zwar aus den folgenden Gründen: Wir betreten die geistige Welt, in welcher das Geistige wirksam ist. Das Pulvermagazin wird nicht gefahrvoll dadurch, daß Sie Angst davor haben, daß das Pulver explodiert; aber Ihre Furcht, die bedeutet etwas in der geistigen Welt! Es ist ein Unterschied, ob Sie sie haben oder nicht haben. Der geistigen Welt sind die Gedanken, die Sie hegen, als etwas Reales eingefügt. Ein Haßgefühl, das Sie einem Menschen entgegenbringen, ist in der geistigen Welt realer und für denjenigen, der es durchschaut, auch viel wirksamer als ein Schlag, den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 144
+
+---
+
+Sie dem Betreffenden mit einem Stock geben. Wenn sich das Furchtbare auch nicht unmittelbar vor Ihren Augen abspielt, es ist doch so. Furcht und Angst, solche negativen Gefühle, die sind in der Tat etwas, was, wenn es aus dem Menschen ausströmt, dadurch, daß er die entsprechenden geistigen Wesen und Kräfte kennenlernt, verhängnisvoll werden kann. Diese Angst und diese Furcht sind in der Tat etwas, was den Menschen zu der geistigen Welt in ein verhängnisvolles Verhältnis setzt; denn es gibt in der geistigen Welt Wesenheiten, für die Angst und Furcht, die von dem Menschen ausströmen, wie eine willkommene Nahrung sind. Hat der Mensch nicht Angst und nicht Furcht, dann hungern diese Wesen. Derjenige, der noch nicht tiefer eingedrungen ist, möge das als Vergleich nehmen. Derjenige aber, welcher diese Sache kennt, weiß, daß es sich um eine Wirklichkeit handelt. Strömt der Mensch Furcht und Angst und Kopflosigkeit aus, dann finden diese Wesen eine willkommene Nahrung, und sie werden mächtiger und mächtiger. Das sind feindliche Wesen für die Menschen. Alles, was sich nährt von negativen Gefühlen, von Angst, Furcht und Aberglauben, von Hoffnungslosigkeit, von Zweifel, das sind in der geistigen Welt dem Menschen feindliche Mächte, die grausame Angriffe auf ihn führen, wenn sie von ihm genährt werden. Daher ist es vor allen Dingen notwendig, daß der Mensch, der in die geistige Welt eintritt, vorerst sich stark mache gegen Furcht, Hoffnungslosigkeit, Zweifelsucht und Angst. Das sind aber gerade Gefühle, die so recht moderne Kulturgefühle sind, und der Materialismus ist geeignet, weil er die Menschen abschneidet von der geistigen Welt, durch Hoffnungslosigkeit und Furcht vor dem Unbekannten diese dem Menschen feindlichen Mächte gegen ihn aufzurufen.
+
+Wenn ich mich ganz deutlich ausdrücke, so muß ich sagen:
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 145
+
+---
+
+In dem Augenblicke, wo der Mensch jene Pforte sieht, die man durchschreitet im Tode, da sieht er auch zahlreiche, den Menschen hindernde, ja ihm verderblich entgegentretende Kräfte. Die meisten aber ziehen diese Kräfte durch die Todesfurcht an. Je größer die Todesfurcht, desto stärker ist deren Macht. Die Todesfurcht überhaupt ist ein Teil der Furchtgefühle. Wie ausgedörrte Säcke erscheinen diese Kräfte und Mächte, wenn der Mensch sich stark macht und weiß, daß er durch keine Todesfurcht an dem Ereignisse des Todes etwas ändern kann.
+
+Zu jener Überwindung der Todesfurcht, zu jenem kühnen dem Tode Ins-Angesicht-Schauen kommt der Mensch nur, wenn er weiß, daß ein unsterblicher ewiger Kern in seinem Innern ist, für den der Tod nur eine Umwandlung des Lebens ist, eine Änderung der Lebensform. Sobald der Mensch den unsterblichen Kern in sich selber findet durch die Geheimwissenschaft, erzieht er sich mehr und mehr zur Überwindung aller solcher Gefühle, zuletzt auch zur Überwindung dessen, was man Todesfurcht nennt. Je materialistischer aber der Mensch wird, desto todesfürchtiger wird er. Keine Geheimwissenschaft kann den Menschen davor schützen, das Wahrhafte zu sehen hinter den Kulissen. Sie muß ihm zeigen, wie das ewige Leben, wie Karma den großen Ausgleich im geistigen Leben nach sich zieht. Sie muß ihm mancherlei zeigen, diese Geisteswissenschaft. Sie kann ihm nicht die Seligkeiten hinter den Kulissen des Lebens zeigen, ohne ihm zu gleicher Zeit die furchtbaren Mächte zu zeigen, die Feinde, die dahinter lauern. Das ist durchaus wahr. Aber sie zeigt ihm auch, wie er eine jegliche Furcht überwinden kann vor diesen seinen Feinden. Sie zeigt ihm, wie er sich mit freiem, kühnem Auge alledem gegenüberstellen kann. Sie lehrt ihn, objektiv, unbefangen zu werden, wenn er geduldig sich ihrer Erziehung überläßt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Es kommen aber viele mit den gewöhnlichen Gefühlen unserer heutigen Zeitströmungen zur Theosophie. Auf sie wirkt manchmal dasjenige, was sie da hören, wie etwas sie tief Niederdrückendes, wie etwas, was sie furchtbar in der Seele angreift, weil sie infolge ihrer materialistischen Denkweise Lebensangst und Lebensfurcht haben. Das ist die Unreife, die sehr viele Leute in die Theosophie hereinbringen und die erst nach und nach, durch das theosophische Wirken selbst wird überwunden werden können. Wiederum ist nicht die Theosophie oder die Geheimwissenschaft daran schuld. Sie tut das ihrige, um die Menschen nicht zu stark zu schockieren. Denn würde sie über manches dem Menschen sehr Naheliegendes die ganze, volle Wahrheit enthüllen, würde sie sagen, wie sich die Angstmeier von den Furchtlosen scheiden, und wie groß die Zahl auf der einen und die Zahl auf der anderen Seite ist, so würden manche schockiert sein.
+
+Aber auch manches andere bringen die unreifen Menschen unreif an die theosophische Bewegung heran, indem sie gewisse Begriffe, die in der Theosophie gegeben werden, und die aus der Geheimwissenschaft stammen, einfach übersetzen in die gewöhnliche heutige Trivialspradie. So sonderbar es klingt, hier liegt manchmal eine große Gefahr in den Beziehungen zwischen der Theosophie und unserer heutigen Zeitgenossenschaft. So wird von unreifen Theosophen und von solchen, die äußerlich an die Theosophie herankommen, immer wieder gesagt, die erste Anforderung sei, selbstlos zu werden, allen Egoismus zu überwinden. Manche Leute glauben, daß, wenn sie einem etwas recht Theosophisches sagen wollen, sie niemals genug versichern können: Alles was ich tue, will und möchte, das ist ganz selbstlos gemeint. Ich will nur für die anderen Menschen wirken. — Sie ahnen meist nicht, wie egoistisch dieser Glaube ist. Wahr
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 147
+
+---
+
+ist es, daß durch die Bekanntschaft mit den Wahrheiten der Geheimwissenschaft der Mensch allmählich wirklich zu dem kommt, was so schön angedeutet ist in dem Goethe-Wort: «Von der Gewalt, die alle Wesen bindet, befreit der Mensch sich, der sich überwindet.» Wahr ist es, aber es gehört fast alles, was die Geheimwissenschaft bieten kann, ihr Höchstes und ihr Tiefstes, dazu, um dieses Ideal zu erreichen. Es wird am besten dann erreicht, wenn man möglichst wenig davon spricht und es möglichst direkt erstrebt.
+
+Diejenigen sind am wenigsten selbstlos, die am meisten der Selbstlosigkeit sich rühmen, wie diejenigen gewöhnlich die Unwahrsten sind, die nach jedem dritten Satz das Wort «wahrhaftig» im Munde führen. Auch dem liegt ein tiefes Gesetz zugrunde im Okkultismus. Zuerst handelt es sich darum, tiefer und tiefer in die wirklichen Wahrheiten und Erkenntnisse der Geheimwissenschaft einzudringen, und nicht solche Ideale sich vorzusetzen, wie: Du sollst dein Ich überwinden. - Mit einer solchen Phrase ist gar nichts getan. Es ist nichts getan, wenn zum Beispiel ein Ofen hier steht und ich sage zu ihm: Du sollst ein braver Ofen sein, du mußt das Zimmer warm machen. - Sie können ihn streicheln und liebevoll behandeln, aber damit ist nichts getan. Erst wenn Sie dem Ofen Holz geben, wird er heizen. So nützt es auch gar nichts, der Welt Tugend, Selbstlosigkeit, Freiheit zu predigen. Das Richtige ist, einzuheizen, dem Menschen Heizmaterial zu geben; und das Heizmaterial sind die geheimwissenschaftlichen Wahrheiten. Wie das Holz und die Kohlen den Ofen warm machen, so machen die wirklichen geheimwissenschaftlichen Wahrheiten den Menschen nach und nach selbstlos. Und warum? Weil sie in vielem das Interesse abziehen von dem kleinen Punkte, den man das Ich nennt. Die theosophischen oder geheimwissenschaftlichen Wahrheiten sind so groß, so mächtig und be
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 148
+
+---
+
+deutsam, nehmen uns so stark in Anspruch, daß wir uns nach und nach als Einzelpersönlichkeit höchst uninteressant vorkommen. Man lernt erst, wie uninteressant die Einzelpersönlichkeit ist. Dieses Lernen, wie uninteressant die einzelne menschliche Persönlichkeit ist, dieses Lernen an sich selbst, wenn es herbeigeführt wird durch das Heizmaterial der geheimwissenschaftlichen Wahrheiten, das führt den Menschen erst zur Befreiung vom Egoismus.
+
+Wenn Sie die Dinge von Grund aus betrachten, dann ist der Egoismus überhaupt nicht etwas, was von einem höheren Gesichtspunkte aus nicht einbezogen wäre in die göttliche Weltordnung. Er ist von einem höheren Gesichtspunkte aus etwas sehr Gesundes. Denken Sie sich einmal, wenn viele Menschen unserer Zeit, unserer heutigen Menschheitsentwicklung, nicht aus Egoismus dieses oder jenes unterlassen würden, wenn sie nicht aus Selbstsucht das eine oder das andere nicht tun würden, weil sie rein aus egoistischen Gründen wissen, was es für Folgen bringt -, denken Sie sich, was das für Schädlinge in der Menschheitsentwicklung wären! Wahrlich, die Weltenweisheit hat dem Menschen den Egoismus eingepflanzt, um ihn über eine Entwicklungsstufe hinwegzuführen, um ihn zu packen an dem Selbst, damit er es so bedeutungsvoll und wertvoll mache, wie er es nur machen kann.
+
+Es ist eine hohe Wahrheit auf der einen und eine schokkierende Phrase auf der anderen Seite, wenn dem Menschen gesagt wird: Du sollst deine Persönlichkeit hinopfern. — An einem Beispiel will ich es klarmachen, wie es das eine Mal etwas sehr Hohes und das andere Mal etwas Phrasenhaftes sein kann. Denken Sie einmal, Sie stellen einem Menschen, der zehn Pfennig in der Tasche hat, die Zumutung, er soll diese zehn Pfennig hinopfern für irgendeine Sache. Er wird dieses Opfer leicht bringen. Wenn Sie dagegen einem Men-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 149
+
+---
+
+sehen, der zufällig zwanzigtausend Mark bei sich hat - vielleicht sein ganzes Vermögen -, die Zumutung stellen, daß er das, was er bei sich hat, opfern soll, so ist das eine ganz andere Sache. Die Zumutung an jemand, der noch nicht an sich gearbeitet hat, der seine Persönlichkeit noch nicht erhöht hat, noch nicht eine Persönlichkeit genannt werden kann, er solle sich der Persönlichkeit entschlagen, ist etwas ganz anderes als bei dem, der lange an ihr gearbeitet hat, um sie so tüchtig wie nur möglich zu machen. Der eine opfert am Altar der Menschheitsentwicklung ein Genie, der andere einen Dummkopf. Es kommt nicht darauf an, daß man opfert, sondern was man opfert. Um eine Persönlichkeit für die Menschheit in die Schranken schlagen zu können, muß man erst diese Persönlichkeit ausbilden. So ist es das eine Mal eine Phrase, von dem Opfer der Persönlichkeit zu sprechen, das andere Mal ist es eine große, eine bedeutsame Wahrheit. Daher nützt es gar nichts, wenn in theosophischen Büchern die Forderung des Opfers der Persönlichkeit ausgesprochen wird und nicht zu gleicher Zeit gefordert wird: mache die Persönlichkeit so stark, so umfassend wie nur möglich.
+
+Das lernen wir durch ein wirkliches Denken, das seine Wurzeln in der geistigen Welt hat. Diejenige Logik, die nicht einseitige Gesetze hinstellt, sondern weiß, daß jeder Satz wie jede Münze zwei Seiten, vielleicht sogar noch mehr Seiten hat, die von dem, was das Äußere ist, auf das Innere zu schauen lehrt, das ist die wahre Theosophie, und die lehrt oft das, was heute oberflächlich Theosophie genannt wird, gar nicht. Und nur das, was nicht nur oberflächliche, sondern wirkliche Gefahr ist, wird hier Gefahr genannt.
+
+Ich war noch sehr jung, da saß ich einmal mit jemand zusammen, der vor kurzem in einem anderen Lande seinen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 150
+
+---
+
+fünfzigsten Geburtstag gefeiert hatte, und der seinerzeit gemeinschaftliche Interessen mit mir hatte in bezug auf meine Goethe-Studien. Der Mann sagte dazumal, er habe Sorge, unter die Schriftsteller zu gehen. Er war dazumal, obwohl noch verhältnismäßig jung, schon älter als viele, die heute noch schreiben. Er kam auf den Gedanken: Kritiken schreibe ich nicht. Ich will etwas anderes schreiben, denn Kritiken sollte nur der schreiben, der eine große Lebenserfahrung hat; eigentlich müßten nur die Alten kritisieren. - Das war jedenfalls ein sehr guter Einfall von dem Mann. Es besteht nämlich heute in den weitesten Kreisen gar kein Urteil mehr darüber, daß Reife dazu gehört, um auf geistigem Gebiete zu wirken. Je weiter wir hineinwachsen in die Zeiten, desto jünger werden namentlich die Leute, die unter dem sogenannten Strich schreiben, und da gemeinlich der Leser nicht nachdenkt und eigentlich kein Mittel hat, nachzuforschen, wie jung der ist, der da unter dem Strich schreibt, so hat er keine Ahnung davon, auf was er da hineinfällt. Daß es heute nicht schwer ist, geistreich zu schreiben, das weiß jeder, der mit solchen Dingen überhaupt bekannt ist. Zwar verwundert sich noch mancher, daß der oder jener geistreich schreibt. Ein Mensch, der vielleicht seit seinem fünfzehnten, sechzehnten Jahre sich mit nichts anderem beschäftigt hat, als solches Zeug zu lesen, der das Handwerk also ordentlich gelernt hat, der braucht nur etwas herauszugeben, und er kann durch das Radikale oder Verschwommene seines Urteils furchtbar imponieren. Es ist da möglich, daß ein Mensch das hat, was man in ernster Weise Schwachsinn nennen kann. So sonderbar es klingt: es kann heute jemand schwachsinnig sein und er kann geistreich für die Welt schreiben, so daß er als geistreicher Schriftsteller bewundert werden kann. Dieser Fall ist durchaus möglich. Vor Jahrzehnten ist es schon ein rich-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+tiges Urteil gewesen, wenn jemand sagte: Es ist in unserer Zeit nidit schwer, ein gutes Gedidit zu madien; die Kultur dichtet und die Sprache. - Heute gilt das noch mehr, so daß manche Schülerin Zeitungsartikel schreiben kann. Es sind ganz andere Mächte, die da urteilen, die den Menschen benützen für ihre Zwecke. Immer mehr muß die Menschheit dahin kommen, Reife zu fordern von demjenigen, der wahre Urteile haben soll. Wirkliche Reife gehört gerade auch zu der Arbeit auf geisteswissenschaftlichem Gebiet. Daher ist auch erforderlich, daß die, welche Leiter sogenannter Geheimschulen sind, erst in ihren Zirkeln wirken und nicht vor einem Alter von ungefähr fünfunddreißig Jahren vor die Welt treten und geisteswissenschaftliche Wahrheiten hin ausstragen. Vorher können sie Urteile aus dem Gebiete der Philosophie in die Welt bringen. Reif aber, um aus dem Geiste zu schöpfen, wird man erst in dem Augenblicke, wo man nicht mehr die geistige Kraft zu verwenden hat auf den Aufbau des Leibes. Solange der Körper im Wachsen ist, müssen die Kräfte, aus denen sich ein logisches Urteil aufbaut, in den Leib hineingehen. Daher kann es möglich sein, daß einem Dichter wirkliche Gedichte gekommen sind vor der Lebensmitte. Der Mensch verkennt aber so leicht, daß, um wirklich in die Tiefe zu dringen, so daß man nicht nur etwas versteht zu seiner eigenen Befriedigung und zu seinem Werden, sondern dazu kommt, unter voller Verantwortung vor die Menschheit hinzutreten und geisteswissenschaftliche Arbeit zu vertreten, die höchste Lebensreife gehört, die nur in einem vorgerückten Lebensalter zu erreichen ist. Um aber theosophische Phrasen zu dreschen, dazu gehört gar keine Reife,
+
+Das ist das Eigentümliche bei den höchsten Dingen, daß, sollen sie gründlich bearbeitet werden, Reife dazu gehört. Sie können aber, weil sie auch als Phrase leicht sich ein-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 152
+
+---
+
+leben, weil viele gar nicht in der Lage sind, die Tiefe einzusehen, sondern bei der Phrase bleiben, auch als Phrase betrieben werden. Alles, was in der Theosophie verbreitet werden kann, kann ernst und tief im höchsten Maße sein, kann eine Kraft des Lebens sein. Wird sie aber zum Gegenteil verkehrt, so kann es die wüsteste Phrase sein. Deshalb erleben wir es gerade auf diesem Felde so sehr, daß Phrase über Phrase blüht, und daß gerade das Unreife, das Unreifste fort und fort wirkt. Dabei schadet der, welcher das Unreife vertritt, mehr noch sich selbst als der Welt. Die Welt wird wiederum auswerfen, was von dieser Seite kommt. Engagieren Sie sich in dieser Richtung, dann setzen Sie sich selbst vor Ihre weitere Entwicklung. Sie kommen nicht vorwärts. Es ist eben so, daß der, welcher auf geisteswissenschaftlichem Gebiete nach außen wirkt, ein Opfer bringt. Etwas anderes ist es, wenn die Geisteswissenschaft wie ein Geheimnis in der jungfräulichen Seele gehütet wird, als wenn sie hinausgeworfen wird in die Welt. Es gilt da, was von dem Schatzgräber gesagt wird: Er muß schweigsam sein. Wird ein Wort gesprochen, dann ist der Schatz nicht zu erreichen. So werden auch die Tiefen der höheren Welt um so besser erreicht, je mehr man schweigen kann. Für den, der diese Dinge begriffen hat, gibt es überhaupt kein Reden, wenn er nicht dazu gezwungen wird, wenn die Welt es ihm nicht abfordert. Unaufgefordert soll niemand reden. Es braucht die Forderung nicht von da oder dorther zu kommen, es kann diese Forderung von unsichtbaren, von übersinnlichen Mächten kommen.
+
+So kann man sagen: Weil unsere Zeit so wenig geeignet ist, über das Reife und Unreife richtig zu denken, bildet sich so etwas wie Theosophie. Sie kann das Höchste sein; in ihrer Verkehrung aber ist sie ein Zerrbild und eine Gefahr. Das ist nicht ihre Schuld. Sie wird nach und nach das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+richtige Urteil an die Stelle des grotesk-falschen Urteils setzen in bezug auf die Reife und Unreife. Niemand darf sich wundern, daß dies so ist. Sollte er sich wundern, dann sollte er sich auch wundern darüber, daß da, wo großes starkes Licht ist, auch starke schwarze Schatten sind. Wo minder starkes Licht ist, sind auch nur geringe Schatten. Die Theosophie wirft unter Umständen schwarze Schatten; das ist nur ein Beweis dafür, daß sie ein starkes Licht sein soll. Oberall, wo man von den sogenannten Gefahren spricht, muß man sich darüber klar sein, daß gegen die große Gefahr einfach dadurch ein Schutzwall da ist, daß kein wirklicher Lehrer auf diesem Gebiete die Menschen dieser ernsten, großen Gefahr aussetzen wird, und daß alles dasjenige, was aussieht wie eine Gefahr, nicht aus der Theosophie und der Geheimwissenschaft, sondern aus dem kommt, was ihr entgegentritt. Wenn man das weiß, wird man ruhig sein, auch wenn scheinbar schlechte und schlimme Wirkungen auftreten. Auch diese können kommen. Man kann es erleben, daß Menschen, solange sie der Theosophie fernstehen, leidlich anständige Menschen sind. Wenn sie zur Theosophie kommen, werden sie eitel, ehrgeizig, hochmütig. Warum? Aus einem sehr einfachen Grunde. Solange ein Mensch nur wenig über das, was seine Umgebung urteilt, hinausragt, kann er nicht sonderlich gut, aber auch nicht sonderlich böse sein. Wenn er aber an Ursprüngliches kommt, dann steigt die Möglichkeit des Gutseins; aber auch die Möglichkeit des Böseseins schlägt auf der anderen Seite ein.
+
+Was hier schon beim gewöhnlichen Theosophen auftritt, das kann um so mehr beim Schüler auftreten. Bei ihm treten die Fehler, die auf dem Grunde seines Wesens vorhanden sind, wenn er sein freies Urteil gewinnen muß - und das muß er gewinnen -, mit großer Deutlichkeit auf. Aber das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+ist notwendig. Will sich jemand rascher entwickeln, dann mag von heute auf morgen eine ganze Summe von schlechten Eigenschaften bei ihm herauskommen. Diese Eigenschaften hätten sich vielleicht auf sechzig Jahre verteilt. Wenn man etwas in einer großen Wassermasse auflöst, so sieht man nichts von der Farbe; in einem Tropfen mag es sehr gefärbt erscheinen. So ist es auch bei dem Schüler. Was in einigen Tagen herauskommen soll, das wird auffällig. Wenn aber etwas sechzig Jahre Zeit hat zum Ausleben, dann merkt man nichts davon. Ja, in der Geheimwissenschaft selber kommt mancher Hochmutsteufel zum Vorschein. Recht bald mußte man erleben, daß Menschen, die an sich nicht hochmütig sind, mit Wünschen an einen herankommen. Sie kommen dann an und sagen: Ich will anfangen, Schüler zu sein und möglichst schnell Adept werden. - Man hört das gar nicht so selten. Es ist etwas, was Erfahrung ist, daß der Hochmutsteufel jemand packt. Gegenüber dem Großen werden sie oft am hochmütigsten, und sie verstehen dann schwer, daß dieses Gefühl das größte Hindernis für ihre weitere Entwicklung ist, und daß das beste für die Weiterentwicklung darin besteht, daß man sich dieses Gefühls, des Hochmuts, entschlägt. - Aber das hängt auch damit zusammen, daß wir starke Lacher und auch starke Schwätzer sind.
+
+So habe ich über die Gefahren der Geheimwissenschaft gesprochen. Ich habe Ihnen nicht verhehlt, daß es solche Fälle gibt, ich habe auch versucht, zu zeigen, wo eigentlich die gefährlicheren Fälle solcher Gefahren liegen. Das sahen wir gerade im Laufe dieses Zyklus, wo diese Gefahren sind. Heute sollte nur im allgemeinen hingewiesen werden auf das, was man überall in der Theosophie und in der ihr zugrunde liegenden Geheimwissenschaft findet. Wer die Geheimwissenschaft sucht, wird nicht durch die Gefahren von
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+ihr abgehalten werden, sondern er wird das Heil, die Gesundung der Seele gerade in der Geheimwissenschaft finden. Er weiß, daß sie nicht Schaden verursacht, daß sie nicht Gefahren bringt, sondern daß sie Schäden aufdeckt und Gefahren zeigt da, wo sie sonst auch vorhanden sind, und wo sie weiterfressen würden, wenn sie nicht in die Gesundung geführt werden. Daher darf durch diese sogenannte Gefahr sich niemand abhalten lassen, einzudringen in die Gebiete, die wir das Geistige nennen müssen. Wie durch alle anderen Betrachtungen und Gesichtspunkte werden wir auch hier dazu geführt, uns immer mehr klar zu werden, daß für den Menschen, der die in ihm schlummernden Kräfte und Fähigkeiten entwickeln will, es keine Abhaltung gibt, einzudringen in die Natur. Denn, was materiell ist, ist Offenbarung des Geistes. Und wie um uns herum die Wesen sind, die wir als furchtbare Wesen gewahr werden können, wenn wir in sie hineinsehen, so sind sie auch in der Natur. Nur dadurch, daß der Mensch seine Augen verschließt, entzieht er sich dieser Tatsache. Diejenigen, welche etwas gewußt haben von der Geheimwissenschaft, wissen das auch.
+
+Goethe hörte schon in seiner Jugend manchen Einwand gegen das Eindringen in das Innere der Dinge. Er hörte die Worte des Naturforschers Haller, der sagte: «Ins Innere der Natur dringt kein erschaffner Geist. Glückselig, wem sie nur die äußere Schale weist.» Goethe, der sich hineinzuschauen getraute, wußte, daß der Mensch fähig ist, überall in das Wesen der Natur einzudringen. Daher war er immer wieder dazu gedrängt, zu sagen:
+
+Müsset im Naturbetrachten
+Immer eins wie alles achten.
+Nichts ist drinnen, nichts ist draußen,
+Denn was innen, das ist außen ...
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Und in seiner eigentümlichen Art hat Goethe noch im hohen Alter gegen diesen Ausspruch sich gewendet, der das menschliche Erkenntnisvermögen begrenzt. Er hat dagegen protestiert mit den Worten, die gerade geeignet sind, eine Seele auf das Praktisch-Wirkende der theosophischen Weltanschauung hinzuweisen. Goethe hat darauf hingewiesen, indem er in hohem Alter an die Worte Hallers erinnerte:
+
+## ALLERDINGS
+
+Dem Physiker
+
+«Ins Innre der Natur» —
+O du Philister! -
+«Dringt kein erschaffner Geist.»
+Mich und Geschwister
+Mögt ihr an solches Wort
+Nur nicht erinnern!
+Wir denken: Ort für Ort
+Sind wir im Innern.
+«Glückselig, wem sie nur
+Die äußere Schale weist!»
+Das hör* ich sechzig Jahre wiederholen,
+Ich fluche drauf, aber verstohlen;
+Sage mir tausend tausendmale:
+Alles gibt sie reichlich und gern;
+Natur hat weder Kern
+Noch Schale,
+Alles ist sie mit einemmale.
+Dich prüfe du nur allermeist,
+Ob du Kern oder Schale seist.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 158
+
+# MANN, WEIB UND KIND
+IM LICHTE DER GEISTESWISSENSCHAFT
+
+(Notizen eines Teilnehmers)
+
+Berlin, 9. Januar 1908
+
+Geisteswissenschaft ist nicht nur eine Befriedigung von Neugierde, oder edler ausgedrückt, eine Befriedigung des Forschungstriebes. Sie soll dem Menschen zugleich einen Impuls zum Leben und Handeln geben. Sicherheit und Befriedigung im Leben, Tüchtigkeit im Handeln und in der Bewältigung unserer Aufgaben soll uns schließlich aus dem herausfließen, was uns die Geisteswissenschaft bietet.
+
+Das Kind ist gleichsam ein lebendiges Rätsel vor unseren Augen. Vorurteile in vielen Zweigen des Lebens können manchmal noch korrigiert werden, Vorurteile aber in der Erziehung des Kindes wirken oft verderblich und können häufig nicht mehr verbessert werden.
+
+In der Drelheit von Mann, Weib und Kind erscheint uns in gewisser Beziehung die ganze Menschheit. Im Kinde ist vieles vererbt von Mann und Weib. Es spielt also hier die Frage nach der Vererbung hinein, die eigentlich das Rätsel des Schicksals bis zu einem gewissen Grade mit umfaßt. Was hat das Kind von seinen Vorfahren empfangen? Man betrachte daraufhin etwa die Dramen von *Ibsen*. In Kunst und Wissenschaft wird die Frage nach der Vererbung überall aufgeworfen, weil man ihre Wichtigkeit und ihre praktische Bedeutung herausfühlt. Allein wir dürfen uns hier nicht täuschen lassen von den Vorurteilen, die uns vielfach
+
+---
+
+suggeriert werden von den Tatsachen, die uns aus der Beobachtung der niederen Lebewesen entgegentreten. Einer der größten Fehler auf diesem Gebiete besteht darin, daß man das, was Beobachtung und Experiment uns bei Tieren und Pflanzen zeigen, oder was wir aus der Geschichte von unseren Vorfahren wissen, ohne weiteres auf den jetzigen Menschen anwendet. Geisteswissenschaft anerkennt das, was man in der Wissenschaft unter Vererbung versteht, aber sie steigt von diesen Tatsachen zu höheren auf, die sich uns erst von den Aspekten der geistigen Welt aus eigentlich enthüllen. Es besteht eben eine Steigerung in bezug auf Gesetzmäßigkeit. Eine Grundgesetzmäßigkeit waltet durch die ganze Natur, durch Körperliches und durch Geistiges. Aber mit unseren Einsichten von den Gesetzen auf niederen Gebieten müssen wir aufsteigen zu Gesetzmäßigkeiten, die auf höheren Gebieten gelten. Diese Steigerung müssen wir unbedingt vollziehen.
+
+In was verwandelt sich auf höheren Gebieten die Vererbung? Die Losung dieser Frage wird uns Respekt einflößen vor dem werdenden Menschen. Es ist ein gewaltiger Unterschied zwischen den niederen Lebewesen und dem Menschen. Der Grundunterschied zwischen Mensch und andern Lebewesen liegt in folgendem: Alles was uns Interesse beim Tier abgewinnt, schließt sich in dem Gattungs- oder Artbegriff ein. Wir haben bei den Tieren nicht dieselbe Achtung vor dem Individuum wie beim Menschen. Die Beschreibung eines Löwen ist die Beschreibung der Art der Löwen. Hier wiegt das Gattungsmäßige vor. Beim Menschen hingegen wiegt die Individualität vor. Daher ist von jedem Menschen eine Biographie möglich, selbst vom einfachsten Menschen. In dieser Tatsache liegt sehr viel verborgen, vor allem, daß der Mensch eine Gattung, eine Art für sich ist in jedem einzelnen Individuum. Im Menschen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 159
+
+---
+
+wohnt etwas, das gleichbedeutend ist einer ganzen tierischen Art.
+
+Hieraus ergibt sich uns das Gesetz der Wiederverkörperung der Seele oder der Reinkarnation. Das menschliche Individuum ist uns aus den Vorfahren heraus durchaus unverständlich. Äußerliche Eigenschaften freilich können eventuell auf Vorfahren zurückgeführt werden, nicht aber das, was dem selbst eigenen Wesen eines Menschenindividuums angehört. Ebensowenig können wir die Gattungsindividualität irgendeines Tierwesens aus den Merkmalen ihrer Vorfahren ableiten.
+
+Die Ursachen für die Entstehung eines lebendigen Wesens müssen immer aus Lebendigem hervorgehen. Vor wenigen Jahrhunderten noch glaubte man an Urzeugung, zum Beispiel daß aus Flußschlamm lebendige Tiere entstehen könnten. Die Seele des Menschen ist nicht aus allerlei Eigenschaften zusammengeleimt, sowenig wie ein Wurm aus gewissen anorganischen Substanzen, wie man damals meinte. Seele geht immer auf Seele zurück; und die Seele, die heute in einem Menschen wohnt, geht auf ein früheres Seelendasein zurück. Sie ist eine Wiederverkörperung, nicht aber ist sie ein Konglomerat von Eigenschaften der väterlichen und mütterlichen Seite. So ergibt sich notwendig das Gesetz der Wiederverkörperung. Von diesem Gesichtspunkte aus wollen wir Mann, Weib und Kind betrachten.
+
+Was als die tiefere Grundlage, als die Individualität des Kindes erscheint, ist das, was sich als Seele in die Leiblichkeit eingliedert, nachdem es in einem anderen Dasein inzwischen fortgelebt hat. Mann und Weib haben dem Kinde bloß eine Hülle zu geben. Mutter- und Vaterliebe wird hierdurch keineswegs herabgewürdigt. Die Individualität eines Menschen ist schon lange vor dem Begattungsakte der Eltern da. Eine Art unbewußte Liebe führt das Kind zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 160
+
+---
+
+diesen bestimmten Eltern hin und veranlaßt sie zur Zeugung. Als Gegengabe bringen dann die beiden Erzeuger dem Kinde ihre Elternliebe entgegen.
+
+Für gewisse Lebewesen gliedern sich Tod und Liebe zusammen. Manche Tiere sterben nach dem Begattungsakte. Derartige Wesen weisen uns tief hinein in den Zusammenhang der Lebewesen im All und auch auf die Tatsache der Liebe. Liebe ist für den Menschen etwas, durch das er sein individuelles Dasein dem ganzen Sein widmet. Sie ist nicht nur jenes phrasenhafte Ding der Dichtung, sondern eine die ganze Natur durchwaltende Kraft. Liebe ist das Gegenbild des Egoismus. In ihr geht das Individuum gleichsam über sich hinaus. Sie ist bei vollkommeneren Wesen eine eigentliche Lebenssteigerung.
+
+Das individuellste Wesen ist der Mensch. Die Bedeutung von Individuum und Liebe wird nur ganz verständlich durch die Betrachtung der Wesenheit des Menschen, wie sie uns durch die Geisteswissenschaft gegeben wird. Nach der Geisteswissenschaft ist der physische Leib nur ein Kleid der ganzen menschlichen Existenz. Den Ätherleib hat der Mensch gemeinsam mit dem, was lebt als Tier und Pflanze. Der Astralleib, den auch die Tiere haben, umfaßt alles Seelische, vom niedersten Trieb bis hinauf zu den höchsten moralischen Ideen.
+
+Die Kraft des Ich hingegen besitzt er nur als Mensch, daher er als die Krone der Schöpfung gelten darf. Jene Persönlichkeit fühlte die Tiefe dieses Wortes Ich, welche sprach: Ich ist, was da ist, war und sein wird. Wahre Ich-Erkenntnis ist die höchste Form des Wissens im Dasein. Hinter dem «verschleierten Bilde zu Sais» steht die Ich-Erkenntnis. «Meinen Schleier hat noch kein Sterblicher gehoben!» Die wahre Ich-Erkenntnis ist nur derjenigen Kraft im Menschen möglich, die unsterblich ist! Nur das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 161
+
+---
+
+Übersinnliche im Menschen erkennt das Unsterbliche. Also was sterblich in uns ist, hebt den Schleier der Göttin nicht auf.
+
+Ein deutscher Romantiker hat kuhnlich gesagt: Wenn kein Sterblicher den Schleier der Isis hebt, so müssen wir eben unsterblich werden!
+
+Bis zum ersten Zahnwechsel des Kindes bildet sich der physische Leib aus. Der Mensch wächst dann freilich noch weiter, aber dieses Wachstum ist nur ein Großerwerden der Gestalt, ein Ausweiten der Form, die er bis zum siebenten Jahre erhalten hat. Darin liegt ein wichtiger Regulator für die Erziehung. Bis zu dieser Zeit soll man vorab die physische Form des Kindes ausbilden. Tut man dies nicht, so hat man etwas für das ganze Leben des betreffenden Menschen versäumt. In der zweiten Periode bis zum Pubertätsalter bildet sich der Ätherleib aus. In der Zeit vorher war dieser freilich nicht untätig. Nur ist der Ätherleib bis zum Zahnwechsel in einer Art Mutterhülle eingeschlossen. Erst von dieser Zeit an wird er frei und kann sich entfalten. In der Geschlechtsreife ist ein Schlußpunkt der Entwicklung des Ätherleibes erreicht, und von jetzt an wird die Entwicklung des astralischen Leibes frei. Noch später beginnt die eigentliche Ausbildung des Ich.
+
+Ein anderes Bild ergibt sich also für den Erbprozeß des Physischen, ein anderes für den Ätherleib und wieder ein anderes für den astralischen Leib.
+
+Was der Mensch von den Vorfahren als Erbe mitbringt, liegt im physischen und im Ätherleib. Bis zur Geschlechtsreife gelangen diese vererbten Eigenschaften zur völligen Sichtbarkeit. Dann aber beginnt die Entfaltung der besonderen Individualität des Menschen, und das drückt sich in der Liebe aus. Gewisse Tierarten sterben beim Liebesakt, weil hier ihre Wesenheit aufhört und ihre individuelle
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 162
+
+---
+
+Existenz zu Ende ist. Je höher die Individualität eines Wesens ist, um so mehr nimmt es mit hinüber über die Geschlechtsreife als etwas Unvergängliches. In Wirklichkeit sind da natürlich vielfache Übergänge. So rettet der Mensch sein Innenleben über das bloß Gattungsmäßige hinaus.
+
+Durch eine Gegenüberstellung von Mensch und Stein geht uns vielleicht das Verständnis dafür am besten auf: Im Kristall kommen die äußeren Kräfte, die ihn gebildet haben, zum Abschluß. Dem Inneren des Steins drücken sie werter nichts ein. Bei der Pflanze besteht das Wesentliche nicht in einem Vergrößern der Form, sondern nur in einer Art Wiederholung des Formprinzips, wie Goethe dargestellt hat. Das, was der Mensch sich erworben hat auf früheren Stufen, zeigt er nun als Wirkung seines Ich. Wie die Pflanze aus dem Boden ihre Materialien sucht und holt, um ihren Körper aufzubauen, so sucht der junge Mensch aus seinen Eltern den Boden, um seinen körperlichen Leib aufzubauen.
+
+Hier greifen die Vorstellungen der Geheimwissenschaft unmittelbar in den Willen, in die Gefühle, ins Leben über. Das Recht der kindlichen Individualität müssen wir im tiefsten Sinne achten. Der folgenden Generation gegenüber fühlt sich der Mensch anders, wenn er die Dinge in diesem Lichte sieht.
+
+Die Naturwissenschaft sagt dazu: Durch das männliche Prinzip gehen in den Keim eine Anzahl von Eigenschaften über, ebenso vom weiblichen Teil, von der Eizelle. Beide Gruppen von Eigenschaften müssen sich mischen im Keim. Dadurch wird die ewige Wiederkehr der gleichen Eigenschaften vermieden. Das ist der Grund für die Mischung der Eigenschaften des männlichen und weiblichen Keimteils. Hierin liegt das Wesentliche, worauf es im Haushalte der Natur ankommt.
+
+In bezug auf die Seele aber ist unsere Naturwissenschaft
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 163
+
+---
+
+das Abergläubischste, das es geben kann. Das sagt auch ein genialer Lichtblitz Schopenhauers: Was ins Dasein will, führt in der Liebe die menschlichen Geschlechtsindividualitäten zusammen. Solches lehrt letzten Endes auch die Geisteswissenschaft. Die Menschen werden zusammengeführt zur Zeugung durch die Generationen der Zukunft. Wird so ein jedes Kind betrachtet, haben wir ihm gegenüber kein Recht, unsere Eigenheit ihm aufzudrängen. Der richtige Erzieher kann nur so weit die kindliche Entwicklung fördern, als er dies selbst an sich gelernt hat. Das Kind: ist der größte Lehrmeister des Erziehers.
+
+Wenn der Erzieher dieses Rätsel am Kinde gründlich löst, dann ist er der beste Erzieher. Wer derlei Anschauungen mit der ganzen Seele durchdringt, dem verwandeln sie sich in Achtung für die Wesenheit des Kindes und erwecken Ehrfurcht für das, was da wächst und wird. Es erweitert sich diese Einstellung zu Pflichten gegenüber der ganzen werdenden Generation. Wir Erwachsenen sind für die werdende Generation so etwas wie ein Mutterboden, aus welchem sie sich entwickelt. Wir haben dem Kinde zu geben, was es zum Leben braucht, nicht aber dürfen wir es unter Zwang setzen, um es nach unserem eigenen Bilde zu formen, sondern wir müssen ihm eine Freiheit in der Entwicklung lassen und sie achten. Diese Freiheit im erst keimhaft vorhandenen Wesen zu respektieren, ist eine viel bedeutsamere Mission für den Menschen als die Achtung der Freiheit dessen, was schon da ist. Die Geisteswissenschaft bildet eine richtige Erzieherin für diese Achtung und Ehrfurcht. Sie zeigt uns das Übersinnliche und die Tatsachen, welche seit urferner Vergangenheit geistige Wesenheiten am Aufbau der Welt betätigen und damit der Menschheit helfen. Die Erkenntnis des Gestrigen befähigt uns, befriedigende Lösungen auch für das Gegenwärtige zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 164
+
+---
+
+finden. Unser Wirken in der Gegenwart muß die Freiheit des sich entwickelnden Übersinnlichen achten. Freiheit des Übersinnlichen in dem Sinnlichen soll unsere Devise sein!
+
+So helfen wir die Menschheit vorwärtsbringen in eine Zukunft hinein, die für uns heilsam ist und gleichsam einen Zustand der Göttlichkeit bedeutet. Ist der Blick für das Übersinnliche in der Gegenwart eröffnet, so wird uns das Vergangene erklärlich, und wir können aus ihm heraus lernen, was uns für die Zukunft nützlich und tunlich ist.
+
+Liegt dir Gestern klar und offen,
+Wirkst du Heute kräftig frei,
+Kannst auch auf ein Morgen hoffen,
+Das nicht minder glücklich sei.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 165
+
+---
+
+# DIE SEELE DER TIERE
+IM LICHTE DER GEISTESWISSENSCHAFT
+
+Berlin, 23. Januar 1508
+
+Wenn es auch eine ewige Wahrheit bleibt, was auf dem berühmten griechischen Tempel stand als ein Ruf an des Menschen innerstes Wesen: Erkenne dich selbst! - wenn dies auch die Richtschnur bleiben muß für alles Denken, Forschen und Fühlen, so empfindet der Mensch doch bald, wenn er mit einem unbefangenen Blick in die Welt und auf sich selbst sieht, daß Selbsterkenntnis nicht allein sein kann ein Hineinschauen, ein Hineingaffen in das eigene Innere, ein Sich-selbst-Bespiegeln, sondern daß die wahre Selbsterkenntnis dem Menschen kommen muß durch die Anschauung der großen Welt und ihrer Wesenheiten.
+
+Dasjenige, was um uns herum ist, das, was mehr oder weniger mit uns verwandt, mit uns verbunden ist, demgegenüber wir uns hoch oder niedrig fühlen, das gibt uns, wenn wir es verstehen, auch im wahren Sinne des Wortes die rechte Selbsterkenntnis. Deshalb ist es auch immer empfunden worden, wie bedeutsam für des Menschen Erkenntnis das Wissen von denjenigen Geschöpfen sein müsse, die auf der Stufenreihe nach abwärts ihm die nächsten sind: die Erkenntnis des eigentlichen Wesens, des inneren Lebens der Tiere. Wenn der Mensch den Blick herumschweifen läßt über die Fülle der tierischen Formen, so bietet ihm jede eine Besonderheit dar, ausgestaltet im einzelnen. Wenn er auf sich selbst blickt, so findet er, auch bei oberflächlichem Blick, alles, was er verteilt sieht auf die einzelnen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+Tiere, bei sich selbst wieder, aber in eine gewisse Harmonie gebracht. Wenn er dasjenige, was ihn im Tierreiche draußen umgibt, ansieht, so kann ihn das gewissermaßen in Verwirrung bringen, so daß er es erst sondern muß, um es in eine Ordnung zu bringen. Das kann er am besten, wenn er es im großen Umkreise des tierischen Lebens ansieht. Aber wie so vieles andere in der menschlichen Erkenntnis, waren auch die menschlichen Anschauungen von den Tieren davon abhängig, wie der Mensch in einem gewissen Zeitalter und unter gewissen Voraussetzungen fühlt und empfunden hat.
+
+Wir finden ja schon in unserer unmittelbaren Umgebung, wie verschieden sich die Menschen stellen zu diesen ihnen verwandten Geschöpfen. Wir sehen, wie der eine in den Tieren etwas sehen will, was seelisch-geistig den Menschen so nahe wie möglich steht. Und wir sehen wieder andere nicht müde werden, immer wieder den Abstand selbst der höchsten Tiere von den Menschen zu betonen. Wir sehen auch, wie im sittlichen Verhalten eine solche Verschiedenheit sich ausdrückt. Wir sehen, wie der eine dieses oder jenes Tier im wahrhaften Sinne des Wortes zu seinem lieben Freunde macht, wie er fast wie einem Menschen gegenüber den Diensten des Tieres gegenüber sich verhält, wie er ihm Liebe, wie er ihm Vertrauen, wie er ihm Freundschaft schenkt. Wir sehen auf der anderen Seite, wie gewisse Menschen einen ganz besonderen Widerwillen gegen die einen oder die anderen Tiere haben. Wir sehen, wie aus einem ethischen Drange heraus der eine, der viel mehr als Forscher sich fühlt, immer wieder und wieder hinweist auf die Ähnlichkeit der höheren Tiere und ihrer Verrichtungen mit dem Menschen. So sehen wir Affen Dinge verrichten, die an die seelischen und geistigen Eigenschaften der Menschen gemahnen. Wir sehen aber auch, wie mancher in den hochst
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 167
+
+---
+
+entwickelten Tieren etwas sieht wie eine Karikatur des menschlichen Handelns, indem er Triebe und Instinkte, die im Menschen mehr oder weniger abgeschwächt sind, in diesen höchstentwickelten Tieren in einer rohen, ungeschminkten, unveredelten Form auftreten sieht, so daß ihn eine Art von Schamgefühl überkommt. Wir sehen, wie materialistisches Denken und Fühlen, insbesondere in der eben abgelaufenen Epoche, nicht müde wurde, immer wieder und wieder zu betonen, wie alles, was des Menschen Seele äußern kann, wozu des Menschen Seele sich erheben kann, in einer gewissen Andeutung bei den Tieren schon vorhanden sei, wie wir die Äußerungen sehen der Sprache, des Lachens, des Gefühls, der sittlichen Empfindung. Ja, manche glauben auch, bezüglich des religiösen Fühlens in einer gewissen Weise Spuren angedeutet zu finden bei den Tieren. So daß behauptet wird: Alles, was der Mensch an Vollkommenheiten besitzt, hat sich nadi und nach herausentwickelt, sich bloß summiert aus einzelnen Eigenschaften, die schon beim Tiere vorhanden sind, so daß man eigentlich den Menschen nur ansehen kann wie ein höchstausgestaltetes, höchstentwickeltes Tier.
+
+Andere Zeitalter, die weniger materialistisch gedacht haben, haben den Abstand zwischen Mensch und Tier nicht groß genug zu machen gewußt. So finden wir zum Beispiel bei *CartesiuSy* dessen Lebenszeit gar nicht so weit hinter der unsrigen liegt, der gelebt hat von 1596 bis 1650 und den man auch oft den Begründer der neueren Philosophie nennt, eine merkwürdige Anschauung über die Tiere. Er spricht den Tieren alles ab, was den Menschen eigentlich zum Menschen macht: Vernunft, Verstand, alles was man unter dem Begriffe einer vernünftigen Seele zusammenfaßt. Er betrachtet das Tier wie eine Art Automat. Äußere Reize brächten es in Bewegung, und Reizwirkung sei alles, was
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 168
+
+---
+
+beim Tiere in die Erscheinung trete. Es ist also so, daß er das Tier kaum als etwas anderes als eine Art höhere, sehr komplizierte Maschine ansieht.
+
+Und in der Tat, wer einen unbefangenen Blick auf die Tierwelt um uns herum wirft, der kann sehr leicht erfühlen die Schwierigkeiten in der Beurteilung des Tieres und sozusagen hineinsehen in das Innere eines uns zwar verwandten, aber doch wieder in gewisser Beziehung fernstehenden Wesens. Wir sehen, wenn wir uns durch kein Vorurteil, durch keine voreingenommene Meinung den Blick trüben lassen, sehr bald, daß eine solche Anschauung wie die des Cartesius nicht bestehen kann. Wir sehen, daß in der Tat auch für den oberflächlichen Blick jene Äußerungen, die wir beim Menschen als vernünftig, verständig, als seelisch bezeichnen, im Tiere in einer gewissen Weise durchaus vorhanden sind. Viele sagen ja, das sei das Charakteristische des Tieres, daß seine Intelligenz, seine Seelenhaftigkeit in einer gewissen Weise stationär sei, während des Menschen Seelenhaftigkeit insofern veränderlich ist, als wir den Menschen erziehen können. Obwohl das von einzelnen betont wird, so ist auch das, selbst für einen oberflächlichen Blick, nicht so ohne weiteres zuzugeben. Wir sehen, wenn wir die Tiere um uns herum betrachten, wie hoch es in bezug auf Intelligenz gewisse dem Menschen nahestehende Tiere bringen können, wir sehen, welch ein treues Gedächtnis Hunde zuweilen zu haben scheinen. Wir brauchen nicht auf die Feinheiten dieser die Tierseele charakterisierenden Dinge eingehen, sondern nur anklingen lassen, was die meisten von Ihnen, entweder direkt oder indirekt, im Leben erfahren haben. Wer wüßte nicht, wie lange sich Hunde ein Gedächtnis bewahren, wenn sie sich irgendwo etwas versteckt haben oder dergleichen. Wer wüßte nicht, daß Katzen, die eingeschlossen waren in dieses oder jenes Zimmer, von
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 169
+
+---
+
+selbst die Türklinke aufgemacht haben, um sich den Ausgang ins Freie zu schaffen. Ja, es ist durchaus nicht unrichtig, wenn behauptet wird, daß Pferde, die einmal zum Hufschmied geführt worden sind, den Weg kennen, so daß, wenn ihnen ein Hufeisen fehlt, sie aus eigenem Antrieb zum Hufschmied hingehen. Wer solche Dinge beobachtet, der kann sich ja kaum verhehlen, daß in bezug auf gewisse Intelligenzäußerungen, auf gewisse seelische Betätigungen zwischen Tier und Mensch nur eine Art Qualitätsunterschied sei, nur etwas wie eine Steigerung der Seelenfähigkeiten der Menschen gegenüber denen der Tiere. Freilich, eine große Zahl der Menschen wird leicht fertig mit solchen Dingen nach einem Goetheschen Wort, das man nur ein wenig für diesen Fall abzuändern braucht: Wo ernsthafte Begriffe in bezug auf das Tierreich fehlen, da stellt zur rechten Zeit das Wort Instinkt sich ein. - Instinkt ist so ein Sammelname, ein wahrhaftes Sammelsurium, in das alles, was man nicht versteht im irdischen Leben, hineinkommt! Freilich kümmern sich die wenigsten Menschen darum, eine klare Vorstellung von diesen - im schlechten Sinne gebraucht - mystischen Instinkten zu erhalten. Das nötigt uns aber doch, tiefer auf diese Dinge einzugehen. Wenn wir aufmerksam das Tier betrachten, so werden wir sehen, wie gewisse seelische Eigenschaften des Menschen, wie Neid, Eifersucht, Liebe, Zanksucht, alles mögliche ebenso im Tierreich sich finden, manchmal in geringeren, manchmal in höheren Graden als beim Menschen. Wenn man das betrachtet, dann nötigt einen das, etwas genauer die Sache anzusehen. Nun sind aber sehr zahlreiche Beobachtungen des tierischen Lebens in der mannigfaltigsten Art aufgezeichnet worden. Was zu des Cartesius Zeiten dem Forscher noch nicht bekannt zu sein brauchte, ist heute, weil zu dem Ziele, des Menschen Natur kennenzulernen, die Tierwelt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+nach allen Seiten auch wissenschaftlich genau untersucht worden ist, leicht zugänglich. Es könnte grotesk aussehen, aber wer die Tiere kennt, wird es nicht weiter wunderbar finden, daß durch sorgfältige Dressur Hunde dahin gebracht worden sind, daß wenn man ihnen Karten vorgelegt hat mit bestimmten Zahlen, ihnen das Wort für diese Zahl vorgesprochen hat, die Karten gemischt und ihnen wieder vorgelegt und die Zahl in Worten genannt hat, daß sie dann auf die betreffende Karte gezeigt haben, auf welcher die genannte Zahl stand. Ich will nicht von jenem Mann sprechen, der behauptet, es dahin gebracht zu haben, mit seinen Hunden ordentlich Domino zu spielen; wenn ihnen ein Stein nicht paßte, so winselten sie ganz gehörig. Das alles sind Dinge, die nur eine Steigerung von dem sind, was jeder von Ihnen kennt.
+
+Wir müssen dann darauf hinweisen, wie ganz bestimmte Eigenschaften dem Tiere so tief eingeprägt werden können, daß sie nicht nur dem einzelnen Tier, sondern den Nachkommen eingeprägt sind. Gewisse Dinge, die man irgendeinem Hund beigebracht hat, haben sich wiedergefunden bei den Nachkommen desselben, ohne daß diese Nachkommen irgendwie von ihren eigenen Eltern angelernt sein konnten. Es ist so, daß, auch wenn man die Nachkommen gleich nach der Geburt von den Muttertieren entfernt hat, die Eigenschaften, die man dem Vorfahr beigebracht hatte, bei den Nachkommen auftraten. So tief hat sich eine äußere Eigenschaft, die man ihm angelernt hatte, eingeprägt, daß sie in das Prinzip der Vererbung übergegangen ist und sich bei dem Nachkommen von den Vorfahren einfach übertragen hat.
+
+Allerdings stehen allen diesen Dingen, die unleugbar sind, gewisse andere Faktoren gegenüber, die den Menschen, der nicht vorschnell, sondern gründlich urteilen will,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+wieder stutzig machen müssen. Nehmen wir ein anderes Beispiel, zwei Hunde, die sich die Gewohnheit angeeignet hatten, miteinander auf die Rattenjagd zu ziehen. Man wollte verhindern, daß diese zwei Hunde fortwährend auf die Rattenjagd ziehen. Daher hat man sie in zwei verschiedene Räumlichkeiten gesperrt. Die beiden Räumlichkeiten waren durch eine geschlossene Tür voneinander getrennt. Es hat sich herausgestellt, daß der kleinere Hund sich durch Bellen zunächst vernehmbar gemacht hat. Daraufhin ist es dem großen gelungen, die Türklinke aufzumachen. Sie waren nun beisammen und konnten jetzt wieder gemeinschaftlich auf die Jagd gehen. Man hat noch etwas anderes gemacht. Man hat sie wieder auseinandergesperrt in die zwei Räume, jetzt aber die Türklinke mit einem Strick angebunden. Sie haben sich wieder verständigen können. Und jetzt war der kleinere noch frecher; er ist darauf gekommen, daß man die Schnur durchbeißen kann. Auch da sind sie wieder zusammengekommen und wieder auf die Jagd gegangen.
+
+Das ist ein Beispiel, welches verleiten kann» von einer sehr weitgehenden Intelligenztätigkeit der beiden Tiere zu sprechen. Aber sie hat ihre Grenzen. Man sperrte die beiden Hunde noch einmal in verschiedene Räumlichkeiten. Diesmal hatte man aber die Türklinke unsichtbar gemacht, indem man einen Stoff darüber spannte, und jetzt konnten sie nicht mehr zusammen. Also wir sehen scharf die Grenze gezogen. In dem letzteren Falle wäre es notwendig gewesen, daß einer der Hunde den Schluß gezogen hätte, da müßte sich doch eine Türklinke finden lassen. Er hat sie nicht sehen können; früher konnte er alles sehen. Da er sie nicht sehen konnte, ist er nicht darauf gekommen. Wir sehen scharf die Grenze. Wir können hier den Ausgangspunkt nehmen und forschen, wo eine solche Grenze sich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 172
+
+---
+
+findet. Wir können niedere Tiere in bezug auf ihre Seelenhaftigkeit ungeheuer bewundern und anstaunen. Wer für die Gesetzmäßigkeit der Natur Sinn hat, wird den Bau einer Ameise, die Tätigkeit einer Ameise, den Bau und die merkwürdige Tätigkeit der Bienen bewundern oder, wenn wir zu höheren Tieren heraufgehen, den Bau, den der Biber anlegt und so weiter. - Wer wird bei kleineren Tieren nicht das, was einem Gedächtnis, einer Intelligenz ähnlich sieht, ganz ernsthaft bewundern wollen, wenn wir sehen, wie Insekten, meinetwillen Ameisen oder ähnliche Insekten, wenn sie einmal einen Ort gefunden haben, wo sie etwas holen können zu ihrem Bau, das, was sie schleppen können, zum Bau hintragen und immer wieder zurückkommen, auch andere mitnehmen, um ihnen zu helfen das mitzunehmen, was noch fehlt.
+
+Da sehen wir die intelligente Tätigkeit der Tiere zurückfinden zu dem Ort, wo sie einmal etwas aufgelesen haben. Eine intelligente Tätigkeit, wie eine Art Verständigkeit, sehen wir darin, daß eine Ameise die andere zur Hilfe mitnimmt. Man hat eingewendet, es braucht das alles auf nichts anderem zu beruhen, als auf einer Art feinen Wahrnehmens dessen, was an dem betreffenden Orte sei. Nachdem die Ameise die Dinge einmal wahrgenommen hat, die an dem betreffenden Ort seien, könne sie weit weg sich bewegen, und durch ihr feines Sinnesorgan werde sie wieder hingetrieben, weil sie das eben wahrnehme. Gewisse Forscher haben sich bemüht, solche Einwände aus dem Felde zu schlagen. Sie haben solche Ameisen in die Unmöglichkeit versetzt, diese Dinge aufzufinden, wenn es nur auf die Sinneswahrnehmung ankäme, indem sie sie in die Gegenwindrichtung brachten und dadurch Geruch und Wahrnehmung unmöglich machten. Dennoch haben die Tiere die Gegenstände wieder aufgefunden, so daß die Forscher zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 173
+
+---
+
+dem Glauben berechtigt schienen, daß tatsächlich eine Art Erinnerungsvermögen, eine Art Gedächtnis vorliege, das das Tier immer wieder hintreibt zu dem Ort, den es sich gemerkt hat.
+
+Aber es gibt auch da Dinge, die uns in gewisser Beziehung stutzig machen müssen. Wir sehen, daß Tiere tatsächlich eine feine, ausgeprägte Gabe haben, dieses oder jenes zu vollführen. Wer sich einläßt auf solche Feinheiten, wie sie zum Beispiel zutage treten, wenn, sagen wir, ein Insekt sich verpuppt, wie da die einzelnen Fäden nach einzelnen Linien und Richtungen hin gesponnen werden, wie da Richtung für Richtung gesponnen wird, kann man in dem, was das Tier tut, etwas wie eine Geometrie, eine Arithmetik sich entfalten sehen, zu der der Mensch sich erst nach langer, langer Lehrzeit heranentwickelt. Oftmals sind die Dinge so fein gebaut, daß der Mensch mit seiner Geometrie heute noch lange nicht so weit ist, diese Dinge nachmachen zu können. Da sehen wir zum Beispiel die Bienenzelle nach der Figur des regelmäßigen Sechsecks aufgebaut. Ja auch dann, wenn solche Insekten in die Lage kommen, ihren Bau oder ihre Tätigkeit überhaupt modifizieren zu müssen, weil diese oder jene Verhältnisse eintraten, so sehen wir, daß sie nicht nach einer angenommenen Schablone weiterbauen, sondern sich oft in wunderbarer Weise den Verhältnissen anpassen. Ja wir sehen, wie etwas von einer Intelligenz auftritt gewissen Forschungsweisen gegenüber, wenn sich ein solches Insekt, eine Raupe, als Puppe einspinnt und dann in einer bestimmten Weise behandelt wird.
+
+So versuchte ein Forscher einmal dieser Sache auf den Grund zu kommen und bemerkte folgendes: Wenn er die betreffende Raupe an ihrem Kokon spinnen Heß und sie bis zu drei Fäden gesponnen hatte, nahm er sie heraus und setzte sie in ein anderes Gespinst, das er von einem Insekt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+genommen hatte, das auch einzelne Fäden gesponnen hatte. Aber er hatte diejenigen Fäden herausgenommen, welche schon da waren. Da hat das Tier wieder von Anfang angefangen und die drei Fäden wieder gesponnen. Wenn das Tier, nachdem es bis zu drei Fäden gesponnen hatte, in ein Gespinst gesetzt wurde, bei dem sechs Fäden herausgenommen waren und erst der siebente, achte und neunte Faden da war und der erste, zweite und dritte auch darin gelassen war, dann fing das Tier an, den fünften, sechsten und siebenten zu spinnen; dann hörte es wieder auf. Merkwürdig aber ist, daß das Tier, nachdem es sechs Fäden gesponnen hatte und man es in ein Gespinst setzte, in dem die drei ersten vorhanden waren, anfing, nochmals den zweiten zu spinnen und dann den dritten, vierten, fünften und so weiter. - Es verhält sich wie ein Junge, der ein Gedicht gelernt hat, der die drei ersten Strophen aufgesagt hat und dann die siebente sagen soll. So ist es auch bei diesem Tier. Daß die drei Fäden da waren, hat es gesehen; es konnte sich aber nicht danach richten. So sehen wir, wie eine Art Mechanik in der Tätigkeit des Tieres obwaltet.
+
+Das können wir auch noch an einem anderen signifikanten Beispiel sehen: Es gibt ein Insekt, das man die Sandwespe nennt. Diese hat eine sonderbare Eigentümlichkeit: Sie verläßt ihre Höhle, sucht sich irgendein Insekt, bringt dieses aber nicht direkt in die Höhle hinein, sondern läßt es eingangs der Pforte liegen. Sie geht dann hinein und untersucht die Höhle, ob alles in Ordnung ist; dann holt sie das Insekt und legt es hinein. Das kann man als einen sehr vernünftigen Vorgang betrachten. - Aber die Sache kann auch in der folgenden Weise weitergehen. Denken Sie sich, Sie begehen der Sandwespe gegenüber die Nichtsnutzigkeit und nehmen ihr die Beute weg und legen sie eine weite Strecke außerhalb der Höhle nieder. Das Tier kommt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 175
+
+---
+
+zurück, es sucht und findet die Beute wieder. Jetzt geht es wiederum bis zur Eingangspforte der Höhle, geht wieder hinein, untersucht die Höhle noch einmal und bringt jetzt erst das erbeutete Insekt hinein. Wenn Sie das aber jetzt noch ausführlicher machen, indem sie ihr noch einmal das Insekt wegnehmen, dann bringt sie es wieder vor die Höhle, geht wieder hinein und so weiter. - Wenn Sie das vierzigmal machen, so macht sie vierzigmal dieselbe Prozedur. Sie sehen, bis zu dem Schlüsse, die Höhle ist in Ordnung, ich brauche nicht mehr nachzusehen, kommt das Insekt nicht. Dieses Beispiel könnten wir noch tausendfach vermehren.
+
+Allerdings, unsere Naturwissenschaft hat eine Zeit hinter sich, wo sie gegenüber dem, der sie über diese Dinge befragte, glaubte, einzig mit den Worten: Kampf ums Dasein, Anpassung und dergleichen auskommen zu können. So sonderbar es für manchen unbefangenen Denker klingen mag, man sagte sich: Ein Tier hat diese Instinkte aus gewissen Gründen erworben, früher hat das Tier diese Instinkte gar nicht gehabt. Einmal hat aber vielleicht ein solches Tier eine Handlung begangen, welche zweckmäßig für das Leben des Tieres war. Dadurch, daß das Tier diese zweckmäßige Handlung begangen hat, konnte es sich in Lebensbedingungen bringen, die ihm günstig waren. Die anderen, die sich weniger zweckmäßig aufgeführt haben, sind nach und nach zugrunde gegangen. Bei denen, die günstige Handlungen begangen haben, vererbten sich solche Handlungsimpulse, sie wurden zu Gewohnheiten, zu Trieben und zu dem, was wir im Umkreise der Instinkte sehen. Sie werden zugeben, daß, wenn wir dieses Prinzip, daß im Laufe der Entwicklung, im Kampf ums Dasein sich die Tiere zweckmäßige Instinkte angeeignet haben, mit unbefangenem Blick auf die Tierwelt anwenden, sich doch gar
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 176
+
+---
+
+mancherlei zeigt. Recht plausibel ist es für manche, zu sagen: Die Vorfahren haben sich etwas einmal angeeignet; das hat sich dann auf die Nachkommen vererbt. Die, welche etwas Zweckmäßiges getan haben, bestanden den Kampf ums Dasein, die andern gingen zugrunde. Daher blieben nur die mit zweckmäßigen Instinkten Ausgerüsteten übrig.
+
+Wenden wir das aber auf den ganzen Umkreis der Natur an, so gibt es manches, das einer solchen Anschauung gegenüber nicht standhalten kann, denn man muß fragen, welche Form von Zweckmäßigkeit den Instinkten gewisser Insekten zugrunde liegt, die, wenn sie eine Flamme sehen, sich hineinstürzen und durch dieselbe zugrunde gehen. Oder welche für den Kampf ums Dasein günstige Anpassung liegt dem zugrunde, daß gewisse Haustiere, zum Beispiel Pferde und Rinder, sich ebenso verhalten? Wenn wir sie hinausführen aus dem Feuer, so sehen wir sie sich immer wieder hineinstürzen. Auch diese Beobachtung kann man machen. Das ist das eine.
+
+Dann kommt man aber auch in anderer Beziehung nicht sehr weit mit diesem Instinktprinzip, wenn man ins Auge faßt, daß die Tiere sich Eigenschaften erworben haben und sie auf ihre Nachkommen verpflanzen, sie vererben. Will man dieses Prinzip zum Beispiel auf die Bienen anwenden, so müssen wir uns über folgendes klar werden. Sie wissen ja, man unterscheidet die Königin, die Drohnen und die Arbeitsbienen. Sie haben alle bestimmte Merkmale, die sie befähigen zu ihrem Beruf im Bienenstock und im Bienenleben. In Generationen und wieder Generationen im Bienenleben treten immer wieder diese Arbeitsbienen mit den bestimmten Merkmalen auf, mit Merkmalen, die die Drohnen und die Königin nicht haben. Nun fragt es sich: Können diese Merkmale sich vererben? Das ist unmöglich, denn diese Arbeitsbienen sind gerade diejenigen, die unfrucht-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+bar sind. Das Fortpflanzungsgeschäft besorgen diejenigen, welche die Merkmale der Arbeitsbienen nicht haben. Immer wieder gebiert die Königin Arbeitsbienen mit Eigenschaften, die die Königin nicht hat. So sehen wir, daß die bloße materialistische Abstammungslehre und die Lehre, die vom Kampf ums Dasein spricht, sich in mannigfaltigster Weise widersprechen, in Widersprüche verwickeln müssen. Wir könnten, aber wir wollen nicht diese einzelnen Beispiele aus dem Tierleben ins Tausendfache vermehren. Sie sprechen ja doch - wie Sie sie auch vermehren würden - alle für dasselbe.
+
+Diejenigen Eigenschaften, die wir als Eigenschaften der Menschenseele kennen, werden Sie im Umkreise des Tierreiches irgendwie finden - ob schwächer, ob stärker, ist eine andere Frage -, aber wir finden sie. Wir finden auch gewisse Äußerungen, die man als Äußerungen der Intelligenz, als Äußerungen einer gewissen Vernunft Tätigkeit ansehen kann. Ist es nun - das ist die große Frage - notwendig, zu der materialistischen Erklärung zu kommen, daß alles dasjenige, was der Mensch als Inhalt seiner Seele hat, nichts weiter ist als eine Umgestaltung, eine Höhergestaltung dessen, was wir in der Tierwelt finden? Sind diese verwandten Züge in der Tierseele und in der Menschenseele ein Beweis dafür, daß der Mensch nichts weiter ist als eine Art höheres Tier? Die Antwort auf diese Frage kann nur aus der Geisteswissenschaft gegeben und gelöst werden.
+
+Die Geisteswissenschaft sieht mit unbefangenem Blick auf alle die verwandten Züge im Menschen und in der Tierwelt, aber da sie weitergeht als nur auf dasjenige, was die äußere Sinneswelt bietet, da sie bis zur geistigen Grundlage des Daseins geht, ist sie imstande, die gewaltige Kluft zu zeigen, die sich zwischen Mensch und Tier auftut. Dasjenige, was den Menschen vom Tiere unterscheidet, wurde
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+schon in den verflossenen Vorträgen, namentlich in dem letzten, in gewisser Beziehung hervorgehoben. Die Geisteswissenschaft würde sich die Augen verschließen, wollte sie dem Tiere die Seele absprechen. Das Tier hat, im Sinne der Geisteswissenschaft, Seelenhaftes wie der Mensch. Aber es hat dieses Seelenhafte auf eine andere Art. Schon im letzten Vortrage, als wir in bezug auf Mann, Weib und Kind uns die Anschauung von den wiederholten Erdenleben vor die Seele stellten, konnten wir hinweisen auf die große Verschiedenheit zwischen dem einzelnen Menschen und dem einzelnen Tier. Um das noch einmal kurz zu wiederholen: Genau den Umfang des Interesses, das uns das einzelne Menschenwesen abringt in seiner Entwicklung von der Geburt bis zum Tode, genau denselben Umfang des Interesses erweckt uns die ganze tierische Gattung. Der Mensch ist als Individualität eine Gattung für sich. Was wir etwa beim Löwen haben als Vater, Sohn, Enkel, Urenkel, hat so viel miteinander gemein, daß wir uns für den Löwen als Gattung oder Art, als diesen bestimmten Typus, in demselben Maße nur interessieren, wie wir uns für die einzelne Menschenindividualität, für den einzelnen Menschen interessieren. Daher hat im wahren Sinne des Wortes nur der einzelne Mensch seine Biographie, und diese Biographie ist für den einzelnen Menschen genau dasselbe, was für das Tier die Beschreibung der Gattung ist. Schon das letzte Mal wurde erwähnt, daß gewisse Menschen - «Hundeväter» oder «Katzenmütter» - da etwas einzuwenden haben. Die sagen nämlich, sie könnten von ihrer Katze, ihrem Hunde genau ebenso eine Biographie entwerfen wie von einem Menschen. Aber ich habe schon erwähnt, daß ein Schulmeister an die Kinder das Verlangen gestellt hat, die Biographie ihrer Schreib feder zu schreiben! Vergleichsweise kann man alles, aber darauf kommt es nicht an. Unbefan-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 179
+
+---
+
+gen muß man die Sache betrachten. Und wenn Sie wirklich auf die Sache eingehen, so werden Sie finden, daß gewisse Einzelheiten, gewisse Besonderheiten immer da sind. Besonderheiten hat auch eine Schreibfeder, wodurch sie sich von anderen Schreibfedern unterscheidet. Aber darauf kommt es nicht an. Es kommt auf den Innenwert des betreffenden Wesens an, es kommt darauf an, daß in der Tat das einzelne Wesen, wenn es eine gesunde Natur hat, unser Interesse in demselben Sinne in Anspruch nimmt, wie die ganze tierische Gattung.
+
+Das ist zunächst nur ein logischer Hinweis auf dasjenige, was Ihnen nun die Geisteswissenschaft als Eigentümlichkeit der sogenannten Tierseele gibt. Wir sprechen in der Geisteswissenschaft beim Menschen von der individuellen Seele, beim Tier von einer Gruppen-, einer Gattungs-, einer Art- oder Typusseele. Das heißt, genau dasselbe, was wir dem einzelnen Menschen zuschreiben, was in dem einzelnen Menschen, in seiner Haut enthalten ist, das sprechen wir dem ganzen tierischen Typus, der ganzen tierischen Art als Seele zu. Wir suchen die Seele des Menschen in ihm, im Menschen; wir suchen als Geisteswissenschafter die Seele des Tieres außerhalb des Tieres, so grotesk es auch aussieht. Gerade weil wir genau auf die Erscheinungen eingehen, werden wir erst recht hingeführt zu der Betrachtung höherer Ebenen, als die physische Ebene es ist. Ich habe aufmerksam gemacht, daß ebenso wie um den Blinden herum Licht, Farbe und Glanz ist, so um den Menschen, der nur physische Wahrnehmungen hat, ringsherum eine geistige Welt ist, in der geistige Wesenheiten sind. In dem Augenblicke, in dem die geistigen Wahrnehmungs- oder Erkenntnisorgane eröffnet werden, sieht er um sich herum ebenso eine neue Welt von Tatsachen und Wesenheiten, wie derjenige, der blind geboren ist und operiert werden konnte,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 180
+
+---
+
+zu sehen vermag, so daß Licht, Farbe und Glanz, die er vorher nicht wahrnehmen konnte, die aber trotzdem um ihn herum vorhanden waren, für ihn als eine neue Welt auftreten.
+
+Des Menschen individuelle Seele ist heruntergestiegen aus einer höheren Welt in den physischen Körper. Sie ist nicht physisch, aber sie ist heruntergestiegen bis in die physische Welt. Sie durchglüht und durchgeistigt den Leib. Die tierische Seele, die eine Art-, Typus- oder Gattungsseele ist, die kann man als Seele, als individuelles Geschöpf überhaupt nicht finden in der physischen Welt. Dann aber, wenn des Menschen geistige Augen geöffnet werden, treffen Sie die tierische Seele. Dann treffen Sie diese als in sich abgeschlossenes Geschöpf, wie Sie die einzelne Menschenseele im einzelnen Menschen rinden, wenn Sie den Menschen kennenlernen. Wir nennen diejenige Welt, die sich unmittelbar eröffnet, wenn die ersten Erkenntnisorgane geöffnet werden, die astralische Welt, und zwar aus Gründen, die wir in den folgenden Vorträgen besprechen werden.
+
+So wie wir in der physischen Welt in sich abgeschlossene Menschenindividualitäten finden, so finden wir abgeschlossene Wesenheiten seelischer Art innerhalb der astralischen Welt, nur gehören ganze Gruppen von Tieren - gleichgeartete Gruppen von Tieren - zu diesen Gruppenseelen. Wenn ich das durch einen Vergleich klarmachen soll, so stellen Sie sich vor, ich stünde vor Ihnen, vor mir stünde eine Wand, so daß Sie mich nicht sehen können, eine Wand mit Löchern, so groß, daß ich die zehn Finger durchstecken könnte. Sie sehen dann zehn Finger, mich sehen Sie nicht. Aus Ihrer Erfahrung aber wissen Sie, daß da irgendwo ein Mensch sein muß, zu dem diese Finger gehören. Wenn Sie die Wand durchbrechen, entdecken Sie den Menschen. In einem ähnlichen Verhältnis steht gegenüber der höheren
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Welt der Geistesforscher. Er sieht in der physischen Welt verschiedene, aber gleichgestaltete Tierindividuen, wie zum Beispiel Löwen, Tiger, Affen und so weiter. Das sind für ihn einzelne Tiere, die nicht zu einem gemeinsamen physischen Körper gehören, wohl aber zu einem gemeinsamen Seelenwesen. Die Wand, die diese Seelenwesen zudeckt, ist einfach die Grenzwand zwischen der physischen und der astralischen Welt. Wo auch die einzelnen Löwen sind, ob der eine in Afrika oder in Europa, in europäischen Menagerien ist, darauf kommt es nicht an. Ebenso wie die Verbindungslinien von meinen zehn Fingern zu dem Menschen führen, ebenso führen die einzelnen Verbindungslinien der einzelnen Tiere zu der Gattungsseele. Wo immer es eine Geisteswissenschaft gegeben hat, hat man Mensch und Tier so unterschieden, daß man sich klar wurde darüber, daß das, was für das Tier noch in einer geistigen Welt ist, in einer übersinnlichen Welt, und was es in seiner Offenbarung wie einen Arm hinunterstreckt in die physische Welt, beim Menschen in den Leib eingezogen ist. Daß der Mensch davon in seiner Individualität Besitz ergreift, das ist des Menschen höhere Entwicklung, so daß man nicht verwundert zu sein braucht, wenn uns die einzelnen Tiere intelligente Äußerungen zeigen. So wie Sie nun auch an meinen Händen, wenn sie durch die Wand durchgestreckt werden, intelligente Äußerungen sehen, sehen, wie sie dieses oder jenes ergreifen, so können Sie auch sehen, wie die einzelnen Bienen, einzelne Tiere überhaupt, dieses oder jenes tun. Der eigentliche Täter ist aber gar nicht heruntergestiegen in die physische Welt. Der Täter gebraucht das Tier wie ein Organ, wie ein Glied, das er ausstreckt bis in die physische Welt hinein.
+
+Wenn wir das zugrunde legen, wird uns so manches in dieser Welt erklärt. Gerade an einer solchen Sache können
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 182
+
+---
+
+Sie immer wieder sehen: für die meisten Menschen der Gegenwart sind die geistigen Augen, die höheren Erkenntnisorgane nicht geöffnet. Sie können sich also nicht davon überzeugen, daß in der geistigen Welt abgeschlossene Tierseelen vorhanden sind, die ihre viel feineren Organe in die einzelnen Tiere hinunterschicken. Aber Sie können sich noch etwas anderes sagen. Sie können annehmen, die ganz verrückt erscheinenden Ideen der Seher seien wahr, und wenn wir sie hypothetisch nehmen, dann wird uns hier in der Welt etwas erklärlich, etwas begreiflich. Nun, betrachten wir eines der Beispiele auf diese Voraussetzung hin. Sagen wir etwa, wir nehmen uns jene Sandwespe, die als ausführendes Organ sich die Beute holt, sie vor das Nest legt, dann hineingeht und sie dann wieder holt. Intelligenz liegt dem zugrunde, wenn auch nicht die gleiche Intelligenz wie die, welche der Intelligenz des Zeigefingers zugrunde liegt. Wenn nun in einem einzelnen Fall das Tier auch in der Handlung abirren könnte, könnte da gleichsam von der «Zentralbehörde», von der Gattungsseele aus die Ordnung aufrechterhalten werden? Nein! Nur dadurch, daß bei der zentralen Instanz, bei der Gattungsseele die Intelligenz ist und diese im Einzelfalle nicht dem einzelnen Tier überlassen ist, nur dadurch ist es möglich, daß Weisheit im ganzen Tierreich herrscht. Da oben, wo die Gattungsseele ist, da herrscht Weisheit. Daher sehen wir auch überall, wo diese Gattungsseele in Betracht kommt, wo Modifikationen eintreten müssen gegenüber den äußeren Bedingungen, daß sie da auch eintritt. Wenn es aber darauf ankommt, daß das Geistige des Tieres den Intentionen der Gattung entspricht, da ist das Tier wie in einer Gesamtmasse. Wenn Sie jedem einzelnen Soldaten überlassen, was er tun oder lassen will, wie könnte da etwas Einheitliches, ein einheitliches Unternehmen zustande kommen? Ist es nicht nötig,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 183
+
+---
+
+daß gerade wegen der Einheit der einzelne das Verkehrte tun muß? Denken Sie, daß diese Gedanken durch, dann werden Sie finden, daß der scheinbare Widerspruch sich klärt selbst da, wo die Fliege sich in die Flamme stürzt und den Tod findet. Im einzelnen führt dies zum Tode, im großen aber nützt es der Gattung.
+
+So sehen wir über den Tieren Fähigkeiten und Eigenschaften ausgebreitet, Weisheit und Intelligenz. Wir sehen dem Menschen auch Weisheit zugrunde liegen. Auch das Tier hat sie. Fragen Sie nach dem Gedächtnis: der Mensch hat es. Fragen Sie bei dem Tier, da müssen Sie die Sache umkehren und sagen, das Gedächtnis «hat» das Tier, die Vorstellungskraft «hat» das Tier. Das Tier wird besessen von der Vorstellungskraft, wird besessen von dem Gedächtnis. Das Tier ist ein Glied eines höheren Wesens, das Gedächtnis und Vorstellungskraft hat. Das Tier wird geschoben von der hinter ihm stehenden weisen Gruppenseele, die nicht in dem einzelnen Tier drinnen ist. Wie verhält es sich nun mit der Zähmung der Tiere und dergleichen? Sie können sich das unter diesen Voraussetzungen sehr gut erklären. Wir üben eine Hand als eine einzelne Hand. Indem wir sie als einzelne Hand üben, müssen wir gewisse Betätigungen unseres Zentralorgans in Szene setzen. Aber außerdem muß die Hand geübt werden, und wird die Hand geübt, dann haftet die Übung als Gewohnheit an der Hand. So können wir allerdings, wenn wir das einzelne Tier pflegen und erziehen, wissen, daß dieses einzelne Tier geradeso wie das einzelne Glied in gewisser Weise vorwärtsschreitet. Zurück wirkt es aber auf die Zentralinstanz. Es zeigt sich, daß es so tief hineingeht in die Gattungsseele, daß solche zur Gewohnheit gewordenen Eigenschaften in den Nachkommen ohne weiteres wieder erscheinen. Das ist beim Menschen nicht so. Beim Menschen werden solche einzelnen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Dinge sich nicht ohne weiteres vererben, weil beim Menschen das Gattungsmäßige durch das Individuelle überschattet, oder besser gesagt, überleuchtet wird.
+
+Den Hergang der menschlichen und tierischen Entwicklung können wir von solchen Voraussetzungen aus erst recht gut überschauen. Heute ist ohnedies die Abstammungslehre schon nahe am Bankrott. Was man noch vor kurzer Zeit behauptet hat, daß der einzelne Mensch nahesteht den höchstentwickelten Säugetieren, das wird heute von ernsten Forschern wieder in Abrede gestellt. Es wird gesagt, daß es unmöglich sei, daß der Mensch ein Nachkomme der Affen sei. Aber auch das Gegenteil kann behauptet werden, denn gewisse Fähigkeiten haben wir mit vielen niederen Affen noch gemeinschaftlich, so daß gewisse Forscher auf dem Standpunkte stehen, daß der Urahn, von dem der Mensch abstammt, gar nicht mehr lebt. Daß der Affe sich herunterentwickelt, der Mensch aber sich heraufgestaltet hat, auf diesen Gesichtspunkt kann sich die Naturwissenschaft immer noch nicht stellen. Die Geisteswissenschaft denkt sich diese Abstammung nicht nur, sondern sie weiß sie zu erforschen mit Bezug auf die tierischen Typen- oder Gattungsseelen und die menschlichen Individualseelen. Wenn wir von den heutigen höheren Säugetieren und vom Menschen zurückgehen, so kommen wir allerdings zu einem gemeinschaftlichen Ahnherrn. Aber dieser war kein Tier im heutigen Sinne. Dieser Ahnherr war viel näher dem Menschen, als er einem heutigen Tier ähnlich war. Diejenigen wirklichen Vorfahren, die wir zu suchen haben, das sind in gewisser Weise für den Menschen und für die Tiere Gattungs- oder Typenseelen.
+
+Wer würde das leugnen, der mit unbefangenem Blick das Menschenleben überschaut? Gehen Sie zurück und immer weiter zurück in der menschlichen Entwicklung, oder sehen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 185
+
+---
+
+Sie sich selbst heute gewisse Menschen an, sogenannte Wilde, die auf einer niederen Stufe der Entwickelung stehengeblieben sind: Müssen wir nicht bei ihnen viel mehr typisch Gattungshaftes sehen als bei den entwickelten Kulturmen-schen? Je weiter wir in der Zeit zurückgehen, desto weniger ist der Mensch ein individuelles Wesen. Jawohl, das Individuelle hat sich im Menschen erst entwickelt, und wir sehen Zeiten in der Zukunft entgegen, wo der Mensch noch viel individuelles Züge an sich tragen wird. Der Mensch ist auf dem Wege von einem Gattungs- oder Typuswesen zu einem immer mehr und mehr individuellen Wesen. Er steht heute in der Mitte. Gehen wir zurück zu dem Ursprünge des Menschengeschlechts, da finden wir ganze Gruppen von Menschen, deren einzelne Glieder kein ausgeprägtes Ich-Gefühl haben, bei denen das Stammesgefühl, das Familiengefühl weit größer war als das Gefühl des Einzelindividuums. Auch wurde das Einzelindividuum leicht gegenüber den Interessen des Stammes oder der Gattung geopfert, kurz, wir kommen auch beim Menschen, wenn wir weiter und weiter zurückgehen, dazu, ihm eine Gruppenseele zuzuerkennen, so daß wir in alten, alten Zeiten, in Zeiten urferner Vergangenheit, auch die Menschenseele als eine Gruppenseele erkennen gleich der heutigen Tierseele.
+
+Aber die Menschenseele hatte die andere Möglichkeit gefunden. Wodurch hat sie diese andere Möglichkeit gefunden, die die Tierseele nicht hat? Die Tierseele hat sozusagen, früher als die Menschenseele, ihre einzelnen Merkmale festgehalten, verhärtet, verfestigt. Und da sie sie verfestigt hatte, waren die Tiere nicht mehr bildungsfähig, sie sind auf der alten Stufe stehengeblieben. Gehen wir bis zum Affen zurück, dann müssen wir sagen, der einzelnen Affenart liegt eine Gruppenseele zugrunde, die zu früh ihre Eigenschaften in die feste Form gegossen hat. Daher
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 186
+
+---
+
+konnte sie die in physische Formen gegossenen Eigenschaften nicht mehr weiterentwickeln. Der Mensch war noch in bezug auf den physischen Leib ein feiner gestaltetes, weiches Wesen, das der Umänderung noch fähig war. Die Gruppenseele des Menschen hat sich dasjenige, was sie noch tun konnte an Bildungsfähigkeit, an Umgestaltungsfähigkeit, bewahrt. Sie hat sich, mit ihrer Sehnsucht einen physischen Leib zu bilden, nicht so früh heruntergebracht wie die Gruppenseelen der heutigen Tiere. Die Menschenseele hat gewartet bis jetzt, wo ein umfassenderes Leben auf der Erde für sie möglich war. So konnten die Tiergruppenseelen die Körper der Tiere nicht gebrauchen, um so in sie einzuziehen, wie die menschliche Seele in den physischen Leib des Menschen eingezogen ist. Dem menschlichen Leibe ist die Fähigkeit bewahrt worden, vollkommener zu werden, bei ihm ist die Möglichkeit, ein Wohnplatz, ein Tempel für die höhere Individualität zu werden, in der dann auch die übersinnliche Intelligenz leben kann.
+
+Daher finden wir Fähigkeiten wie übersinnliches Gedächtnis, übersinnliche Vorstellungskraft und Intelligenz nicht in den Tieren, sondern über den Tieren. Das Geistige aber finden wir in den Menschen hineingelegt, es ist eingezogen in den Menschen. Daher brauchen wir uns nicht zu wundern, daß wir, wenn wir das Weltenwerden zurückverfolgen, einen Zeitpunkt finden, wo längst Tiere herumgewandelt sind auf unserer Erde, während wir den Menschen nur bis in das Tertiär oder in das alte Diluvium zurückverfolgen können. Weiter geht es nicht in der Geologie. Die Menschenseele hat gewartet mit der Verkörperung, nachdem die Tiere schon physisch geworden waren. Der menschliche Leib hat sich herauskristallisiert aus dem Geistigen. Die Tierleiber haben sich früher verhärtet, als die menschlichen Leiber sich aus ihrer Gruppenseele heraus ver-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+härten haben. In den alten Zeiten, wo sich schon die Tiergruppenseelen verhärtet haben, da waren diese Seelen noch unvollkommen. Sie konnten daher auch nur unvollkommene Stufen gestalten. Später erst wurde die menschliche Gruppenseele individualisiert, und dann wurden diese Individuen auf unserer Erde geboren. So begreifen wir auch, warum das ierreich uns wie ein auseinandergelegter Mensch erscheint. In alten Zeiten hat die Gruppenseele, die berufen war, sich herauszuentwickeln, gewisse Gruppenseelen herausgestaltet; Tierformen hat sie gebaut. Da konnte sie nicht weiter. Andere haben ihre Eigenschaften ausgestaltet. Wir dürfen uns nicht wundern, daß das Wesen, das am längsten gewartet hat, am spätesten heruntergestiegen ist, die größte Kompliziertheit, dafür aber auch die größte Harmonie im Zusammenfluß dessen, was in der Tierwelt ausgebreitet ist, zeigt. Deshalb konnte Goethe so schön sagen: Wenn der Mensch in die Natur hinausblickt und wahrnimmt, was in der Natur draußen zerstückelt ist, und es zusammenfaßt und verarbeitet zu dem, was Maß und Ordnung in ihm ist, so ist es so, als ob die Natur sich auf dem Gipfel des Werdens befinde und sich selbst bewundere.
+
+So ist im Menschen das Tierreich individuell geworden, im Menschen sind die Eigenschaften der Tierwelt in einer Einheit vereinigt. So erblicken wir den göttlichen Geist in der Aufeinanderfolge der Her gestalten. Jede Tiergestaltung ist eine einseitige Darstellung des göttlichen Geistes. Aber ein harmonischer, allseitiger Ausdruck davon ist der Mensch. Deshalb konnte Paracelsus aus diesem Bewußtsein heraus sagen, was noch so schwer verstanden wird: Wenn wir hinausschauen in die Tierwelt, dann ist uns jedes Tier wie ein Buchstabe, und der Mensch ist das Wort, das aus den einzelnen Buchstaben zusammengesetzt ist. - Das ist ein wunderbarer Vergleich für das Verhältnis der Tiere zum
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 188
+
+---
+
+Menschen. Viel gründlicher hat sich Goethe mit den einzelnen Tierformen bekanntgemacht. Er hat sich gesagt: Wenn wir das Tier ansehen und seine Form studieren, dann können wir sehen, wie sich in der größten Mannigfaltigkeit, in weitem Bilde das Götterschaffen auslebt; dann können wir überhaupt den Urgedanken sehen, der in seine verschiedensten Formen verzweigt ist auf die verschiedensten Tiere.
+
+Man braucht nicht so grotesk zu sein wie Oken, der gesagt hat, jedes einzelne Organ des Menschen sei wie eine tierische Gattung, und er hat wirklich auf einzelne menschliche Organe hingewiesen. So sagt er vom Tintenfisch, daß er die Zunge gegeben habe. Er hat da eine dunkle Ahnung - da er kein Geisteswissenschafter war - in diese groteske Form gebracht. Goethe hat dagegen gefunden, daß so, wie ein Gedanke des Menschen über die verschiedenen Gattungen verteilt ist, so jedem Tier der ursprüngliche Typus zugrunde liegt, nur kommt beim Tier das einzelne Organ, das sich in harmonischer Art beim Menschen einschaltet, einseitig heraus. Goethe sagt: Nehmen wir einmal einen Löwen und vergleichen wir ihn mit einem gehörnten oder geweihtragenden Tier. Derselbe Urgedanke liegt da zugrunde. Aber der Löwe hat eine bestimmte Kraft, die Zähne bildet. Dieselbe Kraft, die beim Löwen Zähne bildet, bildet beim geweihtragenden Tier das Geweih. Daher kann keinem geweihtragenden Tier eine volle Reihe von Zähnen im Oberkiefer wachsen. Daher sucht Goethe den Mangel auf der anderen Seite im Tier.
+
+Im Schöße der Natur ist das Tier selbst vollkommen geschaffen. Alle Glieder ordnen sich nach ewigen Gesetzen, und die entsprechende Form bewahrt im geheimen das Urbild. Und das Urbild, das schon geschaffen war im unvollkommensten Wesen, das die Seele darstellt im unvollkommensten Tier, das erlangt im Menschen die vollkommenste
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Gestalt im Träger der individuellen Seele. Deshalb ist dem Menschen nicht nur wie den Tieren Gestalt zuteil geworden, sondern der Mensch läßt dieses Urbild in schöpferischen Gedanken selbst in sich lebendig werden. In ihm spiegelt sich der Gedanke, nicht nur der Form und Gestalt nach, in seiner Ausprägung. Indem wir diesen Gedanken selbst vorgestellt sehen, sagt Goethe, diesen Stufengang zu der Höhe verfolgend: Freue dich, höchstes Geschöpf der Natur, daß du in deinem Inneren zu fassen vermagst den großen Gedanken, nach dem sich die Reihenfolge der Wesen bis herauf zu dir gestaltet hat.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 190
+
+---
+
+# DER KRANKHEITSWAHN
+IM LICHTE DER GEISTESWISSENSCHAFT
+
+München, 3. Dezember 1907
+
+Der Mensch ist in seinem Leben zwischen zwei Mächte hineingestellt. Auf der einen Seite steht der Ablauf der Ereignisse und Tatsachen, die Fortdauer der Tatsachen um ihn herum, die auf ihn die verschiedensten Eindrücke machen. Dem steht im Innern gegenüber des Menschen eigene Kraft. Man braucht das Leben nur oberflächlich zu betrachten, dann wird einem klar, daß der Mensch einen notwendigen Ausgleich braucht zwischen den Kräften und Tatsachen, die von allen Seiten auf ihn einstürmen, und dem, was sich in seinem Innern entfaltet. Wenn der Mensch im alltäglichen Lebenstreiben Eindruck auf Eindruck empfangen hat, so sehnt er sich nach Sammlung, nach Alleinsein. Er fühlt, daß nur im richtigen Ausgleich ein gesundes Leben gefunden werden kann.
+
+Das drückt für die Tiefe und Breite des Lebens ein schöner, in Rätsel des Daseins dringender Satz Goethes aus:
+
+- Denn alle Kraft dringt vorwärts in die Weite,
+- Zu leben und zu wirken hier und dort;
+- Dagegen engt und hemmt von jeder Seite
+- Der Strom der Welt und reißt uns mit sich fort;
+- In diesem innern Sturm und äußern Streite
+- Vernimmt der Geist ein schwer verstanden Wort:
+- Von der Gewalt, die alle Wesen bindet,
+- Befreit der Mensch sich, der sich überwindet.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+In diesen zwei letzten Zeilen, die eben aus den «Geheimnissen» angeführt worden sind: «Von der Gewalt, die alle Wesen bindet, befreit der Mensch sich, der sich überwindet», liegt viel Lebensweisheit. Dem Innern des Menschen, das im Sturme fortschreitet als diejenige Kraft, die in immerwährender Entwicklung und Entfaltung ist, steht gegenüber, was von außen an uns herantritt. Einen Ausgleich finden wir, wenn wir uns selbst überwinden. Das können wir als Leitwort nehmen für die Betrachtungen, die uns heute und übermorgen beschäftigen sollen. Beide Themen gehören zusammen. Heute wollen wir uns mit dem Krankheitswahn beschäftigen, und als notwendige Ergänzung dazu wird übermorgen die Betrachtung über das Gesundheitsrieber folgen.
+
+Erst im Laufe der Betrachtung können die Worte gerechtfertigt werden. Sie führen uns hinein in die geistigen Strömungen der Gegenwart und in das, was die Geisteswissenschaft dem entgegenstellt, was sie dagegen sich als ihre Aufgabe zu setzen hat.
+
+Bei dem Worte «Krankheitswahn» denkt der Mensch zunächst an die uns so oft entgegentretende Tatsache, daß jemand in mehr oder weniger eingebildeter Krankheit wirkliche Schmerzen und Unlust empfindet. Gerade hier ist ein Gebiet, in dem der Kulturberuf der Geisteswissenschaft einzusetzen hat. Davon hängen wichtige Dinge ab. Bevor wir darauf eingehen, was die Geisteswissenschaft hierzu zu sagen hat, lassen Sie uns ein paar Bilder aus dem Leben der Gegenwart vor unsere Seele stellen. Alle Beispiele, die hier angeführt werden, sind aus dem Leben genommen.
+
+Auf einer meiner Reisen, es war auf dem Wege von Rostock nach Berlin, saßen zwei andere Menschen mit mir im Coupe*, eine Dame und ein Herr, die sehr bald miteinander ins Gespräch kamen. Der Herr benahm sich ganz merk
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 192
+
+---
+
+würdig. Schon nach einigen Worten legte er sich der Länge nach auf die Bank und sagte, nur so könne er das Leben ertragen. Die Dame erzählte, sie sei aus dem Osten und sei in einem Ostseebad gewesen. Gestern sei sie vom Heimweh ergriffen worden und habe beschlossen, nach Hause zu reisen, und sie brach in Tranen aus. Der Herr kam durch das Weinen der Dame darauf, von seinen Gesundheitszuständen zu erzählen: Ich habe viele Krankheiten und reise von Sanatorium zu Sanatorium, ohne Gesundheit zu finden. - Die Dame sagte darauf: Ich verstehe auch viel von Krankheiten. Viele Leute in meiner Heimat verdanken mir Gesundheit und Leben. - Der Herr erzählt aus der langen Reihe seiner Krankheiten eine; die Dame gibt ihm aus der Wissensfülle ihres Herzens ein Rezept, das der Herr sich aufschreibt. Nach wenigen Minuten kommt die zweite Krankheit und so weiter, bis er glücklich dreizehn Rezepte aufgeschrieben hat. Der Herr hatte nur die eine Sorge: Wir kommen um neun Uhr in Berlin an, kann ich mir dann die Rezepte auch noch machen lassen? Die Dame tröstete ihn, daß es wohl noch gehen würde. Merkwürdigerweise fiel es dem Herrn gar nicht auf, daß die Dame doch selbst krank war. Die Dame sagte weiter: Ich habe viel Mitleid, - und sie zählte ihre eigenen Krankheiten auf und erzählte, wo sie überall war, um Heilung zu finden. Der Herr empfahl ihr ein Werk von Lahmann. Darauf folgte die zweite Krankheit und die zweite Broschüre, bis sie im ganzen fünf bis sechs Werke aufgeschrieben hatte, die sie am nächsten Tage kaufen wollte. Zuletzt schrieb sie sich noch die Adresse von Lahmann auf. Unterdessen waren sie in Berlin angekommen. Jeder hatte seine Sache aufgeschrieben und ging zufrieden weg.
+
+Wer die Leute mit ein klein wenig Blick für die Sache ansah, der merkte bald, daß der Dame wohl einiges fehlte,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 193
+
+---
+
+dem Manne aber nur der Wille zur Gesundheit. Hätte er den Willen aufgebracht, gesund zu sein, so wäre er vollständig gesund gewesen. Darin haben wir etwas Symptomatisches, das uns vielfach in der Gegenwart entgegentritt, und der prüfende Blick wird von diesem Bilde zu einem anderen übergehen können.
+
+Wandern wir in Gebirgsgegenden, so sehen wir alte Burgen, verfallene Schlösser und so weiter, die uns erinnern an alte Zeiten, wo nach Stärke des Geistes gestrebt wurde oder wo die äußere Kraft geherrscht hat. Diese Burgen sind heute verfallen, aber überall in der Nähe dieser Monumente der Stärke sieht man heute Sanatorien, eins neben dem andern. Dieses Bild bot sich mir vor einiger Zeit in einer besonders sanatorienreichen Gegend. Es ergab sich die Notwendigkeit, mich eine Viertelstunde in einem solchen Sanatorium aufzuhalten. Die Leute begaben sich gerade zum Mittagessen. Die Überzeugung, die ich da gewonnen habe, war die, daß unter den hunderten kein einziger war, der eigentlich die Lebensweise im Sanatorium ernsthaft nötig hatte.
+
+Nun wollen wir zu intimeren Bildern übergehen, die wir finden in den Annalen denkender Ärzte der Gegenwart. Es gibt ja glücklicherweise solche, die sich auch neben dem Körper mit der Seele beschäftigen. Ich wähle ein Beispiel von einem Ärzte, der sicher alles Theosophische als Unsinn ansehen würde. Diese Leute sind ganz gewiß von demjenigen, was die Geisteswissenschaft zu sagen hat, ganz und gar unbeeinflußt. Ein solcher hervorragender Arzt hat aus seinem Leben verschiedenes aufgezeichnet, verschiedene Fälle, wo ihm Leute begegnet sind von der Art, von der das aus dem Coupe Erzählte nur ein besonders grotesker Fall ist. Er wurde zu einem Mädchen gerufen, bei dem alle Symptome auf Gehirnhautentzündung hinwiesen. Der Arzt hatte aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+einen guten Blick. Als er allein mit ihr war, stellte er die Fragen, die man in solch einem Fall wohl stellt, aber alle seine Fragen verfingen nicht. Endlich stellte sich heraus, daß die junge Dame aus der Schule kommen sollte; im nächsten Jahr aber sollten besonders interessante Vorlesungen sein, die sie noch hören wollte. Da alles in der Familie dagegen war, verfiel sie in Krankheit. Der Arzt sagte: Ich werde mich dafür verwenden, daß Sie noch dort bleiben dürfen, aber Sie müssen sofort aufstehen und zu Tisch kommen. — Es geschah. Nach wenigen Minuten erschien die Dame bei Tisch und war nicht mehr krank. Ein anderes Beispiel: Ein sehr geschickter anderer Arzt, der sehr bekannt ist und mir immer eine gewisse Achtung eingeflößt hat, mußte eine Knieoperation ausführen. Der Bruder des Patienten war dabei. Bei der Operation knackte es. Der Bruder bekam davon einen gräßlichen Schmerz. Die Operation verlief gut, aber der Bruder wurde krank und konnte ein ganzes Jahr lang nicht geheilt werden.
+
+Da sieht man, welche Gewalt die Phantasie und verkehrte Einbildung auf die Seele haben kann und wie von der Seele aus Nachbildungen von Krankheiten wie wirkliche, echte Krankheitsbilder entstehen können. Aber der Arzt darf hierin auch nicht zu weit gehen. Der, welcher eben genannt worden ist, ist sehr geschickt. Er ließ sich auch nicht durch die Annahme täuschen, daß es immer so sein müsse. Eine Dame kam zu ihm, welche seit dem Tode ihres Mannes unerträglichen Schmerz in ihrem Knie hatte. Sie war von vielen Ärzten behandelt worden, die sich immer darüber klar zu sein glaubten, daß ihre Krankheit mit seelischen Zuständen zusammenhinge, mit dem Eindruck vom Todes ihres Mannes. Hier aber suchte der Arzt mit dem gesunden Blick keine seelische Verirrung. Er fand, daß in diesem Falle ein großes Hühnerauge an der Ferse zu-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 195
+
+---
+
+gründe lag. Nach der Operation schickte er die Dame zur Nachkur nach Gastein, um seine Kollegen nicht zu sehr zu blamieren.
+
+So haben wir jetzt die Situation durch die verschiedensten Bilder beleuchtet. Sie sehen, wie stark die Einbildung, das seelische Bild, zurückwirken kann auf den leiblichen Organismus. Man konnte sagen, hier hatte man es gewiß nicht mit wirklichen Krankheiten, sondern mit Krankheitswahn zu tun. Aber wer sich klar darüber ist, daß alles Leibliche der Ausdruck des Geistigen ist, daß alles, was unseren Sinnen gegenübersteht, die Manifestation eines Übersinnlichen ist, wird die Sache nicht so leicht nehmen. Selbst in scheinbar ganz fernliegenden Dingen haben wir es oft mit Einflüssen der Seele auf den Leib zu tun. Und das, was uns anfangs als Kleinliches, Lächerliches erscheint, die Einbildung, führt, wenn es dann zu Schmerzen kommt, sehr oft zu den Anfängen von wirklichen Krankheiten, und noch weiter als bloß zu den Anfängen. Das ist mehr als etwas, was man mit einem bloßen Achselzucken abtun kann. Wir müssen uns, wenn wir da tiefer eindringen wollen, vor die Seele rufen, worüber schon öfter hier gesprochen worden ist: die Natur und Wesenheit des Menschen.
+
+Für die Geisteswissenschaft ist das, was uns entgegentritt, nur ein Äußeres. Der menschliche Leib ist ein Glied unter anderen Gliedern der menschlichen Wesenheit, das er gemein hat mit allen andern ihn umgebenden Wesen. Darüber hinaus hat er den Ätherleib, der den physischen Leib wie bei jedem Lebewesen durchdringt, der ein Kämpfer ist gegen den Zerfall des physischen Leibes. Das dritte Glied ist der astralische Leib, der Träger von Lust und Unlust, Freude und Schmerz, Leidenschaft und Begierde, der niedrigsten Triebe sowie der höchsten Ideale. Ihn hat der Mensch nur gemeinsam mit der Tierwelt. Das, wodurch der Mensch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 196
+
+---
+
+die Krone der Schöpfung ist, wodurch er sich unterscheidet von allen Wesen, ist sein Ich. Diese vier Glieder bilden zunächst für unsere Betrachtung den ganzen Menschen. Wir müssen uns aber klar sein, daß alles, was sich unser Augen sichtbar macht, nichts anderes ist als aus dem Geiste heraus Entstandenes. Kein Materielles gibt es, das nicht ein Geistiges als Grundlage hätte.
+
+Ein schon Öfter gebrauchter Vergleich: Ein Kind zeigt uns Eis. Wir sagen: Es ist Wasser in anderer Form. - Das Kind wird dann sagen: Du sagst, es ist Wasser, aber es ist doch Eis. - Darauf wird man sagen: Du kennst nicht die Art und Weise, wie Wasser in Eis übergeht. - Ebenso ist es für den, der nicht weiß, daß Materie eine Verdichtungsform des Geistes ist. Für den Geisteswissenschafter ist aber alles, was sichtbar ist an uns, aus demselben entstanden, was wir als astralischen Leib in uns tragen. Ätherleib und physischer Leib sind aufeinanderfolgende Verdichtungsprodukte des astralischen Leibes. Ein Bild: Wir haben irgendeine Masse von Wasser und bringen einen Teil davon in Eisform, dann haben wir Eis in Wasser. So ist der Ätherleib und der physische Leib aus dem astralischen heraus verdichtet. Der astralische Leib ist der Rest, der seine ursprüngliche Gestalt behalten hat.
+
+Wenn uns nun Gesundheit oder Krankheit entgegentreten, so dürfen wir sagen, daß sie der Ausdruck sind gewisser Kräfte, die wir im astralischen Leibe sehen. Wir sprechen hier selbstverständlich nur von den Krankheiten, die von innen heraus sich bilden, nicht von solchen, die durch äußere Einflüsse entstehen, wie Beinbruch, verdorbener Magen, Schnitt in den Finger. Wir sprechen von denjenigen krankhaften Zuständen, die aus des Menschen eigener Natur herausgeboren werden und wir fragen uns: Besteht nicht nur aus alter Zeit ein Zusammenhang zwischen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+dem astralischen Leibe und dem physischen Leib, sondern ist auch heute noch zwischen den inneren Vorgängen der Seele, Lust und Leid, und den physischen Zuständen unserer Leiber ein Zusammenhang vorhanden? Können wir sagen, daß etwas für die äußere Gesundheit des Menschen davon abhängt, daß er diese oder jene Gefühle durchmacht, diese oder jene Gedanken erlebt? Wenn wir uns mit solchen Gedanken durchdringen, werden wir hineinleuchten können in wichtige Erkenntnisse, die gerade unseren heutigen Menschen wertvoll sein sollten.
+
+Der Mensch hat heute die Fähigkeit verloren, sich zu der Erkenntnis aufzuschwingen, daß der physische Leib nicht das einzige ist. Es kommt dabei nicht darauf an, was der Mensch theoretisch glaubt, sondern es kommt darauf an, was er im Innersten seiner Seele für eine Gesinnung hat gegenüber den höheren Gliedern seiner Wesenheit. Um einzusehen, worauf es dabei eigentlich ankommt, erinnern wir uns an den Streit zwischen Rudolf Wagner und Carl Vogt, dem Verfasser der Schrift «Köhlerglaube und Wissenschaft». Wagner vertrat den spiritualistischen Standpunkt, während Vogt in dem Menschen nur ein Konglomerat von physischen Dingen, von Atomen sah. Die Gedanken sind für ihn nur eine Absonderung des Gehirns, ein blauer Dunst, der aus den Bewegungen des Gehirns entsteht. Im Tode hören die Stoffe auf, diesen blauen Dunst von Gedanken zu entwickeln. Dagegen wandte sich Wagner, aber ungefähr so, daß man glauben mußte: Wenn ein Elternpaar acht Kinder hat, so geht etwas von dem Geist der Eltern auf die Kinder über, verteilt sich auf die acht. Er stellt sich also den Geist ganz materiell vor, vielleicht wie so viele Menschen als ein Nebelgebilde. Aber es kommt darauf an, daß man mit seinen Gesinnungen, Empfindungen und Gefühlen sich aufschwingt, den Geist wirklich zu erfassen. So mag es auch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 198
+
+---
+
+heute viele geben, die zwar nichts wissen wollen von Materialismus, die aber gleichwohl den Geist ganz materiell auffassen. Auch viele Theosophen denken sich den Geist als feinverteilte Materie. Auch in der Theosophie verbirgt sich viel verschämter Materialismus.
+
+Wenn jemand sich nicht zu dieser Höhe des Geistes aufschwingen kann, dann tritt nach und nach eine innere Verödung, eine Leerheit, ein Unglaube an alles, was über die Materie hinausgeht, bei ihm auf. Wenn das die Gefühle ergreift, wenn sich das hineinfrißt in allen Glauben, in alle Gefühle der Seele, wenn der Mensch hinaussieht in die Welt und hinter dem, was er sieht, nichts mehr zu empfinden vermag, dann kommt zum Vorschein, was den Menschen immer mehr und mehr hinführt zum krassesten leiblichen Egoismus, wo ihm immer wichtiger wird der eigene Leib, wo er immer ferner und ferner steht dem Goetheschen Ausspruch:
+
+Von der Gewalt, die alle Wesen bindet,
+Befreit der Mensch sich, der sich überwindet.
+
+Wir kommen hier zu einer wichtigen Erscheinung des Materialismus, die erst in Zukunft ganz hervortreten würde, wenn es der Geisteswissenschaft nicht gelänge, sie zu überwinden. Wenn der Mensch nur mit dem Verstande begreift, was seine Sinne wahrnehmen, so wird für die Gesundheit der Menschen etwas ganz anderes folgen, als wenn er in dem, was ihm gegenübertritt, den sinnlichen Ausdruck eines Geistigen sieht. Materialistisches Denken und geisteswissenschaftliches Denken haben eine große Wirkung auf das menschliche Innere. Da hat die Frage nach der Bedeutung des materialistischen und des geisteswissenschaftlichen Denkens eine mehr als nur theoretische Bedeutung. Fragen wir zunächst nach der Wirkung; das eine wirkt verödend,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 199
+
+---
+
+das andere innerlich erfüllend. Für die Bedeutung dieser Wirkungen für den Menschen einige einfache Beispiele: Am ehesten wird man kurzsichtig, wenn man sich im Entwicklungsalter passiv den Eindrücken hingibt. Wenn man sich aber aktiv den Eindrücken der Dinge hingibt, dann bleiben die Augen gut. Der Mensch muß von innen heraus produktive Kraft entwickeln. Alles ist gesundend, was den Menschen veranlaßt, sich zum Mittelpunkt von schaffender, von produktiver Kraft zu machen. Er soll von innen heraus schaffen, sonst verödet seine produktive Kraft, und seine ganze Wesenheit wird durch die äußeren Eindrücke zusammengepreßt. Allen Eindrücken von außen muß die Gegenkraft von innen entgegentreten. Das muß aber auch durch das Umgekehrte sich ergänzen: der Mensch muß eine Tätigkeit entfalten, die sich gegen das Äußere abschließt, nach außen hin unsichtbar wird.
+
+Zwei Seelenerlebnisse gibt es, in die Sie sich ganz vertiefen sollten, die Ihnen zeigen, daß der Mensch eine innere Fülle besitzt, die ausstrahlt nach außen, und daß er einen Mittelpunkt sucht für die Tätigkeit nach außen. Diese zwei Gefühlsrichtungen sollte man studieren, denn sie führen uns tief hinein in die Krankheiten der Menschen. Das eine Gefühl ist negativ, die Angst, das andere positiv, die Scham; es bedeutet aber auch etwas Negatives. Angenommen, Sie stehen einem Ereignisse gegenüber, das Sie in Angst und Schrecken versetzt. Wenn Sie dies nicht vom materialistischen Standpunkte betrachten, sondern den Astralleib mit in Betracht ziehen, dann wird das Bleichwerden als Ausdruck erscheinen für Kraftströmungen im Menschen. Warum wirkt die Seele in dieser Weise auf die Verteilung des Blutes? Weil die Seele anstrebt, in sich einen Willensmittelpunkt zu schaffen, um von hier nach außen wirken zu können. Es ist förmlich ein Sammeln des Blutes im Mittel-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:200
+
+---
+
+punkt, um von da nach außen wirken zu können. Das ist mehr oder weniger bildlich gemeint. Bei der Scham ist es umgekehrt, wir erröten; das Blut strömt von innen zur Peripherie. Das Schamgefühl zeigt Zustände, wo wir, was sichtbar ist, auslöschen möchten, wo wir unser Ich auslöschen möchten. Der Mensch will das Ich schwach und schwächer machen, so daß es für das Äußere nicht mehr wahrnehmbar wird. Der Mensch braucht da etwas, um sich zu verlieren, ein Aufgehen im All, in der Weltenseele oder, wenn man will, in der Umgebung, so daß das, was wir unser Ich nennen, nicht nach außen sichtbar werden will. Hier haben Sie eine Polarität, die auf wichtige Zustände des Ätherleibes und des Astralleibes hinweist. Dies sind zwei Fälle, wo die Kräfte des Astralleibes nach außen sichtbar werden. Angst und Scham drücken sich in körperlichen Zuständen aus. Wenn Sie das bedenken, so werden Sie begreifen, daß alle seelischen Vorgänge eine Wirkung haben können in den Vorgängen des Organismus. So ist es wahr, so lehrt es die Geheim Wissenschaft; es gibt da einen Zusammenhang, wenn das auch zunächst dem Menschen nicht zum Bewußtsein kommt.
+
+Nun müssen wir aber die Erscheinung betrachten, daß die abstrakten Gedanken heute die denkbar geringste Wirkung auf den Organismus haben. Was wir in den abstrakten Wissenschaften lernen, hat die denkbar geringste Wirkung auf den Leib. Deren Prinzip ist, das, was wir sehen und wahrnehmen, in Verstandesbegriffe umzuwandeln. Diese Wissenschaft will nicht zugeben, daß der Mensch innere produktive Weisheit in sich hat, daß die Seele aus sich heraus etwas über die Welt produzieren kann. Äußerlich anschauend produziert sie nichts. Es steht im tiefsten Sinne den äußeren Eindrücken keine innere Produktionskraft gegenüber. Der Wissenschafter will nichts aus sich finden können.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 201
+
+---
+
+Wenn wir bedenken, wie tief das wurzelt, daß der Mensch glaubt, nichts mehr aus sich heraus finden zu können, so haben wir hier den Ausgangspunkt für die verödende Wirkung des nur am Äußeren haftenden Wissens.
+
+Welches Heilmittel gibt es nun hier für die ganze Menschheit? Das Heilmittel wäre, daß sich das innere Weisheits- und Wahrheitsforschen, die innere Produktivität des Geistes zu der äußeren Wissenschaft hinzugesellt. Das ist in der wahren Geisteswissenschaft zu finden. Da haben Sie Quellen eröffnet, durch die der Mensch aus sich selbst heraus das zu entwickeln vermag, was hinter den Dingen ist. Den einen erdrücken die Dinge. Wer aber sieht, was keine äußere Wahrnehmung aufnehmen kann, wer das aufnimmt, der schafft das Gegenstück zu der äußeren Wahrnehmung, das notwendig ist zur vollständigen Gesundung der Seele und des Leibes. Diese Gesundung der Seele kann nicht durch abstrakte Theorien und Gedanken herbeigeführt werden, die zu dünn, zu dürftig sind. Mächtig wirkt dagegen, was sich aus dem Begriffe in ein Bild verwandelt. Wie ist das zu verstehen? Sie können das am besten begreifen, wenn Sie an das denken, was man Entwickelung nennt. Sie hören da: Es gab einfachste Lebewesen, die immer komplizierter wurden bis herauf zum Menschen. Da haben Sie aber wieder nur abstrakte, dürftige Begriffe. Dasselbe finden Sie in vielen theosophischen Entwickelungslehren. Da geht man vom Logos aus und dann weiter in lauter abstrakten Begriffen wie Differenzierung, Evolution und Involution und so weiter. Das ist zu schwach in seiner Wirkung auf den Organismus. Stark aber wirkt, was in der Seele lebt, wenn man etwas durchdenkt, wie man es sich seit dem 14. Jahrhundert in Deutschland als Bild oder Imagination vor die Seele gestellt hat. Ein solches Bild soll hier einmal dargestellt werden.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 202
+
+---
+
+Wir wollen in einen Dialog verwandeln, was da dem Schüler gesagt wurde: Sieh dir die Pflanze an, stelle daneben den Menschen und vergleiche beide. Es darf da nicht der Kopf mit der Blüte und der Fuß mit der Wurzel verglichen werden. Das hat selbst Darwin, der Reformator der Naturwissenschaften, nicht getan. Dem Schüler wurde gesagt: Die Wurzel entspricht dem Kopf des Menschen; er ist eine umgekehrte Pflanze. - Die Geisteswissenschaft hat das immer gesagt. Was die Pflanze vom Sonnenstrahle in Keuschheit küssen läßt, damit herausgeboren werden kann die neue Pflanze, das richtet sich umgekehrt beim Menschen in Scham dem Mittelpunkt der Erde zu. Das Tier steht in der Mitte zwischen beiden. Das Tier ist die halbumgewendete Pflanze. Plato sagt, indem er zusammenfaßt, was in Pflanze, Tier und Mensch lebt: Die Weltenseele ist am Kreuze des Weltenleibes gekreuzigt. - Die Weltenseele, die durch Pflanze, Tier und Mensch geht, ist am Weltenleibe gekreuzigt. So ist immer von der Geisteswissenschaft das Kreuz erklärt worden. Nun wurde dem Schüler, dem dies bedeutsame Bild vorgeführt worden war, gesagt: Du siehst, wie der Mensch vom dumpfen Bewußtsein der Pflanze sich heraufentwickelt über das Tier bis dahin, wo er sein Selbstbewußtsein gefunden hat. Im schlafenden Menschen haben wir etwas, was denselben Daseinswert hat wie die Pflanze. Dadurch, daß der Mensch die reine, keusche Pflanzenmaterie durchzogen hat mit dem Begierdenleibe, ist er höher gestiegen, aber auch in gewisser Weise tiefer herabgestiegen. Er hätte sein hohes Ich-Bewußtsein sonst nicht erwerben können; aber jetzt muß er auch seine Begierdennatur wieder umwandeln. Der Mensch wird später ein Organ der Fortpflanzung haben, begierdefrei, wie der Kelch der Pflanze. - So wurde der Schüler hingewiesen auf die Zeit, wo der Mensch begierdefrei seinesgleichen hervorbringen wird.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 203
+
+---
+
+Das ist im Bilde des heiligen Gral in den Gralsschulen dargestellt worden. Hier haben Sie die Entwickelung nicht in Gedanken gegeben, sondern in einem Bilde, in einer Imagination. So könnten wir alles, was nur in abstrakten Begriffen gegeben wird, umwandeln in Bilder. Dadurch wäre viel getan. Wenn man dieses bedeutsame Entwickelungsideal vor sich aufsteigen läßt bis zur Entwicklung der Imagination vom heiligen Gral, dann hat man nicht nur Nahrung für die Urteilskraft, dann haftet nicht nur der Verstand daran, dann rankt sich das volle Wesen des Gefühls um ein solches Bild herum. Sie erschauern vor dem großen Weltgeheimnis, wenn Sie die Entwickelung der Welt in Wahrheit sehen und in solchen Bildern in sich aufnehmen; solche Bilder wirken gesetzmäßig harmonisierend auf den Organismus. Abstrakte Gedanken sind wirkungslos, diese Bilder aber wirken als gesundende innere Anreger. Bilder bewirken Affekte, und sind sie wahre Weltenbilder, Imaginationen, so wirken sie gesundend. Wenn der Mensch das, was er äußerlich sieht, verwandelt in diese Bilder, dann kommt er los von seinem Innern, dann wird der Sturm in Harmonie ausgelöst. Dann überwindet er die «Gewalt, die alle Wesen bindet», und er wird verwandt mit allem, was ihm entgegentritt. Er fließt nach außen, er wächst durch seine Gefühle mit der Welt zusammen. Das innere Selbst wird zu einem Geist-Universum erweitert. In dem Augenblick, wo der Mensch keine Möglichkeit hat, diese inneren Imaginationen zu bilden, da strömt alle Kraft nach innen, der Mensch haftet fest an seinem Ich. Das ist der geheimnisvolle Grund für das, was uns bei vielen Zeitgenossen entgegentritt: Die Menschen haben die alte Form der Religion verlassen, und nun werden sie auf sich selbst zurückgewiesen. Immer mehr leben sie in ihrem Innern, immer mehr nur mit sich selbst. Je weniger der Mensch die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 204
+
+---
+
+Möglichkeit hat, im allgemeinen Weltendasein aufzugehen, desto mehr spürt er, was in seinem Organismus vorgeht. Das ist die Ursache für falsche Angstgefühle und falsche Krankheitsvorstellungen.
+
+Das Bild wirkt von der Seele auf den Organismus, gesunde Disposition des Leibes wird durch wahre Bilder bewirkt. Falsche Bilder prägen sich auch ein. Sie erzeugen das, was uns in den Seelenstörungen entgegentritt, die später zu Leibesstörungen werden. Hier ist der wahre Grund, der schließlich zum Krankheitswahn führt. Derjenige, der sich abschließt gegenüber dem großen Weltenzusammenhang, der wird nicht abweisen können, was ihm entgegentritt. Dagegen ist unmöglich, daß der, welcher sich große Bilder eingeprägt hat, sich durch falsche Bilder täuschen läßt. Zum Beispiel würde er nicht, wie es manchmal geschieht, den Strom des Induktionsapparates durch seinen Körper ziehen spüren, obwohl gar kein Strom da ist.
+
+Jedes Bild, das sich nicht einreiht in den Weltzusammenhang, alles, was als einseitiges Bild des Alltags wirkt, ist zugleich ein krankmachendes Bild. Nur dadurch, daß der Mensch immer vom einzelnen aufschaut zum großen Geheimnisse der Welt, korrigiert er, was korrigiert werden muß. Das, was wirklich auf die Seele wirkt, kann eine starke Kraft entfalten. Was im Laufe der Kulturentwicklung in solcher Art hervorgebracht worden ist, ist etwas, was nicht vernachlässigt werden darf. Heute beschränken wir uns auf die Gesundheitsinstinkte. Betrachten wir von diesem Gesichtspunkte aus die Tragödie. Die alten Griechen wußten, daß der Mensch, der eine Tragödie ansieht, die Leiden miterlebt, von ihnen gepackt, ergriffen wird; aber wenn er hinausgeht, so weiß er, daß der Held gesiegt hat über die Leiden, daß der Mensch die Leiden der Welt überwinden kann. Durch den Anblick des Leidens und die Ober-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 205
+
+---
+
+windung des Leidens wird er gesund. Den Blick nach innen wenden, macht krank. Das, was im Innern lebt, äußerlich im Bilde zu sehen, das macht gesund. Darum definiert Aristoteles, die Tragödie führe vor, wie der Held hindurchgeht durch Leiden und Furcht, damit der Mensch von Leiden und Furcht geheilt wird. Das erstreckt sich weit. Der Geisteswissenschafter kann Ihnen sagen, weshalb die alten Völker dem Menschen in Märchen und Sagen Bilder vor die Seele führten: Es wurden ihm Bilder vorgeführt von dem, wovon er im Innern seinen Blick abwenden sollte. Das Blutfließen in den Märchen ist ein gesundes Erziehungsmittel. Wer die Mythen so verfolgen kann, der wird viel in ihnen sehen. Wenn zum Beispiel der Mensch äußerlich im Bilde Rache sieht, wenn er das, was er sich abgewöhnen soll, äußerlich im Bilde sieht, so wirkt das so, daß er es überwindet. Tiefe, tiefe Weisheit liegt auch in den blutrünstigsten Märchen. Unsere innere Harmonie wird gestört, wenn wir immer hineingaffen in unsere Seele; gesunden wird sie, wenn wir hineinblicken in das All, in den Kosmos. Aber man muß wissen, was für Bilder notwendig sind: Man hat etwa einen melancholischen Menschen, einen Hypochonder vor sich, der über gewisse Ereignisse nicht wegkommen kann. Nun will man ihn aufheitern durch heitere Musik oder dergleichen. Dadurch bewirkt man das Gegenteil, wenn es vielleicht auch für den Augenblick nicht so scheint; im tieferen Grunde seiner Seele findet er das schal und öde, selbst wenn er es nicht zugibt. Ernste Bilder sind notwendig, selbst wenn sie zuerst angreifen.
+
+So sehen Sie, daß aus der Geisteswissenschaft eine ganz bestimmte Seelenbehandlung hervorgehen kann. Dem Krankheitswahn kann man im einzelnen nicht beikommen. Er beruht auf unserer materialistischen Zeit, dem Mangel an Produktivität. Die falsche, unbegründete Angst, alle
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:206
+
+---
+
+die Gefühle, die das gestörte seelische Gleichgewicht ausdrücken, in der Melancholie und so weiter, werden erklärt durch tieferes Hineinblicken in die Zusammenhänge. Hier werden auch die Heilmittel gefunden. Niemals könnte es einem, der die Zusammenhänge durchschaut, geschehen, daß er nicht loskommen kann von seinem Ich. Es ist in solchen Fällen gewöhnlich irgendein Anlaß da, aber er wird vergrößert. Ein Beispiel: jemand stößt sich mit dem Knie an der Tischkante. Ihm fehlen die großen, ihn ganz in Anspruch nehmenden Gedanken, so daß er nicht loskommen kann von dem Schmerz. So wird der Schmerz immer größer. Der Arzt wird gerufen und sagt, man müsse das und das tun. Dann fühlt er auf einmal Schmerz im andern Knie. Dann kommt der Ellenbogen dazu und so fort, bis er schließlich Beine und Hände nicht mehr rühren kann, weil er sein Knie angestoßen hatte. Es mögen Dinge vorhanden sein, die die Aufmerksamkeit hinlenken auf einen bestimmten Punkt, aber es sind auch Dinge vorhanden, die einen Ausgleich schaffen können. Der Mensch findet in unserem immer schwerer und schwerer werdenden Leben nur den Ausgleich, wenn er die Geisteswissenschaft auf sich einwirken läßt. Dann wird er den Zivilisationseinflüssen gegenüber gewappnet sein.
+
+Wir können aber auch äußere Gründe finden für die mangelnde Produktivität. Die Tatsachen sprechen laut. Sehen Sie sich die Tiere an, die in unsere Kultur, in die Gefangenschaft verpflanzt sind. Da werden sie krank, sie, die draußen in der Freiheit niemals krank werden würden. Das kommt davon her, daß von allem, was aus der äußeren Umgebung stammt, starke Einflüsse ausgehen auf Mensch und Tier. Das Tier kann keine Gegenkraft entwickeln, denn seine Entwicklung ist abgeschlossen. Der Mensch kommt durch den Kulturfortschritt auch in die Dekadenz,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 207
+
+---
+
+wenn er den äußeren Einflüssen keine produktive Kraft entgegensetzen kann. Er muß durch innere Tätigkeit die Einflüsse umgestalten, umwandeln, dann können sie sogar zur Höherentwicklung des Menschen gebraucht werden. Der Mensch, der eine radikale materialistische Theorie ausarbeitet, der Schöpfer derselben, ist gesund, denn er schafft von innen heraus. Die Anhänger dieser Theorie veröden, weil bei ihnen keine eigene produktive Kraft vorhanden ist. Wenn Sie geisteswissenschaftliche Bücher lesen, so hat das gar keinen "Wert, wenn Sie sie nicht innerlich nachkonstruieren. Dann ist es ein innerliches Mitproduzieren. Wenn das nicht der Fall ist, dann ist es kein Studieren geisteswissenschaftlicher Bücher. Darauf kommt es an, die Kraft zu fühlen, die vorwärtsdrängen und die äußere Welt in sich aufnehmen will, und daß man das Gleichgewicht findet zwischen den äußeren Eindrücken und der inneren Produktivität. Vom äußeren Streit der Welt muß der Mensch frei werden, damit dieser sich nicht immer stärker bemerkbar macht und ihn erdrückt. Wir müssen den Gegenstoß ausführen. Der äußere Eindruck muß auch den Gegenstoß von innen erfahren. Dann kommen wir von ihm los, sonst weist er uns immer mehr in unser Inneres zurück. Achten wir immer nur auf unser Inneres, so entsteht ein Leidensbild vor unserer Seele. Wenn wir den Ausgleich der inneren Kraft, die rastlos vorwärts will, und der äußeren Kraft zum Ausdruck bringen, so verschmelzen wir mit der äußeren Welt. So haben wir heute im tieferen Sinne den Krankheitswahn als Zeiterscheinung kennengelernt.
+
+Der Ausgangspunkt war heute: Die Geisteswissenschaft will ein Heilmittel sein, damit der Mensch von sich loskommt und so von jeder bindenden Gewalt. Denn jede bindende Gewalt ist eine krankmachende. So können wir nur klar werden über den tiefen Kern der Goetheschen Strophe:
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 208
+
+---
+
+Denn alle Kraft dringt vorwärts in die Weite,
+Zu leben und zu wirken hier und dort;
+Dagegen engt und hemmt von jeder Seite
+Der Strom der Welt und reißt uns mit sich fort;
+In diesem innern Sturm und äußern Streite
+Vernimmt der Geist ein schwer verstanden Wort:
+Von der Gewalt, die alle Wesen bindet,
+Befreit der Mensch sich, der sich überwindet.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 209
+
+---
+
+# DAS GESUNDHEITSFIEBER IM LICHTE DER GEISTESWISSENSCHAFT
+
+München, 5. Dezember 1907
+
+Gesundheit ist etwas, wonach naturgemäß jeder Mensch verlangt. Und wir dürfen sagen: Dieses Verlangen des Menschen nach Gesundheit entspringt ja nicht allein den egoistischen Gefühlen und Wünschen, sondern es entspringt dem berechtigten Sehnen nach Arbeit. Wir verdanken unsere Arbeitsfähigkeit, die Möglichkeit, in der Welt zu wirken, der Gesundheit. Deshalb schätzen wir die Gesundheit als ein ganz besonderes Gut. Nun liegt aber gerade in dieser Denkungsart, die Gesundheit um der Arbeitsfähigkeit willen zu erstreben, etwas höchst Bedeutsames vor. In gewisser Weise liegt darin das Geheimnis, unter welchen Umständen Gesundheit überhaupt erstrebenswert ist. Es konnte dies sonderbar aussehen, daß Gesundheit nur unter gewissen Umständen erstrebenswert sein soll. Aber die heutige Betrachtung soll uns gerade zeigen, daß Gesundheit zu denjenigen Gütern gehört, die uns am ehesten dann werden, wenn wir sie nicht um ihrer selbst willen, sondern um eines anderen willen erstreben. Daß dies heute nicht immer geschieht, das kann jeden ein Blick in die Umwelt, die uns gegenwärtig umgibt, lehren.
+
+So merkwürdig es ist, wenn man von Gesundheitsfieber spricht, von einem fieberhaften Drängen nach Gesundheit, so kann doch mancher heute darüber seine Wahrnehmungen machen. Mit welchen Mitteln, auf welchen unzähligen Wegen drängen nicht heute die meisten Menschen nach Ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 5 6
+
+---
+
+sundheit. Heute finden wir überall ein hastiges Streben nach Gesundheit. Wir wandern durch Gegenden, in denen uns alte Burgen und Ruinen melden von denen, die einst als Mönche und Ritter Stärke des Geistes und leibliche Stärke ihr eigen nannten. Diese Burgen sind heute verfallen. Wir finden in denselben Gegenden heute Sanatorien. Und wann hätte es in irgendeiner Zeit der Weltenentwicklung so vielerlei Spezialbestrebungen gegeben, die Gesundheit zu erlangen, durch naturgemäße Lebensweise, Wasser- oder Luftheilmethoden? In Luft- und Sonnenbäder treibt man die Menschen. Ein Bekannter kam einmal in der ersten Hälfte des Sommers zu mir, er war auf dem Wege in ein Sanatorium. Mit Mühe und Not hatte er sich die vier Wochen Urlaub abringen können, die er dort zubringen wollte. Nach seiner Meinung war es selbstverständlich das Beste, was dem Menschen werden konnte, in dieser Zeit ein einigermaßen befriedigendes Dasein im Sanatorium zuzubringen. Deshalb wollte ich ihm nicht das Nutzlose seines Vorhabens klarmachen und ihm so alle Hoffnung nehmen. Auf dem Rückwege kam er wieder zu mir. Er brachte ein Büchelchen mit, in dem alles aufgeschrieben war, was er in diesen vier Wochen mit seinem Organismus hatte leisten müssen. Wieder konnte man ihm die Freude nicht nehmen, aber es lag einem doch die Frage auf der Zunge: Sagen Sie einmal, wann haben Sie sich denn mehr abgerackert, während des ganzen Jahres oder in diesen vier Wochen, wo Sie getrieben wurden vom Warmen ins Kalte, vom Trockenen ins Nasse und wo Sie mit manchem Besen abgekehrt wurden? - Und das Schlimmste war noch, nach einigen Wochen sagte er mir: Diese Kur hat mir nun ebensowenig geholfen, wie jede andere seit dreißig Jahren, - denn er hatte jeden Sommer etwas anderes versucht. Wer diesen Menschen lieb hatte, der konnte nur in einer etwas bedauernden
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Weise auf sein Gesundheitsfieber blicken. Wie viele Leute laufen heute zu Magnetiseuren und «geistigen Heilern»! Wie viele Schriften gibt es nicht über «Harmonie mit dem Unendlichen» und Ähnliches. Kurz, Gesundheitsfieber ist etwas, was in unserer Zeit lebt.
+
+Nun könnte man eine andere Frage aufwerfen: Sind denn diese Leute wirklich krank? - Gewiß, irgend etwas wird ihnen schon fehlen; aber ist denn überhaupt Aussicht vorhanden, durch alle diese Dinge seine Gesundheit zu erlangen?
+
+Ein uralter Ausspruch hat sich besonders bei den primitiven Leuten heute noch erhalten. Man sagt so häufig, das, was der einfache Mensch an solchen Aussprüchen hat, enthalte sehr oft etwas Gutes. - Ja, aber ebenso oft ist es auch etwas Falsches! Und so ist es auch mit diesem Ausspruch: Es gibt viele Krankheiten, aber nur eine Gesundheit. - Das ist eben sehr töricht. Es gibt so viele Gesundheiten, wie es Menschen gibt: für jeden Menschen seine individuelle Gesundheit. - Darin liegt schon ausgesprochen, daß alle allgemeinen schablonenhaften Vorschriften, das und das sei für den Menschen gesund, ein Unding sind. Gerade der Teil der Menschheit, der vom Gesundheitsfieber befallen ist, leidet am allermeisten unter den allgemeinen Vorschriften für die Gesundheit und darunter, daß er, im Glauben, daß es überhaupt etwas gäbe, was man allgemein als Gesundheit bezeichnen könne, meint, das und das müsse man machen, das sei gesund. Es ist das Unglaublichste, daß nicht eingesehen wird, daß für einen Menschen einmal ein Sonnenbad gesund sein kann, daß es aber nicht verallgemeinert werden darf; es kann für einen andern sehr schädlich sein. Im allgemeinen gibt man das zu, aber im besonderen handelt man nicht danach. Wir müssen uns klarmachen: Gesundheit ist ein ganz relativer Begriff, etwas, was einer
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 212
+
+---
+
+fortwährenden Veränderung unterliegt, besonders für den Menschen, der das komplizierteste Wesen auf dem Erdball ist.
+
+Wir müssen einen Blick tun in die Geisteswissenschaft, dann werden wir tief eindringen in die menschliche Natur und erkennen, wie veränderlich das ist, was wir Gesundheit nennen. Praktisch vergißt man meistens vollständig, worauf heute bei materiellen Dingen soviel Wert gelegt wird: man vergißt, daß auch der Mensch in Entwicklung begriffen ist.
+
+Was heißt es: Der Mensch ist in Entwicklung begriffen? - Noch einmal muß auf die Wesenheit des Menschen hingewiesen werden. Der physische Leib ist nur ein Teil der menschlichen Wesenheit. Diesen hat er gemeinschaftlich mit der ganzen leblosen Natur. Aber er hat als zweites Glied den Äther- oder Lebensleib, den er gemeinsam hat mit allem, was lebt. Dieser ist ein fortwährender Kämpfer gegen alles, was den physischen Leib zerstören will. In dem Augenblicke, wo der Ätherleib den physischen Leib verlassen würde, wäre der physische Leib ein Leichnam. Das dritte Glied ist der astralische Leib, den er mit den Tieren gemeinschaftlich hat, der Träger von Lust und Leid, von jeder Empfindung und Vorstellung, von Freude und Schmerz, der sogenannte Bewußtseinsleib. Der vierte Teil ist sein Ich, der Mittelpunkt seines Wesens, der ihn zur Krone der Schöpfung macht. Das Ich verändert die drei Leiber durch Entwicklung aus dem Mittelpunkt heraus. Betrachten wir einen ungebildeten Wilden, einen Durchschnittsmenschen und einen hochgebildeten Idealisten. Der Wilde ist noch der Sklave seiner Leidenschaften. Der Durchschnittsmensch läutert seine Triebe. Er versagt sich, gewissen Trieben nachzugeben und setzt an ihre Stelle das Recht oder hohe religiöse Ideale. Das heißt, daß er vom Ich aus seinen astralischen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Leib umarbeitet. Dadurch hat dieser jetzt zwei Glieder. Das eine hat noch die Gestalt, wie sie beim Wilden ist, der andere Teil aber ist umgestaltet zum Geistselbst oder Manas. Durch die Eindrücke der Kunst oder die großen Eindrücke der Religionsstifter arbeitet der Mensch an seinem Ätherleib und schafft Buddhi. Aber auch der physische Leib kann umgestaltet werden zu Atma, wenn der Mensch sich gewissen geisteswissenschaftlichen Übungen hingibt. So arbeitet der Mensch in unbewußter oder bewußter Art an seinen drei Leibern. Wenn wir weit, weit zurückblicken könnten in der Entwicklung der Menschheit, so würden wir überall primitive Kulturzustände, einfache Arten der Lebensweise finden. Alles, was da die Menschen an Gerätschaften haben, um ihre geistigen und körperlichen Bedürfnisse zu befriedigen, ihre ganze Lebensweise, ist einfach. Alles entwickelt sich und damit entwickelt sich der Mensch selber. Das ist das Wichtigste.
+
+Stellen Sie sich ganz lebhaft einen primitiven Menschen vor, der zwischen zwei Steinen seine Körner zermahlt zu Mehl, und vergegenwärtigen Sie sich, was sonst noch um diesen Menschen herum ist. Vergleichen Sie diesen Menschen mit einem Menschen der Spätkultur. Was ist alles um diesen herum, was sieht er alles vom Morgen bis zum Abend? Er nimmt die furchtbaren Eindrücke der lärmenden Großstadt auf, der Straßenbahnen und so weiter. Wir müssen nun verstehen, wie die Entwicklung vor sich geht. Wir müssen das, was wir für die einfachen Dinge einsehen, auch übertragen auf den Kulturprozeß. Goethe hat den Ausspruch getan: Das Auge ist vom Lichte für das Licht gebildet. - Wenn wir keine Augen hätten, sähen wir keine Farben und kein Licht. Woher haben wir das Auge? Auch das ist von Goethe gesagt: Aus gleichgültigen Organen hat das Licht die Augen herausgezogen. - So ist durch den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Ton das Ohr, durch die Wärme der Wärmesinn gebildet worden. Der Mensch ist gebildet durch dasjenige, was in der ganzen Welt um ihn herum sich ausbreitet. Wie die Augen dem Lichte, so verdanken andere feinere Strukturen im Organismus ihr Dasein auch dem, was den Menschen umgibt. Die einfache, primitive Welt ist die Dunkelkammer, die viele Organe noch zurückhält. Was für die gleichgültigen Organe, aus denen sich das Auge entwickelt hat, das Licht ist, das ist für den primitiven Menschen die Umgebung. Ganz anders wirkt sie auf den Menschen, so wie er heute lebt. Er kann nicht in den primitiven Kulturzustand zurückkehren, sondern ein immer intensiveres, stärkeres Geisteslicht ist um ihn wirksam gewesen, das immer Neues hervorgerufen hat.
+
+Nun können wir uns einen Begriff machen von der Bedeutung dieses umbildenden Kulturprozesses, wenn wir uns vergegenwärtigen, wie es den Wesen ergeht, die auch dieser Einwirkung unterworfen sind und die Umbildung nicht mitmachen können. Das sind die Tiere. Diese sind anders gebaut als die Menschen. Wenn wir das Tier ansehen, so wie es in der physischen Welt erscheint, so hat es seinen physischen Leib, seinen Ätherleib und seinen astralischen Leib in der physischen Welt, aber es hat kein Ich in der physischen Welt. Deshalb sind die Tiere auf dem physischen Plan unfähig zur Umwandlung der drei Leiber und können sich einer neuen Umgebung nicht mehr anpassen. Vorgestern haben wir die wilden Tiere in der Gefangenschaft betrachtet. Tiere draußen in der Wildnis haben nie Tuberkulose, Zahnfäule und so weiter, wohl aber in der Gefangenschaft. So zeigen sie eine ganze Reihe von Dekadenzerscheinungen in der Gefangenschaft oder in ähnlichen Verhältnissen. Der Mensch wird während des Kulturprozesses fortwährend in andere Verhältnisse gebracht. Darin
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 215
+
+---
+
+besteht die Kultur. Es gäbe sonst keine Entwicklung, keine Geschichte der Menschen. Das, was wir als Naturexperiment bei den Tieren in seiner Wirkung auf den physischen Leib beobachtet haben, das tritt uns bei den Menschen als das Gegenteil entgegen. Der Mensch vermag, weil er ein Ich hat, die Kultureindrücke, die auf ihn einstürmen, innerlich zu verarbeiten. Er ist innerlich tätig, paßt zunächst seinen astralischen Leib den geänderten Verhältnissen an und gliedert ihn um. Während der Mensch sich heranentwickelt, kommt er in höhere Kulturen und empfängt immer neue Eindrücke. Diese drücken sich zunächst in Gefühlen und Empfindungen aus. Würde der Mensch nun passiv, untätig bleiben, würde keine Aktivität sich regen, keine Produktivität, so würde auch der Mensch verkümmern, krank werden, wie das Tier. Aber das zeichnet den Menschen aus, daß er sich anpassen kann und vom Astralleib aus den Ätherleib und physischen Leib allmählich umzuändern vermag. Der Mensch muß aber innerlich dieser Umwandlung gewachsen sein, sonst tritt kein Gleichgewicht ein zwischen dem, was äußerlich an ihn herantritt und dem, was von innen dagegen wirkt. Wir würden erdrückt werden durch die Eindrücke von außen, wie das Tier von ihnen erdrückt wird im Käfig, weil es keine innere Produktivität entwickelt. Der Mensch hat aber diese innere Tätigkeit. Den geistigen Lichtern um ihn herum muß der Mensch immer etwas entgegensetzen können, gewissermaßen ihnen Augen entgegenbringen.
+
+Alles ist ungesund, was eine Disharmonie ergibt zwischen äußeren Eindrücken und innerem Leben. Gerade in der Großstadt können wir sehen, was es bewirkt, wenn die äußeren Eindrücke immer gewaltiger werden. Wenn wir immer mehr dahinstürmen müssen, wenn wir polternde Töne, hastende Menschen an uns vorbeigehen lassen müss
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+sen, ohne dagegen Stellung zu nehmen, ohne dagegen zu wirken, dann ist das ungesund. Unter der Stellungnahme dagegen ist am wenigsten eine verstandesmäßige zu verstehen, sondern es kommt darauf an, daß unsere Empfindung, unsere Seele, ja unser Leibesleben dazu Stellung nehmen kann. Wir werden das recht verstehen durch die Betrachtung einer bestimmten Krankheit, die besonders in unserer Zeit auftritt und die früher nie da war: Ein Mensch, der nicht viel aufzunehmen gewöhnt ist, der arm ist in seiner Seele, wird allen möglichen Eindrücken entgegengeführt, so daß er einem ganz unverstandenen Äußeren gegenübersteht. Das ist namentlich bei vielen weiblichen Naturen der Fall: das Innere ist zu schwach, zu wenig gegliedert, um alles zu verarbeiten. Aber auch bei vielen männlichen Personen finden wir das. Die Folge sind hysterische Krankheiten. Alle diese Krankheiten sind hierauf zurückzuführen.
+
+Eine andere Form von Krankheit tritt dann auf, wenn unser Leben uns dazu bringt, gegenüber dem, was in der Außenwelt uns entgegentritt, zu viel verstehen zu wollen. Bei Männern, die an der Kausalitätskrankheit leiden, tritt das am meisten hervor. Man gewöhnt sich an, immer zu fragen: Warum? Warum? - Es wird sogar vom Menschen als dem nie rastenden Kausalitätstier gesprochen. Wir können heute den unnützen Fragern nicht mehr die Antwort geben, die ein Religionsstifter gegeben hat, weil wir zu höflich sind. Er sagte, als man ihn fragte: Was hat Gott vor der Erschaffung der Welt getan. - Er hat Ruten geschnitten für die, die unnütze Fragen stellen. - Das ist gerade der entgegengesetzte Zustand wie beim Hysteriker. Hier ist ein zu großes rastloses Sehnen nach Rätsellösung. Es ist das nur ein Ausdruck für eine innere Stimmung. Wer nicht müde wird, immer zu fragen «Warum?», der hat eine an-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 217
+
+---
+
+dere Konstitution als andere Menschen, der zeigt, daß er einen anderen inneren Ablauf der geistigen und leiblichen Funktionen hat als ein Mensch, der nur bei einer äußeren Veranlassung fragt «Warum?». Dies führt zu allen hypochondrischen Zuständen von der leichtesten Art bis zum schwersten Krankheitswahn. So wirkt der Kulturprozeß auf die Menschen. Der Mensch muß vor allem einen offenen Sinn haben, um immer das verarbeiten zu können, was an ihn herantritt. Nun können wir uns auch erklären, warum so viele Menschen den Drang bekommen: Hinaus aus dieser Kultur, hinaus aus diesem Leben! Sie sind nicht mehr gewachsen dem, was auf sie eindringt; sie streben hinaus. Das sind immer schwächliche Naturen, die den äußeren Eindrücken kein mächtiges Inneres entgegenzustellen wissen.
+
+Wir können darum heute gar nicht irgendwie von einer allgemeinen Schablone der Gesundheit sprechen, weil eben unser Leben so mannigfaltig ist. Der eine steht hier, der andere dort. Und weil das, was sich im Menschen entwickelt hat, in gewisser Weise durch die Außenwelt entwickelt worden ist, so hat jeder Mensch seine eigene Gesundheit. Deshalb müssen wir den Menschen fähig machen, seine Umgebung ertragen zu können bis in die Leibesvorgänge hinein. Für einen Menschen, der in Verhältnisse hineingeboren ist, wo leichte Muskeln, leichte Nerven erforderlich sind, für den wäre es etwas Törichtes, dicke Muskeln heranzubilden. Wo liegt der Maßstab für die gedeihliche Entwicklung des Menschen? Er liegt im Menschen selber. Mit der Gesundheit ist es wie mit dem Gelde. Wenn wir nach dem Gelde streben, um es zu wohltätigen Zwecken zu haben, so ist es etwas Heilsames, etwas Gutes. Das Streben nach Geld darf nicht verworfen werden, denn es ist etwas, was uns fähig macht, den Kulturprozeß zu fördern. Streben wir nach Geld um des Geldes willen, so ist das absurd,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 218
+
+---
+
+lärcherlich. Ebenso ist es mit der Gesundheit. Streben wir nach der Gesundheit um der Gesundheit willen, so hat sie keine Bedeutung. Streben wir nach der Gesundung um dessentwillen, was wir mit der Gesundheit erreichen können, dann ist das Streben nach Gesundheit berechtigt. Wer Geld erwerben will, soll sich erst klarmachen: Wieviel brauchst du? — Dann soll er danach streben. Wer sich nach Gesundheit sehnt, der muß in Betracht ziehen, was in der Realität mit den leicht mißverständlichen Worten: Behagen, Lebenslust und Lebensfreude gesagt werden kann. Bei den primitiven Menschen ist Lebensfreude, Lebensbefriedigung, Lebenslust vorhanden. Bei dem Menschen, bei dem äußeres und inneres Leben in Harmonie stehen, bei dem harmonisch ausgebildeten Menschen muß es sich so verhalten, daß, wenn irgendwo Unlust vorhanden ist, wenn irgend etwas schmerzt, leiblich oder seelisch, dieses Unlustgefühl ein Anzeichen für irgendeine Krankheit, für eine Disharmonie ist. Deshalb ist in aller Erziehung, in aller öffentlichen Arbeit nicht schablonenmäßig zu arbeiten, sondern aus der Breite der Kulturanschauung heraus, so daß dem Menschen Freude und Befriedigung am Leben möglich ist.
+
+Sonderbar, daß das gerade von einem Vertreter der Geisteswissenschaft gesagt wird! Das sagt nun die Geisteswissenschaft, der man vorwirft, sie strebe nach Askese! Wenn einer, der eine große Freude daran hat, jeden Abend ins Tingeltangel zu gehen oder seine acht Maß Bier zu trinken, Leute findet, die an etwas Höherem Freude finden, da sagt er eben: Sie kasteien sich. - Nein, kasteien würden sich diese Leute, wenn sie sich zu ihm setzten. Wer am Tingeltangel und dergleichen Freude hat, der gehört dahin, und es wäre verkehrt, ihm die Freude zu nehmen. Gesund wäre es nur, ihm den Geschmack daran zu nehmen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Arbeiten soll man, um die Genüsse, die Befriedigungen zu läutern. Nicht deshalb setzen sich die Theosophen zusammen, weil es ihnen weh tut, zu sprechen über höhere Welten, sondern weil es ihnen die höchste Lust ist. Ihnen wäre es die fürchterlichste Entsagung, sich hinzusetzen und «Sechsundsechzig» zu spielen. Sie sind in jeder Lebensfaser lebensfreudig, darum leben sie so.
+
+Es handelt sich nicht darum, auch bei der Gesundheit zu sagen: Das und das sollst du tun! — Es handelt sich darum, für Freude und Befriedigung zu sorgen. Hierin gerade ist der Geisteswissenschafter ein vollständiger Feinschmecker des Lebens. Wie ist das auf die Gesundheit zu übertragen? Wir müssen uns klar sein darüber, daß, wenn wir jemandem irgendeine Vorschrift geben in bezug auf die Gesundheit, wir gerade das treffen müssen, was seinem Astralleib Freude, Wonne, Lust gibt. Denn vom Astralleib wird gewirkt auf die andern Glieder. Das ist aber leichter gesagt als getan. Deshalb ein Beispiel.
+
+Es gibt sogar unter den Theosophen solche, die sich so «kasteien», daß sie kein Fleisch mehr essen. Wenn das Leute waren, die durchaus noch Gier nach Fleisch haben, dann wäre dies höchstens eine Vorbereitung für einen späteren Zustand. Es kommt aber eine Stufe, wo der Mensch eine solche Beziehung zur Umgebung hat, daß es ihm unmöglich wird, Fleisch zu essen. Ein Arzt, der auch kein Fleisch aß, aber nicht aus dem Grunde, weil er Theosoph war, sondern weil er diese Lebensweise für gesund hielt, wurde von einem Freunde gefragt, warum er kein Fleisch aße. Er antwortete mit der Gegenfrage: Warum essen Sie denn kein Pferde- oder Katzenfleisch? — Und da mußte freilich der Freund sagen, das sei ihm ekelhaft, obwohl er Schweinefleisch, Rindfleisch und so weiter aß. — So war dem Ärzte eben alles Fleisch ekelhaft.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:220
+
+---
+
+Dann erst, wenn der innere subjektive Zustand der objektiven Tatsache entspricht, dann ist der Zeitpunkt gekommen, daß die äußere Tatsache gesundend wirkt. Wir müssen den äußeren Tatsachen gewachsen sein. Das drückt sich aber aus durch das Wort «Behagen», das wir nicht trivial gebrauchen dürfen, sondern in seiner ehrwürdigen Bedeutung als harmonisches Zusammenstimmen unserer inneren Kräfte. Glück und Freude und Lust und Befriedigung, die die Grundlagen für ein gesundes Leben sind, entspringen immer demselben Grunde, dem Gefühle eines inneren Lebens, das die Begleiterscheinung von Produktivität, von innerer Tätigkeit ist. Glücklich ist der Mensch, wenn er tätig sein kann. Diese Tätigkeit ist nicht grob zu verstehen.
+
+Warum macht die Liebe den Menschen glücklich? Sie ist eine Tätigkeit, der wir die Tätigkeit manchmal gar nicht ansehen. Weil sie eine Tätigkeit von innen nach außen ist, die das andere mitumfaßt. Wir strömen dabei unser Inneres aus. Darum das Gesundende, das Glücklichmachende der Liebe. Produktivität kann das Intimste sein und muß nicht tumultuarisch sichtbar werden. Wenn irgend jemand über einem Buche sitzt und die Eindrücke ihn niederschlagen, ihn bestürmen, dann wird er allmählich in gedrückte Stimmung kommen. Wenn aber beim Lesen des Buches Bilder geweckt werden, dann liegt eine Produktivität vor, die glücklich macht. Es ist etwas ganz Ähnliches, wie wenn man vor einem Ereignis Angst hat und bleich wird. Dann drängt das Blut nach innen, um uns stark zu machen, damit das, was uns außen entgegentritt, ein Gegengewicht finde im Innern. Im Angstgefühl wird die innere Produktion wachgerufen zur Tätigkeit nach außen. Das Gewahrwerden einer inneren Tätigkeit ist das Gesundende. Wenn der Mensch die Tätigkeit des inneren Büdens beim Entstehen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 221
+
+---
+
+des Auges aus dem gleichgültigen Organ hätte fühlen können, so würde der Mensch sie als ein Wohlgefühl empfunden haben; er war jedoch dabei noch nicht bewußt.
+
+Viel besser ist es, Sie bringen einen abgearbeiteten Menschen nicht in ein Sanatorium, sondern in ein Milieu, wo er Freude hat, zuerst seelische Freude, aber auch physische Freude. Den Menschen in ein Milieu der Freude zu bringen, wo bei jedem Schritt das innere Gefühl der Freude wach wird, das ist es, was ihn gesund macht, wenn er etwa die Sonnenstrahlen durch die Bäume fallen sieht, die Farben und den Duft der Blumen wahrnimmt. Das muß aber der Mensch selbst fühlen können, so daß er seine Gesundheit selbst in die Hand nehmen kann. Jeder Schritt soll ihn anregen zu innerer Tätigkeit. Paracelsus tat den schönen Ausspruch: Es soll jeder am besten er selbst, seiner selbst und keines andern sein. - Es ist schon eine Beschränkung dessen, was uns gesund macht, wenn wir erst zu einem andern gehen müssen. Da stehen wir schon den äußeren Eindrücken gegenüber, die wohl für kurze Zeit Erfolg zu haben scheinen, aber schließlich gerade zur Hysterie führen.
+
+Wenn man die Sache so betrachtet, so kommt man auf andere gesunde Gedanken. Es gibt heute Menschen und auch Ärzte, besonders Laienärzte, die einen Kampf führen gegen die Schulmedizin. Es ist ja eine Reform der Medizin nötig, aber das kann nicht durch diese Kämpfe geschehen, sondern geisteswissenschaftliche Tatsachen müssen in die Wissenschaft selbst gelangen. Die Geisteswissenschaft ist aber nicht dazu da, den Dilettantismus zu fördern. Es gibt heute Menschen, die das Kurierfieber haben. Es ist ja sehr leicht, bei einem Menschen die und die Krankheit zu finden. Da findet einer, daß dieses oder jenes Organ nicht so ausschaut, wie bei einem andern. Da atmet einer nicht so, wie der vom Kurierfieber Ergriffene meint, daß alle atmen müs-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 222
+
+---
+
+sen. Und dann muß kuriert werden! Schauderhaft, höchst schauderhaft! Denn darum handelt es sich gar nicht, daß man auf einen schablonenhaften Begriff der Gesundheit hinarbeitet. Es ist sehr leicht zu sagen, das und das entspricht der Gesundheit nicht. Da ist jemandem ein Bein abgefahren; der ist krank, sicher kränker als einer, der unregelmäßig atmet, der an der Lunge krank ist. Es handelt sich aber nicht darum, diesen Menschen zu kurieren. Es wäre töricht zu sagen: Man muß sehen, daß dieser Mensch wieder zu seinem Bein kommt! - So machen Sie ihm doch sein Bein wachsen! Es handelt sich vielmehr darum, ihm das Leben so erträglich wie möglich zu machen.
+
+Das ist so im Groben; im Feineren ist es aber dasselbe. Denn bei jedem Menschen könnte man irgendwo einen kleinen Fehler finden. Auch hier handelt es sich manchmal gar nicht darum, den Fehler zu beheben, sondern darum, dem Menschen trotz des Fehlers das Leben so erträglich als möglich zu machen. Denken Sie sich eine Wunde am Stamm einer Pflanze. Da wachsen die Gewebe und die Rinde um die Wunde herum. Ähnlich ist es auch beim Menschen. Die Kräfte der Natur erhalten das Leben, indem sie herumwachsen um den Fehler. In diesen Fehler, alles kurieren zu wollen, verfallen hauptsächlich die Laienärzte. Sie wollen allen Menschen die eine Gesundheit anzüchten. Aber die eine Gesundheit gibt es so wenig wie den einen normalen Menschen. Nicht nur die Krankheiten sind individuell, sondern auch die Gesundheiten. Das Beste, was wir dem Menschen geben können, sei es als Arzt, sei es als Ratgeber, ist, ihm die feste Empfindung zu geben, daß er sich selbst behaglich fühlt, wenn er gesund, unbehaglich, wenn er krank ist. Das ist heute gar nicht so leicht bei unseren Verhältnissen. Am meisten wird einer, der die Sache versteht, sich vor solchen Krankheiten fürchten, die nicht durch Müdig-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 223
+
+---
+
+keit und Schmerzen zum Ausdruck kommen. Deshalb ist es so schlimm, sich mit Morphium zu beruhigen. Gesund ist es, wenn Gesundheit Lust, Krankheit Unlust bringt. Diese gesunde Lebensweise können wir erst erwerben, wenn wir uns innerlich stark machen. Das tun wir, wenn wir den komplizierten Verhältnissen auch ein starkes Inneres entgegensetzen. Das Gesundheitsfieber wird erst aufhören, wenn die Menschen nicht mehr nach der Gesundheit als solcher streben. Der Mensch muß fühlen und empfinden lernen, ob er gesund ist, und daß man fehlendes Wohlbefinden leicht ertragen kann. Das ist nur möglich durch eine starke Weltanschauung, die bis in den physischen Körper wirkt. Sie stellt die Harmonie her. Eine solche Weltanschauung hängt aber nicht von äußeren Eindrücken ab. Die geisteswissenschaftliche Weltanschauung führt den Menschen in Gebiete, die er nur erreichen kann, wenn er innerlich tätig ist. Man kann nicht ein geisteswissenschaftliches Buch lesen, wie man andere Bücher liest. Es muß so geschrieben sein, daß es die Eigentätigkeit hervorruft. Je mehr man sich selbst abplagen muß, je mehr zwischen den Zeilen steht, desto gesünder ist es. Das betrifft nur das theoretische Gebiet. Die Geisteswissenschaft wirkt aber auf allen Gebieten.
+
+Das, was wir Geisteswissenschaft nennen, ist dazu da, um als starke Geistesbewegung zu wirken, die Begriffe hervorruft, die mit den stärksten Spannkräften ausgestattet sind, damit die Menschen Stellung nehmen können zu dem, was ihren Augen entgegentritt. Ein inneres Leben, das bis in die Glieder, bis in die Blutzirkulation sich erstreckt, will die Geisteswissenschaft geben. Dann wird jeder Mensch seine Gesundheit empfinden in seinem Gefühl der Freude, in seinem Gefühl der Lust und Befriedigung. Wertlos ist auch meistens jede Diätvorschrift. Daß mir der andere sagt, das und das ist gut für mich, das macht es nicht aus. Daß ich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:224
+
+---
+
+im Aufnehmen der Nahrung Befriedigung empfinde, darauf kommt es an. Der Mensch muß Verständnis haben für sein Verhältnis zu diesen oder jenen Nahrungsmitteln. Wir sollen wissen, was für ein geistiger Prozeß da vor sich geht zwischen der Natur und uns. Alles zu vergeistigen, das ist das Gesundende.
+
+Man denkt heute vielleicht gerade von dem Geisteswissenschafter, daß ihm das Essen etwas Gleichgültiges ist, was er verständnislos hineinstopft. Sich bewußt zu werden, was es heißt, einen Teil des Kosmos zu sich zu nehmen, der vom Sonnenlicht durchglüht ist, von dem geistigen Zusammenhang zu wissen, in dem unsere Umwelt steht, sie nicht nur physisch, sondern auch geistig zu genießen, das befreit uns von allem krankmachenden Ekel, von aller krankmachenden Überlastung. So sehen wir, daß es große Anforderungen an die Menschheit stellt, das Gesundheitsstreben in die richtigen Bahnen zu lenken. Aber die Geisteswissenschaft wird die Menschen stark machen. Sie wird immer mehr jeden Menschen, der sich ihr widmet, zur Norm seiner selbst machen. Das ist zugleich das edle Freiheitsstreben, das aus der Geisteswissenschaft kommt und das den Menschen zum Herrscher seiner selbst macht. Jeder Mensch ist eine individuelle Wesenheit hinsichtlich seiner Eigenschaften sowohl wie seiner Gesundheiten und Krankheiten. Wir sind in den gesetzmäßigen Zusammenhang der Welt gestellt und müssen unser Verhältnis zur Welt kennenlernen. Keine äußere Macht kann uns helfen. Wenn wir diesen starken inneren Halt finden, so sind wir erst ganze Menschen, denen nichts genommen werden kann. Aber es kann uns auch niemand etwas geben. Wir werden uns jedoch in Gesundheit und Krankheit zurechtfinden, weil wir den starken inneren Halt in uns selbst haben. Dieses Geheimnis allen gesunden Strebens hat wieder ein Geist aus-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:225
+
+---
+
+gedrückt, ein eminent gesund denkender und fühlender Geist. Er sagt uns, wie das harmonisierte menschlinde Wesen seinen Weg unbeirrt geht. Goethe ist es, der uns in seinem Gedicht «Urworte orphisch» sagt:
+
+Wie an dem Tag, der dich der Welt verliehen,
+Die Sonne stand zum Gruße der Planeten,
+Bist alsobald und fort und fort gediehen
+Nach dem Gesetz, wonach du angetreten.
+So mußt du sein, dir kannst du nicht entfliehen -
+So sagten schon Sibyllen, so Propheten;
+Und keine Zeit und keine Macht zerstückelt
+Geprägte Form, die lebend sich entwickelt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+# BERUF UND ERWERB
+
+Berlin, 12. März 1908
+
+Viele, die oberflächlich von dem, was man Geisteswissenschaft oder Theosophie zu nennen pflegt, gehört haben, werden es einigermaßen verwunderlich finden, daß, nachdem schon von diesem Gesichtspunkte aus über die mannigfachsten praktischen Themen gesprochen worden ist, sogar der Versuch gemacht wird, von diesem geisteswissenschaftlichen Standpunkt aus über Beruf und Erwerb zu sprechen. Denn viele unserer Zeitgenossen haben aus einer solchen mehr oder weniger oberflächlichen Kenntnisnahme die Vorstellung erhalten, daß die Geisteswissenschaft etwas sei, was fernab liegt von allem praktischen Leben, so ungeeignet wie nur möglich, irgendwie einzugreifen in dieses praktische Leben des Alltags. Eine Vorstellung werden Sie nicht so selten antreffen, wie sie sich ausdrückt in den Worten: Ach, diese Geisteswissenschaft, sie ist etwas für einzelne Leute, die satt im Leben sind, die nichts Praktisches zu tun haben und die daher überflüssige Zeit genug haben, sich mit allerlei so verworrenen, phantastischen Spekulationen, wie die geisteswissenschaftlichen Ideen es sind, zu befassen.
+
+Nun soll von Anfang an nicht geleugnet werden, daß im Grunde genommen ein solcher Vorwurf bei vielen Erscheinungen, die, sagen wir, als theosophisch auftreten, sogar gerechtfertigt ist, daß es vielfach zutrifft, daß diejenigen, welche sich mit theosophischen Dingen, theosophischen Ideen und Vorstellungen befassen, wirklich dem alltäglichen Leben so fremd als möglich gegenüberstehen. Aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 227
+
+---
+
+selbst unter denjenigen, welche schwer zu kämpfen und zu arbeiten haben im alltäglichen Leben und sich nur mit Mühe durchringen, finden sich solche, die aus innerer Sympathie, aus einer Herzenssehnsucht heraus zur Geisteswissenschaft getrieben werden. Unter diesen wird es so manche geben, für die diese Zweiheit - der alltägliche Beruf, die alltägliche Arbeit, das mühselige Walten vom Morgen bis zum Abend, und dann das Aufgehen in den großen Ideen - etwas Herrliches hat. Für andere werden diese beiden Dinge recht unvermittelt nebeneinanderstehen, das eine wird sozusagen weit, weit abliegen von dem anderen. Derjenige aber, welcher in der Theosophie oder in der Geisteswissenschaft nicht bloß eine müßige Beschäftigung für einige Träumer und Phantasten sieht, sondern etwas, was geeignet ist, ganz tief in unsere ganze Kulturbewegung einzugreifen, sie zu erneuern, sie aufzufrischen von dem geistigen Standpunkte aus, der wird auch die Überzeugung streng vertreten müssen, daß diese Theosophie oder Geisteswissenschaft gerade das ist, was in die wahre, echte Erkenntnis der Wirklichkeit hineinführt, und auch etwas Wichtiges, Wesentliches zu sagen hat da, wo die großen Fragen des Alltags, wo diejenigen Dinge auftreten, die den Menschen vom Morgen bis zum Abend in seiner harten Arbeit betreffen.
+
+Derjenige, der sich nicht oberflächlich, sondern tiefer einläßt in dasjenige, was die Theosophie oder die Geisteswissenschaft zeigen kann, der nicht nur einige abstrakte Ideen aus ihr gewinnt, sondern auch die tiefsten Lebensimpulse, der wird sehr bald zu der Einsicht kommen, daß im weitesten Umkreise des Lebens gerade durch die Geisteswissenschaft ein wahres, ein gesundes, ein richtiges Urteil zu gewinnen ist. Mit ein paar abstrakten Sätzen ist es allerdings nicht getan, am wenigsten mit dem Grundsatz von irgendeiner abstrakten Bruderschaft der Menschheit. Diese ab
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 228
+
+---
+
+strakte allgemeine Bruderschaft der Menschheit ist etwas Selbstverständliches für jeden guten und richtig strebenden Menschen. Dasjenige aber, was der Theosophie oder der Geisteswissenschaft obliegt, ist nicht bloß, diese allgemeine, die Menschheit umfassende Bruderliebe zu predigen, sondern die Methode, die Bedingungen zu schaffen, durch welche wahre, echte Menschenbruderschaft möglich ist und auch verwirklicht werden kann. Freilich gibt es viele in unserer Zeit, die auch so sagen; aber es fehlt ihnen der Überblick.
+
+Betrachten wir nun das ganze menschliche Dasein von den uralten Zeiten bis heute, und vergleichen wir das alltägliche Leben unserer Gegenwart mit dem, was zu allen Zeiten da war, so finden wir, nach der Meinung vieler Leute, daß sich gewisse Formen des Lebens nicht geändert haben: Reich und arm habe es immer gegeben; Not und Elend auf der einen, Wohlleben und Zufriedenheit auf der anderen Seite seien immer dagewesen und durch keine menschliche Geistesbewegung jemals aus der Welt geschafft worden. Daher könne man auch nicht glauben, daß eine so-wie viele Leute sagen - «idealistische» Geistesbewegung wie die theosophische irgend etwas Erhebliches gerade über dasjenige, was unsere Zeit in bezug auf Beruf und Erwerb bewegen muß, aussagen könne.
+
+Wir betrachten aber dieses unser heutiges Thema am besten dadurch, daß wir die beiden Vorstellungen von Beruf und Erwerb in echtem geisteswissenschaftlichem Sinne ins Auge fassen. Da wird sich uns zeigen, daß es vor allen Dingen recht sehr not tut, ein vertieftes Denken zu pflegen, um in das, was uns unser mannigfaltiges und vielgestaltiges Leben in bezug auf Beruf und Erwerb darbietet, hineinzukommen. Die Phrase von «reich und arm» hat es natürlich immer gegeben. Das allein tut es nicht, wenn man das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Leben verstehen will. "Wenn wir aber einen Blick in unsere Umwelt werfen und sie vergleichen mit dem, was vor Jahrhunderten oder auch kürzeren Zeitspannen die Umwelt des Menschen war, dann zeigt sich uns allerdings, daß sich die Form des Lebens wesentlich geändert hat, daß dasjenige, was heute die Gründe von Not und Elend, von Jammer und Armut sind, durch eine durchaus neue Lebensform hervorgebracht worden ist. Es zeigt sich, daß es sehr nötig wäre, daß die Menschen im weitesten Umkreis gerade über diese Fragen der Änderung des Verhältnisses des Menschen zu Beruf und Erwerb mehr nachdenken würden. Wer dieses Leben überblickt, wie es sich durch Jahrhunderte nach und nach entwickelt hat, der wird sich bei gereiftem Denken sagen müssen, daß eine gewisse Menschenklasse, um die es sich heute vor allen Dingen handelt, wenn wir irgend etwas Erhebliches sagen wollen über diese Frage, erst in neuester Zeit geschaffen worden ist, und daß gerade in dieser einen Menschenklasse immer mehr und mehr eine Bedeutung gewinnt, was sich uns durch die Frage nach Beruf und Erwerb in unserer Zeit in aller Stärke und Intensität enthüllt. Wenn wir noch tiefer gehen, werden wir sehen, daß es in dieser Frage sich zeigt, was es heißt, wenn die Menschheit auf der einen Seite vorwärtsschreitet, und auf der anderen Seite nicht imstande ist, ihren eigenen Fortschritt mit der notwendigen Erkenntnis und dem notwendigen Interesse zu verfolgen. Dasjenige, was wir heute den modernen Arbeiter, den Industriearbeiter nennen, das ist in dieser Form, wie es heute existiert, eigentlich erst ein Ergebnis der Entwicklung der Menschheit in den letzten Jahrhunderten.
+
+Dies hängt zusammen mit den bewunderungswürdigen, den herrlichsten, den größten Fortschritten innerhalb der Menschheitsentwicklung. Wir sehen heute die Erde übersät mit den Hervorbringungen des menschlichen Gedankens,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 230
+
+---
+
+der menschlichen Erfindungen, Entdeckungen und Künste. Überall, wo die Menschen Fabriken und Unternehmungen aufbauen, wo hinuntergegraben wird in die Erde, wo man nach Bodenschätzen und Metallen sucht, überall haben wir ein Ergebnis des menschlichen Gedankens vor uns. Die Fortschritte des Natur er kennen, die Beherrschung der Naturgesetze, alles dasjenige, was menschliches Denken, menschliche Geistesarbeit im Laufe der Jahrhunderte geschaffen hat, das sehen wir wie kristallisiert in unserer Industrie, in den Fäden aller Art, die sich über die Erde hinspannen in unseren modernen Verkehrsmitteln. Alles das hat unserem Leben das Gepräge gegeben. Alles das, was so die menschliche Geisteskraft geschaffen hat, das hat erst den modernen Arbeiter, den man gewöhnlich den proletarischen Arbeiter nennt, hervorgebracht. Mit ihm ist in Wahrheit erst die moderne Form unserer Kalamität in bezug auf Beruf und Erwerb entstanden. Es gibt kaum irgendeine Schicht der Bevölkerung, kaum irgendeine Klasse — und gehöre sie diesem oder jenem Felde des Lebens an -, die nicht irgendwie berührt würde von dem, was auf diese Weise für die Menschheit geschaffen worden ist.
+
+Fragen wir uns jetzt: Hat menschliches Denken, hat menschliches Interesse auch vermocht, jene soziale Struktur zu schaffen, die in irgendeiner Harmonie, in irgendeiner Angemessenheit steht zu dem, was in den Gebieten der Technik und der Industrie die menschliche Geisteskraft geschaffen hat? Man denke sich einmal hypothetisch, was geworden wäre, wenn die Menschen, oder wenn eine menschliche Individualität imstande gewesen wäre, ihre Geisteskraft, die in so gewaltiger, so großartiger Weise sich kristallisiert hat in Maschinen, in Banken und im Verkehrswesen, dazu zu verwenden, um diejenigen, welche hineingestellt sind in diese Entwicklung, auch in eine entsprechende soziale Struktur
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+hineinzubringen. Wir wollen uns nicht auf den Standpunkt stellen, auf den sich ein vielgenannter Naturforscher stellt, der sagt, daß alle großartigen, gewaltigen Fortschritte des menschlichen Geistes, der menschlichen Wissenschaft, der menschlichen Industrie, des menschlichen Verkehrs gar nichts zum Fortschritt der moralischen Menschheitsentwicklung beigetragen haben, sondern wenn wir auf dasjenige blickten, was die Menschen hervorgebracht haben in bezug auf Moral und Gesittung, so stünden wir heute noch auf dem urältesten Standpunkt der Barbarei. - Dieser Meinung wird sich keine tiefere Betrachtung anschließen; aber wahr ist es doch, daß allen den technischen und wissenschaftlichen Errungenschaften, die wir heute bewundern, auf äußereim und auf innerem Gebiete, nichts gegenübersteht auf dem Gebiete des sozialen Lebens, der sozialen Struktur. Wir sehen, wie sich in der Disharmonie zwischen menschlicher Sehnsucht, menschlichem Bedürfnis und menschlichem Ideale, ja sogar der einfach-natürlichen menschlichen Lebenshaltung, und dem, was für alle Menschen das Leben in seiner Realität heute bietet, in der mannigfaltigsten Weise die Unangemessenheit des sozialen Denkens in bezug auf die industrielle Tätigkeit ausprägt.
+
+Eine Verpflichtung wäre es für die breitesten Schichten der Bevölkerung aller Klassen und Stände, gerade über diese Frage nachzudenken, weil in diesen Fragen etwas Welterschütterndes heute liegt. Das fühlen aber die weitesten Kreise, insbesondere gewisser Klassen und Stände, heute keineswegs. Gerade die theosophische Bewegung muß eine solche sein, die nicht mit ein paar abstrakten Dogmen, mit ein paar Rezepten aus der Gedankenfabrik hier etwas tun zu können glaubt, sondern sie muß versuchen, in selbstloser Hingabe, mit Erkenntnis des wahren Menschen, in der Welt gesundes, tiefes, eingehendes Denken auch auf diesem
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 232
+
+---
+
+Gebiete zu verbreiten, zu entfalten. Das Wesentliche auf diesem Gebiete ist, daß sich die Menschen innerlich dazu erziehen, um die Dinge auf diesem Gebiete im rechten Lichte zu sehen.
+
+Diejenigen, die heute von einem angeblich praktischen Gesichtspunkte aus gern achselzuckend auf solch eine unpraktische Geistesbewegung, wie die theosophische es ist, herabsehen möchten, die sollten doch einmal in das Leben blicken und sich an besonders charakteristischen Symptomen darüber belehren, wie sie sich eigentlich zu solchen Fragen stellen sollten. Das menschliche Denken ist heute dadurch, daß sich die Menschen gewöhnt haben, alles in materialistischen Denkformen zu sehen, in gewisser Beziehung kurz geworden. Wer auf geisteswissenschaftlichem Boden steht und glaubt, er könne mit ein paar hingepfahlten Begriffen die Rätsel des Daseins erkennen, wenige hingepfahlte Begriffe reichten aus, um das ganze Weltgebäude zu konstruieren bis herauf zu dem Menschen, der täuscht sich. Ja, für ein oberflächliches Begreifen reichen ein paar Begriffe aus; aber nicht für die intime, genaue Beurteilung des Lebens. Geisteswissenschaft ist unbequem. Zwar nicht für diejenigen, die sich nur an das halten, was in Worten verbreitet ist, und sich dann auf eine abstrakte Lebensanschauung beschränken; aber für die, welche sich tiefer in sie hineinwagen, ist sie unbequem. Sie hat es nicht zu tun mit ein paar mechanischen Vorstellungen, sondern sie zwingt, dazu, sich für die verschiedensten Stufen des Daseins besondere Begriffe anzueignen. Dafür sind aber diese besonderen Begriffe gute Führer im Leben.
+
+Wenn die Leute einmal ein geisteswissenschaftliches Buch aufschlagen, wo ihnen die physische Welt, die astralische Welt und noch höhere geistige Welten vorgeführt werden, die in der unsrigen verborgen sind, und dann weiter gesagt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:233
+
+---
+
+wird, daß der Mensch bestehen soll nicht nur aus dem, was man mit Augen sieht und mit Händen greifen kann, sondern daß man noch auf höheren Gebieten leben kann, so sagen sie, das sei zu kompliziert, da werde alles so eingeschachtelt. Die Welt sei einfach, und der, welcher die Welt nicht einfach darstellt, der erregt schon von vornherein ihr Mißtrauen. Die Welt ist einfach, ist bequem! — Das kann man wohl sagen, nur wahr ist es nicht! Ungeeignet sind diese Begriffe zum wirklichen Eindringen in das wirkliche Leben, in das, was uns wirklich umgibt. Es gibt viele Menschen, die nicht weiter reichen mit ihren Begriffen als die paar Schritte, die sie täglich gehen. Daß solche Menschen zu ganz sonderbaren Vorstellungen über das Leben kommen, ist ja verständlich. Solche Menschen werden sich natürlich erst verraten, wenn sie reden oder schreiben. Ich konnte Ihnen da mannigfaltige Beispiele anführen.
+
+Zwei Beispiele will ich Ihnen aus der großen Menge herausgreifen, die Ihnen zeigen mögen, wie rasch diejenigen Menschen, die eigentlich berufen sein sollten, über das Leben zu urteilen, oder die sich selbst dazu berufen fühlen, mit dem Leben fertig werden.
+
+Da gibt es einen Menschen, der hat ein Buch geschrieben. Das ist heute nichts Besonderes, es ist manchmal schwer, in einer Gesellschaft diejenigen herauszufinden, die noch kein Buch geschrieben haben. Dieser Mensch hat nun ein Buch geschrieben über das Leben. Er sagt darin, daß er viel darüber nachgedacht habe, wie die Funktionen des Geldes sind und was es für eine Bedeutung in unserem äußeren Leben habe. Nun habe er aber an einer besonderen Erfahrung erst lernen müssen, daß das Geld nur eine Art Mittel sei innerhalb eines gewissen Gesellschaftskreises, und daß es eigentlich keine reale Bedeutung habe. Das hätte er dadurch gelernt, daß er einmal in Südamerika reiste. Er hätte hun-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:234
+
+---
+
+dert Dollar bei sich gehabt, aber er hätte trotzdem furchtbar hungern müssen, nichts habe er bekommen können für sein Geld. Und als er einmal an eine Hütte kam und da etwas zu essen erhielt, da sagte man ihm, er solle sich nicht mit seinen Dollars bemühen, mit denen könne man doch nichts anfangen.
+
+Dieser Mensch hat so «klare» Begriffe, daß er, um solches festzustellen, erst in einen brasilianischen Urwald reisen muß! Aber weiter: Sie wissen, daß ein Buch von einem gewissen Regierungsrat Kolb geschrieben wurde. Diesem Buche soll alle Anerkennung zuteil werden. Es soll anerkannt werden, daß ein Regierungsrat es über sidi bringt, als gewöhnlicher Arbeiter in Amerika zu arbeiten, unter anderem in einer Fahrradfabrik, und mit den Arbeitern in all den Mühseligkeiten zusammenzuleben, die er früher nicht gekannt hat. Der hat also auch ein Buch geschrieben, in dem er sagt: Jetzt lerne ich das Leben anders beurteilen, als ich es früher gewohnt war. Wenn ich früher einen Menschen auf der Straße betteln sah, so sagte ich: Warum arbeitet der Lump nicht? Jetzt wußte ich es! - Und er fügt bedeutsam hinzu: Ja, mit den schönsten, bedeutsamsten Problemen der Nationalökonomen läßt sich am grünen Tisch gut und bequem wirtschaften; aber im Leben nehmen sie sich anders aus. - Alle Anerkennung dafür, wenn jemand aus seinen gesellschaftlichen Kreisen heraus solches unternimmt, und alle Anerkennung für die Tat, dies offen und frei zu bekennen!
+
+Aber jetzt die Kehrseite. Sehen wir ab von dem Mann, sehen wir die Tatsache als solche an. Was heißt es, wenn jemand, der in Europa lebt, einen verantwortungsvollen Posten hat, von dessen Maßnahmen vieles abhängt, Leid, Freude, Glück und Unglück von mancherlei Menschen, wenn der hier wie mit verbundenen Augen durch die Welt geht? Muß man nicht fragen: Wie ist er eigentlich durch die Welt
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 235
+
+---
+
+gegangen? Wie hat er sie studiert? Wie hat er sich herangebildet? Wenn man nur die Augen offen hält und sieht, was er hätte sehen müssen - denn wenn man im Leben steht, muß man solche Dinge wissen -, dann muß man fragen: Sind diese Leute mit verbundenen Augen durch die Welt gegangen, und haben sie erst nach Amerika gehen müssen, um zu erfahren, daß man im Urwald mit Geld nicht bezahlen kann, und um zu erfahren, warum der «Lump» nicht arbeitet, wenn er bettelt? Muß man nicht sagen, daß eine Zeit, in der diese Symptome möglich sind, in der die Gedanken so kurz sind, daß eine solche Zeit ebenso klare und sichere Gedanken in bezug auf die soziale Struktur braucht, wie man sie in bewundernswerter Weise durch die Jahrhunderte bis herauf in unsere Zeit hervorbringen konnte in bezug auf Maschinen und Industrie? Wenn die Theosophie oder Geisteswissenschaft nicht aufgefaßt wird als Abstraktion, als eine Predigt schöner Phrasen, sondern als eine Verkündigung dessen, was unserer ganzen Welt in Wirklichkeit zugrunde liegt, dann gibt gerade sie diese reale Menschenkenntnis.
+
+Darüber wollen wir uns heute einmal näher unterhalten. Wenn wir etwas tiefer hineinschauen in die Umwandlungen, die sich vollzogen haben seit Jahrhunderten und die mit den letzten Ausläufern noch hineinragen in unsere Gegenwart, dann müssen wir sagen: Beruf und Erwerb haben sich in ihrem Verhältnis zum Menschen sehr, sehr geändert. Freilich gibt es auch heute noch mancherlei Menschen, die das schöne Wort kennen, das Goethe ausgesprochen hat: «Lust und Liebe sind die Fittiche zu großen Taten.» Wahrhaftig, Lust und Liebe sind die Fittiche zu großen Taten! Sie müssen auch, wenn Menschenfortschritt und Menschen-seligkeit gedeihen sollen, die Fittiche im menschlichen Leben sein. Würde nicht der Künstler, wenn er sein Intimstes ausspricht, jederzeit sagen: Nur dann kann ich wahrhaft arbei-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 236
+
+---
+
+ten, Ersprießliches hervorbringen, wenn die Freude an der Arbeit mich beseelt. - Wahr, nur zu wahr! Aber wie weit ist unser Leben von dieser Wahrheit entfernt! Wir kommen auf ein trauriges Kapitel in bezug auf Beruf und Erwerb, wenn wir diese Frage vor unsere Seele stellen.
+
+Vergleichen wir mit dem schaffenden Künstler, der aus Lust und Liebe zu der Menschen Heil, zu der Menschen Freude und Erhöhung seine Werke schafft, den in dumpfen Bergwerken, meinetwegen in Sizilien tätigen Arbeiter. Da finden Sie Arbeiter, und nicht etwa nur erwachsene Arbeiter, sondern es wimmelt darunter von Kindern von sieben, acht, neun und zehn Jahren, die auf die furchtbarste Art zugrunde gerichtet werden und ihr Leben - mit geringfügigen Ausnahmen - da unten verbringen. Und wenn Sie die Impulse erkennen, durch welche diese Menschen an die Arbeit getrieben werden, dann werden Sie etwas begreifen, was sonst furchtbar schwer zu begreifen ist. Es gibt eine furchtbare Stimmung von Lebensfeindlichkeit und Lebensgegnerschaft, wenn derartiges erfahren wird beim Erleben derjenigen Dinge, die sonst bestimmt sind, Lebensfreude und Lebensheiterkeit hervorzurufen. Der Mensch, der so arbeitet - ich erzähle keine Märchen und betonte ausdrücklich, daß es mir sehr wenig lieb ist, diese Wirklichkeiten schildern zu müssen -, der mag seine Stimmung, wie sie sonst bei anderen Menschen in einem schönen, frohen Liede zum Ausdruck kommt, in einem Liede wie diesem zum Ausdruck bringen:
+
+Fluch der Mutter, die mich geboren,
+Fluch dem Pfarrer, der mich getauft,
+... wäre ich doch ein Seh ... geworden,
+so würde ich doch ... .*
+
+* Lücke in der Nachschrift
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Stellen Sie sich das zusammen mit den Worten: «Lust und Liebe sind die Fittiche zu großen Taten», und versuchen Sie, hieraus die Notwendigkeit einzusehen, nach einer Weltanschauung zu streben, welche die Herzen so zu vertiefen vermag, daß sie hinzugefügt werden muß zu unserer menschlichen materiellen Entwicklung, weil sie etwas ist, was zur Struktur des Lebens gehört und hineingehört in die Industrie, in den Verkehr und in die Technik.
+
+Wir vermögen aber noch in anderer Weise das Heraufkommen der Maschinen in den letzten Jahrhunderten in bezug auf Beruf und Erwerb in unsere Seelen hineinzustellen. Man braucht nicht weit zurückzugehen, da findet man den Ausspruch: «Das Handwerk hat einen goldenen Boden.» - Warum? Es gab viele Leute, die hatten eine tiefe persönliche Verbindung ihrer Seele mit ihrer Arbeit und dem Produkte, das sie hervorbrachten. Versuchen Sie sich die mittelalterlichen Städte vorzustellen. Versuchen Sie, jedes Türschloß und jeden Schlüssel genau anzusehen, und versuchen Sie dann, hineinzusehen in die Werkstätten, wo diese Dinge gearbeitet worden sind. Stellen Sie sich vor, wie die Leute mit Lust und Liebe gearbeitet haben, wie der Arbeiter sozusagen ein Stück seiner Seele mitgegeben hat den Produkten, die er geschaffen hat.
+
+Nun versuchen Sie sich dagegen den Arbeiter der Industrie, den Arbeiter in den Fabriken vorzustellen, der nur einen kleinen Teil, dessen Zusammenhang mit dem Ganzen er nicht überschaut, ausführt und bearbeitet. Ihm fehlt die Intimität des Zusammenhangs zwischen dem, was das Produkt ist, und seiner Arbeit. Dieses persönliche Verhältnis ist etwas außerordentlich Wichtiges. Es ist etwas, was uns diese beiden Begriffe - Beruf und Erwerb - immer klarer und klarer vor die Seele stellen wird. Es ist etwas anderes sowohl in bezug auf den Erwerb als auch in bezug auf den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 238
+
+---
+
+Arbeiter, wenn der Mensch einen persönlichen Anteil an den Produkten nehmen kann, an der Form, an der Einrichtung, an dem, was das Produkt darbietet für das Auge, als wenn das einzige Interesse an dem Produkt der Erwerb ist, das heißt, was man als Lohn dafür erhält. Das eine gibt den Beruf; der spricht sich aus in der Arbeit, die zum Produkte wird. Der Erwerb spricht sich aus in demjenigen, was der Egoismus, die Selbstsucht des Menschen als Lohn für das Produkt erhält. So müssen wir die beiden Begriffe nebeneinanderstellen, und sie stellen sich Ihnen bald nebeneinander, wenn Sie den Gewerbetreibenden von ehedem zusammenstellen mit dem modernen Arbeiter. Alles ist heute anders bis ins kleinste, was sie an sich tragen und um sich herum haben. Die ganze Tragik, die in diesen Maschinen in bezug auf den Beruf und den Erwerb im Menschenleben liegt, spricht sich aus in einem schönen kleinen Gedicht, das ein leider viel zu wenig bekannter Dichter unserer neueren Zeit gedichtet hat:
+
+Verfallen steht im Waldesgrund,
+Am Saumweg, eine Schmiede,
+Draus tönt nicht mehr der Hammerschlag
+Zum arbeitsfrohen Liede,
+Nicht weit davon ragt in die Luft
+Ein langgestreckt Gebäude,
+Wo walten im Maschinenraum
+Berußte Hammerleute.
+Mit Nägeln aus der Dampf fabrik
+Wird zu der Sarg geschlagen,
+In dem der verarmte Nagelschmied
+Zu Grabe ward getragen.
+
+In diesen zwölf Zeilen haben Sie den Umschwung in den letzten Jahrhunderten in bezug auf Beruf und Erwerb.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:239
+
+---
+
+Wir brauchen nur die eine Zeile zu nehmen: «Aus der Schmiede tönt nicht mehr der Hammerschlag zum arbeitsfrohen Liede.» Sie drückt aus diesen Umschwung. Da tritt uns alles, um was es sich bei Beruf und Erwerb handelt, vor die Seele. Stellen wir uns einen Menschen vor, der zu seinem Hammerschlag das arbeitsfrohe Lied hat, und stellen wir uns die Seele vor, die die Seelenstimmung zu einem arbeitsfrohen Liede hat, und dann suchen wir uns die Stimmung eines Menschen zu vergegenwärtigen, der als berußter Arbeitsmann in der Fabrik steht. Nicht kann es das Amt der Geisteswissenschaft sein, etwa die Reaktion zu predigen, um die alten Verhältnisse wieder herzustellen oder Dinge zu verhindern, welche sich im Menschheitsfortschritt entwickelt haben, und die notwendigerweise kommen mußten. Nicht haben wir zu kritisieren, was notwendig geschehen mußte. Wir haben uns aber klarzumachen, daß es in dem Menschen liegt und von dem Menschen abhängt, aus ihrer geistigen Arbeit heraus für das Heil des Menschen und für den Menschheitsfortschritt aussichtsvoll zu arbeiten.
+
+Nun werden viele sagen: Aber wir sehen doch in unserer Umgebung genügend Menschen, die gut vorbereitet sind, um nachzudenken über die soziale Frage, nachzudenken darüber, was geschehen soll. - Nun, es gibt einen gewissen Unterschied, der sehr gewaltig ist, zwischen dem, was die Geisteswissenschaft zu sagen hat, und dem, was die allgemeine Zeitstimmung ist. Diese allgemeine Zeitstimmung könnte man in allgemeinen Ausdrücken vor die Seele rücken. Die, welche studiert haben, sagen: Ihr Theosophen predigt, daß die Menschen besser werden sollen, daß sie Liebe entwickeln sollen und so weiter. Nun, mit solchen Kindereien von Menschenseelenentwicklung, von Menschen-Reifmachen für ein besseres Leben und zum Heil des Menschen, mit solchem befassen wir uns nicht, sondern wir wissen, daß nicht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 240
+
+---
+
+die Menschen, sondern daß es die Verhältnisse sind, auf die es ankommt. - So sagen viele, nicht bloß Professoren, sondern auch Leute an den grünen Tischen des Sozialismus. Was dort verkündigt wird, ist ebenso hochmütig wie das, was von den anderen grünen Tischen verbreitet wird. Überall wird gepredigt: Bessert die Verhältnisse, und dann kommt es schon, daß die Menschen sich bessern.—Man kann sie das deklamieren hören, die ganz gescheiten Leute, die immer wieder auftreten.
+
+Ich könnte Ihnen viele Beispiele aus dem unmittelbaren Leben aufzählen. Nur drei Schritte von hier aus brauchte ich zu machen, und ich würde hindeuten können auf einen Punkt, wo einmal einer stand, der [von der Theosophie] sagte: Das sind törichte Ideen! Es kommt darauf an, daß die Verhältnisse gebessert werden. Wenn man ihnen bessere Lebensbedingungen gibt, dann werden die Menschen ganz von selber besser. - Dieses Lied hören wir in bezug auf die heutigen Berufs- und Erwerbsverhältnisse in allen Variationen immer wieder singen. Wenn etwas nicht stimmt, denkt man nicht, daß es an den Menschen liegt, sondern dann heißt es, man müsse ein neues Gesetz machen, damit die Verhältnisse anders werden. Und wenn etwas auf einem Gebiete nicht richtig ist, so reden sie, man müsse die unreife Menge, die, welche kein richtiges Urteil haben, schützen gegen die, welche sie auf diesem oder jenem Gebiete ausbeuten wollen. Wenn das zum Beispiel gegenüber irgendwelchen Heilsmethoden gesagt wird, dann möchte man doch fragen: Liegt es nicht näher und wäre es nicht selbstverständlicher zu sagen, daß es Pflicht ist derjenigen, welche in die Dinge hineinsehen, die Menschen aufzuklären, so daß sie sich aus eigenem Urteil an die wenden, an die sie sich wenden sollen? Nicht um die Verhältnisse kann es sich handeln, sondern einzig um die Entwicklung der Menschenseele.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Tief liegt in unserem Zeitdenken dieser Materialismus, der aus der atomistischen Denkweise herausgeholt und übertragen worden ist auf die sozialen Verhältnisse. Viele diskutieren über solide Sachen, doch führt das Diskutieren nur zu endlosen Debatten. Wer das Geheimnis der Diskutierkunst kennt, der weiß, daß sich über die Bedeutung des Menschen mit endlosem Für und Wider reden läßt. Es handelt sich aber nicht nur darum, daß man endlose Gründe für das Für und Wider anführen kann, sondern auch darum, daß man das Gewicht der Gründe empfindet. Ein Mensch, der berufen war, auf diesem Gebiete ein Urteil zu fällen, weil er ein genialer Mensch war, das ist der Engländer Robert Owen. Er war genial dadurch, daß er die Menschen glücklich machen wollte, aber auch dadurch, daß er ein warmes Herz hatte für das soziale Elend. Ihm ist es gelungen, geradezu eine Musterkolonie anzulegen. Da hat er Schönes erreicht. Er hat die Sache so klug gemacht, daß er zwischen die arbeitsamen Menschen, die durch ihr Beispiel wirken konnten, hingestellt hat diejenigen, welche trunksüchtig und so weiter waren. Es hat dadurch manches gute Resultat gegeben. Das hat ihn dann ermuntert, eine andere Kolonie zu gründen. Wiederum hat er es so gemacht, daß er gewisse Ideale verwirklichen wollte, die ihn erfüllten. Aber nach einiger Zeit war die Entwicklung in der Kolonie so, daß er sehen mußte, daß diejenigen, die nicht in ihrer Anlage Fleiß und Arbeitsamkeit hatten, zu Parasiten der Kolonie wurden. Da sagte er sich: Nein, - und es war wie ein Bekenntnis: Mit den allgemeinen Einrichtungen muß man warten, bis die Menschen, wie er selbst, in theoretischer Beziehung auf eine gewisse Höhe gebracht sind. Nur durch die Umgestaltung der Menschenseele kann Heil und Fortschritt kommen, niemals durch bloße Einrichtungen. - Das hat ein Mann gesagt, der es sagen durfte,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 242
+
+---
+
+weil er von der vom warmen Herzen eingegebenen Auffassung ausgegangen und von der Erfahrung belehrt worden ist. Von solchen Tatsachen sollte man lernen, nicht von abstrakten Theorien. Aber was gibt ein inneres und lebensfähiges Denken auf diesem Gebiete? Ein genaues und lebensfähiges Denken auf diesem Gebiete zeigt uns, daß alle Einrichtungen, die drücken und schrecklich werden können für die Menschen, gemacht sind von Menschen. Es entstehen menschliche Einrichtungen, die die Ursache werden von Not und Elend, nur dadurch, daß sie zuerst von Menschen gemacht werden. Derjenige, der die Dinge wirklich durchschauen will, versuche einmal, den geschichtlichen Verlauf zu studieren, zu studieren, wie heute die Menschen zusammenleben, wie der eine so, der andere so gestellt ist im Leben. Wer hat sie dahin gestellt? Nicht unbestimmte soziale Mächte, sondern menschliche Gedanken, menschliche Empfindungen und menschliche Willensimpulse. Wir müssen den Satz schon einmal hinstellen: Der Mensch kann leiden nur durch den Menschen. Alles andere Leiden kommt sozial eigentlich nicht in Betracht.
+
+Nicht zu verlangen ist es, daß der Geisteswissenschafter sich als Kritiker über die historischen Notwendigkeiten aufstellen soll. Es ist nötig, sich klarzuwerden, daß die Verhältnisse durch Menschen geschaffen werden und daß, wenn sie geschaffen sind, Elend einzig und allein durch falsche Gedanken in diese Verhältnisse hineingebracht wird. Es ist nicht schwer einzusehen, daß ein kurzes Denken, ein Denken, das keine Ahnung hat von den großen, gewaltigen Weltenzusammenhängen, keine Einrichtungen schaffen kann, die Glück und Heil in die Menschheit bringen können. Mit dem Satze, daß man selbstlos sein soll, daß man die Menschen lieben soll, ist es so, wie wenn Sie zu einem Ofen sagen: Du bist ein Ofen, sei lieb und warm; es ist deine moralische
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Pflicht, das Zimmer zu wärmen. - Es wird nicht warm werden! Aber wenn Sie einheizen, wird es warm! Predigen von allgemeiner Menschenliebe, das ist etwas, was man mit Selbstverständlichkeit in die Welt setzen kann. Aber das praktische Handhaben, dasjenige, was sie befähigt, in der Außenwelt so gestaltend einzugreifen, daß Heil und Segen für die Menschheit daraus erwachsen, das hängt ab von der Beziehung vom Menschen zum Menschen.
+
+Eine materialistische Zeit wird in dem Menschen nur dasjenige sehen, was man mit den Händen greifen, mit Augen wahrnehmen kann. Der Mensch ist aber mehr als das. Er ist ein geistiges, seelisches und physisches Wesen. Und alles, was den Menschen Heil und Segen bringen kann, kann nur daraus hervorgehen, daß man die gesamte menschliche Wesenheit berücksichtigt, namentlich in den komplizierten und immer komplizierter werdenden Verhältnissen der Gegenwart und Zukunft. Die Geisteswissenschaft zeigt uns dieses wahre Wesen des Menschen, zeigt uns seine Grundlage, und führt uns dadurch in ganz anderer Weise als sonst etwas zu einem Verständnis von Mensch und Welt. Dasjenige, was uns umgibt, was wir in Beruf und Erwerb in der Welt hervorbringen können, wir können es nicht anders hervorbringen als in einem arbeitsfrohen Leben. Denken Sie sich, was es ausmacht, wenn die Arbeiter wie in dem Gedicht bei dem arbeitsfrohen Lied ihre Arbeit vollbringen können. Der einzelne Hammerschmied konnte das. Er kannte die Arbeit von ihrem Anfang bis zum fertigen Produkt. Die Arbeit kann nicht aus dem Erwerb erwachsen, keinerlei Arbeit ist aus dem Erwerb erwachsen. Versuchen Sie den Blick auf die einfache Arbeit zurückzuwerfen: Im Rhythmus vollzog sie sich, der Hammer des Schmiedes schlug im Rhythmus, und das Lied begleitete den Rhythmus. Die Impulse, die zu vergleichen sind mit Lust
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:244
+
+---
+
+und Liebe, die waren es, die zur Arbeit trieben. Je weiter Sie zurückgehen, desto mehr finden Sie, daß Erwerb und Beruf zwei ganz und gar verschiedene Dinge sind.
+
+Dasjenige, was der Mensch als Arbeit leistet, tut er aus einem Impuls gegenüber der Sache heraus. Etwas anderes ist es, sich einen Erwerb zu verschaffen. Das ist aber der Grund unseres modernen Elends, daß Erwerb und Beruf, daß Lohn und Arbeit eins geworden sind, zusammengefallen sind. Das ist dasjenige, worin unsere Betrachtung einmal gipfeln muß. Ein Mensch, der ein kleines Glied in der Fabrik verarbeitet in der heutigen Art und Weise, wird nimmermehr die Hingabe haben können für das Produkt, das den früheren Handwerker kennzeichnete; das ist unwiederbringlich dahin. Niemals wird es bei unseren komplizierten Verhältnissen in der Zukunft möglich sein, daß das Arbeitsfeld durchflutet wird von einem arbeitsfrohen Liede. Das ist verklungen, das Lied, das an das Produkt sich anschließt!
+
+Wir fragen: Gibt es einen anderen Impuls, der als Ersatz hinzutreten kann? Wenn wir den Blick auf die Reihe der Jahre werfen, wo immer mehr Fabriken geschaffen wurden und immer mehr Menschen in die Stätten des modernen Elends zu Betrieben und Erwerb zusammengetrieben worden sind, wenn wir das alles an uns vorüberziehen lassen, dann sehen wir - mag auch vieles anders geworden sein -, daß man meint, die künftige Entwicklung an die Vergangenheit, als Lust und Liebe noch die Impulse der Arbeit waren, einfach anstücken zu können. Die Menschheit hat aber nicht einen Ersatz schaffen können, der den Menschen wieder anschließt an das Produkt. Das kann auch nicht wiedergebracht werden. Aber etwas anderes kann gemacht werden. Was kann an die Stelle treten? Wie können wieder Lust und Liebe Impulse werden, die Fittiche werden für die Tagesarbeit? Wie können sie geschaffen werden?
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 245
+
+---
+
+Ja, wird mancher einwenden, schaffe einmal Impulse für eine Arbeit, welche schmutzig, schlecht und abscheulich ist! — Es gibt solche Impulse. Man versuche nur daran zu denken, was Mütter tun, wenn sie die Arbeit aus Liebe zum Kinde tun. Denken Sie daran, wozu der Mensch imstande ist, wenn er aus Liebe zu anderen Menschen etwas tut. Da braucht es keine Liebe zum Produkt der Arbeit, da braucht es ein Band zwischen Mensch und Mensch. Die Liebe zum Produkt können Sie bei der Menschheit nicht zurückbringen, denn die war an primitive, einfache Verhältnisse gebunden. Dasjenige aber, was die Zukunft bringen muß, das ist die große, allumfassende Verständigung und Liebe von Mensch zu Mensch. Ehe nicht ein jeder Mensch aus den tiefsten Impulsen, die nur eine geistige Weltbewegung zu geben vermag, den Antrieb für seine Tätigkeit finden kann, ehe er nicht imstande ist, die Arbeit aus Liebe für seine Mitmenschen zu tun, eher ist es nicht möglich, echte Impulse für eine Zukunftsentwickelung im Sinne des Menschenheils zu schaffen.
+
+So haben wir als Impuls hingestellt, was alle Geheimwissenschaft seit urvordenklichen Zeiten weiß. Es gibt nämlich ein Geistesgesetz, das lautet: Im sozialen Leben ist nur dasjenige für das Heil der Menschen ersprießlich, was die Menschen nicht für sich, sondern für die Gesamtheit der Menschen tun. Alle Arbeit muß zum Unheil gereichen, die die Menschen nur für sich tun. Das ist scheinbar ein harter Grundsatz, aber dieser harte Grundsatz ist das Ergebnis wahrer Erkenntnis.
+
+Das ist es, was die Theosophie oder Geisteswissenschaft der heutigen Menschheit zu bringen hat: wiederum einen solchen Satz verstehen zu lernen. Etwas, was alle Menschen oder Gruppen von Menschen umfassen soll, das ist in der materialistischen Auffassung ein ganz abstrakter Begriff
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+geworden. Das kann keinen moralischen Impuls mehr abgeben. Besinnen Sie sich einmal, wie man von Volksseelen oder Gruppenseelen spricht. Das ist nichts Reales! Die Menschen müssen wieder Klarheit bekommen darüber, daß es Wesenheiten gibt, die in geistigen Welten leben, und daß solche Gruppenseelen leben und Realitäten sind. Wir sind in unserer Entwicklung so weit vorgeschritten, daß wir gerade in unserer Zeit dahin gekommen sind, daß es Anschauungen gibt, die genau das Gegenteil von der Geisteswissenschaft sind, die zum Beispiel in allem, was eine Gruppe, eine Zusammengehörigkeit umfaßt in der Welt, nur Formalien sehen. Die Geisteswissenschaft aber zeigt, daß in dem Sichtbaren, in dem Physischen nicht das ganze Um und Auf des Daseins enthalten ist, sondern daß allem Sichtbaren zugrunde liegt das Überphysische, das Unsinnliche, das Übersinnliche, so daß solche Dinge wie Gemeinsamkeitsgeister und Gruppengeister für uns keine Abstraktionen mehr sind. So wird es uns zu einem genauen Begriff, wenn wir sagen: Auf die Arbeit, und wenn sie noch so sehr bewertet wird, kommt es nicht an. Auf die Arbeit kommt es nur an im Menschheitszusammenhang, wenn diese Arbeit eine für die anderen Menschen ersprießliche, wie wir sagen, produktive Arbeit ist.
+
+Machen Sie sich das durch ein einfaches Beispiel klar: Auf einer Insel leben zwei Menschen. Der eine bringt Dinge hervor, welche für den einen und den anderen den Hunger stillen, das Dasein möglich machen. Der andere arbeitet auch furchtbar, gräßlich viel; er beschäftigt sich damit, daß er Steine von dem einen Ort zum anderen wirft, sie emsig und arbeitsam hinwirft und schnell wieder zurückwirft. Er ist furchtbar emsig und arbeitsam, er kann schrecklich fleißig sein. Seine Arbeit hat aber gar keine Bedeutung, ist ganz wesenlos. Nicht darauf kommt es an, daß wir arbeiten, son-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+dern darauf, daß wir Arbeit leisten, die dem anderen ersprießlich ist. Ersprießlich ist die Arbeit des Steine-Hin-und-Herwerfens nur dann, wenn sie dem Menschen, der sie verrichtet, Freude macht. Wenn er aber durch irgendwelche Einrichtungen gezwungen wird, sich für die Arbeit entlohnen zu lassen, dann ist die Arbeit bedeutungslos für den Zusammenhang. Sie muß in einem durch Weisheit und Struktur geregelten Zusammenhang stehen. Wer in den Zusammenhang hineinsieht, der weiß, daß die wichtigsten Arbeiten die sind, welche geleistet werden unabhängig vom Erwerb. Erwerb muß für sich stehen. Wie die Menschen sich gegenseitig erhalten, das ist eine Frage für sich. Der Arbeitsimpuls darf nicht im Egoismus und kann nicht im Egoismus liegen, sondern er muß aus dem Hinblick auf die Gesamtheit entstehen.
+
+Das, was der eine Mensch tut, wird von anderen Menschen benötigt. Wenn die Menschen nach dem verlangen, was ich durch meine Arbeit hervorbringe, dann mag meine Arbeit meiner Fähigkeit entsprechen, sie mag geringer sein, wenn ich geringe Fähigkeiten habe, sie kann bedeutend sein, wenn ich hohe Fähigkeiten habe, wenn die Menschen aber diese Arbeit brauchen, so ist das ein Impuls für die Arbeit, der mich zu einem arbeitsfrohen Liede stimmen kann. Dazu müssen wir aber erst die Impulse und die Fähigkeiten haben, in die Herzen der Menschen hineinzuschauen und zu sehen, daß das Herz der Menschen für uns etwas werden kann. Wenn wir uns in die Herzen der Menschen hineinzuleben verstehen, wissen wir, was das Wesen der Menschen ist; dann arbeiten wir auch in Gemeinschaft und eignen uns das soziale Denken an. Sie werden sagen, das tut kein Mensch: Steine von einem Ort zum anderen werfen. - Fortwährend geschieht das in unseren Verhältnissen, nur sehen es die Menschen nicht! Sie sehen zu kurz.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 248
+
+---
+
+Dem, der lernt, sozial zu denken, kommt es bald zum Bewußtsein. Denken Sie sich, sie säßen irgendwo und fänden eine schöne Ansichtspostkarte und Sie schrieben dann zwanzig Ansichtspostkarten, ohne etwas Besonderes mitzuteilen zu haben. Wer da tiefer hineinschaut, sieht nicht nur die Ansichtspostkarten mit den Bildern, er sieht die vielen Briefträger, welche Treppen herauf-, Treppen heruntergehen müssen. Wieviel Arbeit würde gespart werden, wenn die Karten nicht geschrieben würden!
+
+Da kommt aber ein ganz Gescheiter, der sagt: Dadurch, daß man so viele Postkarten schreibt, dadurch erreicht man, daß ein Arbeiter nicht mehr genügt. Es wird ein anderer eingestellt, und dieser andere bekommt dadurch Brot. - Kein Mensch überlegt sich, daß auf diese Weise keine produktive Arbeit geleistet wird. Das ist die Arbeit, durch die nichts hervorgebracht wird. Dadurch, daß Sie einen Menschen zu einer Arbeit zwingen und ihm eine Entlohnung dafür verschaffen, dadurch schaffen Sie kein Heil für die Menschheit. Aber man muß in die Struktur des Daseins hineinsehen, wie sie uns nur die geisteswissenschaftliche Erziehung geben kann. Man muß sich klar sein, daß nicht bloß ein paar Nationalökonomen in diese Dinge hineinsehen sollten. Es muß jeder einzelne Mensch dahin gebracht werden, dieses soziale Denken zu entfalten, und das ist es, was aus der geisteswissenschaftlichen Weisheit als geisteswissenschaftliche Gesinnung fließt, daß des Menschen Seele offen und frei wird, daß sie dann um sich sieht Dinge, um sie zu Ende zu denken, zu schauen und zu studieren, so daß es nicht mehr heißt, man müsse für die Arbeitslosen Arbeit schaffen. Es kommt nicht darauf an, diesem oder jenem Arbeit zu geben, sondern darauf, was für Arbeit geleistet wird, eben Arbeit, die Bedürfnis ist für die Gesamtheit. Wenn wir die Sache so ansehen, dann zeigt sich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+uns klar, daß dasjenige, was für unsere Arbeit in Zukunft zum Impuls werden muß, was in unseren Beruf aufgenommen werden muß, die aus wirklicher Weisheit fließende Zusammengehörigkeitsempfindung mit menschlichen Gruppen sein muß, das lebendige soziale Gefühl, dasjenige, was in jeder Menschenseele Platz greifen muß. Nicht die abstrakte Liebe, nicht diejenige Liebe, die bloß von Liebe redet und bloß so weit sieht, wie ihre Nase geht, sondern nur die von Erkenntnis durchleuchtete Liebe kann eine Besserung der Verhältnisse der Menschen herbeiführen.
+
+Daher kann die Geisteswissenschaft nicht ein Zusammenhang sein von Dogmen, von Ideen. Die Ideen sind da um der Seele willen. Dasjenige, worauf es ankommt, sind die lebendigen Menschen. Je mehr Menschen von dieser Weisheit ergriffen und von ihr entzündet werden, desto mehr wird es wahre, reale Liebe geben, desto mehr wird es zum Fortschritt, zum Heile der Menschen dienen. So werden wir finden, daß dadurch, daß der Beruf fußt auf der Hingabe an die Menschheit, und der Erwerb fußt auf der Sorge für den Unterhalt des Menschen, daß dadurch, daß ganz in dieser Richtung gedacht wird, der Menschheit das Heil zuteil werden wird. Nicht wird der Geisteswissenschafter denken, daß das von heute auf morgen durch Dogmen geändert werden kann. Klar ist sich der, welcher fest auf dem Boden der Geisteswissenschaft steht, daß sich die Seele einleben kann in die tätige Liebe, und daß dadurch, daß Menschen da sind, die Erkenntnisse begründen, zum Heile der Menschheit gewirkt werden kann. Dann wird ein Mensch wie Kolb nicht erst nach Amerika gehen müssen, um zu erfahren, daß es sich am grünen Tisch leicht über soziale Dinge urteilen läßt, sondern da wird eine Strömung im öffentlichen Leben ihm die Augen öffnen, er wird dann nicht mit verbundenen Augen durch die Welt gehen müssen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 250
+
+---
+
+Das wird die beste und schönste Frucht sein der geisteswissenschaftlichen Weltanschauung, wenn sie die Menschen nicht zum sentimentalen Predigen von Menschenliebe und Brüderschaft verführt, sondern sie dahin bringt, mit offenem und freiem Sinn die wahre und geistige Wirklichkeit zu schauen. Dadurch wird die Menschheit mehr und mehr den Goetheschen Ausspruch erfüllen: «Von der Gewalt, die alle Wesen bindet, befreit der Mensch sich, der sich überwindet.»
+
+Dieser Ausspruch gilt im umfassenden Sinne auf nationalem, beruflichem und gewerblichem Gebiet. Er gilt so, daß nur dann, wenn unsere soziale Struktur ganz beherrscht ist von diesem Grundsatz, daß unsere Arbeit nicht in den Dienst des Lohnes und Erwerbs gestellt wird, sondern unabhängig gemacht wird vom Erwerb, Ersprießliches geschaffen werden kann.
+
+Nun gibt es natürlich Leute, die sagen, man bemühe sich allerorts, dem subjektiven Erwerbs trieb allerlei Dinge abzunehmen und sie auf die Gemeinschaft zu übertragen. Wer das sagt, könnte im Beamten das Ideal des Menschen sehen, bei dem Erwerb und Beruf getrennt sind. Es kommt aber darauf an, daß jeder einzelne Mensch die Impulse hat, aus denen das charakterisierte Heil entspringen kann. Die Einheit darf nicht als abstraktes Schemen, wie eine Wolke über dem Ganzen schweben, sondern sie muß in jeder einzelnen Seele leben, die immer hinweist auf die geistige Höhe des Weltenalls, wie sie sich spiegelt in jeder Menschenseele. Nur einer solchen Weltanschauung kann es gelingen, das zu verwirklichen, was möglich ist an Heilsamem in dem menschlichen Zusammenleben.
+
+Das haben die großen Menschen gefühlt, gefühlt hat es ein großer Geist, von dem man heute wieder mehr redet, manche Leute um so mehr, je weniger sie ihn verstehen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:251
+
+---
+
+Dieser Geist hat gesagt, daß durch das Aufgehen in der realen, wahren Einheit die Seligkeit über den Menschen kommt, und daß durch das Zerstreuen in die Mannigfaltigkeit und die Unterschiede alles Elend entsteht. Am meisten kommt das Elend, wenn die Menschen so in das Unterscheiden hineingetrieben werden, daß keiner etwas tut als nur um des Egoismus willen. Erst wenn der einzelne fühlt, daß er das, was er tun kann, niederlegen muß am Altar der Menschheit, wenn dieses Gefühl und dieses Denken den Menschen durchflutet, dann kann es auch im äußersten Ausmaß die Menschheit durchfluten. Wahr ist es, was Fichte gesagt hat: Alle Seligkeit liegt im Aufgehen im wahren Einen, und alle Not und alles Elend liegt im Leben im Getrenntsein und in der Unterscheidung; denn die wahre Liebe kann nur erreicht werden, wenn die Seele nicht verhärtet in dem Getrenntsein und in der Mannigfaltigkeit, sondern wenn sie die Ruhe und den Frieden findet in der wahren Gesamtheit und im gesamten Geist.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 252
+
+---
+
+# SONNE, MOND UND STERNE
+
+Berlin, 26. März 1908
+
+Immer wieder tauchen Hinweise auf über den nahen Zusammenhang des Menschen mit dem Naturleben. Wenn wir in naturwissenschaftlichen Schriften Andeutungen begegnen über Schwankungen der Kornpreise innerhalb bestimmter Zeitabschnitte und dabei hingewiesen wird auf die Veränderungen der Gletscher oder des Niveaus des Wassers im Kaspischen Meere, so scheint es auf den ersten Blick, daß man diese Dinge nicht mit vollem Ernst in Zusammenhang bringen könnte. Doch werden immer neue Zusammenhänge sowie auch deren Bestätigungen gefunden. Noch vieles wird man feststellen können und manche Irrtümer werden ausgeschlossen werden müssen, aber im wesentlichen ist von der Wissenschaft der Beweis für die rätselhaft erscheinende Wechselwirkung erbracht. Viele solcher Ereignisse stehen im Zusammenhang mit der Tätigkeit der Sonne, unter anderm auch mit der auf und ab flutenden Zahl und Größe der Sonnenflecken. Ihre Maxima und Minima treten mit einer gewissen Regelmäßigkeit auf. Nach ungefähr 11V₉ Jahren läßt sich jeweils ein solches Maximum feststellen. Weiter zeigt ein Vergleich der Beobachtungen, welche bis heute gemacht worden sind, daß eventuell auch mit einer Periode von zweiundzwanzigeinhalb Jahren gerechnet werden könnte.
+
+Wechsel in den klimatischen Verhältnissen, verursacht von der Sonnenfleckentätigkeit, können nicht von der Hand
+
+gewiesen werden. Es scheint ein Maximum der Sonnen-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 253
+
+---
+
+- flecken eine verminderte Wärmeausstrahlung der Sonne zu bedingen, was dann in der Natur große Veränderungen hervorzurufen vermag. So folgten sich zum Beispiel die guten Weinjahre in allerdings schwankenden Abständen von elf Jahren. Wie weit die fünfunddreißigjährige Periode der Brücknerschen Klimasdiwankungen damit in Verbindung gebracht werden kann, ist noch nicht wissenschaftlich festgestellt.
+
+Auch dasjenige, was die Wissenschaft als Eiszeiten kennt, deren sie vier annimmt, diese gewaltigen Veränderungen vom Antlitz der Erde, werden von ihr in Zusammenhang gebracht mit der Tätigkeit der Sonne und der Stellung der Erdachse zu ihr.
+
+So werden von unserem rein mechanischen Denken die Ereignisse auf der Sonne mit der Erdenentwicklung in Zusammenhang gebracht. In andern Zeiten wurden diese Dinge in einer anderen Weise betrachtet, die heute von der Wissenschaft mit dem Gefühl überlegener Weisheit abgetan wird.
+
+Was müssen wir aber empfinden, wenn wir sehen, wie einer der größten Gelehrten und ein so vorsichtiger Denker wie Aristoteles davon spricht, daß nach uralten Lehren die Gestirne Götter seien. Alles übrige, was sonst die Volksmeinung von den Göttern erzähle, sei unwert und von der Menge hinzugedichtet.
+
+Aristoteles hat sich dieser Lehre gegenüber mit Vorsicht ausgedrückt, aber er behandelt sie als etwas, dem man mit Achtung und Ehrfurcht entgegentreten muß.
+
+Ein solcher Nachklang uralter Weisheit, auf den der heutige Naturforscher mit Achselzucken herabsieht, hat sich auch in dem, was man Astrologie nennt, in verstümmelter, törichter Weise erhalten, führt aber dennoch zurück auf die Urweisheit der Menschheit. Es ist nicht leicht, klarzumachen,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 254
+
+---
+
+woraus solche Urweisheit besteht. Heute sieht der Mensch in den Sternen und in seiner Erde rein physische Körper, wandernd durch den Weltenraum. Er wird sagen, daß es eine kindische Vorstellung wäre, zu denken, daß diese andern Weltenkörper für die Geschicke der Menschen etwas bedeuten könnten. Damals fühlte man eben anders, wenn man den Menschen der übrigen Welt gegenüberstellte. Nicht an Knochen, Muskeln und Sinne dachte man dabei, sondern an die Gefühle und Empfindungen, die in ihm lebten. Die Sterne waren ihm die Körper von geistig-göttlichen Wesenheiten, und er fühlte sich durchströmt von ihrem Geist.
+
+Wenn heute der Mensch erkennt, daß mechanische Kräfte im Sonnensystem wirksam sind, so sah er damals seelisch-geistige Kräfte von Stern zu Stern wirken. Nicht rein mathematische, sondern auf rein geistige Kräfte gebaute Wirkungen von Stern zu Stern haben die großen Eingeweihten gelehrt.
+
+Es ist wohl begreiflich, daß dieses Weltgefühl sich verwandelt hat in unserer materialistisch gefärbten Weltanschauung, aber nur wer glaubt, daß bloß die Anschauung der letzten fünfzig Jahre für alle Zeiten gilt, kann sich verschließen vor der Ahnung von dem, was in dem nicht materialistischen, sondern geistigen Erfahren der Welt lebte. Das gilt auch von der Anschauung, welche die Erde in den Mittelpunkt der Schöpfung stellt.
+
+Gegenüber dem Wandeln des Christus auf Erden wird heute ausgeführt, daß diese Erde nur ein Sandkorn sei unter den anderen Sternen, und es daher nicht anzunehmen und denkbar sei für den, der nicht in fürchterlicher Selbstüberschätzung befangen wäre, daß gerade auf diese unbedeutende Erde ein göttliches Wesen herabgestiegen sei. Nicht aus dem Nichts hat sich dieser Wandel vollzogen. Damals blickten die Menschen empor, um vor allem den geistigen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:255
+
+---
+
+Gehalt des Weltenraumes in sich aufzunehmen, und hatten es noch nicht weit gebracht in der Beherrschung des physischen Raumes. Mit dem Aufkommen der materialistischen Weltanschauung ist die physische Welt erst im weitesten Umkreis erobert worden. Wir wollen hier nicht Kritik üben, sondern begreifen, wie sich diese Wandlung vollzog. Angebahnt war sie schon lange, aber gerade im 19. Jahrhundert hat sie wunderbare Fortschritte gemacht.
+
+Kristallklar tritt uns die moderne Weltanschauung in Kant und seinen Anhängern entgegen. Das Bild, welches diese sich von der Entstehung des Sonnensystems gemacht haben, ist allgemein bekannt: Um die Herausbildung eines Weltkörpers zu veranschaulichen, gießt man in ein Gefäß mit Wasser oder Weingeist einen Tropfen öl. Diesen bringt man in eine rotierende Bewegung. Dadurch trennen sich kleinere und größere kugelförmige Teile ab. So wie hier diese ölteilchen, so hätten sich dort die Welten aus dem Dunst und Feuernebel, dem Urweltnebel losgelöst.
+
+Ich brauche nur zu erwähnen, daß im 19. Jahrhundert die bewundernswerten Fortschritte der Naturwissenschaft und der Sternenkunde das Weltbild von Kant und auch Laplace korrigiert und verändert fortgeführt haben, die Grundzüge aber sind im wesentlichen dieselben geblieben. Auch die große Entdeckung von Kirchhoff und Bunsen, die Spektralanalyse, scheint dieses zu bestätigen, indem durch sie auf den anderen Weltenkörpern eine große Zahl von jenen mineralischen Stoffen nachgewiesen werden konnte, welche unsere Erde zusammensetzen. Auf der Sonne selbst hat man über zwei Drittel aller bekannten Elemente ermittelt. Es ist sehr charakteristisch und bedeutsamer, als man gewöhnlich glaubt, daß einer der kundigsten Fortgestalter dieses Weltbildes den Satz ausgesprochen hat: Wenn man die Gestalt des Weltengebäudes verfolge, er-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+gebe es sich, daß der Urnebel in dieser Weise sich gestaltet habe, mit einer Notwendigkeit ähnlich der, daß eine gehende Uhr darauf hinweise, daß sie aufgezogen sei.
+
+Versinnlichen kann man sich durch jenes erwähnte Experiment das Hervorgehen der Weltenkörper aus dem Urnebel. Das logische Denken fordert aber, alle Dinge bis zu Ende zu denken. Da stellt es sich dann heraus, daß man eines vergessen hat, und zwar gerade das Wichtigste. Wodurch ballen sich die Kugelchen eigentlich ab? Durch die Bewegung, die der Experimentator ausführt! Bei der Anwendung der Resultate dieses Experiments auf die Hypothese von der Entstehung der Weltkörper wird er aber vergessen. Über diese «Kleinigkeit» geht man bei dem so bewiesenen Weltbilde ganz hinweg. Von einer Frage nach dem Experimentator will man nichts wissen. Ohne Gegner der heutigen Naturwissenschaft zu sein, kann man sich diese Frage vorlegen. Man kann ganz auf dem Boden naturwissenschaftlichen Denkens stehen und doch den unbequemen Experimentator nicht vergessen. Er ist der Geist, welcher hinter allem steht, die Summe der geistigen Wesenheiten, welche in den Erscheinungen der Welt der Sinne ihr Wesen offenbaren, wie es die Ergebnisse exakter Forschung der Geisteswissenschaft zeigen können. Die Geisteswissenschaft braucht nichts von dem zu verneinen, was die heutige Wissenschaft erforscht hat. Sie gibt deren Ergebnisse restlos zu, insofern diese aus strengem und sachlichem Beobachten, Experimentieren und Denken gewonnen sind. Sie anerkennt die Notwendigkeit solcher, nur auf die Sinneswelt gerichteter Forschungen. Aber sie weiß auch, daß die Zeit gekommen ist, wo die Menschheit darauf hingewiesen werden muß, daß der Geist der Grund aller Materie ist und diese der äußere Ausdruck der geistigen Wesenheiten.
+
+Die Geisteswissenschaft betrachtet nicht nur die mecha
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+nischen Prozesse von Anziehung und Abstoßung, sie untersucht das, was diesem an geistigen Kräften entspricht. Um nach ihrer Methode ein lebendiges Bild zunächst von der Pflanze zu gewinnen, muß man folgendermaßen vorgehen:
+
+Die Pflanze richtet ihre Wurzel nach unten, ihren Stengel nach oben. Wir sehen zwei Kräfte tätig, von denen die eine sich dem Mittelpunkt der Erde zuordnet, die zweite sie ihren Fangarmen zu entreißen sucht. Derjenige, welcher nicht bloß mit dem äußeren Auge die Pflanze betrachtet, wird finden, wie Wurzel und Blüte den Ausdruck dieser beiden Kräfte darstellen. Übersinnliche höhere Anziehungs- und Abstoßungskräfte sind hier tätig. Die ersteren kommen aus der Erde, während die andern von der Sonne herniederstrahlen. Stände die Pflanze nur den Sonnenkräften allein gegenüber, würde sie sich überstürzen in ihrer Entwicklung, Blatt auf Blatt hervortreiben und verkümmern, fehlte die eine, die aus der Erde wirkende, hemmende Kraft. So wird uns die Pflanze das Resultat, der Ausdruck der Kräfte von Sonne und Erde. Wir sehen sie nicht mehr als ein abgesondertes Gebilde. Sie erscheint uns als ein Wesen, das ein Glied des gesamten Erdenorganismus ist, wie das Haar ein Teil des menschlichen Organismus. Die Erde wird ein lebendiges Ganzes, eine Manifestation des Lebendigen, des Geistigen, wie der Mensch der Ausdruck ist des Seelisch-Geistigen.
+
+Das Tier ist unabhängiger, nicht wie Pflanze und Haar nur ein Teil eines Organismus. Seine teilweise Unabhängigkeit verdankt es seiner Beseeltheit durch die Tierseele. Diese ist, im Gegensatz zur Menschenseele, welche eine individuelle Seele ist, eine Gruppenseele. Das Tier ist deren Offenbarung und verhält sich zu ihr wie der Finger zum ganzen Organismus. Dadurch ist das Tier weniger gebunden im Bereich des Erdorganismus.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Um das zu verstehen, muß man bedenken, daß die Geistesforschung in den Anziehungs- und Abstoßungskräften die irdischen Abbilder erkennt für dasjenige, was im Geistigen diesen die Planetenbewegungen verursachenden Kräften entspricht, welche das Kant-Laplacesche Weltbild, mit allen seinen späteren Modifikationen und Zusätzen, kennt als Gravitation. Diese sowie ihre Konsequenzen ergeben sich als Tatsachen der sinnlichen Beobachtung der Dinge. Deren geistiges Urbild, welches die physisch wahrnehmbare Erscheinung bewirkt und trägt, ist ebenso eine Tatsache, die sich der exakten geistigen Forschung ergibt. Die Tiergruppenseelen umkreisen ihren Planeten, und dadurch ist das Tierreich vom Planeten unabhängig. Jeder Planet hat seine Pflanzenwelt mit dem Sonnensystem gemeinsam, mit dem er zusammenhängt. Aber jeder Planet hat seine eigenen Umlaufskräfte und dadurch sein eigenes Tierreich, soweit er der Tierwelt fähig ist.
+
+Betrachtet man nun den Menschen, so muß man auf eine Tatsache aufmerksam machen, die tief bedeutsam ist. Als Embryo untersteht der Mensch dem Mondeneinfluß. Zehn Mondenmonate braucht der Menschenkeim zu seiner Entwicklung. Mondenkräfte sind es, die ihn beherrschen, solange er noch nicht als selbständiges Wesen auftritt. Die Pflanzenkräfte, die als schaffende wirken, zur Blüte und Frucht drängen, sind Sonnenkräfte. Der menschliche Körper ist abhängig vom Monde, soweit es die Form betrifft. Diese formgebenden Kräfte treten in einen gewissen Zusammenhang mit den Sonnenkräften. Sonne und Mond stellen sich dar als der zur menschlichen Entwicklung notwendige Gegensatz von Leben und Form. Wären nur die beharrenden Mondenkräfte wirksam, würde jede weitere Entwicklung ausgeschlossen werden und eine Art Verholzung eintreten, während die Sonnenkräfte allein zur
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:259
+
+---
+
+Verbrennung geführt hätten. Das Licht, das vom Monde strahlt, ist nicht nur reflektiertes Sonnenlicht, sondern es sind Kräfte der Formenbildung. Das Licht von der Sonne ist nicht nur Licht, sondern Kraft zum Leben, zu überstürzendem Leben, so daß der Mensch schon alt wäre gleich nach seiner Geburt[, wenn er ihm allein ausgesetzt wäre]. Die menschliche Form ist das Ergebnis des Mondes, sein Leben das der Sonne.
+
+Die Spektralanalyse kann die mineralisch-chemischen Bestandteile der Sonne erkennen, nicht die geistigen Lebenskräfte, die herunterströmen auf die Erde. Durch das Fernrohr wird man im Monde nur den starrgewordenen Weltkörper sehen, nicht die formbildende geistige Kraft. In der Sonne wird der Naturforscher wohl glühende Gasmassen, flutende Bewegung, durcheinanderwogende Metalle, Sonnenflecken und Protuberanzen erkennen, nicht aber den Leib einer geistigen Wesenheit, die Regentin der Vorgänge des Lebens. Das ist ein Kapitel einer neuen Forschung, die erst im Anfange ihrer Entwicklung steht, sich erst Gebiet auf Gebiet erobern muß. Aber diese Dinge sind von höchster Bedeutung.
+
+Goethe ist einer der ersten modernen Naturforscher, welcher im Lichte mehr als nur mechanisch-physikalische Prozesse gesehen hat, ohne damit Erfolg zu ernten. In einem Vortrage im Freien Hochstifte in Frankfurt am Main habe ich schon vor Jahren darauf hingewiesen, anläßlich einer Geburtstagsfeier Goethes, daß Schopenhauer es bitter beklagt hat, daß diejenigen, die Goethe feierten, ihm schweres und empörendes Unrecht taten in bezug auf seine Farbenlehre. Heute sprechen die Gelehrten nur widerstrebend darüber. Für den Physiker ist sie ein schöner dichterischer, aber unmöglicher Gedanke in Anbetracht der rein physikalisch gewordenen Farbenlehre. Die Geisteswissenschaft steht aber
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:260
+
+---
+
+ganz anders dazu. Und wenn einst die Zeit reif sein wird, Goethes Farbenlehre richtig zu verstehen, wird man auch einsehen, daß das Licht nicht nur aus sieben Grundfarben, aus materiellen Schwingungen besteht, sondern daß hinter dem, was uns irdisches Licht ist, das von der Sonne herunterströmende Leben liegt. Dann wird man auch verstehen, was Goethe gemeint hat, wenn er von den Farben des Regenbogens sagt, daß sie die Taten des Lichtes sind.
+
+Von den Sternen, von Sonne und Mond strömen nicht nur Lichtstrahlen, sondern geistige Lebensströme auf uns hernieder. Solange man nur das physische Licht sieht, wird man dies nicht verstehen können, denn Geistiges kann nur mit künstlerischer Phantasie erahnt, im sinnlich-übersinnlichen Schauen als Bild erlebt, durch Geistesforschung erfahren werden.
+
+Der Mensch ist eine vielgliedrige Wesenheit. Wenn er schläft, ruhen im Bette nur sein physischer und sein Ätherleib. Der Astralleib mit dem Ich trennen sich von den niedern Gliedern und heben sich heraus in die geistige Welt. In ihr empfängt er Kräfte, erhabener als sie der Mensch während des Tages von Sonne und Mond erhalt.
+
+Weil der Astralleib hineingegliedert ist in die viel leichtere Substantialität der astralen Welt, kann die Sternenwelt ihn stärker beeinflussen. Wie im Wachen die physischen Kräfte auf den physischen Leib wirken, so wirkt nun die nähere und weitere Sternenwelt auf den Astralleib, denn der Mensch ist herausgeboren aus dem Weltenall, aus demselben Weltengeiste wie der Sternenraum.
+
+Wenn wir so emporblicken zu Sonne, Mond und Sternen, können wir verstehen, welche Kräfte dort wirken, lernen erkennen das Geistige im Weltenraum. Nicht einen menschenähnlichen Weltengott können wir erahnen, die geistigen Kräfte hinter dem Weltennebel dagegen können
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 261
+
+---
+
+wir erahnen und so erst einsehen, wie die Welten entstehen. Wir fangen an, hinter den wirkenden Kräften zu erleben die Kräfte leitender Wesenheiten.
+
+So dachte auch Schiller, wenn er den Astronomen, die nur die physische Sternen weit erforschten, zurief:
+
+Schwatzet mir nicht so viel von Nebelflecken und Sonnen!
+Ist die Natur nur groß, weil sie zu zählen euch gibt?
+Euer Gegenstand ist der erhabenste freilich im Räume;
+Aber, Freunde, im Raum wohnt das Erhabene nicht.
+
+Wenn wir nur die äußeren Kräfte betrachten, finden wir das Erhabene nicht. Aber wenn wir das Geistige suchen, und von der unermeßlichen Sternenwelt zu uns selbst zurückkehren, so vermögen wir in unserm Innern gleichsam einen Tropfen des geistigen Lebens zu sehen, das den Weltenraum durchflutet.
+
+Wenn wir mit einer solchen Gesinnung den Himmelskörpern gegenüberstehen, verstehen wir besser Goethes Wort: Ach, was wären sie alle, die tausend Millionen Sonnen, wenn sie sich nicht spiegelten im Menschenauge und zuletzt nicht eines Menschen Herz erfreuten?
+
+Vermessen könnte es klingen, und es ist doch demütig, wenn wir es recht verstehen, recht erfassen. Denn, sehen wir empor zur Sonne, von der Lebensströme ausgehen, so [wirkt sie so] mächtig, daß wir sie nicht aushalten könnten, wenn sie nicht paralysiert würden durch die Mondenkräfte. So sehen wir im Weltenall den Geist, wissen aber, daß wir in uns Organe besitzen, mit denen wir den Geist im Weltenall wahrnehmen können. Dann lassen wir ihn so in den Organen spiegeln, wie sich die Sonne spiegelt, in die wir auch nicht unmittelbar sehen können, aber deren Glanz sich widerspiegelt im fallenden Wassersturz, so wie es auch in Goethes Worten zum Ausdruck kommt da, wo er Faust
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+sagen läßt, nachdem er ihn wieder zum Erdenleben zurückgeführt hat:
+
+So bleibe denn die Sonne mir im Rücken!
+Den Wassersturz, das Felsenriff durchbrausend,
+Ihn schau' ich an mit wachsendem Entzücken.
+Von Sturz zu Sturze wälzt er jetzt in tausend,
+Dann abertausend Strome sich ergießend,
+Hoch in die Lüfte Schaum an Schäume sausend.
+Allein wie herrlich, diesem Sturm ersprießend,
+Wölbt sich des bunten Bogens Wechseldauer ...
+Bald rein gezeichnet, bald in Luft zerfließend,
+Umher verbreitend duftig kühle Schauer!
+Der spiegelt ab das menschliche Bestreben.
+Ihm sinne nach, und du begreifst genauer:
+Am farbigen Abganz haben wir das Leben.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+# ERDENANFANG UND ERDENENDE
+
+# Berlin, 9. April 1908
+
+Das, wodurch sich der Mensch auszeichnet gegenüber den anderen Wesen, die ihn auf dieser Erde hier umgeben, besteht neben manchem, das uns heute weniger beschäftigen soll, darin, daß der Mensch nicht bloß nach dumpfen, instinktiven Antrieben, sondern nach klaren Ideen und Gedanken sein Leben einrichtet, daß es ihm für seine Arbeit Stärke, Kraft und Sicherheit gibt, wenn er in der Lage ist, nicht nur auf das Gegenwärtige zu blicken, sondern sich seine Zukunft aus Ideen oder Idealen selbst zu bestimmen. Dazu gelangt der Mensch nur, wenn er in der Lage ist, Umblick zu halten im Leben, hinauszuschauen über dasjenige, was der Augenblick umschließt, in Vergangenheit und Zukunft. Aus der Vergangenheit lernen wir; für die Zukunft arbeiten wir am besten dadurch, daß wir dasjenige, was wir in der Zukunft tun wollen, in unseren Ideen, in unseren Idealen vorausnehmen.
+
+Es könnte nun leicht scheinen, daß das heutige Thema «Erdenanfang und Erdenende» gar zu weit ausgreift nach der Vergangenheit und nach der Zukunft, als ob wir uns beschäftigen wollen mit Ideen, die hoch über unserem alltäglichen Dasein schweben. Deutschlands großer Philosoph Johann Gottlieb Fichte hat aber schon ein richtiges Wort gesagt gegen diejenigen Menschen, die aus einer scheinbaren Lebenspraxis heraus sich gegen Ideen und Ideale wenden, weil sie meinen, daß die Praktiker des Lebens für Ideale und Ideen doch keine Verwendung haben. Gegen sie hat,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 264
+
+---
+
+wie es in einem anderen Zusammenhang hier schon einmal angeführt worden ist, Johann Gottlieb Fichte, als er zu seinen Jenenser Studenten von den großen Idealen und über die Bestimmung des Menschen gesprochen hat, das schöne Wort geprägt: Daß die Ideale im wirklichen Leben nicht unmittelbar anwendbar sind, das wissen wir Idealisten ebensogut wie die sogenannten Praktiker, vielleicht besser. Wenn diese aber behaupten wollen, daß das Leben, wenn es wahrhaft praktisch sein soll, nicht nach den Ideen und Idealen eingerichtet werden müsse, so zeigen sie nur, daß im Werdegang des Lebens nicht auf sie gerechnet ist. Möge ihnen daher eine gütige Gottheit zur rechten Zeit Regen und Sonnenschein, die notwendigen Nahrungsmittel und meinetwillen weiter, wenn es geht, auch kluge Gedanken verleihen.
+
+Um Ideale und Ideen und ihre Rechtfertigung handelt es sich für uns heute allerdings nicht; nur das eine sei berührt: Mancher mag meinen, daß Ideale und Ideen, die so weite Zeiträume umfassen wie Erdenanfang und Erdenende, doch vielleicht gar zu weit führen, ins Nebulose, ins Unpraktische verschwimmen. Das ist es aber, was eine geistige Weltanschauung den Menschen immer mehr und mehr zum Bewußtsein bringt, daß von je höher die Ideale hergenommen sind, desto unmittelbarer lassen sie sich im Leben anwenden, und je weiter wir mit unseren Ideen und Idealen dringen, desto größere Kräfte entwickeln sie, nicht nur für die umfassenderen Dinge des Lebens, sondern auch für jeden Augenblick des Alltags vom Morgen bis zum Abend. Die kleinen Ideale geben uns geringe Kraft für diese oder jene Gelegenheit; die großen Ideale erfüllen uns immer, stärken uns und kräftigen uns. Nicht darum handelt es sich, daß wir uns theoretisch in Gedanken vertiefen in solche Ideen und Ideale, sondern darum, daß aus ihnen etwas
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:265
+
+---
+
+fließt, etwas herausströmt. Wenn die Ideale groß sind, dann strömen aus ihnen lebendigere, gewaltigere Empfindungen heraus als aus kleinen Idealen. Und diese lebendigeren, gewaltigeren Empfindungen und Gefühle kräftigen uns geistig, seelisch und körperlich, und unvermerkt schleichen sie sich ein in das, was wir im Alltag tun, und machen uns das Leben erst in der wünschenswerten Art möglich.
+
+Wenn wir heute zurückblicken auf das Werden unserer Erde, unseres irdischen Wohnplatzes, dann denkt natürlich der Mensch der Gegenwart zunächst an die wunderbaren, gewaltigen Errungenschaften des naturwissenschaftlichen Denkens. Wie schon bei anderen Gelegenheiten, so soll auch hier betont werden, daß es nie und nimmer die Aufgabe der Geisteswissenschaft sein kann - wenn sie sich selbst richtig versteht -, auch nur das allergeringste einzuwenden gegen die berechtigten Feststellungen und Ergebnisse der modernen Naturwissenschaft. Deshalb lassen Sie uns zuerst, bevor wir vom geisteswissenschaftlichen Standpunkt aus dieses umfassende Thema in Angriff nehmen, auch hier wieder, wie bei anderen Betrachtungen, einiges vorausschicken.
+
+Nur kurz und skizzenhaft lassen Sie uns eine Antwort geben auf die Frage: Was weiß die heutige Wissenschaft über unser heutiges Thema zu sagen? — Die Naturwissenschaft enthüllt mit einem großen, umfassenden Scharfsinn die irdische Vergangenheit. Aus dem, was die Erde jetzt ist, aus dem, was als Überreste erhalten ist von untergegangenen Welten und untergegangenen Wesenheiten, weiß unsere Naturwissenschaft zurückzuschließen, wie es einmal auf unserer Erde vielleicht vor Jahrmillionen ausgesehen hat, und welche Wesen auf ihr herumgewandelt sind. Sie wissen ja, die Geschichte, die historischen Urkunden, sie führen uns nur eine kurze Zeit zurück im Erdenwerden, einige
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 266
+
+---
+
+Jahrtausende nur. Dann wird es sozusagen finster, wenn man sich bloß auf die historischen Urkunden verlassen will. Eine weitere Zeit führt uns zurück dasjenige, was nicht den schriftlichen Urkunden anvertraut werden konnte, auch nicht anderen Dokumenten, dasjenige, was unsere Vorfahren ihren Toten ins Grab mitgegeben haben an Gegenständen ihrer Kultur, die von ihnen verfertigt wurden und als Überrest zurückgeblieben sind. Dann aber geht die Naturwissenschaft noch weiter zurück. Sie zeigt uns in den Knochengerüsten und anderen Überresten vorweltlicher Pflanzen und Tiere, die in den Schichten unserer Erde enthalten sind, welche Wesen nacheinander auf unserer Erde gelebt haben. Leicht ist es einzusehen, daß dasjenige, was in den oberen Schichten unserer Erde liegt, zuletzt sein Grab gefunden haben muß, daß das, was in den tieferen Schichten liegt, die von späteren zugedeckt worden sind, die dokumentarischen Überreste älterer, früherer Zeiten enthalten muß. Freilich ist es nicht so einfach, in dieser Weise naturwissenschaftlich zu forschen. Die Geologie oder die Lehre von den Gesteinsschichten hat manche Schwierigkeiten. Denn das, was aufgeschichtet worden ist innerhalb der Erdoberfläche, ist zum großen Teil nicht so geblieben, wie es ursprünglich aufgeschichtet worden ist. Übereinanderlagerungen, Überwerfungen, alle möglichen Durchwogungen des Ganzen haben stattgefunden, so daß manchmal dasjenige, was ursprünglich zuunterst lag, bei den Verwerfungen zuoberst gekommen ist. Es gehört manchmal ein großer Scharfsinn dazu, aus dem, was eingeschlossen ist in die Schichten unserer Erde, sich ein Bild davon zu machen, wie unsere Erde sich entwickelt hat.
+
+Wir wollen auf Einzelheiten nicht mehr eingehen, als insoweit der Geistesforscher in der Lage ist, sie zu rechtfertigen; auch wollen wir im einzelnen nicht ausführen,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 267
+
+---
+
+was wir vom geisteswissenschaftlichen Standpunkte aus dazu sagen müßten. Manches ist da noch zu korrigieren. Darauf wollen wir uns aber nicht einlassen. Wir wollen im Gegenteil lieber dasjenige, was die emsige Naturwissenschaft beobachtet und der naturwissenschaftliche Scharfsinn auf diesem Gebiet geleistet hat, dankbar als große Errungenschaft für die Menschheit hinnehmen. Wir wollen gern mit der Naturforschung uns zurückversetzen in einen früheren Zustand der Erde, wo unsere Erde zum größten Teil weitaus anders ausgesehen hat als heute, wo einfachste Lebewesen auf unserer Erde gelebt haben müssen, von denen uns keine Überreste erhalten geblieben sind. Wir verfolgen mit dem Naturforscher den Werdegang unserer Erde von den Schichten, die zuunterst liegen, zu den Schichten und Überresten, die zuoberst gelagert sind. Wir finden die einfache Tiere, die unter den Wirbeltieren, unter denen mit einem Knochengerüst stehen. Wir gehen weiter und sehen, wie sich nach und nach die verschiedenen Tierklassen und Pflanzenklassen entwickeln, so wie sie nach und nach aufzutreten scheinen auf der sich verwandelnden Erde. Wir gehen mit dem Naturforscher zurück bis in die Zeit, wo in unserer Erdevolution Fische auftreten. Viele haben ganz andere Formen als die heutigen. Gehen wir weiter zurück, so kommen wir auf eine merkwürdige Entwicklungsphase unserer Erde, wo diese belebt ist von jenen monströsen, wunderbaren Tieren, die zum Teil der Amphibien- und Reptilienklasse angehören. Das sind Tiere, die riesengroß waren, deren eines Auge vielleicht so groß war wie ein Kinderkopf, sie waren versehen mit gigantischen Freßwerkzeugen, Tiere, welche man Ichthyosaurier und Plesiosaurier und so weiter nennt und deren Überreste in den verschiedensten Gegenden der Erde ausgegraben werden aus jenen Schichten, die man die Kreideschicht, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:268
+
+---
+
+Juraschicht nennt. Da kommen wir in die Zeit, wo vollkommenere Pflanzenbildungen entstanden sind, in eine verhältnismäßig junge, obwohl auch nach Jahrtausenden zählende Zeit. Wir kommen dahin, wo nach naturwissenschaftlicher Auffassung der Mensch aufgetreten ist, wo er sozusagen nach den Dokumenten, die die betreffenden Schichten enthalten, zum ersten Male auf unserer Erde erscheint, nachdem die ihm nahestehenden höheren Säugetiere ihm vorangegangen waren. Kurz, wenn wir jenes Bild, welches wir schon neulich gebrauchen durften bei anderer Gelegenheit, als wir Sonne, Mond und Sterne geisteswissenschaftlich betrachteten, wenn wir jenes Bild wieder anwenden und uns dächten, es könnte von einem Sitz im Weltenraum jemand zuschauen, durch Jahrmillionen, wie da auf der Erde nach und nach sich die Oberfläche gestaltet, wie die Verteilung von Erde und Wasser, von Wärme und Kälte sich ändert, wie da die verschiedensten Klassen und Formen der Tiere und Lebewesen herauskommen, so würde das physische Bild für einen solchen hypothetischen Beobachter, der im Weltenraum irgendwo sitzt, im wesentlichen durchaus so sein, wie die Naturwissenschaft es schildert. Aber wieder sei es betont, daß man doch von Seiten der Geisteswissenschaft nicht weiter gehen kann als sozusagen bis zu dem Punkt, wo die Naturwissenschaft selbst genötigt sein wird, die Dinge in der Zukunft zu korrigieren.
+
+Wo besteht nun ein Konflikt zwischen der Naturwissenschaft und der Geisteswissenschaft? Immer wieder wird von sehen der Naturwissenschaft gesagt, die Geisteswissenschaft stünde nicht auf naturwissenschaftlichem Boden. Kann man sich denn mehr auf naturwissenschaftlichen Boden stellen, als wenn man zugibt, daß alles, was die Naturwissenschaft weiß und erkennen kann, auch bei uns Anerkennung findet?
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 269
+
+---
+
+Nun gibt es aber Leute, die sagen, sie stehen fest auf dem Boden der naturwissenschaftlichen Tatsachen. Die fordern von dem Geisteswissenschafter, daß er nichts anderes wissen soll, als was sie selbst wissen. Sie fordern nicht bloß, daß man ihnen zugibt, was sie selbst sagen, sondern sie fordern auch, daß man sich unterwerfe dem Dogma, daß man nicht mehr sagen könne, als sie sagen. Dabei merken diese Menschen gar nicht, daß eine solche innere Intoleranz im Grunde genommen in der ganzen Menschheitsentwicklung niemals da war, auch nicht in den Zeiten, wo die äußere Intoleranz noch so weit gegangen ist. Gewiß, wie wir schon das letzte Mal sagen durften bei der Betrachtung von Sonne, Mond und Sternen: Das äußere sinnliche Bild gibt keine Veranlassung zu Streit zwischen der Geisteswissenschaft und der Naturwissenschaft. - Aber folgt aus diesem äußern sinnlichen Anblick, daß hinter dem Sinnlichen, hinter dem Physischen keine übersinnlichen, überphysischen Kräfte geltend sind? Wir haben schon das letzte Mal den berühmten Plateauschen Versuch anführen können, wo man zeigt, wie in einer Flüssigkeit aus einem öltropfen durch Drehung der Kurbel ein Weltsystem im Kleinen entsteht. Dabei hat aber der gute Mann ganz vergessen, daß er die Kurbel selbst gedreht hat! Es wird gar nicht bedacht, daß das ganz unmöglich ist ohne die Gedanken dessen, der die Kurbel dreht. Das, was man mit den physischen Augen sieht, ist der äußere Ausdruck, der äußere Vorgang für dasjenige, was innerlich-geistig sich abspielt und was der Mensch niemals kennenlernen kann dadurch, daß er bloß mit seinen Augen und deren Hilfswerkzeugen, also bloß mit den äußeren physischen Werkzeugen die Welt kennenlernt. Wollen wir aber bis zum physischen Anfang der Welt zurückblicken und nicht bloß das Physische betrachten, dann müssen wir uns zuerst das wahre Wesen des Menschen vor die Seele
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 270
+
+---
+
+rücken. Wer vom geisteswissenschaftlichen Standpunkt aus dieses wahre Wesen des Menschen betrachtet, für den zerfällt, wie ich oft betont habe, dieses Menschenwesen in eine Reihe von Gliedern. Vor allen Dingen zeigt uns die Geisteswissenschaft, daß der wahre Grund jener wechselnden Zustände, die der Mensch jeden Tag innerhalb vierundzwanzig Stunden erlebt zwischen Wachen und Schlafen, darin liegt, daß ein Teil der menschlichen Wesensglieder im Schlafzustande sich abtrennt von dem anderen Teil. Wir sehen jede Nacht, wenn der Mensch einschläft, in traumlosen Schlaf hinuntersinken, in ein unbestimmtes Dunkel, was in den mannigfaltigsten Bildern und Eindrücken den Tag hindurch in der Seele auf und ab flutete. Wir sehen hinuntersinken alles, was der Mensch innerlich erlebt an Instinkten, Trieben, Begierden und Leidenschaften, an Lust und Leid, Freude und Schmerz. Das, was den Menschen den ganzen Tag über an all diesen inneren Seelenerlebnissen durch die Seele flutet, das sinkt mit dem Einschlafen in ein unbestimmtes Dunkel hinunter. Für den, der auf dem Boden der Geisteswissenschaft steht, wie natürlich auch für jeden, der auf dem Standpunkte des gesunden Menschenverstandes steht, wäre es selbstverständlich eine große Torheit, wenn man behaupten wollte, daß mit dem Einschlafen der Träger von Lust und Leid, Freude und Schmerz, von Trieben, Begierden und Leidenschaften hinschwinden und des Morgens beim Aufwachen wiedererstehen würde. Die Geisteswissenschaft zeigt, daß, wenn der Mensch im traumlosen Schlafe liegt, im Bette liegt dasjenige Glied des Menschen, welches der Mensch gemeinschaftlich hat mit allen leblosen, mit allen mineralischen Wesenheiten um sich herum und das wir den physischen Leib nennen, und daß während des Schlafes mit dem physischen Leib verbunden ist der Äther- oder Lebensleib, der den Menschen gemein
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+sam ist mit den Pflanzen, aber nicht mehr mit den Mineralien, den leblosen Wesenheiten um ihn herum. Herausgehoben aus dem Menschen sind im traumlosen Schlaf zwei andere Glieder der menschlichen Wesenheit. Lust und Leid, Freude und Schmerz, Triebe, Begierden und Leidenschaften, all die auf und ab flutenden Empfindungen und Gefühle, alles das, was da in der Nacht schweigt, das hat als seinen Träger den astralischen Leib, und dieser ist im traumlosen Schlafe aus dem physischen und Ätherleibe, die im Bette zurückbleiben, herausgehoben. Herausgehoben sind da Astralleib und Ich.
+
+Wodurch unterscheidet sich das Dasein dieses astralischen Leibes in der Nacht von seinem Dasein während des Tages? Wir können uns klarmachen, wodurch sich das Dasein des astralischen Leibes während des Taglebens von dem Dasein in der Nacht unterscheidet, wenn wir uns vor die Seele führen - was ich in anderen Serien dieser Vorträge getan habe —, daß der Astralleib draußen in einer anderen Welt, die um ihn herum ist, seine Wirklichkeit hat. Wovon hängt das ab, daß man etwas wahrnimmt? Es können unzählige Welten um Sie herum sein, die Welt der Töne, die Welt des Lichtes, die Welt der Gerüche, die Welt der Geschmäcke und so weiter, hätten Sie keine Sinnesorgane dafür, so wären diese Welten nicht da für Sie. Es ist das Unlogischste, was man tun kann - der größte Teil der Gegenwartsmenschen tut es allerdings -, zu behaupten, daß eine Welt, die man nicht wahrnimmt, nicht da sei. Die Geisteswissenschaft zeigt, daß der Astralleib des Menschen in der Nacht im traumlosen Schlafe aus dem physischen und Ätherleibe herausgehoben und in einer anderen Welt ist; nicht in einer jenseitigen, irgendwo verborgenen Welt, sondern in einer Welt, die uns durchdringt, wie Licht und Luft den Raum durchdringen. Für die geisteswissenschaftliche Beobachtung
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:272
+
+---
+
+unterscheidet sich jene Welt von der physisch-sinnlichen nur dadurch, daß sie andere Organe erfordert, durch die sie wahrgenommen werden kann. Dieser astralische Leib des Menschen ist in einer geistigen Welt, die in unserer Umwelt ist, genau wie die Luft um uns herum. Wer noch keine Ahnung davon hat, daß Luft um ihn herum ist, sagt, es sei nichts um ihn herum. So sagt derjenige, der keine Ahnung davon hat, daß er fortwährend im Geiste lebt, es sei kein Geist in unserer Umgebung, es gäbe keine geistige Welt, keine geistigen Tatsachen, keine geistigen Wesenheiten. Der Astralleib, der Träger von Lust und Schmerz, ist in der Nacht in dieser geistigen Welt. Er nimmt sie nicht wahr, weil er in der gegenwärtigen Evolution, im gegenwärtigen Entwicklungszyklus des Menschen noch keine Organe, keine Erkenntniswerkzeuge für diese seine Welt hat, in der er ist.
+
+Nun könnte es sich ausnehmen wie eine Hypothese, wenn man sagt, es gibt einen astralischen Leib und der Mensch sei im traumlosen Schlafe außer seinem physischen und Ätherleibe in einer geistigen Welt. Aber abgesehen davon, daß derjenige, dessen geistige Augen durch die Einweihung, die wir besprochen haben, geöffnet sind, den astralischen Leib durch eine Trennung vom physischen Leib, durch eigene Beobachtung und eigenes Erlebnis kennt, abgesehen davon kann man sozusagen experimentell zeigen, daß ein solcher astralischer Leib vorhanden ist, wenn auch nicht durch gewöhnliche Instrumente. Denn das einzige Instrument, welches den Menschen wahrhaft hineinführt in die geistige Welt, ihm die Geheimnisse der höheren, übersinnlichen Welt klarlegt, das ist der Mensch selbst, seiner vollen und ganzen Wesenheit nach. Dieses Instrument, der Mensch, ist einer unendlichen Vervollkommnung, einer unendlich subtilen Ausbildung fähig, und gerade die Einweihung selbst ist es,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+die den Menschen vervollkommnet. Sie liefert dem, der sie auf sich anwenden will, sozusagen den experimentellen Beweis dafür, daß es einen astralischen Leib des Menschen gibt, der vom physischen Leib unabhängig werden kann.
+
+Erinnern wir uns einmal an einige der Gesichtspunkte, die wir bei der Einweihung besprochen haben. Wir haben da gesagt, daß der Mensch gewisse Übungen machen kann, Übungen der Meditation, der inneren Versenkung also, nach ganz bestimmten methodischen Vorschriften, durch die er seine Gedanken-, Gefühls- und Willenswelt innerlich stark und kräftig macht, stärker und kräftiger, als durch irgendeine äußere Sinnesbeobachtung Gedanken, Gefühle und Wille gestärkt werden können. Es gibt eben solche Anweisungen, wie wir es im Vortrage über die Einweihung gesehen haben, durch die der Mensch mehr gewinnen kann, als er durch bloße äußere Beobachtung der Wirklichkeit gewinnt. An einer Menschenseele, welche die Anweisungen auf sich anwendet, zeigt sich etwas ganz Besonderes. Es zeigt sich, daß tatsächlich derjenige Leib, den wir den astralischen Leib genannt haben, den auch der hat, welcher wie der heutige Mensch keine geistigen Augen und keine geistigen Ohren hat, durch die subtile innere Arbeit des Menschen plastisch eingegliedert erhält diese geistigen Augen und diese geistigen Ohren. Wir können es zeigen, wie Versenkung in innere Gedanken und Gefühle, Versenkung in Willensimpulse die Gefühle und die Willensimpulse energischer machen. Wir können zeigen, wie sie wirken auf diesen astralischen Leib: Der astralische Leib zeigt nach einiger Zeit, wenn der Mensch Geduld und Ausdauer hat, bei der morgendlichen Rückkehr in den physischen Leib und den Ätherleib, daß er sich die geistigen Augen und Ohren erworben hat und nun erleben kann, was man die Erleuchtung nennt. Der Mensch kann also dadurch,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+daß er hier im wachen Bewußtsein durch Gedankenversenkung nach bestimmten methodischen Vorschriften arbeitet - dadurch, daß er gewisse Gefühle und gewisse Willensimpulse in sich ausführt —, auf seinen astralischen Leib so wirken, daß dieser sich fähig zeigt, auf uns zurückzuwirken. Dadurch zeigt man doch die Wirklichkeit des astralischen Leibes. Wir wirken auf ihn und er auf uns. Er bezeigt durch das Faktum der Einweihung sein Dasein.
+
+Ebenso wie der astralische Leib des Menschen in der Nacht getrennt ist von dem physischen Leib, ebenso ist von ihm getrennt dasjenige, was wir des Menschen eigentlichen Ich-Träger, des Menschen eigentliches Selbstbewußtsein nennen. Auch das verschwindet beim Entwicklungszustand des gegenwärtigen Menschen noch in ein unbestimmtes Dunkel hinunter.
+
+Beim schlafenden Menschen haben wir den physischen Leib im Bette vor uns, den der Mensch mit allen Mineralien gemeinsam hat, sowie den Ätherleib, den er mit allen Pflanzen gemeinschaftlich hat. Aus dem physischen Leib und dem Ätherleib herausgehoben haben wir den astralischen Leib, den der Mensch nur mit den Tieren gemeinsam hat, und das Ich, das der Mensch, als Krone der Schöpfung auf der Erde, mit keinem anderen Reiche der Natur innerhalb des Erdenreiches gemeinschaftlich hat. In dem gegenwärtigen Entwicklungszyklus, wo keine höheren Sinne, keine «Geistesaugen» und keine «Geistesohren», um mit Goethe zu sprechen, entwickelt sind, versinken die Eindrücke, die der Mensch während des Tages hat, beim Einschlafen, und andere tauchen nicht auf in der Welt, für die er keine Sinne hat. Daher ist er in der Nacht von Finsternis, Lichtlosigkeit und von Stummheit umgeben. Des Morgens beim Aufwachen taucht der Mensch unter in den physischen Leib und den Ätherleib. Diese sind mit den physischen Augen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:275
+
+---
+
+und Ohren ausgestattet. Der Geistmensch taucht unter in den physisch-sinnlichen Menschen, gebraucht da die Instrumente für die physisch-sinnliche Welt und hat dadurch diese Welt um sich. Man sollte verstehen - und wenn man will, so kann man es -, was Fichte gesagt hat: Man glaube nicht, daß das Auge sieht, sondern der Mensch sieht durch das Auge; man glaube nicht, daß das Ohr hört, sondern der Mensch hört durch das Ohr. Ebenso wie mit Auge und Ohr ist es mit dem Geruchs- und Geschmackssinn. Sie sind alle Werkzeuge für den inneren Menschen.
+
+In diesem geistigen, inneren Menschen, in diesem Ich und diesem astralischen Leib, sieht die Geisteswissenschaft und muß sie sehen das Ursprüngliche, das Erste des Menschen. Nicht in dem physischen und nicht in dem Ätherleibe, sondern in dem Astralleibe und dem Ich ist dasjenige gegeben, was vor dem physischen und vor dem Ätherleibe vorhanden war. Es wird gewiß mancher, der tiefer suggestiv beeinflußt ist von den stark wirkenden, am Materiellen haftenden Vorstellungen der Gegenwart, einwenden: Denkt ihr euch denn in eurer phantastischen Geisteswissenschaft, daß dieses Geistige, dieser Träger von Lust und Leid, von Freude und Schmerz, von Trieben, Begierden, Leidenschaften und von Selbstbewußtsein, einmal frei irgendwo geschwebt habe, ohne an einen physischen Leib gebunden zu sein? - Darauf antwortet die Geisteswissenschaft: Jawohl, das ist der Fall! Vor allem Physischen, vor allem Ätherischen sogar, war dieser astralische Leib, der Träger von Lust und Leid, von Freude und Schmerz. Das Innenleben war vor dem Äußeren.
+
+Damit wären wir unmittelbar an den Erdenanfang versetzt. — Können Sie sich vorstellen, daß jemand, selbst unter den starken materialistischen Suggestionen, das ganz leugnen kann, daß es etwas geben könne, was wie ein gei
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:276
+
+---
+
+stiger Zustand dem zugrunde liegt, was sich erst danach verdichtet und entsteht? Oft ist ja hier betont worden, daß für die Geisteswissenschaft die Materie verdichteter Geist ist. Gebrauchen wir doch einmal einen Vergleich, den wir Öfter angewendet haben, um zu zeigen, wie der Geistesforscher über Geist und Materie denkt. Denken Sie sich einmal, irgend jemand hätte vor sich durchsichtige Luft und es träte in dieser durchsichtigen Luft Wolkenbildung auf, als die Wirkung von einer Abkühlung. Das, was früher durchsichtig war, wird getrübt durch die Wolkenbildung; das, was früher Wasserdunst und nicht sichtbar war, wird zu Wasser. Vielleicht geht es weiter: Das Wasser gefriert zu Eis. Das Eis fällt in Stücken herunter. Nehmen wir an, es käme jemand und sagte: Unsinn, Dummheit ist es, daß das Wasser vorher in der Luft verteilt gewesen ist. Ich habe nichts davon gesehen! Das erste war das, was mir als Wolken entgegengetreten ist. Dann kommt einer, der kann auch die Wolken noch nicht sehen, der sieht erst etwas, wenn das Wasser gefriert, wenn Eis entsteht. Wenn man dem sagt: Was als Eis heute da ist, das war früher schon als Wasser da, so antwortet er: Ich habe nichts gesehen, Eis ist da und sonst nichts.
+
+Aus solchen Gedanken muß die Antwort genommen werden, wenn jemand einem Geistesforscher Phantastik vorwerfen will, der sagt, zuerst war der Mensch nicht materiell vorhanden, auch nicht als Äther leib, sondern der astralische Leib und das Ich waren zuerst vorhanden. Im Beginne unseres Erdendaseins waren astralischer Leib und Ich vorhanden. Ja, es war sogar, wie wir gleich sehen werden, der Mensch als geistiges Wesen auf der Erde vorhanden, bevor Tiere, bevor Pflanzen, bevor Mineralien auf der Erde vorhanden waren. Zunächst bestand die Erde aus einer Zusammenfügung von lauter solchen geistigen Menschen, die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+aus dem Ich und dem astralischen Leib bestanden. Das ist der Erdenanfang. Nun beschreibt der Geistesforscher weiter: Wie das Wasser, das aufgelöst unsichtbar in der Luft ist, sich zu Wolken verdichtet, so verdichtete sich einstmals das Astralische zum Ätherischen. Und jetzt waren im weiteren Verlauf der Erdenentwickelung Menschen vorhanden, die ein Ich, einen astralischen Leib und einen Ätherleib hatten. Zuletzt entstand, wie das Eis aus dem Wasser, das Wasser aus dem Wasserdunst sich gebildet hatte, der physische Leib, als der dichteste Teil der menschlichen Wesenheit. So haben wir den Gang der Erdenentwickelung: Zuerst ist der Mensch da als geistiges Wesen, dann als ätherisches Wesen, und zuletzt erst kristallisiert das Geistige den menschlichen physischen Leib heraus.
+
+Halten wir einmal das Bild fest von dem sich verdichtenden Wasserdunst. Nehmen Sie an, Sie hätten einen Klumpen Wasser. Dieser Klumpen Wasser würde künstlich von Ihnen so behandelt, daß ein Teil davon in der Mitte gefriert. Nehmen Sie an, Sie hätten viele solche Klumpen Wasser, bei denen ein Teil in der Mitte gefriert; es entstehen also viele Eiskörnchen. Und jetzt geschehe etwas sehr Eigentümliches: Aus einigen dieser Wasserklumpen fiele das Eisklümpchen heraus und bliebe nur mit wenig Wasser überzogen für sich, während die Muttersubstanz, das Wasser, aus dem sich das Eis gebildet hat, sich zurückzieht. Bei den anderen Wasserklumpen bleiben die Eiskörnchen in dem Wasserklumpen darin und gefrieren weiter. Es bildet sich mehr Wasser zu Eis um, es entstehen größere Eiskerne. Bei einer Anzahl der so entstandenen Gebilde fallen solche größere Eiskerne heraus und behalten etwas Wasser, während sich die Muttersubstanz von ihnen zurückzieht. Das gehe so fort. Immer wieder steigen solche Eisklumpen zu höheren Stufen, das heißt sie bilden mehr
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Eis aus dem Wasser heraus. Und immer bilden sich auch Eisstufen auf der Erde zurück, während andere Klumpen immer mehr vom Wasser in Eis umbilden, bis sie zuletzt solche Eisklumpen haben, die alles Wasser in Eis umgebildet haben und deren Muttersubstanz sozusagen nur zwischen den Poren des Eises enthalten ist.
+
+Dieses Bild lassen Sie entstehen in Ihrer Seele für den Gang des Erdenwerdens vom Erdenanfang bis in unsere Zeit hinein. Denken Sie sich am Anfang unseres Erden-daseins den Menschen als geistiges Wesen und nur vorhanden als geistiges Wesen. Er beginnt zuerst herauszukristallisieren einen kleinen, unbedeutenden Teil, der dichter wird. Es gibt gewisse Wesen, die bleiben wie die Eiskörnchen auf einer frühen Stufe stehen, indem sie sich trennen von ihrer geistigen Muttersubstanz. Das sind die unvollkommensten Tiere, die einstmals dadurch entstanden sind, daß aus der menschlichen Muttersubstanz, aus dem astralischen Menschen nur ein Teil materiell geworden ist und sich herausverdichtet hat. Das sind die niedersten Tiere. Die anderen Menschen haben sich weiterentwickelt auf höhere Stufen. Wieder sind herausgefallen aus der geistigen Muttersubstanz höhere Tiere. Und so haben sich, wie aus dem Wasserklumpen das Eis, im Laufe der Erdenentwicklung immer differenziertere, vollkommener und vollkommener sich ausbildende Geschöpfe herausentwickelt, physische Gebilde, bis herauf zum heutigen Menschen, welcher in seinem äußeren physischen Ausdruck ein Ebenbild ist der geistigen Anlagen und Möglichkeiten, die schon ursprünglich am Erdenanfang im Geiste, das heißt im Astralleib des Menschen enthalten waren. Und wie die Eisklumpen, die herausgefallen sind, Ihnen die Etappen des Werdens des großen Eisklumpens darstellen, so stellen alle Wesen, die unvollkommener sind als der Mensch, das ganze Tier- und
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 279
+
+---
+
+Pflanzenreich, die zurückgebliebenen Etappen der menschlichen Evolution auf der Erde vor. Der Mensch ist der Erstgeborene der Erde als geistiges Wesen, und nach und nach hat er als geistiges Wesen, wenn ich den Ausdruck gebrauchen darf, Etappe für Etappe das Materielle aus sich herauskristallisiert. Auf jeder Etappe sind stufenweise stehengeblieben die untergeordneten Wesenheiten, so daß wir in der ganzen Reihe der unvollkommeneren Erdenwesen nicht Vorfahren des Menschen, sondern im Gegenteil Nachkommen des geistigen Menschen zu sehen haben, die nicht mitgekommen sind. Es sind die zurückgebliebenen Brüder, zurückgebliebene Wesenheiten auf den Vorstufen, die dadurch, daß sie ihr Leben fortgesetzt haben bis in unsere Zeit hinein, in die Dekadenz gekommen sind.
+
+So sehen wir, daß, wenn wir die Entwickelungsreihe betrachten, Glieder herausgefallen sind. Könnte sich jemand einen Stuhl in den Weltenraum stellen und den hyperboräischen Menschen zuschauen, er müßte, wenn die Voraussetzungen der Geisteswissenschaft richtig sind, äußerlich-physisch das Bild sehen, das der Geistesforscher zeigt: wie der Mensch zuerst die unvollkommenen Tiere zurückließ und dann die immer vollkommeneren und vollkommeneren. Tatsächlich ist äußerlich der Mensch am spätesten in seiner heutigen Gestalt entstanden, als das jüngste der Geschöpfe; geistig ist er der Erstgeborene, geistig geht er allen Wesen voran. Aus dem Menschen haben sich alle anderen Wesenheiten herausgebildet, die auf einer unvollkommenen Entwickelungsstufe des Menschen gleichsam abfallen, die das Abgestoßene der Menschheitsevolution darstellen. So geht im Erdenwesen alles Unvollkommene auf das Höhere zurück. Nicht in unserer physischen Gestalt ist das Höhere, das Ursprüngliche, sondern im Geiste. Die heutige Naturwissenschaft krankt geradezu an der Frage,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 280
+
+---
+
+die sie immer und immer wieder stellt und die mit unserem Thema vom Erdenanfang so innig zusammenhängt: Wie hat sich Lebendiges aus dem Leblosen entwickeln können? Wenn auf unserer Erde nur lebloser Stoff ist, wie konnte sich daraus das Lebendige entwickeln? Die einzige Antwort darauf ist, daß die Frage falsch gestellt ist. Es hat sich nie Lebendiges aus dem Leblosen entwickelt, wohl aber ist alles Leblose aus Lebendigem entstanden. Sie können sich leicht klarmachen, wie das Leblose hervorgeht aus dem Lebendigen, wenn Sie sich anschauen, was Sie heute noch als Gestein aus der Erde herausgraben in Form von Steinkohle. Das waren einst Pflanzen, Farne und Ackerschachtelhalme, die auf gewissen Gebieten der Erdoberfläche gestanden haben, in den Boden hineingesunken sind und die Sie jetzt nach Jahrmillionen herausgraben, nachdem sie zu Stein geworden sind. Für den Geistesforscher ist nicht nur die Steinkohle aus Pflanzlichem entstanden, sondern aller mineralische Boden, aller mineralische Stoff führt zurück auf ein ursprünglich Pflanzliches, selbst wenn, wie gesagt, der heutige materialistische Forscher sich nicht vorstellen kann, daß es ein Pflanzenreich geben kann ohne mineralische Grundlage. Ein solcher Forscher kann sich eben nicht vorstellen, daß die dichteren, gröberen Vorgänge hervorgehen aus den feineren Vorgängen.
+
+Es gibt ja ein Beispiel dafür, wie eine solche materialistische Anschauung jedem gesunden Menschenverstand ins Gesicht zu schlagen vermag, wie der Materialismus in einigen Gelehrten Europas seinen Spuk treibt. Da gibt es zum Beispiel die materialistische Theorie der Seelenerscheinungen von William James, die sogar idealistisch sein will, bei der sich die materialistischen Vorstellungen in das ganze Denken hineinmischen. Ich habe das Symptom, das in dem Satze liegt: «Der Mensch weint nicht, weil er traurig ist,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:281
+
+---
+
+sondern er ist traurig, weil er weint», schon angeführt. Da nimmt der Betreffende an, daß das Dasein materiell auf den Menschen wirkt: es wirkt auf die Tränendrüsen, dann spürt der Mensch den Vorgang und wird traurig. Das ist so in unserer Gegenwart: Der Erfinder dieser Theorie ist konsequent im Materialismus, auch dann, wenn es dem gesunden Menschenverstand ins Gesicht schlägt. In Wahrheit sind das Vorgänge in der seelisch-geistigen Welt, und die materiellen Vorgänge sind die Folgen davon. Die seelisch-geistigen Vorgänge sind die ursprünglichen. Alles, was fest ist, was materiell-mineralisch um uns ist, ist genau wie die Steinkohle ursprünglich aus Geistigem entstanden. Die Frage ist also nicht, wie Lebendiges aus Leblosem entstanden ist, sondern wie Lebloses aus dem Lebendigen entstanden ist. Ebenso aber wie Lebloses aus dem Lebendigen entsteht, wie Lebendiges vor dem Leblosen da war, so war das Geistige vor dem Lebendigen da. So kommen wir zurück an unseren Erdenanfang und sehen, daß unsere Erde selbst an ihrem Ausgangspunkt ein geistiges Wesen war. Sie war ein geistiges Wesen und hat das Materielle in der Stufenfolge aus sich herausgebildet, daß aus dem Geistigen das Lebendige und aus dem Lebendigen das Tote entstanden ist. Das Tote ist das späteste Produkt.
+
+So blicken wir zurück an unseren Erdenanfang und fühlen uns, in unserem eigenen Ursprung, im Erdenanfang als Menschen als die Erstgeborenen der Erde, geistig am Ausgangspunkt der Erdevolution. Jetzt lassen wir von hier aus den Geist in die Zukunft schauen. Am leichtesten können wir verstehen, wie der Geistesforscher ein Bild von der Zukunftsperspektive zustande bringt, wenn wir uns klarmachen, was ja auch flüchtig aus anderen Andeutungen in dieser Vortragsserie schon hervorgegangen ist, daß im heutigen Menschen die einzelnen Organe von ganz verschieden
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 282
+
+---
+
+nem Werte sind. Es ist nicht so, wie es der materialistischen Anatomie scheint bei der Untersuchung des Menschen. Für den materialistischen Anatomen ist alles nur so da, wie es sich seiner physischen Eigentümlichkeit nach darstellt. Für denjenigen aber, der mit Geistesblick die Organe des Menschen verfolgt, gibt es solche, die in Dekadenz sind, im Verblühen, im Absterben, wie sich am Baum die Borke, die Rinde bildet, sowie andere, die so, wie sie heute ausschauen, im Anfang ihres Werdens sind. Gewisse niedere Organe, die heute der Fortpflanzung der Menschheit dienen, sind im Absterben begriffen. Dafür haben wir aber ein Organ, welches im Anfange der Entwicklung ist, und welches eine viel höhere Stufe in der Zukunft erlangen wird. Dieses Organ ist das menschliche Herz. Nicht nur der geistige Teil, sondern bis ins physische Organ hinein ist das Herz eine wunderbare Perspektive für unsere Zukunft. Dieses Herz ist für den Anatomen eine Crux, weil sonst jedes Organ, das willkürlich bewegt wird, quergestreifte Muskeln hat. Das Herz ist ein Organ, das unwillkürlich gebraucht wird, in seinem Bau jedoch wie ein willkürlich bewegter Muskel gestaltet ist. Woher kommt das? Das kann keine physische Anatomie erklären! Es kommt daher, daß dieses Herz dazu bestimmt ist, in der Zukunft ein viel höheres Organ zu sein. Es ist quergestreift, weil es in der Zukunft ein willkürlicher Muskel sein wird wie unsere Handmuskeln von heute. Wir werden in der Zukunft dem, was die Seele als Impuls empfindet, mit einer Bewegung des Herzens willkürlich entsprechen. Der Mensch wird seine Arbeit nicht nur durch das Werkzeug der Hand vollführen, sondern das Herz wird ein Werkzeug der Seele $sem_{9}$ in einer Weise, wie der Mensch es heute noch gar nicht ahnt.
+
+Nehmen Sie ein anderes Organ, das menschliche Stimmorgan. Was vermag es heute? Wenn ich zu Ihnen spreche,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 283
+
+---
+
+was geschieht da? Dasjenige, was ich zu Ihnen spreche, meine Worte, sie leben zunächst in meiner Seele. Würde ich sie nicht aussprechen, so würden sie nicht in Ihre Seele dringen. Ich spreche sie aus, setze die Werkzeuge meines Kehlkopfes in Bewegung. Die Luft hier in diesem Raum wird dadurch in Schwingung versetzt, und von jedem meiner \Jhrte sind Schwingungswellen in diesem Saal, die zu Ihnen dringen. Was ist die Sprache? Sie ist eine Luftverkörperung der Gedanken. Habe ich etwas ausgesprochen, so ertönt der Gedanke, er ist verkörpert in der Luft, und der, welcher die Luftwellen in diesem Raum sehen könnte, würde die körperliche Gestaltung meiner Gedanken hier im Räume herumschwirren sehen. Die Geisteswissenschaft zeigt uns, daß der Mensch in der Zukunft dazu kommen wird, nicht nur luftförmige Gestalten durch seine Worte hervorzubringen, sondern auch dichtere Materie zum Ebenbild dessen zu machen, was in seiner Seele lebt. Immer Dichteres und Dichteres wird er so gestalten lernen, und der Mensch wird in der Zukunft durch sein umgebildetes Stimmorgan, durch sein Wort seinesgleichen hervorbringen. Wenn der Mensch sich weiter entwickelt, geschehen wichtige Umwandlungen seiner Körperlichkeit. Gewisse Organe fallen ab, andere entwickeln sich weiter. Das Herz wird zu einem wichtigen Werkzeug für die Seelenregungen. Das Stimmorgan wird zu dem Reproduktionsorgan des Zukunftsmenschen, der seinesgleichen hervorbringen wird aus seinen Gedanken heraus. Wie er heute seine Gedanken in der Luft verkörpert, so wird er sich verkörpern durch das Organ, das heute auf dem Wege ist, Reproduktionsorgan, Fortpflanzungsorgan der Zukunft zu werden. Wie ein Schatten dessen, was unser Kopf sein wird, ist das, was er heute ist. Angedeutet ist der Zusammenhang zwischen dem menschlichen Stimmorgan und dem Fortpflanzungsorgan
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+dadurch, daß beim männlichen Individuum die Stimme sich ändert, eine Stimmänderung bei der Geschlechtsreife eintritt.
+
+Möchten die Menschen solche Veränderungen, die uns aus der Geisteswissenschaft mitgeteilt werden, besser betrachten! Das, was die Geistesforschung sagt, weist auf dasjenige hin, was die Menschheit in späterer Zeit zur Schaffung ihresgleichen haben wird: Es wird das Wort sein. Es wird ein Mensch das Wort sprechen, und das Wort wird ein Mensch sein. Das geschieht dann, wenn der Mensch sich immer mehr vergeistigt haben wird. Denn dadurch, daß der Mensch seine physischen Werkzeuge, wie wir es gesehen haben beim Herzen und beim Kehlkopf, in den Dienst seines Geistes bringt, vergeistigt er sich selbst, kehrt zurück zum Geist am Erdenende. Bei den Vorgängern der Menschen, den Schöpfern, die damals ihr Erdendasein anfingen, die am Erdenanfang da standen, wo der Mensch stehen wird am Erdenende, zeigt sich, daß es bei ihnen so war. Und der Mensch wird einstmals werden am Ende durch das Wort, der Mensch wird sprechen am Urende das Wort, und das Wort wird ein Mensch sein. Von jenen Wesen, den göttlich-geistigen Wesen, die schon am Erdenanfang auf der Höhe standen, zu der sich die Menschen einmal entwickeln werden, wird uns in einer der tiefsten Religionsurkunden, im Johannes-Evangelium, richtig und sachgemäß gesagt: Im Urbeginne war das Wort, und das Wort war ein Gott. - Wie im Urbeginne das Wort und das Wort ein Gott war, so wird am Urende das Wort ein Mensch sein, und der Mensch wird das Wort sein.
+
+Wenn wir so auf den Anfang blicken und sehen, wie der Mensch aus dem Geist heraus entstanden und im Sinne dieses Erdenwerdens zum heutigen Menschen geworden ist, und auf die Umwandlungen unseres Erdenmenschen blikken, eröffnet sich uns die Perspektive dieses Erdenwerdens
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+nach der Vergeistigung hin. Da haben wir Geist am Anfang und Geist am Ende. Geist war der Ursprung und Geist ist das Ziel. Das ist das Geheimnis der Erdevolution. Und wenn wir in der Mitte die immer mehr und mehr sich verdichtende Materie sehen, so wissen wir, daß diese Materie umgewandelter und umgeformter Geist ist, wenn wir sie nicht als äußerliches Traumbild sehen, sondern auf ihr Wesen eingehen. Sie ist nichts anderes als das, was aus dem Geist sich herausgebildet hat und was sich wieder umbilden wird zum Geist. Blicken wir vorwärts, überall blicken wir auf Geist. Wir urstanden nach Jakob Böhme im Geist, und wir streben nach dem Geistigen. Das Tun, als Tätigkeit des Geistes, das ist diejenige Erkenntnis des Geistes, die den Menschen wahrhaft erhebt, die ihn zu einem brauchbaren, weil hofFnungssicheren, arbeitstüchtigen, geistig und physisch gesunden Wesen macht, es ist die Erkenntnis, daß alles im Geiste wurzelt und daß das, was wir wahrnehmen und schauen im Weltenwerden, die Taten des göttlichen Geistes sind.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# DIE HÖLLE
+
+Berlin, 16. April 1908
+
+Weit müssen wir zurückgehen in dem menschlichen Streben nach einer Lösung der Welträtsel, wenn wir den Ursprung der beiden Vorstellungen ins Auge fassen wollen, die sich dem Menschen bald aufdrängen, wenn er in einem tieferen Sinne, vor allen Dingen in einem geistigen Sinne an diese Welträtsel herantritt: die beiden Vorstellungen von Gut und Böse.
+
+Immer wird das menschliche Denken sich zu erheben suchen zu den geheimnisvollen Kräften, die von der geistigen Welt aus unsere Entwicklung bedingen und durchströmen. Immerzu tritt uns in den verschiedensten Formen der Versuch entgegen, die dem Heil, dem Fortschritt der Menschenentwicklung dienenden, die wohltätigen Kräfte des Lebens in Beziehung zu bringen zu den zerstörenden, den widerwärtigen, den hemmenden. Aber es stellt sich auch immer wieder die intime Verwandtschaft, die trotz des scheinbar starken Gegensatzes für den genauer Beobachtenden zwischen diesen beiden Kraftrichtungen besteht, vor den Menschen hin. Wir brauchen nur an die bei einer anderen Gelegenheit bereits erwähnten Schillerschen Worte über das Feuer zu denken:
+
+Wohltätig ist des Feuers Macht
+Wenn sie der Mensch bezähmt, bewacht
+Doch furchtbar wird die Himmelskraft
+Wenn sie der Fesseln sich entrafft
+Einhertritt auf der eigenen Spur
+Die freie Tochter der Natur.
+
+-0-T
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+Seite: 287
+
+---
+
+Man mochte sagen, in einem solchen Worte liegt wie eingehüllt die Frage, die uns heute und im nächsten Vortrag zu beschäftigen hat, die Frage, die sich ja auch zu verschiedenen Zeiten gekleidet hat in die Worte Hölle und Himmel, wobei man sich durchaus nicht vorstellen darf, daß diese Worte überall, wo sie auftreten, jene abergläubische Bedeutung haben, die viele Anhänger dieser Vorstellungen ihnen beilegen, aber auch nicht minder viele von denen, die sie heute, ohne ihre tiefere Bedeutung zu kennen, gern bekämpfen möchten.
+
+Wenn wir uns nur flüchtig umsehen, so sehen wir unsere Frage bereits der alten persischen Kultur entspringen, wo ein Reich der guten Kräfte, des Ormuzd, und ein Reich der bösen Mächte, des Ahriman, einander scharf gegenübergestellt werden. Und wenn wir sehen, wie da in einem merkwürdigen Gedankenbild den verborgenen Kräften, die in der Welt im guten Sinn vorwärts dringen, sich einmischen die hassenden Kräfte, die den Gang aufhalten, bis zuletzt doch die Lichtmacht siegt, so haben wir eines der großen Bilder vor uns, in welches Menschenphantasie und Menschenimagination unser Problem kleiden. Vom griechischen Tartaros bis in die nordische Sagenwelt tritt uns ein Reich der Hölle entgegen, es treten uns Namen entgegen, mit denen der Begriff Hölle verbunden ist. Es ist dasjenige Gebiet, in das alle diejenigen verdammt sind, die in der physischen Welt nicht eines der Kulturrichtung entsprechenden, ehrenvollen Todes gestorben sind.
+
+Eine Eigentümlichkeit kann uns auffallen, wenn wir uns an diese Sage vom Reich der Hölle erinnern. Beachten wir sie genau, denn von vornherein sei es gesagt: In den Einkleidungen der Sagenwelt findet sich manchmal eine tiefere Weisheit, als diejenige ist, die in unserer Zeit mit abstrakten Begriffen ergründet wird.
+
+Es ist merkwürdig, wie die alte nordische Sagenwelt den
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 288
+
+---
+
+gegenwärtigen Bestand der Welt ableitet von einem, von kaltem Nebel erfüllten «Nifelheim», dem nordischen Land, das nach germanischer Vorstellung sonnenfremd war in uralter Zeit, und von dem anderen Reiche, dem «Muspelheim», dem warmen Reiche. Durch das Zusammenwirken der beiden Reiche entstand der gegenwärtige Zustand der Erde. Und nicht etwa von dem warmen Muspelheim, sondern von dem kalten, nebelerfüllten Nifelheim wurden die wichtigsten, jetzt der Menschheit dienenden Kräfte hergeleitet. Dort haben sich zuerst ausgebildet die höheren, der heutigen Kultur zugrunde liegenden menschlichen Kräfte. Gleichzeitig aber - und das ist das Merkwürdige, das in einer wunderbaren Weise unsere Frage streift - wird uns gesagt, daß die Hei, die die unwürdigen Toten zu sich nimmt, von den Göttern in dieses Nebelheim verbannt ist, wo diejenigen hinkommen, die nicht eines würdigen Todes gestorben sind. Es ist merkwürdig, daß zusammengebracht werden das Reich und die Kräfte des Aufstiegs mit dem Ort und der Persönlichkeit, welche repräsentiert die Kraft des Todes, der Verwesung.
+
+Und wenn wir solche alten Zeiten verlassen und uns mehr unseren Zeiten nähern, so finden wir, daß vor allen Dingen diejenigen, von denen Pochhammer in seiner Dante-Ausgabe gesagt hat, daß sie ebenso die Lehrer der erwachsenen Menschen sein sollten wie die Erzieher und Lehrer der Jugend, zur Vorstellung von einer Welt greifen, in der das Böse konzentriert ist, wenn sie aus den Tiefen des Weltendaseins heraus unser Sein erklären wollen. Wie grandios und gewaltig schildert uns Dante diese Welt gleidi am Anfang seines überwältigenden Gedichtes, das uns des Menschen Läuterungs- und Werdegang zu den höheren geistigen Welten darstellt! Und wiederum war ein Dichter gedrängt, zu diesen Vorstellungen zu greifen, um die in der Seele des
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 289
+
+---
+
+Menschen wohnenden Kräfte darzustellen, als Goethe seinen «Faust» schrieb. Daher stellte er dem, was Faust zu den hellen, lichten Mächten führen sollte, den Repräsentanten der hollischen Mächte, den Mephistopheles gegenüber.
+
+Sie können sehr viele bedeutungsvolle Aussprüche in Goethes «Faust» finden, welche das eigenartige Verhältnis Fausts zu Mephisto und der beiden zum Weltendasein schildern. Nur an zwei sei hier in diesem Zusammenhang erinnert, in denen wiederum merkwürdig und jetzt an die nordische Sage anklingend sich für Goethe die beiden Begriffe Gut und Böse nebeneinanderstellen. Der eine Ausspruch ist der, wo Mephistopheles genannt wird «ein Teil von jener Kraft, die stets das Böse will und stets das Gute schafft». In einen sehr intimen Zusammenhang mit dem ganzen Weltendasein werden da die Begriffe von Gut und Böse gesetzt. Und einen anderen Ausspruch Goethes, der uns auf der einen Seite tief in Goethes Seele, andererseits aber auch recht tief in unser Problem hineinführt, wollen wir nicht unerwähnt lassen; denn er handelt von der ganzen Beziehung der guten Mächte im Faust zu dem, was Mephisto in ihm erreichen möchte, dem Bösen. Sehr bezeichnend läßt Goethe den Faust in dem Augenblick, wo er mit Mephisto den Pakt abschließen soll, der bestimmt, unter welchen Bedingungen er Mephisto verfallen soll, die Worte sagen:
+
+Werd ich zum Augenblicke sagen:
+Verweile doch! du bist so schön!
+Dann magst du mich in Fesseln schlagen,
+Dann will ich gern zugrunde gehen!
+Dann mag die Totenglocke schallen,
+Dann bist du deines Dienstes frei,
+Die Uhr mag stehn, der Zeiger fallen,
+Es sei die Zeit für mich vorbei!
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 290
+
+---
+
+«Werd ich zum Augenblicke sagen: Verweile doch, du bist so schön», ist ein Ausdruck, von dem uns Goethe deutlich begreiflich macht, daß ihn Mephistopheles in seinem vollen Umfange gar nicht verstanden hat. Doch weiß Faust, daß er nur dann den höllischen Mächten verfallen kann, wenn er in die Lage kommt, zum Augenblick zu sagen: «Verweile doch, du bist so schön.»
+
+Das soll hingestellt sein an den Anfang unserer heutigen Betrachtung, weil es uns zeigen kann, in welche Richtung von der Sagenwelt auf der einen Seite, von einem in dichterischem Gewände einhergehenden, tiefen menschlichen Denken andererseits dasjenige gelenkt wird, was uns heute beschäftigt. Freilich werden diejenigen, die heute glauben, aus einigen zusammengestoppelten Begriffen der materiellen Welt ein ganzes Weltanschauungsbild aufbauen zu können, sehr leicht fertig mit den Begriffen Hölle und Himmel. Sie kümmert das ja nicht, was wir jetzt an die Spitze unserer Betrachtung gestellt haben. Da wird einfach gesagt: Wir brauchen nur den Entwicklungsweg der verschiedenen Religionen und kindlichen Weltanschauungen zurückzugehen und uns wird klar, daß entweder die Völker selbst in ihrer Not oder irgendwelche Menschen dasjenige erfunden haben, was man Himmel und Hölle nennt, teils um die Völker zu trösten für das Leid, das sie auf der Erde erdulden, teils um sie durch die Furcht vor der Hölle anzuspornen, ihre eigensüchtigen Triebe zum Guten zu wenden.
+
+Wer so redet, weiß nichts von den wirklichen Beweggründen und Motiven, aus welchen man solche Vorstellungen wie Himmel und Hölle in die Seelen und Herzen der Menschen hineingeführt hat.
+
+Wir werden heute nicht in irgendwelchen zufällig zusammengeblichen Beobachtungen, in irgendwelchen Bildern, Urteilen und Räsonnements eine Antwort suchen auf die Frage,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:291
+
+---
+
+die sich die Menschheit immer gestellt hat, sondern wir wollen aus dem heraus, was wir in gewisser Beziehung allen unseren Wintervorträgen zugrunde legten, Vorstellungen gewinnen über das, was über diese Frage zu sagen ist.
+
+Erinnern wir uns an den Vortrag, den ich hier halten durfte über das Thema «Mann, Weib und Kind». Wir konnten da sprechen von dem großen Werdegang des Menschen über die Erde und uns von mancherlei Kräften, die mitspielen und mitsprechen im menschlichen Werden, unterrichten. Wenn wir im Sinne der Geisteswissenschaft diesen menschlichen Werdegang überschauen — so konnten wir damals sagen —, dann werden wir, um eine Beziehung dazu zu gewinnen, anknüpfen an die Art und Weise, wie der geisteswissenschaftliche Betrachter das werdende Kind betrachtet, wie es von den ersten Augenblicken seines Lebens im Lichte des Tages uns entgegentritt und immer mehr und mehr seine Kräfte und Fähigkeiten ans Tageslicht herausarbeitet.
+
+Wer mit dem durch die Geisteswissenschaft geschärften Blick diesen werdenden Menschen betrachtet, der sieht, wie sich in reizvoller Weise diese Fähigkeiten des Kindes aus den Keimen herausentwickeln. Eine materialistisch gesinnte Wissenschaft möchte uns glauben machen, daß dasjenige, was sich so reizvoll nach und nach an das Licht herausarbeitet, zurückzuführen ist auf die bloß vererbten Merkmale von den Eltern, Großeltern oder sonstigen Ahnen. Das Wort Vererbung spielt in der heutigen Zeit bei dieser Frage eine große Rolle. Schon oft wurde darauf aufmerksam gemacht, daß die Geisteswissenschaft heute in die Notwendigkeit versetzt ist, eine Rolle zu spielen, welche vor nicht allzu langer Zeit — denn es sind noch keine dreihundert Jahre her — ein großer Naturwissenschafter spielte: der italienische Naturforscher Francesco Redi. Dieser hat zuerst etwas ausgesprochen, was heute Gemeingut ist alles Laien- und Ge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 292
+
+---
+
+lehrtenwissens. Zu seiner Zeit war es aber nicht nur Laienglaube, sondern auch Glaube aller Naturforscher, daß aus Unlebendigem, aus Flußschlamm, nicht nur niedrige tierische Wesen, sondern auch Regenwürmer, Fische und so weiter entstehen können. Heute glaubt man, es seien nur religiöse Vorurteile, welche den Menschen verhinderten, alle Dinge auf eine rein mechanische Weltordnung zurückzuführen. Es waren aber nicht bloß die weltlichen Gelehrten, deren es nur wenige gab in der damaligen Zeit, die angenommen haben, daß aus Unlebendigem Lebendiges entstehen könne, sondern sogar der heilige Augustinus vertrat diese Anschauung. Sie ersehen daraus, daß es der Religiosität des heiligen Augustinus durchaus nicht widersprochen hat, eine solche Auflassung zu vertreten.
+
+Was ist es aber, was einer solchen Annahme widerspricht? Ein wirkliches, in die Tiefen des Weltendaseins gehendes äußeres und inneres Beobachten, physische und nicht übersinnliche Erfahrung über die Dinge. Physische und nicht übersinnliche Erfahrungen waren es, welche den Menschen nach und nach den Ausspruch aufgedrängt haben, den dann Redi getan hat: Lebendiges kann nur aus Lebendigem entstehen. - In derselben Lage, in der dazumal der Naturforscher Redi war - und er ist nur mit genauer Not dem Schicksal des Giordano Bruno entgangen —, befindet sich heute die moderne Geisteswissenschaft. Der Satz, der heute bestritten wird, ist hier auf ein geistiges Gebiet angewendet und heißt: Geistiges kann nur aus Geistigem entstehen. — Das, was wir als erstes aus den Anlagen des kindlichen Keimes sich entwickeln sehen, das können wir nicht auf physische Vorgänge zurückführen. Wir führen es zurück auf das Geistige, wie wir zurückführen das Lebendige auf das Leben. Und dann führt uns das Geistige auf ein Geistig-Seelisches zurück. Wenn wir dieses Geistig-Seelische umkleidet sehen,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+gleichsam eingehüllt von denjenigen Merkmalen, die zu knüpfen sind an das Physische oder an die anderen Hüllen des Menschen, dann führen wir nur dieses Physische, welches die geistigen und seelischen Fähigkeiten und Eigenheiten färbt und abtönt, zurück auf die ganze Vererbungsreihe, wie sie uns vorliegt in Eltern, Großeltern und so weiter. Wenn man uns nun immer wieder darauf aufmerksam machen will, wie in der Vererbungslinie nach und nach sich die Eigenschaften summieren, die dann zuletzt bei einem Nachkommen auftreten, so sagen wir, daß uns das vom Standpunkte der Geisteswissenschaft aus gar nicht verwundert. Wir finden es selbstverständlich, daß in den Leibern, in denen der geistige Keim auftritt, die Merkmale der physischen Vererbung auftreten. Denn wie betrachten wir diese physische Vererbung? Wir wählen dazu folgendes Beispiel:
+
+Wir nehmen einen Pflanzenkeim und senken ihn in fruchtbare Erde mit allen möglichen Stoffen, die die Pflanze reichlich ausstatten können. Und dann senken wir denselben Keim in eine andere Erde, die nur karg die Stoffe enthält, die die Pflanze braucht. Die Pflanzen tragen die Eigenschaften des Bodens in sich, dem sie entsprossen sind. So sehen wir die Pflanze, wie sie entfaltet, was ihr eigener tieferer Ursprung ist, ihren Pflanzenkeim, und auf der anderen Seite sehen wir dasjenige, was diesen Pflanzenkeim entwickelt und entfaltet, in das er eingehüllt ist, was wie angehängt und eingefüllt ist aus dem Grund und Boden, aus dem die Pflanze entsprungen ist. Und so ist der Mensch, wie die Pflanze aus einer früheren Pflanze, entsprungen aus einem Geistig-Seelischen der Vorzeit. Er ist gewachsen auf einem Boden, der zubereitet worden ist in der Vererbungslinie, und es enthält dieser geistig-seelische Keim auch Eigenschaften, die er aus dem Boden der Vererbungslinie mitbringt. Wir wundern uns nicht, daß der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 294
+
+---
+
+ganze Vorgang so ist und sich für den äußeren, physischen Weltbetrachter so darstellt, daß er in die angedeuteten Irrtümer verfallen konnte. Wenn es heißt, man solle hinschauen, wie sich in einer besonders begabten Persönlichkeit die Eigenschaften der Vorfahren summieren und daß ein Musiker aus einer Musikerfamilie und ein Mathematiker aus einer Mathematikerfamilie entstamme, so braucht der Geisteswissenschafter diese Dinge in keiner Weise abzuleugnen oder sie in einem anderen Lichte darzustellen. Für die Geisteswissenschaft liegt die Sache so:
+
+Es bestehen weite Zeiträume, innerhalb welcher dasjenige, was unser Geistig-Seelisches ist, immer wieder ersteht. Wir sprechen in der Geistesforschung von wiederholten Erdenleben, indem wir sagen, daß das, was in uns geistig-seelisches Dasein ist, uns zurückweist auf frühere Leben, in denen die geistigen Keime zum jetzigen Leben gelegt worden sind. Alles das, was wir jetzt enthalten, und das, was wir jetzt erringen, das wird in zukünftiger Zeit sich entfalten und seine Wirkung tun. Nichts hat dieser geistig-seelische Keim zu tun mit dem, was sich in der physischen Linie fortpflanzt. Wenn der Mensch ins Dasein tritt, tritt dieser geistig-seelische Keim in den physischen Leib ein, und diesen physischen Leib, den er bewohnt, bauen ihm die Kräfte auf, die vererbt sind in der Familie. So ist tatsächlich im Menschen eine Zweiheit zusammengebaut, wovon das eine, das Geistig-Seelische, zurückführt auf eine bloß geistige Evolutionslinie, während das andere, das Physische, auf die vererbte Evolutionslinie zurückzuführen ist. Vererbung und Reinkarnation sind die beiden Dinge, die hier ineinanderspielen, was sich aus jeder sinnvollen Betrachtung durchaus einleuchtend ergibt. Aber seht doch - heißt es dann -, daß in dem einen Vorfahren diese und in dem anderen jene Eigenschaften vorhanden sind. Zuletzt sammeln sich diese
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Eigenschaften und werden ein Goethe oder Beethoven. Und gewöhnlich erscheinen die Genies am Ende einer langen Reihe.
+
+Fassen wir diesen Satz einmal ins Auge: Das Genie erscheint am Ende einer Generationsreihe. - Es ist sonderbar, daß das Genie deswegen auf Vererbung zurückgeführt wird, weil es einen Leib hat, der für das Genie organisiert ist. Wenn die BernoulHs immer wieder Mathematiker werden, so ist es ja klar, daß sie dafür besondere Leiber brauchen. Es ist nicht wunderbar, daß, wenn der geistig-seelische Keim in das, was Vererbungslinie ist, in das, was der Boden für den mathematischen Kopf ist, untertaucht, er diese Eigenschaften auch mitbringt. Oder wundert es einen, daß jemand, der ins Wasser geht, naß herauskommt? So ist es auch selbstverständlich, daß, wenn jemand aus einer Familie herausgeboren wird, er die Eigenschaften der Familie an sich trägt.
+
+Was also der angeführte Satz wirklich besagen kann, ist etwas Selbstverständliches, etwas Grundtriviales. Aber woran müßte es sich zeigen, daß das Genie selbst vererbbar ist? Daran, daß es am Anfange und nicht am Ende einer Generationsreihe stünde! Wenn es am Ende steht, so ist das ein Beweis dafür, daß gerade die genialen Eigenschaften sich nicht vererben! Es ist schon eine sonderbare Art zu räsonnieren, wenn gesagt wird, man sehe ja, daß sich die Eigenschaften vererben, und wenn danebengestellt wird die Behauptung, daß das Genie am Ende einer Reihe steht. Eine gesunde Logik kann nur sagen, daß das Genie, indem es sich reinkarniert, die geistigen Eigenschaften nicht vererben kann; denn sonst müßte es am Anfange der Generationsreihe stehen. Wir kommen da auf zwei Entwicklungslinien, eine geistige und eine physische. Wenn man das nicht annimmt, so kommt man auch mit der gesunden Logik nicht zurecht.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 296
+
+---
+
+Wir sehen ein Kind, das vor Jahrhunderten ein anderes Leben durchgemacht hat, sich entfalten und diejenigen Eigenschaften benützen, die sich ihm nunmehr darbieten. So sehen wir das Kind ins Leben treten. Und wie sehen wir den Menschen aus dem Leben treten? Auch darauf haben wir schon hingewiesen. Jetzt wollen wir die Ereignisse betrachten, die eintreten, wenn das, was durch die Geburt ins physische Dasein getreten ist, wiederum aus dem Leben herausgeht, indem es durch die Pforte des Todes schreitet. Da müssen wir nicht bloß den Tod ins Auge fassen, sondern etwas, was wir schon bei der letzten Betrachtung ins Auge gefaßt haben, den Wechselzustand von Schlafen und Wachen, und die Wechselzustände von Leben und Tod.
+
+Wir wissen aus der letzten Betrachtung, daß, wenn der Mensch abends in den sogenannten traumlosen Schlaf sinkt, gewisse Glieder seiner Wesenheit sich trennen von demjenigen, was wir das eigentliche menschliche Innere, die innerste Wesenheit, den Wesenskern des Menschen nennen. Wir unterscheiden an einem solchen schlafenden Menschen im Sinne der Geisteswissenschaft das, was sozusagen im Bette liegt, von diesem Wesenskern. Im Bette liegt der physische Leib, der im Tode den Elementen der Erde übergeben wird. Aber wenn der Mensch im Bette liegt, ist der physische Leib nicht so, wie er ist, wenn er der Erde übergeben wird. Der physische Leib ist da noch imprägniert von dem Äther- oder Lebensleib. Der physische Leib lebt, die Lebensfunktionen werden unterhalten, so daß im Bette liegen der physische Leib und der Äther- oder Lebensleib. Herausgehoben finden wir zunächst den Träger von Lust und Leid, von Freude und Schmerz und all den während des Tages auf und ab wogenden Sinnesempfindungen: Wärme und Kälte, Geruch und Geschmack, den Träger des ganzen Gedanken- und Vorstellungslebens, angefangen von den In
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 297
+
+---
+
+stinkten und Leidenschaften bis zu den sittlichen Idealen. Das ist es, was beim Einschlafen in ein unbestimmtes Dunkel hinuntersinkt. Das ist es aber auch, was des Morgens wieder da ist wie ein einflutendes Licht. Es ist das Licht des Bewußtseins.
+
+Noch etwas müssen wir genau unterscheiden innerhalb dessen, was in der Nacht aus dem Menschenleib, sowohl dem physischen wie dem Ätherleib, herausgehoben ist: Es ist das menschliche Selbstbewußtsein und sein Träger, das menschliche Ich. Den Träger von Lust und Leid, von Instinkten und Leidenschaften, von auf und ab wogenden sinnlichen Empfindungen nennen wir den astralischen Leib, und den Träger des Selbstbewußtseins, das vierte Glied der menschlichen Wesenheit, das Ich. Diese beiden Glieder, Ich-Träger und Träger von Lust und Schmerz, sind während des traumlosen Schlafes herausgehoben aus dem physischen und ätherischen Leib.
+
+Warum können Sie nun in jener Welt nicht wahrnehmen? Auf diese Fragen haben wir die Antwort gefunden in unseren Vorträgen, weil so, wie die Entwicklung des Menschen jetzt ist, das Ich und der astralische Leib des Menschen keine Organe haben. Der Mensch nimmt seine physische Umwelt dadurch wahr, daß er Organe hat, Augen und Ohren. Erst des Morgens, wenn das Ich und der astralische Leib in den physischen Leib untertauchen und sich dieser Organe bedienen, nimmt der Mensch die Umgebung wahr. Wir haben also eine viergliedrige Wesenheit: einen physischen Leib, einen Ätherleib, einen Astralleib und einen Ich-Leib. - Das ist das Wesen der Wechselzustände von Wachen und Schlafen.
+
+Jetzt aber wollen wir uns den Moment des Todes vor Augen stellen. Wir können dies tun, indem wir dasjenige heranziehen, was als Tatsache einem solchen Menschen vor-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+liegt, der die Methoden der Einweihung auf sich angewendet und die höheren Sinne, die im Menschen schlummern, zu gebrauchen gelernt hat. Aber auch eine gewöhnliche Logik kann das einsehen, weil diese Tatsachen so eingekleidet werden, daß sie uns den Weg des Menschen durch den Tod darlegen können. Beim Tode tritt etwas ein, was während des ganzen Lebens zwischen Geburt und Tod nur in Ausnahmefällen eintritt. Während des ganzen Lebens bleibt ja der Ätherleib mit dem physischen Leib vereinigt. Nur im Tode trennt er sich von ihm, und dadurch wird der physische Leib zum Leichnam. Er folgt nun den bloß physisch-chemischen Kräften, denen er entrissen wurde zwischen Geburt und Tod durch das Innewohnen des Ätherleibes. Dieser Ätherleib ist, wie öfters gesagt wurde, ein getreuer Kämpfer während des ganzen Lebens gegen den Zerfall des physischen Leibes; denn der physische Leib hat in sich die chemischen und physischen Kräfte. Das zeigt sich, wenn er nach dem Tode sich selbst überlassen ist: Er zerfällt, er ist eine unmögliche Mischung. Der Ätherleib trennt sich heraus aus dem physischen Leib und bleibt eine Weile zusammen mit dem astralischen Leib und dem Ich.
+
+Dieser Zusammenhang ist von großer Wichtigkeit. Jetzt, in diesem Todesmomente, tritt vor dem Menschen auf ein umfassendes Erinnerungsgemälde an das bisherige Leben zwischen Geburt und Tod. Es ist, wie wenn ein gewaltiges Panorama dieses Lebens, das wir durchlebt haben, vor unserer Seele stünde. Begleitet wird diese Anschauung, dieses Erinnerungsbild von einem Gefühl der Erweiterung, des Größerwerdens der menschlichen Wesenheit. Es ist, wie wenn das menschliche Wesen sich ausdehnen würde und an der inneren Seite, wie in einem wunderbaren Panorama, die Bilder des verflossenen Lebens erscheinen würden.
+
+Woher kommt das? Es kommt davon, daß der Ätherleib
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+der Träger des Gedächtnisses ist. Solange er im physischen Leibe ist, ist er gebunden an den physischen Leib, und er kann nur überblidken, was er im physischen Leib zwischen Geburt und Tod erlebt hat. Der physische Leib ist eine Hemmung. Weil der Ätherleib ein ungetrübter, reiner Träger des Gedächtnisses ist, deshalb erscheint nach dem Tode die ganze Vergangenheit in einem einzigen Bilde. Leute, die beim Ertrinken oder bei einem Bergsturz dem Tode nahe waren und einen Schock erhielten, erinnern sich, daß in einem Momente das ganze Leben vor ihrer Seele stand. Ich könnte Ihnen da vieles erzählen, will aber nur erwähnen, was in einem Buch steht, auf das ich schon früher hingewiesen habe. Der Kriminalanthropologe Moritz Benedikt, ein Mann, der alles, was sonst hier gesagt worden ist, für größten Unsinn und Phantasterei ansehen würde - das macht aber nichts -, erzählt, daß, als er einmal dem Ertrinken nahe war, sein ganzes Leben wie ein großes Gemälde vor seiner Seele stand. Was geschieht in einem solchen Falle? Es geschieht da eine spontane Lockerung zwischen dem physischen Leib und dem Ätherleib, die gleich wieder aufgehoben wird. Die Folge davon ist, daß der Gedächtnisinhalt des ganzen Lebens für eine ganz kurze Spanne Zeit vor der menschlichen Seele steht.
+
+So steht also zunächst dieses Erinnerungsbild vor der Seele des Menschen. Dann kommt die Zeit, in welcher sich der Ätherleib wieder trennt von dem Astralleib und dem Ich. Aber es bleibt ein Rest des Ätherleibes verknüpft mit dem menschlichen Wesen, etwas, was man nennen könnte den Extrakt des letzten Lebens, etwas wie ein kurzer Auszug. Denken Sie sich diesen kurzen Auszug, diese Lebensessenz so, wie wenn Sie den Inhalt eines dicken Buches kunstvoll auf einer Seite zusammenfassen könnten, aber so, daß ein Mensch aus diesem Extrakt den Inhalt des Buches wieder
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+aufbauen könnte. So etwas wie eine solche Lebensessenz wird dem menschlichen Wesen für alle Zukunft einverleibt, nachdem er das, was er für seine weitere Evolution nicht gebrauchen kann, abgelegt hat. Dieses wollen wir uns besonders merken. Das, was da dem Menschen einverleibt wird für den künftigen Werdegang, das ist die Frucht des letzten Lebens. Es bildet jedes Leben etwas wie ein Blatt im großen Lebensbuch und alle unsere Erdenleben sind mit einem solchen Blatt eingetragen. Sie sind unserem Wesen einverleibt. Eine solche Frucht nehmen wir aus einem Leben mit in alle kommenden. Diese Frucht hat eine große Bedeutung für die weitere Entwicklung des Menschen.
+
+Bevor wir aber auf die Bedeutung dieses Lebensextraktes eingehen können, müssen wir den ferneren Gang des Menschen nach dem Tode einmal näher ins Auge fassen. Nachdem eine ganz kurze Zeit dieses Lebensgemälde bestanden hat, da tritt für den Menschen nach dem Tode eine andere Zeit ein, die wir in der folgenden Weise charakterisieren können. Jetzt hat der Mensch sein Ich, seinen astralischen Leib und diesen Extrakt, von dem ich eben gesprochen habe. Fassen wir jetzt ins Auge, wie der astralische Leib, der Träger von Trieben, Begierden und Leidenschaften, wirken kann. Wir können uns aus logischen Erwägungen heraus eine Vorstellung dieses Wirkens des astralischen Leibes bilden. Nehmen wir einmal eines der gewöhnlichen Erlebnisse, das Erlebnis eines Feinschmeckers, der Genuß an einer leckeren Speise hat. Wodurch kommt der Genuß zustande? Leicht könnte ihn jemand bloß dem physischen Leib zuschreiben wollen. Das wäre aber ein Unding. Nicht der physische Leib, sondern der astralische Leib ist der Träger von Begierden, von Lust und Leid. Den Genuß hat der astralische Leib, und er ist es auch, der die Begierde nach der leckeren Speise entwickelt. Der physische Leib ist ein
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 301
+
+---
+
+Apparat von physischen Stoffen, von physischen und chemischen Kräften. Er liefert das Werkzeug dafür, daß der astralische Leib diese Begierden befriedigen kann. Das ist das Verhältnis im Leben zwischen dem astralischen Leib und dem physischen Leib. Der astralische Leib schreit nach Befriedigung seiner Begierden, und der physische Leib liefert ihm die Werkzeuge, den Gaumen, die Zunge und so weiter, durch die er seine Begierden befriedigen kann. Was ist jetzt im Tode der Fall? Der physische Leib ist abgelegt und mit ihm alle Instrumente der Befriedigung. Der astralische Leib aber ist da, und es ist leicht einzusehen, daß dieser astralische Leib nicht so ohne weiteres seine Genußsucht, seine Begierden damit ablegt, daß ihm das physische Werkzeug genommen ist. Der astralische Leib behält nach dem Tode die Begierde, die Sucht, obgleich ihm das physische Werkzeug, wodurch sie befriedigt werden kann, fehlt. Der Astralkörper entwickelt also die Begierde nach leckeren Speisen und so weiter, aber es fehlt der Gaumen. Oder es ist, wie wenn ein Mensch, der brennenden Durst leidet, in einer Umgebung ist, die weit und breit kein Wasser hat. Aus keinem anderen Grunde ist er nach dem Tode in einer Unmöglichkeit, die Begierde zu befriedigen, als weil er keine Organe dafür hat. So leidet er durch die Begierde Schmerz, bis er sie durch die Nichtbefriedigung mit Stumpf und Stiel ausgerottet hat.
+
+Das ist die Zeit, die der Mensch nach dem Tode im sogenannten Kamaloka durchzumachen hat. Kama heißt Begierde, Loka heißt Ort. Das ist ein Sinnbild. Erst dann hört die Zeit des Leidens auf, wenn der Mensch die Begierde und Sucht, die im astralischen Leibe wurzeln und nur in der physischen Welt befriedigt werden können, ausgerottet hat. Es ist eine Zeit der Abgewöhnung, der Läuterung.
+
+Fragen wir uns aber nun, ob diese Zeit der Läuterung
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 302
+
+---
+
+nicht in allen möglichen Graden auftreten kann, so müssen wir antworten: Ja! - Nehmen wir zwei Menschen, einen, der ganz aufgeht in den sinnlichen Genüssen, dessen Leben von morgens bis abends ausgefüllt ist von allen möglichen Genüssen, die man nur in der physischen Welt, wo die Werkzeuge zu ihrer Befriedigung vorhanden sind, haben kann. Sein ganzes Inneres identifiziert er mit dem, was sein physischer Leib ist. Ein Mensch, der sich in solcher Weise identifiziert mit dem physischen Leib, wird ein schwierigeres Dasein nach dem Tode haben als derjenige, der schon in diesem Leben durch die sinnlichen Dinge hindurch dasjenige sieht, was übersinnlich, geistig-seelisch ist. Nehmen Sie dagegen einen Betrachter einer schönen Landschaft oder eines Musikwerks. In dem Kleinsten, Unbedeutendsten kann der Mensch eine Manifestation des Geistes sehen. Man wählt gern eine schöne Landschaft oder ein gutes Musikwerk als Beispiel, weil sich die Sache daran leichter veranschaulichen läßt. Derjenige, welcher in den Harmonien und Melodien eines Musikwerks die Rätsel des Ewigen in der Welt rauschen hört, der in der schönen Landschaft die geistigen Harmonien und Verhältnisse auf seine Seele wirken lassen kann, der entreißt sich als seelisch-geistiges Wesen schon in diesem Leben zwischen Geburt und Tod dem, was an das Physische gebunden ist. Und dasjenige, was also durchscheint durch das Physische, was also hindurchklingend empfunden wird durch das Physische, es ist ein Besitz, der uns bleibt und für den wir keine Läuterung, keine Abgewöhnung durchzumachen haben; denn dasjenige, was abfällt von uns, ist bloß das äußere Gewand. Denken Sie einmal in Ihrem tiefsten Innern nach, wie sich in dem Musikwerk etwas, was rein geistig ist, kundgibt. Es verhält sich ja zu den sinnlichen Manifestationen nicht anders, als daß es darin verborgen ist, und durch das Mittel der sinnlichen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Manifestation in Sie eindringt. Das ist etwas, was dem Geiste, der Seele angehört, und woraus sich der Mensch nach dem Tode nicht herauszureißen braucht.
+
+So sehen Sie, daß es Grade gibt dessen, was ertragen werden muß, und diese Grade richten sich danach, wie stark sich der Mensch identifiziert hat mit dem, was er nur durch seine Organe in der physischen Welt erleben, genießen kann.
+
+Nun gibt es sozusagen eine Perspektive, die ja ganz gewiß für keinen Menschen eine unmittelbare, reale Wirklichkeit in der Gegenwart zu sein braucht, weil es keinen Menschen gibt, bei dem sich die Bedingungen zu dieser Perspektive vollständig erfüllen. Aber sie ist doch vorhanden. Nehmen wir einen Menschen, der sein ganzes Ich völlig hin gibt an dasjenige, was nur durch den physischen Leib und seine Organe im Zusammenhang mit der physischen Außenwelt genossen werden kann, der sich ganz verloren hat an diese sinnliche Außenwelt und der für nichts, auch rein gar nichts Interesse hätte, was als geistig-seelischer Inhalt dieser sinnlichen Außenwelt zugrunde liegt; einen Menschen, der nur auf die Erde sieht und sich nur identifiziert mit dem, was seinen Leib gestaltet. Was wird die Folge sein? Wir können das erkennen, wenn wir noch genauer die Rätsel des menschlichen Wesens erforschen.
+
+Wir müssen uns, wenn wir das tun wollen, ein wenig halten an dasjenige, was der Mensch als Lebensextrakt seines Ätherleibes mitnimmt. Was wird aus dem, was er mitnimmt als Lebensextrakt? Aus dieser Frucht des vorhergehenden Lebens baut der Mensch seine nächste Verkörperung auf, den Körper seines nächsten Lebens. Denn dasjenige, als was der Mensch, der sich nach und nach entfaltet, uns erscheint, ist wohl Produkt der Vererbung. Aber diese Produkte der Vererbung sind in gewisser Weise elastisch.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Der Mensch läßt sich nicht bloß seinen Leib aufbauen aus den Merkmalen der Vererbung, sondern wie in einer elastischen Körperlichkeit wirkt und webt dasjenige, was er aus früheren Leben mitgebracht hat. So sehen wir an einem Menschen außer den vererbten Merkmalen die hineingewobenen Früchte des früheren Lebens, und aller früheren Leben. Und wenn wir uns fragen: Was hat das zur Folge, wenn der Mensch so lebt von Verkörperung zu Verkörperung? — so können wir sagen: Es hat zur Folge das, was wir den Vervollkommnungsgang des Menschen durch die Erdenleben nennen können. Der Mensch trat bei seinem Eintritt in das Erdenleben in seine erste Inkarnation ein mit Kräften, die im Verhältnis zu den Kräften, die bei den meisten Menschen heute wirken, primitiv waren. Als er in seine erste Inkarnation eintrat, hatte der Mensch nur wenig seelische Kraft, durch die er das Seelische hineinlenken konnte in den physischen und den ätherischen Leib. Dann genoß er die Früchte des ersten Lebens, nahm die Frucht des ersten Lebens mit und die Folge davon war, daß das nächste Leben ein vollkommeneres werden konnte. Denn dadurch, daß er zu den geringen Kräften, die er bei seinem ersten Dasein hatte, hinzuzufügen versteht die Erfahrungen der folgenden Leben, schafft sich der Mensch, insofern als diese Kräfte in Betracht kommen, ein immer vollkommeneres, in sich geschlossenes harmonisches Erdendasein. Jedes neue Leben erscheint uns auf einer höheren Stufe. Da aber sehen Sie zwei Kräfte ineinanderwirken. Sie sehen, nachdem der Mensch durch die Pforte des Todes hindurchgegangen ist, den Lebensextrakt, die Kräfte des früheren Lebens, welche für die Zukunft konserviert werden, die Kräfte, welche den Menschen immer vollkommener und vollkommener machen können. So wird von Leben zu Leben potenziert die Kraft des immer vollkommener werdenden Menschen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+In dem Momente aber, wo das Ich den physischen Leib verläßt, da sehen Sie die Kräfte, die ihn immer wieder ketten an das verflossene physische Dasein. In der Tat setzt sich das menschliche Dasein nach dem Tode zusammen aus dem, was wir die sich fortentwickelnden, und dem, was wir die sich in diese hineinbildenden, hemmenden Kräfte nennen können.
+
+Jetzt betrachten Sie noch einmal kurz diese hemmenden Kräfte, von denen wir gesprochen haben, dasjenige, was der Mensch nach dem Tode aus sich mit Stumpf und Stiel herausreißen muß. Wenn nichts anderes dazukäme, würde der Mensch nach seinem Tode bloß ausgerüstet sein mit demjenigen, was er an fruchtbringenden Kräften für das künftige Dasein aus dem verflossenen Leben mitgebracht hat. Zwar entreißt sich der Mensch alledem, was ihn sozusagen kettet an die verflossenen Leben, er entreißt sich allem Verlangen und allen Begierden. Aber von einem kann er sich nicht losreißen. Ein Rest bleibt. Es wird dieses, was da nach dem Tode erscheint als ein Rest, den der Mensch aus sich herauszureißen hat, vorbereitet zwischen Geburt und Tod. Es ist nicht da, wenn der Mensch ins Leben tritt. Nachdem er in das Leben eingetreten ist, wächst er in die physische Welt hinein, und sein Hängen an der Lust der physischen Welt stellt sich als etwas dar, was der Mensch im Laufe dieses Lebens sich erst aneignet, was er erst hereinzieht in seine Wesenheit. Nun können wir uns die Vorstellungen bilden, daß das, was der Mensch so nach und nach in seine Wesenheit hereinzieht, etwas ist, was nicht zu seiner Fortentwicklung beiträgt, was diese Fortentwicklung sogar unmöglich machen würde, wenn er einzig und allein an diese Kräfte ausgeliefert wäre. Weil er dies alles in sein Leben hereinbringt und weil es die Möglichkeit hat, vom Leben aufgenommen zu werden, ist es das Leben zwischen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 306
+
+---
+
+Geburt und Tod selbst, das die hemmenden Kräfte in den Mensdien hineinträgt. Es gibt uns auf der einen Seite die Lebenserfahrung, die wir als Frucht mitnehmen, und auf der anderen Seite schmiedet es uns zusammen mit der physischen Welt, die wir dann fortdauernd in uns tragen. Es ist dasjenige, was uns auf der einen Seite hinausheben will über die Verkörperung, auf der anderen uns immer wieder in diese Welt hineinbringt, bis wir so weit sind, daß wir alles, was uns mit der physischen Welt zusammenbringt, am Ende unseres Daseins völlig überwunden haben. So hat der Mensch dauernd eine Kraft in sich, die ihn vorwärts bringt, und eine andere, die eine hemmende, eine retardierende ist. Aus diesen zwei Kräften sehen wir das menschliche Dasein zusammengesetzt, aus einer sich vorwärtsentwickelnden und einer hemmenden Kraft.
+
+Sie können im einzelnen sehen, wie diese vorwärtsentwickelnden und retardierenden Kräfte ineinander wirken. Nehmen Sie aus dem gewöhnlichen Leben, dem scheinbar physischen, das Auge des Menschen. Das Auge ist, wie Goethe sagt, «am Lichte für das Licht gebildet». Wenn wir kein Auge hätten, würden wir das Licht nicht sehen. Aber wenn das Licht nicht da wäre, wäre auch das Auge nicht. Das Licht ist es, das das Auge entwickelt hat. Dadurch, daß das Licht das Auge schafft, schafft es zu gleicher Zeit eine Hemmung der Entwicklung und der Entwicklungsströmung, die vorangegangen ist. Dadurch, daß in grauer, urferner Vergangenheit das Licht auf den menschlichen Leib wirkte, wurde aus ihm dieses Auge herausgelockt. Dazu mußte es erst die Kraft, die sonst sprießende und sprossende Lebenskraft nach einer anderen Richtung gewesen wäre, hemmen. Nach langem Wirken der anderen Kräfte wird das Auge erst reif sein, ein Organ zu werden, das die Entwicklung wieder vorwärts bringt. So sehen Sie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:307
+
+---
+
+an diesem Beispiel, daß die Hemmungen, die rückstoßenden Kräfte, wesentlich notwendig sind.
+
+Jetzt sehen wir, wie wunderbar weise es in diesem Menschenleben eingerichtet ist, indem auf der einen Seite die vorwärtsdrängende Kraft der Evolution da ist, und auf der anderen Seite die rückstoßenden Kräfte. Diese rückstoßenden Kräfte sind es, die den Menschen zusammenschmieden mit der physischen Welt, die ihm in der physischen Welt zwischen Geburt und Tod die Organe verschaffen, durch die er sich wieder die Kraft für den Fortschritt erwirbt. Wären die hemmenden Kräfte nicht da, der Mensch würde nicht in das Leben zwischen Geburt und Tod eintreten, und nicht in die Hüllen hineinwachsen, durch die ihm das Geistig-Seelische erscheint. Jetzt wirkt er durch das Leben, das aus den hemmenden Kräften heraus geschaffen ist. So verdankt der Mensch die Früchte des Fortschritts den hemmenden Kräften.
+
+Darin verbirgt sich ein großes Rätsel, daß im Leben die fortschreitenden Kräfte zusammenwirken müssen mit den hemmenden. Nun kann es so werden, daß der Mensch in seinem Wesen die Waage hält zwischen den fortschreitenden und den hemmenden Kräften, oder daß er sich in einem Leben ganz und gar verbindet mit den hemmenden Kräften, daß er einmal ganz und gar verwächst mit den Kräften, die nur im physischen Leibe erzeugt sind als Mittel des Fortschritts, sie aber nicht als Mittel, sondern als Selbstzweck, als etwas für sich betrachtet. In diesem Fall risse sich das Geistig-Seelische des Menschen heraus aus allem Fortschritt. Es fiele heraus und dasjenige, was die Kamalokazeit, die Zeit des Abgewöhnens, der Läuterung wäre, die darin besteht, daß der Mensch ablegt, was ihn im Kleinen verbindet mit der physischen Welt, diese Zeit würde zu etwas Absolutem werden. Das steht als Extrem vor uns. Weil der Mensch
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:308
+
+---
+
+aber niemals ganz verwächst mit der sinnlichen Welt, weil er sich in seinem Seelischen, in seinem Innern dieser äußersten Perspektive zu entziehen vermag, wird er dem Äußersten entrinne. Wenn er aber so wäre, daß sein Interesse niemals haftete an dem, was als Geistig-Seelisches durchscheint - das steht als Perspektive da, wird aber nicht in diesem Leben erreicht —, dann würde sich das in die wirkenden Kräfte des Lebens eindrängen und so dastehen, daß der Mensch sich durch sein Verwachsensein mit der physisch-sinnlichen Welt aus allem Geistig-Seelischen herausreißen würde. Nehmen wir einmal diesen Fall an. Nun soll der Mensch nach dem Tode in die geistig-seelische Welt versetzt werden. Nichts bringt er sich für die geistig-seelische Welt mit als ein unbesiegliches Hängen, ein unbesiegliches Verwachsensein an und mit der physisch-sinnlichen Welt. Dieses Erinnerungsbild haftet und lastet nunmehr als ein Bleigewicht an ihm. Das verhärtete Materielle, ins Geistige umgesetzt, holt der Mensch in die geistige Welt hinein. Er ist untrennbar mit den Kräften verbunden, die alle Entwickelung und alle Evolution aufhalten und hemmen. Dies ist der Gedanke des höllischen Daseins. Daher erweitert sich in der letzten Perspektive die Läuterungszeit zu jenem Zustand, wo ohne Verständnis für die geistig-seelische Welt das Ich sich an das rein Physisch-Sinnliche gehängt hat und nichts mitbringt als das Verständnis für das Physisch-Sinnliche. Dieses Verständnis für das Physisch-Sinnliche ist die Höllenqual im Geistigen, wenn es auch vielleicht ein unendlich befriedigender sinnlicher Genuß im sinnlichen Dasein ist.
+
+Und nun versuchen wir die oben erwähnten Worte des Faust zu verstehen. Wenn der Höllensendling ihn haben will, was muß erreicht werden? Es muß erreicht werden, daß Faust aus den Augenblicken des leiblichen Daseins nicht den Keim der Weiterentwicklung heraussaugt, sondern er
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 309
+
+---
+
+muß in diesen Augenblicken des physischen Daseins sich da so hineinfressen, daß er sie halten will in dieser seiner Sinnlichkeit. «Werd ich zum Augenblicke sagen: Verweile doch, du bist so schön...» - dann hast du mich! Das ist das Bündnis, das der Mensch mit den Höllenmächten schließen kann, daß er sich mit den den Fortschritt hemmenden Mächten verbindet. Aber wir sehen zu gleicher Zeit, daß es gar nicht anders ging in der Menschheitsevolution, als daß diese hemmenden Kräfte ins Leben kamen.
+
+Wir werden das nächste Mal untersuchen, was der Mensch damals, als er zum ersten Male im physischen Leibe erschien, war, und woher er es mitbrachte. Jetzt wissen wir, daß der Mensch sich zusammensetzt aus vorwärtsstrebenden und rückwärtswollenden Kräften. Würde der Mensch dazumal, als er zum erstenmal in den physischen Leib eintrat, keine hemmenden Kräfte gehabt haben, dann würde er in derjenigen Gestaltung vergeistigter Art geblieben sein, in der er war vor der Inkarnation. Dadurch, daß die hemmenden Organe sich in ihm entwickelten, drang der Geist in das Sinnliche und konnte die Früchte des Sinnlichen mitnehmen, konnte sich immer mehr und mehr bereichern. Die Kräfte, aus denen der Fortschritt quillt, sind diejenigen, die erst die Organe des Fortschritts schaffen müssen. Hemmen müssen sie eine frühere Entwicklung, damit eine spätere Entwicklung möglich wird. Es hat niemand das Recht, über Hemmungserscheinungen des Lebens zu klagen. Das, was eine Wohltat ist, das konservative Element, solange es im Dienste der Menschheit ist, wird ein Hemmschuh, wenn es zum Selbstzweck gemacht wird. So ist es auch nach dem Leben, im Tod. Der Hemmschuh ist, im Dienste des Geistes betrachtet, der höchste Träger des Fortschritts. Wird er aber als Selbstzweck betrachtet oder selbstsüchtig benutzt, dann ist er das Keimelement der Hölle. So kann dasjenige, aus
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 310
+
+---
+
+dem alle menschlichen Fähigkeiten dieser Erde entspringen, wenn der Mensch zur Unzeit mit ihm sich verbindet, Selbstzweck, Keim der Hölle werden.
+
+Jetzt verstehen wir die nordische Sage. Aus dem Nebelheim ist der Geisteskeim für die jetzige Kultur entsprungen. Er hat durchgehen müssen durch die alten Kulturen, aber er mußte auch darüber hinausschreiten, indem er die Früchte in die jetzige Inkarnation hineinnahm. Diejenigen Menschen, die die jetzige Inkarnation nicht benützen im geistig-seelischen Sinne, verurteilen sich dazu, zurückgeworfen zu werden auf eine Stufe, die in ihrer Art wohltätig war, zu ihrer Zeit ein Mittel zum Fortschritt war, die aber jetzt hemmend wirkt. So wird das, was zu seiner Zeit ein Mittel des Fortschritts ist, wenn es sich im menschlichen Dasein erhält, zum höllischen Element. Nebelheim war nicht immer von der Hölle beherrscht. Die guten Elemente des Menschen hielten Nebelheim fest bis zu der Zeit, wo sie sich herausentwickelt haben.
+
+So sehen wir wirklich Gutes und Böses, Höllisches und Himmlisches im menschlichen Leben durcheinanderwirken und zusammen aus ihm herausströmen, wie es in dem angeführten Gedicht von Schiller gesagt ist: Das Wohltätige wird zum verzehrenden, hemmenden Element, wenn es nicht in der richtigen Weise verwendet wird, - so wie das Feuer wohltätig ist, wenn der Mensch es beherrscht, während es furchtbar werden kann, wenn es «der Fesseln sich entrafft und einhertritt auf eigener Spur». Ebenso treten auch die höllischen Mächte auf, wenn sie auf der «eigenen Spur» im menschlichen Leben einhertreten.
+
+So verstehen wir, warum die großen Geister, die solche tiefen Zusammenhänge gedacht oder empfunden haben, das gleiche gedacht und gefühlt haben, was die Geisteswissenschaft vor unsere Seelen hinstellt. Haben wir heute das
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+höllische Element als etwas unserem Leben Notwendiges erkannt, so werden wir das nächste Mal dasjenige Element noch näher kennenlernen, das uns Licht bringen wird über das Ganze. Wir werden im Lichte wahrer Geisteswissenschaft auch das lichte Himmelselement kennenlernen. Aber schon aus dem heutigen Vortrage können wir sehen, daß es richtig ist, was Dante in der letzten Zeile seines Gesanges über die Hölle ausspricht. Dante glaubte eben auch zuerst die starken, hemmenden Kräfte im Leben betrachten zu müssen, bevor er eine Vorstellung bildete über jene fortschreitenden Kräfte, in denen alles Heil und alle Menschenentwicklung liegt. Wir werden auch für das gewöhnliche, alltägliche Leben Anhaltspunkte über Anhaltspunkte gewinnen, wenn wir das Rückwärtsschreiten mit dem Fortschreiten ins richtige Gleichgewicht zu bringen vermögen. Es wird sich zeigen, wo dem Menschen das Hemmende zum Höllischen zu werden droht, und wo es sich wohltätig erweist, indem es sich zu den wahrhaft vorwärtsschreitenden Mächten erhebt, so wie Dante es schildert, wenn er sich unter der Führung Virgils umgaukelt sieht von höllischen Mächten, er dann aber als Sieger über alle hemmenden Mächte hervortritt und ihm, dessen Seele «von Lust geschwellt» wird, am fernen Himmelszelt erscheinen die leuchtenden Sterne.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# DER HIMMEL
+
+Berlin, 14. Mai 1908
+
+In einer gleich schwierigen Lage wie schon das letzte Mal, da ich vor Ihnen über den Begriff der «Hölle» sprach, bin ich wohl heute, wo die verschiedenen Betrachtungen und Ergebnisse in der Reihe von Vorträgen, die ich in diesem Winter gehalten habe, in einer Betrachtung über die Grundlagen des Begriffes des «Himmels» zusammengefasst werden sollen.
+
+Wir stehen ja da vor einem Begriff, welcher in seiner wahren Bedeutung dem Glauben der verschiedenen Religionsbekenntnisse heute schon zum großen Teil abhanden gekommen ist, wenn diese auch an dem Begriff aus einem durchaus richtigen und treffenden geistigen Instinkte heraus festhalten. Zugleich aber stehen wir vor einem Begriff, der verhöhnt wird, abgewiesen wird in strengster Weise von denen, die tonangebend nicht nur sein wollen in den heutigen Geistesströmungen, sondern die auch von weiten Kreisen als tonangebend angesehen werden. In den Begriff des «Himmels» ist für eine übergroße Anzahl von Menschen heute noch das Ziel und der Inhalt tiefster Herzenssehnsucht eingeschlossen, es bildet das, was diesem Begriff zugrunde liegt, den Inhalt hingebungsvollen Glaubens vieler Seelen, etwas, was diesen Vielen Trost ist in den allerschwierigsten Angelegenheiten des Lebens, während zu gleicher Zeit dieser Begriff von einer großen Anzahl von Menschen aufgefasst wird als etwas, worin sich tiefster Aberglaube ausdrückt und womit sich alles das verbindet, was im weiten
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 313
+
+---
+
+Umkreis die Gegenstände menschlichen Aberglaubens ausmachen soll. Wir brauchen nur, gerade in unseren Tagen, unsere Aufmerksamkeit auf in gewissen Kreisen viel besprochene geistige Erscheinungen zu lenken und wir werden sehr bald sehen, welche gewaltigen Hindernisse dem Verständnis der heutigen Menschen entgegenstehen, wenn sie zu einer reinen, vorurteilsfreien Auffassung desjenigen kommen wollen, was uns heute beschäftigen soll.
+
+Es braucht sich niemand zu wundern, und am wenigsten derjenige, der so über diese Dinge spricht, wie ich heute zu sprechen gedenke, wenn ein großer Teil dessen, was heute gesagt wird, als der Ausbund leerer Phantastik und wüster mystischer Träumerei angesehen wird. Dessen ungeachtet aber wird uns gerade die heutige Betrachtung zeigen, wie dringend notwendig es gerade in unserer Zeit ist, auf die Grundlagen solcher Begriffe so stark als möglich wiederum hinzuweisen.
+
+Viele von Ihnen werden einen Mann kennen, mit dessen Namen heute manche den Begriff wirklicher Aufklärung verknüpfen, einen Mann, dessen Werke gerade in der letzten Zeit innerhalb des deutschen Geisteslebens und auch sonst großes Aufsehen gemacht haben. Selbstverständlich liegt es mir sehr fern, die großen, gewaltigen Verdienste, die sich dieser Mann auf seinem engeren Gebiete der Naturwissenschaft erworben hat, auch nur im geringsten minderbewerten zu wollen. Sie haben es auch aus den anderen Vorträgen gesehen, wie es mir niemals auf etwas anderes angekommen ist, als gerade mit den naturwissenschaftlichen Ergebnissen der Gegenwart und in voller Harmonie mit ihnen, die geisteswissenschaftliche Forschung hier zum Vortrag zu bringen. Nun hat man an verschiedenen Orten August Foreis Vortrag gehört über «Leben und Tod», und wer sich nur ein wenig unterrichten will darüber, wie
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 314
+
+---
+
+man gründlich mißverstehen kann, was von Seiten der Geisteswissenschaft über diese Dinge vorgebracht werden darf, dem ist nur zu empfehlen, daß er diesen Vortrag von Forel gründlich studiert. Die Gesichtspunkte, denen man sich vom Standpunkte der Geisteswissenschaft aus gegenüber solchen Erscheinungen hingibt, sind in meiner Zeitschrift «Lucifer-Gnosis» auseinandergesetzt, wo Sie auch manches über das Verhältnis zwischen Geisteswissenschaft und Naturwissenschaft finden. Gerade dasjenige, was das Verhältnis und den Einklang ergibt und das ins Licht setzt, wo die Geisteswissenschaft auf der Basis der Naturwissenschaft aufbaut und zu höheren Einsichten führt, das ist die Aufgabe dieses fünfunddreißigsten Heftes der Zeitschrift «Lucifer-Gnosis». Der ganze Vortrag Foreis über «Leben und Tod» ist erfüllt von Ablehnung, und zwar einer gründlichen Ablehnung dieses Begriffes, der heute den Inhalt unseres Vortrages bezeichnet.
+
+Gleich im Eingange werden wir darauf aufmerksam gemacht, wie der, welcher sich aus den reinen naturwissenschaftlichen Tatsachen heraus eine Weltanschauung aufbauen will, zu folgenden Gedanken kommen kann. Da wird gesagt: Welche großen und gewaltigen Fortschritte hat diese Naturwissenschaft den Menschen gebracht, wie ist sie imstande, hineinzuleuchten in das Weltgebäude bis jenseits der Sterne, die uns die nächsten im Räume sind. Wie ist diese Naturwissenschaft in den Stand gesetzt worden, hineinzusehen in das Gebiet, wenigstens bis zu einem gewissen Grade, der kleinsten Teile der Zellen des lebendigen Körpers. Wie ist es der Naturwissenschaft gelungen, auf dem Gebiete der Technik Raum und Zeit in gewissem Grade zu überwinden. Wie leistet sie in drahtloser Telegraphie und Telephonie, über fast alle Kontinente hin, das Unglaublichste, Wie ist es der Naturwissenschaft gelungen, die Be
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 315
+
+---
+
+standteile der Sonne, des Mondes, der Sterne und so weiter darzulegen. Wie ist es ihr gelungen, die Luft zu verflüssigen. Wie ist es ihr gelungen, zu zeigen, wie die einzelnen Partien des Gehirns zusammenarbeiten, wenn der Mensch denkt, fühlt und will. Alles das natürlich bis zu einem gewissen Grade; aber dieser Grad wird mit Recht als bewunderungswürdig bezeichnet.
+
+Nun aber fährt der Autor dieses Vortrages fort: Nirgends jedoch hat diese Naturwissenschaft, trotz ihrer bewunderungswürdigen Resultate, irgend etwas von dem entdeckt, was man das «Paradies» nennt, nirgends hat sie eine geistige Welt entdeckt. Alles, was die Menschheit aus ihrer Phantasie erträumt hat als «Himmel» und «Holle», davon hat die Naturwissenschaft nichts gefunden, trotz ihrer bewunderungswürdigen Resultate. - Und so wird dann der kühne Schluß gezogen, der heute von vielen nachgesprochen wird: Da die Naturwissenschaft das alles nicht gefunden hat, so müssen wir alle diese Begriffe über Bord werfen. Wir müssen uns auf den Boden stellen, daß nichts, aber auch gar nichts von dem wahr sein könne, wovon man vor langer Zeit geträumt und geschwärmt hat, daß es einen unsterblichen Wesenskern im Menschen gebe, der den Zerfall überdauert, den die Naturwissenschaft in so wunderbarer Weise erlebt. - Und dann wird wie ein Gefühlsergüß die Betrachtung angehängt, daß es ja doch viel schöner, größer und gewaltiger sei, zu wissen, daß der Mensch, bevor er in dieses persönliche, individuelle Dasein gekommen ist, ganz nur in seinen physischen Vorfahren gelebt hat, und daß er nachher rein nur in seinen physischen Nachkommen leben wird. In die physische Welt soll das gesamte Dasein hereingedrängt werden. Als wirklicher Gefühls-ergüß ergibt sich dann für den Autor, daß er sagt: Ist es nicht viel schöner, daß das, was der Mensch geschaffen hat,
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 316
+
+---
+
+zusammenhängt mit seinen physischen Vorfahren und fortwirkt in den physischen Nachkommen, als anzunehmen - wovon nur geträumt werden kann -, daß es eine Welt gäbe, in welcher allerlei über den Menschen stehende Wesen seien, eine Welt, in welcher Engelschöre zu hören seien und so weiter? - Es wird zu verstehen gegeben, daß es eines naturwissenschaftlich denkenden Menschen unwürdig sei, einer Weltanschauung anzuhängen, die auch nur im entferntesten mit solchen Begriffen etwas zu tun habe.
+
+Dieser Vortrag kann einen an das erinnern, was ich einmal vor vielen Jahren von einem der Führer der modernen aufklärerischen Bewegung in einem Vortrage habe sagen hören. Diese Persönlichkeit sagte ungefähr folgendes: Da sprechen die Menschen von irgendeinem übersinnlichen Himmel, von irgend etwas, das es geben soll da droben - und machte dann klar, daß unsere Erde eine Kugel sei, die frei im Weltenraume schwebe, und daß es ebenso mit den anderen Planeten sei, daß also der Weltenraum der Himmel sei, und daß die Seele nicht in einem anderen Himmel zu sein brauche, denn wir seien ja im Himmel.
+
+Solche Menschen verstehen nicht viel von dem tief Empfundenen, aus dem heraus Schiller den allzubegründeten Ausspruch tat «An die Astronomen»:
+
+Schwatzet mir nicht so viel von Nebelflecken und Sonnen!
+Ist die Natur nur groß, weil sie zu zählen Euch gibt?
+Euer Gegenstand ist der erhabenste freilich im Räume,
+Aber, Freunde, im Raum wohnt das Erhabene nicht.
+
+Aus all diesen Aussprüchen kann für den, der mit der ganzen Seele nur einiges von dem aufgenommen hat, was im Laufe dieser Serie von Wintervorträgen hier gesprochen worden ist, klar werden, welches tiefe Mißverständnis sol-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+dien Dingen zugrunde liegt. Es ist ein tiefes Mißverständnis, und dieses tiefe Mißverständnis können wir am besten dadurch ausdrücken, daß wir sagen: Wenn jemals die Geisteswissenschaft von dem sprechen würde, was diese Menschen als Aberglaube, als Träumerei, als Phantastik bezeichnen, dann hätten alle diese Menschen recht. Aber die Tatsache ist die, daß die Geisteswissenschaft in ihrer modernen Gestalt jung ist und daß ihre Kunde zu einem großen Teil der Menschheit noch nicht gedrungen ist, vor allen Dingen nicht zu denen, die so sprechen, wie es angedeutet worden ist. Diese Menschen machen sich Vorstellungen von den übersinnlichen Welten, die selbst nur der Ausfluß ihrer Phantasterei und ihrer eigenen Träumereien sind, und diese Gebilde ihrer eigenen Träumerei, ihrer eigenen Phantasterei bekämpfen sie. Sie wissen aber auch rein gar nichts von dem, was die wahre Geisteswissenschaft über diese Dinge zu sagen hat. So ist der Kampf, der von einem großen Teil der Aufgeklärten heute geführt wird, ein Kampf gegen selbst-geschaffene Windmühlen, eine Don-Quichotterie. Und wer das gründlich versteht, wird in manchem, was von dieser Seite gesagt wird, Worte, nichts als Worte finden, die treffend, ganz treffend sind zur Bekämpfung der Wahngebilde, die diese Leute selbst im Auge haben. Das hat aber nichts zu tun mit dem, was die Geisteswissenschaft darunter versteht. Eine sonderbare Logik konnten wir im Verlaufe dieser Vorträge nachweisen, und zwar da, wo man, scheinbar auf dem Boden der Naturwissenschaft stehend, gegenüber der Theosophie abweisend ist, obgleich man nichts von ihrem Inhalt weiß. Nur einiges will ich mitteilen.
+
+Sie wissen, wie tief anerkennend ich mich gegenüber dem verhalte, was Haeckel für die Grundlage der Naturwissenschaft geschaffen hat. Was er selbst aber vorbringt zur Ablehnung der Vorstellungen über Himmel und Hölle, die er
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 318
+
+---
+
+sich selbst gebildet hat, das steht auf schwachen logischen Füßen. Leicht kann man diese Schwäche nachweisen. So recht nett nimmt es sich in unserer Zeit für zahlreiche Menschen aus, die aufgeklärt sein wollen, wenn Haeckel sagt: «Da kommt ein Glaube der alten Zeit, weist hinauf, zeigt nach dem Himmel und sagt: Da wohnt Gott! Wer so spricht, weiß nicht, daß das Oben ganz wo anders ist, wenn die Erde sich dreht, und wenn sie sich ganz herumgedreht hat, müßte man ja nach unten zeigen statt nach oben.» Recht treffend nimmt sich das aus. Wenn Sie sich dennoch ein wenig logisch vertiefen wollen, dann steht sein Schluß auf keinen anderen Füßen, als wenn jemand behaupten wollte, daß man mit dem Kopfe nach unten geht und nicht nach oben, wenn sich die Erde gedreht hat. Die Herren gehen von dem Irrtum aus, daß es sich um Dinge im Raum handelt, und nicht um den Hinweis auf das Geistige gegenüber dem Physischen. Das alles muß man immer wieder sagen, weil gerade der Gegenstand unserer heutigen Betrachtungen begreiflicherweise etwas sehr Bedeutsames ist.
+
+Wir dürfen anknüpfen an das, was im letzten Vortrage gesagt worden ist: Wenn wir uns durchdringen mit der Gesinnung, die aus dieser Geisteswissenschaft fließt, und uns hinwenden zu dem, was sich nach und nach herausbildet, sich herausentwickelt aus dem vor uns aufwachsenden Kinde, dann haben wir die Empfindung, die sich immer mehr und mehr steigert zu heller, lichter und klarer Erkenntnis: daß in dem Sich-Vergrößern, Umbilden, Umwandeln des kindlichen Körpers etwas zum Vorschein kommt, was, aus den übersinnlichen Welten heraustretend, sich sein Dasein verschafft in dieser Welt. Wir kommen zu der Vorstellung, die, wie wir gesehen haben, durch die Geisteswissenschaft zu voller Gewißheit gehoben werden kann: daß der Wesenskern des Menschen, der durch Emp-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 319
+
+---
+
+fängnis und Geburt ins Dasein tritt, schon vor der Empfängnis und vor der Geburt vorhanden war, und daß das, was wir im physischen Leibe sehen, die Umkleidung des übersinnlichen geistigen Wesenskernes ist.
+
+Da kommen wir zu der Frage: Wo ist denn das, was erst durch die Empfängnis und die Geburt in das physische Dasein kommt? - Wir haben auch den Gedanken weiter ausgeführt, und das hat uns dazu gebracht, anzuerkennen, daß dieses physische Dasein des Menschen nicht das erste ist, sondern daß wir zu sprechen haben von wiederholten Erdenleben, daß der Mensch wiederholt im Verlaufe der Erdenentwicklung in sein physisches Dasein tritt. Und wir haben den Gedanken anerkannt, daß dasjenige, was der Mensch in seinem Leben erlebt, was er im Denken, Fühlen und Genießen, in Liebe und Lust, Wollen und Handeln durchmacht, nicht erstorben ist, sondern daß die Frucht davon bleibt und sich fortsetzt, und daß das nächste Erden-dasein diese Frucht früherer Erdenleben in sich aufnimmt. Wenn das Kind nach und nach seine Anlagen, Fähigkeiten und Taten zum Vorschein bringt, stellt dies für uns das Ergebnis früherer Erdenleben dar. Der Mensch hat sich bis hierher durch viele Daseinsstufen hinaufgerungen, und das, was er im früheren Leben durchgemacht hat, hat sich umgewandelt zum Keim und ist Inhalt geworden, so daß sein neues Leben vollkommener ist, voller erscheint als sein vorhergehendes Leben.
+
+Das ist im wesentlichen der aufsteigende Gang des Menschen. Nun sprechen wir in der Geisteswissenschaft davon, daß das vom Menschen durch Empfängnis und Geburt ins physische Dasein Tretende, welches im Tode den physischen Leib wieder verläßt, in der Zwischenzeit, zwischen Tod und neuer Geburt, in einer geistigen, übersinnlichen Welt ist. Einen Teil der geistigen, übersinnlichen Welt haben wir im
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 320
+
+---
+
+letzten Vortrag unter dem Namen der «Hölle» besprochen. Einen großen Teil werden wir heute unter dem Begriff des «Himmels» zu besprechen haben. So ist tatsächlich in der Geisteswissenschaft der Himmel nicht etwas, was erträumt, jenseitig, fern ist, sondern es ist etwas, was da ist, wo wir auch sind. Und wir müssen uns nun die Frage beantworten: Wie kann, was wir Himmel, übersinnliches Dasein nennen, da sein, wo wir auch sind, wenn es doch die Menschen mit ihren physischen Augen nicht wahrnehmen, wenn es wahr ist, daß die physische Wissenschaft, die so große und gewaltige Errungenschaften hinter sich hat, nirgends dieses Paradies, diesen Himmel hat entdecken können?
+
+Aber auch darauf ist schon öfter aufmerksam gemacht worden, daß jeder Mensch, wirklich jeder Mensch zur vollen Anschauung der übersinnlichen Welt und des Himmels kommen kann. In den Aufsätzen «Wie erlangt man Erkenntnisse der höheren Welten?» ist auf die Methoden aufmerksam gemacht worden, durch die der Mensch sich hinaufringt in die übersinnliche Welt. Heute soll nur noch in Kürze angedeutet werden, worauf es ankommt. Sie brauchen sich nur immer wieder vor Augen zu halten, was es heißt, diese sinnlich-physische Welt um Sie herum wahrzunehmen. Sie haben gewiß gelesen, daß das, was wir das vollentwickelte menschliche Ohr nennen, sich aus einem, um mit Goethe zu sprechen, «gleichgültigen» Organ herausgestaltet hat. Sehen Sit sich bei den Tieren die primitiven Organe an, bedenken Sie, was um diese unvollkommenen Tiere herum die Welt der Töne, der physischen Harmonien, der Melodien und die Welt der sonstigen Laute und Klänge ist. Denken Sie daran, was für die feine Ausgestaltung eines menschlichen Organs bis zu seiner heutigen Höhe herauf notwendig war, damit sich der Mensch in das Gebiet der Töne in der ihn umgebenden Welt hinein-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+arbeiten konnte. So können Sie auch die anderen Organe betrachten.
+
+Sehen Sie sich das Auge an, wie es sich nach und nach so weit heraufentwickelt hat, daß die wundervolle Welt des Lichtes und der Farben aufleuchten kann, die ein großer Teil der Menschen aufnimmt. Und so ist so viel in unserer Umgebung vorhanden, als Organe fähig sind, von dieser Umgebung wahrzunehmen. Wären die Organe des Menschen auf einer noch unvollkommenen Stufe - denken Sie sich das menschliche Gehörorgan auf einer unvollkommenen Stufe -, was wäre eine Welt der Klänge, der Harmonien und Melodien für solche Wesen mit unentwickeltem Gehör? Eine Welt, die sie nicht wahrnehmen könnten, eine «jenseitige» Welt! Wie diese sich zu dem sinnlichen Menschen in der Welt verhält, so verhält sich die geistige Welt zu dem, was man in üblicher Weise Welt nennt. Und so wie unvollkommene Wesen mit unvollkommenen Sinnesorganen sich zu größerer Vollkommenheit entwickelt haben und dadurch neue Gebiete zu ihrer Wahrnehmung gekommen sind, so ist der heutige Mensch ebenso der Entwicklung fähig, wie es der Mensch der Vorzeit war. In allen Einzelheiten werden die Methoden angegeben, durch die das, was der Mensch heute an Kräften und Fähigkeiten hat, zu einer höheren Stufe gehoben werden kann. Niemandem fällt es ein, das «Himmel» zu nennen, was von Forel abgewiesen wird. Nur das sagt die Geisteswissenschaft: Wenn der Mensch die Entsagung, die Energie und Ausdauer hat, die Fähigkeit, die heute in ihm schlummert, die in seiner Brust liegt, zu entwickeln, so wird er die geistigen Welten wahrnehmen. - Unter der geistigen Welt ist das gemeint, was im Innern eines jeden Menschen liegt. Wenn er die Organe ausbildet, dann wird für ihn ein jenseitiger Weltinhalt ebenso zu seiner umliegenden Wahrnehmungswelt, wie die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 322
+
+---
+
+Welt der Töne Wahrnehmungswelt wird. Und das geschieht in dem Maße immer mehr und mehr, je weiter sich das physische Organ vervollkommnet.
+
+Nun darf sich aber kein Mensch vorstellen, daß diese Entwicklung, die hier ins Auge gefaßt wird, etwas Ähnliches sei wie die gegenwärtigen Entwicklungsmethoden für die Ausbildung eines physischen Sinnes. Das wäre ein Mißverständnis. Man kann leicht als Geisteswissenschafter gefragt werden: Wie bildet sich denn dieser sechste Sinn? - und die Menschen stellen sich dabei etwa vor, daß er wie ein Auge aus dem Organismus herauswachsen müsse. So sind die höheren, übersinnlichen Sinne aber nicht. Die stellen sich in ganz anderer Weise zu dem, was unsere physischen Sinne sind. In aller Kürze sei es charakterisiert, wie sich diese höheren Sinne - das Wort trifft nicht gut ihr Wesen, aber das macht nichts - zu den anderen physischen Sinnen stellen. Die Art und Weise der Entwicklung, durch die der Mensch sich hinaufhebt in die übersinnlichen Welten, ist keine äußere, turbulente, sie ist innerlich, intim. Und was der Mensch durchzumachen hat, damit ihm die geistige Welt hereinscheint in das gegenwärtige Dasein, das geht in aller Stille und Subtilität vor sich. Es sind die drei Grundkräfte der Seele, die einer wirklichen Entwicklung zum Höheren fähig sind, die Grundkräfte des Denkens, Fühlens und Wollens. Wenn wir uns kurz fragen, was der Mensch anzufangen hat mit dem Denken, Fühlen und Wollen, wenn er ein Bürger der übersinnlichen Welt, der Himmelswelt schon innerhalb dieses Daseins werden will, dann erhalten wir die Antwort, daß das eine feine, subtile Arbeit ist. Sie können in meiner Zeitschrift, angefangen von Heft dreizehn, nachlesen, wie der Mensch dadurch, daß er in ganz bestimmter Weise seine Gedankenwelt, seine Gefühlswelt und seine Willenswelt kultiviert, hineinwächst in eine über
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 323
+
+---
+
+sinnliche Welt. Erinnern wir uns nur an alles, was in den heutigen Verhältnissen von früh morgens, wenn wir aufwachen, bis abends, wenn unser Bewußtsein hinunter sinkt in ein unbestimmtes Dunkel, durch unsere Seele zieht, und bedenken wir, wie ganz anders es in unserer Seele aussehen würde, wenn wir, statt in unserem Zeitalter und an diesem Ort Mitteleuropas, in einem um hundert Jahre früher gelegenen Zeitalter und an einem anderen Orte unserer Erde leben würden. Dann werden wir darauf kommen, wieviel von dem, was vom Morgen bis zum Abend die Menschenseele durchflutet, das reine Ergebnis der Außenwelt ist, die sich fort und fort ändert. Ziehen Sie einmal ab, was so durch des Menschen Seele flutet, alles, was vom Zeitalter, vom Ort eingegeben ist, versuchen Sie einmal alle Gedanken aus der Seele zu entfernen, die irgendwie anknüpfen an Ort und Zeit, und fragen Sie, wieviel dann übrigbleibt von einem solchen Inhalt. Alle Gedanken, Gefühle und Willenshandlungen, welche so durch die Seele fluten und durch Ort und Zeit bestimmt sind, die mit anderen Worten dem Menschen von außen durch das tägliche Leben zufließen, die sind ungeeignet zu einer höheren geistigen Entwicklung, zu dem Erleben einer übersinnlichen Welt. Fassen Sie diese Dinge nicht so auf, als ob etwas gesagt werden soll gegen das Leben des Menschen auf dem Gebiet, in das er hineingestellt ist. Er muß aber so viel Zeit finden, um sich für bestimmte Zeiten ganz hinwegzuheben über das, was so im täglichen Leben in seine Seele tritt. Er muß sich hingeben, wenn auch nur für Minuten, solchen Gedanken und Gefühlen, die unabhängig sind von Ort und Zeit, die ewig sind. Solche Gedanken und Gefühle werden gegeben. Sie sind da, sie sind entwickelt bei dem, der die Schulung zum höheren Geistesleben durchgemacht hat. Wenn der Mensch in seiner Seele immer wieder und wieder solche Ewigkeits-
+
+copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:324
+
+---
+
+gedanken leben und wirken läßt, dann sind diese in des Menschen Seele wirksame Kräfte, die schlummernde Fähigkeiten wahrhaft erwecken.
+
+Und dann lassen Sie sich die gewaltige Umwandlung schildern, wenn sich der Mensch in streng vorgeschriebenen Methoden den Ewigkeitsgedanken hingibt, wenn er in subtiler Art mit solchen Ewigkeitsgedanken zu leben versteht. Für unser Gedankenleben sei das zunächst geschildert. Wer könnte leugnen, daß es solche Gedanken gibt? Die Gedanken des Menschen, wie sie heute sind, was haben sie für eine besondere Natur? Sie haben die Natur, daß der Mensch mit Umen am intimsten lebt, denn was wohnt intimer in unserer Seele als unsere Gedanken? Womit sind wir inniger zusammen als mit unseren Gedanken und Vorstellungen? Aber diese Gedanken und Vorstellungen, soweit sie sich auf die äußere Welt beziehen, sind das Unwirksamste, das Passivste in bezug auf diese «wirkliche» Welt des Kleinen, Trivialen. Aber es verbirgt sich eine tiefe Weisheit darin, wenn man zum Beispiel ausspricht, es möge jemand noch so sehr an seinen Zahlen hängen, die den Gedanken einer Brücke ausdrücken, ganz richtig möge der Gedanke einer Brücke in allen Einzelheiten sein - der Gedanke ist richtig, die Brücke aber ist nicht da. Der Gedanke ist das Intimste, was in der Seele wohnt. Aber in dieser Welt, in der wir das physische Dasein zubringen, ist der Gedanke das Unwirksamste. Er führt ganz und gar ein innerliches Dasein. In dem Augenblick aber, wo der Mensch beginnt - er muß mit Geduld beginnen —, wenigstens einen ganz geringen Teil seiner Zeit den Ewigkeitsgedanken zu widmen, da lernt er etwas erfahren, wovon er sich früher nichts hat träumen lassen. Er lernt eine Welt kennen, die in bezug auf den Gedanken anders ist als unsere physische Welt. Wenn in unserer physischen Welt der Gedanke das Intimste und
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+doch zugleich das Unwirksamste, das Passivste ist, so werden wir durch eine Schulung in Ewigkeitsgedanken, die wir im physischen Leben durchmachen, in eine Welt eingeführt, in welcher der Gedanke selbst schöpferisch ist. Das ist das Wesentliche, worauf es ankommt. Dann fängt eine andere Welt an, um den Menschen herum zu leben. Und er lernt aus seiner Erfahrung heraus wissen: Wenn wir in der physischen Welt sehen, so sehen wir das Licht; es fließt von der Sonne herunter; wir sehen, wie die Pflanzen, wenn wir ihnen das Licht entziehen, bläß werden und sterben; wir sehen, wie das Licht schöpferisch wirkt in bezug auf diese Pflanzen. Zu einer solchen Kraft, die den Weltenraum durchflutet, die eine Wirklichkeit ist, wie nur ein sinnliches Ding eine Wirklichkeit sein kann, wird der Gedanke für denjenigen, der eindringt durch die Schulung in die übersinnliche Welt. Der Gedanke, der in der Finsternis des Innern ein intimes unwirksames Dasein führt, er wird durch die Schulung als etwas erkannt, was den Weltenraum schöpferisch durchflutet, was viel realer, viel wirklicher ist als das Sonnenlicht. Nun merkt der Mensch, wenn dieses Licht des Gedankens, von dem er dann spricht als von einer realen Welt, die sich ausbreitet um ihn herum, einfließt in die menschliche Seele, daß das, was Seele ist, so von schöpferischen Kräften belebt wird, wie die physische Pflanze von dem Sonnenlicht durchdrungen wird. Hierdurch lernen wir, wie der Raum, der um uns herum ist, durchflutet ist von einer Realität, die der Mensch, solange er nicht die nötigen Fähigkeiten hat, nicht wahrnehmen kann, so wie derjenige, dessen Ohr nicht ausgebildet ist, die Töne nicht wahrnimmt.
+
+Dann gibt es aber auch bestimmte Gefühle, die anders erzeugt werden in der übersinnlichen Welt, in der übersinnlichen Schulung, als die Gefühle des alltäglichen, gewöhnlichen Lebens. Wie werden die Gefühle des alltäglichen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 326
+
+---
+
+Lebens erzeugt? Der Mensch richtet seine Aufmerksamkeit auf einen Gegenstand. Er gefällt ihm. Das Gefühl der Lust steigt in ihm auf. Das Gefühl der Lust tritt mittels des äußeren Gegenstandes auf. Wir sehen uns gehoben unter dem Eindruck einer schönen Außenwelt, wir sehen uns mit Abscheu erfüllt, wenn wir etwas Häßlichem in der Außenwelt gegenüberstehen. So fluten in des Menschen Seele die Gefühle auf und ab. Die Geisteswissenschaft muß den Menschen in das Wahre, Echte, Wirkliche tiefer hineinführen.
+
+Wenn der Mensch die inneren Fähigkeiten für die übersinnliche Welt erwecken will, so muß er sich fähig machen für Gefühle, die nicht von außen angeregt sind. Es gibt wiederum eine Methode, durch die der Mensch sich in eine Gefühlswelt einlebt, wo die Gefühle in ihm auf und ab wogen, ohne daß die äußere Empfindung dazu notwendig ist. Gefühle, die von außen angeregt werden, können im Menschen durch die Wahrnehmung der äußeren Dinge erweckt werden. Wenn der Mensch lernt, ganz bestimmte Gefühle in sich zu entwickeln, dann wirkt die Erregung solcher Gefühle als eine Kraft, welche schlummernde Fähigkeiten wieder weckt. Und das weiß jetzt der Mensch aus Erfahrung, was der Eingeweihte sehen kann: daß die Welt des Lichtes schaffend ist für das Geistige wie für das Physische, daß sie sich auch im Geistigen abstuft in mannigfaltigen Farben wie das physische Licht; er weiß, daß es eine Welt gibt, in welcher die geistige Farbe lebt, eine Welt, die wir die astralische Welt nennen. Sie stellt sich hinein in diese physische Welt für den Menschen, der also die in ihm schlummernden Fähigkeiten und Kräfte erweckt, wenn er - ohne daß von außen der Impuls dazu kommt - rein durch geistiges Erlebnis mehr und mehr ein Gefühl ganz besonderer Art in sich ausbildet, das nicht innerhalb der sinnlichen Welt durch Äußeres angeregt wird. Wer dieses Gefühl der Liebe, ein rein
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 327
+
+---
+
+inneres Erleben zu erwecken vermag, der hat die Verbindung mit der geistigen Welt gewonnen.
+
+Dann tritt zu dem geschilderten Element noch eine andere Welt hinzu. Zu den Farben tritt noch eine andere Welt. Die Liebe, welche durch die physischen Gegenstände hervorgebracht wird, kann nie zu Geistigem führen. Jene Liebe, die befriedigt ist, auch wenn der Gegenstand der Liebe im Geistigen allein vorhanden ist, jene Liebe, die im tiefen inneren Erleben bleibt, ist eine schaffende Kraft für eine höhere Art von Elementen, die den geistigen Raum durchziehen. Diese Liebe ist die echte Liebe. Die Vorstufe davon ist, was der Künstler im Schaffen empfindet. Er hat sie nur dann, wenn er geistige Werke aus seiner Seele heraus produziert. Jene Liebe verwandelt den vorher stummen, licht- und farbendurchfluteten geistigen Raum in eine Welt von Tönen, und es spricht in geistigen Tonen eine Welt zu uns.
+
+So sehen Sie, wie stufenweise der Mensch sich hinaufentwickelt in eine andere Welt, wie hier nichts anderes vorliegt als eine echte Fortsetzung dessen, was auch im natürlichen Dasein des Menschen, im natürlichen Geschehen vorhanden ist. Wie aus gleichgültigen Gehörbläschen die Ohren hervorgegangen sind und dadurch aus dem unbestimmten Tonlosen die Welt der physischen Töne herausdrang, so dringt aus dem vorher Unbestimmten die Welt, die eben beschrieben worden ist. Von diesen Welten, die erfahren werden können, sprechen die nicht, die gegen Windmühlen kämpfen, wie es im Eingang des Vortrages erwähnt worden ist. Wer sagt, die Himmel seien nirgends gefunden worden, der weiß nicht, daß er sie nicht anderswo zu suchen hat; denn der Himmel ist da, wo wir sind. Es handelt sich bloß darum, daß man nicht die Behauptung anhängt: Was ich nicht wahrnehmen kann, das gibt es nicht, und wenn ein anderer behauptet, daß es etwas gibt, was ich
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 328
+
+---
+
+nicht wahrnehmen kann, so ist er ein Tor, ein Träumer oder ein Schwindler. - Dieser Satz ist der logisch unrichtigste Satz, den es überhaupt gibt, denn niemand darf behaupten, daß die Grenze seines Wahrnehmens auch die Grenze des Daseins ist. Sonst könnte ja der Taube die ganze Welt der Töne, der Harmonien und Melodien als Träumerei und Phantasterei hinstellen.
+
+Wenn man in der Geisteswissenschaft vom Himmel spricht, so spricht man davon in dieser Weise, wie es Ihnen jetzt dargestellt worden ist. Man spricht so von diesem Himmel in der wahren Geisteswissenschaft, und man hat auch nicht anders von ihm gesprochen in den Urquellen der Religionsbekenntnisse, als man sie noch verstanden hat. In dieser sichtbaren Welt ist eine nichtsinnliche Welt vorhanden, wie für den Tauben die Welt der Tone.
+
+Und nun fragen wir uns: Warum nimmt der Mensch auf dem Punkte seiner gegenwärtigen Entwicklung diese übersinnliche Welt nicht wahr? Er nimmt sie aus dem Grunde nicht wahr, weil gerade die sinnliche Wahrnehmung, die ja als eine Notwendigkeit in die Menschheitsentwicklung eingetreten ist, sich wie eine Decke, wie ein Schleier hinbreitet über die übersinnliche Welt. Anders haben wir es nicht gemeint, wenn geschildert wurde, was derjenige durchzumachen hat, welcher die übersinnliche Welt anstrebt. Er muß sich herausheben aus der sinnlichen Welt, er hat die sinnliche Welt eine Weile zum Schweigen zu bringen. Dann kommt er zu dem, was hinter dieser sinnlichen Welt ist, dann nimmt er wahr, wie sich die sinnliche Welt wie eine Decke über die übersinnliche hin ausbreitet. Wer sich im wahren Sinne in seinem Leibe über seinen Leib erhebt, der kann das, was hinter diesem Schleier ist, wahrnehmen.
+
+Wir müssen wissen, wozu die Kräfte im gewöhnlichen normalen Menschenleben verwendet werden, die also zu
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 329
+
+---
+
+Fähigkeiten werden können, in die übersinnliche Welt einzutreten. Das kann man nicht anders begreifen, als wenn man den wahren Tatbestand ins Auge faßt: Was ist eigentlich die physische Welt, was ist der unvollkommenste physische Körper, und was ist der vollkommene physische Körper, der uns als Menschenleib vor Augen tritt? Schöpfungen sind alle physischen Wesenheiten, Schöpfungen des Geistes. Geistiges liegt allem Physischen zugrunde. Das haben wir in der mannigfaltigsten Weise im Verlaufe dieser Vorträge immer wieder betont. Wie das Eis aus dem Wasser sich verhärtet, so verhärtet sich aus dem Geistigen heraus alles Physische. Es ist gleichsam eine Verdichtung des Geistes. Betrachten wir das physische Gebilde des Ohres des heutigen Menschen. Was liegt diesem physischen Gebilde Ohr zugrunde? Geistige Schöpferkraft liegt ihm zugrunde! Der Ton, der als physischer Ton in unserer Umgebung lebt, ist etwas der physischen Welt Angehöriges, der hinter sich hat den geistigen Ton. In derselben Welt, die auf unser physisches Ohr zuströmt, werden wir den physischen Ton hören, und in derselben Welt lebt auch der übersinnliche, der geistige Ton. Was ist der geistige Ton? Dieser geistige Ton ist der Schöpfer unseres Ohres ebenso wie dasjenige, was im physischen Licht geistiges, verborgenes Licht ist, der Schöpfer unseres Auges ist. Deshalb sagt Goethe, der so viele tiefe geistige Wahrheiten ausgesprochen hat: «Das Auge ist am Licht für das Licht gebildet.» Die Kraft, die von der Sonne zu uns strömt und die unser Auge befähigt, im lichterfüllten Raum die Gegenstände in ihren Grenzen zu sehen, enthält auch jene Wesen, welche den Wunderbau des Auges geformt haben. So würde das, was das physische Auge sieht und das physische Ohr hört, so viel bedeuten, wie ein Eindringen in das, was hinter diesen ist, ein Sich-Erheben zu den geistigen Kräften. In einem bestimmten
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Fall tun wir es schon, wenn wir den Blick hinwenden auf das junge Menschenkind, das nach und nach seine Fähigkeiten sich in den physischen Menschenleib hineingestaltet. Wir sehen diese Fähigkeiten aus einer hinter der sinnlichen Welt verborgenen Welt hervorkommen, sehen, wie sie in die Materie hineinschießen, in der Materie sich einen Daseinsaspekt erschaffen.
+
+Wir gehen zur Geisteswissenschaft zurück und fragen uns: Wo war dieses Wesen, bevor es durch Empfängnis und Geburt ein physisches Dasein angenommen hat, wo war es zwischen seinem letzten Tod und seiner letzten Geburt? In keiner erträumten geistigen Welt war es, sondern in derselben Welt, in der auch wir sind. Der ganze Unterschied zwischen diesem Wesen, bevor es durch Empfängnis und Geburt in das materielle Dasein trat, und dem, was es nachher ist, besteht in dem Folgenden. Vor der Geburt besteht dieses Wesen aus solchen Elementen, die man nur schauen kann, wenn jene Fähigkeiten ausgebildet sind, die als die geistigen eben geschildert worden sind. Es ist unsichtbar, solange diese übersinnliche Fähigkeit nicht ausgebildet ist. Wie wenn für jemand das Wasser nicht sichtbar wäre, solange es flüssig ist, aber sichtbar wird, sobald es gefriert, so wird der Mensch unsichtbar, wenn er wird wie Wasser — sichtbar, wenn er gefriert, das heißt physisch wird.
+
+So sprechen wir von zwei Zuständen des Menschen, von einem Zustand zwischen dem Tod und einer neuen Geburt, nur sichtbar den geistigen Sinnen, und von einem Zustand, in dem er sein Kleid um sich gewoben hat, so daß er für die physischen Sinne sichtbar auftritt. So sehen wir, daß der Mensch in der Zwischenzeit zwischen dem Tod und einer neuen Geburt verbunden ist mit den schöpferischen Kräften, die den Raum durchfluten, und die derjenige, der seine übersinnlichen Fähigkeiten entwickelt, als die Himmelskräfte
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+schon hier kennenlernt. Es ist der Mensch verbunden mit diesen schöpferischen Kräften. Hier in der physischen Welt lebt der Mensch mit den physischen Kräften, mit den physischen Tönen, mit dem physischen Licht; in der geistigen Welt lebt er in dem, was hinter dem Ton, hinter dem Licht geistig-schöpferisch ist. In einer Welt lebt er, die nur anders ist als die physische Welt. Hier in der physischen Welt sieht das Auge durch das Licht. In der geistigen Welt nimmt der Mensch das wahr, was das Auge geschaffen hat. Er lebt im geistigen Licht, er lebt in der geistigen Tonwelt, er lebt in dem, was mit Hilfe von Geburt und Empfängnis seinen physischen Leib aufbaut, er lebt mit der produktiven, der schöpferischen, kosmischen Wesenheit da, wo unsere Welt, diese äußere Welt, die sich wie eine Decke über die geistige ausbreitet, aufgebaut wird. So fließt diese Decke in die geistige Welt selbst ein. Das Bewußtsein des Menschen leuchtet auf in einem anderen Zustand. Der ganze Unterschied zwischen dem entkörperten und dem verkörperten Menschen ist der, daß der entkörperte Mensch in einem anderen Bewußtseinszustande lebt, und daß er die schöpferischen Kräfte wahrnimmt. Und so werden wir verstehen, was es heißt: Der Mensch wird mit dem Tode aufgenommen in eine übersinnliche Welt. Sie ist keine Traumwelt, keine Welt von geringerer Realität als unsere Welt, sie ist eine Welt dichterer und stärkerer Intensität und Wirklichkeit, denn in ihr sind die schöpferischen Wesenheiten für unsere physische Welt. Und jetzt verstehen wir, was da wirkt zwischen dem Tod und einer neuen Geburt.
+
+Wir haben das letzte Mal, als wir die retardierenden Kräfte besprochen haben, gesehen, daß, wenn der Mensch die Pforte des Todes durchschreitet, ein Erinnerungstableau des ganzen letzten Lebens vor ihm auftritt, wir haben gesehen, daß dieses Tableau wie eine Essenz aufgenommen
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+wird und für alle folgenden Zeiten mit dem Menschen vereinigt bleibt; wir haben gesehen, wie er durch die Kamalokazeit durchgeht, wo er eine Art Läuterung durchzumachen hat. Wenn er diese Läuterung durchgemacht hat, dann wird das, was er aus dem letzten Leben mitgenommen hat, etwas Besonderes, etwas Neues. Wir wissen, daß der Mensch, wenn er durch die Pforte des Todes geht, in die geistige, in die übersinnliche Welt eingeht. Fassen Sie sie auf wie einen Acker, wie ein fruchtbares Bodengebilde, und fassen Sie das, was der Mensch aus dem letzten Leben als Frucht seines Denkens, Fühlens und Wollens mitbringt, was sich zusammenfassen läßt als die Frucht des letzten Lebens, auf wie einen Pflanzenkeim, der in den Boden gesenkt wird und aufsprießt. So sprießt die Lebensfrucht des letzten Lebens in dem geistigen Boden auf, und das menschliche Bewußtsein merkt und nimmt wahr dieses Aufkeimen, dieses Auseinandergehen, dieses Entwickeltwerden des aus dem letzten Leben mitgenommenen Lebenskeimes. Alles, was die Menschen sich aus dem Leben ihrer Zeit mitgenommen haben, das imprägniert sich in diese letzte Frucht des Lebens, und was von außen an den Menschen herangetreten ist, das erweitert sich und geht auf wie ein Keim. Das wird die Wahrnehmungs- und Bewußtseinswelt zwischen dem Tod und einer neuen Geburt. Was die Seele durchzieht, kann dem, der nicht selbst die Fähigkeit hat, übersinnlich wahrzunehmen, nur durch einen Vergleich klargemacht werden. Bei tieferem Nachdenken werden Sie den Vergleich verstehen. Was der Mensch fühlt beim Entfalten des letzten Lebenskeimes, das bezeichnet man mit Recht als Seligkeit, denn es ist eine Seligkeit. Es ist das gegenteilige Gefühl von dem, was der Mensch wahrnehmen kann, wenn er die Gegenstände fühlt. Jetzt fühlt er sie entfaltet, vorher fließen sie aus; jetzt aber fließt die Wesenheit aus und im Ausge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 333
+
+---
+
+stalten des Lebenskeimes durchdringt ihn das Gefühl, das sich vergleichen läßt mit dem, welches auf einer niedrigeren Stufe - bei tieferem Nachdenken wird es Ihnen bedeutsam erscheinen - das Huhn hat, wenn es das Ei ausbrütet: das des seligen Hervorbringens eines Lebens, die Seligkeit des Keimaufschießens. Diese Seligkeit führt dazu, daß der Mensch sich geistig das vorbildet, was ihn an die physische Geburt kettet, was ihn in das physische Dasein bringt. Weil er neue Erfahrungen gesammelt hat, die er dem Grundkern einprägt, deshalb wird jedes Leben - mit Ausnahme der auf und ab gehenden Wege, die auch sein müssen - vollkommen.
+
+Wie wir das letzte Mal gesehen haben, haben wir im Ganzen des Lebens einen Aufstieg zu immer größerer und größerer Vollkommenheit. Wir sehen, wie das, was so in die physische Welt sich eingelebt hat, im Produzieren in der physischen Welt, im Gefühl der Seligkeit neu schöpferisch sich zeigt.
+
+So müssen wir uns klar sein, daß nur der Bewußtseinszustand des Menschen ein anderer ist als in der übersinnlichen Welt. Durch einen Vergleich können wir uns noch klar machen, wie der Bewußtseinszustand zwischen der physischen Welt und der übersinnlichen Welt verschieden ist. Denken Sie sich einen Menschen, der eine Symphonie anhört. Er läßt die Töne von außen an sich herandringen. Er genießt sie. Denken Sie sich nun, es wäre möglich, daß ein Mensch schöpferisch, geistig diese Symphonie aufbaute, ohne einen Text zu berühren, ohne ein Instrument zum Tönen zu bringen, daß er schöpferisch aus sich heraus im Geiste Ton für Ton aneinandergliederte. Wie sich die Wahrnehmung des ersten verhält zu dem, in dem die Symphonie aufkeimte, so verhält sich die physische Welt zu der Wahrnehmung im Übersinnlichen. Daher müssen wir sagen: Um die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 334
+
+---
+
+Himmelswelt wahrzunehmen, muß der Mensch Verzicht geleistet haben darauf, daß ihm irgend etwas in der physischen Welt geistig entgegentritt. So lang er diesen Verzicht nicht geleistet hat, kann er nicht sehen.
+
+Die geistige Welt erscheint uns aber nicht als eine Welt, zu der sich nicht auch das logische Denken erheben konnte. Was der Mensch gewöhnlich einwendet, ist nur, daß er sie nicht wahrnehmen kann.
+
+So bekommt der Begriff des «Himmels» für den Menschen der Zukunft wieder seine Bedeutung. Es ist das kein Begriff einer träumerischen Welt, in der wir uns befänden. Das Bewußtsein im Schöpferischen ist viel heller und intensiver als das in der physischen Welt. Daher müssen wir uns das Leben, das Bewußtsein des Menschen in der schöpferischen Welt auch intensiver denken als in der physischen Welt.
+
+In welcher Beziehung steht die physische Welt zu der übersinnlichen Welt? Es ist natürlich, daß den Menschen zunächst dieses Verhältnis interessiert. Ich möchte das daher mit der Gegenfrage ausdrücken: Wird der Mensch in der übersinnlichen Welt wissen von denjenigen, die ihm in dieser Welt lieb und wert sind? Wird sich das, was sich hier abgespielt hat, in irgendeiner Weise fortsetzen? Das wird es! Und richtig zu begreifen ist es, wenn Sie in voller Klarheit durchdenken, was eben gesagt worden ist, indem deutlich gemacht worden ist, daß ein intimer Zusammenhang besteht zwischen dieser physischen und der übersinnlichen Welt. Was hier als Keim gelegt wird, geht dort auf und wird Frucht. Nichts in der Welt ist ohne geistigen Hintergrund. In der physischen Welt arbeitet der Mensch schon für die überphysische Welt. Dafür ein Beispiel: Nehmen wir an, eine Mutter hängt mit Liebe an ihrem Kinde. Diese Liebe wird zunächst, man möchte sagen, durch die Naturgrundlage entwickelt. Dann aber wandelt sich mit jedem
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Augenblick diese Liebe aus der rein natürlichen, durch die physischen Verhältnisse bedingten Liebe in eine geistige Liebe um. In dem Maße, in dem die Liebe, die sich der Naturgrundlage bedient, in eine geistige Mutterliebe verwandelt wird, wächst der Mensch in die geistige Liebe hinein. Diese Liebe wird eine wahrere im Geistigen. Wie von dem Menschen nur die irdische Hülle abfällt, so fällt vom geistigen Wesen nur das Physisch-Irdische ab. Das ganze Netz, das gezogen wird von Menschenseele zu Menschenseele, das, was lebt von Herz zu Herz, von Geist zu Geist, es ist auf unsichtbare Weise schon in der übersinnlichen Welt. Das Geistige, der Wesenskern des Menschen, lebt sich hinein in die übersinnliche Welt, und alles, was der Mensch hier in dieser physischen Welt angeknüpft hat, rindet seine Fortsetzung als Geistiges in der geistigen Welt. Alles, was hier verbunden ist auf geistige Art, findet sich in vollem Bewußtsein, ja in hellerem Bewußtsein wieder in der geistigen Welt. Je nachdem es sich findet, bildet sich wieder ein Band bei einem neuen Lebenslauf, so daß die, welche sich zusammenfinden in oftmals merkwürdiger Sympathie, sich das zu erklären haben aus dem, was sie selbst in früheren Leben gesponnen haben.
+
+So sehen wir, wie unsere ganze sinnliche Welt in diese übersinnliche, unsichtbare Welt eingebettet ist. Und wie der Mensch ein Bürger ist der sinnlichen Welt zwischen Geburt und Tod, so ist er ein Bürger der übersinnlichen Welt nach dem Tode, nur weiß er es in unserer Zeit nicht zwischen Geburt und Tod.
+
+Wir haben in der letzten Betrachtung den Begriff der «Hölle» dargestellt und heute den Begriff des «Himmels», die alles enthalten, was es an geistigen Einflüssen auf den Menschen gibt. Das letzte Mal sind wir eingegangen auf die Kräfte, die zur Verhärting führen, während das heute
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:336
+
+---
+
+Geschilderte als das Gegenteil davon erscheint: das Entwicklungprinzip. Das Leben schreitet von Dasein zu Dasein, und um so viel, als von dem letzten Leben an schöpferischen Kräften umgesetzt wird, um so viel höher steigt das nächste Dasein. Indem der Mensch das, was er in sich aufnimmt, nicht nur genießen will, sondern durch das, was er genießt, durchdringt zu dem, was sich umwandelt zu geistigen Kräften, ist er fortwährend in der Himmelswelt darin. Alles, was den Menschen weiterbringen kann, ist Inhalt der Himmelselemente, alles, was den Fortschritt hemmt, ist der Inhalt der höllischen Welten.
+
+Wer einen solchen Begriff des Himmels in Harmonie bringen will mit dem, was die Naturwissenschaft geleistet hat, der wird es leicht können. Er wird es in voller Harmonie zustande bringen. Es ist nur nicht viel Geneigtheit unter unseren Zeitgenossen vorhanden, sich einzulassen auf das Hineinleben in diese höheren Welten. Müde ist unser Zeitalter der Betrachtung der übersinnlichen Welt, und daher ist dieses Zeitalter nur zu leichtgläubig gegenüber denen, die den Satz aufstellen: Was ich nicht wahrnehmen kann, ist nicht wahr, und wenn jemand behauptet, es sei wahr, dann ist er ein Tropf oder ein Narr. - Gar zu viele werden in diesem Zeitalter Gläubige einer solchen Meinung. Wenn wir auch klar sehen, welche großen und gewaltigen Fortschritte unser Zeitalter in bezug auf die physische Wissenschaft macht, so sehen wir doch auch auf der anderen Seite, wie wenig geneigt der weitaus überwiegende Teil unserer Zeitgenossen ist, in die übersinnliche Welt einzudringen. Man meint, das Eindringen in die übersinnliche Welt mache den Menschen schwach und fremd gegenüber der sinnlichen Welt. Das ist ein Vorurteil. Wenn jemand ein Stück Eisen vor sich hat und sagt: In diesem Eisen ist magnetische Kraft; streiche es mit einem anderen Eisen und du hast einen Ma
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+gneten - so mag ein anderer kommen und sagen: Ach was, das Stück Eisen ist gut zum Nägeleinschlagen. - Das sind die wahren Phantasten, welche das Sinnliche, das Praktische nur so nehmen, wie der, welcher den Magneten nur zum Nägeleinschlagen nimmt. Die Realisten, die Monisten, die Utüitaristen und so weiter sind die wahren Phantasten. Sie kennen nur die Kräfte der physischen Welt und triumphieren, wenn durch die Bloßlegung der Kräfte der physischen Welt die gewaltigen Fortschritte gemacht werden. Nichts, aber auch gar nichts hat die Geisteswissenschaft einzuwenden gegen diese physische Welt. Aber sie weiß auch, daß es hoch an der Zeit ist, daß die Menschen wieder lernen, daß im Physischen das Geistige verborgen ist, und daß die Menschen gerade dann träumerisch werden, wenn sie ihr geistiges Auge verschließen vor der geistigen Welt. Wahrhaftige Realisten, Wirklichkeitsapostel sind heute die, welche auf die geistigen Kräfte hinweisen! Was wollen diese wahrhaften Realisten? Sie wollen, daß die wirklichen Kräfte, die hinter den sinnlichen schlummern, eingeführt werden in diese Welt, daß sie in unsere ganze Entwicklung sich einleben, daß wir nicht bloß den Telegraphen, das Telephon und die Eisenbahn, also die gewöhnlichen Kräfte einführen, sondern auch die geistigen Kräfte.
+
+Wenn derjenige, der auf diese Dinge eingeht, heute noch ausgelacht wird, so macht er sich aus diesem Auslachen gar nichts. Er weiß, daß geradeso wie die Größen der physischen Wissenschaft einst Anhänger im kleinen Kreise nur gefunden haben, auch diejenigen, die von den geistigen Welten etwas zu sagen haben, notwendig die Bahnen finden müssen gerade in die große Welt. Wenn auch nur wenige Telegraphen, Telephone und Lokomotiven schaffen können, so können die anderen sie doch benutzen. Die geistige Welt muß aber jeder selber erringen.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 338
+
+---
+
+Die großen Physiker Thomson, Clausms und so weiter haben ihre Fortsetzer, welche imstande sind, die physischen Gesetze zu erkennen. Eines der größten physischen Gesetze ist zu gleicher Zeit das, was den Menschen hinstößt zu der geistigen Welt. Für die, welche sich ein wenig mit Physik beschäftigt haben, sage ich nichts Unbekanntes, wenn ich darauf aufmerksam mache, daß es ein Entropiegesetz gibt, das herrührt von Carnot, dem Oheim des französischen Präsidenten. Was besagt es? Es spricht einen der gewissesten Grundsätze aus, die wir auf der physischen Welt haben, nämlich wie die Kräfte der Welt in bezug auf das Physische sich verwandeln. Es besagt, wie die Kräfte des Physischen sich verwandeln, wie eine Kraft in die andere übergeht. Schlagen Sie mit der Hand auf den Tisch und messen Sie mit einem feinen Thermometer die Wirkung auf die Platte. Sie werden finden, daß die Stelle, wo der Schlag hinfiel, warm geworden ist. Sie sehen, wie die Wärme der Lokomotive in Fortbewegung und diese wieder in Wärme verwandelt wird. Allem diesem liegt ein großes Gesetz zugrunde: das Entropiegesetz. Aus der Betrachtung der Welt wird klar, daß diese Verwandlung der Kraft doch eine bestimmte Richtlinie, einen bestimmten Sinn zeigt. Das Entropiegesetz zeigt uns, daß zuletzt alle Kraft sich in Wärme verwandeln muß, und diese Wärme zerstreut sich im Weltenraum. So ist heute durch das physische Gesetz nachgewiesen, daß die Erde, unsere physische Welt, einst den Wärmetod erleiden wird. Dieses Gesetz besteht. Leugnen muß dieses Gesetz derjenige, welcher sich auf den Boden stellt, daß in unserer Welt nur physische Kräfte seien; denn dieser müßte, wenn er das Gesetz anerkennen würde, sagen: Dann ist alles aus. - Deshalb stellt sich auch Haeckel auf den Standpunkt, daß dieses Entropiegesetz Unsinn sei, weil es seinem Substanzgesetz widerspricht. Daß sich die Dinge
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 339
+
+---
+
+fortwährend umwandeln, ist Naturgesetz. Ein russischer Physiker hat in einer Schrift nachgewiesen, wie fest gegründet gerade dieses Gesetz ist, welches uns das physische Ende unseres gegenwärtigen Weltzustandes zeigt. Gerade in dieser Schrift des Professors Chwolson wurde das «12. Gebot» aufgestellt. Sie können da sehen, wie tüchtig ein Physiker sein kann auf dem physischen Gebiete, ebenso wie Sie an dem, was er über Hegel sagt, sehen können, wie unwissend solche Gelehrten in bezug auf geistige Gebiete sein können. Das «12. Gebot» ist nämlich: «Du sollst nie über etwas schreiben, was du nicht verstehst.» Chwolson befolgt es auf seinem Gebiet, wo er über Physik spricht, aber er befolgt es nicht auf dem geistigen Gebiete. Alles, was er in bezug auf das Physikalische sagt, ist ausgezeichnet; was er aber in bezug auf die geistigen Dinge sagt, ist von geringem Wert und eine große Sünde gegen das Gesetz: «Du sollst nie über etwas schreiben, was du nicht verstehst.»
+
+Es folgt eine vom Stenographen offenbar nicht erfasste Stelle, in der Rudolf Steiner wahrscheinlich ausführte, daß Hegel von Chwolson nicht verstanden wurde. Recht gibt Rudolf Steiner hingegen Chwolson in bezug auf seine Bemerkungen zu einem Aufsatz von Kossuth in einer wissenschaftlichen Zeitschrift, wo behauptet wird, das Gesetz von der Erhaltung der Masse sei nichts weiter als der Satz: Das Ganze ist gleich der Summe seiner Teile, und das Gesetz von der Erhaltung der Energie nichts anderes als der Satz: Die Ursache ist gleich der Wirkung. - Unter Bezugnahme auf die Entdeckungen von Lavoisier fährt Rudolf Steiner fort:
+
+Derjenige, der ein wenig die geistige Forschung kennt, weiß, was es bedeutet, daß man gezeigt hat, daß, wenn sich Stoffe chemisch miteinander verbinden, das Gewicht gleich ist der Summe der Teile. Und wenn man dazu sagt: Dieses Gesetz enthält nichts anderes als das alte mathematische Gesetz: Das Ganze ist gleich der Summe seiner Teile, - so müßte man sich schon darüber klar sein, daß es sich nur um
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 340
+
+---
+
+das Gewicht des Ganzen handelt, das gleich ist der Summe des Gewichts seiner Teile. Kossuth vergißt eben, daß, wenn man in das Geistige übergeht, das Gesetz da gar nicht mehr gilt. So kurz ist das Denken. Chwolson sagt: Es möge der Herr Kossuth nur seine Taschenuhr nehmen und sie im Mörser zerstoßen; dann kann er ja sehen, ob das Ganze gleich ist der Summe seiner Teile. Goethe hat den Gedanken auch schon ausgesprochen, er wird oftmals wiederholt:
+
+Wer will was Lebendigs erkennen und beschreiben,
+Sucht erst den Geist heraus zu treiben,
+Dann hat er die Teile in der Hand,
+Fehlt leider! nur das geistige Band.
+
+Daß die Naturwissenschaft häufig nichts anderes ist als ein Unberücksichtigtlassen des geistigen Bandes, das wissen die wenigsten, die da glauben, auf dem Boden der sicheren Tatsachen zu stehen. Wir sehen auf der einen Seite, wenn wir diese ganze Sachlage überblicken und in Zusammenhang bringen mit dem, was ich in unseren Betrachtungen in bezug auf die übersinnliche Welt habe hinstellen können, daß in vielen Menschenseelen die Sehnsucht lebt, in die übersinnliche Welt einzudringen. Nur zweifeln die Menschen jenes ganz Bestimmte, jene Einzelheiten an, von denen der sprechen muß, der wirklich etwas weiß von diesen Dingen. Wir sehen die Sehnsucht sich regen nach der übersinnlichen Welt; aber wir sehen nicht die Kraft und die Energie, in diese übersinnlichen Welten nach der Anleitung der Geisteswissenschaft einzudringen. Auf der anderen Seite haben wir die Tatsachen in unserer Zeit. Wir haben in unserer Zeit eine tüchtige physische Wissenschaft: Die Thomson, Clausius und Carnot haben gute Nachfolger gefunden. Wenn in demselben Geist die Entwickelung in der Geisteswissenschaft vorwärtsschreiten wird, dann werden die
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Forscher auf dem geistigen Gebiet ebenso gesunde Nachfolger finden wie Thomson, Clausius und Carnot. Dann wird die Folge sein, daß aus der Menschheit, die sich heute von der Himmelswelt, von der übersinnlichen Welt fast abgeschlossen hat, eine solche hervorgehen wird, die die Sternenkraft aus der übersinnlichen Welt in die sinnliche zieht. Die Geisteswissenschaft soll den Menschen nicht der Welt entfremden, sondern ihn stark, energisch und tatkräftig machen für das Dasein, indem sie die Wirklichkeit bereichert. Nicht der Wirklichkeit entfremdet, sondern wirklichkeitsreicher wird die Gesinnung dadurch, daß den Menschen die Kenntnis von der geistigen Welt überliefert wird.
+
+Wir brauchen nur zweierlei zusammenzufügen, und das wird sich zusammenfügen: In derselben strengen Art wie jetzt in der physischen Wissenschaft wird ein großer Teil der Menschen die Möglichkeit haben, das Bedürfnis des Herzens aus der geistigen Welt heraus zu befriedigen. Diese zwei Geistesströmungen, Befriedigung der sinnlichen Bedürfnisse aus der Naturwissenschaft heraus, und Befriedigung für die Sehnsucht des Herzens aus dem Geistigen heraus, zusammenzuführen, ist die Aufgabe der Geisteswissenschaft als Kulturströmung.
+
+Diese Vorträge werden im nächsten Winter in demselben Sinne fortgesetzt werden. Manches, was skizzenhaft geblieben ist, werden wir weiter verfolgen und in dasselbe tiefer eindringen. So sollte zum Abschluß der umfassendste, der bedeutsamste Begriff den Gegenstand des letzten Vortrages bilden. Wahrhaftig, es wird dahin kommen, daß es eine Weisheit geben wird, die wiederum Religion sein kann, die wiederum alles das befriedigen kann, was die tiefsten religiösen Bedürfnisse des Herzens sind. Es wird eine geistige Strömung heraufkommen, welche allen Bedürfnissen des logischen Denkens ebenso genügen wird wie der Sehnsucht
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 342
+
+---
+
+nach dem übersinnlichen Leben. Diese Sehnsucht ist es, an die die Geisteswissenschaft ihre Worte richtet. Wenn der Weg gefunden wird zu dem, was in diesem Ahnen vorhanden ist, dann wird die Weisheit, die einführt in diese übersinnliche Welt, in einer Art über die Menschenseele strömen, daß die Kultur - nicht phrasenhaft ist es gemeint - eine geistige Wiedergeburt erfahren wird, welche anknüpft an das Feuer, das in vielen lebt und hindringen will zu den übersinnlichen Welten. Aus diesem Feuer heraus wird die geisteswissenschaftliche Weisheit zu der übersinnlichen Welt dringen, denn das ist ihr wahres Ideal.
+
+Es soll gedankt werden dem großen Ideale, das an dem Feuer der Begeisterung für das Übersinnliche die Weisheit von diesem Übersinnlichen entzünden will; denn das wird immer der Gang der Geisteskultur sein, daß sich aus dem Feuer der Liebe und der Begeisterung das Licht der Weisheit entwickelt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56
+
+---
+
+Copyright Rudolf Steiner Nachiass-Verwaitung Buch:56 Seite: 344
+
+---
+
+# HINWEISE
+
+Textgrundlagen: Die Vorträge wurden von verschiedenen Stenographen mitgeschrieben (Franz Seiler, Walter Vegelahn, Georg Klenk u.a.) und in Klartext übertragen. Diese Übertragungen liegt der Druck zugrunde. Original-Stenogramme sind nicht erhalten. Die Nachschriften sind stellenweise unzulänglich. Lücken und einiges möglicherweise Fehlerhaftes mußte stehengelassen werden, wollte man nicht willkürliche Ergänzungen oder Veränderungen vornehmen. Bei den Vorträgen IV. (Mann und Weib im Lichte der Geisteswissenschaft), IX. (Der Krankheitswahn) und X. (Das Gesundheitsfieber im Lichte der Geisteswissenschaft) wurden statt der unzureichenden Berliner Nachschriften solche von Vorträgen in München über das gleiche Thema verwendet.
+
+Für die 2. Auflage in der Gesamtausgabe wurde dieser Band neu durchgesehen und mit zusätzlichen Hinweisen versehen.
+
+Die Titel der Vorträge sind von Rudolf Steiner und wurden im Herbst 1907 für das Winterhalbjahr angekündigt.
+
+Als Titel des Bandes wurde vom Herausgeber der Titel des dritten Vortrages gewählt.
+
+Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen mit der Bibliographie-Nummer angegeben. Siehe auch die Übersicht am Schluß des Bandes.
+
+zu Seite
+
+13 Entdeckungen wie die des Radiums: Im Jahre 1898 durch Becquerel u.a.
+29 Bibel und Weisheit: Siehe «Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben», GA Bibl.-Nr. 55.
+31 Es gibt eine kleine Schrift: Konnte nicht ermittelt werden.
+32 Ernst Haeckel, «Ziele und Wege der heutigen Entwicklungsgeschichte», Jena 1875
+34 «Es ist von solcher Verächtlichkeit . . .»: Das Zitat ist entnommen dem Werke: «Leonardo da Vinci, der Denker, Forscher und Poet», herausgegeben und übersetzt von Marie Herzfeld, 3. Aufl. Jena 1911, S. 10.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 345
+
+---
+
+42 Matthias Jakob Schieiden, deutscher Botaniker.
+Gustav Robert Kirchhoff, Physiker. Entdeckte zusammen mit dem Chemiker Robert Bunsen im Jahre 1859 die Spektralanalyse.
+
+47 Rudolf Steiner, «Welt- und Lebensanschauungen im neunzehnten Jahrhundert», 2 Bände, Berlin 1901. Neuauflage 1914 unter dem Titel «Die Rätsel der Philosophie», GA Bibl.-Nr. 18.
+
+48 Siebzig Elemente: Gesprochen im Jahre 1907!
+Zur Frage des Atomismus siehe Rudolf Steiner «Der Atomismus und seine Widerlegung» sowie «Einzig mögliche Kritik der atomistischen Begriffe» in «Beiträge zur Rudolf Steiner Gesamtausgabe», Heft 63, Dornach, Michaeli 1978.
+
+48 Zwar haben einzelne wie Haeckel gesagt: «Die Welträtsel», Bonn 1899, 10. Kap.: Bewußtsein der Seele, Abschnitt VI. Atomistische Theorie des Bewußtseins, S. 206.
+
+49 Emil Du Bois-Reymond. Er hat einen bedeutungsvollen Vortrag gehalten: «Über die Grenzen des Naturerkennens», Leipzig 1872.
+
+51 Die sieben Welträtsel in «Über die Grenzen des Naturerkennens», 2 Vorträge, Leipzig 1907.
+Das ist ein Satz, den Büchner immer wieder . . . betont: «Kraft und Stoff», Leipzig 1867, S. 10 (nicht wörtlich zitiert).
+
+52 Wilhelm Ostwald, «Die Überwindung des wissenschaftlichen Materialismus», Vortrag Leipzig 1895.
+
+53 Wie sie durch Darwin so populär gemacht worden ist: Siehe Darwin, «Über die Entstehung der Arten durch natürliche Zuchtwahl» 5. und 6. Bd. «Die Abstammung des Menschen und die geschlechtliche Zuchtwahl», 6. Aufl., Stuttgart 1876
+
+54/55 Hier offenbar Lücken im Text.
+
+55 Henri Antoine Becquerel, entdeckte 1898 die Radioaktivität.
+
+55 Lebendige Kristalle: Hier wird wahrscheinlich auf das Werk von Ernst Haeckel angespielt: «Kristallseelen. Studien über das anorganische Leben», 3. Aufl. Leipzig 1925.
+
+59 Der englische Minister Balfour: «Unsere heutige Weltanschauung», Leipzig 1904. Vgl. dazu R. Steiner «Der englische Premierminister Balfour. Die Naturwissenschaft und die Theosophie» in «Luzifer-Gnosis 1903-1908», GA Bibl.-Nr. 34.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 346
+
+---
+
+65 Konzil von Konstantinopel: Auf dem achten ökumenischen Konzil von Konstantinopel (869) wurde bestimmt, daß der Mensch als aus Leib und Seele bestehend anzusehen sei und daß die Seele «einige geistige Eigenschaften» habe. Damit wurde, wie von R. Steiner verschiedentlich ausgeführt, der Mensch als geistiges Wesen aus der abendländischen Entwicklung herausgedrängt.
+
+66 Friedrich Albert Lange, «Die Geschichte des Materialismus» 1866.
+
+68 War* nicht das Auge sonnenhaft: Aus «Entwurf zu einer Farbenlehre» 1810, in Goethes «Naturwissenschaftlichen Schriften», herausgegeben und kommentiert von Rudolf Steiner in Kürschners «Deutscher National-Litteratur» 1884-1897, 5 Bände, Nachdruck Dornach 1975, GA Bibl.-Nr. 1a-e, Band III, S. 88.
+
+69 Vortrag vor vierzehn Tagen: Erster Vortrag dieses Bandes.
+
+70 «Man suche nur nichts hinter den Phänomenen . . .»: «Man erkundige sich ums Phänomen, nehme es so genau damit als möglich und sehe, wie weit man in der Einsicht und in praktischer Anwendung damit kommen kann, und lasse das Problem ruhig liegen. Umgekehrt handeln die Physiker: sie gehen gerade aufs Problem los und verwickeln sich unterwegs in so viel Schwierigkeiten, daß ihnen zuletzt jede Aussicht verschwindet». In Goethes «Naturwiss. Schriften», siehe Hinweise zu S. 68, Band IV, 2, S. 417.
+
+73 Pflanzenseele: Siehe Gustav Theodor Fechner, «Nanna oder über das Seelenleben der Pflanzen», Leipzig 1848.
+
+75 Der unaussprechliche Name Gottes: 2. Moses 3, 14: «Ich bin der Ich-bin».
+
+76 Franz von Assisi, Gründer des Franziskaner-Ordens.
+
+81 Vortrag über die Tierseele: Siehe S. 166 ff.
+
+81 Die meisten Menschen: «Die meisten Menschen würden leichter dazu zu bringen sein, sich für ein Stück Lava im Mond als für ein Ich zu halten.» Aus: J. G. Fichte, «Grundlage der gesamten Wissenschaftslehre» 1794, Anmerkung zu § 4.
+
+88 «Nur der Körper eignet»: Schiller «Das Ideal und das Leben», 3. Strophe.
+
+89 Mann und Weib im Lichte der Geisteswissenschaft: Anstelle des Berliner Vortrages, von dem keine brauchbare Nachschrift vorliegt, wurden die allerdings auch sehr lückenhaften Notizen von einem Münchener Vortrag aus der gleichen Zeit hier verwendet.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+91 Rosa Mayreder, «Zur Kritik der Weiblichkeit», 1905.
+92 Otto Weininger, «Geschlecht und Charakter», 17. Aufl. Wien/Leipzig 1918.
+96 Ein Denker wie Fichte sagt: «Nicht das Ohr hört...»; J. G. Fichte, «Einleitungsvorlesungen in die Wissenschaftslehre» Berlin 1813.
+97 Der Mensch weint nicht. ..: Der Satz stammt von dem amerikanischen Philosophen William James.
+99 Juno Ludovisi: In Rom im Museo Nazionale delle Terme.
+
+Zeuskopf: Zeus von Otricoli, im Museum des Vatikans.
+
+100 Der Tod ist der Kunstgriff der Natur . . .: Goethe, «Die Natur», aphoristisch, um 1780: «Leben ist ihre schönste Erfindung, und der Tod ist ihr Kunstgriff, viel Leben zu haben». Goethes «Naturwiss. Schriften», siehe Hinweis zu S. 68, Band II, S. 8.
+101 «Das Ewig-Weibliche zieht uns hinan»: Goethe, «Faust», 2. Teil, Schlußchor.
+104 «Die Geheimnisse». Ein Fragment, 1784.
+105 «Das Auge ist am Lichte für das Licht gebildet»: Goethe, Einleitung zu «Entwurf einer Farbenlehre» (siehe Hinweis zu Seite 68), Bd. 35.
+
+«Nicht das Ohr hört»: Siehe Hinweis zu S. 96.
+
+114 Keiner ohne Kenntnis der Geometrie . . .: Diese Worte über dem Eingang der platonischen Akademie sind weder von Plato selbst noch von seinen griechischen und römischen Zeitgenossen überliefert. Sie finden sich erst bei Kommentatoren des Aristoteles im 6. Jahrhundert n.Chr., so bei: Elias, Aristotelis Categorias commentaria, ed. A. Busse (Comm. in Arist. Graeca XVIII, pars 1), (Berlin 1900) 118.18. Und: Philoponus Joannes, Aristotelis de Anima Libris commentaria, ed. M. Hayduck (Comm. in Arist. Graeca XV), (Berlin 1897) 117.29.
+115 Goethes Urpflanze, Urtier: Urpflanze: Goethes «Naturwissenschaft. Schriften», siehe Hinweis zu S. 68, Bd. 1, Verfolg: Glückliches Ereignis. Urtier: a.a..O. Zur Morphologie. Der Inhalt bevorwortet. . . . «So trachtete ich danach, das Urtier zu finden, das heißt denn doch zuletzt: den Begriff, die Idee des Tieres.»
+116 Gespräch zwischen Goethe und Schiller: Siehe den vorangehenden Hinweis.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 348
+
+---
+
+117 Hegel soll nämlich gesagt haben: Vgl. Martha Asmus, «Hegel der Materialist» in «Das Magazin für Literatur» (hrg. v. Rudolf Steiner) 69. Jahrg. Nr. 67 vom 7. Juli 1900, Spalte 685: «Von meinen Schülern hat mich nur einer verstanden, und der hat mich mißverstanden».
+
+G. F. W. Hegel, «Vorlesungen über die Philosophie der Geschichte», Band IX der «Vollständigen Ausgabe» von Hegels Werken, Berlin 1832-1844.
+
+118 «Die Philosophie der Freiheit.» (1894) GA Bibl.-Nr. 4.
+
+121 Begründer der neueren Naturwissenschaft: Es handelt sich wohl um Aristoteles. Die Nachschrift ist lückenhaft.
+
+122 Ausspruch Platos: «Timaios» Kap. VIII p 36 B § 42-56 in Piatons Werke, übersetzt von Franz Susemihl, Stuttgart 1856.
+
+125 Mappe: «Bilder okkulter Siegel und Säulen», Berlin 1907. Jetzt in «Bilder okkulter Siegel und Säulen. Der Münchener Kongreß Pfingsten 1907», GA Bibl.-Nr. 284.
+
+128 «Die Sonne tönt»: «Faust» 1. Teil, Prolog im Himmel.
+
+134 Daß Ideale nicht unmittelbar: «Daß Ideale in der wirklichen Welt sich nicht darstellen lassen, wissen wir anderen vielleicht so gut als sie, vielleicht besser. Wir behaupten nur, daß nach ihnen die Wirklichkeit beurteilt, und von denen, die dazu Kraft in sich fühlen, modifiziert werden müsse. Gesetzt, sie könnten auch davon sich nicht überzeugen, so verlieren sie dabei, nachdem sie einmal sind was sie sind, sehr wenig; und die Menschheit verliert nichts dabei. Es wird dadurch bloß das klar, daß nur auf sie nicht im Plane der Veredelung der Menschheit gerechnet ist. Diese wird ihren Weg ohne Zweifel fortsetzen; über jene wolle die gütige Natur walten, und ihnen zu rechter Zeit Regen und Sonnenschein, zuträgliche Nahrung und ungestörten Umlauf der Säfte, und dabei - kluge Gedanken verleihen!» J. G. Fichte, aus der Vorrede zu «Über die Bestimmung des Gelehrten», zuerst erschienen 1794.
+
+135 Eisenbahn-Kollegium: Siehe Dr. Max Kemmerich, «Kultur-Kuriosa», München 1909, sowie «Prophezeihungen» desselben Autors, München 1911.
+
+Rowland Hill, englischer Maler und Photograph. Reformator des Postwesens.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+138 So wahr ein Gott im Himmel ist. . . Im Schauspiel «Ein Faustschlag» von Ludwig Anzengruber heißt es (3. Akt, 6. Szene): «... Bleiben Sie mir mit allen veralteten Traditionen vom Leibe, das greift bei mir nicht an, denn - so wahr ein Gott lebt! - ich bin Atheist!».
+
+139 Haeckels «Welträtsel»: Siehe Hinweis zu S. 51.
+
+156 Albrecht von Haller, schweizerischer Naturforscher.
+
+«Müsset im Naturbetrachten»: Goethe, «Epirrhema».
+
+158 Beim Vortrag «Mann, Weib und Kind» handelt es sich um sehr bruchstückhafte Notizen eines Teilnehmers.
+
+162 Ein deutscher Romantiker: Novalis in «Die Lehrlinge zu Sais».
+
+163 Wie Goethe dargestellt hat: Siehe Hinweis zu S. 115.
+
+164 Lichtblitz Schopenhauers: Siehe «Die Welt als Wille und Vorstellung» Kapitel 43, in der von Rudolf Steiner besorgten Ausgabe (Cotta) 6. Bd., S. 69 f., S. 88.
+
+«Liegt dir Gestern klar und offen . . .» Goethe, «Zahme Xenien».
+
+Cartesius (Rene Descartes) «Mediationen über die Grundlage der Philosophie mit den sämtlichen Einwänden» (Philosophische Werke 1. Bd., S. 358 f., 368-371), Leipzig 1922.
+
+170 nach einem Goetheschen Wort: «Denn eben wo Begriffe fehlen, / Da stellt ein Wort zur rechten Zeit sich ein.» («Faust» 1. Teil, Studierzimmer).
+
+174 So versuchte ein Forscher einmal: Es handelt sich um die Versuche des französischen Insektenforschers J. H. Fabre.
+
+188 Wenn der Mensch in die Natur hinausblickt: Das Zitat lautet: «Wenn die gesunde Natur des Menschen als ein Ganzes wirkt, wenn er sich in der Welt als in einem großen, schönen, würdigen und werten Ganzen fühlt, wenn das harmonische Behagen ihm ein reines, freies Entzücken gewährt, dann würde das Weltall, wenn es sich selbst empfinden könnte, als an sein Ziel gelangt, aufjauchzen und den Gipfel des eigenen Wesens und Werdens bewundern.
+
+Denn wozu dient alle der Aufwand von Sonnen und Planeten und Monden, von Sternen und Milchstraßen, von Kometen und Nebelflecken, von gewordenen und werdenden Welten, wenn sich nicht zuletzt ein glücklicher Mensch unbewußt seines Daseins erfreut?» Goethe, «Winckelmann».
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 351
+
+188 Paracelsus: Das Zitat ist eine freie Wiedergabe eines Wortlautes in Paracelsus, «Die vierte Defension», Sämtliche Werke 11. Band, herausgegeben. von Sudhoff, München 1924, S. 145/46. Vgl. auch GA Bibl.-Nr. 54, S. 454.
+
+189 Oken, . . . So sagt er vom Tintenfisch: «Lehrbuch der Naturphilosophie», Jena 1831,14. Buch Zoologie, S. 424, 466,496. Es handelt sich um eine freie Wiedergabe durch Rudolf Steiner.
+
+Goethe sagt: «Naturwiss. Schriften», siehe Hinweis zu S. 68, «Entwurf zu einer Einleitung in die vergleichende Anatomie», Bd. 1, S. 265 ff.
+
+190 Freue dich, höchstes Geschöpf der Natur: Wahrscheinlich handelt es sich um dieselbe von Rudolf Steiner oft zitierte Stelle aus «Winckelmann», die oben nachgewiesen wurde.
+
+191 Für diesen Vortrag wurde eine Münchener Fassung gewählt. Vgl. Hinweis zu S. 89.
+
+«Denn alle Kraft dringt vorwärts . . .»: Siehe Hinweis zu S. 104.
+
+193 Heinrich Lahmann, Begründer einer diätetisch-physikalischen Heilmethode, die er in dem bekannten Sanatorium «Weißer Hirsch» bei Dresden anwandte.
+
+194 hervorragender Arzt: Der Wiener Arzt und Anthropologe Moritz Benedikt. Die Beispiele sind seiner Autobiographie «Aus meinem Leben», Wien 1906, entnommen.
+
+198 Rudolf Wagner, Zoologe und Physiologe. Carl Vogt, Geologe und Zoologe, «Köhlerglaube und Wissenschaft». Eine Streitschrift gegen Hofrat Rudolf Wagner in Göttingen». 2. Aufl. Gießen 1855.
+
+203 Plato sagt: Siehe Hinweis zu S. 122.
+
+206 darum definiert Aristoteles: In seiner «Poetik».
+
+210 Das Gesundheitsfieber. . .: Vgl. Hinweis zu S. 89.
+
+212 «In Harmonie mit dem Unendlichen»: Titel eines Werkes des amerikanischen Autors Ralph Waldo Trine.
+
+214 Goethe hat den Ausspruch getan: Siehe Hinweis zu S. 105.
+
+217 Antwort eines Religionsstifters: Der Ausspruch soll von Luther stammen.
+
+222 Paracelsus tat den schönen Ausspruch: Zitat nicht wörtlich nach «Theophrastus Paracelsus. Das Wissenswerteste über dessen Leben, Lehre und Schriften» von P. Raymund Netzhammer OSB, Einsiedeln 1901, S. 56.
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite:352
+
+232 Vielgenannter Naturforscher: Alfred Rüssel Wallace, englischer Zoologe, zitiert von Haeckel in «Die Welträtsel» Bonn 1899,1. Kap. S. 8.
+
+234 Da gibt es einen Menschen, der hat ein Buch geschrieben: Regierungsrat Kolb, «Als Arbeiter in Amerika», Berlin 1905.
+
+236 Lust und Liebe . . .: Worte des Pylades in Goethes «Iphigenie in Tauris».
+
+*Fluch der Mutter:.. .» Konnte nicht ermittelt werden.
+
+«Verfallen steht am Waldesgrund .. .»: Gedicht von Heinrich von Reder, in der Sammlung «Heute und morgen», Leipzig 1896.
+
+242 Robert Owen, englischer Industrieller und Sozialreformer.
+
+245 dasjenige, worin unsere Betrachtung einmal gipfeln muß: Vgl. hierzu Rudolf Steiner «Nationalökonomischer Kurs», GA Bibl.-Nr. 340.
+
+246 Im sozialen Leben ist nur . . . ersprießlich: Vgl. hierzu die Formulierung des «sozialen Hauptgesetzes» in Rudolf Steiner «Geisteswissenschaft und soziale Frage», Einzelausgabe Dornach 1977, und in «Luzifer-Gnosis. Gesammelte Aufsätze 1903-1908» GA Bibl.-Nr. 34.
+
+251 Von der Gewalt, die alle Wesen bindet: Siehe Hinweis zu S. 104.
+
+252 Was Fichte gesagt hat: In «Die Anweisung zum seligen Leben», Berlin 1806, 1. Vorlesung.
+
+254 Eduard Brückner, schrieb mehrere Werke über Klimaschwankungen.
+
+die Gestirne Götter seien: Aristoteles, «Metaphysik», 12. Buch, 9. Kap.
+
+256 Einer der kundigsten Fortgestalter: Der Astronom Simon Newcomb schrieb: «Die Vorgänge in der Natur im weitesten Umfange scheinen uns, wenn wir sie rückwärts verfolgen, auf diese Hypothese allein zu führen, wie die Art und Weise des Gehens einer Uhr uns zu dem Schlüsse führt, daß sie einst aufgezogen wurde» - zitiert bei Ginzel, «Die Entstehung der Welt nach den Ansichten von Kant bis auf die Gegenwart», Berlin 1893, S. 8.
+
+260 Vortrag im Freien Deutschen Hochstift: «Goethes Naturanschauung gemäß den neuesten Veröffentlichungen des Goethe-Archivs» in «Methodische Grundlagen der Anthroposophie 1884—1901» GA Bibl.-Nr. 30, S. 69.
+
+---
+
+262 Schwatzet mir nicht so viel: Schiller, «An die Astronomie» (Votivtafeln).
+
+Ach, was waren sie alle, die tausend Millionen Sonnen: Zitat wörtlich: «Denn wozu dient alle der Aufwand . . .», siehe Hinweis zu Seite 188 (Goethe, «Winckelmann»),
+
+263 So bleibe denn die Sonne: «Faust» II, 1. Szene.
+
+264 Johann Gottlieb Fichte: «Daß Ideale in der wirklichen Welt . . .», siehe Hinweis zu Seite 134.
+
+275 «Geistesaugen», «Geistesohren»: «Tönend wird für Geistesohren / Schon der neue Tag geboren» («Faust» II, 1. Szene).
+
+276 was Fichte gesagt hat: Siehe Hinweis zu S. 96.
+
+281 William James, amerikanischer Philosoph.
+
+287 Wohltätig ist des Feuers Macht: «Die Glocke» von Schiller.
+
+289 Dante-Ausgabe von Pochhammer: Dantes «Göttliche Komödie», in deutschen Stanzen frei bearbeitet von Paul Pochhammer, 2. Aufl. Leipzig 1907.
+
+290 «Ein Teil von jener Kraft, …» und «Werd ich zum Augenblick sagen»: «Faust» 1. Teil. Studierzimmer.
+
+292 Francesco Redi, italienischer Naturforscher und Arzt. «Osservazioni intorno agli animali viventi ehe si trovano negli animali viventi», 1648.
+
+293 Aurelius Augustinus: Siehe «Bekenntnisse», 13. Buch, 21. Kap.
+
+Giordano Bruno, Mönch und Philosoph, starb 1600 auf dem Scheiterhaufen als Opfer der Inquisition.
+
+300 Moritz Benedikt: Siehe Hinweis zu S. 194.
+
+307 «am Lichte für das Licht gebildet»: Siehe Hinweis zu S. 105.
+
+312 Dante, letzte Zeilen der «Hölle» (in der Pochhammerschen Übersetzung):
+
+Und in den Gang, in dem die Wasser leckten,
+Trat nun Virgil. Ich folgte zielbewußt.
+Nicht mehr zur Ruhe sich die Glieder streckten,
+Und hörbar schlug das Herz mir in der Brust.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Dann schien, daß mich irre Lichter neckten
+Im runden Loch, bis ich, geschwellt von Lust
+Heraustrat, und aus ihrer Himmelsferne -
+Mich wieder rings umleuchteten die Sterne!
+
+314 August Forel, Nervenarzt. «Leben und Tod», Vortrag München 1908 (die Zitate sind nicht wörtlich).
+
+Zeitschrift «Lucifer - Gnosis»: «Lebensfragen der Theosophischen Bewegung» und «Vorurteile aus vermeintlicher Wissenschaft» in «Luzifer-Gnosis 1903-1908», GA Bibl.-Nr. 34.
+
+319 «Da kommt ein Glaube . . .»: Siehe Ernst Haeckel, «Die Lebenswunder», gemeinverständliche Studien über biologische Philosophie, Stuttgart 1904, 5. Kap., S. 124.
+
+321 Aufsätze «Wie erlangt man Erkenntnisse der höheren Welten?»: Zuerst in der Zeitschrift «Lucifer-Gnosis» veröffentlicht, seit 1910 als Buch, GA Bibl.-Nr. 10.
+
+323 In meiner Zeitschrift: «Lucifer-Gnosis» Nr. 13-28 (Juni 1904 bis September 1905). Siehe vorangehenden Hinweis.
+
+339 William Thomson, 1824-1907; englischer Physiker.
+
+Rudolf Clausius, 1822-1888; deutscher Physiker.
+
+Sadi Carnot, 1796-1832; französischer Physiker.
+
+Ernst Haeckel über das Entropie-Gesetz: Siehe Ernst Haeckel, «Die Welträtsel. Gemeinverständliche Studien über Monistische Philosophie», 13. Kapitel «Entwicklungsgeschichte der Welt»: «... Wenn diese Lehre von der Entropie richtig wäre, so müßte dem angenommenen <ende der="" welt=""> auch ein ursprünglicher <anfang> derselben entsprechen, ein Minimum der Entropie, in welchem die Temperaturdifferenzen der gesonderten Weltteile die größten waren. Beide Vorstellungen sind nach unserer monistischen und streng konsequenten Auffassung des ewigen kosmogenetischen Prozesses gleich unhaltbar; beide widersprechen dem Substanzgesetz. Es gibt einen Anfang der Welt ebenso wenig als ein Ende derselben.»
+
+340 Orest Danilowitsch Chwolson, Professor an der Kaiserlichen Universität St. Petersburg, «Hegel, Haeckel, Kossuth und das zwölfte Gebot». Eine kritische Studie, Braunschweig 1906.
+
+341 «Wer will was Lebendigs . . .»: «Faust» I, Studierzimmer, Schüler-szene.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+# PERSONENREGISTER
+
+(Die kursiv gesetzten Ziffern geben jeweils die Seiten an, zu denen ein Hinweis besteht)
+
+Anzengruber, Ludwig (1839 bis 1889) 138 (ohne Namensnennung)
+Aristoteles
+(384-322 v. Chr.) 121 (ohne Namensnennung), 206, 254
+Augustinus, Aurelius (354–430) 293
+Baer, Karl Ernst von (1792-1876) 32
+Balfour, Arthur James (1848 bis 1930) 59
+Becquerel, Henri Antoine (1852 bis 1908) 13 (ohne Namensnennung), 55
+Beethoven, Ludwig van (1770 bis 1827) 78, 296
+Benedikt, Moritz (1835-1920) 194 (ohne Namensnennung), 300
+Bernoulli (Mathematiker-Geschlecht) 296
+Böhme, Jakob (1575-1624) 286
+Brückner, Eduard (1862-1927) 254
+Bruno, Giordano (1548-1600) 293
+Büchner, Ludwig (1824-1899) 47, 51
+Bunsen, Robert Wilhelm (1809 bis 1899) 42, 256
+Carnot, Sadi (1796-1832) 339, 341, 342
+Cartesius (Rene Descartes) (1596 bis 1650) 168, 169, 170
+
+Chwolson, Orest Danilowitsch (1852-1934) 340, 341
+Clausius, Rudolf (1822-1888) 339, 341, 342
+Dante, Alighieri (1265-1321) 289, 312
+Darwin, Charles (1809-1882) 42, 53, 203
+Descartes siehe Cartesius
+Du Bois-Reymond, Emil (1815 bis 1896) 49, 50, 51
+Fabre, Jean Henri (1823-1915) 174 (ohne Namensnennung)
+Fechner, Gustav Theodor (1801 bis 1887) 73 (ohne Namensnennung)
+Fichte, Johann Gottlieb (1762 bis 1814) 43, 81, 96, 105, 134, 252, 264, 265, 276
+Forel, August (1848-1931) 314, 315, 322
+Franz von Assisi (1181-1226) 76, 83
+Goethe, Johann Wolfgang von (1749-1832) 62, 68, 70 (ohne Namensnennung), 100, 101 (ohne Namensnennung), 103, 104, 105, 115, 116, 117, 120, 121, 124, 128, 129, 130, 148, 156, 157, 163, 165 (ohne Namensnennung), 170, 188, 189, 190, 191
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+Seite: 356
+
+199 (ohne Namensnennung), 208, 209, 214, 226, 236, 251, 260, 261, 262, 263, 275, 290, 291, 296, 307, 321, 330, 341
+Haeckel, Ernst (1834-1919) 32,48, 51, 54, 55 (ohne Namensnennung), 139, 318,319, 339
+Haller, Albrecht von (1708-1777) 156
+Hardenberg, Friedrich von, siehe Novalis
+Hegel, Georg Friedrich Wilhelm (1770-1831) 43, 62,117, 340
+Hill, Rowland (1795-1879) 135
+Ibsen, Henrik (1828-1906) 158
+James, William (1842-1910) 97 (ohne Namensnennung), 281
+Johannes (Evangelist) 285
+Kant, Immanuel (1724-1804) 256, 259
+Kemmerich, Dr. Max Philipp Albert (1876-1932) 135 (ohne Namensnennung)
+Kirchhoff, Gustav Robert (1824 bis 1887) 42, 256
+Kolb, Alfred (Lebensdaten nicht ermittelt) 234 (ohne Namensnennung) 235, 250
+Kossuth, Lajos (1802-1894) 340, 341
+Lahmann, Heinrich (1860-1905) 193
+Lange, Friedrich Albert (1828 bis 1875) 66
+
+Laplace, Pierre Simon, Marquis de (1749-1827) 256, 259
+Lavoisier, Antoine Laurent de (1743-1794) 340
+Leibniz, Gottfried Wilhelm (1646 bis 1716) 50
+Leonardo da Vinci (1452-1519) 34
+Luther, Martin (1483-1546) 217 (ohne Namensnennung)
+Mayreder, Rosa (1858-1938) 91
+Michelangelo (1475-1564) 78
+Münchhausen, Karl Friedrich Hieronymus, Freiherr von (1720-1797) 53
+Newcomb, Simon (1835-1909) 256 (ohne Namensnennung)
+Novalis (Friedrich von Hardenberg) (1772-1801) 162 (ohne Namensnennung)
+Oken, Lorenz (1779-1851) 189
+Ostwald, Wilhelm (1853-1932) 52
+Owen, Robert (1771-1858) 242
+Paracelsus (Theophrastus Bombastus von Hohenheim) (1493 bis 1541) 188, 222
+Plateau, Joseph Anton Ferdinand (1801-1883)270
+Plato (427-347 v. Chr.) 114, 122, 203
+Pochhammer, Paul (1841-1916) 289
+Raffael (Raffaello Santi) (1483 bis 1520) 78
+Reder, Heinrich von (1824-1909) 239 (ohne Namensnennung)
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+Seite: 357
+
+Redi, Francesco (1626-1697) 292, 293
+
+Schelling, Friedrich Wilhelm Joseph (1775-1854) 43, 62
+
+Schiller, Friedrich von (1759 bis 1805) 83, 87, 88 (ohne Namensnennung), 116, 262, 287, 311, 317
+
+Schieiden, Matthias Jakob (1804 bis 1881) 42
+
+Schopenhauer, Arthur (1788 bis 1860) 164, 260
+
+Thomson, William (1824-1907) 339, 341, 342
+
+Trine, Ralph Waldo (1866-1958) 212 (ohne Namensnennung)
+
+Vogt, Carl (1817-1895) 47, 49, 198
+
+Wagner, Richard (1813-1883) 78
+
+Wagner, Rudolf (1805-1864) 198
+
+Wallace, Alfred Russell (1823 bis 1913) 232 (ohne Namensnennung)
+
+Weininger, Otto (1880-1903) 92
+
+Wundt, Wilhelm (1832-1920) 67
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+Seite: 358
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 359
+
+AUSFÜHRLICHE INHALTSANGABEN
+erstellt von Hans Merkel
+
+I. Die Mission der Geheimwissenschaft in unserer Zeit
+Berlin, 10. Oktober 1907. 9
+
+Geheimwissenschaft setzt eine übersinnliche Welt voraus, die
+durch Entwicklung der Erkenntniskräfte geschaut werden
+kann. Der Materialismus leugnet sie. Geheimwissenschaft
+hat stets einen persönlichen Charakter nach dem Grad der
+höheren Einsichten. Was in der Religion Glaube ist, wird
+zum Wissen erhoben. Man darf nicht brach liegen lassen,
+was in der Welt im Keim vorhanden ist. Es gab immer Menschen, die in die geistige Welt hineinschauten, sie konnten
+aber ihr Wissen nur denen geben, die dazu vorbereitet waren.
+Drei Wege gibt es: Die Imagination, Inspiration und Intuition. Man unterschied Hellseher und Eingeweihte. Heute ist
+eine Harmonie in der Entwicklung der Fähigkeiten zum Eingeweihten und zum Hellseher erforderlich. Adept ist, wer
+die geistigen Kräfte handhaben kann. Geheimwissenschaft
+macht lebenstüchtig. Notwendig ist eine Vertiefung der Seelen. Es gibt sichtbare und unsichtbare Kräfte in der Welt. So
+trugen die Christen in den Katakomben, in der Seele die Kraft, die Welt zu erobern, während die glänzende Zivilisation der damaligen römischen Welt zugrunde ging.
+
+II. Die Naturwissenschaft am Scheidewege
+Berlin, 17. Oktober 1907. 37
+
+Naturwissenschaft ist eine Art Religion geworden. Schieiden
+entdeckte die Zelle, Kirchhoff und Bunsen die Spektralanalyse, Darwin die Fülle der Arten. Naturwissenschaft sagt
+aber nichts aus über Seele und Geist. Für Büchner und Vogt waren Gedanken Abscheidungen der Gehirnmoleküle. Du
+Bois-Reymond stellte sieben Welträtsel auf. Haeckels «Welt-
+
+---
+
+rätsei» war eine Art Erwiderung. Die Entdeckung des Radiums zeigte, daß ein Zerfall der Materie möglich ist. Atome und Moleküle sind etwas Erdachtes. Das Atom ist nichts anderes als gefrorene Elektrizität, gefrorene Wärme, gefrorenes Licht. Man wird in allem verdichteten Geist sehen müssen. Naturwissenschaft wird in Geisteswissenschaft einmünden müssen. Goethe sagte einmal, es würde die Zeit kommen, wo Philosophie und Naturwissenschaft sich vereinigen werden.
+
+## III. Die Erkenntnis der Seele und des Geistes
+
+Berlin, 24. Oktober 1907. 64
+
+Erst seit dem Konzil von Konstantinopel (869) spricht man nur von Körper und Seele. Zuletzt sprach F. A. Lange von «Psychologie ohne Seele». Die Frage nach dem Wesen der Seele, und ob sie an einem höheren übersinnlichen Leben teilnehme, blieb unbeantwortet. Das Wesen des Geistes müssen wir in uns selbst suchen. Was wir in unserem innersten Wesen sind, das sind alle Dinge draußen, nur in anderer Form. Natur ist Geist, der seine Außenseite den Sinnen zuwendet. Der Mensch besteht aus physischem Leib, ätherischem Leib, Astralleib und Ich. Arbeitet das Ich am Astralleib, so entsteht Geistselbst, wie bei Franz von Assisi. Wird der Ätherleib verwandelt durch die höchsten künstlerischen oder religiösen Impulse, so entsteht Lebensgeist. Die Initiation gibt die Möglichkeit, den Ätherleib durch Reinigung und Läuterung umzuwandeln. Die Umwandlung des physischen Leibes formt den Geistesmenschen. So wird der Mensch eines mit dem Kosmos. Das Wesen des Ich ist Verinnerlichung. Die Seele verbindet Leib und Geist. Der Mensch hat ein Leben, das vor dem Erdenleben war und nach diesem sein wird. Mit dem Tode kommt der Mensch mit den Früchten des Erdenlebens bereichert in das Geistesland zurück. Geisteswissenschaft beantwortet die Frage nach dem Zeitlichen und Ewigen, nach dem Schicksal des Menschen nach dem Tod. Wir lernen verstehen die religiösen Überlieferungen. Die Seele kann nur glücklich sein, wenn sie den Geist in sich einfließen läßt und von ihm aus die Leiber gestaltet.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:360
+
+---
+
+IV. Mann und Weib im Lichte der Geisteswissenschaft
+München, 18. März 1908 (statt Berlin, 14. Nov. 1907 . 89
+Rosa Mayreder hat in dem Buch «Zur Kritik der Weiblichkeit» die Stimmen über das Wesen des Weiblichen zusammengefasst. Otto Weininger sah Männliches und Weibliches im Menschen, aber in materialistisches Denken gehüllt. Beim männlichen Geschlecht ist der Atherleib weiblich, beim weiblichen Geschlecht männlich. Man muß von männlichen und weiblichen Eigenschaften sprechen. Die Frau hat innere Tapferkeit, Aufopferung, Hingabe. Der Mann geht im äußeren Schaffen auf. Der Mensch geht durch männliche und weibliche Verkörperungen. Der Ursprung der Geschlechter ist in der astralischen Welt. Es ist der Gegensatz höherer Prinzipien. Das Männliche ist Abbild des Lebens. Im Weiblichen drückt sich aus, was das Leben in Form bringt. Wirkt das Übergeschlechtliche im praktischen Leben, dann ist die Geschlechterfrage gelöst.
+
+V. Initiation oder Einweihung
+Berlin, 28. November 1907. 102
+Es entspricht Goethes Denkweise, Wege zu suchen nach wahrer Erkenntnisweisheit. Man unterscheidet Eingeweihte, Hellseher und solche, die höhere Kräfte anwenden im Dienste der physischen Welt. An der Grenze von physischer und überphysischer Welt muß man unterscheiden Illusion von Wirklichkeit, Träume von Realität, Vision von wirklicher Anschauung. Hier muß man Mut, Ausdauer und Energie bewahren. Die Menschen haben heute andere körperliche und soziale Bedürfnisse als in früherer Zeit. Deshalb muß das Prinzip der Einweihung heute jedermann zugänglich gemacht werden. Der Eingeweihte hat Einblick in höhere Welten. Die Schulung besteht darin, daß der Geistesschüler Mittel und Anweisungen erhält, wie er seine geistigen Augen und Ohren entwickeln kann. Er soll geführt werden in ein Zentrum, von dem aus die Strahlen des Weltenschaffens und der Weltgesetzmäßigkeit ausgehen. Der Schüler muß ein sinn-
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 361
+
+---
+
+lichkeitsfreies Denken erwerben, ein Denken, das seinen Quell im menschlichen Innern hat. So fand Goethe die Urpflanze. Es war das Schaffende in allen Pflanzen. Für Goethe war es ein Hervorzaubern des Geistes, der in den Dingen lebt. Geisteswissenschaft gibt sinnlichkeitsfreies Denken. Zum Aufsuchen der höheren Wahrheiten gehört Hellsehen, zum Begreifen gesunder Verstand und Logik. Die Ausbildung des Fühlens geschieht mit Imagination. Der Mensch erlangt ein geistiges Organ, den Heiligen Gral. Das Wollen wird durch die Zeichen der okkulten Schrift entwickelt, wie sie in den Siegeln der Apokalypse enthalten sind. Das Herz wird ein willkürlicher Muskel werden, der Kehlkopf ein Fortpflanzungsorgan. Werden die im Menschen schlummernden Kräfte erweckt, dann werden Denken, Fühlen, Wollen zu Geistesaugen und Geistesohren.
+
+## VI. Die sogenannten Gefahren der Einweihung
+
+Berlin, 12. Dezember 1907. 131
+
+Weltfremd ist, wer sich nicht kümmert um die eigentlichen Kräfte des Daseins. Der Materialismus kann nur den Verstand befriedigen, nicht die tieferen Interessen der Seele. Die geistigen Welten können auch gefährlich sein durch Tatsachen und Wesenheiten. Aber diese Gefahren umgeben stets den Menschen. Angst, Furcht, Aberglaube, Hoffnungslosigkeit sind Nahrung für feindliche Machte. Der Mensch überwindet die Todesfurcht nur, wenn er weiß, daß ein ewiger Wesenskern in ihm ist. Es nützt nichts, Tugend zu predigen. Heilmittel sind die geisteswissenschaftlichen Wahrheiten. Man soll sie nicht vor einem Alter von 35 Jahren vortragen. Höchste Lebensreife ist nur in einem vorgerückten Alter zu erreichen. Die Tiefen der höheren Welten werden um so besser erreicht, je mehr man schweigen kann. Die Möglichkeiten zum Guten steigern auch die Möglichkeiten des BÖse-Seins. Man muß das Geistige suchen, auch wenn es Gefahren bringt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:362
+
+---
+
+VII. Mann, Weib und Kind im Lichte der Geisteswissenschaft
+
+Berlin, 9. Januar 1908. 158
+
+Beim Tier wiegt die Gattung, beim Menschen die Individualität vor. Die Seele geht auf ein früheres Dasein zurück. Eine unbewußte Liebe führt das Kind zu bestimmten Eltern hin. Wahre Ich-Erkenntnis ist nur der Kraft im Menschen möglich, die unsterblich ist. Bis zur Geschlechtsreife werden die vererbten Eigenschaften völlig sichtbar. Dann beginnt die Entfaltung der besonderen Individualität. Der junge Mensch sucht aus seinen Eltern den Boden, um den körperlichen Leib aufzubauen. Die Erwachsenen sind für die werdende Generation der Mutterboden. Wir dürfen das Kind nicht unter Zwang setzen, um es nach unserem Bild zu formen, sondern müssen ihm Freiheit in der Entwicklung lassen und sie achten.
+
+VIII. Die Seele der Tiere im Lichte der Geisteswissenschaft
+
+Berlin, 23. Januar 1908. 166
+
+Wahre Selbsterkenntnis kommt durch Anschauen der großen Welt und ihrer Wesenheiten. Was der Mensch verteilt sieht auf die Fülle der tierischen Formen, sieht er bei sich in eine gewisse Harmonie gebracht. In höchstentwickelten Tieren kann man etwas sehen wie eine Karikatur menschlichen Handelns. Man kann die Tätigkeit der Ameisen, Bienen, Biber bewundern. Früher glaubte die Naturwissenschaft mit dem Begriff «Kampf ums Dasein» auszukommen. Der Mensch hat eine individuelle Seele, das Tier eine Gruppenseele. Diese befindet sich in der astralischen Welt. Der Mensch hat Vorstellungskraft und Gedächtnis, das Tier ist davon besessen. In urferner Vergangenheit war auch des Menschen Seele eine Gruppenseele. Die Tiere sind auf der alten Stufe stehen geblieben. Die Gruppenseele des Menschen hat sich dagegen die Bildungs- und Umgestaltungsfähigkeit bewahrt. Dem menschlichen Leib blieb die Fähigkeit, ein Tempel für die höhere Individualität zu werden. Die Menschenseele wartete mit der Verkörperung, nachdem die Tiere schon physisch geworden waren. Jede Tiergestaltung ist eine einseitige Darstel
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:363
+
+---
+
+lung des göttlichen Geistes. Im Menschen erlangt das Urbild die vollkommenste Gestalt. Im schöpferischen Gedanken wird dieses Urbild im Menschen lebendig.
+
+IX. Der Krankheitswahn im Lichte der Geisteswissenschaft
+
+München, 3. Dez. 1907 (statt Berlin, 13. Februar 1908). 191
+
+Von der Seele aus können Nachbildungen von Krankheiten wie wirkliche echte Krankheitsbilder entstehen. Materialistisches und geisteswissenschaftliches Denken haben eine große Wirkung auf das menschliche Innere. Der Mensch soll von innen heraus schaffen, sonst verödet seine produktive Kraft. Bei der Angst will die Seele einen Willensmittelpunkt schaffen. Es ist ein Sammeln des Blutes. Man wird bleich. Bei der Scham will der Mensch das Ich auslöschen. Er will aufgehen im All. Das Blut strömt nach außen. So können alle seelischen Vorgänge eine Wirkung haben in den Vorgängen des Organismus. Abstrakte Gedanken haben die geringste Wirkung auf den Organismus. Der Mensch ist die umgekehrte Pflanze. Ihre Wurzel entspricht dem Kopf des Menschen. Einst wird der Mensch begierdenfrei seinesgleichen hervorbringen. Das ist dargestellt im Bild des Heiligen Gral. Solche Bilder wirken gesundend. Wenn der Mensch keine inneren Imaginationen bilden kann, strömt alle Kraft nach innen. Je weniger der Mensch im allgemeinen Weltendasein aufgehen kann, um so mehr spürt er, was in seinem Organismus vorgeht. Das ist Ursache für falsche Angstgefühle und falsche Krankheitsvorstellungen. Falsche Bilder erzeugen Seelenstörungen, die später Leibesstörungen werden. In der alten Tragödie siegte der Held über die Leiden; das macht gesund. Das Blut-Fließen im Märchen ist ein gesundes Erziehungsmittel. Sieht der Mensch es äußerlich im Bild, so kann er es überwinden. Krankheitswahn beruht auf dem Mangel an Produktivität. Geisteswissenschaft wappnet den Menschen gegenüber den Zivilisationseinflüssen. Das Tier, das in die Gefangenschaft verpflanzt wird, wird krank. Es kann keine Gegenkraft entwickeln. Der Mensch muß durch innere Tätigkeit die Einflüsse umgestalten. Dann können sie zur Höherentwicklung des Menschen gebraucht werden.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:364
+
+---
+
+X. Das Gesundheitsfieber im Lichte der Geisteswissenschaft
+
+München, 5. Dez. 1907 (statt Berlin, 27. Februar 1908). 210 Jeder Mensch hat eine individuelle Gesundheit. Durch das Recht oder durch religiöse Ideale wird der astralische Leib, durch Kunst oder die großen Religionsstifter der ätherische Leib, durch geisteswissenschaftliche Übungen der physische Leib umgearbeitet. Der Mensch kann die kulturellen Eindrücke innerlich verarbeiten. Alles ist ungesund, was eine Disharmonie ergibt zwischen äußeren Eindrücken und innerem Erleben. Ist das Innere zu schwach, um alles zu verarbeiten, so können hysterische Krankheiten entstehen. Das stete Fragen nach dem Warum kann zu hypochondrischen Zuständen führen. Schwächliche Naturen können den äußeren Eindrücken kein mächtiges Inneres gegenüberstellen. Man muß den Menschen fähig machen, seine Umgebung zu ertragen. In aller Erziehung und öffentlicher Arbeit muß dahin gearbeitet werden, daß dem Menschen Freude und Befriedigung im Leben möglich ist. Das Gesundende der Liebe ist, daß wir unser Inneres ausströmen. Entstehen beim Lesen eines Buches Bilder, dann liegt Produktivität vor, die glücklich macht. Geisteswissenschaftliche Tatsachen müssen in die Wissenschaft gelangen. Eine starke Weltanschauung stellt Harmonie her.
+
+XL Beruf und Erwerb
+
+Berlin, 12. März 1908. 227
+
+Geisteswissenschaft führt hinein in die wahre Erkenntnis der Wirklichkeit. Der moderne Arbeiter ist ein Ergebnis der Entwicklung der letzten Jahrhunderte. Die Beherrschung der Naturgesetze ist kristallisiert in Industrie und Verkehr. Es besteht eine Disharmonie zwischen Menschensehnsucht und dem, was das Leben in seiner Realität bietet. Beruf und Erwerb haben sich in ihrem Verhältnis zum Menschen sehr geändert. Einst hatten viele Menschen eine persönliche Verbindung der Seele mit der Arbeit. Dies ist vielfach verlorengegangen. Der Beruf spricht sich aus in der Arbeit, der Erwerb im Lohn. Es handelt sich nicht um die Verhältnisse, sondern
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 365
+
+---
+
+um die Entwicklung der Menschenseele. Nur durch die Umgestaltung der Menschenseele kann Heil und Fortschritt kommen, niemals durch bloße Einrichtungen. Einrichtungen, die Ursache von Not und Elend werden, wurden zuerst von Menschen gemacht. Der Mensch kann nur leiden durch den Menschen. Im sozialen Leben ist nur das für das Heil der Menschen ersprießlich, was diese nicht für sich, sondern für die Gesamtheit der Menschen tun. In den geistigen Welten sind Volksseelen, Gruppenseelen, Gemeinsamkeitsgeister eine Realität. Die Arbeit muß in einem durch Weisheit und Struktur geregelten Zusammenhang stehen. Es kommt nicht darauf an, irgendeine Arbeit zu geben, sondern darauf, daß Arbeit geleistet wird für die Bedürfnisse der Gesamtheit. Impuls muß werden die aus wirklicher Weisheit fließende Zusammengehörigkeitsempfindung mit menschlichen Gruppen.
+
+## XII. Sonne, Mond und Sterne
+
+Berlin, 26. März 1908 253
+
+Aristoteles sagt, daß nach uralter Lehre die Gestirne Götter seien. Astrologie führt, wenn auch in verstümmelter Form, zurück auf die Urweisheit der Menschheit. Ihr waren die Sterne Körper von geistig-göttlichen Wesenheiten. Geistig-seelische Kräfte wirkten von Stern zu Stern. Heute sieht der Mensch in ihnen nur rein physische Körper. In der Pflanze wirken übersinnliche Anziehungs- und Abstoßungskräfte. Sonnenkräfte allein würden die Entwicklung überstürzen, die Erdenkräfte wirken hier hemmend. Die Erde ist ein lebendiges Ganzes. Die Tiergruppenseelen umkreisen ihren Planeten. Jeder Planet hat seine eigenen Umlaufskräfte. Als Embryo untersteht der Mensch den Mondenkräften. Der menschliche Körper ist abhängig vom Mond, soweit es die Form betrifft. Sonne und Mond stellen sich dar als der zur menschlichen Entwicklung notwendige Gegensatz von Leben und Form. Hinter dem irdischen Licht liegt das von der Sonne herabströmende Leben. Von den Sternen, Sonne und Mond strömen nicht nur Lichtstrahlen, sondern geistige Lebensströme. Der Mensch ist herausgeboren aus dem Weltenall, aus dem Weltengeist wie der Sternenraum.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 366
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56 Seite: 367
+
+# XIII. Erdenanfang und Erdenende
+
+Berlin, 9. April 1908 264
+
+Aus den großen Idealen strömen gewaltige Empfindungen, die die Tätigkeit des Alltags beflügeln. Die Naturwissenschaft schließt aus den Überresten untergegangener Welten und Wesenheiten auf frühere Zustände der Erde. Hinter dem Physischen sind überphysische Kräfte. Im Schlafe trennt sich der Astralleib und das Ich vom physischen und ätherischen Leib. Durch die Initiation erhält der Mensch geistige Augen und Ohren. Dann erhält der Astralleib die Erleuchtung. Geisteswissenschaft sieht im Astralleib und Ich das Ursprüngliche im Menschen. Das Innenleben war vor dem Äußeren. Materie ist verdichteter Geist. Der Mensch war als geistiges Wesen auf der Erde, bevor die anderen Naturreiche erschienen. Er begann zuerst die niedersten, dann die höheren Tiere aus sich herauszukristallisieren. Tierreich und Pflanzenreich sind die zurückgebliebenen Wesensstufen der menschlichen Entwicklung. Alles Unvollkommene geht auf das Höhere zurück. Ebenso war die Erde ursprünglich ein geistiges Wesen. Im Menschen gibt es absterbende und aufsteigende Organe. Das Herz wird ein Werkzeug der Seele sein. Der Mensch wird in Zukunft nicht nur luftförmige Gestalten durch das Wort hervorbringen. Das Stimmorgan wird das Fortpflanzungsorgan des zukünftigen Menschen sein. Der Mensch vergeistigt sich und kehrt am Erdenende zum Geist zurück.
+
+# XIV Die Hölle
+
+Berlin, 16. April 1908 287
+
+In der persischen Kultur stand dem Reich der guten Kräfte, des Ormuzd, ein Reich der bösen Kräfte, Ahriman gegenüber. In den Sagen wird von einem Reich der Hölle gesprochen, vom griechischen Tartaros bis zur Todesgöttin Hei, die die unwürdigen Toten -zu sich nimmt. Dante schildert diese Welt und Goethe zeigt im Mephistopheles den Repräsentanten der höllischen Mächte. Im Menschen ist eine Zweiheit zusammengefügt, das Physisch-Leibliche, das der Vererbung und das Geistig-Seelische, das der Wiederverkörperung unterliegt. Im Schlaf trennt sich das Geistig-Seelische vom Leib-
+
+---
+
+liehen. Nach dem Tode erscheinen dem Menschen die Bilder des vergangenen Lebens. Ein Extrakt des letzten Lebens bleibt mit dem menschlichen Wesen verknüpft. Mit dem Tode legt der astralische Leib nicht ohne Weiteres seine Begierden ab, obgleich ihm der physische Leib, das Werkzeug der Befriedigung fehlt. Er leidet durch die Begierde Schmerz, bis sie durch die Nichtbefriedigung ausgelöscht ist. Dies ist eine Zeit der Läuterung. Ein Mensch, der sich mit seinem physischen Leib identifiziert hat, hat ein schwierigeres Dasein nach dem Tode als ein Mensch, der das übersinnlich Geistig-Seelische sah. Aus der Frucht des vorhergehenden Lebens baut sich der Mensch den Körper seines nächsten Lebens auf. So sind im Menschen die Früchte der früheren Leben enthalten. Dies ist der Vervollkommnungsgang des Menschen durch die Erdenleben. Der Mensch hat in sich eine sich vorwärtsentwickelnde und eine hemmende Kraft. Auf der einen Seite nehmen wir die Lebenserfahrung als Lebensfrucht mit. Auf der anderen Seite werden wir mit der physischen Welt zusammengeschmiedet. Hat der Mensch nur Verständnis für das Physische, so ist dies eine Höllenqual im Geistigen. Dadurch, daß die hemmenden Kräfte sich im Menschen entwickelten, drang der Geist in das Sinnliche und konnte die Früchte des Sinnlichen mitnehmen. Der Hemmschuh ist, im Dienste des Geistes betrachtet, der höchste Träger des Fortschritts.
+
+## XV. Der Himmel
+
+Berlin, 14. Mai 1908 313
+
+Die Frucht des Lebens setzt sich fort. Das nächste Erdenleben nimmt diese Frucht früherer Erdenleben in sich auf. Zwischen Tod und neuer Geburt ist der Mensch in einer geistigen Welt. Hat der Mensch die Entsagung, die Energie und die Ausdauer, die in ihm schlummernden Fähigkeiten zu entwickeln, so wird er die geistigen Welten wahrnehmen. Drei Grundkräfte sind einer Entwicklung zum Höheren fähig, die des Denkens, Fühlens und Wollens. Soweit sie dem Menschen von außen durch das tägliche Leben zufließen, sind sie ungeeignet für eine höhere geistige Entwicklung. Der
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:368
+
+---
+
+Mensch muß sich Ewigkeitsgedanken hingeben. Dann wird er in eine Welt eingeführt, in der der Gedanke selbst schöpferisch ist. Die astralische Welt ist ein von Licht und Farbe durchfluteter Raum. Tritt im Menschen die echte Liebe hinzu, dann spricht in geistigen Tönen eine Welt zu ihm. Der Himmel ist da, wo wir sind, wir müssen ihn nur wahrnehmen. Nach dem Tode ist der Mensch verbunden mit den schöpferischen Kräften, die den Raum durchfluten, die der schauende Mensch schon hier kennenlernt. Der entkörperte Mensch lebt in einem anderen Bewußtseinszustand und er nimmt die schöpferischen Kräfte wahr. Was der Mensch fühlt beim Entfalten des letzten Lebenskeimes, ist Seligkeit. Das Bewußtsein im Schöpferischen ist viel heller als das in der physischen Welt. Das Netz von Menschenseele zu Menschenseele ist auf unsichtbare Weise in der übersinnlichen Welt. Alles, was in der physischen Welt angeknüpft ist, findet die Fortsetzung in der geistigen Welt. Die wirklichen Kräfte, die hinter den sinnlichen schlummern, sollen eingeführt werden in diese Welt. Geisteswissenschaft soll den Menschen nicht der Welt entfremden, sondern ihn stark und tatkräftig machen für das Dasein. Das wird immer der Weg der Geisteskultur sein, daß sich aus dem Feuer der Liebe und der Begeisterung das Licht der Weisheit entwickelt.
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite: 369
+
+---
+
+Copyright Rudolf Steiner Nachiass-Verwaitung Buch:56 Seite: 370
+
+---
+
+# RUDOLF STEINER GESAMTAUSGABE
+
+Gliederung nach: Rudolf Steiner - Das Uterarische und künstlerische Werk. Eine bibliographische Übersicht „!, (Bibliographie-Nrn. kursiv in Klammern)
+
+## A. SCHRIFTEN
+
+### 1. Werke
+
+Goethes Naturwissenschaftliche Schriften, eingeleitet und kommentiert von R. Steiner, 5 Bände, 1883-97, Neuausgabe 1975 (la-e); separate Ausgabe der Einleitungen, 1925 (1)
+Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung, 1886^
+Wahrheit und Wissenschaft. Vorspiel einer «Philosophie der Freiheit», 1892 (3)
+Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung, 1894 (4)
+Friedrich Nietzsche, ein Kämpfer gegen seine Zeit, 1895 (5)
+Goethes Weltanschauung, 1897 (6)
+Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung, 1901 (7)
+Das Christentum als mystische Tatsache und die Mysterien des Altertums, 1902 (8)
+Theosophie. Einführung in übersinnliche Welterkenntnis und Menschenbestimmung, X904(9)
+Wie erlangt man Erkenntnisse der höheren Welten? 1904/05 (10)
+Aus der Akasha-Chronik, 1904-08 (11)
+Die Stufen der höheren Erkenntnis, 1905-08 (12)
+Die Geheimwissenschaft im Umriß, 1910 (13)
+Vier Mysteriendramen, 1910-13 (14)
+Die geistige Führung des Menschen und der Menschheit, 1911 (15)
+Anthroposophischer Seelenkalender, 1912 (in 40)
+Ein Weg zur Selbsterkenntnis des Menschen, 1912 (16)
+Die Schwelle der geistigen Welt, 1913 (17)
+Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt, 1914 (18)
+Vom Menschenrätsel, 1916 (20)
+Von Seelenrätseln, 1917 (21)
+Goethes Geistesart in ihrer Offenbarung durch seinen Faust und durch das Märchen von der Schlange und der Lilie, 1918 (22)
+Die Kernpunkte der sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft, 1919 (23)
+Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921 £4;
+Kosmologie, Religion und Philosophie, 1922 (25)
+Anthroposophische Leitsätze, 1924/25 (26)
+Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)
+Mein Lebensgang, 1923-25 (28)
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 56
+
+---
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:56 Seite:372
+
+## II. Gesammelte Aufsätze
+
+Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31) - Aufsätze zur Literatur 1886-1902 (32) - Biographien und biographische Skizzen 1894-1905 (33) - Aufsätze aus «Lücifer-Gnosis» 1903-1908 (34) - Philosophie und Anthroposophie 1904-1918 (35) - Aufsätze aus «Das Goetheanum» 1921-1925 (36)
+
+## III. Veröffentlichungen aus dem Nachlaß
+
+Briefe - Wahrspruchworte - Bühnenbearbeitungen - Entwürfe zu den Vier Mysteriendramen 1910-1913 - Anthroposophie. Ein Fragment aus dem Jahre 1910 - Gesammelte Skizzen und Fragmente - Aus Notizbüchern und -blättern - (38-47)
+
+## B. DAS VORTRAGSWERK
+
+### I. Öffentliche Vorträge
+
+Die Berliner öffentlichen Vortragsreihen, 1903/04 bis 1917/18 (51-67) - Öffentliche Vorträge, Vortragsreihen und Hochschulkurse an anderen Orten Europas 1906-1924 (68-84)
+
+### II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft
+
+Vorträge und Vortragszyklen allgemein-anthroposophischen Inhalts - Christologie und Evangelien-Betrachtungen - Geisteswissenschaftliche Menschenkunde - Kosmische und menschliche Geschichte - Die geistigen Hintergründe der sozialen Frage - Der Mensch in seinem Zusammenhang mit dem Kosmos - Karma-Betrachtungen - (91-244)
+
+Vorträge und Schriften zur Geschichte der anthroposophischen Bewegung und der Anthroposophischen Gesellschaft (251-263)
+
+### III. Vorträge und Kurse zu einzelnen Lehensgebieten
+
+Vorträge über Kunst: Allgemein Künstlerisches - Eurythmie — Sprachgestaltung und Dramatische Kunst - Musik - Bildende Künste - Kunstgeschichte (271-292) - Vorträge über Erziehung (293-311) - Vorträge über Medizin (312-319) - Vorträge über Naturwissenschaft (320-327) - Vorträge über das soziale Leben und die Dreigliederung des sozialen Organismus (328-341) - Vorträge für die Arbeiter am Goetheanumbau (347-354)
+
+## C. DAS KÜNSTLERISCHE WERK
+
+Originalgetreue Wiedergaben von malerischen und graphischen Entwürfen und Skizzen Rudolf Steiners in Kunstmappen oder als Einzelblätter: Entwürfe für die Malerei des Ersten Goetheanums - Schulungsskizzen für Maler - Programmbilder für Eurythmie-Aufführungen - Eurythmieformen - Skizzen zu den Eurythmiefiguren, u.a.
+
+Die Bände der Rudolf Steiner Gesamtausgabe sind innerhalb einzelner Gruppen einheitlich ausgestattet. Jeder Band ist einzeln erhältlich
