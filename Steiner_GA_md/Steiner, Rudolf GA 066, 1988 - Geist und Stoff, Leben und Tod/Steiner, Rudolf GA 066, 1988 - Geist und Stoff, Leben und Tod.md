@@ -145,7 +145,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 der Außenwelt sind schwingende, sich bewegende, in einer gewissen Weise zueinander im Verhältnis stehende Atome, Moleküle, rein räumliche Wesenheiten, die in der Zeit sich bewegen. So daß ja schon Schopenhauer und andere dazu kamen, zu sagen: Die farbenbunte Welt um uns herum, die tönende Welt um uns herum, sie ist eigentlich nur so lange da, als ein menschliches Auge sich öffnen kann, sie wahrzunehmen, ein menschliches Ohr sie hören kann. An sich, wenn dieser Außenwelt nicht gegenübersteht ein menschliches Auge, ein menschliches Ohr, ist diese Außenwelt finster und stumm, Bewegung finster-farbloser, lichtloser, tonloser Wesenheiten. Man war, ich möchte sagen, dazu gekommen, hereinzunehmen in das menschliche Ich, in die menschliche Seele alles das, was den Menschen erfreut, was ihn erhebt, was ihn umgibt in der Welt um ihn herum, und dieser Welt draußen nur die stumme und finstere Ursache des reinen Stoffes zu lassen. Ein solcher Geist wie Fechner nimmt eine solche Anschauung nicht bloß auf wie eine Theorie, sondern er nimmt sie auf im Hinblicke auf die Frage: Wie läßt sich mit einer solchen Anschauung leben? Wie vermag die Seele sich, wenn sie sich auf eine solche Anschauung stellen muß, in ein Verhältnis zur Welt zu bringen? - Und deshalb sagte sich Fechner in der Lage, in der er da war während seines Erholungssitzens auf der Bank am Heckenzaun: Da schaue ich durch diese Öffnung im Heckenzaun. Ich glaube das Grün der Wiese, die bunt-spielenden Farben der Schmetterlinge wahrzunehmen. Das alles aber lügt mir nur der farblose, lichtlose Stoff vor. Ich glaube die Töne des Morgenkonzertes zu hören; sie sind nicht draußen, sie ertönen erst, wenn die Schwingungen der Luft, die von den Instrumenten, den Geigen und Flöten hervorgerufen werden, auf mein Ohr wirken. Da draußen ist alles tonlos, alles finster und stumm. Und in Wahrheit
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
 ---
 
@@ -239,9 +239,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 ---
 
-Es wispert mir zu, wie der Verrat des Gottes. Es ergreift midi ein Bangen, wie in meiner Kindheit, wenn ich die Offenbarung Johannis las und Himmel und Erde darin zusammenbrachen. Da um midi herum dehnt sidi die Welt in aller Breite, mit allem Trotz sinnlidier Virtualität» - das heißt Kräftewirkung - «und sdieint meiner Vorstellung zu spotten. Sie zwingt midi in ihre Kreise, zwingt midi, ihren Ordnungen zu gehordien, lacht meines Gedankens ihres Nichts als eines Hirngespinstes. Und doch ist dieser Gedanke, dieser widersinnig scheinende Gedanke, was nun sein würde, wenn diese Welt nicht wäre, ein Riese, der mit dem ganzen empirischen Dasein spielt.»
+Es wispert mir zu, wie der Verrat des Gottes. Es ergreift midi ein Bangen, wie in meiner Kindheit, wenn ich die Offenbarung Johannis las und Himmel und Erde darin zusammenbrachen. Da um midi herum dehnt sidi die Welt in aller Breite, mit allem Trotz sinnlidier Virtualität» - das heißt Kräftewirkung - «und sdieint meiner Vorstellung zu spottien. Sie zwingt midi in ihre Kreise, zwingt midi, ihren Ordnungen zu gehordien, lacht meines Gedankens ihres Nichts als eines Hirngespinstes. Und doch ist dieser Gedanke, dieser widersinnig scheinende Gedanke, was nun sein würde, wenn diese Welt nicht wäre, ein Riese, der mit dem ganzen empirischen Dasein spielt.»
 
-So fühlt wie vor einem Abgrund sich der Denker, der sozusagen vor dem Tore der Geisteswissenschaft steht, das heißt gerade hingelangt bis zu dem Gedanken, der die Sinnenwelt abgeworfen hat, aber vor dem Tore stehen bleibt und nicht eintritt in die Stätte der Geisteswissenschaft, wo der Gedanke nun wie eine Wurzel behandelt wird, aus der heraus durch die Entwicklung geistesforscherischer Methoden die ganze Pflanze jener Erkenntniskräfte entwickelt wird, die nun hineinschauen können in die geistige Welt. Man muß, um die Bedeutung der Geisteswissenschaft für das heutige Leben einzusehen, an solche Denker sich erinnern, die den Eingang in die Geisteswissenschaft noch nicht finden konnten, aber gerade aus dem naturwissenschaftlichen Zeitalter heraus empfanden, was in der Seele vorgeht, wenn sie sich aufschließen will die Pforte, wenn sie anlangt bei dem Denken, das für das äußere Leben und für die äußere Wissenschaft ein Schlußpunkt ist, das aber der Anfangs- und Ausgangspunkt ist für das wirkliche Erkennen der geistigen Welt.
+So fühlt wie vor einem Abgrund sich der Denker, der sozusagen vor dem Tore der Geisteswissenschaft steht, das heißt gerade hingelangt bis zu dem Gedanken, der die Sinnenwelt abgeworfen hat, aber vor dem Tore stehen bleibt und nicht eintritt in die Stätte der Geisteswissenschaft, wo der Gedanke nun wie eine Wurzel behandelt wird, aus der heraus durch die Entwickelung geistesforscherischer Methoden die ganze Pflanze jener Erkenntniskräfte entwickelt wird, die nun hineinschauen können in die geistige Welt. Man muß, um die Bedeutung der Geisteswissenschaft für das heutige Leben einzusehen, an solche Denker sich erinnern, die den Eingang in die Geisteswissenschaft noch nicht finden konnten, aber gerade aus dem naturwissenschaftlichen Zeitalter heraus empfanden, was in der Seele vorgeht, wenn sie sich aufschließen will die Pforte, wenn sie anlangt bei dem Denken, das für das äußere Leben und für die äußere Wissenschaft ein Schlußpunkt ist, das aber der Anfangs- und Ausgangspunkt ist für das wirkliche Erkennen der geistigen Welt.
 
 Und zu diesen Denkern - ich wähle als Beispiele für die Vorläufer der Geisteswissenschaft, die ich hier meine, solche
 
@@ -562,7 +562,7 @@ weiter aus der Welt der physischen Stofflichkeit entgegengebracht wird. Indem de
 
 Dazu kommt nun dasjenige, was von außen herein das Leben schicksalsmäßig gestaltet. Denn das Gesamtschicksal des Menschen fließt ja zusammen aus der Art und Weise, wie wir selbst unsere Kräfte der Außenwelt entgegentragen: ob wir stumpf diese Kräfte ihr entgegentragen, und nur
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
 ---
 
@@ -758,7 +758,7 @@ wickeln, daß man nicht mehr bei dieser Entwicklung dabei ist. Dazu bedarf es ab
 
 Ich habe angedeutet, daß man dies «meditatives Leben» nennt, wenn man gewisse Vorstellungen, am besten solche, die man genau überschauen kann, damit nur ja nicht irgendwelche unbewußte oder sonstige Reminiszenzen des Lebens dabei auftauchen, in seine Seele, in sein Bewußtsein hereinbringt, diese Vorstellungen wirklich nach allen Seiten mit ruhendem Bewußtsein durchlebt. Wenn man nun nicht bloß beobachtet, wie im gewöhnlichen Bewußtsein diese Vorstellungen, so wie sie sind, wiederum in die Erinnerung hereingebracht werden können, nicht bloß darauf achtet, wie sie, wie man sagen könnte, treu ihrer eigenen Gestalt bleiben, sondern wenn man dazu greift, diese Vorstellungen gewissermaßen aus dem gewöhnlichen Bewußtsein dadurch herauszulassen, daß man bei ihrer Entwicklung nicht mehr dabei ist. Man wird nämlich immer finden, wenn man nur dabei Ausdauer und Geduld genug hat, daß die Vorstellungen hinabtauchen in die Untergründe des menschlichen Bewußtseins, wo man, wie man trivial sagen könnte, nichts mehr von ihnen weiß; dann wird man erfahren können, wie sie wieder herauftauchen in die Erinnerung. Mit alle
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 88
 
 ---
 
@@ -918,7 +918,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 den in der Regel nur Menschen, welche mit vollem inneren Anteil in den Ereignissen des Lebens, nicht nur des eigenen Lebens, stehen, sondern mit mitleidsvollem Anteil leben in dem Lebensschicksal vieler Menschen, in einem gewissen Zeitpunkt ihres Lebenslaufes aus den Tiefen ihrer Seele eine solche Anschauung über das Schicksal herauf leuchten sehen.
 
-Nun, Fragen der Wissenschaft, auch der Geisteswissenschaft, sie hängen nicht ab von irgendwelchen äußeren Ereignissen - Fragen der Wissenschaft, Fragen der Erkenntnis gehen ihren Lauf-, vielmehr richtet sich das äußere Leben in vielen seiner Eigentümlichkeiten nach dem, was die Wissenschaft zutage fördert. Aber auf der anderen Seite — man kann das auch in der Naturwissenschaft verfolgen — tragen gewisse äußere Umstände bei, daß Erkenntnisse erst in der rechten Weise gewürdigt, genau ins Auge gefaßt werden können von den Menschen. Man braucht nur daran zu erinnern, wie die Venus-Durchgänge, die nur zweimal im Jahrhundert eintreten, abgewartet werden müssen, bis sie eintreten, wie da die äußeren Umstände kommen müssen, damit eine bestimmte Erkenntnis auf einem gewissen Gebiete auftreten. So kann es auch sein mit Bezug auf die Fragen der Geisteswissenschaft, die sich auf das Seelenleben beziehen. Und obzwar das nicht im eigentlichen Sinne zur Geisteswissenschaft gehört, so kann doch das in unserer schicksaltragenden Zeit lebende Empfinden hingelenkt werden darauf, wie gerade unsere Zeit im tiefsten Sinne des Wortes den Menschen in ihrer Seele das nahebringt, was Geisteswissenschaft zu geben vermag.
+Nun, Fragen der Wissenschaft, auch der Geisteswissenschaft, sie hängen nicht ab von irgendwelchen äußeren Ereignissen - Fragen der Wissenschaft, Fragen der Erkenntnis gehen ihren Lauf-, vielmehr richtet sich das äußere Leben in vielen seiner Eigentümlichkeiten nach dem, was die Wissenschaft zutage fördert. Aber auf der anderen Seite — man kann das auch in der Naturwissenschaft verfolgen - tragen gewisse äußere Umstände bei, daß Erkenntnisse erst in der rechten Weise gewürdigt, genau ins Auge gefaßt werden können von den Menschen. Man braucht nur daran zu erinnern, wie die Venus-Durchgänge, die nur zweimal im Jahrhundert eintreten, abgewartet werden müssen, bis sie eintreten, wie da die äußeren Umstände kommen müssen, damit eine bestimmte Erkenntnis auf einem gewissen Gebiete auftreten. So kann es auch sein mit Bezug auf die Fragen der Geisteswissenschaft, die sich auf das Seelenleben beziehen. Und obzwar das nicht im eigentlichen Sinne zur Geisteswissenschaft gehört, so kann doch das in unserer schicksaltragenden Zeit lebende Empfinden hingelenkt werden darauf, wie gerade unsere Zeit im tiefsten Sinne des Wortes den Menschen in ihrer Seele das nahebringt, was Geisteswissenschaft zu geben vermag.
 
 Der alte Heraklit, der große griechische Philosoph, von dem einzelne, aber tief bezeichnende Leuchtstrahlen seines Forschens seit seinem Leben durch alle Zeiten dringen, sagt einmal, indem er auf das Traumleben hindeutet: In bezug auf die Traumwelt hat jeder Mensch seine eigene Welt. In
 
@@ -958,7 +958,7 @@ Bei dem heutigen Vortrage bin ich in einer etwas schwierigen Lage, denn es wird 
 
 Es ist dies ein Gegenstand, von dem man sagen kann, daß zwei geistige Bestrebungen der neueren Zeit gerade über ihn in den denkbar größten Mißverständnissen liegen. Und wenn man eingeht auf diese Mißverständnisse, so wird man finden, daß auf der einen Seite die Denker und Forscher, welche in der neueren Zeit versucht haben, das Gebiet der Seelenerscheinungen zu bearbeiten, mit den großen bewundernswerten Ergebnissen der Naturwissenschaft - insbesondere auch mit Bezug auf die Erkenntnisse des menschlichen Leibes - wenig anzufangen wissen. Sie kön-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
 ---
 
@@ -998,7 +998,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
 man außer dem Vorstellen mindestens unterscheiden muß andere Seelentätigkeiten oder -fähigkeiten; wir wissen, daß außer dem Vorstellen das Fühlen da ist, die Gefühlstätigkeit in ihrem ganzen weiten Bereich, und außerdem die Willenstätigkeit. Theodor Ziehen spricht so, als ob das Fühlen eigentlich nichts anderes sei als eine Eigenschaft der Vorstellung; er spricht nicht vom eigentlichen Fühlen, sondern vom Gefühlston der Empfindungen oder Vorstellungen. Die Vorstellungen sind da. Sie sind da, nicht nur wie wir sie denken, sondern mit gewissen Eigenschaften behaftet, die ihnen ihren Gefühlston geben. So daß man sagen kann: Für das Fühlen ist nun ein solcher Forscher darauf angewiesen, daß er sagt: Das, was im Nervensystem vorgeht, das reicht nicht zum Fühlen. Deshalb läßt er das Fühlen selbst eigentlich weg und betrachtet es nur wie ein Anhängsel zum Vorstellen. Man kann auch sagen: Indem er nun das Nervensystem verfolgt, kommt er nicht im Nervenmechanismus bis zu der Ergreifung desjenigen Seelischen, das als Gefühlsleben erscheint. Daher läßt er das Gefühlsleben als solches weg. Er kommt aber auch nicht zu irgend etwas im Nervenmechanismus, welches notwendig machte, von einem Wollen zu sprechen. Deshalb leugnet Ziehen geradezu die Berechtigung, auf naturwissenschaftlichem Gebiete in bezug auf die Seelen- und Leibeserkenntnis von einem Wollen zu sprechen. Was geschieht, wenn ein Mensch irgend etwas will? Nehmen wir an, er geht, er ist in Bewegung. Da sagt man - so meint solch ein Forscher -, es entspringt die Bewegung, das Gehen, aus seinem Willen. Aber in der Regel, was ist denn eigentlich da? Nichts anderes ist da, als zunächst die Vorstellung der Bewegung. Ich stelle vor gewissermaßen, was das sein wird, wenn ich mich durch den Raum bewege; und dann geschieht nichts weiter, als daß darauf folgt, daß ich mich selbst sehe oder fühle,
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 ---
 
@@ -1058,7 +1058,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 125
 
 die Geisteswissenschaft zutage tritt. Indem wir sinnlich wahrnehmen, üben wir fortwährend Belebung desjenigen, was aus dem Fluß der äußeren Ereignisse in unseren Leib hinein sich fortsetzt. Die Sinnesempfindung ist ein wirkliches lebendiges Durchdringen, ja sogar Beleben desjenigen, was als Totes sich in unsere Organisation herein fortsetzt. Dadurch aber haben wir in der Sinnesempfindung wirklich die objektive Welt unmittelbar in uns, und indem wir seelisch sie verarbeiten, erleben wir sie. Dies ist der wirkliche Vorgang, und das ist außerordentlich wichtig. Denn mit Bezug auf die Sinnesempfindung läßt sich nicht sagen, daß sie nur ein Eindruck ist, daß sie nur eine Wirkung von außen ist; dasjenige, was äußerlich vorgeht, geht wirklich bis in unser Inneres herein, leiblich, wird in die Seele aufgenommen und mit Leben durchdrungen. In den Sinnesorganen haben wir etwas, worinnen die Seele lebt, ohne daß im Grunde unser eigener Leib darinnen unmittelbar lebt. Man wird einmal auch naturwissenschaftlich den Vorstellungen, die ich jetzt entwickelt habe, näher kommen, wenn man vergleichend sich richtige Anschauungen bilden wird über die Tatsache, daß bei gewissen Tierarten in den Augen - und das wird man auf alle Sinne ausdehnen können - gewisse Organe sind, die beim Menschen nicht mehr sind. Das menschliche Auge ist einfacher als die Augen niederer Tiere, ja sogar ihm sehr nahestehender Tiere. Wenn man einmal sich fragen wird: Warum haben zum Beispiel gewisse Tiere noch den sogenannten Fächer im Auge, ein besonderes Organ aus Blutgefäßen, warum haben andere den sogenannten Schwertfortsatz, wiederum ein Organ aus Blutgefäßen? dann wird man darauf kommen, daß im tierischen Organismus, indem diese Organe in die Sinne hereinragen, das unmittelbare Leibesleben noch teilnimmt an dem, was in den Sinnen sich abspielt als Fortsetzung der
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 126
 
 ---
 
@@ -1146,7 +1146,7 @@ lieh diese Stoffwechselvorgänge auch im Gehirn und mit Gehirnvorgängen verbund
 
 Es ist in einer gewissen Weise mißlich, wenn man in dieser Art einer, wie es scheint, so gut begründeten Anschauung, wie der von den beiderlei Nerven, widersprechen muß; allein dabei steht einem ja wenigstens das zu, daß bis jetzt weder mit Bezug auf die Reaktion noch mit Bezug auf den anatomischen Bau irgend jemand einen Unterschied gefunden hat, der erheblich wäre, zwischen einem sensitiven und einem motorischen Nerven. Sie sind mit Bezug auf alles gleich. Wenn wir uns Übung in irgend etwas aneignen, dann eignen wir uns diese Übung dadurch an, daß wir lernen, durch unseren Willen die Stoffwechselvorgänge zu beherrschen. Das ist dasjenige, was das Kind lernt, nachdem es zuerst nach allen Richtungen zappelt und keine geregelte Willensbewegung ausführt: die Stoffwechselvorgänge, wie sie sich in ihren feineren Gliederungen abspielen, zu beherrschen. Und wenn wir zum Beispiel Klavier spielen oder
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 138
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 ---
 
@@ -1299,9 +1299,9 @@ in sich aufnehmenden Begriffen, zu Begriffen, welche der Wirklichkeit gewachsen 
 
 Nun wissen Sie ja, daß eine der hauptsächlichsten Weltanschauungsfragen diejenige ist, welche auch behandelt worden ist in den ersten Vorträgen, die ich in diesem Winter hier gehalten habe, die Frage nach dem Stoff, nach der Materie. Und ich will von dem eben angedeuteten Gesichtspunkte aus diese Frage heute kurz einleitungsweise berühren.
 
-Mit der Frage nach dem Stoff oder der Materie kann man nicht zurechtkommen, wenn man versucht, immer wieder und wiederum sich Vorstellungen oder Begriffe zu bilden, was denn Materie eigentlich sei; wenn man verstehen will - mit anderen Worten -, was denn Materie, was Stoff sei. Wer mit solchen für viele Menschen abgelegenen Rätselfragen wirklich seelisch gerungen hat, der weiß, was es mit solchen Fragen auf sich hat. Denn wenn er eine Zeitlang gerungen hat, ohne sich irgendeinem Vorurteil hinzugeben, dann kommt er zu einem ganz anderen Gesichtspunkt gegenüber einer solchen Frage. Er kommt zu einem Gesichtspunkt, der ihm wichtiger erscheinen läßt die Art, wie man sich überhaupt in der Seele verhält, wenn man sich einen solchen Begriff wie den Begriff der Materie bildet. Dieses Ringen der Seele selber, das wird ins Bewußtsein heraufgehoben. Und dann kommt man zu einer Anschauung gerade über diese Rätselfragen, welche ich etwa in folgender Weise aussprechen konnte.
+Mit der Frage nach dem Stoff oder der Materie kann man nicht zurechtkommen, wenn man versucht, immer wieder und wiederum sich Vorstellungen oder Begriffe zu bilden, was denn Materie eigentlich sei; wenn man verstehen will - mit anderen Worten -, was denn Materie, was Stoff sei. Wer mit solchen für viele Menschen abgelegenen Rätselfragen wirklich seelisch gerungen hat, der weiß, was es mit solchen Fragen auf sich hat. Denn wenn er eine Zeitlang gerungen hat, ohne sich irgendeinem Vorurteil hinzugeben, dann kommt er zu einem ganz anderen Gesichtspunkt gegenüber einer solchen Frage. Er kommt zu einem Gesichtspunkt, der ihm wichtiger erscheinen läßt die Art, wie man sich überhaupt in der Seele verhält, wenn man sich einen solchen Begriff wie den Begriff der Materie bildet. Dieses Ringen der Seele selbst, das wird ins Bewußtsein heraufgehoben. Und dann kommt man zu einer Anschauung gerade über diese Rätselfragen, welche ich etwa in folgender Weise aussprechen konnte.
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 153
 
 ---
 
@@ -1321,7 +1321,7 @@ Ich wollte dies einleitungsweise vorausschicken, damit immer mehr und mehr Klarh
 
 Ich habe gesagt: So wie sich einmal die Dinge entwickelt haben in der neueren Geistesbildung, ist man immer mehr zu einer einseitigen Anschauung gekommen über die Beziehungen des Seelisch-Geistigen zu dem Leiblich-Physischen, die sich dadurch ausdrückt, daß man heute das Seelisch-Geistige eigentlich nur sucht innerhalb jenes Teiles der menschlichen Leiblichkeit, der im Nervensystem beziehungsweise im Gehirn liegt. Man teilt gewissermaßen das Seelisch-Geistige dem Gehirn und Nervensystem allein zu, und man betrachtet mehr oder weniger den übrigen Organismus, wenn man vom Seelisch-Geistigen spricht, nur wie eine Art von Beigabe zum Gehirn und Nervensystem. Nun habe ich versucht, die Ergebnisse der Geistesforschung auf
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 155
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 ---
 
@@ -1533,7 +1533,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:66
 
 ---
 
-Bewußtsein tauche hinunter ins Unterbewußte. Und in vielem, was im seelischen Leben als Störung, als Verwirrung, als dieses oder jenes Mangelhafte auftritt, sieht der Psychoanalytiker eine Wirkung des unten im Unterbewußten Wogenden. Aber interessant ist es, was in diesem Unterbewußten der Psychoanalytiker nun sieht. Wenn man hört, was er aufzählt in diesem Unterbewußten, so ist es zunächst getäuschte Lebenshoffnung. Der Psychoanalytiker findet irgendeinen Menschen, der unter dieser oder jener Depression leidet. Diese Depression braucht ihren Ursprung nicht im gegenwärtigen bewußten Seelenleben zu haben, sondern in der Vergangenheit. In diesem Leben trat einmal irgend etwas im seelischen Erleben auf. Der Mensch ist darüber hinausgekommen, aber nicht vollständig; im Unterbewußten ist ein Rest geblieben. Er hat zum Beispiel Enttäuschungen erlebt. Er ist durch Erziehung, durch andere Vorgänge, mit dem bewußten Seelenleben über diese Enttäuschungen hinweggekommen, aber im Unterbewußten, da leben sie. Da wogt sie, diese Enttäuschung, gewissermaßen bis an die Grenze der Bewußtheit heran. Da erzeugt sie dann die unklare seelische Depression. Der Psychoanalytiker sucht also in allerlei Enttäuschungen, in getäuschten Lebenshoffnungen, die ins Unterbewußte heruntergezogen sind, dasjenige, was das bewußte Leben in einer dunklen Weise bestimmt. Das sucht er auch in dem, was das Seelenleben als Temperament färbt. In dem, was das Seelenleben aus gewissen rationalen Impulsen heraus färbt, sucht der Psychoanalytiker ein Unterbewußtes, das gewissermaßen nur anschlägt an das Bewußtsein. Dann aber kommt er zu einem weiten Gebiete - ich referiere hier nur —, welches der Psychoanalytiker dadurch faßt, daß er sagt: Da spielt herauf in das bewußte Leben der animalische Grundschlamm der Seele. Nun soll gar nicht geleugnet werden.
+Bewußtsein tauche hinunter ins Unterbewußte. Und in vielem, was im seelischen Leben als Störung, als Verwirrung, als dieses oder jenes Mangelhafte auftritt, sieht der Psychoanalytiker eine Wirkung des unten im Unterbewußten Wogenden. Aber interessant ist es, was in diesem Unterbewußten der Psychoanalytiker nun sieht. Wenn man hört, was er aufzählt in diesem Unterbewußten, so ist es zunächst getäuschte Lebenshoffnung. Der Psychoanalytiker findet irgendeinen Menschen, der unter dieser oder jener Depression leidet. Diese Depression braucht ihren Ursprung nicht im gegenwärtigen bewußten Seelenleben zu haben, sondern in der Vergangenheit. In diesem Leben trat einmal irgend etwas im seelischen Erleben auf. Der Mensch ist darüber hinausgekommen, aber nicht vollständig; im Unterbewußten ist ein Rest geblieben. Er hat zum Beispiel Enttäuschungen erlebt. Er ist durch Erziehung, durch andere Vorgänge, mit dem bewußten Seelenleben über diese Enttäuschungen hinweggekommen, aber im Unterbewußten, da leben sie. Da wogt sie, diese Enttäuschung, gewissermaßen bis an die Grenze der Bewußtheit heran. Da erzeugt sie dann die unklare seelische Depression. Der Psychoanalytiker sucht also in allerlei Enttäuschungen, in getäuschten Lebenshoffnungen, die ins Unterbewußte heruntergezogen sind, dasjenige, was das bewußte Leben in einer dunklen Weise bestimmt. Das sucht er auch in dem, was das Seelenleben als Temperament färbt. In dem, was das Seelenleben aus gewissen rationalen Impulsen heraus färbt, sucht der Psychoanalytiker ein Unterbewußtes, das gewissermaßen nur anschlägt an das Bewußtsein. Dann aber kommt er zu einem weiten Gebiete - ich referiere hier nur —, welches der Psychoanalytiker dadurch faßt, daß er sagt: Da spielt herauf in das bewußte Leben der animalische Grundschlamm der Seele. Nun soll gar nicht geleugnet wer-
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:66 Seite: 180
 
@@ -1688,7 +1688,7 @@ Gewiß, Brentanos äußeres Leben war Wechsel voll; und wer die Dinge nur äuße
 
 Nun ist Brentano schon damals, als er seine Psychologie schrieb, von dem Grundsätze ausgegangen, das innere
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 196
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 ---
 
@@ -1832,7 +1832,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
 sie dann auf den Stuhl legt oder auf die Schulter des Nachbarn. Mit großer Genauigkeit beschreibt dieses Medium, sagen wir, diese Photographien. Während man - das gibt ja auch Oliver Lodge zu - bei den anderen Dingen manche Zusammenhänge finden könnte so, daß irgendeine leise Suggestion, wie es ja bei solchen Dingen meistens ist, stattgefunden habe, oder sonst ein anderer Vorgang, den jeder Geistesforscher kennt, um auf das Medium zu übertragen, was an Erinnerung, an Reminiszenzen, namentlich an unterbewußten Reminiszenzen an den verstorbenen Raymond Lodge lebte - während das bei alledem ging, was sonst da war, ging es bei diesem Vorfall nicht, denn niemand konnte etwas wissen von diesen Photographien. Diese Photographien waren in der allerletzten Zeit, bevor Raymond Lodge gefallen war, aufgenommen, und waren noch nicht in England angekommen. Niemand wußte etwas davon, weder irgend jemand von der Familie, noch das Medium. Und in der Tat, vierzehn Tage oder drei Wochen nachher kamen die drei Photographien, genau in der Beschreibung, wie sie das Medium gegeben hatte, an. Nun wurde das selbstverständlich für ihn ein experimentum crucis, ein Kreuzbeweis, denn hier war unmittelbar nachweisbar: Niemand konnte etwas davon wissen, es ist etwas gekommen aus einer Welt, die eben nicht die Welt ist, in der früher Raymond Lodge gelebt hat, bevor er durch die Pforte des Todes gegangen ist.
 
-Das hat nicht nur auf Sir Oliver Lodge, der eine große Neigung hatte zu solchen Dingen, sondern es hat einen großen Eindruck gemacht auf das ganze für solche Dinge sich interessierende Publikum. Oliver Lodge ist tatsächlich völlig überzeugt worden und konnte auch seine Familien glieder überzeugen, die vorher skeptisch waren; der Kreis hat sich dann immer mehr erweitert. Es ist nun merk
+Das hat nicht nur auf Sir Oliver Lodge, der eine große Neigung hatte zu solchen Dingen, sondern es hat einen großen Eindruck gemacht auf das ganze für solche Dinge sich interessierende Publikum. Oliver Lodge ist tatsächlich völlig überzeugt worden und konnte auch seine Familien-glieder überzeugen, die vorher skeptisch waren; der Kreis hat sich dann immer mehr erweitert. Es ist nun merk
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
@@ -1862,7 +1862,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
 
 sind, wenn man aus dem Stoffwechsel eines siebenjährigen Kindes berechnet, wie dieses Kind vor vierzig Jahren ausgesehen haben mag - nur hat es dazumal noch gar nicht gelebt. Und so ist nur das nicht richtig, daß für den Zeitpunkt, für den der Geologe so schöne Dinge angibt - wie ich es vorhin angeführt habe, daß Professor Dewar für den Endzustand der Erde angibt -, die Erde noch nicht da war. Sie war noch nicht aufgetaucht aus dem andersartigen Sonnenleben, sie war noch nicht heraus, sie hatte sich noch nicht herausgehoben. - Und für den Anfangszustand der Erde — das kann ich jetzt nur kurz angeben — ist die Sache so: Wie wir es beim Endzustand der Erde zu tun haben mit dem Aufgehen der in der Sonnen-Erde-Gesetzmäßigkeit befindlichen materiellen Erde in einen geistig-seelischen Zustand, so daß wir mit der Vereinigung mit diesem Zustand selbst unser Unsterblich-Übersinnliches tragen durch künftige Weltenläufe, so hat man es zu tun im Beginn der Erdenentwickelung mit einem Herabsteigen — wenn man den Ausdruck, der nicht sehr schön ist, gebrauchen will — eines Geistig-Seelischen; aber so, daß es nun nicht geistiger wird, sondern von dem, was vom Sonnenhaflen herkommt, in Anspruch genommen, gleichsam überflügelt wird, so daß sich innerhalb des Materiellen das aus dem Geistigen Herkommende verwirklicht, man kann schon sagen: verkörperlicht. Da hat man es mit dem umgekehrten Vorgang zu tun: mit der Herkunft eines Geistigen aus einem Geistigen, das sich umgibt, einhüllt — «einwickelt», könnte man sagen, im Gegensatz zu «entwickelt» — in ein Materielles aus der Raumeswelt, aus der Zeitenwelt. Und auch da bemerkt man also wiederum, daß für den Anfang der Erdenentwickelung die Gesetze gelten, die ich vorhin für die Parallelströmung des Unterbewußten angeführt habe, daß da die gewöhnlichen Gesetze der Mathematik auf
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 6
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
 
 ---
 
@@ -2210,7 +2210,7 @@ werden diejenigen, die deklamieren von allerlei geistigen Welten, die innerhalb 
 
 Und so könnte manches in der Gegenwart gezeigt werden, was aufmerksam machen würde darauf, wie, ich möchte sagen, gerade das bewunderungswürdige naturwissenschaftliche Anschauen eher abgeführt hat von den Wegen, die zur Seele hingehen. Manchem ist es ja allerdings eigentümlich gegangen. Es gibt Menschen in der Gegenwart, die das ahnen, was ich heute gesagt habe. Es gibt zum Beispiel eine Persönlichkeit in der Gegenwart, die ahnt, daß in dem, was da zwischen Geburt und Tod in der Seele lebt als Denken, Fühlen und Wollen, nur etwas gegeben ist, was durch den Leib bedingt ist, während das Ewige aus der geistigen Welt herauskommt, durch die Geburt ins Dasein tritt, sich im Leibe verwandelt, so daß es im Leibe wirkt, und wiederum durch den Tod hinausgeht, und daß dasjenige, was im Leibe wirkt, nicht das wahre Seelische ist. Das erkennt die Persönlichkeit, die ich meine, an. Allein sie spricht davon, daß wir in dem, was so im gewöhnlichen Bewußtsein lebt, eben nur Bilder haben. Diese Persönlichkeit nennt es «Vorkommnisse». Hinter dem liegen jene Urfaktoren, die im schauenden Bewußtsein als Jenseits der Seele und Jenseits der Sinne erlebt werden. Aber auf dieses schauende Bewußtsein will die Persönlichkeit, die ich meine, nicht eingehen. Und so steht sie vor den Vorkommnissen, wiederum, möchte ich sagen, einen dicken Spiegel immerfort und fort einschlagend, und sagend: Dahinter müssen die Urfaktoren sein. - Aber sie rast. Und indem sie rast gegen die Spiegelfläche und nicht zum schauenden Bewußtsein kommen will,
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:66 Seite:259
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:66
 
 ---
 
@@ -2282,26 +2282,37 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:66 Seite:265
 
 ---
 
-13 «Sind es doch die Gedanken» :Ýechner, a.a.O., S. 4.
+13 «Sind es doch die Gedanken» :Ýechnery a.a.O., S. 4.
+
 14 Und so sagt Fechner: a. a. O., S. 5.
+
 22 Karl Rosenkranz spricht . . . aus: «Aus einem Tagebuch», Leipzig 1854, S. 24 f.
+
 24 Gideon Spicker: «Vom Kloster zum akademischen Lehramt. Schicksale eines ehemaligen Kapuziners», Stuttgart 1908.
 
 Deshalb sagt Spicker: «Am Wendepunkt der christlichen Weltperiode. Philosophisches Bekenntnis eines ehemaligen Kapuziners», Stuttgart 1910, S. 30.
 
 28 Ich habe in meinem Buche: «Vom Menschenrätsel» (1916), GA Bibl.-Nr. 20, S. 160.
+
 Goethe . . . anschauende Urteilskraft: Siehe Goethe «Naturwissenschaftliche Schriften», herausgegeben und kommentiert von Rudolf Steiner in Kürschners «Deutsche National-Literatur», Bd. I (1884), GA Bibl.-Nr. la, S. 115 f. («Bildung und Umbildung organischer Naturen», «Verfolg», «Anschauende Urteilskraft»).
+
 30 Da sagt Fichte: Johann Gottlieb Fichte: «Die Bestimmung des Menschen», 2. Buch: Wissen, in «Sämtliche Werke», hg. v. I.H. Fichte, Bd. 2, Berlin 1845, S. 245.
+
 37f. Gustav Theodor Fechner knüpft an die Betrachtung: Fechner, a.a.O., S. 9.
+
 38 Da sagte er dann zum Schluß etwa: a. a. O., S. 10.
+
 39 «In der Tat ist mein Glaube»: a. a. O., S. 5.
+
 40 «Nun ist Klarheit das Letzte in diesen Dingen»: a. a. O., S. 5.
+
 42 Schopenhauer . . . sagt, daß man die Meinungen, die er ausspricht, nicht allzu ernstlich nehmen . . . solle: Siehe Arthur Schopenhauer: «Parerga und Paralipomena. Kleine philosophische Schriften», Abhandlung: «Transcendente Spekulation über die anscheinende Absichtlichkeit im Schicksale des Einzelnen», Einleitungssätze.
+
 43 In der Traumeswelt. . .: a.a.O., im letzten Drittel der Abhandlung (freie Wiedergabe von Rudolf Steiner).
+
 48 Aufsatz, der kürzlich in der Vierteljahresschrift «Das Reich» erschienen ist: «Die Erkenntnis vom Zustand zwischen dem Tode und einer neuen Geburt» erschienen in «Das Reich», hg. v. Alexander von Bernus, München, 1. Jahr, Buch 1, April 1916 und Buch 4, Januar
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66
-Seite: 266
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 66 Seite: 266
 
 ---
 
@@ -2413,7 +2424,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:66 Seite:270
 
 198 es ist jetzt genau fünfunddreißig Jahre her: Im Jahre 1917 (während der Arbeit an dem Buche «Von Seelenrätseln», GA Bibl.-Nr. 21) kam Rudolf Steiner in zahlreichen Vorträgen auf den Ausgangspunkt seiner Forschungen über die physiologische Dreigliederung der Menschenwesenheit zu sprechen. Daraus geht eindeutig hervor die Gleichzeitigkeit des Ausgangspunktes der Forschungen über die physiologische Dreigliederung und derjenigen über das Zeiträtsel. Rudolf Steiner schrieb 1882 eine Abhandlung, «die dasjenige verzeichnen sollte, wovon ich auch heute noch sagen kann: es war der erste Anfang von dem, was ich als Geistesforschung bezeichnen möchte. Es waren die ersten Gedanken, die ich niederschreiben konnte aus jener Richtung, jener Strömung, über die ich sprechen will.» (Vortrag Stuttgart, 12. Mai 1917, noch nicht in der Gesamtausgabe enthalten).
 
-Dieser Aufsatz «Einzig mögliche Kritik der atomistischen Begriffe» ist mit weiteren Dokumenten abgedruckt in «Beiträge zur Rudolf Steiner Gesamtausgabe», Nr. 63, Dornach Michaeli 1978 («Rudolf Steiner über den Atomismus. Zwei Aufsätze aus dem Frühwerk»). Zur Bedeutung dieses Aufsatzes siehe: Hella Wiesberger, «Rudolf Steiners Lebenswerk in seiner Wirklichkeit ist sein Lebensgang. Die drei Jahre 1879 bis 1882 als eigentliche Geburtszeit der anthroposophischen Geisteswissenschaft» in «Beiträge zur Rudolf Steiner Gesamtausgabe», Nr. 49/50, Dornach Ostern 1975, S. 15-23 («Der biographische Entstehungsmoment der Zeit-Erkenntnis») und S. 24-28 («Die Zeit-Erkenntnis als «Grundnerv» des anthroposophischen Forschungsanfanges»).
+Dieser Aufsatz «Einzig mögliche Kritik der atomistischen Begriffe» ist mit weiteren Dokumenten abgedruckt in «Beiträge zur Rudolf Steiner Gesamtausgabe», Nr. 63, Dornach Michaeli 1978 («Rudolf Steiner über den Atomismus. Zwei Aufsätze aus dem Frühwerk»). Zur Bedeutung dieses Aufsatzes siehe: Hella Wiesberger, «Rudolf Steiners Lebenswerk in seiner Wirklichkeit ist sein Lebensgang. Die drei Jahre 1879 bis 1882 als eigentliche Geburtszeit der anthroposophischen Geisteswissenschaft» in «Beiträge zur Rudolf Steiner Gesamtausgabe», Nr. 49/50, Dornach Ostern 1975, S. 15-23 («Der biographische Entstehungsmoment der Zeit-Erkenntnis») und S. 24-28 («Die Zeit-Erkenntnis als «Grundnerv» des anthroposophischen Forschungsanfangs»).
 
 200 Eduard von Hartmann . . . das Unbewußte: Siehe Eduard von Hartmann, «Die Philosophie des Unbewußten», Berlin 1869; 7. Auflage 1. und 2. Band, Berlin 1875; 10. Auflage 1., 2. und 3. Band Berlin 1890.
 

@@ -158,7 +158,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 10
 
 einer Forschungsweise, zu der man keineswegs irgendwelche Überlieferungen braucht, geradesowenig wie zu den Forschungsresultaten der Chemie, der Physik oder einer anderen Wissenschaft, das möchte ich wie in einer Vorrede sagen; wie es sich belegen und beweisen läßt, das werden die Vorträge selbst zeigen. Von anderer Seite werden der Geisteswissenschaft insofern Mißverständnisse entgegengebracht, als man sie wie eine Art neues Religionsbekenntnis, wie eine Art Sektenglauben hinnimmt. Aber sie ist ebensowenig ein Religionsbekenntnis, ein Sektenglaube, wie irgendeine andere Wissenschaft der Gegenwart. Geradesowenig wie man von denen, welche sich zur Pflege der Chemie vereinigen, sagen kann, sie seien eine Sekte der Chemie, sowenig kann man, wenn man in den Geist der Geisteswissenschaft eindringt, bei ihr von einem Sektenglauben sprechen. Aber die Gegnerschaft gegen die Geisteswissenschaft kommt aus ganz anderen Voraussetzungen heraus. Die Religionsbekenntnisse der verschiedensten Richtungen glauben - das sei wie eine Vorrede heute bemerkt -, daß sie irgendwie ein neues Religionsbekenntnis zu befürchten haben; sie fürchten, ein neuer Glaube wolle in ihr Feld einziehen und das religiöse Leben überhaupt gefährden. Man wird sich allmählich überzeugen, daß es mit dieser Geisteswissenschaft so gehen wird, wie es mit der Naturwissenschaft gegangen ist, als sie ihre neuzeitliche Richtung, sagen wir etwa, im Zeitalter des Kopernikus erlebte. Wie man damals geglaubt hat, daß durch die kopernikanische Weltanschauung, weil sie mit vielem Alten brechen mußte, das religiöse Leben der Menschheit gefährdet sei, wie man durch Jahrhunderte in den verschiedenen Religionsgemeinschaften den Kopernikanismus verbannt hat, so mag es in der Gegenwart mit der Geisteswissenschaft gehen, die in bezug auf den Geist eine ähnliche Aufgabe hat, wie Kopernikus
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 11
 
 ---
 
@@ -274,7 +274,7 @@ Wenn der Geistesforscher seine Übungen fortsetzt und wirklich die Hingabe hat, 
 
 Von diesem Augenblicke an - denn diesen Wert hat dieses
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 26
 
 ---
 
@@ -578,7 +578,7 @@ Wenn jemand davon spricht: Wo Supranaturalismus anfängt, hört Wissenschaft auf
 
 Wir kennen im menschlichen Leben sehr wohl einen Affekt, den wir als Furcht, Schrecken, als Ängstlichkeit bezeichnen. Wenn dieser Affekt der Furcht, des Schreckens im gewöhnlichen Leben auftritt, so ist er etwas, was jede Menschenseele kennt. Auch über solche Affekte wie Furcht, Schrecken, Ängstlichkeit gibt es heute ganz interessante, äußerliche wissenschaftliche Untersuchungen; so zum Beispiel empfehle ich jedem, sich einmal die ausgezeichneten Untersuchungen des dänischen Forschers Lange über die Gemütsbewegungen anzusehen; unter diesen sind auch solche über Furcht, Ängstlichkeit und so weiter. Wenn wir im gewöhnlichen Dasein Schreck erleben, so tritt ja, insbesondere wenn der Schreck einen gewissen Grad erreicht, etwas ein, was in einer leisen Art den Menschen betäubt, so daß er seinen Organismus nicht mehr völlig in der Gewalt hat. Man wird «starr vor Schrecken», man hat einen besonderen Gesichtsausdruck, aber es treten auch allerlei besondere
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 65
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
 
 ---
 
@@ -1247,7 +1247,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 146
 
 menschliche Unsterblichkeit. Hingewiesen soll werden auf jenen Geist, der ja als einer der tonangebenden Führer neuzeitlicher Aufklärungsweltanschauung gilt: auf Lessing, wie er dem Unsterblichkeitsgedanken einen Sinn abzugewinnen versuchte.
 
-In jener Schrift, in welcher Lessing gewissermaßen sein geistiges Testament der Menschheit gegeben hat, kam er, wie es ihm schien, zur Erneuerung der uralten menschlichen Idee von den wiederholten Erdenleben; und er kam dazu deshalb, weil er sich genötigt fand, das ganze geschichtliche Leben auf der Erde innerhalb der Menschenentwicklung als eine Erziehung der Menschheit aufzufassen. Man kann ja leicht dieses Testament Lessings, das er wie einen Abschluß seines Sinnens und Denkens und Trachtens gegeben hat, damit abfertigen - wie es gewiß viele in unserer Zeit tun möchten -, daß man sagt: Auch große Geister werden alt und versteigen sich dann in mancherlei Phantastereien. - Wer aber gelernt hat, Respekt zu haben vor geistigem Leben und geistigem Streben, der wird allerdings nicht in der Lage sein, Lessings «Erziehung des Menschengeschlechtes», sein reifstes Werk, in einer solchen Weise abzufertigen. Auf die Einzelheiten seiner Schrift kann ich hier nicht eingehen; ich kann nur darauf hinweisen, wie sich für Lessing die Geschichte so zeigt, daß die Menschheit von primitiveren Arten des menschlichen Lebens und Anschauens zu immer entwickelteren und entwickelteren aufsteigt; und wie eine geheimnisvolle Erziehung, welche dem Menschengeschlechte aus der geistigen Welt heraus zuteil wird, faßt Lessing diese Fortentwicklung des Menschengeschlechtes auf. Einzelne Epochen unterscheidet er in der fortstrebenden Menschheit, und aus diesen Betrachtungen heraus ergibt sich für ihn, der selbstverständlich noch nicht auf dem Boden unserer modernen Geisteswissenschaft stehen konnte, die Frage:
+In jener Schrift, in welcher Lessing gewissermaßen sein geistiges Testament der Menschheit gegeben hat, kam er, wie es ihm schien, zur Erneuerung der uralten menschlichen Idee von den wiederholten Erdenleben; und er kam dazu deshalb, weil er sich genötigt fand, das ganze geschichtliche Leben auf der Erde innerhalb der Menschenentwicklung als eine Erziehung der Menschheit aufzufassen. Man kann ja leicht dieses Testament Lessings, das er wie einen Abschluß seines Sinnens und Denkens und Trachtens gegeben hat, damit abfertigen – wie es gewiß viele in unserer Zeit tun möchten –, daß man sagt: Auch große Geister werden alt und versteigen sich dann in mancherlei Phantastereien. – Wer aber gelernt hat, Respekt zu haben vor geistigem Leben und geistigem Streben, der wird allerdings nicht in der Lage sein, Lessings «Erziehung des Menschengeschlechtes», sein reifstes Werk, in einer solchen Weise abzufertigen. Auf die Einzelheiten seiner Schrift kann ich hier nicht eingehen; ich kann nur darauf hinweisen, wie sich für Lessing die Geschichte so zeigt, daß die Menschheit von primitiveren Arten des menschlichen Lebens und Anschauens zu immer entwickelteren und entwickelteren aufsteigt; und wie eine geheimnisvolle Erziehung, welche dem Menschengeschlechte aus der geistigen Welt heraus zuteil wird, faßt Lessing diese Fortentwicklung des Menschengeschlechtes auf. Einzelne Epochen unterscheidet er in der fortstrebenden Menschheit, und aus diesen Betrachtungen heraus ergibt sich für ihn, der selbstverständlich noch nicht auf dem Boden unserer modernen Geisteswissenschaft stehen konnte, die Frage:
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 147
 
@@ -1393,9 +1393,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 164
 
 ---
 
-hinüberdrängen, daß man sich sagen muß: Diese Kräfte leben ja nach dem Tode in uns; wir tun, wenn wir vom Leibe befreit sind, was diese fordern. Jetzt muß ich das Unrecht stehen lassen, muß diese Unvollkommenheiten behalten; diese Kräfte aber fühle ich: wie eine Keimkraft in der Pflanze, so fühle ich die Kraft, die das Unrecht aus-tilgen kann. Jetzt weiß man durch den inneren Anblick, daß es jahrelang dauert, bis dasjenige, was sich durch das eigene Erleben darbietet, allmählich die Kräfte sich heraus-arbeitet, die das Unrecht wirklich ausgleichen können. Aber sie können es jetzt nicht ausgleichen. Sie müssen erst durch eine geistige Welt, durch eine Welt geistiger Erlebnisse gehen. So wahr, als das physische Bewußtsein, wenn es den Untergang der Sonne sieht, sich sagt: du mußt jetzt die Nacht erleben, dann kann dir die im Westen unter-gegangene Sonne im Osten wieder erscheinen, so wahr weiß der Geistesforscher, wenn er die Kräfte erlebt, die sich als Keimkräfte in der Seele heranbilden: nachdem du nach und nach diese Kräfte entwickelt hast, nachdem du innerlich eingesehen hast nach dem Tode - oder einsehen gelernt hast durch Jahre hindurch, wie die Kräfte sein müssen, die den Ausgleich bewirken können, mußt du untertauchen in eine geistige Welt, um in derselben so wahr die Kräfte zu finden, die nunmehr gleichsam aus dieser geistigen Welt gesammelt werden, man möchte sagen geistig eratmet werden, damit der Mensch, nachdem er zwischen Tod und neuer Geburt durch diese geistige Welt durchgegangen ist, wieder reif wird, um mit diesen auf die geschilderte Weise innerlich erarbeiteten Kräften in ein neues Erdenleben einzutreten.
+hinüberdrängen, daß man sich sagen muß: Diese Kräfte leben ja nach dem Tode in uns; wir tun, wenn wir vom Leibe befreit sind, was diese fordern. Jetzt muß ich das Unrecht stehen lassen, muß diese Unvollkommenheiten behalten; diese Kräfte aber fühle ich: wie eine Keimkraft in der Pflanze, so fühle ich die Kraft, die das Unrecht aus-tilgen kann. Jetzt weiß man durch den inneren Anblick, daß es jahrelang dauert, bis dasjenige, was sich durch das eigene Erleben darbietet, allmählich die Kräfte sich heraus-arbeitet, die das Unrecht wirklich ausgleichen können. Aber sie können es jetzt nicht ausgleichen. Sie müssen erst durch eine geistige Welt, durch eine Welt geistiger Erlebnisse gehen. So wahr, als das physische Bewußtsein, wenn es den Untergang der Sonne sieht, sich sagt: du mußt jetzt die Nacht erleben, dann kann dir die im Westen untergegangene Sonne im Osten wieder erscheinen, so wahr weiß der Geistesforscher, wenn er die Kräfte erlebt, die sich als Keimkräfte in der Seele heranbilden: nachdem du nach und nach diese Kräfte entwickelt hast, nachdem du innerlich eingesehen hast nach dem Tode - oder einsehen gelernt hast durch Jahre hindurch, wie die Kräfte sein müssen, die den Ausgleich bewirken können, mußt du untertauchen in eine geistige Welt, um in derselben so wahr die Kräfte zu finden, die nunmehr gleichsam aus dieser geistigen Welt gesammelt werden, man möchte sagen geistig eratmet werden, damit der Mensch, nachdem er zwischen Tod und neuer Geburt durch diese geistige Welt durchgegangen ist, wieder reif wird, um mit diesen auf die geschilderte Weise innerlich erarbeiteten Kräften in ein neues Erdenleben einzutreten.
 
-Aber auch darüber kann durch die Geistesforschung ein Eindruck gewonnen werden, was die Seele zu durchleben hat, wenn sie zunächst nach dem Tode im Anblick des ver-flossenen Lebens jene Kräfte sich geistig angeeignet hat,
+Aber auch darüber kann durch die Geistesforschung ein Eindruck gewonnen werden, was die Seele zu durchleben hat, wenn sie zunächst nach dem Tode im Anblick des verflossenen Lebens jene Kräfte sich geistig angeeignet hat,
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:63 Seite: 165
 
@@ -1531,7 +1531,7 @@ Alles ist innerhalb im Strom des Werdens, in feiner Regsamkeit, und die Seele is
 
 Wenn leibbefreit die Seele sich emporschwingt zum freien Äther, zeigt sie vor sich selber sich als unsterblicher Geist, vom Tode befreit!
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:63 Seite: 182
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:63
 
 ---
 
@@ -1608,7 +1608,7 @@ ist dieser Moses, so strotzend von Menschenkraft ist er, daß wir ihm etwas glau
 
 Wenden wir von dem Moses den Blick zu dem «Riesen», il Gigante, zu dem David. Wir werden noch von einem anderen Gesichtspunkte aus auf diesen David zu sprechen kommen; sehen wir ihn zunächst einmal im Vergleich mit der griechischen Plastik an. Wie steht er da? So steht er da, daß er den Moment in seiner Seelenverfassung ausdrückt, da er gewahr wird, was ihm von Goliath bevorsteht. Er greift zur Schleuder; es ist der Moment, da er sich unmittelbar zur Ausführung seiner Tat anschickt. Auch früher schon war die Gestalt des jugendlichen David mehrmals dargestellt worden, so von Donatello und von Verrocchio, aber so, daß die Tat schon geschehen war. Bei Donatello wie bei Verrocchio ist David so dargestellt, daß er das Haupt des Goliath unter seinen Füßen hat. Michelangelo wählt sich einen anderen Moment: den, wo die Seele des David gewahr wird, was sie zu tun hat. Dieser Moment ist großartig aufgefaßt. Wer könnte glauben, es sei nur festgehalten, wie bei einem griechischen Werk, ein innerer
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 191
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
 
 ---
 
@@ -1768,7 +1768,7 @@ Erde verwoben sehen. Wir sehen, wie ihre Seele ergriffen wird von den Kräften d
 
 Jetzt wenden wir uns zu den Propheten. Ihre Seelen sind tief ergriffen: wir sehen es an den ernsten Antlitzen, an dem Zerwühlten, das manche haben, an den Bewegungen, an der Art, wie mancher liest, so daß wir glauben, er werde nie mehr abwenden sein Auge von dem, was er liest. Wir sehen sie ergriffen von den prophetischen Wahrheiten, die durch die Ewigkeiten zücken. Man kann sich im künstlerischen Ausdruck nichts Größeres denken, was durch die äußere Form so unmittelbar zum Ausdruck bringt, was gewollt ist, wie diese Gegenüberstellung der Propheten und Sibyllen – beide mit derselben Notwendigkeit dargestellt, so daß wir unmittelbar aus dem Dargestellten herauslesen können, was gemeint ist. Dann brauchen wir keinen Kommentar, keine Bibel und nichts anderes: aus dem, was Michelangelo dort an die Decke gemalt hat, können wir herauslesen, wie es eine Vorherverkündigung des Christus-Ereignisses darstellt. – Und man könnte sagen, die ganze vorchristliche Geschichte sehen wir dann in die Wandzwickel hineingemalt, von Bild zu Bild: die Vorfahren der Maria, grandios variiert, trotzdem es eine große Zahl von Bildern ist, überall den Charakter der Epoche ausdrückend in dem einen oder anderen Vorfahren des Christus Jesus.
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 211
 
 ---
 
@@ -1941,7 +1941,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 2 28
 
 ausführen könne, so begrenze sich das Gute; und dieses begrenzte Gute brauche man ebensowenig als etwas Positives erklären, wie man den Schatten, der durch das Licht hervor gerufen würde, als etwas Positives erklären würde. Wenn man den Kirchenvater Augustinus also über das Böse reden hört, so wird man eine solche Antwort gegenüber dem, was man heute bei einem schon durch einige Jahrhunderte vorgeschrittenem Denken sich vorstellen könnte, vielleicht naiv finden. Aber wie es eigentlich mit der Frage nach der Bedeutung des Bösen steht, kann uns daraus hervorgehen, daß noch in unseren Tagen ein Gelehrter genau dieselbe Antwort gegeben hat: Campbell, der die sogenannte «Neue Theologie» geschrieben hat, und dessen Werke in gewissen Kreisen großes Aufsehen gemacht haben. Auch er glaubt, daß man nach dem Übel und dem Bösen nicht fragen könne, weil sie nichts Positives darstellten, sondern etwas bloß Negatives seien. Auf haarspalterische, philosophische Deduktionen zur Widerlegung der Augustinisch-Campbellschen Anschauung wollen wir uns nicht einlassen. Denn für jeden, der unbefangen und vorurteilslos denken kann, steht ja diese Antwort von der bloßen Negativität des Übels auf demselben Boden, wie die Antwort, die jemand geben würde, der da sagte: Was ist denn die Kälte? Kälte ist nur etwas Negatives, nämlich die Abwesenheit der Wärme. Deshalb kann man von ihr nicht als von etwas Positivem sprechen. Zieht man sich aber, wenn es kalt ist, keinen Pelz oder Winterrock an, so wird man dann schon dieses Negative als etwas sehr Positives verspüren! Durch dieses Bild mag völlig klar werden, wie wenig man mit der wahrhaftig nicht tiefgehenden Antwort zurecht kommt, die ja auch große Philosophen des neunzehnten Jahrhunderts gegeben haben: daß man es gegenüber dem Übel und dem Bösen mit nichts Positivem zu tun habe. Mag sein, daß man es dabei mit
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 229
 
 ---
 
@@ -2076,7 +2076,7 @@ Es folgt daraus, daß sich der Mensch in der Tat wohl hüten muß, dasjenige, wa
 
 Hier an diesem Punkte liegt alles, was man nennen kann
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 244
 
 ---
 
@@ -2128,7 +2128,7 @@ zugleich angehört, und daß in uns nicht die Unvollkommenheit, sondern die Voll
 
 Ich weiß sehr wohl, daß mit einer solchen Darstellung des Ursprungs des Bösen und des Übels heute etwas gesagt wird, was vielleicht nur einer geringen Anzahl von Menschen einleuchtend sein kann, was sich aber immer mehr und mehr in das menschliche Seelenleben einleben wird. Denn man wird finden, daß das Fertigwerden mit den Problemen der Welt überhaupt nur möglich ist, wenn man dieser unserer Welt eine geistige zugrundeliegend denkt. Mit den Vollkommenheiten der sinnlichen Welt mag der Mensch – er gibt sich dabei allerdings auch einer Illusion hin – noch fertig werden; mit den Unvollkommenheiten aber, mit dem Bösen und dem Übel, wird er nicht fertig werden, wenn er nicht aufzusuchen vermag, inwiefern dieses Böse und das Übel in der Welt sein müssen. Und er sieht ein, daß sie in der Welt sein müssen, wenn er sich sagt: es ist das Böse in der physischen Welt nur deplaciert. Würden die Eigenschaften, die der Mensch ungerechtfertigt in der physischen Welt verwendet, und die dort Böses stiften, in der geistigen Welt angewendet werden, so würde er dort vorwärts schreiten.
 
-Ich brauche wohl nicht zu sagen, daß es völliger Unsinn wäre, wenn jemand aus dem eben Gesagten den Schluß zie-
+Ich brauche wohl nicht zu sagen, daß es völliger Unsinn wäre, wenn jemand aus dem eben Gesagten den Schluß zie
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 250
 
@@ -2486,7 +2486,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 290
 
 gründe in der geistigen Welt, was aus dieser sich herabsenkt in unser Gemüt, was hineinspricht in die Menschenseele als ein wirklicher Gott, als Gottesstimme aus der geistigen Welt, ankündigend des Menschen Wesen, durch das er hinausgreift über das, was die Geschöpfe seiner Mitwelt im Kosmos sind.
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:63 Seite: 291
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:63
 
 ---
 
@@ -2525,7 +2525,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 295
 
 ---
 
-selbstverständlich vor Augen tritt, wäre damals noch unmöglich gewesen. Unmöglich wäre auch gewesen, daß sich die Menschenseele, man möchte sagen, in wichtigsten Augenblicken ihres Lebens so streng geschieden, wie in sich selbst vereinsamt gefühlt hätte von der übrigen Natur. Das alles war in jener Zeit noch unmöglich. Der Mensch fühlte sich mit seiner Seele wie darinnen in dem ganzen Kosmos, in der ganzen übrigen Natur, fühlte sich so wie ein Stück der übrigen Natur, wie die Hand, wenn sie Bewußtsein haben könnte, als ein Stück des Organismus sich fühlen müßte. Wir können uns eben heute nur mit Hilfe der Geisteswissenschaft eine Vorstellung machen von dem ganz andersartigen Seelenleben, das etwa bis in das achte bis zehnte Jahrhundert vor unserer Zeitrechnung hinein gereicht hat. Wenn der Mensch damals gesagt hat: meine Triebe treiben mich, einen Fuß vorwärts zu setzen, oder wenn er gesagt hat: ich atme – oder wenn er das Gefühl des Hungers oder der Sättigung gefühlt hat, so hat er in diesem Übergehen des inneren Erlebens in die Leibesbewegung etwas gefühlt, dem er sich so gegenüberstellte, wie er sich jenen anderen Erlebnissen gegenüberstellte, wenn er sich sagte: es blitzt, es donnert, oder, es saust der Wind durch die Bäume. Der Mensch hatte nicht geschieden, was er seelisch erlebte, von dem, was draußen vorging; er war mit dem ganzen inneren Leben drinnen in der übrigen Natur. Dafür aber, daß er sich noch nicht aus der übrigen Natur heraussondern konnte, daß er sich noch als Glied fühlte in dem großen Gesamtorganismus, dafür hatte er auch ein ursprüngliches Hellsehen, ein Hineinschauen in die geistige Welt. Die Natur sah er nicht so, wie er sie heute sieht, sondern durchseelt von geistigen Wesenheiten, zu denen wir uns heute wieder emporarbeiten durch die Methoden der Geisteswissenschaft. Es war in jenen Zeiten natürlich, daß man die Natur zugleich durchseelt
+selbstverständlich vor Augen tritt, wäre damals noch unmöglich gewesen. Unmöglich wäre auch gewesen, daß sich die Menschenseele, man möchte sagen, in wichtigsten Augenblicken ihres Lebens so streng geschieden, wie in sich selber vereinsamt gefühlt hätte von der übrigen Natur. Das alles war in jener Zeit noch unmöglich. Der Mensch fühlte sich mit seiner Seele wie darinnen in dem ganzen Kosmos, in der ganzen übrigen Natur, fühlte sich so wie ein Stück der übrigen Natur, wie die Hand, wenn sie Bewußtsein haben könnte, als ein Stück des Organismus sich fühlen müßte. Wir können uns eben heute nur mit Hilfe der Geisteswissenschaft eine Vorstellung machen von dem ganz andersartigen Seelenleben, das etwa bis in das achte bis zehnte Jahrhundert vor unserer Zeitrechnung hinein gereicht hat. Wenn der Mensch damals gesagt hat: meine Triebe treiben mich, einen Fuß vorwärts zu setzen, oder wenn er gesagt hat: ich atme – oder wenn er das Gefühl des Hungers oder der Sättigung gefühlt hat, so hat er in diesem Übergehen des inneren Erlebens in die Leibesbewegung etwas gefühlt, dem er sich so gegenüberstellte, wie er sich jenen anderen Erlebnissen gegenüberstellte, wenn er sich sagte: es blitzt, es donnert, oder, es saust der Wind durch die Bäume. Der Mensch hatte nicht geschieden, was er seelisch erlebte, von dem, was draußen vorging; er war mit dem ganzen inneren Leben drinnen in der übrigen Natur. Dafür aber, daß er sich noch nicht aus der übrigen Natur heraussondern konnte, daß er sich noch als Glied fühlte in dem großen Gesamtorganismus, dafür hatte er auch ein ursprüngliches Hellsehen, ein Hineinschauen in die geistige Welt. Die Natur sah er nicht so, wie er sie heute sieht, sondern durchseelt von geistigen Wesenheiten, zu denen wir uns heute wieder emporarbeiten durch die Methoden der Geisteswissenschaft. Es war in jenen Zeiten natürlich, daß man die Natur zugleich durchseelt
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 296
 
@@ -2914,7 +2914,7 @@ copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 3 Seite: 3 3 7
 
 hang mit dem letzten Leben sich abzugewöhnen. Diese Jahre vergehen so, daß wir nicht etwa herausgerissen sind aus den Erlebnissen des letzten Lebens. Wir hängen zusammen mit den Menschen, die wir verlassen haben, die wir geliebt haben; aber wir hängen dadurch zusammen, daß wir im Leben gewisse Gefühle und Zusammenhänge mit ihnen gewonnen haben; und auf dem Umwege dessen, was uns das Leben geboten oder versagt hat, hängen wir mit ihnen zusammen. Man muß sich ja immer hierbei bildlich ausdrücken. Man kann durchaus nach dem Tode in Zusammenhang bleiben mit dem, dem man im Leben nahestand, aber nur dadurch, daß man einen Zusammenhang hat in den Gefühlen, die man im Leben mit ihm gehabt hat. Dadurch bildet sich ein intensiver Zusammenhang mit ihm heraus. Man lebt nach dem Tode mit den Lebenden zusammen, aber auch mit den schon Verstorbenen, mit denen man im Leben einen Zusammenhang gehabt hat. So muß man sich also das Leben nach dem Tode vorstellen, daß es in dieser Weise durch Jahre hindurch dauert. Es ist vorzugsweise ein Leben, in welchem die Seele alles, was sie will und begehrt und verlangt, gleichsam im gefühlten und gewollten Erinnerungszusammenhange mit dem letzten Leben durchlebt.
 
-Wenn man geisteswissenschaftlich nachzuforschen versucht, wie lange diese Zeit dauert, so kommt man darauf, daß ohne Einfluß auf diese Jahre nach dem Tode, deren Inhalt eben geschildert worden ist, das Leben in den ersten Kindesjahren ist. Das Leben von der Geburt bis zu dem Zeitpunkte, bis zu welchem wir uns später zurückerinnern, wo wir unser Selbstbewußtsein innerlich erleben lernen, diese Zeit ist für diese Jahre zunächst bedeutungslos, und auch das Leben, das auf die Mitte der Zwanziger Jahre folgt, ist für die einzelnen Menschen mehr oder weniger
+Wenn man geisteswissenschaftlich nachzuforschen versucht, wie lange diese Zeit dauert, so kommt man darauf, daß ohne Einfluß auf diese Jahre nach dem Tode, deren Inhalt eben geschildert worden ist, das Leben in den ersten Kindesjahren ist. Das Leben von der Geburt bis zu dem Zeitpunkte, bis zu welchem wir uns später zurückerinnern, wo wir unser Selbstbewußtsein innerlich erleben lernen, diese Zeit ist für diese Jahre zunächst bedeutungslos, und auch das Leben, das auf die Mitte der Zwanziger jähre folgt, ist für die einzelnen Menschen mehr oder weniger
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:63 Seite:338
 
@@ -4332,7 +4332,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 63 Seite: 445
 
 ---
 
-ben. Michelangelos Werdegang. Die «Pietà». Das zweite Gebot: Du sollst dir kein Bildnis machen. Die sixtinische Kapelle. «Tagzeiten» und «Nachtzeiten» der Geschichte. Die Arbeitsweise Michelangelos. Das «Papst Julius-Denkmal». Die Decke der sixtinischen Kapelle. Adam und Eva. Die Sibyllen und die Propheten, Erdengeist und kosmischer Geist. Das «Jüngste Gericht». Michelangelo, Raffael, Leonardo. Die Kuppel der Peterskirche. Michelangelo als Dichter. Die vier Gestalten auf den «Mediceer-Gräbern» sind nicht Allegorie oder Symbol, sondern geistiger Realismus.
+ben. Michelangelos Werdegang. Die «Pietä». Das zweite Gebot: Du sollst dir kein Bildnis machen. Die sixtinische Kapelle. «Tagzeiten» und «Nachtzeiten» der Geschichte. Die Arbeitsweise Michelangelos. Das «Papst Julius-Denkmal». Die Decke der sixtinischen Kapelle. Adam und Eva. Die Sibyllen und die Propheten, Erdengeist und kosmischer Geist. Das «Jüngste Gericht». Michelangelo, Raffael, Leonardo. Die Kuppel der Peterskirche. Michelangelo als Dichter. Die vier Gestalten auf den «Mediceer-Gräbern» sind nicht Allegorie oder Symbol, sondern geistiger Realismus.
 
 ## VII. Das Böse im Lichte der Erkenntnis vom Geiste
 

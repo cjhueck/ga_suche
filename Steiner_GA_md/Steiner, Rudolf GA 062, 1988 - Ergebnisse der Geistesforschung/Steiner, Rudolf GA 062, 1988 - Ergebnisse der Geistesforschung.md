@@ -101,30 +101,30 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 ---
 
 IX. Raffaels Mission im Lichte der Wissenschaft vom Geiste
-Berlin, 30 Januar 1913. 286
+Berlin, 30 Januar 1913 286
 
 X. Märchendichtungen im Lichte der Geistesforschung
-Berlin, 6. Februar 1913. 321
+Berlin, 6. Februar 1913 321
 
 XL Lionardos geistige Größe am Wendepunkt zur neueren Zeit
-Berlin, 13. Februar 1913. 353
+Berlin, 13. Februar 1913 353
 
 XII. Irrtümer der Geistesforschung
-Berlin, 6. März 1913. 382
+Berlin, 6. März 1913 382
 
 XIII. Die Moral im Lichte der Geistesforschung
-Berlin, 3. April 1913. 416
+Berlin, 3. April 1913 416
 
 XIV. Das Erbe des neunzehnten Jahrhunderts
-Berlin, 10. April 1913. 445
+Berlin, 10. April 1913 445
 
-Hinweise. 489
+Hinweise 489
 
-Namenregister. 507
+Namenregister 507
 
-Ausführliche Inhaltsangaben. 510
+Ausführliche Inhaltsangaben 510
 
-Übersicht über die Rudolf Steiner Gesamtausgabe. 519
+Übersicht über die Rudolf Steiner Gesamtausgabe 519
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 7
 
@@ -212,7 +212,7 @@ ein Ergebnis seiner physischen Organisation ist, sondern eine selbständige, ein
 
 Die Geisteswissenschaft spricht mit anderen Worten von wiederholten Erdenleben, spricht von wiederholten Erdenleben so, daß wir von unserer gegenwärtigen Verkörperung innerhalb des Sinnendaseins zurückblicken zu anderen Verkörperungen in der Vergangenheit, aber auch in die Zukunft blicken zu späteren Verleiblichungen unserer Wesenheit. So daß wir das Gesamtleben des Menschen teilen in ein Leben zwischen Geburt und Tod und in ein anderes, welches für die Sinne und für den Verstand rein geistig verläuft zwischen dem Tode und der nächsten Geburt. Aber nicht in einer ewig wiederkehrenden Art stellt sich die Geisteswissenschaft dies vor, sondern so, daß sie in diesen Wiederholungen nur Zwischenzustände anerkennt, das Gesamtleben des Menschen aber auf ein ursprüngliches Geistiges zurückführt, welches allem Leben, vor allem unserem Planeten, vorangegangen ist; so daß die Erdenleben einmal einen Anfang genommen haben, als der Mensch aus einem rein geistigen Dasein heraustrat, und daß, nachdem sich
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 16
 
 ---
 
@@ -286,7 +286,7 @@ anderes vorauszusetzen, als daß sich durch das Tagesleben Ermüdungsstoffe in u
 
 Darf man nicht zugeben, daß der gewissenhafte Wahrheitsforscher, der mit den Ergebnissen der heutigen Wissenschaftbekannt ist, sagen muß: Wenn so durch Selbststeuerung des Organismus das Wachleben und Schlafleben in ihrem Wechsel ganz gut erklärbar sind, dann ist es nicht nur überflüssig, sondern direkt schädlich, wenn ihr den Fortschritt einer solchen menschlichen Wissenschaft dadurch beeinträchtigt, daß ihr sagt, nicht eine Selbststeuerung liege vor, sondern weil der Mensch selbständig ist, trete etwas aus dem Organismus heraus. Da es durch den Organismus ganz allein erklärbar ist, daß der Wechsel von Schlaf und Wachen zustandekommt, so ist es unnötig und schädlich, anzunehmen, daß das Bewußtsein etwas Besonderes sei und aus dem Organismus heraustrete, um während der Nacht ein besonderes Leben zu entwickeln.-Wieder kann man darauf hinweisen, daß auf Seiten der Geisteswissenschaft ein furchtbarer Dilettantismus vorliegt, an den nur solche glauben, die den Weg
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6.2 Seite: 25
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 ---
 
@@ -424,7 +424,7 @@ Man kann, wenn man fanatischer Geistesforscher ist, über eine solche Sache ja l
 
 Ich konnte ja nur eine ganz kleine Anzahl von Einwänden hier anführen. Es könnten viele solcher Einwürfe gemacht werden. Das kann zum Teil in der kommenden Zeit geschehen, und es wird dann die Widerlegung gleich auf dem Fuße folgen. Aus allem aber, was angeführt wird, kann man sehen, wie der Mensch durch die Entgegennahme der geisteswissenschaftlichen Forschung innerlich auf einen Kampfplatz gerufen wird, wie nicht bloß die Dinge sich ergeben, die für die wiederholten Erdenleben, für den Durchgang des Menschen durch eine geistige Welt und so weiter sprechen, sondern wie sich aus den dunklen Seelen tiefen heraus auch alle Gegengründe ergeben können. Gut ist es, wenn der, welcher sich in einer ruhigen Weise mit Geistesforschung beschäftigt, auch diese Gegengründe kennt. Dann wird er auch die richtige Toleranz den Gegnern gegenüber anwenden können. Nur einfach sich mit Geisteswissenschaft zu beschäftigen oder sich blind zu stellen oder zu
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 40
 
 ---
 
@@ -750,7 +750,7 @@ Nehmen wir an, ein Mensch hätte nicht die Gelegenheit, für sein nächstes Erde
 
 So handelt es sich darum, daß man nicht abstrakt auf etwas hinweise, indem man eine Karmaidee egoistisch nennt, sondern daß man zeigt, wie sie den Menschen zu einer höheren Entwicklung hinaufführt. Das konnte noch weiter ausgeführt und gezeigt werden, wie die Geistesforschung auf das Reale, auf das Wirkliche der Menschennatur geht. Wenn jemand den anderen Einwand erheben würde, daß viele sich sagen könnten: Ich habe spätere Erdenleben vor mir, da brauche ich erst in den späteren Leben ein ordentlicher Mensch zu werden; jetzt habe ich noch Zeit, jetzt kann ich noch ein unordentlicher Mensch sein -, so
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 76
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 ---
 
@@ -1079,7 +1079,7 @@ Daraus wird sie aber auch erkennen, wie das, was in der menschlichen Seele lebt,
 
 Wenn man dies bedenkt, darf man allerdings sagen: Die Aufgaben der Geistesforschung für Gegenwart und Zukunft stellen sich ähnlich, wie sich die Aufgaben der Natur-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 109
 
 ---
 
@@ -1133,7 +1133,7 @@ Heute steht die Menschheit in bezug auf die Geisteswissenschaft ganz auf demselb
 
 So wahr die Naturwissenschaft, die sich an das äußere Menschenleben und an die äußere Erkenntnis des Men-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 6 2
 
 ---
 
@@ -1213,7 +1213,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 Stellungen zur Meditation sind sinnbildliche, symbolische Vorstellungen. Ich will eine solche symbolische Vorstellung einmal hier entwickeln, die für einen Teil der Zuhörer in anderen Zusammenhängen bereits angeführt worden ist.
 
-Zunächst mag es grotesk, paradox aussehen, daß jemandem zugemutet würde, das in seiner Seele wirken zu lassen, was jetzt besprochen wird, aber warum es geschehen soll, werden wir nachher charakterisieren. Nehmen wir an, jemand bilde sich die Vorstellung, er habe zwei Gläser vor sich, ein leeres Glas und ein teilweise mit Wasser gefülltes. Nun schütte er das Wasser aus dem gefüllten Glase in das leere hinein und stelle sich vor, dadurch, daß er das Wasser aus dem gefüllten Glase in das leere gießt, würde das gefüllte Glas nicht, wie es in der Außenwelt geschieht, immer leerer und leerer, sondern immer voller und voller. Das ist wohl zunächst eine paradoxe Vorstellung, aber diese Vorstellung soll ein Sinnbild sein, und daß sie Sinnbild ist, soll im Bewußtsein des geistigen Forschers leben. Sie soll gleichsam sinnbildlich für unsere Seele die Natur und das Wesen menschlicher Liebe charakterisieren. Mit der menschlichen Liebe und mit alledem, was überhaupt unter die Idee der Liebe fällt, ist es gewiß so, daß diese Quelle der Liebe so unendlich tief und so unendlich reichhaltig ist, daß, wenn wir uns der Tatsache der Liebe in der Welt gegenübergestellt sehen, wir bescheiden jederzeit zugestehen müssen: Dieses Rätsel der Liebe ist in seiner wahren Wesenheit ganz gewiß für jede Seele unergründlich. Und je mehr wir dieses Gefühl der Unergründlichkeit haben, desto besser ist es für den Inhalt und für die Intensität unseres Lebens. Aber eine Eigenschaft können wir mit aller Klarheit von der wirklichen Liebe wissen und hervorheben: das ist die Eigenschaft, die uns sinnbildlich durch das Bild dargestellt wird, von dem wir eben gesprochen haben.
+Zunächst mag es grotesk, paradox aussehen, daß jemandem zugemutet wurde, das in seiner Seele wirken zu lassen, was jetzt besprochen wird, aber warum es geschehen soll, werden wir nachher charakterisieren. Nehmen wir an, jemand bilde sich die Vorstellung, er habe zwei Gläser vor sich, ein leeres Glas und ein teilweise mit Wasser gefülltes. Nun schütte er das Wasser aus dem gefüllten Glase in das leere hinein und stelle sich vor, dadurch, daß er das Wasser aus dem gefüllten Glase in das leere gießt, würde das gefüllte Glas nicht, wie es in der Außenwelt geschieht, immer leerer und leerer, sondern immer voller und voller. Das ist wohl zunächst eine paradoxe Vorstellung, aber diese Vorstellung soll ein Sinnbild sein, und daß sie Sinnbild ist, soll im Bewußtsein des geistigen Forschers leben. Sie soll gleichsam sinnbildlich für unsere Seele die Natur und das Wesen menschlicher Liebe charakterisieren. Mit der menschlichen Liebe und mit alledem, was überhaupt unter die Idee der Liebe fällt, ist es gewiß so, daß diese Quelle der Liebe so unendlich tief und so unendlich reichhaltig ist, daß, wenn wir uns der Tatsache der Liebe in der Welt gegenübergestellt sehen, wir bescheiden jederzeit zugestehen müssen: Dieses Rätsel der Liebe ist in seiner wahren Wesenheit ganz gewiß für jede Seele unergründlich. Und je mehr wir dieses Gefühl der Unergründlichkeit haben, desto besser ist es für den Inhalt und für die Intensität unseres Lebens. Aber eine Eigenschaft können wir mit aller Klarheit von der wirklichen Liebe wissen und hervorheben: das ist die Eigenschaft, die uns sinnbildlich durch das Bild dargestellt wird, von dem wir eben gesprochen haben.
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
@@ -1375,7 +1375,7 @@ Wie sehr dies wahr ist, das kann am besten daraus hervorleuchten, daß der Geist
 
 Aber noch ein anderes stellt sich zwischen den Geistesforscher und sein Publikum. Gerade das, was der Geistesforscher dadurch ist, daß er in die geistige Welt hineinschauen kann, wird im weitesten Umfange eigentlich verkannt. Man gibt sich über den Geistesforscher als solchen
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 140
 
 ---
 
@@ -2401,7 +2401,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 ---
 
-von Jakob Böhme, zu Matthias Claudius seine Zuflucht nehmen mußte, um von den gleißenden, hochfliegenden Formeln Jakob Böhmes abzukommen, und daß er bei Claudius Ruhe finden konnte gegenüber dem Sichbeschäftigen mit Jakob Böhme. Einen sonderbaren Eindruck macht es nur bei einem, der es weiß, daß Matthias Claudius selbst, nachdem er das geleistet hatte, was Dr. Harles bei ihm findet, seinerseits seine Zuflucht suchte bei jemandem, der Jakob Böhme nicht nur kannte, sondern ihn sogar übersetzt hat - bei Saint Martin, der wieder ein getreuer Schüler von Jakob Böhme war! So ist es sehr gut, wenn man nicht nur weiß, woran Dr. Harles, der Gegner Jakob Böhmes, Erbauung sucht, sondern wenn man auch weiß, woran wieder Matthias Claudius seine Erbauung suchte!
+von Jakob Böhme, zu Matthias Claudius seine Zuflucht nehmen mußte, um von den gleißenden, hochfliegenden Formeln Jakob Böhmes abzukommen, und daß er bei Claudius Ruhe finden konnte gegenüber dem Sichbeschäftigen mit Jakob Böhme. Einen sonderbaren Eindruck macht es nur bei einem, der es weiß, daß Matthias Claudius selber, nachdem er das geleistet hatte, was Dr. Harles bei ihm findet, seinerseits seine Zuflucht suchte bei jemandem, der Jakob Böhme nicht nur kannte, sondern ihn sogar übersetzt hat - bei Saint Martin, der wieder ein getreuer Schüler von Jakob Böhme war! So ist es sehr gut, wenn man nicht nur weiß, woran Dr. Harles, der Gegner Jakob Böhmes, Erbauung sucht, sondern wenn man auch weiß, woran wieder Matthias Claudius seine Erbauung suchte!
 
 Aber die Weltanschauung Jakob Böhmes ist eine solche, die geeignet ist, über die Widersprüche hinauszuführen, wenn man nur nicht bei ihr stehenbleibt. Die ganze Natur der hier gehaltenen Vorträge hat ja gezeigt, daß wir innerhalb der hier vertretenen Weltanschauung nicht bei irgendeiner Erscheinung stehenbleiben sollen, sondern daß erfaßt werden soll, was von der geistigen Welt unmittelbar aus unserer eigenen Zeit heraus erfaßt werden kann. Gewiß bleibt Jakob Böhme eine bedeutende Persönlichkeit, ein Stern erster Größe am Geisteshimmel der Menschheit, stehenbleiben wird niemand bei ihm. Daher sind auch die Darstellungen, die heute über Geisteswissenschaft gegeben werden, durchaus nicht vom Standpunkte Jakob Böhmes aus gehalten, sondern von dem unserer Zeit, und es soll auch das nächstemal gezeigt werden, was ein ganz moderner Geist zu sagen hat. Aber Jakob Böhme wird noch interessanter, wenn wir uns in seine in Einfältigkeit und Einsamkeit aufrechtstehende, mit der Seele in die höchste Region des Hellsehens entfliehende Geistesart versetzen,
 
@@ -2474,7 +2474,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 ---
 
-einzelne wenige hinaufgetragen in die neuere Zeit, die aber heute wieder leben, weil sie zu dieser Wiederbelebung gebracht worden sind durch die Brüder Grimm.
+einzeln wenige hinaufgetragen in die neuere Zeit, die aber heute wieder leben, weil sie zu dieser Wiederbelebung gebracht worden sind durch die Brüder Grimm.
 
 Wenn so Herman Grimm, trotz seiner Vornehmheit im Stile in allem, was von ihm kommt, wieder etwas zeigt von Verwachsensein mit allem Volkstümlichen, so müssen wir noch etwas hervorheben, was eine vielleicht sonst zur Einseitigkeit gewordene Geistesrichtung harmonisch mit einer anderen Strömung verbindet, so daß uns alles in ihm wie eine Art innerer harmonischer Totalität erscheint. Haben wir doch, wenn wir Herman Grimm auf uns wirken lassen, in seinem ganzen Stile etwas wie eine gewisse Weichheit, wie eine Anschmiegbarkeit an alle die Geisteserscheinungen, in die er sich im Verlaufe seines Lebens vertieft hat. Ein Isoliertsein als Mensch ist notwendig, wenn man sich so in die geistigen Erscheinungen und geistigen Tatsachen von mancherlei Jahrhunderten vertiefen will. Diese Weichheit bekommt aber wieder in Herman Grimm ihr Skelett, ihre Härte durch ein anderes, das in seine Erziehung eingeflossen ist: gehörten ja doch sein Vater und sein Oheim zu jenen «Göttinger Sieben», welche im Jahre 1837 gegen die Aufhebung der Verfassung ihres Landes ihren Protest eingereicht haben und deshalb von der Universität Göttingen entfernt worden sind. So erlebte Herman Grimm schon als Knabe eine Tat seltener Art und erlebte diese Tat mit mancherlei Folgen. Denn gar mancherlei Folgen gab es für Vater und Oheim auch im alltäglichen Leben dadurch, daß sie nicht nur Stellung, sondern auch Brot damals verloren hatten. Und Herman Grimm hat es oft hervorgehoben, wie er mit den Impulsen des geschichtlichen Werdens schon damals als neunjähriger Knabe in Beziehung getreten ist, nicht durch das «Buch», sondern durch eine bedeutsame historische Tat.
 
@@ -2656,7 +2656,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 ---
 
-der Menschenseele zu ergründen über die physische Welt hinaus. Da steht vor uns gleich die erste dieser Novellen, die schon in der ersten Periode seines schriftstellerischen Schaffens erschien: «Die Sängerin». Es wird darin gezeigt, wie ein Mann eine tiefe, leidenschaftliche Neigung zu einer Frau faßt, zu einer Frau von umfassendem geistigen Wesen. Gezeigt wird uns, wie aber diese beiden Persönlichkeiten niemals zusammenkommen können, wie die Frau den glühend liebenden Mann aus dem Umkreis ihrer Gesellschaft entfernt, wie nun in der Seele dieses Mannes alles an Impulsen weiter lebt, die ihn auf der einen Seite zu der Frau hinziehen, die auf der anderen Seite, von der Seele aus, an dem ganzen leiblichen Wesen dieses Mannes zehren. Wie er dann seelisch hinsiecht, das sehen wir, mochte man sagen, in geistesforscherischer Art dargestellt. Und noch einmal sehen wir ihn dann, als er in der Besitzung eines Freundes aufgenommen ist, in die Netze der Frau verstrickt. Der Freund merkt, daß es die höchste Zeit ist, daß jene Persönlichkeit herbeigeholt wird, an welcher der Freund mit aller Seele hängt. Sie kommt auch – aber zu spät. Während sie vor dem Hause ist, erschießt sich der Betreffende.
+der Menschenseele zu ergründen über die physische Welt hinaus. Da steht vor uns gleich die erste dieser Novellen, die schon in der ersten Periode seines schriftstellerischen Schaffens erschien: «Die Sängerin». Es wird darin gezeigt, wie ein Mann eine tiefe, leidenschaftliche Neigung zu einer Frau faßt, zu einer Frau von umfassendem geistigen Wesen. Gezeigt wird uns, wie aber diese beiden Persönlichkeiten niemals zusammenkommen können, wie die Frau den glühend liebenden Mann aus dem Umkreis ihrer Gesellschaft entfernt, wie nun in der Seele dieses Mannes alles an Impulsen weiter lebt, die ihn auf der einen Seite zu der Frau hinziehen, die auf der anderen Seite, von der Seele aus, an dem ganzen leiblichen Wesen dieses Mannes zehren. Wie er dann seelisch hinsiecht, das sehen wir, mochte man sagen, in geistesforscherischer Art dargestellt. Und noch einmal sehen wir ihn dann, als er in der Besitzung eines Freundes aufgenommen ist, in die Netze der Frau verstrickt. Der Freund merkt, daß es die höchste Zeit ist, daß jene Persönlichkeit herbeigeholt wird, an welcher der Freund mit aller Seele hängt. Sie kommt auch - aber zu spät. Während sie vor dem Hause ist, erschießt sich der Betreffende.
 
 Und jetzt kommt etwas, was Herman Grimm so oft in künstlerischen Darstellungen gestreift hat, was er aber da, wo es immer gern von der Geistesforschung aufgenommen wird, stets ins Unbestimmte hat fallen lassen. Jetzt wird kurz und prägnant geschildert, wie in der Imagination der Sängerin der Verstorbene lebt. Unvergeßlich wird die Szene sein, wo sie, die ihre ganze Schuld an dem Tode dieses Mannes fühlt, Nacht für Nacht diesen Menschen, aus dem Totenreiche heraus wirkend, herankommen sieht, wie dieses Herankommen des Verstorbenen nun in der Frau zu ihrem Seeleninhalte wird. Nicht wie ein bloßes Phantasiegebilde wird das geschildert, sondern wie von einem Manne, der da
 
@@ -2834,7 +2834,7 @@ das Geistig-Seelische und auf das äußerlich Leibliche. Auf der anderen Seite s
 
 Diese Verinnerlichung, die so stattgefunden hat, charakterisiert nun den weiteren Fortgang der menschheitlichen Entwicklung. Will man geisteswissenschaftlich diese Menschheitsentwicklung begreifen, so muß man sich schon klarmachen, daß wir in einem Zeitalter leben, das, je mehr wir es seinen unmittelbaren Vergangenheiten und den Ausblicken nach betrachten, die wir in eine eventuelle Zukunft tun können, immer mehr nach dem eben Gesagten sich uns darstellt als eine fortschreitende Verinnerlichung. So daß wir hinschauen auf eine Zukunft, in welcher in der Tat eine noch tiefere Kluft, als sie jetzt schon aus den Betrachtungen der Vergangenheit vorgestellt werden kann, sich auftürmen wird zwischen allem, was draußen in der Welt vorgeht,
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 293
 
 ---
 
@@ -3315,7 +3315,7 @@ Wenn wir uns das vor Augen halten, brauchen wir uns nicht mehr darüber zu verwu
 
 Dann wundern wir uns aber auch nicht, daß wir in den deutschen Märchen, die Jakob und Wilhelm Grimm in der Gestaltung sammelten, wie sie sie hören konnten von Verwandten oder anderen, oft einfachen Menschen, Darstellungen wiederfinden, die an jene Zeiten des europäischen Lebens erinnern, in denen auch die großen Heldensagen entstanden sind, und daß die Märchen Züge enthalten, die wir auch bei den großen Götter- und Heldensagen finden. Wir wundern uns auch weiter nicht, wenn wir hören, daß sich nachträglich herausgestellt hat, daß die bedeutsamsten Märchen noch älter sind als die Heldensagen, weil die Hel-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 344
 
 ---
 
@@ -3702,7 +3702,7 @@ Von besonderem Schaden ist nach dieser Richtung hin alles, was den Menschen im g
 
 Es ist aus den bisherigen Vorträgen klar, daß alle geistige
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:62 Seite:387
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch:62
 
 ---
 
@@ -3804,7 +3804,7 @@ der Mensch vor einer Veränderung seiner Lage? Weil er bequem ist! Diese Bequeml
 
 Die Menschen, welche diesem Hange unterliegen, werden statt Geistesforscher, wenn man sich kraß ausdrücken will, Gespensterschauer; sie werden besessen von einem Hang zum Phänomenalismus. Das heißt, sie wollen die geistigen Welten so schauen, wie auch die Sinneswelten sich schauen lassen. Sie wollen nicht geistige Tatsachen, nicht geistige Wesenheiten wahrnehmen, sondern etwas Ähnliches wie ein Wesen, welches das Sinnes äuge schauen kann, kurz, sie wollen statt Geister Gespenster schauen. Die Verirrungen des Spiritismus - wobei nicht etwa gesagt werden soll, daß aller Spiritismus unberechtigt ist — beruhen durchaus auf diesem Hang zum Phänomenalismus. Wenn der gewöhnliche Materialist des Alltags überall nur Materie sehen will und nicht den Geist hinter der Materie, so will der, welcher dieselbe Seelenverfassung, die im Grunde genommen auch im Materialismus vorhanden ist, den geistigen Welten ent-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 399
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
 
 ---
 
@@ -3856,13 +3856,13 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 40 4
 
 Tatsachen und Wesenheiten, sondern nur ihre einzelnen Teile. Er macht in der geistigen Welt das, was etwa nicht der macht, welcher die Blumen einer Wiese betrachtet, sondern was derjenige macht, der das, was auf dem Felde wächst, abtrennt, zerteilt, zerkocht und ißt. Der Vergleich ist ja sonderbar, aber durchaus zutreffend. Durch die Ekstasewerden die geistigen Tatsachen nicht in ihrer Ganzheit, nicht in ihrer Totalität erfaßt, sondern nur in dem, was der eigenen Seele wohltut und frommt, was sie geistig verzehren kann. Im Grunde genommen ist es ein Verzehren geistiger Substantialität, was sich durch die Ekstase im Menschen ausbildet. Und ebensowenig, wie man die Dinge dieser Sinneswelt in ihrem inneren Wesen dadurch erkennt, daß man sie ißt, ebensowenig erkennt man die Kräfte und Wesenheiten der geistigen Welt dadurch, daß man sich in Ekstase begibt, um nur das eigene Selbst zu durchglühen mit dem, was einem wohltut. Man kommt da nur zu einer bestimmten Erkenntnis des eigenen Selbst im Verhältnis zur geistigen Welt. Man lebt nur in einem gesteigerten Selbstsinn, in einer gesteigerten Selbstliebe, und weil man aus der geistigen Welt nur das hereinnimmt, was man geistig verzehren kann, was man geistig essen kann, macht man sich dessen verlustig, was man nicht so behandeln kann, was außer dem durch die Ekstase zu Genießenden steht. Das ist aber der größte Teil der geistigen Welt. Dadurch verarmt der in der Ekstase stehende Mystiker immer mehr und mehr, und wir finden bei dem durch die Ekstase in die geistige Welt aufsteigenden Mystiker so recht, wie er in sich immer wiederholenden Gefühlen und Empfindungen schwelgt. Manche Darstellung nimmt sich so aus, daß man herausfühlt nicht eine objektive Darstellung der Verhältnisse der geistigen Welt, sondern das Schwelgen desjenigen, der die Darstellung gegeben hat, in dem, was er darin dar-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 405
 
 ---
 
 stellt. Viele Mystiker sind eigentlich nichts anderes als geistige Feinschmecker, und die übrige geistige Welt, die ihnen nicht schmeckt, ist nicht für sie da.
 
-Wir sehen wieder, wie sich die Begriffe umwandeln, wenn wir aus der gewöhnlichen Welt in die höheren Welten aufsteigen. In der gewöhnlichen Welt werden wir, wenn wir uns nur mit unsern eigenen Begriffen beschäftigen, immer ärmer und ärmer. Unsere Logik wird immer ärmer und ärmer. Wir finden uns zuletzt nicht mehr zurecht, und jeder, der die Tatsachen kennt, kann uns korrigieren. In der gewöhnlichen Welt korrigieren wir diese Verarmung eben dadurch, daß wir unsere Begriffe erweitern. Auf dem geistigen Felde führt das Entsprechende der Ekstase zu etwas anderem. Denn dadurch, daß wir Realitäten in uns hereinnehmen und nicht etwas Unwirkliches, aber nur einzelne Teile hereinnehmen, nachdem wir uns das Passende herausgesucht haben, bekommen wir eine Anschauung von der geistigen Welt, die nur uns selbst angepaßt ist. Wir tragen uns in die geistige Welt hinein, wie wir auf der anderen Seite, im Phänomenalismus, die Sinnes weit in die geistige Welt hereintragen. Es wird sich immer bei demjenigen, der zur Ekstase und dadurch zu einem falschen Weltbilde kommt, nachweisen lassen, daß er von einer ungesunden Urteilskraft ausgeht, von einer nicht umfassenden Tatsachenlogik.
+Wir sehen wieder, wie sich die Begriffe umwandeln, wenn wir aus der gewöhnlichen Welt in die höheren Welten aufsteigen. In der gewöhnlichen Welt werden wir, wenn wir uns nur mit unsern eigenen Begriffen beschäftigen, immer ärmer und ärmer. Unsere Logik wird immer ärmer und ärmer. Wir finden uns zuletzt nicht mehr zurecht, und jeder, der die Tatsachen kennt, kann uns korrigieren. In der gewöhnlichen Welt korrigieren wir diese Verarmung eben dadurch, daß wir unsere Begriffe erweitern. Auf dem geistigen Felde führt das Entsprechende der Ekstase zu etwas anderem. Denn dadurch, daß wir Realitäten in uns hereinnehmen und nicht etwas Unwirkliches, aber nur einzelne Teile hereinnehmen, nachdem wir uns das Passende herausgesucht haben, bekommen wir eine Anschauung von der geistigen Welt, die nur uns selber angepaßt ist. Wir tragen uns in die geistige Welt hinein, wie wir auf der anderen Seite, im Phänomenalismus, die Sinnes weit in die geistige Welt hereintragen. Es wird sich immer bei demjenigen, der zur Ekstase und dadurch zu einem falschen Weltbilde kommt, nachweisen lassen, daß er von einer ungesunden Urteilskraft ausgeht, von einer nicht umfassenden Tatsachenlogik.
 
 So sehen wir, wie der Geistesforscher die beiden Extreme vermeiden muß, die ihm alle möglichen Quellen des Irrtums in den Weg bringen, Phänomenalismus auf der einen Seite, die Ekstase auf der anderen Seite. Und zur Vermeidung der Irrtumsquellen wird nichts besser sein, als wenn der Geistesforscher namentlich eine Seelenstimmung ausbildet, die, durch welche er in der Lage ist, wenn er sich in die geistige Welt versetzen will, in dieser geistigen Welt
 
@@ -4292,7 +4292,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:62
 
 ---
 
-ganzen Ringen der Menschenseele in der neueren Zeit wurzeln. «Was ist Aufklärung?» Diese Frage stellte sich Kant, derselbe Kant, der durch das oftmals chaotische aber doch kraftvolle Streben des menschlichen Geistes, wie es zum Beispiel bei Rousseau zutage getreten ist, so ergriffen wurde, daß er, als er Rousseau in seinen Schriften kennenlernte - was mehr ist als eine Anekdote -, keine Ruhe hatte, sondern seine ganze Tagesordnung durchkreuzte und zu ganz unregelmäßiger Zeit - Kant, nach dessen Spaziergang man sich sonst die Uhr stellen konnte - in Königsberg spazieren ging! Aber man weiß, wie Kants Seele durch die Freiheitsbewegung des achtzehnten Jahrhunderts aufgerüttelt war. Dies tritt uns denn, wenn wir diese kleine Schrift in die Hand nehmen, in den Sätzen, die wir da lesen, man möchte sagen recht monumental entgegen. Aufklärung, meint Kant, ist das Heraustreten der Menschenseele aus ihrer selbstverschuldeten Unmündigkeit. - Erkühne dich, dich deiner Vernunft zu bedienen! - Dieser Satz steht in Kants Schrift vom Jahre 1784. Man würdigt eigentlich diesen Satz: Erkühne dich, dich deiner Vernunft zu bedienen!, wie auch den anderen erst recht, wenn man sich klar ist, daß sich in ihnen wirklich etwas ausdrückt wie ein in gewisser Beziehung erst Zusichkommen der Menschenseele. Versuchen wir einmal an einem einfachen Gedanken diese zwei Kantischen Sätze aus seinem Auf satze vom Jahre 1784 in ihrem rechten Lichte zu sehen.
+ganzen Ringen der Menschenseele in der neueren Zeit wurzeln. «Was ist Aufklärung?» Diese Frage stellte sich Kant, derselbe Kant, der durch das oftmals chaotische aber doch kraftvolle Streben des menschlichen Geistes, wie es zum Beispiel bei Rousseau zutage getreten ist, so ergriffen wurde, daß er, als er Rousseau in seinen Schriften kennenlernte - was mehr ist als eine Anekdote -, keine Ruhe hatte, sondern seine ganze Tagesordnung durchkreuzte und zu ganz unregelmäßiger Zeit - Kant, nach dessen Spaziergang man sich sonst die Uhr stellen konnte - in Königsberg spazieren ging! Aber man weiß, wie Kants Seele durch die Freiheitsbewegung des achtzehnten Jahrhunderts aufgerüttelt war. Dies tritt uns denn, wenn wir diese kleine Schrift in die Hand nehmen, in den Sätzen, die wir da lesen, man möchte sagen recht monumental entgegen. Aufklärung, meint Kant, ist das Heraustreten der Menschenseele aus ihrer selbstverschuldeten Unmündigkeit. - Erkühne dich, dich deiner Vernunft zu bedienen! - Dieser Satz steht in Kants Schrift vom Jahre 1784. Man würdigt eigentlich diesen Satz: Erkühne dich, dich deiner Vernunft zu bedienen!, wie auch den anderen erst recht, wenn man sich klar ist, daß sich in ihnen wirklich etwas ausdrückt wie ein in gewisser Beziehung erst Zusichkommen der Menschenseele. Versuchen wir einmal an einem einfachen Gedanken diese zwei Kantischen Sätze aus seinem Aufsatze vom Jahre 1784 in ihrem rechten Lichte zu sehen.
 
 CartesiuSy der ja als Philosoph nicht lange dem Kantischen Wirken vorangegangen ist - wenn man das «nicht lange» im Sinne der Weltentwicklung betrachtet —, ging auf einen markanten, bedeutungsvollen Satz zurück. Er verwies die Menschenseele auf ihr eigenes Denken und tat damit noch einmal dasselbe, was in den ersten christlichen Jahrhunderten schon Augustinus getan hat. Es klang wie
 
@@ -4444,7 +4444,7 @@ noch merkwürdiger und noch unnatürlicher die Aufforderung empfunden haben, sic
 
 So sehen wir, wie die Menschenseelen, die aus früheren Epochen herüberkommen, jedesmal ein anderes Zeitalter antreffen. So werden sie - mit dem Ausdrucke Lessings - erzogen: in der ägyptisch-chaldäischen Zeit, in der die Seele sich mit der Welt eins fühlt; dann im griechisch-lateinischen Zeitalter, in dem sich die Seele mit der eigenen Leiblichkeit eins fühlt, und jetzt machen die Seelen die Zeit durch, in welcher sie sich selbst in sich finden müssen, weil sie sich aus ihrem objektiven Weltbilde herausgenommen haben.
 
-Damit finden wir es schon im Einklänge, wenn dieses Zeitalter einen Fichte hervorbringen muß mit seinem Buche «Die Bestimmung des Menschen», und wenn er die Frage auf wirft: Wie, wenn dieses Weltbild vielleicht nur Schein, Täuschung, nur ein Traum wäre? Wie kann dann das Ich, das sich jetzt verarmt fühlt — das ist eine Empfindung, die aus der Zeit heraus kommt - zu innerer Zuversicht kommen? Wie kann es sich selbst finden?
+Damit finden wir es schon im Einklänge, wenn dieses Zeitalter einen Fichte hervorbringen muß mit seinem Buche «Die Bestimmung des Menschen», und wenn er die Frage auf wirft: Wie, wenn dieses Weltbild vielleicht nur Schein, Täuschung, nur ein Traum wäre? Wie kann dann das Ich, das sich jetzt verarmt fühlt — das ist eine Empfindung, die aus der Zeit heraus kommt - zu innerer Zuversicht kommen? Wie kann es sich selber finden?
 
 So sehen wir die Ich-Lehre Fichtes als ein notwendiges Ergebnis der ganzen Evolution. Wir sehen, wie gerade im neunzehnten Jahrhundert wegen des naturwissenschaftlichen Weltbildes — wie in Fichtes Zeitalter, als noch die Kraft des Gedankens voll blühte — das Ich sich durch sich selbst Klarheit verschaffen will. Und die auf Fichte folgenden Versuche von Schelling und Hegel können wir nur so
 
@@ -4538,7 +4538,7 @@ Wenn man so das Erbe des neunzehnten Jahrhunderts betrachtet und dann auf die Ei
 
 Bei einem ganz hervorragenden Geist des neunzehnten Jahrhunderts, der nur verwenden wollte, was ihm das neunzehnte Jahrhundert für eine Erkenntnis der Quellen des Daseins geben konnte, bei Otto Liebmann, der in Jena lange Philosophie vorgetragen hat, finden wir den Gedanken ausgesprochen: Warum sollte man denn durchaus nicht annehmen können, daß unsere Planeten, Monde und Fixsterne die Atome oder auch die Moleküle eines Riesengehirns seien, das im Weltenall sich in makrokosmischer Weise ausbreitet? - Nur meint er, daß es immer der menschlichen Intelligenz versagt sein wird, zu diesem Riesengehirn vorzudringen, und daß es ihr deshalb auch versagt sein wird, zur Erkennt-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 482
 
 ---
 
@@ -4562,7 +4562,7 @@ copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 484
 
 ---
 
-Wissenschaft. Vielleicht geht aus den Wintervorträgen hervor, daß aus den geisteswissenschaftlichen Anschauungen, die hier über das Erbe des neunzehnten Jahrhunderts vertreten werden, das sichere Fundament sich finden wird für die Geisteswissenschaft, die nicht ein Konglomerat und Chaos von etwas Willkürlichem werden soll, sondern etwas, das auf einem ebenso sicheren Fundament steht wie die bewundernswürdige Naturwissenschaft selbst. Wenn man glaubt, es müsse notwendigerweise ein Bruch bestehen zwischen dem, was die Naturwissenschaft ist und geleistet hat, und dem, was die Geisteswissenschaft ist, so könnte man an dieser Geisteswissenschaft irre werden. Wenn man aber sieht, wie die Naturwissenschaft ganz so werden mußte, wie sie geworden ist, damit die Menschenseele in der neuen Art den Weg zum Geiste findet, wie sie ihn finden muß, so wird man sie als das erkennen, was sich in die Entwickelung notwendig hineinstellen muß als das, was die Keime enthält für denjenigen Zeitraum, der sich an den unsrigen ebenso anschließen wird, wie sich der unsrige an die vorhergehenden anschließt. Dann wird das ausgesöhnt sein, was sich scheinbar an Widersprüchen zwischen dem naturwissenschaftlichen und dem geisteswissenschaftlichen Weltbilde ergibt.
+Wissenschaft. Vielleicht geht aus den Wintervorträgen hervor, daß aus den geisteswissenschaftlichen Anschauungen, die hier über das Erbe des neunzehnten Jahrhunderts vertreten werden, das sichere Fundament sich finden wird für die Geisteswissenschaft, die nicht ein Konglomerat und Chaos von etwas Willkürlichem werden soll, sondern etwas, das auf einem ebenso sicheren Fundament steht wie die bewundernswürdige Naturwissenschaft selbst. Wenn man glaubt, es müsse notwendigerweise ein Bruch bestehen zwischen dem, was die Naturwissenschaft ist und geleistet hat, und dem, was die Geisteswissenschaft ist, so könnte man an dieser Geisteswissenschaft irre werden. Wenn man aber sieht, wie die Naturwissenschaft ganz so werden mußte, wie sie geworden ist, damit die Menschenseele in der neuen Art den Weg zum Geiste findet, wie sie ihn finden muß, so wird man sie als das erkennen, was sich in die Entwicklung notwendig hineinstellen muß als das, was die Keime enthält für denjenigen Zeitraum, der sich an den unsrigen ebenso anschließen wird, wie sich der unsrige an die vorhergehenden anschließt. Dann wird das ausgesöhnt sein, was sich scheinbar an Widersprüchen zwischen dem naturwissenschaftlichen und dem geisteswissenschaftlichen Weltbilde ergibt.
 
 Selbstverständlich glaube ich nicht im entferntesten, daß ich in der kurzen Zeit des Vortrages - der so lange gedauert hat - auch nur ein Kleinstes habe erschöpfen können von dem, was aus der Geisteswissenschaft heraus zeigt die fortwirkende Bedeutung des naturwissenschaftlichen Weges des neunzehnten Jahrhunderts mit allen seinen Formen. Aber vielleicht kann durch die Erweiterung des Ausgeführten in den Seelen der verehrten Zuhörer, durch Weiterverfolgung dessen, was heute angeregt werden sollte, besonders durch Vergleichen der geisteswissenschaftlichen Resultate mit den
 
@@ -4772,19 +4772,7 @@ Seite: 496
 
 155 Franceso Redi: Siehe Hinweis zu S. 52ff.
 
-166 Goethe sprach den Satz aus: Im Alter werden wir Mystiker: Wörtlich: «Jedem Alter des Menschen antwortet eine gewisse Philosophie. [...] Der Greis jedoch wird sich immer zum Mystizismus bekennen: er sieht, daß so vieles vom Zufall abzuhängen scheint; das Unvernünftige gelingt, das Vernünftige schlägt fehl, Glück und Unglück stellen sich unerwartet ins Gleiche; so ist es, so war es, und das hohe Alter beruhigt sich in dem, der da ist, der da war und der da sein wird.» Goethe, «Sprüche in Prosa», (siehe Hinweis zu S. 94), S. 454f. Auch in Goethe, «Maximen und Reflexionen». Im Zusammenhang mit dem «Faust» erinnert sich Friedrich Förster an ein Gespräch mit Goethe (vmtl. im Jahre 1828): «Ich erinnere mich nur, daß, als ich die Vermutung aussprach, die Schlußszene werde wohl doch in den Himmel verlegt werden und Mephisto als überwunden vor den Hörern bekennen, &lt; daß ein guter Mensch in seines Herzens Drange sich des rechten Weges wohl bewußt sei&gt; - Goethe kopfschüttelnd sagte: <das aufklärung.="" den="" er="" ernen="" faust="" im="" mystiker="" mystiker».="" mystiker»»="" wegez="" wäre="" zu="" wie="" zuf桥="" zuf桥="">&gt;» «Goethes Gespräche», aufgrund der Ausgabe von Flodoard von Biedermann herausgegeben von Wolf gang Herwig, Bd. III/2, Zürich 1972, S. 295 (Gespräch Nr. 6187).
-
-171 in den Vorträgen über Wachen und Schlafen: Siehe die beiden ersten Vorträge dieses Bandes.
-
-182 das soll später beantwortet werden: In den Vorträgen im Architektenhaus in Berlin, Winter 1913/14, die im Band «Geisteswissenschaft als Lebensgut», GA Bibl.-Nr. 63 zusammengefaßt sind, besonders die Vorträge IV, V, VII, X.
-
-188 als damals Bücher erschienen wie zum Beispiel «Die Wärme, betrachtet als eine Art von Bewegung», von John Tyndall, autorisierte deutsche Ausgabe herausgegeben durch H. Helmholtz und G. Wiedemann, Braunschweig 1867, 3. vermehrte Auflage nach der 5. Auflage des Originals, Braunschweig 1875.
-
-Schuldirektor Heinrich Schramm, Direktor der nieder-österreichischen Landes-Oberrealschule in Wiener Neustadt (1868-1874) und k.k. Bezirks-Schulinspektor, ordentlicher Lehrer der Mathematik. Vgl. die Beschreibung in Rudolf Steiners Autobiographie «Mein Lebensgang», GA Bibl.-Nr. 28, S. 34-37 (2. Kapitel).
-
-«Die Anziehungskraft betrachtet als eine Wirkung der Bewegung» (Aufsatz) in: «Achter Jahresbericht der Nieder-Österreichischen Landes-Oberrealschule in Wiener Neustadt», Wien 1873.
-
-«Die allgemeine Bewegung der Materie als Grundursache aller Naturerscheinungen», Wien 1872.</das>
+166 Goethe sprach den Satz aus: Im Alter werden wir Mystiker: Wörtlich: «Jedem Alter des Menschen antwortet eine gewisse Philosophie. [...] Der Greis jedoch wird sich immer zum Mystizismus bekennen: er sieht, daß so vieles vom Zufall abzuhängen scheint; das Unvernünftige gelingt, das Vernünftige schlägt fehl, Glück und Unglück stellen sich unerwartet ins Gleiche; so ist es, so war es, und das hohe Alter beruhigt sich in dem, der da ist, der da war und der da sein wird.» Goethe, «Sprüche in Prosa», (siehe Hinweis zu S. 94), S. 454f. Auch in Goethe, «Maximen und Reflexionen». Im Zusammenhang mit dem «Faust» erinnert sich Friedrich Förster an ein Gespräch mit Goethe (vmtl. im Jahre 1828): «Ich erinnere mich nur, daß, als ich die Vermutung aussprach, die Schlußszene werde wohl doch in den Himmel verlegt werden und Mephisto als überwunden vor den Hörern bekennen, &lt; daß ein guter Mensch in seines Herzens Drange sich des rechten Weges wohl bewußt sei&gt; - Goethe kopfschüttelnd sagte: <das aufklärung.="" den="" er="" ernen="" faust="" im="" mystiker="" mystiker».="" mystiker»»="" wie="" zu="" zürich="" 1972,="" 1972,="" 295="" 6187).="" 171="" 182="" 188="" 188.="" 1913="" 1972,="" 2,="" 3.="" 4.="" 5.="" 63="" 6187).="" 7.="" <table="" [bbox]0.516,0.361,0.741,0.490[="" a="" all="" also="" anzeige="" aufgrund="" aufragend="" aufr.="" b.="" bas="" bas.="" berlin,="" berlin.="" bücher="" bücher.="" bücherreschienen="" büschert="" büschert,="" büschert.="" büschers="" büschers,="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" auf="" aufr.="" ausgabe="" ausgabe="" aufr.="" ausgabe="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" büschers.="" zu="" zum="" zumbeispiel="" zu,="" zumbeispiel».="" zuasammengefaßt="" zumbeispiel.="" zuasammengefaßt.="" zuasamme.="" zumbeispiel.="" zuasamme.="" zumbeispiel.="" zuasamme.="" zumbeispiel.="" zuasamme.="" zumbeispiel.="" zuasamme.="" zumbeispiel.="" zuas.="" zumbeisp.="" zumbeisp.="" zuas.="" zumbeisp.="" zuas.="" zumbeisp.="" zuas.="" zumbeisp.="" zuas.="" zumbeisp.="" zuas.
 
 ---
 
@@ -5256,7 +5244,7 @@ Eine dreifache Gegnerschaft der Geistesforschung: Wissenschaft, religiöse Beken
 
 ---
 
-tration als Voraussetzung für übersinnliche Erkenntnisse und Anschauungen. Zum Einwand, daß es unmöglich sei, wahrhaftig zu unterscheiden zwischen wahnhaften Halluzinationen und realen übersinnlichen Erfahrungen. Vergleich der geistesforscherischen Erlebnisse mit mathematischen Wahrheiten. Tatsachen kann man nicht beweisen, sondern nur erleben. Der Einwand, daß der Mensch nicht aus früheren Leben, sondern allein aus der physischen Vererbungslinie seine Eigentümlichkeiten empfängt; die Musikerfamilie Bach als Beispiel dafür. Über den Einwand, Geistesforschung fördere den Egoismus im moralischen Handeln. Schopenhauer über Moralpredigten. Über den religiösen Einwand: Geisteswissenschaft lege den Funken des Göttlichen in die menschliche Brust. Fichtes Antwort auf den Kampf gegen die Geistesforschung. Verse aus dem Mysteriendrama «Die Prüfung der Seele».
+tration als Voraussetzung für übersinnliche Erkenntnisse und Anschauungen. Zum Einwand, daß es unmöglich sei, wahrhaftig zu unterscheiden zwischen wahnhaften Halluzinationen und realen übersinnlichen Erfahrungen. Vergleich der geistesforschenden Erlebnisse mit mathematischen Wahrheiten. Tatsachen kann man nicht beweisen, sondern nur erleben. Der Einwand, daß der Mensch nicht aus früheren Leben, sondern allein aus der physischen Vererbungslinie seine Eigentümlichkeiten empfängt; die Musikerfamilie Bach als Beispiel dafür. Über den Einwand, Geistesforschung fördere den Egoismus im moralischen Handeln. Schopenhauer über Moralpredigten. Über den religiösen Einwand: Geisteswissenschaft lege den Funken des Göttlichen in die menschliche Brust. Fichtes Antwort auf den Kampf gegen die Geistesforschung. Verse aus dem Mysteriendrama «Die Prüfung der Seele».
 
 III. Die Aufgaben der Geistesforschung für Gegenwart und Zukunft
 
@@ -5353,12 +5341,12 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 516
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 62 Seite: 517
 
 XIII. Die Moral im Lichte der Geistesforschung
-Berlin, 3. April 1913 416
+Berlin, 3. April 1913. 416
 
 Arthur Schopenhauers Moralvorstellung. Die Verschiedenheit moralischer Begründungen am Beispiel einer moralischen Tat Lord Byrons. Die drei Stufen der Einweihung (Imagination, Inspiration, Intuition) und die moralische Seelenstimmung. Um die Bilder der Imagination als Spiegelbilder seines eigenen Wesens erkennen zu können, braucht der Geistesforscher Tatsachensinn und Übung der Wahrhaftigkeit. Um die geistigen Stimmen der Inspiration als Echo seines eigenen Wesens erkennen zu können, braucht der Geistesforscher moralischen Mut, Starkmut. Um in der Intuition zu wahren Erkenntnissen höherer Wesenheiten zu kommen, braucht der Geistesforscher freies offenes Interesse. So hängt geistige Schulung innig zusammen mit der Erhöhung der moralischen Kraft. Schopenhauers moralische Forderung nach Mitleid, Mitgefühl. Die moralische Erfahrung des Geistesforschers bei der Begegnung mit dem Hüter der Schwelle. Moralische Eigenschaften in ihren Ursachen und Wirkungen bei wiederholten Erdenleben. Auch wenn es noch so sehr verborgen ist, etwas ist im Menschen, das sich zum Guten bekennt.
 
 XIV. Das Erbe des neunzehnten Jahrhunderts
-Berlin, 10. April 1913 445
+Berlin, 10. April 1913. 445
 
 Geisteswissenschaft versucht, der Seele eine Erkenntnis ihres im Geistigen liegenden Ursprungs zu sein. Die Glanzperiode des philosophischen Strebens: Fichte, Schelling, Hegel, Schopenhauer. Kants Abhandlung «Was ist Aufklärung?». Das Nachlassen des philosophischen Strebens und das Aufkommen der Naturwissenschaft um die Mitte des neunzehnten Jahrhunderts. Goethe, Herman Grimm, Emerson. Die Bedeutung des naturwissenschaftlichen Denkens für die menschliche Seele. Die menschliche Seele in früheren Kulturepochen: In der ägyptisch-chaldäischen Zeit fühlt sich die Seele mit der Welt eins, in der griechisch-römischen Zeit fühlt sich die Seele mit der eigenen Leiblichkeit eins, in der heutigen Kulturepoche hat sich die Seele herausgeworfen aus dem objektiven Weltbilde.
 

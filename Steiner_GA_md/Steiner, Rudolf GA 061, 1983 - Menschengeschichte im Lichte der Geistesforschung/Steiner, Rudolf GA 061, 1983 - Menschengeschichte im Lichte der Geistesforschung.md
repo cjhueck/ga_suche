@@ -249,7 +249,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 20
 
 «Sein», «Ur-Sein», «Ur-Nichtsein». Selbst der, welcher sonst gewohnt ist, sich philosophisch mit den Fragen des Daseins zu beschäftigen, sagt sich: es möchte einem das Blut in den Adern erstarren, wenn man gewahr wird, wie ein Mensch zu solchen Gedanken aufsteigt, aus denen alles Lebendige wie der Saft aus einer Zitrone ausgepreßt erscheint, Gedanken, die den anderen Menschen viel zu nüchtern, trocken und abstrakt sind. Und dieses Kapitel hat Nietzsche besonders interessiert, weil sich da zeigt, wie ein Denker unmittelbar aus dem Leben heraus sich zu einer abstrakten Gedankenwelt erhebt. So farblos, seelenlos, so ganz und gar entblößt von dem, was das Herz sich ersehnt, fand Nietzsche diese Gedanken, wie sie sich Parmenides damals ausgedacht hatte. Und dennoch, wer sich nun im Sinne einer Erkenntnis der übersinnlichen Welt mit geistiger Wissenschaft beschäftigt, wie sie hier vertreten werden soll, versteht es, wenn ein solcher Mensch davon spricht, daß einem das Blut in den Adern erstarren könnte vor diesen ausgedörrten Abstraktionen, vor diesen bis zur äußersten Abstraktion gebrachten Gedanken, und wenn ein solcher zeigt, daß selbst in dem wunderbarsten Gedankengebäude, wie zum Beispiel eines Hegel, etwas ist, was uns nüchtern berührt, wo uns das Gefühl überkommt: Wie willst du diese Welt, die, wie wir das aus dem alltäglichen Leben wissen, so lebensvoll an uns heranstößt, wie willst du ihren Untergrund ergreifen mit deinem Spinnengewebe von Gedankennetz, das du ausspinnst. Es liegt aber dennoch in einer solchen Empfindung gerade der Keimpunkt zu dem, was in der menschlichen Seele vorhanden sein muß, wenn das Verhältnis des Menschen zu den übersinnlichen Welten hergestellt werden soll.
 
-Der Mensch – und sei er der größte Philosoph und der größte Denker —, der mit einem gewissen Behagen Gedankensysteme ausspinnst, der zu Abstraktionen hinaufzusteigen
+Der Mensch – und sei er der größte Philosoph und der größte Denker —, der mit einem gewissen Behagen Gedankensysteme ausspinnt, der zu Abstraktionen hinaufzusteigen
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -390,7 +390,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 36
 
 sagen hat, das tauchte, man möchte sagen, wie aus dunkeln Geistesgründen nun schon seit mehr als einem Jahrhundert aus dem abendländischen Kulturleben herauf. Nur hat man es immer wie einen Traum einzelner Menschen genommen, wie den Traum vielleicht auch ganz hervorragender Menschen, wenn es auftrat bei einem Geiste, der sonst so Gewaltiges, so Großartiges für die deutsche Geisteskultur geleistet hat, wie zum Beispiel bei Lessing, Man hat es aber auch als einen bedeutungslosen Traum angesehen, wenn es bei solchen auftrat, deren Namen innerhalb des Geisteslebens der letzten Jahrzehnte weniger klangvoll genannt werden.
 
-Geisteswissenschaft steht auch da, wo es sich darum handelt, solche entfernten Dinge zu behandeln wie die, welche sich in die Worte Tod und Unsterblichkeit einschließen, nicht in irgendeinem Gegensatze zu dem, was heute die so bewundernswürdige Naturwissenschaft leistet. Allein der Glaube ist vielfach verbreitet, als ob die Naturwissenschaft das ablehnen müsse, was die Geisteswissenschaft ihrerseits zu sagen habe. So können wir es erleben, daß jedesmal, wenn irgend etwas Neues auftaucht, wie es zum Beispiel im letzten Jahrzehnt in bezug auf die Probleme des Lebens geschehen ist, darauf hingewiesen wird, wie denn die Annahme eines eigentlichen geistigen Lebens, das über das bloß körperliche, materielle Leben hinausgeht, nach und nach völlig überwunden werden muß. Geisteswissenschaft ist durchaus nicht gezwungen, irgend etwas zu verneinen, was zum Beispiel in solchen Auseinandersetzungen auftritt wie in jenen von Jacques Loeb in den letzten Tagen des Monisten-Kongresses über das Problem des Lebens, während Geisteswissenschaft allerdings immer wieder und wieder, wie auch damals zu hören bekommt, daß es nun endgültig aus sei mit einer geisteswissenschaftlichen Betrachtung, wenn man hoffen dürfe, daß es endlich im Laboratorium gelingen werde,
+Geisteswissenschaft steht auch da, wo es sich darum handelt, solche entfernten Dinge zu behandeln wie die, welche sich in die Worte Tod und Unsterblichkeit einschließen, nicht in irgendeinem Gegensatz zu dem, was heute die so bewundernswürdige Naturwissenschaft leistet. Allein der Glaube ist vielfach verbreitet, als ob die Naturwissenschaft das ablehnen müsse, was die Geisteswissenschaft ihrerseits zu sagen habe. So können wir es erleben, daß jedesmal, wenn irgend etwas Neues auftaucht, wie es zum Beispiel im letzten Jahrzehnt in bezug auf die Probleme des Lebens geschehen ist, darauf hingewiesen wird, wie denn die Annahme eines eigentlichen geistigen Lebens, das über das bloß körperliche, materielle Leben hinausgeht, nach und nach völlig überwunden werden muß. Geisteswissenschaft ist durchaus nicht gezwungen, irgend etwas zu verneinen, was zum Beispiel in solchen Auseinandersetzungen auftritt wie in jenen von Jacques Loeb in den letzten Tagen des Monisten-Kongresses über das Problem des Lebens, während Geisteswissenschaft allerdings immer wieder und wieder, wie auch damals zu hören bekommt, daß es nun endgültig aus sei mit einer geisteswissenschaftlichen Betrachtung, wenn man hoffen dürfe, daß es endlich im Laboratorium gelingen werde,
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -508,7 +508,7 @@ Eine völlige Erkenntnis, welches Verhältnis diese geistige Welt zu uns Mensche
 
 Da erlebt er dann etwas, was nur in folgender Art charakterisiert werden kann. Sie alle wissen vielleicht, wie der Schlaf eines Menschen, der gesunde ruhige Schlaf, von dem abhängt, was wir seine Gemütsbewegungen nennen. Wenn der Mensch noch soviel gedacht hat, sich noch so angestrengt hat in seinem Denken, wird er leicht einschlafen. Wenn aber Ärgerzustände, Gemütsbewegungen, Scham, Reue, namentlich ein beunruhigtes Gewissen an ihm nagen, wird
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 51
 
 ---
 
@@ -654,7 +654,7 @@ etwas ganz anderes gerichtet ist als auf solche Zusammenhänge, so bringt man au
 
 Noch der große tonangebende Forscher und Gelehrte Kepler hat nicht nur seine keplerischen Gesetze gefunden, er war nicht nur einer der größten Astronomen aller Zeiten, sondern er widmete sich auch der astrologischen Prophezeiung. Und in seiner Zeit, kurz vorher und kurz danach, finden wir zahlreiche wirklich erleuchtete Geister, welche dieser selben Kunst anhängen, und welche von ihrem Standpunkte aus, wenn man alle Dinge objektiv bedenkt, gar nicht anders konnten, als diese prophetischen Erkenntnisse so ernst zu nehmen, wie in entsprechender Weise unsere heutigen Zeitgenossen irgendeinen wissenschaftlichen Zweig ernst und würdig nehmen. Denn man kann leicht sagen, daß irgendeine Vorhersage, die zum Beispiel bei der Geburt eines Menschen getan worden ist, die aus Sternenkonstellationen geholt und an dem Leben dieses Menschen bewahrheitet worden ist, daß dieser Zusammenhang der Konstellation mit dem Leben des Menschen doch nur auf einer Art von Zufall beruht. Gewiß, in einer unendlich großen Anzahl von Fällen muß zugegeben werden, daß das Frappierende des Eindruckes, den man von der Bewahrheitung astrologischer Vorhersagungen haben kann, einfach darauf beruht, daß man durch das Eintreten einer solchen Vorhersagung überrascht ist und das Übereinstimmende behält und darüber vergibt, was nicht eingetroffen ist. In gewisser Beziehung hat allerdings jener griechische Atheist ganz recht, der einmal mit seinem Schiffe in einer Küstenstadt ankam, wo an einem Opferorte gewisse Zeichen der
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 68
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -690,7 +690,7 @@ Heinrich II. von Frankreich in einem Duell fallen sollte, wie er sagte. Man lach
 
 Weiter haben wir einen anderen erleuchteten Geist des sechzehnten Jahrhunderts, der wieder als Astronom eine große Bedeutung hat: Tycho de Brahe. Die heutige Welt kennt Tycho de Brahe kaum anders, als daß man sagt, er habe nur zur Hälfte die kopernikanische Weltanschauung angenommen. Wer aber sein Leben genauer kennt, der weiß, was Tycho de Brahe zum Beispiel zur Herstellung von Sternkarten getan hat, wie er die damals vorhandenen Sternkarten in ganz hervorragender Weise verbessert hat, da er ein Astronom von ganz hervorragender Bedeutung für seine Zeit war, neue Sterne gefunden hat und so weiter. Aber Tycho de Brahe war zu gleicher Zeit ein Mensch, der tief davon durchdrungen war, daß nicht nur die physischen Verhältnisse der Erde im Zusammenhang stehen mit der ganzen Welt, sondern daß auch dasjenige, was die Menschen geistig erleben, mit den Ereignissen des großen Kosmos zusammenhängt. So kam es denn, daß Tycho de Brahe nicht nur ein großer Astronom war, der die Sterne beobachtete, sondern daß er die Vorgänge des Himmels auf die Vorgänge im Menschenleben bezog. Und es war allerdings frappierend, daß Tycho de Brahe schon als zwanzigjähriger Mensch, als er nach Rostock kam, damals den Tod des Sultans Sollman vorausgesagt hat, der zwar nicht auf den Tag genau, aber
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 73
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -914,7 +914,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 von Hohenheim. Zunächst sah man an einer merkwürdigen Stätte, an der sich viele Wege kreuzten, rings ein wirklich üppiges Pflanzenfeld, reichen Blumenwuchs, und in jenem Augenblick, als wir dort waren, war der Ort auch noch ganz besonders bevölkert von den in der Schweiz ja noch so vielfach unmittelbar anzutreffenden Viehherden. Man konnte etwas ganz Besonderes empfinden durch das Eigenartige der Natur, wie man sie eben innerhalb Europas kaum wo anders als in Alpengegenden gut finden kann. Die Natur hat dort etwas, wie wenn die Pflanzen eine eigene Sprache führten, als ob sie einem etwas sagen wollten, als ob sie recht gesprächig werden könnten. Es ist auch die dortige Stätte so recht geeignet, mit dem zu verwachsen, was einem der Geist der Natur sagen kann.
 
-Und es stieg vor meiner Seele das Bild eines Knaben auf, der in den ersten neun Jahren seines Lebens in jener Natur aufgewachsen ist, der tatsächlich in einem Hause seine Geburtsstätte hatte, das einstmals dort gestanden hat, und das dann durch das genannte neue ersetzt wurde. Denn es lebte im fünfzehnten Jahrhundert an jener Stätte der alte Arzt Bombast von Hohenheim, und das Söhnchen jenes Bombast von Hohenheim war dann der künftige Paracelsus. Man konnte sich so recht hineindenken in den Knaben, von dem einem bekannt sein kann, wie innig er schon von frühester Kindheit an mit aller Natur verwachsen war. Man konnte sich hineindenken den Knaben in diese Natur, konnte sich ihn denken seine intimen kindlichen Gespräche mit den Pflanzen führend. In einer gewissen Beziehung zeigt die äußere Konfiguration ganz sicher noch das, was jener Knabe Paracelsus unzählige Male zu sich hat sprechen lassen vom frühen Morgen bis zum späten Abend, ausgenommen diejenigen Zeiten, in welchen er seinen Vater auf den Gängen begleitete, die dieser in die benachbarten Orte unternommen.
+Und es stieg vor meiner Seele das Bild eines Knaben auf, der in den ersten neun Jahren seines Lebens in jener Natur aufgewachsen ist, der tatsächlich in einem Hause seine Geburtsstätte hatte, das einstmals dort gestanden hat, und das dann durch das genannte neue ersetzt wurde. Denn es lebte im fünfzehnten Jahrhundert an jener Stätte der alte Arzt Bombast von Hohenheim, und das Söhnchen jenes Bombast von Hohenheim war dann der künftige Paracelsus. Man konnte sich so recht hineindenken in den Knaben, von dem einem bekannt sein kann, wie innig er schon von frühester Kindheit an mit aller Natur verwachsen war. Man konnte sich hineindenken den Knaben in diese Natur, konnte sich ihn denken seine intimen kindlichen Gespräche mit den Pflanzen führend. In einer gewissen Beziehung zeigt die äußere Konfiguration ganz sicher noch das, was jener Knabe Paracelsus unzählige Male zu sich hat sprechen lassen vom frühen Morgen bis zum späten Abend, ausgenommen diejenigen Zeiten, in welchen er seinen Vater auf den Gängen begleitete, die dieser in die benachbarten Orte unternommen
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 100
 
@@ -1028,7 +1028,7 @@ Da meinte der Kanonikus, wenn das so leicht gegangen sei, dann bezahle er auch n
 
 Wer das eigenartige Leben dieses Menschen kennt, der begreift den tief ins Herz dringenden Eindruck, der von dem Bilde ausgeht, das aus Paracelsus letzten Lebensjahren stammt: ein Bild, das uns ein Antlitz zeigt, in dem viel Geistiges zum Ausdruck gekommen ist. Da ist viel gelebt und viel erfahren worden, aber zugleich hat das Leben dieser Seele und diesem Leibe arg mitgespielt. Dem leidenden, dem verhältnismäßig jungen Manne mit den alten Zügen und den Runzeln und der Kahlköpfigkeit ist es auf der einen Seite anzumerken, welches Ringen und Streben, welcher Extrakt der ganzen Zeitevolution in Paracelsus lag, und auf der andern Seite, wie er das Tragische eines Menschen durchmachen mußte, der sich so seiner Zeit gegenüberstellte. Und wenn es auch nur eine Legende ist, wenn auch nicht wörtlich zu nehmen ist, was in Salzburg passiert sein soll, daß die Salzburger Ärzte einmal beschlossen hätten, einen seiner Diener dazu anzustiften, Paracelsus von einer Höhe herunterzustürzen, der dadurch seinen Tod fand und dann in sein Haus getragen wurde, - wenn es auch nicht wahr ist, so muß man doch sagen: Das Leben des Paracelsus war schon so, daß man ihm gar nicht den Schädel zu zerspalten
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 114
 
 ---
 
@@ -1103,7 +1103,7 @@ Allein im Innern leuchtet helles Licht.
 
 Faust wird gewahr - das erkennen wir aus dem Schluß der Dichtung -, wenn der Mensch seine inneren Seelenkräfte entfaltet, daß der Geist, der in der Natur waltet, auch die inneren Seelenkräfte herauf treibt. Und wenn dieser Geist genügend entfaltet ist, dann gelangt der Mensch unmittelbar an das, was als Geistiges Mensch und Natur durchzieht. So Faust am Ende.
 
-So läßt Goethe, um seinen Faust zu demselben Ziel kommen zu lassen, zu welchem Paracelsus kommt, Faust einen innerlich seelischen Weg durchmachen. Wenn man darüber nachdenkt, was die Veranlassung dazu ist, so kommt man zu der Erkenntnis, wie die Mächte der Zeit die aufeinanderfolgenden Entwickelungsepochen, das geschichtliche Leben bedingen. Da kommt man dahin zu erkennen, welche Bedeutung es hat, daß Paracelsus' Todesjahr etwas vor jener großen Umwälzung liegt, die für die äußere Naturwissenschaft durch das Werk des Kopernikus hervorgerufen worden ist. Paracelsus' Leben fällt noch in die Zeit, in welcher es als richtig galt, daß die Erde stille stehe in der Welt, daß die Sonne um sie herumgehe, und so weiter; das wirkte auch noch aus Paracelsus heraus. Erst nach seinem Tode trat die ganz andere Art der Anschauung des Sonnen- und Welten-systems ein. Der Boden wurde den Menschen förmlich unter den Füßen weggezogen. Wer heute das kopernikanische Weltsystem als etwas Selbstverständliches hinnimmt, erhält gar keinen Begriff von jenem Sturm, der losging, als die
+So läßt Goethe, um seinen Faust zu demselben Ziel kommen zu lassen, zu welchem Paracelsus kommt, Faust einen innerlich seelischen Weg durchmachen. Wenn man darüber nachdenkt, was die Veranlassung dazu ist, so kommt man zu der Erkenntnis, wie die Mächte der Zeit die aufeinanderfolgenden Entwickelungsepochen, das geschichtliche Leben bedingen. Da kommt man dahin zu erkennen, welche Bedeutung es hat, daß Paracelsus' Todesjahr etwas vor jener großen Umwälzung liegt, die für die äußere Naturwissenschaft durch das Werk des Kopernikus hervorgerufen worden ist. Paracelsus' Leben fällt noch in die Zeit, in welcher es als richtig galt, daß die Erde stille stehe in der Welt, daß die Sonne um sie herumgehe, und so weiter; das wirkte auch noch aus Paracelsus heraus. Erst nach seinem Tode trat die ganz andere Art der Anschauung des Sonnen- und Weltensystems ein. Der Boden wurde den Menschen förmlich unter den Füßen weggezogen. Wer heute das kopernikanische Weltsystem als etwas Selbstverständliches hinnimmt, erhält gar keinen Begriff von jenem Sturm, der losging, als die
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -1444,7 +1444,7 @@ Alles was man in geistigen Welten erlebt und was in der Geisteswissenschaft mitg
 
 Wenn wir das ins Auge fassen, was wir an unterbewußten Seelenkräften haben, so kann man sagen: Es sieht der Seelenforscher, was da geschieht. — Er sieht wie bei dem vorhin angeführten Beispiel, als wir sagten, daß ein Traumerlebnis sich wiederholt zeigt, wie der seelische Wesenskern zuerst im Innern des Menschen arbeitet. Indem dann die zeichnerischen Fähigkeiten auftreten, zeigt sich im Bewußtsein des Menschen das Resultat dieses Arbeitens. Wir sehen also zuerst ein Arbeiten an dem Unterbewußten, dann eine Umwandlung und ein Herauftreten dessen ins Bewußtsein, was in den Untergründen arbeitet. Beim bewußten Hinuntertauchen lebt der Mensch zuerst in seinem Bewußtsein in Meditation und Konzentration. Da bewirkt die Kraft des Willens, welche auf Meditationen und Konzentrationen ver-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 158
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -1514,7 +1514,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-ken in das, was wir unmittelbar erleben müssen, oder wenn der Mensch mit banger Erwartung vor dem steht, was das Unbekannte erst noch werden und geben kann. Wir sehen den Menschen gegenüber der Außenwelt Rätsel über Rätsel vor sich haben. Aber wenn wir in richtiger Weise das äußere Leben mit dem inneren vergleichen, so fühlen wir, wie wenn da unten in unserem eigenen inneren Seelenleben verborgene Kräfte wirksam sind, die nicht in den engen Kreis des gewöhnlichen Bewußtseins eindringen, sondern, wie die Kräfte beim Erdbeben an die Oberfläche herauftreiben, als unterirdische Seelenkräfte in das offenbare Bewußtsein sich heraufdrängen. Wenn wir aber auf der einen Seite sehen, wie wir hoffnungsvoll die Gewißheit aufnehmen können, daß der Mensch in die eigenen Seelentiefen hinuntersteigen und dort Rätsel nach Rätsel lösen kann, so gewinnen wir auch die Hoffnung zu dem, was die Geisteswissenschaft weiter verspricht: daß nicht nur die verborgenen Rätsel des Seelenlebens sich uns enthüllen können, sondern daß auch beim Durchgang durch unser Seelenleben und beim Aufschließen der Pforte in die geistige Welt hinaus sich dort für die Menschenseele Rätsel über Rätsel lösen und Ausblicke sich eröffnen können durch den Aufschluß der großen Welt draußen. - So dringt der Mensch, wenn er sich selbst als Rätsel zu erfassen den Mut hat, und wenn er die Seele selbst als Instrument der Wahrnehmung zu erhöhen sich bemüht, zu der Hoffnung und Zuversicht vor, daß sich ihm auch im Geistigen der Welt die großen Rätsel immer mehr zu seiner Befriedigung, zu seiner Lebenssicherheit lösen werden.
+ken in das, was wir unmittelbar erleben müssen, oder wenn der Mensch mit banger Erwartung vor dem steht, was das Unbekannte erst noch werden und geben kann. Wir sehen den Menschen gegenüber der Außenwelt Rätsel über Rätsel vor sich haben. Aber wenn wir in richtiger Weise das äußere Leben mit dem inneren vergleichen, so fühlen wir, wie wenn da unten in unserem eigenen inneren Seelenleben verborgene Kräfte wirksam sind, die nicht in den engen Kreis des gewöhnlichen Bewußtseins eindringen, sondern, wie die Kräfte beim Erdbeben an die Oberfläche herauftrieben, als unterirdische Seelenkräfte in das offenbare Bewußtsein sich heraufdrängen. Wenn wir aber auf der einen Seite sehen, wie wir hoffnungsvoll die Gewißheit aufnehmen können, daß der Mensch in die eigenen Seelentiefen hinuntersteigen und dort Rätsel nach Rätsel lösen kann, so gewinnen wir auch die Hoffnung zu dem, was die Geisteswissenschaft weiter verspricht: daß nicht nur die verborgenen Rätsel des Seelenlebens sich uns enthüllen können, sondern daß auch beim Durchgang durch unser Seelenleben und beim Aufschließen der Pforte in die geistige Welt hinaus sich dort für die Menschenseele Rätsel über Rätsel lösen und Ausblicke sich eröffnen können durch den Aufschluß der großen Welt draußen. - So dringt der Mensch, wenn er sich selbst als Rätsel zu erfassen den Mut hat, und wenn er die Seele selbst als Instrument der Wahrnehmung zu erhöhen sich bemüht, zu der Hoffnung und Zuversicht vor, daß sich ihm auch im Geistigen der Welt die großen Rätsel immer mehr zu seiner Befriedigung, zu seiner Lebenssicherheit lösen werden.
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:61 Seite: 163
 
@@ -1624,7 +1624,7 @@ und Fülle die Erfahrung machen, daß die Antworten der Philosophen wirklich in 
 
 Nehmen wir einmal an, ein Mensch mit, sagen wir, höheren Ideen, selbst mit der Fähigkeit einer ausgezeichneten Phantasie, müsse eine niedere Arbeit verrichten. Er müsse als gemeiner Soldat fast sein ganzes Leben zubringen. Ich spreche von einem Falle aus dem Leben, der wahrhaftig keine Legende ist, sondern von dem Falle eines höchst merkwürdigen Menschen, Josef Emanuel Hilscher mit Namen, der 1806 in Österreich geboren, 1837 gestorben ist, der die längste Zeit seines Lebens als gemeiner Soldat zu dienen hatte, es zu nichts gebracht hatte als zum Fourier, und der trotz glänzender Begabungen nicht über diesen Grad hinauskommen konnte. Dieser Mann hat eine größere Anzahl nicht nur formvollendeter, sondern tief vom Seelenleben durchdrungener Gedichte hinterlassen, auch ausgezeichnete Übersetzungen des englischen Dichters Byron. Dieser Mann hat ein reiches Innenleben gehabt. Man male sich den ganzen Kontrast aus, der da bei diesem Leben bestand zwischen dem, was ihm äußerlich der Tag an Glück brachte, und dem, was er innerlich durchlebt hat. Die Gedichte sind keineswegs von Pessimismus durchdrungen, sie sind durchdrungen von Kraft und Fülle. Sie zeigen uns, wie dieses Leben, trotz mancher Enttäuschungen, welche es für ein solches Leben gibt, bis zu einem gewissen Grade sich zu einer Unendlichkeit er-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 177
 
 ---
 
@@ -1708,7 +1708,7 @@ wickeln, so kommen wir auch dazu, Mißerfolg und Unglück in gleicher Weise zu b
 
 Damit aber haben wir auch eine Erklärung desjenigen erreicht, was wir im Eingange gesagt haben, warum der Mensch in der Tat seinem Glücke so gegenübersteht, daß
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 188
 
 ---
 
@@ -1846,7 +1846,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:61
 
 hatte, die zu voller Entwickelung das bringen kann, was ihm so vor dem geistigen Auge stand, und er entschloß sich dazu mit allen Opfern, soweit es nur möglich war, einer derjenigen zu sein, die am meisten der Not der damaligen Zeit, auch dem Hunger, ausgesetzt waren. Er hungerte wahrlich nicht - ich betone, daß hier nicht etwa eine Hungerkur zur Erlangung geistiger Erkenntnis anempfohlen werden soll -, um in höhere Welten hinaufzusteigen, er hungerte aus keinem andern Impulse, als die andern hungerten, nicht nur um das Schicksal der andern zu teilen, sondern es sogar in einem erhöhten Maße zu teilen. Seine Seele aber war in einer unausgesetzten inneren Kontemplation dem Gotte hingegeben, der sich ihm in der geschilderten Art offenbart hatte, und er wandte seine Gedanken nicht von diesem Gotte ab. Wir würden heute in der Geisteswissenschaft sagen: Seine ganze Meditation war, daß er mit voller Willkür diesen Gedanken in den Mittelpunkt seiner Seele brachte. - Daß er damit richtig handelte, zeigte sich ihm wieder in einem Zeichen, in einem inneren Gesichte, das wieder mehr war als eine bloße traumhafte Vision, indem vor ihm in aller Lebendigkeit das Bild des Gottes stand, der ja in seiner Seele lebte und ihm sagte: «Harre aus, ertrage alles! Derjenige, der die Menschen und auch dich ernährt, wird dir das Nötige geben. Nur unbedingtes Vertrauen in den ewigen Bestand der Seele mußt du haben!» Das Bild trat auf, als ob er — ein Einsiedler, der die Sache mehr in bildhafter Realität darstellte - hinginge an den Bach Krith, dort sich verberge und sich von dem Wasser des Baches, solange eines da war, tränkte und sich nährte von dem, was ihm der Gott schickte, was er eben unter der Not der Zeit noch haben konnte. Es erschien ihm als Bild einer besonderen Gnade des Gottes, daß ihm die Raben diese Nahrung zubrachten. So hatte er in diesem Gesicht eine Bekräftigung
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 205
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -1932,7 +1932,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-weil sie eingeweiht sind in die Tatsache, daß Elisäus in die höheren Regionen hinaufsteigen kann, wo der Geist des Elias zu ihm spricht, sagen dem Elisäus: «Heute wirst du ihm nicht nachfolgen können. Weißt du auch, daß der Herr wird deinen Herrn von deinen Häupten nehmen?» (2. Kön. 2, 3.) Er aber antwortet ihnen: «Schweiget nur stille.» Zu dem Geist des Elias aber sagt er: «So wahr der Herr lebt und deine Seele, ich verlasse dich nicht!» Weiter sagt Elias: «Ich muß nun gehen nach Jericho.» Dasselbe wiederholt sich. Und dann fragt Elias: «Was willst du nun eigentlich?» Elisäus antwortet, und das steht auch in der Bibel, nur so, daß man es herausholen muß in der wahren Lesart: «Ich will, daß zu meinem Geist als ein zweiter der deinige in meine Seele komme!» In der Bibel steht es unrichtig: «Daß mir werde ein zwiefältig Teil von deinem Geiste.» (2. Kön. 2, 9.) Aber so ist ungefähr der geistige Sinn dessen, was Elisa vernimmt von Elias, daß er in den Tiefen seiner Seele lebendig werde, daß er dort zum vollen Bewußtsein erwache und mit der eigenen Seele sei er dem Geiste des Elias so gegenübergestellt, daß die Seele aus sich selbst heraus die Entschlüsse des Elias kundgeben könne. Da sagt Elias: «Wenn du, da ich mich jetzt in höhere Regionen zu erheben habe, meinen Geist sehen kannst, wie er in höhere Regionen aufsteigt, dann hast du erreicht, was du willst, und dann zieht meine Kraft in dich ein.» Und siehe da, Elisäus sah aufsteigen den Elias «im Wetter gen Himmel», nur der Mantel fiel zurück, das heißt die geistige Kraft, mit der er sich zu umhüllen hatte. Das war die geistige Vision, die sich ihm zeigte und ihn erkennen ließ, daß er der Nachfolger des Elias werden durfte. Und dann heißt es in der Bibel: «Und da ihn sahen der Propheten Kinder, die gegenüber zu Jericho waren, sprachen sie: <der auf="" auf="" erisa.="" Geist="" auf="" des="" alias="" elisa.="" ruhet="" sie="" zu="" zuyed="" mit="" rufen="" zuyed="" gegenüber="" ging="" hmmel»,="" in="" inhet="" lauf="" lira="" lira.="" nicht="" rufen="" so="" sie="" zür="" zuyed="" zuyed.="">
+weil sie eingeweiht sind in die Tatsache, daß Elisäus in die höheren Regionen hinaufsteigen kann, wo der Geist des Elias zu ihm spricht, sagen dem Elisäus: «Heute wirst du ihm nicht nachfolgen können. Weißt du auch, daß der Herr wird deinen Herrn von deinen Häupten nehmen?» (2. Kön. 2, 3.) Er aber antwortet ihnen: «Schweiget nur stille.» Zu dem Geist des Elias aber sagt er: «So wahr der Herr lebt und deine Seele, ich verlasse dich nicht!» Weiter sagt Elias: «Ich muß nun gehen nach Jericho.» Dasselbe wiederholt sich. Und dann fragt Elias: «Was willst du nun eigentlich?» Elisäus antwortet, und das steht auch in der Bibel, nur so, daß man es herausholen muß in der wahren Lesart: «Ich will, daß zu meinem Geist als ein zweiter der deinige in meine Seele komme!» In der Bibel steht es unrichtig: «Daß mir werde ein zwiefältig Teil von deinem Geiste.» (2. Kön. 2, 9.) Aber so ist ungefähr der geistige Sinn dessen, was Elisa vernimmt von Elias, daß er in den Tiefen seiner Seele lebendig werde, daß er dort zum vollen Bewußtsein erwache und mit der eigenen Seele sei er dem Geiste des Elias so gegenübergestellt, daß die Seele aus sich selbst heraus die Entschlüsse des Elias kundgeben könne. Da sagt Elias: «Wenn du, da ich mich jetzt in höhere Regionen zu erheben habe, meinen Geist sehen kannst, wie er in höhere Regionen aufsteigt, dann hast du erreicht, was du willst, und dann zieht meine Kraft in dich ein.» Und siehe da, Elisäus sah aufsteigen den Elias «im Wetter gen Himmel», nur der Mantel fiel zurück, das heißt die geistige Kraft, mit der er sich zu umhüllen hatte. Das war die geistige Vision, die sich ihm zeigte und ihn erkennen ließ, daß er der Nachfolger des Elias werden durfte. Und dann heißt es in der Bibel: «Und da ihn sahen der Propheten Kinder, die gegenüber zu Jericho waren, sprachen sie: <der auf="" auf="" erisa.="" Geist="" auf="" des="" alias="" elisa.="" ruhet="" sie="" zu="" zuyed=""=""m="">
+
+Und sie gingen ihm entgegen und fielen vor ihm nieder zur
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -1940,7 +1942,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 Erde.» (2. Kön. 2, 15.) Das weist darauf hin, daß in Elisa das Wort so mächtig geworden war, daß es durchdrungen war von der Kraft, welche die Prophetenschüler auch bei Elias erlebt hatten, und daß sie erkannten, daß wirklich der Geist des Elias-Naboth in Elisa weiterlebte.
 
-Das ist es, was sich nach den geisteswissenschaftlichen Methoden, die hier in diesen Vorträgen schon geschildert worden sind und auch weher noch geschildert werden sollen, über die wahren Vorgänge in der damaligen Zeit ergibt, was sich über jenen Impuls ergibt, der überflößt von Elias auf Elisa als eine Erneuerung und Erhöhung des alten Jahve-Glaubens. Es ist nun die Eigentümlichkeit, daß diese Vorgänge, die ja zunächst nur insbesondere in jenen alten Zeiten für den in die Sache Eingeweihten verständlich waren, denen erzählt wurden, welche die Sache selbst nicht verstehen konnten, in einer solchen Weise, die sie eben begreifen konnten, und auf ihre Seelen in der Weise des Gleichnisses, der Wundererzählung wirkte. Aus dem, was im höchsten spirituellsten Sinne wahrhaftig wunderbar genug ist, entwickelte sich dann das, was als die Erzählung von Elias, Elisa und Naboth in der Bibel steht. Denjenigen, die nicht haben begreifen können, wie ein größter Impuls für die Weltentwicklung der Menschheit aus jenen Seelen hervorgequollen ist, die erst vieles, was sich dem äußeren Anblick entzieht, in sich haben durchmachen müssen, wurde es in Gleichnissen gesagt. Für sie wurde hingestellt, was uns nun eben in der Bibel erzählt wird, daß in der Zeit des Königs Ahab Elias lebte, daß der Gott Jahve dem Elias erschien in der Zeit der Hungersnot und ihm sagte: «Gehe hin zu dem König Ahab und sage: <so den="" der="" dem="" die="" die,="" die,="" denn="" der,="" die,="" dieper="" dieper,="" ihm="" ich="" lebet,="" noch="" ob="" ob:="" och:="" per="" jahre="" kenne,="" kohn="" kochien,="" man="" noch="" noch?».»="" nochregen="" nochregen,="" ob="" ob:="" oder="" nach="" noch?="" nachlass-verwaltung="" noch?="" oder:="" oder:).»="" se="" soll="" so="" steht:="" stehe,="" still="" täu="" täu:="" täu:="" vor="" wahr="" ziel="" ziel,="" ziel.="" zuhn="" zuhn.="" zuhn.?="">. (1. Kön. 17,1.) Dann heißt es weiter: Der Gott sagte dem Elias: «Gehe weg
+Das ist es, was sich nach den geisteswissenschaftlichen Methoden, die hier in diesen Vorträgen schon geschildert worden sind und auch weher noch geschildert werden sollen, über die wahren Vorgänge in der damaligen Zeit ergibt, was sich über jenen Impuls ergibt, der überflößt von Elias auf Elisa als eine Erneuerung und Erhöhung des alten Jahve-Glaubens. Es ist nun die Eigentümlichkeit, daß diese Vorgänge, die ja zunächst nur insbesondere in jenen alten Zeiten für den in die Sache Eingeweihten verständlich waren, denen erzählt wurden, welche die Sache selbst nicht verstehen konnten, in einer solchen Weise, die sie eben begreifen konnten, und auf ihre Seelen in der Weise des Gleichnisses, der Wundererzählung wirkte. Aus dem, was im höchsten spirituellsten Sinne wahrhaftig wunderbar genug ist, entwickelte sich dann das, was als die Erzählung von Elias, Elisa und Naboth in der Bibel steht. Denjenigen, die nicht haben begreifen können, wie ein größter Impuls für die Weltentwicklung der Menschheit aus jenen Seelen hervorgequollen ist, die erst vieles, was sich dem äußeren Anblick entzieht, in sich haben durchmachen müssen, wurde es in Gleichnissen gesagt. Für sie wurde hingestellt, was uns nun eben in der Bibel erzählt wird, daß in der Zeit des Königs Ahab Elias lebte, daß der Gott Jahve dem Elias erschien in der Zeit der Hungersnot und ihm sagte: «Gehe hin zu dem König Ahab und sage: <so den="" der="" dem="" die="" die,="" die,="" denn="" der,="" die,="" die,="" dieper="" doch="" e.g.="" kommen,="" laraels,="" lebet,="" noch="" noches="" so="" steht,="" stach="" tau="" täu="" von="" war="" wer,="" werer,="" wie="" will="" z.="">.» (1. Kön. 17,1.) Dann heißt es weiter: Der Gott sagte dem Elias: «Gehe weg
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -1990,7 +1992,7 @@ Seite: 221
 
 ---
 
-stünden. Wenn man allerdings die Verhältnisse innerhalb der naturwissenschaftlichen Entwicklung ins Auge faßt, wie sie noch vor weniger Jahrzehnten, oder vielleicht vor noch kurzer Zeit vorhanden waren, dann könnte es im höchsten Maße plausibel erscheinen, einen solchen schroffen Gegensatz anzunehmen. Denn man braucht nur zu bedenken, was es im Jahre 1864 bedeutete, als aus den Darwinschen naturwissenschaftlichen Anschauungen heraus, die damals zwar jung, aber doch schon auf dem Wege waren, weiteste Kreise zu ergreifen, auf einer deutschen Naturforscherversammlung, bevor noch Darwin selbst sich in deutlicher Weise in der Anwendung seiner Prinzipien auf die Frage nach dem Ursprünge des Menschen ausgesprochen hatte, Ernst Haeckel diese Darwinschen Prinzipien so auf die Wissenschaft vom Menschen anwendete, daß er energisch, kühn und mutvoll nicht nur die Verwandtschaft des Menschen in bezug auf seine Gestalt und Lebensverhältnisse mit den höheren Tieren vertrat, sondern daß er energisch die unmittelbare reale Abstammung, das wirkliche Hervorgehen des Menschen von und aus der höheren Tierwelt vertrat.
+stünden. Wenn man allerdings die Verhältnisse innerhalb der naturwissenschaftlichen Entwicklung ins Auge faßt, wie sie noch vor wenigen Jahrzehnten, oder vielleicht vor noch kurzer Zeit vorhanden waren, dann könnte es im höchsten Maße plausibel erscheinen, einen solchen schroffen Gegensatz anzunehmen. Denn man braucht nur zu bedenken, was es im Jahre 1864 bedeutete, als aus den Darwinschen naturwissenschaftlichen Anschauungen heraus, die damals zwar jung, aber doch schon auf dem Wege waren, weiteste Kreise zu ergreifen, auf einer deutschen Naturforscherversammlung, bevor noch Darwin selbst sich in deutlicher Weise in der Anwendung seiner Prinzipien auf die Frage nach dem Ursprünge des Menschen ausgesprochen hatte, Ernst Haeckel diese Darwinschen Prinzipien so auf die Wissenschaft vom Menschen anwendete, daß er energisch, kühn und mutvoll nicht nur die Verwandtschaft des Menschen in bezug auf seine Gestalt und Lebensverhältnisse mit den höheren Tieren vertrat, sondern daß er energisch die unmittelbare reale Abstammung, das wirkliche Hervorgehen des Menschen von und aus der höheren Tierwelt vertrat.
 
 Damals mußte man, insofern man nach dieser Richtung hin vorurteilslos sein wollte, in weitesten Kreisen wohl denken, daß die kommenden Entdeckungen der naturwissenschaftlichen Forschung immer mehr und mehr das bestätigen und bekräftigen werden, was Ernst Haeckel im Jahre 1864 allerdings wie ein kühnes Programm der Forschung ausgesprochen hatte: die Hinleitung, die Hinordnung aller naturwissenschaftlichen Prinzipien in der Weise, daß man erkennen könne, wie sich allmählich aus den Tierordnungen heraus die Ordnung des Menschen entwickelt habe. Wenn sich dies, was Haeckel damals wie eine Art Programm verkündete, was ihm selbst aber schon als eine
 
@@ -2354,7 +2356,7 @@ stellen, daß der schlafende Mensch tatsächlich noch das in sich habe, oder da�
 
 Setzen wir an die Stelle des Gehirnes, des Seelenorgans, was uns den wachbewußten Zustand vermittelt, die Lunge und das Atmen. Dann müssen wir sagen, die Lunge atme nur dadurch, daß ihr der Sauerstoff von außen zufließt. Aber die Tätigkeit der Lunge erschöpft sich nicht dadurch, daß ihr der Sauerstoff zufließt, denn auf die Zuführung des Sauerstoffes kann die organische Tätigkeit keinen Einfluß haben. Wir können aber daraus, wie wir von innen heraus unsere Lunge ernähren und beleben, nichts erfahren über die Natur und Wesenheit des Sauerstoffes, und die Lunge kann auch nicht von innen mit Sauerstoff versorgt werden. Gerade
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 267
 
 ---
 
@@ -2372,7 +2374,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 269
 
 ---
 
-ich möchte sagen wie Geistesströme aus der Umgebung der Erde hereinwirkend zu denken in die flüssige lebendige Materie die erregenden Ursachen, die, wie der Sturm das Meer aufpeitscht und zu allerlei Wellengebilden gestaltet, ursprünglich nur solche Formen in der flüssigen Substanz hervorrufen, die sich nicht verfestigten, sondern, nachdem sie sich zeitweilig geformt hatten, ihre ursprüngliche formlose Gestalt wieder annahmen. Das Formprinzip selbst ist als ein übersinnliches, geistiges Prinzip zu denken, das mit der ursprünglichen Erdensubstanz verbunden war. Wenn wir uns heute noch für diese Wirkungsweise oder für diese Wechselwirkung zwischen Geist und Materie in bezug auf die Erde bei ihrem Ausgangspunkte etwas Ähnliches vorstellen wollen, so können wir uns – die Naturwissenschaft der Zukunft wird das schon ergeben – einen engeren Bezirk vorstellen, in welchem das geschieht, was am Ausgangspunkt der Erdentwickelung geschah. Wir können noch immer etwas aufweisen, was auf ungeformte Lebenssubstanz wirkt. Alle solche Prozesse, die unser eigenes Geistesleben in der Gehirnsubstanz, in der Blutsubstanz hervorbringt, lassen sich mit den Vorgängen vergleichen, die sich ursprünglich beim Erdenausgangspunkt zwischen dem geistigen Formprinzip und dem, was als lebendige Substanz dem Erdenwerden zugrunde liegt, abgespielt haben.
+ich möchte sagen wie Geistesströme aus der Umgebung der Erde hereinwirkend zu denken in die flüssige lebendige Materie die erregenden Ursachen, die, wie der Sturm das Meer aufpeitscht und zu allerlei Wellengebilden gestaltet, ursprünglich nur solche Formen in der flüssigen Substanz hervorrufen, die sich nicht verfestigten, sondern, nachdem sie sich zeitweilig geformt hatten, ihre ursprüngliche formlose Gestalt wieder annahmen. Das Formprinzip selbst ist als ein übersinnliches, geistiges Prinzip zu denken, das mit der ursprünglichen Erdensubstanz verbunden war. Wenn wir uns heute noch für diese Wirkungsweise oder für diese Wechselwirkung zwischen Geist und Materie in bezug auf die Erde bei ihrem Ausgangspunkte etwas Ähnliches vorstellen wollen, so können wir uns – die Naturwissenschaft der Zukunft wird das schon ergeben – einen engeren Bezirk vorstellen, in welchem das geschieht, was am Ausgangspunkt der Erdentwicklung geschah. Wir können noch immer etwas aufweisen, was auf ungeformte Lebenssubstanz wirkt. Alle solche Prozesse, die unser eigenes Geistesleben in der Gehirnsubstanz, in der Blutsubstanz hervorbringt, lassen sich mit den Vorgängen vergleichen, die sich ursprünglich beim Erdenausgangspunkt zwischen dem geistigen Formprinzip und dem, was als lebendige Substanz dem Erdenwerden zugrunde liegt, abgespielt haben.
 
 In unserem heutigen Sinne läßt sich eine solche Sache nicht beweisen. Beweisen läßt sich nur, daß die Geisteswissenschaft mit den Mitteln, die bereits geschildert worden sind, sozusagen für die ganze Erdentwicklung etwas Ähnliches herstellt, wie es im einzelnen Menschenleben im Gedächtnis hergestellt wird. Dadurch, daß gewisse Kräfte, von denen hier auch gesprochen worden ist, die in den Tiefen der Seele ruhen, ausgebildet werden – das sind zugleich die Kräfte, durch deren Entwicklung der Geistesforscher in das geistige
 
@@ -2581,7 +2583,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-erschienenen von William Benjamin Smith zu nehmen und Sie werden sehen, daß unsere Zeit durch ein genaues Eingehen auf die biblischen und andere Urkunden, die sich auf das Christentum beziehen, wieder darauf gekommen ist, daß diese Urkunden eigentlich gar nicht von dem reden können, wovon man so lange im neunzehnten Jahrhundert geglaubt hat, reden zu müssen. Man hat aus einer philologischen Ergründung der biblischen und anderen Urkunden das Leben des Jesus von Nazareth wieder konstruieren wollen, aber die Urkunden zeigten endlich den Leuten etwas ganz anderes. Es zeigte sich, während man versucht hat, mit aller wissenschaftlichen Gewissenhaftigkeit, mit allen auserlesenen Mitteln ein «Leben Jesu» zu konstruieren, daß diese biblischen Urkunden, die christlichen Dokumente da, wo man auf wirklich christlichem Boden steht, gar nicht von einem «Menschen» Jesus von Nazareth reden. So sehen wir, daß die äußere Forschung sagen mußte: Die Dokumente reden gar nicht von einem Menschen Jesus von Nazareth, sondern sie reden von einem Gotte. — Man hat die merkwürdige Anomalie in unserer Zeit vor sich, daß die materialistische Forschung behauptet: Ihr habt fehl geschlossen, wenn ihr glaubt, aus den christlichen Urkunden einen Hinweis zu haben auf den Menschen Jesus von Nazareth, viel mehr müßt ihr euch überzeugen, daß die Evangelien und die anderen Dokumente von einem Gotte reden, und daß alle die Dinge, die erzählt werden, nur Sinn und Bedeutung haben, wenn man von einem Gotte im Ausgangspunkte des Christentums spricht.
+erschienenen von William Benjamin Smith zu nehmen und Sie werden sehen, daß unsere Zeit durch ein genaues Eingehen auf die biblischen und andere Urkunden, die sich auf das Christentum beziehen, wieder darauf gekommen ist, daß diese Urkunden eigentlich gar nicht von dem reden können, wovon man so lange im neunzehnten Jahrhundert geglaubt hat, reden zu müssen. Man hat aus einer philologischen Ergründung der biblischen und anderen Urkunden das Leben des Jesus von Nazareth wieder konstruieren wollen, aber die Urkunden zeigten endlich den Leuten etwas ganz anderes. Es zeigte sich, während man versucht hat, mit aller wissenschaftlichen Gewissenhaftigkeit, mit allen aus-erlesenen Mitteln ein «Leben Jesu» zu konstruieren, daß diese biblischen Urkunden, die christlichen Dokumente da, wo man auf wirklich christlichem Boden steht, gar nicht von einem «Menschen» Jesus von Nazareth reden. So sehen wir, daß die äußere Forschung sagen mußte: Die Dokumente reden gar nicht von einem Menschen Jesus von Nazareth, sondern sie reden von einem Gotte. — Man hat die merkwürdige Anomalie in unserer Zeit vor sich, daß die materialistische Forschung behauptet: Ihr habt fehl geschlossen, wenn ihr glaubt, aus den christlichen Urkunden einen Hinweis zu haben auf den Menschen Jesus von Nazareth, viel mehr müßt ihr euch überzeugen, daß die Evangelien und die anderen Dokumente von einem Gotte reden, und daß alle die Dinge, die erzählt werden, nur Sinn und Bedeutung haben, wenn man von einem Gotte im Ausgangspunkte des Christentums spricht.
 
 Nun, ist das nicht etwas höchst Sonderbares? Unsere Zeit findet, wenn man von dem Jesus von Nazareth sprechen will, müsse man von einem Gotte sprechen! Aber es ist das dieselbe Zeit und dieselbe Forschungsrichtung, die in einem Gotte, das heißt in einem reinen Geistwesen, überhaupt
 
@@ -2709,7 +2711,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-will, daß man sagt: Die Welt der Farben ist nur da durch die Konstitution meines Auges. - Denn mein Auge wäre nicht da, wenn nicht das Licht zuerst mein Auge herausgezaubert hätte. Wenn es auf der einen Seite wahr ist, daß die Empfindungen des Lichtes durch die Konstitution des Auges bestimmt ist, so ist es auf der anderen Seite nicht weniger wahr, daß das Auge nur durch das Licht, durch die Sonne da ist. Beide Wahrheiten müssen sich zu einer umfänglichen Wahrheit verbinden- So ist es richtig, was schon Goethe gesagt hat: «Das Auge hat sein Dasein dem Licht zu danken. Aus gleichgültigen tierischen Hilfsorganen ruft sich das Licht ein Organ hervor, das seinesgleichen werde, und so bildet sich das Auge am Lichte fürs Licht, damit das innere Licht dem äußeren entgegentrete.» — Wie das Auge durch das Licht gebildet ist, wie die Wahrnehmung des Lichtes durch das Auge geschieht, so kommt das innere Christus-Erlebnis, die innere Wiedergeburt der Seele durch das Christus-Erlebnis der Menschheit, durch das Mysterium von Golgatha zustande. Die Geisteswissenschaft zeigt, daß, bevor der Christus-Impuls in die Menschheit eingetreten ist, dieses innere Erlebnis nur durch äußeren Anstoß in den Mysterien durchgemacht werden konnte und nicht intim, wie jetzt durch eine Art von Selbsteinweihung in dem Menschen selber. So ist es mit dem inneren mystischen Erleben des Christus ebenso, wie es für die Farben- und Lichtwelt mit dem Auge ist: Durch das Innere erlebt der Mensch den Christus. Daß er aber die Seele intim über sich selbst hinaussteigern kann, rührt davon her, daß die geistige Sonne, das Mysterium von Golgatha, in die Weltgeschichte eingetreten ist. - Ohne das objektive Mysterium von Golgatha und ohne den objektiven Christus kein subjektives inneres Erlebnis mystischer Art, wie es der Mensch im zwanzigsten Jahrhundert erleben wird und wie er es vollständig wissenschaftlich ernst nehmen wird.
+will, daß man sagt: Die Welt der Farben ist nur da durch die Konstitution meines Auges. - Denn mein Auge wäre nicht da, wenn nicht das Licht zuerst mein Auge herausgezaubert hätte. Wenn es auf der einen Seite wahr ist, daß die Empfindungen des Lichtes durch die Konstitution des Auges bestimmt ist, so ist es auf der anderen Seite nicht weniger wahr, daß das Auge nur durch das Licht, durch die Sonne da ist. Beide Wahrheiten müssen sich zu einer umfänglichen Wahrheit verbinden. So ist es richtig, was schon Goethe gesagt hat: «Das Auge hat sein Dasein dem Licht zu danken. Aus gleichgültigen tierischen Hilfsorganen ruft sich das Licht ein Organ hervor, das seinesgleichen werde, und so bildet sich das Auge am Lichte fürs Licht, damit das innere Licht dem äußeren entgegentrete.» — Wie das Auge durch das Licht gebildet ist, wie die Wahrnehmung des Lichtes durch das Auge geschieht, so kommt das innere Christus-Erlebnis, die innere Wiedergeburt der Seele durch das Christus-Erlebnis der Menschheit, durch das Mysterium von Golgatha zustande. Die Geisteswissenschaft zeigt, daß, bevor der Christus-Impuls in die Menschheit eingetreten ist, dieses innere Erlebnis nur durch äußeren Anstoß in den Mysterien durchgemacht werden konnte und nicht intim, wie jetzt durch eine Art von Selbsteinweihung in dem Menschen selber. So ist es mit dem inneren mystischen Erleben des Christus ebenso, wie es für die Farben- und Lichtwelt mit dem Auge ist: Durch das Innere erlebt der Mensch den Christus. Daß er aber die Seele intim über sich selbst hinaussteigern kann, rührt davon her, daß die geistige Sonne, das Mysterium von Golgatha, in die Weltgeschichte eingetreten ist. - Ohne das objektive Mysterium von Golgatha und ohne den objektiven Christus kein subjektives inneres Erlebnis mystischer Art, wie es der Mensch im zwanzigsten Jahrhundert erleben wird und wie er es vollständig wissenschaftlich ernst nehmen wird.
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -2760,7 +2762,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-gen herrühren. So türmen sich insbesondere dann Vorurteile auf, wenn man die großen Gesetze der Menschheitsgeschichte und desjenigen erforschen will, was sich als Kraft für die Gegenwart und als Hoffnung und als Ideale für die Zukunft ergeben soll. Und gar zu gern sieht man heute das Wesen des Menschen, wie es uns unmittelbar in der Gegenwart entgegentritt, als etwas an, das in einer gewissen Beziehung doch keine rechte innere Entwicklung durchgemacht haben könne, sondern das, insofern es das Wesen des Menschen ist, eigentlich immer so gewesen sei, wie es heute ist. Höchstens gibt man zu, daß der gegenwärtige Mensch in bezug auf das mehr natürlich Tierische seiner Entwicklung eine Entfaltung durchgemacht habe, die man entweder tatsächlich bis zu jenen Urmenschen zurückverfolgt, welche wir aus den vorzeitlichen Gräbern oder sonstigen Fundstätten herausgraben, und welche uns etwas unvollkommenere Gestalten des Menschen zeigen, als es die der Kulturmenschen der Gegenwart sind, die aber nur in bezug auf die äußere körperliche Gestaltung des Menschen solches zeigen. Oder man verfolgt hypothetisch, wie wir es aus dem Vortrage über den «Ursprung des Menschen» gesehen haben, die Abstammung des Menschen noch weiter zurück und glaubt in irgendeiner tierischen Form etwas zu haben, woraus sich der Mensch entwickelt haben könne. Daß im Grunde genommen eine wirklich sinnige Betrachtung schon der gewöhnlichen Geschichte uns zeigt, wie sich das Seelenleben der Menschen seit Jahrtausenden gar sehr verändert hat, darauf will man in der Gegenwart nur all zu wenig achten, und man würde nur schwer zugeben, daß drei, vier, fünf Jahrtausende vor unserer Zeitrechnung die ganze Seelenverfassung und Seelenstimmung des Menschen durchaus noch eine andere war als in der Gegenwart. Man möchte da nur ein Faktum zunächst erwähnen, welches gerade denen, die wissenschaftliche
+gen herrühren. So türmen sich insbesondere dann Vorurteile auf, wenn man die großen Gesetze der Menschheitsgeschichte und desjenigen erforschen will, was sich als Kraft für die Gegenwart und als Hoffnung und als Ideale für die Zukunft ergeben soll. Und gar zu gern sieht man heute das Wesen des Menschen, wie es uns unmittelbar in der Gegenwart entgegentritt, als etwas an, das in einer gewissen Beziehung doch keine rechte innere Entwicklung durchgemacht haben könne, sondern das, insofern es das Wesen des Menschen ist, eigentlich immer so gewesen sei, wie es heute ist. Höchstens gibt man zu, daß der gegenwärtige Mensch in bezug auf das mehr natürlich Tierische seiner Entwicklung eine Entfaltung durchgemacht habe, die man entweder tatsächlich bis zu jenen Urmenschen zurückverfolgt, welche wir aus den vorzeitlichen Gräbern oder sonstigen Fundstätten herausgraben, und welche uns etwas unvollkommenere Gestalten des Menschen zeigen, als es die der Kulturmenschen der Gegenwart sind, die aber nur in bezug auf die äußere körperliche Gestaltung des Menschen solches zeigen. Oder man verfolgt hypothetisch, wie wir es aus dem Vortrage über den «Ursprung des Menschen» gesehen haben, die Abstammung des Menschen noch weiter zurück und glaubt in irgendeiner tierischen Form etwas zu haben, woraus sich der Mensch entwickelt haben könne. Daß im Grunde genommen eine wirklich sinnige Betrachtung schon der gewöhnlichen Geschichte uns zeigt, wie sich das Seelenleben der Menschen seit Jahrtausenden gar sehr verändert hat, darauf will man in der Gegenwart nur all zu wenig achten, und man würde nur schwer zugeben, daß drei, vier, fünf Jahrtausende vor unserer Zeitrechnung die ganze Seelenverfassung und Seelenstimmung des Menschen durchaus noch eine andere war als in der Gegenwart. Man möchte da nur ein Faktum zunächst erwähnen, welches gerade denen, die wissenschaft-
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 318
 
@@ -2812,7 +2814,7 @@ wurden also in der geschichtlichen Entwickelung der Menschheit zu Bewußtseinsfo
 
 Nun zeigen uns nicht nur die Tatsachen der Geistesforschung — diese zeigen es klar —, sondern auch die äußeren Tatsachen der Menschheitsentwicklung, daß wir, je weiter wir zurückgehen, selbst in historischen und in auf historische Weise erforschbaren vorhistorischen Zeiten gewissermaßen zu einer anderen Art des Lebens der Menschenseele kommen, zu einer ganz anderen Art sich zu der Außenwelt zu verhalten. Solche Vorstellungen, wie wir sie gegenwärtig entwickeln, wie sie die Kinder in der Schule schon als verstandesmäßige lernen, durch die wir die Außenwelt spiegeln, finden wir bald nicht mehr, wenn wir über das griechisch-römische Zeitalter hinaus zurückgehen. Und nicht mit Unrecht haben die abendländischen Geschichtsphilosophen immer ihre Philosophiegeschichte damit begonnen, daß sie die Philosophie, das heißt das gedankenmäßige Nachdenken über die Welt, fünf bis sechs Jahrhunderte vor der christlichen Zeitrechnung in der griechischen Welt bei Thaies ihren Anfang nehmen ließen, weil sie erkannten, daß da überhaupt erst die Möglichkeit vorliegt, von einer verständigen, logischen Abspiegelung der Welt zu sprechen. Nur unsere Gegenwart hat es dahin gebracht, das zu durchbrechen, was in diesem Gefühl der Geschichtsschreiber liegt, die Philosophie überhaupt erst mit Thaies beginnen zu lassen. Heute, wo man alles über einen Leisten schlägt, will man auch die Philosophiegeschichte weit, weit im orientalischen Denken beginnen, bei den Indern oder Persern, gar nicht darauf achtend, daß alle menschlichen Seelenverfassungen, die Dinge zu erleben und anzuschauen, innerhalb der vorgriechischen Kulturen ganz andere waren, als es später von der griechischen Kultur ab geworden ist. Es ge
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 325
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -3013,11 +3015,11 @@ Wenn man sich in das vertieft, was Aristoteles geleistet hat, was uns in den umf
 
 Wenn man Aristoteles studiert, so findet man überall von ihm in seiner logischen, rein vernunftgemäßen Art dasjenige verarbeitet und in Ideen gebracht, von dem man doch sagen muß: Aristoteles habe es aus den alten Zeiten übernommen. Würde man sich auf das allein berufen wollen, was die menschliche Vernunft in Aristoteles hätte einsehen können, so würde man keineswegs finden, daß die Ideen der menschlichen Vernunft alles umfassen würden, was wir in den Lehren des Aristoteles vor unser Auge treten sehen. Da finden wir bei ihm durchaus eine Weltanschauung, welche das Weltall, ja, welche alle Natur bis in die weitesten Sternenräume hinaus beseelt, durchgeistigt sein läßt. Wir finden bei
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 350
 
 ---
 
-ihm klar ausgesprochen, daß nicht nur der menschliche physische Leib, sondern auch das, was wir das Geistig-Seelische des Menschen zu nennen haben, heraus geboren sind aus dem Weltall, daß beide darin urständen, wenn wir uns dieses Ausdruckes bedienen dürfen. Der menschliche Leib aus dem Grunde, weil im Weltall ausgebreitet ist, was man Materie oder Stoff mit ihren Gesetzen nennen kann. Das Geistig-Seelische aber ist bei Aristoteles aus dem Weltall heraus entsprungen, weil er sich dieses Weltall selber durchgeistigt, durchseelt denkt. Was wir in den Sternen erblicken, das ist für Aristoteles nicht etwa bloß eine Stoffanhäufung, sondern in jedem Sterne sieht er zugleich den Ausdruck, die materielle Verkörperung eines Seelenwesens, und der Gang eines Sternes durch das Weltall ist für Aristoteles nicht das Ergebnis bloßer mechanischer oder physikalischer Kräfte, sondern der Ausdruck des Willens des Sternengeistes oder der Sternenseele. Und wenn man tiefer auf das eingeht, was er dann im einzelnen sagt, so findet man überall etwas ganz Eigentümliches durchleuchtend. Durch seine rein logischen, man möchte sagen abstrakten Auseinandersetzungen findet man durchleuchten, um es kurz zu sagen, was als ein altes Wissen, als eine alte Erkenntnis noch den Griechen überliefert war, und was Aristoteles in Vernunftform, in Verstandesideen brachte. Und man kann den Aristoteles nicht anders wirklich verstehen, als wenn man das zugrunde legt, was hier beim letzten Vortrage gesagt worden ist: Es ist der ganze Gang der menschlichen Entwicklung ein solcher, daß die Menschheit von einem ganz anderen Bewußtsein ausgegangen ist, als jenes, welches wir in der Gegenwart und welches man seit der Morgenröte der neueren Zeit das normale menschliche Bewußtsein nennen kann, das vorzugsweise auf den Intellekt, auf die Vernunft hin organisiert ist. - So war es nicht in den alten Zeiten. In den alten Zeiten
+ihm klar ausgesprochen, daß nicht nur der menschliche physische Leib, sondern auch das, was wir das Geistig-Seelische des Menschen zu nennen haben, heraus geboren sind aus dem Weltall, daß beide darin urständen, wenn wir uns dieses Ausdruckes bedienen dürfen. Der menschliche Leib aus dem Grunde, weil im Weltall ausgebreitet ist, was man Materie oder Stoff mit ihren Gesetzen nennen kann. Das Geistig-Seelische aber ist bei Aristoteles aus dem Weltall heraus entsprungen, weil er sich dieses Weltall selbst durchgeistigt, durchseelt denkt. Was wir in den Sternen erblicken, das ist für Aristoteles nicht etwa bloß eine Stoffanhäufung, sondern in jedem Sterne sieht er zugleich den Ausdruck, die materielle Verkörperung eines Seelenwesens, und der Gang eines Sternes durch das Weltall ist für Aristoteles nicht das Ergebnis bloßer mechanischer oder physikalischer Kräfte, sondern der Ausdruck des Willens des Sternengeistes oder der Sternenseele. Und wenn man tiefer auf das eingeht, was er dann im einzelnen sagt, so findet man überall etwas ganz Eigentümliches durchleuchtend. Durch seine rein logischen, man möchte sagen abstrakten Auseinandersetzungen findet man durchleuchten, um es kurz zu sagen, was als ein altes Wissen, als eine alte Erkenntnis noch den Griechen überliefert war, und was Aristoteles in Vernunftform, in Verstandesideen brachte. Und man kann den Aristoteles nicht anders wirklich verstehen, als wenn man das zugrunde legt, was hier beim letzten Vortrage gesagt worden ist: Es ist der ganze Gang der menschlichen Entwicklung ein solcher, daß die Menschheit von einem ganz anderen Bewußtsein ausgegangen ist, als jenes, welches wir in der Gegenwart und welches man seit der Morgenröte der neueren Zeit das normale menschliche Bewußtsein nennen kann, das vorzugsweise auf den Intellekt, auf die Vernunft hin organisiert ist. - So war es nicht in den alten Zeiten. In den alten Zeiten
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -3691,7 +3693,7 @@ es ihnen nicht an den Kragen. Und wer hinterher dann wieder seinen Gemütsstimmu
 
 Dagegen wird der Wille immer nach der egoistischen, selbstsüchtigen Seite entwickelt, wenn der Mensch diesen Willen von der intellektuellen Kultur aus trainieren, vom Intellekt aus seinen Willen stark und kräftig für das Leben machen will. Solche Übungen taugen unmittelbar für unsere Erkenntniskultur, für das, was wir auf spirituellem oder später sogar auf psychischem Gebiete erreichen wollen. Da können wir dann allerdings nichts anderes tun, als innerhalb unserer Seele an uns selbst zu arbeiten. Dabei ist es von ganz besonderer Wichtigkeit, daß der Mensch vor allen Dingen wieder einen großen Gegensatz in Erwägung hält, der zwischen der Selbstkultur des Innenlebens und der Selbstkultur des äußeren Lebens besteht. Sowohl in bezug auf das erstere wie auf das letztere werden im Leben Fehler über Fehler gemacht, und wir sehen Einseitigkeiten über Einseitigkeiten arbeiten. Der Leib des Menschen - was wird ihm nicht alles empfohlen? Es ist vielleicht seltener geworden, aber es gibt auch heute noch Leute, die besonders stark sich einhüllen und sagen, auch vor Hitze schütze Einhüllen. Das andere ist ja weit verbreiteter, daß man ein einseitiges Abhärtungssystem empfiehlt, wenig sich gegen Kälte und die Unbilden der Witterung zu schützen, dagegen sich viel Luft- und Sonnenkuren auszusetzen sucht. Das ist nicht das Wesentliche, daß der Mensch zu diesem oder jenem Zwecke, der ihm gewöhnlich höchst unklar ist, so und so lange sich
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 437
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -3705,7 +3707,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 Leben wird, er wird aber auch zeigen, daß er an das Leben mit einer gewissen Disharmonie herantritt. Und weil in unserer Zeit so wenig der Glaube an die Konzentration des Geistes vorhanden ist und daher auch so wenig gesucht wird, kommen daher auch so viele andere Übel, die als Mängel der Selbsterziehung auftreten, vor allen Dingen das, was man heute gewöhnlich Nervosität nennt. Während man den Willen schult, indem man seine Muskeln in Wechselspiel mit dem äußeren Leben treten läßt, hat man sein Nervensystem durch geistige Konzentration zu schulen. Kurz, alles, was von innen heraus wirkt und sich zuletzt im Nervensystem ausprägt, das wird durch die als Ziel gesteckte Zurückführung unseres Lebens auf einzelne Ideen, durch die Erinnerung gefördert. Die Pflege des Nervensystems und dessen, was ihm im Geistigen zugrunde liegt, ist notwendig, wenn sich der Mensch innerlich gefestigt dem Leben gegenüberstellen will.
 
-Wenn wir über diese Fragen sprechen, kann sich uns eine neuere, materialistische Anschauung in dieser Beziehung aufdrängen, wenn auch die ältere vom Standpunkte der modernen Humanität vielfach angefochten werden kann. Man verwechselt da gewöhnlich zwei Dinge. Nervös kann der Mensch sein nicht durch Erziehung seines Willens, sondern durch falsche Erziehung seines Willens. Die Willenskultur kann zur Nervosität führen, indem der Mensch sie auf verkehrtem Wege sucht, wenn er, anstatt mit der Außenwelt in Verbindung zu kommen und an ihren Hindernissen und Hemmnissen seinen Willen sthält, durch allerlei innere Mittel dazu kommen will, die nur im Vorstellungsleben wirken. Dadurch kann er leicht zur Nervosität des Willens kommen. Diese Nervosität wird heute schon so aufgefaßt, daß sie recht nachsichtig behandelt werden müsse. Carneri erzählt dazu einen interessanten Fall. Da gab es einst einen
+Wenn wir über diese Fragen sprechen, kann sich uns eine neuere, materialistische Anschauung in dieser Beziehung aufdrängen, wenn auch die ältere vom Standpunkte der modernen Humanität vielfach angefochten werden kann. Man verwechselt da gewöhnlich zwei Dinge. Nervös kann der Mensch sein nicht durch Erziehung seines Willens, sondern durch falsche Erziehung seines Willens. Die Willenskultur kann zur Nervosität führen, indem der Mensch sie auf verkehrtem Wege sucht, wenn er, anstatt mit der Außenwelt in Verbindung zu kommen und an ihren Hindernissen und Hemmnissen seinen Willen stahlt, durch allerlei innere Mittel dazu kommen will, die nur im Vorstellungsleben wirken. Dadurch kann er leicht zur Nervosität des Willens kommen. Diese Nervosität wird heute schon so aufgefaßt, daß sie recht nachsichtig behandelt werden müsse. Carneri erzählt dazu einen interessanten Fall. Da gab es einst einen
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
@@ -3853,7 +3855,7 @@ heitlichen Ich-Punkt beziehen, oder ob wir unsere vergangenen Vorstellungen, Gem
 
 Ein jeder Mensch, der sich zurückerinnert, der unbefangen diese Rückerinnerung wirklich betreibt, wird sich sagen: Innerhalb des Lebens habe ich meine Erlebnisse nicht nur so erfahren, daß ich sie auf mein Ich beziehen kann, sondern es ist unleugbar, daß ich sie durch das, was ich in mir selbst erlebt habe, abgesehen von den äußeren Erfahrungen, verarbeitet habe. Ich bin reicher geworden an meinen inneren Erlebnissen. - Wer diese Tatsache der Lebensreife erlebt, die im Innern sich heranzüchtet, und sich ein Bewußtsein für die Steigerung der Lebensverhältnisse erwirbt, der weiß, daß dies von keiner äußeren Realität kommen kann, sondern nur von etwas, was in uns arbeitet. Und wer dann das gesamte Leben überblickt, wird sich klar machen, was auch schon in dem Zusammenhange dieser Vorträge erwähnt worden ist, daß er den Schlaf braucht, um wirklich zu dieser Lebenssteigerung, zu dieser inneren Entwicklung zu kommen. Wir wissen ganz genau, wenn wir unser Seelenleben
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 457
 
 ---
 
@@ -4149,7 +4151,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:61 Seite:494
 
 ähnlicher Beispiele anführen zum Belege dessen, was gesagt werden soll -, wie sich überall, ob nun die Menschen, die sich denkerisch betätigen, darwinistisch sind oder nicht, der bloße Glaube geltend macht an das Maßgebliche der äußeren Sinnestatsachen und jener Wissenschaft, welche sich auf diese äußeren Sinnestatsachen begründet. Wir brauchen uns auch darüber nicht zu wundern, daß die Ergebnisse Darwins in einer materialistisch-monistischen Weise ausgedeutet wurden. Nicht die Ergebnisse Darwins selbst zwingen zu dieser Ausdeutung, sondern die Gewohnheiten des Denkens in der zweiten Hälfte des neunzehnten Jahrhunderts. Und man darf sagen: Wenn es möglich gewesen wäre, daß Darwin mit seiner Forschung in ein anderes Zeitalter hineingefallen wäre, so wäre es auch denkbar, daß dieselben Resultate Darwins in einem ideell-spirituellen Sinne ausgedeutet worden wären, wie wir es ja bei Goethe antreffen, daß der schaffende, waltende Geist sich der Umwandlung der Formen bediene, um das Mannigfaltige der Erscheinungen aus wenigen Grundformen hervorgehen zu lassen. - Dies ist die eigentümliche Tatsache, die sich uns aus allen diesen Betrachtungen mit einer inneren Notwendigkeit ergeben muß, daß das Zeitalter, welches eben abgelaufen ist, der Menschheit die Vertiefung in die äußeren Sinnestatsachen, in die äußere Sinneswissenschaft bringen mußte, daß eine Weile die Menschheit davon absehen mußte, sozusagen ihre Aufmerksamkeit ablenken mußte von alledem, was den Blick in die geistigen, in die übersinnlichen Welten hinaufwenden läßt, damit das ganze Gewebe der sinnlichen Tatsachen, das Gewebe dessen, was in der äußeren physischen Welt geschieht, einmal auf die menschliche Seele wirken könne. So sehen wir im Gesamtgange der Menschheitsentwicklung gleichsam die Notwendigkeit der materialistisch-monistischen Denkweise, sehen, wie das neunzehnte Jahrhundert
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 495
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
@@ -4177,7 +4179,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-Pforte des Todes geht, wie durch die Sinneswelt eine geistige Welt durchblickt, die für eine übersinnliche Erkenntnis ebenso wirklich ist wie die Sinneswelt für die Sinneserkennnis. Wenn er so seinen geistig-seelischen Wesenskern wirksam weiß, und wenn er weiß, daß dieser sich aus der geistigen Welt die Kräfte und Impulse holt, um sich ein neues Leben und eine neue Erdenverkörperung zu zimmern, dann kann er sich auch leicht zu derjenigen Erkenntnis aufschwingen, welche die Anschauungen über die Menschennatur, über die wahre menschliche Wesenheit sozusagen verbindet mit Moral-Ideen, welche die Anschauungen über die geistig-seelische Wesenheit des Menschen mit dem zusammenbringt, was der Mensch braucht als Kraft für das Leben, als Kraft zur Arbeit, als Trost im Leben, als Sicherheit im Leben und so weiter. Und alle die Fragen, ob der Mensch mit denjenigen, die ihm auf Erden lieb geworden sind, ein Wiedersehen feiern wird, beantworten sich in einer ganz sachgemäßen Weise mit einem «Ja» - weiter ist dies ausgeführt in meiner «GeheimWissenschaft im Umriß» -, indem gezeigt wird, daß der Mensch mit seiner wahren Wesenheit nicht nur im physischen Leibe erkennend und handelnd lebt, sondern auch entkörpert leben kann, wo dann alles, was er im physischen Leben begründet hat, im Geistigen weiterlebt und die Grundlagen für eine neue Verkörperung bildet. Jene Beziehungen von Mensch zu Mensch, wie wir sie hier erleben, spielen in der geistigen Welt weiter und bilden geradezu den Ausgangspunkt für unsere nächste Verkörperung, so daß wir mit denselben Menschen zusammenkommen, deren Verbindung sich uns ergibt, wenn wir leibbefreit sind, indem wir uns zu ihnen hingezogen fühlen, und uns die Kräfte aneignen, um in einer neuen Verkörperung wieder mit ihnen zusammenkommen zu können.
+Pforte des Todes geht, wie durch die Sinneswelt eine geistige Welt durchblickt, die für eine übersinnliche Erkenntnis ebenso wirklich ist wie die Sinneswelt für die Sinneserkenntnis. Wenn er so seinen geistig-seelischen Wesenskern wirksam weiß, und wenn er weiß, daß dieser sich aus der geistigen Welt die Kräfte und Impulse holt, um sich ein neues Leben und eine neue Erdenverkörperung zu zimmern, dann kann er sich auch leicht zu derjenigen Erkenntnis aufschwingen, welche die Anschauungen über die Menschennatur, über die wahre menschliche Wesenheit sozusagen verbindet mit Moral-Ideen, welche die Anschauungen über die geistig-seelische Wesenheit des Menschen mit dem zusammenbringt, was der Mensch braucht als Kraft für das Leben, als Kraft zur Arbeit, als Trost im Leben, als Sicherheit im Leben und so weiter. Und alle die Fragen, ob der Mensch mit denjenigen, die ihm auf Erden lieb geworden sind, ein Wiedersehen feiern wird, beantworten sich in einer ganz sachgemäßen Weise mit einem «Ja» - weiter ist dies ausgeführt in meiner «GeheimWissenschaft im Umriß» -, indem gezeigt wird, daß der Mensch mit seiner wahren Wesenheit nicht nur im physischen Leibe erkennend und handelnd lebt, sondern auch entkörpert leben kann, wo dann alles, was er im physischen Leben begründet hat, im Geistigen weiterlebt und die Grundlagen für eine neue Verkörperung bildet. Jene Beziehungen von Mensch zu Mensch, wie wir sie hier erleben, spielen in der geistigen Welt weiter und bilden geradezu den Ausgangspunkt für unsere nächste Verkörperung, so daß wir mit denselben Menschen zusammenkommen, deren Verbindung sich uns ergibt, wenn wir leibbefreit sind, indem wir uns zu ihnen hingezogen fühlen, und uns die Kräfte aneignen, um in einer neuen Verkörperung wieder mit ihnen zusammenkommen zu können.
 
 So wird der Mensch durch die Geistesforschung in die
 
@@ -4229,7 +4231,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 
 ---
 
-wenn wir durch die Pforte des Todes schreiten - zu neuen Gestaltungen hinschreitet, um aus dem Geiste heraus ein neues Dasein zu schaffen im Laufe jener Ewigkeit, die wir im letzten Vortrage besprochen haben. Jetzt sehen wir, wie sozusagen in Graf Gobineau ein kühner, energischer, ein genialer Denker aus einer verflossenen Zeit hereinragt, der den Gedanken zu Ende denkt, was aus der Menschheit werden muß, wenn der Blick nur auf das Äußere gerichtet ist. So sehen wir, wie die Menschheit, nachdem sie zu diesen Konsequenzen gekommen ist, in einem anderen Gedanken dasjenige braucht, was das Werdende so erkraftet, daß das Ewige in ihm erkannt wird, welches das Wesentliche in andere Daseinsformen hinüberträgt, auch wenn das äußere Hüllenhafte von dem Wesentlichen abfällt und tatsächlich den Gang einschlägt, den Graf Gobineau vorgezeichnet hat. Alle Kraft entwickelt sich durch Besiegung der Gegenkräfte. Graf Gobineau hatte sozusagen noch aus seinem persönlichen Glauben an den eigenen Ursprung die Erfüllung seines Denkens mit einem Göttlich-Geistigen. Der Darwinismus hat endlich aus allen Anschauungen über den menschlichen Ursprung und über den geistigen Ursprung der Organismen das herausgetrieben, was nicht-sinnenfällige Tatsachen sind, er hat den Blick des Menschen nur auf die Sinnestatsachen hingelenkt und auf das, was aus den Sinnestatsachen mit dem Instrument des Gehirnes gewonnen werden kann. Aus der Gegenkraft, die sich aus dem bloßen Hinschauen des landläufigen Darwinismus auf die nur äußere Tatsachenwelt entwickelt, wird sich die Sehnsucht der Menschenherzen nach der übersinnlichen Welt entzünden, und weil unsere Zeit die Morgenröte dieser Sehnsucht schon erblickt, die als Gegenkraft gegen den landläufigen Darwinismus ersteht, kommt sie ihr entgegen und wirkt in den Gemütern der Menschen. Immer größer und größer wird die
+wenn wir durch die Pforte des Todes schreiten - zu neuen Gestaltungen hinschreet, um aus dem Geiste heraus ein neues Dasein zu schaffen im Laufe jener Ewigkeit, die wir im letzten Vortrage besprochen haben. Jetzt sehen wir, wie sozusagen in Graf Gobineau ein kühner, energischer, ein genialer Denker aus einer verflossenen Zeit hereinragt, der den Gedanken zu Ende denkt, was aus der Menschheit werden muß, wenn der Blick nur auf das Äußere gerichtet ist. So sehen wir, wie die Menschheit, nachdem sie zu diesen Konsequenzen gekommen ist, in einem anderen Gedanken dasjenige braucht, was das Werdende so erkraftet, daß das Ewige in ihm erkannt wird, welches das Wesentliche in andere Daseinsformen hinüberträgt, auch wenn das äußere Hüllenhafte von dem Wesentlichen abfällt und tatsächlich den Gang einschlägt, den Graf Gobineau vorgezeichnet hat. Alle Kraft entwickelt sich durch Besiegung der Gegenkräfte. Graf Gobineau hatte sozusagen noch aus seinem persönlichen Glauben an den eigenen Ursprung die Erfüllung seines Denkens mit einem Göttlich-Geistigen. Der Darwinismus hat endlich aus allen Anschauungen über den menschlichen Ursprung und über den geistigen Ursprung der Organismen das herausgetrieben, was nicht-sinnenfällige Tatsachen sind, er hat den Blick des Menschen nur auf die Sinnestatsachen hingelenkt und auf das, was aus den Sinnestatsachen mit dem Instrument des Gehirnes gewonnen werden kann. Aus der Gegenkraft, die sich aus dem bloßen Hinschauen des landläufigen Darwinismus auf die nur äußere Tatsachenwelt entwickelt, wird sich die Sehnsucht der Menschenherzen nach der übersinnlichen Welt entzünden, und weil unsere Zeit die Morgenröte dieser Sehnsucht schon erblickt, die als Gegenkraft gegen den landläufigen Darwinismus ersteht, kommt sie ihr entgegen und wirkt in den Gemütern der Menschen. Immer größer und größer wird die
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 506
 
@@ -4299,611 +4301,3 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
 darf gesagt werden, daß in dem Vortragenden die Gesinnung waltet: Es möge die Geisteswissenschaft wirklich ihr Ziel finden und ihre Aufgabe lösen in der Art, daß sie nicht eine bloße Theorie, eine bloße Summe von Gedanken bleibt, sondern daß sie, was schon öfter charakterisiert worden ist, ein Lebenselixier werde, das im Menschen schaffend bleibt und wirkt, indem es nicht bloß in der Erkenntnis der äußeren Schale wirkt, sondern vor allem im Innern wirksam ist, daß der Mensch erkenne, ob er Kern oder Schale sei, damit aus einem starken Wollen der Impuls hervorgehe, nicht Schale zu bleiben, sondern immerdar Kern zu sein und Kern zu werden.
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 513
-
----
-
-# HINWEISE
-
-Textunterlagen: Die Vorträge wurden mitstenographiert von Walther Vegelahn, von Franz Seiler und Clara Michels. Dem Druck wurde die Übertragung in Klartext von Vegelahn zugrundegelegt, die in einigen Fällen aus den Mitschriften von Seiler und Michels ergänzt wurde. Originalstenogramme sind keine vorhanden.
-
-Die Titel der einzelnen Vorträge wurden von Rudolf Steiner selbst bestimmt. Dem Titel des Bandes wurde von den Herausgebern der Titel des XL Vortrages zugrundegelegt.
-
-Da Rudolf Steiner zur Zeit dieser Vorträge noch innerhalb der Theosophischen Gesellschaft stand, gebrauchte er die Bezeichnungen «Theosophie» und «theosophisch», verstand sie jedoch von Anfang an immer im Sinne seiner anthroposophisch orientierten Geisteswissenschaft (Anthroposophie). Aufgrund seiner späteren Angabe wurde sie an den sachlich in Betracht kommenden Stellen durch «Geisteswissenschaft» oder «Anthroposophie» ersetzt.
-
-## Veröffentlichungen in Zeitschriften
-
-Die Vorträge VII und X erschienen in der Stuttgarter Monatsschrift «Die Drei», 6. Jg. 1926/27, Heft 2 und 3.
-
-Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen mit der Bibliographie-Nummer angegeben. Siehe auch die Übersicht am Schluß des Bandes.
-
-2u Seite
-
-14 Karl, Freiherr von Rokitansky: Professor der pathologischen Anatomie in Wien. Die vorangehenden Gedanken, welche nicht im genauen Wortlaut wiedergegeben sind, äußerte Hof rat Prof. K. v. Rokitansky am 31. Mai 1867 am Ende von zwei Vorträgen (S. 42 ff.) über «Der selbständige Wert des Wissens». Siehe «Die feierliche Sitzung der kaiserl. Akademie der Künste, Wien»; R. war Vice-Präsident der Akademie.
-
-16 Max Planck: «Physikalische Rundblicke.» Gesammelte Reden und Aufsätze von Max Planck. «Die Stellung der neueren Physik zur mechanischen Naturanschauung.» Vortrag, gehalten am 23. September 1910 auf der 82. Versammlung Deutscher Naturforscher und Ärzte in Königsberg. Leipzig 1922.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 514
-
----
-
-37 Jacques Loeb: Physiologe, Professor am Rockefeller-Institut, New York.
-1. Monisten-Kongreß: Hamburg, 8.-11. September 1911, siehe «Der Monismus», VI. Jahrgang, Nr. 64. - Der Vortrag «Das Leben» wurde am Sonntag, 10. September 1911, in Konventgarten gehalten. - Loeb verfaßte ein Selbstreferat für die genannte Zeitschrift.
-
-40 Ottokar Lorenz: Siehe Rudolf Steiner «Briefe I», GA Bibl.-Nr. 38.
-
-46 den Gedanken ausgesprochen: «Über die Grenzen des Naturerkennens», Leipzig, 14. August 1872,5. Aufl. Leipzig 1882. —Siehe «Luzifer-Gnosis. Gesammelte Aufsätze 1903-1908», S. 94, GA Bibl.-Nr. 34,1960.
-
-58 in einem sehr schönen Aufsatz: Goethe, «Hymnus an die Natur».
-
-60 Zitat: Zahme Xenien IV, in: Gedichte 3. Band (1), S. 312 Sophien-Ausgabe.
-
-62 Shakespeare: Hamlet«Prinz von Dänemark», 1. Akt, 5. Szene.
-
-86 Berliner Arzt: Wilhelm Fließ, Begründer der Periodenlehre.
-
-102 So sind seine Worte: Zitiert nach «Theophrastus Paracelsus. Das Wissenswerteste über dessen Leben, Lehre und Schriften». P. Raymund Netzhammer, O. S. B; S. 85. 1901 Verlagsanstalt Benziger &amp; Co. AG.
-
-103 sein Wahlspruch: «Alterius non sit, qui suus esse potest», findet sich über den ältesten Bildern. Siehe Hinweis zu S. 102, ebenda Seite 56.
-
-104 um mit Goethe zu sprechen: Parabase.
-
-105 sein «Buch»: Siehe Hinweis zu S. 102, Seite 45.
-
-106 seine stolzen Worte: Ebenda Seite 66, «Paragranum».
-
-107 sagte er von sich: Nicht wörtlich zitiert. Siehe Hinweis zu S. 102, ebenda Seite 32 f.
-
-112 sein schöner Ausspruch: Vegl. «Von Ursprung und Herkommen der Franzosen samt der Rezepten und Heilung», VII. Buch, 5. Kapitel. Sämtl. Werke, Sudhoff, VII. Band Otto Wilh. Barth-Verlag, München 1923.
-
-118 «Habe nun, acht. . .»: «Faust» I, Studierzimmer. «Erhabner Geist,. . .»: «Faust» I, Wald und Höhle
-
-119 «Die Nacht. . .»: «Faust» II, 5. Akt: Mitternacht.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 515
-
----
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 516
-
-123 «Geheimnisvoll am lichten Tag . . .»: «Faust» I, Nacht: Faust zu Wagner.
-
-124 «Wer will. . .»: «Faust» I, Studierzimmer; Mephistopheles.
-
-133 Carl Albrecht Bernoulli: «Overbeck und Nietzsche. Eine Freundschaft», 1908.
-
-136 Eine Bäuerin träumte . . .: Siehe F. Th. Vischer «Altes und Neues», 1. Heft «Der Traum», Stuttgart 1881- 1882, S. 203.
-
-144 Eduard von Hartmann: Siehe: «Phänomenologie des sittlichen Bewußtseins», 2. Abt. C. «Der Urgrund der Sittlichkeit, IV. Das Moralprinzip der Erlösung».
-
-151 was etwa Goethe darunter versteht. . .: Siehe z. B. «Goethes Naturwissenschaftliche Schriften», herausgegeben und kommentiert von Rudolf Steiner in Kürschners «Deutsche National-Litteratur» (1883-97), 5 Bände, Nachdruck Dornach 1975, GA Bibl.-Nr. 1 a-e, 2. Band. Ernst Stiedenroth: Psychologie, S. 23 f., oder Sophien-Ausgabe, Weimar 1891, 6. Band «Zur Morphologie. Verfolg», S. 361: «Poetische Metamorphosen».
-
-154 «Geheimnisvoll. . .»: Siehe Hinweis zu Seite 123.
-
-161 Albrecht von Haller: In dem Lehrgedicht «Die Falschheit der menschlichen Tugenden», 1730.
-
-162 «Müsset im Naturbetrachten . . .»: Gedicht «Epirrhema».
-
-166 eine kleine Abhandlung: Hamerlings sämtliche Werke, 16. Band, Leipzig, Hesse &amp; Becker Verlag.
-
-172 eine sehr schöne Erzählung: Jean Pauls ausgewählte Werke in acht Bänden, mit einer Einleitung von R. Steiner, Stuttgart und Berlin, J. G. Cotta'sche Buchhandlung Nachfolger, 1897 (Dritter Band).
-
-178 Aristoteles: Die zwei ersten Bücher der Ethik. 1. Buch, 8. Kap., hersg. v. Christian Garve, Breslau 1798, S. 489-493.
-
-der Goetheseben Worte: «Seefahrt», Schlußverse.
-
-«Geheimnisvoll. . .»: Siehe Hinweise zu S. 123.
-
-auf einer deutschen Naturforscherversammlung: 1863 in Stettin, siehe auch S. 486 (Haeckel).
-
-Julius Kollmann: Anatom.
-
----
-
-232 Hermann Klaatsch, Mediziner und Anthropologe.
-KarlSnell, Mathematiker.
-
-255 Gustav Theodor Fechner: «Ideen zur Schöpfungs- und Entwicklungsgeschichte der Organismen», Leipzig 1873.
-
-256 Wilhelm Preyer: Siehe «Methodische Grundlagen der Anthroposophie, Gesammelte Aufsätze 1884-1901», GA Bibl.-Nr. 30, 1961, S. 346, Nachruf für W. Preyer.
-
-257/58 Darwin: Siehe «Über die Entstehung der Arten durch natürliche Zuchtwahl oder die Erhaltung der begünstigten Rasse im Kampfe ums Dasein». Stuttgart 1876. Schlußbemerkung: «Es ist wahrlich eine großartige Ansicht, daß der Schöpfer den Keim alles Lebens, das uns umgibt, nur wenigen oder nur einer einzigen Form eingehaucht hat.»
-
-258 «. . . der Schöpfer ihnen einstmals das Leben eingegossen habe»: Siehe «Über die Entstehung der Arten im Tier- und Pflanzenreich durch natürliche Züchtung oder Erhaltung der vervollkommneten Rassen im Kampfe ums Dasein»: «Ich halte dafür, daß alle organischen Wesen, die je auf dieser Erde gelebt haben, von einer Urform abstammen, welcher das Leben vom Schöpfer eingehaucht wurde.» - 1859.
-
-259 Jean Baptiste Lamarck: Siehe «Philosophie zoologique», Kröners Volksausgabe (o. J.), Drittes Kapitel «Über den Begriff der Art bei den Organismen», S. 21 und Zusätze zum siebenten und achten Kapitel, S. 95.
-
-261 Der heilige Isidor: Erzbischof von Sevilla, der letzte abendländische Kirchenvater.
-
-264 Svante Arrhenius: «Das Weltall». Vortrag gehalten auf dem Ersten Monaten-Kongreß zu Hamburg am 9. Sept. 1911; Leipzig 1911, Kröner.
-
-282 Emil Selenka: Zoologe.
-Oscar Hertwig: Anatom. «Der Kampf um Kernfragen der Entwicklungs- und Vererbungslehre», Jena 1909, S. 111.
-Richard Hertwig: Zoologe.
-
-283 wie Goethe sagt. . .: Siehe z. B. «Winkelmann und sein Jahrhundert», Antikes; Sophien-Ausgabe Band 46, S. 22.
-
-294/95 Adolf Harnack: «Das Wesen des Christentums», sechzehn Vorlesungen an der Universität Berlin, Leipzig 1910.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 517
-
----
-
-296 William Benjamin Smith: «Der vorchristliche Jesus. Vorstudien zur Entstehungsgeschichte des Urchristentums». Jena 1911. «Ecce Deus. Die urchristliche Lehre des reingöttlichen Jesu». Jena 1911. «Ist <der ins="" er="" vorchristliche="" Jesus=""> widerlegt? Eine Auseinandersetzung mit Weinel.» In Arthur Drews «Die Christusmythe», Teil 2., Jena 1911.
-
-313 Goethe: «Entwurf einer Farbenlehre, Einleitung». Siehe Hinweis zu S. 151
-
-314 Goethesche Ausspruch: «Die Geheimnisse, ein Fragment».
-
-317 Herder: Siehe «Ideen zur Philosophie der Geschichte der Menschheit», 4 Bände, Riga 1784-91.
-
-323 Friedmannsche Blutforschung: Siehe «Die Konvergenz der Organismen. Eine empirisch begründete Theorie als Ersatz für die Abstammungslehre», Berlin 1904; bes. 10. Kapitel: «Über die Urgeschichte der Säugetiere, insbesondere des Menschen».
-
-326 Paul Deußen, Philosoph und Indologe: «Allgemeine Geschichte der Philosophie»
-
-336 von dieser intellektuellen Kultur: Robert Hamerling, «Die Atomistik des Willens», Beiträge zur Kritik der modernen Erkenntnis. Zweiter Band: «Das Problem der Gesittung». - Hamburg 1891.
-
-341 Robert Hamerling: Siehe Hinweis zu Seite 336.
-
-345 Das sagt der Dichter: Siehe Hinweis zu Seite 336.
-
-357 Franz Brentano: Im Kapitel: «Das Diesseits als Vorbereitung für ein allbeseligendes und jedem gerecht vergeltendes Jenseits».
-
-367 f. Isaac Newton: «Observations upon the Prophecies of Daniel and the Apocalypse of St. John», London 1753.
-
-368 Giordano Bruno: «Vom Unendlichen, dem All und den Welten», hrsg. v. L. Kuhlenbeck, Jena 1904, S. 81.
-
-369 Leibniz: Siehe «Monadologie», 1714.
-
-376 Foucaultsche Pendelbeweis: Leon Foucault.
-
-378 «Die Prüfung der Seele»: In «Vier Mysteriendramen», 1910-13, GA Bibl.-Nr. 14
-
-379 Tolstoi: Vergl. «Über die Wissenschaft». Heidelberg/Leipzig 1910.
-
-382 Metschnikoff: Ilja Metschnikoff, Professor der Zoologie.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 518</der>
-
----
-
-Thomas Henry Huxley&gt; «Grundzüge der Physiologie» neu bearbeitet von Dr. I. Rosenthal, Professor an der Universität in Erlangen, Hamburg/Leipzig 1910. - Erste Vorlesung: «Allgemeine Übersicht über den Bau und die Verrichtungen des menschlichen Körpers», S. 20-23.
-
-Goethe-Wort: Siehe Hinweis zu Seite 58.
-
-Trine: «In Harmonie mit dem Unendlichen»: Autor. Übersetzung von Max Christlieb. Stuttgart 1906.
-
-Carneri: Siehe «Methodische Grundlagen der Anthroposophie, Gesammelte Aufsätze 1884-1901», S. 452, GA Bibl.-Nr. 30.
-
-das Wort Arthur Schopenhauers: In Band VII, Sämtliche Werke in XII Bänden, mit Einleitung von Dr. Rudolf Steiner «Die beiden Grundprobleme der Ethik», Kapitel «Metaphysische Grundlage», Stuttgart 1894.
-
-Wort Lessings: «Die Erziehung des Menschengeschlechts», § 100.
-
-G. W. F. Hegel: Siehe z. B. «Enzyklopädie der philosophischen Wissenschaften», 2. Teil § 258, S. 54, Band 7a, Berlin 1847.
-
-462 Moriz Benedikt: «Aus meinem Leben», Wien 1906, S. 35.
-
-479 Plotin: Enneaden, in Auswahl übersetzt und eingeleitet von Otto Kiefer, Jena/Leipzig 1905. III. Enneade, Buch 7, «Über Ewigkeit und Zeit». —Wörtlich: «4. Die Ewigkeit ist keine äußere zufällige Eigenschaft des Geistigen, sie ist viel mehr in ihm, aus ihm und mit ihm. Sie wird mit in der Substanz des Geistigen wahrgenommen, wie ja überhaupt alles, was man als im Geistigen vorhanden bezeichnet, als in seiner Substanz befindlich und von ihr unzertrennlich angesehen wird; denn das ursprünglich Seiende muß mit und in dem Ursprünglichen sein».
-
-489 Huxley: Siehe z. B. «Zeugnisse für die Stellung des Menschen in der Natur», übersetzt von Victor Carus; Braunschweig 1863, III. «Über einige fossile menschliche Überreste», S. 117. Ferner Rudolf Steiner, Vortrag, Berlin, 27. Oktober 1910: «Leben und Tod», in «Antworten der Geisteswissenschaft auf die großen Fragen des Daseins», GA Bibl.-Nr. 60.
-
-491 ein Notizbuch Goethes: Siehe Goethe-Jahrbuch XIII. Band 1892. «Goethe als Anatom» von Karl von Bardeleben. Es heißt dort (S. 175): «Daß sich Goethe aber nicht nur mit der Osteologie, sondern auch mit den Bändern, den Muskeln sowie dem Gehirne beschäftigt hat, zeigen verschiedene Notizen, auf meist losen Blättern. In dem
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 519
-
----
-
-Venezianischen Tagebuch von 1790 fand R. Steiner folgenden Satz, der in innerem Zusammenhange mit den Gedanken über die Wirbelnatur der Schädelknochen stehen dürfte: <das an="" anzusehen="" anzusehen.="" anzusehenist.»="" auf="" bei="" die="" des="" ein="" fern="" genganglion.="" heines="" im="" in="" ist.="" jehers="" jehers,="" klines="" mott,="" nur="" über="" ürdis="" ürdis,="" wie="" wie-1901»,="" wird="" zedes="" zogen,="">&gt;
-
-Ferner: «Methodische Grundlagen der Anthroposophie, Gesammelte Aufsätze 1884-1901», S. 81, GA Bibl.-Nr. 30.
-
-493 Moriz Benedikt: Siehe Hinweis zu S. 462. «Anatomische Studien an Verbrechergehirnen», 1878 und «Zur Psychophysik der Moral und des Rechts», 2 Vorträge, gehalten in der 47. und 48. Versammlung deutscher Naturforscher; Druck in: «Wiener Medizinische Presse», Wien 1875, S. 26 f. Ferner: Rudolf Steiner, Vortrag Berlin 12. Januar 1911; «Anlage, Begabung und Erziehung des Menschen», in «Antworten der Geisteswissenschaft auf die großen Fragen des Daseins», GA Bibl.-Nr. 60.
-
-512 das von Goethe . . . ausgesprochene Wort: Sein Gedicht: «Allerdings. Dem Physiker». Die letzte Verszeile heißt dort: «Ob du Kern oder Schale seist!» Siehe Hinweis zu S. 161.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 520</das>
-
----
-
-# PERSONENREGISTER
-
-(Die kursiv gesetzten Ziffern geben jeweils die Seiten an, zu denen ein Hinweis besteht.)
-
-Abraham (um 1800 v. Chr.) 306 f.
-Äschylos (525-456 v. Chr.) 344
-Ahab, König (871-852 v. Chr.) 197, 202, 204, 208, 211 f., 217 f.
-Alexander der Große (356-323 v. Chr.) 171,295
-Aristoteles (384-322 v. Chr.) 176, 178, 295, 319, 323, 349 ff., 353 ff., 367 ff., 372, 374, 376
-Arrhenius, Svante (1859-1927) 264
-Avicenna, Ibn Sina (980-1037) 103,105,117
-Benedikt, Moriz (1835-1920) 462., 493 f.
-Bernoulli, Carl Albrecht (1868 bis 1937) 133
-Böhme, Jakob (1575-1624) 125
-Brentano, Franz (1838-1917) 357, 370
-Bruno, Giordano (1548-1600) 120, 170, 262 f., 350, 358, 362, 365,368 f. 370, 377
-Byron, Georg (1788-1824) 177
-Carneri, Bartholomäus (1821 bis 1909) 435, 439 f.
-Darwin, Charles (1809 bis 1882) 42 f., 222, 224, 229, 234 ff., 256 ff. 407
-Deinhard, Ludwig (1847-1917) 160
-
-Deußen, Paul (1845-1919) 326
-Diogenes von Sinope (415-323 v. Chr.) 171
-Droßbach, Maximilian (1810 bis 1884)42
-Du Bois-Reymond, Emil (1818 bis 1896)46
-Eckhart, Meister (1260-1327) 28
-Elias (um 850 v. Chr.) 194 ff.,
-Elisa (Elisäus, um 850-800 v. Chr.) 211, 214 ff.
-Euripides (484-406 v. Chr.) 342
-
-Fechner, Gustav Theodor (1801 bis 1887) 255, 263 f., 272
-Fließ, Wilhelm (1858-1928) 86
-Förster, Wilhelm (1832 bis 1921) 76
-Foucault, Leon (1819 bis 1868) 376f.
-Friedmann, Hermann (1873 bis 1957)232
-Frohschammer, Jakob (1821 bis 1893)152
-
-Galen (131 bis um 200) 103, 105, 117
-Galilei, Galileo (1564-1642) 120, 350,358,362 f., 365 f., 373 f.
-Gobineau, Arthur Graf (1816 bis 1882) 481 ff., 503 ff., 506, 508 ff.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
-
----
-
-Goethe, Johann Wolfgang von (1758-1832) 38, 58f., 60, 90, 96, 104, 115 ff., 151, 154, Ulf, 193, 220, 283, 313 f., 413, 489 ff, 495, 511 f.
-
-Haeckel, Ernst (1834-1919) 18, 222, 279, 486, 496 f.
-
-Haller, Albrecht von (1708-1777) 161,511
-
-Hamerling, Robert (1830-1889) 145,165ff, 1S5,336,341,344f
-
-Harnack, Adolf von (1851-1930) 294 f.
-
-Hartmann, Eduard von (1842 bis 1906) 144 f.
-
-Hegel, Georg Wilhelm Friedrich (1770-1831) 21,450
-
-Heinrich II. von Frankreich (1518-1559) 73
-
-Helmholtz, Hermann (1821 bis 1894) 144
-
-Heraklit (ca. 544 - ca. 483 v. Chr.) 20
-
-Herder, Johann Gottfried (1744 bis 1803) 192,317, 489 ff.
-
-Hertwig, Oscar (1849-1922) 282
-
-Hertwig, Richard (1850-1937) 282
-
-Hilscher, Josef Emanuel (1806 bis 1837) 177
-
-Huxley, Thomas (1825 bis 1895) 386ff, 489
-
-Isidor (560-636) 261
-
-Jehu, König (um 845 v. Chr.) 214
-
-Jerobam I. (um 925 v. Chr.) 197
-
-Jesabel (Izebel, um 870 v. Chr.) 197,202, 210 ff., 218
-
-Jesus von Nazareth 289 ff.
-
-Johannes der Täufer 289 ff.
-
-Johannes der Evangelist 303
-
-Kant, Immanuel (1724-1804) 32, 257, 264
-
-Kemmerich, Max (1876-1932) 63, 72
-
-Kepler, Johannes (1571-1630) 64 f., 68 ff., 72, 76, 87 ff., 90, 120, 350, 358, 362 f., 366, 368, 377
-
-Klaatsch, Hermann (1863-1916) 232ff, 240
-
-Knebel, Karl Ludwig von (1744 bis 1834) 116
-
-Kollmann, Julius (1834-1918) 229/
-
-Kopernikus, Nikolaus (1473 bis 1543) 73,120 ff., 347 ff.
-
-Krösus (Kroisus, um 550 v. Chr.) 190
-
-Lamarck, Jean Baptiste (1744 bis 1829) 257,257/.
-
-Laplace, Pierre Simon (1749 bis 1827) 257,264
-
-Leibniz, Gottfried (1646^1716) 369f
-
-Leonardo da Vinci (1452-1519) 360, 363
-
-Lessing, Gotthold Ephraim (1729-1781) 37, 41 f., 316 f., 373, 447 ff, 450, 477
-
-Lichtenberg, Georg (1742-1799) 62
-
-Linne, Carl (1707-1778) 231
-
-Loeb, Jacques (1859-1924) 37
-
-Lombroso, Cesare (1836-1909) 493
-
-Lorenz, Ottokar (1832-1904) 40
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
-
----
-
-Mainländer, Philipp (Pseudonym für Philipp Batz, 1841-1876) 144
-Metschnikoff, Uja (1845-1916) 382
-Mirandola, Giovanni Pico von (1463-1494) 76
-Moses (um 1230 v. Chr.) 199
-Naboth (um 850 v. Chr.) 202 ff., 208 ff., 218
-Newton, Isaac (1643-1727) 362, 366ff.
-Nietzsche, Friedrich (1844-1900) 20 f., 133
-Nostradamus (Michel, 1503 bis 1566) 71 ff., 88 ff., 92 ff., 159
-Omri, König (um 880 v. Chr.) 197
-Overbeck, Franz (1837-1905) 133 f.
-Paracelsus (1493-1541) 90, 99 ff
-Parmenides (*ca. 540 v. Chr.) 20 f.
-Paul, Jean (bürgerlicher Name: Jean Paul Friedrich Richter, 1763-1825) 772
-Paulus (-um 67) 195,211
-Planck, Max (1858-1947) 16
-Plato (427-347 v. Chr.) 342, 353, 357
-Plotin (205-270) 479
-Preyer, Wilhelm (1841-1897) 256, 263 f., 272
-Ranke, Leopold von (1795-1886) 297
-
-Redi, Francesco (1626 bis 1698) 261 ff.
-Rokitansky, Karl von (1804-1878) 14,16
-Rosenthal, Isidor (1836-1915) 386
-Salomon, König (ca. 960-925 v. Chr.) 196
-Schiller, Friedrich von (1759 bis 1805) 64
-Schopenhauer, Arthur (1788 bis 1860) 144,312,446
-Selenka, Emil (1842-1902) 282
-Shakespeare, William (1564-1616) 62
-Smith, William Benjamin (1850 bis 1934) 296
-Snell, Karl (1806-1866) 232
-Sokrates (470-399 v. Chr.) 20,295, 330, 342
-Soliman, Sultan (Suleiman II., 1495-1566) 73
-Solon (640-560 v. Chr.) 190
-Tauler, Johannes (ca. 1300-1361) 28,210
-Thaies (640-562 v. Chr.) 20, 325 f.
-Tolstoi, Leo (1828-1910) 379
-Trine, Ralph Waldo (1866-1958) 422
-Tycho de Brahe (1546-1601) 73 ff., 87 ff., 361
-Wallenstein, Albrecht von (1583 bis 1634) 64, 69 f., 76
-Widemann, Gustav (1812-1876) 42
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
-
----
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 524
-
-AUSFÜHRLICHE INHALTSANGABEN
-erstellt von Hans Merkel
-
-I. Der Mensch in seinem Verhältnis zu den übersinnlichen Welten
-
-Berlin, 19. Oktober 1911. 9
-
-Rokitansky war der Auffassung, daß die Naturwissenschaft ein metaphysisches Bedürfnis nicht ausschließe. Max Planck stellte fest, daß auch die Physik ans Übersinnliche stoße. Parmenides stieß vor zu den abstrakten Gedanken; aber ein solches Gedankengebäude kann nie das volle Leben erschöpfen. Das Ich muß durch Begeisterung verstärkt werden. Das Gefühl des Nichtwissens muß überleuchtet werden vom Seelenmut. Dann kann erlebt werden das Frei-Werden vom physischen Leib. Die Frage entsteht: Kann der Mensch nur auf dem Weg des Gedankens in die Wirklichkeit hineinkommen? Der Mystiker erlebt im Innern den göttlichen Funken. Der Mensch erlebt, daß er mit seinem ganzen Dasein in einer ewigen Welt wurzelt.
-
-II. Tod und Unsterblichkeit im Lichte der Geisteswissenschaft
-
-Berlin, 26. Oktober 1911. 35
-
-Die Psychologie hat nicht das eigentliche Wesen des Seelenlebens gefunden. Die materialistische Betrachtung richtet die Aufmerksamkeit nur auf das sinnlich Wahrnehmbare. Zu dem Vererbungsstrom, der den Menschen durchzieht, fügt sich der geistig-seelische Wesenskern, der das Ergebnis früherer Erdenleben in sich trägt. Lessing, Droßbach, Widenmann kamen zur Erkenntnis der wiederholten Erdenleben. Die Physiognomie drückt das Gepräge des Seelenlebens aus. Im Einschlafen und Aufwachen stößt der Mensch an Übersinnliches. Beim Einschlafen geht der Mensch in eine innere Wesentlichkeit. Durch Meditation kommt der Mensch zu einem bewußten Einschlafen, wie er in eine geistige Welt hinein-
-
----
-
-wächst. Geistige Wesenheiten liegen der äußeren Sinneswelt zugrunde. Beim Aufwachen taucht der Mensch in seine Körperlichkeit unter. Beginnt der Mensch ein bewußtes Leben zu führen, so nimmt er in sich die Notwendigkeit zu sterben auf. In dem sich entfaltenden Leib sieht man das Ergebnis eines früheren Lebens, und in dem, was wir neu erwerben, liegt der Keim zu einem künftigen Leben. Der Tod ist da, um in neuen Formen auszuarbeiten, was wir uns im Leben innerlich erwerben. Indem wir dem Tod entgegengehen, wächst das Innere.
-
-## III. Der Sinn des Prophetentums
-
-Berlin, 9. November 1911. 62
-
-Zu Keplers Zeiten sah man Prophezeiung im Zusammenhang mit Astrologie. In der griechischen Zeit wurde die Pythia durch aufsteigende Dünste in einen anderen Seelenzustand versetzt. Die alttestamentlichen Propheten sahen Glück und Unglück ihres Volkes. Nostradamus sah in Imaginationen die Zukunft. Tycho de Brahe sagte den Tod des Sultans Soliman voraus. Die Menschen glaubten an den Zusammenhang der großen mit der kleinen Welt. Rhythmus spielt sich in beiden Welten ab. Im menschlichen Leben gibt es Knotenpunkte. Ursachen, die vorher liegen, haben ihre Wirkung später in der gleichen Anzahl von Jahren. Die griechisch-lateinische Zeit ist wie ein Lebensknotenpunkt in der Entwicklung der Menschheit. Erscheinungen der ägyptischen Zeit spiegeln sich in der abendländischen Kultur wider, die der urpersischen Zeit in der kommenden Kultur. Ursachen in diesem Leben zeigen Wirkungen in einem nächsten Leben. Nach vier mal sieben Jahren ist Wichtiges zu einem Abschluß gebracht. Dies entspricht etwa einem Saturnumlauf. Auch Geburt und Tod verlaufen rhythmisch. In Tycho de Brahe lebte die Seele eines alten Griechen, der überall die Weltharmonie sehen will. Aus überschüssigen Kräften lenken Menschen den Gang der Menschheitsentwicklung. Treten Hindernisse ein, so können solche Kräfte sich in Sehergaben wandeln. Richtige Erkenntnis der Vergangenheit läßt in der Seele Bilder der Zukunft auftauchen.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 525
-
----
-
-IV. Von Paracelsus zu Goethe
-
-Berlin, 16. November 1911. 99
-
-Paracelsus führte ein Wanderleben. Für ihn sprach die Natur viele Arten von Sprachen. Der Mensch ist überall eine Frucht des natürlichen Daseins jeder Gegend. Ihm erschien der Mensch als kleines Wesen im Makrokosmos. Er hat in sich den Archäus, den inneren Baumeister, der die Substanzen zu Gift oder zu Heilmitteln werden läßt. In den verschiedenen Organen findet er ein inneres Weltgebäude. Dann sieht er die Leidenschaften und endlich kommen Krankheitsursachen aus dem ganzen Lauf der geistigen Entwicklung. Er lebte sich hinein in den kranken Menschen, in das Seelische und Moralische. Er hat auf Goethe gewirkt, er hat in der Faustfigur mitgewirkt. Goethe zeigt im Faust eine innere Seelenentwicklung. Faust wird gewahr, wie der Geist in der Natur auch die inneren Seelenkräfte herauf treibt. Das Faustische wird zum hellseherischen Einblick in die Natur.
-
-V. Die verborgenen Tiefen des Seelenlebens
-
-Berlin, 23. November 1911. 126
-
-Das Gedächtnis ist an den ätherischen Leib gebunden. Das zeigte sich an Nietzsche in seiner Krankheit. Der Traum weist auf etwas hin, was im Schlafe geschieht. Der innere Wesenskern arbeitet am menschlichen Organismus, daß er immer geschickter wird. Dies kann sich in wiederkehrenden Traumerlebnissen spiegeln. Eine umfassende Vernunft Tätigkeit durchzieht das unbewußte Seelenleben. Im Unbewußten können lange vergessene Erlebnisse fortwirken. Neben dem bewußten Leben läuft eine unbewußte Strömung im Seelenleben mit. Beim Herabsteigen in die Seelentiefen kommen wir zur Phantasie, zu hellsichtigen Kräften, zu sonst unsichtbaren Weltenweiten. In der Meditation stellt sich der Mensch einen Vorstellungsinhalt durch seinen Willen vor. Der Mensch nimmt wahr, was aus dem Seelenleben in Weltenweiten hinaus will und aus den Raumesweiten herein gestaltend an ihm wirkt. Was im Übersinnlichen erlebt wurde, kann in das gewöhnliche Bewußtsein hereingetragen werden. Geisteswissenschaft wird in logischer Form mitgeteilt.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
-
----
-
-VI. Das Glück, sein Wesen und sein Schein
-
-Berlin, 7. Dezember 1911. 164
-
-Dem Menschen können sich Hemmnisse entgegenstellen. Er kann seine Wesenskräfte ausleben. Die Vorstellungen vom Glück sind je nach dem Wesen der verschiedenen Menschen verschieden. Unglück und Glück können sehr subjektiv sein. Glück erscheint als Pfleger von harmonischer Seelenkraft. Karma kann zwar ein erklärendes Gesetz sein, aber diese Auffassung ist nur gerechtfertigt, wenn es das Leben bereichert. Es wird Keime in den inneren Wesenskern lenken, die zu höheren Vollkommenheiten führen. Ein Glücksereignis kann als Anfang für die weitere Entwicklung betrachtet werden, Unglück als Wirkung der eigenen Entwicklung. Was äußerlich an uns herantritt, wird durch ein Inneres herbeigeführt. Unglück wird zur Aufforderung, uns vollkommener zu machen. Das einzelne betrachten heißt den Schein betrachten. Sinn und Wesen zeigt sich erst, wenn wir das Gesamtleben des Menschen betrachten. Der Mensch wird Umwandler des Scheins zur Realität. Das wahre Wesen des Glücks entsteht erst, wenn der Mensch aus den äußeren Tatsachen des Lebens etwas machen kann, sie einverleibt seinem sich entwickelnden Wesenskern.
-
-VII. Der Prophet Elias im Lichte der Geisteswissenschaft
-
-Berlin, 14. Dezember 1911. 194
-
-Zur Zeit des Elias bestand noch das alte Hellsehen. Die Königin Jesabel hatte diese Gabe. König Ahab hatte Visionen, wenn er einer besonderen Schicksalsfrage gegenüberstand. Man wußte, daß die Mosesreligion im Keim die Jahvereligion hatte. Jetzt entstand eine Fortbildung, ein Umschwung. Die richtige Hingabe hat der, der auch im größten Elend nicht wankend wird im Aufblick zum unsichtbaren Gott. Bei geschichtlichen Umschwüngen müssen immer Persönlichkeiten vorhanden sein, in deren Seelen sich etwas zuerst vollzieht. Dies war Elias. In ihm vollzog sich eine mystische Einweihung erster Art. Der physische Träger des Elias war Naboth. Er reift allmählich heran, vor den König Ahab hinzutreten. Elias wurde getötet. Sein Schüler war Elisa. Die Bilder,
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61
-
----
-
-mit denen die Elias-Geschichte umkleidet ist, werden durch die Geistesforschung verständlich. In Elias haben wir ein Durcharbeiten des Jahvegedankens für die Menschheit in hervorragendem Maße.
-
-## VIII. Der Ursprung des Menschen im Lichte der Geisteswissenschaft
-
-Berlin, 4. Januar 1912 221
-
-Haeckel vertrat die Anschauung über die Abstammung des Menschen von der höheren Tierwelt. Andere Naturforscher wie Klaatsch und Snell traten dem entgegen. Hiernach würden die Säugetiere von einer Urform abstammen. Sie hätten sich herunterentwickelt. Der Mensch sei ihr am treuesten geblieben. In Wirklichkeit ist das Geistig-Seelische des Menschen ein Erstes. Der Mensch übernimmt den Grundunterbau seines Stoffeswesens aus den Vererbungsverhältnissen. Innerhalb der Leiblichkeit bleibt noch so viel innere Biegsamkeit, daß sich der seelisch-geistige Wesenskern hineinarbeiten kann. Die Tiere haben sich in ihren Formen nicht den späteren Erdverhältnissen angepaßt. Geisteswissenschaft kann man erst mitteilen, wenn man die Erlebnisse ins Bewußtsein hinunterführen und in Begriffe bringen kann. Wie wir auf einen Anfang der Verkörperungen zurückblicken, so schauen wir auch ein Ende der Verkörperungen, ein Wiederaufgenommenwerden des Menschen in die geistige Welt.
-
-## IX. Der Ursprung der Tierwelt im Lichte der Geisteswissenschaft
-
-Berlin, 18. Januar 1912 253
-
-Fechner und Preyer stellten sich vor, daß die Erde ein lebendiges Wesen gewesen sei. Darwin nimmt an, daß der Schöpfer den ursprünglichen Wesen das Leben eingegossen habe, ebenso auch Lamarck. Nach ihm müßten geistige Triebkräfte in der Entwicklung gearbeitet haben. Das Geistige im Menschen kann nur auf ein früheres Geistiges zurückgeführt werden. Die Erde war an ihrem Ausgangspunkt belebt und durchgeistigt. Der Erdenleib war umschwebt vom Erdengeist. In ihm wirkte, was später Form geworden ist. Das
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 528
-
----
-
-Formprinzip ist als geistiges Prinzip zu denken. Das Geistige war materieschaffend. Der Mensch ist am spätesten aus dem Formlosen in die Gestaltung herab getreten. Bei den Tieren haben sich bestimmte Formen bestimmten Territorien der Erde angepaßt. Beim Menschen hat das Formprinzip auf dem Umweg des Geistigen seine Gestalt bestimmt. Beim Tier mußte das Formprinzip viel mehr in das Unlebendige und Unorganische hineingreifen. Stirbt das Tier, so fällt das Seelische in ein allgemeines tierisches Seelenleben zurück. Das Tier ist vom fortlaufenden Entwicklungsprinzip zurückgelassen. Der Mensch mußte, um sein Geistiges zu entwickeln, die gesamte Tierwelt absondern. Alles, was uns umgibt, gewinnt dadurch seinen rechten Wert, daß es sich in der menschlichen Seele spiegelt. Wir müssen uns der Erde würdig erweisen. Die Erde ist auf die Vollkommenheit des Menschen angelegt.
-
-X. Christus und das 20. Jahrhundert
-
-Berlin, 25. Januar 1912 285
-
-Bei keiner Frage ist der Zwiespalt zwischen den Denkgewohnheiten und der Wirklichkeit so groß, wie bei der Christusfrage. Die Gnosis bildete gewaltige Ideen über die Christuswesenheit heraus. Ihre Ideen wurden überdeckt von denen, die Inhalt der Kirchenbewegung wurden. Für die Gnosis war Christus mit der Entwicklung der Menschheit und des Kosmos verbunden. Er stieg herab in die Erdenwelt bei der Johannestaufe. In der allgemeinen Vorstellung wurde Jesus zum liebenden Menschenheiland. Für die mittelalterliche Anschauung wurde Christus Gegenstand des Glaubens. Zuletzt sah man, wie bei Harnack, in Jesus eine auserlesene Menschen-Individualität. Christus wird ein gedachter Gott. Geisteswissenschaft zeigt die Einwirkung der Mysterien auf die Entwicklung geistiger Fähigkeiten, durch die ein Emporsteigen in die geistige Welt möglich ist. Als das Christentum seinen Anfang nahm, wurde die menschliche Seele zur Selbsteinweihung reif. Die Evangelien zeigen die alten Einweihungszeremonien, angewendet auf Jesus von Nazareth, am genauesten das Johannes-Evangelium. Seine Einweihung mit dem Christus bildet einen Impuls für alles spätere Werden
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 529
-
----
-
-der Menschheit. Den Gott im Ich zu suchen, das hat der Christus-Impuls der Menschheit gebracht. In den Tiefen des geschichtlichen Werdens walten reale Wesenheiten und die vorzüglichste ist der Christus. Zu dem bloß ursächlichen Erkennen muß der Begriff der Erlösung hinzutreten. Wiedergeburt der Seele auf einer höheren Stufe wird sich herausentwickeln aus den Ergebnissen der naturwissenschaftlichen und geschichtlichen Forschung. Ohne Christus gibt es kein inneres mystisches Erlebnis, wie es der Mensch im 20. Jahrhundert erleben wird.
-
-XL Menschengeschichte, Gegenwart und Zukunft im Lichte der Geisteswissenschaft
-
-Berlin, 1. Februar 1912 315
-
-Der Mensch kann seine Stellung innerhalb der Entwicklung aus dem Bewußtsein seiner Aufgabe beeinflussen. Lessing sieht die Notwendigkeit der wiederholten Erdenleben. Herder sieht einen sinnvollen Plan in der Entwicklung der Menschheit. Die Logik entstand, als sich die Menschheit der logischen Gesetze bewußt wurde. Wir haben zu Bewußtseinsformen aufzusteigen, die einer geistigen Seeleninnerlichkeit entsprechen würden. In den Mythen treten uns Bilder entgegen. Der heutige Geistesforscher behält bei seiner Imagination das logische Denken bei. Die ägyptische Kultur ist eine Offenbarungskultur. Bei Sokrates entsteht eine Verstandeskultur. Mit dem Erlöschen des Hellsehens ersteht die Wahrnehmungskultur. In der Zeit der Mythen fühlte sich der Mensch gottbeseelt, aber noch nicht Ich-beseelt. Perseus verstümmelt die Medusa, das Bewußtsein, das wie ein Rest des alten Bewußtseins dargestellt wird. Pegasus ist das Bild der Ich-Kultur. Der Mensch mußte zur Ich-Kultur kommen. Aber er muß darüber hinauskommen, zu einer imaginativen Kultur. Vor der Offenbarungskultur lebte beim Perser die Kultur des Mithra-Enthusiasmus. Auf die hebräische Kultur folgte die christliche Kultur. In Griechenland geht das Ich-Bewußtsein auf. Deshalb mußte damals das Mysterium von Golgatha eintreten, der Schwerpunkt der Menschheitsentwicklung.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 530
-
----
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 531
-
-# XII. Kopernikus und seine Zeit
-
-Berlin, 15. Februar 1912 347
-
-In der Leistung des Aristoteles ist zusammengefasst das Sinnen der vorhergehenden Kulturepochen. Bei ihm ist die Natur bis in die Sternenräume beseelt und durchgeistigt. Das Urwissen der Menschheit leuchtet noch durch bei Plato. Auch in Indien findet man die menschliche Verinnerlichung bis zum logischen Denken. Bei Aristoteles muß man die Weltenlehre in Zusammenhang sehen mit seiner Seelenlehre. Er ist sich bewußt, daß der geistig-seelische Wesenskern des Menschen nach dem Tod weiterlebt, aber er dringt nicht bis zur Wiederverkörperung vor. Seine Mission war, die alte Kultur aus einer spirituellen Welt herauszuführen. Erst mit dem Aufkommen des Verstandes trat der Drang auf, die Wirklichkeit zu begreifen. Für Lionardo war das, was in Aristoteles Abstraktheit war, unmittelbare geistige Wirklichkeit. Kopernikus wendet das Denken, das Aristoteles gebracht hat, an auf die physische Wirklichkeit. Kepler wirkt auch als Astrolog. Für Galilei lag der göttliche Geist aller Welterscheinung zugrunde. Giordano Bruno und Leibniz sahen die Monade als Spiegelung des Weltalls. Bei Aristoteles finden wir eine wirkliche Wissenschaft mit einem göttlichen Inhalt. Bruno findet für die menschliche Seele nur die Ärmlichkeit einer Monade. Jetzt erhält der Gedanke die Mission, Erziehungsmittel der Seele zu werden zu einer Kultur des höheren Selbst, zum Schauen der geistigen Welt.
-
-# XIII. Der Tod bei Mensch, Tier und Pflanze
-
-Berlin, 29. Februar 1912 379
-
-Metschnikoff will nachweisen, daß der Tod auf äußere Einflüsse, auf Vergiftungserscheinungen zurückzuführen sei. Man sieht aber davon ab, daß in das organische Leben ein geistiges Element eingreifen kann, das mit dem Tod zu tun haben könnte. In der Pflanzenwelt kann man nicht die einzelne Pflanze für sich betrachten. Die Erde ist ein großes Lebewesen. Die materielle Erde ist dem Knochengerüst des Menschen vergleichbar. Die Erdenseele hat mit dem Pflanzenreich zu tun, das Spiel der Elemente im Lauf eines Jahres mit dem Entstehen und Vergehen der Pflanzen. Die bewußte
-
----
-
-Tätigkeit verdanken wir dem Umstand, daß wir zerstörend in unseren Organismus eingreifen. Während des Schlafes hat man im eigenen Organismus das Erleben einer eigenen Vegetation. Das Einschlafen ist vergleichbar dem Hervorgehen der Pflanzenwelt im Frühling, das Aufwachen mit ihrem Hinwelken im Herbst. In der Winterszeit findet der Mensch am besten den Zusammenhang mit dem geistigen Leben der Erde. Die Vorstellungen können wir wieder aus den tiefen Schächten des Seelenlebens heraufholen. Die Gemütsstimmungen sind in das leiblich-seelische Leben herabgesunken. Für die Erde sind die entsprechenden Erlebnisse kristallisiert in dem Entstehen und Vergehen von tierischen Wesen. Die höheren moralischen Gefühle siegen über die organische Konstitution des Menschen. Was als Gefühl und Leidenschaft im Erdorganismus ist, lebt sich im Tierreich aus. Wie im Menschen das Geistige über das Instinktive triumphiert, triumphiert die Gattungsseele des Tieres beim Tod über die äußere Gestalt. Wir selbst werden reicher an Vorstellungen, reifer in Bezug auf Willensimpulsivität. Durch den Willen wird das gesamte physische Leben zerstört. Wie für das Vorstellungsleben die Notwendigkeit des Schlafes besteht, so für das Willensleben die Notwendigkeit des Todes. Was sich nicht in diesem Erdenleben auslebte, wird in einem kommenden Erdenleben ausgelebt. Was die Vorstellungswelt verwüstet, wird im Schlaf ausgebessert. Was durch die Instinktnatur zerstört wird, wird ausgebessert durch die moralisch-ästhetischen Empfindungen. Was durch die Tätigkeit des Willens zerstört wird, wird ausgebessert durch die Reife des Willenslebens, die durch den Tod hindurchgeht und ein neues Leben aufbauen kann.
-
-XIV. Die Selbsterziehung des Menschen im Lichte der Geisteswissenschaft
-
-Berlin, 14. März 1912 416
-
-Der Mensch wird erzogen in jeweils sieben Jahren durch Nachahmung, Autorität, Ideale. Alsdann kann die Selbsterziehung beginnen. Geisteswissenschaft vermeidet die Einseitigkeiten anderer Bestrebungen, die die Gesundheit rasch wieder herstellen, das Gedächtnis erhöhen oder praktische Erfolge erringen wollen. Der Mensch kommt über sein Per
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:61 Seite:532
-
----
-
-sönliches hinaus durch Liebe. Ähnlich tritt man durch Geisteswissenschaft erkennend in fremdes Wesen ein. Das andere ist der Impuls des Gewissens. Das höhere Wesen betätigt sich beim Kind im Spiel. Hier darf nicht Verstandesmäßiges hineingemischt werden, nicht das Kartenspiel, nicht das Schachspiel. Kombinationen sind am meisten an das Gehirn gebunden. Die Willenskultur wird im Verkehr mit der Außenwelt gewonnen, wenn man sich anstrengt, äußere Gefahren überwindet. Wir werden harmonisch in Bezug auf Lebensauffassung, indem wir das Erkenntnisvermögen ausbilden. Der Wille muß am Leben erzogen werden, indem der Mensch den Ablauf seiner Gemütsstimmungen in die Hand nimmt. Der äußere Leib braucht Vielseitigkeit, Anpassung an die äußeren Verhältnisse. Die Seele braucht für die intellektuelle Kultur Konzentration, Grundideen. Wir müssen auch in rechter Weise vergessen lernen. Das sinkt in gesunder Weise in die Tiefen des Seelenlebens. Unterstützendes Element ist das Gesetz der wiederholten Erdenleben und Karma. Gelassenheit, Ergebung in das Schicksal macht den Willen stark.
-
-XV. Das Wesen der Ewigkeit und die Natur der Menschenseele im Lichte der Geisteswissenschaft
-
-Berlin, 21. März 1912 448
-
-Das normale Bewußtsein hat kein Gedächtnis an schon durchlebte Erdenstufen. Hegel sagt, daß die Ewigkeit sich im irdischen Dasein selbst muß erleben lassen. Das Leben des Menschen ist verknüpft mit früheren und zukünftigen Daseinsstufen. Man geht von Kettenglied zu Kettenglied. Erst die gesamte Kette stellt das vollständige Leben durch das Erdendasein dar. Das Ich ist der bleibende Mittelpunkt. Das Ich erlebt das eigene Wesen im Spiegelbild. Das Bild kann im Schlaf versinken, die Realität aber bleibt. Der Mensch lebt in der Vergangenheit durch seine Erinnerung. Wir kommen zur Wirklichkeit des Ich, indem wir es als Schaffendes erleben. Wer sich erinnert, muß sich sagen: Ich bin reicher geworden an meinen inneren Erlebnissen. Im Reif-Werden erkennen wir das Schaffen des Ich. Die Lebensreife kann nicht verschwinden. Der Mensch erlebt nach dem Tod eine Rückschau im Ätherleib. Mit dem Tod treten die Kräfte, die im Schlaf am physischen Leib arbeiteten, in die Seele zurück. Diese Kraft
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 533
-
----
-
-gibt das Bewußtsein der Seele zwischen Tod und neuer Geburt. In der Jugend gibt man die Gemütserlebnisse ans Unterbewußte ab, so daß sie später als Gemüts-, ja Leibesverfassung wirken. Später können wir nicht mehr so ins Unbewußte hineinarbeiten. Die Seele wird reifer, wenn wir am Leben lernen. Das Innere wird reicher, wenn wir der Pforte des Todes zugehen. Tritt der Mensch ins Dasein, so arbeitet das Ich am kunstvollsten. Der Buddhismus ist letzte Frucht einer hellsichtigen Urkultur. Er kennt nur das Schein-Ich. Für die Geisteswissenschaft ist es das Ich, das sich von Leben zu Leben steigert. Sie hat die Perspektive der Ewigkeit.
-
-## XVI. Darwin und die übersinnliche Forschung
-
-Berlin, 28. März 1912 480
-
-Graf Gobineau schrieb über die Ungleichheit der Rassen. Er ging aus von den verschiedenen Menschentypen. In der fortschreitenden Gleichheit sah er den Impuls für die niedergehenden Kulturen. Darwin schrieb über die Entstehung der Arten. Haeckel zog daraus die Folgerung, daß der Mensch mit dem Werden der Tierformen zusammenhänge. Goethe kam zu anderen Folgerungen, daß der Geist überall waltet, von den niedersten Geschöpfen bis zum höchsten. Bei ihm führen die naturwissenschaftlichen Beobachtungen zu idealistisch-spirituellen Ergebnissen. Benedikt kam bei der Untersuchung von Verbrechergehirnen zum Ergebnis, daß diese Ähnlichkeit mit dem Affengehirn hätten. Neben die naturwissenschaftliche Forschung stellt sich die geisteswissenschaftliche hin. In den übersinnlichen Tatsachen sind die wahren Gründe für die sinnlichen Tatsachen. Was der Mensch im physischen Leben begründet, lebt im Geistigen weiter und bildet die Grundlage für eine neue Verkörperung. Wir kommen auch mit denselben Menschen wieder zusammen. Der Mensch findet den Ursprung seiner selbst in der geistigen Welt. In das menschliche Ich kann sich das Geistige einsenken. Das Äußere wird absterben, aber im Innern lebt, was neue Impulse aufnehmen kann. Alle Kraft entwickelt sich durch Besiegung der Gegenkräfte. Gegenüber der äußeren Tatsachenwelt entwickelt sich die Sehnsucht nach der geistigen Welt. Notwendig ist es, die übersinnliche Forschung dem geistigen Leben unserer Zeit einzufügen.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 61 Seite: 53 4
-
----
-
-# RUDOLF STEINER GESAMTAUSGABE
-
-Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine bibliographische Übersicht (Bibliographie-Nrn. kursiv in Klammern)
-
-## A. SCHRIFTEN
-
-### I. Werke
-
-Goethes Naturwissenschaftliche Schriften, eingeleitet und kommentiert von R. Steiner, 5 Bände, 1883-97, Neuausgabe 1975 (la-e); separate Ausgabe der Einleitungen, 1925 (1)
-Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung, 1886β)
-Wahrheit und Wissenschaft. Vorspiel einer «Philosophie der Freiheit», 1892 (3)
-Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung, 1894 (4)
-Friedrich Nietzsche, ein Kämpfer gegen seine Zeit, 1895 (5)
-Goethes Weltanschauung, 1897 (6)
-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung, 1901 (7)
-Das Christentum als mystische Tatsache und die Mysterien des Altertums, 1902 (8)
-Theosophie. Einführung in übersinnliche Welterkenntnis und Menschenbestimmung, 1904 (9)
-Wie erlangt man Erkenntnisse der höheren Welten? 1904/05 (10)
-Aus der Akasha-Chronik, 1904-08 (11)
-Die Stufen der höheren Erkenntnis, 1905-08 (12)
-Die Geheimwissenschaft im Umriß, 1910 (13)
-Vier Mysteriendramen, 1910-13 (14)
-Die geistige Führung des Menschen und der Menschheit, 1911 (15)
-Anthroposophischer Seelenkalender, 1912 (in 40)
-Ein Weg zur Selbsterkenntnis des Menschen, 1912 (16)
-Die Schwelle der geistigen Welt, 1913 (17)
-Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt, 1914 (18)
-Vom Menschenrätsel, 1916 (20)
-Von Seelenrätseln, 1917 (21)
-Goethes Geistesart in ihrer Offenbarung durch seinen Faust und durch das Märchen von der Schlange und der Lilie, 1918 (22)
-Die Kernpunkte der sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft, 1919 (23)
-Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921(240)
-Kosmologie, Religion und Philosophie, 1922 (25)
-Anthroposophische Leitsätze, 1924/25 (26)
-Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)
-Mein Lebensgang, 1923-25 (28)
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:61 Seite:535
-
----
-
-II. Gesammelte Aufsätze
-
-Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31) - Aufsätze zur Literatur 1886-1902 (32) - Biographien und biographische Skizzen 1894-1905 (33) - Aufsätze aus «Lucifer-Gnosis» 1903-1908(3^ - Philosophie und Anthroposophie 1904-1918/3^ - Aufsätze aus «Das Goetheanum» 1921-1925 (36)
-
-III. Veröffentlichungen aus dem Nachlaß
-
-Briefe - Wahrspruchworte - Bühnenbearbeitungen - Entwürfe zu den Vier Mysteriendramen 1910-1913 - Anthroposophie. Ein Fragment aus dem Jahre 1910 - Gesammelte Skizzen und Fragmente - Aus Notizbüchern und -blättern - (38-47)
-
-B. DAS VORTRAGSWERK
-
-I. Öffentliche Vorträge
-
-Die Berliner öffentlichen Vortragsreihen, 1903/04 bis 1917/18 (51-67) - Öffentliche Vorträge, Vortragsreihen und Hochschulkurse an anderen Orten Europas 1906-1924 (68-84)
-
-II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft
-
-Vorträge und Vortragszyklen allgemein-anthroposophischen Inhalts - Christologie und Evangelien-Betrachtungen - Geisteswissenschaftliche Menschenkunde - Kosmische und menschliche Geschichte - Die geistigen Hintergründe der sozialen Frage — Der Mensch in seinem Zusammenhang mit dem Kosmos - Karma-Betrachtungen - (91-244)
-
-Vorträge und Schriften zur Geschichte der anthroposophischen Bewegung und der Anthroposophischen Gesellschaft (251-263)
-
-III. Vorträge und Kurse zu einzelnen Lebensgebieten
-
-Vorträge über Kunst: Allgemein Künstlerisches — Eurythmie — Sprachgestaltung und Dramatische Kunst - Musik - Bildende Künste - Kunstgeschichte (271-292) - Vorträge über Erziehung (293-311) - Vorträge über Medizin (312-319) - Vorträge über Naturwissenschaft (320-327) - Vorträge über das soziale Leben und die Dreigliederung des sozialen Organismus (328-341) - Vorträge für die Arbeiter am Goetheanumbau (347-354)
-
-C. DAS KÜNSTLERISCHE WERK
-
-Originalgetreue Wiedergaben von malerischen und graphischen Entwürfen und Skizzen Rudolf Steiners in Kunstmappen oder als Einzelblätter: Entwürfe für die Malerei des Ersten Goetheanums - Schulungsskizzen für Maler - Programmbilder für Eurythmie-Aufführungen - Eurythmieformen - Skizzen zu den Eurythmiefiguren, u.a.
-
-Die Bände der Rudolf Steiner Gesamtausgabe sind innerhalb einzelner Gruppen einheitlich ausgestattet. Jeder Band ist einzeln erhältlich
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:61 Seite:536

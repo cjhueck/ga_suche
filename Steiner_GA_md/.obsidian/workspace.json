@@ -6,7 +6,7 @@
       {
         "id": "58e8e74e559531d9",
         "type": "tabs",
-        "dimension": 55.70552147239264,
+        "dimension": 45.506692160611856,
         "children": [
           {
             "id": "6b6b15552a54fd28",
@@ -40,10 +40,10 @@
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins.pdf"
+                "file": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins"
+              "title": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit"
             }
           }
         ],
@@ -52,7 +52,7 @@
       {
         "id": "5ad89a4c92707216",
         "type": "tabs",
-        "dimension": 44.29447852760736,
+        "dimension": 54.49330783938815,
         "children": [
           {
             "id": "94e4105983a13fbd",
@@ -60,10 +60,10 @@
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf"
+                "file": "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino"
+              "title": "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I"
             }
           },
           {
@@ -79,9 +79,105 @@
               "icon": "lucide-file",
               "title": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final"
             }
+          },
+          {
+            "id": "8fb12b954c39987e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung/Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung_final.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung_final"
+            }
+          },
+          {
+            "id": "dc46bcf9cd68654c",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut/Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut"
+            }
+          },
+          {
+            "id": "68738387765e5864",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit"
+            }
+          },
+          {
+            "id": "5d1282ea962a7483",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung/Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung_prepared.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung_prepared"
+            }
+          },
+          {
+            "id": "ed5e35d48aabe897",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben/Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben"
+            }
+          },
+          {
+            "id": "6395c3efd407011a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod/Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod"
+            }
+          },
+          {
+            "id": "cfa32be30c14dac0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit_final.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit_final"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -138,7 +234,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 761.5
+    "width": 330.5
   },
   "right": {
     "id": "4efcffdc424c60f2",
@@ -216,13 +312,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final.md",
+                "file": "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit_final.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final"
+              "title": "Outline of Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit_final"
             }
           }
         ],
@@ -230,7 +326,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 245.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -244,14 +340,36 @@
       "ocr-extractor:Extract text": false
     }
   },
-  "active": "67d537b690530371",
+  "active": "189fb7af378e87fa",
   "lastOpenFiles": [
-    "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins.pdf",
-    "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II_final.md",
+    "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit.pdf",
+    "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit_final.md",
+    "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit.md",
+    "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit_prepared.md",
+    "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut/Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut.pdf",
+    "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut/Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut_final.md",
+    "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung/Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung.pdf",
+    "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut/Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut.md",
+    "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung/Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung_final.md",
+    "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut/Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut_prepared.md",
+    "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung/Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung_prepared.md",
+    "Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele/Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele.md",
+    "Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod/Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod.md",
+    "Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele",
+    "Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben/Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben.md",
+    "Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod",
+    "Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben",
+    "Steiner, Rudolf GA 063, 1986 - Geisteswissenschaft als Lebensgut",
+    "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit",
+    "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung/Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung.md",
+    "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung/Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung.pdf",
+    "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung/Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung_final.md",
+    "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung",
+    "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung/Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung_prepared.md",
+    "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung/Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung.md",
     "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final.md",
-    "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II.pdf",
+    "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II_final.md",
     "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_prepared.md",
-    "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I.pdf",
     "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I_final.md",
     "Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II/Steiner, Rudolf GA 059, 1984 - Metamorphosen des Seelenlebens II_prepared.md",
     "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I_prepared.md",
@@ -262,29 +380,7 @@
     "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-2.jpeg",
     "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-1.jpeg",
     "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-0.jpeg",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino",
-    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist.pdf",
     "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist_final.md",
-    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist_prepared.md",
-    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes.pdf",
-    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.pdf",
-    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes_final.md",
-    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes_prepared.md",
-    "Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes/Steiner, Rudolf GA 056, 1985 - Die Erkenntnis der Seele und des Geistes.md",
-    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.pdf",
-    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit_final.md",
-    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit_prepared.md",
-    "Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit/Steiner, Rudolf GA 055, 1983 - Die Erkenntnis des Übersinnlichen in unserer Zeit.md",
-    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_final.md",
-    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie_prepared.md",
-    "Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie/Steiner, Rudolf GA 054, 1983 - Die Welträtsel und die Anthroposophie.md",
-    "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers/Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers.md",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen.md",
-    "Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung/Steiner, Rudolf GA 052, 1986 - Spirituelle Seelenlehre und Weltbetrachtung.md",
-    "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium.md",
-    "Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis/Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis.md",
-    "Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I/Steiner, Rudolf GA 058, 1984 - Metamorphosen des Seelenlebens I.md"
+    "Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist/Steiner, Rudolf GA 057, 1984 - Wo und wie findet man den Geist_prepared.md"
   ]
 }
