@@ -98,6 +98,8 @@ def extract_toc_entries(content: str) -> list:
     # Format 1: "I. Titel\nOrt, Datum Seite"
     # Format 2: "Titel Ort, Datum Seite"
     roman_pattern = re.compile(r'^(I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV?)[\.\s]+(.+)$')
+    # Datum mit optionaler Seitenzahl am Ende: "Berlin, 15. Oktober 1908. 9" oder "Berlin, 15. Oktober 1908 9"
+    date_with_page_pattern = re.compile(r'([A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s*\d{4})[\.\s]*(\d+)?')
     date_pattern = re.compile(r'([A-ZÄÖÜ][a-zäöüß]+,\s*\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s*\d{4})')
     
     current_title = None
@@ -118,15 +120,17 @@ def extract_toc_entries(content: str) -> list:
             current_number = roman_match.group(1)
             rest = roman_match.group(2).strip()
             
-            # Prüfe ob Datum in derselben Zeile
-            date_match = date_pattern.search(rest)
+            # Prüfe ob Datum in derselben Zeile (mit optionaler Seitenzahl)
+            date_match = date_with_page_pattern.search(rest)
             if date_match:
                 title = rest[:date_match.start()].strip()
                 date = date_match.group(1)
+                page = int(date_match.group(2)) if date_match.group(2) else None
                 toc_entries.append({
                     'number': current_number,
                     'title': title,
                     'date': date,
+                    'page': page,
                     'title_normalized': re.sub(r'\s+', ' ', title.upper().strip())
                 })
                 current_title = None
@@ -135,16 +139,18 @@ def extract_toc_entries(content: str) -> list:
             continue
         
         # Prüfe ob Datum in dieser Zeile (für mehrzeilige Einträge)
-        date_match = date_pattern.search(line)
+        date_match = date_with_page_pattern.search(line)
         if date_match and current_title:
             title_part = line[:date_match.start()].strip()
             if title_part:
                 current_title = current_title + ' ' + title_part
             date = date_match.group(1)
+            page = int(date_match.group(2)) if date_match.group(2) else None
             toc_entries.append({
                 'number': current_number,
                 'title': current_title.strip(),
                 'date': date,
+                'page': page,
                 'title_normalized': re.sub(r'\s+', ' ', current_title.upper().strip())
             })
             current_title = None
@@ -164,6 +170,87 @@ def extract_toc_dates(content: str) -> dict:
     """
     entries = extract_toc_entries(content)
     return {e['title_normalized']: e['date'] for e in entries}
+
+
+def add_missing_page_numbers_from_toc(content: str, toc_entries: list) -> str:
+    """
+    Ergänzt fehlende Seitenzahlen am Anfang von Vorträgen aus dem TOC.
+    
+    Prüft jeden Vortragstitel und fügt |XX| hinzu, wenn:
+    - Der erste Absatz nach dem Titel keine Seitenzahl hat
+    - Im TOC eine Seitenzahl für diesen Vortrag vorhanden ist
+    """
+    if not toc_entries:
+        return content
+    
+    # Erstelle Mapping: normalisierter Titel -> Seitenzahl
+    toc_pages = {}
+    for entry in toc_entries:
+        if entry.get('page'):
+            toc_pages[entry['title_normalized']] = entry['page']
+    
+    if not toc_pages:
+        return content
+    
+    lines = content.split('\n')
+    result = []
+    added_count = 0
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        
+        # Prüfe auf Vortragstitel
+        title_match = re.match(r'^#\s+([^,]+)', line)
+        if title_match:
+            title = title_match.group(1).strip()
+            # Entferne " - I", " - II" etc. für Matching
+            title_base = re.sub(r'\s*-\s*(I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV?)\s*$', '', title)
+            title_normalized = re.sub(r'\s+', ' ', title_base.upper().strip())
+            
+            result.append(line)
+            i += 1
+            
+            # Überspringe Leerzeilen
+            while i < len(lines) and not lines[i].strip():
+                result.append(lines[i])
+                i += 1
+            
+            # Prüfe ob nächste Zeile bereits Seitenzahl hat
+            if i < len(lines):
+                next_line = lines[i]
+                has_page = bool(re.match(r'^\|?\d+\|', next_line.strip()))
+                
+                if not has_page:
+                    # Suche Seitenzahl im TOC
+                    page = None
+                    for toc_title, toc_page in toc_pages.items():
+                        if toc_title in title_normalized or title_normalized in toc_title:
+                            page = toc_page
+                            break
+                        # Vergleiche erste 30 Zeichen
+                        if toc_title[:30] == title_normalized[:30]:
+                            page = toc_page
+                            break
+                    
+                    if page:
+                        # Füge Seitenzahl am Anfang der Zeile ein
+                        result.append(f"|{page}| {next_line.lstrip()}")
+                        added_count += 1
+                        i += 1
+                        continue
+                
+                result.append(next_line)
+                i += 1
+            continue
+        
+        result.append(line)
+        i += 1
+    
+    if added_count > 0:
+        print(f"  {added_count} Seitenzahlen aus TOC ergänzt")
+    
+    return '\n'.join(result)
 
 
 def validate_against_toc(final_content: str, toc_entries: list) -> None:
@@ -893,12 +980,18 @@ def prepare_reference_md(input_path: Path, pdf_path: Path = None, output_path: P
         success = run_add_page_numbers(prepared_path, pdf_path, output_path)
         if success:
             final_content = output_path.read_text(encoding='utf-8')
+
+            # Ergänze fehlende Seitenzahlen aus TOC
+            if toc_entries:
+                print("\n7. Ergänze fehlende Seitenzahlen aus TOC...")
+                final_content = add_missing_page_numbers_from_toc(final_content, toc_entries)
+                output_path.write_text(final_content, encoding='utf-8')
             
             # Validiere gegen Inhaltsverzeichnis
             if toc_entries:
-                print("\n7. Validiere gegen Inhaltsverzeichnis...")
+                print("\n8. Validiere gegen Inhaltsverzeichnis...")
                 validate_against_toc(final_content, toc_entries)
-            
+
             print(f"\n✓ Finale Ausgabe: {output_path.name}")
             return final_content
         else:
