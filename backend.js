@@ -11965,7 +11965,9 @@ app.post('/api/export/ga', async (req, res) => {
     const gaNum = gaMatch[1];
     const gaNumeric = parseInt(gaNum.match(/^\d+/)?.[0] || '0');
     const gaSuffix = gaNum.match(/[a-z]$/i)?.[0]?.toLowerCase() || '';
-    const normalizedGA = `GA${gaNum.padStart(3, '0')}${gaSuffix}`.toUpperCase();
+    // Entferne Suffix aus gaNum bevor padStart, um Duplikate zu vermeiden
+    const gaNumOnly = gaNum.replace(/[a-z]$/i, '');
+    const normalizedGA = `GA${gaNumOnly.padStart(3, '0')}${gaSuffix}`.toUpperCase();
     
     // Prüfe ob einzelner Vortrag exportiert werden soll
     const isSingleLecture = lectureId && lectureId.match(/^GA\d{3}[a-z]?\s*\(\d+\.\)/i);
