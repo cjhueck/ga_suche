@@ -6478,8 +6478,8 @@ body.dark-mode .help-choice-btn:hover span {
   max-width: 340px;
   z-index: 10001;
   display: flex;
-  align-items: flex-start;
-  gap: 2px;
+  flex-direction: column;
+  gap: 0;
   opacity: 0;
   animation: hintPopupSlideIn 0.4s ease forwards;
 }
@@ -6506,6 +6506,7 @@ body.dark-mode .help-choice-btn:hover span {
   font-size: 0.88rem;
   line-height: 1.5;
   color: var(--text-color);
+  padding-right: 20px;
 }
 
 .hint-popup-content strong {
@@ -6514,7 +6515,9 @@ body.dark-mode .help-choice-btn:hover span {
 }
 
 .hint-popup-close {
-  flex-shrink: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   color: var(--secondary-text);
@@ -6526,12 +6529,50 @@ body.dark-mode .help-choice-btn:hover span {
   align-items: center;
   justify-content: center;
   transition: color 0.2s ease;
-  margin-top: -2px;
-  margin-left: -6px;
 }
 
 .hint-popup-close:hover {
   color: var(--accent-color);
+}
+
+.hint-popup-footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color, #ddd);
+}
+
+.hint-popup-dismiss-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  color: var(--secondary-text, #666);
+}
+
+.hint-popup-dismiss-label:hover {
+  color: var(--text-color, #333);
+}
+
+.hint-popup-dismiss-checkbox {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+body.dark-mode .hint-popup-footer {
+  border-top-color: var(--dark-border-color, #444);
+}
+
+body.dark-mode .hint-popup-dismiss-label {
+  color: var(--dark-secondary-text, #aaa);
+}
+
+body.dark-mode .hint-popup-dismiss-label:hover {
+  color: var(--dark-text-color, #eee);
 }
 
 body.dark-mode .hint-popup {
@@ -43459,24 +43500,29 @@ async function addKeywordToLecture() {
 <!-- Hinweis-Popup (Strg+Klick für Fehlermarkierung) - nur beim allerersten Öffnen -->
 <script>
 (function() {
-  // Prüfe ob Popup schon einmal angezeigt wurde
-  const HINT_POPUP_SHOWN_KEY = 'ga_suche_hint_popup_shown';
+  // Prüfe ob Popup dauerhaft deaktiviert wurde
+  const HINT_POPUP_DISABLED_KEY = 'ga_suche_hint_popup_disabled';
   
-  if (localStorage.getItem(HINT_POPUP_SHOWN_KEY) === 'true') {
-    // Popup wurde schon angezeigt - nicht mehr anzeigen
+  if (localStorage.getItem(HINT_POPUP_DISABLED_KEY) === 'true') {
+    // Popup wurde dauerhaft deaktiviert - nicht mehr anzeigen
     return;
   }
   
   function showHintPopup() {
-    // Markiere Popup als angezeigt (BEVOR es angezeigt wird, um Race Conditions zu vermeiden)
-    localStorage.setItem(HINT_POPUP_SHOWN_KEY, 'true');
-    
     // Erstelle das Popup-Element
     const popup = document.createElement('div');
     popup.className = 'hint-popup';
     popup.innerHTML = `
       <div class="hint-popup-content">
-        Klicken Sie <strong>Strg+Klick</strong>, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten. Strg+Klick auf den <strong>Info-Button</strong> oben links zeigt weitere Tastenkombinationen.
+        <strong>Bitte beachten:</strong> Das Speichern von Textmarkierungen im Mitgliederbereich ist aktuell noch nicht dauerhaft möglich.<br><br>
+        Klicken Sie <strong>Strg+Klick</strong>, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten.<br><br>
+        Weitere Tastenkombinationen über den <strong>Info-Button</strong> oben links.
+      </div>
+      <div class="hint-popup-footer">
+        <label class="hint-popup-dismiss-label">
+          <input type="checkbox" class="hint-popup-dismiss-checkbox">
+          <span>Nicht mehr anzeigen</span>
+        </label>
       </div>
       <button class="hint-popup-close" title="Schließen">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -43488,8 +43534,14 @@ async function addKeywordToLecture() {
     
     document.body.appendChild(popup);
     
-    // Schließen-Funktion
+    // Schließen-Funktion - prüft Checkbox
     function closePopup() {
+      // Prüfe ob Checkbox aktiviert ist
+      const checkbox = popup.querySelector('.hint-popup-dismiss-checkbox');
+      if (checkbox && checkbox.checked) {
+        localStorage.setItem(HINT_POPUP_DISABLED_KEY, 'true');
+      }
+      
       popup.classList.add('hiding');
       setTimeout(() => {
         if (popup.parentNode) {
@@ -43498,14 +43550,14 @@ async function addKeywordToLecture() {
       }, 300);
     }
     
-    // Event-Listener für Schließen-Button
+    // Event-Listener für Schließen-Button (X)
     popup.querySelector('.hint-popup-close').addEventListener('click', closePopup);
     
-    // Automatisch nach 25 Sekunden ausblenden
+    // Automatisch nach 20 Sekunden ausblenden
     setTimeout(closePopup, 20000);
   }
   
-  // Zeige Popup nach kurzer Verzögerung (nur beim ersten Mal)
+  // Zeige Popup nach kurzer Verzögerung bei jedem Besuch
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(showHintPopup, 1500);
