@@ -1,0 +1,2462 @@
+# RUDOLF STEINER GESAMTAUSGABE VORTRÄGE
+
+ÖFFENTLICHE VORTRÄGE
+
+
+---
+
+
+---
+
+RUDOLF STEINER
+
+Erneuerungs-Impulse für Kultur und Wissenschaft
+
+Berliner Hochschulkurs
+
+Sieben Vorträge, gehalten beim anthroposophischen Hochschulkurs in Berlin vom 6. bis 11. März 1922 mit einem Bericht in Dornach am 18. März 1922 über den Berliner Hochschulkurs
+
+1994
+
+RUDOLF STEINER VERLAG
+DORNACH/SCHWEIZ
+
+
+---
+
+Nach vom Vortragenden nicht durchgesehenen Nachschriften herausgegeben von der Rudolf Steiner-Nachlaßverwaltung Die Herausgabe besorgten Susi Lötscher und Ulla Trapp
+
+1. Auflage, Gesamtausgabe Dornach 1994
+
+Frühere Veröffentlichungen in Zeitschriften siehe zu Beginn der «Hinweise»
+
+Bibliographie-Nr. 81
+
+Alle Rechte bei der Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz
+© 1994 by Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz
+Printed in Germany by Konkordia Druck, Bühl/Baden
+ISBN 3-7274-0810-3
+
+
+---
+
+Zu den Veröffentlichungen
+aus dem Vortragswerk Rudolf Steiners
+
+Die Gesamtausgabe der Werke Rudolf Steiners (1861 bis 1925) gliedert sich in die drei großen Abteilungen: Schriften - Vorträge - Künstlerisches Werk (siehe die Übersicht am Schluß des Bandes).
+
+Von den in den Jahren 1900 bis 1924 sowohl öffentlich wie für die Mitglieder der Theosophischen, später Anthroposophischen Gesellschaft zahlreichen frei gehaltenen Vorträgen und Kursen hatte Rudolf Steiner ursprünglich nicht gewollt, daß sie schriftlich fetsgehalten würden, da sie von ihm als «mündliche, nicht zum Druck bestimmte Mitteilungen» gedacht waren. Nachdem aber zunehmend unvollständige und fehlerhafte Hörernachschriften angefertigt und verbreitet wurden, sah er sich veranlaßt, das Nachschreiben zu regeln. Mit dieser Aufgabe betraute er Marie Steiner-von Sivers. Ihr oblag die Bestimmung der Stenographierenden, die Verwaltung der Nachschriften und die für die Herausgabe notwendige Durchsicht der Texte. Da Rudolf Steiner aus Zeitmangel nur in ganz wenigen Fällen die Nachschriften selbst korrigieren konnte, muß gegenüber allen Vortragsveröffentlichungen sein Vorbehalt berücksichtigt werden: «Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.»
+
+Nach dem Tode von Marie Steiner (1867 - 1948) wurde gemäß ihren Richtlinien mit der Herausgabe einer Rudolf Steiner Gesamtausgabe begonnen. Der vorliegende Band bildet einen Bestandteil dieser Gesamtausgabe. Soweit erforderlich, finden sich nähere Angaben zu den Textunterlagen am Beginn der Hinweise.
+
+
+---
+
+
+---
+
+
+# INHALT, ERSTER VORTRAG, Berlin, 6. März 1922 . . . . 13
+
+Anthroposophie und Naturwissenschaft
+
+Naturwissenschaft: Anwendung der Methodik aus der anorganischen Natur auf andere Gebiete; Anthroposophie: Metamorphosieren der Begriffe. Naturwissenschaft: rationalistische, Anthroposophie: phänomenologische Naturauffassung. Goethe und Ernst Mach als Phänomenologen. Kausalitätserklärungen nach mathematischer Begriffsbildung. Goethes Idee von der «Urplanze». Phänomenologisches «Lesen». Anthroposophie anerkennt die Berechtigung der mathematisch-kausalen Denkweise, jedoch nicht als einzig mögliches Begriffssystem. Atomismus. - Spiegelung der Außenwelt im Menschen, geistig-seelisch und materiell.
+
+ZWEITER VORTRAG, 6. März 1922 36
+
+Die menschliche und die tierische Organisation Morphologische Verwandtschaft von Mensch und Tier; Goethes Entdeckung des Zwischenkieferknochens beim Menschen. Metamorphose von der tierischen Organisation ins Menschliche hinauf. - Biologische Differenzierung von Mensch und Tier; Sinnesleben als Beispiel. Die zwölf Sinne des Menschen. Das Hineingestelltsein der menschlichen und tierischen Organisation in den Kosmos: vertikale bzw. horizontale Lage des Rückgrates. - Menschliche Sinneswahrnehmung und daran sich anschließendes Vorstellungsmäßiges; Sehsinn als Beispiel. Gleichgewichtssinn und mathematische Vorstellungen. Was wird in der physischen Organisation des Menschen bewirkt durch seine, vom Tier verschiedene Gleichgewichtslage?
+
+---
+
+DRITTER VORTRAG, 7. März 1922
+54
+
+# Anthroposophie und Philosophie
+
+Unterschiedliches Erleben der Philosophie früher und heute. Heute zu unterscheiden Philosophie des Westens, der Mitte und des Ostens. - Westen: Herbert Spencer: Orientierung nach der Naturwissenschaft. Strenge Trennung von Wissenschaft und dem religiösen Glauben des Einzelnen. Mitte: Hegel: Vereinigung von geistiger und sinnlicher Welt, von Glauben und Wissen. Hegels Stehenbleiben im Abstrakten als Tragik; seine Logik als Keim dazu, den Gedanken als Realität erleben zu können. Osten: Wladimir Solowjew: Erleben in der Geistigkeit. Verwendung westlicher Begriffe als Illustration für das mystische Erleben. - Osten: der Philosoph als Priester, Westen: der Philosoph als Weltmann, Mitte: der Philosoph als Lehrer. - Unbewußte Übernahme des westlichen naturwissenschaftlichen Denkens in Mitteleuropa im 19. Jahrhundert. Keine Weiterbildung von Begriffen im Westen, dadurch Verlust von Begriffen in der Mitte. - Westen: Naturwissenschaftliche Ergebnisse als Weltenfrage. Mitte: Durchstoßen zum Gedanken bei Hegel. Osten: Hinschauen zu dem, was über dem Gedanken lebt. - Brückeschlagen zwischen West und Ost durch die Anthroposophie.
+
+VIERTER VORTRAG, 8. März 1922
+75
+
+# Anthroposophie und Erziehungswissenschaft
+
+Die Wirkung anthroposophischer Ideen auf den ganzen Menschen. - Spekulationen über den Zusammenhang zwischen dem Geistig-Seelischen und dem Leiblich-Physischen des Menschen in der Psychologie. Anwendung naturwissenschaftlicher Prinzipien in metamorphosierter Weise bei der anthroposophischen Betrachtung des Menschen. Beziehung zwischen Geistig-Seelischem und Physisch-Leiblichem beim Kind: Nachahmungsprinzip in der ersten Lebensepoche, Autori
+
+
+---
+
+tatsprinzip in der zweiten. - Unbefriedigende Erziehungsmethoden als Folge des Abstrakten des Intellektualismus. Ablesen des Lernplanes und Lernzieles an der Entwicklung des Kindes in der Waldorf-Pädagogik. - Intellektualismus in der dritten Lebensepoche, nach der Geschlechtsreife. - Intellektualistischer Kulturimpuls in unserem Zeitalter; die dadurch entstehende Problematik, die volle Menschennatur des Kindes und Jugendlichen zu verstehen. Brücke vom Erwachsenen zur Kindeswelt durch die Anthroposophie. - Vom Umgang mit dem Künstlerischen und Intellektualistischen in der Waldorfpädagogik. Über die Gesinnung des Lehrers.
+
+FÜNFTER VORTRAG, 9. März 1922. 96
+
+Anthroposophie und Sozialwissenschaft
+
+Die «Kernpunkte der sozialen Frage»: Forderung nach einer Dreigliederung des sozialen Organismus; Impulse statt utopistischer Ideen; Mißverstehen des Buches bei Wirtschaftstheoretikern wie -praktikern. - Instinktive Führung des Wirtschaftslebens in älteren Kulturen und Durchdringung desselben mit intellektualistischen Gedanken seit dem 15. Jahrhundert. - Zwei Strömungen: Wirtschaftstheoretiker, ohne Einfluß auf die Praxis, Wirtschaftspraktiker, im Instinktiven verbleibend. Eine Art Synthese der beiden im heutigen wirtschaftlich-wissenschaftlichen Realismus, daraus resultierend die sozialpolitische Gesetzgebung. Woodrow Wilson als abstrakter Theoretiker. Durch die Anthroposophie lebendige soziale Impulse anstatt abstrakte intellektualistische Ideen.
+
+SECHSTER VORTRAG, 10. März 1922. 118
+
+Anthroposophie und Theologie
+
+Besprechung einer Notiz in einer theologischen Zeitschrift. Grundsätzliches über das Verhältnis der An-
+
+
+---
+
+throposophie zu Theologie und Religion. Anthroposophie als Arbeitsgebiet und Forschungsmethode. - Vater-Gott-Vorstellung war in alten Zeiten den Menschen gegeben. Atheismus als Krankheit. Verständnis für das Christus-Ereignis und Hinführung zum Christus-Erlebnis durch die Anthroposophie. Den Christus nicht finden als Schicksalsunglück. Nicht zum Geiste kommen als seelische Beschränktheit.
+
+SIEBENTER VORTRAG, 11. März 1922. 140
+
+Anthroposophie und Sprachwissenschaft
+
+Bewußtes und Unterbewußtes der Sprache. Sprache als Objekt der wissenschaftlichen Betrachtung. Über einen Parallelvortrag vor englischsprechenden und anderen Zuhörern: Empfindungsnuancen gegenüber «Pflicht» und «Duty». Sprache als Nuance der Volksseele. - Unterschiedliches Spracherleben in verschiedenen Zeit-epochen. Sanskrit als Beispiel: das Erleben beim Wort «manas»; Konsonanten: zurückgehaltene Gebärden, metamorphosierte Nachbildung der äußeren Welt, Vokale: herausgeboren aus Sympathie und Antipathie; das Einfließen traumhafter Imaginationen in die Sprache. - Ich-Empfindung in verschiedenen Zeiten. Das geistige Erleben der Sprache im Westen, in der Mitte und im Osten. - Wilhelm Wundt und seine Theorien über den Ursprung der Sprache.
+
+BERICHT über den anthroposophischen
+
+Hochschulkurs in Berlin 159
+
+Aus dem Mitgliedervortrag in Dornach, 18. März 1922
+
+
+---
+
+# ANHANG
+
+Programm (Faksimile). 183
+
+Zwei Briefe des Berliner Zweigleiters
+Rudolf Meyer an Rudolf Steiner. 187
+
+## Pressestimmen:
+
+Ernst Uehli.: «Der Anthroposophische Hochschulkurs in Berlin» in «Dreigliederung des sozialen Organismus», Nrn. 38-40, 1922 (Auszug). 189
+
+Eberhard Kurras: «Vom Anthroposophischen Hochschulkursus zu Berlin» in «Das Goetheanum», Nr. 33, 1922. 194
+
+Heinrich Frick; «Wer hat herausgefordert?» in «Die Christliche Welt», Nr. 13, 1922 (Auszug). 198
+
+Heinrich Frick: «Anthroposophie und evangelische Theologie» in «Die Christliche Welt», Nr. 17, 1922 (Auszug). 199
+
+## Hinweise
+
+Zu dieser Ausgabe. 201
+Hinweise zum Text. 203
+
+Namenregister. 223
+
+Übersicht über die Rudolf Steiner Gesamtausgabe. 225
+
+
+---
+
+
+---
+
+
+# ERSTER VORTRAG - ANTHROPOSOPHIE UND NATURWISSENSCHAFT, Berlin, 6. März 1922
+
+Sehr verehrte Anwesende! Es war der Wunsch des Komitees für diese Hochschulwoche, daß ich an jedem Tage durch einige Ausführungen einleite, was im Laufe des Tages wissenschaftlich zur Verhandlung kommen soll. Es ist das ja wohl so eingerichtet worden aus der Anschauung heraus, daß durch Anthroposophie die einzelnen Wissenschafts- und Lebenszweige eine gewisse Befruchtung erfahren sollen; und nur in diesem Sinne, als einleitende Bemerkungen zu den Verhandlungen des Tages, bitte ich Sie diese ersten Vorträge aufzufassen.
+
+Was mich immer am meisten gewundert hat bei der Entgegennahme der anthroposophischen Forschungsmethode, das ist der Widerstand, der insbesondere von philosophisch-naturwissenschaftlicher Seite - ich sage nicht: rein von naturwissenschaftlicher Seite - der Anthroposophie entgegengebracht wird, und zwar aus dem Grunde, weil man glaubt, daß Anthroposophie in einer unberechtigten oppositionellen Weise den Methoden der Naturwissenschaft gegenüberstehe, welche sich in so fruchtbarer Art im Laufe der letzten Jahrhunderte, insbesondere des 19. Jahrhunderts herausgebildet haben. Und mir scheint, daß unter all den Dingen, die in bezug auf Anthroposophie von unserer Zeitgenossenschaft am allerschwersten eingesehen werden, das ist, daß An-
+
+---
+
+throposophie gerade gegenüber der Naturwissenschaft nichts anderes will, als die Methoden, die in der Naturwissenschaft sich so fruchtbar erwiesen haben, in entsprechender Weise weiterzubilden. Allerdings muß man unter der Idee der Weiterbildung etwas anderes noch verstehen können, wenn man von dieser Seite her zum Begreifen des Anthroposophischen kommen will, als das, was man gewöhnlich heute eine Weiterbildung von theoretischen Anschauungen nennt.
+
+Eine Weiterbildung der theoretischen Anschauungen ist heute den meisten Menschen dieses: daß die besondere Art der Gedankenverknüpfung - insbesondere, wenn ich mich so ausdrücken darf, das Feld der Gedanken - dieselbe bleibt, auch wenn man die betreffenden Gedankensysteme auf andere Gebiete der Welterscheinungen ausdehnt. So zum Beispiel: Man kommt, wenn man sich naturwissenschaftlich betätigt, gegenüber der leblosen, der anorganischen Natur in die Notwendigkeit, gewisse Gedankenverknüpfungen, ein gewisses Feld von Gedanken, das heißt eine Summe von miteinander verbundenen Gedanken zugrundezulegen, um gewissermaßen eine Theorie der unorganischen, der leblosen Naturerscheinungen zu bekommen. Dieses System von Gedanken will man dann so, wie es ist, weiter ausdehnen, wenn man ein anderes Gebiet der Welt, also zum Beispiel das Gebiet der organischen Naturerscheinungen, zu begreifen bestrebt ist. Man will also mit derjenigen kausalen Orientierung, die sich so fruchtbar erweist im unorganischen Gebiet, einfach hinübergehen in das Gebiet der Lebewesen und diese mit denselben Begriffen durchtränken und erklären, also gewissermaßen begrifflich das Gebiet der Lebewesen ebenso zu einem Wirkungssystem von unorganischen Kausalitäten machen, wie man ja
+
+
+---
+
+genötigt ist, es gegenüber der leblosen, der unorganischen Natur zu tun. Also was man sich angeeignet hat als Gedankensystem aus der leblosen Natur, das trägt man einfach hinüber in die organische Natur. Und das ist das, was man heute gewöhnlich unter «Erweiterung» von Gedanken und Theorien versteht.
+
+Damit steht allerdings dann im vollen Gegensatz, was Anthroposophie unter einer solchen Erweiterung von Gedanken verstehen muß. Sie muß den Begriff eines gewissen selbständigen Wachsens, eines Sichmetamorphosierens der Idee vollziehen, wenn von einem Gebiete der Welterscheinungen zu einem anderen übergegangen wird, so daß man nicht bloß das, was man an den leblosen Naturerscheinungen gelernt hat, ich möchte sagen «logisch übertragen» kann auf die belebten Naturerscheinungen. So wie vergleichsweise in der Lebewelt die Dinge selbst sich sehr verändern, wenn sie wachsen, wenn sie Metamorphosen durchmachen, und wie sie dann oftmals in der Gestaltung, die sie angenommen haben, gar nicht wiederzuerkennen sind, so müssen auch die Gedanken andere Gestaltungen annehmen, wenn sie in ein anderes Gebiet kommen. Was aber über alle Gebiete hin dasselbe bleibt und was dann der ganzen wissenschaftlichen Weltauffassung methodisch einen monistischen Charakter gibt, das ist die Art und Weise, wie man sich innerlich stellt zu dem, was man «wissenschaftliche Gewißheit» nennen kann, was die Grundlage gibt zur wissenschaftlichen Überzeugung. Wer zu prüfen vermag, warum man nicht mit den Begriffen, die man in der leblosen Natur schon einmal gewohnt ist anzuwenden, zu einer Befriedigung des menschlichen Kausalitätsbedürfnisses kommt - wenn ich mich des Du Bois-Reymondschen Ausdruckes bedienen darf -, wer
+
+
+---
+
+das wirklich innerlich kennenlernt, der kann es dann hinüberführen in die Art und Weise, wie man durch ganz andere Begriffe, die aber doch nur Metamorphosen gegenüber den früheren Begriffen sind, überzeugt wird in der Welt des Lebendigen. Diese Art, wie sich der Mensch da innerhalb des Wissenschaftsgetriebes stellt, ist durchaus monistisch durch die ganze wissenschaftliche Weltanschauung hindurch. Das ist etwas, was gewöhnlich mißverstanden wird und was dazu führt, daß man der anthroposophisch-wissenschaftlichen Weltanschauung nicht einen monistischen, sondern einen dualistischen Charakter beilegen will.
+
+Das zweite, was sehr häufig zu Mißverständnissen führt, ist der Phänomenalismus, dem sich Anthroposophie gerade mit Bezug auf Naturwissenschaft hingeben muß. Wir haben ja gerade in dem für so vieles fruchtbarsten Zeitalter naturwissenschaftlicher Entwicklung, etwa in der Zeit, in welcher der bedeutende Naturforscher Virchow seine Rede gehalten hat über die Ablösung der philosophischen Weltanschauung durch die naturwissenschaftliche, erfahren, wie alles, was damals mit einer gewissen historischen Berechtigung an fruchtbaren Begriffen über das Anorganische gewonnen worden ist, dazu geführt hat, einen gewissen Rationalismus in der Naturwissenschaft zu begründen. Und das Zeitalter, das auf der einen Seite streng auf Empirismus gegenüber der äußeren Tatsachenwelt hinarbeitete, das erging sich doch in einem sehr weittragenden Rationalismus, wenn es dazu kam, die empirisch erkundeten Naturtatsachen zu erklären.
+
+Demgegenüber steht nun die Anthroposophie auf dem Standpunkte, der sich ergibt – wenigstens für mich sich ergeben hat, wenn ich diese persönliche Bemerkung
+
+
+---
+
+machen darf - aus der Goetheschen Naturauffassung heraus. Anthroposophie steht auf dem Boden einer phänomenologischen Naturauffassung. In einer gewissen Weise hat diese Phanomenologie in der neueren Zeit wieder Ernst Mach begründet, und so wie er sie begründet, scheint sie durchaus wiederum fruchtbare Gesichtspunkte zu enthalten, wenn man ihre Grenzen einhält. Es handelt sich bei Goethe einfach um das, was in seinen Worten liegt: Die Erscheinungswelt selbst ist schon genügend Theorie, man braucht nicht erst zu künstlichen Theorien fortzuschreiben. Die Bläue des Himmels ist ein Phänomen, innerhalb dessen man stehenbleiben und sich nicht herbeilassen soll, nun in rationalistischer Weise durch bloße Gedanken hinter den Erscheinungen zunächst hypothetische, angenommene Erklärungsgründe zu suchen. Goethe kam ja auf diesem Wege zur Statuierung dessen, was er «Urphänomen» nannte. Wenn auch, wie es ja selbstverständlich ist, im Laufe des für die Naturwissenschaft so fruchtbaren 19. Jahrhunderts vieles von dem überholt worden ist, was Goethe in der Naturwissenschaft wollte, so kann man doch sagen: Das Methodische, die Denkweise selbst, die Goethe in die Naturwissenschaft hineingetragen hat, ist heute nicht nur noch nicht überholt, sondern sie scheint mir überhaupt noch nicht gründlich genug verstanden zu sein.
+
+Ich weiß sehr gut, wie im 19. Jahrhundert manches - man möchte sagen fast alles - von den Einzelheiten Goethescher Darstellungen über naturwissenschaftliche Dinge überholt worden ist. Dennoch möchte ich auch heute noch den Satz aufrecht erhalten, den ich in den 80er Jahren des vorigen Jahrhunderts in bezug auf die Goethesche Naturanschauung ausgesprochen habe: daß
+
+
+---
+
+Goethe der Kopernikus und Kepler ist für die organische Naturwissenschaft. Ich will diesen Satz aus dem Grunde auch heute noch aufrecht erhalten, weil ich glaube, daß folgendes durchaus gerechtfertigt ist.
+
+Wodurch kommen wir denn schließlich zu einer wirklichen Naturanschauung auf dem Gebiete, auf dem gerade das 19. Jahrhundert so viel geleistet hat? Ich kann das, was ich meine, nicht anders begrenzen als durch diese historische Kategorie. Das, worin das 19. Jahrhundert in der Naturwissenschaft so viel geleistet hat, führt zuletzt fast überall zurück auf die Anwendung der mathematischen Methoden; denn auch da, wo man nicht rein mathematisch vorgeht, sondern nach anderen Kausalitätsprinzipien denkt, wo man Theorien ausgebildet hat, lag ja durchaus auch die mathematische Denkweise zugrunde.
+
+Bezeichnend dafür ist etwa das Folgende: Wir haben gesehen, wie im Laufe des 19. Jahrhunderts gewisse Partien der Naturwissenschaft durchaus in einer gewissen rationalistischen Weise dadurch begründet werden sollten, daß man Mathematik in sie einführte. Bekannt ist der Kantsche Satz, daß eigentlich in jeder Wissenschaft nur so viel wirkliche Gewißheit sei, wie Mathematik in ihr zu finden sei. - Nun kann man selbstverständlich Mathematik nicht überall hintragen. Die Kausalitätserklärungen gehen weiter als die Möglichkeit mathematischer Begriffsbildungen. Aber das, was man so unternommen hat an Kausalitätserklärungen, das wurde doch weitgehend nach dem Muster mathematischer Begriffsbildungen unternommen. Und als sich dann Ernst Mach daranmachte, von seinem mehr phänomenologischen Standpunkte aus dieses Begriffssystem zu überschauen, mußte er auch auf den Begriff der Kausalität zurück-
+
+
+---
+
+blicken, wie er sich in der Naturwissenschaft im Laufe des 19. Jahrhunderts ausgebildet hat, und er wollte zu einem gewissen Inhalt für diesen Kausalitätsbegriff kommen. Zuletzt sagte er sich: Wenn ich eine Wirkung mit einer Ursache zusammenndeke, so ist doch eigentlich nichts anderes darin enthalten als ein mathematischer Funktionsbegriff; zum Beispiel wenn ich sage: x ist gleich y, wobei ich unter x die Ursachen zusammenfasse und unter y die Wirkung, habe ich das Ganze auf diejenigen Begriffe zurückgeführt, die ich in der Mathematik habe, wenn ich den Funktionsbegriff bilde. Also man kann auch aus der Geschichte der Wissenschaften sehen, wie man den Mathematikbegriff in das ganze Gebiet der Naturwissenschaft hineingetragen hat.
+
+Nun wird Goethe - und zwar mit einem gewissen Recht - gewöhnlich als ein Nicht-Mathematiker angesehen; er hat sich ja selbst als einen solchen bezeichnet. Aber wenn man so einfach Goethe als einen Nicht-Mathematiker hinstellt, so führt das auch wieder zu Mißverständnissen - in dem Sinne etwa, daß Goethe nicht viel im einzelnen mathematisch habe leisten können, daß er nicht besonders geschickt gewesen sei, auch schon zu seiner Zeit durchaus bestehende mathematische Exempel zu lösen. Das muß natürlich durchaus zugegeben werden. Ich glaube auch nicht, daß Goethe bei seinem ganzen Wesen sonderlich viel Geduld gehabt hätte, sich auf die Lösung einzelner mathematischer Exempel einzulassen, wenn es mehr ins Algebraische hineingegangen wäre. Das muß schon zugegeben werden. Aber Goethe war in gewissem Sinne, so paradox es klingt, mehr ein mathematischer Kopf als mancher Mathematiker; denn er hatte eine feine Einsicht in die Natur des Mathematisierens, in die Natur des Bildens von
+
+
+---
+
+mathematischen Begriffen, und er schätzte diese Art und Weise zu denken, die ganz in dem inneren Seelenprozeß auch mit dem Inhalt der Vorstellung bleibt, wenn sie Begriffe bildet.
+
+Man überschaut im Mathematischen, wenn man Begriffe bildet, innerlich vollständig alles. Nehmen Sie als ein einfaches Beispiel in der euklidischen Geometrie den gewöhnlichen Beweis dafür, daß die drei Winkel eines Dreiecks zusammen 180 Grad betragen, wo man oben durch die Spitze des Dreiecks eine Parallele zur Grundlinie zieht, die dort auf diese Weise entstandenen Winkel betrachtet, die als Wechselwinkel gleich sind den beiden anderen Winkeln des Dreiecks - der dazwischen liegende bleibt sich ja gleich -, und wo man dann sehen kann, wie diese drei Winkel dort an der Spitze zusammen 180 Grad betragen, also in ihrer Summe den drei Winkeln des Dreiecks gleich sind. - Wenn man das überschaut, hat man einen mathematischen Beweis, aber man hat zu gleicher Zeit etwas, wobei man gar nicht abhängig ist von einer äußeren Anschauung, sondern durchaus die Dinge in innerlichem Konstruieren überschauen kann. Hat man dann ein äußeres Dreieck, so findet man, daß durch die äußeren Tatsachen verifiziert wird, was man vorher innerlich überschaut hat. Das ist in der ganzen Mathematik so. Es bleibt alles so, daß man nicht an die Sinnesanschauung heranzugehen braucht, um zu dem zu kommen, was man «Beweis» nennt, daß aber alles, was man innerlich gefunden hat, auch äußerlich Stück für Stück verifiziert werden kann.
+
+Diese besondere Art des Mathematischen ist es ja, welche Goethe gerade als die eminent wissenschaftliche ansah, und insofern war er wirklich ein guter mathematischer Kopf. Das liegt zum Beispiel auch der Führung
+
+
+---
+
+jenes berühmten Gesprächs zugrunde, das Goethe und Schiller einmal in der Blütezeit ihrer Freundschaft geführt haben über die Methode der naturwissenschaftlichen Betrachtung. Sie waren beide bei einem Vortrage, den der Naturforscher Batsch in der Naturforschenden Gesellschaft in Jena gehalten hatte, und als sie fortgingen, sagte ja Schiller zu Goethe über das, was sie dort gehört hatten, das sei eine zerstückelte Art, die Naturerscheinungen zu betrachten, damit komme man zu nichts Ganzem. - Man kann sich denken, daß Batsch einfach die einzelnen Naturobjekte nebeneinander hingeordnet und es unterlassen hatte, wie es ja auch durchaus einem Naturforscher der damaligen Zeit geziemte, irgendetwas vorzuführen, was zu einer Gesamtanschauung in der Natur führen konnte. Schiller empfand dies unbefriedigend und sprach sich darüber bei Goethe aus. Und Goethe sagte, er verstehe es, eine gewisse Einheit, eine gewisse Ganzheit in eine solche Naturbetrachtung hineinzubringen. Und er fing an, mit wenigen Strichen - er erzählt es ja selbst - die «Urpflanze» aufzuzeichnen, wie sie zu denken ist, wie sie innerlich angeschaut werden kann, nicht, wie sie in dieser oder jener Pflanze zu Tage tritt, sondern wie sie innerlich angeschaut werden kann mit Wurzel, Stengel, Blättern, Blüte, Frucht.
+
+Ich habe in meinen Einleitungen zu den «Naturwissenschaftlichen Schriften» Goethes in den 80er Jahren des vorigen Jahrhunderts versucht, das Bild, das damals Goethe auf das Papier vor Schiller hingeworfen hat, nachzuzeichnen. - Schiller sah sich das an und sagte dann aus seiner Denkweise heraus: Das ist keine Erfahrung, das ist eine Idee. - Schiller hatte eben gemeint: wenn man so etwas aufzeichnet, so hat man das aus sich heraus gesponnen; das ist als Idee, als Gedanke ganz gut,
+
+
+---
+
+hat aber in der Wirklichkeit im Grunde genommen keine Quelle. Goethe verstand diese Denkweise eigentlich gar nicht, und zuletzt endete das Gespräch damit, daß Goethe erwiderte, gewissermaßen das Gespräch zusammenfassend: Wenn das so ist, dann sehe ich meine Ideen mit Augen.
+
+Was meinte denn Goethe damit? Er meinte – er hat es nicht so ausgesprochen, aber er meinte es: Wenn ich ein Dreieck hinzeichne, so hat es von selbst eine Winkelsumme von 180 Grad; und wenn ich noch so viele Dreiecke anschaue, das, was ich an diesem einen Dreieck innerlich konstruiert habe, das paßt auf alle Dreiecke; ich habe also etwas aus dem Innern heraus gewonnen, das nun in vollem Umfang auf das Erfahrene paßt. So wollte Goethe auch eine «Urpflanze» – gewissermaßen gemäß dem «Urdreieck» – zeichnen, und einen solchen Charakter sollte diese Urpflanze haben, daß man diesen bei jeder einzelnen Pflanze finden könne. Und so, wie die Winkelsumme jedes Dreiecks, wenn man das Urdreieck hat, 180 Grad beträgt, so sollte auch dieses ideelle Gebilde, die Urpflanze, in jeder einzelnen Pflanze wiedergefunden werden, wenn man die ganze Pflanzenreihe durchgeht.
+
+In diesem Sinne wollte Goethe die ganze Wissenschaft gestalten. Im wesentlichen wollte er – er kam ja damit nicht weiter – die Wissenschaft des Organischen so gestalten und eine solche Denkweise einführen, wie sie sich für die Wissenschaft des Unorganischen als fruchtbar erwiesen hat. Man sieht das ganz besonders klar, wenn Goethe von Italien aus schreibt, wie er die Idee der Urpflanze immer weiter ausgebildet hat. Da sagt er ungefähr: Da, unter den Pflanzen in Süditalien und Sizilien in der Mannigfaltigkeit der Pflanzenwelt ist mir die Urpflanze ganz besonders aufgegangen, und es
+
+
+---
+
+muß sich doch ein Gebilde finden lassen, das die Möglichkeit aller wirklichen Pflanzen in sich hat, ein Gebilde, das sich nach verschiedenen Seiten hin variieren kann; es nimmt dann diese oder jene, langgestreckte oder andere Blattform an, bildet bald die Blüte, bald die Frucht mehr aus und so weiter - so wie ein Dreieck stumpfwinklig oder spitzwinklig sein kann. Ein Gebilde wollte Goethe finden, nach dessen Muster alle Pflanzen gebildet sind. Es ist ganz falsch, wenn dann später Schieiden meinte, Goethe habe mit der Urpflanze eine tatsächliche Pflanze gemeint. Das ist nicht so - so wie auch der Mathematiker, der vom Dreieck spricht, nicht irgendein bestimmtes Dreieck im Auge hat -, sondern Goethe meinte ein Gebilde, das innerlich erzeugt wird, das sich aber in der Außenwelt überall verifiziert findet.
+
+So war Goethe im Grunde genommen ein durchaus mathematischer Kopf, viel mathematischer als etwa die, die die Astronomie ausbilden. Und das ist das Wesentliche. Das veranlaßte Goethe auch, in diesem Gespräch mit Schiller zu sagen: Dann sehe ich meine Ideen mit Augen. - Er sah sie mit Augen, weil er sie überall in den Phänomenen verfolgen konnte. Er begriff gar nicht, daß etwas nur eine «Idee» sein sollte, weil er sich im vollen Einklang fand mit der Erfahrung, wenn er Ideen bildete; geradeso, wie der Mathematiker sich im Einklang fühlt mit der Erfahrung, wenn er mathematische Ideen bildet. Das aber führte Goethe, ich möchte sagen, durch eine innere Konsequenz dazu, zur bloßen Phänomenologie zu kommen, das heißt, nichts hinter den Erscheinungen als solchen zu suchen, vor allen Dingen nicht eine rationalistische Atomwelt zu konstruieren.
+
+Nun, damit betritt man ein Gebiet, auf dem sich viele - ich kann aber doch nur sagen - auf Mißverständnissen
+
+
+---
+
+beruhende Kämpfe gegenüber mancher naturwissenschaftlich-philosophischen Anschauung entwickelten. Es handelt sich zunächst einfach darum, das, was sich den Sinnen in der äußeren Welt darbietet, was also in der Beobachtung und im Experiment gegeben ist, rein als Phänomen zu betrachten. Goethe und mit ihm die ganze naturwissenschaftliche Phänomenologie beschränkt sich darauf, nicht gleich von irgendeinem sinnlichen Phänomen zu einem dahinterstehenden Atomgeschehen zu gehen, sondern zunächst das sinnliche Phänomen und das einzelne Element der sinnlichen Tatsachen rein ins Auge zu fassen, sie also nicht auf ein Dahinterliegendes zu beziehen, sondern auf andere Elemente in der sinnlichen Erscheinungswelt, und den Zusammenhang in der sinnlichen Erscheinungswelt aufzusuchen.
+
+Man kann sehr leicht - ich verstehe vollständig, woher die entsprechenden Mißverständnisse kommen - eine solche Phänomenologie sogar trostlos finden. Man könnte zum Beispiel sagen: Wenn man sich nun bloß beschränken will auf das Beschreiben der gegenseitigen Beziehungen der sinnlichen Phänomene und dann diejenigen Phänomene aufsucht, die am einfachsten sind, in denen sich möglichst überschaubares Geschehen abspielt - und die Goethe «Urphänomene» nennt -, so kommt man bei einem solchen Vorgehen nicht zu einer Anschauung über jene unendlich fruchtbaren Dinge, die zum Beispiel die moderne Chemie geliefert hat. Wie, so könnte man fragen, kann man denn eigentlich gegenüber den Atomgewichtsverhältnissen auskommen, ohne eine Anschauung über eine atomistische Welt? Nun, in einem solchen Falle möchte man aber doch die Gegenfrage stellen: Wenn man sich nun wirklich besinnt auf das, was da vorliegt, hat man es denn da zu tun mit einer Notwen-
+
+
+---
+
+digkeit, vom Phänomen abzugehen? Man hat es gar nicht damit zu tun. Man hat es auch bei den Atomgewichtsverhältnissen mit Phänomenen zu tun, nämlich mit Gewichtsverhältnissen. Aber man könnte auch fragen: Führt es denn weiter, wenn man nun diese durch Zahlen ausdrückbaren Atomgewichtsverhältnisse dadurch zu erklären versucht, daß man gewisse Molekularstrukturen aus den Atomgewichten auf rein denkerische, rationalistische Weise bildet? Man kann eben auch diese Frage aufwerfen. Kurz, worum es sich handelt, wenn die Goethesche Denkweise ausgebildet wird, das ist: stehenzubleiben innerhalb der Phänomene selbst. Ich möchte dafür einen trivialen Vergleich gebrauchen.
+
+Nehmen wir an, jemand bekommt ein aufgeschriebenes Wort vor sein Auge. Was wird er tun? Nun, wenn er nie lesen gelernt hat, wird er davor stehen wie vor etwas Unerklärbarem. Hat er aber lesen gelernt, so wird er unbewußt die einzelnen Formen zusammenfügen; er wird den Wortsinn in der Seele erleben. Aber er wird ganz gewiß nicht von den Formen aus, zum Beispiel beim W, etwas zu erklären versuchen, indem er den Ausgang nähme von dem nach aufwärts gehenden Strich, dann überginge zu dem nach abwärts gehenden, um dadurch auf etwas diesem Buchstaben Zugrundeliegendes zu kommen. Nein, er wird lesen - und nicht durch Unterlegungen erklären wollen. So möchte auch die Phänomenologie «lesen». Sie möchte innerhalb des Zusammenhanges der Phänomene stehenbleiben und lesen lernen, und nicht, wenn ich einen Komplex von Phänomenen habe, von ihm aus zurückgehen auf Atomstrukturen.
+
+Es handelt sich also darum, das Feld des Phänomenalen hinzunehmen und in seiner eigenen inneren Bedeutung lesen zu lernen. Dadurch wird man dann zu einer
+
+
+---
+
+Naturwissenschaft kommen, welche in ihren Inhalten nichts Rationalistisches, hinter den Phänomenen Konstruiertes hat, sondern welche einfach in der Art und Weise, wie sie die Phänomene überschaut, gewisse gesetzmäßige Strukturen findet. Überall wird dieser Naturwissenschaft eingegliedert sein, die Summe der Phänomene selbst. Man wird auf eine bestimmte Art über die Natur reden. In dieser Art zu reden werden die Naturgesetze enthalten sein, aber überall werden in den Ausdrucksformen schon die Phänomene selbst liegen. Man wird also das bekommen, was ich nennen möchte: eine den Erscheinungen immanente Naturwissenschaft. Nach einer solchen strebte Goethe. Die Art und Weise, wie er das betrieb, muß unter den Fortschritten der neueren Zeit verändert werden, aber es ist doch so, daß das Grundprinzip festgehalten werden kann. Und wenn dieses Grundprinzip festgehalten wird, stellt sich für die menschliche Auffassungsweise der Natur ganz von selbst etwas heraus, das ich in der folgenden Weise charakterisieren möchte.
+
+Es ist ja ganz selbstverständlich, daß wir als gegenwärtige Menschheit unsere naturwissenschaftlichen Begriffe zunächst an der unorganischen Natur gebildet haben. Das ist dadurch veranlaßt gewesen, daß die unorganischen Naturerscheinungen verhältnismäßig einfach sind; das war aber auch veranlaßt dadurch, daß ja, wenn man ins organische Reich hinaufsteigt, durchaus auch die im Leblosen wirkenden Agenzien fortdauern. Wenn man vom Mineralreich zum Pflanzenreich heraufsteigt, dann ist es ja nicht so, daß etwa die leblose Wirkungsweise bei der Pflanze aufhörte; sie wird nur eingefaßt in ein höheres Prinzip, aber sie dauert in der Pflanze fort. Wir tun recht, wenn wir die physischen und
+
+
+---
+
+chemischen Prozesse in den Pflanzenorganismus hinein weiterverfolgen, und zwar nach denselben Gesichtspunkten, nach denen wir gewohnt sind, sie in der unorganischen Natur zu verfolgen. Wir müssen dann nur auch die Fähigkeit haben, in unseren Begriffssystemen überzugehen zu veränderten, zu metamorphosierten Begriffen. Wir müssen schon verfolgen, wie das Unorganische auch verwendet wird in der Pflanze und wie dieselben Prozesse, die sich in der leblosen Natur finden, auch in die Pflanze hineingehen. Aber dadurch wird die Versuchung hervorgerufen, daß man wissenschaftlich nur das verfolgt, was sich aus der mineralischen Welt hereinerstreckt in Pflanze und Tier und dabei einfach unberücksichtigt läßt, was dann in den höheren Reichen dazu auftritt. Diese Versuchung wurde durch einen besonderen Umstand gerade im Laufe des 19. Jahrhunderts noch außerordentlich größer. Das ist in folgender Weise geschehen.
+
+Wenn man die leblose Natur betrachtet, fühlt man sich gewissermaßen innerlich tief befriedigt, weil man die Erscheinungen mit mathematischen Gedanken verfolgen kann. Und es ist sehr begreiflich, daß Du Bois-Reymond in einer so wortreichen und glänzenden Weise in seiner Rede «Über die Grenzen des Naturerkennens» die Laplacesche Weltanschauung, die er die «astronomische Auffassung» des ganzen natürlichen Weltendaseins nennt, gefeiert hat, möchte ich sagen. Nach dieser astronomischen Auffassung wird ja nicht nur der Sternenhimmel so angesehen, daß man seine einzelnen Phänomene mit mathematischen Gedanken zusammenfaßt und sie dann als ein Ganzes, soweit es geht, konstruiert, sondern man versucht, auch damit unterzutauchen in die Konstitution der Materie. Man versucht im Molekül ein
+
+
+---
+
+kleines Weltsystem zu konstruieren, wo sich die Atome so bewegen und zueinander stehen wie die Sterne im Weltgebäude. Man konstruiert sich so im Kleinen kleinste Weltsysteme und hat die Befriedigung, daß man so im Kleinen dieselben Gesetzmäßigkeiten findet wie im Großen. So hat man in den einzelnen Atomen und Molekülen ein System sich bewegender Körper, wie man draußen im Weltgebäude das System der Fixsterne und Planeten hat. Das ist charakteristisch für die Art, wie man vor allem im 19. Jahrhundert gestrebt hat und wodurch, wie Du Bois-Reymond sagte, das Kausalitätsbedürfnis des Menschen sich befriedigt fühlt. Es ist das einfach entstanden aus dem Drang heraus, das mathematisch Fruchtbare in alle Naturerscheinungen hineinzutragen. Daraus entstand nun eben die Versuchung, bei diesem Mathematischen in der Betrachtung der Naturerscheinungen stehenzubleiben.
+
+Es wird keinem einfallen, auch einem Anthroposophen nicht, wenn er nicht laienhaft über diese Dinge spricht, bestreiten zu wollen, daß dies alles seine Berechtigung hat, namentlich dann, wenn man innerhalb der Phänomene stehen bleibt und sich bemüht, die Einzelheiten, zum Beispiel der Astronomie, in diesem Sinne aufzufassen. Keinem wird es einfallen, dagegen einen Kampf zu führen. Aber im Laufe des 19. Jahrhunderts trat das ein, daß man bei dem, was die Welt darbietet, alles das übersah, was qualitativ ist, und nur das sah, was ja da ist und in allem Qualitativen drinnen ist: das, was durch die Mathematik zu erfassen ist. Da muß man unterscheiden: Man kann durchaus zugeben, daß diese mechanistische Welterklärung voll berechtigt ist; es ist gar nichts dagegen einzuwenden. Aber etwas anderes ist es, ob man sie auf bestimmten Gebieten als vollbereich-
+
+
+---
+
+tigt erklärt oder ob man sie nun als das einzige mögliche Begriffssystem hingestellt will und mit diesem Begriffssystem schon alles in der Welt für erklärt halten will.
+
+Hier liegt der Differenzpunkt. Es wird durch den Anthroposophen nicht im geringsten das bestritten, was seine Berechtigung hat. Die Anthroposophie kämpft nämlich gar nicht gegen die anderen, und es ist interessant, bei Diskussionen zu verfolgen, wie Anthroposophie eigentlich alles innerhalb der berechtigten Grenzen zu-gibt. Es fällt den Anthroposophen gar nicht ein, das, was durch die Naturwissenschaft geltend gemacht wird, irgendwie zu bestreiten. Sondern es handelt sich darum, ob es berechtigt ist, das ganze Gebiet der Phänomene mit der mathematisch-kausalen Denkweise zu umfassen, oder ob es berechtigt ist, aus der Summe der Erscheinungen dasjenige herauszunehmen, was mathematisch-kausal eine reine Abstraktion ist, und es hinzustellen als einen «erdachten» Welteninhalt, wie es zum Beispiel der frühere Atomismus getan hat. Heute ist der Atomismus bis zu einem gewissen Grade schon phänomenologisch geworden, und bis zu diesem Grade geht Anthroposophie ganz gewiß mit. Aber es handelt sich darum, daß heute eben noch etwas hereinspukt von dem im 19. Jahrhundert so ungoetheschen Atomismus, der sich nicht beschränkte auf die Phänomene, sondern der ein reines Begriffssystem hinter den Phänomenen konstruierte. Und wenn man sich nicht klar darüber ist, daß man es doch nur mit einem Begriffssystem zu tun hat, das die Welt hinter den Erscheinungen sucht, sondern sich der Anschauung hingibt, man habe mit diesem Begriffssystem ein Reales ergriffen, so wird man durch dieses Begriffssystem gewissermaßen festgenagelt. Denn es ist die Eigentümlichkeit solcher Begriffssysteme, daß sie den Menschen
+
+
+---
+
+festnageln. Er wird durch sie zum Dogmatiker, und dann sagt er: Da gibt es Leute, die wollen das Organische mit ganz anderen Begriffen erklären, die sie von ganz woanders her haben, aber das gibt es nicht; wir haben solche Begriffssysteme ausgebildet, die die Welt hinter den Erscheinungen umfassen, und die ist die einzige Welt und die muß auch das einzig Wirksame in bezug auf das Organische sein. - Aber auf diese Weise wird in die Betrachtung des Organischen das hineingetragen, was man für die Erscheinungen der unorganischen Natur ausgebildet hat; man sieht das Organische als auf dieselbe Art gebildet an wie die unorganische Natur.
+
+Hier muß Klarheit geschaffen werden. Ohne diese Klarheit kann man niemals eine wirkliche Diskussionsgrundlage schaffen. Anthroposophie will durchaus nicht in dilettantischer Weise gegen berechtigte Methoden sündigen; sie will nicht sündigen gegen das Berechtigte des Atomismus, sondern sie will die Bahn frei haben für das Bilden von Gedankensystemen, wie sie früher für das Anorganische gebildet wurden und jetzt für andere Gebiete der Natur gebildet werden müssen. Das wird geschehen, wenn man sich sagt: In den Phänomenen will ich nur «lesen»; das heißt, das, was ich zuletzt über den Inhalt der Naturgesetze bekomme, liegt innerhalb der Phänomene selber - geradeso wie beim Lesen eines Wortes der Sinn in den Buchstaben selber liegt. Wenn ich recht liebevoll innerhalb der Phänomene stehenbleibe und nicht darauf aus bin, die Wirklichkeit irgendwie mit einem hypothetischen Gedankensystem zu durchsetzen, dann werde ich in meinem wissenschaftlichen Sinne frei bleiben für eine Weiterentwicklung der Begriffe. Und dieses Freibleiben ist das, was wir ausbilden müssen.
+
+
+---
+
+Wir dürfen uns nicht durch ein Begriffssystem, das wir für ein bestimmtes Naturgebiet vollberechtigt ausgebildet haben, festnageln lassen, es auf andere Gebiete anzuwenden. Bilden wir eine bloße Phänomenologie aus, was selbstverständlich nur dadurch geschehen kann, daß man die geschauten oder durch das Experiment dargestellten Phänomene mit Gedanken durchsetzt und verbindet und so zu Naturgesetzen kommt, bleibt man also innerhalb der Phänomene stehen, so bekommt man ein ganz anderes Verhältnis zum Gedanken selbst; dann bekommt man ein Erlebnis davon, wie in den Phänomenen selbst schon die Naturgesetze vorhanden sind, die dann in unseren Gedanken auftreten. Geben wir uns so diesen Gedanken hin, dann haben wir gar keine Berechtigung mehr, sofern wir innerhalb der Naturerscheinungen stehenbleiben, von einem Gegensatz zwischen dem subjektiven Gedanken und dem objektiven Naturgesetz zu sprechen. Wir tauchen einfach in die Phänomene unter und haben dann in den Inhalten der Naturgesetze einen Gedankeninhalt gegeben, den uns die Dinge selbst geben. Deshalb sagte Goethe ganz naiv: Dann sehe ich meine Ideen – die eigentlich Naturgesetze waren – in der Natur mit Augen.
+
+Wenn man sich in dieser Weise zu den Phänomenen der unorganischen Natur stellt, dann ist es möglich, dies in die Organik hinüberzutragen, auch im wissenschaftlichen Sinne. Wenn man dann sieht, daß ein Pferd braun oder ein Schimmel weiß ist, wird man das nicht auf unorganische Farben zurückführen, sondern es nur auf etwas beziehen, was als ein geistig-seelisch Lebendiges in einem Organismus selbst lebt. Man wird verstehen lernen aus der erkrafteten inneren Organisation heraus, daß sich das Tier wie auch die Pflanze selbst die Farbe gibt.
+
+
+---
+
+Selbstverständlich muß man dabei alle Einzelheiten, zum Beispiel das Funktionieren des Stoffwechsels, innerlich durchschauen. Aber man trägt dann nicht in die Organik das herauf, was man in der Unorganik gefunden hat. Man nagelt sich nicht fest auf ein bestimmtes Gedankensystem, und man wird nicht dieselbe Gesinnung, die man auf einem Gebiete gehabt hat, in die anderen Gebiete herauftragen. Man bleibt ein «mathematischer Kopf», mehr als die, welche die Begriffe nicht metamorphosieren wollen ins Qualitative hinein. So kommt man dazu, für die höheren Gebiete des Naturdaseins das innere Anschauen ebenso gelten zu lassen, wie man das innere Anschauen gelten läßt für leblose mathematische Gebilde.
+
+Das ist das, was ich hier nur kurz skizzieren kann, was aber, wenn es weiter ausgebildet wird, zeigt, daß die wissenschaftliche Seite der Anthroposophie durchaus das kann, was Goethe nannte: Rechenschaft ablegen vor jedem, auch vor dem strengsten Mathematiker. Denn das wollte Goethe mit der Ausbildung seiner Idee von der Urpflanze, zu der er gekommen ist, und mit der Idee des Urtières, wozu er nicht gekommen ist. Und das will Anthroposophie: Hervorgehen lassen aus der Goetheschen Weltanschauung das, was diese in bezug auf die Erscheinungen der Natur konnte und vom Erfassen des Lebendigen in der Imagination aufsteigen zu dem Typus der Pflanze und zu dem Typus des Tieres. Ich habe schon in den 80er Jahren des vorigen Jahrhunderts gezeigt, daß wir für die organische Natur die aus dem Unorganischen genommenen Begriffe metamorphosieren müssen. Davon werde ich in den nächsten Tagen noch weiter zu sprechen haben. Dadurch kommt man aber dazu, in der Organik dasjenige zu sehen, was das eigentliche Wirkungsprinzip, Gestaltungsprinzip ist. Und
+
+
+---
+
+da möchte ich an den Schluß dieser Betrachtungen etwas hinstellen, was in den nächsten Tagen noch weitere Betrachtung erfahren wird, und was zeigen soll, wie diese materialistische Phase naturwissenschaftlicher Entwicklung von der Anthroposophie nicht unterschätzt wird.
+
+Die Anthroposophie muß in dieser materialistischen Phase der Naturwissenschaft ein wichtiges Übergangsprinzip sehen, eine Erziehungsmethode, damit man einmal gelernt hat, sich rein der äußeren Sinnes-Empirie hinzugeben. Das war außerordentlich erzieherisch für die Entwicklung der Menschheit, und nur wenn man diese Erziehung genossen hat, kann man auch dazu kommen, gewisse Dinge mit voller Klarheit zu übersehen. Denn wer nun, ausgerüstet mit solchem Wissenschaftssinn die äußere materielle Welt betrachtet, der schaut, wie sich diese materielle Welt innerlich im Menschen «spiegelt», wenn ich mich dieses Ausdrucks bedienen darf.
+
+Die Welt, wie wir sie im Innern erleben, ist mehr oder weniger eine Abstraktion, ein von Empfindungen und Willensimpulsen durchzogenes inneres Bild dessen, was die äußere materielle Welt ist; so daß wir, wenn wir vom Verfolgen der materiellen Außenwelt zum Geistig-Seelischen übergehen, zu einem bloß Bildhaften kommen. Halten wir das ganz streng fest: außen die Summe der materiellen Erscheinungen, die wir im phänomenologischen Sinne anschauen - im Innern das Seelisch-Geistige, mit einem gewissen abstrakten Charakter, mit einem Bildcharakter. Tritt man aber mit anthroposophischer Anschauung in die Betrachtung dessen ein, was der äußeren materiellen Welt geistig zugrunde liegt, in den Geist, der da wirkt in den Bewegungen der Sterne, in dem Werden der Mineralien, der Pflanzen und der Tiere,
+
+
+---
+
+tritt man ein in das Geistige des Werdens der Außenwelt, lernt man diese durch Imagination, Inspiration und Intuition kennen, dann gibt uns auch das ein inneres Spiegelbild des Menschen. Aber was ist dieses innere Spiegelbild des Menschen? Das sind unsere materiellen Organe. Sie antworten mir jetzt auf das, was ich vorher kennengelernt habe als die Natur der Sonne, als die Natur des Mondes, der Mineralien, der Pflanzen, der Tiere und so weiter; darauf antworten mir die inneren Organe. Ich lerne das Eigene des menschlichen Organismus nur kennen, wenn ich das Äußere der Welt kennenlerne. Die materielle Welt außen spiegelt sich innen geistig-seelisch; die geistig-seelische Welt außen spiegelt sich innen in den Formen von Lunge, Leber, Herz und so weiter. Die inneren Organe sind, wenn man sie anschaut, so in einem Verhältnis zur geistigen Außenwelt, wie unsere Gedanken und Empfindungen zur materiellen Außenwelt in einem Verhältnis sind.
+
+Das zeigt uns, wie die Anthroposophie durchaus nicht in einem schwärmerischen Sinne den Materialismus ablehnen will. Sehen Sie sich den ganzen Umfang der Naturwissenschaft an: Tausende werden unbefriedigt sein über das, was da aus der Naturwissenschaft mit den gewöhnlichen Methoden gewonnen wird. Die Anthroposophie wird durch ihre Methoden gerade über das Materielle der Welt eine Anschauung gewinnen, die nicht unbefriedigt lassen wird. Sie anerkennt das Materielle in der eigenen inneren Organisation und in dem Phänomenologischen der Umwelt; aber sie muß zu gleicher Zeit erkennen, daß diese innere Organisation ein Ergebnis, eine Konsequenz von kosmischem Geistig-Seelischen ist. Sie will daher auch das ergänzen, was in der Astronomie, in der Astrophysik, Physik oder Chemie nur
+
+
+---
+
+mathematisch geleistet wird. Das wird sie in einer organischen Kosmologie und so weiter erkunden und dadurch auch zu einem Verständnis des materiellen Menschen vordringen. Darin liegen dann die Grundlagen für dasjenige, was Anthroposophie für die Medizin, die Biologie und so weiter geben will.
+
+So glaube ich durch diese Andeutungen, die ich jetzt nur ganz skizzenhaft geben konnte, darauf hingedeutet zu haben, wie Anthroposophie, wenn man sie richtig erfaßt, nicht so angesehen werden kann, als ob sie von sich aus sich in einen Kampf stellen wolle gegen die gegenwärtige Wissenschaft; sondern die Dinge liegen so, daß die gegenwärtigen Vertreter der Wissenschaft noch nicht die Brücke zur Anthroposophie geschlagen haben, um zu sehen, wie die Anthroposophie streng wissenschaftlich auch gegenüber den Naturerscheinungen sein will.
+
+
+---
+
+
+ZWEITER VORTRAG
+
+DIE MENSCHLICHE
+# UND DIE TIERISCHE ORGANISATION, Berlin, 6. März 1922
+
+Sehr verehrte Anwesende! Bei diesem Vortrage bitte ich Sie zu berücksichtigen, daß ich bis gestern Abend annehmen mußte, daß ich diesen Vortrag heute von Dr. Kolisko hören würde, und ihn nicht selber halten würde. Es war daher in dieser kurzen Zeit nicht möglich, das, was ich zu sagen haben werde, irgendwie zurechtzulegen, und ich kann auch nur hoffen, im großen und ganzen ungefähr dasjenige in den Einzelheiten zu treffen, was Dr. Koslisko heute zu Ihnen hat sagen wollen.
+
+Wenn von anthroposophischen Gesichtspunkten aus über das Verhältnis der tierischen Welt zur menschlichen Welt gesprochen wird, so darf besonders darauf aufmerksam gemacht werden, wie die gegenwärtigen anthroposophischen Ideen geschichtlich doch zusammenhängen mit demjenigen, was sich aus der Goetheschen Weltanschauung - ich habe das jetzt hier schon zweimal gesagt - ergibt. Und für das Thema, das jetzt in Frage steht, kommt insbesondere eine der allerersten Leistungen Goethes auf naturwissenschaftlichem Gebiete in Betracht, nämlich seine Abhandlung, die den Titel trägt: «Dem Menschen wie den Tieren ist ein Zwischenkieferknochen in der oberen Kinnlade zuzuschreiben». Man muß nun alle die Verhältnisse sich vor Augen führen,
+
+---
+
+aus denen heraus Goethe dazu gekommen ist, diese Abhandlung aufgrund eingehender anatomischer und physiologischer Studien, auch aufgrund von Ansätzen zu embryologischen Studien, die er gemacht hat, zu schreiben.
+
+In der Zeit, als Goethe sich, schon als junger Student und später als der Freund der ja in einer gewissen Weise von ihm abhängigen Jenaischen Universitätsinstitute, in diejenigen Probleme hineinlebte, in die er durch alles das hineingestellt war, und namentlich in das Problem, welches der eigentliche Unterschied des Menschen gegenüber dem Tiere sei, da sah er überall um sich herum, wie man bemüht war, irgendetwas in der Gestaltung, in der Morphologie des Menschen und der Tiere zu finden, das auf einen strengen Unterschied hinwies zwischen dem Menschen, der gewissermaßen die Krone der Schöpfung sein soll, und der Tierwelt. Und an dem Umstände, daß sich der sogenannte Zwischenkieferknochen, der sonst bei den Tieren überall von den anderen Kieferknochen deutlich abgetrennt ist, sich ja beim Menschen nicht als abgesonderter Knochen findet, an diesem Umstände glaubte man, gerade in einem Teil der Kopfesbildung einen solchen durchgreifenden Unterschied zwischen Mensch und Tier zu finden. Goethe ging das nicht ein. Er war der Ansicht, da Mensch und Tier in bezug auf ihre ganze Organisation analog gebildet sind, so dürfe in einer solchen Einzelheit sich nicht eine Differenzierung, zeigen. Und da allerdings der Zwischenkieferknochen beim erwachsenen Menschen mit den anderen Kieferknochen verwachsen ist, so suchte Goethe zu zeigen, wie das eben nur auf einer späteren Verwachsung beruht, und daß der Mensch in seinen embryonalen
+
+
+---
+
+Verhältnissen den oberen Zwischenkieferknochen auch hat, wie die Tiere.
+
+Man muß nur einmal verfolgen, mit welchem Enthusiasmus Goethe darauf hinweist, daß es ihm gelungen ist zu zeigen, wie der Mensch tatsächlich den Zwischenkieferknochen mit den Tieren gemeinsam hat, um eben aus dem großen und ganzen heraus zu zeigen, daß aus dem Bau, aus der Morphologie des Menschen und der Tiere ein so durchgreifender Unterschied zwischen beiden im einzelnen nicht zu finden sei. Also von einer solchen Abgrenzung des Menschen von den Tieren in der Weise, wie es im 18. Jahrhundert überall sich fand, kann für Goethe nicht die Rede sein - kann auch für die Anthroposophie nicht die Rede sein. Was schon Goethe annahm, ist dies: Indem die tierische Organisation zur menschlichen heraufsteigt, werden die einzelnen, schon im Tiere liegenden Organformen umgebildet und dann gewissermaßen durch ihre Umbildung in die Möglichkeit versetzt, nun Platz zu haben für das, was sich vom Innern des Menschen her, aus dem ganzen Menschen heraus in der also umgebildeten tierischen Organisation offenbaren kann. Nur an eine Metamorphose der tierischen Organisation ins Menschliche herauf dachte Goethe, nicht an eine selbständig abgegliederte menschliche Morphologie.
+
+Dies, mochte ich sagen, muß man als Grundlage voraussetzen, wenn nun auch im anthroposophischen Sinne aufgesucht wird die Differenzierung zwischen dem tierischen und dem menschlichen Organismus. Wenn die Organisation selbst, in ihren Formen, nur auf einer Metamorphose des Tierischen und des Menschlichen beruht, dann muß man, wenn man die Differenzierung aufsuchen will, vor allem darauf sehen, wie das
+
+
+---
+
+Leben beim Menschen und wie es beim Tiere verläuft, man muß gewissermaßen darauf sehen, wie aus dem Menschlichen heraus das Funktionieren mit den Organen sich gestaltet, und wie aus dem Tierischen heraus das Funktionieren mit den Organen sich gestaltet. Kurz, man muß den Unterschied mehr auf einem biologischen, als auf einem morphologischen Gebiete suchen.
+
+Nun kann man von einer gewissen Seite her der Auffassung von einem biologischen Unterschied ganz besonders die Wege bereiten, indem man von demjenigen ausgeht, was einem als die Grundlage des tierischen Funktionierens erscheinen muß, und das ist sowohl bei den Menschen wie bei den Tieren das, was mit den Sinnesorganen zusammenhängt. Die Sinnesorgane oder besser gesagt, die Funktionen der Sinnesorgane, leben ja mehr oder weniger in allem, was sich im tierischen und menschlichen Organismus abspielt. Wir müssen schon bei den niederen Tieren annehmen, daß sich bei den einfachen Ernährungsprozessen, in den reinen Stoffwechselvorgängen, ein gewisses Funktionieren primitiver Sinne abspielt, daß also, sagen wir, Geschmacks-erlebnisse zum Beispiel parallel gehen dem, was mehr oder weniger rein chemisch der Stoffwechsel ist. Diese Dinge differenzieren sich immer mehr und mehr, je weiter man in der Tierreihe heraufkommt, bis zum Menschen hin. Aber wir werden durchaus nirgends, wenn wir unbefangen auf die tierische Organisation eingehen, etwas finden, worinnen nicht ein Sinnesleben vorhanden ist. Gewiß, man kann sagen: Was hat schließlich dieses Sinnesleben zum Beispiel mit der Lymphebildung oder mit der Blutbildung und so weiter zu tun?
+
+Nun ist man heute auch schon in der nicht von Anthroposophie beeinflußten Wissenschaft dazu gekommen.
+
+
+---
+
+men, von unterbewußten Vorgängen der menschlichen Psyche zu sprechen, und es wird deshalb, auch wenn es der Kürze der Zeit halber nur angedeutet werden kann, nicht als etwas ganz Unberechtigtes erscheinen, wenn ich sage: Was sich in Mund und Gaumen als das Geschmackserlebnis abspielt, was als das Geschmackserlebnis auftritt unter dem Wirken und der Funktion zum Beispiel des Ptyalins, des Pepsins und so weiter, wie sollte das nicht auch ins Unbewußte hineinspielen? Warum sollte - ich sage es als eine Art von Postulat - das Geschmackserlebnis sich nicht fortsetzen durch den ganzen Organismus, und warum sollten nicht unbewußt Geschmackserlebnisse parallel gehen der Lymphe- und Blutbildung und allen Organprozessen? Wir werden daher die menschliche und die tierische Organisation von ihrer biologischen Seite her sehr wohl verfolgen können, wenn wir einmal das Sinnesleben betrachten.
+
+Dieses Sinnesleben verläuft nun - wie ich für einige von Ihnen seit Jahren angedeutet habe, wie es zum Teil durchaus schon eine Sache der äußeren Wissenschaft ist - nicht nur in den gewöhnlich angeführten fünf Sinnen, sondern in einer deutlich unterscheidbaren Anzahl von zwölf menschlichen Sinnen. Dabei muß man aber bloß vom Menschen sprechen. Für den, der einsehen will, daß es ebenso berechtigt ist, von zwölf Sinnen zu sprechen, wie von fünf oder sechs - vom Sehen, Hören, Riechen, Schmecken, Fühlen oder Tasten -, für den ist es berechtigt, davon zu sprechen, daß wir zum Beispiel einen Gleichgewichtssinn haben, der uns innerlich erkennen läßt, ob wir auf beiden Füßen stehen oder nur auf einem, ob wir mit unsern Armen die eine oder die andere Bewegung ausführen und so weiter. Indem wir uns als Mensch in die Welt hineinstellen, sind wir in einer Gleichge-
+
+
+---
+
+wichtslage. Diese Gleichgewichtslage nehmen wir also, wenn auch viel dumpfer, sinnlich wahr, wie wir dasjenige sinnlich wahrnehmen, was im Sehvorgang sich abspielt; so daß wir von einem Gleichgewichtssinn sprechen können, wie wir von einem Sehsinn sprechen können. Wir müssen uns nur darüber klar sein: Wenn wir von diesem Gleichgewichtssinn sprechen, so wenden wir uns mehr der eigenen Organisation zu; wir schauen gewissermaßen nach innen, während wir mit den Augen nach außen schauen. Aber es liegt diesem Erleben im Gleichgewichtssinn durchaus eine sinnliche Funktion zugrunde.
+
+Ebenso können wir nach einer anderen Seite hin die Anzahl der Sinne ergänzen. Wenn wir bloß hören, so ist das Funktionieren des menschlichen Organismus etwas wesentlich anderes, als wenn wir zwar durch das Ohr direkt hören, aber dann auf das eingehen, was indirekt in der Sprache uns wahrnehmbar wird. Wenn wir mit innerem Verständnis die Worte, die Sätze des anderen verfolgen, haben wir es nicht bloß zu tun mit einem Urteilen, sondern dem Urteilsprozeß geht auch da voraus ein Wahrnehmungsprozeß, ein Sinnesprozeß; also wir müssen davon sprechen, daß wir einen Sprachsinn - oder eigentlich einen Sprachesinn, einen Wortesinn - haben, wie wir einen Gehörsinn haben. Mit anderen Worten: Wir müssen, wenn wir die Worte mehr anatomisch-physiologisch betrachten, innerhalb der menschlichen Organisation eine spezielle [Sinnes]Organisation voraussetzen, welche dem Anhören des Gesprochenen ebenso entspricht, wie die Gehörorganisation dem Anhören der unartikulierten Töne. Und wir müssen eine Spezialorganisation voraussetzen für den Sprachsinn, die ganz ähnlich ist einer sonstigen Sinnesorganisation, zum Beispiel der Sehorganisation oder der Hörorganisation.
+
+
+---
+
+Wir dürfen auch, wenn wir unbefangen zu Werke gehen, nicht sagen: Wir lernen erkennen, daß ein anderer Mensch vor uns steht, wenn wir sehen, daß an dieser äußeren Raumesform etwas wie eine Nase ist, wie zwei Augen und so weiter, und nun durch Analogie schließen, daß darin ein Mensch steckt, weil wir sehen, daß in uns selbst ein Mensch steckt, der sich äußerlich offenbart durch Nase, Augen und so weiter. Ein solcher unbewußter Schluß liegt in Wirklichkeit nicht zugrunde, aber es liegt ein unmittelbares Eingehen auf den anderen Menschen zugrunde, dem etwas Spezielles in der Organisation des Menschen entsprechen muß, das nur zu parallelisieren ist mit einer Sinnesorganisation, so daß wir auch von einem Ichsinn sprechen können. Wenn wir in dieser Weise das Funktionieren des Menschen ganz unbefangen durchschauen, müssen wir mit derselben Berechtigung, mit der wir von einer Gehör-, Geschmack- und so weiter-Organisation sprechen, auch sprechen von einer Wahrnehmungsorganisation für Worte, von einer Wahrnehmungsorganisation für Gedanken, von einer Wahrnehmungsorganisation für das Ich - nicht für das eigene Ich, denn das beruht auf etwas ganz anderem. Und wir müssen weiter sprechen von einem Bewegungssinn, denn ob wir uns bewegen oder ob wir in Ruhe sind, das ist etwas ganz anderes. Ebenso müssen wir dann sprechen von einem Lebenssinn - die gewöhnliche Wissenschaft spricht zum Teil schon davon.
+
+Wenn wir so die Zahl der Sinnesorganisationen feststellen, kommen wir auf zwölf menschliche Sinne. Von diesen sind eine Anzahl allerdings innere Sinne; denn wir nehmen den inneren Organismus - wie wir uns fühlen und wie es uns geht im Gleichgewichtssinn, im Bewegungssinn und so weiter - ebenfalls wahr. Aber qualitativ
+
+
+---
+
+ist das Erlebnis beim Wahrnehmen der inneren Organisation durchaus das gleiche wie beim Seh-, Hör- oder Geschmackvorgang. Es handelt sich nur darum, die Dinge im richtigen Zusammenhang zu sehen.
+
+Wenn man in dieser Weise in bezug auf den Menschen von einer vollständigen Sinnesphysiologie ausgeht, werden gewisse biologische Erscheinungen auf der einen Seite im Reiche des Menschen, auf der anderen Seite im Reiche der Tiere von einer ganz besonderen Bedeutung [sichtbar], von einer Bedeutung, die bestehen kann, auch wenn man alles dasjenige restlos zugibt, was von neueren Naturforschern, selbst von Haeckel, vorgebracht worden ist für den morphologischen und auch physiologischen Zusammenhang der menschlichen Organisation mit der tierischen. Hier walten ja allerdings die unmöglichsten Mißverständnisse. Man glaubt zum Beispiel, die Anthroposophie müsse sich in Gegensatz stellen zum Haeckelismus, einfach aus dem Grunde, weil sie von der bloßen Betrachtung der Sinneswahrnehmungen zur empirischen Betrachtung des Geistigen aufsteigt; man glaubt, Anthroposophie müsse aus diesen Untergründen heraus etwas am Haeckelismus verändern. Nein! - Was am Haeckelismus verändert werden muß, das muß aus naturwissenschaftlicher Methodik heraus verändert werden, da braucht Anthroposophie nicht mitzureden, da kann man auch als Naturforscher mit Haeckel diskutieren.
+
+Was Anthroposophie zu sagen hat, das liegt auf einem ganz anderen Gebiete. Mit Recht kann betont werden: Zählt man die Knochen der höheren Tiere, so unterscheidet sich die Anzahl der Knochen nicht von der beim Menschen. Und ebenso ist es mit den Muskeln. So kommen wir nicht zu einer Differenzierung der
+
+
+---
+
+liehen und der tierischen Organisation. Aber wenn wir biologisch vorgehen, kommen wir zu einer wirklichen Differenzierung. Wir kommen dann dazu, einen besonderen Wert darauf zu legen, daß sich im wesentlichen die menschliche Organisation in einer anderen Art in den Kosmos hineinstellt als die tierische. Wenn wir gerade die höheren Tiere betrachten, müssen wir sagen: Ein Wesentliches bei ihnen ist es, daß die Achse ihres Rückgrats parallel zur Erdoberfläche geht, während im Gegensatz dazu beim Menschen im Verlaufe seines Lebens die horizontale Lage der Rückgratachse in eine vertikale verwandelt wird, so daß also eine wichtige Lebensfunktion beim Menschen darin besteht, sich aufzurichten. - Ich weiß, es kann nun natürlich eingewendet werden: Es gibt doch aber auch Tiere mit mehr oder weniger aufrechter, vertikaler Rückgratachse. - Darauf kommt es aber nicht an, wie es sich gegenüber einer äußeren Morphologie ausnimmt, sondern darauf, wie die ganze Organisation veranlagt ist. Wir werden auch sehen, wie bei gewissen Tieren, Vogelarten oder auch Säugetierarten, bei denen mehr oder weniger die Rückgratachse in eine vertikale Lage gebracht werden kann, gerade gegenüber ihrer ganzen Veranlagung eine Art Degenerierung auftritt, während es beim Menschen schon in der Veranlagung liegt, daß die Rückgratachse eine Vertikallage hat.
+
+Als ich dies einmal vor vielen Jahren bei einem Vortrage in München sagte, kam ein naturwissenschaftlich gebildeter Mann zu mir, den ich natürlich ganz gut verstehen konnte, und sagte: Wenn wir schlafen, haben wir aber doch auch die Rückgratachse horizontal. - Darauf aber kommt es nicht an, sagte ich ihm, sondern darauf, wie im Verhältnis zu der Lage, sagen wir, der
+
+
+---
+
+Bein- oder Fußknochen zum ganzen übrigen Körperbau die Rückgratachse im ganzen kosmischen Zusammenhang des Menschen gestellt ist, und wie sich das beim Menschen oder beim Tier auswirkt. Der Mensch hat zwar beim Schlafen sein Rückgrat horizontal, aber diese horizontale Lage ist äußerlich; innerlich dynamisch ist der Mensch so organisiert, daß er sich in seinen Gleichgewichtszustand bringen kann, wo die Rückgratachse vertikal ist. Und wenn sich Tiere in einen solchen Gleichgewichtszustand bringen, so degenerieren sie in gewisser Beziehung, oder sie bringen es dahin, gewisse menschenähnliche Funktionen zu entwickeln und dadurch auch das zu beweisen, was ich nun ausführen will.
+
+Wir können sagen: Indem der Mensch rein funktionell aus der gesamten Dynamik seines Wesens heraus im Laufe seiner ersten Lebensjahre seine Rückgratachse vertikal gestaltet, bringt er sich im Kosmos in eine andere Gleichgewichtslage als das Tier. Aber jedes Wesen ist ja aus dem Gesamtkosmos heraus gebildet; man könnte auch sagen, es paßt sich ihm an - ich will jetzt darauf nicht weiter eingehen. Wenn wir die Gestaltung der einzelnen Knochen, zum Beispiel der Rippen- oder Kopfknochen und so weiter verfolgen, dann werden wir auch morphologisch die Möglichkeit gewinnen, in den Formen der Rippen- oder der Kopfknochen eines Menschen oder eines Hundes die Anpassung zu finden an die Vertikallage oder Horizontallage des Rückgrats. Indem sich der Mensch in die vertikale Lage hineinfindet, lebt er gegenüber dem Tier, das auf seinen vier Beinen steht, in einer ganz anderen Gleichgewichtslage; er lebt in einem ganz anderen kosmischen Zusammenhang.
+
+Nun versuchen wir, das Problem von einer anderen Seite her anzufassen und uns klarzumachen, was eigent-
+
+Arch: 81
+
+---
+
+lieh im Menschen beim Sinnesvorgang und was in Anlehnung an den Sinnesvorgang bei ihm vorgeht. Ich werde dabei wegen der Kürze der Zeit genötigt sein, nur andeutend zu sprechen, aber es könnte das auch in eine ganz exakte biologisch-physiologische Terminologie umgesetzt werden.
+
+Nehmen wir den Sehvorgang. Wir können ihn gliedern in das, was spezifische Funktion des Sehorgans ist, und in das, was sich dann abspielt in der weiteren Fortsetzung in das Physische hinein, ich mochte sagen, in Analogie dazu, daß der Sehnerv vom Auge ausgeht und sich dann im Innern der Nervenorganisation verliert. Wir können also unterscheiden: einmal den Sehvorgang selbst, und dann alles, was sich daranschließt im Gesamterleben. In dem unmittelbar präsenten Sehvorgang ist noch das Vorstellungsmäßige immanent; indem wir irgend etwas anschauen, trennen wir noch nicht das Vorstellungsmäßige von dem Sehvorgang. Wenden wir das Auge ab von dem, was wir anschauen, so behalten wir einen vorstellungsmäßigen Rest zurück, der deutlich seine Verwandtschaft mit dem beim Sehvorgang Wahrgenommenen zeigt. Wer das richtig analysieren kann, sieht, wie verschieden gerade das ist, was sich als Vorstellungsrest ergibt aus dem Sehvorgang, gegenüber dem, was sich ergibt aus einem Hörvorgang. Wir haben also in uns das Erlebnis des Sehvorganges, ich möchte sagen, in dualistischer Weise: zuerst mehr hingewendet zu dem, was die eigentliche Sinneswahrnehmung ist, und dann hingewendet zu dem, was uns als vorstellungsmäßiger Rest, als mehr oder weniger ausgestaltete Erinnerung bleibt.
+
+Nun nehmen Sie einmal alles das, was im Menschen lebt an innerem Vorstellungsmäßigen, das sich anlehnt an die fünf Sinne. Das meiste im menschlichen Seelen-
+
+
+---
+
+leben lehnt sich ja an an die Sehvorgänge; nur ein Neuntel etwa von dem, was durch die Sehvorgänge gegeben ist, ist durch die Hörvorgänge gegeben. Und wenn wir das innere Seelenleben betrachten, so ist dadurch noch weniger gegeben als durch die Seh- und Hörvorgänge und so weiter. Wir wissen, daß dabei das Vorstellungmäßige, das ja zur bleibenden Erinnerung führt, auch eine Rolle spielt, aber eine wesentlich geringere als beim Seh- und Hörvorgang.
+
+Nun können wir die Frage aufwerfen: Gibt es für die mehr verborgenen Sinne, zum Beispiel für den Gleichgewichtssinn oder für den Bewegungssinn auch diese Dualität, wie wir sie finden beim Sehsinn in dem Wahrnehmungsmäßigen und dem Vorstellungsmäßigen? Bei einer wirklich unbefangenen Physiologie und Psychologie gibt es dies auch zum Beispiel für den Gleichgewichtssinn, nur wird gewöhnlich der Zusammenhang nicht bemerkt. In dem Vortrage, den ich eben gehalten habe, habe ich von dem Mathematischen gesprochen, von dem Sichzurechtfinden in den Raumesverhältnissen, wo das Mathematische geometrisch angewandt wird. Wir konstruieren uns Raumesverhältnisse. Was ist das eigentlich, was wir da tun? Es ist in bezug auf den ganzen Menschen genau dasselbe wie das, was wir tun, wenn wir beim Sehvorgang die Wahrnehmung deutlich absondern von dem Vorstellungsmäßigen, indem wir die Vorstellung innerlich behalten. [Wir nehmen eine Farbe nicht nur äußerlich wahr], sondern wir erleben das Qualitative der Farbe, des Farbtones, und es lebt sogar das Gefühl, das ich als Gefühl habe bei einer warmen oder kalten Farbe, im Innern fort.
+
+Wir können uns nun folgendes sagen: Ich will einmal in einer umfassenden Seelenschau alle diejenigen Vor-
+
+
+---
+
+Stellungen überschauen, die ich im Leben dadurch gewonnen habe, daß ich durch meine Augen sehen kann. Wir würden ein inneres visuelles System in der Seele bekommen. Wir würden, ohne daß wir jetzt äußere Sehvorgänge haben, innerlich aufsteigen haben eine Art Nachkonstruktion der Sehvorgänge. Und wenn Sie dies in ebensolcher Weise in bezug auf den Gleichgewichtssinn berücksichtigen, dann kommen Sie darauf, daß Sie durch alles das, was Sie durch den Gleichgewichtssinn im eigenen Organismus erleben, etwas im Innern heraufsteigen haben, das dem Geometrischen in der äußeren Welt [entspricht].' Mathematik oder Mechanik haben wir nicht [aus der äußeren Erfahrung] gewonnen. Mathematische und mechanische [Gesetze] sind durch inneres [Konstruieren gewonnen]. Wenn Sie sich mechanische [Gesetze] vergegenwärtigen, so haben Sie sie [gewonnen] durch das Vorstellungsmäßige Ihres Gleichgewichtssinnes. Der ganze Mensch wird da zum Sinnesorgan und er bildet dabei [innerlich] gleichsam den anderen Pol [zu dem Wahrgenommenen] aus. Wir bilden zum Beispiel die Mathematik aus und glauben, wir haben in ihr eine reine a-priori-Wissenschaft. Aber die Mathematik ist keine reine a-priori-Wissenschaft. Wir merken nur nicht, daß wir dasjenige, was wir im Gleichgewichtssinn erleben, ebenso [in mathematisch-geometrische Vorstellungen] umsetzen, wie die Sehwahrnehmung sich in die Sehvorstellungen umsetzt. Ohne daß wir die Brücke
+
+* Die nachfolgenden Ausführungen sind vom Stenographen nur lückenhaft festgehalten. Die vom Herausgeber vorgenommenen notwendigen Ergänzungen - gekennzeichnet durch eckige Klammern - stützen sich im wesentlichen auf folgende Vorträge Rudolf Steiners: 16. März 1921, in GA 324; 29. September, 1. und 3. Oktober 1920, in GA 322.
+
+
+---
+
+bemerken, wird das [durch den Gleichgewichtssinn Wahrgenommene] zu Mathematik oder zu Mechanik.
+
+Wenn Sie das bedenken, werden Sie den innigen Zusammenhang des menschlichen Gesamtorganismus mit seiner Gleichgewichtslage im Kosmos verstehen. Dann werden Sie sich sagen: Beim Tier, das auf seinen vier Beinen steht und dem durch seine Gleichgewichtslage auch der Inhalt seines Gleichgewichtssinnes gegeben ist, muß ja das Erleben des Gleichgewichts sich in einer ganz anderen Weise innerlich spiegeln als beim Menschen im Mathematischen. Wir finden das Mathematische einfach als ein Ergebnis unseres Hineingestelltseins in den Kosmos.
+
+Wir reden von drei Dimensionen, weil wir nach drei Dimensionen in den Kosmos hineingestellt sind. Aber die vertikale Dimension haben wir uns selbst erst im Laufe unseres Lebens errungen. Wir haben uns in die vertikale Dimension erst hineingestellt. Was wir so in frühester Kindheit erleben, das spiegelt sich uns später in der Mathematik; es geht das nur nicht so schnell wie beim Sehvorgang. Die Spiegelung des Gleichgewicht-Erlebens geht im Laufe des Lebens vor sich. Wir haben in der Kindheit sehr stark das Erleben des Gleichgewichtssinnes, wenn wir vom Kriechen übergehen zum Gehen und Stehen. Das spiegelt sich uns im späteren Lebensalter und wird als Mathematik und Mechanik sichtbar. Wir halten oft die Mathematik für etwas aus uns selbst Gesponnenes. Das ist sie nicht. Sie geht aus der Wahrnehmung des eigenen Organismus hervor. Warum sind denn gewisse Gedanken beim Menschen so, daß er sie auf den Kosmos beziehen kann, daß er sich aus den Gedanken ein ganzes Gedankengebäude bilden kann? Das ist nur das Ergebnis dessen, wie der Mensch im Kosmos drinnensteht. Und wenn wir nun die Gleich-
+
+
+---
+
+gewichtslage, in der sich das Tier befindet [in seinem Verhältnis zum Kosmos], vergleichen mit der Gleichgewichtslage des Menschen, so können wir sagen: Wir haben beim Tier das Gebundensein an die Erdenorganisation und wir haben beim Menschen das Aufgerichtestein, das Herausgehobensein aus der Erdenorganisation. Was wir als selbständige Gedanken aussprechen, rührt davon her, daß wir uns für unsere menschliche Organisation auch eine selbständige Gleichgewichtslage erringen.
+
+Es ist also der Akt des Sichhinemstellens in den Kosmos nicht etwas, was aus dem Organismus selbst hervorgeht und sich auch beim Tier findet, sondern etwas, was in diesen menschlichen Organismus selbst sich hineinbildet und was erst im Laufe der [ersten] Leben[sjähre] errungen wird, bis in die Organe hinein. Dadurch kommen wir zu jener Polarität des Menschen [gegenüber dem Tier], daß auf der einen Seite der Mensch aufrechtsteht und einen aufrechten Gang hat, und daß dieser ganzen kosmischen Position, in der der Mensch lebt, nun eben alles das angepaßt wird, was sich im einzelnen bei Mensch und Tier nicht unterscheidet. Und auf der anderen Seite erscheint im Seelischen dasjenige als Gedanken, was jetzt über das sinnlich Angeschaute, über das mit den fünf Sinnen Wahrgenommene hinausgeht, was sich davon losmacht. So wie sich der Mensch durch seine Stellung zum Kosmos losmacht von der Erde, ebenso machen sich die Gedanken des Menschen los von ihrer Gebundenheit an die Sinneswelt, sie werden in einer gewissen Beziehung frei.
+
+Wir müssen - für die Anthroposophie ist das wiederum eine Sicherheit, hier möchte ich es zunächst mehr als Postulat hinstellen - wir müssen darin, daß der Mensch
+
+
+---
+
+diese durch die aufrechte Stellung seiner Rückgratachse bedingte Gleichgewichtslage hat, etwas sehen, was den Menschen trennt von dem Tiere; und auf der anderen Seite müssen wir die besondere Form der Vorstellungswelt, der Gedanken, als das spezifisch Menschliche ansehen. Aber gerade der, der solche Dinge vom anthroposophischen Standpunkte aus durchschaut – das wird mehr oder weniger noch zur Sprache kommen können –, der sieht, wie der Mensch durch die besondere Ausbildung seines Gleichgewichtssinnes und seines Bewegungssinnes auch mehr zu einem freien Gedankensystem kommt, als das [bei dem Erleben durch] Augen und Ohren der Fall ist, und der wird auch einsehen, daß der Mensch nun dafür auch eine innere Organisation haben muß. Der Mensch hat einfach eine Organisation in sich, die beim Tier noch nicht zu finden ist – das kann durchaus auch einmal materiell nachgewiesen werden –, die einfach derjenigen Form der Gedanken dient, die sich losgerissen hat von der [Gebundenheit an die Erde] wie beim Tier, und die durch die besondere Gleichgewichtslage beim Menschen bedingt ist. Wir können also sagen: Indem der Mensch sich aufrichtet, schafft er sich ein Organ für die abstrakten Gedanken.
+
+Und so haben wir beim Menschen die durch seine aufrechte Lage bedingte Organisation, die zunächst nichts anderes zeigt, als daß die Organe, die beim Tier auch da sind, eine andere Lage haben; aber durch diese aufrechte Lage wird in der Nerven- und Blutorganisation bewirkt, daß unter dem Einfluß dieser anderen Gleichgewichtslage im Menschen etwas auftritt, was das Tier nicht haben kann. Da finden wir das, was den Menschen biologisch vom Tier unterscheidet. Wir finden diesen Zusammenhang wirklich in der physischen Organisation des Men
+
+
+---
+
+sehen und nicht in einem bloßen Dynamismus. Das ist von fundamentaler Bedeutung. Stellen Sie sich nur einmal die Umbildung der Organisation vor, die geschieht durch die Veränderung der Gleichgewichtslage, wie sie beim Tier ist, in die Gleichgewichtslage des Menschen, was sich da ändert zum Beispiel in bezug auf die Ober- und Unterschenkel, die Hände und so weiter. [Stellen Sie sich einmal vor, was es bedeutet], daß der Mensch ein Zweihänder ist und kein Vierfüßler. Der Mensch ist zwar mit denselben Formen ausgestattet wie das Tier, aber er hat sie in einer anderen Lage und dadurch in veränderten, metamorphosierten Formen. Das wird auch einmal anatomisch nachgewiesen werden können, wenn die notwendigen Werkzeuge und Experimentiermethoden ausgebildet sein werden. Wir suchen nach solchen Werkzeugen und Experimentiermethoden in unseren Instituten in Stuttgart. Man muß allerdings, um diese Methoden auch äußerlich empirisch zu finden, zuerst durch imaginatives Anschauen darauf gekommen sein, [wo die Unterschiede liegen]. Daher ist die Anthroposophie in bezug auf [die Erforschung] der feineren Gebiete der Menschen-, Tier- und Pflanzenformen der Wissenschaft durchaus nicht unnütz, denn die Wissenschaft kann die Dinge nicht durch Imagination finden. Sind sie aber gefunden, dann können sie auch [durch die Wissenschaft] verifiziert werden.
+
+Wenn man darauf schaut, wie eine andere Gleichgewichtslage die Organe umbildet, so findet man auch, daß bestimmte Organe so umgeändert werden, daß sie zum menschlichen Sprachorgan werden, daß der Organismus sprachschöpferisch wird.
+
+Damit haben Sie nun eine Einsicht gewonnen in die besondere Organisation des Menschen, die einfach da-
+
+
+---
+
+durch entsteht, daß er ein aufrechtgehendes Wesen ist, was sogar bis ins Materielle hinein Folgen hat. Auch in bezug auf den physiologischen Sprachorganismus haben Sie etwas gegeben - auch wo man einen äußeren morphologischen Unterschied zwischen Mensch und Tier nicht festsetzen kann -, was doch eine Differenzierung zwischen Mensch und Tier in biologischer Beziehung zeigt.
+
+Dies sind einige Anregungen, die den Weg angeben können, wie das, was in einer äußeren, laienhaften Weise gesucht wird, auch auf einem wirklich wissenschaftlichen Wege untersucht werden kann. Ich konnte das, was ich sagen wollte, hier nur skizzieren. Aber denken Sie sich [diese Gedanken] weiter fortgesetzt, so ergibt sich für die Wissenschaft tatsächlich ein Weg, um die Unterschiede zwischen der tierischen und der menschlichen Organisation in biologischer Beziehung zu [erforschen].
+
+
+---
+
+
+DRITTER VORTRAG
+
+# ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922
+
+Meine sehr verehrten Anwesenden! Es ist immer schwer, wenn man mit einem ernsten wissenschaftlichen Gewissen den überkommenen Ausdruck «Logos» in irgendeine der neueren Sprachen übersetzen will. Wir sagen ja, wenn wir «Logos» übersetzen, gewöhnlich «Wort», wie das für die Bibel üblich ist. Wir denken aber, wenn wir zum Beispiel die «Logik» im Sinne haben, nicht so sehr an das «Wort», sondern wir denken dann an den «Gedanken», wie er in den menschlichen Individuen wirkt und seine Gesetzmäßigkeiten hat. Doch wenn wir von «Philologie» reden, so haben wir wiederum das Bewußtsein: Wir entwickeln eine Wissenschaft, die sich auf das Wort bezieht. Ich möchte sagen: Gerade heute ist das, was nach neuerem Sprachgebrauch in dem Wort «Logos» enthalten ist, im Grunde genommen in allem Philosophischen drinnen. Und wenn wir von «Philosophie» sprechen, dann können wir in dem, was wir dabei nicht so sehr definieren als erleben, gar wohl empfinden, wie ein Abglanz dieses unbestimmten Erlebnisses gegenüber dem Logos in all dem enthalten ist, was wir bei «Philosophie» fühlen.
+
+Philosophie deutet ja dem Wortlaute nach - was aber zweifellos damals, als Philosophie entstand, etwas mehr als nur Wortlaut war -, deutet ja auf ein ganz bestimmtes inneres Erlebnis des Menschen; das Wort Philo
+
+---
+
+sophie deutet darauf, daß der Mensch an dem, was dem Logos verwandt ist, «Sophia», ein bestimmtes, man möchte sagen, wenn auch nicht ein persönliches, so doch ein allgemein menschliches Interesse hat. Es deutet das Wort Philosophie weniger unmittelbar auf den Besitz eines Wissenschaftlichen hin, als auf ein inneres Verhalten des Menschen zu dem weisheitsvollen Inhalt des Wissenschaftlichen. Da unser Gefühl gegenüber der Philosophie heute nicht mehr so ganz sicher ist wie in den Zeiten, als Philosophie auf der einen Seite fast zusammenfiel mit, ich will nicht sagen mit Wissenschaft, aber mit wissenschaftlichem Streben, und auf der anderen Seite etwas war, was auf ein inneres menschliches Verhalten hindeutete, haben wir heute ein außerordentlich unbestimmtes Erlebnis, wenn wir von Philosophie sprechen oder uns in Philosophie betätigen. Dieses unbestimmte Erlebnis ist aber außerordentlich schwer aus den Tiefen des Bewußtseins heraufzuheben, wenn man das auf eine bloß dialektische oder auch äußerlich definierende Weise versucht, und nicht einzugehen versucht auf das, was gegenüber der Philosophie menschliches Erleben im Laufe der geschichtlichen Entwicklung war. Zu einer solchen Betrachtung fordert ja die Gegenwart ganz besonders heraus.
+
+Blicken wir als mitteleuropäische Menschen um einige Jahrzehnte zurück, so war eigentlich das Hineinleben in die Philosophie für den Menschen, der ein solches Einleben suchte, gerade in Mitteleuropa noch etwas anderes, als es heute im zweiten Jahrzehnt des 20. Jahrhunderts ist, wo wir ja im Grunde genommen nicht nur äußerlich physisch, sondern gerade geistig wirklich so viel durchlebt haben, wie früher – man darf das ruhig aussprechen – in Jahrhunderten erlebt worden ist. Und
+
+
+---
+
+wenn man zurückblickt auf die Erlebnisse, die ein - wenn ich mich des pedantisch-philiströsen Ausdruckes bedienen darf - Philosophie-Beflissener so in den 50er, 60er, 70er Jahren des 19. Jahrhunderts, vielleicht auch noch später, als Mitteleuropäer haben konnte, so sind es im wesentlichen diese: Man blickte zurück auf die Blütezeit deutscher philosophischer Entwicklung, man blickte zurück auf die große Philosophenzeit Fichtes, Schellings, Hegels; man hatte um sich eine gebildete und gelehrte Welt, welche diese Philosophenzeit als etwas durchaus Abgetanes betrachtete und welche in der heraufkommenden naturwissenschaftlichen Weltanschauung dasjenige sah, was an die Stelle früherer philosophischer Betrachtungen treten sollte. Man bewunderte die Größe der Gedankenerhebung, wie sie bei einem Schelling hervortrat, man bewunderte die Energie und die Kraft Fichtescher Gedankenentwicklung, man hatte vielleicht auch ein Gefühl für das rein Umfassende, Scharfsinnige Hegeischen Denkens, aber man betrachtete mehr oder weniger dieses klassische Zeitalter deutscher Philosophie doch als etwas Überwundenes.
+
+Und daneben gab es dann die Bestrebung, aus der Naturwissenschaft heraus etwas zu entwickeln, was eine allgemeine Weltanschauung werden sollte, von den Bestrebungen der «Kraft- und Stoff-Menschen» bis zu denjenigen, die vorsichtiger aus naturwissenschaftlichen Begriffen heraus zu einer philosophischen Weltanschauung kommen wollten, die aber die ehemalige idealistische Philosophie eben ablehnten. Es gab alle Nuancen von Denken und Forschen auf diesem Gebiete.
+
+Und dann gab es eine dritte Sorte von Denkern auf diesem Gebiete, die konnten nicht mitgehen mit dem bloßen naturwissenschaftlichen Begründen einer Welt-
+
+
+---
+
+anschauung, aber sie konnten auf der anderen Seite auch wieder nicht hineintauchen in das real Gedankliche, wie es etwa bei Hegel gegeben ist. Für diese entstand die große Frage: Wie kann sich der Mensch mit seinem Denken, das er als etwas ausbildet, das nur in ihm selbst liegt, in ein Verhältnis zur Objektivität, zur Außenwelt setzen? - Es waren die Erkenntnistheoretiker der verschiedenen Nuancen, welche in dem Ruf «zurück zu Kant» übereinstimmten, aber diesen Weg zu Kant in der verschiedensten Weise einschlugen; es waren scharfsinnige Denker wie etwa Liebmann, Volkelt und so weiter, die aber im Grunde genommen doch innerhalb des Erkenntnistheoretischen blieben und nicht über die Frage hinauskamen: Wie soll der Mensch mit dem, was er gedanklich, vorstellungsgemäß in sich trägt, die Brücke schlagen zu einer transsubjektiven, außerhalb des Menschen bestehenden Realität?
+
+Was ich Ihnen hier als eine Situation schildere, die der Philosophie-Beflissene etwa im letzten Drittel des 19. Jahrhunderts vorfand, hat zu keinerlei Art von Lösung geführt. Das war gewissermaßen die Mitte eines Dramas oder irgendeines in der Zeit verlaufenden Kunstwerkes, zu dem kein Ende hinzugefunden worden ist. Es liefen diese Bestrebungen mehr oder weniger ins Unbestimmte aus. Sie liefen aus in eine große Anzahl von Fragen, und überall fehlte im Grunde genommen der Mut, gegenüber diesen Fragen auch nur das Streben nach Lösungsversuchen zu entwickeln.
+
+Heute nimmt sich die Situation in der ganzen philosophischen Welt so aus, daß man sie gar nicht mehr so schildern kann, wie ich jetzt eben die Situation vom letzten Drittel des 19. Jahrhunderts dargestellt habe, wenn man die Wirklichkeit treffen will. Heute sind vor
+
+
+---
+
+unserem Blick philosophische Gesichtspunkte aufgetaucht, welche, ich möchte sagen, aus ganz anderen Untergründen emporgestiegen sind, und die notwendig machen, daß wir heute die philosophische Situation in einer ganz anderen Weise charakterisieren. Heute tritt, wenn wir die philosophische Situation charakterisieren wollen, scharf vor unser Seelenauge dasjenige, wofür ja unser Blick im zweiten Jahrzehnt des 20. Jahrhunderts so sehr geschärft werden konnte, nämlich die voneinander so stark differierenden philosophischen Weltanschauungen des Westens, der europäischen Mitte und des europäischen Ostens. Heute steht in einer anderen Weise als noch vor kurzer Zeit vor unserem gefühlsmäßigen Erleben des Philosophischen das, was sich etwa aussprechen kann in den drei Namen: Herbert Spencer - Hegel - Wladimir Solowjew. Indem wir diese drei Persönlichkeiten vor uns hinstellen, haben wir in ihnen die Repräsentanten dessen, was heute die philosophische Situation charakterisieren kann. Innerlich war das gewissermaßen schon immer oder seit langer Zeit der Fall, aber es tritt erst heute die philosophische Situation so charakteristisch vor unser Seelenauge.
+
+Sehen wir uns einmal den Westen an: Herbert Spencer. Ich müßte natürlich, wenn ich vollständig sein wollte, den ganzen Hergang der philosophischen Entwicklung schildern, wie er von Bacon, Locke über Mill zu Spencer geführt hat; doch das kann heute nicht meine Aufgabe sein. In Herbert Spencer tritt uns eine Persönlichkeit entgegen, welche Philosophie begründen will, aber Philosophie begründen will rein aus Begriffssystemen heraus, die an der Naturwissenschaft gewonnen sind. Wir finden in Spencer eine Persönlichkeit, die zu dem Naturwissenschaftlichen restlos Ja sagt, und die aus diesem
+
+
+---
+
+Jasagen heraus die Konsequenz zieht: Also muß alles philosophische Denken über die Welt aus diesem Naturwissenschaftlichen gewonnen werden. So sehen wir, wie Spencer sucht, in der Naturwissenschaft gewisse Vorgänge in Begriffe zu fassen, zum Beispiel wie ein fortwährendes Sichzusammenziehen und Sichausbreiten der Stoffe stattfindet, ein Differenzieren und Konsolidieren. Er beobachtet das zum Beispiel an der Pflanze, die in den Blättern sich ausbreitet und sich im Keime zusammenzieht, und er versucht, solche Begriffe dann in klare naturwissenschaftliche Formen zu bringen und damit eine Weltanschauung aufzubauen. Und er versucht sogar, die menschliche Gesellschaft selbst, den sozialen Organismus, nur so zu denken, daß dieses Denken eine Analogie bietet zu dem natürlichen Organismus. Da kommt er aber sogleich in die Enge. Der natürliche Organismus des Menschen ist gebunden an den Zusammenfluß alles dessen, wodurch dieser Organismus mit der Außenwelt in ein Verhältnis tritt, durch Wahrnehmungen, durch Vorstellungen und so weiter. Der einzelne natürliche Organismus ist gebunden an das, was sich unter dem Einfluß des Sensoriums entwickeln kann. In dem gesellschaftlichen Organismus findet Herbert Spencer ein solches Sensorium nicht, kein irgendwie zentral zusammenlaufendes Nervensystem. Dennoch konstruiert er einen solchen gesellschaftlichen Organismus und findet darin gewissermaßen die Krönung seines philosophischen Gebäudes, das ganz auf Naturwissenschaft aufgebaut ist.
+
+Was liegt damit eigentlich in diesem Westen vor? Da hegt vor, daß dort gerade der naturwissenschaftliche Gedanke in seiner vollen, seiner berechtigten Einseitigkeit sich entwickelt hat. Da liegt vor, daß aus den ur-
+
+
+---
+
+sprünglichen Völkeranlagen heraus feinste Beobachtungsgabe und Experimentiertalent sich entwickelt haben. Da liegt vor, daß ein Interesse vorhanden ist, die Welt des äußerlich Sinnlich-Wirklichen in den kleinsten Einzelheiten zu beobachten, ohne dabei etwa ungeduldig zu werden und aufsteigen zu wollen zu irgendwelchen zusammenfassenden Begriffen. Da liegt aber auch vor ein Hang, mit der Wissenschaft stehenzubleiben innerhalb dieser äußeren sinnlichen Tatsachenwelt. Da liegt das vor, was ich nennen möchte: eine Art Furcht davor, von der Sinneswelt irgendwie zu einem Zusammenfassenden aufzusteigen. Da aber der Mensch doch nicht anders kann, als zu leben in etwas, was auch über die Sinneswelt hinausgeht, was dem Menschen nicht einfach durch die Sinne gegeben wird, so tritt hier im Westen die Erscheinung hervor, daß die gesamte geistige Welt restlos übergeben sein soll dem individuellen Glauben des einzelnen, und daß dieser Glaube frei von allem wissenschaftlichen Einfluß sich entwickeln soll. Was Inhalt des Religiösen ist, das will sich der Mensch nicht antasten lassen von dem, was er wissenschaftlich erkundet. So sehen wir, daß bei Herbert Spencer, der in seiner Art ganz konsequent die naturwissenschaftliche Denkweise heraufführt bis in die Soziologie hinein, streng [getrennt] vorhanden ist, auf der einen Seite die Wissenschaft, die ganz naturwissenschaftlich verlaufen soll, und auf der anderen Seite für den Menschen ein geistiger Inhalt, mit dem Wissenschaft sich nichts zu schaffen machen soll.
+
+Gehen wir nun von Herbert Spencer zu dem, was uns bei Hegel entgegentritt. Es verschlägt nichts, daß Hegel, der dem ersten Drittel des 19. Jahrhunderts angehörte, im zweiten Drittel für das mitteleuropäische Philosophieren mehr oder weniger als überwunden galt, denn
+
+
+---
+
+was für Mitteleuropa charakteristisch ist, das ist doch am bedeutsamsten gerade bei Hegel zum Vorschein gekommen. Sehen wir uns Hegel an: Schon in seiner, ich möchte sagen, gefühlsmäßigen Veranlagung liegt eine gewisse Abneigung gegen diese universalistische naturwissenschaftliche Art, mit der Weltanschauung so zu verfahren, wie sie im Westen ausgestaltet wird durch Herbert Spencer, aber sich selbstverständlich vorbereitet hat durch dessen Vorgänger, sowohl die Naturforscher wie auch die Philosophen. Wir sehen bei Hegel, wie er zum Beispiel Newton nicht leiden kann, wie ihm die besondere Art, das Weltall nur mechanistisch zu denken, unsympathisch ist, wie er Newton ablehnt nicht etwa bloß in bezug auf die Farbenlehre, sondern auch als Interpreten des Kosmos. Hegel gibt sich Mühe, zu den Keplerschen Formeln über die Planetenbewegungen zurückzukehren; er analysiert die Keplerschen Formeln über die Planetenbewegungen und findet für sich, daß Newton eigentlich gar nichts hinzugefügt hat, sondern daß in den Keplerschen Formeln schon das ganze Gravitationsgesetz drinnenliegt. Und das übernimmt er aus dem Grunde, weil er aus dem, was bei Kepler mehr aus geistigem Erleben kommt, ein wissenschaftliches Denken hervorgehen sieht, das umfassend ist und das das äußere Naturwissenschaftliche vom Geiste aus begreiflich zu machen versucht. Kepler ist für Hegel einfach die Persönlichkeit, die imstande ist, in den Geist auch mit dem Denken einzudringen und eine Brücke zu schlagen zwischen dem, was wissenschaftlich erkannt wird, und dem, was nach der Meinung des Westens bloß geglaubt werden soll, der also imstande ist, die Wissenschaft heraufzutragen in das Gebiet, das für den Westen vermeintliches Gebiet des Glaubens ist.
+
+
+---
+
+Aus diesem Grunde lehnt Hegel, ganz im Einklang mit Goethe, die Newtonsche Farbenlehre streng ab. Überall sehen wir in der Hegoischen Anlage eine Art Antipathie gegen das, was bei Newton aus dessen Anlagen heraus ganz natürlich ist. Dafür ist bei Hegel ein entschiedenes Talent vorhanden, ganz in dem Gedanklichen selber zu leben. Für Hegel war das einfach selbstverständlich, was Goethe gegenüber Schiller sagte: «Ich sehe meine Ideen mit Augen». Das ist scheinbar eine Naivität, allein, solche Naivitäten nehmen sich oftmals, richtig betrachtet, als die tiefste philosophische Weisheit aus. Hegel würde einfach nicht verstanden haben, wie man behaupten könne, die Idee des Dreiecks sei nicht zu fassen, denn Hegels Leben verlief eigentlich ganz - wenn ich mich so ausdrücken darf - auf dem Plan des Gedankens. Für ihn war auch eine höhere Offenbarungswelt, eine Welt höherer Geistigkeit dadurch vorhanden, daß sie gewissermaßen ihre Schattenbilder auf eine Fläche wirft, die von Gedanken ausgefüllt ist. Von oben her wirft die geistige Welt ihre Schattenbilder auf die Fläche der menschlichen Seele, auf der der menschliche Gedanke sich entwickelt. Dadurch kommt für Hegel der Begriff des höheren Geistigen zustande, daß es auf der Fläche der Seele sich abschattet als Gedanken. Hegel ist dazu veranlagt, diese Gedanken voll als Geistiges zu erleben, und er erlebt auch das natürliche Geschehen nicht in seiner elementaren Gegenwart, sondern sieht es in den Gedankenbildern, die es auf die Fläche der Seele geworfen hat.
+
+So wird es in Hegels Philosophie zur Unmöglichkeit, in jener äußerlichen Weise Wissen und Glauben voneinander zu trennen, wie es dem Westen ganz natürlich ist. Für Hegel wird zur Lebensaufgabe die
+
+
+---
+
+Vereinigung der geistigen Welt, die der Westen einfach aus seinen Anlagen heraus in das bloße Glaubensgebiet verweisen will, mit der sinnlich-physischen Welt, zu einer solchen Welt, von der man wissen kann. Hier ist nicht mehr Wissen auf der einen Seite, Glauben auf der anderen Seite; hier ist der Menschenseele das große, bedeutsame Problem gestellt: Wie findet man im inneren Erleben selbst die Brücke zwischen Glauben und Wissen, zwischen Geist und Natur? Aber es war gewissermaßen das Tragische in Hegel, daß er das, was er in so grandioser Weise als ein Problem aufzuwerfen verstand, eigentlich nur sah sozusagen in bezug auf die Fläche des Gedankens, daß er zwar die innere Kraft, die innere Lebendigkeit des Gedankens zu erleben verstand, aber vom Inhalte des Gedankens nichts Lebendiges erfassen konnte. Nehmen Sie die Hegeische Logik: Wiederum zurückgehen will er zum alten Begriff des Logos! Er fühlt: Wenn wir überhaupt einen realen Begriff vom Logos haben wollen, dann muß der Logos etwas sein, was nicht bloß als ein Gedachtes, sondern als ein real Wirkendes die Welt durchflutet und durchlebt. Für ihn ist der Logos nicht nur abstrakt-logischer Inhalt, sondern für ihn wird er realer Welt-inhalt. Sehen wir uns seine «Logik» an, den einen der drei Teile von Hegels Philosophie: Sie enthält nur abstrakte Begriffe! Und so steht, so furchtbar ergreifend für den, der mit seinem ganzen Menschen auf die Hegeische Philosophie einzugehen weiß, auf der einen Seite Hegels so grundrichtige Empfindung: Durch das, was in dem Logos erfaßt werden kann, muß eingedrungen werden in das schöpferische Prinzip der Welt. Der Logos muß sein «Gott vor der Erschaffung der Welt» - ein Hegelscher Ausdruck!
+
+
+---
+
+Dies auf der einen Seite. Und wie wird auf der anderen Seite dieser Logos von Hegel selbst entwickelt? Er beginnt beim «Sein», kommt zu dem «Nichts», zu dem «Werden», zu dem «Dasein». Er kommt zu der Kausalität, dem Zweck, zu der Teleologie. Man sehe sich die ganzen Begriffe in der Hegeischen Logik an und frage sich: Ist das dasjenige, was «vor dem Beginn der Schöpfung als der Inhalt des Göttlichen» da sein konnte? Es ist abstrakte Logik, Forderung des Schöpferischen, der Logos als Postulat, aber als rein menschliches Gedankenpostulat! Man empfinde diese Tragik, die darin liegt! Und man empfinde dann weiter die Tragik, die darin liegt, daß die Hegeische Philosophie als überwunden galt! Sie enthält aber Momente, aus denen in der Tat neues Leben sprießen kann. Sie enthält Keime. Hegel hat sein Heil gesehen in dem: Sein - Nichts - Werden - Dasein. Wenn aber heute die Leute Hegel zugeführt bekommen, dann sagen sie: Das ist eine alte Schwarte, darauf brauchen wir uns nicht einzulassen. - Wenn man es aber unternimmt, sich durch einen inneren Seelenprozeß darauf einzulassen, den Begriff innerlich zu erleben, wie ihn Hegel zu erleben suchte, dann schwinden alle Begriffe von Empirie und Rationalismus, dann wird der Gedanke erfahren und das Erfahrene unmittelbar gedacht. Da wird der Gedanke zum Erlebnis und das Erlebnis zum reinen Gedanken. Wer das mitmacht, der empfindet das Bestreben, den Gedanken aus der Abstraktheit zu erlösen, und die Hegeische Logik als den Keim dazu, daß aus dem Gedanken etwas ganz anderes werden kann, wenn er sich lebendig ausgestaltet. Mir erscheint oft Hegels Logik als der Keim einer Pflanze, dem man kaum ansieht, was er werden kann, der aber doch die mannigfaltigsten Anlagen in sich trägt. Und mir
+
+Buch: 81
+
+---
+
+scheint, wenn dieser Keim wächst, wenn ihn der Mensch liebevoll pflegt und in den seelischen Boden einsetzt durch anthroposophische Forschung, dann entsteht gerade das, daß der Gedanke nicht nur gedacht, sondern als Realität erlebt werden kann. Da haben wir das Mittel-europäische.
+
+Gehen wir nun zum Osten, so haben wir in Wladimir Solowjew einen Mann vor uns, der wie kein anderer Philosoph dazu berufen ist, immer mehr nun auch ein Inhalt unseres eigenen philosophischen Strebens zu werden, der uns so wichtig werden muß, indem wir seine besondere Charaktereigentümlichkeit auf uns wirken lassen. Wir sehen in Solowjew zugleich den Repräsentanten dessen, was europäisch-östliche Denkweise ist, die aber nicht die orientalisch-asiatische ist. Solowieff hat ja alles Europäische aufgenommen, er hat es nur in seiner besonderen östlichen Art entwickelt. Aber was sehen wir da sich entwickeln in bezug auf menschliches wissenschaftliches Streben? Da sehen wir, wie eigentlich gerade jene Denkweise, auf die der Westen bei Herbert Spencer das meiste gibt, etwas ist, auf das Solowjew im Grunde genommen hinunterschaut, an dem er höchstens die Wahrheiten und Erkenntnisse, die er sucht, sozusagen illustriert. Dagegen ist das, was er auseinandersetzt, ein volles Erleben in der Geistigkeit selbst. Es tritt bei ihm nicht mit dem vollen Bewußtsein hervor; es tritt mehr atavistisch, unbewußt hervor, aber es ist ein Erleben in der Geistigkeit selbst. Es ist der mehr oder weniger traumhafte Versuch, wissentlich das zu erleben, was der Westen - wiederum ganz bewußt - in das Gebiet des Glaubens versetzt. Und so finden wir im Osten eine Auseinandersetzung mit dem, was in unbestimmter Weise erlebt werden kann, was sich etwa ausnimmt wie ein
+
+
+---
+
+einseitiges Erleben dessen, zu dem Hegel als der Geistigkeit der Welt von dem natürlichen Dasein aus die Brücke hinüberschlagen wollte.
+
+Vertieft sich heute jemand, der aus mitteleuropäischer Geistesbildung hervorgegangen ist, in Solowjew, so hat er zunächst ein außerordentlich unbehagliches Gefühl. Er empfindet etwas, was ihn erinnert an manches nebelhaft Mystische, an Überhitztes im menschlichen Seelenleben, das nicht zu solchen Begriffen kommt, die sich äußerlich durch irgend etwas restlos belegen lassen, sondern die nur innerlich erlebt werden können. Er empfindet das vollständig Unbestimmte des mystischen Erlebens, aber er findet auch, daß Solowjew sich durchaus derjenigen Begriffsformen und Ausdrucksmittel bedient, die wir kennen, Hegelscher, Humescher, Millscher, sogar solcher, die spencerisch sind – aber nur als Illustration. So kann man durchaus sagen, daß er nicht im Nebulosen stehenbleibt, sondern daß er durch die Art, wie er das Religiöse als Wissenschaft behandelt, wie er es in allem sucht und als Philosophie entfaltet, durchaus an den philosophischen Begriffsentwicklungen des Westens gemessen und kritisiert werden kann.
+
+So sehen wir uns heute vor der Situation: Im Westen das Bestreben, aus der Naturwissenschaft heraus eine Weltanschauung zu gewinnen, das Naturwissenschaftliche auf die eine Seite zu stellen, das Geistige auf die andere Seite, und in der Mitte zu ringen mit dem Problem, die Brücke zwischen beiden zu schlagen und das in den unbestimmten Ausdrücken, die Hegel gebraucht hat: «Die Natur ist der Geist in seinem Anderssein», «Der Geist ist der Begriff, wenn er wieder zu sich zurückgekehrt ist». In allen diesen stammelnden Ausdrücken liegt die Tragik, daß Hegel nur an der Pflege des
+
+
+---
+
+abstrakten Gedankens das erleben konnte, nach dem er eigentlich strebte. Und dann sehen wir im Osten, bei Solowjew, etwa die Art noch bewahrt, wie wohl die Kirchenväter in bezug auf Philosophie geredet haben mochten vor dem Konzil zu Nicäa. Er versetzt uns vollständig zurück in die drei ersten nachchristlichen Jahrhunderte des Abendlandes. So haben wir im Osten ein Erleben der geistigen Welt, das sich noch nicht aufschwingen kann zu selbsteigenen begrifflichen Formulierungen, das die westlichen Formulierungen, die westlichen Begriffe gebraucht, um sich auszusprechen, und dem daher die Formulierungen etwas Unbestimmtes, sogar etwas Aufgedrängtes, Fremdes bleiben.
+
+So sehen wir also, wie in dreifacher Art das philosophische Weltbild sich entfaltet hat. Und indem wir verfolgen, wie diese dreifache Art eines philosophischen Weltbildes aus den Charakteren und Anlagen der Menschheit des Westens, der Mitte und des Ostens hervorgeht, können wir sehen, daß es uns heute obliegen muß – da doch Wissenschaft als etwas Einheitliches sich über die ganze Menschheit ausbreiten muß –, etwas zu finden, was sich erheben kann über diese verschiedenen philosophischen Aspekte, die im Grunde genommen doch noch aus denjenigen Elementen hervorgehen, wo die Philosophie noch eine menschlich-persönliche Angelegenheit war. Wir sehen heute: Auf verschiedene Art lieben der Westen, die Mitte von Europa und der Osten die Weisheit. Wir begreifen, daß in älteren Zeiten die Philosophie noch da sein konnte als eine innere Seelenverfassung. Jetzt aber, in der neueren Zeit, wo sich die Menschen so stark differenziert haben, kommt diese Art, die Weisheit zu lieben, in mannigfaltigen Weisen zum Ausdruck. Und vielleicht können wir gerade daran er-
+
+
+---
+
+kennen, was wir selber zu tun haben, insbesondere, was wir in der Mitte zu tun haben, wo ja das Problem am tragischsten und intensivsten aufgeworfen ist, wenn dies auch heute noch nicht in der gleichen Art vor allen philosophischen Gemütern steht.
+
+Wenn ich das bildlich zusammenfassen soll, was ich ausgeführt habe, so möchte ich sagen: In Solowjew spricht philosophisch gesehen der alte Priester, der in höheren Welten lebte und eine Art innerer Fähigkeiten zu entwickeln hatte, in diesen höheren Welten zu leben; priesterliche Sprache, nur ins Philosophische umgesetzt, fühlt man überall bei Solowjew. Im Westen, bei Herbert Spencer, spricht der Weltmann, der sich in die Lebenspraxis hineinschicken will, der - wie es ja aus der darwinistischen Theorie hervorgehen kann - die Wissenschaft so ausbilden will, daß sie die praktische Lebensgrundlage ergeben kann. In der Mitte haben wir weder den Weltmann noch den Priester; Fichte, Schelling, Hegel, sie sind keine priesterlichen Naturen wie etwa Solowjew. In der Mitte haben wir den Lehrer, den Volkspädagogen, und zwar auch da, wo die deutsche Philosophie etwa hervorgegangen ist aus der religiösen Vertiefung; da ist der Pastor wiederum zum Lehrer geworden. Das Lehrhafte haftet auch der Hegeischen Philosophie an. Und wir sehen in der neuesten Zeit - etwa bei Oswald Külpe -, wie die Sache so geworden ist, daß nun die Philosophie, als man sie eigentlich schon verloren hatte, nichts mehr ist als eine Zusammenfassung dessen, was die einzelnen Wissenschaften geben. Man fragt bei der unorganischen Naturwissenschaft: was kommen da für Begriffe hervor?, man fragt bei der organischen Naturwissenschaft: was kommen da für Begriffe hervor?, bei der Geschichte, bei der Religionswissenschaft ebenso,
+
+
+---
+
+und so weiter. Man sammelt diese Begriffe und bildet damit äußerlich abstrakt eine Einheit. Ich möchte sagen, was Gegenstand der Lehre in den einzelnen Wissenschaften ist, soll eine Gesamtlehre bilden. Das ist es, wozu im Grunde genommen die Wissenschaft in der Mitte nach der ganzen Veranlagung der Menschen gelangen mußte.
+
+Blicken wir zurück auf das, was da geworden ist, so sehen wir: Bei Herbert Spencer der unbedingte Glaube an die Naturwissenschaft, der Glaube, festhalten zu müssen an dem, was Beobachtung, Experiment und der reflektierende Verstand, der sich über Beobachtung und Experiment hermacht, erleben können; und man täuscht sich darüber hinweg, welcher Widerspruch darin liegt, wenn man die so gewonnenen Begriffe hinauftragen will bis in den sozialen Organismus, und - obwohl dieser das allerwichtigste Charakteristikon des natürlichen Organismus, das Sensorium, nicht hat - ihn dennoch erfassen will mit denselben Begriffen, die im natürlichen Dasein sich ergeben. Wir sehen die Hinneigung zu dem Naturwissenschaftlichen so stark, daß Charaktere möglich geworden sind, die - wie Newton - einseitig festhalten an dem Mechanistischen und ihre Seelenbedürfnisse abseits davon befriedigen. Newton hat ja bekanntlich in ganz einseitig mystischer Weise die Apokalypse zu erklären versucht; also neben seiner wissenschaftlichen Weltauffassung hatte er seine eigenen mystischen Bedürfnisse.
+
+Sehen wir uns zum Beispiel an, was da als Naturwissenschaft aufgetreten und nach und nach im Laufe des 19. Jahrhunderts unbewußt in der europäischen Mitte übernommen worden ist; denn man hat in der europäischen Mitte die Wissenschaft einfach nach dem Muster
+
+
+---
+
+dessen ausgebildet, was westliches naturwissenschaftliches Denken war. Man merkte das nicht, aber man bildete dennoch alles Weltanschauungsdenken nach dem Muster des Westens aus. Wie wild wurden die Leute, wenn irgend jemand einmal versuchte, die Goethesche Denkweise in der Physik gegenüber der Newtonschen in Schutz zu nehmen! - Und wie verlief die Entwicklung in der Biologie? Goethe hat eine Organik begründet, zu der ein Einleben in Begriffe in mathematischer Art notwendig ist. Die Zeit drängt, eine Biologie zu gewinnen, die dem modernen Denken angemessener ist als das, was aus alten Zeiten heraufgekommen ist. Aber der weitere Fortschritt im 19. Jahrhundert hat einmal für Mitteleuropa nicht die Goethesche Biologie angenommen, sondern die des Darwinismus, der von Begriffen durchsetzt ist, die gegenüber den Goetheschen sich so ausnehmen wie die Begriffe des 16. Jahrhunderts gegenüber denen des 18. Jahrhunderts. Einzig und allein in Mitteleuropa hatten sich einmal die Begriffe fortgebildet; im Westen ist man bei denjenigen Begriffen geblieben, die ausreichten für das Naturbegreifen. So kommt es, daß gewisse Begriffe im Westen einfach nicht vorhanden sind und daß sie, als man in Mitteleuropa das westliche Denken übernommen hat, einfach verlorengingen. Zum Beispiel der Gedanke, der lebendige Gedanke, der Begriff des Erfassens einer Wirklichkeit, abgesondert von einem Empirischen, wie er bei Hegel zum Vorschein gekommen ist, ist einfach in Mitteleuropa heute nicht vorhanden; er ging deshalb verloren, weil das mitteleuropäische Denken vom westlichen Denken überflutet worden ist.
+
+So haben wir in Mitteleuropa die Aufgabe, hinzuschauen auf das, was naturwissenschaftliche Denkweise sein kann. Dem Anthroposophen wird es übel genommen.
+
+
+---
+
+men, wenn er diese naturwissenschaftliche Denkweise mit ebensolcher Liebe pflegt wie der Naturforscher selbst. Nichts, gar nichts soll gegen die naturwissenschaftliche Denkweise von mir gesagt werden; es ist nur ein Mißverständnis, wenn man dies glaubt. Aber ich muß naturwissenschaftliche Denkweise eben in ihrer Reinheit sehen und dann auch versuchen, sie in ihrer Reinheit zu charakterisieren. Und da stellen sich für den, der unbefangen der naturwissenschaftlichen Denkweise gegenübersteht, die Dinge, die diese selbst darstellt – so wie etwa die westlichen Forscher sie dargestellt haben, wie es Haeckel in einer genialen Weise getan hat –, da stellen sich diese Ergebnisse westlicher Forschungsart, wenn man sie so läßt und nicht philosophisch umdeutet, nicht als Lösungen, nicht als Antworten dar, sondern sie stellen sich überall als Fragen dar. Die ganze Naturwissenschaft wird nach und nach für den Unbefangenen nicht zu einer Antwort auf Fragen, sondern sie wird zur großen Weltenfrage selbst. Überall empfindet man: Was gerade in der schönsten Weise durch diese Naturwissenschaft erforscht wird – meinetwillen bis zur Atomtheorie, die ich auch nicht negiere, sondern nur an ihren richtigen Platz stellen will –, das alles wird zu Fragen, und aus dem Westen spricht eine große Fragestellung zu uns. Woher rührt diese Fragestellung?
+
+Wenn wir den Blick in die Außenwelt lenken und uns bloß der Wahrnehmung des Gegebenen zuwenden, so haben wir darin keine volle Wirklichkeit. Wir werden als Menschen hineingeboren in die Welt, sind so konstituiert, wie wir es schon einmal sind, nehmen einen Teil der Wirklichkeit für unsere Anschauung in unser eigenes Innere herein, schauen dann die Außenwelt, das Sinnlich-Gegebene an – und es fehlt uns in unserer Anschauung
+
+
+---
+
+derjenige Teil der Wirklichkeit, der in uns lebt, den wir nur durch menschliches Ringen verbinden können mit der andern halben Wirklichkeit, die uns von außen entgegenschaut. Blicken wir nach dem Westen, so sehen wir dort die halbe Wirklichkeit mit besonderer Hingebung erforscht; aber sie liefert nur eine Summe von Fragen, weil sie halbe Wirklichkeit ist. So tritt uns auf der einen Seite die eine Hälfte der Wirklichkeit, das Gegebene entgegen; schaut man es richtig an, so wird es zur Frage. In Mitteleuropa empfand man das Fragenhafte, das die westliche Denkweise geben kann, und man versuchte durchzustoßen bis zum Gedanken. Das ist die Hegeische Philosophie.
+
+Im Osten empfand man das, was über dem Gedanken lebt, was zum Gedanken hinunterwirkt; aber man kam nicht dazu, es selbst so weit zum Leben zu erwecken, daß sozusagen das Fleisch auch ein Knochensystem erhielt. Solowjew war fähig, in seiner Philosophie Fleisch, Muskeln, auch Blut zu entwickeln – aber das Knochen gerüst fehlt. Und daher nahm er die Hegeischen Begriffe, die Humeschen und andere und bildete damit dem, was er zu sagen hatte, ein fremdes Knochensystem ein. Erst wenn man in der Lage ist, nicht mehr ein fremdes Knochensystem zu gebrauchen, dann verwandelt sich das, was im Geistigen erlebt werden kann. So aber, wie es etwa bei Solowjew auftritt, führt es ein schattenhaftes Dasein, weil es sich nicht zum Knochensystem durchbilden und dadurch anschaulich werden kann. Wenn man dabei nicht stehenbleiben will, sich nur äußerlich ein Knochensystem zu entwickeln, sondern in der Geistigkeit lebt und sich vorbereitet durch starke geistige Arbeit, dann entwickelt man für das geistige Erleben selbst das innere Knochensystem, man entwickelt die Begriffe,
+
+
+---
+
+die man dazu braucht. Dazu sollen jene Übungen sein, die zum Beispiel in meinen Schriften «Geheimwissenschaft», «Wie erlangt man Erkenntnisse der höheren Welten?» und anderen gegeben sind. Da entwickelt man das, was nun wirklich zu einem inneren Begriffsorganismus werden kann. Das ist dann die andere Seite der Wirklichkeit, und diese Seite der Wirklichkeit hat ihre Keime in der östlichen Philosophie Solowjews.
+
+In Mitteleuropa gab es immer nur das große Problem: zwischen Natur und Geist die Brücke zu schlagen. Es ist für uns zu gleicher Zeit ein bedeutsames historisches Problem geworden: die Brücke zu schlagen zwischen West und Ost, und diese Aufgabe muß heute vor uns stehen in der Philosophie. Diese Aufgabe führt aber zugleich hinein in die Anthroposophie. Wird die Anthroposophie innerlich fähig, sich selbst in dem Gedankenerleben lebendige Gestalt zu geben, dann darf sie auch auf der anderen Seite ganz materialistisch die natürliche Wirklichkeit erleben, wie man sie im Westen erlebt; denn dann wird nicht durch abstrakte Begriffe, sondern im lebendigen Wissenschaftsringen die Brücke gebaut zwischen dem bloßen Glauben und dem Wissen, zwischen dem Erkennen und der subjektiven Gewißheit. Dann wird aus der Philosophie eine wirkliche Anthroposophie entwickelt, und die Philosophie kann jederzeit von dieser lebendigen Wissenschaft befruchtet werden. Das wird die Hegeische Philosophie erst wieder zum Leben erwecken können, wenn ihr durch das anthroposophische Erleben Lebensblut geistiger Art zugeführt wird. Dann wird nicht mehr eine Logik dastehen, die so abstrakt ist, daß sie nicht der «Geist jenseits der Natur» sein kann, wie Hegel wollte, sondern daß sie das wirklich sein kann, indem dann nicht der abstrakte,
+
+
+---
+
+sondern der lebendige Geist von der Philosophie erfasst wird.
+
+Das gab der Anthroposophie zunächst die Aufgabe, zu untersuchen: Wie muß gemäß unserem heutigen Standpunkte, der nun wiederum Jahrzehnte hinter Hegel hegt, die Brücke geschlagen werden zwischen dem, was wir Wahrheit nennen auf der einen Seite, die die volle Wirklichkeit umfassen muß, und dem, was wir Wissenschaft nennen auf der anderen Seite, die nun auch die volle Wirklichkeit umfassen muß. Kurz, es mußte das Problem gestellt werden - und das ist das wichtigste aus der Anthroposophie hervorgehende philosophische Problem: Welches ist die Beziehung zwischen Wahrheit und Wissenschaft?
+
+Dieses Problem möchte ich in der Einleitung heute an die Spitze derjenigen Betrachtung gestellt haben, von der ich glaube, daß sie nun folgen wird.
+
+
+---
+
+
+VIERTER VORTRAG
+
+ANTHROPOSOPHIE
+# UND ERZIEHUNGSWISSENSCHAFT, Berlin, 8. März 1922
+
+Meine sehr verehrten Anwesenden! Es wird anthroposophischer Weltanschauung in begreiflicher Weise immer der Vorwurf gemacht, daß sie ihre Ideen, ihre Ergebnisse verkündet auf der Grundlage von Forschungen, zu denen die Fähigkeiten im Menschen erst herangebildet werden müssen, daß also Forschungsergebnisse der Anthroposophie nicht von vornherein von jedem nachgeprüft werden können, und daß sie dennoch diese Anschauungen vor den hierauf unvorbereiteten Menschen verkünde.
+
+Doch gerade dieser Vorwurf, so scheinbar berechtigt er ist, gehört zu den aller unberechtigten, welche der anthroposophischen Bewegung gemacht werden können. Denn es handelt sich bei ihr nicht darum, jeden einzelnen sofort dazu anzuleiten, ein Forscher im übersinnlichen Gebiet zu werden, sondern es handelt sich bei ihr darum, ihre Forschungsergebnisse auf eine Weise darzulegen, die von jedem einzelnen Menschen nachgeprüft werden kann, einfach durch den gewöhnlichen gesunden Menschenverstand und die gewöhnliche gesunde Logik. Dies macht allerdings nicht unnötig, daß danach gestrebt wird, wenigstens die ersten Schritte zu übersinnlicher Forschung zu machen, und dafür gibt es ja Anleitungen in den verschiedenen Schriften, die auch hier schon ge
+
+---
+
+nannt worden sind. Jeder kann also bis zu einem gewissen Grade ein anthroposophischer Forscher werden - einfach aus den Zivilisationsbedingungen der Gegenwart heraus -, aber zum Prüfen der Ergebnisse anthroposophischer Forschung ist dies nicht nötig, denn diese Prüfung kann einfach aus dem gesunden Menschenverstand heraus erfolgen. Und eines der Gebiete, auf denen diese Prüfung wirklich praktisch erfolgen kann, ist das pädagogische Gebiet.
+
+Sehr verehrte Anwesende! Anthroposophische Weltanschauung mußte lange rein in dem Sinne wirken, die dem Menschen nahegehenden Ideen über das Übersinnliche vorzubringen, bevor es ihr aus den Kulturbedingungen der Gegenwart heraus möglich war, in das praktische Leben, wozu sie sich so besonders veranlagt fühlt, wirklich einzugreifen. Dies wurde nun auf einem eingeschränkten Gebiete - und auch da wieder nur in einem sehr geringen Maße - möglich, als Emil Molt in Stuttgart die Waldorfschule begründete, deren Leitung mir obliegt. Zwar war schon früher, wie das kleine Schriftchen «Die Erziehung des Kindes vom Gesichtspunkte der Geisteswissenschaft» zeigt, der Versuch unternommen worden, aus anthroposophischen Untergründen heraus bestimmte Erziehungsprinzipien zu vertreten. Allein erst durch die Gründung der Waldorfschule ist es möglich geworden, diese Dinge in die Lebenspraxis einzuführen, und seit jener Zeit ist es auch möglich, die pädagogisch-didaktische Seite der Anthroposophie im einzelnen durchzuführen. Es wird mir natürlich nicht möglich sein, hier in diesem einleitenden Vortrag mehr als einige Andeutungen zu geben, allein ich denke, daß durch die anderen Vorträge des heutigen Tages das Angedeutete weiter ausgeführt werden kann.
+
+
+---
+
+Was durch anthroposophische Ideen aufgenommen wird, wenn man sie einfach mit dem gesunden Menschenverstand für sich selbst verifiziert, ist nicht bloß eine theoretische Anschauung, das sind nicht bloß Ideen abstrakter Art, die man nun haben kann, um irgendwelche Erkenntnisbedürfnisse in theoretischer Weise zu befriedigen. Sondern das, was in den Ideen zum Ausdruck kommt, die aus anthroposophischen Quellen geschöpft sind, das ist wirkliche menschliche Kraft, das ist etwas, was übergeht in den ganzen Menschen, was die Liebe intensiver macht, was in die Tatkraft des Menschen sich umsetzen kann. Während die Ideen und Gedanken der üblichen Wissenschaftlichkeit, die sich nur auf die Sinneswelt beziehen, gerade darin ihr Eigentümliches haben, daß sie sich in den Dienst theoretischer und auch wiederum nur für die Sinneswelt in Betracht kommender praktischer Interessen stellen, ist es das Charakteristische derjenigen Ideen, in welche anthropologische Forschungsergebnisse hineingelegt sind, daß sie auf den ganzen Menschen, auf seine Erkraftung, auf seine - wenn ich es so ausdrücken darf - Lebensgeschicklichkeit, auf sein Lebensverständnis wirken, und zwar auf jenes Lebensverständnis, das ihm möglich macht, durch seinen Willen bei den verschiedensten Gelegenheiten des Lebens wirklich einzugreifen. Und wenn man an irgendeinem Ende einfach dieses Leben anfaßt und es befruchtet durch anthroposophische Ideen, so kann man sehen, wie das Handeln des Menschen, wenn es sich dirigieren läßt von diesen Ideen, dann größere Kraft, größere Eindringlichkeit und so weiter erhält. Das ist etwas, was sich insbesondere auf pädagogisch-didaktischem Gebiete bewähren muß.
+
+
+---
+
+Wir hatten ja, als die Waldorf schule begründet worden ist, nicht Gelegenheit, die äußeren Bedingungen für die Erziehung und den Unterricht der uns übergebenen Kinder auszuwählen. Es wird in der Gegenwart vielfach geltend gemacht, wenn ein befriedigender Unterricht, eine befriedigende Erziehung Zustandekommen soll, dann müsse der oder jener Ort für die Schule, für das Erziehungsinstitut oder dergleichen ausgesucht werden. Gewiß, für alle diese Behauptungen spricht außerordentlich vieles, und sie bewähren sich ja auch in der Praxis bis zu einem gewissen Grade. Aber wir hatten das alles nicht. Zunächst mußten wir den Versuch aus den gegebenen Bedingungen heraus mit den Kindern der Stuttgarter Waldorf-Astoria-Zigaretten-Fabrik beginnen. Wir hatten also ein ganz bestimmtes Kindermaterial zunächst, wir mußten in einem Hause, das selbstverständlich sehr wenig dazu geeignet war - es war ein früheres Wirtshaus -, mit unserem Unterricht und unserer Erziehung beginnen. Wir konnten uns also auf nichts verlassen als auf das, was rein aus geistigen Untergründen heraus für die pädagogischen und didaktischen Gesichtspunkte selbst begonnen werden kann.
+
+Und da muß immer wieder betont werden: Weil Anthroposophie nicht eine abstrakte Kopf-Erkenntnis - wenn ich den Ausdruck gebrauchen darf - anstrebt, sondern eine Einsicht in die Welt und ihre Geheimnisse, die den ganzen Menschen ergreift, so kann sie gerade dadurch zu einer Menschenerkenntnis, zu einem Menschenverständnis führen, wie man es sonst nicht auf irgendeinem theoretischen Gebiete erreichen kann. Und letzten Endes beruht ja alle Erziehung, aller Unterricht auf jenem Menschenverständnis, das sich bewährt in dem Verhältnis des Lehrenden, des Erziehenden zum
+
+
+---
+
+werdenden, heranwachsenden Menschen, zum Kinde. Daher ist unsere Waldorf-Pädagogik aufgebaut auf einer intimen Erkenntnis des werdenden Menschen, des Kindes. Ich brauche nur eine Einzelheit anzudeuten, an der ersichtlich werden kann, wie sich wirkliche Einsicht in den ganzen Menschen in der Praxis bewähren muß.
+
+Wir haben ja heute auch eine Psychologie, die mehr oder weniger von der anerkannten Wissenschaft gelten gelassen wird. Aber diese Psychologie theoretisiert herum an mancherlei Fragen, die eben immer einen unbefriedigenden Rest lassen müssen. Sie legt sich zum Beispiel die Frage vor: Welches Verhältnis besteht zwischen dem Geistig-Seelischen und dem Leiblich-Physischen des Menschen? - und sie hat alle möglichen Theorien darüber ausgebildet. Wir haben da drei Typen von Theorien: Die eine sucht von dem Geistig-Seelischen auszugehen, dieses zunächst in irgendeiner Weise zu definieren, sich einen abstrakten Begriff davon zu machen und dann zu untersuchen, inwiefern das Geistig-Seelische auf das Physisch-Leibliche wirken kann. Eine andere, mehr materialistisch gefärbte Theorie geht davon aus, daß das Leiblich-Physische die Grundlage sei, und daß dieses Leiblich-Physische dann das Geistig-Seelische nur als eine Funktion hervorbringe. Eine dritte Theorie ist die des psycho-physischen Parallelismus, die davon ausgeht, in gleicher Weise nebeneinander gelten zu lassen das Geistig-Seelische und das Leiblich-Physische und nur zu verfolgen, wie die Funktionen des einen parallel neben denen des andern verlaufen, ohne daß man auf ein inneres Wechselverhältnis zwischen beiden eingeht. Das alles sind psychologische Spekulationen. Sie werden erst in dem Augenblick zu Angelegenheiten der Lebenspraxis, wo man durch diese Psychologie,
+
+
+---
+
+durch diese Seelenerkenntnis, zu pädagogisch-didaktischen Triebkräften kommt.
+
+Man kann sagen: Auf diesem Gebiet ist einfach unsere Anschauung des Geistig-Seelischen des Menschen noch nicht denjenigen Prinzipien nachgekommen, die wir gewohnt sind, in der Naturwissenschaft wie selbstverständlich zu verfolgen. In der Naturwissenschaft verfolgen wir, wenn zum Beispiel irgendwo Wärme auftritt, ohne daß zunächst auf die gewöhnliche Art Wärme zugeführt worden ist, wie diese Wärme in einem anderen Zustande, also als sogenannte latente Wärme vorhanden war und wie sie sich aus diesem latenten Zustande entwickelt hat, und nun als Wärme offenbar wird. Solche Prinzipien, wie sie in der Naturwissenschaft gang und gäbe sind, müssen - selbstverständlich in der entsprechenden Weise metamorphosiert - auch aufgenommen werden in die Betrachtung des Vollmenschlichen des Menschen, welches das Geistig-Seelische in sich schließt.
+
+Und man kommt zu einer solchen Anschauungsweise, die sich vor der Naturwissenschaft voll rechtfertigen läßt - wenn das auch heute noch nicht eingesehen wird -, wenn man etwa seinen Blick hinwendet auf die erste bedeutungsvolle Umwandlung, die mit der ganzen menschlichen Organisation vor sich geht mit dem Zahnwechsel um das siebente Lebensjahr herum. Man beobachtet solche Umwandlungen des Menschen in der Regel recht äußerlich. Allein, der Zahnwechsel ist etwas, was in das ganze menschliche Leben tief eingreift. Wer sein Anschauungsvermögen dafür schult, der lernt erkennen, wie mit dem Eintritt des Zahnwechsels das ganze seelische Leben des Kindes ein anderes wird. Er lernt erkennen, wie das Kind vorher im vollsten Sinne des Wortes eigentlich nicht «in sich» lebte, sondern ganz
+
+
+---
+
+mit seinem Seelenleben in seiner Umgebung aufging. Er lernt erkennen, wie das Wesentlichste der Triebkräfte im kindlichen Organismus vor dem Zahnwechsel die Nachahmung ist. Durch Nachahmung lernt das Kind seine Bewegungen.
+
+Man kann durch eine unbefangene Beobachtung genau feststellen, wie die Bewegungen von Vater und Mutter oder von der anderen Umgebung des Kindes hineingehen in den kindlichen Organismus selbst. Man kann verfolgen, wie unter gesunden Verhältnissen die Sprache gelernt wird unter dem Einfluß der Nachahmung. Man kann sehen, wie das Kind im vollsten Sinne des Wortes mit seinem ganzen Wesen an seine Umgebung hingegeben ist. Das aber wird völlig anders im Verlaufe des Zahnwechsels. Da sehen wir, wie sich im Kinde Kräfte ausbilden, die bewirken, daß das Kind nun selbständig Vorstellungen hervorbringen kann. Diese Fähigkeit zu selbständigen Vorstellungen, die das Innere des Kindes bis zu einem gewissen Grade von der Umwelt befreien, ist vor dem siebenten Lebensjahr gar nicht vorhanden. Mit dem Zahnwechsel erlangt das Kind eine gewisse Innerlichkeit und es wird dann nach und nach auch für Abstraktes zugänglich.
+
+Nun ist aber durch die kindliche Natur wiederum bedingt, daß alles, was innerlich in den das Kind umgebenden Menschen lebt, von dem Kind aufgenommen wird. Daher muß es in der zweiten Lebensepoche, die mit dem Zahnwechsel beginnt und bis zur Geschlechtsreife geht, so angesehen werden, daß es alles, was sich in ihm nun innerlich ausbildet, in Anpassung an die menschliche Umgebung ausbildet. Nicht das, was die Menschen seiner Umgebung tun, denn das wird nachgeahmt, sondern das, was in diesen Menschen lebt, also
+
+
+---
+
+was zum Ausdruck kommt durch das Wort, durch die Gesinnung, durch die Gedankenrichtung, das überträgt sich auf das Kind und zwar jetzt nicht durch Nachahmung, sondern durch eine Kraft, die aufzunehmen das Kind ebenso veranlagt ist wie in ihm die Wachstums- und Ernährungskräfte veranlagt sind: die Kraft der Autorität. Man wird wohl nicht mißverstehen, was ich hier mit der Kraft der Autorität meine, denn derjenige, der «Die Philosophie der Freiheit» geschrieben hat, will hier nur darauf hinweisen, wie das Autoritätsprinzip für eine bestimmte Lebensphase des Menschen in Betracht kommt. Es soll also nicht die gesamte Erziehung abgestellt werden auf das, was man heute vielfach als das Autoritätsprinzip bezeichnet. Wenn man nun auf solche Beobachtungen den entsprechenden Wert legt, dann differenzieren sich die Dinge immer deutlicher und man erwirbt sich immer mehr die Fähigkeit, die Metamorphosen im Menschen nicht nur von Jahr zu Jahr, sondern von Monat zu Monat beobachten zu können. Was aber ist es denn, was da zwischen Zahnwechsel und Geschlechtsreife im Kinde zutage tritt?
+
+Wenn man sich einen Blick aneignet für das, was da tatsächlich vorliegt, dann findet man, daß zwischen dem siebten und vierzehnten Jahr - das sind natürlich nur approximative Zahlen - beim Kind innerlich seelisch das zum Ausdruck kommt, was vorher verborgen in ihm als Kraft wirkte. Dieses steckte unten in der Leiblichkeit und bewirkte die Ausgestaltung des menschlichen Organismus, wirkte auch in der Umbildung des Gehirns in den ersten Lebensjahren und in der Zubereitung der Sprachorgane, wirkte also in allem, was das Kind überhaupt in seinem Körperlichen ausbildete. Und so kann man sagen: So wie zum Beispiel die Wärme in einem
+
+
+---
+
+Körper verborgen sein und dann durch gewisse Umstände frei werden kann, so wird das Geistig-Seelische, das in den ersten sieben Lebensjahren latent im Physisch-Organischen wirkt, was in jeder einzelnen Bewegung, in jedem körperlichen Vorgang zum Ausdruck kommt, erst später frei. Nach dem siebten Lebensjahr wird das Körperliche mehr sich selbst überlassen; es zieht sich das Geistig-Seelische allerdings nicht vollständig aus dem Körperlichen heraus, aber doch in einem hohen Maße. Der Zahnwechsel ist dann eine Art Schlußpunkt der ersten Entwicklungsphase, in der das Geistig-Seelische des Menschen noch deckungsgleich war mit dem Physisch-Leiblichen.
+
+Sie sehen, daß man durch eine solche Betrachtungsweise in die Lage kommt, nun eine wirkliche Beziehung zu erkennen zwischen dem Geistig-Seelischen und dem Physisch-Leiblichen. Man theoretisiert nicht mehr nur herum über die Frage, wie denn die beiden aufeinander wirken und so weiter. Man sieht einfach das Geistig-Seelische während der einen Lebensepoche ganz im Körperlichen drin – man hat es in der kindlichen Entwicklung anschaulich vor sich –, und man sieht es später, nach seiner Befreiung, in seiner eigenen Gestalt. Man vergleicht also nicht erst, was man zuvor in abstrakte Begriffe gefaßt hat, sondern man verfolgt die Wirksamkeit des Geistig-Seelischen im Körperlichen in den verschiedenen Lebensepochen. Das heißt aber, daß das, was in der Naturwissenschaft als das den äußeren Sinnen Zugängliche erforscht wird, herausgehoben wird in das geistige Gebiet. Würde man viel mehr auf die Einzelheiten dessen, was Anthroposophie will, eingehen und nicht bei oberflächlichen Definitionen stehenbleiben, so würde man schon sehen, welch eine treue Fortsetzerin
+
+
+---
+
+der so berechtigten naturwissenschaftlichen Denkweise die geisteswissenschaftlich-anthroposophische Weltanschauung eigentlich ist. Dann aber, wenn man sich in dieser Weise bis herein in die Begriffs- und Ideenwelt Menschenerkenntnis erwirbt, dann löst sich der Vorwurf von der Lebensfremdheit der Ideenwelt von selber auf.
+
+Sehr verehrte Anwesende! Anthroposophie will am wenigsten auf pädagogischem Gebiete irgendwie oppositionell sein zu dem, was an Großem und Bedeutsamem im Laufe besonders des 19. Jahrhunderts durch die großen Pädagogen der Menschheit an pädagogischen Prinzipien gegeben worden ist. Anthroposophie erkennt völlig an, daß große, bedeutungsvolle Erziehungsprinzipien da sind und sie steht nicht zurück vor irgend jemandem in der Anerkennung der großen Pädagogen. Allein, dennoch muß man sagen: Bei allen großen Erziehungsprinzipien, die da sind, herrscht heute vielfach eine gewisse Unbefriedigung gegenüber der Erziehungspraxis, und Erziehungsmethoden der verschiedensten Art treten auf zum Zeugnis dafür, daß es so ist. Warum ist das so?
+
+Es ist dies oft lediglich eine Folge des Intellektualismus in unserem Zeitalter. Dieser Intellektualismus bewirkt ja - mehr als man gewöhnlich glaubt - eine gewisse Lebensfeindlichkeit, namentlich für die sozialen Gebiete des Daseins. Er erzeugt in bezug auf das Ideenhafte eigentlich nur das Abstrakte. Das Abstrakte aber hat keine Lebenskraft in sich; es ist in gewisser Beziehung der Leichnam des Geistigen und wird auch als solcher erlebt. Und hat man die schönsten Grundsätze, für die man geradezu in Begeisterung erglühen kann - solange diese Grundsätze abstrakt bleiben, können sie im Leben nicht einen irgendwie günstigen Einfluß gewinnen. Erst wenn diese Grundsätze durchzogen werden von wirk-
+
+
+---
+
+licher Geistigkeit, von lebendiger Geistigkeit, die sich mit dem Wesen des Menschen verbindet, können diese Grundsätze praktisch werden. Und so möchte Anthroposophie nicht neue Erziehungsgrundsätze wiederum in abstrakter Art aufstellen; sie will nur eine Anleitung sein für die pädagogischen und didaktischen Geschicklichkeiten, für die Handhabung der Erziehungskunst und der Unterrichtskunst, und sie möchte gerade das geben, was auch die schönsten Erziehungsgrundsätze nicht geben können: geistige Untergründe für die praktische Handhabung, für die innere Befähigung des Lehrers, in der Schule und in der Erziehung zu wirken.
+
+Daher ist ja auch die Waldorfschule nicht so eingerichtet, daß - wie leider oft geglaubt wird - durch sie Weltanschauung, wie wir sie vor Erwachsenen vortragen, in die Kinder hineingepfropft werden sollte. Wir haben daher ganz besonders zu betonen, daß sogar der Religionsunterricht für die katholischen Kinder den katholischen Pfarrern, und für die evangelischen Kinder den evangelischen Pfarrern überlassen wird. Wir haben nur einen freien Religionsunterricht eingerichtet für diejenigen Kinder, die Dissidentenkinder sind, und die, wenn dieser Unterricht nicht eingerichtet worden wäre, gar keinen Religionsunterricht hätten. Gerade dadurch konnte wieder etwas zur Belebung des religiösen Gefühles geleistet werden; denn gerade diejenigen Eltern, die sonst ihre Kinder dem Religionsunterricht ganz entzogen hätten, schicken ihre Kinder jetzt in diesen Religionsunterricht, in welchem wir uns Mühe geben, nicht etwa Anthroposophie vorzutragen, sondern das auszugestalten, was für das kindliche Alter in dieser Beziehung ausgestaltet werden muß. Also nicht darum handelt es sich, Anthroposophie in das kindliche Gemüt hineinzutragen,
+
+
+---
+
+sondern darum, daß die Lehrerschaft durch Anthroposophie dazu kommt, die pädagogisch-didaktischen Handlungsweisen so einzurichten, daß sie nun wirklich wahrer Menschenerziehung entsprechen.
+
+Hieraus folgt, daß zunächst einfach durch die praktische Handhabung eine solche Erziehung und ein solcher Unterricht Zustandekommen, die nicht bloß auf das Kind sehen, sondern die auf den ganzen Menschen sehen. Denn es wäre höchst töricht, etwa die Füße oder Hände eines Kindes, wie sie im kindlichen Alter sind, als etwas Fertiges zu betrachten und sie etwa zu nötigen, so zu bleiben, wie sie im kindlichen Alter sind. Es ist selbstverständlich, daß wir im kindlichen Alter den kindlichen Organismus als etwas Werdendes betrachten, das später im Leben anders zu sein hat. Aber in bezug auf das Geistig-Seelische tun wir im Leben nicht immer das Gleiche. Wir sehen oftmals sogar, daß dem Kinde starre Begriffe beigebracht werden und das Kind häufig schon im kindlichen Alter etwas in seine Seele hereinbekommt, was scharfe Konturen hat. Das ist falsch! Es muß sich darum handeln, daß wir alles, was wir dem kindlichen Organismus einverleiben wollen, so an ihn heranbringen, daß es wachsen, daß es sich nach und nach umwandeln kann; so daß der Mensch später, im dreißigsten Jahre zum Beispiel, nicht nur eine Erinnerung an das hat, was er im kindlichen Alter aufgenommen hat, sondern daß er das damals Aufgenommene so umgestaltet hat, wie er auch seine Glieder umgestaltet hat. Wir müssen dem Kinde in allem, was wir ihm geistig-seelisch geben, auch etwas geben, was Wachstumskräfte, was Umwandlungskräfte in sich hat; das heißt, wir müssen den Unterricht lebendiger und immer lebendiger machen.
+
+Gewiß, das kann als abstraktes Prinzip ausgespro-
+
+
+---
+
+chen werden; aber praktisch erreicht kann es nur werden, wenn eine wirklich intime Menschenerkenntnis vorhanden ist. Eine solche intime Menschenerkenntnis macht es möglich, daß man einfach von der kindlichen Natur selbst alles abliest, was man gewöhnlich unter Lehrplan und unter Lernziel versteht. Daher herrscht in der Waldorfschule ein solcher Lehrplan und sind solche Lernziele in Aussicht genommen, die aus einer wirklichen Menschenkenntnis heraus von Monat zu Monat aus der Entwicklung der kindlichen Natur selbst abgelesen werden. Es ist der Versuch gemacht worden, wirklich alles in lebendigem Sinne zu gestalten.
+
+Ich will nur eines erwähnen. Es ist ja heute in verschiedener Beziehung auch im heutigen öffentlichen Unterricht manches besser geworden. Allein, Sie wissen alle, daß während des ganzen Schuljahres das Kind eigentlich mehr als es einem gewöhnlich bewußt wird, unter dem System leidet, das die Fortschritte des Kindes beurteilt. Da gibt es auf der einen Seite die kindlichen Leistungen, auf der anderen Seite die Beurteilungen dieser Leistungen durch den Lehrer; die werden so ausgedrückt: «befriedigend», «fast befriedigend», «fast kaum befriedigend», «minder befriedigend» und so weiter. Ich muß Ihnen offen gestehen: Ich war eigentlich nie fähig, einen Unterschied einzusehen zwischen «fast befriedigend», «fast nicht befriedigend» und dergleichen. Bei uns in der Waldorfschule handelt es sich darum, daß aus der Gesamtheit der Fortschritte heraus am Ende des Schuljahres dem Kinde eine Art Zeugnis übergeben wird, in dem der Lehrer individuell das Kind charakterisiert, indem er einfach das, was er an dem Kinde erlebt hat, auf ein Stück Papier schreibt. Das Kind sieht so eine Art Spiegelbild seiner selbst, und die Praxis hat gezeigt, daß es dieses
+
+
+---
+
+Spiegelbild - worauf nicht «befriedigend», «minder befriedigend» und so weiter für die einzelnen Gegenstände steht - mit einer gewissen inneren Befriedigung und Freude aufnimmt, selbst wenn darin Tadel stehen. Und dann bekommt das Kind eine Art Kraftspruch mit, der gerade aus seiner Natur geholt ist, den es sich dann aneignet, und der ihm ein Leitspruch für das nächste Jahr sein kann. - So kann man, wenn man die Liebe dazu hat, auf das Lebendige einzugehen, den Unterricht selbst unter ungünstigen Verhältnissen lebendig gestalten.
+
+Dadurch aber kommen wir auch dazu, etwas zu überwinden, was in unserem Zeitalter gerade in der Pädagogik und Didaktik überwunden werden muß. Man wird ja heute in der äußeren Geschichtsschreibung wenig Anhaltspunkte dafür finden, wie sich die Seelenverfassungen der Menschen in den einzelnen Entwicklungsepochen der Menschheit geändert haben. Wer aber Unbefangenheit genug hat, wird schon verstehen können, wie das, was man als geistige Äußerungen zum Beispiel des 10., 11., 12. Jahrhunderts sich vor die Seele stellen kann, einen ganz anderen Charakter trägt als das, was etwa seit der Mitte des 15. Jahrhunderts die Seelenverfassung der zivilisierten Menschheit geworden ist. Ja, bis zum 20. Jahrhundert herauf hat sich der Intellektualismus in der Menschheit bis zu einem Kulminationspunkt entwickelt. Dieser Intellektualismus hat aber die Eigentümlichkeit, daß er - geradeso wie das Nachahmungsprinzip oder das Autoritätsprinzip - erst in einem bestimmten Lebensalter des Menschen aus einem latenten in einen freien Zustand versetzt wird, und das ist beim Intellektualismus in einem verhältnismäßig späten Lebensalter der Fall. Wir sehen, wie der Mensch eigentlich erst, wenn er die Geschlechtsreife überwunden hat,
+
+
+---
+
+eigentlich sogar noch später, aus seiner elementaren Natur heraus geeignet wird, zum Intellektualistischen fortzuschreiben. Vorher wirkt das Intellektualistische auf seine Seelentätigkeit durchaus ablahmend, abtötend.
+
+Daher können wir sagen: Wir leben in einem Zeitalter, das eigentlich nur für den erwachsenen Menschen da ist, das als den wichtigsten Kulturimpuls etwas hat, was erst im erwachsenen Menschen voll zum Ausdruck kommen sollte. Das aber hat zur Folge, daß wir heute mit dem, was in bezug auf die ganze Kultur für die erwachsenen Menschen gerade tonangebend ist, eigentlich das Kind und selbst den jungen Menschen nicht mehr verstehen!
+
+Das ist das wichtigste, was in unserer Zivilisation zu berücksichtigen ist. Wir müssen uns darüber klar sein, daß wir gerade durch diejenigen Kräfte, durch die wir unsere Wissenschaften und unsere Technik zu so großen Triumphen und so großer Blüte gebracht haben, uns die Möglichkeit nehmen, das Kind voll zu verstehen und auf die volle Menschennatur des Kindes einzugehen. Es bedarf eben wieder eigener Mittel, um die Brücke zu dem jungen Menschen und dem Kinde herüber zu schlagen. Das, was jetzt in mannigfacher Gestalt als Jugendbewegung auftritt - man mag sich dazu verhalten, wie man will —, hat seine tiefste Berechtigung; sie ist nichts anderes als der Schrei der Jugend: Ihr Erwachsenen habt eine Zivilisation, die wir einfach nicht verstehen, wenn wir uns unserer elementarsten Natur hingeben! - Aber diese Brücke vom Erwachsenen zur Kindeswelt muß wieder gefunden werden, und dazu möchte Anthroposophie das ihrige beitragen.
+
+Und wenn man dann vom allgemeinen Kulturstandpunkt zum einzelnen heruntersteigt, wird man wieder finden, wie dieser Erziehungsplan, der abgelesen ist vom
+
+
+---
+
+Wesen des Kindes selbst, uns erkennen läßt, was man im Erziehungsplan für die einzelnen Lebensphasen der Kindheit entwickeln muß. Schreiben und Lesen waren in früheren Zeitaltern etwas ganz anderes, als sie es heute sind. Nehmen Sie unsere heutigen Buchstaben: sie sind etwas ganz Abstraktes, Lebensfremdes im Verhältnis zum eigentlichen Leben. Gehen wir zu früheren Zeiten zurück: Wir finden in der Bilderschrift etwas, was sich unmittelbar an das Leben anlehnt. Wir machen uns heute oft gar keine Gedanken darüber, wie innig mit dem Leben [diese Bilderschrift] verbunden war, und wie heute dem Leben so fremd ist: Lesen und Schreiben. Ja, wir stehen in einer Zivilisation drinnen, der es natürlich ist, daß das Lebensfremdeste zu Zwecken der Zivilisation ausgebildet wird. Wer heute mit unbefangenem Sinn zum Beispiel einen Stenographen oder einen alten Menschen an der Schreibmaschine sitzen sieht, der weiß, daß mit einer solchen Betätigung gerade das menschlich Fremdeste in die Zivilisation eingezogen ist. Sehr verehrte Anwesende, man wird nicht kulturfeindlich oder zum Reaktionär, wenn man dies ausspricht. Es wird auch nichts gesagt gegenüber dem, was mit diesen Mitteln in die neuere Zeit eingezogen ist; sie mußten da sein. Aber es müssen auch die Gegenkräfte entwickelt werden, die das wieder heilen, was, wenn es einzig und allein wirksam gelassen wird, nur zu einem gewissen Niedergang der Kultur, zu einer Dekadenz führen könnte. Und das wichtigste Moment, was in dieser Beziehung als Heilmittel eingeführt werden kann, liegt in der Erziehung, im Unterricht, der aber stets erzieherisch gestaltet werden muß.
+
+Wenn wir das Kind in die Volksschule hereinbekommen, ist es ja so, daß sein Intellekt zunächst noch
+
+
+---
+
+schlummert. Die Fähigkeit zu abstraktem Denken, die erst von anderem belebt werden muß, diese Fähigkeit tritt erst später auf. Daher können wir mit den abstrakten Schreibe- und Leseformen an das Kind, wenn es in die Schule kommt, noch nicht herankommen. Da können wir nur das nehmen, womit wir lebendig an das Kind herankommen können, denn im Kinde selbst wirkt ja ein künstlerisches seelisches Prinzip, das vollkommener und großartiger ist als jede andere Kunst. Das wirkt auf unbewußte Art. Diese müssen wir fortsetzen und müssen versuchen, für das kindliche Alter besondere Formen zu erfinden, wodurch das Kind auf künstlerische Art in das Schreiben, das heißt in die Betätigung seines gesamten Menschen hereinkommt und dann zum Lesen übergeht. Man muß in bezug auf die Pädagogik, wenn die Kinder heute im achten oder neunten Jahre noch nicht lesen oder schreiben können, den Mut haben, sagen zu können: Gott sei Dank, daß die Kinder in diesen Jahren noch nicht lesen oder schreiben können! - denn es kommt nicht darauf an, daß der Mensch dieses oder jenes [früh] lernt, sondern daß er es im richtigen Lebensalter und auf eine richtige Art lernt.
+
+So ist in der Waldorfschule der Unterricht auf künstlerische Gestaltung hin eingerichtet. Aus pädagogisch-künstlerischen Prinzipien heraus wird zunächst vorgegangen und erst allmählich zum Intellektualistischen übergeleitet. Wir tragen auch dem Rechnung, daß das Musikalische möglichst früh im Unterricht auftritt, weil es zur Willensbildung des Menschen in Beziehung steht. Wir tragen dem dadurch Rechnung, daß wir zu dem gewöhnlichen Turnunterricht den Eurythmie-Unterricht, das beseelte Turnen, in den Unterricht eingefügt haben. Es muß noch metamorphosiert werden, muß ins Päd
+
+
+---
+
+agogisch-Didaktische umgesetzt werden, dann aber findet man, daß durch diese Bewegungskunst, die das wahrzunehmen hat, was Geist und Seele des Menschen ist, etwas vermittelt wird, was sinnvoll ist. Man findet, daß das Kind sich während der schulpflichtigen Erziehung in diese Bewegungskunst so hineinfindet, wie es sich als ganz kleines Kind eben in die Sprache hineinfindet, mit innerem Wohlgefallen und mit innerer Selbstverständlichkeit. — Dieses Herausarbeiten aus dem Künstlerischen führt dann auch dahin, daß man das Kind von sehr früh an mit Farben hantieren läßt. Wenn das auch zuweilen unbequem ist, und wenn dann auch schärfere Reinlichkeitsgrundsätze als sonst dabei eingreifen müssen, so wird sich doch herausstellen, daß man dadurch das Kind tiefer in das Leben einführt als sonst. Man bringt es dazu, daß es einen Sinn bekommt für das Leben, daß es nicht am Leben vorbeigeht, sondern daß es mit der äußeren Welt lebt, daß es empfänglich wird für alles Schöne, für alles, was ihm sinnvoll in Natur und Menschenleben entgegentritt. Und dies ist wichtiger als die Übertragung einzelner Einzelheiten aus diesem oder jenem Gebiete auf das Kind.
+
+Zu alle dem aber, was ich hier nur in seinen Richtlinien andeuten kann, kommt das, was aus anthroposophischen Untergründen heraus in die Gesinnung des Lehrers einfließt, was der Lehrer einfach durch sein ganzes Wesen mitbringt an pädagogisch-didaktischen Imponderabilien, wenn er die Tür des Schulzimmers hinter sich schließt nach der Klasse zu, wenn er vor die Kinder tritt. Wer mit lebendigem Sinn - nicht mit abstrakten Ideen - anschaut, wie das Kind nachahmend sich anpaßt an die Umgebung, der weiß, was in diesem Kinde als Geistig-Seelisches wirkt. Er lernt das Kind
+
+
+---
+
+kennen und bekommt dadurch die Voraussetzungen, es in ganz anderer Weise zu beurteilen, als man es gewöhnlich tut. Ich will dafür nur ein Beispiel anführen.
+
+Man lernt ja so manches, wenn man in diesem Sinne das Leben ansieht. Zu mir kam einmal ein Elternpaar und sagte, der junge Sohn, der bisher ganz brav und ordentlich gewesen sei, habe jetzt plötzlich gestohlen. Ich fragte: «Wie alt ist das Kind?» -, die Eltern antworteten: «Fünf Jahre». Ich sagte: «Dann muß man erst untersuchen, was das Kind eigentlich getan hat, denn vielleicht hat es gar nicht gestohlen.» - Was hatte es denn getan? Es hatte einiges Geld aus der Schublade genommen, aus der die Mutter jeden Morgen Geld nahm, wenn sie einkaufen wollte. Für dieses Geld hatte sich der Knabe einige Naschereien gekauft, die er nicht einmal für sich selbst verwendet hat, sondern die er anderen Kindern gegeben hat. In diesem Fall muß man sagen: Da ist gar keine Rede von Stehlen; das Kind hat einfach gesehen, was die Mutter jeden Morgen getan hat, und es fühlte sich befugt, dies selbst auch zu machen. Das Kind ist ein Nachahmer. Jenes Verhältnis des Kindes zu den Normen der Erwachsenen, die ihren Ausdruck finden in «gut» und «böse», tritt ja erst ein, wenn der Zahnwechsel überwunden ist. Wir müssen deshalb eine ganz andere Beurteilungsmöglichkeit gewinnen und wissen lernen: alles, was wir in der Umgebung des Kindes tun, muß so eingerichtet werden, daß das Kind es nachahmen kann, es nachahmen kann bis in die Imponderabilien der Gedanken hinein. Da erweist sich eben die Realität der Gedanken. Nicht bloß das, was wir tun, sondern auch die Art und Weise unserer Gedanken ist maßgebend dafür. Wir sollen uns in der Umgebung des Kindes nicht jedem Gedanken hingeben, denn er wirkt auf das Kind.
+
+
+---
+
+Also bis auf die Imponderabilien hin müssen die Gedanken berücksichtigt werden.
+
+Schaut man darauf hin, wie das Kind bis zum siebten Jahre mit seiner Umgebung lebt, dann hat man darin einen Abdruck dafür, was das Kind war, bevor der Mensch in die physisch-sinnliche Welt heruntersteigt. Bis dahin – das zeigt anthroposophische Forschung – ist der Mensch ganz umgeben von einer geistig-seelischen Welt, die so mit ihm zusammenhängt im Universum, wie hier in der physischen Welt sein Leib mit dieser. Und wir kommen dazu, in dem kindlichen Leben bis zum siebten Jahre eine rechte Fortsetzung des Lebens vor der Geburt oder vor der Konzeption zu sehen. Das aber muß sich verwandeln in pädagogisch-didaktische Empfindung, so daß der Lehrer so vor dem Kinde steht, daß er sich sagt: Mir ist aus übersinnlichen Welten etwas übergeben, das ich enträtseln muß, dem ich die Lebensbahn ebnen muß.
+
+Unterricht und Erziehung wird so wirklich ein Opferdienst gegenüber der ganzen Welt. Es wird über Unterricht und Erziehung etwas ausgegossen von jener Gesinnung, die eine Kraft ist, und ohne die wirklicher Unterricht und wirkliche Erziehung nichts sein können. Diese Gesinnung, die sich nicht aus äußerlich angenommener, sondern aus innerlich erarbeiteter anthroposophischer Weltanschauung ergibt, sie ist gerade das Allerwichtigste im pädagogisch-didaktischen Wirken. Man steht dann mit religiöser scheuer Ehrfurcht vor dem, was der kindliche Leib in sich birgt; man schaut hin, wie ein aus den ewigen Weltengründen Erstandenes nach und nach sich offenbart in den kindlichen Bewegungen, Gesten und so weiter, und man weiß, daß man ein Lebensrätsel in praktischer Art zu losen hat. Die
+
+
+---
+
+ganze Erziehungs- und Unterrichtsgesinnung wird dadurch überhaupt erst in die richtigen Wege geleitet. Diese Atmosphäre, die sich ausbreitet bei allen Handlungen, die im schulgemäßen Leben getan werden müssen, ist das, was Anthroposophie vor allem hinein haben möchte in das Unterrichts- und Erziehungswesen, und von dem sie alle Einzelheiten beherrscht haben möchte. Aber um sie beherrschen zu können, ist nötig, daß man mit wirklicher innerer Anschauung dazu kommt, in der kleinsten Lebensregung des Kindes zu sehen, wie der Geist fortwirkt bis in die Fingerspitzen hinein. Der Lehrer wird sich dazu eine innere Gesamtanschauung aneignen, so daß er aus einer Fähigkeit, die wiederum zum Instinkt werden muß, seiner Klasse gegenübertritt mit der Gesinnung und der Geschicklichkeit, die gerade aus dieser innerlichen Verarbeitung der anthroposophischen Weltanschauung kommen.
+
+Das sind einige Andeutungen, die ich geben konnte; sie werden in den folgenden Vorträgen weiter ausgeführt werden können. Diese Andeutungen sollten zeigen, daß die Anthroposophie nicht radikal sein will gegen das Große, was auf pädagogischem Gebiete geleistet worden ist, sondern daß sie sein will eine Helferin für das Große, sonst nur abstrakt Bleibende, so daß es in der Lebenspraxis lebendig durchgeführt werden kann, damit die Erziehungskunst ein wirklicher Impuls, ein wirksamer Faktor in unserem sozialen Leben werden kann!
+
+
+---
+
+
+# FÜNFTER VORTRAG - ANTHROPOSOPHIE UND SOZIALWISSENSCHAFT, Berlin, 9. März 1922
+
+Meine sehr verehrten Anwesenden! Noch mehr als bei den übrigen einleitenden Worten, die ich zu diesen Tagesunternehmungen vorauszusprechen habe, wird es heute der Fall sein, daß ich mich auf Andeutungen zu beschränken habe, da ja das Wesentliche, was zu sagen ist, in den folgenden Vorträgen über Einzelheiten des Wirtschaftslebens gerade für das heute in Betracht kommende Gebiet wird liegen müssen.
+
+Man kann heute wohl nicht über Sozialwissenschaft sprechen, wenn man nur von einem theoretischen Standpunkte ausgeht. Man kann heute - und ich meine damit die unmittelbare Gegenwart, den gegenwärtigen Augenblick - über solche Fragen nur sprechen, wenn man im Hintergrunde hat die trostlose Lage des Wirtschaftslebens in der gegenwärtigen zivilisierten Welt. In diese trostlose Lage fiel in einer gewissen Weise auch noch dasjenige hinein, was ich nach der vorläufigen Beendigung der furchtbaren Weltkriegskatastrophe darzustellen versuchte in meinen «Kernpunkten der sozialen Frage».
+
+Ich ging dazumal aus von jener Beobachtung des sozialwirtschaftlichen Lebens, die sich eigentlich im gegenwärtigen Zeitpunkt der Weltentwicklung jedem aufdrängen sollte. Es ist die, daß das Wirtschaftsleben der Gegenwart innig verquickt ist mit dem, was sich inner-
+
+---
+
+halb des ganzen Umfanges der sozialen Frage bewegt. Ja, die meisten Menschen in der Gegenwart werden wohl kaum empfinden, daß die soziale Frage getrennt werden könne von der wirtschaftlichen Frage. Und dennoch ging gerade mein Buch «Die Kernpunkte der sozialen Frage» darauf aus, dadurch Klarheit zu schaffen in bezug auf das hier in Betracht kommende Gebiet, daß darauf hingewiesen wurde, wie das Wirtschaftsleben innerhalb des sozialen Organismus seine eigene selbständige Stellung erhalten müsse, jene selbständige Stellung, durch welche innerhalb desselben die Tatsachen und Einrichtungen lediglich nach wirtschaftlichen Grundsätzen, wirtschaftlichen Gesichtspunkten und Impulsen ihre Gestaltung bekommen. Insofern enthält eigentlich mein Buch - ich sage es hier in ganz unumwundener Weise, weil gerade darauf außerordentlich viel ankommt - einen inneren Widerspruch. Allein, dieses Buch wollte nicht ein theoretisches Buch der Sozialwissenschaft sein. Dieses Buch wollte Anregungen geben vor allen Dingen den Lebenspraktikern; dieses Buch wollte aus dem heraus geschrieben sein, was man in jahrzehntelanger Beobachtung des europäischen Wirtschaftslebens sich aneignen konnte. Und indem so dieses Buch anstrebte, durch und durch realistisch zu sein, unmittelbar eine Anregung für praktisches Handeln zu sein - und zwar für praktisches Handeln im Augenblick -, mußte es ja einen Widerspruch enthalten. Dieser Widerspruch ist nämlich kein anderer als der, der unser ganzes soziales Leben durchzieht, und der darin besteht, daß dieses soziale Leben im Laufe der neueren Zeit durcheinander, chaotisch das gebracht hat, was nur dann lebensfähig ist, wenn es sich aus seinen eigenen Bedingungen in jedem seiner einzelnen Glieder entwickelt.
+
+
+---
+
+Ich mußte sprechen von einer Dreigliederung des sozialen Organismus, die dazu führen würde, daß das Wirtschaftsleben in völlig freier Weise, relativ abgesondert sich organisiert von dem Rechts- und Staatsleben und von dem geistigen Leben, daß also dieses Wirtschaftsleben von denjenigen, die in ihm drinnen stehen, die aus seinen eigenen Impulsen heraus handeln können, gestaltet wird. Nun aber leben wir ja zunächst in einer Zeit, in welcher ein solcher Zustand nicht da ist, in welcher das Wirtschaftsleben absolut drinnen steht in der übrigen Struktur des sozialen Organismus. Wir leben in einer Zeit, in welcher der Widerspruch eine Realität ist. Daher konnte eine Schrift, die aus der Realität heraus geschrieben sein wollte und für die Realität Anregungen bieten wollte, nur etwas Widerspruchsvolles wiederum bringen; sie konnte nur darauf ausgehen, aus dem Widersprechenden heraus zunächst zur Klarheit, zur Klärung der Verhältnisse aufzurufen.
+
+Ich bin deshalb heute in einer ganz besonderen Lage, indem ich diese Einleitung spreche, weil in bezug auf dasjenige, was auf anthroposophischem Boden, mit anthroposophischen Denkmethoden gefunden worden ist, aber gefunden worden ist aufgrund durchaus realistischer, jahrzehntelanger Beobachtung der europäischen Wirtschaftsverhältnisse - weil das doch in den weitesten Kreisen zunächst in der ärgsten Weise mißverstanden worden ist. Ich kann nur sagen: Ich begreife vollständig diese Mißverständnisse, die diesen zugrunde liegenden Absichten entgegengebracht worden sind; diese Mißverständnisse sind eben auch ein Zeitphänomen. Allein, ich muß auf der anderen Seite der Anschauung sein, daß in der Überwindung dieser Mißverständnisse dasjenige liegt, was wir zunächst auf soziologischem, auf sozialem Ge
+
+
+---
+
+biete anzustreben haben, und gerade dazu möchte ich einiges Orientierende sagen.
+
+Als mein Buch «Die Kernpunkte der sozialen Frage» zuerst veröffentlicht wurde, fiel es in eine Zeit mitteleuropäischer Entwicklung, die unmittelbar gefolgt war der furchtbaren Kriegskatastrophe. Es war eine Zeit, die dem Versailler Vertrag vorangegangen war; es war eine Zeit, in welcher die Valutaverhältnisse der mitteleuropäischen und der osteuropäischen Staaten noch wesentlich andere waren. Nicht aus irgendeinem Wolkenkukkucksheim heraus waren die Impulse gemeint, die damals in meinen «Kernpunkten» niedergeschrieben wurden, sondern sie waren aus der unmittelbaren Weltsituation der damaligen Zeit heraus so gedacht, daß ich glauben durfte, wenn eine größere Anzahl von Menschen sich fände, welche auf Grundlage dieser Anregungen Weiteres suchte, dann würde man - namentlich von Mitteleuropa aus - einen Impuls auch in die wirtschaftliche Entwicklung hineinwerfen können, der zu einer Art von Aufstieg führen könnte in dem ja damals deutlich vernehmbaren und bis heute andauernden Abfall des Wirtschaftslebens und des sozialen Lebens überhaupt. Man konnte damals sich sagen, wenn man aus den sehr komplizierten Verhältnissen der Weltsituation heraus dachte: Vielleicht bleibt kein Stein stehen, so wie er hineingebaut ist in das Ideengebäude der «Kernpunkte der sozialen Frage» -; aber diese Ideen waren überall herausgedacht aus demjenigen, was war. Doch man könnte sie angreifen, und es wäre vielleicht etwas ganz anderes herausgekommen, als man zunächst schriftlich fixieren konnte. Denn nicht darauf kam es an, Ideen in utopistischer Weise hinzustellen, die ein Bild etwa eines sozialen Zukunftsorganismus entwerfen wollten; son-
+
+
+---
+
+dem darauf kam es an, Menschen zu finden, welche verstanden: Hier liegen reale, unmittelbar im Leben vorhandene Probleme vor; wir müssen uns aus unserer Sachkenntnis heraus mit diesen Problemen befassen und müssen sehen, ob wir, indem wir uns mit diesen Problemen befassen, dann immer weiteres und weiteres Verständnis finden.
+
+Nun ist im Grunde genommen etwas ganz anderes eingetreten. Es haben sich auf der einen Seite wohl Theoretiker gefunden, welche über das, was in meinem Buche steht, allerlei Diskussionen gepflogen haben, welche an das dort Ausgesprochene allerlei Forderungen geknüpft haben. Es hat auch Theoretiker gegeben, die in vollständig mißverstehender Art das, was gesagt war, in utopistischem Sinne umdeuteten und immer wieder fragten: Wie wird sich dieses, wie wird sich jenes gestalten?, - was man ja eigentlich hätte abwarten müssen. Es hat sich sogar die merkwürdige Tatsache herausgestellt, die für mich ganz überraschend war, daß gerade die wirtschaftlichen Praktiker, die in irgendeinem Gebiete des Wirtschaftslebens mit ihrer Routine ganz gut drinnenstanden, die sich in diesem oder jenem Geschäftszweige auskannten und es abgelehnt hätten, sich in ihrem Geschäftszweige etwas hereinreden zu lassen von dem, der nicht gerade in diesem Geschäftszweig versiert war -, daß diese Praktiker diskutierten über die Kernpunkte der sozialen Frage und sich durch das, was von ihnen als Folgerung gezogen wurde, gerade als die abstraktesten Theoretiker erwiesen. Es zeigte sich, daß man im Wirtschaftsleben ganz gut ein routinierter Praktiker sein konnte - im alten Sinne; unter den neuen Verhältnissen kannten sie sich nicht mehr aus -, daß aber diese Praktiker absolut nicht in der Lage waren, das, was
+
+
+---
+
+hier angeschlagen war in bezug auf die Probleme auch des Wirtschaftslebens, anders als gerade von dem Gesichtspunkte der abstraktesten Theorien aus zu diskutieren; so daß man da gerade in Verzweiflung kommen konnte, wenn man Praktikern gegenüberstand und sich mit ihnen eine Diskussion entwickelte, wo sie durchaus nicht auf etwas Konkretes eingingen, sondern nur das völlig triviale Allgemeine über die soziale Frage und namentlich über den wirtschaftlichen Teil der sozialen Frage wiederholten, wenn man sich mit ihnen irgendwie darüber aussprach.
+
+Das andere, was einem da entgegentreten konnte, war, daß zunächst ja diejenigen, die nun so die ganz handfesten Praktiker sind, es überhaupt ablehnten, sich in solcher Weise über die mögliche Gestaltung der wirtschaftlichen Probleme zu unterhalten. Das Weitere war, daß ja einiges Interesse zum Beispiel in sozialistischen Kreisen erweckt werden konnte, daß man aber gerade dort die Erfahrung machen konnte, daß das, was gewollt war, am allerwenigsten von dieser Seite verstanden wurde, und daß alles nur danach beurteilt wurde, ob es sich in die alten Parteischablonen einfüge oder nicht. Und so verging jene Zeit, aus der heraus diese Anregungen gedacht waren. Es kam das ganze furchtbare Valuta-Elend, das aber in einer ganz anderen Weise eigentlich zu beurteilen ist, als man es heute gewöhnlich beurteilt.
+
+Als zuerst mein «Aufruf an das deutsche Volk und an die Kulturwelt» und dann die «Kernpunkte der sozialen Frage» erschienen waren, da zeigte sich sogleich, wie einzelne Persönlichkeiten, die es ja in ihrer Art mit einer Gesundung des mitteleuropäischen Wirtschaftslebens ganz ehrlich meinten, sagten: Ja, solche Vorschläge - sie nannten das Vorschläge - sind ja ganz schön, aber
+
+
+---
+
+es sollte zunächst einmal gesagt werden, wie wir zu einer Aufbesserung der Valuta kommen. Das wurde in Zeiten gesagt, als das Valuta-Elend gegenüber den heutigen Verhältnissen noch das reine Paradies war. Nun zeigt sich in solchen Forderungen, wie man überall nur an den äußeren Symptomen herumpfuschen will. Es zeigt sich wenig Verständnis dafür, daß ja in den Valutaverhältnissen nur die an die Oberfläche schlagenden ungesunden Wirtschaftsverhältnisse sich symptomatisch anzeigen, daß man mit einer solchen Symptomenkur überhaupt das Übel gar nicht anpackt, und daß es sich darum handelt, viel tiefer und tiefer in die sozialwirtschaftlichen Zustände der Gegenwart hineinzugehen, wenn man in irgendeiner Weise dazu kommen will, die Probleme realistisch zu besprechen, für die die Andeutung gegeben werden sollte in den «Kernpunkten der sozialen Frage». Und so ist es denn gekommen, daß das, was ich wiederholt am Schlüsse von Vorträgen, die ich im Anschlüsse an die «Kernpunkte» hielt, damals gerufen habe: man solle sich besinnen, ehe es zu spät ist -, daß dieses «Zu spät!» in einem hohen Grade heute eingetreten ist, daß wir gar nicht mehr in der Lage sind, in dem ursprünglichen Sinne, der die «Kernpunkte» durchpulst, die Sache anzufassen; denn mittlerweile ist das Chaos des Wirtschaftslebens so hereingebrochen, daß wiederum ganz andere Ergänzungen notwendig waren zu dem, was dazumal nicht bloß ausgesprochen werden sollte, sondern ausgesprochen werden mußte, meiner Überzeugung nach. Und man wird wohl doch kaum vorübergehen können an einer Charakteristik unseres Zeitalters im allgemeinen, wenn man das besprechen will, was heute auch dem Wirtschaftsleben am allerschädlichsten ist.
+
+
+---
+
+Als ich gestern ein Zeitungsblatt in die Hand nahm, da trat mir - und es können einem heute ja die wichtigsten Symptome gewissermaßen aus einzelnen Sätzen, die heute unsere Zeitgenossen aussprechen, überall entgegentreten -, es trat mir ein Artikel entgegen: «Verschiebung der Demission des Lloyd George bis nach der Konferenz von Genua». Damit war wieder einmal die heutige Tagessituation ausgesprochen, indem alles, was heute den Tag charakterisiert, «wartet». «Wir wollen warten» - das ist eigentlich heute überall das Prinzip; warten, bis irgend etwas geschieht, von dem man nicht sagen kann, was es eigentlich sein wird. Was da geschehen soll, weiß man nicht, aber man wartet, bis es geschehen ist! Das ist das, was heute den Leuten tief in den Seelen sitzt, auf allen Gebieten. Und nun möchte ich etwas scheinbar - aber nur scheinbar - recht Abstraktes vorbringen; aber auch das ist durchaus in realistischem Sinne gemeint, denn es weist hin auf die unter uns wirksamen Kräfte, durch die wir eigentlich im Laufe der Menschheitsentwicklung allmählich dazu gekommen sind, dieses so aussichtsvolle Prinzip «wir wollen warten» überall geltend zu machen.
+
+Wenn wir in ältere Kulturentwicklungen zurückblicken, so finden wir gerade bei diesen älteren Kulturen, daß ein eigentliches wissenschaftliches Denken, auch in dem Sinne, wie es in den alten Zeiten vorhanden war - Sie wissen das ja aus dem Vortrage, den ich hier zuletzt in der Philharmonie gehalten habe -, nicht rein «wissenschaftlich» zu nennen ist. Sieht man aber auf das, was an Stelle des heutigen wissenschaftlichen Denkens stand, so kann man wissen, daß aus jenem Denken zunächst nicht unmittelbar das wirtschaftliche Leben hervorgegangen ist. Das wirtschaftliche Leben hat sich zunächst mehr
+
+
+---
+
+oder weniger unabhängig von dem menschlichen Gedanken, wie instinktiv - um nicht zu sagen automatisch - im Wechselverkehr der Menschheit entwickelt. Was man im wirtschaftlichen Leben hat tun wollen, hat sich einfach aus der Lebenspraxis heraus entwickelt. Man hat instinktiv gehandelt, hat ja wohl auch den Bereich des Handels erweitert über dieses oder jenes Gebiet, aber alles ist eben mehr oder weniger instinktiv geschehen. Man mag nun das eine oder andere einwenden vom Gesichtspunkte der heutigen Auffassungen von Menschenfreiheit, Menschenwürde und so weiter gegen die wirtschaftlichen Zustände älterer Zeiten; allein, man wird gut tun, auch auf der anderen Seite zu sehen, wie ganz merkwürdige Symptome in der Menschheitsentwicklung, die auch heute noch lehrreich sein können, sich zum Beispiel zeigen in der Art und Weise, wie Arbeitnehmer und Arbeitgeber - wenn wir diese modernen Ausdrücke auf alte Zeiten anwenden wollten - im Verhältnis zueinander lebten im alten Griechentum, im alten Ägyptertum, bis nach Asien hinüber. Diese Dinge nehmen sich gegenüber den heutigen Empfindungen so aus, daß sie eben die schärfste Kritik selbstverständlich herausfordern; allein, jede solche Kritik ist eben unhistorisch, und man muß sagen: Es waren eben diejenigen Verhältnisse in den entsprechenden Zeitepochen da, die sich aus dem damaligen Empfinden jener Menschheit ergaben. Das ist das eine, was man ins Auge fassen muß.
+
+Das andere ist die Tatsache, die zusammenhängt mit jenem Umschwung in der Menschheitsentwicklung, auf den ich schon öfters hindeuten mußte, der etwa im 15. Jahrhundert liegt, und durch den die Seelenverfassung der zivilisierten Menschheit eine ganz andere geworden ist. Ich sagte schon: Die äußere Geschichte weist wenig
+
+
+1 r\A Buch:81
+
+
+---
+
+darauf hin, wie damals die Gesamtlebensauffassung der menschlichen Seele eine andere geworden ist. Und wenn wir uns dann fragen: Wie steht diese menschliche Entwicklung zum Wirtschaftsleben? - dann bekommen wir die Antwort: Die Zeit der instinktiven Führung des Wirtschaftslebens, die so war, wie ich sie eben charakterisiert habe, diese Zeit reichte noch herein bis in die Epoche dieses Umschwunges. Mit diesem Umschwünge kam dann herauf in die Seelenverfassung der Menschheit der Intellektualismus, der Drang, mit reiner Verstandeslogik die Welt zu begreifen. Dieser Drang, der einfach ein tiefes Bedürfnis der menschlichen Seelenverfassung wurde, er bewährte sich ja in so glänzender Art gerade auf naturwissenschaftlichem Gebiete und auf jenem Gebiete, das aus der Naturwissenschaft in so glänzender Weise sich herausgebildet hat: auf dem Gebiete der Technik, wo er die außerordentlichsten, nicht genug anzuerkennenden Triumphe gefeiert hat. Aber dieser Intellektualismus - und das werden doch verschiedene Auseinandersetzungen gezeigt haben, die hier auch während dieses Kursus schon gepflogen worden sind - hat sich völlig unfähig gezeigt, die Erscheinungen des Menschenlebens und Menschenwesens selbst, auch in sozialer Beziehung, zu ergreifen. Man kann mit diesem Intellektualismus, mit dieser intellektualistischen Orientierung der Seele in grandioser Weise die äußere sinnliche Natur auf ihre Gesetzmäßigkeiten zurückführen. Man kann aber nicht mit diesem Intellektualismus diese sich ineinander verschlingenden und während des Verschlingens sich organisierenden und während des Organisierens sich seelisch auslebenden und geistig sich durchdringenden Verhältnisse des sozialen Lebens ergreifen. Ich möchte sagen: Das Netzwerk intellektuali-
+
+i AC
+Buch:81
+
+---
+
+stischer Ideen ist einfach zu weitmaschig für das, was im sozialen Leben vorliegt. Aber wissenschaftlich zu denken - das hat die Menschheit gelernt an diesem Intellektualismus. In ihn ist ja zuletzt alles einbezogen worden, bis in die Theologie hinein. Der Intellektualismus beherrscht, wenn wir auch beobachten und experimentieren, doch unsere ganze wissenschaftliche Denkweise, und wir haben es zuletzt dahin gebracht, das, was nicht in die Bahnen des Intellektualismus hineingebracht wird, einfach als nicht wissenschaftlich anzusehen.
+
+In diese Zeit des Intellektualismus fiel nun hinein der Übergang von dem rein instinktiven zu demjenigen Wirtschaftsleben, das angefacht werden soll mit menschlichen Gedanken. Wir dürfen sagen: In der Zeit, wo man noch nicht intellektualistisch über die Welt gedacht hat, wurde das Wirtschaftsleben instinktiv geführt. Als aber die Zeit heraufkam, die immer mehr und mehr nach Weltwirtschaft und Weltverkehr hintendierte, wurde der Mensch aus dieser Tendenz nach Weltverkehr und Weltwirtschaft dazu angehalten, auch das Wirtschaftsleben nun mit Gedanken zu durchdringen. Diese Gedanken aber wurden allein aus dem Intellektualismus herausgenommen. Dadurch zeigte sich in allem, was als wirtschaftswissenschaftliche Gedanken heraufgezogen ist - im Merkantilismus, im Physiokratismus, in den nationalökonomischen Ideen eines Adam Smith, wie in allem, was dann später hervorgetreten ist bis zu Karl Marx -, daß auf der einen Seite das Wirtschaftsleben forderte, daß nicht mehr bloß instinktiv gewirtschaftet würde, sondern daß es mit Gedanken erfaßt werde, daß aber auf der anderen Seite, da die Gedanken nur hergenommen werden konnten aus dem Intellektualismus, damit alle wirtschaftlichen Anschauungen durch und durch einseitig
+
+
+---
+
+wurden, so daß aus diesen wirtschaftlichen Anschauungen niemals eigentlich etwas hervorging, was man fortwirken gesehen hätte in der wirtschaftlichen Praxis. Auf der einen Seite waren die Wirtschaftstheoretiker, die aus intellektualistischen Sätzen Axiome bildeten - wie zum Beispiel Ricardo, Adam Smith oder John Stuart Mill -, und die auf solchen Axiomen Systeme aufbauten, womit sie eine ganz in sich verlaufende Geistesart bildeten; auf der anderen Seite war die wirtschaftliche Praxis, die eigentlich einer Durchdringung mit dem Geist bedurft hätte, die diese Durchdringung geradezu forderte, aber keinen Anschluß fand, die im alten Instinktleben fortwirkte und daher in das vollständige Chaos verfiel.
+
+So waren diese zwei Strömungen in der neueren Zeit immer mehr gang und gäbe geworden: auf der einen Seite die Wirtschaftstheoretiker - ohne Einfluß auf die wirtschaftliche Praxis; auf der anderen Seite die Praktiker, welche die alte, zur Routine gewordene Praxis fortsetzten, und damit das Wirtschaftsleben der zivilisierten Welt in das Chaos hineinwarfen. - Man muß selbstverständlich solche Dinge in einer etwas radikalen Weise aussprechen, denn nur dadurch wird wirklich auf das hingedeutet, was ist, was wirksam ist und was als Problem aufgefaßt werden muß.
+
+Wenn man nun, ich möchte sagen, eine Art Verbindung, eine Art Synthese zwischen wirtschaftlichem Denken - das aber von der Praxis allmählich ganz ausgerottet worden ist - und dieser wirtschaftlichen Praxis sucht, so findet man diese Verbindung höchstens in einem. In der neuesten Zeit bildete sich nämlich heraus eine Art von wirtschaftlichem Realismus, eine Art wirtschaftlich-wissenschaftlicher Realismus, der da sagt, man könne überhaupt nicht so allgemein zu Gesetzen des
+
+
+---
+
+Wirtschaftslebens kommen, sondern man müsse die Tatsachen der Wirtschaft betrachten, wie sie sich bei einzelnen Nationen oder Menschengruppen abspielen, und nur wenn man in dieser Weise rein äußerlich betrachtet, was geschehen ist, könne man einige Richtlinien für das wirtschaftliche Handeln finden. Was aus diesen Untergründen heraus entstanden ist, das ist das, was dann als die sogenannte sozialpolitische, als die wirtschaftliche Gesetzgebung aufgetreten ist. Das heißt, man hat allmählich geglaubt, herausgefunden zu haben, daß man zwar durch die Betrachtung der tatsächlichen wirtschaftlichen Verhältnisse im Zusammenhange mit den sie durchsetzenden sozialen Verhältnissen gewisse Richtlinien bekommen könne, die man dann in der wirtschaftlichen Gesetzgebung zum Ausdruck brachte; man hat also auf dem Umwege durch den Staat versucht, einiges von dem zu verwirklichen, was aus den Beobachtungen hervorgegangen ist, aber dadurch hat man in Wirklichkeit selbst zugegeben, daß aus diesen Beobachtungen wirkliche wissenschaftliche Wirtschaftsgesetze gar nicht hervorgehen können. Ja, in dieser Situation steht man eigentlich im Grunde genommen heute noch drinnen. Und gerade, wenn man in der Lage ist, einschneidende Erfahrungen zu machen und, ich möchte sagen, soziale Urphänomene in der richtigen Weise zu werten, dann sieht man, wie man in dieser Situation drinnen steht.
+
+Sie wissen ja alle, daß in das in ein so furchtbares Chaos hineingehende Zivilisationsleben in einem gewissen Zeitpunkte die sogenannten «Vierzehn Punkte» Woodrow Wilsons fielen. Was waren diese Vierzehn Punkte denn eigentlich? Sie waren im Grunde genommen nichts anderes als die abstrakten Prinzipien eines weit
+
+
+---
+
+fremden Mannes, die abstrakten Prinzipien eines Menschen, der von der Wirklichkeit wenig wußte, wie sich dann in Versailles, wo er in der Wirklichkeit eine hervorragende Rolle hätte spielen können, gezeigt hat. Ein wirklichkeitsfremder Mann wollte aus dem Intellektualismus heraus der Welt zeigen, wie sie sich organisieren sollte. Man muß nur erlebt haben, mit welcher Begeisterung die zivilisierte Menschheit an diesen Vierzehn Punkten hing, allerdings mit Ausnahme eines großen Teiles der mitteleuropäischen Bevölkerung, für die es aber leider auch einen, wenn auch kurzen Zeitraum gab, in dem sie auf diese Vierzehn Punkte hereinfiel.
+
+Im Jahre 1917 versuchte ich demgegenüber, einzelnen Persönlichkeiten Mitteleuropas, die sich dafür interessierten, denen aber nicht nachgelaufen wurde, sondern die entweder herankamen oder herangebracht wurden, zu zeigen, wie abstrakt, wie wirklichkeitsfremd dasjenige ist, was da in die soziale Gestaltung der Welt herein will, wie sozusagen alles das, was an schlechten Erziehungsgrundsätzen in der modernen Zivilisation waltet, kondensiert in diesem Weltschulmeister Woodrow Wilson sich darstellte, und wie die abstrakten Grundsätze dieser - im schlechten Sinne - Weltschulmeisterei von den Leuten mit Begeisterung aufgenommen wurden. Dazumal versuchte ich zu zeigen, daß eine Gesundung dieser Verhältnisse nur eintreten könne, wenn man gegenüber allen solchen abstrakten Einstellungen sich auf den Boden stellt, der die Gedanken nicht ausschließt, der aber gerade die Gedanken so hervorbringt, daß sie aus der Wirklichkeit, aus der Realität herauswachsen. Dann darf man sich aber nicht irgend etwas Utopistisches ausdenken - ich möchte sagen, die Woodrow Wilson’schen Grundsätze waren der verdichtete Utopismus,
+
+
+---
+
+waren der Utopismus in der dritten Potenz schon -, sondern dann muß man sich klar sein, daß man aus den realen Bedingungen der gegenwärtigen Menschheit selbst suchen muß, wie Impulse zu finden sind. Daher verzichtete ich bei dem, was ich auseinanderzusetzen hatte, auf jede utopistische Theorie, verzichtete darauf, überhaupt zu sagen, wie sich etwa Kapital, wie sich Arbeit und dergleichen gestalten sollten; ich gab höchstens einige Beispiele dafür, wie man sich denken könne, daß sie sich aus den gegenwärtigen Verhältnissen heraus in eine nächste Zukunft hinein gestalten könnten. Das aber war alles nur zur Illustration dessen gesagt, was sie werden sollten; denn ebenso gut wie ich da über die Wandlung der Kapitalkräfte in meinen «Kernpunkten» gesprochen habe, ebenso gut könnte diese Wandlung auch in einer modifizierten Weise sich vollziehen. Nicht darauf kam es mir an, ein abstraktes Zukunftsbild hinzustellen, sondern zu sagen, aus welchen Untergründen heraus, auf reale Art, man nun - nicht zu einer theoretisch ausgedachten, sondern zu einer wirklichen Lösung der sogenannten sozialen Frage kommen könnte. Es handelte sich nicht darum, zu sagen: Dies oder jenes ist die Lösung der sozialen Frage. Um eine solche Lösung zu versuchen, dazu habe ich nun wirklich zu viele Erfahrungen gemacht. Ich war schon in den 80er Jahren des vorigen Jahrhunderts in dem gemütlichen Wien fast jeden Nachmittag nach zwei Uhr eine Stunde zusammen mit allen möglichen gescheiten Leuten. Da ist im Verlaufe einer Stunde die soziale Frage jeder Nachmittag mehrmals gelöst worden! Und derjenige, der unbefangen genug in die Verhältnisse der Gegenwart hineinsieht, weiß schon ganz gut, daß Lösungen, die heute oftmals in dicken Büchern auftreten, auch nicht viel mehr wert
+
+
+---
+
+sind, als die, welche damals in Wien mit einigen Bleistift-strichen und vielen fanatischen Worten über einer weißen Tischplatte verhandelt worden sind. Darum konnte es sich also nicht handeln, und das war das ärgste Mißverständnis, das mir entgegengebracht wurde, daß es sich um so etwas handeln sollte.
+
+Was ich zeigen wollte, war: Die Lösung des sozialen Problems kann nur auf reale Weise selbst erfolgen; diese Lösung kann überhaupt nicht durch Diskussionen, sondern nur durch Geschehen, durch Tätigkeit erfolgen. Zu dieser Tätigkeit müssen aber erst die Bedingungen hingestellt werden, und auf diese Bedingungen versuchte ich in meinen «Kernpunkten» und in anderen Auseinandersetzungen zu verweisen. Ich versuchte zu zeigen, daß wir in unserem sozialen Organismus einmal solche Einrichtungen brauchen, die es ermöglichen, daß ein Geistesleben aus seinen eigenen Bedingungen heraus sich entwickeln kann, wo also nur die Bedingungen des Geisteslebens selbst wirken; daß wir sodann ein zweites Glied brauchen, wo nur die rechtlich-staatlichen Impulse wirken, und außerdem ein drittes Glied, wo nur diejenigen Impulse wirken, die aus der Warenproduktion und der Warenkonsumtion hervorgehen, und die zuletzt, wenn sie sich aus einem assoziativen Wirtschaftssystem entwickeln, gipfeln müssen in einer gesunden Preisbildung. Damit sollten nicht etwa die alten Stände wieder ins Dasein zurückgerufen werden. Nicht die Menschen sollten sich gliedern in einen Lehrstand, einen Wehrstand und einen Nährstand; sondern der Mensch der neueren Zeit ist bis zur Individualität vorgeschritten, und er wird nicht in abstrakter Weise eingegliedert sein in einen bestimmten Stand. Aber was draußen als Einrichtungen vorhanden ist, das tendiert einfach aus den
+
+
+---
+
+Kräften, die im geschichtlichen Werden vorhanden sind, dazu, daß abgesondert aus den eigenen Bedingungen heraus verhandelt wird, etwas getan wird für das Geistesleben, für das Rechts- oder Staatsleben und für das Wirtschaftsleben. Dann erst, wenn die Bedingungen dazu geschaffen sind, daß zum Beispiel der Wirtschafter rein aus wirtschaftlichen Impulsen heraus das gestalten kann, was etwa die gegenwärtigen Marktverhältnisse modifizieren soll, oder was die gegenwärtigen Kapitalverhältnisse modifizieren soll, erst wenn solche Möglichkeiten geschaffen sind, entwickelt sich unter den Menschen dasjenige, was eine reale Lösung - die aber in fortwährendem Werden ist - der sozialen Frage genannt werden kann.
+
+Also es geht mir nicht darum, die soziale Frage zu lösen, weil ich der Meinung sein mußte, daß überhaupt diese Lösung nie in einem einzelnen Moment als etwas Abgeschlossenes gegeben werden kann, weil das soziale Problem, nachdem es einmal heraufgekommen ist, in fortwährendem Fluß ist. Der soziale Organismus ist etwas, was jung wird, altert, und dem immer neue Impulse eingeflößt werden müssen, von dem aber nie gesagt werden kann: so und so ist seine Gestalt. Wenn der soziale Organismus nicht so ist, daß die Menschen in einem, alle Interessen zusammenmischenden Parlament zusammensitzen, wo dann wirtschaftlich Interessierte über Fragen des Geisteslebens, staatliche Interessen über wirtschaftliche Fragen und so weiter entscheiden, sondern wenn in einem gesunden sozialen Organismus die einzelnen Gebiete aus ihren eigenen Bedingungen heraus betrachtet werden, dann wird einmal das Staatsleben auf eine reale demokratische Grundlage gestellt werden können; dann wird das, was zu sagen ist, nicht von einem
+
+
+---
+
+Menschen in einem solchen einzigen Parlament gesagt werden, sondern es wird hervorgehen aus den fortdauernden kontinuierlichen Verhandlungen unter den einzelnen Gliedern des sozialen Organismus.
+
+In diesem Sinne war also mein Buch eine Mahnung dazu, endlich aufzuhören mit dem unfruchtbaren Reden über die soziale Frage und sich auf einen Boden zu stellen, von dem aus man jeden Tag die Lösung der sozialen Probleme in die Hand nehmen kann. Es war ein Ruf, der an die Verstehenden ging, um wirklich das, was immer nur im Abstrakten gedacht war, überzuführen in das durchdachte Handeln. Dazu sollten zum Beispiel im wirtschaftlichen Leben die Assoziationen dienen. Solche Assoziationen sind grundverschieden von dem, was in der neueren Zeit an Vergesellschaftungen zustande gekommen ist, und können jeden Tag aus den wirtschaftlichen Untergründen gebildet werden. Bei ihnen handelt es sich darum, daß nun wirklich diejenigen Menschen, die im Behandeln von Warenproduktion, von Warenzirkulation und im Konsumieren von Waren verbunden sind - was jeder Mensch ist -, sich zu Assoziationen zusammenschließen, so daß daraus vor allem die gesunde Preisbildung hervorgeht. Es ist ein langer Weg von dem, was aus Sach- und Fachkenntnis heraus die in den Assoziationen verbundenen Menschen werden zu leisten haben, bis zu dem, was nicht durch eine Gesetzgebung, auch nicht als Resultat von Diskussionen, sondern als Resultat der Erfahrung sich ergibt als die gesunde Preisbildung. Doch vor allem hatten Menschen das Bedürfnis, die Grundzüge dessen, was damals gewollt wurde und was ich jetzt in diesen einleitenden Worten vor Sie hinzustellen versuchte, zu diskutieren; denn die Welt war so eingeschult in abstraktes Denken, daß man auch
+
+
+---
+
+diese Anregung nur vom Gesichtspunkte des abstrakten Denkens nahm, und daß man sich mit dem, was ich nur als Illustration gegeben habe, vor allem so hilft, daß man stundenlang diskutiert, während es sich darum handeln sollte, wirklich einzusehen, wie jeden Tag die Gliederung des sozialen Organismus in Angriff genommen werden kann in der Weise, wie es in den «Kernpunkten» angedeutet ist.
+
+So handelt es sich heute nicht darum, theoretische Lösungen der sozialen Frage zu suchen, sondern die Bedingungen aufzusuchen, unter denen die Menschen sozial leben werden. Und sie werden sozial leben, wenn der soziale Organismus nach seinen drei Gliedern hin arbeitet, wie ja der natürliche Organismus auch unter dem Einfluß seiner relativen Dreigliederung gerade zur Einheit hin arbeitet.
+
+Sehen Sie, man muß heute erst einmal sagen, wie solche Dinge gemeint sind. Und wenn man sie ausspricht, wird immer noch gefordert, daß nun die Worte, deren man sich schon einmal bedienen muß, so genommen werden sollen, wie man sie nimmt nach der intellektualistischen Bedeutung, die man ihnen heute beilegt. Man übersetzt sofort in seinen Intellektualismus das, was ganz ausdrücklich nicht in Intellektualismus eingetaucht ist. Daher ist über Kapital, über die Naturgrundlagen der Produktion, über die Arbeit in meinem Buche so gesprochen, daß die Ideen einfach für das Leben gedacht sind. Wenn wir abstrakt verhandeln, können wir lange definieren, und das ist ja auch geschehen. Der eine sagt mit demselben Recht: Kapital ist kristallisierte Arbeit, ist Arbeit, die aufgespeichert ist -, wie der andere mit demselben Recht sagt: Kapital ist ersparte Arbeit. Und so kann man es mit allen volkswirtschaftlichen
+
+
+---
+
+Begriffen machen, wenn man innerhalb des Intellektualismus stehen bleibt. Aber das alles sind nicht Dinge, mit denen man es nur theoretisch zu tun haben kann, sondern die man lebendig in ihrer Gestaltung erfassen muß. Und wer sich wie die Praktiker, die viel auf ihre Praxis und Routine sich zugute tun, der Abstraktheit in diesen Dingen befleißigt, der kann folgendes machen, was ich durch einen Vergleich verdeutlichen will.
+
+Ich sehe den Ernst Müller. Er ist klein, hat durchaus kindliche Züge und kindliche Eigenschaften. Ich sehe diesen Ernst Müller nach zwanzig Jahren wieder und sage: Das ist nicht der Ernst Müller, denn der ist klein, hat kindliche Eigenschaften und eine ganz andere Physiognomie. -Ja, wenn ich mir damals meinen Begriff von dem Ernst Müller gebildet habe und ihn nun nach zwanzig Jahren zur Deckung bringen will mit dem, was mir jetzt als reale Wesenheit entgegentritt, so mache ich einen furchtbaren Fehler. Doch so wenig es die Menschen glauben mögen: es ist so, wenn sie heute wirtschaftlich denken. Sie machen sich Gedanken und Begriffe über Kapital und Arbeit und so weiter, und sie meinen, diese Begriffe müßten immer Geltung haben. Aber da braucht man nicht zwanzig Jahre zu warten, braucht man nur von einem Arbeitgeber zum andern zu gehen, aus einem Lande ins andere und entdeckt dann, daß der Begriff, den man sich an der einen Stelle gebildet hat, eben an der anderen Stelle gar nicht mehr gilt, wenn er sich nicht von selbst umgewandelt hat - wie der Ernst Müller. Man erkennt nicht, was da ist, wenn man nicht bewegliche Begriffe hat, die voll im Leben drinnen stehen.
+
+Das ist das, was möglich machte, daß gerade auf anthroposophischem Boden in unserer heutigen Zeit der Not auch wirtschaftliche Einrichtungen ihren Ausdruck
+
+
+---
+
+finden, weil Anthroposophie es ihrer Natur nach gegenüber dem beweglichen Geiste mit beweglichen Ideen zu tun haben muß, weil man an ihr lernen kann, wie man seine Ideen mit Wachstumskraft, mit innerer Beweglichkeit ausstatten muß und dann mit solchen Ideen - so wenig es die heutigen Praktiker glauben mögen - auch in die andersgeartete Wirklichkeit eintauchen kann, die sich abspielt als soziales Leben von Mensch zu Mensch, von Volk zu Volk durch die ganze, nunmehr notwendig gewordene und so künstlich beeinträchtigte Weltwirtschaft hindurch. Und so darf wohl gesagt werden: Nicht eine Äußerlichkeit ist es, daß gerade auf anthroposophischem Boden auch der Versuch gemacht wurde, zu - nicht sozialen Ideen, sondern zu sozialen Impulsen zu kommen. Ich erinnere mich noch an die Zeit, in der über diese Dinge viel diskutiert worden ist. Ich habe immer sagen müssen: Ich meine soziale Impulsel - Das hat die Leute furchtbar geärgert. Denn selbstverständlich hätte ich sagen sollen: soziale Ideen oder soziale Gedanken; denn die Leute hatten für solche Dinge nur Gedanken im Kopfe. Daß ich von Impulsen sprach, ärgerte sie furchtbar; denn sie merkten nicht, daß ich «Impulse» brauchte aus dem Grunde, weil ich Realitäten meinte und nicht abstrakte Ideen. Ausdrücken muß man sich selbstverständlich in abstrakten Ideen.
+
+So muß heute wieder begriffen werden, daß ein neues Verständnis gesucht werden muß für das, was man das soziale Problem nennt. Wir leben heute unter anderen Verhältnissen als im Jahre 1919. Die Zeit ist insbesondere auf dem Wirtschaftsgebiete außerordentlich schnellebig. Notwendig ist es, daß selbst solche Ideen, die schon für die damalige Zeit beweglich gehalten worden sind, weiter in Fluß gehalten werden, und daß man bei seinen
+
+
+---
+
+Beobachtungen auf dem Standpunkte des Geistesgegenwärtigen steht. Wer die Verhältnisse des Wirtschaftslebens real ins Auge zu fassen vermag, der weiß, daß sie sich seit der Abfassung der «Kernpunkte» wesentlich geändert haben, und daß man nicht wieder bloß so deduzieren kann wie damals. Aber man wird dort [in den «Kernpunkten»] wenigstens einen Versuch finden, diese Methode des sozialen Denkens in einer realistischen Weise zu suchen, gerade vielleicht deshalb, weil dieser Versuch entsprossen ist einem Boden, wo Realitäten immer gesucht wurden, wo man nicht in Schwärmerei oder in falsche Mystik hineinfallen will - weil dieser Versuch erwachsen ist auf dem nach Exaktheit ringenden Boden der anthroposophischen Weltanschauung.
+
+
+---
+
+SECHSTER VORTRAG
+
+# ANTHROPOSOPHIE UND THEOLOGIE, Berlin, 10. März 1922
+
+Meine sehr verehrten Anwesenden! Ich bin genötigt, auszugehen von einer Zeitschriftennotiz, die mir eben überreicht worden ist, einer Notiz in der «Christlichen Welt», von der ich - weil ich sie vorher nicht kannte - selbstverständlich nicht dachte, bei meinen heutigen einleitenden Worten auszugehen. In dieser Zeitungsnotiz steht: «Vom 5. bis 12. März findet in Berlin ein anthroposophischer Hochschulkurs statt. ... Der Tag der Theologen ist Freitag, der 10. - Diese Veranstaltung am Freitag ist nun eine unzweideutige Herausforderung Steiners und seiner Anhänger an die Theologen» und so weiter.
+
+Nun, meine sehr verehrten Anwesenden, diese heutige Veranstaltung mag alles andere sein; das, was sie jedenfalls nicht ist und wodurch sie, wenn es der Glaube wäre, im allertiefsten Sinne mißverstanden würde, das ist eine Herausforderung an die Theologen. Ich selbst bin an dieser Veranstaltung niemals in irgendeiner anderen Weise beteiligt gewesen, als daß ich gefragt worden bin, ob ich durch Vorträge und einleitende Betrachtungen mitwirken wolle an diesem Hochschulkurse, dessen Initiative nicht von mir ausgegangen ist. Ich bin am wenigsten beteiligt an der heutigen Veranstaltung, das heißt, an der Einfügung dieses Programmpunktes in den Hochschulkurs, und ich würde niemals daran gedacht
+
+
+---
+
+haben, daß dasjenige, was heute hier verhandelt werden soll, aufgefaßt werden könnte als eine «unzweideutige Herausforderung an die heutigen Theologen».
+
+Daher gestatten Sie auch, meine sehr verehrten Anwesenden, damit nicht wieder oder neuerdings alle möglichen Mißverständnisse sich an das knüpfen, was ich hier als ganz wenige einleitende Worte zu sagen haben werde, daß ich mich heute wirklich beschränke auf das Thema: Das Verhältnis der Anthroposophie zur Theologie, und daß ich mit Rücksicht darauf, daß nicht neue Mißverständnisse entstehen, auf einiges verzichte von dem, was von mir hier vorgebracht würde, weil ich sonst neuerdings sehen müßte, wie das verkannt wird, was von mir gewollt wird.
+
+Sehr verehrte Anwesende, es war niemals mein Bestreben - verzeihen Sie, wenn ich durch diese an mich ergangene Herausforderung gezwungen bin, heute ganz kurz in der Einleitung einzelne persönliche Bemerkungen zu machen -, es war eigentlich niemals meine Absicht, irgendwie die Theologie herauszufordern, und von ihrem Ausgangspunkt an hat Anthroposophie, insofern sie ein Arbeitsgebiet darstellt, an dem ich selbst beteiligt bin, niemals irgendwie gesucht, sich innerhalb ihrer Arbeit mit der heutigen Theologie als solcher auseinanderzusetzen. Das ist, insofern es geschehen ist, und es ist ja wirklich von mir so wenig wie möglich geschehen, lediglich dadurch geschehen, daß Angriffe gegen die Anthroposophie von theologischer Seite her allerdings sehr viele erfolgt sind, und daß man sich - nicht so sehr ich als andere - manchmal zur Wehr setzt. Denn Anthroposophie wollte als Arbeitsgebiet durchaus, ich möchte sagen, der Theologie gegenüber neutral bleiben, sie will arbeiten aus dem gegenwärtigen Wissenschaftsgeist heraus.
+
+
+---
+
+Man hatte am Ende des vorigen Jahrhunderts eine gewisse wissenschaftliche Richtung, gewisse wissenschaftliche Methoden, eine gewisse wissenschaftliche Gesinnung vor sich, eine Gesinnung und Methode, welche aus Gründen, über die ich schon gesprochen habe, und über die wegen der Kürze der Zeit nicht ausführlich gesprochen werden kann, eine Methode und Gesinnung, die man aus der ganzen geschichtlichen Entwicklung der neueren Zeit insbesondere anwendete auf die naturwissenschaftliche Forschung, und durch die man innerhalb der naturwissenschaftlichen Forschung die größtmöglichsten Triumphe - ich meine das nicht in einem trivialen, sondern in einem tieferen Sinne - für Menschenfortschritt und Menschenwohl errungen hat. Der naturwissenschaftlichen Forschung stand in dieser Zeit die Philosophie, ich möchte sagen etwas ratlos gegenüber. Die Philosophie mußte sich auseinandersetzen mit denjenigen Methoden, welche vor allen Dingen auf die Naturwissenschaft angewendet worden sind, und welche in der Philosophie, in der man es doch mit einem ganz anderen Tatsachengebiet zu tun hat, nicht anwendbar waren.
+
+Man war sich, ich möchte sagen theoretisch und erkenntnistheoretisch nicht immer darüber klar, in welchem Sinne man mit den naturwissenschaftlichen Methoden in der Philosophie arbeiten sollte. Man ist dann in der experimentellen Psychologie auf ein gewisses Gebiet verfallen, wo es mehr oder weniger scheinbar oder auch mehr oder weniger richtig geht, aber die Unsicherheit ist im Grunde genommen doch auch da vorhanden. Demgegenüber erarbeitete sich Anthroposophie aus den verschiedensten Untergründen heraus ihre eigene Arbeitsmethode. Sie will auf der einen Seite demjenigen Rechnung tragen, was gerade mit der besonderen Aus-
+
+
+---
+
+büdung der neueren Denk- und Forschungsmethoden in der Naturwissenschaft zu erreichen ist, auf der anderen Seite den menschlichen Bedürfnissen nach einer geistigen Welt und ihrer Erkenntnis. Man stand auf der einen Seite vor der Tatsache, die naturwissenschaftlichen Methoden voll anzuerkennen, und in bezug auf die Behandlung des naturwissenschaftlichen Gebietes - ich habe das schon ausgesprochen - bin ich heute selbst noch so Haeckelianer, wie ich es in den 90er Jahren des vorigen Jahrhunderts gewesen bin; nicht in dem Sinne, als ob die naturwissenschaftlichen Methoden nicht weitergebildet werden müßten und als ob nicht gerade von Seiten der Naturwissenschaft manches gegen das, was Haeckel geschrieben hat, eingewendet werden müßte, aber da kommt man auf ein ganz anderes Diskussionsgebiet, ich meine in der Behandlung der rein natürlichen Welt bin ich heute genauso Haeckelianer wie damals. Es handelt sich mehr darum, was man an der naturwissenschaftlichen Betrachtungsart erlebt, namentlich dadurch, daß man sich erzieht in naturwissenschaftlicher Exaktheit, in naturwissenschaftlicher Gesinnung, also um das, was man dadurch ausbilden kann an Ideen und Begriffen, die man einfach braucht, wenn man naturwissenschaftlich arbeiten will. Denn eines bleibt für alle Weltbetrachtung - ich kann wegen der Kürze der Zeit jetzt den Beweis dafür nicht erbringen - eine Wahrheit: Wenn für die äußere Sinnesbeobachtung der Satz gilt: Es ist nichts im Verstande, was nicht vorher in den Sinnen ist -, so gilt ganz gewiß auf der anderen Seite der Leibnizsche Satz: «außer der Verstand selber».
+
+Im Erleben des Verstandes, das heißt in dem Sich-Bewegen der Seele in den Verstandes-Kategorien, in dem Erleben der Ideen, mit denen man die Naturobjekte, die
+
+
+---
+
+Naturtatsachen untersucht und die man zuletzt zur Formulierung der Naturgesetze braucht, in dem Erleben dieser Ideenwelt liegt etwas, was durchaus über das Erleben von bloß Sinnlichem hinausgeht, so daß man, wenn man als naturwissenschaftlicher Forscher der Naturwissenschaft gegenübersteht, sich sagen muß, wenn man unbefangen genug dazu ist: Alles das, was im Verstande ist, muß aus den Sinnen heraus geschöpft werden, nur der Verstand selbst kann nicht aus den Sinnen heraus geschöpft werden.
+
+Hat man aber einmal lebensvoll dies begriffen, dann gibt es auch kein Hindernis dafür, nun zu betrachten, was innerlich gewissermaßen angeschaut wird in der Verfolgung, die Verstandes-Kategorien weiterzubilden durch einen innerlichen seelisch-geistigen Prozeß, durch einen solchen Prozeß, der innerlich etwas ganz ähnliches ist wie äußere Wachstumsprozesse bei der Pflanze und beim Tier. Man bleibt durchaus mit seiner Gesinnung gerade dem natürlichen Werden treu, wenn man zugibt, daß aus dem Keim, den man in innerlicher Anschauung vor sich hat, man die Wahrheit gewinnt, daß der Verstand selbst nicht aus der Sinneswelt geschöpft werden kann. Man bleibt dem treu, was man erlernt hat an dem natürlichen Dasein, wenn man den Versuch macht, den menschlichen Verstand selbst als einen Keim zu betrachten, der innerlich wachsen kann; und wenn man diesen Versuch wirklich unternimmt, dann ist das übrige eine unmittelbare Folge dessen, was ich in diesen Tagen hier und an anderen Orten geschildert habe von dem Wachsen des menschlichen Intellekts in Imagination, Inspiration und Intuition. Das ist lediglich eine Sache des weiteren Fortschrittes der inneren menschlichen Entwicklung. Dadurch ergibt sich aber eine wirkliche
+
+
+---
+
+Anschauung der geistigen Welt. Diese Anschauung der geistigen Welt versucht man in der Anthroposophie, so gut es geht, nach dem heutigen Sprachgebrauch in Worte zu kleiden. Man ist natürlich oftmals genötigt, das, was man schaut – ich gebe es ohne weiteres zu –, in ungenügender Weise in Worte zu kleiden, aus dem einfachen Grunde, weil unsere Sprache, wie alle modernen Sprachen, im Laufe der letzten Jahrhunderte angepaßt wurde dem äußeren materiellen Weltanschauen und wir heute einfach die Empfindungen, die wir bei den Worten haben, schon mehr oder weniger an dieser Weltanschauung orientiert haben.
+
+Daher ringt man immer mit den Worten, wenn man in die Notwendigkeit versetzt ist, dasjenige, was durch Imagination, Inspiration, Intuition angeschaut wurde, in Worte einzukleiden, es namentlich so in Worte einzukleiden, daß es nun wirklich nachgeprüft werden kann durch den gewöhnlichen gesunden Menschenverstand, denn dies muß wiederum ein Ziel anthroposophischer Forschung sein.
+
+So war Anthroposophie einfach ein Arbeitsgebiet, und als solches Arbeitsgebiet wird sie im strengsten Sinne des Wortes von mir aufgefaßt. Diejenigen Menschen, die – es war zunächst ein sehr kleiner Kreis – ein Bedürfnis hatten, etwas zu hören über das, was durch eine solche Forschungsmethode aus der übersinnlichen Welt erkundet werden kann, denen wurde das gesagt und gezeigt, was auf diese Weise gefunden werden kann. Niemand wurde irgendwie herangezwungen an diese Bewegung durch etwas anderes als durch seinen eigenen freien Willen, daran teilzunehmen. Was darüber gesagt wird, daß irgendwie suggestive Mittel oder dergleichen angewendet werden, das ist bei den einen eine bewußte,
+
+
+---
+
+bei den andern eine unbewußte Verleumdung dessen, was in der anthroposophischen Bewegung eigentlich gewollt wird. Und es gilt, daß der, welcher mit seinem gesunden Menschenverstand dasjenige nachdenkt, was durch Imagination, Inspiration und Intuition erforscht wird, im höheren Sinne gerade ein freierer Mensch wird, als es die Menschen in der Gegenwart sind. Diese Menschen der Gegenwart laufen zum Beispiel ihren Parteiströmungen nach, lassen sich alles Mögliche suggerieren. Von diesen inneren seelischen Abhängigkeiten gerade muß Anthroposophie die Menschen befreien, weil sie darauf Anspruch macht, daß jeder, der sich in sie einleben will, nicht bloß in dem gewöhnlichen, mehr passiven Denken verharrt, sondern das Denken innerlich beweglich macht, es erkraftet, und durch dieses innerlich erkraftete Denken wird man gerade ein freier Mensch.
+
+Aus Gründen, auf die ich heute nicht eingehen will, kam es, daß von den wissenschaftlich orientierten Menschen, auf die eigentlich bei der Anthroposophie gerade gerechnet war, anfangs nur sehr wenige an die Anthroposophie herankamen. Heute haben wir damit einen gewissen Anfang gemacht. Denjenigen Menschen, welche zuerst in die anthroposophische Bewegung hineinkamen – es waren mehr oder weniger naive Gemüter mit starken seelischen Bedürfnissen –, denen wurde niemals etwas anderes gesagt als das, was in gewissenhafter Weise innerhalb der anthroposophischen Forschung gefunden werden konnte. Und ich freute mich immer, wenn mir Dinge gesagt wurden, wie zum Beispiel von einer heute auch hier anwesenden, sehr verehrten Persönlichkeit: Es ist eigentlich merkwürdig, daß Sie überhaupt einen größeren Zuhörerkreis bekommen, denn Sie vermeiden es eigentlich in der Art zu sprechen, was man sonst
+
+
+---
+
+populär, allgemein verständlich nennt. Sie sprechen so, daß die Menschen eigentlich immer eine innere Arbeit verrichten müssen beim Zuhören, und das wollen doch heute die Leute nicht, so daß man sich eigentlich wundern muß, daß Sie einen größeren Zuhörerkreis finden. - So ähnlich klangen die Worte, die mir eine heute auch hier sitzende Persönlichkeit vor Jahren sagte, nachdem sie damals eine Reihe von Vorträgen angehört hatte. Nach Popularität bin ich wahrlich niemals gegangen, indem ich Anthroposophie habe vor der Welt zur Geltung bringen wollen.
+
+Nun war es das Eigentümliche, daß zu uns Menschen aus allen Lebenskreisen und auch aus allen Bekenntniskreisen gekommen sind. Und insofern Anthroposophie auf diese Weise einfach durch ihre Arbeit in ein gewisses Verhältnis kam zur religiösen Strömung der Gegenwart, kam sie eigentlich zunächst niemals in irgendeinen Konflikt mit den religiösen Bedürfnissen derjenigen Menschen, die zu ihr kamen: Leute - wie gesagt - aller Lebenskreise. Ich bin zum Beispiel von Katholiken, die sich in unserer Mitte befinden, oftmals gefragt worden, ob es in bezug auf praktische religiöse Übung möglich sei, Katholik zu bleiben, wenn man an der anthroposophischen Bewegung teilnimmt.
+
+Gerade bei Katholiken mußte ich sagen: Selbstverständlich ist es auch möglich, daß man als ganz guter Katholik teilnimmt an dem, was Anthroposophie bietet, denn Anthroposophie ist dazu da, nicht in der Beschränkung auf ein bestimmtes Bekenntnis über die übersinnliche Welt zu reden, sondern einfach auf Grundlage dessen, was in der übersinnlichen Welt erforscht werden kann. So würde es mir am meisten entsprechen, dasjenige, was da aus der übersinnlichen Welt herauskommt, ein
+
+
+---
+
+fach zu den Menschen zu sagen und gar nicht teilzunehmen an irgendeiner Polemik. Denn der, der ehrlich dasjenige sagt, was er erschaut, weiß ja, wodurch Polemiken entstehen und wie unfruchtbar sie eigentlich sind. Mein ursprüngliches Bestreben war einfach, schlicht und ehrlich dasjenige zu sagen, was durch Anthroposophie gefunden werden kann, und keine Rücksicht zu nehmen auf die Polemiken. Solche Dinge gehen ja aber im Leben nicht immer so ab. Doch innerhalb der anthroposophischen Bewegung fanden sich eben die Menschen aller Glaubenskreise zusammen, auch Katholiken, und so mußte ich sagen: Auch der Katholik kann selbstverständlich an der anthroposophischen Bewegung teilnehmen, er wird nur in einem einzigen Punkte in Konflikt kommen mit der praktischen Ausübung der Religion, und das ist die Ohrenbeichte. Nicht aus dem Grunde, weil sie Ohrenbeichte ist, denn das könnte als eine bloße Gewissenssache betrachtet werden. Ich habe genug protestantische Geistliche gefunden, die geradezu gelechzt haben nach einer Art von Ohrenbeichte, um in eine Art intimeres Verhältnis zur Gemeinde zu kommen. Darüber kann man verschiedene Ansichten haben. Aber hier handelt es sich darum, daß die katholische Kirche demjenigen das Altarsakrament verweigert, der nicht vorher die Ohrenbeichte abgelegt hat. Und wegen dieser Verhinderung, praktisch teilzunehmen an dem wichtigsten Sakrament der katholischen Kirche, ist es für den Katholiken außerordentlich schwierig, dann diejenigen Überzeugungen, die er aus der übersinnlichen Welt bekommt, zu vereinigen mit diesem Verhalten, das ein unfreies ist, und das er durch die römisch-katholische Kirchenverfassung dennoch befolgen muß. Die Ohrenbeichte, so wie sie gehandhabt wird, reißt - nicht we-
+
+
+---
+
+gen der Anthroposophie, sondern wegen der römisch-katholischen Kirchenverfassung – den Katholiken heraus aus dem freien Verfolgen der übersinnlichen Welt.
+
+Das würde der Katholik vermeiden können, wenn er die Ohrenbeichte vermeiden könnte. Er kann sie nicht vermeiden, weil er sonst des Abendmahles nicht teilhaftig werden könnte. Hier liegt die Schwierigkeit, in die der Katholik kommt. Aber dennoch haben sich viele Katholiken gefunden, die innerhalb der anthroposophischen Bewegung die Bedürfnisse ihrer Seele zu befriedigen versuchen.
+
+Sehr verehrte Anwesende, es war natürlich, daß Menschen aller Bekenntnisse an die Anthroposophie herankamen, es war natürlich, daß einfach aus unserer Zeit heraus ein starkes Bedürfnis danach entstand, innerhalb der Anthroposophischen Gesellschaft über das zu reden, was das Christentum betrifft. Nun möchte ich darüber das Folgende sagen: Gerade so wie alle anderen Objekte der Forschung, insofern in diesen Objekten zusammenfließen Übersinnliches und Sinnliches in dieser Welt, gerade so betrachtet Anthroposophie zunächst den Inhalt der Christologie; und ebenso versucht sie mit Hilfe ihrer übersinnlichen Forschung über den Inhalt der Christologie dasjenige zu erforschen und zu geben, was eben mit ihren Methoden erlangt werden kann. Nun ist es schwer, in ein paar Worten etwas zu sagen, was die Stellung der Anthroposophie zur Christologie charakterisieren kann, aber ich möchte das Folgende bemerken.
+
+Wir sehen den Menschen zunächst hier im Erdenleben zwischen Geburt und Tod so, daß er mit seinem seelischen und geistigen Leben in dem physischen Leibe sein Dasein hat, daß er an seinen physischen Leib gebunden ist in bezug auf das Anschauen und auf die Verarbeitung
+
+
+---
+
+dessen, was in seiner Umgebung ist, auch in bezug auf seine Arbeit selbst, in bezug auf sein Willensleben und überhaupt in bezug auf die Art, wie er sich in diese sinnlich-physische Welt hineinstellt. Wenn nun der Mensch den Blick zurücklenkt, den er, aufwachend, selbstverständlich in seine Umgebung wendet, so bekommt er zunächst Anschauungen einfach durch die Sinne seines Leibes, durch den Verstand, der die Erfahrungen dieser Sinne und die Anschauungen über das, was in seiner physischen Umgebung ist, kombiniert.
+
+Da aber der Verstand, der Intellekt sein Urgeistiges, sein selbsteigenes Geistiges in sich trägt, so kann der Mensch - wenn er nur genügend sich auf sich selbst besinnt, wenn er nur ein wenig wegblickt von der Umgebung und in sich selbst blickt -, nicht ableugnen, daß er durch seine eigene Tätigkeit zu einer Zusammenfassung kommt, die zuletzt in einer Vorstellung gipfelt, die nur einen geistigen Inhalt hat, und dieser geistige Inhalt ist - wenn ich mich so ausdrücken darf - die göttliche Vater-Vorstellung. Hier muß anthroposophische Forschung mit ihren Mitteln eingreifen. Ich kann das nur kurz charakterisieren; sie macht ja den ganzen Erkenntnisarbeitsprozeß des Menschen allmählich durchsichtig - das wird ja auch aus den Vorträgen dieses Kurses hervorgehen. Sie will ja auch auf dasjenige hinweisen, was durch den Menschen geschieht, wenn er den Blick zurückzuwenden versucht von der äußeren Welt, um gewissermaßen das anzuschauen, was er selbst getan hat und sich zu fragen: Was hast du da eigentlich getan? Was berechtigt dich denn überhaupt, die äußere Welt [zu einer Vorstellung] zusammenzufassen? Und indem er dieses Erlebnis genügend weit verfolgt, kommt der Mensch - wenn ich wieder das Wort gebrauchen darf - zum göttlichen
+
+
+---
+
+Vater-Erlebnis. Und wer dieses Kommen zum göttlichen Vater-Erlebnis anthroposophisch durchschaut, der kommt zu einem ganz bestimmten Urteil. Ich bitte, dieses Urteil, das eine Tatsache ist, die ich radikal aussprechen muß, nicht mißzuverstehen.
+
+Man kommt zu dem Urteil, daß einfach der vollgesunde Mensch - derjenige Mensch, der in seinem physischen Leibe voll gesund ist - zu diesem göttlichen Vater-Erlebnis kommt -, das heißt, daß derjenige, der zu diesem göttlichen Vater-Erlebnis nicht kommt, irgendwo etwas von Degenerationserscheinungen, wenn auch noch so verborgener Art, in sich trägt. Mit anderen Worten, man kommt durch anthroposophische Forschung darauf, zu sagen: Nicht zum göttlichen Vater-Erlebnis zu kommen, bedeutet beim Menschen eine Krankheit. Das ist natürlich radikal gesprochen, weil die Krankheit eben durchaus nicht mit den gewöhnlichen physischen Mitteln gesehen werden kann, weil sie - wenn ich so sagen darf -, in den Feinheiten der menschlichen Organisation liegt. Aber tatsächlich ergibt sich für den, der anthroposophisch forschen kann: Atheismus ist Krankheit.
+
+Was ich gestern gesagt habe über das Ausbilden des Urteils, das richtig oder falsch, gesund oder krank sein kann, das setzt hier ganz besonders ein. Wenn der Mensch diesen Weg allein verfolgt, kommt er zunächst nur zu dem göttlichen Vater-Erlebnis. Wenn er aber dann den Weg weiter verfolgt, wenn er gewahr wird, welcher Mangel in seiner Seele lebt, wenn er nur zu diesem Vater-Erlebnis kommt, wenn er gewahr wird, daß im Grunde genommen einfach in der Beschränkung der modernen Menschheit auf den Intellektualismus auch eine Art Beschränkung auf dieses göttliche Vater-Erlebnis
+
+
+---
+
+liegt, dann muß der Mensch darauf kommen, weiterzudringen von diesem göttlichen Vater-Erlebnis aus. Hier können uns äußere Beobachtungen sehr gut unterstützen.
+
+Es ist eine merkwürdige Tatsache, daß gerade in westlichen Ländern, wo die naturwissenschaftliche Gesinnung gewissermaßen bis zum Maximum ihrer Intensität gekommen ist, und wo man diese naturwissenschaftliche Gesinnung nicht hineinreden lassen will in das Gebiet des Übersinnlichen, das der Religion bewahrt bleiben soll, daß gerade in diesen religiösen Bewegungen der westlichen Länder dasjenige, was der Geist des Alten Testamentes ist, besonders erfolgreich auch in unserer neueren Zeit wiederum eingegriffen hat. Und wir sehen den Westen, wenn er auch äußerlich das Christentum annimmt und predigt, dieses durchaus im Geiste des Alten Testamentes tun; wir sehen ihn in einem gewissen Sinne den Christus umprägen in den Vatergott und nicht wahrnehmen die Differenz zwischen dem Vatergott und dem Christus.
+
+Im Osten dagegen, wo für das Menschengemüt die Trennung zwischen der Religion und der Wissenschaft nicht so vorhanden ist wie im Westen, im Osten, wo diese Brücke für die Menschenseele mehr oder weniger als elementares inneres Seelenerlebnis vorhanden ist – wir finden es zum Beispiel noch in den Ausführungen des großen Philosophen Wladimir Solowjew –, dort sehen wir, wie das Christus-Erlebnis als ein selbständiges Erlebnis unmittelbar vorhanden ist neben dem Vater-Erlebnis.
+
+Und auf diese Art kommt man dazu, sich zu sagen: Zwar kann der vollständig gesunde Mensch nicht Atheist sein, wenn er das, was ihm die äußere Welt gibt, zusammenfaßt in der Spitze der Gottes-Vorstellung, der er
+
+
+---
+
+einen geistigen Inhalt geben muß; er bleibt aber zunächst bei der Vater-Vorstellung. Man kommt mit dieser Vater-Vorstellung aber nicht hinaus über die Zusammenfassung der äußeren Naturereignisse, sie versagt sofort, wenn man damit nun die eigene menschliche Entwicklung verfolgen will; man steht dann gewissermaßen verlassen da. Vertieft man sich in diese menschliche innere Entwicklung von diesem Punkt aus, an dem man angekommen ist, wenn man die äußere Welt in seine Seele aufgenommen hat - verfolgt man die innere Entwicklung, dann wird man, wenn man sie nur unbefangen verfolgt, zu dem Christus-Erlebnis kommen, das zunächst als ein unbestimmtes inneres Erlebnis da ist. Dieses Erlebnis aber verfolgt wieder erkennend Anthroposophie. Der Mensch kommt, einfach durch ehrliches Anschauen der Menschheitsentwicklung auf der Erde dazu, das Mysterium von Golgatha, das historische Mysterium von Golgatha, nun selbst ins Auge zu fassen. Er kommt dazu durch das innerliche Ausbilden geistiger Organe, [sie führen ihn zu] Imagination, Inspiration und Intuition. Wenn man mit Hilfe dieser Forschungsmittel den Weg verfolgt, den die Menschheitsentwicklung vom Altertum bis zum Mysterium von Golgatha genommen hat, so findet man, daß gerade in den Religionsvorstellungen überall - und nicht nur in der alttestamentlichen Religionsvorstellung, sondern in allen Religionsvorstellungen - lebte eine Hinneigung zu dem kommenden Christus-Geist.
+
+Dann kann man einfach durch Anschauung erkennen lernen, wie dieser Christus-Geist in der Zeit vor dem Mysterium von Golgatha nicht mit der Erde vereinigt war. Verfolgen wir alles, was in den Mysterien gesucht worden ist, was in den populären [vorchristlichen] Reli-
+
+
+---
+
+gionen war, so sehen wir, wie die Vorstellungen, die sie sich von den Göttern machten, überall zuletzt doch zusammenschmolzen zu dem, was die Christus-Vorstellung ist. Wir sehen, wie sich die Gemüter der Menschen über die Erde hinaus zu dem Überirdischen erhoben, wenn sie zu ihren Göttern ihre Seelen wandten. Und wir sehen, wie im Ausgangspunkte der irdischen Menschheitsentwicklung einfach durch die menschliche Organisation dem Menschen mehr gegeben war als das, was er durch seine Sinne und durch seinen Verstand in der Umgebung seines Erdendaseins wahrnehmen konnte. Es kam in die menschliche Seele das hinein - am stärksten in uralten Zeiten, dann immer weniger und weniger -, was ich instinktives Schauen nennen möchte, traumartiges Schauen, Anschauen einer geistigen - nichtirdischen - Welt, der der Mensch sich angehörig fühlte. In dem Augenblicke, wo der Mensch durch die Mysterien oder durch die populären Religionen dazu gebracht worden ist, hinauf gehoben zu werden mit seiner Seele zu dem, was er als Außerirdisches schauen konnte und mit dem er sich selbst einig wußte in seinem tiefstinneren Wesen, in diesem Augenblicke hatte der Mensch erlebt im Innern seine Wiedergeburt.
+
+Nun, meine sehr verehrten Anwesenden, wenn wir vom anthroposophischen Gesichtspunkt die Menschheitsentwicklung bis zum Mysterium von Golgatha verfolgen, zeigt sich, daß gerade diese Fähigkeiten, die da im Inneren des Menschen saßen, eigentlich immer geringer und geringer wurden und nicht mehr da waren in dem Augenblick, wo das Mysterium von Golgatha auf der Erde eintrat. Gewiß, Reste blieben immer da, weil die Entwicklung nicht so sprunghaft vor sich geht. Einzelne Menschen bewahrten sich, wenn auch vielleicht ein un-
+
+
+---
+
+genaues Schauen, so aber doch ein instinktives Bewußtsein von dem, was einmal geschaut worden ist; das kann man verfolgen bis in die Kunst hinein. Dann kam auf die Erde das Mysterium von Golgatha. Und in dem Mysterium von Golgatha sieht Anthroposophie eben das Einströmen desjenigen Geistes, der vorher nur im Außerirdischen gesucht werden konnte, in einen Menschenleib: das Einströmen des Christus in den Menschenleib des Jesus. Wie das im einzelnen vorgestellt werden kann, darüber kann man nur mit denjenigen diskutieren, die sich positiv auf die Forschung auf diesem Gebiete einlassen. Da zeigt Anthroposophie, wie von jener Zeit an, von dem Mysterium von Golgatha an, eine andere Zeit auf der Erde eingetreten ist, die Zeit, von der alle alten religiösen Bekenntnisse [gesprochen haben]. Und der Christus, der durch das Mysterium von Golgatha gegangen ist, der Christus, den Paulus geschaut hat auf dem Wege nach Damaskus, der Christus ist dann innerhalb der Erde bei der Menschheit geblieben. Das wollen die Worte sagen: Ich bin bei Euch alle Tage bis an das Ende der Welt. - Er lebt unter uns, er kann wiedergefunden werden. Das Paulus-Ereignis kann mit gewisser Vorbereitung immer wieder und wieder erneuert werden. Dann aber, wenn in dieser Weise der Weg zu dem Christus gesucht wird, erlebt der Mensch, indem er auf seine eigene innere Entwicklung schaut, eben den seit dem Mysterium von Golgatha auf der Erde wandelnden Christus durch Anschauung; dann findet er in innerlichem Erleben den Christus so, wie er durch Erleben der äußeren Welt, wenn er nicht krankhaft atheistisch ist, den Vatergott findet.
+
+So kann ich nur ganz flüchtig, skizzenhaft andeuten, wie Anthroposophie durch wirkliche Forschung zu
+
+
+---
+
+dem Christus-Ereignis als zu einer objektiven Tatsache kommt. In allen möglichen Einzelheiten versucht Anthroposophie das Christus-Ereignis hinzustellen als die wichtigste Tatsache des Erdenlebens der Menschheit, als dasjenige, was objektiv geschehen ist. Daher ist auch der ganze Geist, in dem das Christus-Ereignis in der Anthroposophie dargestellt wird, so, daß dieses Ereignis einfach als Tatsache hingenommen werden kann. Und wir hatten gerade innerhalb der anthroposophischen Bewegung erlebt, daß zum Beispiel Bekenner des Judentums im echtesten, wahrsten und ehrlichsten Sinne sich fanden zur Anerkennung des Mysteriums von Golgatha. Damit aber, meine sehr verehrten Anwesenden, ist vielleicht gerade durch die anthroposophische Bewegung schon das vorausgenommen, was überhaupt in der zukünftigen Entwicklung der Menschheit eintreten muß: daß, indem man unmittelbar hinweist auf das, was geschaut werden kann im Mysterium von Golgatha, der Weg zum Christentum wiedergefunden werden kann.
+
+Es ist durchaus die Frage, ob es nicht doch eine tiefe Bedeutung hat, was in dem Buche von Friedrich Nietzsches Freund Overbeck enthalten ist, daß ja die moderne Theologie gar nicht mehr christlich sei. Würde darin einige Berechtigung liegen, so dürfte man vielleicht doch mit einem gewissen Recht sagen: Anthroposophie ist geeignet, in lebendiger Weise den Menschen hinzuführen zu dem Christus-Erlebnis. Sie stellt die Zeit, in welcher das Christus-Ereignis stattgefunden hat, so dar, daß von den alten instinktiven Anschauungen bei einzelnen Menschen noch so viel vorhanden war, daß der geistige Untergrund, ich möchte sagen, die geistige Substanzialität des Mysteriums von Golgatha geschaut und in den ersten christlichen Jahrhunderten anerkannt
+
+
+---
+
+werden konnte. Wir sehen dann, wie das immer weniger und weniger wird, wir sehen es völlig verglimmen bei einer solchen Erscheinung wie Scotus Erigena, wir sehen immer mehr und mehr sich ausbilden die mittelalterliche Theologie, wo man versuchte, sich auseinanderzusetzen mit dem, was die moderne Menschheit ausbilden mußte, mit dem Intellekt, der, wenn er unmittelbar sich selbst überlassen ist und sich innerlich nicht weiter entwickelt, nicht herankommen kann an die übersinnlichen Welten. Sie spaltete dasjenige, was in die Menschenseele hineinkommen wollte, gewissermaßen auf in das, was der Mensch durch den Intellekt erkennen kann, und in das Unerkennbare, zu dem der Mensch nicht selbst gelangen kann, sondern nur durch eine Offenbarung.
+
+Aus diesen Untergründen heraus kann man die ganze mittelalterliche Theologie begreifen, besonders die thomistische Theologie, die von dem Katholizismus als die allein maßgebende erachtet wurde. Davon wird heute manches gesagt werden können. Worum es der Anthroposophie zu tun war und ist, das ist nichts anderes, als in einfacher und schlichter Weise auszusprechen, was für die geistige Anschauung da ist.
+
+Und wie Anthroposophie zu dem Satz kommt, der Atheismus ist eigentlich verborgene Krankheit, so kommt sie zu dem zweiten Satze: Den Christus nicht zu finden, zu dem Christus keine Beziehung zu finden, ist für den Menschen ein Schicksal, ein Schicksalsunglück! Atheismus ist eine Krankheit, den Christus nicht zu finden ist ein Schicksalsunglück; denn man kann ihn finden im innerlichen Erleben. Dann aber stellt er sich dar als diejenige Wesenheit, die durch das Mysterium von Golgatha gegangen ist. Man kann durch innerliches Erleben allein zu dem Christus kommen, man braucht
+
+
+---
+
+nicht anthroposophische Forschung, um ein religiöser Mensch im christlichen Sinne zu sein. Dann aber, wenn man zu dem Christus kommt, dann wird man ein Glied der geistigen Welt und man kann wirklich von einer Auferstehung der menschlichen Wesenheit in der geistigen Welt sprechen, von einer Erweiterung des Seelenwesens in dem Erleben der geistigen Welt, und man kann davon sprechen, daß derjenige Mensch, der den Christus nicht findet, in einer gewissen Weise in bezug auf seine Weltanschauung beschränkt ist. Atheismus ist eine Krankheit! Nicht zum Christus kommen ist ein Schicksal, nicht zum Geiste kommen ist eine seelische Beschränktheit!
+
+Nun, meine sehr verehrten Anwesenden, Anthroposophie hat es aus solchen Untergründen heraus im Grunde genommen nur mit Religion zu tun, [nicht mit Theologie], und mit Religion nur insofern, als die Menschen, die religiöse Bedürfnisse haben und diese in den gegenwärtigen Bekenntnissen nicht befriedigen können, an die Anthroposophie herankommen. Anthroposophie will nur das tun, was innerhalb der heutigen Zeitbedürfnisse notwendig ist, und was die anderen nicht tun. Welche Gesinnung dem zugrunde liegt - ich muß das immer wieder charakterisieren -, können Sie aus folgendem entnehmen.
+
+Schon vor vielen Jahren hielt ich einmal in einer süddeutschen Stadt - damals war sie eine deutsche Stadt, heute ist sie es nicht mehr - einen Vortrag über «Bibel und Weisheit». Bei diesem Vortrag waren auch zwei katholische Priester anwesend. Nach dem Vortrag kamen die beiden zu mir und sagten: Wir haben eigentlich gar nichts in Ihrem Vortrage gefunden, was vom katholischen Standpunkte aus angefochten werden könnte. -
+
+
+---
+
+Ich sagte: Wenn ich nur immer so glücklich sein könnte! - Darauf sagten die beiden: Ja, aber eines ist uns aufgefallen; es ist nicht, was Sie sagen, sondern es ist die Art und Weise, wie Sie es vorbringen, und da müssen wir sagen: Sie reden zu Menschen, die in einer gewissen Beziehung vorbereitet sind. Sie reden zu einer Art von Gemeinde, welche eine bestimmte Bildung hat; wir aber reden für alle Menschen. - Ich sagte: Hochwürden, es kommt nicht darauf an, daß wir das nach unserem subjektiven Empfinden entscheiden, sondern darauf, daß wir uns als Menschen einleben mit unserer Arbeit in die Zeitenentwicklung, daß wir uns nicht einbilden, wir reden für alle Menschen, sondern daß wir uns eine solche Frage beantworten nach dem, was objektiv in der Menschheitsentwicklung lebt. So, wie ich mir einbilden kann, ich rede für alle Menschen - und mich darin sehr irren kann -, so könnten Sie sich das einbilden. Für den Enthusiasmus ist es sehr gut, wenn man diese Einbildung hat. Aber fragen wir einmal: Kommen noch alle Menschen, die heute ein Bedürfnis haben, über den Christus etwas zu hören, zu Ihnen in die Kirche? - Da konnten die beiden nicht Ja sagen, denn natürlich wußten Sie, daß eine Menge Menschen, die auch den Weg zum Christus suchten, nicht zu ihnen in die Kirche kamen. Da sagte ich: Sehen Sie, für die, die nicht zu Ihnen kommen, und doch den Weg zum Christus suchen, für diese rede ich. - Das heißt, sich seine Aufgaben aus der Zeitentwicklung heraus stellen, und nicht sich einbilden, man rede für alle Menschen, sondern sich zu fragen: Sind Gemüter da, die in einer besonderen Art dieses oder jenes entgegennehmen wollen?
+
+Mit einer anderen Gesinnung wandte sich Anthroposophie auch niemals an irgendein religiöses Bekenntnis.
+
+
+---
+
+Wenn wir auch in der Waldorfschule dazu gelangt sind, gerade die Praxis unseres Unterrichtes aus der Anthroposophie heraus zu gestalten, so haben wir doch ganz davon abgesehen, aus der Waldorfschule eine solche Schule zu machen, durch die die Anthroposophie in die Gemüter der Kinder hineingepfropft wurde. Mit Bezug auf den Religionsunterricht lassen wir die katholischen Kinder unterrichten von einem katholischen Pfarrer und die evangelischen von einem evangelischen Pfarrer. Nur für die Dissidentenkinder ist eine Art freier Religionsunterricht eingerichtet worden, aber durchaus in christlichem Sinn. Da bringen wir aber nicht abstrakte Anthro-posophie vor – auch keine konkrete Anthroposophie, wie sie an die Erwachsenen herangebracht werden kann –, sondern da versuchen wir mit aller Mühe, dasjenige an die Kinder heranzubringen, was ihrer realen Entwicklungsstufe entspricht; das muß aber alles nach Inhalt und Methode erst gesucht und gefunden werden. Durch den von uns eingerichteten freien Religionsunterricht haben wir erreicht, daß nun auch diejenigen Kinder, die sonst gar keinen Religionsunterricht hätten, wieder an das Christentum herangebracht werden, und sie kommen in Scharen, um an dieser Art des christlichen Religionsunterrichtes teilzunehmen. Aber niemals haben wir eine irgendwie religiös geartete Propaganda getrieben innerhalb der anthroposophischen Bewegung und am wenigsten wurde von der Anthroposophie aus irgend etwas unternommen gegen die einzelnen theologischen Systeme.
+
+Denn, was in dieser Beziehung der Anthroposophie allein obliegen kann, das ist, die einzelnen theologischen Systeme in ihrer Differenzierung begreiflich zu machen, und nicht, sie zu bekämpfen. Darin habe ich immer meine Aufgabe gesehen, wenn ich vor den Menschen
+
+
+Buch: 81
+
+
+---
+
+gesprochen habe, die zur Anthroposophie gekommen sind: begreiflich zu machen, warum der Katholizismus Katholizismus, der Protestantismus Protestantismus, das Judentum Judentum und der Buddhismus Buddhismus geworden ist, und wie in ihnen allen - ich glaube, das ist eine christliche Vorstellung - dasjenige Wesen lebt, das durch sein Schicksal der wirkliche Christ in seiner Seele zu erleben in der Lage ist.
+
+So hätte also gar nicht, wenn nicht von anderer Seite die Angriffe gekommen wären, ein Streit zu entstehen brauchen zwischen der Anthroposophie und der Theologie, und auch heute spreche ich diese Worte nur, weil das gewünscht wurde von denjenigen, die diesen heutigen Theologentag veranstalten. Was sich aber Anthroposophie allein zur Aufgabe macht, ist die Verkündigung von anthroposophischen Forschungsergebnissen über die übersinnliche Welt. Deshalb war ich auch immer zurückhaltend besonders gegenüber den von theologischer Seite herrührenden Angriffen. Denn Anthroposophie will nicht als Kämpfer auf den Plan treten, sondern sie will die von der Zeit geforderten berechtigten menschlichen Seelenbedürfnisse befriedigen. Und alle, die in diesem Sinne mit der Anthroposophie zusammenwirken wollen zur Befriedigung dieser berechtigten, aus den Untergründen der Seele an die Oberfläche drängenden menschlichen Seelenbedürfnisse, alle, die in diesem Sinne mit ihr arbeiten wollen, sind ihr willkommen!
+
+
+---
+
+# SIEBENTER VORTRAG - ANTHROPOSOPHIE UND SPRACHWISSENSCHAFT, Berlin, 11. März 1922
+
+Sehr verehrte Anwesende! Die Veranstalter dieses Hochschulkurses haben gewünscht, daß ich an jedem Morgen durch einige Ausführungen die Betrachtungen des Tages einleite, und so muß es denn wohl auch sein, daß ich die heutige Tagesarbeit in einer gewissen aphoristischen Weise durch eine Besprechung eröffne. Ich bin mir bewußt, daß dies gerade am heutigen Tage nicht ganz leicht ist. Bei einem kurzen Kurse, den ich einmal vor einem kleineren Kreise in Stuttgart über diejenigen Dinge hielt, die heute zur Sprache gebracht werden sollen, war es mir ganz besonders klar geworden, wie man wirklich viel Zeit braucht, um diejenigen umstrittenen Dinge zu besprechen, die heute besprochen werden sollen. So möchte ich denn nur einiges über den Geist der Betrachtung vorausschicken, der durch Anthroposophie gefordert ist in bezug auf die Anschauung der menschlichen Sprache.
+
+Wenn von der Sprache die Rede ist, und wenn man sich das Ziel setzt, die Sprache wissenschaftlich zu behandeln, so muß man sich darüber klar sein, daß man es gegenüber der Sprache als Objekt einer wissenschaftlichen Behandlung nicht so leicht hat wie zum Beispiel gegenüber der außer dem Menschen gelegenen Natur oder auch gegenüber der physischen Natur des Men
+
+
+1 / in Buch: 81
+
+
+---
+
+sehen. In diesen Fällen hat man nämlich wenigstens ein für die Wahrnehmung klar umrissenes Objekt. Gewiß, man kann dann noch darüber diskutieren, inwiefern dem Objekt eine Wahrnehmung zugrundeliegt, oder inwiefern es bloß als Wirkung einer unbekannten Ursache vom menschlichen Erkenntnisvermögen erfasst wird. Aber das sind dann Diskussionen, die rein innerhalb des Gedanklichen verlaufen. Was der wissenschaftlichen Betrachtung als Objekt vorliegt, ist ein abgeschlossener Gegenstand, der eben gegeben ist.
+
+Das ist beim Sprachlichen durchaus nicht der Fall. Beim Sprachlichen liegt ein großer Teil dessen, was sich entfaltet, indem der Mensch spricht, schon in den unbewußten Regionen des menschlichen Seelenlebens. Es schlägt schon etwas herauf aus diesen unbewußten Regionen, und was da heraufschlägt, das wird dann verbunden mit bewußten Elementen, die gewissermaßen wie die Oberwellen sich hinbewegen auf einem unbewußten oder unterbewußten Strom. Und das, was augenblicklich im Bewußtsein präsent ist, was gegenwärtig ist während wir sprechen, das ist eigentlich nur teilweise das für die Sprache im Wesentlichen in Betracht kommende Objekt, der eigentliche Gegenstand. Man kann, auch wenn man innerhalb der gegenwärtigen Sprachgewohnheiten des Menschenwesens stehen bleibt, sich schon eine gewisse Möglichkeit aneignen, die Sprache als Objekt in das Bewußtsein hereinzubringen, auch während man spricht. Ich möchte Ihnen dafür in bescheidener Weise ein Beispiel anführen, das dieses vielleicht veranschaulichen kann.
+
+Ich habe zu Weihnachten in Dornach am Goetheanum einen Vortragszyklus zu halten gehabt über pädagogisch-didaktische Gegenstände. Dieser Vortragszyklus war zunächst dadurch veranlaßt, daß eine Reihe
+
+
+---
+
+englischer Lehrer und Lehrerinnen diesen Vortragszyklus, zu dem sie kommen wollten, verlangten. Als aber bekannt wurde, daß dieser Kursus stattfinden sollte, fanden sich dann aus allen Ländern des Westens und Mitteleuropas, namentlich aus der Schweiz auch, Leute zusammen, die nun ebenfalls diesen Vortragszyklus hören wollten. Weil nun dieser Kursus nicht in dem weit über 900 Personen fassenden großen Saal des Goetheanums gehalten werden konnte, sondern nur in einem kleinen Saal stattfinden konnte, war ich genötigt, die Vorträge jeweilig zweimal hintereinander zu halten. Nun glaubte ich schon von vornherein, daß es in einem gewissen Grade notwendig sei, die englisch sprechenden Menschen abzusondern von denjenigen, die anderen Nationalitäten angehören - nicht etwa aus politischen Gründen; der Vortragskursus - das bemerke ich ausdrücklich - war durchaus auch für die Engländer deutsch gesprochen; denn wenn die Leute etwas über Anthroposophie hören wollen, wo es auch immer ist, wird von mir immer deutsch zu ihnen gesprochen. Ich denke, das ist auch etwas, wodurch man seine «Deutschland» dokumentieren kann, und wodurch dem deutschen Wesen und der deutschen Sprache gedient werden kann.
+
+Nun hatte ich in einem dieser Vorträge die ethische, die sittliche Erziehung zu erörtern. Ich versuchte im Laufe des Vortrages darzustellen, wie das Kind hinzuführen ist zu denjenigen Stufen des inneren Erlebens, die eine gewisse ethisch-sittliche Verfassung in dem Kinde herbeiführen können. - Wenn ich heute wieder vor Persönlichkeiten sprechen würde, die in derselben Weise zuhören, wie manche gestern zugehört haben, so würde man wieder das, was ich aus unmittelbarem Erlebnis heraus spreche, konstruiert nennen können, wie das ge
+
+
+---
+
+stern gegenüber dem geschehen ist, was ich über die Trinität gesagt habe. Allein, Dr. Rittelmeyer hat ja darauf so deutlich geantwortet mit dem Vergleich zwischen dem Kopf und dem Buch, wie ich es aus begreiflichen Gründen nicht habe tun wollen.
+
+Ich mußte also in diesem Vortrage über ethisch-sittliche Erziehung zeigen, wie das Kind geführt werden muß, damit bei ihm in der richtigen Weise entfacht werden: Dankbarkeitsgefühle, Interesse an der Welt, Liebe zu der Welt und zum eigenen Handeln und Tun; und ich mußte dann zeigen, wie durch Liebe zum eigenen Handeln und Tun heranentwickelt wird das, was im Menschen als Pflicht gefühlt wird. Nun war es notwendig, diese Dreiheit aus dem unmittelbaren Leben heraus mit diesen drei Worten - wir reden ja heute von der Sprache - zu bezeichnen. Ich kam also von den ersten beiden Stufen - Dankbarkeit und Liebe - zu der dritten Stufe: Pflicht. Aber trotzdem ich den Vortrag zweimal zu halten hatte, einmal von 10 bis 11 Uhr für die englischen Zuhörer, das zweite Mal von 11 bis 12 Uhr für die anderen Nationalitäten, die im wesentlichen in ihrer Gemütsstimmung das Mitteleuropäische hatten, mußte ich nun tatsächlich diesen Vortrag, der eigentlich einfach ein Parallelvortrag sein sollte, an diesem Tage ganz anders für die Engländer halten als für die Deutschen, weil ich mich hineinzuleben versuchte in die Stimmung der Zuhörer. Etwas ähnliches war zwar auch für die anderen Tage notwendig, aber an diesem Tage war es ganz besonders notwendig.
+
+Warum war das so? Ja, während ich in der Stunde von 11 bis 12 über Pflicht sprach vor Leuten, die durchaus aus dem Empfinden heraus zuhörten, aus dem die deutsche Sprache gebildet worden ist, hatte ich in der
+
+
+---
+
+ersten Stunde von 10 bis 11 vor Leuten zu sprechen, welche das, was ich über den Pflicht-Impuls zu sagen hatte, aus dem heraus empfanden, zu dem sie «duty» sagen. Nun ist es etwas ganz anderes, was jemand in der Seele hat, wenn er das Wort «Pflicht» ausspricht, oder wenn er das Wort «duty» ausspricht, und ich mußte einfach in den Vortrag von 11 bis 12 Uhr einfließen lassen diejenige Nuance des Erlebens, die sich ergibt, wenn man zu den Menschen von «Pflicht» spricht. Denn sagt man «Pflicht», so schlägt man mit diesem Worte einen Impuls an, der aus dem Gemütsleben kommt, der unmittelbar das Erleben hinüberführt zu etwas, das - wenn ich es als Verbum aussprechen will - mit «pflegen» zu tun hat, mit dem Hinausfließen des Gefühls von dem Tätigsein zu dem, worauf sich die Tätigkeit bezieht. Das liegt in dem Impulse, den man mit dem Worte «Pflicht» bezeichnet. Etwas ganz anderes lebt in der Seele, wenn man diesen Impuls mit dem Worte «duty» bezeichnet; denn ebenso, wie das Wort «Pflicht» auf das Gemüt hindeutet, so deutet das Wort «duty» auf den Intellekt, auf den Geist, auf das, was einen innerlich dirigiert, so wie einen der Gedanke dirigiert, wenn man zum Handeln übergeht. Man kann sagen: «Pflicht» wird erfüllt aus innerer Liebe und Hingebung, «duty» wird erfüllt aus dem Grunde, weil man, wenn man seine Menschenwürde fühlt, sich sagen muß: Du mußt einem dich durchdringenden Gesetz gehorchen, mußt dich hingeben einem Gesetz, das du intellektuell erfassest. Das ist nur annähernd charakterisiert. Aber ich will damit zum Ausdruck bringen, wie die innerlichen Erlebniskomplexe ganz andere sind bei dem einen und bei dem anderen Worte, trotzdem im Lexikon für das deutsche Wort «Pflicht» das englische Wort «duty» steht. Das aber überträgt sich
+
+
+---
+
+auf den ganzen Volksgeist, auf die ganze Volksseele, und in der Sprache haben Sie eine Nuance der ganzen Volksseele. Sie werden sehen, daß es in der Seele des Mitteleuropäers in dieser Beziehung ganz anders aussieht als in der Seele anderer Nationalitäten, und daß sich das Seelenleben ganz anders in der Sprache auslebt beim Mitteleuropäer als beim Engländer.
+
+Wer nun keinen Sinn dafür hat, daß das, was Sie aus den unterbewußten Tiefen der Seele in die Sprache hineinnehmen, schon eine ganze Stufe tiefer liegt als das, was im Bewußtsein erlebt wird, der hat eigentlich nicht wirklich ein sauberes Objekt für die [wissenschaftliche Betrachtung der] Sprache. Man muß sich darüber klar sein: Bei der Naturbetrachtung sind die Objekte da, oder man stellt sie etwa durch äußere Hantierungen sich sauber her, wobei man aber wiederum die Objekte außerhalb von sich selbst hat und deshalb durchaus verfolgen kann. Betrachtet man die Sprache, so ist es notwendig, daß man zuerst einen Bewußtseinsprozeß durchmacht, um darauf zu kommen, was eigentlich das wirkliche Objekt ist, das man zu betrachten hat. So darf man, wenn es sich um die Sprache handelt, nicht bloß das betrachten, was im menschlichen Bewußtsein lebt, sondern man muß bei der Betrachtung der Sprache das ganze Lebendige im Auge haben, das sich im Sprechen und in der Sprache auslebt.
+
+Diese Vorbereitung für die wissenschaftliche Sprachbetrachtung wird im Grunde genommen ja sehr wenig gemacht. Würde sie gemacht, so würde man, wenn man, sagen wir Sprachgeschichte oder vergleichende Sprachwissenschaft treibt, das tiefe Bedürfnis haben, überall erst den Gegenstand irgendeiner Sprache, den inneren unbewußten Inhalt, diese unterbewußte Substanz, die
+
+
+---
+
+im Sprechen nur zum Teil bewußt zum Ausdruck kommt, ins Auge zu fassen.
+
+Nun kommt dazu noch etwas anderes, nämlich daß bei den verschiedenen Stufen der Menschheitsentwicklung dieser Grad der Bewußtheit, der mit der Sprache verbunden ist, eben ein ganz verschiedener war. Ein ganz anderer war er zum Beispiel in den Zeiten, in welchen die Quelle der Sanskritsprache liegt; ein anderer war er in der Zeit, in der die griechische Sprache gebildet worden ist, ein anderer ist er bei uns hier in Deutschland – aber hier werden die Nuancen immer kleiner und kleiner und unbemerkbarer – und ein anderer ist er zum Beispiel in England. Es sind schon große Verschiedenheiten im inneren Erleben bei der Handhabung der englischen Sprache durch einen Engländer oder durch einen Amerikaner, wenn ich nur die groben Unterschiede hier ins Auge fasse. Wer aber auf das Dialekt-Studium eingehen kann, wer also zum Beispiel darauf eingeht, was die verschiedenen Dialekte der deutschen Sprache den Menschen erleben lassen, wenn sie gehandhabt werden, der merkt auch daran, was da alles an komplizierten Seelenimpulsen hineinläuft in das, was dann in der Sprache, im Sprachorganismus zum Ausdruck kommt. Es ist zum Beispiel durchaus nicht etwa grundlos, daß die Griechischsprechenden, wenn sie «Sprache» sagten, und wenn sie «Vernunft» sagten, im wesentlichen dasselbe empfanden und beides in einem Worte zusammenfaßten, weil das Erleben innerhalb des Wortes und das Erleben innerhalb des Gedankens, innerhalb der Vorstellung, bei der griechischen Handhabung der Sprache noch bis zu einem gewissen Grade unterschiedlos zusammenflössen, während unsere heutige Zeitepoche Unterschiedlichkeiten in dieser Beziehung zeigt. Der Grieche fühlte durchaus,
+
+
+---
+
+wenn er sprach, wie im Worte selbst hinrollte der Gedanke. Für ihn war der Gedanke die «Seele» und das Wort, das hinströmte, war der «Leib», das äußere Kleid, sagen wir, der in den Gedanken hinströmenden Wortseele. Wir fühlen heute, wenn wir uns den Prozeß klar zum Bewußtsein bringen, etwa so, wie wenn wir auf der einen Seite das Wort aussprechen würden – das Wort strömt dahin, indem wir es aussprechen –, und auf der anderen Seite der Gedanke gewissermaßen oben auf dem Strom der Worte schwimmt; er ist aber schon wieder deutlich unterscheidbar von dem Strom der Worte.
+
+Gehen wir zum Beispiel ins Sanskrit zurück, dann ist es nötig, erst wirkliche psychologische Prozesse durchzumachen, psychische Vorgänge zu erleben, damit wir in die Lage kommen, wirklich innerlich dasjenige zu haben, was in der Zeit, da die Sanskritsprache ihre Quelle hatte, bei einem Worte erlebt wurde. Wir dürfen das Sanskrit durchaus nicht etwa mit denselben Gefühlen gegenüber dem Sprechen, gegenüber der Sprache betrachten, wie wir eine heutige Sprache betrachten.
+
+Nehmen wir zum Beispiel ein sehr bekanntes Wort: «manas». Sie werden, wenn Sie ein Lexikon aufschlagen, für «manas» die mannigfaltigsten Worte finden: Geist, Verstand, Gemüt, manchmal auch Zorn, Zornmütigkeit und so weiter. Im Grunde genommen kommt man durch solche Übersetzungen dem inneren Wortelebnis, das einmal da war und das in älteren Zeiten für die Menschen sehr deutlich innerlich erlebbar war, nicht nahe. Innerhalb derjenigen Zeitepoche, wo das Sanskrit in seiner vollen Lebensigkeit lebte, war überhaupt die menschliche Seelenverfassung noch anders als sie heute ist, und zwar wesentlich anders. Wir müssen uns darüber klar sein, daß in der Menschheitsentwicklung schon so etwas
+
+
+---
+
+vorhanden ist wie eine tiefgehende Umwandlung der Seelenverfassung des Menschen. Ich habe jene eine große Umwandlung hier wiederholt charakterisiert, die etwa in die Mitte des 15. Jahrhunderts gesetzt werden darf. Aber es gibt, indem man in der Menschheitsentwicklung heraufsteigt, immer wieder solche Epochengrenzen, und nur wenn man in der Geschichte auch das innere seelische Leben des Menschen wirklich verfolgen kann, kommt man darauf, was da eigentlich vorhanden war, und woran das Spracherleben teilgenommen hat.
+
+Es war in der Zeit, in der so etwas wie das Wort «manas» noch lebendig innerlich ergriffen worden ist, durchaus etwas vorhanden, was ich nennen möchte das Erleben der Lautbedeutung. In einer ungeheuer intensiven Weise empfand man das, was innerlich erlebt wurde bei den Lauten, die wir heute als m, als a, als n und als s bezeichnen. Das Seelenleben ging noch bis zu einem hohen Grade - wenn auch traumhaft, aber doch im Traume bewußt - mit dem mit, was innerlich im Organismus lebte, während die Vokale und die Konsonanten ausgesprochen wurden. Wer dann mit einer solchen wissenschaftlichen Ausrüstung verfolgt, wie die Sprache im Menschen lebt, der findet, daß alles, was konsonantisch ist, darauf beruht, daß der Mensch sich mit seinem eigenen Wesen in äußere Vorgänge, in Dinghaftes, hineinversetzt, und das innere Leben der Dinge mit seinen eigenen inneren, aber zurückgehaltenen Gebärden nachahmen will. Konsonanten sind zurückgehaltene Gebärden, nicht sichtbar werdende Gebärden, die aber in ihrem Inhalt durchaus dasjenige erfassen, was äußerlich im Rollen des Donners, im Zucken des Blitzes, im Hinrollen des Windes und so weiter erlebt werden kann. Ein inneres Sichhineinversetzen in die äußeren Dinge ist
+
+
+---
+
+vorhanden, indem der Konsonant erlebt wird. Man will eigentlich, wenn ich mich so ausdrücken darf, durch Gebärden nachahmen, was äußerlich lebt und webt; man hält die Gebärde zurück, sie verwandelt sich im Innern und kommt in dieser Verwandlung im Konsonanten zum Vorschein.
+
+Dagegen lebt im Menschen, indem er sich der äußeren Natur entgegenstellt, eine Summe von Sympathien und Antipathien. Diese Sympathien und Antipathien, die ein inneres Erleben darstellen, gebären aus sich heraus den gesamten Vokalismus; so daß der Mensch, indem er in der Sprache lebt, so lebt, daß er im konsonantischen Wesen die äußere Welt nachbildet, aber metamorphosiert, daß er dagegen im Vokalischen sein eigenes inneres Verhältnis zur äußeren Welt darstellt. - Das ist etwas, was, wenn man auf die konkrete Tatsache des Spracherlebens eingeht, auch mit dem heutigen Seelenleben durchaus erfaßt, durchschaut werden kann. Es handelt sich bei dem, was als Imagination geschildert wird, nicht um irgendwelche Phantasien, sondern darum, daß zum Beispiel dieser innere Prozeß des Spracherlebens wirklich erschaut werden kann.
+
+Nun war aber in den älteren Zeiten, in denen das Sanskrit seine Quelle hat, noch etwas in der Menschenseele lebendig wie eine traumhafte Imagination. Nicht ein solches scharf konturiertes Vorstellen, wie wir es heute haben, war damals dem Menschen eigen, sondern ein Leben in Bildern, in Imaginationen - allerdings nicht solche Imaginationen, wie wir sie heute in der Anthroposophie meinen, die vollbewußt sind wie unsere scharf konturierten Begriffe, sondern traumhaft instinktive Imaginationen waren da. Aber diese traumhaften Imaginationen wirkten als Kraft. Gehen wir zurück bis zu
+
+
+---
+
+dem angedeuteten Zeiträume, so kann man sagen: Diese Imaginationen lebten als lebendige Kraft in dem Menschen; er verspürte sie, wie er Hunger und Durst verspürte, nur in einem leiseren Sinne. Man malte innerlich in einer Art, die natürlich nicht ein Malen im heutigen Sinne ist, die sich aber so auslebte, daß man das Vokalische innerlich aufträgt, wie wir die Farben auf eine Fläche auftragen, und daß man dann ins Konsonantische mit diesem Vokalisieren sich hineinlebt, so wie wenn man, indem man die Farben nebeneinander setzt, die Grenzen und die Konturen hervorbringt. Es ist ein innerliches Nacherleben eines Imaginierens, das aber ein objektives Nacherleben der äußeren Natur darstellt. Es ist ein Erleben der traumhaften Imaginationen. Man gibt sich diesen Imaginationen hin und stülpt die innerlich wirksamen Imaginationen durch die Sprachorgane aus dem Organismus in die Worte.
+
+Nur auf diese Weise stellt man sich den innerlichen Vorgang des Spracherlebens so vor, wie er einmal in der Menschheitsentwicklung gelebt hat. Wenn man dann Ernst macht mit einer solchen Betrachtung, zum Beispiel mit dem Erleben des Lautes, den wir heute m nennen, so merkt man beim Erleben dieses Lautes, daß er einmal an der Grenze dessen stand, was Konsonant und Vokal ist. So wie wenn wir heute ein Bild malen und dann die Farben, die nun zu ihren inneren Grenzen ihre äußeren Grenzen haben, nicht weiter fortsetzen in die Fläche hinein, so wurde etwas ausgesprochen bei dem Worte «manas». Und beim a wurde etwas gefühlt wie menschliche Innerlichkeit. Und wenn ich das ganze Wort manas so umschreiben wollte, müßte ich sagen: In jenen alten Zeiten lebten die Menschen mit ihren traumhaften Imaginationen in der Sprache, so wie wir bewußt die Sprache
+
+
+---
+
+erleben. Wir leben heute mit Bezug auf die Sprache nicht mehr in Traumvorstellungen, sondern unser Bewußtsein liegt über der Sprache. Die alten traumhaften Imaginationen flössen fortwährend in die Sprache. Und so fühlte, wer das Wort «manas» aussprach, sich wie in einer Art von Schale drinnen; er fühlte seinen physischen Menschenleib, namentlich insofern dieser flüssig-wässerig ist, wie in einer Art von Schale, und den übrigen Leib wie getragen von einer Art Luftkörper. Das alles wurde traumhaft erlebt, wenn in alten Zeiten das Wort «manas» ausgesprochen wurde. Man fühlte nicht so, wie wir uns heute im Seelenleben fühlen, sondern man fühlte sich als Träger des Seelenlebens - und das Seelenhafte selber erlebte man wie aus den außerirdischen und außermenschlichen Kräften der Schale gegeben.
+
+Diese Empfindung muß man erst rege machen, wenn man einen älteren Wortinhalt verstehen will. Und man muß wissen, daß, wenn wir heute unser Ich empfinden, das innere Seelenerlebnis ein ganz anderes ist, als das war, was etwa bei dem Wort «ego» erlebt worden ist oder was von den Menschen, früherer Zeiten bei dem Wort «aham» der Sanskritsprache erlebt worden ist. Wir erleben heute unser Ich als etwas, was ganz und gar wie in einem Punkte zusammengezogen ist, in einem Punkte, auf den wir als den Mittelpunkt unseres Innenwesens alle unsere Seelenkräfte beziehen.
+
+Diese Empfindung lag nicht den älteren Offenbarungen des Ich-Begriffes zugrunde. In diesen älteren Zeiten fühlte man auch das Ich noch als etwas, was getragen worden ist; man fühlte sich nicht im Ich drinnen. Man fühlte auch das Ich gewissermaßen wie auf den Wogen des seelischen Lebens wie etwas Selbstständiges schwimmend. Was man aber so fühlte, deutete man in dem
+
+
+---
+
+Lautzusammenhang nicht an; so daß eigentlich das, was in dem Sanskritwort «aham» liegt, etwas ist, was um das Ich herumist, was das Ich trägt. Und während wir das Ich innerlich als einen Willensimpuls haben - denn so wird es heute wirklich erlebt -, der innerlich unser Wesen durchstrahlt, sagen wir als ein Mittelpunkt innerhalb einer Wärmequelle, die die Wärmestrahlen - um einen Vergleich zu gebrauchen - nach allen Seiten hinstrahlt, so fühlte der Grieche oder sogar noch der Lateiner das Ich wie eine Kugel von Wasser, und diese Wasserkugel ganz durchdrungen von Luft. Es ist etwas anderes, zu erleben die sich in einer Wasserkugel ausbreitende Luft, oder zu erleben das innerliche Strahlen eines Wärmemittelpunktes und Wärme nach allen Seiten der Kugel hinstrahlen, die dann - wenn wir den Vergleich ganz genau gebrauchen - als eine Luftkugel erfaßt werden muß. - Das alles sind Symbole. Aber die Worte der Sprache sind ja in diesem Sinne auch Symbole, und wer das Recht bestreitet, daß man die Worte als Symbole bezeichnet, der wird überhaupt nicht in eine solche Betrachtung einrücken können.
+
+So ist es notwendig, wenn man Sprachwissenschaft treiben will, daß man sich erst hineinlebt in das, was eigentlich Gegenstand der Sprachwissenschaft werden muß. Und da findet man eben, daß in älteren Zeiten die Sprache durchaus einen ganz anderen Charakter hatte als den, der etwa in den heutigen Zivilisationssprachen liegt; und man findet weiter, daß das Körperliche, das Leibliche einen viel größeren Anteil hatte am Zustandekommen des Lautlichen, am Zustandekommen der Konfiguration eines Wortes. Der Mensch gab viel mehr sein Inneres [in die Sprache], Daher auch haben Sie in dem Worte «manas» das m im Anfang, weil es den Menschen in sich abschließt, konturiert.
+
+
+---
+
+Wenn man Bezeichnungen in der Sanskritsprache vor sich hat, merkt man sehr bald, daß man darin das Erleben des Konsonantischen und des Vokalischen hat, man merkt, wie in der Tat ein innerliches Einleben in die äußeren Vorgänge und äußeren Dinghaftigkeiten da ist, und wie dadurch, daß im Konsonantischen nachgeahmt wird, im Vokalischen Sympathien und Antipathien empfunden werden, der Wortprozeß und der Sprachprozeß Zustandekommen. Das ist in den alten Zeiten in einer viel körperlicheren Schattierung zustandegekommen. Es war ein viel volleres Erleben in dem älteren Spracherleben. Das kann man heute noch erleben. Wenn Sie heute einen das Sanskrit oder überhaupt eine orientalische Zivilisationssprache sprechenden Menschen hören, so hören Sie, wie das, was er ertönen läßt, aus seinem ganzen Menschen heraus, einschließlich aus der Leiblichkeit, ertönt, und wie die Sprache musikalischen Charakter annimmt, weil sie aus einem solchen inneren Erleben kommt wie das Musikalische. Denn erst in einer späteren Phase der Menschheitsentwicklung hat sich in der Sprache das Musikalische abgetrennt von dem Logischen, also von dem Seelenleben in bloßen Vorstellungen.
+
+Das kann man wiederum auch heute noch merken. Wenn Sie zum Beispiel vergleichen das innere Erleben in der deutschen und in der englischen Sprache, so ist es so, daß bei der englischen Sprache der Prozeß des In-abstrakten-Vorstellungen-Lebens weiter fortgeschritten ist. Wenn wir heute in der deutschen Sprache leben wollen, müssen wir uns ja in diejenigen Formen der Sprache hineinleben, welche mit dem Neuhochdeutschen heraufgekommen sind. Die Dialekte lassen unsere Seele durchaus noch untertauchen in ein viel intensiveres vitales
+
+
+---
+
+Erleben. Das eigentliche geistige Erleben der Sprache ist erst im Hochdeutschen möglich. Daher ist auch eine solche Gestalt wie Hegel, die ganz aus diesem Geiste herausgeboren ist, daß die Vorstellung gesondert für sich ist und doch wieder ganz gebunden an ein besonderes Element der Sprache erlebt wird, aus diesen Voraussetzungen zustandegekommen und Hegel läßt sich deshalb in Wirklichkeit nicht in eine westliche Sprache übersetzen. Denn da erlebt man das Sprachliche noch unmittelbar.
+
+Wenn Sie nach dem Westen gehen, merken Sie überall in dem Erleben, das die Seele entfaltet, wenn sie dem Sprachgebrauch hingegeben ist: Es erlebt zwar die Seele intensiv, es wird aber überall das Sprachliche herausgeworfen aus dem unmittelbaren Seelenerleben; es fließt der Strom der Sprache dahin, und fortwährend wird gewissermaßen aus dem fließenden Wasser etwas herausgebildet wie Eisschollen, die wie ein fester Inhalt auf den Wogen dahinrollen - zum Beispiel im Englischen. Wenn wir dagegen das Hochdeutsche sprechen, können wir merken, wie man in dem Strom der Sprache ebenfalls ein Flüssiges hat, aber es sind noch nicht Eisblöcke darin, die schon herausgefallen wären aus dem Sprachlichen, das verbunden ist mit dem Geistig-Seelischen des Menschen.
+
+Kommt man nach Osten, so findet man diesen Prozeß auf einer noch weiter rückwärts liegenden Stufe. Da sieht man nun nicht Eisschollen, die herausgeworfen werden aus dem Strom der Sprache, und die nicht etwa fest verbunden mit ihm sind; da wird auch nicht wie im Hochdeutschen die vollständige Adäquatheit des Gedankens mit dem Wort erlebt, sondern es wird das Wort so erlebt, daß man es in seinem Organismus behält,
+
+
+---
+
+während wiederum der Gedanke etwas ist, dem die Worte entfließen, und dem man nachläuft, der eigentlich vor einem einhergeht.
+
+Das sind die Dinge, die man durchmachen muß, wenn man das Sprachliche wirklich erfassen will. Und man kann das nicht durchmachen, wenn man nicht wenigstens bis zu einem gewissen Grade diejenige Anschauung aufnimmt, die Goethe für die Betrachtung der lebendigen Pflanzenwelt ausgebildet hat, und die, wenn sie in innerlichem Erleben und innerlichem Üben konsequent verfolgt wird, zu dem imaginativen Vorstellen führt, das in der Anthroposophie gemeint ist. Überhaupt, wer die Sprache betrachten will, muß sie so betrachten, daß er die innerliche Metamorphose des Sprachorganisierens erlebt, erlebt in ihrer Konkretheit; denn dann erst hat er das vor sich, was eigentlich der Sprachprozeß ist. Solange man sich nicht aufschwingen kann zu einer solchen innerlichen Betrachtung der Sprache, solange betrachtet man eben die Sprache äußerlich, und man kann nicht bis zu dem eigentlichen lebendigen Objekt der Sprache vordringen. Daher ist alles mögliche an Sprachtheorien heraufgekommen. Das Denken über die Sprache ist ja in vieler Beziehung zu einem Denken über den Ursprung der Sprache geworden; eine ganze Anzahl von Theorien ist da heraufgekommen. Wilhelm Wundt hat sie in seiner Sprachtheorie aufgezählt und kritisch zerpflückt.
+
+Es ist damit ja so, wie man es heute auf vielen Gebieten erlebt, und wie man es gestern beobachten konnte. Wenn nämlich die Träger irgendeiner wissenschaftlichen Richtung sich heute zum vollen Nachdenken erheben und das betrachten, was ihnen die Wissenschaft, die sie vertreten, heute darbietet, dann fangen sie an vom
+
+
+---
+
+«Untergang» zu reden. Das ist eigentlich nicht das, was Ihnen die Anthroposophie sagen will. Im Grunde genommen ist ja zum Beispiel gestern von der Anthroposophie aus sehr wenig von Untergang geredet worden; sehr wohl aber ist von denen, die heute in der Theologie drinnenstehen, von dem von ihnen erlebten Untergang gesprochen worden.
+
+Ähnlich spricht man auch, wenn man über die Sprache philosophiert, von den untergehenden Theorien, zum Beispiel von der «Erfindungstheorie». Wundt zählt die verschiedenen Theorien auf. Nach der Erfindungstheorie ist die Sprache so entstanden, daß die Menschen gewissermaßen festgesetzt haben die Bezeichnungen für die Dinge; aber das findet der heutige Mensch nicht mehr angemessen, denn, so meint er, wie sollten die Stummen die Sprachformen haben festsetzen können, wenn auch noch so primitive? Als zweite zählt Wundt die «Wundertheorie» auf, die darauf ausgeht, daß die Sprache dem Menschen in einem gewissen Entwicklungsstadium als ein Geschenk des Schöpfers gegeben worden ist. Aber das hat ja gestern schon Dr. Geyer ausgeführt, daß es heute für einen halbwegs anständigen Wissenschaftler das nicht mehr gibt, an Wunder zu glauben; das ist verboten, und damit ist auch die Wundertheorie nicht mehr möglich. Dann wird als weitere die «Nachahmungstheorie» aufgezählt, die schon Elemente enthält, die eine partielle Berechtigung haben, weil das konsonantische Element der Sprache auf einem viel innerlicheren Prozeß beruht, als man sich gewöhnlich vorstellt. Dann wird die «Naturlauttheorie» angeführt; sie besagt, daß aus innerlichem Erleben heraus der Mensch in bezug auf die Sprache anstrebte, daß sich die Worte in lautlicher Beziehung decken sollten mit dem,
+
+
+---
+
+was man draußen in der Natur wahrnimmt und mit Sympathie oder Antipathie verfolgt. Diese Theorien könnten auch anders definiert werden. Aber es ist heute ja möglich, daß auch auf dem Boden derjenigen, die diese Theorien kritisieren, gezeigt wird, wie diese Theorien alle nicht das eigentliche Objekt der Sprache erfassen können.
+
+Sehr verehrte Anwesende, die Sache ist eben durchaus so, daß Anthroposophie - auch wenn die Leute sagen, sie brauchten nicht auf sie zu warten - dennoch in einer gewissen Beziehung zeigen kann, was sie an Fruchtbarem zu geben in der Lage ist, wodurch - selbst auf solchem Gebiete, wie es die Sprachwissenschaft ist - erst die sauberen, die reinlichen Objekte zu finden sind, an denen dann die Betrachtung angestellt werden kann. Man kann ja selbstverständlich über alles mögliche reden, auch über die Sprache, selbst wenn man sie als ein wirklich sauberes Objekt noch gar nicht hat. Aber Anthroposophie trägt eben in sich jenen tieferen Charakter der Wissenschaftlichkeit, der darauf ausgeht, zuerst einmal sich klar zu werden, welche Art von Wirklichkeit auf einem bestimmten Gebiete gefunden werden kann, so daß dann der Zusammenhang dessen, was wir als Wahrheit, als Erkenntnis von diesen Gebieten durchdringen, mit diesem Wirklichkeitsgebiete auch tatsächlich innerlich erlebt werden kann. Und wenn, wie es gestern hier geschehen ist, dann mit Bezug auf das, was in so ehrlicher Arbeit, die nicht leichter ist als die in anderen Wissenschaften, gesagt wird, diese Anthroposophie stecke ihre Nase in alles mögliche hinein, so muß erwidert werden: Gewiß, es hat sich gezeigt, daß diese Anthroposophie im Laufe ihrer Entwicklung ihre Nase auch in alles hineinstecken mußte. Wenn es aber nicht
+
+
+---
+
+bei der Oberflächlichkeit bleibt, dieses Apercu zu prägen: «Die Anthroposophie steckt ihre Nase in alles mögliche hinein» -, sondern wenn man dazu fortschreiten möchte, dasjenige einmal wirklich ins Auge zu fassen und es ernsthaft zu studieren, was dabei herauskommt, wenn die Anthroposophie ihre Nase in alles steckt, dann erst, wenn man zu dieser zweiten Stufe des Verhältnisses zur Anthroposophie übergeht, wird sich zeigen, wie fruchtbar die Anthroposophie ist, und inwiefern sie ihre Berechtigung hat gegenüber dem ersten Urteil, das doch nur aus einer oberflächlichen Betrachtung hervorgeht!
+
+
+---
+
+# BERICHT, Aus dem Mitgliedervortrag in Dornach, 18. März 1922
+
+Meine lieben Freunde! Gestatten Sie, daß ich heute einiges über den Verlauf des Berliner Hochschulkurses sage. Der Berliner Hochschulkurs hatte sein Programm in einer besonderen Weise angeordnet. Es sollten dargestellt werden die Beziehungen gewisser Lebens- und Wissenschaftszweige in der Gegenwart zur anthroposophischen Weltanschauung. Der einzelne Tag sollte immer einem besonderen Wissenschafts- oder Lebenszweige in der Hauptsache gewidmet sein. Und die Woche war so eingeteilt, daß begonnen wurde mit dem Sonntag, der der anorganischen Naturwissenschaft gewidmet sein sollte. Der Montag sollte dann gewidmet sein der organischen Naturwissenschaft und der Medizin, der Dienstag der Philosophie, der Mittwoch der Erziehungswissenschaft, der Donnerstag der Volkswirtschaft und der Freitag der Theologie. Der Sonnabend sollte der Sprachwissenschaft gewidmet sein, und dann sollte am Sonntag das Ganze durch die Eurythmievorstellung im Deutschen Theater einen gewissen Abschluß erlangen.
+
+Es war das Programm so gedacht, daß jeder Tag mit einem kurzen Vortrag von mir beginnen sollte. Nur der erste Sonntag konnte nicht so beginnen, da ich damals noch nicht in Berlin sein konnte. So mußte ich am Montag in meinen einführenden Worten sowohl die anorganische wie die organische Naturwissenschaft zu
+
+Buch: 81
+
+---
+
+sammenfassen. Dann sollte der Tag also einen einheitlichen Charakter tragen. Es fanden anschließend an meine Einführungsworte dann zwei weitere Vorträge am Vormittag statt. Dann fand eine halbstündige Imbißpause statt, zu der man aber - das war schon angekündigt - in den Räumen der Singakademie keinen Imbiß bekam. Und von 1 bis 2 Uhr sollte dann eine Diskussion stattfinden. Daran sollte sich dann der letzte Vortrag des Vormittags anschließen von 2 bis 3 Uhr. Es war ein etwas anstrengendes Programm. Am Abend schlössen sich daran Vorträge, die zum Teil in der Philharmonie von mir gehalten wurden, zum Teil von anderen in den Räumen der Berliner Universität; jeden Abend einen Vortrag und bei den andern Vorträgen, außer meinem, war immer noch nach diesen Vorträgen abends auch eine Art von Aussprache. Es waren die Tage also außerordentlich reichlich besetzt.
+
+Nun, die ganze Gliederung des Programmes darf tatsächlich interessant genannt werden, namentlich durch die Formulierungen, welche die einzelnen Tagesprogramme erfahren hatten. Gewissermaßen hatte jeder Tag einen Gesamttitel, und die Formulierungen dieser Gesamttitel für die Tage sind nun wirklich interessant, denn sie verraten so manches Bedeutungsvolle: Jeder einzelne Tag hatte nämlich in seiner Formulierung etwas Positives, nur der Freitag nicht, der der Theologie gewidmet war. Das ist schon bedeutsam, nicht so sehr aus dem Zeitbewußtsein heraus, sondern aus der Art und Weise, wie man sich zu der Entwicklung des Anthroposophischen auf Seiten derjenigen stellte, die das Programm formuliert haben. Man fühlte sich einfach gedrängt, die anderen Tagesprogramme in positivem Sinne zu formulieren, und wir brauchen uns nur diese Formulierun-
+
+
+---
+
+gen anzuschauen, um das Bedeutungsvolle herauszufinden.
+
+Sonntag, den 5. März: «Von lebensfeindlicher Mechanistik zu wahrer Phanomenologie». Es wird also die Hoffnung ausgesprochen in der Formulierung des Programmes, daß man durch Anthroposophie dazu kommen wird, eine Phanomenologie als Grundlage der Naturwissenschaft, der anorganischen Naturwissenschaft zu finden.
+
+Noch positiver ist dann das Programm vom Montag zusammengefaßt: «Wege anthroposophischer Menschen-erkennnis in Biologie und Medizin», und ebenso positiv das Programm vom Dienstag über Philosophie: «Die Begründung der Anthroposophie aus dem philosophischen Bewußtsein der Gegenwart.»
+
+Ebenso positiv das Programm vom Mittwoch: «Von modernen pädagogischen Forderungen zu ihrer Verwirklichung durch Anthroposophie» - also auch hier der Gedanke: Es bestehen solche pädagogischen Forderungen in der Gegenwart, die durch Anthroposophie verwirklicht werden können.
+
+Der Donnerstag, der der Sozialwissenschaft gewidmet war, hatte ja sogar einen sehr verheißungsvollen Titel in der Gesamtformulierung des Programmes, obwohl das, was dann gehalten worden ist, weniger verheißungsvoll war. Der Donnerstag trug sogar den außerordentlich verheißungsvollen Titel, der sehr positiv klingt: «Nationalökonomische Ausblicke».
+
+Der Sonnabend, der der Sprachwissenschaft gewidmet war, trug den Titel: «Von der toten Sprachwissenschaft zur lebendigen Sprachwissenschaft».
+
+Sie sehen also, überall liegt diesen Titelformulierungen zugrunde: Man will hinweisen auf den Weg, der aus
+
+
+---
+
+dem Gegenwärtigen hineinführt in die anthroposophische Gestaltung des betreffenden geistigen Weges. Man hat eine Vorstellung davon, wie die einzelnen Disziplinen ihren Ausgangspunkt nehmen von den gegebenen wissenschaftlichen Formulierungen der Gegenwart und hineinlaufen in gewisse andere Erkenntnisse, welche durch Anthroposophie gegeben werden sollen; überall also absolut konkretes Vorstellen über mögliche Wege. Nur - wie gesagt - der Donnerstag trägt den außerordentlich verheißungsvollen Titel: «Ausblicke», sogar «Nationalökonomische Ausblicke», was eine abstrakte Formulierung ist, was aber in der Abstraktheit gerade hinweist darauf, daß man - ich möchte sagen - nicht gehen, sondern springen möchte.
+
+Wenn wir dann den Freitag uns ansehen in der allgemeinen Formulierung des Tagesprogrammes, so läutet dieses so: «Der Untergang der Religion in der gegenwärtigen Theologie und die Neubegründung durch Anthroposophie». - Also hier wird zuerst ganz negativ formuliert: Der Untergang der Religion in der gegenwärtigen Theologie und die Neubegründung durch Anthroposophie. - Es wird also nur hingewiesen, auch noch in negativer Weise, daß es etwas gibt wie Anthroposophie, und daß dadurch Theologie und Religion eine Erneuerung erfahren können. Es wird in diesem Titel nicht in so konkreter Weise gezeigt, wie der Weg aus den gegenwärtigen Wirrnissen heraus in die anthroposophische Gestaltung hineinführen kann.
+
+Wenn Sie nun das zum Beispiel mit der Formulierung am Sonntag vergleichen: «Von lebensfeindlicher Mechanistik zu wahrer Phänomenologie», so haben Sie hier sogar schon in dem Worte «Phänomenologie» eine ganz konkrete Bezeichnung für das, was werden soll. Ebenso
+
+
+---
+
+haben Sie in dem Worte: «Menschenerkenntnis» vom Montag auf etwas durchaus Konkretes hingewiesen. Bei der Philosophie haben Sie auf das philosophische Bewußtsein in der Gegenwart, also auch auf etwas Konkretes hingewiesen, bei der Erziehungswissenschaft auf die pädagogischen Forderungen der Gegenwart, und bei der Sprachwissenschaft wird gesagt: «Von der toten Sprachwissenschaft zur lebendigen Sprachwissenschaft», also auch eine ins Konkrete gehende Formulierung.
+
+Nun, es ist das außerordentlich bezeichnend, daß dieser Hochschulkursus, der im wesentlichen sowohl innerlich wie äußerlich in der Freitags-Veranstaltung gegipfelt hat, und der im Grunde genommen - insbesondere die Empfindung konnte das ergeben - einen theologischen Charakter hatte, daß dieser Hochschulkurs, der ja auch sonst außerordentlich gut besucht war, am Freitag, am theologischen Tag, einen solchen Besuch hatte, daß es «brechend voll», übervoll war, und es ist außerordentlich bezeichnend, daß dieser Kursus gerade in der Tagesformulierung für das theologische Programm etwas Negatives hatte. Natürlich gingen diese Formulierungen aus dem hervor, was eben einmal vorliegt, und man versuchte in einer durchaus ehrlichen und aufrichtigen Weise, diese Formulierungen so zu geben, wie sie eben auf der einen Seite aus dem Bewußtsein der Gegenwart hervorgehen können, und auf der andern Seite aus einer Vorstellung darüber, was aus diesem Bewußtsein der Gegenwart durch Anthroposophie werden kann.
+
+Gehen wir dann die einzelnen Tage durch, so treffen wir natürlich auf Dinge, die uns zum größten Teil bekannt sind. Sonntag: Von lebensfeindlicher Mechanistik zu wahrer Phänomenologie. - Da handelt es sich also darum, daß darauf hingewiesen wird, wie alles Spekulieren
+
+
+---
+
+über Atomistik, über eine mechanistische Auffassung der leblosen Natur überwunden werden soll, und wie man zu einem reinen Betrachten dessen, was in den Phänomenen, in den Erscheinungen vorliegt, kommen soll, wie diese Erscheinungen selbst für sich sprechen sollen, wie sie selbst ihre Theorie liefern sollen. Also es ist in dieser Formulierung zum Ausdrucke gebracht, daß man Goetheanismus treiben will in der Naturwissenschaft.
+
+Es ist dann in der organischen Naturwissenschaft zum Ausdruck gebracht, daß man den gesamten Umfang der organischen Naturwissenschaft auf Menschen-erkenntnis bauen müsse, daß man also notwendig hat, nicht so zerstückelt die Natur in ihren Reichen zu betrachten, wie man das gegenwärtig tut, sondern daß man vor allen Dingen darauf auszugehen hätte, den Menschen kennenzulernen, und daß man vom Menschen aus die anderen Reiche der Natur zu erforschen hätte.
+
+Was dann die Philosophie betrifft, so handelte es sich am Dienstag darum zu zeigen, wie das philosophische Bewußtsein an einer Art von Ende angekommen ist. Es ist interessant, diese Formulierung im Zusammenhang zu denken zum Beispiel mit dem Hegeltum, Hegel hat ja bereits in seiner Philosophie im Beginn des 19. Jahrhunderts gesagt, daß alle Philosophie der Gegenwart ein Ende sei, und daß man im Grunde genommen in der Philosophie nur auf den Hergang zurückblicken kann, daß aber eine Weiterentwicklung nicht möglich sei. Nun sollte eben an diesem Dienstag gezeigt werden, wie aus dem Ende der Philosophie ein Anfang, ein neuer Anfang hervorgehen kann, wenn man diesen Anfang in anthroposophischem Sinne gestaltet.
+
+In der Erziehungswissenschaft wollte man darauf hindeuten, daß eigentlich alle wirklich denkenden Men-
+
+
+---
+
+sehen der Gegenwart gewisse pädagogische Forderungen aufstellen, die aber nicht zu erfüllen sind mit dem, was man gegenwärtig an Pädagogik entwickelt, daß also diese Forderungen, die im Grunde genommen alle denkenden Menschen aufstellen, nur zu erfüllen sind durch Anthroposophie.
+
+In der Sprachwissenschaft sollte gezeigt werden, wie die Sprache selbst als lebendiger Organismus im Zusammenhang mit dem Menschen erfaßt werden soll, nicht bloß aus den toten Urkunden heraus, wie das bei der gegenwärtigen Sprachwissenschaft der Fall ist.
+
+Von der Sozialwissenschaft ist ja nur zu sagen, daß in einer außerordentlich lichtvollen Weise Emil Leinhas aus seinen tüchtigen Kenntnissen heraus über das Geldproblem der Gegenwart ganz Bedeutendes gesagt hat; aber es läßt sich ja über das Geldproblem der Gegenwart, wie Sie wohl selbst manchmal fühlen werden, nicht gerade außerordentlich viel Positives sagen. Das werden Sie schon hier in der Schweiz fühlen, in dem beinahe höchstvalutigen Lande; daß sich aber nicht viel Positives über das Geldproblem sagen läßt, wenn Sie über die Grenze hinüberkommen, das werden Sie ja glauben. Also das ist schon so, daß da nicht sehr viel Positives gesagt werden konnte. Solches Positive haben dann auch die nächsten beiden Vorträge nicht gebracht, und es hat ja gerade dieser nationalökonomische Tag gezeigt, wie im Grunde genommen die Pflege des Nationalökonomischen innerhalb unserer anthroposophischen Bewegung etwas ist, was eigentlich durch und durch versagt. Denn wir haben im Grunde genommen es nicht dazu bringen können, trotzdem immer wieder und wiederum die Notwendigkeit gerade auf diesem Gebiete betont wurde, daß in der Wirtschaftswissenschaft von sehen derjeni-
+
+
+---
+
+gen, die im Wirtschaftsleben selber drinnenstehen, auch wirklich Zukunftssicheres vorgebracht worden wäre, namentlich solches nicht, das den so außerordentlich schwierigen Anforderungen der Gegenwart genügen würde. Und so war für diesen Tag der Titel «National-ökonomische Ausblicke» im Grunde genommen etwas wie ein tanzendes Versprechen; aber was dann der Tag gebracht hat, das war ein mehr oder weniger hinkendes Nachbewegen zu diesem tanzenden Versprechen.
+
+Was nun die Theologie betrifft: Ebenso interessant, wie die allgemeine Formulierung des Tagesprogrammes war, ebenso interessant waren auch die drei Titel der Vorträge, die auf meine einführenden Vorträge folgten. Der erste Titel, der Titel des Vortrages von Lizentiat Bock hieß: «Der Untergang der Religion im Psychologismus», der Titel des Vortrages von Dr. Rittelmeyer hieß: «Der Untergang der Theologie im Irrationalismus», und der dritte Vortrag, gehalten von Dr. Geyer, hieß: «Der Untergang der Theologie im Historismus». Wir haben also dreifach den Untergang der Theologie beziehungsweise der Religion in diesen Tagen geschildert bekommen.
+
+Es hatte ja in einem gewissen Sinne die Lage der Zeit es von selbst ergeben, daß Theologen sprachen, die aus ihren besonderen Denk- und Empfindungserlebnissen heraus darlegten, wie sie innerhalb ihrer Theologie heute an einen toten Punkt kommen. Es war im Grunde genommen überall die Tendenz vorhanden bei den Theologen, zu zeigen, wie sie innerhalb dessen, was ihnen die Theologie darbietet in der Gegenwart, an einen toten Punkt kommen.
+
+Und wenn man sich dann besinnt, was in positiver Weise vorgebracht worden ist, so könnte man zusammen-
+
+
+---
+
+menfassend das, was an diesem Freitag gesagt worden ist, so formulieren: Die theologische Betrachtung der Religion - so meinte wohl Lizentiat Bock - kommt dazu, nur auf das seelische Erlebnis zu sehen, das man als religiöses Erlebnis, vielleicht als Gotteserlebnis bezeichnen kann. Man findet, daß der Mensch unter den verschiedenen inneren Erlebnissen der Seele auch das religiöse Erlebnis hat, das Erlebnis, das in gewisser Beziehung hinweist auf ein Göttliches, daß man aber, wenn man unbefangen ist, sagen muß: Ja, da hat man eben nur ein subjektives Erlebnis. Man hat etwas rein Psychologisches. Man kann durchaus keine Gewähr finden dafür, daß diesem Erlebnis auch irgendetwas in der objektiven Welt entspricht. Es ist in der modernen Theologie das subjektive Gotteserlebnis nicht so, daß es zu einer wirklichen Annahme des Gottes führen kann, geschweige denn zu einer Anschauung über das Wesen des Göttlichen in der Welt. Es erstickt gewissermaßen das religiöse Element in dem Bewußtsein des Menschen in der psychologischen Tatsache: Ja, wir bedürfen eines religiösen Leben; aber es ist nichts da, was die Gewißheit liefern kann, daß diesem Bedürfnis auch irgendwie Befriedigung geschaffen werde. Die psychologische Tatsache ist da, daß der Mensch Religion braucht, aber die Gegenwart weiß dieser Religion keinen Inhalt zu geben. - Das wäre etwa das Ergebnis des ersten Vortrages von Lizentiat Bock.
+
+Dr. Rittelmeyer stellte dann dar, wie die Theologie überdrüssig geworden ist des Rationalismus, wie sie dazu gekommen ist, nicht mehr das Wesen des Göttlichen in der Welt der Gedanken formulieren zu wollen, daß sie nicht mehr sagen wolle, das oder jenes sei Inhalt des Göttlichen, das die Welt durchwebt und durchlebt. Der Gedanke sollte ausgeschaltet werden aus dem Theologi-
+
+
+---
+
+sehen. Das Rationelle, das aus der Vernunft Stammende, sollte wegkommen, und das Irrationale, das, was den Gedanken ausschließt, das sollte Inhalt der Theologie werden. So daß man also eigentlich zu nichts anderem kommt in der Theologie, als zu den alleräußeren Abstraktionen. Man getraut sich nicht zu sagen: Die Gotteswesenheit kann man durch diesen oder jenen Gedanken erfassen. Man getraut sich nur zu sagen: Die Gotteswesenheit ist das Unbedingte, das Absolute. Einen ganz unbestimmten Begriff pfählt man hin, das Irrationale, etwas, was keine Vernunft erfassen kann.
+
+Nicht wahr, auf jedem anderen Gebiete des Lebens wäre es sonderbar, wenn man so negativ charakterisierte. Wenn zum Beispiel jemand fragt: Wer ist der Vorstand des Goetheanums? -, und man antworten würde: Der Vorstand ist derjenige, der Vorstand von keiner anderen Institution ist -, dann würde man keine Auskunft darüber bekommen, wer nun eigentlich der Vorstand des Goetheanums ist. So bekommt man natürlich auch keine Auskunft über das Göttliche, wenn man sagt: Die Ratio des göttlichen Wesens besteht darin, daß der Gott das Irrationale ist, dasjenige, was keine Vernunft erfassen kann. - Es ist alles nur Negation. Daran knüpfte dann Rittelmeyer einiges, was diese gegenwärtigen Irrationalisten zu sagen haben, so zum Beispiel, wie der Mensch sich innerlich verhält, wenn er zu diesem nur auf irrationale Weise zu erfassenden Gott sich erheben will. Wie erlebt er das, dieses Erheben? Er erlebt es schweigend. Das ist nicht etwa das Schweigen des mystischen Erlebens, das sehr positiv sein kann, sondern das ist das Nichtssagen, das Aufhören, auch innerlich in Gedanken zu sich selber zu sprechen. Es wurde dann noch des weiteren ausgeführt, wie dieses Schweigen im Kultus Platz greift. Es ist aus
+
+
+---
+
+der absoluten Ohnmacht heraus, irgendwie überhaupt etwas zu formulieren, daß man die Zuflucht zu dem Schweigen nimmt.
+
+Dann war es ja interessant, wie zwei Herren sprachen, ein Privatdozent und ein Pfarrer, die nun diesen Irrationalismus ihrerseits verteidigten, um besonders zu zeigen, daß der Irrationalismus wirklich etwas Herrschendes in der Gegenwart ist. Da mußte man zum Beispiel von dem Privatdozenten hören: Ja, das wäre ganz richtig; es wäre zum Beispiel Unsinn zu sagen, aus der Natur könne man weniger den Gott finden als aus dem Geiste. Die Natur stehe nicht ferner dem Gotte als der Geist. Geisteserkenntnis liefere nicht mehr als Naturerkennnis für den Gott, denn der Gott sei eben das Unbedingte, das überall durchbricht. - Dies wurde sehr häufig wiederholt, daß der Gott das Unbedingte sei, das überall durchbricht.
+
+«Theologie!» - der Faust würde nicht nur einmal, sondern dreimal «leider» gesagt haben! Der Faust müßte umgedichtet werden: «Habe nun, ach! Philosophie, Juri-sterei, Medizin und leider, leider, leider auch Theologie studiert …»-, wenn man so etwas immer wieder hören muß: Der Gott ist das Unbedingte, das überall durchbricht. Da stellt man sich also das Überall vor und dann bricht's durch, bricht heraus - aber eben das Unbestimmte bricht überall durch!
+
+Nun, der letzte Vortrag war dann der von Dr. Geyer. Der behandelte den Untergang der Theologie im Historismus. Geyer suchte zu zeigen, wie die Theologie allmählich dazu gekommen ist, nichts mehr selber Schöpferisches zu haben, sondern nur zu betrachten, was schon gewesen ist, also immer die Geschichte zu studieren, was schon gewesen ist, um dadurch zu einem Inhalt zu
+
+
+---
+
+kommen. Das aber führt natürlich dazu, daß man höchstens sagen kann: In der Vergangenheit haben die Menschen ein religiöses Bewußtsein gehabt, aber heute haben sie nur noch die Möglichkeit, diese verschiedenen Stufen des religiösen Bewußtseins in der Vergangenheit zu betrachten, und irgend etwas, was sie noch behalten wollen, sich zu wählen. - Nur, zum Unglück, indem sie dann die Wahl treffen, bleibt ihnen nichts übrig von all dem, was ihnen von den verschiedenen Epochen der Vergangenheit da serviert wird.
+
+Ich selbst habe dieses Tagesprogramm dadurch eingeleitet, daß ich bemerkt habe, daß Anthroposophie durchaus nicht religionsbildend auftreten will, daß sie eine Erkenntnis übersinnlicher Welten sein will, und wenn Theologie eben von ihr befruchtet werden will, so mag sie das tun. Anthroposophie wird natürlich sagen, was über die übersinnlichen Welten zu sagen ist, und sie kann ihrerseits warten, was die Theologen für sich aus dieser Anthroposophie brauchen können.
+
+Es ist für denjenigen, der die Gesamtsituation der Gegenwart zu überschauen vermag, gerade an diesem Tage ein, aber natürlich aus den Verhältnissen hervorgehender Mangel sehr stark hervorgetreten. Wenn ein vollständiges Erschöpfen des Tagesthemas hätte erfolgen können, so wie das bei den anderen Tagesthemen ja versucht worden ist - und mit Ausnahme der Sozialwissenschaft bis zu einem gewissen Grade auch erreicht wurde -, dann hätte natürlich auch noch ein katholischer Theologe sprechen müssen. Denn alle diese Vorträge, die gehalten worden sind, sind lediglich aus dem protestantischen Bewußtsein heraus gesprochen worden. Ein katholischer Theologe wäre ja in einer ganz anderen Lage gewesen als diese drei protestantischen Theologen. Ein
+
+
+---
+
+katholischer Theologe hat nicht nur eine historisch überbrachte, sondern eine historisch überbrachte und ewig gültige Theologie, eine Theologie, die in der Gegenwart unbedingt so lebendig erfaßt werden muß, wie sie erfaßt worden ist, sagen wir im 3., 2. Jahrhunderte der christlichen Zeitrechnung. Gewiß, die Konzilien und im 19. Jahrhundert dann der unfehlbar gewordene Papst haben ja manches hinzugefügt. Das sind aber einzelne Dogmen, das sind Hinzufügungen, Aber das ganze Wesen der katholischen Theologie ist etwas, was erstens von der Zeitentwicklung nicht abhängt, und was in sich durch seine eigene Erkenntnisart einen perennierenden, einen immerwährenden Charakter tragen soll. Es würde, wenn ein mehr fortschrittlicher Mann über katholische Theologie gesprochen haben würde, vielleicht das Ringen eines solchen katholischen Denkers wie dem Kardinal Newman eine außerordentlich interessante Auseinandersetzung haben erfahren können. Wenn ein weniger fortgeschrittener katholischer Theologe gesprochen hätte, würde er eben das Wesen der ewigen Heilslehre, also eine katholische Theologie dargestellt haben. Dann würden Fragen von ungeheurer Bedeutung aufgetaucht sein, zum Beispiel jene Frage: Was ist nun eigentlich in der katholischen Theologie für den heutigen Menschen gegeben?
+
+In der katholischen Theologie ist ja ohne Zweifel, so wie sie heute auftritt, für das Gegenwartsbewußtsein nichts Lebendes. Aber sie war einmal etwas Lebendes. Ihr Inhalt beruht ja durchaus auf dem Ereignis alter geisteswissenschaftlicher, wenn auch atavistischer Erkenntnisse. Was in der katholischen Theologie enthalten ist, sagen wir über das Faktum der Schöpfung, über die Erlösung, über den Inhalt der Trinität, über alle
+
+
+---
+
+diese Dinge, das sind ja reale Begriffe, das ist etwas, was Inhalt hat; nur ein Inhalt, den das moderne Bewußtsein nicht mehr erfassen kann, sondern ihn in abstrakte, unverständliche Dogmatik kleidet, oder auch gar nicht kleidet, sondern als unverständliche, trockene Dogmatik hinnimmt.
+
+Es war ja insbesondere die Entwicklung der katholischen Theologie im 19. Jahrhundert so, daß nicht mehr erkannt wurde, was in den Dogmeninhalten enthalten ist. Dafür lag gerade bei diesem Hochschulkurs in Berlin ein interessantes Erlebnis vor.
+
+Ich hatte am Freitag in meiner Einleitung aus dem unmittelbaren Erleben heraus folgendes gesagt, was Sie ja schon kennen, ich hatte gesagt: Wer das erlebt, was in unserer Naturumgebung ist und in dem, was an diese Naturumgebung sich anschließt, kommt, wenn er nicht irgendwie innerlich verkrüppelt ist, zum Bewußtsein des Vater-Gottes. Derjenige, der dann während seines Lebens das Ungenügende des Vatergott-Erlebnisses erkennt und eine Art innerer Wiedergeburt erlebt, der kommt zu dem Erleben des Gott-Sohnes, des Sohnes Gottes. Und auf dieselbe Weise kommt man dann durch ein Weiterschreiten zu dem Geist-Erlebnis.
+
+Da dachte nun ein protestantischer Privatdozent, Lizentiat Tillich: Aha, da ist ja die Trimität, die muß man konstruieren -, und er nannte das eine Konstruktion: Er merkte also gar nichts davon, daß da Erlebnisse zugrunde liegen. Das war ihm ganz fremd. Nun, so fremd sind auch jene Erlebnisse dem modernen Bewußtsein des 19. Jahrhunderts geworden, die den katholischen Dogmen zugrunde liegen.
+
+Diese katholischen Dogmen gehen natürlich ursprünglich zurück auf geistige Realitäten, aber man ver-
+
+
+---
+
+steht nichts mehr davon. Es sind leere Begriffe geworden. Nun sollte man aber im 19. Jahrhundert wenigstens wiederum dazu kommen, ein wenig äußerlich beleben zu können, was in der katholischen Theologie lebt. Sie wissen ja wohl, daß dieser Drang, wenigstens ein bißchen wieder verstehen zu können, was in der katholischen Theologie lebt, ganz besonders unter dem Pontifikat Leos XIII. aufgekommen ist. Daher dazumal die katholische Verordnung, die römische Verordnung für alle katholischen Theologen, zurückzukehren zum Studium der Thomistischen Philosophie, der Philosophie des Thomas von Aquino, weil die ganze spätere Philosophie nicht mehr brauchbar ist, um so etwas zu erfassen, wie es in den katholischen Dogmen liegt. Alle auf die Thomistik folgende Philosophie ist eigentlich nur brauchbar, um das natürliche Dasein zu verstehen, um der Naturwissenschaft eine Grundlage zu geben, nicht aber um die geistigen Tatsachen zu verstehen, von denen man allerdings auch auf katholischer Seite nichts weiß, aber die doch in den katholischen Dogmen in einer Zeit formuliert worden sind, als man noch von diesen geistigen Tatsachen wußte. Um diese geistigen Tatsachen zu verstehen, dazu taugt alle spätere nach-thomistische Philosophie nichts mehr. Als man daher das Bedürfnis empfand, wiederum etwas von dem zu verstehen, was in den katholischen Dogmen liegt, forderte man die Erneuerung des Studiums der Thomistik, was ja heute das eigentliche philosophische Bestreben innerhalb des römischen Katholizismus ist. Dem liegen durchaus historische Realitäten zugrunde. Und wenn man vergleicht, was eigentlich notwendig ist, um wiederum ins Geistige hineinzukommen, so sieht man schon ein, daß natürlich auch die Thomistik nicht genügt, um wieder zu beleben, was in
+
+
+---
+
+den alten, in Rom erstarrten Dogmen enthalten ist. Man muß da zu einer ganz anderen Betrachtung kommen.
+
+Bitte, erinnern Sie sich nur an die für einen gegenwärtigen Literatur-Historiker so gänzlich verdrehte Anschauung, die ich hier, bevor ich von Dornach abgereist bin, in den letzten Vorträgen vorgebracht habe, wo ich mit Hinweggehen über alles, was Raum und Zeit ist, Ihnen dargestellt habe, wie Hamlet ein Schüler von Faust ist, wie Hamlet zehn Jahre lang zu Füßen des Faust gesessen hat; in jenen zehn Jahren, wo Faust seine Schüler an der Nase herumführte, und wie Hamlet einer von denen war, die damals grade und krumm und kreuz und quer an der Nase herumgeführt worden sind. Solche Zusammenhänge sind natürlich einem gegenwärtigen Literatur-Historiker ein Greuel. Aber man kann ja heute fast nichts Erhebliches sagen auf geistigem Gebiete, was den offiziellen Vertretern der Wissenschaft nicht ein Greuel wäre. Es ist heute ja geradezu das Stigma der wirklichen Wahrheit, daß sie den öffentlichen Vertretern der Wissenschaft ein Greuel ist.
+
+Nun, wenn Sie das schon für ein so profanes Gebiet nehmen, dann werden Sie sehen, was wirklich notwendig ist, um wiederum zu jener Beweglichkeit des Geistes zu kommen, die eine Grundlage liefern kann für das Erfassen dessen, was in den Dogmen bewahrt ist. Wie man zurückgehen muß zu einer ganz anderen Seelenverfassung, um in die Art hineinzukommen, wie man in solchen Dogmen lebte, das zeigt ja gerade der Entwicklungsgang des Kardinals Newman.
+
+Es ist ja vielleicht heute in Berlin selbstverständlich, daß man bei einem solchen Hochschulkurs nur von protestantischem Standpunkte aus redet und den katholischen Standpunkt unberücksichtigt läßt. Aber ein Bild
+
+
+---
+
+dessen, was da eigentlich heute waltet, bekommt man natürlich nicht, wenn man nicht auch den katholischen Standpunkt irgendwie zu erörtern in der Lage ist, insbesondere heute nicht, wo wir wieder notwendig haben, mit unserem Blicke über die ganze Welt hinzuschauen.
+
+Sehen Sie, darüber müssen wir ja heute hinauskommen, nur Kirchturms-Wissenschaft, Kirchturms-Weltanschauung zu reden. - Kirchturms-Politik kennen Sie, aber es gibt auch etwas wie Kirchturms-Weltanschauung. Sie tritt einem stark entgegen, wenn man so etwas sieht wie zum Beispiel an dem Freitag Abend, wo der Dr. Theberat über das Thema vorgetragen hat: «Atomistische und wirklichkeitsgemäße Betrachtung chemischer Prozesse». Das heißt, Dr. Theberat, der ja nun in unserem Forschungsinstitut in Stuttgart angestellt ist, versuchte zu zeigen, wie Atomistik verlassen werden muß und wie man eben die Phänomenologie auch in die Chemie hineintragen muß. Da trat dann in der Debatte Dr. Kurt Grelling auf. Ich will jetzt nicht über Dr. Kurt Grelling sprechen, der ja so ungefähr nach dem Rezepte auftritt: Ja, da wird in der Anthroposophie allerlei gesagt, aber das ist mir alles noch nicht wahrscheinlich. Sicher aber ist doch, daß 2 + 2 = 4 ist, und man muß sich doch an das halten, was sicher ist: 2 + 2 = 4; das ist sicher. - Das hat er ja schon im vorigen Sommer im Stuttgarter Kursus geltend gemacht und hat dann sogar zwei Universitätslehrer zu Hilfe gezogen, um dieses, daß 2 + 2 = 4 ist, an einem besonderen Abend geltend zu machen.
+
+Dem konnte man natürlich nicht widersprechen. Ich meine, ich will damit nur symbolisch andeuten, was er sagte, denn 2 + 2 ist ja wirklich 4. Ich konnte nicht widersprechen. Ich konnte nicht einmal widersprechen, als er am letzten Freitag, ganz aus dem Zusammenhang
+
+
+Buch:81
+
+
+---
+
+herausgerissen, sagte, ich hätte in Stuttgart ja zugegeben, daß 2 + 2 = 4 ist. Gewiß, ich kann das nicht in Abrede stellen. Ich meine jetzt nicht gerade 2 + 2 = 4, sondern Dinge, die im ganzen Zusammenhang ebenso wertvoll sind, die er damals vorgebracht hat. Er sagte dann: Ja, über die Frage, die da vorgebracht wurde, über Phänomenologie, kann nicht vom Standpunkte der Naturwissenschaft entschieden werden, sondern nur vom Standpunkte der Philosophie aus.
+
+Nun, ich will nicht sagen, daß das gerade bloß «Göttingisch» ist, aber mindestens ist es heute nicht irgendwie weltmännisch wissenschaftlich gedacht, denn mit einem solchen Satze, daß etwas nicht naturwissenschaftlich, sondern nur philosophisch entschieden werden könne, würde man zum Beispiel in England überhaupt keinen Sinn verbinden können, weil dieser Unterschied etwas ist, was eben Kirchturms-Weltanschauung ist. Diese Formulierung, die kennt man nur innerhalb gewisser mitteleuropäischer Kreise.
+
+Jedenfalls ist es schon so, daß wir heute, wenn von solchen Fragen die Rede ist, einen weiteren Gesichtskreis brauchen. Man kann zum Beispiel unmöglich immer weiter von Mitte, West und Ost sprechen. In den Formulierungen des Programms zum Wiener Kongreß ist ja fortwährend von West und Ost und Mitte die Rede, was ich nicht tadle. Ich finde es ja recht großgeistig, wenn von West und Ost und Mitte die Rede ist - aber ich meine, man muß dann auch seine Begriffe etwas erweitern; sie müssen dann wirklich auch diese Gebiete umspannen. Man kann natürlich nicht von einem eingeschränkten Standpunkte aus die Welt umfassen.
+
+So fehlte natürlich [in Berlin bei den Vorträgen über Religion und Theologie] etwas, zum Beispiel in bezug
+
+
+---
+
+auf die westliche Entwicklung des religiösen Lebens, weil man das Katholische ganz ausgelassen hat, denn dieses westliche religiöse Leben hat gar nichts in sich von dem, was man berührt, wenn man bloß von der evangelischen Theologie spricht. Man kam auch gar nicht darauf zu reden, wie etwa der Puritanismus in England oder die Hochkirche in England oder dergleichen sich entwickelt haben.
+
+Also das alles bringe ich nicht als eine Kritik vor, denn selbstverständlich waren die Dinge, die vorgebracht worden sind, ausgezeichnet. Aber ich mochte doch im engeren anthroposophischen Kreise über das sprechen, was in Anknüpfung an die ganzen Vorgänge eben hätte gesagt werden müssen. Und da würde man eben gezeigt haben müssen, wie das gegenwärtige Denken eben gar nicht in der Lage ist, an das heranzukommen, was einmal Quell für den theologischen Inhalt war. Aber es war so, daß in Berlin keine Brücke zu sehen war zwischen dem, was moderne evangelische Theologie ist, und dem, was nun aus Anthroposophie kommen soll zur Belebung des religiösen Bewußtseins. Es waren immer nur Hinweise, daß das von der Anthroposophie kommen soll; aber wie es sich gestalten soll, davon war eigentlich im Grunde genommen nicht die Rede.
+
+Das sind Dinge, die Ihnen vielleicht ein Bild geben werden von jenem Ringen auf anthroposophischem Boden, das sich gerade in Berlin jetzt in der schönsten Weise zum Ausdruck gebracht hat. Es zeigte sich ja gerade in Berlin auch an der Teilnahme der verschiedenen Kreise – die Vorträge waren außerordentlich stark besucht, auch die Vormittagsvorträge –, daß durchaus etwas in der anthroposophischen Bewegung lebt, was stark und intensiv an das Gegenwartsbewußtsein heranschlägt.
+
+
+---
+
+Und es wurde von unserer Seite aus ja auch manchmal nicht gespart in der Schärfe der Ausdrücke, die charakteristisch sein sollten für das, was ist. Ich erinnere mich zum Beispiel mit einer gewissen inneren Freude daran, wie am Sonnabend dann Dr. Schubert sprach, der innerhalb des Rahmens «Anthroposophie und Sprachwissenschaft» auch seinerseits zeigen wollte, wie die Sprachwissenschaft im politischen Leben der Völker und Rassen eine Rolle spielte, und wie er dann in der Debatte temperamentvoll darauf hinweisen wollte, was heute die Sprachwissenschaft ist, und was sie werden muß durch die Anthroposophie. Es war temperamentvoll, als er dann sagte: Ja, er sei doch in Berlin gewesen, er habe bei den verschiedensten Lehrern Sprachwissenschaft studiert, und dann kam er an die Anthroposophie, um diese Sprachwissenschaft zu beleben; und da ging ihm erst ein Licht auf, da fand er, was die gegenwärtige Sprachwissenschaft eigentlich ist: ein Misthaufen. - Und da schlug er auf den Tisch. Also es war nicht gespart worden an temperamentvollen Ausdrücken, um die Gegenwart zu charakterisieren. Die Gegner haben ja auch nicht gerade - ja, temperamentvoll kann ich eigentlich nicht sagen - nun, so sage ich gar nichts!
+
+Die Abendveranstaltungen waren dann so, daß man versuchte, ein Bild von den anthroposophischen Inhalten zu geben. Es war namentlich diesmal sehr bedeutungsvoll, daß sowohl von Dr. Stein wie von Dr. Schwebsch, zwei Lehrern der Waldorfschule, anschauliche Bilder des pädagogischen Wirkens in der Waldorfschule gegeben wurden. Ich möchte sagen, so zwischen den Zeilen konnte man ja manches Merkwürdige erleben.
+
+Der ganze Kursus schloß dann am Sonntag. Ich hatte dann nachher am Sonntag noch den Schluß-Abendvortrag
+
+
+170 Buch:81
+
+---
+
+zu halten, und die Vormittagsveranstaltungen schlössen mit einer vor einem vollbesetzten Hause gehaltenen Eurythmievorstellung im Deutschen Theater, die einen außerordentlich starken Erfolg hatte.
+
+Ich brauche wohl kaum zu sagen, daß, wenn Ihnen irgendwelche Zeitungsblätter in die Hand kommen sollten, Sie das Gegenteil von dem lesen werden, was da gewesen ist. Aber ein Herr, der zum Beispiel einen Artikel in einem Berliner Blatte geschrieben hat, den manche für einen Artikel pro Anthroposophie ansehen - ich will mich darüber nicht äußern! -, der hat dann bei einem andern großen Blatte angefragt, ob er nun auch einen Artikel über diesen Hochschulkurs schreiben darf. Man fragte: Pro oder Kontra? Da sagte er, weil er meinte, daß sein Artikel Pro ist: Pro. Da sagte man: Nein, wir nehmen nur Kontra. - Also man kümmert sich nicht darum, was irgend jemand schreibt, sondern man kauft nur Kontra! Also Sie werden natürlich keine Vorstellung bekommen von dem, was da gewesen ist, wenn Sie andere Berichte bekommen von außen her.
+
+Schade ist es, daß außer dieser im Deutschen Theater erfolgten Eurythmie-Vorstellung nicht auch noch - außer den kurzen Eurythmie-Vorstellungen am Donnerstag und Sonntag - mehr Eurythmie gepflegt worden ist, denn es hätte vielleicht das nach dem Muster des Stuttgarter anthroposophischen Kongresses dazu führen können, daß unter der Last dieser vollbesetzten Tage die verehrten Anwesenden doch nicht gar so schwer zu tragen gehabt hätten. Denn ich kann mir schon vorstellen, daß es recht hart war! Nehmen Sie zum Beispiel irgendeinen der Tage, so einen Durchschnittstag, wo nicht außerdem noch Sitzungen für eine Anzahl von Leuten gehalten worden sind, da hat derjenige, der alles
+
+
+---
+
+mitgemacht hat, fünf Vorträge und eine Diskussion gehört. Das ist für einen heutigen Menschen etwas viel, an einem Tage fünf Vorträge und eine Diskussion. Es waren eigentlich sogar zwei Diskussionen an einem normalen Tage. Also man hatte Gelegenheit, von 9 Uhr bis 3 Uhr und dann wiederum von 8 Uhr bis etwa 10 V2 Uhr abends in einem fort in solchen Gedanken zu leben. Dem wäre natürlich viel besser gedient gewesen, wenn zwischendurch, wie es in Stuttgart der Fall war, launige Eurythmievorführungen hätten stattfinden können. - Nun, im Ganzen ist das Ergebnis ein außerordentlich Bedeutsames.
+
+
+---
+
+# ANHANG
+
+
+---
+
+
+---
+
+# Anthroposophischer Hochschulkursus Berlin 5.-12. März 1922
+
+Geschäftsstelle: Berlin W 35, Potsdamer Straße 39-39a
+
+## Einladung
+
+\A/’⁰ schon mehrfach an anderen Orten, soll nun zum erstenmal auch in Berlin ein anthroposophischer Hochschulkursus gehalten werden. Er will versuchen, einen Eindruck davon zu erwecken, welche Anregungen auf den verschiedensten Gebieten von der Anthroposophie gegeben werden können. Eine bessere Antwort vermag Anthroposophie nicht zu geben auf die vielen heftigen Angriffe, deren sie sich in: steigendem Maß erfreut. Wenn bei diesen Bekämpfungen leider die wirklich gründliche Sachkenntnis allermeist vermisst wird, so bietet sich hier allen denen, die erst prüfen wollen, ehe sie urteilen und verurteilen, die Möglichkeit, sich ein erstes allgemeines Bild davon zu verschaffen, wie sich Anthroposophie in das Geistesleben der Gegenwart hineinstellen will.
+
+Die Vorträge tragen wissenschaftlichen Charakter. An je einem Tag soll in je vier aufeinanderfolgenden Vorträgen von verschiedenen Rednern je ein Geistesgebiet zur Besprechung gebracht werden: Anorganische Naturwissenschaft, organische Naturwissenschaft und Medizin, Philosophie, Erziehungswissenschaft, Sozialwissenschaft, Theologie, Sprachwissenschaft. Die Reihenfolge der Wissenschaften bestimmte sich nach der Abkömmlichkeit der Redner. An den Abenden werden öffentliche Vorträge allgemeineren Inhalts gehalten werden. Eine künstlerische Darbietung größeren Stils schließt die Veranstaltung ab. Zum Stellen von Fragen und Erheben von sachlichen Einwänden ist Gelegenheit geboten, soweit dies möglich ist, ohne den Hauptzweck der Veranstaltung zu gefährden: die vielseitige Darstellung der anthroposophisch orientierten Geisteswissenschaft. Alle ernst gemeinten Wünsche, sich tiefer über die Anthroposophie zu orientieren und gründlicher mit ihr auseinanderzusetzen, werden von den Leitern der Tagung gern nach Kräften erfüllt werden.
+
+Wer sich der Gegenwart unbefangen gegenüberstellt, wird oft erschrocken sein über die Niedergangserscheinungen, die sich auf allen Gebieten des geistigen Lebens zeigen. Auch in den Reihen der Wissenschaft fragen, namentlich unter den Jüngeren, viele der Besten immer ernstlicher nach neuen, geistaufrufenden, lebenspendenden, kulturbegründenden Impulsen. In der Anthroposophie tritt eine Bewegung vor sie hin, die unserer absterbenden Gegenwartskultur mit den reinen Kräften des Geistes neues Leben einhauchen zu können sich bewußt ist. Wer Verantwortung fühlt gegenüber seiner Zeit, seiner Kultur, seinem Volk, wird sich über sie sein eigenes Urteil bilden wollen und nicht das eines anderen:
+
+Viele ihrer besten Mitarbeiter und Mitkämpfer hofft die Anthroposophie erst noch zu finden. Sie sucht sie sich am liebsten in den Reihen der Jugend, die, unbelastet von Vorurteilen und unbefriedigt vom Vorhandenen, das Auge offen hat und das Herz frisch für neues Großes, das kommen will. Der bisherige Verlauf anthroposophischer Hochschulkurse hat in überraschender Weise dargetan, was für ein großer Kreis von Menschen sich um ernste und schwere wissenschaftliche Fragen und Aufgaben der verschiedensten Gebiete einheitlich zusammenscharen kann, wenn die tragenden Geistesgrundkräfte überzeugend und lebensstark zur Auswirkung kommen. So allein kann der praktische Beweis erbracht werden, daß die Entartung der Forschertätigkeit zu leerem Spezialistentum, der Zerfall der Wissenschaften in Einzelfächer, die Entfremdung der Geistesarbeit vom wirklichen Leben, Ja die ganze verhängnisvolle Scheidung des erkennenden und handelnden Menschen im Gegenwartsleben zu überwinden sind, wenn ein neuer, starker, lebendiger Geist aus echter Geist»Erkenntnis heraus das Denken und Forschen ergreift. Wer Erlösung sucht vom Untergang des Abendlandes, ist zur Prüfung eingeladen, ob er hier nicht die geistigen Mächte spürt, die zum Aufstieg führen können.
+
+Leitung des anthroposophischen Hochschulkurses Berlin
+
+Dr. Rittelmeyer.
+
+Bund für anthroposophische Hochschuiarbeit
+
+Ortsgruppe Berlin.
+
+Theodor Lauer, stud. jur. et rer. pol. Emil Bock, lic. theol.
+
+Anthroposophische Gesellschaft
+
+Zweig Berlin.
+
+Rudolf Meyer. Karl Stahlbusch.
+
+Bund für Dreigliederung des sozialen Organismus
+
+Ortsgruppe Berlin..
+
+Bernhard Gantenbein. Prof. Dr. Ludwig Oehninger. Hans Raether.
+
+Vereinigung für Erziehungs- und Bildungsreform auf anthroposophischer Grundlage
+
+Erich Wetzel.
+
+
+---
+
+# Übersicht der Veranstaltungen des antlm
+
+(Änderungen)
+
+## I. Tagesveranstaltungen in der Singakademie
+
+Sonntag, 5. März: 9¹/* Uhr Eröffnung: Dr. Rittelmeyer
+
+Anorganische Naturwissenschaft (Leiter E. A. Karl Stockmeyer)
+
+Von febensfeindlicher Medianistik zu wahrer Phaenomenologie
+
+Vortrag von Dr. Steiner: Anthroposophie und Naturwissenschaft — siehe Montag
+
+10⁹/ᵃ—11¹/ᵃ: Dr. von Baravalle: Entwicklungstendenzen der Physik im Ansoßluß an Ernst Mach
+
+11¹/ᵃ—12Vj: E. A. Karl Stockmeyer: Die philosophische Begründung des physikalischen Vorstellens
+
+(12¹/j—1: Inibißpause. Während derselben ist Gelegenheit, dem wissenschaftlichen Leiter des Tages Fragen und Wortmeldungen einzureichen)
+
+1—2: Aussprache
+
+2—3: Prof. Dr. Wohlbold: Beiträge zur Farbenlehre
+
+Montag, 6. März: Organische Naturwissenschaft und Medizin (Leiter Dr. med. Kolisko)
+
+Wege anthroposophischer Menschenerkenntnis in Biologie und Medizin
+
+9—10: Dr. Steiner: Anthroposophie und Naturwissenschaft
+
+10⁷/ᵃ—H¹/ᵃ: Dr. med. Kolisko: Menschliche und tierische Organisation in ihrem biologischen Gegensatz
+
+11⁷a—127i: Dr. med. Husemann: Neuorientierung der medizinischen Therapie durch anthroposophische Geisteswissenschaft
+
+(12V,-1: wie Sonntag)
+
+1—2: Aussprache
+
+2—3: Prof. Dr. Römer: lieber die Alveolarpyorrhöe und ihren Zusammenhang mit Störungen im Gesamtstoff. wechseßmenschen
+
+Dienstag, 7. März: Philosophie (Leiter Dr. Unger)
+
+Die Begründung der Anthroposophie aus dem philosophisdien Bewußtsein der Gegenwart
+
+9—10: Dr. Steiner: Anthroposophie und Philosophie
+
+10⁷ᵃ—U¹/ᵃ: Dr. Unger: Die Entdeckung des Denkens, eine psychologische Studie
+
+11⁷²—27t: E. A. Karl Stockmeyer: Die Begründung einer neuen Ethik durch die „Philosophie der Freiheit“
+
+(1272-I: wie Sonntag)
+
+1—2: Aussprache
+
+2—3: Dr. Stein: Die Rechtfertigung übersinnlicher Forschungsresultate vor dem gewöhnlichen Bewußtsein
+
+Mittwoch, 8. März: Erziehungswissenschaft (Leiter Dr. Caroline von Heydebrand)
+
+Von modernen pädagogischen Forderungen zu ihrer Verwirklichung durch Anthroposophie
+
+9—10: Dr. Steiner: Anthroposophie und Erziehungswissenschaft
+
+10⁷⁴—H⁷ᵃ: Dr von Heydebrand: Absterbeprozesse in der modernen Pädagogik. Experimentalpädagogik als Er. ziehungskunst?
+
+H⁷a—127ᵢ: Dr. Stein: Wie Psychologie als Grundlage wirklicher Pädagogik beschaffen sein muß
+
+(127a~1: wie Sonntag)
+
+1—2: Aussprache
+
+2—3: Dr. Schwebsdi: Das künstlerische Element in der Pädagogik der Freien Waldorfschule
+
+Donnerstag, 9. März: Sozialwissenschaft (Leiter: Generaldirektor Emil Leinhas)
+
+Nationalokonomische Ausblicke
+
+9—10: Dr. Steiner: Anthroposophie und Sozialwissenschaft
+
+10⁷i—11⁷ᵃ: Emil Leinhas: Das Geldproblem der Welt
+
+11⁷ᵢ—127ᵢ: Dr. jur. Krüger: Das Wesen und die Wandlung des Eigentums in Recht und Wirtschaft
+
+(127s—1: wie Sonntag)
+
+1—2: Aussprache
+
+2—3: Walter Kühne: Zur Geschichte der Nationalökonomie
+
+
+---
+
+
+# )oso|)liis(lieii Hodischulkursus Berlin 1922
+
+ofbehaften)
+
+Freitag, 10, März: Theologie (Leiter: Lic. Dr. Rittelmeyer)
+
+Der Untergang der Religion in der gegenwärtigen Theologie und die Neubegrflndung durch Anthroposophie
+
+9 — 10: Dr. Steiner: Anthroposophie und Theologie
+
+IOY^a — HV«: Lic. Bock: Der Untergang des Offenbarungsglaubens in Psydiofogisnius
+
+11¹/♭—12⁵/₅: Lic. Dr, Rittelmeyer: Der Untergang des Gottesglaubens in Irrationalismus
+
+(12¹/₅-1: wie Sonntag)
+
+1 — 2: Aussprache
+
+2 — 3: D. Dr. Geyer: Der Untergang des Christusglaubens in Historismus
+
+Sonnabend, 11. März: Spradiwissenscfafi (Leiter: Prof. Dr. Beddi)
+
+Von der toten Sprachwissenschaft zur lebendigen Sprachwissenschaft
+
+9—10: Dr. Steiner: Anthroposophie und Sprachwissenschaft
+
+10¹/₈ — 11¹A: Prof. Dr. Beckh: Das poetische und musikalische Element in der Sprach«
+
+11Va—127t: Dr, Schubert: Das politische und soziale Element in der Sprache
+
+(127.-1: wie Sonntag)
+
+1—2: Aussprache
+
+2 — 3: Dr. Hahn: Das pädagogische Element in der Sprache
+
+## II. Abendveranstaltungen
+
+Sonntag, 8 Uhr, in der Philharmonie (Oberlichtsaal): Dr. Steiner: Die Harmonisierung von Wissenschaft, Kunst und Religion durch Anthroposophie
+
+Montag, 8 Uhr, in der Universität, Aud. 122: Dr. Unger: Anthroposophie und Psychologie
+
+Dienstag, 8 Uhr, in der Philharmonie (Oberlichtsaal): Dr. Steiner: Anthroposophie in ihrem Wissenschaftsscharakter
+
+Mittwoch, 8 Uhr, in der Universität, Aud.-122: Dr, Schwebsch: Neue Wege der Musikbetrachtung aus'geisteswissenschaftler. en Methoden
+
+Donnerstag, 8 Uhr, in der Philharmonie (Oberlichtsaal): Dr. Steiner: Anthroposophie als Lebens-Inralt
+
+Freitag, 8 Uhr, in der Universität, Aud. 122: Dr. Theberat: Atomistische und wirklichkeitsgemäße Betrachtung chemischer Prozesse
+
+Sonnabend, 8 Uhr, in der Universität, Aud. 122: D. Dr. Geyer: Anthroposophie und Christentum
+
+Sonntag, 8 Uhr, in der Philharmonie (Oberlichtsaal): Dr. Steiner: Die Zeitbedürfnisse und die Anthroposophie
+
+Die Vorträge in der Universität sind veranstaltet vom Bund für anthroposophische Hochsdiularbei', Ortsgruppe Berlin
+
+## III. Künstlerische Veranstaltungen
+
+Eurythmische Darbietung
+
+im Deutschen Theater, Sonntag, den 1. März, vormittags 11 Uhr, Einleitende Worte! Dr. Rudolf Steiner — Rezitation: Frau Marie Steiner
+
+Weitere •ünstlerische Darbietungen werden bekanntgegeben
+
+---
+
+# Geschäftliche Mitteilungen
+
+In den Räumen der Singakademie in Berlin, Unter den Linden, befinden sich während des Hochschul-Kurses in der Zeit von vormittags 9 Uhr bis nachmittags 3 Uhr:
+
+Der Büdicrverkauf: vom Philosophisch*Anthroposophischen Verlag Berlin, vom Verlag „Der kommende Tag" A.-G., Stuttgart,- die Auskunftsstellen — insbesondere über den Bund für anthroposophische Hochschularbeit, die freie Waldorf-Schule in Stuttgart, die Aktiengesellschaft „Der kommende Tag" in Stuttgart und die mit ihr verbundenen Unternehmungen, wie z. B. das K(misdi*therapeutische. Institut „Der kommende Tag" in Stuttgart —, ferner die Fundstelle sowie eine Stelle für Ausgabe von Postsachen.
+
+Für Kursustellnehmer bestimmte Postsachen mögen adressiert werden: Singakademie Berlin C 2, Unter den Linden Anthroposophischer HochschulKursus.
+
+# Eintrittskarten:
+
+Dauerkarten für sämtliche in der Singakademie stattfindenden Veranstaltungen: 100 M,-
+
+Tageskarten für die jeweils an einem Tage in der Singakademie stattfindenden Veranstaltungen je -0 M. für den Tag/
+
+Abendkarten für die Vorträge im Auditorium 122 der Universität je 5 M. für den Abend,-
+
+Abendkarten für die im Oberlitfctsaal der Philharmonie stattfindenden Vorträge je -30 M., 20 M., 10 M. für den Abend. Die Preise und die Verkaufsstellen für die Eintrittskarten zu den künstlerischen Veranstaltungen werden während des Kursus besonders bekanntgegeben.
+
+# Studenten=Karten:
+
+Immatrikulierte Studenten können von der Zahlung der Eintrittsgelder teilweise (nach Selbsteinschätzung) oder ganz befreit werden. Gesudie um Gewährung dieser Vergünstigung sind an die Ortsgruppen des Bundes für anthroposophische Hodischularbeir, wo solche nicht bestehen, an die Ortsgruppe Berlin des Bundes für anthroposophische Hodischularbeit, Berlin \V 35, Potsdamer Straße 39a, zu richten.
+
+Ausländer: Zum Ausgleich für die zu gewährenden Vergünstigungen werden die Kursustellnehmer aus valuta-starken Ländern gebeten, mindestens doppelte Eintrittspreise zu entrichten.
+
+# Anmeldungen:
+
+Schriftliche Vorausbestellungen von Dauerkarten, Tageskarten und Abendkarten sind im Interesse der Teilnehmer erwünscht. Auch von den Teilnehmern aus Berlin erbitten wir schriftliche Vorausbestellungen. Diese sind zu richten: An die Geschäftstelle des anthroposophischen Hochsdiulkursus Berlin 1922 in Berlin W 35, Potsdamer Straße 39a, Gartenhaus. Um Einsendung der Anmeldungen bis spätestens 25. Februar wird gebeten. Für Studenten ist dieser Anmeldungstermin bei den Ortsgruppen des Bundes für anthroposophische Hochsdiularbeit auf spätestens den 20. Februar festgesetzt. Bei starkem Andrang können später angemeldeten Teilnehmern keine Plätze zugesichert werden.
+
+Die Eintrittsgelder bitten wir an die Ortsgruppe Berlin des Bundes für anthroposophische Hochschularbeit an der Friedrich-Wilhelms-Universität zu Berlin auf Postscheckkonto 119294 des Postscheckamts Berlin NW 7 mit dem Vermerk: „Hochschulkursus" auf der Rückseite des Abschnittes, eventuell an Herrn Bernhard Gantenbein in Berlin SW 19, Krausenstraße 30, mit dem Vermerk „Hochsdiulkursus" einzuzahlen.
+
+Nach Einzahlung des Betrages werden die bestellten Karten zugesandt.
+
+Vom 1. bis 4. März findet der Verkauf der Dauer-, Tages- und Abend-Karten in der Singakademie in Berlin, Unter den Linden, vormittags von 9 bis 1 Uhr, statt.
+
+In der Singakademie wird auch während der Dauer des Kursus ein Verkauf noch verfügbarer Karten stattfinden, und zwar zum ersten Male am Sonntag, dem 5. März, von vormittags 9—9/11 Uhr.
+
+Für die Abendvorträge wird, soweit noch verfügbare Plätze vorhanden sind, eine Abendkasse eingerichtet werden.
+
+# Unterkunft und Verpflegung:
+
+Die auswärtigen Gäste werden gebeten, für Unterkunft und Verpflegung selbst zu sorgen. Studenten werden wir nach Möglichkeit Freiquartiere oder verbilligte Unterkunft verschaffen. Entspreddende Anträge sind mit dem Gesudie um gänzliche oder teilweise Befreiung von den Eintrittsgeldern zu verbinden.
+
+Ein Büffet ist in der Singakademie nicht vorgesehen.
+
+
+---
+
+Zwei Briefe des Berliner Zweigleiters und Organisators des Hochschulkurses Rudolf Meyer an Rudolf Steiner
+
+Berlin S. O. 36, Cottbuser Ufer 25
+26. August 1921
+
+Hochverehrter Herr Dr. Steiner,
+
+darf ich im Namen der Berliner Bewegung die Bitte aussprechen, daß Sie im Anschluß an den von der Konzertdirektion Wolff veranstalteten Vortrag einen oder zwei öffentliche Vorträge halten, die von uns veranstaltet würden? Ich glaube, daß durch zwei oder drei große öffentliche Vorträge von Ihnen der Boden für den im nächsten Frühjahr von uns geplanten anthroposophischen Hochschulkurs gut vorbereitet wird. - Herr Raether [*], der wie ich Ihnen in diesem Frühjahr in Dornach mitteilte, damals 25 000 M stiftete für eine große eurythmische Vorstellung in Berlin, hat durch sein neuerliches Eintreten für die Verwirklichung des Hochschulkurses diesen eigentlich erst ermöglicht. Er wünscht so wie ich u. alle anderen Freunde, die mit der Seele bei der Bewegung sind, daß dieser Hochschulkursus eine großzügige Veranstaltung wird. Wir glauben, daß 2 oder mehrere große öffentliche Vorträge von Ihnen jetzt im September das Interesse der Berliner Öffentlichkeit in so weitem Maße erregen würden, daß wir auf eine unsere Pläne entsprechende starke Beteiligung im nächsten März beim Hochschulkurs rechnen können.
+
+Mit den herzlichsten Grüßen an Sie u. die verehrte Frau Doktor Ihr
+
+unwandelbar ergebener
+
+Rudolf Meyer
+
+[* Hans Raether, Lebensdaten unbekannt, zu dieser Zeit Vorstandsmitglied des Rudolf Steiner-Zweiges in Berlin.]
+
+
+---
+
+Berlin, Sonntag, den 6. November 1921
+
+Hochverehrter Herr Dr. Steiner,
+
+Die Schwierigkeiten, für den Hochschulkursus im nächsten Frühjahr geeignete Räume zu erhalten, waren zeitweise so stark, daß es manchmal aussah, als würden die Verhältnisse uns zwingen, den Kursus zu vertagen. Nun stellt sich die Möglichkeit heraus, vom 1. - 15. März 22 die Berliner Singakademie zu erhalten. Der eigentliche Hochschulkursus könnte hier sehr gut stattfinden, wenn wir die Singakademie auch nicht für die Abende erhalten können, sondern für die Zeit von 9 - 3. Für die Abendveranstaltungen finden wir andere geeignete Räume. Uns scheint es, daß es besser ist, den Kursus im März 22, wenn auch an 2 Stellen, stattfinden zu lassen, als erst im Jahre 1923 an einer.
+
+Da der Berliner Hochschulkurs von anfang an so gedacht war, daß Sie ihm durch Ihre Vortragstätigkeit u. sonstige Mitwirkung das Schwergewicht u. die Durchschlagskraft geben, so hängt die Möglichkeit, den Kursus in der Zeit vom 1. - 15. März 22 stattfinden zu lassen, hauptsächlich davon ab, ob Ihre Dispositionen Ihnen erlauben, während dieser Zeit in Berlin zu sein.
+
+Darf ich bitten, mir ganz kurz mitzuteilen, ob es Ihnen möglich sein wird, vom 1. - 15. März 22 in Berlin tätig zu sein, damit wir dann sofort die Singakademie und die anderen Räume mieten. Ein adressierter Briefumschlag liegt bei.
+
+Herzliche Grüße von unseren Freunden u. mir an Sie u. Frau Dr. St.
+
+Ihr
+stets aufrichtig verbundener
+
+Rudolf Meyer
+
+
+---
+
+# PRESSESTIMMEN, Auszug aus dem Bericht «Der Anthroposophische Hochschulkurs in Berlin» von Ernst Uehli, erschienen in der Zeitschrift «Dreigliederung des sozialen Organismus», Stuttgart, 3. Jg., Nrn. 38 - 40 vom 23., 30. März und 6. April 1922.
+
+«Was die ganze Veranstaltung auszeichnete, war, daß sie von einer lebendig schwingenden Geistigkeit durchdrungen war, die ganz allgemein empfunden wurde und sich in der Frequenz der Einzelvorträge äußerte. Es war eine Resonanz vorhanden, der sich auch der Skeptiker auf die Dauer nicht entziehen konnte. Daß diese in dem kühlen Großstadtmilieu Berlins sich so stark zur Geltung bringen konnte, darf als ein Zeugnis gelten für die lebendige Kraft, welche von der anthroposophischen Geisteswissenschaft ausgeht, denn für den genauer Beobachtenden war es klar, daß in dieser Veranstaltung nicht nur ein geistig, sondern auch ein sozial verbindendes Element zur Auswirkung gelangte.
+
+Die Vorträge in der Singakademie begannen morgens um 9 Uhr und dauerten fortlaufend mit kurzer Pause bis nachmittags 3 Uhr. Sie waren so angeordnet, daß jeweils ein Tag einer bestimmten Wissenschaft gewidmet war. Dr. Rudolf Steiner hielt für jede der behandelten Wissenschaften den einleitenden Vortrag. Vor dem letzten Vortrag wurde eine Diskussionsstunde eingeschaltet. Leider hatte diese Anordnung den entschiedenen Nachteil, daß die Diskussion nicht genügend fruchtbar gemacht werden konnte, da die Vortragenden meist nicht genügend Zeit hatten, auf Fragen und Einwände mit der nötigen Gründlichkeit zu antworten.
+
+Man konnte angesichts der Gesamtanordnung einige Besorgnis haben für den Besuch des letzten Vortrages. Diese Besorgnis erwies sich jedoch als unbegründet, denn es zeigte sich in der Regel eine Geschlossenheit des Besuches bis zum Schluß der sechsstündigen Tagesveranstaltung. Und diese Tatsache scheint mir für die geistige Wertung dieses Kurses von besonderer Bedeutung zu sein. [...]
+
+Dr. Steiner eröffnete jeden Tag, der einer besonderen Wissenschaft gewidmet war, mit einem einleitenden Vortrag für die betreffende Wissenschaft. Man kann in einem einstündigen
+
+
+---
+
+Vorträge nichts Erschöpfendes sagen über das betreffende Fachgebiet. Was Dr. Steiner in diesen sieben einleitenden Vorträgen für sieben fachwissenschaftliche Gebiete gab, trug den Charakter des Fresko. Sie waren großartige Skizzen, aber Skizzen von durchleuchteter Klarheit, von einer ganz sicheren Linienführung, so daß gerade durch eine solche Darstellung die betreffende Wissenschaft im Bilde so erschien, wie sie von anthroposophischer Geisteswissenschaft für die Zukunft gemeint ist. Ebenso wie in der Skizze eines Künstlers sich für den künstlerisch Schauenden das ganze Gemälde offenbart, das erst ausgeführt werden soll, so waren diese Einleitungsvorträge wissenschaftlich-künstlerische Skizzen für dasjenige, was für jedes einzelne dieser Wissenschaftsgebiete als Zukunftsaufgabe zur Ausgestaltung kommen muß, wenn Wissenschaft nicht immer mehr in ein riesiges atomistisches Trümmerfeld zerfallen soll. [...]
+
+Gegenüber der tiefen Wirkung, die Rudolf Steiner mit seinen Vorträgen über Anthroposophie wie über Fachwissenschaften im besonderen, vornehmlich in gebildeten, namentlich in Akademikerkreisen erzielt hat, was in Berlin ganz offensichtlich der Fall war, ist in der Presse geltend gemacht worden, sie beruhe auf Suggestion. Wer auch nur ein wenig die menschlich-geistigen Zusammenhänge kennt, der weiß, daß es sich hierbei um Totengräber-Urteile handelt. Von solcher Seite mag auch gegen den vorliegenden Bericht gesagt werden, er sei lediglich subjektiv und persönlich. Gerade darauf kommt es mir an, meine persönlichen Erlebnisse mitzuteilen, und wenn eine gewisse Sorte von Journalisten in den Spalten ihrer Blätter den Großstadt schmutz als ihre persönlichen Erlebnisse über anthroposophische Veranstaltungen ablädt, so nehme ich mir das Recht, meine Erlebnisse dagegenzustellen. Mir trat aus den Vorträgen Rudolf Steiners als tiefstes Erlebnis etwas entgegen, das ich als <objektive Liebe=""> bezeichnen möchte, als objektive Liebe in dem Sinne, weil ihr ganzer Inhalt sich in einer für alle Menschen gültigen Erkenntnisform gibt. Hierin erblicke ich den tiefsten Grund der Erfolge Dr. Steiners.
+
+Die fachwissenschaftlichen Vorträge der übrigen Redner, die sich an die einleitenden Vorträge Dr. Steiners anschlossen, haben im großen und ganzen ein schönes in sich abgeschlossenes Bild dessen, was Anthroposophie gegenwärtig zur Befruchtung der Wissenschaften beizutragen vermag, gegeben. Daß man sich
+
+
+---
+
+hierin noch im Anfang befindet, das wissen die wissenschaftlichen Vertreter der Anthroposophie selbst am allerbesten. Das Entscheidende liegt darin, daß bereits eine stattliche und immer mehr wachsende Zahl von Wissenschaftlern aller Zweige den Mut gefunden hat, die Konsequenzen aus dem wissenschaftlichen Betrieb der Gegenwart zu ziehen und den Anfang zu machen. Diese Tatsache ist es neben dem eigentlichen Inhalt der Vorträge, welche in Berlin auf viele der besten unter den Zuhörern einen ganz offensichtlichen Eindruck machen konnte. [...]
+
+Es lebte in diesen Vorträgen dasjenige, was ein neutraler Diskussionsredner als ein von ihm erlebtes Phänomen hervorhob, es lebte Enthusiasmus in ihnen. Man spürte den gemeinsamen Untergrund, die anthroposophische Geisteswissenschaft, deren Lebensquell in besonders intimer Weise zu vernehmen war an dem pädagogischen Tag, der nach meinem Empfinden einen Höhepunkt dieser Hochschulwoche bildete. Was hier vertreten wurde als die pädagogischen Methoden der Waldorfschule, wozu der Schlußvortrag des sprachwissenschaftlichen Tages mitgerechnet werden muß, welcher in die Waldorfschulpädagogik einmündete mitsamt der feinsinnigen treffenden Kritik der Experimentalpädagogik, das stimmte zu einem schönen Gesamteindruck dessen zusammen, was die Freie Waldorfschule an Bedeutung für das gegenwärtige Zivilisationsleben sich errungen hat. [...]
+
+Es sprachen [...] eine ganze Reihe Lehrer der Waldorfschule. Dr. Stein gab mit seinem Vortrag ein Bild, wie eine Erziehungspsychologie beschaffen sein müsse. Aber er gab mehr als ein Bild. Im vollen Erleben stehend, stellte er ein an der Waldorfschule geübtes Erziehungsideal hin, das den Lehrer als einen der Kinderseele dienenden Menschen zeigt. Fräulein Dr. von Heydebrand sprach gegen Experimentalpadagogik. Aber man empfand, hier spricht eine Persönlichkeit mit feinstem Verständnis auch für die pädagogischen Irrungen. Sie meisterte ihren Stoff nicht bloß durch Wissen, sondern durch einen überlegenen Humor, durch ein liebevolles Ruhen in ihm. Ihre Kritik hatte zugleich etwas Menschlich-Versöhnendes. Man empfand, daß man einer im besten Sinne des Wortes kultivierten Seele gegenüberstand. Dr. Schwebschs sprühender Vortrag über das Künstlerische in der Pädagogik gab eine Anschauung davon, was Pädagogik sein kann, wenn sie nicht Vorschrift, sondern in jedem Augenblick persönlichste Schöpfung ist und eben dadurch erst
+
+
+---
+
+wirkenden moralischen Wert für das Kind schafft. Von innerer Gediegenheit und feinstem persönlichen Empfinden durchleuchtet war der Vortrag Dr. Hahns, der vieles über den Sprachunterricht in der Waldorfschule vermittelte. Man erhielt durch diese Persönlichkeit eine Empfindung für das geistig-soziale Element der Sprache. Dr. Schubert sprach über das Wort. Er gab kulturgeschichtliche Ausblicke über die moralische Anwendung des Wortes. Er hämmerte, formte Sätze, die ganze Apercus enthielten und oft von fesselnder Originalität waren. Er suchte das Wissensmaterial künstlerisch umzubilden. [...]
+
+Der theologische Tag erfreute sich in besonderem Maße eines ausgesprochenen offiziellen Interesses. Das Tagesprogramm, welches den Untergang der Religion in der gegenwärtigen Theologie und die Neubegründung durch Anthroposophie vorsah, war von theologischer Seite als eine Herausforderung seitens der Anthroposophie statt als eine wissenschaftliche Auseinandersetzung mit der gegenwärtigen Lage in der Theologie aufgefaßt worden. Dr. Steiner sah sich daher veranlaßt, zu erklären, daß er sich seinerseits zu nichts anderem veranlaßt sehen könne, als die ihm gestellte Aufgabe zu erfüllen, das Verhältnis der Anthroposophie zur Theologie darzulegen. In den drei nachfolgenden kritischen Vorträgen wurde allerdings in objektiver Weise die schwere Krisis des religiösen Lebens von drei verschiedenen Gesichtspunkten festgestellt, eine Feststellung, die in der Diskussion als zutreffend zugegeben werden mußte. Und so hatte man das Gefühl, an einem Leichenbegängnis der Theologie teilgenommen zu haben (die schwarzen Röcke der zahlreich erschienenen Pfarrer erhöhten nur diesen Eindruck). Die Diskussion nahm einen völlig unfruchtbaren Verlauf, sie nahm sogar von Seite der Opposition einen peinlich berührenden polemischen Charakter an. Während von der theologischen Opposition auf die in ihrem Lager vorhandene Frömmigkeit hingewiesen wurde, brachte es fast gleichzeitig ein Theologe fertig, Dr. Steiner eine bewußte Irreführung des Publikums durch seine Vorträge vorzuwerfen. Aber auch dieses schlug zum Besten aus. Hatte man durch die Vorträge eine wissenschaftlich-theoretische Darstellung der Krisis in der Theologie erhalten, so wurde sie dadurch zur unmittelbaren konkreten Anschauung gebracht. Man hörte nicht bloß über die Krisis reden, man erlebte sie unmittelbar.
+
+In diesem modernen Konziliumstreit machte das kernhafte,
+
+
+---
+
+entschiedene Auftreten Dr. Rittelmeyers einen bedeutenden Eindruck. Sein Vortrag war zugleich eine Entscheidung, welche zu der lastenden Negation, die der Stoff mit sich brachte, ein erlösendes Gegengewicht bildete. [...]
+
+Von den vier Abendvorträgen in der Universität, die im Rahmen dieses Kurses abgehalten worden sind, hielt Dr. Geyer aus Nürnberg einen solchen über Anthroposophie und Christentum. Seine launige Art, wie er sowohl mit der Theologie wie mit sich selbst ins Gericht ging, trug ihm reichen Beifall der zahlreichen Zuhörerschaft ein. Sein Verhalten zur Anthroposophie ist ein positiv kämpfendes. Er will mit einem guten Blick auf die anthroposophische Bewegung hinschauen. Und er forderte die Zeitgenossen auf, ein Gleiches zu tun. Dr. Schwebsch sprach in geistvoller und zündender Art über <neue des="" aus="" michbetrachtung="" methoden="" wege="" wege der="">. Dr. Theberat gab in seinem Vortrage ein feinsinniges Apercu über &lt;Atomistische und wirklichkeitsgemäße Betrachtung chemischer Prozesse&gt;.
+
+Am Sonntag, den 12. März, fand im Deutschen Theater unter Leitung von Frau Marie Steiner eine Matinee in eurythmischer Kunst statt. [...] In Berlin war dieses erlesene Programm [...] in ein völlig anderes Milieu versetzt als das in Stuttgart der Fall war. Es herrschte eine etwas kühle, aber interessierte Stimmungslage. Einige Leute ärgerten sich. Ich halte das für ein gutes Zeichen. Es gibt immer Leute, die sich über Originalität ärgern. Auch in Berlin. Verschiedene Blätter schimpften mit einer sichtlichen Aufregung in einem wüsten Ton. Das ist ein noch besseres Zeichen. Es ist die objektive Bestätigung, daß das, was als neue Kunst geboten war, auch wirklich neu ist. In der Tat, die Szenen aus Rudolf Steiners Mysterienspielen waren gerade in dieser Großstadtatmosphäre von besonders packender Wirkung. Die Gnomen und Sylphen ließen die grenzenlose Melancholie des steinernen Großstadtmilieus deutlich fühlbar werden. Der gelbe Ahriman, dessen tönerne knochige Bewegungen seltsam das gebundene Schicksal der Großstadt zu dramatisieren schienen, war eine besonders stark ausgeprägte künstlerische Note, die eine bedeutende Wirkung hinterließ.
+
+Das Deutsche Theater war vollbesetzt. Weil der Nachfrage nicht Genüge geleistet werden konnte, mußten in einem kleinen Saal noch zwei weitere Aufführungen angesetzt werden, die
+
+
+---
+
+wiederum ausverkauft waren. Nach der künstlerischen, wie nach der Seite der Nachfrage, wäre es geboten gewesen, wenigstens zwei Aufführungen im Deutschen Theater vorzusehen und sie ihrer Bedeutung entsprechend in den Rahmen der Gesamtveranstaltung einzugliedern.
+
+Der Berliner Hochschulkurs war ein entschiedener Erfolg. Alle diejenigen der zahlreichen Besucher, welche den Erfolg an sich selber erlebten, werden allen Dank wissen, die an diesem Erfolg öffentlich oder im stillen durch ihre Arbeit beigetragen haben. Dieser Dank gilt auch dem verdienstvollen Leiter der anthroposophischen Arbeit in Berlin, Rudolf Meyer, von welchem die Initiative und die ersten Vorbereitungen zu diesem Kurs ausgegangen sind und der wegen Erkrankung bedauerlicherweise sich nicht, wie beabsichtigt, als Vortragender beteiligen konnte. Es ist Dr. Rittelmeyer als großes Verdienst anzurechnen, daß er an Stelle von Rudolf Meyer die leitende Arbeit für den Kurs übernommen hat. [...]
+
+Mit dem Berliner Hochschulkurs ist wieder ein Stück jenes freien Geisteslebens ins Dasein gestellt worden, von welchem diejenigen, die es vertreten, die tiefste Überzeugung haben, daß dieses Geistesleben vor allem von Mitteleuropa gesucht werden müsse um seiner Zukunft willen. [...]
+
+In dem immer wieder neu einsetzenden Beifall am Schluß des letzten [Abend-]Vortrages in der Philharmonie, welcher den Schluß des ganzen Hochschulkurses bildete, lag [...] mehr als eine aufrichtige Augenblicksbegeisterung, es lag darin der tiefe Dank von vielen für den Ausblick auf ein neues Bild der Menschheit, welches über der grenzenlosen Seelennot der Gegenwart als ein Ideal von tragender Kraft erschien.»
+
+Bericht «Vom Anthroposophischen Hochschulkursus zu Berlin» von Dr. Eberhard Kurras, erschienen in «Das Goetheanum», Dornach, 1. Jg., Nr. 33 vom 26. März 1922.
+
+«Nun hat auch Berlin eine anthroposophische Veranstaltung großen Stils erlebt. Eine Fülle mannigfaltiger Darbietungen hat weit über Tausend Teilnehmer, darunter zahlreiche akademische Jugend, acht Tage lang angezogen und gefesselt. Die Vormittags-
+
+
+1Q4 Buch:81
+
+
+---
+
+Veranstaltungen in der Singakademie boten fachwissenschaftliche Besprechungen verschiedenster Gebiete; so kamen anorganische Naturwissenschaft, organische Naturwissenschaft und Medizin, Philosophie, Erziehungswissenschaft, Sozialwissenschaft, Theologie und Sprachwissenschaft an je einem Vormittag zur Behandlung. Die Hörerschaft verfolgte diese Darbietungen mit unermüdlichem Interesse; keine geringe Leistung, da, um neun beginnend, mit nur kurzen Pausen jedesmal vier Vorträge stattfanden. Mit neuorientierenden Einführungsreden leitete Dr. Steiner die einzelnen Wissenschaftsgebiete ein. Und als am Montag der zweite Redner wegen Erkrankung nicht erschienen war, sprang Dr. Steiner selbst in die Lücke und sprach über das angekündigte Thema mit souveräner Stoffmeisterung. Damit auch die Hörer zu Wort kommen konnten, war des mittags eine Aussprache eingerichtet. Nach der Diskussion schloß dann ein vierter Vortrag das Ganze positiv ab.
+
+Am Sonntag eröffnete Pfarrer Lic. Dr. Rittelmeyer, dem die Leitung des Kursus oblag, die Versammlung mit einer Ansprache voll geistiger Wucht. Die Anthroposophie, führte er aus, wisse sich gewiß noch fern von aller Vollendung; kraftvoll aber suche sie die Geistesströmung des deutschen Idealismus weiterzuentwickeln und durchzuführen, unabhängig von westlicher und östlicher Geistesart in selbständig-originaler Weise. Sicherlich seien die entschiedenen Gegner und entscheidende Kämpfe noch zu erwarten; wer aber erst unbefangen prüfen wolle, ehe er urteile und verurteile, sei zu diesem Kursus geladen. Die beiden naturwissenschaftlichen Tage wiesen dann von der lebensfremden mechanistischen Naturansicht den Weg zu einer wahrhaft phänomenologischen Naturanschauung und tiefergehenden Menschenerkenntnis. Derartige Naturforschung übte Goethe, der, obwohl ihm in gewisser Hinsicht mathematische Begabung abging, doch in ganz verinnerlichter Weise die Fähigkeit mathematisierenden, innerlich überschauenden Denkens besaß.
+
+Voll gespannter Erwartung sah man dem Theologentag entgegen; trat doch die Theologie hier auf einer anthroposophischen Veranstaltung zum erstenmal auf. Das Thema des Tages: <der anthroposophie="" der="" dergegenwärtigen="" dergenwärtigen="" in="" inthergang="" neubegründung="" theologie="" und=""> war keineswegs als eine Herausforderung gemeint, wie es in der allmählich aufmerksam werdenden theologischen Presse aufgefaßt worden; es
+
+
+---
+
+sollte viel mehr ein vollauf ernstzunehmendes Bekenntnis von den Erneuerungskräften der Anthroposophie und ein beachtungheischendes Anerbieten an die theologische Wissenschaft sein. In seinem Einleitungsvortrag über Anthroposophie und Theologie&gt; entwickelte Dr. Steiner, wie der in seinem ganzen geist-leiblichen Organismus gesunde und die geistig-göttliche Wirklichkeit wahrhaft erlebende Mensch zu einer differenzierten religiösen Erfahrung, einem Erleben des Vatergottes, des Christus und des Geistes komme; andererseits sei Atheismus wirkliche Krankheit, den Christus-nicht-finden Schicksal, den Gott-nicht-entdecken Beschränktheit. Das folgende Referat von Lic. Bock über den <untergang des="" psychologismus="" offenbarungsglaubens="" im=""> zeigte mit seinen methodologisch grundlegenden Ausführungen, daß durch die psychologistische Methode, die durch ihren Rückzug auf das Subjektiv-Seelische immer mehr das Objektiv-Göttliche verliert, aller Glaube an göttliche Offenbarung und alles Bewußtsein einer geistigen Welt zugrunde geht. Dann sprach Dr. Rittelmeyer über den <untergang des="" la="" in="" irrationalismus="" gottesglaubens="">. Geistvoll durchleuchtete er die Versuche von Rudolf Otto, Christoph Schrempf und Paul Göhre, die das Göttliche als das <irrationale> bestimmen. Dieses <irrationale> sei aber eine inhaltsleere Bestimmung des Göttlichen, bei der eine lebendige Frömmigkeit und Theologie nicht stehenbleiben dürfe. Den Gottesglauben neu und besser zu begründen, vermöge die Anthroposophie; nicht durch logische Beweise oder psychologische Erklärungen, sondern durch eine zu eigenem, unmittelbarem Erleben und Erkennen führende Geisteserziehung. Vom <untergang des="" christusglaubens="" in="" historismus=""> redete zuletzt D. Dr. Geyer. Mit umfassender Sachkenntnis führte er durch die Phasen der Geschichte des Christusglaubens und konstatierte ihren gegenwärtigen Stand: auf der einen Seite ist über der rein-historischen Erforschung des geschichtlichen Jesus der geistig-lebendige Christus verloren worden; andererseits über dem abstrakten Christusprinzip der geschichtliche Jesus. Ein zweiter Vortrag D. Geyers am Samstag Abend schloß die theologischen Darbietungen wirkungsvoll ab. Mit wahrhaft jugendlicher Frische sprach der bejahrte Theologe über Anthroposophie und Christentums in überaus fesselnder und humorvoller Darstellung schilderte er, daß Anthroposophie und Christentum zunächst wenig miteinander zu tun hätten; denn jene sei Wissenschaft,
+
+
+---
+
+dieses Religion. Und doch hätten beide auch wieder viel miteinander zu tun, wie ja, nach Naumanns Wort, Frömmigkeit und Weltanschauung zusammengehören wie der Weinstock und die Mauer, die ihn stützt. Zuletzt empfahl er, auch die Anthroposophie mit einem <guten blick=""> anzusehen, hauptsächlich aber, sie praktisch mit ihren Seelenübungen zu erproben. Die an die theologischen Vorträge sich anschließenden Diskussionen zeigten, daß ein wirklich ernstes und eindringendes Verständnis auf Seiten der Gegner noch kaum vorhanden ist.
+
+Auch die anderen Abende versammelte die Kursteilnehmer zu Vorträgen. Eine Reihe, die von der Berliner Ortsgruppe des <bundes für anthroposophische="" hochschularbeit=""> veranstaltet war, wurde in der Universität gehalten. An dieser Stätte wies in seinem Vortrag Anthroposophie und Psychologie&gt; Dr. Unger die unwissenschaftliche Behandlung der Anthroposophie durch den Berliner Universitätsprofessor Dr. Max Dessoir mit energischen Worten zurück. An den übrigen vier Abenden redete Dr. Steiner in der Philharmonie. Da eröffnete er die großartige Perspektive auf die künftige Harmonisierung von Wissenschaft, Kunst und Religion durch die Anthroposophie. Die Geistesgebiete seien verschiedenartige Ausgestaltungen ein und desselben Urphänomens; und wie sie vor alters eins waren in den Mysterien, würden sie auch wieder in eine, alsdann höhere, Einheit zurückkehren. Diese wird erreicht durch Aufstieg zu den höheren Erkenntnisarten der Imagination, Inspiration und Intuition. Des Lebens Inhalt, den die Anthroposophie zu bieten vermag, besteht nicht in einem Fertigen, einer Gabe, die man bloß hinzunehmen braucht; er liegt vielmehr darin, daß man durch innere Aktivität sich Früchte erobern kann, die nicht bloße Denkresultate, sondern Lebensfähigkeiten sind; im Sinne des Goethe-Spruchs: <nur der="" es="" freiheit="" das="" der="" das="" dertäglich="" erobern="" muß.="" verdienst="" wie="" zu=""> Mit andringender Herzenswärme redete Steiner am letzten Abend über die Zeitbedürfnisse. Die Anthroposophie schaffe auch gerade den furchtbaren sozialen Krankheitszuständen Heilung durch ihre lebensvollen Ideen und aufbauenden Impulse. Sie sei kein <irrweg zu="" zielen="" richtigen="" und="" notwendigen="">, wie eine gegnerische Persönlichkeit geäußert, sondern der Wahrweg zur Rettung aus der großen Kulturkrise. Starker, anhaltender Beifall tat kund, wie innerlich angefaßt die Hörerschaft war. Mehrere eurythmische Aufführungen rundeten den Kursus künstlerisch
+
+
+1Q7 Buch:81
+
+
+---
+
+ab. Die unter schwierigen Verhältnissen veranstalteten Aufführungen fanden bei der unbefangenen Mehrheit ihren verdienten dankbaren Beifall.
+
+Man kann sagen, daß der Berliner Kursus ein voller Erfolg gewesen ist. Konnte man doch von verschiedensten Seiten hören, welchen Eindruck es gemacht, daß hier eine nicht kleine Anzahl von Persönlichkeiten durch den ungewöhnlichen Geistgehalt und die ungemeine innere und äußere Lebendigkeit ihrer Darbietungen eine solche kulturschöpferische Energie vorgeführt. Gesteigert konnte man diesen Eindruck von Dr. Steiner haben, dessen Reden wahrhaft geistesmächtige Taten waren. So war der Berliner Kursus ein kulturhistorisches Ereignis; findet sich doch eine derartige Veranstaltung heute sonst nirgends. Daß unsre gegenwärtige materialistisch-intellektualistische Wissenschaft ihre Ergänzung und Fortbildung finden kann in der aus Geist und Leben erwachsenen Initiations-Wissenschaft der Anthroposophie, - davon haben die Teilnehmer des Berliner Hochschulkurses einen starken Eindruck und eine zukunftsfrohe Einsicht empfangen.»
+
+***
+
+Auszug aus Heinrich Frick: «Wer hat herausgefordert?», in «Die Christliche Welt», Nr. 13 vom 30. März 1922, S. 226:
+
+«Der Andrang von Besuchern war sehr stark. Besonders die Abendvorträge, aber auch die Morgenstunden, zumal die Pädagogik und ganz besonders die Theologie erfreuten sich eines Massenbesuches von vielen Hunderten. Man tagte Morgens in der Singakademie. Schon beim Eintritt bekam man Gelegenheit, an vielen Tischen anthroposophische Literatur zu sehen und zu kaufen. Diese Bücher erweckten zusammen mit den Medikamenten aus den chemischen Werken der AG <der kommende="" tag="">, mit Bildern des Goetheanums und Flugschriften einen ersten Eindruck davon, welche Anregungen auf den verschiedensten Gebieten von der Anthroposophie gegeben werden können.»
+
+
+---
+
+Auszug aus Heinrich Frick: «Anthroposophie und evangelische Theologie», in «Die Christliche Welt», Nr. 17 vom 27. April 1922, S. 303:
+
+«In der Anthroposophie ein Bildungs- und Kultur-Phänomen, aber keine religiöse Bewegung zu sehen, dazu hat mich besonders der Berliner Kursus veranlaßt. Wenn da in acht Tagen so ziemlich alle Wissensgebiete, alle aktuellen Fragen, alle Nöte des modernen Menschen vom Valutastand bis zur Gottesfrage hin erörtert wurden, so bestand für das Publikum ein großer Teil des Anreizes in dem enzyklopädischen Charakter der Veranstaltung. Dieses kompendienartig knappe Universalwissen ist überhaupt für die Bildungshungrigen ein Hauptmotiv, das sie zu Steiner treibt. Schien doch nach dem Programm das Zeitalter Goethes hier erneuert zu werden: aus zersplittertem Spezialistentum heraus zum Ganzen, aus formlosen Teilstücken des Wissens zur organischen Einheit, und das alles sinnvoll gelagert um einen Mittelpunkt: Anthroposophie!»
+
+
+---
+
+
+---
+
+
+# HINWEISE
+
+## Xu dieser Ausgabe
+
+Der Berliner Hochschulkurs wurde veranstaltet vom Bund für anthroposophische Hochschularbeit und dem Berliner Zweig der Anthroposophischen Gesellschaft. Es war das Ziel der Veranstalter, durch Vorträge verschiedener Redner zu den Gebieten der organischen und anorganischen Naturwissenschaft, der Medizin, Philosophie und Theologie, der Erziehungs-, Sozial- und Sprachwissenschaft zu versuchen, «einen Eindruck davon zu erwecken, welche Anregungen auf den verschiedensten Gebieten von der Anthroposophie gegeben werden können». Zu den jeweiligen Tagesthemen hielt Rudolf Steiner einen einführenden Vortrag. Am zweiten Tag des Kurses übernahm er noch zusätzlich den Vortrag zum Thema «Die menschliche und die tierische Organisation», den ursprünglich Eugen Kolisko halten sollte. Wegen Erkrankung des Berliner Zweigleiters Rudolf Meyer übernahm Pfarrer Dr. Friedrich Rittelmeyer die offizielle Leitung der Veranstaltung. (Zwei Briefe von Rudolf Meyer an Rudolf Steiner im Anhang geben einen kleinen Eindruck von den Vorbereitungen für den Hochschulkurs.) - Da Rittelmeyer durch seine Tätigkeit als Hauptprediger an der Neuen Kirche in Berlin eine bekannte Persönlichkeit war, erweckte sein Name im Zusammenhang mit einer öffentlichen anthroposophischen Veranstaltung die besondere Aufmerksamkeit protestantisch-theologischer Kreise. Rittelmeyer war zu dieser Zeit noch in seiner Berliner Gemeinde tätig, stand aber andererseits bereits aktiv in der religiösen Erneuerungsbewegung, die dann im Herbst 1922 als «Christengemeinschaft» gegründet wurde. Viele der in dieser Bewegung stehenden Persönlichkeiten waren anlässlich des Hochschulkurses nach Berlin gekommen; sie trafen sich an den freien Nachmittagen bei Rittelmeyer. Zweimal war bei diesen Gesprächen auch Rudolf Steiner zugegen. Wenngleich diese Zusammenkünfte nichts mit dem Hochschulkurs zu tun hatten und bei dem Kurs auch nicht über die religiöse Erneuerungsbewegung gesprochen wurde, so bekam doch durch diese Gruppe der der Theologie gewidmete Tag eine besondere Note. Die Diskussionsstunden, die zu den einzelnen Tagesthemen stattfanden, sind nicht mitgeschrieben
+
+---
+
+worden. Einen kleinen Eindruck von der Diskussion am «Theologentag» vermittelt der im Anhang wiedergegebene Bericht des späteren Christengemeinschaftspfarrers Eberhard Kurras.
+
+Neben den Kursveranstaltungen in der Berliner Singakademie fanden in der Philharmonie eine Reihe von öffentlichen Vorträgen verschiedener Persönlichkeiten statt. Rudolf Steiner sprach an vier Abenden über die Themen «Die Harmonisierung von Wissenschaft, Kunst und Religion durch Anthroposophie», «Anthroposophie in ihrem Wissenschaftscharakter», «Anthroposophie als Lebensinhalt» und «Die Zeitbedürfnisse und die Anthroposophie». Diese Vorträge sind in der Gesamtausgabe noch nicht erschienen.
+
+Textunterlagen: Die Vorträge Rudolf Steiners wurden von dem Berliner Stenographen Walter Vegelahn mitgeschrieben. Dem Druck liegt seine Klartextübertragung zugrunde. Originalstenogramme sind nicht erhalten. Für den Druck wurden die stenographiebedingten Mängel oder Fehler korrigiert. Wo unvollständige Sätze durch die Herausgeber ergänzt worden sind, ist dies durch eckige Klammern gekennzeichnet. Wortumstellungen innerhalb eines Satzes wurden dann vorgenommen, wenn durch die Satzstellung allein - ohne die Betonung des Sprechenden - der Sinn nicht genügend klar verständlich wäre. - Von den Vorträgen der anderen Redner und den Diskussionen sind keine Mitschriften oder Notizen vorhanden.
+
+## Veröffentlichungen in Zeitschriften:
+
+Die Vorträge erschienen erstmals in der Zeitschrift «Blätter für Anthroposophie», 14. Jg., 1962, Nrn. 2, 3, 4, 5, 6, 7/8, 9.
+
+Der Mitgliedervortrag Dornach, 18. März 1922, erschien im «Nachrichtenblatt» der Zeitschrift «Das Goetheanum», 22. Jg., 1945, Nrn. 46-50.
+
+
+---
+
+# Hinweise zum Text
+
+Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen mit der Bibliographie-Nummer erwähnt. Siehe auch die Übersicht am Schluss des Bandes.
+
+Zu Seite
+
+15 Emil Du Bois-Reymond, 1818-1896, deutscher Physiologe. - «Über die Grenzen des Naturerkennens. Vortrag, gehalten in der zweiten öffentlichen Sitzung der 45. Versammlung Deutscher Naturforscher und Ärzte zu Leipzig am 14. August 1872», Leipzig 1872.
+
+wenn ich mich des Bu Bois-Reymondschen Ausdruckes bedienen darf: Ebenda, S. 2: «Naturerkennen - genauer gesagt naturwissenschaftliches Erkennen oder Erkennen der Körperwelt mit Hilfe und im Sinne der theoretischen Naturwissenschaft - ist Zurückführen der Veränderungen in der Körperwelt auf Bewegungen von Atomen, die durch deren von der Zeit unabhängige Centralkräfte bewirkt werden, oder Auflösung der Naturvorgänge in Mechanik der Atome. Es ist psychologische Erfahrungsthatsache, daß, wo solche Auflösung gelingt, unser Causalitätsbedürfniss vorläufig sich befriedigt fühlt.»
+
+16 Rudolf Virchow, 1821-1902, Mediziner und Anthropologe, Professor der pathologischen Anatomie und zeitweise Rektor der Königlichen Friedrich-Wilhelm-Universität in Berlin. - «Die Gründung der Berliner Universität und der Übergang aus dem philosophischen in das naturwissenschaftliche Zeitalter», Rede, gehalten am 3. August 1893, Berlin 1893.
+
+17 Ernst Mach, 1838-1916, österreichischer Physiker und materialistischer Philosoph. Er war einer der Begründer des Empiriokritizismus, erneuerte in der Erkenntnistheorie die Anschauungen Berkeleys und Humes.
+
+Es handelt sich bei Goethe einfach um das, was in seinen Worten liegt: Siehe «J. W. Goethe: Naturwissenschaftliche Schriften», mit Einleitungen, Fußnoten und Erläuterungen im Text herausgegeben von Rudolf Steiner; photomechanischer Nachdruck nach der Erstauflage in «Kürschners Deutsche National-Litteratur» (1884 - 1897), 5 Bände, GA 1a-e; Bd. 5, GA 1e, «Sprüche in Prosa», 1. Abt.: «Das Erkennen», S. 376: «Das Höchste wäre, zu begreifen, daß alles Faktische schon Theorie ist. Die Bläue des Himmels offenbart uns das Grundgesetz der Chromatik. Man suche nur nichts hinter den Phänomenen; sie selbst sind die Lehre.»
+
+Goethe kam ja auf diesem Wege zur Statuierung dessen, was er «Urphänomen» nannte: Ebenda, Bd. 3, GA 2c, 2. Abt.: «Physische
+
+
+---
+
+Farben», X. «Dioptrische Farben. Der ersten Klasse», S. 135, § 150f. und S. 141f., § 174-177. Zu § 175-177 fügte Rudolf Steiner in einer Fußnote folgendes bei (S.141): «Hier spricht Goethe seine Ansicht über die eigentliche Aufgabe der Naturwissenschaft aus. Was wir unmittelbar in der Natur wahrnehmen, sind Phänomene, die von den mannigfaltigsten Bedingungen abhängen. Wenn wir irgend eine oder mehrere von diesen Bedingungen ändern, so ändert sich auch das Phänomen. Es wird sich nun darum handeln, festzustellen, wann diese Änderung eine untergeordnete, nebensächliche und wann eine durchgreifende ist. Alle jene Phänomene, die durch eine Änderung der Bedingungen sich nur unwesentlich ändern wird und einen verwandten Zug zeigen, weisen uns auf ein Grund- oder Urphänomen hin, das ihnen allen zu Grund liegt und in dem sich ein Naturgesetz ausspricht. Aufgabe des Naturforschers wird es also sein, eine solche Reihe von Phänomenen nebeneinanderzustellen, die immer nur durch eine Änderung der Bedingungen Modifikationen einer Grunderscheinung sind. Diese Grunderscheinung aber ist das objektive Naturgesetz. Keine Naturerklärung kann als solche über die Urphänomene hinausgehen. Es ist ein großer Irrtum, wenn man glaubt, die Urphänomene beweisen oder weiter erklären zu können. Wenn es selbst gelänge, irgendwo in der Welt das Atom nachzuweisen, so wäre die Wirkung des Atoms auf das Atom doch auch durch nichts anderes auszusprechen als durch ein Urphänomen. Man sollte daher die tiefsinnige Erfassung der Natur durch Goethe nicht fortwährend als Dilettantismus ansehen, während sie sich von der modernen Naturwissenschaft gerade durch die streng philosophische Begriffsfassung und Methode auszeichnet. Auch die Philosophie kann nicht über die Urphänomene hinausgehen; sie hat nur die Aufgabe, die durch die Naturforschung festgestellten Urphänomene in ihrer ideellen Folge aus einander zu entwickeln. Während der Naturforscher die Phänomene nebeneinanderstellt, damit sich in ihnen das Urphänomen ausspricht, stellt der Philosoph die Urphänomene neben einander, damit sich darinnen die Naturideen aussprechen.» - Siehe ferner Rudolf Steiner in Bd. 2, GA 1b, Kap. «Verhältnis der Goetheschen Denkweise zu anderen Ansichten», S. LXI; Bd. 3, GA 1c, Kap. «Einleitung», 2. «Das Urphänomen», S. X ff.; Bd. 4, GA 1d, Kap. «Einleitung», 3., S. VI ff. (In den «Einleitungen zu Goethes Naturwissenschaftlichen Schriften. Zugleich eine Grundlegung der Geisteswissenschaft (Anthroposophie)», GA 1, entsprechen diese Stellen den S. 226f., 266ff., 311ff.)
+
+17 Satz ..., den ich in den 80er Jahren des vorigen Jahrhunderts ausgesprochen habe: In «J. W. Goethe: Naturwissenschaftliche Schriften» (siehe den 2. Hinweis zu S. 17), Bd. 1, GA 1a, S. LXXIII; bzw. in «Einleitungen zu Goethes Naturwissenschaftlichen Schriften-
+
+
+---
+
+ten», GA 1, S. 107: «Goethe ist der Kopernikus und Kepler der organischen Welt.»
+
+18 Nikolaus Kopernikus, 1473-1543, Astronom, Mathematiker, Arzt, Jurist, Humanist und Domherr. Begründer des heliozentrischen Weitbildes.
+
+Johannes Kepler: Siehe Hinweis zu S. 61.
+
+der Kantsche Satz: Siehe «Metaphysische Anfangsgründe der Naturwissenschaft», 1786, in «Immanuel Kants sämtliche Werke», Leipzig 1897, Bd. 4, Vorrede, S. 360, wörtlich: «Ich behaupte aber, daß in jeder besonderen Naturlehre nur so viel eigentliche Wissenschaft angetroffen werden könne, als darin Mathematik anzutreffen ist.»
+
+19 Zuletzt sagte er sich: «Das Causalgesetz ist ... hinreichend charakterisirt, wenn man sagt, es setzte eine Abhängigkeit der Erscheinungen von einander voraus. Gewisse müssige Fragen, z.B. ob die Ursache der Wirkung vorausgehe oder gleichzeitig sei, verschwinden damit von selbst.» - «Nennen wir die Gesammtheit der Erscheinungen, von denen eine Erscheinung (X als abhängig betrachtet werden kann, die Ursache von ct. Wenn diese Gesammtheit gegeben ist, so ist a bestimmt und zwar eindeutig bestimmt. Man kann also das Causalgesetz auch in der Form ausdrücken: <die be="" des="" durch="" besimmt.*="" besinnmtt.*»="" beschichte="" die="" durch="" des="" dessatzes="" erhaltung="" erhabtung="" ist="" werkung="" und="" ursache="" von="" wurde="" wir="" wirzel=""> («Die Geschichte und die Wurzel des Satzes von der Erhaltung der Arbeit», Vortrag, geh. am 15. Nov. 1871, 2. Aufl., Leipzig 1909, S. 35 u. 37.)
+
+er hat sich ja selbst als einen solchen bezeichnet: Siehe «J. W. Goethe: Naturwissenschaftliche Schriften» (siehe den 2. Hinweis zu S. 17), Bd. 3, GA 1c, «Zur Farbenlehre», 5. Abt. «Nachbarliche Verhältnisse»: «Verhältnis zur Mathematik», S. 277, § 723: «Der Verfasser kann sich keiner Kultur von dieser Seite [von der Mathematik] rühmen und verweilt auch deshalb nur in den von der Meßkunst unabhängigen Regionen, die sich in der neuen Zeit weit und breit aufgethan haben.» - Vgl. Rudolf Steiners Aufsätze «Goethe und die Mathematik» von 1887 in «Einleitungen zu Goethes Naturwissenschaftlichen Schriften», GA 1, S. 237, und von 1923 in «Der Goetheanumgedanke ...», GA 36, S. 150 (letzteres Besprechung des Buches «Goethe» von Benedetto Croce, deutsch 1920).
+
+21 jenes berühmten Gesprächs ..., das Goethe und Schiller einmal ... geführt haben: Siehe «J. W. Goethe: Naturwissenschaftliche Schriften» (siehe den 2. Hinweis zu S. 17), Bd. 1, GA 1a, «Verfolg», «Glückliches Ereignis», S. 108ff.
+
+August Karl Batsch, 1761-1802, Botaniker, Professor der Naturgeschichte in Jena.
+
+
+---
+
+21 er erzählte es ja selbst: Siehe Hinweis oben (jenes berühmten Gesprächs ...).
+
+«Urpflanze»; Siehe Hinweis zu S. 32 (Goethe mit... seiner Idee von der Urpflanze).
+
+Ich habe in meinen Einleitungen ...: Rudolf Steiner: «Einleitungen zu Goethes Naturwissenschaftlichen Schriften», GA 1, v.a. Kap. «Die Entstehung der Metamorphosenlehre», S. 14ff.
+
+Schiller ... sagte dann aus seiner Denkweise heraus: Siehe Hinweis oben (jenes berühmten Gesprächs ...).
+
+22 Goethe erwiderte: Ebenda, S. 112, wörtlich: «Das kann mir sehr lieb sein, daß ich Ideen habe, ohne es zu wissen, und sie sogar mit Augen sehe.»
+
+wenn Goethe von Italien aus schreibt, wie er die Idee der Urpflanze immer weiter ausgebildet hat: Siehe Goethe: «Italienische Reise», Sizilien, Brief vom 17. April 1787 (Palermo) und vom 17. Mai 1787 (Neapel). Vgl. dort ferner auch die Briefe vom 27. September 1786, 25. März 1787 und 6. September 1787.
+
+Da sagt er ungefähr: Siehe Hinweis oben. Im Brief vom 17. Mai 1787 schreibt Goethe an Herder: «Den Hauptpunkt, wo der Keim steckt, habe ich ganz klar und zweifellos gefunden; alles übrige seh' ich auch schon im ganzen, und nur noch einige Punkte müssen bestimmter werden. Die Urpflanze wird das wunderlichste Geschöpf von der Welt, um welches mich die Natur selbst beneiden soll. Mit diesem Modell und dem Schlüssel dazu kann man alsdann noch Pflanzen ins Unendliche erfinden, die konsequent sein müssen, das heißt, die, wenn sie auch nicht existieren, doch existieren könnten und nicht etwa malerische oder dichterische Schatten und Scheine sind, sondern eine innerliche Wahrheit und Notwendigkeit haben. Dasselbe Gesetz wird sich auf alles übrige Lebendige anwenden lassen.
+
+...Es war mir nämlich aufgegangen, daß in demjenigen Organ der Pflanze, welches wir als Blatt gewöhnlich anzusprechen pflegen, der wahre Proteus verborgen liege, der sich in allen Gestaltungen verstecken und offenbaren könne. Vorwärts und rückwärts ist die Pflanze immer nur Blatt, mit dem künftigen Keime so unzertrennlich vereint, daß man eins ohne das andere nicht denken darf.» (Goethe - Werke, Hamburger-Ausgabe (dtv-Dünndruck), München 1982, Band 11, S. 323f.)
+
+23 Schieiden meinte, Goethe habe mit der Urpflanze eine tatsächliche Pflanze gemeint: Matthias Jakob Schieiden (1804-1881), Botaniker, Mediziner und Jurist. - «Die Pflanze und ihr Leben», 6. Aufl. Leipzig 1864, 4. Vorlesung: «Die Morphologie der Pflanzen», S. 86:
+
+
+---
+
+«Die Ahnung einer solchen Gesetzgebung für die Gestaltung der Pflanzen ist zuerst von Goethe in seiner Idee einer Urpflanze ausgesprochen worden, worunter er sich eine Idealpflanze dachte, deren Verwirklichung gleichsam der Natur als Aufgabe vorgelegen und welche sie in den einzelnen Pflanzen mehr oder minder vollkommen erreicht habe.»
+
+27 Du Bois-Reymond ... in seiner Rede: Siehe den 1. Hinweis zu S. 15.
+
+Pierre Simon Laplace, 1749-1827, französischer Mathematiker und Astronom. Er baute die von Newton begründete Himmelsmechanik weiter aus. - «Exposition du Systeme du monde», 1796; «Traite de Mécanique Celeste», 5 Bände, Paris 1799-1825.
+
+die er die «astronomische Auffassung» des ganzen natürlichen Weltendaseins nennt: Siehe den 1. Hinweis zu S. 15, S. 21f.: «Ich nenne astronomische Kenntniss eines materiellen Systems solche Kenntniss aller seiner Theile, ihrer gegenseitigen Lage und ihrer Bewegung, daß ihre Lage und Bewegung zu irgend einer vergangenen und zukünftigen Zeit mit derselben Sicherheit berechnet werden kann, wie Lage und Bewegung der Himmelskörper bei vorausgesetzter unbedingter Schärfe der Beobachtungen und Vollendung der Theorie ... Astronomische Kenntniss eines materiellen Systems ist bei unserer Unfähigkeit, Materie und Kraft zu begreifen, die vollkommenste Kenntniss, die wir davon erlangen können. Es ist die, wobei unser Causalitätstrieb sich zu beruhigen gewöhnt ist, und welche der von Laplace gedachte Geist selbst bei gehörigem Gebrauche seiner Weltformel von dem Systeme besitzen würde.»
+
+31 deshalb sagte Goethe ganz naiv: Siehe den 1. Hinweis zu S. 21.
+
+32 was Goethe nannte: Rechenschaft ablegen vor jedem, auch vor dem strengsten Mathematiker: Siehe «J. W. Goethe: Naturwissenschaftliche Schriften» (siehe den 2. Hinweis zu S. 17), Bd. 2, GA 1b, Kap. «Der Versuch als Vermittler von Objekt und Subjekt», S.19, wörtlich: «Diese Bedächtlichkeit, nur das Nächste ans Nächste zu reihen, oder viel mehr das Nächste aus dem Nächsten zu folgern, haben wir von den Mathematikern zu lernen, und selbst da, wo wir uns keiner Rechnung bedienen, müssen wir immer so zu Werke gehen, als wenn wir dem strengsten Geometer Rechenschaft zu geben schuldig wären.»
+
+Goethe mit... seiner Idee von der Urpflanze, zu der er gekommen ist, und mit der Idee des Urtieres, wozu er nicht gekommen ist: Goethes Aussagen über die Urpflanze sind in seinem Werk sehr verstreut, siehe jedoch bes. «Die Metamorphose der Pflanzen» in «J. W. Goethe: Naturwissenschaftliche Schriften» (siehe den 2. Hinweis zu S. 17), Bd. 1, GA 1a, S. 17. - Zum Thema Urtier
+
+
+---
+
+verfasste Goethe ein Gedicht, das zuerst 1820 unter dem Titel AOP0UM02 im 2. Heft des 1. Bandes der Morphologischen Hefte erschien und später unter dem Titel «Die Metamorphose der Tiere» in die Gedichtsammlung aufgenommen wurde (ebenda, S. 344ff. - Siehe auch S. 12ff., 239ff., 331ff.). - Siehe Rudolf Steiners «Einleitungen» in GA la und GA 1. Vgl. ferner u.a. seine beiden Aufsätze «Goethes Naturanschauung gemäß den neuesten Veröffentlichungen des Goethe-Archivs» (1894) und «Über den Gewinn unserer Anschauungen von Goethes naturwissenschaftlichen Arbeiten durch die Publikationen des Goethe-Archivs» (1891) in «Methodische Grundlagen der Anthroposophie ...», GA 30, S. 69ff. und 265ff.
+
+32 Ich habe schon in den 80er Jahren des vorigen Jahrhunderts gezeigt: Siehe Rudolf Steiner: «Einleitungen zu Goethes Naturwissenschaftlichen Schriften», GA 1, Kap. IV: «Über das Wesen und die Bedeutung von Goethes Schriften über organische Bildung» und Kap. V: «Abschluß über Goethes morphologische Anschauungen», sowie «Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung mit besonderer Rücksicht auf Schiller», GA 2, Kap. E: «Das Natur-Erkennen».
+
+36 Eugen Kolisko, 1893-1939, 1920-1934 Schularzt und Fachlehrer an der Freien Waldorfschule in Stuttgart. - Kolisko, der für diesen Tag einen Vortrag über das Thema «Menschliche und tierische Organisation in ihrem biologischen Gegensatz» zugesagt hatte, war durch Erkrankung verhindert, zum Hochschulkursus nach Berlin zu kommen. Für ihn hat Dr. Steiner vorliegenden Vortrag gehalten.
+
+seine Abhandlung, die den Titel trägt: 1784 gelang Goethe der Nachweis, daß auch beim Menschen ein Zwischenkieferknochen vorhanden ist. 1786 erschien sein Aufsatz «Dem Menschen wie den Tieren ist ein Zwischenkieferknochen der oberen Kinnlade zuzuschreiben», Jena; siehe «J. W. Goethe: Naturwissenschaftliche Schriften» (siehe den 2. Hinweis zu S. 17), Bd. 1, GA la, S. 277. - Siehe auch Rudolf Steiners Einleitung «Die Entstehung von Goethes Gedanken über die Bildung der Tiere», ebenda, S. XXXIV; bzw. in «Einleitungen zu Goethes Naturwissenschaftlichen Schriften», GA 1, S. 40.
+
+38 Was schon Goethe annahm, ist dies: Siehe hierzu Rudolf Steiner: «Die Entstehung von Goethes Gedanken über die Bildung der Tiere» (siehe oben).
+
+40 wie ich für einige von Ihnen seit Jahren angedeutet habe: Weitere Ausführungen Rudolf Steiners zur Sinneslehre siehe u. a. in folgenden Banden der Gesamtausgabe:
+
+
+---
+
+«Von Seelenrätseln. Anthropologie und Anthroposophie, Max Dessoir über Anthroposophie, Franz Brentano (Ein Nachruf). Skizzenhafte Erweiterungen» (1917), GA 21.
+«Anthroposophie. Ein Fragment aus dem Jahre 1910», GA 45.
+«Anthroposophie - Psychosophie - Pneumatosophie» (1909-1911), GA 115.
+«Weltwesen und Ichheit» (1916), GA 169.
+«Das Rätsel des Menschen. Die geistigen Hintergründe der menschlichen Geschichte» (1916), GA 170.
+«Die Wissenschaft vom Werden des Menschen» (1918), GA 183.
+«Geistige und soziale Wandlungen in der Menschheitsentwicklung» (1920), GA 196.
+«Geisteswissenschaft als Erkenntnis der Grundimpulse sozialer Gestaltung» (1920), GA 199.
+«Menschenwerden, Weltenseele und Weltengeist - Zweiter Teil: Der Mensch als geistiges Wesen im historischen Werdegang» (1921), GA 206.
+«Allgemeine Menschenkunde als Grundlage der Pädagogik (I)» (1919), GA 293.
+
+Siehe ferner Nr. 14 der «Nachrichten der Rudolf Steiner-Nachlaßverwaltung», Dornach, Michaeli 1965 (H. Knobel), und Nr. 34 der «Beiträge zur Rudolf Steiner Gesamtausgabe», Dornach, Sommer 1971 (Notizbucheintragungen Rudolf Steiners und Aufsatz H. Knobel).
+
+43 Ernst Haeckel, 1834-1919, Zoologe. - Siehe u. a. seine Werke «Anthropogenie oder Entwicklungsgeschichte des MenschenKeimes», 2 Teile, Leipzig 1874, und «Natürliche Schöpfungsgeschichte, Gemeinverständliche wissenschaftliche Vorträge über die Entwicklungslehre», 2 Teile, Berlin 1868.
+44 vor vielen Jahren bei einem Vortrage in München: Es ist nicht sicher, auf welchen Vortrag Rudolf Steiner sich hier bezieht. Vgl. zu diesem Thema u.a. die Vorträge vom 13. November 1907 in «Mythen und Sagen. Okkulte Zeichen und Symbole», GA 101, und vom 10. und 17. November 1910 in «Antworten der Geisteswissenschaft auf die großen Fragen des Daseins», GA 60.
+47 In dem Vortrage, den ich eben gehalten habe: Siehe den Vortrag «Anthroposophie und Naturwissenschaft» vom gleichen Tag.
+52 in unseren Instituten in Stuttgart: Zu der Aktiengesellschaft zur Förderung wirtschaftlicher und geistiger Werte «Der Kommende Tag AG» in Stuttgart gehörten ein Klinisch-Therapeutisches Institut mit Laboratorien für pharmakologische Forschung und
+
+
+---
+
+Heilmittelherstellung, sowie ein Wissenschaftliches Forschungsinstitut für physikalische, chemische, technische und biologische Forschungen.
+
+52 imaginatives Anschauen: Siehe u. a. die beiden Schriften «Wie erlangt man Erkenntnisse der höheren Welten?» (1904/05), GA 10, und «Die Stufen der höheren Erkenntnis» (1905-08), GA 12.
+
+56 Johann Gottlieb Fichte, 1762-1814, Professor der Philosophie in Jena, Erlangen, Königsberg, Berlin; erster Rektor der Universität Berlin.
+
+Friedrich Wilhelm Joseph Schelling, 1775-1854, Professor der Philosophie in Jena neben Hegel und Fichte, lebte später in Würzburg, Erlangen und München, zuletzt in Berlin.
+
+Georg Wilhelm Friedrich Hegel, 1770-1831, Professor der Philosophie in Jena, Redakteur der «Bamberger Zeitung», später Gymnasialprofessor in Nürnberg, später in Heidelberg, ab 1818 in Berlin. - Siehe zum vorliegenden Vortrag v.a. seine «Wissenschaft der Logik», 2 Teile, 3 Bände, 1812-1816, «Encyklopadie der philosophischen Wissenschaften im Grundrisse», 3 Teile, 3 Bände, 1817, 2. Auflage Berlin 1843-1847 (der 2. Teil erschien unter dem Titel: «Vorlesungen über Naturphilosophie als der Encyklopadie ...»).
+
+Zu Fichte, Schelling und Hegel siehe u. a. Rudolf Steiners Schrift «Vom Menschenrätsel. Ausgesprochenes und Unausgesprochenes im Denken, Schauen, Sinnen einer Reihe deutscher und österreichischer Persönlichkeiten» (1916), GA 20.
+
+«Kraft- und Stoff-Menschen»: 7JI dieser Richtung zählten u.a. der materialistische Philosoph und Schriftsteller Ludwig Büchner (1824-1899); siehe dessen Schrift «Kraft und Stoff. Empirisch-naturphilosophische Studien in allgemeinverständlicher Darstellung», 3. Auflage Frankfurt 1856. Auch Physiker wie Hermann von Helmholtz (1821-1894) und Julius Robert Mayer (1814-1878) gehören hierzu.
+
+57 Otto Liebmann, 1840-1912, Philosoph.
+
+Johannes Volkelt &gt; 1848-1930, Professor der Philosophie.
+
+58 Herbert Spencer, 1820-1903, englischer Philosoph und Soziologe. Werke (Auswahl): «Education, intellectual, moral, physical», 1861, «Principles of Biology», 1864, «Sociology», 1877.
+
+Wladimir Sergejewitsch Solowjew, 1853-1900, russischer Philosoph und Dichter. Studierte Naturwissenschaft und Philosophie, 1874 Privatdozent, 1877-81 Dozent in Petersburg und Moskau. - Werke (Auswahl): «Die geistigen Grundlagen des Lebens», 1882-84, dt.
+
+
+---
+
+1957; «Die Rechtfertigung des Guten», 1897, dt. 1916; «Russland und die Universale Kirche», 1889, dt. 1954; «Der Sinn der Liebe», 1896, dt. 1930.
+
+58 Francis Bacon (Baco von Verulam), 1561-1626, englischer Staatsmann, Advokat, Philosoph, Humanist, Essayist und Arzt.
+
+John Locke, 1632-1704, englischer Philosoph, Mediziner und Theologe.
+
+John Stuart MM, 1806-1873, englischer Philosoph und National-ökonom.
+
+61 Wir sehen bei Hegel, wie er zum Beispiel Newton nicht leiden kann: Siehe «Vorlesungen über die Naturphilosophie als der Encyklopädie der philosophischen Wissenschaften im Grundrisse», 2. Auflage Berlin 1847, 2. Teil, S. 317ff. (§ 320) und S. 97ff. (§ 270), und «Dissertatio Philosophica de Orbitis Planetarum. Philosophische Erörterungen über die Planetenbahnen», übersetzt, eingeleitet und kommentiert von Wolf gang Neuser, Weinheim 1986.
+
+Isaac Newton, 1642-1727, englischer Physiker, Astronom und Mathematiker. - Zu seiner mechanischen Auffassung des Kosmos siehe «Philosophiae naturalis principia mathematica», 1687; zur Farbenlehre siehe «Optics», 1704.
+
+Johannes Kepler, 1571-1630, Astronom, Mathematiker und Physiker. Zur Berechnung seiner drei Gesetze der Planetenbewegung konnte er die Beobachtungsdaten Tycho de Brahes benutzen, dessen Nachfolger er am Hofe zu Prag geworden war. Andererseits war das kopernikanische Planetensystem der Ausgangspunkt für das Finden der drei Planetengesetze. Kepler versuchte als erster die Dynamik der Planetenbahnen zu deuten und verlegte das Kräftezentrum in die Sonne.
+
+er analysiert die Keplerschen Formen: Hegel: «Encyklopädie ...», 2. Teil, S. 97ff. (1 270).
+
+62 was Goethe gegenüber Schiller sagte: Siehe den 1. Hinweis zu S. 21.
+
+63 Er fühlt: Siehe Hegel: «Wissenschaft der Logik», 2. Auflage Berlin 1841, 1. Teil, 1. Band, Einleitung, S. 33: «Die Logik ist sonach als das System der reinen Vernunft, als das Reich des reinen Gedankens zu fassen. Dieses Reich ist die Wahrheit, wie sie ohne Hülle an und für sich selbst ist. Man kann sich deswegen ausdrücken, daß dieser Inhalt die Darstellung Gottes ist, wie er in seinem ewigen Wesen vor der Erschaffung der Natur und seines endlichen Geistes ist.»
+
+seine «Logik» ..., den einen der drei Teile: Der 1. Teil von Hegels «(Encyklopädie ...) trägt den Titel «Die Logik».
+
+
+---
+
+63 Der Logos muß sein « Gott vor der Erschaffung der Welt»: Siehe den 1. Hinweis zu S. 63.
+
+64 Er beginnt beim «Sein» ...: Siehe Hegels «Wissenschaft der Logik» (siehe den 1. Hinweis zu S. 63). - Vgl. Rudolf Steiners Vortrag Berlin, 13. November 1908: «Das Bilden von Begriffen und die Kategorienlehre Hegels» in «Die Beantwortung von Welt- und Lebensfragen durch Anthroposophie», GA 108.
+
+66 David Hume, 1711-1776, englischer Philosoph und Historiker.
+
+«Die Natur ist der Geist in seinem Anderssein»: Siehe Hegel: «Encyklopädie ...» (siehe den 3. Hinweis zu S. 56), 2. Teil, § 247, S. 23: «Die Natur hat sich als die Idee in der Form des Andersseyns ergeben.»
+
+«Der Geist ist der Begriff...»: Ebenda, 3. Teil, 3. Band, § 381, S. 14f.: «Als die unterscheidende Bestimmtheit des Begriffs des Geistes muß die Idealität, das heißt, das Aufheben des Andersseyns der Idee, das aus ihrem Anderen in sich Zurückkehren und Zurückgekehrtseyn derselben bezeichnet werden ...», und S. 20: «So aufgefaßt wird der endliche Geist als Totalität, als Idee und zwar als die für sich seyende, aus jenem Gegensatze zu sich selbst zurückkehrende wirkliche Idee erkannt.»
+
+67 Konzil zu Nicāa: Das Konzil von 325, auf dem das athanasische Glaubensbekenntnis (Wesensgleichheit des Gottessohnes mit dem Vater, nicht Wesensähnlichkeit) als das rechtgläubige anerkannt wurde. - Für die Zeit der ersten christlichen Jahrhunderte bis zu diesem Konzil vgl. den Vortrag «Anthroposophie und Weltorientierung. Ost-West in der Geschichte», Wien, 3. 6. 1922, in «Westliche und östliche Weltgegensätzlichkeit ...», GA 83, bes. S. 102f.
+
+68 Charles Darwin, 1809-1882, englischer Naturforscher, Mediziner, Geologe und Botaniker.
+
+Oswald Külpe, 1862-1915, Philosoph und Psychologe.
+
+69 Newton hat ja bekanntlich in ganz einseitig mystischer Weise die Apokalypse zu erklären versucht: Siehe Isaac Newton: «Observations upon the prophecies of Daniel and the Apokalypse of St. John», 2 Teile, London 1733.
+
+71 Ernst Haeckel: Siehe Hinweis zu S. 43.
+
+Atomtheorie, die ich auch nicht negiere, sondern nur an ihren richtigen Platz stellen will: Siehe hierzu Heft Nr. 63 der «Beitrage zur Rudolf Steiner Gesamtausgabe», Dornach, Michaeli 1978, das ganz dem Thema «Rudolf Steiner über den Atomismus» gewidmet ist.
+
+
+---
+
+73 in meinen Schriften: Rudolf Steiner: «Die Geheimwissenschaft im Umriß» (1910), GA 13, und «Wie erlangt man Erkenntnisse der höheren Welten?» (1904/05), GA 10.
+
+75 in den verschiedenen Schriften: Siehe Hinweis oben.
+
+76 Emil Molt, 1876-1936, Kommerzienrat, Industrieller. Direktor der Waldorf-Astoria-Zigarettenfabrik in Stuttgart, und Mitbegründer der «Kommenden Tag AG», Stuttgart. - Er richtete für die Angehörigen der Firma Arbeiterbildungskurse ein. Sein Wunsch, für die Kinder der Fabrikarbeiter eine im Sinne von Rudolf Steiner geführte Schule zu haben, wurde der Anstoß für die Begründung der ersten «Waldorfschule» in Stuttgart. - Siehe Emil Molt: «Entwurf meiner Lebensbeschreibung», Stuttgart 1972, S. 202-210: «Die Waldorfschule».
+
+«Die Erziehung des Kindes vom Gesichtspunkte der Geisteswissenschaft»: Dieser Aufsatz Rudolf Steiners erschien erstmals 1907 in der Zeitschrift «Lucifer-Gnosis», ab 1907 als selbständige Ausgabe in vielen Auflagen. Gedruckt im Band «Lucifer-Gnosis. Grundlegende Aufsätze zur Anthroposophie und Berichte aus den Zeitschriften <luzifer> und <lucifer-gnosis> 1903-1908», GA 34.
+
+82 «Die Philosophie der Freiheit»: Rudolf Steiner: «Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung - Seelische Beobachtungsresultate nach naturwissenschaftlicher Methode» (1894), GA 4.
+
+89 Jugendbewegung: Um 1900 in Deutschland entstandene Protestbewegung junger Menschen, die sich gegen traditionelle bürgerliche Auffassungen wendete und nach ihr wesensgemäß Lebensformen suchte (Wandervogel etc.). Nach dem Weltkrieg 1914-1918 zersplitterte die Jugendbewegung nach und nach in einzelne «Bünde».
+
+96 in meinen «Kernpunkten ...»: Rudolf Steiner: «Die Kernpunkte der sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft» (1919), GA 23.
+
+99 Versailler Vertrag: Dieser Friedensvertrag zwischen den Alliierten und dem Deutschen Reich wurde am 28. Juni 1919 unterzeichnet und trat am 10. Januar 1920 in Kraft.
+
+100 Theoretiker ... allerlei Diskussionen: Siehe z. B. die Zeitschrift «Tribüne. Halbmonatsschrift für soziale Verständigung», Tübingen, die ihre 1. Nummer (Juni oder Juli 1919) der Diskussion über Rudolf Steiners Dreigliederungsidee widmete. Die betreffenden Aufsätze sind abgedruckt in den «Beiträgen zur Rudolf Steiner Gesamtausgabe», Nr. 106, Dornach, Ostern 1991.
+
+
+---
+
+101 Es kam das ganze furchtbare Valuta-Elend: Die deutsche Währung wurde nach dem 1. Weltkrieg durch eine sich ständig steigernde Inflation (1923 1 Goldmark = 1 Billion) völlig entwertet.
+
+mein «Aufruf an das deutsche Volk ...»: Dieser Aufruf «An das deutsche Volk und an die Kulturwelt», von Rudolf Steiner verfaßt und von einer Anzahl bekannter Persönlichkeiten des öffentlichen Lebens unterzeichnet, wurde im März 1919 als Flugblatt gedruckt und weit verbreitet. - Abgedruckt in «Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921», GA 24, sowie als Anhang in den «Kernpunkten» (siehe Hinweis zu S. 96).
+
+102 was ich wiederholt am Schlüsse von Vorträgen, die ich im Anschlüsse an die «Kernpunkte» hielt, damals gerufen habe: Siehe Vortragszyklus «Neugestaltung des sozialen Organismus» (1919), GA 330.
+
+103 ein Artikel: Nicht bekannt.
+
+David Lloyd George, 1863-1945, 1916-1922 englischer Ministerpräsident.
+
+Vorträge, den ich hier zuletzt in der Philharmonie gehalten habe: Bezieht sich auf den öffentlichen Vortrag «Anthroposophie in ihrem Wissenschaftscharakter», den Rudolf Steiner am 7. März 1922 im weiteren Rahmen dieses Hochschulkurses hielt (noch nicht veröffentlicht).
+
+Das wirtschaftliche Leben hat sich zunächst: Siehe hierzu die ausführlichere Darstellung in den Vorträgen vom 26., 28. und 29. August 1922 in «Die geistig-seelischen Grundkräfte der Erziehungskunst. Spirituelle Werte in Erziehung und sozialem Leben», GA 305.
+
+106 Adam Smith, 1723-1790, englischer Nationalökonom und Philosoph. Hauptwerk: «An Inquiry into the Nature and Causes of the Wealth of Nations», 4 Bände, 1776. Deutsch von Max Stirner: «Untersuchungen über die Natur und die Ursache des Wohlstandes der Nationen», 1846/47.
+
+Karl Marx, 1818-1883, Begründer des wissenschaftlichen Sozialismus und des historischen Materialismus. Hauptwerke: «Zur Kritik der politischen Ökonomie», 1859, und «Das Kapital. Kritik der politischen Ökonomie», 1867/94.
+
+107 David Ricardo, 1772-1823, englischer Nationalökonom, Schüler von Adam Smith, Lehrer von Karl Marx.
+
+John Stuart Müh Siehe Hinweis zu S. 58.
+
+
+---
+
+108 die sogenannten «Vierzehn Punkte» Woodrow Wilsons: Woodrow Wilson (1856-1924), amerikanischer Präsident von 1912-1920, stellte 1918 dem amerikanischen Kongreß sein Programm für einen Weltfrieden vor, bekannt als die «Vierzehn Punkte». Dieses Programm wurde im Versailler Vertrag 1919 nicht verwirklicht. Siehe «Die Reden Woodrow Wilsons», englisch und deutsch, Der Freie Verlag Bern, Bern 1919.
+
+109 Im Jahre 1917 versuchte ich: Bereits im Jahre 1917 verfaßte Rudolf Steiner nach Gesprächen mit Graf Otto Lerchenfeld und Graf Ludwig Polzer-Hoditz zwei Memoranden, in denen er zu grundlegenden politischen Fragen angesichts der damaligen Situation Stellung nahm. Die beiden genannten Persönlichkeiten wandten sich mit diesen Memoranden an einflussreiche Politiker, so u.a. an den deutschen Staatssekretär Kühlmann und an Arthur Polzer-Hoditz, den Kabinetchef Kaiser Karls von Österreich. Die Memoranden wurden erstmals veröffentlicht in Roman Boos: «Rudolf Steiner während des Weltkrieges», Dornach 1933. Innerhalb der Gesamtausgabe siehe «Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921», GA 24.
+
+110 fast jeden Nachmittag nach zwei Uhr: Vgl. hierzu «Mein Lebensgang», GA 28, Kap. VIII, S. 148f.
+
+111 die alten Stände: Die Formulierung «Nährstand, Wehrstand, Lehrstand» stammt von Erasmus Alberus (1500-1553), ähnlich auch Luther; sie faßt das von Plato in der «Politeia» über die Stände Gesagte zusammen; siehe den «phönikischen Mythos», wonach Gott den Herrschenden (Weisen) bei der Geburt Gold, ihren Beihelfern, den Wächtern, Silber, den Bauern und Handwerkern aber Eisen und Erz beigemischt haben («Politeia» III. Buch, 414ff. St.). Siehe hierzu auch Vincenz Knauer: «Die Hauptprobleme der Philosophie», Wien und Leipzig 1892. Das Buch befindet sich in der Bibliothek Rudolf Steiners. Dort heißt es in den Vorlesungen über Plato (S. 124): «Wie sich das Seelische im einzelnen Menschen in das Vernünftige, Irascible und Concupiscible gliedert, so finden sich im Staate drei Stände, die wir einer uns geläufigen Redeweise ganz entsprechend als Lehr-, Nähr- und Wehrstand bezeichnen können.»
+
+114 wie ja der natürliche Organismus auch unter dem Einfluß seiner relativen Dreigliederung: Vgl. Rudolf Steiner: «Von Seelenrätseln» (1917), GA 21, Kap. «Die physischen und die geistigen Abhängigkeiten der Menschen-Wesenheit». Dort wird die Dreigliedrigkeit der Seele durch ihr Denken, Fühlen und Wollen dargestellt.
+
+Zu Begriffen wie Arbeit und Kapital siehe u.a. Rudolf Steiners Ausführungen im Zyklus «Nationalökonomischer Kurs. Aufgaben
+
+
+---
+
+einer neuen Wirtschaftswissenschaft, Band I» (Dornach 1922), GA 340, Stichwortregister.
+
+118 Zum «Theologentag» des Berliner Hochschulkurses siehe die Berichte von Ernst Uehli und Eberhard Kurras im Anhang, S. 189ff. und 194ff..
+
+In dieser Zeitungsnotiz steht: In der Wochenschrift «Die Christliche Welt», Marburg, 36. Jg., Nr. 9, 2. März 1922, S. 157f., erschien folgende Notiz: «[...] Diese Veranstaltung am Freitag ist nun eine unzweideutige Herausforderung Steiners und seiner Anhänger an die heutigen Theologen. Ich sage das ohne jeden Vorwurf. Denn theologische Wissenschaft ist so wenig sakrosankt wie irgend eine andere. Und wie gern wir sie (und uns mit) der Kritik unterwerfen, wissen unsre Leser. Es weiß es vor allem auch Rittelmeyer [...] So ist auch der Waffengang der Steinergruppe willkommen. Nur wird eben der Handschuh aufgehoben werden müssen. Bisher haben wir unserseits uns am Für und Wider genügen lassen [...] Die Männer haben recht, es gibt da auf die Dauer keine Neutralität, und sie wollen uns eine Schlacht liefern, die sie entweder gewinnen oder verlieren. Ich meinerseits kann nur wünschen, daß diese Tagung wirklich ein entscheidendes Ergebnis zeitigt. Und wäre es eben nur dies: ob wir Steiner alle ernstlich studieren müssen oder nicht [...] Wir sind daran mehr interessiert als andere Gruppen innerhalb der heutigen Theologie, weil Geyer und Rittelmeyer zu unsern anerkannten und geschätztesten Freunden gehören [...]» (D. Rade). -
+
+Heinrich Frick, Berichterstatter der «Christlichen Welt», schrieb dazu in Nr. 13 vom 30. März 1922, S. 227: «Ich habe alsbald privatim Dr. Rittelmeyer und öffentlich zu Beginn der Aussprache (Dr. R. erteilte mir freundlichst als erstem Redner das Wort zu meiner Erklärung) dargelegt, daß der Ausdruck <herausforderung> in der Christlichen] W[elt] nicht gemeint gewesen sei als auf eine bestimmte Person im Sinne eines ethischen Vorwurfes gerichtet (denn Niemand von uns wußte ja, wer eigentlich das Thema formuliert hatte), sondern daß die Formulierung selbst (rein sachlich ihr Wortlaut) als Herausforderung empfunden werden mußte. Ich erinnerte daran, daß bei ruhiger Lektüre des Programms es auffallen müsse, daß an keinem Tage so scharf eine ganz bestimmte Größe nicht nur genannt, sondern zugleich bewertet wird wie gerade die Theologie, von der doch dasteht: <der [...]="" der="" dermeint="" dermeint.="" dermeint.="" dermeint.ddas="" die="" diegenwärtigen="" die="" die:="" daran,="" das="" dann="" dermald="" dreimal="" dieun.="" dieun.rem.="" ein="" ein.rem.="" ein.rem.1.="" ein.rem.2.="" ein.rem.3.="" ein.rem.4.="" ein.rem.5.="" ein.rem.6.="" ein.rem.7.="" ein.rem.8.="" ein.rem.9.="" ein.rem.10.="" ein.rem.11.="" ein.rem.12.="" ein.rem.13.="" ein.="" ein.rem.14.="" ein.rem.15.="" ein.rem.16.="" ein.rem.17.="" ein.rem.2.="" ein.rem.3.="" ein.rem.4.="" ein.rem.5.="" ein.rem.6.="" ein.rem.8.="" ein.rem.9.="" ein.rem.10.="" ein.rem.11.="" ein.rem.12.="" ein.rem.13.="" ein.rem.14.="" ein.rem.2.=""
+
+
+---
+
+Dr. Rittelmeyer erklärte demgegenüber privatim und öffentlich, er selbst habe, als er das Thema formulierte, nicht an eine <herausforderung> gedacht, sondern nur an eine ernste Frage, diese allerdings mit allem Nachdruck den Theologen ins Gewissen schieben wollen.»
+
+120 experimentelle Psychologie: Bezieht sich auf eine Richtung der Psychologie, die v.a. von Forschern wie Wundt, Stumpf, Lange, James, Ziehen, Külpe, Ebbinghaus, G.E. Müller, Martius, Stern und Neumann vertreten wurde.
+
+121 Ernst Haeckel: Siehe Hinweis zu S. 43.
+
+«Es ist nichts im Verstande, was nicht vorher in den Sinnen ist»: «Nihil est in intellectu, quod non fuerit in sensu,?» In dieser Formulierung findet sich der Satz erst bei Thomas von Aquino (Quaestiones de veritate II, 3. Coloniae 1475), ähnlich formuliert auch schon bei Cicero (De finibus I, 19); jedoch entspricht er den Ausführungen in Aristoteles' Schrift «De anima». Siehe besonders Buch 3, Kap. 8: «Da es aber außer den empfundenen Größen (nämlich durch Sinnesempfindung), wie es scheint, kein Ding gibt, das abgetrennt für sich existierte, so ist in den empfundenen Formen auch das Gedachtwerdende, das durch Abstraktion Gesagte, und alle Beschaffenheit und Zustände des Empfundenen. Und deshalb kann man, wenn man nichts empfindet, auch nichts lernen, noch verstehen.» (Übersetzt von F. A. Kreuz).
+
+der Leibnizsche Satz: «Nihil est in intellectu, quod non fuerit in sensu, nisi ipse intellectus». Siehe Gottfried Wilhelm Leibniz (1646 bis 1716): «Neue Abhandlungen über den menschlichen Verstand», Buch II, Kap. I, (Theophilus): «Man wird mir jenes von den Philosophen anerkannte Axiom entgegenhalten, daß nichts in der Seele ist, das nicht von den Sinnen stammt. Aber man muß die Seele selbst und ihre Affektionen davon ausnehmen. Nihil est in intellectu, quod non fuerit in sensu, excipe: nisi intellectus ipse. Die Seele schließt in sich das Sein, die Substanz, das Eine, das Gleiche, die Ursache, die Perzeption, das vernünftige Denken und viele andere Begriffe, die die Sinne nicht geben können.» - Siehe dazu auch R. Steiners Vortrag vom 17. September 1915 in «Der Wert des Denkens für eine den Menschen befriedigende Erkenntnis. Das Verhältnis der Geisteswissenschaft zur Naturwissenschaft», GA 164.
+
+123 wenn mir Dinge gesagt wurden, wie zum Beispiel von einer heute auch hier anwesenden sehr verehrten Persönlichkeit: Friedrich Rittelmeyer (1872-1938), war protestantischer Geistlicher, von 1902-1916 ein bekannter Prediger in Nürnberg, dann an der «Neuen Kirche» in Berlin, und Verfasser theologischer Schriften.
+
+
+---
+
+Er stand seit 1911 in Verbindung mit Rudolf Steiner («Meine Lebensbegegnung mit Rudolf Steiner», Stuttgart 1928) und gab 1921 das Sammelwerk «Vom Lebenswerk Rudolf Steiners» heraus. Er leitete den hier vorliegenden «Berliner Hochschulkurs» und war Mitbegründer und erster Erzoberlenker der im Herbst 1922 begründeten «Christengemeinschaft, Bewegung für religiöse Erneuerung»; von 1923 an auch im Vorstand der Deutschen Anthroposophischen Gesellschaft. Eine kurze Biographie Friedrich Rittelmeyers ist enthalten in Rudolf Gädekes «Die Gründer der Christengemeinschaft», Dornach 1992. - Rittelmeyer hatte sich dahingehend auch in seinem Aufsatz «Johannes Müller und Rudolf Steiner» in der Zeitschrift «Die Christliche Welt», Nr. 22/23, 30. Mai 1918, geäußert. Auf eine Beschuldigung Müllers, Rudolf Steiner mache «aus der okkulten Welt eine Sensation für die Neugier und Lüsternheit der abergläubischen Instinkte der Menschen» erwiderte Rittelmeyer dort (S. 215, Fußnote): «Weder die Themata noch die Vorträge selbst haben je das Geringste von solcher Spekulation enthalten. Steiner mutet insbesondere den Hörern der öffentlichen Vorträge meist eine geistige Anstrengung zu, die alle nicht sehr ernsthaften Hörer bald wieder abschreckt, und macht ihrer Neugier und Sensationslüsternheit kein Zugeständnis [...]».
+
+129 Vater-Erlebnis: Vgl. hierzu z. B. die Vorträge vom 20. Februar und 13. März 1917 in «Bausteine zu einer Erkenntnis des Mysteriums von Golgatha. Kosmische und menschliche Metamorphose», GA 175, und «Wie finde ich den Christus?» vom 16. Oktober 1918 in «Der Tod als Lebenswandlung», GA 182.
+
+Was ich gestern gesagt habe über das Ausbilden des Urteils: Bezieht sich auf den öffentlichen Abendvortrag «Anthroposophie als Lebensinhalt», den Rudolf Steiner am 9. März 1922 anlässlich des Hochschulkurses hielt (noch nicht veröffentlicht).
+
+130 Wladimir Solowjew: Siehe u.a. seine «Zwölf Vorlesungen über das Gottmenschentum», Stuttgart 1921/22.
+
+133 «Ich bin bei Euch alle Tage bis an das Ende der Welt»: Matth. 28, 20.
+
+134 Friedrich Nietzsche, 1844-1900, Philosoph.
+
+In dem Buche von Friedrich Nietzsches Freund Overbeck: Franz Overbeck (1837-1905), Professor der Theologie in Basel, Freund Friedrich Nietzsches. - «Über die Christlichkeit unserer heutigen Theologie», 1873.
+
+135 Johannes Scotus Erigena, 810-877, irischer Philosoph, Vorläufer der scholastischen Philosophie.
+
+m o
+
+
+---
+
+135 Thomas von Aquino, 1225-1274, christlicher Kirchenlehrer, Philosoph und Scholastiker. 1323 heilig gesprochen.
+
+136 Schon vor vielen Jahren hielt ich einmal in einer süddeutschen Stadt ... einen Vortrag über «Bibel und Weisheit»: In Colmar im Jahr 1905. Eine Nachschrift liegt nicht vor. Über das Thema «Bibel und Weisheit» hat Rudolf Steiner an verschiedenen Orten gesprochen. Gedruckt sind die Berliner Vorträge vom 12. und 14. November 1908 in «Wo und wie findet man den Geist?», GA 57; Einzelausgabe Dornach 1993.
+
+138 Waldorf schule: Siehe hierzu den Vortrag «Anthroposophie und Erziehungswissenschaft» in diesem Band.
+
+140 Bei einem kurzen Kurse: Rudolf Steiner: «Geisteswissenschaftliche Sprachbetrachtungen. Eine Anregung für Erzieher» (6 Vorträge, Stuttgart 1919/1920), GA 229.
+
+141 Ich habe zu Weihnachten in Dornach am Goetheanum einen Vortragszyklus zu halten gehabt: «Die gesunde Entwicklung des Menschenwesens. Eine Einführung in die anthroposophische Pädagogik und Didaktik» («Weihnachtskurs für Lehrer», 16 Vorträge und 3 Fragenbeantwortungen, Dornach 1921/22), GA 303.
+
+142 in einem dieser Vorträge: Ebenda, Vortrag vom 7. Januar 1922: «Die ethische und die religiöse Erziehung im besonderen».
+gestern: Bei dem Vortrag «Anthroposophie und Theologie».
+
+143 Rittelmeyer hat ... geantwortet mit dem Vergleich zwischen dem Kopf und dem Buch: Zu Friedrich Rittelmeyer siehe den Hinweis zu S. 123. - Vermutlich hatte Rittelmeyer in der Diskussion den bekannten Aphorismus Georg Christoph Lichtenbergs zitiert: «Wenn ein Buch und ein Kopf zusammenstoßen und es klingt hohl, ist das allemal im Buch?»
+
+148 Ich habe jene eine große Umwandlung hier wiederholt charakterisiert: Siehe u.a. folgende Berliner Vorträge: 26. Januar 1911 in «Antworten der Geisteswissenschaft auf die großen Fragen des Daseins», GA 60; 15. Februar 1912 in «Menschengeschichte im Lichte der Geistesforschung», GA 61; und 13. Februar 1913 in «Ergebnisse der Geisteswissenschaft», GA 62.
+
+155 Wilhelm Wundt, 1832-1920, Arzt, Philosoph und Psychologe, Professor in Heidelberg, Zürich und Leipzig. - Siehe seine «Völkerpsychologie. Eine Untersuchung der Entwicklungsgesetze von Sprache, Mythus und Sitte», 1. Band: «Die Sprache», 1. Teil, Leipzig 1900; Kap. 9: «Der Ursprung der Sprache», I. «Allgemeine Standpunkte» und II. «Kritische Übersicht der vier Haupttheorien», S. 584-603.
+
+
+---
+
+155 gestern: Siehe den Vortrag «Anthroposophie und Theologie» in diesem Band.
+
+156 Christian Geyer, 1862-1929, evangelischer Theologe, Hauptprediger an der Sebalduskirche in Nürnberg. - Geyer hatte als Vortragsthema «Der Untergang des Christentums in Historismus». Seine Ausführungen sind den Herausgebern nicht bekannt.
+
+159 Eurythmievorstellung im Deutschen Theater: Am Sonntag, den 12. März, fand um 11.00 Uhr eine Eurythmievorstellung statt. Von den einleitenden Worten, die Rudolf Steiner hierzu sprach, ist keine Nachschrift vorhanden.
+
+164 Hegel hat ja bereits in seiner Philosophie ... gesagt: Eventuell handelt es sich hier um einen Hör- oder Übertragungsfehler des Stenographen.
+
+165 Emil Leinhasy, 1878-1967, Mitbegründer und später Generaldirektor der «Kommender Tag AG», Stuttgart. Ab Februar 1923 im Vorstand der Anthroposophischen Gesellschaft in Deutschland.
+
+166 Emil Bock, 1895-1959, Lic. theol, im Herbst 1922 Mitbegründer und Oberlenker der Christengemeinschaft, ab 1938 deren Erz-oberlenker. Zu seiner Biographie siehe «Die Gründer der Christengemeinschaft» von Rudolf F. Gädeke, Dornach 1992, und Gunhild Kacer-Bock: «Emil Bock. Leben und Werk», Stuttgart 1993.
+
+«Der Untergang der Religion ...»: Rudolf Steiner gibt die Titel hier frei wieder.
+
+169 ein Privatdozent: Paul Tillich, 1886-1965, war zur damaligen Zeit Dozent an der Theologischen Fakultät in Berlin, ab 1924 Professor für Religionswissenschaft und Sozialphilosophie u.a. in Leipzig, Dresden, Frankfurt. Tillich emigrierte 1933 nach Amerika, wo er zum führenden protestantischen Theologen der USA wurde. Siehe hierzu den Bericht «Wer hat <herausgefordert>?» von Heinrich Frick, in: «Die Christliche Welt», 36. Jg., Nr. 13, 30. März 1922, S. 225 ff.
+
+ein Pfarrer: Carl-Gunther Schweitzer, 1889-1965. 1921 gründete Schweitzer die apologetische Zentrale, u.a. zur Auseinandersetzung der evangelischen Theologie mit Geistesströmungen der damaligen Zeit.
+
+Gott sei eben das Unbedingte, das überall durchbricht: In einem Aufsatz «Anthroposophie und evangelische Theologie», veröffentlicht in der Zeitschrift «Die Christliche Welt», Nr. 17, vom 27. April 1922, schreibt Heinrich Frick hierzu:
+
+
+---
+
+«Als intellektualistisch empfinde ich überhaupt die Denkungsweise [der Anthroposophen], wie sie aus den meisten Vorträgen des Kursus sprach. Was heißt z.B. <höhere> Welten? Der Komparativ und das Wort selbst sind aus räumlicher Anschauung genommen. Ein großer Teil unsrer Begriffe entstammt ja räumlichen Beziehungen. Nun können wir auch vom Unräumlichen nicht anders reden als in solchen Begriffen; aber es liegt darin die große Gefahr, daß wir den Begriff und das Gemeinte nicht scharf genug auseinander haken. Der Begriff färbt ab, und wenn man lang genug räumliche Begriffe für Unräumliches gebraucht hat, kommt schließlich ein Stadium, in dem auch das Denken räumlich wird. Im Weltbild und erst recht im Gottesbegriff der Anthroposophie liegt offenbar eine solche Verräumlichung des Denkens vor. <stufen>, <pfad>, <höhere> und <niedere> Welten: wer so von Gott redet, macht ihn schließlich zu einem Zielpunkte, auf den menschliche Bewegung hinführen soll.
+
+Das ist aber Intellektualismus. Denn keine menschliche Bewegung führt näher zu Gott, niemals wird in räumlichen Bildern das Unräumliche wirklich erfaßt. Definieren läßt sich Gott nur in Paradoxien. Das Heilige ist immer solcher Art, daß es gleichzeitig im Zeiträumlichen sich objektiviert und die bereits gelungene Objektivation zertrümmert. Man mag durch tausend Welten immer <höher> steigen, Gott kommt man damit nicht um Haaresbreite näher. Denn Er ist nicht da, wohin wir mit unseren Kräften aufsteigen könnten, sondern Er ist da, wo er sich offenbaren will. Er wird faßbar in einem <durchbruch>. Ich wiederhole damit nur, was viele schon längst gesagt haben, was auf dem Kurs besonders Tillich treffend in folgendem Bild aussprach. Man hatte ihm gesagt, er stünde im <vorhof>, Anthroposophie im Allerheiligsten, wogegen er einwand, daß vor Gott wir alle im Vorhof stehen. Denn Gott wohnt nicht in einem Tempel von Menschenhänden gemacht, sondern Tempel ist da, wo Gott im Paradoxon der Wirklichkeit durchbricht. Und mag der Vorhof heißen, wie er will, er wird eben erst durch solchen Durchbruch Gottes zum Tempel. Gott ist da, oder er ist nicht da, aber es gibt kein <näher> oder <ferner> zu ihm nach Menschenweise.»
+
+169 Habe nun, ach!: Goethe: «Faust» I, Studierzimmer, Zeilen 354ff.: «Habe nun, ach! Philosophie, /Juristerei und Medizin, / Und leider auch Theologie / Durchaus studiert mit heißem Bemühn.»
+
+171 John Henry Newman, 1801-1890. Englischer Religionsphilosoph, ursprünglich anglikanischer Geistlicher. 1845 zum Katholizismus übergetreten, 1879 Kardinal. - Vgl. zu Newman auch Rudolf Steiners Vorträge Stuttgart, 15. Juni 1921, in «Vorträge und Kurse über christlich-religiöses Wirken, I», GA 342, und London, 24. April 1922: «Die dreifache Sonne und der auferstandene Christus»
+
+
+---
+
+in «Das Sonnenmysterium und das Mysterium von Tod und Auferstehung ...», GA 211.
+
+172 Paul Tillich: Siehe den 1. Hinweis zu S. 169.
+
+173 Leo XIII, 1810-1903. Papst von 1878-1903. Er erklärte Thomas von Aquino zum ersten Lehrer der katholischen Kirche.
+
+174 in den letzten Vorträgen: Siehe die Vorträge vom 24. und 26. Februar 1922 in «Alte und neue Einweihungsmethoden», GA 210.
+
+175 Hans Theberat, 1891-1971, Dr. der Chemie, war 1921-1924 im Forschungsinstitut der AG «Der Kommende Tag» tätig, später auf Rat Rudolf Steiners Lehrer an der Goetheschule in Hamburg.
+
+Kurt Grelling: Über Kurt Grelling ist nichts Näheres bekannt, da die Debatte nicht mitgeschrieben wurde. Auch über Grellings Auftreten beim Stuttgarter Kongreß ist nichts bekannt.
+
+im Stuttgarter Kursus: Vom 28. August bis 7. September 1921 fand in Stuttgart der Erste allgemeine öffentliche Kongreß «Kulturausblicke der anthroposophischen Bewegung» statt. Rudolf Steiner hielt dabei den Vortragszyklus «Anthroposophie, ihre Erkenntniswurzeln und ihre Lebensfrüchte, mit einer Einleitung über den Agnostizismus als Verderber echten Menschentums», abgedruckt in GA 78.
+
+176 Wiener Kongreß: Der «Zweite internationale Kongreß der anthroposophischen Bewegung zur Verständigung westlicher und östlicher Weltgegensätzlichkeit» fand vom 1. - 12. Juni 1922 statt und trug den Titel «West und Ost». In der Gesamtausgabe erschienen unter dem Titel «Westliche und östliche Weltgegensätzlichkeit. Wege zu ihrer Verständigung durch Anthroposophie», GA 83.
+
+178 Die hier genannten Vortragenden, Karl Schubert (1889-1949), Walter Johannes Stein (1891-1957) und Erich Schwebsch (1889-1953) waren Lehrer an der Freien Waldorfschule in Stuttgart. Siehe: «Der Lehrerkreis um Rudolf Steiner in der ersten Waldorfschule», Stuttgart 1977. Die Vorträge dieser Persönlichkeiten sind nicht mitgeschrieben worden.
+
+179 Eurythmie-Vorstellungen am Donnerstag und Sonntag: Von diesen beiden «kurzen Eurythmie-Vorstellungen» ist nichts bekannt. Zur Vorstellung im Deutschen Theater siehe Hinweis zu S. 159.
+
+Stuttgarter anthroposophischer Kongreß: Siehe Hinweis zu S. 175.
+
+
+---
+
+# NAMENREGISTER, Bacon, Francis 58
+Batsch, August Karl 21
+Bock, Emil 166, 167
+Darwinismus 70
+Du Bois-Reymond, Emil 15, 27, 28
+Erigena, Johannes Scotus 135
+Fichte, Johann Gottlieb 56, 68
+Geyer, D. 156, 166, 169
+Goethe, Johann Wolf gang von 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 31, 32, 36, 37, 38, 62, 70, 155
+Grelling, Kurt 175, 176*
+Haeckel, Ernst 43, 71, 121
+Hegel, Georg Wilhelm Friedrich 56, 57, 58, 60, 61, 62, 63, 64, 66, 68, 70, 72, 73, 74, 154, 164
+Hume, David 66, 72
+Kant, Immanuel 18, 57
+Kepler, Johannes 18, 61
+Kolisko, Eugen 36
+Kopernikus, Nikolaus 18
+Külpe, Oswald 68
+Laplace, Pierre Simon 27
+Leibniz, Gottfried Wilhelm 121
+Leinhas, Emil 165
+Leo XIII 173
+Liebmann, Otto 57
+Lloyd George, David 103
+Locke, John 58
+Mach, Ernst 17, 18, 19*
+Marx, Karl 106
+Mill, John Stuart 58, 66, 107
+Molt, Emil 76
+Newman, John Henry 171, 174
+Newton, Isaac 61, 62, 69, 70
+Nietzsche, Friedrich Wilhelm 134
+Overbeck, Franz 134
+Ricardo, David 107
+Rittelmeyer, Friedrich 124% 143, 166, 167, 168
+Schelling, Friedrich Wilhelm Joseph 56, 68
+Schiller, Friedrich 21, 23, 62
+Schieiden, Matthias Jakob 23
+Schubert, Karl 178
+Schwebsch, Erich 178
+Schweitzer, Carl-Gunther 169*
+Smith, Adam 106, 107
+Solowieff, Wladimir 58, 65, 66, 67, 68, 72, 73, 130
+Spencer, Herbert 58, 59, 60, 61, 65, 66, 68, 69
+Stein, Walter Johannes 178
+Steiner Rudolf
+Schriften und Vorträge
+Einleitung zu Goethes Natw. Schriften (GA 1) 21
+Die Philosophie der Freiheit (GA 4) 82
+Wie erlangt man Erkenntnisse (GA 10) 73
+Die Geheimwissenschaft (GA 13) 73
+Kernpunkte der sozialen Frage (GA23) 96, 97, 99, 100-, 101, 102, 110, 111, 113*, 114, 117
+Aufruf an das deutsche Volk (in GA 23 u.a.) 101
+
+
+---
+
+Die Erziehung des Kindes (in GA 34) 76
+Geisteswissenschaftliche Sprach-Betrachtungen (GA 299) 140*
+Die gesunde Entwicklung des Menschenwesens (GA 303) 141*, 142", 143*
+Vortrag «Bibel und Weisheit» (Colmar; Parallelvorträge in GA 57) 136
+Theberat, Hans 175
+Thomistik 135, 173, 174
+Tillich, Paul 169*, 172
+Virchow, Rudolf 16
+Volkelt, Johannes 57
+Wilson, Woodrow 108, 109
+Wundt, Wilhelm 155, 156
+
+
+---
+
+# RUDOLF STEINER GESAMTAUSGABE
+
+Gliederung nach: Rudolf Steiner- Das literarische und künstlerische Werk. Eine bibliographische Übersicht (Bibliographie-Nrn. kursiv in Klammern)
+
+## A. SCHRIFTEN
+
+### 1. Werke
+
+Goethes Naturwissenschaftliche Schriften, eingeleitet und kommentiert von R. Steiner, 5 Bände, 1884-97, Nachdruck 1975, (la-e); separate Ausgabe der Einleitungen, 1925 (1)
+Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung, 1886 (2)
+Wahrheit und Wissenschaft. Vorspiel einer &lt;Philosophie der Freiheit^ 1892 (3)
+Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung, 1894(4)
+Friedrich Nietzsche, ein Kämpfer gegen seine Zeit, 1895 (5)
+Goethes Weltanschauung, 1897 (6)
+Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung, 1901 (7)
+Das Christentum als mystische Tatsache und die Mysterien des Altertums, 1902 (8)
+Theosophie. Einführung in übersinnliche Welterkenntnis und Menschenbestimmung, 1904 (9)
+Wie erlangt man Erkenntnisse der höheren Welten? 1904/05 (10)
+Aus der Akasha-Chronik, 1904-08 (11)
+Die Stufen der höheren Erkenntnis, 1905-08 (12)
+Die Geheim Wissenschaft im Umriß, 1910 (13)
+Vier Mysteriendramen, 1910-13 (14)
+Die geistige Führung des Menschen und der Menschheit, 1911 (15)
+Anthroposophischer Seelenkalender, 1912 (in 40)
+Ein Weg zur Selbsterkenntnis des Menschen, 1912 (16)
+Die Schwelle der geistigen Welt, 19U (17)
+Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt, 1914 (18)
+Vom Menschenrätsel, 1916 (20)
+Von Seelenrätseln, 1917 (21)
+Goethes Geistesart in ihrer Offenbarung durch seinen Faust und durch das Märchen von der Schlange und der Lilie, 1918 (22)
+Die Kernpunkte der sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft, 1919 (23)
+Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921 (24)
+Kosmologie, Religion und Philosophie, 1922 (25)
+Anthroposophische Leitsätze, 1924/25, (26)
+Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)
+Mein Lebensgang, 1923-25 (28)
+
+
+---
+
+II. Gesammelte Aufsätze
+
+Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31), - Aufsätze zur Literatur 1886-1902 (32) - Biographien und biographische Skizzen 1894-1905 (33) - Aufsätze aus «Lucifer-Gnosis» 1903-1908 (34) - Philosophie und Anthroposophie 1904-1918 (35) - Aufsätze aus «Das Goetheanum» 1921-1925 (36)
+
+III. Veröffentlichungen aus dem Nachlaß
+
+Briefe - Wahrspruchworte - Bühnenbearbeitungen - Entwürfe zu den Vier Mysteriendramen 1910-1913 - Anthroposophie. Ein Fragment - Gesammelte Skizzen und Fragmente - Aus Notizbüchern und -blättern - (38-47)
+
+B. DAS VORTRAGSWERK
+
+7. Öffentliche Vorträge
+
+Die Berliner öffentlichen Vortragsreihen, 1903/04 bis 1917/18 (51-67) - Öffentlich Vorträge, Vortragsreihen und Hochschulkurse an anderen Orten Europas 1906-1924 (68-84)
+
+II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft
+
+Vorträge und Vortragszyklen allgemein-anthroposophischen Inhalts - Christologie und Evangelien-Betrachtungen - Geisteswissenschaftliche Menschenkunde - Kosmische und menschliche Geschichte - Die geistigen Hintergründe der sozialen Frage - Der Mensch in seinem Zusammenhang mit dem Kosmos - Karma-Betrachtungen - (91-244)
+
+Vorträge und Schriften zur Geschichte der anthroposophischen Bewegung und der Anthroposophischen Gesellschaft - Veröffentlichungen zur Geschichte und aus den Inhalten der Esoterischen Schule (251-270)
+
+III. Vorträge und Kurse zu einzelnen Lebensgebieten
+
+Vorträge über Kunst: Allgemein-Künstlerisches - Eurythmie - Sprachgestaltung und Dramatische Kunst - Musik - Bildende Künste - Kunstgeschichte - (271-292) - Vorträge über Erziehung (293-311) - Vorträge über Medizin (312-319) - Vorträge über Naturwissenschaft (320-327) - Vorträge über das soziale Leben und die Dreigliederung des sozialen Organismus (328-341) - Vorträge für die Arbeiter am Goetheanumbau (347-354)
+
+C. DAS KÜNSTLERISCHE WERK
+
+Originalgetreue Wiedergaben von malerischen und graphischen Entwürfen und Skizzen Rudolf Steiners in Kunstmappen oder als Einzelblätter: Entwürfe für die Malerei des Ersten Goetheanums - Schulungsskizzen für Maler - Programmabilder für Eurythmie-Aufführungen - Eurythmieformen - Entwürfe zu den Eurythmiefiguren - Wandtafelzeichnungen zum Vortragswerk, u. a.
+
+Die Bände der Rudolf Steiner Gesamtausgabe sind innerhalb einzelner Gruppen einheitlich ausgestattet. Jeder Band ist einzeln erhältlich.

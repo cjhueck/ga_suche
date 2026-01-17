@@ -14,13 +14,26 @@
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf"
+                "file": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino"
+              "title": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte"
+            }
+          },
+          {
+            "id": "97a6e1e20dca43bd",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "5ad89a4c92707216",
@@ -69,18 +82,122 @@
             "id": "1c8a5a04511de160",
             "type": "leaf",
             "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie"
+            }
+          },
+          {
+            "id": "baefbab1626bcb75",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte"
+            }
+          },
+          {
+            "id": "f5f71dfc3b30004d",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie"
+            }
+          },
+          {
+            "id": "ac230e256379f698",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende"
+            }
+          },
+          {
+            "id": "8b59c524e7575b61",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_final.md",
+                "file": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_final"
+              "title": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form"
+            }
+          },
+          {
+            "id": "43098f2f45d5b0eb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan"
+            }
+          },
+          {
+            "id": "5d6b0af341fe355d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie"
+            }
+          },
+          {
+            "id": "3f86a56a37b1fb96",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft"
+            }
+          },
+          {
+            "id": "dd13bc1401cd6701",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_final.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_final"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 11
       }
     ],
     "direction": "vertical"
@@ -137,7 +254,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 249.5
+    "width": 414.5
   },
   "right": {
     "id": "4efcffdc424c60f2",
@@ -215,13 +332,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_final.md",
+                "file": "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_final.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_final"
+              "title": "Outline of Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_final"
             }
           }
         ],
@@ -239,56 +356,55 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false,
-      "ocr-extractor:Extract text": false
+      "bases:Create new base": false
     }
   },
-  "active": "1c8a5a04511de160",
+  "active": "dd13bc1401cd6701",
   "lastOpenFiles": [
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_final.md",
-    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben.pdf",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.md",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_prepared.md",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-4.png",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-3.png",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-2.png",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-1.png",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-0.png",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-4.jpeg",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-3.jpeg",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-2.jpeg",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-1.jpeg",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_img-0.jpeg",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/assets",
-    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino",
-    "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie.pdf",
-    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben_final.md",
-    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben.md",
-    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben_prepared.md",
-    "Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften/Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften.pdf",
-    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/assets",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit.pdf",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_final.md",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde.pdf",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit.md",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_prepared.md",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_img-2.png",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_img-1.png",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_img-0.png",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_img-2.jpeg",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_img-1.jpeg",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_img-0.jpeg",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_final.md",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde.md",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_prepared.md",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/assets/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_img-4.png",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/assets/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_img-3.png",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/assets/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_img-2.png",
+    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/assets/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_img-1.png",
+    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs.pdf",
+    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft_final.md",
+    "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten.pdf",
+    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft_prepared.md",
+    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft.md",
+    "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten_final.md",
+    "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten.md",
+    "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten_prepared.md",
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf",
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte_final.md",
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte_prepared.md",
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.md",
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte",
+    "Steiner, Rudolf GA 073a, 2005 - Fachwissenschaften und Anthroposophie.pdf",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/assets",
+    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/desktop.ini",
+    "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie.md",
+    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan.md",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
+    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie_final.md",
     "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie.md",
-    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben",
-    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie",
-    "Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften/Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften_final.md",
-    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie.pdf",
-    "Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod/Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod.md",
-    "Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben/Steiner, Rudolf GA 065, 2000 - Aus dem mitteleuropäischen Geistesleben.md",
-    "Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung/Steiner, Rudolf GA 062, 1988 - Ergebnisse der Geistesforschung_prepared.md",
-    "Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit/Steiner, Rudolf GA 064, 1959 - Aus schicksaltragender Zeit.md",
-    "Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung/Steiner, Rudolf GA 061, 1983 - Menschengeschichte im Lichte der Geistesforschung_final.md",
-    "Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins/Steiner, Rudolf GA 060, 1983 - Antworten der Geisteswissenschaft auf die großen Fragen des Daseins_final.md",
-    "Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften/Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften_prepared.md",
-    "Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften/Steiner, Rudolf GA 076, 1977 - Die befruchtende Wirkung der Anthroposophie auf die Fachwissenschaften.md",
-    "Steiner, Rudolf GA 073, 1987 - Die Ergänzung heutiger Wissenschaften durch die Anthroposophie/Steiner, Rudolf GA 073, 1987 - Die Ergänzung heutiger Wissenschaften durch die Anthroposophie_final.md",
-    "Steiner, Rudolf GA 073, 1987 - Die Ergänzung heutiger Wissenschaften durch die Anthroposophie/Steiner, Rudolf GA 073, 1987 - Die Ergänzung heutiger Wissenschaften durch die Anthroposophie.md",
-    "Steiner, Rudolf GA 073, 1987 - Die Ergänzung heutiger Wissenschaften durch die Anthroposophie/Steiner, Rudolf GA 073, 1987 - Die Ergänzung heutiger Wissenschaften durch die Anthroposophie_prepared.md",
-    "Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben/Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben_final.md",
-    "Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben/Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben.md",
-    "Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben/Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben_prepared.md",
-    "Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele/Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele_final.md",
-    "Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele/Steiner, Rudolf GA 067, 1992 - Das Ewige in der Menschenseele.md",
-    "Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod/Steiner, Rudolf GA 066, 1988 - Geist und Stoff, Leben und Tod_final.md"
+    "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie.md",
+    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie_prepared.md",
+    "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie_final.md",
+    "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie_prepared.md",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino_final.md"
   ]
 }

@@ -289,8 +289,10 @@ def process_content(content: str, pdf_pages: List[Dict]) -> str:
                         parts[i + 1] = parts[i + 1].lstrip()
                 
                 elif is_paragraph:
-                    # ABSATZUMBRUCH
-                    result.append(f" |{page_num}|\n\n")
+                    # ABSATZUMBRUCH - Marker am Anfang des neuen Absatzes
+                    result.append(f"\n\n|{page_num}| ")
+                    if i + 1 < len(parts):
+                        parts[i + 1] = parts[i + 1].lstrip()
                 
                 else:
                     # FLIESSTEXT
