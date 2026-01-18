@@ -22983,6 +22983,14 @@ function scrollToChronologicalYear(year) {
     const texteTab = document.getElementById('texte-tab');
     const isInTexteTab = texteTab && texteTab.classList.contains('active');
     
+    // Prüfe ob wir im Suche-Tab sind
+    const sucheTab = document.getElementById('keyword-tab');
+    const isInSucheTab = sucheTab && sucheTab.classList.contains('active');
+    
+    // Prüfe ob wir im Themen2-Tab sind (thematic2)
+    const themen2Tab = document.getElementById('thematic2-tab');
+    const isInThemen2Tab = themen2Tab && themen2Tab.classList.contains('active');
+    
     // Prüfe ob wir im GA-Tab sind
     const gaTab = document.getElementById('ga-tab');
     const isInGATab = gaTab && gaTab.classList.contains('active');
@@ -23009,8 +23017,8 @@ function scrollToChronologicalYear(year) {
       }
       // Button bleibt versteckt wenn kein GA-Band angezeigt wird, nur Standard-Nachricht, oder chronologische Ansicht aktiv
     }
-    // Im Themen-Tab oder Timeline-Tab: Button NUR anzeigen wenn ein GA-Band im Main Viewer angezeigt wird (currentLectureData gesetzt)
-    else if (isInThematicTab || isInTimelineTab) {
+    // Im Themen-Tab, Themen2-Tab oder Timeline-Tab: Button NUR anzeigen wenn ein GA-Band im Main Viewer angezeigt wird (currentLectureData gesetzt)
+    else if (isInThematicTab || isInTimelineTab || isInThemen2Tab) {
       if (currentLectureData) {
         // Extrahiere GA-Nummer aus currentLectureData
         const lectureId = currentLectureData.ID || currentLectureData.lectureId;
@@ -23020,6 +23028,29 @@ function scrollToChronologicalYear(year) {
             // Setze currentGANumber für zukünftige Verwendung
             currentGANumber = gaMatch[1];
             gaInfoBtn.style.display = 'inline-flex';
+            // PDF-Button im Themen-Tab anzeigen
+            if (isInThemen2Tab && typeof updatePdfButtonVisibility === 'function') {
+              updatePdfButtonVisibility(currentGANumber);
+            }
+          }
+        }
+      }
+    }
+    // Im Suche-Tab: Button anzeigen wenn ein Vortrag/Buch geladen ist
+    else if (isInSucheTab) {
+      if (currentLectureData) {
+        // Extrahiere GA-Nummer aus currentLectureData
+        const lectureId = currentLectureData.ID || currentLectureData.lectureId;
+        if (lectureId) {
+          const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+          if (gaMatch) {
+            // Setze currentGANumber für zukünftige Verwendung
+            currentGANumber = gaMatch[1];
+            gaInfoBtn.style.display = 'inline-flex';
+            // PDF-Button im Suche-Tab anzeigen
+            if (typeof updatePdfButtonVisibility === 'function') {
+              updatePdfButtonVisibility(currentGANumber);
+            }
           }
         }
       }
@@ -44628,11 +44659,16 @@ window.cancelTextEditMode = function() {};
     const btn = document.getElementById('pdfToggleBtn');
     const activeTab = document.querySelector('.tab-content.active');
     const isTexteTab = activeTab && activeTab.id === 'texte-tab';
+    const isSucheTab = activeTab && activeTab.id === 'keyword-tab';
+    const isThemenTab = activeTab && activeTab.id === 'thematic2-tab';
+    
+    // PDF-Button in Texte-, Suche- und Themen-Tab anzeigen
+    const isPdfSupportedTab = isTexteTab || isSucheTab || isThemenTab;
     
     // Prüfe ob es ein GA-Band ist (GA001-GA354)
     const isGA = gaNumber && /^GA\d{1,3}[a-z]?$/i.test(gaNumber);
     
-    if (isTexteTab && isGA) {
+    if (isPdfSupportedTab && isGA) {
       btn.style.display = 'block';
       
       // Wenn sich die GA-Nummer geändert hat, PDF zurücksetzen
@@ -44650,17 +44686,23 @@ window.cancelTextEditMode = function() {};
     }
   };
   
-  // Bei Tab-Wechsel PDF-Panel schließen
+  // Bei Tab-Wechsel PDF-Panel immer schließen
   const originalSwitchTab = window.switchTab;
   if (originalSwitchTab) {
     window.switchTab = function(mode, skipHistory) {
-      // PDF-Panel schließen
+      // PDF-Panel bei jedem Tab-Wechsel schließen
       if (pdfPanelVisible) {
         closePdfPanel();
       }
-      // PDF-Button verstecken
-      const btn = document.getElementById('pdfToggleBtn');
-      if (btn) btn.style.display = 'none';
+      
+      // PDF-unterstützte Tabs: texte, keyword, thematic2
+      const pdfSupportedTabs = ['texte', 'keyword', 'thematic2'];
+      
+      // PDF-Button verstecken wenn zu einem nicht-unterstützten Tab gewechselt wird
+      if (!pdfSupportedTabs.includes(mode)) {
+        const btn = document.getElementById('pdfToggleBtn');
+        if (btn) btn.style.display = 'none';
+      }
       
       return originalSwitchTab(mode, skipHistory);
     };
@@ -44686,9 +44728,10 @@ window.cancelTextEditMode = function() {};
       const pageNum = parseInt(numSpan.textContent.trim());
       if (isNaN(pageNum)) return;
       
-      // Nur im Texte-Tab reagieren
+      // In Texte-, Suche- und Themen-Tab reagieren
       const activeTab = document.querySelector('.tab-content.active');
-      if (!activeTab || activeTab.id !== 'texte-tab') return;
+      const pdfSupportedTabs = ['texte-tab', 'keyword-tab', 'thematic2-tab'];
+      if (!activeTab || !pdfSupportedTabs.includes(activeTab.id)) return;
       
       // PDF öffnen und zu Seite springen
       e.preventDefault();
