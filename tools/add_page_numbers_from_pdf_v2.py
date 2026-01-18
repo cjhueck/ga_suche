@@ -71,10 +71,24 @@ def extract_pdf_pages(pdf_path: Path) -> List[Dict]:
         
         printed_page = None
         lines = text.strip().split('\n')
-        for line in reversed(lines[-10:]):
-            if re.match(r'^\d{1,3}$', line.strip()):
-                printed_page = int(line.strip())
-                break
+        
+        # Methode 1: Suche nach "Seite: X X X" (mit oder ohne Leerzeichen in der Zahl)
+        # Das ist das Copyright-Format: "Copyright Rudolf Steiner... Seite: 13 5"
+        for line in reversed(lines[-15:]):
+            # Format: "Seite: 13 5" oder "Seite: 135"
+            match = re.search(r'Seite:\s*([\d\s]+)', line, re.IGNORECASE)
+            if match:
+                page_str = match.group(1).replace(" ", "").strip()
+                if page_str.isdigit() and len(page_str) <= 4:
+                    printed_page = int(page_str)
+                    break
+        
+        # Methode 2: Fallback - reine Zahl in eigener Zeile
+        if printed_page is None:
+            for line in reversed(lines[-10:]):
+                if re.match(r'^\d{1,3}$', line.strip()):
+                    printed_page = int(line.strip())
+                    break
         
         pages.append({
             'pdf_page': idx + 1,

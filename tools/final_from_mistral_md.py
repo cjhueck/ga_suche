@@ -39,13 +39,15 @@ except ImportError:
 
 def convert_jpeg_to_png_in_folder(folder_path: Path) -> int:
     """
-    Konvertiert alle JPEG-Dateien in einem Ordner zu PNG.
+    Konvertiert alle JPEG-Dateien in einem Ordner zu PNG und vereinfacht Dateinamen.
+    
+    Beispiel: 'Steiner, Rudolf GA 089..._img-0.jpeg' → 'img-0.png'
     
     Args:
         folder_path: Pfad zum Ordner (z.B. assets/)
         
     Returns:
-        Anzahl konvertierter Dateien
+        Anzahl konvertierter/umbenannter Dateien
     """
     if not HAS_PIL:
         print("  WARNUNG: PIL nicht installiert, Bildkonvertierung übersprungen")
@@ -56,30 +58,61 @@ def convert_jpeg_to_png_in_folder(folder_path: Path) -> int:
     
     converted = 0
     
-    # Finde alle JPEG-Dateien
-    jpeg_files = list(folder_path.glob('*.jpeg')) + list(folder_path.glob('*.jpg')) + \
-                 list(folder_path.glob('*.JPEG')) + list(folder_path.glob('*.JPG'))
+    # Finde alle Bilddateien (JPEG und PNG)
+    image_files = list(folder_path.glob('*.jpeg')) + list(folder_path.glob('*.jpg')) + \
+                  list(folder_path.glob('*.JPEG')) + list(folder_path.glob('*.JPG')) + \
+                  list(folder_path.glob('*.png')) + list(folder_path.glob('*.PNG'))
     
-    for jpeg_file in jpeg_files:
+    for image_file in image_files:
         try:
-            png_file = jpeg_file.with_suffix('.png')
+            # Extrahiere die Bildnummer aus dem Dateinamen (z.B. img-0, img-1, ...)
+            img_match = re.search(r'(img-\d+)', image_file.stem, re.IGNORECASE)
             
-            # Öffne und konvertiere Bild
-            with Image.open(jpeg_file) as img:
-                # Konvertiere zu RGB für maximale Kompatibilität
-                if img.mode in ('RGBA', 'LA', 'P'):
-                    img.save(png_file, 'PNG', optimize=True)
+            if img_match:
+                simple_name = img_match.group(1).lower()  # z.B. "img-0"
+                target_file = folder_path / f"{simple_name}.png"
+                
+                # Wenn Quelldatei = Zieldatei, nichts tun
+                if image_file == target_file:
+                    continue
+                
+                # Wenn es eine JPEG-Datei ist, konvertiere zu PNG
+                if image_file.suffix.lower() in ('.jpeg', '.jpg'):
+                    with Image.open(image_file) as img:
+                        if img.mode in ('RGBA', 'LA', 'P'):
+                            img.save(target_file, 'PNG', optimize=True)
+                        else:
+                            rgb_img = Image.new('RGB', img.size, (255, 255, 255))
+                            rgb_img.paste(img)
+                            rgb_img.save(target_file, 'PNG', optimize=True)
+                    # Lösche Original
+                    image_file.unlink()
                 else:
-                    rgb_img = Image.new('RGB', img.size, (255, 255, 255))
-                    rgb_img.paste(img)
-                    rgb_img.save(png_file, 'PNG', optimize=True)
-            
-            # Lösche Original-JPEG
-            jpeg_file.unlink()
-            converted += 1
+                    # PNG-Datei: nur umbenennen wenn nötig
+                    if image_file != target_file:
+                        # Wenn Zieldatei bereits existiert, lösche Original
+                        if target_file.exists():
+                            image_file.unlink()
+                        else:
+                            image_file.rename(target_file)
+                
+                converted += 1
+            else:
+                # Kein img-X Pattern gefunden, nur JPEG zu PNG konvertieren
+                if image_file.suffix.lower() in ('.jpeg', '.jpg'):
+                    png_file = image_file.with_suffix('.png')
+                    with Image.open(image_file) as img:
+                        if img.mode in ('RGBA', 'LA', 'P'):
+                            img.save(png_file, 'PNG', optimize=True)
+                        else:
+                            rgb_img = Image.new('RGB', img.size, (255, 255, 255))
+                            rgb_img.paste(img)
+                            rgb_img.save(png_file, 'PNG', optimize=True)
+                    image_file.unlink()
+                    converted += 1
             
         except Exception as e:
-            print(f"    FEHLER bei {jpeg_file.name}: {e}")
+            print(f"    FEHLER bei {image_file.name}: {e}")
     
     return converted
 
@@ -87,7 +120,8 @@ def convert_jpeg_to_png_in_folder(folder_path: Path) -> int:
 def fix_image_placeholders_in_content(content: str) -> str:
     """
     Korrigiert Bildplatzhalter im Markdown-Text.
-    Konvertiert .jpeg/.jpg Referenzen zu .png.
+    1. Konvertiert .jpeg/.jpg Referenzen zu .png
+    2. Vereinfacht Bildpfade zu Format: ![img-X.png](assets/img-X.png)
     
     Args:
         content: Markdown-Text
@@ -124,6 +158,29 @@ def fix_image_placeholders_in_content(content: str) -> str:
         return f'![{alt_text_converted}]{path_part}'
     
     content = re.sub(alt_jpeg_pattern, convert_alt_jpeg_to_png, content)
+    
+    # Pattern 3: Vereinfache Bildpfade zu Format ![img-X.png](assets/img-X.png)
+    # Konvertiert z.B. ![Steiner, Rudolf GA 089..._img-0.png](assets/Steiner, Rudolf GA 089..._img-0.png)
+    # zu ![img-0.png](assets/img-0.png)
+    def simplify_image_path(match):
+        full_match = match.group(0)
+        # Extrahiere die Bildnummer (img-X)
+        img_num_match = re.search(r'(img-\d+)\.(png|jpe?g)', full_match, re.IGNORECASE)
+        if img_num_match:
+            img_name = img_num_match.group(1)
+            ext = img_num_match.group(2).lower()
+            if ext in ('jpeg', 'jpg'):
+                ext = 'png'
+            return f'![{img_name}.{ext}](assets/{img_name}.{ext})'
+        return full_match
+    
+    # Pattern für Bilder mit langem Präfix vor img-X
+    long_prefix_pattern = r'!\[[^\]]*_?(img-\d+)\.[^\]]+\]\(assets/[^)]*_?(img-\d+)\.[^)]+\)'
+    content = re.sub(long_prefix_pattern, simplify_image_path, content, flags=re.IGNORECASE)
+    
+    # Auch einfachere Muster abfangen
+    simple_prefix_pattern = r'!\[[^\]]+\]\(assets/[^)]*?(img-\d+)\.(png|jpe?g)[^)]*\)'
+    content = re.sub(simple_prefix_pattern, simplify_image_path, content, flags=re.IGNORECASE)
     
     return content
 
@@ -825,6 +882,75 @@ def format_lecture_titles(content: str, ga_number: str = "", toc_dates: dict = N
                     i = date_idx + 1
                 else:
                     i += 1
+                continue
+        
+        # Prüfe auf "## Erster/Zweiter/.../Zwölfter Vortrag" (H2 mit Zahlwort)
+        # z.B. "## Zwölfter Vortrag\n\nBerlin, 10. November 1904" → "# Zwölfter Vortrag, Berlin, 10. November 1904"
+        zahlwoerter = r'(?:[Ee]rster?|[Zz]weiter?|[Dd]ritter?|[Vv]ierter?|[Ff]ünfter?|[Ss]echster?|[Ss]iebter?|[Ss]iebenter?|[Aa]chter?|[Nn]eunter?|[Zz]ehnter?|[Ee]lfter?|[Zz]wölfter?|[Dd]reizehnter?|[Vv]ierzehnter?|[Ff]ünfzehnter?|[Ss]echzehnter?|[Ss]iebzehnter?|[Aa]chtzehnter?|[Nn]eunzehnter?|[Zz]wanzigster?)'
+        h2_vortrag_match = re.match(rf'^##\s+({zahlwoerter}\s+Vortrag)\s*$', line.strip(), re.IGNORECASE)
+        if h2_vortrag_match:
+            vortrag_title = h2_vortrag_match.group(1).strip()
+            
+            # Suche nach Datum in den nächsten Zeilen
+            date = None
+            date_idx = None
+            for j in range(i + 1, min(i + 6, len(lines))):
+                stripped = lines[j].strip()
+                if not stripped:
+                    continue
+                if stripped.startswith('#'):
+                    break
+                for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                    date_match = pattern.match(stripped)
+                    if date_match:
+                        date = date_match.group(1)
+                        date_idx = j
+                        break
+                if date:
+                    break
+                if stripped and ',' in stripped and any(c.isdigit() for c in stripped):
+                    date = stripped
+                    date_idx = j
+                    break
+            
+            if date:
+                result.append(f"# {vortrag_title}, {date}")
+                formatted_count += 1
+                i = date_idx + 1
+                continue
+        
+        # Prüfe auf "Erster/Zweiter/.../Zwölfter Vortrag" OHNE # 
+        # z.B. "Achter Vortrag\n\nBerlin, 2. November 1904" → "# Achter Vortrag, Berlin, 2. November 1904"
+        plain_vortrag_match = re.match(rf'^({zahlwoerter}\s+Vortrag)\s*$', line.strip(), re.IGNORECASE)
+        if plain_vortrag_match and not line.strip().startswith('#'):
+            vortrag_title = plain_vortrag_match.group(1).strip()
+            
+            # Suche nach Datum in den nächsten Zeilen
+            date = None
+            date_idx = None
+            for j in range(i + 1, min(i + 6, len(lines))):
+                stripped = lines[j].strip()
+                if not stripped:
+                    continue
+                if stripped.startswith('#'):
+                    break
+                for pattern in [date_pattern_strict, date_pattern_loose, date_pattern_very_loose, date_pattern_no_year]:
+                    date_match = pattern.match(stripped)
+                    if date_match:
+                        date = date_match.group(1)
+                        date_idx = j
+                        break
+                if date:
+                    break
+                if stripped and ',' in stripped and any(c.isdigit() for c in stripped):
+                    date = stripped
+                    date_idx = j
+                    break
+            
+            if date:
+                result.append(f"# {vortrag_title}, {date}")
+                formatted_count += 1
+                i = date_idx + 1
                 continue
         
         # Prüfe auf Titel OHNE # in Großbuchstaben (z.B. "BIBEL UND WEISHEIT")
