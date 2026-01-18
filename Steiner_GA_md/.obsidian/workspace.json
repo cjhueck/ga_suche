@@ -41,68 +41,6 @@
         "dimension": 48.24473420260782,
         "children": [
           {
-            "id": "8d83f69bb4fd2923",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben"
-            }
-          },
-          {
-            "id": "4d4e53b61e4b0f0d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie"
-            }
-          },
-          {
-            "id": "9d0cf1b7fb65959d",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino"
-            }
-          },
-          {
-            "id": "1c8a5a04511de160",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie"
-            }
-          },
-          {
-            "id": "baefbab1626bcb75",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte"
-            }
-          },
-          {
             "id": "f5f71dfc3b30004d",
             "type": "leaf",
             "state": {
@@ -115,89 +53,21 @@
             }
           },
           {
-            "id": "ac230e256379f698",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende"
-            }
-          },
-          {
-            "id": "8b59c524e7575b61",
+            "id": "6c8b7021a435f6f0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
+                "file": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_final.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form"
-            }
-          },
-          {
-            "id": "43098f2f45d5b0eb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan"
-            }
-          },
-          {
-            "id": "5d6b0af341fe355d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie"
-            }
-          },
-          {
-            "id": "3f86a56a37b1fb96",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft"
-            }
-          },
-          {
-            "id": "dd13bc1401cd6701",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form"
+              "title": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_final"
             }
           }
         ],
-        "currentTab": 11
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -254,7 +124,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 414.5
+    "width": 253.5
   },
   "right": {
     "id": "4efcffdc424c60f2",
@@ -332,13 +202,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
+                "file": "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/img-0.png",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form"
+              "title": "Outline of img-0"
             }
           }
         ],
@@ -359,53 +229,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "dd13bc1401cd6701",
+  "active": "189fb7af378e87fa",
   "lastOpenFiles": [
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/img-0a.png",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_final.md",
     "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.pdf",
-    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan.pdf",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-6.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-7.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-5.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-4.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-3.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-2.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-1.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-0.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-8.jpeg",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-11.jpeg",
-    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan_final.md",
-    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan.md",
-    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan_prepared.md",
     "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie.pdf",
-    "Steiner, Rudolf GA 087, 2019 - Antike Mysterien und Christentum.pdf",
-    "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie_final.md",
+    "Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben/Steiner, Rudolf GA 077a, 1997 - Die Aufgabe der Anthroposophie gegenüber Wissenschaft und Leben.pdf",
+    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie.md",
+    "Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino/Steiner, Rudolf GA 074, 1993 - Die Philosophie des Thomas von Aquino.pdf",
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf",
+    "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie.pdf",
     "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie.md",
+    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan.md",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
+    "Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende.pdf",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_prepared.md",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-53.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-52.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-51.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-50.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-49.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-48.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-47.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-46.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-45.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form_img-44.jpeg",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/assets",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form",
+    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft.md",
+    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/~~$Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.pdf",
+    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan_final.md",
+    "Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan/Steiner, Rudolf GA 088, 1999 - Über die astrale Welt und das Devachan_prepared.md",
+    "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie_final.md",
     "Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie/Steiner, Rudolf GA 084, 1986 - Was wollte das Goetheanum und was will die Anthroposophie_prepared.md",
-    "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit.pdf",
     "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_final.md",
-    "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde.pdf",
     "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit.md",
     "Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit/Steiner, Rudolf GA 083, 1981 - Westliche und östliche Weltgegensätzlichkeit_prepared.md",
     "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_final.md",
     "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde.md",
     "Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde/Steiner, Rudolf GA 082, 1994 - Damit der Mensch ganz Mensch werde_prepared.md",
-    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs.pdf",
     "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft_final.md",
-    "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten.pdf",
     "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft_prepared.md",
-    "Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft. Berliner Hochschulkurs/Steiner, Rudolf GA 081, 1994 - Erneuerungsimpulse für Kultur und Wissenschaft.md",
     "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten_final.md",
     "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten.md",
     "Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten/Steiner, Rudolf GA 079, 1988 - Die Wirklichkeit der höheren Welten_prepared.md",
-    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf",
     "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte_final.md",
     "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte_prepared.md",
-    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.md",
-    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte",
-    "Steiner, Rudolf GA 073a, 2005 - Fachwissenschaften und Anthroposophie.pdf",
-    "Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form/Steiner, Rudolf GA 089, 2001 - Bewußtsein, Leben, Form.md",
-    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie_final.md",
-    "Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie/Steiner, Rudolf GA 077b, 1996 - Kunst und Anthroposophie.md",
-    "Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie/Steiner, Rudolf GA 075, 2010 - Das Verhältnis der Anthroposophie.md"
+    "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.md"
   ]
 }

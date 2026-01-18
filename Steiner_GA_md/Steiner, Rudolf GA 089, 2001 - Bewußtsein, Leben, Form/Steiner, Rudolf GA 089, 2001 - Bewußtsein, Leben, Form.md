@@ -55,7 +55,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 8 9
 
 Die Gesamtausgabe der Werke Rudolf Steiners (1861-1925) gliedert sich in die drei großen Abteilungen: Schriften - Vorträge - Künstlerisches Werk (siehe die Übersicht am Schluß des Bandes).
 
-Ursprünglich wollte Rudolf Steiner nicht, daß seine frei gehaltenen Vorträge - sowohl die öffentlichen als auch die für die Mitglieder der Theosophischen, später Anthroposophischen Gesellschaft - schriftlich festgehalten würden, da sie von ihm als «mündliche, nicht zum Druck bestimmte Mitteilungen» gedacht waren. Nachdem aber zunehmend unvollständige und fehlerhafte Hörernachschriften angefertigt und verbreitet wurden, sah er sich veranlaßt, das Nachschreiben zu regeln. Mit dieser Aufgabe betraute er Marie Steiner-von Sivers. Ihr oblag die Bestimmung der Stenografierenden, die Verwaltung der Nachschriften und die für die Herausgabe notwendige Durchsicht der Texte. Da Rudolf Steiner nur in ganz wenigen Fällen die Nachschriften selbst korrigiert hat, muß gegenüber allen Vortragsveröffentlichungen sein Vorbehalt berücksichtigt werden: «Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.»
+Ursprünglich wollte Rudolf Steiner nicht, daß seine frei gehaltenen Vorträge - sowohl die öffentlichen als auch die für die Mitglieder der Theosophischen, später Anthroposophischen Gesellschaft - schriftlich festgehalten wurden, da sie von ihm als «mündliche, nicht zum Druck bestimmte Mitteilungen» gedacht waren. Nachdem aber zunehmend unvollständige und fehlerhafte Hörernachschriften angefertigt und verbreitet wurden, sah er sich veranlaßt, das Nachschreiben zu regeln. Mit dieser Aufgabe betraute er Marie Steiner-von Sivers. Ihr oblag die Bestimmung der Stenografierenden, die Verwaltung der Nachschriften und die für die Herausgabe notwendige Durchsicht der Texte. Da Rudolf Steiner nur in ganz wenigen Fällen die Nachschriften selbst korrigiert hat, muß gegenüber allen Vortragsveröffentlichungen sein Vorbehalt berücksichtigt werden: «Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.»
 
 Über das Verhältnis der Mitgliedervorträge, welche zunächst nur als interne Manuskriptdrucke zugänglich waren, zu seinen öffentlichen Schriften äußert sich Rudolf Steiner in seiner Selbstbiographie «Mein Lebensgang» (35. Kapitel). Der entsprechende Wortlaut ist am Schluß dieses Bandes wiedergegeben. Das dort Gesagte gilt gleichermaßen auch für die Kurse zu einzelnen Fachgebieten, welche sich an einen begrenzten, mit den Grundlagen der Geisteswissenschaft vertrauten Teilnehmerkreis richteten.
 
@@ -416,16 +416,6 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
-schöpferische Kraft ein und formt in dem Stoffe der Wünsche und Begierden die Bilder. Die Geheimwissenschaft sagt nun, daß der träumende Mensch sich in dem aus Wünschen und Begierden gewobenen astralischen Leibe befinde und daß der physische Leib von dem Selbstbewußtsein verlassen sei. Beim Eingeweihten oder Erweckten ist die Sache so, daß er ebenfalls seinen physischen Leib verlassen hat, daß aber sein Selbstbewußtsein in seinem astralischen Leibe wohnt. Wie nun der physische Leib die Wahrnehmung der physischen Dinge vermitteln kann, weil seine Organe aus demselben Stoffe gebildet sind wie die physische Welt, so kann der Eingeweihte die Wesen der astralen Welt wahrnehmen, weil er Organe hat aus dem Stoffe der Wünsche und Begierden, in dem sie ihren Ausdruck finden.
-
-Der Unterschied zwischen dem uneingeweihten und dem eingeweihten Menschen besteht darin, daß dem ersteren die astrale Welt nicht als Außenwelt sichtbar wird und für den letzteren das der Fall ist. Diese astrale Welt bleibt nämlich für den Unerweckten eine bloße Innenwelt; er erlebt sie in seinen Wünschen und Begehungen; aber er sieht sie nicht. Der Eingeweihte fühlt nicht nur seinen Wunsch; er nimmt ihn als ein Ding der Außenwelt wahr, wie der Unerweckte Tische und Stühle wahrnimmt.
-
-Von dieser Welt des Eingeweihten ist nun allerdings die gewöhnliche Traumwelt nur ein schwacher Nachklang. Sie kann dies ja auch nur sein, weil das Selbstbewußtsein nicht an ihr beteiligt ist. Wo aber ist dieses Selbstbewußtsein während des Traumes? Es hat sich zurückgezogen in eine höhere Welt, in welcher der Mensch zunächst nicht als solcher vorhanden ist. Welches Verhältnis er zu dieser Welt hat, kann zunächst ein Vergleich klarmachen. Man denke an eine Hand des Menschen und an ein Werkzeug, das von ihr gehalten wird. Solange die Hand das Werkzeug hält, bilden beide gleichsam ein Ganzes. Das letztere führt die Tätigkeiten aus, welche von der ersteren bestimmt werden. Sobald aber die Hand das Werkzeug weglegt, ist dieses sich selbst überlassen; und die Bewegungen der Hand sind nur Ausdrücke des Willens im Menschen, dem sie angehört. So muß der physische Leib während des
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:89 Seite:26
-
----
-
 wachen Tageslebens als ein Werkzeug des Gliedes einer höheren Wesenheit angesehen werden. Streckt diese höhere Wesenheit gleichsam ein Glied in den physischen Leib hinein, so tritt in diesem die Sinnestätigkeit und damit das Selbstbewußtsein auf. Verläßt dieses Glied den Leib, so hört das Selbstbewußtsein auf. So ist die innerste Wesenheit des Menschen, die Selbstbewußtsein haben kann, ein Glied einer höheren Wesenheit, aus der es zeitweilig gewissermaßen hervorgestreckt und mit dem physischen Leibe überzogen wird. Noch besser wird man die entsprechende Vorstellung aber gestalten, wenn man das Vorstrecken zugleich als ein Abschnüren ansieht, wie wenn während des Wachens sich ein Tropfen loslöste aus dem betreffenden höheren Wesen, der während des Schlafes wieder aufgesogen wird. Denn der Mensch ist sich während des Wachens seines Zusammenhangs mit einer höheren Wesenheit nicht bewußt; er ist also von ihr tatsächlich abgeschnürt. Während des Schlafes muß ihm das Selbstbewußtsein fehlen, denn es zieht sich da in die höhere Wesenheit zurück; diese saugt es auf, und er ruht also in derselben eingeschlossen.
 
 Tritt der traumlose Schlaf ein, so verschwindet die Bilderwelt. Scheinbar liegt nun der physische Leib ganz bewußtlos da; in Wahrheit ist aber sein Bewußtseinszustand nur ein noch dumpferer als im traumerfüllten Schlaf. Es ist auch die bildererzeugende Kraft aus dem physischen Leib ausgetreten. Daher können nur die Einsichten des Erweckten Aufklärung über diesen Zustand bringen. Dem Nichterweckten fehlen die Wahrnehmungen über denselben. Für den Erweckten aber erscheint der bildererzeugende Leib, der vorher mit dem physischen noch locker verbunden war, aus demselben herausgehoben. Und er ist jetzt nicht tatenlos, sondern er hat die Aufgabe, die durch Ermüdung sich als erschöpft darstellenden Kräfte des physischen Leibes wieder in der angemessenen Stärke herzustellen. Das Erfrischende eines gesunden Schlafes erklärt sich dadurch. Ermattet sinkt der physische Leib in Schlaf. Sein Selbstbewußtsein gibt er in diesem Augenblicke an höhere Wesen ab. In dem Zwischenzustand des Traumschlafes bleibt die Seele noch in einer losen Verbindung mit dem physischen Leib. Das
@@ -436,7 +426,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 Charakteristische dieser Seele ist ihr Schöpferisches. Sie beginnt mit dem Augenblicke des Aufwachens ihre schöpferische Kraft darauf zu wenden, daß sie die durch die Sinne vermittelnden Wahrnehmungen zum menschlichen Innenleben verarbeitet. Im Momente des Einschlafens fallen die äußeren Sinneswahrnehmungen weg. Im Zwischenzustand des Träumens gestaltet sich das Schöpferische noch zu den geschilderten Sinnbildern um; dann fallen auch diese Sinnbilder weg; die Seele wendet ihre ganze Schöpferkraft auf den Leib, den sie nun von außen bearbeitet. - Wer ganz von den Mitteilungen der Geheimwissenschaft absehen wollte, der könnte schon aus der Tatsache der Erfrischung am Morgen beim Erwachen entnehmen, wodurch sich die nächtliche Tätigkeit der Seele kennzeichnet. Das Leben des Tages hat etwas Unharmonisches, Chaotisches. Von allen Seiten wirken die Dinge der physischen Umgebung auf den Menschen. Bald findet dies, bald jenes Einlaß in sein Inneres. Das bringt die inneren Bildungskräfte außer die Ordnung, die ihnen durch ihre ursprüngliche Natur zukommt. In der Nacht wird das wieder ausgeglichen. Die Seele stellt die Ordnung und Harmonie her. Durch das Tagesleben sieht allmählich der physische Leib aus wie eine Luftmasse, welche von allen Seiten von Windströmungen durchzogen wird und deren Teile sich in unregelmäßiger Art durcheinanderbewegen. Beim Erwachen aber ist er einer solchen Luftmasse zu vergleichen, die von dem Rhythmus und der Harmonie eines Musikstückes in regelmäßige Schwingungen versetzt ist. Und in der Tat stellt sich die Arbeit der Seele am Leibe während des Schlafes für den Eingeweihten wie ein Durchtonen desselben dar. Der Mensch taucht während des Schlafes unter in die Harmonie des Seelenlebens. Und es ist dies dieselbe Harmonie, aus welcher er heraus gebildet worden ist. Bevor sich der physische Leib zum erstenmale durch die Sinnesorgane der Außenwelt aufgeschlossen hat, stand er ganz unter dem Einflüsse dieser Harmonie, die ihn gegliedert hat. Diese Harmonie durchzieht als Seelenharmonie, als Seelentönen die ganze Welt. Der Mensch ist von ihren Klängen so umgeben, wie er von den vorhin geschilderten Bildern umgeben ist. Wie dem Erweckten durch die
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 28
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
@@ -728,7 +718,7 @@ Diese drei planetarischen Entwicklungsstufen wurden nun zunächst in den ersten 
 
 Aber nur stufenweise konnte der Menschenleib zu solcher Fähigkeit hinaufgelenkt werden. Und das geschah eben während der drei Erdenkreisläufe. Im ersten konnte er sich so wahrnehmen, wie er auf dem Saturn, im zweiten, wie er auf der Sonne, im dritten, wie er auf dem Monde beschaffen war. Während des ersten Erdenkreis-
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 56
 
 ---
 
@@ -925,7 +915,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
-Jv. Łrcfenruncfe
+Jv. Łrcfenrunccfe
 
 ![img-4.jpeg](assets/Steiner,%20Rudolf%20GA%20089,%202001%20-%20Bewußtsein,%20Leben,%20Form_img-4.jpeg)
 
@@ -1163,7 +1153,7 @@ nicht so ohne weiteres bilden. Das wäre ganz unmöglich, daß durch irgendeinen
 
 Versetzen Sie sich einmal einen Augenblick mit mir zurück an den Anfangspunkt unserer irdischen Entwicklung. Derjenige, dessen mentales Schauen ausgebildet ist, wird folgende Wahrnehmung vor sich haben: Am Beginn unserer planetarischen Entwicklung hatte unser Geistesselbst eine bestimmte Stufe seines Daseins erreicht. Jeder von uns war damals, als die Erde in ihrem Keimzustand war, auf einer bestimmten Stufe der Entwicklung. Sie können sich alle die geistigen Selbste, die auf unserer Erde heute verkörpert sind, waren oder sein werden, zurückversetzt denken in den Zeitpunkt, wo unsere irdische Entwicklung begonnen hat. Sie alle waren damals schon vorhanden, allerdings nicht so, wie Sie heute sind, sondern in einem ganz anderen Zustande. In der irdischen Entwicklung haben wir eine ganz bestimmte Aufgabe; der Mensch muß durch diese irdische Entwicklung etwas werden. Lassen Sie
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 96
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
@@ -1175,7 +1165,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
-gehenden Betrachtungen hervor-, war: er mußte, damit sein Selbst im Physischen denken kann, selbst ein physisches Denkwesen werden.
+gehenden Betrachtungen hervor -, war: er mußte, damit sein Selbst im Physischen denken kann, selbst ein physisches Denkwesen werden.
 
 Und nun komme ich zu der zweiten Vorstellung, die ich vorausschicken muß. Wenn Sie das Gehirn prüfen, wenn Sie es in wissenschaftlicher Weise nach allen Seiten untersuchen, dann werden Sie finden, daß dieses menschliche Gehirn, wenn es bloß mit den Sinnen untersucht wird, aus denselben Stoffen besteht und durch dieselben Kräfte gelenkt wird wie die übrigen physischen Wesen auf der Erde. Wenn Sie einen Bergkristall, ein Stück Kalkspat, ein Stück Steinsalz, eine Pflanze, ein Tier ansehen und sie chemisch und physikalisch untersuchen, so werden Sie finden, daß die ganze physische Natur, insofern sie mit Augen gesehen, mit Händen gegriffen werden kann, in gleichartiger Weise aus denselben chemischen und physikalischen Kräften besteht, die eben im Mineralreich, im Pflanzen- und im Tierreich wirken. Deshalb sagen wir in der Theosophie: Damit der Mensch seine gegenwärtige Stufe der Entwicklung erreichen konnte, mußte er sein spirituelles Selbst umkleiden mit einem mineralischen Körper. Das geistige Selbst hat sich einen mineralischen Körper anerschaffen. Das brauchte eine lange Zeit, und dieser Prozeß ist auch heute noch nicht abgeschlossen. Der Mensch wird in der Zukunft noch weiter in dieser mineralischen Hülle sich entwickeln. Es gibt noch keimhafte Organe in unserem Körper, die sich erst ausbilden müssen, neue Sinne, die heute erst andeutungsweise vorhanden sind. Sie sehen, eine lange Zeit brauchte der Mensch - sein geistiges Selbst -, um sich zu umkleiden mit dem physischen Körper, den er heute hat.
 
@@ -1762,7 +1752,7 @@ II. Elementarreich
 
 Form: 8. arupisch bis 14. archetypisch
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 147
 
 ---
 
@@ -1822,7 +1812,7 @@ Innerhalb der irdischen Entwicklung stehen wir auf der vierten Stufe des Bewußt
 
 Tiere, Pflanzen und Mineralien waren früher entwickelt als der Mensch. Was damals so entwickelt war, daß es fortschreiten konnte, ging mit dem Menschen in eine Art Keimzustand über, durch ein Pralaya hindurch. Auf dem Monde waren die Menschenkeime
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 149
 
 ---
 
@@ -1976,7 +1966,7 @@ Erst in viel späterer Zeit kann der Funke des Budhi bis zu den lunarischen Pitr
 
 Der Funke des Budhi kann bis in das Kama-Manasische hinabsteigen. Dann wird der Mensch Lehrer. Solche Lehrer waren Buddha, Zarathustra, Krishna, Moses, Hermes und so weiter. Diese Menschen werden geboren mit dem Ziel, Lehrer zu werden. Geht nun die Beeinflussung des Budhi bis zu dem Kama selbst, so muß in einem späteren Zeitpunkt des Lebens das Christus-Prinzip in einen schon von Kama besetzten Körper hinuntersteigen. So war es bei Jesus, der erst im 30. Jahre den Christus aufnehmen konnte. Insofern wir die Jesus-Entwicklung betrachten, hatte dieser schon dadurch, daß in ihm Kama von Anfang an entwickelt war, Karma auf sich geladen. Das war bei den solarischen Pitris nicht der Fall, die waren eine Stufe über Kama hinaus. Die lunarischen Pitris
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 162
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
@@ -2068,7 +2058,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 Zum ersten Male wird ein menschlicher Manu, der als Mensch «Meister» sein wird, am Ende der fünften Wurzelrasse seine Ausbildung erlangen. In der sechsten Wurzelrasse wird er ein Menschenbruder sein. Diejenigen, welche ihre mystische Entwicklung des Astralen so weit gebracht haben, daß sie imstande sind, den Meister zu erkennen, haben dies durch die Ausbildung dieses Sinnes erreicht. «Eh¹ vor den Meistern kann die Stimme sprechen, muß das Verwunden sie verlernen.» Aber innerhalb unseres Zyklus muß auch noch ein siebenter Sinn entwickelt werden. In der gleichen Art, wie der Gehörssinn in aktiver Weise herauskommt in nicht mehr verwundender Sprache, wird der Gefühlssinn eine Umkehrung erfahren. Der Mensch wird nicht mehr nur das, was von außen kommt als Gefühl verstehen, sondern es auch nach außen zu leiten verstehen. Er wird das Herz nach außen frei entfalten können und nun die tiefsten Gefühle um die anderen Menschen herumlegen können. Was heute als die spirituelle Seele im Herzen liegt, wird nach außen strömen. Er wird seine Seele den Menschen offen zu Füßen legen. Solange der Mensch nicht bewußt anstrebt, seinen Mitmenschen und der ganzen Welt unverhüllt entgegenzutreten, wird er diesen Sinn nicht entwickeln können: «Und eh vor ihnen stehen kann die Seele, muß ihres Herzens Blut die Füße netzen». Der Astralkörper organisiert diese Sinne, wenn man im Sinne dieser beiden Sprüche lebt.
 
-## Neunter Vortrag
+# Neunter Vortrag
 
 Berlin, 3. November 1904
 
@@ -2153,7 +2143,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 kenbildern. Dagegen würde er nicht von selbst die Gegenbilder seiner Erlebnisse und Handlungen mit sich verbinden können. Das unterliegt von außen regelnden Wesenheiten, den Herren des Karma, den Lipikas, die die geschaffenen Gegenbilder der Gefühle und Taten des Menschen auf dem Budhi- und dem Nirvanaplan mit ihm - der schon wieder die kamische und andere Hüllen um sich hat - in Zusammenhang bringen für die folgenden Inkarnationen.
 
-# Zehnter Vortrag
+Zehner Vortrag
 
 Berlin, 5. November 1904
 
@@ -2259,7 +2249,7 @@ Die Menschen haben 16 Gelegenheiten - durch 16 Unterrassen hindurch - dieses Cha
 
 In den nächsten Metamorphosen werden die [letzten Blätter der sechzehnblättrigen Lotosblume] weiter ausgebildet, plastisch, dann in Gedankenmaterie, dann archetypisch. Darauf in der nächsten Runde wird die sechzehnblättrige Lotosblume auf der physischen
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 181
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
@@ -2379,7 +2369,7 @@ Menschliche Budhi vermittelt das Erkennen. Dasjenige, was uns von den Dingen an 
 
 Ein jedes einzelne Ding in der Welt existiert nur im Weltenzusammenhang, es ist ein Glied im Ganzen. Als Glied gehört es dem ganzen planetarischen Erdgeist an. So hat zum Beispiel der
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 189
 
 ---
 
@@ -2442,7 +2432,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:89
 
 Das Leben geht durch Geburt und Tod und erscheint in immer neuen Formen. Die Form ist vergänglich, das Leben wiederholt sich, der Geist ist unvergänglich, ewig.
 
-## Zwölfter Vortrag
+# Zwölfter Vortrag
 
 Berlin, 10. November 1904
 
@@ -2702,9 +2692,8 @@ Bei der aufsteigenden seelischen Entwicklung vermannig-faltigt sich das ursprün
 
 [Intuitionen sind Ich.]
 
-|  Verbale | Sa - Vitarka  |
-| --- | --- |
-|  Wortlose Intuition | Nir - Vitarka  |
+Verbale          Sa - Vitarka
+Wortlose Intuition  Nir - Vitarka
 
 ## Wir gehen durch III
 
@@ -2735,6 +2724,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 213
 Cwthiit offunba/U
 
 $10 (kÜ-Julö (ttwidiäAirtiyi d-W βiK.£iJc/uy 4/irw
+
 T qu4r &amp;(XAJ
 
 naimy
@@ -2749,19 +2739,9 @@ u dN. 4pkoAjb JjUcu/t. y
 
 J CiU- j
 
-genemt
+genuml
 
-iunFaeplvtvt <fic (yi="" (m4^amfclü-="" i="" i
-
-Stufe
-
-f (y
-
-shy
-
-anzenre
-
-d</fic>
+iunFaeplvtvt <fic (yi="" (stuf="" i="" itufi="" j="" j@j)="" l="" lhyp="" luy="" om4^amfclü-="" {="" }="" ü-1.="" üry="" üxj,="" üxm,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,="" üxj,
 
 ---
 
@@ -2771,7 +2751,9 @@ C.
 
 (l t
 
-an (AwLJJwt w v<rvr (mw)="" (="" (="" *="" -="" 1="" 2.="" 3.="" <table="" [bbox]0.543,0.387,0.762,0.440[="" [bbox]0.543,0.83,0.897,0.970[="" [table="" [twice]="" [bbox]0.666,0.540,0.897,0.970[="" *="" *<="" *flange="" -="" 1="" 2.="" 3.="" 4.="" 5.="" 6.="" 7.="" [bbox]0.543,0.387,0.762,0.440[="" [table="" [table]="" [bbox]0.543,0.83,0.897,0.970[="" *le="" *p.="" *relativ="" *v<rvr="" *w<rvr*="" *x="" +="" 0.="" 10.="" 214="" 3.="" 4.="" 5.="" 6.="" 7.="" \text{="" \text{relativ}="" \text{relativ}="" \text{relativ}="" \text{relativ}="" \text{relativ}="" \text{relativ}="" \text{relativ}="" \text{sol}="" \text{sol}="" \text{sol}="" \text{sol}="" \text{sol}="" ]="" a="" and="" any="" are="" as="" at="" b="" be="" bbls="" blbgs.="" blbgs.="" by="" c.="" cw="" cw<rvr="" cw<rvr]="" d.="" d.5.="" d.5.1="" d.5.2="" d.5.3="" d.5.4="" d.5.5="" d.5.6="" d.5.7="" d.5.8="" d.5.9="" d.5.10="" d.5.11="" d.5.20="" d.5.21="" d.5.22="" d.5.23="" d.5.24=""
+an (AwLJJwt w v<rvr (mw)="" (="" (="" *="" -="" 1="" 2.="" 3.="" <table="" [bbox]0.543,0.387,0.961,0.452[="" [bbox]0.615,0.543,0.825,0.684[="" [bbox]0.733,0.000,0.891,0.256[="" b="" bly="" blyt="" blyt,="" blyt.000,0.891,0.000[="" c.="" d.="" d.0.="" e.="" f.="" g.="" h="" i="" j.="" m="" n.="" o.="" p.="" q.="" qut="" qut,="" qut,0.="" qut0.="" qut1="" qut2.="" qut3.="" qut4.="" qut5.="" qut6.="" qut7.="" qut8.="" qut9.="" qut10.="" qut11.="" qut12.="" qut13.="" qut14.="" qut15.="" qut2.="" qut3.="" qut4.="" qut5.="" qut6.="" qut7.="" qut8.="" qut9.=""
+
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 214</rvr>
 
 ---
 
@@ -3079,13 +3061,10 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 Saturn 7 Lebenszustände
 für Sonne 7
 „ Mond 7
-„ Erde 7
-„ Jupiter 7
+„ Erde 7 Die bisherige theosophische
+„ Jupiter 7 Literatur nennt dies Runden.
 „ Venus 7
 „ Vulkan 7
-
-Die bisherige theosophische
-Literatur nennt dies Runden.
 
 Das sind 7x7 Lebenszustände durch die ganze menschliche Evolution hindurch:
 
@@ -3123,16 +3102,14 @@ Die Formzustände, welche der Mensch selbst schafft, bilden den Mikrokosmos. Von
 Der Übergang ist die Weltseele - der göttliche Geist, der langsam sich individualisiert.
 
 In der christlichen Esoterik bezeichnet man
-|  die Bewußtseinszustände als | Vater | A.  |
-| --- | --- | --- |
-|  die Lebenszustände als | Sohn oder Wort | B.  |
-|  die Formzustände als | hl. Geist | C.  |
+die Bewußtseinszustände als Vater A.
+die Lebenszustände als Sohn oder Wort B.
+die Formzustände als hl. Geist C.
 
 Die Theosophie nennt
-|  A | ersten  |
-| --- | --- |
-|  B | zweiten "Logos.  |
-|  C | dritten  |
+A ersten
+B zweiten "Logos.
+C dritten
 
 Es ergibt sich nun folgende Übersicht der Evolution, wenn man noch bedenkt, daß
 
@@ -3237,7 +3214,7 @@ So, wie den Menschen nur das Unbekannte, das Individuelle an dem Menschen intere
 
 Es beginnt der Entwicklungsprozeß der Materie, in welcher sich die Qualitäten des Wesens abspiegeln und wirksam sind, bis diese Spiegelbilder als abgetrennte Formen selbst ihre Tätigkeit beginnen und so die Materie immer mehr vergeistigen und beseelen, bis sie wieder eins wird dem Wesen Atma, Budhi, Manas ... [Lücke]
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 231
 
 ---
 
@@ -3373,7 +3350,7 @@ sich selbst
 
 ![img-38.jpeg](assets/Steiner,%20Rudolf%20GA%20089,%202001%20-%20Bewußtsein,%20Leben,%20Form_img-38.jpeg)
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 239
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 
 ---
 
@@ -3479,7 +3456,7 @@ Nun wollen wir diese Begriffe genau festhalten, denn wenn man in der Theosophie 
 
 Nehmen wir jetzt unser Bewußtsein, dieses Bewußtsein, das wir jetzt haben - Selbstbewußtsein. Wenn wir es untersuchen, werden
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 245
 
 ---
 
@@ -3722,7 +3699,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 8 9
 Seite: 255
 
-# Über die Logoi
+Über die Logoi
 
 Private Lehrstunde, undatiert, vermutlich 1904
 
@@ -3738,7 +3715,9 @@ Unmanifestierte
 schöpferische Substanz
 /
 /
+/
 Leben
+/
 /
 /
 Sohn
@@ -4127,7 +4106,9 @@ ftUff:Ä***4^! ;;
 
 ![img-44.jpeg](assets/Steiner,%20Rudolf%20GA%20089,%202001%20-%20Bewußtsein,%20Leben,%20Form_img-44.jpeg)
 
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 286
+Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89
+
+Seite: 286
 
 ---
 
@@ -4183,7 +4164,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 89 Seite: 290
 
 ---
 
-ausquellen. Versetzt man sich in dieses in einen Punkt zusammengedrängte mannigfache Leben der Welt, so hat man einen Begriff von der göttlichen schaffenden Kraft, die aus dem Nichts heraus schafft. Derjenige, welcher die Geheimnisse des Weltalls durchdringen will, muß lernen, seine Gedanken auf einen Punkt zu konzentrieren, aber nicht auf einen toten Punkt, sondern auf einen lebendigen Punkt, der zugleich nichts und alles ist. Es ist nicht leicht, sich in dieses allgemeine Schlafen der Natur zu versetzen, das ein Null-Leben, zu gleicher Zeit aber auch ein All-Leben ist; man muß es gefühlt, gedacht und gewollt haben. Nur wer dies durchdacht hat, kann die übrigen Blätter lesen.
+ausquellen. Versetzt man sich in dieses in einen Punkt zusammen-gedrängte mannigfache Leben der Welt, so hat man einen Begriff von der göttlichen schaffenden Kraft, die aus dem Nichts heraus schafft. Derjenige, welcher die Geheimnisse des Weltalls durchdringen will, muß lernen, seine Gedanken auf einen Punkt zu konzentrieren, aber nicht auf einen toten Punkt, sondern auf einen lebendigen Punkt, der zugleich nichts und alles ist. Es ist nicht leicht, sich in dieses allgemeine Schlafen der Natur zu versetzen, das ein Null-Leben, zu gleicher Zeit aber auch ein All-Leben ist; man muß es gefühlt, gedacht und gewollt haben. Nur wer dies durchdacht hat, kann die übrigen Blätter lesen.
 
 Diese Einheit der Zeit, des Raumes und der Kraft zu erfassen, versinken darin, das ist das Lesen des ersten Blattes. In einer Strophe des Dzyanbuches finden Sie eine wunderschöne Beschreibung.
 
@@ -4326,7 +4307,7 @@ Notizen von privaten Lehrstunden: Im Sommer 1903 und 1904 gab Rudolf Steiner in 
 
 Symbole als Ausdruck der Urweisheit: Notizen von Marie von Sivers, Walter Vegelahn und Camilla Wandrey.
 
-Über das Zebnblättrige Buch: Notizen von Walter Vegelahn, Marie von Sivers, Camilla Wandrey und von einer unbekannten Hand. Mit den Pünktchen (...) in diesem Text haben die Zuhörenden selbst größere Lücken beim Mitschreiben gekennzeichnet.
+Über das Zebnblättrige Buch: Notizen von Walter Vegelahn, Marie von Sivers, Camilla Wandrey und von einer unbekannten Hand. Mit den Punktchen (...) in diesem Text haben die Zuhörenden selbst größere Lücken beim Mitschreiben gekennzeichnet.
 
 ## Zu den Skizzen
 
@@ -4451,7 +4432,7 @@ ligionsforscher des 19. Jahrhunderts. Mitglied und Propagandist der Theosophical
 
 88 Es ist auch nachgeprüft und bestätigt worden ...; Damit wird offenbar Bezug genommen auf C. G. Harrison «The Transcendental Universe. 6 lectures on occult science, theosophy and the catholic faith», London 1893/94; deutsch: «Das transzendentale Weltall - sechs Vorträge über Geheimwissen, Theosophie und den katholischen Glauben», Leipzig 1897, Neuausgabe Stuttgart 1990.
 
-89 Bücher, die erschienen sind anlässlich des Bibel-Babel-Streites: Friedrich Delitzsch, 1850-1922, Professor für Assyrologie und semitische Sprachen, hatte im Zusammenhang mit seinen Forschungen eine Verwandtschaft gewisser Überlieferungen des Alten Testamentes mit babylonischen Schöpfungsurkunden festgestellt («Bibel und Babel», Leipzig 1902). Seine hierüber 1902 und 1903 gehaltenen Vorträge lösten seinerzeit in der Öffentlichkeit heftige Diskussionen aus und riefen eine Anzahl Gegnerschriften hervor. Rudolf Steiner schreibt hierüber in einem Aufsatz «Die übersinnliche Welt und ihre Erkenntnis», der im Mai 1904 in der Zeitschrift «Lucifer-Gnosis», GA 34, erschienen ist.
+89 Bücher, die erschienen sind anlässlich des Bibel-Babel-Streites: Friedrich Delitzsch, 1850-1922, Professor für Assyriologie und semitische Sprachen, hatte im Zusammenhang mit seinen Forschungen eine Verwandtschaft gewisser Überlieferungen des Alten Testamentes mit babylonischen Schöpfungsurkunden festgestellt («Bibel und Babel», Leipzig 1902). Seine hierüber 1902 und 1903 gehaltenen Vorträge lösten seinerzeit in der Öffentlichkeit heftige Diskussionen aus und riefen eine Anzahl Gegnerschriften hervor. Rudolf Steiner schreibt hierüber in einem Aufsatz «Die übersinnliche Welt und ihre Erkenntnis», der im Mai 1904 in der Zeitschrift «Lucifer-Gnosis», GA 34, erschienen ist.
 
 Kräfte ..., die in jedem Menschen schlummern: Kurze Zeit nach diesem Vortrag begann Rudolf Steiner, seine Aufsatzreihe «Wie erlangt man Erkenntnisse der höheren Welten?» in der Zeitschrift «Lucifer-Gnosis» zu veröffentlichen.
 
@@ -4795,52 +4776,36 @@ VERLAGSUUCHHANDLUNG
 Ein Lücken greif ist, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab' ich, ich hab'
 
 § 5.
-Alles über die Lücken am, dass es sich um die Lücken zu wenden, die auf dem Lücken zu wenden sind, und es sich um die Lücken zu wenden sind.
+Alles über die Lücken am, dass es sich um die Lücken zu wenden, die in der Zeit in diesem Fall zu sein, die für uns z. B. 30.000 DM zu zahlen sind.
 
 § 6.
 - &amp; - &amp; * 2
-- &amp; - &amp; * 2
-- &amp; - &amp; * 2
-- &amp; - &amp; * 2
-- &amp; - &amp; * 2
+- &amp; &amp; * 2
+- &amp; &amp; * 2
+- &amp; &amp; * 2
+- &amp; &amp; * 2
 
-- wenn die Erteilung der Borekta und Rasse,
-- wenn sie von den zu beobachten Entfremdungen, die zahlen, sind, steht in der Regel
-- die zu erteilenden, alle zahlen, zahlen, zu zahlen, die
-- die zu zahlen, die zu zahlen, die zu zahlen, die
-- die zu zahlen, die zu zahlen, die zu zahlen, die
+- wenn die Erteilung der Börschen mit Rasse-
+- wenn sie zu beobachten Entfremdung. Die Fällchen sind stabil, die zu
+- z. B. zu erledigen. Alle falsch Fällchen, die zu zahlen, die
+- zu erledigen. Die Fällchen, die zu zahlen, die
+- zu erledigen. Die Fällchen, die zu zahlen, die
+- zu erledigen. Die Fällchen, die zu zahlen, die
 
-- der Rasse, zahlen, die zu zahlen, die zu zahlen, die
+- wenn sie zu beobachten. Die Fällchen, die zu zahlen, die
+- zu erledigen. Die Fällchen, die zu zahlen, die
 
-- der Rasse, zahlen, die zu zahlen, die
+- wenn sie zu beobachten. Die Fällchen, die zu zahlen, die
 
-- der Rasse, zahlen, die
+- wenn sie zu zahlen. Die
 
-- der
+- wenn sie zu zahlen
 
-- der Rasse, zahlen
+- wenn sie zu zahlen
 
-- der
+- wenn sie zu zahlen
 
-- der Rasse
-
-- der
-
-- der
-
-- der
-
-- der
-
-- der
-
-- der
-
-- der
-
-- der
-
-- der
+- wenn sie zu zahlen
 
 -
 
