@@ -229,9 +229,7 @@ Seite: 12
 
 ---
 
-URSPRUNGSIMPULSE DER GEISTESWISSENSCHAFT
-
-Berlin, 29. Januar 1906
+# URSPRUNGSIMPULSE DER GEISTESWISSENSCHAFT, Berlin, 29. Januar 1906
 
 Es zeigt sich immer wieder, wie schwer es unseren Zeitgenossen ist, theosophisches Leben zu verstehen. Deshalb seien einige Gedanken im allgemeinen darüber ausgesprochen. Theosophie ist etwas, von dem sich jeder, der sich zu ihr hingezogen fühlt, die Vorstellung macht, daß sie in bezug auf das geistige Leben seine tiefste Sehnsucht befriedigen müsse. Wollen wir uns aber die theosophische Grundidee, wie sie in der Gegenwart richtig ist, vor die Seele halten, unser ganzes Bewußtsein erfüllen mit dem Gedanken, daß das Geistige etwas Wirkliches ist, dann müssen wir es endlich dazu bringen, daß wir die Würde der Person unseres Nächsten anerkennen. Das Persönliche lassen wir gelten, denn wir würden es uns als Mensch, der eine empfindende Seele im Leibe hat, nicht gestatten, das äußere Persönliche unseres Mitmenschen in absichtlicher Weise zu verletzen, wir würden es uns nicht gestatten, ihn anzugreifen in seiner persönlichen Freiheit. Aber so weit sind wir noch nicht, noch lange nicht, daß wir diese Toleranz ausdehnen auf das Allerinnerste des Menschen, weil wir noch lange nicht – höchstens theoretisch, aber noch nicht praktisch – wissen, daß Empfindung und Gedanke, das Geistige überhaupt, ein Wirkliches ist. Das ist Ihnen allen doch klar. Und auch das ist heute schon allen Menschen klar, daß es etwas höchst Wirkliches, höchst Reales ist, wenn ich jemandem mit meiner Hand einen Schlag versetze. Aber nicht so leicht glauben die Menschen, daß es etwas Wirkliches ist, wenn ich jemandem einen schlechten Gedanken zusende. Das müssen wir uns bewußt machen, daß der schlechte Gedanke, mit dem ich meinem Mitmenschen entgegentrete, der Gedanke der Antipathie, des Hasses, für seine Seele ebenso ist wie ein Schlag für das Gesicht des Menschen. Und eine abträgliche Empfindung, eine Empfindung des Hasses und der Unliebe, mit der ich dem Mitmenschen gegenüberstehe, sie sind wirklich wie die gewöhnliche äußere Verletzung, die man einem Menschen zufügt. Erst wenn man sich dessen bewußt ist, wird man Theosoph.
 
@@ -379,9 +377,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 ---
 
-ERDINNERES UND VULKANAUSBRÜCHE
-
-Berlin, Ostermontag, 16. April 1906
+# ERDINNERES UND VULKANAUSBRÜCHE, Berlin, Ostermontag, 16. April 1906
 
 Entsprechend unserer Ankündigung soll der heutige Vortrag an ein erschütterndes Ereignis anknüpfen, das sich in diesen Tagen zugetragen hat: an den Ausbruch des Vesuv. Selbstverständlich kann es sich nicht darum handeln, speziell über die Einzelheiten dieses Naturereignisses zu sprechen, sondern es wird unsere Aufgabe sein, ein geisteswissenschaftliches Verständnis für derartige Naturerscheinungen im allgemeinen zu wecken. Ich möchte also einige Bausteine zusammentragen, um ein solches Verständnis zu ermöglichen. Dabei will ich im voraus bemerken, daß es auch unter Okkultisten zu den schwierigsten Aufgaben gerechnet wird, über den geheimnisvollen Bau und die Zusammensetzung unseres Erdenplaneten zu sprechen. Es ist eine bekannte Tatsache - und wer nur ein wenig über okkulte Zusammenhänge im Bilde ist, wird auch schon davon gehört haben -, daß es leichter ist, etwas von der astralen und der mentalen Welt, von Kamaloka und Devachan zu erleben und in das gewöhnliche Tagesbewußtsein hereinzubringen, als in die Geheimnisse unseres eigenen Erdenplaneten einzudringen. In der Tat gehören diese Geheimnisse zu den sogenannten inneren Geheimnissen, die einem höheren, dem zweiten Grad der Initiation vorbehalten sind. Vom Inneren der Erde wurde öffentlich überhaupt noch nicht gesprochen, ja, bisher nicht einmal innerhalb der theosophischen Bewegung. Daher möchte ich von vornherein betonen, daß dieser heutige Vortrag absolut nicht für Neulinge auf theosophischem Felde berechnet ist. Nicht etwa wegen irgendwelcher Schwierigkeiten für ein rein begriffliches Verständnis - denn sein Inhalt wird vielleicht leichter zu begreifen sein als manches andere —, sondern deshalb, weil jemand, der nicht genügend über die geisteswissenschaftlichen Forschungsmethoden orientiert ist, sogleich wieder fragen wird: Woher weißt du denn das alles? - Ich werde nur eine ungefähre Skizze der Tatbestände geben und zugleich auf die Wege hinweisen, die zur Erforschung dieser Zusammenhänge führen. Gewiß wird es Hörer geben, die nicht
 
@@ -567,9 +563,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 ---
 
-VERGANGENE UND KÜNFTIGE GEIST-ERKENNTNIS
-
-Berlin, 7. Mai 1906
+# VERGANGENE UND KÜNFTIGE GEIST-ERKENNTNIS, Berlin, 7. Mai 1906
 
 Am Vorabend des Tages, den wir den «Weißen Lotustag» nennen, erinnern wir uns an die große Persönlichkeit, der wir den Anstoß zur theosophischen Bewegung zu verdanken haben. Vor fünfzehn Jahren am 8. Mai hat Frau Blavatsky den physischen Plan verlassen. Nicht von einem Todestag sprechen wir, sondern von einem zweiten, einem anderen Geburtstag, wenn wir des Tages gedenken, an dem die Individualität, die im letzten Drittel des 19. Jahrhunderts so Bedeutungsvolles im physischen Leib für die Menschheit geleistet hat, zu anderen Sphären gerufen worden ist, um von dort aus weiter zu wirken. Dieser Tag soll in uns die Gefühle und Empfindungen erregen, durch die wir uns aufschwingen, jene Art des Wirkens immer mehr zu spüren, zu welcher der Mensch aufgerufen wird, wenn er nicht mehr auf dem physischen Plan weilt. Diese Wirkung kann um so bedeutungsvoller sein, je geeignetere Werkzeuge er auf dem physischen Plan vorfindet. Solche Werkzeuge sollen die Glieder der theosophischen Bewegung werden. Was sie dazu instand setzt, sind solche geisteswissenschaftlichen Wahrheiten, wie Sie sie das ganze Jahr über in sich aufnehmen.
 
@@ -599,9 +593,8 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 von denen, die sich in die Rätsel des Daseins versenkt hatten, gibt uns die Stimmung wieder, die ihn überkam, wenn seine Gedanken zurückgingen in die alten Stätten griechischer Weisheit - die Stimmung eines Geistes Wanderers. Es war Hegel, jener mächtige Meister des Gedankens, der denkend die Bilder zu erfassen suchte, welche einst die Schüler der Mysterien geschaut hatten. Von ihm stammt die Dichtung.
 
-## Ekusis
-
-## An Hölderlin
+Eleusis
+An Hölderlin
 
 Um mich, in mir wohnt Ruhe. Der geschäft'gen Menschen
 Nie müde Sorge schläft. Sie geben Freiheit
@@ -632,7 +625,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 ---
 
-Die Meinung md Empfindung regelt, nie, nie ein^ugehn!
+Die Meinung md Empfindung regelt, nie, nie einzugehn!
 
 Nun unterhandelt mit der trägen Wirklichkeit der Wunsch,
 Der über Berge, Flüsse leicht mich zu dir trug.
@@ -736,14 +729,12 @@ Es war in der neueren Zeit notwendig, daß die Macht des Gedankens
 auf der einen Seite in einer ideellen, auf der anderen Seite in einer
 mehr materialistischen Weise zum Ausdruck kam. Auch Hegel ver-
 stand man nicht mehr, und er gehört zu den verschollenen Geistern
-der Menschheit überhaupt. Alles wurde in der zweiten Hälfte des
-19. Jahrhunderts von dem Geiste des Materialismus durchdrungen,
+der Menschheit überhaupt. Alles wurde in der zweiten Hälfte des 19. Jahrhunderts von dem Geiste des Materialismus durchdrungen,
 und auch heute herrscht in den weitesten Kreisen dieser Geist. Wenn
 er die Oberhand behalten sollte, so würde er die Menschheit in ihren
 Kulturerscheinungen vollständig zur Versteinerung führen.
 
-Eine merkwürdige Gesinnung kam in der zweiten Hälfte des
-19. Jahrhunderts zur Herrschaft. Noch im 18. Jahrhundert hatte
+Eine merkwürdige Gesinnung kam in der zweiten Hälfte des 19. Jahrhunderts zur Herrschaft. Noch im 18. Jahrhundert hatte
 Lessing gesagt, daß ein Glaube nicht gerade deshalb unsinnig sein
 muß, weil er im reinen unschuldigen Kindesalter der Menschheit
 aufgetreten ist. Diesen Glauben, der sich bei allen Völkern als Grund-
@@ -905,12 +896,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Seite: 71
 
-# DIE GEISTIGE ERKENNTNIS
-ALS HÖCHSTES BEFREIUNGSWESEN
+# DIE GEISTIGE ERKENNTNIS ALS HÖCHSTES BEFREIUNGSWESEN, Erster Vortrag, Berlin, 1. Oktober 1906
 
-Erster Vortrag, Berlin, 1. Oktober 1906
-
-# Der Anteil des Menschen an den höheren Welten
+## Der Anteil des Menschen an den höheren Welten
 
 Ich freue mich, Sie nach so langer Zeit wieder begrüßen zu können, sowohl die Mitglieder des Zweiges als auch die anderen, die sich im Laufe des verflossenen Jahres nach und nach hier zusammengefunden haben. Wir wollen hoffen, daß die diesjährige Winterzeit unsere Arbeit und unsere geistige Bewegung wiederum ein Stück vorwärtsbringen wird und daß wir imstande sein werden, unser Einleben in die geistige Welt wieder etwas zu vertiefen.
 
@@ -1061,12 +1049,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Seite: 88
 
-# DIE GEISTIGE ERKENNTNIS
-ALS HÖCHSTES BEFREIUNGSWESEN
+# DIE GEISTIGE ERKENNTNIS ALS HÖCHSTES BEFREIUNGSWESEN, Zweiter Vortrag, Berlin, 8. Oktober 1906
 
-Zweiter Vortrag, Berlin, 8. Oktober 1906
-
-# Die Aufgabe der geisteswissenschaftlichen Bewegung
+## Die Aufgabe der geisteswissenschaftlichen Bewegung
 
 Vor acht Tagen betrachteten wir die geisteswissenschaftliche Weltanschauung, insofern sie dem gegenwärtigen Menschen einleuchtend sein kann. Zunächst geht dieser Mensch natürlich von seiner sinnlichen Beobachtung und vom Verstand aus, oder auch von der modernen Wissenschaft, der ebenfalls sinnliche Beobachtung und Verstand zugrunde liegen. Wir zeigten, wie die Geisteswissenschaft in der Lage ist, allen Einwänden zu begegnen, die unsere Vernunft aus dem wissenschaftlichen Gewissen der Gegenwart heraus etwa aufwerfen könnte. Ziel und Zweck dieser Betrachtung sollte nicht mißverstanden werden. Sie wurde nicht deshalb angestellt, damit wir hinausgehen und uns in Diskussionen mit denen einlassen, die sich noch nicht mit der Geisteswissenschaft befaßt haben. Darum kann es sich nicht handeln. Wer noch kein Verhältnis zur Geisteswissenschaft besitzt und auch nicht den Willen dazu hat, es zu gewinnen, wird zuerst zu lernen haben, sich damit zu beschäftigen. Also es geht nicht darum, daß wir in einer Diskussion Argumente parat haben sollen, sondern darum, daß jeder in sich selbst, in seiner eigenen Seele diejenigen Einwände machen kann, die ihm aus der populären Wissenschaft der Gegenwart und aus dem sonstigen modernen Leben aufstoßen können. Er soll vor allem eine gewisse Sicherheit in sich selbst gewinnen. Das war Ziel und Zweck unserer vorigen Betrachtungen.
 
@@ -1218,9 +1203,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 104
 
 ---
 
-KARMA UND EINZELHEITEN DER KARMISCHEN GESETZMÄSSIGKEIT
-
-Berlin, 15. Oktober 1906
+# KARMA UND EINZELHEITEN DER KARMISCHEN GESETZMÄSSIGKEIT, Berlin, 15. Oktober 1906
 
 Wir werden heute über Karma und Einzelheiten der karmischen Gesetzmäßigkeit sprechen. Sie wissen, daß man unter Karma das große Gesetz von Ursache und Wirkung im geistigen Leben versteht und daß dieses Karmagesetz für die Geisteswissenschaft zunächst insofern in Betracht kommt, als es auf die wiederholten Erdenleben angewendet wird. Wir sprechen von Reinkarnation und Karma als von zwei zusammengehörigen Dingen. Nun wird dieses Karmagesetz, wie Sie wohl wissen, vielfach ein wenig äußerlich aufgefaßt, so als ob es sich lediglich um eine Art Belohnung und Bestrafung handeln würde, die sich von einer Inkarnation in die andere hinzieht, so daß der Mensch, wenn ihm irgend etwas Böses oder Schlimmes in diesem Leben widerfährt, sich unbedingt sagen müßte: Dies habe ich wegen irgendeiner Verschuldung im vorhergehenden Leben verdient. - Oder: Wenn ich dies oder jenes tue, wird mir im nächsten Leben der entsprechende Lohn oder die entsprechende Strafe zuteil werden. - So einfach liegt die Sache aber nicht. Wer dieses Gesetz von Karma verstehen will, muß sich schon tiefer auf die Natur des Menschen und auf seine ganze Wesenheit einlassen.
 
@@ -1368,9 +1351,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 ---
 
-# DIE BEZIEHUNG DER MENSCHLICHEN SINNE ZUR AUSSENWELT
-
-Berlin, 19. Oktober 1906
+# DIE BEZIEHUNG DER MENSCHLICHEN SINNE ZUR AUSSENWELT, Berlin, 19. Oktober 1906
 
 Wenn wir am Vorabend unserer Generalversammlung zusammengekommen sind, dürfte es – auch im Hinblick auf die nächsten Tage, die hoffentlich recht anregend verlaufen werden – ganz angemessen erscheinen, unser Zusammensein schon heute mit einem Vortrag für unsere auswärtigen Gäste und damit natürlich auch für &amp;. Berliner Mitglieder zu eröffnen. Dabei darf ein solcher Vortrag, der außerhalb des Programms als freie Gabe eingefügt wird, auch etwas geben, was sich dem normalen Verlauf der theosophischen Vorträge weniger gut einreihen würde; etwas für den fortgeschrittenen Theosophen und zugleich für denjenigen, der am Anfang steht. Der letztgenannte muß allerdings versuchen, sich erst zu den Dingen, um die es sich handelt, hinaufzuranken. Nur wenn er sich ernster und intensiver darauf einläßt, wird er ganz mitkommen können. Anderseits sollte auch für diejenigen etwas geboten werden, welche von den aus den höheren Welten uns zugänglichen Partien etwas hören wollen.
 
@@ -1384,10 +1365,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 Astralleib sei weniger hoch, der Ätherleib noch weniger hoch, und der physische Leib sei der tiefststehende.
 
-## Atma
-## Budhi
-## Manas
-
+Atma
+Budhi
+Manas
 Kama-Manas
 Astralleib
 Ätherleib
@@ -1559,11 +1539,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch:96
 
 ---
 
-DER ERKENNTNISPFAD UND SEINE STUFEN
+# DER ERKENNTNISPFAD UND SEINE STUFEN, Erster Vortrag, Berlin, 20. Oktober 1906
 
-Erster Vortrag, Berlin, 20. Oktober 1906
-
-# Der rosenkreuzerische Geistesweg
+## Der rosenkreuzerische Geistesweg
 
 Heute soll ein Bild des Erkenntnispfades gegeben werden, und es soll auch gezeigt werden, welches die Früchte dieses Pfades sind. Sie kennen einige Hauptgesichtspunkte, die dabei in Betracht kommen. Aber auch für diejenigen, die schon einschlägige Vorträge über den Erkenntnispfad gehört oder den «Lucifer», namentlich das zweiunddreißigste Heft gelesen haben, wird sich etwas Neues bieten, wenn wir den Erkenntnispfad so besprechen, wie es nur im intimen Kreise von Schülern der Geisteswissenschaft geschehen kann. Dabei wird es sich hauptsächlich darum handeln, diesen Erkenntnispfad zu besprechen, insofern er durch die rosenkreuzerische abendländische Geistesströmung vorgezeichnet ist, die seit dem 14. Jahrhundert die europäische Kultur an unbekannten Fäden geistig lenkt und leitet.
 
@@ -1745,11 +1723,9 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 155
 
 ---
 
-DER ERKENNTNISPFAD UND SEINE STUFEN
+# DER ERKENNTNISPFAD UND SEINE STUFEN, Zweiter Vortrag, Berlin, 21. Oktober 1906
 
-Zweiter Vortrag, Berlin, 21. Oktober 1906
-
-# Imaginative Erkenntnis und künstlerische Imagination
+## Imaginative Erkenntnis und künstlerische Imagination
 
 Unter den verschiedenen Anweisungen, die der okkulte Lehrer dem Schüler gibt, wurde an zweiter Stelle die Imagination genannt. Sie besteht darin, daß der Mensch nicht so durch das Leben geht, wie das in der Alltäglichkeit geschieht, sondern im Sinne des Goetheschen Spruches «Alles Vergängliche ist nur ein Gleichnis», so daß ihm hinter jedem Tier und jeder Pflanze etwas aufgeht, was dahintersteht. In der Herbstzeitlose wird er dann zum Beispiel ein Bild des melancholischen Gemütes erblicken, im Veilchen ein Bild stiller Frömmigkeit, in der Sonnenblume ein Bild kraftstrotzenden Lebens, von Selbstständigkeit, von Ehrgeiz. Wenn der Mensch in diesem Sinne lebt, dann schwingt er sich zur imaginativen Erkenntnis auf. Er sieht dann aus einer Pflanze etwas wie eine kalte Flamme aufsteigen, ein Farbenbild, welches ihn in den Astralplan einführt. So wird der Schüler dahin geführt, Dinge zu sehen, die ihm die geistigen Wesen aus anderen Welten vorführen. Gesagt wurde aber schon, daß der Schüler dem okkulten Lehrer streng folgen muß, weil nur dieser ihm sagen kann, was subjektiv, was objektiv ist. Und der okkulte Lehrer kann dem Schüler die notwendige Festigkeit geben, die die Sinnenwelt von selbst gibt, weil sie die Irrtümer fortwährend korrigiert. In der Astralwelt dagegen ist es anders. Da ist man leicht Täuschungen unterworfen; da muß einem der Erfahrenere zur Seite stehen.
 
@@ -1829,9 +1805,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 163
 
 ---
 
-ERNÄHRUNGSFRAGEN UND HEILMETHODEN
-
-Berlin, 22. Oktober 1906, vormittags
+# ERNÄHRUNGSFRAGEN UND HEILMETHODEN, Berlin, 22. Oktober 1906, vormittags
 
 Heute soll vom geisteswissenschaftlichen Standpunkt aus über etwas gesprochen werden, dem ein eminent großer Wert beigemessen werden kann, wenn es in der richtigen Weise aufgefaßt wird. Es sollen einige Gesichtspunkte über Ernährungs- und Heilweise angegeben werden. Mehr noch als bei irgendeiner anderen Auseinandersetzung müssen Sie dabei allerdings berücksichtigen, daß es sich nur um das Herausgreifen ganz aphoristischer Einzelheiten aus einem unendlich weiten Gebiete handelt und daß es sehr schwierig ist, heute schon darüber in einer allgemein verständlichen Sprache zu sprechen. Es kann deshalb auch nur annähernd darüber gesprochen werden, weil man es in einem solchen erweiterten Kreise nicht mit lauter Ein-geweihten zu tun hat, die in der Lage wären, jedes Wort auch wirklich seinem Wahrheitswert nach zu empfinden.
 
@@ -1960,9 +1934,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Seite: 177
 
-# DIE TECHNIK DES KARMA
-
-Berlin, 22. Oktober 1906, abends
+# DIE TECHNIK DES KARMA, Berlin, 22. Oktober 1906, abends
 
 Man versteht die Wege des Karma besser, wenn man die Schicksale der menschlichen Seele zwischen dem Tode und einer neuen Geburt betrachtet. So sollen uns heute mancherlei Ausblicke des Weges beschäftigen, den die Seele zwischen dem Tode und einer neuen Geburt zurückzulegen hat. Es soll ein Bild von den Schicksalen der Seele nach dem Tode aufgerollt werden. Und da man sich mit seinen Gedanken erst nach und nach in diese Gebiete hineinlebt und hineingewöhnt, so kann es nur nützlich sein, wenn man sich solche Gedanken öfter durch die Seele ziehen läßt.
 
@@ -2311,11 +2283,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch:96 Seite:202
 
-DAS VATERUNSER
-
-EINE ESOTERISCHE BETRACHTUNG
-
-Erster Vortrag, Berlin, 28. Januar 1907
+# DAS VATERUNSER - EINE ESOTERISCHE BETRACHTUNG, Erster Vortrag, Berlin, 28. Januar 1907
 
 Was ich heute sagen will, bezieht sich auf die Frage: Inwiefern zeigen uns an ganz bestimmten Beispielen die Religionsbekenntnisse ihre geisteswissenschaftliche, oder sagen wir, geheimwissenschaftliche Grundlage? - Nur einen ganz kleinen, aber dafür unendlich wichtigen Abschnitt aus diesem Kapitel über die geheimwissenschaftliche Grundlage der Religionen möchte ich Ihnen heute erzählen. Sie werden sehen, daß es sich um eine allen, auch den naivsten Menschen unserer Kultur bekannte Tatsache handelt, eine geistige Tatsache, innerhalb welcher die tiefsten geheimwissenschaftlichen Wahrheiten und Gründe verborgen sind, die man nur suchen muß, um zu sehen, wie weisheits- und geheimnisvoll die Verkettungen innerhalb des Geisteslebens der Menschheit sind.
 
@@ -2537,9 +2505,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 220
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Seite: 221
 
-# DAS VATERUNSER
-
-Zweiter Vortrag, Berlin, U.Februar 1907
+# DAS VATERUNSER, Zweiter Vortrag, Berlin, 18. Februar 1907
 
 Wir haben durch das, was ich das letzte Mal hier vor Ihnen sprechen konnte, gesehen, wie in einem altbekannten Gebiet eigentlich die ganze geisteswissenschaftliche Anschauung von dem Wesen des Menschen zum Ausdruck kommt. Wir haben uns dabei überzeugen können, wie die religiösen Strömungen, die religiösen Lehren und Verrichtungen aus dem herausgeschöpft sind, was wir im Laufe der Zeiten durch die Geisteswissenschaft selbst kennengelernt haben. Dabei haben wir uns den Vorgang so vorzustellen, daß die Menschheit ursprünglich von einer universellen, allumfassenden Grundanschauung ausgegangen ist, die in den Religionsbekenntnissen der verschiedenen Völker je nach der Verschiedenheit der nationalen Charaktere zum Ausdruck kommt. Nun können Sie natürlich die Frage stellen: Wie hat man sich genauer vorzustellen, daß die Grundwahrheiten, die Grundweisheiten der Menschheit mit dem zusammenhängen, was in den verschiedenen einzelnen Religionsbekenntnissen durch die Religionsstifter diesem oder jenem Volke verkündigt worden ist? - Es ist gewiß eine an sich auffällige Tatsache, daß uns in den sieben Bitten des Vateruners wirklich die geisteswissenschaftlichen Grundbegriffe entgegentreten, und einem Außenstehenden, der sich wenig mit dem befaßt hat, was man durch die Geisteswissenschaft heute kennenlernen kann, muß ja vieles phantastisch erscheinen, und er kann dann leicht sagen: Das alles ist nur hineingetragen in das, was ihr aus den religiösen Urkunden erhalten habt.
 
@@ -2697,9 +2663,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 ---
 
-# DER LEBENSLAUF DES MENSCHEN IM ZUSAMMENHANG MIT DER PLANETARISCHEN EVOLUTION
-
-Berlin, 4. März
+# DER LEBENSLAUF DES MENSCHEN IM ZUSAMMENHANG MIT DER PLANETARISCHEN EVOLUTION, Berlin, 4. März 1907
 
 Ich möchte Ihnen heute eine Art Ergänzung und Erweiterung dessen geben, was im letzten Vortrag über den Lebenslauf des Menschen gesagt worden ist. Wir können dabei einige intimere Dinge besprechen und außerdem an dieser oder jener Stelle etwas einfügen, was im öffentlichen Vortrag weggelassen werden mußte. Vor allen Dingen möchte ich Ihnen diesen Lebenslauf in ein großes Ganzes hinstellen. Ich möchte Ihnen zeigen, wie der Mensch, so wie er heute vor uns steht, in der Tat eine Art von Mikrokosmos ist, eine kleine Welt; wie er alles das, was uns rings umgibt, nicht nur auf der Erde, sondern in gewisser Beziehung auch im Sternenhimmel als Gesetz seiner Entwicklung in sich schließt.
 
@@ -2829,9 +2793,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 250
 
-# DIE WELTGESCHICHTLICHE BEDEUTUNG DES AM KREUZE FLIESSENDEN BLUTES
-
-Berlin, 25. März 1907
+# DIE WELTGESCHICHTLICHE BEDEUTUNG DES AM KREUZE FLIESSENDEN BLUTES, Berlin, 25. März 1907
 
 Über acht Tage, also am Ostermontag, möchte ich zu Ihnen sprechen über das Mysterium von Golgatha, und heute können wir vielleicht eine kleine Vorbereitung zu dieser Betrachtung anstellen. Unsere heutige Auseinandersetzung soll sich hauptsächlich beziehen auf ein Wort des Neuen Testamentes, welches vielen unverständlich oder wenigstens schwer verständlich ist. Zum mindesten zeigt sich leicht, daß man mit diesem Wort nicht jenen tiefen Sinn verbindet, der durchaus, wenn man auf das esoterische Christentum eingeht, mit diesem Worte zu verbinden ist. Zu gleicher Zeit wird uns dieses Wort von einer andern Seite her noch tiefer in den Geist und in den Sinn des Christentums einführen. Es ist das Ihnen gut bekannte Wort: «Alle Sünden können vergeben werden, nur nicht die Sünde wider den Heiligen Geist.»
 
@@ -3067,9 +3029,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 ---
 
-# DIE REINIGUNG DES BLUTES VON DER ICH-SUCHT DURCH DAS MYSTERIUM VON GOLGATHA
-
-Berlin, 1. April 1907
+# DIE REINIGUNG DES BLUTES VON DER ICH-SUCHT DURCH DAS MYSTERIUM VON GOLGATHA, Berlin, 1. April 1907
 
 Über das Mysterium von Golgatha wollen wir heute sprechen und damit zu gleicher Zeit eine geisteswissenschaftliche Osterbetrachtung anstellen. Vor acht Tagen durfte ich hier darauf hinweisen, daß das Mysterium von Golgatha nicht nur etwas in der geschichtlichen Entwicklung der Menschheit bedeutet wie ein anderes geschichtliches Ereignis, sondern daß es eine tiefste Bedeutung hat für die ganze Erdenentwickelung, insofern wir zu dieser Erdenentwickelung selbstverständlich den Menschen mitrechnen. Damals schon durfte ich Sie darauf aufmerksam machen, wie einem Beobachter unserer Erdkugel, der von einem fernen Planeten aus seine Augen durch Jahrtausende hindurch auf unseren Planeten richten könnte, die Umwandlung unseres Planeten erschienen wäre. Tatsächlich würde ein solches Auge, das von einem fernen Planeten herunterschaute, sehen, wie sich durch Jahrtausende vor unserer Zeitrechnung der Anblick der Erde verändert hat. Und wenn es ein hellseherisches Auge wäre, also ein Auge, das nicht nur beobachten könnte, was im Physischen auf unserem Planeten vor sich geht, sondern das auch die geistige Verwandlung beobachten könnte, so würde es sehen, daß mit dem Erscheinen des Christus Jesus auf der Erde die ganze geistige Atmosphäre der Erde sich ändert, eine andere wird.
 
@@ -3317,10 +3277,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 297
 
 ---
 
-DER ZUGANG ZUM CHRISTENTUM
-DURCH DIE GEISTESWISSENSCHAFT
-
-Berlin, 27. April 1907
+# DER ZUGANG ZUM CHRISTENTUM DURCH DIE GEISTESWISSENSCHAFT, Berlin, 27. April 1907
 
 Ich möchte Ihnen heute einige Ergänzungen zu verschiedenen Betrachtungen geben, die wir über das Christentum im geisteswissenschaftlichen Sinne angestellt haben. Zunächst werden wir es mit einer geisteswissenschaftlichen Auslegung und Erklärung von christlichen Gleichnissen zu tun haben. Dann will ich einiges von dem, was Sie in den öffentlichen Vorträgen hören konnten, andeutungsweise über die Apokalypse sagen.
 
@@ -3527,9 +3484,7 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 
 Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite:318
 
-# DIE DREI ASPEKTE DES PERSÖNLICHEN
-
-Berlin, 12. Juni 1907
+# DIE DREI ASPEKTE DES PERSÖNLICHEN, Berlin, 12. Juni 1907
 
 Der Münchner Kongreß, der der vierte ist - nach Amsterdam, London und Paris -, sollte in einer gewissen Beziehung eine Etappe sein in der Entwickelung unserer theosophischen Bewegung. Er wird eine Art Verbindung zwischen den verschiedenen Nationen herstellen auch in bezug auf unsere theosophische Sache innerhalb Europas. Nicht einen eigentlichen Bericht über den Kongreß will ich heute geben, sondern nur ein paar Bemerkungen für diejenigen, welche nicht daran teilnehmen konnten.
 
@@ -3632,505 +3587,3 @@ Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
 Heiterkeit, die zugleich die Quelle der Gesundheit ist, wiedergegeben werden. Disharmonie ist letzten Endes ein Ausfluß des Egoismus, und heitere, frohe Stimmung entströmt dem höheren Menschen. Je mehr das Höhere, das Göttliche Platz greift, desto seliger wird der Mensch werden. Wir sollten mehr daran denken, wie wir der ganzen Menschheit helfen, als daran, wie die Geisteswissenschaft gerade uns helfen kann. Wir kommen immer mehr zum Erkennen des Quells echter Heiterkeit und Freude, ewiger Jugend, wenn wir uns mit der Ethik des Überpersönlichen bekanntmachen.
 
 Nicht in einer Verneinung liegt das Ziel der Theosophie, sondern in der Bejahung. Das Unpersönliche bedeutet Verneinung, das Überpersönliche Bejahung, selbst wenn es noch so schwach auftreten sollte. Das ist es, was uns zugleich die Aufgabe der Geisteswissenschaft aus dem Wesen der Menschheit heraus zeigt. «An ihren Früchten sollt ihr sie erkennen -», daran, daß sie die Menschen geeignet und tüchtig für das Leben macht, mit Gesichtern, die Ausdruck einer harmonischen Seele sind. Der Geist drückt sich niemals in einem vergrämten Gesicht aus. Selbst was der Mensch an Schmerz durchmachen muß, wandelt sich in dem Antlitz des Denkers um und erscheint veredelt; der Ausdruck des Schmerzes zeigt sich gereinigt in dem harmonischen Denkergesicht. Das vergrämte Gesicht ist der Ausdruck eines noch nicht überwundenen Egoismus. Die Geisteswissenschaft leitet uns an, aus uns herauszugehen, aber uns nicht zu verlieren, sondern uns die Außenwelt zu erhalten. Sie führt uns über das Persönliche hinaus, nicht durch eine Vernichtung der Persönlichkeit ins Unpersönliche, sondern durch eine Steigerung ins Überpersönliche.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-# HINWEISE
-
-dieser Ausgabe
-
-Die in diesem Band zusammengefassten Vorträge wurden vor Mitgliedern des von Rudolf Steiner und Marie Steiner-von Sivers 1905 gegründeten Besant-Zweiges der Theosophischen Gesellschaft in Berlin gehalten. Sie bilden einen Teil der dort kontinuierlich durchgeführten Vortragsarbeit Rudolf Steiners, sofern diese nicht durch Vortragsreisen in andere Städte unterbrochen werden mußte, was in dieser Zeit häufig der Fall war. Doch pflegte Rudolf Steiner - auch wo kein unmittelbarer thematischer Zusammenhang besteht - jeweils an das früher Gesagte anzuknüpfen.
-
-Die im gleichen Zeitraum außerhalb von Berlin gehaltenen Mitgliedervorträge sind veröffentlicht in dem Band «Das christliche Mysterium» (GA 97).
-
-Rudolf Steiner stand in der Zeit, in der diese Vorträge gehalten wurden, mit seiner anthroposophisch orientierten Geisteswissenschaft noch innerhalb der Theosophischen Gesellschaft (bis zur Begründung der Anthroposophischen Gesellschaft 1912/13), doch verwendete er die Bezeichnungen «Theosophie» und «theosophisch» immer im Sinne seiner selbständigen Geistesforschung. Einer späteren Angabe Rudolf Steiners gemäß sind diese Bezeichnungen hier durch «Geisteswissenschaft» und «Anthroposophie», «geisteswissenschaftlich» oder «anthroposophisch» ersetzt, soweit nicht auf die von H. P. Blavatsky begründete theosophische Bewegung Bezug genommen wird oder in umfassenderem Sinne eine Anschauung gemeint ist, für welche die geistesgeschichtliche Bezeichnung Theosophie gebräuchlich ist.
-
-Textunterlagen: Bei den Vorträgen haben verschiedene Teilnehmer mitgeschrieben, von welchen nur Franz Seiler und Walter Vegelahn namentlich bekannt sind. Die Textunterlagen sind - da es sich nicht um Berufstenographen handelte - teilweise lückenhaft. Für die 2. Auflage 1989 des Bandes wurden alle vorhandenen Unterlagen nochmals überprüft. Soweit es von einzelnen Vorträgen mehrere Mitschriften gibt, wurde Ergänzendes oder Abweichendes dem Text eingearbeitet. Entsprechende Änderungen sind in den Hinweisen vermerkt. In eckigen Klammern Gesetztes [ ]: Einfügungen des Herausgebers.
-
-Der in der 1. Auflage 1974 auf den Seiten 298-307 enthaltene Vortrag «Ostern, das Fest der geistigen Wiedergeburt» war vom Nachschreiber irrtümlich mit dem Datum vom 7. April 1907 versehen. Es handelt sich jedoch um eine Nachschrift des Vortrages vom 12. April 1906, der im Band «Die Welträtsel und die Anthroposophie» (GA 54) veröffentlicht ist. Aus diesem Grund wurde dieser Vortrag in die Neuauflage 1989 nicht mehr aufgenommen.
-
-Titel des Bandes und der einzelnen Vorträge: Die Titel sind nicht von Rudolf Steiner, sondern stammen von Marie Steiner, den Zeitschriften-Herausgebern oder dem Bearbeiter der 1. Buchausgabe 1974.
-
-Zeichnungen im Text: Die Zeichnungen wurden nach den spärlichen Angaben einzelner Nachschriften wiedergegeben. Originaltafelskizzen sind nicht erhalten.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-Als Einzelausgaben sind früher erschienen:
-
-Berlin, 20. und 21. Oktober 1906 «Der Erkenntnispfad und seine Stufen», Dornach 1933.
-Berlin, 17. Dezember 1906 «Zeichen und Symbole des Weihnachtsfestes», Dornach 1932; 2. um zwei Vorträge aus den Jahren 1904 und 1905 erweiterte Auflage Dornach 1957; 3. Auflage Dornach 1968; 4. Auflage Dornach 1977; 5. Auflage Dornach 1983.
-Berlin, 28. Januar 1907 «Das Vaterunser. Eine esoterische Betrachtung», 1. Auflage Berlin 1907; 2. Auflage Berlin 1908 in «Drei theosophische Vorträge»; 3. Auflage Berlin 1909; 4. Auflage Berlin 1914; 11.-14. Tausend Berlin 1920; 15.-19. Tausend Berlin 1921; 20.-24. Tausend Berlin 1927; 25.-29. Tausend Dornach 1934; 30.-32. Tausend Freiburg i.Br. 1954; 33.-35. Tausend Freiburg i.Br. 1958; weitere Auflagen Dornach 1968, 1976, 1983.
-Berlin, 25. März und 1. April 1907, 1. Auflage in «Das Mysterium von Golgatha», Berlin o.J. (1912); 2. Auflage «Die Mysterien des Geistes, des Sohnes und des Vaters. Eine Osterbetrachtung», Dornach 1930; 3. Auflage Dornach 1954; 4. Auflage Dornach 1962; 5. Auflage Dornach 1981.
-
-Veröffentlichungen in Zeitschriften:
-
-29. Januar 1906 in «Was in der Anthroposophischen Gesellschaft vorgeht. Nachrichten für deren Mitglieder» 1947, 24. Jg., Nrn. 40-44.
-14. Mai 1906 in «Die Menschenschule» 1949, 23. Jg., Nr. 1.
-1. Oktober 1906 (irrtümlich 2. Oktober) in «Was in der Anthroposophischen Gesellschaft vorgeht. Nachrichten für deren Mitglieder» 1945, 22. Jg., Nrn. 43-45.
-4. März 1907 in «Was in der Anthroposophischen Gesellschaft vorgeht. Nachrichten für deren Mitglieder» 1941, 18. Jg., Nrn. 47-48.
-Der Vortrag vom 22. Oktober 1906 vormittags wurde erstmals in Heft 35 der «Beiträge zur Rudolf Steiner Gesamtausgabe» veröffentlicht. In Heft 30 der «Beiträge» erschien ein Auszug aus dem Vortrag vom 7. Mai 1906.
-12. Juni 1907: Der Bericht über den Münchner Kongreß, Seiten 318-320, ist auch enthalten im Band «Bilder okkulter Siegel und Säulen. Der Münchner Kongreß», GA 284, 1977, S. 71 u. 72.
-
-Hinweise zum Text
-
-Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen mit der Bibliographie-Nummer angegeben. Siehe auch die Übersicht am Schluß des Bandes.
-
-Zu Seite
-
-15 3. Zeile von oben: Textänderung gegenüber der Auflage von 1974 aufgrund einer anderen Nachschrift.
-
-im letzten Drittel des 19. Jahrhunderts: Die Theosophische Gesellschaft wurde von Helena Petrowna Blavatsky und Henry Steel Oleott 1875 in New York begründet.
-
-17 Die großen Meister der Weisheit und des Zusammenklanges der Empfindungen: Wesenheiten, die für die Evolution der Menschheit von größter Bedeutung sind. «Diese erhabenen Wesenheiten haben den Weg bereits zurückgelegt, den die übrige Menschheit noch
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-zu gehen hat. Sie wirken nun als die <großen (aus="" den="" den.="" ein="" ein.="" er="" erweinheit="" geschen="" geschen,="" geschenfrungen="" geschenne="" hof,="" in="" kocher="" kocher,="" münchen,="" mitglied,="" nachschrift.="" n.="" n.2.="" n.4.="" n.5.="" n.6.="" n.7.="" nachschrif.="" n.8.="" n.9.="" n.10.="" n.117,="" nachschrif.="" nachschrif.2.="" nachschrif.24.="" nachschrif.26="" nachschrif.="" nachschrif.27="" nachschrif.28="" nachschrif.29="" nachschrif.30="" nachschrif.31="" nachschrif.32="" nachschrif.4.="" nachschrif.5.="" nachschrif.6.="" nachschrif.7.="" nachschrif.8.="" nachschrif.9.="" nachschrif.10="" nachschrif.11="" nachschrif.12="" nachschrif.13="" nachschrif.14="" nachschrif.15="" nachschrif.16="" nachschrif.17="" nachschrif.18="" nachschrif.20="" nachschrif.21="" nachschrif.22="" nachschrif.23="" nachschrif.24="" nachschrif.25="" nachschrif.26="" nachschrif.27="" nachschrif.28="" nachschrif.30="" nachschrif.31="" nachschrif.4.="" nachschrif.5.="" nachschrif.6.="" nachschrif.7.="" nachschrif.8.="" nachschrif.9="" nachschrif.100="" nachschrif.11="" nachschrif.12="" nachschrif.13="" nachschrif.14="" nachschrif.15="" nachschrif.16="" nachschrif.20="" nachschrif.21="" nachschrif.22=""
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 330</großen>
-
----
-
-umfassend, ein lebendiger Organismus, in dem alle übrigen sterblichen und unsterblichen Organismen ihr Dasein haben, das sinnliche Abbild des bloß in Gedanken vorstellbaren Gottes.» Timaios 92 C, übersetzt von Constantin Ritter.
-
-56 in der Geschichte vom Paradies: 1. Mos. 3,5.
-«Bewundert viel und vielgeschoten»: «Faust» II/Vor dem Palaste des Menelas zu Sparta.
-
-57 die «Geheimlehre», in der die Dzyanstrophen stehen: «The Secret Doctrine», London, New York, Madras 1893. Deutsch «Die Geheimlehre», Leipzig o.J., Den Haag o.J.
-
-65 Nichts Schöneres konnte die Mutter Goethes tun: Vgl. «Dichtung und Wahrheit», Zehntes Buch, vorletzter Absatz; Karl Heinemann, «Goethes Mutter. Ein Lebensbild nach den Quellen», Leipzig 1891.
-
-68 Buch von Lapponi: Prof. Dr. med. Lapponi, Leibarzt des Papstes Pius X. und Leo XIII.: «Hypnotismus und Spiritismus. Medizinisch-kritische Studie», deutsch von M. Luttenbacher, Leipzig o.J. (1906). Zu diesen Ausführungen ist zu berücksichtigen, daß die Nachschrift fragmentarisch ist und daß die deutsche Übersetzung dieses Buches Rudolf Steiner zu der Zeit, als er diesen Vortrag hielt, nicht vorgelegen hat, da sie erst Ende 1906 erschienen ist.
-
-72 Der Leipziger Zyklus: «Populärer Okkultismus», 28. Juni bis 11. Juli 1906, Hörernotizen, in GA 94.
-Der Stuttgarter Zyklus: «Vor dem Tore der Theosophie», GA 95.
-
-74 Ein bekannter Forscher: Paul Julius Möbius, 1853-1907, Nervenarzt und Dozent in Leipzig. «Neurologische Beiträge», 1. Heft: «Über den Begriff der Hysterie und andere Vorwürfe vorwiegend psychologischer Art», Leipzig 1894. - Vgl. «Nachrichten der Rudolf Steiner-Nachlaß Verwaltung», Nr. 22 (Michaeli 1968), S. 30 f.
-
-75 Ein bedeutender Biologe: Konnte bisher nicht festgestellt werden.
-
-76 Dementia praecox: Mit diesem Ausdruck wurde zur Zeit, in welcher diese Vorträge gehalten wurden, ein Komplex von Krankheitserscheinungen bezeichnet, welche heute (1989) Schizophrenie heißen.
-
-82 Robert Owen, 1771-1858. Sozialreformer und Schöpfer der englischen Genossenschaften. Seine auf Grundlage des Gemeineigentums gegründeten Siedlungen in Übersee und Großbritannien erwiesen sich als nicht lebensfähig. Vgl. «Geisteswissenschaft und soziale Frage» in «Luzifer-Gnosis 1903-1908», GA 34.
-
-86 Die Buchdrucker: Der Deutsche Buchdruckerverband wurde 1866, ein Jahr nach der Gründung des Allgemeinen Deutschen Arbeitervereins, als erste sozialistische Gewerkschaft gegründet.
-
-91 die Differentialrechnung: Sie ermöglicht die Rechnung mit Differentialen, d.h. unendlich kleinen Differenzen, und ist zusammen mit der Integralrechnung für alle Probleme der exakten Naturwissenschaften und der Mechanik von großer Bedeutung. Die Differential- und Integralrechnung, zusammen Infinitesimalrechnung genannt, wurde Ende des 17. Jahrhunderts von Leibniz und Newton, unabhängig voneinander, geschaffen.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-92 Jean Jacques Rousseau, 1712-1778, wandte sich in seiner berühmten Schrift vom «Gesellschaftsvertrag» gegen den Fortschrittsoptimismus der Aufklärungszeit. Er sah in der künstlichen Welt der Zivilisation die Wurzel allen Übels und forderte die Rückkehr des Menschen zur Natur. Seine Lehre vom Gemeinwillen wurde der Verfassung der Französischen Revolution zugrunde gelegt. Vgl. Karl Heyer, «Beiträge zur Geschichte des Abendlandes», VI. Band: «Gestalten und Ereignisse vor der Französischen Revolution», Stuttgart 1964.
-
-in jeder Böhme-Biographie: Jakob Böhme, 1575-1624, theosophischer Mystiker. Böhmes erste Biographie schrieb Abraham von Franckenberg (gest. 1652). Neuere Biographien: H. A. Fechner, «Jakob Böhme, sein Leben und seine Schriften», Görlitz 1857; Johannes Claassen, «Jakob Böhmes Leben und seine theosophischen Werke», 3 Bde., Stuttgart 1885; H. Martensen, «Jakob Böhme», London 1949.
-
-94 Heinrich Cornelius Agrippa von Nettesheim, 1486-1535. «De occulta philosophia», Köln 1510; «De incertitude et vanitate scientiarum», Köln 1527, deutsch von F. Mauthner, «Über die Eitelkeit und Unsicherheit der Wissenschaften», 1913.
-
-Johannes Trithemius, 1462-1516, mit 23 Jahren Abt des Benediktinerklosters Sponheim, später Abt des Schottenklosters in Würzburg. Er schrieb u.a. «Staganographia» und «Polygraphia» als Anleitungen zu einer okkulten Symbolschrift; «Antipalus maleficiorum», Anweisungen zur Abwehr schwarzmagischer Praktiken; «De septem intelligentiis libellus», Das Buch von den sieben Planetengeistern. Vgl. Isidor Silbernagl «Johannes Trithemius», 2. Aufl. Regensburg 1885.
-
-96 ein Psychiater, ein Irrenarzt: Siehe Hinweis zu S. 74.
-
-über Robert Schumann: P. J. Möbius, «Über Robert Schumanns Krankheit», Leipzig 1916.
-
-Es gibt sogar zwei Schriften: Emil Rasmussen, «Jesus. Eine vergleichende psycho-pathologische Studie», Leipzig 1905; de Loosten (G. Lomer), «Jesus Christus vom Standpunkte des Psychiaters», Bamberg 1905.
-
-Ein solcher Irrenarzt sagt: «Es galt, alle Formen geistiger Störungen zu erkennen, ihren Zusammenhang mit körperlichen Veränderungen zu begreifen. ... Für die ärztliche Auffassung gibt es nur die Norm einerseits, das Abnorme andererseits. Weicht ein Mensch von der Norm, der Regel, dem Gewöhnlichen ab, und erreicht die Abweichung eine gewisse Größe, die die je nach der Anschauung verschieden große <breite ab="" als="" anschauung="" anschauung:="" anschauung:="" anschau.="" anschau.="" anschau.="" anschau.="" anschau.="" der="" dergesundheit="" die="" durch="" ein="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.="" ein.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:96
-
----
-
-103 in verschiedenen Vorträgen: Berlin, 12. Oktober 1905; Hamburg, 2. März 1908; Hamburg, 17. November 1906 (die beiden letztgenannten sind Parallelvorträge zu den beiden Vorträgen Berlin, 26. Oktober und 2. November 1905, von denen keine Nachschriften vorhanden sind). Sämtlich in: «Die Welträtsel und die Anthroposophie», GA 54.
-
-114 ein Buch über die Mimik des Denkens: Sancte de Sanctis «Die Mimik des Denkens», 1907.
-Schopenhauer: Vgl. «Arthur Schopenhauer» in «Biographien und biographische Skizzen 1894-1905», GA33.
-
-120 «Die Technik des Karma»: Siehe Vortrag vom 22. Oktober 1906 abends.
-Architektenhaus: Die Vorträge im Berliner Architektenhaus (wo Räume für öffentliche Vorträge gemietet werden konnten) aus den Jahren 1903-1918 stellen als längste kontinuierliche Vortragstätigkeit Rudolf Steiners eine umfassende Einführung in die Anthroposophie dar.
-
-121ff. Beim Vortrag vom 19. Oktober 1906 konnte eine weitere Nachschrift beigezogen werden, was zu einigen Textveränderungen gegenüber der 1. Auflage 1974 führte.
-
-121 die Beziehung der menschlichen Sinne zur Außenwelt: Zur Veranlagung der Sinnesorgane im Zusammenhang mit der planetarischen Entwicklung siehe insbesondere auch die Vorträge München, 1. und 2. Juni 1907 in «Die Theosophie des Rosenkreuzers», GA 99; Stuttgart, 3. August 1908 in «Welt, Erde und Mensch», GA 105. Es erscheint bedeutsam, daß Rudolf Steiner dieses Thema im Rahmen der Veranstaltungen zur Generalversammlung der Deutschen Sektion der Theosophischen Gesellschaft behandelte. Bei dem gleichen Anlaß im Jahre 1909 entwickelte er in seinem Vortragszyklus «Anthroposophie» vom 23.-25. Oktober, enthalten in «Anthroposophie, Psychosophie, Pneumatosophie», GA 115, eine geisteswissenschaftliche Sinneslehre, mit der er nach seinen Worten der von ihm geleiteten europäischen geisteswissenschaftlichen Bewegung eine festere Fundamentierung gab. Eine buchförmige Darstellung dieser Sinneslehre wollte er in dem Werk «Anthroposophie» geben, das Fragment blieb; aus dem Nachlaß herausgegeben unter dem Titel «Anthroposophie. Ein Fragment aus dem Jahre 1910», GA 45.
-
-129 «Im Anfang war das Wort»: Joh. 1,1.
-
-134 «Der Schöpfer blies dem Menschen den lebendigen Odem ein»: 1. Mos. 2,7.
-
-135 Adalbert von Chamisso (1781-1831), «Peter Schlemihls wundersame Geschichte», 1814.
-Die Textänderungen gegenüber der Auflage von 1974 auf dem unteren Teil der Seite gehen auf den Vergleich mit einer anderen Nachschrift zurück.
-Chela (Tscheia), Sanskrit, Adept oder Geistesschüler.
-
-138 «Luzifer»: Der vollständige Titel der Zeitschrift lautete seit 1904 «Lucifer-Gnosis»; vgl. «Mein Lebensgang», Kap. XXXII. Die Ausführungen im 32. Heft, auf die Rudolf Steiner hinweist, bilden das Kapitel «Die Imagination» in «Die Stufen der höheren Erkenntnis», GA 12.
-
-144 «Alles Vergängliche ist nur ein Gleichnis»: «Faust» II/Fausts Himmelfahrt.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:96 Seite:333
-
----
-
-145 Paracelsus: (Theophrastus Bombastus von Hohenheim), 1493 (?)—1541.
-Jakob Böhme, 1575-1624.
-
-151 Dann gibt er ihm ein Mantram: In einer anderen Nachschrift heißt es: Dann nennt er ihm ein bestimmtes Wort.
-
-152 wie es Goethe in den Worten Faustus ausspricht: «Faust» I / Wald und Höhle.
-
-154 Globen, Lebenszustände: Siehe hierzu insbesondere «Vor dem Tore der Theosophie», GA 95; «Die Apokalypse des Johannes», GA 104.
-
-157 Rupapartie des Devachanplanes: Die niederen Sphären der geistigen Welt, wo es noch Formen gibt.
-
-160 Tarifgemeinschaft: Gesamtarbeitsvertrag.
-
-161 bei Novalis: In dem Roman «Heinrich von Ofterdingen».
-
-Körner hat vielfach ... Bergleute gewählt: In den Gedichten «Bergmannsleben» und «Berglicd» sowie in dem dramatischen Spiel «Der Kampf der Geister mit den Bergknappen». In den Hörernotizen, die als Textunterlage dienten, ist der Name «Kernig» angegeben, was zweifellos auf einem Hörfehler beruht. Siehe hierzu C. S. Picht «Theodor Körner und seine Beziehungen zum Reich der Steine» in der Wochenschrift «Das Goetheanum», 19. Jg. 1940, Nr. 21.
-
-Bei dem Dichter Ernst Theodor Amadeus Hoffmann: «Die Bergwerke von Falun» in der Sammlung «Die Serapionsbrüder», I. Teil, 1819.
-
-166 Paracelsus hat... darauf hingewiesen: «Auß dem eußern setz zusammen den gantzen Menschen: so finstu im selbigen aller materien augenscheinliche Corpora, und findest in denselbigen alle species der Glider, der Gesundheit und der Kranckheit, dabey auch aller ihrer Essentias ... Darauß entspringt, daß ihr nicht sollen sagen, das ist Cholera, das ist Melancholia: sondern das ist ein arsenicus, das ist ein aluminosum. Also auch der ist Saturni, der Martis: Nit der ist Melancholiae, der ist Cholerae. Denn ein theil ist des Himmels, ein theil ist der Erden und in einander vermischt wie Feur und Holtz, da jedweders seinen nammen verlieren mag, dann es seind zwey ding in eim.» Theophrastus Paracelsus, «Das Buch Paragranum», herausgegeben und eingeleitet von Dr. Franz Strunz, Leipzig 1903, S. 29 f. - Zu den Ausführungen über Paracelsus vgl. Vortrag Berlin, 26. April 1906, in «Die Welträtsel und die Anthroposophie», GA 54.
-
-was über die Wirkung gewisser Metalle auf den menschlichen Organismus gesagt wurde: Siehe den vorhergehenden Vortrag vom 21. Oktober 1906.
-
-167 Er konnte nur die Wirkung der Heilmittel durch die Sinneserfahrung erproben: «Die Angemessenheit einer Arznei ... beruht nicht allein auf ihrer treffenden homöopathischen Wahl, sondern ebenso wohl auf der erforderlichen richtigen Größe, oder viel mehr Kleinheit ihrer Gabe ... Hier entsteht nun die Frage, welches dieser angemessenste Grad von Kleinheit sey ... Einzig nur reine Versuche, sorgfältige Beobachtung und richtige Erfahrung kann dies bestimmen.» Samuel Hahnemann, «Organon der rationalen Heilkunde», Dresden 1810, Paragraphen 300 ff., zitiert nach Martin Gumpert, «Hahnemann», 4. Aufl. Berlin 1934, S. 151 f.
-
-Copyright Rudolf Steiner Nachlass-Vei waltung Buch:96
-
----
-
-172 Paracehus sagt demgegenüber: «Wie mag sich da die Artzney reimen zu solchen Sachen, damit der Artzt mög billich sprechen, das er ein Artzt sey? Also: er ist ein Knecht der Natur, und Gott ist der Herr der Natur.»
-
-«Nun ist der Artzt auß der artzney, und nit auß sich selbst, darumb so muß er durch der Natur Examen gehn, welche Natur die Welt ist und all ihr Einfang: Und dasselbig was ihn die Natur lernet, daß muß er seiner weißheit befehlen: Und aber nichts in seiner weißheit suchen, sondern allein im Licht der Natur, und nachfolgend dieselbige Lehr beschließen in die Zeil derselbigen behaltnuß.»
-
-Theophrastus Paracelsus, «Volumen Paramirum und Opus Paramirum», herausgegeben von Dr. Franz Strunz, Jena 1904, S. 74, 85.
-
-«Dann die Natur ist so subtil und so scharff in ihren dingen, das sie ohn große kunst nicht wil gebraucht werden: Dann sie gibt nichts an tag, das auff sein statt vollendet sey, sondern der Mensch muß es vollenden: Diese Vollendung heißt Alchimia.»
-
-«Also weiter auch soll der Artzt kunstreich sein. Der da nun wil kunstreich sein, der muß in allem sein Erfarnheit haben: denn auß der Kunstreiche geht der grund deiner Künsten, das ist nicht der grund der Leer, sondern der grund deiner Artztneyischen künsten verstand.» «Das Buch Paragranum», S. 70, 105.
-
-176 Goethe sagt in diesem Sinne: In dem Gedicht «Die Metamorphose der Pflanzen» vom 17./18. Juni 1798.
-
-179 Zeugnis des Wiener Kriminalanthropologen Benedikt: Das geschilderte Erlebnis hatte Benedikt, der im übrigen ein passionierter Bergsteiger war, nicht bei einer Bergpartie, sondern im Augenblick des Ertrinkens. Er berichtet wörtlich: «Sehr liebte ich von Kindheit auf das Wasser, wobei ich manches erlebte, was mir im Gedächtnis blieb. Ich bemühte mich, Naturschwimmer zu sein, wobei es mir im offenen Donaubade passierte, daß ich unterging. Zum Glück fuhr ich an einen Pfosten an, der als Marke für Badende diente. Es war wohl kaum mehr als eine halbe Minute, daß ich das Bewußtsein hatte, jetzt ertrinke ich. Dabei machte ich die merkwürdige Selbstbeobachtung, daß in dieser kurzen Zeit sämtliche Erinnerungen meines Lebens vor mir in rasender Eile vorübergingen. Diese Beobachtung ist in der Psychologie bekannt; selbst erlebt haben es wenige. Ich war damals etwa 12 Jahre alt.» Moriz Benedikt, «Aus meinem Leben», Wien 1906, S. 35.
-
-181 «Wenn ihr nicht werdet wie die Kindlein»: Matth. 18,3; Mark. 10,15; Luk. 18,17.
-
-Gallwespen: Cynipidae, meist dunkel gefärbte, kleine oder winzige Hautflügler, die wie die Gallmücken ihre Eier in Pflanzenteile legen, wobei diese Gallen bilden.
-
-185 die Lipikas: Vgl. Vortrag Stuttgart, 26. August 1906 in «Vor dem Tore der Theosophie», GA95.
-
-186 Apostrophe: Feierliche Anrede.
-
-welche Goethe seinem Faust in den Mund legt: «Faust» II / Anmutige Gegend.
-
-188 «Die Sonne schaue»: Wortlaut nach einem Eintrag Rudolf Steiners in ein Notizbuch vom Jahre 1906. Es gibt Varianten aus späteren Jahren.
-
-192 das ist die Iris: In der griechischen Mythologie die Botin der Götter. In einer anderen Nachschrift heißt es: ein Abbild der heiligen Isis.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-192 In unserer heutigen Sprache wurde das Wort lauten «Christos»: Im Griechischen heißt 6 XQIGTOQ. Christos, der Gesalbte, entsprechend der hebräischen Bezeichnung Messias. Die in der Gnosis und im Manichäismus angewendete Bezeichnung XQrjörög, Chrestos, bedeutet: der Gute; nach Marcion (2. Jahrhundert) der höchste gute Gott im Unterschied zu dem Demiurgos, dem nur gerechten Schöpfergott. Abweichend von zwei früheren Herausgaben wurde in der 3. Auflage 1968 der Sonderbroschüre «Zeichen und Symbole des Weihnachtsfestes» die Form «Chrestos» eingesetzt, wie sie Rudolf Steiner in dem Vortrag vom 14. Dezember 1905, enthalten in dem Band «Die "Welträtsel und die Anthroposophie", GA 54, S. 243, gebraucht hat. Doch ist der Zusammenhang ein anderer, und eine nochmalige Prüfung der Textunterlagen ergab, daß in keiner der vorliegenden Nachschriften das Wort «Chrestos» steht.
-
-193 «Er muß zunehmen ...: Joh. 3,30.
-
-195 Nathanael... echter Israeliter: Joh. 1, 47.
-
-196 ein Sinnbild für den Paradiesesbaum: Vgl. «Der Baum des Lebens und der Erkenntnis des Guten und des Bösen. Die Geheimnisse der Kunst», in «Kunst- und Lebensfragen im Lichte der Geisteswissenschaft», GA 162.
-
-198 «Und solang du das nicht hast»: In «Selige Sehnsucht», 31. Juli 1814, «Westöstlicher Diwan».
-
-199 Raimundus Lullus, 1234-1315. Vgl. Vortrag Dornach, 5. Januar 1924 in «Die Weltgeschichte in anthroposophischer Beleuchtung und als Grundlage der Erkenntnis des Menschengeistes», GA 233.
-
-204 «Vater, laß diesen Kelch an mir vorüberziehen»: Matth. 26,39.
-
-229 das Jahvewort: 2. Mos. 3,14; Offenb. 1,8.
-
-231 turanische Adeptenschule: Die Turanier waren die vierte Unterrasse der Atlantis. Vgl. Rudolf Steiner, Unsere Atlantischen Vorfahren, in «Aus der Akasha-Chronik», GA 11.
-
-236 */» Lebensfluten ...»: Siehe Hinweis zu S. 26.
-
-237 im Vortrag über den Lebenslauf: Berlin 28. Februar 1907 (öffentlich), «Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben», GA 55.
-
-239 «Und Gott hauchte dem Menschen den lebendigen Odem ein»: Siehe Hinweis zu S. 134.
-
-245 einen sehr bedeutenden Kunsthistoriker: Herman Grimm, 1828-1901. «Immer wieder muß ich über die Unfähigkeit der jungen Leute staunen, das, was ihnen vorgelegte, sehr verständliche Kupferstiche, nach Werken Raphaels z.B., ihnen vor Augen brachten, nur zu erkennen. Meine Aufforderung, sie möchten mir über das Ganze oder über einzelne Figuren etwas sagen, ist anfangs meist eine vergebliche; sie sehen die Dinge, ohne irgend zu wissen, was sie vor sich haben. Ich wünsche nicht, daß Kunstgeschichte auf den Gymnasien getrieben werde; aber ich frage, wie ein nach dieser Richtung hervortretender so großer Mangel an Anschauungsvermögen bei den den Gymnasien entstammenden Studierenden zu erklären sei.» Aus «Die Deutsche Schulfrage und die Deutschen Klassiker», in «Fünfzehn Essays / vierte Folge: Aus den letzten fünf Jahren», Gütersloh 1890, S. 61.
-
-250 «Alle Sünden können vergeben werden»: Matth. 12,31; Mark. 3,28.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-251 Der schlichte Mann von Nazareth: Ein von Rudolf Steiner in seinen Vorträgen sehr häufig zitiertes Wort des protestantischen Theologen Heinrich Weinel (1874-1936).
-
-252 die Schule des Dionysius: Dionysius Areopagka, Apostelgeschichte 17, 34, als Schüler des Paulus erwähnt. Unter seinem Namen erschienen Ende des 5. Jahrhunderts in Syrien die Schriften «Von der himmlischen Hierarchie» und «Von der kirchlichen Hierarchie», die Scotus Erigena im 9. Jahrhundert aus dem Griechischen ins Lateinische übersetzte. Deutsch von J. G. von Engelhardt, Sulzbach 1823; Storf, Kempten 1877; Joseph Stiglmayr SJ, Kempten und München 1911; Walther Tritsch, München-Planegg 1956.
-
-253/4 hei der Betrachtung des Vateruners: Vortrag vom 28. Januar 1907.
-
-259 in dem Worte ausgedrückt: Matth. 19,29; Mark. 10,29; Luk. 14, 26.
-
-262 «Blut ist ein ganz besonderer Saft»: Vortrag Berlin, 25. Oktober 1906 in «Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben», GA 55.
-
-daß Adam Jahrhunderte alt wird: 1. Mos. 5,3-5.
-
-ein Gespräch, das Anzengruber mit Peter Rosegger geführt hat: «Ein anderesmal mit Anzengruber auf einem Spaziergang ... Wir plauderten über dichterisches Schaffen und dichterische Stoffe. Da äußerte ich, daß er in Oberbayern gelebt oder doch viel mit oberbayerischen Bauern verkehrt haben müsse. Seine Bauerngestalten erinnerten sehr an diesen Schlag. Er setzte auf die scharfgebogene Nase seinen Zwicker und sagte: <oberbayern? nein.="" bauch'="" das="" der="" den="" der.="" die="" das="" dasnicht.="" diepe="" diepein="" diepein?="" ihm="" ihm.="" in="" inwendige="" kenne="" kan="" kearn="" kermundierung="" man="" merkte:="" mich="" nicht.="" nur="" nur="" nur,="" obedachten:="" pauch'="" pauen="" pauen,="" pauen.="" pauenheiden="" pauenhelen="" pauenhelen.="" pauenhelen.="" par="" par,="" par!="" par!».="" per,="" pelbären="" plebenheiten="" plut="" pluten="" pluten.="" prauch'="" prand="" prand,="" prand:="" prund="" pur="" pur,="" ruend="" se="" se,="" segen,="" segenheiten="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" segenheiten.="" selbst.="" so="" sonderbar!="" spazier,="" spazier.="" spazier,="" spazier.,="" spazier.="" spazier.,="" spazier.="" spwesen.="" spwesen.="" spwesen.="" spwesen.="" spwestein="" spwestein.="" spwestein.="" spwestein.="" spwestein.="" spwestein.="" s.="" s.145f.="" s.145f.="" s.229.="" s.281.="" s.281.="" s.281.="" s.282.="" s.282.="" s.283.="" s.283.="" s.284.="" s.284.="" s.285.="" s.285.="" s.286.="" s.286.="" s.287.="" s.287.="" s.288.="" s.289.="" s.290.="" s.290.="" s.291.="" s.291.="" s.292.="" s.292.="" s.293="" s.293.="" s.294.="" s.294.="" s.295="" s.295.="" s.296="" s.296.="" s.297.="" s.297.="" s.298="" s.298.="" s.299.="" s.30.="" s.30.="" s.30.="" s.31.="" s.31.1.="" s.31.1.1.="" s.31.1.1.="" s.31.1.1.1.="" s.31.1.1.1.1.="" s.31.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
-Seite: 337</oberbayern?>
-
----
-
-289 «Eli, Eli, lama sabachthani»; Matth. 27, 46; Mark. 15,34. «sabachthani» meistens übersetzt mit «verlassen». Ähnlich lautender Ausdruck «Shevachthani» gleich «erhöht» oder «verherrlicht». Vgl. «Das Matthäus-Evangelium», GA 123, 12. Vortrag.
-
-294 «Einer von den Jüngern»: Joh. 13,23-25. Die Luther-Übersetzung weicht hier vom griechischen Text ab. In Vers 23 heißt es: «ev rcp tcofoitp», wörtlich «im Schoß», bei Luther: «an der Brust». Vers 25 beginnt:«avaneo» v exelvoq ovtcoc, im ro arrj'&amp;OQ Tov'Irjoov», wörtlich: «Indem sich jener also an die Brust des Jesus legte», bei Luther: «Denn derselbe lag an der Brust Jesu.»
-
-bei Johannes: Joh. 13,31.
-
-295 die Psalmworte: Psalm 22,2.
-
-296 «das neue Jerusalem»: Offenb. 3,12; 21,2.
-
-«Niemand kommt zum Vater»: Joh. 14,6.
-
-298 in den öffentlichen Vorträgen: «Bibel und Weisheit», 25. und 26. April 1907. Von dem Vortrag vom 25. April ist keine Nachschrift erhalten. Der Vortrag vom 26. April ist enthalten in dem Band «Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben», GA 55.
-
-Gleichnis vom ungerechten Haushalter: Luk. 16,1-8.
-
-nach der literarischen Übersetzung: Heinrich Weinel, «Die Gleichnisse Jesu» in «Aus Natur und Geisteswelt. Sammlung wissenschaftlich-gemeinverständlicher Darstellungen», 46. Band, 2. Auflage Leipzig 1905, S. 130.
-
-299 aus einem Büchelchen: A.a.O., S. 23.
-
-302 «Wer nicht verlasset»: Siehe Hinweis zu S. 259.
-
-303 Zwar sagt Jesus: Matth. 5,17-18.
-
-307 in dem Buch «Finsternisse»: Zürich 1896, zitiert von Weinel, a.a.O., S. 80.
-
-Aus dem hebräischen Kanon: Freie Wiedergabe der Absalom-Geschichte nach dem 2. Samuel-Buch.
-
-310 Ein anderes Gleichnis: Matth. 25,1-13.
-
-312 wird in der Bibel gesagt: 1. Mos. 4,1.
-
-314 okkulte Sinnbilder: Die Skizzen hierzu sind nicht erhalten. Vgl. «Die Apokalypse des Johannes», GA 104, und «Bilder okkulter Siegel und Säulen. Der Münchner Kongreß Pfingsten 1907», GA 284.
-
-die Namen der Wochentage: Siehe den Vortrag vom 7. März 1907.
-
-316 Zahl des Tieres: Offenb. 13,18.
-
-Diesen vier Zahlen entsprechen die hebräischen Buchstaben: Schon das phönizische und später das hebräische Alphabet hatten eine festgelegte Buchstabenfolge, die zugleich die Verwendung der Buchstaben als Zahlenzeichen ermöglichte. Dies ist im Alten Testament,
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-und zwar sowohl im hebräischen wie im griechischen Text mehrfach der Fall. In okkulten Schriften spielt der Zahlenwert von Buchstaben eine große Rolle.
-
-Es heißt Nero: Diese von Rudolf Steiner widerlegte Version wird zum Beispiel auch heute noch in dem von Fritz Rienecker herausgegebenen «Lexikon der Bibel», 3. Auflage, Wuppertal 1961, vertreten.
-
-Zum folgenden, mangelhaft nachgeschriebenen Vortrag vom 12. Juni 1907 vgl. Rudolf Steiners Aufsatz «Der Kongreß der Föderation europäischer Sektionen der Theosophischen Gesellschaft in München» in «Luzifer-Gnosis», GA 34, S. 590 ff.
-
-318 Der Münchner Kongreß: Vierter Kongreß der Föderation Europäischer Sektionen der Theosophischen Gesellschaft 18.-21. Mai 1907 in München. Vgl. «Mein Lebensgang», 38. Kapitel, GA 28; und «Bilder okkulter Siegel und Säulen ...», GA 284.
-
-319 Goethe hat über solche Dinge die schönsten Worte gesagt: Zur Farbenlehre, Didaktischer Teil. Sechste Abteilung. Sinnlich-sittliche Wirkung der Farbe, 796.
-
-320 Edouard Schures Mysteriendrama: «Das heilige Drama von Eleusis», rekonstruiert von Edouard Schure, aus dem Französischen übertragen von Marie von Sivers, in freie Rhythmen gefaßt durch Rudolf Steiner. Die Uraufführung fand am 19. Mai 1907 anläßlich des Münchner Kongresses statt.
-
-Die Anfangsbuchstaben auf dem Programm: E.D.N. - I.C.M. - P. S.S.R. Es sind die Anfangsbuchstaben des Rosenkreuzerspruches: Ex deo nascimur. In Christo morimur. Per spiritum sanctum reviviscimus.
-
-325 Experimentum crucis: Nachprüfung zweier sich kreuzender, d.h. unzertrennlich miteinander verbundener Eigenschaften, die entweder beide vorhanden oder beide nicht vorhanden sind, weshalb man nur nach einer der beiden Eigenschaften zu forschen braucht. Das Verfahren geht auf Francis Bacon zurück.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-# NAMENREGISTER
-
-H = Hinweis / * = ohne Namensnennung
-
-Agrippa von Nettesheim, Heinrich Cornelius 94 H
-Anzengruber, Ludwig 262 f. H
-Benedikt, Moritz 179 H
-Blavatsky, Helena Petrowna 47f., 54ff., 57H
-Böhme, Jakob 92 f. H, 145
-Buddha 222, 270
-Chamisso, Adalbert von 135 H
-Chladni, Ernst Florenz Friedrich 242
-Devrient, Therese 22 f.*
-Dionysius der Areopagita 252 f. H
-Franz von Assisi 55
-Goethe, Johann Wolfgang von 26 H, 45, 56* H, 96, 144 H, 152, 160, 176 H, 186f.H, 198H, 236, 251, 319H
-Goethe, Katharina Elisabeth, geb. Textor 65 H
-Grimm, Herman 245* H
-Haeckel, Ernst 19
-Hahnemann, Christian Friedr. Samuel 167
-Harnack, Adolf 299
-Hegel, Georg Wilhelm Friedr. 22, 50 H, 53
-Heine, Heinrich 96
-Heraklit 102
-Hermes Trismegistos 222, 285
-Hölderlin, Friedrich 50, 97
-Hoffmann, Ernst Theodor Amadeus 161H
-Homer 48
-Johannes der Täufer 193
-Judas Ischariot 292, 294
-Körner, Theodor 161 H
-Krishna 285
-Lapponi, Prof. Dr. med. ? 68 H
-Leibniz, Gottfried Wilhelm von 91 H
-
-Leonardo da Vinci 319
-Lessing, Gotthold Ephraim 17, 53 H
-de Loosten, (Dr. G. Lomer) 96* H
-Lullus, Raimundus 199H
-Mendelssohn-Bartholdy, Felix 22
-Michelangelo Buonarroti 319
-Möbius, Paul Julius 74* H, 96*
-Moses 197, 222
-Novalis 161H
-Owen, Robert 82 H
-Paracelsus 145, 166 f. H, 172H
-Paulus, Apostel 252 f.
-Plato 48, 54 H, 251
-PiusX., Papst 68* H
-Plinius der Ältere 44 H, 45
-Pythagoras 48, 54, 65, 174, 285
-Rasmussen, Emil 96* H
-Rosegger, Peter 262 f. H
-Rosenkreuzer (christliche Bruderschaft, Begründer: Christian Rosenkreutz) 15, 45, 138 ff, 320
-Rousseau, Jean-Jacques 17, 92 H
-Salomon 197
-Sancte de Sanctis 114*H
-Schiller, Friedrich 251
-Schopenhauer, Arthur 114H
-Schumann, Robert 320 H
-Schure, Edouard 320 H
-Seth 196
-Simon Petrus 294
-Sokrates 251
-Tacitus 47 H
-Tritheim (Trithemius), Johannes 94 H
-Wagner, Richard 269 H, 318, 320
-Weinel, Heinrich 301
-Voltaire (Francois Marie Arouet) 17
-Zarathustra 222, 233, 270, 285
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch:96
-
----
-
-# ÜBER DIE VORTRAGSNACHSCHRIFTEN
-
-Aus Rudolf Steiners Autobiographie
-«Mein Lebensgang» (35. Kap., 1925)
-
-Es liegen nun aus meinem anthroposophischen Wirken zwei Ergebnisse vor; erstens meine vor aller Welt veröffentlichten Bücher, zweitens eine große Reihe von Kursen, die zunächst als Privatdruck gedacht und verkäuflich nur an Mitglieder der Theosophischen (später Anthroposophischen) Gesellschaft sein sollten. Es waren dies Nachschriften, die bei den Vorträgen mehr oder weniger gut gemacht worden sind und die - wegen mangelnder Zeit - nicht von mir korrigiert werden konnten. Mir wäre es am liebsten gewesen, wenn mündlich gesprochenes Wort mündlich gesprochenes Wort geblieben wäre. Aber die Mitglieder wollten den Privatdruck der Kurse. Und so kam er zustande. Hätte ich Zeit gehabt, die Dinge zu korrigieren, so hätte vom Anfange an die Einschränkung «Nur für Mitglieder» nicht zu bestehen gebraucht. Jetzt ist sie seit mehr als einem Jahre ja fallen gelassen.
-
-Hier in meinem «Lebensgang» ist notwendig, vor allem zu sagen, wie sich die beiden: meine veröffentlichten Bücher und diese Privatdrucke in das einfügen, was ich als Anthroposophie ausarbeitete.
-
-Wer mein eigenes inneres Ringen und Arbeiten für das Hinstellen der Anthroposophie vor das Bewußtsein der gegenwärtigen Zeit verfolgen will, der muß das an Hand der allgemein veröffentlichten Schriften tun. In ihnen setzte ich mich auch mit alle dem auseinander, was an Erkenntnisstreben in der Zeit vorhanden ist. Da ist gegeben, was sich mir in «geistigem Schauen» immer mehr gestaltete, was zum Gebäude der Anthroposophie - allerdings in vieler Hinsicht in unvollkommener Art - wurde.
-
-Neben diese Forderung, die «Anthroposophie» aufzubauen und dabei nur dem zu dienen, was sich ergab, wenn man Mitteilungen aus der Geist-Welt der allgemeinen Bildungswelt von heute zu übergeben hat, trat nun aber die andere, auch dem voll entgegenzukommen, was aus der Mitgliedschaft heraus als Seelenbedürfnis, als Geistessehnsucht sich offenbarte.
-
-Da war vor allem eine starke Neigung vorhanden, die Evangelien und den Schrift-Inhalt der Bibel überhaupt in dem Lichte dargestellt zu hö
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-ren, das sich als das anthroposophische ergeben hatte. Man wollte in Kursen über diese der Menschheit gegebenen Offenbarungen hören.
-
-Indem interne Vortragskurse im Sinne dieser Forderung gehalten wurden, kam dazu noch ein anderes. Bei diesen Vorträgen waren nur Mitglieder. Sie waren mit den Anfangs-Mitteilungen aus Anthroposophie bekannt. Man konnte zu ihnen eben so sprechen, wie zu Vorgeschrittenen auf dem Gebiete der Anthroposophie. Die Haltung dieser internen Vorträge war eine solche, wie sie eben in Schriften nicht sein konnte, die ganz für die Öffentlichkeit bestimmt waren.
-
-Ich durfte in internen Kreisen in einer Art über Dinge sprechen, die ich für die öffentliche Darstellung, wenn sie für sie von Anfang an bestimmt gewesen wären, hätte anders gestalten müssen.
-
-So liegt in der Zweiheit, den öffentlichen und den privaten Schriften, in der Tat etwas vor, das aus zwei verschiedenen Untergründen stammt. Die ganz öffentlichen Schriften sind das Ergebnis dessen, was in mir rang und arbeitete; in den Privatdrucken ringt und arbeitet die Gesellschaft mit. Ich höre auf die Schwingungen im Seelenleben der Mitgliedschaft, und in meinem lebendigen Drinnenleben in dem, was ich da höre, entsteht die Haltung der Vorträge.
-
-Es ist nirgends auch nur in geringstem Maße etwas gesagt, was nicht reinstes Ergebnis der sich aufbauenden Anthroposophie wäre. Von irgend einer Konzession an Vorurteile oder Vorempfindungen der Mitgliedschaft kann nicht die Rede sein. Wer diese Privatdrucke liest, kann sie im vollsten Sinne eben als das nehmen, was Anthroposophie zu sagen hat. Deshalb konnte ja auch ohne Bedenken, als die Anklagen nach dieser Richtung zu drängend wurden, von der Einrichtung abgegangen werden, diese Drucke nur im Kreise der Mitgliedschaft zu verbreiten. Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.
-
-Ein Urteil über den Inhalt eines solchen Privatdruckes wird ja allerdings nur demjenigen zugestanden werden können, der kennt, was als Urteils-Voraussetzung angenommen wird. Und das ist für die allermeisten dieser Drucke mindestens die anthroposophische Erkenntnis des Menschen, des Kosmos, insofern sein Wesen in der Anthroposophie dargestellt wird, und dessen, was als «anthroposophische Geschichte» in den Mitteilungen aus der Geist-Welt sich findet.
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-# RUDOLF STEINER GESAMTAUSGABE
-
-Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk. Eine bibliographische Übersicht (Bibliographie-Nrn. kursiv in Klammern)
-
-## A. SCHRIFTEN
-
-### 1. Werke
-
-Goethes Naturwissenschaftliche Schriften, eingeleitet und kommentiert von R. Steiner, 5 Bände, 1883-97, Neuausgabe 1975 (la-e); separate Ausgabe der Einleitungen, 1925 (1)
-Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung, 1886 (2)
-Wahrheit und Wissenschaft. Vorspiel einer &lt;Philosophie der Freiheit^ 1892 (3)
-Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung, 1894 (4)
-Friedrich Nietzsche, ein Kämpfer gegen seine Zeit, 1895 (5)
-Goethes Weltanschauung, 1897 (6)
-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung, 1901 (7)
-Das Christentum als mystische Tatsache und die Mysterien des Altertums, 1902 (8)
-Theosophie. Einführung in übersinnliche Welterkenntnis und Menschenbestimmung, 1904 (9)
-Wie erlangt man Erkenntnisse der höheren Welten? 1904/05 (10)
-Aus der Akasha-Chronik, 1904-08 (11)
-Die Stufen der höheren Erkenntnis, 1905-08 (12)
-Die Geheimwissenschaft im Umriß, 1910 (13)
-Vier Mysteriendramen: Die Pforte der Einweihung - Die Prüfung der Seele - Der Hüter der Schwelle - Der Seelen Erwachen, 1910-13 (14)
-Die geistige Führung des Menschen und der Menschheit, 1911 (15)
-Anthroposophischer Seelenkalender, 1912 (in 40)
-Ein Weg zur Selbsterkenntnis des Menschen, 1912 (16)
-Die Schwelle der geistigen Welt, 1913 (17)
-Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt, 1914 (18)
-Vom Menschenrätsel, 1916 (20)
-Von Seelenrätseln, 1917 (21)
-Goethes Geistesart in ihrer Offenbarung durch seinen Faust und durch das Märchen von der Schlange und der Lilie, 1918 (22)
-Die Kernpunkte der sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft, 1919 (23)
-Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage 1915-1921 (24)
-Kosmologie, Religion und Philosophie, 1922 (25)
-Anthroposophische Leitsätze, 1924/25 (26)
-Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)
-Mein Lebensgang, 1923-25 (28)
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96
-
----
-
-Copyright Rudolf Steiner Nachlass-Verwaltung Buch: 96 Seite: 344
-
-## II. Gesammelte Aufsätze
-
-Aufsätze zur Dramaturgie 1889-1901 (29) - Methodische Grundlagen der Anthroposophie 1884-1901 (30) - Aufsätze zur Kultur- und Zeitgeschichte 1887-1901 (31) - Aufsätze zur Literatur 1886-1902 (32) - Biographien und biographische Skizzen 1894-1905 (33) - Aufsätze aus «Lucifer-Gnosis» 1903-1908 (34) - Philosophie und Anthroposophie 1904-1918 (35) - Aufsätze aus «Das Goetheanum» 1921-1925 (36)
-
-## III. Veröffentlichungen aus dem Nachlaß
-
-Briefe - Wahrspruchworte - Bühnenbearbeitungen - Entwürfe zu den Vier Mysteriendramen 1910-1913 - Anthroposophie. Ein Fragment aus dem Jahre 1910 - Gesammelte Skizzen und Fragmente - Aus Notizbüchern und -blättern - (38-47)
-
-## B. DAS VORTRAGSWERK
-
-### I. Öffentliche Vorträge
-
-Die Berliner öffentlichen Vortragsreihen, 1903/04 bis 1917/18 (51-67) - Öffentliche Vorträge, Vortragsreihen und Hochschulkurse an anderen Orten Europas 1906-1924 (68-84)
-
-### II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft
-
-Vorträge und Vortragszyklen allgemein-anthroposophischen Inhalts - Christologie und Evangelien-Betrachtungen - Geisteswissenschaftliche Menschenkunde - Kosmische und menschliche Geschichte - Die geistigen Hintergründe der sozialen Frage - Der Mensch in seinem Zusammenhang mit dem Kosmos - Karma-Betrachtungen - (91-244)
-
-Vorträge und Schriften zur Geschichte der anthroposophischen Bewegung und der Anthroposophischen Gesellschaft (251-265)
-
-### III. Vorträge und Kurse zu einzelnen Lebensgebieten
-
-Vorträge über Kunst: Allgemein-Künstlerisches - Eurythmie - Sprachgestaltung und Dramatische Kunst - Musik - Bildende Künste - Kunstgeschichte - (271-292) - Vorträge über Erziehung (293-311) - Vorträge über Medizin (312-319) - Vorträge über Naturwissenschaft (320-327) - Vorträge über das soziale Leben und die Dreigliederung des sozialen Organismus (328-341) - Vorträge für die Arbeiter am Goetheanumbau (347-354)
-
-## C. DAS KÜNSTLERISCHE WERK
-
-Originalgetreue Wiedergaben von malerischen und graphischen Entwürfen und Skizzen Rudolf Steiners in Kunstmappen oder als Einzelblätter: Entwürfe für die Malerei des Ersten Goetheanums - Schulungsskizzen für Maler - Programmbilder für Eurythmie-Aufführungen - Eurythmieformen - Entwürfe zu den Eurythmiefiguren, u. a.
-
-Die Bände der Rudolf Steiner Gesamtausgabe sind innerhalb einzelner Gruppen einheitlich ausgestattet. Jeder Band ist einzeln erhältlich.
