@@ -1,261 +1,3 @@
-
-# RUDOLF STEINER GESAMTAUSGABE VORTRÄGE
-
-VORTRÄGE VOR MITGLIEDERN DER ANTHROPOSOPHISCHEN GESELLSCHAFT
-
----
-
-
- |3| RUDOLF STEINER
-
-Kosmogonie
-
-Populärer Okkultismus
-Das Johannes-Evangelium
-Die Theosophie
-anhand des Johannes-Evangeliums
-
-Eine Zusammenfassung von achtzehn Vorträgen,
-gehalten in Paris
-zwischen dem 25. Mai und 14. Juni 1906,
-und Notizen aus fünfundzwanzig Vorträgen,
-gehalten in Berlin, Leipzig und München
-zwischen dem 19. Februar und 6. November 1906
-
-2001
-
-RUDOLF STEINER VERLAG
-DORNACH / SCHWEIZ |4| Nach einer Inhaltszusammenfassung und nach Notizen von Hörern herausgegeben von der Rudolf Steiner-Nachlaßverwaltung
-Die Herausgabe besorgte Wolfram Groddeck
-
-1. Auflage, Gesamtausgabe Dornach 1979
-2., neu durchgesehene und ergänzte Auflage,
-Gesamtausgabe Dornach 2001
-
-Frühere Veröffentlichungen
-und Veröffentlichungen in Zeitschriften
-siehe zu Beginn der Hinweise
-
-Bibliographie-Nr. 94
-Alle Rechte bei der Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz
-© 1979 by Rudolf Steiner-Nachlaßverwaltung, Dornach/Schweiz
-Printed in Germany by Konkordia Druck, Bühl
-ISBN 3-7274-0940-1 |5| Zu den Veröffentlichungen
-aus dem Vortragswerk von Rudolf Steiner
-
-Die Gesamtausgabe der Werke Rudolf Steiners (1861-1925) gliedert sich in die drei großen Abteilungen: Schriften - Vorträge - Künstlerisches Werk (siehe die Übersicht am Schluß des Bandes).
-
-Ursprünglich wollte Rudolf Steiner nicht, daß seine frei gehaltenen Vorträge - sowohl die öffentlichen als auch die für die Mitglieder der Theosophischen, später Anthroposophischen Gesellschaft - schriftlich festgehalten würden, da sie von ihm als «mündliche, nicht zum Druck bestimmte Mitteilungen» gedacht waren. Nachdem aber zunehmend unvollständige und fehlerhafte Hörernachschriften angefertigt und verbreitet wurden, sah er sich veranlaßt, das Nachschreiben zu regeln. Mit dieser Aufgabe betraute er Marie Steiner-von Sivers. Ihr oblag die Bestimmung der Stenografierenden, die Verwaltung der Nachschriften und die für die Herausgabe notwendige Durchsicht der Texte. Da Rudolf Steiner nur in ganz wenigen Fällen die Nachschriften selbst korrigiert hat, muß gegenüber allen Vortragsveröffentlichungen sein Vorbehalt berücksichtigt werden: «Es wird eben nur hingenommen werden müssen, daß in den von mir nicht nachgesehenen Vorlagen sich Fehlerhaftes findet.»
-
-Über das Verhältnis der Mitgliedervorträge, welche zunächst nur als interne Manuskriptdrucke zugänglich waren, zu seinen öffentlichen Schriften äußert sich Rudolf Steiner in seiner Selbstbiographie «Mein Lebensgang» (35. Kapitel). Der entsprechende Wortlaut ist am Schluß dieses Bandes wiedergegeben. Das dort Gesagte gilt gleichermaßen auch für die Kurse zu einzelnen Fachgebieten, welche sich an einen begrenzten, mit den Grundlagen der Geisteswissenschaft vertrauten Teilnehmerkreis richteten.
-
-Nach dem Tode von Marie Steiner (1867-1948) wurde gemäß ihren Richtlinien mit der Herausgabe einer Rudolf Steiner Gesamtausgabe begonnen. Der vorliegende Band bildet einen Bestandteil dieser Gesamtausgabe. Soweit erforderlich, finden sich nähere Angaben zu den Textunterlagen am Beginn der Hinweise.
-
-
----
-
-
-# INHALT
-
-## KOSMOGONIE
-
-*Achtzehn Vorträge, gehalten in Paris vom 25. Mai bis 14. Juni 1906,
-nach einer Zusammenfassung von Edouard Schure, ergänzt durch Hörernotizen*
-
----
-
-**ERSTER VORTRAG, Paris, 25. Mai 1906.** 17
-
-Die Geburt des Intellekts und die Aufgabe des Christentums. Die Leibeshüllen und das Ich. Die Ablösung der Nahehe durch die Fernehe. Die vergeistigte Liebe als Grundprinzip des Rosenkreuzertums.
-
----
-
-**ZWEITER VORTRAG, Paris, 26. Mai 1906.** 22
-
-Vorchristliche und christliche Bruderschaften. Die Mission der Manichäer. Der Darwinismus, eine Teilwahrheit. Atlantis. Zwei Ströme der Entwicklung. Wahre Moral entspringt der Erkenntnis. |27| **DRITTER VORTRAG, Paris, 27. Mai 1906.** 27
-
-Der Stein der Weisen. Ein- und Ausatmung bei Mensch, Tier und Pflanze. Die Mistel, ein Überrest der Mondenepoche. Die Geschlechtertrennung.
-
----
-
-**VIERTER VORTRAG, Paris, 28. Mai 1906.** 31
-
-Die Zirbeldrüse, Relikt eines einstigen Wahrnehmungsorgans. Der Traum, ein Rudiment des alten Hellsehens. Vom Ursprung der Mythen. Das Bewußtsein der Menschheitszukunft. Entwicklung der Erde vom Kosmos der Weisheit zum Kosmos der Liebe.
-
----
-
-**FÜNFTER VORTRAG, Paris, 29. Mai 1906.** 36
-
-Die Seele sammelt die Früchte des Erdenlebens für den Geist. Der Leib als Instrument der Seele. Bekanntwerden früherer Mysteriengeheimnisse. Der Ätherleib des Mannes ist weiblich, der Ätherleib der Frau männlich, der Astralleib beider zweigeschlechtlich. Methodische Unterschiede der östlichen und der abendländischen Initiation.
-
----
-
-**SECHSTER VORTRAG, Paris, 30. Mai 1906.** 42
-
-Die sieben Stufen der alten Einweihung. Vorbeugung gegen Gefahren der okkulten Entwicklung. Die höheren Grade der Initiation.
-
----
-
-
- |8| SIEBENTER VORTRAG, Paris, 31. Mai 1906. 48
-
-Mittelalterliche Bruderschaften sehen im Johannes-Evangelium noch eine Einweihungsurkunde. Die spirituelle Wirkung der ersten vierzehn Verse. Der Übergang von den Mysterien des Altertums zur christlichen Einweihung in der Auferweckung des Lazarus. Die Hochzeit von Kana und die Mission des Alkohols. Die Verklärung auf dem Berge Tabor.
-
-ACHTER VORTRAG, Paris, 1. Juni 1906. 53
-
-Der christliche Grundcharakter der Goetheschen Naturanschauung. Die sieben Grade der christlich-gnostischen Einweihung.
-
-NEUNTER VORTRAG, Paris, 2. Juni 1906. 59
-
-Organe für das bewußte Erleben der Astralwelt. Goethe über die Wahrnehmung von Farben und Licht. Im Astralen erscheint die Wirkung vor der Ursache. Menschliche Leidenschaften als Tiergestalten. Das Rückerleben nach dem Tode. Folgen von Selbstmord und gewaltsamem Tod. Die Lüge, ein astraler Mord. Schwarze Magie und Vivisektion.
-
-ZEHNTER VORTRAG, Paris, 6. Juni 1906. 66
-
-Der achtgliedrige Pfad des Buddha und die Seligpreisungen des Matthäus-Evangeliums in ihrem Zusammenhang mit der sechzehnblättrigen Lotusblume. Die sechs Tugenden. Goethes Fragment «Die Geheimnisse». Die drei Menschheitstypen der griechischen Kunst.
-
-ELFTER VORTRAG, Paris, 7. Juni 1906. 72
-
-Auswirkungen der Einweihung auf gegenwärtige und nachtodliche Bewußtseinszustände. Der Zusammenhang der Inkarnationsfolge mit dem kosmisch bedingten Rhythmus der Kulturepochen.
-
-ZWÖLFTER VORTRAG, Paris, 8. Juni 1906. 78
-
-Das Reich der geistigen Hierarchien. Die sieben Regionen des Devachan. Gralslegende und Lohengrinsage.
-
-DREIZEHNTER VORTRAG, Paris, 9. Juni 1906. 85
-
-Atlantis und Lemurien. Der Wandel der menschlichen Leibesgestalt. Die drei Logoi.
-
-VIERZEHNTER VORTRAG, Paris, 10. Juni 1906. 93
-
-Die menschliche Bewußtseinsevolution. Der Gang der Entwicklung durch jeweils sieben Zustände des Bewußtseins, des Lebens und der Form.
-
-|9| FÜNFZEHNTER VORTRAG, Paris, 11. Juni 1906. 97
-Die planetarische Evolution. Umgestaltung der Erde durch den Menschen. Frühere planetarische Zustände.
-
-SECHZEHNTER VORTRAG, Paris, 12. Juni 1906. 105
-Erdbeben, Vulkane und menschlicher Wille. Wirkungen vergangener planetarischer Epochen. Die Wochentage. Das Erdinnere und sein Zusammenhang mit der christlichen Einweihung.
-
-SIEBZEHNTER VORTRAG, Paris, 13. Juni 1906. 111
-Die sieben Geheimnisse. Das Geheimnis des Todes. Jehova, Luzifer, Christus. Erlösung und Befreiung.
-
-ACHTZEHNTER VORTRAG, Paris, 14. Juni 1906. 118
-Die Apokalypse. Das Künftige ist keimhaft in den Urbildern enthalten. Die sieben nachatlantischen Kulturen dienen der Vorbereitung der sechsten und siebenten Erdepoche.
-
-# POPULÄRER OKKULTISMUS, ERSTER VORTRAG, Leipzig, 28. Juni 1906. 129
-Wahrnehmung des Ätherleibes als leuchtendes Kraftgebilde. Die seelische Konfiguration in den Färben der Aura. Die Entwicklung der Wesensglieder in den ersten drei Lebensjahrsiebenten. Im Ich berührt sich das Ewige mit dem Zeitlichen.
-
-ZWEITER VORTRAG, Leipzig, 29. Juni 1906. 133
-Keine räumliche Trennung zwischen der physischen Welt und den höheren Welten. Die Wesen des Astralplans. Die Tätigkeit des Astralleibes im Wachbewußtsein und während des Schlafes. Wandlungen im Traumleben durch Geistesschulung. Dem inneren Hören erschließt sich die geistige Welt.
-
-DRITTER VORTRAG, Leipzig, 30. Juni 1906. 141
-Das Lebenstableau. Erlebnisse des Toten in der astralischen Welt. Folgen eines unnatürlichen Todes. Das Sinnesdasein, eine Schule, durch die der Mensch zum Geiste gelangen soll.
-
-|14| VIERTER VORTRAG, Leipzig, 1. Juli 1906. 145
-Die Gegenbilder des Physisch-Mineralischen bilden den Kontinent des Devachan. Das flutende Leben als zweite devachanische Region, Empfindung und Gefühl als dritte Region. Die Akasha-Chronik in der vierten Region, des Menschen wahres Wesen in der fünften Region.
-
-FÜNFTER VORTRAG, Leipzig, 2. Juli 1906. 145
-Wiederverkörperung von Formen und Arten in der Natur. Die Persönlichkeit, irdischer Ausdruck der ewigen Individualität. Karma, das große Gesetz der Weltengerechtigkeit. Das Opfer des Christus geschah für die ganze Menschheit.
-
-SECHSTER VORTRAG, Leipzig, 3. Juli 1906. 147
-Die Bilder des Lebenstableaus werden zu Kräften, die sich dem Astralleib einprägen. Der Kausalleib. Nachtodliche Folgen der Vivisektion. Langsame Auflösung der Astralleichname. Erfahrungen wandeln sich im Devachan zu Fähigkeiten um. Der Rückweg zur Erde. Bildung des neuen Astralleibes und Ätherleibes. Mahadevas und Lipikas.
-
-SIEBENTER VORTRAG, Leipzig, 4. Juli 1906. 154
-Die im Ätherleib veranlagten Neigungen und Gewohnheiten werden im folgenden Erdenleben zu organbildenden Kräften. Astrale Verwesungsstoffe der Hunnen und Mongolen schufen in Europa den seelischen Nährboden für den Aussatz.
-
-ACHTER VORTRAG, Leipzig, 5. Juli 1906. 156
-Das Vorstellungsleben der einen wirkt auf die moralische Verfassung der anderen Inkarnation. Pessimismus und Optimismus. Frühes oder spätes Altern als Folge der Einstellung zu den Mitmenschen in einer vergangenen Verkörperung. Weiterbildung der Leibeshüllen zu höheren Wesensgliedern. Karma der Generationen. Die Arbeit der Toten am Tier- und Pflanzenreich. Die Lebensvorschau.
-
-NEUNTER VORTRAG, Leipzig, 6. Juli 1906. 160
-Wechsel von Regen und Sonnenschein erst nach dem Untergang der Atlantis. Die physisch-ätherische Konstitution des Atlantiers. Die Stadt mit den goldenen Toren. Das Tao.
-
-ZEHNTER VORTRAG, Leipzig, 7. Juli 1906. 164
-Mit der Bildung der Lunge zog die Seele in den Leib des Lemuriers ein. Ausscheidung des Tierreichs aus der Menschheit. Mondenaus|11|tritt und Geschlechtertrennung. In der vorangehenden Sonnenzeit standen die Naturreiche und der Mensch auf der Stufe des Pflanzendaseins. Die Bedeutung des Kreuzes in den alten Mysterien.
-
-## ELFTER VORTRAG, Leipzig, 8. Juli 1906. 168
-
-|11| Der Wandel der Seelenverfassung im Durchgang durch die Kultur-epochen. Die Aufgabe der gegenwärtigen fünften und der sechsten Kultur. Unterschiedlicher Geltungsbereich des ptolemäischen und des kopernikanischen Weltsystems. Überwindung der Zweigeschlechtigkeit. Die Phantasie. Magie des Wortes. Zwei Haupt-erfordernisse der okkulten Entwicklung: die große Einsamkeit und die Devotion.
-
-## ZWÖLFTER VORTRAG, Leipzig, 9. Juli 1906. 171
-
-Sechs Nebenübungen. Wahrnehmung der Auren in der Imagination. Die Lotusblumen. Der Gegensatz zwischen medialem und geschultem Hellsehen.
-
-## DREIZEHNTER VORTRAG, Leipzig, 10. Juli 1906. 174
-
-Der Stein der Weisen. Die Stufen der östlichen Schulung. Die christliche Einweihung und der rosenkreuzerische Schulungsweg. Die «Philosophie der Freiheit» und «Wahrheit und Wissenschaft» dienen der Ausbildung eines sinnlichkeitsfreien Denkens.
-
-## VIERZEHNTER VORTRAG, Leipzig, 11. Juli 1906. 177
-
-Die sieben Grade der christlichen Einweihung. Mit ihr hängt die Erforschung des Erdinneren zusammen. Okkulte Tatsachen in den großen Dichtungen der Menschheit. Der Mensch und das Schicksal der Erde.
-
-## DAS JOHANNES-EVANGELIUM
-
-Notizen aus drei Vorträgen,
-gehalten in Berlin zwischen dem 19. Februar und 5. März 1906
-
-## ERSTER VORTRAG, Berlin, 19. Februar 1906. 187
-
-In den ersten vierzehn Kapiteln schildert der Verfasser des Johannes-Evangeliums seine Erlebnisse in der Astralwelt. Die Verwandtschaft des Christus mit dem Gottmenschen. Der Aufstieg in die devachanische Welt.
-
-## ZWEITER VORTRAG, Berlin, 26. Februar 1906. 201
-
-Die Tätigkeit des Astralleibes am physischen Leib während des Schlafes. Böse und gute Elementarwesen. Der christliche Einweihungsweg.
-
-|12| DRITTER VORTRAG, Berlin, 5. März 1906. 207
-Die Erweckung des höheren Selbstes. Erwähnung der Reinkarnation in den Evangelien. Die okkulte Bedeutung der Worte am Kreuz.
-
-# DIE THEOSOPHIE ANHAND DES JOHANNES-EVANGELIUMS, ERSTER VORTRAG, München, 27. Oktober 1906. 227
-Als erstes wurde die Kirche von der materialistischen Gesinnung erfaßt. Der wahre Sinn der biblischen Schöpfungsgeschichte. Die höheren Wesensglieder des Menschen und ihr kosmischer Ursprung.
-
-ZWEITER VORTRAG, München, 28. Oktober 1906. 236
-Das Bilderbewußtsein des Atlantiers. Erste Verinnerlichung des Empfindungslebens in der lemurischen Zeit. Vergeistigung des Astralleibes zum Geistselbst und des Ätherleibes zum Lebensgeist. Höchstes Zukunftsziel, der Geistesmensch.
-
-DRITTER VORTRAG, München, 31. Oktober 1906. 246
-Aufnahme von Manas und Vorbereitung von Budhi in der nachatlantischen Epoche. Den geistigen Vorgängen entsprechen physische Veränderungen am Menschen.
-
-VIERTER VORTRAG, München, 2. November 1906. 255
-Die Bewußtseinswelten der Naturreiche und des Menschen. Die Arbeit des Ich an den drei unteren Wesensgliedern. Erfahrungen auf höheren Bewußtseinsstufen. Nathanaels Begegnung mit dem Christus. Gruppen- und Individualseelen in der Mithras-Einweihung.
-
-FÜNFTER VORTRAG, München, 3. November 1906. 263
-In Ägypten verfällt Manas der Wunsch- und Begierdenwelt. Die Aufgabe des althebräischen Volkes. Knochenbildung und Bewußtseinsevolution. Das Passahlamm. Moses ist der Sendbote des Manas, Christus der Bringer der Budhi. Das Gleichnis vom Weinstock.
-
-SECHSTER VORTRAG, München, 4. November 1906. 273
-Die Hochzeit zu Kana, eine prophetische Vorschau der Menschheitszukunft. Drei Wege zur Wahrheit: die östliche, die christlich|13|gnostische und die rosenkreuzerische Einweihung. Der östliche Weg für den Europäer ungeeignet. Die sieben Stufen der Yogaschulung und der christlich-gnostischen Einweihung.
-
-SIEBENTER VORTRAG, München, 5. November 1906 . . . 283
-
-Das Verhältnis des Rosenkreuzerschülers zum Lehrer. Der Wert der «Philosophie der Freiheit» für die Ausbildung des reinen Denkens. Die sinnliche Welt wird zum Gleichnis. Die okkulte Schrift. Alles höhere Leben beruht auf Rhythmus. Die Jungfrau Sophia und der Heilige Geist.
-
-ACHTER VORTRAG, München, 6. November 1906 . . . 293
-
-Das Einzelbewußtsein, Spiegelbild des Erdenbewußtseins. Christus, der Herr des Karma. Fünf Bewußtseinssphären in der östlichen Weisheit. Die Reinigung des Tempels als Sinnbild einer künftigen Evolution. Das Nikodemusgespräch.
-
-Ergänzungen zum Text . . . 301
-
-Hinweise
-
-Zu dieser Ausgabe . . . 307
-
-Hinweise zum Text . . . 310
-
-Personenregister . . . 319
-
-Übersicht über die Rudolf Steiner Gesamtausgabe . . . 320
-
-
----
-
-
-# Kosmogonie
-
-Achtzehn Vorträge, gehalten in Paris
-vom 25. Mai bis 14. Juni 1906,
-nach einer Zusammenfassung von Edouard Schure,
-ergänzt durch Hörernotizen
-
-
----
-
-
 # KOSMOGONIE, Erster Vortrag, Paris, 25. Mai 1906
 
 |17| Es ist noch nicht lange her, daß öffentliche Vorträge über okkulte Wahrheiten gehalten werden. Einstmals wurden diese Wahrheiten nur in Geheimgesellschaften denen entschleiert, die bestimmte Grade der Einweihung durchschritten und versprochen hatten, für die Dauer ihres ganzen Lebens die Gesetze des Bruderbundes zu beobachten.
@@ -936,7 +678,7 @@ Das Gegenstandsbewußtsein ist analytisch. Das subjektive Bewußtsein ist plasti
 
 Wir haben also gesehen, wie das objektive und analytische Bewußtsein des Menschen dem subjektiven und plastischen Bewußtsein nachfolgte. Der Vorgang, durch welchen die Seele, die zuerst den Menschen wie eine Wolke umgab und in der Folgezeit den physischen Leib durchdrang, läßt sich vergleichen mit dem Entwicklungsgang der Schnecke, die zuerst aus ihrer eigenen Körpersub|90|stanz ihr eigenes Schneckenhaus absondert und dann sich in dasselbe zurückzieht. In gleicher Weise durchdrang die Seele den Körper, den sie zuvor modelliert hatte und für den sie von außen her die Sinneswerkzeuge präpariert hatte. Die Sehkraft, mit der unser Auge heute begabt ist, ist dieselbe Kraft, die einstmals von außen auf das Auge einwirkte, um es aufzubauen. Die Umkehrung der Wirkenskraft der Seele, die, einstmals von außen wirkend, zu einer innerlich wirkenden wird, ist immer durch eine Hieroglyphe bezeichnet worden, nämlich durch zwei Wirbel von entgegengesetzter Richtung. Die erste Bewegung, nach innen, drückt sich in der einen, die zweite, von innen nach außen, drückt sich in der anderen Richtung aus.
 
-*25^ Dieses Zeichen - es ist dasjenige des Krebses im Tierkreis - bezeichnet immer das Ende einer Zielrichtung und den Beginn einer neuen im entgegengesetzten Sinn.
+Dieses Zeichen - es ist dasjenige des Krebses im Tierkreis - bezeichnet immer das Ende einer Zielrichtung und den Beginn einer neuen im entgegengesetzten Sinn.
 
 In der Mitte der dritten Erdperiode, der lemurischen, finden wir den Punkt, wo die Seele einzieht in das Haus, das sie sich selbst erbaut hat und wo sie beginnt, den Leib von innen her zu beseelen. Gehen wir hinter diesen Punkt zurück, haben wir es lediglich mit einer astralen Menschheit zu tun, die ebenfalls auf einer astralen Erde lebt. In einer noch weiter zurückliegenden Phase sehen wir den Menschen und die Erde nur noch im rein devachanischen Zustand. Der Mensch hat da kein Bilderbewußtsein mehr, sondern es sind kosmische Gedanken, die ihn durchziehen.
 
@@ -966,7 +708,11 @@ Zu allen Zeiten hat der Okkultismus diese drei Logoi durch folgende Zeichen abge
 
 ![img-0.png](assets/img-0.png)
 
-Man hat sie zusammengefaßt in der Zahl: $7-7-7^{\wedge}$ der esoterischen Ziffer der drei Logoi. Die exoterische Zahl ist die Multiplikation dieser drei im Entwickelungsplan liegenden Siebenheiten, nämlich 343.
+![img-1.png](assets/img-1.png)
+
+![img-2.png](assets/img-2.png)
+
+Man hat sie zusammengefaßt in der Zahl: $7-7-7{\wedge}$ der esoterischen Ziffer der drei Logoi. Die exoterische Zahl ist die Multiplikation dieser drei im Entwickelungsplan liegenden Siebenheiten, nämlich 343.
 
 # KOSMOGONIE, Vierzehnter Vortrag, Paris, 10. Juni 1906
 
@@ -1064,18 +810,7 @@ Diese Beispiele zeigen uns, daß man sehr sorgfältig die Verwandlung der Substa
 
 Würden wir zurückgehen bis zur ersten elementaren Form, so würden wir vom Wort, vom flutenden Ton aufgenommen werden. Mit der zweiten Elementarstufe würden wir hinüberwechseln zum flutenden Licht. Die dritte Elementarstufe würde uns mit Wärme durchdringen. Endlich würden wir auf der vierten Elementarstufe, in der irdischen Atmosphäre, das Selbstbewußtsein erscheinen sehen, das dem Menschen erlaubt, Ich zu sich zu sagen. (Siehe die schematische Darstellung auf S. 104.) |104| Schematische Darstellung zum fünfzehnten Vortrag
 
-Logos
-
-|  |   |
-| --- | --- |
-|  i | Flicßcnöc'i Licht  |
-|  / | k/cirmc - Feuer  |
-|   | Lufh - m» nercih'jche Formen  |
-|   | PHcittzlichoFonncii pflanzliche» Ucbcn  |
-|   | Tier>icho Formen Ti'cr/5chcs Leben  |
-|   | A^ciuch/i'chc Foj-men Alenschlichei Leben  |
-
-A\en*ch
+![img-3.png](assets/img-3.png) 
 
 # KOSMOGONIE, Sechzehnter Vortrag, Paris, 12. Juni 1906
 
@@ -1734,17 +1469,14 @@ Jetzt muß ich Ihnen etwas sagen, was für den Verstand leicht, für die Seelena
 
 Das waren die drei Jünger, mit ihrem Einweihungsnamen bezeichnet, die mitgenommen wurden nach dem Berge Tabor: Jakobus |219| bedeutet das Wasser, Petrus bedeutet die Erde - der Fels (hebräisch = Jabbaschah), Johannes bedeutet Luft (Ruach). Johannes bezeichnet also den, der zum höheren Selbst gekommen ist. Das führt Sie tief hinein in die Geheimlehre. Versetzen Sie sich hinein in die Zeit, in der die Menschen nur die niederen Prinzipien hatten, also in die dritte Wurzelrasse, in die lemurische Zeit der Erde. Da haben die Menschen noch nicht Luft geatmet, sondern durch Kiemen. Die Lungen sind erst später entstanden und damit auch die Lungenatmung. Dieser Vorgang fällt zusammen mit der Befruchtung durch das höhere Selbst. Luft ist nichts anderes als nach hermetischem Grundsatz das Untere für das Obere, für das höhere Selbst. Bezeichne ich einen als Johannes, so ist er ein solcher, der das höhere Selbst zur Erweckung gebracht hat, einer, der die okkulten Kräfte der Luft beherrscht. Jesus ist der, welcher die okkulten Kräfte des Feuers (Nur) beherrscht. So haben Sie in den vier Namen die Repräsentanten für Erde, Wasser, Luft und Feuer. Das sind die Namen der vier, welche nach dem Berge Tabor hinaufgehen.
 
-|  Jam | Jakobus  |
-| --- | --- |
-|  Nur | Ruach  |
-|  Jesus | Johannes  |
-|  Jabbaschah | Petrus  |
+![img-4.png](assets/img-4.png) 
+
 
 Denken Sie sich einmal diese vier beisammen auf dem Berge der Verklärung, dann haben Sie zu gleicher Zeit die Eingeweihten, welche die vier Elemente beherrschen - die Herren der vier Elemente: Feuer, Wasser, Luft, Erde. Was geschieht also? Es geschah dazumal, daß der geistige Beweis geliefert wurde, daß durch die Jesus-Erscheinung die ganze Kraft der Elemente in einer Weise erneuert wird, daß das Leben, das durch die Elemente pulsiert, einen neuen, |220| wichtigen Punkt in der Entwicklung durchmacht. Das ist okkult die Verklärung. Wenn nun jemand in dieser Weise die Verklärung durchmacht, daß er in sich hat die Stufen von Wasser, Erde und Luft und selbst aufsteigt zu den Kräften des Feuers, dann ist er ein Wiederauferweckter, ein solcher, der die Kreuzigung durchgemacht hat. Daher ist diese Szene bei den anderen Evangelisten in Wahrheit nichts anderes als eine Vorbereitung der eigentlichen tieferen Einweihungsszene, der Kreuzigung selbst. Dagegen erscheint uns bei Johannes alles vorbereitet. Die Vorbereitungsszene erscheint überhaupt nicht, sondern der Tod auf dem Berge Golgatha. Jam - Nur - Ruach - Jabbaschah = INRI - das ist die Bedeutung der Worte, die am Kreuze stehen.
 
 So können Sie tiefer und tiefer hineingehen, und Sie werden nie auslernen in den religiösen Schriften. Manchmal, wenn man so etwas hört, ist es wie eine erzwungene Erklärung. Aber jeder Schritt, den Sie tiefer hinein machen, wird Ihnen den Beweis liefern, daß es sich nicht um etwas Erzwungenes handelt. Gerade bei den trivialen Erklärungen werden Sie sehen, daß man damit die «Tiefe» zwangsweise abweisen will. Aber die Tiefe liegt in diesen Schriften. Wer etwas weiß, der kann immer zu sich sagen: Wahrscheinlich wird noch viel mehr darinnen sein, ich werde noch viel lernen müssen. - Das ist die Ehrerbietung, die wir den religiösen Schriften entgegenbringen können.
 
-Diese Ehrerbietung ist das Beste, da sie dann die Kraft wird, die wir aus den Tiefen gewinnen. Nur hinzudeuten vermag ich auf einen wichtigen Satz. Er steht im Johannes-Evangelium, neunzehntes Kapitel, 33. Vers: «Als sie aber zu Jesus kamen und sahen, daß er schon gestorben war, brachen sie ihm die Beine nicht ... Denn solches ist geschehen», heißt es dann im 36. Vers, «daß die Schrift erfüllet würde: <ihr bein="" sein="" zerbrechen.="" sollt="" ihm="">» Sie wissen, daß das anklingt an eine Moses-Stelle. Auch dort hat es schon, richtig verstanden, einen tiefen Sinn. Noch kurz diese Stelle möchte ich erklären, die von tiefer Symbolik ist.
+Diese Ehrerbietung ist das Beste, da sie dann die Kraft wird, die wir aus den Tiefen gewinnen. Nur hinzudeuten vermag ich auf einen wichtigen Satz. Er steht im Johannes-Evangelium, neunzehntes Kapitel, 33. Vers: «Als sie aber zu Jesus kamen und sahen, daß er schon gestorben war, brachen sie ihm die Beine nicht ... Denn solches ist geschehen», heißt es dann im 36. Vers, daß die Schrift erfüllet würde: <Ihr sollt ihm kein Bein zerbrechen.» Sie wissen, daß das anklingt an eine Moses-Stelle. Auch dort hat es schon, richtig verstanden, einen tiefen Sinn. Noch kurz diese Stelle möchte ich erklären, die von tiefer Symbolik ist.
 
 Wenn Sie unsere ganze Welt überblicken, so werden Sie sich sagen, daß der Mensch, so wie er jetzt im Fleische inkarniert ist, zunächst keine Kraft hat über das Leben und keine Kraft hat über das, was über |221| dem Leben steht. Was er beherrscht, ist die leblose Kraft, die unorganische Kraft. Der Mensch kann nicht eine Pflanze wachsen machen, sie nicht schneller wachsen machen. Die okkulten Kräfte dazu müßte er sich erst aneignen. Er vermag schon gar nicht über dasjenige, was noch höher ist als die Lebenskraft, eine Herrschaft auszuüben. Was der Mensch zu beherrschen vermag, ist draußen die unlebendige Welt. Da übt er seine Herrschaft aus, in dem Werke des Alltags, in den Stoffen, die ihm die Natur gibt. Er macht Kunstwerke, Bilder des Allerhöchsten, aber das Leben kann er ihnen nicht einhauchen. Er kann das Leben nur nachbilden. Er kann nur im Leblösen die Ahnung des Lebens erwecken, selbst in den höchsten christlichen Kunstwerken. Dies ist tatsächlich der Fall, weil der Mensch seine astrale und ätherische Kraft mit dem festen, dichten physischen Leib umgeben hat. Dadurch hat er dieses Verhältnis zur äußeren Umwelt bekommen, daß er nur Herr ist über das Leblöse. Der Mensch muß sich seiner eigenen physischen Werkzeuge bedienen, und diese sind nur Herr über das Leblöse. Die höheren Kräfte, die nicht an das Physische gebunden sind, müßten erwachen, dann würde der Mensch wieder Herr werden über das Leben. Die Menschen können Herr werden über die physischen Kräfte, nicht aber über das Leben selbst.
 
@@ -1983,7 +1715,7 @@ Was der moralische Instinkt für den einzelnen Stamm war, das ist Budhi oder das
 
 Eines der größten Symbole für dieses Hochzeitsfest ist die Hochzeit zu Kana in Galiläa, einem Orte, wo allerlei Völker in buntem, internationalem Gemisch zusammenströmten. Wir sehen, wie dort ein Hochzeitsfest gefeiert wird. «Und die Mutter Jesu war auch da», so heißt es. Nie wird im Johannes-Evangelium die Mutter Jesu «Maria» genannt, ebensowenig wie der Schreiber des Johannes-Evangeliums, der Jünger, den der Herr lieb hatte, «Johannes» genannt wird. Die Mutter Jesu ist nämlich die Menschenseele, und diese muß erst ausreifen, bis Christus in ihr wirken kann. Darum die Worte: «Weib, was habe ich mit dir zu schaffen. Meine Stunde ist |253| noch nicht gekommen.» Niemals hätte eine so hohe Individualität wie Christus sonst so zu seiner leiblichen Mutter gesprochen.
 
-Das vierte Kapitel des Johannes-Evangeliums zeigt uns Jesus mit der Samariterin am Jakobsbrunnen. Hier haben Sie Jakob, den Repräsentanten der Stammesgottheit; den Brunnen: die alte Tradition, aus der geschöpft werden muß und die nicht befriedigt. «Spricht nun das samaritische Weib zu ihm: <wie die="" eint="" eintest="" du="" ein="" esh="" esh?="" jude="" kenne="" kranz="" mir="" noch="" pr="" run="" schöpfen="" schöpfen.="" tinnen,="" un="" von="" yale="" yule="" zue="" zue,="" zum="" zumeritisch="" zumeinschaft="" zumeinschaft,="" und="" weib?="" wie="" without="">&gt; (Denn die Juden haben keine Gemeinschaft mit den Samaritern.)» Hier haben Sie das alte Gesetz. Aber an die Stelle dessen, was durch das Stammesblut floß, sollte ein neues Lebensprinzip treten: die Budhi. «Wer aber des Wassers trinkt, das ich ihm gebe, den wird ewiglich nicht dürsten; sondern das Wasser, das ich ihm geben werde, das wird in ihm ein Brunnen des Wassers werden, das in das ewige Leben quillet.»
+Das vierte Kapitel des Johannes-Evangeliums zeigt uns Jesus mit der Samariterin am Jakobsbrunnen. Hier haben Sie Jakob, den Repräsentanten der Stammesgottheit; den Brunnen: die alte Tradition, aus der geschöpft werden muß und die nicht befriedigt. <Wie bittest du von mir zu trin-ken, der du doch ein Jude bist und ich ein samaritisch Weib?> (Denn die Juden haben keine Gemeinschaft mit den Samaritern.)» Hier haben Sie das alte Gesetz. Aber an die Stelle dessen, was durch das Stammesblut floß, sollte ein neues Lebensprinzip treten: die Budhi. «Wer aber des Wassers trinkt, das ich ihm gebe, den wird ewiglich nicht dürsten; sondern das Wasser, das ich ihm geben werde, das wird in ihm ein Brunnen des Wassers werden, das in das ewige Leben quillet.»
 
 Der Menschengott vermählte sich der Menschenseele, die Budhi senkte sich in Manas hinab, und fortan konnte die Menschheit das Bewußtsein von Gut und Böse aus einem anderen Quell, dem Quell des «lebendigen Wassers», und nicht mehr aus dem Brunnen des Vaters Jakob, der mosaischen Gesetzgebung, schöpfen. Denn in diesem Sinne und in keinem anderen ist das Gespräch des Christus Jesus am Brunnen mit dem samaritischen Weibe zu verstehen.
 
@@ -2037,7 +1769,9 @@ Ich |  |  |   |
 
 Das Tier hat seine drei Leiber hier, sein Ich in der Astralwelt; das Tier hat darum keine individuelle Seele, sondern eine Gruppenseele. Wenn Sie des Menschen zehn Finger betrachten, sind sie alle belebt, aber nicht selbständig - sie sind nur ein Glied an dem ganzen Leibe. So wie wir das Ich der Finger in uns suchen müssen, so müssen wir in die astralische Welt hinaufgehen, um die gemeinsame Seele der Tiere zu finden. Die einzelnen Löwen sind Glieder des Löwen-Ich, der Löwen-Seele. Alle Löwen sind astralisch verbunden, von jedem geht ein Faden in die Astralwelt, wo das Ich sich befindet.
 
-![img-1.png](assets/img-1.png) |257| Für den Materialisten ist das unglaublich; der Geistesforscher muß aber sagen: es ist wahr! Man kann der Gruppenseele der Tiere genau solch eine Evolution zuschreiben, wie dem menschlichen Ich in der physischen Welt. Wenn wir Gruppen von Tieren auf dem Astralplan verfolgen, dann sehen wir dort ihre Entwicklung so vor sich gehen, wie die des Menschen auf dem physischen Plan als Individuum.
+![img-5.png](assets/img-5.png) 
+
+|257| Für den Materialisten ist das unglaublich; der Geistesforscher muß aber sagen: es ist wahr! Man kann der Gruppenseele der Tiere genau solch eine Evolution zuschreiben, wie dem menschlichen Ich in der physischen Welt. Wenn wir Gruppen von Tieren auf dem Astralplan verfolgen, dann sehen wir dort ihre Entwicklung so vor sich gehen, wie die des Menschen auf dem physischen Plan als Individuum.
 
 Die Pflanze hat ihren Astralleib in der Astralwelt, den physischen und Atherleib in der physischen Welt und das Ich im unteren Devachan. Was ist aber die Wesenheit einer solchen Pflanzengruppe? Es haben gleichartige Pflanzen ihr Ich, ihre Gruppenseele im Devachan. Der Mensch im traumlosen Schlaf ist genau in derselben Lage wie die Pflanze ihr ganzes Leben lang. Die ganze Pflanzenwelt der Erde ist ein schlafendes Wesen; die Pflanze führt ein Traumleben.
 
@@ -2063,7 +1797,7 @@ Eine eigentümliche Verbindung des Menschen mit den verschiedenen Welten gibt es
 Wenn der Mensch noch höher hinaufsteigt oder hinuntersteigt – erinnert sei an das Goethe-Wort: |259| «Versinke denn! Ich könnt¹ auch sagen: steige!
 's ist einerlei ...»
 
-- dann ist der Augenblick da, wo er zunächst mit dem Urvater der Welt eins wird. Dann kann er sagen: «Ich und der Vater sind eins.» Dann tauchen Wesenheiten auf - noch höhere als die geschilderten. Nun stellen Sie sich eine Persönlichkeit vor, welche so hoch eingeweiht ist, daß sie in ihren eigenen Leibern bewußt die Natur der höheren Wesen trägt, wie dies Johannes an dem Christus Jesus erlebt. In dem Einen Christus Jesus sieht der Schreiber des Johannes-Evangeliums die Wesenheiten der drei Welten. Und er läßt Philippus zu Nathanael sagen (Joh. 1, 45-51)
+dann ist der Augenblick da, wo er zunächst mit dem Urvater der Welt eins wird. Dann kann er sagen: «Ich und der Vater sind eins.» Dann tauchen Wesenheiten auf - noch höhere als die geschilderten. Nun stellen Sie sich eine Persönlichkeit vor, welche so hoch eingeweiht ist, daß sie in ihren eigenen Leibern bewußt die Natur der höheren Wesen trägt, wie dies Johannes an dem Christus Jesus erlebt. In dem Einen Christus Jesus sieht der Schreiber des Johannes-Evangeliums die Wesenheiten der drei Welten. Und er läßt Philippus zu Nathanael sagen (Joh. 1, 45-51)
 
 «Wir haben den gefunden, von welchem Moses im Gesetz und die Propheten geschrieben haben, Jesum, Josephs Sohn von Nazareth.
 
@@ -2139,7 +1873,7 @@ Jetzt wird es sich darum handeln, den Gott in seiner Geistigkeit zu begreifen; d
 
 Wollen wir diesen ganzen Vorgang noch genauer begreifen, so muß jetzt auf ein anderes hingewiesen werden. Das Ich hat nämlich eine lange Entwickelungsgeschichte in der Menschheit. Damit das Ich entstehen konnte, mußte der sich ihm entgegen entwickelnde Menschenkörper sich in vieler Hinsicht umbilden.
 
-Bei den alten Atlantiern war noch ein Teil des Ätherkopfes außerhalb des physischen Kopfes. Diesem Teil entspricht unser Vorderhirn. Der Kopf mußte dem ätherischen Leib entgegenwachsen, er mußte der Geistigkeit entgegenreifen. Das war die Voraussetzung für die Einkehr des Selbstbewußtseins. Die Selbstständigkeit bildete sich in |267| dem Moment der physischen Evolution heraus, als sich im Menschen zuerst ein Knochensystem ablagerte. Die Standfestigkeit, welche der Mensch damit erhalten hat, hängt mit seiner Anlage zur Geistigkeit zusammen. Und wenn wir auf die Zukunft des Menschen schauen, wird es uns um so klarer, wie wichtig die Bildung dieses Knochensystems war. Wie wird sich das Menschengeschlecht umgestalten - in seinem Leibe, nicht in seiner Seele? Immer mehr wird es sich verfestigen. Ähnlich wie die Auster ihre Schale beherrscht, wird der Mensch seinen Leib, sein Werkzeug, von außen beherrschen. Um das zu verstehen, brauchen Sie nur vom Zustand des Schlafes auszugehen, in dem die Seele von außen den physischen Organismus beherrscht. In zukünftigen Zeiten wird die Seele bewußt den Körper als ihr Instrument von außen beherrschen. Die Knochenbildung ist daher die Anlage zu etwas Großem, Herrlichem. Daher die alten Religionsvorschriften: Bewahret euer Knochensystem. Zerbrecht eure Knochen nicht. - Den symbolischen Ausdruck dafür gab das in Ägypten eingesetzte Opfer zur Erinnerung an die dort erfolgte Rettung bei der Erwürgung der ägyptischen Erstgeburt. Zum äußeren Zeichen soll ein Lamm genossen werden, und bezeichnend sind daher die Worte: «Und sollt kein Bein an ihm zerbrechen!» So wird an der Stelle, wo die Befreiung durch Manas einsetzt, diese Wichtigkeit der Knochenbildung nachdrücklich angedeutet in der Ritualvorschrift für das Passahlemm. - Und bei dem großen Lamm, dem Repräsentanten der Menschheit, bei dem Christus Jesus wurden, was sonst bei allen Gekreuzigten üblich war, die Beine nicht gebrochen. «... daß die Schrift erfüllet würde: <ihr bein="" sehr="" ihm="" zeibrechen="" sollt="">.»
+Bei den alten Atlantiern war noch ein Teil des Ätherkopfes außerhalb des physischen Kopfes. Diesem Teil entspricht unser Vorderhirn. Der Kopf mußte dem ätherischen Leib entgegenwachsen, er mußte der Geistigkeit entgegenreifen. Das war die Voraussetzung für die Einkehr des Selbstbewußtseins. Die Selbstständigkeit bildete sich in |267| dem Moment der physischen Evolution heraus, als sich im Menschen zuerst ein Knochensystem ablagerte. Die Standfestigkeit, welche der Mensch damit erhalten hat, hängt mit seiner Anlage zur Geistigkeit zusammen. Und wenn wir auf die Zukunft des Menschen schauen, wird es uns um so klarer, wie wichtig die Bildung dieses Knochensystems war. Wie wird sich das Menschengeschlecht umgestalten - in seinem Leibe, nicht in seiner Seele? Immer mehr wird es sich verfestigen. Ähnlich wie die Auster ihre Schale beherrscht, wird der Mensch seinen Leib, sein Werkzeug, von außen beherrschen. Um das zu verstehen, brauchen Sie nur vom Zustand des Schlafes auszugehen, in dem die Seele von außen den physischen Organismus beherrscht. In zukünftigen Zeiten wird die Seele bewußt den Körper als ihr Instrument von außen beherrschen. Die Knochenbildung ist daher die Anlage zu etwas Großem, Herrlichem. Daher die alten Religionsvorschriften: Bewahret euer Knochensystem. Zerbrecht eure Knochen nicht. - Den symbolischen Ausdruck dafür gab das in Ägypten eingesetzte Opfer zur Erinnerung an die dort erfolgte Rettung bei der Erwürgung der ägyptischen Erstgeburt. Zum äußeren Zeichen soll ein Lamm genossen werden, und bezeichnend sind daher die Worte: «Und sollt kein Bein an ihm zerbrechen!» So wird an der Stelle, wo die Befreiung durch Manas einsetzt, diese Wichtigkeit der Knochenbildung nachdrücklich angedeutet in der Ritualvorschrift für das Passahlamm. - Und bei dem großen Lamm, dem Repräsentanten der Menschheit, bei dem Christus Jesus wurden, was sonst bei allen Gekreuzigten üblich war, die Beine nicht gebrochen. «... daß die Schrift erfüllet würde: <Ihr sollt ihm kein Bein zerbrechen>.»
 
 Die Juden wurden also aus Ägypten herausgeführt. Sehen wir, ob unsere Auffassung in der Bibel des genaueren bestätigt wird. Jawohl, wörtlich! Das ist eine der großen Errungenschaften der Geisteswissenschaft, die Angaben der religiösen Urkunden über alte symbolische Handlungen in ihrer Wörtlichkeit lesen zu können. Das Volk Israel zieht in die Wüste. Was ist die Wüste? Wenn das Ich in sich selbst sich versenkt, um den Gott in sich zu suchen, dann muß es in die Wüste, in die Einsamkeit, und diese Wüste muß der Mensch nach Erwachen des Manas in sich selbst dann wieder beleben. Als |268| die Kinder Israel murrten, weil sie dem Hungertode nahe waren, verhieß ihnen der Herr, daß sie am anderen Morgen Brot die Fülle haben sollten. Am anderen Morgen «lag's in der Wüste rund und klein wie der Reif auf dem Lande». Da fragten die Israeliten einander: «Man hu - was ist das?» Das ist die Frage, die sich der Mensch vorlegt, wenn er etwas erkennen soll. Sie nannten die Speise, die vom Himmel kam, Manna. Es ist das gleiche Wort wie Manas. Gewiß werden die Philologen manches gegen diese Erklärung einwenden, aber es verhält sich doch so. Die Aufgabe des jüdischen Volkes war es, reines Manas in die Zukunft hinüberzutragen.
 
@@ -2147,10 +1881,9 @@ Um das besser zu verstehen, müssen wir an den Rand eines Mysteriums treten, des
 
 Geburt und Tod, was sind sie im okkulten Sinne? Man muß sich das einmal klarmachen. Sind sie immer notwendig mit dem Leben verknüpft? Denken wir uns zurück in vorlemurische Zeiten, ehe der Mensch in die grobe physische Materie hinunterstieg.
 
-![img-2.png](assets/img-2.png)
-Vollem uriieb
+![img-6.png](assets/img-6.png)
 
-![img-3.png](assets/img-3.png)
+![img-7.png](assets/img-7.png)
 
 Er hatte eine Art Licht- und Feuerleib, war in Äthermaterie verkörpert. Seine Zeitgenossen auf Erden sind Wesen, die etwas über dem Tiere stehen, in physischen Leibern. In dem tierischen Leibe bildet sich eine Art von Höhlung. Der Äthermensch steigt in die Höhlung und füllt den physischen Leib. Der Lichtmensch hatte sich zum Luftmenschen verdichtet, der nun in den physischen Leib einzog. Das ist der Moment, der in der Schöpfungsgeschichte dargestellt wird mit den Worten: «Und Gott blies ihm ein den lebendigen Odem, und er ward eine lebendige Seele.» Mit dem Atem ziehen wir |269| tatsächlich unseren Ätherleib ein. Der Äthermensch hatte sich bis zur Luft verdichtet, als seine Verbindung mit dem Erdenleib vollzogen werden konnte, und er fuhr in die Lungen. Mit jedem Atemzug ziehen wir tatsächlich unseren Ätherleib in uns ein.
 
@@ -2186,11 +1919,11 @@ Wir schlössen gestern damit, daß wir versuchten, ein Licht auf das zu werfen, 
 
 Heute wollen wir die Bausteine herbeitragen zum richtigen Verständnis des Folgenden. Erinnern wir uns noch einmal, daß Johannes oder besser der Schreiber des Johannes-Evangeliums ein Eingeweih|274|ter war; daß ein wirklich Initiierter dieses Evangelium geschrieben hat, einer, der den Himmel offen sah und genaue Kenntnisse der astralen und der devachanischen Welt hatte. Johannes gibt auch an, wie man zur Erlangung eines solchen Zustandes kommt: durch Meditation der Eingangsworte. Läßt man diese immer wieder in der Seele leben, dann werden sie zu Zauberworten, durch die man allmählich hinaufkommt zum Verständnis des Johannes-Evangeliums. Johannes will uns sagen: Wenn ihr den christlichen Weg gehen wollt, dann müßt ihr euch, in der Weise, wie ich es hier erzähle, hinauf heben zum Devachan, und dann werden euch die Taten des Christus Jesus und alles, was mit ihm zusammenhängt und mit ihm geschehen ist, so erscheinen, wie ich es euch darstelle. Ein Lebensbuch, das am eigenen Leib Erlebtes darstellt, will das Johannes-Evangelium sein. Wir können das Evangelium nicht eher verstehen, bis wir die Vorgänge nicht mehr als bloße historische Tatsachen, sondern als Dinge ansehen, die von Johannes mit dem höheren Schauvermögen und dessen Sinnen gesehen worden sind. Die Hochzeit zu Kana ist zwar auch ein reales Ereignis, aber die Tatsachen werden zu Symbolen. Der gewöhnliche Mensch sieht diese Hochzeit mit ihrem Weinwunder anders an als ein Erweckter wie Johannes. Ihm wird sie die prophetische Vorhersage für den ganzen zukünftigen Entwickelungsgang der Menschheit, alles dessen, was durch Christus geschehen soll.
 
+![img-8.png](assets/img-8.png)
+
 Wir leben heute in der fünften Unterrasse der fünften Hauptrasse. Was sich in Palästina abspielte, fällt in die vierte Unterrasse, die griechisch-lateinische. Aus der dritten Unterrasse war das jüdische Volk hervorgegangen, das sich zu seiner Mission in Ägypten vorbereitet und von dort ausgezogen war. Ihm entstammte Jesus. Die dritte Hauptrasse spielt nun in die vierte hinein, die vierte in die fünfte, die fünfte in die sechste. So daß wir drei Epochen zu unterscheiden haben. In der esoterischen Sprache nennt man sie drei Schöpfungstage.
 
-V
-
-- Viarto.Rosse - r-ünffeRasse - JechstciRcjsse |275| Am dritten Tage aber war eine Hochzeit zu Kana: Der Schreiber des Johannes-Evangeliums sieht da dasjenige, was erst in der Zukunft, in der sechsten Rasse geschehen wird: die Vermählung des Manas, das sich im Gesetz ausdrückt, mit Budhi, der Gnade, der Freude, die große Hochzeit des ganzen manasischen Elementes mit Budhi. Das kann erst voll eintreten, wenn die Aufgabe des Christentums ganz gelöst ist. «Wer nicht verlasset Vater und Mutter und Bruder und Schwester um meinetwillen, der kann nicht mein Jünger sein», das heißt, von den engen Gemeinschaften muß die Liebe herausgeholt und zu allgemeiner Menschenliebe gemacht werden, sie muß sich von dem, was blutsverwandt ist, zu dem wenden, was geistesverwandt ist. So haben wir also in der Hochzeit zu Kana dasjenige verbildlicht, was einst geschehen soll. «Und am dritten Tage» heißt es nicht zufällig, sondern das ist wörtlich als Weltentag zu nehmen. Jede Zahl, jedes Wort, alles ist im Johannes-Evangelium höchst bedeutungsvoll.
+|275| Am dritten Tage aber war eine Hochzeit zu Kana: Der Schreiber des Johannes-Evangeliums sieht da dasjenige, was erst in der Zukunft, in der sechsten Rasse geschehen wird: die Vermählung des Manas, das sich im Gesetz ausdrückt, mit Budhi, der Gnade, der Freude, die große Hochzeit des ganzen manasischen Elementes mit Budhi. Das kann erst voll eintreten, wenn die Aufgabe des Christentums ganz gelöst ist. «Wer nicht verlasset Vater und Mutter und Bruder und Schwester um meinetwillen, der kann nicht mein Jünger sein», das heißt, von den engen Gemeinschaften muß die Liebe herausgeholt und zu allgemeiner Menschenliebe gemacht werden, sie muß sich von dem, was blutsverwandt ist, zu dem wenden, was geistesverwandt ist. So haben wir also in der Hochzeit zu Kana dasjenige verbildlicht, was einst geschehen soll. «Und am dritten Tage» heißt es nicht zufällig, sondern das ist wörtlich als Weltentag zu nehmen. Jede Zahl, jedes Wort, alles ist im Johannes-Evangelium höchst bedeutungsvoll.
 
 Man muß eigentlich staunen, wenn die meisten Theologen den Jehova als Christi «Vater» ansprechen. Bei Lukas steht schlicht und deutlich da, wo der Erzengel Gabriel Maria (Sophia) die Geburt Jesu verkündigt: «Fürchte dich nicht, du hast Gnade bei Gott gefunden, der Heilige Geist wird über dich kommen und die Kraft des Höchsten wird dich überschatten ...» und nie steht etwas anderes. Der Vater des Christus also ist der «Heilige Geist». Das entspricht nicht etwa bloß dem Johannes-Evangelium, sondern einer alten Tradition. Christus sagt: «Ich und der Vater sind eins.» Ich und der Heilige Geist sind eins, bedeutet das.
 
@@ -2280,16 +2013,9 @@ Nächst dem Studium haben wir als zweites die Imagination. Jeder muß sie einmal
 
 Und so liegt jedem Ding eine Bedeutung zugrunde. Gleichnisse sind die Dinge nämlich in Wirklichkeit. Die ganze sinnliche Welt ist eine Einbildung, die geistige Welt ist das Reale. Es muß eine Wechselwirkung zwischen den Menschen und der geistigen Welt bestehen und erzielt werden. Wir müssen unsere Gedankenbilder, unser Seelenleben flüssig erhalten, nicht starre Formen uns bilden. Schon in Lucifer-Gnosis ist darauf hingewiesen worden, daß sich durch eine andauernde, liebevolle Betrachtung die Eigenschaften aus den Dingen herauslösen und dann den Raum durchfluten und durchströmen. So scheint zum Beispiel aus einer Pflanze etwas wie eine Flammenbildung heraufzusteigen; dahinter steht das Geistige. In diesen strömenden, flutenden Farben- und Geschmacksempfindungen, die hier auf dem physischen Plan kein Korrelat haben, hat der Mensch sich nun zurechtzufinden, und dann ist er so weit, daß die Unterweisung in der okkulten Schrift einsetzen kann.
 
-Als drittes ist zu lernen das Lesen der okkulten Schrift. Das hilft uns, die mannigfachen Erscheinungen richtig aufzureihen wie Perlen an einer Schnur. Die okkulte Schrift ist nicht willkürlich erdacht, sondern stellt die Strömungen dar, welche die Welt durchfließen. Etwas, das in der geistigen Wirklichkeit eine große Rolle spielt, sind zwei ineinandergerollte Spiralen, die einen Wirbel bilden. An der |287| Nasenwurzel befindet sich die Anlage zu der zweiblättrigen Lotusblume, die sich in der Zukunft zu einem höheren Wahrnehmungsorgan entwickeln wird. Diesem ätherischen Organ entspricht ebenfalls das Zeichen des Wirbels. Es ist dem Zeichen des Krebses ähnlich, in dem die Sonne bei Anbruch der atlantischen Rasse stand. Wir haben noch im Kalender diese und die anderen Zeichen der Sternbilder. Ein sehr wichtiges okkultes Schriftzeichen ist der Merkurstab mit der Schlange daran. Es ist die Urform des Konsonanten S. Wer die okkulte Schrift kennt, kann die betreffenden Zeichen als Gedankenform hervorrufen; er hat dann in gewissen Fällen Macht über Andere. Im Johannes-Evangelium 8, 3-11, wird über Christus und die Ehebrecherin berichtet: Christus schrieb mit dem Finger Zeichen der okkulten Schrift auf die Erde, um die richtigen Gedankenformen bei der anklagenden Menge zu erzeugen, und sie zu der im Augenblick richtigen Tat zu veranlassen. «Wer ohne Schuld ist, der werfe den ersten Stein auf sie.» Er übergibt ihre Schuld dem Karma, der ausgleichenden Gerechtigkeit. Christus wollte sagen: jede Tat trägt ihren Lohn in sich. «Gehe hin und sündige hinfort nicht mehr.» Eine Unterweisung im Sehen dieser okkulten Zeichen erhält Moses in seinem Gespräch mit Gott (2. Mose, 3 und 4). Da lernt Moses die okkulte Schrift kennen und wird ausgerüstet mit der Macht, die ihn
+Als drittes ist zu lernen das Lesen der okkulten Schrift. Das hilft uns, die mannigfachen Erscheinungen richtig aufzureihen wie Perlen an einer Schnur. Die okkulte Schrift ist nicht willkürlich erdacht, sondern stellt die Strömungen dar, welche die Welt durchfließen. Etwas, das in der geistigen Wirklichkeit eine große Rolle spielt, sind zwei ineinandergerollte Spiralen, die einen Wirbel bilden. An der |287| Nasenwurzel befindet sich die Anlage zu der zweiblättrigen Lotusblume, die sich in der Zukunft zu einem höheren Wahrnehmungsorgan entwickeln wird. Diesem ätherischen Organ entspricht ebenfalls das Zeichen des Wirbels. Es ist dem Zeichen des Krebses ähnlich, in dem die Sonne bei Anbruch der atlantischen Rasse stand. Wir haben noch im Kalender diese und die anderen Zeichen der Sternbilder. Ein sehr wichtiges okkultes Schriftzeichen ist der Merkurstab mit der Schlange daran. Es ist die Urform des Konsonanten S. Wer die okkulte Schrift kennt, kann die betreffenden Zeichen als Gedankenform hervorrufen; er hat dann in gewissen Fällen Macht über Andere. Im Johannes-Evangelium 8, 3-11, wird über Christus und die Ehebrecherin berichtet: Christus schrieb mit dem Finger Zeichen der okkulten Schrift auf die Erde, um die richtigen Gedankenformen bei der anklagenden Menge zu erzeugen, und sie zu der im Augenblick richtigen Tat zu veranlassen. «Wer ohne Schuld ist, der werfe den ersten Stein auf sie.» Er übergibt ihre Schuld dem Karma, der ausgleichenden Gerechtigkeit. Christus wollte sagen: jede Tat trägt ihren Lohn in sich. «Gehe hin und sündige hinfort nicht mehr.» Eine Unterweisung im Sehen dieser okkulten Zeichen erhält Moses in seinem Gespräch mit Gott (2. Mose, 3 und 4). Da lernt Moses die okkulte Schrift kennen und wird ausgerüstet mit der Macht, die ihn befähigt, seine Aufgabe zu erfüllen. Daß er einen Stab werfen mußte, der zur Schlange wurde, bedeutet, daß er die okkulte Schrift lernte.
 
-„i/v
-""W
-"***"
-"''?'''"
-
-„"-% / %*%*/ / *Mf,
-
-befähigt, seine Aufgabe zu erfüllen. Daß er einen Stab werfen mußte, der zur Schlange wurde, bedeutet, daß er die okkulte Schrift lernte.
+![img-9.png](assets/img-9.png)
 
 Stellen wir uns einen Wirbel vor und denken uns seine beiden Teile in Rot und Blau, halten wir diese Vorstellung fest und führen sie zum eigenen oder zu einem fremden Herzen, so schauen wir die beiden ätherischen Strömungen, welche dem roten und dem blauen Blut zugrunde liegen.
 
@@ -2325,7 +2051,7 @@ Erst ist es eine unbewußte Arbeit, die der Mensch an seinem Ätherleibe und sei
 
 Das Abdrücken dessen, was der Astralleib enthält, in den Ätherleib, wurde in der alten Einweihung so vollzogen, daß der Schüler in eine Krypta gebracht und dort in eine Art Sarg gelegt wurde. Manchmal wurde er auch an eine Art Kreuz gebunden und in einen lethargischen Zustand versetzt, bei dem der Ätherleib zugleich mit dem Astralleib aus dem physischen Leib heraustrat. Etwas ähnliches, nämlich das Heraustreten eines Teiles des Ätherleibes, geht beim Einschlafen eines Gliedes vor sich; man kann dann den betreffenden Teil |291| des Ätherleibes aus dem Körper heraushängen sehen. Die Einweihung selbst nahm ein besonders hoher Initiierter vor. Vieles andere noch wurde da nach vorgeschriebenen Regeln gemacht. Solch ein Schlaf war etwas anderes als ein gewöhnlicher Schlaf. Es blieb bloß der physische Leib in dem sogenannten Sarg zurück, und der Ätherleib und Astralleib gingen heraus; es war also eine Art Tod. Dies war notwendig, daß man den Ätherleib frei bekam, denn nur dann kann sich der Astralleib in den Ätherleib abdrücken. Dreieinhalb Tage dauerte dieser Zustand. Wenn der Novize dann von dem Initiator wieder hingelenkt wurde zu dem physischen Leib, so wurde ihm noch eine letzte Formel eingeprägt, mit der er aufwachte. Das waren die Worte: «Eli, Eli, lama sabachthanü», das heißt: «Mein Gott, mein Gott, wie hast Du mich verherrlicht!» Zugleich schien ihm ein bestimmter Stern, in der ägyptischen Einweihung der Sirius, entgegen. Jetzt war er ein neuer Mensch geworden. Man nannte nun den ganz vergeistigten Astralleib aus einem ganz bestimmten Grunde mit einem ganz besonderen Namen: «Jungfräulich» nannte man diesen Astralleib, die «Jungfrau Sophia». Und den Ätherleib, der aufnimmt, was die Jungfrau Sophia in sich trug, nannte man den «Heiligen Geist». Und das, was aus beiden entstand, das war der «Menschensohn». Der Verkündigung und Geburt des Jesus von Nazareth liegen diese Mysterieninhalte zugrunde.
 
-Dieses innere Erlebnis wurde im Bilde auch so dargestellt, daß der Heilige Geist als die Taube über dem Kelch schwebt. Das ist der Moment, der im Johannes-Evangelium 1,32, beschrieben wird: «Und Johannes zeugete und sprach: <ich auf="" beh="" blieb="" die="" diea="" ein="" ein,="" für="" hmmel="" laube="" laub="" man="" vom="" van="" von="" zb="">.» Denken Sie sich das auf dem astralen Plan erlebt, so haben Sie ein wirkliches Ereignis. Derjenige, der diese großen Dinge darleben durfte außerhalb der Mysterien in der physischen Welt, der durfte als Initiator andere einweihen. Johannes-Evangelium 11, 1-45: die Auf erweckung des Lazarus ist nichts anderes als eine Initiation, an Lazarus vollzogen.
+Dieses innere Erlebnis wurde im Bilde auch so dargestellt, daß der Heilige Geist als die Taube über dem Kelch schwebt. Das ist der Moment, der im Johannes-Evangelium 1,32, beschrieben wird: «Und Johannes zeugete und sprach: <Ich sah, daß der Geist herabfuhr wie eine Taube vom Himmel und blieb auf Ihm>.» Denken Sie sich das auf dem astralen Plan erlebt, so haben Sie ein wirkliches Ereignis. Derjenige, der diese großen Dinge darleben durfte außerhalb der Mysterien in der physischen Welt, der durfte als Initiator andere einweihen. Johannes-Evangelium 11, 1-45: die Auf erweckung des Lazarus ist nichts anderes als eine Initiation, an Lazarus vollzogen.
 
 Wir können das Johannes-Evangelium nicht tief genug nehmen. So ist auch die Namengebung etwas außerordentlich Wichtiges. Die Namengebung, um die es sich in der Bibel handelt, ist genommen |292| von der inneren Wesenheit der Menschen. Ein Beispiel dafür sind die Namen der zwölf Apostel. Sie weisen hin auf die Beziehung zwischen ihnen und dem Herrn, dem Christus, der das Haupt ist und als Zeichen den Widder oder das Lamm hat. Johannes bedeutet der die Budhi Verkündende. Sie können den Menschen in zwölf Teile einteilen, der ganze Mensch ist eine Zwölfheit. Der Mensch so, wie er jetzt ist, entstand allmählich. Jedesmal, wenn die Sonne in ein neues Sternbild trat, entwickelte sich ein neues Organ im Menschen. Als die Sonne im Zeichen des Löwen stand, bildete sich zum Beispiel das Herz aus. Wenn der Mensch höher aufsteigt, involviert er in sich eine Gruppenseele. Das nun, was die Teile des Menschen sind, finden Sie wieder in den Namen der zwölf Apostel, da sind sie hineingeheimnißt. Was in einem gewöhnlichen Leib die zwölf Wesensbestandteile sind, bedeuten die zwölf Apostel im Kollektivleib Christi. Der Teil, der das Ich darstellt, in welchem der Egoismus herrscht, der dem Christus den Tod bringt, der ist genannt Judas Ischariot. Hinzugesetzt wurde bei dieser Namengebung noch, daß er den Beutel hatte, das Geld, das niedere Habsuchsprinzip.
 
@@ -2429,462 +2155,3 @@ Ergänzendes zum Vortrag vom 10. Juli 1906
 Die altindische Bezeichnung für die vierblättrige Lotosblume ist Swastika. Bei Menschen mit Phantasie fängt sie an sich zu drehen, von rechts nach links. In mehreren östlichen Ländern spielt die Swastika als Symbol eine ähnliche zentrale Rolle wie im christlichen Abendland das Kreuz. Alles, was ich Ihnen jetzt auseinandergesetzt habe, ist keine Abstraktion, sondern entspricht einer Realität. Derartige Symbole haben eine sehr tiefe Bedeutung. Es hat aber gar |305| keinen Wert, wenn in irgendwelchen theosophischen Schriften das TAO-Zeichen oder die Schlange oder die Swastika verwendet werden.
 
 Damit habe ich Ihnen ungefähr den Weg und die Bedeutung der morgenländischen, unter strenger Leitung eines Guru stehenden Führung gezeigt. Weil das orientalische Bewußtsein etwas Traumhaftes an sich hat, hat der indische Mensch eine solche Führung nötig; die feine Konstitution des morgenländischen Menschen bedingt das. Er muß das lange Zeit innerlich alles durchmachen, bis er sich einmal selber führen kann. In der Vedanta-Philosophie sind die größten Gedanken niedergelegt. Aber der Inder würde nicht beginnen können mit dem Studium von Philosophen wie zum Beispiel Fichte, Schelling, Hegel; er braucht zunächst eine äußere Stütze, bis sein Führer ihm zum Genossen wird.
-
-
----
-
-
-# HINWEISE, Der vorliegende Band GA 94 der Gesamtausgabe umfaßt Aufzeichnungen von vier Vortragszyklen Rudolf Steiners, die im 1906 in Paris, Leipzig, Berlin und München gehalten worden sind.
-
-# KOSMOGONIE, Paris, 25. Mai bis H.Juni 1906
-
-Die russische Theosophin Elena Fjodorovna Pisareva hatte im Jahr 1904 Rudolf Steiner und Marie von Sivers auf ihr Landgut Podborki, in der Nähe von Kaluga, eingeladen. Der für den Sommer 1905 geplante Besuch mußte wegen der unsicheren politischen Zustände in Rußland zunächst auf 1906 verschoben und später ganz abgesagt werden. Stattdessen, so berichtete Marie Steiner-von Sivers, baten die russischen Freunde darum, einen Vortragszyklus in Paris veranstalten zu dürfen, wo es immer eine zahlreiche russische Kolonie gegeben hatte. «Rudolf Steiner sagte zu; es war zugleich das Jahr, in dem die Theosophen ihren allgemeinen Kongreß in Paris abhielten. Unser Zyklus hatte ursprünglich nichts mit dem Kongreß zu tun. ...».
-
-Die Vorträge für die russischen Freunde fanden in der Rue Raynouard 5 statt, wo eine möblierte Wohnung gemietet worden war. Sophie Stinde berichtet in einem Brief an Ludwig Kleeberg: «Immer größer wurde der Kreis der Zuhörenden. Mit vierzehn fingen wir in unserer Wohnung an – Russen und Deutsche –, und bald waren es über sechzig, so sprach es sich herum und so begierig war man, den großen Mann, <le maitre="" prophet,="" le="" le="" waitre="">, zu sehen und zu hören. Dann bekamen wir den Logenraum nach dem Kongreß, und die Zahl der Zuhörer aus allen Ländern wuchs auf siebzig und darüber hinaus; mit ihr wuchs die Begeisterung. Es waren lauter hochstehende intelligente und teils berühmte Leute wie Edouard Schure und der russische Dichter und Philosoph Minski, die zu Füßen ihres endlich gefundenen Meisters saßen.»
-
-Textunterlagen: Edouard Schure verdanken wir die Aufzeichnungen von den Vorträgen, die erstmals 1928 veröffentlicht wurden mit dem Titel «Esquisse d'une cosmogonie psychologique». Im Vorwort schrieb Schure darüber: «Ich hatte bei dem ersten Vortrag Dr. Steiners keine Notizen gemacht, aber der Vortrag hatte mich so im Lebendigen getroffen, daß ich, als ich nach Hause kam, das Bedürfnis empfand, ihn schriftlich wiederzugeben – ohne ein einziges Glied in der Kette der lichtvollen Gedanken vergessen zu haben. Die Verinnerlichung war so vollständig gewesen, daß ich damit keinerlei Schwierigkeit hatte. Aber, durch eine ungewollte und unmittelbare Verwandlung, |308| entstand aus dem deutschen Text, der sich in mein Gedächtnis eingegraben hatte, der französische Wortlaut. Der gleiche Vorgang wiederholte sich bei allen achtzehn Vorträgen und formte sich zu einem Heft, das ich als einen seltenen und kostbaren Schatz aufbewahrte. ... Einige Mitglieder der französischen Gruppe dieser Gesellschaft haben den Wunsch ausgedrückt, sie in einem Band erscheinen zu lassen. Ich komme diesem Wunsch umso lieber nach, als diese wertvollen Vorträge ein zentrales Moment im Denken Rudolf Steiners darstellen, ein spontaner Wurf einer genialen geistigen Schöpfung in ihrer einmaligen Vollendung.»
-
-Dem Druck in der Gesamtausgabe liegt die Übersetzung aus dem Französischen von Hermann Fackler zugrunde, die für die 2. Auflage 2001 durchgesehen und an einigen Stellen korrigiert wurde.
-
-Neben den Aufzeichnungen Schures gibt es noch Kurznotizen von Mathilde Scholl, aus denen an einigen wenigen Stellen Ergänzendes aufgenommen werden konnte.
-
-# POPULÄRER OKKULTISMUS, Leipzig, 28. Juni bis 11. Juli 1906
-
-Seit November 1905 hatte Rudolf Steiner auf Bitten des damaligen Zweigleiters Gottlieb Rudolf Jahn und seiner späteren Nachfolgerin Elise Wolfram in Leipzig mehrere öffentliche Vorträge und am 25. April 1906 einen Vortrag für die dortigen Mitglieder gehalten. «Populärer Okkultismus» ist der erste dort gehaltene größere Vortragszyklus, an welchem etwa 60 Menschen teilnahmen, die Hälfte davon Leipziger Mitglieder. In einer Vorbemerkung zur Erstveröffentlichung der Notizen aus diesem Leipziger Zyklus in «Was in der Anthroposophischen Gesellschaft vorgeht. Nachrichten für deren Mitglieder» (vgl. unten) schrieb Marie Steiner: «Es sind nur kurze Notizen über einen schon 1906 in Leipzig unter dem Titel <populärer okkultismus=""> gehaltenen Zyklus von zwölf [vierzehn] Vorträgen. Doch historisch interessant für diejenigen, die selbst als Vortragende heute zu einer neuen Generation sprechen, welche voll Sehnsucht die Vermittlung geistigen Wissens verlangt. Daher methodisch-didaktisch als Leitfaden wertvoll.»
-
-Textunterlagen: Dem Erstdruck im Nachrichtenblatt lag die Nachschrift von Alice Kinkel zugrunde, die dann auch für die 1. Auflage in der Gesamtausgabe übernommen wurde. Eine später aufgefundene weitere Nachschrift - von unbekannter Hand - enthält eine Anzahl zusätzlicher Ausführungen, die in der Kinkel-Nachschrift fehlen. Diese Zusätze sind in der 2. Auflage 2001 in den Anhang Seiten 303-307 aufgenommen. Durch die zweite Nachschrift wurden auch einige kleinere Verbesserungen im Text möglich. Abweichende Formulierungen gegenüber der früheren Auflage sind also auf diese Nachschrift zurückzuführen.
-
-# DAS JOHANNES-EVANGELIUM, Berlin, 19. Februar bis 5. März 1906
-
-|309| Nachdem Rudolf Steiner mehrere Wochen auf Vortragsreise in verschiedenen deutschen Städten gewesen war, nahm er am 19. Februar 1906 mit drei Vorträgen über das Johannes-Evangelium die kontinuierliche Arbeit an den Montagabenden im Berliner Besant-Zweig wieder auf.
-
-**Textunterlagen:** Es liegen Aufzeichnungen vor von Marie Steiner-von Sivers, Franz Seiler und Bertha Lehmann (Reebstein). Dem gedruckten Text liegt im wesentlichen die Nachschrift Franz Seiler zugrunde, dem Ergänzendes aus den beiden anderen Mitschriften eingefügt wurde.
-
-# DIE THEOSOPHIE ANHAND DES JOHANNES-EVANGELIUMS, München, 27. Oktober bis 6. November 1906
-
-Dieser Vortragszyklus fand in den Räumen des Münchner Zweiges I, Adalbertstrasse 55 p., statt. Im Jahresbericht 1906 des Münchner Zweiges heißt es, daß außer den beiden Logen viele auswärtige Mitglieder teilgenommen haben. «Es waren allabendlich über 70 Zuhörer anwesend, die mit größter Begeisterung Herrn Dr. Steiners Ausführungen über das Johannes-Evangelium folgten.»
-
-**Textunterlagen:** Es liegen Aufzeichnungen vor von Marie Steiner-von Sivers, Ludwig Kleeberg und Alice Kinkel. Für die 2. Auflage 2001 wurden alle diese Aufzeichnungen geprüft und einige Textstellen anhand der jeweils ausführlichsten Mitschrift verbessert.
-
-Der Titel des Bandes wurde vom Herausgeber gewählt in Anlehnung an die französische Ausgabe des Pariser Zyklus von Edouard Schure.
-
-**Titel der Vorträge:** Alle Vorträge wurden von Rudolf Steiner frei gehalten, ohne Ankündigung eines bestimmten Titels. Die Titel der einzelnen Zyklen gehen auf die jeweiligen Erstausgaben zurück.
-
-Für die 2. Auflage 2001 wurden, neben den oben erwähnten Ergänzungen und Verbesserungen, die Hinweise ergänzt und eine Personenregister erstellt.
-
-**Veröffentlichung in Zeitschriften:**
-
-Notizen aus dem Zyklus «Populärer Okkultismus» in «Was in der Anthroposophischen Gesellschaft vorgeht» 1946, 23. Jahrgang, Nrn. 36-47.
-
-|310| Notizen aus den Vorträgen Berlin 19., 26. Februar, 5. März 1906 in «Beiträge zur Rudolf Steiner Gesamtausgabe» Nr. 56.
-
-Notizen aus dem Zyklus «Die Theosophie anhand des Johannes-Evangeliums» unter dem Titel «Theosophie und Johannes-Evangelium» in «Was in der Anthroposophischen Gesellschaft vorgeht» 1945, 22. Jg., Nrn. 7-16.
-
-## Hinweise zum Text
-
-Werke Rudolf Steiners, innerhalb der Gesamtausgabe (GA) werden in den Hinweisen mit Bibliographie-Nummer angegeben. Siehe auch die Übersicht am Schluß des Bandes.
-
-## I Kosmogonie
-
-Zu Seite:
-
-19 Sehern - Harn - Phorasch:
-Vgl., den Aufsatz von Hans Ludwig Held «Von Golem und Sehern. Eine Studie aus der hebräischen Mystik» in der Zeitschrift «Das Reich», 1. Jg., 3. und 4. Buch, 2. Teil, Seite 515 ff.
-
-Jod-He-Vau:
-
-21 Wenn du nicht verlassest: Luk. 14, 26; Matth. 10, 37; Mark. 10, 29.
-
-23 Manes: Nach orientalischen Quellen um 215 in Mardinu (Babylonien) als Sohn eines vornehmen Persers geboren. Reisen nach Indien und Turkestan. Unter Bahram I. um 273 gekreuzigt. Vgl. die Vorträge Berlin, 11, November 1904, in GA 93; Nürnberg, 25. Juni 1908, in GA 104; München, 31. August 1909, in GA 113.
-
-Auch Augustinus ... hatte ursprünglich der Gemeinschaft der Manichäer angehört: Vgl. «Geisteswissenschaftliche Erläuterungen zu Goethes Faust, Band I: Faust der strebende Mensch», GA 272, Vortrag vom 4. April 1915; «Bausteine zu einer Erkenntnis des Mysteriums von Golgatha», GA 175, 14. Vortrag.
-
-24 ist ein Aufsatz von Theodor Arldt erschienen: «Kosmos» 1905, Heft 10: «Das Atlantisproblem».
-
-25 zum neuen Zeichen des Bundes: 1. Mos. 9, 18 f.
-
-das schöne Wort von Paracelsus: «Dan das wil ich bezeugen mit der natur: der sie durchforschen wil, der muß mit den fußen ire bücher treten, die geschrift wird erforschet durch ire buchstaben, die natur aber durch lant zu lant: als oft ein lant als oft ein blat. also ist ein codex naturae, also muß man ire bletter umbkeren.» Paracelsus «Paragranum», Gesamtausgabe der medizinischen Werke, herausgegeben von K. Sudhoff, Band 11, München 1924, Die vierte Defension, S. 145f.
-
-27 In einem deutschen Journal: Karl Arnold Kortum (1745-1828) veröffentlichte in der Zeitung «Reichsanzeiger» vom 8. Oktober 1796 eine Abhandlung über den Stein der Weisen. |311| 28 Alphonse de Lamartine, 1790-1869.
-«Der Mensch ist ein gefallener Gott»: Vgl. A. de Lamartine, «La chute d'un ange», 2 Bde., 1838.
-
-29 Paulus hat dieser Wahrheit Ausdruck gegeben: I. Kor. 2, 14-15; I. Kor. 15, 44-45.
-
-32 «Alles Vergängliche ist nur ein Gleichnis»: «Faust» II, Vers 12104f.
-
-33 Ludwig Laistner, 1845-1896: «Das Rätsel der Sphinx. Grundzüge einer Mythen-geschichte», 2 Bde., Berlin 1889.
-
-44 himmelhoch jauchzend, zum Tode betrübt: In «Egmont», Dritter Aufzug.
-Eine persische Legende erzählt: Siehe Goethe, Noten und Abhandlungen zu besseren Verständnis des West-östlichen Divans, <allgemeines>.
-
-45 Mabel Collins (Mrs. Kenningdale Cook), 1851-1927, bekannte englischen Theosophin: «Licht auf den Weg», aus dem Englischen übersetzt von Oskar von Hoffmann. Siehe Rudolf Steiners Erläuterungen zu «Licht auf den Weg» in GA 264.
-Die Genesis sagt: 1. Mos. 2, 7.
-
-47 diese Worte: «Faust» I, Vers 243-246.
-
-50 Plato sagte sogar: «Phaidon» 69c.
-
-52 Die Worte des Christus: Joh. 20, 29.
-Deshalb kann er von sich sagen: Joh. 14, 6.
-
-55 im Leben Goethes: Siehe «Goethes Naturwissenschaftliche Schriften», herausgegeben und kommentiert von Rudolf Steiner in Kürschners «Deutsche National-Litteratur» (1883/97), 5 Bände, GA la-e, Nachdruck Dornach 1975. Band I «Bildung und Umbildung organischer Naturen», S. 277-319.
-Dasselbe Gefühl hatte Goethe: A.a.O., S. 316ff.
-
-57 Spinoza nennt in seiner «Ethik»: «Die Ethik», übersetzt von J. Stern, Leipzig o. J. (1887). Zweiter Teil. Über die Natur und den Ursprung des Geistes. Dreizehnter Lehrsatz: «Das Objekt der Idee, die den menschlichen Geist ausmacht, ist der Körper, oder eine gewisse Daseinsform der Ausdehnung, die in Wirklichkeit existiert, und nichts anderes.»
-im ersten Teil seines «Faust»: «Faust», Verse 501-509.
-
-60 eine bemerkenswerte Stelle: «Goethes Naturwissenschaftliche Schriften», a.a.O., Band III, S. 77 - 78, «Beiträge zur Optik. Zur Farbenlehre», <vorwort>.
-
-61 das ideologische Problem: Teleologie ist die philosophische Weltanschauung, die den Begriff des Zweckes zum obersten Prinzip macht.
-
-62 Gehenna: Tal bei Jerusalem. Siehe 2. Könige 23,10.
-
-63 der Sinn des Christus-Wortes: Matth. 18,2.
-
-64 Friedrich Nietzsche, 1844-1900. «Jenseits von Gut und Böse»: 1885/1886. Siehe hierzu Rudolf Steiner «Friedrich Nietzsche, ein Kämpfer gegen seine Zeit» (1895), GA 5.</vorwort></allgemeines> |312| 68 acht Seligpreisungen: Matth. 5,3-10.
-69 Nach einer Erklärung des Dichters: «Die Geheimnisse. Fragment von Goethe.» Morgenblatt für gebildete Stände. 27. April 1816.
-70 Warum beginnt Dante: «Die Göttliche Komödie», Erster Teil, Erster Gesang 1.
-76 Lamm Gottes: Joh. 1,29; 1,36; 1. Petr. 1,19; Off. Kap. 5, 6, 8, u. a.
-77 Devas: Götter der Devachan-Welt.
-
-Plato spricht vom Symbol des Kreuzes: «Timaios», Kap. VIII p 36 B. Rudolf Steiner führt diesen Ausspruch häufig an, und zwar in der Formulierung des ihm persönlich bekannt gewesenen Wiener Philosophen Vincenz Knauer aus dessen Werk «Die Hauptprobleme der Philosophie in ihrer Entwicklung und teilweisen Lösung von Thaies bis Robert Hamerling», Wien und Leipzig 1892, Seite 96 (zur Bibliothek Rudolf Steiners gehörend und von ihm unterstrichen): «Der Mythus berichtet hierüber im <timaios>, Gott habe diese Weltseele in Kreuzesform durch das Universum gelegt und darüber den Weltleib ausgespannt.»
-
-80 Dionysius Areopagita: In der Apostelgeschichte 17,34 als Schüler des Paulus erwähnt. Unter seinem Namen erschienen Ende des 5. Jahrhunderts in Syrien die «Schriften von der himmlischen Hierarchie» und «Von der kirchlichen Hierarchie», die im 9. Jahrhundert von Scotus Erigena aus dem Griechischen ins Lateinische übertragen wurden. Deutsche Ausgabe «Des heiligen Dionysius Areopagita angebliche Schriften», übersetzt von J. G. V. Engelhardt, Sulzbach 1823.
-
-Johannes Scotus Erigena, um 810-877. Vgl. Rudolf Steiners «Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt», GA 18.
-
-tat tvam asi: Berühmte Formel des Veda.
-
-81 Karl Freiherr von Reichenbach, 1788-1869, Industrieller und Naturphilosoph. Befaßte sich mit Untersuchungen über das Od, eine von ihm eingeführte Bezeichnung für eine sinnlich nicht wahrnehmbare Kraft, die vom Menschen ausstrahlt und auf die besonders veranlagte Personen reagieren. «Der sensitive Mensch und sein Verhalten zum Od», 2 Bde. 1854-55.
-
-81 Erzengel oder Beleber der Metalle: Edouard Schure hat hierzu eine Fußnote gemacht: «En allemand, archange se dit Erzengel; or, Erz signifie mineral.»
-
-82 Reich der Mütter: «Faust» II, Erster Akt, Finstere Galerie, Verse 6212-6305.
-
-84 Auf dieser Stufe wird der Schüler der Schwan genannt: Als «Schwan» wird der Initiierte des dritten Grades bezeichnet. Vgl. z. B. die Vorträge in Berlin, 4. Oktober 1905 (GA 93a) sowie Berlin, 25. März 1905 und Köln, 3. Dezember 1905 (GA 92); ferner Berlin, 29. März 1906 (GA 54). Möglicherweise liegt hier bei den Aufzeichnungen von Schure eine Verwechselung vor.
-
-85 Chela (Tscheia): Sanskrit, Adept oder Geistesschüler.
-
-88 in der Genesis: Siehe Hinweis zu S. 45.
-
-89 George Berkeley, 1685-1753, englischer Bischof und Philosoph. Er leugnete die Existenz von «Dingen» außerhalb unserer Vorstellung. «Sein» bedeutet nach seiner Lehre wahrgenommen oder erkannt werden. Hauptwerk «Treatise |313| concerning the principles of human knowledge», 1710, deutsch von Überweg, 3. Auflage 1920. Vgl. Rudolf Steiners «Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt», GA 18.
-
-92 der dritte Logos: Vgl. die Aufzeichnungen Rudolf Steiners, geschrieben für Edouard Schure in Barr im Elsaß, September 1907, enthalten in Rudolf Steiner/ Marie Steiner-von Sivers, Briefwechsel und Dokumente 1901-1925, GA 262, sowie in GA 89.
-
-94 Die Genesis sagt: 1. Mos. 1, 2.
-
-96 Bewußtseinszustände, Lebenszustände, Formzustände: Vgl. Rudolf Steiner «Vor dem Tore der Theosophie», GA 95, 9. Vortrag; «Die Apokalypse des Johannes»; GA 104, 10. Vortrag, sowie GA 89.
-
-102 In der Nachschrift von Mathilde Scholl hat dieser Abschnitt folgenden Wortlaut: Die Stickstoffverbindungen, die Zyanverbindungen, sind so zerstörend für die Erde, weil sie nur auf dem Monde das Normale waren. Eines der schwersten Gifte ist Zyan, eine Verbindung von Kohlenstoff mit Stickstoff. Diese Verbindung bedeutete auf dem Monde ungefähr dasselbe wie auf der Erde die Verbindung des Kohlenstoffs mit dem Sauerstoff.
-
-105 In einer vorhergehenden Stunde: Im elften Vortrag dieses Zyklus..
-
-107 die Tage der Woche: Vgl. Rudolf Steiner «Grundelemente der Esoterik», GA 93a, 26. Vortrag; «Vor dem Tore der Theosophie», GA 95, 9. Vortrag; «Die Theosophie des Rosenkreuzers», GA 99, 7. Vortrag, sowie GA 89.
-
-108 Das Erdinnere: Vgl. Vortrag vom 16. April 1906, in «Ursprungsimpulse der Geisteswissenschaft», GA 96; Vortrag Berlin am 21. April 1906, in «Das christliche Mysterium», GA 97.
-
-111 die sieben unaussprechlichen Geheimnisse: Siehe den Vortrag vom 18. Oktober 1903 (Bericht im «Vahan») und Brief Rudolf Steiners an Günther Wagner in «Über die astrale Welt und das Devachan», in GA 88.
-
-112 eine Anspielung darauf: « Faust » I, Vers 2069 f.
-
-114 in der Genesis: 1. Mos. 2, 5.
-
-115 Das erklärt Paulus: Rom. 7, 22; 8, 2; 10, 4; 13, 10; Gal. 3, 13; Phil. 3, 9.
-
-118 die Wahrheit macht die Menschenfrei: Joh. 8, 32.
-
-in dem Evangelienwort: Joh. 20, 29.
-
-## II Populärer Okkultismus
-
-136 «Alles Vergängliche ...»: Siehe Hinweis zu S. 32.
-
-138 Schopenhauer sagte mit Recht: Motto der «Preisschrift über die Grundlage der Moral, nicht gekrönt von der königlich dänischen Societät der Wissenschaften zu Kopenhagen, am 30. Januar 1840».
-
-140 «Die Sonne tönt nach alter Weise ...»: «Faust» I, Verse 243 ff. |314| 140 «Tönend wird für Geistesohren»: «Faust» II, Verse 4667 ff.
-142 Stelle in den Evangelien: Matth. 18, 3.
-144 Gottes Engel: Matth. 22, 30; Mark. 12, 25; Luk. 20, 36.
-161 Dort ist vom Regenbogen die Rede: Mos. 9, 8-17.
-167 Daher sagt Plato: Siehe Hinweis zu S. 77.
-168 Unsere Wurzelrasse: Der aus der theosophischen Literatur stammende Begriff «Wurzelrasse» (root-race) wurde von Rudolf Steiner später durch «Hauptzeitalter der Erdenentwicklung» ersetzt. Diese sieben Hauptzeitalter sind:
-1. die polarische Zeit («Wurzelrasse»)
-2. die hyperboräische Zeit
-3. die lemurische Zeit
-4. die atlantische Zeit
-5. die nachatlantische Zeit
-6. Hauptzeitalter (zukünftiges)
-7. Hauptzeitalter (zukünftiges)
-
-Diese sieben «Wurzelrassen» (Hauptzeitalter) gliedern sich in je sieben «Unterrassen» (sub-races), von Rudolf Steiner später «Kulturepochen» genannt:
-
-Die nachatlantische Zeit:
-1. Indische Kulturepoche («Unterrasse»)
-2. Persische Kulturepoche
-3. Ägyptisch-chaldäisch-babylonische Kulturepoche
-4. Griechisch-lateinische Kulturepoche
-5. Germanisch-anglo-amerikanische Kulturepoche
-6. Kulturepoche (zukünftige)
-7. Kulturepoche (zukünftige)
-
-die von Plato erwähnte Insel Poseidon: «Kritias» 113 C/121 C.
-
-174 es war noch manches davon öffentlich zu lesen: Siehe Hinweis zu S. 27.
-176 Christian Rosenkreutz: Siehe hierzu Rudolf Steiner «Das esoterische Christentum und die geistige Führung der Menschheit» (1911/12), GA 130.
-
-$\sqrt{7} \text{il}$ Die christliche Einweihung und das Erdinnere: Siehe Hinweis zu S. 108.
-
-177 Angelus Silesius sagt einmal: Johannis Angeli Silesii Cherubinischer Wandersmann, Glatz 1675. Nach der Ausgabe letzter Hand hg. von Wilhelm Bölsche, Jena 1905. I. Buch, Spruch 61.
-
-im Johannes-Evangelium: Joh. 8, 59.
-
-178 ein Wort des Evangeliums: Matth. 19, 30; Mark. 10, 31; Luk. 13, 30.
-181 Alfred Percey Sinnett, 1820-1903. «Die esoterische Lehre oder Geheimbuddhismus», deutsch Leipzig 1884.
-
-|315| III Das Johannes-Evangelium
-
-188 Bruno Wille, 1860-1928, gründete 1900 den Giordano-Bruno-Bund. Vgl. Rudolf Steiner «Mein Lebensgang» (1923/25), GA 28, Kap. XXIX, sowie «Beiträge zur Rudolf Steiner Gesamtausgabe» Nr. 79/80
-
-189 Anekdote von jener Sängerin: Es handelt sich um die mit der Familie Mendelssohn befreundete Therese Devrient geb. Schlesinger (1803-1882). «Jugenderinnerungen», Kap. <aus der="" ehe="" jungen="">.
-
-190 Das meinte auch Angelus Silesius: Siehe Hinweis zu S. 177.
-
-194 Subba Row (Rao), 1865-1890. Seine Aufsätze in der Zeitschrift «Theosophie» erschienen unter dem Titel «Esoteric Writing», 2. Aufl. Madras 1931.
-
-196 am letzten Donnerstag: Öffentlicher Vortrag in Berlin am 15. Februar 1906 «Wiederverkörperung und Karma», in «Die Welträtsel und die Anthroposophie», GA54.
-
-200 Von Johannes heißt es: Joh. 13,23.
-
-202 Elementarwesen, Elementarreiche: Vgl. insbesondere Rudolf Steiner «Das Hereinwirken geistiger Wesenheiten in den Menschen» (13 Vorträge Berlin 1908), GA 102, 10. und 12. Vortrag; «Die Apokalypse des Johannes», GA 104,2., 3. und 10. Vortrag; «Geistige Hierarchien und ihre Widerspiegelung in der physischen Welt» (10 Vorträge Düsseldorf 1909), GA 110, 2. und 3. Vortrag; «Zufall, Notwendigkeit und Vorsehung» (8 Vorträge Dornach 1915), GA 163, 6. Vortrag.
-
-205 Siehe, das ist deine Mutter: Joh. 19,27.
-
-206 sagt Angelus Silesius: A. a. O., 4. Buch, Spruch 56.
-
-208 Mabel Collins, «Licht auf den Weg»: Siehe Hinweis zu S. 45.
-
-212 Gespräch mit Nikodemus: Joh. 3, 5.
-
-214 «Seine Jünger fragten ihn»: Joh. 9, 2-3.
-
-216 Jesus selbst sagt: Joh. 14,6.
-
-219 Das sind die Namen der vier:
-
-|  Jam | 0^{BB} | Wasser, Meer  |
-| --- | --- | --- |
-|  Nur | 111 | Feuer (aramäisch)  |
-|  Ruach | nil | Luft, Hauch, Geist  |
-|  Jabbaschah | TVtöl? | Erde, Felsen  |
-
-220 an eine Moses-Stelle: 2. Mos. 12, 46.
-
-222 Daher können Sie lesen bei Johannes: 1. Brief Joh. 5, 7 (wörtlich): «Denn drei sind, die da zeugen: der Geist, das Wasser und das Blut.» das kann ein anderes Mal geschehen: Siehe den Vortrag vom 14. August 1908, in GA 105.
-
-223 «Ich bin bei euch»: Matth. 28,20.
-
-|316| IV
-Die Theosophie anhand des Johannes-Evangeliums
-
-227 Christian Karl Josias Bunsen, 1791-1860, 1857 Freiherrn, preußischer Diplomat und Theologe. «Geschichte der Bücher und Herstellung der urkundlichen Bibeltexte», Leipzig 1866 S. 77.
-
-228 «Adam fiel in einen tiefen Schlaf»: 1. Mos. 2, 21.
-
-233 die Erzählung Jean Pauls: «Nie vergeß ich die noch keinem Menschen erzählte Erscheinung in mir, wo ich bei der Geburt meines Selbstbewußtseins stand, von der ich Ort und Zeit anzugeben weiß. An einem Vormittag stand ich als ein sehr junges Kind unter der Haustür und sah links nach der Holzlege, als auf einmal das innere Gesicht: ich bin ein Ich, wie ein Blitzstrahl vom Himmel vor mir fuhr und seitdem leuchtend stehen blieb. Da hatte mein Ich zum ersten Mal sich selber gesehen und auf ewig. Täuschungen des Erinnerns sind hier schwerlich denkbar, da kein fremdes Erzählen sich in eine bloß im vergangenen Allerheiligsten des Menschen vorgefallene Begebenheit, deren Neuheit allein so alltäglichen Nebenumständen das Bleiben gegeben, mit Zusätzen mengen konnte.» Jean Pauls Lebensbeschreibung «Aus Jean Pauls Leben». «Jean Pauls sämtliche Werke», Berlin 1862.
-
-235 sagt Paracelsus: «und das ist ein groß, das sie bedenken sollen, nichts ist im himel noch auf erden das nicht sei im menschen, dan das sind die himlischen kreften die sich bewegen werden; dan got der im himel ist der ist im menschen.» Aus «paramiri liber quartus de matrice», Ausgabe Sudhoff Band 9, S. 220.
-
-241 «Ich hin der Weg, die Wahrheit und das Leben»: Joh. 14, 6.
-
-242 «Und Gott blies dem Menschen seinen Odem ein»: Siehe Hinweis zu S. 45.
-
-243 «Du gleichst dem Geist»: «Faust» I, Vers 512.
-
-251 der Stammvater Tuisto: «Celebrant carminibus antiquis, quod unum apud illos memoriae et annalium genus est, Tuistonem deum terra editum, ei filium Mannum originem gentis conditoremque.» (In alten Liedern - das ist die einzige Art ihrer Überlieferung und Geschichte — feiern sie [die Germanen] den Gott Tuisto, einen Sohn der Erde. Ihm schreiben sie einen Sohn Mannus zu, den Stammvater und Begründer des Volkes.) Cornelius Tacitus, de origine et situ Germanorum, 2.
-
-252 «Wer nicht verläßt»: Siehe Hinweis zu S. 21.
-
-252 «Er muß wachsen»: Joh. 3, 30.
-
-Die Hochzeit zu Kana: Joh. 2, 1-11.
-
-255 Aus den öffentlichen Vorträgen: In München hatte Rudolf Steiner öffentlich am 29. und 30. Oktober und 1. November 1906 über die Themen «Wie begreift man Krankheit und Tod?», «Kindererziehung im Lichte der Theosophie» und «Blut ist ein ganz besonderer Saft» gesprochen. - Die in Berlin bzw. in Köln über die gleichen Themen gehaltenen Vorträge sind in GA 55 «Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben» enthalten.
-
-258 an das Goethe-Wort: «Faust» II, Vers 6275 f. |317| 259 «Ich und der Vater sind eins»: Joh. 10,30.
-
-«Blut-Rubikon»: «Den Rubikon überschreiten» sagt man von einem folgenschweren Schritt, wie es Cäsars Übergang über den oberitalienischen Fluß Rubikon (Rubico) im Jahre 49 v.Chr. war, durch den der Bürgerkrieg ausgelöst wurde.
-
-261 Elias von den Raben versorgt: 1. Könige 17, 4 und 6.
-
-die Boten Wotans: Hugin (Gedanke) und Munin (Gedächtnis).
-
-in dem Barbarossa schlummert: Die Sage, wonach der Kaiser nicht gestorben ist, sondern im Kyffhäuser oder im Untersberg schlummert, bezieht sich eigentlich auf den Enkel Barbarossas, Friedrich II., wurde aber vom Volk auf Friedrich I. Barbarossa übertragen. Die Raben fliegen um den Berg, bis das Goldene Zeitalter anbricht, in dem Barbarossa wieder das Reich regieren wird.
-
-Mabel Collins: Siehe Hinweis zu S. 45.
-
-Löwe aus dem Stamme Juda: 1. Mos. 49, 9; 1. Makk. 3, 4.
-
-263 die Stelle im Johannes-Evangelium: Joh. 1, 17.
-
-263f «Eure Väter haben Manna gegessen»: Joh. 6, 49-51.
-
-264 ägyptische Finsternis: 2. Mos. 10, 22
-
-265 nicht nur das Land gemeint: 3. Mos. 18, 3; 4. Mos. 14, 9; Jos. 5, 9; Jes. 19 und 20; Klagel. 5, 6 u. a.
-
-266 Der Gott Jehova spricht zu dem Volke: 2. Mos. 20, 1-3
-
-Das Volk machte sich aber doch ein Bild: 2. Mos. 32, 1-35.
-
-267 Erwürgung der ägyptischen Erstgeburt: 2. Mos. 12, 1-51.
-
-daher die Worte: Siehe Hinweis zu S. 220.
-
-267f Als die Kinder Israel murrten: 2. Mos. 16, 1-30.
-
-268 Man hu: K171p
-
-«Und Gott blies ihm ein den lebendigen Odem»: Siehe Hinweis zu S. 45.
-
-269 «Eure Augen werden auf getan»: 1. Mos. 3, 5.
-
-269f «Eure Väter haben Manna gegessen»: Siehe Hinweis zu S. 263f.
-
-270 «Ich bin das Brot des Lebens»: Joh. 6, 48.
-
-Als das jüdische Volk nahe daran war: 2. Mos. 32, 9-10.
-
-270 Moses nimmt das Opferblut: 2. Mos. 24, 6-8,
-
-«Wer mein Fleisch isset»: Joh. 6, 56.
-
-271 Paracelsus sagt: Siehe Hinweis zu S. 25.
-
-272 Deshalb nannte Paracelsus den Cholerakranken einen Arsenikus: «Daraus entspringt, daß ihr nicht sollen sagen, das ist Cholera, das ist Melancholia, sondern |318| das ist Arsenikus, das ist Aluminosum; also auch der ist Saturnin, der ist Martis, nicht der ist melancholise, der ist cholerae. Dan ein Teil ist des Himels, ein Teil ist der Erden und in einander vermischt wie Feuer und Holz, da jedweder seinen Namen verlieren mag; dan es sind zwei Ding in einm.» Aus «Paragranum», Gesamtausgabe der medizinischen Werke, herausgegeben von Sudhoff, München-Berlin 1922-33, Band 8, S. 74.
-
-Gleichnis vom Weinstock und den Reben: Joh. 17, 1-6.
-
-Hochzeit zu Kana: Siehe Hinweis zu S. 252.
-
-273 wo die Kreuzigung Christi geschildert wird: Joh. 19, 25-27.
-
-275 «Wer nicht verlasset»: Siehe Hinweis zu S. 21.
-
-Bei Lukas steht: Luk. 1, 35.
-
-«Ich und der Vater sind eins»: Siehe Hinweis zu S. 259.
-
-276 Speisung der Fünftausend: Matth. 14, 15-21; Mark. 6, 35-44; Luk. 9, 12-17; Joh. 6, 5-13.
-
-279 Daher das Wort: Siehe Hinweis zu S. 77.
-
-282 das Herabfahren des Geistes als Taube: Joh. 1, 32.
-
-285 Budhiplan: Welt der Vorsehung.
-
-Mentales: Mentalwelt, Devachan, geistige Welt.
-
-286 Alles Vergängliche: Siehe Hinweis zu S. 32.
-
-Schon in «Lucifer-Gnosis» ist darauf hingewiesen worden: In der Zeitschrift «Lucifer-Gnosis» erschien ab Oktober 1905 (Nr.29) die Aufsatzfolge «Die Stufen der höheren Erkenntnis». Die angeführte Darstellung findet sich in GA 12 im Kapitel «Die Imagination».
-
-289 «In Lebensfluten, im Tatensturm»: «Faust» I, Verse 501-509.
-
-290 Kausalleib: Extrakt des Äther- und Astralleibes, den der Mensch von Erdenleben zu Erdenleben weiterträgt. Vgl. Vortrag Leipzig am 3. Juli 1906, S. 149f. in diesem Band; ferner die Fragenbeantwortung zum Vortrag Heidelberg am 3. Februar 1907, in «Das christliche Mysterium», GA 97.
-
-291 «EU, Eli, lama sabachthani»: Matth. 27,46; Mark. 15, 34. «Sabachthani» meistens übersetzt mit «verlassen». Ähnlich lautender Ausdruck «Shevachthani» gleich «erhöht» oder «verherrlicht». Vgl. «Das Matthäus-Evangelium», GA 123, 12. Vortrag.
-
-296 Speisung der Fünftausend: Siehe Hinweis zu S. 276.
-
-299 «Ich habe euch noch viel zu sagen»: Joh. 16, 12.
-
-300 Helena Petrowna Blavatsky, 1831-1891.
-
-# PERSONENREGISTER, Angelus Silesius 177, 190, 206
-Arldt, Theodor 24
-Augustinus 23
-Berkeley, George 89
-Blavatsky, H.P. 300
-Böhmejakob 111,140
-Buddha 18
-Bunsen, Christian 227
-Collins, Mabel 45*, 208*
-Dante 70, 83, 109, 181,
-Darwin, Charles 25, 29, 77
-Eriugena, Johannes Scotus 80
-Franz von Assisi 157
-Galilei, Galileo 170,
-Goethe, Johann Wolfgang von 32, 44, 47, 55, 57, 60, 69, 82, 112, 136, 139, 140
-Hegel, Georg Wilhelm Friedrich 189
-Jean Paul 233
-Kopernikus, Nikolaus 122, 170
-Laistner, Ludwig 33
-
-Lamartine, Alphonse de 28
-Mendelssohn, Felix 189
-Michelangelo Buonarroti 175
-Nietzsche, Friedrich 64
-Paracelsus 19, 25, 111, 140, 235
-Plato 18, 47, 50, 77, 82, 167
-Ptolemäus 122, 170
-Pythagoras 18, 39, 47, 84, 139
-Raffael 35
-Reichenbach, Karl von 81
-Row, Subba 194
-Schopenhauer, Arthur 138, 156
-Sinne«, A.P. 181
-Spinoza, Baruch 57
-Steiner, Rudolf, Werke:
-- Wahrheit und Wissenschaft (GA 3) 176
-- Die Philosophie der Freiheit (GA 4) 176
-- Die Stufen der höheren Erkenntnis (GA 12) 286
-Thaies 18
-Wille, Bruno 188 |320| RUDOLF STEINER GESAMTAUSGABE
-
-Gliederung nach: Rudolf Steiner - Das literarische und künstlerische Werk.
-Eine bibliographische Übersicht (Bibliographie-Nrn. kursiv in Klammern)
-
-A. SCHRIFTEN
-
-I. Werke
-
-Goethes Naturwissenschaftliche Schriften, eingeleitet und kommentiert von Rudolf Steiner, 5 Bände, 1884-1897, Neuausgabe 1975, (la-e); sep. Ausgabe der Einleitungen, 1925 (1)
-Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung, 1886 (2)
-Wahrheit und Wissenschaft. Vorspiel einer &lt;Philosophie der Freiheit), 1892 (3)
-Die Philosophie der Freiheit. Grundzüge einer modernen Weltanschauung, 1894 (4)
-Friedrich Nietzsche, ein Kämpfer gegen seine Zeit, 1895 (5)
-Goethes Weltanschauung, 1897 (6)
-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung, 1901 (7)
-Das Christentum als mystische Tatsache und die Mysterien des Altertums, 1902 (8)
-Theosophie. Einführung in übersinnliche Welterkenntnis und Menschenbestimmung, 1904 (9)
-Wie erlangt man Erkenntnisse der höheren Welten? 1904/05 (10)
-Aus der Akasha-Chronik, 1904-08 (11)
-Die Stufen der höheren Erkenntnis, 1905-08 (12)
-Die Geheimwissenschaft im Umriß, 1910 (13)
-Vier Mysteriendramen: Die Pforte der Einweihung - Die Prüfung der Seele -. Der Hüter der Schwelle - Der Seelen Erwachen, 1910-13 (14)
-Die geistige Führung des Menschen und der Menschheit, 1911 (15)
-Anthroposophischer Seelenkalender, 1912 (in 40)
-Ein Weg zur Selbsterkenntnis des Menschen, 1912 (16)
-Die Schwelle der geistigen Welt, 1913 (17)
-Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt, 1914 (18)
-Vom Menschenrätsel, 1916 (20)
-Von Seelenrätseln, 1917 (21)
-Goethes Geistesart in ihrer Offenbarung durch seinen Faust und durch das Märchen von der Schlange und der Lilie, 1918 (22)
-Die Kernpunkte der Sozialen Frage in den Lebensnotwendigkeiten der Gegenwart und Zukunft, 1919 (23)
-Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage, 1915-21 (24)
-Drei Schritte der Anthroposophie - Philosophie, Kosmologie, Religion, 1922 (25)
-Anthroposophische Leitsätze, 1924/25 (26)
-Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen, 1925. Von Dr. R. Steiner und Dr. I. Wegman (27)
-Mein Lebensgang, 1923-25 (28)
-
-II. Gesammelte Aufsätze (29-36)
-III. Veröffentlichungen aus dem Nachlaß (38-47)
-
-B. DAS VORTRAGSWERK
-
-I. Öffentliche Vorträge (51-84)
-II. Vorträge vor Mitgliedern der Anthroposophischen Gesellschaft (91-270)
-III. Vorträge und Kurse zu einzelnen Lebensgebieten (271-354)
-
-C. DAS KÜNSTLERISCHE WERK
-
-Originalgetreue Wiedergaben von malerischen und graphischen Entwürfen und Skizzen Rudolf Steiners in Kunstmappen oder als Einzelblätter. Entwürfe für die Malerei des Ersten Goetheanum - Schulungsskizzen für Maler - Programmbilder für Eurythmie-Aufführungen - Eurythmieformen - Entwürfe zu den Eurythmiefiguren — Wandtafelzeichnungen zum Vortragswerk, u.a.
