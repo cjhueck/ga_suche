@@ -22938,13 +22938,13 @@ app.post('/api/analytics/track', async (req, res) => {
     switch (type) {
       case 'page_view':
         data.dailyStats[today].views++;
-        data.totalViews++;
+        // WICHTIG: Erhöhe kumulative Werte NICHT direkt - saveAnalyticsData berechnet sie neu aus dailyStats
         console.log(`[ANALYTICS] Page View getrackt (Heute: ${data.dailyStats[today].views})`);
         break;
         
       case 'search':
         data.dailyStats[today].searches++;
-        data.totalSearches++;
+        // WICHTIG: Erhöhe kumulative Werte NICHT direkt - saveAnalyticsData berechnet sie neu aus dailyStats
         if (value && typeof value === 'string' && value.length > 1) {
           const term = value.toLowerCase().trim().substring(0, 50);
           data.topSearches[term] = (data.topSearches[term] || 0) + 1;
@@ -22956,7 +22956,7 @@ app.post('/api/analytics/track', async (req, res) => {
         
       case 'lecture_view':
         data.dailyStats[today].lectures++;
-        data.totalLectureViews++;
+        // WICHTIG: Erhöhe kumulative Werte NICHT direkt - saveAnalyticsData berechnet sie neu aus dailyStats
         if (value && typeof value === 'string') {
           const lectureId = value.substring(0, 20);
           data.topLectures[lectureId] = (data.topLectures[lectureId] || 0) + 1;
@@ -23056,11 +23056,18 @@ app.get('/api/analytics/stats', async (req, res) => {
     }
     
     // Berechne kumulative Werte (Gesamt seit Beginn) aus allen täglichen Daten
-    // WICHTIG: Diese Werte werden bereits in loadAnalyticsData() berechnet und korrigiert
-    // Hier verwenden wir die bereits korrigierten Werte aus data
-    const cumulativeViews = data.totalViews || 0;
-    const cumulativeSearches = data.totalSearches || 0;
-    const cumulativeLectures = data.totalLectureViews || 0;
+    // WICHTIG: Berechne IMMER neu aus dailyStats, um sicherzustellen dass die Werte korrekt sind
+    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
+    if (data.dailyStats && typeof data.dailyStats === 'object') {
+      for (const key of Object.keys(data.dailyStats)) {
+        const dayData = data.dailyStats[key];
+        if (dayData && typeof dayData === 'object') {
+          cumulativeViews += dayData.views || 0;
+          cumulativeSearches += dayData.searches || 0;
+          cumulativeLectures += dayData.lectures || 0;
+        }
+      }
+    }
     
     res.json({
       today: todayStats,
