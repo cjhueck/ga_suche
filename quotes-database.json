@@ -46,9 +46,11 @@
       "lectureId": "GA197/6",
       "paragraphIndex": "^gaczzv",
       "addedAt": "2025-12-14T00:02:51.255Z",
-      "isActive": true,
+      "isActive": false,
       "date": "1920-07-25",
-      "displayedSince": "2026-01-11T16:00:01.886Z"
+      "displayedSince": "2026-01-11T16:00:01.886Z",
+      "isUsed": true,
+      "usedSince": "2026-01-19T11:14:15.343Z"
     },
     {
       "id": "1765913332314",
@@ -57,7 +59,9 @@
       "paragraphIndex": "^zoetjm",
       "addedAt": "2025-12-16T19:28:52.314Z",
       "isActive": false,
-      "displayedSince": "2026-01-04T07:34:22.173Z"
+      "displayedSince": "2026-01-04T07:34:22.173Z",
+      "isUsed": true,
+      "usedSince": "2026-01-19T11:14:20.557Z"
     },
     {
       "id": "1765972041397",
@@ -66,7 +70,8 @@
       "paragraphIndex": "^niu56h",
       "addedAt": "2025-12-17T11:47:21.397Z",
       "isActive": false,
-      "date": "1911-11-07"
+      "date": "1911-11-07",
+      "isUsed": false
     },
     {
       "id": "1766860061617",
@@ -82,8 +87,9 @@
       "lectureId": "GA052/12",
       "paragraphIndex": "x4wn1g",
       "addedAt": "2026-01-02T10:49:57.912Z",
-      "isActive": false,
-      "date": "1904-03-07"
+      "isActive": true,
+      "date": "1904-03-07",
+      "displayedSince": "2026-01-19T11:15:02.294Z"
     },
     {
       "id": "1768250204370",
