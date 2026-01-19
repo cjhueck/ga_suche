@@ -2570,11 +2570,11 @@ body.dark-mode .ga-missing-text {
     
     #main {
       flex: 1;
-      overflow-y: auto;
+      overflow-y: auto; /* #main scrollt wieder - alle Scroll-Referenzen verwenden #main */
       overflow-x: visible;
       /* ZENTRALES PADDING - reduziert für Seitenzahlen-Sichtbarkeit */
       /* Linkes Padding reduziert, damit Seitenzahlen nicht überdeckt werden */
-      padding: 0.3rem 0.6rem 2rem 0rem !important; /* top right bottom left - kann hier angepasst werden */
+      padding: 0.5rem 0.6rem 2rem 0rem !important; /* top right bottom left - kann hier angepasst werden */
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -2631,7 +2631,7 @@ body.dark-mode .ga-missing-text {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 1rem;
-      padding: 1rem;
+      padding: 1rem 1rem 1rem 2em; /* Linkes Padding wie #viewer-content */
     }
     
     .chalkboard-item {
@@ -2660,17 +2660,43 @@ body.dark-mode .ga-missing-text {
       text-align: center;
     }
     
-    /* Tafeln unter Vorträgen: mittig, textbreit */
+    /* Tafeln unter Vorträgen: mittig, textbreit - gleiche Breite wie Text */
+    .lecture-chalkboards-section {
+      /* Wenn in viewer-content: automatisch richtige Breite durch Padding */
+      /* Wenn in viewer: margin-left für Ausrichtung mit Text */
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Wenn WZ-Sektion direkt in viewer (nicht in viewer-content) */
+    #viewer > .lecture-chalkboards-section {
+      margin-left: 2em; /* Gleiches Padding wie viewer-content */
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    /* Wenn WZ-Sektion in viewer-content: keine zusätzlichen Margins nötig */
+    #viewer-content .lecture-chalkboards-section {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
     .lecture-chalkboards-section .chalkboards-grid {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
       padding: 0.25rem 0;
+      width: 100%;
+      max-width: 100%;
     }
     
     .lecture-chalkboards-section .chalkboard-item {
       width: 100%;
+      max-width: 100%;
     }
     
     .lecture-chalkboards-section .chalkboard-item img {
@@ -2678,6 +2704,7 @@ body.dark-mode .ga-missing-text {
       max-width: 100%;
       max-height: none;
       height: auto;
+      display: block;
     }
     
     .lecture-chalkboards-section .chalkboard-item .chalkboard-info {
@@ -3906,16 +3933,12 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       word-break: keep-all !important;
       cursor: text !important; /* Textauswahlwerkzeug beim Hover über Text */
       overflow-wrap: break-word !important;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
       overflow: visible; /* Seitenzahlen müssen sichtbar bleiben */
     }
     
     #viewer-content {
       flex: 1;
-      overflow-y: auto;
-      overflow-x: visible; /* Seitenzahlen müssen sichtbar bleiben */
+      overflow: visible; /* Kein eigenes Scrollen - #main scrollt */
       padding: 0.5rem 0rem 0.5rem 2em; /* padding-left für Text (kann hier angepasst werden) */
       word-break: keep-all !important;
       cursor: text !important;
@@ -9394,10 +9417,8 @@ PDF
 </button>
 </div>
 </div>
-<div id="main" style="position: relative;">
 <div id="viewer">
   <div id="viewer-content"></div>
-</div>
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -9635,7 +9656,25 @@ PDF
         .join(' ');
       
       try {
-        const response = await fetch(`${API_BASE}/api/save-theme-keywords`, {
+        // WICHTIG: Verwende window.API_BASE, um TDZ-Fehler zu vermeiden
+        let apiBase = '';
+        try {
+          apiBase = window.API_BASE || '';
+        } catch (e) {
+          // Ignoriere Fehler
+        }
+        // Fallback basierend auf Hostname
+        if (!apiBase) {
+          const isLocal = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.hostname.startsWith('192.168.') ||
+                         window.location.hostname.startsWith('172.') ||
+                         window.location.hostname.startsWith('10.') ||
+                         window.location.protocol === 'file:';
+          apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        }
+        
+        const response = await fetch(`${apiBase}/api/save-theme-keywords`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -10668,6 +10707,103 @@ function normalizeGANumber(gaNumber) {
     }
 
     // Header-Position dynamisch anpassen
+    
+    // Hilfsfunktion: Erstellt ein korrekt konfiguriertes Viewer-Element mit CSS-Padding
+    // WICHTIG: Verwende diese Funktion überall, wo ein neuer Viewer erstellt wird
+    function createViewerElement() {
+      const viewer = document.createElement('div');
+      viewer.id = 'viewer';
+      viewer.className = 'viewer';
+      // Setze Padding explizit, um sicherzustellen, dass es sofort angewendet wird
+      // CSS definiert: padding: 0.5rem 0.5rem 0.5rem 0.4em !important
+      viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+      viewer.style.setProperty('line-height', '1.4', 'important');
+      viewer.style.setProperty('word-break', 'keep-all', 'important');
+      viewer.style.setProperty('cursor', 'text', 'important');
+      viewer.style.setProperty('overflow-wrap', 'break-word', 'important');
+      viewer.style.setProperty('overflow', 'visible');
+      return viewer;
+    }
+    
+    // Stelle Funktion global zur Verfügung
+    window.createViewerElement = createViewerElement;
+    
+    // Hilfsfunktion: Stelle sicher, dass #main Padding-Werte nicht durch inline-styles überschrieben werden
+    // WICHTIG: Diese Funktion muss IMMER aufgerufen werden, wenn Styles von #main geändert werden
+    function ensureMainPaddingPreserved() {
+      // Setze Padding für #main Element
+      const mainEl = document.getElementById('main');
+      if (mainEl) {
+        // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
+        // CSS definiert: padding: 0.5rem 0.6rem 2rem 0rem !important
+        // Verwende setProperty mit 'important', um sicherzustellen, dass es angewendet wird
+        mainEl.style.setProperty('padding-top', '0.5rem', 'important');
+        mainEl.style.setProperty('padding-right', '0.6rem', 'important');
+        mainEl.style.setProperty('padding-bottom', '2rem', 'important');
+        mainEl.style.setProperty('padding-left', '0rem', 'important');
+        
+        // Stelle sicher, dass position: relative gesetzt ist (falls nötig)
+        const currentStyle = mainEl.getAttribute('style') || '';
+        if (!currentStyle.includes('position')) {
+          mainEl.style.position = 'relative';
+        }
+      }
+    }
+    
+    // Stelle Funktion global zur Verfügung
+    window.ensureMainPaddingPreserved = ensureMainPaddingPreserved;
+    
+    // WICHTIG: MutationObserver, der das Padding überwacht und sofort wiederherstellt
+    // Dies stellt sicher, dass das Padding IMMER korrekt ist, auch wenn es von anderen Code-Stellen geändert wird
+    let paddingObserver = null;
+    function startPaddingProtection() {
+      if (paddingObserver) {
+        paddingObserver.disconnect();
+      }
+      
+      paddingObserver = new MutationObserver((mutations) => {
+        const mainEl = document.getElementById('main');
+        if (mainEl) {
+          const computedStyle = window.getComputedStyle(mainEl);
+          const paddingTop = computedStyle.paddingTop;
+          const paddingRight = computedStyle.paddingRight;
+          const paddingBottom = computedStyle.paddingBottom;
+          const paddingLeft = computedStyle.paddingLeft;
+          
+          // Prüfe ob das Padding korrekt ist (CSS: 0.3rem 0.6rem 2rem 0rem)
+          if (paddingTop !== '0.5rem' || paddingRight !== '0.6rem' || paddingBottom !== '2rem' || paddingLeft !== '0px') {
+            // Padding ist nicht korrekt - setze es sofort wieder
+            mainEl.style.setProperty('padding-top', '0.5rem', 'important');
+            mainEl.style.setProperty('padding-right', '0.6rem', 'important');
+            mainEl.style.setProperty('padding-bottom', '2rem', 'important');
+            mainEl.style.setProperty('padding-left', '0rem', 'important');
+          }
+        }
+      });
+      
+      // Beobachte #main Element auf Änderungen am style-Attribut
+      const mainEl = document.getElementById('main');
+      if (mainEl) {
+        paddingObserver.observe(mainEl, {
+          attributes: true,
+          attributeFilter: ['style'],
+          attributeOldValue: true
+        });
+      }
+    }
+    
+    // Starte Padding-Schutz sofort und nach DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(startPaddingProtection, 100);
+      });
+    } else {
+      setTimeout(startPaddingProtection, 100);
+    }
+    
+    // Stelle Funktion global zur Verfügung
+    window.startPaddingProtection = startPaddingProtection;
+    
     function updateHeaderPosition() {
       const header = document.getElementById('viewer-header');
       const mainElement = document.getElementById('main');
@@ -10727,9 +10863,14 @@ function normalizeGANumber(gaNumber) {
         setTimeout(() => {
           const headerHeight = header.offsetHeight;
           
+          // mainContainer bekommt margin-top für den fixierten Header
           if (mainContainer) {
-            // margin-top: Header-Höhe (padding-top von #main kommt zusätzlich hinzu)
             mainContainer.style.marginTop = headerHeight + 'px';
+          }
+          
+          // WICHTIG: Stelle sicher, dass #main Padding-Werte nicht überschrieben wurden
+          if (typeof ensureMainPaddingPreserved === 'function') {
+            ensureMainPaddingPreserved();
           }
           
           // Verwende zentrale Funktion für rechten RH-Status
@@ -11283,27 +11424,72 @@ function normalizeGANumber(gaNumber) {
         viewerContent.remove();
       }
       
+      // WICHTIG: Entferne auch WZ-Galerie-Wrapper falls vorhanden
+      const chalkboardsWrapper = document.getElementById('chalkboards-year-nav-wrapper');
+      if (chalkboardsWrapper) {
+        chalkboardsWrapper.remove();
+      }
+      
+      const chalkboardsYearNav = document.getElementById('chalkboards-year-nav');
+      if (chalkboardsYearNav) {
+        chalkboardsYearNav.remove();
+      }
+      
+      const chalkboardsGalleryContent = document.getElementById('chalkboards-gallery-content');
+      if (chalkboardsGalleryContent) {
+        chalkboardsGalleryContent.remove();
+      }
+      
       // Stelle das Scroll-Verhalten von #main wieder her
+      // WICHTIG: Nur overflow und height zurücksetzen, NICHT padding/margin!
+      // Das Padding ist mit !important im CSS definiert (0.3rem 0.6rem 2rem 0rem) und muss erhalten bleiben
       const mainElement = document.getElementById('main');
       if (mainElement) {
+        // Nur overflow und height zurücksetzen, alles andere bleibt unverändert
         mainElement.style.overflow = '';
         mainElement.style.height = '';
+        
+        // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
+        mainElement.style.setProperty('padding-top', '0.5rem', 'important');
+        mainElement.style.setProperty('padding-right', '0.6rem', 'important');
+        mainElement.style.setProperty('padding-bottom', '2rem', 'important');
+        mainElement.style.setProperty('padding-left', '0rem', 'important');
+      }
+      
+      // Stelle sicher, dass Padding-Werte nicht durch inline-styles überschrieben werden
+      if (typeof ensureMainPaddingPreserved === 'function') {
+        ensureMainPaddingPreserved();
       }
       
       // Stelle sicher, dass viewer existiert
       let viewer = document.getElementById('viewer');
       if (!viewer && mainElement) {
         // Viewer existiert nicht mehr (wurde durch wrapper ersetzt) - erstelle ihn neu
-        viewer = document.createElement('div');
-        viewer.id = 'viewer';
-        viewer.className = 'viewer';
+        viewer = createViewerElement();
         mainElement.appendChild(viewer);
         }
+      
+      // WICHTIG: Entferne WZ-Sektion explizit beim Tab-Wechsel
+      if (viewer) {
+        const chalkboardsSection = viewer.querySelector('.lecture-chalkboards-section');
+        if (chalkboardsSection) {
+          chalkboardsSection.remove();
+          console.log('[CHALKBOARDS] WZ-Sektion beim Tab-Wechsel entfernt');
+        }
+      }
       
       // Lösche ALLE Inhalte im Viewer beim Tab-Wechsel (außer für Themen II)
       if (viewer && mode !== 'thematic2') {
         viewer.innerHTML = '';
         }
+      
+      // WICHTIG: Nochmal prüfen und entfernen nach dem Leeren (falls sie wieder hinzugefügt wurde)
+      if (viewer) {
+        const chalkboardsSectionAfter = viewer.querySelector('.lecture-chalkboards-section');
+        if (chalkboardsSectionAfter) {
+          chalkboardsSectionAfter.remove();
+        }
+      }
       
       // Setze currentGAView zurück
       if (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
@@ -11313,6 +11499,10 @@ function normalizeGANumber(gaNumber) {
       // Chalkboards-Ansicht deaktivieren und Buttons IMMER ausblenden beim Tab-Wechsel
       isChalkboardsViewActive = false;
       selectedChalkboardsYearFilter = null; // Reset Jahresfilter
+      // WICHTIG: Reset WZ-Informationen beim Tab-Wechsel
+      if (typeof openedFromChalkboard !== 'undefined') {
+        openedFromChalkboard = null;
+      }
       const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
       if (chalkboardsBtn) {
         chalkboardsBtn.style.background = 'transparent';
@@ -11321,6 +11511,25 @@ function normalizeGANumber(gaNumber) {
       }
       removeChalkboardsYearButtons();
       hideChalkboardsButtons(); // WICHTIG: Buttons IMMER verstecken beim Tab-Wechsel
+      
+      // WICHTIG: Stelle Scroll-Verhalten von #main wieder her und stelle Padding-Werte sicher
+      // Dies ist besonders wichtig beim Wechsel vom GA-Tab (WZ-Galerie) zu anderen Tabs
+      const mainElementForTabSwitch = document.getElementById('main');
+      if (mainElementForTabSwitch) {
+        mainElementForTabSwitch.style.overflow = '';
+        mainElementForTabSwitch.style.height = '';
+        
+        // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
+        mainElementForTabSwitch.style.setProperty('padding-top', '0.5rem', 'important');
+        mainElementForTabSwitch.style.setProperty('padding-right', '0.6rem', 'important');
+        mainElementForTabSwitch.style.setProperty('padding-bottom', '2rem', 'important');
+        mainElementForTabSwitch.style.setProperty('padding-left', '0rem', 'important');
+      }
+      
+      // Stelle sicher, dass Padding-Werte nicht durch inline-styles überschrieben wurden
+      if (typeof ensureMainPaddingPreserved === 'function') {
+        ensureMainPaddingPreserved();
+      }
       
       // Setze chronologischen Button zurück
       const chronBtn = document.getElementById('ga-chronological-view-btn');
@@ -11381,9 +11590,7 @@ function normalizeGANumber(gaNumber) {
         // Stelle den ursprünglichen viewer wieder her
         const viewerContentPanel2 = document.getElementById('chronological-viewer-content');
         if (wrapperCheck2.parentNode) {
-          const viewerNew = document.createElement('div');
-          viewerNew.id = 'viewer';
-          viewerNew.className = 'viewer';
+          const viewerNew = createViewerElement();
           wrapperCheck2.parentNode.replaceChild(viewerNew, wrapperCheck2);
           viewerRestored = true;
           } else {
@@ -11439,10 +11646,13 @@ function normalizeGANumber(gaNumber) {
           }
         
         // Stelle das Scroll-Verhalten von #main wieder her
+        // WICHTIG: Nur overflow und height zurücksetzen, NICHT padding/margin!
+        // Das Padding ist mit !important im CSS definiert und muss erhalten bleiben
         const mainElement = document.getElementById('main');
         if (mainElement) {
           mainElement.style.overflow = '';
           mainElement.style.height = '';
+          // WICHTIG: Padding/Margin werden durch CSS mit !important gesetzt und dürfen NICHT überschrieben werden
         }
         
         // Lösche Viewer-Inhalt explizit für chronologische Ansicht
@@ -11728,8 +11938,16 @@ function normalizeGANumber(gaNumber) {
       }
       
       // Header-Position aktualisieren
+      // WICHTIG: Muss IMMER aufgerufen werden, um margin-top von main-container korrekt zu setzen
+      // Dies stellt sicher, dass der obere Abstand zum Header erhalten bleibt
       if (typeof updateHeaderPosition === 'function') {
-        setTimeout(() => updateHeaderPosition(), 50);
+        setTimeout(() => {
+          updateHeaderPosition();
+          // Zusätzliche Sicherheit: Stelle sicher, dass #main Padding nicht überschrieben wurde
+          if (typeof ensureMainPaddingPreserved === 'function') {
+            ensureMainPaddingPreserved();
+          }
+        }, 50);
       }
       
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
@@ -11928,10 +12146,8 @@ function normalizeGANumber(gaNumber) {
           // Stelle den ursprünglichen viewer wieder her, falls er ersetzt wurde
           const viewerContentPanel = document.getElementById('chronological-viewer-content');
           if (viewerContentPanel && wrapper.parentNode) {
-            // Erstelle neuen viewer-Element
-            const viewer = document.createElement('div');
-            viewer.id = 'viewer';
-            viewer.className = 'viewer';
+            // Erstelle neuen viewer-Element mit korrektem Padding
+            const viewer = createViewerElement();
             // Ersetze den Wrapper durch den viewer
             wrapper.parentNode.replaceChild(viewer, wrapper);
             } else {
@@ -12014,9 +12230,7 @@ function normalizeGANumber(gaNumber) {
             if (wrapper) {
               const viewerContentPanel = document.getElementById('chronological-viewer-content');
               if (viewerContentPanel && wrapper.parentNode) {
-                const viewer = document.createElement('div');
-                viewer.id = 'viewer';
-                viewer.className = 'viewer';
+                const viewer = createViewerElement();
                 wrapper.parentNode.replaceChild(viewer, wrapper);
               } else {
                 wrapper.remove();
@@ -12093,9 +12307,7 @@ function normalizeGANumber(gaNumber) {
               if (wrapper) {
                 const viewerContentPanel = document.getElementById('chronological-viewer-content');
                 if (viewerContentPanel && wrapper.parentNode) {
-                  const viewer = document.createElement('div');
-                  viewer.id = 'viewer';
-                  viewer.className = 'viewer';
+                  const viewer = createViewerElement();
                   wrapper.parentNode.replaceChild(viewer, wrapper);
                 } else {
                   wrapper.remove();
@@ -12167,10 +12379,8 @@ function normalizeGANumber(gaNumber) {
           // Stelle den ursprünglichen viewer wieder her, falls er ersetzt wurde
           const viewerContentPanel = document.getElementById('chronological-viewer-content');
           if (viewerContentPanel && wrapper.parentNode) {
-            // Erstelle neuen viewer-Element
-            const viewer = document.createElement('div');
-            viewer.id = 'viewer';
-            viewer.className = 'viewer';
+            // Erstelle neuen viewer-Element mit korrektem Padding
+            const viewer = createViewerElement();
             // Ersetze den Wrapper durch den viewer
             wrapper.parentNode.replaceChild(viewer, wrapper);
             } else {
@@ -12191,10 +12401,13 @@ function normalizeGANumber(gaNumber) {
         }
         
         // Stelle das Scroll-Verhalten von #main wieder her
+        // WICHTIG: Nur overflow und height zurücksetzen, NICHT padding/margin!
+        // Das Padding ist mit !important im CSS definiert und muss erhalten bleiben
         const mainElement = document.getElementById('main');
         if (mainElement) {
           mainElement.style.overflow = '';
           mainElement.style.height = '';
+          // WICHTIG: Padding/Margin werden durch CSS mit !important gesetzt und dürfen NICHT überschrieben werden
         }
         
         // Stelle sicher, dass viewer existiert und leer ist
@@ -12297,7 +12510,7 @@ function normalizeGANumber(gaNumber) {
         // Setze Viewer-Nachricht
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
+          viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
         }
         
         // Setze Loading-Nachricht im Results-Bereich
@@ -12635,7 +12848,7 @@ function normalizeGANumber(gaNumber) {
         // Setze Viewer-Nachricht
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
+          viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
         }
         
         // Setze Ladeanzeiger im Results-Bereich
@@ -12911,8 +13124,12 @@ function normalizeGANumber(gaNumber) {
       const viewer = document.getElementById('viewer');
       if (!viewer) return;
       
+      // WICHTIG: Versuche zuerst viewer-content zu finden, sonst viewer verwenden
+      const viewerContent = document.getElementById('viewer-content');
+      const targetElement = viewerContent || viewer;
+      
       // WICHTIG: Entferne alte WZ-Sektion, bevor neue hinzugefügt werden
-      const existingSection = viewer.querySelector('.lecture-chalkboards-section');
+      const existingSection = targetElement.querySelector('.lecture-chalkboards-section');
       if (existingSection) {
         existingSection.remove();
       }
@@ -12944,9 +13161,9 @@ function normalizeGANumber(gaNumber) {
       
       html += '</div></div>';
       
-      // Füge am Ende des Viewers hinzu
-      viewer.insertAdjacentHTML('beforeend', html);
-      console.log(`[CHALKBOARDS] ${chalkboards.length} Tafeln zu Vortrag hinzugefügt`);
+      // Füge am Ende des Ziel-Elements hinzu (viewer-content wenn vorhanden, sonst viewer)
+      targetElement.insertAdjacentHTML('beforeend', html);
+      console.log(`[CHALKBOARDS] ${chalkboards.length} Tafeln zu Vortrag hinzugefügt (in ${viewerContent ? 'viewer-content' : 'viewer'})`);
     }
 
     let totalLecturesCount = 0;
@@ -14279,7 +14496,8 @@ function normalizeGANumber(gaNumber) {
         if (titleElement && currentLectureData) {
           // Behalte den Vortragstitel, füge nur GA-Info hinzu falls noch nicht vorhanden
           if (!titleElement.textContent.includes(data.gaNumber)) {
-            titleElement.textContent = `${currentLectureData.ID} - ${currentLectureData.title || ''}`;
+            // Bevorzuge fileName (vollständiger Titel)
+            titleElement.textContent = currentLectureData.fileName || `${currentLectureData.ID} - ${currentLectureData.title || ''}`;
           }
         }
         
@@ -14780,7 +14998,7 @@ function displayGAVolumesInSidebar() {
       // Setze Viewer auf Standard-Nachricht zurück
       const viewer = document.getElementById('viewer');
       if (viewer) {
-        viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
+        viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
       }
       
       // Setze Titel zurück
@@ -15004,8 +15222,12 @@ function getChalkboardsYears() {
 // Funktion: Erstelle und zeige Jahres-Buttons für Wandtafelzeichnungen
 // Layout und Styling identisch zur chronologischen Ansicht
 function createChalkboardsYearButtons() {
-  // Nur anzeigen wenn Wandtafeln-Ansicht aktiv ist
-  if (!isChalkboardsViewActive) {
+  // WICHTIG: Prüfe ob wir wirklich im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  // Nur anzeigen wenn Wandtafeln-Ansicht aktiv ist UND wir im GA-Tab sind
+  if (!isChalkboardsViewActive || !isInGATab) {
     return;
   }
   
@@ -15136,6 +15358,15 @@ function initChalkboardsSortToggleButton() {
 
 // Funktion: Toggle Wandtafeln-Ansicht
 async function toggleChalkboardsView() {
+  // WICHTIG: Prüfe ob wir wirklich im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  if (!isInGATab) {
+    console.log('[CHALKBOARDS] Nicht im GA-Tab - überspringe Toggle');
+    return;
+  }
+  
   const btn = document.getElementById('ga-chalkboards-btn');
   const chronoBtn = document.getElementById('ga-chronological-view-btn');
   
@@ -15155,6 +15386,25 @@ async function toggleChalkboardsView() {
     hideChalkboardsButtons(); // Buttons verstecken
     // Dropdown wieder auf alle GAs zurücksetzen
     populateGABandFilterDropdown(false);
+    
+    // WICHTIG: Stelle Scroll-Verhalten von #main wieder her und stelle Padding-Werte sicher
+    const mainElement = document.getElementById('main');
+    if (mainElement) {
+      mainElement.style.overflow = '';
+      mainElement.style.height = '';
+      
+      // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
+      mainElement.style.setProperty('padding-top', '0.5rem', 'important');
+      mainElement.style.setProperty('padding-right', '0.6rem', 'important');
+      mainElement.style.setProperty('padding-bottom', '2rem', 'important');
+      mainElement.style.setProperty('padding-left', '0rem', 'important');
+    }
+    
+    // Stelle sicher, dass Padding-Werte nicht durch inline-styles überschrieben wurden
+    if (typeof ensureMainPaddingPreserved === 'function') {
+      ensureMainPaddingPreserved();
+    }
+    
     // Zurück zur normalen Ansicht
     showGAChronologicalView();
   } else {
@@ -15203,6 +15453,15 @@ async function toggleChalkboardsView() {
 
 // Funktion: Toggle Sortierung der Wandtafelzeichnungen
 function toggleChalkboardsSort() {
+  // WICHTIG: Prüfe ob wir wirklich im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  if (!isInGATab || !isChalkboardsViewActive) {
+    console.log('[CHALKBOARDS] Nicht im GA-Tab oder Wandtafeln-Ansicht nicht aktiv - überspringe Sortierung');
+    return;
+  }
+  
   // Wechsle zwischen 'ga' und 'date'
   chalkboardsSortOrder = chalkboardsSortOrder === 'ga' ? 'date' : 'ga';
   
@@ -15210,9 +15469,7 @@ function toggleChalkboardsSort() {
   updateChalkboardsSortIcon();
   
   // Lade Wandtafeln neu mit neuer Sortierung
-  if (isChalkboardsViewActive) {
-    loadAndDisplayChalkboards();
-  }
+  loadAndDisplayChalkboards();
 }
 
 // Funktion: Aktualisiere Sort-Icon basierend auf aktueller Sortierung
@@ -15231,6 +15488,21 @@ function updateChalkboardsSortIcon() {
 
 // Funktion: Lade und zeige Wandtafelzeichnungen aus chalkboards.json
 async function loadAndDisplayChalkboards() {
+  // WICHTIG: Prüfe ob wir wirklich im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  if (!isInGATab) {
+    console.log('[CHALKBOARDS] Nicht im GA-Tab - überspringe Anzeige');
+    return;
+  }
+  
+  // WICHTIG: Prüfe ob Wandtafeln-Ansicht wirklich aktiv ist
+  if (!isChalkboardsViewActive) {
+    console.log('[CHALKBOARDS] Wandtafeln-Ansicht nicht aktiv - überspringe Anzeige');
+    return;
+  }
+  
   const viewer = document.getElementById('viewer');
   if (!viewer) {
     console.error('[CHALKBOARDS] Viewer-Element nicht gefunden');
@@ -15239,7 +15511,7 @@ async function loadAndDisplayChalkboards() {
   
   // Zeige Ladeindikator
   viewer.innerHTML = `
-    <div style="padding: 2rem; text-align: center;">
+    <div id="viewer-content">
       <p style="color: var(--secondary-text); font-style: italic;">Lade Wandtafelzeichnungen...</p>
     </div>
   `;
@@ -15254,8 +15526,8 @@ async function loadAndDisplayChalkboards() {
   
   if (!chalkboardsData || chalkboardsData.length === 0) {
     viewer.innerHTML = `
-      <div style="padding: 2rem; text-align: center; color: var(--secondary-text);">
-        <p>Keine Wandtafelzeichnungen gefunden.</p>
+      <div id="viewer-content">
+        <p style="color: var(--secondary-text); font-style: italic;">Keine Wandtafelzeichnungen gefunden.</p>
       </div>
     `;
     return;
@@ -15321,6 +15593,21 @@ async function loadAndDisplayChalkboards() {
 
 // Funktion: Zeige Wandtafelzeichnungen in Galerie (5 pro Zeile)
 function displayChalkboardsGallery(chalkboards) {
+  // WICHTIG: Prüfe ob wir wirklich im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  if (!isInGATab) {
+    console.log('[CHALKBOARDS] Nicht im GA-Tab - überspringe Galerie-Anzeige');
+    return;
+  }
+  
+  // WICHTIG: Prüfe ob Wandtafeln-Ansicht wirklich aktiv ist
+  if (!isChalkboardsViewActive) {
+    console.log('[CHALKBOARDS] Wandtafeln-Ansicht nicht aktiv - überspringe Galerie-Anzeige');
+    return;
+  }
+  
   const viewer = document.getElementById('viewer');
   if (!viewer) return;
   
@@ -15348,9 +15635,9 @@ function displayChalkboardsGallery(chalkboards) {
   
   if (!chalkboards || chalkboards.length === 0) {
     viewer.innerHTML = `
-      <div style="padding: 2rem; text-align: center; color: var(--secondary-text);">
-        <p>Keine Wandtafelzeichnungen gefunden.</p>
-        ${selectedGABandFilter ? '<p style="font-size: 0.9em; margin-top: 0.5rem;">Versuchen Sie "GA-Bände" im Dropdown.</p>' : ''}
+      <div id="viewer-content">
+        <p style="color: var(--secondary-text); font-style: italic;">Keine Wandtafelzeichnungen gefunden.</p>
+        ${selectedGABandFilter ? '<p style="font-size: 0.9em; margin-top: 0.5rem; color: var(--secondary-text);">Versuchen Sie "GA-Bände" im Dropdown.</p>' : ''}
       </div>
     `;
     return;
@@ -15442,7 +15729,7 @@ function displayChalkboardsGallery(chalkboards) {
   yearButtonsPanel.style.cssText = `
     flex-shrink: 0;
     background: ${bgColor} !important;
-    padding: 0rem 1.5rem 1rem 0rem;  
+    padding: 0rem 1.5rem 1rem 2em;
     border-bottom: none !important;
     box-shadow: none !important;
     z-index: 1003;
@@ -15474,9 +15761,44 @@ function displayChalkboardsGallery(chalkboards) {
   viewer.appendChild(wrapper);
   
   // Deaktiviere das Scrollen von #main
-  if (mainEl) {
-    mainEl.style.overflow = 'hidden';
+  const mainElementForChalkboards = document.getElementById('main');
+  if (mainElementForChalkboards) {
+    // Setze overflow: hidden für Scroll-Verhalten
+    mainElementForChalkboards.style.overflow = 'hidden';
+    mainElementForChalkboards.style.position = 'relative';
+    
+    // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
+    // CSS definiert: padding: 0.5rem 0.6rem 2rem 0rem !important
+    mainElementForChalkboards.style.setProperty('padding-top', '0.5rem', 'important');
+    mainElementForChalkboards.style.setProperty('padding-right', '0.6rem', 'important');
+    mainElementForChalkboards.style.setProperty('padding-bottom', '2rem', 'important');
+    mainElementForChalkboards.style.setProperty('padding-left', '0rem', 'important');
   }
+  
+  // Stelle sicher, dass Padding-Werte korrekt gesetzt sind
+  // WICHTIG: Rufe diese Funktion NACH dem Setzen von overflow auf
+  // Verwende mehrere setTimeout-Aufrufe, um sicherzustellen, dass das Padding gesetzt wird
+  setTimeout(() => {
+    if (typeof ensureMainPaddingPreserved === 'function') {
+      ensureMainPaddingPreserved();
+    }
+    // Starte Padding-Schutz neu, falls verfügbar
+    if (typeof startPaddingProtection === 'function') {
+      startPaddingProtection();
+    }
+  }, 10);
+  
+  setTimeout(() => {
+    if (typeof ensureMainPaddingPreserved === 'function') {
+      ensureMainPaddingPreserved();
+    }
+  }, 100);
+  
+  setTimeout(() => {
+    if (typeof ensureMainPaddingPreserved === 'function') {
+      ensureMainPaddingPreserved();
+    }
+  }, 500);
 }
 
 // Funktion: Öffne Vortrag aus Wandtafel-Link
@@ -15528,7 +15850,7 @@ function openLectureFromChalkboard(lectureId, gaNumber = null, dateStr = null) {
   // Leere den Viewer-Inhalt komplett, bevor der Vortrag geladen wird
   const viewer = document.getElementById('viewer');
   if (viewer) {
-    viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Lade Vortrag...</div>';
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Lade Vortrag...</div></div>';
   }
   
   // Stelle main overflow wieder her (wurde bei Chalkboards-Galerie auf hidden gesetzt)
@@ -15798,15 +16120,14 @@ function handleGABandFilterChange(value) {
   displayGAVolumesInSidebar();
   
   // Wenn Wandtafeln-Ansicht aktiv ist, lade Wandtafeln mit neuem Filter
-  if (isChalkboardsViewActive) {
+  // WICHTIG: Nur wenn wir wirklich im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  if (isChalkboardsViewActive && isInGATab) {
     console.log('[GA-FILTER] Wandtafeln-Ansicht aktiv, lade Wandtafeln neu');
     loadAndDisplayChalkboards();
     return;
   }
-  
-  // Prüfe ob wir im GA-Tab sind
-  const gaTab = document.getElementById('ga-tab');
-  const isInGATab = gaTab && gaTab.classList.contains('active');
   
   if (!isInGATab) {
     console.log('[GA-FILTER] Nicht im GA-Tab, keine Aktualisierung');
@@ -15879,9 +16200,7 @@ function handleGABandFilterChange(value) {
     // WICHTIG: Entferne das alte Layout komplett, damit es neu erstellt wird
     const existingWrapper = document.getElementById('chronological-year-nav-wrapper');
     if (existingWrapper && existingWrapper.parentNode) {
-      const newViewer = document.createElement('div');
-      newViewer.id = 'viewer';
-      newViewer.className = 'viewer';
+      const newViewer = createViewerElement();
       existingWrapper.parentNode.replaceChild(newViewer, existingWrapper);
       const mainEl = document.getElementById('main');
       if (mainEl) {
@@ -16055,8 +16374,15 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
     const originalImages = steinerImages[bookId];
     steinerImages[bookId] = imagesForBook;
     try {
-      const updatedHTML = await replaceImageSrcWithBase64(viewer.innerHTML, bookId);
-      viewer.innerHTML = updatedHTML;
+      // Behalte das viewer-content Wrapping bei
+      const viewerContent = document.getElementById('viewer-content');
+      const contentToProcess = viewerContent ? viewerContent.innerHTML : viewer.innerHTML;
+      const updatedHTML = await replaceImageSrcWithBase64(contentToProcess, bookId);
+      if (viewerContent) {
+        viewerContent.innerHTML = updatedHTML;
+      } else {
+        viewer.innerHTML = updatedHTML;
+      }
       
       const bookContentDiv = viewer.querySelector('.book-content');
       if (bookContentDiv && typeof processAllParagraphIndices === 'function') {
@@ -16215,6 +16541,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   const viewer = document.getElementById('viewer');
   const documentTitle = document.getElementById('document-title');
   const mainContainer = document.getElementById('main');
+  
+  // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
+  if (viewer) {
+    viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+  }
   
   if (!viewer || !documentTitle) return;
   
@@ -16763,12 +17094,12 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Zeige sofort einen Ladeindikator
       const gaNumber = book.gaNumber || book.ID || '';
       viewer.innerHTML = `
-        <div style="padding: 0 2rem 2rem 0;">
-          <div id="book-loading-indicator" style="padding: 2rem; text-align: center;">
+        <div id="viewer-content">
+          <div id="book-loading-indicator">
             <p style="color: var(--secondary-text); font-style: italic;">
               Lade ${paragraphs.length} Absätze...
             </p>
-            <div style="width: 100%; height: 4px; background: var(--border-color); border-radius: 2px; margin-top: 1rem;">
+            <div style="width: 100%; max-width: 300px; height: 4px; background: var(--border-color); border-radius: 2px; margin-top: 1rem;">
               <div id="book-loading-progress" style="width: 0%; height: 100%; background: var(--link-color); border-radius: 2px; transition: width 0.1s;"></div>
             </div>
           </div>
@@ -16979,7 +17310,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   html += '</div>';
   
-  viewer.innerHTML = html;
+  // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+  viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
   
   // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
   setTimeout(() => {
@@ -17017,8 +17349,15 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Temporär die Bilder für diese ID setzen
       const originalImages = steinerImages[bookId];
       steinerImages[bookId] = imagesForBook;
-      replaceImageSrcWithBase64(viewer.innerHTML, bookId).then(updatedHTML => {
-        viewer.innerHTML = updatedHTML;
+      // Behalte das viewer-content Wrapping bei
+      const viewerContentForImages = document.getElementById('viewer-content');
+      const contentToProcessForImages = viewerContentForImages ? viewerContentForImages.innerHTML : viewer.innerHTML;
+      replaceImageSrcWithBase64(contentToProcessForImages, bookId).then(updatedHTML => {
+        if (viewerContentForImages) {
+          viewerContentForImages.innerHTML = updatedHTML;
+        } else {
+          viewer.innerHTML = updatedHTML;
+        }
         
         // WICHTIG: Stelle sicher, dass Paragraph-Indizes wieder verarbeitet wurden
         // (werden durch innerHTML-Überschreibung entfernt)
@@ -17497,7 +17836,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     mainContainer.scrollTop = 0;
   }
   
+  // Header-Position mehrfach aktualisieren, um sicherzustellen, dass das Padding beim ersten Laden korrekt ist
+  // Das ist nötig, weil CSS-Berechnungen und DOM-Rendering asynchron sind
   updateHeaderPosition();
+  setTimeout(() => updateHeaderPosition(), 50);
+  setTimeout(() => updateHeaderPosition(), 150);
+  setTimeout(() => updateHeaderPosition(), 300);
+  
   updateButtonStates();
 }
 
@@ -17919,7 +18264,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Finde GA-Band-Info
     const gaInfo = gaVolumesData.find(ga => ga.number.toLowerCase() === gaNumber.toLowerCase());
     if (!gaInfo) {
-      viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">GA-Band nicht gefunden.</div>';
+      viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">GA-Band nicht gefunden.</div></div>';
       return;
     }
     
@@ -17961,13 +18306,13 @@ async function showGALectures(gaNumber, skipHistory = false) {
     
     // Prüfe ob es ein Book (Schrift) ist
     if (isBookGANumber(gaNumber)) {
-      viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div>';
+      viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
       
       // Lade Book-Daten
       const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
       if (!response.ok) {
         if (response.status === 404) {
-          viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Schrift nicht gefunden.</div>';
+          viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Schrift nicht gefunden.</div></div>';
           return;
         }
         throw new Error(`HTTP ${response.status}`);
@@ -17979,7 +18324,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     }
     
     // Ansonsten: Lade GA-Übersicht-Daten (Vorträge)
-    viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Vorträge...</div>';
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Vorträge...</div></div>';
     
     const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -18059,7 +18404,8 @@ async function showGALectures(gaNumber, skipHistory = false) {
     });
     
     html += '</div>';
-    viewer.innerHTML = html;
+    // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+    viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
     
     // Keine scrollToYear Funktion mehr nötig, da keine Jahres-Buttons für Vortrags-Bände angezeigt werden
     
@@ -18071,9 +18417,11 @@ async function showGALectures(gaNumber, skipHistory = false) {
     const viewer = document.getElementById('viewer');
     if (viewer) {
       viewer.innerHTML = `
-        <div style="padding: 1rem; color: var(--text-color);">
-          <strong>Fehler beim Laden der Vorträge:</strong><br>
-          ${error.message}
+        <div id="viewer-content">
+          <div style="color: var(--text-color);">
+            <strong>Fehler beim Laden der Vorträge:</strong><br>
+            ${error.message}
+          </div>
         </div>
       `;
     }
@@ -18391,7 +18739,7 @@ async function displayGAOverview(data) {
   
   // Passender Text je nach GA-Typ (Vortrag/Aufsatz)
   const itemTypeName = getGATypeName(data.gaNumber, false);
-  viewer.innerHTML = `<p style="color: #666; font-style: italic;">Wählen Sie ${itemTypeName === 'Aufsatz' ? 'einen Aufsatz' : 'einen Vortrag'} aus der Liste links.</p>`;
+  viewer.innerHTML = `<div id="viewer-content"><p style="color: #666; font-style: italic;">Wählen Sie ${itemTypeName === 'Aufsatz' ? 'einen Aufsatz' : 'einen Vortrag'} aus der Liste links.</p></div>`;
   
   // Setze currentGANumber für Info-Button
   currentGANumber = data.gaNumber;
@@ -18574,33 +18922,20 @@ function removeChronologicalYearButtons() {
       // Hole den Inhalt aus dem Content-Panel
       const viewerContent = viewerContentPanel.innerHTML;
       
-      // Erstelle wieder das ursprüngliche viewer-Element
-      const viewer = document.createElement('div');
-      viewer.id = 'viewer';
+      // Erstelle wieder das ursprüngliche viewer-Element mit korrektem Padding
+      const viewer = createViewerElement();
       viewer.innerHTML = viewerContent;
       
       // Ersetze den Wrapper durch das ursprüngliche viewer-Element
       wrapper.parentNode.replaceChild(viewer, wrapper);
       
-      // Stelle das Scrollen von #main wieder her
-      const mainElement = document.getElementById('main');
-      if (mainElement) {
-        mainElement.style.overflow = 'auto';
-        mainElement.style.height = 'auto';
-      }
-      
+      // #main hat overflow: hidden im CSS - nicht ändern
       removed = true;
       } else {
       // Fallback: Entferne einfach den Wrapper
       wrapper.remove();
       
-      // Stelle das Scrollen von #main wieder her
-      const mainElement = document.getElementById('main');
-      if (mainElement) {
-        mainElement.style.overflow = 'auto';
-        mainElement.style.height = 'auto';
-      }
-      
+      // #main hat overflow: hidden im CSS - nicht ändern
       removed = true;
     }
   }
@@ -18740,7 +19075,7 @@ function showGAVolumesView() {
   
   // Zeige GA-Bände Liste
   const viewer = document.getElementById('viewer');
-  viewer.innerHTML = '<p style="color: #666; font-style: italic;">Bitte wählen Sie einen GA-Band aus dem Menü "Texte".</p>';
+  viewer.innerHTML = '<div id="viewer-content"><p style="color: #666; font-style: italic;">Bitte wählen Sie einen GA-Band aus dem Menü "Texte".</p></div>';
   
   const titleElement = document.getElementById('document-title');
   titleElement.textContent = 'Rudolf Steiner Gesamtausgabe';
@@ -19225,10 +19560,8 @@ function displayGAChronological(lectures) {
     // Entferne das alte Layout
     const wrapper = document.getElementById('chronological-year-nav-wrapper');
     if (wrapper && wrapper.parentNode) {
-      // Erstelle einen neuen viewer
-      const newViewer = document.createElement('div');
-      newViewer.id = 'viewer';
-      newViewer.className = 'viewer';
+      // Erstelle einen neuen viewer mit korrektem Padding
+      const newViewer = createViewerElement();
       newViewer.innerHTML = html;
       
       // Ersetze den Wrapper durch den neuen Viewer
@@ -19317,7 +19650,7 @@ function displayGAChronological(lectures) {
         yearButtonsPanel.style.cssText = `
           flex-shrink: 0;
           background: ${bgColor} !important;
-          padding: 0rem 1.5rem 1rem 0rem;  
+          padding: 0rem 1.5rem 1rem 2em;
           border-bottom: none !important;
           box-shadow: none !important;
           z-index: 1003;
@@ -19341,7 +19674,7 @@ function displayGAChronological(lectures) {
           overflow-x: hidden;
           width: 100%;
           box-sizing: border-box;
-          padding-bottom: 3rem;
+          padding: 0 0 3rem 2em;
         `;
         
         // Verschiebe den viewer-Inhalt in den neuen Container
@@ -19558,6 +19891,19 @@ function scrollToChronologicalYear(year) {
         // Warte kurz, damit der Tab geladen ist
         await new Promise(resolve => setTimeout(resolve, 200));
         
+        // WICHTIG: Entferne chronologischen Wrapper falls vorhanden und erstelle korrekten Viewer
+        const chronologicalWrapper = document.getElementById('chronological-year-nav-wrapper');
+        if (chronologicalWrapper && chronologicalWrapper.parentNode) {
+          const newViewer = createViewerElement();
+          chronologicalWrapper.parentNode.replaceChild(newViewer, chronologicalWrapper);
+        }
+        
+        // Stelle sicher, dass Viewer korrektes Padding hat
+        const viewerAfterSwitch = document.getElementById('viewer');
+        if (viewerAfterSwitch) {
+          viewerAfterSwitch.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+        }
+        
         // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
         const chronologicalNavAfterSwitch = document.getElementById('chronological-year-nav');
         if (chronologicalNavAfterSwitch) {
@@ -19618,6 +19964,12 @@ function scrollToChronologicalYear(year) {
           // Lade zuerst den spezifischen Vortrag im Hauptviewer
           if (typeof showLecture === 'function') {
             await showLecture(lectureId, null, []);
+            
+            // WICHTIG: Stelle Viewer-Padding nochmal sicher (nach showLecture)
+            const viewerAfterLecture = document.getElementById('viewer');
+            if (viewerAfterLecture) {
+              viewerAfterLecture.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+            }
           } else {
             console.error('[NAVIGATION] showLecture Funktion nicht verfügbar');
             return;
@@ -20180,7 +20532,7 @@ function scrollToChronologicalYear(year) {
       const viewer = document.getElementById('viewer');
       
       if (!results || results.length === 0) {
-        viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Keine Treffer gefunden</div>';
+        viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Treffer gefunden</div></div>';
         return;
       }
       
@@ -20265,7 +20617,8 @@ function scrollToChronologicalYear(year) {
       html += '</tbody></table>';
       html += '</div>';
       
-      viewer.innerHTML = html;
+      // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+      viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
     }
     
     function showLectureFromAdvancedSearchData(element) {
@@ -20658,44 +21011,50 @@ function scrollToChronologicalYear(year) {
         // Setze Titel mit GA-Nummer, Titel, Ort und Datum
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
-          // Extrahiere GA-Nummer aus lectureId (z.B. "GA100/8")
-          const gaNumber = lectureId || lecture.ID || '';
-          
-          // Baue den Titel-String zusammen
-          let titleParts = [];
-          
-          // GA-Nummer
-          if (gaNumber) {
-            titleParts.push(gaNumber);
-          }
-          
-          // Titel
-          const title = lecture.title || '';
-          if (title) {
-            titleParts.push(title);
-          }
-          
-          // Ort und Datum
-          let locationDateParts = [];
-          if (lecture.location) {
-            locationDateParts.push(lecture.location);
-          }
-          if (lecture.date) {
-            locationDateParts.push(formatDate(lecture.date));
-          }
-          
-          // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
-          let fullTitle = '';
-          if (titleParts.length > 0) {
-            fullTitle = titleParts.join(' - ');
-          }
-          if (locationDateParts.length > 0) {
-            fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
-          }
-          
-          // Fallback wenn nichts gefunden wurde
-          if (!fullTitle) {
-            fullTitle = lecture.fileName || lectureId;
+          // Bevorzuge fileName (vollständiger Titel), wie im Seitenpanel
+          let fullTitle;
+          if (lecture.fileName) {
+            fullTitle = lecture.fileName;
+          } else {
+            // Extrahiere GA-Nummer aus lectureId (z.B. "GA100/8")
+            const gaNumber = lectureId || lecture.ID || '';
+            
+            // Baue den Titel-String zusammen
+            let titleParts = [];
+            
+            // GA-Nummer
+            if (gaNumber) {
+              titleParts.push(gaNumber);
+            }
+            
+            // Titel
+            const title = lecture.title || '';
+            if (title) {
+              titleParts.push(title);
+            }
+            
+            // Ort und Datum
+            let locationDateParts = [];
+            if (lecture.location) {
+              locationDateParts.push(lecture.location);
+            }
+            if (lecture.date) {
+              locationDateParts.push(formatDate(lecture.date));
+            }
+            
+            // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+            fullTitle = '';
+            if (titleParts.length > 0) {
+              fullTitle = titleParts.join(' - ');
+            }
+            if (locationDateParts.length > 0) {
+              fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+            }
+            
+            // Fallback wenn nichts gefunden wurde
+            if (!fullTitle) {
+              fullTitle = lectureId;
+            }
           }
           
           // Setze Titel-Text und mache ihn klickbar
@@ -21877,7 +22236,7 @@ function scrollToChronologicalYear(year) {
       const viewer = document.getElementById('viewer');
       
       if (!frequencies || Object.keys(frequencies).length === 0) {
-        viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div>';
+        viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div></div>';
         return;
       }
       
@@ -22046,7 +22405,8 @@ function scrollToChronologicalYear(year) {
       html += '</tbody></table>';
       html += '</div>';
       
-      viewer.innerHTML = html;
+      // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+      viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
       
       // Scrolle nach oben im Viewer und Main-Container (mit Timeout für Rendering)
       setTimeout(() => {
@@ -23512,7 +23872,7 @@ function scrollToChronologicalYear(year) {
       const viewer = document.getElementById('viewer');
       
       if (!data || !data.overview) {
-        viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div>';
+        viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div></div>';
         return;
       }
       
@@ -23657,7 +24017,8 @@ function scrollToChronologicalYear(year) {
           }
       }
       
-      viewer.innerHTML = html;
+      // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+      viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
       
       // Deutsche Anführungszeichen „..." verwenden (Index-Tab)
       convertToGermanQuotes(viewer);
@@ -27173,6 +27534,11 @@ function showSummaryView() {
   const titleElement = document.getElementById('document-title');
   const summaryContent = document.getElementById('summary-content');
   
+  // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
+  if (viewer) {
+    viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+  }
+  
   // WICHTIG: Wenn Navigation aus dem Members Panel läuft, NICHT das Panel schließen!
   // Das Panel soll offen bleiben, wenn man auf einen Link im Panel klickt
   // Prüfe BEIDE Flags: membersNavigating UND _membersNavLock (für erste Klicks)
@@ -27222,7 +27588,7 @@ function showSummaryView() {
   // Prüfe ob summaryObj vorhanden ist
   if (!summaryObj) {
     console.error('[DISPLAY-SUMMARY] summaryObj ist null oder undefined!');
-    viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Zusammenfassungsdaten verfügbar.</div>';
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Zusammenfassungsdaten verfügbar.</div></div>';
     return;
   }
   
@@ -27244,42 +27610,48 @@ function showSummaryView() {
   
   // Setze Titel-Text und mache ihn klickbar (wie im Index-Tab)
   if (lectureId && titleElement) {
-    // Baue den Titel-String zusammen (genau wie im Index-Tab)
-    let titleParts = [];
-    
-    // GA-Nummer
-    const gaNum = lectureId || lecture.ID || '';
-    if (gaNum) {
-      titleParts.push(gaNum);
-    }
-    
-    // Titel
-    const title = lecture.title || '';
-    if (title) {
-      titleParts.push(title);
-    }
-    
-    // Ort und Datum
-    let locationDateParts = [];
-    if (lecture.location) {
-      locationDateParts.push(lecture.location);
-    }
-    if (lecture.date) {
-      locationDateParts.push(formatDate(lecture.date));
-    }
-    
-    // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
-    let fullTitle = '';
-    if (titleParts.length > 0) {
-      fullTitle = titleParts.join(' - ');
-    }
-    if (locationDateParts.length > 0) {
-      fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
-    }
-    
-    // Fallback wenn nichts gefunden wurde
-    if (!fullTitle) {
-      fullTitle = lecture.fileName || lectureId;
+    // Bevorzuge fileName (vollständiger Titel), wie im Seitenpanel
+    let fullTitle;
+    if (lecture.fileName) {
+      fullTitle = lecture.fileName;
+    } else {
+      // Baue den Titel-String zusammen
+      let titleParts = [];
+      
+      // GA-Nummer
+      const gaNum = lectureId || lecture.ID || '';
+      if (gaNum) {
+        titleParts.push(gaNum);
+      }
+      
+      // Titel
+      const title = lecture.title || '';
+      if (title) {
+        titleParts.push(title);
+      }
+      
+      // Ort und Datum
+      let locationDateParts = [];
+      if (lecture.location) {
+        locationDateParts.push(lecture.location);
+      }
+      if (lecture.date) {
+        locationDateParts.push(formatDate(lecture.date));
+      }
+      
+      // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+      fullTitle = '';
+      if (titleParts.length > 0) {
+        fullTitle = titleParts.join(' - ');
+      }
+      if (locationDateParts.length > 0) {
+        fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+      }
+      
+      // Fallback wenn nichts gefunden wurde
+      if (!fullTitle) {
+        fullTitle = lectureId;
+      }
     }
     
     // Setze Titel-Text und mache ihn klickbar
@@ -27707,7 +28079,8 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
   // Konvertiere die |page|-Marker zu sichtbarem HTML
   html = convertPageMarkers(html);
   
-  viewer.innerHTML = html;
+  // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+  viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
   
   // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
   if (lecture && lecture.ID) {
@@ -27717,8 +28090,15 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
     });
     
         // Lade und ersetze Bilder asynchron
-        replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
-          viewer.innerHTML = updatedHTML;
+        // Behalte das viewer-content Wrapping bei
+        const viewerContentForImg = document.getElementById('viewer-content');
+        const contentForImg = viewerContentForImg ? viewerContentForImg.innerHTML : viewer.innerHTML;
+        replaceImageSrcWithBase64(contentForImg, lecture.ID).then(updatedHTML => {
+          if (viewerContentForImg) {
+            viewerContentForImg.innerHTML = updatedHTML;
+          } else {
+            viewer.innerHTML = updatedHTML;
+          }
           
           // WICHTIG: Keyword-Highlighting NACH dem Bild-Ersetzen erneut durchführen
           // (da replaceImageSrcWithBase64 viewer.innerHTML überschreibt und <mark> Tags verloren gehen können)
@@ -27975,7 +28355,12 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
     mainContainer.scrollTop = 0;
   }
   
-  updateHeaderPosition(); // Header-Position und Viewer-Padding anpassen
+  // Header-Position mehrfach aktualisieren, um sicherzustellen, dass das Padding beim ersten Laden korrekt ist
+  // Das ist nötig, weil CSS-Berechnungen und DOM-Rendering asynchron sind
+  updateHeaderPosition();
+  setTimeout(() => updateHeaderPosition(), 50);
+  setTimeout(() => updateHeaderPosition(), 150);
+  setTimeout(() => updateHeaderPosition(), 300);
   
   // Anmerkungen mit mehreren Sternchen behandeln
   replaceBulletPointsWithAsterisks();
@@ -31430,6 +31815,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const mainContainer = document.getElementById('main');
       const titleElement = document.getElementById('document-title');
       
+      // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
+      if (viewer) {
+        viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+      }
+      
       // Normalisiere den Index - füge ^ hinzu wenn es fehlt
       let cleanIndex = null;
       if (highlightIndex) {
@@ -31457,7 +31847,20 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         existingChalkboardsSection.remove();
       }
       
-      const displayTitle = lecture.fileName || lecture.title || lecture.ID;
+      // Titel: Bevorzuge fileName (vollständiger Titel), wie im Seitenpanel
+      // Falls fileName nicht vorhanden, baue aus Einzelteilen zusammen
+      let displayTitle;
+      if (lecture.fileName) {
+        displayTitle = lecture.fileName;
+      } else {
+        displayTitle = `${formatLectureId(lecture.ID)} - ${lecture.title || lecture.gaTitle || ''}`;
+        const locationParts = [];
+        if (lecture.location) locationParts.push(lecture.location);
+        if (lecture.date) locationParts.push(lecture.date);
+        if (locationParts.length > 0) {
+          displayTitle += `, ${locationParts.join(', ')}`;
+        }
+      }
       const gaNumber = extractGANumber(lecture);
       
       // Setze data-Attribut für CSS-Styling
@@ -31861,13 +32264,20 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         });
       }
       html += `</div>`;
-      viewer.innerHTML = html;
+      // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
+      viewer.innerHTML = '<div id="viewer-content">' + html + '</div>';
       
       // Ersetze img src-Attribute durch Base64-Daten ZUERST (bevor Gedichte formatiert werden)
       if (lecture && lecture.ID) {
         // Lade und ersetze Bilder asynchron
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
-          viewer.innerHTML = updatedHTML;
+          // Behalte das viewer-content Wrapping bei
+          const viewerContent = document.getElementById('viewer-content');
+          if (viewerContent) {
+            viewerContent.innerHTML = updatedHTML.replace(/^<div id="viewer-content">/, '').replace(/<\/div>$/, '');
+          } else {
+            viewer.innerHTML = updatedHTML;
+          }
           
           // WICHTIG: Keyword-Highlighting NACH dem Bild-Ersetzen erneut durchführen
           // (da replaceImageSrcWithBase64 viewer.innerHTML überschreibt und <mark> Tags verloren gehen können)
@@ -32121,7 +32531,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
       
       updateButtonStates();
-      updateHeaderPosition(); // Header-Position und Viewer-Padding anpassen
+      
+      // Header-Position mehrfach aktualisieren, um sicherzustellen, dass das Padding beim ersten Laden korrekt ist
+      // Das ist nötig, weil CSS-Berechnungen und DOM-Rendering asynchron sind
+      updateHeaderPosition();
+      setTimeout(() => updateHeaderPosition(), 50);
+      setTimeout(() => updateHeaderPosition(), 150);
+      setTimeout(() => updateHeaderPosition(), 300);
     }
 
     function handleKeywordKeypress(event) {
@@ -33320,6 +33736,8 @@ function switchTabExtended(mode) {
   const mainContainer = document.getElementById('main-container');
   if (mainContainer) {
     mainContainer.style.marginRight = '0px';
+    // WICHTIG: Stelle sicher, dass margin-top nicht überschrieben wird
+    // updateHeaderPosition() wird später aufgerufen, um margin-top korrekt zu setzen
   }
   
   // Verstecke den verticalResizeHandle-Wrapper (inklusive Trennlinie)
@@ -33341,6 +33759,18 @@ function switchTabExtended(mode) {
   const tocList = document.getElementById('toc-list');
   if (tocList) {
     tocList.innerHTML = '';
+  }
+  
+  // WICHTIG: Header-Position aktualisieren, um margin-top von main-container korrekt zu setzen
+  // Dies stellt sicher, dass der obere Abstand zum Header erhalten bleibt
+  if (typeof updateHeaderPosition === 'function') {
+    setTimeout(() => {
+      updateHeaderPosition();
+      // Zusätzliche Sicherheit: Stelle sicher, dass #main Padding nicht überschrieben wurde
+      if (typeof ensureMainPaddingPreserved === 'function') {
+        ensureMainPaddingPreserved();
+      }
+    }, 50);
   }
   
   // currentOpenLectureId und currentLectureData zurücksetzen
@@ -33402,19 +33832,20 @@ function switchTabExtended(mode) {
       // WICHTIG: Wenn wir vom GA-Tab wegwechseln, entferne alle chronologischen Container
       if (prevActive.id === 'ga-tab') {
         // Stelle das Scroll-Verhalten von #main wieder her
+        // WICHTIG: Nur overflow und height zurücksetzen, NICHT padding/margin!
+        // Das Padding ist mit !important im CSS definiert und muss erhalten bleiben
         const mainElement = document.getElementById('main');
         if (mainElement) {
           mainElement.style.overflow = '';
           mainElement.style.height = '';
+          // WICHTIG: Padding/Margin werden durch CSS mit !important gesetzt und dürfen NICHT überschrieben werden
         }
         
         // Prüfe ob wrapper existiert (der den viewer ersetzt hat)
         const wrapper = document.getElementById('chronological-year-nav-wrapper');
         if (wrapper && wrapper.parentNode) {
-          // Erstelle neuen viewer-Element
-          const viewerNew = document.createElement('div');
-          viewerNew.id = 'viewer';
-          viewerNew.className = 'viewer';
+          // Erstelle neuen viewer-Element mit korrektem Padding
+          const viewerNew = createViewerElement();
           
           // Ersetze wrapper durch viewer
           wrapper.parentNode.replaceChild(viewerNew, wrapper);
@@ -33612,7 +34043,7 @@ function switchTabExtended(mode) {
     } else if (mode === 'keywords') {
       // Keywords-Tab: Inhalt ist bereits im Tab-Content vorhanden und funktioniert dort
       // Zeige Standard-Nachricht im Viewer
-      viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
+      viewer.innerHTML = `<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">${defaultMessage}</div></div>`;
       
       // Initialisiere Admin-Panel-Funktionen im Tab-Content
       requestAnimationFrame(function() {
@@ -33632,7 +34063,7 @@ function switchTabExtended(mode) {
         }, 100);
       });
     } else {
-    viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
+    viewer.innerHTML = `<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">${defaultMessage}</div></div>`;
     }
     
     if (documentTitle) {
@@ -33730,7 +34161,7 @@ function switchTabExtended(mode) {
     // Setze Viewer-Nachricht
     const viewer = document.getElementById('viewer');
     if (viewer) {
-      viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
+      viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
     }
     
     setTimeout(() => {
@@ -34079,8 +34510,8 @@ async function performKeywordThematicSearch(keyword) {
     const viewer = document.getElementById('viewer');
     if (viewer) {
       viewer.innerHTML = `
-        <div style="text-align: center; padding: 2rem; color: #666;">
-          <div style="font-style: italic; font-size: 1.2em;">Suche...</div>
+        <div id="viewer-content">
+          <div style="color: var(--secondary-text); font-style: italic;">Suche...</div>
         </div>
       `;
     }
@@ -34126,12 +34557,14 @@ async function performKeywordThematicSearch(keyword) {
     const viewer = document.getElementById('viewer');
     if (viewer) {
       viewer.innerHTML = `
-        <div style="text-align: center; padding: 2rem; color: #c53030;">
-          <div style="font-size: 1.2em; margin-bottom: 1rem;">❌ Fehler bei der Analyse</div>
-          <div style="font-style: italic;">${error.message}</div>
-          <button onclick="switchTab('schlagworte')" style="margin-top: 1rem; padding: 8px 16px; background: #467886; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            Zurück zur Schlagwort-Liste
-          </button>
+        <div id="viewer-content">
+          <div style="color: #c53030;">
+            <div style="font-size: 1.1em; margin-bottom: 1rem;">❌ Fehler bei der Analyse</div>
+            <div style="font-style: italic;">${error.message}</div>
+            <button onclick="switchTab('schlagworte')" style="margin-top: 1rem; padding: 8px 16px; background: #467886; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Zurück zur Schlagwort-Liste
+            </button>
+          </div>
         </div>
       `;
     }
@@ -36584,42 +37017,48 @@ async function showLectureInTimeline(lectureId, targetIndex = null, keyword = nu
     if (mainViewer && mainTitle) {
       // Setze Titel genau wie im Index-Tab
       if (lecture && documentTitle) {
-        // Baue den Titel-String zusammen
-        let titleParts = [];
-        
-        // GA-Nummer
-        const gaNumber = lectureId || lecture.ID || '';
-        if (gaNumber) {
-          titleParts.push(gaNumber);
-        }
-        
-        // Titel
-        const title = lecture.title || '';
-        if (title) {
-          titleParts.push(title);
-        }
-        
-        // Ort und Datum
-        let locationDateParts = [];
-        if (lecture.location) {
-          locationDateParts.push(lecture.location);
-        }
-        if (lecture.date) {
-          locationDateParts.push(formatDate(lecture.date));
-        }
-        
-        // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
-        let fullTitle = '';
-        if (titleParts.length > 0) {
-          fullTitle = titleParts.join(' - ');
-        }
-        if (locationDateParts.length > 0) {
-          fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
-        }
-        
-        // Fallback wenn nichts gefunden wurde
-        if (!fullTitle) {
-          fullTitle = lecture.fileName || lectureId;
+        // Bevorzuge fileName (vollständiger Titel), wie im Seitenpanel
+        let fullTitle;
+        if (lecture.fileName) {
+          fullTitle = lecture.fileName;
+        } else {
+          // Baue den Titel-String zusammen
+          let titleParts = [];
+          
+          // GA-Nummer
+          const gaNumber = lectureId || lecture.ID || '';
+          if (gaNumber) {
+            titleParts.push(gaNumber);
+          }
+          
+          // Titel
+          const title = lecture.title || '';
+          if (title) {
+            titleParts.push(title);
+          }
+          
+          // Ort und Datum
+          let locationDateParts = [];
+          if (lecture.location) {
+            locationDateParts.push(lecture.location);
+          }
+          if (lecture.date) {
+            locationDateParts.push(formatDate(lecture.date));
+          }
+          
+          // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+          fullTitle = '';
+          if (titleParts.length > 0) {
+            fullTitle = titleParts.join(' - ');
+          }
+          if (locationDateParts.length > 0) {
+            fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+          }
+          
+          // Fallback wenn nichts gefunden wurde
+          if (!fullTitle) {
+            fullTitle = lectureId;
+          }
         }
         
         // Setze Titel-Text und mache ihn klickbar (wie im Index-Tab)
@@ -39175,6 +39614,21 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
 // Update switchTab function to load stats when timeline tab is opened
 const originalSwitchTab = window.switchTab;
 window.switchTab = function(tabName) {
+  // WICHTIG: Entferne WZ-Sektion beim Tab-Wechsel
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    const chalkboardsSection = viewer.querySelector('.lecture-chalkboards-section');
+    if (chalkboardsSection) {
+      chalkboardsSection.remove();
+      console.log('[CHALKBOARDS] WZ-Sektion beim Tab-Wechsel entfernt (Wrapper)');
+    }
+  }
+  
+  // WICHTIG: Reset WZ-Informationen beim Tab-Wechsel
+  if (typeof openedFromChalkboard !== 'undefined') {
+    openedFromChalkboard = null;
+  }
+  
   // WICHTIG: Wandtafeln-Buttons IMMER verstecken beim Tab-Wechsel (außer wenn zum GA-Tab gewechselt wird UND Wandtafeln aktiv sind)
   if (tabName !== 'ga' || !isChalkboardsViewActive) {
     // Buttons verstecken
