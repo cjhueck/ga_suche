@@ -19911,10 +19911,10 @@ function scrollToChronologicalYear(year) {
           chronologicalWrapper.parentNode.replaceChild(newViewer, chronologicalWrapper);
         }
         
-        // Stelle sicher, dass Viewer korrektes Padding hat
+        // Stelle sicher, dass Viewer korrektes Padding hat (symmetrisch links/rechts)
         const viewerAfterSwitch = document.getElementById('viewer');
         if (viewerAfterSwitch) {
-          viewerAfterSwitch.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 2.5em', 'important');
+          viewerAfterSwitch.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
         }
         
         // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
@@ -19978,10 +19978,10 @@ function scrollToChronologicalYear(year) {
           if (typeof showLecture === 'function') {
             await showLecture(lectureId, null, []);
             
-            // WICHTIG: Stelle Viewer-Padding nochmal sicher (nach showLecture)
+            // WICHTIG: Stelle Viewer-Padding nochmal sicher (nach showLecture) - symmetrisch links/rechts
             const viewerAfterLecture = document.getElementById('viewer');
             if (viewerAfterLecture) {
-              viewerAfterLecture.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 2.5em', 'important');
+              viewerAfterLecture.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
             }
           } else {
             console.error('[NAVIGATION] showLecture Funktion nicht verfügbar');
