@@ -12908,14 +12908,19 @@ function normalizeGANumber(gaNumber) {
     
     // Füge Tafeln am Ende des Viewers hinzu
     async function appendChalkboardsToViewer(gaNumber, dateStr) {
-      const chalkboards = await getChalkboardsForLectureAsync(gaNumber, dateStr);
-      if (chalkboards.length === 0) return;
-      
       const viewer = document.getElementById('viewer');
       if (!viewer) return;
       
-      // Prüfe ob bereits Tafeln angehängt wurden
-      if (viewer.querySelector('.lecture-chalkboards-section')) return;
+      // WICHTIG: Entferne alte WZ-Sektion, bevor neue hinzugefügt werden
+      const existingSection = viewer.querySelector('.lecture-chalkboards-section');
+      if (existingSection) {
+        existingSection.remove();
+      }
+      
+      // Suche alle WZ für diesen Vortrag (GA + Datum)
+      const chalkboards = await getChalkboardsForLectureAsync(gaNumber, dateStr);
+      
+      if (chalkboards.length === 0) return;
       
       // Erstelle HTML für Tafeln (ohne Überschrift)
       let html = `
@@ -15378,9 +15383,12 @@ function displayChalkboardsGallery(chalkboards) {
     const escapedLectureId = lectureId ? lectureId.replace(/'/g, "\\'") : '';
     
     // Info-Text mit oder ohne Link
+    // Übergebe GA-Nummer und Datum an openLectureFromChalkboard
+    const escapedGaNumberForFunc = cb.ga.replace(/'/g, "\\'");
+    const escapedDateForFunc = cb.date ? cb.date.replace(/'/g, "\\'") : '';
     const infoContent = lectureId 
       ? `<a href="#texte&lecture=${encodeURIComponent(lectureId)}" 
-            onclick="event.preventDefault(); openLectureFromChalkboard('${escapedLectureId}');"
+            onclick="event.preventDefault(); openLectureFromChalkboard('${escapedLectureId}', '${escapedGaNumberForFunc}', '${escapedDateForFunc}');"
             style="color: var(--link-color); text-decoration: none; cursor: pointer;"
             title="Vortrag öffnen">${gaNumber}${dateStr ? ', ' + dateStr : ''}</a>`
       : `<span>${gaNumber}${dateStr ? ', ' + dateStr : ''}</span>`;
@@ -15472,8 +15480,32 @@ function displayChalkboardsGallery(chalkboards) {
 }
 
 // Funktion: Öffne Vortrag aus Wandtafel-Link
-function openLectureFromChalkboard(lectureId) {
+// Globale Variable: Speichere WZ-Informationen wenn Vortrag von WZ geöffnet wurde
+let openedFromChalkboard = null;
+
+function openLectureFromChalkboard(lectureId, gaNumber = null, dateStr = null) {
   if (!lectureId) return;
+  
+  console.log(`[CHALKBOARDS] openLectureFromChalkboard: lectureId=${lectureId}, gaNumber=${gaNumber}, dateStr=${dateStr}`);
+  
+  // Speichere WZ-Informationen für späteren Aufruf von displayLecture
+  if (gaNumber && dateStr) {
+    // Normalisiere GA-Nummer: entferne "GA"-Präfix falls vorhanden
+    const normalizedGA = gaNumber.replace(/^GA/i, '');
+    openedFromChalkboard = { gaNumber: normalizedGA, dateStr };
+  } else {
+    // Versuche GA-Nummer und Datum aus lectureId zu extrahieren
+    // Finde den Vortrag in allChronologicalLectures
+    if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+      const lecture = allChronologicalLectures.find(l => l.ID === lectureId);
+      if (lecture) {
+        const gaNum = lecture.ID.split('/')[0];
+        // Normalisiere GA-Nummer: entferne "GA"-Präfix falls vorhanden
+        const normalizedGA = gaNum.replace(/^GA/i, '');
+        openedFromChalkboard = { gaNumber: normalizedGA, dateStr: lecture.date };
+      }
+    }
+  }
   
   // Deaktiviere Wandtafeln-Ansicht
   isChalkboardsViewActive = false;
@@ -15486,6 +15518,24 @@ function openLectureFromChalkboard(lectureId) {
   }
   removeChalkboardsYearButtons();
   hideChalkboardsButtons(); // Buttons verstecken
+  
+  // WICHTIG: Entferne den Chalkboards-Galerie-Wrapper aus dem Viewer
+  const chalkboardsWrapper = document.getElementById('chalkboards-year-nav-wrapper');
+  if (chalkboardsWrapper) {
+    chalkboardsWrapper.remove();
+  }
+  
+  // Leere den Viewer-Inhalt komplett, bevor der Vortrag geladen wird
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Lade Vortrag...</div>';
+  }
+  
+  // Stelle main overflow wieder her (wurde bei Chalkboards-Galerie auf hidden gesetzt)
+  const mainEl = document.getElementById('main');
+  if (mainEl) {
+    mainEl.style.overflow = '';
+  }
   
   // Wechsle zu Tab "Texte" und lade den Vortrag
   switchTab('texte');
@@ -27778,7 +27828,18 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
           }
           
           // Wandtafelzeichnungen NACH dem Bild-Ersetzen hinzufügen (falls vorhanden)
-          if (lecture && lecture.ID && lecture.date) {
+          // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
+          if (openedFromChalkboard && openedFromChalkboard.gaNumber && openedFromChalkboard.dateStr) {
+            // Verwende gespeicherte WZ-Informationen
+            setTimeout(async () => {
+              await appendChalkboardsToViewer(openedFromChalkboard.gaNumber, openedFromChalkboard.dateStr);
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
+              // Reset nach Anzeige
+              openedFromChalkboard = null;
+            }, 300);
+          } else if (lecture && lecture.ID && lecture.date) {
             const gaNumber = lecture.ID.split('/')[0];
             setTimeout(async () => {
               await appendChalkboardsToViewer(gaNumber, lecture.date);
@@ -27819,7 +27880,18 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
           }
           
           // Wandtafelzeichnungen auch im Fehlerfall hinzufügen
-          if (lecture && lecture.ID && lecture.date) {
+          // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
+          if (openedFromChalkboard && openedFromChalkboard.gaNumber && openedFromChalkboard.dateStr) {
+            // Verwende gespeicherte WZ-Informationen
+            setTimeout(async () => {
+              await appendChalkboardsToViewer(openedFromChalkboard.gaNumber, openedFromChalkboard.dateStr);
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
+              // Reset nach Anzeige
+              openedFromChalkboard = null;
+            }, 300);
+          } else if (lecture && lecture.ID && lecture.date) {
             const gaNumber = lecture.ID.split('/')[0];
             setTimeout(async () => {
               await appendChalkboardsToViewer(gaNumber, lecture.date);
@@ -27867,7 +27939,18 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
     }
     
     // Wandtafelzeichnungen hinzufügen (ohne Bilder-Ersetzung)
-    if (lecture && lecture.ID && lecture.date) {
+    // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
+    if (openedFromChalkboard && openedFromChalkboard.gaNumber && openedFromChalkboard.dateStr) {
+      // Verwende gespeicherte WZ-Informationen
+      setTimeout(async () => {
+        await appendChalkboardsToViewer(openedFromChalkboard.gaNumber, openedFromChalkboard.dateStr);
+        if (typeof buildTableOfContents === 'function') {
+          buildTableOfContents();
+        }
+        // Reset nach Anzeige
+        openedFromChalkboard = null;
+      }, 300);
+    } else if (lecture && lecture.ID && lecture.date) {
       const gaNumber = lecture.ID.split('/')[0];
       setTimeout(async () => {
         await appendChalkboardsToViewer(gaNumber, lecture.date);
@@ -31368,6 +31451,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       viewer.innerHTML = '';
       
+      // WICHTIG: Entferne auch eventuell vorhandene WZ-Sektion (falls viewer.innerHTML = '' nicht ausreicht)
+      const existingChalkboardsSection = viewer.querySelector('.lecture-chalkboards-section');
+      if (existingChalkboardsSection) {
+        existingChalkboardsSection.remove();
+      }
+      
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
       const gaNumber = extractGANumber(lecture);
       
@@ -31860,7 +31949,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             convertFootnotesToLinks();
             
             // Wandtafelzeichnungen hinzufügen (falls vorhanden)
-            if (lecture && lecture.ID && lecture.date) {
+            // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
+            if (openedFromChalkboard && openedFromChalkboard.gaNumber && openedFromChalkboard.dateStr) {
+              // Verwende gespeicherte WZ-Informationen
+              appendChalkboardsToViewer(openedFromChalkboard.gaNumber, openedFromChalkboard.dateStr).then(() => {
+                if (typeof buildTableOfContents === 'function') {
+                  buildTableOfContents();
+                }
+                // Reset nach Anzeige
+                openedFromChalkboard = null;
+              });
+            } else if (lecture && lecture.ID && lecture.date) {
               const gaNumber = lecture.ID.split('/')[0];
               appendChalkboardsToViewer(gaNumber, lecture.date).then(() => {
                 if (typeof buildTableOfContents === 'function') {
@@ -31913,7 +32012,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             convertFootnotesToLinks();
             
             // Wandtafelzeichnungen auch im Fehlerfall hinzufügen
-            if (lecture && lecture.ID && lecture.date) {
+            // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
+            if (openedFromChalkboard && openedFromChalkboard.gaNumber && openedFromChalkboard.dateStr) {
+              // Verwende gespeicherte WZ-Informationen
+              appendChalkboardsToViewer(openedFromChalkboard.gaNumber, openedFromChalkboard.dateStr).then(() => {
+                if (typeof buildTableOfContents === 'function') {
+                  buildTableOfContents();
+                }
+                // Reset nach Anzeige
+                openedFromChalkboard = null;
+              });
+            } else if (lecture && lecture.ID && lecture.date) {
               const gaNumber = lecture.ID.split('/')[0];
               appendChalkboardsToViewer(gaNumber, lecture.date).then(() => {
                 if (typeof buildTableOfContents === 'function') {
@@ -31944,7 +32053,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           convertFootnotesToLinks();
           
           // Wandtafelzeichnungen hinzufügen (falls vorhanden)
-          if (lecture && lecture.ID && lecture.date) {
+          // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
+          if (openedFromChalkboard && openedFromChalkboard.gaNumber && openedFromChalkboard.dateStr) {
+            // Verwende gespeicherte WZ-Informationen
+            appendChalkboardsToViewer(openedFromChalkboard.gaNumber, openedFromChalkboard.dateStr).then(() => {
+              if (typeof buildTableOfContents === 'function') {
+                buildTableOfContents();
+              }
+              // Reset nach Anzeige
+              openedFromChalkboard = null;
+            });
+          } else if (lecture && lecture.ID && lecture.date) {
             const gaNumber = lecture.ID.split('/')[0];
             appendChalkboardsToViewer(gaNumber, lecture.date).then(() => {
               if (typeof buildTableOfContents === 'function') {
