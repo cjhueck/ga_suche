@@ -11,75 +11,26 @@
           {
             "id": "58e8e74e559531d9",
             "type": "tabs",
-            "dimension": 76.85185185185185,
+            "dimension": 54.57705677867902,
             "children": [
-              {
-                "id": "98f597e3d4a98f12",
-                "type": "leaf",
-                "state": {
-                  "type": "pdf",
-                  "state": {
-                    "file": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte/Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte.pdf"
-                  },
-                  "icon": "lucide-file-text",
-                  "title": "Steiner, Rudolf GA 078, 1986 - Anthroposophie, ihre Erkenntniswurzeln und Lebensfrüchte"
-                }
-              },
-              {
-                "id": "97a6e1e20dca43bd",
-                "type": "leaf",
-                "state": {
-                  "type": "pdf",
-                  "state": {
-                    "file": "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen.pdf"
-                  },
-                  "icon": "lucide-file-text",
-                  "title": "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen"
-                }
-              },
-              {
-                "id": "fbca95dd1b5b3b42",
-                "type": "leaf",
-                "state": {
-                  "type": "pdf",
-                  "state": {
-                    "file": "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen.pdf"
-                  },
-                  "icon": "lucide-file-text",
-                  "title": "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen"
-                }
-              },
-              {
-                "id": "9982ad9defc0a267",
-                "type": "leaf",
-                "state": {
-                  "type": "pdf",
-                  "state": {
-                    "file": "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen.pdf"
-                  },
-                  "icon": "lucide-file-text",
-                  "title": "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen"
-                }
-              },
               {
                 "id": "ab299cc6a757097d",
                 "type": "leaf",
                 "state": {
-                  "type": "pdf",
+                  "type": "image",
                   "state": {
-                    "file": "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium.pdf"
+                    "file": "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-2.png"
                   },
-                  "icon": "lucide-file-text",
-                  "title": "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium"
+                  "icon": "lucide-image",
+                  "title": "img-2"
                 }
               }
-            ],
-            "currentTab": 4
+            ]
           },
           {
             "id": "0d7613e148858720",
             "type": "tabs",
-            "dimension": 23.14814814814815,
+            "dimension": 45.42294322132097,
             "children": [
               {
                 "id": "1b1b1848baf45fd8",
@@ -87,7 +38,7 @@
                 "state": {
                   "type": "image",
                   "state": {
-                    "file": "Steiner, Rudolf GA 095, 1990 - Vor dem Tore der Theosophie/assets/img-0.png"
+                    "file": "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-0.png"
                   },
                   "icon": "lucide-image",
                   "title": "img-0"
@@ -104,17 +55,17 @@
         "dimension": 48.24473420260782,
         "children": [
           {
-            "id": "02453997dc84f55a",
+            "id": "100590451e4ac0d8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium_final.md",
+                "file": "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers/Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium_final"
+              "title": "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers"
             }
           }
         ]
@@ -252,13 +203,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium_final.md",
+                "file": "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers/Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium_final"
+              "title": "Outline of Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers"
             }
           }
         ],
@@ -279,24 +230,28 @@
       "bases:Create new base": false
     }
   },
-  "active": "02453997dc84f55a",
+  "active": "189fb7af378e87fa",
   "lastOpenFiles": [
-    "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium.pdf",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen_final.md",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-0.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-2.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-1.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-8.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen.md",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen_prepared.md",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-10.png",
     "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium_final.md",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen.pdf",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-7.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-9.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-11.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-3.png",
+    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-4.png",
+    "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium.pdf",
     "Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft/Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft.pdf",
     "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium.md",
     "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium_prepared.md",
-    "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/assets/img-0.png",
-    "Steiner, Rudolf GA 097, 1998 - Das christliche Mysterium/assets/img-1.png",
     "Steiner, Rudolf GA 095, 1990 - Vor dem Tore der Theosophie/Steiner, Rudolf GA 095, 1990 - Vor dem Tore der Theosophie_final.md",
-    "Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis/assets/img-0.png",
-    "Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis/assets/img-1.png",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-11.png",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-10.png",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-9.png",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-8.png",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-7.png",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/assets/img-6.png",
     "Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft/Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft_final.md",
     "Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft/Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft.md",
     "Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft/Steiner, Rudolf GA 096, 1989 - Ursprungsimpulse der Geisteswissenschaft_prepared.md",
@@ -320,11 +275,7 @@
     "Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende/Steiner, Rudolf GA 093, 1991 - Die Tempellegende und die goldene Legende_prepared.md",
     "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen.pdf",
     "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen_final.md",
-    "Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen/Steiner, Rudolf GA 098, 1996 - Natur- und Geistwesen.md",
     "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers/Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers.md",
-    "Steiner, Rudolf GA 099, 1985 - Die Theosophie des Rosenkreuzers",
-    "Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis/Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis.md",
-    "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen.md",
-    "Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen/Steiner, Rudolf GA 092, 1999 - Die okkulten Wahrheiten alter Mythen und Sagen_prepared.md"
+    "Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis/Steiner, Rudolf GA 100, 1981 - Menschheitsentwicklung und Christuserkenntnis.md"
   ]
 }
