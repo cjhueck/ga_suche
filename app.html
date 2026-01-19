@@ -39,7 +39,8 @@ if (typeof pdfjsLib !== 'undefined') {
       float: left;
       position: relative;
       z-index: 9999;
-      margin-left: -2.5em; /* Abstand zum Text - kann hier angepasst werden */
+      /* Seitenzahl links vom Text positionieren */
+      margin-left: -2.5em;
       margin-right: 0em;
       margin-top: 4px;
       width: 2em;
@@ -2564,7 +2565,8 @@ body.dark-mode .ga-missing-text {
       display: flex;
       flex-direction: row;
       min-width: 0;
-      overflow: hidden;
+      overflow-x: visible; /* WICHTIG: Seitenzahlen links dürfen nicht abgeschnitten werden */
+      overflow-y: hidden;
       margin-top: 0; /* Wird dynamisch über JavaScript gesetzt */
     }
     
@@ -2572,9 +2574,8 @@ body.dark-mode .ga-missing-text {
       flex: 1;
       overflow-y: auto; /* #main scrollt wieder - alle Scroll-Referenzen verwenden #main */
       overflow-x: visible;
-      /* ZENTRALES PADDING - reduziert für Seitenzahlen-Sichtbarkeit */
-      /* Linkes Padding reduziert, damit Seitenzahlen nicht überdeckt werden */
-      padding: 0.5rem 0.6rem 2rem 0rem !important; /* top right bottom left - kann hier angepasst werden */
+      /* ZENTRALES PADDING - symmetrisch links/rechts (0), nur oben/unten */
+      padding: 0.5rem 0 2rem 0 !important; /* top right bottom left */
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -3928,8 +3929,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     
     #viewer {
       line-height: 1.4 !important;
-      /* padding-left für Seitenzahlen-Platzierung (Seitenzahlen schweben mit -2.5em) */
-      padding: 0.5rem 0.5rem 0.5rem 0.4em !important;
+      /* padding: top right bottom left - links und rechts symmetrisch */
+      padding: 0.5rem 2.5em 0.5rem 2.5em !important;
       word-break: keep-all !important;
       cursor: text !important; /* Textauswahlwerkzeug beim Hover über Text */
       overflow-wrap: break-word !important;
@@ -3939,7 +3940,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #viewer-content {
       flex: 1;
       overflow: visible; /* Kein eigenes Scrollen - #main scrollt */
-      padding: 0.5rem 0rem 0.5rem 2em; /* padding-left für Text (kann hier angepasst werden) */
+      /* KEIN zusätzliches padding-left - wird von #viewer übernommen */
+      padding: 0;
       word-break: keep-all !important;
       cursor: text !important;
       overflow-wrap: break-word !important;
@@ -6985,15 +6987,17 @@ body.dark-mode #viewer-search-close:hover {
   opacity: 1;
 }
 
-/* Viewer-Container für Suchfenster und Content */
-#viewer-container {
+/* Viewer-Container für Suchfenster und Content (NUR im Summary-Panel!) */
+#summary-panel #viewer-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
 
-#viewer-content {
+/* WICHTIG: Diese Regel gilt NUR für viewer-content IM Summary-Panel!
+   Das Haupt-#viewer-content (Zeile 3944) muss overflow: visible haben für Seitenzahlen! */
+#summary-panel #viewer-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
@@ -10421,14 +10425,21 @@ function preprocessObsidianLineBreaks(markdown) {
 // Hilfsfunktion: Konvertiere Seitenmarker |47| zu sichtbarem Format
 // VEREINFACHT: Seitenzahl als hochgestellte kleine graue Zahl mit | davor
 function convertPageMarkers(html) {
+  console.log('[convertPageMarkers] AUFGERUFEN, html length:', html ? html.length : 0);
+  
   if (!html || typeof html !== 'string') {
+    console.log('[convertPageMarkers] html ist leer oder kein String!');
     return html;
   }
 
   // Debug: Prüfe ob Marker im Text vorhanden sind
   const hasMarker = /\|\d{1,4}\|/.test(html);
+  console.log('[convertPageMarkers] hasMarker:', hasMarker);
   if (hasMarker) {
     console.log('[convertPageMarkers] Marker gefunden!');
+    // Zeige erste paar Marker
+    const markers = html.match(/\|\d{1,4}\|/g);
+    console.log('[convertPageMarkers] Gefundene Marker:', markers ? markers.slice(0, 5) : 'keine');
   }
 
   let cleanedHtml = html;
@@ -10457,11 +10468,13 @@ function convertPageMarkers(html) {
   }
 
   // Ersetze |123| durch sichtbares Format: | im Text, Seitenzahl links am Rand
-  return cleanedHtml.replace(/\|(\d{1,4})\|/g,
-    '<span class="page-break-container" title="Seite $1">' +
-    '<span class="page-break-num">$1</span>' +
-    '<span class="page-break-bar">|</span>' +
-    '</span>');
+  // Bei Klick auf die Seitenzahl wird das PDF auf der entsprechenden Seite geöffnet
+  return cleanedHtml.replace(/\|(\d{1,4})\|/g, function(match, pageNum) {
+    return '<span class="page-break-container" title="Seite ' + pageNum + ' - Klicken um PDF zu öffnen" onclick="window.jumpToPdfPage && window.jumpToPdfPage(' + pageNum + ')">' +
+      '<span class="page-break-num">' + pageNum + '</span>' +
+      '<span class="page-break-bar">|</span>' +
+      '</span>';
+  });
 }
 
 // Prüft ob eine GA-Nummer ein Aufsatzband ist (GA029-GA037 oder GA046)
@@ -10715,8 +10728,8 @@ function normalizeGANumber(gaNumber) {
       viewer.id = 'viewer';
       viewer.className = 'viewer';
       // Setze Padding explizit, um sicherzustellen, dass es sofort angewendet wird
-      // CSS definiert: padding: 0.5rem 0.5rem 0.5rem 0.4em !important
-      viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+      // CSS definiert: padding: 0.5rem 2.5em 0.5rem 2.5em !important (symmetrisch links/rechts)
+      viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
       viewer.style.setProperty('line-height', '1.4', 'important');
       viewer.style.setProperty('word-break', 'keep-all', 'important');
       viewer.style.setProperty('cursor', 'text', 'important');
@@ -10735,12 +10748,12 @@ function normalizeGANumber(gaNumber) {
       const mainEl = document.getElementById('main');
       if (mainEl) {
         // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
-        // CSS definiert: padding: 0.5rem 0.6rem 2rem 0rem !important
+        // CSS definiert: padding: 0.5rem 0 2rem 0 !important (symmetrisch links/rechts = 0)
         // Verwende setProperty mit 'important', um sicherzustellen, dass es angewendet wird
         mainEl.style.setProperty('padding-top', '0.5rem', 'important');
-        mainEl.style.setProperty('padding-right', '0.6rem', 'important');
+        mainEl.style.setProperty('padding-right', '0', 'important');
         mainEl.style.setProperty('padding-bottom', '2rem', 'important');
-        mainEl.style.setProperty('padding-left', '0rem', 'important');
+        mainEl.style.setProperty('padding-left', '0', 'important');
         
         // Stelle sicher, dass position: relative gesetzt ist (falls nötig)
         const currentStyle = mainEl.getAttribute('style') || '';
@@ -10770,13 +10783,13 @@ function normalizeGANumber(gaNumber) {
           const paddingBottom = computedStyle.paddingBottom;
           const paddingLeft = computedStyle.paddingLeft;
           
-          // Prüfe ob das Padding korrekt ist (CSS: 0.3rem 0.6rem 2rem 0rem)
-          if (paddingTop !== '0.5rem' || paddingRight !== '0.6rem' || paddingBottom !== '2rem' || paddingLeft !== '0px') {
+          // Prüfe ob das Padding korrekt ist (CSS: 0.5rem 0 2rem 0)
+          if (paddingTop !== '0.5rem' || paddingRight !== '0px' || paddingBottom !== '2rem' || paddingLeft !== '0px') {
             // Padding ist nicht korrekt - setze es sofort wieder
             mainEl.style.setProperty('padding-top', '0.5rem', 'important');
-            mainEl.style.setProperty('padding-right', '0.6rem', 'important');
+            mainEl.style.setProperty('padding-right', '0', 'important');
             mainEl.style.setProperty('padding-bottom', '2rem', 'important');
-            mainEl.style.setProperty('padding-left', '0rem', 'important');
+            mainEl.style.setProperty('padding-left', '0', 'important');
           }
         }
       });
@@ -11451,9 +11464,9 @@ function normalizeGANumber(gaNumber) {
         
         // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
         mainElement.style.setProperty('padding-top', '0.5rem', 'important');
-        mainElement.style.setProperty('padding-right', '0.6rem', 'important');
+        mainElement.style.setProperty('padding-right', '0', 'important');
         mainElement.style.setProperty('padding-bottom', '2rem', 'important');
-        mainElement.style.setProperty('padding-left', '0rem', 'important');
+        mainElement.style.setProperty('padding-left', '0', 'important');
       }
       
       // Stelle sicher, dass Padding-Werte nicht durch inline-styles überschrieben werden
@@ -11521,9 +11534,9 @@ function normalizeGANumber(gaNumber) {
         
         // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
         mainElementForTabSwitch.style.setProperty('padding-top', '0.5rem', 'important');
-        mainElementForTabSwitch.style.setProperty('padding-right', '0.6rem', 'important');
+        mainElementForTabSwitch.style.setProperty('padding-right', '0', 'important');
         mainElementForTabSwitch.style.setProperty('padding-bottom', '2rem', 'important');
-        mainElementForTabSwitch.style.setProperty('padding-left', '0rem', 'important');
+        mainElementForTabSwitch.style.setProperty('padding-left', '0', 'important');
       }
       
       // Stelle sicher, dass Padding-Werte nicht durch inline-styles überschrieben wurden
@@ -15395,9 +15408,9 @@ async function toggleChalkboardsView() {
       
       // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
       mainElement.style.setProperty('padding-top', '0.5rem', 'important');
-      mainElement.style.setProperty('padding-right', '0.6rem', 'important');
+      mainElement.style.setProperty('padding-right', '0', 'important');
       mainElement.style.setProperty('padding-bottom', '2rem', 'important');
-      mainElement.style.setProperty('padding-left', '0rem', 'important');
+      mainElement.style.setProperty('padding-left', '0', 'important');
     }
     
     // Stelle sicher, dass Padding-Werte nicht durch inline-styles überschrieben wurden
@@ -15768,11 +15781,11 @@ function displayChalkboardsGallery(chalkboards) {
     mainElementForChalkboards.style.position = 'relative';
     
     // WICHTIG: Setze Padding explizit mit !important, damit es garantiert angewendet wird
-    // CSS definiert: padding: 0.5rem 0.6rem 2rem 0rem !important
+    // CSS definiert: padding: 0.5rem 0 2rem 0 !important
     mainElementForChalkboards.style.setProperty('padding-top', '0.5rem', 'important');
-    mainElementForChalkboards.style.setProperty('padding-right', '0.6rem', 'important');
+    mainElementForChalkboards.style.setProperty('padding-right', '0', 'important');
     mainElementForChalkboards.style.setProperty('padding-bottom', '2rem', 'important');
-    mainElementForChalkboards.style.setProperty('padding-left', '0rem', 'important');
+    mainElementForChalkboards.style.setProperty('padding-left', '0', 'important');
   }
   
   // Stelle sicher, dass Padding-Werte korrekt gesetzt sind
@@ -16544,7 +16557,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
   if (viewer) {
-    viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+    viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
   }
   
   if (!viewer || !documentTitle) return;
@@ -19901,7 +19914,7 @@ function scrollToChronologicalYear(year) {
         // Stelle sicher, dass Viewer korrektes Padding hat
         const viewerAfterSwitch = document.getElementById('viewer');
         if (viewerAfterSwitch) {
-          viewerAfterSwitch.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+          viewerAfterSwitch.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 2.5em', 'important');
         }
         
         // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
@@ -19968,7 +19981,7 @@ function scrollToChronologicalYear(year) {
             // WICHTIG: Stelle Viewer-Padding nochmal sicher (nach showLecture)
             const viewerAfterLecture = document.getElementById('viewer');
             if (viewerAfterLecture) {
-              viewerAfterLecture.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+              viewerAfterLecture.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 2.5em', 'important');
             }
           } else {
             console.error('[NAVIGATION] showLecture Funktion nicht verfügbar');
@@ -27536,7 +27549,7 @@ function showSummaryView() {
   
   // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
   if (viewer) {
-    viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+    viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
   }
   
   // WICHTIG: Wenn Navigation aus dem Members Panel läuft, NICHT das Panel schließen!
@@ -31817,7 +31830,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
       if (viewer) {
-        viewer.style.setProperty('padding', '0.5rem 0.5rem 0.5rem 0.4em', 'important');
+        viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
       }
       
       // Normalisiere den Index - füge ^ hinzu wenn es fehlt
