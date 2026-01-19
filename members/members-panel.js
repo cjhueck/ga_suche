@@ -1298,7 +1298,7 @@ function renderHighlightsList(container, sortedData) {
                 </span>
               </a>
               ${shouldShowLink
-                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</a></strong>`
                 : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
               }
             </div>
@@ -2199,7 +2199,7 @@ function renderQuotesList(container, sortedData) {
                 </span>`
             }
             ${shouldShowLink
-              ? `<strong><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+              ? `<strong><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</a></strong>`
               : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
             }
           </div>
@@ -2439,101 +2439,111 @@ async function navigateToQuoteById(quoteId) {
     console.log('[QUOTE-NAV] Text bereits geladen, überspringe showLecture');
   }
   
-  // 3. Warte bis DOM bereit ist und suche nach dem quote_text
+  // 3. Warte bis DOM bereit ist und navigiere zum Absatz mit paragraph_id
   const findAndScrollToQuote = () => {
     const mainContainer = document.getElementById('main');
     if (!mainContainer) return false;
     
     const quoteText = quote.quote_text;
-    if (!quoteText || quoteText.length === 0) {
-      console.warn('[QUOTE-NAV] Kein quote_text vorhanden');
-      return false;
-    }
-    
-    // WICHTIG: Suche NUR im Textbereich (book-content oder lecture-content), nicht im Inhaltsverzeichnis
-    let searchContainer = mainContainer.querySelector('.book-content') || 
-                          mainContainer.querySelector('#book-content') ||
-                          mainContainer.querySelector('.lecture-content') ||
-                          mainContainer.querySelector('#lecture-content');
-    
-    // Falls kein spezifischer Content-Container gefunden, verwende Main
-    if (!searchContainer) {
-      searchContainer = mainContainer;
-    }
     
     // Prüfe ob der Textbereich tatsächlich Inhalt hat
+    const searchContainer = mainContainer.querySelector('.book-content') || 
+                          mainContainer.querySelector('#book-content') ||
+                          mainContainer.querySelector('.lecture-content') ||
+                          mainContainer.querySelector('#lecture-content') ||
+                          mainContainer;
+    
     if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
       console.log('[QUOTE-NAV] Textbereich noch nicht geladen, warte...');
       return false;
     }
     
-    // Suche nach dem Text im Text-Container
-    const fullText = searchContainer.textContent || '';
-    const textIndex = fullText.indexOf(quoteText);
-    
-    if (textIndex === -1) {
-      console.log('[QUOTE-NAV] Text nicht gefunden, versuche verkürzte Suche...');
-      // Versuche mit kürzerem Text (erste 100 Zeichen)
-      const shortText = quoteText.substring(0, Math.min(100, quoteText.length));
-      if (fullText.indexOf(shortText) === -1) {
-        return false;
-      }
-    }
-    
-    console.log('[QUOTE-NAV] Text gefunden, suche DOM-Element...');
-    
-    // Finde das DOM-Element, das den Text enthält
-    const walker = document.createTreeWalker(
-      searchContainer,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    let node;
-    let accumulatedLength = 0;
+    let scrollTarget = null;
     let targetNode = null;
-    let textOffsetInNode = 0; // Offset des gesuchten Textes innerhalb des TextNodes
+    let textOffsetInNode = 0;
     
-    while (node = walker.nextNode()) {
-      const nodeText = node.textContent;
-      // Suche nach dem exakten Text
-      const foundIndex = nodeText.indexOf(quoteText);
-      if (foundIndex !== -1) {
-        targetNode = node;
-        textOffsetInNode = foundIndex;
-        break;
+    // PRIMÄR: Nutze paragraph_id für robuste Navigation
+    if (quote.paragraph_id !== null && quote.paragraph_id !== undefined) {
+      const paraElement = document.getElementById(`para-${quote.paragraph_id}`);
+      
+      if (paraElement) {
+        console.log('[QUOTE-NAV] Absatz mit paragraph_id gefunden:', quote.paragraph_id);
+        scrollTarget = paraElement;
+        
+        // Nutze text_start_offset um zur exakten Textstelle zu navigieren
+        if (quote.text_start_offset !== null && quote.text_start_offset !== undefined) {
+          const walker = document.createTreeWalker(
+            paraElement,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          let accumulatedLength = 0;
+          
+          while (node = walker.nextNode()) {
+            const nodeLength = node.textContent.length;
+            if (accumulatedLength + nodeLength > quote.text_start_offset) {
+              targetNode = node;
+              textOffsetInNode = quote.text_start_offset - accumulatedLength;
+              console.log('[QUOTE-NAV] Textknoten gefunden, Offset:', textOffsetInNode);
+              break;
+            }
+            accumulatedLength += nodeLength;
+          }
+        }
+      } else {
+        console.log('[QUOTE-NAV] Absatz nicht gefunden mit ID para-' + quote.paragraph_id + ', versuche Textsuche...');
       }
-      // Versuche mit kürzerem Text
-      const shortQuoteText = quoteText.substring(0, 50);
-      const foundShortIndex = nodeText.indexOf(shortQuoteText);
-      if (foundShortIndex !== -1) {
-        targetNode = node;
-        textOffsetInNode = foundShortIndex;
-        break;
-      }
-      // Alternativ: Prüfe ob wir in der Nähe des Indexes sind
-      if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
-        targetNode = node;
-        textOffsetInNode = textIndex - accumulatedLength;
-        break;
-      }
-      accumulatedLength += nodeText.length;
     }
     
-    if (!targetNode) {
-      console.warn('[QUOTE-NAV] Kein DOM-Element gefunden');
-      return false;
-    }
-    
-    // Finde das Parent-Element (p, div, etc.) für das Highlighting
-    let scrollTarget = targetNode.parentElement;
-    while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
-      scrollTarget = scrollTarget.parentElement;
+    // FALLBACK: Textsuche wenn paragraph_id nicht funktioniert
+    if (!scrollTarget && quoteText && quoteText.length > 0) {
+      console.log('[QUOTE-NAV] Fallback: Suche nach Text...');
+      
+      const walker = document.createTreeWalker(
+        searchContainer,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let node;
+      while (node = walker.nextNode()) {
+        const nodeText = node.textContent;
+        const foundIndex = nodeText.indexOf(quoteText);
+        if (foundIndex !== -1) {
+          targetNode = node;
+          textOffsetInNode = foundIndex;
+          scrollTarget = node.parentElement;
+          while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+            scrollTarget = scrollTarget.parentElement;
+          }
+          console.log('[QUOTE-NAV] Text gefunden via Textsuche');
+          break;
+        }
+        // Versuche mit kürzerem Text
+        if (quoteText.length > 50) {
+          const shortText = quoteText.substring(0, 50);
+          const foundShortIndex = nodeText.indexOf(shortText);
+          if (foundShortIndex !== -1) {
+            targetNode = node;
+            textOffsetInNode = foundShortIndex;
+            scrollTarget = node.parentElement;
+            while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+              scrollTarget = scrollTarget.parentElement;
+            }
+            console.log('[QUOTE-NAV] Kurztext gefunden via Textsuche');
+            break;
+          }
+        }
+      }
     }
     
     if (!scrollTarget) {
-      scrollTarget = targetNode.parentElement;
+      console.warn('[QUOTE-NAV] Kein Ziel-Element gefunden');
+      return false;
     }
     
     // 4. ZUERST zur exakten Textstelle scrollen, DANN Highlighting anwenden
@@ -2772,146 +2782,156 @@ async function navigateToHighlightById(highlightId) {
     console.log('[HIGHLIGHT-NAV] Text bereits geladen, überspringe showLecture');
   }
   
-  // 3. Warte bis DOM bereit ist und suche nach dem highlightedText - EXAKT wie bei navigateToQuoteById
+  // 3. Warte bis DOM bereit ist und navigiere zum Absatz mit paragraph_id und Offsets
   const findAndScrollToHighlight = () => {
     const mainContainer = document.getElementById('main');
     if (!mainContainer) return false;
     
-    const highlightText = highlightedText;
-    if (!highlightText || highlightText.length === 0) {
-      console.warn('[HIGHLIGHT-NAV] Kein highlighted_text vorhanden');
-      return false;
-    }
-    
-    // WICHTIG: Suche NUR im Textbereich (book-content oder lecture-content), nicht im Inhaltsverzeichnis
-    let searchContainer = mainContainer.querySelector('.book-content') || 
+    // Prüfe ob der Textbereich tatsächlich Inhalt hat
+    const searchContainer = mainContainer.querySelector('.book-content') || 
                           mainContainer.querySelector('#book-content') ||
                           mainContainer.querySelector('.lecture-content') ||
-                          mainContainer.querySelector('#lecture-content');
+                          mainContainer.querySelector('#lecture-content') ||
+                          mainContainer;
     
-    // Falls kein spezifischer Content-Container gefunden, verwende Main
-    if (!searchContainer) {
-      searchContainer = mainContainer;
-    }
-    
-    // Prüfe ob der Textbereich tatsächlich Inhalt hat
     if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
       console.log('[HIGHLIGHT-NAV] Textbereich noch nicht geladen, warte...');
       return false;
     }
     
-    // Suche nach dem Text im Text-Container
-    const fullText = searchContainer.textContent || '';
-    const textIndex = fullText.indexOf(highlightText);
-    
-    if (textIndex === -1) {
-      console.log('[HIGHLIGHT-NAV] Text nicht gefunden, versuche verkürzte Suche...');
-      // Versuche mit kürzerem Text (erste 100 Zeichen)
-      const shortText = highlightText.substring(0, Math.min(100, highlightText.length));
-      if (fullText.indexOf(shortText) === -1) {
-        return false;
-      }
-    }
-    
-    console.log('[HIGHLIGHT-NAV] Text gefunden, suche DOM-Element...');
-    
-    // Finde das DOM-Element, das den Text enthält
-    const walker = document.createTreeWalker(
-      searchContainer,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    let node;
-    let accumulatedLength = 0;
+    let scrollTarget = null;
     let targetNode = null;
     let textOffsetInNode = 0;
     
-    while (node = walker.nextNode()) {
-      const nodeText = node.textContent;
-      // Suche nach dem exakten Text
-      const foundIndex = nodeText.indexOf(highlightText);
-      if (foundIndex !== -1) {
-        targetNode = node;
-        textOffsetInNode = foundIndex;
-        break;
+    // PRIMÄR: Nutze paragraph_id für robuste Navigation
+    if (highlight.paragraph_id !== null && highlight.paragraph_id !== undefined) {
+      const paraElement = document.getElementById(`para-${highlight.paragraph_id}`);
+      
+      if (paraElement) {
+        console.log('[HIGHLIGHT-NAV] Absatz mit paragraph_id gefunden:', highlight.paragraph_id);
+        scrollTarget = paraElement;
+        
+        // Nutze text_start_offset um zur exakten Textstelle zu navigieren
+        if (highlight.text_start_offset !== null && highlight.text_start_offset !== undefined) {
+          // Finde den Textknoten an der richtigen Position
+          const walker = document.createTreeWalker(
+            paraElement,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          let accumulatedLength = 0;
+          
+          while (node = walker.nextNode()) {
+            const nodeLength = node.textContent.length;
+            if (accumulatedLength + nodeLength > highlight.text_start_offset) {
+              targetNode = node;
+              textOffsetInNode = highlight.text_start_offset - accumulatedLength;
+              console.log('[HIGHLIGHT-NAV] Textknoten gefunden, Offset:', textOffsetInNode);
+              break;
+            }
+            accumulatedLength += nodeLength;
+          }
+        }
+      } else {
+        console.log('[HIGHLIGHT-NAV] Absatz nicht gefunden mit ID para-' + highlight.paragraph_id + ', versuche Textsuche...');
       }
-      // Versuche mit kürzerem Text
-      const shortHighlightText = highlightText.substring(0, 50);
-      const foundShortIndex = nodeText.indexOf(shortHighlightText);
-      if (foundShortIndex !== -1) {
-        targetNode = node;
-        textOffsetInNode = foundShortIndex;
-        break;
-      }
-      // Alternativ: Prüfe ob wir in der Nähe des Indexes sind
-      if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
-        targetNode = node;
-        textOffsetInNode = textIndex - accumulatedLength;
-        break;
-      }
-      accumulatedLength += nodeText.length;
     }
     
-    if (!targetNode) {
-      console.warn('[HIGHLIGHT-NAV] Kein DOM-Element gefunden');
-      return false;
-    }
-    
-    // Finde das Parent-Element (p, div, etc.) für das Scrolling
-    let scrollTarget = targetNode.parentElement;
-    while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
-      scrollTarget = scrollTarget.parentElement;
+    // FALLBACK: Textsuche wenn paragraph_id nicht funktioniert
+    if (!scrollTarget && highlightedText && highlightedText.length > 0) {
+      console.log('[HIGHLIGHT-NAV] Fallback: Suche nach Text...');
+      
+      const walker = document.createTreeWalker(
+        searchContainer,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let node;
+      while (node = walker.nextNode()) {
+        const nodeText = node.textContent;
+        // Suche nach dem exakten Text
+        const foundIndex = nodeText.indexOf(highlightedText);
+        if (foundIndex !== -1) {
+          targetNode = node;
+          textOffsetInNode = foundIndex;
+          // Finde Parent-Element für Scrolling
+          scrollTarget = node.parentElement;
+          while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+            scrollTarget = scrollTarget.parentElement;
+          }
+          console.log('[HIGHLIGHT-NAV] Text gefunden via Textsuche');
+          break;
+        }
+        // Versuche mit kürzerem Text (erste 50 Zeichen)
+        if (highlightedText.length > 50) {
+          const shortText = highlightedText.substring(0, 50);
+          const foundShortIndex = nodeText.indexOf(shortText);
+          if (foundShortIndex !== -1) {
+            targetNode = node;
+            textOffsetInNode = foundShortIndex;
+            scrollTarget = node.parentElement;
+            while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+              scrollTarget = scrollTarget.parentElement;
+            }
+            console.log('[HIGHLIGHT-NAV] Kurztext gefunden via Textsuche');
+            break;
+          }
+        }
+      }
     }
     
     if (!scrollTarget) {
-      scrollTarget = targetNode.parentElement;
+      console.warn('[HIGHLIGHT-NAV] Kein Ziel-Element gefunden');
+      return false;
     }
     
-    // 4. ZUERST zur exakten Textstelle scrollen, DANN Highlighting anwenden - EXAKT wie bei navigateToQuoteById
+    // Scrolle zur Textstelle
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
     const mainRect = mainContainer.getBoundingClientRect();
     const viewportHeight = mainRect.height - headerHeight;
-    // Oberes Viertel = 25% der Viewport-Höhe
     const upperQuarterOffset = Math.round(viewportHeight * 0.25);
     
-    // Erstelle temporären Marker an der exakten Textstelle
-    try {
-      const range = document.createRange();
-      const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
-      range.setStart(targetNode, safeOffset);
-      range.setEnd(targetNode, safeOffset);
-      
-      // Füge temporären Marker ein
-      const marker = document.createElement('span');
-      marker.id = 'temp-scroll-marker-' + Date.now();
-      marker.style.cssText = 'position: relative;';
-      range.insertNode(marker);
-      
-      // Verwende scrollIntoView für zuverlässiges Scrollen
-      marker.scrollIntoView({ behavior: 'instant', block: 'start' });
-      
-      // Korrigiere Position für oberes Viertel
-      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
-      console.log('[HIGHLIGHT-NAV] Gescrollt zur exakten Textposition mit scrollIntoView, Offset:', textOffsetInNode);
-      
-      // Entferne Marker nach kurzem Delay
-      setTimeout(() => {
-        if (marker.parentNode) {
-          marker.parentNode.removeChild(marker);
-        }
-      }, 100);
-    } catch (e) {
-      console.warn('[HIGHLIGHT-NAV] Fehler beim Scroll-Marker:', e);
+    // Wenn wir einen exakten Textknoten haben, erstelle Scroll-Marker
+    if (targetNode) {
+      try {
+        const range = document.createRange();
+        const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
+        range.setStart(targetNode, safeOffset);
+        range.setEnd(targetNode, safeOffset);
+        
+        const marker = document.createElement('span');
+        marker.id = 'temp-scroll-marker-' + Date.now();
+        marker.style.cssText = 'position: relative;';
+        range.insertNode(marker);
+        
+        marker.scrollIntoView({ behavior: 'instant', block: 'start' });
+        mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+        console.log('[HIGHLIGHT-NAV] Gescrollt zur exakten Position, paragraph_id:', highlight.paragraph_id, 'offset:', textOffsetInNode);
+        
+        setTimeout(() => {
+          if (marker.parentNode) {
+            marker.parentNode.removeChild(marker);
+          }
+        }, 100);
+      } catch (e) {
+        console.warn('[HIGHLIGHT-NAV] Fehler beim Scroll-Marker:', e);
+        scrollTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+        mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      }
+    } else {
       // Fallback: Scrolle zum Absatz
       scrollTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
       mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
-      console.log('[HIGHLIGHT-NAV] Fallback: Gescrollt zum Absatz');
+      console.log('[HIGHLIGHT-NAV] Gescrollt zum Absatz (ohne exakte Position)');
     }
     
-    // ANTI-FLICKER: Viewer wieder sichtbar machen NACH dem Scrollen
+    // ANTI-FLICKER: Viewer wieder sichtbar machen
     const viewer = document.getElementById('viewer');
     if (viewer) {
       viewer.style.transition = 'opacity 0.15s ease-in';
@@ -2928,8 +2948,15 @@ async function navigateToHighlightById(highlightId) {
   const tryFind = () => {
     attempts++;
     if (findAndScrollToHighlight()) {
-      // Erfolgreich - Cleanup
+      // Erfolgreich - Wende visuelles Highlighting an
       setTimeout(() => {
+        // WICHTIG: Wende das visuelle Highlighting an
+        if (typeof applyStoredHighlight === 'function') {
+          console.log('[HIGHLIGHT-NAV] Wende visuelles Highlighting an...');
+          applyStoredHighlight(highlight);
+        }
+        
+        // Cleanup
         window.membersNavigating = false;
         document.body.classList.remove('members-navigating');
         // Entferne MutationObserver
@@ -2937,7 +2964,7 @@ async function navigateToHighlightById(highlightId) {
           window.membersHighlightNavObserver.disconnect();
           window.membersHighlightNavObserver = null;
         }
-      }, 500);
+      }, 200);
       return;
     }
     
@@ -3109,93 +3136,109 @@ async function navigateToNoteById(noteId) {
     console.log('[NOTE-NAV] Text bereits geladen, überspringe showLecture');
   }
   
-  // 3. Warte bis DOM bereit ist und suche nach dem noteText (EXAKT wie bei Quotes)
+  // 3. Warte bis DOM bereit ist und navigiere zum Absatz mit paragraph_id
   const findAndScrollToNote = () => {
     const mainContainer = document.getElementById('main');
     if (!mainContainer) return false;
     
-    if (!noteText || noteText.length === 0) {
-      console.warn('[NOTE-NAV] Kein noteText vorhanden');
-      return false;
-    }
-    
-    // Suche im Textbereich (EXAKT wie bei Quotes)
-    let searchContainer = mainContainer.querySelector('.book-content') || 
+    // Prüfe ob der Textbereich tatsächlich Inhalt hat
+    const searchContainer = mainContainer.querySelector('.book-content') || 
                           mainContainer.querySelector('#book-content') ||
                           mainContainer.querySelector('.lecture-content') ||
-                          mainContainer.querySelector('#lecture-content');
-    
-    if (!searchContainer) {
-      searchContainer = mainContainer;
-    }
+                          mainContainer.querySelector('#lecture-content') ||
+                          mainContainer;
     
     if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
       console.log('[NOTE-NAV] Textbereich noch nicht geladen, warte...');
       return false;
     }
     
-    const fullText = searchContainer.textContent || '';
-    const textIndex = fullText.indexOf(noteText);
-    
-    if (textIndex === -1) {
-      console.log('[NOTE-NAV] Text nicht gefunden, versuche verkürzte Suche...');
-      const shortText = noteText.substring(0, Math.min(100, noteText.length));
-      if (fullText.indexOf(shortText) === -1) {
-        return false;
-      }
-    }
-    
-    console.log('[NOTE-NAV] Text gefunden, suche DOM-Element...');
-    
-    // Finde DOM-Element (EXAKT wie bei Quotes)
-    const walker = document.createTreeWalker(
-      searchContainer,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    let node;
-    let accumulatedLength = 0;
+    let scrollTarget = null;
     let targetNode = null;
     let textOffsetInNode = 0;
     
-    while (node = walker.nextNode()) {
-      const nodeText = node.textContent;
-      const foundIndex = nodeText.indexOf(noteText);
-      if (foundIndex !== -1) {
-        targetNode = node;
-        textOffsetInNode = foundIndex;
-        break;
+    // PRIMÄR: Nutze paragraph_id für robuste Navigation
+    if (note.paragraph_id !== null && note.paragraph_id !== undefined) {
+      const paraElement = document.getElementById(`para-${note.paragraph_id}`);
+      
+      if (paraElement) {
+        console.log('[NOTE-NAV] Absatz mit paragraph_id gefunden:', note.paragraph_id);
+        scrollTarget = paraElement;
+        
+        // Nutze text_start_offset um zur exakten Textstelle zu navigieren
+        if (note.text_start_offset !== null && note.text_start_offset !== undefined) {
+          const walker = document.createTreeWalker(
+            paraElement,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          let accumulatedLength = 0;
+          
+          while (node = walker.nextNode()) {
+            const nodeLength = node.textContent.length;
+            if (accumulatedLength + nodeLength > note.text_start_offset) {
+              targetNode = node;
+              textOffsetInNode = note.text_start_offset - accumulatedLength;
+              console.log('[NOTE-NAV] Textknoten gefunden, Offset:', textOffsetInNode);
+              break;
+            }
+            accumulatedLength += nodeLength;
+          }
+        }
+      } else {
+        console.log('[NOTE-NAV] Absatz nicht gefunden mit ID para-' + note.paragraph_id + ', versuche Textsuche...');
       }
-      const shortNoteText = noteText.substring(0, 50);
-      const foundShortIndex = nodeText.indexOf(shortNoteText);
-      if (foundShortIndex !== -1) {
-        targetNode = node;
-        textOffsetInNode = foundShortIndex;
-        break;
-      }
-      if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
-        targetNode = node;
-        textOffsetInNode = textIndex - accumulatedLength;
-        break;
-      }
-      accumulatedLength += nodeText.length;
     }
     
-    if (!targetNode) {
-      console.warn('[NOTE-NAV] Kein DOM-Element gefunden');
-      return false;
-    }
-    
-    // Finde Parent-Element (EXAKT wie bei Quotes)
-    let scrollTarget = targetNode.parentElement;
-    while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
-      scrollTarget = scrollTarget.parentElement;
+    // FALLBACK: Textsuche wenn paragraph_id nicht funktioniert
+    if (!scrollTarget && noteText && noteText.length > 0) {
+      console.log('[NOTE-NAV] Fallback: Suche nach Text...');
+      
+      const walker = document.createTreeWalker(
+        searchContainer,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let node;
+      while (node = walker.nextNode()) {
+        const nodeTextContent = node.textContent;
+        const foundIndex = nodeTextContent.indexOf(noteText);
+        if (foundIndex !== -1) {
+          targetNode = node;
+          textOffsetInNode = foundIndex;
+          scrollTarget = node.parentElement;
+          while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+            scrollTarget = scrollTarget.parentElement;
+          }
+          console.log('[NOTE-NAV] Text gefunden via Textsuche');
+          break;
+        }
+        // Versuche mit kürzerem Text
+        if (noteText.length > 50) {
+          const shortText = noteText.substring(0, 50);
+          const foundShortIndex = nodeTextContent.indexOf(shortText);
+          if (foundShortIndex !== -1) {
+            targetNode = node;
+            textOffsetInNode = foundShortIndex;
+            scrollTarget = node.parentElement;
+            while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+              scrollTarget = scrollTarget.parentElement;
+            }
+            console.log('[NOTE-NAV] Kurztext gefunden via Textsuche');
+            break;
+          }
+        }
+      }
     }
     
     if (!scrollTarget) {
-      scrollTarget = targetNode.parentElement;
+      console.warn('[NOTE-NAV] Kein Ziel-Element gefunden');
+      return false;
     }
     
     // Scrolle zur exakten Textstelle (EXAKT wie bei Quotes)
@@ -3248,14 +3291,24 @@ async function navigateToNoteById(noteId) {
   const tryFind = () => {
     attempts++;
     if (findAndScrollToNote()) {
+      // Erfolgreich - Wende visuelles Highlighting an
       setTimeout(() => {
+        // WICHTIG: Wende das visuelle Highlighting für Notizen an
+        if (note.paragraph_id !== null && note.paragraph_id !== undefined &&
+            note.text_start_offset !== null && note.text_end_offset !== null &&
+            typeof markNoteTextByOffset === 'function') {
+          console.log('[NOTE-NAV] Wende visuelles Highlighting an...');
+          markNoteTextByOffset(note.paragraph_id, note.text_start_offset, note.text_end_offset, noteText, note.id);
+        }
+        
+        // Cleanup
         window.membersNavigating = false;
         document.body.classList.remove('members-navigating');
         if (window.membersNoteNavObserver) {
           window.membersNoteNavObserver.disconnect();
           window.membersNoteNavObserver = null;
         }
-      }, 500);
+      }, 200);
       return;
     }
     
@@ -7538,6 +7591,24 @@ function getTextContentWithoutHighlights(element) {
 }
 
 /**
+ * Hilfsfunktion: Entfernt Seitenmarker aus dem Text für robuste Textsuche
+ * Seitenmarker haben das Format: | oder S. XXX | oder ähnlich
+ */
+function removePageMarkers(text) {
+  if (!text) return '';
+  // Entferne verschiedene Seitenmarker-Formate:
+  // - Einzelne | Zeichen (mit oder ohne Leerzeichen)
+  // - S. XXX | Muster
+  // - [S. XXX] Muster
+  return text
+    .replace(/\s*\|\s*/g, ' ')  // | mit Leerzeichen -> einzelnes Leerzeichen
+    .replace(/\s*S\.\s*\d+\s*/g, ' ')  // S. 123 -> Leerzeichen
+    .replace(/\s*\[S\.\s*\d+\]\s*/g, ' ')  // [S. 123] -> Leerzeichen
+    .replace(/\s+/g, ' ')  // Mehrfache Leerzeichen -> einzelnes Leerzeichen
+    .trim();
+}
+
+/**
  * Hilfsfunktion: Wendet Unterstreichung auf ein Element an (vereinheitlicht für Bücher und Vorträge)
  */
 function applyHighlightToElement(targetElement, highlight) {
@@ -7599,8 +7670,46 @@ function applyHighlightToElement(targetElement, highlight) {
       return;
     }
     
-    // Verwende Text ohne Highlights für die Suche
-    if (elementTextWithoutHighlights && elementTextWithoutHighlights.includes(textToHighlight)) {
+    // ROBUST: Versuche verschiedene Methoden, den Text zu finden
+    // 1. Exakte Suche
+    // 2. Suche ohne Seitenmarker (| S. XXX etc.)
+    // 3. Bei text_start_offset === 0: Verwende direkt die Offsets
+    // 4. Normalisierte Suche (trimmed)
+    let textFound = elementTextWithoutHighlights && elementTextWithoutHighlights.includes(textToHighlight);
+    let useDirectOffsets = false;
+    let useNormalizedSearch = false;
+    let normalizedSearchText = textToHighlight;
+    
+    // Wenn nicht gefunden, versuche ohne Seitenmarker
+    if (!textFound) {
+      const elementTextNoMarkers = removePageMarkers(elementTextWithoutHighlights);
+      const searchTextNoMarkers = removePageMarkers(textToHighlight);
+      
+      if (searchTextNoMarkers.length > 10 && elementTextNoMarkers.includes(searchTextNoMarkers)) {
+        console.log('[HIGHLIGHT] Text ohne Seitenmarker gefunden');
+        textFound = true;
+        useNormalizedSearch = true;
+        normalizedSearchText = searchTextNoMarkers;
+      }
+    }
+    
+    // Wenn Text nicht gefunden und text_start_offset ist 0, verwende direkte Offsets
+    if (!textFound && highlight.text_start_offset === 0) {
+      console.log('[HIGHLIGHT] Text nicht gefunden, aber text_start_offset=0, versuche direkte Offset-Methode');
+      useDirectOffsets = true;
+      textFound = true; // Aktiviere die Highlight-Logik
+    }
+    
+    // Wenn immer noch nicht gefunden, versuche mit getrimmtem Text
+    if (!textFound) {
+      const trimmedSearch = textToHighlight.trim();
+      if (trimmedSearch.length > 10 && elementTextWithoutHighlights.includes(trimmedSearch)) {
+        console.log('[HIGHLIGHT] Text mit trim() gefunden');
+        textFound = true;
+      }
+    }
+    
+    if (textFound) {
       // Erstelle Range für die Unterstreichung (mehrzeilig unterstützt)
       // Prüfe ob bereits andere Highlights vorhanden sind
       const existingOtherHighlights = targetElement.querySelectorAll(`[data-highlight-id]:not([data-highlight-id="${highlight.id}"])`);
@@ -7648,10 +7757,70 @@ function applyHighlightToElement(targetElement, highlight) {
       
       // Finde die Position des Textes im akkumulierten Text
       const fullText = textNodes.map(n => n.text).join('');
-      const textIndex = fullText.indexOf(textToHighlight);
       
-      if (textIndex !== -1) {
-        const textEndIndex = textIndex + textToHighlight.length;
+      // ROBUST: Wenn useDirectOffsets, verwende die gespeicherten Offsets direkt
+      let textIndex;
+      let textEndIndex;
+      
+      if (useDirectOffsets) {
+        // Verwende direkt die gespeicherten Offsets
+        textIndex = highlight.text_start_offset;
+        textEndIndex = highlight.text_end_offset;
+        console.log('[HIGHLIGHT] Verwende direkte Offsets:', textIndex, '-', textEndIndex);
+      } else if (useNormalizedSearch) {
+        // Suche mit normalisierten Texten (ohne Seitenmarker)
+        // Strategie: Suche nach dem Anfang des Textes (erste ~30 Zeichen) im Original-Text
+        // und dann berechne die Länge basierend auf dem normalisierten Text
+        
+        // Nimm die ersten Wörter des normalisierten Textes
+        const firstWords = normalizedSearchText.substring(0, Math.min(40, normalizedSearchText.length)).split(/\s+/).slice(0, 5).join(' ');
+        
+        if (firstWords.length > 5) {
+          textIndex = fullText.indexOf(firstWords);
+          
+          if (textIndex === -1) {
+            // Versuche mit noch kürzerem Text
+            const shorterStart = normalizedSearchText.substring(0, 20);
+            textIndex = fullText.indexOf(shorterStart);
+          }
+          
+          if (textIndex !== -1) {
+            // Berechne das Ende: Gehe durch den Text und zähle Zeichen (ignoriere |)
+            let endIndex = textIndex;
+            let charCount = 0;
+            const targetLength = normalizedSearchText.replace(/\|/g, '').length;
+            
+            while (charCount < targetLength && endIndex < fullText.length) {
+              if (fullText[endIndex] !== '|') {
+                charCount++;
+              }
+              endIndex++;
+            }
+            textEndIndex = endIndex;
+            console.log('[HIGHLIGHT] Normalisierte Suche erfolgreich, Offsets:', textIndex, '-', textEndIndex);
+          }
+        }
+        
+        if (textIndex === -1 || textIndex === undefined) {
+          console.log('[HIGHLIGHT] Normalisierte Suche fehlgeschlagen, versuche Fallback');
+          textIndex = -1;
+        }
+      } else {
+        // Normale Textsuche
+        textIndex = fullText.indexOf(textToHighlight);
+        if (textIndex === -1) {
+          // Versuche mit getrimmtem Text
+          const trimmedSearch = textToHighlight.trim();
+          textIndex = fullText.indexOf(trimmedSearch);
+          if (textIndex !== -1) {
+            textEndIndex = textIndex + trimmedSearch.length;
+          }
+        } else {
+          textEndIndex = textIndex + textToHighlight.length;
+        }
+      }
+      
+      if (textIndex !== -1 && textEndIndex !== undefined) {
         
         // Finde Start- und End-Knoten basierend auf den Offsets
         let startNode = null;
@@ -7676,6 +7845,8 @@ function applyHighlightToElement(targetElement, highlight) {
         
         // Fallback: Wenn nicht gefunden, versuche einfache Suche innerhalb eines Knotens
         if (!startNode || !endNode) {
+          console.log('[HIGHLIGHT] Kein Start/End-Knoten gefunden, versuche Fallback. useDirectOffsets:', useDirectOffsets);
+          
           // Erstelle neuen Walker für Fallback
           const existingOtherHighlightsFallback = targetElement.querySelectorAll(`[data-highlight-id]:not([data-highlight-id="${highlight.id}"])`);
           const hasOtherHighlightsFallback = existingOtherHighlightsFallback.length > 0;
@@ -7701,16 +7872,49 @@ function applyHighlightToElement(targetElement, highlight) {
             false
           );
           
-          while (node = fallbackWalker.nextNode()) {
-            const nodeText = node.textContent;
-            const index = nodeText.indexOf(textToHighlight);
-            
-            if (index !== -1) {
+          // ROBUST: Bei useDirectOffsets und text_start_offset=0, nimm den ersten Textknoten
+          if (useDirectOffsets && highlight.text_start_offset === 0) {
+            node = fallbackWalker.nextNode();
+            if (node) {
               startNode = node;
-              startOffsetInNode = index;
-              endNode = node;
-              endOffsetInNode = index + textToHighlight.length;
-              break;
+              startOffsetInNode = 0;
+              // Für end: gehe durch alle Knoten bis wir text_end_offset erreichen
+              let accOffset = node.textContent.length;
+              if (accOffset >= highlight.text_end_offset) {
+                endNode = node;
+                endOffsetInNode = highlight.text_end_offset;
+              } else {
+                // Text geht über mehrere Knoten
+                let currentNode = node;
+                while ((currentNode = fallbackWalker.nextNode()) !== null) {
+                  if (accOffset + currentNode.textContent.length >= highlight.text_end_offset) {
+                    endNode = currentNode;
+                    endOffsetInNode = highlight.text_end_offset - accOffset;
+                    break;
+                  }
+                  accOffset += currentNode.textContent.length;
+                }
+                // Falls nicht gefunden, nimm das Ende des ersten Knotens
+                if (!endNode) {
+                  endNode = node;
+                  endOffsetInNode = Math.min(node.textContent.length, highlight.text_end_offset);
+                }
+              }
+              console.log('[HIGHLIGHT] Fallback erfolgreich: startOffset=0, endOffset=', endOffsetInNode);
+            }
+          } else {
+            // Normale Textsuche im Fallback
+            while (node = fallbackWalker.nextNode()) {
+              const nodeText = node.textContent;
+              const index = nodeText.indexOf(textToHighlight);
+              
+              if (index !== -1) {
+                startNode = node;
+                startOffsetInNode = index;
+                endNode = node;
+                endOffsetInNode = index + textToHighlight.length;
+                break;
+              }
             }
           }
         }
