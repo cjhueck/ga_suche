@@ -10553,7 +10553,7 @@ function formatParagraphContentForDisplay(content) {
 }
 
 // Hilfsfunktion: Schützt Text in <> vor HTML-Interpretation
-// Ersetzt <Text> durch Platzhalter, die nach marked.parse() wieder zurück ersetzt werden
+// Konvertiert <Text> zu &lt;Text&gt;, damit es als < und > angezeigt wird
 function protectAngleBrackets(text) {
   if (!text || typeof text !== 'string') {
     return text;
@@ -10578,9 +10578,6 @@ function protectAngleBrackets(text) {
   
   const pattern = /<([a-zA-Z0-9_\-\.]+)>/g;
   
-  let placeholderIndex = 0;
-  const placeholders = [];
-  
   text = text.replace(pattern, (match, content) => {
     // Überspringe wenn es wie ein HTML-Tag aussieht
     if (htmlTags.includes(content.toLowerCase())) {
@@ -10588,15 +10585,12 @@ function protectAngleBrackets(text) {
     }
     
     // Überspringe wenn es bereits ein Platzhalter ist
-    if (match.includes('__ANGLE_BRACKET_') || match.includes('__IMAGE_PLACEHOLDER_')) {
+    if (match.includes('__IMAGE_PLACEHOLDER_')) {
       return match;
     }
     
-    // Erstelle eindeutigen Platzhalter
-    const placeholder = `__ANGLE_BRACKET_START_${placeholderIndex}__${content}__ANGLE_BRACKET_END_${placeholderIndex}__`;
-    placeholders.push({ placeholder, original: match });
-    placeholderIndex++;
-    return placeholder;
+    // Konvertiere direkt zu HTML-Entities, damit < und > als Zeichen angezeigt werden
+    return `&lt;${content}&gt;`;
   });
   
   // Stelle Bild-Pfade wieder her
@@ -10607,16 +10601,17 @@ function protectAngleBrackets(text) {
   return text;
 }
 
-// Hilfsfunktion: Ersetzt Platzhalter zurück zu <>
+// Hilfsfunktion: Ersetzt alte Platzhalter zurück (für Abwärtskompatibilität)
+// Konvertiert alte Platzhalter zu HTML-Entities
 function restoreAngleBrackets(html) {
   if (!html || typeof html !== 'string') {
     return html;
   }
   
-  // Ersetze alle Platzhalter zurück
+  // Ersetze alte Platzhalter zu HTML-Entities (falls noch vorhanden aus gecachten Daten)
   const pattern = /__ANGLE_BRACKET_START_(\d+)__(.+?)__ANGLE_BRACKET_END_\1__/g;
   return html.replace(pattern, (match, index, content) => {
-    return `<${content}>`;
+    return `&lt;${content}&gt;`;
   });
 }
 
