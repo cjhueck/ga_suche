@@ -102,14 +102,14 @@ def convert_jpeg_to_png_in_folder(folder_path: Path) -> int:
                 if image_file.suffix.lower() in ('.jpeg', '.jpg'):
                     png_file = image_file.with_suffix('.png')
                     with Image.open(image_file) as img:
-                if img.mode in ('RGBA', 'LA', 'P'):
-                    img.save(png_file, 'PNG', optimize=True)
-                else:
-                    rgb_img = Image.new('RGB', img.size, (255, 255, 255))
-                    rgb_img.paste(img)
-                    rgb_img.save(png_file, 'PNG', optimize=True)
+                        if img.mode in ('RGBA', 'LA', 'P'):
+                            img.save(png_file, 'PNG', optimize=True)
+                        else:
+                            rgb_img = Image.new('RGB', img.size, (255, 255, 255))
+                            rgb_img.paste(img)
+                            rgb_img.save(png_file, 'PNG', optimize=True)
                     image_file.unlink()
-            converted += 1
+                    converted += 1
             
         except Exception as e:
             print(f"    FEHLER bei {image_file.name}: {e}")
