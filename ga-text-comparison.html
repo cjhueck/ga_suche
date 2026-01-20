@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vergleich</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-color: #333333;
+            --heading-color: #467886;
+            --link-color: #467886;
+            --accent-color: #467886;
+            --background-color: #FAF8F3;
+            --panel-bg: #ffffff;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --diff-added: #d4edda;
+            --diff-removed: #f8d7da;
+            --diff-changed: #fff3cd;
+            --highlight-color: #ffeb3b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Header / Controls */
+        .header {
+            background: white;
+            border-bottom: 2px solid var(--accent-color);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        
+        .header h1 {
+            color: var(--heading-color);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-right: auto;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .control-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--secondary-text);
+        }
+        
+        .control-group input,
+        .control-group select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(70, 120, 134, 0.2);
+        }
+        
+        #ga-input {
+            width: 80px;
+        }
+        
+        #vortrag-select {
+            width: 350px;
+        }
+        
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn:hover {
+            background: #3a6a7a;
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        
+        /* Panels */
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-width: 0;
+        }
+        
+        /* PDF Panel - breiter */
+        #pdf-panel {
+            flex: 1.2;
+            min-width: 300px;
+            overflow: hidden;
+        }
+        
+        /* Seitenmarker-Spalte */
+        #page-markers-panel {
+            width: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            background: #f5f5f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        #page-markers-panel .panel-header {
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        
+        #page-markers-list {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0.25rem;
+        }
+        
+        .page-marker-item {
+            padding: 0.25rem 0.5rem;
+            margin: 2px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .page-marker-item:hover {
+            background: #e0e0e0;
+        }
+        
+        .page-marker-item.active {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .marker-highlight {
+            background: #ffeb3b;
+            font-weight: bold;
+        }
+        
+        #pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+        
+        .panel-status {
+            font-size: 0.75rem;
+            color: var(--secondary-text);
+        }
+        
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Local Panel - Editable */
+        #local-panel .panel-content {
+            padding: 0;
+        }
+        
+        /* Left panel: no double scrollbar */
+        .panel:first-child .panel-content {
+            overflow: hidden;
+            padding: 0;
+        }
+        
+        #local-editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+            padding: 1rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            resize: none;
+            background: white;
+            overflow-x: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        #local-editor:focus {
+            outline: none;
+        }
+        
+        /* Online Panel */
+        #online-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        #online-content-wrapper {
+            overflow-x: hidden;
+        }
+        
+        /* Diff Panel - schmaler */
+        .diff-panel {
+            max-width: 280px;
+            min-width: 200px;
+            flex: 0.6;
+        }
+        
+        .diff-list {
+            list-style: none;
+        }
+        
+        .diff-item {
+            padding: 6px 10px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .diff-item:hover {
+            transform: translateX(2px);
+        }
+        
+        .diff-item.replace {
+            background: var(--diff-changed);
+            border-left-color: #856404;
+        }
+        
+        .diff-item.delete {
+            background: var(--diff-removed);
+            border-left-color: #721c24;
+        }
+        
+        .diff-item.insert {
+            background: var(--diff-added);
+            border-left-color: #155724;
+        }
+        
+        .diff-text {
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+        
+        .diff-local {
+            color: #721c24;
+            margin-bottom: 3px;
+        }
+        
+        .diff-online {
+            color: #155724;
+        }
+        
+        /* Highlighted text */
+        .highlight {
+            background: var(--highlight-color);
+            padding: 2px 0;
+        }
+        
+        /* Loading indicator */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--secondary-text);
+        }
+        
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Status messages */
+        .status-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-message.info {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Diff summary */
+        .diff-summary {
+            padding: 10px 15px;
+            background: #e9ecef;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.8rem;
+        }
+        
+        .diff-count {
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+        
+        /* No differences */
+        .no-diff {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--secondary-text);
+        }
+        
+        /* Diff hint */
+        .diff-hint {
+            font-size: 0.75rem;
+            color: var(--secondary-text);
+            padding: 4px 8px;
+            background: #f5f5f5;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        /* Search */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .search-bar input {
+            padding: 4px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: 150px;
+        }
+        
+        .search-bar button {
+            padding: 4px 10px;
+            border: none;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .search-bar button:hover {
+            background: #3a6a7a;
+        }
+        
+        .search-highlight {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Controls -->
+    <div class="header">
+        <h1>Vergleich</h1>
+        
+        <div class="control-group">
+            <label for="ga-input">GA:</label>
+            <input type="text" id="ga-input" placeholder="z.B. 102">
+            <button class="btn btn-primary" onclick="loadGA()">Laden</button>
+        </div>
+        
+        <div class="control-group">
+            <label for="vortrag-select">Vortrag:</label>
+            <select id="vortrag-select" disabled>
+                <option value="">-- Wähle Vortrag --</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <button class="btn" onclick="saveLocal()" title="Lokale Änderungen speichern">Speichern</button>
+            <button class="btn" onclick="fixPageMarkers()" title="Seitenmarker korrigieren">Korrigieren</button>
+            <button class="btn" onclick="refreshDiff()" title="Vergleich aktualisieren">Vergleichen</button>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Page Markers Panel -->
+        <div id="page-markers-panel">
+            <div class="panel-header">
+                <span class="panel-title">Seiten</span>
+            </div>
+            <div id="page-markers-list"></div>
+        </div>
+        
+        <!-- Local Panel (Editable) -->
+        <div class="panel" id="local-panel">
+            <div class="panel-header">
+                <span class="panel-title">Lokal</span>
+                <span class="panel-status" id="local-status">Kein Text geladen</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="local-search" placeholder="Suchen...">
+                <button onclick="searchLocal()">Suchen</button>
+                <button onclick="searchLocalNext()">Weiter</button>
+            </div>
+            <div class="panel-content">
+                <textarea id="local-editor" placeholder="Wähle einen GA-Band und Vortrag aus..." spellcheck="false"></textarea>
+            </div>
+        </div>
+        
+        <!-- Online Panel -->
+        <div class="panel" id="online-panel">
+            <div class="panel-header">
+                <span class="panel-title">Online</span>
+                <span class="panel-status" id="online-status">Kein Text geladen</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="online-search" placeholder="Suchen...">
+                <button onclick="searchOnline()">Suchen</button>
+                <button onclick="searchOnlineNext()">Weiter</button>
+            </div>
+            <div class="panel-content" id="online-content-wrapper">
+                <div id="online-content">Wähle einen GA-Band und Vortrag aus...</div>
+            </div>
+        </div>
+        
+        <!-- Diff Panel -->
+        <div class="panel diff-panel" id="diff-panel">
+            <div class="panel-header">
+                <span class="panel-title">Abweichungen</span>
+                <span class="panel-status" id="diff-status">-</span>
+            </div>
+            <div class="diff-summary" id="diff-summary" style="display: none;">
+                <span class="diff-count" id="diff-count">0</span> Abweichungen gefunden
+            </div>
+            <div class="panel-content" id="diff-content">
+                <div class="no-diff">
+                    <p>Lade Texte zum Vergleichen</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PDF Panel -->
+        <div class="panel" id="pdf-panel">
+            <div class="panel-header">
+                <span class="panel-title">PDF</span>
+                <span class="panel-status" id="pdf-status">Kein PDF geladen</span>
+            </div>
+            <div class="search-bar">
+                <input type="number" id="pdf-page-input" placeholder="Seite" min="1" style="width: 60px;">
+                <button onclick="goToInputPage()">Gehe zu</button>
+            </div>
+            <div class="panel-content" style="padding: 0; overflow: hidden;">
+                <iframe id="pdf-viewer" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentGA = null;
+        let currentVortrag = null;
+        let currentFilepath = null;
+        let onlineVortraege = {};
+        let syncScrollEnabled = true;
+        
+        const API_BASE = 'http://localhost:3004/api';
+        
+        // Elements
+        const gaInput = document.getElementById('ga-input');
+        const vortragSelect = document.getElementById('vortrag-select');
+        const localEditor = document.getElementById('local-editor');
+        const onlineContent = document.getElementById('online-content');
+        const diffContent = document.getElementById('diff-content');
+        const localStatus = document.getElementById('local-status');
+        const onlineStatus = document.getElementById('online-status');
+        const diffStatus = document.getElementById('diff-status');
+        const diffSummary = document.getElementById('diff-summary');
+        const diffCount = document.getElementById('diff-count');
+        const pdfViewer = document.getElementById('pdf-viewer');
+        const pdfStatus = document.getElementById('pdf-status');
+        const pageMarkersList = document.getElementById('page-markers-list');
+        
+        // PDF State
+        let currentPdfUrl = null;
+        let currentPdfPage = 1;
+        
+        // Page Markers State
+        let pageMarkers = []; // Array von {page, position}
+        
+        // Extrahiere Seitenmarker aus Text
+        function extractPageMarkers(text) {
+            const markers = [];
+            const regex = /\|(\d+)\|/g;
+            let match;
+            while ((match = regex.exec(text)) !== null) {
+                markers.push({
+                    page: parseInt(match[1]),
+                    position: match.index,
+                    length: match[0].length
+                });
+            }
+            return markers;
+        }
+        
+        // Zeige Seitenmarker in der Liste
+        function renderPageMarkers() {
+            pageMarkersList.innerHTML = '';
+            
+            if (pageMarkers.length === 0) {
+                pageMarkersList.innerHTML = '<div style="padding: 0.5rem; font-size: 0.7rem; color: #999;">Keine</div>';
+                return;
+            }
+            
+            pageMarkers.forEach((marker, index) => {
+                const item = document.createElement('div');
+                item.className = 'page-marker-item';
+                item.textContent = marker.page;
+                item.dataset.index = index;
+                item.onclick = () => scrollToPageMarker(index);
+                pageMarkersList.appendChild(item);
+            });
+        }
+        
+        // Scrolle zum Seitenmarker im lokalen Editor
+        function scrollToPageMarker(index) {
+            const marker = pageMarkers[index];
+            if (!marker) return;
+            
+            // Highlight in der Liste
+            document.querySelectorAll('.page-marker-item').forEach(el => el.classList.remove('active'));
+            const activeItem = document.querySelector(`.page-marker-item[data-index="${index}"]`);
+            if (activeItem) activeItem.classList.add('active');
+            
+            const text = localEditor.value;
+            const totalLength = text.length;
+            
+            // Methode 1: Setze Selection und nutze scrollIntoView-ähnliches Verhalten
+            localEditor.focus();
+            localEditor.setSelectionRange(marker.position, marker.position + marker.length);
+            
+            // Methode 2: Berechne Scroll-Position basierend auf Zeichenposition
+            // Etwas vor dem Marker scrollen, damit er sichtbar ist
+            const scrollRatio = Math.max(0, (marker.position - 200) / totalLength);
+            const scrollHeight = localEditor.scrollHeight - localEditor.clientHeight;
+            const targetScroll = scrollRatio * scrollHeight;
+            
+            // Scrolle zum Marker
+            localEditor.scrollTop = targetScroll;
+            
+            // PDF direkt synchronisieren (nicht über Scroll-Event, da zuverlässiger)
+            if (currentPdfUrl) {
+                forceGoToPdfPage(marker.page);
+            }
+        }
+        
+        // Update Marker-Liste wenn Text sich ändert
+        function updatePageMarkers() {
+            const text = localEditor.value;
+            pageMarkers = extractPageMarkers(text);
+            renderPageMarkers();
+        }
+        
+        // Synchronized scrolling
+        const localPanel = document.getElementById('local-editor');
+        const onlinePanel = document.getElementById('online-content-wrapper');
+        
+        let isScrolling = false;
+        
+        localPanel.addEventListener('scroll', () => {
+            if (!syncScrollEnabled || isScrolling) return;
+            isScrolling = true;
+            const ratio = localPanel.scrollTop / (localPanel.scrollHeight - localPanel.clientHeight);
+            onlinePanel.scrollTop = ratio * (onlinePanel.scrollHeight - onlinePanel.clientHeight);
+            setTimeout(() => isScrolling = false, 50);
+        });
+        
+        onlinePanel.addEventListener('scroll', () => {
+            if (!syncScrollEnabled || isScrolling) return;
+            isScrolling = true;
+            const ratio = onlinePanel.scrollTop / (onlinePanel.scrollHeight - onlinePanel.clientHeight);
+            localPanel.scrollTop = ratio * (localPanel.scrollHeight - localPanel.clientHeight);
+            setTimeout(() => isScrolling = false, 50);
+        });
+        
+        // Enter key to load GA
+        gaInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loadGA();
+        });
+        
+        // Vortrag selection
+        vortragSelect.addEventListener('change', () => {
+            const selected = vortragSelect.value;
+            console.log('Vortrag change event:', selected);
+            if (selected) {
+                loadVortrag(selected);
+            }
+        });
+        
+        // Load GA
+        async function loadGA() {
+            console.log('loadGA() called');
+            const ga = gaInput.value.trim();
+            if (!ga) {
+                showStatus('Bitte GA-Nummer eingeben', 'error');
+                return;
+            }
+            
+            currentGA = ga;
+            console.log('Loading GA:', ga);
+            showLoading('local');
+            showLoading('online');
+            
+            try {
+                // Load local vortraege
+                const localRes = await fetch(`${API_BASE}/ga/${ga}/vortraege`);
+                if (!localRes.ok) throw new Error('GA nicht gefunden');
+                const localData = await localRes.json();
+                
+                // Populate dropdown
+                vortragSelect.innerHTML = '<option value="">-- Wähle Vortrag --</option>';
+                localData.vortraege.forEach(v => {
+                    const opt = document.createElement('option');
+                    opt.value = v.filename;
+                    opt.textContent = v.name;
+                    opt.dataset.path = v.path;
+                    vortragSelect.appendChild(opt);
+                });
+                vortragSelect.disabled = false;
+                
+                // Load online vortraege
+                const onlineRes = await fetch(`${API_BASE}/ga/${ga}/online`);
+                if (onlineRes.ok) {
+                    const onlineData = await onlineRes.json();
+                    onlineVortraege = onlineData.vortraege;
+                    onlineStatus.textContent = `${onlineVortraege.length} Vorträge online`;
+                }
+                
+                localStatus.textContent = `${localData.vortraege.length} Vorträge lokal`;
+                // Nur leeren wenn kein Vortrag gewählt wurde
+                if (!vortragSelect.value) {
+                    localEditor.value = '';
+                    onlineContent.textContent = 'Wähle einen Vortrag aus dem Dropdown...';
+                    clearDiff();
+                    pageMarkers = [];
+                    renderPageMarkers();
+                }
+                
+                // PDF laden
+                loadPdf(ga);
+                
+                showStatus(`GA ${ga} geladen: ${localData.vortraege.length} Vorträge`, 'success');
+                
+            } catch (error) {
+                showStatus(`Fehler: ${error.message}`, 'error');
+                if (!vortragSelect.value) {
+                    localEditor.value = '';
+                    onlineContent.textContent = 'Fehler beim Laden';
+                }
+            }
+        }
+        
+        // Load Vortrag
+        async function loadVortrag(filename) {
+            console.log('loadVortrag called:', filename);
+            if (!currentGA) {
+                console.log('No currentGA, returning');
+                return;
+            }
+            
+            currentVortrag = filename;
+            const selectedOption = vortragSelect.querySelector(`option[value="${filename}"]`);
+            currentFilepath = selectedOption?.dataset.path;
+            console.log('Loading filepath:', currentFilepath);
+            
+            localStatus.textContent = 'Lade...';
+            onlineStatus.textContent = 'Lade...';
+            
+            // Load local content
+            const url = `${API_BASE}/ga/${currentGA}/vortrag/${encodeURIComponent(filename)}`;
+            console.log('Fetching:', url);
+            
+            fetch(url)
+                .then(res => {
+                    console.log('Response status:', res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    console.log('Data received, content length:', data.content?.length);
+                    localEditor.value = data.content;
+                    console.log('localEditor.value set, length:', localEditor.value.length);
+                    localStatus.textContent = `${(data.content.length / 1000).toFixed(1)} KB`;
+                    
+                    // Seitenmarker-Liste aktualisieren
+                    updatePageMarkers();
+                    
+                    // PDF zur ersten Seite des Vortrags synchronisieren
+                    if (currentPdfUrl && data.content) {
+                        const firstPage = getFirstPageNumber(data.content);
+                        console.log('First page of Vortrag:', firstPage);
+                        if (firstPage) {
+                            setTimeout(() => forceGoToPdfPage(firstPage), 500);
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    localEditor.value = 'Fehler: ' + err.message;
+                    localStatus.textContent = 'Fehler';
+                });
+            
+            // Load online content
+            fetch(`${API_BASE}/ga/${currentGA}/match/${encodeURIComponent(filename)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.online_content) {
+                        onlineContent.textContent = data.online_content;
+                        onlineStatus.textContent = data.online || 'Geladen';
+                    } else {
+                        onlineContent.textContent = 'Kein passender Online-Vortrag gefunden';
+                        onlineStatus.textContent = 'Nicht gefunden';
+                    }
+                })
+                .catch(err => {
+                    onlineContent.textContent = 'Fehler: ' + err.message;
+                    onlineStatus.textContent = 'Fehler';
+                });
+        }
+        
+        // Refresh Diff
+        async function refreshDiff() {
+            const localText = localEditor.value;
+            const onlineText = onlineContent.textContent;
+            
+            if (!localText || !onlineText || onlineText.includes('Kein passender')) {
+                clearDiff();
+                return;
+            }
+            
+            try {
+                const res = await fetch(`${API_BASE}/diff`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ local: localText, online: onlineText })
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    displayDiff(data.differences);
+                }
+            } catch (error) {
+                console.error('Diff error:', error);
+            }
+        }
+        
+        // Display Diff
+        function displayDiff(differences) {
+            if (!differences || differences.length === 0) {
+                diffContent.innerHTML = `
+                    <div class="no-diff">
+                        <p>Keine Abweichungen gefunden</p>
+                    </div>
+                `;
+                diffSummary.style.display = 'none';
+                diffStatus.textContent = 'OK';
+                return;
+            }
+            
+            diffSummary.style.display = 'block';
+            diffCount.textContent = differences.length;
+            diffStatus.textContent = `${differences.length} Abw.`;
+            
+            // Speichere differences global für scrollToDiff
+            window.currentDiffs = differences;
+            
+            let html = '<div class="diff-hint">Klick = Markieren, Alt+Q = Ersetzen</div>';
+            html += '<ul class="diff-list">';
+            differences.forEach((diff, index) => {
+                html += `
+                    <li class="diff-item ${diff.type}" onclick="scrollToDiff(${index})">
+                        <div class="diff-text">
+                            ${diff.local ? `<div class="diff-local">${escapeHtml(diff.local)}</div>` : ''}
+                            ${diff.online ? `<div class="diff-online">${escapeHtml(diff.online)}</div>` : ''}
+                        </div>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            
+            diffContent.innerHTML = html;
+        }
+        
+        // Clear Diff
+        function clearDiff() {
+            diffContent.innerHTML = `
+                <div class="no-diff">
+                    <p>Lade Texte zum Vergleichen</p>
+                </div>
+            `;
+            diffSummary.style.display = 'none';
+            diffStatus.textContent = '-';
+        }
+        
+        // PDF Funktionen
+        async function loadPdf(ga) {
+            pdfStatus.textContent = 'Suche PDF...';
+            try {
+                const res = await fetch(`${API_BASE}/ga/${ga}/pdf`);
+                if (res.ok) {
+                    const data = await res.json();
+                    // Basis-URL ohne Seiten-Parameter
+                    currentPdfUrl = `http://localhost:3004${data.url}`;
+                    console.log('PDF gefunden:', data.filename);
+                    console.log('PDF URL:', currentPdfUrl);
+                    pdfViewer.src = currentPdfUrl;
+                    pdfStatus.textContent = data.filename.substring(0, 20);
+                    currentPdfPage = 1;
+                    document.getElementById('pdf-page-input').value = 1;
+                } else {
+                    const errData = await res.json();
+                    console.log('PDF nicht gefunden:', errData.error);
+                    pdfViewer.src = 'about:blank';
+                    pdfStatus.textContent = `Kein PDF für GA${ga}`;
+                    currentPdfUrl = null;
+                }
+            } catch (error) {
+                console.error('PDF load error:', error);
+                pdfViewer.src = 'about:blank';
+                pdfStatus.textContent = 'Fehler beim Laden';
+                currentPdfUrl = null;
+            }
+        }
+        
+        // Extrahiere Seitenzahl aus Text an Position
+        function getPageNumberAtPosition(text, position) {
+            // Suche rückwärts nach Seitenmarker |123| oder **123**
+            const textBefore = text.substring(0, position + 500); // etwas mehr Text einbeziehen
+            const markers = [...textBefore.matchAll(/\|(\d+)\||\*\*(\d+)\*\*/g)];
+            if (markers.length > 0) {
+                const lastMarker = markers[markers.length - 1];
+                const pageNum = parseInt(lastMarker[1] || lastMarker[2]);
+                return pageNum;
+            }
+            return null;
+        }
+        
+        // Finde erste Seitenzahl im Text
+        function getFirstPageNumber(text) {
+            const match = text.match(/\|(\d+)\||\*\*(\d+)\*\*/);
+            if (match) {
+                return parseInt(match[1] || match[2]);
+            }
+            return 1;
+        }
+        
+        // Gehe zu PDF-Seite - immer mit Timestamp für zuverlässige Navigation
+        function goToPdfPage(pageNum) {
+            if (!currentPdfUrl || !pageNum) return;
+            if (pageNum === currentPdfPage) return;
+            
+            console.log('Going to PDF page:', pageNum);
+            currentPdfPage = pageNum;
+            
+            // Timestamp verhindert Browser-Cache und erzwingt Navigation
+            const separator = currentPdfUrl.includes('?') ? '&' : '?';
+            const newUrl = `${currentPdfUrl}${separator}_t=${Date.now()}#page=${pageNum}`;
+            
+            pdfViewer.src = newUrl;
+            
+            pdfStatus.textContent = `Seite ${pageNum}`;
+            document.getElementById('pdf-page-input').value = pageNum;
+        }
+        
+        // Force reload PDF to specific page (auch wenn gleiche Seite)
+        function forceGoToPdfPage(pageNum) {
+            if (!currentPdfUrl || !pageNum) return;
+            
+            console.log('Force going to PDF page:', pageNum);
+            currentPdfPage = 0; // Reset um goToPdfPage zu erlauben
+            goToPdfPage(pageNum);
+        }
+        
+        // Manuelle Seiteneingabe
+        function goToInputPage() {
+            const input = document.getElementById('pdf-page-input');
+            const pageNum = parseInt(input.value);
+            if (pageNum && pageNum > 0) {
+                currentPdfPage = 0; // Reset um Force-Update zu erzwingen
+                forceGoToPdfPage(pageNum);
+            }
+        }
+        
+        // Enter-Taste für Seiteneingabe
+        document.getElementById('pdf-page-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') goToInputPage();
+        });
+        
+        // Synchronisiere PDF mit Scroll-Position im lokalen Editor
+        let pdfSyncTimeout = null;
+        
+        function syncPdfWithEditor() {
+            const text = localEditor.value;
+            if (!text) return;
+            
+            // Berechne sichtbaren Bereich
+            const scrollTop = localEditor.scrollTop;
+            const clientHeight = localEditor.clientHeight;
+            const scrollHeight = localEditor.scrollHeight;
+            
+            if (scrollHeight <= clientHeight) return;
+            
+            // Position für Seitenmarker-Erkennung (oberer Bereich des Fensters)
+            const viewPos = scrollTop + 100;
+            const charPos = Math.floor((viewPos / scrollHeight) * text.length);
+            
+            const pageNum = getPageNumberAtPosition(text, charPos);
+            
+            // PDF synchronisieren
+            if (currentPdfUrl && pageNum && pageNum !== currentPdfPage) {
+                goToPdfPage(pageNum);
+            }
+            
+            // Marker-Liste synchronisieren
+            if (pageNum) {
+                highlightMarkerInList(pageNum);
+            }
+        }
+        
+        // Markiere aktiven Marker in der Liste
+        function highlightMarkerInList(pageNum) {
+            document.querySelectorAll('.page-marker-item').forEach(el => {
+                if (parseInt(el.textContent) === pageNum) {
+                    el.classList.add('active');
+                    // Scrolle den Marker in Sicht
+                    el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        }
+        
+        localEditor.addEventListener('scroll', () => {
+            // Debounce - kurze Verzögerung
+            clearTimeout(pdfSyncTimeout);
+            pdfSyncTimeout = setTimeout(syncPdfWithEditor, 250);
+        });
+        
+        // Auch bei Cursor-Position synchronisieren
+        localEditor.addEventListener('click', () => {
+            if (!currentPdfUrl) return;
+            
+            const text = localEditor.value;
+            const cursorPos = localEditor.selectionStart;
+            const pageNum = getPageNumberAtPosition(text, cursorPos);
+            
+            if (pageNum && pageNum !== currentPdfPage) {
+                console.log('PDF click sync: page', pageNum);
+                forceGoToPdfPage(pageNum);
+            }
+        });
+        
+        // Aktuell ausgewählter Diff
+        let currentDiffIndex = -1;
+        let currentDiffSelection = null; // {start, end, localWord, onlineWord}
+        
+        // Scroll to diff position - suche nach Kontext + Wort
+        function scrollToDiff(diffIndex) {
+            if (!window.currentDiffs || diffIndex >= window.currentDiffs.length) return;
+            
+            currentDiffIndex = diffIndex;
+            const diff = window.currentDiffs[diffIndex];
+            const localText = localEditor.value;
+            const searchWord = diff.local || '';
+            const context = diff.context || '';
+            
+            if (!searchWord) {
+                currentDiffSelection = null;
+                return;
+            }
+            
+            // Normalisiere für Suche (entferne Sonderzeichen)
+            const normalizedText = localText
+                .replace(/\|\d+\|/g, ' ')
+                .replace(/\^[a-z0-9]+/g, '')
+                .replace(/\*\*\d+\*\*/g, ' ');
+            
+            // Suche nach Kontext + Wort
+            let searchPattern = searchWord;
+            if (context) {
+                // Escape regex special chars und erlaube flexibles Whitespace
+                const contextEscaped = context.split(/\s+/).map(w => 
+                    w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+                ).join('[\\s\\S]{0,50}');
+                const wordEscaped = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                searchPattern = contextEscaped + '[\\s\\S]{0,20}' + wordEscaped;
+            }
+            
+            try {
+                const regex = new RegExp(searchPattern, 'i');
+                const match = regex.exec(normalizedText);
+                
+                if (match) {
+                    // Finde Position im Original-Text
+                    const charPos = match.index + match[0].length - searchWord.length;
+                    const ratio = charPos / localText.length;
+                    
+                    localEditor.scrollTop = Math.max(0, ratio * localEditor.scrollHeight - 100);
+                    localEditor.focus();
+                    
+                    // Finde und markiere das Wort im Original
+                    const wordRegex = new RegExp(searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                    let wordMatch;
+                    let found = false;
+                    while ((wordMatch = wordRegex.exec(localText)) !== null) {
+                        if (wordMatch.index >= charPos - 100) {
+                            localEditor.setSelectionRange(wordMatch.index, wordMatch.index + searchWord.length);
+                            currentDiffSelection = {
+                                start: wordMatch.index,
+                                end: wordMatch.index + searchWord.length,
+                                localWord: searchWord,
+                                onlineWord: diff.online || ''
+                            };
+                            // PDF synchronisieren (force reload)
+                            const pageNum = getPageNumberAtPosition(localText, wordMatch.index);
+                            if (pageNum) forceGoToPdfPage(pageNum);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        localEditor.setSelectionRange(charPos, charPos + searchWord.length);
+                        currentDiffSelection = {
+                            start: charPos,
+                            end: charPos + searchWord.length,
+                            localWord: searchWord,
+                            onlineWord: diff.online || ''
+                        };
+                        // PDF synchronisieren (force reload)
+                        const pageNum = getPageNumberAtPosition(localText, charPos);
+                        if (pageNum) forceGoToPdfPage(pageNum);
+                    }
+                }
+            } catch (e) {
+                console.error('Scroll error:', e);
+                currentDiffSelection = null;
+            }
+        }
+        
+        // Ersetze lokalen Text durch Online-Version (Alt+Q)
+        function replaceWithOnline() {
+            if (!currentDiffSelection) {
+                showStatus('Keine Abweichung ausgewählt', 'info');
+                return;
+            }
+            
+            const { start, end, localWord, onlineWord } = currentDiffSelection;
+            const text = localEditor.value;
+            
+            // Ersetze den markierten Text
+            const newText = text.substring(0, start) + onlineWord + text.substring(end);
+            localEditor.value = newText;
+            
+            // Setze Cursor nach dem ersetzten Text
+            const newPos = start + onlineWord.length;
+            localEditor.setSelectionRange(newPos, newPos);
+            localEditor.focus();
+            
+            showStatus(`Ersetzt: "${localWord}" → "${onlineWord}"`, 'success');
+            
+            // Lösche die aktuelle Auswahl
+            currentDiffSelection = null;
+        }
+        
+        // Tastatur-Event für Alt+Q
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey && (e.key === 'q' || e.key === 'Q')) {
+                e.preventDefault();
+                replaceWithOnline();
+            }
+        });
+        
+        // Save local file
+        async function saveLocal() {
+            if (!currentFilepath) {
+                showStatus('Keine Datei zum Speichern ausgewählt', 'error');
+                return;
+            }
+            
+            try {
+                const res = await fetch(`${API_BASE}/save`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        filepath: currentFilepath,
+                        content: localEditor.value
+                    })
+                });
+                
+                const data = await res.json();
+                if (res.ok) {
+                    showStatus('Datei gespeichert!', 'success');
+                } else {
+                    showStatus(`Fehler: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showStatus(`Fehler: ${error.message}`, 'error');
+            }
+        }
+        
+        // Fix page markers
+        async function fixPageMarkers() {
+            if (!currentGA) {
+                showStatus('Bitte erst GA laden', 'error');
+                return;
+            }
+            
+            showStatus('Korrigiere Seitenmarker...', 'info');
+            
+            try {
+                const res = await fetch(`${API_BASE}/fix-markers/${currentGA}`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    showStatus('Seitenmarker korrigiert! Lade neu...', 'success');
+                    // Reload current vortrag
+                    if (currentVortrag) {
+                        setTimeout(() => loadVortrag(currentVortrag), 1000);
+                    }
+                } else {
+                    showStatus(`Fehler: ${data.stderr || data.error}`, 'error');
+                }
+            } catch (error) {
+                showStatus(`Fehler: ${error.message}`, 'error');
+            }
+        }
+        
+        // Show loading indicator
+        function showLoading(panel) {
+            if (panel === 'local') {
+                localEditor.value = 'Lade...';
+            } else if (panel === 'online') {
+                onlineContent.innerHTML = '<div class="loading"><div class="spinner"></div>Lade...</div>';
+            }
+        }
+        
+        // Show status message
+        function showStatus(message, type = 'info') {
+            const existing = document.querySelector('.status-message');
+            if (existing) existing.remove();
+            
+            const el = document.createElement('div');
+            el.className = `status-message ${type}`;
+            el.textContent = message;
+            document.body.appendChild(el);
+            
+            setTimeout(() => el.remove(), 4000);
+        }
+        
+        // Search functionality
+        let localSearchPos = 0;
+        let onlineSearchPos = 0;
+        
+        function searchLocal() {
+            const query = document.getElementById('local-search').value;
+            if (!query) return;
+            
+            const text = localEditor.value.toLowerCase();
+            const pos = text.indexOf(query.toLowerCase(), 0);
+            
+            if (pos >= 0) {
+                localSearchPos = pos;
+                localEditor.focus();
+                localEditor.setSelectionRange(pos, pos + query.length);
+                
+                // Scroll to position
+                const ratio = pos / text.length;
+                localEditor.scrollTop = ratio * localEditor.scrollHeight - 100;
+            } else {
+                showStatus('Nicht gefunden', 'info');
+            }
+        }
+        
+        function searchLocalNext() {
+            const query = document.getElementById('local-search').value;
+            if (!query) return;
+            
+            const text = localEditor.value.toLowerCase();
+            const pos = text.indexOf(query.toLowerCase(), localSearchPos + 1);
+            
+            if (pos >= 0) {
+                localSearchPos = pos;
+                localEditor.focus();
+                localEditor.setSelectionRange(pos, pos + query.length);
+                
+                const ratio = pos / text.length;
+                localEditor.scrollTop = ratio * localEditor.scrollHeight - 100;
+            } else {
+                // Wrap around
+                localSearchPos = 0;
+                searchLocal();
+            }
+        }
+        
+        function searchOnline() {
+            const query = document.getElementById('online-search').value;
+            if (!query) return;
+            
+            const text = onlineContent.textContent.toLowerCase();
+            const pos = text.indexOf(query.toLowerCase(), 0);
+            
+            if (pos >= 0) {
+                onlineSearchPos = pos;
+                highlightOnlineSearch(query, pos);
+            } else {
+                showStatus('Nicht gefunden', 'info');
+            }
+        }
+        
+        function searchOnlineNext() {
+            const query = document.getElementById('online-search').value;
+            if (!query) return;
+            
+            const text = onlineContent.textContent.toLowerCase();
+            const pos = text.indexOf(query.toLowerCase(), onlineSearchPos + 1);
+            
+            if (pos >= 0) {
+                onlineSearchPos = pos;
+                highlightOnlineSearch(query, pos);
+            } else {
+                // Wrap around
+                onlineSearchPos = 0;
+                searchOnline();
+            }
+        }
+        
+        function highlightOnlineSearch(query, pos) {
+            const text = onlineContent.textContent;
+            const before = text.substring(0, pos);
+            const match = text.substring(pos, pos + query.length);
+            const after = text.substring(pos + query.length);
+            
+            onlineContent.innerHTML = escapeHtml(before) + 
+                '<span class="search-highlight">' + escapeHtml(match) + '</span>' + 
+                escapeHtml(after);
+            
+            // Scroll to highlight
+            const highlight = onlineContent.querySelector('.search-highlight');
+            if (highlight) {
+                highlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        // Enter key for search
+        document.getElementById('local-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchLocal();
+        });
+        document.getElementById('online-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchOnline();
+        });
+        
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

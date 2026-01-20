@@ -29,7 +29,7 @@ if sys.platform == 'win32':
 
 from bs4 import BeautifulSoup
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Union
 from dataclasses import dataclass, field
 from tabulate import tabulate
 
@@ -131,7 +131,7 @@ class VortragVergleich:
 @dataclass
 class GABandVergleich:
     """Ergebnis eines GA-Band-Vergleichs"""
-    ga_nummer: int
+    ga_nummer: Union[int, str]
     band_titel: str
     vortraege: List[VortragVergleich]
     gesamt_status: str
@@ -152,12 +152,20 @@ def normalize_text(text: str, remove_page_markers: bool = True,
     - Entfernt Seitenzahlen-Marker
     - Entfernt Block-IDs (^xxxxx)
     - Entfernt Bild-Referenzen
+    - Entfernt Soft-Hyphens und andere unsichtbare Zeichen
     - Normalisiert Whitespace
     - Entfernt Markdown-Formatierung
     - Optional: Normalisiert Rechtschreibung
     """
     if not text:
         return ""
+    
+    # Entferne Soft-Hyphens (­ = U+00AD) und andere unsichtbare Zeichen
+    text = text.replace('\u00ad', '')  # Soft Hyphen
+    text = text.replace('\u200b', '')  # Zero-width space
+    text = text.replace('\u200c', '')  # Zero-width non-joiner
+    text = text.replace('\u200d', '')  # Zero-width joiner
+    text = text.replace('\ufeff', '')  # BOM
     
     # Entferne Block-IDs (z.B. ^y4wil9)
     text = re.sub(r'\^[a-z0-9]+\s*', '', text)
@@ -252,7 +260,7 @@ def fetch_online_content(ga_nummer) -> Optional[str]:
         return None
 
 
-def parse_online_vortraege(html_content: str, ga_nummer: int) -> Dict[str, str]:
+def parse_online_vortraege(html_content: str, ga_nummer) -> Dict[str, str]:
     """
     Parst die Online-Vorträge aus dem HTML.
     Gibt Dictionary zurück: Key = Vortrag-Name, Value = Vortrag-Text
@@ -491,7 +499,7 @@ def compare_texts(local_text: str, online_text: str) -> Tuple[int, int, int, Lis
     return total, inhaltlich, stilistisch, inhaltliche_abw
 
 
-def compare_ga_band(ga_nummer: int, verbose: bool = True) -> GABandVergleich:
+def compare_ga_band(ga_nummer, verbose: bool = True) -> GABandVergleich:
     """Vergleicht einen kompletten GA-Band"""
     if verbose:
         print(f"\n{'='*60}")
