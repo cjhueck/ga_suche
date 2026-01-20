@@ -474,7 +474,7 @@
         </div>
         
         <div class="control-group">
-            <label for="vortrag-select">Vortrag:</label>
+            <label for="vortrag-select" id="vortrag-label">Vortrag:</label>
             <select id="vortrag-select" disabled>
                 <option value="">-- Wähle Vortrag --</option>
             </select>
@@ -568,6 +568,7 @@
         let currentFilepath = null;
         let onlineVortraege = {};
         let syncScrollEnabled = true;
+        let isSchrift = false;  // True für Schriften (GA 1-45)
         
         const API_BASE = 'http://localhost:3004/api';
         
@@ -717,13 +718,24 @@
             showLoading('online');
             
             try {
-                // Load local vortraege
+                // Load local vortraege/teile
                 const localRes = await fetch(`${API_BASE}/ga/${ga}/vortraege`);
                 if (!localRes.ok) throw new Error('GA nicht gefunden');
                 const localData = await localRes.json();
                 
+                // Prüfe ob Schrift oder Vortrag
+                isSchrift = localData.is_schrift || false;
+                const itemLabel = isSchrift ? 'Teil' : 'Vortrag';
+                const itemLabelPlural = isSchrift ? 'Teile' : 'Vorträge';
+                
+                // Label dynamisch anpassen
+                const vortragLabel = document.getElementById('vortrag-label');
+                if (vortragLabel) {
+                    vortragLabel.textContent = itemLabel + ':';
+                }
+                
                 // Populate dropdown
-                vortragSelect.innerHTML = '<option value="">-- Wähle Vortrag --</option>';
+                vortragSelect.innerHTML = `<option value="">-- Wähle ${itemLabel} --</option>`;
                 localData.vortraege.forEach(v => {
                     const opt = document.createElement('option');
                     opt.value = v.filename;
@@ -733,19 +745,19 @@
                 });
                 vortragSelect.disabled = false;
                 
-                // Load online vortraege
+                // Load online vortraege/teile
                 const onlineRes = await fetch(`${API_BASE}/ga/${ga}/online`);
                 if (onlineRes.ok) {
                     const onlineData = await onlineRes.json();
                     onlineVortraege = onlineData.vortraege;
-                    onlineStatus.textContent = `${onlineVortraege.length} Vorträge online`;
+                    onlineStatus.textContent = `${onlineVortraege.length} ${itemLabelPlural} online`;
                 }
                 
-                localStatus.textContent = `${localData.vortraege.length} Vorträge lokal`;
-                // Nur leeren wenn kein Vortrag gewählt wurde
+                localStatus.textContent = `${localData.vortraege.length} ${itemLabelPlural} lokal`;
+                // Nur leeren wenn kein Vortrag/Teil gewählt wurde
                 if (!vortragSelect.value) {
                     localEditor.value = '';
-                    onlineContent.textContent = 'Wähle einen Vortrag aus dem Dropdown...';
+                    onlineContent.textContent = `Wähle einen ${itemLabel} aus dem Dropdown...`;
                     clearDiff();
                     pageMarkers = [];
                     renderPageMarkers();
@@ -754,7 +766,7 @@
                 // PDF laden
                 loadPdf(ga);
                 
-                showStatus(`GA ${ga} geladen: ${localData.vortraege.length} Vorträge`, 'success');
+                showStatus(`GA ${ga} geladen: ${localData.vortraege.length} ${itemLabelPlural}`, 'success');
                 
             } catch (error) {
                 showStatus(`Fehler: ${error.message}`, 'error');
@@ -815,6 +827,7 @@
                 });
             
             // Load online content
+            const notFoundMsg = isSchrift ? 'Kein passender Online-Teil gefunden' : 'Kein passender Online-Vortrag gefunden';
             fetch(`${API_BASE}/ga/${currentGA}/match/${encodeURIComponent(filename)}`)
                 .then(res => res.json())
                 .then(data => {
@@ -822,7 +835,7 @@
                         onlineContent.textContent = data.online_content;
                         onlineStatus.textContent = data.online || 'Geladen';
                     } else {
-                        onlineContent.textContent = 'Kein passender Online-Vortrag gefunden';
+                        onlineContent.textContent = notFoundMsg;
                         onlineStatus.textContent = 'Nicht gefunden';
                     }
                 })

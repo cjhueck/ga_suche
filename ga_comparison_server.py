@@ -35,6 +35,19 @@ MONAT_MAPPING = {
     'november': 11, 'nov': 11, 'dezember': 12, 'dez': 12, 'dec': 12, 'december': 12,
 }
 
+# Schriften (GA 1-45) - haben keine Vorträge
+SCHRIFTEN_RANGE = range(1, 46)
+
+
+def is_schrift(ga_nummer):
+    """Prüft ob eine GA-Nummer eine Schrift ist (GA 1-45)"""
+    try:
+        ga_num = int(str(ga_nummer).lstrip('0'))
+        return ga_num in SCHRIFTEN_RANGE
+    except ValueError:
+        return False
+
+
 # Vortragsnummern-Mapping
 VORTRAG_NUMMER_MAPPING = {
     'erster': 1, 'erste': 1, 'i': 1, 'zweiter': 2, 'zweite': 2, 'ii': 2,
@@ -87,6 +100,33 @@ def find_vortrag_files(ga_folder):
         return int(match.group(1)) if match else 999
     
     return sorted(vortrag_files, key=sort_key)
+
+
+def find_schrift_files(ga_folder):
+    """Findet alle Schrift-Dateien in einem GA-Ordner (für Schriften GA 1-45)"""
+    schrift_files = []
+    for file in ga_folder.iterdir():
+        if file.is_file() and file.suffix == '.md':
+            name = file.name.upper()
+            # Dateien mit Teilnummer (z.B. "GA001 (1.) ..." oder "GA002 - ...")
+            has_number = re.search(r'GA\d+[A-Z]?\s*\(\d+\.\)', name)
+            # Oder Hauptdatei ohne Nummer (z.B. "GA002 - Grundlinien...")
+            is_main = re.search(r'^GA\d+[A-Z]?\s*-\s*', name) or re.search(r'^GA\d+[A-Z]?\s+', name)
+            
+            if has_number or is_main:
+                schrift_files.append(file)
+    
+    def sort_key(f):
+        # Dateien mit Nummer zuerst, dann nach Nummer sortiert
+        match = re.search(r'\((\d+)\.\)', f.name)
+        if match:
+            return (0, int(match.group(1)))
+        # Hauptdatei (Übersicht) am Anfang
+        if re.search(r'GA\d+\s*-\s*[^(]', f.name, re.IGNORECASE):
+            return (1, 0)
+        return (2, 999)
+    
+    return sorted(schrift_files, key=sort_key)
 
 
 def parse_date(text):
@@ -180,6 +220,88 @@ def parse_online_vortraege(html_content):
         vortraege[current_vortrag] = '\n\n'.join(current_text)
     
     return vortraege
+
+
+def parse_online_schrift(html_content):
+    """Parst den Inhalt einer Schrift von steiner.wiki (keine Vortragsstruktur)"""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    teile = {}
+    
+    content = soup.find('div', {'class': 'mw-parser-output'})
+    if not content:
+        content = soup
+    
+    current_teil = None
+    current_text = []
+    
+    # Für Schriften: Sammle nach Überschriften (h2, h3) als Kapitel/Teile
+    for element in content.find_all(['h1', 'h2', 'h3', 'p']):
+        text = element.get_text().strip()
+        
+        if element.name in ['h1', 'h2', 'h3']:
+            # Neue Überschrift gefunden
+            if current_teil and current_text:
+                teile[current_teil] = '\n\n'.join(current_text)
+            
+            # Ignoriere bestimmte Überschriften (Navigation, etc.)
+            if text and not text.startswith('Navigation') and not text.startswith('Inhalt'):
+                current_teil = text
+                current_text = []
+        
+        elif element.name == 'p' and current_teil:
+            para_text = element.get_text().strip()
+            para_text = para_text.replace('\u00ad', '')  # Soft-Hyphens
+            if para_text:
+                current_text.append(para_text)
+    
+    if current_teil and current_text:
+        teile[current_teil] = '\n\n'.join(current_text)
+    
+    # Falls keine Teile gefunden, den gesamten Text als einen Teil speichern
+    if not teile:
+        all_text = []
+        for p in content.find_all('p'):
+            para_text = p.get_text().strip().replace('\u00ad', '')
+            if para_text:
+                all_text.append(para_text)
+        if all_text:
+            teile['Gesamttext'] = '\n\n'.join(all_text)
+    
+    return teile
+
+
+def match_schrift_teil(local_name, online_teile, local_content=None):
+    """Findet den passenden Online-Teil zu einem lokalen Schrift-Teil"""
+    # Extrahiere Schlüsselwörter aus dem lokalen Namen
+    local_words = set(re.findall(r'[A-ZÄÖÜ][a-zäöüß]+', local_name))
+    
+    best_match = None
+    best_score = 0
+    
+    for online_name in online_teile.keys():
+        online_words = set(re.findall(r'[A-ZÄÖÜ][a-zäöüß]+', online_name))
+        
+        # Berechne Übereinstimmung der Wörter
+        common = local_words & online_words
+        if common:
+            score = len(common) / max(len(local_words), len(online_words), 1)
+            if score > best_score:
+                best_score = score
+                best_match = online_name
+    
+    # Falls kein guter Match über Namen, versuche Textvergleich
+    if best_score < 0.3 and local_content:
+        local_fp = get_text_fingerprint(local_content)
+        
+        for online_name, online_content in online_teile.items():
+            online_fp = get_text_fingerprint(online_content)
+            score = difflib.SequenceMatcher(None, local_fp, online_fp).ratio()
+            
+            if score > best_score:
+                best_score = score
+                best_match = online_name
+    
+    return best_match if best_score > 0.2 else None
 
 
 def extract_ort(text):
@@ -354,15 +476,24 @@ def index():
 
 @app.route('/api/ga/<ga_nummer>/vortraege')
 def get_vortraege(ga_nummer):
-    """Gibt Liste der lokalen Vorträge für eine GA-Nummer zurück"""
+    """Gibt Liste der lokalen Vorträge/Teile für eine GA-Nummer zurück"""
     ga_folder = find_ga_folder(ga_nummer)
     if not ga_folder:
         return jsonify({'error': f'GA {ga_nummer} nicht gefunden'}), 404
     
-    vortrag_files = find_vortrag_files(ga_folder)
-    vortraege = []
-    for f in vortrag_files:
-        vortraege.append({
+    # Unterscheide zwischen Schriften und Vorträgen
+    is_schrift_ga = is_schrift(ga_nummer)
+    
+    if is_schrift_ga:
+        files = find_schrift_files(ga_folder)
+        item_type = 'teile'
+    else:
+        files = find_vortrag_files(ga_folder)
+        item_type = 'vortraege'
+    
+    items = []
+    for f in files:
+        items.append({
             'filename': f.name,
             'path': str(f),
             'name': f.stem
@@ -371,7 +502,9 @@ def get_vortraege(ga_nummer):
     return jsonify({
         'ga_nummer': ga_nummer,
         'ga_folder': ga_folder.name,
-        'vortraege': vortraege
+        'vortraege': items,  # Behalte 'vortraege' für Kompatibilität
+        'is_schrift': is_schrift_ga,
+        'item_type': item_type
     })
 
 
@@ -398,15 +531,25 @@ def get_vortrag_content(ga_nummer, filename):
 
 @app.route('/api/ga/<ga_nummer>/online')
 def get_online_vortraege(ga_nummer):
-    """Gibt Liste der Online-Vorträge für eine GA-Nummer zurück"""
+    """Gibt Liste der Online-Vorträge/Teile für eine GA-Nummer zurück"""
     html_content = fetch_online_content(ga_nummer)
     if not html_content:
         return jsonify({'error': f'Online-Inhalt für GA {ga_nummer} nicht verfügbar'}), 404
     
-    vortraege = parse_online_vortraege(html_content)
+    is_schrift_ga = is_schrift(ga_nummer)
+    
+    if is_schrift_ga:
+        items = parse_online_schrift(html_content)
+        item_type = 'teile'
+    else:
+        items = parse_online_vortraege(html_content)
+        item_type = 'vortraege'
+    
     return jsonify({
         'ga_nummer': ga_nummer,
-        'vortraege': list(vortraege.keys())
+        'vortraege': list(items.keys()),  # Behalte 'vortraege' für Kompatibilität
+        'is_schrift': is_schrift_ga,
+        'item_type': item_type
     })
 
 
@@ -432,12 +575,17 @@ def get_online_vortrag_content(ga_nummer, vortrag_name):
 
 @app.route('/api/ga/<ga_nummer>/match/<path:local_filename>')
 def match_online_vortrag(ga_nummer, local_filename):
-    """Findet den passenden Online-Vortrag zu einem lokalen Vortrag"""
+    """Findet den passenden Online-Vortrag/Teil zu einem lokalen Vortrag/Teil"""
     html_content = fetch_online_content(ga_nummer)
     if not html_content:
         return jsonify({'error': 'Online-Inhalt nicht verfügbar'}), 404
     
-    online_vortraege = parse_online_vortraege(html_content)
+    is_schrift_ga = is_schrift(ga_nummer)
+    
+    if is_schrift_ga:
+        online_items = parse_online_schrift(html_content)
+    else:
+        online_items = parse_online_vortraege(html_content)
     
     # Lade lokalen Inhalt für Textvergleich bei mehreren Matches
     local_content = None
@@ -450,16 +598,31 @@ def match_online_vortrag(ga_nummer, local_filename):
             except:
                 pass
     
-    matched = match_vortrag(local_filename, online_vortraege, local_content)
+    # Passenden Online-Inhalt finden
+    if is_schrift_ga:
+        matched = match_schrift_teil(local_filename, online_items, local_content)
+    else:
+        matched = match_vortrag(local_filename, online_items, local_content)
     
     if matched:
         return jsonify({
             'local': local_filename,
             'online': matched,
-            'online_content': online_vortraege[matched]
+            'online_content': online_items[matched],
+            'is_schrift': is_schrift_ga
         })
     
-    return jsonify({'error': 'Kein passender Online-Vortrag gefunden'}), 404
+    # Für Schriften: Falls kein Match, gib den Gesamttext zurück falls vorhanden
+    if is_schrift_ga and 'Gesamttext' in online_items:
+        return jsonify({
+            'local': local_filename,
+            'online': 'Gesamttext',
+            'online_content': online_items['Gesamttext'],
+            'is_schrift': is_schrift_ga
+        })
+    
+    error_msg = 'Kein passender Online-Teil gefunden' if is_schrift_ga else 'Kein passender Online-Vortrag gefunden'
+    return jsonify({'error': error_msg}), 404
 
 
 @app.route('/api/diff', methods=['POST'])
