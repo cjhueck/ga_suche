@@ -701,17 +701,28 @@ def print_ergebnis(ergebnis: GABandVergleich, show_details: bool = True):
     print(f"\n[GESAMTSTATUS] {ergebnis.gesamt_status}")
 
 
-def parse_ga_range(eingabe: str) -> List[int]:
-    """Parst eine Eingabe wie '102' oder '100-105' zu einer Liste von GA-Nummern"""
+def parse_ga_range(eingabe: str) -> List:
+    """
+    Parst eine Eingabe zu einer Liste von GA-Nummern.
+    Unterstützt: '102', '100-105', '104a', '104,104a'
+    """
     ga_nummern = []
     
     for teil in eingabe.split(','):
         teil = teil.strip()
-        if '-' in teil:
-            start, end = teil.split('-')
-            ga_nummern.extend(range(int(start), int(end) + 1))
-        else:
+        # Prüfe ob es ein Bereich ist (nur für rein numerische Werte)
+        if '-' in teil and teil.replace('-', '').isdigit():
+            parts = teil.split('-')
+            if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
+                start, end = int(parts[0]), int(parts[1])
+                ga_nummern.extend(range(start, end + 1))
+                continue
+        
+        # Einzelner Wert (kann Buchstaben enthalten wie "104a")
+        if teil.isdigit():
             ga_nummern.append(int(teil))
+        else:
+            ga_nummern.append(teil)  # z.B. "104a"
     
     return ga_nummern
 
