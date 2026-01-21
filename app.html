@@ -44126,7 +44126,7 @@ async function addKeywordToLecture() {
     popup.className = 'hint-popup';
     popup.innerHTML = `
       <div class="hint-popup-content">
-        <strong>Bitte beachten:</strong> Das Speichern von Textmarkierungen im Mitgliederbereich ist aktuell noch nicht dauerhaft möglich.<br><br>
+        <strong>Willkommen</strong> im Rudolf-Steiner-online Portal. Aktuell befindet sich das Portal noch in der Testphase und kann deshalb Fehler enthalten. Wir bitten dies zu entschuldigen und sind dankbar, wenn Sie uns über den Button <strong>„Fehler melden"</strong> oben links auf eventuelle Probleme aufmerksam machen.<br><br>
         Klicken Sie <strong>Strg+Klick</strong>, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten.<br><br>
         Weitere Tastenkombinationen über den <strong>Info-Button</strong> oben links.
       </div>
@@ -44165,8 +44165,8 @@ async function addKeywordToLecture() {
     // Event-Listener für Schließen-Button (X)
     popup.querySelector('.hint-popup-close').addEventListener('click', closePopup);
     
-    // Automatisch nach 20 Sekunden ausblenden
-    setTimeout(closePopup, 20000);
+    // Automatisch nach 30 Sekunden ausblenden
+    setTimeout(closePopup, 30000);
   }
   
   // Zeige Popup nach kurzer Verzögerung bei jedem Besuch
