@@ -4,7 +4,7 @@ Komplettes Verfahren für Seitenumbrüche und Seitenzahlen
 
 Führt alle Schritte automatisch durch:
 1. PDF aus Steiner_GA_pdf/ in Steiner_GA/GAXXX-Titel/ kopieren
-2. Seitenmarker in JSON einfügen (apply_pagebreaks_from_pdf.py)
+2. Seitenmarker in JSON einfügen (generate_pagebreaks_with_pdf.py)
 3. Alte Override-Dateien in pagebreaks/ inaktivieren (.old)
 4. Seitenmarker in MD-Dateien einfügen (apply_pagebreaks_to_md.py)
 
@@ -41,7 +41,7 @@ LECTURES_DIR = SCRIPT_DIR / "steiner-full-lectures"
 # Import des Hauptscripts
 sys.path.insert(0, str(SCRIPT_DIR / "tools"))
 try:
-    from apply_pagebreaks_from_pdf import (
+    from generate_pagebreaks_with_pdf import (
         normalize_ga,
         find_pdf_for_ga,
         process_ga as apply_pagebreaks
@@ -256,7 +256,7 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
     # Schritt 2: Seitenmarker in JSON einfügen
     print(f"\n  [2/4] Seitenmarker in JSON einfügen...")
     if dry_run:
-        print(f"    → Würde Marker einfügen mit apply_pagebreaks_from_pdf.py")
+        print(f"    → Würde Marker einfügen mit generate_pagebreaks_with_pdf.py")
         markers_inserted = 0
     else:
         try:
@@ -323,7 +323,7 @@ Beispiele:
 
 Das Script führt automatisch durch:
   1. PDF aus Steiner_GA_pdf/ in Steiner_GA/GAXXX-Titel/ kopieren
-  2. Seitenmarker in JSON einfügen (apply_pagebreaks_from_pdf.py)
+  2. Seitenmarker in JSON einfügen (generate_pagebreaks_with_pdf.py)
   3. Alte Override-Dateien in pagebreaks/ inaktivieren
   4. Seitenmarker in MD-Dateien einfügen (apply_pagebreaks_to_md.py)
 

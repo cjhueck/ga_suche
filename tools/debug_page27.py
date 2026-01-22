@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 sys.path.insert(0, 'tools')
-from apply_pagebreaks_from_pdf import extract_pdf_pages, find_pagebreak_position, normalize_for_comparison
+from generate_pagebreaks_with_pdf import extract_pdf_pages, find_pagebreak_position, normalize_for_comparison
 
 pdf_path = 'Steiner_GA_pdf/Steiner, Rudolf GA 072, 1990 - Freiheit, Unsterblichkeit, soziales Leben.pdf'
 pdf_pages = extract_pdf_pages(pdf_path)

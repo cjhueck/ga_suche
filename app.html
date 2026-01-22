@@ -10422,6 +10422,35 @@ function preprocessObsidianLineBreaks(markdown) {
   return markdown.replace(/'\/br'/g, '\n');
 }
 
+// Hilfsfunktion: Konvertiere _text_ direkt zu <em>text</em> für zuverlässige Kursiv-Darstellung
+// marked.js mit GFM erkennt _text_ nicht immer zuverlässig als kursiv
+// Diese Funktion sollte NACH marked.parse() aufgerufen werden (damit HTML-Entities nicht escaped werden)
+function convertUnderscoreItalics(html) {
+  if (!html || typeof html !== 'string') {
+    return html;
+  }
+  
+  // Konvertiere _text_ zu <em>text</em> wenn:
+  // - Vor dem öffnenden _ ein Nicht-Buchstabe steht (oder Zeilenanfang)
+  // - Nach dem schließenden _ ein Nicht-Buchstabe steht (oder Zeilenende)
+  // Dies verhindert, dass variable_name zu <em>variable</em>name wird
+  
+  // Pattern für _text_ das von Nicht-Buchstaben umgeben ist
+  // Aber NICHT innerhalb von HTML-Tags (z.B. <a href="...">)
+  
+  // Schritt 1: _text_ nach Nicht-Buchstaben oder am Zeilenanfang
+  let result = html.replace(/(^|[^a-zA-ZäöüÄÖÜß])_([^_<>\n]+?)_(?=[^a-zA-ZäöüÄÖÜß]|$)/gm, '$1<em>$2</em>');
+  
+  return result;
+}
+
+// Alias für Kompatibilität (alte Aufrufe)
+function preprocessUnderscoreItalics(text) {
+  // Diese Funktion wird jetzt NICHT mehr vor marked aufgerufen,
+  // sondern convertUnderscoreItalics NACH marked
+  return text;
+}
+
 // Hilfsfunktion: Konvertiere Seitenmarker |47| zu sichtbarem Format
 // VEREINFACHT: Seitenzahl als hochgestellte kleine graue Zahl mit | davor
 function convertPageMarkers(html) {
@@ -17004,6 +17033,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
           });
         }
+        
+        // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
+        content = convertUnderscoreItalics(content);
       }
       
       // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
@@ -17259,6 +17291,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
         });
       }
+      
+      // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
+      content = convertUnderscoreItalics(content);
       
       // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
       content = convertPageMarkers(content);
@@ -20882,6 +20917,9 @@ function scrollToChronologicalYear(year) {
             } else {
               console.error('[MARKDOWN] marked ist nicht verfügbar!');
             }
+            
+            // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
+            content = convertUnderscoreItalics(content);
             
             // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
             content = convertPageMarkers(content);
@@ -27961,6 +27999,9 @@ function showSummaryView() {
       }
     }
     
+    // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
+    content = convertUnderscoreItalics(content);
+    
     // Debug: Prüfe ob Marker nach marked.parse() noch vorhanden sind
     const markersAfterMarkdown = content.match(/\|\d{1,4}\|/g);
     if (markersAfterMarkdown && markersAfterMarkdown.length > 0) {
@@ -28718,7 +28759,12 @@ function formatAsteriskParagraphs() {
         mangle: false
       });
       
-      answerDiv.innerHTML = marked.parse(processedContent, { breaks: true, gfm: true });
+      let parsedContent = marked.parse(processedContent, { breaks: true, gfm: true });
+      
+      // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
+      parsedContent = convertUnderscoreItalics(parsedContent);
+      
+      answerDiv.innerHTML = parsedContent;
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
       removeInlineStyles(answerDiv);
@@ -32181,6 +32227,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             console.error('[MARKDOWN] marked ist nicht verfügbar!');
           }
           
+          // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
+          content = convertUnderscoreItalics(content);
+          
           // Konvertiere Seitenmarker |47| zu sichtbarem Format (nach Markdown-Rendering)
           content = convertPageMarkers(content);
           
@@ -35255,6 +35304,10 @@ function displayKeywordThematicResults(keyword, data) {
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       // Kursiv: *text* -> <em>text</em>
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      // Kursiv: _text_ -> <em>text</em> (nur wenn von Nicht-Buchstaben umgeben)
+      .replace(/(?<=[^a-zA-ZäöüÄÖÜß])_([^_]+)_(?=[^a-zA-ZäöüÄÖÜß]|$)/g, '<em>$1</em>')
+      // Kursiv am Zeilenanfang: _text_ -> <em>text</em>
+      .replace(/^_([^_]+)_(?=[^a-zA-ZäöüÄÖÜß]|$)/gm, '<em>$1</em>')
       // Zeilenumbrüche: \n\n -> </p><p>
       .replace(/\n\n/g, '</p><p>')
       // Einzelne Zeilenumbrüche: \n -> <br>

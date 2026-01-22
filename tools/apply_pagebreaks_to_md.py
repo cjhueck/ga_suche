@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Fügt Seitenmarker in Obsidian-MD-Dateien ein.
-Verwendet dieselbe Logik wie apply_pagebreaks_from_pdf.py
+Verwendet dieselbe Logik wie generate_pagebreaks_with_pdf.py
 """
 
 import re
@@ -13,7 +13,7 @@ from typing import Dict, List, Tuple, Optional
 
 # Import from main script
 sys.path.insert(0, str(Path(__file__).parent))
-from apply_pagebreaks_from_pdf import (
+from generate_pagebreaks_with_pdf import (
     extract_pdf_pages,
     find_pagebreak_position,
     normalize_for_comparison,
@@ -27,6 +27,42 @@ from apply_pagebreaks_from_pdf import (
 # Pfade
 PROJECT_DIR = Path(__file__).parent.parent
 STEINER_GA_DIR = PROJECT_DIR / "Steiner_GA"
+PAGE_BREAK_MARKERS_FILE = PROJECT_DIR / "page-break-markers.json"
+
+
+def load_first_content_page(ga_norm: str) -> Optional[int]:
+    """
+    Lädt die erste Inhaltsseite aus page-break-markers.json.
+    Verwendet contentRange[0] oder den ersten Break mit isFirstPage=true.
+    """
+    if not PAGE_BREAK_MARKERS_FILE.exists():
+        return None
+    
+    try:
+        with open(PAGE_BREAK_MARKERS_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        ga_data = data.get(ga_norm, {})
+        
+        # Methode 1: contentRange[0]
+        content_range = ga_data.get('contentRange', [])
+        if content_range and len(content_range) >= 1:
+            return content_range[0]
+        
+        # Methode 2: erster Break mit isFirstPage=true
+        breaks = ga_data.get('breaks', [])
+        for b in breaks:
+            if b.get('isFirstPage'):
+                return b.get('page')
+        
+        # Methode 3: erster Break überhaupt
+        if breaks:
+            return breaks[0].get('page')
+        
+    except Exception as e:
+        print(f"    Warnung: Konnte page-break-markers.json nicht lesen: {e}")
+    
+    return None
 
 
 def find_md_folder_for_ga(ga_norm: str) -> Optional[Path]:
@@ -81,10 +117,18 @@ def get_page_range_for_md(
     if lec_num is None:
         return None, None
     
-    # Für Bücher (lec_num = 0): verwende alle Seiten der PDF
+    # Für Bücher (lec_num = 0): verwende contentRange aus page-break-markers.json
     if lec_num == 0:
         if pdf_pages:
-            return pdf_pages[0][1], pdf_pages[-1][1]
+            # Erste Inhaltsseite aus Konfiguration laden
+            first_content = load_first_content_page(ga_norm)
+            if first_content:
+                start_page = first_content
+            else:
+                # Fallback: erste PDF-Seite (kann falsch sein!)
+                start_page = pdf_pages[0][1]
+                print(f"    WARNUNG: Keine contentRange für {ga_norm} - verwende Seite {start_page}")
+            return start_page, pdf_pages[-1][1]
         return None, None
     
     ga_mapping = mapping.get(ga_norm, {})
@@ -136,11 +180,18 @@ def insert_markers_in_md(
     search_start = 0
     current_page = start_page
     
-    # Filtere relevante PDF-Seiten
-    relevant_pages = [(idx, pn, pe, ts) for idx, pn, pe, ts in pdf_pages 
-                      if start_page <= pn <= end_page]
+    # Filtere relevante PDF-Seiten (unterstützt 4-Tupel und 5-Tupel Format)
+    relevant_pages = []
+    for page_tuple in pdf_pages:
+        if len(page_tuple) == 5:
+            idx, pn, pe, ts, tsw = page_tuple
+        else:
+            idx, pn, pe, ts = page_tuple
+            tsw = ""
+        if start_page <= pn <= end_page:
+            relevant_pages.append((idx, pn, pe, ts, tsw))
     
-    for pdf_idx, page_num, prev_end, this_start in relevant_pages:
+    for pdf_idx, page_num, prev_end, this_start, this_start_words in relevant_pages:
         # Überspringe wenn Seitenzahl nicht die erwartete nächste ist
         if page_num < current_page:
             continue
@@ -161,7 +212,7 @@ def insert_markers_in_md(
             continue
         
         # Finde Position
-        pos = find_pagebreak_position(prev_end, this_start, content_clean, search_start)
+        pos = find_pagebreak_position(prev_end, this_start, content_clean, search_start, this_start_words)
         
         if pos is not None and pos > search_start:
             markers.append((pos, page_num))
@@ -202,11 +253,100 @@ def insert_markers_in_md(
         else:
             new_content = new_content[:pos] + marker + new_content[pos:]
     
+    # Schritt 5: Verschiebe Marker um Überschriften
+    new_content, heading_changes = move_markers_around_headings(new_content)
+    
     if not dry_run:
         with open(md_path, 'w', encoding='utf-8') as f:
             f.write(new_content)
     
     return len(valid_markers)
+
+
+def is_heading(line: str) -> bool:
+    """Prüft ob eine Zeile eine Markdown-Überschrift ist."""
+    stripped = line.strip()
+    return stripped.startswith('#') and len(stripped) > 1
+
+
+def move_markers_around_headings(content: str) -> Tuple[str, int]:
+    """
+    Verschiebt Seitenmarker, die vor/in Überschriften oder am Ende von Absätzen
+    vor Überschriften stehen, an den Anfang des ersten Absatzes nach der Überschrift.
+    
+    Regeln:
+    1. Marker sollen nie direkt vor einer Überschrift stehen (|42| ## Title)
+    2. Marker sollen nie innerhalb einer Überschrift stehen (## |42| Title)
+    3. Marker am Ende eines Absatzes vor einer Überschrift sollen zum Anfang
+       des ersten Absatzes nach der Überschrift verschoben werden
+    """
+    lines = content.split('\n')
+    changes = 0
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        
+        # Regel 1: Marker am Anfang einer Überschriftszeile
+        if is_heading(line):
+            match = re.match(r'^(\s*)(\|(\d+)\|)\s*(#+\s+.*)$', line)
+            if match:
+                indent = match.group(1)
+                marker = match.group(2)
+                heading = match.group(4)
+                lines[i] = indent + heading
+                # Finde nächsten Nicht-Überschrift-Absatz
+                j = i + 1
+                while j < len(lines):
+                    next_line = lines[j]
+                    if next_line.strip() and not is_heading(next_line):
+                        lines[j] = marker + ' ' + next_line.lstrip()
+                        changes += 1
+                        break
+                    j += 1
+        
+        # Regel 2: Marker INNERHALB einer Überschrift
+        if is_heading(line):
+            match = re.match(r'^(\s*)(#+)\s*(\|(\d+)\|)\s*(.*)$', line)
+            if match:
+                indent = match.group(1)
+                hashes = match.group(2)
+                marker = match.group(3)
+                title = match.group(5)
+                lines[i] = indent + hashes + ' ' + title
+                # Finde nächsten Nicht-Überschrift-Absatz
+                j = i + 1
+                while j < len(lines):
+                    next_line = lines[j]
+                    if next_line.strip() and not is_heading(next_line):
+                        lines[j] = marker + ' ' + next_line.lstrip()
+                        changes += 1
+                        break
+                    j += 1
+        
+        # Regel 3: Marker am Ende einer Zeile, gefolgt von Leerzeilen und dann Überschrift
+        marker_at_end = re.search(r'\|(\d+)\|\s*$', line)
+        if marker_at_end and not is_heading(line):
+            # Prüfe ob nach Leerzeilen eine Überschrift folgt
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines) and is_heading(lines[j]):
+                marker = marker_at_end.group(0).strip()
+                lines[i] = re.sub(r'\s*\|(\d+)\|\s*$', '', line)
+                # Finde nächsten Nicht-Überschrift-Absatz nach der Überschrift
+                k = j + 1
+                while k < len(lines):
+                    content_line = lines[k]
+                    if content_line.strip() and not is_heading(content_line):
+                        lines[k] = marker + ' ' + content_line.lstrip()
+                        changes += 1
+                        break
+                    k += 1
+        
+        i += 1
+    
+    return '\n'.join(lines), changes
 
 
 def process_ga_md(ga_number: str, dry_run: bool = False) -> Dict:
