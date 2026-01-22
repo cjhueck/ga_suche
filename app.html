@@ -18745,9 +18745,19 @@ async function displayGAOverview(data) {
   
   titleElement.textContent = `${data.gaNumber} - ${data.gaTitle}`;
   
-  // Passender Text je nach GA-Typ (Vortrag/Aufsatz)
+  // Header-Höhe hat sich durch neuen Titel möglicherweise geändert - mainContainer margin-top aktualisieren
+  setTimeout(() => {
+    const header = document.getElementById('viewer-header');
+    const mainContainer = document.getElementById('main-container');
+    if (header && mainContainer) {
+      mainContainer.style.marginTop = header.offsetHeight + 'px';
+    }
+  }, 10);
+  
+  // Passender Text je nach GA-Typ (Vortrag/Aufsatz/Band)
   const itemTypeName = getGATypeName(data.gaNumber, false);
-  viewer.innerHTML = `<div id="viewer-content"><p style="color: #666; font-style: italic;">Wählen Sie ${itemTypeName === 'Aufsatz' ? 'einen Aufsatz' : 'einen Vortrag'} aus der Liste links.</p></div>`;
+  const selectItemText = data.gaNumber === 'GA001' ? 'einen Band' : (itemTypeName === 'Aufsatz' ? 'einen Aufsatz' : 'einen Vortrag');
+  viewer.innerHTML = `<div id="viewer-content"><p style="color: #666; font-style: italic;">Wählen Sie ${selectItemText} aus der Liste.</p></div>`;
   
   // Setze currentGANumber für Info-Button
   currentGANumber = data.gaNumber;
