@@ -128,7 +128,7 @@ def remove_syllable_breaks(text: str) -> str:
 
 
 def extract_page_number_from_footer(lines: List[str]) -> Optional[int]:
-    """Extrahiere Seitenzahl aus Footer (wie in apply_pagebreaks_from_pdf.py)"""
+    """Extrahiere Seitenzahl aus Footer (wie in generate_pagebreaks_with_pdf.py)"""
     # Suche von hinten nach vorne (letzte 15 Zeilen)
     for i in range(len(lines) - 1, max(-1, len(lines) - 15), -1):
         line = lines[i].strip()

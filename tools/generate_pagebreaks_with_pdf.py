@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Apply Pagebreaks from PDF - Direktes Einfügen von Seitenumbrüchen aus PDFs
+generate_pagebreaks_with_pdf.py
+===============================
+Generiert Seitenmarker (Pagebreaks) durch Extraktion aus PDF-Dateien.
 
 Verwendet die PDFs mit Seitenzahlen (Format: "Steiner, Rudolf GA XXX, YYYY - Titel")
-aus Steiner_GA_pdf/ um |XX| Marker in die Vorträge einzufügen.
+aus Steiner_GA_pdf/ um |XX| Marker in die Vorträge/Bücher einzufügen.
 
 Verwendung:
-  python tools/apply_pagebreaks_from_pdf.py GA061
-  python tools/apply_pagebreaks_from_pdf.py GA061 --update-source
-  python tools/apply_pagebreaks_from_pdf.py 61 67  # Bereich
+  python tools/generate_pagebreaks_with_pdf.py GA061
+  python tools/generate_pagebreaks_with_pdf.py GA061 --update-source
+  python tools/generate_pagebreaks_with_pdf.py 61 67  # Bereich
 """
 
 from __future__ import annotations
@@ -959,7 +961,7 @@ def insert_marker_at_position(text: str, pos: int, page_num: int) -> str:
 
 
 def find_pagebreak_position(
-    prev_end: str,  # Wird nicht mehr verwendet, nur für Rückwärtskompatibilität
+    prev_end: str,
     this_start: str,
     lecture_text: str,
     min_position: int = 0,
@@ -968,15 +970,12 @@ def find_pagebreak_position(
     """
     Findet die exakte Position eines Seitenumbruchs im Vortrag.
     
-    WICHTIG: NUR Suche oben links (this_start_words und this_start)!
-    prev_end wird KOMPLETT IGNORIERT - keine Suche rechts unten!
-    
-    Strategien (nur oben links):
-    1. Suche mit this_start_words (erste Wörter vom Seitenanfang)
-    2. Suche mit this_start (erste 300 Zeichen vom Seitenanfang)
-    3. Suche ab erstem vollständigen Wort (überspringe Silbentrennungs-Fragment)
-    
-    Keine Fehlermeldung bei fehlendem Text - gibt einfach None zurück.
+    Strategien:
+    1. Prüfe auf Silbentrennung (prev_end endet mit Bindestrich)
+       -> Finde kombiniertes Wort und setze Marker nach dem Fragment
+    2. Suche mit this_start_words (erste Wörter vom Seitenanfang)
+    3. Suche mit this_start (erste 300 Zeichen vom Seitenanfang)
+    4. Suche ab erstem vollständigen Wort (überspringe Silbentrennungs-Fragment)
     
     this_start_words: Erste Wörter vom Seitenanfang (für neue GA-Ausgabe)
     """
@@ -990,8 +989,36 @@ def find_pagebreak_position(
     if not prev_end:
         return 0
     
-    # Normalisiere und entferne Silbentrennungen
-    # WICHTIG: prev_end wird KOMPLETT IGNORIERT - nur oben links suchen!
+    # STRATEGIE 0: Prüfe auf Silbentrennung
+    # Wenn prev_end mit Bindestrich endet, ist das Wort über den Seitenumbruch getrennt
+    prev_clean = prev_end.replace("\n", " ").strip()
+    
+    # Erkenne Silbentrennung: endet mit Buchstabe-Bindestrich oder nur Bindestrich
+    hyphen_match = re.search(r'(\w+)-\s*$', prev_clean)
+    if hyphen_match:
+        # Extrahiere das Fragment vor dem Bindestrich (z.B. "un" aus "un-")
+        fragment = hyphen_match.group(1).lower()
+        
+        # Extrahiere das erste Wort vom Seitenanfang (z.B. "geeignet")
+        this_clean_temp = this_start.replace("-\n", "").replace("\n", " ").strip()
+        first_word_match = re.match(r'^(\w+)', this_clean_temp)
+        if first_word_match:
+            continuation = first_word_match.group(1).lower()
+            
+            # Kombiniere: "un" + "geeignet" = "ungeeignet"
+            combined_word = fragment + continuation
+            
+            # Suche das kombinierte Wort direkt im Original-Text (case-insensitive)
+            lecture_lower = lecture_clean.lower()
+            pos = lecture_lower.find(combined_word, min_position)
+            if pos != -1:
+                # Position ist am Anfang des kombinierten Wortes
+                # Wir wollen den Marker NACH dem Fragment setzen
+                final_pos = pos + len(fragment)
+                if final_pos >= min_position:
+                    return final_pos
+    
+    # Normalisiere für weitere Strategien
     this_clean = this_start.replace("-\n", "").replace("\n", " ")
     this_norm = normalize_for_comparison(this_clean)
     
@@ -1007,7 +1034,7 @@ def find_pagebreak_position(
             # Erweitert um kürzere Längen für bessere Trefferquote
             for length in [120, 100, 80, 60, 50, 40, 30, 25, 20, 15]:
                 if len(words_norm) < length:
-                continue
+                    continue
                 snippet = words_norm[:length]
                 
                 # Finde ALLE Vorkommen, nicht nur das erste
@@ -1037,10 +1064,10 @@ def find_pagebreak_position(
                     break
                 snippet = words_norm[:length]
                 pos = lecture_norm.find(snippet, norm_min)
-            if pos != -1:
+                if pos != -1:
                     orig_pos = map_norm_to_original(lecture_clean, pos)
-                if orig_pos >= min_position:
-                    return orig_pos
+                    if orig_pos >= min_position:
+                        return orig_pos
     
     # Strategie 2: Suche nur nach this_start (oben links, ohne prev_end)
     for length in [60, 50, 40, 30, 20]:
@@ -1082,8 +1109,8 @@ def find_pagebreak_position(
             pos = lecture_norm.find(rest_norm[:min(50, len(rest_norm))], pos)
             if pos == -1:
                 break
-                orig_pos = map_norm_to_original(lecture_clean, pos)
-                if orig_pos >= min_position:
+            orig_pos = map_norm_to_original(lecture_clean, pos)
+            if orig_pos >= min_position:
                 # NUR oben links suchen - keine Bewertung mit prev_end mehr!
                 distance = abs(orig_pos - min_position)
                 candidates.append((orig_pos, distance, pos))
@@ -1217,9 +1244,9 @@ def process_lecture(
             if pos >= search_start:
                 # Prüfe ob diese Seitenzahl bereits eingefügt wurde (verhindere Duplikate)
                 if not any(p == page_num for _, p in markers):
-                markers.append((pos, page_num))
-                search_start = pos + 1
-                matched_pages += 1
+                    markers.append((pos, page_num))
+                    search_start = pos + 1
+                    matched_pages += 1
             
             last_pdf_index = start_pdf_index + rel_idx
     

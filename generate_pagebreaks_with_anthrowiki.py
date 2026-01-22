@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Sequentielle Seitenmarker-Einfügung basierend auf steiner.wiki
-==============================================================
+generate_pagebreaks_with_anthrowiki.py
+======================================
+Generiert Seitenmarker (Pagebreaks) in lokalen MD-Dateien durch Abgleich
+mit der Online-Version auf steiner.wiki (Anthrowiki).
+
 Die Marker werden SEQUENTIELL eingefügt - jeder neue Marker wird
 NUR NACH dem vorherigen gesucht, um die korrekte Reihenfolge zu garantieren.
+
+Regeln:
+- Marker zwischen Wörtern: mit Leerzeichen (word |42| word)
+- Marker innerhalb Wort-Trennung: ohne Leerzeichen (dar|42|stellt)
+- Marker nie vor/in Überschriften, sondern im ersten Absatz danach
 """
 
 import re
@@ -182,10 +190,116 @@ def find_marker_position_after(text, start_pos, context_before, context_after):
     return None, None
 
 
+def is_heading(line):
+    """Prüft ob eine Zeile eine Markdown-Überschrift ist"""
+    stripped = line.strip()
+    return stripped.startswith('#') and len(stripped) > 1 and stripped[1] in '# '
+
+
+def move_markers_around_headings(content):
+    """
+    Verschiebt Seitenmarker, die vor/in Überschriften oder am Ende von Absätzen
+    vor Überschriften stehen, an den Anfang des ersten Absatzes nach der Überschrift.
+    
+    Regeln:
+    1. Marker sollen nie direkt vor einer Überschrift stehen (|42| ## Title)
+    2. Marker sollen nie innerhalb einer Überschrift stehen (## |42| Title)
+    3. Marker am Ende eines Absatzes vor einer Überschrift sollen zum Anfang
+       des ersten Absatzes nach der Überschrift verschoben werden
+    """
+    lines = content.split('\n')
+    changes = 0
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        
+        # Regel 1: Marker am Anfang einer Überschriftszeile
+        # z.B. "|42| ## Titel" -> Marker zur nächsten Content-Zeile verschieben
+        if is_heading(line):
+            # Prüfe ob Marker am Anfang steht
+            match = re.match(r'^(\s*)(\|(\d+)\|)\s*(#+\s+.*)$', line)
+            if match:
+                indent = match.group(1)
+                marker = match.group(2)
+                heading = match.group(4)
+                
+                # Überschrift ohne Marker
+                lines[i] = indent + heading
+                
+                # Finde nächste Content-Zeile (nicht leer, keine Überschrift)
+                j = i + 1
+                while j < len(lines):
+                    next_line = lines[j]
+                    if next_line.strip() and not is_heading(next_line):
+                        # Marker am Anfang einfügen
+                        lines[j] = marker + ' ' + next_line.lstrip()
+                        changes += 1
+                        break
+                    j += 1
+        
+        # Regel 2: Marker INNERHALB einer Überschrift
+        # z.B. "## |42| Titel" -> Marker zur nächsten Content-Zeile verschieben
+        if is_heading(line):
+            match = re.match(r'^(\s*)(#+)\s*(\|(\d+)\|)\s*(.*)$', line)
+            if match:
+                indent = match.group(1)
+                hashes = match.group(2)
+                marker = match.group(3)
+                title = match.group(5)
+                
+                # Überschrift ohne Marker
+                lines[i] = indent + hashes + ' ' + title
+                
+                # Finde nächste Content-Zeile (nicht leer, keine Überschrift)
+                j = i + 1
+                while j < len(lines):
+                    next_line = lines[j]
+                    if next_line.strip() and not is_heading(next_line):
+                        # Marker am Anfang einfügen
+                        lines[j] = marker + ' ' + next_line.lstrip()
+                        changes += 1
+                        break
+                    j += 1
+        
+        # Regel 3: Marker am Ende einer Zeile, gefolgt von Leerzeilen und dann Überschrift
+        # z.B. "Text text |42|\n\n## Titel"
+        marker_at_end = re.search(r'\|(\d+)\|\s*$', line)
+        if marker_at_end and not is_heading(line):
+            # Prüfe was nach dieser Zeile kommt
+            j = i + 1
+            # Überspringe Leerzeilen
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            
+            # Ist die nächste nicht-leere Zeile eine Überschrift?
+            if j < len(lines) and is_heading(lines[j]):
+                marker = marker_at_end.group(0).strip()
+                
+                # Entferne Marker vom Ende der aktuellen Zeile
+                lines[i] = re.sub(r'\s*\|(\d+)\|\s*$', '', line)
+                
+                # Finde erste Content-Zeile nach der Überschrift
+                k = j + 1
+                while k < len(lines):
+                    content_line = lines[k]
+                    if content_line.strip() and not is_heading(content_line):
+                        # Marker am Anfang einfügen
+                        lines[k] = marker + ' ' + content_line.lstrip()
+                        changes += 1
+                        break
+                    k += 1
+        
+        i += 1
+    
+    return '\n'.join(lines), changes
+
+
 def process_file_sequential(filepath, markers, start_page=None, dry_run=True, verbose=True):
     """
     Verarbeitet eine Datei mit SEQUENTIELLER Marker-Einfügung.
     Jeder Marker wird nur nach dem vorherigen gesucht.
+    Nach dem Einfügen werden Marker um Überschriften herum korrigiert.
     """
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
@@ -248,11 +362,16 @@ def process_file_sequential(filepath, markers, start_page=None, dry_run=True, ve
     if verbose:
         print()  # Neue Zeile nach Fortschritt
     
+    # Verschiebe Marker um Überschriften herum
+    content, heading_changes = move_markers_around_headings(content)
+    if heading_changes > 0:
+        details.append(f"{heading_changes} Marker von Überschriften verschoben")
+    
     # Zusammenfassung
     summary = f"Eingefuegt: {inserted}, Nicht gefunden: {not_found}"
     details.insert(0, summary)
     
-    if inserted > 0 and not dry_run:
+    if (inserted > 0 or heading_changes > 0) and not dry_run:
         try:
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(content)
@@ -267,7 +386,7 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(
-        description='Sequentielle Seitenmarker-Einfuegung basierend auf steiner.wiki'
+        description='Generiert Pagebreaks durch Abgleich mit steiner.wiki (Anthrowiki)'
     )
     parser.add_argument('ga', type=str, help='GA-Nummer (z.B. 1, 102)')
     parser.add_argument('--file', '-f', type=str, 
