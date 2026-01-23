@@ -2,6 +2,9 @@
 Steiner_GA/
 Steiner_GA_pdf/
 backups/
+# Aber Analytics-Backups sollen ins Git (für Persistenz auf Render)
+!backups/analytics/
+!backups/analytics/*.json
 
 # Runtime data (should persist between deployments)
 analytics-data.json
