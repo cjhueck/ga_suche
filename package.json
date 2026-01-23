@@ -4,6 +4,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node backend.js",
+    "nb": "node backend.js",
     "dev": "nodemon backend.js",
     "export-lectures": "node export-lectures.js",
     "export-lectures:ga": "node export-lectures.js"

@@ -3074,18 +3074,6 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     console.log(`[FULLTEXT-SEARCH] Parameter: word1="${word1}", word2="${word2}"`);
     
-    // Analytics-Tracking auch bei ungültigen Anfragen (für Statistiken)
-    // Aber nur wenn mindestens ein Suchbegriff vorhanden ist
-    if (word1 || word2) {
-      const searchTerm = word2 ? `${word1 || ''} ${word2}` : (word1 || word2 || '');
-      if (searchTerm.trim()) {
-        console.log(`[FULLTEXT-SEARCH] Rufe trackSearch auf (validierung) für: "${searchTerm}"`);
-        trackSearch(searchTerm).catch(err => {
-          console.error('[ANALYTICS] Fehler beim Tracking der Volltext-Suche (validierung):', err.message);
-        });
-      }
-    }
-    
     if (!word1) {
       console.log('[FULLTEXT-SEARCH] Fehler: Kein word1 vorhanden');
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
@@ -22734,6 +22722,9 @@ app.get('/api/backups/list/:type', async (req, res) => {
 const ANALYTICS_FILE = path.join(__dirname, 'analytics-data.json');
 const ANALYTICS_BACKUP_DIR = path.join(__dirname, 'backups', 'analytics');
 
+// Queue für Analytics-Schreibvorgänge (verhindert Race Conditions)
+let analyticsWriteQueue = Promise.resolve();
+
 // Stelle sicher, dass das Backup-Verzeichnis existiert
 async function ensureAnalyticsBackupDir() {
   try {
@@ -22773,8 +22764,9 @@ async function loadAnalyticsData() {
     if (!parsed.topSearches) parsed.topSearches = {};
     if (!parsed.topLectures) parsed.topLectures = {};
     
-    // Speichere korrigierte Daten zurück (falls sich etwas geändert hat)
-    await saveAnalyticsData(parsed);
+    // WICHTIG: Speichere NICHT automatisch beim Laden, um Endlosschleifen zu vermeiden
+    // Speichern wird nur bei expliziten Änderungen durchgeführt (trackSearch, etc.)
+    // await saveAnalyticsData(parsed); // DEAKTIVIERT - verursacht Endlosschleife
     
     return parsed;
   } catch (error) {
@@ -22790,71 +22782,129 @@ async function loadAnalyticsData() {
   }
 }
 
-// Analytics-Daten speichern
+// Analytics-Daten speichern (mit Queue-System gegen Race Conditions)
 async function saveAnalyticsData(data) {
-  try {
-    // WICHTIG: Berechne kumulative Werte IMMER neu vor dem Speichern
-    // Das stellt sicher, dass die Werte immer korrekt sind
-    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
-    if (data.dailyStats && typeof data.dailyStats === 'object') {
-      for (const key of Object.keys(data.dailyStats)) {
-        const dayData = data.dailyStats[key];
-        if (dayData && typeof dayData === 'object') {
-          cumulativeViews += dayData.views || 0;
-          cumulativeSearches += dayData.searches || 0;
-          cumulativeLectures += dayData.lectures || 0;
+  return new Promise((resolve, reject) => {
+    // Füge Schreibvorgang zur Queue hinzu (verhindert Race Conditions)
+    analyticsWriteQueue = analyticsWriteQueue.then(async () => {
+      try {
+        // WICHTIG: Lade direkt aus Datei (NICHT über loadAnalyticsData() um Endlosschleife zu vermeiden)
+        let currentData = data; // Standard: verwende übergebene Daten
+        try {
+          if (fsSync.existsSync(ANALYTICS_FILE)) {
+            const fileContent = await fs.readFile(ANALYTICS_FILE, 'utf8');
+            currentData = JSON.parse(fileContent);
+            
+            // Merge: Behalte existierende Werte und aktualisiere nur geänderte Felder
+            // Dies stellt sicher, dass gleichzeitige Updates nicht verloren gehen
+            if (currentData.dailyStats && data.dailyStats) {
+              // Merge dailyStats: Behalte höhere Werte (falls es Race Conditions gab)
+              for (const dateKey in data.dailyStats) {
+                if (currentData.dailyStats[dateKey]) {
+                  // Behalte den höheren Wert (könnte durch Race Condition entstanden sein)
+                  currentData.dailyStats[dateKey] = {
+                    views: Math.max(currentData.dailyStats[dateKey].views || 0, data.dailyStats[dateKey].views || 0),
+                    searches: Math.max(currentData.dailyStats[dateKey].searches || 0, data.dailyStats[dateKey].searches || 0),
+                    lectures: Math.max(currentData.dailyStats[dateKey].lectures || 0, data.dailyStats[dateKey].lectures || 0)
+                  };
+                } else {
+                  currentData.dailyStats[dateKey] = data.dailyStats[dateKey];
+                }
+              }
+            } else if (data.dailyStats) {
+              currentData.dailyStats = data.dailyStats;
+            }
+            
+            // Merge topSearches und topLectures (addiere Werte)
+            if (data.topSearches) {
+              if (!currentData.topSearches) currentData.topSearches = {};
+              for (const term in data.topSearches) {
+                currentData.topSearches[term] = (currentData.topSearches[term] || 0) + (data.topSearches[term] || 0);
+              }
+            }
+            
+            if (data.topLectures) {
+              if (!currentData.topLectures) currentData.topLectures = {};
+              for (const lectureId in data.topLectures) {
+                currentData.topLectures[lectureId] = (currentData.topLectures[lectureId] || 0) + (data.topLectures[lectureId] || 0);
+              }
+            }
+          }
+        } catch (loadError) {
+          // Falls Laden fehlschlägt, verwende übergebene Daten
+          console.warn('[ANALYTICS SAVE] Fehler beim Laden der aktuellen Datei:', loadError.message);
+          currentData = data;
         }
+        
+        // WICHTIG: Berechne kumulative Werte IMMER neu vor dem Speichern
+        // Das stellt sicher, dass die Werte immer korrekt sind
+        let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
+        if (currentData.dailyStats && typeof currentData.dailyStats === 'object') {
+          for (const key of Object.keys(currentData.dailyStats)) {
+            const dayData = currentData.dailyStats[key];
+            if (dayData && typeof dayData === 'object') {
+              cumulativeViews += dayData.views || 0;
+              cumulativeSearches += dayData.searches || 0;
+              cumulativeLectures += dayData.lectures || 0;
+            }
+          }
+        }
+        
+        // Aktualisiere die kumulativen Werte
+        currentData.totalViews = cumulativeViews;
+        currentData.totalSearches = cumulativeSearches;
+        currentData.totalLectureViews = cumulativeLectures;
+        
+        // Stelle sicher, dass alle Felder vorhanden sind
+        if (!currentData.dailyStats) currentData.dailyStats = {};
+        if (!currentData.topSearches) currentData.topSearches = {};
+        if (!currentData.topLectures) currentData.topLectures = {};
+        
+        // Speichere mit atomarer Operation (erst Backup, dann schreiben)
+        const backupFile = ANALYTICS_FILE + '.backup';
+        try {
+          // Erstelle Backup falls Datei existiert
+          if (fsSync.existsSync(ANALYTICS_FILE)) {
+            const backupContent = await fs.readFile(ANALYTICS_FILE, 'utf8');
+            await fs.writeFile(backupFile, backupContent, 'utf8');
+          }
+        } catch (backupError) {
+          console.warn('[ANALYTICS] Backup konnte nicht erstellt werden:', backupError.message);
+        }
+        
+        // Schreibe neue Datei
+        await fs.writeFile(ANALYTICS_FILE, JSON.stringify(currentData, null, 2), 'utf8');
+        
+        // Lösche Backup nach erfolgreichem Schreiben
+        try {
+          if (fsSync.existsSync(backupFile)) {
+            await fs.unlink(backupFile);
+          }
+        } catch (unlinkError) {
+          // Ignoriere Fehler beim Löschen des Backups
+        }
+        
+        resolve(currentData);
+      } catch (e) {
+        console.error('[ANALYTICS] Fehler beim Speichern:', e.message);
+        // Versuche Backup wiederherzustellen falls Schreiben fehlgeschlagen ist
+        const backupFile = ANALYTICS_FILE + '.backup';
+        try {
+          if (fsSync.existsSync(backupFile)) {
+            const backupContent = await fs.readFile(backupFile, 'utf8');
+            await fs.writeFile(ANALYTICS_FILE, backupContent, 'utf8');
+            console.log('[ANALYTICS] Backup wiederhergestellt nach Fehler');
+          }
+        } catch (restoreError) {
+          console.error('[ANALYTICS] Backup-Wiederherstellung fehlgeschlagen:', restoreError.message);
+        }
+        reject(e);
       }
-    }
-    
-    // Aktualisiere die kumulativen Werte
-    data.totalViews = cumulativeViews;
-    data.totalSearches = cumulativeSearches;
-    data.totalLectureViews = cumulativeLectures;
-    
-    // Stelle sicher, dass alle Felder vorhanden sind
-    if (!data.dailyStats) data.dailyStats = {};
-    if (!data.topSearches) data.topSearches = {};
-    if (!data.topLectures) data.topLectures = {};
-    
-    // Speichere mit atomarer Operation (erst Backup, dann schreiben)
-    const backupFile = ANALYTICS_FILE + '.backup';
-    try {
-      // Erstelle Backup falls Datei existiert
-      if (fsSync.existsSync(ANALYTICS_FILE)) {
-        const backupContent = await fs.readFile(ANALYTICS_FILE, 'utf8');
-        await fs.writeFile(backupFile, backupContent, 'utf8');
-      }
-    } catch (backupError) {
-      console.warn('[ANALYTICS] Backup konnte nicht erstellt werden:', backupError.message);
-    }
-    
-    // Schreibe neue Datei
-    await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
-    
-    // Lösche Backup nach erfolgreichem Schreiben
-    try {
-      if (fsSync.existsSync(backupFile)) {
-        await fs.unlink(backupFile);
-      }
-    } catch (unlinkError) {
-      // Ignoriere Fehler beim Löschen des Backups
-    }
-  } catch (e) {
-    console.error('[ANALYTICS] Fehler beim Speichern:', e.message);
-    // Versuche Backup wiederherzustellen falls Schreiben fehlgeschlagen ist
-    const backupFile = ANALYTICS_FILE + '.backup';
-    try {
-      if (fsSync.existsSync(backupFile)) {
-        const backupContent = await fs.readFile(backupFile, 'utf8');
-        await fs.writeFile(ANALYTICS_FILE, backupContent, 'utf8');
-        console.log('[ANALYTICS] Backup wiederhergestellt nach Fehler');
-      }
-    } catch (restoreError) {
-      console.error('[ANALYTICS] Backup-Wiederherstellung fehlgeschlagen:', restoreError.message);
-    }
-    throw e;
-  }
+    }).catch(error => {
+      console.error('[ANALYTICS] Queue-Fehler:', error);
+      reject(error);
+    });
+  });
 }
 
 // Aktuelles Datum als String
@@ -23223,6 +23273,8 @@ app.post('/api/analytics/upload', async (req, res) => {
 // Überprüfe und korrigiere Analytics-Daten beim Serverstart
 async function validateAndRepairAnalytics() {
   try {
+    console.log('[ANALYTICS] Starte Validierung...');
+    
     // Prüfe ob Analytics-Datei existiert und Daten enthält
     let needsRestore = false;
     if (!fsSync.existsSync(ANALYTICS_FILE)) {
@@ -23230,8 +23282,10 @@ async function validateAndRepairAnalytics() {
       needsRestore = true;
     } else {
       try {
+        console.log('[ANALYTICS] Lade Analytics-Daten...');
         const data = await loadAnalyticsData();
         const statsCount = Object.keys(data.dailyStats || {}).length;
+        console.log(`[ANALYTICS] Daten geladen: ${statsCount} Tage`);
         
         // Wenn weniger als 2 Tage Daten vorhanden sind, versuche Wiederherstellung
         // (könnte bedeuten, dass die Datei nach einem Neustart neu initialisiert wurde)
@@ -23242,22 +23296,43 @@ async function validateAndRepairAnalytics() {
           console.log(`[ANALYTICS] Statistik geladen: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
         }
       } catch (loadError) {
-        console.warn('[ANALYTICS] Fehler beim Laden - versuche Wiederherstellung:', loadError.message);
+        console.warn('[ANALYTICS] Fehler beim Laden:', loadError.message);
+        console.warn('[ANALYTICS] Stack:', loadError.stack);
         needsRestore = true;
       }
     }
     
-    // Versuche Wiederherstellung aus Backup falls nötig
+    // Versuche Wiederherstellung aus Backup falls nötig (NUR wenn wirklich nötig)
     if (needsRestore) {
-      await restoreLatestAnalyticsBackup();
-      
-      // Lade Daten erneut nach Wiederherstellung
-      const data = await loadAnalyticsData();
-      const statsCount = Object.keys(data.dailyStats || {}).length;
-      console.log(`[ANALYTICS] Nach Wiederherstellung: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
+      try {
+        console.log('[ANALYTICS] Versuche Wiederherstellung aus Backup...');
+        // Timeout für Wiederherstellung (max. 10 Sekunden)
+        const restorePromise = restoreLatestAnalyticsBackup();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Restore timeout')), 10000)
+        );
+        await Promise.race([restorePromise, timeoutPromise]);
+        
+        // Lade Daten erneut nach Wiederherstellung
+        try {
+          const data = await loadAnalyticsData();
+          const statsCount = Object.keys(data.dailyStats || {}).length;
+          console.log(`[ANALYTICS] Nach Wiederherstellung: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
+        } catch (reloadError) {
+          console.warn('[ANALYTICS] Fehler beim Neuladen nach Wiederherstellung:', reloadError.message);
+        }
+      } catch (restoreError) {
+        console.warn('[ANALYTICS] Fehler bei Wiederherstellung (überspringe):', restoreError.message);
+        // Überspringe Wiederherstellung, Server kann trotzdem starten
+      }
     }
+    
+    console.log('  ✓ Analytics-Daten validiert');
   } catch (error) {
-    console.warn('[ANALYTICS] Warnung beim Validieren der Statistik:', error.message);
+    console.error('[ANALYTICS] KRITISCHER Fehler beim Validieren:', error.message);
+    console.error('[ANALYTICS] Stack:', error.stack);
+    // Server kann trotzdem starten, auch wenn Analytics-Validierung fehlschlägt
+    console.log('  ✓ Analytics-Daten validiert (mit Fehlern - Server startet trotzdem)');
   }
 }
 
@@ -23266,17 +23341,12 @@ async function restoreLatestAnalyticsBackup() {
   try {
     await ensureAnalyticsBackupDir();
     
-    // Versuche zuerst Git pull, um neueste Backups zu holen (falls Git-Repository vorhanden)
-    const gitDir = path.join(__dirname, '.git');
-    if (fsSync.existsSync(gitDir)) {
-      console.log('[ANALYTICS RESTORE] Git-Repository gefunden - hole neueste Backups...');
-      const pullResult = await runGitCommand('git pull', { silent: true });
-      if (pullResult.success) {
-        console.log('[ANALYTICS RESTORE] ✓ Git pull erfolgreich - neueste Backups geladen');
-      } else {
-        console.warn('[ANALYTICS RESTORE] ⚠ Git pull fehlgeschlagen (verwende lokale Backups)');
-      }
-    }
+    // Git pull DEAKTIVIERT beim Serverstart - zu langsam und blockiert Start
+    // Git pull wird nur beim Backup-Erstellen ausgeführt (asynchron)
+    // const gitDir = path.join(__dirname, '.git');
+    // if (fsSync.existsSync(gitDir)) {
+    //   console.log('[ANALYTICS RESTORE] Git-Repository gefunden - überspringe Git pull beim Start (zu langsam)');
+    // }
     
     if (!fsSync.existsSync(ANALYTICS_BACKUP_DIR)) {
       console.log('[ANALYTICS RESTORE] Backup-Verzeichnis existiert nicht - keine Wiederherstellung möglich');
