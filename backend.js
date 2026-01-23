@@ -23266,13 +23266,32 @@ async function restoreLatestAnalyticsBackup() {
   try {
     await ensureAnalyticsBackupDir();
     
+    // Versuche zuerst Git pull, um neueste Backups zu holen (falls Git-Repository vorhanden)
+    const gitDir = path.join(__dirname, '.git');
+    if (fsSync.existsSync(gitDir)) {
+      console.log('[ANALYTICS RESTORE] Git-Repository gefunden - hole neueste Backups...');
+      const pullResult = await runGitCommand('git pull', { silent: true });
+      if (pullResult.success) {
+        console.log('[ANALYTICS RESTORE] ✓ Git pull erfolgreich - neueste Backups geladen');
+      } else {
+        console.warn('[ANALYTICS RESTORE] ⚠ Git pull fehlgeschlagen (verwende lokale Backups)');
+      }
+    }
+    
     if (!fsSync.existsSync(ANALYTICS_BACKUP_DIR)) {
       console.log('[ANALYTICS RESTORE] Backup-Verzeichnis existiert nicht - keine Wiederherstellung möglich');
       return false;
     }
     
     // Liste alle Backup-Dateien
-    const files = await fs.readdir(ANALYTICS_BACKUP_DIR);
+    let files;
+    try {
+      files = await fs.readdir(ANALYTICS_BACKUP_DIR);
+    } catch (error) {
+      console.warn('[ANALYTICS RESTORE] Fehler beim Lesen des Backup-Verzeichnisses:', error.message);
+      return false;
+    }
+    
     const backupFiles = files
       .filter(f => f.startsWith('analytics-data-') && f.endsWith('.json'))
       .map(f => ({
