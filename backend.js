@@ -5,6 +5,9 @@ const cors = require('cors');
 const fs = require('fs').promises;
 const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
+const { exec } = require('child_process');
+const { promisify } = require('util');
+const execAsync = promisify(exec);
 const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
 
 const app = express();
@@ -23220,11 +23223,191 @@ app.post('/api/analytics/upload', async (req, res) => {
 // Überprüfe und korrigiere Analytics-Daten beim Serverstart
 async function validateAndRepairAnalytics() {
   try {
-    const data = await loadAnalyticsData();
-    const statsCount = Object.keys(data.dailyStats || {}).length;
-    console.log(`[ANALYTICS] Statistik geladen: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
+    // Prüfe ob Analytics-Datei existiert und Daten enthält
+    let needsRestore = false;
+    if (!fsSync.existsSync(ANALYTICS_FILE)) {
+      console.log('[ANALYTICS] Analytics-Datei existiert nicht - versuche Wiederherstellung aus Backup');
+      needsRestore = true;
+    } else {
+      try {
+        const data = await loadAnalyticsData();
+        const statsCount = Object.keys(data.dailyStats || {}).length;
+        
+        // Wenn weniger als 2 Tage Daten vorhanden sind, versuche Wiederherstellung
+        // (könnte bedeuten, dass die Datei nach einem Neustart neu initialisiert wurde)
+        if (statsCount < 2) {
+          console.log(`[ANALYTICS] Nur ${statsCount} Tag(e) Daten gefunden - versuche Wiederherstellung aus Backup`);
+          needsRestore = true;
+        } else {
+          console.log(`[ANALYTICS] Statistik geladen: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
+        }
+      } catch (loadError) {
+        console.warn('[ANALYTICS] Fehler beim Laden - versuche Wiederherstellung:', loadError.message);
+        needsRestore = true;
+      }
+    }
+    
+    // Versuche Wiederherstellung aus Backup falls nötig
+    if (needsRestore) {
+      await restoreLatestAnalyticsBackup();
+      
+      // Lade Daten erneut nach Wiederherstellung
+      const data = await loadAnalyticsData();
+      const statsCount = Object.keys(data.dailyStats || {}).length;
+      console.log(`[ANALYTICS] Nach Wiederherstellung: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
+    }
   } catch (error) {
     console.warn('[ANALYTICS] Warnung beim Validieren der Statistik:', error.message);
+  }
+}
+
+// Stelle das neueste Analytics-Backup wieder her
+async function restoreLatestAnalyticsBackup() {
+  try {
+    await ensureAnalyticsBackupDir();
+    
+    if (!fsSync.existsSync(ANALYTICS_BACKUP_DIR)) {
+      console.log('[ANALYTICS RESTORE] Backup-Verzeichnis existiert nicht - keine Wiederherstellung möglich');
+      return false;
+    }
+    
+    // Liste alle Backup-Dateien
+    const files = await fs.readdir(ANALYTICS_BACKUP_DIR);
+    const backupFiles = files
+      .filter(f => f.startsWith('analytics-data-') && f.endsWith('.json'))
+      .map(f => ({
+        name: f,
+        path: path.join(ANALYTICS_BACKUP_DIR, f),
+        date: f.match(/analytics-data-(\d{4}-\d{2}-\d{2})\.json/)?.[1]
+      }))
+      .filter(f => f.date)
+      .sort((a, b) => b.date.localeCompare(a.date)); // Neueste zuerst
+    
+    if (backupFiles.length === 0) {
+      console.log('[ANALYTICS RESTORE] Keine Backup-Dateien gefunden');
+      return false;
+    }
+    
+    // Stelle das neueste Backup wieder her
+    const latestBackup = backupFiles[0];
+    console.log(`[ANALYTICS RESTORE] Stelle wieder her: ${latestBackup.name} (${latestBackup.date})`);
+    
+    const backupData = await fs.readFile(latestBackup.path, 'utf8');
+    const parsed = JSON.parse(backupData);
+    
+    // Validiere Datenstruktur
+    if (!parsed.dailyStats || typeof parsed.dailyStats !== 'object') {
+      console.warn('[ANALYTICS RESTORE] Ungültige Datenstruktur im Backup - überspringe Wiederherstellung');
+      return false;
+    }
+    
+    // Erstelle Backup der aktuellen Datei (falls vorhanden)
+    if (fsSync.existsSync(ANALYTICS_FILE)) {
+      const currentBackup = ANALYTICS_FILE + '.pre-restore-' + Date.now() + '.json';
+      try {
+        const currentData = await fs.readFile(ANALYTICS_FILE, 'utf8');
+        await fs.writeFile(currentBackup, currentData, 'utf8');
+        console.log(`[ANALYTICS RESTORE] Backup der aktuellen Datei erstellt: ${currentBackup}`);
+      } catch (backupError) {
+        console.warn('[ANALYTICS RESTORE] Konnte Backup der aktuellen Datei nicht erstellen:', backupError.message);
+      }
+    }
+    
+    // Wiederherstelle Daten
+    await saveAnalyticsData(parsed);
+    console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung erfolgreich: ${Object.keys(parsed.dailyStats || {}).length} Tage wiederhergestellt`);
+    return true;
+  } catch (error) {
+    console.error('[ANALYTICS RESTORE] Fehler bei der Wiederherstellung:', error.message);
+    return false;
+  }
+}
+
+// Git-Befehle ausführen (für Analytics-Backups)
+async function runGitCommand(command, options = {}) {
+  const { cwd = __dirname, silent = false } = options;
+  try {
+    const { stdout, stderr } = await execAsync(command, { cwd, maxBuffer: 10 * 1024 * 1024 });
+    if (!silent && stdout) console.log(`[GIT] ${stdout.trim()}`);
+    if (stderr && !silent) console.warn(`[GIT] ${stderr.trim()}`);
+    return { success: true, stdout, stderr };
+  } catch (error) {
+    // Git-Fehler sind nicht immer kritisch (z.B. wenn nichts zu committen ist)
+    if (!silent) console.warn(`[GIT] Warnung bei "${command}": ${error.message}`);
+    return { success: false, error: error.message, stdout: error.stdout, stderr: error.stderr };
+  }
+}
+
+// Committe und pushe Analytics-Backup ins Git-Repository
+async function commitAndPushAnalyticsBackup(backupFile) {
+  try {
+    if (!backupFile || !fsSync.existsSync(backupFile)) {
+      console.warn('[ANALYTICS GIT] Backup-Datei existiert nicht - überspringe Git-Operation');
+      return false;
+    }
+    
+    // Relativer Pfad für Git (vom Repository-Root)
+    const relativePath = path.relative(__dirname, backupFile).replace(/\\/g, '/');
+    
+    // Prüfe ob Git-Repository vorhanden ist
+    const gitDir = path.join(__dirname, '.git');
+    if (!fsSync.existsSync(gitDir)) {
+      console.warn('[ANALYTICS GIT] Kein Git-Repository gefunden - überspringe Git-Operation');
+      return false;
+    }
+    
+    // Git add
+    const addResult = await runGitCommand(`git add "${relativePath}"`, { silent: true });
+    if (!addResult.success) {
+      console.warn('[ANALYTICS GIT] Git add fehlgeschlagen - überspringe Commit');
+      return false;
+    }
+    
+    // Prüfe ob es Änderungen gibt
+    const statusResult = await runGitCommand('git status --porcelain', { silent: true });
+    if (!statusResult.success || !statusResult.stdout.trim()) {
+      // Keine Änderungen - nichts zu committen
+      return false;
+    }
+    
+    // Erstelle Commit-Message mit Datum und Statistiken
+    const today = new Date().toISOString().split('T')[0];
+    let commitMessage = `Analytics-Backup ${today}`;
+    
+    try {
+      const backupData = await fs.readFile(backupFile, 'utf8');
+      const parsed = JSON.parse(backupData);
+      const statsCount = Object.keys(parsed.dailyStats || {}).length;
+      const totalViews = parsed.totalViews || 0;
+      const totalSearches = parsed.totalSearches || 0;
+      commitMessage = `Analytics-Backup ${today}: ${statsCount} Tage, ${totalViews} Views, ${totalSearches} Suchen`;
+    } catch (e) {
+      // Ignoriere Fehler beim Lesen der Statistiken
+    }
+    
+    // Git commit
+    const commitResult = await runGitCommand(`git commit -m "${commitMessage}"`, { silent: true });
+    if (!commitResult.success) {
+      console.warn('[ANALYTICS GIT] Git commit fehlgeschlagen');
+      return false;
+    }
+    
+    // Git push (non-blocking, damit Server nicht blockiert wird)
+    runGitCommand('git push', { silent: true }).then(result => {
+      if (result.success) {
+        console.log(`[ANALYTICS GIT] ✓ Backup erfolgreich ins Git-Repository gepusht: ${relativePath}`);
+      } else {
+        console.warn(`[ANALYTICS GIT] ⚠ Git push fehlgeschlagen (wird beim nächsten Push automatisch wiederholt)`);
+      }
+    }).catch(err => {
+      console.warn(`[ANALYTICS GIT] ⚠ Git push Fehler: ${err.message}`);
+    });
+    
+    console.log(`[ANALYTICS GIT] ✓ Backup committed: ${relativePath}`);
+    return true;
+  } catch (error) {
+    console.warn(`[ANALYTICS GIT] Fehler bei Git-Operation: ${error.message}`);
+    return false;
   }
 }
 
@@ -23246,8 +23429,31 @@ async function createAnalyticsBackup() {
     // Lese aktuelle Analytics-Daten
     const data = await fs.readFile(ANALYTICS_FILE, 'utf8');
     
-    // Schreibe Backup
-    await fs.writeFile(backupFile, data, 'utf8');
+    // Prüfe ob Backup bereits existiert und identisch ist
+    let needsBackup = true;
+    if (fsSync.existsSync(backupFile)) {
+      try {
+        const existingData = await fs.readFile(backupFile, 'utf8');
+        if (existingData === data) {
+          // Backup ist identisch - kein neues Backup nötig
+          needsBackup = false;
+          console.log(`[ANALYTICS BACKUP] Backup bereits vorhanden und identisch: ${backupFile}`);
+        }
+      } catch (e) {
+        // Fehler beim Lesen - erstelle neues Backup
+      }
+    }
+    
+    if (needsBackup) {
+      // Schreibe Backup
+      await fs.writeFile(backupFile, data, 'utf8');
+      console.log(`[ANALYTICS BACKUP] Backup erstellt: ${backupFile}`);
+      
+      // Committe und pushe ins Git-Repository (non-blocking)
+      commitAndPushAnalyticsBackup(backupFile).catch(err => {
+        console.warn('[ANALYTICS BACKUP] Fehler beim Git-Commit:', err.message);
+      });
+    }
     
     // Bereinige alte Backups (behalte die letzten 30 Tage)
     try {
@@ -23276,7 +23482,6 @@ async function createAnalyticsBackup() {
       console.warn('[ANALYTICS BACKUP] Fehler beim Bereinigen alter Backups:', cleanupError.message);
     }
     
-    console.log(`[ANALYTICS BACKUP] Backup erstellt: ${backupFile}`);
     return backupFile;
   } catch (error) {
     console.error('[ANALYTICS BACKUP] Fehler beim Erstellen des Backups:', error.message);
@@ -23284,7 +23489,7 @@ async function createAnalyticsBackup() {
   }
 }
 
-// Starte tägliches Analytics-Backup-System
+// Starte häufiges Analytics-Backup-System (stündlich + täglich um Mitternacht)
 function startDailyAnalyticsBackup() {
   try {
     // Erstelle sofort ein Backup beim Start
@@ -23292,16 +23497,35 @@ function startDailyAnalyticsBackup() {
       console.warn('[ANALYTICS BACKUP] Fehler beim initialen Backup:', err.message);
     });
     
-    // Berechne Zeit bis zur nächsten Mitternacht
+    // STÜNDLICHE BACKUPS: Erstelle alle Stunde ein Backup (für bessere Datenpersistenz bei Render-Neustarts)
+    // Berechne Zeit bis zur nächsten vollen Stunde
     const now = new Date();
+    const nextHour = new Date(now);
+    nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
+    const msUntilNextHour = nextHour.getTime() - now.getTime();
+    
+    setTimeout(() => {
+      // Erstelle Backup zur vollen Stunde
+      createAnalyticsBackup().catch(err => {
+        console.warn('[ANALYTICS BACKUP] Fehler beim stündlichen Backup:', err.message);
+      });
+      
+      // Dann alle Stunde wiederholen
+      setInterval(() => {
+        createAnalyticsBackup().catch(err => {
+          console.warn('[ANALYTICS BACKUP] Fehler beim stündlichen Backup:', err.message);
+        });
+      }, 60 * 60 * 1000); // 1 Stunde
+    }, msUntilNextHour);
+    
+    // TÄGLICHE BACKUPS: Erstelle zusätzlich täglich um Mitternacht ein Backup mit Datum im Namen
     const tomorrow = new Date(now);
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow.setHours(0, 0, 0, 0);
     const msUntilMidnight = tomorrow.getTime() - now.getTime();
     
-    // Setze Timer für erste Mitternacht
     setTimeout(() => {
-      // Erstelle Backup um Mitternacht
+      // Erstelle Backup um Mitternacht (wird täglich überschrieben)
       createAnalyticsBackup().catch(err => {
         console.warn('[ANALYTICS BACKUP] Fehler beim täglichen Backup:', err.message);
       });
@@ -23314,9 +23538,11 @@ function startDailyAnalyticsBackup() {
       }, 24 * 60 * 60 * 1000); // 24 Stunden
     }, msUntilMidnight);
     
-    console.log(`[ANALYTICS BACKUP] Tägliches Backup-System gestartet. Nächstes Backup um Mitternacht (in ${Math.round(msUntilMidnight / 1000 / 60)} Minuten)`);
+    console.log(`[ANALYTICS BACKUP] Backup-System gestartet:`);
+    console.log(`  - Stündliche Backups: Nächstes in ${Math.round(msUntilNextHour / 1000 / 60)} Minuten`);
+    console.log(`  - Tägliche Backups: Nächstes um Mitternacht (in ${Math.round(msUntilMidnight / 1000 / 60)} Minuten)`);
   } catch (error) {
-    console.error('[ANALYTICS BACKUP] Fehler beim Starten des täglichen Backup-Systems:', error.message);
+    console.error('[ANALYTICS BACKUP] Fehler beim Starten des Backup-Systems:', error.message);
   }
 }
 
