@@ -2142,6 +2142,86 @@
     };
   })();
   </script>
+  
+  <script>
+    // ============================================================
+    // ANALYTICS-FUNKTIONEN für index.html
+    // ============================================================
+    
+    // Track Event an Server senden (fire-and-forget)
+    function analyticsTrack(type, value = null) {
+      try {
+        // Bestimme API_BASE basierend auf Hostname
+        const isLocal = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname.startsWith('192.168.') ||
+                       window.location.hostname.startsWith('172.') ||
+                       window.location.hostname.startsWith('10.') ||
+                       window.location.protocol === 'file:';
+        const apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        const url = `${apiBase}/api/analytics/track`;
+        
+        console.log('[ANALYTICS] Tracking:', type, value, 'URL:', url);
+        
+        // Return Promise für besseres Error Handling
+        return fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, value }),
+          mode: 'cors'
+        }).then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          return response.json();
+        }).catch(err => {
+          console.warn('[ANALYTICS] Tracking-Fehler (non-blocking):', err.message);
+          throw err;
+        });
+      } catch (error) {
+        console.warn('[ANALYTICS] Tracking konnte nicht ausgeführt werden:', error.message);
+        return Promise.reject(error);
+      }
+    }
+    
+    function trackPageView() {
+      console.log('[ANALYTICS] trackPageView() aufgerufen für index.html');
+      const alreadyTracked = sessionStorage.getItem('analytics_tracked');
+      console.log('[ANALYTICS] Bereits getrackt?', alreadyTracked);
+      
+      if (!alreadyTracked) {
+        executePageViewTracking();
+      } else {
+        console.log('[ANALYTICS] Page View bereits in dieser Session getrackt');
+      }
+    }
+    
+    function executePageViewTracking() {
+      console.log('[ANALYTICS] Tracke Page View für index.html');
+      analyticsTrack('page_view').then(() => {
+        console.log('[ANALYTICS] ✓ Page View erfolgreich getrackt');
+        sessionStorage.setItem('analytics_tracked', '1');
+      }).catch((err) => {
+        console.error('[ANALYTICS] ✗ Page View Tracking fehlgeschlagen:', err);
+        // Versuche es erneut nach kurzer Verzögerung
+        setTimeout(() => {
+          console.log('[ANALYTICS] Retry: Tracke Page View erneut');
+          analyticsTrack('page_view').then(() => {
+            sessionStorage.setItem('analytics_tracked', '1');
+          }).catch((retryErr) => {
+            console.error('[ANALYTICS] ✗ Retry fehlgeschlagen:', retryErr);
+          });
+        }, 1000);
+      });
+    }
+    
+    // Starte Page View Tracking nach kurzer Verzögerung
+    console.log('[ANALYTICS] Initialisiere Page View Tracking für index.html...');
+    setTimeout(() => {
+      console.log('[ANALYTICS] Starte trackPageView() für index.html');
+      trackPageView();
+    }, 1000);
+  </script>
 
 </body>
 </html>

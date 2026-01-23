@@ -20233,8 +20233,7 @@ function scrollToChronologicalYear(year) {
         return;
       }
       
-      // Analytics: Suche tracken
-      analyticsTrack('search', word1Input + (word2Input ? ' ' + word2Input : ''));
+      // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen…</div>';
       document.getElementById('document-title').textContent = 'Suche';
@@ -23273,8 +23272,7 @@ function scrollToChronologicalYear(year) {
       const query = document.getElementById('thematicQuery').value.trim();
       if (!query) return;
       
-      // Analytics: Themensuche tracken
-      analyticsTrack('search', query);
+      // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       
       currentThematicQuery = query;
       
