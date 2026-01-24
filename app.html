@@ -10498,20 +10498,20 @@ function isEssayVolume(gaNumber) {
   const match = gaNumber.match(/GA0?(\d+)/i);
   if (!match) return false;
   const num = parseInt(match[1]);
-  // Zusätzliche Aufsatzbände: GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [18, 19, 24, 26, 42, 43, 44];
   if (additionalEssayBands.includes(num)) return true;
   return (num >= 29 && num <= 36) || num === 46;
 }
 
 // Prüft ob eine GA-Nummer ein Aufsatzband ist, bei dem max. eine Überschrift pro Absatz gilt
-// Betrifft: GA019, GA024, GA026, GA029-GA036 (nicht GA046)
+// Betrifft: GA018, GA019, GA024, GA026, GA029-GA036 (nicht GA046)
 function isEssayWithSingleHeading(gaNumber) {
   if (!gaNumber) return false;
   const match = gaNumber.match(/GA0?(\d+)/i);
   if (!match) return false;
   const num = parseInt(match[1]);
-  return num === 19 || num === 24 || num === 26 || (num >= 29 && num <= 36);
+  return num === 18 || num === 19 || num === 24 || num === 26 || (num >= 29 && num <= 36);
 }
 
 // Entfernt manuelle Überschriften (H2, H3, H4) aus dem Content für Aufsatzbände
@@ -14448,14 +14448,14 @@ function normalizeGANumber(gaNumber) {
       } catch (e) { /* silent */ }
       if (!gaNumber) return;
       try {
-        // Prüfe ob es ein Book ist
-        if (isBookGANumber(gaNumber)) {
+        // Prüfe ob es ein Book ist (aber nicht ein Aufsatzband)
+        if (isBookGANumber(gaNumber) && !isEssayGANumber(gaNumber)) {
           // Für Books: Verwende showLecture, damit History-Eintrag erstellt wird
           await showLecture(gaNumber);
           return;
         }
         
-        // Ansonsten: Lade GA-Übersicht (Vorträge)
+        // Ansonsten: Lade GA-Übersicht (Vorträge oder Aufsätze)
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
@@ -16321,34 +16321,44 @@ async function loadSummaryDatabase() {
 // Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist
 // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
 function isBookGANumber(gaNumber) {
+  if (!gaNumber) return false;
+  
+  // EXPLIZITE PRÜFUNG: GA018 ist ein Aufsatzband, KEIN Buch!
+  const gaUpper = gaNumber.toUpperCase();
+  if (gaUpper === 'GA018' || gaUpper === 'GA18') {
+    console.log('[isBookGANumber] GA018 ist KEIN Buch (explizite Prüfung)');
+    return false;
+  }
+  
   // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
   if (gaNum === 1) return false;
   // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNum === 40) return false;
   
-  // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze
-  const notBooks = ['GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
-  const normalized = gaNumber.toUpperCase().replace(/^GA0?/, 'GA');
-  if (notBooks.includes(normalized)) {
+  // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze (als Nummern für einfachen Vergleich)
+  // WICHTIG: GA018, GA019, GA024, GA026 sind Aufsatzbände und werden NICHT als Bücher behandelt!
+  const notBookNumbers = [18, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+  // GA041b wird separat über isEssayGANumber geprüft
+  if (notBookNumbers.includes(gaNum)) {
     console.log('[isBookGANumber] ' + gaNumber + ' ist KEIN Buch (in notBooks Liste)');
     return false;
   }
-  // Prüfe auch mit isEssayGANumber
-  if (isEssayGANumber(gaNumber)) return false;
+  // Prüfe auch mit isEssayGANumber (doppelte Sicherheit)
+  if (typeof isEssayGANumber === 'function' && isEssayGANumber(gaNumber)) return false;
   return gaNum >= 2 && gaNum <= 46;
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
-// Zusätzlich: GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+// Zusätzlich: GA018, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
 function isEssayGANumber(gaNumber) {
   const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Zusätzliche Aufsatzbände: GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [18, 19, 24, 26, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
@@ -21200,9 +21210,26 @@ function scrollToChronologicalYear(year) {
     async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null) {
       
       try {
+        // Prüfe ob es wirklich ein Buch ist (nicht ein Aufsatzband)
+        if (isEssayGANumber(gaNumber)) {
+          // Es ist ein Aufsatzband - lade stattdessen die GA-Übersicht
+          console.log(`[SHOW-BOOK] ${gaNumber} ist ein Aufsatzband, lade GA-Übersicht statt Buch`);
+          await openGAOverview(gaNumber);
+          return;
+        }
+        
         // Lade das Buch
         const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
-        if (!response.ok) throw new Error(`Buch nicht gefunden: ${gaNumber}`);
+        if (!response.ok) {
+          // Wenn Buch nicht gefunden wird, prüfe ob es vielleicht ein Aufsatzband ist
+          if (isEssayGANumber(gaNumber)) {
+            // Es ist ein Aufsatzband - lade stattdessen die GA-Übersicht
+            console.log(`[SHOW-BOOK] ${gaNumber} ist ein Aufsatzband, lade GA-Übersicht statt Buch`);
+            await openGAOverview(gaNumber);
+            return;
+          }
+          throw new Error(`Buch nicht gefunden: ${gaNumber}`);
+        }
         
         const book = await response.json();
         
@@ -29053,10 +29080,41 @@ function formatAsteriskParagraphs() {
     const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
     if (gaMatch) {
       const gaNumber = gaMatch[1];
-      if (isBookGANumber(gaNumber)) {
+      
+      // DIREKTE PRÜFUNG: GA018, GA019 etc. sind Aufsatzbände, KEINE Bücher!
+      // Diese Prüfung kommt VOR isBookGANumber, um sicherzustellen dass sie nie als Buch geladen werden
+      const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+      const essayBandNumbers = [18, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+      const isEssayBand = essayBandNumbers.includes(gaNum);
+      
+      if (isEssayBand) {
+        // Aufsatzband: Wenn keine spezifische ID, lade Übersicht
+        if (!lectureId.includes('/')) {
+          console.log(`[SHOW-LECTURE] ${gaNumber} ist Aufsatzband, lade GA-Übersicht`);
+          const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+          if (response.ok) {
+            const data = await response.json();
+            await displayGAOverview(data);
+            return;
+          }
+        }
+        // Mit spezifischer ID: Überspringe isBookGANumber und lade als normaler Vortrag
+        console.log(`[SHOW-LECTURE] ${lectureId} ist spezifischer Aufsatz, lade als Vortrag`);
+        // Springe direkt zum Vortrags-Lade-Code (nach dem if-Block für Bücher)
+      }
+      
+      if (!isEssayBand && isBookGANumber(gaNumber)) {
         // Lade das Buch
         const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}?t=${Date.now()}`);
         if (!bookResponse.ok) {
+          // Wenn Buch nicht gefunden wird, versuche es als GA-Übersicht zu laden
+          console.log(`[SHOW-LECTURE] ${gaNumber} Buch nicht gefunden, versuche GA-Übersicht`);
+          const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+          if (response.ok) {
+            const data = await response.json();
+            await displayGAOverview(data);
+            return;
+          }
           throw new Error(`Buch nicht gefunden: ${gaNumber}`);
         }
         const book = await bookResponse.json();

@@ -414,22 +414,22 @@ let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
-// Zusätzlich: GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+// Zusätzlich: GA018, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
 function isEssayGANumber(gaNumber) {
   if (!gaNumber) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Zusätzliche Aufsatzbände: GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [18, 19, 24, 26, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA002-GA028 (ohne die Aufsatzbände GA019, GA024, GA026) - GA001 und GA040 werden wie Vortragsbände behandelt
+// Bücher: GA002-GA028 (ohne die Aufsatzbände GA018, GA019, GA024, GA026) - GA001 und GA040 werden wie Vortragsbände behandelt
 function isBookGANumberBackend(gaNumber) {
   // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNumber && (gaNumber.toUpperCase() === 'GA001' || gaNumber === '1')) {
@@ -1341,7 +1341,7 @@ async function deduplicateBooksAndLectures() {
   // Wenn beide existieren, wird das Buch IMMER entfernt, unabhängig von mtime.
   // ============================================================
   const FORCE_AS_LECTURES = new Set([
-    'GA019', 'GA024', 'GA026',
+    'GA018', 'GA019', 'GA024', 'GA026',
     'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037',
     'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'
   ]);
@@ -9170,6 +9170,11 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     
     // VALIDIERUNG ENTFERNT - verursachte Probleme
     const gaNumberNormalized = gaNumberOriginal.toLowerCase();
+    
+    // PRÜFE: Wenn es ein Aufsatzband ist, sollte es NICHT als Buch geladen werden
+    if (isEssayGANumber(gaNumberOriginal)) {
+      return res.status(404).json({ error: `GA ${gaNumberOriginal} ist ein Aufsatzband und wird nicht als Buch behandelt` });
+    }
 
     // DEBUG: Zeige geladene Version für GA002
     if (gaNumberNormalized === 'ga002') {
@@ -11976,7 +11981,7 @@ app.post('/api/export/ga', async (req, res) => {
     
     // Bücher: GA002-GA028, GA045 (außer Aufsätze) - GA001 wird wie Vortragsband behandelt
     // GA015 und GA022 werden als Vorträge/Aufsätze exportiert (nicht als Bücher)
-    const essayBands = [14, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+    const essayBands = [14, 18, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
     const letterBands = [262]; // GA262, GA263a werden separat behandelt
     const isGA041b = gaSuffix === 'b' && gaNumeric === 41;
     const isGA263a = gaSuffix === 'a' && gaNumeric === 263;
@@ -11999,7 +12004,7 @@ app.post('/api/export/ga', async (req, res) => {
     } else if (gaNumeric >= 1 && gaNumeric <= 50 && !essayBands.includes(gaNumeric) && !isGA041b && gaNumeric !== 45) {
       // Bücher: GA002-GA028 (außer Aufsätze, GA001 und GA045)
       // Prüfe ob es ein Multi-File Buch ist (GA014, etc.)
-      const multiFileBooks = [14, 19, 24, 26, 29, 30, 31, 32, 33, 37];
+      const multiFileBooks = [14, 18, 19, 24, 26, 29, 30, 31, 32, 33, 37];
       if (multiFileBooks.includes(gaNumeric)) {
         exportType = 'book-multi';
       } else {
