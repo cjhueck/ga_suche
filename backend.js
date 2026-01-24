@@ -23392,6 +23392,49 @@ app.post('/api/analytics/upload', async (req, res) => {
   }
 });
 
+// Bereinige korrupte Werte in topSearches und topLectures
+function cleanupCorruptedValues(data) {
+  let cleaned = false;
+  
+  // Bereinige topSearches
+  if (data.topSearches && typeof data.topSearches === 'object') {
+    for (const term in data.topSearches) {
+      const value = data.topSearches[term];
+      const numValue = Number(value);
+      
+      // Wenn Wert ungültig oder extrem groß ist (> 1 Million), setze auf 0
+      if (isNaN(numValue) || numValue < 0 || numValue > 1000000) {
+        console.warn(`[ANALYTICS CLEANUP] Korrupter Wert für "${term}": ${value} -> 0`);
+        data.topSearches[term] = 0;
+        cleaned = true;
+      } else {
+        // Stelle sicher, dass Wert eine ganze Zahl ist
+        data.topSearches[term] = Math.floor(numValue);
+      }
+    }
+  }
+  
+  // Bereinige topLectures
+  if (data.topLectures && typeof data.topLectures === 'object') {
+    for (const id in data.topLectures) {
+      const value = data.topLectures[id];
+      const numValue = Number(value);
+      
+      // Wenn Wert ungültig oder extrem groß ist (> 1 Million), setze auf 0
+      if (isNaN(numValue) || numValue < 0 || numValue > 1000000) {
+        console.warn(`[ANALYTICS CLEANUP] Korrupter Wert für "${id}": ${value} -> 0`);
+        data.topLectures[id] = 0;
+        cleaned = true;
+      } else {
+        // Stelle sicher, dass Wert eine ganze Zahl ist
+        data.topLectures[id] = Math.floor(numValue);
+      }
+    }
+  }
+  
+  return cleaned;
+}
+
 // Überprüfe und korrigiere Analytics-Daten beim Serverstart
 async function validateAndRepairAnalytics() {
   try {
@@ -23408,6 +23451,13 @@ async function validateAndRepairAnalytics() {
         const data = await loadAnalyticsData();
         const statsCount = Object.keys(data.dailyStats || {}).length;
         console.log(`[ANALYTICS] Daten geladen: ${statsCount} Tage`);
+        
+        // Bereinige korrupte Werte
+        const wasCleaned = cleanupCorruptedValues(data);
+        if (wasCleaned) {
+          console.log('[ANALYTICS] Korrupte Werte bereinigt - speichere korrigierte Daten...');
+          await saveAnalyticsData(data);
+        }
         
         // Wenn weniger als 2 Tage Daten vorhanden sind ODER wenn die kumulativen Werte sehr niedrig sind,
         // versuche Wiederherstellung (könnte bedeuten, dass die Datei nach einem Neustart neu initialisiert wurde)
