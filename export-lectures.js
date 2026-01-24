@@ -803,7 +803,7 @@ class SteinerLecturesExporter {
         const gaLower = gaNumber.toLowerCase();
         const isGA041b = gaLower === '041b' || gaLower === '41b';
         // Standard Aufsatzbände + zusätzliche GAs die auch als Aufsätze exportiert werden können
-        const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
+        const additionalEssayBands = [14, 18, 19, 24, 26, 42, 43, 44];
         const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b || additionalEssayBands.includes(gaNum);
         // BRIEFE: GA262 und GA263a werden wie Vorträge exportiert (NICHT als Bücher!)
         const isGA263a = gaLower === '263a' || gaLower === 'ga263a';
@@ -849,11 +849,14 @@ class SteinerLecturesExporter {
       // H2/H3/H4 Überschriften werden beibehalten und dem nächsten Absatz vorangestellt
       // AUSNAHME: Für GA051-GA084 werden H3/H4 NICHT exportiert (werden durch AI-generierte ersetzt)
       // BRIEFE (GA262, GA263a): H2-Überschriften werden mit Absatz-Indizes versehen
+      // AUFSÄTZE (GA018, GA019, etc.): H3/H4-Überschriften werden mit Absatz-Indizes versehen
       const paragraphs = [];
       const lectureImages = []; // Bilder für diesen Vortrag
       let pendingHeadings = []; // Sammle Überschriften für den nächsten Absatz
       const letterHeadings = []; // Für Briefe: H2-Überschriften mit Absatz-Indizes
+      const essayHeadings = []; // Für Aufsätze: H3/H4-Überschriften mit Absatz-Indizes
       let pendingLetterHeading = null; // Aktuelle H2-Überschrift die auf Index wartet
+      let pendingEssayHeadings = []; // Aktuelle H3/H4-Überschriften die auf Index warten
       
       // Prüfe ob dieser GA-Band manuelle Überschriften NICHT exportieren soll
       // GA051-GA084: Haben AI-generierte Headings, manuelle werden übersprungen
@@ -865,12 +868,19 @@ class SteinerLecturesExporter {
       const gaLowerForCheck = meta.gaNumber.toLowerCase();
       const isLetterBand = gaNumeric === 262 || gaLowerForCheck === 'ga263a';
       
+      // AUFSÄTZE: Prüfe ob es ein Aufsatzband ist (GA018, GA019, etc.)
+      const isEssayBand = contentType === 'essay';
+      
       if (skipManualHeadings) {
         console.log(`  [${meta.ID}] Manuelle H3/H4 werden übersprungen (AI-generierte verwenden)`);
       }
       
       if (isLetterBand) {
         console.log(`  [${meta.ID}] Briefe-Band: H2-Überschriften erhalten Absatz-Indizes`);
+      }
+      
+      if (isEssayBand) {
+        console.log(`  [${meta.ID}] Aufsatz-Band: H3/H4-Überschriften erhalten Absatz-Indizes`);
       }
       
       for (let line of lines) {
@@ -895,6 +905,18 @@ class SteinerLecturesExporter {
               text: headingText,
               level: 4  // H2 → H4 für konsistente Darstellung
             };
+            // Die Überschrift wird NICHT zu pendingHeadings hinzugefügt,
+            // sondern separat behandelt
+            continue;
+          }
+          
+          // AUFSÄTZE: H3/H4-Überschriften werden gespeichert und warten auf Absatz-Index
+          if (isEssayBand && (level === 3 || level === 4)) {
+            // Speichere die Überschrift - der Index wird beim nächsten Absatz hinzugefügt
+            pendingEssayHeadings.push({
+              text: headingText,
+              level: level  // Behalte das ursprüngliche Level (H3 oder H4)
+            });
             // Die Überschrift wird NICHT zu pendingHeadings hinzugefügt,
             // sondern separat behandelt
             continue;
@@ -957,6 +979,24 @@ class SteinerLecturesExporter {
               pendingLetterHeading = null; // Reset
             }
             
+            // AUFSÄTZE: H3/H4-Überschriften mit data-index Attribut hinzufügen
+            if (isEssayBand && pendingEssayHeadings.length > 0) {
+              // Füge alle gesammelten Überschriften hinzu
+              const headingsHTML = [];
+              for (const essayHeading of pendingEssayHeadings) {
+                // Speichere in essayHeadings für summary-database
+                essayHeadings.push({
+                  index: `^${blockId}`,
+                  text: essayHeading.text,
+                  level: `h${essayHeading.level}`  // h3 oder h4
+                });
+                // Füge Überschrift mit data-index zum Content hinzu
+                headingsHTML.push(`<h${essayHeading.level} data-index="^${blockId}">${essayHeading.text}</h${essayHeading.level}>`);
+              }
+              convertedText = headingsHTML.join('\n') + '\n' + convertedText;
+              pendingEssayHeadings = []; // Reset
+            }
+            
             // Füge gesammelte Überschriften vor dem Absatz ein
             if (pendingHeadings.length > 0) {
               convertedText = pendingHeadings.join('\n') + '\n' + convertedText;
@@ -999,6 +1039,11 @@ class SteinerLecturesExporter {
           console.log(`    -> ${letterHeadings.length} Brief-Überschriften mit Indizes`);
         }
         
+        // AUFSÄTZE: H3/H4-Überschriften mit Absatz-Indizes hinzufügen
+        if (isEssayBand && essayHeadings.length > 0) {
+          lectureData.headings = essayHeadings;
+          console.log(`    -> ${essayHeadings.length} Aufsatz-Überschriften mit Indizes`);
+        }
         
         lectures.push(lectureData);
         
@@ -1086,6 +1131,10 @@ class SteinerLecturesExporter {
     // BRIEFE: Speichere Brief-Überschriften in summary-database.json
     // Damit sie im TOC im rechten Summary-Panel angezeigt werden
     this.saveLetterHeadingsToSummaryDB(lectures);
+    
+    // AUFSÄTZE: Speichere Aufsatz-Überschriften in summary-database.json
+    // Damit sie im TOC im linken Side Panel angezeigt werden
+    this.saveEssayHeadingsToSummaryDB(lectures);
     
     // Automatische Synchronisation der Metadaten (optional)
     if (syncMetadata) {
@@ -1610,6 +1659,59 @@ class SteinerLecturesExporter {
     // Speichere zurück
     fs.writeFileSync(summaryDBPath, JSON.stringify(summaryDB, null, 2), 'utf8');
     console.log(`  ✓ ${updatedCount} Brief-Lectures in summary-database.json gespeichert`);
+    
+    return updatedCount;
+  }
+  
+  saveEssayHeadingsToSummaryDB(lectures) {
+    const summaryDBPath = path.join(this.outputDir, 'summary-database.json');
+    
+    // Lade existierende summary-database.json
+    let summaryDB = {};
+    if (fs.existsSync(summaryDBPath)) {
+      try {
+        summaryDB = JSON.parse(fs.readFileSync(summaryDBPath, 'utf8'));
+      } catch (e) {
+        console.warn('  [WARN] Konnte summary-database.json nicht laden:', e.message);
+      }
+    }
+    
+    // Filtere Lectures mit Aufsatz-Überschriften (headings vorhanden und type === 'essay')
+    const essayLectures = lectures.filter(l => l.type === 'essay' && l.headings && l.headings.length > 0);
+    
+    if (essayLectures.length === 0) {
+      return 0;
+    }
+    
+    let updatedCount = 0;
+    
+    for (const lecture of essayLectures) {
+      const lectureId = lecture.ID;
+      
+      // Erstelle oder aktualisiere Eintrag
+      if (!summaryDB[lectureId]) {
+        summaryDB[lectureId] = {};
+      }
+      
+      // Speichere headings (Aufsatz-Überschriften mit Absatz-Indizes)
+      summaryDB[lectureId].headings = lecture.headings;
+      
+      // Erstelle tableOfContents aus headings (für Kompatibilität)
+      summaryDB[lectureId].tableOfContents = lecture.headings.map(h => ({
+        heading: h.text,
+        description: '',
+        index: h.index
+      }));
+      
+      summaryDB[lectureId].version = 'v2-essay';
+      summaryDB[lectureId].timestamp = new Date().toISOString();
+      
+      updatedCount++;
+    }
+    
+    // Speichere zurück
+    fs.writeFileSync(summaryDBPath, JSON.stringify(summaryDB, null, 2), 'utf8');
+    console.log(`  ✓ ${updatedCount} Aufsatz-Lectures in summary-database.json gespeichert`);
     
     return updatedCount;
   }
