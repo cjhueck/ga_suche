@@ -297,6 +297,45 @@ app.get('/app.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'app.html'));
 });
 
+// Analytics-Statistik-Seite (für direkten Zugriff auf Render)
+app.get('/analytics-view.html', (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'analytics-view.html');
+    
+    // Prüfe ob Datei existiert
+    if (!fsSync.existsSync(filePath)) {
+      console.error(`[ANALYTICS-VIEW] Datei nicht gefunden: ${filePath}`);
+      return res.status(404).send(`
+        <html>
+          <head><title>Datei nicht gefunden</title></head>
+          <body>
+            <h1>404 - Datei nicht gefunden</h1>
+            <p>Die Datei analytics-view.html konnte nicht gefunden werden.</p>
+            <p>Pfad: ${filePath}</p>
+          </body>
+        </html>
+      `);
+    }
+    
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.sendFile(filePath);
+  } catch (error) {
+    console.error('[ANALYTICS-VIEW] Fehler beim Servieren der Datei:', error);
+    res.status(500).send(`
+      <html>
+        <head><title>Server-Fehler</title></head>
+        <body>
+          <h1>500 - Server-Fehler</h1>
+          <p>Fehler beim Laden der Analytics-Seite: ${error.message}</p>
+        </body>
+      </html>
+    `);
+  }
+});
+
 // Statische HTML-Dateien aus dem Hauptverzeichnis bereitstellen
 // Cache deaktivieren für HTML-Dateien während der Entwicklung
 app.use(express.static(__dirname, {
@@ -23448,85 +23487,129 @@ async function restoreLatestAnalyticsBackup() {
     if (backupFiles.length === 0) {
       console.log('[ANALYTICS RESTORE] Keine lokalen Backup-Dateien gefunden');
       
-      // Versuche Backup direkt aus Git zu holen (falls Git verfügbar)
+      // Versuche Backups direkt aus Git zu holen (falls Git verfügbar)
       const gitDir = path.join(__dirname, '.git');
       if (fsSync.existsSync(gitDir)) {
-        console.log('[ANALYTICS RESTORE] Versuche Backup direkt aus Git zu holen...');
+        console.log('[ANALYTICS RESTORE] Versuche Backups direkt aus Git zu holen...');
         try {
-          // Hole neuestes Backup aus Git (ohne pull, direkt aus Git-Index)
-          const today = new Date().toISOString().split('T')[0];
-          const backupFileName = `analytics-data-${today}.json`;
-          const gitBackupPath = `backups/analytics/${backupFileName}`;
+          await ensureAnalyticsBackupDir();
           
-          // Versuche Backup aus Git zu lesen
-          const gitShowResult = await runGitCommand(`git show HEAD:${gitBackupPath}`, { silent: true });
-          if (gitShowResult.success && gitShowResult.stdout) {
-            console.log('[ANALYTICS RESTORE] Backup aus Git gefunden!');
+          // Versuche Backups der letzten 30 Tage aus Git zu holen (für vollständige Daten)
+          let foundAnyBackup = false;
+          for (let daysAgo = 0; daysAgo <= 30; daysAgo++) {
+            const date = new Date();
+            date.setDate(date.getDate() - daysAgo);
+            const dateStr = date.toISOString().split('T')[0];
+            const backupFileName = `analytics-data-${dateStr}.json`;
+            const gitBackupPath = `backups/analytics/${backupFileName}`;
             
-            // Stelle Backup-Verzeichnis sicher
-            await ensureAnalyticsBackupDir();
-            
-            // Schreibe Backup ins lokale Dateisystem
-            const localBackupFile = path.join(ANALYTICS_BACKUP_DIR, backupFileName);
-            await fs.writeFile(localBackupFile, gitShowResult.stdout, 'utf8');
-            console.log(`[ANALYTICS RESTORE] Backup aus Git geschrieben: ${localBackupFile}`);
-            
-            // Verwende dieses Backup
-            const parsed = JSON.parse(gitShowResult.stdout);
-            if (parsed.dailyStats && typeof parsed.dailyStats === 'object') {
-              await saveAnalyticsData(parsed);
-              console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung aus Git erfolgreich: ${Object.keys(parsed.dailyStats || {}).length} Tage`);
-              return true;
-            }
-          } else {
-            console.log('[ANALYTICS RESTORE] Kein Backup in Git gefunden (versuche ältere Backups)...');
-            
-            // Versuche Backups der letzten 7 Tage
-            for (let daysAgo = 1; daysAgo <= 7; daysAgo++) {
-              const date = new Date();
-              date.setDate(date.getDate() - daysAgo);
-              const dateStr = date.toISOString().split('T')[0];
-              const oldBackupFileName = `analytics-data-${dateStr}.json`;
-              const oldGitBackupPath = `backups/analytics/${oldBackupFileName}`;
+            const gitResult = await runGitCommand(`git show HEAD:${gitBackupPath}`, { silent: true });
+            if (gitResult.success && gitResult.stdout) {
+              console.log(`[ANALYTICS RESTORE] Backup aus Git gefunden: ${backupFileName}`);
               
-              const oldGitResult = await runGitCommand(`git show HEAD:${oldGitBackupPath}`, { silent: true });
-              if (oldGitResult.success && oldGitResult.stdout) {
-                console.log(`[ANALYTICS RESTORE] Älteres Backup aus Git gefunden: ${oldBackupFileName}`);
-                
-                await ensureAnalyticsBackupDir();
-                const localBackupFile = path.join(ANALYTICS_BACKUP_DIR, oldBackupFileName);
-                await fs.writeFile(localBackupFile, oldGitResult.stdout, 'utf8');
-                
-                const parsed = JSON.parse(oldGitResult.stdout);
-                if (parsed.dailyStats && typeof parsed.dailyStats === 'object') {
-                  await saveAnalyticsData(parsed);
-                  console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung aus Git erfolgreich: ${Object.keys(parsed.dailyStats || {}).length} Tage`);
-                  return true;
-                }
-                break; // Erfolgreich wiederhergestellt
-              }
+              // Schreibe Backup ins lokale Dateisystem
+              const localBackupFile = path.join(ANALYTICS_BACKUP_DIR, backupFileName);
+              await fs.writeFile(localBackupFile, gitResult.stdout, 'utf8');
+              foundAnyBackup = true;
             }
+          }
+          
+          if (foundAnyBackup) {
+            // Lade alle Backups erneut, um sie zusammenzuführen
+            const newFiles = await fs.readdir(ANALYTICS_BACKUP_DIR);
+            backupFiles = newFiles
+              .filter(f => f.startsWith('analytics-data-') && f.endsWith('.json'))
+              .map(f => ({
+                name: f,
+                path: path.join(ANALYTICS_BACKUP_DIR, f),
+                date: f.match(/analytics-data-(\d{4}-\d{2}-\d{2})\.json/)?.[1]
+              }))
+              .filter(f => f.date)
+              .sort((a, b) => b.date.localeCompare(a.date)); // Neueste zuerst
+            
+            console.log(`[ANALYTICS RESTORE] ${backupFiles.length} Backup(s) aus Git geladen - fahre mit Merge fort`);
+          } else {
+            console.log('[ANALYTICS RESTORE] Keine Backups in Git gefunden');
           }
         } catch (gitError) {
           console.warn('[ANALYTICS RESTORE] Fehler beim Lesen aus Git:', gitError.message);
         }
       }
       
-      console.log('[ANALYTICS RESTORE] Keine Backup-Dateien gefunden (weder lokal noch in Git)');
-      return false;
+      if (backupFiles.length === 0) {
+        console.log('[ANALYTICS RESTORE] Keine Backup-Dateien gefunden (weder lokal noch in Git)');
+        return false;
+      }
     }
     
-    // Stelle das neueste Backup wieder her
-    const latestBackup = backupFiles[0];
-    console.log(`[ANALYTICS RESTORE] Stelle wieder her: ${latestBackup.name} (${latestBackup.date})`);
+    // Stelle das neueste Backup wieder her ODER führe alle Backups zusammen
+    // Wenn mehrere Backups vorhanden sind, führe sie zusammen für vollständige kumulative Daten
+    console.log(`[ANALYTICS RESTORE] ${backupFiles.length} Backup-Datei(en) gefunden`);
     
-    const backupData = await fs.readFile(latestBackup.path, 'utf8');
-    const parsed = JSON.parse(backupData);
+    let mergedData = {
+      dailyStats: {},
+      topSearches: {},
+      topLectures: {},
+      totalViews: 0,
+      totalSearches: 0,
+      totalLectureViews: 0
+    };
     
-    // Validiere Datenstruktur
-    if (!parsed.dailyStats || typeof parsed.dailyStats !== 'object') {
-      console.warn('[ANALYTICS RESTORE] Ungültige Datenstruktur im Backup - überspringe Wiederherstellung');
-      return false;
+    // Lade alle Backups und führe sie zusammen
+    for (const backupFile of backupFiles) {
+      try {
+        const backupData = await fs.readFile(backupFile.path, 'utf8');
+        const parsed = JSON.parse(backupData);
+        
+        // Validiere Datenstruktur
+        if (!parsed.dailyStats || typeof parsed.dailyStats !== 'object') {
+          console.warn(`[ANALYTICS RESTORE] Ungültige Datenstruktur in ${backupFile.name} - überspringe`);
+          continue;
+        }
+        
+        // Merge dailyStats: Behalte höchste Werte für jeden Tag
+        if (parsed.dailyStats) {
+          for (const dateKey in parsed.dailyStats) {
+            const dayData = parsed.dailyStats[dateKey];
+            if (mergedData.dailyStats[dateKey]) {
+              // Behalte höchste Werte (könnte durch Race Conditions entstanden sein)
+              mergedData.dailyStats[dateKey] = {
+                views: Math.max(mergedData.dailyStats[dateKey].views || 0, dayData.views || 0),
+                searches: Math.max(mergedData.dailyStats[dateKey].searches || 0, dayData.searches || 0),
+                lectures: Math.max(mergedData.dailyStats[dateKey].lectures || 0, dayData.lectures || 0)
+              };
+            } else {
+              mergedData.dailyStats[dateKey] = { ...dayData };
+            }
+          }
+        }
+        
+        // Merge topSearches: Summiere Werte
+        if (parsed.topSearches) {
+          for (const term in parsed.topSearches) {
+            mergedData.topSearches[term] = (mergedData.topSearches[term] || 0) + (parsed.topSearches[term] || 0);
+          }
+        }
+        
+        // Merge topLectures: Summiere Werte
+        if (parsed.topLectures) {
+          for (const id in parsed.topLectures) {
+            mergedData.topLectures[id] = (mergedData.topLectures[id] || 0) + (parsed.topLectures[id] || 0);
+          }
+        }
+        
+        console.log(`[ANALYTICS RESTORE] Backup geladen: ${backupFile.name} (${Object.keys(parsed.dailyStats || {}).length} Tage)`);
+      } catch (error) {
+        console.warn(`[ANALYTICS RESTORE] Fehler beim Laden von ${backupFile.name}:`, error.message);
+      }
+    }
+    
+    // Berechne kumulative Werte neu aus dailyStats
+    for (const dateKey in mergedData.dailyStats) {
+      const dayData = mergedData.dailyStats[dateKey];
+      mergedData.totalViews += dayData.views || 0;
+      mergedData.totalSearches += dayData.searches || 0;
+      mergedData.totalLectureViews += dayData.lectures || 0;
     }
     
     // Erstelle Backup der aktuellen Datei (falls vorhanden)
@@ -23541,9 +23624,9 @@ async function restoreLatestAnalyticsBackup() {
       }
     }
     
-    // Wiederherstelle Daten
-    await saveAnalyticsData(parsed);
-    console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung erfolgreich: ${Object.keys(parsed.dailyStats || {}).length} Tage wiederhergestellt`);
+    // Wiederherstelle zusammengeführte Daten
+    await saveAnalyticsData(mergedData);
+    console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung erfolgreich: ${Object.keys(mergedData.dailyStats || {}).length} Tage, ${mergedData.totalViews} Views, ${mergedData.totalSearches} Suchen`);
     return true;
   } catch (error) {
     console.error('[ANALYTICS RESTORE] Fehler bei der Wiederherstellung:', error.message);
