@@ -297,70 +297,8 @@ app.get('/app.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'app.html'));
 });
 
-// Analytics-Statistik-Seite (für direkten Zugriff auf Render)
-// WICHTIG: Diese Route muss VOR express.static() stehen!
-app.get('/analytics-view.html', (req, res) => {
-  console.log('[ANALYTICS-VIEW] Route aufgerufen');
-  try {
-    const filePath = path.resolve(__dirname, 'analytics-view.html');
-    console.log('[ANALYTICS-VIEW] Versuche Datei zu laden:', filePath);
-    console.log('[ANALYTICS-VIEW] __dirname:', __dirname);
-    
-    // Prüfe ob Datei existiert
-    if (!fsSync.existsSync(filePath)) {
-      console.error(`[ANALYTICS-VIEW] Datei nicht gefunden: ${filePath}`);
-      return res.status(404).send(`
-        <html>
-          <head><title>Datei nicht gefunden</title></head>
-          <body>
-            <h1>404 - Datei nicht gefunden</h1>
-            <p>Die Datei analytics-view.html konnte nicht gefunden werden.</p>
-            <p>Pfad: ${filePath}</p>
-            <p>__dirname: ${__dirname}</p>
-          </body>
-        </html>
-      `);
-    }
-    
-    console.log('[ANALYTICS-VIEW] Datei gefunden, sende Datei...');
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.sendFile(filePath, (err) => {
-      if (err) {
-        console.error('[ANALYTICS-VIEW] Fehler beim Senden der Datei:', err);
-        res.status(500).send(`
-          <html>
-            <head><title>Server-Fehler</title></head>
-            <body>
-              <h1>500 - Server-Fehler</h1>
-              <p>Fehler beim Laden der Analytics-Seite: ${err.message}</p>
-            </body>
-          </html>
-        `);
-      } else {
-        console.log('[ANALYTICS-VIEW] Datei erfolgreich gesendet');
-      }
-    });
-  } catch (error) {
-    console.error('[ANALYTICS-VIEW] Fehler beim Servieren der Datei:', error);
-    res.status(500).send(`
-      <html>
-        <head><title>Server-Fehler</title></head>
-        <body>
-          <h1>500 - Server-Fehler</h1>
-          <p>Fehler beim Laden der Analytics-Seite: ${error.message}</p>
-          <pre>${error.stack}</pre>
-        </body>
-      </html>
-    `);
-  }
-});
-
 // Statische HTML-Dateien aus dem Hauptverzeichnis bereitstellen
 // Cache deaktivieren für HTML-Dateien während der Entwicklung
-// WICHTIG: analytics-view.html wird explizit durch Route oben behandelt, nicht durch static
 app.use(express.static(__dirname, {
   etag: false,
   lastModified: false,
