@@ -203,7 +203,15 @@
     
     <script>
         // Diese Seite zeigt IMMER die Online-Nutzung von Render an
-        const API_URL = 'https://ga-suche.onrender.com/api/analytics/stats';
+        // Wenn auf Render geöffnet, verwende relative URL, sonst absolute URL
+        const isOnRender = window.location.hostname.includes('onrender.com');
+        const API_URL = isOnRender 
+            ? '/api/analytics/stats' 
+            : 'https://ga-suche.onrender.com/api/analytics/stats';
+        
+        // Debug: Logge API-URL
+        console.log('[ANALYTICS-VIEW] Hostname:', window.location.hostname);
+        console.log('[ANALYTICS-VIEW] API-URL:', API_URL);
         
         async function loadStats() {
             const content = document.getElementById('content');
@@ -228,7 +236,8 @@
                 const data = await response.json();
                 renderStats(data);
             } catch (error) {
-                errorContainer.innerHTML = `<div class="error">Fehler beim Laden: ${error.message}</div>`;
+                console.error('[ANALYTICS-VIEW] Fehler beim Laden:', error);
+                errorContainer.innerHTML = `<div class="error">Fehler beim Laden: ${error.message}<br><small>Bitte öffnen Sie die Browser-Konsole für Details.</small></div>`;
                 content.innerHTML = '<div class="loading">Fehler beim Laden der Statistiken.</div>';
             }
         }
