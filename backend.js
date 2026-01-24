@@ -22877,18 +22877,22 @@ async function saveAnalyticsData(data) {
               currentData.dailyStats = data.dailyStats;
             }
             
-            // Merge topSearches und topLectures (addiere Werte)
+            // Merge topSearches und topLectures (addiere Werte, aber stelle sicher, dass Werte Zahlen sind)
             if (data.topSearches) {
               if (!currentData.topSearches) currentData.topSearches = {};
               for (const term in data.topSearches) {
-                currentData.topSearches[term] = (currentData.topSearches[term] || 0) + (data.topSearches[term] || 0);
+                const existingValue = Number(currentData.topSearches[term] || 0);
+                const newValue = Number(data.topSearches[term] || 0);
+                currentData.topSearches[term] = existingValue + newValue;
               }
             }
             
             if (data.topLectures) {
               if (!currentData.topLectures) currentData.topLectures = {};
               for (const lectureId in data.topLectures) {
-                currentData.topLectures[lectureId] = (currentData.topLectures[lectureId] || 0) + (data.topLectures[lectureId] || 0);
+                const existingValue = Number(currentData.topLectures[lectureId] || 0);
+                const newValue = Number(data.topLectures[lectureId] || 0);
+                currentData.topLectures[lectureId] = existingValue + newValue;
               }
             }
           }
@@ -23140,17 +23144,19 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
     
-    // Top 10 Suchen
+    // Top 10 Suchen - stelle sicher, dass Werte Zahlen sind
     const topSearches = Object.entries(data.topSearches || {})
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 10)
-      .map(([term, count]) => ({ term, count }));
+      .map(([term, count]) => ({ term, count: Number(count) || 0 }))
+      .filter(item => item.count > 0) // Entferne Einträge mit ungültigen Werten
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
     
-    // Top 10 Vorträge
+    // Top 10 Vorträge - stelle sicher, dass Werte Zahlen sind
     const topLectures = Object.entries(data.topLectures || {})
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 10)
-      .map(([id, count]) => ({ id, count }));
+      .map(([id, count]) => ({ id, count: Number(count) || 0 }))
+      .filter(item => item.count > 0) // Entferne Einträge mit ungültigen Werten
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
     
     // Tägliche Daten für Chart (letzte 30 Tage für bessere Übersicht)
     // Alle historischen Daten bleiben erhalten, aber für die Anzeige verwenden wir die letzten 30 Tage
@@ -23607,17 +23613,25 @@ async function restoreLatestAnalyticsBackup() {
           }
         }
         
-        // Merge topSearches: Summiere Werte
+        // Merge topSearches: Summiere Werte, aber stelle sicher, dass Werte Zahlen sind
         if (parsed.topSearches) {
           for (const term in parsed.topSearches) {
-            mergedData.topSearches[term] = (mergedData.topSearches[term] || 0) + (parsed.topSearches[term] || 0);
+            const existingValue = Number(mergedData.topSearches[term] || 0);
+            const newValue = Number(parsed.topSearches[term] || 0);
+            // Verwende Maximum statt Summe, um doppelte Zählung zu vermeiden
+            // (Backups enthalten bereits kumulative Werte)
+            mergedData.topSearches[term] = Math.max(existingValue, newValue);
           }
         }
         
-        // Merge topLectures: Summiere Werte
+        // Merge topLectures: Summiere Werte, aber stelle sicher, dass Werte Zahlen sind
         if (parsed.topLectures) {
           for (const id in parsed.topLectures) {
-            mergedData.topLectures[id] = (mergedData.topLectures[id] || 0) + (parsed.topLectures[id] || 0);
+            const existingValue = Number(mergedData.topLectures[id] || 0);
+            const newValue = Number(parsed.topLectures[id] || 0);
+            // Verwende Maximum statt Summe, um doppelte Zählung zu vermeiden
+            // (Backups enthalten bereits kumulative Werte)
+            mergedData.topLectures[id] = Math.max(existingValue, newValue);
           }
         }
         
