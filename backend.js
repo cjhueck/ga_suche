@@ -23143,8 +23143,62 @@ app.get('/api/analytics/stats', async (req, res) => {
 // API-Endpunkt: Manuelles Analytics-Backup erstellen
 app.post('/api/analytics/backup', async (req, res) => {
   try {
-    await createAnalyticsBackup();
-    res.json({ ok: true, message: 'Backup erfolgreich erstellt' });
+    const backupFile = await createAnalyticsBackup();
+    if (backupFile) {
+      // Versuche sofort Git-Commit und Push (blockierend für manuellen Aufruf)
+      try {
+        await commitAndPushAnalyticsBackup(backupFile);
+        res.json({ ok: true, message: 'Backup erfolgreich erstellt und ins Git gepusht', backupFile });
+      } catch (gitError) {
+        res.json({ ok: true, message: 'Backup erstellt, aber Git-Push fehlgeschlagen', backupFile, gitError: gitError.message });
+      }
+    } else {
+      res.json({ ok: true, message: 'Kein Backup nötig (bereits vorhanden und identisch)' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Manuelles Git-Push aller Analytics-Backups
+app.post('/api/analytics/push-backups', async (req, res) => {
+  try {
+    await ensureAnalyticsBackupDir();
+    
+    if (!fsSync.existsSync(ANALYTICS_BACKUP_DIR)) {
+      return res.status(404).json({ error: 'Backup-Verzeichnis existiert nicht' });
+    }
+    
+    const files = await fs.readdir(ANALYTICS_BACKUP_DIR);
+    const backupFiles = files
+      .filter(f => f.startsWith('analytics-data-') && f.endsWith('.json'))
+      .map(f => path.join(ANALYTICS_BACKUP_DIR, f));
+    
+    if (backupFiles.length === 0) {
+      return res.json({ ok: true, message: 'Keine Backup-Dateien gefunden', pushed: 0 });
+    }
+    
+    let pushed = 0;
+    let failed = 0;
+    
+    for (const backupFile of backupFiles) {
+      try {
+        const result = await commitAndPushAnalyticsBackup(backupFile);
+        if (result) pushed++;
+        else failed++;
+      } catch (error) {
+        console.warn(`[ANALYTICS PUSH] Fehler beim Pushen von ${backupFile}:`, error.message);
+        failed++;
+      }
+    }
+    
+    res.json({ 
+      ok: true, 
+      message: `${pushed} Backups gepusht, ${failed} fehlgeschlagen`,
+      pushed,
+      failed,
+      total: backupFiles.length
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -23287,10 +23341,12 @@ async function validateAndRepairAnalytics() {
         const statsCount = Object.keys(data.dailyStats || {}).length;
         console.log(`[ANALYTICS] Daten geladen: ${statsCount} Tage`);
         
-        // Wenn weniger als 2 Tage Daten vorhanden sind, versuche Wiederherstellung
-        // (könnte bedeuten, dass die Datei nach einem Neustart neu initialisiert wurde)
-        if (statsCount < 2) {
-          console.log(`[ANALYTICS] Nur ${statsCount} Tag(e) Daten gefunden - versuche Wiederherstellung aus Backup`);
+        // Wenn weniger als 2 Tage Daten vorhanden sind ODER wenn die kumulativen Werte sehr niedrig sind,
+        // versuche Wiederherstellung (könnte bedeuten, dass die Datei nach einem Neustart neu initialisiert wurde)
+        const hasLowCumulativeValues = (data.totalViews || 0) < 10 && (data.totalSearches || 0) < 10;
+        
+        if (statsCount < 2 || hasLowCumulativeValues) {
+          console.log(`[ANALYTICS] Nur ${statsCount} Tag(e) Daten gefunden oder niedrige kumulative Werte (${data.totalViews} Views, ${data.totalSearches} Suchen) - versuche Wiederherstellung aus Backup`);
           needsRestore = true;
         } else {
           console.log(`[ANALYTICS] Statistik geladen: ${statsCount} Tage, ${data.totalViews} Views, ${data.totalSearches} Suchen, ${data.totalLectureViews} Vorträge`);
@@ -23341,12 +23397,29 @@ async function restoreLatestAnalyticsBackup() {
   try {
     await ensureAnalyticsBackupDir();
     
-    // Git pull DEAKTIVIERT beim Serverstart - zu langsam und blockiert Start
-    // Git pull wird nur beim Backup-Erstellen ausgeführt (asynchron)
-    // const gitDir = path.join(__dirname, '.git');
-    // if (fsSync.existsSync(gitDir)) {
-    //   console.log('[ANALYTICS RESTORE] Git-Repository gefunden - überspringe Git pull beim Start (zu langsam)');
-    // }
+    // Versuche Git pull, um Backups aus Git zu holen (wichtig für Render!)
+    // Mit Timeout, damit Server nicht hängt
+    const gitDir = path.join(__dirname, '.git');
+    if (fsSync.existsSync(gitDir)) {
+      console.log('[ANALYTICS RESTORE] Git-Repository gefunden - hole Backups aus Git...');
+      try {
+        // Git pull mit kurzem Timeout (max. 3 Sekunden) - non-blocking
+        const pullPromise = runGitCommand('git pull', { silent: true });
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Git pull timeout')), 3000)
+        );
+        const pullResult = await Promise.race([pullPromise, timeoutPromise]);
+        if (pullResult && pullResult.success) {
+          console.log('[ANALYTICS RESTORE] ✓ Git pull erfolgreich - neueste Backups geladen');
+        } else {
+          console.warn('[ANALYTICS RESTORE] ⚠ Git pull fehlgeschlagen (verwende lokale Backups)');
+        }
+      } catch (error) {
+        // Timeout oder anderer Fehler - verwende lokale Backups
+        console.warn('[ANALYTICS RESTORE] ⚠ Git pull Timeout/Fehler (verwende lokale Backups):', error.message);
+        // Versuche trotzdem, Backups aus Git zu lesen (falls sie bereits im Dateisystem sind)
+      }
+    }
     
     if (!fsSync.existsSync(ANALYTICS_BACKUP_DIR)) {
       console.log('[ANALYTICS RESTORE] Backup-Verzeichnis existiert nicht - keine Wiederherstellung möglich');
@@ -23373,7 +23446,73 @@ async function restoreLatestAnalyticsBackup() {
       .sort((a, b) => b.date.localeCompare(a.date)); // Neueste zuerst
     
     if (backupFiles.length === 0) {
-      console.log('[ANALYTICS RESTORE] Keine Backup-Dateien gefunden');
+      console.log('[ANALYTICS RESTORE] Keine lokalen Backup-Dateien gefunden');
+      
+      // Versuche Backup direkt aus Git zu holen (falls Git verfügbar)
+      const gitDir = path.join(__dirname, '.git');
+      if (fsSync.existsSync(gitDir)) {
+        console.log('[ANALYTICS RESTORE] Versuche Backup direkt aus Git zu holen...');
+        try {
+          // Hole neuestes Backup aus Git (ohne pull, direkt aus Git-Index)
+          const today = new Date().toISOString().split('T')[0];
+          const backupFileName = `analytics-data-${today}.json`;
+          const gitBackupPath = `backups/analytics/${backupFileName}`;
+          
+          // Versuche Backup aus Git zu lesen
+          const gitShowResult = await runGitCommand(`git show HEAD:${gitBackupPath}`, { silent: true });
+          if (gitShowResult.success && gitShowResult.stdout) {
+            console.log('[ANALYTICS RESTORE] Backup aus Git gefunden!');
+            
+            // Stelle Backup-Verzeichnis sicher
+            await ensureAnalyticsBackupDir();
+            
+            // Schreibe Backup ins lokale Dateisystem
+            const localBackupFile = path.join(ANALYTICS_BACKUP_DIR, backupFileName);
+            await fs.writeFile(localBackupFile, gitShowResult.stdout, 'utf8');
+            console.log(`[ANALYTICS RESTORE] Backup aus Git geschrieben: ${localBackupFile}`);
+            
+            // Verwende dieses Backup
+            const parsed = JSON.parse(gitShowResult.stdout);
+            if (parsed.dailyStats && typeof parsed.dailyStats === 'object') {
+              await saveAnalyticsData(parsed);
+              console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung aus Git erfolgreich: ${Object.keys(parsed.dailyStats || {}).length} Tage`);
+              return true;
+            }
+          } else {
+            console.log('[ANALYTICS RESTORE] Kein Backup in Git gefunden (versuche ältere Backups)...');
+            
+            // Versuche Backups der letzten 7 Tage
+            for (let daysAgo = 1; daysAgo <= 7; daysAgo++) {
+              const date = new Date();
+              date.setDate(date.getDate() - daysAgo);
+              const dateStr = date.toISOString().split('T')[0];
+              const oldBackupFileName = `analytics-data-${dateStr}.json`;
+              const oldGitBackupPath = `backups/analytics/${oldBackupFileName}`;
+              
+              const oldGitResult = await runGitCommand(`git show HEAD:${oldGitBackupPath}`, { silent: true });
+              if (oldGitResult.success && oldGitResult.stdout) {
+                console.log(`[ANALYTICS RESTORE] Älteres Backup aus Git gefunden: ${oldBackupFileName}`);
+                
+                await ensureAnalyticsBackupDir();
+                const localBackupFile = path.join(ANALYTICS_BACKUP_DIR, oldBackupFileName);
+                await fs.writeFile(localBackupFile, oldGitResult.stdout, 'utf8');
+                
+                const parsed = JSON.parse(oldGitResult.stdout);
+                if (parsed.dailyStats && typeof parsed.dailyStats === 'object') {
+                  await saveAnalyticsData(parsed);
+                  console.log(`[ANALYTICS RESTORE] ✓ Wiederherstellung aus Git erfolgreich: ${Object.keys(parsed.dailyStats || {}).length} Tage`);
+                  return true;
+                }
+                break; // Erfolgreich wiederhergestellt
+              }
+            }
+          }
+        } catch (gitError) {
+          console.warn('[ANALYTICS RESTORE] Fehler beim Lesen aus Git:', gitError.message);
+        }
+      }
+      
+      console.log('[ANALYTICS RESTORE] Keine Backup-Dateien gefunden (weder lokal noch in Git)');
       return false;
     }
     
@@ -23452,11 +23591,22 @@ async function commitAndPushAnalyticsBackup(backupFile) {
       return false;
     }
     
-    // Prüfe ob es Änderungen gibt
+    // Prüfe ob es Änderungen gibt (prüfe speziell unsere Backup-Datei)
     const statusResult = await runGitCommand('git status --porcelain', { silent: true });
-    if (!statusResult.success || !statusResult.stdout.trim()) {
-      // Keine Änderungen - nichts zu committen
-      return false;
+    const hasChanges = statusResult.success && statusResult.stdout && 
+                       statusResult.stdout.includes(relativePath.replace(/\\/g, '/'));
+    
+    if (!hasChanges) {
+      // Prüfe ob Datei überhaupt im Git-Index ist
+      const lsFilesResult = await runGitCommand(`git ls-files "${relativePath}"`, { silent: true });
+      if (!lsFilesResult.success || !lsFilesResult.stdout.trim()) {
+        // Datei ist nicht im Git - füge sie hinzu
+        console.log(`[ANALYTICS GIT] Backup-Datei noch nicht im Git - füge hinzu: ${relativePath}`);
+      } else {
+        // Keine Änderungen - nichts zu committen
+        console.log(`[ANALYTICS GIT] Backup-Datei bereits im Git und unverändert: ${relativePath}`);
+        return false;
+      }
     }
     
     // Erstelle Commit-Message mit Datum und Statistiken
@@ -23482,14 +23632,35 @@ async function commitAndPushAnalyticsBackup(backupFile) {
     }
     
     // Git push (non-blocking, damit Server nicht blockiert wird)
+    // WICHTIG: Push mit Retry-Logik, da Git-Push auf Render manchmal fehlschlägt
     runGitCommand('git push', { silent: true }).then(result => {
       if (result.success) {
         console.log(`[ANALYTICS GIT] ✓ Backup erfolgreich ins Git-Repository gepusht: ${relativePath}`);
       } else {
-        console.warn(`[ANALYTICS GIT] ⚠ Git push fehlgeschlagen (wird beim nächsten Push automatisch wiederholt)`);
+        console.warn(`[ANALYTICS GIT] ⚠ Git push fehlgeschlagen: ${result.error || result.stderr || 'Unbekannter Fehler'}`);
+        // Retry nach 10 Sekunden
+        setTimeout(() => {
+          console.log('[ANALYTICS GIT] Retry: Versuche Git-Push erneut...');
+          runGitCommand('git push', { silent: true }).then(retryResult => {
+            if (retryResult.success) {
+              console.log(`[ANALYTICS GIT] ✓ Retry erfolgreich - Backup gepusht: ${relativePath}`);
+            } else {
+              console.warn(`[ANALYTICS GIT] ⚠ Retry fehlgeschlagen: ${retryResult.error || retryResult.stderr}`);
+            }
+          }).catch(retryErr => {
+            console.warn(`[ANALYTICS GIT] ⚠ Retry Fehler: ${retryErr.message}`);
+          });
+        }, 10000);
       }
     }).catch(err => {
       console.warn(`[ANALYTICS GIT] ⚠ Git push Fehler: ${err.message}`);
+      // Retry nach 10 Sekunden
+      setTimeout(() => {
+        console.log('[ANALYTICS GIT] Retry: Versuche Git-Push erneut nach Fehler...');
+        runGitCommand('git push', { silent: true }).catch(retryErr => {
+          console.warn(`[ANALYTICS GIT] ⚠ Retry fehlgeschlagen: ${retryErr.message}`);
+        });
+      }, 10000);
     });
     
     console.log(`[ANALYTICS GIT] ✓ Backup committed: ${relativePath}`);
@@ -23538,9 +23709,21 @@ async function createAnalyticsBackup() {
       await fs.writeFile(backupFile, data, 'utf8');
       console.log(`[ANALYTICS BACKUP] Backup erstellt: ${backupFile}`);
       
-      // Committe und pushe ins Git-Repository (non-blocking)
+      // Committe und pushe ins Git-Repository (non-blocking, aber mit Retry-Logik)
       commitAndPushAnalyticsBackup(backupFile).catch(err => {
         console.warn('[ANALYTICS BACKUP] Fehler beim Git-Commit:', err.message);
+        // Retry nach 5 Sekunden (falls Git temporär nicht verfügbar)
+        setTimeout(() => {
+          console.log('[ANALYTICS BACKUP] Retry: Versuche Git-Commit erneut...');
+          commitAndPushAnalyticsBackup(backupFile).catch(retryErr => {
+            console.warn('[ANALYTICS BACKUP] Retry fehlgeschlagen:', retryErr.message);
+          });
+        }, 5000);
+      });
+    } else {
+      // Auch wenn Backup identisch ist, versuche Git-Commit (falls Datei geändert wurde)
+      commitAndPushAnalyticsBackup(backupFile).catch(err => {
+        // Ignoriere Fehler bei identischen Backups
       });
     }
     
