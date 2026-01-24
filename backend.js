@@ -360,6 +360,7 @@ app.get('/analytics-view.html', (req, res) => {
 
 // Statische HTML-Dateien aus dem Hauptverzeichnis bereitstellen
 // Cache deaktivieren für HTML-Dateien während der Entwicklung
+// WICHTIG: analytics-view.html wird explizit durch Route oben behandelt, nicht durch static
 app.use(express.static(__dirname, {
   etag: false,
   lastModified: false,
