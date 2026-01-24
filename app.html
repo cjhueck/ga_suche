@@ -4794,6 +4794,36 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       text-decoration: underline;
     }
     
+    /* GA-Band-Header im Ergebnisfenster */
+    #ga-lecture-list {
+      margin-top: -1.5rem;
+      padding-top: 0;
+    }
+    
+    .ga-band-header {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .ga-band-header h3 {
+      margin: 0;
+      color: var(--heading-color);
+      font-size: var(--text-size);
+      font-weight: 600;
+      cursor: default;
+      line-height: var(--line-height);
+    }
+    
+    body.dark-mode .ga-band-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .ga-band-header h3 {
+      color: var(--dark-heading-color);
+    }
+    
     .ga-overview-meta {
       font-size: 0.9em;
       color: var(--secondary-text);
@@ -9122,97 +9152,43 @@ Bestehende Schlagwörter überschreiben
 
 <div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0 2rem 0;">
-<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">
-  KI-Bearbeitung von Vorträgen
-</h3>
 
-<!-- GA-Band Auswahl -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">GA-Bände auswählen</h4>
+<!-- Batch-Export für mehrere GA-Bände -->
+<div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-bottom: 1rem;">
+  <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">GA-Bände exportieren</h4>
+  <p style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 0.8rem;">
+    Wählen Sie mehrere GA-Bände aus, um sie gleichzeitig nach Obsidian zu exportieren (JSON und HTML).
+  </p>
   
   <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-    <button id="loadGAVolumesBtn" class="depth-btn" onclick="loadAvailableGAVolumes()" style="padding: 8px 12px; font-size: 0.85em;">
+    <button id="loadGAVolumesForExportBtn" class="depth-btn" onclick="loadGAVolumesForExport()" style="padding: 8px 12px; font-size: 0.85em;">
       GA-Bände laden
     </button>
-    <button class="depth-btn" onclick="toggleSelectAllGA()" style="padding: 8px 12px; font-size: 0.85em;">
+    <button class="depth-btn" onclick="toggleSelectAllGAForExport()" style="padding: 8px 12px; font-size: 0.85em;">
       Alle auswählen / Abwählen
     </button>
   </div>
   
-  <div id="gaVolumeCheckboxes" style="max-height: 180px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--input-bg);">
+  <div id="gaVolumeExportCheckboxes" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--input-bg);">
     <p style="text-align: center; color: var(--secondary-text); font-size: 0.85em;">Klicke auf "GA-Bände laden"</p>
   </div>
   
-  <!-- LLM Provider Auswahl -->
-  <div style="margin-bottom: 1rem; padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-    <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color); font-size: 0.9em;">KI-Provider auswählen</h4>
-    <div style="display: flex; flex-direction: column; gap: 4px;">
-      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
-        <input type="radio" name="llmProvider" value="claude" checked style="margin: 0;">
-        <span style="font-weight: 600;">Claude (Sonnet 4)</span>
-        <span id="claudeStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
-      </label>
-      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
-        <input type="radio" name="llmProvider" value="openai" style="margin: 0;">
-        <span style="font-weight: 600;">OpenAI (GPT-4o)</span>
-        <span id="openaiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
-      </label>
-      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
-        <input type="radio" name="llmProvider" value="gemini" style="margin: 0;">
-        <span style="font-weight: 600;">Gemini (2.5 Flash)</span>
-        <span id="geminiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
-      </label>
-    </div>
+  <div style="margin-top: 0.8rem; display: flex; gap: 8px; align-items: center;">
+    <button id="batchExportGABtn" class="depth-btn" onclick="batchExportGAVolumes()" style="padding: 8px 16px; font-size: 0.85em; background: #28a745; color: white; border: none;" disabled>
+      📤 Ausgewählte exportieren
+    </button>
+    <span id="batchExportStatus" style="font-size: 0.85em; color: var(--secondary-text); display: none;"></span>
   </div>
   
-  <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-    <button id="startGABatchBtn" class="depth-btn" onclick="startGABatchFullRegenerate()" style="padding: 8px 16px; font-size: 0.85em; background: #d9534f; color: white;" disabled>
-      S&H&C&K starten
-    </button>
-    <button id="startShortSumBatchBtn" class="depth-btn" onclick="startGABatchShortSummaries()" style="padding: 8px 16px; font-size: 0.85em; background: #5cb85c; color: white;" disabled>
-      ShortSum starten
-    </button>
-  </div>
-  
-  <div id="gaBatchStatus" style="display: none; margin-top: 0.5rem;"></div>
-  
-  <div id="gaBatchProgressContainer" style="display: none; margin-top: 0.5rem;">
+  <div id="batchExportProgress" style="display: none; margin-top: 0.8rem; padding: 0.8rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
-      <span id="gaBatchProgressText" style="font-size: 0.85em; color: var(--text-color);">Verarbeite...</span>
-      <span id="gaBatchProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
+      <span id="batchExportProgressText" style="font-size: 0.85em; color: var(--text-color);">Exportiere...</span>
+      <span id="batchExportProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
     </div>
     <div style="width: 100%; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
-      <div id="gaBatchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
+      <div id="batchExportProgressBar" style="width: 0%; height: 100%; background: #28a745; transition: width 0.3s ease;"></div>
     </div>
-  </div>
-  
-  <div id="gaBatchResults" style="display: none; margin-top: 1rem; margin-bottom: 2rem; padding: 0.8rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
-    <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Batch-Ergebnisse</h4>
-    <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; font-size: 0.85em;">
-      <span style="color: var(--secondary-text);">GA-Band:</span>
-      <strong id="gaBatchStatVolume" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Verarbeitet:</span>
-      <strong id="gaBatchStatProcessed" style="color: var(--text-color);">-</strong>
-      
-      <span id="gaBatchSkippedLabel" style="color: var(--secondary-text); display: none;">Übersprungen:</span>
-      <strong id="gaBatchStatSkipped" style="color: var(--text-color); display: none;">-</strong>
-      
-      <span style="color: var(--secondary-text);">Total Keywords:</span>
-      <strong id="gaBatchStatTotal" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Neue Keywords:</span>
-      <strong id="gaBatchStatNew" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">End-Vokabular:</span>
-      <strong id="gaBatchStatFinalVocab" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Synonyme konsolidiert:</span>
-      <strong id="gaBatchStatSynonyms" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Generierungs-Methode:</span>
-      <strong id="gaBatchStatMethod" style="color: var(--text-color);">-</strong>
-    </div>
+    <div id="batchExportResults" style="margin-top: 0.8rem; font-size: 0.85em; max-height: 200px; overflow-y: auto;"></div>
   </div>
 </div>
 
@@ -14539,7 +14515,13 @@ function normalizeGANumber(gaNumber) {
         }
         
         // Erstelle HTML für linkes Panel
-        let html = `<div id="ga-lecture-list">`;
+        // GA-Band-Name für Anzeige oberhalb der Vortragsliste
+        const gaBandName = `${data.gaNumber} - ${data.gaTitle}`;
+        
+        let html = `<div id="ga-lecture-list">
+          <div class="ga-band-header">
+            <h3>${gaBandName}</h3>
+          </div>`;
         
         data.lectures.forEach((lecture, idx) => {
           let titleText;
@@ -18851,8 +18833,14 @@ async function displayGAOverview(data) {
     }
   }
   
+  // GA-Band-Name für Anzeige oberhalb der Vortragsliste
+  const gaBandName = `${data.gaNumber} - ${data.gaTitle}`;
+  
   let html = `
     <div id="ga-lecture-list">
+      <div class="ga-band-header">
+        <h3>${gaBandName}</h3>
+      </div>
   `;
   
   data.lectures.forEach((lecture, idx) => {
@@ -30451,16 +30439,41 @@ async function openPagesCorrectionDialog() {
     return;
   }
   
+  // Prüfe ob ein einzelner Vortrag angeklickt ist
+  const lectureId = window.currentOpenLectureId;
+  // Prüfe ob lectureId ein gültiges Format hat (GA201/1, GA201 (1.), etc.)
+  const isLectureProcess = lectureId && (
+    lectureId.match(/^GA\d{3}[a-z]?\s*\(\d+\.\)/i) ||  // GA201 (1.)
+    lectureId.match(/^GA\d{3}[a-z]?\/\d+/i)           // GA201/1
+  );
+  
+  // Debug-Ausgabe
+  if (lectureId) {
+    console.log('[PAGES] Lecture ID gefunden:', lectureId, 'isLectureProcess:', isLectureProcess);
+  }
+  
   // Bestätigungsdialog
-  if (!confirm(`Seitenmarker für ${gaNumber} generieren?\n\nDies führt process_pagebreaks.py aus:\n• PDF aus Steiner_GA_pdf/ kopieren\n• Seitenmarker in JSON einfügen\n• Seitenmarker in MD-Dateien einfügen\n• Alte Override-Dateien inaktivieren\n\nDer Prozess kann einige Sekunden dauern.`)) {
+  let confirmMsg;
+  let processTarget;
+  
+  if (isLectureProcess) {
+    confirmMsg = `Seitenmarker für einzelnen Vortrag "${lectureId}" generieren?\n\nDies führt process_pagebreaks.py aus:\n• PDF aus Steiner_GA_pdf/ kopieren\n• Seitenmarker nur für diesen Vortrag in JSON einfügen\n• Seitenmarker in MD-Dateien einfügen\n• Alte Override-Dateien inaktivieren\n\nDer Prozess kann einige Sekunden dauern.`;
+    processTarget = lectureId;
+  } else {
+    confirmMsg = `Seitenmarker für ${gaNumber} generieren?\n\nDies führt process_pagebreaks.py aus:\n• PDF aus Steiner_GA_pdf/ kopieren\n• Seitenmarker in JSON einfügen\n• Seitenmarker in MD-Dateien einfügen\n• Alte Override-Dateien inaktivieren\n\nDer Prozess kann einige Sekunden dauern.`;
+    processTarget = gaNumber;
+  }
+  
+  if (!confirm(confirmMsg)) {
     return;
   }
   
   // Zeige Fortschrittsanzeige im Viewer
   const viewer = document.getElementById('viewer');
+  const processLabel = isLectureProcess ? `Vortrag: ${lectureId}` : `GA-Band: ${gaNumber}`;
   viewer.innerHTML = `
     <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">📄 Seitenmarker generieren: ${gaNumber}</h3>
+      <h3 style="margin-bottom: 1rem;">📄 Seitenmarker generieren: ${processLabel}</h3>
       <div id="pages-progress" style="margin-bottom: 1rem;">
         <p style="color: #17a2b8;">⏳ Führe process_pagebreaks.py aus...</p>
       </div>
@@ -30472,10 +30485,14 @@ async function openPagesCorrectionDialog() {
   
   try {
     // Rufe Backend-API auf
+    const requestBody = isLectureProcess 
+      ? { gaNumber, lectureId } 
+      : { gaNumber };
+    
     const resp = await fetch(`${API_BASE}/api/pages/process`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ gaNumber })
+      body: JSON.stringify(requestBody)
     });
     
     const result = await resp.json();
@@ -30483,10 +30500,14 @@ async function openPagesCorrectionDialog() {
     
     if (resp.ok && result.success) {
       // Erfolg
+      const lectureInfo = result.lectureId 
+        ? `<p><strong>Vortrag:</strong> ${result.lectureId}</p>` 
+        : '';
       progressDiv.innerHTML = `
         <p style="color: #5cb85c; font-size: 1.2em;">✓ Seitenmarker erfolgreich eingefügt!</p>
         <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
           <p><strong>GA-Band:</strong> ${result.gaNumber}</p>
+          ${lectureInfo}
           <p><strong>JSON-Marker:</strong> ${result.jsonMarkers || 0}</p>
           <p><strong>MD-Marker:</strong> ${result.mdMarkers || 0}</p>
           <p><strong>PDF kopiert:</strong> ${result.pdfCopied ? '✓' : '—'}</p>
@@ -39782,21 +39803,41 @@ window.switchTab = function(tabName) {
 // ITERATIVE KEYWORD-GENERIERUNG GA-BAND-WEISE
 // ============================================================================
 
-let availableGAVolumes = [];
+// ENTFERNT: Die Funktionen loadAvailableGAVolumes, toggleSelectAllGA, updateStartButtonState,
+// startGABatchFullRegenerate, startGABatchShortSummaries und loadProviderStatus wurden entfernt,
+// da die KI-Bearbeitung von Vorträgen im Keywords-Tab nicht mehr benötigt wird.
+// Die Funktionen S&H&C&K (batchRegenerateAll) und ShortSum (batchGenerateShortSummaries)
+// im Texte-Tab bleiben erhalten für die Bearbeitung einzelner Vorträge.
 
-// Lade verfügbare GA-Bände
-async function loadAvailableGAVolumes() {
+// ============================================================================
+// BATCH-EXPORT FÜR MEHRERE GA-BÄNDE (Keywords-Tab)
+// ============================================================================
+
+let availableGAVolumesForExport = [];
+
+// Lade verfügbare GA-Bände für Export
+async function loadGAVolumesForExport() {
+  if (!isLocal) {
+    alert('Diese Funktion ist nur lokal verfügbar.');
+    return;
+  }
+  
   try {
     const response = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
     if (!response.ok) throw new Error(`Fehler: ${response.status}`);
     
     const data = await response.json();
-    availableGAVolumes = data.volumes;
+    availableGAVolumesForExport = data.volumes;
     
-    const container = document.getElementById('gaVolumeCheckboxes');
+    const container = document.getElementById('gaVolumeExportCheckboxes');
     container.innerHTML = '';
     
-    availableGAVolumes.forEach(vol => {
+    if (availableGAVolumesForExport.length === 0) {
+      container.innerHTML = '<p style="text-align: center; color: var(--secondary-text); font-size: 0.85em;">Keine GA-Bände gefunden</p>';
+      return;
+    }
+    
+    availableGAVolumesForExport.forEach(vol => {
       const label = document.createElement('label');
       label.style.display = 'flex';
       label.style.alignItems = 'center';
@@ -39808,75 +39849,57 @@ async function loadAvailableGAVolumes() {
       
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
-      checkbox.value = vol.volume.toLowerCase(); // Stelle sicher dass es lowercase ist
-      checkbox.className = 'ga-volume-checkbox';
-      checkbox.onchange = updateStartButtonState;
+      checkbox.value = vol.volume.toLowerCase();
+      checkbox.className = 'ga-volume-export-checkbox';
+      checkbox.onchange = updateBatchExportButtonState;
       
-      // Text-Element mit Status-Anzeige
       const textSpan = document.createElement('span');
-      textSpan.textContent = `${formatLectureId(vol.volume)} (${vol.lectureCount} Vorträge)`;
-      
-      // Styling basierend auf Bearbeitungsstatus
-      if (vol.isComplete) {
-        // ALLE Vorträge vollständig (Summary + Headings + Keywords)
-        textSpan.style.fontWeight = 'bold';
-        textSpan.style.color = 'var(--accent-color)';
-        textSpan.title = 'Vollständig bearbeitet: Summary, Headings und Keywords vorhanden';
-      } else if (vol.hasKeywords) {
-        // TEILWEISE bearbeitet
-        textSpan.style.fontWeight = 'normal';
-        textSpan.style.fontStyle = 'italic';
-        textSpan.title = 'Teilweise bearbeitet: Einige Vorträge haben Summary/Headings/Keywords';
-      } else {
-        // Noch NICHT bearbeitet
-        textSpan.style.fontWeight = 'normal';
-        textSpan.style.color = 'var(--secondary-text)';
-        textSpan.title = 'Noch nicht bearbeitet';
-      }
+      textSpan.textContent = `${formatLectureId(vol.volume)} (${vol.lectureCount} ${vol.lectureCount === 1 ? 'Vortrag' : 'Vorträge'})`;
       
       label.appendChild(checkbox);
       label.appendChild(textSpan);
       container.appendChild(label);
     });
     
-    updateStartButtonState();
+    updateBatchExportButtonState();
     
-    } catch (error) {
-    console.error('[GA-VOLUMES] Fehler:', error);
+  } catch (error) {
+    console.error('[GA-VOLUMES-EXPORT] Fehler:', error);
     alert('Fehler beim Laden der GA-Bände: ' + error.message);
   }
 }
 
-// Toggle alle GA-Bände auswählen/abwählen
-function toggleSelectAllGA() {
-  const checkboxes = document.querySelectorAll('.ga-volume-checkbox');
+// Toggle alle GA-Bände auswählen/abwählen für Export
+function toggleSelectAllGAForExport() {
+  const checkboxes = document.querySelectorAll('.ga-volume-export-checkbox');
   const allChecked = Array.from(checkboxes).every(cb => cb.checked);
   
   checkboxes.forEach(cb => {
     cb.checked = !allChecked;
   });
   
-  updateStartButtonState();
+  updateBatchExportButtonState();
 }
 
-// Update Start-Button Status
-function updateStartButtonState() {
-  const checkboxes = document.querySelectorAll('.ga-volume-checkbox');
+// Update Export-Button Status
+function updateBatchExportButtonState() {
+  const checkboxes = document.querySelectorAll('.ga-volume-export-checkbox');
   const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
   
-  document.getElementById('startGABatchBtn').disabled = !anyChecked;
-  document.getElementById('startShortSumBatchBtn').disabled = !anyChecked;
+  const btn = document.getElementById('batchExportGABtn');
+  if (btn) {
+    btn.disabled = !anyChecked;
+  }
 }
 
-// ============================================================================
-// NEUE V2 KEYWORD-GENERIERUNG
-// ============================================================================
-
-// Starte GA-Batch mit neuer V2 Template-basierter Generierung
-// NEUE FUNKTION: S&H&C&K für ausgewählte GA-Bände
-async function startGABatchFullRegenerate() {
-  // Sammle ausgewählte GA-Bände
-  const checkboxes = document.querySelectorAll('.ga-volume-checkbox:checked');
+// Batch-Export für mehrere GA-Bände
+async function batchExportGAVolumes() {
+  if (!isLocal) {
+    alert('Diese Funktion ist nur lokal verfügbar.');
+    return;
+  }
+  
+  const checkboxes = document.querySelectorAll('.ga-volume-export-checkbox:checked');
   const selectedVolumes = Array.from(checkboxes).map(cb => cb.value);
   
   if (selectedVolumes.length === 0) {
@@ -39884,328 +39907,138 @@ async function startGABatchFullRegenerate() {
     return;
   }
   
-  // Hole ausgewählten Provider
-  const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || null;
+  const confirmMsg = `${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''} exportieren?\n\n` +
+    `Bände: ${selectedVolumes.map(v => formatLectureId(v)).join(', ')}\n\n` +
+    `Dies wird:\n` +
+    `• Die Markdown-Quellen aus Steiner_GA/ lesen\n` +
+    `• Die JSON-Dateien neu generieren\n` +
+    `• Bestehende Pagebreaks für diese Bände löschen\n\n` +
+    `Der Export kann einige Minuten dauern.`;
   
-  // Berechne Gesamtanzahl Vorträge
-  let totalLectures = 0;
-  selectedVolumes.forEach(vol => {
-    const volInfo = availableGAVolumes.find(v => v.volume === vol);
-    if (volInfo) totalLectures += volInfo.lectureCount;
-  });
+  if (!confirm(confirmMsg)) {
+    return;
+  }
   
-  const message = `WARNUNG: Alle Vorträge in ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'en' : ''} werden komplett neu generiert (S+H+TOC+KW).\n\n` +
-    `Bände: ${selectedVolumes.join(', ')}\n` +
-    `Total Vorträge: ~${totalLectures}\n` +
-    `Batch-Größe: 10 Vorträge parallel\n` +
-    `KI-Provider: ${selectedProvider ? selectedProvider.toUpperCase() : 'Claude (Default)'}\n\n` +
-    `Bestehende Daten werden überschrieben. Fortfahren?`;
-  
-  if (!confirm(message)) return;
-  
-  const btn = document.getElementById('startGABatchBtn');
-  const statusDiv = document.getElementById('gaBatchStatus');
-  const progressContainer = document.getElementById('gaBatchProgressContainer');
-  const progressText = document.getElementById('gaBatchProgressText');
-  const progressPercent = document.getElementById('gaBatchProgressPercent');
-  const resultsDiv = document.getElementById('gaBatchResults');
-  const progressBar = document.getElementById('gaBatchProgressBar');
+  const btn = document.getElementById('batchExportGABtn');
+  const statusDiv = document.getElementById('batchExportStatus');
+  const progressDiv = document.getElementById('batchExportProgress');
+  const progressText = document.getElementById('batchExportProgressText');
+  const progressPercent = document.getElementById('batchExportProgressPercent');
+  const progressBar = document.getElementById('batchExportProgressBar');
+  const resultsDiv = document.getElementById('batchExportResults');
   
   btn.disabled = true;
   btn.style.opacity = '0.5';
   checkboxes.forEach(cb => cb.disabled = true);
-  statusDiv.style.display = 'block';
-  progressContainer.style.display = 'block';
-  resultsDiv.style.display = 'none';
+  statusDiv.style.display = 'inline';
+  statusDiv.textContent = 'Exportiere...';
+  progressDiv.style.display = 'block';
+  resultsDiv.innerHTML = '';
   
-  statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Sammle Vorträge...</span>`;
-  if (progressText) progressText.textContent = 'Bereite vor...';
-  if (progressPercent) progressPercent.textContent = '0%';
-  if (progressBar) progressBar.style.width = '0%';
+  let successCount = 0;
+  let errorCount = 0;
+  const results = [];
   
   try {
-    // Sammle alle Lecture IDs der ausgewählten GA-Bände
-    let allLectureIds = [];
-    
-    for (const gaVolume of selectedVolumes) {
-      statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Lade Vorträge von ${gaVolume}...</span>`;
-      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaVolume)}`);
-      if (resp.ok) {
-        const data = await resp.json();
-        const lectureIds = (data.lectures || []).map(l => l.ID);
+    for (let i = 0; i < selectedVolumes.length; i++) {
+      const gaVolume = selectedVolumes[i];
+      const normalizedGA = gaVolume.toUpperCase();
+      const progress = Math.round(((i + 1) / selectedVolumes.length) * 100);
+      
+      progressText.textContent = `Exportiere ${normalizedGA} (${i + 1}/${selectedVolumes.length})...`;
+      progressPercent.textContent = `${progress}%`;
+      progressBar.style.width = `${progress}%`;
+      
+      try {
+        const resp = await fetch(`${API_BASE}/api/export/ga`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ gaNumber: normalizedGA })
+        });
         
-        if (lectureIds.length === 0) {
-          console.warn(`[GA-BATCH] ${gaVolume}: Keine Vorträge in Response gefunden`);
-          console.warn(`[GA-BATCH] ${gaVolume}: data.lectures =`, data.lectures);
+        const result = await resp.json();
+        
+        if (resp.ok && result.success) {
+          successCount++;
+          results.push({
+            ga: normalizedGA,
+            success: true,
+            type: result.type,
+            files: result.files?.length || 0,
+            lectureCount: result.lectureCount || 0
+          });
         } else {
-          allLectureIds.push(...lectureIds);
-          }
-      } else {
-        const errorText = await resp.text();
-        console.error(`[GA-BATCH] ${gaVolume}: API-Fehler (${resp.status}):`, errorText);
+          errorCount++;
+          results.push({
+            ga: normalizedGA,
+            success: false,
+            error: result.error || 'Unbekannter Fehler'
+          });
+        }
+      } catch (error) {
+        errorCount++;
+        results.push({
+          ga: normalizedGA,
+          success: false,
+          error: error.message
+        });
+      }
+      
+      // Kurze Pause zwischen Exports, um das System nicht zu überlasten
+      if (i < selectedVolumes.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 500));
       }
     }
     
-    if (allLectureIds.length === 0) {
-      console.error('[GA-BATCH] FEHLER: Keine Vorträge gefunden!');
-      console.error('[GA-BATCH] Ausgewählte Bände:', selectedVolumes);
-      throw new Error(`Keine Vorträge gefunden für: ${selectedVolumes.join(', ')}`);
-    }
+    // Zeige Ergebnisse
+    progressText.textContent = 'Export abgeschlossen!';
+    progressPercent.textContent = '100%';
+    progressBar.style.width = '100%';
     
-    statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Generiere ${allLectureIds.length} Vorträge (Batch-Größe: 10)...</span>`;
-    if (progressText) progressText.textContent = `Verarbeite ${allLectureIds.length} Vorträge in Batches...`;
-    if (progressBar) progressBar.style.width = '5%';
+    let resultsHTML = '<div style="display: grid; gap: 0.5rem;">';
+    resultsHTML += `<div style="padding: 0.5rem; background: var(--sidebar-bg); border-radius: 4px; font-weight: bold;">
+      Erfolgreich: ${successCount} | Fehler: ${errorCount}
+    </div>`;
     
-    // Rufe Backend-API auf
-    const startTime = Date.now();
-    
-    const response = await fetch(`${API_BASE}/api/batch-regenerate-all`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        lectureIds: allLectureIds,
-        preferredProvider: selectedProvider,
-        parallelChunkSize: 10
-      })
+    results.forEach(r => {
+      if (r.success) {
+        resultsHTML += `
+          <div style="padding: 0.5rem; background: #d4edda; border-radius: 4px; border: 1px solid #c3e6cb;">
+            <strong style="color: #155724;">✓ ${r.ga}</strong>
+            <div style="font-size: 0.8em; color: #155724; margin-top: 0.2rem;">
+              Typ: ${r.type} | Dateien: ${r.files}${r.lectureCount ? ` | Vorträge: ${r.lectureCount}` : ''}
+            </div>
+          </div>
+        `;
+      } else {
+        resultsHTML += `
+          <div style="padding: 0.5rem; background: #f8d7da; border-radius: 4px; border: 1px solid #f5c6cb;">
+            <strong style="color: #721c24;">✗ ${r.ga}</strong>
+            <div style="font-size: 0.8em; color: #721c24; margin-top: 0.2rem;">
+              ${r.error}
+            </div>
+          </div>
+        `;
+      }
     });
     
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('[GA-BATCH] Server-Fehler:', errorText);
-      throw new Error(`Server-Fehler: ${response.status} - ${errorText.substring(0, 200)}`);
-    }
+    resultsHTML += '</div>';
+    resultsDiv.innerHTML = resultsHTML;
     
-    const result = await response.json();
-    if (result.success) {
-      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Generierung abgeschlossen in ${elapsed}s!</span>`;
-      resultsDiv.style.display = 'block';
-      
-      document.getElementById('gaBatchStatVolume').textContent = 
-        `${selectedVolumes.length} Band${selectedVolumes.length > 1 ? 'e' : ''} (${selectedVolumes.join(', ')})`;
-      document.getElementById('gaBatchStatProcessed').textContent = result.processed + ' Vorträge';
-      document.getElementById('gaBatchStatSkipped').style.display = 'none';
-      document.getElementById('gaBatchSkippedLabel').style.display = 'none';
-      document.getElementById('gaBatchStatTotal').textContent = result.processed + ' komplett neu';
-      document.getElementById('gaBatchStatNew').textContent = result.failed + ' Fehler';
-      document.getElementById('gaBatchStatFinalVocab').textContent = '-';
-      document.getElementById('gaBatchStatSynonyms').textContent = '-';
-      document.getElementById('gaBatchStatMethod').textContent = `Unified Full (Batch: 10, ${elapsed}s)`;
-      
-      if (progressBar) progressBar.style.width = '100%';
-      if (progressText) progressText.textContent = 'Abgeschlossen!';
-      if (progressPercent) progressPercent.textContent = '100%';
-      
-    } else {
-      throw new Error(result.error || 'Unbekannter Fehler');
-    }
+    statusDiv.textContent = successCount > 0 ? `✓ ${successCount} erfolgreich` : '✗ Fehler';
+    statusDiv.style.color = successCount > 0 ? '#5cb85c' : '#d9534f';
     
   } catch (error) {
-    console.error('[GA-BATCH-FULL] Fehler:', error);
-    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
-    if (progressText) progressText.textContent = 'Fehler!';
-  }
-  
-  setTimeout(() => {
-    progressContainer.style.display = 'none';
-  }, 2000);
-  
-  btn.disabled = false;
-  btn.style.opacity = '1';
-  checkboxes.forEach(cb => cb.disabled = false);
-}
-
-// Starte GA-Batch Short Summaries für ausgewählte GA-Bände
-async function startGABatchShortSummaries() {
-  // Sammle ausgewählte GA-Bände
-  const checkboxes = document.querySelectorAll('.ga-volume-checkbox:checked');
-  const selectedVolumes = Array.from(checkboxes).map(cb => cb.value);
-  
-  if (selectedVolumes.length === 0) {
-    alert('Bitte wählen Sie mindestens einen GA-Band aus!');
-    return;
-  }
-  
-  // Hole ausgewählten Provider
-  const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || 'claude';
-  
-  // Berechne Gesamtanzahl Vorträge
-  let totalLectures = 0;
-  selectedVolumes.forEach(vol => {
-    const volInfo = availableGAVolumes.find(v => v.volume === vol);
-    if (volInfo) totalLectures += volInfo.lectureCount;
-  });
-  
-  const message = `Kurzzusammenfassungen für ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'en' : ''} generieren?\n\n` +
-    `Bände: ${selectedVolumes.join(', ')}\n` +
-    `Total Vorträge: ~${totalLectures}\n` +
-    `KI-Provider: ${selectedProvider.toUpperCase()}\n\n` +
-    `Hinweis: Nur bestehende Summaries werden verarbeitet (sehr schnell und günstig).\n` +
-    `Vorträge ohne Summary werden übersprungen.`;
-  
-  if (!confirm(message)) return;
-  
-  const btn = document.getElementById('startShortSumBatchBtn');
-  const statusDiv = document.getElementById('gaBatchStatus');
-  const progressContainer = document.getElementById('gaBatchProgressContainer');
-  const resultsDiv = document.getElementById('gaBatchResults');
-  const progressBar = document.getElementById('gaBatchProgressBar');
-  
-  btn.disabled = true;
-  btn.style.opacity = '0.5';
-  checkboxes.forEach(cb => cb.disabled = true);
-  statusDiv.style.display = 'block';
-  progressContainer.style.display = 'block';
-  resultsDiv.style.display = 'none';
-  
-  statusDiv.innerHTML = `<span style="color: #5cb85c;">⏳ Sammle Vorträge...</span>`;
-  
-  try {
-    // Sammle alle Lecture IDs der ausgewählten GA-Bände
-    let allLectureIds = [];
-    
-    for (const gaVolume of selectedVolumes) {
-      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaVolume)}`);
-      if (resp.ok) {
-        const data = await resp.json();
-        const lectureIds = (data.lectures || []).map(l => l.ID);
-        allLectureIds.push(...lectureIds);
-      }
-    }
-    
-    if (allLectureIds.length === 0) {
-      throw new Error('Keine Vorträge gefunden');
-    }
-    
-    statusDiv.innerHTML = `<span style="color: #5cb85c;">⏳ Generiere Kurzzusammenfassungen für ${allLectureIds.length} Vorträge...</span>`;
-    
-    // Rufe Short Summary Batch Endpoint auf
-    const response = await fetch(`${API_BASE}/api/batch-generate-short-summaries`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        lectureIds: allLectureIds,
-        preferredProvider: selectedProvider,
-        forceRegenerate: false
-      })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Server-Fehler: ${response.status}`);
-    }
-    
-    const result = await response.json();
-    
-    if (result.success) {
-      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Kurzzusammenfassungen abgeschlossen!</span>`;
-      resultsDiv.style.display = 'block';
-      
-      const skipped = allLectureIds.length - result.processed - result.failed;
-      
-      document.getElementById('gaBatchStatVolume').textContent = 
-        `${selectedVolumes.length} Band${selectedVolumes.length > 1 ? 'e' : ''} (${selectedVolumes.join(', ')})`;
-      document.getElementById('gaBatchStatProcessed').textContent = result.processed + ' Kurzzusammenfassungen';
-      
-      if (skipped > 0) {
-        document.getElementById('gaBatchStatSkipped').style.display = 'block';
-        document.getElementById('gaBatchSkippedLabel').style.display = 'block';
-        document.getElementById('gaBatchStatSkipped').textContent = skipped + ' (keine Summary)';
-      } else {
-        document.getElementById('gaBatchStatSkipped').style.display = 'none';
-        document.getElementById('gaBatchSkippedLabel').style.display = 'none';
-      }
-      
-      document.getElementById('gaBatchStatTotal').textContent = allLectureIds.length + ' gesamt';
-      document.getElementById('gaBatchStatNew').textContent = result.failed + ' Fehler';
-      document.getElementById('gaBatchStatFinalVocab').textContent = '-';
-      document.getElementById('gaBatchStatSynonyms').textContent = '-';
-      document.getElementById('gaBatchStatMethod').textContent = 'Short Summary Generation';
-      
-      if (progressBar) progressBar.style.width = '100%';
-      
-    } else {
-      throw new Error(result.error || 'Unbekannter Fehler');
-    }
-    
-  } catch (err) {
-    console.error('[SHORT-SUM-BATCH] Fehler:', err);
-    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${err.message}</span>`;
+    console.error('[BATCH-EXPORT] Fehler:', error);
+    statusDiv.textContent = '✗ Export fehlgeschlagen';
+    statusDiv.style.color = '#d9534f';
+    resultsDiv.innerHTML = `<div style="color: #d9534f;">Fehler: ${error.message}</div>`;
   } finally {
     btn.disabled = false;
     btn.style.opacity = '1';
     checkboxes.forEach(cb => cb.disabled = false);
   }
 }
-
-// Lade GA-Bände beim Öffnen des Keywords-Tabs
-if (document.getElementById('gaVolumeCheckboxes')) {
-  loadAvailableGAVolumes();
-}
-
-// Lade Provider-Status
-async function loadProviderStatus() {
-  try {
-    const response = await fetch(`${API_BASE}/api/keywords-template-info`);
-    if (response.ok) {
-      const data = await response.json();
-      
-      // Update Status-Labels
-      const openaiStatus = document.getElementById('openaiStatus');
-      const claudeStatus = document.getElementById('claudeStatus');
-      const geminiStatus = document.getElementById('geminiStatus');
-      
-      if (openaiStatus) {
-        if (data.providers.openai.available) {
-          openaiStatus.textContent = data.providers.openai.rateLimited ? '🔴 Rate-Limited' : '✅ Verfügbar';
-          openaiStatus.style.color = data.providers.openai.rateLimited ? '#d9534f' : '#5cb85c';
-        } else {
-          openaiStatus.textContent = '❌ Kein API-Key';
-          openaiStatus.style.color = '#999';
-        }
-      }
-      
-      if (claudeStatus) {
-        if (data.providers.claude.available) {
-          claudeStatus.textContent = data.providers.claude.rateLimited ? '🔴 Rate-Limited' : '✅ Verfügbar';
-          claudeStatus.style.color = data.providers.claude.rateLimited ? '#d9534f' : '#5cb85c';
-        } else {
-          claudeStatus.textContent = '❌ Kein API-Key';
-          claudeStatus.style.color = '#999';
-        }
-      }
-      
-      if (geminiStatus) {
-        if (data.providers.gemini.available) {
-          geminiStatus.textContent = data.providers.gemini.rateLimited ? '🔴 Rate-Limited' : '✅ Verfügbar';
-          geminiStatus.style.color = data.providers.gemini.rateLimited ? '#d9534f' : '#5cb85c';
-        } else {
-          geminiStatus.textContent = '❌ Kein API-Key';
-          geminiStatus.style.color = '#999';
-        }
-      }
-    }
-  } catch (error) {
-    console.error('[PROVIDER-STATUS] Fehler:', error);
-  }
-}
-
-// Provider-Status-Prüfung deaktiviert
-// document.addEventListener('DOMContentLoaded', function() {
-//   loadProviderStatus();
-//   
-//   // Aktualisiere Status alle 30 Sekunden
-//   setInterval(loadProviderStatus, 30000);
-// });
-
-// Event-Listener für useExistingVocab Checkbox
-document.addEventListener('DOMContentLoaded', function() {
-  const checkbox = document.getElementById('useExistingVocabCheckbox');
-  if (checkbox) {
-    checkbox.addEventListener('change', function() {
-      updateStartButtonState(); // Update auch Reprocess-Button Status
-    });
-  }
-});
 
 // Event Listener für Keyword Editor Modal Buttons - DEAKTIVIERT
 // Verwendet nur onclick-Handler im HTML

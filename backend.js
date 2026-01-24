@@ -12132,11 +12132,11 @@ app.post('/api/export/ga', async (req, res) => {
   }
 });
 
-// POST /api/pages/process - Führt process_pagebreaks.py für einen GA-Band aus
+// POST /api/pages/process - Führt process_pagebreaks.py für einen GA-Band oder einzelnen Vortrag aus
 // Dieser Endpunkt wird vom "Pages"-Button im Frontend aufgerufen
 app.post('/api/pages/process', async (req, res) => {
   try {
-    const { gaNumber } = req.body;
+    const { gaNumber, lectureId } = req.body;
     
     if (!gaNumber) {
       return res.status(400).json({ error: 'gaNumber erforderlich' });
@@ -12150,7 +12150,21 @@ app.post('/api/pages/process', async (req, res) => {
     const gaNum = gaMatch[1].padStart(3, '0').toUpperCase();
     const normalizedGA = `GA${gaNum}`;
     
-    console.log(`[PAGES/PROCESS] Starte process_pagebreaks.py für ${normalizedGA}...`);
+    // Prüfe ob einzelner Vortrag verarbeitet werden soll
+    // Unterstützt Formate wie: "GA201 (1.)", "GA201/1", "GA201/001", "GA201 (12.)"
+    const isSingleLecture = lectureId && (
+      lectureId.match(/^GA\d{3}[a-z]?\s*\(\d+\.\)/i) ||  // GA201 (1.)
+      lectureId.match(/^GA\d{3}[a-z]?\/\d+/i) ||         // GA201/1 oder GA201/001
+      lectureId.match(/^GA\d{3}[a-z]?\/\d+[a-z]?/i)      // GA201/1a (mit Suffix)
+    );
+    
+    console.log(`[PAGES/PROCESS] Request: gaNumber=${gaNumber}, lectureId=${lectureId}, isSingleLecture=${isSingleLecture}`);
+    
+    if (isSingleLecture) {
+      console.log(`[PAGES/PROCESS] Starte process_pagebreaks.py für einzelnen Vortrag: ${lectureId} (GA-Band: ${normalizedGA})...`);
+    } else {
+      console.log(`[PAGES/PROCESS] Starte process_pagebreaks.py für ${normalizedGA}...`);
+    }
     
     const { spawn } = require('child_process');
     
@@ -12165,17 +12179,67 @@ app.post('/api/pages/process', async (req, res) => {
       });
     }
     
-    const pythonProcess = spawn('python', [pythonScript, normalizedGA], {
+    // Argumente für Python-Skript
+    const scriptArgs = [normalizedGA];
+    if (isSingleLecture) {
+      // Füge --lecture-id Parameter hinzu
+      scriptArgs.push('--lecture-id', lectureId);
+    }
+    
+    const pythonProcess = spawn('python', [pythonScript, ...scriptArgs], {
       cwd: __dirname,
       env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
     });
     
     let stdout = '';
     let stderr = '';
+    let processFinished = false;
+    
+    // Timeout: 15 Minuten (900 Sekunden) für große PDFs
+    const TIMEOUT_MS = 15 * 60 * 1000; // 15 Minuten
+    const timeoutId = setTimeout(() => {
+      if (!processFinished) {
+        processFinished = true;
+        console.error(`[PAGES/PROCESS] Timeout nach ${TIMEOUT_MS / 1000} Sekunden für ${normalizedGA}`);
+        
+        // Versuche Prozess zu beenden
+        try {
+          pythonProcess.kill('SIGTERM');
+          // Falls SIGTERM nicht funktioniert, force kill nach kurzer Wartezeit
+          setTimeout(() => {
+            try {
+              pythonProcess.kill('SIGKILL');
+            } catch (e) {
+              console.error(`[PAGES/PROCESS] Fehler beim Force-Kill:`, e);
+            }
+          }, 2000);
+        } catch (e) {
+          console.error(`[PAGES/PROCESS] Fehler beim Beenden des Prozesses:`, e);
+        }
+        
+        if (!res.headersSent) {
+          res.status(500).json({
+            success: false,
+            error: `Timeout: Der Prozess hat länger als ${TIMEOUT_MS / 1000 / 60} Minuten gedauert`,
+            gaNumber: normalizedGA,
+            details: `Mögliche Ursachen:\n- Sehr große PDF-Datei\n- Viele Seiten zu verarbeiten\n- Text-Matching findet keine Treffer\n\nLetzte Ausgabe:\n${stdout.slice(-500)}\n\nFehler:\n${stderr.slice(-500)}`
+          });
+        }
+      }
+    }, TIMEOUT_MS);
     
     pythonProcess.stdout.on('data', (data) => {
       stdout += data.toString();
-      console.log(`[PAGES/PROCESS] ${data.toString().trim()}`);
+      const output = data.toString().trim();
+      console.log(`[PAGES/PROCESS] ${output}`);
+      
+      // Zeige Fortschritt in der Ausgabe
+      if (output.includes('Extrahiere PDF-Seiten') || output.includes('Seiten mit Seitenzahlen')) {
+        console.log(`[PAGES/PROCESS] PDF-Extraktion läuft...`);
+      }
+      if (output.includes('Verarbeite') && output.includes('Vorträge')) {
+        console.log(`[PAGES/PROCESS] Verarbeite Vorträge...`);
+      }
     });
     
     pythonProcess.stderr.on('data', (data) => {
@@ -12184,6 +12248,13 @@ app.post('/api/pages/process', async (req, res) => {
     });
     
     pythonProcess.on('close', (code) => {
+      if (processFinished) {
+        return; // Timeout hat bereits geantwortet
+      }
+      
+      processFinished = true;
+      clearTimeout(timeoutId);
+      
       console.log(`[PAGES/PROCESS] process_pagebreaks.py beendet mit Code ${code}`);
       
       if (code === 0) {
@@ -12211,32 +12282,51 @@ app.post('/api/pages/process', async (req, res) => {
           overrideDeactivated = true;
         }
         
-        res.json({
-          success: true,
-          gaNumber: normalizedGA,
-          jsonMarkers,
-          mdMarkers,
-          pdfCopied,
-          overrideDeactivated,
-          message: `Seitenmarker für ${normalizedGA} erfolgreich eingefügt`
-        });
+        if (!res.headersSent) {
+          const response = {
+            success: true,
+            gaNumber: normalizedGA,
+            jsonMarkers,
+            mdMarkers,
+            pdfCopied,
+            overrideDeactivated,
+            message: isSingleLecture 
+              ? `Seitenmarker für Vortrag ${lectureId} erfolgreich eingefügt`
+              : `Seitenmarker für ${normalizedGA} erfolgreich eingefügt`
+          };
+          if (isSingleLecture) {
+            response.lectureId = lectureId;
+          }
+          res.json(response);
+        }
       } else {
-        res.status(500).json({
-          success: false,
-          error: `process_pagebreaks.py beendet mit Code ${code}`,
-          gaNumber: normalizedGA,
-          details: stderr || stdout
-        });
+        if (!res.headersSent) {
+          res.status(500).json({
+            success: false,
+            error: `process_pagebreaks.py beendet mit Code ${code}`,
+            gaNumber: normalizedGA,
+            details: stderr || stdout
+          });
+        }
       }
     });
     
     pythonProcess.on('error', (err) => {
+      if (processFinished) {
+        return;
+      }
+      
+      processFinished = true;
+      clearTimeout(timeoutId);
+      
       console.error(`[PAGES/PROCESS] Fehler beim Starten von Python:`, err);
-      res.status(500).json({
-        success: false,
-        error: 'Fehler beim Starten des Python-Scripts',
-        details: err.message
-      });
+      if (!res.headersSent) {
+        res.status(500).json({
+          success: false,
+          error: 'Fehler beim Starten des Python-Scripts',
+          details: err.message
+        });
+      }
     });
     
   } catch (error) {

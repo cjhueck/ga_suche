@@ -225,20 +225,25 @@ def deactivate_old_overrides(ga_number: str, dry_run: bool = False) -> bool:
         return False
 
 
-def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
+def process_ga_complete(ga_number: str, dry_run: bool = False, lecture_id: str = None) -> dict:
     """
     Führt das komplette Verfahren für eine GA durch:
     1. PDF kopieren
     2. Seitenmarker in JSON einfügen
     3. Alte Override-Dateien inaktivieren
     4. Seitenmarker in MD-Dateien einfügen
+    
+    lecture_id: Optional - wenn angegeben, wird nur dieser Vortrag verarbeitet
     """
     ga_norm = normalize_ga(ga_number)
     if not ga_norm:
         return {"ga": ga_number, "status": "error", "reason": "Ungültige GA-Nummer"}
     
     print(f"\n{'='*60}")
-    print(f"Verarbeite {ga_norm}")
+    if lecture_id:
+        print(f"Verarbeite einzelnen Vortrag: {lecture_id} (GA-Band: {ga_norm})")
+    else:
+        print(f"Verarbeite {ga_norm}")
     print(f"{'='*60}")
     
     # Prüfe ob Vorträge oder Bücher existieren
@@ -256,11 +261,18 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
     # Schritt 2: Seitenmarker in JSON einfügen
     print(f"\n  [2/4] Seitenmarker in JSON einfügen...")
     if dry_run:
-        print(f"    → Würde Marker einfügen mit generate_pagebreaks_with_pdf.py")
+        if lecture_id:
+            print(f"    → Würde Marker für Vortrag {lecture_id} einfügen")
+        else:
+            print(f"    → Würde Marker einfügen mit generate_pagebreaks_with_pdf.py")
         markers_inserted = 0
     else:
         try:
-            result = apply_pagebreaks(ga_norm, update_source=True)
+            # Wenn lecture_id angegeben, übergebe es an apply_pagebreaks
+            if lecture_id:
+                result = apply_pagebreaks(ga_norm, update_source=True, lecture_id=lecture_id)
+            else:
+                result = apply_pagebreaks(ga_norm, update_source=True)
             markers_inserted = result.get("markers_inserted", 0)
             if "error" in result:
                 print(f"    ⚠️  {result['error']}")
@@ -283,7 +295,11 @@ def process_ga_complete(ga_number: str, dry_run: bool = False) -> dict:
         md_ok = True
     else:
         try:
-            md_result = apply_pagebreaks_md(ga_norm, dry_run=False)
+            # Wenn lecture_id angegeben, übergebe es an apply_pagebreaks_md
+            if lecture_id:
+                md_result = apply_pagebreaks_md(ga_norm, dry_run=False, lecture_id=lecture_id)
+            else:
+                md_result = apply_pagebreaks_md(ga_norm, dry_run=False)
             md_markers_inserted = md_result.get("markers_inserted", 0)
             if "error" in md_result:
                 print(f"    ⚠️  {md_result['error']}")
@@ -337,6 +353,8 @@ Nach Abschluss: Server neu starten (nb)
                         help="Anzahl paralleler Prozesse (Standard: 4)")
     parser.add_argument("--sequential", "-s", action="store_true",
                         help="Sequentielle Verarbeitung (kein Parallelismus)")
+    parser.add_argument("--lecture-id", type=str,
+                        help="Nur diesen einzelnen Vortrag verarbeiten (z.B. GA201 (1.))")
     
     args = parser.parse_args()
     
@@ -386,14 +404,14 @@ Nach Abschluss: Server neu starten (nb)
     if args.sequential or len(ga_numbers) == 1:
         # Sequentielle Verarbeitung
         for ga in ga_numbers:
-            result = process_ga_complete(ga, dry_run=args.dry_run)
+            result = process_ga_complete(ga, dry_run=args.dry_run, lecture_id=args.lecture_id)
             results.append(result)
     else:
         # Parallele Verarbeitung (Threads statt Prozesse für Windows-Kompatibilität)
         print(f"\nStarte parallele Verarbeitung mit {args.workers} Threads...")
         with ThreadPoolExecutor(max_workers=args.workers) as executor:
             futures = {
-                executor.submit(process_ga_complete, ga, args.dry_run): ga 
+                executor.submit(process_ga_complete, ga, args.dry_run, args.lecture_id): ga 
                 for ga in ga_numbers
             }
             for future in as_completed(futures):

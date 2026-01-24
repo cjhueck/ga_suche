@@ -349,16 +349,21 @@ def move_markers_around_headings(content: str) -> Tuple[str, int]:
     return '\n'.join(lines), changes
 
 
-def process_ga_md(ga_number: str, dry_run: bool = False) -> Dict:
+def process_ga_md(ga_number: str, dry_run: bool = False, lecture_id: str = None) -> Dict:
     """
     Verarbeitet alle MD-Dateien für eine GA.
+    
+    lecture_id: Optional - wenn angegeben, wird nur die MD-Datei für diesen Vortrag verarbeitet (z.B. "GA201 (1.)")
     """
     ga_norm = normalize_ga(ga_number)
     if not ga_norm:
         return {"error": f"Ungültige GA-Nummer: {ga_number}"}
     
     print(f"\n{'='*60}")
-    print(f"Verarbeite {ga_norm} (MD)")
+    if lecture_id:
+        print(f"Verarbeite einzelnen Vortrag: {lecture_id} (MD)")
+    else:
+        print(f"Verarbeite {ga_norm} (MD)")
     print(f"{'='*60}")
     
     # Finde MD-Ordner
@@ -377,20 +382,70 @@ def process_ga_md(ga_number: str, dry_run: bool = False) -> Dict:
     
     print(f"  PDF: {pdf_path.name}")
     
-    # Extrahiere PDF-Seiten
-    print(f"  Extrahiere PDF-Seiten...")
-    pdf_pages = extract_pdf_pages(pdf_path)
-    print(f"  {len(pdf_pages)} Seiten mit Seitenzahlen")
-    
-    if not pdf_pages:
-        return {"error": "Keine Seiten mit Seitenzahlen"}
-    
-    # Lade Page-Mapping
+    # Lade Page-Mapping frühzeitig (für Optimierung)
     mapping = load_page_mapping()
     
     # Finde MD-Dateien
     md_files = find_md_files_in_folder(md_folder)
     print(f"  {len(md_files)} MD-Dateien gefunden")
+    
+    # Wenn lecture_id angegeben, filtere nur die entsprechende MD-Datei
+    page_range = None  # Für optimierte PDF-Extraktion
+    if lecture_id:
+        # Normalisiere lecture_id (z.B. "GA201 (1.)" -> suche nach Datei mit "(1.)")
+        lecture_id_normalized = lecture_id.strip()
+        # Entferne mögliche GA-Präfixe am Anfang
+        if lecture_id_normalized.startswith(ga_norm):
+            lecture_id_normalized = lecture_id_normalized[len(ga_norm):].strip()
+        
+        # Suche nach passender MD-Datei
+        matching_md_file = None
+        for md_path in md_files:
+            md_name = md_path.stem
+            # Prüfe verschiedene Formate: "GA201 (1.)", "(1.)", "1"
+            if (lecture_id_normalized in md_name or 
+                md_name.endswith(lecture_id_normalized) or
+                lecture_id_normalized.replace("(", "").replace(")", "").replace(".", "").strip() in md_name):
+                matching_md_file = md_path
+                break
+        
+        if not matching_md_file:
+            return {"error": f"MD-Datei für Vortrag '{lecture_id}' nicht gefunden"}
+        
+        md_files = [matching_md_file]
+        print(f"  Gefundene MD-Datei: {matching_md_file.name}")
+        
+        # Versuche Seitenbereich für Optimierung zu ermitteln
+        lec_num = extract_lecture_number_from_md(matching_md_file)
+        if lec_num is not None:
+            ga_mapping = mapping.get(ga_norm, {})
+            lec_id = f"{ga_norm}/{lec_num}"
+            start_page = ga_mapping.get(lec_id)
+            if start_page:
+                # Finde End-Seite
+                next_id = f"{ga_norm}/{lec_num + 1}"
+                next_start = ga_mapping.get(next_id)
+                if next_start:
+                    end_page = next_start - 1
+                else:
+                    # Schätze basierend auf Textlänge
+                    with open(matching_md_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    text_length = len(content)
+                    estimated_pages = max(5, text_length // 500)
+                    end_page = start_page + estimated_pages
+                
+                # Füge Puffer hinzu
+                page_range = (max(1, start_page - 10), end_page + 10)
+                print(f"  Optimierung: Extrahiere nur Seiten {page_range[0]}-{page_range[1]} aus PDF")
+    
+    # Extrahiere PDF-Seiten (mit optionaler Optimierung)
+    print(f"  Extrahiere PDF-Seiten...")
+    pdf_pages = extract_pdf_pages(pdf_path, page_range=page_range)
+    print(f"  {len(pdf_pages)} Seiten mit Seitenzahlen")
+    
+    if not pdf_pages:
+        return {"error": "Keine Seiten mit Seitenzahlen"}
     
     # Verarbeite jede MD-Datei
     total_inserted = 0
