@@ -4812,8 +4812,14 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       color: var(--heading-color);
       font-size: var(--text-size);
       font-weight: 600;
-      cursor: default;
+      cursor: pointer;
       line-height: var(--line-height);
+      text-decoration: none;
+    }
+    
+    .ga-band-header h3:hover,
+    .ga-band-header h3:active {
+      text-decoration: none;
     }
     
     body.dark-mode .ga-band-header {
@@ -14515,12 +14521,12 @@ function normalizeGANumber(gaNumber) {
         }
         
         // Erstelle HTML für linkes Panel
-        // GA-Band-Name für Anzeige oberhalb der Vortragsliste
-        const gaBandName = `${data.gaNumber} - ${data.gaTitle}`;
+        // GA-Band-Name für Anzeige oberhalb der Vortragsliste (Suffix immer klein)
+        const gaBandName = `${formatLectureId(data.gaNumber)} - ${data.gaTitle}`;
         
         let html = `<div id="ga-lecture-list">
           <div class="ga-band-header">
-            <h3>${gaBandName}</h3>
+            <h3 onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen">${gaBandName}</h3>
           </div>`;
         
         data.lectures.forEach((lecture, idx) => {
@@ -16780,7 +16786,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     displayTitle = `${displayTitle} (${book.yearRange})`;
   }
   const gaNumber = book.gaNumber || book.ID;
-  const titleText = `${gaNumber} - ${displayTitle}`;
+  const titleText = `${formatLectureId(gaNumber)} - ${displayTitle}`;
   documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
   const titleSpan = documentTitle.querySelector('span');
   if (titleSpan) {
@@ -16826,7 +16832,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Fülle linkes Panel mit GA-Band-Name Header
       let sideHtml = `<div id="ga-lecture-list">
         <div class="ga-band-header">
-          <h3>${gaBandName}</h3>
+          <h3 onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen">${gaBandName}</h3>
         </div>`;
       
       // Bei Büchern mit tableOfContents: Zeige Kapitel als klickbare Links
@@ -18832,7 +18838,7 @@ async function displayGAOverview(data) {
     }
   });
   
-  titleElement.textContent = `${data.gaNumber} - ${data.gaTitle}`;
+  titleElement.textContent = `${formatLectureId(data.gaNumber)} - ${data.gaTitle}`;
   
   // Header-Höhe hat sich durch neuen Titel möglicherweise geändert - mainContainer margin-top aktualisieren
   setTimeout(() => {
@@ -18905,13 +18911,13 @@ async function displayGAOverview(data) {
     }
   }
   
-  // GA-Band-Name für Anzeige oberhalb der Vortragsliste
-  const gaBandName = `${data.gaNumber} - ${data.gaTitle}`;
+  // GA-Band-Name für Anzeige oberhalb der Vortragsliste (Suffix immer klein)
+  const gaBandName = `${formatLectureId(data.gaNumber)} - ${data.gaTitle}`;
   
   let html = `
     <div id="ga-lecture-list">
       <div class="ga-band-header">
-        <h3>${gaBandName}</h3>
+        <h3 onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen">${gaBandName}</h3>
       </div>
   `;
   
@@ -21853,7 +21859,7 @@ function scrollToChronologicalYear(year) {
           if (book.yearRange && !displayTitle.includes(`(${book.yearRange})`)) {
             displayTitle = `${displayTitle} (${book.yearRange})`;
           }
-          const fullTitle = `${gaNumber} - ${displayTitle}`;
+          const fullTitle = `${formatLectureId(gaNumber)} - ${displayTitle}`;
           
           documentTitle.textContent = fullTitle;
           documentTitle.style.cursor = 'pointer';
