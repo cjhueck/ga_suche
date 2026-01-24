@@ -1,0 +1,41 @@
+{
+  "dailyStats": {
+    "2026-01-12": {
+      "views": 2,
+      "searches": 6,
+      "lectures": 51
+    }
+  },
+  "topSearches": {
+    "das ist der große unterschied": 1,
+    "das ist der große unterschied zwischen der": 1,
+    "tableau": 4
+  },
+  "topLectures": {
+    "GA011": 10,
+    "GA012": 3,
+    "GA013": 3,
+    "GA005": 1,
+    "GA007": 1,
+    "GA015": 4,
+    "GA016": 4,
+    "GA028": 1,
+    "GA027": 2,
+    "GA037/1": 1,
+    "GA034/1": 1,
+    "GA004": 2,
+    "GA051/8": 1,
+    "GA090a/73": 1,
+    "GA034/17": 5,
+    "GA108/17": 2,
+    "GA017": 2,
+    "GA068b/45": 1,
+    "GA001/1": 1,
+    "GA001/3": 1,
+    "GA001/4": 3,
+    "GA090a/48": 1
+  },
+  "totalViews": 2,
+  "totalSearches": 6,
+  "totalLectureViews": 51
+}

@@ -3,6 +3,8 @@ Steiner_GA/
 Steiner_GA_pdf/
 backups/
 # Aber Analytics-Backups sollen ins Git (für Persistenz auf Render)
+# WICHTIG: Reihenfolge ist wichtig - zuerst ignorieren, dann Ausnahmen
+!backups/
 !backups/analytics/
 !backups/analytics/*.json
 
