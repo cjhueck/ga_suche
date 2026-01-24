@@ -16813,6 +16813,46 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // Aktualisiere Button-Status (zeigt Info-Button an)
   updateButtonStates();
   
+  // NEU: Zeige GA-Band-Namen im linken Side Panel (auch für Bücher)
+  const texteTabForBook = document.getElementById('texte-tab');
+  const isInTexteTabForBook = texteTabForBook && texteTabForBook.classList.contains('active');
+  
+  if (isInTexteTabForBook) {
+    const resultsContainer = document.getElementById('results');
+    if (resultsContainer) {
+      // Erstelle GA-Band-Name (z.B. "GA009 - Theosophie (1904)")
+      const gaBandName = titleText; // titleText enthält bereits "GA009 - Titel (Jahr)"
+      
+      // Fülle linkes Panel mit GA-Band-Name Header
+      let sideHtml = `<div id="ga-lecture-list">
+        <div class="ga-band-header">
+          <h3>${gaBandName}</h3>
+        </div>`;
+      
+      // Bei Büchern mit tableOfContents: Zeige Kapitel als klickbare Links
+      if (book.tableOfContents && book.tableOfContents.length > 0) {
+        book.tableOfContents.forEach((item, idx) => {
+          const headingId = item.index ? item.index.replace(/^\^/, '') : `toc-${idx}`;
+          sideHtml += `
+            <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none;">
+              <h3 style="margin: 0;">
+                <a href="#" onclick="scrollToBookHeading('${headingId}'); return false;" style="text-decoration: none;">
+                  ${item.text || item.title || `Kapitel ${idx + 1}`}
+                </a>
+              </h3>
+            </div>
+          `;
+        });
+      }
+      
+      sideHtml += `</div>`;
+      resultsContainer.innerHTML = sideHtml;
+      
+      // Speichere aktuelle GA-Nummer für Side Panel Prüfung
+      window._currentGAInSidePanel = gaNumber;
+    }
+  }
+  
   // NEU: Lade Überschriften aus summary-database.json (wie bei Vorträgen)
   const bookId = book.ID || book.gaNumber;
   let headings = [];
@@ -17882,6 +17922,38 @@ function scrollToHeading(headingId) {
     setTimeout(() => {
       headingElement.style.backgroundColor = originalBg;
     }, 2000);
+  }
+}
+
+// Hilfsfunktion: Scrollt zu einer Überschrift in einem Buch (via heading-id oder para-id)
+function scrollToBookHeading(headingId) {
+  const mainContainer = document.getElementById('main');
+  if (!mainContainer) return;
+  
+  // Versuche verschiedene ID-Formate
+  let headingElement = document.getElementById(`heading-${headingId}`) || 
+                       document.getElementById(`para-${headingId}`) ||
+                       document.getElementById(headingId);
+  
+  if (headingElement) {
+    // Scrolle zur Überschrift mit Offset für Header
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 10 : 10;
+    
+    const mainRect = mainContainer.getBoundingClientRect();
+    const headingRect = headingElement.getBoundingClientRect();
+    const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop;
+    
+    mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+    
+    // Markiere kurz
+    const originalBg = headingElement.style.backgroundColor;
+    headingElement.style.backgroundColor = 'var(--highlight-color)';
+    setTimeout(() => {
+      headingElement.style.backgroundColor = originalBg;
+    }, 2000);
+  } else {
+    console.warn('[BOOK-SCROLL] Überschrift nicht gefunden:', headingId);
   }
 }
 
