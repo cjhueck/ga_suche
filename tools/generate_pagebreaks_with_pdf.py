@@ -394,7 +394,7 @@ def extract_first_words(text: str, num_words: int = 20) -> str:
     return " ".join(words[:num_words])
 
 
-def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str, str]]:
+def extract_pdf_pages(pdf_path: Path, page_range: Tuple[int, int] = None) -> List[Tuple[int, int, str, str, str]]:
     """
     Extrahiert alle Seiten mit Seitenzahlen aus der PDF.
     
@@ -409,12 +409,19 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str, str]]:
         - this_start: Anfang von Seite N (erste 300 Zeichen)
         - this_start_words: Erste Wörter von Seite N (für neue GA-Ausgabe)
     
+    page_range: Optional - (start_page, end_page) um nur einen bestimmten Seitenbereich zu extrahieren
+                 Dies beschleunigt die Verarbeitung für einzelne Vorträge erheblich.
+    
     Rückgabe: Liste von (PDF-Index, Seitenzahl N, Ende-Seite-N-1, Anfang-Seite-N, Erste-Wörter-Seite-N)
     """
     doc = fitz.open(pdf_path)
     
     # Sammle alle Seiten mit Seitenzahlen
     page_data = []  # (pdf_index, page_num, text_start, text_end)
+    
+    # Wenn page_range angegeben, können wir früh abbrechen wenn wir über den Bereich hinaus sind
+    range_start, range_end = page_range if page_range else (None, None)
+    found_start = False  # Wurde die Startseite des Bereichs gefunden?
     
     for i in range(len(doc)):
         page = doc[i]
@@ -458,6 +465,19 @@ def extract_pdf_pages(pdf_path: Path) -> List[Tuple[int, int, str, str, str]]:
         
         if page_num is None:
             continue
+        
+        # Wenn page_range angegeben, filtere Seiten außerhalb des Bereichs
+        if page_range:
+            if page_num < range_start:
+                continue  # Überspringe Seiten vor dem Bereich
+            if not found_start and page_num >= range_start:
+                found_start = True  # Startseite gefunden
+            if page_num > range_end:
+                # Früh abbrechen wenn wir über den Bereich hinaus sind
+                # ABER: Wir müssen noch die vorherige Seite für prev_end haben
+                # Also brechen wir erst ab wenn wir deutlich über dem Bereich sind
+                if page_num > range_end + 5:  # 5 Seiten Puffer für Sicherheit
+                    break
         
         # Entferne Footer-Elemente (RUDOLF STEINER, VERLAG, etc.)
         body_lines = body_text.split("\n")
@@ -1358,17 +1378,22 @@ def archive_old_pagebreaks(ga_number: str) -> None:
             print(f"  Archiviert: {name}")
 
 
-def process_ga(ga_number: str, update_source: bool = False) -> Dict:
+def process_ga(ga_number: str, update_source: bool = False, lecture_id: str = None) -> Dict:
     """
     Verarbeitet eine GA-Nummer.
     Rückgabe: Statistik-Dict
+    
+    lecture_id: Optional - wenn angegeben, wird nur dieser Vortrag verarbeitet (z.B. "GA201 (1.)")
     """
     ga_norm = normalize_ga(ga_number)
     if not ga_norm:
         return {"error": f"Ungültige GA-Nummer: {ga_number}"}
     
     print(f"\n{'='*60}")
-    print(f"Verarbeite {ga_norm}")
+    if lecture_id:
+        print(f"Verarbeite einzelnen Vortrag: {lecture_id} (GA-Band: {ga_norm})")
+    else:
+        print(f"Verarbeite {ga_norm}")
     print(f"{'='*60}")
     
     # PDF finden
@@ -1379,16 +1404,130 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
     
     print(f"  PDF: {pdf_path.name}")
     
-    # PDF-Seiten extrahieren
-    print(f"  Extrahiere PDF-Seiten...")
-    pdf_pages = extract_pdf_pages(pdf_path)
-    print(f"  {len(pdf_pages)} Seiten mit Seitenzahlen")
-    
-    if not pdf_pages:
-        return {"error": "Keine Seiten mit Seitenzahlen"}
+    # Lade Page-Mapping frühzeitig (für Optimierung bei einzelnen Vorträgen)
+    mapping = load_page_mapping()
+    ga_mapping = mapping.get(ga_norm, {})
     
     # Vorträge laden
     files_map, lectures = load_lectures_for_ga(ga_norm)
+    
+    # Wenn lecture_id angegeben, filtere nur diesen Vortrag und optimiere PDF-Extraktion
+    page_range = None  # (start_page, end_page) für optimierte PDF-Extraktion
+    if lecture_id:
+        lecture_id_original = lecture_id.strip()
+        print(f"  Suche nach Vortrag: '{lecture_id_original}'")
+        
+        # Normalisiere lecture_id für verschiedene Formate
+        # Unterstützte Formate: "GA201/1", "GA201 (1.)", "GA201/001", etc.
+        lecture_id_normalized = lecture_id_original
+        
+        # Entferne mögliche GA-Präfixe am Anfang, falls vorhanden
+        if lecture_id_normalized.startswith(ga_norm):
+            lecture_id_normalized = lecture_id_normalized[len(ga_norm):].strip()
+        
+        # Extrahiere Vortragsnummer aus verschiedenen Formaten
+        # Format 1: "/1" oder "/001" -> "1"
+        # Format 2: " (1.)" -> "1"
+        # Format 3: "1" -> "1"
+        lecture_num = None
+        if "/" in lecture_id_normalized:
+            # Format: "/1" oder "/001"
+            parts = lecture_id_normalized.split("/")
+            if len(parts) > 1:
+                lecture_num = parts[-1].strip()
+        elif "(" in lecture_id_normalized and "." in lecture_id_normalized:
+            # Format: " (1.)"
+            match = re.search(r'\((\d+)\.\)', lecture_id_normalized)
+            if match:
+                lecture_num = match.group(1)
+        else:
+            # Format: "1" oder "001"
+            lecture_num = lecture_id_normalized.strip()
+        
+        # Normalisiere Vortragsnummer (entferne führende Nullen)
+        if lecture_num:
+            try:
+                lecture_num = str(int(lecture_num))
+            except ValueError:
+                pass
+        
+        print(f"  Extrahierte Vortragsnummer: '{lecture_num}'")
+        print(f"  Verfügbare Vorträge: {[lec.get('ID', '?') for lec in lectures[:5]]}...")
+        
+        # Suche nach passendem Vortrag
+        matching_lecture = None
+        for lec in lectures:
+            lec_id = lec.get("ID") or ""
+            lec_num = lec.get("lectureNumber")
+            
+            # Prüfe exakte Übereinstimmung
+            if lec_id == lecture_id_original:
+                matching_lecture = lec
+                print(f"  ✓ Exakte Übereinstimmung gefunden: {lec_id}")
+                break
+            
+            # Prüfe Format GA201/1 vs GA201/001
+            if "/" in lec_id and lecture_num:
+                lec_parts = lec_id.split("/")
+                if len(lec_parts) == 2:
+                    lec_ga = lec_parts[0]
+                    lec_lec_num = lec_parts[1]
+                    # Normalisiere auch die Vortragsnummer aus lec_id
+                    try:
+                        lec_lec_num_normalized = str(int(lec_lec_num))
+                    except ValueError:
+                        lec_lec_num_normalized = lec_lec_num
+                    
+                    if lec_ga == ga_norm and lec_lec_num_normalized == lecture_num:
+                        matching_lecture = lec
+                        print(f"  ✓ Übereinstimmung nach Vortragsnummer gefunden: {lec_id}")
+                        break
+            
+            # Prüfe lectureNumber Feld
+            if lecture_num and lec_num:
+                try:
+                    if str(lec_num) == lecture_num:
+                        matching_lecture = lec
+                        print(f"  ✓ Übereinstimmung nach lectureNumber gefunden: {lec_id} (lectureNumber: {lec_num})")
+                        break
+                except:
+                    pass
+        
+        if not matching_lecture:
+            available_ids = [lec.get("ID", "?") for lec in lectures[:10]]
+            return {"error": f"Vortrag '{lecture_id_original}' nicht gefunden in {ga_norm}. Verfügbare IDs: {available_ids}"}
+        
+        # Ersetze lectures-Liste mit nur diesem einen Vortrag
+        lectures = [matching_lecture]
+        print(f"  Gefundener Vortrag: {matching_lecture.get('ID', '?')} - {matching_lecture.get('title', '')[:50]}")
+        
+        # Versuche Seitenbereich aus Mapping zu ermitteln für optimierte PDF-Extraktion
+        lec_id = matching_lecture.get("ID") or ""
+        start_page = ga_mapping.get(lec_id)
+        if start_page:
+            # Finde End-Seite: nächster Vortrag oder schätze basierend auf Textlänge
+            # Suche nach nächstem Vortrag im Mapping
+            end_page = None
+            for other_lec in files_map.values():
+                for other in other_lec:
+                    other_id = other.get("ID") or ""
+                    if other_id != lec_id and other_id.startswith(ga_norm):
+                        other_start = ga_mapping.get(other_id)
+                        if other_start and other_start > start_page:
+                            if end_page is None or other_start < end_page:
+                                end_page = other_start - 1
+            
+            # Wenn kein nächster Vortrag gefunden, schätze basierend auf Textlänge
+            # Durchschnittlich ~500 Zeichen pro Seite
+            if end_page is None:
+                text_length = sum(len(p.get("content") or p.get("text") or "") for p in matching_lecture.get("paragraphs", []))
+                estimated_pages = max(5, text_length // 500)  # Mindestens 5 Seiten
+                end_page = start_page + estimated_pages
+            
+            # Füge Puffer hinzu (+10 Seiten vor/nach für Sicherheit)
+            page_range = (max(1, start_page - 10), end_page + 10)
+            print(f"  Optimierung: Extrahiere nur Seiten {page_range[0]}-{page_range[1]} aus PDF")
+    
     is_book = False
     book_source_file = None
     
@@ -1414,9 +1553,7 @@ def process_ga(ga_number: str, update_source: bool = False) -> Dict:
         if len(files_map) > 1:
             print(f"  (verteilt auf {len(files_map)} Dateien: {', '.join(f.name for f in files_map.keys())})")
     
-    # Page-Mapping laden
-    mapping = load_page_mapping()
-    ga_mapping = mapping.get(ga_norm, {})
+    # Page-Mapping bereits geladen (siehe oben)
     
     # Automatisch Mapping generieren für "neue" PDFs ohne Copyright-Footer
     if not ga_mapping and not is_book and len(lectures) > 1:
