@@ -23041,7 +23041,9 @@ async function trackSearch(searchTerm) {
     const term = searchTerm.toLowerCase().trim().substring(0, 50);
     if (term.length > 0) {
       const oldTermCount = data.topSearches[term] || 0;
-      data.topSearches[term] = oldTermCount + 1;
+      // Validierung: Wenn der alte Wert korrupt ist (> 1 Million), auf 0 zurücksetzen
+      const safeOldCount = (typeof oldTermCount === 'number' && oldTermCount < 1000000) ? oldTermCount : 0;
+      data.topSearches[term] = safeOldCount + 1;
       console.log(`[ANALYTICS] Top-Search aktualisiert: "${term}" = ${data.topSearches[term]}`);
     }
     
