@@ -7070,10 +7070,9 @@ body.dark-mode .viewer-search-highlight.active {
 <div id="analytics-overlay" class="analytics-overlay" onclick="if(event.target===this)closeAnalytics()">
   <div class="analytics-panel">
     <div class="analytics-header">
-      <h2>Nutzungsstatistiken</h2>
+      <h2>Nutzungsstatistiken (Online)</h2>
       <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-        <button id="analytics-data-source-btn" onclick="toggleAnalyticsDataSource()" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; font-weight: 500; white-space: nowrap;" title="Datenquelle wechseln (Lokal ↔ Online)">🌐 Online</button>
-        <button onclick="loadAnalyticsData(window.analyticsUseOnlineData || false)" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; white-space: nowrap;" title="Aktualisieren">↻ Aktualisieren</button>
+        <button onclick="loadAnalyticsData(true)" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; white-space: nowrap;" title="Aktualisieren">↻ Aktualisieren</button>
         <button class="analytics-close" onclick="closeAnalytics()" style="flex-shrink: 0;">&times;</button>
       </div>
     </div>
@@ -9885,18 +9884,8 @@ PDF
       trackPageView();
     }, 1000); // Erhöht auf 1 Sekunde für mehr Sicherheit
     
-    // Analytics-Datenquelle umschalten (lokal/online)
-    window.analyticsUseOnlineData = false; // Standard: lokale Daten
-    function toggleAnalyticsDataSource() {
-      window.analyticsUseOnlineData = !window.analyticsUseOnlineData;
-      const btn = document.getElementById('analytics-data-source-btn');
-      if (btn) {
-        btn.textContent = window.analyticsUseOnlineData ? '💻 Lokal' : '🌐 Online';
-        btn.title = window.analyticsUseOnlineData ? 'Zu lokalen Daten wechseln' : 'Zu Online-Daten (Render) wechseln';
-      }
-      // Lade Daten neu mit neuer Quelle
-      loadAnalyticsData(window.analyticsUseOnlineData);
-    }
+    // Analytics: Nur Online-Daten (Render) verwenden
+    window.analyticsUseOnlineData = true; // Immer Online-Daten
     
     // Analytics-Dashboard öffnen
     let analyticsRefreshInterval = null;
@@ -9904,13 +9893,8 @@ PDF
       const overlay = document.getElementById('analytics-overlay');
       if (overlay) {
         overlay.classList.add('visible');
-        // Initialisiere Button-Text
-        const btn = document.getElementById('analytics-data-source-btn');
-        if (btn) {
-          btn.textContent = window.analyticsUseOnlineData ? '💻 Lokal' : '🌐 Online';
-          btn.title = window.analyticsUseOnlineData ? 'Zu lokalen Daten wechseln' : 'Zu Online-Daten (Render) wechseln';
-        }
-        loadAnalyticsData(window.analyticsUseOnlineData);
+        // Immer Online-Daten laden
+        loadAnalyticsData(true);
         // Automatische Aktualisierung DEAKTIVIERT - zu viele Requests
         // Benutzer kann manuell mit "↻ Aktualisieren" Button aktualisieren
         if (analyticsRefreshInterval) {
@@ -10090,23 +10074,31 @@ PDF
           <div class="analytics-list">
             <div class="analytics-list-section">
               <h4>Beliebte Suchbegriffe</h4>
-              ${data.topSearches.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
-                data.topSearches.map(s => `
-                  <div class="analytics-list-item">
-                    <span class="term">${escapeHtml(s.term)}</span>
-                    <span class="count">${s.count}</span>
-                  </div>
-                `).join('')}
+              ${(() => {
+                // Filtere korrupte Werte (über 1 Million) heraus
+                const validSearches = data.topSearches.filter(s => typeof s.count === 'number' && s.count < 1000000);
+                return validSearches.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
+                  validSearches.map(s => `
+                    <div class="analytics-list-item">
+                      <span class="term">${escapeHtml(s.term)}</span>
+                      <span class="count">${s.count}</span>
+                    </div>
+                  `).join('');
+              })()}
             </div>
             <div class="analytics-list-section">
               <h4>Beliebte Vorträge</h4>
-              ${data.topLectures.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
-                data.topLectures.map(l => `
-                  <div class="analytics-list-item">
-                    <span class="term">${escapeHtml(l.id)}</span>
-                    <span class="count">${l.count}</span>
-                  </div>
-                `).join('')}
+              ${(() => {
+                // Filtere korrupte Werte (über 1 Million) heraus
+                const validLectures = data.topLectures.filter(l => typeof l.count === 'number' && l.count < 1000000);
+                return validLectures.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
+                  validLectures.map(l => `
+                    <div class="analytics-list-item">
+                      <span class="term">${escapeHtml(l.id)}</span>
+                      <span class="count">${l.count}</span>
+                    </div>
+                  `).join('');
+              })()}
             </div>
           </div>
         `;
