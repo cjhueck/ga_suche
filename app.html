@@ -18861,7 +18861,16 @@ async function displayGAOverview(data) {
   
   // Passender Text je nach GA-Typ (Vortrag/Aufsatz/Band)
   const itemTypeName = getGATypeName(data.gaNumber, false);
-  const selectItemText = data.gaNumber === 'GA001' ? 'einen Band' : (itemTypeName === 'Aufsatz' ? 'einen Aufsatz' : 'einen Vortrag');
+  let selectItemText;
+  if (data.gaNumber === 'GA001') {
+    selectItemText = 'einen Band';
+  } else if (data.gaNumber === 'GA018') {
+    selectItemText = 'einen Band oder Abschnitt';
+  } else if (itemTypeName === 'Aufsatz') {
+    selectItemText = 'einen Aufsatz';
+  } else {
+    selectItemText = 'einen Vortrag';
+  }
   viewer.innerHTML = `<div id="viewer-content"><p style="color: #666; font-style: italic;">Wählen Sie ${selectItemText} aus der Liste.</p></div>`;
   
   // Setze currentGANumber für Info-Button
