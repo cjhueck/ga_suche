@@ -7673,6 +7673,9 @@ Bestehende Schlagwörter überschreiben
 <div id="batchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
 </div>
 </div>
+<!-- Live-Status der einzelnen Schlagwörter -->
+<div id="batchKeywordsList" style="margin-top: 0.5rem; max-height: 200px; overflow-y: auto; font-size: 0.8em;">
+</div>
 <div id="batchResults" style="display:none; margin-top: 0.5rem; padding: 0.5rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
 <div style="font-size: 0.85em; color: var(--text-color);">
 <div><strong>Erfolgreich:</strong> <span id="batchSuccessCount">0</span></div>
@@ -34537,6 +34540,11 @@ body.dark-mode .ga-keyword-link:hover {
   to { transform: rotate(360deg); }
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
 /* Keyword Navigation Section */
 .keyword-navigation-section {
   margin-bottom: 1rem;
@@ -35714,6 +35722,9 @@ function toggleBatchSection() {
   }
 }
 
+// EventSource für Batch-Verarbeitung (global für Abbruch-Funktion)
+let batchEventSource = null;
+
 async function addBatchKeywords() {
   const batchInput = document.getElementById('batchKeywordsInput');
   const batchButton = document.getElementById('batchAddButton');
@@ -35724,6 +35735,7 @@ async function addBatchKeywords() {
   const progressPercent = document.getElementById('batchProgressPercent');
   const progressBar = document.getElementById('batchProgressBar');
   const resultsDiv = document.getElementById('batchResults');
+  const keywordsList = document.getElementById('batchKeywordsList');
   const overwriteCheckbox = document.getElementById('batchOverwriteCheckbox');
   
   if (!batchInput || !batchButton || !statusDiv) {
@@ -35758,7 +35770,6 @@ async function addBatchKeywords() {
   
   // UI-Status aktualisieren
   batchProcessing = true;
-  batchAbortController = new AbortController();
   
   batchButton.disabled = true;
   batchButton.style.display = 'none';
@@ -35767,85 +35778,196 @@ async function addBatchKeywords() {
   progressContainer.style.display = 'block';
   resultsDiv.style.display = 'none';
   
-  // Fortschritt zurücksetzen
-  progressText.textContent = `Verarbeite 0 von ${keywords.length} Schlagwörtern...`;
+  // Fortschritt und Schlagwort-Liste zurücksetzen
+  progressText.textContent = `Verarbeite 0 von ${keywords.length} Schlagwörtern (parallel)...`;
   progressPercent.textContent = '0%';
   progressBar.style.width = '0%';
+  keywordsList.innerHTML = '';
+  
+  // Erstelle Status-Elemente für jedes Schlagwort
+  const keywordStatusMap = new Map();
+  keywords.forEach((kw, i) => {
+    const statusEl = document.createElement('div');
+    statusEl.id = `batch-kw-${i}`;
+    statusEl.style.cssText = 'padding: 4px 8px; margin: 2px 0; border-radius: 4px; background: var(--input-bg); display: flex; align-items: center; gap: 8px;';
+    statusEl.innerHTML = `
+      <span class="batch-kw-indicator" style="width: 12px; height: 12px; border-radius: 50%; background: #888; flex-shrink: 0;"></span>
+      <span class="batch-kw-name" style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${kw}</span>
+      <span class="batch-kw-status" style="font-size: 0.9em; color: #888;">Wartend...</span>
+    `;
+    keywordsList.appendChild(statusEl);
+    keywordStatusMap.set(i, statusEl);
+  });
+  
+  // Hilfsfunktion zum Aktualisieren des Schlagwort-Status
+  const updateKeywordStatus = (index, status, message) => {
+    const statusEl = keywordStatusMap.get(index);
+    if (!statusEl) return;
+    
+    const indicator = statusEl.querySelector('.batch-kw-indicator');
+    const statusText = statusEl.querySelector('.batch-kw-status');
+    
+    switch (status) {
+      case 'processing':
+        indicator.style.background = '#f0ad4e'; // Orange - verarbeitet
+        indicator.style.animation = 'pulse 1s infinite';
+        statusText.textContent = 'Suche...';
+        statusText.style.color = '#f0ad4e';
+        break;
+      case 'generating':
+        indicator.style.background = '#5bc0de'; // Blau - KI generiert
+        statusText.textContent = 'KI generiert...';
+        statusText.style.color = '#5bc0de';
+        break;
+      case 'completed':
+        indicator.style.background = '#5cb85c'; // Grün - erfolgreich
+        indicator.style.animation = 'none';
+        statusText.textContent = '✓ Fertig';
+        statusText.style.color = '#5cb85c';
+        break;
+      case 'skipped':
+        indicator.style.background = '#f0ad4e'; // Orange - übersprungen
+        indicator.style.animation = 'none';
+        statusText.textContent = message || 'Übersprungen';
+        statusText.style.color = '#f0ad4e';
+        break;
+      case 'failed':
+        indicator.style.background = '#d9534f'; // Rot - fehlgeschlagen
+        indicator.style.animation = 'none';
+        statusText.textContent = message || 'Fehler';
+        statusText.style.color = '#d9534f';
+        break;
+    }
+    
+    // Scroll zum aktiven Element
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
   
   try {
     const apiBase = window.API_BASE || 'http://localhost:3003';
-    const response = await fetch(`${apiBase}/api/concepts-batch-add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        keywords: keywords,
-        overwrite: overwriteCheckbox.checked,
-        batchId: `batch_${Date.now()}`
-      }),
-      signal: batchAbortController.signal
+    const params = new URLSearchParams({
+      keywords: keywords.join(','),
+      overwrite: overwriteCheckbox.checked,
+      concurrency: 5, // Parallele Verarbeitung: 5 gleichzeitig
+      batchId: `batch_${Date.now()}`
     });
     
-    const result = await response.json();
+    // SSE-Verbindung aufbauen
+    batchEventSource = new EventSource(`${apiBase}/api/concepts-batch-add-stream?${params}`);
     
-    if (response.ok) {
-      // Erfolg
-      statusDiv.innerHTML = `<div style="color: #2e7d32; font-size: 0.85em;">✓ ${result.message}</div>`;
+    batchEventSource.addEventListener('start', (event) => {
+      const data = JSON.parse(event.data);
+      console.log('[BATCH-KEYWORDS] Gestartet:', data);
+      progressText.textContent = `Verarbeite 0 von ${data.totalKeywords} Schlagwörtern (${data.concurrency} parallel)...`;
+    });
+    
+    batchEventSource.addEventListener('progress', (event) => {
+      const data = JSON.parse(event.data);
+      console.log('[BATCH-KEYWORDS] Progress:', data);
+      updateKeywordStatus(data.index, data.status, data.message);
+    });
+    
+    batchEventSource.addEventListener('batch-progress', (event) => {
+      const data = JSON.parse(event.data);
+      const percent = Math.round((data.processed / data.total) * 100);
+      progressText.textContent = `Verarbeite ${data.processed} von ${data.total} Schlagwörtern...`;
+      progressPercent.textContent = `${percent}%`;
+      progressBar.style.width = `${percent}%`;
+      
+      // Live-Zähler aktualisieren
+      document.getElementById('batchSuccessCount').textContent = data.successful;
+      document.getElementById('batchFailedCount').textContent = data.failed;
+      document.getElementById('batchSkippedCount').textContent = data.skipped;
+      resultsDiv.style.display = 'block';
+    });
+    
+    batchEventSource.addEventListener('complete', async (event) => {
+      const data = JSON.parse(event.data);
+      console.log('[BATCH-KEYWORDS] Abgeschlossen:', data);
+      
+      // Verbindung schließen
+      batchEventSource.close();
+      batchEventSource = null;
+      
+      // Erfolg anzeigen
+      statusDiv.innerHTML = `<div style="color: #2e7d32; font-size: 0.85em;">✓ ${data.message}</div>`;
       statusDiv.style.display = 'block';
       
       // Eingabefeld leeren
       batchInput.value = '';
       
       // Fortschritt auf 100% setzen
-      progressText.textContent = `Abgeschlossen: ${result.results.successful.length} von ${result.results.totalKeywords} erfolgreich`;
+      progressText.textContent = `Abgeschlossen: ${data.successful.length} von ${data.totalKeywords} erfolgreich`;
       progressPercent.textContent = '100%';
       progressBar.style.width = '100%';
       
       // Ergebnisse anzeigen
-      document.getElementById('batchSuccessCount').textContent = result.results.successful.length;
-      document.getElementById('batchFailedCount').textContent = result.results.failed.length;
-      document.getElementById('batchSkippedCount').textContent = result.results.skipped.length;
+      document.getElementById('batchSuccessCount').textContent = data.successful.length;
+      document.getElementById('batchFailedCount').textContent = data.failed.length;
+      document.getElementById('batchSkippedCount').textContent = data.skipped.length;
       resultsDiv.style.display = 'block';
       
       // Schlagwort-Liste aktualisieren
       await loadKeywordsData();
       
-      // Markiere erfolgreich hinzugefügte Schlagwörter als neu generiert/ersetzt
-      if (result.results && result.results.successful) {
-        result.results.successful.forEach(keywordName => {
+      // Markiere erfolgreich hinzugefügte Schlagwörter als neu generiert
+      if (data.successful) {
+        data.successful.forEach(keywordName => {
           const existingKeyword = keywordsData.find(kw => kw.keyword === keywordName);
           if (existingKeyword) {
-            // Schlagwort existiert bereits - markiere als ersetzt/neu generiert
             existingKeyword.replaced = true;
             existingKeyword.newlyGenerated = true;
-            }
+          }
         });
       }
       
       displayKeywords();
       
-      } else {
-      // Fehler
-      statusDiv.innerHTML = `<div style="color: #d32f2f; font-size: 0.85em;">✗ Fehler: ${result.error || 'Unbekannter Fehler'}</div>`;
+      // UI-Status zurücksetzen
+      batchProcessing = false;
+      batchButton.disabled = false;
+      batchButton.style.display = 'inline-block';
+      batchCancelButton.style.display = 'none';
+    });
+    
+    batchEventSource.addEventListener('error', (event) => {
+      let errorData = {};
+      try {
+        errorData = JSON.parse(event.data || '{}');
+      } catch (e) {}
+      
+      console.error('[BATCH-KEYWORDS] SSE Fehler:', errorData);
+      
+      // Verbindung schließen
+      if (batchEventSource) {
+        batchEventSource.close();
+        batchEventSource = null;
+      }
+      
+      statusDiv.innerHTML = `<div style="color: #d32f2f; font-size: 0.85em;">✗ Fehler: ${errorData.message || 'Verbindung unterbrochen'}</div>`;
       statusDiv.style.display = 'block';
       
-      console.error('[BATCH-KEYWORDS] Fehler beim Batch-Verarbeiten:', result);
-    }
+      // UI-Status zurücksetzen
+      batchProcessing = false;
+      batchButton.disabled = false;
+      batchButton.style.display = 'inline-block';
+      batchCancelButton.style.display = 'none';
+    });
+    
+    batchEventSource.onerror = (event) => {
+      // Connection error (nicht das custom error event)
+      if (batchEventSource && batchEventSource.readyState === EventSource.CLOSED) {
+        console.log('[BATCH-KEYWORDS] Verbindung geschlossen');
+      }
+    };
     
   } catch (error) {
-    if (error.name === 'AbortError') {
-      statusDiv.innerHTML = '<div style="color: #f57c00; font-size: 0.85em;">⚠ Batch-Verarbeitung abgebrochen</div>';
-    } else {
-      statusDiv.innerHTML = `<div style="color: #d32f2f; font-size: 0.85em;">✗ Netzwerkfehler: ${error.message}</div>`;
-    }
+    console.error('[BATCH-KEYWORDS] Fehler:', error);
+    statusDiv.innerHTML = `<div style="color: #d32f2f; font-size: 0.85em;">✗ Fehler: ${error.message}</div>`;
     statusDiv.style.display = 'block';
-    console.error('[BATCH-KEYWORDS] Netzwerkfehler:', error);
-  } finally {
+    
     // UI-Status zurücksetzen
     batchProcessing = false;
-    batchAbortController = null;
-    
     batchButton.disabled = false;
     batchButton.style.display = 'inline-block';
     batchCancelButton.style.display = 'none';
@@ -35853,9 +35975,35 @@ async function addBatchKeywords() {
 }
 
 function cancelBatchKeywords() {
+  // SSE-Verbindung schließen (neue Methode)
+  if (batchEventSource) {
+    batchEventSource.close();
+    batchEventSource = null;
+    
+    const statusDiv = document.getElementById('batchKeywordStatus');
+    const batchButton = document.getElementById('batchAddButton');
+    const batchCancelButton = document.getElementById('batchCancelButton');
+    
+    if (statusDiv) {
+      statusDiv.innerHTML = '<div style="color: #f57c00; font-size: 0.85em;">⚠ Batch-Verarbeitung abgebrochen</div>';
+      statusDiv.style.display = 'block';
+    }
+    
+    // UI zurücksetzen
+    batchProcessing = false;
+    if (batchButton) {
+      batchButton.disabled = false;
+      batchButton.style.display = 'inline-block';
+    }
+    if (batchCancelButton) {
+      batchCancelButton.style.display = 'none';
+    }
+  }
+  
+  // Fallback für alte AbortController-Methode
   if (batchAbortController) {
     batchAbortController.abort();
-    }
+  }
 }
 
 // === KEYWORD CONSOLIDATION ===
