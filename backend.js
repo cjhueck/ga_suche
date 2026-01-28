@@ -13176,6 +13176,308 @@ app.post('/api/concepts-batch-add', async (req, res) => {
   }
 });
 
+// API-Endpunkt: Batch-Schlagwort-Generierung mit SSE (Server-Sent Events) für Live-Fortschritt
+// Verarbeitet mehrere Schlagwörter ECHT PARALLEL mit Echtzeit-Updates
+app.get('/api/concepts-batch-add-stream', async (req, res) => {
+  // SSE-Header setzen
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.flushHeaders();
+
+  // Hilfsfunktion zum Senden von SSE-Events
+  const sendEvent = (eventType, data) => {
+    res.write(`event: ${eventType}\n`);
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  try {
+    // Parameter aus Query-String
+    const keywordsParam = req.query.keywords;
+    const overwrite = req.query.overwrite === 'true';
+    const concurrency = Math.min(parseInt(req.query.concurrency) || 5, 10);
+    const batchId = req.query.batchId || `batch_${Date.now()}`;
+
+    if (!keywordsParam) {
+      sendEvent('error', { error: 'keywords Parameter erforderlich' });
+      res.end();
+      return;
+    }
+
+    // Keywords aus kommasepariertem String parsen
+    const keywords = keywordsParam.split(',').map(k => k.trim()).filter(k => k.length > 0);
+
+    if (keywords.length === 0) {
+      sendEvent('error', { error: 'Keine gültigen Schlagwörter gefunden' });
+      res.end();
+      return;
+    }
+
+    if (keywords.length > 50) {
+      sendEvent('error', { error: 'Maximal 50 Schlagwörter pro Batch erlaubt' });
+      res.end();
+      return;
+    }
+
+    console.log(`[BATCH-STREAM] Starte Batch-Verarbeitung: ${keywords.length} Schlagwörter, Concurrency: ${concurrency}`);
+
+    // Start-Event senden
+    sendEvent('start', {
+      batchId,
+      totalKeywords: keywords.length,
+      concurrency,
+      keywords: keywords
+    });
+
+    // Lade concepts-database.json einmalig
+    const conceptsFile = path.join(__dirname, 'concepts-database.json');
+    let allConcepts = [];
+    try {
+      const fileContent = await fs.readFile(conceptsFile, 'utf8');
+      allConcepts = JSON.parse(fileContent);
+    } catch (error) {
+      console.error('[BATCH-STREAM] Fehler beim Laden der concepts-database:', error);
+    }
+
+    // Ergebnis-Tracking
+    const results = {
+      successful: [],
+      failed: [],
+      skipped: []
+    };
+
+    // Verarbeitungsfunktion für ein einzelnes Schlagwort
+    const processKeyword = async (keyword, index) => {
+      const trimmedKeyword = keyword.trim();
+      
+      // Progress-Event: Start
+      sendEvent('progress', {
+        keyword: trimmedKeyword,
+        index,
+        status: 'processing',
+        message: `Verarbeite "${trimmedKeyword}"...`
+      });
+
+      if (!trimmedKeyword) {
+        sendEvent('progress', {
+          keyword: keyword,
+          index,
+          status: 'skipped',
+          message: 'Leeres Schlagwort'
+        });
+        return { status: 'skipped', keyword, reason: 'Leeres Schlagwort' };
+      }
+
+      // Prüfe auf Duplikate
+      const existingConceptIndex = allConcepts.findIndex(k => 
+        k.keyword.toLowerCase() === trimmedKeyword.toLowerCase()
+      );
+
+      if (existingConceptIndex !== -1 && !overwrite) {
+        sendEvent('progress', {
+          keyword: trimmedKeyword,
+          index,
+          status: 'skipped',
+          message: `"${trimmedKeyword}" bereits vorhanden`
+        });
+        return { 
+          status: 'skipped', 
+          keyword: trimmedKeyword, 
+          reason: 'Concept bereits vorhanden',
+          existingKeyword: allConcepts[existingConceptIndex].keyword 
+        };
+      }
+
+      // Führe Keyword-Thematische Suche durch
+      let keywordResults = performThematicKeywordSearch(trimmedKeyword, paragraphsFromLectures);
+
+      if (keywordResults.length === 0) {
+        sendEvent('progress', {
+          keyword: trimmedKeyword,
+          index,
+          status: 'failed',
+          message: `Keine Textstellen für "${trimmedKeyword}" gefunden`
+        });
+        return { status: 'failed', keyword: trimmedKeyword, reason: 'Keine relevanten Textstellen gefunden' };
+      }
+
+      // Progress-Event: KI-Generierung läuft
+      sendEvent('progress', {
+        keyword: trimmedKeyword,
+        index,
+        status: 'generating',
+        message: `KI generiert Inhalte für "${trimmedKeyword}" (${keywordResults.length} Fundstellen)...`
+      });
+
+      // Führe BEIDE KI-Prompts parallel aus
+      const [analysisResult, overviewResult] = await Promise.allSettled([
+        generateConceptAnalysis(trimmedKeyword, keywordResults),
+        generateConceptOverviewData(trimmedKeyword, '')
+      ]);
+
+      // Verarbeite Ergebnisse
+      let analysis;
+      if (analysisResult.status === 'fulfilled') {
+        analysis = analysisResult.value;
+      } else {
+        console.error(`[BATCH-STREAM] KI-Analyse fehlgeschlagen für "${trimmedKeyword}":`, analysisResult.reason?.message);
+        analysis = `Fehler bei der Generierung: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
+      }
+
+      let overviewData;
+      if (overviewResult.status === 'fulfilled') {
+        overviewData = overviewResult.value;
+      } else {
+        console.error(`[BATCH-STREAM] Übersicht fehlgeschlagen für "${trimmedKeyword}":`, overviewResult.reason?.message);
+        overviewData = {
+          overview: {
+            alternativeTerms: [],
+            definitionText: 'Übersicht konnte nicht generiert werden.',
+            functionText: '',
+            interactionText: '',
+            specialText: ''
+          }
+        };
+      }
+
+      // Erstelle neues Concept-Objekt
+      const newConcept = {
+        keyword: trimmedKeyword,
+        alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
+        text: analysis,
+        overview: overviewData.overview,
+        sources: keywordResults.slice(0, 20).map(result => ({
+          id: result.ID,
+          index: result.index,
+          title: result.title,
+          fileName: result.fileName
+        })),
+        gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
+        source: 'ki-generated-batch-stream',
+        promptVersion: 'concept-v1',
+        overviewVersion: 'overview-v1',
+        generatedAt: new Date().toISOString(),
+        totalMatches: keywordResults.length,
+        batchId,
+        batchIndex: index
+      };
+
+      // Erfolg-Event senden
+      sendEvent('progress', {
+        keyword: trimmedKeyword,
+        index,
+        status: 'completed',
+        message: `"${trimmedKeyword}" erfolgreich generiert`,
+        resultCount: keywordResults.length,
+        analysisLength: analysis.length
+      });
+
+      return {
+        status: 'successful',
+        keyword: trimmedKeyword,
+        index,
+        newConcept,
+        existingConceptIndex
+      };
+    };
+
+    // Parallele Verarbeitung mit Concurrency-Limit
+    const processingPromises = [];
+    const executing = new Set();
+
+    for (let i = 0; i < keywords.length; i++) {
+      const keyword = keywords[i];
+      
+      const promise = processKeyword(keyword, i).then(result => {
+        executing.delete(promise);
+        
+        // Sammle Ergebnisse
+        if (result.status === 'successful') {
+          // Aktualisiere allConcepts Array
+          if (result.existingConceptIndex !== -1 && overwrite) {
+            allConcepts[result.existingConceptIndex] = result.newConcept;
+          } else if (result.existingConceptIndex === -1) {
+            allConcepts.push(result.newConcept);
+          }
+          results.successful.push(result.keyword);
+        } else if (result.status === 'skipped') {
+          results.skipped.push(result);
+        } else if (result.status === 'failed') {
+          results.failed.push(result);
+        }
+
+        // Zwischenstand senden
+        sendEvent('batch-progress', {
+          processed: results.successful.length + results.failed.length + results.skipped.length,
+          total: keywords.length,
+          successful: results.successful.length,
+          failed: results.failed.length,
+          skipped: results.skipped.length
+        });
+
+        return result;
+      }).catch(error => {
+        executing.delete(promise);
+        console.error(`[BATCH-STREAM] Fehler bei "${keyword}":`, error);
+        
+        sendEvent('progress', {
+          keyword,
+          index: i,
+          status: 'failed',
+          message: `Fehler bei "${keyword}": ${error.message}`
+        });
+        
+        results.failed.push({ keyword, reason: error.message });
+        return { status: 'failed', keyword, reason: error.message };
+      });
+
+      processingPromises.push(promise);
+      executing.add(promise);
+
+      // Warte, wenn Concurrency-Limit erreicht
+      if (executing.size >= concurrency) {
+        await Promise.race(executing);
+      }
+
+      // Kleine Verzögerung zwischen Starts (Rate-Limit-Schutz)
+      if (i < keywords.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 150));
+      }
+    }
+
+    // Warte auf alle verbleibenden Promises
+    await Promise.all(processingPromises);
+
+    // Speichere aktualisierte concepts-database.json
+    await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+    
+    // In-Memory Cache aktualisieren
+    conceptsDatabase = allConcepts;
+    console.log(`[BATCH-STREAM] Cache aktualisiert, jetzt ${conceptsDatabase.length} Concepts`);
+
+    // Abschluss-Event senden
+    sendEvent('complete', {
+      batchId,
+      totalKeywords: keywords.length,
+      successful: results.successful,
+      failed: results.failed,
+      skipped: results.skipped,
+      message: `Batch-Verarbeitung abgeschlossen: ${results.successful.length}/${keywords.length} Schlagwörter erfolgreich`
+    });
+
+    res.end();
+
+  } catch (error) {
+    console.error('[BATCH-STREAM] Kritischer Fehler:', error);
+    sendEvent('error', {
+      error: 'Kritischer Fehler bei der Batch-Verarbeitung',
+      message: error.message
+    });
+    res.end();
+  }
+});
+
 // API-Endpunkt: Neues Schlagwort hinzufügen und durch KI-Analyse befüllen
 app.post('/api/concepts-add', async (req, res) => {
   try {
