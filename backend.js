@@ -19241,9 +19241,11 @@ app.get('/api/steiner-images', async (req, res) => {
 app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
   try {
     // Baue lectureId aus URL-Parametern zusammen
-    let lectureId = req.params.gaNumber;
-    if (req.params.lectureNumber) {
-      lectureId = `${req.params.gaNumber}/${req.params.lectureNumber}`;
+    const gaNumber = req.params.gaNumber;
+    let lectureId = gaNumber;
+    const hasLectureNumber = !!req.params.lectureNumber;
+    if (hasLectureNumber) {
+      lectureId = `${gaNumber}/${req.params.lectureNumber}`;
     }
     
     if (lectureId) {
@@ -19279,15 +19281,35 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
         // Prüfe ob Array oder Objekt
         if (Array.isArray(partData)) {
           // Suche nach Bildern für diesen Vortrag
-          const imagesForLecture = partData.filter(img => img.lectureId === lectureId);
+          // WICHTIG: Wenn keine Vortragsnummer angegeben, lade ALLE Bilder für diesen GA-Band
+          // (Bilder haben lectureId wie "GA207/1", nicht "GA207")
+          const imagesForLecture = partData.filter(img => {
+            if (hasLectureNumber) {
+              // Exakte Übereinstimmung für spezifischen Vortrag
+              return img.lectureId === lectureId;
+            } else {
+              // Prefix-Match für ganzen GA-Band (z.B. "GA207/" für alle GA207 Bilder)
+              return img.lectureId && img.lectureId.startsWith(gaNumber + '/');
+            }
+          });
           if (imagesForLecture.length > 0) {
             allImagesForLecture.push(...imagesForLecture);
           }
         } else {
           // Objekt-Format (legacy)
-          if (partData[lectureId]) {
-            const images = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
-            allImagesForLecture.push(...images);
+          if (hasLectureNumber) {
+            if (partData[lectureId]) {
+              const images = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
+              allImagesForLecture.push(...images);
+            }
+          } else {
+            // Für ganzen GA-Band alle passenden Schlüssel finden
+            for (const key of Object.keys(partData)) {
+              if (key.startsWith(gaNumber + '/')) {
+                const images = Array.isArray(partData[key]) ? partData[key] : [partData[key]];
+                allImagesForLecture.push(...images);
+              }
+            }
           }
         }
       }

@@ -10347,16 +10347,29 @@ function convertUnderscoreItalics(html) {
     return html;
   }
   
+  // WICHTIG: Schütze HTML-Tags vor Modifikation
+  // Extrahiere alle HTML-Tags und ersetze sie durch Platzhalter
+  const htmlTagPlaceholders = [];
+  let tagPlaceholderIdx = 0;
+  let protectedHtml = html.replace(/<[^>]+>/g, (match) => {
+    const placeholder = `@@HTML_TAG_${tagPlaceholderIdx}@@`;
+    htmlTagPlaceholders.push({ placeholder, original: match });
+    tagPlaceholderIdx++;
+    return placeholder;
+  });
+  
   // Konvertiere _text_ zu <em>text</em> wenn:
   // - Vor dem öffnenden _ ein Nicht-Buchstabe steht (oder Zeilenanfang)
   // - Nach dem schließenden _ ein Nicht-Buchstabe steht (oder Zeilenende)
   // Dies verhindert, dass variable_name zu <em>variable</em>name wird
   
   // Pattern für _text_ das von Nicht-Buchstaben umgeben ist
-  // Aber NICHT innerhalb von HTML-Tags (z.B. <a href="...">)
+  let result = protectedHtml.replace(/(^|[^a-zA-ZäöüÄÖÜß])_([^_<>\n@]+?)_(?=[^a-zA-ZäöüÄÖÜß]|$)/gm, '$1<em>$2</em>');
   
-  // Schritt 1: _text_ nach Nicht-Buchstaben oder am Zeilenanfang
-  let result = html.replace(/(^|[^a-zA-ZäöüÄÖÜß])_([^_<>\n]+?)_(?=[^a-zA-ZäöüÄÖÜß]|$)/gm, '$1<em>$2</em>');
+  // Stelle HTML-Tags wieder her
+  htmlTagPlaceholders.forEach(({ placeholder, original }) => {
+    result = result.replace(placeholder, original);
+  });
   
   return result;
 }
@@ -16326,9 +16339,24 @@ function getGATypeName(gaNumber, plural = false) {
 async function finishBookRendering(book, viewer, targetIndex, mainContainer, highlightHeadingId = null) {
   const bookId = book.gaNumber || book.ID;
   
-  // Bilder ersetzen
+  // Bilder laden und ersetzen
+  // WICHTIG: Zuerst Bilder laden, dann im Cache prüfen
+  // Die API gibt für einen GA-Band (z.B. "GA207") alle Bilder aller Vorträge zurück
   let imagesForBook = steinerImages[bookId];
-  if (!imagesForBook) {
+  
+  // Wenn noch keine Bilder im Cache, lade sie über die API
+  if (!imagesForBook || imagesForBook.length === 0) {
+    console.log(`[IMAGES] Lade Bilder für GA-Band ${bookId}...`);
+    try {
+      imagesForBook = await loadSteinerImagesForLecture(bookId);
+    } catch (error) {
+      console.error(`[IMAGES] Fehler beim Laden der Bilder für ${bookId}:`, error);
+      imagesForBook = [];
+    }
+  }
+  
+  // Fallback: Prüfe ob es Bilder mit Prefix (z.B. "GA207/1", "GA207/2") gibt
+  if (!imagesForBook || imagesForBook.length === 0) {
     const matchingKeys = Object.keys(steinerImages).filter(key => key.startsWith(bookId + '/'));
     if (matchingKeys.length > 0) {
       imagesForBook = [];
@@ -16337,6 +16365,7 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
           imagesForBook = imagesForBook.concat(steinerImages[key]);
         }
       });
+      console.log(`[IMAGES] ${imagesForBook.length} Bilder aus ${matchingKeys.length} Einzelvorträgen zusammengeführt`);
     }
   }
   
@@ -16988,6 +17017,18 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
       content = preprocessObsidianLineBreaks(content);
       
+      // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
+      // (marked kann HTML-Tags in bestimmten Kontexten escapen)
+      const imgTagPlaceholders = [];
+      let imgPlaceholderIdx = 0;
+      content = content.replace(/<img\s+[^>]*>/gi, (match) => {
+        const placeholder = `@@IMG_TAG_PLACEHOLDER_${imgPlaceholderIdx}@@`;
+        imgTagPlaceholders.push({ placeholder, original: match, idx: imgPlaceholderIdx });
+        imgPlaceholderIdx++;
+        return placeholder;
+      });
+      
+      
       // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
       if (typeof marked !== 'undefined') {
         if (marked.parse) {
@@ -16997,6 +17038,37 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         } else {
           content = marked(content, { breaks: true, gfm: true });
         }
+        
+        // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+        if (imgTagPlaceholders.length > 0) {
+          console.log(`[IMG-RESTORE] ${imgTagPlaceholders.length} Platzhalter zu ersetzen`);
+        }
+        imgTagPlaceholders.forEach(({ placeholder, original }) => {
+          // Prüfe ob Platzhalter im Content vorhanden ist
+          const beforeReplace = content.includes(placeholder);
+          console.log(`[IMG-RESTORE] Suche Platzhalter: ${placeholder}, gefunden: ${beforeReplace}`);
+          if (beforeReplace) {
+            // Zeige Kontext um den Platzhalter
+            const idx = content.indexOf(placeholder);
+            console.log(`[IMG-RESTORE] Kontext: "${content.substring(Math.max(0, idx-20), idx+placeholder.length+20)}"`);
+          }
+          
+          // Ersetze: <p>@@IMG_TAG_PLACEHOLDER_X@@</p> oder einfach @@IMG_TAG_PLACEHOLDER_X@@
+          // Verwende einfache String-Ersetzung für verschiedene Varianten
+          content = content.replace(`<p>${placeholder}</p>`, original);
+          content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+          content = content.replace(`<p>${placeholder}\n</p>`, original);
+          content = content.replace(`<p>\n${placeholder}</p>`, original);
+          content = content.replace(placeholder, original); // Fallback ohne <p> Tags
+          
+          // Prüfe ob Ersetzung erfolgreich war
+          const afterReplace = content.includes(placeholder);
+          if (afterReplace) {
+            console.error(`[IMG-RESTORE] ⚠ Platzhalter NICHT ersetzt! Immer noch vorhanden: ${placeholder}`);
+          } else if (beforeReplace) {
+            console.log(`[IMG-RESTORE] ✓ Platzhalter erfolgreich ersetzt`);
+          }
+        });
         
         // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
         if (content.includes('![')) {
@@ -17235,6 +17307,16 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
     content = preprocessObsidianLineBreaks(content);
     
+    // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
+    const imgTagPlaceholders = [];
+    let imgPlaceholderIdx = 0;
+    content = content.replace(/<img\s+[^>]*>/gi, (match) => {
+      const placeholder = `@@IMG_TAG_PLACEHOLDER_${imgPlaceholderIdx}@@`;
+      imgTagPlaceholders.push({ placeholder, original: match });
+      imgPlaceholderIdx++;
+      return placeholder;
+    });
+    
     // Konfiguriere marked für Fußnoten und Überschriften-IDs
     if (typeof marked !== 'undefined') {
       if (marked.setOptions) {
@@ -17255,6 +17337,15 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       } else {
         content = marked(content, markedOptions);
       }
+      
+      // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+      imgTagPlaceholders.forEach(({ placeholder, original }) => {
+        content = content.replace(`<p>${placeholder}</p>`, original);
+        content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+        content = content.replace(`<p>${placeholder}\n</p>`, original);
+        content = content.replace(`<p>\n${placeholder}</p>`, original);
+        content = content.replace(placeholder, original);
+      });
       
       // Manuelle Bild-Konvertierung falls nötig
       if (content.includes('![')) {
@@ -20926,6 +21017,16 @@ function scrollToChronologicalYear(year) {
             // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
             content = preprocessObsidianLineBreaks(content);
             
+            // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
+            const imgTagPlaceholders = [];
+            let imgPlaceholderIdx = 0;
+            content = content.replace(/<img\s+[^>]*>/gi, (match) => {
+              const placeholder = `@@IMG_TAG_PLACEHOLDER_${imgPlaceholderIdx}@@`;
+              imgTagPlaceholders.push({ placeholder, original: match });
+              imgPlaceholderIdx++;
+              return placeholder;
+            });
+            
             // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
             if (typeof marked !== 'undefined' && marked.parse) {
               content = marked.parse(content, { breaks: true, gfm: true });
@@ -20936,6 +21037,15 @@ function scrollToChronologicalYear(year) {
             } else {
               console.error('[MARKDOWN] marked ist nicht verfügbar!');
             }
+            
+            // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+            imgTagPlaceholders.forEach(({ placeholder, original }) => {
+              content = content.replace(`<p>${placeholder}</p>`, original);
+              content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+              content = content.replace(`<p>${placeholder}\n</p>`, original);
+              content = content.replace(`<p>\n${placeholder}</p>`, original);
+              content = content.replace(placeholder, original);
+            });
             
             // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
             content = convertUnderscoreItalics(content);
@@ -27939,6 +28049,24 @@ function showSummaryView() {
     // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
     content = preprocessObsidianLineBreaks(content);
     
+    // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
+    // (marked kann HTML-Tags in bestimmten Kontexten escapen)
+    const imgTagPlaceholders = [];
+    let imgPlaceholderIdx = 0;
+    content = content.replace(/<img\s+[^>]*>/gi, (match) => {
+      const placeholder = `@@IMG_TAG_PLACEHOLDER_${imgPlaceholderIdx}@@`;
+      imgTagPlaceholders.push({ placeholder, original: match });
+      imgPlaceholderIdx++;
+      console.log(`[IMG-EXTRACT] Extrahiert img-Tag: ${match.substring(0, 80)}... -> ${placeholder}`);
+      return placeholder;
+    });
+    
+    if (imgTagPlaceholders.length > 0) {
+      console.log(`[IMG-EXTRACT] Insgesamt ${imgTagPlaceholders.length} img-Tags extrahiert`);
+      console.log(`[IMG-EXTRACT] Content VOR marked.parse() (erste 500 Zeichen):`, content.substring(0, 500));
+      console.log(`[IMG-EXTRACT] Enthält Platzhalter:`, content.includes('@@IMG_TAG_PLACEHOLDER_'));
+    }
+    
     // Schütze Text in <> vor HTML-Interpretation
     content = protectAngleBrackets(content);
     
@@ -27949,6 +28077,44 @@ function showSummaryView() {
       
       // Stelle Text in <> wieder her
       content = restoreAngleBrackets(content);
+      
+      // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+      if (imgTagPlaceholders.length > 0) {
+        console.log(`[IMG-RESTORE-DL] ${imgTagPlaceholders.length} Platzhalter zu ersetzen in displayLecture`);
+        console.log(`[IMG-RESTORE-DL] Content nach marked.parse() (erste 500 Zeichen):`, content.substring(0, 500));
+        // Suche nach @@IMG_TAG in beliebiger Form
+        const imgTagMatch = content.match(/@@IMG_TAG[^@]*@*\d+@*/g);
+        if (imgTagMatch) {
+          console.log(`[IMG-RESTORE-DL] Gefundene IMG_TAG Varianten:`, imgTagMatch);
+        }
+      }
+      imgTagPlaceholders.forEach(({ placeholder, original }) => {
+        const beforeReplace = content.includes(placeholder);
+        console.log(`[IMG-RESTORE-DL] Suche Platzhalter: "${placeholder}", gefunden: ${beforeReplace}`);
+        if (!beforeReplace) {
+          // Suche nach Teilstrings
+          const hasImgTag = content.includes('@@IMG_TAG');
+          const hasPlaceholder = content.includes('PLACEHOLDER');
+          console.log(`[IMG-RESTORE-DL] ⚠ Platzhalter NICHT gefunden! Enthält @@IMG_TAG: ${hasImgTag}, enthält PLACEHOLDER: ${hasPlaceholder}`);
+          // Zeige was um "IMG" herum ist
+          const imgIndex = content.indexOf('IMG');
+          if (imgIndex !== -1) {
+            console.log(`[IMG-RESTORE-DL] Kontext um 'IMG': "${content.substring(Math.max(0, imgIndex-10), imgIndex+50)}"`);
+          }
+        }
+        content = content.replace(`<p>${placeholder}</p>`, original);
+        content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+        content = content.replace(`<p>${placeholder}\n</p>`, original);
+        content = content.replace(`<p>\n${placeholder}</p>`, original);
+        content = content.replace(placeholder, original);
+        
+        const afterReplace = content.includes(placeholder);
+        if (beforeReplace && afterReplace) {
+          console.error(`[IMG-RESTORE-DL] ⚠ Platzhalter NICHT ersetzt!`);
+        } else if (beforeReplace) {
+          console.log(`[IMG-RESTORE-DL] ✓ Platzhalter ersetzt`);
+        }
+      });
         
         // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
         // Konvertiere ![alt](path) zu <img src="path" alt="alt">
@@ -27991,6 +28157,16 @@ function showSummaryView() {
       
       // Stelle Text in <> wieder her
       content = restoreAngleBrackets(content);
+      
+      // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+      imgTagPlaceholders.forEach(({ placeholder, original }) => {
+        content = content.replace(`<p>${placeholder}</p>`, original);
+        content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+        content = content.replace(`<p>${placeholder}\n</p>`, original);
+        content = content.replace(`<p>\n${placeholder}</p>`, original);
+        content = content.replace(placeholder, original);
+      });
+      
         // Auch hier manuelle Bild-Konvertierung falls nötig
         if (content.includes('![')) {
           content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
@@ -28009,8 +28185,15 @@ function showSummaryView() {
       // Stelle Text in <> wieder her
       content = restoreAngleBrackets(content);
       
-      // Stelle Text in <> wieder her
-      content = restoreAngleBrackets(content);
+      // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+      imgTagPlaceholders.forEach(({ placeholder, original }) => {
+        content = content.replace(`<p>${placeholder}</p>`, original);
+        content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+        content = content.replace(`<p>${placeholder}\n</p>`, original);
+        content = content.replace(`<p>\n${placeholder}</p>`, original);
+        content = content.replace(placeholder, original);
+      });
+      
         // Auch hier manuelle Bild-Konvertierung falls nötig
         if (content.includes('![')) {
           content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
@@ -32279,6 +32462,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
           content = preprocessObsidianLineBreaks(content);
           
+          // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
+          const imgTagPlaceholders = [];
+          let imgPlaceholderIdx = 0;
+          content = content.replace(/<img\s+[^>]*>/gi, (match) => {
+            const placeholder = `@@IMG_TAG_PLACEHOLDER_${imgPlaceholderIdx}@@`;
+            imgTagPlaceholders.push({ placeholder, original: match });
+            imgPlaceholderIdx++;
+            return placeholder;
+          });
+          
           // Schütze Text in <> vor HTML-Interpretation
           content = protectAngleBrackets(content);
           
@@ -32288,6 +32481,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             
             // Stelle Text in <> wieder her
             content = restoreAngleBrackets(content);
+            
+            // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+            imgTagPlaceholders.forEach(({ placeholder, original }) => {
+              content = content.replace(`<p>${placeholder}</p>`, original);
+              content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+              content = content.replace(`<p>${placeholder}\n</p>`, original);
+              content = content.replace(`<p>\n${placeholder}</p>`, original);
+              content = content.replace(placeholder, original);
+            });
             
             // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
             if (content.includes('![')) {
@@ -32303,6 +32505,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             
             // Stelle Text in <> wieder her
             content = restoreAngleBrackets(content);
+            
+            // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+            imgTagPlaceholders.forEach(({ placeholder, original }) => {
+              content = content.replace(`<p>${placeholder}</p>`, original);
+              content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+              content = content.replace(`<p>${placeholder}\n</p>`, original);
+              content = content.replace(`<p>\n${placeholder}</p>`, original);
+              content = content.replace(placeholder, original);
+            });
+            
             if (content.includes('![')) {
               content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
                 alt = alt.trim();
@@ -32315,6 +32527,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             
             // Stelle Text in <> wieder her
             content = restoreAngleBrackets(content);
+            
+            // Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+            imgTagPlaceholders.forEach(({ placeholder, original }) => {
+              content = content.replace(`<p>${placeholder}</p>`, original);
+              content = content.replace(`<p>\n${placeholder}\n</p>`, original);
+              content = content.replace(`<p>${placeholder}\n</p>`, original);
+              content = content.replace(`<p>\n${placeholder}</p>`, original);
+              content = content.replace(placeholder, original);
+            });
+            
             if (content.includes('![')) {
               content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
                 alt = alt.trim();
@@ -32324,6 +32546,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             }
           } else {
             console.error('[MARKDOWN] marked ist nicht verfügbar!');
+            // Auch ohne marked: Stelle HTML-img-Tags wieder her (auch wenn von <p> Tags umgeben)
+            imgTagPlaceholders.forEach(({ placeholder, original }) => {
+              const regex = new RegExp(`(<p>\\s*)?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s*</p>)?`, 'g');
+              content = content.replace(regex, original);
+            });
           }
           
           // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
