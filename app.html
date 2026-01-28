@@ -7072,7 +7072,7 @@ body.dark-mode .viewer-search-highlight.active {
     <div class="analytics-header">
       <h2>Nutzungsstatistiken (Online)</h2>
       <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-        <button onclick="loadAnalyticsData(true)" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; white-space: nowrap;" title="Aktualisieren">↻ Aktualisieren</button>
+        <button onclick="loadAnalyticsData()" style="padding: 6px 14px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer; white-space: nowrap;" title="Aktualisieren">↻ Aktualisieren</button>
         <button class="analytics-close" onclick="closeAnalytics()" style="flex-shrink: 0;">&times;</button>
       </div>
     </div>
@@ -9897,7 +9897,7 @@ PDF
       if (overlay) {
         overlay.classList.add('visible');
         // Immer Online-Daten laden
-        loadAnalyticsData(true);
+        loadAnalyticsData();
         // Automatische Aktualisierung DEAKTIVIERT - zu viele Requests
         // Benutzer kann manuell mit "↻ Aktualisieren" Button aktualisieren
         if (analyticsRefreshInterval) {
@@ -9919,39 +9919,15 @@ PDF
     }
     
     // Analytics-Daten laden und anzeigen
-    // Parameter: useOnlineData - wenn true, lade Daten von Render (auch wenn lokal)
-    async function loadAnalyticsData(useOnlineData = false) {
+    // Lädt IMMER die Online-Daten von Render (echte Nutzungsstatistik)
+    async function loadAnalyticsData() {
       const container = document.getElementById('analytics-content');
       if (!container) return;
       
       try {
-        let url;
-        if (useOnlineData) {
-          // Lade Daten direkt von Render, auch wenn lokal
-          url = 'https://ga-suche.onrender.com/api/analytics/stats';
-          console.log('[ANALYTICS] Lade Online-Daten von Render:', url);
-        } else {
-          // Verwende API_BASE wie alle anderen API-Aufrufe (lokal oder online je nach Umgebung)
-          // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
-          let apiBase = '';
-          try {
-            apiBase = window.API_BASE || '';
-          } catch (e) {
-            // Ignoriere Fehler
-          }
-          // Fallback basierend auf Hostname
-          if (!apiBase) {
-            const isLocal = window.location.hostname === 'localhost' || 
-                           window.location.hostname === '127.0.0.1' ||
-                           window.location.hostname.startsWith('192.168.') ||
-                           window.location.hostname.startsWith('172.') ||
-                           window.location.hostname.startsWith('10.') ||
-                           window.location.protocol === 'file:';
-            apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-          }
-          url = apiBase ? `${apiBase}/api/analytics/stats` : '/api/analytics/stats';
-          console.log('[ANALYTICS] Lade lokale Daten:', url);
-        }
+        // Immer Online-Daten von Render laden
+        const url = 'https://ga-suche.onrender.com/api/analytics/stats';
+        console.log('[ANALYTICS] Lade Online-Daten von Render:', url);
         
         // Füge Cache-Control Header hinzu, um sicherzustellen, dass keine gecachten Daten verwendet werden
         const res = await fetch(url, {
@@ -9990,13 +9966,7 @@ PDF
           sampleBarHeight: dailyData.length > 0 ? Math.max((dailyData[0].views / maxViews) * 100, 2) : 0
         }, null, 2));
         
-        // Zeige Datenquelle an
-        const dataSource = useOnlineData ? '🌐 Online (Render)' : '💻 Lokal';
-        
         container.innerHTML = `
-          <div style="margin-bottom: 1rem; padding: 8px; background: var(--sidebar-bg); border-radius: 4px; font-size: 0.85em; color: var(--secondary-text);">
-            Datenquelle: <strong>${dataSource}</strong>
-          </div>
           <div class="analytics-stats-row">
             <div class="analytics-stat-box">
               <h4>Heute</h4>
@@ -10074,36 +10044,6 @@ PDF
             </div>
           </div>
           
-          <div class="analytics-list">
-            <div class="analytics-list-section">
-              <h4>Beliebte Suchbegriffe</h4>
-              ${(() => {
-                // Filtere korrupte Werte (über 1 Million) heraus
-                const validSearches = data.topSearches.filter(s => typeof s.count === 'number' && s.count < 1000000);
-                return validSearches.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
-                  validSearches.map(s => `
-                    <div class="analytics-list-item">
-                      <span class="term">${escapeHtml(s.term)}</span>
-                      <span class="count">${s.count}</span>
-                    </div>
-                  `).join('');
-              })()}
-            </div>
-            <div class="analytics-list-section">
-              <h4>Beliebte Vorträge</h4>
-              ${(() => {
-                // Filtere korrupte Werte (über 1 Million) heraus
-                const validLectures = data.topLectures.filter(l => typeof l.count === 'number' && l.count < 1000000);
-                return validLectures.length === 0 ? '<p style="color: var(--secondary-text); font-size: 0.85rem;">Noch keine Daten</p>' : 
-                  validLectures.map(l => `
-                    <div class="analytics-list-item">
-                      <span class="term">${escapeHtml(l.id)}</span>
-                      <span class="count">${l.count}</span>
-                    </div>
-                  `).join('');
-              })()}
-            </div>
-          </div>
         `;
       } catch (e) {
         container.innerHTML = '<p style="color: var(--error-color);">Fehler beim Laden der Statistiken.</p>';

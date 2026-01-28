@@ -23212,24 +23212,7 @@ async function saveAnalyticsData(data) {
               currentData.dailyStats = data.dailyStats;
             }
             
-            // Merge topSearches und topLectures (addiere Werte, aber stelle sicher, dass Werte Zahlen sind)
-            if (data.topSearches) {
-              if (!currentData.topSearches) currentData.topSearches = {};
-              for (const term in data.topSearches) {
-                const existingValue = Number(currentData.topSearches[term] || 0);
-                const newValue = Number(data.topSearches[term] || 0);
-                currentData.topSearches[term] = existingValue + newValue;
-              }
-            }
-            
-            if (data.topLectures) {
-              if (!currentData.topLectures) currentData.topLectures = {};
-              for (const lectureId in data.topLectures) {
-                const existingValue = Number(currentData.topLectures[lectureId] || 0);
-                const newValue = Number(data.topLectures[lectureId] || 0);
-                currentData.topLectures[lectureId] = existingValue + newValue;
-              }
-            }
+            // topSearches und topLectures werden nicht mehr verwendet/gespeichert
           }
         } catch (loadError) {
           // Falls Laden fehlschlägt, verwende übergebene Daten
@@ -23339,22 +23322,12 @@ async function trackSearch(searchTerm) {
     data.dailyStats[today].searches++;
     console.log(`[ANALYTICS] Suchzähler erhöht: ${oldCount} -> ${data.dailyStats[today].searches}`);
     
-    // Speichere Suchbegriff in Top-Searches
-    const term = searchTerm.toLowerCase().trim().substring(0, 50);
-    if (term.length > 0) {
-      const oldTermCount = data.topSearches[term] || 0;
-      // Validierung: Wenn der alte Wert korrupt ist (> 1 Million), auf 0 zurücksetzen
-      const safeOldCount = (typeof oldTermCount === 'number' && oldTermCount < 1000000) ? oldTermCount : 0;
-      data.topSearches[term] = safeOldCount + 1;
-      console.log(`[ANALYTICS] Top-Search aktualisiert: "${term}" = ${data.topSearches[term]}`);
-    }
-    
     // Speichere Daten (mit await, damit es wirklich gespeichert wird)
     console.log('[ANALYTICS] Speichere Analytics-Daten...');
     await saveAnalyticsData(data);
     console.log('[ANALYTICS] Daten erfolgreich gespeichert');
     
-    console.log(`[ANALYTICS] ✓ Suche getrackt: "${term}" (Heute: ${data.dailyStats[today].searches} Suchen)`);
+    console.log(`[ANALYTICS] ✓ Suche getrackt (Heute: ${data.dailyStats[today].searches} Suchen)`);
   } catch (error) {
     console.error('[ANALYTICS] ✗ Fehler beim Tracking der Suche:', error.message);
     console.error('[ANALYTICS] Stack:', error.stack);
@@ -23400,24 +23373,12 @@ app.post('/api/analytics/track', async (req, res) => {
         
       case 'search':
         data.dailyStats[today].searches++;
-        // WICHTIG: Erhöhe kumulative Werte NICHT direkt - saveAnalyticsData berechnet sie neu aus dailyStats
-        if (value && typeof value === 'string' && value.length > 1) {
-          const term = value.toLowerCase().trim().substring(0, 50);
-          data.topSearches[term] = (data.topSearches[term] || 0) + 1;
-          console.log(`[ANALYTICS] Suche getrackt: "${term}" (Heute: ${data.dailyStats[today].searches}, Top-Searches: ${data.topSearches[term]})`);
-        } else {
-          console.log(`[ANALYTICS] Suche getrackt ohne Wert (Heute: ${data.dailyStats[today].searches})`);
-        }
+        console.log(`[ANALYTICS] Suche getrackt (Heute: ${data.dailyStats[today].searches})`);
         break;
         
       case 'lecture_view':
         data.dailyStats[today].lectures++;
-        // WICHTIG: Erhöhe kumulative Werte NICHT direkt - saveAnalyticsData berechnet sie neu aus dailyStats
-        if (value && typeof value === 'string') {
-          const lectureId = value.substring(0, 20);
-          data.topLectures[lectureId] = (data.topLectures[lectureId] || 0) + 1;
-        }
-        console.log(`[ANALYTICS] Lecture View getrackt: ${value} (Heute: ${data.dailyStats[today].lectures})`);
+        console.log(`[ANALYTICS] Lecture View getrackt (Heute: ${data.dailyStats[today].lectures})`);
         break;
     }
     
@@ -23481,19 +23442,9 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
     
-    // Top 10 Suchen - stelle sicher, dass Werte Zahlen sind
-    const topSearches = Object.entries(data.topSearches || {})
-      .map(([term, count]) => ({ term, count: Number(count) || 0 }))
-      .filter(item => item.count > 0) // Entferne Einträge mit ungültigen Werten
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
-    
-    // Top 10 Vorträge - stelle sicher, dass Werte Zahlen sind
-    const topLectures = Object.entries(data.topLectures || {})
-      .map(([id, count]) => ({ id, count: Number(count) || 0 }))
-      .filter(item => item.count > 0) // Entferne Einträge mit ungültigen Werten
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
+    // topSearches und topLectures werden nicht mehr verwendet (waren Quelle von Korruption)
+    const topSearches = [];
+    const topLectures = [];
     
     // Tägliche Daten für Chart (letzte 30 Tage für bessere Übersicht)
     // Alle historischen Daten bleiben erhalten, aber für die Anzeige verwenden wir die letzten 30 Tage
@@ -23729,44 +23680,23 @@ app.post('/api/analytics/upload', async (req, res) => {
   }
 });
 
-// Bereinige korrupte Werte in topSearches und topLectures
+// Bereinige Analytics-Daten: Entferne topSearches und topLectures komplett
+// (werden nicht mehr benötigt und waren Quelle von Korruption)
 function cleanupCorruptedValues(data) {
   let cleaned = false;
   
-  // Bereinige topSearches
-  if (data.topSearches && typeof data.topSearches === 'object') {
-    for (const term in data.topSearches) {
-      const value = data.topSearches[term];
-      const numValue = Number(value);
-      
-      // Wenn Wert ungültig oder extrem groß ist (> 1 Million), setze auf 0
-      if (isNaN(numValue) || numValue < 0 || numValue > 1000000) {
-        console.warn(`[ANALYTICS CLEANUP] Korrupter Wert für "${term}": ${value} -> 0`);
-        data.topSearches[term] = 0;
-        cleaned = true;
-      } else {
-        // Stelle sicher, dass Wert eine ganze Zahl ist
-        data.topSearches[term] = Math.floor(numValue);
-      }
-    }
+  // Entferne topSearches komplett
+  if (data.topSearches) {
+    delete data.topSearches;
+    cleaned = true;
+    console.log('[ANALYTICS CLEANUP] topSearches entfernt (nicht mehr benötigt)');
   }
   
-  // Bereinige topLectures
-  if (data.topLectures && typeof data.topLectures === 'object') {
-    for (const id in data.topLectures) {
-      const value = data.topLectures[id];
-      const numValue = Number(value);
-      
-      // Wenn Wert ungültig oder extrem groß ist (> 1 Million), setze auf 0
-      if (isNaN(numValue) || numValue < 0 || numValue > 1000000) {
-        console.warn(`[ANALYTICS CLEANUP] Korrupter Wert für "${id}": ${value} -> 0`);
-        data.topLectures[id] = 0;
-        cleaned = true;
-      } else {
-        // Stelle sicher, dass Wert eine ganze Zahl ist
-        data.topLectures[id] = Math.floor(numValue);
-      }
-    }
+  // Entferne topLectures komplett
+  if (data.topLectures) {
+    delete data.topLectures;
+    cleaned = true;
+    console.log('[ANALYTICS CLEANUP] topLectures entfernt (nicht mehr benötigt)');
   }
   
   return cleaned;
@@ -24000,27 +23930,7 @@ async function restoreLatestAnalyticsBackup() {
           }
         }
         
-        // Merge topSearches: Summiere Werte, aber stelle sicher, dass Werte Zahlen sind
-        if (parsed.topSearches) {
-          for (const term in parsed.topSearches) {
-            const existingValue = Number(mergedData.topSearches[term] || 0);
-            const newValue = Number(parsed.topSearches[term] || 0);
-            // Verwende Maximum statt Summe, um doppelte Zählung zu vermeiden
-            // (Backups enthalten bereits kumulative Werte)
-            mergedData.topSearches[term] = Math.max(existingValue, newValue);
-          }
-        }
-        
-        // Merge topLectures: Summiere Werte, aber stelle sicher, dass Werte Zahlen sind
-        if (parsed.topLectures) {
-          for (const id in parsed.topLectures) {
-            const existingValue = Number(mergedData.topLectures[id] || 0);
-            const newValue = Number(parsed.topLectures[id] || 0);
-            // Verwende Maximum statt Summe, um doppelte Zählung zu vermeiden
-            // (Backups enthalten bereits kumulative Werte)
-            mergedData.topLectures[id] = Math.max(existingValue, newValue);
-          }
-        }
+        // topSearches und topLectures werden nicht mehr verwendet/wiederhergestellt
         
         console.log(`[ANALYTICS RESTORE] Backup geladen: ${backupFile.name} (${Object.keys(parsed.dailyStats || {}).length} Tage)`);
       } catch (error) {
