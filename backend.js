@@ -432,22 +432,24 @@ let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
-// Zusätzlich: GA018, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+// Zusätzlich: GA001, GA018, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
 function isEssayGANumber(gaNumber) {
   if (!gaNumber) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [18, 19, 24, 26, 42, 43, 44];
+  // Aufsatzbände: GA001, GA018, GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [1, 18, 19, 24, 26, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA002-GA028 (ohne die Aufsatzbände GA018, GA019, GA024, GA026) - GA001 und GA040 werden wie Vortragsbände behandelt
+// Bücher: GA002-GA028 (ohne Aufsatzbände GA018, GA019, GA024) + GA045
+// GA001 und GA040 werden wie Vortragsbände behandelt
+// GA026 ist ein Buch (kein Aufsatzband)
 function isBookGANumberBackend(gaNumber) {
   // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNumber && (gaNumber.toUpperCase() === 'GA001' || gaNumber === '1')) {
@@ -462,8 +464,8 @@ function isBookGANumberBackend(gaNumber) {
   if (isEssayGANumber(gaNumber)) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
-  // GA001-GA028 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
-  return gaNum >= 1 && gaNum <= 28;
+  // GA002-GA028 + GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
+  return (gaNum >= 2 && gaNum <= 28) || gaNum === 45;
 }
 
 // Hilfsfunktion: Extrahiert GA-Nummer aus Lecture-ID (z.B. "GA078/1" -> "GA078")
@@ -473,23 +475,36 @@ function extractGAFromLectureId(lectureId) {
   return match ? match[1] : null;
 }
 
-// Hilfsfunktion: Zählt Vorträge, Aufsätze und Schriften
+// Hilfsfunktion: Zählt Vorträge, Aufsätze und Schriften für STATISTIK-ANZEIGE
+// GA001, GA018, GA026 werden als Schriften gezählt (nicht als Aufsätze)
 function countLectureTypes() {
   let lectures = 0;
   let essays = 0;
+  let essaysInBooks = 0; // Aufsätze in GA001, GA018, GA026
   
   for (const lectureId of Object.keys(fullLectures)) {
     const ga = extractGAFromLectureId(lectureId);
     if (ga) {
+      const gaNum = parseInt(String(ga).replace(/^GA/i, ''));
+      
       if (isEssayGANumber(ga)) {
         essays++;
+        // GA001, GA018, GA026: Zähle separat
+        if (gaNum === 1 || gaNum === 18 || gaNum === 26) {
+          essaysInBooks++;
+        }
       } else if (!isBookGANumberBackend(ga)) {
         lectures++;
       }
     }
   }
   
-  return { lectures, essays, books: Object.keys(fullBooks).length };
+  // Statistik: Aufsätze minus GA001/GA018/GA026, Bücher plus 3
+  return { 
+    lectures, 
+    essays: essays - essaysInBooks, 
+    books: Object.keys(fullBooks).length + 3 
+  };
 }
 
 // Hilfsfunktion: Synonym-Expansion
