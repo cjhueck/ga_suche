@@ -24228,8 +24228,8 @@ function scrollToChronologicalYear(year) {
       // WICHTIG: Übergebe das Suchwort (concept), damit Buch-Links das Suchwort für die Markierung haben
       setTimeout(() => {
         convertGAReferencesToLinks(viewer, concept);
-        // Verlinke Schlagwörter im Text, die als Index-Einträge existieren
-        linkifySchlagworteInElement(viewer, concept);
+        // DEAKTIVIERT: Schlagwort-Links wurden entfernt - nur GA-Links bleiben erhalten
+        // linkifySchlagworteInElement(viewer, concept);
         
         // Aktualisiere Button-States nach dem Laden des Inhalts (zeigt Download-Button an)
         if (typeof updateButtonStates === 'function') {
@@ -35808,12 +35808,13 @@ function displayKeywordThematicResults(keyword, data) {
   } catch (_) {}
   
   // Verlinke Schlagwörter im Text, die als Index-Einträge existieren
-  setTimeout(() => {
-    const answerContentForLinks = document.getElementById('keywordAnswerContent');
-    if (answerContentForLinks) {
-      linkifySchlagworteInElement(answerContentForLinks, keyword);
-    }
-  }, 150);
+  // DEAKTIVIERT: Schlagwort-Links wurden entfernt - nur GA-Links bleiben erhalten
+  // setTimeout(() => {
+  //   const answerContentForLinks = document.getElementById('keywordAnswerContent');
+  //   if (answerContentForLinks) {
+  //     linkifySchlagworteInElement(answerContentForLinks, keyword);
+  //   }
+  // }, 150);
   
   // Lucide Icons initialisieren
   initializeLucideIcons();
