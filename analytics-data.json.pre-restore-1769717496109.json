@@ -1,0 +1,100 @@
+{
+  "dailyStats": {
+    "2026-01-18": {
+      "views": 2,
+      "searches": 7,
+      "lectures": 154
+    },
+    "2026-01-19": {
+      "views": 7,
+      "searches": 10,
+      "lectures": 543
+    },
+    "2026-01-20": {
+      "views": 3,
+      "searches": 0,
+      "lectures": 79
+    },
+    "2026-01-21": {
+      "views": 5,
+      "searches": 4,
+      "lectures": 62
+    },
+    "2026-01-22": {
+      "views": 2,
+      "searches": 0,
+      "lectures": 31
+    },
+    "2026-01-23": {
+      "views": 3,
+      "searches": 1,
+      "lectures": 30
+    },
+    "2026-01-24": {
+      "views": 6,
+      "searches": 0,
+      "lectures": 173
+    },
+    "2026-01-25": {
+      "views": 3,
+      "searches": 1,
+      "lectures": 42
+    },
+    "2026-01-12": {
+      "views": 2,
+      "searches": 6,
+      "lectures": 51
+    },
+    "2026-01-13": {
+      "views": 0,
+      "searches": 8,
+      "lectures": 122
+    },
+    "2026-01-14": {
+      "views": 5,
+      "searches": 0,
+      "lectures": 135
+    },
+    "2026-01-15": {
+      "views": 3,
+      "searches": 6,
+      "lectures": 83
+    },
+    "2026-01-16": {
+      "views": 3,
+      "searches": 7,
+      "lectures": 169
+    },
+    "2026-01-17": {
+      "views": 2,
+      "searches": 0,
+      "lectures": 70
+    },
+    "2026-01-26": {
+      "views": 1,
+      "searches": 0,
+      "lectures": 3
+    },
+    "2026-01-27": {
+      "views": 1,
+      "searches": 0,
+      "lectures": 0
+    },
+    "2026-01-28": {
+      "views": 2,
+      "searches": 1,
+      "lectures": 31
+    },
+    "2026-01-29": {
+      "views": 2,
+      "searches": 0,
+      "lectures": 18
+    }
+  },
+  "totalViews": 52,
+  "totalSearches": 51,
+  "totalLectureViews": 1795,
+  "topSearches": {},
+  "topLectures": {},
+  "source": "json-fallback"
+}
