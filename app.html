@@ -3987,6 +3987,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       margin-left: 0 !important;
       padding-right: 0 !important;
       margin-right: 0 !important;
+      /* WICHTIG: margin-top und margin-bottom werden von den allgemeinen H3/H4 Regeln gesetzt */
     }
     
     #viewer-content .book-content {
@@ -4022,6 +4023,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       margin-left: 0 !important;
       padding-right: 0 !important;
       margin-right: 0 !important;
+      /* WICHTIG: margin-top und margin-bottom werden von den allgemeinen H3/H4 Regeln gesetzt */
     }
     
     /* Book-content: overflow visible für Seitenzahlen */
@@ -4561,7 +4563,12 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     
     /* H2 im Viewer wie H3 darstellen */
     #viewer h2,
-    #viewer h3:not(.concept-network-title) {
+    #viewer h3:not(.concept-network-title),
+    #viewer .book-content h3,
+    #viewer .ga-lectures-container h3,
+    #viewer-content h3,
+    #viewer-content .book-content h3,
+    #viewer-content .ga-lectures-container h3 {
       font-size: 0.9rem !important;
       margin: 1.2rem 0 0.25rem 0 !important; /* Größerer Abstand vor H3 */
       font-weight: 700 !important;
@@ -4571,7 +4578,12 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       text-align: left !important;
     }
     
-    #viewer h4 {
+    #viewer h4,
+    #viewer .book-content h4,
+    #viewer .ga-lectures-container h4,
+    #viewer-content h4,
+    #viewer-content .book-content h4,
+    #viewer-content .ga-lectures-container h4 {
       font-size: 0.9rem !important;
       margin: 0.4rem 0 0.25rem 0 !important; /* Verringerte Abstände */
       font-weight: normal !important;
@@ -16816,7 +16828,12 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       }
   }
   
-  viewer.innerHTML = '';
+  // Im GA-Tab: Zeige Platzhalter "Lade Inhaltsverzeichnis"
+  if (isInGATab) {
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
+  } else {
+    viewer.innerHTML = '';
+  }
   
   // Setze Titel
   // Entferne GA-Nummer aus fileName falls title nicht vorhanden
@@ -16883,16 +16900,18 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         </div>`;
       
       // Bei Büchern mit tableOfContents: Zeige Kapitel als klickbare Links
+      // Styling wie untergeordnete Überschriften bei GA001/GA018
       if (book.tableOfContents && book.tableOfContents.length > 0) {
         book.tableOfContents.forEach((item, idx) => {
           const headingId = item.index ? item.index.replace(/^\^/, '') : `toc-${idx}`;
           sideHtml += `
-            <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none;">
-              <h3 style="margin: 0;">
-                <a href="#" onclick="scrollToBookHeading('${headingId}'); return false;" style="text-decoration: none;">
-                  ${item.text || item.title || `Kapitel ${idx + 1}`}
-                </a>
-              </h3>
+            <div style="margin-bottom: 0.3rem; padding-left: 1rem;">
+              <a href="#" onclick="scrollToBookHeading('${headingId}'); return false;" 
+                 style="color: var(--link-color); text-decoration: none; font-size: var(--text-size); line-height: var(--line-height);"
+                 onmouseover="this.style.textDecoration='underline'"
+                 onmouseout="this.style.textDecoration='none'">
+                ${item.text || item.title || `Kapitel ${idx + 1}`}
+              </a>
             </div>
           `;
         });
@@ -17462,11 +17481,16 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       const headingIndex = rawIndex.replace(/^\^/, '');
       const indent = level === 'h4' || level === 4 ? 'padding-left: 1.5rem;' : '';
       
+      // Unterschiedliche Schriftgrößen für H3 und H4 (wie im Viewer)
+      // H3 (z.B. "ZUR EINFÜHRUNG", "ERSTER BAND", "VORREDE ZUR NEU-AUFLAGE"): größere Schrift
+      // H4 (z.B. "I. Einleitung", "1. Ausgangspunkt"): kleinere Schrift
+      const fontSize = (level === 'h4' || level === 4) ? '0.9em' : '0.95em';
+      
       html += `
         <div style="margin-bottom: 0.5rem; ${indent}">
           <a href="#" 
              onclick="event.preventDefault(); navigateToBookHeadingInTexteTab('${bookGANumber}', '${headingIndex}'); return false;"
-             style="text-decoration: none; color: var(--link-color); font-size: 0.95em;"
+             style="text-decoration: none; color: var(--link-color); font-size: ${fontSize};"
              onmouseover="this.style.textDecoration='underline'"
              onmouseout="this.style.textDecoration='none'">
             ${headingText}
@@ -18541,10 +18565,15 @@ async function showGALectures(gaNumber, skipHistory = false) {
       }
     }
     
+    // Zeige Platzhalter "Lade Inhaltsverzeichnis" für alle Typen im GA-Tab
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
+    
     // Prüfe ob es ein Book (Schrift) ist
-    if (isBookGANumber(gaNumber)) {
-      viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
-      
+    // WICHTIG: GA001 und GA018 sind Aufsatzbände und werden NICHT als Bücher behandelt
+    const gaNumForBookCheck = parseInt(gaNumber.replace(/^GA/i, ''));
+    const isDefinitelyNotABook = gaNumForBookCheck === 1 || gaNumForBookCheck === 18 || isEssayGANumber(gaNumber);
+    
+    if (!isDefinitelyNotABook && isBookGANumber(gaNumber)) {
       // Lade Book-Daten
       const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
       if (!response.ok) {
@@ -18561,7 +18590,6 @@ async function showGALectures(gaNumber, skipHistory = false) {
     }
     
     // Ansonsten: Lade GA-Übersicht-Daten (Vorträge)
-    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Vorträge...</div></div>';
     
     const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -18569,6 +18597,19 @@ async function showGALectures(gaNumber, skipHistory = false) {
     
     // Lade Summary-Database
     const summaryDB = await loadSummaryDatabase();
+    
+    // Debug: Zeige summaryDB Status für GA001
+    if (gaNumber === 'GA001' && summaryDB) {
+      const ga001Lectures = Object.keys(summaryDB).filter(id => id.startsWith('GA001/'));
+      console.log('[GA001-DEBUG] Gefundene GA001 Lectures in summaryDB:', ga001Lectures.length, ga001Lectures.slice(0, 5));
+      if (ga001Lectures.length > 0) {
+        console.log('[GA001-DEBUG] Erste Lecture Daten:', {
+          id: ga001Lectures[0],
+          headings: summaryDB[ga001Lectures[0]]?.headings?.length || 0,
+          headingsData: summaryDB[ga001Lectures[0]]?.headings?.slice(0, 3)
+        });
+      }
+    }
     
     // Sortiere Vorträge nach Vortragsnummer
     const lectures = data.lectures.sort((a, b) => {
@@ -18581,11 +18622,56 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // WICHTIG: padding-top: 0 für konsistenten Abstand (Header hat bereits margin-bottom)
     let html = '<div class="ga-lectures-container" style="padding: 0 2rem 2rem 0; max-width: 900px;">';
     
+    // Aufsatzbände - keine "Keine Kurzzusammenfassung" Meldung anzeigen
+    // GA001, GA018, GA029-GA037, GA040, GA040a, GA042, GA043, GA044
+    const gaNum = parseInt(gaNumber.replace(/^GA/i, ''));
+    const isEssayBand = gaNum === 1 || gaNum === 18 || gaNum === 40 || isEssayGANumber(gaNumber);
+    
+    // Prüfe ob GA001 oder GA018 - zeigt Inhaltsverzeichnis für jeden Aufsatz
+    const showTableOfContents = gaNum === 1 || gaNum === 18;
+    
+    // Debug: Zeige erste lecture Daten für GA001/GA018
+    if (showTableOfContents && lectures.length > 0) {
+      console.log('[GA-TOC] showTableOfContents aktiv für', gaNumber);
+      console.log('[GA-TOC] Erste Lecture:', lectures[0].ID);
+      console.log('[GA-TOC] tableOfContents aus lecture:', lectures[0].tableOfContents);
+      console.log('[GA-TOC] tableOfContents aus summaryDB:', summaryDB[lectures[0].ID]?.tableOfContents);
+      console.log('[GA-TOC] headings aus lecture:', lectures[0].headings);
+      console.log('[GA-TOC] headings aus summaryDB:', summaryDB[lectures[0].ID]?.headings);
+    }
+    
     let currentYear = null;
     lectures.forEach(lecture => {
       const lectureId = lecture.ID;
       // Verwende shortSummary von der lecture (kommt vom Backend) oder lade aus summaryDB
       const shortSummary = lecture.shortSummary || summaryDB[lectureId]?.shortSummary || '';
+      // Für GA001/GA018: Verwende headings direkt (enthält H3 und H4 mit Ebenen)
+      // tableOfContents enthält nur H3, aber wir brauchen alle Überschriften für die Einrückung
+      let headingsForTOC = [];
+      if (showTableOfContents) {
+        // Lade headings direkt - diese enthalten alle Überschriften mit Ebenen (H3 und H4)
+        headingsForTOC = lecture.headings || summaryDB[lectureId]?.headings || [];
+        
+        // Debug für GA001
+        if (lectureId.includes('GA001') && headingsForTOC.length === 0) {
+          console.warn('[GA001-TOC] Keine headings gefunden für', lectureId);
+          console.log('[GA001-TOC] lecture.headings:', lecture.headings);
+          console.log('[GA001-TOC] summaryDB[' + lectureId + ']:', summaryDB[lectureId]);
+          // Versuche alternative ID-Formate
+          const altIds = [
+            lectureId.replace('/', '-'),
+            lectureId.replace('GA001/', 'GA001-'),
+            'GA001-' + lectureId.split('/')[1]
+          ];
+          for (const altId of altIds) {
+            if (summaryDB[altId]?.headings?.length > 0) {
+              console.log('[GA001-TOC] Gefunden mit alternativer ID:', altId);
+              headingsForTOC = summaryDB[altId].headings;
+              break;
+            }
+          }
+        }
+      }
       
       // Vortragstitel und Metadaten
       const lectureTitle = lecture.title || '';
@@ -18605,6 +18691,65 @@ async function showGALectures(gaNumber, skipHistory = false) {
       if (lectureYear && lectureYear !== currentYear) {
         currentYear = lectureYear;
         html += `<div id="year-${lectureYear}" class="ga-year-anchor"></div>`;
+      }
+      
+      // Erstelle Inhaltsverzeichnis-HTML für GA001/GA018
+      // Verwende headings direkt (enthält H3 und H4 mit Ebenen)
+      let tocHtml = '';
+      if (showTableOfContents && headingsForTOC && headingsForTOC.length > 0) {
+        tocHtml = `
+          <div class="ga-toc" style="
+            margin-top: 0.3rem;
+            padding-left: 1rem;
+          ">
+            ${headingsForTOC.map((h, idx) => {
+              // Unterstütze verschiedene Datenformate
+              const headingText = h.text || h.title || (typeof h === 'string' ? h : '');
+              if (!headingText) return '';
+              
+              const escapedHeading = headingText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+              
+              // Bestimme Ebene aus heading-Objekt - unterstütze verschiedene Formate
+              let level = h.level;
+              
+              // Normalisiere level zu 'h2', 'h3', oder 'h4'
+              if (!level) {
+                level = 'h3'; // Standard
+              } else if (typeof level === 'number') {
+                // Zahl: 2 -> h2, 3 -> h3, 4 -> h4
+                if (level === 2) level = 'h2';
+                else if (level === 3) level = 'h3';
+                else if (level === 4) level = 'h4';
+                else level = 'h3'; // Fallback
+              } else if (typeof level === 'string') {
+                // String: 'h2', 'h3', 'h4', '2', '3', '4'
+                level = level.toLowerCase();
+                if (level === '2') level = 'h2';
+                else if (level === '3') level = 'h3';
+                else if (level === '4') level = 'h4';
+                // Wenn bereits 'h2', 'h3', 'h4', bleibt es so
+                if (!level.startsWith('h')) {
+                  level = 'h' + level;
+                }
+              }
+              
+              // Einrückung: h2/h3 keine zusätzliche Einrückung, h4 eine Position weiter
+              // WICHTIG: Für GA001 sollen H4-Überschriften eingerückt werden
+              const indent = (level === 'h4') ? 'padding-left: 1.5rem;' : '';
+              
+              return `
+              <div style="margin-bottom: 0.3rem; ${indent}">
+                <a href="#" 
+                   onclick="navigateToLectureHeading('${lectureId}', '${escapedHeading}'); return false;"
+                   style="color: var(--link-color); text-decoration: none; font-size: var(--text-size); line-height: var(--line-height);"
+                   onmouseover="this.style.textDecoration='underline'"
+                   onmouseout="this.style.textDecoration='none'"
+                >${headingText}</a>
+              </div>
+            `;
+            }).filter(html => html !== '').join('')}
+          </div>
+        `;
       }
       
       html += `
@@ -18632,11 +18777,12 @@ async function showGALectures(gaNumber, skipHistory = false) {
             ">
               ${shortSummary}
             </div>
-          ` : `
+          ` : (isEssayBand ? '' : `
             <div class="ga-missing-text" style="font-style: italic; font-size: 0.9rem;">
               Keine Kurzzusammenfassung verfügbar
             </div>
-          `}
+          `)}
+          ${tocHtml}
         </div>
       `;
     });
@@ -20253,8 +20399,110 @@ function scrollToChronologicalYear(year) {
       }
     }
     
+    // Navigiere zu einer spezifischen Überschrift in einem Vortrag (für GA001/GA018 Inhaltsverzeichnis)
+    // Verwendet exakt den gleichen Code wie die TOC-Links im Side Panel
+    async function navigateToLectureHeading(lectureId, headingText) {
+      try {
+        if (!lectureId || !headingText) {
+          console.error('[NAVIGATION] Keine Lecture-ID oder Überschrift angegeben');
+          return;
+        }
+        
+        console.log('[NAV-HEADING] Navigiere zu Überschrift:', headingText, 'in', lectureId);
+        
+        // Speichere Ziel-Überschrift global für späteres Scrollen
+        window._pendingHeadingScroll = headingText;
+        window.skipParagraphHighlight = true;
+        
+        // Wechsle zum Texte-Tab
+        switchTab('texte', true);
+        
+        // Extrahiere GA-Nummer
+        const gaNumber = lectureId.split('/')[0];
+        
+        // Setze den GA-Filter
+        const texteGAFilter = document.getElementById('texteGAFilter');
+        if (texteGAFilter && gaNumber) {
+          texteGAFilter.value = gaNumber;
+        }
+        
+        // Lade den Vortrag
+        await showLecture(lectureId, null, []);
+        
+        // Scrolle zur Überschrift - exakt wie activateTOCLinks
+        const scrollToTargetHeading = () => {
+          const targetText = window._pendingHeadingScroll;
+          if (!targetText) return false;
+          
+          const viewer = document.getElementById('viewer');
+          const mainContainer = document.getElementById('main');
+          if (!viewer || !mainContainer) return false;
+          
+          // Find the H2, H3 or H4 heading that matches (exakt wie TOC-Links)
+          const headings = viewer.querySelectorAll('h2, h3, h4');
+          let foundHeading = null;
+          const searchText = targetText.trim();
+          
+          for (const heading of headings) {
+            const headingTextContent = heading.textContent.trim();
+            
+            // Try exact match first
+            if (headingTextContent === searchText) {
+              foundHeading = heading;
+              break;
+            }
+            
+            // Try case-insensitive match
+            if (headingTextContent.toLowerCase() === searchText.toLowerCase()) {
+              foundHeading = heading;
+              break;
+            }
+            
+            // Try partial match (contains)
+            if (headingTextContent.includes(searchText) || searchText.includes(headingTextContent)) {
+              foundHeading = heading;
+              break;
+            }
+          }
+          
+          if (foundHeading) {
+            const header = document.getElementById('viewer-header');
+            const headerHeight = header ? header.offsetHeight + 5 : 5;
+            
+            const mainRect = mainContainer.getBoundingClientRect();
+            const headingRect = foundHeading.getBoundingClientRect();
+            const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+            
+            // Direkt springen (nicht smooth)
+            mainContainer.scrollTop = Math.max(0, relativeTop);
+            
+            window._pendingHeadingScroll = null;
+            return true;
+          }
+          return false;
+        };
+        
+        // Versuche mehrmals mit kurzen Intervallen (50ms für schnellere Reaktion)
+        let attempts = 0;
+        const tryScroll = setInterval(() => {
+          attempts++;
+          if (scrollToTargetHeading() || attempts > 30) {
+            clearInterval(tryScroll);
+            window._pendingHeadingScroll = null;
+            window.skipParagraphHighlight = false;
+          }
+        }, 50);
+        
+      } catch (error) {
+        console.error('[NAVIGATION] Fehler beim Navigieren zur Überschrift:', error);
+        window._pendingHeadingScroll = null;
+        window.skipParagraphHighlight = false;
+      }
+    }
+    
     // Stelle Funktionen im globalen Scope verfügbar für onclick-Attribute
     window.navigateToLectureInTexteTab = navigateToLectureInTexteTab;
+    window.navigateToLectureHeading = navigateToLectureHeading;
 
     // Navigiere zum Texte-Tab und zeige Book mit spezifischer Überschrift
     // WICHTIG: Muss auch im globalen Scope sein für onclick-Attribute im GA-Tab
