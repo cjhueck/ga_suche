@@ -18372,6 +18372,31 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
     
+    // WICHTIG: Deaktiviere Wandtafeln-Ansicht falls aktiv und stelle Scroll-Verhalten wieder her
+    if (isChalkboardsViewActive) {
+      isChalkboardsViewActive = false;
+      selectedChalkboardsYearFilter = null;
+      const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
+      if (chalkboardsBtn) {
+        chalkboardsBtn.style.background = 'transparent';
+        chalkboardsBtn.style.color = 'var(--accent-color)';
+        chalkboardsBtn.classList.remove('active');
+      }
+      removeChalkboardsYearButtons();
+      hideChalkboardsButtons();
+    }
+    
+    // WICHTIG: Stelle Scroll-Verhalten von #main wieder her (wurde bei Wandtafeln auf hidden gesetzt)
+    const mainElement = document.getElementById('main');
+    if (mainElement) {
+      mainElement.style.overflow = '';
+      mainElement.style.height = '';
+      mainElement.style.setProperty('padding-top', '0.5rem', 'important');
+      mainElement.style.setProperty('padding-right', '0', 'important');
+      mainElement.style.setProperty('padding-bottom', '2rem', 'important');
+      mainElement.style.setProperty('padding-left', '0', 'important');
+    }
+    
     // Entferne chronologische Jahres-Buttons, falls vorhanden
     if (typeof removeChronologicalYearButtons === 'function') {
       removeChronologicalYearButtons();
