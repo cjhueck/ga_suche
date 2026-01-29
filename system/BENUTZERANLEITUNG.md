@@ -10,6 +10,17 @@
 
 - **Mitgliederbereich**: Nach Anmeldung Zitate, Bookmarks und Themenabfragen abspeichern, mit Schlagworten versehen, ordnen und kommentieren
 
+---
+
+#### Tastenkombinationen
+
+- **Strg+Klick**: Kurzinformation
+- **Strg+F**: Suchen im Haupt-Textfenster
+- **Alt+Klick** (im Text): Rechtschreibfehler markieren
+- **Text markieren+Rechtsklick**: Markierungen speichern (für Mitglieder, Anmeldung oben rechts)
+
+---
+
 Suche, Themen, Timeline und Schlagwörter sind mit den entsprechenden Quellen verlinkt.
 Die Fenster können über die **drei blauen Punkte** geöffnet und geschlossen werden.
 Das rechte Seitenfenster zeigt Zwischenüberschriften zu den angezeigten Vorträgen; oben rechts kann man zwischen zwei Überschriftenniveaus wechseln. 
