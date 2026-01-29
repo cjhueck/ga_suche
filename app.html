@@ -10528,13 +10528,16 @@ function isEssayVolume(gaNumber) {
 }
 
 // Prüft ob eine GA-Nummer ein Aufsatzband ist, bei dem max. eine Überschrift pro Absatz gilt
-// Betrifft: GA018, GA019, GA024, GA026, GA029-GA036 (nicht GA046)
+// Betrifft: GA018, GA019, GA024, GA029-GA036 (nicht GA046)
+// WICHTIG: GA026 ist ausgenommen - dort sollen alle Überschriften (H2, H3, H4) angezeigt werden
 function isEssayWithSingleHeading(gaNumber) {
   if (!gaNumber) return false;
   const match = gaNumber.match(/GA0?(\d+)/i);
   if (!match) return false;
   const num = parseInt(match[1]);
-  return num === 18 || num === 19 || num === 24 || num === 26 || (num >= 29 && num <= 36);
+  // GA026 ist ausgenommen - dort werden H2-Tags aus Content + alle vorhandenen Überschriften angezeigt
+  if (num === 26) return false;
+  return num === 18 || num === 19 || num === 24 || (num >= 29 && num <= 36);
 }
 
 // Entfernt manuelle Überschriften (H2, H3, H4) aus dem Content für Aufsatzbände
@@ -17145,6 +17148,36 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Rendere Absatz
       const isTargetPara = targetIndex && paraIndex === String(targetIndex).replace(/^\^/, '');
       let content = para.content || para.text || '';
+      
+      // NUR FÜR GA026: Extrahiere H2/H3-Tags aus dem Content und rendere sie als separate Überschriften
+      // (für GA026 Leitsätze: <h2>Leitsätze Nr. 1 bis 3 (17. Februar 1924)</h2>)
+      // Diese werden VOR dem Absatz-Div gerendert, damit sie im TOC erscheinen
+      // H3-Tags können auch Attribute haben: <h3 data-index="...">1.</h3>
+      // Prüfe auf GA026, GA26, GA026/1, etc.
+      const isGA026 = bookId && (bookId.toUpperCase().startsWith('GA026') || bookId.toUpperCase().startsWith('GA26/') || bookId.toUpperCase() === 'GA26');
+      if (isGA026) {
+        const contentHeadings = [];
+        let headingMatch;
+        // Extrahiere alle H2/H3-Tags am Anfang des Contents (mit oder ohne Attribute)
+        // Pattern matcht: <h2>text</h2> oder <h3 data-index="...">text</h3>
+        while ((headingMatch = content.match(/^<h([23])(?:\s[^>]*)?>(.+?)<\/h\1>\s*\n?/i)) !== null) {
+          const level = headingMatch[1];
+          const headingText = headingMatch[2].trim();
+          const headingId = `content-heading-${paraIndex}-${contentHeadings.length}`;
+          contentHeadings.push({ level: `h${level}`, text: headingText, id: headingId });
+          // Entferne die Überschrift aus dem Content
+          content = content.substring(headingMatch[0].length);
+        }
+        
+        // Rendere extrahierte Content-Überschriften VOR dem Absatz
+        contentHeadings.forEach((ch) => {
+          paraHtml += `
+            <${ch.level} id="${ch.id}" class="content-extracted-heading">
+              ${ch.text}
+            </${ch.level}>
+          `;
+        });
+      }
       
       // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
       content = formatParagraphContentForDisplay(content);
@@ -28425,6 +28458,32 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
+    // NUR FÜR GA026: Extrahiere H2/H3-Tags aus dem Content und rendere sie als separate Überschriften
+    // BEVOR sie durch removeManualHeadingsFromContent() entfernt werden
+    // Diese erscheinen dann im TOC (rechtes Side Panel)
+    const isGA026Summary = gaNumber && (gaNumber.toUpperCase() === 'GA026' || gaNumber.toUpperCase() === 'GA26');
+    if (isGA026Summary) {
+      let headingMatch;
+      let extractedCount = 0;
+      // Extrahiere alle H2/H3-Tags am Anfang des Contents (mit oder ohne Attribute)
+      // Pattern matcht: <h2>text</h2> oder <h3 data-index="...">text</h3>
+      while ((headingMatch = content.match(/^<h([23])(?:\s[^>]*)?>(.+?)<\/h\1>\s*\n?/i)) !== null) {
+        const level = headingMatch[1];
+        const headingText = headingMatch[2].trim();
+        const headingId = `content-heading-${paraIndex}-${extractedCount}`;
+        extractedCount++;
+        console.log(`[GA026] Extracted H${level}: "${headingText}"`);
+        // Rendere extrahierte Content-Überschrift
+        html += `
+          <h${level} id="${headingId}" class="content-extracted-heading">
+            ${headingText}
+          </h${level}>
+        `;
+        // Entferne die Überschrift aus dem Content
+        content = content.substring(headingMatch[0].length);
+      }
+    }
+    
     // Debug: Prüfe ob Marker im Original-Content vorhanden sind
     const markersInOriginal = content.match(/\|\d{1,4}\|/g);
     if (markersInOriginal && markersInOriginal.length > 0) {
@@ -28449,9 +28508,10 @@ function showSummaryView() {
     // NEU: Auch für Briefe (GA262, GA263a) und andere Vorträge mit Headings
     // WICHTIG: Nur entfernen wenn tatsächlich Überschriften aus dem headings-Array angezeigt wurden
     // AUSNAHME: GA046 behält manuelle Überschriften (keine AI-Summaries/Headings)
+    // AUSNAHME: GA026 - H2/H3 wurden bereits oben extrahiert und gerendert
     const hasHeadingsFromArray = sortedHeadings.length > 0;
     const isEssayButNotGA046 = gaNumber && isEssayVolume(gaNumber) && !isGA046(gaNumber);
-    if (isEssayButNotGA046 || hasHeadingsFromArray) {
+    if ((isEssayButNotGA046 || hasHeadingsFromArray) && !isGA026Summary) {
       content = removeManualHeadingsFromContent(content);
     }
     
@@ -32857,6 +32917,32 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const isTargetPara = cleanIndex && paraIndex === cleanIndex;
           
           let content = para.content || para.text || '';
+          
+          // NUR FÜR GA026: Extrahiere H2/H3-Tags aus dem Content und rendere sie als separate Überschriften
+          // (für GA026 Leitsätze: <h2>Leitsätze Nr. 1 bis 3 (17. Februar 1924)</h2>)
+          // Diese werden VOR dem Absatz-Div gerendert, damit sie im TOC erscheinen
+          // H3-Tags können auch Attribute haben: <h3 data-index="...">1.</h3>
+          const isGA026Lecture = gaNumber && (gaNumber.toUpperCase() === 'GA026' || gaNumber.toUpperCase() === 'GA26');
+          if (isGA026Lecture) {
+            let headingMatch;
+            let extractedCount = 0;
+            // Extrahiere alle H2/H3-Tags am Anfang des Contents (mit oder ohne Attribute)
+            // Pattern matcht: <h2>text</h2> oder <h3 data-index="...">text</h3>
+            while ((headingMatch = content.match(/^<h([23])(?:\s[^>]*)?>(.+?)<\/h\1>\s*\n?/i)) !== null) {
+              const level = headingMatch[1];
+              const headingText = headingMatch[2].trim();
+              const headingId = `content-heading-${paraIndex}-${extractedCount}`;
+              extractedCount++;
+              // Rendere extrahierte Content-Überschrift
+              html += `
+                <h${level} id="${headingId}" class="content-extracted-heading">
+                  ${headingText}
+                </h${level}>
+              `;
+              // Entferne die Überschrift aus dem Content
+              content = content.substring(headingMatch[0].length);
+            }
+          }
           
           // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
           content = formatParagraphContentForDisplay(content);
