@@ -4561,16 +4561,26 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       margin-top: 0 !important;
     }
     
-    /* H2 im Viewer wie H3 darstellen */
-    #viewer h2,
+    /* H2 im Viewer wie H3 darstellen - NOCH KLEINERE ABSTÄNDE für Bücher und Aufsatzbände */
+    /* WICHTIG: Hohe Spezifität für Bücher und Aufsatzbände */
+    /* DEBUG: Prüfe ob Überschriften innerhalb oder außerhalb von .paragraph stehen */
+    #viewer h2:not(.concept-network-title),
     #viewer h3:not(.concept-network-title),
+    #viewer .book-content h2,
     #viewer .book-content h3,
+    #viewer .ga-lectures-container h2,
     #viewer .ga-lectures-container h3,
-    #viewer-content h3,
+    #viewer-content h2:not(.concept-network-title),
+    #viewer-content h3:not(.concept-network-title),
+    #viewer-content .book-content h2,
     #viewer-content .book-content h3,
+    #viewer-content .ga-lectures-container h2,
     #viewer-content .ga-lectures-container h3 {
       font-size: 0.9rem !important;
-      margin: 1.2rem 0 0.25rem 0 !important; /* Größerer Abstand vor H3 */
+      margin-top: 0.5rem !important; /* Noch weiter reduziert */
+      margin-bottom: 0.1rem !important; /* Noch weiter reduziert */
+      margin-left: 0 !important;
+      margin-right: 0 !important;
       font-weight: 700 !important;
       color: var(--link-color) !important;
       display: block;
@@ -4585,12 +4595,40 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #viewer-content .book-content h4,
     #viewer-content .ga-lectures-container h4 {
       font-size: 0.9rem !important;
-      margin: 0.4rem 0 0.25rem 0 !important; /* Verringerte Abstände */
+      margin-top: 0.2rem !important; /* Noch weiter reduziert */
+      margin-bottom: 0.08rem !important; /* Noch weiter reduziert */
+      margin-left: 0 !important;
+      margin-right: 0 !important;
       font-weight: normal !important;
       color: var(--link-color) !important;
       display: block;
       line-height: 1.3 !important;
       text-align: left !important;
+    }
+    
+    /* DEBUG: Test-Regel mit höchster Spezifität - sollte ALLE anderen Regeln überschreiben */
+    #viewer-content .book-content h3 + h4,
+    #viewer-content .book-content h3 + .paragraph,
+    #viewer-content .book-content h4 + h4,
+    #viewer-content .book-content h4 + .paragraph {
+      /* Diese Regel zeigt, ob die Struktur korrekt ist */
+    }
+    
+    /* WICHTIG: Überschreibe ALLE möglichen Regeln für Überschriften in .book-content */
+    #viewer #viewer-content .book-content h2,
+    #viewer #viewer-content .book-content h3,
+    #viewer #viewer-content .book-content h4,
+    #viewer-content .book-content h2,
+    #viewer-content .book-content h3,
+    #viewer-content .book-content h4 {
+      margin-top: 0.5rem !important;
+      margin-bottom: 0.1rem !important;
+    }
+    
+    #viewer #viewer-content .book-content h4,
+    #viewer-content .book-content h4 {
+      margin-top: 0.2rem !important;
+      margin-bottom: 0.08rem !important;
     }
     
     /* Dark Mode für Viewer */
@@ -17472,7 +17510,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     
     const bookGANumber = book.gaNumber || book.ID;
     
-    headings.forEach(heading => {
+    headings.forEach((heading, idx) => {
       const level = heading.level || 'h3';
       const headingText = heading.text || heading.title || 'Überschrift';
       // headings aus summary-database haben 'index', nicht 'id'
@@ -17481,13 +17519,23 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       const headingIndex = rawIndex.replace(/^\^/, '');
       const indent = level === 'h4' || level === 4 ? 'padding-left: 1.5rem;' : '';
       
-      // Unterschiedliche Schriftgrößen für H3 und H4 (wie im Viewer)
-      // H3 (z.B. "ZUR EINFÜHRUNG", "ERSTER BAND", "VORREDE ZUR NEU-AUFLAGE"): größere Schrift
+      // Unterschiedliche Schriftgrößen für H2/H3 und H4
+      // H2/H3 (z.B. "ZUR EINFÜHRUNG", "ERSTER BAND", "VORREDE ZUR NEU-AUFLAGE"): größere Schrift
       // H4 (z.B. "I. Einleitung", "1. Ausgangspunkt"): kleinere Schrift
       const fontSize = (level === 'h4' || level === 4) ? '0.9em' : '0.95em';
       
+      // H3-Überschriften bekommen größeren Abstand davor (margin-top)
+      // Bei Büchern ist H3 die Hauptebene (z.B. "VORREDE ZUR NEU-AUFLAGE")
+      const isMainHeading = (level === 'h3' || level === 3 || level === 'h2' || level === 2);
+      const marginTop = isMainHeading ? 'margin-top: 0.8rem;' : '';
+      
+      // Debug: Zeige Level für erste 5 Überschriften
+      if (idx < 5) {
+        console.log('[BOOK-TOC]', idx, headingText.substring(0, 30), '→ Level:', level, '→ isMain:', isMainHeading);
+      }
+      
       html += `
-        <div style="margin-bottom: 0.5rem; ${indent}">
+        <div style="margin-bottom: 0.2rem; ${marginTop} ${indent}">
           <a href="#" 
              onclick="event.preventDefault(); navigateToBookHeadingInTexteTab('${bookGANumber}', '${headingIndex}'); return false;"
              style="text-decoration: none; color: var(--link-color); font-size: ${fontSize};"
@@ -18483,6 +18531,20 @@ async function showGALectures(gaNumber, skipHistory = false) {
       hideChalkboardsButtons();
     }
     
+    // WICHTIG: Entferne auch WZ-Galerie-Elemente falls vorhanden
+    const chalkboardsWrapper = document.getElementById('chalkboards-year-nav-wrapper');
+    if (chalkboardsWrapper) {
+      chalkboardsWrapper.remove();
+    }
+    const chalkboardsYearNav = document.getElementById('chalkboards-year-nav');
+    if (chalkboardsYearNav) {
+      chalkboardsYearNav.remove();
+    }
+    const chalkboardsGalleryContent = document.getElementById('chalkboards-gallery-content');
+    if (chalkboardsGalleryContent) {
+      chalkboardsGalleryContent.remove();
+    }
+    
     // WICHTIG: Stelle Scroll-Verhalten von #main wieder her (wurde bei Wandtafeln auf hidden gesetzt)
     const mainElement = document.getElementById('main');
     if (mainElement) {
@@ -18650,26 +18712,20 @@ async function showGALectures(gaNumber, skipHistory = false) {
       let headingsForTOC = [];
       if (showTableOfContents) {
         // Lade headings direkt - diese enthalten alle Überschriften mit Ebenen (H3 und H4)
+        // WICHTIG: lecture.headings kommt vom Backend und kann bereits die Überschriften enthalten
         headingsForTOC = lecture.headings || summaryDB[lectureId]?.headings || [];
         
-        // Debug für GA001
-        if (lectureId.includes('GA001') && headingsForTOC.length === 0) {
-          console.warn('[GA001-TOC] Keine headings gefunden für', lectureId);
-          console.log('[GA001-TOC] lecture.headings:', lecture.headings);
-          console.log('[GA001-TOC] summaryDB[' + lectureId + ']:', summaryDB[lectureId]);
-          // Versuche alternative ID-Formate
-          const altIds = [
-            lectureId.replace('/', '-'),
-            lectureId.replace('GA001/', 'GA001-'),
-            'GA001-' + lectureId.split('/')[1]
-          ];
-          for (const altId of altIds) {
-            if (summaryDB[altId]?.headings?.length > 0) {
-              console.log('[GA001-TOC] Gefunden mit alternativer ID:', altId);
-              headingsForTOC = summaryDB[altId].headings;
-              break;
-            }
-          }
+        // Debug für GA001: Zeige was geladen wurde
+        if (lectureId.includes('GA001')) {
+          console.log('[GA001-TOC] Überschriften für', lectureId, ':', {
+            ausLecture: lecture.headings?.length || 0,
+            ausSummaryDB: summaryDB[lectureId]?.headings?.length || 0,
+            final: headingsForTOC.length,
+            erste3: headingsForTOC.slice(0, 3).map(h => ({
+              text: h.text || h.title || h,
+              level: h.level
+            }))
+          });
         }
       }
       
@@ -18733,9 +18789,10 @@ async function showGALectures(gaNumber, skipHistory = false) {
                 }
               }
               
-              // Einrückung: h2/h3 keine zusätzliche Einrückung, h4 eine Position weiter
-              // WICHTIG: Für GA001 sollen H4-Überschriften eingerückt werden
-              const indent = (level === 'h4') ? 'padding-left: 1.5rem;' : '';
+              // Einrückung NUR für Überschriften mit arabischen Nummern (1., 2., 3., etc.)
+              // z.B. "1. Methodologie", "1." wird eingerückt, "I. Einleitung" oder "X. Wissen und Handeln" nicht
+              const hasArabicNumber = /^\d+\.(\s|$)/.test(headingText);
+              const indent = hasArabicNumber ? 'padding-left: 1.5rem;' : '';
               
               return `
               <div style="margin-bottom: 0.3rem; ${indent}">
