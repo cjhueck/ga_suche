@@ -10,6 +10,24 @@ const { promisify } = require('util');
 const execAsync = promisify(exec);
 const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
 
+// ============================================================================
+// SUPABASE CLIENT für persistente Analytics
+// ============================================================================
+const { createClient } = require('@supabase/supabase-js');
+
+// Supabase-Credentials (aus members-integration-standalone.js)
+const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
+
+// Supabase Client erstellen
+let supabaseClient = null;
+try {
+  supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  console.log('[SUPABASE] Client erfolgreich initialisiert');
+} catch (error) {
+  console.error('[SUPABASE] Fehler bei Initialisierung:', error.message);
+}
+
 const app = express();
 const PORT = process.env.PORT || 3003; // Render setzt PORT-Umgebungsvariable
 
@@ -23135,16 +23153,112 @@ app.get('/api/backups/list/:type', async (req, res) => {
 });
 
 // ============================================================
-// ANALYTICS-SYSTEM: Einfache Nutzungsstatistiken
+// ANALYTICS-SYSTEM: Persistente Nutzungsstatistiken mit Supabase
 // ============================================================
 
+// Aktuelles Datum als String (YYYY-MM-DD)
+function getDateKey() {
+  return new Date().toISOString().split('T')[0];
+}
+
+// ============================================================
+// SUPABASE ANALYTICS FUNKTIONEN (Neue persistente Speicherung)
+// ============================================================
+
+// Inkrementiere Analytics in Supabase (über RPC-Funktion)
+async function incrementSupabaseAnalytics(type) {
+  if (!supabaseClient) {
+    console.warn('[ANALYTICS-SUPABASE] Kein Supabase-Client verfügbar');
+    return false;
+  }
+  
+  const today = getDateKey();
+  const views = type === 'view' ? 1 : 0;
+  const searches = type === 'search' ? 1 : 0;
+  const lectures = type === 'lecture' ? 1 : 0;
+  
+  try {
+    // Rufe die Supabase-Funktion auf (definiert in supabase-analytics.sql)
+    const { error } = await supabaseClient.rpc('increment_analytics', {
+      p_date: today,
+      p_views: views,
+      p_searches: searches,
+      p_lectures: lectures
+    });
+    
+    if (error) {
+      console.error('[ANALYTICS-SUPABASE] RPC Fehler:', error.message);
+      return false;
+    }
+    
+    console.log(`[ANALYTICS-SUPABASE] ✓ ${type} getrackt für ${today}`);
+    return true;
+  } catch (error) {
+    console.error('[ANALYTICS-SUPABASE] Fehler:', error.message);
+    return false;
+  }
+}
+
+// Lade Analytics-Daten aus Supabase
+async function loadAnalyticsFromSupabase() {
+  if (!supabaseClient) {
+    console.warn('[ANALYTICS-SUPABASE] Kein Supabase-Client verfügbar');
+    return null;
+  }
+  
+  try {
+    // Lade tägliche Statistiken
+    const { data: dailyData, error: dailyError } = await supabaseClient
+      .from('analytics_daily')
+      .select('*')
+      .order('date', { ascending: false });
+    
+    if (dailyError) {
+      console.error('[ANALYTICS-SUPABASE] Fehler beim Laden der Daily Stats:', dailyError.message);
+      return null;
+    }
+    
+    // Lade Gesamtwerte
+    const { data: totalsData, error: totalsError } = await supabaseClient
+      .from('analytics_totals')
+      .select('*')
+      .eq('id', 1)
+      .single();
+    
+    if (totalsError && totalsError.code !== 'PGRST116') { // PGRST116 = no rows returned
+      console.error('[ANALYTICS-SUPABASE] Fehler beim Laden der Totals:', totalsError.message);
+    }
+    
+    // Konvertiere zu altem Format für Kompatibilität
+    const dailyStats = {};
+    if (dailyData) {
+      dailyData.forEach(row => {
+        dailyStats[row.date] = {
+          views: row.views || 0,
+          searches: row.searches || 0,
+          lectures: row.lectures || 0
+        };
+      });
+    }
+    
+    return {
+      dailyStats,
+      totalViews: totalsData?.total_views || 0,
+      totalSearches: totalsData?.total_searches || 0,
+      totalLectureViews: totalsData?.total_lectures || 0,
+      source: 'supabase'
+    };
+  } catch (error) {
+    console.error('[ANALYTICS-SUPABASE] Fehler:', error.message);
+    return null;
+  }
+}
+
+// Alte JSON-basierte Funktionen als Fallback behalten (aber mit Supabase als Primär)
 const ANALYTICS_FILE = path.join(__dirname, 'analytics-data.json');
 const ANALYTICS_BACKUP_DIR = path.join(__dirname, 'backups', 'analytics');
-
-// Queue für Analytics-Schreibvorgänge (verhindert Race Conditions)
 let analyticsWriteQueue = Promise.resolve();
 
-// Stelle sicher, dass das Backup-Verzeichnis existiert
 async function ensureAnalyticsBackupDir() {
   try {
     await fs.mkdir(ANALYTICS_BACKUP_DIR, { recursive: true });
@@ -23153,14 +23267,21 @@ async function ensureAnalyticsBackupDir() {
   }
 }
 
-// Analytics-Daten laden oder initialisieren
+// Analytics-Daten laden - PRIMÄR aus Supabase, Fallback auf JSON
 async function loadAnalyticsData() {
+  // Versuche zuerst Supabase
+  const supabaseData = await loadAnalyticsFromSupabase();
+  if (supabaseData) {
+    console.log('[ANALYTICS] Daten aus Supabase geladen');
+    return supabaseData;
+  }
+  
+  // Fallback auf lokale JSON-Datei
+  console.log('[ANALYTICS] Fallback auf lokale JSON-Datei');
   try {
     const data = await fs.readFile(ANALYTICS_FILE, 'utf8');
     const parsed = JSON.parse(data);
     
-    // WICHTIG: Berechne kumulative Werte IMMER neu aus täglichen Daten
-    // Das stellt sicher, dass die Werte korrekt sind, auch wenn die Datei beschädigt wurde
     let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
     if (parsed.dailyStats && typeof parsed.dailyStats === 'object') {
       for (const key of Object.keys(parsed.dailyStats)) {
@@ -23173,199 +23294,67 @@ async function loadAnalyticsData() {
       }
     }
     
-    // Aktualisiere die kumulativen Werte in den Daten
     parsed.totalViews = cumulativeViews;
     parsed.totalSearches = cumulativeSearches;
     parsed.totalLectureViews = cumulativeLectures;
+    parsed.source = 'json-fallback';
     
-    // Stelle sicher, dass alle benötigten Felder vorhanden sind
     if (!parsed.dailyStats) parsed.dailyStats = {};
-    if (!parsed.topSearches) parsed.topSearches = {};
-    if (!parsed.topLectures) parsed.topLectures = {};
-    
-    // WICHTIG: Speichere NICHT automatisch beim Laden, um Endlosschleifen zu vermeiden
-    // Speichern wird nur bei expliziten Änderungen durchgeführt (trackSearch, etc.)
-    // await saveAnalyticsData(parsed); // DEAKTIVIERT - verursacht Endlosschleife
     
     return parsed;
   } catch (error) {
     console.warn('[ANALYTICS] Fehler beim Laden, initialisiere neue Datei:', error.message);
     return {
-      dailyStats: {},      // { "2025-12-27": { views: 10, searches: 5, lectures: 3 } }
-      topSearches: {},     // { "karma": 15, "christus": 12 }
-      topLectures: {},     // { "GA013": 8, "GA009/3": 5 }
+      dailyStats: {},
       totalViews: 0,
       totalSearches: 0,
-      totalLectureViews: 0
+      totalLectureViews: 0,
+      source: 'new'
     };
   }
 }
 
-// Analytics-Daten speichern (mit Queue-System gegen Race Conditions)
-async function saveAnalyticsData(data) {
-  return new Promise((resolve, reject) => {
-    // Füge Schreibvorgang zur Queue hinzu (verhindert Race Conditions)
-    analyticsWriteQueue = analyticsWriteQueue.then(async () => {
-      try {
-        // WICHTIG: Lade direkt aus Datei (NICHT über loadAnalyticsData() um Endlosschleife zu vermeiden)
-        let currentData = data; // Standard: verwende übergebene Daten
-        try {
-          if (fsSync.existsSync(ANALYTICS_FILE)) {
-            const fileContent = await fs.readFile(ANALYTICS_FILE, 'utf8');
-            currentData = JSON.parse(fileContent);
-            
-            // Merge: Behalte existierende Werte und aktualisiere nur geänderte Felder
-            // Dies stellt sicher, dass gleichzeitige Updates nicht verloren gehen
-            if (currentData.dailyStats && data.dailyStats) {
-              // Merge dailyStats: Behalte höhere Werte (falls es Race Conditions gab)
-              for (const dateKey in data.dailyStats) {
-                if (currentData.dailyStats[dateKey]) {
-                  // Behalte den höheren Wert (könnte durch Race Condition entstanden sein)
-                  currentData.dailyStats[dateKey] = {
-                    views: Math.max(currentData.dailyStats[dateKey].views || 0, data.dailyStats[dateKey].views || 0),
-                    searches: Math.max(currentData.dailyStats[dateKey].searches || 0, data.dailyStats[dateKey].searches || 0),
-                    lectures: Math.max(currentData.dailyStats[dateKey].lectures || 0, data.dailyStats[dateKey].lectures || 0)
-                  };
-                } else {
-                  currentData.dailyStats[dateKey] = data.dailyStats[dateKey];
-                }
-              }
-            } else if (data.dailyStats) {
-              currentData.dailyStats = data.dailyStats;
-            }
-            
-            // topSearches und topLectures werden nicht mehr verwendet/gespeichert
-          }
-        } catch (loadError) {
-          // Falls Laden fehlschlägt, verwende übergebene Daten
-          console.warn('[ANALYTICS SAVE] Fehler beim Laden der aktuellen Datei:', loadError.message);
-          currentData = data;
-        }
-        
-        // WICHTIG: Berechne kumulative Werte IMMER neu vor dem Speichern
-        // Das stellt sicher, dass die Werte immer korrekt sind
-        let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
-        if (currentData.dailyStats && typeof currentData.dailyStats === 'object') {
-          for (const key of Object.keys(currentData.dailyStats)) {
-            const dayData = currentData.dailyStats[key];
-            if (dayData && typeof dayData === 'object') {
-              cumulativeViews += dayData.views || 0;
-              cumulativeSearches += dayData.searches || 0;
-              cumulativeLectures += dayData.lectures || 0;
-            }
-          }
-        }
-        
-        // Aktualisiere die kumulativen Werte
-        currentData.totalViews = cumulativeViews;
-        currentData.totalSearches = cumulativeSearches;
-        currentData.totalLectureViews = cumulativeLectures;
-        
-        // Stelle sicher, dass alle Felder vorhanden sind
-        if (!currentData.dailyStats) currentData.dailyStats = {};
-        if (!currentData.topSearches) currentData.topSearches = {};
-        if (!currentData.topLectures) currentData.topLectures = {};
-        
-        // Speichere mit atomarer Operation (erst Backup, dann schreiben)
-        const backupFile = ANALYTICS_FILE + '.backup';
-        try {
-          // Erstelle Backup falls Datei existiert
-          if (fsSync.existsSync(ANALYTICS_FILE)) {
-            const backupContent = await fs.readFile(ANALYTICS_FILE, 'utf8');
-            await fs.writeFile(backupFile, backupContent, 'utf8');
-          }
-        } catch (backupError) {
-          console.warn('[ANALYTICS] Backup konnte nicht erstellt werden:', backupError.message);
-        }
-        
-        // Schreibe neue Datei
-        await fs.writeFile(ANALYTICS_FILE, JSON.stringify(currentData, null, 2), 'utf8');
-        
-        // Lösche Backup nach erfolgreichem Schreiben
-        try {
-          if (fsSync.existsSync(backupFile)) {
-            await fs.unlink(backupFile);
-          }
-        } catch (unlinkError) {
-          // Ignoriere Fehler beim Löschen des Backups
-        }
-        
-        resolve(currentData);
-      } catch (e) {
-        console.error('[ANALYTICS] Fehler beim Speichern:', e.message);
-        // Versuche Backup wiederherzustellen falls Schreiben fehlgeschlagen ist
-        const backupFile = ANALYTICS_FILE + '.backup';
-        try {
-          if (fsSync.existsSync(backupFile)) {
-            const backupContent = await fs.readFile(backupFile, 'utf8');
-            await fs.writeFile(ANALYTICS_FILE, backupContent, 'utf8');
-            console.log('[ANALYTICS] Backup wiederhergestellt nach Fehler');
-          }
-        } catch (restoreError) {
-          console.error('[ANALYTICS] Backup-Wiederherstellung fehlgeschlagen:', restoreError.message);
-        }
-        reject(e);
-      }
-    }).catch(error => {
-      console.error('[ANALYTICS] Queue-Fehler:', error);
-      reject(error);
-    });
-  });
-}
-
-// Aktuelles Datum als String
-function getDateKey() {
-  return new Date().toISOString().split('T')[0];
-}
-
-// Hilfsfunktion: Tracke Suchanfrage direkt im Backend (für externe Anfragen)
+// Tracke Suchanfrage - PRIMÄR nach Supabase
 async function trackSearch(searchTerm) {
-  console.log(`[ANALYTICS] trackSearch aufgerufen mit: "${searchTerm}" (Typ: ${typeof searchTerm})`);
+  console.log(`[ANALYTICS] trackSearch aufgerufen mit: "${searchTerm}"`);
   
   try {
     if (!searchTerm || typeof searchTerm !== 'string' || searchTerm.trim().length === 0) {
       console.log('[ANALYTICS] Überspringe leeren Suchbegriff');
-      return; // Überspringe leere Suchbegriffe
+      return;
     }
     
-    console.log('[ANALYTICS] Lade Analytics-Daten...');
+    // Primär: Supabase
+    const supabaseSuccess = await incrementSupabaseAnalytics('search');
+    if (supabaseSuccess) {
+      console.log(`[ANALYTICS] ✓ Suche in Supabase getrackt`);
+      return;
+    }
+    
+    // Fallback: Lokale JSON-Datei (falls Supabase nicht verfügbar)
+    console.log('[ANALYTICS] Fallback auf lokale JSON-Speicherung');
     const data = await loadAnalyticsData();
     const today = getDateKey();
-    console.log(`[ANALYTICS] Heute: ${today}, Aktuelle Daten geladen`);
     
-    // Initialisiere Tagesstatistik
     if (!data.dailyStats[today]) {
       data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
-      console.log(`[ANALYTICS] Neue Tagesstatistik erstellt für ${today}`);
     }
     
-    // Erhöhe Suchzähler
-    const oldCount = data.dailyStats[today].searches;
     data.dailyStats[today].searches++;
-    console.log(`[ANALYTICS] Suchzähler erhöht: ${oldCount} -> ${data.dailyStats[today].searches}`);
     
-    // Speichere Daten (mit await, damit es wirklich gespeichert wird)
-    console.log('[ANALYTICS] Speichere Analytics-Daten...');
-    await saveAnalyticsData(data);
-    console.log('[ANALYTICS] Daten erfolgreich gespeichert');
-    
-    console.log(`[ANALYTICS] ✓ Suche getrackt (Heute: ${data.dailyStats[today].searches} Suchen)`);
+    // Speichere lokal als Fallback
+    await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+    console.log(`[ANALYTICS] ✓ Suche lokal getrackt (Fallback)`);
   } catch (error) {
-    console.error('[ANALYTICS] ✗ Fehler beim Tracking der Suche:', error.message);
-    console.error('[ANALYTICS] Stack:', error.stack);
-    throw error; // Weiterwerfen, damit der Caller es sieht
+    console.error('[ANALYTICS] ✗ Fehler beim Tracking:', error.message);
   }
 }
 
-// Track-Endpunkt
+// Track-Endpunkt - NUTZT JETZT SUPABASE FÜR PERSISTENTE SPEICHERUNG
 app.post('/api/analytics/track', async (req, res) => {
-  // SEHR PROMINENTES LOGGING - sollte IMMER erscheinen wenn Anfrage ankommt
   console.log('========================================');
   console.log('[ANALYTICS-TRACK] ENDPUNKT AUFGERUFEN!');
   console.log('[ANALYTICS-TRACK] Zeit:', new Date().toISOString());
-  console.log('[ANALYTICS-TRACK] IP:', req.ip || req.connection.remoteAddress);
-  console.log('[ANALYTICS-TRACK] Path:', req.path);
-  console.log('[ANALYTICS-TRACK] Method:', req.method);
   console.log('[ANALYTICS-TRACK] Body:', JSON.stringify(req.body));
   console.log('========================================');
   
@@ -23376,43 +23365,58 @@ app.post('/api/analytics/track', async (req, res) => {
       return res.status(400).json({ error: 'type required' });
     }
     
-    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, value=${value ? value.substring(0, 50) : 'null'}`);
+    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}`);
     
-    const data = await loadAnalyticsData();
-    const today = getDateKey();
-    
-    // Initialisiere Tagesstatistik
-    if (!data.dailyStats[today]) {
-      data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
-    }
-    
+    // Mappe type auf analytics-type
+    let analyticsType;
     switch (type) {
       case 'page_view':
-        data.dailyStats[today].views++;
-        // WICHTIG: Erhöhe kumulative Werte NICHT direkt - saveAnalyticsData berechnet sie neu aus dailyStats
-        console.log(`[ANALYTICS] Page View getrackt (Heute: ${data.dailyStats[today].views})`);
+        analyticsType = 'view';
         break;
-        
       case 'search':
-        data.dailyStats[today].searches++;
-        console.log(`[ANALYTICS] Suche getrackt (Heute: ${data.dailyStats[today].searches})`);
+        analyticsType = 'search';
         break;
-        
       case 'lecture_view':
-        data.dailyStats[today].lectures++;
-        console.log(`[ANALYTICS] Lecture View getrackt (Heute: ${data.dailyStats[today].lectures})`);
+        analyticsType = 'lecture';
         break;
+      default:
+        analyticsType = 'view';
     }
     
-    // KEINE Bereinigung alter Daten - alle Statistiken werden kumulativ gespeichert
-    // Die täglichen Daten bleiben für immer erhalten, um historische Analysen zu ermöglichen
+    // Primär: Supabase (persistent)
+    const supabaseSuccess = await incrementSupabaseAnalytics(analyticsType);
     
-    await saveAnalyticsData(data);
-    console.log(`[ANALYTICS] Daten gespeichert erfolgreich`);
-    res.json({ ok: true });
+    if (supabaseSuccess) {
+      console.log(`[ANALYTICS] ✓ ${type} in Supabase gespeichert (persistent)`);
+      res.json({ ok: true, storage: 'supabase' });
+    } else {
+      // Fallback: Lokale JSON (wird bei Neustart gelöscht, aber besser als nichts)
+      console.log('[ANALYTICS] Supabase nicht verfügbar, verwende lokalen Fallback');
+      const data = await loadAnalyticsData();
+      const today = getDateKey();
+      
+      if (!data.dailyStats[today]) {
+        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
+      }
+      
+      switch (type) {
+        case 'page_view':
+          data.dailyStats[today].views++;
+          break;
+        case 'search':
+          data.dailyStats[today].searches++;
+          break;
+        case 'lecture_view':
+          data.dailyStats[today].lectures++;
+          break;
+      }
+      
+      await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+      console.log(`[ANALYTICS] ✓ ${type} lokal gespeichert (Fallback)`);
+      res.json({ ok: true, storage: 'local-fallback' });
+    }
   } catch (error) {
     console.error('[ANALYTICS] Fehler im Track-Endpunkt:', error.message);
-    console.error('[ANALYTICS] Stack:', error.stack);
     res.status(500).json({ error: error.message });
   }
 });
