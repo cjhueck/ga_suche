@@ -3948,6 +3948,30 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       line-height: 1.4 !important;
     }
     
+    /* KONSISTENTER ABSTAND: Alle ersten Kind-Elemente im viewer-content haben keinen oberen Abstand */
+    /* Der Abstand wird durch viewer-header margin-bottom gesteuert */
+    #viewer-content > *:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* GA-Tab: Konsistente Container-Abstände für alle Inhaltstypen */
+    #viewer-content .ga-lectures-container,
+    #viewer-content .book-content,
+    #viewer-content .chalkboards-grid,
+    #viewer-content .ga-overview-lecture:first-child,
+    #viewer-content > div:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Auch für direkte Kinder ohne spezifische Klasse */
+    #viewer > #viewer-content > div:first-child,
+    #viewer > #viewer-content > p:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
     /* Alle Viewer-Selektoren gelten auch für viewer-content */
     #viewer-content .answer-content,
     #viewer-content .semantic-answer,
@@ -10845,6 +10869,55 @@ function normalizeGANumber(gaNumber) {
         }, 10);
       }
     }
+    
+    // ============================================================
+    // RESIZE OBSERVER: Automatische Anpassung wenn Header-Höhe sich ändert
+    // (z.B. bei mehrzeiligen Titeln)
+    // ============================================================
+    let headerResizeObserver = null;
+    
+    function initHeaderResizeObserver() {
+      const header = document.getElementById('viewer-header');
+      const mainContainer = document.getElementById('main-container');
+      const summaryPanel = document.getElementById('summary-panel');
+      
+      if (!header || !mainContainer) return;
+      
+      // Falls bereits ein Observer existiert, entferne ihn
+      if (headerResizeObserver) {
+        headerResizeObserver.disconnect();
+      }
+      
+      // Erstelle neuen ResizeObserver
+      headerResizeObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          const headerHeight = entry.contentRect.height + 
+            parseFloat(getComputedStyle(header).paddingTop || 0) +
+            parseFloat(getComputedStyle(header).paddingBottom || 0) +
+            parseFloat(getComputedStyle(header).borderTopWidth || 0) +
+            parseFloat(getComputedStyle(header).borderBottomWidth || 0);
+          
+          // Aktualisiere main-container margin-top
+          mainContainer.style.marginTop = Math.ceil(headerHeight) + 'px';
+          
+          // Aktualisiere summary-panel top, falls sichtbar
+          if (summaryPanel && summaryPanel.classList.contains('visible')) {
+            summaryPanel.style.top = (Math.ceil(headerHeight) - 1) + 'px';
+          }
+        }
+      });
+      
+      // Überwache Header-Größenänderungen
+      headerResizeObserver.observe(header);
+    }
+    
+    // Initialisiere Observer nach DOM-Load
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(initHeaderResizeObserver, 100);
+    });
+    
+    // Stelle Funktion global zur Verfügung
+    window.initHeaderResizeObserver = initHeaderResizeObserver;
 
     /**
      * Schließt das Summary Panel über den Header-Button (nur im Themen-Tab)
@@ -18505,7 +18578,8 @@ async function showGALectures(gaNumber, skipHistory = false) {
     });
     
     // Erstelle HTML für Vorträge (KEINE Jahres-Buttons für Vortrags-Bände)
-    let html = '<div class="ga-lectures-container" style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+    // WICHTIG: padding-top: 0 für konsistenten Abstand (Header hat bereits margin-bottom)
+    let html = '<div class="ga-lectures-container" style="padding: 0 2rem 2rem 0; max-width: 900px;">';
     
     let currentYear = null;
     lectures.forEach(lecture => {
