@@ -1718,6 +1718,61 @@ async function generateGAOverview(gaNumber) {
         summaryText = summaryData.summary;
       }
       
+      // Extrahiere Überschriften aus Content für GA001/GA018 wenn keine tableOfContents vorhanden
+      let headingsFromContent = summaryData?.headings || lec.headings || [];
+      let tableOfContentsFromContent = summaryData?.tableOfContents || [];
+      
+      const gaNumForTOC = parseInt(gaNumber.replace(/^GA/i, ''));
+      if ((gaNumForTOC === 1 || gaNumForTOC === 18) && 
+          (!tableOfContentsFromContent || tableOfContentsFromContent.length === 0) &&
+          (!headingsFromContent || headingsFromContent.length === 0)) {
+        // Versuche Überschriften aus den Paragraphen zu extrahieren
+        if (lec.paragraphs && lec.paragraphs.length > 0) {
+          const extractedHeadings = [];
+          lec.paragraphs.forEach(para => {
+            const content = para.content || para.text || '';
+            // Suche nach HTML H2/H3-Überschriften: <h2>Text</h2> oder <h3>Text</h3>
+            const h2Matches = content.match(/<h2>([^<]+)<\/h2>/gi);
+            const h3Matches = content.match(/<h3>([^<]+)<\/h3>/gi);
+            // Auch Markdown ### Überschriften prüfen
+            const mdH3Matches = content.match(/^### (.+)$/gm);
+            
+            if (h2Matches) {
+              h2Matches.forEach(match => {
+                const headingText = match.replace(/<\/?h2>/gi, '').trim();
+                if (headingText && !extractedHeadings.some(h => h.text === headingText)) {
+                  extractedHeadings.push({ text: headingText, level: 'h2' });
+                }
+              });
+            }
+            if (h3Matches) {
+              h3Matches.forEach(match => {
+                const headingText = match.replace(/<\/?h3>/gi, '').trim();
+                if (headingText && !extractedHeadings.some(h => h.text === headingText)) {
+                  extractedHeadings.push({ text: headingText, level: 'h3' });
+                }
+              });
+            }
+            if (mdH3Matches) {
+              mdH3Matches.forEach(match => {
+                const headingText = match.replace(/^### /, '').trim();
+                if (headingText && !extractedHeadings.some(h => h.text === headingText)) {
+                  extractedHeadings.push({ text: headingText, level: 'h3' });
+                }
+              });
+            }
+          });
+          if (extractedHeadings.length > 0) {
+            headingsFromContent = extractedHeadings.map((h, idx) => ({ 
+              text: h.text, 
+              level: h.level, 
+              index: `^${h.level}_${idx}` 
+            }));
+            tableOfContentsFromContent = extractedHeadings.map(h => ({ heading: h.text, description: '' }));
+          }
+        }
+      }
+      
       return {
         lectureNumber: lec.lectureNumber,
         ID: lectureId,
@@ -1727,8 +1782,8 @@ async function generateGAOverview(gaNumber) {
         date: formatDate(lec.date),
         summary: summaryText,
         shortSummary: summaryData?.shortSummary || null,
-        headings: summaryData?.headings || [],
-        tableOfContents: summaryData?.tableOfContents || [],
+        headings: headingsFromContent,
+        tableOfContents: tableOfContentsFromContent,
         lectureKeywords: summaryData?.lectureKeywords || [],
         version: summaryData?.version || 'v1'
       };
