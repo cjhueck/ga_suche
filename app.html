@@ -14900,9 +14900,11 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     displayGAVolumesInSidebar();
     
     // Aktualisiere Info-Element auch beim erneuten Anzeigen
+    // GA001, GA018, GA026 werden als Schriften gezählt, nicht als Aufsätze
+    const booksAsEssays = ['GA001', 'GA018', 'GA026'];
     const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
-    const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length;
-    const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length + booksAsEssays.length;
+    const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number) && !booksAsEssays.includes(ga.number.toUpperCase())).reduce((sum, ga) => sum + ga.lectureCount, 0);
     
     // Aktualisiere globale Statistik-Variablen
     totalLecturesCount = totalLectures;
@@ -14995,9 +14997,11 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     displayGAVolumesInSidebar();
     
     // Berechne Gesamtanzahl der Vorträge (ohne Aufsätze) und aktualisiere globale Variablen
+    // GA001, GA018, GA026 werden als Schriften gezählt, nicht als Aufsätze
+    const booksAsEssays = ['GA001', 'GA018', 'GA026'];
     const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
-    const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length;
-    const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length + booksAsEssays.length;
+    const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number) && !booksAsEssays.includes(ga.number.toUpperCase())).reduce((sum, ga) => sum + ga.lectureCount, 0);
     
     // Aktualisiere globale Statistik-Variablen aus GA-Volumes (zuverlässigste Quelle)
     totalLecturesCount = totalLectures;
