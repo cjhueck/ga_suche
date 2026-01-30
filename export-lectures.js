@@ -328,6 +328,9 @@ class SteinerLecturesExporter {
       // HINWEIS: Wir vereinfachen NICHT mehr zu img-X.ext
       // Der volle Dateiname wird beibehalten für eindeutige Zuordnung
       
+      // Konvertiere JPEG-Pfade zu PNG
+      cleanName = cleanName.replace(/\.jpe?g$/i, '.png');
+      
       // WICHTIG: URLs mit Leerzeichen in <> einschließen für Markdown
       return `![](<assets/${cleanName}>)`;
     });
@@ -974,13 +977,18 @@ class SteinerLecturesExporter {
             
             // Konvertiere Markdown-Bilder zu HTML-img-Tags
             // damit das Frontend konsistentes HTML erhält
+            // WICHTIG: JPEG-Pfade werden zu PNG konvertiert
             convertedText = convertedText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, 
               (match, alt, src) => {
                 // Entferne <> Klammern um Pfade mit Leerzeichen (Markdown-Standard)
                 let cleanSrc = src.trim().replace(/^<|>$/g, '');
                 // Vereinfache Bildpfade (entferne GA###-Name_)
                 cleanSrc = this.cleanImagePath(cleanSrc);
-                return `<img src="${cleanSrc}" alt="${alt.trim()}" />`;
+                // Konvertiere JPEG-Pfade zu PNG
+                cleanSrc = cleanSrc.replace(/\.jpe?g$/i, '.png');
+                // Konvertiere auch Alt-Text falls er Dateiendung enthält
+                let cleanAlt = alt.trim().replace(/\.jpe?g$/i, '.png');
+                return `<img src="${cleanSrc}" alt="${cleanAlt}" />`;
               });
             
             // BRIEFE: Brief-Überschrift (als H4) mit data-index Attribut hinzufügen
@@ -1336,18 +1344,18 @@ class SteinerLecturesExporter {
           const isJpeg = ext === '.jpg' || ext === '.jpeg';
           
           let imageBuffer;
-          let mimeType = 'image/webp'; // Standard: WebP nach Konvertierung (kleinere Dateien)
+          let mimeType = 'image/png'; // Standard: PNG nach Konvertierung
           let convertedPath = img.path; // Pfad für gespeichertes Bild
 
           try {
             if (isJpeg) {
-              // Konvertiere JPEG zu WebP (kleinere Dateien als PNG)
+              // Konvertiere JPEG zu PNG
               imageBuffer = await sharp(fullImagePath)
-                .webp({ quality: 85 })
+                .png()
                 .toBuffer();
 
-              // Aktualisiere Pfad: .jpeg/.jpg → .webp
-              convertedPath = img.path.replace(/\.jpe?g$/i, '.webp');
+              // Aktualisiere Pfad: .jpeg/.jpg → .png
+              convertedPath = img.path.replace(/\.jpe?g$/i, '.png');
             } else {
               // Andere Formate (PNG, GIF, WEBP) direkt lesen
               imageBuffer = fs.readFileSync(fullImagePath);
@@ -1369,17 +1377,17 @@ class SteinerLecturesExporter {
             let convertedAltText = img.altText;
             if (isJpeg) {
               if (img.markdownRef) {
-                convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g/gi, '.webp');
+                convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g/gi, '.png');
               }
               if (img.altText) {
-                convertedAltText = img.altText.replace(/\.jpe?g$/i, '.webp');
+                convertedAltText = img.altText.replace(/\.jpe?g$/i, '.png');
               }
             }
             
             imagesWithData[lectureId].push({
               index: img.index,
-              altText: convertedAltText, // Aktualisierter Alt-Text (.webp statt .jpeg)
-              path: convertedPath, // Verwende konvertierten Pfad (.webp statt .jpeg)
+              altText: convertedAltText, // Aktualisierter Alt-Text (.png statt .jpeg)
+              path: convertedPath, // Verwende konvertierten Pfad (.png statt .jpeg)
               markdownRef: convertedMarkdownRef, // Aktualisierte Markdown-Referenz
               base64: `data:${mimeType};base64,${base64}`,
               size: imageBuffer.length
