@@ -22472,7 +22472,7 @@ function escapeRegExp(string) {
 // POST: Vorschau der Korrektur (zeigt wo der Fehler überall vorkommt)
 app.post('/api/marked-words/preview-correction', async (req, res) => {
   try {
-    const { wrongText, gaTitle, caseSensitive = true } = req.body;
+    const { wrongText, gaTitle, caseSensitive = true, includeJson = true } = req.body;
     
     if (!wrongText) {
       return res.status(400).json({ error: 'Fehlerhafter Text erforderlich' });
@@ -22522,6 +22522,87 @@ app.post('/api/marked-words/preview-correction', async (req, res) => {
     }
     
     await searchInDirectory(searchPath);
+    
+    // Auch in JSON- und HTML-Dateien suchen wenn gewünscht
+    if (includeJson) {
+      try {
+        const rootFiles = await fs.readdir(__dirname);
+        
+        // JSON-Dateien im Root
+        const jsonFiles = rootFiles.filter(f => 
+          (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && 
+          f.endsWith('.json')
+        );
+        
+        for (const jsonFile of jsonFiles) {
+          const jsonPath = path.join(__dirname, jsonFile);
+          try {
+            const content = await fs.readFile(jsonPath, 'utf8');
+            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
+            
+            if (occurrences > 0) {
+              results.push({
+                file: `[JSON] ${jsonFile}`,
+                occurrences
+              });
+            }
+          } catch (err) {
+            // Ignorieren
+          }
+        }
+        
+        // JSON-Dateien in Unterordnern
+        const subDirs = ['steiner-full-lectures', 'steiner-books'];
+        for (const subDir of subDirs) {
+          const subDirPath = path.join(__dirname, subDir);
+          try {
+            const subFiles = await fs.readdir(subDirPath);
+            const subJsonFiles = subFiles.filter(f => f.endsWith('.json'));
+            
+            for (const jsonFile of subJsonFiles) {
+              const jsonPath = path.join(subDirPath, jsonFile);
+              try {
+                const content = await fs.readFile(jsonPath, 'utf8');
+                const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
+                
+                if (occurrences > 0) {
+                  results.push({
+                    file: `[JSON] ${subDir}/${jsonFile}`,
+                    occurrences
+                  });
+                }
+              } catch (err) {
+                // Ignorieren
+              }
+            }
+          } catch (err) {
+            // Unterordner existiert nicht
+          }
+        }
+        
+        // HTML-Dateien im Root
+        const htmlFiles = rootFiles.filter(f => f.endsWith('.html'));
+        
+        for (const htmlFile of htmlFiles) {
+          const htmlPath = path.join(__dirname, htmlFile);
+          try {
+            const content = await fs.readFile(htmlPath, 'utf8');
+            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
+            
+            if (occurrences > 0) {
+              results.push({
+                file: `[HTML] ${htmlFile}`,
+                occurrences
+              });
+            }
+          } catch (err) {
+            // Ignorieren
+          }
+        }
+      } catch (err) {
+        console.error('[CORRECTION] Fehler bei JSON/HTML-Suche:', err.message);
+      }
+    }
     
     const totalOccurrences = results.reduce((sum, r) => sum + r.occurrences, 0);
     
@@ -22607,10 +22688,11 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
     await correctInDirectory(searchPath);
     
     // JSON-Dateien korrigieren wenn gewünscht (Vorträge UND Bücher)
-    if (includeHtml) { // Parameter heißt noch includeHtml, bedeutet jetzt aber +JSON
+    if (includeHtml) { // Parameter heißt noch includeHtml, bedeutet jetzt aber +JSON/HTML
       try {
         const rootFiles = await fs.readdir(__dirname);
-        // Vorträge UND Bücher
+        
+        // 1. JSON-Dateien im Root (Vorträge UND Bücher)
         const jsonFiles = rootFiles.filter(f => 
           (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && 
           f.endsWith('.json')
@@ -22652,8 +22734,78 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
             console.error(`[CORRECTION] Fehler bei ${jsonFile}:`, err.message);
           }
         }
+        
+        // 2. JSON-Dateien in Unterordnern (steiner-full-lectures/ und steiner-books/)
+        const subDirs = ['steiner-full-lectures', 'steiner-books'];
+        for (const subDir of subDirs) {
+          const subDirPath = path.join(__dirname, subDir);
+          try {
+            const subFiles = await fs.readdir(subDirPath);
+            const subJsonFiles = subFiles.filter(f => f.endsWith('.json'));
+            
+            for (const jsonFile of subJsonFiles) {
+              const jsonPath = path.join(subDirPath, jsonFile);
+              try {
+                const content = await fs.readFile(jsonPath, 'utf8');
+                const regex = new RegExp(escapeRegExp(wrongText), regexFlags);
+                const occurrences = (content.match(regex) || []).length;
+                
+                if (occurrences > 0) {
+                  const newContent = content.replace(regex, correctText);
+                  
+                  try {
+                    JSON.parse(newContent);
+                    await fs.writeFile(jsonPath, newContent, 'utf8');
+                    
+                    correctedFiles.push({
+                      file: `[JSON] ${subDir}/${jsonFile}`,
+                      corrections: occurrences
+                    });
+                    totalCorrections += occurrences;
+                  } catch (parseErr) {
+                    console.error(`[CORRECTION] WARNUNG: ${subDir}/${jsonFile} würde durch Korrektur ungültig werden - übersprungen!`);
+                    correctedFiles.push({
+                      file: `[JSON] ${subDir}/${jsonFile} (ÜBERSPRUNGEN - würde JSON ungültig machen)`,
+                      corrections: 0
+                    });
+                  }
+                }
+              } catch (err) {
+                console.error(`[CORRECTION] Fehler bei ${subDir}/${jsonFile}:`, err.message);
+              }
+            }
+          } catch (err) {
+            // Unterordner existiert möglicherweise nicht
+            console.log(`[CORRECTION] Unterordner ${subDir} nicht gefunden oder nicht lesbar`);
+          }
+        }
+        
+        // 3. HTML-Dateien im Root (app.html, index.html, etc.)
+        const htmlFiles = rootFiles.filter(f => f.endsWith('.html'));
+        
+        for (const htmlFile of htmlFiles) {
+          const htmlPath = path.join(__dirname, htmlFile);
+          try {
+            const content = await fs.readFile(htmlPath, 'utf8');
+            const regex = new RegExp(escapeRegExp(wrongText), regexFlags);
+            const occurrences = (content.match(regex) || []).length;
+            
+            if (occurrences > 0) {
+              const newContent = content.replace(regex, correctText);
+              await fs.writeFile(htmlPath, newContent, 'utf8');
+              
+              correctedFiles.push({
+                file: `[HTML] ${htmlFile}`,
+                corrections: occurrences
+              });
+              totalCorrections += occurrences;
+            }
+          } catch (err) {
+            console.error(`[CORRECTION] Fehler bei ${htmlFile}:`, err.message);
+          }
+        }
       } catch (err) {
-        console.error('[CORRECTION] Fehler beim Lesen der JSON-Dateien:', err.message);
+        console.error('[CORRECTION] Fehler beim Lesen der JSON/HTML-Dateien:', err.message);
       }
     }
     
