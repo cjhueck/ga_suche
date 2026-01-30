@@ -640,6 +640,7 @@
         <div class="filter-buttons">
             <button class="btn" id="toggleHighlight" onclick="toggleHighlighting()">Highlighting</button>
             <button class="btn btn-secondary" id="toggleSeries" onclick="toggleSeriesMode()" title="Serienmodus: Nach Marker-Einfügung automatisch zur nächsten PDF-Seite">Serie</button>
+            <button class="btn btn-secondary" id="toggleFast" onclick="toggleFastMode()" title="Fast-Modus: Im Serienmodus wird das Insert-Dialog automatisch geöffnet">Fast</button>
         </div>
         <div class="file-input-wrapper">
             <input type="file" id="fileInput" accept=".md,.txt">
@@ -770,6 +771,8 @@
         let insertMarkerPosition = -1;
         let searchToggleActive = false;
         let seriesModeEnabled = false;
+        let fastModeEnabled = false;
+        let autoOpenInsertDialogAfterSearch = false;
         
         // PDF.js Worker konfigurieren (muss vor jeder Verwendung von pdfjsLib sein)
         if (typeof pdfjsLib !== 'undefined') {
@@ -1079,6 +1082,10 @@
 
         // Extrahiert Text von der aktuellen PDF-Seite und sucht im Markdown
         async function searchPdfTextInMarkdown() {
+            // Speichere Flag lokal und setze es sofort zurück
+            const shouldAutoOpenDialog = autoOpenInsertDialogAfterSearch;
+            autoOpenInsertDialogAfterSearch = false;
+            
             if (!pdfDoc || !currentContent) {
                 showNotification('PDF oder Markdown nicht geladen');
                 return;
@@ -1698,6 +1705,13 @@
                                 if (document.activeElement !== contentEl) {
                                     contentEl.focus();
                                 }
+                                
+                                // Wenn Serienmodus aktiv ist und Flag gesetzt war, öffne automatisch das Insert-Dialog
+                                if (shouldAutoOpenDialog) {
+                                    setTimeout(() => {
+                                        openInsertMarkerDialogAtCursor(true);
+                                    }, 300);
+                                }
                                 return;
                             }
                         }
@@ -1738,6 +1752,14 @@
                     
                     // Speichere Position für Marker-Einfügung (am Anfang des gefundenen Textes)
                     insertMarkerPosition = position;
+                    
+                    // Wenn Fast-Modus aktiv ist und Flag gesetzt war, öffne automatisch das Insert-Dialog
+                    if (shouldAutoOpenDialog) {
+                        // Kleiner Timeout, damit Scrolling abgeschlossen ist
+                        setTimeout(() => {
+                            openInsertMarkerDialogAtCursor(true); // Mit Leerzeichen
+                        }, 300);
+                    }
                     
                 } catch (e) {
                     console.error('Fehler beim Markieren:', e);
@@ -1990,6 +2012,13 @@
             const btn = document.getElementById('toggleSeries');
             btn.classList.toggle('active', seriesModeEnabled);
             showNotification(seriesModeEnabled ? 'Serienmodus aktiviert' : 'Serienmodus deaktiviert');
+        }
+
+        function toggleFastMode() {
+            fastModeEnabled = !fastModeEnabled;
+            const btn = document.getElementById('toggleFast');
+            btn.classList.toggle('active', fastModeEnabled);
+            showNotification(fastModeEnabled ? 'Fast-Modus aktiviert: Insert-Dialog öffnet automatisch' : 'Fast-Modus deaktiviert');
         }
 
         function renderContent(content) {
@@ -3011,10 +3040,14 @@
             currentContent = newContent;
             loadContent(currentContent, true);
             
-            showNotification(`Marker |${page}| eingefügt ${withSpaces ? '(mit LZ)' : '(ohne LZ)'}, nachfolgende Marker als lineare Reihe angepasst`);
+            showNotification(`Marker |${page}| eingefügt ${withSpaces ? '(mit LZ)' : '(ohne LZ)'}, nachfolgende Marker angepasst`);
             
             // Wenn Serienmodus aktiviert ist, automatisch zur nächsten PDF-Seite wechseln
             if (seriesModeEnabled && pdfDoc && currentPdfPage < totalPdfPages) {
+                // Setze Flag nur wenn auch Fast-Modus aktiv ist
+                if (fastModeEnabled) {
+                    autoOpenInsertDialogAfterSearch = true;
+                }
                 setTimeout(() => {
                     nextPdfPage();
                 }, 100);

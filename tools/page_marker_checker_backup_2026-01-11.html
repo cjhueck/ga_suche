@@ -1,0 +1,3878 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA Seitenmarker Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // PDF.js Worker konfigurieren (muss SOFORT nach dem Laden von pdf.min.js sein)
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    <style>
+        /* Zentrale Farbdefinitionen im Stil von app.html */
+        :root {
+            --text-color: #333333;
+            --heading-color: #467886;
+            --link-color: #467886;
+            --accent-color: #467886;
+            --background-color: #FAF8F3;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --text-size: 0.9rem;
+            --heading-size: 1.0rem;
+            --line-height: 1.3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 2px solid var(--accent-color);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            color: var(--heading-color);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-right: auto;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:hover {
+            background: #3a6a7a;
+        }
+
+        .btn.active {
+            background: #2a5566;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #ccc;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .status {
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .content-area {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 140px;
+            background: white;
+            border-right: 1px solid var(--border-color);
+            padding: 8px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .marker-list {
+            list-style: none;
+        }
+
+        .marker-item {
+            padding: 3px 4px;
+            margin: 1px 0;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .marker-item:hover {
+            background: #f5f5f5;
+        }
+
+        .marker-item.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .marker-item.hidden {
+            display: none;
+        }
+
+        .marker-status {
+            font-size: 0.65rem;
+            opacity: 0.7;
+        }
+
+        .marker-status.has-spaces {
+            color: #4CAF50;
+        }
+
+        .marker-status.no-spaces {
+            color: #f44336;
+        }
+
+        .marker-item.active .marker-status {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: var(--background-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .content-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: var(--line-height);
+            font-size: var(--text-size);
+        }
+
+        .content-right {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #525252;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content-right-wrapper {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .content-right-header {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .content-right-header h3 {
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pdf-page {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+
+        .pdf-page canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            width: auto;
+        }
+
+        .pdf-controls {
+            position: sticky;
+            top: 0;
+            background: rgba(82, 82, 82, 0.95);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .pdf-controls button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .pdf-controls button:hover {
+            background: #3a6a7a;
+        }
+
+        .pdf-controls button.active {
+            background: #2d8a4a;
+            box-shadow: 0 0 0 2px rgba(45, 138, 74, 0.5);
+        }
+
+        .pdf-controls button.active:hover {
+            background: #24703a;
+        }
+
+        .pdf-controls input {
+            width: 60px;
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .word-break-marker {
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .word-break-marker.word-break {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .word-break-marker.word-separator {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .content-wrapper[contenteditable="true"] {
+            outline: none;
+            padding: 20px;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .content-wrapper[contenteditable="true"]:focus {
+            background: rgba(70, 120, 134, 0.05);
+        }
+
+        .content-wrapper h1,
+        .content-wrapper h2,
+        .content-wrapper h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .content-wrapper p {
+            margin-bottom: 15px;
+        }
+
+        .page-marker {
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline;
+            font-weight: bold;
+        }
+
+        /* Marker mit Leerzeichen - grün (nur wenn Highlighting aktiviert) */
+        body:not(.no-highlighting) .page-marker.has-spaces {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* Marker ohne Leerzeichen - rot (nur wenn Highlighting aktiviert) */
+        body:not(.no-highlighting) .page-marker.no-spaces {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Wenn Highlighting deaktiviert, Marker wie normaler Text */
+        body.no-highlighting .page-marker {
+            background: transparent;
+            font-weight: normal;
+            color: inherit;
+        }
+
+        /* Aktueller Marker - hervorgehoben (nur wenn Highlighting aktiviert) */
+        body:not(.no-highlighting) .page-marker.highlighted {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 0 10px rgba(70, 120, 134, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Aktueller Marker mit Leerzeichen - grün hervorgehoben */
+        body:not(.no-highlighting) .page-marker.highlighted.has-spaces {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        /* Aktueller Marker ohne Leerzeichen - rot hervorgehoben */
+        body:not(.no-highlighting) .page-marker.highlighted.no-spaces {
+            background: #f44336;
+            color: white;
+            box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+        }
+
+        .help {
+            margin-top: 12px;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            line-height: 1.4;
+            border: 1px solid var(--border-color);
+        }
+
+        .help h3 {
+            margin-bottom: 10px;
+            color: var(--heading-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .help kbd,
+        .shortcuts-dialog kbd {
+            background: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .edit-dialog,
+        .shortcuts-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: none;
+            min-width: 300px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .edit-dialog.show,
+        .shortcuts-dialog.show {
+            display: block;
+        }
+
+        .shortcuts-dialog h3 {
+            margin-bottom: 15px;
+            color: var(--heading-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-description {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .shortcut-keys {
+            display: flex;
+            gap: 4px;
+        }
+
+        .edit-dialog h3 {
+            margin-bottom: 15px;
+            color: var(--heading-color);
+            font-size: 1rem;
+        }
+
+        .edit-dialog input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .edit-dialog-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        #insertMarkerDialog {
+            display: none;
+        }
+
+        .context-menu {
+            position: fixed;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 5px 0;
+            z-index: 3000;
+            display: none;
+            min-width: 200px;
+        }
+
+        .context-menu-item {
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            transition: background 0.2s;
+        }
+
+        .context-menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        .pdf-search-highlight {
+            background-color: #ffeb3b !important;
+            padding: 2px 0 !important;
+            border-radius: 2px !important;
+            box-shadow: 0 0 0 2px #ff9800 !important;
+            animation: highlightPulse 1s ease-in-out;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 2px #ff9800;
+            }
+            50% {
+                box-shadow: 0 0 0 4px #ff9800;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GA Seitenmarker Checker</h1>
+        <div class="filter-buttons">
+            <button class="btn" id="filterAll" onclick="setFilter('all')">Alle</button>
+            <button class="btn" id="filterWithSpaces" onclick="setFilter('with')">Mit LZ</button>
+            <button class="btn" id="filterWithoutSpaces" onclick="setFilter('without')">Ohne LZ</button>
+            <button class="btn" id="toggleHighlight" onclick="toggleHighlighting()">Highlighting</button>
+        </div>
+        <div class="file-input-wrapper">
+            <input type="file" id="fileInput" accept=".md,.txt">
+            <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">MD-Datei laden</button>
+        </div>
+        <div class="file-input-wrapper">
+            <input type="file" id="fileInputRight" accept=".pdf,.md,.txt">
+            <button class="btn btn-secondary" onclick="document.getElementById('fileInputRight').click()">PDF laden</button>
+        </div>
+        <button class="btn btn-secondary" id="saveBtn" onclick="saveFile()" disabled>Speichern</button>
+        <button class="btn btn-secondary" id="shortcutsBtn" onclick="showShortcuts()" title="Shortcuts anzeigen">?</button>
+        <div class="status" id="status">Keine Datei geladen</div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <h2>Seitenmarker</h2>
+            <ul class="marker-list" id="markerList"></ul>
+            <div class="help">
+                <h3>Steuerung</h3>
+                <p><kbd>Enter</kbd> - Zum nächsten Marker</p>
+                <p><kbd>Shift+Enter</kbd> - Zum vorherigen Marker</p>
+                <p><kbd>Strg+E</kbd> - Leerzeichen hinzufügen</p>
+                <p><kbd>Strg+D</kbd> - Leerzeichen entfernen</p>
+                <p><kbd>Strg+X</kbd> - Marker löschen</p>
+                <p><kbd>Strg+B</kbd> - Marker bearbeiten</p>
+                <p><kbd>Alt+Q</kbd> - Marker einfügen (mit LZ)</p>
+                <p><kbd>Strg+M</kbd> - Marker an Cursor-Position (ohne LZ, automatische Seitenzahl)</p>
+                <p><kbd>Strg+C</kbd> - Speichern</p>
+                <p><kbd>?</kbd> - Shortcuts anzeigen</p>
+                <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.8;">Text ist direkt bearbeitbar - Klicken Sie an die gewünschte Stelle und drücken Sie Strg+M</p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content">
+                <div class="content-wrapper" id="content" contenteditable="true" spellcheck="false"></div>
+            </div>
+            <div class="content-right">
+                <div class="content-right-header">
+                    <h3>PDF-Vergleich</h3>
+                </div>
+                <div class="content-right-wrapper" id="contentRight">
+                    <div class="pdf-controls" id="pdfControls" style="display: none;">
+                        <button onclick="previousPdfPage()">←</button>
+                        <span style="color: white;">Seite <input type="number" id="pdfPageInput" min="1" value="1" onchange="goToPdfPage(this.value)"> von <span id="pdfTotalPages">0</span></span>
+                        <button onclick="nextPdfPage()">→</button>
+                        <button id="searchToggleBtn" onclick="toggleSearch()" title="Suche aktivieren/deaktivieren - wenn aktiv, wird automatisch bei Seitenwechsel gesucht">🔍 Suchen</button>
+                    </div>
+                    <div class="pdf-viewer" id="pdfViewer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <div class="edit-dialog" id="editDialog">
+        <h3>Seitenmarker bearbeiten</h3>
+        <input type="number" id="editPageInput" placeholder="Seitenzahl" min="1">
+        <div class="edit-dialog-buttons">
+            <button class="btn btn-secondary" onclick="closeEditDialog()">Abbrechen</button>
+            <button class="btn" onclick="saveEdit()">Speichern</button>
+        </div>
+    </div>
+
+    <div class="edit-dialog" id="insertMarkerDialog">
+        <h3>Seitenmarker einfügen</h3>
+        <input type="number" id="insertPageInput" placeholder="Seitenzahl" min="1">
+        <div class="edit-dialog-buttons">
+            <button class="btn btn-secondary" onclick="closeInsertMarkerDialog()">Abbrechen</button>
+            <button class="btn" onclick="confirmInsertMarker()">Einfügen</button>
+        </div>
+    </div>
+
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" onclick="insertMarkerWithSpaces()">Marker einfügen (mit LZ)</div>
+        <div class="context-menu-item" onclick="insertMarkerWithoutSpaces()">Marker einfügen (ohne LZ)</div>
+    </div>
+
+    <div class="shortcuts-dialog" id="shortcutsDialog">
+        <h3>Tastatur-Shortcuts</h3>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Zum nächsten Marker</span>
+            <div class="shortcut-keys">
+                <kbd>Enter</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Zum vorherigen Marker</span>
+            <div class="shortcut-keys">
+                <kbd>Shift</kbd> + <kbd>Enter</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Leerzeichen hinzufügen</span>
+            <div class="shortcut-keys">
+                <kbd>Strg</kbd> + <kbd>E</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Leerzeichen entfernen</span>
+            <div class="shortcut-keys">
+                <kbd>Strg</kbd> + <kbd>D</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Marker löschen</span>
+            <div class="shortcut-keys">
+                <kbd>Strg</kbd> + <kbd>X</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Marker bearbeiten</span>
+            <div class="shortcut-keys">
+                <kbd>Strg</kbd> + <kbd>B</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Marker einfügen (mit LZ)</span>
+            <div class="shortcut-keys">
+                <kbd>Alt</kbd> + <kbd>Q</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Marker an Cursor-Position (ohne LZ)</span>
+            <div class="shortcut-keys">
+                <kbd>Strg</kbd> + <kbd>M</kbd>
+            </div>
+        </div>
+        <div class="shortcut-item">
+            <span class="shortcut-description">Datei speichern</span>
+            <div class="shortcut-keys">
+                <kbd>Strg</kbd> + <kbd>C</kbd>
+            </div>
+        </div>
+        <div class="edit-dialog-buttons" style="margin-top: 15px;">
+            <button class="btn" onclick="closeShortcutsDialog()">Schließen</button>
+        </div>
+    </div>
+
+    <script>
+        let currentContent = '';
+        let currentFileName = '';
+        let currentFileHandle = null;
+        let rightContent = '';
+        let pdfDoc = null;
+        let currentPdfPage = 1;
+        let totalPdfPages = 0;
+        let markers = [];
+        let currentMarkerIndex = -1;
+        let currentFilter = 'all';
+        let highlightingEnabled = true;
+        let isScrolling = false;
+        let contextMenuPosition = { x: 0, y: 0 };
+        let insertMarkerPosition = -1;
+        let searchToggleActive = false;
+        
+        // PDF.js Worker konfigurieren (muss vor jeder Verwendung von pdfjsLib sein)
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+        
+        let md = window.markdownit({
+            html: true,
+            linkify: true,
+            typographer: true
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                currentFileName = file.name; // Speichere den Dateinamen
+                currentFileHandle = file; // Speichere File-Objekt für später
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const content = event.target.result;
+                    if (content) {
+                        currentContent = content;
+                        loadContent(currentContent);
+                        document.getElementById('saveBtn').disabled = false;
+                        showNotification('Datei geladen: ' + file.name);
+                    } else {
+                        console.error('Datei ist leer oder konnte nicht gelesen werden');
+                        showNotification('Fehler: Datei ist leer');
+                    }
+                };
+                reader.onerror = function(error) {
+                    console.error('Fehler beim Lesen der Datei:', error);
+                    showNotification('Fehler beim Lesen der Datei');
+                };
+                reader.readAsText(file, 'UTF-8');
+            }
+        });
+
+        document.getElementById('fileInputRight').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                loadPdfFile(file);
+            } else if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    rightContent = e.target.result;
+                    renderRightContent(rightContent);
+                    showNotification('Vergleichsdatei geladen: ' + file.name);
+                };
+                reader.readAsText(file, 'UTF-8');
+            }
+        });
+
+        // Lade Standard-PDF beim Start
+        async function loadDefaultRightFile() {
+            try {
+                const pdfPath = 'GA002_Test/GA 2/GA 2.pdf';
+                const response = await fetch(pdfPath);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    loadPdfFile(blob);
+                }
+            } catch (e) {
+                // Datei nicht gefunden, wird übersprungen
+                console.log('PDF nicht gefunden:', e);
+            }
+        }
+
+        async function loadPdfFile(file) {
+            try {
+                if (typeof pdfjsLib === 'undefined') {
+                    showNotification('PDF.js Bibliothek nicht geladen');
+                    return;
+                }
+                const arrayBuffer = await file.arrayBuffer();
+                pdfjsLib.getDocument({ data: arrayBuffer }).promise.then(function(pdf) {
+                    pdfDoc = pdf;
+                    totalPdfPages = pdf.numPages;
+                    const totalPagesEl = document.getElementById('pdfTotalPages');
+                    if (totalPagesEl) {
+                        totalPagesEl.textContent = totalPdfPages;
+                    }
+                    const controlsEl = document.getElementById('pdfControls');
+                    if (controlsEl) {
+                        controlsEl.style.display = 'flex';
+                    }
+                    currentPdfPage = 1;
+                    renderPdfPage(1);
+                    showNotification('PDF geladen: ' + (file.name || 'GA 2.pdf'));
+                }).catch(function(error) {
+                    console.error('Fehler beim Laden des PDFs:', error);
+                    showNotification('Fehler beim Laden des PDFs');
+                });
+            } catch (error) {
+                console.error('Fehler beim Laden des PDFs:', error);
+                showNotification('Fehler beim Laden des PDFs');
+            }
+        }
+
+        async function renderPdfPage(pageNum) {
+            if (!pdfDoc) return;
+            
+            try {
+                const page = await pdfDoc.getPage(pageNum);
+                
+                // Berechne optimale Skalierung, damit die Seite in den Container passt
+                const container = document.querySelector('.content-right-wrapper');
+                const containerWidth = container ? container.clientWidth - 40 : 800; // 40px für Padding
+                const defaultViewport = page.getViewport({ scale: 1.0 });
+                const scale = Math.min(1.0, (containerWidth / defaultViewport.width));
+                
+                const viewport = page.getViewport({ scale: scale });
+                
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                
+                await page.render(renderContext).promise;
+                
+                const pdfViewer = document.getElementById('pdfViewer');
+                pdfViewer.innerHTML = '';
+                
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'pdf-page';
+                pageDiv.appendChild(canvas);
+                pdfViewer.appendChild(pageDiv);
+                
+                currentPdfPage = pageNum;
+                document.getElementById('pdfPageInput').value = pageNum;
+            } catch (error) {
+                console.error('Fehler beim Rendern der PDF-Seite:', error);
+            }
+        }
+
+        function goToPdfPage(pageNum) {
+            const page = parseInt(pageNum);
+            if (page >= 1 && page <= totalPdfPages) {
+                renderPdfPage(page);
+                // Wenn Toggle aktiv ist, automatisch suchen
+                if (searchToggleActive) {
+                    setTimeout(() => searchPdfTextInMarkdown(), 100);
+                }
+            }
+        }
+
+        function toggleSearch() {
+            searchToggleActive = !searchToggleActive;
+            const btn = document.getElementById('searchToggleBtn');
+            if (btn) {
+                if (searchToggleActive) {
+                    btn.classList.add('active');
+                    btn.title = 'Suche aktiviert - wird automatisch bei Seitenwechsel ausgeführt';
+                    // Führe sofort eine Suche aus
+                    searchPdfTextInMarkdown();
+                } else {
+                    btn.classList.remove('active');
+                    btn.title = 'Suche aktivieren/deaktivieren - wenn aktiv, wird automatisch bei Seitenwechsel gesucht';
+                }
+            }
+        }
+
+        function nextPdfPage() {
+            if (currentPdfPage < totalPdfPages) {
+                renderPdfPage(currentPdfPage + 1);
+                // Wenn Toggle aktiv ist, automatisch suchen
+                if (searchToggleActive) {
+                    setTimeout(() => searchPdfTextInMarkdown(), 100);
+                }
+            }
+        }
+
+        function previousPdfPage() {
+            if (currentPdfPage > 1) {
+                renderPdfPage(currentPdfPage - 1);
+                // Wenn Toggle aktiv ist, automatisch suchen
+                if (searchToggleActive) {
+                    setTimeout(() => searchPdfTextInMarkdown(), 100);
+                }
+            }
+        }
+
+        // Berechnet die Levenshtein-Distanz zwischen zwei Strings (für Fuzzy Matching)
+        function levenshteinDistance(str1, str2) {
+            const len1 = str1.length;
+            const len2 = str2.length;
+            const matrix = [];
+
+            // Initialisiere Matrix
+            for (let i = 0; i <= len1; i++) {
+                matrix[i] = [i];
+            }
+            for (let j = 0; j <= len2; j++) {
+                matrix[0][j] = j;
+            }
+
+            // Fülle Matrix
+            for (let i = 1; i <= len1; i++) {
+                for (let j = 1; j <= len2; j++) {
+                    if (str1[i - 1] === str2[j - 1]) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j] + 1,     // Deletion
+                            matrix[i][j - 1] + 1,     // Insertion
+                            matrix[i - 1][j - 1] + 1  // Substitution
+                        );
+                    }
+                }
+            }
+
+            return matrix[len1][len2];
+        }
+
+        // Berechnet die Ähnlichkeit zwischen zwei Strings (0-1, wobei 1 = identisch)
+        function similarity(str1, str2) {
+            const maxLen = Math.max(str1.length, str2.length);
+            if (maxLen === 0) return 1.0;
+            const distance = levenshteinDistance(str1, str2);
+            return 1 - (distance / maxLen);
+        }
+
+        // Fuzzy-Suche: Findet ähnliche Textstellen im Markdown
+        function fuzzySearchInMarkdown(markdownText, searchText, threshold = 0.7) {
+            const normalizeForSearch = (text) => {
+                return text.replace(/\s+/g, ' ').trim().toLowerCase();
+            };
+
+            // OPTIMIERUNG: Für große Texte nur ersten Teil durchsuchen
+            const MAX_FUZZY_SEARCH_LENGTH = 50000;
+            const textToSearch = markdownText.length > MAX_FUZZY_SEARCH_LENGTH 
+                ? markdownText.substring(0, MAX_FUZZY_SEARCH_LENGTH) 
+                : markdownText;
+
+            const normalizedSearch = normalizeForSearch(searchText);
+            const normalizedMarkdown = normalizeForSearch(textToSearch);
+            const searchLength = normalizedSearch.length;
+            
+            if (searchLength < 3) {
+                return null; // Zu kurz für Fuzzy-Suche
+            }
+            
+            let bestMatch = null;
+            let bestSimilarity = 0;
+            
+            // OPTIMIERUNG: Überspringe Zeichen für schnellere Suche (jedes 5. Zeichen)
+            const step = Math.max(1, Math.floor(searchLength / 5));
+            
+            // Suche in Fenstern der gleichen Länge wie der Suchtext
+            for (let i = 0; i <= normalizedMarkdown.length - searchLength; i += step) {
+                const window = normalizedMarkdown.substring(i, i + searchLength);
+                const sim = similarity(normalizedSearch, window);
+                
+                if (sim > bestSimilarity) {
+                    bestSimilarity = sim;
+                    bestMatch = {
+                        index: i,
+                        similarity: sim,
+                        text: window
+                    };
+                    
+                    // Früher abbrechen wenn sehr gute Übereinstimmung gefunden
+                    if (sim >= threshold + 0.1) {
+                        break;
+                    }
+                }
+            }
+            
+            // Wenn keine gute Übereinstimmung gefunden, versuche mit kürzeren/längeren Fenstern
+            // ABER: Nur wenn Text nicht zu groß ist
+            if (bestSimilarity < threshold && normalizedMarkdown.length < 20000) {
+                // Versuche mit ±20% Länge, aber nur wenige Varianten
+                const lengthVariants = [
+                    Math.floor(searchLength * 0.9),
+                    Math.floor(searchLength * 1.1)
+                ].filter(len => len >= 5 && len <= normalizedMarkdown.length);
+                
+                for (let len of lengthVariants) {
+                    for (let i = 0; i <= normalizedMarkdown.length - len; i += step * 2) {
+                        const window = normalizedMarkdown.substring(i, i + len);
+                        const sim = similarity(normalizedSearch, window);
+                        
+                        if (sim > bestSimilarity) {
+                            bestSimilarity = sim;
+                            bestMatch = {
+                                index: i,
+                                similarity: sim,
+                                text: window,
+                                length: len
+                            };
+                            
+                            if (sim >= threshold + 0.1) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return bestSimilarity >= threshold ? bestMatch : null;
+        }
+
+        // Extrahiert Text von der aktuellen PDF-Seite und sucht im Markdown
+        async function searchPdfTextInMarkdown() {
+            if (!pdfDoc || !currentContent) {
+                showNotification('PDF oder Markdown nicht geladen');
+                return;
+            }
+
+            try {
+                // Lade die aktuelle PDF-Seite
+                const page = await pdfDoc.getPage(currentPdfPage);
+                
+                // Extrahiere Text von der Seite
+                const textContent = await page.getTextContent();
+                
+                if (!textContent || !textContent.items || textContent.items.length === 0) {
+                    showNotification('Kein Text auf dieser PDF-Seite gefunden');
+                    return;
+                }
+
+                // Sammle alle Text-Items
+                const textItems = textContent.items;
+                
+                // Finde die oberste Zeile: Gruppiere Text nach Y-Position
+                // In PDFs: Y=0 ist normalerweise unten, höhere Y-Werte = weiter oben
+                const linesByY = {};
+                textItems.forEach(item => {
+                    if (item.str && item.str.trim().length > 0) {
+                        // FILTER: Ignoriere Footer-Texte wie "Copyright Rudolf Steiner"
+                        const itemText = item.str.trim().toLowerCase();
+                        if (itemText.includes('copyright') || 
+                            itemText.includes('nachlassverwaltung') ||
+                            itemText.includes('rudolf steiner') && itemText.length < 50) {
+                            return; // Überspringe Footer
+                        }
+                        
+                        // Runde Y-Position für Gruppierung
+                        const y = Math.round(item.transform[5]);
+                        if (!linesByY[y]) {
+                            linesByY[y] = [];
+                        }
+                        linesByY[y].push(item);
+                    }
+                });
+
+                // Sortiere nach Y-Position (niedrigste = unten, höchste = oben)
+                // In PDFs: niedrigere Y-Werte = weiter unten, höhere Y-Werte = weiter oben
+                const sortedYs = Object.keys(linesByY).map(y => parseFloat(y)).sort((a, b) => b - a); // Absteigend sortieren!
+                
+                if (sortedYs.length === 0) {
+                    showNotification('Kein Text auf dieser PDF-Seite gefunden');
+                    return;
+                }
+
+                // Nimm die oberste Zeile (höchste Y-Position = oben)
+                // WICHTIG: Überspringe Zeilen, die nur Footer enthalten (z.B. "Copyright Rudolf Steiner")
+                let topLineY = null;
+                let topItems = null;
+                
+                for (let y of sortedYs) {
+                    const items = linesByY[y];
+                    if (!items || items.length === 0) continue;
+                    
+                    // Prüfe, ob diese Zeile nur Footer enthält
+                    const lineText = items.map(item => item.str).join(' ').toLowerCase();
+                    if (lineText.includes('copyright') || 
+                        lineText.includes('nachlassverwaltung') ||
+                        (lineText.includes('rudolf steiner') && lineText.length < 50)) {
+                        continue; // Überspringe Footer-Zeilen
+                    }
+                    
+                    // Diese Zeile ist OK - verwende sie
+                    topLineY = y;
+                    topItems = items.sort((a, b) => a.transform[4] - b.transform[4]); // Sortiere nach X (von links nach rechts)
+                    break;
+                }
+                
+                if (!topItems || topItems.length === 0) {
+                    showNotification('Kein Text in der oberen Zeile gefunden (nach Footer-Filterung)');
+                    return;
+                }
+
+                // Finde die linken Items: Nimm die Items mit den niedrigsten X-Positionen (ganz links)
+                // Sortiere Items nach X-Position (niedrigste = ganz links)
+                const sortedByX = [...topItems].sort((a, b) => a.transform[4] - b.transform[4]);
+                
+                // Nimm die ersten Items (links am Anfang) - mindestens die ersten 30% oder mindestens 5 Items
+                const leftItemCount = Math.max(5, Math.ceil(topItems.length * 0.3));
+                const itemsToUse = sortedByX.slice(0, leftItemCount);
+                
+                // Extrahiere Text von den linken Items (oben links)
+                const leftText = itemsToUse.map(item => item.str).join(' ').trim();
+                
+                if (!leftText || leftText.length < 3) {
+                    showNotification('Zu wenig Text oben links gefunden');
+                    return;
+                }
+
+                // Nimm die ersten 4-20 Wörter vom linken Text (oben links)
+                const words = leftText.split(/\s+/).filter(w => w.length > 0);
+                if (words.length < 2) {
+                    showNotification('Zu wenig Wörter oben links gefunden');
+                    return;
+                }
+                
+                // Nimm die ersten 20 Wörter (oben links), mindestens 4
+                const searchWords = words.slice(0, Math.min(20, words.length));
+                const searchText = searchWords.join(' ');
+                
+                console.log('Alle Items der oberen Zeile:', topItems.map(item => ({ text: item.str, x: item.transform[4].toFixed(1) })));
+                console.log('Linke Items (niedrigste X-Positionen):', itemsToUse.map(item => ({ text: item.str, x: item.transform[4].toFixed(1) })));
+                console.log('Extrahiertes Text (oben links):', leftText);
+                console.log('Alle Wörter:', words);
+                console.log('Erste 20 Wörter für Suche:', searchWords);
+
+                console.log('Suche nach PDF-Text (erste 20 Wörter oben links):', searchText);
+
+                // Suche im Markdown-Text - IMMER vom Anfang (oben links)
+                const markdownText = currentContent;
+                
+                // Normalisiere Text für Suche (entferne mehrfache Leerzeichen, Zeilenumbrüche)
+                const normalizeForSearch = (text) => {
+                    return text.replace(/\s+/g, ' ').trim().toLowerCase();
+                };
+
+                const normalizedSearch = normalizeForSearch(searchText);
+                
+                // Versuche verschiedene Suchstrategien
+                let foundPosition = -1;
+                let foundLength = searchText.length;
+                
+                // Normalisiere Markdown für Suche
+                // OPTIMIERUNG: Verwende requestIdleCallback oder setTimeout für große Texte
+                const startTime = performance.now();
+                const MAX_SEARCH_TIME = 5000; // Maximal 5 Sekunden für Suche (erhöht für große Texte)
+                
+                // WICHTIG: Normalisiere den GESAMTEN Text, nicht nur einen Teil
+                // Die Suche muss im gesamten Text funktionieren, nicht nur in den ersten 100000 Zeichen
+                let normalizedMarkdown;
+                if (markdownText.length > 200000) {
+                    // Für sehr große Texte: Normalisiere in Chunks, aber suche im gesamten Text
+                    console.log('Text sehr groß (' + markdownText.length + ' Zeichen), normalisiere für Suche');
+                    normalizedMarkdown = normalizeForSearch(markdownText);
+                } else {
+                    normalizedMarkdown = normalizeForSearch(markdownText);
+                }
+                
+                // Suche nach den ersten Wörtern - IMMER vom Anfang
+                // WICHTIG: Versuche zuerst direkte Suche im Originaltext (ohne Normalisierung)
+                let searchIndex = -1;
+                let foundWordCount = 0;
+                let useNormalizedSearch = false;
+                
+                // Strategie 1: Direkte Suche im originalen Text (case-insensitive)
+                const searchTextLower = searchText.toLowerCase();
+                let directIndex = markdownText.toLowerCase().indexOf(searchTextLower);
+                
+                if (directIndex !== -1) {
+                    searchIndex = directIndex;
+                    foundWordCount = searchWords.length;
+                    foundLength = searchText.length;
+                    console.log(`Gefunden mit ${searchWords.length} Wörtern (direkte Suche):`, searchText);
+                } else {
+                    // Strategie 2: Versuche mit weniger Wörtern (direkte Suche)
+                    for (let wordCount of [15, 10, 5, 4]) {
+                        if (wordCount > searchWords.length) continue;
+                        const testWords = searchWords.slice(0, wordCount);
+                        const testPhrase = testWords.join(' ');
+                        const testPhraseLower = testPhrase.toLowerCase();
+                        directIndex = markdownText.toLowerCase().indexOf(testPhraseLower);
+                        if (directIndex !== -1) {
+                            searchIndex = directIndex;
+                            foundWordCount = wordCount;
+                            foundLength = testPhrase.length;
+                            console.log(`Gefunden mit ${wordCount} Wörtern (direkte Suche):`, testPhrase);
+                            break;
+                        }
+                    }
+                    
+                    // Strategie 3: Falls direkte Suche fehlschlägt, versuche normalisierte Suche
+                    if (searchIndex === -1) {
+                        useNormalizedSearch = true;
+                        const normalizedSearchText = normalizeForSearch(searchText);
+                        searchIndex = normalizedMarkdown.indexOf(normalizedSearchText);
+                        if (searchIndex !== -1) {
+                            foundWordCount = searchWords.length;
+                            foundLength = searchText.length;
+                            console.log(`Gefunden mit ${searchWords.length} Wörtern (normalisierte Suche):`, searchText);
+                        } else {
+                            // Fallback: Versuche mit weniger Wörtern (normalisiert)
+                            for (let wordCount of [15, 10, 5, 4]) {
+                                if (wordCount > searchWords.length) continue;
+                                const testWords = searchWords.slice(0, wordCount);
+                                const testPhrase = testWords.join(' ');
+                                const normalizedTest = normalizeForSearch(testPhrase);
+                                searchIndex = normalizedMarkdown.indexOf(normalizedTest);
+                                if (searchIndex !== -1) {
+                                    foundWordCount = wordCount;
+                                    foundLength = testPhrase.length;
+                                    console.log(`Gefunden mit ${wordCount} Wörtern (normalisierte Suche):`, testPhrase);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                console.log('Suche vom Anfang des Markdown-Textes:', {
+                    searchText: searchText,
+                    searchTextLength: searchText.length,
+                    normalizedSearch: normalizedSearch,
+                    markdownLength: markdownText.length,
+                    normalizedMarkdownLength: normalizedMarkdown.length,
+                    searchIndex: searchIndex,
+                    foundWordCount: foundWordCount,
+                    useNormalizedSearch: useNormalizedSearch,
+                    first100CharsOfMarkdown: markdownText.substring(0, 100),
+                    first100CharsOfSearch: searchText.substring(0, 100)
+                });
+                
+                if (searchIndex === -1) {
+                    // Fallback: Versuche mit weniger Wörtern (3, dann 2) - zuerst direkte Suche
+                    for (let wordCount = 3; wordCount >= 2; wordCount--) {
+                        if (wordCount > searchWords.length) continue;
+                        const fallbackWords = searchWords.slice(0, wordCount);
+                        const fallbackPhrase = fallbackWords.join(' ');
+                        const fallbackPhraseLower = fallbackPhrase.toLowerCase().replace(/ß/g, 'ss');
+                        
+                        // Versuche zuerst direkte Suche (mit ß -> ss Normalisierung)
+                        directIndex = markdownTextLower.indexOf(fallbackPhraseLower);
+                        if (directIndex !== -1) {
+                            searchIndex = directIndex;
+                            foundLength = fallbackPhrase.length;
+                            foundWordCount = wordCount;
+                            console.log(`Gefunden mit ${wordCount} Wörtern (direkte Suche, Fallback):`, fallbackPhrase);
+                            break;
+                        }
+                        
+                        // Falls direkte Suche fehlschlägt, versuche normalisierte Suche
+                        if (searchIndex === -1) {
+                            const normalizedFallback = normalizeForSearch(fallbackPhrase);
+                            const normalizedIndex = normalizedMarkdown.indexOf(normalizedFallback);
+                            if (normalizedIndex !== -1) {
+                                searchIndex = normalizedIndex;
+                                foundLength = fallbackPhrase.length;
+                                foundWordCount = wordCount;
+                                useNormalizedSearch = true;
+                                console.log(`Gefunden mit ${wordCount} Wörtern (normalisierte Suche, Fallback):`, fallbackPhrase);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Fallback 2: Fuzzy Matching wenn exakte Suche nichts findet
+                    // ABBRUCH wenn zu viel Zeit vergangen ist
+                    if (searchIndex === -1 && (performance.now() - startTime) < MAX_SEARCH_TIME) {
+                        console.log('Exakte Suche fehlgeschlagen, versuche Fuzzy Matching...');
+                        try {
+                            // Für Fuzzy-Suche: Verwende nur ersten Teil des Textes wenn zu groß
+                            const fuzzyText = markdownText.length > 50000 ? markdownText.substring(0, 50000) : markdownText;
+                            const fuzzyMatch = fuzzySearchInMarkdown(fuzzyText, searchText, 0.65); // 65% Ähnlichkeit
+                            
+                            if (fuzzyMatch) {
+                                searchIndex = fuzzyMatch.index;
+                                foundLength = fuzzyMatch.length || searchText.length;
+                                useNormalizedSearch = true; // Fuzzy-Suche verwendet normalisierten Text
+                                console.log(`Fuzzy Match gefunden:`, {
+                                    similarity: (fuzzyMatch.similarity * 100).toFixed(1) + '%',
+                                    foundText: fuzzyMatch.text,
+                                    searchText: normalizedSearch
+                                });
+                                showNotification(`Fuzzy Match gefunden (${(fuzzyMatch.similarity * 100).toFixed(0)}% Ähnlichkeit)`);
+                            } else {
+                                console.log('Auch Fuzzy Matching hat nichts gefunden');
+                            }
+                        } catch (e) {
+                            console.error('Fehler bei Fuzzy-Suche:', e);
+                        }
+                    } else if ((performance.now() - startTime) >= MAX_SEARCH_TIME) {
+                        console.warn('Suche abgebrochen: Zu lange Laufzeit');
+                        showNotification('Suche zu langsam - Text möglicherweise zu groß');
+                    }
+                }
+                
+                if (searchIndex !== -1) {
+                    if (!useNormalizedSearch) {
+                        // Direkte Suche wurde verwendet - Position ist bereits korrekt
+                        foundPosition = searchIndex;
+                        console.log('Position durch direkte Suche gefunden:', foundPosition);
+                    } else {
+                        // Normalisierte Suche wurde verwendet - konvertiere Position zurück
+                        // Erstelle eine Mapping-Tabelle zwischen normalisiertem und originalem Text
+                        let normalizedPos = 0;
+                        const mapping = [];
+                        let lastSpace = false;
+                        
+                        // Durchlaufe den Text und baue Mapping auf
+                        for (let i = 0; i < markdownText.length; i++) {
+                            const char = markdownText[i];
+                            const isSpace = /\s/.test(char);
+                            
+                            if (isSpace) {
+                                // Zähle Leerzeichen nur, wenn das vorherige Zeichen kein Leerzeichen war
+                                if (!lastSpace && normalizedPos > 0) {
+                                    normalizedPos++;
+                                    mapping[normalizedPos - 1] = i;
+                                }
+                                lastSpace = true;
+                            } else {
+                                mapping[normalizedPos] = i;
+                                normalizedPos++;
+                                lastSpace = false;
+                            }
+                        }
+                        
+                        // Verwende Mapping um Position zu finden
+                        if (searchIndex < mapping.length) {
+                            foundPosition = mapping[searchIndex];
+                            console.log('Position durch Mapping gefunden:', foundPosition);
+                        } else {
+                            // Letzter Fallback: Schätze Position basierend auf normalisierter Position
+                            foundPosition = Math.floor((searchIndex / normalizedMarkdown.length) * markdownText.length);
+                            console.log('Position geschätzt:', foundPosition);
+                        }
+                    }
+                }
+
+                if (foundPosition === -1) {
+                    showNotification('Text nicht im Markdown gefunden: "' + searchText + '"');
+                    console.log('Gesuchter Text:', searchText);
+                    console.log('Normalisierter gesuchter Text:', normalizedSearch);
+                    return;
+                }
+
+                // Markiere die gefundene Stelle im Markdown
+                highlightTextInMarkdown(foundPosition, foundLength, searchText);
+                
+                showNotification('Text gefunden und markiert: "' + searchText + '"');
+
+            } catch (error) {
+                console.error('Fehler beim Extrahieren von PDF-Text:', error);
+                showNotification('Fehler beim Extrahieren von PDF-Text');
+            }
+        }
+
+        // Markiert Text im gerenderten Markdown
+        function highlightTextInMarkdown(position, length, searchText) {
+            const contentEl = document.getElementById('content');
+            if (!contentEl) return;
+
+            // Entferne vorherige Markierungen
+            const existingHighlights = contentEl.querySelectorAll('.pdf-search-highlight');
+            existingHighlights.forEach(el => {
+                const parent = el.parentNode;
+                parent.replaceChild(document.createTextNode(el.textContent), el);
+                parent.normalize();
+            });
+
+            // Finde die Position im gerenderten HTML
+            // Konvertiere Markdown-Position zu HTML-Position
+            const markdownText = currentContent;
+            const textBefore = markdownText.substring(0, position);
+            const textToHighlight = markdownText.substring(position, position + length);
+
+            // Finde diese Position im gerenderten HTML
+            const htmlText = contentEl.textContent || contentEl.innerText || '';
+            
+            // Suche nach dem Text im HTML
+            const normalizedHtml = htmlText.replace(/\s+/g, ' ').trim().toLowerCase();
+            const normalizedSearch = textToHighlight.replace(/\s+/g, ' ').trim().toLowerCase();
+            const htmlIndex = normalizedHtml.indexOf(normalizedSearch);
+
+            if (htmlIndex === -1) {
+                // Fallback: Scrolle zum Anfang der Seite
+                contentEl.scrollTop = 0;
+                return;
+            }
+
+            // Finde den entsprechenden Textknoten im DOM
+            const walker = document.createTreeWalker(
+                contentEl,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+
+            let charCount = 0;
+            let targetNode = null;
+            let targetOffset = 0;
+
+            while (walker.nextNode()) {
+                const node = walker.currentNode;
+                const nodeText = node.textContent || '';
+                const nodeLength = nodeText.length;
+
+                if (charCount + nodeLength >= htmlIndex) {
+                    targetNode = node;
+                    targetOffset = htmlIndex - charCount;
+                    break;
+                }
+
+                charCount += nodeLength;
+            }
+
+            if (targetNode) {
+                // Erstelle Range für die Markierung
+                const range = document.createRange();
+                const selection = window.getSelection();
+                
+                try {
+                    range.setStart(targetNode, Math.max(0, targetOffset));
+                    
+                    // Finde End-Position
+                    let endCharCount = charCount + targetOffset;
+                    let endNode = targetNode;
+                    let endOffset = targetOffset + Math.min(length, targetNode.textContent.length - targetOffset);
+                    
+                    if (endOffset >= targetNode.textContent.length) {
+                        // Suche nächsten Textknoten
+                        const endWalker = document.createTreeWalker(
+                            contentEl,
+                            NodeFilter.SHOW_TEXT,
+                            null
+                        );
+                        
+                        let foundStart = false;
+                        while (endWalker.nextNode()) {
+                            const node = endWalker.currentNode;
+                            if (node === targetNode) {
+                                foundStart = true;
+                                continue;
+                            }
+                            if (foundStart) {
+                                endNode = node;
+                                endOffset = Math.min(length - (endCharCount - charCount - targetOffset), node.textContent.length);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    range.setEnd(endNode, endOffset);
+                    
+                    // Erstelle Highlight-Span
+                    const highlightSpan = document.createElement('span');
+                    highlightSpan.className = 'pdf-search-highlight';
+                    highlightSpan.style.backgroundColor = '#ffeb3b';
+                    highlightSpan.style.padding = '2px 0';
+                    highlightSpan.style.borderRadius = '2px';
+                    highlightSpan.style.boxShadow = '0 0 0 2px #ff9800';
+                    
+                    try {
+                        range.surroundContents(highlightSpan);
+                    } catch (e) {
+                        // Falls surroundContents fehlschlägt, verwende extractContents
+                        const contents = range.extractContents();
+                        highlightSpan.appendChild(contents);
+                        range.insertNode(highlightSpan);
+                    }
+                    
+                    // Scrolle zur Markierung
+                    highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Setze Cursor-Position für Marker-Einfügung
+                    // WICHTIG: Cursor soll am ANFANG des gefundenen Textes stehen, nicht am Ende
+                    const newRange = document.createRange();
+                    newRange.setStartBefore(highlightSpan);
+                    newRange.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+                    
+                    // WICHTIG: Stelle sicher, dass das Content-Element fokussiert ist, damit Alt+Q funktioniert
+                    if (document.activeElement !== contentEl) {
+                        contentEl.focus();
+                    }
+                    
+                    // Speichere Position für Marker-Einfügung (am Anfang des gefundenen Textes)
+                    insertMarkerPosition = position;
+                    
+                } catch (e) {
+                    console.error('Fehler beim Markieren:', e);
+                    // Fallback: Scrolle zum Anfang
+                    contentEl.scrollTop = 0;
+                }
+            } else {
+                // Fallback: Scrolle zum Anfang
+                contentEl.scrollTop = 0;
+            }
+        }
+
+        function renderRightContent(content) {
+            if (!content) return;
+
+            // Finde Seitenumbrüche (---, "Seite X", etc.)
+            const lines = content.split('\n');
+            const pageBreaks = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                // Erkenne Seitenumbrüche
+                if (line === '---' || /^Seite\s+\d+/i.test(line) || /^Copyright Rudolf Steiner/i.test(line)) {
+                    pageBreaks.push(i);
+                }
+            }
+
+            // Markiere Wörter um Seitenumbrüche
+            let htmlContent = content;
+            
+            // Gehe von hinten nach vorne durch die Seitenumbrüche
+            for (let i = pageBreaks.length - 1; i >= 0; i--) {
+                const breakLineIndex = pageBreaks[i];
+                
+                // Finde die letzte Zeile vor dem Seitenumbruch mit Text
+                let beforeLineIndex = breakLineIndex - 1;
+                while (beforeLineIndex >= 0 && lines[beforeLineIndex].trim() === '') {
+                    beforeLineIndex--;
+                }
+                
+                // Finde die erste Zeile nach dem Seitenumbruch mit Text
+                let afterLineIndex = breakLineIndex + 1;
+                while (afterLineIndex < lines.length && lines[afterLineIndex].trim() === '') {
+                    afterLineIndex++;
+                }
+                
+                if (beforeLineIndex >= 0 && afterLineIndex < lines.length) {
+                    const beforeLine = lines[beforeLineIndex];
+                    const afterLine = lines[afterLineIndex];
+                    
+                    // Extrahiere das letzte Wort der vorherigen Zeile
+                    const beforeWords = beforeLine.trim().split(/\s+/).filter(w => w.length > 0);
+                    const lastWord = beforeWords.length > 0 ? beforeWords[beforeWords.length - 1] : null;
+                    
+                    // Extrahiere das erste Wort der nächsten Zeile
+                    const afterWords = afterLine.trim().split(/\s+/).filter(w => w.length > 0);
+                    const firstWord = afterWords.length > 0 ? afterWords[0] : null;
+                    
+                    // Prüfe ob es eine Silbentrennung ist (Bindestrich am Ende der vorherigen Zeile)
+                    const isWordBreak = beforeLine.trim().endsWith('-') || 
+                                      (beforeLine.trim().match(/\w+$/) && beforeLine.trim().match(/\w+$/)[0].length <= 5);
+                    
+                    // Markiere das letzte Wort der vorherigen Zeile
+                    if (lastWord) {
+                        let newBeforeLine = beforeLine;
+                        const className = isWordBreak ? 'word-break' : 'word-separator';
+                        newBeforeLine = newBeforeLine.replace(
+                            new RegExp(`(${escapeRegex(lastWord)})`, 'g'),
+                            `<span class="word-break-marker ${className}">$1</span>`
+                        );
+                        lines[beforeLineIndex] = newBeforeLine;
+                    }
+                    
+                    // Markiere das erste Wort der nächsten Zeile
+                    if (firstWord) {
+                        let newAfterLine = afterLine;
+                        const className = isWordBreak ? 'word-break' : 'word-separator';
+                        newAfterLine = newAfterLine.replace(
+                            new RegExp(`(${escapeRegex(firstWord)})`, 'g'),
+                            `<span class="word-break-marker ${className}">$1</span>`
+                        );
+                        lines[afterLineIndex] = newAfterLine;
+                    }
+                }
+            }
+            
+            // Rendere Markdown
+            htmlContent = lines.join('\n');
+            const rendered = md.render(htmlContent);
+            const contentRightEl = document.getElementById('contentRight');
+            if (contentRightEl) {
+                contentRightEl.innerHTML = rendered;
+            }
+        }
+
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function loadContent(content, preserveScrollPosition = false) {
+            if (!content) {
+                console.error('Kein Inhalt zum Laden');
+                return;
+            }
+            
+            // Speichere Scroll-Position wenn gewünscht
+            const contentEl = document.getElementById('content');
+            const scrollTop = preserveScrollPosition && contentEl ? contentEl.scrollTop : 0;
+            
+            // Finde alle Seitenmarker
+            const markerRegex = /\|(\d+)\|/g;
+            markers = [];
+            let match;
+            while ((match = markerRegex.exec(content)) !== null) {
+                const beforeChar = content[match.index - 1] || '';
+                const afterChar = content[match.index + match[0].length] || '';
+                const hasSpaces = (beforeChar === ' ' && afterChar === ' ');
+                
+                markers.push({
+                    page: parseInt(match[1]),
+                    index: match.index,
+                    length: match[0].length,
+                    hasSpaces: hasSpaces
+                });
+            }
+
+            // Erstelle Marker-Liste
+            updateMarkerList();
+            
+            // Rendere Content
+            try {
+                renderContent(content);
+            } catch (error) {
+                console.error('Fehler beim Rendern des Contents:', error);
+                // Fallback: Zeige rohen Text
+                if (contentEl) {
+                    contentEl.textContent = content;
+                    contentEl.setAttribute('contenteditable', 'true');
+                }
+            }
+            
+            updateStatus();
+            
+            // Stelle sicher, dass Highlighting-Status korrekt ist
+            if (!highlightingEnabled) {
+                document.body.classList.add('no-highlighting');
+            } else {
+                document.body.classList.remove('no-highlighting');
+            }
+
+            // Stelle Scroll-Position wieder her wenn gewünscht
+            if (preserveScrollPosition && contentEl && scrollTop > 0) {
+                setTimeout(() => {
+                    contentEl.scrollTop = scrollTop;
+                }, 50);
+            } else if (!preserveScrollPosition && markers.length > 0) {
+                // Nur beim ersten Laden: Springe zum ersten Marker
+                currentMarkerIndex = 0;
+                jumpToMarker(0);
+            } else if (pdfDoc && !preserveScrollPosition) {
+                // Synchronisiere PDF-Seite nur wenn Marker vorhanden sind
+                setTimeout(() => syncPdfPage(), 100);
+            }
+        }
+
+        function updateMarkerList() {
+            const markerList = document.getElementById('markerList');
+            markerList.innerHTML = '';
+            markers.forEach((marker, index) => {
+                // Filter anwenden
+                if (currentFilter === 'with' && !marker.hasSpaces) return;
+                if (currentFilter === 'without' && marker.hasSpaces) return;
+
+                const li = document.createElement('li');
+                li.className = 'marker-item';
+                if (index === currentMarkerIndex) {
+                    li.classList.add('active');
+                }
+                li.innerHTML = `
+                    <span>|${marker.page}|</span>
+                    <span class="marker-status ${marker.hasSpaces ? 'has-spaces' : 'no-spaces'}">
+                        ${marker.hasSpaces ? '✓ LZ' : '✗ kein LZ'}
+                    </span>
+                `;
+                li.onclick = () => jumpToMarker(index);
+                markerList.appendChild(li);
+            });
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.getElementById('filterAll').classList.toggle('active', filter === 'all');
+            document.getElementById('filterWithSpaces').classList.toggle('active', filter === 'with');
+            document.getElementById('filterWithoutSpaces').classList.toggle('active', filter === 'without');
+            updateMarkerList();
+            if (currentMarkerIndex >= 0) {
+                jumpToMarker(currentMarkerIndex);
+            }
+        }
+
+        function toggleHighlighting() {
+            highlightingEnabled = !highlightingEnabled;
+            const btn = document.getElementById('toggleHighlight');
+            btn.classList.toggle('active', !highlightingEnabled);
+            btn.textContent = highlightingEnabled ? 'Highlighting' : 'Ohne Highlighting';
+            
+            // Füge/entferne Klasse am body für CSS-Styling
+            if (highlightingEnabled) {
+                document.body.classList.remove('no-highlighting');
+            } else {
+                document.body.classList.add('no-highlighting');
+            }
+            
+            // Aktualisiere die Anzeige
+            if (currentMarkerIndex >= 0) {
+                jumpToMarker(currentMarkerIndex);
+            }
+        }
+
+        function renderContent(content) {
+            if (!content) {
+                console.error('Kein Content zum Rendern');
+                return;
+            }
+            
+            if (!md) {
+                console.error('Markdown-It nicht initialisiert');
+                // Fallback: Zeige rohen Text
+                const contentEl = document.getElementById('content');
+                if (contentEl) {
+                    contentEl.textContent = content;
+                    contentEl.setAttribute('contenteditable', 'true');
+                }
+                return;
+            }
+            
+            // Ersetze Marker durch HTML-Span-Elemente
+            // Wichtig: Von hinten nach vorne ersetzen, um Index-Probleme zu vermeiden
+            let htmlContent = content;
+            
+            // Sortiere Marker nach Index (von hinten nach vorne)
+            const sortedMarkers = [...markers].map((m, i) => ({...m, originalIndex: i})).sort((a, b) => b.index - a.index);
+            
+            sortedMarkers.forEach(({originalIndex: index, page, index: markerIndex, length, hasSpaces}) => {
+                const markerText = `|${page}|`;
+                
+                if (!highlightingEnabled) {
+                    // Ohne Highlighting: Marker genau wie im Markdown (Leerzeichen sichtbar)
+                    // Hole den Kontext um den Marker
+                    const beforeChar = content[markerIndex - 1] || '';
+                    const afterChar = content[markerIndex + length] || '';
+                    
+                    // Erstelle Replacement - Marker bleibt neutral, Leerzeichen werden sichtbar
+                    let replacement = '';
+                    if (beforeChar === ' ') {
+                        replacement += ' ';
+                    }
+                    replacement += `<span class="page-marker" data-marker-index="${index}" contenteditable="false">${markerText}</span>`;
+                    if (afterChar === ' ') {
+                        replacement += ' ';
+                    }
+                    
+                    // Ersetze Marker mit Kontext (von hinten nach vorne)
+                    if (beforeChar === ' ' && afterChar === ' ') {
+                        htmlContent = htmlContent.substring(0, markerIndex - 1) + replacement + htmlContent.substring(markerIndex + length + 1);
+                    } else if (beforeChar === ' ') {
+                        htmlContent = htmlContent.substring(0, markerIndex - 1) + replacement + htmlContent.substring(markerIndex + length);
+                    } else if (afterChar === ' ') {
+                        htmlContent = htmlContent.substring(0, markerIndex) + replacement + htmlContent.substring(markerIndex + length + 1);
+                    } else {
+                        htmlContent = htmlContent.substring(0, markerIndex) + replacement + htmlContent.substring(markerIndex + length);
+                    }
+                } else {
+                    // Mit Highlighting: farbige Marker
+                    const className = hasSpaces ? 'has-spaces' : 'no-spaces';
+                    const replacement = `<span class="page-marker ${className}" data-marker-index="${index}" contenteditable="false">${markerText}</span>`;
+                    htmlContent = htmlContent.substring(0, markerIndex) + replacement + htmlContent.substring(markerIndex + length);
+                }
+            });
+
+            // Rendere Markdown
+            const rendered = md.render(htmlContent);
+            const contentEl = document.getElementById('content');
+            if (!contentEl) {
+                console.error('Content-Element nicht gefunden');
+                return;
+            }
+            contentEl.innerHTML = rendered;
+            // Stelle sicher, dass contenteditable wieder gesetzt ist
+            contentEl.setAttribute('contenteditable', 'true');
+
+            // Füge Event-Listener zu Markern hinzu
+            document.querySelectorAll('.page-marker').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const index = parseInt(this.getAttribute('data-marker-index'));
+                    jumpToMarker(index);
+                });
+                
+                // Verhindere Bearbeitung der Marker selbst
+                el.setAttribute('contenteditable', 'false');
+                el.addEventListener('keydown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+            
+            // Kontextmenü wird in DOMContentLoaded eingerichtet
+            // setupContextMenu(); // Entfernt, um doppelte Registrierung zu vermeiden
+        }
+
+        let contextMenuSetup = false;
+        
+        // Passt eine Position so an, dass sie nicht innerhalb eines Wortes liegt
+        // Verschiebt die Position zum nächsten Wortende oder -anfang
+        function adjustPositionToWordBoundary(text, position) {
+            if (position < 0 || position > text.length) {
+                return position;
+            }
+            
+            // Ein Wort-Zeichen ist ein Buchstabe, eine Ziffer oder ein Unterstrich
+            const isWordChar = (char) => /[\w\u00C0-\u017F]/.test(char); // Buchstaben, Ziffern, Unterstriche, Umlaute
+            // Satzzeichen, die direkt nach einem Wort stehen können
+            const isPunctuation = (char) => /[.,;:!?»"')\]]/.test(char);
+            
+            // Prüfe, ob die Position am Anfang eines Absatzes ist
+            // (erstes Wort nach Zeilenumbruch oder am Textanfang)
+            function isAtParagraphStart(pos) {
+                if (pos <= 0) return true; // Am Textanfang
+                
+                // Finde den Anfang des aktuellen Wortes
+                let wordStart = pos;
+                while (wordStart > 0 && isWordChar(text[wordStart - 1])) {
+                    wordStart--;
+                }
+                
+                // Prüfe, ob vor dem Wortanfang nur Whitespace bis zum Zeilenumbruch/Textanfang ist
+                let checkPos = wordStart - 1;
+                while (checkPos >= 0 && text[checkPos] === ' ') {
+                    checkPos--;
+                }
+                
+                // Am Anfang eines Absatzes, wenn davor ein Zeilenumbruch oder Textanfang ist
+                return checkPos < 0 || text[checkPos] === '\n';
+            }
+            
+            // Prüfe, ob die Position innerhalb eines Wortes liegt
+            const charBefore = position > 0 ? text[position - 1] : '';
+            const charAfter = position < text.length ? text[position] : '';
+            
+            const beforeIsWord = isWordChar(charBefore);
+            const afterIsWord = isWordChar(charAfter);
+            
+            // Sonderfall: Am Anfang eines Absatzes - Position bleibt links vom ersten Wort
+            if (isAtParagraphStart(position)) {
+                // Finde den Anfang des ersten Wortes
+                let wordStart = position;
+                while (wordStart > 0 && isWordChar(text[wordStart - 1])) {
+                    wordStart--;
+                }
+                console.log('Position am Absatzanfang, bleibe links vom Wort:', wordStart);
+                return wordStart;
+            }
+            
+            // Wenn beide Seiten Wort-Zeichen sind, liegt die Position innerhalb eines Wortes
+            if (beforeIsWord && afterIsWord) {
+                // Verschiebe zum nächsten Wortende (nach rechts)
+                let newPos = position;
+                while (newPos < text.length && isWordChar(text[newPos])) {
+                    newPos++;
+                }
+                
+                // Wenn wir am Ende des Textes sind, versuche nach links zu gehen
+                if (newPos >= text.length) {
+                    newPos = position;
+                    while (newPos > 0 && isWordChar(text[newPos - 1])) {
+                        newPos--;
+                    }
+                } else {
+                    // Wenn nach dem Wortende ein Satzzeichen folgt, gehe dahinter
+                    while (newPos < text.length && isPunctuation(text[newPos])) {
+                        newPos++;
+                        console.log('Position hinter Satzzeichen verschoben:', newPos);
+                    }
+                }
+                
+                console.log('Position angepasst von', position, 'zu', newPos, '(innerhalb eines Wortes)');
+                return newPos;
+            }
+            
+            // Position ist bereits an einer Wortgrenze
+            // Aber prüfe, ob vor der Position ein Wort steht und nach der Position ein Satzzeichen
+            if (beforeIsWord && isPunctuation(charAfter)) {
+                let newPos = position;
+                while (newPos < text.length && isPunctuation(text[newPos])) {
+                    newPos++;
+                }
+                console.log('Position hinter Satzzeichen am Wortende verschoben:', newPos);
+                return newPos;
+            }
+            
+            return position;
+        }
+        
+        // Bestimmt die Position im Markdown-Text basierend auf der DOM-Position
+        // EXAKTE Positionsbestimmung für präzises Einfügen - OPTIMIERT
+        function getMarkdownPositionFromDOM(contentEl, node, offset) {
+            // Extrahiere den aktuellen Markdown-Text
+            const markdownText = extractMarkdownFromHTML(contentEl);
+            
+            // Erstelle einen Range bis zur Cursor-Position für exakte Bestimmung
+            const range = document.createRange();
+            range.setStart(contentEl, 0);
+            
+            try {
+                // Setze den Range bis zur Cursor-Position
+                if (node.nodeType === Node.TEXT_NODE) {
+                    range.setEnd(node, offset);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    // Wenn der Knoten ein Marker-Span ist
+                    if (node.classList && node.classList.contains('page-marker')) {
+                        // Cursor ist direkt auf einem Marker - füge nach dem Marker ein
+                        range.setEndAfter(node);
+                    } else {
+                        // Versuche den ersten Textknoten im Element zu finden
+                        const walker = document.createTreeWalker(
+                            node,
+                            NodeFilter.SHOW_TEXT,
+                            null
+                        );
+                        const firstTextNode = walker.nextNode();
+                        if (firstTextNode) {
+                            range.setEnd(firstTextNode, Math.min(offset, firstTextNode.textContent.length));
+                        } else {
+                            // Kein Textknoten - setze nach dem Element
+                            range.setEndAfter(node);
+                        }
+                    }
+                } else {
+                    range.setEnd(node, offset);
+                }
+            } catch (err) {
+                console.error('Fehler beim Setzen des Range:', err);
+                // Fallback: verwende Text-Extraktion
+                return getMarkdownPositionFromDOMFallback(contentEl, node, offset);
+            }
+            
+            // Extrahiere den Text bis zur Cursor-Position und konvertiere zu Markdown
+            const htmlTextBefore = convertHtmlToMarkdownText(contentEl, range.endContainer, range.endOffset);
+            
+            // OPTIMIERT: Verwende mehrere Strategien für exakte Positionsbestimmung
+            let position = findPositionInMarkdown(markdownText, htmlTextBefore);
+            
+            // Zusätzliche Validierung: Prüfe, ob die Position sinnvoll ist
+            if (position < 0 || position > markdownText.length) {
+                console.warn('Ungültige Position gefunden, verwende Fallback');
+                position = getMarkdownPositionFromDOMFallback(contentEl, node, offset);
+            }
+            
+            // Zeige visuellen Indikator an der Einfügeposition
+            showInsertPositionIndicator(contentEl, range);
+            
+            console.log('Exakte Positionsbestimmung:', {
+                nodeType: node.nodeType,
+                nodeText: node.nodeType === Node.TEXT_NODE ? node.textContent.substring(0, 20) : node.nodeName,
+                offset: offset,
+                htmlTextBeforeLength: htmlTextBefore.length,
+                htmlTextBeforeEnd: htmlTextBefore.substring(Math.max(0, htmlTextBefore.length - 50)),
+                foundPosition: position,
+                markdownTextLength: markdownText.length
+            });
+            
+            return position;
+        }
+        
+        // Zeigt einen visuellen Indikator an der Einfügeposition
+        function showInsertPositionIndicator(contentEl, range) {
+            // Entferne vorherigen Indikator
+            const existingIndicator = document.getElementById('insert-position-indicator');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
+            try {
+                // Erstelle einen temporären Marker an der Position
+                const indicator = document.createElement('span');
+                indicator.id = 'insert-position-indicator';
+                indicator.style.cssText = `
+                    border-left: 3px solid #ff6b6b;
+                    background: rgba(255, 107, 107, 0.1);
+                    padding: 0 2px;
+                    margin: 0 1px;
+                    display: inline-block;
+                    animation: blink 1s infinite;
+                    pointer-events: none;
+                `;
+                indicator.textContent = '│';
+                
+                // Füge CSS-Animation hinzu, falls noch nicht vorhanden
+                if (!document.getElementById('insert-indicator-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'insert-indicator-style';
+                    style.textContent = `
+                        @keyframes blink {
+                            0%, 100% { opacity: 1; }
+                            50% { opacity: 0.3; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                // Versuche, den Indikator an der Range-Position einzufügen
+                try {
+                    range.insertNode(indicator);
+                    // Entferne nach 3 Sekunden
+                    setTimeout(() => {
+                        if (indicator.parentNode) {
+                            indicator.remove();
+                        }
+                    }, 3000);
+                } catch (e) {
+                    console.warn('Konnte Indikator nicht einfügen:', e);
+                }
+            } catch (e) {
+                console.warn('Fehler beim Anzeigen des Indikators:', e);
+            }
+        }
+        
+        // Fallback-Methode für Positionsbestimmung
+        function getMarkdownPositionFromDOMFallback(contentEl, node, offset) {
+            const markdownText = extractMarkdownFromHTML(contentEl);
+            
+            // Wenn der Knoten ein Marker-Span ist
+            if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains('page-marker')) {
+                const htmlTextBefore = convertHtmlToMarkdownText(contentEl, node, 0);
+                const page = node.textContent.match(/\|(\d+)\|/)?.[1] || '';
+                const htmlTextWithMarker = htmlTextBefore + `|${page}|`;
+                return findPositionInMarkdown(markdownText, htmlTextWithMarker);
+            }
+            
+            // Versuche Textknoten zu finden
+            if (node.nodeType !== Node.TEXT_NODE) {
+                const walker = document.createTreeWalker(
+                    node,
+                    NodeFilter.SHOW_TEXT,
+                    null
+                );
+                const firstTextNode = walker.nextNode();
+                if (firstTextNode) {
+                    node = firstTextNode;
+                    offset = Math.min(offset, firstTextNode.textContent.length);
+                } else {
+                    return markdownText.length;
+                }
+            }
+            
+            const htmlTextBefore = convertHtmlToMarkdownText(contentEl, node, offset);
+            return findPositionInMarkdown(markdownText, htmlTextBefore);
+        }
+        
+        // Verbesserte Funktion zur Positionsbestimmung im Markdown-Text
+        function findPositionInMarkdown(markdownText, searchText) {
+            if (searchText.length === 0) {
+                return 0;
+            }
+            
+            // Normalisiere beide Texte für Vergleich
+            const normalize = (txt) => {
+                return txt.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            };
+            
+            const normalizedSearch = normalize(searchText);
+            const normalizedMarkdown = normalize(markdownText);
+            
+            // Strategie 1: Suche nach eindeutigen Markern im Suchtext
+            const markersInSearch = normalizedSearch.match(/\|(\d+)\|/g) || [];
+            if (markersInSearch.length > 0) {
+                // Finde den letzten Marker im Suchtext
+                const lastMarker = markersInSearch[markersInSearch.length - 1];
+                const lastMarkerIndex = normalizedSearch.lastIndexOf(lastMarker);
+                
+                // Finde diesen Marker im Markdown-Text
+                let markerPositions = [];
+                let pos = 0;
+                while ((pos = normalizedMarkdown.indexOf(lastMarker, pos)) !== -1) {
+                    markerPositions.push(pos);
+                    pos += lastMarker.length;
+                }
+                
+                if (markerPositions.length === 1) {
+                    // Eindeutiger Marker gefunden - verwende Position nach diesem Marker
+                    const markerEnd = markerPositions[0] + lastMarker.length;
+                    const textAfterMarker = normalizedSearch.substring(lastMarkerIndex + lastMarker.length);
+                    const position = markerEnd + textAfterMarker.length;
+                    return Math.min(position, markdownText.length);
+                } else if (markerPositions.length > 1) {
+                    // Mehrere Marker gefunden - verwende Kontext
+                    for (const markerPos of markerPositions) {
+                        const textBeforeMarker = normalizedSearch.substring(0, lastMarkerIndex);
+                        const textAfterMarker = normalizedSearch.substring(lastMarkerIndex + lastMarker.length);
+                        
+                        // Prüfe Text vor dem Marker
+                        const beforeStart = Math.max(0, markerPos - textBeforeMarker.length);
+                        const beforeText = normalizedMarkdown.substring(beforeStart, markerPos);
+                        
+                        // Prüfe Text nach dem Marker
+                        const afterEnd = Math.min(normalizedMarkdown.length, markerPos + lastMarker.length + textAfterMarker.length);
+                        const afterText = normalizedMarkdown.substring(markerPos + lastMarker.length, afterEnd);
+                        
+                        // Wenn beide übereinstimmen, haben wir die richtige Position
+                        if (beforeText.endsWith(textBeforeMarker) && afterText.startsWith(textAfterMarker)) {
+                            const position = markerPos + lastMarker.length + textAfterMarker.length;
+                            return Math.min(position, markdownText.length);
+                        }
+                    }
+                }
+            }
+            
+            // Strategie 2: Suche nach längstem übereinstimmendem Suffix mit Kontext
+            let bestMatch = -1;
+            let bestScore = 0;
+            
+            // Suche von hinten nach vorne für bessere Genauigkeit
+            for (let startLen = Math.min(normalizedSearch.length, 500); startLen >= 10; startLen--) {
+                const suffix = normalizedSearch.substring(normalizedSearch.length - startLen);
+                const index = normalizedMarkdown.lastIndexOf(suffix);
+                
+                if (index !== -1) {
+                    // Prüfe Kontext davor (mindestens 20 Zeichen)
+                    const contextLen = Math.min(50, normalizedSearch.length - startLen);
+                    if (contextLen > 0) {
+                        const searchContext = normalizedSearch.substring(normalizedSearch.length - startLen - contextLen, normalizedSearch.length - startLen);
+                        const markdownContext = normalizedMarkdown.substring(Math.max(0, index - contextLen), index);
+                        
+                        // Berechne Übereinstimmungs-Score
+                        let score = startLen;
+                        if (markdownContext.endsWith(searchContext)) {
+                            score += contextLen;
+                        }
+                        
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestMatch = index + startLen;
+                        }
+                    } else {
+                        // Am Anfang des Texts
+                        bestMatch = index + startLen;
+                        break;
+                    }
+                }
+            }
+            
+            if (bestMatch !== -1) {
+                return Math.min(bestMatch, markdownText.length);
+            }
+            
+            // Strategie 3: Fallback - verwende relative Position basierend auf Textlänge
+            // Berücksichtige Marker-Unterschiede
+            const markerDiff = (normalizedMarkdown.match(/\|(\d+)\|/g) || []).length - 
+                              (normalizedSearch.match(/\|(\d+)\|/g) || []).length;
+            const estimatedPos = Math.min(normalizedSearch.length + (markerDiff * 5), normalizedMarkdown.length);
+            
+            return Math.min(estimatedPos, markdownText.length);
+        }
+        
+        function setupContextMenu() {
+            // Verhindere mehrfache Registrierung
+            if (contextMenuSetup) {
+                console.log('Kontextmenü bereits eingerichtet');
+                return;
+            }
+            
+            const contentEl = document.getElementById('content');
+            const contextMenu = document.getElementById('contextMenu');
+            
+            if (!contentEl) {
+                console.error('Content-Element nicht gefunden');
+                return;
+            }
+            
+            if (!contextMenu) {
+                console.error('Context-Menü-Element nicht gefunden');
+                return;
+            }
+            
+            console.log('Kontextmenü wird eingerichtet...');
+            
+            // Rechtsklick-Event
+            contentEl.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('Rechtsklick erkannt auf Content-Element');
+                
+                // Setze Cursor an die Klick-Position
+                const selection = window.getSelection();
+                let range = null;
+                
+                if (document.caretRangeFromPoint) {
+                    try {
+                        range = document.caretRangeFromPoint(e.clientX, e.clientY);
+                    } catch (err) {
+                        console.error('Fehler bei caretRangeFromPoint:', err);
+                    }
+                }
+                
+                if (range) {
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+                
+                // Finde die Position im Markdown-Text basierend auf der aktuellen Cursor-Position
+                // EXAKTE Positionsbestimmung für präzises Einfügen
+                if (selection.rangeCount > 0) {
+                    const selRange = selection.getRangeAt(0);
+                    // Verwende die verbesserte Methode zur EXAKTEN Positionsbestimmung
+                    insertMarkerPosition = getMarkdownPositionFromDOM(contentEl, selRange.startContainer, selRange.startOffset);
+                    console.log('EXAKTE Einfügeposition (Rechtsklick):', insertMarkerPosition);
+                } else {
+                    // Fallback: verwende Mausposition (am Ende einfügen)
+                    insertMarkerPosition = -1;
+                    console.log('Fallback: Einfügeposition am Ende');
+                }
+                
+                // Zeige Kontextmenü
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = e.clientX + 'px';
+                contextMenu.style.top = e.clientY + 'px';
+                console.log('Kontextmenü angezeigt bei', e.clientX, e.clientY);
+            }, true); // useCapture = true für frühere Erfassung
+            
+            // Schließe Kontextmenü bei Klick außerhalb
+            document.addEventListener('click', function(e) {
+                // Prüfe, ob der Klick innerhalb des Kontextmenüs war
+                if (contextMenu && contextMenu.contains(e.target)) {
+                    // Klick innerhalb des Menüs - lass onclick-Handler ausführen
+                    // Das Menü wird vom insertMarker() geschlossen
+                    return;
+                }
+                // Klick außerhalb - schließe Menü
+                if (contextMenu) {
+                    contextMenu.style.display = 'none';
+                }
+            });
+            
+            contextMenuSetup = true;
+            console.log('Kontextmenü erfolgreich eingerichtet');
+        }
+
+        function extractTextBeforePosition(element, node, offset) {
+            // Extrahiere Text bis zur angegebenen Position
+            // Konvertiere HTML zurück zu Markdown-Text
+            const walker = document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+                {
+                    acceptNode: function(node) {
+                        // Überspringe Marker-Spans, aber zähle sie als Marker-Text
+                        if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains('page-marker')) {
+                            return NodeFilter.FILTER_ACCEPT;
+                        }
+                        return NodeFilter.FILTER_ACCEPT;
+                    }
+                }
+            );
+            
+            let text = '';
+            let found = false;
+            
+            while (walker.nextNode()) {
+                const currentNode = walker.currentNode;
+                
+                if (currentNode === node) {
+                    if (currentNode.nodeType === Node.TEXT_NODE) {
+                        text += currentNode.textContent.substring(0, offset);
+                    } else if (currentNode.nodeType === Node.ELEMENT_NODE && currentNode.classList && currentNode.classList.contains('page-marker')) {
+                        // Wenn der Cursor direkt auf einem Marker ist, füge den Marker-Text hinzu
+                        const page = currentNode.textContent.match(/\|(\d+)\|/)?.[1] || '';
+                        text += `|${page}|`;
+                    }
+                    found = true;
+                    break;
+                } else if (currentNode.nodeType === Node.TEXT_NODE) {
+                    // Normale Textknoten
+                    text += currentNode.textContent;
+                } else if (currentNode.nodeType === Node.ELEMENT_NODE && currentNode.classList && currentNode.classList.contains('page-marker')) {
+                    // Marker-Spans: füge Marker-Text hinzu
+                    const page = currentNode.textContent.match(/\|(\d+)\|/)?.[1] || '';
+                    text += `|${page}|`;
+                }
+            }
+            
+            return text;
+        }
+
+        function getTextBeforePosition(element, node, offset) {
+            // Extrahiere reinen Text bis zur angegebenen Position (ohne Markdown-Konvertierung)
+            const walker = document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+            
+            let text = '';
+            let found = false;
+            
+            while (walker.nextNode()) {
+                const currentNode = walker.currentNode;
+                
+                if (currentNode === node) {
+                    text += currentNode.textContent.substring(0, offset);
+                    found = true;
+                    break;
+                } else {
+                    text += currentNode.textContent;
+                }
+            }
+            
+            return text;
+        }
+        
+        function getTextAfterPosition(element, node, offset) {
+            // Extrahiere reinen Text nach der angegebenen Position
+            const walker = document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+            
+            let text = '';
+            let found = false;
+            
+            while (walker.nextNode()) {
+                const currentNode = walker.currentNode;
+                
+                if (currentNode === node) {
+                    text += currentNode.textContent.substring(offset);
+                    found = true;
+                } else if (found) {
+                    text += currentNode.textContent;
+                }
+            }
+            
+            return text;
+        }
+        
+        function convertHtmlToMarkdownText(element, node, offset) {
+            // Konvertiere HTML-Text vor der Position zurück zu Markdown-ähnlichem Text
+            // Ersetze Marker-Spans durch |X| Format und behandle HTML-Elemente
+            const walker = document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+                null
+            );
+            
+            let text = '';
+            let found = false;
+            let lastWasBlock = false;
+            
+            while (walker.nextNode()) {
+                const currentNode = walker.currentNode;
+                
+                if (currentNode === node) {
+                    if (currentNode.nodeType === Node.TEXT_NODE) {
+                        text += currentNode.textContent.substring(0, offset);
+                    } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                        // Wenn der Cursor direkt auf einem Element ist (z.B. Marker-Span)
+                        if (currentNode.classList && currentNode.classList.contains('page-marker')) {
+                            // Cursor ist auf einem Marker - füge Marker-Text hinzu
+                            const page = currentNode.textContent.match(/\|(\d+)\|/)?.[1] || '';
+                            text += `|${page}|`;
+                        }
+                    }
+                    found = true;
+                    break;
+                } else if (currentNode.nodeType === Node.TEXT_NODE) {
+                    // Normale Textknoten
+                    text += currentNode.textContent;
+                    lastWasBlock = false;
+                } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = currentNode.tagName ? currentNode.tagName.toLowerCase() : '';
+                    
+                    // Prüfe ob es ein Marker-Span ist
+                    if (currentNode.classList && currentNode.classList.contains('page-marker')) {
+                        const page = currentNode.textContent.match(/\|(\d+)\|/)?.[1] || '';
+                        text += `|${page}|`;
+                        lastWasBlock = false;
+                    } else if (tagName === 'p' || tagName === 'div') {
+                        // Absätze: füge doppelten Zeilenumbruch hinzu
+                        if (!lastWasBlock && text.length > 0) {
+                            text += '\n\n';
+                        }
+                        lastWasBlock = true;
+                    } else if (tagName === 'br') {
+                        // Zeilenumbrüche
+                        text += '\n';
+                        lastWasBlock = false;
+                    } else if (tagName === 'h1' || tagName === 'h2' || tagName === 'h3' || tagName === 'h4' || tagName === 'h5' || tagName === 'h6') {
+                        // Überschriften: füge Zeilenumbruch hinzu
+                        if (!lastWasBlock && text.length > 0) {
+                            text += '\n\n';
+                        }
+                        lastWasBlock = true;
+                    }
+                    // Andere HTML-Elemente werden übersprungen
+                }
+            }
+            
+            return text;
+        }
+        
+        function findExactPositionInMarkdown(markdownText, searchText) {
+            // Finde die exakte Position im Markdown-Text durch direkten Vergleich
+            // Suche nach dem längsten übereinstimmenden Suffix
+            
+            if (searchText.length === 0) {
+                return 0;
+            }
+            
+            // Normalisiere Zeilenumbrüche für Vergleich (verschiedene Arten von Zeilenumbrüchen)
+            const normalizeText = (txt) => {
+                return txt.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n{3,}/g, '\n\n');
+            };
+            
+            const normalizedSearch = normalizeText(searchText);
+            const normalizedMarkdown = normalizeText(markdownText);
+            
+            // Direkter Vergleich - suche nach exaktem Text
+            // Verwende lastIndexOf für die letzte Übereinstimmung (falls Text mehrfach vorkommt)
+            let bestMatch = -1;
+            let bestMatchLen = 0;
+            
+            // Suche nach dem längsten übereinstimmenden Suffix
+            for (let len = Math.min(normalizedSearch.length, 200); len >= 5; len--) {
+                const suffix = normalizedSearch.substring(normalizedSearch.length - len);
+                const index = normalizedMarkdown.lastIndexOf(suffix);
+                
+                if (index !== -1) {
+                    // Prüfe, ob der Text davor auch übereinstimmt (für bessere Genauigkeit)
+                    const beforeLen = Math.min(30, normalizedSearch.length - len);
+                    if (beforeLen > 0) {
+                        const beforeSearch = normalizedSearch.substring(normalizedSearch.length - len - beforeLen, normalizedSearch.length - len);
+                        const beforeMarkdown = normalizedMarkdown.substring(index - beforeLen, index);
+                        
+                        if (beforeSearch === beforeMarkdown) {
+                            // Position gefunden - konvertiere zurück zu Original-Position
+                            bestMatch = convertNormalizedPositionToOriginal(markdownText, index + len);
+                            bestMatchLen = len;
+                            break;
+                        }
+                    } else {
+                        // Wenn wir am Anfang sind, verwende diese Position
+                        bestMatch = convertNormalizedPositionToOriginal(markdownText, index + len);
+                        bestMatchLen = len;
+                        break;
+                    }
+                }
+            }
+            
+            if (bestMatch !== -1) {
+                return bestMatch;
+            }
+            
+            // Fallback: verwende einfache Längenberechnung
+            // Zähle Marker im Suchtext und korrigiere
+            const markerMatches = searchText.match(/\|(\d+)\|/g);
+            const markerCount = markerMatches ? markerMatches.length : 0;
+            // Jeder Marker im HTML ist länger als im Markdown (wegen HTML-Tags)
+            // Schätze die Position basierend auf der Textlänge
+            return Math.min(Math.max(0, searchText.length - (markerCount * 10)), markdownText.length);
+        }
+        
+        function convertNormalizedPositionToOriginal(originalText, normalizedPos) {
+            // Konvertiere eine Position im normalisierten Text zurück zur Position im Original-Text
+            let originalPos = 0;
+            let normalizedCount = 0;
+            
+            for (let i = 0; i < originalText.length && normalizedCount < normalizedPos; i++) {
+                const char = originalText[i];
+                if (char === '\r' && i + 1 < originalText.length && originalText[i + 1] === '\n') {
+                    // \r\n wird zu \n normalisiert
+                    normalizedCount++;
+                    i++; // Überspringe das \n
+                    originalPos = i + 1;
+                } else if (char === '\r') {
+                    // \r wird zu \n normalisiert
+                    normalizedCount++;
+                    originalPos = i + 1;
+                } else if (char === '\n' && i + 1 < originalText.length && originalText[i + 1] === '\n' && i + 2 < originalText.length && originalText[i + 2] === '\n') {
+                    // Mehrere \n werden zu \n\n normalisiert
+                    normalizedCount += 2;
+                    // Überspringe alle weiteren \n
+                    i += 2;
+                    while (i + 1 < originalText.length && originalText[i + 1] === '\n') {
+                        i++;
+                    }
+                    originalPos = i + 1;
+                } else {
+                    normalizedCount++;
+                    originalPos = i + 1;
+                }
+            }
+            
+            return Math.min(originalPos, originalText.length);
+        }
+
+        function insertMarkerWithSpaces() {
+            console.log('insertMarkerWithSpaces aufgerufen');
+            insertMarker(true);
+        }
+
+        function insertMarkerWithoutSpaces() {
+            console.log('insertMarkerWithoutSpaces aufgerufen');
+            insertMarker(false);
+        }
+
+        let pendingInsertMarkerWithSpaces = false;
+        
+        // Öffnet den Dialog zum Einfügen eines Markers an der aktuellen Cursor-Position
+        function openInsertMarkerDialogAtCursor(withSpaces = true) {
+            const contentEl = document.getElementById('content');
+            if (!contentEl) {
+                showNotification('Content-Element nicht gefunden');
+                return;
+            }
+            
+            // WICHTIG: Wenn insertMarkerPosition bereits gesetzt ist (z.B. nach Suche/Highlight),
+            // verwende diese Position. Nur wenn sie nicht gesetzt ist (z.B. nach manuellem Klicken),
+            // hole die aktuelle Cursor-Position
+            if (insertMarkerPosition >= 0) {
+                console.log('Verwende gespeicherte Position für Marker-Einfügung (nach Suche/Highlight):', insertMarkerPosition);
+            } else {
+                // Hole aktuelle Cursor-Position - EXAKTE Positionsbestimmung
+                const selection = window.getSelection();
+                
+                if (selection.rangeCount > 0) {
+                    const selRange = selection.getRangeAt(0);
+                    // Verwende die verbesserte Methode zur EXAKTEN Positionsbestimmung
+                    insertMarkerPosition = getMarkdownPositionFromDOM(contentEl, selRange.startContainer, selRange.startOffset);
+                    console.log('EXAKTE Cursor-Position für Marker-Einfügung (manuell gesetzt):', insertMarkerPosition);
+                } else {
+                    // Keine Selektion - versuche Cursor-Position aus contenteditable zu holen
+                    // Setze Fokus auf contentEl, falls nicht bereits fokussiert
+                    if (document.activeElement !== contentEl) {
+                        contentEl.focus();
+                    }
+                    
+                    // Versuche Range am Ende des letzten Textknotens zu erstellen
+                    const range = document.createRange();
+                    const walker = document.createTreeWalker(
+                        contentEl,
+                        NodeFilter.SHOW_TEXT,
+                        null
+                    );
+                    
+                    let lastTextNode = null;
+                    while (walker.nextNode()) {
+                        lastTextNode = walker.currentNode;
+                    }
+                    
+                    if (lastTextNode) {
+                        range.setStart(lastTextNode, lastTextNode.textContent.length);
+                        range.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        insertMarkerPosition = getMarkdownPositionFromDOM(contentEl, lastTextNode, lastTextNode.textContent.length);
+                    } else {
+                        // Fallback: Ende des Textes
+                        insertMarkerPosition = -1;
+                    }
+                    console.log('Cursor-Position (ohne Selektion) für Marker-Einfügung:', insertMarkerPosition);
+                }
+            }
+            
+            // Öffne Dialog
+            insertMarker(withSpaces);
+        }
+        
+        function insertMarker(withSpaces) {
+            console.log('insertMarker aufgerufen, withSpaces:', withSpaces);
+            const contextMenu = document.getElementById('contextMenu');
+            if (contextMenu) {
+                contextMenu.style.display = 'none';
+            }
+            
+            // Speichere den withSpaces-Wert für später
+            pendingInsertMarkerWithSpaces = withSpaces;
+            
+            // Berechne die nächste Seitenzahl basierend auf der Einfügeposition
+            let suggestedPage = 1; // Standard: 1 wenn kein Marker vorher existiert
+            
+            // Hole aktuellen Content (auch wenn noch nicht gespeichert)
+            const contentEl = document.getElementById('content');
+            const currentText = contentEl ? extractMarkdownFromHTML(contentEl) : currentContent;
+            
+            if (currentText && insertMarkerPosition >= 0) {
+                // Finde alle Marker vor der Einfügeposition
+                const markerRegex = /\|(\d+)\|/g;
+                let match;
+                let lastMarkerBeforePosition = null;
+                
+                while ((match = markerRegex.exec(currentText)) !== null) {
+                    const markerIndex = match.index;
+                    const markerPage = parseInt(match[1]);
+                    
+                    // Nur Marker vor der Einfügeposition berücksichtigen
+                    if (markerIndex < insertMarkerPosition) {
+                        if (!lastMarkerBeforePosition || markerIndex > lastMarkerBeforePosition.index) {
+                            lastMarkerBeforePosition = {
+                                index: markerIndex,
+                                page: markerPage
+                            };
+                        }
+                    }
+                }
+                
+                // Wenn ein Marker vorher gefunden wurde, verwende dessen Seitenzahl + 1
+                if (lastMarkerBeforePosition) {
+                    suggestedPage = lastMarkerBeforePosition.page + 1;
+                }
+            } else if (markers.length > 0) {
+                // Fallback: Wenn insertMarkerPosition -1 ist (am Ende), nimm den letzten Marker
+                const lastMarker = markers[markers.length - 1];
+                suggestedPage = lastMarker.page + 1;
+            }
+            
+            // Zeige Dialog
+            const dialog = document.getElementById('insertMarkerDialog');
+            const input = document.getElementById('insertPageInput');
+            if (dialog && input) {
+                input.value = suggestedPage; // Setze vorgeschlagene Seitenzahl
+                dialog.style.display = 'block';
+                input.focus();
+                input.select(); // Markiere den Text für einfaches Überschreiben
+            }
+        }
+        
+        function closeInsertMarkerDialog() {
+            const dialog = document.getElementById('insertMarkerDialog');
+            if (dialog) {
+                dialog.style.display = 'none';
+            }
+        }
+        
+        function confirmInsertMarker() {
+            const input = document.getElementById('insertPageInput');
+            if (!input) return;
+            
+            const pageNum = input.value.trim();
+            console.log('Eingegebene Seitenzahl:', pageNum);
+            
+            if (!pageNum || isNaN(parseInt(pageNum))) {
+                showNotification('Ungültige Seitenzahl');
+                return;
+            }
+            
+            const page = parseInt(pageNum);
+            const withSpaces = pendingInsertMarkerWithSpaces;
+            const markerText = `|${page}|`;
+            
+            // Schließe Dialog
+            closeInsertMarkerDialog();
+            
+            // Hole aktuellen Inhalt
+            const contentEl = document.getElementById('content');
+            const currentText = extractMarkdownFromHTML(contentEl);
+            
+            let newContent = '';
+            let insertPos = insertMarkerPosition;
+            
+            // WICHTIG: Stelle sicher, dass die Position nicht innerhalb eines Wortes liegt
+            if (insertPos >= 0 && insertPos < currentText.length) {
+                insertPos = adjustPositionToWordBoundary(currentText, insertPos);
+            }
+            
+            let positionAfterInsert = 0;
+            
+            if (insertPos === -1 || insertPos >= currentText.length) {
+                // Am Ende einfügen
+                const spaces = withSpaces ? ' ' : '';
+                newContent = currentText + spaces + markerText + spaces;
+                positionAfterInsert = newContent.length;
+            } else {
+                // An der Position einfügen
+                const before = currentText.substring(0, insertPos);
+                const after = currentText.substring(insertPos);
+                
+                // Prüfe ob vorher/nachher Leerzeichen vorhanden sind
+                const beforeChar = before[before.length - 1] || '';
+                const afterChar = after[0] || '';
+                
+                let spaceBefore = '';
+                let spaceAfter = '';
+                
+                if (withSpaces) {
+                    // Mit Leerzeichen: füge Leerzeichen hinzu wenn nicht vorhanden
+                    spaceBefore = (beforeChar === ' ' || beforeChar === '\n' || before.length === 0) ? '' : ' ';
+                    spaceAfter = (afterChar === ' ' || afterChar === '\n' || after.length === 0) ? '' : ' ';
+                } else {
+                    // Ohne Leerzeichen: entferne Leerzeichen wenn vorhanden
+                    if (beforeChar === ' ') {
+                        // Leerzeichen vorher entfernen
+                        newContent = before.slice(0, -1) + markerText + after;
+                        positionAfterInsert = insertPos - 1 + markerText.length;
+                    } else if (afterChar === ' ') {
+                        // Leerzeichen nachher entfernen
+                        newContent = before + markerText + after.substring(1);
+                        positionAfterInsert = insertPos + markerText.length;
+                    } else {
+                        // Keine Leerzeichen vorhanden, direkt einfügen
+                        newContent = before + markerText + after;
+                        positionAfterInsert = insertPos + markerText.length;
+                    }
+                }
+                
+                if (withSpaces) {
+                    newContent = before + spaceBefore + markerText + spaceAfter + after;
+                    positionAfterInsert = insertPos + spaceBefore.length + markerText.length + spaceAfter.length;
+                }
+            }
+            
+            // Passe alle nachfolgenden Marker als lineare Reihe an (nur Marker >= eingefügter Seitenzahl)
+            console.log('confirmInsertMarker - Vor Anpassung:', {
+                page,
+                positionAfterInsert,
+                newContentLength: newContent.length,
+                contentAroundPosition: newContent.substring(Math.max(0, positionAfterInsert - 30), Math.min(newContent.length, positionAfterInsert + 30))
+            });
+            newContent = adjustMarkersAsLinearSequenceAfterInsert(newContent, positionAfterInsert, page);
+            console.log('confirmInsertMarker - Nach Anpassung:', {
+                newContentLength: newContent.length,
+                contentChanged: newContent !== currentText
+            });
+            
+            // Aktualisiere Content (Scroll-Position wird automatisch erhalten)
+            currentContent = newContent;
+            loadContent(currentContent, true);
+            
+            showNotification(`Marker |${page}| eingefügt ${withSpaces ? '(mit LZ)' : '(ohne LZ)'}, nachfolgende Marker als lineare Reihe angepasst`);
+        }
+        
+        // Erhöht alle Marker nach einer bestimmten Position um einen Wert
+        function incrementMarkersAfterPosition(content, position, referencePage, increment) {
+            // Finde alle Marker im Text
+            const markerRegex = /\|(\d+)\|/g;
+            let match;
+            const replacements = [];
+            
+            // Sammle alle Marker nach der Einfügeposition
+            while ((match = markerRegex.exec(content)) !== null) {
+                const markerIndex = match.index;
+                const markerPage = parseInt(match[1]);
+                
+                // Nur Marker nach der Einfügeposition und >= referencePage erhöhen
+                if (markerIndex > position && markerPage >= referencePage) {
+                    const newPage = markerPage + increment;
+                    replacements.push({
+                        index: markerIndex,
+                        length: match[0].length,
+                        oldText: match[0],
+                        newText: `|${newPage}|`
+                    });
+                }
+            }
+            
+            // Ersetze von hinten nach vorne, um Index-Probleme zu vermeiden
+            let result = content;
+            replacements.sort((a, b) => b.index - a.index);
+            
+            for (const replacement of replacements) {
+                result = result.substring(0, replacement.index) + 
+                         replacement.newText + 
+                         result.substring(replacement.index + replacement.length);
+            }
+            
+            return result;
+        }
+        
+        // Passt Marker nach einer Position als lineare Reihe an (beim Einfügen)
+        // Wenn z.B. Seite 7 vor Seite 3 eingefügt wird, wird 3 zu 8, 4 zu 9, etc.
+        function adjustMarkersAsLinearSequenceAfterInsert(content, position, insertedPage) {
+            // Finde alle Marker im Text
+            const markerRegex = /\|(\d+)\|/g;
+            let match;
+            const allMarkers = [];
+            const markersAfter = [];
+            
+            // Sammle ALLE Marker zuerst
+            markerRegex.lastIndex = 0; // Reset regex
+            while ((match = markerRegex.exec(content)) !== null) {
+                const markerIndex = match.index;
+                const markerPage = parseInt(match[1]);
+                allMarkers.push({
+                    index: markerIndex,
+                    page: markerPage,
+                    text: match[0],
+                    length: match[0].length
+                });
+            }
+            
+            console.log('adjustMarkersAsLinearSequenceAfterInsert - ALLE Marker:', {
+                insertedPage,
+                position,
+                contentLength: content.length,
+                allMarkers: allMarkers.map(m => ({ page: m.page, index: m.index, text: m.text })),
+                positionContext: content.substring(Math.max(0, position - 20), Math.min(content.length, position + 20))
+            });
+            
+            // Sammle alle Marker nach der Einfügeposition
+            // Wenn z.B. Seite 7 vor Seite 3 eingefügt wird, wird 3 zu 8, 4 zu 9, etc.
+            // ALLE Marker nach der Einfügeposition werden linear angepasst: insertedPage+1, insertedPage+2, ...
+            for (const marker of allMarkers) {
+                // Marker muss NACH der Einfügeposition sein
+                // Alle nachfolgenden Marker werden angepasst, unabhängig von ihrer aktuellen Seitenzahl
+                if (marker.index >= position) {
+                    markersAfter.push({
+                        index: marker.index,
+                        page: marker.page,
+                        length: marker.length,
+                        oldText: marker.text
+                    });
+                }
+            }
+            
+            // Sortiere nach Position im Text (von vorne nach hinten)
+            markersAfter.sort((a, b) => a.index - b.index);
+            
+            console.log('adjustMarkersAsLinearSequenceAfterInsert - Marker nach Position:', {
+                markersAfter: markersAfter.map(m => ({ oldPage: m.page, index: m.index })),
+                markersCount: markersAfter.length
+            });
+            
+            // Passe Marker als lineare Reihe an: insertedPage+1, insertedPage+2, ...
+            let result = content;
+            let indexOffset = 0; // Offset für verschobene Indizes durch Längenänderungen
+            
+            // Ersetze von VORN nach HINTEN, damit die Indizes korrekt bleiben
+            for (let i = 0; i < markersAfter.length; i++) {
+                const marker = markersAfter[i];
+                // Berechne neue Seitenzahl: insertedPage + (i+1)
+                // i=0 -> insertedPage+1, i=1 -> insertedPage+2, etc.
+                const newPage = insertedPage + (i + 1);
+                const newText = `|${newPage}|`;
+                
+                // Passe Index an, da sich durch vorherige Ersetzungen die Position verschoben haben könnte
+                const adjustedIndex = marker.index + indexOffset;
+                
+                console.log(`Ersetze |${marker.page}| (bei Index ${marker.index}, angepasst: ${adjustedIndex}) zu |${newPage}| (i=${i}, insertedPage=${insertedPage})`);
+                
+                // Berechne Längendifferenz für nächste Ersetzungen
+                const lengthDiff = newText.length - marker.length;
+                
+                result = result.substring(0, adjustedIndex) + 
+                         newText + 
+                         result.substring(adjustedIndex + marker.length);
+                
+                // Aktualisiere Index-Offset für nächste Ersetzungen
+                indexOffset += lengthDiff;
+            }
+            
+            console.log('adjustMarkersAsLinearSequenceAfterInsert - Ergebnis:', {
+                originalLength: content.length,
+                resultLength: result.length,
+                changed: content !== result
+            });
+            
+            return result;
+        }
+        
+        // Passt Marker nach einer Position als lineare Reihe an (beim Löschen)
+        function adjustMarkersAsLinearSequenceAfterDelete(content, position, deletedPage) {
+            // Finde alle Marker im Text nach der Löschposition
+            const markerRegex = /\|(\d+)\|/g;
+            let match;
+            const markersAfter = [];
+            
+            // Sammle alle Marker nach der Löschposition
+            while ((match = markerRegex.exec(content)) !== null) {
+                const markerIndex = match.index;
+                const markerPage = parseInt(match[1]);
+                
+                if (markerIndex > position) {
+                    markersAfter.push({
+                        index: markerIndex,
+                        page: markerPage,
+                        length: match[0].length,
+                        oldText: match[0]
+                    });
+                }
+            }
+            
+            // Sortiere nach Position im Text
+            markersAfter.sort((a, b) => a.index - b.index);
+            
+            // Finde den letzten Marker vor der Löschposition, um die Start-Seitenzahl zu bestimmen
+            let startPage = deletedPage;
+            const markersBefore = [];
+            markerRegex.lastIndex = 0; // Reset regex
+            while ((match = markerRegex.exec(content)) !== null) {
+                const markerIndex = match.index;
+                const markerPage = parseInt(match[1]);
+                
+                if (markerIndex < position) {
+                    markersBefore.push({
+                        index: markerIndex,
+                        page: markerPage
+                    });
+                }
+            }
+            
+            // Wenn es einen Marker davor gibt, starte die Sequenz bei dessen Seite + 1
+            if (markersBefore.length > 0) {
+                markersBefore.sort((a, b) => b.index - a.index); // Sortiere nach Position (neueste zuerst)
+                startPage = markersBefore[0].page + 1;
+            } else {
+                // Kein Marker davor - starte bei 1
+                startPage = 1;
+            }
+            
+            // Passe Marker als lineare Reihe an: startPage, startPage+1, startPage+2, ...
+            let result = content;
+            let sequenceIndex = 0;
+            
+            // Ersetze von hinten nach vorne, um Index-Probleme zu vermeiden
+            markersAfter.sort((a, b) => b.index - a.index);
+            
+            for (const marker of markersAfter) {
+                const newPage = startPage + sequenceIndex;
+                const newText = `|${newPage}|`;
+                result = result.substring(0, marker.index) + 
+                         newText + 
+                         result.substring(marker.index + marker.length);
+                sequenceIndex++;
+            }
+            
+            return result;
+        }
+        
+        // Überwache Änderungen im contenteditable Bereich
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentEl = document.getElementById('content');
+            if (contentEl) {
+                contentEl.addEventListener('input', function() {
+                    // Stelle sicher, dass Marker nicht bearbeitet werden können
+                    document.querySelectorAll('.page-marker').forEach(el => {
+                        el.setAttribute('contenteditable', 'false');
+                    });
+                });
+            }
+        });
+
+        function jumpToMarker(index) {
+            if (index < 0 || index >= markers.length) return;
+
+            currentMarkerIndex = index;
+
+            // Entferne alle Highlights
+            document.querySelectorAll('.page-marker').forEach(el => {
+                el.classList.remove('highlighted');
+            });
+
+            // Markiere aktuellen Marker nur wenn Highlighting aktiviert ist
+            const markerEl = document.querySelector(`[data-marker-index="${index}"]`);
+            if (markerEl) {
+                if (highlightingEnabled) {
+                    markerEl.classList.add('highlighted');
+                }
+                markerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Synchronisiere PDF-Seite nach kurzer Verzögerung (nur wenn PDF geladen)
+                if (pdfDoc) {
+                    setTimeout(() => syncPdfPage(), 100);
+                }
+            }
+
+            // Aktualisiere Sidebar
+            updateMarkerList();
+            updateStatus();
+            
+            // Synchronisiere PDF-Seite basierend auf Marker (nur wenn PDF geladen)
+            if (pdfDoc) {
+                setTimeout(() => syncPdfPage(), 100);
+            }
+        }
+
+        function syncPdfPage() {
+            try {
+                // Wenn PDF geladen ist, synchronisiere basierend auf aktuellem Marker
+                if (pdfDoc && markers.length > 0 && currentMarkerIndex >= 0 && currentMarkerIndex < markers.length) {
+                    const marker = markers[currentMarkerIndex];
+                    if (marker && marker.page) {
+                        const pageNum = marker.page;
+                        
+                        // PDF-Seiten beginnen bei 1, Marker-Seiten auch
+                        if (pageNum >= 1 && pageNum <= totalPdfPages) {
+                            if (currentPdfPage !== pageNum) {
+                                renderPdfPage(pageNum);
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Fehler bei PDF-Synchronisierung:', error);
+            }
+        }
+
+        function syncScroll() {
+            // Alte Funktion für MD-Vergleich, nicht mehr verwendet
+            return;
+            
+            // Finde die oberste sichtbare Zeile im linken Bereich
+            const leftContentRect = leftContent.getBoundingClientRect();
+            const viewportTop = leftContentRect.top + 10; // Etwas unterhalb des oberen Randes
+            
+            // Finde alle Text-Elemente im linken Bereich
+            const leftElements = leftWrapper.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, blockquote, div');
+            let topVisibleElement = null;
+            let minDistance = Infinity;
+            
+            // Suche das Element, das am nächsten zur oberen Viewport-Kante ist
+            for (const el of leftElements) {
+                const rect = el.getBoundingClientRect();
+                
+                // Element ist sichtbar oder gerade oberhalb
+                if (rect.bottom >= leftContentRect.top && rect.top <= leftContentRect.bottom) {
+                    const distance = Math.abs(rect.top - viewportTop);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        topVisibleElement = el;
+                    }
+                }
+            }
+            
+            if (!topVisibleElement) {
+                // Fallback: Verwende relative Scroll-Position
+                const leftScrollTop = leftContent.scrollTop;
+                const leftScrollHeight = leftContent.scrollHeight;
+                const leftClientHeight = leftContent.clientHeight;
+                const rightScrollHeight = rightContentEl.scrollHeight;
+                const rightClientHeight = rightContentEl.clientHeight;
+                
+                const scrollRatio = leftScrollHeight > leftClientHeight ? leftScrollTop / (leftScrollHeight - leftClientHeight) : 0;
+                const targetScrollTop = rightScrollHeight > rightClientHeight ? scrollRatio * (rightScrollHeight - rightClientHeight) : 0;
+                
+                isScrolling = true;
+                rightContentEl.scrollTop = targetScrollTop;
+                setTimeout(() => { isScrolling = false; }, 100);
+                return;
+            }
+            
+            // Finde den Textinhalt des obersten sichtbaren Elements
+            const topText = topVisibleElement.textContent.trim();
+            const topWords = topText.split(/\s+/).filter(w => w.length > 0).slice(0, 5).join(' '); // Erste 5 Wörter
+            
+            if (!topWords) {
+                // Fallback
+                const leftScrollTop = leftContent.scrollTop;
+                const leftScrollHeight = leftContent.scrollHeight;
+                const leftClientHeight = leftContent.clientHeight;
+                const rightScrollHeight = rightContentEl.scrollHeight;
+                const rightClientHeight = rightContentEl.clientHeight;
+                
+                const scrollRatio = leftScrollHeight > leftClientHeight ? leftScrollTop / (leftScrollHeight - leftClientHeight) : 0;
+                const targetScrollTop = rightScrollHeight > rightClientHeight ? scrollRatio * (rightScrollHeight - rightClientHeight) : 0;
+                
+                isScrolling = true;
+                rightContentEl.scrollTop = targetScrollTop;
+                setTimeout(() => { isScrolling = false; }, 100);
+                return;
+            }
+            
+            // Suche nach diesem Text im rechten Bereich
+            const rightElements = rightWrapper.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, blockquote, div');
+            let matchingElement = null;
+            
+            for (const el of rightElements) {
+                const rightText = el.textContent.trim();
+                const rightWords = rightText.split(/\s+/).filter(w => w.length > 0).slice(0, 5).join(' ');
+                
+                // Prüfe ob die ersten Wörter übereinstimmen (mindestens 3 Wörter)
+                if (topWords.length >= 10 && rightWords.length >= 10) {
+                    // Vergleiche die ersten 3-5 Wörter
+                    const topMatch = topWords.substring(0, Math.min(30, topWords.length));
+                    const rightMatch = rightWords.substring(0, Math.min(30, rightWords.length));
+                    
+                    if (topMatch === rightMatch || 
+                        (topMatch.length > 15 && rightMatch.length > 15 && 
+                         topMatch.substring(0, 15) === rightMatch.substring(0, 15))) {
+                        matchingElement = el;
+                        break;
+                    }
+                }
+            }
+            
+            if (matchingElement) {
+                // Scroll zum passenden Element im rechten Bereich
+                const rightContentRect = rightContentEl.getBoundingClientRect();
+                const matchingRect = matchingElement.getBoundingClientRect();
+                const offset = matchingRect.top - rightContentRect.top;
+                const targetScrollTop = rightContentEl.scrollTop + offset;
+                
+                isScrolling = true;
+                rightContentEl.scrollTop = targetScrollTop;
+                setTimeout(() => { isScrolling = false; }, 100);
+            } else {
+                // Fallback: Verwende relative Scroll-Position
+                const leftScrollTop = leftContent.scrollTop;
+                const leftScrollHeight = leftContent.scrollHeight;
+                const leftClientHeight = leftContent.clientHeight;
+                const rightScrollHeight = rightContentEl.scrollHeight;
+                const rightClientHeight = rightContentEl.clientHeight;
+                
+                const scrollRatio = leftScrollHeight > leftClientHeight ? leftScrollTop / (leftScrollHeight - leftClientHeight) : 0;
+                const targetScrollTop = rightScrollHeight > rightClientHeight ? scrollRatio * (rightScrollHeight - rightClientHeight) : 0;
+                
+                isScrolling = true;
+                rightContentEl.scrollTop = targetScrollTop;
+                setTimeout(() => { isScrolling = false; }, 100);
+            }
+        }
+
+        function updateStatus() {
+            const status = document.getElementById('status');
+            if (markers.length === 0) {
+                status.textContent = 'Keine Marker gefunden';
+            } else {
+                const marker = markers[currentMarkerIndex];
+                const visibleCount = markers.filter(m => {
+                    if (currentFilter === 'all') return true;
+                    if (currentFilter === 'with') return m.hasSpaces;
+                    if (currentFilter === 'without') return !m.hasSpaces;
+                    return true;
+                }).length;
+                status.textContent = `Marker ${currentMarkerIndex + 1} von ${markers.length} (|${marker?.page}|) - ${visibleCount} sichtbar`;
+            }
+        }
+
+        function nextMarker() {
+            if (currentMarkerIndex < markers.length - 1) {
+                jumpToMarker(currentMarkerIndex + 1);
+            } else {
+                showNotification('Letzter Marker erreicht');
+            }
+        }
+
+        function previousMarker() {
+            if (currentMarkerIndex > 0) {
+                jumpToMarker(currentMarkerIndex - 1);
+            } else {
+                showNotification('Erster Marker erreicht');
+            }
+        }
+
+        function addSpaces() {
+            if (currentMarkerIndex < 0 || currentMarkerIndex >= markers.length) return;
+
+            const marker = markers[currentMarkerIndex];
+            const markerText = `|${marker.page}|`;
+            
+            let markerPos = findMarkerPosition(currentContent, currentMarkerIndex);
+            if (markerPos === -1) {
+                showNotification('Marker nicht gefunden');
+                return;
+            }
+
+            const beforeChar = currentContent[markerPos - 1] || '';
+            const afterChar = currentContent[markerPos + markerText.length] || '';
+
+            if (beforeChar === ' ' && afterChar === ' ') {
+                showNotification('Leerzeichen bereits vorhanden');
+                return;
+            }
+
+            let newContent = currentContent;
+            
+            if (beforeChar !== ' ') {
+                newContent = newContent.substring(0, markerPos) + ' ' + newContent.substring(markerPos);
+                markerPos += 1;
+            }
+            if (afterChar !== ' ') {
+                const insertPos = markerPos + markerText.length;
+                newContent = newContent.substring(0, insertPos) + ' ' + newContent.substring(insertPos);
+            }
+
+            currentContent = newContent;
+            const currentPage = markers[currentMarkerIndex].page;
+            loadContent(currentContent);
+            // Bleibe beim aktuellen Marker (wird erst bei nächstem Enter übersprungen)
+            const newIndex = markers.findIndex(m => m.page === currentPage);
+            if (newIndex !== -1) {
+                setTimeout(() => jumpToMarker(newIndex), 100);
+            }
+            showNotification('Leerzeichen hinzugefügt');
+        }
+
+        function removeSpaces() {
+            if (currentMarkerIndex < 0 || currentMarkerIndex >= markers.length) return;
+
+            const marker = markers[currentMarkerIndex];
+            const markerText = `|${marker.page}|`;
+            
+            let markerPos = findMarkerPosition(currentContent, currentMarkerIndex);
+            if (markerPos === -1) {
+                showNotification('Marker nicht gefunden');
+                return;
+            }
+
+            const beforeChar = currentContent[markerPos - 1] || '';
+            const afterChar = currentContent[markerPos + markerText.length] || '';
+
+            if (beforeChar !== ' ' && afterChar !== ' ') {
+                showNotification('Keine Leerzeichen vorhanden');
+                return;
+            }
+
+            let newContent = currentContent;
+            
+            if (beforeChar === ' ') {
+                newContent = newContent.substring(0, markerPos - 1) + newContent.substring(markerPos);
+                markerPos -= 1;
+            }
+            if (afterChar === ' ') {
+                const removePos = markerPos + markerText.length;
+                newContent = newContent.substring(0, removePos) + newContent.substring(removePos + 1);
+            }
+
+            currentContent = newContent;
+            const currentPage = markers[currentMarkerIndex].page;
+            loadContent(currentContent);
+            // Bleibe beim aktuellen Marker (wird erst bei nächstem Enter übersprungen)
+            const newIndex = markers.findIndex(m => m.page === currentPage);
+            if (newIndex !== -1) {
+                setTimeout(() => jumpToMarker(newIndex), 100);
+            }
+            showNotification('Leerzeichen entfernt');
+        }
+
+        function deleteMarker() {
+            if (currentMarkerIndex < 0 || currentMarkerIndex >= markers.length) return;
+
+            if (!confirm(`Marker |${markers[currentMarkerIndex].page}| wirklich löschen? Nachfolgende Marker werden als lineare Reihe angepasst.`)) {
+                return;
+            }
+
+            const marker = markers[currentMarkerIndex];
+            const markerText = `|${marker.page}|`;
+            const deletedPage = marker.page;
+            
+            let markerPos = findMarkerPosition(currentContent, currentMarkerIndex);
+            if (markerPos === -1) {
+                showNotification('Marker nicht gefunden');
+                return;
+            }
+
+            // Entferne Marker
+            let newContent = currentContent.substring(0, markerPos) + currentContent.substring(markerPos + markerText.length);
+            
+            // Entferne Leerzeichen um den Marker, falls vorhanden
+            if (newContent[markerPos - 1] === ' ' && newContent[markerPos] === ' ') {
+                newContent = newContent.substring(0, markerPos - 1) + newContent.substring(markerPos);
+                markerPos -= 1;
+            } else if (newContent[markerPos - 1] === ' ') {
+                newContent = newContent.substring(0, markerPos - 1) + newContent.substring(markerPos);
+                markerPos -= 1;
+            } else if (newContent[markerPos] === ' ') {
+                newContent = newContent.substring(0, markerPos) + newContent.substring(markerPos + 1);
+            }
+
+            // Passe alle nachfolgenden Marker als lineare Reihe an
+            newContent = adjustMarkersAsLinearSequenceAfterDelete(newContent, markerPos, deletedPage);
+
+            currentContent = newContent;
+            loadContent(currentContent);
+            
+            // Springe zum nächsten Marker oder vorherigen, falls keiner mehr vorhanden
+            if (markers.length > 0) {
+                // Versuche zum nächsten Marker zu springen, sonst zum vorherigen
+                let nextIndex = Math.min(currentMarkerIndex, markers.length - 1);
+                // Wenn wir noch nicht am Ende sind, springe zum nächsten
+                if (nextIndex < markers.length - 1) {
+                    nextIndex = nextIndex + 1;
+                }
+                setTimeout(() => jumpToMarker(nextIndex), 100);
+            }
+            showNotification(`Marker |${deletedPage}| gelöscht, nachfolgende Marker als lineare Reihe angepasst`);
+        }
+
+        function editMarker() {
+            if (currentMarkerIndex < 0 || currentMarkerIndex >= markers.length) return;
+
+            const marker = markers[currentMarkerIndex];
+            document.getElementById('editPageInput').value = marker.page;
+            document.getElementById('editDialog').classList.add('show');
+            document.getElementById('editPageInput').focus();
+            document.getElementById('editPageInput').select();
+        }
+
+        function closeEditDialog() {
+            document.getElementById('editDialog').classList.remove('show');
+        }
+
+        function showShortcuts() {
+            document.getElementById('shortcutsDialog').classList.add('show');
+        }
+
+        function closeShortcutsDialog() {
+            document.getElementById('shortcutsDialog').classList.remove('show');
+        }
+
+        function saveEdit() {
+            const newPage = parseInt(document.getElementById('editPageInput').value);
+            if (isNaN(newPage) || newPage < 1) {
+                showNotification('Ungültige Seitenzahl');
+                return;
+            }
+
+            const marker = markers[currentMarkerIndex];
+            const oldPage = marker.page;
+            const oldMarkerText = `|${oldPage}|`;
+            const newMarkerText = `|${newPage}|`;
+            
+            let markerPos = findMarkerPosition(currentContent, currentMarkerIndex);
+            if (markerPos === -1) {
+                showNotification('Marker nicht gefunden');
+                return;
+            }
+
+            // Ersetze Marker
+            let newContent = currentContent.substring(0, markerPos) + newMarkerText + currentContent.substring(markerPos + oldMarkerText.length);
+            
+            // Passe alle nachfolgenden Marker linear an
+            // Wenn z.B. Seite 3 zu 7 geändert wird, wird 4 zu 8, 5 zu 9, etc.
+            const pageDiff = newPage - oldPage;
+            if (pageDiff !== 0) {
+                newContent = adjustMarkersAfterEdit(newContent, markerPos + newMarkerText.length, oldPage, newPage, newMarkerText);
+            }
+            
+            // Aktualisiere Content (Scroll-Position wird automatisch erhalten)
+            currentContent = newContent;
+            loadContent(currentContent, true);
+            
+            closeEditDialog();
+            showNotification(`Marker geändert zu |${newPage}| - nachfolgende Marker wurden angepasst`);
+        }
+        
+        // Passt Marker nach einer Bearbeitung linear an
+        // Wenn z.B. Seite 3 zu 7 geändert wird, wird 4 zu 8, 5 zu 9, etc.
+        function adjustMarkersAfterEdit(content, position, oldPage, newPage, newMarkerText) {
+            // Finde alle Marker im Text
+            const markerRegex = /\|(\d+)\|/g;
+            let match;
+            const allMarkers = [];
+            const markersAfter = [];
+            
+            // Sammle ALLE Marker
+            markerRegex.lastIndex = 0;
+            while ((match = markerRegex.exec(content)) !== null) {
+                const markerIndex = match.index;
+                const markerPage = parseInt(match[1]);
+                allMarkers.push({
+                    index: markerIndex,
+                    page: markerPage,
+                    text: match[0],
+                    length: match[0].length
+                });
+            }
+            
+            // Sammle alle Marker nach der Bearbeitungsposition, die >= oldPage sind
+            // Diese müssen um (newPage - oldPage) angepasst werden
+            for (const marker of allMarkers) {
+                // Marker muss NACH dem geänderten Marker sein UND >= oldPage
+                // Der geänderte Marker selbst ist bei position - newMarkerText.length
+                const changedMarkerStart = position - newMarkerText.length;
+                if (marker.index > changedMarkerStart && marker.page >= oldPage) {
+                    markersAfter.push({
+                        index: marker.index,
+                        page: marker.page,
+                        length: marker.length,
+                        oldText: marker.text
+                    });
+                }
+            }
+            
+            // Sortiere nach Position im Text
+            markersAfter.sort((a, b) => a.index - b.index);
+            
+            // Berechne Differenz
+            const pageDiff = newPage - oldPage;
+            
+            console.log('adjustMarkersAfterEdit:', {
+                oldPage,
+                newPage,
+                pageDiff,
+                position,
+                markersAfter: markersAfter.map(m => ({ oldPage: m.page, index: m.index }))
+            });
+            
+            // Ersetze Marker von vorne nach hinten
+            let result = content;
+            let indexOffset = 0;
+            
+            for (let i = 0; i < markersAfter.length; i++) {
+                const marker = markersAfter[i];
+                
+                // Neue Seitenzahl: alter Wert + Differenz
+                const newPageNum = marker.page + pageDiff;
+                const newText = `|${newPageNum}|`;
+                
+                const adjustedIndex = marker.index + indexOffset;
+                const lengthDiff = newText.length - marker.length;
+                
+                console.log(`Bearbeitung: Ersetze |${marker.page}| (Index ${marker.index}) zu |${newPageNum}| (Index ${adjustedIndex})`);
+                
+                result = result.substring(0, adjustedIndex) + 
+                         newText + 
+                         result.substring(adjustedIndex + marker.length);
+                
+                indexOffset += lengthDiff;
+            }
+            
+            return result;
+        }
+
+        function findMarkerPosition(content, markerIndex) {
+            if (markerIndex < 0 || markerIndex >= markers.length) return -1;
+            
+            const marker = markers[markerIndex];
+            const markerText = `|${marker.page}|`;
+            
+            let searchStart = 0;
+            if (marker.index !== undefined) {
+                searchStart = Math.max(0, marker.index - 10);
+            }
+            let pos = content.indexOf(markerText, searchStart);
+            
+            if (pos === -1) {
+                pos = content.indexOf(markerText);
+            }
+            
+            return pos;
+        }
+
+        async function saveFile() {
+            // Hole den bearbeiteten Inhalt aus dem contenteditable Element
+            const contentEl = document.getElementById('content');
+            if (!contentEl) {
+                showNotification('Fehler: Content-Element nicht gefunden');
+                console.error('Content-Element nicht gefunden');
+                return;
+            }
+            
+            let editedContent = extractMarkdownFromHTML(contentEl);
+            
+            // Stelle sicher, dass editedContent ein String ist (auch wenn leer)
+            if (editedContent === null || editedContent === undefined) {
+                editedContent = '';
+            }
+            
+            // Verwende den ursprünglichen Dateinamen oder 'korrigiert.md' als Fallback
+            const fileName = currentFileName || 'korrigiert.md';
+            
+            console.log('Speichere Datei:', fileName, 'Länge:', editedContent.length);
+            
+            // Versuche File System Access API zu verwenden (nur Chrome/Edge)
+            if ('showSaveFilePicker' in window) {
+                try {
+                    const fileHandle = await window.showSaveFilePicker({
+                        suggestedName: fileName,
+                        types: [{
+                            description: 'Markdown files',
+                            accept: { 'text/markdown': ['.md'] }
+                        }]
+                    });
+                    
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(editedContent);
+                    await writable.close();
+                    
+                    showNotification('Datei gespeichert: ' + fileName);
+                    currentContent = editedContent;
+                    currentFileName = fileName; // Aktualisiere Dateinamen
+                    loadContent(currentContent);
+                    return;
+                } catch (err) {
+                    // Benutzer hat abgebrochen - verwende Fallback
+                    if (err.name === 'AbortError') {
+                        showNotification('Speichern abgebrochen');
+                        return;
+                    }
+                    // Anderer Fehler - verwende Fallback
+                    console.error('Fehler beim Speichern mit File System Access API:', err);
+                }
+            }
+            
+            // Fallback: Download (Browser kann Dateien nicht direkt überschreiben)
+            const blob = new Blob([editedContent], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            
+            // Warte kurz, bevor das Element entfernt wird
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+            
+            showNotification('Datei heruntergeladen: ' + fileName + ' (bitte manuell überschreiben)');
+            
+            // Aktualisiere currentContent und lade neu
+            currentContent = editedContent;
+            loadContent(currentContent);
+        }
+
+        function extractMarkdownFromHTML(contentEl) {
+            if (!contentEl) {
+                console.error('Content-Element nicht gefunden');
+                return '';
+            }
+            
+            // Prüfe ob Element leer ist
+            if (!contentEl.innerHTML || contentEl.innerHTML.trim() === '') {
+                return '';
+            }
+            
+            // Klone das Element, um es zu bearbeiten
+            const clone = contentEl.cloneNode(true);
+            
+            // Ersetze Marker-Spans durch |N| Format
+            clone.querySelectorAll('.page-marker').forEach(el => {
+                const page = el.textContent.match(/\|(\d+)\|/)?.[1] || '';
+                const textNode = document.createTextNode(`|${page}|`);
+                el.parentNode.replaceChild(textNode, el);
+            });
+            
+            // Konvertiere HTML zu Text
+            let text = '';
+            
+            function processNode(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    text += node.textContent;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = node.tagName.toLowerCase();
+                    
+                    // Überschriften
+                    if (tagName.match(/^h[1-6]$/)) {
+                        const level = parseInt(tagName[1]);
+                        text += '#'.repeat(level) + ' ';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '\n\n';
+                        return;
+                    }
+                    
+                    // Absätze
+                    if (tagName === 'p') {
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '\n\n';
+                        return;
+                    }
+                    
+                    // Zeilenumbrüche
+                    if (tagName === 'br') {
+                        text += '\n';
+                        return;
+                    }
+                    
+                    // Listen
+                    if (tagName === 'ul' || tagName === 'ol') {
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '\n';
+                        return;
+                    }
+                    
+                    if (tagName === 'li') {
+                        text += '- ';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '\n';
+                        return;
+                    }
+                    
+                    // Blockquotes
+                    if (tagName === 'blockquote') {
+                        text += '> ';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '\n';
+                        return;
+                    }
+                    
+                    // Code-Blöcke
+                    if (tagName === 'pre') {
+                        text += '```\n';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '\n```\n';
+                        return;
+                    }
+                    
+                    if (tagName === 'code' && node.parentNode.tagName.toLowerCase() !== 'pre') {
+                        text += '`';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '`';
+                        return;
+                    }
+                    
+                    // Links
+                    if (tagName === 'a') {
+                        const href = node.getAttribute('href') || '';
+                        text += '[';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += `](${href})`;
+                        return;
+                    }
+                    
+                    // Fett/Kursiv
+                    if (tagName === 'strong' || tagName === 'b') {
+                        text += '**';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '**';
+                        return;
+                    }
+                    
+                    if (tagName === 'em' || tagName === 'i') {
+                        text += '*';
+                        Array.from(node.childNodes).forEach(processNode);
+                        text += '*';
+                        return;
+                    }
+                    
+                    // Standard: verarbeite Kinder
+                    Array.from(node.childNodes).forEach(processNode);
+                }
+            }
+            
+            Array.from(clone.childNodes).forEach(processNode);
+            
+            // Bereinige mehrfache Leerzeilen
+            text = text.replace(/\n{3,}/g, '\n\n');
+            
+            // Wenn Text leer ist, gib leeren String zurück (nicht nur '\n')
+            const result = text.trim();
+            return result === '' ? '' : result + '\n';
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+
+        // Tastatur-Shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Strg+M - Marker an Cursor-Position einfügen (ohne Dialog, ohne Leerzeichen)
+            if (e.ctrlKey && e.key === 'm' && !e.shiftKey && !e.altKey) {
+                const contentEl = document.getElementById('content');
+                const isInContent = document.activeElement === contentEl;
+                const isInInput = document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA';
+                
+                // Nur wenn im Content-Bereich und nicht in Input-Feldern
+                if (isInContent && !isInInput) {
+                    e.preventDefault();
+                    
+                    // Hole aktuelle Cursor-Position
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const selRange = selection.getRangeAt(0);
+                        insertMarkerPosition = getMarkdownPositionFromDOM(contentEl, selRange.startContainer, selRange.startOffset);
+                        
+                        // Berechne nächste Seitenzahl
+                        const currentText = extractMarkdownFromHTML(contentEl);
+                        let suggestedPage = 1;
+                        
+                        if (currentText && insertMarkerPosition >= 0) {
+                            const markerRegex = /\|(\d+)\|/g;
+                            let match;
+                            let lastMarkerBeforePosition = null;
+                            
+                            while ((match = markerRegex.exec(currentText)) !== null) {
+                                if (match.index < insertMarkerPosition) {
+                                    lastMarkerBeforePosition = parseInt(match[1]);
+                                } else {
+                                    break;
+                                }
+                            }
+                            
+                            if (lastMarkerBeforePosition !== null) {
+                                suggestedPage = lastMarkerBeforePosition + 1;
+                            }
+                        }
+                        
+                        // WICHTIG: Passe Position an Wortgrenze an (inkl. Satzzeichen und Absatzanfang)
+                        let adjustedPos = insertMarkerPosition;
+                        if (adjustedPos >= 0 && adjustedPos < currentText.length) {
+                            adjustedPos = adjustPositionToWordBoundary(currentText, adjustedPos);
+                        }
+                        
+                        // Füge Marker direkt ein (ohne Dialog)
+                        const markerText = `|${suggestedPage}|`;
+                        const before = currentText.substring(0, adjustedPos);
+                        const after = currentText.substring(adjustedPos);
+                        let newContent = before + markerText + after;
+                        
+                        // Passe alle nachfolgenden Marker an
+                        const positionAfterInsert = adjustedPos + markerText.length;
+                        newContent = adjustMarkersAsLinearSequenceAfterInsert(newContent, positionAfterInsert, suggestedPage);
+                        
+                        // Aktualisiere Content (Scroll-Position wird automatisch erhalten)
+                        currentContent = newContent;
+                        loadContent(currentContent, true);
+                        
+                        showNotification(`Marker |${suggestedPage}| an Cursor-Position eingefügt`);
+                    }
+                    return;
+                }
+            }
+            
+            // Strg+C - Speichern (immer verfügbar)
+            if (e.ctrlKey && e.key === 'c' && !e.shiftKey && !e.altKey) {
+                const isInContent = document.activeElement === document.getElementById('content');
+                const isInInput = document.activeElement.tagName === 'INPUT';
+                
+                // Nur speichern wenn nicht im Text-Editor oder Input-Feld
+                if (!isInContent && !isInInput) {
+                    e.preventDefault();
+                    saveFile();
+                    return;
+                }
+            }
+            
+            // ESC - Dialog schließen
+            if (e.key === 'Escape') {
+                closeEditDialog();
+                closeShortcutsDialog();
+                closeInsertMarkerDialog();
+                return;
+            }
+            
+            // ? - Shortcuts anzeigen
+            if (e.key === '?' && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                const isInContent = document.activeElement === document.getElementById('content');
+                if (!isInContent) {
+                    e.preventDefault();
+                    showShortcuts();
+                    return;
+                }
+            }
+            
+            // Nur wenn nicht im Edit-Dialog
+            const isInEditDialog = document.getElementById('editDialog').classList.contains('show');
+            const isInContent = document.activeElement === document.getElementById('content');
+            
+            if (isInEditDialog) return;
+            
+            // Enter - Nächster Marker (nur wenn nicht im contenteditable)
+            if (e.key === 'Enter' && !e.ctrlKey && !e.shiftKey && !e.altKey && !isInContent) {
+                e.preventDefault();
+                nextMarker();
+            }
+            // Shift+Enter - Vorheriger Marker (nur wenn nicht im contenteditable)
+            else if (e.key === 'Enter' && e.shiftKey && !e.ctrlKey && !e.altKey && !isInContent) {
+                e.preventDefault();
+                previousMarker();
+            }
+            // Strg+E - Leerzeichen hinzufügen (funktioniert auch im contenteditable)
+            else if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                addSpaces();
+            }
+            // Strg+D - Leerzeichen entfernen (funktioniert auch im contenteditable)
+            else if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                removeSpaces();
+            }
+            // Strg+X - Marker löschen (funktioniert auch im contenteditable)
+            else if (e.ctrlKey && e.key === 'x') {
+                e.preventDefault();
+                deleteMarker();
+            }
+            // Strg+B - Marker bearbeiten (funktioniert auch im contenteditable)
+            else if (e.ctrlKey && e.key === 'b') {
+                e.preventDefault();
+                editMarker();
+            }
+            // Alt+Q - Marker einfügen (mit Leerzeichen) - funktioniert im contenteditable
+            else if (e.altKey && e.key === 'q' && !e.ctrlKey && !e.shiftKey) {
+                e.preventDefault();
+                const isInInput = document.activeElement.tagName === 'INPUT';
+                const isInEditDialog = document.getElementById('editDialog').classList.contains('show');
+                const isInInsertDialog = document.getElementById('insertMarkerDialog').style.display === 'block';
+                
+                // Nur wenn nicht in Input-Feldern oder Dialogen
+                if (!isInInput && !isInEditDialog && !isInInsertDialog) {
+                    openInsertMarkerDialogAtCursor(true); // Mit Leerzeichen
+                }
+            }
+        });
+        
+        // Verhindere, dass Marker bearbeitet werden können
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentEl = document.getElementById('content');
+            contentEl.addEventListener('input', function() {
+                // Stelle sicher, dass Marker nicht bearbeitet werden können
+                document.querySelectorAll('.page-marker').forEach(el => {
+                    el.setAttribute('contenteditable', 'false');
+                });
+            });
+            
+            // WICHTIG: Wenn der Benutzer den Cursor manuell setzt (z.B. durch Klicken oder Tastatur),
+            // setze insertMarkerPosition zurück, damit die aktuelle Cursor-Position verwendet wird
+            contentEl.addEventListener('click', function() {
+                // Cursor wurde manuell gesetzt - Position wird bei Alt+Q neu berechnet
+                insertMarkerPosition = -1;
+            });
+            
+            // Erkenne auch Tastatur-Navigation (Pfeiltasten, etc.)
+            contentEl.addEventListener('keydown', function(e) {
+                // Pfeiltasten, Home, End, PageUp, PageDown, etc. setzen den Cursor neu
+                const cursorKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'];
+                if (cursorKeys.includes(e.key)) {
+                    insertMarkerPosition = -1;
+                }
+            });
+            
+            // Synchronisiere Scroll beim Scrollen im linken Bereich
+            const leftContent = document.querySelector('.content');
+            if (leftContent) {
+                // Scroll-Event wird nicht mehr benötigt, da PDF-Synchronisierung über Marker erfolgt
+            }
+            
+            // Kontextmenü einrichten
+            setupContextMenu();
+        });
+
+        // Enter im Edit-Dialog
+        document.getElementById('editPageInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                saveEdit();
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                closeEditDialog();
+            }
+        });
+        
+        // Enter im Insert-Marker-Dialog
+        const insertPageInput = document.getElementById('insertPageInput');
+        if (insertPageInput) {
+            insertPageInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    confirmInsertMarker();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    closeInsertMarkerDialog();
+                }
+            });
+        }
+
+        // Lade Standard-Vergleichsdatei beim Start
+        loadDefaultRightFile();
+    </script>
+</body>
+</html>
