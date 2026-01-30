@@ -10513,16 +10513,18 @@ function convertPageMarkers(html) {
 
 // Prüft ob eine GA-Nummer ein Aufsatzband ist (GA029-GA037 oder GA046)
 // GA-BAND-KATEGORIEN:
-// - BÜCHER:   GA001-GA028, GA045
-// - AUFSÄTZE: GA029-GA036, GA046 (diese Funktion prüft auf Aufsatzbände)
+// - BÜCHER:   GA001-GA027, GA045 (Statistik zählt auch GA028 als Buch)
+// - AUFSÄTZE: GA028-GA036, GA046 (diese Funktion prüft auf Aufsatzbände)
+// - GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt
 // - VORTRÄGE: GA051 ff
 function isEssayVolume(gaNumber) {
   if (!gaNumber) return false;
   const match = gaNumber.match(/GA0?(\d+)/i);
   if (!match) return false;
   const num = parseInt(match[1]);
-  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [18, 19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
+  // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
+  const additionalEssayBands = [18, 19, 24, 26, 28, 42, 43, 44];
   if (additionalEssayBands.includes(num)) return true;
   return (num >= 29 && num <= 36) || num === 46;
 }
@@ -14903,8 +14905,9 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     displayGAVolumesInSidebar();
     
     // Aktualisiere Info-Element auch beim erneuten Anzeigen
-    // GA001, GA018, GA026 werden als Schriften gezählt, nicht als Aufsätze
-    const booksAsEssays = ['GA001', 'GA018', 'GA026'];
+    // GA001, GA018, GA026, GA028 werden als Schriften gezählt, nicht als Aufsätze
+    // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
+    const booksAsEssays = ['GA001', 'GA018', 'GA026', 'GA028'];
     const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length + booksAsEssays.length;
     const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number) && !booksAsEssays.includes(ga.number.toUpperCase())).reduce((sum, ga) => sum + ga.lectureCount, 0);
@@ -15000,8 +15003,9 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     displayGAVolumesInSidebar();
     
     // Berechne Gesamtanzahl der Vorträge (ohne Aufsätze) und aktualisiere globale Variablen
-    // GA001, GA018, GA026 werden als Schriften gezählt, nicht als Aufsätze
-    const booksAsEssays = ['GA001', 'GA018', 'GA026'];
+    // GA001, GA018, GA026, GA028 werden als Schriften gezählt, nicht als Aufsätze
+    // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
+    const booksAsEssays = ['GA001', 'GA018', 'GA026', 'GA028'];
     const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length + booksAsEssays.length;
     const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number) && !booksAsEssays.includes(ga.number.toUpperCase())).reduce((sum, ga) => sum + ga.lectureCount, 0);
@@ -16416,8 +16420,9 @@ function isBookGANumber(gaNumber) {
   if (gaNum === 40) return false;
   
   // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze (als Nummern für einfachen Vergleich)
-  // WICHTIG: GA018, GA019, GA024, GA026 sind Aufsatzbände und werden NICHT als Bücher behandelt!
-  const notBookNumbers = [18, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+  // WICHTIG: GA018, GA019, GA024, GA026, GA028 sind Aufsatzbände und werden NICHT als Bücher behandelt!
+  // (GA028 wird in Statistik trotzdem als Buch gezählt über booksAsEssays)
+  const notBookNumbers = [18, 19, 24, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
   // GA041b wird separat über isEssayGANumber geprüft
   if (notBookNumbers.includes(gaNum)) {
     console.log('[isBookGANumber] ' + gaNumber + ' ist KEIN Buch (in notBooks Liste)');
@@ -16436,8 +16441,9 @@ function isEssayGANumber(gaNumber) {
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [18, 19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
+  // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
+  const additionalEssayBands = [18, 19, 24, 26, 28, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
@@ -18669,9 +18675,9 @@ async function showGALectures(gaNumber, skipHistory = false) {
     viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
     
     // Prüfe ob es ein Book (Schrift) ist
-    // WICHTIG: GA001 und GA018 sind Aufsatzbände und werden NICHT als Bücher behandelt
+    // WICHTIG: GA001, GA018, GA028 sind Aufsatzbände und werden NICHT als Bücher behandelt
     const gaNumForBookCheck = parseInt(gaNumber.replace(/^GA/i, ''));
-    const isDefinitelyNotABook = gaNumForBookCheck === 1 || gaNumForBookCheck === 18 || isEssayGANumber(gaNumber);
+    const isDefinitelyNotABook = gaNumForBookCheck === 1 || gaNumForBookCheck === 18 || gaNumForBookCheck === 28 || isEssayGANumber(gaNumber);
     
     if (!isDefinitelyNotABook && isBookGANumber(gaNumber)) {
       // Lade Book-Daten
@@ -18723,14 +18729,14 @@ async function showGALectures(gaNumber, skipHistory = false) {
     let html = '<div class="ga-lectures-container" style="padding: 0 2rem 2rem 0; max-width: 900px;">';
     
     // Aufsatzbände - keine "Keine Kurzzusammenfassung" Meldung anzeigen
-    // GA001, GA018, GA029-GA037, GA040, GA040a, GA042, GA043, GA044
+    // GA001, GA018, GA028, GA029-GA037, GA040, GA040a, GA042, GA043, GA044
     const gaNum = parseInt(gaNumber.replace(/^GA/i, ''));
-    const isEssayBand = gaNum === 1 || gaNum === 18 || gaNum === 40 || isEssayGANumber(gaNumber);
+    const isEssayBand = gaNum === 1 || gaNum === 18 || gaNum === 28 || gaNum === 40 || isEssayGANumber(gaNumber);
     
-    // Prüfe ob GA001 oder GA018 - zeigt Inhaltsverzeichnis für jeden Aufsatz
-    const showTableOfContents = gaNum === 1 || gaNum === 18;
+    // Prüfe ob GA001, GA018 oder GA028 - zeigt Inhaltsverzeichnis für jeden Aufsatz
+    const showTableOfContents = gaNum === 1 || gaNum === 18 || gaNum === 28;
     
-    // Debug: Zeige erste lecture Daten für GA001/GA018
+    // Debug: Zeige erste lecture Daten für GA001/GA018/GA028
     if (showTableOfContents && lectures.length > 0) {
       console.log('[GA-TOC] showTableOfContents aktiv für', gaNumber);
       console.log('[GA-TOC] Erste Lecture:', lectures[0].ID);
@@ -18745,7 +18751,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
       const lectureId = lecture.ID;
       // Verwende shortSummary von der lecture (kommt vom Backend) oder lade aus summaryDB
       const shortSummary = lecture.shortSummary || summaryDB[lectureId]?.shortSummary || '';
-      // Für GA001/GA018: Verwende headings direkt (enthält H3 und H4 mit Ebenen)
+      // Für GA001/GA018/GA028: Verwende headings direkt (enthält H3 und H4 mit Ebenen)
       // tableOfContents enthält nur H3, aber wir brauchen alle Überschriften für die Einrückung
       let headingsForTOC = [];
       if (showTableOfContents) {
@@ -18787,7 +18793,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
         html += `<div id="year-${lectureYear}" class="ga-year-anchor"></div>`;
       }
       
-      // Erstelle Inhaltsverzeichnis-HTML für GA001/GA018
+      // Erstelle Inhaltsverzeichnis-HTML für GA001/GA018/GA028
       // Verwende headings direkt (enthält H3 und H4 mit Ebenen)
       let tocHtml = '';
       if (showTableOfContents && headingsForTOC && headingsForTOC.length > 0) {
@@ -19228,7 +19234,7 @@ async function displayGAOverview(data) {
   // Passender Text je nach GA-Typ (Vortrag/Aufsatz/Band)
   const itemTypeName = getGATypeName(data.gaNumber, false);
   let selectItemText;
-  if (data.gaNumber === 'GA001') {
+  if (data.gaNumber === 'GA001' || data.gaNumber === 'GA028') {
     selectItemText = 'einen Band';
   } else if (data.gaNumber === 'GA018') {
     selectItemText = 'einen Band oder Abschnitt';
@@ -29677,10 +29683,11 @@ function formatAsteriskParagraphs() {
     if (gaMatch) {
       const gaNumber = gaMatch[1];
       
-      // DIREKTE PRÜFUNG: GA018, GA019 etc. sind Aufsatzbände, KEINE Bücher!
+      // DIREKTE PRÜFUNG: GA018, GA019, GA028 etc. sind Aufsatzbände, KEINE Bücher!
       // Diese Prüfung kommt VOR isBookGANumber, um sicherzustellen dass sie nie als Buch geladen werden
+      // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
       const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
-      const essayBandNumbers = [18, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+      const essayBandNumbers = [18, 19, 24, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
       const isEssayBand = essayBandNumbers.includes(gaNum);
       
       if (isEssayBand) {

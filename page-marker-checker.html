@@ -3222,11 +3222,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             const contentEl = document.getElementById('content');
             if (contentEl) {
+                // Debounce-Timer für Content-Synchronisation
+                let syncTimer = null;
+                
                 contentEl.addEventListener('input', function() {
                     // Stelle sicher, dass Marker nicht bearbeitet werden können
                     document.querySelectorAll('.page-marker').forEach(el => {
                         el.setAttribute('contenteditable', 'false');
                     });
+                    
+                    // Synchronisiere currentContent mit DOM-Änderungen (debounced)
+                    clearTimeout(syncTimer);
+                    syncTimer = setTimeout(() => {
+                        const extracted = extractMarkdownFromHTML(contentEl);
+                        if (extracted && extracted.trim() !== '') {
+                            currentContent = extracted;
+                            console.log('currentContent synchronisiert, Länge:', currentContent.length);
+                        }
+                    }, 500); // 500ms Debounce
                 });
             }
         });
@@ -3722,7 +3735,9 @@
         }
 
         async function saveFile() {
-            // Hole den bearbeiteten Inhalt aus dem contenteditable Element
+            // WICHTIG: Bereite den Inhalt VOLLSTÄNDIG vor, BEVOR die Datei geöffnet wird
+            // (File System Access API leert die Datei beim createWritable sofort!)
+            
             const contentEl = document.getElementById('content');
             if (!contentEl) {
                 showNotification('Fehler: Content-Element nicht gefunden');
@@ -3730,11 +3745,36 @@
                 return;
             }
             
-            let editedContent = extractMarkdownFromHTML(contentEl);
+            // Debug: Prüfe den Zustand
+            console.log('saveFile - contentEl.innerHTML Länge:', contentEl.innerHTML?.length || 0);
+            console.log('saveFile - currentContent Länge:', currentContent?.length || 0);
             
-            // Stelle sicher, dass editedContent ein String ist (auch wenn leer)
-            if (editedContent === null || editedContent === undefined) {
-                editedContent = '';
+            // PRIMÄRE QUELLE: Verwende currentContent wenn verfügbar
+            // (wird bei jeder Änderung synchronisiert)
+            let editedContent = '';
+            
+            if (currentContent && currentContent.trim() !== '') {
+                // Versuche trotzdem DOM zu extrahieren für aktuelle Änderungen
+                const domContent = extractMarkdownFromHTML(contentEl);
+                if (domContent && domContent.trim().length > 10) {
+                    editedContent = domContent;
+                    console.log('saveFile - Verwende DOM-Inhalt, Länge:', editedContent.length);
+                } else {
+                    // DOM-Extraktion fehlgeschlagen - verwende currentContent
+                    editedContent = currentContent;
+                    console.log('saveFile - DOM leer, verwende currentContent, Länge:', editedContent.length);
+                }
+            } else {
+                // Kein currentContent - versuche DOM zu extrahieren
+                editedContent = extractMarkdownFromHTML(contentEl) || '';
+                console.log('saveFile - Kein currentContent, DOM-Inhalt Länge:', editedContent.length);
+            }
+            
+            // Letzte Sicherheitsprüfung: Niemals eine leere Datei speichern
+            if (!editedContent || editedContent.trim().length < 5) {
+                showNotification('Fehler: Kein Inhalt zum Speichern gefunden');
+                console.error('Speichern abgebrochen: editedContent ist leer oder zu kurz');
+                return;
             }
             
             // Verwende den ursprünglichen Dateinamen oder 'korrigiert.md' als Fallback
@@ -3743,6 +3783,7 @@
             console.log('Speichere Datei:', fileName, 'Länge:', editedContent.length);
             
             // Versuche File System Access API zu verwenden (nur Chrome/Edge)
+            // WICHTIG: Erst NACHDEM der Inhalt vollständig vorbereitet ist!
             if ('showSaveFilePicker' in window) {
                 try {
                     const fileHandle = await window.showSaveFilePicker({
@@ -3752,6 +3793,12 @@
                             accept: { 'text/markdown': ['.md'] }
                         }]
                     });
+                    
+                    // Nochmalige Prüfung vor dem Schreiben
+                    if (!editedContent || editedContent.trim().length < 5) {
+                        showNotification('Fehler: Inhalt wurde unerwartet geleert');
+                        return;
+                    }
                     
                     const writable = await fileHandle.createWritable();
                     await writable.write(editedContent);
@@ -3798,23 +3845,37 @@
 
         function extractMarkdownFromHTML(contentEl) {
             if (!contentEl) {
-                console.error('Content-Element nicht gefunden');
+                console.error('extractMarkdownFromHTML: Content-Element nicht gefunden');
                 return '';
             }
             
+            const innerHTML = contentEl.innerHTML;
+            console.log('extractMarkdownFromHTML - innerHTML Länge:', innerHTML?.length || 0);
+            
             // Prüfe ob Element leer ist
-            if (!contentEl.innerHTML || contentEl.innerHTML.trim() === '') {
+            if (!innerHTML || innerHTML.trim() === '') {
+                console.warn('extractMarkdownFromHTML: innerHTML ist leer');
                 return '';
             }
             
             // Klone das Element, um es zu bearbeiten
             const clone = contentEl.cloneNode(true);
             
+            // Debug: Prüfe Clone
+            console.log('extractMarkdownFromHTML - clone.innerHTML Länge:', clone.innerHTML?.length || 0);
+            
             // Ersetze Marker-Spans durch |N| Format
             clone.querySelectorAll('.page-marker').forEach(el => {
-                const page = el.textContent.match(/\|(\d+)\|/)?.[1] || '';
-                const textNode = document.createTextNode(`|${page}|`);
-                el.parentNode.replaceChild(textNode, el);
+                const match = el.textContent.match(/\|(\d+)\|/);
+                if (match && match[1]) {
+                    // Gültiger Marker gefunden - ersetze durch Marker-Text
+                    const page = match[1];
+                    const textNode = document.createTextNode(`|${page}|`);
+                    el.parentNode.replaceChild(textNode, el);
+                } else {
+                    // Ungültiger oder leerer Marker - komplett entfernen (kein ||)
+                    el.parentNode.removeChild(el);
+                }
             });
             
             // Konvertiere HTML zu Text

@@ -432,24 +432,26 @@ let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
-// Zusätzlich: GA001, GA018, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+// Zusätzlich: GA001, GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+// (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
 function isEssayGANumber(gaNumber) {
   if (!gaNumber) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Aufsatzbände: GA001, GA018, GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [1, 18, 19, 24, 26, 42, 43, 44];
+  // Aufsatzbände: GA001, GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
+  // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
+  const additionalEssayBands = [1, 18, 19, 24, 26, 28, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA002-GA028 (ohne Aufsatzbände GA018, GA019, GA024) + GA045
-// GA001 und GA040 werden wie Vortragsbände behandelt
-// GA026 ist ein Buch (kein Aufsatzband)
+// Bücher: GA002-GA027 (ohne Aufsatzbände GA018, GA019, GA024, GA026) + GA045
+// GA001, GA028 und GA040 werden wie Vortragsbände/Aufsätze behandelt
+// GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt
 function isBookGANumberBackend(gaNumber) {
   // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNumber && (gaNumber.toUpperCase() === 'GA001' || gaNumber === '1')) {
@@ -464,8 +466,9 @@ function isBookGANumberBackend(gaNumber) {
   if (isEssayGANumber(gaNumber)) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
-  // GA002-GA028 + GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
-  return (gaNum >= 2 && gaNum <= 28) || gaNum === 45;
+  // GA002-GA027 + GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
+  // GA028 wird als Aufsatzband behandelt (bereits oben durch isEssayGANumber ausgeschlossen)
+  return (gaNum >= 2 && gaNum <= 27) || gaNum === 45;
 }
 
 // Hilfsfunktion: Extrahiert GA-Nummer aus Lecture-ID (z.B. "GA078/1" -> "GA078")
@@ -1374,7 +1377,7 @@ async function deduplicateBooksAndLectures() {
   // Wenn beide existieren, wird das Buch IMMER entfernt, unabhängig von mtime.
   // ============================================================
   const FORCE_AS_LECTURES = new Set([
-    'GA018', 'GA019', 'GA024', 'GA026',
+    'GA018', 'GA019', 'GA024', 'GA026', 'GA028',
     'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037',
     'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'
   ]);
@@ -12067,9 +12070,10 @@ app.post('/api/export/ga', async (req, res) => {
     let exportScript = '';
     let exportArgs = [];
     
-    // Bücher: GA002-GA028, GA045 (außer Aufsätze) - GA001 wird wie Vortragsband behandelt
+    // Bücher: GA002-GA027, GA045 (außer Aufsätze) - GA001 wird wie Vortragsband behandelt
     // GA015 und GA022 werden als Vorträge/Aufsätze exportiert (nicht als Bücher)
-    const essayBands = [14, 18, 19, 24, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
+    // GA028 wird als Aufsatzband exportiert (aber in Statistik als Buch gezählt)
+    const essayBands = [14, 18, 19, 24, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
     const letterBands = [262]; // GA262, GA263a werden separat behandelt
     const isGA041b = gaSuffix === 'b' && gaNumeric === 41;
     const isGA263a = gaSuffix === 'a' && gaNumeric === 263;
