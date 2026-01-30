@@ -803,7 +803,8 @@ class SteinerLecturesExporter {
         const gaLower = gaNumber.toLowerCase();
         const isGA041b = gaLower === '041b' || gaLower === '41b';
         // Standard Aufsatzbände + zusätzliche GAs die auch als Aufsätze exportiert werden können
-        const additionalEssayBands = [14, 18, 19, 24, 26, 42, 43, 44];
+        // GA028 wird wie GA018 behandelt (Aufsatzband mit H2-Überschriften)
+        const additionalEssayBands = [14, 18, 19, 24, 26, 28, 42, 43, 44];
         const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b || additionalEssayBands.includes(gaNum);
         // BRIEFE: GA262 und GA263a werden wie Vorträge exportiert (NICHT als Bücher!)
         const isGA263a = gaLower === '263a' || gaLower === 'ga263a';
@@ -871,6 +872,9 @@ class SteinerLecturesExporter {
       // AUFSÄTZE: Prüfe ob es ein Aufsatzband ist (GA018, GA019, etc.)
       const isEssayBand = contentType === 'essay';
       
+      // SPEZIELLE AUFSATZBÄNDE: GA018 und GA028 erhalten auch H2-Überschriften
+      const isEssayWithH2 = gaNumeric === 18 || gaNumeric === 28;
+      
       if (skipManualHeadings) {
         console.log(`  [${meta.ID}] Manuelle H3/H4 werden übersprungen (AI-generierte verwenden)`);
       }
@@ -879,7 +883,9 @@ class SteinerLecturesExporter {
         console.log(`  [${meta.ID}] Briefe-Band: H2-Überschriften erhalten Absatz-Indizes`);
       }
       
-      if (isEssayBand) {
+      if (isEssayWithH2) {
+        console.log(`  [${meta.ID}] Aufsatz-Band mit H2: H2/H3/H4-Überschriften erhalten Absatz-Indizes`);
+      } else if (isEssayBand) {
         console.log(`  [${meta.ID}] Aufsatz-Band: H3/H4-Überschriften erhalten Absatz-Indizes`);
       }
       
@@ -905,6 +911,18 @@ class SteinerLecturesExporter {
               text: headingText,
               level: 4  // H2 → H4 für konsistente Darstellung
             };
+            // Die Überschrift wird NICHT zu pendingHeadings hinzugefügt,
+            // sondern separat behandelt
+            continue;
+          }
+          
+          // SPEZIELLE AUFSÄTZE (GA018, GA028): H2/H3/H4-Überschriften werden gespeichert
+          if (isEssayWithH2 && (level === 2 || level === 3 || level === 4)) {
+            // Speichere die Überschrift - der Index wird beim nächsten Absatz hinzugefügt
+            pendingEssayHeadings.push({
+              text: headingText,
+              level: level  // Behalte das ursprüngliche Level (H2, H3 oder H4)
+            });
             // Die Überschrift wird NICHT zu pendingHeadings hinzugefügt,
             // sondern separat behandelt
             continue;
@@ -979,8 +997,9 @@ class SteinerLecturesExporter {
               pendingLetterHeading = null; // Reset
             }
             
-            // AUFSÄTZE: H3/H4-Überschriften mit data-index Attribut hinzufügen
-            if (isEssayBand && pendingEssayHeadings.length > 0) {
+            // AUFSÄTZE: H2/H3/H4-Überschriften mit data-index Attribut hinzufügen
+            // WICHTIG: Auch für isEssayWithH2 (GA018, GA028) prüfen!
+            if ((isEssayBand || isEssayWithH2) && pendingEssayHeadings.length > 0) {
               // Füge alle gesammelten Überschriften hinzu
               const headingsHTML = [];
               for (const essayHeading of pendingEssayHeadings) {
@@ -1039,8 +1058,9 @@ class SteinerLecturesExporter {
           console.log(`    -> ${letterHeadings.length} Brief-Überschriften mit Indizes`);
         }
         
-        // AUFSÄTZE: H3/H4-Überschriften mit Absatz-Indizes hinzufügen
-        if (isEssayBand && essayHeadings.length > 0) {
+        // AUFSÄTZE: H2/H3/H4-Überschriften mit Absatz-Indizes hinzufügen
+        // WICHTIG: Auch für isEssayWithH2 (GA018, GA028) prüfen!
+        if ((isEssayBand || isEssayWithH2) && essayHeadings.length > 0) {
           lectureData.headings = essayHeadings;
           console.log(`    -> ${essayHeadings.length} Aufsatz-Überschriften mit Indizes`);
         }
@@ -1676,8 +1696,9 @@ class SteinerLecturesExporter {
       }
     }
     
-    // Filtere Lectures mit Aufsatz-Überschriften (headings vorhanden und type === 'essay')
-    const essayLectures = lectures.filter(l => l.type === 'essay' && l.headings && l.headings.length > 0);
+    // Filtere Lectures mit Aufsatz-Überschriften (headings vorhanden)
+    // WICHTIG: Auch für GA018 und GA028 (können type 'lecture' haben, aber headings enthalten)
+    const essayLectures = lectures.filter(l => l.headings && l.headings.length > 0);
     
     if (essayLectures.length === 0) {
       return 0;
