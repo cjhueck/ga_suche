@@ -42197,8 +42197,8 @@ async function restoreBackup(backupName) {
           <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-color);">
             <input type="checkbox" id="correctionCaseSensitive" checked style="cursor: pointer;"> Case-sensitive
           </label>
-          <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-color);" title="Auch in steiner-full-lectures-*.json korrigieren">
-            <input type="checkbox" id="correctionIncludeHtml" checked style="cursor: pointer;"> +JSON
+          <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-color);" title="Auch in JSON-Dateien (steiner-full-lectures/, steiner-books/) und HTML-Dateien korrigieren">
+            <input type="checkbox" id="correctionIncludeHtml" checked style="cursor: pointer;"> +JSON/HTML
           </label>
         </div>
         <div style="display: flex; gap: 6px;">
@@ -42686,11 +42686,13 @@ async function previewCorrection() {
   previewEl.innerHTML = '<span style="color: var(--text-color); opacity: 0.7;">🔍 Suche...</span>';
   previewEl.style.display = 'block';
   
+  const includeJson = document.getElementById('correctionIncludeHtml').checked;
+  
   try {
     const response = await fetch(`${API_BASE}/api/marked-words/preview-correction`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ wrongText, gaTitle, caseSensitive })
+      body: JSON.stringify({ wrongText, gaTitle, caseSensitive, includeJson })
     });
     
     if (!response.ok) throw new Error('Fehler bei der Vorschau');
@@ -42758,7 +42760,7 @@ async function applyCorrection(mode) {
   
   const modeText = mode === 'single' ? 'nur in dieser GA' : 'in ALLEN MD-Dateien';
   const opts = [caseSensitive ? 'case-sensitive' : 'case-insensitive'];
-  if (includeHtml) opts.push('+JSON');
+  if (includeHtml) opts.push('+JSON/HTML');
   if (!confirm(`Korrektur durchführen?\n\n"${wrongText}" → "${correctText}"\n\nModus: ${modeText}\nOptionen: ${opts.join(', ')}`)) {
     return;
   }
