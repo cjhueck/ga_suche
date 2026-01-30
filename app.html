@@ -4494,6 +4494,12 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       margin-bottom: 0 !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
+    }
+    
+    /* ABER: Strophen-Abstände beibehalten (nach Leerzeile im Markdown) */
+    #viewer .paragraph.has-poem.after-stanza-break,
+    #summary-content .paragraph.has-poem.after-stanza-break {
+      margin-top: 1em !important;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
       line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
@@ -35805,8 +35811,35 @@ function detectAndFormatPoems(container) {
       // Wenn mindestens 2 aufeinanderfolgende kurze Paragraphen gefunden wurden, markiere alle
       if (consecutiveShortParagraphs >= 2) {
         console.log(`[GEDICHT-ERKENNUNG] Gefunden: ${consecutiveShortParagraphs} aufeinanderfolgende kurze Paragraphen (Gedicht)`);
+        
+        // WICHTIG: Prüfe für jeden Paragraph, ob davor eine Leerzeile war (Strophen-Trenner)
         poemParagraphs.forEach((poemDiv, idx) => {
           poemDiv.classList.add('has-poem');
+          
+          // Prüfe ob dieser Paragraph der erste nach einer Leerzeile ist
+          // (erkennbar an einem leeren/kurzen vorherigen Element oder doppeltem <br>)
+          let isAfterStanzaBreak = false;
+          
+          if (idx > 0) {
+            // Prüfe das vorherige Element im DOM
+            const prevSibling = poemDiv.previousElementSibling;
+            if (prevSibling) {
+              const prevText = (prevSibling.textContent || '').trim();
+              // Leere Zeile (nur Whitespace) oder sehr kurzer Text = Strophen-Trenner
+              if (prevText.length === 0 || prevText === '\u00A0' || prevText === '&nbsp;') {
+                isAfterStanzaBreak = true;
+                // Markiere die leere Zeile als Strophen-Trenner
+                prevSibling.classList.add('stanza-break');
+              }
+            }
+          }
+          
+          // Prüfe auch ob der Paragraph selbst einen doppelten Zeilenumbruch enthält
+          const innerHTML = poemDiv.innerHTML || '';
+          if (innerHTML.includes('<br><br>') || innerHTML.includes('<br /><br />') || innerHTML.includes('<br/><br/>')) {
+            isAfterStanzaBreak = true;
+          }
+          
           // WICHTIG: Entferne alle margin-Styles aus dem inline style-Attribut
           const currentStyle = poemDiv.getAttribute('style') || '';
           const newStyle = currentStyle
@@ -35819,10 +35852,19 @@ function detectAndFormatPoems(container) {
           poemDiv.removeAttribute('style');
           // Setze explizit margin und padding auf 0 mit !important
           poemDiv.style.setProperty('margin', '0', 'important');
-          poemDiv.style.setProperty('margin-top', '0', 'important');
           poemDiv.style.setProperty('margin-bottom', '0', 'important');
           poemDiv.style.setProperty('padding', '0', 'important');
           poemDiv.style.setProperty('line-height', '1.5', 'important');
+          
+          // ABER: Wenn nach einem Strophen-Trenner, behalte margin-top für Abstand
+          if (isAfterStanzaBreak && idx > 0) {
+            poemDiv.style.setProperty('margin-top', '1em', 'important');
+            poemDiv.classList.add('after-stanza-break');
+            console.log(`[GEDICHT-ERKENNUNG] Paragraph ${idx + 1} ist nach Strophen-Trenner`);
+          } else {
+            poemDiv.style.setProperty('margin-top', '0', 'important');
+          }
+          
           console.log(`[GEDICHT-ERKENNUNG] Paragraph ${idx + 1} markiert als Gedicht, Style: ${poemDiv.getAttribute('style')}`);
         });
         
