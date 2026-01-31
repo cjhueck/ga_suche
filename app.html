@@ -2952,6 +2952,134 @@ body.dark-mode .ga-missing-text {
       max-width: 100%;
       height: auto;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      cursor: zoom-in;
+    }
+    
+    /* PDF Popup Modal für vergrößerte Ansicht */
+    #pdf-popup-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+    
+    #pdf-popup-modal.visible {
+      display: flex;
+    }
+    
+    #pdf-popup-container {
+      position: relative;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    }
+    
+    #pdf-popup-canvas {
+      max-width: 100%;
+      max-height: 95vh;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      background: white;
+    }
+    
+    #pdf-popup-close {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10001;
+      transition: background 0.2s;
+    }
+    
+    #pdf-popup-close:hover {
+      background: rgba(0,0,0,0.8);
+    }
+    
+    #pdf-popup-controls {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10001;
+    }
+    
+    #pdf-popup-controls button {
+      font-size: 1.2rem;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    
+    #pdf-popup-controls button:hover {
+      background: rgba(0,0,0,0.8);
+    }
+    
+    #pdf-popup-zoom-info {
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 6px 12px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      min-width: 50px;
+      justify-content: center;
+    }
+    
+    #pdf-popup-page-info {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      z-index: 10001;
+    }
+    
+    #pdf-popup-container.zoomed {
+      cursor: grab;
+    }
+    
+    #pdf-popup-container.zoomed.dragging {
+      cursor: grabbing;
+    }
+    
+    #pdf-popup-container.zoomed #pdf-popup-canvas {
+      max-width: none;
+      max-height: none;
     }
     
     /* Wenn PDF-Panel sichtbar: main-container anpassen (wird per JS dynamisch gesetzt) */
@@ -9525,6 +9653,21 @@ PDF
   <div class="pdf-canvas-container" id="pdfCanvasContainer">
     <canvas id="pdfCanvas"></canvas>
   </div>
+</div>
+
+<!-- PDF Popup Modal für vergrößerte Ansicht -->
+<div id="pdf-popup-modal">
+  <button id="pdf-popup-close" title="Schließen (Esc)">✕</button>
+  <div id="pdf-popup-controls">
+    <button id="pdf-popup-zoom-out" title="Verkleinern (-)">−</button>
+    <span id="pdf-popup-zoom-info">100%</span>
+    <button id="pdf-popup-zoom-in" title="Vergrößern (+)">+</button>
+    <button id="pdf-popup-zoom-reset" title="Zurücksetzen (0)">↺</button>
+  </div>
+  <div id="pdf-popup-container">
+    <canvas id="pdf-popup-canvas"></canvas>
+  </div>
+  <div id="pdf-popup-page-info"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
@@ -46271,6 +46414,289 @@ window.cancelTextEditMode = function() {};
     document.addEventListener('DOMContentLoaded', initPdfButtons);
   } else {
     initPdfButtons();
+  }
+  
+  // ========== PDF Popup für vergrößerte Ansicht ==========
+  
+  // Popup-Zustand
+  let popupZoomLevel = 1.0;
+  let popupBaseScale = 1.0;
+  let popupPage = null;
+  const ZOOM_STEP = 0.25;
+  const MIN_ZOOM = 0.5;
+  const MAX_ZOOM = 4.0;
+  
+  // Popup öffnen und Seite in hoher Auflösung rendern
+  window.openPdfPopup = async function() {
+    if (!pdfDoc || !pdfCurrentPage) return;
+    
+    const modal = document.getElementById('pdf-popup-modal');
+    const canvas = document.getElementById('pdf-popup-canvas');
+    const pageInfo = document.getElementById('pdf-popup-page-info');
+    const container = document.getElementById('pdf-popup-container');
+    
+    if (!modal || !canvas) return;
+    
+    try {
+      popupPage = await pdfDoc.getPage(pdfCurrentPage);
+      
+      // Viewport für Bildschirmgröße berechnen (größere Auflösung)
+      const viewport = popupPage.getViewport({ scale: 1.0 });
+      
+      // Basis-Skalierung: passt in 90% des Bildschirms
+      const maxWidth = window.innerWidth * 0.9;
+      const maxHeight = window.innerHeight * 0.9;
+      const scaleByWidth = maxWidth / viewport.width;
+      const scaleByHeight = maxHeight / viewport.height;
+      popupBaseScale = Math.min(scaleByWidth, scaleByHeight, 3.0);
+      popupZoomLevel = 1.0;
+      
+      // Seite rendern
+      await renderPopupPage();
+      
+      // Seiten-Info anzeigen
+      pageInfo.textContent = `Seite ${pdfCurrentPage} von ${pdfTotalPages}`;
+      updateZoomInfo();
+      
+      // Container zurücksetzen
+      container.classList.remove('zoomed', 'dragging');
+      container.scrollTop = 0;
+      container.scrollLeft = 0;
+      
+      // Modal anzeigen
+      modal.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+      
+    } catch (error) {
+      console.error('[PDF-POPUP] Render-Fehler:', error);
+    }
+  };
+  
+  // Popup-Seite rendern mit aktuellem Zoom
+  async function renderPopupPage() {
+    if (!popupPage) return;
+    
+    const canvas = document.getElementById('pdf-popup-canvas');
+    const container = document.getElementById('pdf-popup-container');
+    if (!canvas) return;
+    
+    const scale = popupBaseScale * popupZoomLevel;
+    const scaledViewport = popupPage.getViewport({ scale: scale });
+    
+    // Canvas-Größe setzen
+    canvas.width = scaledViewport.width;
+    canvas.height = scaledViewport.height;
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Seite rendern
+    await popupPage.render({
+      canvasContext: ctx,
+      viewport: scaledViewport
+    }).promise;
+    
+    // Container-Klasse für Zoom > 1 setzen (für Drag-Cursor)
+    if (popupZoomLevel > 1.0) {
+      container.classList.add('zoomed');
+    } else {
+      container.classList.remove('zoomed');
+    }
+  }
+  
+  // Zoom-Info aktualisieren
+  function updateZoomInfo() {
+    const zoomInfo = document.getElementById('pdf-popup-zoom-info');
+    if (zoomInfo) {
+      zoomInfo.textContent = Math.round(popupZoomLevel * 100) + '%';
+    }
+  }
+  
+  // Zoom-Funktionen
+  window.pdfPopupZoomIn = async function() {
+    if (popupZoomLevel < MAX_ZOOM) {
+      popupZoomLevel = Math.min(popupZoomLevel + ZOOM_STEP, MAX_ZOOM);
+      await renderPopupPage();
+      updateZoomInfo();
+    }
+  };
+  
+  window.pdfPopupZoomOut = async function() {
+    if (popupZoomLevel > MIN_ZOOM) {
+      popupZoomLevel = Math.max(popupZoomLevel - ZOOM_STEP, MIN_ZOOM);
+      await renderPopupPage();
+      updateZoomInfo();
+    }
+  };
+  
+  window.pdfPopupZoomReset = async function() {
+    popupZoomLevel = 1.0;
+    const container = document.getElementById('pdf-popup-container');
+    if (container) {
+      container.scrollTop = 0;
+      container.scrollLeft = 0;
+    }
+    await renderPopupPage();
+    updateZoomInfo();
+  };
+  
+  // Popup schließen
+  window.closePdfPopup = function() {
+    const modal = document.getElementById('pdf-popup-modal');
+    if (modal) {
+      modal.classList.remove('visible');
+      document.body.style.overflow = '';
+      popupPage = null;
+      popupZoomLevel = 1.0;
+    }
+  };
+  
+  // Event-Listener für Popup initialisieren
+  function initPdfPopup() {
+    const pdfCanvasContainer = document.getElementById('pdfCanvasContainer');
+    const modal = document.getElementById('pdf-popup-modal');
+    const closeBtn = document.getElementById('pdf-popup-close');
+    const container = document.getElementById('pdf-popup-container');
+    const zoomInBtn = document.getElementById('pdf-popup-zoom-in');
+    const zoomOutBtn = document.getElementById('pdf-popup-zoom-out');
+    const zoomResetBtn = document.getElementById('pdf-popup-zoom-reset');
+    
+    // Klick auf Canvas im PDF-Panel öffnet Popup
+    if (pdfCanvasContainer && !pdfCanvasContainer._popupListenerAdded) {
+      pdfCanvasContainer._popupListenerAdded = true;
+      pdfCanvasContainer.addEventListener('click', function(e) {
+        if (e.target.tagName === 'CANVAS') {
+          window.openPdfPopup();
+        }
+      });
+    }
+    
+    // Zoom-Buttons
+    if (zoomInBtn && !zoomInBtn._listenerAdded) {
+      zoomInBtn._listenerAdded = true;
+      zoomInBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        window.pdfPopupZoomIn();
+      });
+    }
+    if (zoomOutBtn && !zoomOutBtn._listenerAdded) {
+      zoomOutBtn._listenerAdded = true;
+      zoomOutBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        window.pdfPopupZoomOut();
+      });
+    }
+    if (zoomResetBtn && !zoomResetBtn._listenerAdded) {
+      zoomResetBtn._listenerAdded = true;
+      zoomResetBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        window.pdfPopupZoomReset();
+      });
+    }
+    
+    // Mausrad-Zoom
+    if (container && !container._wheelListenerAdded) {
+      container._wheelListenerAdded = true;
+      container.addEventListener('wheel', function(e) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          if (e.deltaY < 0) {
+            window.pdfPopupZoomIn();
+          } else {
+            window.pdfPopupZoomOut();
+          }
+        }
+      }, { passive: false });
+    }
+    
+    // Drag/Pan für gezoomte Ansicht
+    let isDragging = false;
+    let startX, startY, scrollLeft, scrollTop;
+    
+    if (container && !container._dragListenerAdded) {
+      container._dragListenerAdded = true;
+      
+      container.addEventListener('mousedown', function(e) {
+        if (popupZoomLevel > 1.0 && e.target.id === 'pdf-popup-canvas') {
+          isDragging = true;
+          container.classList.add('dragging');
+          startX = e.pageX - container.offsetLeft;
+          startY = e.pageY - container.offsetTop;
+          scrollLeft = container.scrollLeft;
+          scrollTop = container.scrollTop;
+          e.preventDefault();
+        }
+      });
+      
+      container.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const y = e.pageY - container.offsetTop;
+        const walkX = (x - startX) * 1.5;
+        const walkY = (y - startY) * 1.5;
+        container.scrollLeft = scrollLeft - walkX;
+        container.scrollTop = scrollTop - walkY;
+      });
+      
+      container.addEventListener('mouseup', function() {
+        isDragging = false;
+        container.classList.remove('dragging');
+      });
+      
+      container.addEventListener('mouseleave', function() {
+        isDragging = false;
+        container.classList.remove('dragging');
+      });
+    }
+    
+    // Klick auf Modal-Hintergrund schließt Popup (nur bei Zoom = 1)
+    if (modal && !modal._closeListenerAdded) {
+      modal._closeListenerAdded = true;
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          window.closePdfPopup();
+        }
+        // Bei Canvas-Klick nur schließen wenn nicht gezoomt und kein Drag
+        if (e.target.id === 'pdf-popup-canvas' && popupZoomLevel <= 1.0 && !isDragging) {
+          window.closePdfPopup();
+        }
+      });
+    }
+    
+    // Schließen-Button
+    if (closeBtn && !closeBtn._closeListenerAdded) {
+      closeBtn._closeListenerAdded = true;
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        window.closePdfPopup();
+      });
+    }
+    
+    // Tastatur-Shortcuts
+    document.addEventListener('keydown', function(e) {
+      const modal = document.getElementById('pdf-popup-modal');
+      if (!modal || !modal.classList.contains('visible')) return;
+      
+      if (e.key === 'Escape') {
+        window.closePdfPopup();
+      } else if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        window.pdfPopupZoomIn();
+      } else if (e.key === '-') {
+        e.preventDefault();
+        window.pdfPopupZoomOut();
+      } else if (e.key === '0') {
+        e.preventDefault();
+        window.pdfPopupZoomReset();
+      }
+    });
+  }
+  
+  // Popup initialisieren
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPdfPopup);
+  } else {
+    initPdfPopup();
   }
   
   console.log('[PDF-VIEWER] Modul geladen');
