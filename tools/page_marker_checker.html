@@ -209,12 +209,15 @@
         .content-right {
             flex: 1;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 20px;
             background: #525252;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .content-right-wrapper {
@@ -230,9 +233,12 @@
         .content-right-header {
             margin-bottom: 15px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
             color: white;
+            width: 100%;
+            max-width: 100%;
+            word-wrap: break-word;
         }
 
         .content-right-header h3 {
@@ -240,6 +246,10 @@
             color: white;
             font-weight: 600;
             margin: 0;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            white-space: normal;
+            max-width: 100%;
         }
 
         .pdf-viewer {
@@ -306,6 +316,47 @@
             text-align: center;
         }
 
+        /* MD-Controls (analog zu PDF-Controls) */
+        .md-controls {
+            position: sticky;
+            top: 0;
+            background: rgba(70, 120, 134, 0.95);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .md-controls button {
+            background: #3a6a7a;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .md-controls button:hover {
+            background: #2d5566;
+        }
+
+        .md-controls button.active {
+            background: #2d8a4a;
+            box-shadow: 0 0 0 2px rgba(45, 138, 74, 0.5);
+        }
+
+        .md-controls input {
+            width: 60px;
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
         .word-break-marker {
             padding: 2px 4px;
             border-radius: 3px;
@@ -322,11 +373,56 @@
             color: #2e7d32;
         }
 
+        /* Rechter MD-Viewer: Zeilen-Darstellung */
+        .md-viewer {
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            cursor: text;
+            overflow-x: hidden;
+            overflow-y: auto;
+            word-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .md-line {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            user-select: text;
+            max-width: 100%;
+        }
+        
+        .md-separator {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            color: #999;
+            border-top: 1px dashed #ccc;
+            margin: 0.5em 0;
+            padding-top: 0.5em;
+        }
+        
+        /* Highlight für Copyright-Suche im MD-Viewer */
+        .md-highlight {
+            background: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
         .content-wrapper[contenteditable="true"] {
             outline: none;
             padding: 20px;
             border-radius: 4px;
             min-height: 200px;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
         }
 
         .content-wrapper[contenteditable="true"]:focus {
@@ -639,7 +735,7 @@
         <h1>Seitenmarker</h1>
         <div class="filter-buttons">
             <button class="btn" id="toggleHighlight" onclick="toggleHighlighting()">Highlighting</button>
-            <button class="btn btn-secondary" id="toggleSeries" onclick="toggleSeriesMode()" title="Serienmodus: Nach Marker-Einfügung automatisch zur nächsten PDF-Seite">Serie</button>
+            <button class="btn btn-secondary" id="toggleSeries" onclick="toggleSeriesMode()" title="Serienmodus: Nach Marker-Einfügung automatisch zur nächsten PDF/MD-Seite">Serie</button>
             <button class="btn btn-secondary" id="toggleFast" onclick="toggleFastMode()" title="Fast-Modus: Im Serienmodus wird das Insert-Dialog automatisch geöffnet">Fast</button>
         </div>
         <div class="file-input-wrapper">
@@ -648,7 +744,7 @@
         </div>
         <div class="file-input-wrapper">
             <input type="file" id="fileInputRight" accept=".pdf,.md,.txt">
-            <button class="btn btn-secondary" onclick="document.getElementById('fileInputRight').click()">PDF</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('fileInputRight').click()">PDF/MD</button>
         </div>
         <button class="btn btn-secondary" id="saveBtn" onclick="saveFile()" disabled>Speichern</button>
         <button class="btn btn-secondary" id="shortcutsBtn" onclick="showShortcuts()" title="Shortcuts anzeigen">?</button>
@@ -677,7 +773,7 @@
             </div>
             <div class="content-right">
                 <div class="content-right-header">
-                    <h3>PDF-Vergleich</h3>
+                    <h3 id="rightPanelTitle">Vergleich (PDF/MD)</h3>
                 </div>
                 <div class="content-right-wrapper" id="contentRight">
                     <div class="pdf-controls" id="pdfControls" style="display: none;">
@@ -687,6 +783,13 @@
                         <button id="searchToggleBtn" onclick="toggleSearch()" title="Suche aktivieren/deaktivieren - wenn aktiv, wird automatisch bei Seitenwechsel gesucht">🔍 Suchen</button>
                     </div>
                     <div class="pdf-viewer" id="pdfViewer"></div>
+                    <div class="md-controls" id="mdControls" style="display: none;">
+                        <button onclick="previousMdPage()">←</button>
+                        <span style="color: white;">Seite <input type="number" id="mdPageInput" min="1" value="1" onchange="goToMdPage(this.value)"> von <span id="mdTotalPages">0</span></span>
+                        <button onclick="nextMdPage()">→</button>
+                        <button id="mdSearchToggleBtn" onclick="toggleMdSearch()" title="Suche im MD aktivieren/deaktivieren">🔍 Suchen</button>
+                    </div>
+                    <div class="md-viewer" id="mdViewer" style="display: none; padding: 1rem; overflow-y: auto; overflow-x: hidden; height: 100%; width: 100%; max-width: 100%; box-sizing: border-box; background: var(--background-color); color: var(--text-color); border-radius: 4px;"></div>
                 </div>
             </div>
         </div>
@@ -762,6 +865,13 @@
         let pdfDoc = null;
         let currentPdfPage = 1;
         let totalPdfPages = 0;
+        
+        // MD-Seiten (Copyright-Zeilen)
+        let mdPages = [];  // Array von {element, pageNum}
+        let currentMdPageIndex = 0;
+        let totalMdPages = 0;
+        let mdSearchActive = false;
+        
         let markers = [];
         let currentMarkerIndex = -1;
         let currentFilter = 'all';
@@ -817,10 +927,21 @@
             if (file && file.type === 'application/pdf') {
                 loadPdfFile(file);
             } else if (file) {
+                // MD/TXT-Datei: PDF-Controls verstecken und pdfViewer leeren
+                const controlsEl = document.getElementById('pdfControls');
+                const pdfViewerEl = document.getElementById('pdfViewer');
+                if (controlsEl) controlsEl.style.display = 'none';
+                if (pdfViewerEl) pdfViewerEl.innerHTML = '';
+                pdfDoc = null;
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     rightContent = e.target.result;
+                    rightFileName = file.name;
                     renderRightContent(rightContent);
+                    // Titel aktualisieren
+                    const titleEl = document.getElementById('rightPanelTitle');
+                    if (titleEl) titleEl.textContent = 'MD: ' + file.name;
                     showNotification('Vergleichsdatei geladen: ' + file.name);
                 };
                 reader.readAsText(file, 'UTF-8');
@@ -860,6 +981,14 @@
                     if (controlsEl) {
                         controlsEl.style.display = 'flex';
                     }
+                    // Titel aktualisieren
+                    const titleEl = document.getElementById('rightPanelTitle');
+                    if (titleEl) titleEl.textContent = 'PDF: ' + (file.name || 'Dokument');
+                    // Zeige PDF-Viewer, verstecke MD-Viewer
+                    const pdfViewerEl = document.getElementById('pdfViewer');
+                    const mdViewerEl = document.getElementById('mdViewer');
+                    if (pdfViewerEl) pdfViewerEl.style.display = 'block';
+                    if (mdViewerEl) mdViewerEl.style.display = 'none';
                     currentPdfPage = 1;
                     renderPdfPage(1);
                 }).catch(function(error) {
@@ -1012,6 +1141,10 @@
                 let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
                 // Konvertiere ß zu ss für Vergleich (alte Rechtschreibung -> neue)
                 normalized = normalized.replace(/ß/g, 'ss');
+                // Normalisiere Umlaute für Fuzzy-Matching (läßt → lässt, etc.)
+                normalized = normalized.replace(/ä/g, 'a');
+                normalized = normalized.replace(/ö/g, 'o');
+                normalized = normalized.replace(/ü/g, 'u');
                 return normalized;
             };
 
@@ -1370,6 +1503,18 @@
                     }
                 }
                 
+                // Variante: Zeilenumbruch nach VORTRAG durch Komma ersetzen (PDF: "VORTRAG\nDornach" → MD: "VORTRAG, Dornach")
+                if (directIndex === -1) {
+                    // Ersetze Zeilenumbruch/Leerzeichen nach VORTRAG durch Komma+Leerzeichen
+                    const searchWithComma = searchTextLower.replace(/(vortrag)\s+/gi, '$1, ');
+                    if (searchWithComma !== searchTextLower) {
+                        directIndex = markdownTextLower.indexOf(searchWithComma);
+                        if (directIndex !== -1) {
+                            console.log('Gefunden nach Einfügen von Komma nach VORTRAG');
+                        }
+                    }
+                }
+                
                 if (directIndex !== -1) {
                     searchIndex = directIndex;
                     foundWordCount = searchWords.length;
@@ -1428,8 +1573,11 @@
                         ['äugen', 'ätigen'], ['ätigen', 'äugen'],
                         ['äug', 'ätig'], ['ätig', 'äug'],
                         // Längere Zeichenfolgen vor kürzeren (seh vor eh)
+                        ['isehen', 'ischen'], ['ischen', 'isehen'],  // ahrimanisehen ↔ ahrimanischen
                         ['seh', 'sch'], ['sch', 'seh'],  // sehen ↔ schen
                         ['neh', 'nch'], ['nch', 'neh'],  // nehmen ↔ nchmen
+                        ['lieh', 'lich'], ['lich', 'lieh'],  // wirkliehen ↔ wirklichen (OCR verwechselt li mit ie)
+                        ['ieh', 'ich'], ['ich', 'ieh'],  // allgemeiner: liehe ↔ liche
                         // Einfache Zeichentausche
                         ['eh', 'ch'], ['ch', 'eh'],  // liehe ↔ liche
                         ['eb', 'ch'], ['ch', 'eb'],  // eben ↔ chen
@@ -1447,6 +1595,16 @@
                         ['ck', 'ek'], ['ek', 'ck'],
                         ['ſ', 's'], ['s', 'ſ'],
                         ['ff', 'st'], ['st', 'ff'],  // Fraktur-Ligatur
+                        // Alte/neue Rechtschreibung
+                        ['daß', 'dass'], ['dass', 'daß'],  // daß ↔ dass
+                        ['muß', 'muss'], ['muss', 'muß'],  // muß ↔ muss
+                        ['läßt', 'lässt'], ['lässt', 'läßt'],  // läßt ↔ lässt
+                        ['erfaßt', 'erfasst'], ['erfasst', 'erfaßt'],  // erfaßt ↔ erfasst
+                        ['bewußtsein', 'bewusstsein'], ['bewusstsein', 'bewußtsein'],  // Bewußtsein ↔ Bewusstsein
+                        ['wüßt', 'wusst'], ['wusst', 'wüßt'],  // bewüßt ↔ bewusst
+                        ['gründe', 'grunde'], ['grunde', 'gründe'],  // zugründe ↔ zugrunde
+                        ['räume', 'raume'], ['raume', 'räume'],  // Räume ↔ Raume
+                        ['einwände', 'einwande'], ['einwande', 'einwände'],  // Einwände ↔ Einwande
                         // Umlaute (OCR erkennt oft Umlaute nicht)
                         ['ü', 'u'], ['u', 'ü'],      // gründe ↔ grunde
                         ['ä', 'a'], ['a', 'ä'],      // wärme ↔ warme
@@ -2107,83 +2265,567 @@
         function renderRightContent(content) {
             if (!content) return;
 
-            // Finde Seitenumbrüche (---, "Seite X", etc.)
+            // HTML-Zeichen escapen
+            const escapeHtmlRight = (text) => {
+                return text
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+            };
+            
+            // Escape HTML und Zeilenumbrüche durch <br> ersetzen
+            let rendered = escapeHtmlRight(content).replace(/\n/g, '<br>');
+            
+            // Finde alle "---" Positionen für Navigation (Seitenumbrüche)
+            mdPages = [];
+            // Suche nach --- auf eigener Zeile
             const lines = content.split('\n');
-            const pageBreaks = [];
-            
+            let charPos = 0;
             for (let i = 0; i < lines.length; i++) {
-                const line = lines[i].trim();
-                // Erkenne Seitenumbrüche
-                if (line === '---' || /^Seite\s+\d+/i.test(line) || /^Copyright Rudolf Steiner/i.test(line)) {
-                    pageBreaks.push(i);
+                if (lines[i].trim() === '---') {
+                    // Finde den Text nach dem --- (mehrere Zeilen, bis zu 200 Zeichen)
+                    let textAfter = '';
+                    for (let j = i + 1; j < lines.length && j < i + 10; j++) {
+                        const nextLine = lines[j].trim();
+                        if (nextLine === '---' || nextLine.startsWith('Copyright')) {
+                            break; // Stoppe bei nächstem Separator
+                        }
+                        if (nextLine) {
+                            textAfter += (textAfter ? ' ' : '') + nextLine;
+                            if (textAfter.length >= 200) {
+                                textAfter = textAfter.substring(0, 200);
+                                break;
+                            }
+                        }
+                    }
+                    mdPages.push({
+                        position: charPos,
+                        lineIndex: i,
+                        textAfter: textAfter
+                    });
+                }
+                charPos += lines[i].length + 1; // +1 für \n
+            }
+            totalMdPages = mdPages.length;
+            currentMdPageIndex = 0;
+            
+            // Zeige MD-Viewer und MD-Controls, verstecke PDF-Viewer und PDF-Controls
+            const mdViewerEl = document.getElementById('mdViewer');
+            const pdfViewerEl = document.getElementById('pdfViewer');
+            const mdControlsEl = document.getElementById('mdControls');
+            const pdfControlsEl = document.getElementById('pdfControls');
+            
+            if (mdViewerEl) {
+                mdViewerEl.innerHTML = rendered;
+                mdViewerEl.style.display = 'block';
+                
+                // Aktualisiere MD-Controls
+                const totalPagesEl = document.getElementById('mdTotalPages');
+                const pageInputEl = document.getElementById('mdPageInput');
+                if (totalPagesEl) totalPagesEl.textContent = totalMdPages;
+                if (pageInputEl) {
+                    pageInputEl.value = totalMdPages > 0 ? 1 : 0;
+                    pageInputEl.max = totalMdPages;
                 }
             }
-
-            // Markiere Wörter um Seitenumbrüche
-            let htmlContent = content;
+            if (pdfViewerEl) {
+                pdfViewerEl.style.display = 'none';
+            }
+            if (mdControlsEl) {
+                mdControlsEl.style.display = totalMdPages > 0 ? 'flex' : 'none';
+            }
+            if (pdfControlsEl) {
+                pdfControlsEl.style.display = 'none';
+            }
+        }
+        
+        // MD-Navigation Funktionen
+        function previousMdPage() {
+            if (currentMdPageIndex > 0) {
+                currentMdPageIndex--;
+                scrollToMdPage(currentMdPageIndex);
+            }
+        }
+        
+        function nextMdPage() {
+            if (currentMdPageIndex < totalMdPages - 1) {
+                currentMdPageIndex++;
+                scrollToMdPage(currentMdPageIndex);
+            }
+        }
+        
+        function goToMdPage(pageIndex) {
+            const idx = parseInt(pageIndex) - 1;
+            if (idx >= 0 && idx < totalMdPages) {
+                currentMdPageIndex = idx;
+                scrollToMdPage(idx);
+            }
+        }
+        
+        function scrollToMdPage(index) {
+            if (index < 0 || index >= mdPages.length) return;
             
-            // Gehe von hinten nach vorne durch die Seitenumbrüche
-            for (let i = pageBreaks.length - 1; i >= 0; i--) {
-                const breakLineIndex = pageBreaks[i];
-                
-                // Finde die letzte Zeile vor dem Seitenumbruch mit Text
-                let beforeLineIndex = breakLineIndex - 1;
-                while (beforeLineIndex >= 0 && lines[beforeLineIndex].trim() === '') {
-                    beforeLineIndex--;
+            const mdViewerEl = document.getElementById('mdViewer');
+            if (!mdViewerEl) return;
+            
+            const pageInfo = mdPages[index];
+            
+            // Scrolle zur Zeile mit --- im rechten Fenster
+            const lineIndex = pageInfo.lineIndex;
+            const scrollPosition = lineIndex * 18; // ca. 18px pro Zeile
+            mdViewerEl.scrollTop = Math.max(0, scrollPosition - 100);
+            
+            // Aktualisiere Input
+            const pageInputEl = document.getElementById('mdPageInput');
+            if (pageInputEl) pageInputEl.value = index + 1;
+            
+            // Highlight das --- im rechten Fenster
+            highlightSeparatorInMd(index);
+            
+            // Suche den Text nach --- im LINKEN Fenster
+            // Nur suchen wenn: "Suchen" aktiv ist ODER (Serie UND Fast aktiviert)
+            const shouldSearch = mdSearchActive || (seriesModeEnabled && fastModeEnabled);
+            if (shouldSearch && pageInfo.textAfter && pageInfo.textAfter.length > 5) {
+                searchTextInLeftWindow(pageInfo.textAfter);
+            }
+        }
+        
+        function highlightSeparatorInMd(index) {
+            const mdViewerEl = document.getElementById('mdViewer');
+            if (!mdViewerEl) return;
+            
+            // Entferne vorherige Highlights
+            mdViewerEl.innerHTML = mdViewerEl.innerHTML.replace(/<span class="md-highlight">([^<]*)<\/span>/g, '$1');
+            
+            // Finde das n-te --- und markiere es
+            let html = mdViewerEl.innerHTML;
+            const separatorRegex = /---/g;
+            let match;
+            let count = 0;
+            let newHtml = '';
+            let lastIndex = 0;
+            
+            while ((match = separatorRegex.exec(html)) !== null) {
+                if (count === index) {
+                    newHtml += html.substring(lastIndex, match.index);
+                    newHtml += `<span class="md-highlight">${match[0]}</span>`;
+                    lastIndex = match.index + match[0].length;
+                    break;
                 }
-                
-                // Finde die erste Zeile nach dem Seitenumbruch mit Text
-                let afterLineIndex = breakLineIndex + 1;
-                while (afterLineIndex < lines.length && lines[afterLineIndex].trim() === '') {
-                    afterLineIndex++;
-                }
-                
-                if (beforeLineIndex >= 0 && afterLineIndex < lines.length) {
-                    const beforeLine = lines[beforeLineIndex];
-                    const afterLine = lines[afterLineIndex];
-                    
-                    // Extrahiere das letzte Wort der vorherigen Zeile
-                    const beforeWords = beforeLine.trim().split(/\s+/).filter(w => w.length > 0);
-                    const lastWord = beforeWords.length > 0 ? beforeWords[beforeWords.length - 1] : null;
-                    
-                    // Extrahiere das erste Wort der nächsten Zeile
-                    const afterWords = afterLine.trim().split(/\s+/).filter(w => w.length > 0);
-                    const firstWord = afterWords.length > 0 ? afterWords[0] : null;
-                    
-                    // Prüfe ob es eine Silbentrennung ist (Bindestrich am Ende der vorherigen Zeile)
-                    const isWordBreak = beforeLine.trim().endsWith('-') || 
-                                      (beforeLine.trim().match(/\w+$/) && beforeLine.trim().match(/\w+$/)[0].length <= 5);
-                    
-                    // Markiere das letzte Wort der vorherigen Zeile
-                    if (lastWord) {
-                        let newBeforeLine = beforeLine;
-                        const className = isWordBreak ? 'word-break' : 'word-separator';
-                        newBeforeLine = newBeforeLine.replace(
-                            new RegExp(`(${escapeRegex(lastWord)})`, 'g'),
-                            `<span class="word-break-marker ${className}">$1</span>`
-                        );
-                        lines[beforeLineIndex] = newBeforeLine;
+                count++;
+            }
+            newHtml += html.substring(lastIndex);
+            mdViewerEl.innerHTML = newHtml;
+            
+            // Scrolle zum Highlight
+            const highlight = mdViewerEl.querySelector('.md-highlight');
+            if (highlight) {
+                highlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        // Suche Text im linken Fenster und highlighte ihn (mit Fuzzy-Regeln)
+        function searchTextInLeftWindow(searchText) {
+            if (!searchText || searchText.length < 5) return;
+            
+            const contentEl = document.getElementById('content');
+            if (!contentEl || !currentContent) return;
+            
+            // Normalisierungsfunktion (wie bei PDF-Suche)
+            const normalizeForSearch = (text) => {
+                let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
+                // Konvertiere ß zu ss für Vergleich (alte Rechtschreibung -> neue)
+                normalized = normalized.replace(/ß/g, 'ss');
+                // Normalisiere Umlaute für Fuzzy-Matching (läßt → lässt, etc.)
+                normalized = normalized.replace(/ä/g, 'a');
+                normalized = normalized.replace(/ö/g, 'o');
+                normalized = normalized.replace(/ü/g, 'u');
+                return normalized;
+            };
+            
+            // Bei Serie-Modus: Suche ab letzter Position, sonst basierend auf MD-Seitennummer
+            const totalLength = currentContent.length;
+            let minSearchPosition = 0;
+            
+            if (seriesModeEnabled && lastInsertedMarkerPosition > 0) {
+                // Serie-Modus: Suche ab letzter eingefügter Position
+                minSearchPosition = lastInsertedMarkerPosition;
+                console.log(`[MD-Vorlage] Serie-Modus: Suche ab Position ${minSearchPosition}`);
+            }
+            
+            const expectedPosition = totalMdPages > 0 ? 
+                Math.floor((currentMdPageIndex / totalMdPages) * totalLength) : 0;
+            console.log(`[MD-Vorlage] Erwartete Position: ~${expectedPosition} (Seite ${currentMdPageIndex + 1}/${totalMdPages})`);
+            
+            // Extrahiere die ersten 20 Wörter für die Suche
+            const words = searchText.trim().split(/\s+/).filter(w => w.length > 0);
+            const searchWords = words.slice(0, 20);
+            
+            console.log('[MD-Vorlage v2] Suche nach Text:', searchText.substring(0, 50) + '...');
+            console.log('[MD-Vorlage v2] Suchtext normalisiert:', normalizeForSearch(searchWords.slice(0, 10).join(' ')));
+            
+            const markdownText = currentContent;
+            const normalizedMarkdown = normalizeForSearch(markdownText);
+            
+            let searchIndex = -1;
+            let foundLength = 0;
+            
+            // Hilfsfunktion: Berechne Ähnlichkeit zwischen zwei Strings (wortbasiert)
+            const calculateSimilarity = (str1, str2) => {
+                const words1 = normalizeForSearch(str1).split(/\s+/).filter(w => w.length > 0);
+                const words2 = normalizeForSearch(str2).split(/\s+/).filter(w => w.length > 0);
+                const minLen = Math.min(words1.length, words2.length, 20); // Vergleiche bis zu 20 Wörter
+                let matchingWords = 0;
+                for (let i = 0; i < minLen; i++) {
+                    if (words1[i] === words2[i]) {
+                        matchingWords++;
+                    } else {
+                        // Bei Unterschied: Bonus für teilweise Übereinstimmung
+                        const w1 = words1[i] || '';
+                        const w2 = words2[i] || '';
+                        if (w1.startsWith(w2.substring(0, 3)) || w2.startsWith(w1.substring(0, 3))) {
+                            matchingWords += 0.3;
+                        }
                     }
+                }
+                const similarity = matchingWords / minLen;
+                console.log(`[Similarity] "${words1.slice(0, 5).join(' ')}..." vs "${words2.slice(0, 5).join(' ')}...": ${(similarity * 100).toFixed(0)}% (${matchingWords}/${minLen} Wörter)`);
+                return similarity;
+            };
+            
+            // Hilfsfunktion: Finde alle Vorkommnisse eines Texts (ab minSearchPosition)
+            const findAllOccurrences = (text, search) => {
+                const indices = [];
+                const lowerText = text.toLowerCase();
+                const lowerSearch = search.toLowerCase();
+                let pos = minSearchPosition; // Start ab minSearchPosition (Serie-Modus)
+                while ((pos = lowerText.indexOf(lowerSearch, pos)) !== -1) {
+                    indices.push(pos);
+                    pos++;
+                }
+                return indices;
+            };
+            
+            // Strategie 1: Suche mit vielen Wörtern (NUR 7+), bei weniger -> Fuzzy
+            const fullSearchText = searchWords.join(' ');
+            let bestCandidate = null;
+            
+            for (let wordCount of [15, 10, 7]) {  // Nicht weniger als 7 Wörter!
+                if (wordCount > searchWords.length) continue;
+                const testWords = searchWords.slice(0, wordCount);
+                const testPhrase = testWords.join(' ').toLowerCase();
+                const allIndices = findAllOccurrences(markdownText, testPhrase);
+                
+                if (allIndices.length === 1) {
+                    // Nur ein Treffer - prüfe ob Position zur erwarteten Position passt
+                    const foundPos = allIndices[0];
+                    const distanceFromExpected = Math.abs(foundPos - expectedPosition);
+                    const tolerance = totalLength * 0.10; // 10% Toleranz
                     
-                    // Markiere das erste Wort der nächsten Zeile
-                    if (firstWord) {
-                        let newAfterLine = afterLine;
-                        const className = isWordBreak ? 'word-break' : 'word-separator';
-                        newAfterLine = newAfterLine.replace(
-                            new RegExp(`(${escapeRegex(firstWord)})`, 'g'),
-                            `<span class="word-break-marker ${className}">$1</span>`
-                        );
-                        lines[afterLineIndex] = newAfterLine;
+                    searchIndex = foundPos;
+                    foundLength = testPhrase.length;
+                    
+                    if (distanceFromExpected < tolerance) {
+                        console.log(`[MD-Vorlage] Direkte Suche: guter Treffer mit ${wordCount} Wörtern bei ${foundPos} (erwartet: ~${expectedPosition})`);
+                    } else {
+                        // Treffer gefunden, aber Position weicht ab - Warnung setzen
+                        const pagesDiff = Math.round(distanceFromExpected / (totalLength / totalMdPages));
+                        console.log(`[MD-Vorlage] WARNUNG: Treffer bei ${foundPos} weicht ${pagesDiff} Seiten von erwartet ab!`);
+                        bestCandidate = { index: foundPos, similarity: 0.5, length: testPhrase.length, positionWarning: true, pagesDiff: pagesDiff };
+                    }
+                    break;
+                } else if (allIndices.length > 1) {
+                    // Mehrere Treffer - kombiniere Ähnlichkeit UND Nähe zur erwarteten Position
+                    console.log(`[MD-Vorlage] ${allIndices.length} Kandidaten gefunden mit ${wordCount} Wörtern, vergleiche...`);
+                    for (const idx of allIndices) {
+                        const contextLength = Math.min(200, markdownText.length - idx);
+                        const foundContext = markdownText.substring(idx, idx + contextLength);
+                        const textSimilarity = calculateSimilarity(foundContext, fullSearchText);
+                        
+                        // Berechne Positions-Score (näher = besser)
+                        const distanceFromExpected = Math.abs(idx - expectedPosition);
+                        const positionScore = 1 - (distanceFromExpected / totalLength);
+                        
+                        // Kombinierter Score: 60% Text-Ähnlichkeit, 40% Position
+                        const combinedScore = (textSimilarity * 0.6) + (positionScore * 0.4);
+                        
+                        console.log(`[MD-Vorlage] Kandidat bei ${idx}: Text ${(textSimilarity * 100).toFixed(0)}%, Position ${(positionScore * 100).toFixed(0)}%, Gesamt ${(combinedScore * 100).toFixed(0)}%`);
+                        if (!bestCandidate || combinedScore > bestCandidate.similarity) {
+                            bestCandidate = { index: idx, similarity: combinedScore, length: testPhrase.length };
+                        }
+                    }
+                    // Wenn beste Ähnlichkeit gut genug ist, verwende diesen Kandidaten
+                    if (bestCandidate && bestCandidate.similarity > 0.35) {
+                        searchIndex = bestCandidate.index;
+                        foundLength = bestCandidate.length;
+                        console.log(`[MD-Vorlage] Bester Kandidat gewählt bei ${searchIndex} mit ${(bestCandidate.similarity * 100).toFixed(0)}% Ähnlichkeit`);
+                        break;
+                    } else {
+                        console.log(`[MD-Vorlage] Kein guter Kandidat (beste Ähnlichkeit: ${bestCandidate ? (bestCandidate.similarity * 100).toFixed(0) : 0}%)`);
                     }
                 }
             }
             
-            // Rendere Markdown
-            htmlContent = lines.join('\n');
-            const rendered = md.render(htmlContent);
-            const contentRightEl = document.getElementById('contentRight');
-            if (contentRightEl) {
-                contentRightEl.innerHTML = rendered;
+            // Strategie 2: Normalisierte Suche (mit ß→ss, daß→dass)
+            if (searchIndex === -1) {
+                // Hilfsfunktion: Finde alle Vorkommnisse in normalisiertem Text
+                const findAllNormalizedOccurrences = (normText, search) => {
+                    const indices = [];
+                    let pos = 0;
+                    while ((pos = normText.indexOf(search, pos)) !== -1) {
+                        indices.push(pos);
+                        pos++;
+                    }
+                    return indices;
+                };
+                
+                // Hilfsfunktion: Filtere Indices, die vor minSearchPosition liegen
+                const filterByMinPosition = (origIndices) => {
+                    if (minSearchPosition <= 0) return origIndices;
+                    return origIndices.filter(idx => idx >= minSearchPosition);
+                };
+                
+                // Hilfsfunktion: Konvertiere normalisierten Index zu Original-Position
+                const normIndexToOriginal = (normalizedIndex) => {
+                    let origPos = 0;
+                    let normPos = 0;
+                    const origLower = markdownText.toLowerCase();
+                    while (normPos < normalizedIndex && origPos < markdownText.length) {
+                        const char = origLower[origPos];
+                        if (char === 'ß') {
+                            normPos += 2;
+                        } else if (/\s/.test(char)) {
+                            normPos++;
+                            while (origPos + 1 < markdownText.length && /\s/.test(origLower[origPos + 1])) {
+                                origPos++;
+                            }
+                        } else {
+                            normPos++;
+                        }
+                        origPos++;
+                    }
+                    return origPos;
+                };
+                
+                bestCandidate = null;
+                
+                for (let wordCount of [15, 10, 7]) {  // Nicht weniger als 7 Wörter!
+                    if (wordCount > searchWords.length) continue;
+                    const testWords = searchWords.slice(0, wordCount);
+                    const testPhrase = testWords.join(' ');
+                    const normalizedTest = normalizeForSearch(testPhrase);
+                    const allNormIndices = findAllNormalizedOccurrences(normalizedMarkdown, normalizedTest);
+                    
+                    // Konvertiere alle zu Original-Positionen und filtere nach minSearchPosition
+                    const origPositions = allNormIndices
+                        .map(normIdx => normIndexToOriginal(normIdx))
+                        .filter(pos => pos >= minSearchPosition);
+                    
+                    if (origPositions.length === 0) {
+                        console.log(`[MD-Vorlage] Normalisiert: keine Treffer nach Position ${minSearchPosition}`);
+                        continue;
+                    }
+                    
+                    if (origPositions.length === 1) {
+                        const foundPos = origPositions[0];
+                        const distanceFromExpected = Math.abs(foundPos - expectedPosition);
+                        const tolerance = totalLength * 0.10; // 10% Toleranz
+                        
+                        searchIndex = foundPos;
+                        foundLength = testPhrase.length;
+                        
+                        if (distanceFromExpected < tolerance) {
+                            console.log(`[MD-Vorlage] Normalisierte Suche: guter Treffer mit ${wordCount} Wörtern bei ${foundPos}`);
+                        } else {
+                            const pagesDiff = Math.round(distanceFromExpected / (totalLength / totalMdPages));
+                            console.log(`[MD-Vorlage] WARNUNG: Normalisierter Treffer bei ${foundPos} weicht ${pagesDiff} Seiten ab!`);
+                            bestCandidate = { index: foundPos, similarity: 0.5, length: testPhrase.length, positionWarning: true, pagesDiff: pagesDiff };
+                        }
+                        break;
+                    } else if (origPositions.length > 1) {
+                        console.log(`[MD-Vorlage] Normalisiert: ${origPositions.length} Kandidaten mit ${wordCount} Wörtern (nach Filter)`);
+                        for (const origIdx of origPositions) {
+                            const contextLength = Math.min(200, markdownText.length - origIdx);
+                            const foundContext = markdownText.substring(origIdx, origIdx + contextLength);
+                            const similarity = calculateSimilarity(foundContext, fullSearchText);
+                            if (!bestCandidate || similarity > bestCandidate.similarity) {
+                                bestCandidate = { index: origIdx, similarity, length: testPhrase.length };
+                            }
+                        }
+                        if (bestCandidate && bestCandidate.similarity > 0.35) {
+                            searchIndex = bestCandidate.index;
+                            foundLength = bestCandidate.length;
+                            console.log(`[MD-Vorlage] Normalisiert: Bester Kandidat bei ${searchIndex} mit ${(bestCandidate.similarity * 100).toFixed(0)}%`);
+                            break;
+                        } else {
+                            console.log(`[MD-Vorlage] Normalisiert: Kein guter Kandidat (beste Ähnlichkeit: ${bestCandidate ? (bestCandidate.similarity * 100).toFixed(0) : 0}%)`);
+                        }
+                    }
+                }
+            }
+            
+            // Strategie 3: Fuzzy-Suche
+            if (searchIndex === -1 && typeof fuzzySearchInMarkdown === 'function') {
+                console.log('[MD-Vorlage] Versuche Fuzzy-Suche...');
+                const fuzzyMatch = fuzzySearchInMarkdown(markdownText, searchText, 0.60);
+                if (fuzzyMatch) {
+                    searchIndex = fuzzyMatch.index;
+                    foundLength = fuzzyMatch.length || searchText.length;
+                    console.log(`[MD-Vorlage] Fuzzy Match gefunden: ${(fuzzyMatch.similarity * 100).toFixed(0)}%`);
+                }
+            }
+            
+            // Wenn gefunden: Scrolle dorthin und highlighte
+            if (searchIndex !== -1) {
+                // DEBUG: Zeige was an der gefundenen Position steht
+                const foundTextPreview = markdownText.substring(searchIndex, searchIndex + 80);
+                console.log('[MD-Vorlage v2] GEFUNDEN bei', searchIndex, ':', foundTextPreview);
+                
+                // Berechne die Position im HTML
+                scrollToPositionInContent(searchIndex, foundLength);
+                
+                if (bestCandidate && bestCandidate.positionWarning) {
+                    showNotification(`⚠️ Text ${bestCandidate.pagesDiff} Seiten entfernt - andere Version?`, 'warning');
+                } else if (bestCandidate && bestCandidate.similarity < 0.7) {
+                    const similarityInfo = ` (${(bestCandidate.similarity * 100).toFixed(0)}% Ähnlichkeit)`;
+                    showNotification(`Text gefunden${similarityInfo} - prüfen!`, 'warning');
+                } else {
+                    showNotification(`Text gefunden`);
+                }
+            } else {
+                console.log('[MD-Vorlage] Text nicht gefunden');
+                showNotification('Text nicht gefunden im linken Fenster', 'warning');
+            }
+        }
+        
+        // Scrolle zu einer Position im Content und highlighte den Text
+        function scrollToPositionInContent(position, length) {
+            const contentEl = document.getElementById('content');
+            if (!contentEl || !currentContent) return;
+            
+            // WICHTIG: Setze insertMarkerPosition für Alt+Q
+            insertMarkerPosition = position;
+            console.log('[MD-Vorlage] insertMarkerPosition gesetzt auf:', position);
+            
+            // Verwende performMdSearch für Highlighting, dann scrolle zum richtigen Match
+            const foundText = currentContent.substring(position, position + Math.min(200, currentContent.length - position));
+            const mdSearchInput = document.getElementById('mdSearchInput');
+            if (mdSearchInput && foundText) {
+                // Nimm genug Wörter für eindeutige Suche (7-10 Wörter)
+                const searchWords = foundText.trim().split(/\s+/).slice(0, 10).join(' ');
+                // Ersetze ß mit ss für die Suche
+                mdSearchInput.value = searchWords.replace(/ß/g, 'ss');
+                
+                // Suche durchführen für Highlighting
+                if (typeof performMdSearch === 'function') {
+                    performMdSearch();
+                    
+                    // Nach dem Highlighting: Finde das Highlight, das NACH der Position kommt
+                    setTimeout(() => {
+                        const allHighlights = contentEl.querySelectorAll('.search-highlight');
+                        let targetHighlight = null;
+                        
+                        // Finde das Highlight, das am nächsten zur Position ist (aber nicht davor)
+                        for (const highlight of allHighlights) {
+                            const highlightPos = getMarkdownPositionFromDOM(contentEl, highlight, 0);
+                            if (highlightPos >= position) {
+                                if (!targetHighlight || highlightPos < getMarkdownPositionFromDOM(contentEl, targetHighlight, 0)) {
+                                    targetHighlight = highlight;
+                                }
+                            }
+                        }
+                        
+                        // Falls kein Highlight nach Position gefunden, nimm das erste
+                        if (!targetHighlight && allHighlights.length > 0) {
+                            targetHighlight = allHighlights[0];
+                        }
+                        
+                        if (targetHighlight) {
+                            targetHighlight.classList.add('current');
+                            targetHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            // Fallback: Scrolle basierend auf Zeilenanzahl
+                            const textBefore = currentContent.substring(0, position);
+                            const lineCount = (textBefore.match(/\n/g) || []).length;
+                            contentEl.scrollTop = Math.max(0, lineCount * 20 - 200);
+                        }
+                    }, 150);
+                }
+            }
+            
+            // Fokussiere das Content-Element, damit Alt+Q funktioniert
+            contentEl.focus();
+        }
+        
+        function toggleMdSearch() {
+            mdSearchActive = !mdSearchActive;
+            const btn = document.getElementById('mdSearchToggleBtn');
+            if (btn) {
+                btn.classList.toggle('active', mdSearchActive);
+            }
+            // Bei aktivierter Suche: suche im linken Fenster nach dem Text um die aktuelle Seite
+            if (mdSearchActive && mdPages.length > 0) {
+                searchMdContextInLeft();
+            }
+        }
+        
+        function searchMdContextInLeft() {
+            // Hole den Text um die aktuelle MD-Seite und suche ihn im linken Fenster
+            if (currentMdPageIndex >= mdPages.length) return;
+            
+            const pageInfo = mdPages[currentMdPageIndex];
+            if (!pageInfo || !pageInfo.element) return;
+            
+            // Hole den Text nach der Copyright-Zeile (die ersten ~50 Zeichen der nächsten Zeile)
+            let nextSibling = pageInfo.element.nextElementSibling;
+            while (nextSibling && (nextSibling.classList.contains('md-separator') || !nextSibling.textContent.trim())) {
+                nextSibling = nextSibling.nextElementSibling;
+            }
+            
+            if (nextSibling) {
+                const searchText = nextSibling.textContent.trim().substring(0, 50);
+                if (searchText.length > 10) {
+                    // Suche im linken Fenster
+                    const mdSearchInput = document.getElementById('mdSearchInput');
+                    if (mdSearchInput) {
+                        mdSearchInput.value = searchText;
+                        // Trigger Suche
+                        performMdSearch();
+                    }
+                }
+            }
+        }
+        
+        // HTML escapen
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Synchronisiere MD-Ansicht zur entsprechenden Seite
+        function syncMdPage() {
+            try {
+                const mdViewerEl = document.getElementById('mdViewer');
+                if (!mdViewerEl || mdViewerEl.style.display === 'none') return;
+                if (mdPages.length === 0) return;
+                
+                if (markers.length > 0 && currentMarkerIndex >= 0 && currentMarkerIndex < markers.length) {
+                    const marker = markers[currentMarkerIndex];
+                    if (marker && marker.page) {
+                        const pageNum = marker.page;
+                        
+                        // Springe zur Seite mit dieser Nummer (falls vorhanden)
+                        // Ansonsten zur nächstgelegenen
+                        let targetIndex = Math.min(pageNum - 1, mdPages.length - 1);
+                        targetIndex = Math.max(0, targetIndex);
+                        
+                        currentMdPageIndex = targetIndex;
+                        scrollToMdPage(targetIndex);
+                    }
+                }
+            } catch (error) {
+                console.error('Fehler bei MD-Synchronisierung:', error);
             }
         }
 
@@ -2251,9 +2893,15 @@
                 // Nur beim ersten Laden: Springe zum ersten Marker
                 currentMarkerIndex = 0;
                 jumpToMarker(0);
-            } else if (pdfDoc && !preserveScrollPosition) {
-                // Synchronisiere PDF-Seite nur wenn Marker vorhanden sind
-                setTimeout(() => syncPdfPage(), 100);
+            } else if (!preserveScrollPosition) {
+                // Synchronisiere rechtes Panel (PDF oder MD)
+                setTimeout(() => {
+                    if (pdfDoc) {
+                        syncPdfPage();
+                    } else {
+                        syncMdPage();
+                    }
+                }, 100);
             }
         }
 
@@ -3097,11 +3745,16 @@
                     if (currentNode.nodeType === Node.TEXT_NODE) {
                         text += currentNode.textContent.substring(0, offset);
                     } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
-                        // Wenn der Cursor direkt auf einem Element ist (z.B. Marker-Span)
+                        // Wenn der Cursor direkt auf einem Element ist (z.B. Marker-Span oder <br>)
+                        const tagName = currentNode.tagName ? currentNode.tagName.toLowerCase() : '';
                         if (currentNode.classList && currentNode.classList.contains('page-marker')) {
                             // Cursor ist auf einem Marker - füge Marker-Text hinzu
                             const page = currentNode.textContent.match(/\|(\d+)\|/)?.[1] || '';
                             text += `|${page}|`;
+                        } else if (tagName === 'br') {
+                            // Cursor ist auf einem <br> Element - füge Zeilenumbruch hinzu
+                            // (wichtig um Leerzeilen zu erhalten wenn Cursor vor Absatz positioniert wird)
+                            text += '\n';
                         }
                     }
                     found = true;
@@ -3411,6 +4064,22 @@
                 insertPos = adjustPositionAfterHeading(currentText, insertPos);
             }
             
+            // WICHTIG: Wenn die Position innerhalb einer Leerzeile ist (zwischen \n\n),
+            // verschiebe zum Anfang des nächsten Absatzes, um die Leerzeile zu erhalten
+            if (insertPos > 0 && insertPos < currentText.length) {
+                const charBefore = currentText[insertPos - 1];
+                const charAfter = currentText[insertPos];
+                if (charBefore === '\n' && charAfter === '\n') {
+                    // Position ist innerhalb einer Leerzeile - verschiebe zum Absatzanfang
+                    let newPos = insertPos;
+                    while (newPos < currentText.length && currentText[newPos] === '\n') {
+                        newPos++;
+                    }
+                    console.log('Position innerhalb Leerzeile erkannt, verschiebe von', insertPos, 'zu', newPos);
+                    insertPos = newPos;
+                }
+            }
+            
             let positionAfterInsert = 0;
             
             // Hilfsfunktion: Prüfe ob Position innerhalb eines Wortes liegt (Silbentrennung)
@@ -3490,16 +4159,30 @@
             
             showNotification(`Marker |${page}| eingefügt ${withSpaces ? '(mit LZ)' : '(ohne LZ)'}, nachfolgende Marker als lineare Reihe angepasst`);
             
-            // Wenn Serienmodus aktiviert ist, automatisch zur nächsten PDF-Seite wechseln
-            if (seriesModeEnabled && pdfDoc && currentPdfPage < totalPdfPages) {
-                // Setze Flag nur wenn auch Fast-Modus aktiv ist
-                if (fastModeEnabled) {
-                    autoOpenInsertDialogAfterSearch = true;
-                    console.log('FAST: Flag gesetzt, autoOpenInsertDialogAfterSearch =', autoOpenInsertDialogAfterSearch);
+            // Wenn Serienmodus aktiviert ist, automatisch zur nächsten Seite wechseln
+            if (seriesModeEnabled) {
+                // PDF-Vorlage
+                if (pdfDoc && currentPdfPage < totalPdfPages) {
+                    // Setze Flag nur wenn auch Fast-Modus aktiv ist
+                    if (fastModeEnabled) {
+                        autoOpenInsertDialogAfterSearch = true;
+                        console.log('FAST: Flag gesetzt, autoOpenInsertDialogAfterSearch =', autoOpenInsertDialogAfterSearch);
+                    }
+                    setTimeout(() => {
+                        nextPdfPage();
+                    }, 100);
                 }
-                setTimeout(() => {
-                    nextPdfPage();
-                }, 100);
+                // MD-Vorlage
+                else if (!pdfDoc && mdPages.length > 0 && currentMdPageIndex < totalMdPages - 1) {
+                    // Setze Flag nur wenn auch Fast-Modus aktiv ist
+                    if (fastModeEnabled) {
+                        autoOpenInsertDialogAfterSearch = true;
+                        console.log('FAST MD: Flag gesetzt, autoOpenInsertDialogAfterSearch =', autoOpenInsertDialogAfterSearch);
+                    }
+                    setTimeout(() => {
+                        nextMdPage();
+                    }, 100);
+                }
             }
         }
         
@@ -3730,20 +4413,20 @@
                     markerEl.classList.add('highlighted');
                 }
                 markerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Synchronisiere PDF-Seite nach kurzer Verzögerung (nur wenn PDF geladen)
-                if (pdfDoc) {
-                    setTimeout(() => syncPdfPage(), 100);
-                }
             }
 
             // Aktualisiere Sidebar
             updateMarkerList();
             updateStatus();
             
-            // Synchronisiere PDF-Seite basierend auf Marker (nur wenn PDF geladen)
-            if (pdfDoc) {
-                setTimeout(() => syncPdfPage(), 100);
-            }
+            // Synchronisiere rechtes Panel (PDF oder MD)
+            setTimeout(() => {
+                if (pdfDoc) {
+                    syncPdfPage();
+                } else {
+                    syncMdPage();
+                }
+            }, 100);
         }
 
         function syncPdfPage() {
@@ -4720,13 +5403,22 @@
                 }
             }
             
-            // Strg+C - Speichern (immer verfügbar)
+            // Strg+C - Kopieren hat Vorrang wenn Text selektiert ist, sonst Speichern
             if (e.ctrlKey && e.key === 'c' && !e.shiftKey && !e.altKey) {
+                const selection = window.getSelection();
+                const hasSelection = selection && selection.toString().length > 0;
+                
+                // Wenn Text selektiert ist, normales Kopieren erlauben
+                if (hasSelection) {
+                    return; // Browser-Default (Kopieren) erlauben
+                }
+                
                 const isInContent = document.activeElement === document.getElementById('content');
                 const isInInput = document.activeElement.tagName === 'INPUT';
+                const isInMdViewer = document.getElementById('mdViewer')?.contains(document.activeElement);
                 
-                // Nur speichern wenn nicht im Text-Editor oder Input-Feld
-                if (!isInContent && !isInInput) {
+                // Nur speichern wenn nicht im Text-Editor, Input-Feld oder MD-Viewer
+                if (!isInContent && !isInInput && !isInMdViewer) {
                     e.preventDefault();
                     saveFile();
                     return;
