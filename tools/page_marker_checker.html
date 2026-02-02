@@ -1343,7 +1343,7 @@
                     const isMostlyUpperCase = upperCaseRatio > 0.5;
                     
                     // 4. Enthält typische Überschrifts-Wörter
-                    const hasHeadingKeywords = /\b(VORREDE|EINLEITUNG|KAPITEL|TEIL|ABSCHNITT|INHALT|VORBEMERKUNG|NACHWORT|ANMERKUNG)\b/i.test(lineText);
+                    const hasHeadingKeywords = /\b(VORTRAG|VORREDE|EINLEITUNG|KAPITEL|TEIL|ABSCHNITT|INHALT|VORBEMERKUNG|NACHWORT|ANMERKUNG)\b/i.test(lineText);
                     
                     // 5. Endet mit Jahreszahl in Klammern [1918], (1918)
                     const endsWithYear = /\[\d{4}\]|\(\d{4}\)\s*$/.test(lineText);
@@ -1380,18 +1380,31 @@
                 const topLineIsHeading = isHeadingLine(topItems, pageWidth);
                 
                 if (topLineIsHeading && secondLineItems && secondLineItems.length > 0) {
-                    // Oberste Zeile ist eine Überschrift - verwende die zweite Zeile
-                    console.log('Oberste Zeile ist eine Überschrift, verwende Text der zweiten Zeile');
-                    const sortedByX = [...secondLineItems].sort((a, b) => a.transform[4] - b.transform[4]);
-                    const leftItemCount = Math.max(5, Math.ceil(secondLineItems.length * 0.3));
-                    itemsToUse = sortedByX.slice(0, leftItemCount);
-                    leftText = itemsToUse.map(item => item.str).join(' ').trim();
+                    // Oberste Zeile ist eine Überschrift
+                    const topLineText = topItems.map(item => item.str).join(' ').trim();
+                    const secondLineText = secondLineItems.map(item => item.str).join(' ').trim();
                     
-                    // Falls zweite Zeile auch zu kurz ist, kombiniere beide
-                    if (leftText.split(/\s+/).length < 4) {
-                        console.log('Zweite Zeile zu kurz, kombiniere beide Zeilen');
-                        const allItems = [...topItems, ...secondLineItems];
-                        leftText = allItems.map(item => item.str).join(' ').trim();
+                    // Prüfe ob es eine Vortrags-Überschrift ist (enthält "VORTRAG")
+                    // In diesem Fall: kombiniere beide Zeilen mit Komma (wie im Markdown)
+                    if (/VORTRAG/i.test(topLineText)) {
+                        console.log('Vortrags-Überschrift erkannt, kombiniere beide Zeilen mit Komma');
+                        // Kombiniere: "ZWEITER VORTRAG" + ", " + "Dornach, 24. September 1921"
+                        leftText = topLineText + ', ' + secondLineText;
+                        console.log('Kombinierter Überschriftstext:', leftText);
+                    } else {
+                        // Andere Überschriften - verwende die zweite Zeile
+                        console.log('Oberste Zeile ist eine Überschrift, verwende Text der zweiten Zeile');
+                        const sortedByX = [...secondLineItems].sort((a, b) => a.transform[4] - b.transform[4]);
+                        const leftItemCount = Math.max(5, Math.ceil(secondLineItems.length * 0.3));
+                        itemsToUse = sortedByX.slice(0, leftItemCount);
+                        leftText = itemsToUse.map(item => item.str).join(' ').trim();
+                        
+                        // Falls zweite Zeile auch zu kurz ist, kombiniere beide
+                        if (leftText.split(/\s+/).length < 4) {
+                            console.log('Zweite Zeile zu kurz, kombiniere beide Zeilen');
+                            const allItems = [...topItems, ...secondLineItems];
+                            leftText = allItems.map(item => item.str).join(' ').trim();
+                        }
                     }
                 } else {
                     // Normale Logik: verwende oberste Zeile
@@ -1595,7 +1608,8 @@
                         ['ck', 'ek'], ['ek', 'ck'],
                         ['ſ', 's'], ['s', 'ſ'],
                         ['ff', 'st'], ['st', 'ff'],  // Fraktur-Ligatur
-                        // Alte/neue Rechtschreibung
+                        // Alte/neue Rechtschreibung (ß → ss)
+                        ['ß', 'ss'], ['ss', 'ß'],  // Allgemeine ß ↔ ss Konvertierung (Einfluß ↔ Einfluss, etc.)
                         ['daß', 'dass'], ['dass', 'daß'],  // daß ↔ dass
                         ['muß', 'muss'], ['muss', 'muß'],  // muß ↔ muss
                         ['läßt', 'lässt'], ['lässt', 'läßt'],  // läßt ↔ lässt
@@ -1606,6 +1620,8 @@
                         ['gründe', 'grunde'], ['grunde', 'gründe'],  // zugründe ↔ zugrunde
                         ['räume', 'raume'], ['raume', 'räume'],  // Räume ↔ Raume
                         ['einwände', 'einwande'], ['einwande', 'einwände'],  // Einwände ↔ Einwande
+                        ['umstände', 'umstande'], ['umstande', 'umstände'],  // Umstände ↔ Umstande
+                        ['schlössen', 'schlossen'], ['schlossen', 'schlössen'],  // schlössen ↔ schlossen
                         // Umlaute (OCR erkennt oft Umlaute nicht)
                         ['ü', 'u'], ['u', 'ü'],      // gründe ↔ grunde
                         ['ä', 'a'], ['a', 'ä'],      // wärme ↔ warme
