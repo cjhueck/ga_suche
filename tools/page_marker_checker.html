@@ -1525,6 +1525,24 @@
                         if (directIndex !== -1) {
                             console.log('Gefunden nach Einfügen von Komma nach VORTRAG');
                         }
+                        // Suche auch nach Markdown-Überschrift (# VORTRAG...)
+                        if (directIndex === -1) {
+                            directIndex = markdownTextLower.indexOf('# ' + searchWithComma);
+                            if (directIndex !== -1) {
+                                directIndex += 2; // Überspringe "# "
+                                console.log('Gefunden als Markdown-Überschrift nach VORTRAG');
+                            }
+                        }
+                    }
+                }
+                
+                // Variante: Suche nach Markdown-Überschrift (# Text...) - für Vortragsüberschriften
+                if (directIndex === -1 && /vortrag/i.test(searchTextLower)) {
+                    // Versuche mit "# " Präfix
+                    directIndex = markdownTextLower.indexOf('# ' + searchTextLower);
+                    if (directIndex !== -1) {
+                        directIndex += 2; // Überspringe "# "
+                        console.log('Gefunden als Markdown-Überschrift (direkt)');
                     }
                 }
                 
@@ -1538,6 +1556,20 @@
                     const searchTextSz = searchText.toLowerCase().replace(/ß/g, 'ss');
                     const markdownTextSz = markdownTextForSearch.toLowerCase().replace(/ß/g, 'ss');
                     directIndex = markdownTextSz.indexOf(searchTextSz);
+                    
+                    // Auch mit Komma nach VORTRAG versuchen
+                    if (directIndex === -1 && /vortrag/i.test(searchTextSz)) {
+                        const searchWithCommaSz = searchTextSz.replace(/(vortrag)\s+/gi, '$1, ');
+                        directIndex = markdownTextSz.indexOf(searchWithCommaSz);
+                        if (directIndex === -1) {
+                            // Suche als Markdown-Überschrift
+                            directIndex = markdownTextSz.indexOf('# ' + searchWithCommaSz);
+                            if (directIndex !== -1) {
+                                directIndex += 2; // Überspringe "# "
+                                console.log('Gefunden als MD-Überschrift mit ß→ss und Komma');
+                            }
+                        }
+                    }
                     
                     if (directIndex !== -1) {
                         // WICHTIG: Konvertiere Position zurück zum Original
