@@ -1439,6 +1439,43 @@
 
                 console.log('Suche nach PDF-Text (erste 20 Wörter oben links):', searchText);
 
+                // SPEZIAL: Bei Überschriften primär nach Datum suchen
+                let isHeadingSearch = false;
+                let headingDateSearch = null;
+                let headingTitleSearch = null;
+                
+                if (topLineIsHeading) {
+                    isHeadingSearch = true;
+                    const fullHeadingText = leftText;
+                    
+                    // Extrahiere Datum (Format: "24. September 1922" oder "24.September 1922")
+                    const datePattern = /(\d{1,2})\.\s*(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember)\s*(\d{4})/i;
+                    const dateMatch = fullHeadingText.match(datePattern);
+                    
+                    if (dateMatch) {
+                        // Datum gefunden - verwende es als primäres Suchkriterium
+                        const tag = dateMatch[1];
+                        const monat = dateMatch[2];
+                        const jahr = dateMatch[3];
+                        headingDateSearch = `${tag}. ${monat} ${jahr}`;
+                        console.log('[Überschrift] Datum extrahiert:', headingDateSearch);
+                    }
+                    
+                    // Extrahiere Überschriftstext als Fallback (z.B. "DRITTER VORTRAG" oder "ERSTER VORTRAG")
+                    const headingMatch = fullHeadingText.match(/^([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß\s]+(?:VORTRAG|KAPITEL|TEIL|VORREDE|EINLEITUNG|NACHWORT))/i);
+                    if (headingMatch) {
+                        headingTitleSearch = headingMatch[1].trim();
+                        console.log('[Überschrift] Titel extrahiert:', headingTitleSearch);
+                    } else {
+                        // Fallback: Nimm die ersten Wörter bis zum Komma oder Datum
+                        const titlePart = fullHeadingText.split(/[,\d]/)[0].trim();
+                        if (titlePart.length > 3) {
+                            headingTitleSearch = titlePart;
+                            console.log('[Überschrift] Titel (Fallback) extrahiert:', headingTitleSearch);
+                        }
+                    }
+                }
+
                 // Suche im Markdown-Text - IMMER vom Anfang (oben links)
                 const markdownText = currentContent;
                 
@@ -1488,14 +1525,97 @@
                 let useNormalizedSearch = false;
                 let usedSzConversion = false;
                 
-                // Strategie 1: Direkte Suche OHNE ß→ss (nur lowercase)
+                // SPEZIAL-STRATEGIE für Überschriften: Primär nach Datum suchen
+                if (isHeadingSearch && (headingDateSearch || headingTitleSearch)) {
+                    console.log('[Überschrift] Spezielle Überschriften-Suche aktiviert');
+                    
+                    // Strategie A: Suche nach Datum (primär)
+                    if (headingDateSearch) {
+                        const dateLower = headingDateSearch.toLowerCase();
+                        // Verschiedene Datumsformate versuchen
+                        const dateVariants = [
+                            dateLower,                                    // "24. september 1922"
+                            dateLower.replace(/\.\s+/, '. '),             // "24. september 1922" (normalisiert)
+                            dateLower.replace(/\.\s+/, '.'),              // "24.september 1922"
+                        ];
+                        
+                        for (const dateVariant of dateVariants) {
+                            // Suche im Text (mit und ohne # Präfix)
+                            let idx = markdownTextLower.indexOf(dateVariant);
+                            if (idx === -1) {
+                                // Suche mit # Präfix (Überschrift)
+                                const withHash = markdownTextLower.indexOf('# ');
+                                if (withHash !== -1) {
+                                    // Suche in der Nähe von Überschriften
+                                    const nearHashIdx = markdownTextLower.indexOf(dateVariant, Math.max(0, withHash - 100));
+                                    if (nearHashIdx !== -1 && nearHashIdx < withHash + 200) {
+                                        idx = nearHashIdx;
+                                    }
+                                }
+                            }
+                            
+                            if (idx !== -1) {
+                                // Finde den Anfang der Überschrift (suche "# " davor)
+                                let lineStart = markdownTextLower.lastIndexOf('\n', idx);
+                                lineStart = lineStart === -1 ? 0 : lineStart + 1;
+                                
+                                // Prüfe ob Zeile mit # beginnt
+                                if (markdownTextLower.substring(lineStart, lineStart + 2) === '# ') {
+                                    searchIndex = lineStart + 2; // Nach "# "
+                                } else {
+                                    searchIndex = lineStart;
+                                }
+                                
+                                foundLength = markdownTextLower.indexOf('\n', idx) - searchIndex;
+                                if (foundLength < 0) foundLength = 50;
+                                foundWordCount = 5;
+                                console.log(`[Überschrift] Datum "${dateVariant}" gefunden bei Position ${searchIndex}`);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Strategie B: Suche nach Überschriftstext (Fallback)
+                    if (searchIndex === -1 && headingTitleSearch) {
+                        const titleLower = headingTitleSearch.toLowerCase();
+                        // Verschiedene Varianten versuchen
+                        const titleVariants = [
+                            titleLower,
+                            '# ' + titleLower,
+                            titleLower.replace(/\s+/g, ' '),  // Normalisierte Leerzeichen
+                        ];
+                        
+                        for (const titleVariant of titleVariants) {
+                            let idx = markdownTextLower.indexOf(titleVariant);
+                            if (idx !== -1) {
+                                // Wenn mit "# " gefunden, überspringe das
+                                if (titleVariant.startsWith('# ')) {
+                                    idx += 2;
+                                }
+                                searchIndex = idx;
+                                foundLength = titleLower.length;
+                                foundWordCount = titleLower.split(/\s+/).length;
+                                console.log(`[Überschrift] Titel "${titleVariant}" gefunden bei Position ${searchIndex}`);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (searchIndex !== -1) {
+                        console.log('[Überschrift] Spezielle Suche erfolgreich');
+                    } else {
+                        console.log('[Überschrift] Spezielle Suche fehlgeschlagen, verwende normale Suche');
+                    }
+                }
+                
+                // Strategie 1: Direkte Suche OHNE ß→ss (nur lowercase) - nur wenn Überschriften-Suche fehlschlug
                 // Unicode-Normalisierung (NFC) für konsistente Umlaut-Darstellung
                 const searchTextLower = searchText.toLowerCase().normalize('NFC');
                 const markdownTextLower = markdownTextForSearch.toLowerCase().normalize('NFC');
-                let directIndex = markdownTextLower.indexOf(searchTextLower);
+                let directIndex = searchIndex !== -1 ? -1 : markdownTextLower.indexOf(searchTextLower); // Überspringe wenn schon gefunden
                 
                 // Variante: Leerzeichen vor Satzzeichen im Suchtext entfernen/hinzufügen
-                if (directIndex === -1) {
+                if (directIndex === -1 && searchIndex === -1) {
                     // Versuche ohne Leerzeichen vor Satzzeichen
                     const searchNoSpacePunct = searchTextLower.replace(/\s+([.,;:!?»«"')\]…])/g, '$1');
                     if (searchNoSpacePunct !== searchTextLower) {
@@ -1507,7 +1627,7 @@
                 }
                 
                 // Variante: Leerzeichen innerhalb von Wörtern entfernen (OCR-Fehler wie "han dlungen")
-                if (directIndex === -1) {
+                if (directIndex === -1 && searchIndex === -1) {
                     // Entferne Leerzeichen zwischen Kleinbuchstaben (z.B. "han dlungen" → "handlungen")
                     const searchNoMidSpace = searchTextLower.replace(/([a-zäöüß])\s+([a-zäöüß])/g, '$1$2');
                     if (searchNoMidSpace !== searchTextLower) {
@@ -1519,7 +1639,7 @@
                 }
                 
                 // Variante: Zeilenumbruch nach VORTRAG durch Komma ersetzen (PDF: "VORTRAG\nDornach" → MD: "VORTRAG, Dornach")
-                if (directIndex === -1) {
+                if (directIndex === -1 && searchIndex === -1) {
                     // Ersetze Zeilenumbruch/Leerzeichen nach VORTRAG durch Komma+Leerzeichen
                     const searchWithComma = searchTextLower.replace(/(vortrag)\s+/gi, '$1, ');
                     if (searchWithComma !== searchTextLower) {
@@ -1539,7 +1659,7 @@
                 }
                 
                 // Variante: Suche nach Markdown-Überschrift (# Text...) - für Vortragsüberschriften
-                if (directIndex === -1 && /vortrag/i.test(searchTextLower)) {
+                if (directIndex === -1 && searchIndex === -1 && /vortrag/i.test(searchTextLower)) {
                     // Versuche mit "# " Präfix
                     directIndex = markdownTextLower.indexOf('# ' + searchTextLower);
                     if (directIndex !== -1) {
