@@ -885,6 +885,7 @@
         let autoOpenInsertDialogAfterSearch = false;
         let lastInsertedMarkerPosition = 0; // Position des zuletzt eingefügten Markers für Vorwärts-Suche
         let searchDirectionForward = true; // true = vorwärts suchen, false = rückwärts (vom Anfang)
+        let scrollingDisabledForSearch = false; // Verhindert automatisches Scrollen bei Suche
         
         // PDF.js Worker konfigurieren (muss vor jeder Verwendung von pdfjsLib sein)
         if (typeof pdfjsLib !== 'undefined') {
@@ -2744,8 +2745,28 @@
                         range.insertNode(highlightSpan);
                     }
                     
-                    // Scrolle zur Markierung
-                    highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Scrolle zur Markierung (nur wenn erlaubt)
+                    // Prüfe ob Scrolling erlaubt: nicht stromaufwärts, nicht mehr als 400 Wörter entfernt
+                    let allowScroll = true;
+                    if (lastInsertedMarkerPosition > 0) {
+                        if (position < lastInsertedMarkerPosition) {
+                            // Stromaufwärts - nicht scrollen
+                            console.log('[PDF-Suche] Scrolling verhindert: Ziel stromaufwärts');
+                            allowScroll = false;
+                        } else {
+                            // Prüfe Wortabstand
+                            const textBetween = currentContent.substring(lastInsertedMarkerPosition, position);
+                            const wordCount = textBetween.split(/\s+/).filter(w => w.length > 0).length;
+                            if (wordCount > 400) {
+                                console.log('[PDF-Suche] Scrolling verhindert: Ziel zu weit entfernt (' + wordCount + ' Wörter)');
+                                allowScroll = false;
+                            }
+                        }
+                    }
+                    
+                    if (allowScroll) {
+                        highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                     
                     // Setze Cursor-Position für Marker-Einfügung
                     // WICHTIG: Cursor soll am ANFANG des gefundenen Textes stehen, nicht am Ende
@@ -2774,12 +2795,11 @@
                     
                 } catch (e) {
                     console.error('Fehler beim Markieren:', e);
-                    // Fallback: Scrolle zum Anfang
-                    contentEl.scrollTop = 0;
+                    // NICHT nach oben scrollen - behalte aktuelle Position bei
                 }
             } else {
-                // Fallback: Scrolle zum Anfang
-                contentEl.scrollTop = 0;
+                // NICHT nach oben scrollen - behalte aktuelle Position bei
+                console.log('Kein targetNode gefunden - Scroll-Position wird beibehalten');
             }
         }
 
@@ -3266,6 +3286,9 @@
             };
             
             const scrollAllowed = shouldScroll();
+            
+            // Setze globale Variable für highlightCurrentMatch
+            scrollingDisabledForSearch = !scrollAllowed;
             
             // Verwende performMdSearch für Highlighting, dann scrolle zum richtigen Match
             const foundText = currentContent.substring(position, position + Math.min(200, currentContent.length - position));
@@ -5884,19 +5907,27 @@
                             selection.removeAllRanges();
                             selection.addRange(range);
                             
-                            // Scroll zum Absatz
-                            nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Scroll zum Absatz (nur wenn nicht deaktiviert)
+                            if (!scrollingDisabledForSearch) {
+                                nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
                         } else {
-                            // Fallback: Scroll zur Überschrift
-                            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Fallback: Scroll zur Überschrift (nur wenn nicht deaktiviert)
+                            if (!scrollingDisabledForSearch) {
+                                current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
                         }
                     } else {
-                        // Fallback: Scroll zum Treffer
-                        current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Fallback: Scroll zum Treffer (nur wenn nicht deaktiviert)
+                        if (!scrollingDisabledForSearch) {
+                            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
                     }
                 } else {
-                    // Normale Positionierung: Nur scrollen, Cursor nur setzen wenn gewünscht
-                    current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Normale Positionierung: Nur scrollen, Cursor nur setzen wenn gewünscht (nur wenn nicht deaktiviert)
+                    if (!scrollingDisabledForSearch) {
+                        current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                     
                     if (setCursor) {
                         const range = document.createRange();
