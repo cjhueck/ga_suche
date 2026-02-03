@@ -10685,6 +10685,49 @@ function isEssayWithSingleHeading(gaNumber) {
   return num === 18 || num === 19 || num === 24 || (num >= 29 && num <= 36);
 }
 
+// Vergleichsfunktion für GA-Nummern: Sortiert numerisch und stellt sicher,
+// dass GA-Nummern ohne Suffix (z.B. GA217) vor denen mit Suffix (z.B. GA217a) kommen
+function compareGANumbers(a, b) {
+  // Extrahiere Nummer und optionales Suffix aus GA-Nummer
+  // Unterstützt Formate: GA217, GA217a, GA071b, ga217, 217, 217a
+  const parseGA = (ga) => {
+    if (!ga) return { num: 0, suffix: '' };
+    // Entferne optionales "GA" Präfix (case-insensitive)
+    const withoutPrefix = String(ga).replace(/^GA/i, '');
+    // Extrahiere Nummer und Suffix
+    const match = withoutPrefix.match(/^(\d+)([a-z]?)$/i);
+    if (!match) return { num: 0, suffix: String(ga).toLowerCase() };
+    return {
+      num: parseInt(match[1], 10),
+      suffix: (match[2] || '').toLowerCase()
+    };
+  };
+  
+  // Hole GA-Nummer aus Objekt oder String
+  const getGAValue = (item) => {
+    if (typeof item === 'string') return item;
+    if (item && item.number) return item.number;
+    if (item && item.ga) return item.ga;
+    return String(item);
+  };
+  
+  const gaA = parseGA(getGAValue(a));
+  const gaB = parseGA(getGAValue(b));
+  
+  // Erst nach Nummer sortieren
+  if (gaA.num !== gaB.num) {
+    return gaA.num - gaB.num;
+  }
+  
+  // Bei gleicher Nummer: ohne Suffix vor mit Suffix
+  // Leeres Suffix ('') kommt vor Buchstaben-Suffix ('a', 'b', etc.)
+  if (gaA.suffix === '' && gaB.suffix !== '') return -1;
+  if (gaA.suffix !== '' && gaB.suffix === '') return 1;
+  
+  // Beide haben Suffix oder beide haben keinen: alphabetisch sortieren
+  return gaA.suffix.localeCompare(gaB.suffix);
+}
+
 // Entfernt manuelle Überschriften (H2, H3, H4) aus dem Content für Aufsatzbände
 // Diese werden nur entfernt, wenn AI-generierte Überschriften vorhanden sind
 function removeManualHeadingsFromContent(content) {
@@ -14464,8 +14507,10 @@ function normalizeGANumber(gaNumber) {
       try {
         const response = await fetch(`${API_BASE}/api/ga-list`);
         if (!response.ok) throw new Error('GA-Liste konnte nicht geladen werden');
-        // GA014 wird nicht angezeigt
-        const gaList = (await response.json()).filter(ga => ga.number.toUpperCase() !== 'GA014');
+        // GA014 wird nicht angezeigt, sortiere GA-Nummern (ohne Suffix vor mit Suffix)
+        const gaList = (await response.json())
+          .filter(ga => ga.number.toUpperCase() !== 'GA014')
+          .sort(compareGANumbers);
         
         // Zähle Vorträge pro GA-Band
         const lectureCountResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
@@ -15110,7 +15155,7 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
       throw new Error(`HTTP ${gaListResponse.status}: ${errorText.substring(0, 100)}`);
     }
     
-    const gaList = await gaListResponse.json();
+    const gaList = (await gaListResponse.json()).sort(compareGANumbers);
     // Lade Vortrags-Count
     let volumesResponse;
     try {
@@ -31228,6 +31273,10 @@ async function exportCurrentGA() {
     </div>
   `;
   
+  // Scrolle zum Viewer und stelle sicher, dass er sichtbar ist
+  viewer.scrollTop = 0;
+  viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
   try {
     // Rufe Backend-API für Export auf
     const requestBody = isLectureExport 
@@ -34045,7 +34094,7 @@ async function populateGesamtausgabeDropdown() {
       
       }
     
-    const gaList = Object.keys(gaMap).sort();
+    const gaList = Object.keys(gaMap).sort(compareGANumbers);
 
     if (gaList.length === 0) {
       console.warn('[GA-TAB] Keine GA-Bände gefunden');
@@ -39592,15 +39641,15 @@ async function loadAvailableGAs() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
-    const gaList = data.availableGA || data; // Backend gibt { availableGA: [...] } zurück
+    const gaList = (data.availableGA || data); // Backend gibt { availableGA: [...] } zurück
     const select = document.getElementById('timelineGASelect');
     
     // Clear existing options except first
     select.innerHTML = '<option value="">GA-Bände</option>';
     
-    // Add GA options
+    // Add GA options (sortiert: ohne Suffix vor mit Suffix)
     if (Array.isArray(gaList)) {
-      gaList.forEach(ga => {
+      gaList.sort(compareGANumbers).forEach(ga => {
         const option = document.createElement('option');
         option.value = ga;
         option.textContent = ga;

@@ -1488,8 +1488,9 @@
                 let usedSzConversion = false;
                 
                 // Strategie 1: Direkte Suche OHNE ß→ss (nur lowercase)
-                const searchTextLower = searchText.toLowerCase();
-                const markdownTextLower = markdownTextForSearch.toLowerCase();
+                // Unicode-Normalisierung (NFC) für konsistente Umlaut-Darstellung
+                const searchTextLower = searchText.toLowerCase().normalize('NFC');
+                const markdownTextLower = markdownTextForSearch.toLowerCase().normalize('NFC');
                 let directIndex = markdownTextLower.indexOf(searchTextLower);
                 
                 // Variante: Leerzeichen vor Satzzeichen im Suchtext entfernen/hinzufügen
@@ -1644,6 +1645,17 @@
                         ['ß', 'ss'], ['ss', 'ß'],  // Allgemeine ß ↔ ss Konvertierung (Einfluß ↔ Einfluss, etc.)
                         ['daß', 'dass'], ['dass', 'daß'],  // daß ↔ dass
                         ['muß', 'muss'], ['muss', 'muß'],  // muß ↔ muss
+                        ['mußte', 'musste'], ['musste', 'mußte'],  // mußte ↔ musste
+                        ['mußten', 'mussten'], ['mussten', 'mußten'],
+                        ['wußte', 'wusste'], ['wusste', 'wußte'],
+                        ['wußten', 'wussten'], ['wussten', 'wußten'],
+                        ['gefaßt', 'gefasst'], ['gefasst', 'gefaßt'],
+                        ['verfaßt', 'verfasst'], ['verfasst', 'verfaßt'],
+                        ['umfaßt', 'umfasst'], ['umfasst', 'umfaßt'],
+                        ['paßt', 'passt'], ['passt', 'paßt'],
+                        ['haßt', 'hasst'], ['hasst', 'haßt'],
+                        ['verläßt', 'verlässt'], ['verlässt', 'verläßt'],
+                        ['müßten', 'müssten'], ['müssten', 'müßten'],
                         ['läßt', 'lässt'], ['lässt', 'läßt'],  // läßt ↔ lässt
                         ['müßte', 'müsste'], ['müsste', 'müßte'],  // müßte ↔ müsste
                         ['erfaßt', 'erfasst'], ['erfasst', 'erfaßt'],  // erfaßt ↔ erfasst
@@ -1654,6 +1666,53 @@
                         ['einwände', 'einwande'], ['einwande', 'einwände'],  // Einwände ↔ Einwande
                         ['umstände', 'umstande'], ['umstande', 'umstände'],  // Umstände ↔ Umstande
                         ['schlössen', 'schlossen'], ['schlossen', 'schlössen'],  // schlössen ↔ schlossen
+                        ['schlüsse', 'schlusse'], ['schlusse', 'schlüsse'],  // Schlüsse ↔ Schlusse
+                        ['düng', 'dung'], ['dung', 'düng'],  // Verkündung ↔ Verkundung
+                            ['mochte', 'möchte'],
+                            ['gerat', 'gerät'],
+                            ['gemaß', 'gemäß'],
+                            ['uberhaupt', 'überhaupt'],
+                            ['naturlich', 'natürlich'],
+                            ['glucklicherweise', 'glücklicherweise'],
+                            ['fahig', 'fähig'],
+                            ['tatig', 'tätig'],
+                            ['spatere', 'spätere'],
+                            ['fruhere', 'frühere'], ['möchte', 'mochte'],  // mochte ↔ möchte
+                        ['gerat', 'gerät'], ['gerät', 'gerat'],  // gerat ↔ gerät (fehlender Umlaut)
+                        ['gemaß', 'gemäß'], ['gemäß', 'gemaß'],  // gemaß ↔ gemäß
+                        ['uberhaupt', 'überhaupt'], ['überhaupt', 'uberhaupt'],  // fehlende Umlaute
+                        ['naturlich', 'natürlich'], ['natürlich', 'naturlich'],
+                        ['glucklicherweise', 'glücklicherweise'], ['glücklicherweise', 'glucklicherweise'],
+                        ['fahig', 'fähig'], ['fähig', 'fahig'],
+                        ['tatig', 'tätig'], ['tätig', 'tatig'],
+                        ['spatere', 'spätere'], ['spätere', 'spatere'],
+                        ['fruhere', 'frühere'], ['frühere', 'fruhere'],
+                        ['einfluß', 'einfluss'], ['einfluss', 'einfluß'],  // Einfluß ↔ Einfluss
+                        ['schluß', 'schluss'], ['schluss', 'schluß'],  // Schluß ↔ Schluss
+                        ['anschluß', 'anschluss'], ['anschluss', 'anschluß'],
+                        ['abschluß', 'abschluss'], ['abschluss', 'abschluß'],
+                        ['entschluß', 'entschluss'], ['entschluss', 'entschluß'],
+                        ['schloß', 'schloss'], ['schloss', 'schloß'],  // Schloß ↔ Schloss
+                        ['floß', 'floss'], ['floss', 'floß'],
+                        ['goß', 'goss'], ['goss', 'goß'],
+                        ['genoß', 'genoss'], ['genoss', 'genoß'],
+                        ['schoß', 'schoss'], ['schoss', 'schoß'],
+                        ['stoß', 'stoss'], ['stoss', 'stoß'],
+                        ['groß', 'gross'], ['gross', 'groß'],
+                        ['lieh', 'lich'], ['lich', 'lieh'],  // wirklieh ↔ wirklich (Fraktur eh↔ch)
+                        // Monatsnamen OCR-Fehler
+                        ['semptember', 'september'], ['september', 'semptember'],  // Semptember ↔ September
+                        ['jannuar', 'januar'], ['januar', 'jannuar'],  // Jannuar ↔ Januar
+                        ['febmuar', 'februar'], ['februar', 'febmuar'],  // Febmuar ↔ Februar
+                        ['febmar', 'februar'], ['februar', 'febmar'],  // Febmar ↔ Februar
+                        ['novem ber', 'november'], ['november', 'novem ber'],  // Novem ber ↔ November
+                        ['dezem ber', 'dezember'], ['dezember', 'dezem ber'],  // Dezem ber ↔ Dezember
+                        ['septem ber', 'september'], ['september', 'septem ber'],  // Septem ber ↔ September
+                        ['okto ber', 'oktober'], ['oktober', 'okto ber'],  // Okto ber ↔ Oktober
+                        // Fehlende/überzählige Bindestriche bei zusammengesetzten Wörtern
+                        ['- und', ' und'], [' und', '- und'],  // "Gliedmaßen- und" ↔ "Gliedmaßen und"
+                        ['- oder', ' oder'], [' oder', '- oder'],  // "Kopf- oder" ↔ "Kopf oder"
+                        ['- wie', ' wie'], [' wie', '- wie'],  // ähnliche Konstruktionen
                         // Umlaute (OCR erkennt oft Umlaute nicht)
                         ['ü', 'u'], ['u', 'ü'],      // gründe ↔ grunde
                         ['ä', 'a'], ['a', 'ä'],      // wärme ↔ warme
@@ -1667,7 +1726,7 @@
                         ['di', 'ch'], ['ch', 'di'],      // allgemeiner (nach spezifischeren!)
                     ];
                     
-                    const searchTextLowerForOcr = searchText.toLowerCase();
+                    const searchTextLowerForOcr = searchText.toLowerCase().normalize('NFC');
                     
                     // Strategie 1: Einzelne Korrekturen auf gesamten Text
                     for (const [wrong, correct] of ocrCorrections) {
@@ -1690,23 +1749,213 @@
                     if (searchIndex === -1) {
                         const words = searchTextLowerForOcr.split(/\s+/);
                         
-                        // Versuche jedes Wort einzeln zu korrigieren
-                        outerLoop:
-                        for (let wordIdx = 0; wordIdx < Math.min(3, words.length); wordIdx++) {
-                            // Versuche JEDE Korrektur einzeln (nicht alle auf einmal!)
-                            for (const [wrong, correct] of ocrCorrections) {
-                                if (words[wordIdx].includes(wrong)) {
-                                    const correctedWords = [...words];
-                                    correctedWords[wordIdx] = correctedWords[wordIdx].replace(new RegExp(wrong, 'g'), correct);
-                                    const correctedText = correctedWords.join(' ');
-                                    directIndex = markdownTextLower.indexOf(correctedText);
+                        // Rechtschreibkorrekturen (alte→neue, sicher für alle Wörter)
+                        // Diese können auf ALLE Wörter angewendet werden, nicht nur die ersten 3
+                        const spellingCorrs = [
+                            ['daß', 'dass'],
+                            ['muß', 'muss'],
+                            ['mußte', 'musste'],
+                            ['mußten', 'mussten'],
+                            ['läßt', 'lässt'],
+                            ['müßte', 'müsste'],
+                            ['müßten', 'müssten'],
+                            ['wußte', 'wusste'],
+                            ['wußten', 'wussten'],
+                            ['erfaßt', 'erfasst'],
+                            ['gefaßt', 'gefasst'],
+                            ['verfaßt', 'verfasst'],
+                            ['umfaßt', 'umfasst'],
+                            ['paßt', 'passt'],
+                            ['haßt', 'hasst'],
+                            ['läßt', 'lässt'],
+                            ['verläßt', 'verlässt'],
+                            ['bewußtsein', 'bewusstsein'],
+                            ['wüßt', 'wusst'],
+                            ['einfluß', 'einfluss'],
+                            ['schluß', 'schluss'],
+                            ['anschluß', 'anschluss'],
+                            ['abschluß', 'abschluss'],
+                            ['entschluß', 'entschluss'],
+                            ['ausfluß', 'ausfluss'],
+                            ['zufluß', 'zufluss'],
+                            ['schloß', 'schloss'],
+                            ['floß', 'floss'],
+                            ['goß', 'goss'],
+                            ['genoß', 'genoss'],
+                            ['schoß', 'schoss'],
+                            ['stoß', 'stoss'],
+                            ['groß', 'gross'],
+                            ['schlüsse', 'schlusse'],
+                            ['düng', 'dung'],
+                            ['lieh', 'lich'],
+                            ['mochte', 'möchte'],
+                            ['gerat', 'gerät'],
+                            ['gemaß', 'gemäß'],
+                            ['uberhaupt', 'überhaupt'],
+                            ['naturlich', 'natürlich'],
+                            ['glucklicherweise', 'glücklicherweise'],
+                            ['fahig', 'fähig'],
+                            ['tatig', 'tätig'],
+                            ['spatere', 'spätere'],
+                            ['fruhere', 'frühere'],
+                            // Monatsnamen OCR-Fehler
+                            ['semptember', 'september'],
+                            ['jannuar', 'januar'],
+                            ['febmuar', 'februar'],
+                            ['febmar', 'februar'],
+                            ['novem ber', 'november'],
+                            ['dezem ber', 'dezember'],
+                            ['septem ber', 'september'],
+                            ['okto ber', 'oktober'],
+                            // Fehlende Bindestriche
+                            ['- und', ' und'],
+                            ['- oder', ' oder'],
+                            ['- wie', ' wie'],
+                            ['ß', 'ss'],
+                        ];
+                        
+                        // SPEZIAL: Vortragstitel-Erkennung über Ort und Datum
+                        // Wenn der Text "VORTRAG" enthält, versuche nur nach Ort+Datum zu suchen
+                        // z.B. "DRITTER VORTRAG Stuttgart, 4. Oktober 1922" → suche nach "Stuttgart, 4. Oktober 1922"
+                        if (searchIndex === -1 && /vortrag/i.test(searchTextLowerForOcr)) {
+                            // Suche nach Datumsmuster: Ort, Tag. Monat Jahr
+                            const datePattern = /([a-zäöüß]+),?\s*(\d{1,2})\.\s*(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember)\s*(\d{4})/i;
+                            const dateMatch = searchTextLowerForOcr.match(datePattern);
+                            if (dateMatch) {
+                                // Erstelle verschiedene Suchvarianten für Ort+Datum
+                                const ort = dateMatch[1];
+                                const tag = dateMatch[2];
+                                const monat = dateMatch[3];
+                                const jahr = dateMatch[4];
+                                
+                                // Varianten: "Ort, Tag. Monat Jahr" oder "Ort Tag. Monat Jahr"
+                                const searchVariants = [
+                                    `${ort}, ${tag}. ${monat} ${jahr}`,
+                                    `${ort} ${tag}. ${monat} ${jahr}`,
+                                    `${ort}, ${tag}.${monat} ${jahr}`,
+                                ];
+                                
+                                for (const variant of searchVariants) {
+                                    directIndex = markdownTextLower.indexOf(variant.toLowerCase());
                                     if (directIndex !== -1) {
                                         searchIndex = directIndex;
-                                        foundLength = correctedText.length;
-                                        foundWordCount = searchWords.length;
-                                        console.log(`OCR-Wort-Korrektur erfolgreich: "${wrong}" → "${correct}" in Wort ${wordIdx + 1}`);
-                                        console.log('Korrigiert:', correctedText.substring(0, 60));
-                                        break outerLoop;
+                                        foundLength = variant.length;
+                                        foundWordCount = 4; // Ort + Datum
+                                        console.log(`Vortragstitel: Gefunden über Ort+Datum "${variant}"`);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // NEU: Zuerst ALLE Rechtschreibkorrekturen auf den GESAMTEN Text anwenden
+                        // Das löst das Problem, wenn mehrere Wörter mit ß im Text sind
+                        let fullyCorrectdText = searchTextLowerForOcr;
+                        for (const [wrong, correct] of spellingCorrs) {
+                            fullyCorrectdText = fullyCorrectdText.replace(new RegExp(wrong, 'g'), correct);
+                        }
+                        // Entferne Silbentrennungs-Bindestriche (z.B. "wür-de" → "würde")
+                        // Nur Bindestriche zwischen Buchstaben (ohne Leerzeichen) werden entfernt
+                        fullyCorrectdText = fullyCorrectdText.replace(/([a-zäöüß])-([a-zäöüß])/g, '$1$2');
+                        // Entferne überzählige Kommas nach Gedankenstrichen (z.B. "jenes -, dann" → "jenes - dann")
+                        fullyCorrectdText = fullyCorrectdText.replace(/ -, /g, ' - ');
+                        // Ersetze Semikolons durch Kommas (häufiger Unterschied PDF↔MD)
+                        fullyCorrectdText = fullyCorrectdText.replace(/;/g, ',');
+                        // Ersetze Doppelpunkt durch Gedankenstrich (häufiger Unterschied PDF↔MD)
+                        fullyCorrectdText = fullyCorrectdText.replace(/: /g, ' - ');
+                        // Für Vortragstitel: Ersetze "VORTRAG " durch "VORTRAG, " (Zeilenumbruch wurde zu Leerzeichen)
+                        fullyCorrectdText = fullyCorrectdText.replace(/vortrag ([a-zäöü])/gi, 'vortrag, $1');
+                        if (fullyCorrectdText !== searchTextLowerForOcr) {
+                            directIndex = markdownTextLower.indexOf(fullyCorrectdText);
+                            
+                            // Fallback: Versuche mit normalisierten Leerzeichen (MD kann fehlerhafte Leerzeichen haben)
+                            // z.B. "Aufkommen" im PDF soll "Auf kommen" im MD finden
+                            if (directIndex === -1) {
+                                // Entferne Leerzeichen zwischen Buchstaben in BEIDEN Texten
+                                const removeInnerSpaces = (text) => text.replace(/([a-zäöüß]) ([a-zäöüß])/gi, '$1$2');
+                                let normalizedSearch = removeInnerSpaces(fullyCorrectdText);
+                                // Mehrfach anwenden für mehrere aufeinanderfolgende Leerzeichen
+                                while (normalizedSearch !== removeInnerSpaces(normalizedSearch)) {
+                                    normalizedSearch = removeInnerSpaces(normalizedSearch);
+                                }
+                                let normalizedMarkdown = removeInnerSpaces(markdownTextLower);
+                                while (normalizedMarkdown !== removeInnerSpaces(normalizedMarkdown)) {
+                                    normalizedMarkdown = removeInnerSpaces(normalizedMarkdown);
+                                }
+                                directIndex = normalizedMarkdown.indexOf(normalizedSearch);
+                                if (directIndex !== -1) {
+                                    console.log('Gefunden nach Entfernen von Leerzeichen in Wörtern');
+                                }
+                            }
+                            if (directIndex !== -1) {
+                                searchIndex = directIndex;
+                                foundLength = fullyCorrectdText.length;
+                                foundWordCount = searchWords.length;
+                                console.log(`Rechtschreib-Korrektur (komplett) erfolgreich`);
+                                console.log('Korrigiert:', fullyCorrectdText.substring(0, 60));
+                            }
+                        }
+                        
+                        // Fallback: Wort-für-Wort Korrektur (für den Fall, dass nur eine Korrektur nötig ist)
+                        if (searchIndex === -1) {
+                            outerLoopSpelling:
+                            for (let wordIdx = 0; wordIdx < words.length; wordIdx++) {
+                                for (const [wrong, correct] of spellingCorrs) {
+                                    if (words[wordIdx].includes(wrong)) {
+                                        const correctedWords = [...words];
+                                        correctedWords[wordIdx] = correctedWords[wordIdx].replace(new RegExp(wrong, 'g'), correct);
+                                        const correctedText = correctedWords.join(' ');
+                                        directIndex = markdownTextLower.indexOf(correctedText);
+                                        if (directIndex !== -1) {
+                                            searchIndex = directIndex;
+                                            foundLength = correctedText.length;
+                                            foundWordCount = searchWords.length;
+                                            console.log(`Rechtschreib-Korrektur erfolgreich: "${wrong}" → "${correct}" in Wort ${wordIdx + 1}`);
+                                            console.log('Korrigiert:', correctedText.substring(0, 60));
+                                            break outerLoopSpelling;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Dann: OCR-Korrekturen nur auf die ersten 3 Wörter (um Fehlkorrekturen zu vermeiden)
+                        if (searchIndex === -1) {
+                            outerLoop:
+                            for (let wordIdx = 0; wordIdx < Math.min(3, words.length); wordIdx++) {
+                                // Versuche JEDE Korrektur einzeln (nicht alle auf einmal!)
+                                for (const [wrong, correct] of ocrCorrections) {
+                                    // Überspringe Rechtschreibkorrekturen (wurden oben schon behandelt)
+                                    if (['ß', 'ss', 'daß', 'dass', 'muß', 'muss', 'läßt', 'lässt', 'müßte', 'müsste', 
+                                         'erfaßt', 'erfasst', 'bewußtsein', 'bewusstsein', 'wüßt', 'wusst',
+                                         'einfluß', 'einfluss', 'schluß', 'schluss', 'anschluß', 'anschluss',
+                                         'abschluß', 'abschluss', 'entschluß', 'entschluss', 'schloß', 'schloss',
+                                         'floß', 'floss', 'goß', 'goss', 'genoß', 'genoss', 'schoß', 'schoss',
+                                         'stoß', 'stoss', 'groß', 'gross',
+                                         'schlüsse', 'schlusse', 'düng', 'dung', 'lieh', 'lich',
+                                         'mochte', 'möchte',
+                                  'gerat', 'gerät', 'gemaß', 'gemäß', 'uberhaupt', 'überhaupt',
+                                  'naturlich', 'natürlich', 'glucklicherweise', 'glücklicherweise',
+                                  'fahig', 'fähig', 'tatig', 'tätig', 'spatere', 'spätere', 'fruhere', 'frühere',
+                                         'semptember', 'september', 'jannuar', 'januar', 'febmuar', 'februar', 
+                                         'febmar', 'novem ber', 'november', 'dezem ber', 'dezember',
+                                         'septem ber', 'okto ber', 'oktober',
+                                         '- und', ' und', '- oder', ' oder', '- wie', ' wie'].includes(wrong)) {
+                                        continue;
+                                    }
+                                    if (words[wordIdx].includes(wrong)) {
+                                        const correctedWords = [...words];
+                                        correctedWords[wordIdx] = correctedWords[wordIdx].replace(new RegExp(wrong, 'g'), correct);
+                                        const correctedText = correctedWords.join(' ');
+                                        directIndex = markdownTextLower.indexOf(correctedText);
+                                        if (directIndex !== -1) {
+                                            searchIndex = directIndex;
+                                            foundLength = correctedText.length;
+                                            foundWordCount = searchWords.length;
+                                            console.log(`OCR-Wort-Korrektur erfolgreich: "${wrong}" → "${correct}" in Wort ${wordIdx + 1}`);
+                                            console.log('Korrigiert:', correctedText.substring(0, 60));
+                                            break outerLoop;
+                                        }
                                     }
                                 }
                             }
@@ -1719,8 +1968,110 @@
                             if (wordCount > searchWords.length) continue;
                             let partialText = searchWords.slice(0, wordCount).join(' ').toLowerCase();
                             
-                            // Wende alle OCR-Korrekturen an
-                            for (const [wrong, correct] of ocrCorrections) {
+                            // WICHTIG: Zuerst Rechtschreibkorrekturen anwenden (alte→neue, nur eine Richtung!)
+                            // Diese müssen VOR den bidirektionalen OCR-Korrekturen kommen
+                            const spellingCorrections = [
+                                ['daß', 'dass'],
+                                ['muß', 'muss'],
+                                ['läßt', 'lässt'],
+                                ['müßte', 'müsste'],
+                                ['erfaßt', 'erfasst'],
+                                ['bewußtsein', 'bewusstsein'],
+                                ['wüßt', 'wusst'],
+                                ['einfluß', 'einfluss'],
+                                ['schluß', 'schluss'],
+                                ['anschluß', 'anschluss'],
+                                ['abschluß', 'abschluss'],
+                                ['entschluß', 'entschluss'],
+                                ['ausfluß', 'ausfluss'],
+                                ['zufluß', 'zufluss'],
+                                ['schloß', 'schloss'],
+                                ['floß', 'floss'],
+                                ['goß', 'goss'],
+                                ['genoß', 'genoss'],
+                                ['schoß', 'schoss'],
+                                ['stoß', 'stoss'],
+                                ['groß', 'gross'],
+                                ['schlüsse', 'schlusse'],
+                                ['düng', 'dung'],
+                                ['lieh', 'lich'],
+                                ['mochte', 'möchte'],
+                            ['gerat', 'gerät'],
+                            ['gemaß', 'gemäß'],
+                            ['uberhaupt', 'überhaupt'],
+                            ['naturlich', 'natürlich'],
+                            ['glucklicherweise', 'glücklicherweise'],
+                            ['fahig', 'fähig'],
+                            ['tatig', 'tätig'],
+                            ['spatere', 'spätere'],
+                            ['fruhere', 'frühere'],
+                                // Monatsnamen OCR-Fehler
+                                ['semptember', 'september'],
+                                ['jannuar', 'januar'],
+                                ['febmuar', 'februar'],
+                                ['febmar', 'februar'],
+                                ['novem ber', 'november'],
+                                ['dezem ber', 'dezember'],
+                                ['septem ber', 'september'],
+                                ['okto ber', 'oktober'],
+                                // Fehlende Bindestriche
+                                ['- und', ' und'],
+                                ['- oder', ' oder'],
+                                ['- wie', ' wie'],
+                                ['ß', 'ss'],  // Allgemein ß→ss NACH den spezifischen Wörtern
+                            ];
+                            for (const [wrong, correct] of spellingCorrections) {
+                                partialText = partialText.replace(new RegExp(wrong, 'g'), correct);
+                            }
+                            // Entferne Silbentrennungs-Bindestriche (z.B. "wür-de" → "würde")
+                            partialText = partialText.replace(/([a-zäöüß])-([a-zäöüß])/g, '$1$2');
+                            // Entferne überzählige Kommas nach Gedankenstrichen
+                            partialText = partialText.replace(/ -, /g, ' - ');
+                            // Ersetze Semikolons durch Kommas
+                            partialText = partialText.replace(/;/g, ',');
+                            // Ersetze Doppelpunkt durch Gedankenstrich
+                            partialText = partialText.replace(/: /g, ' - ');
+                            // Für Vortragstitel: Ersetze "VORTRAG " durch "VORTRAG, "
+                            partialText = partialText.replace(/vortrag ([a-zäöü])/gi, 'vortrag, $1');
+                            
+                            // Dann OCR-Korrekturen anwenden (ohne die Rechtschreibkorrekturen, die sich aufheben würden)
+                            const ocrOnlyCorrections = ocrCorrections.filter(([wrong, correct]) => 
+                                !['ß', 'ss', 'daß', 'dass', 'muß', 'muss', 'mußte', 'musste', 'mußten', 'mussten',
+                                  'wußte', 'wusste', 'wußten', 'wussten', 'läßt', 'lässt', 'verläßt', 'verlässt',
+                                  'müßte', 'müsste', 'müßten', 'müssten',
+                                  'erfaßt', 'erfasst', 'gefaßt', 'gefasst', 'verfaßt', 'verfasst', 'umfaßt', 'umfasst',
+                                  'paßt', 'passt', 'haßt', 'hasst',
+                                  'bewußtsein', 'bewusstsein', 'wüßt', 'wusst',
+                                  'einfluß', 'einfluss', 'schluß', 'schluss', 'anschluß', 'anschluss',
+                                  'abschluß', 'abschluss', 'entschluß', 'entschluss', 'schloß', 'schloss',
+                                  'floß', 'floss', 'goß', 'goss', 'genoß', 'genoss', 'schoß', 'schoss',
+                                  'stoß', 'stoss', 'groß', 'gross',
+                                  'schlüsse', 'schlusse', 'düng', 'dung', 'lieh', 'lich',
+                                  'mochte', 'möchte',
+                                  'gerat', 'gerät', 'gemaß', 'gemäß', 'uberhaupt', 'überhaupt',
+                                  'naturlich', 'natürlich', 'glucklicherweise', 'glücklicherweise',
+                                  'fahig', 'fähig', 'tatig', 'tätig', 'spatere', 'spätere', 'fruhere', 'frühere',
+                                  'semptember', 'september', 'jannuar', 'januar', 'febmuar', 'februar',
+                                  'febmar', 'novem ber', 'november', 'dezem ber', 'dezember',
+                                  'septem ber', 'okto ber', 'oktober',
+                                  '- und', ' und', '- oder', ' oder', '- wie', ' wie'].includes(wrong) &&
+                                !['ß', 'ss', 'daß', 'dass', 'muß', 'muss', 'läßt', 'lässt', 'müßte', 'müsste',
+                                  'erfaßt', 'erfasst', 'bewußtsein', 'bewusstsein', 'wüßt', 'wusst',
+                                  'einfluß', 'einfluss', 'schluß', 'schluss', 'anschluß', 'anschluss',
+                                  'abschluß', 'abschluss', 'entschluß', 'entschluss', 'schloß', 'schloss',
+                                  'floß', 'floss', 'goß', 'goss', 'genoß', 'genoss', 'schoß', 'schoss',
+                                  'stoß', 'stoss', 'groß', 'gross',
+                                  'schlüsse', 'schlusse', 'düng', 'dung', 'lieh', 'lich',
+                                  'mochte', 'möchte',
+                                  'gerat', 'gerät', 'gemaß', 'gemäß', 'uberhaupt', 'überhaupt',
+                                  'naturlich', 'natürlich', 'glucklicherweise', 'glücklicherweise',
+                                  'fahig', 'fähig', 'tatig', 'tätig', 'spatere', 'spätere', 'fruhere', 'frühere',
+                                  'semptember', 'september', 'jannuar', 'januar', 'febmuar', 'februar',
+                                  'febmar', 'novem ber', 'november', 'dezem ber', 'dezember',
+                                  'septem ber', 'okto ber', 'oktober',
+                                  '- und', ' und', '- oder', ' oder', '- wie', ' wie'].includes(correct)
+                            );
+                            for (const [wrong, correct] of ocrOnlyCorrections) {
                                 partialText = partialText.replace(new RegExp(wrong, 'g'), correct);
                             }
                             
@@ -1735,13 +2086,22 @@
                         }
                     }
                     
-                    // Strategie 4: Silbentrennung - erstes Wort könnte Fragment sein (z.B. "lieh" von "wört-lich")
-                    // Wenn das erste Wort kurz ist (<6 Zeichen) und mit Kleinbuchstabe beginnt, 
-                    // versuche ab dem 2. Wort zu suchen
+                    // Strategie 4: Silbentrennung - erstes Wort könnte Fragment sein (z.B. "liehen" von "gewöhn-lichen")
+                    // Wenn das erste Wort kurz ist (<8 Zeichen) und mit Kleinbuchstabe beginnt, 
+                    // ODER typische Fragment-Endungen hat, versuche ab dem 2. Wort zu suchen
                     if (searchIndex === -1 && searchWords.length >= 3) {
                         const firstWord = searchWords[0].toLowerCase();
+                        // Entferne Satzzeichen am Ende für die Fragment-Prüfung
+                        const firstWordClean = firstWord.replace(/[.,;:!?»«"')…]+$/, '');
+                        // Typische Fragment-Endungen (Silbentrennungen)
+                        const fragmentEndings = ['lich', 'lichen', 'lieh', 'liehen', 'ung', 'ungen', 
+                                                 'heit', 'keit', 'schaft', 'nis', 'tum', 'sam',
+                                                 'bar', 'haft', 'los', 'voll', 'reich', 'arm',
+                                                 'schen', 'sehen', 'ischen', 'ische', 'tion', 'tionen',
+                                                 'lung', 'wickelung', 'igkeit', 'ismus', 'ität'];
+                        const hasFragmentEnding = fragmentEndings.some(ending => firstWordClean.endsWith(ending));
                         // Prüfe ob erstes Wort ein Fragment sein könnte
-                        if (firstWord.length < 6 && /^[a-zäöü]/.test(firstWord)) {
+                        if ((firstWordClean.length < 8 && /^[a-zäöü]/.test(firstWordClean)) || hasFragmentEnding) {
                             console.log('Erstes Wort könnte Fragment sein:', firstWord);
                             
                             // Versuche ab dem 2. Wort zu suchen
@@ -1751,8 +2111,105 @@
                                 
                                 let partialText = remainingWords.slice(0, Math.min(8, remainingWords.length)).join(' ').toLowerCase();
                                 
-                                // Auch mit OCR-Korrektur
-                                for (const [wrong, correct] of ocrCorrections) {
+                                // Auch mit Rechtschreib- und OCR-Korrektur
+                                // WICHTIG: Zuerst Rechtschreibkorrekturen (alte→neue, nur eine Richtung!)
+                                const spellingCorrectionsHyphen = [
+                                    ['daß', 'dass'],
+                                    ['muß', 'muss'],
+                                    ['läßt', 'lässt'],
+                                    ['müßte', 'müsste'],
+                                    ['erfaßt', 'erfasst'],
+                                    ['bewußtsein', 'bewusstsein'],
+                                    ['wüßt', 'wusst'],
+                                    ['einfluß', 'einfluss'],
+                                    ['schluß', 'schluss'],
+                                    ['anschluß', 'anschluss'],
+                                    ['abschluß', 'abschluss'],
+                                    ['entschluß', 'entschluss'],
+                                    ['ausfluß', 'ausfluss'],
+                                    ['zufluß', 'zufluss'],
+                                    ['schloß', 'schloss'],
+                                    ['floß', 'floss'],
+                                    ['goß', 'goss'],
+                                    ['genoß', 'genoss'],
+                                    ['schoß', 'schoss'],
+                                    ['stoß', 'stoss'],
+                                    ['groß', 'gross'],
+                                    ['schlüsse', 'schlusse'],
+                                    ['düng', 'dung'],
+                                    ['lieh', 'lich'],
+                                    ['mochte', 'möchte'],
+                            ['gerat', 'gerät'],
+                            ['gemaß', 'gemäß'],
+                            ['uberhaupt', 'überhaupt'],
+                            ['naturlich', 'natürlich'],
+                            ['glucklicherweise', 'glücklicherweise'],
+                            ['fahig', 'fähig'],
+                            ['tatig', 'tätig'],
+                            ['spatere', 'spätere'],
+                            ['fruhere', 'frühere'],
+                                    // Monatsnamen OCR-Fehler
+                                    ['semptember', 'september'],
+                                    ['jannuar', 'januar'],
+                                    ['febmuar', 'februar'],
+                                    ['febmar', 'februar'],
+                                    ['novem ber', 'november'],
+                                    ['dezem ber', 'dezember'],
+                                    ['septem ber', 'september'],
+                                    ['okto ber', 'oktober'],
+                                    // Fehlende Bindestriche
+                                    ['- und', ' und'],
+                                    ['- oder', ' oder'],
+                                    ['- wie', ' wie'],
+                                    ['ß', 'ss'],
+                                ];
+                                for (const [wrong, correct] of spellingCorrectionsHyphen) {
+                                    partialText = partialText.replace(new RegExp(wrong, 'g'), correct);
+                                }
+                                // Entferne Silbentrennungs-Bindestriche (z.B. "wür-de" → "würde")
+                                partialText = partialText.replace(/([a-zäöüß])-([a-zäöüß])/g, '$1$2');
+                                // Entferne überzählige Kommas nach Gedankenstrichen
+                                partialText = partialText.replace(/ -, /g, ' - ');
+                                // Ersetze Semikolons durch Kommas
+                                partialText = partialText.replace(/;/g, ',');
+                                // Ersetze Doppelpunkt durch Gedankenstrich
+                                partialText = partialText.replace(/: /g, ' - ');
+                                // Für Vortragstitel: Ersetze "VORTRAG " durch "VORTRAG, "
+                                partialText = partialText.replace(/vortrag ([a-zäöü])/gi, 'vortrag, $1');
+                                // Dann gefilterte OCR-Korrekturen
+                                const ocrOnlyCorrectionsHyphen = ocrCorrections.filter(([wrong, correct]) => 
+                                    !['ß', 'ss', 'daß', 'dass', 'muß', 'muss', 'läßt', 'lässt', 'müßte', 'müsste', 
+                                      'erfaßt', 'erfasst', 'bewußtsein', 'bewusstsein', 'wüßt', 'wusst',
+                                      'einfluß', 'einfluss', 'schluß', 'schluss', 'anschluß', 'anschluss',
+                                      'abschluß', 'abschluss', 'entschluß', 'entschluss', 'schloß', 'schloss',
+                                      'floß', 'floss', 'goß', 'goss', 'genoß', 'genoss', 'schoß', 'schoss',
+                                      'stoß', 'stoss', 'groß', 'gross',
+                                      'schlüsse', 'schlusse', 'düng', 'dung', 'lieh', 'lich',
+                                      'mochte', 'möchte',
+                                  'gerat', 'gerät', 'gemaß', 'gemäß', 'uberhaupt', 'überhaupt',
+                                  'naturlich', 'natürlich', 'glucklicherweise', 'glücklicherweise',
+                                  'fahig', 'fähig', 'tatig', 'tätig', 'spatere', 'spätere', 'fruhere', 'frühere',
+                                      'semptember', 'september', 'jannuar', 'januar', 'febmuar', 'februar',
+                                      'febmar', 'novem ber', 'november', 'dezem ber', 'dezember',
+                                      'septem ber', 'okto ber', 'oktober',
+                                      '- und', ' und', '- oder', ' oder', '- wie', ' wie'].includes(wrong) &&
+                                    !['ß', 'ss', 'daß', 'dass', 'muß', 'muss', 'läßt', 'lässt', 'müßte', 'müsste',
+                                      'erfaßt', 'erfasst', 'bewußtsein', 'bewusstsein', 'wüßt', 'wusst',
+                                      'einfluß', 'einfluss', 'schluß', 'schluss', 'anschluß', 'anschluss',
+                                      'abschluß', 'abschluss', 'entschluß', 'entschluss', 'schloß', 'schloss',
+                                      'floß', 'floss', 'goß', 'goss', 'genoß', 'genoss', 'schoß', 'schoss',
+                                      'stoß', 'stoss', 'groß', 'gross',
+                                      'schlüsse', 'schlusse', 'düng', 'dung', 'lieh', 'lich',
+                                      'mochte', 'möchte',
+                                  'gerat', 'gerät', 'gemaß', 'gemäß', 'uberhaupt', 'überhaupt',
+                                  'naturlich', 'natürlich', 'glucklicherweise', 'glücklicherweise',
+                                  'fahig', 'fähig', 'tatig', 'tätig', 'spatere', 'spätere', 'fruhere', 'frühere',
+                                      'semptember', 'september', 'jannuar', 'januar', 'febmuar', 'februar',
+                                      'febmar', 'novem ber', 'november', 'dezem ber', 'dezember',
+                                      'septem ber', 'okto ber', 'oktober',
+                                      '- und', ' und', '- oder', ' oder', '- wie', ' wie'].includes(correct)
+                                );
+                                for (const [wrong, correct] of ocrOnlyCorrectionsHyphen) {
                                     partialText = partialText.replace(new RegExp(wrong, 'g'), correct);
                                 }
                                 

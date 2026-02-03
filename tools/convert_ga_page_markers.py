@@ -8,8 +8,9 @@ Verwendung:
 Regeln:
 1. JEDER "---" = Seitenumbruch -> current_page += 1, SM für nächsten Text
 2. "Copyright...Seite: XX" = Validierung/Korrektur von current_page auf XX
-3. SM-Format: [|XX|] wobei XX = Seitenzahl
-4. SM-Positionierung:
+3. SM-Format: |XX| wobei XX = Seitenzahl
+4. Bildpfade: Falsche Bildpfade werden durch korrekte PNG-Pfade aus dem assets-Ordner ersetzt
+5. SM-Positionierung:
    - Fall 1 (Absatz): Nach Satzende (.!?:) + Großbuchstabe -> neuer Absatz mit SM
    - Fall 2 (Inline): Kein Satzende -> SM inline mit Leerzeichen
    - Fall 3 (Worttrennung): Bindestrich am Ende -> SM ohne Leerzeichen
@@ -73,6 +74,88 @@ def extract_page_number(copyright_text):
         return int(match.group(1).replace(' ', ''))
     return None
 
+def fix_image_paths(content, input_file):
+    """
+    Korrigiert Bildpfade im Markdown.
+    
+    Ersetzt falsche Bildpfade (z.B. aus Mistral-Konvertierung) durch korrekte
+    PNG-Pfade aus dem assets-Ordner.
+    
+    Args:
+        content: Der Markdown-Inhalt
+        input_file: Pfad zur MD-Datei (für assets-Ordner-Ermittlung)
+    
+    Returns:
+        tuple: (korrigierter_content, stats_dict)
+    """
+    stats = {
+        'images_found': 0,
+        'images_replaced': 0,
+        'images_missing': []
+    }
+    
+    # Assets-Ordner ermitteln (relativ zur MD-Datei)
+    md_dir = os.path.dirname(os.path.abspath(input_file))
+    assets_dir = os.path.join(md_dir, 'assets')
+    
+    # Prüfe ob assets-Ordner existiert
+    if not os.path.exists(assets_dir):
+        return content, stats
+    
+    # Finde alle PNG-Dateien im assets-Ordner
+    available_images = {}
+    for img_file in os.listdir(assets_dir):
+        if img_file.lower().endswith('.png'):
+            # Extrahiere Bildnummer aus Dateinamen (z.B. "img-0" aus "img-0.png")
+            match = re.search(r'img-(\d+)', img_file, re.IGNORECASE)
+            if match:
+                img_num = int(match.group(1))
+                available_images[img_num] = img_file
+    
+    if not available_images:
+        return content, stats
+    
+    # Pattern für Markdown-Bilder: ![alt](pfad)
+    img_pattern = r'!\[([^\]]*)\]\(([^)]+)\)'
+    
+    def replace_image(match):
+        alt_text = match.group(1)
+        old_path = match.group(2)
+        stats['images_found'] += 1
+        
+        # Extrahiere Bildnummer aus Alt-Text oder Pfad
+        img_num = None
+        
+        # Versuche aus Alt-Text (z.B. "img-0.jpeg")
+        num_match = re.search(r'img-(\d+)', alt_text, re.IGNORECASE)
+        if num_match:
+            img_num = int(num_match.group(1))
+        
+        # Fallback: aus Pfad extrahieren
+        if img_num is None:
+            num_match = re.search(r'img-(\d+)', old_path, re.IGNORECASE)
+            if num_match:
+                img_num = int(num_match.group(1))
+        
+        if img_num is None:
+            # Keine Bildnummer gefunden, beibehalten
+            return match.group(0)
+        
+        # Prüfe ob entsprechende PNG existiert
+        if img_num in available_images:
+            new_path = f'assets/{available_images[img_num]}'
+            stats['images_replaced'] += 1
+            return f'![]({new_path})'
+        else:
+            # Bild nicht gefunden
+            stats['images_missing'].append(f'img-{img_num}')
+            return match.group(0)
+    
+    result = re.sub(img_pattern, replace_image, content)
+    
+    return result, stats
+
+
 def analyze_blocks(blocks):
     """
     Analysiert alle Blöcke und klassifiziert sie.
@@ -133,6 +216,9 @@ def convert_page_markers(input_file, output_file=None, backup=True):
     
     with open(input_file, 'r', encoding='utf-8') as f:
         content = f.read()
+    
+    # Bildpfade korrigieren
+    content, image_stats = fix_image_paths(content, input_file)
     
     # Teile den Text in Blöcke (getrennt durch Leerzeilen)
     blocks = re.split(r'\n\n+', content)
@@ -212,7 +298,7 @@ def convert_page_markers(input_file, output_file=None, backup=True):
                         i += 1
                         continue
                     if analyzed[i]['type'] == 'text':
-                        sm = f'[|{pending_sm}|]'
+                        sm = f'|{pending_sm}|'
                         output_blocks.append(sm + ' ' + analyzed[i]['block'])
                         stats['heading'] += 1
                         last_used_sm = pending_sm
@@ -231,7 +317,7 @@ def convert_page_markers(input_file, output_file=None, backup=True):
         # Normaler Textblock
         if info['type'] == 'text':
             if pending_sm is not None:
-                sm = f'[|{pending_sm}|]'
+                sm = f'|{pending_sm}|'
                 
                 # Prüfe vorherigen Block für Fall-Bestimmung
                 if output_blocks:
@@ -284,12 +370,12 @@ def convert_page_markers(input_file, output_file=None, backup=True):
     result = '\n\n'.join(output_blocks)
     
     # Aufräumen - verbleibende Copyright-Zeilen entfernen
-    result = re.sub(r'[Cc]opyright[^\[]*(\[\|\d+\|\])', r'\1', result)
+    result = re.sub(r'[Cc]opyright[^\|]*(\|\d+\|)', r'\1', result)
     result = re.sub(r'\n\n[Cc]opyright[^\n]*\n\n', '\n\n', result)
     result = re.sub(r'^[Cc]opyright[^\n]*\n\n', '', result)
     
     # SM-Positionen korrigieren
-    # Pattern 1: # ÜBERSCHRIFT\n\n[|XX|]\n\nDatum -> # ÜBERSCHRIFT\n\nDatum\n\n[|XX|]
+    # Pattern 1: # ÜBERSCHRIFT\n\n|XX|\n\nDatum -> # ÜBERSCHRIFT\n\nDatum\n\n|XX|
     def fix_heading_sm_1(m):
         heading = m.group(1)
         sm = m.group(2)
@@ -298,12 +384,12 @@ def convert_page_markers(input_file, output_file=None, backup=True):
         return f'{heading}\n\n{date}\n\n{sm} {first_char}'
     
     result = re.sub(
-        r'(# [^\n]+)\n\n(\[\|\d+\|\])\n\n([^\n]+, \d+\. \w+ \d{4})\n\n([A-ZÄÖÜ])',
+        r'(# [^\n]+)\n\n(\|\d+\|)\n\n([^\n]+, \d+\. \w+ \d{4})\n\n([A-ZÄÖÜ])',
         fix_heading_sm_1,
         result
     )
     
-    # Pattern 2: [|XX|]\n\n# ÜBERSCHRIFT -> # ÜBERSCHRIFT (SM bleibt pending)
+    # Pattern 2: |XX|\n\n# ÜBERSCHRIFT -> # ÜBERSCHRIFT (SM bleibt pending)
     def fix_heading_sm_2(m):
         sm = m.group(1)
         heading = m.group(2)
@@ -312,7 +398,7 @@ def convert_page_markers(input_file, output_file=None, backup=True):
         return f'{heading}\n\n{date}\n\n{sm} {first_char}'
     
     result = re.sub(
-        r'(\[\|\d+\|\])\s*\n\n(# [^\n]+)\n\n([^\n]+, \d+\. \w+ \d{4})\n\n([A-ZÄÖÜ])',
+        r'(\|\d+\|)\s*\n\n(# [^\n]+)\n\n([^\n]+, \d+\. \w+ \d{4})\n\n([A-ZÄÖÜ])',
         fix_heading_sm_2,
         result
     )
@@ -325,7 +411,7 @@ def convert_page_markers(input_file, output_file=None, backup=True):
         f.write(result)
     
     # Statistik berechnen
-    all_sm = re.findall(r'\[\|(\d+)\|\]', result)
+    all_sm = re.findall(r'\|(\d+)\|', result)
     counts = Counter(all_sm)
     duplicates = {k: v for k, v in counts.items() if v > 1}
     
@@ -352,7 +438,8 @@ def convert_page_markers(input_file, output_file=None, backup=True):
                 })
     
     # Log-Datei schreiben wenn Probleme vorhanden
-    if missing or duplicates:
+    has_problems = missing or duplicates or image_stats['images_missing']
+    if has_problems:
         sm_range = (min(int(x) for x in all_sm), max(int(x) for x in all_sm)) if all_sm else (0, 0)
         with open(log_file, 'w', encoding='utf-8') as f:
             f.write(f"Konvertierung: {input_file}\n")
@@ -372,9 +459,15 @@ def convert_page_markers(input_file, output_file=None, backup=True):
                     f.write(f"  Seite {page}: {count}x vorhanden\n")
                 f.write("\n")
             
-            f.write("Diese Stellen sollten manuell anhand des PDFs überprüft werden.\n")
+            if image_stats['images_missing']:
+                f.write("FEHLENDE BILDER (nicht im assets-Ordner gefunden):\n")
+                for img in image_stats['images_missing']:
+                    f.write(f"  {img}.png\n")
+                f.write("\n")
+            
+            f.write("Diese Stellen sollten manuell überprüft werden.\n")
         print(f"Probleme protokolliert: {log_file}")
-        stats['conflicts'] = len(missing) + len(duplicates)
+        stats['conflicts'] = len(missing) + len(duplicates) + len(image_stats['images_missing'])
     else:
         stats['conflicts'] = 0
     
@@ -386,6 +479,11 @@ def convert_page_markers(input_file, output_file=None, backup=True):
     stats['copyright_remaining'] = len(re.findall(r'[Cc]opyright', result))
     stats['dividers_remaining'] = len(re.findall(r'\n---\n', result))
     stats['missing'] = missing
+    
+    # Bildstatistiken hinzufügen
+    stats['images_found'] = image_stats['images_found']
+    stats['images_replaced'] = image_stats['images_replaced']
+    stats['images_missing'] = image_stats['images_missing']
     
     return stats
 
@@ -410,6 +508,11 @@ def print_stats(stats):
     print(f"  Copyright entfernt: {stats['copyright_removed']}")
     print(f"  Copyright verbleibend: {stats['copyright_remaining']}")
     print(f"  --- verbleibend: {stats['dividers_remaining']}")
+    print(f"\nBilder:")
+    print(f"  Gefunden: {stats.get('images_found', 0)}")
+    print(f"  Korrigiert: {stats.get('images_replaced', 0)}")
+    if stats.get('images_missing'):
+        print(f"  Fehlend: {stats['images_missing']}")
 
 def main():
     if len(sys.argv) < 2:

@@ -12065,52 +12065,28 @@ app.post('/api/export/ga', async (req, res) => {
       console.log(`[EXPORT] Starte Export für ${normalizedGA}...`);
     }
     
-    // Bestimme den Typ des GA-Bands
-    let exportType = 'lectures'; // Default: Vorträge
+    // Bestimme den Typ des GA-Bands und das passende Export-Skript
+    let exportType = 'lectures';
     let exportScript = '';
     let exportArgs = [];
     
-    // Bücher: GA002-GA027, GA045 (außer Aufsätze) - GA001 wird wie Vortragsband behandelt
-    // GA015 und GA022 werden als Vorträge/Aufsätze exportiert (nicht als Bücher)
-    // GA028 wird als Aufsatzband exportiert (aber in Statistik als Buch gezählt)
     const essayBands = [14, 18, 19, 24, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 46];
-    const letterBands = [262]; // GA262, GA263a werden separat behandelt
     const isGA041b = gaSuffix === 'b' && gaNumeric === 41;
     const isGA263a = gaSuffix === 'a' && gaNumeric === 263;
     
     if (isGA263a || gaNumeric === 262) {
-      // Briefe: GA262, GA263a - werden wie Vorträge exportiert
       exportType = 'letters';
       exportScript = 'export-lectures.js';
       exportArgs = [normalizedGA];
-    } else if (gaNumeric === 1) {
-      // GA001: Wird wie Vortragsband behandelt (5 Texte aus Obsidian)
-      exportType = 'lectures';
-      exportScript = 'export-lectures.js';
-      exportArgs = [normalizedGA];
-    } else if (gaNumeric === 40) {
-      // GA040: Wird wie Vortragsband behandelt
-      exportType = 'lectures';
-      exportScript = 'export-lectures.js';
-      exportArgs = [normalizedGA];
     } else if (gaNumeric >= 1 && gaNumeric <= 50 && !essayBands.includes(gaNumeric) && !isGA041b && gaNumeric !== 45) {
-      // Bücher: GA002-GA028 (außer Aufsätze, GA001 und GA045)
-      // Prüfe ob es ein Multi-File Buch ist (GA014, etc.)
-      const multiFileBooks = [14, 18, 19, 24, 26, 29, 30, 31, 32, 33, 37];
-      if (multiFileBooks.includes(gaNumeric)) {
-        exportType = 'book-multi';
-      } else {
-        exportType = 'book';
-      }
+      exportType = 'book';
       exportScript = 'export_books_master.py';
       exportArgs = [normalizedGA];
     } else if (gaNumeric === 45) {
-      // GA045 ist ein Buch
       exportType = 'book';
       exportScript = 'export_books_master.py';
       exportArgs = [normalizedGA];
     } else {
-      // Vorträge und Aufsätze: GA051+ und GA029-GA037, GA046, etc.
       exportType = 'lectures';
       exportScript = 'export-lectures.js';
       exportArgs = [normalizedGA];
@@ -12121,7 +12097,7 @@ app.post('/api/export/ga', async (req, res) => {
 
     const { spawn } = require('child_process');
     let command, args;
-
+    
     if (exportScript.endsWith('.py')) {
       command = 'python';
       args = [path.join(__dirname, exportScript), ...exportArgs];
