@@ -47,6 +47,7 @@ Verwendung:
     python export_master.py GA112-GA117a         # Nur bestimmte GA-Baende
     python export_master.py --skip-path-fix      # Bildpfad-Korrektur ueberspringen
     python export_master.py --restart-server     # Server automatisch neu starten
+    python export_master.py --no-confirm         # Keine interaktiven Abfragen (fuer Backend)
     
 Beispiele:
     python export_master.py                      # Alles mit Bildpfad-Korrektur
@@ -67,6 +68,7 @@ import time
 import json
 from datetime import datetime
 from pathlib import Path
+from difflib import SequenceMatcher
 
 # Importiere Rechtschreibkorrekturen
 try:
@@ -555,6 +557,337 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
 
 
 # ============================================================================
+# ID-SYNCHRONISIERUNG FUNKTIONEN
+# ============================================================================
+
+def normalize_text_for_matching(text):
+    """Normalisiert Text für Vergleich"""
+    if not text:
+        return ""
+    text = text.replace('\ufeff', '').strip()
+    text = re.sub(r'\s+', ' ', text)
+    return text
+
+def text_similarity(a, b):
+    """Berechnet Textähnlichkeit zwischen 0 und 1"""
+    a = normalize_text_for_matching(a)
+    b = normalize_text_for_matching(b)
+    if not a or not b:
+        return 0
+    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
+def cache_old_paragraphs(project_root, ga_numbers):
+    """
+    Cached alte Paragraphen-IDs und Texte VOR dem Export.
+    
+    Args:
+        project_root: Projektverzeichnis
+        ga_numbers: Liste von GA-Nummern (z.B. ['GA210', 'GA211'])
+    
+    Returns:
+        Dict: {ga_number: {lecture_num: {old_id: text}}}
+    """
+    cache = {}
+    lectures_dir = os.path.join(project_root, 'steiner-full-lectures')
+    
+    if not os.path.exists(lectures_dir):
+        return cache
+    
+    # Finde relevante JSON-Dateien
+    for filename in os.listdir(lectures_dir):
+        if not filename.endswith('.json'):
+            continue
+        
+        filepath = os.path.join(lectures_dir, filename)
+        
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            for lecture in data.get('lectures', []):
+                lecture_id = lecture.get('ID', '')
+                
+                # Prüfe ob dieser GA-Band exportiert wird
+                ga_match = re.match(r'(GA\d{3}[a-z]?)/(\d+)', lecture_id, re.IGNORECASE)
+                if not ga_match:
+                    continue
+                
+                ga_num = ga_match.group(1).upper()
+                lecture_num = ga_match.group(2)
+                
+                # Nur wenn dieser GA-Band exportiert wird
+                if ga_numbers and ga_num not in [g.upper() for g in ga_numbers]:
+                    continue
+                
+                if ga_num not in cache:
+                    cache[ga_num] = {}
+                
+                if lecture_num not in cache[ga_num]:
+                    cache[ga_num][lecture_num] = {}
+                
+                # Cache alle Paragraphen
+                for para in lecture.get('paragraphs', []):
+                    para_id = para.get('index', '').lstrip('^')
+                    text = para.get('content', '')
+                    if para_id and text:
+                        cache[ga_num][lecture_num][para_id] = text
+        
+        except Exception as e:
+            print(f"    [!] Fehler beim Cachen von {filename}: {e}")
+    
+    return cache
+
+def build_id_mapping(old_cache, project_root, ga_numbers, min_similarity=0.8):
+    """
+    Erstellt Mapping alte ID -> neue ID durch Text-Matching.
+    
+    Args:
+        old_cache: Gecachte alte Paragraphen
+        project_root: Projektverzeichnis
+        ga_numbers: Liste von GA-Nummern
+        min_similarity: Minimale Textähnlichkeit für Match (0.0-1.0)
+    
+    Returns:
+        Dict: {(ga_num, lecture_num, old_id): new_id}
+    """
+    mapping = {}
+    lectures_dir = os.path.join(project_root, 'steiner-full-lectures')
+    
+    if not os.path.exists(lectures_dir):
+        return mapping
+    
+    # Lade neue Paragraphen
+    new_paragraphs = {}  # {ga_num: {lecture_num: [(new_id, text)]}}
+    
+    for filename in os.listdir(lectures_dir):
+        if not filename.endswith('.json'):
+            continue
+        
+        filepath = os.path.join(lectures_dir, filename)
+        
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            for lecture in data.get('lectures', []):
+                lecture_id = lecture.get('ID', '')
+                
+                ga_match = re.match(r'(GA\d{3}[a-z]?)/(\d+)', lecture_id, re.IGNORECASE)
+                if not ga_match:
+                    continue
+                
+                ga_num = ga_match.group(1).upper()
+                lecture_num = ga_match.group(2)
+                
+                if ga_numbers and ga_num not in [g.upper() for g in ga_numbers]:
+                    continue
+                
+                if ga_num not in new_paragraphs:
+                    new_paragraphs[ga_num] = {}
+                
+                if lecture_num not in new_paragraphs[ga_num]:
+                    new_paragraphs[ga_num][lecture_num] = []
+                
+                for para in lecture.get('paragraphs', []):
+                    para_id = para.get('index', '').lstrip('^')
+                    text = para.get('content', '')
+                    if para_id and text:
+                        new_paragraphs[ga_num][lecture_num].append((para_id, text))
+        
+        except Exception as e:
+            print(f"    [!] Fehler beim Laden von {filename}: {e}")
+    
+    # Erstelle Mapping durch Text-Matching
+    for ga_num, lectures in old_cache.items():
+        if ga_num not in new_paragraphs:
+            continue
+        
+        for lecture_num, old_paras in lectures.items():
+            if lecture_num not in new_paragraphs[ga_num]:
+                continue
+            
+            new_paras = new_paragraphs[ga_num][lecture_num]
+            
+            for old_id, old_text in old_paras.items():
+                best_score = 0
+                best_new_id = None
+                
+                for new_id, new_text in new_paras:
+                    score = text_similarity(old_text, new_text)
+                    if score > best_score:
+                        best_score = score
+                        best_new_id = new_id
+                
+                if best_new_id and best_score >= min_similarity:
+                    # Nur wenn ID sich geändert hat
+                    if old_id != best_new_id:
+                        mapping[(ga_num, lecture_num, old_id)] = best_new_id
+    
+    return mapping
+
+def sync_keywords_database(project_root, mapping):
+    """Aktualisiert keywords-database.json mit neuen IDs"""
+    db_path = os.path.join(project_root, 'keywords-database.json')
+    
+    if not os.path.exists(db_path):
+        return 0
+    
+    try:
+        with open(db_path, 'r', encoding='utf-8') as f:
+            db = json.load(f)
+        
+        updated = 0
+        
+        for lecture_id, data in db.items():
+            ga_match = re.match(r'(GA\d{3}[a-z]?)/(\d+)', lecture_id, re.IGNORECASE)
+            if not ga_match:
+                continue
+            
+            ga_num = ga_match.group(1).upper()
+            lecture_num = ga_match.group(2)
+            
+            for kw in data.get('keywords', []):
+                old_id = kw.get('index', '').lstrip('^')
+                if old_id:
+                    key = (ga_num, lecture_num, old_id)
+                    if key in mapping:
+                        kw['index'] = f"^{mapping[key]}"
+                        updated += 1
+        
+        if updated > 0:
+            with open(db_path, 'w', encoding='utf-8') as f:
+                json.dump(db, f, ensure_ascii=False, indent=2)
+        
+        return updated
+    
+    except Exception as e:
+        print(f"    [!] Fehler bei keywords-database: {e}")
+        return 0
+
+def sync_summary_database(project_root, mapping):
+    """Aktualisiert summary-database.json mit neuen IDs (tableOfContents, headings, lectureKeywords)"""
+    db_path = os.path.join(project_root, 'summary-database.json')
+    
+    if not os.path.exists(db_path):
+        return 0
+    
+    try:
+        with open(db_path, 'r', encoding='utf-8') as f:
+            db = json.load(f)
+        
+        updated = 0
+        
+        for lecture_id, data in db.items():
+            ga_match = re.match(r'(GA\d{3}[a-z]?)/(\d+)', lecture_id, re.IGNORECASE)
+            if not ga_match:
+                continue
+            
+            ga_num = ga_match.group(1).upper()
+            lecture_num = ga_match.group(2)
+            
+            # tableOfContents
+            for toc in data.get('tableOfContents', []):
+                old_id = toc.get('index', '').lstrip('^')
+                if old_id:
+                    key = (ga_num, lecture_num, old_id)
+                    if key in mapping:
+                        toc['index'] = f"^{mapping[key]}"
+                        updated += 1
+            
+            # headings
+            for heading in data.get('headings', []):
+                if isinstance(heading, dict):
+                    old_id = heading.get('index', '').lstrip('^')
+                    if old_id:
+                        key = (ga_num, lecture_num, old_id)
+                        if key in mapping:
+                            heading['index'] = f"^{mapping[key]}"
+                            updated += 1
+            
+            # lectureKeywords
+            for kw in data.get('lectureKeywords', []):
+                old_id = kw.get('index', '').lstrip('^')
+                if old_id:
+                    key = (ga_num, lecture_num, old_id)
+                    if key in mapping:
+                        kw['index'] = f"^{mapping[key]}"
+                        updated += 1
+        
+        if updated > 0:
+            with open(db_path, 'w', encoding='utf-8') as f:
+                json.dump(db, f, ensure_ascii=False, indent=2)
+        
+        return updated
+    
+    except Exception as e:
+        print(f"    [!] Fehler bei summary-database: {e}")
+        return 0
+
+def sync_concepts_database(project_root, mapping):
+    """Aktualisiert concepts-database.json mit neuen IDs"""
+    db_path = os.path.join(project_root, 'concepts-database.json')
+    
+    if not os.path.exists(db_path):
+        return 0
+    
+    try:
+        with open(db_path, 'r', encoding='utf-8') as f:
+            db = json.load(f)
+        
+        updated = 0
+        
+        # Pattern für Referenzen: (GA210/1:^abc123)
+        ref_pattern = re.compile(r'\((GA\d{3}[a-z]?)/(\d+):\^?([a-z0-9]+)\)', re.IGNORECASE)
+        
+        def replace_ref(match):
+            nonlocal updated
+            ga_num = match.group(1).upper()
+            lecture_num = match.group(2)
+            old_id = match.group(3)
+            
+            key = (ga_num, lecture_num, old_id)
+            if key in mapping:
+                updated += 1
+                return f"({ga_num}/{lecture_num}:^{mapping[key]})"
+            return match.group(0)
+        
+        for concept in db:
+            # Text-Felder
+            for field in ['text', 'definitionText', 'functionText', 'interactionText', 'specialText']:
+                if field in concept and concept[field]:
+                    concept[field] = ref_pattern.sub(replace_ref, concept[field])
+                
+                overview = concept.get('overview', {})
+                if isinstance(overview, dict) and field in overview and overview[field]:
+                    overview[field] = ref_pattern.sub(replace_ref, overview[field])
+            
+            # Sources
+            for source in concept.get('sources', []):
+                sid = source.get('id', '')
+                ga_match = re.match(r'(GA\d{3}[a-z]?)/(\d+)', sid, re.IGNORECASE)
+                if ga_match:
+                    ga_num = ga_match.group(1).upper()
+                    lecture_num = ga_match.group(2)
+                    old_id = source.get('index', '').lstrip('^')
+                    
+                    if old_id:
+                        key = (ga_num, lecture_num, old_id)
+                        if key in mapping:
+                            source['index'] = f"^{mapping[key]}"
+                            updated += 1
+        
+        if updated > 0:
+            with open(db_path, 'w', encoding='utf-8') as f:
+                json.dump(db, f, ensure_ascii=False, indent=2)
+        
+        return updated
+    
+    except Exception as e:
+        print(f"    [!] Fehler bei concepts-database: {e}")
+        return 0
+
+
+# ============================================================================
 # EXPORT MASTER CLASS
 # ============================================================================
 
@@ -564,6 +897,7 @@ class ExportMaster:
         self.steiner_ga_dir = os.path.join(self.project_root, "Steiner_GA")
         self.steps_completed = []
         self.steps_failed = []
+        self.old_paragraph_cache = {}  # Cache für ID-Synchronisierung
         
     def print_header(self, title):
         """Druckt formatierten Header"""
@@ -794,15 +1128,57 @@ class ExportMaster:
         
         self.print_step(2, 4, "Lectures und Bilder exportieren (gesplittet)")
         
+        # WICHTIG: Cache alte Paragraphen-IDs VOR dem Export
+        print("  [1/3] Cache alte Paragraphen-IDs...")
+        self.old_paragraph_cache = cache_old_paragraphs(self.project_root, ga_bands)
+        cached_ga = len(self.old_paragraph_cache)
+        cached_total = sum(
+            sum(len(paras) for paras in lectures.values()) 
+            for lectures in self.old_paragraph_cache.values()
+        )
+        print(f"        {cached_ga} GA-Bände, {cached_total} Paragraphen gecached")
+        print()
+        
         if ga_bands:
             command = ["node", "export-lectures.js"] + ga_bands
-            print(f"Exportiere GA-Baende: {', '.join(ga_bands)}\n")
+            print(f"  [2/3] Exportiere GA-Baende: {', '.join(ga_bands)}\n")
         else:
             # Kompletter Export (ohne GA-Parameter = ALLE)
             command = ["node", "export-lectures.js"]
-            print("Exportiere ALLE GA-Baende\n")
+            print("  [2/3] Exportiere ALLE GA-Baende\n")
         
-        return self.run_command(command, "Lecture-Export", shell=True)
+        export_success = self.run_command(command, "Lecture-Export", shell=True)
+        
+        if not export_success:
+            return False
+        
+        # NACH dem Export: ID-Synchronisierung durchführen
+        print("\n  [3/3] Synchronisiere ID-Verknüpfungen...")
+        
+        if hasattr(self, 'old_paragraph_cache') and self.old_paragraph_cache:
+            # Erstelle Mapping alte → neue ID
+            mapping = build_id_mapping(self.old_paragraph_cache, self.project_root, ga_bands)
+            
+            if mapping:
+                print(f"        {len(mapping)} ID-Änderungen gefunden")
+                
+                # Synchronisiere Datenbanken
+                kw_updated = sync_keywords_database(self.project_root, mapping)
+                summary_updated = sync_summary_database(self.project_root, mapping)
+                concepts_updated = sync_concepts_database(self.project_root, mapping)
+                
+                total_updated = kw_updated + summary_updated + concepts_updated
+                print(f"        Aktualisiert: {kw_updated} Keywords, {summary_updated} Summary, {concepts_updated} Concepts")
+                print(f"        Gesamt: {total_updated} Verknüpfungen synchronisiert")
+                
+                if total_updated > 0:
+                    self.steps_completed.append(f"ID-Sync ({total_updated} Links)")
+            else:
+                print("        Keine ID-Änderungen (Texte identisch oder keine Matches)")
+        else:
+            print("        Kein Cache vorhanden, Synchronisierung übersprungen")
+        
+        return True
     
     def step3_split_images(self):
         """Schritt 3: steiner-images.json in kleinere Dateien splitten"""
@@ -968,6 +1344,7 @@ class ExportMaster:
         
         skip_path_fix = options.get('skip_path_fix', False)
         restart_server = options.get('restart_server', False)
+        no_confirm = options.get('no_confirm', False)
         
         # Start
         start_time = time.time()
@@ -985,15 +1362,19 @@ class ExportMaster:
         print(f"\nOptionen:")
         print(f"  Bildpfad-Korrektur: {'NEIN' if skip_path_fix else 'JA'}")
         print(f"  Server-Neustart: {'JA' if restart_server else 'NEIN'}")
+        print(f"  Interaktiv: {'NEIN' if no_confirm else 'JA'}")
         
         # Schritt 1: Bildpfade korrigieren (nur für angegebene GA-Bände)
         if not self.step1_fix_image_paths(skip=skip_path_fix, ga_bands=ga_bands):
             print("\nWarnung: Bildpfad-Korrektur fehlgeschlagen")
-            print("   Moechten Sie trotzdem fortfahren? (j/n): ", end='')
-            response = input().lower()
-            if response not in ['j', 'ja', 'y', 'yes']:
-                print("\nExport abgebrochen.")
-                return False
+            if no_confirm:
+                print("   --no-confirm: Fahre trotzdem fort...")
+            else:
+                print("   Moechten Sie trotzdem fortfahren? (j/n): ", end='')
+                response = input().lower()
+                if response not in ['j', 'ja', 'y', 'yes']:
+                    print("\nExport abgebrochen.")
+                    return False
         
         # Schritt 2a: Bücher exportieren (GA001-GA050)
         if not self.step2_export_books(ga_bands):
@@ -1049,7 +1430,8 @@ def parse_arguments():
     ga_bands = []
     options = {
         'skip_path_fix': False,
-        'restart_server': False
+        'restart_server': False,
+        'no_confirm': False
     }
     
     for arg in args:
@@ -1059,6 +1441,8 @@ def parse_arguments():
                 options['skip_path_fix'] = True
             elif arg == '--restart-server':
                 options['restart_server'] = True
+            elif arg == '--no-confirm':
+                options['no_confirm'] = True
             elif arg == '--help' or arg == '-h':
                 print(__doc__)
                 sys.exit(0)

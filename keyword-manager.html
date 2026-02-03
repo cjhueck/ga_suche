@@ -434,9 +434,69 @@
     <div class="container">
         <div class="page-title">
             Keyword Manager
-            <button class="btn btn-success" onclick="showBackupPanel()" style="float: right; width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
-                Backup-Verwaltung
-            </button>
+            <div style="float: right; display: flex; gap: 8px;">
+                <button class="btn btn-primary" onclick="showRegeneratePanel()" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                    GA-Keywords regenerieren
+                </button>
+                <button class="btn btn-success" onclick="showBackupPanel()" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                    Backup-Verwaltung
+                </button>
+            </div>
+        </div>
+
+        <!-- Regenerate Keywords Panel (Modal) -->
+        <div id="regenerateModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; padding: 20px; overflow: auto;">
+            <div style="max-width: 900px; margin: 40px auto; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid var(--border-color);">
+                    <h2 style="color: var(--heading-color); font-size: 1.2rem; margin: 0;">Keywords für GA-Bände regenerieren</h2>
+                    <button class="btn btn-primary" onclick="closeRegeneratePanel()" style="width: auto; padding: 4px 12px; margin: 0;">Schließen</button>
+                </div>
+                
+                <div style="margin-bottom: 15px; padding: 10px; background: #fff3cd; border-radius: 4px; font-size: 0.85rem;">
+                    <strong>Hinweis:</strong> Die Regenerierung löscht zunächst alle bestehenden Keywords für die ausgewählten GA-Bände 
+                    und generiert sie dann über das Backend neu. Dies kann einige Minuten dauern.
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 500;">GA-Bände auswählen:</label>
+                        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                            <button class="btn btn-primary" onclick="selectAllGA()" style="width: auto; padding: 4px 10px; margin: 0; font-size: 0.8rem;">Alle</button>
+                            <button class="btn btn-primary" onclick="deselectAllGA()" style="width: auto; padding: 4px 10px; margin: 0; font-size: 0.8rem;">Keine</button>
+                            <input type="text" id="gaFilterInput" placeholder="Filter (z.B. 210)" style="flex: 1; padding: 4px 8px; border: 1px solid var(--border-color); border-radius: 3px; font-size: 0.85rem;" oninput="filterGAList()">
+                        </div>
+                        <div id="gaVolumesList" style="border: 1px solid var(--border-color); border-radius: 4px; max-height: 300px; overflow-y: auto; padding: 5px;">
+                            <div class="loading"><div class="spinner"></div>Lade GA-Bände...</div>
+                        </div>
+                        <div style="margin-top: 8px; font-size: 0.8rem; color: var(--secondary-text);">
+                            Ausgewählt: <strong id="selectedGACount">0</strong> Bände
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 500;">Fortschritt:</label>
+                        <div id="regenerateProgress" style="border: 1px solid var(--border-color); border-radius: 4px; padding: 15px; min-height: 300px; background: #f8f9fa; overflow-y: auto;">
+                            <div style="color: var(--secondary-text); text-align: center; padding: 20px;">
+                                Wähle GA-Bände aus und klicke auf "Regenerieren"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border-color);">
+                    <div style="font-size: 0.85rem; color: var(--secondary-text);">
+                        Batches: 5 Vorträge parallel
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-danger" id="cancelRegenerateBtn" onclick="cancelRegeneration()" style="width: auto; padding: 6px 15px; display: none;">
+                            Abbrechen
+                        </button>
+                        <button class="btn btn-success" id="startRegenerateBtn" onclick="startRegeneration()" style="width: auto; padding: 6px 15px;">
+                            Regenerieren starten
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Backup Panel (Modal) -->
@@ -2225,6 +2285,322 @@
                 console.error('Fehler bei Wiederherstellung:', error);
                 showToast('Fehler bei Wiederherstellung', 'error');
             }
+        }
+
+        // ============================================================================
+        // GA-KEYWORDS REGENERIERUNG
+        // ============================================================================
+
+        let gaVolumesData = [];
+        let selectedGAVolumes = new Set();
+        let regenerationCancelled = false;
+        let isRegenerating = false;
+
+        function showRegeneratePanel() {
+            document.getElementById('regenerateModal').style.display = 'block';
+            loadGAVolumes();
+        }
+
+        function closeRegeneratePanel() {
+            if (isRegenerating) {
+                if (!confirm('Regenerierung läuft noch. Wirklich schließen?')) {
+                    return;
+                }
+                regenerationCancelled = true;
+            }
+            document.getElementById('regenerateModal').style.display = 'none';
+            selectedGAVolumes.clear();
+            updateSelectedGACount();
+        }
+
+        async function loadGAVolumes() {
+            const container = document.getElementById('gaVolumesList');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Lade GA-Bände...</div>';
+            
+            try {
+                // Lade verfügbare GA-Bände
+                const response = await fetch(`${API_BASE}/keywords/available-ga-volumes`);
+                const data = await response.json();
+                
+                gaVolumesData = data.volumes || [];
+                
+                if (gaVolumesData.length === 0) {
+                    container.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Keine GA-Bände gefunden</div>';
+                    return;
+                }
+                
+                renderGAVolumesList(gaVolumesData);
+            } catch (error) {
+                console.error('Fehler beim Laden der GA-Bände:', error);
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: #dc3545;">Fehler beim Laden</div>';
+            }
+        }
+
+        function renderGAVolumesList(volumes) {
+            const container = document.getElementById('gaVolumesList');
+            
+            container.innerHTML = volumes.map(vol => {
+                const gaNum = vol.volume || vol.gaNumber;
+                const gaDisplay = gaNum.toUpperCase();
+                const hasKW = vol.hasKeywords || vol.isComplete;
+                const isSelected = selectedGAVolumes.has(gaNum);
+                
+                return `
+                <label style="display: flex; align-items: center; padding: 6px 8px; cursor: pointer; border-bottom: 1px solid #eee; ${isSelected ? 'background: #e8f0f2;' : ''}" 
+                       onmouseover="this.style.background='#f5f5f5'" 
+                       onmouseout="this.style.background='${isSelected ? '#e8f0f2' : ''}'">
+                    <input type="checkbox" 
+                           value="${gaNum}" 
+                           ${isSelected ? 'checked' : ''} 
+                           onchange="toggleGAVolume('${gaNum}')"
+                           style="margin-right: 8px; cursor: pointer;">
+                    <span style="flex: 1; font-size: 0.85rem;">
+                        <strong>${gaDisplay}</strong>
+                        <span style="color: var(--secondary-text);"> - ${vol.lectureCount} Vorträge</span>
+                    </span>
+                    <span style="font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; background: ${hasKW ? '#d4edda' : '#f8d7da'}; color: ${hasKW ? '#155724' : '#721c24'};">
+                        ${hasKW ? (vol.isComplete ? '✓' : '~') : '✗'}
+                    </span>
+                </label>
+            `}).join('');
+        }
+
+        function toggleGAVolume(gaNumber) {
+            if (selectedGAVolumes.has(gaNumber)) {
+                selectedGAVolumes.delete(gaNumber);
+            } else {
+                selectedGAVolumes.add(gaNumber);
+            }
+            updateSelectedGACount();
+            
+            // Aktualisiere visuell
+            const filter = document.getElementById('gaFilterInput').value;
+            const filtered = filter 
+                ? gaVolumesData.filter(v => v.gaNumber.toLowerCase().includes(filter.toLowerCase()))
+                : gaVolumesData;
+            renderGAVolumesList(filtered);
+        }
+
+        function selectAllGA() {
+            const filter = document.getElementById('gaFilterInput').value;
+            const filtered = filter 
+                ? gaVolumesData.filter(v => (v.volume || v.gaNumber).toLowerCase().includes(filter.toLowerCase()))
+                : gaVolumesData;
+            
+            filtered.forEach(v => selectedGAVolumes.add(v.volume || v.gaNumber));
+            updateSelectedGACount();
+            renderGAVolumesList(filtered);
+        }
+
+        function deselectAllGA() {
+            const filter = document.getElementById('gaFilterInput').value;
+            const filtered = filter 
+                ? gaVolumesData.filter(v => (v.volume || v.gaNumber).toLowerCase().includes(filter.toLowerCase()))
+                : gaVolumesData;
+            
+            filtered.forEach(v => selectedGAVolumes.delete(v.volume || v.gaNumber));
+            updateSelectedGACount();
+            renderGAVolumesList(filtered);
+        }
+
+        function filterGAList() {
+            const filter = document.getElementById('gaFilterInput').value.toLowerCase();
+            const filtered = gaVolumesData.filter(v => 
+                (v.volume || v.gaNumber).toLowerCase().includes(filter)
+            );
+            renderGAVolumesList(filtered);
+        }
+
+        function updateSelectedGACount() {
+            document.getElementById('selectedGACount').textContent = selectedGAVolumes.size;
+        }
+
+        async function startRegeneration() {
+            if (selectedGAVolumes.size === 0) {
+                showToast('Bitte mindestens einen GA-Band auswählen', 'error');
+                return;
+            }
+            
+            const gaNumbers = Array.from(selectedGAVolumes).sort();
+            
+            if (!confirm(`Keywords für ${gaNumbers.length} GA-Bände regenerieren?\n\n${gaNumbers.join(', ')}\n\nDies wird alle bestehenden Keywords für diese Bände löschen und neu generieren.`)) {
+                return;
+            }
+            
+            isRegenerating = true;
+            regenerationCancelled = false;
+            
+            const progressContainer = document.getElementById('regenerateProgress');
+            const startBtn = document.getElementById('startRegenerateBtn');
+            const cancelBtn = document.getElementById('cancelRegenerateBtn');
+            
+            startBtn.disabled = true;
+            startBtn.textContent = 'Läuft...';
+            cancelBtn.style.display = 'inline-block';
+            
+            progressContainer.innerHTML = '<div style="font-weight: 500; margin-bottom: 10px;">Starte Regenerierung...</div>';
+            
+            let totalLectures = 0;
+            let processedLectures = 0;
+            let totalKeywords = 0;
+            let errors = [];
+            
+            try {
+                for (const gaNumber of gaNumbers) {
+                    if (regenerationCancelled) {
+                        addProgressLine(progressContainer, `Abgebrochen bei ${gaNumber}`, 'warning');
+                        break;
+                    }
+                    
+                    addProgressLine(progressContainer, `\n=== ${gaNumber.toUpperCase()} ===`, 'header');
+                    
+                    // Hole Vorträge für diesen GA-Band
+                    const volData = gaVolumesData.find(v => (v.volume || v.gaNumber) === gaNumber);
+                    if (!volData || !volData.lectures || volData.lectures.length === 0) {
+                        addProgressLine(progressContainer, `Keine Vorträge gefunden`, 'error');
+                        continue;
+                    }
+                    
+                    const lectures = volData.lectures;
+                    totalLectures += lectures.length;
+                    
+                    addProgressLine(progressContainer, `${lectures.length} Vorträge gefunden`, 'info');
+                    
+                    // Verarbeite in Batches von 5
+                    const BATCH_SIZE = 5;
+                    for (let i = 0; i < lectures.length; i += BATCH_SIZE) {
+                        if (regenerationCancelled) break;
+                        
+                        const batch = lectures.slice(i, i + BATCH_SIZE);
+                        const batchNum = Math.floor(i / BATCH_SIZE) + 1;
+                        const totalBatches = Math.ceil(lectures.length / BATCH_SIZE);
+                        
+                        addProgressLine(progressContainer, `Batch ${batchNum}/${totalBatches}: ${batch.join(', ')}...`, 'info');
+                        
+                        // Parallel regenerieren
+                        const results = await Promise.allSettled(
+                            batch.map(lectureId => regenerateLecture(lectureId))
+                        );
+                        
+                        // Ergebnisse auswerten
+                        results.forEach((result, idx) => {
+                            const lectureId = batch[idx];
+                            processedLectures++;
+                            
+                            if (result.status === 'fulfilled' && result.value.success) {
+                                const kwCount = result.value.keywordCount || 0;
+                                totalKeywords += kwCount;
+                                addProgressLine(progressContainer, `  ✓ ${lectureId}: ${kwCount} Keywords`, 'success');
+                            } else {
+                                const errorMsg = result.status === 'rejected' 
+                                    ? result.reason 
+                                    : (result.value?.error || 'Unbekannter Fehler');
+                                errors.push({ lectureId, error: errorMsg });
+                                addProgressLine(progressContainer, `  ✗ ${lectureId}: ${errorMsg}`, 'error');
+                            }
+                        });
+                        
+                        // Kurze Pause zwischen Batches
+                        if (i + BATCH_SIZE < lectures.length && !regenerationCancelled) {
+                            await sleep(500);
+                        }
+                    }
+                }
+                
+                // Zusammenfassung
+                addProgressLine(progressContainer, `\n=== FERTIG ===`, 'header');
+                addProgressLine(progressContainer, `Verarbeitet: ${processedLectures}/${totalLectures} Vorträge`, 'info');
+                addProgressLine(progressContainer, `Keywords generiert: ${totalKeywords}`, 'success');
+                if (errors.length > 0) {
+                    addProgressLine(progressContainer, `Fehler: ${errors.length}`, 'error');
+                }
+                
+                showToast(`Regenerierung abgeschlossen: ${totalKeywords} Keywords`, 'success');
+                
+                // Lade Keywords neu
+                await loadClusters();
+                await loadKeywords();
+                
+            } catch (error) {
+                console.error('Fehler bei Regenerierung:', error);
+                addProgressLine(progressContainer, `Schwerwiegender Fehler: ${error.message}`, 'error');
+                showToast('Fehler bei der Regenerierung', 'error');
+            } finally {
+                isRegenerating = false;
+                startBtn.disabled = false;
+                startBtn.textContent = 'Regenerieren starten';
+                cancelBtn.style.display = 'none';
+            }
+        }
+
+        async function regenerateLecture(lectureId) {
+            try {
+                const response = await fetch(`${API_BASE}/summarize-lecture`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        lectureId: lectureId,
+                        forceRegenerate: true 
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    return { success: false, error: errorData.error || `HTTP ${response.status}` };
+                }
+                
+                const data = await response.json();
+                return { 
+                    success: true, 
+                    keywordCount: data.lectureKeywords?.length || 0,
+                    fromCache: data.fromCache || false
+                };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        function addProgressLine(container, text, type = 'info') {
+            const line = document.createElement('div');
+            line.style.fontSize = '0.8rem';
+            line.style.padding = '2px 0';
+            line.style.fontFamily = 'monospace';
+            
+            switch (type) {
+                case 'header':
+                    line.style.fontWeight = 'bold';
+                    line.style.color = 'var(--heading-color)';
+                    line.style.marginTop = '10px';
+                    break;
+                case 'success':
+                    line.style.color = '#28a745';
+                    break;
+                case 'error':
+                    line.style.color = '#dc3545';
+                    break;
+                case 'warning':
+                    line.style.color = '#ffc107';
+                    break;
+                default:
+                    line.style.color = 'var(--secondary-text)';
+            }
+            
+            line.textContent = text;
+            container.appendChild(line);
+            
+            // Auto-scroll
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function cancelRegeneration() {
+            if (confirm('Regenerierung wirklich abbrechen?')) {
+                regenerationCancelled = true;
+                showToast('Regenerierung wird abgebrochen...', 'info');
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
     </script>
 </body>
