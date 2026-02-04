@@ -1,132 +1,82 @@
 {
-  "ga": "GA002",
-  "sourceFile": "steiner-books-002-002.json",
+  "ga": "GA228",
+  "sourceFile": "steiner-full-lectures-001-354-part12.json",
   "anchorsFile": "page-break-markers.json",
-  "breaksTotal": 170,
-  "breaksWithPage": 170,
-  "inserted": 138,
-  "insertedRatio": 0.8117647058823529,
-  "failed": 32,
+  "breaksTotal": 190,
+  "breaksWithPage": 190,
+  "inserted": -68,
+  "insertedRatio": -0.35789473684210527,
+  "failed": 14,
   "failuresSample": [
     {
-      "page": 144,
+      "page": 99,
       "reason": "no-match",
-      "left": ".» Die Ideen dieser Phi- losophie sind später weiter entwickelt worden in meiner",
-      "right": "«Philosophie der Freiheit» (Philosophisch-Anthroposophi- scher Verlag). Zu Seite"
+      "lecture": 3
     },
     {
-      "page": 145,
+      "page": 101,
       "reason": "no-match",
-      "left": "ich aufgefunden worden und der Weimarischen Goethe-Ausgabe eingefügt worden ist.",
-      "right": "dieser Ausgabe Textgrundlagen Textkorrekturen Namenregister Sachregister Weitere"
+      "lecture": 3
     },
     {
-      "page": 146,
+      "page": 126,
       "reason": "no-match",
-      "left": " Bibliographischer Nachweis bisheriger Ausgaben Die Rudolf Steiner Gesamtausgabe",
-      "right": ""
+      "lecture": 0
+    },
+    {
+      "page": 132,
+      "reason": "no-match",
+      "lecture": 0
     },
     {
       "page": 147,
       "reason": "no-match",
-      "left": "",
-      "right": "Zu dieser Ausgabe Der vorliegende Band enthält die erste selbständige Buchpubli-"
-    },
-    {
-      "page": 148,
-      "reason": "no-match",
-      "left": "gabe letzter Hand (A1H), überprüft worden. Sie ist die letzte von Rudolf Steiner",
-      "right": "selbst autorisierte und herausgegebene und daher maßgebend. Alle seit dieser Aus"
-    },
-    {
-      "page": 149,
-      "reason": "no-match",
-      "left": " wesentlich ergänzt und erweitert worden; zitiert wird, wenn immer möglich, nach",
-      "right": "den in Rudolf Steiners Bibliothek vorhandenen Ausgaben. Ver- vollständigt wurde "
+      "lecture": 1
     },
     {
       "page": 150,
       "reason": "no-match",
-      "left": "Satz S. 123 in der vorliegenden Ausgabe, «Man glaubt die Verfassung aller Völker",
-      "right": "nach einer gewissen Schablone einrichten zu können», und lautet in der AlH: «13 "
-    },
-    {
-      "page": 151,
-      "reason": "no-match",
-      "left": "ckt; die Berichtigungen sind bereits in früheren Ausgaben berücksichtigt worden.",
-      "right": "Herausgeberkorrekturen in der 8. Auflage 2003 gegenüber dem Text der 7. Auflage "
-    },
-    {
-      "page": 152,
-      "reason": "no-match",
-      "left": " Steiners Anmerkun- gen durch den Herausgeber sind in [eckige Klammern] gesetzt.",
-      "right": "Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen m"
+      "lecture": 1
     },
     {
       "page": 153,
       "reason": "no-match",
-      "left": " der atomisti- schen Begriffe» mit einem Begleitbrief an Vischer gesandt. - Ver-",
-      "right": "öffentlichung des Aufsatzes und Begleitbriefes in «Beiträge zur Rudolf Steiner G"
+      "lecture": 1
     },
     {
-      "page": 154,
+      "page": 179,
       "reason": "no-match",
-      "left": "nahme» (mit dem Datum: 20. Februar) veröffentlichte. «Goethes Naturwissenschaft-",
-      "right": "liehe Schriften», a.a.O., in Band V, S. 272-275, mit Anmerkungen R. Steiners. - "
+      "lecture": 5
     },
     {
-      "page": 155,
+      "page": 180,
       "reason": "no-match",
-      "left": "(Schlußkapitel). «Die Theorie an und für sich ist nichts nütze»: «Goethes Natur-",
-      "right": "wissenschaftliche Schriften», a.a.O., Band V: «Sprüche in Prosa», S. 357. 28 « W"
+      "lecture": 5
     },
     {
-      "page": 156,
+      "page": 182,
       "reason": "no-match",
-      "left": "Wörtlich: «daß alle Akte, die darauf Anspruch machen, ein objektives Erkennen zu",
-      "right": "sein, unabtrennbar an das erkennende individuelle Bewußtsein gebunden sind, daß "
+      "lecture": 5
     },
     {
-      "page": 158,
+      "page": 183,
       "reason": "no-match",
-      "left": "u etwas nützt: Vgl. Eckermann, «Gespräche mit Goethe», 20. Februar 1831: «Solche",
-      "right": "Nützlichkeitslehrer sagen wohl: der Ochse habe Hörner um sich damit zu wehren. N"
+      "lecture": 5
     },
     {
-      "page": 159,
+      "page": 189,
       "reason": "no-match",
-      "left": "ed States of America», volume I, part I: «Essay on classification», Boston 1857;",
-      "right": "vgl. Haeckels Auseinandersetzung mit Agassiz in: «Natürliche Schöpfungsgeschicht"
+      "lecture": 5
     },
     {
-      "page": 160,
+      "page": 190,
       "reason": "no-match",
-      "left": "825, Bd. III (1816), S. XX; vgl. auch Jacobi, «Von göttlichen Dingen», im selben",
-      "right": "Band, z. B. S. 317: «Eine solche unmittelbare, positive Wahrheit entdeckt sich u"
+      "lecture": 5
     },
     {
-      "page": 161,
+      "page": 192,
       "reason": "no-match",
-      "left": "nge (1828-1875) prägte den Ausdruck «Psychologie ohne Seele» in: «Geschichte des",
-      "right": "Materialismus und Kritik seiner Bedeutung in der Gegenwart», Iserlohn 1866; Zwei"
-    },
-    {
-      "page": 162,
-      "reason": "no-match",
-      "left": "von selbst im Gemüte Eingang findet, und doch sich selbst wider Willen Verehrung",
-      "right": "(wenn gleich nicht immer Befolgung) erwirbt, vor dem alle Nei- gungen verstummen"
-    },
-    {
-      "page": 163,
-      "reason": "no-match",
-      "left": "n.» Hier zit. n. der Ausgabe Leipzig 1921, S. 284. Vgl. auch «Goethes Gespräche.",
-      "right": "Herausgegeben von Woldemar Freiherr von Biedermann, 10 Bän- de, Leipzig 1889-189"
-    },
-    {
-      "page": 164,
-      "reason": "no-match",
-      "left": "das Studium philo- sophischer Werke», Leipzig 1878, 3. verbesserte Aufl., S. 67.",
-      "right": "Zu Anm. 11: Zu Goethes zweitem Aufsatz vgl. oben Hinweis zu S. 94. Es heißt da ("
+      "lecture": 5
     }
   ]
 }

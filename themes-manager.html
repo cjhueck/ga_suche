@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Themen Manager</title>
+    <style>
+        :root {
+            --text-color: #333333;
+            --heading-color: #467886;
+            --accent-color: #467886;
+            --background-color: #ffffff;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --text-size: 0.9rem;
+            --heading-size: 0.95rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+            font-size: var(--text-size);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: var(--background-color);
+        }
+
+        .page-title {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            max-width: 100%;
+            height: calc(100vh - 100px);
+        }
+
+        .panel {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h2 {
+            color: var(--heading-color);
+            font-size: var(--heading-size);
+            font-weight: 600;
+        }
+
+        .stats {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            transition: border-color 0.3s;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .list-container {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            background: var(--background-color);
+        }
+
+        .list-item {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+            font-size: 0.85rem;
+        }
+
+        .list-item:hover {
+            background: #f5f5f5;
+        }
+
+        .list-item.selected {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .theme-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-name {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .theme-count {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            background: #e8f0f2;
+            color: var(--accent-color);
+            margin-left: 8px;
+        }
+
+        .list-item.selected .theme-count {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 6px;
+        }
+
+        .btn-primary { background: var(--accent-color); color: white; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #218838; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--accent-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 3px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-success { border-left: 4px solid #10b981; }
+        .toast-error { border-left: 4px solid #ef4444; }
+        .toast-info { border-left: 4px solid #667eea; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a5c66; }
+
+        .action-group {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+
+        .action-group h3 {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 8px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 0.85rem;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .keyword-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 10px;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .keyword-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            background: #e8f0f2;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .keyword-chip:hover {
+            background: #d0e0e5;
+        }
+
+        .keyword-chip.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .keyword-chip .remove-btn {
+            margin-left: 6px;
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.7;
+        }
+
+        .keyword-chip .remove-btn:hover {
+            opacity: 1;
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-section h4 {
+            color: var(--heading-color);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .detail-section p {
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-title">
+            Themen Manager
+            <div style="float: right; display: flex; gap: 8px;">
+                <a href="keyword-manager.html" class="btn btn-primary" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center;">
+                    Keywords Manager
+                </a>
+                <a href="concepts-manager.html" class="btn btn-primary" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center;">
+                    Concepts Manager
+                </a>
+                <a href="app.html" class="btn btn-success" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center;">
+                    Zurück zur App
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- LINKE SPALTE: Themen Liste -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Themenschwerpunkte</h2>
+                    <span class="stats" id="themeStats">0 Themen</span>
+                </div>
+                
+                <input type="text" class="search-box" id="themeSearch" placeholder="🔍 Themen durchsuchen...">
+                
+                <div class="list-container" id="themesList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Lade Themen...
+                    </div>
+                </div>
+            </div>
+
+            <!-- MITTLERE SPALTE: Schlagwörter des Themas -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Schlagwörter</h2>
+                    <span class="stats" id="keywordStats">Thema auswählen</span>
+                </div>
+                
+                <div id="keywordChipsContainer" class="keyword-chips" style="flex: 1; border: 1px solid var(--border-color); border-radius: 3px;">
+                    <p style="color: var(--secondary-text); text-align: center; width: 100%; padding: 20px;">
+                        Wählen Sie ein Thema aus der Liste
+                    </p>
+                </div>
+                
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="newKeywordInput" placeholder="Neues Schlagwort..." style="flex: 1; padding: 6px 8px; border: 1px solid var(--border-color); border-radius: 3px; font-size: 0.85rem;">
+                        <button class="btn btn-success" onclick="addKeywordToTheme()" style="width: auto; padding: 6px 12px; margin: 0;">
+                            Hinzufügen
+                        </button>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <button class="btn btn-primary" onclick="saveThemeKeywords()" id="saveKeywordsBtn" disabled>
+                            Änderungen speichern
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECHTE SPALTE: Aktionen -->
+            <div class="panel actions-panel">
+                <div class="panel-header">
+                    <h2>Thema bearbeiten</h2>
+                </div>
+
+                <div style="flex-shrink: 0; margin-bottom: 10px; padding: 8px; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">
+                    <strong>Ausgewählt:</strong> <span id="selectedThemeName">Kein Thema</span>
+                </div>
+
+                <div style="flex: 1; overflow-y: auto;">
+                    <!-- Thema umbenennen -->
+                    <div class="action-group">
+                        <h3>Umbenennen</h3>
+                        <div class="input-group">
+                            <label>Neuer Name:</label>
+                            <input type="text" id="renameThemeInput" placeholder="Neuen Namen eingeben">
+                        </div>
+                        <button class="btn btn-primary" onclick="renameTheme()" id="renameBtn" disabled>
+                            Umbenennen
+                        </button>
+                    </div>
+
+                    <!-- Thema löschen -->
+                    <div class="action-group">
+                        <h3>Löschen</h3>
+                        <button class="btn btn-danger" onclick="deleteTheme()" id="deleteBtn" disabled>
+                            Thema löschen
+                        </button>
+                        <p style="font-size: 0.75rem; color: var(--secondary-text); margin-top: 6px;">
+                            Alle Schlagwörter werden ebenfalls entfernt.
+                        </p>
+                    </div>
+
+                    <!-- Neues Thema -->
+                    <div class="action-group">
+                        <h3>Neues Thema erstellen</h3>
+                        <div class="input-group">
+                            <label>Themenname:</label>
+                            <input type="text" id="newThemeName" placeholder="z.B. Temperamente">
+                        </div>
+                        <div class="input-group">
+                            <label>Beschreibung:</label>
+                            <input type="text" id="newThemeDesc" placeholder="Optional">
+                        </div>
+                        <div class="input-group">
+                            <label>Schlagwörter (Leerzeichen-getrennt):</label>
+                            <textarea id="newThemeKeywords" placeholder="Temperament Sanguiniker Choleriker Melancholiker"></textarea>
+                        </div>
+                        <button class="btn btn-success" onclick="createTheme()">
+                            Thema erstellen
+                        </button>
+                    </div>
+
+                    <!-- KI-Cluster-Generierung -->
+                    <div class="action-group">
+                        <h3>🤖 Themen mit KI generieren</h3>
+                        <p style="font-size: 0.75rem; color: var(--secondary-text); margin-bottom: 8px;">
+                            Generiert thematische Cluster aus den Seed-Keywords mit Claude API.
+                        </p>
+                        <button class="btn btn-primary" onclick="generateThematicClusters()" id="generateClustersBtn">
+                            Cluster generieren
+                        </button>
+                        <button class="btn" onclick="loadExistingClusters()" style="background: #6c757d; color: white; margin-top: 4px;">
+                            Existierende laden
+                        </button>
+                        <div id="clustersStatus" style="display: none; margin-top: 8px; font-size: 0.85rem;"></div>
+                    </div>
+
+                    <!-- Statistiken -->
+                    <div class="action-group">
+                        <h3>Statistiken</h3>
+                        <div id="statsContainer" style="font-size: 0.85rem; line-height: 1.8;">
+                            <div>Total Themen: <strong id="totalThemes">-</strong></div>
+                            <div>Total Schlagwörter: <strong id="totalKeywords">-</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KI-Cluster Ergebnisse (Modal/Overlay) -->
+    <div id="clustersResultsOverlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; padding: 20px; overflow-y: auto;">
+        <div style="max-width: 900px; margin: 20px auto; background: var(--background-color); border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: var(--heading-color); margin: 0;">Generierte Themenbereiche</h3>
+                <button onclick="closeClustersOverlay()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary-text);">×</button>
+            </div>
+            <div id="clustersResultsContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3003/api';
+        
+        let allThemes = {};
+        let selectedTheme = null;
+        let originalKeywords = [];
+        let currentKeywords = [];
+        let hasUnsavedChanges = false;
+
+        // Beim Laden
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadThemes();
+            
+            document.getElementById('themeSearch').addEventListener('input', filterThemes);
+            document.getElementById('newKeywordInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') addKeywordToTheme();
+            });
+            document.getElementById('renameThemeInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('renameBtn').disabled) renameTheme();
+            });
+        });
+
+        // Lade alle Themen
+        async function loadThemes() {
+            const container = document.getElementById('themesList');
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes-database`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                allThemes = await response.json();
+                
+                const themeCount = Object.keys(allThemes).length;
+                const totalKw = Object.values(allThemes).reduce((sum, t) => sum + (t.keywords?.length || 0), 0);
+                
+                document.getElementById('themeStats').textContent = `${themeCount} Themen`;
+                document.getElementById('totalThemes').textContent = themeCount;
+                document.getElementById('totalKeywords').textContent = totalKw;
+                
+                renderThemes(Object.keys(allThemes).sort());
+                
+            } catch (error) {
+                console.error('Fehler beim Laden der Themen:', error);
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: #dc3545;">Fehler beim Laden</div>';
+            }
+        }
+
+        // Render Themen Liste
+        function renderThemes(themeNames) {
+            const container = document.getElementById('themesList');
+            
+            if (themeNames.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Themen gefunden</div>';
+                return;
+            }
+            
+            container.innerHTML = themeNames.map(name => {
+                const theme = allThemes[name];
+                const keywordCount = theme.keywords?.length || 0;
+                const isSelected = selectedTheme === name;
+                
+                return `
+                    <div class="list-item ${isSelected ? 'selected' : ''}" onclick="selectTheme('${escapeForAttribute(name)}')">
+                        <div class="theme-info">
+                            <span class="theme-name">${escapeHtml(name)}</span>
+                            <span class="theme-count">${keywordCount} KW</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter Themen
+        function filterThemes() {
+            const search = document.getElementById('themeSearch').value.toLowerCase();
+            const filtered = Object.keys(allThemes).filter(name => 
+                name.toLowerCase().includes(search)
+            ).sort();
+            renderThemes(filtered);
+        }
+
+        // Thema auswählen
+        function selectTheme(themeName) {
+            if (hasUnsavedChanges) {
+                if (!confirm('Ungespeicherte Änderungen verwerfen?')) return;
+            }
+            
+            selectedTheme = themeName;
+            const theme = allThemes[themeName];
+            
+            if (!theme) return;
+            
+            originalKeywords = [...(theme.keywords || [])];
+            currentKeywords = [...originalKeywords];
+            hasUnsavedChanges = false;
+            
+            document.getElementById('selectedThemeName').textContent = themeName;
+            document.getElementById('keywordStats').textContent = `${currentKeywords.length} Schlagwörter`;
+            
+            // Buttons aktivieren
+            document.getElementById('renameBtn').disabled = false;
+            document.getElementById('deleteBtn').disabled = false;
+            document.getElementById('saveKeywordsBtn').disabled = true;
+            
+            renderKeywordChips();
+            renderThemes(Object.keys(allThemes).filter(name => 
+                name.toLowerCase().includes(document.getElementById('themeSearch').value.toLowerCase())
+            ).sort());
+        }
+
+        // Render Keyword Chips
+        function renderKeywordChips() {
+            const container = document.getElementById('keywordChipsContainer');
+            
+            if (currentKeywords.length === 0) {
+                container.innerHTML = '<p style="color: var(--secondary-text); text-align: center; width: 100%; padding: 20px;">Keine Schlagwörter vorhanden</p>';
+                return;
+            }
+            
+            container.innerHTML = currentKeywords.sort().map(kw => `
+                <div class="keyword-chip active" onclick="removeKeyword('${escapeForAttribute(kw)}')">
+                    ${escapeHtml(kw)}
+                    <span class="remove-btn">×</span>
+                </div>
+            `).join('');
+        }
+
+        // Schlagwort entfernen
+        function removeKeyword(keyword) {
+            currentKeywords = currentKeywords.filter(kw => kw !== keyword);
+            hasUnsavedChanges = !arraysEqual(currentKeywords, originalKeywords);
+            document.getElementById('saveKeywordsBtn').disabled = !hasUnsavedChanges;
+            document.getElementById('keywordStats').textContent = `${currentKeywords.length} Schlagwörter`;
+            renderKeywordChips();
+        }
+
+        // Schlagwort hinzufügen
+        function addKeywordToTheme() {
+            if (!selectedTheme) {
+                showToast('Bitte erst ein Thema auswählen', 'error');
+                return;
+            }
+            
+            const input = document.getElementById('newKeywordInput');
+            const keyword = input.value.trim();
+            
+            if (!keyword) return;
+            
+            if (currentKeywords.includes(keyword)) {
+                showToast('Schlagwort existiert bereits', 'info');
+                return;
+            }
+            
+            currentKeywords.push(keyword);
+            hasUnsavedChanges = !arraysEqual(currentKeywords, originalKeywords);
+            document.getElementById('saveKeywordsBtn').disabled = !hasUnsavedChanges;
+            document.getElementById('keywordStats').textContent = `${currentKeywords.length} Schlagwörter`;
+            
+            input.value = '';
+            renderKeywordChips();
+            showToast(`"${keyword}" hinzugefügt`, 'success');
+        }
+
+        // Änderungen speichern
+        async function saveThemeKeywords() {
+            if (!selectedTheme || !hasUnsavedChanges) return;
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/update-keywords`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        themeName: selectedTheme,
+                        keywords: currentKeywords
+                    })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const result = await response.json();
+                
+                originalKeywords = [...currentKeywords];
+                hasUnsavedChanges = false;
+                document.getElementById('saveKeywordsBtn').disabled = true;
+                
+                // Aktualisiere lokale Daten
+                allThemes[selectedTheme].keywords = currentKeywords;
+                
+                showToast('Schlagwörter gespeichert', 'success');
+                
+            } catch (error) {
+                console.error('Fehler beim Speichern:', error);
+                showToast('Fehler beim Speichern', 'error');
+            }
+        }
+
+        // Thema umbenennen
+        async function renameTheme() {
+            if (!selectedTheme) return;
+            
+            const newName = document.getElementById('renameThemeInput').value.trim();
+            if (!newName) {
+                showToast('Bitte neuen Namen eingeben', 'error');
+                return;
+            }
+            
+            if (newName === selectedTheme) {
+                showToast('Name ist identisch', 'info');
+                return;
+            }
+            
+            if (allThemes[newName]) {
+                showToast('Thema existiert bereits', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/rename-cluster`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        oldName: selectedTheme,
+                        newName: newName
+                    })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                showToast(`Umbenannt zu "${newName}"`, 'success');
+                document.getElementById('renameThemeInput').value = '';
+                
+                await loadThemes();
+                selectTheme(newName);
+                
+            } catch (error) {
+                console.error('Fehler beim Umbenennen:', error);
+                showToast('Fehler beim Umbenennen', 'error');
+            }
+        }
+
+        // Thema löschen
+        async function deleteTheme() {
+            if (!selectedTheme) return;
+            
+            if (!confirm(`Thema "${selectedTheme}" wirklich löschen?\n\nAlle ${currentKeywords.length} Schlagwörter werden entfernt.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/delete-cluster`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ clusterName: selectedTheme })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                showToast(`"${selectedTheme}" gelöscht`, 'success');
+                
+                selectedTheme = null;
+                currentKeywords = [];
+                originalKeywords = [];
+                hasUnsavedChanges = false;
+                
+                document.getElementById('selectedThemeName').textContent = 'Kein Thema';
+                document.getElementById('keywordStats').textContent = 'Thema auswählen';
+                document.getElementById('keywordChipsContainer').innerHTML = '<p style="color: var(--secondary-text); text-align: center; width: 100%; padding: 20px;">Wählen Sie ein Thema aus der Liste</p>';
+                document.getElementById('renameBtn').disabled = true;
+                document.getElementById('deleteBtn').disabled = true;
+                document.getElementById('saveKeywordsBtn').disabled = true;
+                
+                await loadThemes();
+                
+            } catch (error) {
+                console.error('Fehler beim Löschen:', error);
+                showToast('Fehler beim Löschen', 'error');
+            }
+        }
+
+        // Neues Thema erstellen
+        async function createTheme() {
+            const name = document.getElementById('newThemeName').value.trim();
+            const desc = document.getElementById('newThemeDesc').value.trim();
+            const keywordsStr = document.getElementById('newThemeKeywords').value.trim();
+            
+            if (!name) {
+                showToast('Bitte Themennamen eingeben', 'error');
+                return;
+            }
+            
+            if (allThemes[name]) {
+                showToast('Thema existiert bereits', 'error');
+                return;
+            }
+            
+            const keywords = keywordsStr ? keywordsStr.split(/\s+/).filter(k => k) : [];
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/add-cluster`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clusterName: name,
+                        description: desc,
+                        keywords: keywords
+                    })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                showToast(`"${name}" erstellt`, 'success');
+                
+                document.getElementById('newThemeName').value = '';
+                document.getElementById('newThemeDesc').value = '';
+                document.getElementById('newThemeKeywords').value = '';
+                
+                await loadThemes();
+                selectTheme(name);
+                
+            } catch (error) {
+                console.error('Fehler beim Erstellen:', error);
+                showToast('Fehler beim Erstellen', 'error');
+            }
+        }
+
+        // Hilfsfunktionen
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            const sortedA = [...a].sort();
+            const sortedB = [...b].sort();
+            return sortedA.every((val, idx) => val === sortedB[idx]);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function escapeForAttribute(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/'/g, '&#39;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\\/g, '\\\\');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================================
+        // KI-CLUSTER-GENERIERUNG
+        // ============================================================================
+
+        async function generateThematicClusters() {
+            const btn = document.getElementById('generateClustersBtn');
+            const statusDiv = document.getElementById('clustersStatus');
+            
+            if (!confirm('Thematische Cluster aus Seed-Keywords generieren?\n\nDies wird die Claude API verwenden und dauert ca. 1-2 Minuten.')) {
+                return;
+            }
+            
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<em>In Bearbeitung...</em>';
+            btn.style.opacity = '0.5';
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = '<span style="color: var(--accent-color);">⏳ Generiere Themenbereiche...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/generate-clusters-from-seeds`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server-Fehler: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `<span style="color: #28a745;">✓ ${result.clustersCount} Themenbereiche generiert! Abdeckung: ${result.coverage}</span>`;
+                    displayClusters(result.clusters, result.totalSeedKeywords);
+                    showToast(`${result.clustersCount} Cluster generiert`, 'success');
+                    await loadThemes(); // Aktualisiere Themenliste
+                } else {
+                    throw new Error(result.error || 'Unbekannter Fehler');
+                }
+                
+            } catch (error) {
+                console.error('[CLUSTERS] Fehler:', error);
+                statusDiv.innerHTML = `<span style="color: #dc3545;">✗ Fehler: ${error.message}</span>`;
+                showToast('Fehler bei Cluster-Generierung', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+            }
+        }
+
+        async function loadExistingClusters() {
+            const statusDiv = document.getElementById('clustersStatus');
+            
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = '<span style="color: var(--accent-color);">⏳ Lade Cluster...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/clusters`);
+                
+                if (!response.ok) {
+                    throw new Error('Keine Cluster gefunden');
+                }
+                
+                const data = await response.json();
+                
+                statusDiv.innerHTML = `<span style="color: #28a745;">✓ Cluster geladen (${data.clustersCount} Themenbereiche, Abdeckung: ${data.coverage})</span>`;
+                displayClusters(data.clusters, data.seedKeywordsCount);
+                
+            } catch (error) {
+                console.error('[CLUSTERS] Fehler:', error);
+                statusDiv.innerHTML = `<span style="color: #dc3545;">✗ ${error.message}</span>`;
+            }
+        }
+
+        function displayClusters(clusters, totalKeywords) {
+            const overlay = document.getElementById('clustersResultsOverlay');
+            const contentDiv = document.getElementById('clustersResultsContent');
+            
+            let html = '<div style="display: grid; gap: 0.8rem;">';
+            
+            // Sortiere nach Anzahl Keywords
+            const sortedClusters = Object.entries(clusters).sort((a, b) => 
+                b[1].keywords.length - a[1].keywords.length
+            );
+            
+            sortedClusters.forEach(([name, data]) => {
+                const percentage = ((data.keywords.length / totalKeywords) * 100).toFixed(1);
+                const keywordsPreview = data.keywords.slice(0, 15).join(', ');
+                const moreCount = data.keywords.length > 15 ? ` ... (+${data.keywords.length - 15} weitere)` : '';
+                const manualBadge = data.manual ? '<span style="margin-left: 0.5rem; padding: 2px 6px; background: #28a745; color: white; font-size: 0.7em; border-radius: 3px;">Manuell</span>' : '';
+                
+                html += `
+                    <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                            <div>
+                                <strong style="color: var(--heading-color); font-size: 1em;">${escapeHtml(name)}</strong>${manualBadge}
+                            </div>
+                            <span style="color: var(--secondary-text); font-size: 0.85em;">${data.keywords.length} KWs (${percentage}%)</span>
+                        </div>
+                        <div style="color: var(--secondary-text); font-size: 0.85em; margin-bottom: 0.5rem;">
+                            ${escapeHtml(data.description || '')}
+                        </div>
+                        <div style="color: var(--text-color); font-size: 0.8em; font-style: italic;">
+                            ${escapeHtml(keywordsPreview)}${moreCount}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            contentDiv.innerHTML = html;
+            overlay.style.display = 'block';
+        }
+
+        function closeClustersOverlay() {
+            document.getElementById('clustersResultsOverlay').style.display = 'none';
+        }
+
+        // ESC-Taste schließt Overlay
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeClustersOverlay();
+            }
+        });
+    </script>
+</body>
+</html>

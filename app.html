@@ -5797,7 +5797,7 @@ body.dark-mode .timeline-viewer-content {
 
 .timeline-headings-list {
   margin: 0.4rem 0 0 0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.4;
 }
 
@@ -7333,7 +7333,7 @@ body.dark-mode .viewer-search-highlight.active {
 <button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Abfrage</button>
 <button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
 <button class="tab-button" onclick="switchTab('docs')" id="docs-tab-button" data-help="tab-docs">Docs</button>
-<button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Keywords</button>
+<button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Export</button>
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button" data-help="tab-zitate">Zitate</button>
 </div>
 <div class="tab-content active" id="ga-tab">
@@ -7731,73 +7731,6 @@ Meine Abfragen
     if (onlineInfo) onlineInfo.style.display = 'block';
   }
 })();
-
-// Embedding-Status laden
-async function loadEmbeddingsStatus() {
-  const statusDiv = document.getElementById('embeddingsStatus');
-  if (!statusDiv) return;
-  
-  try {
-    const response = await fetch('/api/embeddings-status');
-    if (response.ok) {
-      const status = await response.json();
-      if (status.hasEmbeddings) {
-        statusDiv.innerHTML = '✓ <strong>' + status.totalEmbeddings + '</strong> von ' + status.totalSummaries + ' Embeddings vorhanden (' + status.coverage + '%)';
-        statusDiv.style.color = 'var(--success-text, #155724)';
-      } else {
-        statusDiv.innerHTML = '⚠ Keine Embeddings vorhanden. KI-Suche nicht verfügbar.';
-        statusDiv.style.color = 'var(--warning-text, #856404)';
-      }
-    }
-  } catch (e) {
-    statusDiv.innerHTML = '❌ Status-Abfrage fehlgeschlagen';
-    statusDiv.style.color = 'var(--danger-text, #721c24)';
-  }
-}
-
-// Embeddings generieren
-async function generateEmbeddings() {
-  const btn = document.getElementById('generateEmbeddingsBtn');
-  const statusDiv = document.getElementById('embeddingsStatus');
-  
-  if (!confirm('Embeddings für alle Summaries generieren? Das dauert ca. 10-15 Minuten und verwendet die OpenAI API.')) {
-    return;
-  }
-  
-  btn.disabled = true;
-  btn.innerHTML = '<span style="animation: spin 1s linear infinite; display: inline-block;">⏳</span> Generiere Embeddings...';
-  statusDiv.innerHTML = 'Generierung läuft... Bitte warten.';
-  
-  try {
-    const response = await fetch('/api/generate-embeddings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    const result = await response.json();
-    
-    if (response.ok) {
-      statusDiv.innerHTML = '✓ <strong>' + result.processed + '</strong> neue Embeddings erstellt. Total: ' + result.total;
-      statusDiv.style.color = 'var(--success-text, #155724)';
-      alert('Embeddings erfolgreich generiert: ' + result.processed + ' neu, ' + result.total + ' total');
-    } else {
-      statusDiv.innerHTML = '❌ Fehler: ' + (result.error || 'Unbekannt');
-      statusDiv.style.color = 'var(--danger-text, #721c24)';
-    }
-  } catch (e) {
-    statusDiv.innerHTML = '❌ Netzwerkfehler: ' + e.message;
-    statusDiv.style.color = 'var(--danger-text, #721c24)';
-  }
-  
-  btn.disabled = false;
-  btn.innerHTML = '<i data-lucide="cpu" style="width: 16px; height: 16px;"></i> Embeddings generieren';
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-}
-
-// Lade Status beim Tab-Wechsel
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(loadEmbeddingsStatus, 1000);
-});
 
 </script>
 
@@ -9405,128 +9338,6 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
-<!-- Schlagwörter-Verwaltung für Themenschwerpunkte -->
-<div id="thematic2-admin-panel" style="margin-top: 2rem;">
-  <!-- Analytics-Button -->
-  <div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-bottom: 1rem;">
-    <button onclick="openAnalytics()" class="depth-btn" style="width: 100%; padding: 10px; font-size: 0.9em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); border-radius: 4px; cursor: pointer;">
-      📊 Nutzungsstatistiken anzeigen
-    </button>
-    <p style="font-size: 0.75rem; color: var(--secondary-text); margin: 0.5rem 0 0 0; text-align: center;">
-      Oder drücken Sie <kbd style="padding: 2px 6px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 3px; font-size: 0.85em;">Strg+Shift+A</kbd>
-    </p>
-  </div>
-  
-  <!-- Schlagwort-Verwaltung -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Schlagwörter verwalten</h4>
-    
-    <!-- Themenschwerpunkt-Auswahl -->
-    <select id="themeKeywordSelector" onchange="displayThemeKeywords()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 1rem;">
-      <option value="">-- Themenschwerpunkt wählen --</option>
-    </select>
-    
-    <!-- Schlagwörter-Anzeige -->
-    <div id="keywordChipsContainer" style="display: none;">
-      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.5rem;">
-        Aktive Schlagwörter (Klick zum Deaktivieren):
-      </label>
-      <div id="keywordChips" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; max-height: 150px; overflow-y: auto; padding-right: 4px;"></div>
-      
-      <!-- Neues Schlagwort hinzufügen -->
-      <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neues Schlagwort hinzufügen:</label>
-      <div style="display: flex; gap: 6px;">
-        <input type="text" id="themeNewKeywordInput" placeholder="Schlagwort eingeben..." style="flex: 1; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem;" onkeypress="if(event.key==='Enter')addThemeKeyword()">
-        <button class="depth-btn" onclick="addThemeKeyword()" style="padding: 8px 12px;">
-          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
-        </button>
-      </div>
-      
-      <!-- Aktionen -->
-      <div style="margin-top: 1rem; display: flex; gap: 6px;">
-        <button class="depth-btn" onclick="resetThemeKeywords()" style="flex: 1; font-size: 0.85rem;">
-          Zurücksetzen
-        </button>
-        <button class="depth-btn primary" onclick="saveKeywordChanges()" style="flex: 1; font-size: 0.85rem;">
-          Speichern
-        </button>
-      </div>
-      
-      <!-- KI-Neu-Zuordnung -->
-      <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
-        <button class="depth-btn" onclick="reassignThemeWithAI()" style="width: 100%; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px;">
-          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-          Thema mit KI neu zuordnen
-        </button>
-        <p style="font-size: 0.75rem; color: var(--secondary-text); margin: 0.5rem 0 0 0;">
-          Durchsucht alle Texte nach den aktuellen Schlagwörtern und ordnet das Thema neu zu (API-Kosten).
-        </p>
-        <div id="reassignThemeStatus" style="margin-top: 0.5rem; display: none;"></div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Themenschwerpunkt bearbeiten -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Themenschwerpunkt bearbeiten</h4>
-    
-    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Neuer Name:</label>
-    <input type="text" id="renameThemeInput" placeholder="Neuen Namen eingeben..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
-    
-    <div style="display: flex; gap: 6px;">
-      <button class="depth-btn" onclick="renameSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem;">
-        <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
-        Umbenennen
-      </button>
-      <button class="depth-btn" onclick="deleteSelectedTheme()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; color: var(--danger-text, #dc3545);">
-        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
-        Löschen
-      </button>
-    </div>
-    
-    <div id="renameThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
-  </div>
-  
-  <!-- Neuer Themenschwerpunkt -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">Neuer Themenschwerpunkt</h4>
-    
-    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Name:</label>
-    <input type="text" id="newThemeName" placeholder="z.B. Temperamente" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
-    
-    <label style="font-size: 0.85rem; color: var(--secondary-text); display: block; margin-bottom: 0.3rem;">Schlagwörter (durch Leerzeichen getrennt):</label>
-    <input type="text" id="newThemeKeywords" placeholder="z.B. Temperament Sanguiniker Choleriker Melancholiker Phlegmatiker" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.9rem; margin-bottom: 0.8rem; box-sizing: border-box;">
-    
-    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0 0 1rem 0; font-style: italic;">
-      Der Zeitraum wird automatisch durch Analyse der Texte ermittelt.
-    </p>
-    
-    <button class="depth-btn primary" onclick="addNewTheme()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
-      Themenschwerpunkt hinzufügen
-    </button>
-    
-    <div id="newThemeStatus" style="margin-top: 0.8rem; display: none;"></div>
-  </div>
-  
-  <!-- KI-Suche (Embeddings) -->
-  <div style="padding: 1.2rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-top: 0;">
-    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">KI-Suche (Embeddings)</h4>
-    
-    <div id="embeddingsStatus" style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 0.8rem;">
-      Lade Status...
-    </div>
-    
-    <button class="depth-btn primary" onclick="generateEmbeddings()" id="generateEmbeddingsBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
-      Embeddings generieren
-    </button>
-    
-    <p style="font-size: 0.8rem; color: var(--secondary-text); margin: 0.8rem 0 0 0; font-style: italic;">
-      Einmalig: Erstellt KI-Vektoren für alle Summaries (~6000). Dauert ca. 10-15 Min.
-    </p>
-  </div>
-</div>
 
 </div>
 </div>
@@ -12249,14 +12060,18 @@ function normalizeGANumber(gaNumber) {
         document.body.classList.remove('tab-thematic-active');
       }
       if (mode === 'thematic2') {
-        // IMMER zurücksetzen beim Klick auf Themen-Tab (wie beim ersten Öffnen)
-        console.log('[THEMATIC2] Tab aktiviert - setze Ansicht zurück');
-        
-        // Dropdowns zurücksetzen
-        const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
-        const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
-        if (themeDropdown) themeDropdown.value = '';
-        if (keywordDropdown) keywordDropdown.value = '';
+        // Nur zurücksetzen wenn KEIN pending Keyword wartet (Navigation von Lecture Keywords)
+        if (!timelinePendingKeyword) {
+          console.log('[THEMATIC2] Tab aktiviert - setze Ansicht zurück');
+          
+          // Dropdowns zurücksetzen
+          const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
+          const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+          if (themeDropdown) themeDropdown.value = '';
+          if (keywordDropdown) keywordDropdown.value = '';
+        } else {
+          console.log('[THEMATIC2] Tab aktiviert mit pending Keyword:', timelinePendingKeyword);
+        }
         
         // Suchergebnisse im linken Side Panel löschen
         const resultsDiv = document.getElementById('results');
@@ -19168,6 +18983,8 @@ let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werde
 
 // Navigation zum Timeline-Tab und Keyword auswählen
 async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
+  console.log('[NAVIGATE-TIMELINE] Start mit Keyword:', keyword);
+  
   // Speichere GA-Nummer und Lecture ID für Zurück-Button
   timelineBackToGA = gaNumber;
   timelineBackToLecture = lectureId || (currentLectureData ? currentLectureData.ID : null);
@@ -19176,31 +18993,53 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
   const resultsContainer = document.getElementById('results');
   if (resultsContainer) {
     timelineBackToLeftPanel = resultsContainer.innerHTML;
-    }
+  }
   
   // Wechsle zum Themen-Tab (Timeline-Tab wurde entfernt)
   timelinePendingKeyword = keyword;
   switchTab('thematic2');
   
-  // Warte, dann setze Keyword und führe GA-Suche durch
-  setTimeout(async () => {
-    if (timelinePendingKeyword) {
-      const keywordToSet = timelinePendingKeyword;
-      
-      // Warte bis Dropdowns fertig gerendert sind
-      setTimeout(async () => {
-        timelinePendingKeyword = null;
-        
-        const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
-        if (keywordDropdown) {
-          keywordDropdown.value = keywordToSet;
-          await updateTimelineFilters('keyword');
-        }
-        
-        showTimelineBackButton();
-      }, 500);
+  // Warte auf Tab-Wechsel und führe dann die Timeline-Suche direkt aus
+  await waitForElement('timelineKeywordFilterAdmin', 2000);
+  
+  const keywordToSet = timelinePendingKeyword;
+  timelinePendingKeyword = null;
+  
+  if (keywordToSet) {
+    console.log('[NAVIGATE-TIMELINE] Führe Suche aus für:', keywordToSet);
+    
+    // Setze Keyword im Dropdown (falls vorhanden)
+    const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+    if (keywordDropdown) {
+      keywordDropdown.value = keywordToSet;
     }
-  }, 300);
+    
+    // Führe direkt die Timeline-Suche aus (zuverlässiger als Dropdown-Logik)
+    showingSearchResultsTimeline = true;
+    await showKeywordSearchInTimeline(keywordToSet);
+    
+    showTimelineBackButton();
+  }
+}
+
+// Hilfsfunktion: Warte auf Element
+function waitForElement(elementId, timeout = 2000) {
+  return new Promise((resolve) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      resolve(element);
+      return;
+    }
+    
+    const startTime = Date.now();
+    const checkInterval = setInterval(() => {
+      const el = document.getElementById(elementId);
+      if (el || (Date.now() - startTime > timeout)) {
+        clearInterval(checkInterval);
+        resolve(el);
+      }
+    }, 50);
+  });
 }
 
 // Zeige/Verstecke Zurück-Button im Timeline-Tab
@@ -24797,14 +24636,9 @@ function scrollToChronologicalYear(year) {
       // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
       let html = '<div class="concept-overview-container">';
       
-      // Begriff/Thema als Überschrift über den Feldern - fett und blau + Netzwerk-Buttons (nur lokal)
-      const netzwerkButtons = isLocal 
-        ? `<button class="concept-network-trigger-btn" onclick="showConceptNetwork('${concept}')" title="KI-generiertes Konzept-Netzwerk">Netzwerk</button>
-           <button class="concept-network-trigger-btn verlinkungsnetz" onclick="showBidirectionalNetworkGraph('${concept}')" title="Verlinkungsnetzwerk aus Index-Einträgen">Verlinkungsnetz</button>`
-        : '';
-      html += `<div class="concept-main-title" style="font-size: 1.6rem !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
+      // Begriff/Thema als Überschrift über den Feldern - fett und blau
+      html += `<div class="concept-main-title" style="font-size: 1.6rem !important; font-weight: 700 !important; color: var(--accent-color) !important;">
         <span>${concept}</span>
-        ${netzwerkButtons}
       </div>`;
       
       // Felder untereinander
@@ -35280,18 +35114,23 @@ function switchTabExtended(mode) {
   
   // Lade Visualisierung wenn zum Themen II Tab gewechselt wird
   if (mode === 'thematic2') {
-    console.log('[THEMATIC2-EXT] Tab aktiviert - vollständiger Reset');
-    
-    // 1. Dropdowns zurücksetzen
-    const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
-    const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
-    if (themeDropdown) themeDropdown.value = '';
-    if (keywordDropdown) keywordDropdown.value = '';
-    
-    // 2. Suchergebnisse im linken Side Panel löschen
-    const resultsDiv = document.getElementById('results');
-    if (resultsDiv) {
-      resultsDiv.innerHTML = '';
+    // Nur zurücksetzen wenn KEIN pending Keyword wartet (Navigation von Lecture Keywords)
+    if (!timelinePendingKeyword) {
+      console.log('[THEMATIC2-EXT] Tab aktiviert - vollständiger Reset');
+      
+      // 1. Dropdowns zurücksetzen
+      const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
+      const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+      if (themeDropdown) themeDropdown.value = '';
+      if (keywordDropdown) keywordDropdown.value = '';
+      
+      // 2. Suchergebnisse im linken Side Panel löschen
+      const resultsDiv = document.getElementById('results');
+      if (resultsDiv) {
+        resultsDiv.innerHTML = '';
+      }
+    } else {
+      console.log('[THEMATIC2-EXT] Tab aktiviert mit pending Keyword:', timelinePendingKeyword);
     }
     
     // 3. Summary-Panel schließen (rechtes Side Panel)
@@ -42357,7 +42196,6 @@ async function restoreBackup(backupName) {
         <option value="lectures">📚 Vorträge (mit Seitenmarkern)</option>
         <option value="books">📖 Bücher</option>
         <option value="quotes">💬 Zitate</option>
-        <option value="relationships">🔗 Beziehungen</option>
         <option value="concepts">🧠 Konzepte</option>
         <option value="bibliography">📋 Bibliographie</option>
         <option value="themes">Themes & Heatmap</option>
@@ -45316,7 +45154,7 @@ async function addKeywordToLecture() {
     'tab-timeline': '<strong>Timeline:</strong> Chronologisches Vorkommen von Schlagwörtern.',
     'tab-index': '<strong>Index:</strong> Alphabetisches Schlagwortverzeichnis.',
     'tab-docs': '<strong>Docs:</strong> Projekt-Dokumentation (nur lokal sichtbar).',
-    'tab-keywords': '<strong>Keywords:</strong> Vortrags-Schlagwörter verwalten.',
+    'tab-keywords': '<strong>Export:</strong> Daten exportieren.',
     'tab-zitate': '<strong>Zitate:</strong> Gesammelte Zitate und Markierungen.',
     // Eingabefelder
     'word1': '<strong>Suchwort 1:</strong> Hauptsuchbegriff für Volltextsuche. Wildcards mit * möglich.',
@@ -45883,6 +45721,9 @@ window.cancelTextEditMode = function() {};
   let pdfCurrentGANumber = null;
   let pdfPanelVisible = false;
   
+  // Flag: Navigation kam vom HTML-Seitenmarker-Klick (nicht vom PDF-Panel)
+  let pdfNavigationFromHTML = false;
+  
   // PDF-Index Cache
   let pdfIndex = null;
   
@@ -46094,6 +45935,13 @@ window.cancelTextEditMode = function() {};
       document.getElementById('pdfPageInput').value = pageNum;
       pdfCurrentPage = pageNum;
       
+      // Bidirektionale Sync: Wenn Navigation vom PDF-Panel kam, scrolle zum HTML-Marker
+      if (!pdfNavigationFromHTML) {
+        scrollToPageMarkerInHtml(pageNum);
+      }
+      // Flag zurücksetzen
+      pdfNavigationFromHTML = false;
+      
     } catch (error) {
       if (error.name !== 'RenderingCancelledException') {
         console.error('[PDF] Render-Fehler:', error);
@@ -46127,6 +45975,8 @@ window.cancelTextEditMode = function() {};
   window.addEventListener('resize', function() {
     if (pdfPanelVisible) {
       updatePdfPanelPosition();
+      // Bei Resize nicht zum HTML scrollen (nur PDF neu rendern)
+      pdfNavigationFromHTML = true;
       renderPdfPage(pdfCurrentPage);
     }
   });
@@ -46187,7 +46037,8 @@ window.cancelTextEditMode = function() {};
       document.getElementById('pdfPageInput').value = pageToShow;
       
       if (pdfPanelVisible) {
-        // Aktuelle Seite neu rendern
+        // Aktuelle Seite neu rendern (nicht zum HTML scrollen beim Neuladen)
+        pdfNavigationFromHTML = true;
         renderPdfPage(pageToShow);
         console.log('[PDF] PDF erfolgreich neu geladen, Seite', pageToShow, 'von', pdfTotalPages);
       } else {
@@ -46275,7 +46126,8 @@ window.cancelTextEditMode = function() {};
         // Panel-Position und Breite anpassen
         setTimeout(() => {
           updatePdfPanelPosition();
-          // Seite rendern
+          // Seite rendern (nicht zum HTML scrollen beim Panel-Öffnen)
+          pdfNavigationFromHTML = true;
           renderPdfPage(pdfCurrentPage);
         }, 50);
       } else {
@@ -46320,8 +46172,45 @@ window.cancelTextEditMode = function() {};
     }
   };
   
+  // Scrollt zum Seitenmarker im HTML-Viewer (bidirektionale Synchronisation)
+  function scrollToPageMarkerInHtml(pageNum) {
+    // Finde alle Seitenmarker im aktuellen Viewer
+    const viewer = document.getElementById('main-viewer');
+    if (!viewer) return;
+    
+    // Suche nach dem Seitenmarker mit der entsprechenden Seitenzahl
+    const pageMarkers = viewer.querySelectorAll('.page-break-container .page-break-num');
+    let targetMarker = null;
+    
+    for (const marker of pageMarkers) {
+      if (marker.textContent.trim() === String(pageNum)) {
+        targetMarker = marker.closest('.page-break-container');
+        break;
+      }
+    }
+    
+    if (targetMarker) {
+      // Scroll sanft zum Marker
+      targetMarker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Kurz hervorheben (visuelles Feedback)
+      targetMarker.style.transition = 'background-color 0.3s ease';
+      targetMarker.style.backgroundColor = 'rgba(66, 153, 225, 0.3)';
+      setTimeout(() => {
+        targetMarker.style.backgroundColor = '';
+      }, 1500);
+      
+      console.log('[PDF-Sync] HTML zu Seite', pageNum, 'gescrollt');
+    } else {
+      console.log('[PDF-Sync] Kein Seitenmarker für Seite', pageNum, 'im HTML gefunden');
+    }
+  }
+  
   // Zu Seite springen (wird von Seitenzahl-Klick aufgerufen)
   window.jumpToPdfPage = function(pageNum) {
+    // Flag setzen: Navigation kam vom HTML, nicht vom PDF-Panel
+    pdfNavigationFromHTML = true;
+    
     if (!pdfPanelVisible) {
       // Panel öffnen wenn nicht sichtbar
       togglePdfPanel().then(() => {

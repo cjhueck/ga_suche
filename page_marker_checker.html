@@ -2206,6 +2206,107 @@
             return position;
         }
         
+        // Behandelt Backspace vor einem Marker am Zeilenanfang
+        // Löscht den Zeilenumbruch, sodass die Zeilen zusammengeführt werden
+        function handleBackspaceBeforeMarker(contentEl) {
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return false;
+            
+            const range = selection.getRangeAt(0);
+            
+            // Ermittle die aktuelle Position im Markdown-Content
+            const cursorPos = getMarkdownPositionFromDOM(contentEl, range.startContainer, range.startOffset);
+            if (cursorPos < 0) return false;
+            
+            // Hole den aktuellen Content
+            const text = currentContent;
+            if (!text || cursorPos > text.length) return false;
+            
+            // Prüfe, ob nach dem Cursor ein Marker kommt (evtl. mit führenden Leerzeichen)
+            const textAfterCursor = text.substring(cursorPos);
+            const markerMatch = textAfterCursor.match(/^(\s*)\|(\d+)\|/);
+            
+            if (!markerMatch) return false;
+            
+            // Prüfe, ob vor dem Cursor ein Zeilenumbruch ist (evtl. mit Leerzeichen dazwischen)
+            const textBeforeCursor = text.substring(0, cursorPos);
+            const newlineMatch = textBeforeCursor.match(/\n([ \t]*)$/);
+            
+            if (!newlineMatch) return false;
+            
+            // Es gibt einen Zeilenumbruch vor dem Cursor und einen Marker nach dem Cursor
+            // Lösche den Zeilenumbruch und eventuelle Leerzeichen zwischen Zeilenumbruch und Cursor
+            const newlinePos = textBeforeCursor.lastIndexOf('\n');
+            const spacesAfterNewline = newlineMatch[1] || '';
+            const spacesBeforeMarker = markerMatch[1] || '';
+            
+            // Neuer Content: alles vor dem \n + ein Leerzeichen (optional) + alles ab dem Marker
+            const beforeNewline = text.substring(0, newlinePos);
+            const afterSpaces = text.substring(cursorPos + spacesBeforeMarker.length);
+            
+            // Füge ein Leerzeichen ein, wenn vor dem Zeilenumbruch kein Leerzeichen ist
+            const needsSpace = beforeNewline.length > 0 && 
+                              !beforeNewline.endsWith(' ') && 
+                              !beforeNewline.endsWith('\n');
+            
+            const newContent = beforeNewline + (needsSpace ? ' ' : '') + afterSpaces;
+            
+            // Aktualisiere den Content
+            currentContent = newContent;
+            
+            // Berechne die neue Cursor-Position (nach dem eingefügten Leerzeichen, vor dem Marker)
+            const newCursorPos = beforeNewline.length + (needsSpace ? 1 : 0);
+            
+            // Lade den Content neu und setze den Cursor
+            loadContent(currentContent, false);
+            
+            // Setze den Cursor an die richtige Position nach dem Neu-Laden
+            setTimeout(() => {
+                setCursorToMarkdownPosition(contentEl, newCursorPos);
+            }, 50);
+            
+            return true;
+        }
+        
+        // Setzt den Cursor an eine bestimmte Position im Markdown-Content
+        function setCursorToMarkdownPosition(contentEl, targetPos) {
+            const walker = document.createTreeWalker(
+                contentEl,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+            
+            let currentPos = 0;
+            let node;
+            
+            while ((node = walker.nextNode())) {
+                const nodeLength = node.textContent.length;
+                
+                if (currentPos + nodeLength >= targetPos) {
+                    // Zielposition ist in diesem Knoten
+                    const offsetInNode = targetPos - currentPos;
+                    const range = document.createRange();
+                    range.setStart(node, Math.min(offsetInNode, nodeLength));
+                    range.collapse(true);
+                    
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    return;
+                }
+                
+                currentPos += nodeLength;
+            }
+            
+            // Fallback: Cursor ans Ende
+            const range = document.createRange();
+            range.selectNodeContents(contentEl);
+            range.collapse(false);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+        
         // Bestimmt die Position im Markdown-Text basierend auf der DOM-Position
         // EXAKTE Positionsbestimmung für präzises Einfügen - OPTIMIERT
         function getMarkdownPositionFromDOM(contentEl, node, offset) {
@@ -3331,119 +3432,79 @@
             }
         }
 
-        function syncScroll() {
-            // Alte Funktion für MD-Vergleich, nicht mehr verwendet
-            return;
+        // Synchronisiere PDF-Seite basierend auf dem obersten sichtbaren Marker beim Scrollen
+        function syncScrollWithPdf() {
+            if (!pdfDoc || markers.length === 0 || isScrolling) return;
             
-            // Finde die oberste sichtbare Zeile im linken Bereich
-            const leftContentRect = leftContent.getBoundingClientRect();
-            const viewportTop = leftContentRect.top + 10; // Etwas unterhalb des oberen Randes
+            const contentEl = document.querySelector('.content');
+            if (!contentEl) return;
             
-            // Finde alle Text-Elemente im linken Bereich
-            const leftElements = leftWrapper.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, blockquote, div');
-            let topVisibleElement = null;
+            const contentRect = contentEl.getBoundingClientRect();
+            const viewportTop = contentRect.top;
+            const viewportCenter = contentRect.top + contentRect.height / 3; // Oberes Drittel
+            
+            // Finde alle Marker-Elemente
+            const markerElements = document.querySelectorAll('.page-marker[data-marker-index]');
+            if (markerElements.length === 0) return;
+            
+            let closestMarker = null;
+            let closestIndex = -1;
             let minDistance = Infinity;
             
-            // Suche das Element, das am nächsten zur oberen Viewport-Kante ist
-            for (const el of leftElements) {
-                const rect = el.getBoundingClientRect();
+            // Suche den Marker, der am nächsten zum oberen Drittel des Viewports ist
+            markerElements.forEach((markerEl) => {
+                const rect = markerEl.getBoundingClientRect();
+                const markerCenter = rect.top + rect.height / 2;
                 
-                // Element ist sichtbar oder gerade oberhalb
-                if (rect.bottom >= leftContentRect.top && rect.top <= leftContentRect.bottom) {
-                    const distance = Math.abs(rect.top - viewportTop);
+                // Marker ist im sichtbaren Bereich oder knapp darüber
+                if (rect.bottom >= viewportTop && rect.top <= contentRect.bottom) {
+                    const distance = Math.abs(markerCenter - viewportCenter);
                     if (distance < minDistance) {
                         minDistance = distance;
-                        topVisibleElement = el;
+                        closestMarker = markerEl;
+                        closestIndex = parseInt(markerEl.getAttribute('data-marker-index'), 10);
                     }
                 }
-            }
+            });
             
-            if (!topVisibleElement) {
-                // Fallback: Verwende relative Scroll-Position
-                const leftScrollTop = leftContent.scrollTop;
-                const leftScrollHeight = leftContent.scrollHeight;
-                const leftClientHeight = leftContent.clientHeight;
-                const rightScrollHeight = rightContentEl.scrollHeight;
-                const rightClientHeight = rightContentEl.clientHeight;
-                
-                const scrollRatio = leftScrollHeight > leftClientHeight ? leftScrollTop / (leftScrollHeight - leftClientHeight) : 0;
-                const targetScrollTop = rightScrollHeight > rightClientHeight ? scrollRatio * (rightScrollHeight - rightClientHeight) : 0;
-                
-                isScrolling = true;
-                rightContentEl.scrollTop = targetScrollTop;
-                setTimeout(() => { isScrolling = false; }, 100);
-                return;
-            }
-            
-            // Finde den Textinhalt des obersten sichtbaren Elements
-            const topText = topVisibleElement.textContent.trim();
-            const topWords = topText.split(/\s+/).filter(w => w.length > 0).slice(0, 5).join(' '); // Erste 5 Wörter
-            
-            if (!topWords) {
-                // Fallback
-                const leftScrollTop = leftContent.scrollTop;
-                const leftScrollHeight = leftContent.scrollHeight;
-                const leftClientHeight = leftContent.clientHeight;
-                const rightScrollHeight = rightContentEl.scrollHeight;
-                const rightClientHeight = rightContentEl.clientHeight;
-                
-                const scrollRatio = leftScrollHeight > leftClientHeight ? leftScrollTop / (leftScrollHeight - leftClientHeight) : 0;
-                const targetScrollTop = rightScrollHeight > rightClientHeight ? scrollRatio * (rightScrollHeight - rightClientHeight) : 0;
-                
-                isScrolling = true;
-                rightContentEl.scrollTop = targetScrollTop;
-                setTimeout(() => { isScrolling = false; }, 100);
-                return;
-            }
-            
-            // Suche nach diesem Text im rechten Bereich
-            const rightElements = rightWrapper.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, blockquote, div');
-            let matchingElement = null;
-            
-            for (const el of rightElements) {
-                const rightText = el.textContent.trim();
-                const rightWords = rightText.split(/\s+/).filter(w => w.length > 0).slice(0, 5).join(' ');
-                
-                // Prüfe ob die ersten Wörter übereinstimmen (mindestens 3 Wörter)
-                if (topWords.length >= 10 && rightWords.length >= 10) {
-                    // Vergleiche die ersten 3-5 Wörter
-                    const topMatch = topWords.substring(0, Math.min(30, topWords.length));
-                    const rightMatch = rightWords.substring(0, Math.min(30, rightWords.length));
+            // Wenn ein Marker gefunden wurde und er sich vom aktuellen unterscheidet
+            if (closestIndex !== -1 && closestIndex !== currentMarkerIndex) {
+                const marker = markers[closestIndex];
+                if (marker && marker.page) {
+                    const pageNum = marker.page;
                     
-                    if (topMatch === rightMatch || 
-                        (topMatch.length > 15 && rightMatch.length > 15 && 
-                         topMatch.substring(0, 15) === rightMatch.substring(0, 15))) {
-                        matchingElement = el;
-                        break;
+                    // Aktualisiere den aktuellen Marker-Index (ohne erneutes Scrollen im linken Bereich)
+                    currentMarkerIndex = closestIndex;
+                    
+                    // Entferne alle Highlights und markiere neuen Marker
+                    document.querySelectorAll('.page-marker').forEach(el => {
+                        el.classList.remove('highlighted');
+                    });
+                    if (highlightingEnabled && closestMarker) {
+                        closestMarker.classList.add('highlighted');
+                    }
+                    
+                    // Aktualisiere Sidebar und Status
+                    updateMarkerList();
+                    updateStatus();
+                    
+                    // PDF-Seite wechseln wenn nötig
+                    if (pageNum >= 1 && pageNum <= totalPdfPages && currentPdfPage !== pageNum) {
+                        renderPdfPage(pageNum);
                     }
                 }
             }
-            
-            if (matchingElement) {
-                // Scroll zum passenden Element im rechten Bereich
-                const rightContentRect = rightContentEl.getBoundingClientRect();
-                const matchingRect = matchingElement.getBoundingClientRect();
-                const offset = matchingRect.top - rightContentRect.top;
-                const targetScrollTop = rightContentEl.scrollTop + offset;
-                
-                isScrolling = true;
-                rightContentEl.scrollTop = targetScrollTop;
-                setTimeout(() => { isScrolling = false; }, 100);
-            } else {
-                // Fallback: Verwende relative Scroll-Position
-                const leftScrollTop = leftContent.scrollTop;
-                const leftScrollHeight = leftContent.scrollHeight;
-                const leftClientHeight = leftContent.clientHeight;
-                const rightScrollHeight = rightContentEl.scrollHeight;
-                const rightClientHeight = rightContentEl.clientHeight;
-                
-                const scrollRatio = leftScrollHeight > leftClientHeight ? leftScrollTop / (leftScrollHeight - leftClientHeight) : 0;
-                const targetScrollTop = rightScrollHeight > rightClientHeight ? scrollRatio * (rightScrollHeight - rightClientHeight) : 0;
-                
-                isScrolling = true;
-                rightContentEl.scrollTop = targetScrollTop;
-                setTimeout(() => { isScrolling = false; }, 100);
+        }
+        
+        // Debounced Version für Scroll-Events
+        let scrollSyncTimer = null;
+        function debouncedSyncScrollWithPdf() {
+            if (scrollSyncTimer) {
+                clearTimeout(scrollSyncTimer);
             }
+            scrollSyncTimer = setTimeout(() => {
+                syncScrollWithPdf();
+            }, 150); // 150ms Debounce für flüssiges Scrolling
         }
 
         function updateStatus() {
@@ -4395,12 +4456,24 @@
                 if (cursorKeys.includes(e.key)) {
                     insertMarkerPosition = -1;
                 }
+                
+                // Backspace vor einem Marker am Zeilenanfang: Zeilenumbruch löschen
+                if (e.key === 'Backspace') {
+                    const handled = handleBackspaceBeforeMarker(contentEl);
+                    if (handled) {
+                        e.preventDefault();
+                    }
+                }
             });
             
             // Synchronisiere Scroll beim Scrollen im linken Bereich
             const leftContent = document.querySelector('.content');
             if (leftContent) {
-                // Scroll-Event wird nicht mehr benötigt, da PDF-Synchronisierung über Marker erfolgt
+                leftContent.addEventListener('scroll', function() {
+                    if (!isScrolling) {
+                        debouncedSyncScrollWithPdf();
+                    }
+                });
             }
             
             // Kontextmenü einrichten

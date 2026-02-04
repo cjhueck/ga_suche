@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concepts Manager</title>
+    <style>
+        :root {
+            --text-color: #333333;
+            --heading-color: #467886;
+            --accent-color: #467886;
+            --background-color: #ffffff;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --text-size: 0.9rem;
+            --heading-size: 0.95rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+            font-size: var(--text-size);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: var(--background-color);
+        }
+
+        .page-title {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            max-width: 100%;
+            height: calc(100vh - 100px);
+        }
+
+        .panel {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h2 {
+            color: var(--heading-color);
+            font-size: var(--heading-size);
+            font-weight: 600;
+        }
+
+        .stats {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            transition: border-color 0.3s;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .list-container {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            background: var(--background-color);
+        }
+
+        .list-item {
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+            font-size: 0.85rem;
+        }
+
+        .list-item:hover {
+            background: #f5f5f5;
+        }
+
+        .list-item.selected {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .concept-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .concept-name {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .concept-letter {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            background: #e8f0f2;
+            color: var(--accent-color);
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+
+        .list-item.selected .concept-letter {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--accent-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 3px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success { border-left: 4px solid #10b981; }
+        .toast-error { border-left: 4px solid #ef4444; }
+        .toast-info { border-left: 4px solid #667eea; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a5c66; }
+
+        .detail-panel {
+            overflow-y: auto;
+        }
+
+        .concept-detail {
+            padding: 10px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .concept-detail h3 {
+            color: var(--heading-color);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .concept-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .concept-text a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .concept-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* GA-Links wie in der App */
+        .ga-keyword-link {
+            color: #467886;
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+        }
+
+        .ga-keyword-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Gebrochene Links in Rot */
+        .ga-keyword-link.broken-link {
+            color: #dc3545 !important;
+        }
+
+        .ga-keyword-link.broken-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Allgemeine Link-Klassen für Status-Dots */
+        .broken-link {
+            color: #dc3545 !important;
+        }
+
+        .valid-link {
+            color: #467886 !important;
+        }
+
+        .ga-refs {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .ga-refs h4 {
+            color: var(--heading-color);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .ga-ref-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            margin: 2px;
+            background: #e8f0f2;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        a.ga-ref-tag:hover {
+            background: #d0e0e5;
+            text-decoration: none;
+        }
+
+        .action-group {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+
+        .action-group h3 {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .alphabet-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .alphabet-btn {
+            padding: 4px 8px;
+            border: 1px solid var(--border-color);
+            background: var(--background-color);
+            border-radius: 3px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .alphabet-btn:hover, .alphabet-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .status-dot.valid { background: #28a745; }
+        .status-dot.broken { background: #dc3545; }
+
+        /* Rechtsklick-Popup */
+        .context-popup {
+            position: fixed;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 2000;
+            min-width: 280px;
+            max-width: 400px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .popup-header {
+            font-weight: 600;
+            color: var(--heading-color);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .popup-lecture {
+            padding: 4px 0;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .popup-lecture:hover {
+            color: var(--accent-color);
+        }
+
+        .popup-lecture.broken {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-title">
+            Concepts Manager
+            <div style="float: right; display: flex; gap: 8px;">
+                <a href="keyword-manager.html" class="btn btn-primary" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center;">
+                    Keywords Manager
+                </a>
+                <a href="themes-manager.html" class="btn btn-primary" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center;">
+                    Themen Manager
+                </a>
+                <button class="btn btn-primary" onclick="repairBrokenLinks()" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                    Gebrochene Links reparieren
+                </button>
+                <a href="app.html" class="btn btn-success" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center;">
+                    Zurück zur App
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- LINKE SPALTE: Concepts Liste -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Concepts</h2>
+                    <span class="stats" id="conceptStats">0 Concepts</span>
+                </div>
+                
+                <div class="alphabet-filter" id="alphabetFilter">
+                    <button class="alphabet-btn active" onclick="filterByLetter('')">Alle</button>
+                </div>
+                
+                <input type="text" class="search-box" id="conceptSearch" placeholder="🔍 Concepts durchsuchen...">
+                
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 0.8rem;">
+                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                        <input type="checkbox" id="showBrokenOnly" onchange="filterConcepts()">
+                        <span style="color: #d9534f;">● Nur gebrochene Links</span>
+                    </label>
+                    <span id="brokenCount" style="color: #888; font-size: 0.75rem;"></span>
+                </div>
+                
+                <div class="list-container" id="conceptsList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Lade Concepts...
+                    </div>
+                </div>
+            </div>
+
+            <!-- MITTLERE SPALTE: Concept Detail -->
+            <div class="panel detail-panel">
+                <div class="panel-header">
+                    <h2>Concept-Details</h2>
+                </div>
+                <div id="conceptDetail" class="concept-detail">
+                    <p style="color: var(--secondary-text); text-align: center; padding: 20px;">
+                        Wählen Sie ein Concept aus der Liste
+                    </p>
+                </div>
+            </div>
+
+            <!-- RECHTE SPALTE: Aktionen -->
+            <div class="panel actions-panel">
+                <div class="panel-header">
+                    <h2>Statistik & Aktionen</h2>
+                </div>
+
+                <div class="action-group">
+                    <h3>Übersicht</h3>
+                    <div id="overviewStats" style="font-size: 0.85rem; line-height: 1.8;">
+                        <div>Total Concepts: <strong id="totalConcepts">-</strong></div>
+                        <div>Mit gebrochenen Links: <strong id="brokenConcepts">-</strong></div>
+                        <div>Gebrochene IDs: <strong id="brokenIds">-</strong></div>
+                        <div>Gültige IDs: <strong id="validIds">-</strong></div>
+                    </div>
+                </div>
+
+                <div class="action-group">
+                    <h3>Reparatur</h3>
+                    <button class="btn btn-primary" onclick="runDryRepair()">
+                        🔍 Reparatur prüfen (Dry-Run)
+                    </button>
+                    <button class="btn btn-success" onclick="repairBrokenLinks()" style="margin-top: 8px;">
+                        🔧 Gebrochene Links reparieren
+                    </button>
+                    <div id="repairStatus" style="margin-top: 8px; font-size: 0.8rem; color: var(--secondary-text);"></div>
+                </div>
+
+                <div class="action-group">
+                    <h3>Export</h3>
+                    <button class="btn btn-primary" onclick="exportBrokenReport()">
+                        📊 Gebrochene Links exportieren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3003/api';
+        
+        let allConcepts = [];
+        let brokenConceptsSet = new Set();
+        let brokenConceptsDetails = {};
+        let validIds = new Set();
+        let selectedConcept = null;
+        let currentLetterFilter = '';
+
+        // Beim Laden
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadBrokenConcepts();
+            await loadConcepts();
+            
+            document.getElementById('conceptSearch').addEventListener('input', filterConcepts);
+        });
+
+        // Lade gebrochene Concept-Links
+        async function loadBrokenConcepts() {
+            try {
+                console.log('[CONCEPTS] Lade gebrochene Links von API...');
+                const response = await fetch(`${API_BASE}/concepts/broken`);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('[CONCEPTS] API Fehler:', response.status, errorText);
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('[CONCEPTS] API Antwort:', {
+                    totalConcepts: data.totalConcepts,
+                    brokenConceptsCount: data.brokenConceptsCount,
+                    brokenIdsCount: data.brokenIdsCount,
+                    validIdsCount: data.validIdsCount,
+                    brokenConcepts: data.brokenConcepts?.slice(0, 10)
+                });
+                
+                validIds = new Set(data.validIds || []);
+                brokenConceptsSet = new Set(data.brokenConcepts || []);
+                brokenConceptsDetails = data.brokenDetails || {};
+                
+                console.log('[CONCEPTS] Sets erstellt:', {
+                    validIds: validIds.size,
+                    brokenConceptsSet: brokenConceptsSet.size
+                });
+                
+                document.getElementById('brokenCount').textContent = 
+                    `(${brokenConceptsSet.size} gebrochen)`;
+                
+                // Statistik aktualisieren
+                document.getElementById('totalConcepts').textContent = data.totalConcepts || '-';
+                document.getElementById('brokenConcepts').textContent = brokenConceptsSet.size;
+                document.getElementById('brokenIds').textContent = data.brokenIdsCount || '-';
+                document.getElementById('validIds').textContent = data.validIdsCount || '-';
+                
+            } catch (error) {
+                console.error('Fehler beim Laden der gebrochenen Concepts:', error);
+                document.getElementById('brokenCount').textContent = '(API-Fehler!)';
+            }
+        }
+
+        // Lade alle Concepts
+        async function loadConcepts() {
+            const container = document.getElementById('conceptsList');
+            
+            try {
+                const response = await fetch(`${API_BASE}/concepts`);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                allConcepts = await response.json();
+                
+                // Alphabet-Filter erstellen
+                const letters = [...new Set(allConcepts.map(c => c.alphabetical))].sort();
+                const filterContainer = document.getElementById('alphabetFilter');
+                filterContainer.innerHTML = '<button class="alphabet-btn active" onclick="filterByLetter(\'\')">Alle</button>';
+                letters.forEach(letter => {
+                    filterContainer.innerHTML += `<button class="alphabet-btn" onclick="filterByLetter('${letter}')">${letter}</button>`;
+                });
+                
+                document.getElementById('conceptStats').textContent = `${allConcepts.length} Concepts`;
+                
+                renderConcepts(allConcepts);
+                
+            } catch (error) {
+                console.error('Fehler beim Laden der Concepts:', error);
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: #dc3545;">Fehler beim Laden</div>';
+            }
+        }
+
+        // Render Concepts Liste
+        function renderConcepts(concepts) {
+            const container = document.getElementById('conceptsList');
+            
+            if (concepts.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Concepts gefunden</div>';
+                return;
+            }
+            
+            container.innerHTML = concepts.map(c => {
+                const isBroken = brokenConceptsSet.has(c.keyword);
+                const dotClass = isBroken ? 'broken' : 'valid';
+                const isSelected = selectedConcept && selectedConcept.keyword === c.keyword;
+                
+                return `
+                    <div class="list-item ${isSelected ? 'selected' : ''}" 
+                         onclick="selectConcept('${escapeForAttribute(c.keyword)}')"
+                         oncontextmenu="showConceptPopup('${escapeForAttribute(c.keyword)}', event)">
+                        <div class="concept-info">
+                            <span class="status-dot ${dotClass}"></span>
+                            <span class="concept-name">${escapeHtml(c.keyword)}</span>
+                            <span class="concept-letter">${c.alphabetical}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter nach Buchstabe
+        function filterByLetter(letter) {
+            currentLetterFilter = letter;
+            
+            // Button-Status aktualisieren
+            document.querySelectorAll('.alphabet-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if ((letter === '' && btn.textContent === 'Alle') || btn.textContent === letter) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            filterConcepts();
+        }
+
+        // Filter Concepts
+        function filterConcepts() {
+            const search = document.getElementById('conceptSearch').value.toLowerCase();
+            const showBrokenOnly = document.getElementById('showBrokenOnly').checked;
+            
+            let filtered = allConcepts;
+            
+            // Buchstaben-Filter
+            if (currentLetterFilter) {
+                filtered = filtered.filter(c => c.alphabetical === currentLetterFilter);
+            }
+            
+            // Suche
+            if (search) {
+                filtered = filtered.filter(c => c.keyword.toLowerCase().includes(search));
+            }
+            
+            // Nur gebrochene
+            if (showBrokenOnly) {
+                filtered = filtered.filter(c => brokenConceptsSet.has(c.keyword));
+            }
+            
+            renderConcepts(filtered);
+        }
+
+        // Concept auswählen
+        function selectConcept(keyword) {
+            const concept = allConcepts.find(c => c.keyword === keyword);
+            if (!concept) return;
+            
+            selectedConcept = concept;
+            
+            // Liste aktualisieren
+            document.querySelectorAll('.list-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Detail anzeigen
+            showConceptDetail(concept);
+        }
+
+        // Concept-Detail anzeigen
+        function showConceptDetail(concept) {
+            const container = document.getElementById('conceptDetail');
+            const conceptKeyword = concept.keyword || '';
+            
+            // Text mit Link-Hervorhebung
+            let processedText = concept.text || '';
+            
+            // Markdown-Links in Klammern: ([[Title|GA066/1]]) -> (GA066/1) fett
+            processedText = processedText.replace(/\(\[\[([^\]]+)\|([^\]]+)\]\]\)/g, (match, title, ref) => {
+                const lectureMatch = ref.match(/^(GA\d+[a-z]?\/\d+)/);
+                if (lectureMatch) {
+                    const lectureId = lectureMatch[1];
+                    const idMatch = ref.match(/#?\^([a-z0-9]+)/);
+                    const paragraphId = idMatch ? idMatch[1] : null;
+                    const link = createConceptLink(lectureId, paragraphId, lectureId, conceptKeyword);
+                    return `(<strong>${link}</strong>)`;
+                }
+                return match;
+            });
+            
+            // Markdown-Links ohne Klammern: [[Title|GA066/1]] -> (GA066/1) fett
+            processedText = processedText.replace(/\[\[([^\]]+)\|([^\]]+)\]\]/g, (match, title, ref) => {
+                const lectureMatch = ref.match(/^(GA\d+[a-z]?\/\d+)/);
+                if (lectureMatch) {
+                    const lectureId = lectureMatch[1];
+                    const idMatch = ref.match(/#?\^([a-z0-9]+)/);
+                    const paragraphId = idMatch ? idMatch[1] : null;
+                    const link = createConceptLink(lectureId, paragraphId, lectureId, conceptKeyword);
+                    return `(<strong>${link}</strong>)`;
+                }
+                return match;
+            });
+            
+            // Format (GA066/1:^id) in Klammern -> (Link) fett
+            processedText = processedText.replace(/\((GA\d+[a-z]?\/\d+):\^([a-z0-9]+)\)/g, (match, lectureId, id) => {
+                const link = createConceptLink(lectureId, id, lectureId, conceptKeyword);
+                return `(<strong>${link}</strong>)`;
+            });
+            
+            // Format GA066/1:^id ohne Klammern -> (Link) fett
+            processedText = processedText.replace(/(GA\d+[a-z]?\/\d+):\^([a-z0-9]+)/g, (match, lectureId, id) => {
+                const link = createConceptLink(lectureId, id, lectureId, conceptKeyword);
+                return `(<strong>${link}</strong>)`;
+            });
+            
+            // Bold-Text (**text**) in <strong> umwandeln
+            processedText = processedText.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            
+            // GA-Referenzen als klickbare Tags
+            let gaRefsHtml = '';
+            if (concept.gaReferences && concept.gaReferences.length > 0) {
+                gaRefsHtml = `
+                    <div class="ga-refs">
+                        <h4>GA-Referenzen (${concept.gaReferences.length})</h4>
+                        ${concept.gaReferences.map(ref => {
+                            return `<a href="app.html?ga=${encodeURIComponent(ref)}" target="_blank" class="ga-ref-tag">${ref}</a>`;
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                <h3>${escapeHtml(concept.keyword)}</h3>
+                <div class="concept-text">${processedText}</div>
+                ${gaRefsHtml}
+            `;
+        }
+        
+        // Erstellt einen klickbaren Link wie im Index-Tab der App
+        function createConceptLink(lectureId, paragraphId, displayText, searchTerm) {
+            const fullId = paragraphId ? `^${paragraphId}` : null;
+            const isValid = !paragraphId || validIds.has(fullId);
+            const brokenClass = isValid ? '' : ' broken-link';
+            
+            // URL-Parameter wie in app.html erwartet: ?ga=GA115/4&index=ka5rsv
+            let url = `app.html?ga=${encodeURIComponent(lectureId)}`;
+            if (paragraphId) {
+                url += `&index=${encodeURIComponent(paragraphId)}`;
+            }
+            
+            return `<a href="${url}" target="_blank" class="ga-keyword-link${brokenClass}" title="${isValid ? 'Link öffnen' : 'Gebrochener Link'}">${displayText}</a>`;
+        }
+
+        // Rechtsklick-Popup
+        function showConceptPopup(keyword, event) {
+            event.preventDefault();
+            
+            // Altes Popup entfernen
+            const oldPopup = document.querySelector('.context-popup');
+            if (oldPopup) oldPopup.remove();
+            
+            const details = brokenConceptsDetails[keyword];
+            if (!details) {
+                showToast('Keine Details verfügbar', 'info');
+                return;
+            }
+            
+            const popup = document.createElement('div');
+            popup.className = 'context-popup';
+            popup.style.left = `${event.pageX}px`;
+            popup.style.top = `${event.pageY}px`;
+            
+            popup.innerHTML = `
+                <div class="popup-header">
+                    <span>${escapeHtml(keyword)}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">×</button>
+                </div>
+                <div style="font-size: 0.8rem; margin-bottom: 8px; color: var(--secondary-text);">
+                    ${details.brokenCount} gebrochene von ${details.totalCount} Links
+                </div>
+                <div style="max-height: 250px; overflow-y: auto;">
+                    ${details.brokenIds ? details.brokenIds.map(id => `
+                        <div class="popup-lecture broken">
+                            <span class="status-dot broken"></span>
+                            ${id}
+                        </div>
+                    `).join('') : '<div style="color: var(--secondary-text);">Keine Details</div>'}
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            // Popup schließen bei Klick außerhalb
+            setTimeout(() => {
+                document.addEventListener('click', function closePopup(e) {
+                    if (!popup.contains(e.target)) {
+                        popup.remove();
+                        document.removeEventListener('click', closePopup);
+                    }
+                });
+            }, 100);
+        }
+
+        // Dry-Run Reparatur
+        async function runDryRepair() {
+            const statusDiv = document.getElementById('repairStatus');
+            statusDiv.innerHTML = '<span style="color: var(--accent-color);">⏳ Prüfe...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/concepts/repair?dryRun=true`, {
+                    method: 'POST'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                statusDiv.innerHTML = `
+                    <div style="color: #28a745;">✓ Prüfung abgeschlossen</div>
+                    <div>Reparierbar: <strong>${result.repairableCount}</strong></div>
+                    <div>Nicht reparierbar: <strong>${result.unreparableCount}</strong></div>
+                `;
+                
+            } catch (error) {
+                console.error('Fehler bei Dry-Run:', error);
+                statusDiv.innerHTML = `<span style="color: #dc3545;">Fehler: ${error.message}</span>`;
+            }
+        }
+
+        // Gebrochene Links reparieren
+        async function repairBrokenLinks() {
+            if (!confirm('Gebrochene Links reparieren?\n\nDies wird versuchen, defekte IDs durch Text-Matching zu ersetzen.')) {
+                return;
+            }
+            
+            const statusDiv = document.getElementById('repairStatus');
+            statusDiv.innerHTML = '<span style="color: var(--accent-color);">⏳ Repariere...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/concepts/repair`, {
+                    method: 'POST'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                statusDiv.innerHTML = `
+                    <div style="color: #28a745;">✓ Reparatur abgeschlossen</div>
+                    <div>Repariert: <strong>${result.repairedCount}</strong></div>
+                    <div>Noch gebrochen: <strong>${result.stillBrokenCount}</strong></div>
+                `;
+                
+                showToast(`${result.repairedCount} Links repariert`, 'success');
+                
+                // Daten neu laden
+                await loadBrokenConcepts();
+                await loadConcepts();
+                
+            } catch (error) {
+                console.error('Fehler bei Reparatur:', error);
+                statusDiv.innerHTML = `<span style="color: #dc3545;">Fehler: ${error.message}</span>`;
+                showToast('Reparatur fehlgeschlagen', 'error');
+            }
+        }
+
+        // Export gebrochener Links
+        function exportBrokenReport() {
+            const brokenList = [];
+            
+            for (const [keyword, details] of Object.entries(brokenConceptsDetails)) {
+                brokenList.push({
+                    concept: keyword,
+                    brokenCount: details.brokenCount,
+                    totalCount: details.totalCount,
+                    brokenIds: details.brokenIds
+                });
+            }
+            
+            const blob = new Blob([JSON.stringify(brokenList, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `broken-concepts-report-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('Report exportiert', 'success');
+        }
+
+        // Hilfsfunktionen
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function escapeForAttribute(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/'/g, '&#39;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\\/g, '\\\\');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

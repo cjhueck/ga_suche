@@ -14,7 +14,11 @@ Regeln:
    - Fall 1 (Absatz): Nach Satzende (.!?:) + Großbuchstabe -> neuer Absatz mit SM
    - Fall 2 (Inline): Kein Satzende -> SM inline mit Leerzeichen
    - Fall 3 (Worttrennung): Bindestrich am Ende -> SM ohne Leerzeichen
-5. Bei Überschriften (#): SM nach Überschrift + Datum, vor erstem Text
+6. Bei Überschriften (#): SM nach Überschrift + Datum, vor erstem Text
+7. Überschriften-Korrektur:
+   - Großbuchstaben-Zeilen mit Ort/Datum werden zu # Überschriften
+   - Datum auf separater Zeile wird in Überschrift integriert
+8. "Tafel" oder "Tafel x" als einzelne Zeile wird gelöscht
 """
 import sys
 import os
@@ -38,6 +42,57 @@ def is_date_line(text):
         return True
     return False
 
+def is_tafel_line(text):
+    """Prüft ob Text eine Tafel-Zeile ist, die gelöscht werden soll."""
+    text = text.strip()
+    # "Tafel", "Tafel 1", "Tafel 1*", "Tafel I" etc. als einzelne Zeile
+    if re.match(r'^Tafel(\s+[\dIVXivx]+\*?)?$', text, re.IGNORECASE):
+        return True
+    return False
+
+def is_lecture_heading_without_hash(text):
+    """
+    Prüft ob Text eine Vortrags-Überschrift ohne # ist.
+    Erkennungsmerkmale:
+    - Überwiegend Großbuchstaben
+    - Enthält typische Vortragswörter (VORTRAG, ERSTER, ZWEITER, etc.)
+    - Relativ kurz (unter 200 Zeichen)
+    """
+    text = text.strip()
+    
+    # Bereits eine Überschrift
+    if text.startswith('#'):
+        return False
+    
+    # Zu lang für eine Überschrift
+    if len(text) > 200:
+        return False
+    
+    # Prüfe auf typische Vortragstitel-Muster
+    patterns = [
+        r'^(ERSTER|ZWEITER|DRITTER|VIERTER|FÜNFTER|SECHSTER|SIEBTER|ACHTER|NEUNTER|ZEHNTER)\s+VORTRAG',
+        r'^(ERSTE|ZWEITE|DRITTE|VIERTE|FÜNFTE|SECHSTE|SIEBTE|ACHTE|NEUNTE|ZEHNTE)\s+',
+        r'^I+V?I*\.?\s+VORTRAG',  # I., II., III., IV. VORTRAG
+        r'^[IVX]+\.?\s+',  # Römische Zahlen
+        r'^VORTRAG\s',
+        r'^DIE\s+[A-ZÄÖÜ]',  # DIE MICHAEL-IMAGINATION
+        r'^DAS\s+[A-ZÄÖÜ]',  # DAS MITERLEBEN
+        r'^DER\s+[A-ZÄÖÜ]',  # DER MENSCH
+    ]
+    
+    for pattern in patterns:
+        if re.match(pattern, text):
+            return True
+    
+    # Prüfe ob Text überwiegend aus Großbuchstaben besteht (>60%)
+    letters = [c for c in text if c.isalpha()]
+    if letters:
+        uppercase_ratio = sum(1 for c in letters if c.isupper()) / len(letters)
+        if uppercase_ratio > 0.6 and len(text) < 100:
+            return True
+    
+    return False
+
 def merge_h1_with_date(content):
     """
     Verschiebt Ort- und Datumszeilen nach H1-Überschriften in die Überschrift.
@@ -58,10 +113,88 @@ def merge_h1_with_date(content):
         heading = m.group(1).rstrip()
         date_line = m.group(2).strip()
         ending = m.group(3)
+        # Prüfe ob Datum bereits in Überschrift enthalten
+        if date_line.split(',')[0] in heading or re.search(r'\d{4}', heading):
+            return m.group(0)  # Keine Änderung
         return f'{heading}, {date_line}{ending}'
     
     result = re.sub(pattern, replace_func, content, flags=re.MULTILINE)
     return result
+
+def add_hash_to_headings(content):
+    """
+    Fügt # zu Überschriften hinzu, die keins haben.
+    Erkennt Überschriften an:
+    - Großbuchstaben
+    - Typische Vortragstitel-Muster
+    """
+    lines = content.split('\n')
+    result_lines = []
+    stats = {'headings_fixed': 0}
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+        
+        # Prüfe ob diese Zeile eine Überschrift ohne # ist
+        if is_lecture_heading_without_hash(stripped):
+            # Füge # hinzu
+            result_lines.append('# ' + stripped)
+            stats['headings_fixed'] += 1
+            i += 1
+            continue
+        
+        result_lines.append(line)
+        i += 1
+    
+    return '\n'.join(result_lines), stats
+
+def remove_tafel_lines(content):
+    """
+    Entfernt "Tafel" oder "Tafel x" Zeilen.
+    """
+    lines = content.split('\n')
+    result_lines = []
+    stats = {'tafel_removed': 0}
+    
+    for line in lines:
+        if is_tafel_line(line):
+            stats['tafel_removed'] += 1
+            continue
+        result_lines.append(line)
+    
+    return '\n'.join(result_lines), stats
+
+def fix_headings_comprehensive(content):
+    """
+    Umfassende Überschriften-Korrektur:
+    1. Fügt # zu Überschriften ohne # hinzu
+    2. Fügt Datum in Überschrift ein wenn auf separater Zeile
+    3. Entfernt Tafel-Zeilen
+    """
+    stats = {
+        'headings_fixed': 0,
+        'dates_merged': 0,
+        'tafel_removed': 0
+    }
+    
+    # Schritt 1: # zu Überschriften hinzufügen
+    content, add_stats = add_hash_to_headings(content)
+    stats['headings_fixed'] = add_stats['headings_fixed']
+    
+    # Schritt 2: Datum in Überschrift integrieren
+    # Zähle vorher die Anzahl der separaten Datumszeilen nach Überschriften
+    before_count = len(re.findall(r'^# [^\n]+\n\n+[A-ZÄÖÜ][a-zäöüß]+,?\s+\d{1,2}\.\s+\w+\s+\d{4}', content, re.MULTILINE))
+    content = merge_h1_with_date(content)
+    after_count = len(re.findall(r'^# [^\n]+\n\n+[A-ZÄÖÜ][a-zäöüß]+,?\s+\d{1,2}\.\s+\w+\s+\d{4}', content, re.MULTILINE))
+    stats['dates_merged'] = before_count - after_count
+    
+    # Schritt 3: Tafel-Zeilen entfernen
+    content, tafel_stats = remove_tafel_lines(content)
+    stats['tafel_removed'] = tafel_stats['tafel_removed']
+    
+    return content, stats
 
 def is_copyright_line(text):
     """Prüft ob Text eine Copyright-Zeile ist."""
@@ -220,6 +353,9 @@ def convert_page_markers(input_file, output_file=None, backup=True):
     # Bildpfade korrigieren
     content, image_stats = fix_image_paths(content, input_file)
     
+    # Überschriften korrigieren (vor Block-Verarbeitung)
+    content, heading_stats = fix_headings_comprehensive(content)
+    
     # Teile den Text in Blöcke (getrennt durch Leerzeilen)
     blocks = re.split(r'\n\n+', content)
     
@@ -228,6 +364,11 @@ def convert_page_markers(input_file, output_file=None, backup=True):
     
     # Statistiken
     stats = {'fall1': 0, 'fall2': 0, 'fall3': 0, 'heading': 0, 'copyright_removed': 0, 'conflicts': 0}
+    
+    # Überschriften-Statistiken übernehmen
+    stats['headings_fixed'] = heading_stats.get('headings_fixed', 0)
+    stats['dates_merged'] = heading_stats.get('dates_merged', 0)
+    stats['tafel_removed'] = heading_stats.get('tafel_removed', 0)
     
     # Verarbeite die Blöcke
     output_blocks = []
@@ -504,6 +645,10 @@ def print_stats(stats):
     print(f"  Nach Überschrift: {stats['heading']}")
     print(f"\n--- verarbeitet: {stats.get('divider_count', 0)}")
     print(f"Konflikte/Warnungen: {stats['conflicts']}")
+    print(f"\nÜberschriften:")
+    print(f"  # hinzugefügt: {stats.get('headings_fixed', 0)}")
+    print(f"  Datum zusammengeführt: {stats.get('dates_merged', 0)}")
+    print(f"  Tafel-Zeilen entfernt: {stats.get('tafel_removed', 0)}")
     print(f"\nAufräumen:")
     print(f"  Copyright entfernt: {stats['copyright_removed']}")
     print(f"  Copyright verbleibend: {stats['copyright_remaining']}")
