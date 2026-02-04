@@ -4001,7 +4001,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #viewer .member-highlight,
     #viewer span[data-highlight="true"] {
       text-decoration: underline !important;
-      text-decoration-thickness: 1.5px !important;
+      text-decoration-thickness: 0.5px !important;
+      text-underline-offset: 2px !important;
     }
     
     /* Highlight-Farben basierend auf data-highlight-color Attribut - nur als Fallback */
@@ -4028,7 +4029,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #viewer .member-highlight a,
     #viewer span[data-highlight="true"] a {
       text-decoration: underline !important;
-      text-decoration-thickness: 1.5px !important;
+      text-decoration-thickness: 0.5px !important;
+      text-underline-offset: 2px !important;
     }
     mark { 
       background: rgba(70, 120, 134, 0.2); 
@@ -14445,6 +14447,7 @@ function normalizeGANumber(gaNumber) {
       // Entferne alte Event-Listener, falls vorhanden (durch Klonen der Container)
       const yearContainer = document.getElementById('yearFilterContainer');
       const gaContainer = document.getElementById('gaFilterContainer');
+      const advancedGAContainer = document.getElementById('advancedGAFilterContainer');
       
       if (yearContainer) {
         const newYearContainer = yearContainer.cloneNode(true);
@@ -14454,6 +14457,11 @@ function normalizeGANumber(gaNumber) {
       if (gaContainer) {
         const newGAContainer = gaContainer.cloneNode(true);
         gaContainer.parentNode.replaceChild(newGAContainer, gaContainer);
+      }
+      
+      if (advancedGAContainer) {
+        const newAdvancedGAContainer = advancedGAContainer.cloneNode(true);
+        advancedGAContainer.parentNode.replaceChild(newAdvancedGAContainer, advancedGAContainer);
       }
       
       yearFilterDropdown = new MultiSelectDropdown(
@@ -21113,6 +21121,16 @@ function scrollToChronologicalYear(year) {
       if (advancedTab) {
         advancedTab.style.display = 'block';
         advancedTab.classList.add('active');
+      }
+      
+      // Initialisiere Custom Dropdowns für erweiterte Suche (falls noch nicht geschehen)
+      if (typeof initCustomDropdowns === 'function') {
+        initCustomDropdowns();
+      }
+      
+      // Befülle GA-Dropdowns (falls noch nicht geschehen)
+      if (typeof populateGADropdowns === 'function') {
+        populateGADropdowns();
       }
       
       // Passe Sidebar-Breite an (falls geöffnet)

@@ -7930,7 +7930,8 @@ function applyHighlightToElement(targetElement, highlight) {
             span.style.setProperty('text-decoration', 'underline', 'important');
             span.style.setProperty('text-decoration-color', highlightColor, 'important');
             span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-            span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+            span.style.setProperty('text-decoration-thickness', '0.5px', 'important');
+            span.style.setProperty('text-underline-offset', '2px', 'important');
             span.style.setProperty('cursor', 'pointer', 'important');
             span.setAttribute('data-highlight-id', highlight.id);
             span.setAttribute('data-highlight', 'true');
@@ -8082,7 +8083,7 @@ function createQuoteVerticalLine(targetElement, range, quote) {
       existingLine.style.backgroundColor = quoteColorHex;
       existingLine.style.right = '-5px';
       existingLine.style.left = 'auto';
-      existingLine.style.width = '1.5px';
+      existingLine.style.width = '0.5px';
       existingLine.setAttribute('data-quote-color', quoteColor);
       return existingLine;
     }
@@ -8096,7 +8097,7 @@ function createQuoteVerticalLine(targetElement, range, quote) {
     lineElement.style.position = 'absolute';
     lineElement.style.right = '-5px';
     lineElement.style.top = `${topOffset}px`;
-    lineElement.style.width = '1.5px';
+    lineElement.style.width = '0.5px';
     lineElement.style.height = `${Math.max(lineHeight, 1)}px`;
     lineElement.style.backgroundColor = quoteColorHex;
     lineElement.style.cursor = 'pointer';
@@ -8502,10 +8503,10 @@ function createQuoteVerticalLineForParagraph(para, quote, range) {
   line.className = 'member-quote-vertical-line';
   line.style.position = 'absolute';
   line.style.right = '-5px';
-  line.style.width = '1.5px';
+  line.style.width = '0.5px';
   line.style.backgroundColor = quoteColor;
   line.style.cursor = 'pointer';
-  line.style.borderRadius = '0.75px';
+  line.style.borderRadius = '0.25px';
   line.style.transition = 'opacity 0.2s';
   line.setAttribute('data-quote-id', quote.id);
   line.setAttribute('data-quote', 'true');
@@ -9024,7 +9025,8 @@ function applyHighlightToBookElement(targetElement, highlight) {
             span.style.setProperty('text-decoration', 'underline', 'important');
             span.style.setProperty('text-decoration-color', highlightColor, 'important');
             span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-            span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+            span.style.setProperty('text-decoration-thickness', '0.5px', 'important');
+            span.style.setProperty('text-underline-offset', '2px', 'important');
             span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
             span.setAttribute('data-highlight-id', highlight.id);
             span.setAttribute('data-highlight', 'true');
