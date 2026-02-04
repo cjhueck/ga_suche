@@ -1472,7 +1472,8 @@ function applyHighlightToSelection(range, color = 'blue', highlightId = null, ga
     span.style.setProperty('text-decoration', 'underline', 'important');
     span.style.setProperty('text-decoration-color', highlightColor, 'important');
     span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-    span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+    span.style.setProperty('text-decoration-thickness', '0.5px', 'important');
+    span.style.setProperty('text-underline-offset', '2px', 'important');
     span.setAttribute('data-highlight', 'true');
     span.setAttribute('data-highlight-color', color);
     

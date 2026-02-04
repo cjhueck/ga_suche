@@ -532,6 +532,8 @@ a:hover .quote-bookmark-icon-header {
 
 .member-item-link a:hover {
   text-decoration: underline;
+  text-decoration-thickness: 0.3px;
+  text-underline-offset: 2px;
 }
 
 .member-item-actions {
@@ -990,6 +992,7 @@ span[data-highlight="true"],
   cursor: pointer !important;
 }
 
+
 /* Kontextmenü für Highlight-Farbänderung im Member Panel */
 .members-highlight-context-menu {
   position: fixed;
@@ -1032,7 +1035,7 @@ span[data-highlight="true"],
 .member-quote-vertical-line {
   position: absolute;
   right: -5px;
-  width: 1.5px;
+  width: 0.5px;
   background-color: #467886;
   cursor: pointer;
   z-index: 10;
