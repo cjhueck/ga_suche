@@ -1432,7 +1432,9 @@
                 const searchText = searchWords.join(' ');
                 
                 console.log('Alle Items der oberen Zeile:', topItems.map(item => ({ text: item.str, x: item.transform[4].toFixed(1) })));
-                console.log('Linke Items (niedrigste X-Positionen):', itemsToUse.map(item => ({ text: item.str, x: item.transform[4].toFixed(1) })));
+                if (itemsToUse) {
+                    console.log('Linke Items (niedrigste X-Positionen):', itemsToUse.map(item => ({ text: item.str, x: item.transform[4].toFixed(1) })));
+                }
                 console.log('Extrahiertes Text (oben links):', leftText);
                 console.log('Alle Wörter:', words);
                 console.log('Erste 20 Wörter für Suche:', searchWords);
@@ -1467,11 +1469,21 @@
                         headingTitleSearch = headingMatch[1].trim();
                         console.log('[Überschrift] Titel extrahiert:', headingTitleSearch);
                     } else {
-                        // Fallback: Nimm die ersten Wörter bis zum Komma oder Datum
+                        // Fallback: Nur wenn der Text wie eine Überschrift aussieht
+                        // (hauptsächlich Großbuchstaben, oder enthält typische Überschriftswörter)
                         const titlePart = fullHeadingText.split(/[,\d]/)[0].trim();
-                        if (titlePart.length > 3) {
+                        const isLikelyHeading = /^[A-ZÄÖÜ\s]{5,}$/.test(titlePart) || // Hauptsächlich Großbuchstaben
+                                               /VORTRAG|KAPITEL|TEIL|VORREDE|EINLEITUNG/i.test(titlePart);
+                        if (titlePart.length > 3 && isLikelyHeading) {
                             headingTitleSearch = titlePart;
                             console.log('[Überschrift] Titel (Fallback) extrahiert:', headingTitleSearch);
+                        } else if (headingDateSearch) {
+                            // Wenn Datum gefunden wurde, ist das ausreichend
+                            console.log('[Überschrift] Kein Titel-Fallback, aber Datum vorhanden');
+                        } else {
+                            // Kein gültiger Überschriftstext gefunden - deaktiviere Überschriften-Suche
+                            console.log('[Überschrift] Kein gültiger Überschriftstext, deaktiviere Überschriften-Suche');
+                            isHeadingSearch = false;
                         }
                     }
                 }
@@ -1502,6 +1514,11 @@
                 const markdownTextForSearch = searchStartPos > 0 ? markdownText.substring(searchStartPos) : markdownText;
                 const offsetCorrection = searchStartPos; // Zum Korrigieren der gefundenen Position
                 
+                // Unicode-Normalisierung (NFC) für konsistente Umlaut-Darstellung
+                // WICHTIG: Diese Variablen werden für alle Suchstrategien benötigt - MUSS früh definiert werden!
+                const searchTextLower = searchText.toLowerCase().normalize('NFC');
+                const markdownTextLower = markdownTextForSearch.toLowerCase().normalize('NFC');
+                
                 // Normalisiere Markdown für Suche
                 // OPTIMIERUNG: Verwende requestIdleCallback oder setTimeout für große Texte
                 const startTime = performance.now();
@@ -1525,30 +1542,84 @@
                 let useNormalizedSearch = false;
                 let usedSzConversion = false;
                 
-                // Unicode-Normalisierung (NFC) für konsistente Umlaut-Darstellung
-                // WICHTIG: Diese Variablen werden für alle Suchstrategien benötigt
-                const searchTextLower = searchText.toLowerCase().normalize('NFC');
-                const markdownTextLower = markdownTextForSearch.toLowerCase().normalize('NFC');
+                // Erkenne gesperrte Schrift (z.B. "S E C H S T E R V O R T R A G" → "SECHSTER VORTRAG")
+                // Gesperrte Schrift: Einzelne Buchstaben mit Leerzeichen dazwischen
+                // Prüfe ob der Text das Muster "X Y Z" hat (einzelne Großbuchstaben mit Leerzeichen)
+                const isSperrsatz = /^([A-ZÄÖÜ]\s)+[A-ZÄÖÜ]$/.test(searchText.trim());
+                let normalizedSearchText = searchText;
+                if (isSperrsatz) {
+                    // Entferne Leerzeichen zwischen einzelnen Buchstaben, aber behalte Wortgrenzen
+                    // "S E C H S T E R   V O R T R A G" → "SECHSTER VORTRAG"
+                    // Strategie: Ersetze "X " (Buchstabe + Leerzeichen) durch nur den Buchstaben,
+                    // aber behalte doppelte Leerzeichen als Wortgrenzen
+                    normalizedSearchText = searchText
+                        .replace(/\s{2,}/g, '|||SPACE|||')  // Markiere Wortgrenzen (mehrfache Leerzeichen)
+                        .replace(/([A-ZÄÖÜ])\s(?=[A-ZÄÖÜ])/g, '$1')  // Entferne einzelne Leerzeichen zwischen Buchstaben
+                        .replace(/\|\|\|SPACE\|\|\|/g, ' ');  // Stelle Wortgrenzen wieder her
+                    console.log('[Überschrift] Gesperrte Schrift erkannt, normalisiert:', normalizedSearchText);
+                }
+                
+                // Spezielle Normalisierung für bekannte Überschriften-Wörter in gesperrter Schrift
+                // "E R S T E R" → "ERSTER", "Z W E I T E R" → "ZWEITER", etc.
+                const ordinalWords = ['ERSTER', 'ZWEITER', 'DRITTER', 'VIERTER', 'FÜNFTER', 'SECHSTER', 
+                                     'SIEBTER', 'ACHTER', 'NEUNTER', 'ZEHNTER', 'ELFTER', 'ZWÖLFTER',
+                                     'VORTRAG', 'KAPITEL', 'TEIL'];
+                for (const word of ordinalWords) {
+                    // Erstelle gesperrtes Muster: "VORTRAG" → "V O R T R A G"
+                    const sperrsatzPattern = word.split('').join('\\s*');
+                    const regex = new RegExp(sperrsatzPattern, 'gi');
+                    if (regex.test(normalizedSearchText)) {
+                        normalizedSearchText = normalizedSearchText.replace(regex, word);
+                    }
+                }
+                console.log('[Überschrift] Normalisierter Suchtext:', normalizedSearchText);
                 
                 // SPEZIAL-STRATEGIE für Überschriften: Primär nach Datum suchen
-                // Aktiviere auch wenn Text "VORTRAG" enthält (auch wenn nicht als Überschrift erkannt)
-                if (!isHeadingSearch && /VORTRAG/i.test(searchText)) {
-                    console.log('[Überschrift] VORTRAG im Text erkannt, aktiviere Überschriften-Suche');
+                // Aktiviere wenn:
+                // 1. Text "VORTRAG" enthält, ODER
+                // 2. Text ein Datum enthält (TT. Monat JJJJ) mit Ort davor (z.B. "Berlin, 23. Mai 1923")
+                const datePattern = /(\d{1,2})\.\s*(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember)\s*(\d{4})/i;
+                const hasDate = datePattern.test(normalizedSearchText);
+                const hasVortrag = /V\s*O\s*R\s*T\s*R\s*A\s*G|VORTRAG/i.test(normalizedSearchText);
+                // Bekannte Steiner-Vortragsorte
+                const hasOrt = /Berlin|Dornach|Stuttgart|München|Hamburg|Köln|Wien|Basel|Zürich|Prag|London|Paris|Den Haag|Haag|Kristiania|Oslo|Penmaenmawr|Torquay|Arnheim|Breslau|Nürnberg|Leipzig|Bern|Kassel/i.test(normalizedSearchText);
+                // Text in Großbuchstaben (mindestens 10 Zeichen)
+                const hasUppercaseTitle = /^[A-ZÄÖÜ\s\-]{10,}/.test(normalizedSearchText.trim());
+                
+                if (!isHeadingSearch && (hasVortrag || (hasDate && (hasOrt || hasUppercaseTitle)))) {
+                    if (hasVortrag) {
+                        console.log('[Überschrift] VORTRAG im Text erkannt, aktiviere Überschriften-Suche');
+                    } else {
+                        console.log('[Überschrift] Datum + Ort/Titel erkannt, aktiviere Überschriften-Suche');
+                    }
                     isHeadingSearch = true;
                     
                     // Extrahiere Datum aus dem Suchtext
-                    const datePattern = /(\d{1,2})\.\s*(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember)\s*(\d{4})/i;
-                    const dateMatch = searchText.match(datePattern);
+                    const dateMatch = normalizedSearchText.match(datePattern);
                     if (dateMatch) {
                         headingDateSearch = `${dateMatch[1]}. ${dateMatch[2]} ${dateMatch[3]}`;
                         console.log('[Überschrift] Datum aus Suchtext extrahiert:', headingDateSearch);
                     }
                     
                     // Extrahiere Titel
-                    const titleMatch = searchText.match(/([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß\s]*VORTRAG)/i);
+                    // Bei VORTRAG: Text bis VORTRAG
+                    // Sonst: Text bis zum Ort oder Datum
+                    const titleText = isSperrsatz ? normalizedSearchText : searchText;
+                    let titleMatch = titleText.match(/([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß\s\-]*VORTRAG)/i);
                     if (titleMatch) {
                         headingTitleSearch = titleMatch[1].trim();
                         console.log('[Überschrift] Titel aus Suchtext extrahiert:', headingTitleSearch);
+                    } else {
+                        // Kein VORTRAG - extrahiere Titel bis zum Komma (vor Ort) oder Datum
+                        titleMatch = titleText.match(/^([A-ZÄÖÜ][A-ZÄÖÜ\s\-]+?)(?:,|\d{1,2}\.)/);
+                        if (titleMatch) {
+                            headingTitleSearch = titleMatch[1].trim();
+                            console.log('[Überschrift] Titel (bis Komma/Datum) extrahiert:', headingTitleSearch);
+                        } else if (isSperrsatz) {
+                            // Bei gesperrter Schrift: Verwende den gesamten normalisierten Text als Titel
+                            headingTitleSearch = normalizedSearchText;
+                            console.log('[Überschrift] Titel (gesperrte Schrift):', headingTitleSearch);
+                        }
                     }
                 }
                 
@@ -1606,6 +1677,8 @@
                     // Strategie B: Suche nach Überschriftstext (Fallback)
                     if (searchIndex === -1 && headingTitleSearch) {
                         const titleLower = headingTitleSearch.toLowerCase();
+                        console.log('[Überschrift] Suche nach Titel:', titleLower);
+                        
                         // Verschiedene Varianten versuchen
                         const titleVariants = [
                             titleLower,
@@ -1614,7 +1687,15 @@
                         ];
                         
                         for (const titleVariant of titleVariants) {
+                            // Direkte Suche
                             let idx = markdownTextLower.indexOf(titleVariant);
+                            
+                            // Falls nicht gefunden, suche auch nach dem Titel gefolgt von Komma (Überschrift mit Ort/Datum)
+                            if (idx === -1 && !titleVariant.startsWith('# ')) {
+                                idx = markdownTextLower.indexOf('# ' + titleVariant);
+                                if (idx !== -1) idx += 2; // Überspringe "# "
+                            }
+                            
                             if (idx !== -1) {
                                 // Wenn mit "# " gefunden, überspringe das
                                 if (titleVariant.startsWith('# ')) {
@@ -1625,6 +1706,70 @@
                                 foundWordCount = titleLower.split(/\s+/).length;
                                 console.log(`[Überschrift] Titel "${titleVariant}" gefunden bei Position ${searchIndex}`);
                                 break;
+                            }
+                        }
+                        
+                        // Falls immer noch nicht gefunden, versuche Teilsuche (erste Wörter)
+                        if (searchIndex === -1) {
+                            const titleWords = titleLower.split(/\s+/);
+                            if (titleWords.length >= 2) {
+                                // Suche nach "# ERSTES_WORT ZWEITES_WORT"
+                                const partialTitle = titleWords.slice(0, 2).join(' ');
+                                let idx = markdownTextLower.indexOf('# ' + partialTitle);
+                                if (idx !== -1) {
+                                    idx += 2; // Überspringe "# "
+                                    searchIndex = idx;
+                                    foundLength = partialTitle.length;
+                                    foundWordCount = 2;
+                                    console.log(`[Überschrift] Teil-Titel "# ${partialTitle}" gefunden bei Position ${searchIndex}`);
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Strategie C: Fallback - Suche nach Datum im Suchtext (Format: T. Monat JJJJ)
+                    if (searchIndex === -1) {
+                        // Extrahiere Datum aus dem normalisierten Suchtext
+                        const datePattern = /(\d{1,2})\.\s*(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember)\s*(\d{4})/i;
+                        const dateMatch = normalizedSearchText.match(datePattern);
+                        
+                        if (dateMatch) {
+                            const tag = dateMatch[1];
+                            const monatLower = dateMatch[2].toLowerCase();
+                            // Monat mit Großbuchstaben (wie im MD üblich)
+                            const monatCapital = monatLower.charAt(0).toUpperCase() + monatLower.slice(1);
+                            const jahr = dateMatch[3];
+                            
+                            console.log(`[Überschrift] Datum-Fallback: ${tag}. ${monatCapital} ${jahr}`);
+                            
+                            // Verschiedene Datumsformate versuchen (sowohl groß als auch klein)
+                            const dateVariants = [
+                                `${tag}. ${monatCapital} ${jahr}`,    // "8. April 1923"
+                                `${tag}. ${monatLower} ${jahr}`,      // "8. april 1923"
+                                `${tag}.${monatCapital} ${jahr}`,     // "8.April 1923"
+                                `, ${tag}. ${monatCapital} ${jahr}`,  // ", 8. April 1923" (nach Ort)
+                                `, ${tag}. ${monatLower} ${jahr}`,    // ", 8. april 1923" (nach Ort)
+                            ];
+                            
+                            for (const dateVariant of dateVariants) {
+                                let idx = markdownTextLower.indexOf(dateVariant);
+                                if (idx !== -1) {
+                                    // Finde den Anfang der Zeile (Überschrift)
+                                    let lineStart = markdownTextLower.lastIndexOf('\n', idx);
+                                    lineStart = lineStart === -1 ? 0 : lineStart + 1;
+                                    
+                                    // Prüfe ob Zeile mit # beginnt
+                                    if (markdownTextLower.substring(lineStart, lineStart + 2) === '# ') {
+                                        searchIndex = lineStart + 2; // Nach "# "
+                                    } else {
+                                        searchIndex = idx; // Datum direkt
+                                    }
+                                    
+                                    foundLength = dateVariant.length;
+                                    foundWordCount = 3;
+                                    console.log(`[Überschrift] Datum-Fallback "${dateVariant}" gefunden bei Position ${searchIndex}`);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1766,6 +1911,7 @@
                         ['äug', 'ätig'], ['ätig', 'äug'],
                         // Längere Zeichenfolgen vor kürzeren (seh vor eh)
                         ['isehen', 'ischen'], ['ischen', 'isehen'],  // ahrimanisehen ↔ ahrimanischen
+                        ['nsehen', 'nschen'], ['nschen', 'nsehen'],  // Mensehen ↔ Menschen
                         ['seh', 'sch'], ['sch', 'seh'],  // sehen ↔ schen
                         ['neh', 'nch'], ['nch', 'neh'],  // nehmen ↔ nchmen
                         ['lieh', 'lich'], ['lich', 'lieh'],  // wirkliehen ↔ wirklichen (OCR verwechselt li mit ie)
@@ -1778,6 +1924,7 @@
                         ['cl', 'd'], ['d', 'cl'],
                         ['li', 'h'], ['h', 'li'],
                         ['is', 'ls'], ['ls', 'is'],  // Hegeischen ↔ Hegelschen (Fraktur l/i)
+                        ['weit', 'welt'], ['welt', 'weit'],  // OCR: l/i Verwechslung (Weit ↔ Welt)
                         ['ii', 'ü'], ['ü', 'ii'],
                         ['fi', 'ü'], ['ü', 'fi'],
                         ['nn', 'un'], ['un', 'nn'],
@@ -2645,12 +2792,62 @@
 
             // Hole den Text an der Markdown-Position (die jetzt korrekt sein sollte)
             const markdownText = currentContent;
-            const textAtMarkdownPosition = markdownText.substring(position, position + length);
+            let textAtMarkdownPosition = markdownText.substring(position, position + length);
             
             console.log('=== HIGHLIGHT DEBUG ===');
             console.log('searchText (aus PDF):', searchText.substring(0, 60));
             console.log('textAtMarkdownPosition:', textAtMarkdownPosition.substring(0, 60));
             console.log('Markdown Position:', position);
+            
+            // === POSITIONS-OPTIMIERUNG ===
+            // Suche in einem kleinen Bereich um die gefundene Position nach der besten Übereinstimmung
+            // Das korrigiert kleine Verschiebungen durch Normalisierung oder Offset-Berechnungen
+            const optimizePosition = (origPos, pdfText, mdText) => {
+                const searchRadius = 50; // Suche 50 Zeichen vor und nach der Position
+                const minPos = Math.max(0, origPos - searchRadius);
+                const maxPos = Math.min(mdText.length - 10, origPos + searchRadius);
+                
+                // Extrahiere die ersten Wörter des PDF-Texts für den Vergleich
+                const pdfWords = pdfText.replace(/\s+/g, ' ').split(' ').filter(w => w.length > 0).slice(0, 5);
+                const pdfSearchText = pdfWords.join(' ').toLowerCase();
+                
+                if (pdfSearchText.length < 5) return origPos;
+                
+                // Suche nach der besten Übereinstimmung im Bereich
+                const searchArea = mdText.substring(minPos, maxPos + 100).toLowerCase();
+                const exactMatch = searchArea.indexOf(pdfSearchText);
+                
+                if (exactMatch !== -1) {
+                    const newPos = minPos + exactMatch;
+                    if (newPos !== origPos) {
+                        console.log('[Positions-Optimierung] Position korrigiert:', origPos, '→', newPos);
+                    }
+                    return newPos;
+                }
+                
+                // Fallback: Suche mit ß→ss Normalisierung
+                const normalizedPdfText = pdfSearchText.replace(/ß/g, 'ss');
+                const normalizedArea = searchArea.replace(/ß/g, 'ss');
+                const normMatch = normalizedArea.indexOf(normalizedPdfText);
+                
+                if (normMatch !== -1) {
+                    const newPos = minPos + normMatch;
+                    if (newPos !== origPos) {
+                        console.log('[Positions-Optimierung] Position korrigiert (ß→ss):', origPos, '→', newPos);
+                    }
+                    return newPos;
+                }
+                
+                return origPos;
+            };
+            
+            // Optimiere die Position
+            const optimizedPosition = optimizePosition(position, searchText, markdownText);
+            if (optimizedPosition !== position) {
+                position = optimizedPosition;
+                textAtMarkdownPosition = markdownText.substring(position, position + length);
+                console.log('Optimierte textAtMarkdownPosition:', textAtMarkdownPosition.substring(0, 60));
+            }
             
             // Extrahiere die ersten Wörter für die Suche im DOM
             const getFirstWords = (text, count) => {
@@ -2891,7 +3088,7 @@
                     }
                     
                     // Scrolle zur Markierung (nur wenn erlaubt)
-                    // Prüfe ob Scrolling erlaubt: nicht stromaufwärts, nicht mehr als 400 Wörter entfernt
+                    // Prüfe ob Scrolling erlaubt: nicht stromaufwärts, nicht mehr als 500 Wörter entfernt
                     let allowScroll = true;
                     if (lastInsertedMarkerPosition > 0) {
                         if (position < lastInsertedMarkerPosition) {
@@ -2902,7 +3099,7 @@
                             // Prüfe Wortabstand
                             const textBetween = currentContent.substring(lastInsertedMarkerPosition, position);
                             const wordCount = textBetween.split(/\s+/).filter(w => w.length > 0).length;
-                            if (wordCount > 400) {
+                            if (wordCount > 500) {
                                 console.log('[PDF-Suche] Scrolling verhindert: Ziel zu weit entfernt (' + wordCount + ' Wörter)');
                                 allowScroll = false;
                             }
@@ -3395,7 +3592,7 @@
             
             // Prüfe ob Scrolling erlaubt ist:
             // 1. Nie stromaufwärts (nach oben) scrollen
-            // 2. Nur stromabwärts scrollen wenn Ziel innerhalb von 400 Wörtern liegt
+            // 2. Nur stromabwärts scrollen wenn Ziel innerhalb von 500 Wörtern liegt
             const shouldScroll = () => {
                 // Wenn keine vorherige Position bekannt ist, erlaube Scrolling
                 if (lastInsertedMarkerPosition <= 0) return true;
@@ -3409,11 +3606,11 @@
                     return false;
                 }
                 
-                // Stromabwärts: Prüfe ob innerhalb von 400 Wörtern
+                // Stromabwärts: Prüfe ob innerhalb von 500 Wörtern
                 const textBetween = currentContent.substring(lastInsertedMarkerPosition, position);
                 const wordCount = textBetween.split(/\s+/).filter(w => w.length > 0).length;
                 
-                if (wordCount > 400) {
+                if (wordCount > 500) {
                     console.log('[MD-Vorlage] Scrolling verhindert: Ziel zu weit entfernt', {
                         ziel: position,
                         aktuell: lastInsertedMarkerPosition,
