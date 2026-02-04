@@ -119,7 +119,9 @@
       "paragraphIndex": "yszfpt",
       "addedAt": "2026-01-17T15:17:03.578Z",
       "isActive": false,
-      "date": "1921-11-25"
+      "date": "1921-11-25",
+      "displayedSince": "2026-02-04T15:06:48.607Z",
+      "activeToggledAt": "2026-02-04T15:06:49.508Z"
     }
   ]
 }

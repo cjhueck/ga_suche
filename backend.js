@@ -19403,6 +19403,80 @@ app.get('/api/keywords-database', async (req, res) => {
   }
 });
 
+// API: Gebrochene Keyword-Links erkennen
+app.get('/api/keywords/broken', async (req, res) => {
+  try {
+    // 1. Sammle alle gültigen IDs aus steiner-full-lectures-*.json
+    const lecturesDir = path.join(__dirname, 'steiner-full-lectures');
+    const lectureFiles = fsSync.readdirSync(lecturesDir)
+      .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+    
+    const validIds = new Set();
+    for (const file of lectureFiles) {
+      const data = JSON.parse(fsSync.readFileSync(path.join(lecturesDir, file), 'utf8'));
+      for (const lecture of (data.lectures || [])) {
+        for (const para of (lecture.paragraphs || [])) {
+          if (para.index) {
+            validIds.add(para.index);
+          }
+        }
+      }
+    }
+    
+    // 2. Prüfe Keywords auf gebrochene Links (nur mit erlaubten generationMethods wie im Frontend)
+    const keywordsDB = await loadKeywordsDatabase();
+    const brokenKeywords = new Set();  // Keywords mit mindestens einem gebrochenen Link
+    const brokenDetails = {};  // Keyword -> { count, lectures: [{ id, broken }] }
+    const allKeywordLectures = {};  // Keyword -> [{ id, broken }] für ALLE Keywords
+    const allowedMethods = ['unified-batch', 'unified', 'manual', 'synced-from-summary-db', 'flexible', 'batch', 'auto'];
+    
+    for (const [lectureId, lectureData] of Object.entries(keywordsDB)) {
+      // Prüfe generationMethod wie im Frontend
+      const method = lectureData.generationMethod || '';
+      const hasAllowedMethod = allowedMethods.some(m => method.includes(m));
+      
+      if (!hasAllowedMethod) continue;
+      
+      if (lectureData.keywords && Array.isArray(lectureData.keywords)) {
+        for (const kw of lectureData.keywords) {
+          const term = kw.term || kw.keyword || (typeof kw === 'string' ? kw : null);
+          const idx = kw.index;
+          
+          if (!term) continue;
+          
+          // Initialisiere für alle Keywords
+          if (!allKeywordLectures[term]) {
+            allKeywordLectures[term] = [];
+          }
+          
+          const isBroken = idx && !validIds.has(idx);
+          allKeywordLectures[term].push({ id: lectureId, broken: isBroken });
+          
+          if (isBroken) {
+            brokenKeywords.add(term);
+            if (!brokenDetails[term]) {
+              brokenDetails[term] = { count: 0, lectures: [] };
+            }
+            brokenDetails[term].count++;
+            brokenDetails[term].lectures.push(lectureId);
+          }
+        }
+      }
+    }
+    
+    res.json({
+      totalValid: validIds.size,
+      brokenCount: brokenKeywords.size,
+      brokenKeywords: Array.from(brokenKeywords),
+      brokenDetails: brokenDetails,
+      allKeywordLectures: allKeywordLectures
+    });
+  } catch (error) {
+    console.error('[KEYWORDS-API] Fehler bei broken check:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Keywords-Statistiken
 app.get('/api/keywords-stats', async (req, res) => {
   try {
@@ -21470,6 +21544,9 @@ app.post('/api/quotes/toggle-active', async (req, res) => {
     if (isActive && !quote.displayedSince) {
       quote.displayedSince = new Date().toISOString();
     }
+    
+    // Speichere Zeitpunkt des letzten Toggle (An/Aus)
+    quote.activeToggledAt = new Date().toISOString();
     
     await saveQuotesDatabase(quotesDB);
     

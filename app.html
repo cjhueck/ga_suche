@@ -43646,6 +43646,7 @@ async function loadQuotesForTab() {
                     style="padding: 2px 8px; font-size: 0.75em; background: ${quote.isActive ? '#5cb85c' : '#f0ad4e'}; color: white;">
               ${quote.isActive ? 'An' : 'Aus'}
             </button>
+            ${quote.activeToggledAt ? `<span style="font-size: 0.65em; color: #888; margin-left: 2px;">${new Date(quote.activeToggledAt).toLocaleDateString('de-DE')}</span>` : ''}
             <button onclick="toggleQuoteUsed('${quote.id}', ${quote.isUsed || false})" 
                     class="depth-btn" 
                     style="padding: 2px 8px; font-size: 0.75em; background: ${quote.isUsed ? '#9b59b6' : '#95a5a6'}; color: white;">
