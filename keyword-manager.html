@@ -1110,32 +1110,53 @@
                 return;
             }
             
-            if (!confirm(`"${keyword}" für alle ${lectures.length} Vorträge neu generieren?\n\nDies kann einige Zeit dauern.`)) {
+            if (!confirm(`"${keyword}" für alle ${lectures.length} Vorträge neu generieren?\n\nDies wird in Batches von 10 Vorträgen verarbeitet.`)) {
                 return;
             }
             
             // Schließe Popup
             document.getElementById('keywordLecturesPopup')?.remove();
             
-            showToast(`Regeneriere ${lectures.length} Vorträge...`, 'info');
-            
+            const BATCH_SIZE = 10;
             let successCount = 0;
-            for (const lecture of lectures) {
-                try {
-                    const response = await fetch(`${API_BASE}/summarize-lecture`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            lectureId: lecture.id,
-                            forceRegenerate: true
-                        })
-                    });
-                    
-                    if (response.ok) {
-                        successCount++;
+            let processedCount = 0;
+            
+            // Verarbeite in Batches
+            for (let i = 0; i < lectures.length; i += BATCH_SIZE) {
+                const batch = lectures.slice(i, i + BATCH_SIZE);
+                processedCount += batch.length;
+                
+                showToast(`Regeneriere Batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(lectures.length / BATCH_SIZE)} (${processedCount}/${lectures.length})...`, 'info');
+                
+                // Verarbeite Batch parallel
+                const promises = batch.map(async (lecture) => {
+                    try {
+                        const response = await fetch(`${API_BASE}/summarize-lecture`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                lectureId: lecture.id,
+                                forceRegenerate: true
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            return { success: true, id: lecture.id };
+                        } else {
+                            return { success: false, id: lecture.id };
+                        }
+                    } catch (error) {
+                        console.error(`Fehler bei ${lecture.id}:`, error);
+                        return { success: false, id: lecture.id };
                     }
-                } catch (error) {
-                    console.error(`Fehler bei ${lecture.id}:`, error);
+                });
+                
+                const results = await Promise.all(promises);
+                successCount += results.filter(r => r.success).length;
+                
+                // Kurze Pause zwischen Batches (außer beim letzten)
+                if (i + BATCH_SIZE < lectures.length) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
                 }
             }
             
@@ -1154,29 +1175,50 @@
                 return;
             }
             
-            if (!confirm(`${details.count} Vorträge mit gebrochenen Links für "${keyword}" neu generieren?\n\nDies kann einige Zeit dauern.`)) {
+            if (!confirm(`${details.count} Vorträge mit gebrochenen Links für "${keyword}" neu generieren?\n\nDies wird in Batches von 10 Vorträgen verarbeitet.`)) {
                 return;
             }
             
-            showToast(`Regeneriere ${details.count} Vorträge...`, 'info');
-            
+            const BATCH_SIZE = 10;
             let successCount = 0;
-            for (const lectureId of details.lectures) {
-                try {
-                    const response = await fetch(`${API_BASE}/summarize-lecture`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            lectureId: lectureId,
-                            forceRegenerate: true
-                        })
-                    });
-                    
-                    if (response.ok) {
-                        successCount++;
+            let processedCount = 0;
+            
+            // Verarbeite in Batches
+            for (let i = 0; i < details.lectures.length; i += BATCH_SIZE) {
+                const batch = details.lectures.slice(i, i + BATCH_SIZE);
+                processedCount += batch.length;
+                
+                showToast(`Regeneriere Batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(details.lectures.length / BATCH_SIZE)} (${processedCount}/${details.count})...`, 'info');
+                
+                // Verarbeite Batch parallel
+                const promises = batch.map(async (lectureId) => {
+                    try {
+                        const response = await fetch(`${API_BASE}/summarize-lecture`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                lectureId: lectureId,
+                                forceRegenerate: true
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            return { success: true, id: lectureId };
+                        } else {
+                            return { success: false, id: lectureId };
+                        }
+                    } catch (error) {
+                        console.error(`Fehler bei ${lectureId}:`, error);
+                        return { success: false, id: lectureId };
                     }
-                } catch (error) {
-                    console.error(`Fehler bei ${lectureId}:`, error);
+                });
+                
+                const results = await Promise.all(promises);
+                successCount += results.filter(r => r.success).length;
+                
+                // Kurze Pause zwischen Batches (außer beim letzten)
+                if (i + BATCH_SIZE < details.lectures.length) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
                 }
             }
             
