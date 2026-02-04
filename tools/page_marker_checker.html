@@ -1525,7 +1525,35 @@
                 let useNormalizedSearch = false;
                 let usedSzConversion = false;
                 
+                // Unicode-Normalisierung (NFC) für konsistente Umlaut-Darstellung
+                // WICHTIG: Diese Variablen werden für alle Suchstrategien benötigt
+                const searchTextLower = searchText.toLowerCase().normalize('NFC');
+                const markdownTextLower = markdownTextForSearch.toLowerCase().normalize('NFC');
+                
                 // SPEZIAL-STRATEGIE für Überschriften: Primär nach Datum suchen
+                // Aktiviere auch wenn Text "VORTRAG" enthält (auch wenn nicht als Überschrift erkannt)
+                if (!isHeadingSearch && /VORTRAG/i.test(searchText)) {
+                    console.log('[Überschrift] VORTRAG im Text erkannt, aktiviere Überschriften-Suche');
+                    isHeadingSearch = true;
+                    
+                    // Extrahiere Datum aus dem Suchtext
+                    const datePattern = /(\d{1,2})\.\s*(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember)\s*(\d{4})/i;
+                    const dateMatch = searchText.match(datePattern);
+                    if (dateMatch) {
+                        headingDateSearch = `${dateMatch[1]}. ${dateMatch[2]} ${dateMatch[3]}`;
+                        console.log('[Überschrift] Datum aus Suchtext extrahiert:', headingDateSearch);
+                    }
+                    
+                    // Extrahiere Titel
+                    const titleMatch = searchText.match(/([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß\s]*VORTRAG)/i);
+                    if (titleMatch) {
+                        headingTitleSearch = titleMatch[1].trim();
+                        console.log('[Überschrift] Titel aus Suchtext extrahiert:', headingTitleSearch);
+                    }
+                }
+                
+                console.log('[Überschrift] isHeadingSearch:', isHeadingSearch, 'headingDateSearch:', headingDateSearch, 'headingTitleSearch:', headingTitleSearch);
+                
                 if (isHeadingSearch && (headingDateSearch || headingTitleSearch)) {
                     console.log('[Überschrift] Spezielle Überschriften-Suche aktiviert');
                     
@@ -1609,9 +1637,6 @@
                 }
                 
                 // Strategie 1: Direkte Suche OHNE ß→ss (nur lowercase) - nur wenn Überschriften-Suche fehlschlug
-                // Unicode-Normalisierung (NFC) für konsistente Umlaut-Darstellung
-                const searchTextLower = searchText.toLowerCase().normalize('NFC');
-                const markdownTextLower = markdownTextForSearch.toLowerCase().normalize('NFC');
                 let directIndex = searchIndex !== -1 ? -1 : markdownTextLower.indexOf(searchTextLower); // Überspringe wenn schon gefunden
                 
                 // Variante: Leerzeichen vor Satzzeichen im Suchtext entfernen/hinzufügen
