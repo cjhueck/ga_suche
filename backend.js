@@ -9881,7 +9881,296 @@ app.get('/api/concepts-list', async (req, res) => {
   }
 });
 
+// API-Endpunkt: Alle Concepts laden (für concepts-manager.html)
+// WICHTIG: Diese Route muss VOR /api/concepts/:concept stehen!
+app.get('/api/concepts', async (req, res) => {
+  try {
+    // Nutze den beim Start geladenen Cache
+    if (conceptsDatabase.length > 0) {
+      return res.json(conceptsDatabase);
+    }
+    
+    // Fallback: Lade neu falls Cache leer
+    await loadConceptsDatabase();
+    res.json(conceptsDatabase);
+  } catch (error) {
+    console.error('[CONCEPTS-API] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Gebrochene Concept-Links erkennen
+app.get('/api/concepts/broken', async (req, res) => {
+  try {
+    console.log('[CONCEPTS-BROKEN] Start - Concepts im Cache:', conceptsDatabase.length);
+    
+    // 1. Sammle alle gültigen IDs aus steiner-full-lectures-*.json
+    const lecturesDir = path.join(__dirname, 'steiner-full-lectures');
+    const lectureFiles = fsSync.readdirSync(lecturesDir)
+      .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+    
+    console.log('[CONCEPTS-BROKEN] Lecture-Dateien gefunden:', lectureFiles.length);
+    
+    const validIds = new Set();
+    for (const file of lectureFiles) {
+      const data = JSON.parse(fsSync.readFileSync(path.join(lecturesDir, file), 'utf8'));
+      for (const lecture of (data.lectures || [])) {
+        for (const para of (lecture.paragraphs || [])) {
+          if (para.index) {
+            validIds.add(para.index);
+          }
+        }
+      }
+    }
+    
+    console.log('[CONCEPTS-BROKEN] Gültige IDs gesammelt:', validIds.size);
+    
+    // 2. Lade Concepts und prüfe auf gebrochene Links
+    if (conceptsDatabase.length === 0) {
+      console.log('[CONCEPTS-BROKEN] Cache leer, lade Concepts...');
+      await loadConceptsDatabase();
+    }
+    
+    console.log('[CONCEPTS-BROKEN] Concepts zu prüfen:', conceptsDatabase.length);
+    
+    const brokenConcepts = new Set();
+    const brokenDetails = {};
+    let totalBrokenIds = 0;
+    let totalValidIds = 0;
+    
+    for (const concept of conceptsDatabase) {
+      const text = concept.text || '';
+      const keyword = concept.keyword || 'unknown';
+      
+      // Regex für jedes Concept neu erstellen (wichtig wegen lastIndex!)
+      const idPattern = /\^([a-z0-9]+)/g;
+      let match;
+      const brokenIds = [];
+      let validCount = 0;
+      
+      while ((match = idPattern.exec(text)) !== null) {
+        const fullId = `^${match[1]}`;
+        if (validIds.has(fullId)) {
+          validCount++;
+          totalValidIds++;
+        } else {
+          brokenIds.push(fullId);
+          totalBrokenIds++;
+        }
+      }
+      
+      if (brokenIds.length > 0) {
+        brokenConcepts.add(keyword);
+        brokenDetails[keyword] = {
+          brokenCount: brokenIds.length,
+          totalCount: brokenIds.length + validCount,
+          brokenIds: brokenIds
+        };
+      }
+    }
+    
+    console.log('[CONCEPTS-BROKEN] Gebrochene Concepts:', brokenConcepts.size, 'Gebrochene IDs:', totalBrokenIds);
+    
+    // Nur IDs zurückgeben, die in Concepts vorkommen (nicht alle 239.000+)
+    const usedValidIds = new Set();
+    for (const concept of conceptsDatabase) {
+      const text = concept.text || '';
+      const matches = text.match(/\^[a-z0-9]+/g) || [];
+      for (const id of matches) {
+        if (validIds.has(id)) {
+          usedValidIds.add(id);
+        }
+      }
+    }
+    
+    console.log('[CONCEPTS-BROKEN] Gültige IDs in Concepts:', usedValidIds.size);
+    console.log('[CONCEPTS-BROKEN] Beispiel gebrochene Concepts:', Array.from(brokenConcepts).slice(0, 5));
+    
+    res.json({
+      totalConcepts: conceptsDatabase.length,
+      brokenConceptsCount: brokenConcepts.size,
+      brokenConcepts: Array.from(brokenConcepts),
+      brokenDetails: brokenDetails,
+      brokenIdsCount: totalBrokenIds,
+      validIdsCount: usedValidIds.size,
+      validIds: Array.from(usedValidIds)
+    });
+    
+  } catch (error) {
+    console.error('[CONCEPTS-API] Fehler bei broken check:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Gebrochene Concept-Links reparieren
+app.post('/api/concepts/repair', async (req, res) => {
+  try {
+    const dryRun = req.query.dryRun === 'true';
+    
+    // 1. Sammle aktuelle gültige IDs und ihre Texte
+    const lecturesDir = path.join(__dirname, 'steiner-full-lectures');
+    const lectureFiles = fsSync.readdirSync(lecturesDir)
+      .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+    
+    const currentIds = {};  // id -> text
+    const currentTextToId = {};  // normalized_text_prefix -> id
+    
+    function normalizeText(text) {
+      if (!text) return '';
+      text = text.replace(/\ufeff/g, '').trim();
+      text = text.replace(/\s+/g, ' ');
+      text = text.replace(/\|(\d+)\|/g, '');
+      // Alte Rechtschreibung
+      const replacements = [
+        ['daß', 'dass'], ['Daß', 'Dass'],
+        ['muß', 'muss'], ['Muß', 'Muss'],
+        ['läßt', 'lässt'], ['Läßt', 'Lässt'],
+        ['wußte', 'wusste'], ['Wußte', 'Wusste'],
+        ['mußte', 'musste'], ['Mußte', 'Musste'],
+        ['bewußt', 'bewusst'], ['Bewußt', 'Bewusst']
+      ];
+      for (const [old, newVal] of replacements) {
+        text = text.split(old).join(newVal);
+      }
+      return text.trim().toLowerCase();
+    }
+    
+    for (const file of lectureFiles) {
+      const data = JSON.parse(fsSync.readFileSync(path.join(lecturesDir, file), 'utf8'));
+      for (const lecture of (data.lectures || [])) {
+        for (const para of (lecture.paragraphs || [])) {
+          const idx = para.index;
+          const text = para.text || para.content || '';
+          if (idx && text) {
+            currentIds[idx] = text;
+            const normText = normalizeText(text);
+            if (normText.length > 50) {
+              currentTextToId[normText.substring(0, 200)] = idx;
+              currentTextToId[normText.substring(0, 100)] = idx;
+              currentTextToId[normText.substring(0, 50)] = idx;
+            }
+          }
+        }
+      }
+    }
+    
+    // 2. Lade alte Backups
+    const oldFolders = [
+      'C:/Users/chuec/OneDrive/Obsidian/ga_suche - Kopien/ga_suche',
+      'C:/Users/chuec/OneDrive/Obsidian/ga_suche - Kopien/ga_suche 14.10.2025',
+      'C:/Users/chuec/OneDrive/Obsidian/ga_suche - Kopien/ga_suche 18.10.2025',
+      'C:/Users/chuec/OneDrive/Obsidian/ga_suche - Kopien/ga_suche 18.10.2025 - vor timeline',
+      'C:/Users/chuec/OneDrive/Obsidian/ga_suche - Kopien/ga_suche 20.10.2025 - vor ZW Indizierung'
+    ];
+    
+    // Finde gebrochene IDs in Concepts
+    const idPattern = /\^([a-z0-9]+)/g;
+    const brokenIds = new Set();
+    
+    for (const concept of conceptsDatabase) {
+      const text = concept.text || '';
+      let match;
+      while ((match = idPattern.exec(text)) !== null) {
+        const fullId = `^${match[1]}`;
+        if (!currentIds[fullId]) {
+          brokenIds.add(fullId);
+        }
+      }
+    }
+    
+    // Lade alte Texte für gebrochene IDs
+    const oldIdToText = {};
+    
+    for (const oldFolder of oldFolders) {
+      try {
+        if (!fsSync.existsSync(oldFolder)) continue;
+        
+        const files = fsSync.readdirSync(oldFolder)
+          .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+        
+        for (const file of files) {
+          try {
+            const data = JSON.parse(fsSync.readFileSync(path.join(oldFolder, file), 'utf8'));
+            for (const lecture of (data.lectures || [])) {
+              for (const para of (lecture.paragraphs || [])) {
+                const idx = para.index;
+                if (idx && brokenIds.has(idx) && !oldIdToText[idx]) {
+                  const text = para.text || para.content || '';
+                  if (text) {
+                    oldIdToText[idx] = text;
+                  }
+                }
+              }
+            }
+          } catch (e) {
+            // Ignoriere Fehler beim Lesen einzelner Dateien
+          }
+        }
+      } catch (e) {
+        // Ignoriere Fehler beim Lesen von Ordnern
+      }
+    }
+    
+    // 3. Finde neue IDs per Text-Matching
+    const idMapping = {};
+    
+    for (const [oldId, oldText] of Object.entries(oldIdToText)) {
+      const normOld = normalizeText(oldText);
+      if (normOld.length < 30) continue;
+      
+      for (const prefixLen of [200, 100, 50]) {
+        const prefix = normOld.substring(0, prefixLen);
+        if (currentTextToId[prefix]) {
+          idMapping[oldId] = currentTextToId[prefix];
+          break;
+        }
+      }
+    }
+    
+    // 4. Aktualisiere Concepts
+    let repairedCount = 0;
+    
+    if (!dryRun) {
+      for (const concept of conceptsDatabase) {
+        let text = concept.text || '';
+        let changed = false;
+        
+        for (const [oldId, newId] of Object.entries(idMapping)) {
+          if (text.includes(oldId)) {
+            text = text.split(oldId).join(newId);
+            repairedCount++;
+            changed = true;
+          }
+        }
+        
+        if (changed) {
+          concept.text = text;
+        }
+      }
+      
+      // Speichere aktualisierte Concepts
+      const conceptsPath = path.join(__dirname, 'concepts-database.json');
+      await fs.writeFile(conceptsPath, JSON.stringify(conceptsDatabase, null, 2), 'utf8');
+    }
+    
+    res.json({
+      dryRun: dryRun,
+      brokenIdsFound: brokenIds.size,
+      oldTextsFound: Object.keys(oldIdToText).length,
+      repairableCount: Object.keys(idMapping).length,
+      unreparableCount: brokenIds.size - Object.keys(idMapping).length,
+      repairedCount: dryRun ? 0 : repairedCount,
+      stillBrokenCount: brokenIds.size - Object.keys(idMapping).length
+    });
+    
+  } catch (error) {
+    console.error('[CONCEPTS-API] Fehler bei Reparatur:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API-Endpunkt: Einzelnes Konzept laden (für Netzwerk-Modal) - nutzt Cache
+// WICHTIG: Diese parametrisierte Route muss NACH den spezifischen Routen stehen!
 app.get('/api/concepts/:concept', async (req, res) => {
   try {
     const searchConcept = decodeURIComponent(req.params.concept).toLowerCase();
@@ -18820,6 +19109,45 @@ app.post('/api/themes/rename-cluster', async (req, res) => {
     
   } catch (error) {
     console.error('[CLUSTERS] Fehler beim Umbenennen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Schlagwörter eines Themas aktualisieren
+app.post('/api/themes/update-keywords', async (req, res) => {
+  const { themeName, keywords } = req.body;
+  
+  try {
+    if (!themeName) {
+      throw new Error('Themenname erforderlich');
+    }
+    
+    if (!Array.isArray(keywords)) {
+      throw new Error('Keywords müssen ein Array sein');
+    }
+    
+    const themesDB = await loadThemesDatabase();
+    
+    if (!themesDB[themeName]) {
+      throw new Error(`Thema "${themeName}" nicht gefunden`);
+    }
+    
+    // Keywords aktualisieren
+    themesDB[themeName].keywords = keywords;
+    
+    // Speichern
+    await saveThemesDatabase(themesDB);
+    
+    console.log(`[THEMES] Keywords für "${themeName}" aktualisiert: ${keywords.length} Schlagwörter`);
+    
+    res.json({
+      success: true,
+      themeName: themeName,
+      keywordCount: keywords.length
+    });
+    
+  } catch (error) {
+    console.error('[THEMES] Fehler beim Aktualisieren der Keywords:', error);
     res.status(500).json({ error: error.message });
   }
 });
