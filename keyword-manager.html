@@ -543,6 +543,13 @@
                     <button onclick="clearClusterFilter()" style="background: none; border: none; color: var(--accent-color); cursor: pointer; font-weight: bold; margin-left: 5px;">×</button>
                 </div>
                 <input type="text" class="search-box" id="keywordSearch" placeholder="🔍 Keywords durchsuchen..." style="flex-shrink: 0;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 0.8rem; flex-shrink: 0;">
+                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                        <input type="checkbox" id="showBrokenOnly" onchange="filterKeywords()">
+                        <span style="color: #d9534f;">● Nur gebrochene Links</span>
+                    </label>
+                    <span id="brokenCount" style="color: #888; font-size: 0.75rem;"></span>
+                </div>
                 <div class="list-container" id="keywordsList">
                     <div class="loading">
                         <div class="spinner"></div>
@@ -800,10 +807,14 @@
         let lastSelectedIndex = -1;
         let similarKeywordsData = [];
         let keywordListScrollPosition = 0; // Speichert die Scroll-Position
+        let brokenKeywordsSet = new Set(); // Keywords mit gebrochenen Links
+        let brokenKeywordsDetails = {}; // Keyword -> { count, lectures: [] }
+        let allKeywordLectures = {}; // Keyword -> [{ id, broken }] für ALLE Keywords
 
         // Beim Laden
         document.addEventListener('DOMContentLoaded', async () => {
-            // Erst Cluster laden, dann Keywords (damit wir die Zuordnung haben)
+            // Erst gebrochene Keywords laden, dann Cluster, dann Keywords
+            await loadBrokenKeywords();
             await loadClusters();
             await loadKeywords();
             
@@ -927,6 +938,258 @@
             });
         });
 
+        // Gebrochene Keywords laden
+        async function loadBrokenKeywords() {
+            const brokenCountEl = document.getElementById('brokenCount');
+            try {
+                if (brokenCountEl) brokenCountEl.textContent = '(lade...)';
+                
+                const response = await fetch(`${API_BASE}/keywords/broken`);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                brokenKeywordsSet = new Set(data.brokenKeywords || []);
+                brokenKeywordsDetails = data.brokenDetails || {};
+                allKeywordLectures = data.allKeywordLectures || {};
+                console.log(`[BROKEN] ${brokenKeywordsSet.size} Keywords mit gebrochenen Links`);
+                
+                // Aktualisiere Anzeige
+                if (brokenCountEl) {
+                    brokenCountEl.textContent = `(${brokenKeywordsSet.size} gebrochen)`;
+                    if (brokenKeywordsSet.size > 0) {
+                        brokenCountEl.style.color = '#d9534f';
+                    }
+                }
+            } catch (error) {
+                console.error('Fehler beim Laden der gebrochenen Keywords:', error);
+                brokenKeywordsSet = new Set();
+                brokenKeywordsDetails = {};
+                if (brokenCountEl) {
+                    brokenCountEl.textContent = '(API-Fehler!)';
+                    brokenCountEl.style.color = '#d9534f';
+                }
+            }
+        }
+        
+        // Zeige verlinkte Vorträge für ein Keyword (Rechtsklick)
+        function showKeywordLecturesPopup(keyword, event) {
+            event.preventDefault();
+            
+            const lectures = allKeywordLectures[keyword];
+            if (!lectures || lectures.length === 0) {
+                alert(`Keine Vorträge für "${keyword}" gefunden`);
+                return;
+            }
+            
+            // Entferne existierendes Popup
+            const existingPopup = document.getElementById('keywordLecturesPopup');
+            if (existingPopup) existingPopup.remove();
+            
+            const isBroken = brokenKeywordsSet.has(keyword);
+            const brokenCount = brokenKeywordsDetails[keyword]?.count || 0;
+            
+            // Erstelle Popup
+            const popup = document.createElement('div');
+            popup.id = 'keywordLecturesPopup';
+            popup.style.cssText = `
+                position: fixed;
+                left: ${Math.min(event.clientX, window.innerWidth - 420)}px;
+                top: ${Math.min(event.clientY, window.innerHeight - 350)}px;
+                background: white;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                padding: 12px;
+                max-width: 400px;
+                max-height: 350px;
+                overflow-y: auto;
+                z-index: 10000;
+                font-size: 0.85rem;
+            `;
+            
+            const headerColor = isBroken ? '#d9534f' : '#5cb85c';
+            const headerIcon = isBroken ? '🔴' : '🟢';
+            const headerText = isBroken 
+                ? `"${keyword}" - ${brokenCount} gebrochene Links`
+                : `"${keyword}" - ${lectures.length} Vorträge`;
+            
+            // Sortiere: gebrochene zuerst
+            const sortedLectures = [...lectures].sort((a, b) => (b.broken ? 1 : 0) - (a.broken ? 1 : 0));
+            
+            popup.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="font-weight: bold; color: ${headerColor};">
+                        ${headerIcon} ${headerText}
+                    </div>
+                    <button onclick="regenerateKeywordForAllLectures('${escapeForAttribute(keyword)}')" 
+                            style="padding: 3px 8px; font-size: 0.7rem; cursor: pointer; background: #337ab7; color: white; border: none; border-radius: 3px;"
+                            title="Keyword für alle ${lectures.length} Vorträge neu generieren">
+                        🔄 Alle (${lectures.length})
+                    </button>
+                </div>
+                <div style="font-size: 0.75rem; color: #888; margin-bottom: 8px;">
+                    Klicke auf einen Vortrag, um das Keyword dort neu zu generieren:
+                </div>
+                <div style="max-height: 220px; overflow-y: auto;">
+                    ${sortedLectures.slice(0, 30).map(l => `
+                        <div style="padding: 4px 6px; margin: 2px 0; border-radius: 3px; background: ${l.broken ? '#fff5f5' : '#f8f8f8'}; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: ${l.broken ? '#d9534f' : '#333'};">
+                                ${l.broken ? '🔴' : '🟢'} ${l.id}
+                            </span>
+                            <button onclick="regenerateKeywordForLecture('${escapeForAttribute(keyword)}', '${l.id}')" 
+                                    style="padding: 2px 6px; font-size: 0.7rem; cursor: pointer; background: #f0ad4e; color: white; border: none; border-radius: 3px;"
+                                    title="Keyword für diesen Vortrag neu generieren">
+                                🔄
+                            </button>
+                        </div>
+                    `).join('')}
+                    ${sortedLectures.length > 30 ? `<div style="color: #888; padding: 5px; text-align: center;">... und ${sortedLectures.length - 30} weitere</div>` : ''}
+                </div>
+                <div style="margin-top: 10px; display: flex; gap: 5px;">
+                    <button onclick="this.parentElement.parentElement.remove()" style="padding: 4px 12px; cursor: pointer;">Schließen</button>
+                    ${isBroken ? `<button onclick="regenerateAllBrokenForKeyword('${escapeForAttribute(keyword)}')" style="padding: 4px 12px; cursor: pointer; background: #d9534f; color: white; border: none; border-radius: 3px;">Alle ${brokenCount} gebrochenen neu generieren</button>` : ''}
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            // Schließe bei Klick außerhalb
+            setTimeout(() => {
+                document.addEventListener('click', function closePopup(e) {
+                    if (!popup.contains(e.target)) {
+                        popup.remove();
+                        document.removeEventListener('click', closePopup);
+                    }
+                });
+            }, 100);
+        }
+        
+        // Regeneriere Keyword für einen spezifischen Vortrag
+        async function regenerateKeywordForLecture(keyword, lectureId) {
+            if (!confirm(`Keyword "${keyword}" für Vortrag ${lectureId} neu generieren?`)) {
+                return;
+            }
+            
+            showToast(`Regeneriere "${keyword}" für ${lectureId}...`, 'info');
+            
+            try {
+                // Nutze die bestehende Regenerieren-API für den Vortrag
+                const response = await fetch(`${API_BASE}/summarize-lecture`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        lectureId: lectureId,
+                        forceRegenerate: true
+                    })
+                });
+                
+                if (response.ok) {
+                    showToast(`Keywords für ${lectureId} neu generiert!`, 'success');
+                    // Aktualisiere die Daten
+                    await loadBrokenKeywords();
+                    await loadKeywords(true);
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler bei Regenerierung:', error);
+                showToast(`Fehler: ${error.message}`, 'error');
+            }
+            
+            // Schließe Popup
+            document.getElementById('keywordLecturesPopup')?.remove();
+        }
+        
+        // Regeneriere Keyword für ALLE verlinkten Vorträge
+        async function regenerateKeywordForAllLectures(keyword) {
+            const lectures = allKeywordLectures[keyword];
+            if (!lectures || lectures.length === 0) {
+                showToast('Keine Vorträge gefunden', 'error');
+                return;
+            }
+            
+            if (!confirm(`"${keyword}" für alle ${lectures.length} Vorträge neu generieren?\n\nDies kann einige Zeit dauern.`)) {
+                return;
+            }
+            
+            // Schließe Popup
+            document.getElementById('keywordLecturesPopup')?.remove();
+            
+            showToast(`Regeneriere ${lectures.length} Vorträge...`, 'info');
+            
+            let successCount = 0;
+            for (const lecture of lectures) {
+                try {
+                    const response = await fetch(`${API_BASE}/summarize-lecture`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            lectureId: lecture.id,
+                            forceRegenerate: true
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    }
+                } catch (error) {
+                    console.error(`Fehler bei ${lecture.id}:`, error);
+                }
+            }
+            
+            showToast(`${successCount} von ${lectures.length} Vorträgen regeneriert`, 'success');
+            
+            // Aktualisiere die Daten
+            await loadBrokenKeywords();
+            await loadKeywords(true);
+        }
+        
+        // Regeneriere alle gebrochenen Links für ein Keyword
+        async function regenerateAllBrokenForKeyword(keyword) {
+            const details = brokenKeywordsDetails[keyword];
+            if (!details || details.lectures.length === 0) {
+                showToast('Keine gebrochenen Links gefunden', 'error');
+                return;
+            }
+            
+            if (!confirm(`${details.count} Vorträge mit gebrochenen Links für "${keyword}" neu generieren?\n\nDies kann einige Zeit dauern.`)) {
+                return;
+            }
+            
+            showToast(`Regeneriere ${details.count} Vorträge...`, 'info');
+            
+            let successCount = 0;
+            for (const lectureId of details.lectures) {
+                try {
+                    const response = await fetch(`${API_BASE}/summarize-lecture`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            lectureId: lectureId,
+                            forceRegenerate: true
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    }
+                } catch (error) {
+                    console.error(`Fehler bei ${lectureId}:`, error);
+                }
+            }
+            
+            showToast(`${successCount} von ${details.count} Vorträgen regeneriert`, 'success');
+            
+            // Aktualisiere die Daten
+            await loadBrokenKeywords();
+            await loadKeywords(true);
+            
+            // Schließe Popup
+            document.getElementById('keywordLecturesPopup')?.remove();
+        }
+
         // Keywords laden
         async function loadKeywords(preserveScroll = false) {
             try {
@@ -943,12 +1206,15 @@
                 const keywordMap = new Map();
                 
                 Object.entries(keywordsDB).forEach(([lectureId, lectureData]) => {
-                    // Filtere: ALLE Vorträge mit Keywords (inkl. synced)
+                    // Filtere: ALLE Vorträge mit Keywords (inkl. synced, flexible, etc.)
                     const hasKeywords = lectureData.generationMethod && 
                         (lectureData.generationMethod.includes('unified-batch') || 
                          lectureData.generationMethod.includes('unified') ||
                          lectureData.generationMethod.includes('manual') ||
-                         lectureData.generationMethod.includes('synced-from-summary-db'));
+                         lectureData.generationMethod.includes('synced-from-summary-db') ||
+                         lectureData.generationMethod.includes('flexible') ||
+                         lectureData.generationMethod.includes('batch') ||
+                         lectureData.generationMethod.includes('auto'));
                     
                     if (hasKeywords && lectureData.keywords && Array.isArray(lectureData.keywords)) {
                         lectureData.keywords.forEach(kw => {
@@ -1049,19 +1315,29 @@
                 return;
             }
             
-            container.innerHTML = keywords.map((kw, index) => `
-                <div class="list-item" data-keyword="${escapeForAttribute(kw.name)}" data-index="${index}" onclick="selectKeyword(event, '${escapeForAttribute(kw.name)}', ${index})">
+            container.innerHTML = keywords.map((kw, index) => {
+                const isBroken = brokenKeywordsSet.has(kw.name);
+                const brokenCount = brokenKeywordsDetails[kw.name]?.count || 0;
+                const lectureCount = allKeywordLectures[kw.name]?.length || kw.lectureCount || 0;
+                const linkIndicator = isBroken 
+                    ? `<span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #d9534f; margin-right: 6px; cursor: help;" title="🔴 ${brokenCount} gebrochene Links - Rechtsklick für Details"></span>`
+                    : `<span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5cb85c; margin-right: 6px; cursor: help;" title="✓ Alle Links OK - Rechtsklick für Details"></span>`;
+                
+                return `
+                <div class="list-item" data-keyword="${escapeForAttribute(kw.name)}" data-index="${index}" 
+                     onclick="selectKeyword(event, '${escapeForAttribute(kw.name)}', ${index})" 
+                     oncontextmenu="showKeywordLecturesPopup('${escapeForAttribute(kw.name)}', event)">
                     <div class="keyword-info">
-                        <span class="keyword-name">${escapeForAttribute(kw.name)}</span>
+                        <span class="keyword-name">${linkIndicator}${escapeForAttribute(kw.name)}</span>
                         <div style="display: flex; gap: 5px; align-items: center;">
                             ${kw.cluster 
                                 ? `<span class="keyword-cluster">${escapeForAttribute(kw.cluster)}</span>` 
                                 : '<span class="keyword-cluster no-cluster">Kein Cluster</span>'}
-                            <span style="font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; background: #f0f0f0; color: #666;">${kw.lectureCount || 0}</span>
+                            <span style="font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; background: #f0f0f0; color: #666;">${lectureCount}</span>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
             
             // Stelle Scroll-Position wieder her
             // Verwende requestAnimationFrame um sicherzustellen, dass DOM aktualisiert wurde
@@ -1287,6 +1563,7 @@
         // Keywords filtern
         function filterKeywords() {
             const search = document.getElementById('keywordSearch').value.toLowerCase();
+            const showBrokenOnly = document.getElementById('showBrokenOnly').checked;
             
             // Wenn ein Cluster ausgewählt ist, filtere innerhalb des Clusters
             let baseKeywords = allKeywords;
@@ -1294,10 +1571,15 @@
                 baseKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
             }
             
-            const filtered = baseKeywords.filter(kw => 
+            let filtered = baseKeywords.filter(kw => 
                 kw.name.toLowerCase().includes(search) ||
                 (kw.cluster && kw.cluster.toLowerCase().includes(search))
             );
+            
+            // Filter für gebrochene Links
+            if (showBrokenOnly) {
+                filtered = filtered.filter(kw => brokenKeywordsSet.has(kw.name));
+            }
             
             // Bei Filter wird Scroll-Position zurückgesetzt
             keywordListScrollPosition = 0;
