@@ -1308,6 +1308,15 @@
                         continue; // Überspringe Footer-Zeilen
                     }
                     
+                    // Prüfe, ob diese Zeile eine Bildunterschrift/Tafel-Beschriftung ist
+                    // (z.B. "Tafel I»", "Abbildung 1", "Abb. 1", "Fig. 1")
+                    const isFigureCaption = /^(tafel|abbildung|abb\.?|fig\.?|bild)\s*[ivxlcdm\d»«\.\-\s]*$/i.test(lineText.trim()) ||
+                                           (lineText.trim().length < 15 && /^(tafel|abb|fig)/i.test(lineText.trim()));
+                    if (isFigureCaption) {
+                        console.log('Überspringe Bildunterschrift:', lineText);
+                        continue; // Überspringe Bildunterschriften
+                    }
+                    
                     // Speichere die ersten zwei gültigen Zeilen
                     if (foundValidLines === 0) {
                         topLineY = y;
@@ -1324,6 +1333,24 @@
                 if (!topItems || topItems.length === 0) {
                     showNotification('Kein Text in der oberen Zeile gefunden', 'error');
                     return;
+                }
+                
+                // Zusätzliche Prüfung: Wenn oberste Zeile sehr kurz ist (< 4 Wörter) 
+                // und zweite Zeile deutlich mehr Text hat, verwende zweite Zeile
+                // (typisch für Seiten mit Abbildungen oben)
+                const topLineText = topItems.map(item => item.str).join(' ').trim();
+                const topWordCount = topLineText.split(/\s+/).filter(w => w.length > 0).length;
+                
+                if (topWordCount < 4 && secondLineItems && secondLineItems.length > 0) {
+                    const secondLineText = secondLineItems.map(item => item.str).join(' ').trim();
+                    const secondWordCount = secondLineText.split(/\s+/).filter(w => w.length > 0).length;
+                    
+                    if (secondWordCount >= topWordCount * 2 || secondWordCount >= 5) {
+                        console.log('Oberste Zeile zu kurz (' + topWordCount + ' Wörter), verwende zweite Zeile (' + secondWordCount + ' Wörter)');
+                        console.log('Übersprungene Zeile:', topLineText);
+                        topItems = secondLineItems;
+                        topLineY = secondLineY;
+                    }
                 }
 
                 // Funktion um zu prüfen, ob eine Zeile eine Überschrift ist
