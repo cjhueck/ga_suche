@@ -4138,7 +4138,34 @@
             mdSearchCurrentIndex = -1;
             
             const contentEl = document.getElementById('content');
-            const searchRegex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            
+            // Entferne Striche aus dem Suchtext und baue einen Regex,
+            // der optionale Striche zwischen Zeichen erlaubt und Umlaute flexibel matcht
+            const dashPattern = '[-–—]?'; // Bindestrich, En-Dash, Em-Dash (optional)
+            
+            // Umlaut-Mappings: Zeichen -> Regex-Gruppe die beide Varianten matcht
+            const umlautMap = {
+                'a': '[aä]', 'A': '[AÄ]', 'ä': '[aä]', 'Ä': '[AÄ]',
+                'o': '[oö]', 'O': '[OÖ]', 'ö': '[oö]', 'Ö': '[OÖ]',
+                'u': '[uü]', 'U': '[UÜ]', 'ü': '[uü]', 'Ü': '[UÜ]',
+                'ß': '(ß|ss)', 's': '(s|ß)'
+            };
+            
+            // Verarbeite jedes Zeichen einzeln
+            const processedChars = searchText
+                .replace(/[-–—]/g, '') // Entferne Striche aus dem Suchtext
+                .split('')
+                .map(char => {
+                    if (umlautMap[char]) {
+                        return umlautMap[char];
+                    }
+                    // Escape Regex-Sonderzeichen
+                    return char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                });
+            
+            // Füge optionale Striche zwischen jedem Zeichen ein
+            const flexiblePattern = processedChars.join(dashPattern);
+            const searchRegex = new RegExp(flexiblePattern, 'gi');
             
             // Durchsuche alle Textknoten
             const walker = document.createTreeWalker(
@@ -4196,7 +4223,34 @@
             }
         }
         
+        let isRefreshingSearch = false;
+        
         function highlightCurrentMatch() {
+            // Prüfe ob die Matches noch im DOM sind (könnten durch loadContent ungültig geworden sein)
+            if (!isRefreshingSearch && mdSearchMatches.length > 0 && !document.body.contains(mdSearchMatches[0])) {
+                // Matches sind ungültig - Suche neu ausführen
+                const searchText = document.getElementById('mdSearchInput').value.trim();
+                if (searchText) {
+                    const savedIndex = mdSearchCurrentIndex;
+                    isRefreshingSearch = true;
+                    performMdSearch();
+                    isRefreshingSearch = false;
+                    // Versuche den Index beizubehalten, falls noch gültig
+                    if (savedIndex >= 0 && savedIndex < mdSearchMatches.length) {
+                        mdSearchCurrentIndex = savedIndex;
+                        document.getElementById('mdSearchInfo').textContent = `${mdSearchCurrentIndex + 1} / ${mdSearchMatches.length}`;
+                        // Jetzt manuell hervorheben da performMdSearch auf Index 0 gesetzt hat
+                        mdSearchMatches.forEach(el => el.classList.remove('current'));
+                        const current = mdSearchMatches[mdSearchCurrentIndex];
+                        if (current) {
+                            current.classList.add('current');
+                            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+                }
+                return;
+            }
+            
             // Entferne "current" von allen
             mdSearchMatches.forEach(el => el.classList.remove('current'));
             
