@@ -770,6 +770,7 @@
         let contextMenuPosition = { x: 0, y: 0 };
         let insertMarkerPosition = -1;
         let searchToggleActive = false;
+        let isSearchingPdf = false; // Concurrency Guard für PDF-zu-MD-Suche
         let seriesModeEnabled = false;
         let fastModeEnabled = false;
         let autoOpenInsertDialogAfterSearch = false;
@@ -919,7 +920,7 @@
                 await renderPdfPage(page);
                 // Wenn Toggle aktiv ist, automatisch suchen (nach vollständigem Rendern)
                 if (searchToggleActive) {
-                    searchPdfTextInMarkdown();
+                    await searchPdfTextInMarkdown();
                 }
             }
         }
@@ -945,7 +946,7 @@
                 await renderPdfPage(currentPdfPage + 1);
                 // Wenn Toggle aktiv ist, automatisch suchen (nach vollständigem Rendern)
                 if (searchToggleActive) {
-                    searchPdfTextInMarkdown();
+                    await searchPdfTextInMarkdown();
                 }
             }
         }
@@ -955,7 +956,7 @@
                 await renderPdfPage(currentPdfPage - 1);
                 // Wenn Toggle aktiv ist, automatisch suchen (nach vollständigem Rendern)
                 if (searchToggleActive) {
-                    searchPdfTextInMarkdown();
+                    await searchPdfTextInMarkdown();
                 }
             }
         }
@@ -1082,12 +1083,20 @@
 
         // Extrahiert Text von der aktuellen PDF-Seite und sucht im Markdown
         async function searchPdfTextInMarkdown() {
+            // Concurrency Guard: verhindere gleichzeitige Suchen
+            if (isSearchingPdf) {
+                console.log('searchPdfTextInMarkdown: bereits aktiv, überspringe');
+                return;
+            }
+            isSearchingPdf = true;
+            
             // Speichere Flag lokal und setze es sofort zurück
             const shouldAutoOpenDialog = autoOpenInsertDialogAfterSearch;
             autoOpenInsertDialogAfterSearch = false;
             
             if (!pdfDoc || !currentContent) {
                 showNotification('PDF oder Markdown nicht geladen');
+                isSearchingPdf = false;
                 return;
             }
 
@@ -1281,6 +1290,9 @@
                     
                     if (!leftText || leftText.length < 3) return null;
                     
+                    // Unicode-Normalisierung: PDF liefert oft decomposed Characters (u+̈ statt ü)
+                    leftText = leftText.normalize('NFC');
+                    
                     const words = leftText.split(/\s+/).filter(w => w.length > 0);
                     if (words.length < 2) return null;
                     
@@ -1318,12 +1330,15 @@
                 
                 // Normalisiere Text für Suche (entferne mehrfache Leerzeichen, Zeilenumbrüche)
                 const normalizeForSearch = (text) => {
-                    return text.replace(/\s+/g, ' ').trim().toLowerCase();
+                    return text
+                        .normalize('NFC') // Unicode-Normalisierung (decomposed → precomposed)
+                        .replace(/\s+/g, ' ').trim().toLowerCase();
                 };
                 
                 // Aggressive Normalisierung: entferne Satzzeichen, Striche, normalisiere Umlaute
                 const normalizeAggressive = (text) => {
                     return text
+                        .normalize('NFC') // Unicode-Normalisierung (z.B. u+̈ → ü)
                         .replace(/\s+/g, ' ')
                         .trim()
                         .toLowerCase()
@@ -1331,14 +1346,30 @@
                         .replace(/[öÖ]/g, 'o')
                         .replace(/[üÜ]/g, 'u')
                         .replace(/ß/g, 'ss')
-                        .replace(/[-–—.,;:!?'"»«„""()[\]{}<>\/\\]/g, ''); // Entferne Satzzeichen und Striche
+                        .replace(/[-–—‐‑‒−.,;:!?'"»«„""''()[\]{}<>\/\\·]/g, '') // Entferne Satzzeichen und alle Strich-Varianten
+                        .replace(/\s+/g, ' ') // Kollabiere Leerzeichen erneut (nach Zeichenentfernung)
+                        .trim();
+                };
+
+                // Umlaut/ß-Normalisierung (behält Satzzeichen und Striche bei)
+                const normalizeUmlaut = (text) => {
+                    return text
+                        .normalize('NFC')
+                        .replace(/\s+/g, ' ')
+                        .trim()
+                        .toLowerCase()
+                        .replace(/[äÄ]/g, 'a')
+                        .replace(/[öÖ]/g, 'o')
+                        .replace(/[üÜ]/g, 'u')
+                        .replace(/ß/g, 'ss');
                 };
 
                 const startTime = performance.now();
                 const MAX_SEARCH_TIME = 5000;
                 
                 const normalizedMarkdown = normalizeForSearch(markdownText);
-                const markdownTextLower = markdownText.toLowerCase();
+                const markdownTextLower = markdownText.normalize('NFC').toLowerCase();
+                const umlautMarkdown = normalizeUmlaut(markdownText);
                 const aggressiveMarkdown = normalizeAggressive(markdownText);
                 
                 // Hilfsfunktion: Versuche einen Suchtext im Markdown zu finden
@@ -1386,6 +1417,27 @@
                         }
                     }
                     
+                    // Strategie 4b: Umlaut/ß-Normalisierung (daß→dass, ü→u, aber Satzzeichen bleiben)
+                    const umlautSearch = normalizeUmlaut(searchText);
+                    searchIndex = umlautMarkdown.indexOf(umlautSearch);
+                    if (searchIndex !== -1) {
+                        console.log('Match mit Umlaut/ß-Normalisierung');
+                        return { searchIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: 'umlaut' };
+                    }
+                    
+                    // Strategie 4c: Umlaut/ß-Normalisierung mit weniger Wörtern
+                    for (let wordCount of [15, 10, 5, 4]) {
+                        if (wordCount > searchWords.length) continue;
+                        const testWords = searchWords.slice(0, wordCount);
+                        const testPhrase = testWords.join(' ');
+                        const umlautTest = normalizeUmlaut(testPhrase);
+                        searchIndex = umlautMarkdown.indexOf(umlautTest);
+                        if (searchIndex !== -1) {
+                            console.log(`Match mit Umlaut/ß-Normalisierung (${wordCount} Wörter)`);
+                            return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'umlaut' };
+                        }
+                    }
+                    
                     // Strategie 5: Aggressive Normalisierung (ohne Satzzeichen/Striche, Umlaute vereinheitlicht)
                     const aggressiveSearch = normalizeAggressive(searchText);
                     searchIndex = aggressiveMarkdown.indexOf(aggressiveSearch);
@@ -1407,7 +1459,52 @@
                         }
                     }
                     
-                    // Strategie 7: Noch weniger Wörter (3, 2) - alle Normalisierungsstufen
+                    // Strategie 7: Erste Wörter überspringen (für OCR-Fehler am Zeilenanfang, z.B. "sehen"→"schen")
+                    // Versuche ab Wort 1, 2, 3 zu suchen (überspringe fehlerhafte Anfangswörter)
+                    for (let skipCount = 1; skipCount <= 3; skipCount++) {
+                        if (skipCount >= searchWords.length - 2) break; // Mindestens 3 Wörter übrig
+                        
+                        const remainingWords = searchWords.slice(skipCount);
+                        // Versuche mit verschiedenen Wortanzahlen
+                        for (let wordCount of [Math.min(remainingWords.length, 15), 10, 5, 4]) {
+                            if (wordCount > remainingWords.length) continue;
+                            const testWords = remainingWords.slice(0, wordCount);
+                            const testPhrase = testWords.join(' ');
+                            
+                            // Direkte Suche
+                            directIndex = markdownTextLower.indexOf(testPhrase.toLowerCase());
+                            if (directIndex !== -1) {
+                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, direkt)`);
+                                return { searchIndex: directIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: false };
+                            }
+                            
+                            // Normalisierte Suche
+                            const normalizedTest = normalizeForSearch(testPhrase);
+                            searchIndex = normalizedMarkdown.indexOf(normalizedTest);
+                            if (searchIndex !== -1) {
+                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, normalisiert)`);
+                                return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: true };
+                            }
+                            
+                            // Umlaut-Suche
+                            const umlautTest = normalizeUmlaut(testPhrase);
+                            searchIndex = umlautMarkdown.indexOf(umlautTest);
+                            if (searchIndex !== -1) {
+                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, umlaut)`);
+                                return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'umlaut' };
+                            }
+                            
+                            // Aggressive Suche
+                            const aggressiveTest = normalizeAggressive(testPhrase);
+                            searchIndex = aggressiveMarkdown.indexOf(aggressiveTest);
+                            if (searchIndex !== -1) {
+                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, aggressiv)`);
+                                return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'aggressive' };
+                            }
+                        }
+                    }
+                    
+                    // Strategie 8: Noch weniger Wörter (3, 2) - alle Normalisierungsstufen
                     for (let wordCount = 3; wordCount >= 2; wordCount--) {
                         if (wordCount > searchWords.length) continue;
                         const fallbackWords = searchWords.slice(0, wordCount);
@@ -1467,6 +1564,7 @@
                 let foundWordCount = result ? result.foundWordCount : 0;
                 let useNormalizedSearch = result ? result.useNormalizedSearch : false;
                 let normalizedSearch = normalizeForSearch(searchText);
+                let foundPosition = -1;
                 
                 console.log('Suchergebnis:', {
                     searchText: searchText.substring(0, 80),
@@ -1509,12 +1607,60 @@
                         // Direkte Suche wurde verwendet - Position ist bereits korrekt
                         foundPosition = searchIndex;
                         console.log('Position durch direkte Suche gefunden:', foundPosition);
+                    } else if (useNormalizedSearch === 'umlaut') {
+                        // Umlaut/ß-Normalisierung: ß→ss ändert Stringlänge, daher Mapping nötig
+                        let umlautPos = 0;
+                        const mapping = [];
+                        let lastSpace = false;
+                        
+                        for (let i = 0; i < markdownText.length; i++) {
+                            const char = markdownText[i];
+                            const isSpace = /\s/.test(char);
+                            
+                            if (isSpace) {
+                                if (!lastSpace && umlautPos > 0) {
+                                    mapping[umlautPos] = i;
+                                    umlautPos++;
+                                }
+                                lastSpace = true;
+                            } else {
+                                if (/[äÄ]/.test(char)) {
+                                    mapping[umlautPos] = i; umlautPos++;
+                                } else if (/[öÖ]/.test(char)) {
+                                    mapping[umlautPos] = i; umlautPos++;
+                                } else if (/[üÜ]/.test(char)) {
+                                    mapping[umlautPos] = i; umlautPos++;
+                                } else if (char === 'ß') {
+                                    mapping[umlautPos] = i; umlautPos++; // 's'
+                                    mapping[umlautPos] = i; umlautPos++; // 's'
+                                } else {
+                                    mapping[umlautPos] = i;
+                                    umlautPos++;
+                                }
+                                lastSpace = false;
+                            }
+                        }
+                        
+                        if (searchIndex < mapping.length) {
+                            foundPosition = mapping[searchIndex];
+                            // Berechne korrekte Länge im Original-Markdown
+                            const umlautSearch = normalizeUmlaut(searchText);
+                            const umlautEndIndex = searchIndex + umlautSearch.length - 1;
+                            if (umlautEndIndex < mapping.length) {
+                                foundLength = mapping[umlautEndIndex] - foundPosition + 1;
+                            }
+                            console.log('Position durch Umlaut-Mapping gefunden:', foundPosition, 'Länge:', foundLength);
+                        } else {
+                            foundPosition = Math.floor((searchIndex / umlautMarkdown.length) * markdownText.length);
+                            console.log('Position geschätzt (Umlaut):', foundPosition);
+                        }
                     } else if (useNormalizedSearch === 'aggressive') {
                         // Aggressive Normalisierung - Mapping muss Satzzeichen/Striche/Umlaute berücksichtigen
                         let aggressivePos = 0;
                         const mapping = [];
                         let lastSpace = false;
-                        const punctuationRe = /[-–—.,;:!?'"»«„""()[\]{}<>\/\\]/;
+                        // WICHTIG: Muss exakt dieselben Zeichen enthalten wie normalizeAggressive!
+                        const punctuationRe = /[-–—‐‑‒−.,;:!?'"»«„""''()[\]{}<>\/\\·]/;
                         
                         for (let i = 0; i < markdownText.length; i++) {
                             const char = markdownText[i];
@@ -1527,10 +1673,11 @@
                                     aggressivePos++;
                                 }
                                 lastSpace = true;
-                            } else if (isPunct) {
-                                // Satzzeichen werden übersprungen (nicht im aggressiven String)
-                                lastSpace = false;
-                            } else {
+                    } else if (isPunct) {
+                        // Satzzeichen werden übersprungen (nicht im aggressiven String)
+                        // WICHTIG: lastSpace-Status beibehalten, damit Leerzeichen um
+                        // Satzzeichen korrekt zusammengefasst werden (konsistent mit normalizeAggressive)
+                    } else {
                                 // Umlaute werden zu 1 oder 2 Zeichen: ä→a (1), ß→ss (2)
                                 if (/[äÄ]/.test(char)) {
                                     mapping[aggressivePos] = i; aggressivePos++; // 'a'
@@ -1551,7 +1698,14 @@
                         
                         if (searchIndex < mapping.length) {
                             foundPosition = mapping[searchIndex];
-                            console.log('Position durch aggressives Mapping gefunden:', foundPosition);
+                            // Berechne korrekte Länge im Original-Markdown
+                            const aggressiveSearch = normalizeAggressive(searchText);
+                            const aggressiveEndIndex = searchIndex + aggressiveSearch.length - 1;
+                            if (aggressiveEndIndex < mapping.length) {
+                                const endPosInOriginal = mapping[aggressiveEndIndex];
+                                foundLength = endPosInOriginal - foundPosition + 1;
+                            }
+                            console.log('Position durch aggressives Mapping gefunden:', foundPosition, 'Länge:', foundLength);
                         } else {
                             foundPosition = Math.floor((searchIndex / aggressiveMarkdown.length) * markdownText.length);
                             console.log('Position geschätzt (aggressiv):', foundPosition);
@@ -1593,6 +1747,7 @@
                     showNotification('Text nicht im Markdown gefunden: "' + searchText + '"');
                     console.log('Gesuchter Text:', searchText);
                     console.log('Normalisierter gesuchter Text:', normalizedSearch);
+                    isSearchingPdf = false;
                     return;
                 }
 
@@ -1604,6 +1759,8 @@
             } catch (error) {
                 console.error('Fehler beim Extrahieren von PDF-Text:', error);
                 showNotification('Fehler beim Extrahieren von PDF-Text');
+            } finally {
+                isSearchingPdf = false;
             }
         }
 
@@ -1623,7 +1780,6 @@
             // Finde die Position im gerenderten HTML
             // Konvertiere Markdown-Position zu HTML-Position
             const markdownText = currentContent;
-            const textBefore = markdownText.substring(0, position);
             const textToHighlight = markdownText.substring(position, position + length);
 
             // Finde diese Position im gerenderten HTML
@@ -1632,12 +1788,124 @@
             // Suche nach dem Text im HTML
             const normalizedHtml = htmlText.replace(/\s+/g, ' ').trim().toLowerCase();
             const normalizedSearch = textToHighlight.replace(/\s+/g, ' ').trim().toLowerCase();
-            const htmlIndex = normalizedHtml.indexOf(normalizedSearch);
+            let htmlIndex = normalizedHtml.indexOf(normalizedSearch);
+            
+            // Fallback 1: Markdown-Formatierung entfernen (###, **, *, `, etc.)
+            if (htmlIndex === -1) {
+                const strippedSearch = normalizedSearch
+                    .replace(/#{1,6}\s+/g, '')  // Überschriften-Marker
+                    .replace(/\*{1,3}/g, '')    // Bold/Italic
+                    .replace(/_+/g, '')          // Unterstrich-Formatierung
+                    .replace(/`+/g, '')          // Code-Marker
+                    .replace(/~{2}/g, '')        // Strikethrough
+                    .replace(/>\s*/g, '')        // Blockquote
+                    .replace(/\s+/g, ' ').trim();
+                if (strippedSearch !== normalizedSearch) {
+                    htmlIndex = normalizedHtml.indexOf(strippedSearch);
+                    if (htmlIndex !== -1) {
+                        console.log('highlightTextInMarkdown: Match nach Markdown-Stripping gefunden');
+                    }
+                }
+            }
+
+            // Fallback 2: PDF-Suchtext direkt verwenden (hat keine Markdown-Formatierung)
+            if (htmlIndex === -1 && searchText) {
+                const normalizedPdfText = searchText.normalize('NFC').replace(/\s+/g, ' ').trim().toLowerCase();
+                // Schätze die ungefähre HTML-Position basierend auf dem Markdown-Verhältnis
+                const estimatedRatio = position / Math.max(markdownText.length, 1);
+                const estimatedHtmlPos = Math.floor(estimatedRatio * normalizedHtml.length);
+                // Suche ab einem Fenster VOR der geschätzten Position
+                const searchStart = Math.max(0, estimatedHtmlPos - 500);
+                htmlIndex = normalizedHtml.indexOf(normalizedPdfText, searchStart);
+                if (htmlIndex !== -1) {
+                    console.log('highlightTextInMarkdown: Match über PDF-Suchtext (positionsbasiert) gefunden');
+                } else {
+                    // Suche im gesamten Text
+                    htmlIndex = normalizedHtml.indexOf(normalizedPdfText);
+                    if (htmlIndex !== -1) {
+                        console.log('highlightTextInMarkdown: Match über PDF-Suchtext (global) gefunden');
+                    }
+                }
+            }
+
+            // Fallback 3: Versuche mit den ersten Wörtern des PDF-Suchtexts
+            if (htmlIndex === -1 && searchText) {
+                const pdfWords = searchText.normalize('NFC').replace(/\s+/g, ' ').trim().toLowerCase()
+                    .split(/\s+/).filter(w => w.length > 0);
+                for (let wc = Math.min(pdfWords.length, 8); wc >= 2; wc--) {
+                    const shortSearch = pdfWords.slice(0, wc).join(' ');
+                    htmlIndex = normalizedHtml.indexOf(shortSearch);
+                    if (htmlIndex !== -1) {
+                        console.log(`highlightTextInMarkdown: Fallback mit ${wc} PDF-Wörtern erfolgreich`);
+                        break;
+                    }
+                }
+            }
+            
+            // Fallback 4: Versuche mit Wörtern aus textToHighlight (Markdown)
+            if (htmlIndex === -1 && normalizedSearch.length > 10) {
+                const words = normalizedSearch.split(/\s+/).filter(w => w.length > 0);
+                for (let wc = Math.min(words.length, 5); wc >= 2; wc--) {
+                    const shortSearch = words.slice(0, wc).join(' ');
+                    htmlIndex = normalizedHtml.indexOf(shortSearch);
+                    if (htmlIndex !== -1) {
+                        console.log(`highlightTextInMarkdown: Fallback mit ${wc} MD-Wörtern erfolgreich`);
+                        break;
+                    }
+                }
+            }
 
             if (htmlIndex === -1) {
-                // Fallback: Scrolle zum Anfang der Seite
-                contentEl.scrollTop = 0;
+                // Letzter Fallback: Scrolle proportional zur Position im Markdown
+                const ratio = position / markdownText.length;
+                contentEl.scrollTop = Math.floor(ratio * contentEl.scrollHeight);
+                console.log('highlightTextInMarkdown: Kein Text im HTML gefunden, scrolle proportional');
+                console.log('  Versuchter Markdown-Text:', normalizedSearch.substring(0, 80));
+                console.log('  PDF-Suchtext:', searchText ? searchText.substring(0, 80) : 'N/A');
                 return;
+            }
+            
+            // KRITISCH: htmlIndex ist Position im normalisierten Text (collapsed whitespace, trimmed, lowercased).
+            // Der TreeWalker zählt aber Positionen im ROHEN textContent.
+            // Wir müssen htmlIndex zurück auf die rohe Position mappen.
+            let rawHtmlIndex = 0;
+            {
+                let normalizedPos = 0;
+                let lastSpace = false;
+                // Überspringe führende Whitespace (wie .trim())
+                let startOffset = 0;
+                while (startOffset < htmlText.length && /\s/.test(htmlText[startOffset])) {
+                    startOffset++;
+                }
+                let found = false;
+                for (let i = startOffset; i < htmlText.length; i++) {
+                    const ch = htmlText[i];
+                    const isSpace = /\s/.test(ch);
+                    if (isSpace) {
+                        if (!lastSpace) {
+                            // Dieser Whitespace wird zu einem einzelnen Space im normalisierten Text
+                            if (normalizedPos === htmlIndex) {
+                                rawHtmlIndex = i;
+                                found = true;
+                                break;
+                            }
+                            normalizedPos++;
+                        }
+                        lastSpace = true;
+                    } else {
+                        if (normalizedPos === htmlIndex) {
+                            rawHtmlIndex = i;
+                            found = true;
+                            break;
+                        }
+                        normalizedPos++;
+                        lastSpace = false;
+                    }
+                }
+                if (!found) {
+                    // Fallback: proportionale Schätzung
+                    rawHtmlIndex = Math.min(htmlIndex, htmlText.length - 1);
+                }
             }
 
             // Finde den entsprechenden Textknoten im DOM
@@ -1656,9 +1924,9 @@
                 const nodeText = node.textContent || '';
                 const nodeLength = nodeText.length;
 
-                if (charCount + nodeLength >= htmlIndex) {
+                if (charCount + nodeLength >= rawHtmlIndex) {
                     targetNode = node;
-                    targetOffset = htmlIndex - charCount;
+                    targetOffset = rawHtmlIndex - charCount;
                     break;
                 }
 
@@ -2875,10 +3143,19 @@
                     found = true;
                     break;
                 } else if (currentNode.nodeType === Node.TEXT_NODE) {
+                    // Überspringe Text innerhalb des Insert-Position-Indikators
+                    if (currentNode.parentNode && currentNode.parentNode.id === 'insert-position-indicator') {
+                        continue;
+                    }
                     // Normale Textknoten
                     text += currentNode.textContent;
                     lastWasBlock = false;
                 } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                    // Überspringe den Insert-Position-Indikator komplett
+                    if (currentNode.id === 'insert-position-indicator') {
+                        continue;
+                    }
+                    
                     const tagName = currentNode.tagName ? currentNode.tagName.toLowerCase() : '';
                     
                     // Prüfe ob es ein Marker-Span ist
@@ -3162,6 +3439,12 @@
             // Schließe Dialog
             closeInsertMarkerDialog();
             
+            // Entferne Positions-Indikator bevor wir den Markdown-Text extrahieren
+            const existingIndicator = document.getElementById('insert-position-indicator');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
             // Hole aktuellen Inhalt
             const contentEl = document.getElementById('content');
             const currentText = extractMarkdownFromHTML(contentEl);
@@ -3172,6 +3455,19 @@
             // WICHTIG: Stelle sicher, dass die Position nicht innerhalb eines Wortes liegt
             if (insertPos >= 0 && insertPos < currentText.length) {
                 insertPos = adjustPositionToWordBoundary(currentText, insertPos);
+            }
+            
+            // KRITISCH: Position darf nicht auf einem Newline-Zeichen liegen!
+            // Wenn getMarkdownPositionFromDOM eine Position mitten in \n\n liefert,
+            // wird die Absatzgrenze zerstört: \n\n → \n|SM|\n
+            // markdown-it erkennt dann keinen Absatzumbruch mehr → Leerzeile verschwindet.
+            // Fix: Verschiebe Position vorwärts bis zum ersten Nicht-Newline-Zeichen.
+            if (insertPos >= 0 && insertPos < currentText.length && currentText[insertPos] === '\n') {
+                const origPos = insertPos;
+                while (insertPos < currentText.length && currentText[insertPos] === '\n') {
+                    insertPos++;
+                }
+                console.log(`Position aus Newline-Sequenz verschoben: ${origPos} → ${insertPos} (übersprungen: ${insertPos - origPos} Newlines)`);
             }
             
             let positionAfterInsert = 0;
@@ -4079,6 +4375,11 @@
                 if (node.nodeType === Node.TEXT_NODE) {
                     text += node.textContent;
                 } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    // Überspringe den Insert-Position-Indikator (temporäres UI-Element)
+                    if (node.id === 'insert-position-indicator') {
+                        return;
+                    }
+                    
                     const tagName = node.tagName.toLowerCase();
                     
                     // Überschriften
@@ -4244,11 +4545,14 @@
             const dashPattern = '[-–—]?'; // Bindestrich, En-Dash, Em-Dash (optional)
             
             // Umlaut-Mappings: Zeichen -> Regex-Gruppe die beide Varianten matcht
+            // WICHTIG: Nur Non-Capturing Groups (?:...) verwenden!
+            // Capturing Groups (...)  würden bei String.split(regex) die
+            // gefangenen Gruppen ins Array einfügen → Text-Duplizierung
             const umlautMap = {
                 'a': '[aä]', 'A': '[AÄ]', 'ä': '[aä]', 'Ä': '[AÄ]',
                 'o': '[oö]', 'O': '[OÖ]', 'ö': '[oö]', 'Ö': '[OÖ]',
                 'u': '[uü]', 'U': '[UÜ]', 'ü': '[uü]', 'Ü': '[UÜ]',
-                'ß': '(ß|ss)', 's': '(s|ß)'
+                'ß': '(?:ß|ss)', 's': '(?:s|ß)'
             };
             
             // Verarbeite jedes Zeichen einzeln
