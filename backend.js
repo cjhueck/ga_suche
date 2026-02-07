@@ -12367,7 +12367,8 @@ app.post('/api/export/ga', async (req, res) => {
       exportType = 'letters';
       exportScript = 'export-lectures.js';
       exportArgs = [normalizedGA];
-    } else if (gaNumeric >= 1 && gaNumeric <= 50 && !essayBands.includes(gaNumeric) && !isGA041b && gaNumeric !== 45) {
+    } else if (gaNumeric >= 1 && gaNumeric <= 50 && !essayBands.includes(gaNumeric) && !isGA041b && gaNumeric !== 45 && gaNumeric !== 1 && gaNumeric !== 40) {
+      // GA001 und GA040 werden wie Vortragsbände behandelt (nicht als Bücher)
       exportType = 'book';
       exportScript = 'export_books_master.py';
       exportArgs = [normalizedGA];
