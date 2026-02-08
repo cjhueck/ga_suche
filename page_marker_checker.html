@@ -1269,24 +1269,13 @@
                     let itemsToUse;
                     let leftText;
                     
-                    // Wenn Überschrift, nimm nächste Zeile
-                    if (line.isHeading && lineIndex + 1 < allValidLines.length) {
-                        const nextLine = allValidLines[lineIndex + 1];
-                        const sortedByX = [...nextLine.items].sort((a, b) => a.transform[4] - b.transform[4]);
-                        const leftItemCount = Math.max(5, Math.ceil(nextLine.items.length * 0.3));
-                        itemsToUse = sortedByX.slice(0, leftItemCount);
-                        leftText = itemsToUse.map(item => item.str).join(' ').trim();
-                        
-                        if (leftText.split(/\s+/).length < 4) {
-                            const allItems = [...line.items, ...nextLine.items];
-                            leftText = allItems.map(item => item.str).join(' ').trim();
-                        }
-                    } else {
-                        const sortedByX = [...line.items].sort((a, b) => a.transform[4] - b.transform[4]);
-                        const leftItemCount = Math.max(5, Math.ceil(line.items.length * 0.3));
-                        itemsToUse = sortedByX.slice(0, leftItemCount);
-                        leftText = itemsToUse.map(item => item.str).join(' ').trim();
-                    }
+                    // Immer zuerst die aktuelle Zeile verwenden (auch bei Überschriften/Gedichtzeilen).
+                    // Der Fallback-Mechanismus im Hauptloop probiert bei Nichtfinden automatisch
+                    // weitere Zeilen von oben nach unten durch.
+                    const sortedByX = [...line.items].sort((a, b) => a.transform[4] - b.transform[4]);
+                    const leftItemCount = Math.max(5, Math.ceil(line.items.length * 0.3));
+                    itemsToUse = sortedByX.slice(0, leftItemCount);
+                    leftText = itemsToUse.map(item => item.str).join(' ').trim();
                     
                     if (!leftText || leftText.length < 3) return null;
                     
