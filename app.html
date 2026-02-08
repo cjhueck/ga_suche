@@ -4176,39 +4176,28 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       background: none;
     }
     
-    #viewer .book-content[data-ga-number="GA040"] hr::before,
-    #viewer .book-content[data-ga-number="GA261"] hr::before,
-    #viewer .book-content[data-ga-number="GA267"] hr::before {
-      content: '* * *';
-      display: block;
-      text-align: center;
-      font-size: 1em;
-      line-height: 1;
-    }
-    
-    /* Für Vortragsbände (GA040, GA261 und GA267) */
-    #viewer[data-ga-number="GA040"] hr,
-    #viewer[data-ga-number="GA261"] hr,
-    #viewer[data-ga-number="GA267"] hr {
-      border: none !important;
-      border-top: none !important;
-      height: auto !important;
-      margin: 1em 0 !important;
-      margin-left: 0 !important;
-      width: 33% !important;
-      max-width: 33% !important;
-      text-align: center !important;
-      background: none !important;
-    }
-    
-    #viewer[data-ga-number="GA040"] hr::before,
-    #viewer[data-ga-number="GA261"] hr::before,
-    #viewer[data-ga-number="GA267"] hr::before {
-      content: '* * *' !important;
+    /* * * * Sternchen-Trenner: Grundstil */
+    p.asterisk-break,
+    .paragraph p.asterisk-break,
+    #viewer p.asterisk-break,
+    #summary-content p.asterisk-break,
+    #sidebar-content p.asterisk-break {
       display: block !important;
-      text-align: center !important;
-      font-size: 1em !important;
-      line-height: 1 !important;
+      margin: 0.8em 0 !important;
+      padding: 0 !important;
+      text-align: left !important;
+      font-size: inherit !important;
+      line-height: 1.5 !important;
+    }
+    
+    /* In Gedichtblöcken: inline (Abstand wird über <br>-Tags gesteuert) */
+    .paragraph.has-poem p.asterisk-break,
+    .paragraph.poem-block p.asterisk-break,
+    #viewer .paragraph.has-poem p.asterisk-break,
+    #viewer .paragraph.poem-block p.asterisk-break {
+      display: inline !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     
     /* Viewer Header Button Container */
@@ -4612,9 +4601,9 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       margin-top: 0 !important;
     }
     
-    /* Gedichte: Entferne alle Margins und Padding (höchste Spezifität) */
+    /* Gedichte: Einfacher Absatzabstand (eine Leerzeile) davor, kein extra Abstand danach */
     #viewer .paragraph.has-poem {
-      margin-top: 0 !important;
+      margin-top: var(--paragraph-margin) !important;
       margin-bottom: 0 !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
@@ -4631,12 +4620,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
     
     /* WICHTIG: Entferne Abstand zwischen aufeinanderfolgenden Gedicht-Paragraphen */
-    #viewer .paragraph.has-poem + .paragraph.has-poem {
-      margin-top: 0 !important;
-    }
-    
-    /* Auch für nicht-direkt aufeinanderfolgende Gedicht-Paragraphen */
-    #viewer .paragraph.has-poem ~ .paragraph.has-poem {
+    #viewer .paragraph.has-poem + .paragraph.has-poem:not(.after-stanza-break) {
       margin-top: 0 !important;
     }
     
@@ -4649,7 +4633,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     /* WICHTIG: Auch die <p> Tags innerhalb von .paragraph.has-poem müssen formatiert werden */
     /* Gedicht-Blöcke: Wie in Büchern - ein Block mit <br> Tags */
     #viewer .paragraph.poem-block {
-      margin: var(--paragraph-margin) 0 !important; /* Normaler Abstand vor/nach dem Block */
+      margin: var(--paragraph-margin) 0 0 0 !important; /* Einfacher Abstand davor, kein extra danach */
       padding: 0 !important;
       line-height: 1.5 !important;
     }
@@ -10565,27 +10549,20 @@ function removeManualHeadingsFromContent(content) {
 }
 
 // Formatiert Paragraph-Content für die HTML-Darstellung:
-// 1. Normalisiert * * * zu * * * (mit einem Leerzeichen zwischen den Sternen)
-// 2. Behält *** (drei Sternchen ohne Leerzeichen) für Markdown-Konvertierung zu <hr>
-// 3. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
+// 1. Escaped * * * und *** damit marked.parse() sie nicht zu <hr> konvertiert
+// 2. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
 function formatParagraphContentForDisplay(content) {
   if (!content || typeof content !== 'string') {
     return content;
   }
   
-  // 1. Normalisiere * * * zu * * * (mit genau einem Leerzeichen zwischen den Sternen)
-  // Pattern: * * * mit variablen Leerzeichen → * * * (normalisiert)
-  // WICHTIG: Markdown interpretiert `* * *` normalerweise als Text, nicht als durchgezogene Linie
-  // Eine durchgezogene Linie wäre `---` oder `***` (ohne Leerzeichen)
-  // Wir normalisieren es zu * * * (mit genau einem Leerzeichen), damit es konsistent dargestellt wird
-  // ABER: *** (drei Sternchen ohne Leerzeichen) wird NICHT geändert, damit es zu <hr> konvertiert wird
-  content = content.replace(/\*\s+\*\s+\*/g, '* * *');
-  
-  // 2. Stelle sicher, dass *** (drei Sternchen ohne Leerzeichen) auf eigener Zeile steht
-  // für korrekte Markdown-Konvertierung zu <hr>
-  // Pattern: *** umgeben von Text → *** auf eigener Zeile
-  // Aber nur wenn es nicht bereits auf eigener Zeile steht
-  content = content.replace(/([^\n])\*\*\*([^\n])/g, '$1\n***\n$2');
+  // * * * und *** sollen als "* * *" Text angezeigt werden, NICHT als horizontale Linie.
+  // Ersetze durch HTML-Element mit Klasse, das marked.parse() durchlässt.
+  // Die CSS-Klasse erzwingt immer eine Leerzeile davor und danach.
+  // Pattern 1: * * * (mit Leerzeichen) auf eigener Zeile
+  content = content.replace(/(^|\n)\s*\*\s+\*\s+\*\s*(\n|$)/g, '\n\n<p class="asterisk-break">* * *</p>\n\n');
+  // Pattern 2: *** (ohne Leerzeichen) auf eigener Zeile
+  content = content.replace(/(^|\n)\s*\*\*\*\s*(\n|$)/g, '\n\n<p class="asterisk-break">* * *</p>\n\n');
   
   return content;
 }
@@ -28755,12 +28732,9 @@ function showSummaryView() {
       console.warn(`[displayLecture] ❌ KEINE Marker nach convertPageMarkers() gefunden!`);
     }
     
-    // Konvertiere *** (drei Sternchen ohne Leerzeichen) zu horizontaler Linie <hr>
-    // Falls marked.parse() es nicht konvertiert hat (z.B. wenn es in einem Paragraph steht)
-    // Pattern: *** auf eigener Zeile oder umgeben von Leerzeichen/Zeilenumbrüchen
-    content = content.replace(/(^|\n)\s*\*\*\*\s*(\n|$)/g, '$1<hr>$2');
-    // Auch wenn es nicht auf eigener Zeile steht, aber von Leerzeichen umgeben ist
-    content = content.replace(/(\s+)\*\*\*(\s+)/g, '$1<hr>$2');
+    // Konvertiere verbleibende <hr> (die aus * * * entstanden) zu * * * Text
+    // Nur einfache <hr> ohne Attribute (nicht summary-separator oder styled hr)
+    content = content.replace(/<hr\s*\/?>/g, '<p class="asterisk-break">* * *</p>');
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
@@ -35679,6 +35653,67 @@ function convertGAReferencesToLinksInKeywordResults(container) {
   });
 }
 
+// Nachbearbeitung: Stelle sicher, dass * * * eine Leerzeile davor und danach hat.
+// Der Poem-Merger fügt bereits ein <br> vor dem <p> ein (Zeilenumbruch).
+// Wir fügen ein ZWEITES <br> hinzu, damit eine Leerzeile entsteht.
+// Nach dem <p> fügen wir ebenfalls ein <br> ein (Leerzeile nach * * *).
+function fixAsteriskBreakSpacing(container) {
+  if (!container) return;
+  const asterisks = container.querySelectorAll('p.asterisk-break');
+  if (asterisks.length > 0) {
+    console.log('[ASTERISK-SPACING] Gefunden:', asterisks.length, '* * * Elemente in', container.id || container.className);
+  }
+  asterisks.forEach((el, idx) => {
+    // Zähle vorhandene <br> direkt VOR dem asterisk-break
+    let brCountBefore = 0;
+    let node = el.previousSibling;
+    while (node) {
+      if (node.nodeType === Node.TEXT_NODE && !node.textContent.trim()) {
+        node = node.previousSibling;
+        continue;
+      }
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName && node.tagName.toLowerCase() === 'br') {
+        brCountBefore++;
+        node = node.previousSibling;
+        continue;
+      }
+      break;
+    }
+    console.log(`[ASTERISK-SPACING] #${idx}: ${brCountBefore} <br> VOR dem Element gefunden, brauche 2`);
+    // Brauche mindestens 2 <br> vor asterisk-break (1 = Zeilenumbruch, 2 = Leerzeile)
+    for (let i = brCountBefore; i < 2; i++) {
+      el.parentNode.insertBefore(document.createElement('br'), el);
+    }
+
+    // Zähle vorhandene <br> direkt NACH dem asterisk-break
+    let brCountAfter = 0;
+    node = el.nextSibling;
+    while (node) {
+      if (node.nodeType === Node.TEXT_NODE && !node.textContent.trim()) {
+        node = node.nextSibling;
+        continue;
+      }
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName && node.tagName.toLowerCase() === 'br') {
+        brCountAfter++;
+        node = node.nextSibling;
+        continue;
+      }
+      break;
+    }
+    console.log(`[ASTERISK-SPACING] #${idx}: ${brCountAfter} <br> NACH dem Element gefunden, brauche 2`);
+    // Brauche mindestens 2 <br> nach asterisk-break (1 = Zeilenumbruch, 2 = Leerzeile)
+    // Füge neue <br> NACH allen bestehenden <br> ein (= vor dem nächsten Nicht-<br>-Element)
+    const insertPoint = node; // node zeigt auf das erste Nicht-<br>-Element nach den <br>
+    for (let i = brCountAfter; i < 2; i++) {
+      if (insertPoint) {
+        el.parentNode.insertBefore(document.createElement('br'), insertPoint);
+      } else {
+        el.parentNode.appendChild(document.createElement('br'));
+      }
+    }
+  });
+}
+
 // Hilfsfunktion: Erkennt Gedichte und kurze Zeilen (< 75 Zeichen) und markiert sie
 function detectAndFormatPoems(container) {
   const containerId = container ? (container.id || container.className || 'unbekannt') : 'null';
@@ -36144,6 +36179,9 @@ function detectAndFormatPoems(container) {
                 return;
               }
               
+              // Überschriften und horizontale Linien BEIBEHALTEN  
+              // (asterisk-break wird als normales <p> behandelt und danach von fixAsteriskBreakSpacing korrigiert)
+              
               // Für <p> Tags: Entferne Margins und füge hinzu
               if (tagName === 'p') {
                 const clonedP = child.cloneNode(true);
@@ -36191,6 +36229,8 @@ function detectAndFormatPoems(container) {
     }
   }
   
+  // Nachbearbeitung: Korrigiere Abstände um * * * Sternchen-Trenner
+  fixAsteriskBreakSpacing(container);
 }
 
 // Globale Variable für aktuellen Keyword-Text (für Markierung in Treffer-Absätzen)
