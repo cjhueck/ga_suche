@@ -1922,8 +1922,12 @@
           "content": "Du findest die Welt."
         },
         {
+          "index": "^olpdrn",
+          "content": "|53| Es funkeln die Sterne -"
+        },
+        {
           "index": "^yk8ut5",
-          "content": "|53| Es funkeln die Sterne - ^olpdrn-Was breitet das Glänzen"
+          "content": "Was breitet das Glänzen"
         },
         {
           "index": "^vi2lmh",
@@ -2184,7 +2188,7 @@
         },
         {
           "index": "^3uhv40",
-          "content": "LÖWE"
+          "content": "LÖWE\n\n* * *"
         },
         {
           "index": "^a3ks9k",
