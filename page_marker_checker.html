@@ -759,6 +759,8 @@
         let currentFileName = '';
         let currentFileHandle = null;
         let rightContent = '';
+        let rightPanelMode = 'none'; // 'pdf', 'md', 'none'
+        let rightMdPageBreaks = []; // Geparste Seitenumbrüche aus rechtem MD
         let pdfDoc = null;
         let currentPdfPage = 1;
         let totalPdfPages = 0;
@@ -820,8 +822,25 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     rightContent = e.target.result;
+                    pdfDoc = null; // PDF-Modus deaktivieren
+                    rightPanelMode = 'md';
+                    rightMdPageBreaks = parseRightMdPageBreaks(rightContent);
                     renderRightContent(rightContent);
-                    showNotification('Vergleichsdatei geladen: ' + file.name);
+                    
+                    // Seitennavigation auch für MD aktivieren wenn Seitenumbrüche vorhanden
+                    if (rightMdPageBreaks.length > 0) {
+                        const controlsEl = document.getElementById('pdfControls');
+                        if (controlsEl) controlsEl.style.display = 'flex';
+                        totalPdfPages = rightMdPageBreaks.length;
+                        currentPdfPage = 1;
+                        // Zeige echte Seitenzahlen statt Break-Indizes
+                        updatePageDisplay();
+                        // Scrolle zum ersten Seitenumbruch
+                        setTimeout(() => scrollToMdPageBreak(0), 300);
+                    }
+                    
+                    showNotification('Vergleichsdatei geladen: ' + file.name + 
+                        (rightMdPageBreaks.length > 0 ? ` (${rightMdPageBreaks.length} Seitenumbrüche)` : ''));
                 };
                 reader.readAsText(file, 'UTF-8');
             }
@@ -843,6 +862,9 @@
         }
 
         async function loadPdfFile(file) {
+            rightPanelMode = 'pdf';
+            rightMdPageBreaks = [];
+            rightContent = '';
             try {
                 if (typeof pdfjsLib === 'undefined') {
                     showNotification('PDF.js Bibliothek nicht geladen');
@@ -916,9 +938,35 @@
 
         async function goToPdfPage(pageNum) {
             const page = parseInt(pageNum);
-            if (page >= 1 && page <= totalPdfPages) {
+            if (rightPanelMode === 'md') {
+                // Im MD-Modus: Eingabe ist die tatsächliche Seitenzahl (seiteNum)
+                const breakIndex = findMdBreakIndexBySeiteNum(page);
+                if (breakIndex >= 0) {
+                    currentPdfPage = breakIndex + 1;
+                    updatePageDisplay();
+                    scrollToMdPageBreak(breakIndex);
+                } else {
+                    // Nächstliegenden Seitenumbruch finden
+                    let closest = 0;
+                    let minDiff = Infinity;
+                    for (let i = 0; i < rightMdPageBreaks.length; i++) {
+                        const sn = getMdSeiteNum(i);
+                        const diff = Math.abs(sn - page);
+                        if (diff < minDiff) {
+                            minDiff = diff;
+                            closest = i;
+                        }
+                    }
+                    currentPdfPage = closest + 1;
+                    updatePageDisplay();
+                    scrollToMdPageBreak(closest);
+                    showNotification(`Seite ${page} nicht gefunden, springe zu Seite ${getMdSeiteNum(closest)}`);
+                }
+                if (searchToggleActive) {
+                    await searchPdfTextInMarkdown();
+                }
+            } else if (page >= 1 && page <= totalPdfPages) {
                 await renderPdfPage(page);
-                // Wenn Toggle aktiv ist, automatisch suchen (nach vollständigem Rendern)
                 if (searchToggleActive) {
                     await searchPdfTextInMarkdown();
                 }
@@ -943,7 +991,13 @@
 
         async function nextPdfPage() {
             if (currentPdfPage < totalPdfPages) {
-                await renderPdfPage(currentPdfPage + 1);
+                if (rightPanelMode === 'md') {
+                    currentPdfPage++;
+                    updatePageDisplay();
+                    scrollToMdPageBreak(currentPdfPage - 1);
+                } else {
+                    await renderPdfPage(currentPdfPage + 1);
+                }
                 // Wenn Toggle aktiv ist, automatisch suchen (nach vollständigem Rendern)
                 if (searchToggleActive) {
                     await searchPdfTextInMarkdown();
@@ -953,7 +1007,13 @@
 
         async function previousPdfPage() {
             if (currentPdfPage > 1) {
-                await renderPdfPage(currentPdfPage - 1);
+                if (rightPanelMode === 'md') {
+                    currentPdfPage--;
+                    updatePageDisplay();
+                    scrollToMdPageBreak(currentPdfPage - 1);
+                } else {
+                    await renderPdfPage(currentPdfPage - 1);
+                }
                 // Wenn Toggle aktiv ist, automatisch suchen (nach vollständigem Rendern)
                 if (searchToggleActive) {
                     await searchPdfTextInMarkdown();
@@ -1081,7 +1141,113 @@
             return bestSimilarity >= threshold ? bestMatch : null;
         }
 
-        // Extrahiert Text von der aktuellen PDF-Seite und sucht im Markdown
+        // Parst die --- Seitenumbrüche aus dem rechten MD-Inhalt
+        function parseRightMdPageBreaks(content) {
+            const lines = content.split('\n');
+            const breaks = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].trim() === '---') {
+                    // Finde "Seite X" vor dem ---
+                    let seiteNum = null;
+                    for (let j = i - 1; j >= Math.max(0, i - 10); j--) {
+                        const match = lines[j].trim().match(/^Seite\s+(\d+)/i);
+                        if (match) {
+                            seiteNum = parseInt(match[1]);
+                            break;
+                        }
+                    }
+                    
+                    // Finde den ersten sinnvollen Text NACH dem ---
+                    // Überspringe leere Zeilen und Footer/Header-Inhalte
+                    let textAfterLineIndex = i + 1;
+                    let textLines = [];
+                    for (let j = i + 1; j < Math.min(i + 20, lines.length); j++) {
+                        const line = lines[j].trim();
+                        if (line === '') continue;
+                        // Überspringe Footer/Header-Inhalte
+                        if (/^(RUDOLF STEINER|VERLAG|Copyright|Seite\s+\d+)/i.test(line)) continue;
+                        if (line === '---') break;
+                        
+                        if (textLines.length === 0) {
+                            textAfterLineIndex = j;
+                        }
+                        textLines.push(line);
+                        if (textLines.length >= 3) break; // 3 Zeilen reichen für die Suche
+                    }
+                    
+                    breaks.push({
+                        seiteNum,
+                        hrLineIndex: i,
+                        textAfterLineIndex,
+                        textAfter: textLines.join(' ')
+                    });
+                }
+            }
+            
+            console.log(`parseRightMdPageBreaks: ${breaks.length} Seitenumbrüche gefunden`);
+            if (breaks.length > 0) {
+                console.log('  Erster Umbruch:', breaks[0]);
+                console.log('  Letzter Umbruch:', breaks[breaks.length - 1]);
+            }
+            return breaks;
+        }
+
+        // Gibt die tatsächliche Seitenzahl (seiteNum) für einen Break-Index zurück
+        // Falls keine seiteNum vorhanden, wird der 1-basierte Index als Fallback verwendet
+        function getMdSeiteNum(breakIndex) {
+            if (breakIndex >= 0 && breakIndex < rightMdPageBreaks.length && rightMdPageBreaks[breakIndex].seiteNum != null) {
+                return rightMdPageBreaks[breakIndex].seiteNum;
+            }
+            return breakIndex + 1;
+        }
+
+        // Findet den Break-Index für eine gegebene Seitenzahl (seiteNum)
+        // Gibt -1 zurück, wenn nicht gefunden
+        function findMdBreakIndexBySeiteNum(seiteNum) {
+            return rightMdPageBreaks.findIndex(b => b.seiteNum === seiteNum);
+        }
+
+        // Aktualisiert die Seitenanzeige in der Navigation
+        // Im MD-Modus werden echte Seitenzahlen angezeigt, im PDF-Modus der Index
+        function updatePageDisplay() {
+            if (rightPanelMode === 'md') {
+                const breakIndex = currentPdfPage - 1;
+                const seiteNum = getMdSeiteNum(breakIndex);
+                document.getElementById('pdfPageInput').value = seiteNum;
+                // Zeige letzte Seitenzahl als Maximum
+                if (rightMdPageBreaks.length > 0) {
+                    const lastSeite = getMdSeiteNum(rightMdPageBreaks.length - 1);
+                    document.getElementById('pdfTotalPages').textContent = lastSeite;
+                }
+            } else {
+                document.getElementById('pdfPageInput').value = currentPdfPage;
+                document.getElementById('pdfTotalPages').textContent = totalPdfPages;
+            }
+        }
+
+        // Scrollt im rechten MD-Panel zum VORHERGEHENDEN Seitenumbruch
+        // (zeigt den vorherigen ---, damit man den Kontext der aktuellen Seite sieht)
+        function scrollToMdPageBreak(breakIndex) {
+            if (breakIndex < 0 || breakIndex >= rightMdPageBreaks.length) return;
+            
+            const contentRightEl = document.getElementById('contentRight');
+            if (!contentRightEl) return;
+            
+            // --- wird in Markdown als <hr> gerendert
+            const hrElements = contentRightEl.querySelectorAll('hr');
+            
+            // Zeige den VORHERGEHENDEN --- (breakIndex - 1)
+            const scrollToIndex = breakIndex - 1;
+            if (scrollToIndex >= 0 && scrollToIndex < hrElements.length) {
+                hrElements[scrollToIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (breakIndex === 0) {
+                // Beim ersten Seitenumbruch: scrolle zum Anfang des Dokuments
+                contentRightEl.scrollTop = 0;
+            }
+        }
+
+        // Extrahiert Text von der aktuellen Quelle (PDF oder rechtes MD) und sucht im linken Markdown
         async function searchPdfTextInMarkdown() {
             // Concurrency Guard: verhindere gleichzeitige Suchen
             if (isSearchingPdf) {
@@ -1094,13 +1260,55 @@
             const shouldAutoOpenDialog = autoOpenInsertDialogAfterSearch;
             autoOpenInsertDialogAfterSearch = false;
             
-            if (!pdfDoc || !currentContent) {
+            // Prüfe ob PDF oder MD (rechtes Fenster) vorhanden ist
+            const isMdMode = rightPanelMode === 'md' && rightMdPageBreaks.length > 0;
+            if (!isMdMode && (!pdfDoc || !currentContent)) {
                 showNotification('PDF oder Markdown nicht geladen');
+                isSearchingPdf = false;
+                return;
+            }
+            if (isMdMode && !currentContent) {
+                showNotification('Markdown nicht geladen');
                 isSearchingPdf = false;
                 return;
             }
 
             try {
+                // Variablen die beide Pfade (MD und PDF) setzen
+                let searchWords, searchText, itemsToUse;
+                let triedLines = 0;
+                let mdMarkerPage = null;
+                
+                if (isMdMode) {
+                    // ===== MD-Pfad: Extrahiere Text aus rechtem MD =====
+                    const breakIndex = currentPdfPage - 1;
+                    if (breakIndex < 0 || breakIndex >= rightMdPageBreaks.length) {
+                        showNotification('Kein Seitenumbruch für aktuelle Seite');
+                        return;
+                    }
+                    const pageBreak = rightMdPageBreaks[breakIndex];
+                    const textAfter = pageBreak.textAfter;
+                    if (!textAfter || textAfter.trim().length < 3) {
+                        showNotification('Kein Text nach Seitenumbruch gefunden');
+                        return;
+                    }
+                    let searchStr = textAfter.normalize('NFC')
+                        .replace(/[\u200B\u200C\u200D\uFEFF\u00AD]/g, '')
+                        .replace(/\s+/g, ' ').trim();
+                    const words = searchStr.split(/\s+/).filter(w => w.length > 0);
+                    if (words.length < 2) {
+                        showNotification('Zu wenig Text nach Seitenumbruch');
+                        return;
+                    }
+                    searchWords = words.slice(0, Math.min(20, words.length));
+                    searchText = searchWords.join(' ');
+                    itemsToUse = [];
+                    mdMarkerPage = pageBreak.seiteNum !== null ? pageBreak.seiteNum + 1 : null;
+                    console.log(`MD-Suche: Text nach --- (Seite ${pageBreak.seiteNum} → Marker ${mdMarkerPage}): "${searchText}"`);
+                    
+                } else {
+                // ===== PDF-Pfad: Extrahiere Text von aktueller PDF-Seite =====
+                
                 // Lade die aktuelle PDF-Seite
                 const page = await pdfDoc.getPage(currentPdfPage);
                 
@@ -1261,37 +1469,154 @@
                     });
                 }
                 
+                // Funktion: Prüfe ob ein Item eine Seitenzahl ist (rein numerisch)
+                function isPageNumber(item) {
+                    return /^\s*\d{1,4}\s*$/.test(item.str);
+                }
+                
+                // Funktion um den VOLLSTÄNDIGEN Zeilentext aus Items zu rekonstruieren
+                function getFullLineText(items) {
+                    if (!items || items.length === 0) return '';
+                    const sortedByX = [...items].sort((a, b) => a.transform[4] - b.transform[4]);
+                    
+                    // Filtere Seitenzahlen die deutlich abgesetzt sind
+                    let filteredItems = sortedByX;
+                    if (sortedByX.length > 1) {
+                        const firstItem = sortedByX[0];
+                        const secondItem = sortedByX[1];
+                        const lastItem = sortedByX[sortedByX.length - 1];
+                        const prevLastItem = sortedByX[sortedByX.length - 2];
+                        
+                        // Seitenzahl am Anfang? (deutlich abgesetzt vom Rest)
+                        if (isPageNumber(firstItem)) {
+                            const firstEnd = firstItem.transform[4] + (firstItem.width || firstItem.str.length * 6);
+                            const gap = secondItem.transform[4] - firstEnd;
+                            if (gap > 20) {
+                                filteredItems = sortedByX.slice(1);
+                                console.log('  Seitenzahl am Anfang übersprungen:', firstItem.str.trim());
+                            }
+                        }
+                        // Seitenzahl am Ende? (deutlich abgesetzt vom Rest)
+                        if (filteredItems.length > 1 && isPageNumber(lastItem)) {
+                            const prevEnd = prevLastItem.transform[4] + (prevLastItem.width || prevLastItem.str.length * 6);
+                            const gap = lastItem.transform[4] - prevEnd;
+                            if (gap > 20) {
+                                filteredItems = filteredItems.filter(item => item !== lastItem);
+                                console.log('  Seitenzahl am Ende übersprungen:', lastItem.str.trim());
+                            }
+                        }
+                    }
+                    
+                    // Rekonstruiere Text: nutze X-Abstände um Leerzeichen einzufügen
+                    let text = '';
+                    for (let i = 0; i < filteredItems.length; i++) {
+                        const item = filteredItems[i];
+                        if (i > 0) {
+                            const prevItem = filteredItems[i - 1];
+                            const prevEnd = prevItem.transform[4] + (prevItem.width || prevItem.str.length * 5);
+                            const gap = item.transform[4] - prevEnd;
+                            // Füge Leerzeichen ein bei signifikantem Abstand
+                            if (gap > 1) {
+                                text += ' ';
+                            }
+                        }
+                        text += item.str;
+                    }
+                    return text.trim();
+                }
+                
                 // Funktion um Suchtext aus einer Startzeile zu extrahieren
                 function getSearchTextFromLine(lineIndex) {
                     if (lineIndex >= allValidLines.length) return null;
                     
                     const line = allValidLines[lineIndex];
-                    let itemsToUse;
-                    let leftText;
                     
-                    // Immer zuerst die aktuelle Zeile verwenden (auch bei Überschriften/Gedichtzeilen).
-                    // Der Fallback-Mechanismus im Hauptloop probiert bei Nichtfinden automatisch
-                    // weitere Zeilen von oben nach unten durch.
-                    const sortedByX = [...line.items].sort((a, b) => a.transform[4] - b.transform[4]);
-                    const leftItemCount = Math.max(5, Math.ceil(line.items.length * 0.3));
-                    itemsToUse = sortedByX.slice(0, leftItemCount);
-                    leftText = itemsToUse.map(item => item.str).join(' ').trim();
+                    // Verwende den VOLLSTÄNDIGEN Zeilentext (nicht nur linke Portion)
+                    let fullText = getFullLineText(line.items);
                     
-                    if (!leftText || leftText.length < 3) return null;
+                    // Fallback: Falls gap-basierte Rekonstruktion wenig Text ergibt,
+                    // versuche einfaches Zusammenfügen mit Leerzeichen
+                    if (!fullText || fullText.length < 3) {
+                        const sortedByX = [...line.items].sort((a, b) => a.transform[4] - b.transform[4]);
+                        fullText = sortedByX.map(item => item.str).join(' ').trim();
+                    }
+                    
+                    if (!fullText || fullText.length < 3) return null;
                     
                     // Unicode-Normalisierung: PDF liefert oft decomposed Characters (u+̈ statt ü)
-                    leftText = leftText.normalize('NFC');
+                    fullText = fullText.normalize('NFC');
                     
-                    const words = leftText.split(/\s+/).filter(w => w.length > 0);
+                    // Entferne unsichtbare Unicode-Zeichen (Zero-Width-Spaces, etc.)
+                    fullText = fullText.replace(/[\u200B\u200C\u200D\uFEFF\u00AD]/g, '');
+                    
+                    const words = fullText.split(/\s+/).filter(w => w.length > 0);
+                    
+                    // Fallback für zeichenweise Items: wenn viele 1-Buchstaben-"Wörter",
+                    // versuche ohne Leerzeichen zusammenzufügen und neu zu splitten
+                    if (words.length > 5) {
+                        const singleCharWords = words.filter(w => w.length === 1).length;
+                        if (singleCharWords > words.length * 0.5) {
+                            // Items sind zeichenweise - füge ohne Leerzeichen zusammen
+                            console.log(`  Zeile ${lineIndex}: Zeichenweise Items erkannt, rekonstruiere Text...`);
+                            const sortedByX = [...line.items].sort((a, b) => a.transform[4] - b.transform[4]);
+                            let reconstructed = '';
+                            for (let i = 0; i < sortedByX.length; i++) {
+                                const item = sortedByX[i];
+                                if (i > 0) {
+                                    const prevItem = sortedByX[i - 1];
+                                    const prevEnd = prevItem.transform[4] + (prevItem.width || prevItem.str.length * 5);
+                                    const gap = item.transform[4] - prevEnd;
+                                    // Größerer Schwellenwert für zeichenweise Items
+                                    if (gap > 3) {
+                                        reconstructed += ' ';
+                                    }
+                                }
+                                reconstructed += item.str;
+                            }
+                            fullText = reconstructed.normalize('NFC').replace(/[\u200B\u200C\u200D\uFEFF\u00AD]/g, '').trim();
+                            const newWords = fullText.split(/\s+/).filter(w => w.length > 0);
+                            if (newWords.length >= 2) {
+                                console.log(`  Rekonstruiert: "${fullText.substring(0, 60)}"`);
+                                return (() => {
+                                    const searchWords = newWords.slice(0, Math.min(20, newWords.length));
+                                    console.log(`getSearchTextFromLine(${lineIndex}): "${searchWords.join(' ')}" (${newWords.length} Wörter, ${line.items.length} Items, Y=${line.y})`);
+                                    return { searchWords, searchText: searchWords.join(' '), itemsToUse: line.items };
+                                })();
+                            }
+                        }
+                    }
+                    
                     if (words.length < 2) return null;
                     
-                    const searchWords = words.slice(0, Math.min(20, words.length));
+                    // Filtere reine Seitenzahlen am Anfang der Wortliste
+                    let startIdx = 0;
+                    if (words.length > 2 && /^\d{1,4}$/.test(words[0])) {
+                        startIdx = 1;
+                        console.log(`  Seitenzahl-Wort übersprungen: "${words[0]}"`);
+                    }
+                    
+                    const cleanWords = words.slice(startIdx);
+                    if (cleanWords.length < 2) return null;
+                    
+                    const searchWords = cleanWords.slice(0, Math.min(20, cleanWords.length));
+                    const itemsToUse = line.items;
+                    
+                    console.log(`getSearchTextFromLine(${lineIndex}): "${searchWords.join(' ')}" (${cleanWords.length} Wörter, ${line.items.length} Items, Y=${line.y})`);
                     return { searchWords, searchText: searchWords.join(' '), itemsToUse };
                 }
                 
+                // Log ALLE Zeilen für Debugging
+                console.log('=== PDF Zeilen (von oben nach unten) ===');
+                for (let i = 0; i < Math.min(allValidLines.length, 8); i++) {
+                    const line = allValidLines[i];
+                    const text = line.items.map(item => item.str).join('|');
+                    console.log(`  Zeile ${i} (Y=${line.y}, ${line.items.length} Items, isHeading=${line.isHeading}): "${text}"`);
+                }
+                console.log('========================================');
+                
                 // Versuche von oben nach unten einen Match zu finden
                 let searchResult = null;
-                let triedLines = 0;
+                triedLines = 0;
                 const MAX_LINES_TO_TRY = Math.min(allValidLines.length, 10); // Maximal 10 Zeilen probieren
                 
                 for (let i = 0; i < MAX_LINES_TO_TRY; i++) {
@@ -1307,12 +1632,14 @@
                     return;
                 }
                 
-                let { searchWords, searchText, itemsToUse } = searchResult;
+                ({ searchWords, searchText, itemsToUse } = searchResult);
                 
                 console.log('Extrahierter Text (Zeile ' + triedLines + '):', searchText);
                 console.log('Alle Wörter:', searchWords);
 
-                console.log('Suche nach PDF-Text:', searchText);
+                } // Ende des else-Blocks (PDF-Pfad)
+
+                console.log('Suche nach Text:', searchText);
 
                 // Suche im Markdown-Text
                 const markdownText = currentContent;
@@ -1374,6 +1701,28 @@
                     
                     if (directIndex !== -1) {
                         return { searchIndex: directIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: false };
+                    }
+                    
+                    // Strategie 1b: ß↔ss Suche (voller Text mit Umlaut/ß-Normalisierung)
+                    // Wichtig VOR "weniger Wörter", damit daß↔dass den vollen Text matcht
+                    const umlautSearchEarly = normalizeUmlaut(searchText);
+                    searchIndex = umlautMarkdown.indexOf(umlautSearchEarly);
+                    if (searchIndex !== -1) {
+                        console.log('Match mit ß↔ss Normalisierung (Strategie 1b)');
+                        return { searchIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: 'umlaut' };
+                    }
+                    
+                    // Strategie 1c: ß↔ss mit weniger Wörtern
+                    for (let wordCount of [15, 10, 5, 4]) {
+                        if (wordCount > searchWords.length) continue;
+                        const testWords = searchWords.slice(0, wordCount);
+                        const testPhrase = testWords.join(' ');
+                        const umlautTest = normalizeUmlaut(testPhrase);
+                        searchIndex = umlautMarkdown.indexOf(umlautTest);
+                        if (searchIndex !== -1) {
+                            console.log(`Match mit ß↔ss Normalisierung (${wordCount} Wörter)`);
+                            return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'umlaut' };
+                        }
                     }
                     
                     // Strategie 2: Weniger Wörter (direkte Suche)
@@ -1527,9 +1876,26 @@
                 // Erste Suche mit bereits extrahiertem Text
                 result = trySearchInMarkdown(searchWords, searchText);
                 
-                // Falls nicht gefunden: Probiere weitere Zeilen von oben nach unten
-                if (!result) {
-                    console.log(`Zeile ${triedLines} nicht gefunden, probiere weitere Zeilen...`);
+                if (result) {
+                    console.log(`✓ Zeile ${triedLines} direkt gefunden!`);
+                } else {
+                    console.log(`✗ Zeile ${triedLines} NICHT gefunden im Markdown! Suchtext: "${searchText}"`);
+                    // Prüfe ob Text ÜBERHAUPT im Markdown vorkommt (auch mit Teilwörtern)
+                    const firstWord = searchWords[0] ? searchWords[0].toLowerCase() : '';
+                    if (firstWord.length > 3) {
+                        const idx = markdownTextLower.indexOf(firstWord);
+                        if (idx !== -1) {
+                            const context = markdownTextLower.substring(idx, Math.min(idx + 80, markdownTextLower.length));
+                            console.log(`  Erstes Wort "${firstWord}" gefunden bei Position ${idx}: "...${context}..."`);
+                        } else {
+                            console.log(`  Erstes Wort "${firstWord}" NICHT im Markdown gefunden!`);
+                        }
+                    }
+                }
+                
+                // Falls nicht gefunden: Probiere weitere Zeilen von oben nach unten (nur PDF-Modus)
+                if (!result && !isMdMode) {
+                    console.log(`Probiere weitere Zeilen (ab Zeile ${triedLines + 1})...`);
                     for (let i = triedLines + 1; i < MAX_LINES_TO_TRY; i++) {
                         if ((performance.now() - startTime) >= MAX_SEARCH_TIME) break;
                         
@@ -1743,11 +2109,26 @@
                 // Markiere die gefundene Stelle im Markdown
                 highlightTextInMarkdown(foundPosition, foundLength, searchText);
                 
-                showNotification('Text gefunden und markiert: "' + searchText + '"');
+                if (isMdMode && mdMarkerPage !== null) {
+                    showNotification(`Text gefunden und markiert (→ Seite ${mdMarkerPage})`);
+                } else {
+                    showNotification('Text gefunden und markiert: "' + searchText + '"');
+                }
+                
+                // MD-Modus: Im Fast-Modus Dialog automatisch öffnen mit vorausgefüllter Seitenzahl
+                if (isMdMode && fastModeEnabled && mdMarkerPage !== null && foundPosition !== -1) {
+                    setTimeout(() => {
+                        openInsertMarkerDialogAtCursor(true);
+                        const pageInput = document.getElementById('insertPageInput');
+                        if (pageInput) {
+                            pageInput.value = mdMarkerPage;
+                        }
+                    }, 100);
+                }
 
             } catch (error) {
-                console.error('Fehler beim Extrahieren von PDF-Text:', error);
-                showNotification('Fehler beim Extrahieren von PDF-Text');
+                console.error('Fehler bei der Suche:', error);
+                showNotification('Fehler bei der Suche');
             } finally {
                 isSearchingPdf = false;
             }
@@ -3528,8 +3909,8 @@
             
             showNotification(`Marker |${page}| eingefügt ${withSpaces ? '(mit LZ)' : '(ohne LZ)'}, nachfolgende Marker angepasst`);
             
-            // Wenn Serienmodus aktiviert ist, automatisch zur nächsten PDF-Seite wechseln
-            if (seriesModeEnabled && pdfDoc && currentPdfPage < totalPdfPages) {
+            // Wenn Serienmodus aktiviert ist, automatisch zur nächsten Seite wechseln (PDF oder MD)
+            if (seriesModeEnabled && (pdfDoc || rightPanelMode === 'md') && currentPdfPage < totalPdfPages) {
                 // Setze Flag nur wenn auch Fast-Modus aktiv ist
                 if (fastModeEnabled) {
                     autoOpenInsertDialogAfterSearch = true;
