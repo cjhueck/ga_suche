@@ -938,6 +938,7 @@
         document.getElementById('fileInputRight').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file && file.type === 'application/pdf') {
+                // Normales Laden über File-Input (Datei wird direkt geladen)
                 loadPdfFile(file);
             } else if (file) {
                 // MD/TXT-Datei: PDF-Controls verstecken und pdfViewer leeren
@@ -1013,6 +1014,136 @@
                 showNotification('Fehler beim Laden des PDFs', 'error');
             }
         }
+
+        // PDF-Index Cache
+        let pdfIndex = null;
+
+        // PDF-Index laden
+        async function loadPdfIndex() {
+            if (pdfIndex) return pdfIndex;
+            
+            try {
+                const response = await fetch('Steiner_GA_pdf/pdf-index.json');
+                if (response.ok) {
+                    pdfIndex = await response.json();
+                    console.log('[PDF] Index geladen:', Object.keys(pdfIndex).length, 'PDFs');
+                    return pdfIndex;
+                }
+            } catch (error) {
+                console.warn('[PDF] Index nicht gefunden:', error.message);
+            }
+            return null;
+        }
+
+        // PDF-Quellen
+        const PDF_LOCAL_PATH = 'Steiner_GA_pdf/';
+        
+        // Prüfe ob lokal (file:// Protokoll)
+        const isLocalFile = window.location.protocol === 'file:';
+
+        // Lade PDF anhand GA-Nummer (mit Suffix-Unterstützung, z.B. ga068c)
+        async function loadPdfByGANumber(gaNumber) {
+            if (!gaNumber) {
+                showNotification('Keine GA-Nummer angegeben', 'error');
+                return;
+            }
+            
+            console.log('[PDF] Starte Laden für GA-Nummer:', gaNumber);
+            
+            // Extrahiere die GA-Nummer (z.B. "GA006" -> "6", "GA068a" -> "068a", "ga068c" -> "068c", "ga068d" -> "068d")
+            const match = gaNumber.match(/GA0*(\d+[a-z]?)/i);
+            if (!match) {
+                console.error('[PDF] Ungültige GA-Nummer:', gaNumber);
+                showNotification('Ungültige GA-Nummer: ' + gaNumber, 'error');
+                return;
+            }
+            
+            const gaNum = match[1]; // Nummer mit optionalem Buchstaben (z.B. "068c", "68d")
+            console.log('[PDF] Extrahierte GA-Nummer:', gaNum);
+            
+            // PDF-Pfad generieren: Stelle sicher, dass die Zahl 3-stellig ist, behalte den Buchstaben
+            // z.B. "68d" -> "068d", "068c" -> "068c", "6" -> "006"
+            const numberMatch = gaNum.match(/^(\d+)/);
+            const letterMatch = gaNum.match(/[a-z]$/i);
+            const numberPart = numberMatch ? numberMatch[1] : '';
+            const letterPart = letterMatch ? letterMatch[0].toLowerCase() : '';
+            const paddedNumber = numberPart.padStart(3, '0');
+            const gaNumPadded = paddedNumber + letterPart;
+            
+            console.log('[PDF] Generierter Pfad-Teil:', gaNumPadded, '(Zahl:', paddedNumber, ', Buchstabe:', letterPart || 'keiner', ')');
+            
+            let pdfPath;
+            if (isLocalFile) {
+                // Lokales Dateisystem: verwende lokale Dateien
+                const index = await loadPdfIndex();
+                let basePath;
+                if (index && index[gaNum]) {
+                    basePath = `${PDF_LOCAL_PATH}${encodeURIComponent(index[gaNum])}`;
+                    console.log('[PDF] Verwende Index-Eintrag:', index[gaNum]);
+                } else {
+                    basePath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
+                    console.log('[PDF] Verwende Standard-Pfad:', basePath);
+                }
+                
+                // Cache-Busting für lokale Dateien
+                const timestamp = Date.now() + Math.floor(Math.random() * 10000);
+                const separator = basePath.includes('?') ? '&' : '?';
+                pdfPath = `${basePath}${separator}_t=${timestamp}`;
+            } else {
+                // Server (localhost oder Produktion): nutze Backend-Proxy
+                // Backend erwartet Format: ga068d (mit führenden Nullen und Buchstaben)
+                pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}`;
+                const timestamp = Date.now() + Math.floor(Math.random() * 10000);
+                pdfPath += `?_t=${timestamp}`;
+                console.log('[PDF] Verwende Backend-Proxy:', pdfPath);
+            }
+            
+            try {
+                console.log('[PDF] Versuche zu laden:', pdfPath);
+                const response = await fetch(pdfPath);
+                
+                console.log('[PDF] Response Status:', response.status, response.statusText);
+                
+                if (!response.ok) {
+                    // Fallback: Versuche direktes Laden aus Steiner_GA_pdf Verzeichnis
+                    const fallbackPath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
+                    console.log('[PDF] Backend fehlgeschlagen, versuche Fallback:', fallbackPath);
+                    const fallbackResponse = await fetch(fallbackPath);
+                    
+                    console.log('[PDF] Fallback Response Status:', fallbackResponse.status, fallbackResponse.statusText);
+                    
+                    if (!fallbackResponse.ok) {
+                        const errorMsg = `PDF nicht gefunden: ${pdfPath} (auch Fallback fehlgeschlagen: ${fallbackPath})`;
+                        console.error('[PDF]', errorMsg);
+                        throw new Error(errorMsg);
+                    }
+                    
+                    const blob = await fallbackResponse.blob();
+                    console.log('[PDF] Fallback erfolgreich, Blob-Größe:', blob.size);
+                    loadPdfFile(blob);
+                    showNotification(`PDF geladen: GA${gaNumber} (Fallback)`);
+                    return;
+                }
+                
+                const blob = await response.blob();
+                console.log('[PDF] Erfolgreich geladen, Blob-Größe:', blob.size);
+                loadPdfFile(blob);
+                showNotification(`PDF geladen: GA${gaNumber}`);
+            } catch (error) {
+                console.error('[PDF] Fehler beim Laden:', error);
+                console.error('[PDF] Details:', {
+                    gaNumber,
+                    gaNum,
+                    gaNumPadded,
+                    pdfPath,
+                    isLocalFile
+                });
+                showNotification('Fehler beim Laden des PDFs: ' + error.message, 'error');
+            }
+        }
+
+        // Funktion global verfügbar machen für Konsole
+        window.loadPdfByGANumber = loadPdfByGANumber;
 
         async function renderPdfPage(pageNum) {
             if (!pdfDoc) return;
@@ -1152,12 +1283,8 @@
         function fuzzySearchInMarkdown(markdownText, searchText, threshold = 0.7) {
             const normalizeForSearch = (text) => {
                 let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
-                // Konvertiere ß zu ss für Vergleich (alte Rechtschreibung -> neue)
-                normalized = normalized.replace(/ß/g, 'ss');
-                // Normalisiere Umlaute für Fuzzy-Matching (läßt → lässt, etc.)
-                normalized = normalized.replace(/ä/g, 'a');
-                normalized = normalized.replace(/ö/g, 'o');
-                normalized = normalized.replace(/ü/g, 'u');
+                // ENTFERNT: Keine ß→ss Transformation mehr
+                // ENTFERNT: Keine Umlaut-Normalisierung mehr (ä→a, ö→o, ü→u)
                 return normalized;
             };
 
@@ -1514,15 +1641,15 @@
                     return;
                 }
 
-                // Nimm die ersten 4-20 Wörter vom Text
+                // Nimm die ersten 4 Wörter vom Text
                 const words = leftText.split(/\s+/).filter(w => w.length > 0);
                 if (words.length < 2) {
                     showNotification('Zu wenig Wörter gefunden');
                     return;
                 }
                 
-                // Nimm die ersten 20 Wörter (oben links), mindestens 4
-                const searchWords = words.slice(0, Math.min(20, words.length));
+                // WICHTIG: Nur die ersten 4 Wörter verwenden
+                const searchWords = words.slice(0, Math.min(4, words.length));
                 const searchText = searchWords.join(' ');
                 
                 console.log('Alle Items der oberen Zeile:', topItems.map(item => ({ text: item.str, x: item.transform[4].toFixed(1) })));
@@ -1531,9 +1658,13 @@
                 }
                 console.log('Extrahiertes Text (oben links):', leftText);
                 console.log('Alle Wörter:', words);
-                console.log('Erste 20 Wörter für Suche:', searchWords);
+                console.log('Erste 4 Wörter für Suche:', searchWords);
+                console.log('[DEBUG] Suchtext:', searchText);
+                console.log('[DEBUG] Suchtext lowercase:', searchText.toLowerCase());
+                console.log('[DEBUG] Markdown-Länge:', currentContent.length);
+                console.log('[DEBUG] Erste 200 Zeichen des Markdown:', currentContent.substring(0, 200));
 
-                console.log('Suche nach PDF-Text (erste 20 Wörter oben links):', searchText);
+                console.log('Suche nach PDF-Text (erste 4 Wörter oben links):', searchText);
 
                 // === NEUES-PDF-MODUS: Vereinfachte Suche ===
                 if (newPdfMode) {
@@ -1544,10 +1675,10 @@
                         .replace(/\s+/g, ' ')                     // Mehrfache Leerzeichen normalisieren
                         .trim();
                     
-                    // Erste 3-5 Wörter (statt 20)
+                    // WICHTIG: Nur die ersten 4 Wörter verwenden
                     const rawText = normalizePunctuation(leftText);
                     const cleanWords = rawText.split(/\s+/).filter(w => w.length > 0);
-                    const newPdfWordCount = Math.min(5, cleanWords.length);
+                    const newPdfWordCount = Math.min(4, cleanWords.length);
                     const newPdfSearchWords = cleanWords.slice(0, newPdfWordCount);
                     const newPdfSearchText = newPdfSearchWords.join(' ');
                     
@@ -1682,8 +1813,7 @@
                 // Inkl. Konvertierung von ß zu ss für alte/neue Rechtschreibung
                 const normalizeForSearch = (text) => {
                     let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
-                    // Konvertiere ß zu ss für Vergleich (alte Rechtschreibung -> neue)
-                    normalized = normalized.replace(/ß/g, 'ss');
+                    // ENTFERNT: Keine ß→ss Transformation mehr
                     return normalized;
                 };
 
@@ -1691,6 +1821,11 @@
                 
                 // Versuche verschiedene Suchstrategien
                 let foundPosition = -1;
+                console.log('[DEBUG] Suche startet:', {
+                    searchText: searchText.substring(0, 60),
+                    searchWordsLength: searchWords.length,
+                    markdownTextLength: markdownText.length
+                });
                 let foundLength = searchText.length;
                 
                 // Startposition für Suche: Bei Vorwärts-Navigation ab letzter Position, sonst vom Anfang
@@ -1970,6 +2105,12 @@
                 
                 // Strategie 1: Direkte Suche OHNE ß→ss (nur lowercase) - nur wenn Überschriften-Suche fehlschlug
                 let directIndex = searchIndex !== -1 ? -1 : markdownTextLower.indexOf(searchTextLower); // Überspringe wenn schon gefunden
+                console.log('[DEBUG] Strategie 1 - direkte Suche:', {
+                    searchTextLower: searchTextLower.substring(0, 60),
+                    searchIndex,
+                    directIndex,
+                    markdownTextLowerLength: markdownTextLower.length
+                });
                 
                 // Variante: Leerzeichen vor Satzzeichen im Suchtext entfernen/hinzufügen
                 if (directIndex === -1 && searchIndex === -1) {
@@ -2094,68 +2235,11 @@
                         ['ck', 'ek'], ['ek', 'ck'],
                         ['ſ', 's'], ['s', 'ſ'],
                         ['ff', 'st'], ['st', 'ff'],  // Fraktur-Ligatur
-                        // Alte/neue Rechtschreibung (ß → ss)
-                        ['ß', 'ss'], ['ss', 'ß'],  // Allgemeine ß ↔ ss Konvertierung (Einfluß ↔ Einfluss, etc.)
-                        ['daß', 'dass'], ['dass', 'daß'],  // daß ↔ dass
-                        ['muß', 'muss'], ['muss', 'muß'],  // muß ↔ muss
-                        ['mußte', 'musste'], ['musste', 'mußte'],  // mußte ↔ musste
-                        ['mußten', 'mussten'], ['mussten', 'mußten'],
-                        ['wußte', 'wusste'], ['wusste', 'wußte'],
-                        ['wußten', 'wussten'], ['wussten', 'wußten'],
-                        ['gefaßt', 'gefasst'], ['gefasst', 'gefaßt'],
-                        ['verfaßt', 'verfasst'], ['verfasst', 'verfaßt'],
-                        ['umfaßt', 'umfasst'], ['umfasst', 'umfaßt'],
-                        ['paßt', 'passt'], ['passt', 'paßt'],
-                        ['haßt', 'hasst'], ['hasst', 'haßt'],
-                        ['verläßt', 'verlässt'], ['verlässt', 'verläßt'],
-                        ['müßten', 'müssten'], ['müssten', 'müßten'],
-                        ['läßt', 'lässt'], ['lässt', 'läßt'],  // läßt ↔ lässt
-                        ['müßte', 'müsste'], ['müsste', 'müßte'],  // müßte ↔ müsste
-                        ['erfaßt', 'erfasst'], ['erfasst', 'erfaßt'],  // erfaßt ↔ erfasst
-                        ['bewußtsein', 'bewusstsein'], ['bewusstsein', 'bewußtsein'],  // Bewußtsein ↔ Bewusstsein
-                        ['wüßt', 'wusst'], ['wusst', 'wüßt'],  // bewüßt ↔ bewusst
-                        ['gründe', 'grunde'], ['grunde', 'gründe'],  // zugründe ↔ zugrunde
-                        ['räume', 'raume'], ['raume', 'räume'],  // Räume ↔ Raume
-                        ['einwände', 'einwande'], ['einwande', 'einwände'],  // Einwände ↔ Einwande
-                        ['umstände', 'umstande'], ['umstande', 'umstände'],  // Umstände ↔ Umstande
-                        ['schlössen', 'schlossen'], ['schlossen', 'schlössen'],  // schlössen ↔ schlossen
-                        ['schlüsse', 'schlusse'], ['schlusse', 'schlüsse'],  // Schlüsse ↔ Schlusse
-                        ['düng', 'dung'], ['dung', 'düng'],  // Verkündung ↔ Verkundung
-                            ['mochte', 'möchte'],
-                            ['gerat', 'gerät'],
-                            ['gemaß', 'gemäß'],
-                            ['uberhaupt', 'überhaupt'],
-                            ['naturlich', 'natürlich'],
-                            ['glucklicherweise', 'glücklicherweise'],
-                            ['fahig', 'fähig'],
-                            ['tatig', 'tätig'],
-                            ['spatere', 'spätere'],
-                            ['fruhere', 'frühere'],
-                            ['tauschung', 'täuschung'],
-                            ['düng', 'dung'], ['möchte', 'mochte'],  // mochte ↔ möchte
-                        ['gerat', 'gerät'], ['gerät', 'gerat'],  // gerat ↔ gerät (fehlender Umlaut)
-                        ['gemaß', 'gemäß'], ['gemäß', 'gemaß'],  // gemaß ↔ gemäß
-                        ['uberhaupt', 'überhaupt'], ['überhaupt', 'uberhaupt'],  // fehlende Umlaute
-                        ['naturlich', 'natürlich'], ['natürlich', 'naturlich'],
-                        ['glucklicherweise', 'glücklicherweise'], ['glücklicherweise', 'glucklicherweise'],
-                        ['fahig', 'fähig'], ['fähig', 'fahig'],
-                        ['tatig', 'tätig'], ['tätig', 'tatig'],
-                        ['spatere', 'spätere'], ['spätere', 'spatere'],
-                        ['fruhere', 'frühere'], ['frühere', 'fruhere'],
-                        ['tauschung', 'täuschung'], ['täuschung', 'tauschung'],  // tauschung ↔ täuschung
-                        ['düng', 'dung'], ['dung', 'düng'],  // düng ↔ dung (falscher Umlaut)
-                        ['einfluß', 'einfluss'], ['einfluss', 'einfluß'],  // Einfluß ↔ Einfluss
-                        ['schluß', 'schluss'], ['schluss', 'schluß'],  // Schluß ↔ Schluss
-                        ['anschluß', 'anschluss'], ['anschluss', 'anschluß'],
-                        ['abschluß', 'abschluss'], ['abschluss', 'abschluß'],
-                        ['entschluß', 'entschluss'], ['entschluss', 'entschluß'],
-                        ['schloß', 'schloss'], ['schloss', 'schloß'],  // Schloß ↔ Schloss
-                        ['floß', 'floss'], ['floss', 'floß'],
-                        ['goß', 'goss'], ['goss', 'goß'],
-                        ['genoß', 'genoss'], ['genoss', 'genoß'],
-                        ['schoß', 'schoss'], ['schoss', 'schoß'],
-                        ['stoß', 'stoss'], ['stoss', 'stoß'],
-                        ['groß', 'gross'], ['gross', 'groß'],
+                        // ENTFERNT: Alle ß→ss Transformationen wurden entfernt
+                        // Der Benutzer wünscht exakte Suche ohne Transformationen
+                        // ENTFERNT: ['ß', 'ss'], ['ss', 'ß']
+                        // ENTFERNT: Alle spezifischen ß→ss Transformationen (daß→dass, groß→gross, etc.)
+                        // ENTFERNT: Alle Umlaut-Transformationen (ä→a, ö→o, ü→u)
                         ['lieh', 'lich'], ['lich', 'lieh'],  // wirklieh ↔ wirklich (Fraktur eh↔ch)
                         // Monatsnamen OCR-Fehler
                         ['semptember', 'september'], ['september', 'semptember'],  // Semptember ↔ September
@@ -2831,11 +2915,23 @@
                 }
 
                 if (foundPosition === -1) {
+                    console.error('[DEBUG] Text nicht gefunden!', {
+                        searchText: searchText.substring(0, 60),
+                        searchIndex,
+                        searchWords: searchWords,
+                        markdownTextPreview: markdownText.substring(0, 200)
+                    });
                     showNotification('Text nicht im Markdown gefunden: "' + searchText + '"', 'error');
                     console.log('Gesuchter Text:', searchText);
                     console.log('Normalisierter gesuchter Text:', normalizedSearch);
                     return;
                 }
+                
+                console.log('[DEBUG] Text gefunden!', {
+                    foundPosition,
+                    foundLength,
+                    searchText: searchText.substring(0, 60)
+                });
 
                 // Markiere die gefundene Stelle im Markdown
                 highlightTextInMarkdown(foundPosition, foundLength, searchText, shouldAutoOpenDialog);
@@ -2902,8 +2998,8 @@
                 const minPos = Math.max(0, origPos - searchRadius);
                 const maxPos = Math.min(mdText.length - 10, origPos + searchRadius);
                 
-                // Extrahiere die ersten Wörter des PDF-Texts für den Vergleich
-                const pdfWords = pdfText.replace(/\s+/g, ' ').split(' ').filter(w => w.length > 0).slice(0, 5);
+                // WICHTIG: Nur die ersten 4 Wörter des PDF-Texts für den Vergleich
+                const pdfWords = pdfText.replace(/\s+/g, ' ').split(' ').filter(w => w.length > 0).slice(0, 4);
                 const pdfSearchText = pdfWords.join(' ').toLowerCase();
                 
                 if (pdfSearchText.length < 5) return origPos;
@@ -2941,13 +3037,13 @@
             
             const fullTextLower = fullText.toLowerCase();
             
-            // Suche den Markdown-Text direkt im DOM (ohne komplexes Mapping)
-            let searchTextToUse = getFirstWords(textAtMarkdownPosition, 8).toLowerCase();
+            // WICHTIG: Nur die ersten 4 Wörter verwenden (wie bei der Suche)
+            let searchTextToUse = getFirstWords(textAtMarkdownPosition, 4).toLowerCase();
             let directIndex = fullTextLower.indexOf(searchTextToUse);
             
-            // Fallback: weniger Wörter
+            // Fallback: weniger Wörter (aber maximal 4)
             if (directIndex === -1) {
-                for (let wordCount = 6; wordCount >= 3; wordCount--) {
+                for (let wordCount = 3; wordCount >= 2; wordCount--) {
                     searchTextToUse = getFirstWords(textAtMarkdownPosition, wordCount).toLowerCase();
                     directIndex = fullTextLower.indexOf(searchTextToUse);
                     if (directIndex !== -1) {
@@ -2960,12 +3056,12 @@
             // ENTFERNT: ß/ss Normalisierung wurde entfernt
             // Der Benutzer wünscht exakte Suche ohne Transformationen
             
-            // Letzter Fallback: Suche den PDF-Text direkt
+            // Letzter Fallback: Suche den PDF-Text direkt (nur 4 Wörter)
             if (directIndex === -1) {
-                searchTextToUse = getFirstWords(searchText, 6).toLowerCase();
+                searchTextToUse = getFirstWords(searchText, 4).toLowerCase();
                 directIndex = fullTextLower.indexOf(searchTextToUse);
                 if (directIndex !== -1) {
-                    console.log('Fallback: PDF-Text direkt gefunden');
+                    console.log('Fallback: PDF-Text direkt gefunden (4 Wörter)');
                 }
             }
             
@@ -3458,12 +3554,8 @@
             // Normalisierungsfunktion (wie bei PDF-Suche)
             const normalizeForSearch = (text) => {
                 let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
-                // Konvertiere ß zu ss für Vergleich (alte Rechtschreibung -> neue)
-                normalized = normalized.replace(/ß/g, 'ss');
-                // Normalisiere Umlaute für Fuzzy-Matching (läßt → lässt, etc.)
-                normalized = normalized.replace(/ä/g, 'a');
-                normalized = normalized.replace(/ö/g, 'o');
-                normalized = normalized.replace(/ü/g, 'u');
+                // ENTFERNT: Keine ß→ss Transformation mehr
+                // ENTFERNT: Keine Umlaut-Normalisierung mehr
                 return normalized;
             };
             
@@ -3481,12 +3573,12 @@
                 Math.floor((currentMdPageIndex / totalMdPages) * totalLength) : 0;
             console.log(`[MD-Vorlage] Erwartete Position: ~${expectedPosition} (Seite ${currentMdPageIndex + 1}/${totalMdPages})`);
             
-            // Extrahiere die ersten 20 Wörter für die Suche
+            // WICHTIG: Nur die ersten 4 Wörter für die Suche verwenden
             const words = searchText.trim().split(/\s+/).filter(w => w.length > 0);
-            const searchWords = words.slice(0, 20);
+            const searchWords = words.slice(0, 4);
             
             console.log('[MD-Vorlage v2] Suche nach Text:', searchText.substring(0, 50) + '...');
-            console.log('[MD-Vorlage v2] Suchtext normalisiert:', normalizeForSearch(searchWords.slice(0, 10).join(' ')));
+            console.log('[MD-Vorlage v2] Suchtext normalisiert:', normalizeForSearch(searchWords.join(' ')));
             
             const markdownText = currentContent;
             const normalizedMarkdown = normalizeForSearch(markdownText);
@@ -3530,11 +3622,13 @@
                 return indices;
             };
             
-            // Strategie 1: Suche mit vielen Wörtern (NUR 7+), bei weniger -> Fuzzy
+            // Strategie 1: Suche mit den ersten 4 Wörtern (wie bei PDF-Suche)
             const fullSearchText = searchWords.join(' ');
             let bestCandidate = null;
             
-            for (let wordCount of [15, 10, 7]) {  // Nicht weniger als 7 Wörter!
+            // WICHTIG: Nur mit den verfügbaren Wörtern suchen (maximal 4)
+            const maxWords = Math.min(4, searchWords.length);
+            for (let wordCount = maxWords; wordCount >= 2; wordCount--) {  // Von 4 bis 2 Wörter
                 if (wordCount > searchWords.length) continue;
                 const testWords = searchWords.slice(0, wordCount);
                 const testPhrase = testWords.join(' ').toLowerCase();
@@ -3590,7 +3684,7 @@
                 }
             }
             
-            // Strategie 2: Normalisierte Suche (mit ß→ss, daß→dass)
+            // Strategie 2: Normalisierte Suche (nur Whitespace-Normalisierung, keine ß→ss Transformationen)
             if (searchIndex === -1) {
                 // Hilfsfunktion: Finde alle Vorkommnisse in normalisiertem Text
                 const findAllNormalizedOccurrences = (normText, search) => {
@@ -3610,30 +3704,18 @@
                 };
                 
                 // Hilfsfunktion: Konvertiere normalisierten Index zu Original-Position
+                // ENTFERNT: ß→ss Transformation wurde entfernt
+                // Da normalizeForSearch keine Transformationen mehr durchführt, ist normIndexToOriginal = normalizedIndex
                 const normIndexToOriginal = (normalizedIndex) => {
-                    let origPos = 0;
-                    let normPos = 0;
-                    const origLower = markdownText.toLowerCase();
-                    while (normPos < normalizedIndex && origPos < markdownText.length) {
-                        const char = origLower[origPos];
-                        if (char === 'ß') {
-                            normPos += 2;
-                        } else if (/\s/.test(char)) {
-                            normPos++;
-                            while (origPos + 1 < markdownText.length && /\s/.test(origLower[origPos + 1])) {
-                                origPos++;
-                            }
-                        } else {
-                            normPos++;
-                        }
-                        origPos++;
-                    }
-                    return origPos;
+                    // Da keine Transformationen mehr stattfinden, ist die Position gleich
+                    return normalizedIndex;
                 };
                 
                 bestCandidate = null;
                 
-                for (let wordCount of [15, 10, 7]) {  // Nicht weniger als 7 Wörter!
+                // WICHTIG: Nur mit den verfügbaren Wörtern suchen (maximal 4)
+                const maxWords = Math.min(4, searchWords.length);
+                for (let wordCount = maxWords; wordCount >= 2; wordCount--) {  // Von 4 bis 2 Wörter
                     if (wordCount > searchWords.length) continue;
                     const testWords = searchWords.slice(0, wordCount);
                     const testPhrase = testWords.join(' ');
@@ -3777,10 +3859,10 @@
             const foundText = currentContent.substring(position, position + Math.min(200, currentContent.length - position));
             const mdSearchInput = document.getElementById('mdSearchInput');
             if (mdSearchInput && foundText) {
-                // Nimm genug Wörter für eindeutige Suche (7-10 Wörter)
-                const searchWords = foundText.trim().split(/\s+/).slice(0, 10).join(' ');
-                // Ersetze ß mit ss für die Suche
-                mdSearchInput.value = searchWords.replace(/ß/g, 'ss');
+                // WICHTIG: Nur die ersten 4 Wörter verwenden
+                const searchWords = foundText.trim().split(/\s+/).slice(0, 4).join(' ');
+                // ENTFERNT: Keine ß→ss Transformation mehr
+                mdSearchInput.value = searchWords;
                 
                 // Suche durchführen für Highlighting
                 if (typeof performMdSearch === 'function') {
