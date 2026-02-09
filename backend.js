@@ -215,14 +215,23 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
   try {
     const gaNumber = req.params.gaNumber.toLowerCase();
     
-    // Validierung: nur gültige GA-Nummern erlauben (z.B. ga001, ga123a)
-    if (!/^ga\d{3}[a-z]?$/.test(gaNumber)) {
-      return res.status(400).json({ error: 'Ungültige GA-Nummer' });
+    // Validierung: nur gültige GA-Nummern erlauben (z.B. ga001, ga123a, ga68d)
+    // Erlaubt 1-3 Ziffern mit optionalem Buchstaben
+    if (!/^ga\d{1,3}[a-z]?$/.test(gaNumber)) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer: ' + gaNumber });
     }
     
-    // Extrahiere GA-Nummer ohne "ga" Präfix (z.B. "011" aus "ga011")
-    const gaNum = gaNumber.replace(/^ga0*/, ''); // z.B. "11" aus "ga011"
-    const gaNumPadded = gaNum.padStart(3, '0'); // z.B. "011"
+    // Extrahiere GA-Nummer ohne "ga" Präfix (z.B. "011" aus "ga011", "068d" aus "ga068d")
+    // WICHTIG: Behalte den Suffix-Buchstaben (z.B. "d" in "ga068d")
+    const gaNum = gaNumber.replace(/^ga0*/, ''); // z.B. "11" aus "ga011", "68d" aus "ga068d"
+    
+    // Trenne Zahl und Buchstabe, padde nur die Zahl
+    const numberMatch = gaNum.match(/^(\d+)/);
+    const letterMatch = gaNum.match(/[a-z]$/i);
+    const numberPart = numberMatch ? numberMatch[1] : gaNum;
+    const letterPart = letterMatch ? letterMatch[0].toLowerCase() : '';
+    const paddedNumber = numberPart.padStart(3, '0'); // z.B. "068" aus "68"
+    const gaNumPadded = paddedNumber + letterPart; // z.B. "068d" aus "68d"
     
     // SCHRITT 1: Prüfe zuerst lokales Verzeichnis
     const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
