@@ -1589,19 +1589,7 @@
                         return origIdx;
                     };
                     
-                    // 2. Fallback: ß↔ss Normalisierung
-                    if (foundPosition === -1) {
-                        const normSearch = searchLower.replace(/ß/g, 'ss');
-                        const normMd = mdLower.replace(/ß/g, 'ss');
-                        const normPos = normMd.indexOf(normSearch);
-                        if (normPos !== -1) {
-                            // Mappe Position zurück auf Original-Text
-                            foundPosition = mapNormPosToOriginal(normPos, markdownTextForSearch);
-                            console.log('[Neues PDF] Gefunden mit ß→ss Normalisierung, normPos:', normPos, '→ origPos:', foundPosition);
-                        }
-                    }
-                    
-                    // 3. Fallback: Weniger Wörter (schrittweise reduzieren bis 2)
+                    // 2. Fallback: Weniger Wörter (schrittweise reduzieren bis 2)
                     if (foundPosition === -1) {
                         for (let n = newPdfWordCount - 1; n >= 2; n--) {
                             const fewerText = cleanWords.slice(0, n).join(' ').toLowerCase();
@@ -1609,16 +1597,6 @@
                             if (foundPosition !== -1) {
                                 foundLength = fewerText.length;
                                 console.log('[Neues PDF] Gefunden mit', n, 'Wörtern');
-                                break;
-                            }
-                            // Auch mit ß→ss
-                            const normFewer = fewerText.replace(/ß/g, 'ss');
-                            const normMd2 = mdLower.replace(/ß/g, 'ss');
-                            const normPos2 = normMd2.indexOf(normFewer);
-                            if (normPos2 !== -1) {
-                                foundPosition = mapNormPosToOriginal(normPos2, markdownTextForSearch);
-                                foundLength = fewerText.length;
-                                console.log('[Neues PDF] Gefunden mit', n, 'Wörtern (ß→ss), normPos:', normPos2, '→ origPos:', foundPosition);
                                 break;
                             }
                         }
@@ -2053,42 +2031,15 @@
                     foundLength = searchText.length;
                     console.log(`Gefunden mit ${searchWords.length} Wörtern (direkte Suche, ohne ß→ss):`, searchText);
                 } else {
-                    // Strategie 1b: Mit ß→ss Konvertierung (für ß im PDF vs ss im MD)
-                    const searchTextSz = searchText.toLowerCase().replace(/ß/g, 'ss');
-                    const markdownTextSz = markdownTextForSearch.toLowerCase().replace(/ß/g, 'ss');
-                    directIndex = markdownTextSz.indexOf(searchTextSz);
-                    
-                    // Auch mit Komma nach VORTRAG versuchen
-                    if (directIndex === -1 && /vortrag/i.test(searchTextSz)) {
-                        const searchWithCommaSz = searchTextSz.replace(/(vortrag)\s+/gi, '$1, ');
-                        directIndex = markdownTextSz.indexOf(searchWithCommaSz);
-                        if (directIndex === -1) {
-                            // Suche als Markdown-Überschrift
-                            directIndex = markdownTextSz.indexOf('# ' + searchWithCommaSz);
-                            if (directIndex !== -1) {
-                                directIndex += 2; // Überspringe "# "
-                                console.log('Gefunden als MD-Überschrift mit ß→ss und Komma');
-                            }
-                        }
-                    }
-                    
-                    if (directIndex !== -1) {
-                        // WICHTIG: Konvertiere Position zurück zum Original
-                        // Zähle wie viele ß vor directIndex im Original waren
-                        let szCount = 0;
-                        for (let i = 0; i < directIndex && i < markdownText.length; i++) {
-                            if (markdownText[i] === 'ß') szCount++;
-                        }
-                        searchIndex = directIndex - szCount;
-                        foundWordCount = searchWords.length;
-                        foundLength = searchText.length;
-                        usedSzConversion = true;
-                        console.log(`Gefunden mit ${searchWords.length} Wörtern (direkte Suche, mit ß→ss, szCount=${szCount}):`, searchText);
-                    }
+                    // Strategie 1b: ENTFERNT - Keine ß→ss Konvertierung mehr
+                    // ß→ss Konvertierung wurde entfernt, da der Benutzer exakte Suche wünscht
+                    // Diese Strategie wurde komplett entfernt
                 }
                 
-                // Strategie 1c: Umlaut-Normalisierung (ö→o, ä→a, ü→u)
-                if (searchIndex === -1) {
+                // Strategie 1c: ENTFERNT - Keine Umlaut-Normalisierung mehr (äußere soll nicht zu äussere werden)
+                // Umlaut-Normalisierung wurde entfernt, da der Benutzer exakte Suche wünscht
+                if (false) {
+                    // Dieser Code wird nie ausgeführt - nur als Kommentar behalten
                     const normalizeUmlauts = (text) => text.replace(/ö/g, 'o').replace(/ä/g, 'a').replace(/ü/g, 'u').replace(/ß/g, 'ss');
                     const searchTextUmlaut = normalizeUmlauts(searchText.toLowerCase());
                     const markdownTextUmlaut = normalizeUmlauts(markdownText.toLowerCase());
@@ -2480,28 +2431,29 @@
                             // WICHTIG: Zuerst Rechtschreibkorrekturen anwenden (alte→neue, nur eine Richtung!)
                             // Diese müssen VOR den bidirektionalen OCR-Korrekturen kommen
                             const spellingCorrections = [
-                                ['daß', 'dass'],
-                                ['muß', 'muss'],
-                                ['läßt', 'lässt'],
-                                ['müßte', 'müsste'],
-                                ['erfaßt', 'erfasst'],
-                                ['bewußtsein', 'bewusstsein'],
-                                ['wüßt', 'wusst'],
-                                ['einfluß', 'einfluss'],
-                                ['schluß', 'schluss'],
-                                ['anschluß', 'anschluss'],
-                                ['abschluß', 'abschluss'],
-                                ['entschluß', 'entschluss'],
-                                ['ausfluß', 'ausfluss'],
-                                ['zufluß', 'zufluss'],
-                                ['schloß', 'schloss'],
-                                ['floß', 'floss'],
-                                ['goß', 'goss'],
-                                ['genoß', 'genoss'],
-                                ['schoß', 'schoss'],
-                                ['stoß', 'stoss'],
-                                ['groß', 'gross'],
-                                ['schlüsse', 'schlusse'],
+                                // ENTFERNT: Alle ß→ss Transformationen wurden entfernt
+                                // ['daß', 'dass'],
+                                // ['muß', 'muss'],
+                                // ['läßt', 'lässt'],
+                                // ['müßte', 'müsste'],
+                                // ['erfaßt', 'erfasst'],
+                                // ['bewußtsein', 'bewusstsein'],
+                                // ['wüßt', 'wusst'],
+                                // ['einfluß', 'einfluss'],
+                                // ['schluß', 'schluss'],
+                                // ['anschluß', 'anschluss'],
+                                // ['abschluß', 'abschluss'],
+                                // ['entschluß', 'entschluss'],
+                                // ['ausfluß', 'ausfluss'],
+                                // ['zufluß', 'zufluss'],
+                                // ['schloß', 'schloss'],
+                                // ['floß', 'floss'],
+                                // ['goß', 'goss'],
+                                // ['genoß', 'genoss'],
+                                // ['schoß', 'schoss'],
+                                // ['stoß', 'stoss'],
+                                // ['groß', 'gross'],
+                                // ['schlüsse', 'schlusse'],
                                 ['düng', 'dung'],
                                 ['lieh', 'lich'],
                                 ['mochte', 'möchte'],
@@ -2529,7 +2481,8 @@
                                 ['- und', ' und'],
                                 ['- oder', ' oder'],
                                 ['- wie', ' wie'],
-                                ['ß', 'ss'],  // Allgemein ß→ss NACH den spezifischen Wörtern
+                                // ENTFERNT: ['ß', 'ss'] - Allgemeine ß→ss Transformation wurde entfernt
+                                // Der Benutzer wünscht exakte Suche ohne Transformationen
                             ];
                             for (const [wrong, correct] of spellingCorrections) {
                                 partialText = partialText.replace(new RegExp(wrong, 'g'), correct);
@@ -2624,46 +2577,11 @@
                                 
                                 let partialText = remainingWords.slice(0, Math.min(8, remainingWords.length)).join(' ').toLowerCase();
                                 
-                                // Auch mit Rechtschreib- und OCR-Korrektur
-                                // WICHTIG: Zuerst Rechtschreibkorrekturen (alte→neue, nur eine Richtung!)
+                                // ENTFERNT: Alle ß→ss Transformationen wurden entfernt
+                                // Der Benutzer wünscht exakte Suche ohne Transformationen
                                 const spellingCorrectionsHyphen = [
-                                    ['daß', 'dass'],
-                                    ['muß', 'muss'],
-                                    ['läßt', 'lässt'],
-                                    ['müßte', 'müsste'],
-                                    ['erfaßt', 'erfasst'],
-                                    ['bewußtsein', 'bewusstsein'],
-                                    ['wüßt', 'wusst'],
-                                    ['einfluß', 'einfluss'],
-                                    ['schluß', 'schluss'],
-                                    ['anschluß', 'anschluss'],
-                                    ['abschluß', 'abschluss'],
-                                    ['entschluß', 'entschluss'],
-                                    ['ausfluß', 'ausfluss'],
-                                    ['zufluß', 'zufluss'],
-                                    ['schloß', 'schloss'],
-                                    ['floß', 'floss'],
-                                    ['goß', 'goss'],
-                                    ['genoß', 'genoss'],
-                                    ['schoß', 'schoss'],
-                                    ['stoß', 'stoss'],
-                                    ['groß', 'gross'],
-                                    ['schlüsse', 'schlusse'],
-                                    ['düng', 'dung'],
-                                    ['lieh', 'lich'],
-                                    ['mochte', 'möchte'],
-                            ['gerat', 'gerät'],
-                            ['gemaß', 'gemäß'],
-                            ['uberhaupt', 'überhaupt'],
-                            ['naturlich', 'natürlich'],
-                            ['glucklicherweise', 'glücklicherweise'],
-                            ['fahig', 'fähig'],
-                            ['tatig', 'tätig'],
-                            ['spatere', 'spätere'],
-                            ['fruhere', 'frühere'],
-                            ['tauschung', 'täuschung'],
-                            ['düng', 'dung'],
-                                    // Monatsnamen OCR-Fehler
+                                    // Alle ß→ss Transformationen wurden entfernt
+                                    // Monatsnamen OCR-Fehler (behalten, da keine ß→ss Transformation)
                                     ['semptember', 'september'],
                                     ['jannuar', 'januar'],
                                     ['febmuar', 'februar'],
@@ -2672,11 +2590,11 @@
                                     ['dezem ber', 'dezember'],
                                     ['septem ber', 'september'],
                                     ['okto ber', 'oktober'],
-                                    // Fehlende Bindestriche
+                                    // Fehlende Bindestriche (behalten, da keine ß→ss Transformation)
                                     ['- und', ' und'],
                                     ['- oder', ' oder'],
                                     ['- wie', ' wie'],
-                                    ['ß', 'ss'],
+                                    // ENTFERNT: ['ß', 'ss'] - Allgemeine ß→ss Transformation wurde entfernt
                                 ];
                                 for (const [wrong, correct] of spellingCorrectionsHyphen) {
                                     partialText = partialText.replace(new RegExp(wrong, 'g'), correct);
@@ -2744,7 +2662,7 @@
                 }
                 
                 if (searchIndex === -1) {
-                    // Strategie 2: Versuche mit weniger Wörtern (erst ohne, dann mit ß→ss)
+                    // Strategie 2: Versuche mit weniger Wörtern (ohne Transformationen)
                     for (let wordCount of [15, 10, 5, 4]) {
                         if (wordCount > searchWords.length) continue;
                         const testWords = searchWords.slice(0, wordCount);
@@ -2761,40 +2679,8 @@
                             break;
                         }
                         
-                        // Dann mit Umlaut-Normalisierung (inkl. ß→ss)
-                        const normalizeAll = (text) => text.replace(/ö/g, 'o').replace(/ä/g, 'a').replace(/ü/g, 'u').replace(/ß/g, 'ss');
-                        const testPhraseNorm = normalizeAll(testPhrase.toLowerCase());
-                        const markdownTextNorm = normalizeAll(markdownText.toLowerCase());
-                        directIndex = markdownTextNorm.indexOf(testPhraseNorm);
-                        if (directIndex !== -1) {
-                            // Korrigiere Position für ß
-                            let szCount = 0;
-                            for (let i = 0; i < directIndex && i < markdownText.length; i++) {
-                                if (markdownText[i] === 'ß') szCount++;
-                            }
-                            searchIndex = directIndex - szCount;
-                            foundWordCount = wordCount;
-                            foundLength = testPhrase.length;
-                            console.log(`Gefunden mit ${wordCount} Wörtern (Umlaut-Normalisierung):`, testPhrase);
-                            break;
-                        }
-                        
-                        // Fallback: nur ß→ss
-                        const testPhraseSz = testPhrase.toLowerCase().replace(/ß/g, 'ss');
-                        const markdownTextSz = markdownText.toLowerCase().replace(/ß/g, 'ss');
-                        directIndex = markdownTextSz.indexOf(testPhraseSz);
-                        if (directIndex !== -1) {
-                            let szCount = 0;
-                            for (let i = 0; i < directIndex && i < markdownText.length; i++) {
-                                if (markdownText[i] === 'ß') szCount++;
-                            }
-                            searchIndex = directIndex - szCount;
-                            foundWordCount = wordCount;
-                            foundLength = testPhrase.length;
-                            usedSzConversion = true;
-                            console.log(`Gefunden mit ${wordCount} Wörtern (mit ß→ss, szCount=${szCount}):`, testPhrase);
-                            break;
-                        }
+                        // ENTFERNT: Umlaut-Normalisierung und ß→ss Konvertierung
+                        // Diese Transformationen wurden entfernt, da der Benutzer exakte Suche wünscht
                     }
                     
                     // Strategie 3: Falls direkte Suche fehlschlägt, versuche normalisierte Suche
@@ -3034,19 +2920,8 @@
                     return newPos;
                 }
                 
-                // Fallback: Suche mit ß→ss Normalisierung
-                const normalizedPdfText = pdfSearchText.replace(/ß/g, 'ss');
-                const normalizedArea = searchArea.replace(/ß/g, 'ss');
-                const normMatch = normalizedArea.indexOf(normalizedPdfText);
-                
-                if (normMatch !== -1) {
-                    const newPos = minPos + normMatch;
-                    if (newPos !== origPos) {
-                        console.log('[Positions-Optimierung] Position korrigiert (ß→ss):', origPos, '→', newPos);
-                    }
-                    return newPos;
-                }
-                
+                // ENTFERNT: ß→ss Normalisierung wurde entfernt
+                // Der Benutzer wünscht exakte Suche ohne Transformationen
                 return origPos;
             };
             
@@ -3082,23 +2957,8 @@
                 }
             }
             
-            // Fallback: Mit ß/ss Normalisierung
-            if (directIndex === -1) {
-                const normalizeText = (t) => t.toLowerCase().replace(/ß/g, 'ss');
-                const normalizedFullText = normalizeText(fullText);
-                searchTextToUse = normalizeText(getFirstWords(textAtMarkdownPosition, 6));
-                
-                const normIndex = normalizedFullText.indexOf(searchTextToUse);
-                if (normIndex !== -1) {
-                    // Zähle ß vor der Position im Original
-                    let szCount = 0;
-                    for (let i = 0; i < normIndex && i < fullText.length; i++) {
-                        if (fullText[i] === 'ß') szCount++;
-                    }
-                    directIndex = normIndex - szCount;
-                    console.log('ß/ss Normalisierung, szCount:', szCount);
-                }
-            }
+            // ENTFERNT: ß/ss Normalisierung wurde entfernt
+            // Der Benutzer wünscht exakte Suche ohne Transformationen
             
             // Letzter Fallback: Suche den PDF-Text direkt
             if (directIndex === -1) {
@@ -3950,7 +3810,7 @@
                             targetHighlight.classList.add('current');
                             // Nur scrollen wenn erlaubt
                             if (scrollAllowed) {
-                                targetHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                scrollToElementInstantly(targetHighlight, 'center');
                             }
                         } else if (scrollAllowed) {
                             // Fallback: Scrolle basierend auf Zeilenanzahl (nur wenn erlaubt)
@@ -5661,11 +5521,20 @@
 
             // Markiere aktuellen Marker nur wenn Highlighting aktiviert ist
             const markerEl = document.querySelector(`[data-marker-index="${index}"]`);
+            console.log(`[jumpToMarker] markerEl gefunden:`, !!markerEl, `index=${index}`);
             if (markerEl) {
                 if (highlightingEnabled) {
                     markerEl.classList.add('highlighted');
                 }
-                markerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Verwende setTimeout, um sicherzustellen, dass das DOM vollständig gerendert ist
+                setTimeout(() => {
+                    scrollToElementInstantly(markerEl, 'center');
+                }, 10);
+            } else {
+                console.warn(`[jumpToMarker] Marker-Element nicht gefunden für index ${index}`);
+                // Fallback: Versuche alle Marker-Elemente zu finden
+                const allMarkers = document.querySelectorAll('.page-marker');
+                console.log(`[jumpToMarker] Gefundene Marker im DOM:`, allMarkers.length);
             }
 
             // Aktualisiere Sidebar
@@ -6466,6 +6335,81 @@
             }
         }
         
+        // Funktion zum direkten Scrollen ohne Scroll-Events auszulösen
+        function scrollToElementInstantly(element, block = 'center') {
+            if (!element) {
+                console.warn('scrollToElementInstantly: element fehlt');
+                return;
+            }
+            
+            // Finde das scrollbare Parent-Element (.content)
+            const contentWrapper = document.getElementById('content');
+            let scrollContainer = contentWrapper;
+            
+            // Gehe nach oben im DOM-Baum und finde das Element mit overflow-y: auto
+            while (scrollContainer && scrollContainer.parentElement) {
+                const style = window.getComputedStyle(scrollContainer);
+                if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
+                    break;
+                }
+                scrollContainer = scrollContainer.parentElement;
+            }
+            
+            // Fallback: Wenn kein scrollbares Element gefunden, verwende .content
+            if (!scrollContainer || scrollContainer === document.body) {
+                scrollContainer = document.querySelector('.content');
+            }
+            
+            if (!scrollContainer) {
+                console.warn('scrollToElementInstantly: scrollContainer nicht gefunden');
+                return;
+            }
+            
+            // Temporär Scroll-Sync deaktivieren
+            const wasScrolling = isScrolling;
+            isScrolling = true;
+            
+            // Berechne die Position des Elements relativ zum scrollbaren Container
+            const elementRect = element.getBoundingClientRect();
+            const containerRect = scrollContainer.getBoundingClientRect();
+            
+            // Berechne die relative Position
+            const elementTop = elementRect.top - containerRect.top + scrollContainer.scrollTop;
+            
+            // Berechne die Ziel-Scroll-Position basierend auf block-Parameter
+            let scrollTop;
+            const containerHeight = scrollContainer.clientHeight;
+            const elementHeight = elementRect.height;
+            
+            if (block === 'center') {
+                scrollTop = elementTop - (containerHeight / 2) + (elementHeight / 2);
+            } else if (block === 'start') {
+                scrollTop = elementTop;
+            } else if (block === 'end') {
+                scrollTop = elementTop - containerHeight + elementHeight;
+            } else {
+                scrollTop = elementTop - (containerHeight / 2) + (elementHeight / 2);
+            }
+            
+            // Setze die Scroll-Position direkt (ohne Animation)
+            const finalScrollTop = Math.max(0, Math.min(scrollTop, scrollContainer.scrollHeight - containerHeight));
+            scrollContainer.scrollTop = finalScrollTop;
+            
+            console.log('scrollToElementInstantly:', {
+                elementTop,
+                containerHeight,
+                elementHeight,
+                scrollTop: finalScrollTop,
+                scrollContainer: scrollContainer.className,
+                element: element.textContent?.substring(0, 20)
+            });
+            
+            // Reaktiviere Scroll-Sync nach kurzer Verzögerung
+            setTimeout(() => {
+                isScrolling = wasScrolling;
+            }, 50);
+        }
+        
         function highlightCurrentMatch(setCursor = false) {
             // Entferne "current" von allen
             mdSearchMatches.forEach(el => el.classList.remove('current'));
@@ -6576,24 +6520,24 @@
                             
                             // Scroll zum Absatz (nur wenn nicht deaktiviert)
                             if (!scrollingDisabledForSearch) {
-                                nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                scrollToElementInstantly(nextParagraph, 'center');
                             }
                         } else {
                             // Fallback: Scroll zur Überschrift (nur wenn nicht deaktiviert)
                             if (!scrollingDisabledForSearch) {
-                                current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                scrollToElementInstantly(current, 'center');
                             }
                         }
                     } else {
                         // Fallback: Scroll zum Treffer (nur wenn nicht deaktiviert)
                         if (!scrollingDisabledForSearch) {
-                            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            scrollToElementInstantly(current, 'center');
                         }
                     }
                 } else {
                     // Normale Positionierung: Nur scrollen, Cursor nur setzen wenn gewünscht (nur wenn nicht deaktiviert)
                     if (!scrollingDisabledForSearch) {
-                        current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        scrollToElementInstantly(current, 'center');
                     }
                     
                     if (setCursor) {
