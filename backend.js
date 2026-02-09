@@ -23807,6 +23807,33 @@ async function incrementSupabaseAnalytics(type) {
   }
 }
 
+// Tracke unique visitor in Supabase
+async function trackUniqueVisitorInSupabase(visitorId) {
+  if (!supabaseClient || !visitorId) {
+    return false;
+  }
+  
+  const today = getDateKey();
+  
+  try {
+    const { data, error } = await supabaseClient.rpc('track_unique_visitor', {
+      p_date: today,
+      p_visitor_id: visitorId
+    });
+    
+    if (error) {
+      console.error('[ANALYTICS-SUPABASE] Unique Visitor RPC Fehler:', error.message);
+      return false;
+    }
+    
+    console.log(`[ANALYTICS-SUPABASE] Unique Visitor getrackt: ${visitorId.substring(0, 8)}... ist_neu=${data}`);
+    return true;
+  } catch (error) {
+    console.error('[ANALYTICS-SUPABASE] Unique Visitor Fehler:', error.message);
+    return false;
+  }
+}
+
 // Lade Analytics-Daten aus Supabase
 async function loadAnalyticsFromSupabase() {
   if (!supabaseClient) {
@@ -23844,7 +23871,8 @@ async function loadAnalyticsFromSupabase() {
         dailyStats[row.date] = {
           views: row.views || 0,
           searches: row.searches || 0,
-          lectures: row.lectures || 0
+          lectures: row.lectures || 0,
+          unique_users: row.unique_users || 0
         };
       });
     }
@@ -23854,6 +23882,7 @@ async function loadAnalyticsFromSupabase() {
       totalViews: totalsData?.total_views || 0,
       totalSearches: totalsData?.total_searches || 0,
       totalLectureViews: totalsData?.total_lectures || 0,
+      totalUniqueUsers: totalsData?.total_unique_users || 0,
       source: 'supabase'
     };
   } catch (error) {
@@ -23945,7 +23974,7 @@ async function trackSearch(searchTerm) {
     const today = getDateKey();
     
     if (!data.dailyStats[today]) {
-      data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
+      data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
     }
     
     data.dailyStats[today].searches++;
@@ -23967,13 +23996,13 @@ app.post('/api/analytics/track', async (req, res) => {
   console.log('========================================');
   
   try {
-    const { type, value } = req.body;
+    const { type, value, visitor_id } = req.body;
     if (!type) {
       console.log('[ANALYTICS-TRACK] FEHLER: Kein type vorhanden');
       return res.status(400).json({ error: 'type required' });
     }
     
-    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}`);
+    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, visitor_id=${visitor_id ? visitor_id.substring(0, 8) + '...' : 'keine'}`);
     
     // Mappe type auf analytics-type
     let analyticsType;
@@ -23994,6 +24023,11 @@ app.post('/api/analytics/track', async (req, res) => {
     // Primär: Supabase (persistent)
     const supabaseSuccess = await incrementSupabaseAnalytics(analyticsType);
     
+    // Unique Visitor tracken (bei page_view mit visitor_id)
+    if (type === 'page_view' && visitor_id && typeof visitor_id === 'string' && visitor_id.length > 10) {
+      await trackUniqueVisitorInSupabase(visitor_id);
+    }
+    
     if (supabaseSuccess) {
       console.log(`[ANALYTICS] ✓ ${type} in Supabase gespeichert (persistent)`);
       res.json({ ok: true, storage: 'supabase' });
@@ -24004,7 +24038,7 @@ app.post('/api/analytics/track', async (req, res) => {
       const today = getDateKey();
       
       if (!data.dailyStats[today]) {
-        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0 };
+        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
       }
       
       switch (type) {
@@ -24060,10 +24094,10 @@ app.get('/api/analytics/stats', async (req, res) => {
   try {
     const data = await loadAnalyticsData();
     const today = getDateKey();
-    const todayStats = data.dailyStats[today] || { views: 0, searches: 0, lectures: 0 };
+    const todayStats = data.dailyStats[today] || { views: 0, searches: 0, lectures: 0, unique_users: 0 };
     
     // Letzte 7 Tage berechnen
-    let weekViews = 0, weekSearches = 0, weekLectures = 0;
+    let weekViews = 0, weekSearches = 0, weekLectures = 0, weekUniqueUsers = 0;
     for (let i = 0; i < 7; i++) {
       const d = new Date();
       d.setDate(d.getDate() - i);
@@ -24073,6 +24107,7 @@ app.get('/api/analytics/stats', async (req, res) => {
         weekViews += dayData.views || 0;
         weekSearches += dayData.searches || 0;
         weekLectures += dayData.lectures || 0;
+        weekUniqueUsers += dayData.unique_users || 0;
       }
     }
     
@@ -24088,19 +24123,20 @@ app.get('/api/analytics/stats', async (req, res) => {
       const d = new Date();
       d.setDate(d.getDate() - i);
       const key = d.toISOString().split('T')[0];
-      const dayData = data.dailyStats[key] || { views: 0, searches: 0, lectures: 0 };
+      const dayData = data.dailyStats[key] || { views: 0, searches: 0, lectures: 0, unique_users: 0 };
       dailyData.push({
         date: key,
         label: d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }),
         views: dayData.views,
         searches: dayData.searches,
-        lectures: dayData.lectures
+        lectures: dayData.lectures,
+        unique_users: dayData.unique_users || 0
       });
     }
     
     // Berechne kumulative Werte (Gesamt seit Beginn) aus allen täglichen Daten
     // WICHTIG: Berechne IMMER neu aus dailyStats, um sicherzustellen dass die Werte korrekt sind
-    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0;
+    let cumulativeViews = 0, cumulativeSearches = 0, cumulativeLectures = 0, cumulativeUniqueUsers = 0;
     if (data.dailyStats && typeof data.dailyStats === 'object') {
       for (const key of Object.keys(data.dailyStats)) {
         const dayData = data.dailyStats[key];
@@ -24108,17 +24144,19 @@ app.get('/api/analytics/stats', async (req, res) => {
           cumulativeViews += dayData.views || 0;
           cumulativeSearches += dayData.searches || 0;
           cumulativeLectures += dayData.lectures || 0;
+          cumulativeUniqueUsers += dayData.unique_users || 0;
         }
       }
     }
     
     res.json({
       today: todayStats,
-      week: { views: weekViews, searches: weekSearches, lectures: weekLectures },
+      week: { views: weekViews, searches: weekSearches, lectures: weekLectures, unique_users: weekUniqueUsers },
       total: {
         views: cumulativeViews,  // Verwende kumulative Werte
         searches: cumulativeSearches,
-        lectures: cumulativeLectures
+        lectures: cumulativeLectures,
+        unique_users: cumulativeUniqueUsers
       },
       topSearches,
       topLectures,
