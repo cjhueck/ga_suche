@@ -128,6 +128,111 @@ CREATE TRIGGER update_analytics_daily_updated_at
 
 
 -- ============================================
+-- 6. UNIQUE VISITORS Tracking
+-- ============================================
+-- Tabelle für eindeutige Besucher pro Tag (visitor_id aus localStorage)
+CREATE TABLE IF NOT EXISTS public.analytics_visitors (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  date DATE NOT NULL,
+  visitor_id TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(date, visitor_id)  -- Ein Besucher wird pro Tag nur einmal gezählt
+);
+
+-- Index für schnelle Abfragen
+CREATE INDEX IF NOT EXISTS idx_analytics_visitors_date ON public.analytics_visitors(date DESC);
+CREATE INDEX IF NOT EXISTS idx_analytics_visitors_visitor ON public.analytics_visitors(visitor_id);
+
+-- RLS deaktivieren
+ALTER TABLE public.analytics_visitors DISABLE ROW LEVEL SECURITY;
+
+-- Spalte unique_users zu analytics_daily hinzufügen (falls noch nicht vorhanden)
+ALTER TABLE public.analytics_daily ADD COLUMN IF NOT EXISTS unique_users INTEGER DEFAULT 0;
+
+-- Spalte total_unique_users zu analytics_totals hinzufügen
+ALTER TABLE public.analytics_totals ADD COLUMN IF NOT EXISTS total_unique_users INTEGER DEFAULT 0;
+
+
+-- ============================================
+-- 7. FUNCTION: Unique Visitor tracken
+-- ============================================
+-- Gibt TRUE zurück wenn der Besucher neu ist (für diesen Tag), FALSE wenn bereits gezählt
+CREATE OR REPLACE FUNCTION public.track_unique_visitor(
+  p_date DATE,
+  p_visitor_id TEXT
+)
+RETURNS BOOLEAN AS $$
+DECLARE
+  v_row_count INTEGER;
+BEGIN
+  -- Versuche den Besucher einzufügen
+  INSERT INTO public.analytics_visitors (date, visitor_id)
+  VALUES (p_date, p_visitor_id)
+  ON CONFLICT (date, visitor_id) DO NOTHING;
+  
+  -- Prüfe ob der INSERT erfolgreich war (neuer Besucher)
+  -- ROW_COUNT gibt INTEGER zurück: 1 = neuer Eintrag, 0 = bereits vorhanden
+  GET DIAGNOSTICS v_row_count = ROW_COUNT;
+  
+  IF v_row_count > 0 THEN
+    -- Neuer Besucher: Inkrementiere unique_users in analytics_daily
+    UPDATE public.analytics_daily 
+    SET unique_users = unique_users + 1, updated_at = NOW()
+    WHERE date = p_date;
+    
+    -- Falls kein Eintrag für diesen Tag existiert, erstelle einen
+    IF NOT FOUND THEN
+      INSERT INTO public.analytics_daily (date, unique_users, views, searches, lectures, updated_at)
+      VALUES (p_date, 1, 0, 0, 0, NOW())
+      ON CONFLICT (date) DO UPDATE SET
+        unique_users = analytics_daily.unique_users + 1,
+        updated_at = NOW();
+    END IF;
+    
+    -- Aktualisiere Gesamtwerte
+    UPDATE public.analytics_totals SET
+      total_unique_users = total_unique_users + 1,
+      last_updated = NOW()
+    WHERE id = 1;
+  END IF;
+  
+  RETURN v_row_count > 0;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+
+-- ============================================
+-- 8. FUNCTION: Gesamtwerte neu berechnen (aktualisiert)
+-- ============================================
+-- Überschreibt die alte Version mit unique_users Support
+CREATE OR REPLACE FUNCTION public.recalculate_analytics_totals()
+RETURNS void AS $$
+DECLARE
+  v_views INTEGER;
+  v_searches INTEGER;
+  v_lectures INTEGER;
+  v_unique_users INTEGER;
+BEGIN
+  SELECT 
+    COALESCE(SUM(views), 0),
+    COALESCE(SUM(searches), 0),
+    COALESCE(SUM(lectures), 0),
+    COALESCE(SUM(unique_users), 0)
+  INTO v_views, v_searches, v_lectures, v_unique_users
+  FROM public.analytics_daily;
+  
+  UPDATE public.analytics_totals SET
+    total_views = v_views,
+    total_searches = v_searches,
+    total_lectures = v_lectures,
+    total_unique_users = v_unique_users,
+    last_updated = NOW()
+  WHERE id = 1;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+
+-- ============================================
 -- FERTIG! 
 -- ============================================
 -- Nach Ausführung dieses Scripts:
@@ -135,3 +240,5 @@ CREATE TRIGGER update_analytics_daily_updated_at
 -- 2. Die analytics_totals Tabelle speichert kumulative Werte
 -- 3. Die increment_analytics() Funktion wird vom Backend aufgerufen
 -- 4. Alle Daten bleiben PERSISTENT - auch nach Render-Neustarts!
+-- 5. Die analytics_visitors Tabelle trackt eindeutige Besucher pro Tag
+-- 6. Die track_unique_visitor() Funktion zählt neue Besucher

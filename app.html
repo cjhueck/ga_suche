@@ -9710,6 +9710,28 @@ PDF
     // ANALYTICS-FUNKTIONEN
     // ============================================================
     
+    // Generiere oder lade eine eindeutige Visitor-ID (persistent über localStorage)
+    function getVisitorId() {
+      try {
+        let visitorId = localStorage.getItem('ga_visitor_id');
+        if (!visitorId) {
+          // Erzeuge eine UUID v4
+          visitorId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+          localStorage.setItem('ga_visitor_id', visitorId);
+          console.log('[ANALYTICS] Neue Visitor-ID generiert:', visitorId.substring(0, 8) + '...');
+        }
+        return visitorId;
+      } catch (e) {
+        // Falls localStorage nicht verfügbar ist (z.B. im Privacy-Modus)
+        console.warn('[ANALYTICS] localStorage nicht verfügbar, keine Visitor-ID');
+        return null;
+      }
+    }
+    
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
       try {
@@ -9738,11 +9760,20 @@ PDF
         
         console.log('[ANALYTICS] Tracking:', type, value, 'URL:', url);
         
+        // Bei page_view die Visitor-ID mitschicken für Unique-User-Tracking
+        const trackBody = { type, value };
+        if (type === 'page_view') {
+          const visitorId = getVisitorId();
+          if (visitorId) {
+            trackBody.visitor_id = visitorId;
+          }
+        }
+        
         // Return Promise für besseres Error Handling
         return fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type, value })
+          body: JSON.stringify(trackBody)
         })
         .then(response => {
           if (!response.ok) {
@@ -9870,10 +9901,15 @@ PDF
     function executePageViewTrackingWithDirectUrl() {
       // Fallback: Verwende direkte Render-URL wenn API_BASE nicht verfügbar
       console.log('[ANALYTICS] Tracke Page View mit direkter Render-URL');
+      const directBody = { type: 'page_view', value: null };
+      const visitorId = getVisitorId();
+      if (visitorId) {
+        directBody.visitor_id = visitorId;
+      }
       fetch('https://ga-suche.onrender.com/api/analytics/track', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'page_view', value: null })
+        body: JSON.stringify(directBody)
       })
       .then(response => {
         if (!response.ok) {
@@ -10003,6 +10039,24 @@ PDF
           <div class="analytics-stats-row">
             <div class="analytics-stat-box">
               <h4>Heute</h4>
+              <div class="stat-value" style="color: ${(Number(data.today?.unique_users) || 0) > 0 ? '#2ecc71' : 'var(--secondary-text)'}">${Number(data.today?.unique_users) || 0}</div>
+              <div class="stat-label">Nutzer</div>
+            </div>
+            <div class="analytics-stat-box">
+              <h4>Diese Woche</h4>
+              <div class="stat-value" style="color: ${(Number(data.week?.unique_users) || 0) > 0 ? '#2ecc71' : 'var(--secondary-text)'}">${Number(data.week?.unique_users) || 0}</div>
+              <div class="stat-label">Nutzer</div>
+            </div>
+            <div class="analytics-stat-box">
+              <h4>Gesamt</h4>
+              <div class="stat-value" style="color: ${(Number(data.total?.unique_users) || 0) > 0 ? '#2ecc71' : 'var(--secondary-text)'}">${Number(data.total?.unique_users) || 0}</div>
+              <div class="stat-label">Nutzer</div>
+            </div>
+          </div>
+          
+          <div class="analytics-stats-row">
+            <div class="analytics-stat-box">
+              <h4>Heute</h4>
               <div class="stat-value">${data.today?.searches || 0}</div>
               <div class="stat-label">Suchen</div>
             </div>
@@ -10024,6 +10078,7 @@ PDF
               ${dailyData.length > 0 ? dailyData.map((d, index) => {
                 const views = Number(d.views) || 0;
                 const searches = Number(d.searches) || 0;
+                const uniqueUsers = Number(d.unique_users) || 0;
                 // Berechne Höhe: Wenn maxViews > 0, verwende Prozent, sonst minimale Höhe für Sichtbarkeit
                 let viewsHeight;
                 if (maxViews > 0 && maxViews > 1) {
@@ -10045,14 +10100,14 @@ PDF
                     <div class="analytics-chart-bar" 
                          style="height: ${viewsHeight}%; min-height: ${views > 0 ? '2px' : '0px'}; background: var(--accent-color);"
                          data-label="${d.label || d.date || ''}"
-                         title="${d.date || ''}: ${views} Besuche, ${searches} Suchen"></div>
+                         title="${d.date || ''}: ${views} Besuche, ${uniqueUsers} Nutzer, ${searches} Suchen"></div>
                   `;
                 } else {
                   return `
                     <div class="analytics-chart-bar" 
                          style="height: 0%; min-height: 0px; background: transparent;"
                          data-label="${d.label || d.date || ''}"
-                         title="${d.date || ''}: ${views} Besuche, ${searches} Suchen"></div>
+                         title="${d.date || ''}: ${views} Besuche, ${uniqueUsers} Nutzer, ${searches} Suchen"></div>
                   `;
                 }
               }).join('') : '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Daten verfügbar</div>'}
