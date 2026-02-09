@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Seitenmarker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -759,6 +762,8 @@
         let currentFileName = '';
         let currentFileHandle = null;
         let rightContent = '';
+        let rightPages = []; // {pageNum, linePos} - geparste Seiten im rechten MD-Panel (mit Zeilenposition für proportionales Scrolling)
+        let isSyncingPanels = false; // Verhindert Sync-Schleifen zwischen Links/Rechts
         let pdfDoc = null;
         let currentPdfPage = 1;
         let totalPdfPages = 0;
@@ -815,8 +820,16 @@
         document.getElementById('fileInputRight').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file && file.type === 'application/pdf') {
+                rightContent = ''; // MD-Content zurücksetzen
                 loadPdfFile(file);
             } else if (file) {
+                // PDF-Zustand zurücksetzen wenn MD geladen wird
+                pdfDoc = null;
+                totalPdfPages = 0;
+                currentPdfPage = 1;
+                const controlsEl = document.getElementById('pdfControls');
+                if (controlsEl) controlsEl.style.display = 'none';
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     rightContent = e.target.result;
@@ -1285,7 +1298,7 @@
                     const words = leftText.split(/\s+/).filter(w => w.length > 0);
                     if (words.length < 2) return null;
                     
-                    const searchWords = words.slice(0, Math.min(20, words.length));
+                    const searchWords = words.slice(0, Math.min(4, words.length));
                     return { searchWords, searchText: searchWords.join(' '), itemsToUse };
                 }
                 
@@ -1334,13 +1347,12 @@
                         .replace(/[äÄ]/g, 'a')
                         .replace(/[öÖ]/g, 'o')
                         .replace(/[üÜ]/g, 'u')
-                        .replace(/ß/g, 'ss')
                         .replace(/[-–—‐‑‒−.,;:!?'"»«„""''()[\]{}<>\/\\·]/g, '') // Entferne Satzzeichen und alle Strich-Varianten
                         .replace(/\s+/g, ' ') // Kollabiere Leerzeichen erneut (nach Zeichenentfernung)
                         .trim();
                 };
 
-                // Umlaut/ß-Normalisierung (behält Satzzeichen und Striche bei)
+                // Umlaut-Normalisierung (behält Satzzeichen, Striche und ß bei)
                 const normalizeUmlaut = (text) => {
                     return text
                         .normalize('NFC')
@@ -1349,8 +1361,7 @@
                         .toLowerCase()
                         .replace(/[äÄ]/g, 'a')
                         .replace(/[öÖ]/g, 'o')
-                        .replace(/[üÜ]/g, 'u')
-                        .replace(/ß/g, 'ss');
+                        .replace(/[üÜ]/g, 'u');
                 };
 
                 const startTime = performance.now();
@@ -1406,7 +1417,7 @@
                         }
                     }
                     
-                    // Strategie 4b: Umlaut/ß-Normalisierung (daß→dass, ü→u, aber Satzzeichen bleiben)
+                    // Strategie 4b: Umlaut-Normalisierung (ü→u, ö→o, ä→a, aber ß bleibt ß, Satzzeichen bleiben)
                     const umlautSearch = normalizeUmlaut(searchText);
                     searchIndex = umlautMarkdown.indexOf(umlautSearch);
                     if (searchIndex !== -1) {
@@ -1597,7 +1608,7 @@
                         foundPosition = searchIndex;
                         console.log('Position durch direkte Suche gefunden:', foundPosition);
                     } else if (useNormalizedSearch === 'umlaut') {
-                        // Umlaut/ß-Normalisierung: ß→ss ändert Stringlänge, daher Mapping nötig
+                        // Umlaut-Normalisierung: Umlaute ändern Stringlänge nicht (1:1), daher einfaches Mapping
                         let umlautPos = 0;
                         const mapping = [];
                         let lastSpace = false;
@@ -1613,19 +1624,8 @@
                                 }
                                 lastSpace = true;
                             } else {
-                                if (/[äÄ]/.test(char)) {
-                                    mapping[umlautPos] = i; umlautPos++;
-                                } else if (/[öÖ]/.test(char)) {
-                                    mapping[umlautPos] = i; umlautPos++;
-                                } else if (/[üÜ]/.test(char)) {
-                                    mapping[umlautPos] = i; umlautPos++;
-                                } else if (char === 'ß') {
-                                    mapping[umlautPos] = i; umlautPos++; // 's'
-                                    mapping[umlautPos] = i; umlautPos++; // 's'
-                                } else {
-                                    mapping[umlautPos] = i;
-                                    umlautPos++;
-                                }
+                                mapping[umlautPos] = i;
+                                umlautPos++;
                                 lastSpace = false;
                             }
                         }
@@ -1667,20 +1667,9 @@
                         // WICHTIG: lastSpace-Status beibehalten, damit Leerzeichen um
                         // Satzzeichen korrekt zusammengefasst werden (konsistent mit normalizeAggressive)
                     } else {
-                                // Umlaute werden zu 1 oder 2 Zeichen: ä→a (1), ß→ss (2)
-                                if (/[äÄ]/.test(char)) {
-                                    mapping[aggressivePos] = i; aggressivePos++; // 'a'
-                                } else if (/[öÖ]/.test(char)) {
-                                    mapping[aggressivePos] = i; aggressivePos++; // 'o'
-                                } else if (/[üÜ]/.test(char)) {
-                                    mapping[aggressivePos] = i; aggressivePos++; // 'u'
-                                } else if (char === 'ß') {
-                                    mapping[aggressivePos] = i; aggressivePos++; // 's'
-                                    mapping[aggressivePos] = i; aggressivePos++; // 's'
-                                } else {
-                                    mapping[aggressivePos] = i;
-                                    aggressivePos++;
-                                }
+                                // Umlaute werden zu 1 Zeichen: ä→a, ö→o, ü→u, ß bleibt ß
+                                mapping[aggressivePos] = i;
+                                aggressivePos++;
                                 lastSpace = false;
                             }
                         }
@@ -1774,10 +1763,36 @@
             // Finde diese Position im gerenderten HTML
             const htmlText = contentEl.textContent || contentEl.innerText || '';
             
+            // ß/ss-Normalisierung für Suche (ß und ss sind synonym)
+            const normalizeSzSs = (text) => text.replace(/ß/g, 'ss');
+            
             // Suche nach dem Text im HTML
             const normalizedHtml = htmlText.replace(/\s+/g, ' ').trim().toLowerCase();
             const normalizedSearch = textToHighlight.replace(/\s+/g, ' ').trim().toLowerCase();
             let htmlIndex = normalizedHtml.indexOf(normalizedSearch);
+            
+            // Fallback 0: ß/ss-Normalisierung (ß und ss als synonym behandeln)
+            if (htmlIndex === -1) {
+                const ssHtml = normalizeSzSs(normalizedHtml);
+                const ssSearch = normalizeSzSs(normalizedSearch);
+                const ssIndex = ssHtml.indexOf(ssSearch);
+                if (ssIndex !== -1) {
+                    // Mappe die Position aus dem ss-normalisierten Text zurück zum Original
+                    // Zähle wie viele ß→ss Konvertierungen vor ssIndex stattfanden
+                    let origPos = 0;
+                    let ssPos = 0;
+                    for (let i = 0; i < normalizedHtml.length && ssPos < ssIndex; i++) {
+                        if (normalizedHtml[i] === 'ß') {
+                            ssPos += 2; // ß wird zu 'ss' (2 Zeichen)
+                        } else {
+                            ssPos += 1;
+                        }
+                        origPos = i + 1;
+                    }
+                    htmlIndex = origPos;
+                    console.log('highlightTextInMarkdown: Match mit ß/ss-Normalisierung gefunden');
+                }
+            }
             
             // Fallback 1: Markdown-Formatierung entfernen (###, **, *, `, etc.)
             if (htmlIndex === -1) {
@@ -1793,6 +1808,21 @@
                     htmlIndex = normalizedHtml.indexOf(strippedSearch);
                     if (htmlIndex !== -1) {
                         console.log('highlightTextInMarkdown: Match nach Markdown-Stripping gefunden');
+                    }
+                    // Auch mit ß/ss-Normalisierung versuchen
+                    if (htmlIndex === -1) {
+                        const ssHtml = normalizeSzSs(normalizedHtml);
+                        const ssStripped = normalizeSzSs(strippedSearch);
+                        const ssIdx = ssHtml.indexOf(ssStripped);
+                        if (ssIdx !== -1) {
+                            let origPos = 0, ssPos = 0;
+                            for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
+                                ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
+                                origPos = i + 1;
+                            }
+                            htmlIndex = origPos;
+                            console.log('highlightTextInMarkdown: Match nach Markdown-Stripping + ß/ss gefunden');
+                        }
                     }
                 }
             }
@@ -1815,6 +1845,23 @@
                         console.log('highlightTextInMarkdown: Match über PDF-Suchtext (global) gefunden');
                     }
                 }
+                // Auch mit ß/ss-Normalisierung versuchen
+                if (htmlIndex === -1) {
+                    const ssHtml = normalizeSzSs(normalizedHtml);
+                    const ssPdfText = normalizeSzSs(normalizedPdfText);
+                    const ssPdfStart = Math.max(0, Math.floor(estimatedRatio * ssHtml.length) - 500);
+                    let ssIdx = ssHtml.indexOf(ssPdfText, ssPdfStart);
+                    if (ssIdx === -1) ssIdx = ssHtml.indexOf(ssPdfText);
+                    if (ssIdx !== -1) {
+                        let origPos = 0, ssPos = 0;
+                        for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
+                            ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
+                            origPos = i + 1;
+                        }
+                        htmlIndex = origPos;
+                        console.log('highlightTextInMarkdown: Match über PDF-Suchtext + ß/ss gefunden');
+                    }
+                }
             }
 
             // Fallback 3: Versuche mit den ersten Wörtern des PDF-Suchtexts
@@ -1828,6 +1875,19 @@
                         console.log(`highlightTextInMarkdown: Fallback mit ${wc} PDF-Wörtern erfolgreich`);
                         break;
                     }
+                    // Auch mit ß/ss
+                    const ssShort = normalizeSzSs(shortSearch);
+                    const ssIdx = normalizeSzSs(normalizedHtml).indexOf(ssShort);
+                    if (ssIdx !== -1) {
+                        let origPos = 0, ssPos = 0;
+                        for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
+                            ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
+                            origPos = i + 1;
+                        }
+                        htmlIndex = origPos;
+                        console.log(`highlightTextInMarkdown: Fallback mit ${wc} PDF-Wörtern + ß/ss erfolgreich`);
+                        break;
+                    }
                 }
             }
             
@@ -1839,6 +1899,19 @@
                     htmlIndex = normalizedHtml.indexOf(shortSearch);
                     if (htmlIndex !== -1) {
                         console.log(`highlightTextInMarkdown: Fallback mit ${wc} MD-Wörtern erfolgreich`);
+                        break;
+                    }
+                    // Auch mit ß/ss
+                    const ssShort = normalizeSzSs(shortSearch);
+                    const ssIdx = normalizeSzSs(normalizedHtml).indexOf(ssShort);
+                    if (ssIdx !== -1) {
+                        let origPos = 0, ssPos = 0;
+                        for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
+                            ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
+                            origPos = i + 1;
+                        }
+                        htmlIndex = origPos;
+                        console.log(`highlightTextInMarkdown: Fallback mit ${wc} MD-Wörtern + ß/ss erfolgreich`);
                         break;
                     }
                 }
@@ -2127,85 +2200,130 @@
 
         function renderRightContent(content) {
             if (!content) return;
+            console.log('[renderRightContent] START, Content-Länge:', content.length);
 
-            // Finde Seitenumbrüche (---, "Seite X", etc.)
-            const lines = content.split('\n');
-            const pageBreaks = [];
-            
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i].trim();
-                // Erkenne Seitenumbrüche
-                if (line === '---' || /^Seite\s+\d+/i.test(line) || /^Copyright Rudolf Steiner/i.test(line)) {
-                    pageBreaks.push(i);
-                }
-            }
-
-            // Markiere Wörter um Seitenumbrüche
-            let htmlContent = content;
-            
-            // Gehe von hinten nach vorne durch die Seitenumbrüche
-            for (let i = pageBreaks.length - 1; i >= 0; i--) {
-                const breakLineIndex = pageBreaks[i];
+            try {
+                // Finde Seitenumbrüche (---, "Seite: X", Copyright-Zeilen)
+                const lines = content.split('\n');
+                const pageBreaks = [];
                 
-                // Finde die letzte Zeile vor dem Seitenumbruch mit Text
-                let beforeLineIndex = breakLineIndex - 1;
-                while (beforeLineIndex >= 0 && lines[beforeLineIndex].trim() === '') {
-                    beforeLineIndex--;
-                }
-                
-                // Finde die erste Zeile nach dem Seitenumbruch mit Text
-                let afterLineIndex = breakLineIndex + 1;
-                while (afterLineIndex < lines.length && lines[afterLineIndex].trim() === '') {
-                    afterLineIndex++;
-                }
-                
-                if (beforeLineIndex >= 0 && afterLineIndex < lines.length) {
-                    const beforeLine = lines[beforeLineIndex];
-                    const afterLine = lines[afterLineIndex];
-                    
-                    // Extrahiere das letzte Wort der vorherigen Zeile
-                    const beforeWords = beforeLine.trim().split(/\s+/).filter(w => w.length > 0);
-                    const lastWord = beforeWords.length > 0 ? beforeWords[beforeWords.length - 1] : null;
-                    
-                    // Extrahiere das erste Wort der nächsten Zeile
-                    const afterWords = afterLine.trim().split(/\s+/).filter(w => w.length > 0);
-                    const firstWord = afterWords.length > 0 ? afterWords[0] : null;
-                    
-                    // Prüfe ob es eine Silbentrennung ist (Bindestrich am Ende der vorherigen Zeile)
-                    const isWordBreak = beforeLine.trim().endsWith('-') || 
-                                      (beforeLine.trim().match(/\w+$/) && beforeLine.trim().match(/\w+$/)[0].length <= 5);
-                    
-                    // Markiere das letzte Wort der vorherigen Zeile
-                    if (lastWord) {
-                        let newBeforeLine = beforeLine;
-                        const className = isWordBreak ? 'word-break' : 'word-separator';
-                        newBeforeLine = newBeforeLine.replace(
-                            new RegExp(`(${escapeRegex(lastWord)})`, 'g'),
-                            `<span class="word-break-marker ${className}">$1</span>`
-                        );
-                        lines[beforeLineIndex] = newBeforeLine;
-                    }
-                    
-                    // Markiere das erste Wort der nächsten Zeile
-                    if (firstWord) {
-                        let newAfterLine = afterLine;
-                        const className = isWordBreak ? 'word-break' : 'word-separator';
-                        newAfterLine = newAfterLine.replace(
-                            new RegExp(`(${escapeRegex(firstWord)})`, 'g'),
-                            `<span class="word-break-marker ${className}">$1</span>`
-                        );
-                        lines[afterLineIndex] = newAfterLine;
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line === '---' || /^Seite:?\s*\d+/i.test(line) || /^Copyright Rudolf Steiner/i.test(line)) {
+                        pageBreaks.push(i);
                     }
                 }
+
+                // Markiere Wörter um Seitenumbrüche
+                let htmlContent = content;
+                
+                for (let i = pageBreaks.length - 1; i >= 0; i--) {
+                    const breakLineIndex = pageBreaks[i];
+                    
+                    let beforeLineIndex = breakLineIndex - 1;
+                    while (beforeLineIndex >= 0 && lines[beforeLineIndex].trim() === '') {
+                        beforeLineIndex--;
+                    }
+                    
+                    let afterLineIndex = breakLineIndex + 1;
+                    while (afterLineIndex < lines.length && lines[afterLineIndex].trim() === '') {
+                        afterLineIndex++;
+                    }
+                    
+                    if (beforeLineIndex >= 0 && afterLineIndex < lines.length) {
+                        const beforeLine = lines[beforeLineIndex];
+                        const afterLine = lines[afterLineIndex];
+                        
+                        const beforeWords = beforeLine.trim().split(/\s+/).filter(w => w.length > 0);
+                        const lastWord = beforeWords.length > 0 ? beforeWords[beforeWords.length - 1] : null;
+                        
+                        const afterWords = afterLine.trim().split(/\s+/).filter(w => w.length > 0);
+                        const firstWord = afterWords.length > 0 ? afterWords[0] : null;
+                        
+                        const isWordBreak = beforeLine.trim().endsWith('-') || 
+                                          (beforeLine.trim().match(/\w+$/) && beforeLine.trim().match(/\w+$/)[0].length <= 5);
+                        
+                        if (lastWord) {
+                            let newBeforeLine = beforeLine;
+                            const className = isWordBreak ? 'word-break' : 'word-separator';
+                            newBeforeLine = newBeforeLine.replace(
+                                new RegExp(`(${escapeRegex(lastWord)})`, 'g'),
+                                `<span class="word-break-marker ${className}">$1</span>`
+                            );
+                            lines[beforeLineIndex] = newBeforeLine;
+                        }
+                        
+                        if (firstWord) {
+                            let newAfterLine = afterLine;
+                            const className = isWordBreak ? 'word-break' : 'word-separator';
+                            newAfterLine = newAfterLine.replace(
+                                new RegExp(`(${escapeRegex(firstWord)})`, 'g'),
+                                `<span class="word-break-marker ${className}">$1</span>`
+                            );
+                            lines[afterLineIndex] = newAfterLine;
+                        }
+                    }
+                }
+                
+                // Rendere Markdown
+                htmlContent = lines.join('\n');
+                const rendered = md.render(htmlContent);
+                
+                const contentRightEl = document.getElementById('contentRight');
+                if (contentRightEl) {
+                    contentRightEl.innerHTML = rendered;
+                }
+                console.log('[renderRightContent] Markdown gerendert');
+                
+                // === Seiten-Anker aus dem ORIGINAL-Content parsen (nicht aus dem DOM) ===
+                // So sind wir unabhängig davon, wie markdown-it den Text rendert.
+                // Wir finden |X| und "Seite: X" Muster im Quelltext und speichern ihre
+                // Zeilen-Position. Beim Scrollen interpolieren wir proportional.
+                rightPages = [];
+                const insertedPages = new Set();
+                const totalLines = lines.length;
+                
+                // Parse Original-Content zeilenweise
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    
+                    // Format 1: "Seite: X"
+                    const seiteMatch = line.match(/Seite:\s*(\d[\d\s]*\d|\d)/i);
+                    if (seiteMatch) {
+                        const pageNum = parseInt(seiteMatch[1].replace(/\s+/g, ''));
+                        if (!isNaN(pageNum) && !insertedPages.has(pageNum)) {
+                            insertedPages.add(pageNum);
+                            rightPages.push({ pageNum, linePos: i });
+                        }
+                    }
+                    
+                    // Format 2: |X| Marker
+                    const markerRegex = /\|(\d+)\|/g;
+                    let markerMatch;
+                    while ((markerMatch = markerRegex.exec(line)) !== null) {
+                        const pageNum = parseInt(markerMatch[1]);
+                        if (!isNaN(pageNum) && !insertedPages.has(pageNum)) {
+                            insertedPages.add(pageNum);
+                            rightPages.push({ pageNum, linePos: i });
+                        }
+                    }
+                }
+                
+                rightPages.sort((a, b) => a.pageNum - b.pageNum);
+                
+                // Speichere totalLines für proportionales Scrolling
+                rightPages._totalLines = totalLines;
+                rightPages._container = contentRightEl ? document.querySelector('.content-right') : null;
+                
+                const pagesList = rightPages.map(p => p.pageNum);
+                console.log(`[renderRightContent] ${rightPages.length} Seiten erkannt (erste 20):`, pagesList.slice(0, 20).join(', '));
+                
+            } catch (error) {
+                console.error('[renderRightContent] FEHLER:', error);
             }
             
-            // Rendere Markdown
-            htmlContent = lines.join('\n');
-            const rendered = md.render(htmlContent);
-            const contentRightEl = document.getElementById('contentRight');
-            if (contentRightEl) {
-                contentRightEl.innerHTML = rendered;
-            }
+            // Scroll-Listener auf rechtem Panel für Sync Rechts→Links
+            setupRightPanelScrollSync();
         }
 
         function escapeRegex(str) {
@@ -3779,20 +3897,31 @@
                 if (highlightingEnabled) {
                     markerEl.classList.add('highlighted');
                 }
+                // Sync-Schutz: scrollIntoView löst Scroll-Events aus
+                isSyncingPanels = true;
                 markerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Synchronisiere PDF-Seite nach kurzer Verzögerung (nur wenn PDF geladen)
-                if (pdfDoc) {
-                    setTimeout(() => syncPdfPage(), 100);
-                }
             }
 
             // Aktualisiere Sidebar
             updateMarkerList();
             updateStatus();
             
-            // Synchronisiere PDF-Seite basierend auf Marker (nur wenn PDF geladen)
+            // Synchronisiere rechtes Panel
+            const marker = markers[index];
+            console.log(`[jumpToMarker] index=${index}, marker.page=${marker ? marker.page : 'N/A'}, pdfDoc=${!!pdfDoc}, rightContent=${!!rightContent}, rightPages.length=${rightPages.length}`);
             if (pdfDoc) {
-                setTimeout(() => syncPdfPage(), 100);
+                setTimeout(() => {
+                    syncPdfPage();
+                    isSyncingPanels = false;
+                }, 400);
+            } else if (rightContent && marker && marker.page && rightPages.length > 0) {
+                // Marker |X| → Rechts zeigt Seite X-1
+                const targetPage = marker.page - 1;
+                console.log(`[jumpToMarker] Scrolle rechts zu Seite ${targetPage} (Marker |${marker.page}| - 1)`);
+                scrollRightPanelToPage(targetPage);
+            } else {
+                console.log(`[jumpToMarker] Kein Sync: pdfDoc=${!!pdfDoc}, rightContent=${!!rightContent}, marker.page=${marker ? marker.page : 'N/A'}, rightPages.length=${rightPages.length}`);
+                setTimeout(() => { isSyncingPanels = false; }, 600);
             }
         }
 
@@ -3817,18 +3946,96 @@
             }
         }
 
-        // Synchronisiere PDF-Seite basierend auf dem obersten sichtbaren Marker beim Scrollen
-        function syncScrollWithPdf() {
-            if (!pdfDoc || markers.length === 0 || isScrolling) return;
+        // ===== NEUE SYNC-LOGIK: Links ↔ Rechts (MD) =====
+        // Regel: Linker Marker |X| ↔ Rechte Seite X-1
+        // D.h.: Klick auf |53| links → Rechts zeigt Seite 52
+        //        Rechts zeigt Seite 53 → Links zeigt Marker |54|
+
+        // Scrolle rechtes MD-Panel zu einer bestimmten Seitenzahl
+        // Verwendet proportionales Scrolling basierend auf Zeilen-Position im Quelltext
+        function scrollRightPanelToPage(targetPage) {
+            if (rightPages.length === 0) {
+                showNotification(`Keine Seiten im rechten Panel erkannt (0 Anker)`);
+                setTimeout(() => { isSyncingPanels = false; }, 100);
+                return;
+            }
+            
+            const container = rightPages._container || document.querySelector('.content-right');
+            if (!container) {
+                setTimeout(() => { isSyncingPanels = false; }, 100);
+                return;
+            }
+            
+            const totalLines = rightPages._totalLines || 1;
+            
+            // Exakte Seite suchen
+            let entry = rightPages.find(p => p.pageNum === targetPage);
+            
+            // Fallback: nächste Seite ≤ targetPage
+            if (!entry) {
+                for (let i = rightPages.length - 1; i >= 0; i--) {
+                    if (rightPages[i].pageNum <= targetPage) {
+                        entry = rightPages[i];
+                        break;
+                    }
+                }
+            }
+            
+            if (entry) {
+                isSyncingPanels = true;
+                // Proportionales Scrolling: Zeilen-Position → Scroll-Position
+                const ratio = entry.linePos / Math.max(totalLines, 1);
+                const scrollTarget = Math.floor(ratio * container.scrollHeight);
+                container.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+                setTimeout(() => { isSyncingPanels = false; }, 600);
+                showNotification(`Rechts → S.${entry.pageNum} (Ziel:${targetPage}, Zeile:${entry.linePos}/${totalLines})`);
+                console.log(`scrollRightPanelToPage: Ziel=${targetPage}, gefunden=${entry.pageNum}, Zeile=${entry.linePos}/${totalLines}, scrollTo=${scrollTarget}`);
+            } else {
+                setTimeout(() => { isSyncingPanels = false; }, 100);
+                const verfuegbar = rightPages.slice(0, 10).map(p=>p.pageNum).join(', ') + (rightPages.length > 10 ? '...' : '');
+                showNotification(`Kein Anker für S.${targetPage}. Verfügbar: ${verfuegbar}`);
+            }
+        }
+
+        // Ermittle welche Seite gerade im rechten Panel sichtbar ist
+        // Proportional: Scroll-Position → Zeilen-Position → Seitenzahl
+        function getVisibleRightPage() {
+            if (rightPages.length === 0) return -1;
+            
+            const container = rightPages._container || document.querySelector('.content-right');
+            if (!container) return -1;
+            
+            const totalLines = rightPages._totalLines || 1;
+            
+            // Aktuelle Scroll-Position als Verhältnis
+            const scrollRatio = container.scrollTop / Math.max(container.scrollHeight - container.clientHeight, 1);
+            const currentLine = Math.floor(scrollRatio * totalLines);
+            
+            // Finde die Seite, deren linePos ≤ currentLine ist
+            let visiblePage = rightPages[0].pageNum;
+            for (let i = rightPages.length - 1; i >= 0; i--) {
+                if (rightPages[i].linePos <= currentLine) {
+                    visiblePage = rightPages[i].pageNum;
+                    break;
+                }
+            }
+            
+            return visiblePage;
+        }
+
+        // Sync: Linkes Panel scrollt → Rechtes Panel synchronisieren
+        // Findet den obersten sichtbaren Marker links, zeigt Seite (marker.page - 1) rechts
+        function syncLeftScrollToRight() {
+            if (markers.length === 0 || isSyncingPanels) return;
+            if (!rightContent || rightPages.length === 0) return;
             
             const contentEl = document.querySelector('.content');
             if (!contentEl) return;
             
             const contentRect = contentEl.getBoundingClientRect();
             const viewportTop = contentRect.top;
-            const viewportCenter = contentRect.top + contentRect.height / 3; // Oberes Drittel
+            const viewportCenter = contentRect.top + contentRect.height / 3;
             
-            // Finde alle Marker-Elemente
             const markerElements = document.querySelectorAll('.page-marker[data-marker-index]');
             if (markerElements.length === 0) return;
             
@@ -3836,12 +4043,10 @@
             let closestIndex = -1;
             let minDistance = Infinity;
             
-            // Suche den Marker, der am nächsten zum oberen Drittel des Viewports ist
             markerElements.forEach((markerEl) => {
                 const rect = markerEl.getBoundingClientRect();
                 const markerCenter = rect.top + rect.height / 2;
                 
-                // Marker ist im sichtbaren Bereich oder knapp darüber
                 if (rect.bottom >= viewportTop && rect.top <= contentRect.bottom) {
                     const distance = Math.abs(markerCenter - viewportCenter);
                     if (distance < minDistance) {
@@ -3852,16 +4057,11 @@
                 }
             });
             
-            // Wenn ein Marker gefunden wurde und er sich vom aktuellen unterscheidet
             if (closestIndex !== -1 && closestIndex !== currentMarkerIndex) {
                 const marker = markers[closestIndex];
                 if (marker && marker.page) {
-                    const pageNum = marker.page;
-                    
-                    // Aktualisiere den aktuellen Marker-Index (ohne erneutes Scrollen im linken Bereich)
                     currentMarkerIndex = closestIndex;
                     
-                    // Entferne alle Highlights und markiere neuen Marker
                     document.querySelectorAll('.page-marker').forEach(el => {
                         el.classList.remove('highlighted');
                     });
@@ -3869,11 +4069,118 @@
                         closestMarker.classList.add('highlighted');
                     }
                     
-                    // Aktualisiere Sidebar und Status
                     updateMarkerList();
                     updateStatus();
                     
-                    // PDF-Seite wechseln wenn nötig
+                    // Marker |X| → Rechts zeigt Seite X-1
+                    scrollRightPanelToPage(marker.page - 1);
+                }
+            }
+        }
+
+        // Sync: Rechtes Panel scrollt → Linkes Panel synchronisieren
+        // Findet die sichtbare Seite X rechts, springt zu Marker |X+1| links
+        function syncRightScrollToLeft() {
+            if (markers.length === 0 || isSyncingPanels) return;
+            if (!rightContent || rightPages.length === 0) return;
+            
+            const visiblePage = getVisibleRightPage();
+            if (visiblePage < 0) return;
+            
+            // Rechte Seite X → Linker Marker X+1
+            const targetMarkerPage = visiblePage + 1;
+            
+            // Finde den Marker mit dieser Seitenzahl
+            const markerIndex = markers.findIndex(m => m.page === targetMarkerPage);
+            if (markerIndex === -1 || markerIndex === currentMarkerIndex) return;
+            
+            currentMarkerIndex = markerIndex;
+            
+            // Highlight + Scroll im linken Panel
+            document.querySelectorAll('.page-marker').forEach(el => {
+                el.classList.remove('highlighted');
+            });
+            const markerEl = document.querySelector(`[data-marker-index="${markerIndex}"]`);
+            if (markerEl) {
+                if (highlightingEnabled) {
+                    markerEl.classList.add('highlighted');
+                }
+                isSyncingPanels = true;
+                markerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => { isSyncingPanels = false; }, 600);
+            }
+            
+            updateMarkerList();
+            updateStatus();
+        }
+
+        // Scroll-Listener für rechtes Panel einrichten
+        let rightScrollSyncTimer = null;
+        function setupRightPanelScrollSync() {
+            const container = document.querySelector('.content-right');
+            if (!container) return;
+            
+            // Entferne eventuell vorherigen Listener
+            container.removeEventListener('scroll', onRightPanelScroll);
+            container.addEventListener('scroll', onRightPanelScroll);
+        }
+        
+        function onRightPanelScroll() {
+            if (rightScrollSyncTimer) clearTimeout(rightScrollSyncTimer);
+            rightScrollSyncTimer = setTimeout(() => {
+                syncRightScrollToLeft();
+            }, 200);
+        }
+
+        // Alte PDF-Sync-Funktion (nur noch für PDF relevant)
+        function syncScrollWithPdf() {
+            if (markers.length === 0 || isScrolling) return;
+            if (!pdfDoc) return; // Nur für PDF
+            
+            const contentEl = document.querySelector('.content');
+            if (!contentEl) return;
+            
+            const contentRect = contentEl.getBoundingClientRect();
+            const viewportTop = contentRect.top;
+            const viewportCenter = contentRect.top + contentRect.height / 3;
+            
+            const markerElements = document.querySelectorAll('.page-marker[data-marker-index]');
+            if (markerElements.length === 0) return;
+            
+            let closestMarker = null;
+            let closestIndex = -1;
+            let minDistance = Infinity;
+            
+            markerElements.forEach((markerEl) => {
+                const rect = markerEl.getBoundingClientRect();
+                const markerCenter = rect.top + rect.height / 2;
+                
+                if (rect.bottom >= viewportTop && rect.top <= contentRect.bottom) {
+                    const distance = Math.abs(markerCenter - viewportCenter);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestMarker = markerEl;
+                        closestIndex = parseInt(markerEl.getAttribute('data-marker-index'), 10);
+                    }
+                }
+            });
+            
+            if (closestIndex !== -1 && closestIndex !== currentMarkerIndex) {
+                const marker = markers[closestIndex];
+                if (marker && marker.page) {
+                    const pageNum = marker.page;
+                    currentMarkerIndex = closestIndex;
+                    
+                    document.querySelectorAll('.page-marker').forEach(el => {
+                        el.classList.remove('highlighted');
+                    });
+                    if (highlightingEnabled && closestMarker) {
+                        closestMarker.classList.add('highlighted');
+                    }
+                    
+                    updateMarkerList();
+                    updateStatus();
+                    
                     if (pageNum >= 1 && pageNum <= totalPdfPages && currentPdfPage !== pageNum) {
                         renderPdfPage(pageNum);
                     }
@@ -3889,7 +4196,17 @@
             }
             scrollSyncTimer = setTimeout(() => {
                 syncScrollWithPdf();
-            }, 150); // 150ms Debounce für flüssiges Scrolling
+            }, 150);
+        }
+
+        let leftScrollSyncTimer = null;
+        function debouncedSyncLeftScrollToRight() {
+            if (leftScrollSyncTimer) {
+                clearTimeout(leftScrollSyncTimer);
+            }
+            leftScrollSyncTimer = setTimeout(() => {
+                syncLeftScrollToRight();
+            }, 200);
         }
 
         function updateStatus() {
@@ -4470,12 +4787,13 @@
         }
 
         function showNotification(message) {
+            console.log('[Notification]', message);
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.classList.add('show');
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, 2000);
+            }, 3000);
         }
 
         // ========== MD-Text Suchfunktion ==========
@@ -4917,8 +5235,12 @@
             const leftContent = document.querySelector('.content');
             if (leftContent) {
                 leftContent.addEventListener('scroll', function() {
-                    if (!isScrolling) {
-                        debouncedSyncScrollWithPdf();
+                    if (!isScrolling && !isSyncingPanels) {
+                        if (pdfDoc) {
+                            debouncedSyncScrollWithPdf();
+                        } else if (rightContent && rightPages.length > 0) {
+                            debouncedSyncLeftScrollToRight();
+                        }
                     }
                 });
             }
@@ -4954,6 +5276,8 @@
 
         // Lade Standard-Vergleichsdatei beim Start
         loadDefaultRightFile();
+        
+        console.log('%c[VERSION] page_marker_checker v2026-02-09a (proportional scroll)', 'color: red; font-weight: bold; font-size: 14px;');
     </script>
 </body>
 </html>

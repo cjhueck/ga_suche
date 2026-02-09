@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Seitenmarker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -744,6 +747,7 @@
             <button class="btn" id="toggleHighlight" onclick="toggleHighlighting()">Highlighting</button>
             <button class="btn btn-secondary" id="toggleSeries" onclick="toggleSeriesMode()" title="Serienmodus: Nach Marker-Einfügung automatisch zur nächsten PDF/MD-Seite">Serie</button>
             <button class="btn btn-secondary" id="toggleFast" onclick="toggleFastMode()" title="Fast-Modus: Im Serienmodus wird das Insert-Dialog automatisch geöffnet">Fast</button>
+            <button class="btn btn-secondary" id="toggleNewPdf" onclick="toggleNewPdfMode()" title="Neues-PDF-Modus: Einfache Textextraktion (erste 3-5 Wörter der obersten Zeile)">Neu</button>
         </div>
         <div class="file-input-wrapper">
             <input type="file" id="fileInput" accept=".md,.txt">
@@ -893,6 +897,7 @@
         let lastInsertedMarkerPosition = 0; // Position des zuletzt eingefügten Markers für Vorwärts-Suche
         let searchDirectionForward = true; // true = vorwärts suchen, false = rückwärts (vom Anfang)
         let scrollingDisabledForSearch = false; // Verhindert automatisches Scrollen bei Suche
+        let newPdfMode = false; // Neues-PDF-Modus: einfache Textextraktion (erste 3-5 Wörter der obersten Zeile)
         
         // PDF.js Worker konfigurieren (muss vor jeder Verwendung von pdfjsLib sein)
         if (typeof pdfjsLib !== 'undefined') {
@@ -1295,6 +1300,9 @@
                 let secondLineY = null;
                 let secondLineItems = null;
                 let foundValidLines = 0;
+                const allValidLines = []; // Alle gültigen Zeilen für newPdfMode
+                
+                const maxLinesToCollect = newPdfMode ? 6 : 2; // Im newPdfMode mehr Zeilen sammeln
                 
                 for (let y of sortedYs) {
                     const items = linesByY[y];
@@ -1317,17 +1325,24 @@
                         continue; // Überspringe Bildunterschriften
                     }
                     
-                    // Speichere die ersten zwei gültigen Zeilen
+                    const sortedItems = items.sort((a, b) => a.transform[4] - b.transform[4]);
+                    const sortedText = sortedItems.map(item => item.str).join(' ').trim();
+                    
+                    // Speichere in allValidLines
+                    allValidLines.push({ y, items: sortedItems, text: sortedText });
+                    
+                    // Speichere die ersten zwei gültigen Zeilen (für alte Logik)
                     if (foundValidLines === 0) {
                         topLineY = y;
-                        topItems = items.sort((a, b) => a.transform[4] - b.transform[4]);
+                        topItems = sortedItems;
                         foundValidLines++;
                     } else if (foundValidLines === 1) {
                         secondLineY = y;
-                        secondLineItems = items.sort((a, b) => a.transform[4] - b.transform[4]);
+                        secondLineItems = sortedItems;
                         foundValidLines++;
-                        break; // Wir haben 2 Zeilen, das reicht
                     }
+                    
+                    if (allValidLines.length >= maxLinesToCollect) break;
                 }
                 
                 if (!topItems || topItems.length === 0) {
@@ -1414,8 +1429,53 @@
                 let leftText;
                 const topLineIsHeading = isHeadingLine(topItems, pageWidth);
                 
-                if (topLineIsHeading && secondLineItems && secondLineItems.length > 0) {
-                    // Oberste Zeile ist eine Überschrift
+                if (newPdfMode) {
+                    // === NEUES PDF: Erste echte Inhaltszeile verwenden ===
+                    // Bei "neuen" PDFs gibt es oft: Seitenzahl → Laufende Kopfzeile → Inhalt
+                    // Wir suchen die erste Zeile mit >= 6 Wörtern (echter Inhalt)
+                    console.log('[Neues PDF] Alle gesammelten Zeilen (' + allValidLines.length + '):');
+                    allValidLines.forEach((line, i) => {
+                        const wc = line.text.split(/\s+/).filter(w => w.length > 0).length;
+                        console.log('  Zeile ' + i + ' (Y=' + line.y + ', ' + wc + ' Wörter): "' + line.text.substring(0, 80) + '"');
+                    });
+                    
+                    let contentLine = null;
+                    
+                    // Finde die erste Zeile mit >= 6 Wörtern (wahrscheinlich echter Inhalt)
+                    for (const line of allValidLines) {
+                        const wordCount = line.text.split(/\s+/).filter(w => w.length > 0).length;
+                        if (wordCount >= 6) {
+                            contentLine = line;
+                            break;
+                        }
+                    }
+                    
+                    // Fallback: Wenn keine Zeile >= 6 Wörter hat, nimm die längste
+                    if (!contentLine && allValidLines.length > 0) {
+                        contentLine = allValidLines.reduce((longest, current) => 
+                            current.text.length > longest.text.length ? current : longest
+                        , allValidLines[0]);
+                        console.log('[Neues PDF] Keine Zeile mit >= 6 Wörtern, verwende längste Zeile');
+                    }
+                    
+                    if (contentLine) {
+                        itemsToUse = contentLine.items;
+                        leftText = contentLine.text;
+                        const skipped = allValidLines.filter(l => l !== contentLine).map(l => '"' + l.text.substring(0, 60) + '"');
+                        console.log('[Neues PDF] Verwendete Inhaltszeile:', leftText.substring(0, 100));
+                        if (skipped.length > 0) {
+                            console.log('[Neues PDF] Übersprungene Zeilen:', skipped);
+                        }
+                    } else {
+                        // Absoluter Fallback
+                        const sortedByX = [...topItems].sort((a, b) => a.transform[4] - b.transform[4]);
+                        itemsToUse = sortedByX;
+                        leftText = itemsToUse.map(item => item.str).join(' ').trim();
+                        console.log('[Neues PDF] Fallback: Oberste Zeile:', leftText);
+                    }
+                    console.log('[Neues PDF] topLineIsHeading:', topLineIsHeading);
+                } else if (topLineIsHeading && secondLineItems && secondLineItems.length > 0) {
+                    // ALTES PDF: Oberste Zeile ist eine Überschrift
                     const topLineText = topItems.map(item => item.str).join(' ').trim();
                     const secondLineText = secondLineItems.map(item => item.str).join(' ').trim();
                     
@@ -1442,7 +1502,7 @@
                         }
                     }
                 } else {
-                    // Normale Logik: verwende oberste Zeile
+                    // ALTES PDF: Normale Logik - nur linke 30% der Items verwenden
                     const sortedByX = [...topItems].sort((a, b) => a.transform[4] - b.transform[4]);
                     const leftItemCount = Math.max(5, Math.ceil(topItems.length * 0.3));
                     itemsToUse = sortedByX.slice(0, leftItemCount);
@@ -1474,6 +1534,121 @@
                 console.log('Erste 20 Wörter für Suche:', searchWords);
 
                 console.log('Suche nach PDF-Text (erste 20 Wörter oben links):', searchText);
+
+                // === NEUES-PDF-MODUS: Vereinfachte Suche ===
+                if (newPdfMode) {
+                    // Normalisiere Leerzeichen um Satzzeichen (PDF-Extraktion fügt oft Leerzeichen vor Komma/Punkt ein)
+                    const normalizePunctuation = (text) => text
+                        .replace(/\s+([,.:;!?»\)\]])/g, '$1')  // Leerzeichen VOR Satzzeichen entfernen
+                        .replace(/([«\(\[])\s+/g, '$1')          // Leerzeichen NACH öffnenden Klammern entfernen
+                        .replace(/\s+/g, ' ')                     // Mehrfache Leerzeichen normalisieren
+                        .trim();
+                    
+                    // Erste 3-5 Wörter (statt 20)
+                    const rawText = normalizePunctuation(leftText);
+                    const cleanWords = rawText.split(/\s+/).filter(w => w.length > 0);
+                    const newPdfWordCount = Math.min(5, cleanWords.length);
+                    const newPdfSearchWords = cleanWords.slice(0, newPdfWordCount);
+                    const newPdfSearchText = newPdfSearchWords.join(' ');
+                    
+                    console.log('[Neues PDF] Rohtext (normalisiert):', rawText.substring(0, 100));
+                    console.log('[Neues PDF] Suchtext (erste ' + newPdfWordCount + ' Wörter):', newPdfSearchText);
+                    
+                    // Startposition für Suche
+                    const markdownText = currentContent;
+                    const searchStartPos = (searchDirectionForward && lastInsertedMarkerPosition > 0) ? lastInsertedMarkerPosition : 0;
+                    console.log('[Neues PDF] Suche ab Position:', searchStartPos, '(Richtung:', searchDirectionForward ? 'vorwärts' : 'rückwärts', ')');
+                    
+                    const markdownTextForSearch = searchStartPos > 0 ? markdownText.substring(searchStartPos) : markdownText;
+                    const offsetCorrection = searchStartPos;
+                    
+                    let foundPosition = -1;
+                    let foundLength = newPdfSearchText.length;
+                    
+                    // 1. Direkte Suche (lowercase)
+                    const searchLower = newPdfSearchText.toLowerCase();
+                    const mdLower = markdownTextForSearch.toLowerCase();
+                    foundPosition = mdLower.indexOf(searchLower);
+                    if (foundPosition !== -1) {
+                        console.log('[Neues PDF] Direkt gefunden mit', newPdfWordCount, 'Wörtern bei Position:', foundPosition);
+                    }
+                    
+                    // Hilfsfunktion: Position von normalisiertem Text (ß→ss) zurück auf Original-Position mappen
+                    const mapNormPosToOriginal = (normPos, originalText) => {
+                        let origIdx = 0;
+                        let normIdx = 0;
+                        const lowerText = originalText.toLowerCase();
+                        while (normIdx < normPos && origIdx < lowerText.length) {
+                            if (lowerText[origIdx] === 'ß') {
+                                normIdx += 2; // 'ß' → 'ss' = 2 Zeichen
+                            } else {
+                                normIdx += 1;
+                            }
+                            origIdx += 1;
+                        }
+                        return origIdx;
+                    };
+                    
+                    // 2. Fallback: ß↔ss Normalisierung
+                    if (foundPosition === -1) {
+                        const normSearch = searchLower.replace(/ß/g, 'ss');
+                        const normMd = mdLower.replace(/ß/g, 'ss');
+                        const normPos = normMd.indexOf(normSearch);
+                        if (normPos !== -1) {
+                            // Mappe Position zurück auf Original-Text
+                            foundPosition = mapNormPosToOriginal(normPos, markdownTextForSearch);
+                            console.log('[Neues PDF] Gefunden mit ß→ss Normalisierung, normPos:', normPos, '→ origPos:', foundPosition);
+                        }
+                    }
+                    
+                    // 3. Fallback: Weniger Wörter (schrittweise reduzieren bis 2)
+                    if (foundPosition === -1) {
+                        for (let n = newPdfWordCount - 1; n >= 2; n--) {
+                            const fewerText = cleanWords.slice(0, n).join(' ').toLowerCase();
+                            foundPosition = mdLower.indexOf(fewerText);
+                            if (foundPosition !== -1) {
+                                foundLength = fewerText.length;
+                                console.log('[Neues PDF] Gefunden mit', n, 'Wörtern');
+                                break;
+                            }
+                            // Auch mit ß→ss
+                            const normFewer = fewerText.replace(/ß/g, 'ss');
+                            const normMd2 = mdLower.replace(/ß/g, 'ss');
+                            const normPos2 = normMd2.indexOf(normFewer);
+                            if (normPos2 !== -1) {
+                                foundPosition = mapNormPosToOriginal(normPos2, markdownTextForSearch);
+                                foundLength = fewerText.length;
+                                console.log('[Neues PDF] Gefunden mit', n, 'Wörtern (ß→ss), normPos:', normPos2, '→ origPos:', foundPosition);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // 4. Fallback: Suche auch vom Anfang wenn nichts gefunden (falls searchStartPos > 0)
+                    if (foundPosition === -1 && searchStartPos > 0) {
+                        console.log('[Neues PDF] Suche vom Anfang des Markdown-Textes...');
+                        const fullMdLower = markdownText.toLowerCase();
+                        foundPosition = fullMdLower.indexOf(searchLower);
+                        if (foundPosition !== -1) {
+                            console.log('[Neues PDF] Vom Anfang gefunden bei Position:', foundPosition);
+                            // offsetCorrection wird NICHT hinzugefügt, da wir vom Anfang suchen
+                            // foundPosition ist bereits die absolute Position
+                            foundPosition -= offsetCorrection; // Wird später wieder addiert
+                        }
+                    }
+                    
+                    if (foundPosition !== -1) {
+                        foundPosition += offsetCorrection;
+                        console.log('[Neues PDF] Gefunden! Position:', foundPosition, 'Text:', newPdfSearchText);
+                        highlightTextInMarkdown(foundPosition, foundLength, newPdfSearchText, shouldAutoOpenDialog);
+                        showNotification('[Neu] Gefunden: "' + newPdfSearchText.substring(0, 40) + '"', 'warning');
+                    } else {
+                        showNotification('[Neu] Nicht gefunden: "' + newPdfSearchText.substring(0, 40) + '"', 'error');
+                        console.log('[Neues PDF] Nicht gefunden:', newPdfSearchText);
+                        console.log('[Neues PDF] Suchbereich ab Position:', searchStartPos, 'Markdown-Länge:', markdownText.length);
+                    }
+                    return; // Beende hier - keine komplexe Suche nötig
+                }
 
                 // SPEZIAL: Bei Überschriften primär nach Datum suchen
                 let isHeadingSearch = false;
@@ -3122,9 +3297,9 @@
                     }
                     
                     // Scrolle zur Markierung (nur wenn erlaubt)
-                    // Prüfe ob Scrolling erlaubt: nicht stromaufwärts, nicht mehr als 500 Wörter entfernt
+                    // Im newPdfMode: IMMER scrollen (Benutzer hat explizit gesucht)
                     let allowScroll = true;
-                    if (lastInsertedMarkerPosition > 0) {
+                    if (!newPdfMode && lastInsertedMarkerPosition > 0) {
                         if (position < lastInsertedMarkerPosition) {
                             // Stromaufwärts - nicht scrollen
                             console.log('[PDF-Suche] Scrolling verhindert: Ziel stromaufwärts');
@@ -3215,16 +3390,88 @@
                             }
                         }
                     }
+                    // Parse echte Seitenzahl aus den Zeilen nach ---
+                    // Suche "Seite: X" oder "Seite X" im Copyright-Header
+                    let realPageNum = -1;
+                    for (let j = i + 1; j < lines.length && j <= i + 5; j++) {
+                        const checkLine = lines[j].trim();
+                        const seiteMatch = checkLine.match(/Seite:?\s*(\d[\d\s]*\d|\d)/i);
+                        if (seiteMatch) {
+                            realPageNum = parseInt(seiteMatch[1].replace(/\s+/g, ''));
+                            break;
+                        }
+                    }
+                    
                     mdPages.push({
                         position: charPos,
                         lineIndex: i,
-                        textAfter: textAfter
+                        textAfter: textAfter,
+                        pageNum: realPageNum  // Echte Seitenzahl aus dem OCR-Header
                     });
                 }
                 charPos += lines[i].length + 1; // +1 für \n
             }
             totalMdPages = mdPages.length;
             currentMdPageIndex = 0;
+            
+            // Baue Ankerpunkt-Array für Interpolation
+            // anchorPoints: [{idx: mdPages-Index, pageNum: echte Seitenzahl}]
+            mdPages._anchorPoints = [];
+            for (let p = 0; p < mdPages.length; p++) {
+                if (mdPages[p].pageNum > 0) {
+                    mdPages._anchorPoints.push({ idx: p, pageNum: mdPages[p].pageNum });
+                }
+            }
+            
+            // Interpoliere Seitenzahlen für ALLE mdPages-Einträge
+            const anchors = mdPages._anchorPoints;
+            if (anchors.length >= 2) {
+                // Vor dem ersten Anker: extrapoliere rückwärts
+                if (anchors[0].idx > 0) {
+                    const ratio = (anchors[1].pageNum - anchors[0].pageNum) / (anchors[1].idx - anchors[0].idx);
+                    for (let i = 0; i < anchors[0].idx; i++) {
+                        mdPages[i].interpolatedPage = Math.round(anchors[0].pageNum - (anchors[0].idx - i) * ratio);
+                    }
+                }
+                
+                // Zwischen Ankern: lineare Interpolation
+                for (let a = 0; a < anchors.length - 1; a++) {
+                    const startAnchor = anchors[a];
+                    const endAnchor = anchors[a + 1];
+                    const idxRange = endAnchor.idx - startAnchor.idx;
+                    const pageRange = endAnchor.pageNum - startAnchor.pageNum;
+                    
+                    for (let i = startAnchor.idx; i < endAnchor.idx; i++) {
+                        const ratio = (i - startAnchor.idx) / Math.max(idxRange, 1);
+                        mdPages[i].interpolatedPage = Math.round(startAnchor.pageNum + ratio * pageRange);
+                    }
+                }
+                
+                // Nach dem letzten Anker: extrapoliere vorwärts
+                const lastAnchor = anchors[anchors.length - 1];
+                const prevAnchor = anchors[anchors.length - 2];
+                const lastRatio = (lastAnchor.pageNum - prevAnchor.pageNum) / Math.max(lastAnchor.idx - prevAnchor.idx, 1);
+                for (let i = lastAnchor.idx; i < mdPages.length; i++) {
+                    mdPages[i].interpolatedPage = Math.round(lastAnchor.pageNum + (i - lastAnchor.idx) * lastRatio);
+                }
+            } else if (anchors.length === 1) {
+                // Nur ein Anker: nehme 1 Seite pro --- an
+                for (let i = 0; i < mdPages.length; i++) {
+                    mdPages[i].interpolatedPage = anchors[0].pageNum + (i - anchors[0].idx);
+                }
+            }
+            
+            // Debug-Ausgabe
+            const pagesWithNums = mdPages.filter(p => p.pageNum > 0);
+            console.log(`[renderRightContent] ${mdPages.length} Seitenumbrüche, ${pagesWithNums.length} mit "Seite:" erkannt`);
+            if (pagesWithNums.length > 0) {
+                console.log(`[renderRightContent] Erkannte Anker: ${pagesWithNums.slice(0, 10).map(p => `${p.pageNum}@idx${mdPages.indexOf(p)}`).join(', ')}`);
+            }
+            // Zeige Interpolation für ein paar Stichproben
+            if (mdPages.length > 0) {
+                const samples = [0, 50, 100, 200, 300, 400, 500, 600, 700, mdPages.length - 1].filter(i => i < mdPages.length);
+                console.log(`[renderRightContent] Interpolierte Seiten (Stichproben): ${samples.map(i => `idx${i}→S.${mdPages[i].interpolatedPage || '?'}`).join(', ')}`);
+            }
             
             // Zeige MD-Viewer und MD-Controls, verstecke PDF-Viewer und PDF-Controls
             const mdViewerEl = document.getElementById('mdViewer');
@@ -3775,12 +4022,47 @@
                 if (markers.length > 0 && currentMarkerIndex >= 0 && currentMarkerIndex < markers.length) {
                     const marker = markers[currentMarkerIndex];
                     if (marker && marker.page) {
-                        const pageNum = marker.page;
+                        // Regel: Marker |X| → Rechts zeigt Seite X-1
+                        const targetPage = marker.page - 1;
                         
-                        // Springe zur Seite mit dieser Nummer (falls vorhanden)
-                        // Ansonsten zur nächstgelegenen
-                        let targetIndex = Math.min(pageNum - 1, mdPages.length - 1);
-                        targetIndex = Math.max(0, targetIndex);
+                        let targetIndex = -1;
+                        
+                        // Methode 1: Exakte Übereinstimmung mit echtem pageNum
+                        for (let i = 0; i < mdPages.length; i++) {
+                            if (mdPages[i].pageNum === targetPage) {
+                                targetIndex = i;
+                                break;
+                            }
+                        }
+                        
+                        // Methode 2: Interpolierte Seitenzahl verwenden
+                        if (targetIndex === -1) {
+                            // Finde den mdPages-Eintrag, dessen interpolatedPage am nächsten an targetPage liegt
+                            let bestDiff = Infinity;
+                            for (let i = 0; i < mdPages.length; i++) {
+                                const ip = mdPages[i].interpolatedPage;
+                                if (ip !== undefined) {
+                                    const diff = Math.abs(ip - targetPage);
+                                    if (diff < bestDiff) {
+                                        bestDiff = diff;
+                                        targetIndex = i;
+                                    }
+                                    // Wenn wir schon über die Zielseite hinaus sind, brechen wir ab
+                                    if (ip > targetPage && diff > bestDiff) break;
+                                }
+                            }
+                        }
+                        
+                        // Methode 3: Letzter Fallback
+                        if (targetIndex === -1) {
+                            targetIndex = Math.min(targetPage - 1, mdPages.length - 1);
+                            targetIndex = Math.max(0, targetIndex);
+                        }
+                        
+                        targetIndex = Math.max(0, Math.min(targetIndex, mdPages.length - 1));
+                        
+                        const entry = mdPages[targetIndex];
+                        console.log(`[syncMdPage] Marker |${marker.page}| → Zielseite ${targetPage}, Index: ${targetIndex}, pageNum: ${entry.pageNum || '-'}, interpoliert: ${entry.interpolatedPage || '-'}`);
                         
                         currentMdPageIndex = targetIndex;
                         scrollToMdPage(targetIndex);
@@ -3961,6 +4243,13 @@
             const btn = document.getElementById('toggleFast');
             btn.classList.toggle('active', fastModeEnabled);
             showNotification(fastModeEnabled ? 'Fast-Modus aktiviert' : 'Fast-Modus deaktiviert');
+        }
+
+        function toggleNewPdfMode() {
+            newPdfMode = !newPdfMode;
+            const btn = document.getElementById('toggleNewPdf');
+            btn.classList.toggle('active', newPdfMode);
+            showNotification(newPdfMode ? 'Neues-PDF-Modus aktiviert (erste Inhaltszeile, 3-5 Wörter)' : 'Altes-PDF-Modus aktiviert (komplexe Textextraktion)', 'warning');
         }
 
         function renderContent(content) {
@@ -5362,6 +5651,8 @@
             if (index < 0 || index >= markers.length) return;
 
             currentMarkerIndex = index;
+            const marker = markers[index];
+            console.log(`[jumpToMarker] index=${index}, marker.page=${marker ? marker.page : 'N/A'}, pdfDoc=${!!pdfDoc}, mdPages.length=${mdPages.length}`);
 
             // Entferne alle Highlights
             document.querySelectorAll('.page-marker').forEach(el => {
@@ -6334,13 +6625,13 @@
         // Event-Listener für Sucheingabe mit Debounce
         let mdSearchDebounceTimer = null;
         document.getElementById('mdSearchInput').addEventListener('input', function() {
-            // Debounce: Warte 300ms nach dem letzten Tastendruck
+            // Debounce: Warte 800ms nach dem letzten Tastendruck
             clearTimeout(mdSearchDebounceTimer);
             mdSearchDebounceTimer = setTimeout(() => {
                 performMdSearch();
                 // Fokus zurück auf Input setzen
                 document.getElementById('mdSearchInput').focus();
-            }, 300);
+            }, 800);
         });
         
         document.getElementById('mdSearchInput').addEventListener('keydown', function(e) {
@@ -6501,6 +6792,8 @@
 
         // Lade Standard-Vergleichsdatei beim Start
         loadDefaultRightFile();
+        
+        console.log('%c[VERSION] page_marker_checker v2026-02-09c (interpolierte Seitenzahlen)', 'color: red; font-weight: bold; font-size: 14px;');
     </script>
 </body>
 </html>

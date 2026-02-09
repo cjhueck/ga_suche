@@ -840,11 +840,6 @@ class SteinerLecturesExporter {
       const meta = this.extractMetadataFromFilename(filename);
       if (!meta) continue;
 
-      // Skip lectures with "Bericht" in the title
-      if (meta.title && meta.title.toLowerCase().includes('bericht')) {
-        continue;
-      }
-
       const content = fs.readFileSync(filePath, 'utf8');
       // Unterstütze sowohl Unix (\n) als auch Windows (\r\n) Zeilenenden
       const lines = content.split(/\r?\n/);
