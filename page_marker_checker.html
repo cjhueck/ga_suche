@@ -1275,31 +1275,43 @@
                 }
                 
                 // Funktion um Suchtext aus einer Startzeile zu extrahieren
+                // WICHTIG: Verwendet NUR die ersten 4 Wörter der Zeile
                 function getSearchTextFromLine(lineIndex) {
                     if (lineIndex >= allValidLines.length) return null;
                     
                     const line = allValidLines[lineIndex];
-                    let itemsToUse;
-                    let leftText;
                     
-                    // Immer zuerst die aktuelle Zeile verwenden (auch bei Überschriften/Gedichtzeilen).
-                    // Der Fallback-Mechanismus im Hauptloop probiert bei Nichtfinden automatisch
-                    // weitere Zeilen von oben nach unten durch.
+                    // Sortiere Items nach X-Position (von links nach rechts)
                     const sortedByX = [...line.items].sort((a, b) => a.transform[4] - b.transform[4]);
-                    const leftItemCount = Math.max(5, Math.ceil(line.items.length * 0.3));
-                    itemsToUse = sortedByX.slice(0, leftItemCount);
-                    leftText = itemsToUse.map(item => item.str).join(' ').trim();
                     
-                    if (!leftText || leftText.length < 3) return null;
+                    // Sammle alle Items der Zeile zu einem Text
+                    const fullLineText = sortedByX.map(item => item.str).join(' ').trim();
+                    
+                    if (!fullLineText || fullLineText.length < 3) return null;
                     
                     // Unicode-Normalisierung: PDF liefert oft decomposed Characters (u+̈ statt ü)
-                    leftText = leftText.normalize('NFC');
+                    const normalizedText = fullLineText.normalize('NFC');
                     
-                    const words = leftText.split(/\s+/).filter(w => w.length > 0);
+                    // Extrahiere Wörter und verwende NUR die ersten 4 Wörter
+                    const words = normalizedText.split(/\s+/).filter(w => w.length > 0);
                     if (words.length < 2) return null;
                     
+                    // WICHTIG: Nur die ersten 4 Wörter verwenden
                     const searchWords = words.slice(0, Math.min(4, words.length));
-                    return { searchWords, searchText: searchWords.join(' '), itemsToUse };
+                    const searchText = searchWords.join(' ');
+                    
+                    // Verwende nur die Items, die zu den ersten 4 Wörtern gehören
+                    let itemsToUse = [];
+                    let wordCount = 0;
+                    for (const item of sortedByX) {
+                        if (wordCount >= 4) break;
+                        const itemWords = item.str.trim().split(/\s+/).filter(w => w.length > 0);
+                        itemsToUse.push(item);
+                        wordCount += itemWords.length;
+                        if (wordCount >= 4) break;
+                    }
+                    
+                    return { searchWords, searchText, itemsToUse };
                 }
                 
                 // Versuche von oben nach unten einen Match zu finden
@@ -1373,159 +1385,46 @@
                 const aggressiveMarkdown = normalizeAggressive(markdownText);
                 
                 // Hilfsfunktion: Versuche einen Suchtext im Markdown zu finden
+                // WICHTIG: Verwendet NUR die ersten 4 Wörter, keine Fallbacks mit weniger Wörtern
                 function trySearchInMarkdown(searchWords, searchText) {
+                    // Sicherstellen, dass nur maximal 4 Wörter verwendet werden
+                    const wordsToUse = searchWords.slice(0, 4);
+                    const textToUse = wordsToUse.join(' ');
+                    
                     let searchIndex = -1;
-                    let foundLength = searchText.length;
-                    let foundWordCount = 0;
+                    let foundLength = textToUse.length;
+                    let foundWordCount = wordsToUse.length;
                     let useNormalizedSearch = false;
                     
                     // Strategie 1: Direkte Suche (case-insensitive)
-                    const searchTextLower = searchText.toLowerCase();
+                    const searchTextLower = textToUse.toLowerCase();
                     let directIndex = markdownTextLower.indexOf(searchTextLower);
                     
                     if (directIndex !== -1) {
-                        return { searchIndex: directIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: false };
+                        return { searchIndex: directIndex, foundLength: textToUse.length, foundWordCount: wordsToUse.length, useNormalizedSearch: false };
                     }
                     
-                    // Strategie 2: Weniger Wörter (direkte Suche)
-                    for (let wordCount of [15, 10, 5, 4]) {
-                        if (wordCount > searchWords.length) continue;
-                        const testWords = searchWords.slice(0, wordCount);
-                        const testPhrase = testWords.join(' ');
-                        directIndex = markdownTextLower.indexOf(testPhrase.toLowerCase());
-                        if (directIndex !== -1) {
-                            return { searchIndex: directIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: false };
-                        }
-                    }
-                    
-                    // Strategie 3: Normalisierte Suche (Whitespace)
-                    const normalizedSearchText = normalizeForSearch(searchText);
+                    // Strategie 2: Normalisierte Suche (Whitespace)
+                    const normalizedSearchText = normalizeForSearch(textToUse);
                     searchIndex = normalizedMarkdown.indexOf(normalizedSearchText);
                     if (searchIndex !== -1) {
-                        return { searchIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: true };
+                        return { searchIndex, foundLength: textToUse.length, foundWordCount: wordsToUse.length, useNormalizedSearch: true };
                     }
                     
-                    // Strategie 4: Weniger Wörter (normalisiert)
-                    for (let wordCount of [15, 10, 5, 4]) {
-                        if (wordCount > searchWords.length) continue;
-                        const testWords = searchWords.slice(0, wordCount);
-                        const testPhrase = testWords.join(' ');
-                        const normalizedTest = normalizeForSearch(testPhrase);
-                        searchIndex = normalizedMarkdown.indexOf(normalizedTest);
-                        if (searchIndex !== -1) {
-                            return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: true };
-                        }
-                    }
-                    
-                    // Strategie 4b: Umlaut-Normalisierung (ü→u, ö→o, ä→a, aber ß bleibt ß, Satzzeichen bleiben)
-                    const umlautSearch = normalizeUmlaut(searchText);
+                    // Strategie 3: Umlaut-Normalisierung (ü→u, ö→o, ä→a, aber ß bleibt ß, Satzzeichen bleiben)
+                    const umlautSearch = normalizeUmlaut(textToUse);
                     searchIndex = umlautMarkdown.indexOf(umlautSearch);
                     if (searchIndex !== -1) {
-                        console.log('Match mit Umlaut/ß-Normalisierung');
-                        return { searchIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: 'umlaut' };
+                        console.log('Match mit Umlaut-Normalisierung (ß bleibt ß)');
+                        return { searchIndex, foundLength: textToUse.length, foundWordCount: wordsToUse.length, useNormalizedSearch: 'umlaut' };
                     }
                     
-                    // Strategie 4c: Umlaut/ß-Normalisierung mit weniger Wörtern
-                    for (let wordCount of [15, 10, 5, 4]) {
-                        if (wordCount > searchWords.length) continue;
-                        const testWords = searchWords.slice(0, wordCount);
-                        const testPhrase = testWords.join(' ');
-                        const umlautTest = normalizeUmlaut(testPhrase);
-                        searchIndex = umlautMarkdown.indexOf(umlautTest);
-                        if (searchIndex !== -1) {
-                            console.log(`Match mit Umlaut/ß-Normalisierung (${wordCount} Wörter)`);
-                            return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'umlaut' };
-                        }
-                    }
-                    
-                    // Strategie 5: Aggressive Normalisierung (ohne Satzzeichen/Striche, Umlaute vereinheitlicht)
-                    const aggressiveSearch = normalizeAggressive(searchText);
+                    // Strategie 4: Aggressive Normalisierung (ohne Satzzeichen/Striche, Umlaute vereinheitlicht, aber ß bleibt ß)
+                    const aggressiveSearch = normalizeAggressive(textToUse);
                     searchIndex = aggressiveMarkdown.indexOf(aggressiveSearch);
                     if (searchIndex !== -1) {
-                        console.log('Match mit aggressiver Normalisierung (ohne Satzzeichen/Striche)');
-                        return { searchIndex, foundLength: searchText.length, foundWordCount: searchWords.length, useNormalizedSearch: 'aggressive' };
-                    }
-                    
-                    // Strategie 6: Aggressive Normalisierung mit weniger Wörtern
-                    for (let wordCount of [15, 10, 5, 4]) {
-                        if (wordCount > searchWords.length) continue;
-                        const testWords = searchWords.slice(0, wordCount);
-                        const testPhrase = testWords.join(' ');
-                        const aggressiveTest = normalizeAggressive(testPhrase);
-                        searchIndex = aggressiveMarkdown.indexOf(aggressiveTest);
-                        if (searchIndex !== -1) {
-                            console.log(`Match mit aggressiver Normalisierung (${wordCount} Wörter)`);
-                            return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'aggressive' };
-                        }
-                    }
-                    
-                    // Strategie 7: Erste Wörter überspringen (für OCR-Fehler am Zeilenanfang, z.B. "sehen"→"schen")
-                    // Versuche ab Wort 1, 2, 3 zu suchen (überspringe fehlerhafte Anfangswörter)
-                    for (let skipCount = 1; skipCount <= 3; skipCount++) {
-                        if (skipCount >= searchWords.length - 2) break; // Mindestens 3 Wörter übrig
-                        
-                        const remainingWords = searchWords.slice(skipCount);
-                        // Versuche mit verschiedenen Wortanzahlen
-                        for (let wordCount of [Math.min(remainingWords.length, 15), 10, 5, 4]) {
-                            if (wordCount > remainingWords.length) continue;
-                            const testWords = remainingWords.slice(0, wordCount);
-                            const testPhrase = testWords.join(' ');
-                            
-                            // Direkte Suche
-                            directIndex = markdownTextLower.indexOf(testPhrase.toLowerCase());
-                            if (directIndex !== -1) {
-                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, direkt)`);
-                                return { searchIndex: directIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: false };
-                            }
-                            
-                            // Normalisierte Suche
-                            const normalizedTest = normalizeForSearch(testPhrase);
-                            searchIndex = normalizedMarkdown.indexOf(normalizedTest);
-                            if (searchIndex !== -1) {
-                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, normalisiert)`);
-                                return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: true };
-                            }
-                            
-                            // Umlaut-Suche
-                            const umlautTest = normalizeUmlaut(testPhrase);
-                            searchIndex = umlautMarkdown.indexOf(umlautTest);
-                            if (searchIndex !== -1) {
-                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, umlaut)`);
-                                return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'umlaut' };
-                            }
-                            
-                            // Aggressive Suche
-                            const aggressiveTest = normalizeAggressive(testPhrase);
-                            searchIndex = aggressiveMarkdown.indexOf(aggressiveTest);
-                            if (searchIndex !== -1) {
-                                console.log(`Match nach Überspringen von ${skipCount} Wort/Wörtern (${wordCount} Wörter, aggressiv)`);
-                                return { searchIndex, foundLength: testPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'aggressive' };
-                            }
-                        }
-                    }
-                    
-                    // Strategie 8: Noch weniger Wörter (3, 2) - alle Normalisierungsstufen
-                    for (let wordCount = 3; wordCount >= 2; wordCount--) {
-                        if (wordCount > searchWords.length) continue;
-                        const fallbackWords = searchWords.slice(0, wordCount);
-                        const fallbackPhrase = fallbackWords.join(' ');
-                        
-                        directIndex = markdownTextLower.indexOf(fallbackPhrase.toLowerCase());
-                        if (directIndex !== -1) {
-                            return { searchIndex: directIndex, foundLength: fallbackPhrase.length, foundWordCount: wordCount, useNormalizedSearch: false };
-                        }
-                        
-                        const normalizedFallback = normalizeForSearch(fallbackPhrase);
-                        searchIndex = normalizedMarkdown.indexOf(normalizedFallback);
-                        if (searchIndex !== -1) {
-                            return { searchIndex, foundLength: fallbackPhrase.length, foundWordCount: wordCount, useNormalizedSearch: true };
-                        }
-                        
-                        const aggressiveFallback = normalizeAggressive(fallbackPhrase);
-                        searchIndex = aggressiveMarkdown.indexOf(aggressiveFallback);
-                        if (searchIndex !== -1) {
-                            return { searchIndex, foundLength: fallbackPhrase.length, foundWordCount: wordCount, useNormalizedSearch: 'aggressive' };
-                        }
+                        console.log('Match mit aggressiver Normalisierung (ohne Satzzeichen/Striche, ß bleibt ß)');
+                        return { searchIndex, foundLength: textToUse.length, foundWordCount: wordsToUse.length, useNormalizedSearch: 'aggressive' };
                     }
                     
                     return null; // Nichts gefunden
@@ -1763,36 +1662,10 @@
             // Finde diese Position im gerenderten HTML
             const htmlText = contentEl.textContent || contentEl.innerText || '';
             
-            // ß/ss-Normalisierung für Suche (ß und ss sind synonym)
-            const normalizeSzSs = (text) => text.replace(/ß/g, 'ss');
-            
             // Suche nach dem Text im HTML
             const normalizedHtml = htmlText.replace(/\s+/g, ' ').trim().toLowerCase();
             const normalizedSearch = textToHighlight.replace(/\s+/g, ' ').trim().toLowerCase();
             let htmlIndex = normalizedHtml.indexOf(normalizedSearch);
-            
-            // Fallback 0: ß/ss-Normalisierung (ß und ss als synonym behandeln)
-            if (htmlIndex === -1) {
-                const ssHtml = normalizeSzSs(normalizedHtml);
-                const ssSearch = normalizeSzSs(normalizedSearch);
-                const ssIndex = ssHtml.indexOf(ssSearch);
-                if (ssIndex !== -1) {
-                    // Mappe die Position aus dem ss-normalisierten Text zurück zum Original
-                    // Zähle wie viele ß→ss Konvertierungen vor ssIndex stattfanden
-                    let origPos = 0;
-                    let ssPos = 0;
-                    for (let i = 0; i < normalizedHtml.length && ssPos < ssIndex; i++) {
-                        if (normalizedHtml[i] === 'ß') {
-                            ssPos += 2; // ß wird zu 'ss' (2 Zeichen)
-                        } else {
-                            ssPos += 1;
-                        }
-                        origPos = i + 1;
-                    }
-                    htmlIndex = origPos;
-                    console.log('highlightTextInMarkdown: Match mit ß/ss-Normalisierung gefunden');
-                }
-            }
             
             // Fallback 1: Markdown-Formatierung entfernen (###, **, *, `, etc.)
             if (htmlIndex === -1) {
@@ -1808,21 +1681,6 @@
                     htmlIndex = normalizedHtml.indexOf(strippedSearch);
                     if (htmlIndex !== -1) {
                         console.log('highlightTextInMarkdown: Match nach Markdown-Stripping gefunden');
-                    }
-                    // Auch mit ß/ss-Normalisierung versuchen
-                    if (htmlIndex === -1) {
-                        const ssHtml = normalizeSzSs(normalizedHtml);
-                        const ssStripped = normalizeSzSs(strippedSearch);
-                        const ssIdx = ssHtml.indexOf(ssStripped);
-                        if (ssIdx !== -1) {
-                            let origPos = 0, ssPos = 0;
-                            for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
-                                ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
-                                origPos = i + 1;
-                            }
-                            htmlIndex = origPos;
-                            console.log('highlightTextInMarkdown: Match nach Markdown-Stripping + ß/ss gefunden');
-                        }
                     }
                 }
             }
@@ -1845,23 +1703,6 @@
                         console.log('highlightTextInMarkdown: Match über PDF-Suchtext (global) gefunden');
                     }
                 }
-                // Auch mit ß/ss-Normalisierung versuchen
-                if (htmlIndex === -1) {
-                    const ssHtml = normalizeSzSs(normalizedHtml);
-                    const ssPdfText = normalizeSzSs(normalizedPdfText);
-                    const ssPdfStart = Math.max(0, Math.floor(estimatedRatio * ssHtml.length) - 500);
-                    let ssIdx = ssHtml.indexOf(ssPdfText, ssPdfStart);
-                    if (ssIdx === -1) ssIdx = ssHtml.indexOf(ssPdfText);
-                    if (ssIdx !== -1) {
-                        let origPos = 0, ssPos = 0;
-                        for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
-                            ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
-                            origPos = i + 1;
-                        }
-                        htmlIndex = origPos;
-                        console.log('highlightTextInMarkdown: Match über PDF-Suchtext + ß/ss gefunden');
-                    }
-                }
             }
 
             // Fallback 3: Versuche mit den ersten Wörtern des PDF-Suchtexts
@@ -1875,19 +1716,6 @@
                         console.log(`highlightTextInMarkdown: Fallback mit ${wc} PDF-Wörtern erfolgreich`);
                         break;
                     }
-                    // Auch mit ß/ss
-                    const ssShort = normalizeSzSs(shortSearch);
-                    const ssIdx = normalizeSzSs(normalizedHtml).indexOf(ssShort);
-                    if (ssIdx !== -1) {
-                        let origPos = 0, ssPos = 0;
-                        for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
-                            ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
-                            origPos = i + 1;
-                        }
-                        htmlIndex = origPos;
-                        console.log(`highlightTextInMarkdown: Fallback mit ${wc} PDF-Wörtern + ß/ss erfolgreich`);
-                        break;
-                    }
                 }
             }
             
@@ -1899,19 +1727,6 @@
                     htmlIndex = normalizedHtml.indexOf(shortSearch);
                     if (htmlIndex !== -1) {
                         console.log(`highlightTextInMarkdown: Fallback mit ${wc} MD-Wörtern erfolgreich`);
-                        break;
-                    }
-                    // Auch mit ß/ss
-                    const ssShort = normalizeSzSs(shortSearch);
-                    const ssIdx = normalizeSzSs(normalizedHtml).indexOf(ssShort);
-                    if (ssIdx !== -1) {
-                        let origPos = 0, ssPos = 0;
-                        for (let i = 0; i < normalizedHtml.length && ssPos < ssIdx; i++) {
-                            ssPos += normalizedHtml[i] === 'ß' ? 2 : 1;
-                            origPos = i + 1;
-                        }
-                        htmlIndex = origPos;
-                        console.log(`highlightTextInMarkdown: Fallback mit ${wc} MD-Wörtern + ß/ss erfolgreich`);
                         break;
                     }
                 }
@@ -4936,6 +4751,44 @@
         
         let isRefreshingSearch = false;
         
+        // Funktion zum direkten Scrollen ohne Scroll-Events auszulösen
+        function scrollToElementInstantly(element, block = 'center') {
+            const contentEl = document.getElementById('content');
+            if (!contentEl || !element) return;
+            
+            // Temporär Scroll-Sync deaktivieren
+            const wasScrolling = isScrolling;
+            isScrolling = true;
+            
+            // Berechne die Position des Elements relativ zum Container
+            const elementRect = element.getBoundingClientRect();
+            const containerRect = contentEl.getBoundingClientRect();
+            const elementTop = elementRect.top - containerRect.top + contentEl.scrollTop;
+            
+            // Berechne die Ziel-Scroll-Position basierend auf block-Parameter
+            let scrollTop;
+            const containerHeight = contentEl.clientHeight;
+            const elementHeight = elementRect.height;
+            
+            if (block === 'center') {
+                scrollTop = elementTop - (containerHeight / 2) + (elementHeight / 2);
+            } else if (block === 'start') {
+                scrollTop = elementTop;
+            } else if (block === 'end') {
+                scrollTop = elementTop - containerHeight + elementHeight;
+            } else {
+                scrollTop = elementTop - (containerHeight / 2) + (elementHeight / 2);
+            }
+            
+            // Setze die Scroll-Position direkt (ohne Animation)
+            contentEl.scrollTop = Math.max(0, Math.min(scrollTop, contentEl.scrollHeight - containerHeight));
+            
+            // Reaktiviere Scroll-Sync nach kurzer Verzögerung
+            setTimeout(() => {
+                isScrolling = wasScrolling;
+            }, 50);
+        }
+        
         function highlightCurrentMatch() {
             // Prüfe ob die Matches noch im DOM sind (könnten durch loadContent ungültig geworden sein)
             if (!isRefreshingSearch && mdSearchMatches.length > 0 && !document.body.contains(mdSearchMatches[0])) {
@@ -4955,7 +4808,7 @@
                         const current = mdSearchMatches[mdSearchCurrentIndex];
                         if (current) {
                             current.classList.add('current');
-                            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            scrollToElementInstantly(current, 'center');
                         }
                     }
                 }
@@ -5070,14 +4923,14 @@
                             selection.addRange(range);
                             
                             // Scroll zum Absatz
-                            nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            scrollToElementInstantly(nextParagraph, 'center');
                         } else {
                             // Fallback: Scroll zur Überschrift
-                            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            scrollToElementInstantly(current, 'center');
                         }
                     } else {
                         // Fallback: Scroll zum Treffer
-                        current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        scrollToElementInstantly(current, 'center');
                     }
                 } else {
                     // Normale Positionierung: Cursor an den Treffer setzen
@@ -5087,7 +4940,7 @@
                     range.collapse(true); // Setze Cursor am Anfang
                     selection.removeAllRanges();
                     selection.addRange(range);
-                    current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    scrollToElementInstantly(current, 'center');
                 }
             }
         }
