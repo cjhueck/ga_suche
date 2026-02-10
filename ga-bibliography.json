@@ -30,8 +30,9 @@
     "title": "Wahrheit und Wissenschaft",
     "author": "Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
-    "year": "2009",
+    "year": "2012",
     "place": "Dornach",
+    "edition": "6. Aufl.",
     "volume": "003",
     "subtitle": "Vorspiel einer \"Philosophie der Freiheit\"",
     "originalPublication": "1892"
@@ -118,8 +119,9 @@
     "title": "Theosophie",
     "author": "Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
-    "year": "1996",
+    "year": "2013",
     "place": "Dornach",
+    "edition": "33. Aufl.",
     "volume": "009",
     "subtitle": "Einführung in übersinnliche Welterkenntnis und Menschenbestimmung",
     "originalPublication": "1904"
@@ -331,7 +333,7 @@
   "GA027": {
     "gaNumber": "GA027",
     "title": "Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen",
-    "author": "Rudolf Steiner, Ita Wegman",
+    "author": "Ita Wegman, Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
     "year": "1991",
     "place": "Dornach",
@@ -344,10 +346,10 @@
     "title": "Mein Lebensgang - eine nicht vollendete Autobiographie",
     "author": "Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
-    "year": "1982",
+    "year": "2000",
     "place": "Dornach",
     "isbn": "3727402806",
-    "edition": "8. Aufl.",
+    "edition": "9. Aufl.",
     "volume": "028",
     "subtitle": "Mit einem Nachwort herausgegeben von Marie Steiner 1925",
     "originalPublication": "1923-1925"
@@ -567,7 +569,7 @@
     "pages": "<c>1030</c>\r\n<in>true</in>\r\n<os>1030</os>\r\n<ps>1030</ps>",
     "edition": "1. Auflage",
     "volume": "046",
-    "editor": "Renatus Ziegler, David Marc Hoffmann, Monika Philippi"
+    "editor": "David Marc Hoffmann, Monika Philippi, Renatus Ziegler"
   },
   "GA051": {
     "gaNumber": "GA051",
@@ -810,10 +812,11 @@
     "publisher": "Rudolf Steiner Verlag",
     "year": "2017",
     "place": "Basel",
-    "isbn": "3727406828",
+    "isbn": "9783727406829",
     "pages": "<c>616</c>\r\n<in>true</in>\r\n<os>616</os>\r\n<ps>616</ps>",
+    "edition": "1. Auflage",
     "volume": "068c",
-    "subtitle": "Fünfunddreißig Vorträge in verschiedenen Städten 1889-1912, gehalten in Amsterdam, Basel, Berlin, Bonn, Düsseldorf, Frankfurt, Hamburg, Hannover, Heidelberg, Hermannstadt, Leipzig, München, Kassel, Weimar, Wien, Stuttgart, Heidelberg, Winterthur zwischen 22. November 1889 und 13. Januar 912 : nach Zeitungsreferaten, stenografischen Aufzeichnungen und Notizen von Zuhörern",
+    "titleSupplement": "Fünfunddreißig Vorträge in verschiedenen Städten 1889-1912, gehalten in Amsterdam, Basel, Berlin, Bonn, Düsseldorf, Frankfurt, Hamburg, Hannover, Heidelberg, Hermannstadt, Leipzig, München, Kassel, Weimar, Wien, Stuttgart, Heidelberg, Winterthur zwischen 22. November 1889 und 13. Januar 1912 : nach Zeitungsreferaten, stenografischen Aufzeichnungen und Notizen von Zuhörern",
     "editor": "Monika Philippi"
   },
   "GA068d": {
@@ -921,7 +924,7 @@
     "edition": "1. Auflage",
     "volume": "070b",
     "subtitle": "Siebzehn Vorträge während des Ersten Weltkriegs 1915/1916 in verschiedenen Städten : nach zum Teil lückenhaften stenografischen Mitschriften",
-    "editor": "Hans-Christian Zehnter, David Marc Hoffmann"
+    "editor": "David Marc Hoffmann, Hans-Christian Zehnter"
   },
   "GA071b": {
     "gaNumber": "GA071b",
@@ -1229,7 +1232,7 @@
     "edition": "1. Auflage",
     "volume": "090c",
     "subtitle": "Fünfzehn \"Lehrstunden\", vornehmlich im Kreis bei Clara Motzkus, Berlin, vermutlich aus dem Jahr 1903 : nach bruchstückhaften Notizen und Mitschriften",
-    "editor": "Renatus Ziegler, Hans-Christian Zehnter"
+    "editor": "Hans-Christian Zehnter, Renatus Ziegler"
   },
   "GA091": {
     "gaNumber": "GA091",
@@ -2423,15 +2426,11 @@
   },
   "GA182": {
     "gaNumber": "GA182",
-    "title": "Der Tod als Lebenswandlung",
+    "title": "Was tut der Engel in unserem Astralleib?",
     "author": "Rudolf Steiner",
-    "publisher": "Rudolf Steiner Verlag",
-    "year": "1996",
-    "place": "Dornach",
-    "isbn": "3-7274-1820-6",
-    "edition": "4. Aufl.",
+    "pages": "<sp>\r\n  <n>138</n>\r\n  <in>true</in>\r\n  <os>138</os>\r\n  <ps>138</ps>\r\n</sp>\r\n<ep>\r\n  <n>160</n>\r\n  <in>true</in>\r\n  <os>160</os>\r\n  <ps>160</ps>\r\n</ep>\r\n<os>138-160</os>",
     "volume": "182",
-    "titleSupplement": "Sieben Vorträge, gehalten in verschiedenen Städten zwischen dem 29. November 1917 und 16. Oktober 1918"
+    "subtitle": "Zürich, 9. Oktober 1918"
   },
   "GA183": {
     "gaNumber": "GA183",
@@ -4712,15 +4711,5 @@
     "volume": "354",
     "subtitle": "Über Welt- und Menschenentstehung und den Gang der Kulturentwickelung der Menschheit, Ernährungsfragen, Erdenleben und Sternenwirken",
     "titleSupplement": "Vierzehn Vorträge, gehalten für die Arbeiter am Goetheanumbau in Dornach vom 30. Juni bis 24. September 1924"
-  },
-  "GA K": {
-    "gaNumber": "GA K",
-    "title": "Wandtafelzeichnungen zum Vortragswerk",
-    "author": "Rudolf Steiner",
-    "publisher": "Rudolf Steiner Verlag",
-    "year": "1989-2003",
-    "place": "Dornach",
-    "isbn": "3-7274-4100-3",
-    "volume": "K 1-30"
   }
 }
