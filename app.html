@@ -32146,29 +32146,49 @@ async function batchGenerateHeadingsOnly() {
       lectureIds = lectures.map(l => l.ID);
     }
     
-    // Rufe Backend-API auf
     const statusEl = document.getElementById('batch-status');
-    if (statusEl) statusEl.textContent = `Generiere H3/H4 für ${lectureIds.length} Vorträge...`;
+    const barEl = document.getElementById('batch-progress-bar');
     
-    const batchResp = await fetch(`${API_BASE}/api/batch-generate-headings`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        lectureIds: lectureIds,
-        preferredProvider: selectedProvider
-      })
-    });
+    // Batches à 5 Vorträge erstellen
+    const BATCH_SIZE = 5;
+    const totalLectures = lectureIds.length;
+    const totalBatches = Math.ceil(totalLectures / BATCH_SIZE);
+    let totalProcessed = 0;
+    let totalFailed = 0;
     
-    if (!batchResp.ok) {
-      const errorData = await batchResp.json();
-      throw new Error(errorData.error || 'Server-Fehler');
+    if (statusEl) statusEl.textContent = `Generiere H3/H4 für ${totalLectures} Vorträge (${totalBatches} Batches à ${BATCH_SIZE})...`;
+    
+    for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+      const start = batchIndex * BATCH_SIZE;
+      const batchIds = lectureIds.slice(start, start + BATCH_SIZE);
+      const batchNum = batchIndex + 1;
+      
+      if (statusEl) statusEl.textContent = `Batch ${batchNum}/${totalBatches}: ${batchIds.length} Vorträge (${totalProcessed}/${totalLectures} fertig)...`;
+      if (barEl) barEl.style.width = `${Math.round((start / totalLectures) * 100)}%`;
+      
+      const batchResp = await fetch(`${API_BASE}/api/batch-generate-headings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          lectureIds: batchIds,
+          preferredProvider: selectedProvider
+        })
+      });
+      
+      if (!batchResp.ok) {
+        const errorData = await batchResp.json();
+        console.error(`[BATCH-HEADINGS] Batch ${batchNum} Fehler:`, errorData.error);
+        totalFailed += batchIds.length;
+      } else {
+        const result = await batchResp.json();
+        totalProcessed += result.processed || 0;
+        totalFailed += result.failed || 0;
+        console.log(`[BATCH-HEADINGS] Batch ${batchNum}/${totalBatches}: ${result.processed} ok, ${result.failed} Fehler`);
+      }
     }
     
-    const result = await batchResp.json();
-    const doneMsg = `✓ Überschriften generiert: ${result.processed} erfolgreich, ${result.failed} Fehler`;
+    const doneMsg = `✓ Überschriften generiert: ${totalProcessed} erfolgreich, ${totalFailed} Fehler (${totalBatches} Batches)`;
     if (statusEl) statusEl.textContent = doneMsg;
-    
-    const barEl = document.getElementById('batch-progress-bar');
     if (barEl) barEl.style.width = '100%';
     
     setUILocked(false);
