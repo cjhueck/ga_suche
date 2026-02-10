@@ -1685,10 +1685,10 @@
                     console.log('[Neues PDF] Rohtext (normalisiert):', rawText.substring(0, 100));
                     console.log('[Neues PDF] Suchtext (erste ' + newPdfWordCount + ' Wörter):', newPdfSearchText);
                     
-                    // Startposition für Suche
+                    // Startposition für Suche: Immer nur stromabwärts ab letztem Marker
                     const markdownText = currentContent;
-                    const searchStartPos = (searchDirectionForward && lastInsertedMarkerPosition > 0) ? lastInsertedMarkerPosition : 0;
-                    console.log('[Neues PDF] Suche ab Position:', searchStartPos, '(Richtung:', searchDirectionForward ? 'vorwärts' : 'rückwärts', ')');
+                    const searchStartPos = lastInsertedMarkerPosition > 0 ? lastInsertedMarkerPosition : 0;
+                    console.log('[Neues PDF] Suche ab Position:', searchStartPos, '(nur stromabwärts)');
                     
                     const markdownTextForSearch = searchStartPos > 0 ? markdownText.substring(searchStartPos) : markdownText;
                     const offsetCorrection = searchStartPos;
@@ -1733,24 +1733,27 @@
                         }
                     }
                     
-                    // 4. Fallback: Suche auch vom Anfang wenn nichts gefunden (falls searchStartPos > 0)
-                    if (foundPosition === -1 && searchStartPos > 0) {
+                    // 4. Fallback: Suche vom Anfang NUR wenn kein Marker gesetzt ist
+                    // Wenn ein Marker gesetzt ist, darf NICHT stromaufwärts gesucht werden
+                    if (foundPosition === -1 && searchStartPos > 0 && lastInsertedMarkerPosition <= 0) {
                         console.log('[Neues PDF] Suche vom Anfang des Markdown-Textes...');
                         const fullMdLower = markdownText.toLowerCase();
                         foundPosition = fullMdLower.indexOf(searchLower);
                         if (foundPosition !== -1) {
                             console.log('[Neues PDF] Vom Anfang gefunden bei Position:', foundPosition);
-                            // offsetCorrection wird NICHT hinzugefügt, da wir vom Anfang suchen
-                            // foundPosition ist bereits die absolute Position
                             foundPosition -= offsetCorrection; // Wird später wieder addiert
                         }
+                    } else if (foundPosition === -1 && searchStartPos > 0) {
+                        console.log('[Neues PDF] Kein Treffer stromabwärts - stromaufwärts-Suche blockiert (letzter Marker bei', lastInsertedMarkerPosition, ')');
                     }
                     
                     if (foundPosition !== -1) {
                         foundPosition += offsetCorrection;
                         console.log('[Neues PDF] Gefunden! Position:', foundPosition, 'Text:', newPdfSearchText);
-                        highlightTextInMarkdown(foundPosition, foundLength, newPdfSearchText, shouldAutoOpenDialog);
-                        showNotification('[Neu] Gefunden: "' + newPdfSearchText.substring(0, 40) + '"', 'warning');
+                        const highlighted = highlightTextInMarkdown(foundPosition, foundLength, newPdfSearchText, shouldAutoOpenDialog);
+                        if (highlighted !== false) {
+                            showNotification('[Neu] Gefunden: "' + newPdfSearchText.substring(0, 40) + '"', 'warning');
+                        }
                     } else {
                         showNotification('[Neu] Nicht gefunden: "' + newPdfSearchText.substring(0, 40) + '"', 'error');
                         console.log('[Neues PDF] Nicht gefunden:', newPdfSearchText);
@@ -1828,9 +1831,9 @@
                 });
                 let foundLength = searchText.length;
                 
-                // Startposition für Suche: Bei Vorwärts-Navigation ab letzter Position, sonst vom Anfang
-                const searchStartPos = (searchDirectionForward && lastInsertedMarkerPosition > 0) ? lastInsertedMarkerPosition : 0;
-                console.log('FAST: Suche ab Position:', searchStartPos, '(Richtung:', searchDirectionForward ? 'vorwärts' : 'rückwärts', ')');
+                // Startposition für Suche: Immer nur stromabwärts ab letztem Marker
+                const searchStartPos = lastInsertedMarkerPosition > 0 ? lastInsertedMarkerPosition : 0;
+                console.log('Suche ab Position:', searchStartPos, '(nur stromabwärts)');
                 
                 // Kürze den Text ab der Startposition für die Suche
                 const markdownTextForSearch = searchStartPos > 0 ? markdownText.substring(searchStartPos) : markdownText;
@@ -2841,26 +2844,26 @@
                         }
                     }
                     
-                    // Fallback 2: Fuzzy Matching
+                    // Fallback 2: Fuzzy Matching (nur stromabwärts)
                     if (searchIndex === -1 && (performance.now() - startTime) < MAX_SEARCH_TIME) {
                         console.log('OCR-Korrektur fehlgeschlagen, versuche Fuzzy Matching...');
                         try {
-                            // Für Fuzzy-Suche: Verwende nur ersten Teil des Textes wenn zu groß
-                            const fuzzyText = markdownText.length > 50000 ? markdownText.substring(0, 50000) : markdownText;
+                            // Für Fuzzy-Suche: Verwende markdownTextForSearch (ab searchStartPos), nicht den vollen Text
+                            const fuzzyText = markdownTextForSearch.length > 50000 ? markdownTextForSearch.substring(0, 50000) : markdownTextForSearch;
                             const fuzzyMatch = fuzzySearchInMarkdown(fuzzyText, searchText, 0.60); // 60% Ähnlichkeit (gesenkt)
                             
                             if (fuzzyMatch) {
                                 searchIndex = fuzzyMatch.index;
                                 foundLength = fuzzyMatch.length || searchText.length;
                                 useNormalizedSearch = true; // Fuzzy-Suche verwendet normalisierten Text
-                                console.log(`Fuzzy Match gefunden:`, {
+                                console.log(`Fuzzy Match gefunden (stromabwärts):`, {
                                     similarity: (fuzzyMatch.similarity * 100).toFixed(1) + '%',
                                     foundText: fuzzyMatch.text,
                                     searchText: normalizedSearch
                                 });
                                 showNotification(`Fuzzy Match gefunden (${(fuzzyMatch.similarity * 100).toFixed(0)}% Ähnlichkeit)`);
                             } else {
-                                console.log('Auch Fuzzy Matching hat nichts gefunden');
+                                console.log('Auch Fuzzy Matching hat nichts gefunden (stromabwärts)');
                             }
                         } catch (e) {
                             console.error('Fehler bei Fuzzy-Suche:', e);
@@ -2934,9 +2937,11 @@
                 });
 
                 // Markiere die gefundene Stelle im Markdown
-                highlightTextInMarkdown(foundPosition, foundLength, searchText, shouldAutoOpenDialog);
+                const highlighted = highlightTextInMarkdown(foundPosition, foundLength, searchText, shouldAutoOpenDialog);
                 
-                showNotification('Text gefunden und markiert: "' + searchText + '"');
+                if (highlighted !== false) {
+                    showNotification('Text gefunden und markiert: "' + searchText + '"');
+                }
 
             } catch (error) {
                 console.error('Fehler beim Extrahieren von PDF-Text:', error);
@@ -2945,9 +2950,21 @@
         }
 
         // Markiert Text im gerenderten Markdown
+        // Gibt false zurück wenn der Treffer abgelehnt wurde (z.B. stromaufwärts)
         function highlightTextInMarkdown(position, length, searchText, shouldAutoOpenDialog = false) {
             const contentEl = document.getElementById('content');
-            if (!contentEl) return;
+            if (!contentEl) return false;
+
+            // Sicherheitsprüfung: Stromaufwärts-Treffer ablehnen
+            if (lastInsertedMarkerPosition > 0 && position < lastInsertedMarkerPosition) {
+                console.log('[highlightTextInMarkdown] Treffer abgelehnt: Position', position, 'liegt vor letztem Marker', lastInsertedMarkerPosition);
+                showNotification('Kein Treffer stromabwärts', 'warning');
+                return false;
+            }
+
+            // Scroll-Position speichern (DOM-Operationen können Browser-Scroll auslösen)
+            const scrollParent = contentEl.closest('.content') || contentEl.parentElement;
+            const savedScrollTop = scrollParent ? scrollParent.scrollTop : 0;
 
             // Entferne vorherige Markierungen
             const existingHighlights = contentEl.querySelectorAll('.pdf-search-highlight');
@@ -2956,6 +2973,9 @@
                 parent.replaceChild(document.createTextNode(el.textContent), el);
                 parent.normalize();
             });
+            
+            // Scroll-Position sofort wiederherstellen nach DOM-Änderungen
+            if (scrollParent) scrollParent.scrollTop = savedScrollTop;
 
             // EINFACHER DIREKTER ANSATZ:
             // Suche den searchText (aus dem PDF) direkt im DOM-Text
@@ -3037,15 +3057,51 @@
             
             const fullTextLower = fullText.toLowerCase();
             
+            // Berechne die minimale DOM-Startposition für stromabwärts-Suche
+            // Schätze die DOM-Position basierend auf dem Verhältnis Markdown→DOM
+            let minDomSearchPos = 0;
+            if (lastInsertedMarkerPosition > 0 && currentContent.length > 0) {
+                // Schätze DOM-Position proportional zur Markdown-Position (mit 10% Sicherheitsmarge)
+                minDomSearchPos = Math.max(0, Math.floor((lastInsertedMarkerPosition / currentContent.length) * fullText.length * 0.9));
+                console.log('[highlightTextInMarkdown] Minimale DOM-Suchposition:', minDomSearchPos, '(von', fullText.length, ')');
+            }
+            
+            // Hilfsfunktion: Finde den nächsten Treffer ab einer Mindestposition
+            const findFromPosition = (text, search, minPos) => {
+                // Finde ALLE Vorkommen
+                const indices = [];
+                let pos = 0;
+                while ((pos = text.indexOf(search, pos)) !== -1) {
+                    indices.push(pos);
+                    pos++;
+                }
+                if (indices.length === 0) return -1;
+                
+                // Filtere auf stromabwärts (>= minPos) wenn möglich
+                const downstreamIndices = indices.filter(i => i >= minPos);
+                if (downstreamIndices.length > 0) {
+                    return downstreamIndices[0]; // Ersten stromabwärts-Treffer nehmen
+                }
+                
+                // Kein stromabwärts-Treffer: Wenn kein Marker gesetzt ist, nimm den ersten
+                if (lastInsertedMarkerPosition <= 0) {
+                    return indices[0];
+                }
+                
+                // Marker gesetzt, aber kein stromabwärts-Treffer: -1 zurückgeben
+                console.log('[highlightTextInMarkdown] Nur stromaufwärts-Treffer gefunden, ignoriert');
+                return -1;
+            };
+            
             // WICHTIG: Nur die ersten 4 Wörter verwenden (wie bei der Suche)
             let searchTextToUse = getFirstWords(textAtMarkdownPosition, 4).toLowerCase();
-            let directIndex = fullTextLower.indexOf(searchTextToUse);
+            let directIndex = findFromPosition(fullTextLower, searchTextToUse, minDomSearchPos);
             
             // Fallback: weniger Wörter (aber maximal 4)
             if (directIndex === -1) {
                 for (let wordCount = 3; wordCount >= 2; wordCount--) {
                     searchTextToUse = getFirstWords(textAtMarkdownPosition, wordCount).toLowerCase();
-                    directIndex = fullTextLower.indexOf(searchTextToUse);
+                    directIndex = findFromPosition(fullTextLower, searchTextToUse, minDomSearchPos);
                     if (directIndex !== -1) {
                         console.log(`Gefunden mit ${wordCount} Wörtern`);
                         break;
@@ -3059,7 +3115,7 @@
             // Letzter Fallback: Suche den PDF-Text direkt (nur 4 Wörter)
             if (directIndex === -1) {
                 searchTextToUse = getFirstWords(searchText, 4).toLowerCase();
-                directIndex = fullTextLower.indexOf(searchTextToUse);
+                directIndex = findFromPosition(fullTextLower, searchTextToUse, minDomSearchPos);
                 if (directIndex !== -1) {
                     console.log('Fallback: PDF-Text direkt gefunden (4 Wörter)');
                 }
@@ -3216,12 +3272,29 @@
                                 const markdownText = currentContent;
                                 insertMarkerPosition = getMarkdownPositionFromDOM(contentEl, firstTextNode, 0);
                                 
-                                // Scroll zum Absatz
-                                nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                // Scroll-Position nach DOM-Änderungen wiederherstellen
+                                if (scrollParent) scrollParent.scrollTop = savedScrollTop;
+                                
+                                // Scroll zum Absatz (nur wenn stromabwärts erlaubt)
+                                let allowHeadingScroll = true;
+                                if (!newPdfMode && lastInsertedMarkerPosition > 0) {
+                                    if (position < lastInsertedMarkerPosition) {
+                                        allowHeadingScroll = false;
+                                    } else {
+                                        const textBetween = currentContent.substring(lastInsertedMarkerPosition, position);
+                                        const wc = textBetween.split(/\s+/).filter(w => w.length > 0).length;
+                                        if (wc > 500) allowHeadingScroll = false;
+                                    }
+                                }
+                                if (allowHeadingScroll) {
+                                    nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
                                 
                                 // Stelle sicher, dass das Content-Element fokussiert ist
                                 if (document.activeElement !== contentEl) {
                                     contentEl.focus();
+                                    // focus() kann Scroll auslösen - wiederherstellen wenn nicht erlaubt
+                                    if (!allowHeadingScroll && scrollParent) scrollParent.scrollTop = savedScrollTop;
                                 }
                                 
                                 // Wenn Fast-Modus aktiv ist und Flag gesetzt war, öffne automatisch das Insert-Dialog
@@ -3251,6 +3324,9 @@
                         highlightSpan.appendChild(contents);
                         range.insertNode(highlightSpan);
                     }
+                    
+                    // Scroll-Position nach DOM-Änderungen sofort wiederherstellen
+                    if (scrollParent) scrollParent.scrollTop = savedScrollTop;
                     
                     // Scrolle zur Markierung (nur wenn erlaubt)
                     // Im newPdfMode: IMMER scrollen (Benutzer hat explizit gesucht)
@@ -3283,9 +3359,14 @@
                     selection.removeAllRanges();
                     selection.addRange(newRange);
                     
+                    // selection.addRange kann Browser-Scroll auslösen - wiederherstellen wenn nicht erlaubt
+                    if (!allowScroll && scrollParent) scrollParent.scrollTop = savedScrollTop;
+                    
                     // WICHTIG: Stelle sicher, dass das Content-Element fokussiert ist, damit Alt+Q funktioniert
                     if (document.activeElement !== contentEl) {
                         contentEl.focus();
+                        // focus() kann Scroll auslösen - wiederherstellen wenn nicht erlaubt
+                        if (!allowScroll && scrollParent) scrollParent.scrollTop = savedScrollTop;
                     }
                     
                     // Speichere Position für Marker-Einfügung (am Anfang des gefundenen Textes)
@@ -3551,6 +3632,12 @@
             const contentEl = document.getElementById('content');
             if (!contentEl || !currentContent) return;
             
+            // Scroll-Position des linken Fensters speichern
+            // Falls kein gültiger stromabwärts-Treffer gefunden wird, wird sie wiederhergestellt
+            const scrollParent = contentEl.closest('.content') || contentEl.parentElement;
+            const savedScrollTop = scrollParent ? scrollParent.scrollTop : 0;
+            console.log('[MD-Vorlage] Scroll-Position gespeichert:', savedScrollTop);
+            
             // Normalisierungsfunktion (wie bei PDF-Suche)
             const normalizeForSearch = (text) => {
                 let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
@@ -3563,10 +3650,10 @@
             const totalLength = currentContent.length;
             let minSearchPosition = 0;
             
-            if (seriesModeEnabled && lastInsertedMarkerPosition > 0) {
-                // Serie-Modus: Suche ab letzter eingefügter Position
+            if (lastInsertedMarkerPosition > 0) {
+                // Immer nur stromabwärts suchen: ab letzter eingefügter Marker-Position
                 minSearchPosition = lastInsertedMarkerPosition;
-                console.log(`[MD-Vorlage] Serie-Modus: Suche ab Position ${minSearchPosition}`);
+                console.log(`[MD-Vorlage] Suche nur stromabwärts ab Position ${minSearchPosition} (letzter Marker)`);
             }
             
             const expectedPosition = totalMdPages > 0 ? 
@@ -3770,14 +3857,16 @@
                 }
             }
             
-            // Strategie 3: Fuzzy-Suche
+            // Strategie 3: Fuzzy-Suche (nur stromabwärts)
             if (searchIndex === -1 && typeof fuzzySearchInMarkdown === 'function') {
                 console.log('[MD-Vorlage] Versuche Fuzzy-Suche...');
                 const fuzzyMatch = fuzzySearchInMarkdown(markdownText, searchText, 0.60);
-                if (fuzzyMatch) {
+                if (fuzzyMatch && fuzzyMatch.index >= minSearchPosition) {
                     searchIndex = fuzzyMatch.index;
                     foundLength = fuzzyMatch.length || searchText.length;
                     console.log(`[MD-Vorlage] Fuzzy Match gefunden: ${(fuzzyMatch.similarity * 100).toFixed(0)}%`);
+                } else if (fuzzyMatch) {
+                    console.log(`[MD-Vorlage] Fuzzy Match ignoriert: Position ${fuzzyMatch.index} liegt vor letztem Marker (${minSearchPosition})`);
                 }
             }
             
@@ -3801,6 +3890,11 @@
             } else {
                 console.log('[MD-Vorlage] Text nicht gefunden');
                 showNotification('Text nicht gefunden im linken Fenster', 'warning');
+                // Scroll-Position wiederherstellen (kein Treffer → nicht scrollen)
+                if (scrollParent && savedScrollTop > 0) {
+                    scrollParent.scrollTop = savedScrollTop;
+                    console.log('[MD-Vorlage] Scroll-Position wiederhergestellt:', savedScrollTop);
+                }
             }
         }
         
@@ -3820,12 +3914,13 @@
                 // Wenn keine vorherige Position bekannt ist, erlaube Scrolling
                 if (lastInsertedMarkerPosition <= 0) return true;
                 
-                // Stromaufwärts (Zielposition < aktuelle Position): NICHT scrollen
+                // Stromaufwärts (Zielposition < aktuelle Position): Komplett ablehnen
                 if (position < lastInsertedMarkerPosition) {
-                    console.log('[MD-Vorlage] Scrolling verhindert: Ziel stromaufwärts', {
+                    console.log('[MD-Vorlage] Treffer abgelehnt: Ziel stromaufwärts', {
                         ziel: position,
                         aktuell: lastInsertedMarkerPosition
                     });
+                    showNotification('Kein Treffer stromabwärts', 'warning');
                     return false;
                 }
                 
@@ -3852,8 +3947,15 @@
             
             const scrollAllowed = shouldScroll();
             
-            // Setze globale Variable für highlightCurrentMatch
-            scrollingDisabledForSearch = !scrollAllowed;
+            // WICHTIG: IMMER scrollingDisabledForSearch auf true setzen BEVOR performMdSearch aufgerufen wird!
+            // performMdSearch → highlightCurrentMatch scrollt sonst zum ERSTEN Treffer (könnte stromaufwärts sein)
+            // Das eigentliche Scrolling zum richtigen Treffer passiert im setTimeout unten.
+            scrollingDisabledForSearch = true;
+            
+            // Scroll-Position VOR performMdSearch speichern
+            // performMdSearch/clearMdSearchHighlights modifiziert das DOM, was Browser-Scroll auslösen kann
+            const scrollParent = contentEl.closest('.content') || contentEl.parentElement;
+            const savedScrollBeforeSearch = scrollParent ? scrollParent.scrollTop : 0;
             
             // Verwende performMdSearch für Highlighting, dann scrolle zum richtigen Match
             const foundText = currentContent.substring(position, position + Math.min(200, currentContent.length - position));
@@ -3864,12 +3966,23 @@
                 // ENTFERNT: Keine ß→ss Transformation mehr
                 mdSearchInput.value = searchWords;
                 
-                // Suche durchführen für Highlighting
+                // Suche durchführen für Highlighting (scrollingDisabledForSearch ist true, kein Auto-Scroll!)
                 if (typeof performMdSearch === 'function') {
                     performMdSearch();
                     
+                    // SOFORT Scroll-Position wiederherstellen (performMdSearch/DOM-Änderungen können Scroll auslösen)
+                    if (scrollParent) {
+                        scrollParent.scrollTop = savedScrollBeforeSearch;
+                    }
+                    
                     // Nach dem Highlighting: Finde das Highlight, das NACH der Position kommt
+                    // Hier steuern wir das Scrolling selbst zum RICHTIGEN Treffer
                     setTimeout(() => {
+                        // Erst nochmal Scroll-Position wiederherstellen (Browser könnte zwischenzeitlich gescrollt haben)
+                        if (scrollParent && !scrollAllowed) {
+                            scrollParent.scrollTop = savedScrollBeforeSearch;
+                        }
+                        
                         const allHighlights = contentEl.querySelectorAll('.search-highlight');
                         let targetHighlight = null;
                         
@@ -3883,10 +3996,8 @@
                             }
                         }
                         
-                        // Falls kein Highlight nach Position gefunden, nimm das erste
-                        if (!targetHighlight && allHighlights.length > 0) {
-                            targetHighlight = allHighlights[0];
-                        }
+                        // KEIN Fallback auf erstes Highlight - das wäre stromaufwärts!
+                        // Wenn kein passendes Highlight gefunden, nicht scrollen.
                         
                         if (targetHighlight) {
                             targetHighlight.classList.add('current');
@@ -3894,18 +4005,25 @@
                             if (scrollAllowed) {
                                 scrollToElementInstantly(targetHighlight, 'center');
                             }
-                        } else if (scrollAllowed) {
-                            // Fallback: Scrolle basierend auf Zeilenanzahl (nur wenn erlaubt)
-                            const textBefore = currentContent.substring(0, position);
-                            const lineCount = (textBefore.match(/\n/g) || []).length;
-                            contentEl.scrollTop = Math.max(0, lineCount * 20 - 200);
                         }
+                        
+                        // Wenn nicht gescrollt werden soll, Position endgültig wiederherstellen
+                        if (!scrollAllowed && scrollParent) {
+                            scrollParent.scrollTop = savedScrollBeforeSearch;
+                        }
+                        
+                        // Scrolling-Sperre aufheben
+                        scrollingDisabledForSearch = false;
                     }, 150);
                 }
             }
             
             // Fokussiere das Content-Element, damit Alt+Q funktioniert
             contentEl.focus();
+            // focus() kann Browser-Scroll auslösen - sofort wiederherstellen wenn nicht erlaubt
+            if (!scrollAllowed && scrollParent) {
+                scrollParent.scrollTop = savedScrollBeforeSearch;
+            }
         }
         
         function toggleMdSearch() {

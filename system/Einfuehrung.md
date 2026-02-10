@@ -43,4 +43,4 @@ Wenn Sie sich als <a href="members.html" target="_blank" rel="noopener noreferre
 
 **Fehler & Rückmeldung**
 
-Bitte teilen Sie uns mit, falls Sie fehlerhafte Funktionen finden (hueck@akanthos-akademie.de). **Schreibfehler** bitte markieren und mit strg+klick speichern. Auch über eine allgemeine Rückmeldung freuen wir uns.
+Bitte teilen Sie uns mit, falls Sie fehlerhafte Funktionen finden (hueck@akanthos-akademie.de). Schreibfehler bitte mit alt+markieren speichern. Auch über eine allgemeine Rückmeldung freuen wir uns.

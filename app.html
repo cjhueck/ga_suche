@@ -12161,8 +12161,13 @@ function normalizeGANumber(gaNumber) {
         }
         setTimeout(() => tryInitThematic2(), 50);
         
-        // IMMER Timeline-Filter neu initialisieren
+        // Timeline-Filter neu initialisieren
+        // NICHT neu initialisieren, wenn eine Keyword-Navigation aktiv ist
         setTimeout(function() {
+          if (showingSearchResultsTimeline) {
+            console.log('[THEMATIC2] Filter-Reinitialisierung übersprungen (Keyword-Suche aktiv)');
+            return;
+          }
           // Lade Themes für Dropdown
           if (typeof loadTimelineThemes === 'function') {
             loadTimelineThemes();
@@ -19027,6 +19032,10 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
     timelineBackToLeftPanel = resultsContainer.innerHTML;
   }
   
+  // Markiere sofort, dass eine Keyword-Suche aktiv wird
+  // (verhindert, dass der 300ms-Timer in switchTabExtended die Dropdowns zurücksetzt)
+  showingSearchResultsTimeline = true;
+  
   // Wechsle zum Themen-Tab (Timeline-Tab wurde entfernt)
   timelinePendingKeyword = keyword;
   switchTab('thematic2');
@@ -19040,13 +19049,35 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
   if (keywordToSet) {
     console.log('[NAVIGATE-TIMELINE] Führe Suche aus für:', keywordToSet);
     
-    // Setze Keyword im Dropdown (falls vorhanden)
+    // 1. Themen-Optionen im Dropdown laden (da die Timer übersprungen werden)
+    await loadTimelineThemes();
+    
+    // 2. Finde und setze das zugehörige Thema im Themen-Dropdown
+    await setThemeForKeyword(keywordToSet);
+    
+    // 3. Lade die Keywords für das gesetzte Thema, damit die Option im Dropdown existiert
+    const themeSelect = document.getElementById('timelineThemeFilterAdmin');
+    const selectedTheme = themeSelect ? themeSelect.value : '';
+    await loadKeywordsForTheme(selectedTheme);
+    
+    // 4. Setze Keyword im Dropdown (jetzt sind die Optionen geladen)
     const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
     if (keywordDropdown) {
       keywordDropdown.value = keywordToSet;
+      // Falls Keyword nicht in der Liste gefunden wurde (z.B. kein Thema zugeordnet),
+      // versuche alle Keywords zu laden
+      if (keywordDropdown.value !== keywordToSet && selectedTheme) {
+        console.log('[NAVIGATE-TIMELINE] Keyword nicht im Thema gefunden, lade alle Keywords');
+        await loadKeywordsForTheme('');
+        keywordDropdown.value = keywordToSet;
+        // Theme-Dropdown zurücksetzen, da Keyword nicht zum Thema gehört
+        if (keywordDropdown.value !== keywordToSet && themeSelect) {
+          themeSelect.value = '';
+        }
+      }
     }
     
-    // Führe direkt die Timeline-Suche aus (zuverlässiger als Dropdown-Logik)
+    // 5. Führe direkt die Timeline-Suche aus (zuverlässiger als Dropdown-Logik)
     showingSearchResultsTimeline = true;
     await showKeywordSearchInTimeline(keywordToSet);
     
@@ -34990,8 +35021,13 @@ function switchTabExtended(mode) {
       }
       
       // Initialisiere Timeline-Filter (Dropdowns und Statistik)
+      // NICHT neu initialisieren, wenn eine Keyword-Navigation aktiv ist
       requestAnimationFrame(function() {
         setTimeout(function() {
+          if (showingSearchResultsTimeline) {
+            console.log('[THEMATIC2-INIT] Filter-Reinitialisierung übersprungen (Keyword-Suche aktiv)');
+            return;
+          }
           // Lade Themes für Dropdown
           if (typeof loadTimelineThemes === 'function') {
             loadTimelineThemes();
@@ -35225,7 +35261,13 @@ function switchTabExtended(mode) {
     tryInitThematic2();
     
     // 8. Timeline-Filter neu initialisieren
+    // NICHT neu initialisieren, wenn eine Keyword-Navigation aktiv ist
+    // (navigateToTimelineKeyword setzt showingSearchResultsTimeline = true VOR switchTab)
     setTimeout(function() {
+      if (showingSearchResultsTimeline) {
+        console.log('[THEMATIC2-EXT] Filter-Reinitialisierung übersprungen (Keyword-Suche aktiv)');
+        return;
+      }
       if (typeof loadTimelineThemes === 'function') {
         loadTimelineThemes();
       }
@@ -38787,6 +38829,178 @@ if (document.readyState === 'loading') {
 }
 </script>
 
+<script>
+// Quellenangabe beim Kopieren von Text anhängen
+// Funktioniert in allen Tabs: Texte, Suche, Themen, Abfrage, Index
+// Format: (Titel, GA XXX, Verlagsort Jahr, S. XX)
+document.addEventListener('DOMContentLoaded', function() {
+  // Bibliographische Daten vorladen, damit sie beim Kopieren sofort verfügbar sind
+  if (typeof loadGABibliographyData === 'function') {
+    loadGABibliographyData();
+  }
+  
+  // Relevante Container-IDs, in denen Text mit Quellenangabe kopiert werden soll
+  const containerIds = ['viewer', 'results', 'summary-panel'];
+  
+  document.addEventListener('copy', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+    
+    const selectedText = selection.toString().trim();
+    // Nur bei substantiellem Text (mindestens 10 Zeichen)
+    if (!selectedText || selectedText.length < 10) return;
+    
+    // Prüfe ob die Selektion in einem relevanten Container liegt
+    const commonAncestor = selection.getRangeAt(0).commonAncestorContainer;
+    let container = null;
+    for (const id of containerIds) {
+      const el = document.getElementById(id);
+      if (el && el.contains(commonAncestor)) {
+        container = el;
+        break;
+      }
+    }
+    if (!container) return; // Selektion nicht in einem relevanten Bereich
+    
+    // GA-Nummer ermitteln: primär currentGANumber, alternativ aus dem DOM extrahieren
+    let gaNumber = null;
+    
+    // 1. Verwende currentGANumber (wird beim Laden eines Vortrags/Buchs gesetzt)
+    if (typeof currentGANumber !== 'undefined' && currentGANumber) {
+      gaNumber = currentGANumber;
+    }
+    
+    // 2. Fallback: GA-Nummer aus dem nächsten Ergebnis-Element extrahieren
+    //    (z.B. in Suchergebnissen oder Timeline, wo jedes Ergebnis eine eigene GA hat)
+    if (!gaNumber) {
+      const nearestLink = commonAncestor.nodeType === 1 
+        ? commonAncestor.querySelector('a[onclick*="showLecture"]') 
+        : null;
+      const parentWithGA = commonAncestor.nodeType === 1 
+        ? commonAncestor 
+        : commonAncestor.parentElement;
+      if (parentWithGA) {
+        // Suche nach GA-Nummer in onclick-Attributen oder data-Attributen
+        const gaEl = parentWithGA.closest('[onclick*="GA"]') || 
+                     parentWithGA.querySelector('[onclick*="GA"]');
+        if (gaEl) {
+          const onclickMatch = gaEl.getAttribute('onclick')?.match(/(GA\d{1,3}[a-z]?)/i);
+          if (onclickMatch) gaNumber = onclickMatch[1];
+        }
+      }
+      // Fallback: GA-Nummer aus Dokumenttitel extrahieren
+      if (!gaNumber) {
+        const docTitle = document.getElementById('document-title');
+        if (docTitle) {
+          const titleMatch = docTitle.textContent.match(/(GA\s*\d{1,3}[a-z]?)/i);
+          if (titleMatch) gaNumber = titleMatch[1].replace(/\s+/g, '');
+        }
+      }
+    }
+    
+    if (!gaNumber) return; // Keine GA-Nummer ermittelbar
+    
+    // Verwende gecachte bibliographische Daten (synchron, da copy-Event synchron sein muss)
+    if (typeof gaBibliographyData === 'undefined' || !gaBibliographyData) return;
+    
+    const normalizedGA = normalizeGANumber(gaNumber);
+    const gaInfo = gaBibliographyData[normalizedGA];
+    if (!gaInfo) return;
+    
+    // Finde die nächste Seitenzahl VOR einem DOM-Knoten (rückwärts durch DOM laufen)
+    function findNearestPageBefore(node) {
+      let current = node;
+      while (current && current !== container) {
+        let sibling = current.previousSibling;
+        while (sibling) {
+          if (sibling.nodeType === 1) { // Element-Knoten
+            // Direkt ein Seitenmarker?
+            if (sibling.classList && sibling.classList.contains('page-break-container')) {
+              const numEl = sibling.querySelector('.page-break-num');
+              if (numEl) return parseInt(numEl.textContent.trim());
+            }
+            // Seitenmarker in Kindelementen suchen (letzten nehmen)
+            const pageBreaks = sibling.querySelectorAll('.page-break-container .page-break-num');
+            if (pageBreaks.length > 0) {
+              return parseInt(pageBreaks[pageBreaks.length - 1].textContent.trim());
+            }
+          }
+          sibling = sibling.previousSibling;
+        }
+        current = current.parentNode;
+      }
+      return null;
+    }
+    
+    // Seitenzahlen am Anfang und Ende der Selektion ermitteln
+    let startPage = null;
+    let endPage = null;
+    
+    const range = selection.getRangeAt(0);
+    startPage = findNearestPageBefore(range.startContainer);
+    endPage = findNearestPageBefore(range.endContainer);
+    
+    // Seitenzahlen sortieren (falls nötig)
+    if (startPage && endPage && startPage > endPage) {
+      const temp = startPage;
+      startPage = endPage;
+      endPage = temp;
+    }
+    
+    // Quellenangabe erstellen
+    const title = gaInfo.title || '';
+    // GA-Nummer ohne führende Nullen (z.B. "GA004" -> "GA 4", "GA070a" -> "GA 70a")
+    const gaMatch = normalizedGA.match(/^GA(\d+)(.*)$/i);
+    const gaNum = gaMatch ? parseInt(gaMatch[1]) : normalizedGA.replace(/^GA/i, '');
+    const gaSuffix = gaMatch ? gaMatch[2] : '';
+    const gaLabel = `GA ${gaNum}${gaSuffix}`;
+    const place = gaInfo.place || '';
+    const year = gaInfo.year || '';
+    
+    let citation = `(${title}, ${gaLabel}`;
+    if (place && year) {
+      citation += `, ${place} ${year}`;
+    } else if (place) {
+      citation += `, ${place}`;
+    } else if (year) {
+      citation += `, ${year}`;
+    }
+    
+    // Seitenangabe hinzufügen
+    if (startPage && !isNaN(startPage)) {
+      if (endPage && !isNaN(endPage) && endPage !== startPage) {
+        citation += `, S.\u00A0${startPage}\u2013${endPage}`;
+      } else {
+        citation += `, S.\u00A0${startPage}`;
+      }
+    }
+    
+    citation += ')';
+    
+    // Clipboard modifizieren
+    e.preventDefault();
+    const plainText = selectedText + '\n' + citation;
+    
+    // HTML-Version: Formatierung beibehalten, Seitenmarker aus kopiertem Inhalt entfernen
+    let htmlContent = '';
+    const fragment = range.cloneContents();
+    const div = document.createElement('div');
+    div.appendChild(fragment);
+    // Seitenmarker-Elemente entfernen (sind im DOM, aber nicht selektierbar)
+    div.querySelectorAll('.page-break-container').forEach(el => el.remove());
+    const escapedCitation = citation.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    htmlContent = div.innerHTML + '<br><span style="font-size: 0.9em; color: #666;">' + escapedCitation + '</span>';
+    
+    e.clipboardData.setData('text/plain', plainText);
+    if (htmlContent) {
+      e.clipboardData.setData('text/html', htmlContent);
+    }
+    
+    console.log('[COPY] Quellenangabe angehängt:', citation, '(Container:', container.id, ')');
+  });
+});
+</script>
+
 <!-- Help Modal -->
 <div id="helpModal" class="help-modal">
   <div class="help-modal-content">
@@ -38816,6 +39030,7 @@ if (document.readyState === 'loading') {
           <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.6; color: var(--text-color, #333);">
             <li><strong>Strg+Klick:</strong> Kurzinformation</li>
             <li><strong>Strg+F:</strong> Suchen im Haupt-Textfenster</li>
+            <li><strong>Strg+C/V:</strong> Copy/Paste mit Quellenangabe</li>
             <li><strong>Alt+Klick</strong> (im Text): Rechtschreibfehler markieren</li>
             <li><strong>Text markieren+Rechtsklick:</strong> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)</li>
           </ul>
@@ -40901,7 +41116,10 @@ window.switchTab = function(tabName) {
     }
   } else {
     // Bei Tab-Wechsel weg von Timeline: Reset Flag
-    showingSearchResultsTimeline = false;
+    // Aber NICHT wenn eine Keyword-Navigation zum Themen-Tab gerade läuft
+    if (!timelinePendingKeyword) {
+      showingSearchResultsTimeline = false;
+    }
   }
   
   // Load quotes when zitate tab is opened
@@ -45280,7 +45498,7 @@ async function addKeywordToLecture() {
     'site-header': '<strong>Kopfbereich:</strong> Logo und Schnellzugriff auf Einstellungen.',
     'site-logo': '<strong>Steiner-Portrait:</strong> Rudolf Steiner (1861–1925), Begründer der Anthroposophie.',
     'site-title': '<strong>Titel:</strong> Klick führt zur Startseite zurück.',
-    'help-button': '<strong>Tastenkombinationen:</strong><p style="margin: 0.5em 0 0 0;">• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Strg+F:</b> Suchen im Haupt-Textfenster<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)',
+    'help-button': '<strong>Tastenkombinationen:</strong><p style="margin: 0.5em 0 0 0;">• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Strg+F:</b> Suchen im Haupt-Textfenster<br>• <b>Strg+C/V:</b> Copy/Paste mit Quellenangabe<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)',
     // Viewer-Bereich
     'viewer-header': '<strong>Viewer-Kopfzeile:</strong> Dokumenttitel und Steuerungsbuttons.',
     'viewer-buttons': '<strong>Viewer-Buttons:</strong> Aktionen für das aktuelle Dokument – Übersicht, Download, Mitgliederbereich.',
