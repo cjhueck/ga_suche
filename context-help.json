@@ -63,7 +63,7 @@
         "site-header": "Kopfbereich: Logo und Schnellzugriff auf Einstellungen.",
         "site-logo": "Rudolf Steiner (1861–1925), Begründer der Anthroposophie.",
         "site-title": "Titel: Klick führt zur Startseite zurück.",
-        "help-button": "Tastenkombinationen:<br>• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)"
+        "help-button": "Tastenkombinationen:<br>• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Strg+F:</b> Suchen im Haupt-Textfenster<br>• <b>Strg+C/V:</b> Copy/Paste mit Quellenangabe<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)"
     },
     "viewer-bereich": {
         "viewer-header": "Kopfzeile: Dokumenttitel und Steuerungsbuttons.",
