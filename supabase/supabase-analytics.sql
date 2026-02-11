@@ -20,13 +20,13 @@ CREATE TABLE IF NOT EXISTS public.analytics_daily (
 -- Index für schnelle Datum-Abfragen
 CREATE INDEX IF NOT EXISTS idx_analytics_daily_date ON public.analytics_daily(date DESC);
 
--- RLS DEAKTIVIEREN für anonymen Zugriff (Backend schreibt ohne Auth)
-ALTER TABLE public.analytics_daily DISABLE ROW LEVEL SECURITY;
+-- RLS aktivieren (Supabase Best Practice)
+ALTER TABLE public.analytics_daily ENABLE ROW LEVEL SECURITY;
 
--- Alternativ: Policy für anonymen Zugriff (falls RLS aktiviert bleiben soll)
--- CREATE POLICY "Allow anonymous read" ON public.analytics_daily FOR SELECT USING (true);
--- CREATE POLICY "Allow anonymous insert" ON public.analytics_daily FOR INSERT WITH CHECK (true);
--- CREATE POLICY "Allow anonymous update" ON public.analytics_daily FOR UPDATE USING (true);
+-- Lesezugriff für anon-Rolle erlauben (Backend liest mit anon key)
+CREATE POLICY "Allow anonymous read" ON public.analytics_daily FOR SELECT USING (true);
+
+-- Schreibzugriffe laufen über SECURITY DEFINER Funktionen (umgehen RLS automatisch)
 
 
 -- ============================================
@@ -46,8 +46,11 @@ INSERT INTO public.analytics_totals (id, total_views, total_searches, total_lect
 VALUES (1, 0, 0, 0)
 ON CONFLICT (id) DO NOTHING;
 
--- RLS deaktivieren
-ALTER TABLE public.analytics_totals DISABLE ROW LEVEL SECURITY;
+-- RLS aktivieren (Supabase Best Practice)
+ALTER TABLE public.analytics_totals ENABLE ROW LEVEL SECURITY;
+
+-- Lesezugriff für anon-Rolle erlauben (Backend liest mit anon key)
+CREATE POLICY "Allow anonymous read" ON public.analytics_totals FOR SELECT USING (true);
 
 
 -- ============================================
@@ -143,8 +146,10 @@ CREATE TABLE IF NOT EXISTS public.analytics_visitors (
 CREATE INDEX IF NOT EXISTS idx_analytics_visitors_date ON public.analytics_visitors(date DESC);
 CREATE INDEX IF NOT EXISTS idx_analytics_visitors_visitor ON public.analytics_visitors(visitor_id);
 
--- RLS deaktivieren
-ALTER TABLE public.analytics_visitors DISABLE ROW LEVEL SECURITY;
+-- RLS aktivieren (Supabase Best Practice)
+ALTER TABLE public.analytics_visitors ENABLE ROW LEVEL SECURITY;
+
+-- Kein direkter Zugriff nötig - alle Operationen laufen über SECURITY DEFINER Funktionen
 
 -- Spalte unique_users zu analytics_daily hinzufügen (falls noch nicht vorhanden)
 ALTER TABLE public.analytics_daily ADD COLUMN IF NOT EXISTS unique_users INTEGER DEFAULT 0;
