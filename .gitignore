@@ -26,6 +26,10 @@ __pycache__/
 *.tmp
 *-with-pagebreaks.json
 
+# PDF caches
+Steiner_GA_pdf_cache/
+wp-pdf-url-cache.json
+
 # Node modules (if any)
 node_modules/
 
