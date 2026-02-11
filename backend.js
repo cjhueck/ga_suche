@@ -209,7 +209,16 @@ app.use('/system', express.static(path.join(__dirname, 'system')));
 // ============================================================================
 // PDF-PROXY: PDFs von WordPress laden und weiterleiten (umgeht CORS)
 // ============================================================================
-const PDF_SOURCE_URL = 'https://akanthosakademie.files.wordpress.com/2023/06/';
+// WordPress PDF-URLs: Mehrere Basis-URLs, da PDFs zu verschiedenen Zeiten hochgeladen wurden
+// Reihenfolge: häufigste zuerst (Performance-Optimierung)
+const PDF_SOURCE_URLS = [
+  'https://akanthosakademie.files.wordpress.com/2023/06/',
+  'https://akanthosakademie.wordpress.com/wp-content/uploads/2023/06/',
+  'https://akanthosakademie.wordpress.com/wp-content/uploads/2026/02/',
+  'https://akanthosakademie.files.wordpress.com/2026/02/',
+  'https://akanthosakademie.wordpress.com/wp-content/uploads/2025/01/',
+  'https://akanthosakademie.files.wordpress.com/2025/01/',
+];
 
 app.get('/api/pdf/:gaNumber', async (req, res) => {
   try {
@@ -286,29 +295,45 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
     }
     
     // SCHRITT 2: Fallback zu WordPress (wenn lokal nicht gefunden)
-    const pdfUrl = `${PDF_SOURCE_URL}${gaNumber}.pdf`;
-    console.log(`[PDF-PROXY] Lokale PDF nicht gefunden, lade von WordPress: ${pdfUrl}`);
+    // Probiere mehrere WordPress-URLs durch (verschiedene Upload-Zeitpunkte)
+    console.log(`[PDF-PROXY] Lokale PDF nicht gefunden, suche auf WordPress: ${gaNumber}`);
     
-    // PDF von WordPress holen
-    const response = await fetch(pdfUrl);
-    
-    if (!response.ok) {
-      console.warn(`[PDF-PROXY] PDF nicht gefunden (lokal und WordPress): ${gaNumber} (Status: ${response.status})`);
-      return res.status(response.status).json({ 
-        error: `PDF nicht verfügbar (${response.status})` 
-      });
+    for (const baseUrl of PDF_SOURCE_URLS) {
+      const pdfUrl = `${baseUrl}${gaNumber}.pdf`;
+      
+      try {
+        const response = await fetch(pdfUrl, { method: 'HEAD' });
+        
+        if (response.ok) {
+          // PDF gefunden - jetzt vollständig laden
+          console.log(`[PDF-PROXY] PDF gefunden bei: ${pdfUrl}`);
+          const fullResponse = await fetch(pdfUrl);
+          
+          if (fullResponse.ok) {
+            // Content-Type und Caching-Header setzen
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h Cache
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            
+            // PDF-Daten als Stream weiterleiten
+            const arrayBuffer = await fullResponse.arrayBuffer();
+            res.send(Buffer.from(arrayBuffer));
+            
+            console.log(`[PDF-PROXY] WordPress-PDF erfolgreich gesendet: ${gaNumber} (von ${baseUrl})`);
+            return;
+          }
+        }
+      } catch (fetchError) {
+        // Diese URL hat nicht funktioniert, nächste probieren
+        continue;
+      }
     }
     
-    // Content-Type und Caching-Header setzen (WordPress-Dateien können gecacht werden)
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h Cache
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    
-    // PDF-Daten als Stream weiterleiten
-    const arrayBuffer = await response.arrayBuffer();
-    res.send(Buffer.from(arrayBuffer));
-    
-    console.log(`[PDF-PROXY] WordPress-PDF erfolgreich gesendet: ${gaNumber}`);
+    // Keine URL hat funktioniert
+    console.warn(`[PDF-PROXY] PDF nicht gefunden (lokal und WordPress): ${gaNumber}`);
+    return res.status(404).json({ 
+      error: `PDF nicht verfügbar` 
+    });
   } catch (error) {
     console.error('[PDF-PROXY] Fehler:', error);
     res.status(500).json({ error: 'Fehler beim Laden der PDF' });
