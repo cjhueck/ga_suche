@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const compression = require('compression');
 const fs = require('fs').promises;
 const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
@@ -33,6 +34,7 @@ const PORT = process.env.PORT || 3003; // Render setzt PORT-Umgebungsvariable
 
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
+app.use(compression()); // gzip-Kompression für alle Responses (~70-80% weniger Transfer bei JSON)
 app.use(express.json({ limit: '10mb' })); // Limit für JSON-Body
 
 // Trust Proxy für Render (wichtig für korrekte IP-Erkennung)
@@ -22184,16 +22186,10 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
     const { gaNumber, lectureNum } = req.params;
     // Compose lecture ID as used in fullLectures
     const lectureId = `${gaNumber}/${lectureNum}`;
-    const originalLecture = fullLectures[lectureId];
-    if (!originalLecture) {
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
-    
-    // Erstelle eine tiefe Kopie des Vortrags, um das Original nicht zu verändern
-    const lecture = JSON.parse(JSON.stringify(originalLecture));
-    
-    // Text-Edit-Funktion wurde entfernt
-    // await applyTextEditsToLecture(lecture, lectureId);
     
     res.json({ lecture });
   } catch (error) {
@@ -22202,17 +22198,72 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
   }
 });
 
+// API: Kombinierter Endpoint - Volltext + Summary + Keywords in einer Response
+// Eliminiert einen separaten Roundtrip für Summary-Daten
+app.get('/api/lecture-with-summary/:gaNumber/:lectureNum', async (req, res) => {
+  try {
+    const { gaNumber, lectureNum } = req.params;
+    const lectureId = `${gaNumber}/${lectureNum}`;
+    
+    // 1. Vortrag laden
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
+    }
+    
+    // 2. Summary-Daten laden (gleiche Logik wie /api/check-summary)
+    let summaryData = { exists: false, lectureId, summary: null, headings: [], tableOfContents: [], lectureKeywords: [], version: null };
+    
+    try {
+      const summaryDB = await loadSummaryDatabase();
+      let dbData = summaryDB[lectureId];
+      let foundId = lectureId;
+      
+      // Alternative Formatierungen versuchen (z.B. GA052/1 vs GA052/01)
+      if (!dbData) {
+        const lectureNumInt = parseInt(lectureNum);
+        const alt1 = `${gaNumber}/${lectureNumInt}`;
+        const alt2 = `${gaNumber}/${lectureNumInt.toString().padStart(2, '0')}`;
+        
+        if (summaryDB[alt1]) {
+          dbData = summaryDB[alt1];
+          foundId = alt1;
+        } else if (summaryDB[alt2]) {
+          dbData = summaryDB[alt2];
+          foundId = alt2;
+        }
+      }
+      
+      if (dbData) {
+        summaryData = {
+          exists: true,
+          lectureId: foundId,
+          summary: dbData.summary,
+          headings: dbData.headings || [],
+          tableOfContents: dbData.tableOfContents || [],
+          lectureKeywords: dbData.lectureKeywords || [],
+          version: dbData.version || 'v1'
+        };
+      }
+    } catch (summaryError) {
+      console.warn('[LECTURE-WITH-SUMMARY] Summary-Fehler (ignoriert):', summaryError.message);
+    }
+    
+    res.json({ lecture, summary: summaryData });
+  } catch (error) {
+    console.error('[LECTURE-WITH-SUMMARY] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Vollständigen Vortrag nach lectureId bereitstellen (Kompatibilität)
 app.get('/api/full-lecture/:lectureId', async (req, res) => {
   try {
     const { lectureId } = req.params;
-    const originalLecture = fullLectures[lectureId];
-    if (!originalLecture) {
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
-    
-    // Erstelle eine tiefe Kopie des Vortrags, um das Original nicht zu verändern
-    const lecture = JSON.parse(JSON.stringify(originalLecture));
     
     // Text-Edit-Funktion wurde entfernt
     // await applyTextEditsToLecture(lecture, lectureId);

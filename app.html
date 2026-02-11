@@ -29819,7 +29819,7 @@ function formatAsteriskParagraphs() {
       
       if (!isEssayBand && isBookGANumber(gaNumber)) {
         // Lade das Buch
-        const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}?t=${Date.now()}`);
+        const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}`);
         if (!bookResponse.ok) {
           // Wenn Buch nicht gefunden wird, versuche es als GA-Übersicht zu laden
           console.log(`[SHOW-LECTURE] ${gaNumber} Buch nicht gefunden, versuche GA-Übersicht`);
@@ -29903,9 +29903,33 @@ function formatAsteriskParagraphs() {
     
     // Ansonsten: Lade Vortrag wie bisher
     const parts = lectureId.split('/');
+    
+    // GA-Übersicht im Side Panel parallel starten (nicht auf Volltext warten)
+    const texteTab = document.getElementById('texte-tab');
+    const isInTexteTab = texteTab && texteTab.classList.contains('active');
+    
+    if (isInTexteTab && parts.length === 2) {
+      const gaMatchEarly = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+      if (gaMatchEarly && !isBookGANumber(gaMatchEarly[1])) {
+        const gaNumberEarly = gaMatchEarly[1];
+        const resultsContainer = document.getElementById('results');
+        const existingList = resultsContainer ? resultsContainer.querySelector('#ga-lecture-list') : null;
+        const currentGAInPanel = window._currentGAInSidePanel;
+        
+        if (!existingList || currentGAInPanel !== gaNumberEarly) {
+          if (typeof loadGAOverviewInSidePanelOnly === 'function') {
+            loadGAOverviewInSidePanelOnly(gaNumberEarly).catch(error => {
+              console.warn('[SHOW-LECTURE] Fehler beim Laden der GA-Übersicht im Side Panel:', error);
+            });
+          }
+        }
+      }
+    }
+    
+    // Kombinierter Endpoint: Volltext + Summary in einem Request (spart einen Roundtrip)
     const url = parts.length === 2 
-                ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}?t=${Date.now()}`
-                : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}?t=${Date.now()}`;
+                ? `${API_BASE}/api/lecture-with-summary/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+                : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
 
     const response = await fetch(url);
     
@@ -29977,40 +30001,11 @@ function formatAsteriskParagraphs() {
     
     currentLectureData = data.lecture;
     
-    // NEU: Lade GA-Übersicht im linken Side Panel, wenn ein Vortrag im Texte-Tab angezeigt wird
-    const texteTab = document.getElementById('texte-tab');
-    const isInTexteTab = texteTab && texteTab.classList.contains('active');
+    // GA-Übersicht wird bereits parallel oben gestartet (vor dem Hauptfetch)
     
-    if (isInTexteTab && isLecture) {
-      // Extrahiere GA-Nummer aus lectureId (z.B. "GA052/15" -> "GA052")
-      const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
-      if (gaMatch) {
-        const gaNumber = gaMatch[1];
-        // Prüfe ob es kein Buch ist (GA002-GA046 sind Bücher, GA001 wird wie Vortragsband behandelt)
-        if (!isBookGANumber(gaNumber)) {
-          // Prüfe ob GA-Übersicht bereits für dieselbe GA-Nummer geladen ist
-          const resultsContainer = document.getElementById('results');
-          const existingList = resultsContainer ? resultsContainer.querySelector('#ga-lecture-list') : null;
-          const currentGAInPanel = window._currentGAInSidePanel;
-          
-          // Nur neu laden, wenn noch keine GA-Übersicht vorhanden ODER andere GA-Nummer
-          if (!existingList || currentGAInPanel !== gaNumber) {
-            if (typeof loadGAOverviewInSidePanelOnly === 'function') {
-              loadGAOverviewInSidePanelOnly(gaNumber).catch(error => {
-                console.warn('[SHOW-LECTURE] Fehler beim Laden der GA-Übersicht im Side Panel:', error);
-              });
-            }
-          }
-          // Sonst: Behalte bestehende Liste und Scroll-Position
-        }
-      }
-    }
-    
-    // NEU: Prüfe ob Zusammenfassung bereits existiert (ohne neue zu generieren)
+    // Prüfe ob Zusammenfassung existiert (aus dem kombinierten Endpoint, kein separater Request)
     // AUSNAHME: GA046 bekommt keine Summaries/Keywords/AI-Headings
     try {
-      const parts = lectureId.split('/');
-      
       // GA046: Keine Summaries, Keywords, AI-Headings (Sonderbehandlung)
       const gaNumberForSummary = parts[0];
       if (isGA046(gaNumberForSummary)) {
@@ -30032,9 +30027,9 @@ function formatAsteriskParagraphs() {
         return; // Beende hier für GA046
       }
       
-      const summaryResponse = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
-      if (summaryResponse.ok) {
-        const summaryData = await summaryResponse.json();
+      // Summary-Daten kommen aus dem kombinierten Endpoint (kein separater Request nötig)
+      const summaryData = data.summary || { exists: false, lectureId, summary: null, headings: [] };
+      {
         
         console.log('[LOAD-LECTURE] Summary-Daten vom Server:', summaryData);
         console.log('[LOAD-LECTURE] exists:', summaryData.exists);
