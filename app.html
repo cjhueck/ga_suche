@@ -10499,7 +10499,7 @@ function convertPageMarkers(html) {
   // Ersetze |123| durch sichtbares Format: | im Text, Seitenzahl links am Rand
   // Bei Klick auf die Seitenzahl wird das PDF auf der entsprechenden Seite geöffnet
   return cleanedHtml.replace(/\|(\d{1,4})\|/g, function(match, pageNum) {
-    return '<span class="page-break-container" title="Seite ' + pageNum + ' - Klicken um PDF zu öffnen" onclick="window.jumpToPdfPage && window.jumpToPdfPage(' + pageNum + ')">' +
+    return '<span class="page-break-container" title="Seite ' + pageNum + ' - Klicken um PDF zu öffnen">' +
       '<span class="page-break-num">' + pageNum + '</span>' +
       '<span class="page-break-bar">|</span>' +
       '</span>';
@@ -14552,33 +14552,34 @@ function normalizeGANumber(gaNumber) {
     }
 
     async function openGAOverview(gaNumber) {
-      // Close summary panel when opening GA overview from the search window
-      try {
-        const summaryPanel = document.getElementById('summary-panel');
-        if (summaryPanel && summaryPanel.classList.contains('visible')) {
-          summaryPanel.classList.remove('visible');
-          summaryPanel.style.width = '0';
-          summaryPanel.style.minWidth = '0';
-          summaryPanel.style.marginRight = '0px';
-
-          // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
-          // (keine manuelle Setzung - wie in allen anderen Fällen auch)
-          if (typeof syncMainContainerWithPanel === 'function') {
-            syncMainContainerWithPanel();
-          }
-          if (typeof updateResizeHandle === 'function') {
-            updateResizeHandle();
-          }
-        }
-      } catch (e) { /* silent */ }
       if (!gaNumber) return;
       try {
         // Prüfe ob es ein Book ist (aber nicht ein Aufsatzband)
         if (isBookGANumber(gaNumber) && !isEssayGANumber(gaNumber)) {
-          // Für Books: Verwende showLecture, damit History-Eintrag erstellt wird
+          // Für Books: Panel NICHT schließen, da displayBook es sofort wieder öffnet
+          // (verhindert Flackern/Blitzen des Inhaltsverzeichnisses durch close→reopen Transition)
           await showLecture(gaNumber);
           return;
         }
+        
+        // Close summary panel when opening GA overview (Vortrags-Übersicht, nicht Bücher)
+        try {
+          const summaryPanel = document.getElementById('summary-panel');
+          if (summaryPanel && summaryPanel.classList.contains('visible')) {
+            summaryPanel.classList.remove('visible');
+            summaryPanel.style.width = '0';
+            summaryPanel.style.minWidth = '0';
+            summaryPanel.style.marginRight = '0px';
+
+            // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+            if (typeof syncMainContainerWithPanel === 'function') {
+              syncMainContainerWithPanel();
+            }
+            if (typeof updateResizeHandle === 'function') {
+              updateResizeHandle();
+            }
+          }
+        } catch (e) { /* silent */ }
         
         // Ansonsten: Lade GA-Übersicht (Vorträge oder Aufsätze)
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
@@ -17960,6 +17961,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           resetPanelSync();
         }
         
+        // Prüfe ob Panel bereits sichtbar ist (z.B. beim Wechsel zwischen Büchern)
+        const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+        
         summaryPanel.classList.add('visible');
         summaryPanel.style.display = ''; // Entferne display:none falls gesetzt
         
@@ -17969,8 +17973,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         summaryPanel.style.minWidth = panelWidth + 'px';
         summaryPanel.style.marginRight = '0px';
         
-        // Stelle sicher, dass TOC-Container vorhanden ist
-        if (summaryContent) {
+        // WICHTIG: TOC-Container und Inhalt erst im setTimeout zusammen erneuern,
+        // damit der alte TOC-Inhalt sichtbar bleibt bis der neue fertig ist
+        // (verhindert kurzes Aufblitzen eines leeren Panels)
+        if (!wasAlreadyVisible && summaryContent) {
+          // Panel war geschlossen: TOC-Container sofort vorbereiten
           summaryContent.innerHTML = '<div id="toc-list"></div>';
         }
         
@@ -17991,7 +17998,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         
         // 2. Baue TOC auf (wie Zeile 11250) - muss IMMER aufgerufen werden
         // Baue TOC sofort auf, damit es angezeigt wird
+        // Wenn Panel bereits sichtbar war: TOC-Container erst hier erneuern (alten Inhalt bis jetzt beibehalten)
         setTimeout(() => {
+          if (wasAlreadyVisible && summaryContent) {
+            summaryContent.innerHTML = '<div id="toc-list"></div>';
+          }
           buildTableOfContents();
         }, 50);
         
