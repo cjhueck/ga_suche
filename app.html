@@ -46130,11 +46130,9 @@ window.cancelTextEditMode = function() {};
       pdfPath = `${basePath}${separator}_t=${timestamp}`;
     } else {
       // Server (localhost oder Produktion): nutze Backend-Proxy
-      // Backend prüft zuerst lokal, dann WordPress
-      // Cache-Busting immer hinzufügen, da lokale Dateien sich ändern können
+      // Backend prüft zuerst lokal, dann Disk-Cache, dann WordPress
+      // Kein Cache-Busting nötig: Backend hat eigene Cache-Steuerung via Header
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}`;
-      const timestamp = Date.now() + Math.floor(Math.random() * 10000);
-      pdfPath += `?_t=${timestamp}`;
     }
     
     try {
