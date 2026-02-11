@@ -31880,8 +31880,18 @@ async function batchGenerateShortSummaries() {
     return;
   }
   
-  if (!confirm('Kurzzusammenfassungen für alle Vorträge generieren?\n\nDies verarbeitet nur bestehende Summaries (nicht die vollständigen Vorträge) und ist schnell und günstig.')) {
-    return;
+  let lectureIds;
+  
+  // Prüfe ob Vorträge ausgewählt sind
+  if (selectedLectureIds.size > 0) {
+    lectureIds = Array.from(selectedLectureIds);
+    if (!confirm(`Kurzzusammenfassungen für ${lectureIds.length} ausgewählte(n) Vortrag/Vorträge NEU generieren?\n\nBestehende Kurzzusammenfassungen werden überschrieben.\nDies verarbeitet nur bestehende Summaries (nicht die vollständigen Vorträge) und ist schnell und günstig.`)) {
+      return;
+    }
+  } else {
+    if (!confirm(`Kurzzusammenfassungen für ALLE Vorträge in GA ${gaNumber} NEU generieren?\n\nBestehende Kurzzusammenfassungen werden überschrieben.\nDies verarbeitet nur bestehende Summaries (nicht die vollständigen Vorträge) und ist schnell und günstig.`)) {
+      return;
+    }
   }
   
   // Button Status auf "aktiv..." setzen
@@ -31906,14 +31916,8 @@ async function batchGenerateShortSummaries() {
   try {
     setUILocked(true);
     
-    let lectureIds;
-    
-    // Prüfe ob Vorträge ausgewählt sind
-    if (selectedLectureIds.size > 0) {
-      // Verwende nur ausgewählte Vorträge
-      lectureIds = Array.from(selectedLectureIds);
-      } else {
-      // Lade GA-Overview
+    if (selectedLectureIds.size === 0) {
+      // Kein Vortrag ausgewählt → alle Vorträge aus GA-Overview laden
       const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
       if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
       const data = await resp.json();
@@ -31925,11 +31929,11 @@ async function batchGenerateShortSummaries() {
       }
       
       lectureIds = lectures.map(l => l.ID);
-      }
+    }
     
     // Rufe Backend-API auf
     const statusEl = document.getElementById('batch-status');
-    if (statusEl) statusEl.textContent = `Generiere Kurzzusammenfassungen für ${lectureIds.length} Vorträge...`;
+    if (statusEl) statusEl.textContent = `Generiere Kurzzusammenfassungen für ${lectureIds.length} Vorträge neu...`;
     
     const batchResp = await fetch(`${API_BASE}/api/batch-generate-short-summaries`, {
       method: 'POST',
@@ -31937,7 +31941,7 @@ async function batchGenerateShortSummaries() {
       body: JSON.stringify({ 
         lectureIds: lectureIds,
         preferredProvider: selectedProvider,
-        forceRegenerate: false
+        forceRegenerate: true
       })
     });
     
