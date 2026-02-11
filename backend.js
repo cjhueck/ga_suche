@@ -209,16 +209,93 @@ app.use('/system', express.static(path.join(__dirname, 'system')));
 // ============================================================================
 // PDF-PROXY: PDFs von WordPress laden und weiterleiten (umgeht CORS)
 // ============================================================================
-// WordPress PDF-URLs: Mehrere Basis-URLs, da PDFs zu verschiedenen Zeiten hochgeladen wurden
-// Reihenfolge: häufigste zuerst (Performance-Optimierung)
-const PDF_SOURCE_URLS = [
-  'https://akanthosakademie.files.wordpress.com/2023/06/',
-  'https://akanthosakademie.wordpress.com/wp-content/uploads/2023/06/',
-  'https://akanthosakademie.wordpress.com/wp-content/uploads/2026/02/',
-  'https://akanthosakademie.files.wordpress.com/2026/02/',
-  'https://akanthosakademie.wordpress.com/wp-content/uploads/2025/01/',
-  'https://akanthosakademie.files.wordpress.com/2025/01/',
-];
+// WordPress PDF-URL Cache: Speichert gefundene URLs um wiederholte API-Anfragen zu vermeiden
+// Format: { "ga002": "https://...ga002.pdf", ... }
+const wpPdfUrlCache = {};
+const WP_SITE = 'akanthosakademie.wordpress.com';
+
+// Hilfsfunktion: PDF-URL über WordPress REST API ermitteln (funktioniert für jedes Upload-Datum)
+async function findWordPressPdfUrl(gaNumber) {
+  // 1. Cache prüfen
+  if (wpPdfUrlCache[gaNumber]) {
+    console.log(`[PDF-PROXY] Cache-Treffer für ${gaNumber}`);
+    return wpPdfUrlCache[gaNumber];
+  }
+  
+  // 2. WordPress REST API abfragen: suche nach Dateiname
+  const searchTerm = `${gaNumber}.pdf`;
+  const apiUrl = `https://public-api.wordpress.com/rest/v1.1/sites/${WP_SITE}/media/?search=${encodeURIComponent(searchTerm)}&mime_type=application/pdf&number=5`;
+  
+  console.log(`[PDF-PROXY] WordPress API-Suche: ${searchTerm}`);
+  
+  try {
+    const apiResponse = await fetch(apiUrl);
+    
+    if (apiResponse.ok) {
+      const data = await apiResponse.json();
+      
+      if (data.media && data.media.length > 0) {
+        // Suche exakten Treffer (Dateiname muss mit gaXXX.pdf übereinstimmen)
+        for (const item of data.media) {
+          const fileName = (item.file || item.title || '').toLowerCase();
+          const itemUrl = item.URL || item.url || '';
+          
+          if (fileName === searchTerm || itemUrl.toLowerCase().endsWith(`/${searchTerm}`)) {
+            console.log(`[PDF-PROXY] WordPress API: Gefunden -> ${itemUrl}`);
+            wpPdfUrlCache[gaNumber] = itemUrl;
+            return itemUrl;
+          }
+        }
+        
+        // Kein exakter Treffer, aber Ergebnisse vorhanden - nimm erstes PDF das passt
+        const firstMatch = data.media[0];
+        const firstUrl = firstMatch.URL || firstMatch.url || '';
+        if (firstUrl) {
+          console.log(`[PDF-PROXY] WordPress API: Bester Treffer -> ${firstUrl}`);
+          wpPdfUrlCache[gaNumber] = firstUrl;
+          return firstUrl;
+        }
+      }
+    }
+  } catch (apiError) {
+    console.warn(`[PDF-PROXY] WordPress API-Fehler: ${apiError.message}`);
+  }
+  
+  // 3. API hat nichts gefunden -> Fallback: bekannte URL-Muster direkt probieren
+  // Generiert URLs von Juni 2023 bis zum aktuellen Monat
+  console.log(`[PDF-PROXY] API ohne Ergebnis, probiere URL-Muster durch...`);
+  
+  const startDate = new Date(2023, 5); // Juni 2023
+  const endDate = new Date();
+  const urlPatterns = [
+    (y, m) => `https://akanthosakademie.files.wordpress.com/${y}/${m}/${searchTerm}`,
+    (y, m) => `https://${WP_SITE}/wp-content/uploads/${y}/${m}/${searchTerm}`,
+  ];
+  
+  // Sammle alle Monat/Jahr-Kombinationen (neueste zuerst = wahrscheinlicher)
+  const dates = [];
+  for (let d = new Date(endDate); d >= startDate; d.setMonth(d.getMonth() - 1)) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    dates.push({ y, m });
+  }
+  
+  for (const { y, m } of dates) {
+    for (const pattern of urlPatterns) {
+      const tryUrl = pattern(y, m);
+      try {
+        const headResp = await fetch(tryUrl, { method: 'HEAD' });
+        if (headResp.ok) {
+          console.log(`[PDF-PROXY] Direkt gefunden: ${tryUrl}`);
+          wpPdfUrlCache[gaNumber] = tryUrl;
+          return tryUrl;
+        }
+      } catch (_) { /* weiter */ }
+    }
+  }
+  
+  return null;
+}
 
 app.get('/api/pdf/:gaNumber', async (req, res) => {
   try {
@@ -295,45 +372,35 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
     }
     
     // SCHRITT 2: Fallback zu WordPress (wenn lokal nicht gefunden)
-    // Probiere mehrere WordPress-URLs durch (verschiedene Upload-Zeitpunkte)
     console.log(`[PDF-PROXY] Lokale PDF nicht gefunden, suche auf WordPress: ${gaNumber}`);
     
-    for (const baseUrl of PDF_SOURCE_URLS) {
-      const pdfUrl = `${baseUrl}${gaNumber}.pdf`;
-      
-      try {
-        const response = await fetch(pdfUrl, { method: 'HEAD' });
-        
-        if (response.ok) {
-          // PDF gefunden - jetzt vollständig laden
-          console.log(`[PDF-PROXY] PDF gefunden bei: ${pdfUrl}`);
-          const fullResponse = await fetch(pdfUrl);
-          
-          if (fullResponse.ok) {
-            // Content-Type und Caching-Header setzen
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h Cache
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            
-            // PDF-Daten als Stream weiterleiten
-            const arrayBuffer = await fullResponse.arrayBuffer();
-            res.send(Buffer.from(arrayBuffer));
-            
-            console.log(`[PDF-PROXY] WordPress-PDF erfolgreich gesendet: ${gaNumber} (von ${baseUrl})`);
-            return;
-          }
-        }
-      } catch (fetchError) {
-        // Diese URL hat nicht funktioniert, nächste probieren
-        continue;
-      }
+    const pdfUrl = await findWordPressPdfUrl(gaNumber);
+    
+    if (!pdfUrl) {
+      console.warn(`[PDF-PROXY] PDF nicht gefunden (lokal und WordPress): ${gaNumber}`);
+      return res.status(404).json({ error: 'PDF nicht verfügbar' });
     }
     
-    // Keine URL hat funktioniert
-    console.warn(`[PDF-PROXY] PDF nicht gefunden (lokal und WordPress): ${gaNumber}`);
-    return res.status(404).json({ 
-      error: `PDF nicht verfügbar` 
-    });
+    // PDF von der gefundenen URL laden
+    const response = await fetch(pdfUrl);
+    
+    if (!response.ok) {
+      // Cache-Eintrag entfernen falls URL nicht mehr gültig
+      delete wpPdfUrlCache[gaNumber];
+      console.warn(`[PDF-PROXY] PDF-Download fehlgeschlagen: ${pdfUrl} (${response.status})`);
+      return res.status(response.status).json({ error: `PDF nicht verfügbar (${response.status})` });
+    }
+    
+    // Content-Type und Caching-Header setzen
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24h Cache
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    
+    // PDF-Daten weiterleiten
+    const arrayBuffer = await response.arrayBuffer();
+    res.send(Buffer.from(arrayBuffer));
+    
+    console.log(`[PDF-PROXY] WordPress-PDF erfolgreich gesendet: ${gaNumber}`);
   } catch (error) {
     console.error('[PDF-PROXY] Fehler:', error);
     res.status(500).json({ error: 'Fehler beim Laden der PDF' });
