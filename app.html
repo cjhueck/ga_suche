@@ -16753,10 +16753,10 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
   if (targetIndex) {
     setTimeout(() => {
       const bookContentDiv = viewer.querySelector('.book-content');
-      if (bookContentDiv && typeof processParagraphIndex === 'function') {
-        // processParagraphIndex ist in displayBook definiert, nutze daher direkte Navigation
+      if (bookContentDiv) {
         const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
         const targetParaElement = bookContentDiv.querySelector(`#para-${targetParagraphIndex}`);
+        console.log('[HIGHLIGHT-DEBUG] finishBookRendering: targetIndex =', targetIndex, 'targetParaElement:', !!targetParaElement, 'lastHighlightedEndIndex:', lastHighlightedEndIndex);
         if (targetParaElement) {
           let paragraphElement = targetParaElement.closest('.paragraph');
           if (paragraphElement && mainContainer) {
@@ -16769,16 +16769,105 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
             
             // ABER: Überspringe Highlighting wenn Navigation vom Inhaltsverzeichnis kommt
             if (!window.skipParagraphHighlight) {
-              if (typeof addHighlightingWithAutoRemove === 'function') {
-                addHighlightingWithAutoRemove(paragraphElement);
+              // Bereichs-Markierung: Mehrere Absätze markieren wenn lastHighlightedEndIndex gesetzt
+              if (lastHighlightedEndIndex) {
+                const endParaElement = bookContentDiv.querySelector(`#para-${lastHighlightedEndIndex}`);
+                if (endParaElement) {
+                  const endParagraphElement = endParaElement.closest('.paragraph');
+                  if (endParagraphElement) {
+                    // Finde alle .paragraph-Elemente zwischen Start und Ende
+                    const allParas = Array.from(mainContainer.querySelectorAll('.paragraph[data-paragraph-index]'));
+                    const startIdx = allParas.indexOf(paragraphElement);
+                    let endIdx = allParas.indexOf(endParagraphElement);
+                    
+                    if (startIdx >= 0 && endIdx >= 0) {
+                      const from = Math.min(startIdx, endIdx);
+                      const to = Math.max(startIdx, endIdx);
+                      
+                      // Entferne vorherige Markierung
+                      if (typeof clearPreviousHighlighting === 'function') clearPreviousHighlighting();
+                      
+                      // Markiere alle Absätze im Bereich
+                      for (let i = from; i <= to; i++) {
+                        allParas[i].classList.add('highlighted-paragraph');
+                      }
+                      
+                      // Auto-Remove nach 8 Sekunden
+                      if (typeof highlightTimeout !== 'undefined') {
+                        highlightTimeout = setTimeout(() => {
+                          if (typeof removeAllHighlighting === 'function') removeAllHighlighting();
+                        }, 8000);
+                      }
+                      
+                      console.log(`[HIGHLIGHT-DEBUG] Book: Bereichs-Markierung: ${to - from + 1} Absätze hervorgehoben`);
+                    } else {
+                      // Fallback: Nur Start-Element markieren
+                      if (typeof addHighlightingWithAutoRemove === 'function') {
+                        addHighlightingWithAutoRemove(paragraphElement);
+                      }
+                    }
+                  } else {
+                    if (typeof addHighlightingWithAutoRemove === 'function') {
+                      addHighlightingWithAutoRemove(paragraphElement);
+                    }
+                  }
+                } else {
+                  // End-Element nicht gefunden: Nur Start markieren
+                  if (typeof addHighlightingWithAutoRemove === 'function') {
+                    addHighlightingWithAutoRemove(paragraphElement);
+                  }
+                }
               } else {
-                paragraphElement.classList.add('highlighted-paragraph');
+                // Einzel-Absatz markieren
+                if (typeof addHighlightingWithAutoRemove === 'function') {
+                  addHighlightingWithAutoRemove(paragraphElement);
+                } else {
+                  paragraphElement.classList.add('highlighted-paragraph');
+                }
               }
             }
           }
         }
       }
     }, 200);
+    
+    // Sicherheitsnetz: Prüfe nochmals nach 1500ms (nach replaceImageSrcWithBase64)
+    setTimeout(() => {
+      const highlighted = document.querySelectorAll('.highlighted-paragraph');
+      if (highlighted.length === 0 && targetIndex) {
+        const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
+        const bookContentDiv = viewer.querySelector('.book-content');
+        if (bookContentDiv) {
+          const reTargetEl = bookContentDiv.querySelector(`#para-${targetParagraphIndex}`);
+          if (reTargetEl) {
+            const paragraphEl = reTargetEl.closest('.paragraph');
+            if (paragraphEl) {
+              console.log('[HIGHLIGHT-DEBUG] Book-Sicherheitsnetz: Highlighting wurde entfernt, wende erneut an');
+              if (lastHighlightedEndIndex) {
+                const endEl = bookContentDiv.querySelector(`#para-${lastHighlightedEndIndex}`);
+                const endParagraphEl = endEl ? endEl.closest('.paragraph') : null;
+                if (endParagraphEl) {
+                  const allParas = Array.from(mainContainer.querySelectorAll('.paragraph[data-paragraph-index]'));
+                  const sIdx = allParas.indexOf(paragraphEl);
+                  const eIdx = allParas.indexOf(endParagraphEl);
+                  if (sIdx >= 0 && eIdx >= 0) {
+                    for (let i = Math.min(sIdx, eIdx); i <= Math.max(sIdx, eIdx); i++) {
+                      allParas[i].classList.add('highlighted-paragraph');
+                    }
+                  } else {
+                    if (typeof addHighlightingWithAutoRemove === 'function') addHighlightingWithAutoRemove(paragraphEl);
+                  }
+                } else {
+                  if (typeof addHighlightingWithAutoRemove === 'function') addHighlightingWithAutoRemove(paragraphEl);
+                }
+              } else {
+                if (typeof addHighlightingWithAutoRemove === 'function') addHighlightingWithAutoRemove(paragraphEl);
+              }
+            }
+          }
+        }
+      }
+    }, 1500);
   }
 }
 
@@ -28324,6 +28413,7 @@ function showSummaryView() {
     }
 
     function scrollToIndexInViewer(targetIndex) {
+      console.log('[HIGHLIGHT-DEBUG] scrollToIndexInViewer aufgerufen:', targetIndex, 'lastHighlightedEndIndex:', lastHighlightedEndIndex);
       if (!targetIndex) return;
       
       // WICHTIG: Bei Navigation aus Members Panel das Scrollen KOMPLETT überspringen
@@ -28359,6 +28449,7 @@ function showSummaryView() {
         return;
       }
       
+      console.log('[HIGHLIGHT-DEBUG] scrollToIndexInViewer: paraElement gefunden:', !!paraElement, 'ID:', paraElement ? paraElement.id : 'null');
       if (paraElement) {
         // Berechne Position für Positionierung am unteren Rand des Headers
         const header = document.getElementById('viewer-header');
@@ -28641,8 +28732,10 @@ function showSummaryView() {
   // Bereichs-Markierung: Berechne Array-Indizes für Start und Ende
   let highlightStartArrayIdx = -1;
   let highlightEndArrayIdx = -1;
+  console.log('[HIGHLIGHT-DEBUG] displaySummaryWithHeadings: lastHighlightedIndex =', lastHighlightedIndex, 'lastHighlightedEndIndex =', lastHighlightedEndIndex, 'paragraphs.length =', paragraphs.length);
   if (lastHighlightedIndex) {
     highlightStartArrayIdx = paragraphs.findIndex(p => p.index && p.index.replace(/^\^/, '') === lastHighlightedIndex);
+    console.log('[HIGHLIGHT-DEBUG] highlightStartArrayIdx =', highlightStartArrayIdx);
     if (lastHighlightedEndIndex) {
       highlightEndArrayIdx = paragraphs.findIndex(p => p.index && p.index.replace(/^\^/, '') === lastHighlightedEndIndex);
       // Sortiere falls nötig
@@ -29892,6 +29985,7 @@ function formatAsteriskParagraphs() {
   // und setze zurück, damit nachfolgende Navigationen keinen falschen Bereich markieren
   lastHighlightedEndIndex = window._pendingHighlightEndIndex || null;
   window._pendingHighlightEndIndex = null;
+  console.log('[HIGHLIGHT-DEBUG] showLecture START: lectureId =', lectureId, 'targetIndex =', targetIndex, 'lastHighlightedEndIndex =', lastHighlightedEndIndex);
   
   const summaryPanel = document.getElementById('summary-panel');
   const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
@@ -30002,10 +30096,11 @@ function formatAsteriskParagraphs() {
           
           if (isHeadingId) {
             highlightHeadingId = targetIndex.toString();
-          } else {
-            // Es ist ein Paragraph-Index
-            paragraphTargetIndex = targetIndex;
           }
+          // IMMER paragraphTargetIndex setzen, damit der Absatz markiert wird
+          // (auch wenn der Index gleichzeitig eine Überschrift-ID ist)
+          paragraphTargetIndex = targetIndex;
+          console.log('[HIGHLIGHT-DEBUG] Book: targetIndex =', targetIndex, 'isHeadingId =', isHeadingId, 'paragraphTargetIndex =', paragraphTargetIndex, 'highlightHeadingId =', highlightHeadingId);
         }
         
         await displayBook(book, highlightHeadingId, keywords, isPhraseArray, paragraphTargetIndex);
@@ -30237,6 +30332,7 @@ function formatAsteriskParagraphs() {
             lastHighlightedEndIndex = null;
           }
           
+          console.log('[HIGHLIGHT-DEBUG] Vor displaySummaryWithHeadings: lastHighlightedIndex =', lastHighlightedIndex, 'lastHighlightedEndIndex =', lastHighlightedEndIndex, 'targetIndex =', targetIndex);
           console.log('[LOAD-LECTURE] Zeige Zusammenfassung mit displaySummaryWithHeadings');
           console.log('[LOAD-LECTURE] currentLectureSummary:', currentLectureSummary);
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords, isPhraseArray);
@@ -30347,6 +30443,38 @@ function formatAsteriskParagraphs() {
             if (targetIndex) {
               const cleanIndex = targetIndex.replace(/^\^/, '');
               scrollToIndexInViewer(cleanIndex);
+              
+              // Sicherheitsnetz: Prüfe nochmals nach 500ms ob Highlighting angewendet wurde
+              // (für den Fall, dass replaceImageSrcWithBase64 das DOM überschrieben hat)
+              setTimeout(() => {
+                const highlighted = document.querySelectorAll('.highlighted-paragraph');
+                if (highlighted.length === 0 && lastHighlightedIndex) {
+                  console.log('[HIGHLIGHT-DEBUG] Sicherheitsnetz: Highlighting wurde entfernt, wende erneut an');
+                  const targetEl = document.getElementById(`para-${lastHighlightedIndex}`);
+                  if (targetEl) {
+                    // Bei Bereichs-Markierung: Alle Absätze im Bereich markieren
+                    if (lastHighlightedEndIndex) {
+                      const mainContainer = document.getElementById('main');
+                      const allParas = mainContainer ? Array.from(mainContainer.querySelectorAll('.paragraph[data-paragraph-index]')) : [];
+                      const startIdx = allParas.findIndex(p => p.getAttribute('data-paragraph-index') === lastHighlightedIndex);
+                      const endEl = document.getElementById(`para-${lastHighlightedEndIndex}`);
+                      const endIdx = endEl ? allParas.findIndex(p => p.getAttribute('data-paragraph-index') === lastHighlightedEndIndex) : -1;
+                      if (startIdx >= 0 && endIdx >= 0) {
+                        const from = Math.min(startIdx, endIdx);
+                        const to = Math.max(startIdx, endIdx);
+                        for (let i = from; i <= to; i++) {
+                          allParas[i].classList.add('highlighted-paragraph');
+                        }
+                        console.log('[HIGHLIGHT-DEBUG] Sicherheitsnetz: Bereichs-Markierung angewendet:', to - from + 1, 'Absätze');
+                      } else {
+                        addHighlightingWithAutoRemove(targetEl);
+                      }
+                    } else {
+                      addHighlightingWithAutoRemove(targetEl);
+                    }
+                  }
+                }
+              }, 800);
             }
           }, 150);
           
@@ -33157,6 +33285,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         const mergedParagraphs = mergeListParagraphs(paragraphs);
         
         // Bereichs-Markierung: Berechne Array-Indizes für Start und Ende
+        console.log('[HIGHLIGHT-DEBUG] displayLecture: cleanIndex =', cleanIndex, 'lastHighlightedEndIndex =', lastHighlightedEndIndex, 'mergedParagraphs.length =', mergedParagraphs.length);
         let dlHighlightStartIdx = -1;
         let dlHighlightEndIdx = -1;
         if (cleanIndex && lastHighlightedEndIndex) {
@@ -33738,6 +33867,32 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
             addHighlightingWithAutoRemove(targetElement);
           }
+          
+          // Sicherheitsnetz: Prüfe nochmals nach 800ms ob Highlighting noch vorhanden
+          setTimeout(() => {
+            const highlighted = document.querySelectorAll('.highlighted-paragraph');
+            if (highlighted.length === 0 && cleanIndex) {
+              console.log('[HIGHLIGHT-DEBUG] displayLecture Sicherheitsnetz: Highlighting entfernt, wende erneut an');
+              const reTargetEl = document.getElementById(`para-${cleanIndex}`);
+              if (reTargetEl) {
+                if (lastHighlightedEndIndex) {
+                  const allParas = Array.from(mainContainer.querySelectorAll('.paragraph[data-paragraph-index]'));
+                  const sIdx = allParas.findIndex(p => p.getAttribute('data-paragraph-index') === cleanIndex);
+                  const eEl = document.getElementById(`para-${lastHighlightedEndIndex}`);
+                  const eIdx = eEl ? allParas.findIndex(p => p.getAttribute('data-paragraph-index') === lastHighlightedEndIndex) : -1;
+                  if (sIdx >= 0 && eIdx >= 0) {
+                    for (let i = Math.min(sIdx, eIdx); i <= Math.max(sIdx, eIdx); i++) {
+                      allParas[i].classList.add('highlighted-paragraph');
+                    }
+                  } else {
+                    addHighlightingWithAutoRemove(reTargetEl);
+                  }
+                } else {
+                  addHighlightingWithAutoRemove(reTargetEl);
+                }
+              }
+            }
+          }, 800);
         } else {
           mainContainer.scrollTop = 0;
         }
@@ -34168,6 +34323,7 @@ window.addEventListener('DOMContentLoaded', function() {
             const paragraphEndIndex = queryParams.pEnd || '';
             // Speichere End-Index in temporärer Variable, die showLecture ausliest
             window._pendingHighlightEndIndex = paragraphEndIndex ? paragraphEndIndex.replace(/^\^/, '') : null;
+            console.log('[HIGHLIGHT-DEBUG] URL-Parser: lecture =', queryParams.lecture, 'p =', paragraphIndex, 'pEnd =', paragraphEndIndex, '_pendingHighlightEndIndex =', window._pendingHighlightEndIndex);
             showLecture(queryParams.lecture, paragraphIndex);
           }, 200);
         }
