@@ -8958,7 +8958,8 @@ function applyHighlightToBookElement(targetElement, highlight) {
           span.style.setProperty('text-decoration', 'underline', 'important');
           span.style.setProperty('text-decoration-color', highlightColor, 'important');
           span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-          span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+          span.style.setProperty('text-decoration-thickness', '0.5px', 'important');
+          span.style.setProperty('text-underline-offset', '2px', 'important');
           span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
           span.setAttribute('data-highlight-id', highlight.id);
           span.setAttribute('data-highlight', 'true');
@@ -9278,7 +9279,8 @@ function applyMultiParagraphHighlight(highlight) {
         span.style.setProperty('text-decoration', 'underline', 'important');
         span.style.setProperty('text-decoration-color', highlightColor, 'important');
         span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-        span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+        span.style.setProperty('text-decoration-thickness', '0.5px', 'important');
+        span.style.setProperty('text-underline-offset', '2px', 'important');
         span.setAttribute('data-highlight', 'true');
         span.setAttribute('data-highlight-id', highlight.id);
         span.setAttribute('data-highlight-color', highlight.color || 'blue');

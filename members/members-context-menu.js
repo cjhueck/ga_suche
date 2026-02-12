@@ -1582,7 +1582,7 @@ function applyHighlightToSelection(range, color = 'blue', highlightId = null, ga
       link.style.setProperty('text-decoration', 'underline', 'important');
       link.style.setProperty('text-decoration-color', highlightColor, 'important');
       link.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-      link.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+      link.style.setProperty('text-decoration-thickness', '0.5px', 'important');
     });
     
     // Selection aufheben
