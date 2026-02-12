@@ -39359,11 +39359,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!gaNumber) return; // Keine GA-Nummer ermittelbar
     
     // Verwende gecachte bibliographische Daten (synchron, da copy-Event synchron sein muss)
-    if (typeof gaBibliographyData === 'undefined' || !gaBibliographyData) return;
-    
+    // gaInfo kann null sein (z.B. wenn GA in der Bibliographie fehlt) - dann Fallback-Quellenangabe
+    const hasBibData = typeof gaBibliographyData !== 'undefined' && gaBibliographyData;
     const normalizedGA = normalizeGANumber(gaNumber);
-    const gaInfo = gaBibliographyData[normalizedGA];
-    if (!gaInfo) return;
+    const gaInfo = hasBibData ? (gaBibliographyData[normalizedGA] || null) : null;
     
     // Finde die nächste Seitenzahl VOR einem DOM-Knoten (rückwärts durch DOM laufen)
     function findNearestPageBefore(node) {
@@ -39406,16 +39405,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Quellenangabe erstellen
-    const title = gaInfo.title || '';
     // GA-Nummer ohne führende Nullen (z.B. "GA004" -> "GA 4", "GA070a" -> "GA 70a")
     const gaMatch = normalizedGA.match(/^GA(\d+)(.*)$/i);
     const gaNum = gaMatch ? parseInt(gaMatch[1]) : normalizedGA.replace(/^GA/i, '');
     const gaSuffix = gaMatch ? gaMatch[2] : '';
     const gaLabel = `GA ${gaNum}${gaSuffix}`;
-    const place = gaInfo.place || '';
-    const year = gaInfo.year || '';
     
-    let citation = `(${title}, ${gaLabel}`;
+    // Titel aus Bibliographie oder Fallback aus dem Dokumenttitel extrahieren
+    let title = '';
+    let place = '';
+    let year = '';
+    
+    if (gaInfo) {
+      title = gaInfo.title || '';
+      place = gaInfo.place || '';
+      year = gaInfo.year || '';
+    } else {
+      // Fallback: Titel aus dem Dokumenttitel extrahieren (wenn GA nicht in Bibliographie)
+      const docTitleEl = document.getElementById('document-title');
+      if (docTitleEl) {
+        const docTitleText = docTitleEl.textContent.trim();
+        // Entferne GA-Nummer und Klammern am Anfang: "GA190 - Titel..." → "Titel..."
+        const titleMatch = docTitleText.match(/^(?:GA\s*\d+[a-z]?\s*[-–]\s*)?(.+?)(?:\s*\(\d{4}\)\s*)?$/i);
+        title = titleMatch ? titleMatch[1].trim() : docTitleText;
+      }
+    }
+    
+    let citation = '';
+    if (title) {
+      citation = `(${title}, ${gaLabel}`;
+    } else {
+      citation = `(Rudolf Steiner, ${gaLabel}`;
+    }
     if (place && year) {
       citation += `, ${place} ${year}`;
     } else if (place) {
