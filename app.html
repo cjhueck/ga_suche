@@ -39083,9 +39083,47 @@ document.addEventListener('DOMContentLoaded', function() {
     
     citation += ')';
     
+    // Link-URL für die Quellenangabe erstellen
+    let linkUrl = '';
+    
+    // Lecture-ID ermitteln: primär currentOpenLectureId, alternativ aus DOM
+    let lectureIdForLink = window.currentOpenLectureId || null;
+    if (!lectureIdForLink) {
+      // Fallback: Suche data-lecture-id im DOM (z.B. in Suchergebnissen)
+      let linkEl = commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
+      while (linkEl && linkEl !== container) {
+        if (linkEl.getAttribute && linkEl.getAttribute('data-lecture-id')) {
+          lectureIdForLink = linkEl.getAttribute('data-lecture-id');
+          break;
+        }
+        linkEl = linkEl.parentElement;
+      }
+    }
+    
+    if (lectureIdForLink) {
+      // Absatz-Index für präzise Verlinkung ermitteln
+      let paragraphIndex = null;
+      let paraEl = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
+      while (paraEl && paraEl !== container) {
+        const pIdx = paraEl.getAttribute && (paraEl.getAttribute('data-paragraph-index') || paraEl.getAttribute('data-chunk-index'));
+        if (pIdx) {
+          paragraphIndex = pIdx.replace(/^\^/, '');
+          break;
+        }
+        paraEl = paraEl.parentElement;
+      }
+      
+      linkUrl = `https://rudolf-steiner-online.de/app.html#texte&lecture=${encodeURIComponent(lectureIdForLink)}`;
+      if (paragraphIndex) {
+        linkUrl += `&p=${encodeURIComponent(paragraphIndex)}`;
+      }
+    }
+    
     // Clipboard modifizieren
     e.preventDefault();
-    const plainText = selectedText + '\n' + citation;
+    const plainText = linkUrl 
+      ? selectedText + '\n' + citation + '\n' + linkUrl
+      : selectedText + '\n' + citation;
     
     // HTML-Version: Formatierung beibehalten, Seitenmarker aus kopiertem Inhalt entfernen
     let htmlContent = '';
@@ -39095,14 +39133,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seitenmarker-Elemente entfernen (sind im DOM, aber nicht selektierbar)
     div.querySelectorAll('.page-break-container').forEach(el => el.remove());
     const escapedCitation = citation.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    htmlContent = div.innerHTML + '<br><span style="font-size: 0.9em; color: #666;">' + escapedCitation + '</span>';
+    
+    if (linkUrl) {
+      // Quellenangabe als klickbarer Link zur Textstelle
+      const escapedUrl = linkUrl.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      htmlContent = div.innerHTML + '<br><a href="' + escapedUrl + '" style="font-size: 0.9em; color: #666;">' + escapedCitation + '</a>';
+    } else {
+      htmlContent = div.innerHTML + '<br><span style="font-size: 0.9em; color: #666;">' + escapedCitation + '</span>';
+    }
     
     e.clipboardData.setData('text/plain', plainText);
     if (htmlContent) {
       e.clipboardData.setData('text/html', htmlContent);
     }
     
-    console.log('[COPY] Quellenangabe angehängt:', citation, '(Container:', container.id, ')');
+    console.log('[COPY] Quellenangabe angehängt:', citation, linkUrl ? '(Link: ' + linkUrl + ')' : '', '(Container:', container.id, ')');
   });
 });
 </script>
