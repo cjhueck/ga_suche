@@ -10262,6 +10262,7 @@ PDF
     let showingSummaryInMain = false;
     let currentLectureSummary = null;
     let lastHighlightedIndex = null;
+    let lastHighlightedEndIndex = null; // End-Index für Bereichs-Markierung (mehrere Absätze)
     let viewerH4Collapsed = false;
     let isGeneratingSummary = false;
     let isThematicSearchRunning = false;
@@ -27866,6 +27867,7 @@ function scrollToChronologicalYear(year) {
   if (visibleIndex) {
       // Setze lastHighlightedIndex zurück, um ungewollte Markierung zu vermeiden
   lastHighlightedIndex = null;
+  lastHighlightedEndIndex = null;
   }
       
       showingSummaryInMain = true;
@@ -27945,6 +27947,7 @@ async function regenerateSummary() {
     
     // Beim Generieren einer neuen Summary immer nach oben scrollen
     lastHighlightedIndex = null;
+    lastHighlightedEndIndex = null;
     
     showingSummaryInMain = true;
     
@@ -28102,6 +28105,7 @@ function showSummaryView() {
   
   // Setze lastHighlightedIndex zurück, um ungewollte Markierung zu vermeiden
   lastHighlightedIndex = null;
+  lastHighlightedEndIndex = null;
   
   showingSummaryInMain = true;
   
@@ -28363,8 +28367,46 @@ function showSummaryView() {
         
         mainContainer.scrollTop = Math.max(0, relativeTop);
         
-        // Verwende zentrale Highlighting-Funktion mit Auto-Remove (nur bei Suche/Index/etc.)
-        addHighlightingWithAutoRemove(paraElement);
+        // Bereichs-Markierung: Alle Absätze zwischen Start und Ende hervorheben
+        if (lastHighlightedEndIndex) {
+          const endElement = document.getElementById(`para-${lastHighlightedEndIndex}`);
+          if (endElement) {
+            // Finde alle .paragraph-Elemente im Viewer
+            const allParas = Array.from(mainContainer.querySelectorAll('.paragraph[data-paragraph-index]'));
+            const startIdx = allParas.indexOf(paraElement);
+            let endIdx = allParas.indexOf(endElement);
+            
+            if (startIdx >= 0 && endIdx >= 0) {
+              // Sortiere falls nötig
+              const from = Math.min(startIdx, endIdx);
+              const to = Math.max(startIdx, endIdx);
+              
+              // Entferne vorherige Markierung
+              clearPreviousHighlighting();
+              
+              // Markiere alle Absätze im Bereich
+              for (let i = from; i <= to; i++) {
+                allParas[i].classList.add('highlighted-paragraph');
+              }
+              
+              // Auto-Remove nach 8 Sekunden (länger bei mehreren Absätzen)
+              highlightTimeout = setTimeout(() => {
+                removeAllHighlighting();
+              }, 8000);
+              
+              console.log(`[SCROLL] Bereichs-Markierung: ${to - from + 1} Absätze hervorgehoben`);
+            } else {
+              // Fallback: Nur Start-Element markieren
+              addHighlightingWithAutoRemove(paraElement);
+            }
+          } else {
+            // End-Element nicht gefunden: Nur Start-Element markieren
+            addHighlightingWithAutoRemove(paraElement);
+          }
+        } else {
+          // Einzel-Absatz: Verwende zentrale Highlighting-Funktion mit Auto-Remove
+          addHighlightingWithAutoRemove(paraElement);
+        }
       }
     }
 
@@ -28592,6 +28634,22 @@ function showSummaryView() {
   }
   
   const paragraphs = lecture.paragraphs || [];
+  
+  // Bereichs-Markierung: Berechne Array-Indizes für Start und Ende
+  let highlightStartArrayIdx = -1;
+  let highlightEndArrayIdx = -1;
+  if (lastHighlightedIndex) {
+    highlightStartArrayIdx = paragraphs.findIndex(p => p.index && p.index.replace(/^\^/, '') === lastHighlightedIndex);
+    if (lastHighlightedEndIndex) {
+      highlightEndArrayIdx = paragraphs.findIndex(p => p.index && p.index.replace(/^\^/, '') === lastHighlightedEndIndex);
+      // Sortiere falls nötig
+      if (highlightStartArrayIdx > highlightEndArrayIdx && highlightEndArrayIdx >= 0) {
+        const tmp = highlightStartArrayIdx;
+        highlightStartArrayIdx = highlightEndArrayIdx;
+        highlightEndArrayIdx = tmp;
+      }
+    }
+  }
   
   paragraphs.forEach((para, idx) => {
     // Überspringe gelöschte Absätze
@@ -28993,8 +29051,17 @@ function showSummaryView() {
       });
     }
     
-    const isTargetPara = lastHighlightedIndex && paraIndex === lastHighlightedIndex;
-    // Highlighting aktiviert
+    // Bereichs-Markierung: Prüfe ob Absatz im markierten Bereich liegt
+    let isTargetPara = false;
+    if (lastHighlightedIndex) {
+      if (highlightEndArrayIdx >= 0 && highlightStartArrayIdx >= 0) {
+        // Bereichs-Markierung: alle Absätze zwischen Start und Ende
+        isTargetPara = idx >= highlightStartArrayIdx && idx <= highlightEndArrayIdx;
+      } else {
+        // Einzel-Absatz: nur exakter Treffer
+        isTargetPara = paraIndex === lastHighlightedIndex;
+      }
+    }
     // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
     // WICHTIG: Bei Navigation vom Inhaltsverzeichnis KEIN Absatz-Highlighting
     const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight) ? 'highlighted-paragraph' : '';
@@ -29818,6 +29885,11 @@ function formatAsteriskParagraphs() {
     }
 
     async function showLecture(lectureId, targetIndex, keywords = [], isPhraseArray = [], skipHistory = false) {
+  // Bereichs-Markierung: Lese End-Index aus temporärer Variable (vom URL-Parser gesetzt)
+  // und setze zurück, damit nachfolgende Navigationen keinen falschen Bereich markieren
+  lastHighlightedEndIndex = window._pendingHighlightEndIndex || null;
+  window._pendingHighlightEndIndex = null;
+  
   const summaryPanel = document.getElementById('summary-panel');
   const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
   const tocList = document.getElementById('toc-list');
@@ -30154,9 +30226,12 @@ function formatAsteriskParagraphs() {
           if (targetIndex) {
             const cleanIndex = targetIndex.replace(/^\^/, '');
             lastHighlightedIndex = cleanIndex;
+            // lastHighlightedEndIndex wird vom URL-Parser gesetzt (falls pEnd vorhanden)
+            // Wenn kein EndIndex gesetzt, nur einzelnen Absatz markieren
           } else {
             // Neuer Vortrag - scrolle nach oben
             lastHighlightedIndex = null;
+            lastHighlightedEndIndex = null;
           }
           
           console.log('[LOAD-LECTURE] Zeige Zusammenfassung mit displaySummaryWithHeadings');
@@ -33067,6 +33142,19 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         // Merge Listenabsätze BEVOR sie gerendert werden
         const mergedParagraphs = mergeListParagraphs(paragraphs);
         
+        // Bereichs-Markierung: Berechne Array-Indizes für Start und Ende
+        let dlHighlightStartIdx = -1;
+        let dlHighlightEndIdx = -1;
+        if (cleanIndex && lastHighlightedEndIndex) {
+          dlHighlightStartIdx = mergedParagraphs.findIndex(p => p.index && p.index.replace(/^\^/, '') === cleanIndex);
+          dlHighlightEndIdx = mergedParagraphs.findIndex(p => p.index && p.index.replace(/^\^/, '') === lastHighlightedEndIndex);
+          if (dlHighlightStartIdx > dlHighlightEndIdx && dlHighlightEndIdx >= 0) {
+            const tmp = dlHighlightStartIdx;
+            dlHighlightStartIdx = dlHighlightEndIdx;
+            dlHighlightEndIdx = tmp;
+          }
+        }
+        
         // Render paragraphs and insert matching headings before each paragraph
         mergedParagraphs.forEach((para, idx) => {
           // Überspringe gelöschte Absätze
@@ -33131,7 +33219,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
           
           // Now render the paragraph
-          const isTargetPara = cleanIndex && paraIndex === cleanIndex;
+          // Bereichs-Markierung: Prüfe ob Absatz im markierten Bereich liegt
+          let isTargetPara = false;
+          if (cleanIndex) {
+            if (dlHighlightEndIdx >= 0 && dlHighlightStartIdx >= 0) {
+              isTargetPara = idx >= dlHighlightStartIdx && idx <= dlHighlightEndIdx;
+            } else {
+              isTargetPara = paraIndex === cleanIndex;
+            }
+          }
           
           let content = para.content || para.text || '';
           
@@ -34055,6 +34151,9 @@ window.addEventListener('DOMContentLoaded', function() {
         if (queryParams.lecture) {
           setTimeout(() => {
             const paragraphIndex = queryParams.p || '';
+            const paragraphEndIndex = queryParams.pEnd || '';
+            // Speichere End-Index in temporärer Variable, die showLecture ausliest
+            window._pendingHighlightEndIndex = paragraphEndIndex ? paragraphEndIndex.replace(/^\^/, '') : null;
             showLecture(queryParams.lecture, paragraphIndex);
           }, 200);
         }
@@ -39101,7 +39200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (lectureIdForLink) {
-      // Absatz-Index für präzise Verlinkung ermitteln
+      // Absatz-Index am Anfang der Selektion ermitteln
       let paragraphIndex = null;
       let paraEl = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
       while (paraEl && paraEl !== container) {
@@ -39113,9 +39212,25 @@ document.addEventListener('DOMContentLoaded', function() {
         paraEl = paraEl.parentElement;
       }
       
+      // Absatz-Index am Ende der Selektion ermitteln (für Bereichs-Markierung)
+      let paragraphEndIndex = null;
+      let endEl = range.endContainer.nodeType === 1 ? range.endContainer : range.endContainer.parentElement;
+      while (endEl && endEl !== container) {
+        const pIdx = endEl.getAttribute && (endEl.getAttribute('data-paragraph-index') || endEl.getAttribute('data-chunk-index'));
+        if (pIdx) {
+          paragraphEndIndex = pIdx.replace(/^\^/, '');
+          break;
+        }
+        endEl = endEl.parentElement;
+      }
+      
       linkUrl = `https://rudolf-steiner-online.de/app.html#texte&lecture=${encodeURIComponent(lectureIdForLink)}`;
       if (paragraphIndex) {
         linkUrl += `&p=${encodeURIComponent(paragraphIndex)}`;
+        // Nur pEnd anfügen wenn sich der End-Absatz vom Start-Absatz unterscheidet
+        if (paragraphEndIndex && paragraphEndIndex !== paragraphIndex) {
+          linkUrl += `&pEnd=${encodeURIComponent(paragraphEndIndex)}`;
+        }
       }
     }
     

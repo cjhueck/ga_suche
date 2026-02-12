@@ -1344,6 +1344,17 @@ async function loadBooks() {
     });
     booksWithMtime.sort((a, b) => a.mtime - b.mtime); // Älteste zuerst
     
+    // Hilfsfunktion: Prüfe ob ein Buch Seitenmarker (|123|) enthält
+    function bookHasPageMarkers(bookObj) {
+      if (bookObj.paragraphs) {
+        return bookObj.paragraphs.some(p => /\|\d{1,4}\|/.test(p.content || ''));
+      }
+      if (bookObj.content) {
+        return /\|\d{1,4}\|/.test(bookObj.content);
+      }
+      return false;
+    }
+    
     for (const { fileName, books, mtime } of booksWithMtime) {
       books.forEach(book => {
         if (book.ID || book.gaNumber) {
@@ -1353,6 +1364,14 @@ async function loadBooks() {
           const existing = fullBooks[bookId];
           if (existing && existing._sourceFileMtime && existing._sourceFileMtime > mtime) {
             // Existierende Version ist neuer - überspringe
+            duplicatesSkipped++;
+            return;
+          }
+          
+          // SCHUTZ: Wenn existierende Version Seitenmarker hat, neue aber nicht → alte behalten
+          // Dies verhindert, dass Sammeldateien ohne Marker die Einzeldateien mit Markern überschreiben
+          if (existing && bookHasPageMarkers(existing) && !bookHasPageMarkers(book)) {
+            console.log(`  ⚠️  ${bookId}: Überspringe ${fileName} (keine Seitenmarker) - behalte Version aus ${existing._sourceFileName} (mit Seitenmarkern)`);
             duplicatesSkipped++;
             return;
           }
