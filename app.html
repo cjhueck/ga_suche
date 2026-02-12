@@ -17085,6 +17085,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           sideHtml += `
             <div style="margin-bottom: 0.3rem; padding-left: 1rem;">
               <a href="#" onclick="scrollToBookHeading('${headingId}'); return false;" 
+                 data-heading-index="${headingId}"
                  style="color: var(--link-color); text-decoration: none; font-size: var(--text-size); line-height: var(--line-height);"
                  onmouseover="this.style.textDecoration='underline'"
                  onmouseout="this.style.textDecoration='none'">
@@ -17708,6 +17709,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         <div style="margin-bottom: 0.2rem; ${marginTop} ${indent}">
           <a href="#" 
              onclick="event.preventDefault(); navigateToBookHeadingInTexteTab('${bookGANumber}', '${headingIndex}'); return false;"
+             data-heading-index="${headingIndex}"
+             data-lecture-id="${bookGANumber}"
              style="text-decoration: none; color: var(--link-color); font-size: ${fontSize};"
              onmouseover="this.style.textDecoration='underline'"
              onmouseout="this.style.textDecoration='none'">
@@ -32685,6 +32688,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocHeading.textContent = heading.textContent;
         tocHeading.style.cursor = 'pointer';
         
+        // Daten-Attribute für Link-Kopieren übertragen
+        const srcHeadingIndex = heading.getAttribute('data-heading-index') || heading.getAttribute('data-index');
+        if (srcHeadingIndex) {
+          tocHeading.setAttribute('data-heading-index', srcHeadingIndex.replace(/^\^/, ''));
+        }
+        // Lecture-ID übertragen (für Kopier-Links)
+        const srcLectureId = heading.getAttribute('data-lecture-id') || (window.currentOpenLectureId || null);
+        if (srcLectureId) {
+          tocHeading.setAttribute('data-lecture-id', srcLectureId);
+        }
+        
         // Styling für klickbare Links
         tocHeading.style.color = 'var(--accent-color)';
         tocHeading.style.textDecoration = 'none';
@@ -39052,11 +39066,94 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!selection.rangeCount) return;
     
     const selectedText = selection.toString().trim();
+    if (!selectedText || selectedText.length < 3) return;
+    
+    const commonAncestor = selection.getRangeAt(0).commonAncestorContainer;
+    
+    // === ÜBERSCHRIFTEN ALS LINKS KOPIEREN ===
+    // Prüfe ob die Selektion eine Überschrift ist (Dokumenttitel oder Abschnitts-Überschrift)
+    const ancestorEl = commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
+    if (ancestorEl) {
+      const mainEl = document.getElementById('main');
+      const viewerEl = document.getElementById('viewer');
+      
+      // 1. Dokumenttitel (GA-Titel im viewer-header)
+      const docTitle = document.getElementById('document-title');
+      if (docTitle && docTitle.contains(commonAncestor)) {
+        const lectureId = window.currentOpenLectureId || null;
+        if (lectureId) {
+          const linkUrl = `https://rudolf-steiner-online.de/app.html#texte&lecture=${encodeURIComponent(lectureId)}`;
+          e.preventDefault();
+          e.clipboardData.setData('text/plain', selectedText + '\n' + linkUrl);
+          const escapedText = selectedText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const escapedUrl = linkUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+          e.clipboardData.setData('text/html', `<a href="${escapedUrl}" style="color: #467886; text-decoration: none; font-weight: bold;">${escapedText}</a>`);
+          console.log('[COPY] Dokumenttitel als Link kopiert:', selectedText, linkUrl);
+          return; // Fertig - keine Quellenangabe anhängen
+        }
+      }
+      
+      // 2. Abschnitts-Überschrift erkennen:
+      //    a) Direkt im Viewer (h2/h3/h4 mit data-heading-index oder data-index)
+      //    b) Im Side Panel TOC oder linkem Panel (Text → Viewer-Überschrift zuordnen)
+      const summaryPanelEl = document.getElementById('summary-panel');
+      const resultsEl = document.getElementById('results');
+      
+      // Prüfe ob Selektion in einer Überschrift liegt (Viewer, Side Panel, results)
+      let headingIndex = null;
+      let headingLectureId = null;
+      
+      // a) Element mit data-heading-index oder data-index direkt gefunden
+      const headingEl = ancestorEl.closest('[data-heading-index], h2[data-index], h3[data-index], h4[data-index]');
+      if (headingEl) {
+        headingIndex = headingEl.getAttribute('data-heading-index') || headingEl.getAttribute('data-index');
+        headingLectureId = headingEl.getAttribute('data-lecture-id');
+      }
+      
+      // b) Fallback: Selektion ist im TOC (summary-panel) oder results-Panel
+      //    → Suche die passende Überschrift im Viewer anhand des Textes
+      if (!headingIndex) {
+        const isInTOC = (summaryPanelEl && summaryPanelEl.contains(commonAncestor)) ||
+                        (resultsEl && resultsEl.contains(commonAncestor));
+        if (isInTOC && viewerEl) {
+          // Prüfe ob der selektierte Text eine Überschrift im Viewer ist
+          const normalizedSelected = selectedText.trim().toLowerCase();
+          const viewerHeadings = viewerEl.querySelectorAll('h2[data-heading-index], h3[data-heading-index], h4[data-heading-index], h2[data-index], h3[data-index], h4[data-index]');
+          for (const vh of viewerHeadings) {
+            const vhText = vh.textContent.trim().toLowerCase();
+            if (vhText === normalizedSelected || vhText.includes(normalizedSelected) || normalizedSelected.includes(vhText)) {
+              headingIndex = vh.getAttribute('data-heading-index') || vh.getAttribute('data-index');
+              if (headingIndex) {
+                console.log('[COPY] TOC-Text im Viewer gefunden:', vh.textContent.trim(), '→ Index:', headingIndex);
+                break;
+              }
+            }
+          }
+        }
+      }
+      
+      // Wenn ein Heading-Index gefunden wurde → als Link kopieren
+      if (headingIndex) {
+        const cleanIndex = headingIndex.replace(/^\^/, '');
+        const lectureId = headingLectureId || window.currentOpenLectureId || null;
+        if (lectureId) {
+          const linkUrl = `https://rudolf-steiner-online.de/app.html#texte&lecture=${encodeURIComponent(lectureId)}&p=${encodeURIComponent(cleanIndex)}`;
+          e.preventDefault();
+          e.clipboardData.setData('text/plain', selectedText + '\n' + linkUrl);
+          const escapedText = selectedText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const escapedUrl = linkUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+          e.clipboardData.setData('text/html', `<a href="${escapedUrl}" style="color: #467886; text-decoration: none; font-weight: bold;">${escapedText}</a>`);
+          console.log('[COPY] Abschnitts-Überschrift als Link kopiert:', selectedText, linkUrl);
+          return; // Fertig - keine Quellenangabe anhängen
+        }
+      }
+    }
+    
+    // === NORMALER TEXT MIT QUELLENANGABE ===
     // Nur bei substantiellem Text (mindestens 10 Zeichen)
-    if (!selectedText || selectedText.length < 10) return;
+    if (selectedText.length < 10) return;
     
     // Prüfe ob die Selektion in einem relevanten Container liegt
-    const commonAncestor = selection.getRangeAt(0).commonAncestorContainer;
     let container = null;
     for (const id of containerIds) {
       const el = document.getElementById(id);
