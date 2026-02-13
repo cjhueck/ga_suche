@@ -261,7 +261,13 @@ def extract_bibliographic_data(citavi_path: str) -> Dict[str, Dict]:
             if 'PageRange' in entry and entry['PageRange']:
                 bib_entry['pages'] = str(entry['PageRange'])
             elif 'PageCount' in entry and entry['PageCount']:
-                bib_entry['pages'] = str(entry['PageCount'])
+                page_raw = str(entry['PageCount'])
+                # Citavi speichert PageCount manchmal als XML: <c>238</c>\n<in>true</in>...
+                pc_match = re.search(r'<c>(\d+)</c>', page_raw)
+                if pc_match:
+                    bib_entry['pages'] = pc_match.group(1)
+                else:
+                    bib_entry['pages'] = page_raw
             if 'Edition' in entry and entry['Edition']:
                 bib_entry['edition'] = str(entry['Edition'])
             if 'Volume' in entry and entry['Volume']:

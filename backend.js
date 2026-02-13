@@ -24094,12 +24094,27 @@ async function loadAnalyticsFromSupabase() {
       });
     }
     
+    // Lade Global Unique Users (echte Eindeutigkeit über alle Tage)
+    let globalUniqueUsers = { today: 0, week: 0, total: 0 };
+    try {
+      const { data: globalData, error: globalError } = await supabaseClient.rpc('get_global_unique_users_stats');
+      if (!globalError && globalData) {
+        globalUniqueUsers = globalData;
+        console.log('[ANALYTICS-SUPABASE] Global Unique Users:', globalUniqueUsers);
+      } else if (globalError) {
+        console.warn('[ANALYTICS-SUPABASE] Global Unique Users Fehler (Funktion evtl. noch nicht deployed):', globalError.message);
+      }
+    } catch (globalErr) {
+      console.warn('[ANALYTICS-SUPABASE] Global Unique Users nicht verfügbar:', globalErr.message);
+    }
+    
     return {
       dailyStats,
       totalViews: totalsData?.total_views || 0,
       totalSearches: totalsData?.total_searches || 0,
       totalLectureViews: totalsData?.total_lectures || 0,
       totalUniqueUsers: totalsData?.total_unique_users || 0,
+      globalUniqueUsers,
       source: 'supabase'
     };
   } catch (error) {
@@ -24375,6 +24390,7 @@ app.get('/api/analytics/stats', async (req, res) => {
         lectures: cumulativeLectures,
         unique_users: cumulativeUniqueUsers
       },
+      global_unique_users: data.globalUniqueUsers || { today: 0, week: 0, total: 0 },
       topSearches,
       topLectures,
       dailyData,
