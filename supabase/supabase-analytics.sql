@@ -279,6 +279,16 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- ============================================
+-- 10. BERECHTIGUNGEN für anon/authenticated Rollen
+-- ============================================
+-- WICHTIG: Ohne diese GRANTs kann das Backend (anon key) die Funktionen nicht aufrufen!
+GRANT EXECUTE ON FUNCTION public.increment_analytics(DATE, INTEGER, INTEGER, INTEGER) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.track_unique_visitor(DATE, TEXT) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.recalculate_analytics_totals() TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.get_global_unique_users_stats() TO anon, authenticated;
+
+
+-- ============================================
 -- FERTIG! 
 -- ============================================
 -- Nach Ausführung dieses Scripts:
@@ -289,3 +299,4 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- 5. Die analytics_visitors Tabelle trackt eindeutige Besucher pro Tag
 -- 6. Die track_unique_visitor() Funktion zählt neue Besucher
 -- 7. Die get_global_unique_users_stats() Funktion zählt global eindeutige Besucher
+-- 8. Alle Funktionen haben GRANT EXECUTE für anon/authenticated Rollen
