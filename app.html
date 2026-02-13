@@ -13278,6 +13278,11 @@ function normalizeGANumber(gaNumber) {
           const data = await response.json();
           chalkboardsData = data.chalkboards || [];
           console.log(`[CHALKBOARDS] ${chalkboardsData.length} Tafeln geladen`);
+          // Aktualisiere GA-Tab-Statistik falls bereits angezeigt (Wandtafeln-Zahl nachtragen)
+          const countEl = document.getElementById('ga-volumes-count');
+          if (countEl && chalkboardsData.length > 0 && !countEl.textContent.includes('Wandtafeln')) {
+            countEl.textContent += ` · ${chalkboardsData.length} Wandtafeln`;
+          }
         } catch (error) {
           console.error('[CHALKBOARDS] Fehler beim Laden:', error);
           chalkboardsDataPromise = null; // Reset bei Fehler für erneuten Versuch
@@ -15053,7 +15058,8 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
       const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
-      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
+      const chalkboardsText = (chalkboardsData && chalkboardsData.length > 0) ? ` · ${chalkboardsData.length} Wandtafeln` : '';
+      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge${chalkboardsText}`;
       countElement.style.fontStyle = 'normal';
     }
     
@@ -15152,7 +15158,8 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
       const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
-      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
+      const chalkboardsText = (chalkboardsData && chalkboardsData.length > 0) ? ` · ${chalkboardsData.length} Wandtafeln` : '';
+      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge${chalkboardsText}`;
       countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
     
