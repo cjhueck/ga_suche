@@ -242,6 +242,8 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- ============================================
 -- Zählt eindeutige Besucher über ALLE Tage hinweg (nicht nur pro Tag)
 -- Verwendet COUNT(DISTINCT visitor_id) für echte Eindeutigkeit
+-- WICHTIG: Verwendet explizit UTC-Datum, da das Backend Daten mit UTC-Datum speichert
+--          (getDateKey() → new Date().toISOString().split('T')[0])
 CREATE OR REPLACE FUNCTION public.get_global_unique_users_stats()
 RETURNS JSON AS $$
 DECLARE
@@ -251,8 +253,9 @@ DECLARE
   v_today DATE;
   v_week_start DATE;
 BEGIN
-  v_today := CURRENT_DATE;
-  v_week_start := CURRENT_DATE - INTERVAL '6 days';
+  -- Explizit UTC verwenden, damit das Datum mit dem Backend übereinstimmt
+  v_today := (NOW() AT TIME ZONE 'UTC')::DATE;
+  v_week_start := v_today - INTERVAL '6 days';
   
   -- Eindeutige Besucher HEUTE
   SELECT COUNT(DISTINCT visitor_id) INTO v_today_count
