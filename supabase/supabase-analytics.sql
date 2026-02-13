@@ -238,6 +238,44 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- ============================================
+-- 9. FUNCTION: Global Unique Users Statistik
+-- ============================================
+-- Zählt eindeutige Besucher über ALLE Tage hinweg (nicht nur pro Tag)
+-- Verwendet COUNT(DISTINCT visitor_id) für echte Eindeutigkeit
+CREATE OR REPLACE FUNCTION public.get_global_unique_users_stats()
+RETURNS JSON AS $$
+DECLARE
+  v_today_count INTEGER;
+  v_week_count INTEGER;
+  v_total_count INTEGER;
+  v_today DATE;
+  v_week_start DATE;
+BEGIN
+  v_today := CURRENT_DATE;
+  v_week_start := CURRENT_DATE - INTERVAL '6 days';
+  
+  -- Eindeutige Besucher HEUTE
+  SELECT COUNT(DISTINCT visitor_id) INTO v_today_count
+  FROM public.analytics_visitors WHERE date = v_today;
+  
+  -- Eindeutige Besucher letzte 7 Tage (ein User der an 3 Tagen kommt = 1)
+  SELECT COUNT(DISTINCT visitor_id) INTO v_week_count
+  FROM public.analytics_visitors WHERE date >= v_week_start;
+  
+  -- Eindeutige Besucher GESAMT (über alle Zeiten)
+  SELECT COUNT(DISTINCT visitor_id) INTO v_total_count
+  FROM public.analytics_visitors;
+  
+  RETURN json_build_object(
+    'today', COALESCE(v_today_count, 0),
+    'week', COALESCE(v_week_count, 0),
+    'total', COALESCE(v_total_count, 0)
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+
+-- ============================================
 -- FERTIG! 
 -- ============================================
 -- Nach Ausführung dieses Scripts:
@@ -247,3 +285,4 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- 4. Alle Daten bleiben PERSISTENT - auch nach Render-Neustarts!
 -- 5. Die analytics_visitors Tabelle trackt eindeutige Besucher pro Tag
 -- 6. Die track_unique_visitor() Funktion zählt neue Besucher
+-- 7. Die get_global_unique_users_stats() Funktion zählt global eindeutige Besucher

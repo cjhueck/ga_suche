@@ -6912,7 +6912,7 @@ body.dark-mode .context-help-popup strong {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   width: 90%;
-  max-width: 800px;
+  max-width: 560px;
   max-height: 85vh;
   overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -6949,41 +6949,61 @@ body.dark-mode .context-help-popup strong {
 }
 
 .analytics-content {
-  padding: 20px;
-}
-
-.analytics-stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.analytics-stat-box {
-  background: var(--sidebar-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
   padding: 16px;
-  text-align: center;
 }
 
-.analytics-stat-box h4 {
-  margin: 0 0 8px 0;
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 0.85rem;
-  color: var(--secondary-text);
-  font-weight: normal;
+  margin-bottom: 16px;
 }
 
-.analytics-stat-box .stat-value {
-  font-size: 1.8rem;
+.analytics-table th,
+.analytics-table td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: right;
+}
+
+.analytics-table th:first-child,
+.analytics-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.analytics-table thead th {
+  font-size: 0.75rem;
+  color: var(--secondary-text);
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.analytics-table tbody td {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.analytics-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.analytics-table .stat-highlight {
   color: var(--accent-color);
 }
 
-.analytics-stat-box .stat-label {
-  font-size: 0.75rem;
+.analytics-table .stat-green {
+  color: #2ecc71;
+}
+
+.analytics-table .stat-muted {
   color: var(--secondary-text);
-  margin-top: 4px;
+  font-weight: 400;
 }
 
 .analytics-section {
@@ -10093,60 +10113,46 @@ PDF
           sampleBarHeight: dailyData.length > 0 ? Math.max((dailyData[0].views / maxViews) * 100, 2) : 0
         }, null, 2));
         
+        // Global Unique Users aus API-Antwort
+        const globalUnique = data.global_unique_users || { today: 0, week: 0, total: 0 };
+        
         container.innerHTML = `
-          <div class="analytics-stats-row">
-            <div class="analytics-stat-box">
-              <h4>Heute</h4>
-              <div class="stat-value" style="color: ${(Number(data.today?.views) || 0) > 0 ? 'var(--text-color)' : 'var(--secondary-text)'}">${Number(data.today?.views) || 0}</div>
-              <div class="stat-label">Besuche</div>
-            </div>
-            <div class="analytics-stat-box">
-              <h4>Diese Woche</h4>
-              <div class="stat-value" style="color: ${(Number(data.week?.views) || 0) > 0 ? 'var(--text-color)' : 'var(--secondary-text)'}">${Number(data.week?.views) || 0}</div>
-              <div class="stat-label">Besuche</div>
-            </div>
-            <div class="analytics-stat-box">
-              <h4>Gesamt</h4>
-              <div class="stat-value" style="color: ${(Number(data.total?.views) || 0) > 0 ? 'var(--text-color)' : 'var(--secondary-text)'}">${Number(data.total?.views) || 0}</div>
-              <div class="stat-label">Besuche</div>
-            </div>
-          </div>
-          
-          <div class="analytics-stats-row">
-            <div class="analytics-stat-box">
-              <h4>Heute</h4>
-              <div class="stat-value" style="color: ${(Number(data.today?.unique_users) || 0) > 0 ? '#2ecc71' : 'var(--secondary-text)'}">${Number(data.today?.unique_users) || 0}</div>
-              <div class="stat-label">Nutzer</div>
-            </div>
-            <div class="analytics-stat-box">
-              <h4>Diese Woche</h4>
-              <div class="stat-value" style="color: ${(Number(data.week?.unique_users) || 0) > 0 ? '#2ecc71' : 'var(--secondary-text)'}">${Number(data.week?.unique_users) || 0}</div>
-              <div class="stat-label">Nutzer</div>
-            </div>
-            <div class="analytics-stat-box">
-              <h4>Gesamt</h4>
-              <div class="stat-value" style="color: ${(Number(data.total?.unique_users) || 0) > 0 ? '#2ecc71' : 'var(--secondary-text)'}">${Number(data.total?.unique_users) || 0}</div>
-              <div class="stat-label">Nutzer</div>
-            </div>
-          </div>
-          
-          <div class="analytics-stats-row">
-            <div class="analytics-stat-box">
-              <h4>Heute</h4>
-              <div class="stat-value">${data.today?.searches || 0}</div>
-              <div class="stat-label">Suchen</div>
-            </div>
-            <div class="analytics-stat-box">
-              <h4>Diese Woche</h4>
-              <div class="stat-value">${data.week?.searches || 0}</div>
-              <div class="stat-label">Suchen</div>
-            </div>
-            <div class="analytics-stat-box">
-              <h4>Gesamt</h4>
-              <div class="stat-value">${data.total?.searches || 0}</div>
-              <div class="stat-label">Suchen</div>
-            </div>
-          </div>
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Heute</th>
+                <th>Woche</th>
+                <th>Gesamt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Besuche</td>
+                <td class="${(Number(data.today?.views) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.today?.views) || 0}</td>
+                <td class="${(Number(data.week?.views) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.week?.views) || 0}</td>
+                <td class="${(Number(data.total?.views) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.total?.views) || 0}</td>
+              </tr>
+              <tr>
+                <td>Nutzer <span style="font-size:0.75rem;color:var(--secondary-text);font-weight:normal">(pro Tag)</span></td>
+                <td class="${(Number(data.today?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.today?.unique_users) || 0}</td>
+                <td class="${(Number(data.week?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.week?.unique_users) || 0}</td>
+                <td class="${(Number(data.total?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.total?.unique_users) || 0}</td>
+              </tr>
+              <tr>
+                <td>Nutzer <span style="font-size:0.75rem;color:var(--secondary-text);font-weight:normal">(eindeutig)</span></td>
+                <td class="${(Number(globalUnique.today) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.today) || 0}</td>
+                <td class="${(Number(globalUnique.week) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.week) || 0}</td>
+                <td class="${(Number(globalUnique.total) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.total) || 0}</td>
+              </tr>
+              <tr>
+                <td>Suchen</td>
+                <td class="${(Number(data.today?.searches) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.today?.searches) || 0}</td>
+                <td class="${(Number(data.week?.searches) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.week?.searches) || 0}</td>
+                <td class="${(Number(data.total?.searches) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.total?.searches) || 0}</td>
+              </tr>
+            </tbody>
+          </table>
           
           <div class="analytics-section">
             <h3>Besuche der letzten ${dailyData.length} Tage</h3>
