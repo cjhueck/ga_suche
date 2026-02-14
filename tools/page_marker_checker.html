@@ -738,6 +738,84 @@
                 box-shadow: 0 0 0 4px #ff9800;
             }
         }
+
+        /* Auto-Modus Styles */
+        .btn.auto-active {
+            background: #27ae60 !important;
+            color: white !important;
+        }
+
+        .btn.auto-active:hover {
+            background: #219a52 !important;
+        }
+
+        .btn.auto-paused {
+            background: #e67e22 !important;
+            color: white !important;
+            animation: autoPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes autoPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .auto-info-bar {
+            display: none;
+            background: #f0f7f0;
+            border-bottom: 1px solid #c3e6cb;
+            padding: 4px 2rem;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            flex-shrink: 0;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .auto-info-bar.visible {
+            display: flex;
+        }
+
+        .auto-info-bar.paused {
+            background: #fff3e0;
+            border-bottom-color: #ffe0b2;
+        }
+
+        .auto-info-item {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .auto-info-label {
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+
+        .auto-info-value {
+            color: var(--text-color);
+        }
+
+        .auto-info-warning {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        .auto-info-ok {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .btn-auto-resume {
+            background: #27ae60 !important;
+            padding: 2px 10px !important;
+            font-size: 0.75rem !important;
+            margin-left: auto;
+        }
+
+        .btn-auto-resume:hover {
+            background: #219a52 !important;
+        }
     </style>
 </head>
 <body>
@@ -748,6 +826,7 @@
             <button class="btn btn-secondary" id="toggleSeries" onclick="toggleSeriesMode()" title="Serienmodus: Nach Marker-Einfügung automatisch zur nächsten PDF/MD-Seite">Serie</button>
             <button class="btn btn-secondary" id="toggleFast" onclick="toggleFastMode()" title="Fast-Modus: Im Serienmodus wird das Insert-Dialog automatisch geöffnet">Fast</button>
             <button class="btn btn-secondary" id="toggleNewPdf" onclick="toggleNewPdfMode()" title="Neues-PDF-Modus: Einfache Textextraktion (erste 3-5 Wörter der obersten Zeile)">Neu</button>
+            <button class="btn btn-secondary" id="toggleAuto" onclick="toggleAutoMode()" title="Auto-Modus: Seitenmarker automatisch einfügen mit Abstandsprüfung (Ø ~1661 Zeichen / ~244 Wörter)">Auto</button>
         </div>
         <div class="file-input-wrapper">
             <input type="file" id="fileInput" accept=".md,.txt">
@@ -760,6 +839,26 @@
         <button class="btn btn-secondary" id="saveBtn" onclick="saveFile()" disabled>Speichern</button>
         <button class="btn btn-secondary" id="shortcutsBtn" onclick="showShortcuts()" title="Shortcuts anzeigen">?</button>
         <div class="status" id="status">Keine Datei geladen</div>
+    </div>
+
+    <div class="auto-info-bar" id="autoInfoBar">
+        <div class="auto-info-item">
+            <span class="auto-info-label">Auto:</span>
+            <span class="auto-info-value" id="autoStatusText">Bereit</span>
+        </div>
+        <div class="auto-info-item">
+            <span class="auto-info-label">Ø Abstand:</span>
+            <span class="auto-info-value" id="autoAvgDistance">—</span>
+        </div>
+        <div class="auto-info-item">
+            <span class="auto-info-label">Letzter Abstand:</span>
+            <span class="auto-info-value" id="autoLastDistance">—</span>
+        </div>
+        <div class="auto-info-item">
+            <span class="auto-info-label">Nächste Seite:</span>
+            <span class="auto-info-value" id="autoNextPage">—</span>
+        </div>
+        <button class="btn btn-auto-resume" id="autoResumeBtn" onclick="resumeAutoMode()" style="display: none;">Weiter</button>
     </div>
 
     <div class="main-container">
@@ -898,6 +997,13 @@
         let searchDirectionForward = true; // true = vorwärts suchen, false = rückwärts (vom Anfang)
         let scrollingDisabledForSearch = false; // Verhindert automatisches Scrollen bei Suche
         let newPdfMode = false; // Neues-PDF-Modus: einfache Textextraktion (erste 3-5 Wörter der obersten Zeile)
+        
+        // Auto-Modus: Seitenmarker automatisch nacheinander einfügen
+        let autoModeEnabled = false;
+        let autoModePaused = false;
+        const AUTO_MODE_DEFAULT_AVG_CHARS = 1661; // Globaler Durchschnitt aus allen GA-Büchern
+        const AUTO_MODE_DEFAULT_AVG_WORDS = 244;
+        const AUTO_MODE_TOLERANCE = 0.45; // 45% Toleranz (akzeptabler Bereich: 55%-145% des Durchschnitts)
         
         // PDF.js Worker konfigurieren (muss vor jeder Verwendung von pdfjsLib sein)
         if (typeof pdfjsLib !== 'undefined') {
@@ -1758,6 +1864,10 @@
                         showNotification('[Neu] Nicht gefunden: "' + newPdfSearchText.substring(0, 40) + '"', 'error');
                         console.log('[Neues PDF] Nicht gefunden:', newPdfSearchText);
                         console.log('[Neues PDF] Suchbereich ab Position:', searchStartPos, 'Markdown-Länge:', markdownText.length);
+                        // Auto-Modus: Pausieren bei Suchfehler
+                        if (autoModeEnabled && !autoModePaused) {
+                            pauseAutoMode('Text nicht gefunden auf PDF-Seite ' + currentPdfPage + ': "' + newPdfSearchText.substring(0, 40) + '"');
+                        }
                     }
                     return; // Beende hier - keine komplexe Suche nötig
                 }
@@ -2927,6 +3037,10 @@
                     showNotification('Text nicht im Markdown gefunden: "' + searchText + '"', 'error');
                     console.log('Gesuchter Text:', searchText);
                     console.log('Normalisierter gesuchter Text:', normalizedSearch);
+                    // Auto-Modus: Pausieren bei Suchfehler
+                    if (autoModeEnabled && !autoModePaused) {
+                        pauseAutoMode('Text nicht gefunden auf PDF-Seite ' + currentPdfPage + ': "' + searchText.substring(0, 40) + '"');
+                    }
                     return;
                 }
                 
@@ -2959,6 +3073,10 @@
             if (lastInsertedMarkerPosition > 0 && position < lastInsertedMarkerPosition) {
                 console.log('[highlightTextInMarkdown] Treffer abgelehnt: Position', position, 'liegt vor letztem Marker', lastInsertedMarkerPosition);
                 showNotification('Kein Treffer stromabwärts', 'warning');
+                // Auto-Modus: Pausieren bei Stromaufwärts-Treffer
+                if (autoModeEnabled && !autoModePaused) {
+                    pauseAutoMode('Kein Treffer stromabwärts auf PDF-Seite ' + currentPdfPage);
+                }
                 return false;
             }
 
@@ -4312,6 +4430,279 @@
             showNotification(newPdfMode ? 'Neues-PDF-Modus aktiviert (erste Inhaltszeile, 3-5 Wörter)' : 'Altes-PDF-Modus aktiviert (komplexe Textextraktion)', 'warning');
         }
 
+        // === AUTO-MODUS FUNKTIONEN ===
+        
+        function toggleAutoMode() {
+            if (!autoModeEnabled) {
+                // Aktivieren
+                if (!currentContent) {
+                    showNotification('Auto-Modus erfordert eine geladene MD-Datei', 'error');
+                    return;
+                }
+                if (!pdfDoc && mdPages.length === 0) {
+                    showNotification('Auto-Modus erfordert ein geladenes PDF oder MD-Vergleich', 'error');
+                    return;
+                }
+                
+                autoModeEnabled = true;
+                autoModePaused = false;
+                
+                // Aktiviere abhängige Modi falls nötig
+                if (!seriesModeEnabled) {
+                    toggleSeriesMode();
+                }
+                if (!fastModeEnabled) {
+                    toggleFastMode();
+                }
+                // Suche aktivieren OHNE sofortige Ausführung (startAutoModeCycle navigiert erst zur richtigen Seite)
+                if (pdfDoc && !searchToggleActive) {
+                    searchToggleActive = true;
+                    const searchBtn = document.getElementById('searchToggleBtn');
+                    if (searchBtn) {
+                        searchBtn.classList.add('active');
+                        searchBtn.title = 'Suche aktiviert - wird automatisch bei Seitenwechsel ausgeführt';
+                    }
+                }
+                
+                updateAutoModeUI();
+                updateAutoInfoBar();
+                showNotification('Auto-Modus aktiviert: Marker werden automatisch eingefügt, bei Abstandsabweichung wird pausiert', 'warning');
+                
+                // Starte den ersten Auto-Zyklus
+                startAutoModeCycle();
+            } else {
+                // Deaktivieren
+                autoModeEnabled = false;
+                autoModePaused = false;
+                updateAutoModeUI();
+                showNotification('Auto-Modus deaktiviert', 'warning');
+            }
+        }
+        
+        function updateAutoModeUI() {
+            const btn = document.getElementById('toggleAuto');
+            const infoBar = document.getElementById('autoInfoBar');
+            
+            btn.classList.remove('active', 'auto-active', 'auto-paused');
+            infoBar.classList.remove('visible', 'paused');
+            
+            if (autoModeEnabled) {
+                if (autoModePaused) {
+                    btn.classList.add('auto-paused');
+                    btn.textContent = 'Auto ⏸';
+                    infoBar.classList.add('visible', 'paused');
+                    document.getElementById('autoResumeBtn').style.display = '';
+                } else {
+                    btn.classList.add('auto-active');
+                    btn.textContent = 'Auto ▶';
+                    infoBar.classList.add('visible');
+                    document.getElementById('autoResumeBtn').style.display = 'none';
+                }
+            } else {
+                btn.textContent = 'Auto';
+                document.getElementById('autoResumeBtn').style.display = 'none';
+            }
+        }
+        
+        function updateAutoInfoBar() {
+            if (!autoModeEnabled) return;
+            
+            const { avgChars, avgWords } = calculateAutoModeDistances();
+            document.getElementById('autoAvgDistance').textContent = `${avgChars} Z / ${avgWords} W`;
+            
+            // Nächste erwartete Seite
+            const text = currentContent;
+            const markerRegex = /\|(\d+)\|/g;
+            let lastMarker = null;
+            let match;
+            while ((match = markerRegex.exec(text)) !== null) {
+                lastMarker = { page: parseInt(match[1]), index: match.index, endIndex: match.index + match[0].length };
+            }
+            
+            if (lastMarker) {
+                document.getElementById('autoNextPage').textContent = `|${lastMarker.page + 1}|`;
+            } else {
+                document.getElementById('autoNextPage').textContent = '|1|';
+            }
+        }
+        
+        function calculateAutoModeDistances() {
+            const text = currentContent;
+            if (!text) return { avgChars: AUTO_MODE_DEFAULT_AVG_CHARS, avgWords: AUTO_MODE_DEFAULT_AVG_WORDS };
+            
+            const markerRegex = /\|(\d+)\|/g;
+            const markerPositions = [];
+            let match;
+            while ((match = markerRegex.exec(text)) !== null) {
+                markerPositions.push({
+                    index: match.index,
+                    endIndex: match.index + match[0].length,
+                    page: parseInt(match[1])
+                });
+            }
+            
+            if (markerPositions.length < 2) {
+                return { avgChars: AUTO_MODE_DEFAULT_AVG_CHARS, avgWords: AUTO_MODE_DEFAULT_AVG_WORDS };
+            }
+            
+            let totalChars = 0;
+            let totalWords = 0;
+            let count = 0;
+            
+            for (let i = 0; i < markerPositions.length - 1; i++) {
+                const textBetween = text.substring(markerPositions[i].endIndex, markerPositions[i + 1].index);
+                totalChars += textBetween.length;
+                totalWords += textBetween.trim().split(/\s+/).filter(w => w.length > 0).length;
+                count++;
+            }
+            
+            return {
+                avgChars: count > 0 ? Math.round(totalChars / count) : AUTO_MODE_DEFAULT_AVG_CHARS,
+                avgWords: count > 0 ? Math.round(totalWords / count) : AUTO_MODE_DEFAULT_AVG_WORDS
+            };
+        }
+        
+        function checkAutoModeDistance(targetPosition) {
+            if (targetPosition < 0) return { ok: true, reason: '', charDistance: 0, wordDistance: 0, charRatio: 1, avgChars: 0, avgWords: 0 };
+            
+            const { avgChars, avgWords } = calculateAutoModeDistances();
+            
+            // Finde den letzten Marker im GESAMTEN Text (für Stromabwärts-Prüfung)
+            // UND den letzten Marker VOR der targetPosition (für Abstandsberechnung)
+            const text = currentContent;
+            const markerRegex = /\|(\d+)\|/g;
+            let lastMarkerEnd = 0;
+            let lastMarkerPage = 0;
+            let globalLastMarkerEnd = 0;
+            let globalLastMarkerPage = 0;
+            let match;
+            
+            while ((match = markerRegex.exec(text)) !== null) {
+                const mEnd = match.index + match[0].length;
+                const mPage = parseInt(match[1]);
+                // Globaler letzter Marker
+                if (mEnd > globalLastMarkerEnd) {
+                    globalLastMarkerEnd = mEnd;
+                    globalLastMarkerPage = mPage;
+                }
+                // Letzter Marker vor targetPosition
+                if (mEnd <= targetPosition) {
+                    lastMarkerEnd = mEnd;
+                    lastMarkerPage = mPage;
+                }
+            }
+            
+            // Wenn kein Marker existiert, immer OK
+            if (globalLastMarkerEnd === 0 && globalLastMarkerPage === 0) {
+                return { ok: true, reason: 'Erster Marker', charDistance: targetPosition, wordDistance: 0, charRatio: 1, avgChars, avgWords };
+            }
+            
+            // STROMABWÄRTS-PRÜFUNG: Zielposition muss HINTER dem letzten Marker im gesamten Text liegen
+            if (targetPosition < globalLastMarkerEnd) {
+                const lastDistEl = document.getElementById('autoLastDistance');
+                lastDistEl.innerHTML = `<span class="auto-info-warning">Stromaufwärts! (Position ${targetPosition} < letzter Marker bei ${globalLastMarkerEnd})</span>`;
+                return {
+                    ok: false,
+                    reason: `Stromaufwärts-Einfügung blockiert: Position ${targetPosition} liegt vor dem letzten Marker |${globalLastMarkerPage}| (Position ${globalLastMarkerEnd}). Nur stromabwärts erlaubt.`,
+                    charDistance: targetPosition - globalLastMarkerEnd, wordDistance: 0, charRatio: 0, wordRatio: 0, avgChars, avgWords
+                };
+            }
+            
+            const charDistance = targetPosition - lastMarkerEnd;
+            const textBetween = text.substring(lastMarkerEnd, targetPosition);
+            const wordDistance = textBetween.trim().split(/\s+/).filter(w => w.length > 0).length;
+            
+            const charRatio = avgChars > 0 ? charDistance / avgChars : 1;
+            const wordRatio = avgWords > 0 ? wordDistance / avgWords : 1;
+            
+            const tolerance = AUTO_MODE_TOLERANCE;
+            
+            // Update Info-Bar
+            const lastDistEl = document.getElementById('autoLastDistance');
+            const percent = Math.round(charRatio * 100);
+            
+            if (charRatio < (1 - tolerance)) {
+                lastDistEl.innerHTML = `<span class="auto-info-warning">${charDistance} Z / ${wordDistance} W (${percent}% — zu kurz!)</span>`;
+                return {
+                    ok: false,
+                    reason: `Abstand zu kurz: ${charDistance} Zeichen / ${wordDistance} Wörter (${percent}% des Ø ${avgChars} Z / ${avgWords} W). Erwarteter Bereich: ${Math.round(avgChars * (1 - tolerance))}–${Math.round(avgChars * (1 + tolerance))} Zeichen.`,
+                    charDistance, wordDistance, charRatio, wordRatio, avgChars, avgWords
+                };
+            }
+            
+            if (charRatio > (1 + tolerance)) {
+                lastDistEl.innerHTML = `<span class="auto-info-warning">${charDistance} Z / ${wordDistance} W (${percent}% — zu lang!)</span>`;
+                return {
+                    ok: false,
+                    reason: `Abstand zu lang: ${charDistance} Zeichen / ${wordDistance} Wörter (${percent}% des Ø ${avgChars} Z / ${avgWords} W). Erwarteter Bereich: ${Math.round(avgChars * (1 - tolerance))}–${Math.round(avgChars * (1 + tolerance))} Zeichen.`,
+                    charDistance, wordDistance, charRatio, wordRatio, avgChars, avgWords
+                };
+            }
+            
+            lastDistEl.innerHTML = `<span class="auto-info-ok">${charDistance} Z / ${wordDistance} W (${percent}%)</span>`;
+            return {
+                ok: true,
+                reason: `OK: ${charDistance} Z / ${wordDistance} W (${percent}% des Ø)`,
+                charDistance, wordDistance, charRatio, wordRatio, avgChars, avgWords
+            };
+        }
+        
+        function startAutoModeCycle() {
+            if (!autoModeEnabled || autoModePaused) return;
+            if (!pdfDoc && mdPages.length === 0) return;
+            
+            // Finde den letzten Marker
+            const text = currentContent;
+            const markerRegex = /\|(\d+)\|/g;
+            let lastMarker = null;
+            let match;
+            while ((match = markerRegex.exec(text)) !== null) {
+                lastMarker = { page: parseInt(match[1]), index: match.index, endIndex: match.index + match[0].length };
+            }
+            
+            if (lastMarker) {
+                // Navigiere zur nächsten PDF-Seite und suche
+                const nextPage = lastMarker.page + 1;
+                if (pdfDoc && nextPage <= totalPdfPages) {
+                    autoOpenInsertDialogAfterSearch = true;
+                    renderPdfPage(nextPage);
+                    setTimeout(() => searchPdfTextInMarkdown(), 200);
+                } else if (!pdfDoc && mdPages.length > 0 && currentMdPageIndex < totalMdPages - 1) {
+                    autoOpenInsertDialogAfterSearch = true;
+                    nextMdPage();
+                } else {
+                    showNotification('Auto-Modus: Alle Seiten verarbeitet!', 'warning');
+                    autoModeEnabled = false;
+                    updateAutoModeUI();
+                }
+            } else {
+                showNotification('Auto-Modus: Kein Marker vorhanden. Bitte fügen Sie zuerst manuell einen Marker ein, dann starten Sie Auto erneut.', 'warning');
+                autoModeEnabled = false;
+                updateAutoModeUI();
+            }
+        }
+        
+        function pauseAutoMode(reason) {
+            if (!autoModeEnabled) return;
+            autoModePaused = true;
+            updateAutoModeUI();
+            document.getElementById('autoStatusText').innerHTML = `<span class="auto-info-warning">Pausiert</span>`;
+            showNotification('Auto-Modus pausiert: ' + reason, 'warning');
+        }
+        
+        function resumeAutoMode() {
+            if (!autoModeEnabled) return;
+            autoModePaused = false;
+            updateAutoModeUI();
+            document.getElementById('autoStatusText').textContent = 'Läuft...';
+            showNotification('Auto-Modus fortgesetzt', 'warning');
+            
+            // Starte den nächsten Zyklus
+            setTimeout(() => startAutoModeCycle(), 300);
+        }
+        
+        // === ENDE AUTO-MODUS FUNKTIONEN ===
+
         function renderContent(content) {
             if (!content) {
                 console.error('Kein Content zum Rendern');
@@ -5329,6 +5720,23 @@
                 dialog.style.display = 'block';
                 input.focus();
                 input.select(); // Markiere den Text für einfaches Überschreiben
+                
+                // Auto-Modus: Prüfe Abstand und bestätige automatisch oder pausiere
+                if (autoModeEnabled && !autoModePaused) {
+                    const distanceCheck = checkAutoModeDistance(insertMarkerPosition);
+                    console.log('[Auto] Distanzprüfung:', distanceCheck);
+                    
+                    if (distanceCheck.ok) {
+                        // Abstand OK → automatisch bestätigen
+                        document.getElementById('autoStatusText').textContent = 'Läuft...';
+                        setTimeout(() => {
+                            confirmInsertMarker();
+                        }, 200);
+                    } else {
+                        // Abstand abweichend → pausieren, Dialog bleibt offen für manuelle Korrektur
+                        pauseAutoMode(distanceCheck.reason);
+                    }
+                }
             }
         }
         
@@ -5493,6 +5901,18 @@
                     setTimeout(() => {
                         nextMdPage();
                     }, 100);
+                }
+            }
+            
+            // Auto-Modus: Info-Bar aktualisieren und nach manueller Pause weiterlaufen
+            if (autoModeEnabled) {
+                updateAutoInfoBar();
+                if (autoModePaused) {
+                    // Nach manuellem Einfügen: Auto-Modus wieder aufnehmen
+                    autoModePaused = false;
+                    updateAutoModeUI();
+                    document.getElementById('autoStatusText').textContent = 'Läuft...';
+                    console.log('[Auto] Manuelles Einfügen während Pause → Auto-Modus wieder aufgenommen');
                 }
             }
         }

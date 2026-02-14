@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Rudolf Steiner Gesamtausgabe - Willkommen</title>
+<!-- Inter Font von Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+    /* Zentrale Farbdefinitionen */
+    :root {
+      /* Light Mode Farben */
+      --text-color: #333333;
+      --heading-color: #467886;
+      --link-color: #467886;
+      --accent-color: #467886;
+      --background-color: #FAF8F3;
+      --border-color: #ddd;
+      --secondary-text: #666;
+      
+      /* Dark Mode Farben */
+      --dark-text-color: #b8b8b8;
+      --dark-heading-color: #6BA3B8;
+      --dark-link-color: #6BA3B8;
+      --dark-accent-color: #6BA3B8;
+      --dark-background-color: #1a1a1a;
+      --dark-border-color: #404040;
+      --dark-secondary-text: #999;
+      
+      /* Zentrale Textgrößen */
+      --text-size: 0.9rem;
+      --heading-size: 1.0rem;
+      --line-height: 1.3;
+      --paragraph-margin: 0.5rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      /* AKTUELL: Inter als Standard-Schriftart */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+      /* ZURÜCK ZU GEORGIA: Kommentar oben entfernen und folgende Zeile aktivieren: */
+      /* font-family: Georgia, 'Times New Roman', serif; */
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    body.dark-mode {
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode h1,
+    body.dark-mode h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    body.dark-mode .nav-links a {
+      color: var(--dark-link-color);
+    }
+    
+    .container {
+      display: flex;
+      min-height: 100vh;
+      width: 100vw;
+      padding-top: 70px;
+      padding-left: 6rem;
+      padding-right: 2rem;
+    }
+    
+    .left-panel {
+      width: 390px;
+      min-width: 390px;
+      background-color: transparent;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: calc(2rem + 10px) 3rem 2rem calc(3rem + 40px);
+    }
+    
+    .portrait-container {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 90px;
+    }
+    
+    .portrait {
+      max-width: 100%;
+      width: 300px;
+      min-width: 300px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      margin-left: 0;
+      flex-shrink: 0;
+    }
+    
+    .portrait-caption {
+      margin-top: 1rem;
+      margin-left: 0;
+      color: var(--text-color);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    
+    body.dark-mode .portrait-caption {
+      color: var(--dark-text-color);
+    }
+    
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 1.7rem 4rem 3rem 1rem;
+      position: relative;
+    }
+    
+    /* Zitat der Woche Button - oben rechts */
+    .quote-of-week-btn {
+      position: absolute;
+      top: 2.5rem;
+      right: 4rem;
+      padding: 8px 12px;
+      font-size: 0.85em;
+      border: 1.5px solid var(--accent-color, #467886);
+      background: transparent;
+      color: var(--accent-color, #467886);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-weight: 500;
+      opacity: 1;
+      box-shadow: 0 2px 4px rgba(70, 120, 134, 0.1);
+      max-width: 140px;
+      width: auto;
+      z-index: 100;
+    }
+    
+    .quote-of-week-btn:hover {
+      background: var(--accent-color, #467886);
+      border-color: var(--accent-color, #467886);
+      color: white;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+    
+    body.dark-mode .quote-of-week-btn {
+      border-color: var(--dark-accent-color, #6BA3B8);
+      background: transparent;
+      color: var(--dark-accent-color, #6BA3B8);
+      box-shadow: 0 2px 4px rgba(107, 163, 184, 0.2);
+    }
+    
+    body.dark-mode .quote-of-week-btn:hover {
+      background: var(--dark-accent-color, #6BA3B8);
+      border-color: var(--dark-accent-color, #6BA3B8);
+      color: white;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+    
+    .content {
+      max-width: 900px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 5px;
+      margin-left: 40px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+      margin-top: 2rem;
+      align-self: flex-end;
+      padding-right: 1rem;
+      padding-bottom: 1.0rem;
+    }
+    
+    .footer-links a {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .footer-links a {
+      color: var(--dark-link-color);
+    }
+    
+    /* Spendenbutton in Footer-Links */
+    .footer-links .donate-button {
+      color: var(--link-color);
+      text-decoration: none !important;
+      border-bottom: 2px solid var(--link-color);
+      transition: all 0.3s ease;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+    
+    .footer-links .donate-button:hover {
+      text-decoration: none !important;
+      border-bottom: 2px solid var(--link-color);
+    }
+    
+    body.dark-mode .footer-links .donate-button {
+      border-bottom-color: var(--dark-link-color);
+    }
+    
+    body.dark-mode .footer-links .donate-button:hover {
+      border-bottom-color: var(--dark-link-color);
+    }
+    
+    body.dark-mode .donate-button {
+      color: var(--dark-link-color);
+    }
+    
+    h1 {
+      color: var(--heading-color);
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      font-weight: normal;
+      margin-top: 0;
+    }
+    
+    h3 {
+      color: var(--heading-color);
+      font-size: 1.6rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: normal;
+    }
+    
+    body.dark-mode h3 {
+      color: var(--dark-heading-color);
+    }
+    
+    .intro-text {
+      color: var(--text-color);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      white-space: nowrap;
+    }
+    
+    body.dark-mode .intro-text {
+      color: var(--dark-text-color);
+    }
+    
+    .subtitle {
+      color: var(--text-color);
+      font-size: 1.0rem;
+      margin-bottom: 1rem;
+      margin-top: 0rem;
+    }
+    
+    body.dark-mode .subtitle {
+      color: var(--dark-text-color);
+    }
+    
+    .nav-links {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      margin-top: 0.5rem;
+    }
+    
+    .nav-links li {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    
+    .nav-links a {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      display: inline;
+      font-weight: 600;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .nav-links strong {
+      color: var(--text-color);
+      font-weight: bold;
+    }
+    
+    body.dark-mode .nav-links strong {
+      color: var(--dark-text-color);
+    }
+    
+    .nav-links .description {
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .nav-links .description {
+      color: var(--dark-text-color);
+    }
+    
+    /* Logo oben links mit Text */
+    .logo-container {
+      position: absolute;
+      top: 30px;
+      left: 80px;
+      z-index: 1000;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .logo-container a {
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+    
+    .logo-container img {
+      height: 130px;
+      width: auto;
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
+      background: transparent;
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
+    }
+    
+    body.dark-mode .logo-container img {
+      mix-blend-mode: screen;
+      filter: invert(1) contrast(1.1);
+    }
+    
+    .logo-container img:hover {
+      opacity: 1;
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .logo-text h2 {
+      font-size: 0.95rem;
+      color: var(--heading-color);
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.3px;
+    }
+    
+    .logo-text p {
+      font-size: 0.7rem;
+      color: var(--text-color);
+      margin: 0;
+      line-height: 1.3;
+    }
+    
+    body.dark-mode .logo-text h2 {
+      color: var(--dark-heading-color);
+    }
+    
+    body.dark-mode .logo-text p {
+      color: var(--dark-text-color);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        padding-top: 40px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      .left-panel {
+        width: 100%;
+        min-width: auto;
+        padding: 1rem;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .portrait-container {
+        margin-top: 90px;
+      }
+      
+      .portrait {
+        width: 150px;
+      }
+      
+      .portrait-caption {
+        font-size: 0.8rem;
+      }
+      
+      .footer-links {
+        align-self: center;
+        margin-top: 2rem;
+        padding-right: 0;
+      }
+      
+      .right-panel {
+        padding: 1rem 1.5rem 2rem 1.5rem;
+        align-items: flex-start;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      h3 {
+        font-size: 1.3rem;
+      }
+      
+      .intro-text {
+        font-size: 0.95rem;
+        white-space: normal;
+      }
+      
+      .subtitle {
+        font-size: 1.0rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .nav-links a,
+      .nav-links .description {
+        font-size: 0.95rem;
+      }
+      
+      .logo-container {
+        top: 20px;
+        left: 60px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .logo-container img {
+        height: 60px;
+      }
+      
+      .logo-text h2 {
+        font-size: 0.9rem;
+      }
+      
+      .logo-text p {
+        font-size: 0.65rem;
+      }
+    }
+    
+    /* Help Modal Styles */
+    .help-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.2s ease;
+    }
+    
+    .help-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .help-modal-content {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      border-radius: 0;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .help-modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .help-modal-header h2 {
+      margin: 0;
+      color: var(--heading-color) !important;
+      font-size: 1.5rem;
+    }
+    
+    body.dark-mode .help-modal-header h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    body.dark-mode .help-modal-content {
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .help-modal-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .help-modal-close {
+      color: var(--dark-text-color);
+    }
+    
+    .help-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .help-modal-close:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-mode .help-modal-close:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .help-modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .help-choice {
+      display: block;
+    }
+    
+    .help-choice p {
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-choice p {
+      color: var(--dark-text-color);
+    }
+    
+    .help-choice-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .help-choice-btn {
+      flex: 1;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--background-color);
+      border-radius: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .help-choice-btn:hover {
+      background-color: #467886;
+      color: white;
+      border-color: #467886;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(70, 120, 134, 0.2);
+    }
+    
+    body.dark-mode .help-choice-btn {
+      border-color: var(--border-color);
+      background-color: var(--background-color);
+    }
+    
+    body.dark-mode .help-choice-btn:hover {
+      background-color: #6BA3B8;
+      color: white;
+      border-color: #6BA3B8;
+    }
+    
+    .help-choice-btn h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+      color: #467886;
+    }
+    
+    body.dark-mode .help-choice-btn h3 {
+      color: #6BA3B8;
+    }
+    
+    .help-choice-btn:hover h3 {
+      color: white;
+    }
+    
+    .help-choice-btn p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-color);
+    }
+    
+    .help-choice-btn:hover p {
+      color: white;
+    }
+    
+    .help-content-display {
+      display: none;
+    }
+    
+    .help-content-display.active {
+      display: block;
+    }
+    
+    .help-content-display h2 {
+      color: var(--heading-color) !important;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: var(--heading-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display h3 {
+      color: var(--heading-color) !important;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-size: var(--heading-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display h4 {
+      color: var(--heading-color) !important;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      font-weight: 600;
+    }
+    
+    body.dark-mode .help-content-display h2,
+    body.dark-mode .help-content-display h3,
+    body.dark-mode .help-content-display h4 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    .help-content-display blockquote {
+      margin: var(--paragraph-margin) 0;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-color);
+      font-style: italic;
+      color: var(--secondary-text);
+    }
+    
+    body.dark-mode .help-content-display blockquote {
+      border-left-color: var(--dark-accent-color);
+      color: var(--dark-secondary-text);
+    }
+    
+    .help-content-display p {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display p {
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display ul,
+    .help-content-display ol {
+      margin: var(--paragraph-margin) 0;
+      padding-left: 1.5rem;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display li {
+      margin: 0.25rem 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display li {
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .help-content-display a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .help-content-display a {
+      color: var(--dark-link-color);
+    }
+    
+    .help-content-display strong {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display strong {
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display em {
+      font-style: italic;
+    }
+    
+    .help-content-display code {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display code {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display kbd {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      border: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .help-content-display kbd {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: var(--dark-border-color);
+    }
+    
+    .help-content-display pre {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: var(--paragraph-margin) 0;
+    }
+    
+    body.dark-mode .help-content-display pre {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .help-content-display table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: var(--text-size);
+    }
+    
+    .help-content-display table th,
+    .help-content-display table td {
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display table th {
+      background-color: rgba(70, 120, 134, 0.1);
+      font-weight: 600;
+    }
+    
+    body.dark-mode .help-content-display table th,
+    body.dark-mode .help-content-display table td {
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .help-content-display table th {
+      background-color: rgba(107, 163, 184, 0.15);
+    }
+    
+    .help-content-display hr {
+      margin: 1.5rem 0;
+      border: none;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .help-content-display hr {
+      border-top-color: var(--dark-border-color);
+    }
+    
+    /* Zitate-Popup Styles */
+    body.dark-mode #quotesPopupInner {
+      background: var(--dark-background-color) !important;
+      border-color: #6BA3B8 !important;
+    }
+    
+    body.dark-mode #quotesPopupHeader {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-color: var(--dark-border-color) !important;
+    }
+    
+    body.dark-mode #quotesPopup h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    body.dark-mode #quotesPopupContent {
+      color: var(--dark-text-color) !important;
+    }
+    
+    /* Scrollbars - minimiert und nur bei Hover sichtbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    
+    *:hover::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+    }
+    
+    *:hover::-webkit-scrollbar-thumb:hover {
+      background: #a0a0a0;
+    }
+    
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    *:hover {
+      scrollbar-color: #c0c0c0 transparent;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    
+    body.dark-mode *:hover::-webkit-scrollbar-thumb {
+      background: #555;
+    }
+    
+    body.dark-mode *:hover::-webkit-scrollbar-thumb:hover {
+      background: #666;
+    }
+    
+    body.dark-mode * {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    body.dark-mode *:hover {
+      scrollbar-color: #555 transparent;
+    }
+    
+    .help-content-display img {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    
+    .help-content-display dl {
+      margin: var(--paragraph-margin) 0;
+    }
+    
+    .help-content-display dt {
+      font-weight: 600;
+      margin-top: 0.5rem;
+      color: var(--heading-color);
+    }
+    
+    body.dark-mode .help-content-display dt {
+      color: var(--dark-heading-color);
+    }
+    
+    .help-content-display dd {
+      margin-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-back-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #467886;
+      color: white;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .help-back-btn:hover {
+      background-color: #3a6270;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+    
+    body.dark-mode .help-back-btn {
+      background-color: #6BA3B8;
+    }
+    
+    body.dark-mode .help-back-btn:hover {
+      background-color: #5a8a9a;
+    }
+    
+    /* Responsive Modal */
+    @media (max-width: 900px) {
+      .help-choice-buttons {
+        flex-wrap: wrap;
+      }
+      
+      .help-choice-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 120px;
+      }
+    }
+    
+    /* Einführungs-Modal Styles */
+    .einfuehrung-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.2s ease;
+    }
+    
+    .einfuehrung-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .einfuehrung-modal-content {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      border-radius: 0;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 95%;
+      max-width: 1200px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.3s ease;
+      position: relative;
+    }
+    
+    body.dark-mode .einfuehrung-modal-content {
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
+      border-color: var(--dark-border-color);
+    }
+    
+    .einfuehrung-modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    body.dark-mode .einfuehrung-modal-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    .einfuehrung-modal-header h2 {
+      margin: 0;
+      color: var(--heading-color) !important;
+      font-size: 1.5rem;
+    }
+    
+    body.dark-mode .einfuehrung-modal-header h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    .einfuehrung-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      line-height: 1;
+    }
+    
+    .einfuehrung-modal-close:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-mode .einfuehrung-modal-close {
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode .einfuehrung-modal-close:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .einfuehrung-modal-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+    
+    .einfuehrung-content {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    .einfuehrung-toc {
+      width: 250px;
+      padding: 1.5rem;
+      border-left: 1px solid var(--border-color);
+      overflow-y: auto;
+      background-color: rgba(0, 0, 0, 0.02);
+      flex-shrink: 0;
+    }
+    
+    body.dark-mode .einfuehrung-toc {
+      border-left-color: var(--dark-border-color);
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+    
+    .einfuehrung-toc h3 {
+      margin: 0 0 1rem 0;
+      font-size: 0.9rem;
+      color: var(--heading-color);
+      font-weight: 600;
+    }
+    
+    body.dark-mode .einfuehrung-toc h3 {
+      color: var(--dark-heading-color);
+    }
+    
+    .einfuehrung-toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .einfuehrung-toc li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .einfuehrung-toc a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: block;
+      padding: 0.25rem 0;
+      transition: color 0.2s ease;
+    }
+    
+    .einfuehrung-toc a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .einfuehrung-toc a {
+      color: var(--dark-link-color);
+    }
+    
+    .einfuehrung-content h2 {
+      color: var(--heading-color) !important;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: var(--heading-size);
+      line-height: var(--line-height);
+      scroll-margin-top: 1rem;
+    }
+    
+    body.dark-mode .einfuehrung-content h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    .einfuehrung-content h2:first-child {
+      margin-top: 0;
+    }
+    
+    .einfuehrung-content p {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .einfuehrung-content p {
+      color: var(--dark-text-color);
+    }
+    
+    .einfuehrung-content a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .einfuehrung-content a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .einfuehrung-content a {
+      color: var(--dark-link-color);
+    }
+    
+    .einfuehrung-content strong {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .einfuehrung-content strong {
+      color: var(--dark-text-color);
+    }
+    
+    /* Scrollbar Styles für Einführungs-Modal - schmal und hell wie in app.html */
+    .einfuehrung-content::-webkit-scrollbar,
+    .einfuehrung-toc::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    
+    .einfuehrung-content::-webkit-scrollbar-track,
+    .einfuehrung-toc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .einfuehrung-content::-webkit-scrollbar-thumb,
+    .einfuehrung-toc::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    
+    .einfuehrung-content:hover::-webkit-scrollbar-thumb,
+    .einfuehrung-toc:hover::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+    }
+    
+    .einfuehrung-content:hover::-webkit-scrollbar-thumb:hover,
+    .einfuehrung-toc:hover::-webkit-scrollbar-thumb:hover {
+      background: #a0a0a0;
+    }
+    
+    .einfuehrung-content,
+    .einfuehrung-toc {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    .einfuehrung-content:hover,
+    .einfuehrung-toc:hover {
+      scrollbar-color: #c0c0c0 transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content::-webkit-scrollbar-track,
+    body.dark-mode .einfuehrung-toc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content::-webkit-scrollbar-thumb,
+    body.dark-mode .einfuehrung-toc::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content:hover::-webkit-scrollbar-thumb,
+    body.dark-mode .einfuehrung-toc:hover::-webkit-scrollbar-thumb {
+      background: #555;
+    }
+    
+    body.dark-mode .einfuehrung-content:hover::-webkit-scrollbar-thumb:hover,
+    body.dark-mode .einfuehrung-toc:hover::-webkit-scrollbar-thumb:hover {
+      background: #666;
+    }
+    
+    body.dark-mode .einfuehrung-content,
+    body.dark-mode .einfuehrung-toc {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content:hover,
+    body.dark-mode .einfuehrung-toc:hover {
+      scrollbar-color: #555 transparent;
+    }
+    
+    /* Privacy Modal Styles (wie in members.html) */
+    .privacy-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .privacy-modal.active {
+      display: flex;
+    }
+
+    .privacy-modal-content {
+      background: var(--background-color);
+      color: var(--text-color);
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.3s ease;
+    }
+
+    body.dark-mode .privacy-modal-content {
+      background: var(--dark-background-color);
+      color: var(--dark-text-color);
+    }
+
+    .privacy-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    body.dark-mode .privacy-modal-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+
+    .privacy-modal-header h3 {
+      color: var(--heading-color);
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    body.dark-mode .privacy-modal-header h3 {
+      color: var(--dark-heading-color);
+    }
+
+    .privacy-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-text);
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    body.dark-mode .privacy-modal-close {
+      color: var(--dark-secondary-text);
+    }
+
+    .privacy-modal-close:hover {
+      color: var(--text-color);
+    }
+
+    body.dark-mode .privacy-modal-close:hover {
+      color: var(--dark-text-color);
+    }
+
+    .privacy-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .privacy-modal-body h4 {
+      color: var(--heading-color);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    body.dark-mode .privacy-modal-body h4 {
+      color: var(--dark-heading-color);
+    }
+
+    .privacy-modal-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .privacy-modal-body p {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    body.dark-mode .privacy-modal-body p {
+      color: var(--dark-text-color);
+    }
+
+    .privacy-modal-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-modal-body li {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    body.dark-mode .privacy-modal-body li {
+      color: var(--dark-text-color);
+    }
+    
+    @media (max-width: 900px) {
+      .einfuehrung-modal-body {
+        flex-direction: column;
+      }
+      
+      .einfuehrung-toc {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        max-height: 200px;
+      }
+      
+      body.dark-mode .einfuehrung-toc {
+        border-top-color: var(--dark-border-color);
+      }
+    }
+</style>
+</head>
+<body>
+  <!-- Logo oben links -->
+  <div class="logo-container">
+    <a href="https://www.akanthos-akademie.de/" target="_blank" rel="noopener noreferrer" title="Zur Akanthos Akademie">
+      <img src="images/Logo.png" alt="GA Suche Logo">
+    </a>
+  </div>
+  
+  <div class="container">
+    <div class="left-panel">
+      <div class="portrait-container">
+        <img src="images/Steiner_1916.jpg" alt="Rudolf Steiner Portrait" class="portrait">
+        <div class="portrait-caption">Rudolf Steiner (1861-1925)</div>
+      </div>
+    </div>
+    
+    <div class="right-panel">
+      <button id="quote-of-week-btn" class="quote-of-week-btn" onclick="openQuotesPopup()" title="Zitat der Woche anzeigen">Zitat der Woche</button>
+      <div class="content">
+        <h1>Rudolf Steiner Gesamtausgabe</h1>
+        <p class="subtitle">Volltext-Suche und semantische Analyse</p>
+        
+        <ul class="nav-links">
+          <li><a href="#" onclick="event.preventDefault(); openEinfuehrungModal();">Einführung</a> <span class="description">- Informationen zur GA-Suche und den Textgrundlagen</span></li>
+          <li><a href="app.html#ga">Gesamtausgabe</a> <span class="description">- Schriften, Aufsätze, Vorträge und Wandtafelzeichnungen, mit Kurzusammenfassungen und chronologischer Liste</span></li>
+          <li><a href="app.html#keyword">Volltext- und Stichwortsuche</a> <span class="description">– mit Relevanzbewertung</span></li>
+          <li><a href="app.html#texte">Texte anzeigen lassen</a> <span class="description">– Texte mit Zusammenfassungen, Gliederungen und Schlagworten</span></li>
+          <li><a href="app.html#thematic2">Themen</a> <span class="description">– Themenschwerpunkte im Überblick mit Zeitverlauf von Suchergebnissen und Schlagworten</span></li>
+          <li><a href="app.html#thematic">Abfrage</a> <span class="description">– KI-gestützte thematische Analyse</span></li>
+          <li><a href="app.html#schlagworte">Index</a> <span class="description">– wichtige Schlagworte mit Verlinkung</span></li>
+          <li><a href="members.html" target="_blank" rel="noopener noreferrer">Mitgliederbereich</a> <span class="description">- persönliche Bookmarks setzen, Zitate und Themenabfragen speichern</span></li>
+        </ul>
+        
+        <h3>Sammlungen zu einzelnen Themen</h3>
+        
+        <ul class="nav-links">
+          <li><a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer">Entwicklung des Kindes</a> <span class="description">- sämtliche Darstellungen Rudolf Steiners zur Entwicklungsanthropologie</span></li>
+          <li><a href="https://publish.obsidian.md/steiner-goetheanism" target="_blank" rel="noopener noreferrer">Goetheanistische Naturschauung</a> <span class="description">- Sammlung von Zitaten zu Goethes Naturerkenntnis</span></li>
+        
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
+        <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglieder</a>
+        <a href="#" onclick="event.preventDefault(); openHelpModalDirect('quick');">Impressum</a>
+        <a href="#" onclick="event.preventDefault(); openDatenschutzModal();">Datenschutz</a>
+        <a href="https://www.paypal.com/donate/?hosted_button_id=KNV8BB4UPZESU" target="_blank" rel="noopener noreferrer" class="donate-button">Spenden</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Einführungs-Modal -->
+  <div id="einfuehrungModal" class="einfuehrung-modal">
+    <div class="einfuehrung-modal-content">
+      <div class="einfuehrung-modal-header">
+        <h2>Einführung</h2>
+        <button class="einfuehrung-modal-close" onclick="closeEinfuehrungModal()">&times;</button>
+      </div>
+      <div class="einfuehrung-modal-body">
+        <div class="einfuehrung-content" id="einfuehrungContent"></div>
+        <div class="einfuehrung-toc" id="einfuehrungToc">
+          <h3>Inhalt</h3>
+          <ul id="einfuehrungTocList"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Datenschutz Modal -->
+  <div id="datenschutzModal" class="privacy-modal">
+    <div class="privacy-modal-content">
+      <div class="privacy-modal-header">
+        <h3>Datenschutzerklärung</h3>
+        <button class="privacy-modal-close" onclick="closeDatenschutzModal()">&times;</button>
+      </div>
+      <div class="privacy-modal-body">
+        <h4>1. Datenerhebung und -speicherung</h4>
+        <p>Bei der Registrierung im Mitgliederbereich werden folgende Daten erfasst und gespeichert:</p>
+        <ul>
+          <li>E-Mail-Adresse (für die Authentifizierung)</li>
+          <li>Passwort (verschlüsselt gespeichert)</li>
+          <li>Anzeigename (optional)</li>
+          <li>Von Ihnen erstellte Bookmarks, Zitate und Notizen</li>
+        </ul>
+
+        <h4>2. Zweck der Datenerhebung</h4>
+        <p>Die erhobenen Daten dienen ausschließlich dazu, Ihnen die Funktionen des Mitgliederbereichs zur Verfügung zu stellen:</p>
+        <ul>
+          <li>Speicherung Ihrer persönlichen Bookmarks und Zitate</li>
+          <li>Verwaltung Ihrer Notizen und Schlagwörter</li>
+          <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
+        </ul>
+
+        <h4>3. Datenverarbeitung</h4>
+        <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS.</p>
+
+        <h4>4. Ihre Rechte</h4>
+        <p>Sie haben jederzeit das Recht:</p>
+        <ul>
+          <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+          <li>Ihre Daten zu korrigieren oder zu löschen</li>
+          <li>Ihren Account komplett zu löschen (über "Mein Account" → "Account löschen")</li>
+          <li>Der Datenverarbeitung zu widersprechen</li>
+        </ul>
+
+        <h4>5. Cookies und Tracking</h4>
+        <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden lediglich technisch notwendige Cookies für die Authentifizierung verwendet.</p>
+
+        <h4>6. Kontakt</h4>
+        <p>Bei Fragen zum Datenschutz können Sie uns über die Kontaktmöglichkeiten im Impressum erreichen.</p>
+
+        <h4>7. Änderungen der Datenschutzerklärung</h4>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen. Über wesentliche Änderungen werden Sie per E-Mail informiert.</p>
+
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--secondary-text);">
+          Stand: Januar 2025
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="help-modal">
+    <div class="help-modal-content">
+      <div class="help-modal-header">
+        <h2 id="helpModalTitle">GA-Suche Anleitung</h2>
+        <button class="help-modal-close" onclick="closeHelpModal()">&times;</button>
+      </div>
+      <div class="help-modal-body">
+        <!-- Choice Screen -->
+        <div id="helpChoice" class="help-choice">
+          <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
+          <div class="help-choice-buttons">
+            <button class="help-choice-btn" onclick="showHelpContent('welcome')">
+              <h3>Willkommen</h3>
+            </button>
+            <button class="help-choice-btn" onclick="showHelpContent('gesamtausgabe')">
+              <h3>Gesamtausgabe</h3>
+            </button>
+            <button class="help-choice-btn" onclick="showHelpContent('full')">
+              <h3>Anleitung</h3> 
+            </button>
+            <button class="help-choice-btn" onclick="showHelpContent('quick')">
+              <h3>Impressum</h3>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Content Display -->
+        <div id="helpContentDisplay" class="help-content-display">
+          <div id="helpContentText"></div>
+          <button class="help-back-btn" onclick="showHelpChoice()">← Zurück zur Auswahl</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Load saved dark mode preference from main app
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkMode = localStorage.getItem('darkMode');
+      if (darkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+    
+    // Help Modal Functions
+    function openHelpModal() {
+      const modal = document.getElementById('helpModal');
+      modal.classList.add('active');
+      showHelpChoice();
+    }
+    
+    function openHelpModalDirect(type) {
+      const modal = document.getElementById('helpModal');
+      modal.classList.add('active');
+      showHelpContent(type);
+    }
+    
+    function closeHelpModal() {
+      const modal = document.getElementById('helpModal');
+      modal.classList.remove('active');
+    }
+    
+    function showHelpChoice() {
+      document.getElementById('helpChoice').style.display = 'block';
+      document.getElementById('helpContentDisplay').classList.remove('active');
+      document.getElementById('helpModalTitle').textContent = 'GA-Suche Anleitung';
+    }
+    
+    async function showHelpContent(type) {
+      const contentDisplay = document.getElementById('helpContentDisplay');
+      const contentText = document.getElementById('helpContentText');
+      const choice = document.getElementById('helpChoice');
+      const title = document.getElementById('helpModalTitle');
+      
+      choice.style.display = 'none';
+      contentDisplay.classList.add('active');
+      
+      // Lade-Indikator
+      contentText.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Anleitung...</p>';
+      
+      try {
+        let mdFile = '';
+        if (type === 'welcome') {
+          title.textContent = 'Willkommen';
+          mdFile = 'WILLKOMMEN.md';
+        } else if (type === 'gesamtausgabe') {
+          title.textContent = 'Gesamtausgabe';
+          mdFile = 'GESAMTAUSGABE.md';
+        } else if (type === 'full') {
+          title.textContent = 'GA-Suche Anleitung';
+          mdFile = 'BENUTZERANLEITUNG.md';
+        } else if (type === 'quick') {
+          title.textContent = 'Impressum';
+          mdFile = 'IMPRESSUM.md';
+        }
+        
+        // Lade Markdown-Datei vom Backend-Server (alle aus system-Ordner)
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        const response = await fetch(`${API_BASE}/system/${mdFile}`);
+        if (!response.ok) {
+          throw new Error(`Fehler beim Laden: ${response.status}`);
+        }
+        const markdown = await response.text();
+        
+        // Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        function preprocessObsidianLineBreaks(markdown) {
+          if (!markdown || typeof markdown !== 'string') {
+            return markdown;
+          }
+          return markdown.replace(/'\/br'/g, '\n');
+        }
+        
+        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+        
+        // Konvertiere Markdown zu HTML mit marked.js
+        if (typeof marked !== 'undefined') {
+          // Konfiguriere marked für besseres Rendering
+          marked.setOptions({
+            breaks: true,
+            gfm: true
+          });
+          contentText.innerHTML = marked.parse(processedMarkdown);
+        } else {
+          // Fallback: Zeige Markdown als Text
+          contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+        }
+        
+      } catch (error) {
+        console.error('Fehler beim Laden der Anleitung:', error);
+        contentText.innerHTML = `
+          <div style="text-align: center; padding: 2rem; color: #999;">
+            <p><strong>Fehler beim Laden der Anleitung</strong></p>
+            <p style="font-size: 0.9em; margin-top: 1rem;">
+              ${error.message}<br>
+              Bitte stellen Sie sicher, dass die Markdown-Dateien verfügbar sind.
+            </p>
+          </div>
+        `;
+      }
+      
+      // Scroll to top
+      contentDisplay.scrollTop = 0;
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById('helpModal');
+      if (event.target === modal) {
+        closeHelpModal();
+      }
+    });
+    
+    // Datenschutz Modal Functions
+    function openDatenschutzModal() {
+      const modal = document.getElementById('datenschutzModal');
+      if (modal) {
+        modal.classList.add('active');
+      }
+    }
+    
+    function closeDatenschutzModal() {
+      const modal = document.getElementById('datenschutzModal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const helpModal = document.getElementById('helpModal');
+        const einfuehrungModal = document.getElementById('einfuehrungModal');
+        const datenschutzModal = document.getElementById('datenschutzModal');
+        if (helpModal && helpModal.classList.contains('active')) {
+          closeHelpModal();
+        }
+        if (einfuehrungModal && einfuehrungModal.classList.contains('active')) {
+          closeEinfuehrungModal();
+        }
+        if (datenschutzModal && datenschutzModal.classList.contains('active')) {
+          closeDatenschutzModal();
+        }
+      }
+    });
+    
+    // Einführungs-Modal Functions
+    async function openEinfuehrungModal() {
+      const modal = document.getElementById('einfuehrungModal');
+      const contentDiv = document.getElementById('einfuehrungContent');
+      const tocList = document.getElementById('einfuehrungTocList');
+      
+      if (!modal || !contentDiv || !tocList) {
+        console.error('Modal-Elemente nicht gefunden');
+        alert('Fehler: Modal-Elemente nicht gefunden');
+        return;
+      }
+      
+      modal.classList.add('active');
+      
+      // Lade-Indikator
+      contentDiv.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Einführung...</p>';
+      tocList.innerHTML = '';
+      
+      try {
+        // Lade Markdown-Datei vom Backend-Server
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        const url = `${API_BASE}/system/Einfuehrung.md`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Response Error Text:', errorText);
+          throw new Error(`Fehler beim Laden: ${response.status} ${response.statusText}`);
+        }
+        const markdown = await response.text();
+        
+        // Prüfe ob die Datei leer ist
+        if (!markdown || markdown.trim().length === 0) {
+          throw new Error('Die Markdown-Datei ist leer. Bitte stellen Sie sicher, dass die Datei system/Einfuehrung.md auf dem Server vorhanden und nicht leer ist.');
+        }
+        
+        // Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        function preprocessObsidianLineBreaks(markdown) {
+          if (!markdown || typeof markdown !== 'string') {
+            return markdown;
+          }
+          return markdown.replace(/'\/br'/g, '\n');
+        }
+        
+        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+        
+        // Konvertiere Markdown zu HTML mit marked.js
+        if (typeof marked !== 'undefined') {
+          marked.setOptions({
+            breaks: true,
+            gfm: true
+          });
+          let html = marked.parse(processedMarkdown);
+          
+          // Setze HTML-Inhalt ZUERST (damit Inhalt immer angezeigt wird)
+          contentDiv.innerHTML = html;
+          
+          // Extrahiere Überschriften aus dem DOM (sicherer als String-Manipulation)
+          const headings = [];
+          let headingIndex = 0;
+          
+          // Suche nach <p><strong>...</strong></p> Elementen die als Überschriften verwendet werden
+          const paragraphs = contentDiv.querySelectorAll('p');
+          
+          paragraphs.forEach(p => {
+            const strong = p.querySelector('strong');
+            // Prüfe ob der Absatz nur ein <strong> Element enthält (kein anderer Text)
+            if (strong && p.textContent.trim() === strong.textContent.trim()) {
+              const headingText = strong.textContent.trim();
+              // Prüfe ob es wirklich eine Überschrift ist (nicht zu lang)
+              if (headingText.length > 0 && headingText.length < 100) {
+                headingIndex++;
+                const headingId = `einfuehrung-heading-${headingIndex}`;
+                
+                // Ersetze <p><strong>...</strong></p> durch <h2 id="...">...</h2>
+                const h2 = document.createElement('h2');
+                h2.id = headingId;
+                h2.textContent = headingText;
+                p.parentNode.replaceChild(h2, p);
+                
+                headings.push({ text: headingText, id: headingId });
+              }
+            }
+          });
+          
+          
+          // Erstelle Inhaltsverzeichnis
+          tocList.innerHTML = '';
+          if (headings.length > 0) {
+            headings.forEach(heading => {
+              const li = document.createElement('li');
+              const a = document.createElement('a');
+              a.href = `#${heading.id}`;
+              a.textContent = heading.text;
+              a.onclick = function(e) {
+                e.preventDefault();
+                const targetElement = document.getElementById(heading.id);
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              };
+              li.appendChild(a);
+              tocList.appendChild(li);
+            });
+          } else {
+            tocList.innerHTML = '<li style="color: var(--secondary-text); font-size: 0.85em;">Keine Überschriften gefunden</li>';
+          }
+        } else {
+          console.warn('marked.js nicht verfügbar, zeige Markdown als Text');
+          // Fallback: Zeige Markdown als Text
+          contentDiv.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+        }
+        
+      } catch (error) {
+        console.error('Fehler beim Laden der Einführung:', error);
+        const errorUrl = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        contentDiv.innerHTML = `
+          <div style="text-align: center; padding: 2rem; color: #999;">
+            <p><strong>Fehler beim Laden der Einführung</strong></p>
+            <p style="font-size: 0.9em; margin-top: 1rem;">
+              ${error.message}<br>
+              Bitte stellen Sie sicher, dass die Markdown-Datei verfügbar ist.
+            </p>
+            <p style="font-size: 0.8em; margin-top: 0.5rem; color: #666;">
+              URL: ${errorUrl}/system/Einfuehrung.md<br>
+              Fehler: ${error.toString()}
+            </p>
+          </div>
+        `;
+        tocList.innerHTML = '';
+      }
+      
+      // Scroll to top
+      contentDiv.scrollTop = 0;
+    }
+    
+    function closeEinfuehrungModal() {
+      const modal = document.getElementById('einfuehrungModal');
+      modal.classList.remove('active');
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const helpModal = document.getElementById('helpModal');
+      const einfuehrungModal = document.getElementById('einfuehrungModal');
+      const datenschutzModal = document.getElementById('datenschutzModal');
+      if (event.target === helpModal) {
+        closeHelpModal();
+      }
+      if (event.target === einfuehrungModal) {
+        closeEinfuehrungModal();
+      }
+      if (event.target === datenschutzModal) {
+        closeDatenschutzModal();
+      }
+    });
+    
+    // Zitat der Woche Button - öffne Popup direkt in index.html
+    // Zeigt IMMER das Zitat an, das im Tab Zitate als "Popup An" markiert ist
+    async function openQuotesPopup() {
+      try {
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        
+        // Lade immer frisch von der API
+        const response = await fetch(`${API_BASE}/api/quotes`);
+        if (!response.ok) return;
+        
+        const quotesDB = await response.json();
+        const activeQuotes = (quotesDB.quotes || []).filter(q => q.isActive);
+        
+        // Nur öffnen, wenn aktive Zitate existieren
+        if (activeQuotes.length === 0) {
+          return;
+        }
+        
+        // Zeige das erste aktive Zitat (das mit "Popup An")
+        const quoteToShow = activeQuotes[0];
+        
+        if (quoteToShow && quoteToShow.id) {
+          showSingleQuotePopup(quoteToShow.id);
+        }
+      } catch (error) {
+        console.error('[QUOTES-POPUP] Fehler:', error);
+      }
+    }
+    
+    // Polling-Variablen (nicht mehr benötigt, aber für Kompatibilität)
+    let lastActiveQuoteId = null;
+    function startQuotePolling() {}
+    function stopQuotePolling() {}
+    
+    // Zeige einzelnes Zitat im Popup
+    async function showSingleQuotePopup(quoteId) {
+      try {
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        
+        const response = await fetch(`${API_BASE}/api/quotes`);
+        if (!response.ok) return;
+        
+        const quotesDB = await response.json();
+        const quote = (quotesDB.quotes || []).find(q => q.id === quoteId);
+        
+        if (!quote) {
+          alert('Zitat nicht gefunden');
+          return;
+        }
+        
+        // Subtitle im Header leeren
+        const subtitleElement = document.getElementById('quotesPopupSubtitle');
+        if (subtitleElement) {
+          subtitleElement.innerHTML = '';
+        }
+        
+        const container = document.getElementById('quotesPopupContent');
+        if (container) {
+          let quoteText = quote.text || '';
+          
+          // Entferne Quellenangabe am Ende des Textes
+          quoteText = quoteText.replace(/\s*\(\d{2}\.\d{2}\.\d{4},\s*GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+          quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*,\s*\d{4}\)\s*$/i, '');
+          quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+          
+          // Konvertiere **text** zu <strong>text</strong> (Markdown-Fett)
+          quoteText = quoteText.replace(/\*\*([^*]+)\*\*/g, '<strong style="font-style: normal;">$1</strong>');
+          
+          // Konvertiere englische Anführungszeichen zu deutschen
+          // Öffnendes " am Wortanfang -> „ (unten)
+          // Schließendes " am Wortende -> " (oben)
+          quoteText = quoteText.replace(/"([^"]+)"/g, '„$1"');
+          
+          // Text mit Absätzen formatieren (wie im Main Viewer)
+          const paragraphs = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0);
+          const formattedHtml = paragraphs.map(para => `<p style="margin: 0.5rem 0;">${para}</p>`).join('');
+          
+          // GA-Nummer und Vortragsdatum für Quellenangabe unter dem Zitat
+          let sourceParts = [];
+          
+          if (quote.lectureId && quote.lectureId !== 'manual') {
+            const displayId = formatLectureId(quote.lectureId);
+            const paragraphIndex = quote.paragraphIndex || '';
+            const targetUrl = `app.html#texte&lecture=${quote.lectureId}${paragraphIndex ? '&p=' + paragraphIndex : ''}`;
+            sourceParts.push(`<a href="${targetUrl}" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
+          }
+          
+          // Zeige Vortragsdatum aus dem Zitat-Objekt (wie in app.html)
+          if (quote.date) {
+            try {
+              const dateObj = new Date(quote.date);
+              const dateStr = dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+              sourceParts.push(`<span>${dateStr}</span>`);
+            } catch (e) {
+              console.warn('[QUOTES-POPUP] Fehler bei Datumsformatierung:', e);
+            }
+          }
+          const sourceHtml = sourceParts.length > 0 ? `<div style="text-align: right; margin-top: 1rem; font-size: 0.9rem; font-style: normal;">${sourceParts.join(', ')}</div>` : '';
+          
+          container.innerHTML = `
+            <div style="font-style: italic; line-height: 1.4; font-size: 1.0rem;">${formattedHtml}</div>
+            ${sourceHtml}
+          `;
+        }
+        
+        // Position zurücksetzen
+        if (typeof resetQuotesPopupPosition === 'function') {
+          resetQuotesPopupPosition();
+        }
+        
+        document.getElementById('quotesPopupOverlay').style.display = 'block';
+        document.getElementById('quotesPopup').style.display = 'flex';
+        // Starte Polling nach dem Öffnen
+        lastActiveQuoteId = quoteId;
+        startQuotePolling();
+      } catch (error) {
+        console.error('[QUOTES-POPUP] Fehler beim Anzeigen:', error);
+      }
+    }
+    
+    // Schließe Zitate-Popup
+    function closeQuotesPopup() {
+      document.getElementById('quotesPopupOverlay').style.display = 'none';
+      document.getElementById('quotesPopup').style.display = 'none';
+      stopQuotePolling();
+      lastActiveQuoteId = null;
+    }
+    
+    // Formatiere GA-Lecture-ID für Anzeige
+    function formatLectureId(lectureId) {
+      if (!lectureId) return lectureId;
+      
+      // Regex: Finde Buchstaben-Suffix
+      const slashMatch = lectureId.match(/^(GA\d{3})([A-Za-z])(\/\d+.*)$/i);
+      if (slashMatch) {
+        return `${slashMatch[1]}${slashMatch[2]}${slashMatch[3]}`;
+      }
+      
+      // Format ohne Slash: GA123A
+      const noSlashMatch = lectureId.match(/^(GA\d{3})([A-Za-z])$/i);
+      if (noSlashMatch) {
+        return `${noSlashMatch[1]}${noSlashMatch[2]}`;
+      }
+      
+      // Fallback: Original zurückgeben
+      return lectureId;
+    }
+    
+  </script>
+  
+  <!-- Zitate-Popup Overlay -->
+  <div id="quotesPopupOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 11999;" onclick="closeQuotesPopup()"></div>
+  
+  <!-- Zitate-Popup -->
+  <div id="quotesPopup" style="display: none; position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 12000;">
+    <div id="quotesPopupInner" style="position: relative; background: var(--background-color, #f8f5f0); border: 2px solid #467886; border-radius: 8px; min-width: 450px; min-height: 200px; width: 600px; max-height: 600px; display: flex; flex-direction: column;">
+      <!-- Drag-Handle (Titelleiste) -->
+      <div id="quotesPopupHeader" style="cursor: move; padding: 0.8rem 2.5rem 0.8rem 1.5rem; border-bottom: 1px solid var(--border-color, #ddd); background: rgba(0, 0, 0, 0.05); border-radius: 6px 6px 0 0; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+          <h2 style="margin: 0; color: var(--heading-color, #2c5f6f); font-size: 1.1em; line-height: 1.4;">Zitat der Woche</h2>
+          <!-- GA-Nummer und Datum -->
+          <div id="quotesPopupSubtitle" style="font-size: 0.9em; color: var(--secondary-text, #666); line-height: 1.4;">
+            <!-- Wird dynamisch befüllt -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- X-Button oben rechts -->
+      <button onclick="closeQuotesPopup()" 
+              style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; color: #999; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.2s; z-index: 10;"
+              onmouseover="this.style.color='#467886'" 
+              onmouseout="this.style.color='#999'">
+        ×
+      </button>
+      
+      <!-- Zitat-Inhalt (scrollbar) -->
+      <div id="quotesPopupContent" style="padding: 1.5rem 2rem; overflow-y: auto; overflow-x: hidden; flex: 1; text-align: justify; line-height: 1.6; color: var(--text-color, #333); font-family: 'Georgia', 'Times New Roman', serif; font-size: 1.05em;">
+        <!-- Wird dynamisch befüllt -->
+      </div>
+      
+    </div>
+  </div>
+  
+  <script>
+  // Zitate-Popup verschiebbar machen (nur Drag, kein Resize)
+  (function() {
+    let isDragging = false;
+    let currentX, currentY, initialX, initialY;
+    let xOffset = 0, yOffset = 0;
+    
+    const popup = document.getElementById('quotesPopup');
+    const popupInner = document.getElementById('quotesPopupInner');
+    const header = document.getElementById('quotesPopupHeader');
+    
+    if (!popup || !popupInner || !header) return;
+    
+    // Drag-Funktionalität
+    header.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    function dragStart(e) {
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+      
+      // Hole aktuelle Position des Popups
+      const rect = popup.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Berechne Offset vom Mausklick zum Popup-Zentrum
+      initialX = e.clientX - centerX;
+      initialY = e.clientY - centerY;
+      
+      isDragging = true;
+      popup.style.cursor = 'move';
+    }
+    
+    function handleMouseMove(e) {
+      if (isDragging) {
+        e.preventDefault();
+        
+        // Berechne neue Position basierend auf Mausposition minus initialem Offset
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+        
+        // Setze Position relativ zum Popup-Zentrum
+        popup.style.left = currentX + 'px';
+        popup.style.top = currentY + 'px';
+        popup.style.transform = 'translate(-50%, -50%)';
+      }
+    }
+    
+    function handleMouseUp() {
+      if (isDragging) {
+        // Speichere die aktuelle Position für den nächsten Drag
+        const rect = popup.getBoundingClientRect();
+        xOffset = rect.left + rect.width / 2 - window.innerWidth / 2;
+        yOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      }
+      isDragging = false;
+      popup.style.cursor = '';
+    }
+    
+    // Reset position when popup is opened
+    window.resetQuotesPopupPosition = function() {
+      xOffset = 0;
+      yOffset = 0;
+      popup.style.left = '54%';
+      popup.style.top = '47%';
+      popup.style.transform = 'translate(-50%, -50%)';
+    };
+  })();
+  </script>
+
+</body>
+</html>
+
