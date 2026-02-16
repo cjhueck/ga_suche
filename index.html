@@ -2162,6 +2162,26 @@
     // ANALYTICS-FUNKTIONEN für index.html
     // ============================================================
     
+    // Generiere oder lade eine eindeutige Visitor-ID (persistent über localStorage)
+    function getVisitorId() {
+      try {
+        let visitorId = localStorage.getItem('ga_visitor_id');
+        if (!visitorId) {
+          visitorId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+          localStorage.setItem('ga_visitor_id', visitorId);
+          console.log('[ANALYTICS] Neue Visitor-ID generiert:', visitorId.substring(0, 8) + '...');
+        }
+        return visitorId;
+      } catch (e) {
+        console.warn('[ANALYTICS] localStorage nicht verfügbar, keine Visitor-ID');
+        return null;
+      }
+    }
+    
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
       try {
@@ -2177,11 +2197,20 @@
         
         console.log('[ANALYTICS] Tracking:', type, value, 'URL:', url);
         
+        // Bei page_view die Visitor-ID mitschicken für Unique-User-Tracking
+        const trackBody = { type, value };
+        if (type === 'page_view') {
+          const visitorId = getVisitorId();
+          if (visitorId) {
+            trackBody.visitor_id = visitorId;
+          }
+        }
+        
         // Return Promise für besseres Error Handling
         return fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type, value }),
+          body: JSON.stringify(trackBody),
           mode: 'cors'
         }).then(response => {
           if (!response.ok) {
