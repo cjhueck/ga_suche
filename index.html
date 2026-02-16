@@ -1467,8 +1467,8 @@
         <h3>Sammlungen zu einzelnen Themen</h3>
         
         <ul class="nav-links">
-          <li><a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer">Entwicklung des Kindes</a> <span class="description">- sämtliche Darstellungen Rudolf Steiners zur Entwicklungsanthropologie</span></li>
-          <li><a href="https://publish.obsidian.md/steiner-goetheanism" target="_blank" rel="noopener noreferrer">Goetheanistische Naturschauung</a> <span class="description">- Sammlung von Zitaten zu Goethes Naturerkenntnis</span></li>
+          <li><a href="https://publish.obsichan.md/anthropologie/Start" target="_blank" rel="noopener noreferrer">Entwicklung des Kindes</a> <span class="description">- sämtliche Darstellungen Rudolf Steiners zur Entwicklungsanthropologie</span></li>
+          <li><a href="https://publish.obsichan.md/steiner-goetheanism" target="_blank" rel="noopener noreferrer">Goetheanistische Naturschauung</a> <span class="description">- Sammlung von Zitaten zu Goethes Naturerkenntnis</span></li>
         
         </ul>
       </div>
@@ -1661,16 +1661,16 @@
         }
         const markdown = await response.text();
         
-        // Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-        function preprocessObsidianLineBreaks(markdown) {
+        // Hilfsfunktion: Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+        function preprocessObsichanLineBreaks(markdown) {
           if (!markdown || typeof markdown !== 'string') {
             return markdown;
           }
           return markdown.replace(/'\/br'/g, '\n');
         }
         
-        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-        const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+        // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+        const processedMarkdown = preprocessObsichanLineBreaks(markdown);
         
         // Konvertiere Markdown zu HTML mit marked.js
         if (typeof marked !== 'undefined') {
@@ -1779,16 +1779,16 @@
           throw new Error('Die Markdown-Datei ist leer. Bitte stellen Sie sicher, dass die Datei system/Einfuehrung.md auf dem Server vorhanden und nicht leer ist.');
         }
         
-        // Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-        function preprocessObsidianLineBreaks(markdown) {
+        // Hilfsfunktion: Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+        function preprocessObsichanLineBreaks(markdown) {
           if (!markdown || typeof markdown !== 'string') {
             return markdown;
           }
           return markdown.replace(/'\/br'/g, '\n');
         }
         
-        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-        const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+        // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+        const processedMarkdown = preprocessObsichanLineBreaks(markdown);
         
         // Konvertiere Markdown zu HTML mit marked.js (mit expliziten Optionen für Gedichte)
         if (typeof marked !== 'undefined') {

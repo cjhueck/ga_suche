@@ -30,6 +30,9 @@ __pycache__/
 Steiner_GA_pdf_cache/
 wp-pdf-url-cache.json
 
+# Spellcheck dictionaries (downloaded on demand)
+dictionaries/
+
 # Node modules (if any)
 node_modules/
 

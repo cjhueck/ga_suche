@@ -1664,6 +1664,115 @@ body.dark-mode .ga-lecture-text {
   color: #b8b8b8;
 }
 
+/* === RECHTSCHREIBPRÜFUNG === */
+/* Fehlerhaft geschriebene Wörter */
+.spellcheck-error {
+  text-decoration: underline wavy red;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.spellcheck-error:hover {
+  background: rgba(255, 0, 0, 0.08);
+  border-radius: 2px;
+}
+
+/* Aktiver Spellcheck-Button */
+#spellcheckToggleBtn.spellcheck-on {
+  background: var(--link-color) !important;
+  color: white !important;
+}
+
+/* Kontextmenü für Wörterbuch */
+#spellcheck-context-menu {
+  display: none;
+  position: fixed;
+  z-index: 100000;
+  background: var(--sidebar-bg, #fff);
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 4px 0;
+  min-width: 220px;
+  font-size: 0.9em;
+}
+
+#spellcheck-context-menu .menu-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-color);
+}
+
+#spellcheck-context-menu .menu-item:hover {
+  background: var(--hover-bg, #f0f0f0);
+}
+
+#spellcheck-context-menu .menu-separator {
+  height: 1px;
+  background: var(--border-color, #e0e0e0);
+  margin: 4px 0;
+}
+
+#spellcheck-context-menu .menu-item .menu-icon {
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Wörterbuch-Dialog */
+#spellcheck-dictionary-dialog {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100001;
+  background: var(--sidebar-bg, #fff);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  min-width: 350px;
+  max-width: 500px;
+  max-height: 70vh;
+  overflow-y: auto;
+  color: var(--text-color);
+}
+
+#spellcheck-dictionary-dialog h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#spellcheck-dictionary-dialog .dict-word {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+#spellcheck-dictionary-dialog .dict-word:hover {
+  background: var(--hover-bg, #f5f5f5);
+}
+
+#spellcheck-dictionary-dialog .dict-remove-btn {
+  background: none;
+  border: none;
+  color: #d9534f;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 2px 6px;
+}
+/* === ENDE RECHTSCHREIBPRÜFUNG === */
+
 /* GA-Missing-Text im Viewer */
 .ga-missing-text {
   color: #999;
@@ -7926,7 +8035,7 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
     <pre style="margin: 0; font-family: 'Consolas', monospace; font-size: 0.85em;">
 ┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
-│   Obsidian  │────▶│ Python/JS    │────▶│ JSON-Datenbanken│
+│   Obsichan  │────▶│ Python/JS    │────▶│ JSON-Datenbanken│
 │   (Markdown)│     │ Export-      │     │                 │
 └─────────────┘     │ Skripte      │     └────────┬────────┘
                     └──────────────┘              │
@@ -7950,7 +8059,7 @@ Bestehende Schlagwörter überschreiben
     3. Datenquellen
   </h3>
   
-  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Obsidian</h4>
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Obsichan</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <p style="margin: 0 0 0.5rem 0;"><strong>Verwendung:</strong> Primäre Bearbeitung der Vorträge und Schlagwörter</p>
     <ul style="margin: 0; padding-left: 1.5rem;">
@@ -7958,7 +8067,7 @@ Bestehende Schlagwörter überschreiben
       <li>Schlagwörter mit Wiki-Links: <code>[[Schlagwort]]</code></li>
       <li>Quellenverweise: <code>([[GA078 (1.) TITEL|GA078/1]])</code></li>
       <li>Zeilenumbrüche: <code>/br</code> Markierungen</li>
-      <li>Export via <code>scripts/export_from_md.py</code> oder Obsidian-Plugins</li>
+      <li>Export via <code>scripts/export_from_md.py</code> oder Obsichan-Plugins</li>
     </ul>
     <p style="margin: 0.8rem 0 0 0; font-size: 0.9em; color: var(--secondary-text);">
       <strong>Pfad:</strong> Die Markdown-Dateien werden in JSON konvertiert und in <code>steiner-full-lectures/</code> gespeichert.
@@ -7981,7 +8090,7 @@ Bestehende Schlagwörter überschreiben
   
   <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Frei verfügbare GA-Texte</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
-    <p style="margin: 0;">Die Vortrags-Texte stammen aus frei im Internet verfügbaren Versionen der GA. Diese wurden in Obsidian importiert, strukturiert und mit KI-generierten Zusammenfassungen und Zwischenüberschriften versehen.</p>
+    <p style="margin: 0;">Die Vortrags-Texte stammen aus frei im Internet verfügbaren Versionen der GA. Diese wurden in Obsichan importiert, strukturiert und mit KI-generierten Zusammenfassungen und Zwischenüberschriften versehen.</p>
   </div>
 </div>
 
@@ -7995,7 +8104,7 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
       <li style="margin-bottom: 0.5rem;">
-        <strong>Quelle:</strong> Markdown-Dateien in Obsidian<br>
+        <strong>Quelle:</strong> Markdown-Dateien in Obsichan<br>
         <code>Steiner_GA/GAXXX-Titel/GAXXX (N.) Vortragstitel.md</code>
       </li>
       <li style="margin-bottom: 0.5rem;">
@@ -8023,7 +8132,7 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
       <li style="margin-bottom: 0.5rem;">
-        <strong>Erstellung:</strong> KI-generiert oder manuell in Obsidian
+        <strong>Erstellung:</strong> KI-generiert oder manuell in Obsichan
       </li>
       <li style="margin-bottom: 0.5rem;">
         <strong>Speicherung:</strong>
@@ -8881,7 +8990,7 @@ Bestehende Schlagwörter überschreiben
   <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Vorträge bearbeiten</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
-      <li>Markdown-Datei in Obsidian bearbeiten: <code>Steiner_GA/GAXXX-Titel/*.md</code></li>
+      <li>Markdown-Datei in Obsichan bearbeiten: <code>Steiner_GA/GAXXX-Titel/*.md</code></li>
       <li>Export ausführen: <code>python scripts/export_from_md.py</code></li>
       <li>Oder: Änderungen direkt in <code>steiner-full-lectures-*.json</code> vornehmen</li>
       <li>Backend neu starten: <code>node backend.js</code></li>
@@ -8926,7 +9035,7 @@ Bestehende Schlagwörter überschreiben
     <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
       <tr>
         <td style="padding: 0.3rem;"><code>export_from_md.py</code></td>
-        <td style="padding: 0.3rem;">Obsidian MD → JSON konvertieren</td>
+        <td style="padding: 0.3rem;">Obsichan MD → JSON konvertieren</td>
       </tr>
       <tr style="background: var(--sidebar-bg);">
         <td style="padding: 0.3rem;"><code>generate_chalkboards_json.py</code></td>
@@ -9383,7 +9492,7 @@ Bestehende Schlagwörter überschreiben
 <div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 6px; border: 1px solid var(--border-color); margin: 0.5rem; margin-bottom: 1rem;">
   <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color);">GA-Bände exportieren</h4>
   <p style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 0.8rem;">
-    Wählen Sie mehrere GA-Bände aus, um sie gleichzeitig nach Obsidian zu exportieren (JSON und HTML).
+    Wählen Sie mehrere GA-Bände aus, um sie gleichzeitig nach Obsichan zu exportieren (JSON und HTML).
   </p>
   
   <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
@@ -9471,6 +9580,10 @@ Original
 <text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
 </svg>
 </button>
+<!-- Rechtschreibprüfung Toggle Button -->
+<button id="spellcheckToggleBtn" onclick="toggleSpellcheck()" title="Rechtschreibprüfung ein-/ausschalten" style="display: none; padding: 4px 10px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s; position: relative;">
+<span style="text-decoration: underline wavy red; text-decoration-skip-ink: none; text-underline-offset: 2px;">Abc</span>
+</button>
 <!-- 0. PDF Toggle Button (nur im Texte-Tab bei GA-Bänden) -->
 <button id="pdfToggleBtn" onclick="togglePdfPanel()" title="PDF-Ansicht ein-/ausblenden">
 PDF
@@ -9503,6 +9616,37 @@ PDF
 </div>
 <div id="viewer">
   <div id="viewer-content"></div>
+</div>
+<!-- Rechtschreibprüfung: Kontextmenü -->
+<div id="spellcheck-context-menu">
+  <div class="menu-item" id="spellcheck-add-word" onclick="spellcheckAddWordFromMenu()">
+    <span class="menu-icon">+</span>
+    <span>Zum Wörterbuch hinzufügen</span>
+  </div>
+  <div class="menu-item" id="spellcheck-report-word" onclick="spellcheckReportWordFromMenu()">
+    <span class="menu-icon">⚠️</span>
+    <span>Zur Korrekturliste hinzufügen</span>
+  </div>
+  <div class="menu-separator"></div>
+  <div class="menu-item" onclick="openSpellcheckDictionary()">
+    <span class="menu-icon">&#128214;</span>
+    <span>Wörterbuch verwalten</span>
+  </div>
+</div>
+<!-- Rechtschreibprüfung: Wörterbuch-Dialog -->
+<div id="spellcheck-dictionary-dialog">
+  <h3>
+    <span>Eigenes Wörterbuch</span>
+    <button onclick="closeSpellcheckDictionary()" style="background: none; border: none; font-size: 1.3em; cursor: pointer; color: var(--text-color);">&times;</button>
+  </h3>
+  <div style="margin-bottom: 0.8rem; display: flex; gap: 6px;">
+    <input type="text" id="spellcheck-new-word" placeholder="Neues Wort eingeben..." style="flex: 1; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-color); font-size: 0.9em;" onkeydown="if(event.key==='Enter') spellcheckAddManualWord()">
+    <button onclick="spellcheckAddManualWord()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.9em;">Hinzufügen</button>
+  </div>
+  <div id="spellcheck-word-list" style="max-height: 40vh; overflow-y: auto;"></div>
+  <div style="margin-top: 0.8rem; font-size: 0.8em; color: var(--secondary-text);">
+    <span id="spellcheck-word-count">0</span> Wörter im Wörterbuch
+  </div>
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -10481,9 +10625,9 @@ PDF
     // Initiale CSS-Klassen setzen
     document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
 
-// Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+// Hilfsfunktion: Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
 // Diese Funktion sollte VOR marked.parse() aufgerufen werden
-function preprocessObsidianLineBreaks(markdown) {
+function preprocessObsichanLineBreaks(markdown) {
   if (!markdown || typeof markdown !== 'string') {
     return markdown;
   }
@@ -17446,8 +17590,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
       content = formatParagraphContentForDisplay(content);
       
-      // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-      content = preprocessObsidianLineBreaks(content);
+      // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+      content = preprocessObsichanLineBreaks(content);
       
       // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
       // (marked kann HTML-Tags in bestimmten Kontexten escapen)
@@ -17736,8 +17880,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     content = content.replace(tocPattern, '');
     content = content.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
     
-    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-    content = preprocessObsidianLineBreaks(content);
+    // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+    content = preprocessObsichanLineBreaks(content);
     
     // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
     const imgTagPlaceholders = [];
@@ -21792,8 +21936,8 @@ function scrollToChronologicalYear(year) {
             // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
             content = formatParagraphContentForDisplay(content);
             
-            // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-            content = preprocessObsidianLineBreaks(content);
+            // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+            content = preprocessObsichanLineBreaks(content);
             
             // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
             const imgTagPlaceholders = [];
@@ -22276,8 +22420,8 @@ function scrollToChronologicalYear(year) {
           fullContent = fullContent.replace(tocPattern, '');
           fullContent = fullContent.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
           
-          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-          fullContent = preprocessObsidianLineBreaks(fullContent);
+          // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+          fullContent = preprocessObsichanLineBreaks(fullContent);
           
           // Konvertiere Markdown zu HTML (wie im Tab "Texte")
           if (typeof marked !== 'undefined') {
@@ -24899,8 +25043,8 @@ function scrollToChronologicalYear(year) {
         } else {
           }
         
-        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-        const processedText = preprocessObsidianLineBreaks(text);
+        // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+        const processedText = preprocessObsichanLineBreaks(text);
         
         // Konvertiere Markdown zu HTML (mit breaks für Gedichte)
         let html = marked.parse(processedText, { breaks: true, gfm: true });
@@ -24970,8 +25114,8 @@ function scrollToChronologicalYear(year) {
           // Entferne Markdown-Links im Format [[...|GA###/##]]
           text = text.replace(/\[\[[^\]]*\|(GA\d+[a-z]?\/\d+)\]\]/g, '$1');
           
-          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-          const processedText = preprocessObsidianLineBreaks(text);
+          // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+          const processedText = preprocessObsichanLineBreaks(text);
           
           // Konvertiere Markdown zu HTML (mit breaks für Gedichte)
           let html = marked.parse(processedText, { breaks: true, gfm: true });
@@ -28907,8 +29051,8 @@ function showSummaryView() {
       content = removeManualHeadingsFromContent(content);
     }
     
-    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-    content = preprocessObsidianLineBreaks(content);
+    // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+    content = preprocessObsichanLineBreaks(content);
     
     // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
     // (marked kann HTML-Tags in bestimmten Kontexten escapen)
@@ -29829,8 +29973,8 @@ function formatAsteriskParagraphs() {
       `;
       
       const answerDiv = document.getElementById('answerContent');
-      // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-      let processedContent = preprocessObsidianLineBreaks(content);
+      // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+      let processedContent = preprocessObsichanLineBreaks(content);
       
       // Stelle sicher, dass Markdown-Überschriften am Zeilenanfang stehen (für marked.js)
       // Füge Zeilenumbruch vor ##, ###, #### ein, wenn keiner vorhanden ist
@@ -33452,8 +33596,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             content = removeManualHeadingsFromContent(content);
           }
           
-          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-          content = preprocessObsidianLineBreaks(content);
+          // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+          content = preprocessObsichanLineBreaks(content);
           
           // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
           const imgTagPlaceholders = [];
@@ -34507,7 +34651,7 @@ async function loadKeywordsData() {
   // Prüfe ob konsolidierte Dateien vorhanden sind
   await checkForConsolidatedFiles();
   
-  // STRATEGIE: Lade Basis-Keywords, dann füge Obsidian-Keywords hinzu (merge)
+  // STRATEGIE: Lade Basis-Keywords, dann füge Obsichan-Keywords hinzu (merge)
   keywordsData = [];
   
   try {
@@ -34528,8 +34672,8 @@ async function loadKeywordsData() {
     }
   }
   
-  // Hinweis: Obsidian-Exports wurden einmalig migriert in concepts-database.json
-  // Alle Concepts (KI + Obsidian) sind jetzt in concepts-database.json vereint
+  // Hinweis: Obsichan-Exports wurden einmalig migriert in concepts-database.json
+  // Alle Concepts (KI + Obsichan) sind jetzt in concepts-database.json vereint
   
   // Wenn nichts geladen wurde, zeige leere Liste
   if (keywordsData.length === 0) {
@@ -34538,9 +34682,9 @@ async function loadKeywordsData() {
 }
 
 // ALTE FUNKTION - Nicht mehr benötigt seit finaler Migration
-// Alle Obsidian-Concepts sind jetzt permanent in concepts.json
+// Alle Obsichan-Concepts sind jetzt permanent in concepts.json
 /*
-async function loadObsidianKeywords() {
+async function loadObsichanKeywords() {
   // Lade Blacklist
   let blacklist = [];
   try {
@@ -34563,10 +34707,10 @@ async function loadObsidianKeywords() {
     possibleFiles.push(`schlagworte-az-${letter}.json`);
   }
   
-  const obsidianKeywords = [];
+  const obsichanKeywords = [];
   let filesLoaded = 0;
   
-  // Sammle alle Obsidian-Keywords aus allen gefundenen Dateien
+  // Sammle alle Obsichan-Keywords aus allen gefundenen Dateien
   for (const fileName of possibleFiles) {
     try {
       const response = await fetch(`${API_BASE}/${fileName}`);
@@ -34576,7 +34720,7 @@ async function loadObsidianKeywords() {
       filesLoaded++;
       
       if (data.keywords && Array.isArray(data.keywords)) {
-        obsidianKeywords.push(...data.keywords);
+        obsichanKeywords.push(...data.keywords);
       }
     } catch (error) {
       // Datei existiert nicht - normal wenn gelöscht
@@ -34584,7 +34728,7 @@ async function loadObsidianKeywords() {
     }
   }
   
-  if (obsidianKeywords.length === 0) {
+  if (obsichanKeywords.length === 0) {
     return;
   }
   
@@ -34601,12 +34745,12 @@ async function loadObsidianKeywords() {
   let addedCount = 0;
   let skippedCount = 0;
   
-  obsidianKeywords.forEach(kw => {
+  obsichanKeywords.forEach(kw => {
     const normalizedName = kw.keyword.trim().toLowerCase();
     
     if (!existingKeywords.has(normalizedName)) {
-      // Markiere als Obsidian-Import
-      kw.source = 'obsidian-az';
+      // Markiere als Obsichan-Import
+      kw.source = 'obsichan-az';
       keywordsData.push(kw);
       existingKeywords.set(normalizedName, kw);
       addedCount++;
@@ -34933,7 +35077,7 @@ function processKeywordText(text, gaReferences = []) {
   
   // Verarbeite Markdown-Links im Format:
   // [[GA066/1]] oder 
-  // [[GA066 (1.) TITLE|GA066/1]] (Obsidian-Format mit vollem Titel)
+  // [[GA066 (1.) TITLE|GA066/1]] (Obsichan-Format mit vollem Titel)
   processedText = processedText.replace(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g, (match, titlePart, lastPart) => {
     let gaId;
     
@@ -36282,7 +36426,7 @@ function detectAndFormatPoems(container) {
     if (textContent) {
       // Teile Text in Zeilen auf
       const lines = textContent.split('\n').map(line => {
-        // Entferne Obsidian-Index am Ende der Zeile
+        // Entferne Obsichan-Index am Ende der Zeile
         return line.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
       }).filter(line => line.length > 0);
       
@@ -36335,7 +36479,7 @@ function detectAndFormatPoems(container) {
     const hiddenSpans = tempDiv.querySelectorAll('[style*="display:none"], [data-index]');
     hiddenSpans.forEach(span => span.remove());
     
-    // Entferne auch versteckte Spans mit data-index Attribut (für Obsidian-Indizes)
+    // Entferne auch versteckte Spans mit data-index Attribut (für Obsichan-Indizes)
     const indexSpans = tempDiv.querySelectorAll('[data-index]');
     indexSpans.forEach(span => {
       const style = span.getAttribute('style') || '';
@@ -36347,7 +36491,7 @@ function detectAndFormatPoems(container) {
     // Extrahiere Text-Inhalt (ohne HTML-Tags)
     let textContent = tempDiv.textContent || tempDiv.innerText || '';
     
-    // Entferne Obsidian-Index am Ende (Format: ^abc123)
+    // Entferne Obsichan-Index am Ende (Format: ^abc123)
     const cleanText = textContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
     
     // Wenn dieser Paragraph kurz ist (< 90 Zeichen), prüfe die nächsten
@@ -36494,7 +36638,7 @@ function detectAndFormatPoems(container) {
       hiddenSpans.forEach(span => span.remove());
       
       let text = temp.textContent || temp.innerText || '';
-      // Entferne Obsidian-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
+      // Entferne Obsichan-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
       text = text.replace(/\s+\^[a-z0-9]+\s*$/i, '');
       return text;
     }).filter(line => line.trim().length > 0);
@@ -36581,7 +36725,7 @@ function detectAndFormatPoems(container) {
           hiddenSpans.forEach(span => span.remove());
           
           let text = temp.textContent || temp.innerText || '';
-          // Entferne Obsidian-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
+          // Entferne Obsichan-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
           text = text.replace(/\s+\^[a-z0-9]+\s*$/i, '');
           return text;
         }).filter(line => line.trim().length > 0);
@@ -40228,8 +40372,8 @@ async function showHelpContent(type) {
     }
     const markdown = await response.text();
     
-    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-    const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+    // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+    const processedMarkdown = preprocessObsichanLineBreaks(markdown);
     
     // Konvertiere Markdown zu HTML mit marked.js
     if (typeof marked !== 'undefined') {
@@ -46603,6 +46747,429 @@ window.cancelTextEditMode = function() {};
   });
   
   console.log('[THEMATIC-SAVE] Modul geladen');
+})();
+</script>
+
+<!-- ========== RECHTSCHREIBPRÜFUNG (typo.js) ========== -->
+<script src="dictionaries/typo.js"></script>
+<script>
+(function() {
+  // === State ===
+  let spellcheckActive = false;
+  let spellcheckContextWord = '';
+  let typoInstance = null;
+  let typoLoading = false;
+  let spellcheckObserver = null;
+  let spellcheckObserverTarget = null;
+  let lastSpellcheckErrorCount = 0;
+  const DICT_STORAGE_KEY = 'ga-suche-spellcheck-dictionary';
+  const DICT_AFF_URL = 'dictionaries/de_DE.aff';
+  const DICT_DIC_URL = 'dictionaries/de_DE.dic';
+
+  // === Eigenes Wörterbuch aus localStorage ===
+  function loadUserDictionary() {
+    try {
+      const stored = localStorage.getItem(DICT_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) { return []; }
+  }
+
+  function saveUserDictionary(words) {
+    localStorage.setItem(DICT_STORAGE_KEY, JSON.stringify(words));
+  }
+
+  function isInUserDictionary(word) {
+    const dict = loadUserDictionary();
+    return dict.some(w => w.toLowerCase() === word.toLowerCase());
+  }
+
+  // === Typo.js laden ===
+  async function loadTypo() {
+    if (typoInstance) return typoInstance;
+    if (typoLoading) {
+      while (typoLoading) await new Promise(r => setTimeout(r, 100));
+      return typoInstance;
+    }
+    
+    typoLoading = true;
+    const btn = document.getElementById('spellcheckToggleBtn');
+    if (btn) btn.innerHTML = '<span style="font-size: 0.75em;">Lade...</span>';
+    
+    try {
+      console.log('[Spellcheck] Lade deutsches Wörterbuch...');
+      const [affResp, dicResp] = await Promise.all([
+        fetch(DICT_AFF_URL), fetch(DICT_DIC_URL)
+      ]);
+      const [affData, dicData] = await Promise.all([
+        affResp.text(), dicResp.text()
+      ]);
+      
+      typoInstance = new Typo('de_DE', affData, dicData, { platform: 'any' });
+      console.log('[Spellcheck] Wörterbuch geladen');
+    } catch (err) {
+      console.error('[Spellcheck] Fehler beim Laden des Wörterbuchs:', err);
+      alert('Deutsches Wörterbuch konnte nicht geladen werden. Bitte Internetverbindung prüfen.');
+    } finally {
+      typoLoading = false;
+      if (btn) btn.innerHTML = '<span style="text-decoration: underline wavy red; text-decoration-skip-ink: none; text-underline-offset: 2px;">Abc</span>';
+    }
+    return typoInstance;
+  }
+
+  // === Wort prüfen ===
+  function isWordCorrect(word) {
+    if (!word || word.length < 2) return true;
+    if (/^\d+$/.test(word)) return true; // Zahlen
+    if (/^[A-ZÄÖÜ]{1,5}$/.test(word)) return true; // Abkürzungen
+    if (isInUserDictionary(word)) return true;
+    if (!typoInstance) return true;
+    return typoInstance.check(word);
+  }
+
+  // === Observer pausieren/fortsetzen ===
+  function pauseSpellcheckObserver() {
+    if (spellcheckObserver) spellcheckObserver.disconnect();
+  }
+  function resumeSpellcheckObserver() {
+    if (spellcheckObserver && spellcheckObserverTarget) {
+      spellcheckObserver.observe(spellcheckObserverTarget, { childList: true, subtree: true });
+    }
+  }
+
+  // === Text prüfen und Fehler markieren ===
+  function checkSpelling() {
+    const viewerContent = document.getElementById('viewer-content');
+    if (!viewerContent || !typoInstance) return;
+    
+    pauseSpellcheckObserver();
+    
+    // Erst alte Markierungen entfernen
+    removeSpellcheckMarks();
+    
+    // Text-Knoten durchlaufen
+    const walker = document.createTreeWalker(viewerContent, NodeFilter.SHOW_TEXT, {
+      acceptNode: (node) => {
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        if (parent.closest('.spellcheck-error, .page-marker, script, style, code, pre')) 
+          return NodeFilter.FILTER_REJECT;
+        if (parent.tagName === 'H1' || parent.tagName === 'H2' || parent.tagName === 'H3' || parent.tagName === 'H4')
+          return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.trim().length > 0) textNodes.push(node);
+    }
+    
+    // Wort-Regex: Deutsche Wörter mit Umlauten und Bindestrich
+    const wordRegex = /[a-zA-ZäöüÄÖÜß][\wäöüÄÖÜß\-]*/g;
+    let errorCount = 0;
+    
+    textNodes.forEach(textNode => {
+      const text = textNode.textContent;
+      const matches = [];
+      let match;
+      
+      wordRegex.lastIndex = 0;
+      while ((match = wordRegex.exec(text)) !== null) {
+        const word = match[0];
+        if (!isWordCorrect(word)) {
+          matches.push({ index: match.index, word: word });
+        }
+      }
+      
+      if (matches.length === 0) return;
+      
+      const fragment = document.createDocumentFragment();
+      let lastIndex = 0;
+      
+      matches.forEach(m => {
+        if (m.index > lastIndex) {
+          fragment.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
+        }
+        const span = document.createElement('span');
+        span.className = 'spellcheck-error';
+        span.textContent = m.word;
+        span.title = 'Rechtsklick: zum Wörterbuch hinzufügen';
+        span.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          handleSpellcheckContextMenu(e);
+        });
+        fragment.appendChild(span);
+        lastIndex = m.index + m.word.length;
+        errorCount++;
+      });
+      
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+      }
+      
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+    
+    lastSpellcheckErrorCount = errorCount;
+    // Observer nach kurzer Verzögerung wieder starten
+    setTimeout(() => resumeSpellcheckObserver(), 50);
+    console.log(`[Spellcheck] ${errorCount} mögliche Fehler gefunden`);
+  }
+
+  // === Markierungen entfernen ===
+  function removeSpellcheckMarks() {
+    const viewerContent = document.getElementById('viewer-content');
+    if (!viewerContent) return;
+    
+    const spans = viewerContent.querySelectorAll('.spellcheck-error');
+    spans.forEach(span => {
+      const textNode = document.createTextNode(span.textContent);
+      span.parentNode.replaceChild(textNode, span);
+    });
+    viewerContent.normalize();
+  }
+
+  // === Toggle Rechtschreibprüfung ===
+  window.toggleSpellcheck = async function() {
+    const viewer = document.getElementById('viewer');
+    const btn = document.getElementById('spellcheckToggleBtn');
+    if (!viewer) return;
+    
+    if (!spellcheckActive) {
+      // Einschalten
+      const typo = await loadTypo();
+      if (!typo) return;
+      
+      spellcheckActive = true;
+      viewer.classList.add('spellcheck-active');
+      btn.classList.add('spellcheck-on');
+      btn.title = 'Rechtschreibprüfung ausschalten';
+      
+      checkSpelling();
+      
+      console.log('[Spellcheck] Aktiviert');
+    } else {
+      // Ausschalten
+      spellcheckActive = false;
+      viewer.classList.remove('spellcheck-active');
+      btn.classList.remove('spellcheck-on');
+      btn.title = 'Rechtschreibprüfung einschalten';
+      
+      pauseSpellcheckObserver();
+      removeSpellcheckMarks();
+      resumeSpellcheckObserver();
+      
+      hideContextMenu();
+      console.log('[Spellcheck] Deaktiviert');
+    }
+  };
+
+  // === Kontextmenü ===
+  function handleSpellcheckContextMenu(e) {
+    const target = e.target;
+    let word = null;
+    
+    // Klick auf markiertes Wort?
+    if (target.classList && target.classList.contains('spellcheck-error')) {
+      word = target.textContent;
+    } else {
+      word = getWordAtPoint(e);
+    }
+    
+    if (!word || word.length < 2) {
+      hideContextMenu();
+      return;
+    }
+    
+    e.preventDefault();
+    spellcheckContextWord = word;
+    
+    const menu = document.getElementById('spellcheck-context-menu');
+    const addItem = document.getElementById('spellcheck-add-word');
+    addItem.querySelector('span:last-child').textContent = `"${word}" zum Wörterbuch hinzufügen`;
+    const reportItem = document.getElementById('spellcheck-report-word');
+    reportItem.querySelector('span:last-child').textContent = `"${word}" zur Korrekturliste`;
+    
+    menu.style.display = 'block';
+    let x = e.clientX;
+    let y = e.clientY;
+    
+    const menuRect = menu.getBoundingClientRect();
+    if (x + menuRect.width > window.innerWidth) x = window.innerWidth - menuRect.width - 10;
+    if (y + menuRect.height > window.innerHeight) y = window.innerHeight - menuRect.height - 10;
+    
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+  }
+
+  function getWordAtPoint(e) {
+    let range;
+    if (document.caretRangeFromPoint) {
+      range = document.caretRangeFromPoint(e.clientX, e.clientY);
+    } else if (document.caretPositionFromPoint) {
+      const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+      if (pos) {
+        range = document.createRange();
+        range.setStart(pos.offsetNode, pos.offset);
+        range.setEnd(pos.offsetNode, pos.offset);
+      }
+    }
+    
+    if (!range || !range.startContainer || range.startContainer.nodeType !== Node.TEXT_NODE) return null;
+    
+    const text = range.startContainer.textContent;
+    const offset = range.startOffset;
+    let start = offset, end = offset;
+    while (start > 0 && /[\wäöüÄÖÜß\-]/i.test(text[start - 1])) start--;
+    while (end < text.length && /[\wäöüÄÖÜß\-]/i.test(text[end])) end++;
+    
+    const word = text.slice(start, end).trim();
+    return word.length >= 2 ? word : null;
+  }
+
+  function hideContextMenu() {
+    const menu = document.getElementById('spellcheck-context-menu');
+    if (menu) menu.style.display = 'none';
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#spellcheck-context-menu')) hideContextMenu();
+  });
+
+  // === Wort zum Wörterbuch hinzufügen ===
+  window.spellcheckAddWordFromMenu = function() {
+    if (!spellcheckContextWord) return;
+    
+    const dict = loadUserDictionary();
+    if (!dict.some(w => w.toLowerCase() === spellcheckContextWord.toLowerCase())) {
+      dict.push(spellcheckContextWord);
+      dict.sort((a, b) => a.localeCompare(b, 'de'));
+      saveUserDictionary(dict);
+      console.log(`[Spellcheck] "${spellcheckContextWord}" zum Wörterbuch hinzugefügt`);
+    }
+    
+    hideContextMenu();
+    if (spellcheckActive) checkSpelling(); // Neu prüfen
+  };
+
+  // === Wort zur Korrekturliste hinzufügen ===
+  window.spellcheckReportWordFromMenu = function() {
+    if (!spellcheckContextWord) return;
+    
+    const documentTitle = document.getElementById('document-title');
+    const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
+    
+    if (typeof saveMarkedWord === 'function') {
+      saveMarkedWord(spellcheckContextWord, gaTitle);
+      console.log(`[Spellcheck] "${spellcheckContextWord}" zur Korrekturliste hinzugefügt (${gaTitle})`);
+    } else {
+      console.warn('[Spellcheck] saveMarkedWord nicht verfügbar');
+    }
+    
+    hideContextMenu();
+  };
+
+  // === Wörterbuch verwalten ===
+  window.openSpellcheckDictionary = function() {
+    hideContextMenu();
+    document.getElementById('spellcheck-dictionary-dialog').style.display = 'block';
+    renderDictionaryList();
+  };
+
+  window.closeSpellcheckDictionary = function() {
+    document.getElementById('spellcheck-dictionary-dialog').style.display = 'none';
+  };
+
+  function renderDictionaryList() {
+    const dict = loadUserDictionary();
+    const listEl = document.getElementById('spellcheck-word-list');
+    const countEl = document.getElementById('spellcheck-word-count');
+    
+    if (dict.length === 0) {
+      listEl.innerHTML = '<p style="color: var(--secondary-text); font-style: italic; font-size: 0.9em;">Noch keine Wörter hinzugefügt.</p>';
+    } else {
+      listEl.innerHTML = dict.map(word => `
+        <div class="dict-word">
+          <span>${word}</span>
+          <button class="dict-remove-btn" onclick="spellcheckRemoveWord('${word.replace(/'/g, "\\'")}')" title="Entfernen">&times;</button>
+        </div>
+      `).join('');
+    }
+    countEl.textContent = dict.length;
+  }
+
+  window.spellcheckRemoveWord = function(word) {
+    let dict = loadUserDictionary();
+    dict = dict.filter(w => w !== word);
+    saveUserDictionary(dict);
+    renderDictionaryList();
+    if (spellcheckActive) checkSpelling();
+  };
+
+  window.spellcheckAddManualWord = function() {
+    const input = document.getElementById('spellcheck-new-word');
+    const word = input.value.trim();
+    if (!word) return;
+    
+    const dict = loadUserDictionary();
+    if (!dict.some(w => w.toLowerCase() === word.toLowerCase())) {
+      dict.push(word);
+      dict.sort((a, b) => a.localeCompare(b, 'de'));
+      saveUserDictionary(dict);
+    }
+    
+    input.value = '';
+    renderDictionaryList();
+    if (spellcheckActive) checkSpelling();
+  };
+
+  // === Button Sichtbarkeit + Inhaltswechsel ===
+  let lastViewerTextLength = 0;
+  let contentChangeDebounce = null;
+  
+  function updateSpellcheckButtonVisibility() {
+    const viewerContent = document.getElementById('viewer-content');
+    const btn = document.getElementById('spellcheckToggleBtn');
+    if (!btn) return 0;
+    const textLength = viewerContent ? viewerContent.textContent.length : 0;
+    btn.style.display = textLength > 200 ? '' : 'none';
+    return textLength;
+  }
+  
+  spellcheckObserver = new MutationObserver(() => {
+    const newLength = updateSpellcheckButtonVisibility();
+    const isNewContent = Math.abs(newLength - lastViewerTextLength) > 100;
+    if (isNewContent) {
+      lastViewerTextLength = newLength;
+    }
+    
+    if (spellcheckActive) {
+      const vc = document.getElementById('viewer-content');
+      const hasMarks = vc && vc.querySelector('.spellcheck-error');
+      const marksLost = !hasMarks && lastSpellcheckErrorCount > 0 && vc && vc.textContent.trim().length > 200;
+      if (marksLost || isNewContent) {
+        if (marksLost) console.log('[Spellcheck] Markierungen verschwunden – wende erneut an');
+        clearTimeout(contentChangeDebounce);
+        contentChangeDebounce = setTimeout(() => checkSpelling(), 300);
+      }
+    }
+  });
+  
+  spellcheckObserverTarget = document.getElementById('viewer');
+  if (spellcheckObserverTarget) {
+    spellcheckObserver.observe(spellcheckObserverTarget, { childList: true, subtree: true });
+  }
+  
+  setTimeout(updateSpellcheckButtonVisibility, 500);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hideContextMenu();
+      closeSpellcheckDictionary();
+    }
+  });
 })();
 </script>
 
