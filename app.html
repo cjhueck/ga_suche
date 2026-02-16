@@ -46622,6 +46622,88 @@ window.cancelTextEditMode = function() {};
   // PDF-Index Cache
   let pdfIndex = null;
   
+  // === PDF PAGE OFFSET START ===
+  // Offset zwischen physischer PDF-Seitenzahl und gedruckter Seitenzahl.
+  // Wenn pdfPageOffset = 1, dann ist physische Seite 2 = gedruckte Seite 1.
+  // Wird automatisch erkannt via getPageLabels(). Setze auf 0 um Feature zu deaktivieren.
+  let pdfPageOffset = 0;
+  
+  // Gedruckte Seitenzahl → physische PDF-Seite
+  function printedToPhysical(printedPage) {
+    return printedPage + pdfPageOffset;
+  }
+  
+  // Physische PDF-Seite → gedruckte Seitenzahl
+  function physicalToPrinted(physicalPage) {
+    return physicalPage - pdfPageOffset;
+  }
+  
+  // Erkennt den Seiten-Offset automatisch aus PDF-Labels
+  async function detectPdfPageOffset() {
+    pdfPageOffset = 0; // Reset
+    if (!pdfDoc) return;
+    
+    try {
+      const labels = await pdfDoc.getPageLabels();
+      if (labels && labels.length > 0) {
+        // Suche die erste Seite mit numerischem Label "1"
+        for (let i = 0; i < Math.min(labels.length, 20); i++) {
+          if (labels[i] === '1') {
+            pdfPageOffset = i; // z.B. i=1 → Deckblatt auf Seite 0, "1" auf Seite 1
+            console.log('[PDF-Offset] Via Labels erkannt: Offset =', pdfPageOffset,
+              '(Seite "1" ist physische Seite', i + 1, ')');
+            return;
+          }
+        }
+        // Fallback: Prüfe ob erstes Label eine Zahl > 0 ist (z.B. "I", "i", etc.)
+        const firstNumLabel = parseInt(labels[0]);
+        if (!isNaN(firstNumLabel) && firstNumLabel === 1) {
+          pdfPageOffset = 0;
+          console.log('[PDF-Offset] Erste Seite ist "1" → kein Offset nötig');
+          return;
+        }
+      }
+      
+      // Fallback: Kein Label-Info → versuche Textanalyse der ersten Seiten
+      // Prüfe ob Seite 1 ein Deckblatt ist (wenig Text, kein langer Absatz)
+      const page1 = await pdfDoc.getPage(1);
+      const text1 = await page1.getTextContent();
+      const page1Text = text1.items.map(item => item.str).join(' ').trim();
+      
+      if (pdfDoc.numPages >= 2) {
+        const page2 = await pdfDoc.getPage(2);
+        const text2 = await page2.getTextContent();
+        const page2Text = text2.items.map(item => item.str).join(' ').trim();
+        
+        // Heuristik: Seite 1 ist wahrscheinlich ein Deckblatt wenn:
+        // - sie deutlich weniger Text hat als Seite 2
+        // - sie weniger als 500 Zeichen hat
+        // - sie typische Deckblatt-Wörter enthält
+        const isCoverPage = (
+          page1Text.length < 500 &&
+          page2Text.length > page1Text.length * 2
+        ) || (
+          /Rudolf\s+Steiner|Gesamtausgabe|GA\s*\d|Verlag|Dornach/i.test(page1Text) &&
+          page1Text.length < 1000
+        );
+        
+        if (isCoverPage) {
+          pdfPageOffset = 1;
+          console.log('[PDF-Offset] Via Textanalyse erkannt: Seite 1 ist Deckblatt → Offset = 1',
+            '(Seite 1 hat', page1Text.length, 'Zeichen, Seite 2 hat', page2Text.length, 'Zeichen)');
+          return;
+        }
+      }
+      
+      console.log('[PDF-Offset] Kein Offset erkannt (Seite 1 hat', page1Text.length, 'Zeichen) → Offset = 0');
+      
+    } catch (error) {
+      console.warn('[PDF-Offset] Erkennung fehlgeschlagen:', error.message, '→ Offset = 0');
+      pdfPageOffset = 0;
+    }
+  }
+  // === PDF PAGE OFFSET END ===
+  
   // PDF-Index laden
   async function loadPdfIndex() {
     if (pdfIndex) return pdfIndex;
@@ -46749,6 +46831,11 @@ window.cancelTextEditMode = function() {};
       pdfDoc = await loadingTask.promise;
       pdfTotalPages = pdfDoc.numPages;
       
+      // === PDF PAGE OFFSET START ===
+      await detectPdfPageOffset();
+      console.log('[PDF] Offset für GA' + gaNum + ':', pdfPageOffset);
+      // === PDF PAGE OFFSET END ===
+      
       document.getElementById('pdfTotalPages').textContent = pdfTotalPages;
       document.getElementById('pdfPageInput').max = pdfTotalPages;
       
@@ -46830,7 +46917,11 @@ window.cancelTextEditMode = function() {};
       
       // Bidirektionale Sync: Wenn Navigation vom PDF-Panel kam, scrolle zum HTML-Marker
       if (!pdfNavigationFromHTML) {
-        scrollToPageMarkerInHtml(pageNum);
+        // === PDF PAGE OFFSET START ===
+        // pageNum ist die physische PDF-Seite → in gedruckte Seitenzahl umrechnen für HTML-Marker
+        const printedPage = physicalToPrinted(pageNum);
+        scrollToPageMarkerInHtml(printedPage);
+        // === PDF PAGE OFFSET END ===
       }
       // Flag zurücksetzen
       pdfNavigationFromHTML = false;
@@ -47104,15 +47195,22 @@ window.cancelTextEditMode = function() {};
     // Flag setzen: Navigation kam vom HTML, nicht vom PDF-Panel
     pdfNavigationFromHTML = true;
     
+    // === PDF PAGE OFFSET START ===
+    // pageNum ist die gedruckte Seitenzahl (aus dem Marker) → umrechnen in physische PDF-Seite
+    const physicalPage = printedToPhysical(parseInt(pageNum));
+    const targetPage = (physicalPage >= 1 && physicalPage <= pdfTotalPages) ? physicalPage : parseInt(pageNum);
+    console.log('[PDF-Offset] Marker-Klick: gedruckte Seite', pageNum, '→ physische PDF-Seite', targetPage, '(Offset:', pdfPageOffset, ')');
+    // === PDF PAGE OFFSET END ===
+    
     if (!pdfPanelVisible) {
       // Panel öffnen wenn nicht sichtbar
       togglePdfPanel().then(() => {
         if (pdfDoc) {
-          pdfGoToPage(pageNum);
+          pdfGoToPage(targetPage);
         }
       });
     } else if (pdfDoc) {
-      pdfGoToPage(pageNum);
+      pdfGoToPage(targetPage);
     }
   };
   
