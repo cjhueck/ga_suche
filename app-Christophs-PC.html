@@ -7250,7 +7250,7 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
     <pre style="margin: 0; font-family: 'Consolas', monospace; font-size: 0.85em;">
 ┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
-│   Obsidian  │────▶│ Python/JS    │────▶│ JSON-Datenbanken│
+│   Obsichan  │────▶│ Python/JS    │────▶│ JSON-Datenbanken│
 │   (Markdown)│     │ Export-      │     │                 │
 └─────────────┘     │ Skripte      │     └────────┬────────┘
                     └──────────────┘              │
@@ -7274,7 +7274,7 @@ Bestehende Schlagwörter überschreiben
     3. Datenquellen
   </h3>
   
-  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Obsidian</h4>
+  <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Obsichan</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <p style="margin: 0 0 0.5rem 0;"><strong>Verwendung:</strong> Primäre Bearbeitung der Vorträge und Schlagwörter</p>
     <ul style="margin: 0; padding-left: 1.5rem;">
@@ -7282,7 +7282,7 @@ Bestehende Schlagwörter überschreiben
       <li>Schlagwörter mit Wiki-Links: <code>[[Schlagwort]]</code></li>
       <li>Quellenverweise: <code>([[GA078 (1.) TITEL|GA078/1]])</code></li>
       <li>Zeilenumbrüche: <code>/br</code> Markierungen</li>
-      <li>Export via <code>scripts/export_from_md.py</code> oder Obsidian-Plugins</li>
+      <li>Export via <code>scripts/export_from_md.py</code> oder Obsichan-Plugins</li>
     </ul>
     <p style="margin: 0.8rem 0 0 0; font-size: 0.9em; color: var(--secondary-text);">
       <strong>Pfad:</strong> Die Markdown-Dateien werden in JSON konvertiert und in <code>steiner-full-lectures/</code> gespeichert.
@@ -7305,7 +7305,7 @@ Bestehende Schlagwörter überschreiben
   
   <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Frei verfügbare GA-Texte</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem;">
-    <p style="margin: 0;">Die Vortrags-Texte stammen aus frei im Internet verfügbaren Versionen der GA. Diese wurden in Obsidian importiert, strukturiert und mit KI-generierten Zusammenfassungen und Zwischenüberschriften versehen.</p>
+    <p style="margin: 0;">Die Vortrags-Texte stammen aus frei im Internet verfügbaren Versionen der GA. Diese wurden in Obsichan importiert, strukturiert und mit KI-generierten Zusammenfassungen und Zwischenüberschriften versehen.</p>
   </div>
 </div>
 
@@ -7319,7 +7319,7 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
       <li style="margin-bottom: 0.5rem;">
-        <strong>Quelle:</strong> Markdown-Dateien in Obsidian<br>
+        <strong>Quelle:</strong> Markdown-Dateien in Obsichan<br>
         <code>Steiner_GA/GAXXX-Titel/GAXXX (N.) Vortragstitel.md</code>
       </li>
       <li style="margin-bottom: 0.5rem;">
@@ -7347,7 +7347,7 @@ Bestehende Schlagwörter überschreiben
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
       <li style="margin-bottom: 0.5rem;">
-        <strong>Erstellung:</strong> KI-generiert oder manuell in Obsidian
+        <strong>Erstellung:</strong> KI-generiert oder manuell in Obsichan
       </li>
       <li style="margin-bottom: 0.5rem;">
         <strong>Speicherung:</strong>
@@ -8129,7 +8129,7 @@ Bestehende Schlagwörter überschreiben
   <h4 style="color: var(--heading-color); margin: 1rem 0 0.5rem 0;">Vorträge bearbeiten</h4>
   <div style="background: var(--input-bg); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
     <ol style="margin: 0; padding-left: 1.5rem;">
-      <li>Markdown-Datei in Obsidian bearbeiten: <code>Steiner_GA/GAXXX-Titel/*.md</code></li>
+      <li>Markdown-Datei in Obsichan bearbeiten: <code>Steiner_GA/GAXXX-Titel/*.md</code></li>
       <li>Export ausführen: <code>python scripts/export_from_md.py</code></li>
       <li>Oder: Änderungen direkt in <code>steiner-full-lectures-*.json</code> vornehmen</li>
       <li>Backend neu starten: <code>node backend.js</code></li>
@@ -8174,7 +8174,7 @@ Bestehende Schlagwörter überschreiben
     <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
       <tr>
         <td style="padding: 0.3rem;"><code>export_from_md.py</code></td>
-        <td style="padding: 0.3rem;">Obsidian MD → JSON konvertieren</td>
+        <td style="padding: 0.3rem;">Obsichan MD → JSON konvertieren</td>
       </tr>
       <tr style="background: var(--sidebar-bg);">
         <td style="padding: 0.3rem;"><code>generate_chalkboards_json.py</code></td>
@@ -9558,9 +9558,9 @@ Original
     // Initiale CSS-Klassen setzen
     document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
 
-// Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+// Hilfsfunktion: Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
 // Diese Funktion sollte VOR marked.parse() aufgerufen werden
-function preprocessObsidianLineBreaks(markdown) {
+function preprocessObsichanLineBreaks(markdown) {
   if (!markdown || typeof markdown !== 'string') {
     return markdown;
   }
@@ -15732,8 +15732,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
       content = formatParagraphContentForDisplay(content);
       
-      // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-      content = preprocessObsidianLineBreaks(content);
+      // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+      content = preprocessObsichanLineBreaks(content);
       
       // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
       if (typeof marked !== 'undefined') {
@@ -15976,8 +15976,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     content = content.replace(tocPattern, '');
     content = content.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
     
-    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-    content = preprocessObsidianLineBreaks(content);
+    // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+    content = preprocessObsichanLineBreaks(content);
     
     // Konfiguriere marked für Fußnoten und Überschriften-IDs
     if (typeof marked !== 'undefined') {
@@ -19584,8 +19584,8 @@ function scrollToChronologicalYear(year) {
             // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
             content = formatParagraphContentForDisplay(content);
             
-            // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-            content = preprocessObsidianLineBreaks(content);
+            // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+            content = preprocessObsichanLineBreaks(content);
             
             // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
             if (typeof marked !== 'undefined' && marked.parse) {
@@ -20023,8 +20023,8 @@ function scrollToChronologicalYear(year) {
           fullContent = fullContent.replace(tocPattern, '');
           fullContent = fullContent.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
           
-          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-          fullContent = preprocessObsidianLineBreaks(fullContent);
+          // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+          fullContent = preprocessObsichanLineBreaks(fullContent);
           
           // Konvertiere Markdown zu HTML (wie im Tab "Texte")
           if (typeof marked !== 'undefined') {
@@ -22627,8 +22627,8 @@ function scrollToChronologicalYear(year) {
         } else {
           }
         
-        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-        const processedText = preprocessObsidianLineBreaks(text);
+        // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+        const processedText = preprocessObsichanLineBreaks(text);
         
         // Konvertiere Markdown zu HTML
         let html = marked.parse(processedText);
@@ -22703,8 +22703,8 @@ function scrollToChronologicalYear(year) {
           // Entferne Markdown-Links im Format [[...|GA###/##]]
           text = text.replace(/\[\[[^\]]*\|(GA\d+[a-z]?\/\d+)\]\]/g, '$1');
           
-          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-          const processedText = preprocessObsidianLineBreaks(text);
+          // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+          const processedText = preprocessObsichanLineBreaks(text);
           
           // Konvertiere Markdown zu HTML
           let html = marked.parse(processedText);
@@ -26468,8 +26468,8 @@ function showSummaryView() {
       content = removeManualHeadingsFromContent(content);
     }
     
-    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-    content = preprocessObsidianLineBreaks(content);
+    // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+    content = preprocessObsichanLineBreaks(content);
     
     // Schütze Text in <> vor HTML-Interpretation
     content = protectAngleBrackets(content);
@@ -27262,8 +27262,8 @@ function formatAsteriskParagraphs() {
       `;
       
       const answerDiv = document.getElementById('answerContent');
-      // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-      let processedContent = preprocessObsidianLineBreaks(content);
+      // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+      let processedContent = preprocessObsichanLineBreaks(content);
       
       // Stelle sicher, dass Markdown-Überschriften am Zeilenanfang stehen (für marked.js)
       // Füge Zeilenumbruch vor ##, ###, #### ein, wenn keiner vorhanden ist
@@ -30531,8 +30531,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             content = removeManualHeadingsFromContent(content);
           }
           
-          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-          content = preprocessObsidianLineBreaks(content);
+          // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+          content = preprocessObsichanLineBreaks(content);
           
           // Schütze Text in <> vor HTML-Interpretation
           content = protectAngleBrackets(content);
@@ -31466,7 +31466,7 @@ async function loadKeywordsData() {
   // Prüfe ob konsolidierte Dateien vorhanden sind
   await checkForConsolidatedFiles();
   
-  // STRATEGIE: Lade Basis-Keywords, dann füge Obsidian-Keywords hinzu (merge)
+  // STRATEGIE: Lade Basis-Keywords, dann füge Obsichan-Keywords hinzu (merge)
   keywordsData = [];
   
   try {
@@ -31487,8 +31487,8 @@ async function loadKeywordsData() {
     }
   }
   
-  // Hinweis: Obsidian-Exports wurden einmalig migriert in concepts-database.json
-  // Alle Concepts (KI + Obsidian) sind jetzt in concepts-database.json vereint
+  // Hinweis: Obsichan-Exports wurden einmalig migriert in concepts-database.json
+  // Alle Concepts (KI + Obsichan) sind jetzt in concepts-database.json vereint
   
   // Wenn nichts geladen wurde, zeige leere Liste
   if (keywordsData.length === 0) {
@@ -31497,9 +31497,9 @@ async function loadKeywordsData() {
 }
 
 // ALTE FUNKTION - Nicht mehr benötigt seit finaler Migration
-// Alle Obsidian-Concepts sind jetzt permanent in concepts.json
+// Alle Obsichan-Concepts sind jetzt permanent in concepts.json
 /*
-async function loadObsidianKeywords() {
+async function loadObsichanKeywords() {
   // Lade Blacklist
   let blacklist = [];
   try {
@@ -31522,10 +31522,10 @@ async function loadObsidianKeywords() {
     possibleFiles.push(`schlagworte-az-${letter}.json`);
   }
   
-  const obsidianKeywords = [];
+  const obsichanKeywords = [];
   let filesLoaded = 0;
   
-  // Sammle alle Obsidian-Keywords aus allen gefundenen Dateien
+  // Sammle alle Obsichan-Keywords aus allen gefundenen Dateien
   for (const fileName of possibleFiles) {
     try {
       const response = await fetch(`${API_BASE}/${fileName}`);
@@ -31535,7 +31535,7 @@ async function loadObsidianKeywords() {
       filesLoaded++;
       
       if (data.keywords && Array.isArray(data.keywords)) {
-        obsidianKeywords.push(...data.keywords);
+        obsichanKeywords.push(...data.keywords);
       }
     } catch (error) {
       // Datei existiert nicht - normal wenn gelöscht
@@ -31543,7 +31543,7 @@ async function loadObsidianKeywords() {
     }
   }
   
-  if (obsidianKeywords.length === 0) {
+  if (obsichanKeywords.length === 0) {
     return;
   }
   
@@ -31560,12 +31560,12 @@ async function loadObsidianKeywords() {
   let addedCount = 0;
   let skippedCount = 0;
   
-  obsidianKeywords.forEach(kw => {
+  obsichanKeywords.forEach(kw => {
     const normalizedName = kw.keyword.trim().toLowerCase();
     
     if (!existingKeywords.has(normalizedName)) {
-      // Markiere als Obsidian-Import
-      kw.source = 'obsidian-az';
+      // Markiere als Obsichan-Import
+      kw.source = 'obsichan-az';
       keywordsData.push(kw);
       existingKeywords.set(normalizedName, kw);
       addedCount++;
@@ -31892,7 +31892,7 @@ function processKeywordText(text, gaReferences = []) {
   
   // Verarbeite Markdown-Links im Format:
   // [[GA066/1]] oder 
-  // [[GA066 (1.) TITLE|GA066/1]] (Obsidian-Format mit vollem Titel)
+  // [[GA066 (1.) TITLE|GA066/1]] (Obsichan-Format mit vollem Titel)
   processedText = processedText.replace(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g, (match, titlePart, lastPart) => {
     let gaId;
     
@@ -33142,7 +33142,7 @@ function detectAndFormatPoems(container) {
     if (textContent) {
       // Teile Text in Zeilen auf
       const lines = textContent.split('\n').map(line => {
-        // Entferne Obsidian-Index am Ende der Zeile
+        // Entferne Obsichan-Index am Ende der Zeile
         return line.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
       }).filter(line => line.length > 0);
       
@@ -33195,7 +33195,7 @@ function detectAndFormatPoems(container) {
     const hiddenSpans = tempDiv.querySelectorAll('[style*="display:none"], [data-index]');
     hiddenSpans.forEach(span => span.remove());
     
-    // Entferne auch versteckte Spans mit data-index Attribut (für Obsidian-Indizes)
+    // Entferne auch versteckte Spans mit data-index Attribut (für Obsichan-Indizes)
     const indexSpans = tempDiv.querySelectorAll('[data-index]');
     indexSpans.forEach(span => {
       const style = span.getAttribute('style') || '';
@@ -33207,7 +33207,7 @@ function detectAndFormatPoems(container) {
     // Extrahiere Text-Inhalt (ohne HTML-Tags)
     let textContent = tempDiv.textContent || tempDiv.innerText || '';
     
-    // Entferne Obsidian-Index am Ende (Format: ^abc123)
+    // Entferne Obsichan-Index am Ende (Format: ^abc123)
     const cleanText = textContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
     
     // Wenn dieser Paragraph kurz ist (< 90 Zeichen), prüfe die nächsten
@@ -33318,7 +33318,7 @@ function detectAndFormatPoems(container) {
       hiddenSpans.forEach(span => span.remove());
       
       let text = temp.textContent || temp.innerText || '';
-      // Entferne Obsidian-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
+      // Entferne Obsichan-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
       text = text.replace(/\s+\^[a-z0-9]+\s*$/i, '');
       return text;
     }).filter(line => line.trim().length > 0);
@@ -33405,7 +33405,7 @@ function detectAndFormatPoems(container) {
           hiddenSpans.forEach(span => span.remove());
           
           let text = temp.textContent || temp.innerText || '';
-          // Entferne Obsidian-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
+          // Entferne Obsichan-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
           text = text.replace(/\s+\^[a-z0-9]+\s*$/i, '');
           return text;
         }).filter(line => line.trim().length > 0);
@@ -36557,8 +36557,8 @@ async function showHelpContent(type) {
     }
     const markdown = await response.text();
     
-    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-    const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+    // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
+    const processedMarkdown = preprocessObsichanLineBreaks(markdown);
     
     // Konvertiere Markdown zu HTML mit marked.js
     if (typeof marked !== 'undefined') {
