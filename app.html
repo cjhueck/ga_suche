@@ -47136,6 +47136,7 @@ window.cancelTextEditMode = function() {};
     const viewerContent = document.getElementById('viewer-content');
     const btn = document.getElementById('spellcheckToggleBtn');
     if (!btn) return 0;
+    if (!isLocal) { btn.style.display = 'none'; return 0; }
     const textLength = viewerContent ? viewerContent.textContent.length : 0;
     btn.style.display = textLength > 200 ? '' : 'none';
     return textLength;
