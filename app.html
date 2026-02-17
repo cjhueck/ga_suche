@@ -9678,9 +9678,17 @@ PDF
     <button onclick="spellcheckAddManualWord()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.9em;">Hinzufügen</button>
   </div>
   <div id="spellcheck-word-list" style="max-height: 40vh; overflow-y: auto;"></div>
-  <div style="margin-top: 0.8rem; font-size: 0.8em; color: var(--secondary-text);">
-    <span id="spellcheck-word-count">0</span> Wörter im Wörterbuch
+  <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem;">
+      <button onclick="exportDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;">📥 Backup exportieren</button>
+      <button onclick="importDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;">📤 Backup importieren</button>
+      <button onclick="expandDictionaryFromInternet()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;">🌐 Wörterbuch erweitern</button>
+    </div>
+    <div style="font-size: 0.8em; color: var(--secondary-text);">
+      <span id="spellcheck-word-count">0</span> Wörter im Wörterbuch
+    </div>
   </div>
+  <input type="file" id="dictionary-import-input" accept=".json" style="display: none;" onchange="handleDictionaryImport(event)">
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -47556,6 +47564,268 @@ window.cancelTextEditMode = function() {};
     renderDictionaryList();
     if (spellcheckActive) checkSpelling();
   };
+
+  // === Wörterbuch-Backup exportieren ===
+  window.exportDictionaryBackup = function() {
+    const dict = loadUserDictionary();
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const filename = `woerterbuch-backup-${timestamp}.json`;
+    
+    const data = {
+      exportDate: new Date().toISOString(),
+      version: '1.0',
+      words: dict,
+      wordCount: dict.length
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    console.log(`[Wörterbuch] Backup exportiert: ${dict.length} Wörter`);
+    alert(`✓ Backup erfolgreich exportiert!\n${dict.length} Wörter gespeichert in:\n${filename}`);
+  };
+
+  // === Wörterbuch-Backup importieren ===
+  window.importDictionaryBackup = function() {
+    const input = document.getElementById('dictionary-import-input');
+    if (input) input.click();
+  };
+
+  window.handleDictionaryImport = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        
+        // Validiere Import-Daten
+        if (!data.words || !Array.isArray(data.words)) {
+          alert('❌ Ungültiges Backup-Format');
+          return;
+        }
+        
+        const currentDict = loadUserDictionary();
+        const importedWords = data.words;
+        
+        // Frage Benutzer, ob ersetzen oder zusammenführen
+        const choice = confirm(
+          `Backup gefunden: ${importedWords.length} Wörter\n` +
+          `Aktuelles Wörterbuch: ${currentDict.length} Wörter\n\n` +
+          `OK = Zusammenführen (empfohlen)\n` +
+          `Abbrechen = Aktuelles Wörterbuch ersetzen`
+        );
+        
+        let newDict;
+        if (choice) {
+          // Zusammenführen
+          const combined = [...currentDict, ...importedWords];
+          const uniqueWords = [...new Set(combined.map(w => w.toLowerCase()))];
+          newDict = uniqueWords.map(lowerWord => 
+            combined.find(w => w.toLowerCase() === lowerWord)
+          );
+          newDict.sort((a, b) => a.localeCompare(b, 'de'));
+        } else {
+          // Ersetzen
+          newDict = importedWords;
+          newDict.sort((a, b) => a.localeCompare(b, 'de'));
+        }
+        
+        saveUserDictionary(newDict);
+        renderDictionaryList();
+        if (spellcheckActive) checkSpelling();
+        
+        console.log(`[Wörterbuch] Backup importiert: ${newDict.length} Wörter`);
+        alert(`✓ Backup erfolgreich importiert!\nJetzt ${newDict.length} Wörter im Wörterbuch`);
+        
+      } catch (err) {
+        console.error('[Wörterbuch] Import-Fehler:', err);
+        alert('❌ Fehler beim Importieren des Backups:\n' + err.message);
+      }
+      
+      // Reset input
+      event.target.value = '';
+    };
+    
+    reader.readAsText(file);
+  };
+
+  // === Wörterbuch aus dem Internet erweitern ===
+  window.expandDictionaryFromInternet = async function() {
+    const confirmExpand = confirm(
+      '🌐 Wörterbuch erweitern\n\n' +
+      'Diese Funktion fügt häufige deutsche Wörter aus verschiedenen Quellen ' +
+      'zu Ihrem persönlichen Wörterbuch hinzu:\n\n' +
+      '1. Lokales Basis-Wörterbuch (~75.000 Wörter)\n' +
+      '2. Erweiterte Online-Wortliste (~230.000 Wörter)\n\n' +
+      'Dies kann einige Sekunden dauern.\n\n' +
+      'Fortfahren?'
+    );
+    
+    if (!confirmExpand) return;
+    
+    // Zeige Lade-Indikator
+    const dialog = document.getElementById('spellcheck-dictionary-dialog');
+    const originalContent = dialog.innerHTML;
+    dialog.innerHTML = `
+      <div style="padding: 2rem; text-align: center;">
+        <h3>Wörterbuch wird erweitert...</h3>
+        <div style="margin: 2rem 0;">
+          <div style="font-size: 3em;">⏳</div>
+        </div>
+        <p style="color: var(--secondary-text);">
+          Lade deutsche Wortlisten...<br>
+          Bitte warten Sie einen Moment.
+        </p>
+        <div id="expand-progress" style="margin-top: 1rem; font-size: 0.9em; color: var(--link-color);"></div>
+      </div>
+    `;
+    
+    try {
+      const progressEl = document.getElementById('expand-progress');
+      let newWords = [];
+      let source = '';
+      
+      // STRATEGIE 1: Versuche zuerst die lokale de_DE.dic Datei
+      try {
+        progressEl.textContent = 'Lade lokales Wörterbuch...';
+        const localResponse = await fetch(DICT_DIC_URL);
+        if (localResponse.ok) {
+          const text = await localResponse.text();
+          newWords = await processHunspellDictionary(text);
+          source = 'Lokales Basis-Wörterbuch';
+          console.log(`[Wörterbuch] Lokale Datei geladen: ${newWords.length} Wörter`);
+        }
+      } catch (localErr) {
+        console.log('[Wörterbuch] Lokale Datei nicht verfügbar, versuche Online-Quelle');
+      }
+      
+      // STRATEGIE 2: Falls lokal fehlgeschlagen oder zu wenige Wörter, versuche Online-Quellen
+      if (newWords.length < 10000) {
+        progressEl.textContent = 'Lade erweiterte Online-Wortliste...';
+        
+        // Liste von Fallback-URLs (in Prioritätsreihenfolge)
+        const urls = [
+          'https://raw.githubusercontent.com/languagetool-org/languagetool/master/languagetool-language-modules/de/src/main/resources/org/languagetool/resource/de/hunspell/de_DE.dic',
+          'https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/de/index.dic',
+        ];
+        
+        let loaded = false;
+        for (const url of urls) {
+          try {
+            const response = await fetch(url);
+            if (response.ok) {
+              const text = await response.text();
+              const words = await processHunspellDictionary(text);
+              if (words.length > newWords.length) {
+                newWords = words;
+                source = 'LanguageTool GitHub';
+                loaded = true;
+                console.log(`[Wörterbuch] Online-Quelle geladen: ${newWords.length} Wörter`);
+                break;
+              }
+            }
+          } catch (err) {
+            console.log(`[Wörterbuch] URL fehlgeschlagen: ${url}`, err);
+          }
+        }
+        
+        if (!loaded && newWords.length === 0) {
+          throw new Error('Keine Wortliste verfügbar');
+        }
+      }
+      
+      progressEl.textContent = 'Verarbeite Wörter...';
+      
+      // Filter: nur sinnvolle Wörter (mind. 3 Zeichen, gültige deutsche Wörter)
+      const filteredWords = newWords.filter(word => 
+        word.length >= 3 && 
+        /^[a-zA-ZäöüÄÖÜß][a-zA-ZäöüÄÖÜß\-]*$/.test(word) &&
+        !/^[A-ZÄÖÜ]{2,}$/.test(word) // keine reinen Großbuchstaben-Abkürzungen
+      );
+      
+      progressEl.textContent = 'Füge neue Wörter hinzu...';
+      
+      // Merge mit bestehendem Wörterbuch
+      const currentDict = loadUserDictionary();
+      const currentLower = new Set(currentDict.map(w => w.toLowerCase()));
+      
+      const wordsToAdd = filteredWords.filter(w => !currentLower.has(w.toLowerCase()));
+      const mergedDict = [...currentDict, ...wordsToAdd];
+      mergedDict.sort((a, b) => a.localeCompare(b, 'de'));
+      
+      saveUserDictionary(mergedDict);
+      
+      // Wiederherstelle Dialog
+      dialog.innerHTML = originalContent;
+      renderDictionaryList();
+      if (spellcheckActive) checkSpelling();
+      
+      console.log(`[Wörterbuch] Erweitert: ${wordsToAdd.length} neue Wörter hinzugefügt`);
+      alert(
+        `✓ Wörterbuch erfolgreich erweitert!\n\n` +
+        `Neue Wörter hinzugefügt: ${wordsToAdd.length.toLocaleString('de')}\n` +
+        `Gesamt: ${mergedDict.length.toLocaleString('de')} Wörter\n\n` +
+        `Quelle: ${source}`
+      );
+      
+    } catch (err) {
+      console.error('[Wörterbuch] Fehler beim Erweitern:', err);
+      
+      // Wiederherstelle Dialog
+      dialog.innerHTML = originalContent;
+      renderDictionaryList();
+      
+      alert(
+        '❌ Fehler beim Erweitern des Wörterbuchs\n\n' +
+        'Details: ' + err.message + '\n\n' +
+        'Mögliche Ursachen:\n' +
+        '• Keine Internetverbindung\n' +
+        '• Server nicht erreichbar\n' +
+        '• CORS-Beschränkungen im Browser\n\n' +
+        'Alternative: Sie können ein vorbereitetes Backup-Wörterbuch importieren.'
+      );
+    }
+  };
+
+  // === Hilfsfunktion: Hunspell Dictionary parsen ===
+  async function processHunspellDictionary(text) {
+    const lines = text.split('\n');
+    
+    // Erste Zeile ist oft die Anzahl der Einträge, überspringen
+    const startIndex = lines[0] && /^\d+$/.test(lines[0].trim()) ? 1 : 0;
+    
+    // Extrahiere Wörter (entferne Hunspell-Flags wie /A, /B etc.)
+    const words = [];
+    for (let i = startIndex; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      
+      // Entferne Hunspell-Flags (z.B. "Wort/AB" -> "Wort")
+      let word = line.split('/')[0].trim();
+      
+      // Versuche UTF-8 Kodierungsprobleme zu beheben
+      // Manche Dateien haben fehlerhafte Umlaute
+      if (word.includes('�')) {
+        continue; // Überspringe Wörter mit Kodierungsfehlern
+      }
+      
+      // Filter: nur gültige deutsche Wörter
+      if (word && word.length >= 2 && /^[a-zA-ZäöüÄÖÜß\-]+$/.test(word)) {
+        words.push(word);
+      }
+    }
+    
+    return words;
+  }
 
   // === Button Sichtbarkeit + Inhaltswechsel ===
   let lastViewerTextLength = 0;
