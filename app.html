@@ -34522,15 +34522,9 @@ window.addEventListener('DOMContentLoaded', function() {
           }, 200);
         }
         
-        // Obsidian-Link: q-Parameter als Textsuche im Suche-Tab ausführen
-        if (queryParams.q && hash === 'keyword') {
-          setTimeout(() => {
-            const searchText = queryParams.q.replace(/\+/g, ' ')
-              .replace(/ß/g, 'ss')
-              .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2');
-            document.getElementById('word1').value = searchText;
-            performKeywordSearch();
-          }, 300);
+        // Obsidian-Link: q-Parameter → Vortrag finden, öffnen und Zitat markieren
+        if (queryParams.q) {
+          navigateToObsidianQuote(queryParams.q);
         }
         
       }, 100);
@@ -34552,6 +34546,80 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// BroadcastChannel: goto.html sendet Obsidian-Zitate an diesen Tab
+(function() {
+  var bc = new BroadcastChannel('steiner-obsidian-nav');
+  bc.onmessage = function(e) {
+    if (e.data && e.data.action === 'navigate' && e.data.hash) {
+      var params = {};
+      e.data.hash.split('&').forEach(function(part) {
+        var idx = part.indexOf('=');
+        if (idx > 0) params[part.substring(0, idx)] = decodeURIComponent(part.substring(idx + 1));
+      });
+      if (params.q) {
+        navigateToObsidianQuote(params.q);
+      }
+      bc.postMessage({ action: 'ack' });
+      window.focus();
+    }
+  };
+})();
+
+// Obsidian-Zitat: Vortrag finden, im Texte-Tab öffnen und Zitat hervorheben
+async function navigateToObsidianQuote(rawQ) {
+  const rawText = rawQ.replace(/\+/g, ' ')
+    .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2');
+
+  const normalize = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '').replace(/\s+/g, ' ').trim();
+
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+
+  try {
+    const resp = await fetch(`${apiBase}/api/fulltext-search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ word1: rawText, word1IsPhrase: false })
+    });
+    const data = await resp.json();
+
+    if (!data.results || data.results.length === 0) {
+      console.warn('[OBSIDIAN] Kein Treffer für:', rawText.substring(0, 60));
+      return;
+    }
+
+    const hit = data.results[0];
+    switchTab('texte', true);
+    await showLecture(hit.ID, hit.paragraphIndex);
+
+    setTimeout(() => {
+      const viewer = document.getElementById('main-viewer');
+      if (!viewer) return;
+      const normalizedSearch = normalize(rawText);
+      const paragraphs = viewer.querySelectorAll('p');
+      for (const p of paragraphs) {
+        if (normalize(p.textContent).includes(normalizedSearch)) {
+          p.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          p.style.transition = 'background-color 0.4s ease';
+          p.style.backgroundColor = 'rgba(255, 220, 50, 0.35)';
+          p.style.borderLeft = '4px solid #e6a817';
+          p.style.paddingLeft = '12px';
+          setTimeout(() => {
+            p.style.backgroundColor = '';
+            p.style.borderLeft = '';
+            p.style.paddingLeft = '';
+          }, 8000);
+          return;
+        }
+      }
+      // Fallback: kein exakter Absatz gefunden, aber Vortrag ist geöffnet
+      console.log('[OBSIDIAN] Vortrag geöffnet, Absatz-Markierung fehlgeschlagen');
+    }, 1200);
+  } catch (err) {
+    console.error('[OBSIDIAN] Fehler:', err.message);
+  }
+}
 
 // Reagiere auf Hash-Änderungen (z.B. bei Navigation über Obsidian-Links)
 window.addEventListener('hashchange', function() {
@@ -34587,15 +34655,9 @@ window.addEventListener('hashchange', function() {
     }, 200);
   }
   
-  // Obsidian-Link: q-Parameter als Textsuche im Suche-Tab ausführen
-  if (queryParams.q && hash === 'keyword') {
-    setTimeout(() => {
-      const searchText = queryParams.q.replace(/\+/g, ' ')
-        .replace(/ß/g, 'ss')
-        .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2');
-      document.getElementById('word1').value = searchText;
-      performKeywordSearch();
-    }, 300);
+  // Obsidian-Link: q-Parameter → Vortrag finden, öffnen und Zitat markieren
+  if (queryParams.q) {
+    navigateToObsidianQuote(queryParams.q);
   }
   
 });

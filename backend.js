@@ -3401,9 +3401,9 @@ app.post('/api/fulltext-search', async (req, res) => {
         return regex.test(text);
       } else {
         // Flexible Suche: auch Teilwörter erlaubt, case-insensitive
-        const textLower = text.toLowerCase();
-        const termLower = searchTerm.toLowerCase();
-        return textLower.includes(termLower);
+        // Normalisierung: ß→ss und Interpunktion ignorieren für robustes Matching
+        const normalize = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '');
+        return normalize(text).includes(normalize(searchTerm));
       }
     };
     
