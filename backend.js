@@ -3664,6 +3664,45 @@ app.post('/api/fulltext-search', async (req, res) => {
 });
 
 // ============================================================================
+// OBSIDIAN-LINK: GA + Datum → Lecture-ID auflösen
+// ============================================================================
+app.get('/api/resolve-lecture', (req, res) => {
+  try {
+    const { ga, date } = req.query;
+    if (!ga || !date) {
+      return res.status(400).json({ error: 'Parameter ga und date erforderlich' });
+    }
+    
+    // GA-Nummer normalisieren (z.B. "110" -> "GA110")
+    const gaNumber = ga.startsWith('GA') ? ga : `GA${ga}`;
+    
+    // Suche Vortrag mit passendem GA und Datum
+    for (const [id, lecture] of Object.entries(fullLectures)) {
+      if (!lecture.gaNumber || !lecture.date) continue;
+      
+      // GA-Nummer vergleichen (case-insensitive)
+      if (lecture.gaNumber.toLowerCase() !== gaNumber.toLowerCase()) continue;
+      
+      // Datum vergleichen (lecture.date ist im ISO-Format "YYYY-MM-DD")
+      if (lecture.date === date) {
+        return res.json({
+          success: true,
+          lectureId: id,
+          title: lecture.title || '',
+          date: lecture.date,
+          location: lecture.location || ''
+        });
+      }
+    }
+    
+    res.status(404).json({ error: `Kein Vortrag gefunden für GA ${ga}, Datum ${date}` });
+  } catch (error) {
+    console.error('[RESOLVE-LECTURE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // ERWEITERTE SUCHE (bis zu 7 Worte)
 // ============================================================================
 

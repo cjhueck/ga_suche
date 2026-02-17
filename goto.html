@@ -28,7 +28,15 @@
 
   setTimeout(function() {
     if (!handled) {
-      location.href = 'app.html#texte&' + hash;
+      // Parse Parameter um zu entscheiden: texte oder keyword Tab
+      var params = {};
+      hash.split('&').forEach(function(part) {
+        var idx = part.indexOf('=');
+        if (idx > 0) params[part.substring(0, idx)] = part.substring(idx + 1);
+      });
+      
+      var tab = (params.ga && params.date) ? 'texte' : 'keyword';
+      location.href = 'app.html#' + tab + '&' + hash;
     }
   }, 800);
 })();

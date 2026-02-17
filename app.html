@@ -3,6 +3,40 @@
 <head>
 <meta charset="utf-8"/>
 <title>Steiner GA-Suche</title>
+<script>
+// BroadcastChannel früh registrieren, damit goto.html diesen Tab sofort erreichen kann
+var _obsidianPendingQ = null;
+var _obsidianPendingGA = null;
+var _obsidianBC = new BroadcastChannel('steiner-obsidian-nav');
+_obsidianBC.onmessage = function(e) {
+  if (e.data && e.data.action === 'navigate' && e.data.hash) {
+    var params = {};
+    e.data.hash.split('&').forEach(function(part) {
+      var idx = part.indexOf('=');
+      if (idx > 0) params[part.substring(0, idx)] = decodeURIComponent(part.substring(idx + 1));
+    });
+    
+    if (params.ga && params.date) {
+      // GA+Datum+Seite Navigation
+      if (typeof navigateToGAPage === 'function') {
+        navigateToGAPage(params.ga, params.date, params.page, params.text, params.vault, params.file);
+      } else {
+        _obsidianPendingGA = params;
+      }
+    } else if (params.q) {
+      // Textsuche
+      if (typeof runObsidianSearch === 'function') {
+        runObsidianSearch(params.q);
+      } else {
+        _obsidianPendingQ = params.q;
+      }
+    }
+    
+    _obsidianBC.postMessage({ action: 'ack' });
+    try { window.focus(); } catch(ex) {}
+  }
+};
+</script>
 <link rel="icon" type="image/png" href="images/GA.png">
 <!-- Inter Font von Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34522,9 +34556,14 @@ window.addEventListener('DOMContentLoaded', function() {
           }, 200);
         }
         
-        // Obsidian-Link: q-Parameter → Vortrag finden, öffnen und Zitat markieren
+        // Obsidian-Link: q-Parameter → Suche ausführen
         if (queryParams.q) {
-          navigateToObsidianQuote(queryParams.q);
+          runObsidianSearch(queryParams.q);
+        }
+        
+        // Obsidian-Link: GA+Datum+Seite → Vortrag öffnen
+        if (queryParams.ga && queryParams.date) {
+          navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file);
         }
         
       }, 100);
@@ -34547,78 +34586,336 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// BroadcastChannel: goto.html sendet Obsidian-Zitate an diesen Tab
-(function() {
-  var bc = new BroadcastChannel('steiner-obsidian-nav');
-  bc.onmessage = function(e) {
-    if (e.data && e.data.action === 'navigate' && e.data.hash) {
-      var params = {};
-      e.data.hash.split('&').forEach(function(part) {
-        var idx = part.indexOf('=');
-        if (idx > 0) params[part.substring(0, idx)] = decodeURIComponent(part.substring(idx + 1));
-      });
-      if (params.q) {
-        navigateToObsidianQuote(params.q);
-      }
-      bc.postMessage({ action: 'ack' });
-      window.focus();
-    }
-  };
-})();
-
-// Obsidian-Zitat: Vortrag finden, im Texte-Tab öffnen und Zitat hervorheben
-async function navigateToObsidianQuote(rawQ) {
-  const rawText = rawQ.replace(/\+/g, ' ')
+// Obsidian-Zitat: Im Suche-Tab suchen (Textsuche)
+function runObsidianSearch(rawQ) {
+  const searchText = rawQ.replace(/\+/g, ' ')
+    .replace(/ß/g, 'ss')
     .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2');
+  switchTab('keyword', true);
+  setTimeout(function() {
+    document.getElementById('word1').value = searchText;
+    performKeywordSearch();
+  }, 500);
+}
 
-  const normalize = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '').replace(/\s+/g, ' ').trim();
-
+// Obsidian-Zitat: Via GA+Datum+Seite navigieren
+async function navigateToGAPage(ga, date, page, searchText, vault, file) {
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-
+  
+  console.log('[OBSIDIAN-GA] Navigiere zu GA', ga, 'Datum', date, 'Seite', page, searchText ? `Text: "${searchText}"` : '');
+  
   try {
-    const resp = await fetch(`${apiBase}/api/fulltext-search`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ word1: rawText, word1IsPhrase: false })
-    });
-    const data = await resp.json();
-
-    if (!data.results || data.results.length === 0) {
-      console.warn('[OBSIDIAN] Kein Treffer für:', rawText.substring(0, 60));
+    const resp = await fetch(`${apiBase}/api/resolve-lecture?ga=${encodeURIComponent(ga)}&date=${encodeURIComponent(date)}`);
+    if (!resp.ok) {
+      console.error('[OBSIDIAN-GA] Vortrag nicht gefunden:', ga, date);
       return;
     }
-
-    const hit = data.results[0];
+    
+    const data = await resp.json();
+    if (!data.success || !data.lectureId) {
+      console.error('[OBSIDIAN-GA] Keine lectureId erhalten');
+      return;
+    }
+    
+    console.log('[OBSIDIAN-GA] Vortrag gefunden:', data.lectureId, data.title);
     switchTab('texte', true);
-    await showLecture(hit.ID, hit.paragraphIndex);
-
-    setTimeout(() => {
-      const viewer = document.getElementById('main-viewer');
-      if (!viewer) return;
-      const normalizedSearch = normalize(rawText);
-      const paragraphs = viewer.querySelectorAll('p');
-      for (const p of paragraphs) {
-        if (normalize(p.textContent).includes(normalizedSearch)) {
-          p.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          p.style.transition = 'background-color 0.4s ease';
-          p.style.backgroundColor = 'rgba(255, 220, 50, 0.35)';
-          p.style.borderLeft = '4px solid #e6a817';
-          p.style.paddingLeft = '12px';
-          setTimeout(() => {
-            p.style.backgroundColor = '';
-            p.style.borderLeft = '';
-            p.style.paddingLeft = '';
-          }, 8000);
-          return;
+    await showLecture(data.lectureId);
+    
+    // Warte bis Vortrag geladen ist
+    var scrolled = false;
+    var startTime = Date.now();
+    var maxWaitTime = 15000;
+    
+    var tryScroll = function() {
+      if (scrolled || Date.now() - startTime > maxWaitTime) {
+        if (Date.now() - startTime > maxWaitTime) {
+          console.log('[OBSIDIAN-GA] ⏱ Timeout erreicht');
+        }
+        return;
+      }
+      
+      const viewer = document.getElementById('viewer');
+      if (!viewer) {
+        setTimeout(tryScroll, 500);
+        return;
+      }
+      
+      const allParas = viewer.querySelectorAll('.paragraph');
+      if (allParas.length === 0) {
+        console.log('[OBSIDIAN-GA] Warte auf Absätze...');
+        setTimeout(tryScroll, 800);
+        return;
+      }
+      
+      scrolled = true;
+      
+      // Entferne alte Markierungen
+      viewer.querySelectorAll('.obsidian-page-marker').forEach(function(el) {
+        el.classList.remove('obsidian-page-marker');
+        el.style.borderLeft = '';
+        el.style.paddingLeft = '';
+        el.style.transition = '';
+      });
+      
+      // Entferne auch Wortmarkierungen
+      viewer.querySelectorAll('.obsidian-first-words').forEach(function(span) {
+        var text = span.textContent;
+        span.replaceWith(text);
+      });
+      
+      var targetPara = null;
+      
+      // PRIORITÄT 1: Wenn Suchtext vorhanden, suche im GANZEN Vortrag
+      if (searchText) {
+        console.log('[OBSIDIAN-GA] 🔍 Suche nach Text:', searchText);
+        
+        const normalize = function(txt) {
+          return txt.toLowerCase()
+            .replace(/ß/g, 'ss')
+            .replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        };
+        
+        const searchNormalized = normalize(searchText);
+        console.log('[OBSIDIAN-GA] Normalisierter Suchtext:', searchNormalized);
+        console.log('[OBSIDIAN-GA] Durchsuche', allParas.length, '.paragraph Divs');
+        
+        // Suche im GANZEN Vortrag
+        for (let i = 0; i < allParas.length; i++) {
+          const p = allParas[i];
+          const textNormalized = normalize(p.textContent);
+          
+          if (textNormalized.includes(searchNormalized)) {
+            targetPara = p;
+            console.log('[OBSIDIAN-GA] ✓ Text gefunden in Absatz', i);
+            console.log('[OBSIDIAN-GA] Absatzinhalt:', p.textContent.substring(0, 80) + '...');
+            break;
+          }
+        }
+        
+        if (!targetPara) {
+          console.log('[OBSIDIAN-GA] ⚠ Text "' + searchText + '" nicht gefunden');
         }
       }
-      // Fallback: kein exakter Absatz gefunden, aber Vortrag ist geöffnet
-      console.log('[OBSIDIAN] Vortrag geöffnet, Absatz-Markierung fehlgeschlagen');
-    }, 1200);
+      
+      // PRIORITÄT 2: Wenn kein Text gefunden oder kein Suchtext, nutze Seitenmarker
+      if (!targetPara && page) {
+        console.log('[OBSIDIAN-GA] 📍 Suche Seitenmarker', page);
+        const pageNums = viewer.querySelectorAll('.page-break-num');
+        
+        for (const numSpan of pageNums) {
+          if (numSpan.textContent.trim() === String(page)) {
+            targetPara = numSpan.closest('.paragraph');
+            if (!targetPara) {
+              targetPara = numSpan.closest('p');
+            }
+            console.log('[OBSIDIAN-GA] ✓ Seitenmarker gefunden');
+            break;
+          }
+        }
+      }
+      
+      // Scrolle und markiere
+      if (targetPara) {
+        targetPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        setTimeout(function() {
+          // Markiere Absatz mit blauem Balken (wie bei selected-for-keyword)
+          targetPara.classList.add('obsidian-page-marker');
+          targetPara.style.borderLeft = '4px solid rgba(70, 120, 134, 0.6)';
+          targetPara.style.setProperty('padding-left', '12px', 'important');
+          targetPara.style.transition = 'border-left 0.3s ease, padding-left 0.3s ease';
+          
+          // Markiere die ersten Worte des Zitats (aus searchText Parameter)
+          // Versuche zuerst 5 Worte, dann Fallback auf 3 Worte
+          if (searchText) {
+            // Hole den Textinhalt des ersten <p> im .paragraph Div
+            var pTag = targetPara.querySelector('p');
+            if (pTag) {
+              var originalHTML = pTag.innerHTML;
+              var textContent = pTag.textContent;
+              
+              // Normalisiere den searchText (die ersten 5 Worte aus Obsidian)
+              var normalizedSearchText = searchText.replace(/ß/g, 'ss')
+                .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2')
+                .replace(/[^\w\s]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+              
+              var words = normalizedSearchText.split(/\s+/);
+              var match = null;
+              var actualText = null;
+              
+              // Versuche zuerst alle Worte (normalerweise 5)
+              if (words.length >= 1) {
+                var wordPattern = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+');
+                var regex = new RegExp('(' + wordPattern + ')', 'i');
+                match = textContent.match(regex);
+                
+                if (match) {
+                  actualText = match[0];
+                  console.log('[OBSIDIAN-GA] ✓ Zitatanfang gefunden mit ' + words.length + ' Worten:', actualText);
+                }
+              }
+              
+              // Fallback: Versuche nur die ersten 3 Worte
+              if (!match && words.length >= 3) {
+                var firstThree = words.slice(0, 3);
+                var wordPattern3 = firstThree.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+');
+                var regex3 = new RegExp('(' + wordPattern3 + ')', 'i');
+                match = textContent.match(regex3);
+                
+                if (match) {
+                  actualText = match[0];
+                  console.log('[OBSIDIAN-GA] ✓ Zitatanfang gefunden mit Fallback (3 Worte):', actualText);
+                }
+              }
+              
+              // Markiere die gefundenen Worte (auch wenn page-break-num dazwischen ist)
+              if (match && actualText) {
+                console.log('[OBSIDIAN-GA] 🔍 Versuche zu markieren:', actualText);
+                console.log('[OBSIDIAN-GA] 📄 Original HTML (erste 200 Zeichen):', originalHTML.substring(0, 200));
+                
+                // Extrahiere page-break-num Spans temporär
+                var pageMarkers = [];
+                var htmlWithPlaceholders = originalHTML.replace(/<span class="page-break-num"[^>]*>.*?<\/span>/g, function(match) {
+                  var placeholder = '___PM' + pageMarkers.length + '___';
+                  pageMarkers.push(match);
+                  console.log('[OBSIDIAN-GA] 📌 Gefundener Seitenmarker:', match);
+                  return placeholder;
+                });
+                
+                console.log('[OBSIDIAN-GA] 📝 HTML mit Platzhaltern (erste 200 Zeichen):', htmlWithPlaceholders.substring(0, 200));
+                
+                // Erstelle ein flexibles Regex-Pattern
+                var escapedText = actualText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                var words = escapedText.split(/\s+/);
+                
+                console.log('[OBSIDIAN-GA] 🔤 Worte zum Suchen:', words);
+                
+                // Pattern: Worte können durch Platzhalter und Whitespace getrennt sein
+                var patternParts = [];
+                for (var i = 0; i < words.length; i++) {
+                  patternParts.push(words[i]);
+                  if (i < words.length - 1) {
+                    // Zwischen Worten: optionale Platzhalter, Whitespace, optionale weitere Platzhalter
+                    patternParts.push('(?:\\s*___PM\\d+___\\s*|\\s+)');
+                  }
+                }
+                var flexPattern = new RegExp(patternParts.join(''), 'i');
+                
+                console.log('[OBSIDIAN-GA] 🔎 Regex-Pattern:', flexPattern);
+                
+                var matchInHTML = htmlWithPlaceholders.match(flexPattern);
+                
+                if (matchInHTML) {
+                  console.log('[OBSIDIAN-GA] ✅ Match gefunden:', matchInHTML[0]);
+                  
+                  // Erstelle Obsidian-Link wenn vault und file vorhanden
+                  var obsidianLink = '';
+                  if (vault && file) {
+                    obsidianLink = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
+                    console.log('[OBSIDIAN-GA] 🔗 Obsidian-Link erstellt:', obsidianLink);
+                  }
+                  
+                  // Ersetze den gefundenen Text mit markierter Version (mit Link wenn vorhanden)
+                  var markedHTML;
+                  if (obsidianLink) {
+                    markedHTML = htmlWithPlaceholders.replace(flexPattern, 
+                      '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
+                      matchInHTML[0] + '</a>');
+                  } else {
+                    markedHTML = htmlWithPlaceholders.replace(flexPattern, 
+                      '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
+                      matchInHTML[0] + '</span>');
+                  }
+                  
+                  // Setze page-break-num Spans wieder ein
+                  for (var i = 0; i < pageMarkers.length; i++) {
+                    markedHTML = markedHTML.replace('___PM' + i + '___', pageMarkers[i]);
+                  }
+                  
+                  pTag.innerHTML = markedHTML;
+                  console.log('[OBSIDIAN-GA] ✓ Zitatanfang markiert (mit Seitenmarker-Support):', actualText);
+                } else {
+                  console.log('[OBSIDIAN-GA] ⚠ Konnte Zitatanfang nicht im HTML finden');
+                  console.log('[OBSIDIAN-GA] 💡 Versuche ohne Seitenmarker-Logik...');
+                  
+                  // Fallback ohne Seitenmarker-Logik
+                  var simpleMatch = originalHTML.match(new RegExp(escapedText, 'i'));
+                  if (simpleMatch) {
+                    // Erstelle Obsidian-Link wenn vault und file vorhanden
+                    var obsidianLink = '';
+                    if (vault && file) {
+                      obsidianLink = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
+                    }
+                    
+                    var markedHTML;
+                    if (obsidianLink) {
+                      markedHTML = originalHTML.replace(simpleMatch[0], 
+                        '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
+                        simpleMatch[0] + '</a>');
+                    } else {
+                      markedHTML = originalHTML.replace(simpleMatch[0], 
+                        '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
+                        simpleMatch[0] + '</span>');
+                    }
+                    pTag.innerHTML = markedHTML;
+                    console.log('[OBSIDIAN-GA] ✓ Zitatanfang markiert (einfache Methode):', actualText);
+                  }
+                }
+              } else {
+                console.log('[OBSIDIAN-GA] ⚠ Konnte Zitatanfang nicht finden:', normalizedSearchText);
+              }
+            }
+          }
+          
+          // Entferne blauen Balken nach 6 Sekunden (Wortmarkierung bleibt dauerhaft!)
+          setTimeout(function() {
+            console.log('[OBSIDIAN-GA] 🔵 Entferne blauen Balken (Wortmarkierung bleibt!)');
+            // Prüfe, ob Wortmarkierung noch da ist
+            var wordMarks = targetPara.querySelectorAll('.obsidian-first-words');
+            console.log('[OBSIDIAN-GA] 📝 Anzahl Wortmarkierungen vor Fade-Out:', wordMarks.length);
+            
+            targetPara.style.transition = 'border-left 1s ease-out, padding-left 1s ease-out';
+            targetPara.style.borderLeft = '4px solid rgba(70, 120, 134, 0)';
+            targetPara.style.setProperty('padding-left', '0px', 'important');
+            
+            setTimeout(function() {
+              targetPara.classList.remove('obsidian-page-marker');
+              targetPara.style.borderLeft = '';
+              targetPara.style.paddingLeft = '';
+              targetPara.style.transition = '';
+              
+              // Prüfe nochmal, ob Wortmarkierung noch da ist
+              var wordMarksAfter = targetPara.querySelectorAll('.obsidian-first-words');
+              console.log('[OBSIDIAN-GA] 📝 Anzahl Wortmarkierungen nach Fade-Out:', wordMarksAfter.length);
+            }, 1000);
+          }, 6000);
+        }, 300);
+        
+        console.log('[OBSIDIAN-GA] ✓ Navigation abgeschlossen');
+      } else {
+        console.log('[OBSIDIAN-GA] ⚠ Kein Ziel gefunden');
+      }
+    };
+    
+    setTimeout(tryScroll, 2000);
   } catch (err) {
-    console.error('[OBSIDIAN] Fehler:', err.message);
+    console.error('[OBSIDIAN-GA] Fehler:', err.message);
   }
+}
+
+// Gepufferte BroadcastChannel-Nachrichten verarbeiten (falls goto.html schneller war als diese Datei)
+if (_obsidianPendingQ) {
+  runObsidianSearch(_obsidianPendingQ);
+  _obsidianPendingQ = null;
+}
+if (_obsidianPendingGA) {
+  navigateToGAPage(_obsidianPendingGA.ga, _obsidianPendingGA.date, _obsidianPendingGA.page, _obsidianPendingGA.text, _obsidianPendingGA.vault, _obsidianPendingGA.file);
+  _obsidianPendingGA = null;
 }
 
 // Reagiere auf Hash-Änderungen (z.B. bei Navigation über Obsidian-Links)
@@ -34655,9 +34952,14 @@ window.addEventListener('hashchange', function() {
     }, 200);
   }
   
-  // Obsidian-Link: q-Parameter → Vortrag finden, öffnen und Zitat markieren
+  // Obsidian-Link: q-Parameter → Suche ausführen
   if (queryParams.q) {
-    navigateToObsidianQuote(queryParams.q);
+    runObsidianSearch(queryParams.q);
+  }
+  
+  // Obsidian-Link: GA+Datum+Seite → Vortrag öffnen
+  if (queryParams.ga && queryParams.date) {
+    navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file);
   }
   
 });
