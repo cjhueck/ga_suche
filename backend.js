@@ -632,16 +632,27 @@ function isEssayGANumber(gaNumber) {
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Aufsatzbände: GA001, GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
-  // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
-  const additionalEssayBands = [1, 18, 19, 24, 26, 28, 42, 43, 44];
+  // Aufsatzbände: GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
+  // GA001-GA028 werden als Schriften für die Statistik gezählt (siehe isSchriftForStats)
+  const additionalEssayBands = [18, 19, 24, 26, 28, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
 }
 
+// Hilfsfunktion: Prüft ob ein GA-Band für die Statistik als "Schrift" gezählt wird
+// GA001-GA028 und GA045 = Schriften (jeweils als 1 Band, Inhalte nicht einzeln gezählt)
+// GA014 wird ausgeschlossen (wird nicht angezeigt)
+function isSchriftForStats(gaNumber) {
+  if (!gaNumber) return false;
+  const gaNum = parseInt(String(gaNumber).replace(/^GA/i, '').replace(/[a-z]/i, ''));
+  // GA014 explizit ausschließen
+  if (gaNum === 14) return false;
+  return (gaNum >= 1 && gaNum <= 28) || gaNum === 45;
+}
+
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA002-GA027 (ohne Aufsatzbände GA018, GA019, GA024, GA026) + GA045
+// Bücher: GA002-GA027 (ohne Aufsatzbände GA018, GA019, GA024, GA026) und GA045
 // GA001, GA028 und GA040 werden wie Vortragsbände/Aufsätze behandelt
 // GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt
 function isBookGANumberBackend(gaNumber) {
@@ -658,7 +669,7 @@ function isBookGANumberBackend(gaNumber) {
   if (isEssayGANumber(gaNumber)) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
-  // GA002-GA027 + GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
+  // GA002-GA027 und GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
   // GA028 wird als Aufsatzband behandelt (bereits oben durch isEssayGANumber ausgeschlossen)
   return (gaNum >= 2 && gaNum <= 27) || gaNum === 45;
 }
@@ -671,34 +682,48 @@ function extractGAFromLectureId(lectureId) {
 }
 
 // Hilfsfunktion: Zählt Vorträge, Aufsätze und Schriften für STATISTIK-ANZEIGE
-// GA001, GA018, GA026 werden als Schriften gezählt (nicht als Aufsätze)
+// GA001-GA028 und GA045 werden als Schriften gezählt (Inhalte nicht als einzelne Aufsätze)
 function countLectureTypes() {
   let lectures = 0;
   let essays = 0;
-  let essaysInBooks = 0; // Aufsätze in GA001, GA018, GA026
+  const schriften = new Set(); // Sammle eindeutige Schriften-Bände
+  const allGABands = new Set(); // Sammle alle GA-Bände
   
+  // Sammle alle GA-Bände aus fullLectures
   for (const lectureId of Object.keys(fullLectures)) {
     const ga = extractGAFromLectureId(lectureId);
     if (ga) {
-      const gaNum = parseInt(String(ga).replace(/^GA/i, ''));
+      allGABands.add(ga.toUpperCase());
       
-      if (isEssayGANumber(ga)) {
+      // Prüfe ob GA-Band eine Schrift ist
+      if (isSchriftForStats(ga)) {
+        schriften.add(ga.toUpperCase());
+      } else if (isEssayGANumber(ga)) {
+        // Nur Aufsätze aus Nicht-Schrift-Bänden zählen
         essays++;
-        // GA001, GA018, GA026: Zähle separat
-        if (gaNum === 1 || gaNum === 18 || gaNum === 26) {
-          essaysInBooks++;
-        }
       } else if (!isBookGANumberBackend(ga)) {
+        // Vorträge (weder Schrift noch Aufsatzband noch Buch)
         lectures++;
       }
     }
   }
   
-  // Statistik: Aufsätze minus GA001/GA018/GA026, Bücher plus 3
+  // Sammle alle GA-Bände aus fullBooks (für Schriften ohne einzelne Lectures)
+  for (const bookId of Object.keys(fullBooks)) {
+    const ga = extractGAFromLectureId(bookId);
+    if (ga) {
+      allGABands.add(ga.toUpperCase());
+      if (isSchriftForStats(ga)) {
+        schriften.add(ga.toUpperCase());
+      }
+    }
+  }
+  
+  // Rückgabe: Schriften als Anzahl der eindeutigen Bände
   return { 
     lectures, 
-    essays: essays - essaysInBooks, 
-    books: Object.keys(fullBooks).length + 3 
+    essays, 
+    books: schriften.size
   };
 }
 

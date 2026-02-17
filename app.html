@@ -16784,8 +16784,8 @@ function isEssayGANumber(gaNumber) {
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Zusätzliche Aufsatzbände: GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
-  // (GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt)
+  // Aufsatzbände: GA018, GA019, GA024, GA026, GA028, GA042, GA043, GA044
+  // GA001-GA028 werden als Schriften für die Statistik gezählt (siehe isSchriftForStats)
   const additionalEssayBands = [18, 19, 24, 26, 28, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
@@ -16794,8 +16794,11 @@ function isEssayGANumber(gaNumber) {
 
 // Hilfsfunktion: Prüft ob ein GA-Band für die Statistik als "Schrift" gezählt wird
 // GA001-GA028 und GA045 = Schriften (jeweils als 1 Band, Inhalte nicht einzeln gezählt)
+// GA014 wird ausgeschlossen (wird nicht angezeigt)
 function isSchriftForStats(gaNumber) {
   const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+  // GA014 explizit ausschließen
+  if (gaNum === 14) return false;
   return (gaNum >= 1 && gaNum <= 28) || gaNum === 45;
 }
 
