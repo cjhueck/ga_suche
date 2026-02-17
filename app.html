@@ -33092,12 +33092,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocHeading.addEventListener('click', (e) => {
           e.preventDefault();
           
-          // BRIEFE: Bei H4 mit data-index zur Überschrift scrollen (nicht zum Absatz)
+          // ÜBERSCHRIFTEN mit data-index: Zur Überschrift scrollen (nicht zum Absatz)
           const dataIndex = heading.getAttribute('data-index');
           if (dataIndex) {
-            // Suche die H4-Überschrift mit diesem data-index im Viewer
+            // Suche die Überschrift (H2, H3 oder H4) mit diesem data-index im Viewer
             const cleanIndex = dataIndex.replace(/^\^/, '');
-            const targetHeading = viewer.querySelector(`h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"]`);
+            const targetHeading = viewer.querySelector(`h2[data-index="${dataIndex}"], h2[data-index="^${cleanIndex}"], h3[data-index="${dataIndex}"], h3[data-index="^${cleanIndex}"], h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"]`);
             
             if (targetHeading) {
               // Scrolle zur Überschrift
@@ -33117,10 +33117,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                 targetHeading.style.backgroundColor = originalBg || '';
               }, 2000);
             } else {
-              // Fallback: Scroll zum Absatz (alte Logik)
-              if (typeof scrollToIndexInViewer === 'function') {
-                scrollToIndexInViewer(cleanIndex);
-              }
+              // Kein Fallback mehr - wenn Überschrift nicht gefunden, nichts tun
+              console.warn(`[TOC-CLICK] Überschrift mit data-index nicht gefunden: ${dataIndex}`);
             }
             return;
           }
