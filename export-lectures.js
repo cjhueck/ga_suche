@@ -849,13 +849,16 @@ class SteinerLecturesExporter {
       // AUSNAHME: Für GA051-GA084 werden H3/H4 NICHT exportiert (werden durch AI-generierte ersetzt)
       // BRIEFE (GA262, GA263a): H2-Überschriften werden mit Absatz-Indizes versehen
       // AUFSÄTZE (GA018, GA019, etc.): H3/H4-Überschriften werden mit Absatz-Indizes versehen
+      // ALLE ANDEREN: H2/H3/H4-Überschriften werden mit Absatz-Indizes versehen
       const paragraphs = [];
       const lectureImages = []; // Bilder für diesen Vortrag
       let pendingHeadings = []; // Sammle Überschriften für den nächsten Absatz
       const letterHeadings = []; // Für Briefe: H2-Überschriften mit Absatz-Indizes
       const essayHeadings = []; // Für Aufsätze: H3/H4-Überschriften mit Absatz-Indizes
+      const generalHeadings = []; // Für alle anderen: H2/H3/H4-Überschriften mit Absatz-Indizes
       let pendingLetterHeading = null; // Aktuelle H2-Überschrift die auf Index wartet
       let pendingEssayHeadings = []; // Aktuelle H3/H4-Überschriften die auf Index warten
+      let pendingGeneralHeadings = []; // Aktuelle H2/H3/H4-Überschriften die auf Index warten
       
       // Prüfe ob dieser GA-Band manuelle Überschriften NICHT exportieren soll
       // GA051-GA084: Haben AI-generierte Headings, manuelle werden übersprungen
@@ -891,6 +894,8 @@ class SteinerLecturesExporter {
         // Erkenne H2/H3/H4 Überschriften und sammle sie
         // ABER: Für GA051-GA084 werden H3/H4 übersprungen (AI-generierte ersetzt)
         // BRIEFE: H2-Überschriften erhalten data-index Attribute für Navigation
+        // AUFSÄTZE: H2/H3/H4-Überschriften erhalten data-index Attribute
+        // ALLE ANDEREN: H2/H3/H4-Überschriften erhalten data-index Attribute
         const headingMatch = line.match(/^(#{2,4})\s+(.+)$/);
         if (headingMatch) {
           const level = headingMatch[1].length; // 2, 3, oder 4
@@ -938,7 +943,19 @@ class SteinerLecturesExporter {
             continue;
           }
           
-          // Konvertiere zu HTML-Tag für spätere Darstellung
+          // ALLE ANDEREN: H2/H3/H4-Überschriften werden gespeichert und erhalten data-index
+          if (!isLetterBand && !isEssayBand && !isEssayWithH2) {
+            // Speichere die Überschrift - der Index wird beim nächsten Absatz hinzugefügt
+            pendingGeneralHeadings.push({
+              text: headingText,
+              level: level  // Behalte das ursprüngliche Level (H2, H3 oder H4)
+            });
+            // Die Überschrift wird NICHT zu pendingHeadings hinzugefügt,
+            // sondern separat behandelt
+            continue;
+          }
+          
+          // Konvertiere zu HTML-Tag für spätere Darstellung (nur für GA051-084 H2)
           pendingHeadings.push(`<h${level}>${headingText}</h${level}>`);
           continue;
         }
@@ -1010,7 +1027,7 @@ class SteinerLecturesExporter {
                 essayHeadings.push({
                   index: `^${blockId}`,
                   text: essayHeading.text,
-                  level: `h${essayHeading.level}`  // h3 oder h4
+                  level: `h${essayHeading.level}`  // h2, h3 oder h4
                 });
                 // Füge Überschrift mit data-index zum Content hinzu
                 headingsHTML.push(`<h${essayHeading.level} data-index="^${blockId}">${essayHeading.text}</h${essayHeading.level}>`);
@@ -1019,7 +1036,25 @@ class SteinerLecturesExporter {
               pendingEssayHeadings = []; // Reset
             }
             
-            // Füge gesammelte Überschriften vor dem Absatz ein
+            // ALLE ANDEREN: H2/H3/H4-Überschriften mit data-index Attribut hinzufügen
+            if (!isLetterBand && !isEssayBand && !isEssayWithH2 && pendingGeneralHeadings.length > 0) {
+              // Füge alle gesammelten Überschriften hinzu
+              const headingsHTML = [];
+              for (const generalHeading of pendingGeneralHeadings) {
+                // Speichere in generalHeadings für summary-database
+                generalHeadings.push({
+                  index: `^${blockId}`,
+                  text: generalHeading.text,
+                  level: `h${generalHeading.level}`  // h2, h3 oder h4
+                });
+                // Füge Überschrift mit data-index zum Content hinzu
+                headingsHTML.push(`<h${generalHeading.level} data-index="^${blockId}">${generalHeading.text}</h${generalHeading.level}>`);
+              }
+              convertedText = headingsHTML.join('\n') + '\n' + convertedText;
+              pendingGeneralHeadings = []; // Reset
+            }
+            
+            // Füge gesammelte Überschriften vor dem Absatz ein (nur für GA051-084 H2)
             if (pendingHeadings.length > 0) {
               convertedText = pendingHeadings.join('\n') + '\n' + convertedText;
               pendingHeadings = []; // Reset
@@ -1066,6 +1101,12 @@ class SteinerLecturesExporter {
         if ((isEssayBand || isEssayWithH2) && essayHeadings.length > 0) {
           lectureData.headings = essayHeadings;
           console.log(`    -> ${essayHeadings.length} Aufsatz-Überschriften mit Indizes`);
+        }
+        
+        // ALLE ANDEREN: H2/H3/H4-Überschriften mit Absatz-Indizes hinzufügen
+        if (!isLetterBand && !isEssayBand && !isEssayWithH2 && generalHeadings.length > 0) {
+          lectureData.headings = generalHeadings;
+          console.log(`    -> ${generalHeadings.length} Überschriften mit Indizes`);
         }
         
         lectures.push(lectureData);
@@ -1155,7 +1196,7 @@ class SteinerLecturesExporter {
     // Damit sie im TOC im rechten Summary-Panel angezeigt werden
     this.saveLetterHeadingsToSummaryDB(lectures);
     
-    // AUFSÄTZE: Speichere Aufsatz-Überschriften in summary-database.json
+    // AUFSÄTZE UND ALLE ANDEREN: Speichere Überschriften in summary-database.json
     // Damit sie im TOC im linken Side Panel angezeigt werden
     this.saveEssayHeadingsToSummaryDB(lectures);
     
@@ -1699,8 +1740,8 @@ class SteinerLecturesExporter {
       }
     }
     
-    // Filtere Lectures mit Aufsatz-Überschriften (headings vorhanden)
-    // WICHTIG: Auch für GA018 und GA028 (können type 'lecture' haben, aber headings enthalten)
+    // Filtere Lectures mit Überschriften (headings vorhanden)
+    // WICHTIG: Auch für GA018, GA028 und ALLE ANDEREN GA-Bände mit manuellen Überschriften
     const essayLectures = lectures.filter(l => l.headings && l.headings.length > 0);
     
     if (essayLectures.length === 0) {
@@ -1717,7 +1758,7 @@ class SteinerLecturesExporter {
         summaryDB[lectureId] = {};
       }
       
-      // Speichere headings (Aufsatz-Überschriften mit Absatz-Indizes)
+      // Speichere headings (Überschriften mit Absatz-Indizes)
       summaryDB[lectureId].headings = lecture.headings;
       
       // Erstelle tableOfContents aus headings (für Kompatibilität)
@@ -1727,7 +1768,14 @@ class SteinerLecturesExporter {
         index: h.index
       }));
       
-      summaryDB[lectureId].version = 'v2-essay';
+      // Bestimme Version basierend auf Lecture-Typ
+      if (lecture.type === 'letter') {
+        summaryDB[lectureId].version = 'v2-letter';
+      } else if (lecture.type === 'essay') {
+        summaryDB[lectureId].version = 'v2-essay';
+      } else {
+        summaryDB[lectureId].version = 'v2-headings';
+      }
       summaryDB[lectureId].timestamp = new Date().toISOString();
       
       updatedCount++;
@@ -1735,7 +1783,7 @@ class SteinerLecturesExporter {
     
     // Speichere zurück
     fs.writeFileSync(summaryDBPath, JSON.stringify(summaryDB, null, 2), 'utf8');
-    console.log(`  ✓ ${updatedCount} Aufsatz-Lectures in summary-database.json gespeichert`);
+    console.log(`  ✓ ${updatedCount} Lectures mit Überschriften in summary-database.json gespeichert`);
     
     return updatedCount;
   }
