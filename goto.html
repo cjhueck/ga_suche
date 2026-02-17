@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Weiterleitung…</title>
+<style>body{display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:system-ui;color:#555}p{text-align:center;line-height:1.8}.ok{color:#2a7d2a}</style>
+</head>
+<body>
+<p id="msg">Weiterleitung zur GA-Suche…</p>
+<script>
+(function() {
+  var hash = location.hash.substring(1);
+  if (!hash) { location.href = 'app.html'; return; }
+
+  var bc = new BroadcastChannel('steiner-obsidian-nav');
+  var handled = false;
+
+  bc.onmessage = function(e) {
+    if (e.data && e.data.action === 'ack') {
+      handled = true;
+      document.getElementById('msg').innerHTML =
+        '<span class="ok">✓ Zitat in GA-Suche geöffnet.</span><br><small>Dieses Tab kann geschlossen werden.</small>';
+      try { window.close(); } catch(ex) {}
+    }
+  };
+
+  bc.postMessage({ action: 'navigate', hash: hash });
+
+  setTimeout(function() {
+    if (!handled) {
+      location.href = 'app.html#texte&' + hash;
+    }
+  }, 800);
+})();
+</script>
+</body>
+</html>
