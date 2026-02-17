@@ -13115,7 +13115,12 @@ function normalizeGANumber(gaNumber) {
       const url = window.location.hash;
       if (url) {
         const hashParts = url.split('?');
-        const hash = hashParts[0].substring(1);
+        let hash = hashParts[0].substring(1);
+        
+        // Auch &-Parameter aus dem Hash entfernen (z.B. "texte&ga=110&date=..." -> "texte")
+        if (hash.includes('&')) {
+          hash = hash.split('&')[0];
+        }
         
         if (hash) {
           switchTab(hash, true);
@@ -34516,6 +34521,18 @@ window.addEventListener('DOMContentLoaded', function() {
             showLecture(queryParams.lecture, paragraphIndex);
           }, 200);
         }
+        
+        // Obsidian-Link: q-Parameter als Textsuche im Suche-Tab ausführen
+        if (queryParams.q && hash === 'keyword') {
+          setTimeout(() => {
+            const searchText = queryParams.q.replace(/\+/g, ' ')
+              .replace(/ß/g, 'ss')
+              .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2');
+            document.getElementById('word1').value = searchText;
+            performKeywordSearch();
+          }, 300);
+        }
+        
       }, 100);
     }
   } else {
@@ -34534,6 +34551,53 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     }
   }
+});
+
+// Reagiere auf Hash-Änderungen (z.B. bei Navigation über Obsidian-Links)
+window.addEventListener('hashchange', function() {
+  let hash = window.location.hash.substring(1);
+  if (!hash) return;
+  
+  // Parse &-Parameter aus dem Hash
+  let queryParams = {};
+  if (hash.includes('&')) {
+    const parts = hash.split('&');
+    hash = parts[0];
+    parts.slice(1).forEach(part => {
+      const [key, value] = part.split('=');
+      if (key && value) queryParams[key] = decodeURIComponent(value);
+    });
+  }
+  
+  // Auch ?-Parameter entfernen
+  if (hash.includes('?')) {
+    hash = hash.split('?')[0];
+  }
+  
+  if (!hash) return;
+  
+  // Tab wechseln
+  switchTab(hash, true);
+  
+  // Lecture-Parameter (direkte Vortrag-ID)
+  if (queryParams.lecture) {
+    setTimeout(() => {
+      const paragraphIndex = queryParams.p || '';
+      showLecture(queryParams.lecture, paragraphIndex);
+    }, 200);
+  }
+  
+  // Obsidian-Link: q-Parameter als Textsuche im Suche-Tab ausführen
+  if (queryParams.q && hash === 'keyword') {
+    setTimeout(() => {
+      const searchText = queryParams.q.replace(/\+/g, ' ')
+        .replace(/ß/g, 'ss')
+        .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2');
+      document.getElementById('word1').value = searchText;
+      performKeywordSearch();
+    }, 300);
+  }
+  
 });
 </script>
 <script>
