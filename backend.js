@@ -9692,6 +9692,7 @@ app.get('/api/lectures/chronological', async (req, res) => {
   }
 });
 
+
 app.get('/ga-overview-map.json', async (req, res) => {
   try {
     const mapPath = path.join(__dirname, 'ga-overview-map.json');
