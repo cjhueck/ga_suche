@@ -9680,12 +9680,16 @@ PDF
   <div id="spellcheck-word-list" style="max-height: 40vh; overflow-y: auto;"></div>
   <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
     <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem;">
-      <button onclick="exportDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;" title="Als JSON oder TXT exportieren (für Obsidian)">📥 Exportieren</button>
-      <button onclick="importDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;" title="JSON-Backup wiederherstellen">📤 JSON Import</button>
-      <button onclick="importObsidianDictionary()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;" title="Obsidian Custom Dictionary.txt importieren">📖 Obsidian Import</button>
+      <button onclick="exportDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 110px;" title="Als JSON oder TXT exportieren (für Obsidian)">📥 Exportieren</button>
+      <button onclick="importDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 110px;" title="JSON-Backup wiederherstellen">📤 JSON Import</button>
+      <button onclick="importObsidianDictionary()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 110px;" title="Obsidian Custom Dictionary.txt importieren">📖 Obsidian</button>
     </div>
     <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem;">
-      <button onclick="expandDictionaryFromInternet()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 140px;" title="Umfangreiche deutsche Wortliste hinzufügen">🌐 Wörterbuch erweitern</button>
+      <button onclick="importLocalHunspell()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 130px;" title="Lokales deutsches Basis-Wörterbuch laden (75.000 Wörter)">📚 Lokales DE-Wörterbuch</button>
+      <button onclick="importHunspellDictionary()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 130px;" title="Hunspell .dic Datei importieren">📖 Hunspell Import</button>
+    </div>
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem;">
+      <button onclick="expandDictionaryFromInternet()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 140px;" title="Erweiterte deutsche Wortliste aus dem Internet laden">🌐 Online erweitern</button>
       <button onclick="clearUserDictionary()" style="padding: 6px 12px; border: 1px solid #dc3545; background: transparent; color: #dc3545; border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 140px;" title="Alle persönlichen Wörter löschen">🗑️ Zurücksetzen</button>
     </div>
     <div style="font-size: 0.8em; color: var(--secondary-text);">
@@ -9694,6 +9698,7 @@ PDF
   </div>
   <input type="file" id="dictionary-import-input" accept=".json" style="display: none;" onchange="handleDictionaryImport(event)">
   <input type="file" id="obsidian-import-input" accept=".txt" style="display: none;" onchange="handleObsidianImport(event)">
+  <input type="file" id="hunspell-import-input" accept=".dic" style="display: none;" onchange="handleHunspellImport(event)">
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -47826,23 +47831,294 @@ window.cancelTextEditMode = function() {};
 
   // === Obsidian Wörterbuch importieren ===
   window.importObsidianDictionary = function() {
-    // Zeige Info-Dialog mit Anleitung
+    // Erstelle einen ausführlichen Hilfe-Dialog
+    showObsidianImportHelp();
+  };
+
+  function showObsidianImportHelp() {
+    const dialog = document.getElementById('spellcheck-dictionary-dialog');
+    const originalContent = dialog.innerHTML;
+    
+    // Erkenne Betriebssystem
+    const isWindows = navigator.platform.indexOf('Win') > -1;
+    const isMac = navigator.platform.indexOf('Mac') > -1;
+    const isLinux = navigator.platform.indexOf('Linux') > -1;
+    
+    let osSpecificPath = '';
+    let osSpecificInstructions = '';
+    
+    if (isWindows) {
+      const username = '<%USERNAME%>';
+      osSpecificPath = `C:\\Users\\${username}\\AppData\\Roaming\\obsidian\\Custom Dictionary.txt`;
+      osSpecificInstructions = `
+        <h4>🪟 Windows - So finden Sie die Datei:</h4>
+        <ol style="margin-left: 1.5rem; line-height: 1.6;">
+          <li><strong>Drücken Sie</strong> Windows-Taste + R</li>
+          <li><strong>Geben Sie ein:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">%APPDATA%\\obsidian</code></li>
+          <li><strong>Drücken Sie</strong> Enter</li>
+          <li>Sie sollten nun die Datei <strong>"Custom Dictionary.txt"</strong> sehen</li>
+          <li>Falls die Datei nicht existiert: Sie haben noch keine Wörter in Obsidian zum Wörterbuch hinzugefügt</li>
+        </ol>
+        <p style="margin-top: 1rem; padding: 0.5rem; background: rgba(70,120,134,0.1); border-radius: 4px; font-size: 0.9em;">
+          💡 <strong>Tipp:</strong> Kopieren Sie <code>%APPDATA%\\obsidian</code> und fügen Sie es in die Adressleiste des Windows Explorers ein.
+        </p>
+      `;
+    } else if (isMac) {
+      osSpecificPath = '~/Library/Application Support/obsidian/Custom Dictionary.txt';
+      osSpecificInstructions = `
+        <h4>🍎 Mac - So finden Sie die Datei:</h4>
+        <ol style="margin-left: 1.5rem; line-height: 1.6;">
+          <li><strong>Öffnen Sie</strong> Finder</li>
+          <li><strong>Drücken Sie</strong> Cmd + Shift + G</li>
+          <li><strong>Geben Sie ein:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">~/Library/Application Support/obsidian/</code></li>
+          <li><strong>Drücken Sie</strong> Enter</li>
+          <li>Sie sollten nun die Datei <strong>"Custom Dictionary.txt"</strong> sehen</li>
+          <li>Falls die Datei nicht existiert: Sie haben noch keine Wörter in Obsidian zum Wörterbuch hinzugefügt</li>
+        </ol>
+      `;
+    } else if (isLinux) {
+      osSpecificPath = '~/.config/obsidian/Custom Dictionary.txt';
+      osSpecificInstructions = `
+        <h4>🐧 Linux - So finden Sie die Datei:</h4>
+        <ol style="margin-left: 1.5rem; line-height: 1.6;">
+          <li><strong>Öffnen Sie</strong> Terminal</li>
+          <li><strong>Geben Sie ein:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">nautilus ~/.config/obsidian/</code> (oder Ihr Dateimanager)</li>
+          <li>Sie sollten nun die Datei <strong>"Custom Dictionary.txt"</strong> sehen</li>
+          <li>Falls die Datei nicht existiert: Sie haben noch keine Wörter in Obsidian zum Wörterbuch hinzugefügt</li>
+        </ol>
+      `;
+    } else {
+      osSpecificPath = 'Betriebssystem nicht erkannt';
+      osSpecificInstructions = `
+        <h4>📁 Allgemeine Anleitung:</h4>
+        <p style="line-height: 1.6;">
+          Die Datei befindet sich im Obsidian-Konfigurationsordner. Suchen Sie nach dem Ordner "obsidian" 
+          in Ihrem Benutzerverzeichnis oder Anwendungsdaten-Ordner.
+        </p>
+      `;
+    }
+    
+    dialog.innerHTML = `
+      <div style="padding: 1.5rem;">
+        <h3 style="margin-top: 0; color: var(--heading-color); display: flex; justify-content: space-between; align-items: center;">
+          <span>📖 Obsidian-Wörterbuch importieren</span>
+          <button onclick="restoreObsidianImportDialog()" style="background: none; border: none; font-size: 1.3em; cursor: pointer; color: var(--text-color);">&times;</button>
+        </h3>
+        
+        <div style="max-height: 60vh; overflow-y: auto;">
+          ${osSpecificInstructions}
+          
+          <h4 style="margin-top: 1.5rem;">📍 Vollständiger Pfad:</h4>
+          <div style="background: rgba(0,0,0,0.05); padding: 0.75rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; word-break: break-all; margin-bottom: 1rem;">
+            ${osSpecificPath}
+          </div>
+          
+          <h4>❓ Datei existiert nicht?</h4>
+          <p style="line-height: 1.6; color: var(--secondary-text);">
+            Die Datei wird erst erstellt, wenn Sie in Obsidian mindestens ein Wort 
+            mit Rechtsklick zum Wörterbuch hinzugefügt haben. 
+          </p>
+          <p style="line-height: 1.6; color: var(--secondary-text);">
+            <strong>So fügen Sie ein Wort in Obsidian hinzu:</strong><br>
+            1. Öffnen Sie eine Notiz in Obsidian<br>
+            2. Rechtsklick auf ein rot unterstrichenes Wort<br>
+            3. Wählen Sie "Add to dictionary"
+          </p>
+          
+          <h4 style="margin-top: 1.5rem;">📋 Alternative: Wörter manuell eingeben</h4>
+          <p style="line-height: 1.6; color: var(--secondary-text);">
+            Falls Sie kein Obsidian-Wörterbuch haben, können Sie auch die Funktion 
+            "🌐 Wörterbuch erweitern" verwenden, um eine umfangreiche deutsche Wortliste zu laden.
+          </p>
+        </div>
+        
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+          <button onclick="restoreObsidianImportDialog()" 
+                  style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); border-radius: 4px; cursor: pointer;">
+            Abbrechen
+          </button>
+          <button onclick="proceedWithObsidianImport()" 
+                  style="flex: 1; padding: 0.75rem; border: 1px solid var(--accent-color); background: var(--accent-color); color: white; border-radius: 4px; cursor: pointer; font-weight: 600;">
+            Datei auswählen →
+          </button>
+        </div>
+      </div>
+    `;
+    
+    // Speichere Original-Inhalt für Wiederherstellung
+    dialog._originalContent = originalContent;
+  }
+
+  window.restoreObsidianImportDialog = function() {
+    const dialog = document.getElementById('spellcheck-dictionary-dialog');
+    if (dialog._originalContent) {
+      dialog.innerHTML = dialog._originalContent;
+      renderDictionaryList();
+    }
+  };
+
+  window.proceedWithObsidianImport = function() {
+    restoreObsidianImportDialog();
+    const input = document.getElementById('obsidian-import-input');
+    if (input) input.click();
+  };
+
+  // === Lokales deutsches Hunspell-Wörterbuch importieren ===
+  window.importLocalHunspell = async function() {
     const confirmed = confirm(
-      '📖 Obsidian Custom Dictionary importieren\n\n' +
-      'Diese Funktion importiert Ihr persönliches Obsidian-Wörterbuch.\n\n' +
-      'Speicherort der Datei:\n' +
-      '• Windows: C:\\Users\\[Name]\\AppData\\Roaming\\obsidian\\Custom Dictionary.txt\n' +
-      '• Mac: ~/Library/Application Support/obsidian/Custom Dictionary.txt\n' +
-      '• Linux: ~/.config/obsidian/Custom Dictionary.txt\n\n' +
-      'Hinweis: Die Datei heißt "Custom Dictionary.txt" (mit Leerzeichen).\n\n' +
+      '📚 Lokales deutsches Basis-Wörterbuch laden\n\n' +
+      'Diese Funktion lädt das im Projekt vorhandene deutsche Hunspell-Wörterbuch.\n\n' +
+      'Quelle: dictionaries/de_DE.dic\n' +
+      'Größe: ~75.000 deutsche Wörter\n\n' +
+      'Dies kann einige Sekunden dauern.\n\n' +
+      'Fortfahren?'
+    );
+    
+    if (!confirmed) return;
+    
+    try {
+      console.log('[Wörterbuch] Lade lokales Hunspell-Wörterbuch...');
+      
+      const response = await fetch(DICT_DIC_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const text = await response.text();
+      await processAndImportHunspellText(text, 'Lokales Hunspell-Wörterbuch');
+      
+    } catch (err) {
+      console.error('[Wörterbuch] Fehler beim Laden:', err);
+      alert('❌ Fehler beim Laden des lokalen Wörterbuchs:\n' + err.message);
+    }
+  };
+
+  // === Hunspell .dic Datei importieren ===
+  window.importHunspellDictionary = function() {
+    const confirmed = confirm(
+      '📖 Hunspell-Wörterbuch importieren (.dic)\n\n' +
+      'Diese Funktion importiert Hunspell-Wörterbücher im .dic Format.\n\n' +
+      'Hunspell ist das Standard-Format für Rechtschreibprüfung in:\n' +
+      '• LibreOffice\n' +
+      '• Firefox\n' +
+      '• Chrome\n' +
+      '• Thunderbird\n\n' +
+      'Wörterbücher können Sie z.B. hier herunterladen:\n' +
+      '• wooorm/dictionaries (GitHub)\n' +
+      '• LibreOffice Extensions\n' +
+      '• LanguageTool Resources\n\n' +
       'Datei auswählen?'
     );
     
     if (!confirmed) return;
     
-    const input = document.getElementById('obsidian-import-input');
+    const input = document.getElementById('hunspell-import-input');
     if (input) input.click();
   };
+
+  window.handleHunspellImport = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      try {
+        const text = e.target.result;
+        await processAndImportHunspellText(text, `Hunspell: ${file.name}`);
+      } catch (err) {
+        console.error('[Wörterbuch] Hunspell Import-Fehler:', err);
+        alert('❌ Fehler beim Importieren der Hunspell-Datei:\n' + err.message);
+      }
+      
+      // Reset input
+      event.target.value = '';
+    };
+    
+    reader.readAsText(file, 'UTF-8');
+  };
+
+  // === Hilfsfunktion: Hunspell-Text verarbeiten und importieren ===
+  async function processAndImportHunspellText(text, sourceName) {
+    const currentDict = loadUserDictionary();
+    
+    // Frage Benutzer, ob ersetzen oder zusammenführen
+    const choice = confirm(
+      `${sourceName}\n\n` +
+      `Aktuelles Wörterbuch: ${currentDict.length.toLocaleString('de')} Wörter\n\n` +
+      `OK = Zusammenführen (empfohlen)\n` +
+      `Abbrechen = Aktuelles Wörterbuch ersetzen`
+    );
+    
+    console.log('[Wörterbuch] Verarbeite Hunspell-Wörterbuch...');
+    
+    // Parse Hunspell Dictionary
+    const words = await processHunspellDictionary(text);
+    
+    if (words.length === 0) {
+      alert('❌ Keine gültigen Wörter gefunden.\n\nBitte stellen Sie sicher, dass Sie eine Hunspell .dic Datei ausgewählt haben.');
+      return;
+    }
+    
+    // Filtere nur sinnvolle Wörter
+    const filteredWords = words.filter(word => 
+      word.length >= 3 && 
+      /^[a-zA-ZäöüÄÖÜß][a-zA-ZäöüÄÖÜß\-]*$/.test(word) &&
+      !/^[A-ZÄÖÜ]{2,}$/.test(word) // keine reinen Großbuchstaben
+    );
+    
+    console.log(`[Wörterbuch] ${filteredWords.length} gültige Wörter gefunden`);
+    
+    let newDict;
+    if (choice) {
+      // Zusammenführen - optimiert mit Set
+      const uniqueLower = new Set();
+      const wordMap = new Map();
+      
+      // Füge aktuelle Wörter hinzu
+      currentDict.forEach(w => {
+        const lower = w.toLowerCase();
+        if (!uniqueLower.has(lower)) {
+          uniqueLower.add(lower);
+          wordMap.set(lower, w);
+        }
+      });
+      
+      // Füge Hunspell-Wörter hinzu
+      filteredWords.forEach(w => {
+        const lower = w.toLowerCase();
+        if (!uniqueLower.has(lower)) {
+          uniqueLower.add(lower);
+          wordMap.set(lower, w);
+        }
+      });
+      
+      newDict = Array.from(wordMap.values());
+      newDict.sort((a, b) => a.localeCompare(b, 'de'));
+    } else {
+      // Ersetzen
+      newDict = [...filteredWords];
+      newDict.sort((a, b) => a.localeCompare(b, 'de'));
+    }
+    
+    // Cache leeren vor dem Speichern
+    clearDictionaryCache();
+    saveUserDictionary(newDict, true); // Sofort speichern
+    dictCurrentPage = 1;
+    dictSearchFilter = '';
+    renderDictionaryList();
+    
+    if (spellcheckActive) {
+      clearTimeout(window._spellcheckDebounce);
+      window._spellcheckDebounce = setTimeout(() => checkSpelling(), 1000);
+    }
+    
+    const addedWords = newDict.length - currentDict.length;
+    console.log(`[Wörterbuch] Import abgeschlossen: ${newDict.length} Wörter`);
+    alert(
+      `✓ Hunspell-Wörterbuch erfolgreich importiert!\n\n` +
+      `Quelle: ${sourceName}\n` +
+      `${addedWords > 0 ? `${addedWords.toLocaleString('de')} neue Wörter hinzugefügt\n` : 'Keine neuen Wörter gefunden\n'}` +
+      `Gesamt: ${newDict.length.toLocaleString('de')} Wörter`
+    );
+  }
 
   window.handleObsidianImport = function(event) {
     const file = event.target.files[0];
