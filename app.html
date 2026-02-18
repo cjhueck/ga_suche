@@ -9680,15 +9680,20 @@ PDF
   <div id="spellcheck-word-list" style="max-height: 40vh; overflow-y: auto;"></div>
   <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
     <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem;">
-      <button onclick="exportDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;">📥 Backup exportieren</button>
-      <button onclick="importDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;">📤 Backup importieren</button>
-      <button onclick="expandDictionaryFromInternet()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;">🌐 Wörterbuch erweitern</button>
+      <button onclick="exportDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;" title="Als JSON oder TXT exportieren (für Obsidian)">📥 Exportieren</button>
+      <button onclick="importDictionaryBackup()" style="padding: 6px 12px; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;" title="JSON-Backup wiederherstellen">📤 JSON Import</button>
+      <button onclick="importObsidianDictionary()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 120px;" title="Obsidian Custom Dictionary.txt importieren">📖 Obsidian Import</button>
+    </div>
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem;">
+      <button onclick="expandDictionaryFromInternet()" style="padding: 6px 12px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 140px;" title="Umfangreiche deutsche Wortliste hinzufügen">🌐 Wörterbuch erweitern</button>
+      <button onclick="clearUserDictionary()" style="padding: 6px 12px; border: 1px solid #dc3545; background: transparent; color: #dc3545; border-radius: 4px; cursor: pointer; font-size: 0.85em; flex: 1; min-width: 140px;" title="Alle persönlichen Wörter löschen">🗑️ Zurücksetzen</button>
     </div>
     <div style="font-size: 0.8em; color: var(--secondary-text);">
       <span id="spellcheck-word-count">0</span> Wörter im Wörterbuch
     </div>
   </div>
   <input type="file" id="dictionary-import-input" accept=".json" style="display: none;" onchange="handleDictionaryImport(event)">
+  <input type="file" id="obsidian-import-input" accept=".txt" style="display: none;" onchange="handleObsidianImport(event)">
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -47206,21 +47211,70 @@ window.cancelTextEditMode = function() {};
   const DICT_AFF_URL = 'dictionaries/de_DE.aff';
   const DICT_DIC_URL = 'dictionaries/de_DE.dic';
 
-  // === Eigenes Wörterbuch aus localStorage ===
+  // === Eigenes Wörterbuch aus localStorage (mit Performance-Cache) ===
+  let userDictionaryCache = null; // Cache für schnellen Zugriff
+  let userDictionarySet = null; // Set für O(1) Lookups
+  let dictionarySaveTimeout = null; // Debouncing für Speicheroperationen
+
   function loadUserDictionary() {
     try {
+      // Verwende Cache, falls vorhanden
+      if (userDictionaryCache !== null) {
+        return userDictionaryCache;
+      }
+      
       const stored = localStorage.getItem(DICT_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch (e) { return []; }
+      const dict = stored ? JSON.parse(stored) : [];
+      
+      // Cache initialisieren
+      userDictionaryCache = dict;
+      userDictionarySet = new Set(dict.map(w => w.toLowerCase()));
+      
+      console.log(`[Wörterbuch] Geladen: ${dict.length} Wörter`);
+      return dict;
+    } catch (e) { 
+      console.error('[Wörterbuch] Fehler beim Laden:', e);
+      return []; 
+    }
   }
 
-  function saveUserDictionary(words) {
-    localStorage.setItem(DICT_STORAGE_KEY, JSON.stringify(words));
+  function saveUserDictionary(words, immediate = false) {
+    // Aktualisiere Cache
+    userDictionaryCache = words;
+    userDictionarySet = new Set(words.map(w => w.toLowerCase()));
+    
+    // Debounced speichern (nur wenn nicht immediate)
+    if (immediate) {
+      _saveUserDictionaryImmediate(words);
+    } else {
+      clearTimeout(dictionarySaveTimeout);
+      dictionarySaveTimeout = setTimeout(() => {
+        _saveUserDictionaryImmediate(words);
+      }, 500); // 500ms Verzögerung
+    }
+  }
+
+  function _saveUserDictionaryImmediate(words) {
+    try {
+      localStorage.setItem(DICT_STORAGE_KEY, JSON.stringify(words));
+      console.log(`[Wörterbuch] Gespeichert: ${words.length} Wörter`);
+    } catch (e) {
+      console.error('[Wörterbuch] Fehler beim Speichern:', e);
+      alert('Fehler beim Speichern des Wörterbuchs. Das Wörterbuch ist möglicherweise zu groß für localStorage.');
+    }
   }
 
   function isInUserDictionary(word) {
-    const dict = loadUserDictionary();
-    return dict.some(w => w.toLowerCase() === word.toLowerCase());
+    // Verwende Set für O(1) Lookup statt O(n) Array-Suche
+    if (userDictionarySet === null) {
+      loadUserDictionary(); // Initialisiere Cache falls nötig
+    }
+    return userDictionarySet.has(word.toLowerCase());
+  }
+
+  function clearDictionaryCache() {
+    userDictionaryCache = null;
+    userDictionarySet = null;
   }
 
   // === Typo.js laden ===
@@ -47483,10 +47537,13 @@ window.cancelTextEditMode = function() {};
     if (!spellcheckContextWord) return;
     
     const dict = loadUserDictionary();
-    if (!dict.some(w => w.toLowerCase() === spellcheckContextWord.toLowerCase())) {
+    const lowerWord = spellcheckContextWord.toLowerCase();
+    
+    // Verwende Set für schnelle Duplikatsprüfung
+    if (!userDictionarySet.has(lowerWord)) {
       dict.push(spellcheckContextWord);
       dict.sort((a, b) => a.localeCompare(b, 'de'));
-      saveUserDictionary(dict);
+      saveUserDictionary(dict); // Debounced speichern
       console.log(`[Spellcheck] "${spellcheckContextWord}" zum Wörterbuch hinzugefügt`);
     }
     
@@ -47514,13 +47571,25 @@ window.cancelTextEditMode = function() {};
   // === Wörterbuch verwalten ===
   window.openSpellcheckDictionary = function() {
     hideContextMenu();
+    
+    // Initialisiere Cache beim Öffnen
+    if (userDictionaryCache === null) {
+      loadUserDictionary();
+    }
+    
     document.getElementById('spellcheck-dictionary-dialog').style.display = 'block';
+    dictCurrentPage = 1; // Zurück zur ersten Seite
     renderDictionaryList();
   };
 
   window.closeSpellcheckDictionary = function() {
     document.getElementById('spellcheck-dictionary-dialog').style.display = 'none';
   };
+
+  // === Wörterbuch-Rendering mit Pagination für Performance ===
+  let dictCurrentPage = 1;
+  let dictPageSize = 100; // Zeige 100 Wörter pro Seite
+  let dictSearchFilter = '';
 
   function renderDictionaryList() {
     const dict = loadUserDictionary();
@@ -47529,23 +47598,92 @@ window.cancelTextEditMode = function() {};
     
     if (dict.length === 0) {
       listEl.innerHTML = '<p style="color: var(--secondary-text); font-style: italic; font-size: 0.9em;">Noch keine Wörter hinzugefügt.</p>';
+      countEl.textContent = '0';
+      return;
+    }
+    
+    // Filter anwenden (falls Suche aktiv)
+    let filteredDict = dict;
+    if (dictSearchFilter) {
+      const lowerFilter = dictSearchFilter.toLowerCase();
+      filteredDict = dict.filter(w => w.toLowerCase().includes(lowerFilter));
+    }
+    
+    // Performance-Warnung bei großen Wörterbüchern
+    if (dict.length > 5000) {
+      // Verwende Pagination
+      const totalPages = Math.ceil(filteredDict.length / dictPageSize);
+      dictCurrentPage = Math.min(dictCurrentPage, Math.max(1, totalPages));
+      
+      const startIdx = (dictCurrentPage - 1) * dictPageSize;
+      const endIdx = Math.min(startIdx + dictPageSize, filteredDict.length);
+      const pageWords = filteredDict.slice(startIdx, endIdx);
+      
+      listEl.innerHTML = `
+        <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: rgba(70, 120, 134, 0.05); border-radius: 4px; font-size: 0.85em; color: var(--secondary-text);">
+          📚 Großes Wörterbuch (${dict.length.toLocaleString('de')} Wörter) - Seite ${dictCurrentPage} von ${totalPages}
+        </div>
+        <div style="margin-bottom: 0.5rem;">
+          <input type="text" id="dict-search-input" placeholder="Wort suchen..." value="${dictSearchFilter}" 
+                 style="width: 100%; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-color); font-size: 0.85em;">
+        </div>
+        ${pageWords.map(word => `
+          <div class="dict-word">
+            <span>${word}</span>
+            <button class="dict-remove-btn" onclick="spellcheckRemoveWord('${word.replace(/'/g, "\\'")}')" title="Entfernen">&times;</button>
+          </div>
+        `).join('')}
+        <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-color); font-size: 0.85em;">
+          <button onclick="dictPrevPage()" ${dictCurrentPage === 1 ? 'disabled' : ''} 
+                  style="padding: 4px 10px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); border-radius: 4px; cursor: pointer;">← Zurück</button>
+          <span style="color: var(--secondary-text);">${startIdx + 1}-${endIdx} von ${filteredDict.length}</span>
+          <button onclick="dictNextPage()" ${dictCurrentPage === totalPages ? 'disabled' : ''} 
+                  style="padding: 4px 10px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); border-radius: 4px; cursor: pointer;">Weiter →</button>
+        </div>
+      `;
+      
+      // Event-Listener für Suchfeld
+      const searchInput = document.getElementById('dict-search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          dictSearchFilter = e.target.value;
+          dictCurrentPage = 1;
+          renderDictionaryList();
+        });
+      }
     } else {
-      listEl.innerHTML = dict.map(word => `
+      // Kleine Wörterbücher: Zeige alle Wörter
+      listEl.innerHTML = filteredDict.map(word => `
         <div class="dict-word">
           <span>${word}</span>
           <button class="dict-remove-btn" onclick="spellcheckRemoveWord('${word.replace(/'/g, "\\'")}')" title="Entfernen">&times;</button>
         </div>
       `).join('');
     }
-    countEl.textContent = dict.length;
+    
+    countEl.textContent = dict.length.toLocaleString('de');
   }
+
+  window.dictNextPage = function() {
+    dictCurrentPage++;
+    renderDictionaryList();
+  };
+
+  window.dictPrevPage = function() {
+    dictCurrentPage--;
+    renderDictionaryList();
+  };
 
   window.spellcheckRemoveWord = function(word) {
     let dict = loadUserDictionary();
     dict = dict.filter(w => w !== word);
-    saveUserDictionary(dict);
+    saveUserDictionary(dict, true); // Sofort speichern
     renderDictionaryList();
-    if (spellcheckActive) checkSpelling();
+    if (spellcheckActive) {
+      // Debounce die Rechtschreibprüfung
+      clearTimeout(window._spellcheckDebounce);
+      window._spellcheckDebounce = setTimeout(() => checkSpelling(), 300);
+    }
   };
 
   window.spellcheckAddManualWord = function() {
@@ -47554,48 +47692,264 @@ window.cancelTextEditMode = function() {};
     if (!word) return;
     
     const dict = loadUserDictionary();
-    if (!dict.some(w => w.toLowerCase() === word.toLowerCase())) {
+    const lowerWord = word.toLowerCase();
+    
+    // Verwende Set für schnelle Duplikatsprüfung
+    if (!userDictionarySet.has(lowerWord)) {
       dict.push(word);
       dict.sort((a, b) => a.localeCompare(b, 'de'));
-      saveUserDictionary(dict);
+      saveUserDictionary(dict, true); // Sofort speichern
     }
     
     input.value = '';
     renderDictionaryList();
-    if (spellcheckActive) checkSpelling();
+    if (spellcheckActive) {
+      // Debounce die Rechtschreibprüfung
+      clearTimeout(window._spellcheckDebounce);
+      window._spellcheckDebounce = setTimeout(() => checkSpelling(), 300);
+    }
+  };
+
+  // === Wörterbuch zurücksetzen ===
+  window.clearUserDictionary = function() {
+    const dict = loadUserDictionary();
+    
+    if (dict.length === 0) {
+      alert('Das Wörterbuch ist bereits leer.');
+      return;
+    }
+    
+    const confirmed = confirm(
+      `⚠️ Wörterbuch zurücksetzen\n\n` +
+      `Dies löscht alle ${dict.length.toLocaleString('de')} Wörter aus Ihrem persönlichen Wörterbuch.\n\n` +
+      `Tipp: Erstellen Sie vorher ein Backup!\n\n` +
+      `Wirklich fortfahren?`
+    );
+    
+    if (!confirmed) return;
+    
+    // Leeres Wörterbuch speichern
+    clearDictionaryCache();
+    saveUserDictionary([], true);
+    dictCurrentPage = 1;
+    dictSearchFilter = '';
+    renderDictionaryList();
+    
+    if (spellcheckActive) {
+      clearTimeout(window._spellcheckDebounce);
+      window._spellcheckDebounce = setTimeout(() => checkSpelling(), 300);
+    }
+    
+    console.log('[Wörterbuch] Zurückgesetzt');
+    alert('✓ Wörterbuch wurde geleert');
   };
 
   // === Wörterbuch-Backup exportieren ===
   window.exportDictionaryBackup = function() {
     const dict = loadUserDictionary();
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const filename = `woerterbuch-backup-${timestamp}.json`;
     
-    const data = {
-      exportDate: new Date().toISOString(),
-      version: '1.0',
-      words: dict,
-      wordCount: dict.length
-    };
+    if (dict.length === 0) {
+      alert('Das Wörterbuch ist leer. Nichts zu exportieren.');
+      return;
+    }
     
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Zeige Dialog mit Export-Optionen
+    const formatChoice = confirm(
+      '📥 Wörterbuch exportieren\n\n' +
+      `${dict.length.toLocaleString('de')} Wörter werden exportiert.\n\n` +
+      'Wählen Sie das Format:\n\n' +
+      'OK = JSON (für Re-Import in GA-Suche)\n' +
+      'Abbrechen = TXT (für Obsidian)'
+    );
     
-    console.log(`[Wörterbuch] Backup exportiert: ${dict.length} Wörter`);
-    alert(`✓ Backup erfolgreich exportiert!\n${dict.length} Wörter gespeichert in:\n${filename}`);
+    if (formatChoice) {
+      // JSON-Export
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      const filename = `woerterbuch-backup-${timestamp}.json`;
+      
+      const data = {
+        exportDate: new Date().toISOString(),
+        version: '1.0',
+        words: dict,
+        wordCount: dict.length
+      };
+      
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      console.log(`[Wörterbuch] JSON-Backup exportiert: ${dict.length} Wörter`);
+      alert(`✓ JSON-Backup erfolgreich exportiert!\n${dict.length.toLocaleString('de')} Wörter gespeichert in:\n${filename}`);
+    } else {
+      // TXT-Export für Obsidian
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      const filename = `Custom-Dictionary-${timestamp}.txt`;
+      
+      // Obsidian-Format: Ein Wort pro Zeile
+      const txtContent = dict.join('\n');
+      
+      const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      console.log(`[Wörterbuch] Obsidian TXT exportiert: ${dict.length} Wörter`);
+      alert(
+        `✓ Obsidian-Format erfolgreich exportiert!\n\n` +
+        `${dict.length.toLocaleString('de')} Wörter gespeichert in:\n${filename}\n\n` +
+        `So verwenden Sie die Datei in Obsidian:\n` +
+        `1. Obsidian schließen\n` +
+        `2. Ihre "Custom Dictionary.txt" sichern\n` +
+        `3. Exportierte Datei umbenennen zu "Custom Dictionary.txt"\n` +
+        `4. In den Obsidian-Ordner kopieren\n` +
+        `5. Obsidian neu starten`
+      );
+    }
   };
 
   // === Wörterbuch-Backup importieren ===
   window.importDictionaryBackup = function() {
     const input = document.getElementById('dictionary-import-input');
     if (input) input.click();
+  };
+
+  // === Obsidian Wörterbuch importieren ===
+  window.importObsidianDictionary = function() {
+    // Zeige Info-Dialog mit Anleitung
+    const confirmed = confirm(
+      '📖 Obsidian Custom Dictionary importieren\n\n' +
+      'Diese Funktion importiert Ihr persönliches Obsidian-Wörterbuch.\n\n' +
+      'Speicherort der Datei:\n' +
+      '• Windows: C:\\Users\\[Name]\\AppData\\Roaming\\obsidian\\Custom Dictionary.txt\n' +
+      '• Mac: ~/Library/Application Support/obsidian/Custom Dictionary.txt\n' +
+      '• Linux: ~/.config/obsidian/Custom Dictionary.txt\n\n' +
+      'Hinweis: Die Datei heißt "Custom Dictionary.txt" (mit Leerzeichen).\n\n' +
+      'Datei auswählen?'
+    );
+    
+    if (!confirmed) return;
+    
+    const input = document.getElementById('obsidian-import-input');
+    if (input) input.click();
+  };
+
+  window.handleObsidianImport = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const text = e.target.result;
+        
+        // Parse Obsidian Dictionary Format (ein Wort pro Zeile)
+        const lines = text.split('\n');
+        const importedWords = [];
+        
+        for (let line of lines) {
+          line = line.trim();
+          
+          // Überspringe leere Zeilen und Checksum-Zeile
+          if (!line || line.startsWith('checksum_v1')) continue;
+          
+          // Filtere nur gültige Wörter (keine Zahlen, keine Sonderzeichen am Anfang)
+          if (line.length >= 2 && /^[a-zA-ZäöüÄÖÜß]/.test(line)) {
+            importedWords.push(line);
+          }
+        }
+        
+        if (importedWords.length === 0) {
+          alert('❌ Keine gültigen Wörter gefunden.\n\nBitte stellen Sie sicher, dass Sie die richtige "Custom Dictionary.txt" Datei von Obsidian ausgewählt haben.');
+          event.target.value = '';
+          return;
+        }
+        
+        const currentDict = loadUserDictionary();
+        
+        // Frage Benutzer, ob ersetzen oder zusammenführen
+        const choice = confirm(
+          `Obsidian Wörterbuch gefunden: ${importedWords.length.toLocaleString('de')} Wörter\n` +
+          `Aktuelles Wörterbuch: ${currentDict.length.toLocaleString('de')} Wörter\n\n` +
+          `OK = Zusammenführen (empfohlen)\n` +
+          `Abbrechen = Aktuelles Wörterbuch ersetzen`
+        );
+        
+        let newDict;
+        console.log('[Wörterbuch] Verarbeite Obsidian Import...');
+        
+        if (choice) {
+          // Zusammenführen - optimiert mit Set
+          const uniqueLower = new Set();
+          const wordMap = new Map();
+          
+          // Füge aktuelle Wörter hinzu
+          currentDict.forEach(w => {
+            const lower = w.toLowerCase();
+            if (!uniqueLower.has(lower)) {
+              uniqueLower.add(lower);
+              wordMap.set(lower, w);
+            }
+          });
+          
+          // Füge Obsidian-Wörter hinzu
+          importedWords.forEach(w => {
+            const lower = w.toLowerCase();
+            if (!uniqueLower.has(lower)) {
+              uniqueLower.add(lower);
+              wordMap.set(lower, w);
+            }
+          });
+          
+          newDict = Array.from(wordMap.values());
+          newDict.sort((a, b) => a.localeCompare(b, 'de'));
+        } else {
+          // Ersetzen
+          newDict = [...importedWords];
+          newDict.sort((a, b) => a.localeCompare(b, 'de'));
+        }
+        
+        // Cache leeren vor dem Speichern
+        clearDictionaryCache();
+        saveUserDictionary(newDict, true); // Sofort speichern
+        dictCurrentPage = 1;
+        dictSearchFilter = '';
+        renderDictionaryList();
+        
+        if (spellcheckActive) {
+          // Debounced Rechtschreibprüfung
+          clearTimeout(window._spellcheckDebounce);
+          window._spellcheckDebounce = setTimeout(() => checkSpelling(), 500);
+        }
+        
+        const addedWords = newDict.length - currentDict.length;
+        console.log(`[Wörterbuch] Obsidian Import abgeschlossen: ${newDict.length} Wörter`);
+        alert(
+          `✓ Obsidian-Wörterbuch erfolgreich importiert!\n\n` +
+          `${addedWords > 0 ? `${addedWords.toLocaleString('de')} neue Wörter hinzugefügt\n` : 'Keine neuen Wörter gefunden\n'}` +
+          `Gesamt: ${newDict.length.toLocaleString('de')} Wörter`
+        );
+        
+      } catch (err) {
+        console.error('[Wörterbuch] Obsidian Import-Fehler:', err);
+        alert('❌ Fehler beim Importieren des Obsidian-Wörterbuchs:\n' + err.message);
+      }
+      
+      // Reset input
+      event.target.value = '';
+    };
+    
+    reader.readAsText(file, 'UTF-8');
   };
 
   window.handleDictionaryImport = function(event) {
@@ -47618,33 +47972,61 @@ window.cancelTextEditMode = function() {};
         
         // Frage Benutzer, ob ersetzen oder zusammenführen
         const choice = confirm(
-          `Backup gefunden: ${importedWords.length} Wörter\n` +
-          `Aktuelles Wörterbuch: ${currentDict.length} Wörter\n\n` +
+          `Backup gefunden: ${importedWords.length.toLocaleString('de')} Wörter\n` +
+          `Aktuelles Wörterbuch: ${currentDict.length.toLocaleString('de')} Wörter\n\n` +
           `OK = Zusammenführen (empfohlen)\n` +
           `Abbrechen = Aktuelles Wörterbuch ersetzen`
         );
         
         let newDict;
+        console.log('[Wörterbuch] Verarbeite Import...');
+        
         if (choice) {
-          // Zusammenführen
-          const combined = [...currentDict, ...importedWords];
-          const uniqueWords = [...new Set(combined.map(w => w.toLowerCase()))];
-          newDict = uniqueWords.map(lowerWord => 
-            combined.find(w => w.toLowerCase() === lowerWord)
-          );
+          // Zusammenführen - optimiert mit Set
+          const uniqueLower = new Set();
+          const wordMap = new Map();
+          
+          // Füge aktuelle Wörter hinzu
+          currentDict.forEach(w => {
+            const lower = w.toLowerCase();
+            if (!uniqueLower.has(lower)) {
+              uniqueLower.add(lower);
+              wordMap.set(lower, w);
+            }
+          });
+          
+          // Füge importierte Wörter hinzu
+          importedWords.forEach(w => {
+            const lower = w.toLowerCase();
+            if (!uniqueLower.has(lower)) {
+              uniqueLower.add(lower);
+              wordMap.set(lower, w);
+            }
+          });
+          
+          newDict = Array.from(wordMap.values());
           newDict.sort((a, b) => a.localeCompare(b, 'de'));
         } else {
           // Ersetzen
-          newDict = importedWords;
+          newDict = [...importedWords];
           newDict.sort((a, b) => a.localeCompare(b, 'de'));
         }
         
-        saveUserDictionary(newDict);
+        // Cache leeren vor dem Speichern
+        clearDictionaryCache();
+        saveUserDictionary(newDict, true); // Sofort speichern
+        dictCurrentPage = 1;
+        dictSearchFilter = '';
         renderDictionaryList();
-        if (spellcheckActive) checkSpelling();
+        
+        if (spellcheckActive) {
+          // Debounced Rechtschreibprüfung
+          clearTimeout(window._spellcheckDebounce);
+          window._spellcheckDebounce = setTimeout(() => checkSpelling(), 500);
+        }
         
         console.log(`[Wörterbuch] Backup importiert: ${newDict.length} Wörter`);
-        alert(`✓ Backup erfolgreich importiert!\nJetzt ${newDict.length} Wörter im Wörterbuch`);
+        alert(`✓ Backup erfolgreich importiert!\nJetzt ${newDict.length.toLocaleString('de')} Wörter im Wörterbuch`);
         
       } catch (err) {
         console.error('[Wörterbuch] Import-Fehler:', err);
@@ -47754,20 +48136,36 @@ window.cancelTextEditMode = function() {};
       
       progressEl.textContent = 'Füge neue Wörter hinzu...';
       
-      // Merge mit bestehendem Wörterbuch
+      // Merge mit bestehendem Wörterbuch - optimiert
       const currentDict = loadUserDictionary();
-      const currentLower = new Set(currentDict.map(w => w.toLowerCase()));
       
-      const wordsToAdd = filteredWords.filter(w => !currentLower.has(w.toLowerCase()));
+      // Verwende Set für O(1) Lookups
+      if (userDictionarySet === null) {
+        userDictionarySet = new Set(currentDict.map(w => w.toLowerCase()));
+      }
+      
+      const wordsToAdd = filteredWords.filter(w => !userDictionarySet.has(w.toLowerCase()));
+      console.log(`[Wörterbuch] ${wordsToAdd.length} neue Wörter gefunden, füge hinzu...`);
+      
       const mergedDict = [...currentDict, ...wordsToAdd];
+      progressEl.textContent = 'Sortiere Wörterbuch...';
       mergedDict.sort((a, b) => a.localeCompare(b, 'de'));
       
-      saveUserDictionary(mergedDict);
+      // Cache leeren vor dem Speichern
+      clearDictionaryCache();
+      saveUserDictionary(mergedDict, true); // Sofort speichern
       
       // Wiederherstelle Dialog
       dialog.innerHTML = originalContent;
+      dictCurrentPage = 1;
+      dictSearchFilter = '';
       renderDictionaryList();
-      if (spellcheckActive) checkSpelling();
+      
+      if (spellcheckActive) {
+        // Debounced Rechtschreibprüfung
+        clearTimeout(window._spellcheckDebounce);
+        window._spellcheckDebounce = setTimeout(() => checkSpelling(), 1000);
+      }
       
       console.log(`[Wörterbuch] Erweitert: ${wordsToAdd.length} neue Wörter hinzugefügt`);
       alert(
