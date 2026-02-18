@@ -34891,28 +34891,8 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
             }
           }
           
-          // Entferne blauen Balken nach 6 Sekunden (Wortmarkierung bleibt dauerhaft!)
-          setTimeout(function() {
-            console.log('[OBSIDIAN-GA] 🔵 Entferne blauen Balken (Wortmarkierung bleibt!)');
-            // Prüfe, ob Wortmarkierung noch da ist
-            var wordMarks = targetPara.querySelectorAll('.obsidian-first-words');
-            console.log('[OBSIDIAN-GA] 📝 Anzahl Wortmarkierungen vor Fade-Out:', wordMarks.length);
-            
-            targetPara.style.transition = 'border-left 1s ease-out, padding-left 1s ease-out';
-            targetPara.style.borderLeft = '4px solid rgba(70, 120, 134, 0)';
-            targetPara.style.setProperty('padding-left', '0px', 'important');
-            
-            setTimeout(function() {
-              targetPara.classList.remove('obsidian-page-marker');
-              targetPara.style.borderLeft = '';
-              targetPara.style.paddingLeft = '';
-              targetPara.style.transition = '';
-              
-              // Prüfe nochmal, ob Wortmarkierung noch da ist
-              var wordMarksAfter = targetPara.querySelectorAll('.obsidian-first-words');
-              console.log('[OBSIDIAN-GA] 📝 Anzahl Wortmarkierungen nach Fade-Out:', wordMarksAfter.length);
-            }, 1000);
-          }, 6000);
+          // Blauer Balken und Wortmarkierung bleiben dauerhaft sichtbar
+          console.log('[OBSIDIAN-GA] 🔵 Blauer Balken bleibt dauerhaft sichtbar (bis neuer Inhalt geladen wird)');
         }, 300);
         
         console.log('[OBSIDIAN-GA] ✓ Navigation abgeschlossen');
