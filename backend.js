@@ -12730,6 +12730,13 @@ app.post('/api/export/ga', async (req, res) => {
           console.warn(`[EXPORT] Warnung beim Nachladen: ${loadErr.message}`);
         }
         
+        // WICHTIG: Bilder-Cache für diesen GA-Band leeren, damit neue Bilder geladen werden
+        const imageCacheKeys = Object.keys(steinerImages).filter(key => key.startsWith(normalizedGA));
+        if (imageCacheKeys.length > 0) {
+          imageCacheKeys.forEach(key => delete steinerImages[key]);
+          console.log(`[EXPORT] ✓ Bilder-Cache geleert für ${normalizedGA} (${imageCacheKeys.length} Einträge)`);
+        }
+        
         // Bei Einzelvortrag: angepasste Meldung
         const exportMessage = isSingleLecture
           ? `Vortrag "${lectureId}" erfolgreich exportiert (GA-Band ${normalizedGA} aktualisiert)`
@@ -19946,6 +19953,9 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
       // Sammle alle Bilder aus allen Part-Dateien (Bilder können über mehrere Parts verteilt sein!)
       let allImagesForLecture = [];
       
+      console.log(`[IMAGES-API] Suche Bilder für: "${lectureId}" (hasLectureNumber: ${hasLectureNumber})`);
+      console.log(`[IMAGES-API] Durchsuche ${partFiles.length} Part-Dateien...`);
+      
       for (const partFile of partFiles) {
         const partPath = path.join(imagesBasePath, partFile);
         const data = await fs.readFile(partPath, 'utf8');
@@ -19959,13 +19969,18 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
           const imagesForLecture = partData.filter(img => {
             if (hasLectureNumber) {
               // Exakte Übereinstimmung für spezifischen Vortrag
-              return img.lectureId === lectureId;
+              const match = img.lectureId === lectureId;
+              if (match && partFile === 'steiner-images-part01.json') {
+                console.log(`[IMAGES-API] ✓ Match in ${partFile}: "${img.lectureId}" === "${lectureId}"`);
+              }
+              return match;
             } else {
               // Prefix-Match für ganzen GA-Band (z.B. "GA207/" für alle GA207 Bilder)
               return img.lectureId && img.lectureId.startsWith(gaNumber + '/');
             }
           });
           if (imagesForLecture.length > 0) {
+            console.log(`[IMAGES-API] ${partFile}: ${imagesForLecture.length} Bilder gefunden`);
             allImagesForLecture.push(...imagesForLecture);
           }
         } else {
@@ -19988,6 +20003,7 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
       }
       
       // Cache und Response
+      console.log(`[IMAGES-API] Insgesamt ${allImagesForLecture.length} Bilder für "${lectureId}" gefunden`);
       steinerImages[lectureId] = allImagesForLecture;
       res.json(allImagesForLecture);
     }

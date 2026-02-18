@@ -1,7 +1,35 @@
 GA124 FRAGENBEANTWORTUNG zum Vortrag vom 18. Dezember 1910
-
-
 Wieso ist der "Ätherleib" des Mannes "weiblich" und der Ätherleib der Frau "männlich"?
+
+http://localhost:3003/tools/page_marker_checker.html
+http://localhost:3003/app.html#texte?lecture=GA002
+http://localhost:3003/md-pdf-comparison.html
+
+Öffnen Sie in Cursor ein neues Terminal (Strg+Shift+) und tippen Sie: ``
+python ga_comparison_server.py
+http://localhost:3003/ga-text-comparison.html
+
+
+
+tools/convert_ga_page_markers.py (nach Umwandlung in md von Steiner_GA_pdf mit Mistral)
+tools/transfer_sm_from_source.py (zur Übertragung der Marker in bestehende md - funktioniert nicht korrekt)
+
+
+Bearbeitung von pdf von GA-Bänden mit final_mistral_... : in GA_Steiner_md gibt es in den "assets" zu dem jeweiligen GA-Band
+Steiner_GA: ![img-0.png](assets/img-0.png)
+Steiner_GA_md: 
+
+
+generate_pagebreaks_with_anthrowiki.py
+correct_pagebreaks_from_anthrowiki_with_pdf.py
+
+
+generate_pagebreaks_with_pdf.py (funktioniert nicht für bücher, evtl. für Vorträge)
+
+process_pagebreaks.py 
+Das Verfahren nutzt Text-Matching: Es extrahiert Textfragmente um jeden Seitenumbruch aus dem PDF und sucht dann die entsprechende Position im MD/JSON-Text, um dort den |XX| Marker einzufügen.
+
+Um Seitenmarker dauerhaft in md zu schreiben: apply_markers_to_md.py GA002
 
 
 GA001 4 Bände
@@ -23,15 +51,20 @@ GA044 Aufsätue (Entwürfe)
 GA045 Bücher
 GA046 Aufsätze (Fragmente)
 
-
-
 GA316 nochmal exportieren
 hat am 24.8. ein (a) für Abendvortrag - muss bei Tafeln berücksichtigt werden
 
-wird die rechtschreibkorrektur beim export aus md angewendet?
 
 
-schreibe ein skript, mit dem die Bände GA 68c,,,, 68d..., 69c, 69d, 70b, 80a, 80b, 80c mit ocr lesbar gemacht werden
+
+
+ÄLTERE Struktur (310 Bände) - Mit Copyright-Fußzeile
+GA 001-067, 072-132, 134-354 (mit Lücken)
+Dein Tool funktioniert für diese!
+NEUERE Struktur (67 Bände) - Ohne Copyright-Fußzeile
+GA 003, 009, 018a, 019, 068a-d, 069a-e, 070a-b, 073a, usw.
+
+
 
 Seitenzahlen fehlen in:
 - GA041b
@@ -74,28 +107,7 @@ Sie liegen separat in steiner-letters/ und werden manuell verwaltet.
 Dies verhindert, dass der Vortragsexport die Briefe-Dateien überschreibt.
 
 
-GA068c/33
-
-GA260 - Seitenzahlen stimmen nicht
-GA024 SZ ?
-
 Strg + Shift + A drücken, um das Analytics-Dashboard zu öffnen
-
-
-Glauben Sie nicht, bitte, dass ich in Zukunft Ihnen gegenüber an meinem Usus hängen werde, so wenig wie möglich Briefe zu schreiben. Warum dieser erst so spät kommt, werde ich Ihnen einmal mündlich sagen. Zukünftig werde ich Ihnen ganz regelmäßig schreiben. Das beifolgende Schriftstück⁵² betrachten Sie, bitte, als ein ganz vertrauliches. Ich bin in solchen Dingen nur Werkzeug von höheren Wesenheiten, die ich in *Demut* verehre. Nichts ist mein Verdienst; nichts kommt dabei auf mich an. Das einzige, was ich mir selbst zuzuschreiben habe, ist, dass ich eine strenge Trainierung durchgemacht habe, die mich vor jeder Phantastik schützt. Dies war für mich Vorschrift. Denn, was ich erfahre auf geistigen Gebieten, ist dadurch frei von jeder Einbildung, von jeder Täuschung, von jedem Aberglauben. Doch auch davon spreche ich heute zu wenigen. Die Leute mögen mich für einen Phantasten halten; ich weiß Wahrheit und Trug zu unterscheiden. Und ich weiß, dass ich den Weg gehen muß, den ich gehe.
-
-
-GA250/40
-Rudolf Steiner entwickelte nach frühen okkulten Erfahrungen und philosophischen Studien die Anthroposophie als exakte Geisteswissenschaft, nachdem er sich von der unexakten Theosophie distanziert hatte. 1912/13 gründete er nach dem Bruch mit Annie Besant die Anthroposophische Gesellschaft als eigenständige Organisation.
-
-GA291a/32
-Steiner lehnt die Ausmalung der großen Goetheanum-Kuppel ab, da er nicht alle Aufgaben übernehmen will und die anthroposophische Bewegung unter der Passivität anderer Mitglieder leidet. Er fordert mehr Eigeninitiative der Gesellschaftsmitglieder, um den Eindruck zu vermeiden, nur er könne etwas leisten.
-
-GA259/4
-Das erste Goetheanum brannte am Silvesterabend 1922 ab, möglicherweise durch Gegner der Anthroposophie, die bereits zuvor Drohungen ausgesprochen hatten. Trotz des schweren Verlustes und zynischer Pressekommentare bekräftigt Steiner seinen unerschütterlichen Willen zum Wiederaufbau und zur Fortsetzung der anthroposophischen Arbeit.
-
-GA259/5, vor Beginn des Abendvortrage
-Nach dem Brand des ersten Goetheanums am 7. Januar 1923 verliest Steiner die Anteilnahme-Bekundungen zahlreicher Persönlichkeiten, die Unterstützung für den Wiederaufbau zusagen. Die anthroposophische Arbeit soll dabei nicht nur theoretisch bleiben, sondern zu praktischer Menschheitsarbeit werden.
 
 
 
