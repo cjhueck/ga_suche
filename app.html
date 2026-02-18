@@ -39942,8 +39942,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // === NORMALER TEXT MIT QUELLENANGABE ===
-    // Nur bei substantiellem Text (mindestens 10 Zeichen)
-    if (selectedText.length < 10) return;
+    // Prüfe Wortanzahl: Bei <= 10 Wörtern keine Quellenangabe hinzufügen
+    const wordCount = selectedText.split(/\s+/).filter(word => word.length > 0).length;
+    
+    // Bei sehr kurzen Texten (< 10 Zeichen) oder wenigen Wörtern (≤ 10) keine Quellenangabe
+    if (selectedText.length < 10 || wordCount <= 10) {
+      console.log(`[COPY] Kurzer Text (${wordCount} Wörter) - keine Quellenangabe`);
+      return; // Standardverhalten: nur Text kopieren
+    }
     
     // Prüfe ob die Selektion in einem relevanten Container liegt
     let container = null;
