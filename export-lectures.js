@@ -584,6 +584,31 @@ class SteinerLecturesExporter {
     return images;
   }
 
+  // Sammelt Bildverweise aus den finalen Absatz-Inhalten (Sicherheitsnetz für verpasste Formate)
+  // Prüft jeden Absatz auf <img>-Tags und fügt fehlende zur Liste hinzu
+  collectMissingImagesFromParagraphs(paragraphs, existingImages) {
+    const existingPaths = new Set(existingImages.map(img => img.path));
+    const added = [];
+    
+    for (const para of paragraphs) {
+      const imageRefs = this.extractImageReferences(para.content || '');
+      for (const img of imageRefs) {
+        const cleanedPath = img.path; // extractImageReferences nutzt bereits cleanImagePath
+        if (!existingPaths.has(cleanedPath)) {
+          existingPaths.add(cleanedPath);
+          added.push({
+            index: para.index,
+            altText: img.altText,
+            path: cleanedPath,
+            markdownRef: img.fullMatch
+          });
+        }
+      }
+    }
+    
+    return added;
+  }
+
   // Find GA title from master file
   findGATitle(gaNumber, allFiles) {
     const normalizedGA = gaNumber.toUpperCase();
