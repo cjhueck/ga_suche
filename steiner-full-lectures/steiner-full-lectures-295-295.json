@@ -177,7 +177,7 @@
         },
         {
           "index": "^d1a5w7",
-          "content": "<h2>Fragenbeantwortung</h2>\n|20| Es wird gefragt nach den Bildern für die Laute und Buchstaben wie dem Fisch für das F, wovon am Vormittag im ersten Vortrag des methodischdidaktischen Kurses gesprochen worden war."
+          "content": "<h2 data-index=\"^d1a5w7\">Fragenbeantwortung</h2>\n|20| Es wird gefragt nach den Bildern für die Laute und Buchstaben wie dem Fisch für das F, wovon am Vormittag im ersten Vortrag des methodischdidaktischen Kurses gesprochen worden war."
         },
         {
           "index": "^hkybyo",
@@ -185,11 +185,11 @@
         },
         {
           "index": "^bkxztj",
-          "content": "<h2>L. fragt nach der lateinischen Schrift.</h2>\nRudolf Steiner: ja, die lateinische Schrift ist der Ausgangspunkt, weil diese die charakteristischen Formen enthält. Und dann erst, wenn es nötig wird, geht man über auf die deutsche, die gotische Schrift, die eigentlich ganz verschwinden sollte."
+          "content": "<h2 data-index=\"^bkxztj\">L. fragt nach der lateinischen Schrift.</h2>\nRudolf Steiner: ja, die lateinische Schrift ist der Ausgangspunkt, weil diese die charakteristischen Formen enthält. Und dann erst, wenn es nötig wird, geht man über auf die deutsche, die gotische Schrift, die eigentlich ganz verschwinden sollte."
         },
         {
           "index": "^64h8hh",
-          "content": "<h2>O. fragt nach der Behandlung der melancholischen Kinder.</h2>\nRudolf Steiner: Der Lehrer steht so gegenüber dem melancholischen Kinde: Die melancholische Anlage beruht auf einem nicht ganz vollständigen Unterkriegen des Stoffwechsels durch den geistig-seelischen Menschen. Der Nerven-Sinnesmensch ist der ungeistigste Teil des Menschen, ist der physischste Mensch. Am wenigsten physisch ist der Stoffwechselmensch. Der geistige Mensch steckt am meisten im Stoffwechselorganismus, ist dort aber am wenigsten zur Realisierung gekommen. Der Stoffwechselorganismus muss am meisten bearbeitet werden. Wenn der Stoffwechsel zuviel Beschwerde macht, dann offenbart sich in dem Brüten das innerliche Streben nach dem Geiste."
+          "content": "<h2 data-index=\"^64h8hh\">O. fragt nach der Behandlung der melancholischen Kinder.</h2>\nRudolf Steiner: Der Lehrer steht so gegenüber dem melancholischen Kinde: Die melancholische Anlage beruht auf einem nicht ganz vollständigen Unterkriegen des Stoffwechsels durch den geistig-seelischen Menschen. Der Nerven-Sinnesmensch ist der ungeistigste Teil des Menschen, ist der physischste Mensch. Am wenigsten physisch ist der Stoffwechselmensch. Der geistige Mensch steckt am meisten im Stoffwechselorganismus, ist dort aber am wenigsten zur Realisierung gekommen. Der Stoffwechselorganismus muss am meisten bearbeitet werden. Wenn der Stoffwechsel zuviel Beschwerde macht, dann offenbart sich in dem Brüten das innerliche Streben nach dem Geiste."
         },
         {
           "index": "^oewzf7",
@@ -201,7 +201,7 @@
         },
         {
           "index": "^ap5vwr",
-          "content": "<h2>Es wird die Frage nach Lehrbüchern gestellt.</h2>\nRudolf Steiner: Man muss sich die gebräuchlichen ansehen. Wenn wir ohne Bücher auskommen, um so besser. Wenn die Kinder keine öffentlichen Prüfungen machen müssen, dann braucht man keine Bücher. In Osterreich müsste man die Kinder zur öffentlichen Prüfung führen. Wir müssten feststellen, wie man wünscht, dass wir das Erreichen der Lehrziele nachweisen. Das Ideal wäre, gar keine Prüfung zu haben. Die Schlussprüfung ist ein Kompromiss mit der Behörde. Man muss ohne Prüfung wissen, so und so steht es mit den Kindern. Prüfungsangst vor der Geschlechtsreife ist sehr gefährlich für die ganze physiologische Struktur des Menschen. Sie wirkt so, dass sie die physiologisch-psychologische Konstitution des Menschen treibt. Das beste wäre die Abschaffung alles Prüfungswesens. Die Kinder werden viel schlagfertiger werden."
+          "content": "<h2 data-index=\"^ap5vwr\">Es wird die Frage nach Lehrbüchern gestellt.</h2>\nRudolf Steiner: Man muss sich die gebräuchlichen ansehen. Wenn wir ohne Bücher auskommen, um so besser. Wenn die Kinder keine öffentlichen Prüfungen machen müssen, dann braucht man keine Bücher. In Osterreich müsste man die Kinder zur öffentlichen Prüfung führen. Wir müssten feststellen, wie man wünscht, dass wir das Erreichen der Lehrziele nachweisen. Das Ideal wäre, gar keine Prüfung zu haben. Die Schlussprüfung ist ein Kompromiss mit der Behörde. Man muss ohne Prüfung wissen, so und so steht es mit den Kindern. Prüfungsangst vor der Geschlechtsreife ist sehr gefährlich für die ganze physiologische Struktur des Menschen. Sie wirkt so, dass sie die physiologisch-psychologische Konstitution des Menschen treibt. Das beste wäre die Abschaffung alles Prüfungswesens. Die Kinder werden viel schlagfertiger werden."
         },
         {
           "index": "^1dddpo",
@@ -219,6 +219,28 @@
           "index": "^nbsvn6",
           "content": "Der Lehrer steigt mit den Schülern auf bis zum Schluss. Der Lehrer der letzten Klasse wird wieder der der ersten."
         }
+      ],
+      "headings": [
+        {
+          "index": "^d1a5w7",
+          "text": "Fragenbeantwortung",
+          "level": "h2"
+        },
+        {
+          "index": "^bkxztj",
+          "text": "L. fragt nach der lateinischen Schrift.",
+          "level": "h2"
+        },
+        {
+          "index": "^64h8hh",
+          "text": "O. fragt nach der Behandlung der melancholischen Kinder.",
+          "level": "h2"
+        },
+        {
+          "index": "^ap5vwr",
+          "text": "Es wird die Frage nach Lehrbüchern gestellt.",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -234,11 +256,11 @@
       "paragraphs": [
         {
           "index": "^cqmn54",
-          "content": "<h2>L. berichtet über die Fragen: Erstens, wie äußert sich das sanguinische Temperament im Kinde, und zweitens, wie hat man es zu behandeln?</h2>\n|22| Rudolf Steiner: Hier beginnen ja die Individualisierungen. Wir haben gesagt, dass wir nach den Temperamenten einteilen können. Man muss ja das Kind im Massenunterricht mit an dem allgemeinen Zeichenunterricht beschäftigen, und nun können wir bei den einzelnen Gruppen etwas individualisieren. Dann würde es sich darum handeln, in welcher Hinsicht Sie den Zeichenunterricht individualisieren wollten. Nachahmung wird man überhaupt weniger pflegen. Man wird im Zeichnen versuchen, das innere Formgefühl zu erwecken. Man wird nur darin individualisieren können. Man wird einen Unterschied machen können, ob man mehr geradlinige Formen oder mehr bewegte, ob man mehr einfache, übersichtliche Formen nimmt oder solche mit mehr Details. Kompliziertere, mehr Detailformen, würden für das Kind mit sanguinischem Temperament zu verwenden sein. Man wird nach dem Temperament mehr die Art bestimmen, wie man den einen oder den anderen unterrichtet."
+          "content": "<h2 data-index=\"^cqmn54\">L. berichtet über die Fragen: Erstens, wie äußert sich das sanguinische Temperament im Kinde, und zweitens, wie hat man es zu behandeln?</h2>\n|22| Rudolf Steiner: Hier beginnen ja die Individualisierungen. Wir haben gesagt, dass wir nach den Temperamenten einteilen können. Man muss ja das Kind im Massenunterricht mit an dem allgemeinen Zeichenunterricht beschäftigen, und nun können wir bei den einzelnen Gruppen etwas individualisieren. Dann würde es sich darum handeln, in welcher Hinsicht Sie den Zeichenunterricht individualisieren wollten. Nachahmung wird man überhaupt weniger pflegen. Man wird im Zeichnen versuchen, das innere Formgefühl zu erwecken. Man wird nur darin individualisieren können. Man wird einen Unterschied machen können, ob man mehr geradlinige Formen oder mehr bewegte, ob man mehr einfache, übersichtliche Formen nimmt oder solche mit mehr Details. Kompliziertere, mehr Detailformen, würden für das Kind mit sanguinischem Temperament zu verwenden sein. Man wird nach dem Temperament mehr die Art bestimmen, wie man den einen oder den anderen unterrichtet."
         },
         {
           "index": "^fpolbu",
-          "content": "<h2>E. berichtet über dasselbe Thema.</h2>\nRudolf Steiner: Nicht wahr, bei solchen Dingen muss man sich immer ganz klar sein, dass namentlich die Behandlung doch nicht eindeutig sein muss. Es kann natürlich von dem einen etwas gemacht werden, was ganz gut ist in einem solchen Fall, und von dem anderen etwas anderes, was auch gut ist. Also die pedantische Eindeutigkeit braucht nicht angestrebt zu werden, doch gewisse große Richtlinien muss man schon einhalten, die müssen durchdrungen werden."
+          "content": "<h2 data-index=\"^fpolbu\">E. berichtet über dasselbe Thema.</h2>\nRudolf Steiner: Nicht wahr, bei solchen Dingen muss man sich immer ganz klar sein, dass namentlich die Behandlung doch nicht eindeutig sein muss. Es kann natürlich von dem einen etwas gemacht werden, was ganz gut ist in einem solchen Fall, und von dem anderen etwas anderes, was auch gut ist. Also die pedantische Eindeutigkeit braucht nicht angestrebt zu werden, doch gewisse große Richtlinien muss man schon einhalten, die müssen durchdrungen werden."
         },
         {
           "index": "^xazdkm",
@@ -326,7 +348,7 @@
         },
         {
           "index": "^y2mvrm",
-          "content": "<h2>O. berichtet über das phlegmatische Temperament und sagt, dass das Kind mit offenem Munde dasitzt.</h2>\nRudolf Steiner: Sie sind im Irrtum; das phlegmatische Kind wird nicht mit offenem Munde dasitzen, sondern mit zugemachtem Munde, aber mit hängenden Lippen. Man kann schon manchmal durch einen solchen Hinweis den Nagel auf den Kopf treffen. Dies zu berühren war sehr gut. Es wird in der Regel aber nicht der Fall sein; das phlegmatische. Kind wird nicht mit offenem Munde dasitzen, sondern im Gegenteil. Das führt zurück auf die Frage: Wie kann man sich dem phlegmatischen Kinde gegenüber verhalten, wenn es uns zur Verzweiflung bringt?"
+          "content": "<h2 data-index=\"^y2mvrm\">O. berichtet über das phlegmatische Temperament und sagt, dass das Kind mit offenem Munde dasitzt.</h2>\nRudolf Steiner: Sie sind im Irrtum; das phlegmatische Kind wird nicht mit offenem Munde dasitzen, sondern mit zugemachtem Munde, aber mit hängenden Lippen. Man kann schon manchmal durch einen solchen Hinweis den Nagel auf den Kopf treffen. Dies zu berühren war sehr gut. Es wird in der Regel aber nicht der Fall sein; das phlegmatische. Kind wird nicht mit offenem Munde dasitzen, sondern im Gegenteil. Das führt zurück auf die Frage: Wie kann man sich dem phlegmatischen Kinde gegenüber verhalten, wenn es uns zur Verzweiflung bringt?"
         },
         {
           "index": "^71at0n",
@@ -338,27 +360,27 @@
         },
         {
           "index": "^w37z9k",
-          "content": "<h2>T.: Wäre es nicht möglich, die phlegmatischen Kinder eine Stunde früher zur Schule kommen zu lassen?</h2>\nRudolf Steiner: Ja, wenn man das machen würde und es dazu bringen könnte, dass die Kinder mit einem gewissen Geräusch aufgeweckt werden, das wäre natürlich sehr gut. Da wäre es auch gut, die phlegmatische Gruppe zu den am frühesten in die Schule Kommenden einzureihen. Wichtig ist beim Phlegmatiker, dass man aus einem veränderten Seelenzustand heraus seine Aufmerksamkeit in Anspruch nimmt."
+          "content": "<h2 data-index=\"^w37z9k\">T.: Wäre es nicht möglich, die phlegmatischen Kinder eine Stunde früher zur Schule kommen zu lassen?</h2>\nRudolf Steiner: Ja, wenn man das machen würde und es dazu bringen könnte, dass die Kinder mit einem gewissen Geräusch aufgeweckt werden, das wäre natürlich sehr gut. Da wäre es auch gut, die phlegmatische Gruppe zu den am frühesten in die Schule Kommenden einzureihen. Wichtig ist beim Phlegmatiker, dass man aus einem veränderten Seelenzustand heraus seine Aufmerksamkeit in Anspruch nimmt."
         },
         {
           "index": "^1wmqss",
-          "content": "<h2>Es wird die Frage der Ernährung für Kinder der verschiedenen Temperamente angeschnitten.</h2>\nRudolf Steiner: Man wird überhaupt darauf zu sehen haben, dass nicht gerade die Hauptverdauungszeit zugleich die Schulzeit ist, aber kleinere Mahlzeiten werden keine zu große Bedeutung haben. Im Gegenteil, wenn die Kinder gefrühstückt haben, werden sie besser aufpassen können, als wenn sie mit hungrigem Magen kommen. Wenn man sie natürlich überfüttert, was bei den phlegmatischen Kindern sehr in Betracht kommen wird, dann wird man ihnen gar nichts beibringen können. Den sanguinischen Kindern wäre nicht allzuviel Fleisch, den phlegmatischen nicht zuviel Eier zu geben. Dagegen können die melancholischen Kinder immerhin eine gut gemischte Nahrung bekommen, aber nicht allzuviel Wurzelzeug und Kohl. Bei melancholischen Kindern ist die Nahrung sehr individuell, da muss man beobachten. Bei sanguinischen und phlegmatischen Kindern kann man schon generalisieren."
+          "content": "<h2 data-index=\"^1wmqss\">Es wird die Frage der Ernährung für Kinder der verschiedenen Temperamente angeschnitten.</h2>\nRudolf Steiner: Man wird überhaupt darauf zu sehen haben, dass nicht gerade die Hauptverdauungszeit zugleich die Schulzeit ist, aber kleinere Mahlzeiten werden keine zu große Bedeutung haben. Im Gegenteil, wenn die Kinder gefrühstückt haben, werden sie besser aufpassen können, als wenn sie mit hungrigem Magen kommen. Wenn man sie natürlich überfüttert, was bei den phlegmatischen Kindern sehr in Betracht kommen wird, dann wird man ihnen gar nichts beibringen können. Den sanguinischen Kindern wäre nicht allzuviel Fleisch, den phlegmatischen nicht zuviel Eier zu geben. Dagegen können die melancholischen Kinder immerhin eine gut gemischte Nahrung bekommen, aber nicht allzuviel Wurzelzeug und Kohl. Bei melancholischen Kindern ist die Nahrung sehr individuell, da muss man beobachten. Bei sanguinischen und phlegmatischen Kindern kann man schon generalisieren."
         },
         {
           "index": "^65p82o",
-          "content": "<h2>Es folgen Ausführungen von D. über das melancholische Temperament der Kinder.</h2>\n|27| Rudolf Steiner: Ja, das war sehr schön. Für den Unterricht wird aber noch das in Betracht kommen, dass melancholische Kinder leicht zurückbleiben, dass sie nicht leicht mitkommen. Das bitte ich noch zu berücksichtigen."
+          "content": "<h2 data-index=\"^65p82o\">Es folgen Ausführungen von D. über das melancholische Temperament der Kinder.</h2>\n|27| Rudolf Steiner: Ja, das war sehr schön. Für den Unterricht wird aber noch das in Betracht kommen, dass melancholische Kinder leicht zurückbleiben, dass sie nicht leicht mitkommen. Das bitte ich noch zu berücksichtigen."
         },
         {
           "index": "^vyr0v6",
-          "content": "<h2>A. spricht über dasselbe Thema.</h2>\nRudolf Steiner: Da ist die Bemerkung sehr gut, dass es sich bei melancholischen Kindern sehr darum handelt, wie man sich selbst zu ihnen stellt. Sie bleiben zurück auch mit dem Geborenwerden des Ätherleibes, der sonst mit dem Zahnwechsel frei wird. Daher sind diese Kinder viel zugänglicher für die Nachahmung. Was man ihnen vormacht, daran halten sie fest, wenn sie einen liebgewonnen haben. Das muss man bei ihnen benützen, dass sie das Imitationsprinzip länger haben."
+          "content": "<h2 data-index=\"^vyr0v6\">A. spricht über dasselbe Thema.</h2>\nRudolf Steiner: Da ist die Bemerkung sehr gut, dass es sich bei melancholischen Kindern sehr darum handelt, wie man sich selbst zu ihnen stellt. Sie bleiben zurück auch mit dem Geborenwerden des Ätherleibes, der sonst mit dem Zahnwechsel frei wird. Daher sind diese Kinder viel zugänglicher für die Nachahmung. Was man ihnen vormacht, daran halten sie fest, wenn sie einen liebgewonnen haben. Das muss man bei ihnen benützen, dass sie das Imitationsprinzip länger haben."
         },
         {
           "index": "^e14tbf",
-          "content": "<h2>N. berichtet ebenfalls über das melancholische Temperament.</h2>\nRudolf Steiner: Besonders bitte ich zu berücksichtigen, dass man das melancholische Temperament sehr schwer wird behandeln können, wenn man nicht eins betrachtet, was fast immer da ist: der Melancholiker ist in einer merkwürdigen Selbsttäuschung; er ist der Meinung, dass die Erlebnisse, die er hat, nur ihn selbst betreffen. In dem Augenblick, wo man ihm beibringt, dass andere Leute diese und ähnliche Erlebnisse auch haben, ist das immer eine Art Kur für ihn, weil er bemerkt, dass er nicht allein so eine interessante Individualität ist, wie er glaubt. In dieser Illusion ist er befangen, dass er ganz auserlesen ist, so wie er gerade ist. Läßt man ihn das stark merken: «Du bist kein solch außerordentlicher Kerl, solche Exemplare gibt es viele, die das oder jenes erleben», dann ist das eine sehr starke Beeinträchtigung der Impulse, die gerade zur Melancholie führen. Deshalb ist es gut, ihn besonders mit Biographien großer Persönlichkeiten zu behandeln. Er wird sich weniger interessieren für die äußere Natur, aber mehr für die einzelnen Persönlichkeiten. Diese Biographien sollte man besonders gebrauchen, um ihn über seine Melancholie hinwegzubringen."
+          "content": "<h2 data-index=\"^e14tbf\">N. berichtet ebenfalls über das melancholische Temperament.</h2>\nRudolf Steiner: Besonders bitte ich zu berücksichtigen, dass man das melancholische Temperament sehr schwer wird behandeln können, wenn man nicht eins betrachtet, was fast immer da ist: der Melancholiker ist in einer merkwürdigen Selbsttäuschung; er ist der Meinung, dass die Erlebnisse, die er hat, nur ihn selbst betreffen. In dem Augenblick, wo man ihm beibringt, dass andere Leute diese und ähnliche Erlebnisse auch haben, ist das immer eine Art Kur für ihn, weil er bemerkt, dass er nicht allein so eine interessante Individualität ist, wie er glaubt. In dieser Illusion ist er befangen, dass er ganz auserlesen ist, so wie er gerade ist. Läßt man ihn das stark merken: «Du bist kein solch außerordentlicher Kerl, solche Exemplare gibt es viele, die das oder jenes erleben», dann ist das eine sehr starke Beeinträchtigung der Impulse, die gerade zur Melancholie führen. Deshalb ist es gut, ihn besonders mit Biographien großer Persönlichkeiten zu behandeln. Er wird sich weniger interessieren für die äußere Natur, aber mehr für die einzelnen Persönlichkeiten. Diese Biographien sollte man besonders gebrauchen, um ihn über seine Melancholie hinwegzubringen."
         },
         {
           "index": "^gsiu62",
-          "content": "<h2>Zwei Lehrer berichten über das cholerische Temperament. Rudolf Steiner zeichnet folgende Figuren an die Tafel:</h2>\n<img src=\"assets/img-1.png\" alt=\"img-1.png\" />"
+          "content": "<h2 data-index=\"^gsiu62\">Zwei Lehrer berichten über das cholerische Temperament. Rudolf Steiner zeichnet folgende Figuren an die Tafel:</h2>\n<img src=\"assets/img-1.png\" alt=\"img-1.png\" />"
         },
         {
           "index": "^mm4m0n",
@@ -378,7 +400,7 @@
         },
         {
           "index": "^bhardq",
-          "content": "<h2>Rudolf Steiner wird gebeten, die Szene zwischen Napoleon und seinem Sekretär zu erzählen.</h2>\nRudolf Steiner: Da müsste man erst die Baukommission um Erlaubnis fragen! - Diese in der Rede vorgemalte Szene müsste die redende Person so behandeln, dass Cholerisches dabei herauskommt. Das wird immer Kraft sammeln beim cholerischen Kinde, so dass man es dann weiter behandeln kann. Ein Ideal wäre: der cholerischen Gruppe eine Situation vormalen, um auf diese Weise wiederum Kraft gesammelt zu haben. Dann hält es immer ein paar Tage an. Die Kinder werden dann ein paar Tage hindurch gar nicht gehindert sein, die Dinge aufzunehmen. Sonst toben sie innerlich an gegen Dinge, die sie begreifen sollten."
+          "content": "<h2 data-index=\"^bhardq\">Rudolf Steiner wird gebeten, die Szene zwischen Napoleon und seinem Sekretär zu erzählen.</h2>\nRudolf Steiner: Da müsste man erst die Baukommission um Erlaubnis fragen! - Diese in der Rede vorgemalte Szene müsste die redende Person so behandeln, dass Cholerisches dabei herauskommt. Das wird immer Kraft sammeln beim cholerischen Kinde, so dass man es dann weiter behandeln kann. Ein Ideal wäre: der cholerischen Gruppe eine Situation vormalen, um auf diese Weise wiederum Kraft gesammelt zu haben. Dann hält es immer ein paar Tage an. Die Kinder werden dann ein paar Tage hindurch gar nicht gehindert sein, die Dinge aufzunehmen. Sonst toben sie innerlich an gegen Dinge, die sie begreifen sollten."
         },
         {
           "index": "^6pnhkh",
@@ -432,6 +454,58 @@
           "index": "^5rh2rk",
           "content": "Alle diese angeführten Dinge müssen Gegenstand einer neuartigen Psychologie werden."
         }
+      ],
+      "headings": [
+        {
+          "index": "^cqmn54",
+          "text": "L. berichtet über die Fragen: Erstens, wie äußert sich das sanguinische Temperament im Kinde, und zweitens, wie hat man es zu behandeln?",
+          "level": "h2"
+        },
+        {
+          "index": "^fpolbu",
+          "text": "E. berichtet über dasselbe Thema.",
+          "level": "h2"
+        },
+        {
+          "index": "^y2mvrm",
+          "text": "O. berichtet über das phlegmatische Temperament und sagt, dass das Kind mit offenem Munde dasitzt.",
+          "level": "h2"
+        },
+        {
+          "index": "^w37z9k",
+          "text": "T.: Wäre es nicht möglich, die phlegmatischen Kinder eine Stunde früher zur Schule kommen zu lassen?",
+          "level": "h2"
+        },
+        {
+          "index": "^1wmqss",
+          "text": "Es wird die Frage der Ernährung für Kinder der verschiedenen Temperamente angeschnitten.",
+          "level": "h2"
+        },
+        {
+          "index": "^65p82o",
+          "text": "Es folgen Ausführungen von D. über das melancholische Temperament der Kinder.",
+          "level": "h2"
+        },
+        {
+          "index": "^vyr0v6",
+          "text": "A. spricht über dasselbe Thema.",
+          "level": "h2"
+        },
+        {
+          "index": "^e14tbf",
+          "text": "N. berichtet ebenfalls über das melancholische Temperament.",
+          "level": "h2"
+        },
+        {
+          "index": "^gsiu62",
+          "text": "Zwei Lehrer berichten über das cholerische Temperament. Rudolf Steiner zeichnet folgende Figuren an die Tafel:",
+          "level": "h2"
+        },
+        {
+          "index": "^bhardq",
+          "text": "Rudolf Steiner wird gebeten, die Szene zwischen Napoleon und seinem Sekretär zu erzählen.",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -447,7 +521,7 @@
       "paragraphs": [
         {
           "index": "^i9n29m",
-          "content": "<h2>A. erzählt das Märchen vom «Marienkind» zunächst für melancholische und dann für sanguinische Kinder.</h2>\n|33| Rudolf Steiner: Ich meine, Sie werden in Zukunft berücksichtigen müssen, die Sachen artikuliert zu geben. Sie haben die beiden Fassungen in zu gleicher Art vorgebracht. Der Unterschied muss auch in der Artikulation liegen. Wenn Sie diese Details in etwas eindringlicherer Art vorbringen, werden Sie bei melancholischen Kindern den Eindruck nicht verfehlen. Bei Sanguinikern würde ich den Vortrag, besonders am Anfang, etwas mehr mit Zwischenpausen gestalten, so dass das Kind gezwungen ist, die Aufmerksamkeit, die es hat fallen lassen, immer von neuem wieder aufzunehmen."
+          "content": "<h2 data-index=\"^i9n29m\">A. erzählt das Märchen vom «Marienkind» zunächst für melancholische und dann für sanguinische Kinder.</h2>\n|33| Rudolf Steiner: Ich meine, Sie werden in Zukunft berücksichtigen müssen, die Sachen artikuliert zu geben. Sie haben die beiden Fassungen in zu gleicher Art vorgebracht. Der Unterschied muss auch in der Artikulation liegen. Wenn Sie diese Details in etwas eindringlicherer Art vorbringen, werden Sie bei melancholischen Kindern den Eindruck nicht verfehlen. Bei Sanguinikern würde ich den Vortrag, besonders am Anfang, etwas mehr mit Zwischenpausen gestalten, so dass das Kind gezwungen ist, die Aufmerksamkeit, die es hat fallen lassen, immer von neuem wieder aufzunehmen."
         },
         {
           "index": "^odk6gk",
@@ -475,7 +549,7 @@
         },
         {
           "index": "^8ztcs5",
-          "content": "<h2>G. erzählt das Märchen vom «Similiberg» in beiden Fassungen.</h2>\nRudolf Steiner: Nicht wahr, Sie haben doch alle das Gefühl, dass solch eine Sache auf verschiedene Weise gemacht werden kann. Nun ist es wirklich von einer großen Bedeutung, dass man sich gerade, wenn man als Lehrer wirken will, die unnötige Kritisiererei abgewöhnt; dass man als Lehrer ein starkes Gefühl dafür entwickelt, dass man sich bewusst wird, es kommt schließlich nicht darauf an, dass man immer auf etwas, was getan wird, etwas Besseres daraufsetzen muss. Eine Sache kann in mannigfaltiger Weise gut sein. Deshalb würde ich es auch für gut halten, wenn dieses hier Vorgebrachte als etwas betrachtet würde, was durchaus so ausgeführt werden kann, wie wir es gehört haben."
+          "content": "<h2 data-index=\"^8ztcs5\">G. erzählt das Märchen vom «Similiberg» in beiden Fassungen.</h2>\nRudolf Steiner: Nicht wahr, Sie haben doch alle das Gefühl, dass solch eine Sache auf verschiedene Weise gemacht werden kann. Nun ist es wirklich von einer großen Bedeutung, dass man sich gerade, wenn man als Lehrer wirken will, die unnötige Kritisiererei abgewöhnt; dass man als Lehrer ein starkes Gefühl dafür entwickelt, dass man sich bewusst wird, es kommt schließlich nicht darauf an, dass man immer auf etwas, was getan wird, etwas Besseres daraufsetzen muss. Eine Sache kann in mannigfaltiger Weise gut sein. Deshalb würde ich es auch für gut halten, wenn dieses hier Vorgebrachte als etwas betrachtet würde, was durchaus so ausgeführt werden kann, wie wir es gehört haben."
         },
         {
           "index": "^fduhur",
@@ -547,7 +621,7 @@
         },
         {
           "index": "^dlx9px",
-          "content": "Durch Zeichnen und Auslöschen ist das phlegmatische Kind aus seinem Phlegma herauszureißen."
+          "content": "Durch Zeichnen und Auslöschen ist das phlegmatische Kind aus seinem Phlegma herauszureissen."
         },
         {
           "index": "^0q5ecr",
@@ -567,7 +641,7 @@
         },
         {
           "index": "^qi5sm7",
-          "content": "<h2>L. schildert das Pferd für phlegmatische und cholerische Kinder.</h2>\nRudolf Steiner: Bei Tierbeschreibungen wird es nun aber ganz besonders wichtig sein, dass wir in jeder Einzelheit besonders ins Auge fassen, dass der Mensch eigentlich das ganze Tierreich ist. Das ausgebreitete Tierreich ist der Mensch. Nicht wahr, solche Ideen kann man den Kindern nicht theoretisch beibringen. Das soll man auch nicht. Aber nehmen wir an, jemand sollte die Sache ausführen, die Herr L. angeschlagen hat, aber den Unterschied machen zwischen Phlegmatiker- und Cholerikergruppe. Die Phlegmatischen werden wenig leicht erfassbar sein. Und es wird das nicht leicht haften, was Sie mit ihnen durchnehmen über ein bekanntes Tier. Sie haben das Pferd oft gesehen, haben daher nur wenig Interesse dafür. Solche Dinge sollen aber haften. Da würde ich zu den phlegmatischen Kindern sagen: «Seht einmal, wie unterscheidet ihr euch denn eigentlich von einem Pferde? Wir wollen nur kleine Unterschiede nehmen. Nicht wahr, ihr habt alle einen solchen Fuß: Da sind die Zehen, da ist die Ferse, da ist der Mittelfuß. Das ist euer Fuß."
+          "content": "<h2 data-index=\"^qi5sm7\">L. schildert das Pferd für phlegmatische und cholerische Kinder.</h2>\nRudolf Steiner: Bei Tierbeschreibungen wird es nun aber ganz besonders wichtig sein, dass wir in jeder Einzelheit besonders ins Auge fassen, dass der Mensch eigentlich das ganze Tierreich ist. Das ausgebreitete Tierreich ist der Mensch. Nicht wahr, solche Ideen kann man den Kindern nicht theoretisch beibringen. Das soll man auch nicht. Aber nehmen wir an, jemand sollte die Sache ausführen, die Herr L. angeschlagen hat, aber den Unterschied machen zwischen Phlegmatiker- und Cholerikergruppe. Die Phlegmatischen werden wenig leicht erfassbar sein. Und es wird das nicht leicht haften, was Sie mit ihnen durchnehmen über ein bekanntes Tier. Sie haben das Pferd oft gesehen, haben daher nur wenig Interesse dafür. Solche Dinge sollen aber haften. Da würde ich zu den phlegmatischen Kindern sagen: «Seht einmal, wie unterscheidet ihr euch denn eigentlich von einem Pferde? Wir wollen nur kleine Unterschiede nehmen. Nicht wahr, ihr habt alle einen solchen Fuß: Da sind die Zehen, da ist die Ferse, da ist der Mittelfuß. Das ist euer Fuß."
         },
         {
           "index": "^cztbh5",
@@ -601,6 +675,23 @@
           "index": "^w650i4",
           "content": "Aber nehmen Sie folgendes als neue Aufgabe: Denken Sie sich eine Klasse, in der acht- bis neunjährige Kinder sitzen. Es kommt ja natürlich in dem Unterricht der Zukunft darauf an, dass möglichst viel soziale Instinkte, sozialer Wille, soziales Interesse erzogen werde. Nun denken Sie sich drei Kinder, wovon das eine ausgesprochen phlegmatisch, das andere ausgesprochen cholerisch und das dritte ausgesprochen melancholisch ist. Ich will ihre übrigen Eigenschaften nicht erwähnen. Die kämen in der dritten bis vierten Woche, nachdem der Unterricht begonnen hat, und sagen zu Ihnen: «Mich können alle anderen Kinder nicht leiden!» Diese werden sich nun gleichsam erweisen als die Aschenbrödel, denen gegenüber sich die andere Klasse etwas ablehnend verhält, die gepufft werden, die man stößt, die man überall zurücksetzt. - Ich möchte Sie bitten, bis Montag darüber nachzudenken, wie der Erzieher versuchen wird, diesem Übel am besten abzuhelfen. Wie man diese Kinder zu beliebten Kindern machen könne, das ist eine wichtige Aufgabe für die ganze Erziehung. Ich bitte Sie, das recht geistvoll durchzudenken, und das als eine sehr wichtige pädagogische Aufgabe zu betrachten."
         }
+      ],
+      "headings": [
+        {
+          "index": "^i9n29m",
+          "text": "A. erzählt das Märchen vom «Marienkind» zunächst für melancholische und dann für sanguinische Kinder.",
+          "level": "h2"
+        },
+        {
+          "index": "^8ztcs5",
+          "text": "G. erzählt das Märchen vom «Similiberg» in beiden Fassungen.",
+          "level": "h2"
+        },
+        {
+          "index": "^qi5sm7",
+          "text": "L. schildert das Pferd für phlegmatische und cholerische Kinder.",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -620,7 +711,7 @@
         },
         {
           "index": "^9aju7k",
-          "content": "<h2>N. entwickelt das Klarmachen eines Bruches, indem er ein Stück Kreide zerbrechen lässt.</h2>\nRudolf Steiner: Ich hätte nur zunächst das eine zu bemerken, dass ich zum Beispiel nicht Kreide verwenden würde, weil es zu schade ist, die Kreide zu zerbrechen. Ich würde einen wertloseren Gegenstand aussuchen. Es würde genügen ein Stück Holz oder so etwas, nicht wahr? Es ist nicht gut, die Kinder frühzeitig daran zu gewöhnen, nützliche Gegenstände zu zerbrechen."
+          "content": "<h2 data-index=\"^9aju7k\">N. entwickelt das Klarmachen eines Bruches, indem er ein Stück Kreide zerbrechen lässt.</h2>\nRudolf Steiner: Ich hätte nur zunächst das eine zu bemerken, dass ich zum Beispiel nicht Kreide verwenden würde, weil es zu schade ist, die Kreide zu zerbrechen. Ich würde einen wertloseren Gegenstand aussuchen. Es würde genügen ein Stück Holz oder so etwas, nicht wahr? Es ist nicht gut, die Kinder frühzeitig daran zu gewöhnen, nützliche Gegenstände zu zerbrechen."
         },
         {
           "index": "^ro4gsi",
@@ -660,7 +751,7 @@
         },
         {
           "index": "^ipfeuq",
-          "content": "<h2>K. macht den Vorschlag, mit dem Stereometrischen zu beginnen.</h2>\nRudolf Steiner: Für Erwachsene kann man von Körpern ausgehen, aber warum haben Sie die Sehnsucht, bei dem Kinde vom Körper auszugehen und von da zur Fläche zu gehen? Sehen Sie, es ist das Räumliche im allgemeinen unübersichtlich, sehr unübersichtlich vor allem für das Kind. Man wird nicht leicht dem Kinde eine andere als eine sehr verschwommene Vorstellung vom Raume beibringen können. Es leidet sogar die Phantasie darunter, wenn man dem Kinde zumutet, dass es gleich Körper vorstellen soll."
+          "content": "<h2 data-index=\"^ipfeuq\">K. macht den Vorschlag, mit dem Stereometrischen zu beginnen.</h2>\nRudolf Steiner: Für Erwachsene kann man von Körpern ausgehen, aber warum haben Sie die Sehnsucht, bei dem Kinde vom Körper auszugehen und von da zur Fläche zu gehen? Sehen Sie, es ist das Räumliche im allgemeinen unübersichtlich, sehr unübersichtlich vor allem für das Kind. Man wird nicht leicht dem Kinde eine andere als eine sehr verschwommene Vorstellung vom Raume beibringen können. Es leidet sogar die Phantasie darunter, wenn man dem Kinde zumutet, dass es gleich Körper vorstellen soll."
         },
         {
           "index": "^bjunnb",
@@ -668,7 +759,7 @@
         },
         {
           "index": "^w6dqre",
-          "content": "<h2>E. gibt das gestrige Zeichenmotiv heute für ein cholerisches Kind (Farbtafel, Figur 3) und für ein phlegmatisches Kind.</h2>\nRudolf Steiner: Für das cholerische Kind ist das ein sehr gutes Motiv. Für das phlegmatische Kind würde ich die Sache vorziehen, gesprenkelt zu machen, das heißt also, so kariert würde ich es für das phlegmatische Kind vorziehen (Farbtafel, Figur 4). Ihres hier ist eine Möglichkeit, aber es wird das phlegmatische Kind doch zu wenig aufmerksam gemacht."
+          "content": "<h2 data-index=\"^w6dqre\">E. gibt das gestrige Zeichenmotiv heute für ein cholerisches Kind (Farbtafel, Figur 3) und für ein phlegmatisches Kind.</h2>\nRudolf Steiner: Für das cholerische Kind ist das ein sehr gutes Motiv. Für das phlegmatische Kind würde ich die Sache vorziehen, gesprenkelt zu machen, das heißt also, so kariert würde ich es für das phlegmatische Kind vorziehen (Farbtafel, Figur 4). Ihres hier ist eine Möglichkeit, aber es wird das phlegmatische Kind doch zu wenig aufmerksam gemacht."
         },
         {
           "index": "^l0l6pf",
@@ -708,15 +799,15 @@
         },
         {
           "index": "^1c36fs",
-          "content": "<h2>A. erzählt das Märchen vom «Marienkind» in der Fassung für phlegmatische Kinder.</h2>\nRudolf Steiner: Es wäre wichtig, sich an eine gut artikulierte Sprache zu gewöhnen und so die Kinder aus der Mundart herauszuführen. Frau Dr. Steiner wird vorsprechen."
+          "content": "<h2 data-index=\"^1c36fs\">A. erzählt das Märchen vom «Marienkind» in der Fassung für phlegmatische Kinder.</h2>\nRudolf Steiner: Es wäre wichtig, sich an eine gut artikulierte Sprache zu gewöhnen und so die Kinder aus der Mundart herauszuführen. Frau Dr. Steiner wird vorsprechen."
         },
         {
           "index": "^3v3vn6",
-          "content": "<h2>D. erzählt das Märchen vom «Meerkätzchen» in der Fassung für phlegmatische Kinder.</h2>\n|46| Rudolf Steiner: Ich würde nur raten, versuchen Sie in einem solchen Falle auch Nebenhilfen des Erzählens zu benützen. Ich würde gerade dem phlegmatischen Kinde gegenüber öfter mal mit dem Satze einhalten, dann die Kinder angucken, dann das ausnützen, dass die Phantasie weiterarbeitet. Diese Neugierde an wichtigen Stellen erregen, damit sie ein wenig schon weiterdenken und selber sich ausmalen: «Die Königstochter, - die war - sehr schön, - aber - weniger - gut!» Dieses Ausnützen ist gerade für phlegmatische Kinder am wirksamsten."
+          "content": "<h2 data-index=\"^3v3vn6\">D. erzählt das Märchen vom «Meerkätzchen» in der Fassung für phlegmatische Kinder.</h2>\n|46| Rudolf Steiner: Ich würde nur raten, versuchen Sie in einem solchen Falle auch Nebenhilfen des Erzählens zu benützen. Ich würde gerade dem phlegmatischen Kinde gegenüber öfter mal mit dem Satze einhalten, dann die Kinder angucken, dann das ausnützen, dass die Phantasie weiterarbeitet. Diese Neugierde an wichtigen Stellen erregen, damit sie ein wenig schon weiterdenken und selber sich ausmalen: «Die Königstochter, - die war - sehr schön, - aber - weniger - gut!» Dieses Ausnützen ist gerade für phlegmatische Kinder am wirksamsten."
         },
         {
           "index": "^3dwi40",
-          "content": "<h2>R. erzählt das «Sesammärchen» für Phlegmatiker.</h2>\nRudolf Steiner: Das Überraschungsmoment benützen, das Neugiermoment."
+          "content": "<h2 data-index=\"^3dwi40\">R. erzählt das «Sesammärchen» für Phlegmatiker.</h2>\nRudolf Steiner: Das Überraschungsmoment benützen, das Neugiermoment."
         },
         {
           "index": "^lhye3l",
@@ -728,7 +819,7 @@
         },
         {
           "index": "^0zzbza",
-          "content": "<h2>M. gibt für Sanguiniker und Melancholiker die Schilderung eines Affen, der in das Dachgebälk floh.</h2>\nRudolf Steiner: Ja, das würde auf den Melancholiker unter Umständen einen ganz guten Eindruck machen, aber auch da meine ich, dass es noch etwas auszubilden wäre dahin, dass die Tierbeobachtung als solche gefördert würde."
+          "content": "<h2 data-index=\"^0zzbza\">M. gibt für Sanguiniker und Melancholiker die Schilderung eines Affen, der in das Dachgebälk floh.</h2>\nRudolf Steiner: Ja, das würde auf den Melancholiker unter Umständen einen ganz guten Eindruck machen, aber auch da meine ich, dass es noch etwas auszubilden wäre dahin, dass die Tierbeobachtung als solche gefördert würde."
         },
         {
           "index": "^9eisz7",
@@ -748,7 +839,7 @@
         },
         {
           "index": "^sm1e8i",
-          "content": "<h2>Verschiedene Teilnehmer äußern sich darüber.</h2>\nRudolf Steiner: Nie die Kinder sich gegenseitig denunzieren lassen, sondern man sollte auf andere Weise herausbekommen, was die Ursache ihres Aschenbrödeltums ist. Die Kinder brauchen nicht selber Schuld zu sein."
+          "content": "<h2 data-index=\"^sm1e8i\">Verschiedene Teilnehmer äußern sich darüber.</h2>\nRudolf Steiner: Nie die Kinder sich gegenseitig denunzieren lassen, sondern man sollte auf andere Weise herausbekommen, was die Ursache ihres Aschenbrödeltums ist. Die Kinder brauchen nicht selber Schuld zu sein."
         },
         {
           "index": "^gvrz1n",
@@ -781,6 +872,48 @@
         {
           "index": "^om1ioe",
           "content": "Wie würden Sie sich dazu verhalten?"
+        }
+      ],
+      "headings": [
+        {
+          "index": "^9aju7k",
+          "text": "N. entwickelt das Klarmachen eines Bruches, indem er ein Stück Kreide zerbrechen lässt.",
+          "level": "h2"
+        },
+        {
+          "index": "^ipfeuq",
+          "text": "K. macht den Vorschlag, mit dem Stereometrischen zu beginnen.",
+          "level": "h2"
+        },
+        {
+          "index": "^w6dqre",
+          "text": "E. gibt das gestrige Zeichenmotiv heute für ein cholerisches Kind (Farbtafel, Figur 3) und für ein phlegmatisches Kind.",
+          "level": "h2"
+        },
+        {
+          "index": "^1c36fs",
+          "text": "A. erzählt das Märchen vom «Marienkind» in der Fassung für phlegmatische Kinder.",
+          "level": "h2"
+        },
+        {
+          "index": "^3v3vn6",
+          "text": "D. erzählt das Märchen vom «Meerkätzchen» in der Fassung für phlegmatische Kinder.",
+          "level": "h2"
+        },
+        {
+          "index": "^3dwi40",
+          "text": "R. erzählt das «Sesammärchen» für Phlegmatiker.",
+          "level": "h2"
+        },
+        {
+          "index": "^0zzbza",
+          "text": "M. gibt für Sanguiniker und Melancholiker die Schilderung eines Affen, der in das Dachgebälk floh.",
+          "level": "h2"
+        },
+        {
+          "index": "^sm1e8i",
+          "text": "Verschiedene Teilnehmer äußern sich darüber.",
+          "level": "h2"
         }
       ]
     },
@@ -833,7 +966,7 @@
         },
         {
           "index": "^y9ovt4",
-          "content": "<h2>B. gibt ihre zusammenfassende Darstellung der Temperamente und ihrer Behandlung.</h2>\nRudolf Steiner: Das ist Ihre Ausführung. Nun, das ist sehr schön durchgeführt, was hier konversierend gesprochen worden ist. Es geht aber doch vielleicht zu weit, wenn Sie vom melancholischen Temperament geradezu behaupten, dass es zu ausgesprochener Frömmigkeit neigt. Es fehlt hier nur das kleine Wörtchen «oft». Es kann aber durch|52|aus auch der Fall vorkommen, dass die melancholische Anlage bei Kindern auf einem ausgesprochenen Egoismus beruht, und dass es durchaus nicht religiöser Hang ist. Beim Erwachsenen wird man das Wörtchen «oft» weglassen können; beim kleinen Kinde ist das Melancholische sehr oft die Maske für einen ausgesprochenen Egoismus. - Melancholische Kinder sind oftmals abhängig von der Witterung, sie kündet sich auch an in melancholischen Kindern. Das sanguinische Kind ist auch abhängig von der Witterung, aber stimmungsgemäß, mehr seelisch, während das melancholische Kind mehr leiblich unbewusst davon abhängt."
+          "content": "<h2 data-index=\"^y9ovt4\">B. gibt ihre zusammenfassende Darstellung der Temperamente und ihrer Behandlung.</h2>\nRudolf Steiner: Das ist Ihre Ausführung. Nun, das ist sehr schön durchgeführt, was hier konversierend gesprochen worden ist. Es geht aber doch vielleicht zu weit, wenn Sie vom melancholischen Temperament geradezu behaupten, dass es zu ausgesprochener Frömmigkeit neigt. Es fehlt hier nur das kleine Wörtchen «oft». Es kann aber durch|52|aus auch der Fall vorkommen, dass die melancholische Anlage bei Kindern auf einem ausgesprochenen Egoismus beruht, und dass es durchaus nicht religiöser Hang ist. Beim Erwachsenen wird man das Wörtchen «oft» weglassen können; beim kleinen Kinde ist das Melancholische sehr oft die Maske für einen ausgesprochenen Egoismus. - Melancholische Kinder sind oftmals abhängig von der Witterung, sie kündet sich auch an in melancholischen Kindern. Das sanguinische Kind ist auch abhängig von der Witterung, aber stimmungsgemäß, mehr seelisch, während das melancholische Kind mehr leiblich unbewusst davon abhängt."
         },
         {
           "index": "^eei9ky",
@@ -841,7 +974,7 @@
         },
         {
           "index": "^o9yghu",
-          "content": "<h2>T. fragt, was der Verschiebung der Temperamente im Laufe des Lebens von der Jugend zum Erwachsenen zugrunde liegt.</h2>\nRudolf Steiner: |53| Wenn Sie sich erinnern an einen Vortragszyklus, den ich einmal in Kassel gehalten habe, «Das Johannes-Evangelium im Verhältnis zu den drei anderen Evangelien», so werden Sie darin Bemerkungen finden über die Beziehungen eines Kindes zu seinen Eltern. Sie werden darin ausgeführt finden, wie in dem physischen Leib und in dem Ich das väterliche Prinzip sehr stark nachwirkt, wie in dem Ätherleib und Astralleib das mütterliche Prinzip vorherrscht. Goethe hat das geahnt, indem er den schönen Ausspruch getan hat:"
+          "content": "<h2 data-index=\"^o9yghu\">T. fragt, was der Verschiebung der Temperamente im Laufe des Lebens von der Jugend zum Erwachsenen zugrunde liegt.</h2>\nRudolf Steiner: |53| Wenn Sie sich erinnern an einen Vortragszyklus, den ich einmal in Kassel gehalten habe, «Das Johannes-Evangelium im Verhältnis zu den drei anderen Evangelien», so werden Sie darin Bemerkungen finden über die Beziehungen eines Kindes zu seinen Eltern. Sie werden darin ausgeführt finden, wie in dem physischen Leib und in dem Ich das väterliche Prinzip sehr stark nachwirkt, wie in dem Ätherleib und Astralleib das mütterliche Prinzip vorherrscht. Goethe hat das geahnt, indem er den schönen Ausspruch getan hat:"
         },
         {
           "index": "^un8glk",
@@ -869,7 +1002,7 @@
         },
         {
           "index": "^z4s9fl",
-          "content": "<h2>J.: Es findet sich ein ähnlicher Übergang in der Personenanordnung im Personenverzeichnis im «Hüter der Schwelle» und «Der Seelen Erwachen».</h2>\nRudolf Steiner: Dort drinnen ist eine Verwandlung, die durchaus den Tatsachen entsprechen kann. Diese Mysterien müssen Sie so nehmen, dass Sie sie möglichst wenig theoretisch aufnehmen. Ich kann gar keine Auskunft geben, wenn die Frage theoretisch gestellt wird, weil ich sie eben nur so, wie sie dastehen, rein gegenständlich vor mir gehabt habe. Die Personen sind alle nur der Wirklichkeit entnommen. Ich habe neulich bei einem gewissen Anlass hier vorgetragen, dass es den Felix Balde gegeben hat, in Trumau, und jener alte Schuhmacher, der den Urtyp des Felix Balde noch gekannt hat, heißt Scharinger, aus Münchendorf. Es ist auch der Felix dort noch in der Tradition vorhanden. So sind alle diese Gestalten, die Sie in meinen Mysterien finden, einzelne wirkliche Persönlichkeiten."
+          "content": "<h2 data-index=\"^z4s9fl\">J.: Es findet sich ein ähnlicher Übergang in der Personenanordnung im Personenverzeichnis im «Hüter der Schwelle» und «Der Seelen Erwachen».</h2>\nRudolf Steiner: Dort drinnen ist eine Verwandlung, die durchaus den Tatsachen entsprechen kann. Diese Mysterien müssen Sie so nehmen, dass Sie sie möglichst wenig theoretisch aufnehmen. Ich kann gar keine Auskunft geben, wenn die Frage theoretisch gestellt wird, weil ich sie eben nur so, wie sie dastehen, rein gegenständlich vor mir gehabt habe. Die Personen sind alle nur der Wirklichkeit entnommen. Ich habe neulich bei einem gewissen Anlass hier vorgetragen, dass es den Felix Balde gegeben hat, in Trumau, und jener alte Schuhmacher, der den Urtyp des Felix Balde noch gekannt hat, heißt Scharinger, aus Münchendorf. Es ist auch der Felix dort noch in der Tradition vorhanden. So sind alle diese Gestalten, die Sie in meinen Mysterien finden, einzelne wirkliche Persönlichkeiten."
         },
         {
           "index": "^dm8d6j",
@@ -978,6 +1111,23 @@
         {
           "index": "^sp4dmx",
           "content": "Sie können natürlich die Sache furchtbar einfach machen. Sie können sagen: Ich kümmere mich einfach nicht um sie. - Dann aber wird diese Eigenschaft auf andere Weise abgelenkt bei Kindern, die so veranlagt sind. Sie entwickeln sich, diese Brävlinge, zu irgend etwas, was der Klasse nachteilig ist, wenn man sich bloß ablehnend verhält. Man muss nachdenken, was mit ihnen am besten gemacht wird im ganzen Verlauf des Unterrichts und der Erziehung."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^y9ovt4",
+          "text": "B. gibt ihre zusammenfassende Darstellung der Temperamente und ihrer Behandlung.",
+          "level": "h2"
+        },
+        {
+          "index": "^o9yghu",
+          "text": "T. fragt, was der Verschiebung der Temperamente im Laufe des Lebens von der Jugend zum Erwachsenen zugrunde liegt.",
+          "level": "h2"
+        },
+        {
+          "index": "^z4s9fl",
+          "text": "J.: Es findet sich ein ähnlicher Übergang in der Personenanordnung im Personenverzeichnis im «Hüter der Schwelle» und «Der Seelen Erwachen».",
+          "level": "h2"
         }
       ]
     },
@@ -1094,7 +1244,7 @@
         },
         {
           "index": "^jrotc5",
-          "content": "Nun, ihr wisst, Kinder, es gibt auch noch andere Hunde, kleine, sie sind meist Faulenzer, elende Faulenzer! Sie liegen auf Kissen, sie liegen manchmal auch auf dem Schoß der Herrin. Kurz, es sind faule Kerle. Das sind die Polsterhündchen, die Schoßhündchen. So nützlich sind sie nicht wie der Fleischerh- und. Der Fleischerh- und, der dient zu etwas; die Polsterhündchen, die spielen nur, sind unnütz im Grunde. Aber der Fleischerh- und wird, wenn irgend jemand etwas macht, was er nicht soll, ihn beim Kamm nehmen, das heißt ihn anfassen, packen und ordentlich durchschütteln. Das wird nützlich sein, denn das andere Tier wird dann das Fleisch nicht stehlen können. Das Polster- oder Schoßhündchen tut so etwas Nützliches nicht, das kläfft nur. Es kläfft jeden an, und namentlich, wenn andere große Hunde kommen, flugs ist das Schoßhündchen hinterher und kläfft und kläfft und kläfft. Aber Hunde, die bellen, die beissen nicht, so sagt das Sprichwort; so denken auch große Hunde, wenn sie vorbeigehen. Daher kann man auch sehen, wie große Hunde ganz gelassen vorbeigehen, die kleinen Kläffer kläffen lassen und sich denken: kläffende Hunde, die beissen nicht. - Mutig sind sie nicht, feig sind sie. Ein Fleischerh- und muss immer schon Mut haben. Die Schoßhündchen, ja, die laufen nach und kläffen, aber wenn der andere sie anschaut, dann reißen sie gleich aus. Nun ja, seht ihr, diese Hündchen sind jedenfalls Faulenzer, machen nur Unnötiges auf der Welt und taugen zu nichts. Sie gleichen denjenigen Menschen, auf welche man nicht hören soll, wenn auch solche Menschen einen sehr oft ankläffen."
+          "content": "Nun, ihr wisst, Kinder, es gibt auch noch andere Hunde, kleine, sie sind meist Faulenzer, elende Faulenzer! Sie liegen auf Kissen, sie liegen manchmal auch auf dem Schoß der Herrin. Kurz, es sind faule Kerle. Das sind die Polsterhündchen, die Schoßhündchen. So nützlich sind sie nicht wie der Fleischerh- und. Der Fleischerh- und, der dient zu etwas; die Polsterhündchen, die spielen nur, sind unnütz im Grunde. Aber der Fleischerh- und wird, wenn irgend jemand etwas macht, was er nicht soll, ihn beim Kamm nehmen, das heißt ihn anfassen, packen und ordentlich durchschütteln. Das wird nützlich sein, denn das andere Tier wird dann das Fleisch nicht stehlen können. Das Polster- oder Schoßhündchen tut so etwas Nützliches nicht, das kläfft nur. Es kläfft jeden an, und namentlich, wenn andere große Hunde kommen, flugs ist das Schoßhündchen hinterher und kläfft und kläfft und kläfft. Aber Hunde, die bellen, die beissen nicht, so sagt das Sprichwort; so denken auch große Hunde, wenn sie vorbeigehen. Daher kann man auch sehen, wie große Hunde ganz gelassen vorbeigehen, die kleinen Kläffer kläffen lassen und sich denken: kläffende Hunde, die beissen nicht. - Mutig sind sie nicht, feig sind sie. Ein Fleischerh- und muss immer schon Mut haben. Die Schoßhündchen, ja, die laufen nach und kläffen, aber wenn der andere sie anschaut, dann reissen sie gleich aus. Nun ja, seht ihr, diese Hündchen sind jedenfalls Faulenzer, machen nur Unnötiges auf der Welt und taugen zu nichts. Sie gleichen denjenigen Menschen, auf welche man nicht hören soll, wenn auch solche Menschen einen sehr oft ankläffen."
         },
         {
           "index": "^2chm5f",
@@ -1106,7 +1256,7 @@
         },
         {
           "index": "^3lbh9n",
-          "content": "<h2>Der Schäferb- und</h2>\nEin alter Hirtenb- und, der seines Herrn Vieh treulich bewachte, ging abends beim. Da kläften ibn die Polsterbündchen auf der Gasse an. Er trabt vor sich bin und sieht sich nicht um. Als er vor die Fleischbank kommt, fragt ibn ein Fleischerb- und, wie er das Gebell leiden könne, und warum er nicht einen beim Kamm nehme. «Nein», sagte der Hirtenb- und, «es zwacket und beisst mich ja keiner, ich muss meine Zähne für die Wölfe haben.»"
+          "content": "<h2 data-index=\"^3lbh9n\">Der Schäferb- und</h2>\nEin alter Hirtenb- und, der seines Herrn Vieh treulich bewachte, ging abends beim. Da kläften ibn die Polsterbündchen auf der Gasse an. Er trabt vor sich bin und sieht sich nicht um. Als er vor die Fleischbank kommt, fragt ibn ein Fleischerb- und, wie er das Gebell leiden könne, und warum er nicht einen beim Kamm nehme. «Nein», sagte der Hirtenb- und, «es zwacket und beisst mich ja keiner, ich muss meine Zähne für die Wölfe haben.»"
         },
         {
           "index": "^82nbim",
@@ -1198,7 +1348,7 @@
         },
         {
           "index": "^fkpbtb",
-          "content": "<h2>Es folgen Ausführungen der Anwesenden.</h2>\nRudolf Steiner: Ich habe diese Frage besonders aus dem Grunde gestellt, weil es schwierig ist, zu unterscheiden zwischen schädlichen und nützlichen Brävlingen. Man muss beachten, ob man es mit solchen zu tun hat, die später wirklich einmal eine Rolle spielen. Die sind auch so. Sie sind nützliche Brävlinge, aber unbequem."
+          "content": "<h2 data-index=\"^fkpbtb\">Es folgen Ausführungen der Anwesenden.</h2>\nRudolf Steiner: Ich habe diese Frage besonders aus dem Grunde gestellt, weil es schwierig ist, zu unterscheiden zwischen schädlichen und nützlichen Brävlingen. Man muss beachten, ob man es mit solchen zu tun hat, die später wirklich einmal eine Rolle spielen. Die sind auch so. Sie sind nützliche Brävlinge, aber unbequem."
         },
         {
           "index": "^vvw6mm",
@@ -1210,7 +1360,7 @@
         },
         {
           "index": "^jbwr5n",
-          "content": "<h2>Es geben noch andere Teilnehmer Darstellungen hierzu.</h2>\nRudolf Steiner fasst am Schluss folgendermaßen zusammen: ja, im wesentlichen ist ja bei dieser Diskussion die Sache schon herausgekommen, um die es sich handelt."
+          "content": "<h2 data-index=\"^jbwr5n\">Es geben noch andere Teilnehmer Darstellungen hierzu.</h2>\nRudolf Steiner fasst am Schluss folgendermaßen zusammen: ja, im wesentlichen ist ja bei dieser Diskussion die Sache schon herausgekommen, um die es sich handelt."
         },
         {
           "index": "^37v6v8",
@@ -1243,6 +1393,23 @@
         {
           "index": "^lflx98",
           "content": "Es muss schon in einem Grade vorhanden sein, dass es wirklich den Unterricht stört. Ich meine natürlich durchaus nicht das echte Respektieren, die richtige Achtung, und auch nicht ein richtiges Hinneigen in Liebe zur Lehrerin oder zum Lehrer, sondern eben dieses, was den Unterricht stört durch ein ungesundes Schwärmen, wie es ja häufig in den Klassen vorkommt."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^3lbh9n",
+          "text": "Der Schäferb- und",
+          "level": "h2"
+        },
+        {
+          "index": "^fkpbtb",
+          "text": "Es folgen Ausführungen der Anwesenden.",
+          "level": "h2"
+        },
+        {
+          "index": "^jbwr5n",
+          "text": "Es geben noch andere Teilnehmer Darstellungen hierzu.",
+          "level": "h2"
         }
       ]
     },
@@ -1491,7 +1658,7 @@
         },
         {
           "index": "^xe6x50",
-          "content": "<h2>Einer der Kursteilnehmer rät zu Lamprecht.</h2>\nRudolf Steiner: Aber man kann da schon das Gefühl haben, Lamprecht schildert Kulturgeschichte, nicht Menschen, sondern angestrichene Pappfiguren, die er nur mit möglichst vollen Tönen anstreicht. Es sind nicht Menschen; sie schauen aus wie körperliche Menschen, sind aber nur angestrichene Pappendeckelfiguren. Da muss man schon sagen: Treitschke mag tendenziös sein, aber die Treitschke-Persönlichkeiten, die stehen doch auf ihren Beinen! Er stellt die Menschen doch auf die Beine, und sie haben Fleisch und Blut. Sie sind nicht Pappendeckel wie bei Lamprecht, und sie sind nicht bloß Schattenfiguren wie bei Ranke. Leider gibt es von Treitschke nur die Geschichte des 19. Jahrhunderts."
+          "content": "<h2 data-index=\"^xe6x50\">Einer der Kursteilnehmer rät zu Lamprecht.</h2>\nRudolf Steiner: Aber man kann da schon das Gefühl haben, Lamprecht schildert Kulturgeschichte, nicht Menschen, sondern angestrichene Pappfiguren, die er nur mit möglichst vollen Tönen anstreicht. Es sind nicht Menschen; sie schauen aus wie körperliche Menschen, sind aber nur angestrichene Pappendeckelfiguren. Da muss man schon sagen: Treitschke mag tendenziös sein, aber die Treitschke-Persönlichkeiten, die stehen doch auf ihren Beinen! Er stellt die Menschen doch auf die Beine, und sie haben Fleisch und Blut. Sie sind nicht Pappendeckel wie bei Lamprecht, und sie sind nicht bloß Schattenfiguren wie bei Ranke. Leider gibt es von Treitschke nur die Geschichte des 19. Jahrhunderts."
         },
         {
           "index": "^kkny5i",
@@ -1515,7 +1682,7 @@
         },
         {
           "index": "^u50jcn",
-          "content": "<h2>Es folgt eine Besprechung, während derer sich viele Teilnehmer zu diesem Thema äußern.</h2>\nRudolf Steiner: Das öffentliche Blamieren vor der Klasse würde ich für ein sehr zweischneidiges Schwert halten, weil es zu lange anhält und den Schüler aus der Klasse herausreißt. Es wird sich sehr schwer ein Verhältnis solcher Kinder, die man blamiert hat, zu der übrigen Klasse wieder herstellen. Gewöhnlich führt es dann doch dazu, dass die Kinder erreichen, dass sie aus der Schule genommen werden."
+          "content": "<h2 data-index=\"^u50jcn\">Es folgt eine Besprechung, während derer sich viele Teilnehmer zu diesem Thema äußern.</h2>\nRudolf Steiner: Das öffentliche Blamieren vor der Klasse würde ich für ein sehr zweischneidiges Schwert halten, weil es zu lange anhält und den Schüler aus der Klasse herausreißt. Es wird sich sehr schwer ein Verhältnis solcher Kinder, die man blamiert hat, zu der übrigen Klasse wieder herstellen. Gewöhnlich führt es dann doch dazu, dass die Kinder erreichen, dass sie aus der Schule genommen werden."
         },
         {
           "index": "^vks5eq",
@@ -1580,6 +1747,18 @@
         {
           "index": "^u2bjcu",
           "content": "Eine Aufgabe, mehr didaktischen, weniger erzieherischen Inhalts: Legen Sie sich jeder zurecht, Sie erlebten mit einer Anzahl von Kindern in ihrer Klasse, dass diese Gruppe in irgendeiner Richtung weniger gut mitkommt, zum Beispiel im Rechnen, in Sprachen Naturgeschichte, Turnen oder in der Eurythmie. Wie würden Sie versuchen, durch besondere Behandlung der menschlichen Fähigkeiten einer solchen Kalamität zu begegnen, wenn sie im frühen Volksschulalter auftritt? Wie würden Sie auch durch die anderen Unterrichtsgegenstände nachhelfen?"
+        }
+      ],
+      "headings": [
+        {
+          "index": "^xe6x50",
+          "text": "Einer der Kursteilnehmer rät zu Lamprecht.",
+          "level": "h2"
+        },
+        {
+          "index": "^u50jcn",
+          "text": "Es folgt eine Besprechung, während derer sich viele Teilnehmer zu diesem Thema äußern.",
+          "level": "h2"
         }
       ]
     },
@@ -1732,7 +1911,7 @@
         },
         {
           "index": "^rtdfx4",
-          "content": "<h2>Mehrere Seminarteilnehmer machen dazu längere Ausführungen.</h2>\nRudolf Steiner: Die Dinge, die da auftreten, können sich zum Teil beziehen auf eine allgemeine Unbegabtheit. Aber sie können sich auch beziehen auf eine spezielle, eine spezifische Unbegabtheit. Man hat Zöglinge, die vielleicht für Lesen und Schreiben außerordentlich gut begabt sind, aber die, sobald man ans Rechnen kommt, sich für dieses Rechnen als unbegabt erweisen. Man hat dann Zöglinge, bei denen es noch mit dem Rechnen geht, aber in dem Augenblick, wo man beginnt, ihre Urteilskraft anzurufen, wo sie Naturwissenschaftliches richtig begreifen sollen, geht es nicht mehr weiter. Dann gibt es solche Kinder, die nicht an Geschichte heran wollen. Diese spezifischen Unbegabtheiten, die sind das Wichtige, die sollte man gut berücksichtigen."
+          "content": "<h2 data-index=\"^rtdfx4\">Mehrere Seminarteilnehmer machen dazu längere Ausführungen.</h2>\nRudolf Steiner: Die Dinge, die da auftreten, können sich zum Teil beziehen auf eine allgemeine Unbegabtheit. Aber sie können sich auch beziehen auf eine spezielle, eine spezifische Unbegabtheit. Man hat Zöglinge, die vielleicht für Lesen und Schreiben außerordentlich gut begabt sind, aber die, sobald man ans Rechnen kommt, sich für dieses Rechnen als unbegabt erweisen. Man hat dann Zöglinge, bei denen es noch mit dem Rechnen geht, aber in dem Augenblick, wo man beginnt, ihre Urteilskraft anzurufen, wo sie Naturwissenschaftliches richtig begreifen sollen, geht es nicht mehr weiter. Dann gibt es solche Kinder, die nicht an Geschichte heran wollen. Diese spezifischen Unbegabtheiten, die sind das Wichtige, die sollte man gut berücksichtigen."
         },
         {
           "index": "^sg91im",
@@ -1748,7 +1927,7 @@
         },
         {
           "index": "^lobojv",
-          "content": "<h2>Es wird gefragt, wie es mit Kakao sei?</h2>\nRudolf Steiner: Warum sollen denn die Kinder überhaupt Kakao |92| trinken? Es ist ja gar nicht notwendig, wenn man nicht Kakao braucht, um ihre Verdauung zu regulieren. Man braucht ja manchmal solche Dinge, um die Verdauung zu regulieren. Bei Kindern, die eine zu rasche Verdauung haben, ist es besser, Kakao zu verwenden als andere Heilmittel; aber wenn das nicht nötig ist, dann braucht ein Kind überhaupt nicht solche Dinge zu haben. Die Kinder bekommen heute viel, was nichts taugt für sie."
+          "content": "<h2 data-index=\"^lobojv\">Es wird gefragt, wie es mit Kakao sei?</h2>\nRudolf Steiner: Warum sollen denn die Kinder überhaupt Kakao |92| trinken? Es ist ja gar nicht notwendig, wenn man nicht Kakao braucht, um ihre Verdauung zu regulieren. Man braucht ja manchmal solche Dinge, um die Verdauung zu regulieren. Bei Kindern, die eine zu rasche Verdauung haben, ist es besser, Kakao zu verwenden als andere Heilmittel; aber wenn das nicht nötig ist, dann braucht ein Kind überhaupt nicht solche Dinge zu haben. Die Kinder bekommen heute viel, was nichts taugt für sie."
         },
         {
           "index": "^j3ed1n",
@@ -1776,7 +1955,7 @@
         },
         {
           "index": "^7ho3qt",
-          "content": "<h2>T. spricht über die für das Rechnen unbegabten Kinder.</h2>\nRudolf Steiner: Wenn Sie besonders schwache Begabungen zum Rechnen entdecken, so tun Sie gut, folgendes zu machen: die anderen Kinder werden in der Regel in der Woche zwei Turnstunden, das heißt eine Eurythmiestunde und eine Turnstunde haben. Diese Kinder, die nicht gut rechnen, spannen Sie zusammen, und lassen Sie ihnen eine Eurythmie- oder Turnstunde oder eine halbe Stunde anknüpfen. Sie brauchen sich dadurch nicht mehr zu belasten; nehmen Sie sie mit anderen zusammen, wo gerade solche Übungen gemacht werden. Man muss sorgen, dass solche Kinder gerade durch das Turnen und die Eurythmie in ihren Fähigkeiten gehoben werden."
+          "content": "<h2 data-index=\"^7ho3qt\">T. spricht über die für das Rechnen unbegabten Kinder.</h2>\nRudolf Steiner: Wenn Sie besonders schwache Begabungen zum Rechnen entdecken, so tun Sie gut, folgendes zu machen: die anderen Kinder werden in der Regel in der Woche zwei Turnstunden, das heißt eine Eurythmiestunde und eine Turnstunde haben. Diese Kinder, die nicht gut rechnen, spannen Sie zusammen, und lassen Sie ihnen eine Eurythmie- oder Turnstunde oder eine halbe Stunde anknüpfen. Sie brauchen sich dadurch nicht mehr zu belasten; nehmen Sie sie mit anderen zusammen, wo gerade solche Übungen gemacht werden. Man muss sorgen, dass solche Kinder gerade durch das Turnen und die Eurythmie in ihren Fähigkeiten gehoben werden."
         },
         {
           "index": "^4b2d8u",
@@ -1788,7 +1967,7 @@
         },
         {
           "index": "^9p25yo",
-          "content": "<h2>T.: Eurychmische Bewegungen müssen doch ein gutes Mittel sein für den Geometrieunterricht.</h2>\nRudolf Steiner: Den Geometrieunterricht meinte ich aber nicht. Was ich sagte, bezog sich auf das Rechnen, weil ja dem Rechnen willentliches Sich-Bewegen zugrunde liegt, der Bewegungssinn. Wenn man den in dieser Weise in Wirksamkeit bringt, so wirkt man anfeuernd auf diese Fähigkeit. Man holt etwas aus dem Unterbewusstsein herauf, was bei einem solchen Kinde nicht herauf will. oberhaupt sollte man durch Bewegungsübungen die mangelnden Fähigkeiten des Rechnens und auch der Geometrie anregen. Für Geometrie wird man viel tun können durch geistreiche Eurythmieübungen. Auch durch Stabübungen."
+          "content": "<h2 data-index=\"^9p25yo\">T.: Eurychmische Bewegungen müssen doch ein gutes Mittel sein für den Geometrieunterricht.</h2>\nRudolf Steiner: Den Geometrieunterricht meinte ich aber nicht. Was ich sagte, bezog sich auf das Rechnen, weil ja dem Rechnen willentliches Sich-Bewegen zugrunde liegt, der Bewegungssinn. Wenn man den in dieser Weise in Wirksamkeit bringt, so wirkt man anfeuernd auf diese Fähigkeit. Man holt etwas aus dem Unterbewusstsein herauf, was bei einem solchen Kinde nicht herauf will. oberhaupt sollte man durch Bewegungsübungen die mangelnden Fähigkeiten des Rechnens und auch der Geometrie anregen. Für Geometrie wird man viel tun können durch geistreiche Eurythmieübungen. Auch durch Stabübungen."
         },
         {
           "index": "^dqzssx",
@@ -1828,7 +2007,7 @@
         },
         {
           "index": "^titp6r",
-          "content": "<h2>A.: Das schadet ja nichts.</h2>\nRudolf Steiner: gewiss, das schadet nichts. Sogar Schiller würde unter den Schwachen gesessen haben. Nach dem Lehrbefähigungszeugnis für Robert Hamerling war er verhältnismäßig überall mit guten Zensuren bedacht, nur nicht im deutschen Aufsatz. Da hatte er als Zensur eigentlich unter normal."
+          "content": "<h2 data-index=\"^titp6r\">A.: Das schadet ja nichts.</h2>\nRudolf Steiner: gewiss, das schadet nichts. Sogar Schiller würde unter den Schwachen gesessen haben. Nach dem Lehrbefähigungszeugnis für Robert Hamerling war er verhältnismäßig überall mit guten Zensuren bedacht, nur nicht im deutschen Aufsatz. Da hatte er als Zensur eigentlich unter normal."
         },
         {
           "index": "^iblzx9",
@@ -1925,6 +2104,33 @@
         {
           "index": "^spq8vk",
           "content": "Also die Pflanzen behandeln von demselben Gesichtspunkte aus, den ich gestern angeführt habe, darüber bitte ich Sie nachzudenken. Also nicht um anschaulichen Unterricht handelt es sich, sondern um Unterricht nach dem neunten Jahr, wo der Naturunterricht eingreift."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^rtdfx4",
+          "text": "Mehrere Seminarteilnehmer machen dazu längere Ausführungen.",
+          "level": "h2"
+        },
+        {
+          "index": "^lobojv",
+          "text": "Es wird gefragt, wie es mit Kakao sei?",
+          "level": "h2"
+        },
+        {
+          "index": "^7ho3qt",
+          "text": "T. spricht über die für das Rechnen unbegabten Kinder.",
+          "level": "h2"
+        },
+        {
+          "index": "^9p25yo",
+          "text": "T.: Eurychmische Bewegungen müssen doch ein gutes Mittel sein für den Geometrieunterricht.",
+          "level": "h2"
+        },
+        {
+          "index": "^titp6r",
+          "text": "A.: Das schadet ja nichts.",
+          "level": "h2"
         }
       ]
     },
@@ -2105,7 +2311,7 @@
         },
         {
           "index": "^lofvhu",
-          "content": "<h2>D. spricht über den Pflanzenunterricht.</h2>\nRudolf Steiner: Da ist viel Treffliches gesagt worden, aber man muss darauf hinarbeiten, dass die Kinder eine Übersicht bekommen über die Pflanzen- erst die niederen, dann mittlere, dann höhere. Das Gelehrte kann ganz wegbleiben. Eine Übersicht über die Pflanzen zu schaffen, das ist nicht leicht, aber das kann etwas sehr Bedeutsames werden für den Unterricht, und das kann an der Pflanzenwelt herausentwickelt werden."
+          "content": "<h2 data-index=\"^lofvhu\">D. spricht über den Pflanzenunterricht.</h2>\nRudolf Steiner: Da ist viel Treffliches gesagt worden, aber man muss darauf hinarbeiten, dass die Kinder eine Übersicht bekommen über die Pflanzen- erst die niederen, dann mittlere, dann höhere. Das Gelehrte kann ganz wegbleiben. Eine Übersicht über die Pflanzen zu schaffen, das ist nicht leicht, aber das kann etwas sehr Bedeutsames werden für den Unterricht, und das kann an der Pflanzenwelt herausentwickelt werden."
         },
         {
           "index": "^48aidx",
@@ -2182,6 +2388,13 @@
         {
           "index": "^95uogt",
           "content": "Wie wirkt denn die Erde auf die Pflanze? Die Erde wirkt auf die Pflanze, wie eben der menschliche Leib wirkt auf die Seele. Die Pflanzenwelt ist überall das Umgekehrte zum Menschen, so dass Sie, wenn Sie an die Pflanzenwelt kommen, den menschlichen Leib mit der Erde - und noch mit etwas anderem, da werden Sie selbst darauf kommen -vergleichen müssen. Ich wollte nur Andeutungen geben, damit Sie dann möglichst erfinderisch auf noch mehr kommen bis zum nächsten Mal. Dann werden Sie sehen, dass Sie den Kindern sehr viel Gutes tun, wenn Sie ihnen nicht äußerliche Vergleiche beibringen, sondern innerliche."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^lofvhu",
+          "text": "D. spricht über den Pflanzenunterricht.",
+          "level": "h2"
         }
       ]
     },
@@ -2298,7 +2511,7 @@
         },
         {
           "index": "^frtqpg",
-          "content": "<h2>Es folgen Ausführungen einiger Kursteilnehmer.</h2>\nRudolf Steiner macht mehrfache Zwischenbemerkungen dazu: Es wird später einmal solche Schüler geben, die das Pflanzenreich kennenlernen mehr nach wissenschaftlichen Begriffen, die da wären: Moose, Flechten, Algen, Monokotyledonen, Dikotyledonen. Dies systematische Kennenlernen nach wissenschaftlichen Grundsätzen wird manchmal in die Schule hineingetragen. Aber jeder Mensch, der in der Jugend Pflanzen nach wissenschaftlichen Grundsätzen kennenlernt, sollte sie zuerst kennenlernen so, wie wir sie beschreiben, durch Vergleich mit den menschlichen Seeleneigenschaften. Niemand sollte zuerst wissenschaftliche Botanik kennenlernen. Nachher, später kann er dann an das mehr wissenschaftliche Pflanzensystem herankommen. Es ist ein Unterschied, ob wir erst versuchen die Pflanzen zu beschreiben, und nachher wissenschaftlich an sie herankommen, oder umgekehrt. Man verdirbt sehr viel beim Menschen, wenn man ihm gleich wissenschaftliche Botanik beibringt, wenn er nicht zuerst solche Begriffe bekommt, wie wir sie jetzt darzustellen versuchten. Er sollte aus der Seele, aus dem Gedächtnis herausbringen solche allgemein menschlichen Pflanzenbegriffe, wenn er an die wissenschaftliche Systematik herankommt."
+          "content": "<h2 data-index=\"^frtqpg\">Es folgen Ausführungen einiger Kursteilnehmer.</h2>\nRudolf Steiner macht mehrfache Zwischenbemerkungen dazu: Es wird später einmal solche Schüler geben, die das Pflanzenreich kennenlernen mehr nach wissenschaftlichen Begriffen, die da wären: Moose, Flechten, Algen, Monokotyledonen, Dikotyledonen. Dies systematische Kennenlernen nach wissenschaftlichen Grundsätzen wird manchmal in die Schule hineingetragen. Aber jeder Mensch, der in der Jugend Pflanzen nach wissenschaftlichen Grundsätzen kennenlernt, sollte sie zuerst kennenlernen so, wie wir sie beschreiben, durch Vergleich mit den menschlichen Seeleneigenschaften. Niemand sollte zuerst wissenschaftliche Botanik kennenlernen. Nachher, später kann er dann an das mehr wissenschaftliche Pflanzensystem herankommen. Es ist ein Unterschied, ob wir erst versuchen die Pflanzen zu beschreiben, und nachher wissenschaftlich an sie herankommen, oder umgekehrt. Man verdirbt sehr viel beim Menschen, wenn man ihm gleich wissenschaftliche Botanik beibringt, wenn er nicht zuerst solche Begriffe bekommt, wie wir sie jetzt darzustellen versuchten. Er sollte aus der Seele, aus dem Gedächtnis herausbringen solche allgemein menschlichen Pflanzenbegriffe, wenn er an die wissenschaftliche Systematik herankommt."
         },
         {
           "index": "^c4cxsj",
@@ -2399,6 +2612,13 @@
         {
           "index": "^awral2",
           "content": "Rudolf Steiner: Man muss das Ganze aus Pappe ausschneiden, dann wird es erst anschaulich."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^frtqpg",
+          "text": "Es folgen Ausführungen einiger Kursteilnehmer.",
+          "level": "h2"
         }
       ]
     },
@@ -2519,11 +2739,11 @@
         },
         {
           "index": "^mc562m",
-          "content": "<h2>L macht Ausführungen dazu.</h2>\nRudolf Steiner: Wenn Sie zu sehr nur nach den Sinnen sehen, werden Sie den Gesichtspunkt etwas verrücken. Die Sinne kommen insofern in Betracht, als von jedem Sinn aus etwas in unserer Seele lebt, was von diesem Sinn wahrgenommen wird. Wir verdanken zum Beispiel dem Sehsinn eine Anzahl von seelischen Erlebnissen; anderen Sinnen verdanken wir andere Erlebnisse der Seele, die von den Sinnen herkommen. Da können wir dann Erlebnisse in unserer Seele zurückdatieren zu diesen Sinnen. Dadurch kommt der Sinn in Zusammenhang mit dem Seelischen. Aber direkt sollte man nicht für die Pflanzen geltend machen, dass sie die Sinne der Erde ausdrücken. Das tun sie nicht."
+          "content": "<h2 data-index=\"^mc562m\">L macht Ausführungen dazu.</h2>\nRudolf Steiner: Wenn Sie zu sehr nur nach den Sinnen sehen, werden Sie den Gesichtspunkt etwas verrücken. Die Sinne kommen insofern in Betracht, als von jedem Sinn aus etwas in unserer Seele lebt, was von diesem Sinn wahrgenommen wird. Wir verdanken zum Beispiel dem Sehsinn eine Anzahl von seelischen Erlebnissen; anderen Sinnen verdanken wir andere Erlebnisse der Seele, die von den Sinnen herkommen. Da können wir dann Erlebnisse in unserer Seele zurückdatieren zu diesen Sinnen. Dadurch kommt der Sinn in Zusammenhang mit dem Seelischen. Aber direkt sollte man nicht für die Pflanzen geltend machen, dass sie die Sinne der Erde ausdrücken. Das tun sie nicht."
         },
         {
           "index": "^2c39y1",
-          "content": "<h2>S. führt Beispiele an aus den Schriften von Emil Schlegel, dem homöopathischen Arzt in Tübingen.</h2>\n|122| Rudolf Steiner: Auch Schlegel vergleicht noch zu äußerlich. Er geht dabei zurück auf das, was bei den Mystikern zu finden ist, bei Jakob Böhme und anderen, auf die sogenannten «Signaturen». Die mittelalterlichen Mystiker kannten gewisse Beziehungen zur seelischen Welt und hatten daraus auch tiefere medizinische Gesichtspunkte. Wenn man findet: diese bestimmte Pflanzengruppe steht in Beziehung zu einer seelischen Eigenschaft - zum Beispiel Pilze stehen in besonderer Beziehung zu der seelischen Eigenschaft des viel Nachdenkens, des viel Überlegens, des So-seelisch-Lebens, dass man zu diesem seelischen Erleben nicht viel braucht aus der Außenwelt, sondern alles mehr aus sich selbst herauspumpt -, dann wird man wiederum finden, dass diese seelische Eigenschaft, die im Grunde genommen auf die Pilze hinweist, sehr intime Beziehungen zu allen kopfschmerzartigen Krankheiten hat. Daraus wird man auf Beziehungen von Pilzen zu kopfschmerzartigen Krankheiten kommen. In der Tierlehre kann man diese Vergleiche nicht so machen,"
+          "content": "<h2 data-index=\"^2c39y1\">S. führt Beispiele an aus den Schriften von Emil Schlegel, dem homöopathischen Arzt in Tübingen.</h2>\n|122| Rudolf Steiner: Auch Schlegel vergleicht noch zu äußerlich. Er geht dabei zurück auf das, was bei den Mystikern zu finden ist, bei Jakob Böhme und anderen, auf die sogenannten «Signaturen». Die mittelalterlichen Mystiker kannten gewisse Beziehungen zur seelischen Welt und hatten daraus auch tiefere medizinische Gesichtspunkte. Wenn man findet: diese bestimmte Pflanzengruppe steht in Beziehung zu einer seelischen Eigenschaft - zum Beispiel Pilze stehen in besonderer Beziehung zu der seelischen Eigenschaft des viel Nachdenkens, des viel Überlegens, des So-seelisch-Lebens, dass man zu diesem seelischen Erleben nicht viel braucht aus der Außenwelt, sondern alles mehr aus sich selbst herauspumpt -, dann wird man wiederum finden, dass diese seelische Eigenschaft, die im Grunde genommen auf die Pilze hinweist, sehr intime Beziehungen zu allen kopfschmerzartigen Krankheiten hat. Daraus wird man auf Beziehungen von Pilzen zu kopfschmerzartigen Krankheiten kommen. In der Tierlehre kann man diese Vergleiche nicht so machen,"
         },
         {
           "index": "^uh50k3",
@@ -2539,7 +2759,7 @@
         },
         {
           "index": "^b4xl0v",
-          "content": "<h2>Ein Teilnehmer vergleicht Pflanzengruppen mit Temperamenten.</h2>\nRudolf Steiner: Man kommt auf eine schiefe Ebene, wenn man die Temperamente unmittelbar auf das Pflanzenreich bezieht."
+          "content": "<h2 data-index=\"^b4xl0v\">Ein Teilnehmer vergleicht Pflanzengruppen mit Temperamenten.</h2>\nRudolf Steiner: Man kommt auf eine schiefe Ebene, wenn man die Temperamente unmittelbar auf das Pflanzenreich bezieht."
         },
         {
           "index": "^drgepg",
@@ -2684,6 +2904,23 @@
         {
           "index": "^es0nl6",
           "content": "Viertens: Wie unterrichtet man am besten über Flächenberechnung und Umfangberechnung von Flächen?"
+        }
+      ],
+      "headings": [
+        {
+          "index": "^mc562m",
+          "text": "L macht Ausführungen dazu.",
+          "level": "h2"
+        },
+        {
+          "index": "^2c39y1",
+          "text": "S. führt Beispiele an aus den Schriften von Emil Schlegel, dem homöopathischen Arzt in Tübingen.",
+          "level": "h2"
+        },
+        {
+          "index": "^b4xl0v",
+          "text": "Ein Teilnehmer vergleicht Pflanzengruppen mit Temperamenten.",
+          "level": "h2"
         }
       ]
     },
@@ -2832,7 +3069,7 @@
         },
         {
           "index": "^epovjc",
-          "content": "<h2>M. macht geographische Ausführungen über Gegenden am mittleren und unteren Rhein.</h2>\nRudolf Steiner: Beim Kartenzeichnen sollte man die Gebirge braun, die Flüsse blau zeichnen. Den Fluss sollte man immer seinem Lauf gemäß vom Ursprung an zeichnen, nie von der Mündung aus. Eine Karte für die Bodenverhältnisse und die Naturgrundlage, Kohle, Eisen, Gold, Silber; dann eine zweite für die Städte, die Industrie und so weiter."
+          "content": "<h2 data-index=\"^epovjc\">M. macht geographische Ausführungen über Gegenden am mittleren und unteren Rhein.</h2>\nRudolf Steiner: Beim Kartenzeichnen sollte man die Gebirge braun, die Flüsse blau zeichnen. Den Fluss sollte man immer seinem Lauf gemäß vom Ursprung an zeichnen, nie von der Mündung aus. Eine Karte für die Bodenverhältnisse und die Naturgrundlage, Kohle, Eisen, Gold, Silber; dann eine zweite für die Städte, die Industrie und so weiter."
         },
         {
           "index": "^6jktqt",
@@ -2840,7 +3077,7 @@
         },
         {
           "index": "^5msplp",
-          "content": "<h2>T. entwickelt die Flächenberechnung, ausgehend vom Quadrat und übergehend zum Rechteck, Parallelogramm, Trapez, Dreieck.</h2>\nRudolf Steiner: Es ist schwierig, dem Kinde beizubringen, was ein Winkel wirklich ist. Könnten Sie eine Methode bringen, um dem Kinde das zu zeigen? Vielleicht erinnern Sie sich, wie schwer es Ihnen geworden ist, das zu unterscheiden, ganz abgesehen davon, dass es Herrschaften hier geben könnte, die noch nicht wissen, was ein Winkel wirklich ist."
+          "content": "<h2 data-index=\"^5msplp\">T. entwickelt die Flächenberechnung, ausgehend vom Quadrat und übergehend zum Rechteck, Parallelogramm, Trapez, Dreieck.</h2>\nRudolf Steiner: Es ist schwierig, dem Kinde beizubringen, was ein Winkel wirklich ist. Könnten Sie eine Methode bringen, um dem Kinde das zu zeigen? Vielleicht erinnern Sie sich, wie schwer es Ihnen geworden ist, das zu unterscheiden, ganz abgesehen davon, dass es Herrschaften hier geben könnte, die noch nicht wissen, was ein Winkel wirklich ist."
         },
         {
           "index": "^zw7p9s",
@@ -2877,6 +3114,18 @@
         {
           "index": "^8zv1d9",
           "content": "Denken Sie einmal, Sie würden dem Kinde die Aufgabe stellen: Von irgendwo geht ein Bote ab , der macht so und so viele Meilen, und weit hinterher geht ein anderer Bote ab, der geht nicht, sondern der fährt mit dem Fahrrad, der macht so und so viele Meilen. Wann hat der Bote mit dem Fahrrad den gehenden Boten eingeholt? Dieses ist so zu behandeln, dass die Kinder eine gewisse Geistesgegenwart entwickeln im Ergreifen von Situationen und im Überblicken von Situationen."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^epovjc",
+          "text": "M. macht geographische Ausführungen über Gegenden am mittleren und unteren Rhein.",
+          "level": "h2"
+        },
+        {
+          "index": "^5msplp",
+          "text": "T. entwickelt die Flächenberechnung, ausgehend vom Quadrat und übergehend zum Rechteck, Parallelogramm, Trapez, Dreieck.",
+          "level": "h2"
         }
       ]
     },
@@ -3121,7 +3370,7 @@
         },
         {
           "index": "^a3096x",
-          "content": "<h2>Ein Teilnehmer weist auf Fehlerrechnungen hin.</h2>\nRudolf Steiner: Solche Fehlerrechnungen sind überhaupt sehr üblich. Es ist üblich, dass man gleich die Fehler miteinrechnet. Nun, in einem Punkte wird heute eine solche Fehlerrechnung gemacht und wird einmal korrigiert werden müssen. Als Kopernikus sein «Kopernikanisches System» aufgestellt hat, stellte er drei Lehrsätze auf. Würde man alle drei benützen, um den Weg der Erde durch den Weltenraum zu skizzieren, so würde man eine ganz andere Bewegung bekommen, als sie jetzt von unseren Astronomen angenommen und auf unseren Schulen gelehrt wird. Diese elliptische Bewegung wird nur dadurch möglich, dass man den dritten Lehrsatz unberücksichtigt lässt. Wenn der Astronom sein Fernrohr hinausrichtet, so stimmen die Dinge nicht. Zu diesem Zweck setzt man auch Fehler in Rechnung; durch die Besselschen Gleichungen werden jedes Jahr Fehler eingesetzt für das, was in der Wirklichkeit nicht stimmt. Die Besselschen Fehlergleichungen, in denen steckt der dritte Satz des Kopernikus."
+          "content": "<h2 data-index=\"^a3096x\">Ein Teilnehmer weist auf Fehlerrechnungen hin.</h2>\nRudolf Steiner: Solche Fehlerrechnungen sind überhaupt sehr üblich. Es ist üblich, dass man gleich die Fehler miteinrechnet. Nun, in einem Punkte wird heute eine solche Fehlerrechnung gemacht und wird einmal korrigiert werden müssen. Als Kopernikus sein «Kopernikanisches System» aufgestellt hat, stellte er drei Lehrsätze auf. Würde man alle drei benützen, um den Weg der Erde durch den Weltenraum zu skizzieren, so würde man eine ganz andere Bewegung bekommen, als sie jetzt von unseren Astronomen angenommen und auf unseren Schulen gelehrt wird. Diese elliptische Bewegung wird nur dadurch möglich, dass man den dritten Lehrsatz unberücksichtigt lässt. Wenn der Astronom sein Fernrohr hinausrichtet, so stimmen die Dinge nicht. Zu diesem Zweck setzt man auch Fehler in Rechnung; durch die Besselschen Gleichungen werden jedes Jahr Fehler eingesetzt für das, was in der Wirklichkeit nicht stimmt. Die Besselschen Fehlergleichungen, in denen steckt der dritte Satz des Kopernikus."
         },
         {
           "index": "^tf1eeq",
@@ -3158,6 +3407,13 @@
         {
           "index": "^elqibe",
           "content": "Fünftens: Wie ist es möglich, dem Kinde beizubringen den Begriff der Ellipse, der Hyperbel, des Kreises, der Lemniskate und den Begriff des geometrischen Ortes? - Das alles ist den Kindern beizubringen, unmittelbar bevor sie die Schule verlassen."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^a3096x",
+          "text": "Ein Teilnehmer weist auf Fehlerrechnungen hin.",
+          "level": "h2"
         }
       ]
     },
@@ -3294,7 +3550,7 @@
         },
         {
           "index": "^aepfle",
-          "content": "<h2>Es kommt die Rede auf negative und imaginäre Zahlen.</h2>\nRudolf Steiner: Eine negative Zahl ist ein Subtrahend, zu dem kein Minuend mehr da ist; eine Aufforderung zu einer Operation, zu der kein Stoff mehr da ist, die nicht ausgeführt werden kann. - Eugen Dühring wies die imaginären Zahlen als Unsinn zurück und sagte von der Gaußschen Definition des Imaginären, sie sei eine Eselei, keine Realität, ein ausspintisiertes Zeug."
+          "content": "<h2 data-index=\"^aepfle\">Es kommt die Rede auf negative und imaginäre Zahlen.</h2>\nRudolf Steiner: Eine negative Zahl ist ein Subtrahend, zu dem kein Minuend mehr da ist; eine Aufforderung zu einer Operation, zu der kein Stoff mehr da ist, die nicht ausgeführt werden kann. - Eugen Dühring wies die imaginären Zahlen als Unsinn zurück und sagte von der Gaußschen Definition des Imaginären, sie sei eine Eselei, keine Realität, ein ausspintisiertes Zeug."
         },
         {
           "index": "^jmew9d",
@@ -3322,7 +3578,7 @@
         },
         {
           "index": "^jxum6m",
-          "content": "<h2>Es wird eine Frage gestellt, die Benützung von Formeln betreffend.</h2>\nRudolf Steiner: Nun handelt es sich aber darum, ob Sie lieber sehr häufig die Formel nicht benützen, sondern immer wieder den Gedan|146|kengang, machen wollen - wobei Sie ja allerdings Sprachkultur treiben können, das ist ja richtig -, oder aber, ob Sie nicht doch zur Formel übergehen wollen. Wenn Sie es taktvoll machen, dass die Formel gut verstanden wird, ist das auch recht nützlich, um bis zu einem gewissen Grade Sprachkultur daran zu üben."
+          "content": "<h2 data-index=\"^jxum6m\">Es wird eine Frage gestellt, die Benützung von Formeln betreffend.</h2>\nRudolf Steiner: Nun handelt es sich aber darum, ob Sie lieber sehr häufig die Formel nicht benützen, sondern immer wieder den Gedan|146|kengang, machen wollen - wobei Sie ja allerdings Sprachkultur treiben können, das ist ja richtig -, oder aber, ob Sie nicht doch zur Formel übergehen wollen. Wenn Sie es taktvoll machen, dass die Formel gut verstanden wird, ist das auch recht nützlich, um bis zu einem gewissen Grade Sprachkultur daran zu üben."
         },
         {
           "index": "^p15i3q",
@@ -3346,7 +3602,7 @@
         },
         {
           "index": "^90qv19",
-          "content": "<h2>T.: Potenzieren vorher, Radizieren nachher.</h2>\nRudolf Steiner: Also Sie gehen doch aus und sollten auch in Zukunft davon ausgehen, dass Sie möglichst bald, vom elften, zwölften Jahre ab, mit der Buchstabenrechnung beginnen und dann erst zum Potenzieren, Radizieren übergehen. Denn nach der Buchstabenrechnung lässt sich auf sehr einfache und ökonomische Weise quadrieren, kubieren, potenzieren und wurzelziehen mit den Kindern, während man vorher furchtbar viel Zeit darauf verwendet. Sie werden leicht und ökonomisch unterrichten, wenn Sie zuerst die Buchstabenrechnung mit den Kindern besprochen haben."
+          "content": "<h2 data-index=\"^90qv19\">T.: Potenzieren vorher, Radizieren nachher.</h2>\nRudolf Steiner: Also Sie gehen doch aus und sollten auch in Zukunft davon ausgehen, dass Sie möglichst bald, vom elften, zwölften Jahre ab, mit der Buchstabenrechnung beginnen und dann erst zum Potenzieren, Radizieren übergehen. Denn nach der Buchstabenrechnung lässt sich auf sehr einfache und ökonomische Weise quadrieren, kubieren, potenzieren und wurzelziehen mit den Kindern, während man vorher furchtbar viel Zeit darauf verwendet. Sie werden leicht und ökonomisch unterrichten, wenn Sie zuerst die Buchstabenrechnung mit den Kindern besprochen haben."
         },
         {
           "index": "^60fc6p",
@@ -3458,7 +3714,7 @@
         },
         {
           "index": "^0uk1zi",
-          "content": "<h2>B. gibt eine Darstellung aus der altägyptischen Kultur.</h2>\n|152| Rudolf Steiner: Vor allem müsste man dazu übergehen, das vorzubringen, was das ganz andere Prinzip der Nachbildung ist. Es besteht bei den alten Ägyptern der Mangel, dass sie unperspektivisch sehen. Es malt der alte Ägypter das Gesicht im Profil und den übrigen Körper en face. Diese Eigentümlichkeit der Auffassung müsste man den Kindern schon beibringen."
+          "content": "<h2 data-index=\"^0uk1zi\">B. gibt eine Darstellung aus der altägyptischen Kultur.</h2>\n|152| Rudolf Steiner: Vor allem müsste man dazu übergehen, das vorzubringen, was das ganz andere Prinzip der Nachbildung ist. Es besteht bei den alten Ägyptern der Mangel, dass sie unperspektivisch sehen. Es malt der alte Ägypter das Gesicht im Profil und den übrigen Körper en face. Diese Eigentümlichkeit der Auffassung müsste man den Kindern schon beibringen."
         },
         {
           "index": "^49s05q",
@@ -3466,7 +3722,7 @@
         },
         {
           "index": "^9y7nz8",
-          "content": "<h2>B. fragt bei der Besprechung der Pyramiden, was man eigentlich den Kindern darüber sagen solle.</h2>\nRudolf Steiner: Es ist natürlich außerordentlich wichtig, allmählich zu versuchen, auch für die Kinder das Richtige an die Stelle des Falschen zu setzen. Tatsächlich waren die Pyramiden ja Einweihungsstätten. Und da kommt man ja nun dahin, dass man den Kindern den Begriff des höheren ägyptischen Unterrichts, der zu gleicher Zeit eine Einweihung war, beibringt. Man muss etwas erzählen davon, was da vorgegangen ist. Es sind da religiöse Handlungen ausgeführt worden, wie sie heute in den Kirchen ausgeführt werden, die aber zugleich dazu führten, dass das Weltall erkannt werden konnte. Der alte Ägypter hat eben so gelernt, dass ihm vorgezeigt worden ist in feierlichen Handlungen, was sich im Weltall und in der Menschheitsentwickelung vollzieht. Es war religiöse Übung und Unterricht eines. Es war so, dass Unterricht und religiöse Handlung eigentlich zusammenfielen."
+          "content": "<h2 data-index=\"^9y7nz8\">B. fragt bei der Besprechung der Pyramiden, was man eigentlich den Kindern darüber sagen solle.</h2>\nRudolf Steiner: Es ist natürlich außerordentlich wichtig, allmählich zu versuchen, auch für die Kinder das Richtige an die Stelle des Falschen zu setzen. Tatsächlich waren die Pyramiden ja Einweihungsstätten. Und da kommt man ja nun dahin, dass man den Kindern den Begriff des höheren ägyptischen Unterrichts, der zu gleicher Zeit eine Einweihung war, beibringt. Man muss etwas erzählen davon, was da vorgegangen ist. Es sind da religiöse Handlungen ausgeführt worden, wie sie heute in den Kirchen ausgeführt werden, die aber zugleich dazu führten, dass das Weltall erkannt werden konnte. Der alte Ägypter hat eben so gelernt, dass ihm vorgezeigt worden ist in feierlichen Handlungen, was sich im Weltall und in der Menschheitsentwickelung vollzieht. Es war religiöse Übung und Unterricht eines. Es war so, dass Unterricht und religiöse Handlung eigentlich zusammenfielen."
         },
         {
           "index": "^fi2hnz",
@@ -3478,7 +3734,7 @@
         },
         {
           "index": "^q4r443",
-          "content": "<h2>B. fragt, ob auch auf die Mythologie einzugehen wäre.</h2>\nRudolf Steiner: Nicht wahr, wenn man die ägyptische Mythologie nicht in ihrer wahren Gestalt darstellen kann, so muss man sie eben weglassen. Kann man aber die ägyptische Mythologie in der wahren"
+          "content": "<h2 data-index=\"^q4r443\">B. fragt, ob auch auf die Mythologie einzugehen wäre.</h2>\nRudolf Steiner: Nicht wahr, wenn man die ägyptische Mythologie nicht in ihrer wahren Gestalt darstellen kann, so muss man sie eben weglassen. Kann man aber die ägyptische Mythologie in der wahren"
         },
         {
           "index": "^16fkv5",
@@ -3487,6 +3743,38 @@
         {
           "index": "^yte8rx",
           "content": "K. macht Ausführungen über die Erarbeitung der Begriffe: Geometrischer Ort, Kreis, Ellipse, Hyperbel, Lemniskate. (Das soll am nächsten Tage noch fortgesetzt werden.)"
+        }
+      ],
+      "headings": [
+        {
+          "index": "^aepfle",
+          "text": "Es kommt die Rede auf negative und imaginäre Zahlen.",
+          "level": "h2"
+        },
+        {
+          "index": "^jxum6m",
+          "text": "Es wird eine Frage gestellt, die Benützung von Formeln betreffend.",
+          "level": "h2"
+        },
+        {
+          "index": "^90qv19",
+          "text": "T.: Potenzieren vorher, Radizieren nachher.",
+          "level": "h2"
+        },
+        {
+          "index": "^0uk1zi",
+          "text": "B. gibt eine Darstellung aus der altägyptischen Kultur.",
+          "level": "h2"
+        },
+        {
+          "index": "^9y7nz8",
+          "text": "B. fragt bei der Besprechung der Pyramiden, was man eigentlich den Kindern darüber sagen solle.",
+          "level": "h2"
+        },
+        {
+          "index": "^q4r443",
+          "text": "B. fragt, ob auch auf die Mythologie einzugehen wäre.",
+          "level": "h2"
         }
       ]
     },
@@ -3885,7 +4173,7 @@
         },
         {
           "index": "^au3fum",
-          "content": "<h2>Dritter Lehrplanvortrag</h2>\nWir haben am Vormittag schon darauf hingewiesen: in ähnlicher Weise, wie nur allgemeine Linien angegeben werden können für das Bildend-Künstlerische, so kann man auch für das Musikalische nur allgemeine Linien angeben. Das einzelne muss selbstverständlich der pädagogischen |175| Freiheit überlassen bleiben. Und da würde ich nun bitten, diese allgemeinen Linien so zu betrachten, dass sie im Grunde genommen alles eingliedern lassen, was man für vernünftig halten kann im musikalischen Unterricht."
+          "content": "<h2 data-index=\"^au3fum\">Dritter Lehrplanvortrag</h2>\nWir haben am Vormittag schon darauf hingewiesen: in ähnlicher Weise, wie nur allgemeine Linien angegeben werden können für das Bildend-Künstlerische, so kann man auch für das Musikalische nur allgemeine Linien angeben. Das einzelne muss selbstverständlich der pädagogischen |175| Freiheit überlassen bleiben. Und da würde ich nun bitten, diese allgemeinen Linien so zu betrachten, dass sie im Grunde genommen alles eingliedern lassen, was man für vernünftig halten kann im musikalischen Unterricht."
         },
         {
           "index": "^bzjcjh",
@@ -3937,7 +4225,7 @@
         },
         {
           "index": "^ca4cop",
-          "content": "<h2>Fortsetzung der Seminarbesprechung</h2>\nK. spricht über Ellipse, Hyperbel, Kreis, Lemniskate und den Begriff des geometrischen Ortes. Er erwähnt dabei, wie die Lemniskate (Cassinische Kurve) eine Form 111 annehmen kann, bei der der eine Ast der Kurve den Raum verlässt und als der andere Ast wieder in ihn eintritt."
+          "content": "<h2 data-index=\"^ca4cop\">Fortsetzung der Seminarbesprechung</h2>\nK. spricht über Ellipse, Hyperbel, Kreis, Lemniskate und den Begriff des geometrischen Ortes. Er erwähnt dabei, wie die Lemniskate (Cassinische Kurve) eine Form 111 annehmen kann, bei der der eine Ast der Kurve den Raum verlässt und als der andere Ast wieder in ihn eintritt."
         },
         {
           "index": "^xelyew",
@@ -3949,7 +4237,7 @@
         },
         {
           "index": "^7f1s93",
-          "content": "<h2>D. spricht über ein geschichtliches Thema, über die Völkerwanderung.</h2>\nRudolf Steiner macht dazu mehrere Zwischenbemerkungen: Was als Gründe für die Völkerwanderung angeführt wird, beruht sehr häufig auf geschichtlichen Konstruktionen. Das Wesentliche ist, wenn man den Dingen zu Leibe geht, bei der eigentlichen Völkerwanderung, wo die Goten und so weiter vorrücken, dass die Römer das Geld haben, und die Germanen kein Geld haben, und dass die Tendenz besteht, dass überall da, wo eine Grenze ist, die Germanen in irgendeiner Weise sich das römische Geld aneignen wollen. Daher werden sie Söldner und alles mögliche. Es sind ja ganze Legionen von Germanen in den römischen Sold eingetreten. Es ist die Völkerwanderung eine wirtschaftlich-finanzielle Frage. Erst auf dieser Grundlage konnte dann die Ausbreitung des Christentums vor sich gehen. Die Völkerwanderung als solche rührt aber von der Habgier der Germanen her, die das Geld der Römer haben wollten. Die Römer wurden auch arm dabei! Auch schon beim Cimbernzug war es so. Den Cimbern wurde gesagt: Die Römer haben Gold! - während sie selbst arm waren. Das wirkte auf die Cimbern sehr stark. Sie wollen Gold holen. Römisches Gold! Es sind verschiedene Völkerschichten da, auch noch keltische Überreste. Sie finden heute noch deutliche Sprachanklänge an die keltische Sprache, zum Beispiel bei den Quellflüssen der Donau, Brig und Breg, Brigach und Brege. Dann überall, wo in den Ortsnamen «-ach» vorhanden ist, zum Beispiel Unterach, Dornach und so weiter. «Ach» kommt von Wässerchen her, von aqua, weist auf Keltisches zurück. Auch «Ill» und dergleichen erinnert ans alte Keltische. Über das Keltische schichtet sich dann das Germanische. - Gegensatz von Arianern und Athanasianern."
+          "content": "<h2 data-index=\"^7f1s93\">D. spricht über ein geschichtliches Thema, über die Völkerwanderung.</h2>\nRudolf Steiner macht dazu mehrere Zwischenbemerkungen: Was als Gründe für die Völkerwanderung angeführt wird, beruht sehr häufig auf geschichtlichen Konstruktionen. Das Wesentliche ist, wenn man den Dingen zu Leibe geht, bei der eigentlichen Völkerwanderung, wo die Goten und so weiter vorrücken, dass die Römer das Geld haben, und die Germanen kein Geld haben, und dass die Tendenz besteht, dass überall da, wo eine Grenze ist, die Germanen in irgendeiner Weise sich das römische Geld aneignen wollen. Daher werden sie Söldner und alles mögliche. Es sind ja ganze Legionen von Germanen in den römischen Sold eingetreten. Es ist die Völkerwanderung eine wirtschaftlich-finanzielle Frage. Erst auf dieser Grundlage konnte dann die Ausbreitung des Christentums vor sich gehen. Die Völkerwanderung als solche rührt aber von der Habgier der Germanen her, die das Geld der Römer haben wollten. Die Römer wurden auch arm dabei! Auch schon beim Cimbernzug war es so. Den Cimbern wurde gesagt: Die Römer haben Gold! - während sie selbst arm waren. Das wirkte auf die Cimbern sehr stark. Sie wollen Gold holen. Römisches Gold! Es sind verschiedene Völkerschichten da, auch noch keltische Überreste. Sie finden heute noch deutliche Sprachanklänge an die keltische Sprache, zum Beispiel bei den Quellflüssen der Donau, Brig und Breg, Brigach und Brege. Dann überall, wo in den Ortsnamen «-ach» vorhanden ist, zum Beispiel Unterach, Dornach und so weiter. «Ach» kommt von Wässerchen her, von aqua, weist auf Keltisches zurück. Auch «Ill» und dergleichen erinnert ans alte Keltische. Über das Keltische schichtet sich dann das Germanische. - Gegensatz von Arianern und Athanasianern."
         },
         {
           "index": "^q9h6kq",
@@ -3965,7 +4253,7 @@
         },
         {
           "index": "^jiogsp",
-          "content": "<h2>L. führt aus, wie er die Ausbreitung des Christentums bei den Germanen an die Kinder heranbringen würde.</h2>\nRudolf Steiner: Das arianische Christentum hat im praktischen Ausleben etwas sehr stark dem späteren Protestantismus ähnliches, es war aber weniger abstrakt, war noch konkreter."
+          "content": "<h2 data-index=\"^jiogsp\">L. führt aus, wie er die Ausbreitung des Christentums bei den Germanen an die Kinder heranbringen würde.</h2>\nRudolf Steiner: Das arianische Christentum hat im praktischen Ausleben etwas sehr stark dem späteren Protestantismus ähnliches, es war aber weniger abstrakt, war noch konkreter."
         },
         {
           "index": "^45pw5c",
@@ -3993,11 +4281,11 @@
         },
         {
           "index": "^zyszrp",
-          "content": "<h2>U. spricht über den musikalischen Unterricht.</h2>\n|181| Rudolf Steiner: Die im Musikunterricht weniger Fortgeschrittenen sollte man wenigstens zu den Übungen der Fortgeschrittenen dazunehmen, wenn sie auch untätig dabei sind und nur zuhören. Wenn alles nichts nützt, kann man sie immer noch absondern. Es wird übrigens noch viele Gegenstände geben, wo ähnliche Übelstände eintreten, dass also die Fortgeschrittenen und die Zurückgebliebenen nicht in Einklang zu bringen sind. Das wird sich weniger einstellen, wenn man für die richtigen Methoden sorgt. Heute wird das nur durch allerlei Verhältnisse kaschiert. Wenn Sie nach unseren Gesichtspunkten praktisch unterrichten werden, werden Sie die Schwierigkeiten, die Sie sonst gar nicht bemerken, auch mit anderen Gegenständen bekommen als nur mit der Musik. Zum Beispiel beim Zeichnen und Malen. Sie kriegen Kinder, die Sie im Künstlerischen sehr schwer vorwärtsbringen können, auch im Plastisch-Künstlerischen, im Bildnerisch-Künstlerischen. Da muss man auch versuchen, nicht zu früh an die Trennung der Kinder zu gehen, sondern erst, wenn es gar nicht mehr geht."
+          "content": "<h2 data-index=\"^zyszrp\">U. spricht über den musikalischen Unterricht.</h2>\n|181| Rudolf Steiner: Die im Musikunterricht weniger Fortgeschrittenen sollte man wenigstens zu den Übungen der Fortgeschrittenen dazunehmen, wenn sie auch untätig dabei sind und nur zuhören. Wenn alles nichts nützt, kann man sie immer noch absondern. Es wird übrigens noch viele Gegenstände geben, wo ähnliche Übelstände eintreten, dass also die Fortgeschrittenen und die Zurückgebliebenen nicht in Einklang zu bringen sind. Das wird sich weniger einstellen, wenn man für die richtigen Methoden sorgt. Heute wird das nur durch allerlei Verhältnisse kaschiert. Wenn Sie nach unseren Gesichtspunkten praktisch unterrichten werden, werden Sie die Schwierigkeiten, die Sie sonst gar nicht bemerken, auch mit anderen Gegenständen bekommen als nur mit der Musik. Zum Beispiel beim Zeichnen und Malen. Sie kriegen Kinder, die Sie im Künstlerischen sehr schwer vorwärtsbringen können, auch im Plastisch-Künstlerischen, im Bildnerisch-Künstlerischen. Da muss man auch versuchen, nicht zu früh an die Trennung der Kinder zu gehen, sondern erst, wenn es gar nicht mehr geht."
         },
         {
           "index": "^jkal99",
-          "content": "<h2>N. spricht über die Behandlung des Poetischen im französischen und englischen Unterricht.</h2>\nRudolf Steiner: Wir halten durchaus daran fest, das Englische und Französische ganz von Anfang an mit den Kindern in mäßiger Weise zu treiben. Nicht gouvernantenhaft, sondern so, dass sie die beiden Sprachen richtig schätzen lernen, und dass sie ein Gefühl bekommen für den richtigen Ausdruck in den beiden Sprachen."
+          "content": "<h2 data-index=\"^jkal99\">N. spricht über die Behandlung des Poetischen im französischen und englischen Unterricht.</h2>\nRudolf Steiner: Wir halten durchaus daran fest, das Englische und Französische ganz von Anfang an mit den Kindern in mäßiger Weise zu treiben. Nicht gouvernantenhaft, sondern so, dass sie die beiden Sprachen richtig schätzen lernen, und dass sie ein Gefühl bekommen für den richtigen Ausdruck in den beiden Sprachen."
         },
         {
           "index": "^g2hx9e",
@@ -4025,7 +4313,7 @@
         },
         {
           "index": "^hvbmvt",
-          "content": "<h2>R. fragt, ob man Zeugnisse geben soll.</h2>\n|183| Rudolf Steiner: Solange die Kinder in derselben Schule sind, wozu soll man da Zeugnisse geben? Geben Sie sie dann, wenn die Kinder abgehen. Es ist ja nicht von einer tiefgehenden pädagogischen Bedeutung, neue Zensuren auszusinnen. Zensuren unter die einzelnen Arbeiten wären ganz frei zu geben, ohne bestimmtes Schema."
+          "content": "<h2 data-index=\"^hvbmvt\">R. fragt, ob man Zeugnisse geben soll.</h2>\n|183| Rudolf Steiner: Solange die Kinder in derselben Schule sind, wozu soll man da Zeugnisse geben? Geben Sie sie dann, wenn die Kinder abgehen. Es ist ja nicht von einer tiefgehenden pädagogischen Bedeutung, neue Zensuren auszusinnen. Zensuren unter die einzelnen Arbeiten wären ganz frei zu geben, ohne bestimmtes Schema."
         },
         {
           "index": "^vcm0o2",
@@ -4042,6 +4330,43 @@
         {
           "index": "^gomr7o",
           "content": "Nun wird es natürlich notwendig sein, dass wir auch die Schule in ihrer praktischen Gliederung besprechen. Dass mit Ihnen besprochen wird, in welchen Klassen Sie zu unterrichten haben und so weiter, wie wir die Sachen auf Vor- und Nachmittag verlegen und so weiter. Das muss besprochen werden, bevor wir den Unterricht beginnen. Morgen wird ja die feierliche Eröffnung sein, und dann werden wir schon Gelegenheit nehmen, morgen oder übermorgen das, was noch für die technische Einteilung nötig ist, zu besprechen. Wir werden darüber noch eine entscheidende Konferenz im engsten Kreise haben. Ich werde dann auch noch einige Worte über die Schulweihe zu sagen haben."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^au3fum",
+          "text": "Dritter Lehrplanvortrag",
+          "level": "h2"
+        },
+        {
+          "index": "^ca4cop",
+          "text": "Fortsetzung der Seminarbesprechung",
+          "level": "h2"
+        },
+        {
+          "index": "^7f1s93",
+          "text": "D. spricht über ein geschichtliches Thema, über die Völkerwanderung.",
+          "level": "h2"
+        },
+        {
+          "index": "^jiogsp",
+          "text": "L. führt aus, wie er die Ausbreitung des Christentums bei den Germanen an die Kinder heranbringen würde.",
+          "level": "h2"
+        },
+        {
+          "index": "^zyszrp",
+          "text": "U. spricht über den musikalischen Unterricht.",
+          "level": "h2"
+        },
+        {
+          "index": "^jkal99",
+          "text": "N. spricht über die Behandlung des Poetischen im französischen und englischen Unterricht.",
+          "level": "h2"
+        },
+        {
+          "index": "^hvbmvt",
+          "text": "R. fragt, ob man Zeugnisse geben soll.",
+          "level": "h2"
         }
       ]
     },
