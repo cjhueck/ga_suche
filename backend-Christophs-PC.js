@@ -103,15 +103,30 @@ app.get('/assets/*', async (req, res) => {
     // Decode URL-encoded Zeichen
     const decodedPath = decodeURIComponent(imagePath);
     
-    // Finde den GA-Ordner basierend auf dem Bildpfad
-    // Unterstützt sowohl "GA134-xxx.webp" als auch "134-xxx.webp" Format
+    // Finde den GA-Ordner basierend auf dem Bildpfad ODER Query-Parameter ?ga=GA295
+    // Manche Bände (z.B. GA295, GA306) haben relative Pfade wie "img-0.png" ohne GA-Präfix
+    let gaNumber = null;
     const gaMatch = decodedPath.match(/^(GA)?(\d{3}[a-z]?)/i);
-    if (!gaMatch) {
-      return res.status(404).json({ error: 'GA-Nummer nicht gefunden' });
+    if (gaMatch) {
+      gaNumber = gaMatch[1] ? gaMatch[0].toUpperCase() : 'GA' + gaMatch[2];
+    } else if (req.query.ga) {
+      const q = String(req.query.ga).trim();
+      const qMatch = q.match(/^(GA)?(\d{3}[a-z]?)$/i);
+      if (qMatch) {
+        gaNumber = qMatch[1] ? qMatch[0].toUpperCase() : 'GA' + qMatch[2];
+      }
+    }
+    if (!gaNumber) {
+      return res.status(404).json({ error: 'GA-Nummer nicht gefunden (weder im Pfad noch als ?ga= Parameter)' });
     }
     
-    // Normalisiere zu "GA###" Format
-    const gaNumber = gaMatch[1] ? gaMatch[0].toUpperCase() : 'GA' + gaMatch[2];
+    // Wenn decodedPath einen vollständigen Unterordner-Pfad enthält (z.B. "GA306-Die.../assets/img-2.png"),
+    // extrahiere nur den Dateinamen relativ zu assets/ – sonst würde der Pfad doppelt werden
+    let pathForAssets = decodedPath;
+    const assetsIdx = decodedPath.lastIndexOf('/assets/');
+    if (assetsIdx >= 0) {
+      pathForAssets = decodedPath.substring(assetsIdx + 8); // Nach "/assets/"
+    }
     
     const steinerGADir = path.join(__dirname, 'Steiner_GA');
     
@@ -128,15 +143,15 @@ app.get('/assets/*', async (req, res) => {
     
     
     // Konstruiere den vollständigen Pfad zum Bild
-    let fullImagePath = path.join(steinerGADir, gaFolder, 'assets', decodedPath);
+    let fullImagePath = path.join(steinerGADir, gaFolder, 'assets', pathForAssets);
     
     // Prüfe ob Datei existiert
     if (!fsSync.existsSync(fullImagePath)) {
       
       // Falls .png nicht gefunden, versuche .jpeg oder .jpg
-      if (decodedPath.endsWith('.png')) {
-        const jpegPath = decodedPath.replace(/\.png$/i, '.jpeg');
-        const jpgPath = decodedPath.replace(/\.png$/i, '.jpg');
+      if (pathForAssets.endsWith('.png')) {
+        const jpegPath = pathForAssets.replace(/\.png$/i, '.jpeg');
+        const jpgPath = pathForAssets.replace(/\.png$/i, '.jpg');
         
         const jpegFullPath = path.join(steinerGADir, gaFolder, 'assets', jpegPath);
         const jpgFullPath = path.join(steinerGADir, gaFolder, 'assets', jpgPath);
