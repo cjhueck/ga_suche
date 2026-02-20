@@ -13706,18 +13706,33 @@ function normalizeGANumber(gaNumber) {
         await loadSteinerImagesForLecture(lectureId);
       }
       
-      // Wenn keine Bilder in der Datenbank sind, gebe Warnung aus aber fahre fort
+      // Wenn keine Bilder in der Datenbank sind: Fallback - rewrite img-Tags
+      // Vollständige Pfade (GA306-Die.../assets/img-2.png) → /ga-k-images/ (express.static)
+      // Kurze Pfade (assets/img-2.png) → /assets/?ga= (API-Route)
       if (!steinerImages[lectureId]) {
         console.warn('[IMAGES] ⚠ Keine Bilder-Datenbank für lectureId:', lectureId);
-        // Prüfe trotzdem ob Bilder vorhanden sind
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlContent;
-        const imgTags = tempDiv.querySelectorAll('img[src^="assets/"]');
+        const imgTags = tempDiv.querySelectorAll('img[src*="assets/"]');
         if (imgTags.length > 0) {
-          console.warn('[IMAGES] ⚠', imgTags.length, 'Bilder gefunden, aber nicht in Datenbank für', lectureId);
-          imgTags.forEach(img => {
-            console.warn(`  - Bild src: ${img.getAttribute('src')}`);
+          const gaFromLectureId = (lectureId || '').split('/')[0] || lectureId;
+          imgTags.forEach(imgTag => {
+            const src = imgTag.getAttribute('src');
+            if (src && !src.startsWith('data:') && !src.startsWith('http')) {
+              const cleanedSrc = (src || '').replace(/^[<"']|[>"']$/g, '').trim();
+              const m = cleanedSrc.match(/assets\/(.+)$/);
+              const p = m ? m[1] : cleanedSrc.replace(/^assets\//, '');
+              const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
+              const imageUrl = hasFullPath
+                ? (API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/'))
+                : (API_BASE + '/assets/' + encodeURIComponent(p) + '?ga=' + encodeURIComponent(gaFromLectureId));
+              imgTag.setAttribute('src', imageUrl);
+              imgTag.className = 'lecture-image';
+              imgTag.style.cursor = 'pointer';
+              imgTag.setAttribute('data-image-popup-handler', 'true');
+            }
           });
+          return tempDiv.innerHTML;
         }
         return htmlContent;
       }
@@ -13725,12 +13740,28 @@ function normalizeGANumber(gaNumber) {
       const images = steinerImages[lectureId];
       if (!images || images.length === 0) {
         console.warn('[IMAGES] ⚠ Leeres Bilder-Array für lectureId:', lectureId);
-        // Prüfe trotzdem ob Bilder im HTML vorhanden sind
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlContent;
-        const imgTags = tempDiv.querySelectorAll('img[src^="assets/"]');
+        const imgTags = tempDiv.querySelectorAll('img[src*="assets/"]');
         if (imgTags.length > 0) {
-          console.warn('[IMAGES] ⚠', imgTags.length, 'Bilder im HTML gefunden, aber leeres Array in Datenbank für', lectureId);
+          const gaFromLectureId = (lectureId || '').split('/')[0] || lectureId;
+          imgTags.forEach(imgTag => {
+            const src = imgTag.getAttribute('src');
+            if (src && !src.startsWith('data:') && !src.startsWith('http')) {
+              const cleanedSrc = (src || '').replace(/^[<"']|[>"']$/g, '').trim();
+              const m = cleanedSrc.match(/assets\/(.+)$/);
+              const p = m ? m[1] : cleanedSrc.replace(/^assets\//, '');
+              const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
+              const imageUrl = hasFullPath
+                ? (API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/'))
+                : (API_BASE + '/assets/' + encodeURIComponent(p) + '?ga=' + encodeURIComponent(gaFromLectureId));
+              imgTag.setAttribute('src', imageUrl);
+              imgTag.className = 'lecture-image';
+              imgTag.style.cursor = 'pointer';
+              imgTag.setAttribute('data-image-popup-handler', 'true');
+            }
+          });
+          return tempDiv.innerHTML;
         }
         return htmlContent;
       }
@@ -14042,14 +14073,20 @@ function normalizeGANumber(gaNumber) {
             }))
           });
           
-          // FALLBACK: Auch wenn Bild nicht in Datenbank gefunden, Style trotzdem anwenden
-          // und versuche URL-basierten Abruf über Backend
-          // Bereinige den Pfad (entferne <, >, Anführungszeichen)
+          // FALLBACK: Auch wenn Bild nicht in Datenbank gefunden
           let cleanedSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
-          // Extrahiere den Teil nach "assets/"
+          const gaFromLectureId = (lectureId || '').split('/')[0] || lectureId;
           const assetsMatch = cleanedSrc.match(/assets\/(.+)$/);
           const srcForBackend = assetsMatch ? assetsMatch[1] : (cleanedSrc.startsWith('assets/') ? cleanedSrc.replace('assets/', '') : cleanedSrc);
-          const backendUrl = `${API_BASE}/assets/${encodeURIComponent(srcForBackend)}`;
+          const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
+          let backendUrl;
+          if (hasFullPath) {
+            backendUrl = API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/');
+          } else if (/^(GA)?\d{3}[a-z]?/i.test(srcForBackend)) {
+            backendUrl = API_BASE + '/assets/' + encodeURIComponent(srcForBackend);
+          } else {
+            backendUrl = API_BASE + '/assets/' + encodeURIComponent(srcForBackend) + '?ga=' + encodeURIComponent(gaFromLectureId);
+          }
           
           console.log(`[IMAGES] Fallback: Versuche URL-basierten Abruf: ${backendUrl}`);
           imgTag.setAttribute('src', backendUrl);
@@ -18158,17 +18195,24 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Suche nach allen img-Tags mit assets/ im src (auch mit <> oder anderen Präfixen)
       const imgTags = viewer.querySelectorAll('img[src*="assets/"]');
       if (imgTags.length > 0) {
+        const gaFromBookId = (bookId || '').split('/')[0] || bookId;
         imgTags.forEach(imgTag => {
           const originalSrc = imgTag.getAttribute('src');
-          const decodedSrc = decodeURIComponent(originalSrc);
+          let decodedSrc;
+          try { decodedSrc = decodeURIComponent(originalSrc); } catch (e) { decodedSrc = originalSrc; }
           
-          // Bereinige den Pfad (entferne <, >, Anführungszeichen)
           let cleanedSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
-          
-          // Rewrite URL zum Backend - extrahiere den Teil nach "assets/"
-          const assetsMatch = cleanedSrc.match(/assets\/(.+)$/);
-          const srcForBackend = assetsMatch ? assetsMatch[1] : (cleanedSrc.startsWith('assets/') ? cleanedSrc.replace('assets/', '') : cleanedSrc);
-          const backendUrl = `${API_BASE}/assets/${encodeURIComponent(srcForBackend)}`;
+          const m = cleanedSrc.match(/assets\/(.+)$/);
+          const p = m ? m[1] : cleanedSrc.replace(/^assets\//, '');
+          const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
+          let backendUrl;
+          if (hasFullPath) {
+            backendUrl = API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/');
+          } else if (/^(GA)?\d{3}[a-z]?/i.test(p)) {
+            backendUrl = API_BASE + '/assets/' + encodeURIComponent(p);
+          } else {
+            backendUrl = API_BASE + '/assets/' + encodeURIComponent(p) + '?ga=' + encodeURIComponent(gaFromBookId);
+          }
           imgTag.setAttribute('src', backendUrl);
           
           // Prüfe, ob es eine Tafelzeichnung ist (basierend auf Pfad oder Alt-Text)
