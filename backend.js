@@ -692,11 +692,20 @@ function extractGAFromLectureId(lectureId) {
   return match ? match[1] : null;
 }
 
-// Hilfsfunktion: Zählt Vorträge, Aufsätze und Schriften für STATISTIK-ANZEIGE
+// Hilfsfunktion: Prüft ob ein GA-Band ein Briefband ist (GA262, GA263a)
+function isLetterGANumberBackend(ga) {
+  if (!ga) return false;
+  const normalized = ga.replace(/^ga/i, '').toLowerCase();
+  return normalized === '262' || normalized === '263a';
+}
+
+// Hilfsfunktion: Zählt Vorträge, Aufsätze, Briefe und Schriften für STATISTIK-ANZEIGE
 // GA001-GA028 und GA045 werden als Schriften gezählt (Inhalte nicht als einzelne Aufsätze)
+// GA262, GA263a werden als Briefbände gezählt (Anzahl = Summe der headings, nicht Dateien)
 function countLectureTypes() {
   let lectures = 0;
   let essays = 0;
+  let letters = 0;
   const schriften = new Set(); // Sammle eindeutige Schriften-Bände
   const allGABands = new Set(); // Sammle alle GA-Bände
   
@@ -709,11 +718,15 @@ function countLectureTypes() {
       // Prüfe ob GA-Band eine Schrift ist
       if (isSchriftForStats(ga)) {
         schriften.add(ga.toUpperCase());
+      } else if (isLetterGANumberBackend(ga)) {
+        // Briefbände: Anzahl der headings (= Briefe) zählen, nicht Dateien
+        const lectureData = fullLectures[lectureId];
+        letters += lectureData ? (lectureData.headings || []).length : 0;
       } else if (isEssayGANumber(ga)) {
         // Nur Aufsätze aus Nicht-Schrift-Bänden zählen
         essays++;
       } else if (!isBookGANumberBackend(ga)) {
-        // Vorträge (weder Schrift noch Aufsatzband noch Buch)
+        // Vorträge (weder Schrift noch Aufsatzband noch Buch noch Briefband)
         lectures++;
       }
     }
@@ -734,6 +747,7 @@ function countLectureTypes() {
   return { 
     lectures, 
     essays, 
+    letters,
     books: schriften.size
   };
 }
@@ -6799,8 +6813,9 @@ app.get('/debug/status', async (req, res) => {
     server: 'hybrid-search-unified',
     status: 'running',
     chunksLoaded: chunks.length,
-    lecturesLoaded: typeCounts.lectures, // Nur echte Vorträge (ohne Aufsätze)
+    lecturesLoaded: typeCounts.lectures, // Nur echte Vorträge (ohne Aufsätze und Briefe)
     essaysLoaded: typeCounts.essays, // Aufsätze separat
+    lettersLoaded: typeCounts.letters, // Briefe (GA262, GA263a) separat
     booksLoaded: typeCounts.books, // Schriften (Bücher)
     bookFilesFound: bookFiles.length,
     bookFiles: bookFiles,
@@ -18472,9 +18487,22 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
         return hasTableOfContents && hasLectureKeywords && hasKeywordsEntry;
       });
       
+      // Briefbände (GA262, GA263a): Briefe über headings zählen, nicht Dateien
+      const isLetterBand = ga === 'ga262' || ga === 'ga263a';
+      let lectureCount;
+      if (isLetterBand) {
+        lectureCount = lectures.reduce((sum, lectureId) => {
+          const lectureData = fullLectures[lectureId];
+          const headings = lectureData ? (lectureData.headings || []) : [];
+          return sum + headings.length;
+        }, 0);
+      } else {
+        lectureCount = lectures.length;
+      }
+
       return {
         volume: ga,
-        lectureCount: lectures.length,
+        lectureCount,
         lectures: lectures.sort(),
         hasKeywords: someLecturesComplete,  // Mindestens ein Vortrag vollständig
         isComplete: allLecturesComplete     // ALLE Vorträge vollständig
