@@ -13594,12 +13594,14 @@ function normalizeGANumber(gaNumber) {
     let totalLecturesCount = 0;
     let totalBooksCount = 0;
     let totalEssaysCount = 0;
+    let totalLettersCount = 0;
     
-    // Generiert den Statistik-Text für Schriften, Aufsätze und Vorträge
+    // Generiert den Statistik-Text für Schriften, Aufsätze, Briefe und Vorträge
     function getDefaultStatsText() {
       const parts = [];
       if (totalBooksCount > 0) parts.push(`${totalBooksCount} Schriften`);
       if (totalEssaysCount > 0) parts.push(`${totalEssaysCount} Aufsätze`);
+      if (totalLettersCount > 0) parts.push(`${totalLettersCount} Briefe`);
       if (totalLecturesCount > 0) parts.push(`${totalLecturesCount} Vorträge`);
       return parts.join(' · ') || '';
     }
@@ -13609,10 +13611,11 @@ function normalizeGANumber(gaNumber) {
         const response = await fetch(`${API_BASE}/debug/status`);
         if (response.ok) {
           const data = await response.json();
-          // Setze Werte aus Server-Response (Vorträge, Aufsätze, Schriften)
+          // Setze Werte aus Server-Response (Vorträge, Aufsätze, Briefe, Schriften)
           if (data.lecturesLoaded) totalLecturesCount = data.lecturesLoaded;
           if (data.booksLoaded) totalBooksCount = data.booksLoaded;
           if (data.essaysLoaded) totalEssaysCount = data.essaysLoaded;
+          if (data.lettersLoaded) totalLettersCount = data.lettersLoaded;
           
           // NUR Statistik anzeigen wenn ALLE drei Werte vorhanden sind (inkl. Aufsätze)
           // Ansonsten zeige "Lade..." - die vollständige Statistik kommt von loadGAVolumesInSidebar()
@@ -15402,24 +15405,28 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     // Zeige GA-Bände im Sidebar (im #results Bereich)
     displayGAVolumesInSidebar();
     
-    // Berechne Gesamtanzahl der Vorträge, Schriften und Aufsätze
+    // Berechne Gesamtanzahl der Vorträge, Schriften, Aufsätze und Briefe
     // Schriften: GA001-GA028 und GA045 – jeweils als 1 Band gezählt, Inhalte nicht einzeln
+    // Briefbände (GA262, GA263a): Briefe (H2-Überschriften) separat zählen, nicht als Vorträge
     const totalBooks = gaVolumesData.filter(ga => isSchriftForStats(ga.number)).length;
     const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number) && !isSchriftForStats(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
-    const totalLectures = gaVolumesData.filter(ga => !isSchriftForStats(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalLetters = gaVolumesData.filter(ga => isLetterGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalLectures = gaVolumesData.filter(ga => !isSchriftForStats(ga.number) && !isEssayGANumber(ga.number) && !isLetterGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     
     // Aktualisiere globale Statistik-Variablen aus GA-Volumes (zuverlässigste Quelle)
     totalLecturesCount = totalLectures;
     totalBooksCount = totalBooks;
     totalEssaysCount = totalEssays;
+    totalLettersCount = totalLetters;
     
     // Aktualisiere Info
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
       const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
+      const lettersText = totalLetters > 0 ? `${totalLetters} Briefe · ` : '';
       const chalkboardsText = (chalkboardsData && chalkboardsData.length > 0) ? ` · ${chalkboardsData.length} Wandtafeln` : '';
-      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge${chalkboardsText}`;
+      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${lettersText}${totalLectures} Vorträge${chalkboardsText}`;
       countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
     
@@ -16831,6 +16838,13 @@ function isBookGANumber(gaNumber) {
   return gaNum >= 2 && gaNum <= 46;
 }
 
+// Hilfsfunktion: Prüft ob ein GA-Band ein Briefband ist (GA262, GA263a)
+function isLetterGANumber(gaNumber) {
+  if (!gaNumber) return false;
+  const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
+  return normalized === '262' || normalized === '263a';
+}
+
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
 // Zusätzlich: GA018, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
@@ -16865,10 +16879,11 @@ function isGA046(gaNumber) {
   return gaNum === 46;
 }
 
-// Hilfsfunktion: Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'lecture')
+// Hilfsfunktion: Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'letter', 'lecture')
 function getGAType(gaNumber) {
   if (isBookGANumber(gaNumber)) return 'book';
   if (isEssayGANumber(gaNumber)) return 'essay';
+  if (isLetterGANumber(gaNumber)) return 'letter';
   return 'lecture';
 }
 
@@ -16877,6 +16892,7 @@ function getGATypeName(gaNumber, plural = false) {
   const type = getGAType(gaNumber);
   if (type === 'book') return plural ? 'Schriften' : 'Schrift';
   if (type === 'essay') return plural ? 'Aufsätze' : 'Aufsatz';
+  if (type === 'letter') return plural ? 'Dokumente' : 'Dokument';
   return plural ? 'Vorträge' : 'Vortrag';
 }
 
