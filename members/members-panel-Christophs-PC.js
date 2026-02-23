@@ -1130,11 +1130,21 @@ function isEssayGANumber(gaNumber) {
 }
 
 /**
- * Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'lecture')
+ * Prüft ob ein GA-Band ein Briefband ist (GA262, GA263a)
+ */
+function isLetterGANumber(gaNumber) {
+  if (!gaNumber) return false;
+  const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
+  return normalized === '262' || normalized === '263a';
+}
+
+/**
+ * Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'letter', 'lecture')
  */
 function getGAType(gaNumber) {
   if (isBookGANumber(gaNumber)) return 'book';
   if (isEssayGANumber(gaNumber)) return 'essay';
+  if (isLetterGANumber(gaNumber)) return 'letter';
   return 'lecture';
 }
 
@@ -1145,6 +1155,7 @@ function getGATypeName(gaNumber, plural = false) {
   const type = getGAType(gaNumber);
   if (type === 'book') return plural ? 'Schriften' : 'Schrift';
   if (type === 'essay') return plural ? 'Aufsätze' : 'Aufsatz';
+  if (type === 'letter') return plural ? 'Dokumente' : 'Dokument';
   return plural ? 'Vorträge' : 'Vortrag';
 }
 

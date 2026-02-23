@@ -15311,21 +15311,25 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     
     // Aktualisiere Info-Element auch beim erneuten Anzeigen
     // Schriften: GA001-GA028 und GA045 – jeweils als 1 Band gezählt, Inhalte nicht einzeln
+    // Briefbände (GA262, GA263a): separat als Briefe zählen, nicht als Vorträge
     const totalBooks = gaVolumesData.filter(ga => isSchriftForStats(ga.number)).length;
     const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number) && !isSchriftForStats(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
-    const totalLectures = gaVolumesData.filter(ga => !isSchriftForStats(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalLetters = gaVolumesData.filter(ga => isLetterGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalLectures = gaVolumesData.filter(ga => !isSchriftForStats(ga.number) && !isEssayGANumber(ga.number) && !isLetterGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     
     // Aktualisiere globale Statistik-Variablen
     totalLecturesCount = totalLectures;
     totalBooksCount = totalBooks;
     totalEssaysCount = totalEssays;
+    totalLettersCount = totalLetters;
     
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
       const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
+      const lettersText = totalLetters > 0 ? `${totalLetters} Briefe · ` : '';
       const chalkboardsText = (chalkboardsData && chalkboardsData.length > 0) ? ` · ${chalkboardsData.length} Wandtafeln` : '';
-      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge${chalkboardsText}`;
+      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${lettersText}${totalLectures} Vorträge${chalkboardsText}`;
       countElement.style.fontStyle = 'normal';
     }
     
