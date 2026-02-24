@@ -34693,11 +34693,18 @@ function runObsidianSearch(rawQ) {
 }
 
 // Obsidian-Zitat: Via GA+Datum+Seite navigieren
+var _obsidianTryScrollTimeout = null;  // Verhindert mehrere parallele tryScroll-Loops (Flackern)
 async function navigateToGAPage(ga, date, page, searchText, vault, file) {
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
   
   console.log('[OBSIDIAN-GA] Navigiere zu GA', ga, 'Datum', date, 'Seite', page, searchText ? `Text: "${searchText}"` : '');
+  
+  // Vorherigen tryScroll-Loop abbrechen (verhindert mehrfaches Flackern)
+  if (_obsidianTryScrollTimeout) {
+    clearTimeout(_obsidianTryScrollTimeout);
+    _obsidianTryScrollTimeout = null;
+  }
   
   try {
     const resp = await fetch(`${apiBase}/api/resolve-lecture?ga=${encodeURIComponent(ga)}&date=${encodeURIComponent(date)}`);
@@ -34725,37 +34732,41 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
     var tryScroll = function() {
       if (Date.now() - startTime > maxWaitTime) {
         if (appliedCount === 0) console.log('[OBSIDIAN-GA] ⏱ Timeout erreicht');
+        _obsidianTryScrollTimeout = null;
         return;
       }
       
       const viewer = document.getElementById('viewer');
       if (!viewer) {
-        setTimeout(tryScroll, 300);
+        _obsidianTryScrollTimeout = setTimeout(tryScroll, 300);
         return;
       }
       
       const allParas = viewer.querySelectorAll('.paragraph');
       if (allParas.length === 0) {
-        setTimeout(tryScroll, 400);
+        _obsidianTryScrollTimeout = setTimeout(tryScroll, 400);
         return;
       }
       
-      // Bereits markiert und kürzlich angewendet? Nicht erneut überschreiben (verhindert Flackern)
       var hasMarker = viewer.querySelector('.obsidian-page-marker');
-      if (hasMarker && Date.now() - lastApplyTime < 2000) {
-        setTimeout(tryScroll, 1200);  // Prüfe alle 1,2s ob Markierung noch da ist
+      // Bereits markiert? Kein Entfernen und kein erneutes Anwenden – verhindert Flackern
+      if (hasMarker) {
+        if (appliedCount > 0 && Date.now() - lastApplyTime > 3000) {
+          // Marker stabil seit 3s – Loop beenden
+          _obsidianTryScrollTimeout = null;
+          return;
+        }
+        _obsidianTryScrollTimeout = setTimeout(tryScroll, 1500);
         return;
       }
       
-      // Entferne alte Markierungen
+      // Nur entfernen wenn wir neu anwenden werden (Marker wurde durch replaceImageSrcWithBase64 überschrieben)
       viewer.querySelectorAll('.obsidian-page-marker').forEach(function(el) {
         el.classList.remove('obsidian-page-marker');
         el.style.borderLeft = '';
         el.style.paddingLeft = '';
         el.style.transition = '';
       });
-      
-      // Entferne auch Wortmarkierungen
       viewer.querySelectorAll('.obsidian-first-words').forEach(function(span) {
         var text = span.textContent;
         span.replaceWith(text);
@@ -35028,11 +35039,13 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       
       // Weiter prüfen (replaceImageSrcWithBase64 kann DOM später überschreiben)
       if (Date.now() - startTime < maxWaitTime) {
-        setTimeout(tryScroll, 1000);
+        _obsidianTryScrollTimeout = setTimeout(tryScroll, 1200);
+      } else {
+        _obsidianTryScrollTimeout = null;
       }
     };
     
-    setTimeout(tryScroll, 500);
+    _obsidianTryScrollTimeout = setTimeout(tryScroll, 500);
   } catch (err) {
     console.error('[OBSIDIAN-GA] Fehler:', err.message);
   }
