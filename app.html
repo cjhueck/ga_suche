@@ -34716,33 +34716,36 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
     switchTab('texte', true);
     await showLecture(data.lectureId);
     
-    // Warte bis Vortrag geladen ist
-    var scrolled = false;
+    // Warte bis Vortrag geladen ist – wiederhole mehrmals, da replaceImageSrcWithBase64 den DOM später überschreibt
+    var appliedCount = 0;
     var startTime = Date.now();
-    var maxWaitTime = 15000;
+    var maxWaitTime = 20000;
+    var lastApplyTime = 0;
     
     var tryScroll = function() {
-      if (scrolled || Date.now() - startTime > maxWaitTime) {
-        if (Date.now() - startTime > maxWaitTime) {
-          console.log('[OBSIDIAN-GA] ⏱ Timeout erreicht');
-        }
+      if (Date.now() - startTime > maxWaitTime) {
+        if (appliedCount === 0) console.log('[OBSIDIAN-GA] ⏱ Timeout erreicht');
         return;
       }
       
       const viewer = document.getElementById('viewer');
       if (!viewer) {
-        setTimeout(tryScroll, 500);
+        setTimeout(tryScroll, 300);
         return;
       }
       
       const allParas = viewer.querySelectorAll('.paragraph');
       if (allParas.length === 0) {
-        console.log('[OBSIDIAN-GA] Warte auf Absätze...');
-        setTimeout(tryScroll, 800);
+        setTimeout(tryScroll, 400);
         return;
       }
       
-      scrolled = true;
+      // Bereits markiert und kürzlich angewendet? Nicht erneut überschreiben (verhindert Flackern)
+      var hasMarker = viewer.querySelector('.obsidian-page-marker');
+      if (hasMarker && Date.now() - lastApplyTime < 2000) {
+        setTimeout(tryScroll, 1200);  // Prüfe alle 1,2s ob Markierung noch da ist
+        return;
+      }
       
       // Entferne alte Markierungen
       viewer.querySelectorAll('.obsidian-page-marker').forEach(function(el) {
@@ -34759,6 +34762,8 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       });
       
       var targetPara = null;
+      var foundByText = false;
+      var pageBreakNumForScroll = null;  // Bei Fallback: zum Seitenanfang scrollen (Seitenzahlen stehen am Anfang)
       
       const normalize = function(txt) {
         return (txt || '').toLowerCase()
@@ -34768,10 +34773,11 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
           .trim();
       };
       
-      // HAUPTZIEL: Suchworte – Absatz mit Suchworten finden (blauer Balken kommt dorthin)
-      // Seitenzahl nur als Fallback, wenn Suchtext fehlt oder nicht gefunden wird
+      // PRIMÄR: Suchworte finden und markieren – Absatz = der, in dem die Suchworte stehen (blauer Balken)
+      // FALLBACK (nur wenn Suchworte nicht gefunden): Seitenzahl – Absatz mit Seitenmarker
+      // Wichtig: Seitenzahlen in app.html stehen immer am Anfang einer Seite, nicht am Ende
       if (searchText) {
-        console.log('[OBSIDIAN-GA] 🔍 Suche nach Suchworten (Hauptziel):', searchText);
+        console.log('[OBSIDIAN-GA] 🔍 Primär: Suche nach Suchworten:', searchText);
         
         const words = normalize(searchText).split(/\s+/).filter(w => w.length >= 2);
         console.log('[OBSIDIAN-GA] Durchsuche', allParas.length, '.paragraph Divs');
@@ -34783,6 +34789,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
             const p = allParas[i];
             if (normalize(p.textContent).includes(searchPhrase)) {
               targetPara = p;
+              foundByText = true;
               console.log('[OBSIDIAN-GA] ✓ Suchworte gefunden in Absatz', i, '(mit', len, 'Worten)');
               break;
             }
@@ -34790,22 +34797,36 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
         }
         
         if (!targetPara) {
-          console.log('[OBSIDIAN-GA] ⚠ Suchworte "' + searchText + '" nicht gefunden');
+          console.log('[OBSIDIAN-GA] ⚠ Suchworte "' + searchText + '" nicht gefunden → Fallback auf Seitenzahl');
         }
       }
       
-      // Fallback: Seitenmarker (nur wenn keine Suchworte oder Suchworte nicht gefunden)
+      // Fallback: Nur wenn Suchworte fehlen oder nicht gefunden – Absatz mit Seitenmarker
+      // WICHTIG: Seitenzahlen stehen am ANFANG einer Seite – der Marker steht am Ende des
+      // vorherigen Absatzes. Der Absatz MIT dem Zitat ist der NÄCHSTE (nach dem Marker).
       if (!targetPara && page) {
-        console.log('[OBSIDIAN-GA] 📍 Fallback: Suche Seitenmarker', page);
+        console.log('[OBSIDIAN-GA] 📍 Fallback: Suche Seitenmarker', page, '(Seitenzahlen am Seitenanfang)');
         const pageNums = viewer.querySelectorAll('.page-break-num');
         
         for (const numSpan of pageNums) {
           if (numSpan.textContent.trim() === String(page)) {
-            targetPara = numSpan.closest('.paragraph');
-            if (!targetPara) {
-              targetPara = numSpan.closest('p');
+            var markerPara = numSpan.closest('.paragraph');
+            if (!markerPara) markerPara = numSpan.closest('p');
+            pageBreakNumForScroll = numSpan;
+            // NÄCHSTEN Absatz verwenden – dort beginnt der Inhalt der Seite (Zitat)
+            if (markerPara) {
+              const parasArr = Array.from(viewer.querySelectorAll('.paragraph'));
+              const idx = parasArr.indexOf(markerPara);
+              if (idx >= 0 && idx + 1 < parasArr.length) {
+                targetPara = parasArr[idx + 1];
+                console.log('[OBSIDIAN-GA] ✓ Nächster Absatz nach Seitenmarker (Seitenanfang)');
+              } else {
+                targetPara = markerPara;
+                console.log('[OBSIDIAN-GA] ✓ Seitenmarker gefunden (kein nächster Absatz, verwende Marker-Absatz)');
+              }
+            } else {
+              targetPara = null;
             }
-            console.log('[OBSIDIAN-GA] ✓ Seitenmarker gefunden (blauer Balken am Absatzanfang der Seite)');
             break;
           }
         }
@@ -34813,7 +34834,12 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       
       // Scrolle und markiere
       if (targetPara) {
-        targetPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Bei Fallback: zum Seitenanfang scrollen (Seitenzahlen stehen am Anfang der Seite)
+        if (pageBreakNumForScroll) {
+          pageBreakNumForScroll.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          targetPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         
         setTimeout(function() {
           // Markiere Absatz mit blauem Balken (wie bei selected-for-keyword)
@@ -34821,15 +34847,35 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
           targetPara.style.borderLeft = '4px solid rgba(70, 120, 134, 0.6)';
           targetPara.style.setProperty('padding-left', '12px', 'important');
           targetPara.style.transition = 'border-left 0.3s ease, padding-left 0.3s ease';
+          appliedCount++;
+          lastApplyTime = Date.now();
           
           // Markiere die ersten Worte des Zitats (aus searchText Parameter)
-          // Versuche zuerst 5 Worte, dann Fallback auf 3 Worte
+          // WICHTIG: Suchwort kann in einem späteren <p> stehen (nach Überschriften h3/h4) –
+          // durchsuche alle <p> und den Absatz selbst, nicht nur das erste <p>
           if (searchText) {
-            // Hole den Textinhalt des ersten <p> im .paragraph Div
-            var pTag = targetPara.querySelector('p');
-            if (pTag) {
-              var originalHTML = pTag.innerHTML;
-              var textContent = pTag.textContent;
+            var pTag = null;
+            var originalHTML = '';
+            var textContent = '';
+            var textElems = targetPara.querySelectorAll('p');
+            if (textElems.length === 0) textElems = [targetPara];
+            for (var te = 0; te < textElems.length; te++) {
+              var elem = textElems[te];
+              var txt = (elem.textContent || '').trim();
+              if (txt.length < 5) continue;
+              var norm = (txt || '').toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '').replace(/\s+/g, ' ').trim();
+              var searchNorm = (searchText || '').toLowerCase().replace(/ß/g, 'ss').replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
+              var words = searchNorm.split(/\s+/).filter(function(w){ return w.length >= 2; });
+              var phrase = words.slice(0, Math.min(5, words.length)).join(' ');
+              if (phrase && norm.includes(phrase)) {
+                pTag = elem;
+                originalHTML = elem.innerHTML || '';
+                textContent = elem.textContent || '';
+                break;
+              }
+            }
+            if (!pTag) { pTag = targetPara.querySelector('p') || targetPara; originalHTML = pTag.innerHTML || ''; textContent = pTag.textContent || ''; }
+            if (pTag && (originalHTML || textContent)) {
               
               // Normalisiere den searchText (die ersten 5 Worte aus Obsidian)
               var normalizedSearchText = searchText.replace(/ß/g, 'ss')
@@ -34976,12 +35022,17 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
         }, 300);
         
         console.log('[OBSIDIAN-GA] ✓ Navigation abgeschlossen');
-      } else {
+      } else if (appliedCount === 0) {
         console.log('[OBSIDIAN-GA] ⚠ Kein Ziel gefunden');
+      }
+      
+      // Weiter prüfen (replaceImageSrcWithBase64 kann DOM später überschreiben)
+      if (Date.now() - startTime < maxWaitTime) {
+        setTimeout(tryScroll, 1000);
       }
     };
     
-    setTimeout(tryScroll, 2000);
+    setTimeout(tryScroll, 500);
   } catch (err) {
     console.error('[OBSIDIAN-GA] Fehler:', err.message);
   }

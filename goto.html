@@ -3,17 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Weiterleitung…</title>
-<style>body{display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:system-ui;color:#555}p{text-align:center;line-height:1.8}.ok{color:#2a7d2a}</style>
+<style>body{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;font-family:system-ui;color:#555}p{text-align:center;line-height:1.8}.ok{color:#2a7d2a}a{color:#467886;margin-top:1rem;font-size:0.9em}</style>
 </head>
 <body>
 <p id="msg">Weiterleitung zur GA-Suche…</p>
+<p id="fallback" style="display:none"><a id="fallbackLink" href="#">Falls keine Weiterleitung erfolgt, hier klicken.</a></p>
 <script>
 (function() {
   var hash = location.hash.substring(1);
-  if (!hash) { location.href = 'app.html'; return; }
+  if (!hash) { location.replace('app.html'); return; }
 
   var bc = new BroadcastChannel('steiner-obsidian-nav');
   var handled = false;
+
+  // Ziel-URL für Fallback
+  var params = {};
+  hash.split('&').forEach(function(part) {
+    var idx = part.indexOf('=');
+    if (idx > 0) params[part.substring(0, idx)] = part.substring(idx + 1);
+  });
+  var tab = (params.ga && params.date) ? 'texte' : 'keyword';
+  var targetUrl = 'app.html#' + tab + '&' + hash;
 
   bc.onmessage = function(e) {
     if (e.data && e.data.action === 'ack') {
@@ -26,19 +36,19 @@
 
   bc.postMessage({ action: 'navigate', hash: hash });
 
+  // Fallback-Link sichtbar machen (falls Redirect fehlschlägt)
+  var fallbackEl = document.getElementById('fallback');
+  var linkEl = document.getElementById('fallbackLink');
+  if (fallbackEl && linkEl) {
+    linkEl.href = targetUrl;
+    setTimeout(function() { fallbackEl.style.display = 'block'; }, 500);
+  }
+
   setTimeout(function() {
     if (!handled) {
-      // Parse Parameter um zu entscheiden: texte oder keyword Tab
-      var params = {};
-      hash.split('&').forEach(function(part) {
-        var idx = part.indexOf('=');
-        if (idx > 0) params[part.substring(0, idx)] = part.substring(idx + 1);
-      });
-      
-      var tab = (params.ga && params.date) ? 'texte' : 'keyword';
-      location.href = 'app.html#' + tab + '&' + hash;
+      location.replace(targetUrl);
     }
-  }, 800);
+  }, 400);
 })();
 </script>
 </body>
