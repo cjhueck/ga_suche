@@ -105,6 +105,17 @@ if (typeof pdfjsLib !== 'undefined') {
     }
     
     /* Der vertikale Strich | im Text */
+    /* Obsidian-GA-Links: Suchworte = gepunktete Unterstreichung (Hauptziel), blauer Balken am Absatz */
+    .obsidian-first-words {
+      text-decoration: underline dotted rgba(70, 120, 134, 0.8) !important;
+      text-decoration-thickness: 2px !important;
+      text-underline-offset: 3px !important;
+      background: none !important;
+    }
+    .obsidian-page-marker {
+      border-left: 4px solid rgba(70, 120, 134, 0.6);
+      padding-left: 12px;
+    }
     .page-break-bar {
       color: var(--link-color, #467886);
       font-weight: 400;
@@ -34749,43 +34760,43 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       
       var targetPara = null;
       
-      // PRIORITÄT 1: Wenn Suchtext vorhanden, suche im GANZEN Vortrag
+      const normalize = function(txt) {
+        return (txt || '').toLowerCase()
+          .replace(/ß/g, 'ss')
+          .replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+      };
+      
+      // HAUPTZIEL: Suchworte – Absatz mit Suchworten finden (blauer Balken kommt dorthin)
+      // Seitenzahl nur als Fallback, wenn Suchtext fehlt oder nicht gefunden wird
       if (searchText) {
-        console.log('[OBSIDIAN-GA] 🔍 Suche nach Text:', searchText);
+        console.log('[OBSIDIAN-GA] 🔍 Suche nach Suchworten (Hauptziel):', searchText);
         
-        const normalize = function(txt) {
-          return txt.toLowerCase()
-            .replace(/ß/g, 'ss')
-            .replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-        };
-        
-        const searchNormalized = normalize(searchText);
-        console.log('[OBSIDIAN-GA] Normalisierter Suchtext:', searchNormalized);
+        const words = normalize(searchText).split(/\s+/).filter(w => w.length >= 2);
         console.log('[OBSIDIAN-GA] Durchsuche', allParas.length, '.paragraph Divs');
         
-        // Suche im GANZEN Vortrag
-        for (let i = 0; i < allParas.length; i++) {
-          const p = allParas[i];
-          const textNormalized = normalize(p.textContent);
-          
-          if (textNormalized.includes(searchNormalized)) {
-            targetPara = p;
-            console.log('[OBSIDIAN-GA] ✓ Text gefunden in Absatz', i);
-            console.log('[OBSIDIAN-GA] Absatzinhalt:', p.textContent.substring(0, 80) + '...');
-            break;
+        // Versuche mit absteigender Wortanzahl (5, 4, 3, 2)
+        for (let len = Math.min(words.length, 5); len >= 2 && !targetPara; len--) {
+          const searchPhrase = words.slice(0, len).join(' ');
+          for (let i = 0; i < allParas.length; i++) {
+            const p = allParas[i];
+            if (normalize(p.textContent).includes(searchPhrase)) {
+              targetPara = p;
+              console.log('[OBSIDIAN-GA] ✓ Suchworte gefunden in Absatz', i, '(mit', len, 'Worten)');
+              break;
+            }
           }
         }
         
         if (!targetPara) {
-          console.log('[OBSIDIAN-GA] ⚠ Text "' + searchText + '" nicht gefunden');
+          console.log('[OBSIDIAN-GA] ⚠ Suchworte "' + searchText + '" nicht gefunden');
         }
       }
       
-      // PRIORITÄT 2: Wenn kein Text gefunden oder kein Suchtext, nutze Seitenmarker
+      // Fallback: Seitenmarker (nur wenn keine Suchworte oder Suchworte nicht gefunden)
       if (!targetPara && page) {
-        console.log('[OBSIDIAN-GA] 📍 Suche Seitenmarker', page);
+        console.log('[OBSIDIAN-GA] 📍 Fallback: Suche Seitenmarker', page);
         const pageNums = viewer.querySelectorAll('.page-break-num');
         
         for (const numSpan of pageNums) {
@@ -34794,7 +34805,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
             if (!targetPara) {
               targetPara = numSpan.closest('p');
             }
-            console.log('[OBSIDIAN-GA] ✓ Seitenmarker gefunden');
+            console.log('[OBSIDIAN-GA] ✓ Seitenmarker gefunden (blauer Balken am Absatzanfang der Seite)');
             break;
           }
         }
@@ -34921,7 +34932,10 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                   }
                   
                   pTag.innerHTML = markedHTML;
-                  console.log('[OBSIDIAN-GA] ✓ Zitatanfang markiert (mit Seitenmarker-Support):', actualText);
+                  console.log('[OBSIDIAN-GA] ✓ Suchworte markiert (gepunktete Unterstreichung):', actualText);
+                  // Scrolle zu den Suchworten (Hauptziel), damit sie sichtbar sind
+                  var markedEl = pTag.querySelector('.obsidian-first-words');
+                  if (markedEl) markedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                   console.log('[OBSIDIAN-GA] ⚠ Konnte Zitatanfang nicht im HTML finden');
                   console.log('[OBSIDIAN-GA] 💡 Versuche ohne Seitenmarker-Logik...');
@@ -34946,7 +34960,9 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                         simpleMatch[0] + '</span>');
                     }
                     pTag.innerHTML = markedHTML;
-                    console.log('[OBSIDIAN-GA] ✓ Zitatanfang markiert (einfache Methode):', actualText);
+                    console.log('[OBSIDIAN-GA] ✓ Suchworte markiert (einfache Methode):', actualText);
+                    var markedEl = pTag.querySelector('.obsidian-first-words');
+                    if (markedEl) markedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }
                 }
               } else {
