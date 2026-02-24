@@ -10,6 +10,8 @@ python ga_comparison_server.py
 http://localhost:3003/ga-text-comparison.html
 
 
+Die vollkommene Synthese aller Wissenschaften zu sein, verstandesmäßig alles zu umfassen, was vom Verstand erfasst werden kann, es dann in die reinste Spiritualität zu erheben, es dort niederzulegen wie in einen edlen Kelch, es ist dies ein Ton, der in dieser Vollkommenheit auch nur einmal angeschlagen werden kann.
+
 
 tools/convert_ga_page_markers.py (nach Umwandlung in md von Steiner_GA_pdf mit Mistral)
 tools/transfer_sm_from_source.py (zur Übertragung der Marker in bestehende md - funktioniert nicht korrekt)
