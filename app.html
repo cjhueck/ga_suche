@@ -48978,7 +48978,8 @@ window.cancelTextEditMode = function() {};
   }
   
   // Panel öffnen/schließen
-  window.togglePdfPanel = async function() {
+  // initialPage: optional - wenn gesetzt (z.B. von Seitenzahl-Klick), diese Seite direkt anzeigen statt 1
+  window.togglePdfPanel = async function(initialPage) {
     const panel = document.getElementById('pdf-viewer-panel');
     const btn = document.getElementById('pdfToggleBtn');
     const summaryPanel = document.getElementById('summary-panel');
@@ -49005,6 +49006,11 @@ window.cancelTextEditMode = function() {};
       }
       
       if (pdfDoc) {
+        // Bei initialPage: Zielseite setzen VOR dem Rendern (erster Klick auf Seitenzahl)
+        if (initialPage != null && initialPage >= 1 && initialPage <= pdfTotalPages) {
+          pdfCurrentPage = initialPage;
+          document.getElementById('pdfPageInput').value = initialPage;
+        }
         panel.classList.add('visible');
         btn.classList.add('active');
         document.body.classList.add('pdf-panel-open');
@@ -49099,12 +49105,8 @@ window.cancelTextEditMode = function() {};
     pdfNavigationFromHTML = true;
     
     if (!pdfPanelVisible) {
-      // Panel öffnen wenn nicht sichtbar
-      togglePdfPanel().then(() => {
-        if (pdfDoc) {
-          pdfGoToPage(pageNum);
-        }
-      });
+      // Panel öffnen mit Zielseite - initialPage sorgt für korrektes Rendern beim ersten Öffnen
+      togglePdfPanel(pageNum);
     } else if (pdfDoc) {
       pdfGoToPage(pageNum);
     }
