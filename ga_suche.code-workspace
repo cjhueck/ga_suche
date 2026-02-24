@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../../Obsidian/Hierarchien"
+		},
+		{
+			"path": "../../../../../Obsidian/Steiner Goetheanismus"
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Default Light+",
+		"window.autoDetectColorScheme": false,
+		"workbench.preferredLightColorTheme": "Light Modern"
+	}
+}
