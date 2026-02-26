@@ -60,7 +60,7 @@ if (typeof pdfjsLib !== 'undefined') {
 <!-- Mitglieder Panel Styles -->
 <link rel="stylesheet" href="members/members-panel.css">
 <!-- SICHERHEIT: Content Security Policy (nicht zu restriktiv, um nichts kaputt zu machen) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://ga-suche.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003 https://ga-suche.onrender.com; connect-src 'self' http://localhost:3003 https://ga-suche.onrender.com https://*.supabase.co wss://*.supabase.co https://raw.githubusercontent.com https://akanthosakademie.files.wordpress.com; frame-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://ga-suche.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003 https://ga-suche.onrender.com; connect-src 'self' http://localhost:3003 https://ga-suche.onrender.com https://*.supabase.co wss://*.supabase.co https://raw.githubusercontent.com https://akanthosakademie.files.wordpress.com; frame-src 'self' https://*.supabase.co https://embed.coggle.it https://publish.obsidian.md https://*.publish.obsidian.md; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 <style>
     /* Seitenmarker: | im Text, Seitenzahl schwebt am linken Rand */
     .page-break-container {
@@ -7491,6 +7491,7 @@ body.dark-mode .viewer-search-highlight.active {
 <button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Abfrage</button>
 <button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
 <button class="tab-button" onclick="switchTab('docs')" id="docs-tab-button" data-help="tab-docs">Docs</button>
+<button class="tab-button" onclick="switchTab('maps')" id="maps-tab-button" data-help="tab-maps">Maps</button>
 <button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Export</button>
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button" data-help="tab-zitate">Zitate</button>
 </div>
@@ -7992,6 +7993,23 @@ Bestehende Schlagwörter überschreiben
 <!-- DOCS TAB - Nur lokal sichtbar, Inhalt wird im Main Viewer angezeigt -->
 <div class="tab-content" id="docs-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <!-- Leeres linkes Panel - Dokumentation wird im Main Viewer angezeigt -->
+</div>
+
+<!-- MAPS TAB - Nur lokal sichtbar, Obsidian-Inhalt links, Coggle rechts -->
+<div class="tab-content" id="maps-tab" style="overflow: visible;">
+<div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0 0.2rem;">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <label style="font-size: 0.9em; color: var(--text-color);">Map:</label>
+    <select id="maps-dropdown" class="filter-dropdown" onchange="switchCoggleMap(this.value)" style="flex: 1; min-width: 0; max-width: 240px;">
+      <!-- Optionen dynamisch durch showMapsInViewer -->
+    </select>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <label style="font-size: 0.9em; color: var(--text-color);">Linkes Panel:</label>
+    <button type="button" class="depth-btn active" id="maps-view-local" onclick="mapsSetViewMode('local')" style="padding: 4px 8px; font-size: 0.8em;">Lokal</button>
+    <button type="button" class="depth-btn" id="maps-view-publish" onclick="mapsSetViewMode('publish')" style="padding: 4px 8px; font-size: 0.8em;">Publish</button>
+  </div>
+</div>
 </div>
 
 <!-- Versteckter Container für Dokumentationsinhalt (wird von showDocsInViewer() gelesen) -->
@@ -30058,13 +30076,39 @@ function formatAsteriskParagraphs() {
     }
 
     function extractKeywordsFromQuery(query) {
-      const stopWords = [
-        'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des', 
-        'den', 'dem', 'ein', 'eine', 'einem', 'einen', 'was', 'welche', 'welcher',
-        'zwischen', 'bei', 'nach', 'für', 'mit', 'aus', 'über', 'sich', 'zur',
-        'steiner', 'rudolf', 'sieht', 'kritisiert', 'spielt', 'rolle'
-      ];
+      if (!query || !query.trim()) return [];
       
+      // Zuerst: Begriffe in Anführungszeichen extrahieren (Priorität für Highlighting)
+      // Unterstützt: " (ASCII), „ " (deutsch), typografische " "
+      const quotedRegex = /[\u0022\u201C\u201D\u201E]([^\u0022\u201C\u201D\u201E]+?)[\u0022\u201C\u201D\u201E]/g;
+      const quoted = [];
+      let m;
+      while ((m = quotedRegex.exec(query)) !== null) {
+        const term = m[1].trim();
+        if (term && !quoted.includes(term.toLowerCase())) quoted.push(term.toLowerCase());
+      }
+      if (quoted.length > 0) return quoted;
+      
+      // Fallback: Substantive (großgeschriebene Wörter) – im Deutschen sind Nomen großgeschrieben
+      const nonNounWords = [
+        'wie', 'ist', 'sind', 'was', 'welche', 'welcher', 'welches', 'wer', 'wo', 'wann', 'warum',
+        'wessen', 'wohin', 'woher', 'das', 'der', 'die', 'den', 'dem', 'des', 'ein', 'eine', 'einer',
+        'eines', 'einem', 'einen', 'von', 'und', 'zwischen', 'bei', 'nach', 'für', 'mit', 'aus',
+        'über', 'sich', 'zur', 'es', 'er', 'sie', 'steiner', 'rudolf'
+      ];
+      const nouns = [];
+      const matchRegex = /\b([A-ZÄÖÜ][a-zäöüß]*)\b/g;
+      let match;
+      while ((match = matchRegex.exec(query)) !== null) {
+        const w = match[1].toLowerCase();
+        if (w.length > 2 && !nonNounWords.includes(w) && !nouns.includes(w)) {
+          nouns.push(w);
+        }
+      }
+      if (nouns.length > 0) return nouns;
+      
+      // Letzter Fallback: alle Wörter außer Stop-Wörter
+      const stopWords = nonNounWords.concat(['sieht', 'kritisiert', 'spielt']);
       const words = query.toLowerCase()
         .replace(/[.,;:!?]/g, ' ')
         .split(/\s+/)
@@ -34508,6 +34552,12 @@ if (!isLocalhost) {
     docsTabButton.style.display = 'none';
   }
   
+  // Maps-Tab verstecken (nur lokal sichtbar)
+  const mapsTabButton = document.getElementById("maps-tab-button");
+  if (mapsTabButton) {
+    mapsTabButton.style.display = 'none';
+  }
+  
   // Admin-Buttons im Texte-Tab verstecken
   const texteAdminButtons = document.getElementById("texte-admin-buttons");
   if (texteAdminButtons) {
@@ -34625,17 +34675,22 @@ window.addEventListener('DOMContentLoaded', function() {
       'texte': 'texte',
       'thematic': 'thematic',
       'timeline': 'timeline',
-      'schlagworte': 'schlagworte'
+      'schlagworte': 'schlagworte',
+      'maps': 'maps'
     };
     
-    const tabName = tabMap[hash];
+    let tabName = tabMap[hash];
+    // Maps-Tab nur lokal – online auf GA umleiten
+    const _isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    if (tabName === 'maps' && !_isLocal) tabName = 'ga';
     
     if (tabName) {
       // Warte kurz, bis alle Initialisierungen abgeschlossen sind
       setTimeout(() => {
-        // Setze initialen History State ohne neuen Eintrag - bereinige URL auf Basis-URL
+        // Setze initialen History State ohne neuen Eintrag - Maps mit scroll= behalten
         const baseUrl = window.location.origin + window.location.pathname;
-        history.replaceState({ tab: tabName }, '', `${baseUrl}#${tabName}`);
+        const keepHash = (tabName === 'maps' && queryParams.scroll) ? `${tabName}&scroll=${encodeURIComponent(queryParams.scroll)}` : tabName;
+        history.replaceState({ tab: tabName }, '', `${baseUrl}#${keepHash}`);
         switchTab(tabName, true); // skipHistory = true beim ersten Laden
         
         // Wenn lecture-Parameter vorhanden, öffne den Vortrag/das Buch
@@ -36135,6 +36190,10 @@ function switchTabExtended(mode) {
         defaultMessage = '';
         titleText = 'Dokumentation';
         break;
+      case 'maps':
+        defaultMessage = '';
+        titleText = 'Maps';
+        break;
       case 'schlagworte':
         defaultMessage = 'Bitte ein Schlagwort auswählen…';
         titleText = 'Index';
@@ -36144,6 +36203,8 @@ function switchTabExtended(mode) {
     // Für Docs-Tab: Dokumentation im Main Viewer anzeigen
     if (mode === 'docs') {
       showDocsInViewer();
+    } else if (mode === 'maps') {
+      showMapsInViewer();
     } else if (mode === 'thematic2') {
       // Themen II Visualisierung: IMMER neu initialisieren (Reset bei jedem Tab-Klick)
       // Die Initialisierung wird bereits oben durchgeführt, hier nur Fallback
@@ -40426,6 +40487,100 @@ function showDocsInViewer() {
     // Zeige TOC im Summary Panel
     showDocsTOC();
   }
+}
+
+// Maps Tab - Obsidian-Inhalt links (#results), Coggle rechts (viewer)
+const COGGLE_MAPS = [
+  { id: 'rhythmisches-system', name: 'Rhythmisches System', embedUrl: 'https://embed.coggle.it/diagram/YeBfA5tkwlX_Miav/5f447e9794aa000d92c39562e646e1f3403cf74f4d09cc8ca5cfbfb221346eeb', contentMapId: 'rhythmisches-system', publishUrl: 'https://publish.obsidian.md/anthropologie/I.+Themen/Dreigliederung/Rhythmisches+System' }
+];
+function mapsSetViewMode(mode) {
+  window._mapsViewMode = mode;
+  const localBtn = document.getElementById('maps-view-local');
+  const publishBtn = document.getElementById('maps-view-publish');
+  if (localBtn) localBtn.classList.toggle('active', mode === 'local');
+  if (publishBtn) publishBtn.classList.toggle('active', mode === 'publish');
+  showMapsInViewer();
+}
+
+async function showMapsInViewer() {
+  const viewer = document.getElementById('viewer');
+  const resultsDiv = document.getElementById('results');
+  const dropdown = document.getElementById('maps-dropdown');
+  if (!viewer) return;
+  const selectedId = (window._coggleMapId || COGGLE_MAPS[0].id);
+  const map = COGGLE_MAPS.find(m => m.id === selectedId) || COGGLE_MAPS[0];
+  const usePublish = (window._mapsViewMode || 'local') === 'publish' && map.publishUrl;
+  
+  if (dropdown) {
+    dropdown.innerHTML = COGGLE_MAPS.map(m => `<option value="${m.id}" ${m.id === map.id ? 'selected' : ''}>${m.name}</option>`).join('');
+  }
+  const localBtn = document.getElementById('maps-view-local');
+  const publishBtn = document.getElementById('maps-view-publish');
+  if (localBtn) localBtn.classList.toggle('active', !usePublish);
+  if (publishBtn) publishBtn.classList.toggle('active', usePublish);
+  
+  viewer.innerHTML = `
+    <div style="padding: 0.5rem 1rem 1rem; height: calc(100vh - 140px);">
+      <div style="height: 100%; min-height: 480px; overflow: hidden; border-radius: 4px;">
+        <iframe src="${map.embedUrl}" width="100%" style="height: calc(100% + 40px); min-height: 520px; margin-top: -40px; border: none; display: block;" allowfullscreen></iframe>
+      </div>
+    </div>
+  `;
+  
+  if (resultsDiv) {
+    resultsDiv.style.display = 'block';
+    const sidebarContent = document.getElementById('sidebar-content');
+    if (sidebarContent) sidebarContent.style.display = 'block';
+    if (usePublish && map.publishUrl) {
+      resultsDiv.innerHTML = `<div style="min-height: 500px;"><iframe src="${map.publishUrl}" style="width: 100%; height: calc(100vh - 200px); min-height: 500px; border: none; display: block;" title="Obsidian Publish"></iframe></div>`;
+    } else if (map.contentMapId) {
+      resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Lade Inhalt…</div>';
+      try {
+      const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+      const res = await fetch(apiBase + '/api/maps-content?map=' + encodeURIComponent(map.contentMapId));
+      if (!res.ok) throw new Error('Datei nicht gefunden');
+      const data = await res.json();
+      let md = data.markdown.replace(/\[\[#([^\]]+)\]\]/g, (_, h) => `[${h}](#${encodeURIComponent(h)})`);
+      let html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
+      const wrap = document.createElement('div');
+      wrap.innerHTML = html;
+      wrap.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(h => {
+        const txt = (h.textContent || '').trim();
+        if (txt) h.id = txt;
+      });
+      resultsDiv.innerHTML = '<div id="maps-obsidian-content" style="padding: 0.5rem 0.8rem 2rem; font-size: 0.9rem;">' + wrap.innerHTML + '</div>';
+      resultsDiv.querySelectorAll('#maps-obsidian-content a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+          const h = this.getAttribute('href').slice(1);
+          const id = h ? decodeURIComponent(h).replace(/\+/g, ' ') : '';
+          const el = id ? document.getElementById(id) : null;
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      const hash = (window.location.hash || '').replace(/^#/, '');
+      let frag = '';
+      if (hash.includes('&scroll=')) {
+        const m = hash.match(/&scroll=([^&]*)/);
+        frag = m ? decodeURIComponent(m[1]).replace(/\+/g, ' ') : '';
+      } else if (hash && hash !== 'maps') {
+        frag = decodeURIComponent(hash).replace(/\+/g, ' ');
+      }
+      const scrollEl = frag ? document.getElementById(frag) : null;
+      if (scrollEl) scrollEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (e) {
+      resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Inhalt konnte nicht geladen werden. Pfad in backend.js prüfen.</div>';
+    }
+    } else {
+      resultsDiv.innerHTML = '';
+    }
+  }
+}
+function switchCoggleMap(mapId) {
+  window._coggleMapId = mapId;
+  showMapsInViewer();
 }
 
 // Docs Tab - TOC im Summary Panel anzeigen

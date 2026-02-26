@@ -4230,7 +4230,10 @@ QUELLENANGABEN IM TEXT:
 - Falsch: "...hervortreten. (GA336/1)" oder "...muss. (GA079/2)"
 
 WEITERE RELEVANTE QUELLEN:
-Liste am Ende unter ## "Weitere relevante Quellen" zusätzliche Quellen auf, die im Text NICHT genannt wurden.
+Liste am Ende unter ## "Weitere relevante Quellen" NUR Quellen auf, die sich inhaltlich UNMITTELBAR auf die Fragestellung beziehen – nicht nur am Rande oder assoziativ.
+- Nur Quellen, die im Text NICHT genannt wurden
+- KEINE Quellen, die nur entfernt oder lose mit dem Thema zusammenhängen
+- Wenn es keine solchen weiteren relevanten Quellen gibt: überspringe diese Sektion ganz
 Format: GA###/lectureNum:index (ohne Klammern), komma-getrennt
 
 Verfügbare Referenzen: ${availableRefs}
@@ -4337,8 +4340,11 @@ Fasse die wesentlichen Erkenntnisse zusammen
 
 Weitere relevante Quellen
 
-Liste unter dem Text unter der ## Überschrift "Weitere relevante Quellen" in einem neuen AbsatzWEITERE relevante Quellen, die im obigen Text NICHT genannt wurden.
-Format: GA###/lectureNum:index (wie im Text), ohne Klammern !, komma-getrennt
+Liste unter dem Text unter der ## Überschrift "Weitere relevante Quellen" NUR Quellen, die sich inhaltlich UNMITTELBAR auf die Fragestellung beziehen – nicht nur am Rande oder assoziativ.
+- Nur Quellen, die im obigen Text NICHT genannt wurden
+- KEINE Quellen, die nur entfernt oder lose mit dem Thema zusammenhängen
+- Wenn es keine solchen weiteren relevanten Quellen gibt: überspringe diese Sektion ganz
+Format: GA###/lectureNum:index (wie im Text), ohne Klammern, komma-getrennt
 Jede Quelle nur einmal; verwende keine Quellen, die bereits im Text zitiert wurden
 Beispiel: "GA070b/13:abc123, GA080b/4:def456"
 
@@ -6754,6 +6760,26 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // ============================================================================
 // API ENDPOINTS
 // ============================================================================
+
+// Maps Tab: Obsidian-Inhalte für Coggle-Mindmaps (nur lokal, Pfad in .env oder hier anpassen)
+const MAPS_CONTENT_PATHS = {
+  'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH ||
+    path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md')
+};
+app.get('/api/maps-content', async (req, res) => {
+  const mapId = req.query.map || 'rhythmisches-system';
+  const filePath = MAPS_CONTENT_PATHS[mapId];
+  if (!filePath) {
+    return res.status(404).json({ error: 'Keine Inhaltsdatei für diese Map konfiguriert' });
+  }
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    res.json({ markdown: content, mapId });
+  } catch (err) {
+    console.warn('[MAPS] Konnte Obsidian-Datei nicht lesen:', filePath, err.message);
+    res.status(404).json({ error: 'Datei nicht gefunden: ' + (err.code === 'ENOENT' ? 'Pfad prüfen' : err.message) });
+  }
+});
 
 // Health-Check Endpoint für Keep-Alive (UptimeRobot, etc.)
 // Antwortet sofort ohne Datenbank-Zugriffe
