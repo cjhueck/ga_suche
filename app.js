@@ -30684,9 +30684,39 @@ function showDocsInViewer() {
 }
 
 // Maps Tab - Obsidian-Inhalt links (#results), rechte Seite: PDF via PDF.js
-const COGGLE_MAPS = [
-  { id: 'rhythmisches-system', name: 'Rhythmisches System', pdfUrl: true, contentMapId: 'rhythmisches-system', publishUrl: 'https://publish.obsidian.md/anthropologie/I.+Themen/Dreigliederung/Rhythmisches+System' }
+// COGGLE_MAPS wird dynamisch von /api/maps-list geladen
+let COGGLE_MAPS = [
+  { id: 'Rhythmisches_System_neu', name: 'Rhythmisches System', pdfUrl: true, contentMapId: 'Rhythmisches_System_neu', publishUrl: 'https://publish.obsidian.md/anthropologie/I.+Themen/Dreigliederung/Rhythmisches+System' }
 ];
+
+async function loadMapsList() {
+  try {
+    const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+    const res = await fetch(apiBase + '/api/maps-list');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.maps || !data.maps.length) return;
+    COGGLE_MAPS = data.maps.map(function(m) {
+      return { id: m.id, name: m.name, pdfUrl: true, contentMapId: m.id, publishUrl: null };
+    });
+    // Dropdown aktualisieren falls Maps-Tab bereits aktiv
+    const dropdown = document.getElementById('maps-dropdown');
+    if (dropdown) {
+      const selectedId = window._coggleMapId || COGGLE_MAPS[0].id;
+      dropdown.innerHTML = COGGLE_MAPS.map(function(m) {
+        return '<option value=\'' + m.id + '\'' + (m.id === selectedId ? ' selected' : '') + '>' + m.name + '</option>';
+      }).join('');
+    }
+  } catch(e) {
+    console.warn('[MAPS] Liste konnte nicht geladen werden:', e);
+  }
+}
+// Maps-Liste beim Start laden
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadMapsList);
+} else {
+  loadMapsList();
+}
 function mapsSetViewMode(mode) {
   window._mapsViewMode = mode;
   const localBtn = document.getElementById('maps-view-local');
