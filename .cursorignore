@@ -1,0 +1,5 @@
+# Grosse Dateien von der Cursor-Indexierung ausschliessen (verhindert Abstuerze)
+app.html
+app-Christophs-PC.html
+backups/
+_backups/

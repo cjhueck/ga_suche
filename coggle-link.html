@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>Weiterleitung…</title>
+<script>
+(function() {
+  var hash = window.location.hash || '#maps';
+  var appUrl = window.location.pathname.replace(/coggle-link\.html$/i, 'app.html') + hash;
+  if (window.top && window.top.location) {
+    window.top.location.replace(window.location.origin + appUrl);
+  } else {
+    window.location.replace(window.location.origin + appUrl);
+  }
+})();
+</script>
+</head>
+<body><p>Weiterleitung…</p></body>
+</html>

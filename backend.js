@@ -6766,6 +6766,27 @@ const MAPS_CONTENT_PATHS = {
   'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH ||
     path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md')
 };
+// Maps Tab: PDF-Export aus Coggle (mit Links) – ersetzt Coggle-iframe im Lokal-Modus
+const MAPS_PDF_PATHS = {
+  'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_PDF_PATH ||
+    path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'Bilder&PDFs', 'Rhythmisches_System_neu.pdf')
+};
+app.get('/api/maps-pdf', async (req, res) => {
+  const mapId = req.query.map || 'rhythmisches-system';
+  const filePath = MAPS_PDF_PATHS[mapId];
+  if (!filePath) return res.status(404).send('Keine PDF für diese Map konfiguriert');
+  try {
+    const stat = await fs.stat(filePath);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Disposition', 'inline; filename="' + path.basename(filePath) + '"');
+    const stream = fsSync.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err) {
+    console.warn('[MAPS] PDF nicht gefunden:', filePath, err.message);
+    res.status(404).send('PDF nicht gefunden: ' + filePath);
+  }
+});
 app.get('/api/maps-content', async (req, res) => {
   const mapId = req.query.map || 'rhythmisches-system';
   const filePath = MAPS_CONTENT_PATHS[mapId];
