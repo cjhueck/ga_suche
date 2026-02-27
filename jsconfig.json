@@ -1,0 +1,20 @@
+﻿{
+  "compilerOptions": {
+    "target": "ES2020",
+    "checkJs": false,
+    "noEmit": true
+  },
+  "exclude": [
+    "node_modules",
+    "app.js",
+    "backend.js",
+    "backups",
+    "_backups",
+    "steiner-images",
+    "Steiner_GA",
+    "members",
+    "themes",
+    "dictionaries",
+    "**/*.json"
+  ]
+}
