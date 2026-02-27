@@ -6761,37 +6761,82 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // API ENDPOINTS
 // ============================================================================
 
-// Maps Tab: Obsidian-Inhalte für Coggle-Mindmaps (nur lokal, Pfad in .env oder hier anpassen)
+// // Maps Tab: Verzeichnis mit PDF-Karten
+const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
+// Obsidian-Inhalte (lokal): mapId -> Markdown-Dateipfad
 const MAPS_CONTENT_PATHS = {
-  'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH ||
-    path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md')
+  'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH || path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
+  'Rhythmisches_System_neu': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH || path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
+  'Rhythmisches_System': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH || path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md')
 };
-// Maps Tab: PDF-Export aus Coggle (mit Links) – ersetzt Coggle-iframe im Lokal-Modus
-const MAPS_PDF_PATHS = {
-  'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_PDF_PATH ||
-    path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'Bilder&PDFs', 'Rhythmisches_System_neu.pdf')
-};
+
+// Hilfsfunktion: Dateiname -> Anzeigename
+function mapFilenameToDisplayName(filename) {
+  return filename
+    .replace(/\.pdf$/i, '')
+    .replace(/_neu_online$/i, ' (Online)')
+    .replace(/_neu$/i, '')
+    .replace(/_mit_Links$/i, '')
+    .replace(/_/g, ' ')
+    .replace(/maensystem/gi, 'ma\u00dfensystem');
+}
+
+// GET /api/maps-list - alle PDFs aus maps-pdf/ Verzeichnis
+app.get('/api/maps-list', async (req, res) => {
+  try {
+    const files = await fs.readdir(MAPS_PDF_DIR);
+    // _online-Dateien ausblenden (abgeleitete Versionen fuer Weitergabe)
+    const filtered = files
+      .filter(f => f.toLowerCase().endsWith('.pdf') && !/_online\.pdf$/i.test(f))
+      .sort();
+    // Duplikate nach Anzeigename entfernen: _neu bevorzugen vor _mit_Links
+    const seen = new Map();
+    for (const filename of filtered) {
+      const name = mapFilenameToDisplayName(filename);
+      const existing = seen.get(name);
+      if (!existing || /(_neu)\.pdf$/i.test(filename)) {
+        seen.set(name, filename);
+      }
+    }
+    const maps = Array.from(seen.values()).sort().map(filename => ({
+      id: filename.replace(/\.pdf$/i, ''),
+      filename,
+      name: mapFilenameToDisplayName(filename)
+    }));
+    res.json({ maps });
+  } catch (err) {
+    console.warn('[MAPS] Verzeichnis nicht lesbar:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/maps-pdf?map=FILENAME_OHNE_PDF - PDF aus maps-pdf/ Verzeichnis
 app.get('/api/maps-pdf', async (req, res) => {
-  const mapId = req.query.map || 'rhythmisches-system';
-  const filePath = MAPS_PDF_PATHS[mapId];
-  if (!filePath) return res.status(404).send('Keine PDF für diese Map konfiguriert');
+  const mapId = req.query.map || '';
+  if (!mapId || mapId.includes('..') || mapId.includes('/') || mapId.includes('\\')) {
+    return res.status(400).send('Ungueltige Map-ID');
+  }
+  const filename = mapId.endsWith('.pdf') ? mapId : mapId + '.pdf';
+  const filePath = path.join(MAPS_PDF_DIR, filename);
   try {
     const stat = await fs.stat(filePath);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', stat.size);
-    res.setHeader('Content-Disposition', 'inline; filename="' + path.basename(filePath) + '"');
+    res.setHeader('Content-Disposition', 'inline; filename="' + filename + '"');
     const stream = fsSync.createReadStream(filePath);
     stream.pipe(res);
   } catch (err) {
     console.warn('[MAPS] PDF nicht gefunden:', filePath, err.message);
-    res.status(404).send('PDF nicht gefunden: ' + filePath);
+    res.status(404).send('PDF nicht gefunden: ' + filename);
   }
 });
+
+// GET /api/maps-content?map=ID - Obsidian Markdown fuer linkes Panel
 app.get('/api/maps-content', async (req, res) => {
   const mapId = req.query.map || 'rhythmisches-system';
   const filePath = MAPS_CONTENT_PATHS[mapId];
   if (!filePath) {
-    return res.status(404).json({ error: 'Keine Inhaltsdatei für diese Map konfiguriert' });
+    return res.status(404).json({ error: 'Keine Inhaltsdatei fuer diese Map konfiguriert' });
   }
   try {
     const content = await fs.readFile(filePath, 'utf-8');
