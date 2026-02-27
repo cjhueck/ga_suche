@@ -30784,9 +30784,9 @@ async function showMapsInViewer() {
                 const sidebar = document.getElementById('sidebar');
                 if (sidebar && sidebar.classList.contains('collapsed')) {
                   if (typeof toggleSidebar === 'function') toggleSidebar();
-                  setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+                  setTimeout(function() { el.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 150);
                 } else {
-                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  el.scrollIntoView({ behavior: 'instant', block: 'start' });
                 }
                 return;
               }
@@ -30802,9 +30802,9 @@ async function showMapsInViewer() {
                   const sidebar = document.getElementById('sidebar');
                   if (sidebar && sidebar.classList.contains('collapsed')) {
                     if (typeof toggleSidebar === 'function') toggleSidebar();
-                    setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+                    setTimeout(function() { el.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 150);
                   } else {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    el.scrollIntoView({ behavior: 'instant', block: 'start' });
                   }
                 };
                 // Obsidian Publish entfernt Klammern aus Ankern: normalize fuer Vergleich
