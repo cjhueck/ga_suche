@@ -15533,8 +15533,8 @@ async function createHtmlBackup(htmlFile = 'index.html') {
     
     // Erstelle Backup mit Timestamp (behalte .html Endung!)
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const extMatch = htmlFile.match(/\.[^.]+$/); const ext = extMatch ? extMatch[0] : '.html';
-    const prefix = htmlFile.replace(ext, ''); const backupFile = path.join(HTML_BACKUP_DIR, ${prefix}-);
+    const prefix = htmlFile.replace('.html', '');
+    const backupFile = path.join(HTML_BACKUP_DIR, `${prefix}-${timestamp}.html`);
     
     const data = await fs.readFile(sourceFile, 'utf8');
     await fs.writeFile(backupFile, data, 'utf8');
@@ -23964,15 +23964,14 @@ app.post('/api/backups/create', async (req, res) => {
         const managerBackup = await createHtmlBackup('keyword-manager.html');
         const appBackup = await createHtmlBackup('app.html');
         // app.js Backup (seit HTML/JS-Trennung)
-        const appJsBackup = await (async () => {
-          try {
-            const src = path.join(__dirname, 'app.js');
-            const ts = new Date().toISOString().replace(/[:.]/g, '-');
-            const dest = path.join(HTML_BACKUP_DIR, pp-js-+ts+.js);
-            await fs.copyFile(src, dest); return dest;
-          } catch(e) { return null; }
-        })();
-        const appJsBackup = await createHtmlBackup('app.js');
+        let appJsBackup = null;
+        try {
+          const appJsSrc = path.join(__dirname, 'app.js');
+          const appJsTs = new Date().toISOString().replace(/[:.]/g, '-');
+          const appJsDest = path.join(HTML_BACKUP_DIR, 'app-js-' + appJsTs + '.js');
+          await fs.copyFile(appJsSrc, appJsDest);
+          appJsBackup = appJsDest;
+        } catch(e) { /* app.js nicht vorhanden */ }
         const membersHtmlBackup = await createMembersHtmlBackup();
         const membersPanelBackup = await createMembersPanelBackup();
         const pageMarkerCheckerBackup = await createPageMarkerCheckerBackup();
