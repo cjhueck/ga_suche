@@ -1,4 +1,4 @@
-// ---- extracted script block ----
+﻿// ---- extracted script block ----
 // BroadcastChannel früh registrieren, damit goto.html diesen Tab sofort erreichen kann
 var _obsidianPendingQ = null;
 var _obsidianPendingGA = null;
@@ -30717,7 +30717,7 @@ async function showMapsInViewer() {
   const pdfSrc = map.pdfUrl ? ((apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id)) : '';
   if (pdfSrc && typeof pdfjsLib !== 'undefined') {
     viewer.innerHTML = `
-      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 145px);min-height:400px;resize:vertical;overflow:hidden;background:var(--background-color);border-radius:4px;border:1px solid var(--border-color);">        
+      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 145px);min-height:1500px;resize:vertical;overflow:hidden;background:var(--background-color);border-radius:4px;border:1px solid var(--border-color);">        
         <div style="flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--background-color);border-bottom:1px solid var(--border-color);">
           <button type="button" id="maps-pdf-out" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">−</button>
           <button type="button" id="maps-pdf-in"  class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">+</button>
@@ -30781,9 +30781,16 @@ async function showMapsInViewer() {
               const heading = decodeURIComponent(scrollMatch[1]).replace(/\+/g, ' ');
               const el = document.getElementById(heading);
               if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar && sidebar.classList.contains('collapsed')) {
+                  if (typeof toggleSidebar === 'function') toggleSidebar();
+                  setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+                } else {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
                 return;
               }
+                return;
             }
             window.open(url, '_blank', 'noopener');
           });
@@ -30806,9 +30813,22 @@ async function showMapsInViewer() {
         setCursor(isZoomed() ? 'grab' : 'default');
       };
       await render();
-      document.getElementById('maps-pdf-in').onclick  = function() { scale = Math.min(scale * 1.2, 6); render(); };
-      document.getElementById('maps-pdf-out').onclick = function() { scale = Math.max(scale / 1.2, 0.2); render(); };
-      document.getElementById('maps-pdf-fit').onclick = function() { scale = fitScale; render(); };
+      let isFitMode = true;
+      const recalcFitScale = function() {
+        const sw = scrollEl.clientWidth || scrollEl.offsetWidth || 800;
+        const sh = scrollEl.clientHeight || scrollEl.offsetHeight || 600;
+        return Math.max(0.1, Math.min((sw - 24) / baseVp.width, (sh - 24) / baseVp.height, 3));
+      };
+      document.getElementById('maps-pdf-in').onclick  = function() { isFitMode = false; scale = Math.min(scale * 1.2, 6); render(); };
+      document.getElementById('maps-pdf-out').onclick = function() { isFitMode = false; scale = Math.max(scale / 1.2, 0.2); render(); };
+      document.getElementById('maps-pdf-fit').onclick = function() { isFitMode = true; scale = recalcFitScale(); render(); };
+      let resizeTimer = null;
+      const resizeObs = new ResizeObserver(function() {
+        if (!isFitMode) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() { scale = recalcFitScale(); render(); }, 150);
+      });
+      resizeObs.observe(scrollEl);
       scrollEl.addEventListener('wheel', function(e) {
         if (e.ctrlKey || e.metaKey) {
           e.preventDefault();
