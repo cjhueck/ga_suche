@@ -12606,7 +12606,6 @@ function scrollToChronologicalYear(year) {
         alert('Fehler beim Laden des Vortrags: ' + error.message);
       }
     }
-    window.showLectureFromAdvancedSearch = showLectureFromAdvancedSearch;
     
     // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
     async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null) {
@@ -30976,7 +30975,7 @@ async function showMapsInViewer() {
       const data = await res.json();
       let md = data.markdown.replace(/\[\[#([^\]]+)\]\]/g, (_, h) => `[${h}](#${encodeURIComponent(h)})`);
       // Block-IDs als unsichtbare Spans einbetten (für Navigation, nicht sichtbar)
-      md = md.replace(/ \^([a-z0-9]+)(?=[ \[;\s]|$)/g, ' <span class="blkref" data-bid="$1"></span>');
+      md = md.replace(/ \^([a-z0-9]+)(?=[ \[;])/g, ' <span class="blkref" data-bid="$1"></span>');
       let html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
       const wrap = document.createElement('div');
       wrap.innerHTML = html;
@@ -30991,11 +30990,11 @@ async function showMapsInViewer() {
       wrap.querySelectorAll('p').forEach(p => {
         p.classList.add('paragraph');
         p.style.setProperty('margin', '0.5rem 0', 'important');
-        p.style.setProperty('font-size', '0.85rem', 'important');
+        p.style.setProperty('font-size', '0.9rem', 'important');
         p.style.setProperty('line-height', '1.5', 'important');
       });
       wrap.querySelectorAll('li').forEach(li => {
-        li.style.setProperty('font-size', '0.85rem', 'important');
+        li.style.setProperty('font-size', '0.9rem', 'important');
         li.style.setProperty('line-height', '1.5', 'important');
       });
       const isDark = document.body.classList.contains('dark-mode');
@@ -31015,32 +31014,53 @@ async function showMapsInViewer() {
           }
         });
       });
-      // blkref-Spans in klickbare GA-Links umwandeln
-      (function() {
-        var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3003' : '');
-        resultsDiv.querySelectorAll('#maps-obsidian-content .blkref[data-bid]').forEach(function(span) {
-          var blockId = span.dataset.bid;
-          if (!blockId) return;
-          var captured = blockId;
-          fetch(apiBase + '/api/resolve-block-id?id=' + encodeURIComponent(blockId))
+      // Zitat-Überschriften (h4/h5/h6) klickbar: öffnet Vortrag im rechten Side-Panel
+      resultsDiv.querySelectorAll('#maps-obsidian-content h4, #maps-obsidian-content h5, #maps-obsidian-content h6').forEach(function(heading) {
+        var next = heading.nextElementSibling;
+        while (next && next.tagName !== 'P' && next.tagName !== 'BLOCKQUOTE') next = next.nextElementSibling;
+        if (!next) return;
+        var gotoLink = next.querySelector('a[href*="goto.html"]');
+        var bareCiteM = next.textContent.match(/\[GA\s+(\d+),\s*S\.\s*[\d\u2013\-]+;\s*(\d{2})\.(\d{2})\.(\d{4})\]/);
+        if (!gotoLink && !bareCiteM) return;
+        heading.style.cursor = 'pointer';
+        heading.title = 'Abschnitt im rechten Panel öffnen';
+        heading.addEventListener('click', function(e) {
+          e.stopPropagation();
+          // Block-ID aus unsichtbarem Span holen
+          var bidSpan = next.querySelector('.blkref[data-bid]');
+          var blockId = bidSpan ? bidSpan.dataset.bid : null;
+          // GA-Nummer und Datum aus Citation ermitteln
+          var ga = null, isoDate = null;
+          if (gotoLink) {
+            var href = gotoLink.getAttribute('href');
+            var hi = href.indexOf('#');
+            if (hi >= 0) {
+              var params = {};
+              href.substring(hi + 1).split('&').forEach(function(kv) {
+                var eq = kv.indexOf('=');
+                if (eq > 0) params[kv.slice(0, eq)] = decodeURIComponent(kv.slice(eq + 1)).replace(/\+/g, ' ');
+              });
+              ga = params.ga; isoDate = params.date;
+            }
+          }
+          if ((!ga || !isoDate) && bareCiteM) {
+            ga = bareCiteM[1];
+            isoDate = bareCiteM[4] + '-' + bareCiteM[3] + '-' + bareCiteM[2];
+          }
+          if (!ga || !isoDate) return;
+          // Lecture-ID per API ermitteln, dann im rechten Panel mit Absatz-Highlight anzeigen
+          var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : 'http://localhost:3003';
+          fetch(apiBase + '/api/resolve-lecture?ga=' + encodeURIComponent(ga) + '&date=' + encodeURIComponent(isoDate))
             .then(function(r) { return r.ok ? r.json() : null; })
             .then(function(data) {
               if (!data || !data.success || !data.lectureId) return;
-              var lid = data.lectureId;
-              var a = document.createElement('a');
-              a.href = '#';
-              a.textContent = '(' + (lid || '') + ')'; a.style.fontWeight = 'bold';
-              a.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (typeof window.showLectureFromAdvancedSearch === 'function') {
-                  window.showLectureFromAdvancedSearch(lid, '', '^' + captured);
-                }
-              });
-              if (span.parentNode) span.parentNode.replaceChild(a, span);
+              if (typeof showLectureFromAdvancedSearch === 'function') {
+                showLectureFromAdvancedSearch(data.lectureId, '', blockId ? '^' + blockId : '');
+              }
             })
-            .catch(function() {});
+            .catch(function(err) { console.warn('[KARTEN] Navigation fehlgeschlagen:', err); });
         });
-      })();
+      });
       const hash = (window.location.hash || '').replace(/^#/, '');
       let frag = '';
       if (hash.includes('&scroll=')) {

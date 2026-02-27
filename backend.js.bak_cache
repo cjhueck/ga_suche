@@ -524,7 +524,7 @@ app.use(express.static(__dirname, {
   etag: false,
   lastModified: false,
   setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html') || filePath.endsWith('.js')) {
+    if (filePath.endsWith('.html')) {
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
@@ -3751,26 +3751,6 @@ app.get('/api/resolve-lecture', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// Block-ID -> Lecture-ID Lookup
-app.get('/api/resolve-block-id', (req, res) => {
-  try {
-    const { id } = req.query;
-    if (!id) return res.status(400).json({ error: 'Parameter id erforderlich' });
-    const searchId = id.startsWith('^') ? id : '^' + id;
-    for (const [lectureId, lecture] of Object.entries(fullLectures)) {
-      if (!lecture.paragraphs) continue;
-      const found = lecture.paragraphs.find(p => p.index === searchId);
-      if (found) {
-        return res.json({ success: true, lectureId, title: lecture.title || '', date: lecture.date || '', gaNumber: lecture.gaNumber || '' });
-      }
-    }
-    res.status(404).json({ error: `Kein Vortrag gefunden fuer Block-ID ${id}` });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-
 
 // ============================================================================
 // ERWEITERTE SUCHE (bis zu 7 Worte)

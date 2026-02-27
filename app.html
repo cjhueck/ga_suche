@@ -2221,6 +2221,41 @@ body.dark-mode .ga-missing-text {
       margin-top: 0 !important;
       padding-top: 0 !important;
     }
+    /* Überschriften-Hierarchie im Maps-Seitenpanel */
+    #results .maps-sidepanel-content h1 {
+      font-size: 1.1em;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--heading-color);
+      margin: 0 0 0.4rem 0;
+    }
+    #results .maps-sidepanel-content h2 {
+      font-size: 0.95em;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--accent-color);
+      margin: 1.1rem 0 0.3rem 0;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    #results .maps-sidepanel-content h3 {
+      font-size: 0.88em;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--heading-color);
+      margin: 0.9rem 0 0.2rem 0;
+    }
+    #results .maps-sidepanel-content h4,
+    #results .maps-sidepanel-content h5,
+    #results .maps-sidepanel-content h6 {
+      font-size: 0.82em !important;
+      font-weight: 700 !important;
+      font-style: normal !important;
+      color: var(--accent-color) !important;
+      margin: 0.8rem 0 0.15rem 0 !important;
+    }
+    /* Block-ID Referenz-Spans unsichtbar */
+    .blkref { display: none !important; }
     /* Maps-Absätze explizit wie Suche-Ergebnisse formatieren (überschreibt marked/Inline-Styles) */
     #sidebar-content .maps-sidepanel-content p,
     #sidebar-content .maps-sidepanel-content .paragraph,
@@ -3133,7 +3168,8 @@ body.dark-mode .ga-missing-text {
     .pdf-canvas-container {
       flex: 1;
       min-height: 0;
-      overflow: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -3143,6 +3179,10 @@ body.dark-mode .ga-missing-text {
     
     body.dark-mode .pdf-canvas-container {
       background: var(--dark-background-color);
+    }
+    /* Keine Doppel-Scrollbar: wenn PDF-Panel offen, nur PDF-Container scrollt */
+    body:has(#pdf-viewer-panel.visible) #summary-panel {
+      overflow-y: hidden !important;
     }
     
     .pdf-canvas-container canvas {
@@ -3165,10 +3205,22 @@ body.dark-mode .ga-missing-text {
       justify-content: center;
       align-items: center;
       cursor: zoom-out;
+      overflow: hidden;
     }
     
     #pdf-popup-modal.visible {
       display: flex;
+    }
+    
+    html:has(#pdf-popup-modal.visible),
+    body:has(#pdf-popup-modal.visible) {
+      overflow: hidden !important;
+      height: 100%;
+    }
+    
+    body:has(#pdf-popup-modal.visible) #pdf-viewer-panel .pdf-canvas-container,
+    body:has(#pdf-popup-modal.visible) #pdf-viewer-panel {
+      overflow: hidden !important;
     }
     
     #pdf-popup-container {
@@ -10598,6 +10650,6 @@ PDF
 
 
 
-<script src="app.js"></script>
+<script src="app.js?v=20260227e"></script>
 </body>
 </html>
