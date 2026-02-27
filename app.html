@@ -4251,6 +4251,12 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       overflow-wrap: break-word !important;
       overflow: visible; /* Seitenzahlen müssen sichtbar bleiben */
     }
+
+    /* Maps-Tab: kein Padding um den PDF-Viewer */
+    body:has(#maps-tab-button.active) #viewer {
+      padding: 0 !important;
+    }
+
     
     #viewer-content {
       flex: 1;
