@@ -35,17 +35,17 @@ MAPPING = {
         "I. Themen/Denken - Fühlen - Wollen/Seelische Entwicklung.md",
     "Gedächtnisentwicklung_des_Kindes":
         "I. Themen/Gedächtnisentwicklung/Gedächtnis Zitate.md",
-    "Entwicklung_der_Phantasie":
+    "Entwicklung der Phantasie":
         "I. Themen/Phantasie/Phantasie Zitate.md",
-    "Entwicklung_der_Urteilskraft":
+    "Entwicklung der Urteilskraft":
         "I. Themen/Urteilskraft/Urteilskraft Zitate.md",
-    "Entwicklung_des_Gedächtnisses":
+    "Entwicklung des Gedächtnisses":
         "I. Themen/Gedächtnisentwicklung/Gedächtnis Zitate.md",
-    "Entwicklung_des_Nerven-Sinnes-Systems":
+    "Entwicklung des Nerven-Sinnessystems":
         "I. Themen/Dreigliederung/Nerven-Sinnessystem.md",
-    "Entwicklung_des_Rhythmischen_Systems":
+    "Entwicklung des Rhythmischen_Systems":
         "I. Themen/Dreigliederung/Rhythmisches System.md",
-    "Entwicklung_des_Stoffwechsel-Gliedmaßen-Systems":
+    "Entwicklung des Stoffwechsel-Gliedmaßensystems":
         "I. Themen/Dreigliederung/Stoffwechsel-Gliedmaßensystem.md",
     "Gehen_Sprechen_Denken":
         "I. Themen/Gehen - Sprechen - Denken/Gehen - Sprechen - Denken Zitate.md",
