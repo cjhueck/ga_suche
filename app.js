@@ -30807,15 +30807,26 @@ async function showMapsInViewer() {
                     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
                 };
+                // Obsidian Publish entfernt Klammern aus Ankern: normalize fuer Vergleich
+                const normAnchor = function(s) {
+                  return s
+                    .replace(/\u00a0/g, ' ')   // geschuetztes Leerzeichen -> normales
+                    .replace(/[()]/g, '')     // Klammern entfernen
+                    .replace(/\s*:\s*/g, ':') // Leerzeichen um Doppelpunkt
+                    .replace(/\s+/g, ' ')     // mehrfache Leerzeichen
+                    .trim();
+                };
+                const normHeading = normAnchor(heading);
                 const directEl = document.getElementById(heading);
                 if (directEl) { scrollToEl(directEl); return; }
-                // Fallback: Ueberschriften im Panel nach passendem Text durchsuchen
+                // Fallback: Ueberschriften im Panel nach normalisiertem Text durchsuchen
                 const obsidianContent = document.getElementById('maps-obsidian-content');
                 if (obsidianContent) {
                   const allHeadings = obsidianContent.querySelectorAll('h1,h2,h3,h4,h5,h6');
                   for (let i = 0; i < allHeadings.length; i++) {
                     const h = allHeadings[i];
-                    if ((h.textContent || '').trim() === heading) {
+                    const hText = (h.textContent || '').trim();
+                    if (hText === heading || normAnchor(hText) === normHeading) {
                       scrollToEl(h); return;
                     }
                   }
