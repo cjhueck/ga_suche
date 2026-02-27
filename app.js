@@ -30792,6 +30792,37 @@ async function showMapsInViewer() {
               }
                 return;
             }
+            // Obsidian Publish Links: Fragment als Ueberschriften-ID im linken Panel suchen
+            if (url.includes('publish.obsidian.md')) {
+              const hashIdx = url.indexOf('#');
+              if (hashIdx >= 0) {
+                const fragment = url.substring(hashIdx + 1);
+                const heading = decodeURIComponent(fragment.replace(/\+/g, ' '));
+                const scrollToEl = function(el) {
+                  const sidebar = document.getElementById('sidebar');
+                  if (sidebar && sidebar.classList.contains('collapsed')) {
+                    if (typeof toggleSidebar === 'function') toggleSidebar();
+                    setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+                  } else {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                };
+                const directEl = document.getElementById(heading);
+                if (directEl) { scrollToEl(directEl); return; }
+                // Fallback: Ueberschriften im Panel nach passendem Text durchsuchen
+                const obsidianContent = document.getElementById('maps-obsidian-content');
+                if (obsidianContent) {
+                  const allHeadings = obsidianContent.querySelectorAll('h1,h2,h3,h4,h5,h6');
+                  for (let i = 0; i < allHeadings.length; i++) {
+                    const h = allHeadings[i];
+                    if ((h.textContent || '').trim() === heading) {
+                      scrollToEl(h); return;
+                    }
+                  }
+                }
+              }
+              return;
+            }
             window.open(url, '_blank', 'noopener');
           });
           linksDiv.appendChild(a);
