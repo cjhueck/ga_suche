@@ -524,7 +524,7 @@ app.use(express.static(__dirname, {
   etag: false,
   lastModified: false,
   setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html')) {
+    if (filePath.endsWith('.html') || filePath.endsWith('.js')) {
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
@@ -3751,6 +3751,26 @@ app.get('/api/resolve-lecture', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// Block-ID -> Lecture-ID Lookup
+app.get('/api/resolve-block-id', (req, res) => {
+  try {
+    const { id } = req.query;
+    if (!id) return res.status(400).json({ error: 'Parameter id erforderlich' });
+    const searchId = id.startsWith('^') ? id : '^' + id;
+    for (const [lectureId, lecture] of Object.entries(fullLectures)) {
+      if (!lecture.paragraphs) continue;
+      const found = lecture.paragraphs.find(p => p.index === searchId);
+      if (found) {
+        return res.json({ success: true, lectureId, title: lecture.title || '', date: lecture.date || '', gaNumber: lecture.gaNumber || '' });
+      }
+    }
+    res.status(404).json({ error: `Kein Vortrag gefunden fuer Block-ID ${id}` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 // ============================================================================
 // ERWEITERTE SUCHE (bis zu 7 Worte)
@@ -6769,6 +6789,7 @@ const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
 const MAPS_CONTENT_FALLBACK = {
   'rhythmisches-system': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
   'Rhythmisches_System_neu': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
+  'Seelische_Entwicklung_des_Kindes': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Denken - Fühlen - Wollen', 'Seelische Entwicklung.md'),
 };
 
 // Hilfsfunktion: Dateiname -> Anzeigename
@@ -6840,17 +6861,17 @@ app.get('/api/maps-content', async (req, res) => {
     return res.status(400).json({ error: 'Ungueltige Map-ID' });
   }
   const repoPath = path.join(MAPS_CONTENT_DIR, mapId + '.md');
-  try {
-    const content = await fs.readFile(repoPath, 'utf-8');
-    return res.json({ markdown: content, mapId, source: 'repo' });
-  } catch (e) { /* weiter */ }
   const fallbackPath = MAPS_CONTENT_FALLBACK[mapId];
   if (fallbackPath) {
     try {
       const content = await fs.readFile(fallbackPath, 'utf-8');
       return res.json({ markdown: content, mapId, source: 'obsidian' });
-    } catch (e) { /* nicht gefunden */ }
+    } catch (e) { /* nicht gefunden, weiter */ }
   }
+  try {
+    const content = await fs.readFile(repoPath, 'utf-8');
+    return res.json({ markdown: content, mapId, source: 'repo' });
+  } catch (e) { /* weiter */ }
   console.warn('[MAPS] Kein Inhalt fuer Map:', mapId);
   res.status(404).json({ error: 'Keine Inhaltsdatei gefunden fuer: ' + mapId });
 });

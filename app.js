@@ -12606,6 +12606,7 @@ function scrollToChronologicalYear(year) {
         alert('Fehler beim Laden des Vortrags: ' + error.message);
       }
     }
+    window.showLectureFromAdvancedSearch = showLectureFromAdvancedSearch;
     
     // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
     async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null) {
@@ -30974,6 +30975,8 @@ async function showMapsInViewer() {
       if (!res.ok) throw new Error('Datei nicht gefunden');
       const data = await res.json();
       let md = data.markdown.replace(/\[\[#([^\]]+)\]\]/g, (_, h) => `[${h}](#${encodeURIComponent(h)})`);
+      // Block-IDs als unsichtbare Spans einbetten (für Navigation, nicht sichtbar)
+      md = md.replace(/ \^([a-z0-9]+)(?=[ \[;\s]|$)/g, ' <span class="blkref" data-bid="$1"></span>');
       let html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
       const wrap = document.createElement('div');
       wrap.innerHTML = html;
@@ -30988,11 +30991,11 @@ async function showMapsInViewer() {
       wrap.querySelectorAll('p').forEach(p => {
         p.classList.add('paragraph');
         p.style.setProperty('margin', '0.5rem 0', 'important');
-        p.style.setProperty('font-size', '0.9rem', 'important');
+        p.style.setProperty('font-size', '0.85rem', 'important');
         p.style.setProperty('line-height', '1.5', 'important');
       });
       wrap.querySelectorAll('li').forEach(li => {
-        li.style.setProperty('font-size', '0.9rem', 'important');
+        li.style.setProperty('font-size', '0.85rem', 'important');
         li.style.setProperty('line-height', '1.5', 'important');
       });
       const isDark = document.body.classList.contains('dark-mode');
@@ -31012,6 +31015,32 @@ async function showMapsInViewer() {
           }
         });
       });
+      // blkref-Spans in klickbare GA-Links umwandeln
+      (function() {
+        var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3003' : '');
+        resultsDiv.querySelectorAll('#maps-obsidian-content .blkref[data-bid]').forEach(function(span) {
+          var blockId = span.dataset.bid;
+          if (!blockId) return;
+          var captured = blockId;
+          fetch(apiBase + '/api/resolve-block-id?id=' + encodeURIComponent(blockId))
+            .then(function(r) { return r.ok ? r.json() : null; })
+            .then(function(data) {
+              if (!data || !data.success || !data.lectureId) return;
+              var lid = data.lectureId;
+              var a = document.createElement('a');
+              a.href = '#';
+              a.textContent = '(' + (lid || '') + ')'; a.style.fontWeight = 'bold';
+              a.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (typeof window.showLectureFromAdvancedSearch === 'function') {
+                  window.showLectureFromAdvancedSearch(lid, '', '^' + captured);
+                }
+              });
+              if (span.parentNode) span.parentNode.replaceChild(a, span);
+            })
+            .catch(function() {});
+        });
+      })();
       const hash = (window.location.hash || '').replace(/^#/, '');
       let frag = '';
       if (hash.includes('&scroll=')) {
