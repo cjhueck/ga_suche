@@ -1,6 +1,17 @@
-# Grosse Dateien von der Cursor-Indexierung ausschliessen (verhindert Abstuerze)
+﻿# Grosse Dateien von der Cursor-Indexierung ausschliessen (verhindert Abstuerze)
 app.html
 app-Christophs-PC.html
+app.js
+backend.js
 backups/
 _backups/
-app.js
+
+# Grosse JSON-Datenbanken
+*.json
+!package.json
+!package-lock.json
+!.vscode/*.json
+
+# Grosse Bild- und Medien-Verzeichnisse
+steiner-images/
+Steiner_GA/
