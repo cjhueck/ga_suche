@@ -30830,8 +30830,9 @@ async function showMapsInViewer() {
       });
       resizeObs.observe(scrollEl);
       scrollEl.addEventListener('wheel', function(e) {
-        if (e.ctrlKey || e.metaKey) {
+        if (e.ctrlKey || e.metaKey || e.shiftKey) {
           e.preventDefault();
+          isFitMode = false;
           scale = e.deltaY < 0 ? Math.min(scale * 1.1, 6) : Math.max(scale / 1.1, 0.2);
           render();
         }
