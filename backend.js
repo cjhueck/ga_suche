@@ -6763,11 +6763,12 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 
 // // Maps Tab: Verzeichnis mit PDF-Karten
 const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
-// Obsidian-Inhalte (lokal): mapId -> Markdown-Dateipfad
-const MAPS_CONTENT_PATHS = {
-  'rhythmisches-system': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH || path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
-  'Rhythmisches_System_neu': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH || path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
-  'Rhythmisches_System': process.env.MAPS_RHYTHMISCHES_SYSTEM_PATH || path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md')
+// maps-content/: exportierte Obsidian-Dateien (primaer, funktioniert auch online)
+const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
+// Fallback fuer lokale Entwicklung ohne Sync-Skript: mapId -> Obsidian-Pfad
+const MAPS_CONTENT_FALLBACK = {
+  'rhythmisches-system': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
+  'Rhythmisches_System_neu': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
 };
 
 // Hilfsfunktion: Dateiname -> Anzeigename
@@ -6831,20 +6832,28 @@ app.get('/api/maps-pdf', async (req, res) => {
   }
 });
 
-// GET /api/maps-content?map=ID - Obsidian Markdown fuer linkes Panel
+// GET /api/maps-content?map=ID - Markdown fuer linkes Panel
+// 1. maps-content/<mapId>.md (via sync-maps-content.py, funktioniert online)
+// 2. Fallback: MAPS_CONTENT_FALLBACK[mapId] (lokaler Obsidian-Pfad)
 app.get('/api/maps-content', async (req, res) => {
-  const mapId = req.query.map || 'rhythmisches-system';
-  const filePath = MAPS_CONTENT_PATHS[mapId];
-  if (!filePath) {
-    return res.status(404).json({ error: 'Keine Inhaltsdatei fuer diese Map konfiguriert' });
+  const mapId = req.query.map || 'Rhythmisches_System';
+  if (!mapId || mapId.includes('..') || mapId.includes('/') || mapId.includes('\\')) {
+    return res.status(400).json({ error: 'Ungueltige Map-ID' });
   }
+  const repoPath = path.join(MAPS_CONTENT_DIR, mapId + '.md');
   try {
-    const content = await fs.readFile(filePath, 'utf-8');
-    res.json({ markdown: content, mapId });
-  } catch (err) {
-    console.warn('[MAPS] Konnte Obsidian-Datei nicht lesen:', filePath, err.message);
-    res.status(404).json({ error: 'Datei nicht gefunden: ' + (err.code === 'ENOENT' ? 'Pfad prüfen' : err.message) });
+    const content = await fs.readFile(repoPath, 'utf-8');
+    return res.json({ markdown: content, mapId, source: 'repo' });
+  } catch (e) { /* weiter */ }
+  const fallbackPath = MAPS_CONTENT_FALLBACK[mapId];
+  if (fallbackPath) {
+    try {
+      const content = await fs.readFile(fallbackPath, 'utf-8');
+      return res.json({ markdown: content, mapId, source: 'obsidian' });
+    } catch (e) { /* nicht gefunden */ }
   }
+  console.warn('[MAPS] Kein Inhalt fuer Map:', mapId);
+  res.status(404).json({ error: 'Keine Inhaltsdatei gefunden fuer: ' + mapId });
 });
 
 // Health-Check Endpoint für Keep-Alive (UptimeRobot, etc.)
