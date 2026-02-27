@@ -18514,6 +18514,8 @@ function scrollToChronologicalYear(year) {
       
       updateHeaderPosition(); // Header-Position nach Panel-Toggle anpassen
     }
+    window.toggleSummaryPanel = toggleSummaryPanel;
+
 
     async function loadSummaryAutomatically() {
       const tocList = document.getElementById('toc-list');
@@ -30740,6 +30742,8 @@ async function showMapsInViewer() {
   const selectedId = (window._coggleMapId || COGGLE_MAPS[0].id);
   const map = COGGLE_MAPS.find(m => m.id === selectedId) || COGGLE_MAPS[0];
   const usePublish = (window._mapsViewMode || 'local') === 'publish' && map.publishUrl;
+  const titleEl = document.getElementById('document-title');
+  if (titleEl) titleEl.textContent = map.name || 'Karten';
   
   if (dropdown) {
     const catEl = document.getElementById('maps-category-dropdown');
@@ -39494,9 +39498,12 @@ window.cancelTextEditMode = function() {};
       container.scrollTop = 0;
       container.scrollLeft = 0;
       
-      // Modal anzeigen
+      // Modal anzeigen - aeusseren Scrollbar verhindern
       modal.classList.add('visible');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      const pdfPanel = document.getElementById('pdf-viewer-panel');
+      if (pdfPanel) pdfPanel.style.overflow = 'hidden';
       
     } catch (error) {
       console.error('[PDF-POPUP] Render-Fehler:', error);
@@ -39575,7 +39582,10 @@ window.cancelTextEditMode = function() {};
     const modal = document.getElementById('pdf-popup-modal');
     if (modal) {
       modal.classList.remove('visible');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      const pdfPanel = document.getElementById('pdf-viewer-panel');
+      if (pdfPanel) pdfPanel.style.overflow = '';
       popupPage = null;
       popupZoomLevel = 1.0;
     }

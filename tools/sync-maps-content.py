@@ -25,6 +25,8 @@ OUTPUT_DIR = REPO_ROOT / "maps-content"
 MAPPING = {
     "Rhythmisches_System":
         "I. Themen/Dreigliederung/Rhythmisches System.md",
+    "Rhythmisches_System_neu":
+        "I. Themen/Dreigliederung/Rhythmisches System.md",
     "Nerven-Sinnessystem":
         "I. Themen/Dreigliederung/Nerven-Sinnessystem.md",
     "Stoffwechsel-Gliedmaßensystem":
@@ -33,6 +35,18 @@ MAPPING = {
         "I. Themen/Denken - Fühlen - Wollen/Seelische Entwicklung.md",
     "Gedächtnisentwicklung_des_Kindes":
         "I. Themen/Gedächtnisentwicklung/Gedächtnis Zitate.md",
+    "Entwicklung_der_Phantasie":
+        "I. Themen/Phantasie/Phantasie Zitate.md",
+    "Entwicklung_der_Urteilskraft":
+        "I. Themen/Urteilskraft/Urteilskraft Zitate.md",
+    "Entwicklung_des_Gedächtnisses":
+        "I. Themen/Gedächtnisentwicklung/Gedächtnis Zitate.md",
+    "Entwicklung_des_Nerven-Sinnes-Systems":
+        "I. Themen/Dreigliederung/Nerven-Sinnessystem.md",
+    "Entwicklung_des_Rhythmischen_Systems":
+        "I. Themen/Dreigliederung/Rhythmisches System.md",
+    "Entwicklung_des_Stoffwechsel-Gliedmaßen-Systems":
+        "I. Themen/Dreigliederung/Stoffwechsel-Gliedmaßensystem.md",
     "Gehen_Sprechen_Denken":
         "I. Themen/Gehen - Sprechen - Denken/Gehen - Sprechen - Denken Zitate.md",
     "Modellleib":
