@@ -31040,6 +31040,14 @@ function switchThemenView(view) {
   // Rechtes Side Panel schliessen
   if (typeof closeSummaryPanelFromHeader === 'function') closeSummaryPanelFromHeader();
 
+  // Titel im Main Viewer setzen
+  const docTitle = document.getElementById('document-title');
+  if (docTitle) {
+    if (view === 'schwerpunkte') docTitle.textContent = 'Themenschwerpunkte im Gesamtwerk (1879–1925)';
+    else if (view === 'timeline') docTitle.textContent = 'Timeline';
+    else if (view === 'karten')   docTitle.textContent = 'Karten';
+  }
+
   // Viewer und Side Panel leeren
   const viewer = document.getElementById('viewer');
   if (viewer) viewer.innerHTML = '';
