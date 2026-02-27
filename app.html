@@ -2143,7 +2143,9 @@ body.dark-mode .ga-missing-text {
     #sidebar-content h3 {
       font-size: 1.0rem !important;
     }
-    #sidebar-content h4 {
+    #sidebar-content h4,
+    #sidebar-content h5,
+    #sidebar-content h6 {
       font-size: 1.0rem !important;
       line-height: 1.3 !important;
       margin: 0.7rem 0 0.5rem 0 !important;
@@ -2158,7 +2160,9 @@ body.dark-mode .ga-missing-text {
     /* Zentral: Zwischenüberschriften in Side Panels (Light Mode) */
     #sidebar-content h2,
     #sidebar-content h3,
-    #sidebar-content h4 {
+    #sidebar-content h4,
+    #sidebar-content h5,
+    #sidebar-content h6 {
       color: var(--heading-color) !important;
     }
     
@@ -2170,7 +2174,9 @@ body.dark-mode .ga-missing-text {
     /* Dark Mode: Zwischenüberschriften in linken Side Panels farbig (#6BA3B8) */
     body.dark-mode #sidebar-content h2,
     body.dark-mode #sidebar-content h3,
-    body.dark-mode #sidebar-content h4 {
+    body.dark-mode #sidebar-content h4,
+    body.dark-mode #sidebar-content h5,
+    body.dark-mode #sidebar-content h6 {
       color: #6BA3B8 !important;
     }
     
@@ -2178,7 +2184,9 @@ body.dark-mode .ga-missing-text {
     #sidebar-content h1 a,
     #sidebar-content h2 a,
     #sidebar-content h3 a,
-    #sidebar-content h4 a {
+    #sidebar-content h4 a,
+    #sidebar-content h5 a,
+    #sidebar-content h6 a {
       color: var(--link-color);
       text-decoration: none;
     }
@@ -2186,15 +2194,47 @@ body.dark-mode .ga-missing-text {
     #sidebar-content h1 a:hover,
     #sidebar-content h2 a:hover,
     #sidebar-content h3 a:hover,
-    #sidebar-content h4 a:hover {
+    #sidebar-content h4 a:hover,
+    #sidebar-content h5 a:hover,
+    #sidebar-content h6 a:hover {
       text-decoration: underline;
     }
     
     body.dark-mode #sidebar-content h1 a,
     body.dark-mode #sidebar-content h2 a,
     body.dark-mode #sidebar-content h3 a,
-    body.dark-mode #sidebar-content h4 a {
+    body.dark-mode #sidebar-content h4 a,
+    body.dark-mode #sidebar-content h5 a,
+    body.dark-mode #sidebar-content h6 a {
       color: #6BA3B8 !important;
+    }
+    
+    /* Maps-Tab: wie Suche-Tab im linken Sidepanel formatieren */
+    #sidebar-content .maps-sidepanel-content {
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+      padding: 0.5rem 0 2rem 0;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    /* Maps-Absätze explizit wie Suche-Ergebnisse formatieren (überschreibt marked/Inline-Styles) */
+    #sidebar-content .maps-sidepanel-content p,
+    #sidebar-content .maps-sidepanel-content .paragraph,
+    #results .maps-sidepanel-content p,
+    #results .maps-sidepanel-content .paragraph {
+      margin: var(--paragraph-margin) 0 !important;
+      font-size: var(--text-size) !important;
+      line-height: var(--line-height) !important;
+      color: var(--text-color) !important;
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+    }
+    body.dark-mode #sidebar-content .maps-sidepanel-content p,
+    body.dark-mode #sidebar-content .maps-sidepanel-content .paragraph,
+    body.dark-mode #results .maps-sidepanel-content p,
+    body.dark-mode #results .maps-sidepanel-content .paragraph {
+      color: #b8b8b8 !important;
     }
     
     /* Zentrale Styles für alle Überschriften im Summary-Panel - DIREKT */
@@ -8003,11 +8043,6 @@ Bestehende Schlagwörter überschreiben
     <select id="maps-dropdown" class="filter-dropdown" onchange="switchCoggleMap(this.value)" style="flex: 1; min-width: 0; max-width: 240px;">
       <!-- Optionen dynamisch durch showMapsInViewer -->
     </select>
-  </div>
-  <div style="display: flex; align-items: center; gap: 8px;">
-    <label style="font-size: 0.9em; color: var(--text-color);">Linkes Panel:</label>
-    <button type="button" class="depth-btn active" id="maps-view-local" onclick="mapsSetViewMode('local')" style="padding: 4px 8px; font-size: 0.8em;">Lokal</button>
-    <button type="button" class="depth-btn" id="maps-view-publish" onclick="mapsSetViewMode('publish')" style="padding: 4px 8px; font-size: 0.8em;">Publish</button>
   </div>
 </div>
 </div>
@@ -36633,6 +36668,32 @@ body.dark-mode #results h4 {
 body.dark-mode #results .ga-keyword-link {
   color: #6BA3B8 !important;
 }
+
+/* Maps-Tab: Absätze wie Suche-Ergebnisse - NACH #results-Regeln, damit sie greifen */
+#results .maps-sidepanel-content p,
+#results .maps-sidepanel-content .paragraph,
+#results .maps-sidepanel-content li {
+  margin: var(--paragraph-margin) 0 !important;
+  font-size: var(--text-size) !important;
+  line-height: var(--line-height) !important;
+  color: var(--text-color) !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+body.dark-mode #results .maps-sidepanel-content p,
+body.dark-mode #results .maps-sidepanel-content .paragraph,
+body.dark-mode #results .maps-sidepanel-content li {
+  color: #b8b8b8 !important;
+}
+/* Maps-Tab: H4/H5/H6 kleiner als in #results Standard */
+#results .maps-sidepanel-content h4,
+#results .maps-sidepanel-content h5,
+#results .maps-sidepanel-content h6 {
+  font-size: 0.9rem !important;
+}
+#results .maps-sidepanel-content h4 {
+  font-weight: 700 !important;
+}
 `;
 
 // Füge CSS zum Document hinzu
@@ -40489,9 +40550,9 @@ function showDocsInViewer() {
   }
 }
 
-// Maps Tab - Obsidian-Inhalt links (#results), Coggle rechts (viewer)
+// Maps Tab - Obsidian-Inhalt links (#results), rechte Seite: PDF via PDF.js
 const COGGLE_MAPS = [
-  { id: 'rhythmisches-system', name: 'Rhythmisches System', embedUrl: 'https://embed.coggle.it/diagram/YeBfA5tkwlX_Miav/5f447e9794aa000d92c39562e646e1f3403cf74f4d09cc8ca5cfbfb221346eeb', contentMapId: 'rhythmisches-system', publishUrl: 'https://publish.obsidian.md/anthropologie/I.+Themen/Dreigliederung/Rhythmisches+System' }
+  { id: 'rhythmisches-system', name: 'Rhythmisches System', pdfUrl: true, contentMapId: 'rhythmisches-system', publishUrl: 'https://publish.obsidian.md/anthropologie/I.+Themen/Dreigliederung/Rhythmisches+System' }
 ];
 function mapsSetViewMode(mode) {
   window._mapsViewMode = mode;
@@ -40519,13 +40580,138 @@ async function showMapsInViewer() {
   if (localBtn) localBtn.classList.toggle('active', !usePublish);
   if (publishBtn) publishBtn.classList.toggle('active', usePublish);
   
-  viewer.innerHTML = `
-    <div style="padding: 0.5rem 1rem 1rem; height: calc(100vh - 140px);">
-      <div style="height: 100%; min-height: 480px; overflow: hidden; border-radius: 4px;">
-        <iframe src="${map.embedUrl}" width="100%" style="height: calc(100% + 40px); min-height: 520px; margin-top: -40px; border: none; display: block;" allowfullscreen></iframe>
+  const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+  const pdfSrc = map.pdfUrl ? ((apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id)) : '';
+  if (pdfSrc && typeof pdfjsLib !== 'undefined') {
+    viewer.innerHTML = `
+      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 145px);min-height:400px;resize:vertical;overflow:hidden;background:var(--background-color);border-radius:4px;border:1px solid var(--border-color);">        
+        <div style="flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--background-color);border-bottom:1px solid var(--border-color);">
+          <button type="button" id="maps-pdf-out" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">−</button>
+          <button type="button" id="maps-pdf-in"  class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">+</button>
+          <span id="maps-pdf-pct" style="font-size:0.8em;color:var(--secondary-text);min-width:3.5rem;">100%</span>
+          <button type="button" id="maps-pdf-fit" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">Anpassen</button>
+        </div>
+        <div id="maps-pdf-scroll" style="flex:1;min-height:0;overflow:auto;padding:8px 0 0 0;background:var(--background-color);">
+          <div id="maps-pdf-wrap" style="position:relative;display:table;margin:0 auto;">
+            <canvas id="maps-pdf-canvas"></canvas>
+            <div id="maps-pdf-links" style="position:absolute;top:0;left:0;pointer-events:none;"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+    try {
+      const pdf = await pdfjsLib.getDocument({ url: pdfSrc, withCredentials: false }).promise;
+      const page = await pdf.getPage(1);
+      const annotations = await page.getAnnotations();
+      const scrollEl = document.getElementById('maps-pdf-scroll');
+      const canvas = document.getElementById('maps-pdf-canvas');
+      const updateBlendMode = function() {
+        canvas.style.mixBlendMode = document.body.classList.contains('dark-mode') ? 'normal' : 'multiply';
+      };
+      updateBlendMode();
+      const blendObserver = new MutationObserver(updateBlendMode);
+      blendObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      const linksDiv = document.getElementById('maps-pdf-links');
+      const baseVp = page.getViewport({ scale: 1 });
+      const sw = scrollEl.clientWidth  || (scrollEl.offsetWidth  || 800);
+      const sh = scrollEl.clientHeight || (scrollEl.offsetHeight || 600);
+      const fitScale = Math.max(0.1, Math.min((sw - 24) / baseVp.width, (sh - 24) / baseVp.height, 3));
+      let scale = fitScale;
+      let renderTask = null;
+      const render = async function() {
+        if (renderTask) { try { renderTask.cancel(); } catch(e){} }
+        const vp = page.getViewport({ scale });
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(vp.width * dpr);
+        canvas.height = Math.floor(vp.height * dpr);
+        canvas.style.width = vp.width + 'px';
+        canvas.style.height = vp.height + 'px';
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderTask = page.render({ canvasContext: ctx, viewport: vp, transform: dpr !== 1 ? [dpr,0,0,dpr,0,0] : null });
+        try { await renderTask.promise; } catch(e) { if (e.name !== 'RenderingCancelledException') throw e; return; }
+        renderTask = null;
+        linksDiv.innerHTML = '';
+        linksDiv.style.cssText = 'position:absolute;top:0;left:0;width:' + baseVp.width + 'px;height:' + baseVp.height + 'px;pointer-events:auto;transform-origin:top left;transform:scale(' + scale + ');';
+        annotations.filter(a => a.subtype === 'Link').forEach(function(ann) {
+          if (!ann.rect || ann.rect.length < 4) return;
+          const url = ann.url || (ann.action && ann.action.uri);
+          if (!url) return;
+          const r = ann.rect;
+          const a = document.createElement('a');
+          a.href = url;
+          a.style.cssText = 'position:absolute;left:' + r[0] + 'px;top:' + (baseVp.height - r[3]) + 'px;width:' + (r[2]-r[0]) + 'px;height:' + (r[3]-r[1]) + 'px;display:block;cursor:pointer;';
+          a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const scrollMatch = url.match(/[?#&]scroll=([^&]*)/);
+            if (scrollMatch) {
+              const heading = decodeURIComponent(scrollMatch[1]).replace(/\+/g, ' ');
+              const el = document.getElementById(heading);
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+              }
+            }
+            window.open(url, '_blank', 'noopener');
+          });
+          linksDiv.appendChild(a);
+        });
+        document.getElementById('maps-pdf-pct').textContent = Math.round(scale * 100) + '%';
+        updateCursor();
+      };
+      // Drag-to-Pan mit Grab-Hand
+      const setCursor = function(c) {
+        scrollEl.style.cursor = c;
+        canvas.style.cursor = c;
+        linksDiv.style.cursor = c;
+      };
+      const isZoomed = function() {
+        return scrollEl.scrollWidth > scrollEl.clientWidth + 2 ||
+               scrollEl.scrollHeight > scrollEl.clientHeight + 2;
+      };
+      const updateCursor = function() {
+        setCursor(isZoomed() ? 'grab' : 'default');
+      };
+      await render();
+      document.getElementById('maps-pdf-in').onclick  = function() { scale = Math.min(scale * 1.2, 6); render(); };
+      document.getElementById('maps-pdf-out').onclick = function() { scale = Math.max(scale / 1.2, 0.2); render(); };
+      document.getElementById('maps-pdf-fit').onclick = function() { scale = fitScale; render(); };
+      scrollEl.addEventListener('wheel', function(e) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          scale = e.deltaY < 0 ? Math.min(scale * 1.1, 6) : Math.max(scale / 1.1, 0.2);
+          render();
+        }
+      }, { passive: false });
+      let dragStart = null;
+      scrollEl.addEventListener('mousedown', function(e) {
+        if (e.button !== 0 || !isZoomed()) return;
+        dragStart = { x: e.clientX + scrollEl.scrollLeft, y: e.clientY + scrollEl.scrollTop };
+        setCursor('grabbing');
+        e.preventDefault();
+      });
+      canvas.addEventListener('mousedown', function(e) {
+        if (e.button !== 0 || !isZoomed()) return;
+        dragStart = { x: e.clientX + scrollEl.scrollLeft, y: e.clientY + scrollEl.scrollTop };
+        setCursor('grabbing');
+        e.preventDefault();
+      });
+      window.addEventListener('mousemove', function(e) {
+        if (!dragStart) return;
+        scrollEl.scrollLeft = dragStart.x - e.clientX;
+        scrollEl.scrollTop  = dragStart.y - e.clientY;
+      });
+      window.addEventListener('mouseup', function() {
+        if (dragStart) { dragStart = null; updateCursor(); }
+      });
+    } catch(e) {
+      console.error('[PDF-Viewer] Fehler:', e);
+      const v = document.getElementById('maps-pdf-viewer');
+      if (v) v.innerHTML = '<div style="padding:2rem;color:var(--secondary-text);text-align:center;"><p>PDF konnte nicht geladen werden.</p><p style="font-size:0.8em;">' + (e && e.message ? e.message : 'Pfad in backend.js prüfen: MAPS_PDF_PATHS') + '</p></div>';
+    }
+  } else {
+    viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text);">Keine Karte verfügbar.</div>';
+  }
   
   if (resultsDiv) {
     resultsDiv.style.display = 'block';
@@ -40544,11 +40730,34 @@ async function showMapsInViewer() {
       let html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
       const wrap = document.createElement('div');
       wrap.innerHTML = html;
+      const appBaseUrl = (window.location.origin || '') + (window.location.pathname || '/app.html');
+      const coggleLinkBase = appBaseUrl.replace(/app\.html\/?$/i, 'coggle-link.html');
       wrap.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(h => {
         const txt = (h.textContent || '').trim();
-        if (txt) h.id = txt;
+        if (txt) {
+          h.id = txt;
+          if (['H4','H5','H6'].includes(h.tagName)) {
+            const coggleLink = coggleLinkBase + '#maps&scroll=' + encodeURIComponent(txt);
+            h.innerHTML = `<a href="${coggleLink}" target="_top" rel="noopener" title="Link für Coggle – Klick springt zum Eintrag im linken Panel">${h.innerHTML}</a>`;
+          }
+        }
       });
-      resultsDiv.innerHTML = '<div id="maps-obsidian-content" style="padding: 0.5rem 0.8rem 2rem; font-size: 0.9rem;">' + wrap.innerHTML + '</div>';
+      wrap.querySelectorAll('p').forEach(p => {
+        p.classList.add('paragraph');
+        p.style.setProperty('margin', '0.5rem 0', 'important');
+        p.style.setProperty('font-size', '0.9rem', 'important');
+        p.style.setProperty('line-height', '1.5', 'important');
+      });
+      wrap.querySelectorAll('li').forEach(li => {
+        li.style.setProperty('font-size', '0.9rem', 'important');
+        li.style.setProperty('line-height', '1.5', 'important');
+      });
+      const isDark = document.body.classList.contains('dark-mode');
+      const textColor = isDark ? '#b8b8b8' : 'var(--text-color)';
+      wrap.querySelectorAll('p, li').forEach(el => {
+        el.style.setProperty('color', textColor, 'important');
+      });
+      resultsDiv.innerHTML = '<div id="maps-obsidian-content" class="maps-sidepanel-content">' + wrap.innerHTML + '</div>';
       resultsDiv.querySelectorAll('#maps-obsidian-content a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e) {
           const h = this.getAttribute('href').slice(1);

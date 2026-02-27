@@ -1,6 +1,9 @@
 {
   "workbench.colorTheme": "Default Light+",
   "window.autoDetectColorScheme": false,
-  "workbench.preferredLightColorTheme": "Light Modern"
+  "workbench.preferredLightColorTheme": "Light Modern",
+  "editor.maxTokenizationLineLength": 400,
+  "editor.largeFileOptimizations": true,
+  "files.maxMemoryForLargeFilesMB": 256
 }
 
