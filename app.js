@@ -2560,9 +2560,7 @@ function normalizeGANumber(gaNumber) {
           h4ToggleBtn.style.display = 'none';
         }
         const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-        if (viewerSummaryBtn) {
-          viewerSummaryBtn.style.display = 'none';
-        }
+        if (viewerSummaryBtn) { viewerSummaryBtn.style.display = 'none'; }
         // Sicherstellen, dass Übersicht-Button auch beim Wechsel zum GA-Tab ausgeblendet wird
         const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
         if (viewerOriginalBtn) {
@@ -15152,9 +15150,7 @@ function scrollToChronologicalYear(year) {
       if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
       if (viewerSummaryBtn) {
         // Im GA-Tab den Übersicht-Button NICHT anzeigen
-        if (isInGATab) {
-          viewerSummaryBtn.style.display = 'none';
-        } else {
+        if (isInGATab) { viewerSummaryBtn.style.display = 'none'; } else {
           viewerSummaryBtn.style.display = 'inline-flex';
           viewerSummaryBtn.innerHTML = '≡';
         }
@@ -15164,9 +15160,7 @@ function scrollToChronologicalYear(year) {
       if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'inline-flex';
       if (viewerSummaryBtn) {
         // Im GA-Tab den Übersicht-Button NICHT anzeigen
-        if (isInGATab) {
-          viewerSummaryBtn.style.display = 'none';
-        } else {
+        if (isInGATab) { viewerSummaryBtn.style.display = 'none'; } else {
           viewerSummaryBtn.style.display = 'inline-flex';
           viewerSummaryBtn.innerHTML = '≡';
         }
@@ -30735,6 +30729,8 @@ function mapsSetViewMode(mode) {
 }
 
 async function showMapsInViewer() {
+  const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'inline-flex';
   const viewer = document.getElementById('viewer');
   const resultsDiv = document.getElementById('results');
   const dropdown = document.getElementById('maps-dropdown');
@@ -40149,3 +40145,8 @@ window.cancelTextEditMode = function() {};
   
   console.log('[VIEWER-SEARCH] Modul geladen');
 })();
+
+
+
+
+

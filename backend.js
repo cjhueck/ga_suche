@@ -6789,7 +6789,13 @@ const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
 const MAPS_CONTENT_FALLBACK = {
   'rhythmisches-system': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
   'Rhythmisches_System_neu': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
-  'Seelische_Entwicklung_des_Kindes': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Denken - Fühlen - Wollen', 'Seelische Entwicklung.md'),
+    'Seelische_Entwicklung_des_Kindes': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Denken - Fühlen - Wollen', 'Seelische Entwicklung.md'),
+  'Entwicklung der Phantasie': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Phantasie', 'Phantasie Zitate.md'),
+  'Entwicklung der Urteilskraft': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Urteilskraft', 'Urteilskraft Zitate.md'),
+  'Entwicklung des Gedächtnisses': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Gedächtnisentwicklung', 'Gedächtnis Zitate.md'),
+  'Entwicklung des Nerven-Sinnessystems': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Nerven-Sinnessystem.md'),
+  'Entwicklung des Rhythmischen_Systems': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
+  'Entwicklung des Stoffwechsel-Gliedmaßensystems': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Stoffwechsel-Gliedmaßensystem.md'),
 };
 
 // Hilfsfunktion: Dateiname -> Anzeigename
@@ -26881,4 +26887,5 @@ app.get('/api/theme-assignments-status', async (req, res) => {
 }
 
 startServer();
+
 
