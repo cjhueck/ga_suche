@@ -1,4 +1,4 @@
-// hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
+﻿// hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -15533,8 +15533,8 @@ async function createHtmlBackup(htmlFile = 'index.html') {
     
     // Erstelle Backup mit Timestamp (behalte .html Endung!)
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const prefix = htmlFile.replace('.html', '');
-    const backupFile = path.join(HTML_BACKUP_DIR, `${prefix}-${timestamp}.html`);
+    const extMatch = htmlFile.match(/\.[^.]+$/); const ext = extMatch ? extMatch[0] : '.html';
+    const prefix = htmlFile.replace(ext, ''); const backupFile = path.join(HTML_BACKUP_DIR, ${prefix}-);
     
     const data = await fs.readFile(sourceFile, 'utf8');
     await fs.writeFile(backupFile, data, 'utf8');
@@ -23963,10 +23963,20 @@ app.post('/api/backups/create', async (req, res) => {
         const indexBackup = await createHtmlBackup('index.html');
         const managerBackup = await createHtmlBackup('keyword-manager.html');
         const appBackup = await createHtmlBackup('app.html');
+        // app.js Backup (seit HTML/JS-Trennung)
+        const appJsBackup = await (async () => {
+          try {
+            const src = path.join(__dirname, 'app.js');
+            const ts = new Date().toISOString().replace(/[:.]/g, '-');
+            const dest = path.join(HTML_BACKUP_DIR, pp-js-+ts+.js);
+            await fs.copyFile(src, dest); return dest;
+          } catch(e) { return null; }
+        })();
+        const appJsBackup = await createHtmlBackup('app.js');
         const membersHtmlBackup = await createMembersHtmlBackup();
         const membersPanelBackup = await createMembersPanelBackup();
         const pageMarkerCheckerBackup = await createPageMarkerCheckerBackup();
-        const htmlBackups = [indexBackup, managerBackup, appBackup, membersHtmlBackup, membersPanelBackup, pageMarkerCheckerBackup].filter(b => b !== null);
+        const htmlBackups = [indexBackup, managerBackup, appBackup, appJsBackup, membersHtmlBackup, membersPanelBackup, pageMarkerCheckerBackup].filter(b => b !== null);
         return res.json({
           success: true,
           backups: htmlBackups.map(b => path.basename(b)),
