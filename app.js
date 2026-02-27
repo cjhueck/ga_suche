@@ -30702,10 +30702,9 @@ async function loadMapsList() {
     // Dropdown aktualisieren falls Maps-Tab bereits aktiv
     const dropdown = document.getElementById('maps-dropdown');
     if (dropdown) {
-      const selectedId = window._coggleMapId || COGGLE_MAPS[0].id;
-      dropdown.innerHTML = COGGLE_MAPS.map(function(m) {
-        return '<option value=\'' + m.id + '\'' + (m.id === selectedId ? ' selected' : '') + '>' + m.name + '</option>';
-      }).join('');
+      const catEl = document.getElementById('maps-category-dropdown');
+      const cat = catEl ? catEl.value : 'entwicklung';
+      filterMapsByCategory(cat, window._coggleMapId || COGGLE_MAPS[0].id);
     }
   } catch(e) {
     console.warn('[MAPS] Liste konnte nicht geladen werden:', e);
@@ -30736,7 +30735,13 @@ async function showMapsInViewer() {
   const usePublish = (window._mapsViewMode || 'local') === 'publish' && map.publishUrl;
   
   if (dropdown) {
-    dropdown.innerHTML = COGGLE_MAPS.map(m => `<option value="${m.id}" ${m.id === map.id ? 'selected' : ''}>${m.name}</option>`).join('');
+    const catEl = document.getElementById('maps-category-dropdown');
+    const cat = catEl ? catEl.value : 'entwicklung';
+    const reinkId = 'Reinkarnations-Metamorphose';
+    const filtered = cat === 'reinkarnation'
+      ? COGGLE_MAPS.filter(m => m.id === reinkId)
+      : COGGLE_MAPS.filter(m => m.id !== reinkId);
+    dropdown.innerHTML = filtered.map(m => `<option value="${m.id}" ${m.id === map.id ? 'selected' : ''}>${m.name}</option>`).join('');
   }
   const localBtn = document.getElementById('maps-view-local');
   const publishBtn = document.getElementById('maps-view-publish');
@@ -30747,7 +30752,7 @@ async function showMapsInViewer() {
   const pdfSrc = map.pdfUrl ? ((apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id)) : '';
   if (pdfSrc && typeof pdfjsLib !== 'undefined') {
     viewer.innerHTML = `
-      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:1500px;resize:vertical;overflow:hidden;background:var(--background-color);">        
+      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:200px;resize:vertical;overflow:hidden;background:var(--background-color);">        
         <div style="flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--background-color);border-bottom:1px solid var(--border-color);">
           <button type="button" id="maps-pdf-out" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">−</button>
           <button type="button" id="maps-pdf-in"  class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">+</button>
@@ -30755,7 +30760,7 @@ async function showMapsInViewer() {
           <button type="button" id="maps-pdf-fit" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">Anpassen</button>
         </div>
         <div id="maps-pdf-scroll" style="flex:1;min-height:0;overflow:auto;padding:0;background:var(--background-color);">
-          <div id="maps-pdf-wrap" style="position:relative;display:table;margin:0 auto;">
+          <div id="maps-pdf-wrap" style="position:relative;margin:0 auto;">
             <canvas id="maps-pdf-canvas"></canvas>
             <div id="maps-pdf-links" style="position:absolute;top:0;left:0;pointer-events:none;"></div>
           </div>
@@ -30789,6 +30794,8 @@ async function showMapsInViewer() {
         canvas.height = Math.floor(vp.height * dpr);
         canvas.style.width = vp.width + 'px';
         canvas.style.height = vp.height + 'px';
+        const wrapEl = document.getElementById('maps-pdf-wrap');
+        if (wrapEl) { wrapEl.style.width = vp.width + 'px'; wrapEl.style.height = vp.height + 'px'; }
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         renderTask = page.render({ canvasContext: ctx, viewport: vp, transform: dpr !== 1 ? [dpr,0,0,dpr,0,0] : null });
@@ -30914,21 +30921,24 @@ async function showMapsInViewer() {
         if (e.button !== 0 || !isZoomed()) return;
         dragStart = { x: e.clientX + scrollEl.scrollLeft, y: e.clientY + scrollEl.scrollTop };
         setCursor('grabbing');
+        document.body.style.userSelect = 'none';
         e.preventDefault();
       });
       canvas.addEventListener('mousedown', function(e) {
         if (e.button !== 0 || !isZoomed()) return;
         dragStart = { x: e.clientX + scrollEl.scrollLeft, y: e.clientY + scrollEl.scrollTop };
         setCursor('grabbing');
+        document.body.style.userSelect = 'none';
         e.preventDefault();
       });
       window.addEventListener('mousemove', function(e) {
         if (!dragStart) return;
+        e.preventDefault();
         scrollEl.scrollLeft = dragStart.x - e.clientX;
         scrollEl.scrollTop  = dragStart.y - e.clientY;
-      });
+      }, { passive: false });
       window.addEventListener('mouseup', function() {
-        if (dragStart) { dragStart = null; updateCursor(); }
+        if (dragStart) { dragStart = null; updateCursor(); document.body.style.userSelect = ''; }
       });
     } catch(e) {
       console.error('[PDF-Viewer] Fehler:', e);
@@ -30962,10 +30972,6 @@ async function showMapsInViewer() {
         const txt = (h.textContent || '').trim();
         if (txt) {
           h.id = txt;
-          if (['H4','H5','H6'].includes(h.tagName)) {
-            const coggleLink = coggleLinkBase + '#maps&scroll=' + encodeURIComponent(txt);
-            h.innerHTML = `<a href="${coggleLink}" target="_top" rel="noopener" title="Link für Coggle – Klick springt zum Eintrag im linken Panel">${h.innerHTML}</a>`;
-          }
         }
       });
       wrap.querySelectorAll('p').forEach(p => {
@@ -31011,6 +31017,24 @@ async function showMapsInViewer() {
     } else {
       resultsDiv.innerHTML = '';
     }
+  }
+}
+
+function filterMapsByCategory(cat, selectedId) {
+  const reinkId = 'Reinkarnations-Metamorphose';
+  const filtered = cat === 'reinkarnation'
+    ? COGGLE_MAPS.filter(function(m) { return m.id === reinkId; })
+    : COGGLE_MAPS.filter(function(m) { return m.id !== reinkId; });
+  const dropdown = document.getElementById('maps-dropdown');
+  if (!dropdown) return;
+  const sel = selectedId || window._coggleMapId || (filtered[0] && filtered[0].id) || '';
+  const validSel = filtered.find(function(m) { return m.id === sel; }) ? sel : (filtered[0] && filtered[0].id) || '';
+  dropdown.innerHTML = filtered.map(function(m) {
+    return '<option value="' + m.id + '"' + (m.id === validSel ? ' selected' : '') + '>' + m.name + '</option>';
+  }).join('');
+  if (validSel !== window._coggleMapId) {
+    window._coggleMapId = validSel;
+    showMapsInViewer();
   }
 }
 function switchCoggleMap(mapId) {

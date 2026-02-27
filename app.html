@@ -8027,10 +8027,13 @@ Bestehende Schlagwörter überschreiben
 <!-- MAPS TAB - Nur lokal sichtbar, Obsidian-Inhalt links, Coggle rechts -->
 <div class="tab-content" id="maps-tab" style="overflow: hidden;">
 <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0 0.2rem;">
-  <div style="display: flex; align-items: center; gap: 8px;">
-    <label style="font-size: 0.9em; color: var(--text-color);">Map:</label>
+  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <select id="maps-category-dropdown" class="filter-dropdown" onchange="filterMapsByCategory(this.value)" style="min-width: 0; max-width: 200px;">
+      <option value="entwicklung">Entwicklung des Kindes</option>
+      <option value="reinkarnation">Reinkarnation</option>
+    </select>
     <select id="maps-dropdown" class="filter-dropdown" onchange="switchCoggleMap(this.value)" style="flex: 1; min-width: 0; max-width: 240px;">
-      <!-- Optionen dynamisch durch showMapsInViewer -->
+      <!-- Optionen dynamisch durch loadMapsList / filterMapsByCategory -->
     </select>
   </div>
 </div>
