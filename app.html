@@ -2210,9 +2210,16 @@ body.dark-mode .ga-missing-text {
       font-size: var(--text-size);
       line-height: var(--line-height);
       color: var(--text-color);
-      padding: 0.1rem 0 2rem 0;
+      padding: 0 0 2rem 0;
       word-wrap: break-word;
       overflow-wrap: break-word;
+    }
+    /* Erste Überschrift im Maps-Panel: kein oberer Abstand */
+    #results .maps-sidepanel-content > h1:first-child,
+    #results .maps-sidepanel-content > h2:first-child,
+    #results .maps-sidepanel-content > h3:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
     }
     /* Maps-Absätze explizit wie Suche-Ergebnisse formatieren (überschreibt marked/Inline-Styles) */
     #sidebar-content .maps-sidepanel-content p,
