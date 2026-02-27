@@ -6778,8 +6778,7 @@ function mapFilenameToDisplayName(filename) {
     .replace(/_neu_online$/i, ' (Online)')
     .replace(/_neu$/i, '')
     .replace(/_mit_Links$/i, '')
-    .replace(/_/g, ' ')
-    .replace(/maensystem/gi, 'ma\u00dfensystem');
+    .replace(/_/g, ' ');
 }
 
 // GET /api/maps-list - alle PDFs aus maps-pdf/ Verzeichnis

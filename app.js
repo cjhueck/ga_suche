@@ -30747,14 +30747,14 @@ async function showMapsInViewer() {
   const pdfSrc = map.pdfUrl ? ((apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id)) : '';
   if (pdfSrc && typeof pdfjsLib !== 'undefined') {
     viewer.innerHTML = `
-      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 145px);min-height:1500px;resize:vertical;overflow:hidden;background:var(--background-color);border-radius:4px;border:1px solid var(--border-color);">        
+      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:1500px;resize:vertical;overflow:hidden;background:var(--background-color);">        
         <div style="flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--background-color);border-bottom:1px solid var(--border-color);">
           <button type="button" id="maps-pdf-out" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">−</button>
           <button type="button" id="maps-pdf-in"  class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">+</button>
           <span id="maps-pdf-pct" style="font-size:0.8em;color:var(--secondary-text);min-width:3.5rem;">100%</span>
           <button type="button" id="maps-pdf-fit" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">Anpassen</button>
         </div>
-        <div id="maps-pdf-scroll" style="flex:1;min-height:0;overflow:auto;padding:8px 0 0 0;background:var(--background-color);">
+        <div id="maps-pdf-scroll" style="flex:1;min-height:0;overflow:auto;padding:0;background:var(--background-color);">
           <div id="maps-pdf-wrap" style="position:relative;display:table;margin:0 auto;">
             <canvas id="maps-pdf-canvas"></canvas>
             <div id="maps-pdf-links" style="position:absolute;top:0;left:0;pointer-events:none;"></div>

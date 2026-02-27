@@ -27,7 +27,7 @@ MAPPING = {
         "I. Themen/Dreigliederung/Rhythmisches System.md",
     "Nerven-Sinnessystem":
         "I. Themen/Dreigliederung/Nerven-Sinnessystem.md",
-    "Stoffwechsel-Gliedmaensystem":
+    "Stoffwechsel-Gliedmaßensystem":
         "I. Themen/Dreigliederung/Stoffwechsel-Gliedmaßensystem.md",
     "Seelische_Entwicklung_des_Kindes":
         "I. Themen/Denken - Fühlen - Wollen/Seelische Entwicklung.md",
