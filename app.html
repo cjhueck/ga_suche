@@ -2210,7 +2210,7 @@ body.dark-mode .ga-missing-text {
       font-size: var(--text-size);
       line-height: var(--line-height);
       color: var(--text-color);
-      padding: 0.5rem 0 2rem 0;
+      padding: 0.1rem 0 2rem 0;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
@@ -4253,7 +4253,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
 
     /* Maps-Tab: kein Padding um den PDF-Viewer */
-    body:has(#maps-tab-button.active) #viewer {
+    body:has(#maps-tab-button.active) #viewer,
+    body.karten-view #viewer {
       padding: 0 !important;
     }
 
@@ -7886,8 +7887,46 @@ Meine Abfragen
 </div>
 
 <div class="tab-content" id="thematic2-tab" style="overflow-y: auto; max-height: calc(100vh - 200px);">
-  <!-- Timeline Filter Admin-Bereich (aus Timeline-Tab verschoben) -->
-  <div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
+
+  <!-- Sub-Navigation: Schwerpunkte | Timeline | Karten -->
+  <div id="themen-sub-nav" style="display: flex; gap: 0; margin-bottom: 0.6rem;">
+    <button id="themen-btn-schwerpunkte" class="themen-sub-btn active"
+      onclick="switchThemenView('schwerpunkte')"
+      style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
+             border-bottom:2px solid var(--accent-color); margin-bottom:-2px;
+             color:var(--accent-color); font-weight:600; cursor:pointer;">
+      Schwerpunkte
+    </button>
+    <button id="themen-btn-timeline" class="themen-sub-btn"
+      onclick="switchThemenView('timeline')"
+      style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
+             border-bottom:2px solid transparent; margin-bottom:-2px;
+             color:var(--secondary-text); cursor:pointer;">
+      Timeline
+    </button>
+    <button id="themen-btn-karten" class="themen-sub-btn"
+      onclick="switchThemenView('karten')"
+      style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
+             border-bottom:2px solid transparent; margin-bottom:-2px;
+             color:var(--secondary-text); cursor:pointer;">
+      Karten
+    </button>
+  </div>
+
+  <!-- Karten-Auswahl (nur bei Karten-View) -->
+  <div id="maps-in-themen" style="display: none; align-items: center; gap: 8px; margin-bottom: 0.5rem; flex-wrap: wrap;">
+    <select id="maps-category-dropdown" class="filter-dropdown" onchange="filterMapsByCategory(this.value)" style="min-width: 0; max-width: 200px;">
+      <option value="">-- Kategorie --</option>
+      <option value="entwicklung">Entwicklung des Kindes</option>
+      <option value="reinkarnation">Reinkarnation</option>
+    </select>
+    <select id="maps-dropdown" class="filter-dropdown" onchange="switchCoggleMap(this.value)" style="min-width: 0; max-width: 240px;">
+      <option value="">-- Karte wählen --</option>
+    </select>
+  </div>
+
+  <!-- Timeline-Filter (nur bei Timeline-View) -->
+  <div id="timelineFilterSection" style="display: none; margin-bottom: 0; padding: 0;">
   <div style="display: grid; grid-template-columns: 0.9fr 1.2fr 0.9fr; gap: 0.5rem; margin-bottom: 0.5rem;">
   <div>
   <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.8em;" onchange="updateTimelineFilters('theme');">
@@ -8026,17 +8065,7 @@ Bestehende Schlagwörter überschreiben
 
 <!-- MAPS TAB - Nur lokal sichtbar, Obsidian-Inhalt links, Coggle rechts -->
 <div class="tab-content" id="maps-tab" style="overflow: hidden;">
-<div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0 0.2rem;">
-  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-    <select id="maps-category-dropdown" class="filter-dropdown" onchange="filterMapsByCategory(this.value)" style="min-width: 0; max-width: 200px;">
-      <option value="entwicklung">Entwicklung des Kindes</option>
-      <option value="reinkarnation">Reinkarnation</option>
-    </select>
-    <select id="maps-dropdown" class="filter-dropdown" onchange="switchCoggleMap(this.value)" style="flex: 1; min-width: 0; max-width: 240px;">
-      <!-- Optionen dynamisch durch loadMapsList / filterMapsByCategory -->
-    </select>
-  </div>
-</div>
+<!-- Karten-Auswahl wurde in den Themen-Tab verschoben -->
 </div>
 
 <!-- Versteckter Container für Dokumentationsinhalt (wird von showDocsInViewer() gelesen) -->

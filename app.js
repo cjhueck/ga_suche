@@ -9829,6 +9829,7 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
   // Wechsle zum Themen-Tab (Timeline-Tab wurde entfernt)
   timelinePendingKeyword = keyword;
   switchTab('thematic2');
+  // Timeline-Sub-View sicherstellen (wird auch in switchThemenView via timeout gesetzt)
   
   // Warte auf Tab-Wechsel und führe dann die Timeline-Suche direkt aus
   await waitForElement('timelineKeywordFilterAdmin', 2000);
@@ -26640,7 +26641,7 @@ function switchTabExtended(mode) {
   
   // Lade Visualisierung wenn zum Themen II Tab gewechselt wird
   if (mode === 'thematic2') {
-    // Nur zurücksetzen wenn KEIN pending Keyword wartet (Navigation von Lecture Keywords)
+    // Sub-View zurücksetzen oder pending-keyword handling
     if (!timelinePendingKeyword) {
       console.log('[THEMATIC2-EXT] Tab aktiviert - vollständiger Reset');
       
@@ -26655,8 +26656,12 @@ function switchTabExtended(mode) {
       if (resultsDiv) {
         resultsDiv.innerHTML = '';
       }
+      // 3. Sub-View auf Schwerpunkte schalten (Standard)
+      setTimeout(function() { if (typeof switchThemenView === 'function') switchThemenView('schwerpunkte'); }, 50);
     } else {
       console.log('[THEMATIC2-EXT] Tab aktiviert mit pending Keyword:', timelinePendingKeyword);
+      // Bei pending keyword: Timeline-View aktivieren
+      setTimeout(function() { if (typeof switchThemenView === 'function') switchThemenView('timeline'); }, 50);
     }
     
     // 3. Summary-Panel schließen (rechtes Side Panel)
@@ -30702,9 +30707,10 @@ async function loadMapsList() {
     // Dropdown aktualisieren falls Maps-Tab bereits aktiv
     const dropdown = document.getElementById('maps-dropdown');
     if (dropdown) {
+      // Beim Laden kein Auto-Select: Dropdown nur befuellen wenn Kategorie aktiv
       const catEl = document.getElementById('maps-category-dropdown');
-      const cat = catEl ? catEl.value : 'entwicklung';
-      filterMapsByCategory(cat, window._coggleMapId || COGGLE_MAPS[0].id);
+      const cat = catEl ? catEl.value : '';
+      if (cat) filterMapsByCategory(cat, window._coggleMapId || '');
     }
   } catch(e) {
     console.warn('[MAPS] Liste konnte nicht geladen werden:', e);
@@ -30741,7 +30747,8 @@ async function showMapsInViewer() {
     const filtered = cat === 'reinkarnation'
       ? COGGLE_MAPS.filter(m => m.id === reinkId)
       : COGGLE_MAPS.filter(m => m.id !== reinkId);
-    dropdown.innerHTML = filtered.map(m => `<option value="${m.id}" ${m.id === map.id ? 'selected' : ''}>${m.name}</option>`).join('');
+    dropdown.innerHTML = '<option value="">-- Karte wählen --</option>' +
+      filtered.map(m => `<option value="${m.id}" ${m.id === map.id ? 'selected' : ''}>${m.name}</option>`).join('');
   }
   const localBtn = document.getElementById('maps-view-local');
   const publishBtn = document.getElementById('maps-view-publish');
@@ -30752,14 +30759,14 @@ async function showMapsInViewer() {
   const pdfSrc = map.pdfUrl ? ((apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id)) : '';
   if (pdfSrc && typeof pdfjsLib !== 'undefined') {
     viewer.innerHTML = `
-      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:200px;resize:vertical;overflow:hidden;background:var(--background-color);">        
+      <div id="maps-pdf-viewer" style="display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:2000px;resize:vertical;overflow:hidden;background:var(--background-color);">        
         <div style="flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--background-color);border-bottom:1px solid var(--border-color);">
           <button type="button" id="maps-pdf-out" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">−</button>
           <button type="button" id="maps-pdf-in"  class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">+</button>
           <span id="maps-pdf-pct" style="font-size:0.8em;color:var(--secondary-text);min-width:3.5rem;">100%</span>
           <button type="button" id="maps-pdf-fit" class="pdf-panel-controls" style="padding:4px 8px;font-size:0.85em;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:4px;">Anpassen</button>
         </div>
-        <div id="maps-pdf-scroll" style="flex:1;min-height:0;overflow:auto;padding:0;background:var(--background-color);">
+        <div id="maps-pdf-scroll" style="flex:1;height:calc(100vh - 150px);max-height:calc(100vh - 150px);min-height:0;overflow:auto;padding:0;background:var(--background-color);">
           <div id="maps-pdf-wrap" style="position:relative;margin:0 auto;">
             <canvas id="maps-pdf-canvas"></canvas>
             <div id="maps-pdf-links" style="position:absolute;top:0;left:0;pointer-events:none;"></div>
@@ -30885,11 +30892,15 @@ async function showMapsInViewer() {
         linksDiv.style.cursor = c;
       };
       const isZoomed = function() {
-        return scrollEl.scrollWidth > scrollEl.clientWidth + 2 ||
-               scrollEl.scrollHeight > scrollEl.clientHeight + 2;
+        // Canvas-Größe direkt mit Scroll-Container vergleichen (robust gegen min-height)
+        const canvasEl = document.getElementById('maps-pdf-canvas');
+        if (!canvasEl) return false;
+        return canvasEl.offsetWidth  > scrollEl.clientWidth  + 2 ||
+               canvasEl.offsetHeight > scrollEl.clientHeight + 2;
       };
       const updateCursor = function() {
-        setCursor(isZoomed() ? 'grab' : 'default');
+        // Grab-Cursor immer anzeigen wenn PDF geladen (erlaubt Drag in beide Richtungen)
+        setCursor('grab');
       };
       await render();
       let isFitMode = true;
@@ -30918,14 +30929,14 @@ async function showMapsInViewer() {
       }, { passive: false });
       let dragStart = null;
       scrollEl.addEventListener('mousedown', function(e) {
-        if (e.button !== 0 || !isZoomed()) return;
+        if (e.button !== 0) return;
         dragStart = { x: e.clientX + scrollEl.scrollLeft, y: e.clientY + scrollEl.scrollTop };
         setCursor('grabbing');
         document.body.style.userSelect = 'none';
         e.preventDefault();
       });
       canvas.addEventListener('mousedown', function(e) {
-        if (e.button !== 0 || !isZoomed()) return;
+        if (e.button !== 0) return;
         dragStart = { x: e.clientX + scrollEl.scrollLeft, y: e.clientY + scrollEl.scrollTop };
         setCursor('grabbing');
         document.body.style.userSelect = 'none';
@@ -31020,24 +31031,105 @@ async function showMapsInViewer() {
   }
 }
 
+
+// Sub-Navigation im Themen-Tab: Schwerpunkte | Timeline | Karten
+function switchThemenView(view) {
+  window._themenView = view;
+  const views = ['schwerpunkte', 'timeline', 'karten'];
+
+  // Rechtes Side Panel schliessen
+  if (typeof closeSummaryPanelFromHeader === 'function') closeSummaryPanelFromHeader();
+
+  // Viewer und Side Panel leeren
+  const viewer = document.getElementById('viewer');
+  if (viewer) viewer.innerHTML = '';
+  const results = document.getElementById('results');
+  if (results) results.innerHTML = '';
+
+  // Buttons aktualisieren
+  views.forEach(function(v) {
+    const btn = document.getElementById('themen-btn-' + v);
+    if (!btn) return;
+    if (v === view) {
+      btn.style.borderBottomColor = 'var(--accent-color)';
+      btn.style.color = 'var(--accent-color)';
+      btn.style.fontWeight = '600';
+    } else {
+      btn.style.borderBottomColor = 'transparent';
+      btn.style.color = 'var(--secondary-text)';
+      btn.style.fontWeight = '';
+    }
+  });
+
+  const mapsDiv = document.getElementById('maps-in-themen');
+  const timelineDiv = document.getElementById('timelineFilterSection');
+
+  document.body.classList.toggle('karten-view', view === 'karten');
+
+  if (view === 'schwerpunkte') {
+    if (mapsDiv) mapsDiv.style.display = 'none';
+    if (timelineDiv) timelineDiv.style.display = 'none';
+    // Themenschwerpunkte-Visualisierung neu laden
+    if (typeof initThematicVisualization === 'function') {
+      initThematicVisualization();
+    }
+
+  } else if (view === 'timeline') {
+    if (mapsDiv) mapsDiv.style.display = 'none';
+    if (timelineDiv) timelineDiv.style.display = 'block';
+    // Dropdowns zurücksetzen
+    const themeDropdown = document.getElementById('timelineThemeFilterAdmin');
+    const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+    if (themeDropdown) themeDropdown.value = '';
+    if (keywordDropdown) keywordDropdown.value = '';
+    const keywordSearch = document.getElementById('timelineKeywordSearch');
+    if (keywordSearch) keywordSearch.value = '';
+
+  } else if (view === 'karten') {
+    if (mapsDiv) mapsDiv.style.display = 'flex';
+    if (timelineDiv) timelineDiv.style.display = 'none';
+    // Maps-State zurücksetzen damit beim nächsten Wechsel zu Karten neu geladen wird
+    window._coggleMapId = null;
+    // Dropdown befüllen und erste Karte laden
+    if (typeof COGGLE_MAPS !== 'undefined' && COGGLE_MAPS.length > 0) {
+      const catEl = document.getElementById('maps-category-dropdown');
+      const cat = (catEl && catEl.value) ? catEl.value : 'entwicklung';
+      if (catEl && !catEl.value) catEl.value = 'entwicklung';
+      filterMapsByCategory(cat, '');
+      const reinkId = 'Reinkarnations-Metamorphose';
+      const firstMap = cat === 'reinkarnation'
+        ? COGGLE_MAPS.find(function(m) { return m.id === reinkId; })
+        : COGGLE_MAPS.find(function(m) { return m.id !== reinkId; });
+      if (firstMap) {
+        const dd = document.getElementById('maps-dropdown');
+        if (dd) dd.value = firstMap.id;
+        switchCoggleMap(firstMap.id);
+      }
+    }
+  }
+}
+
 function filterMapsByCategory(cat, selectedId) {
   const reinkId = 'Reinkarnations-Metamorphose';
+  const dropdown = document.getElementById('maps-dropdown');
+  if (!dropdown) return;
+  // Leere Kategorie: Dropdown zuruecksetzen, nichts laden
+  if (!cat) {
+    dropdown.innerHTML = '<option value="">-- Karte wählen --</option>';
+    return;
+  }
   const filtered = cat === 'reinkarnation'
     ? COGGLE_MAPS.filter(function(m) { return m.id === reinkId; })
     : COGGLE_MAPS.filter(function(m) { return m.id !== reinkId; });
-  const dropdown = document.getElementById('maps-dropdown');
-  if (!dropdown) return;
-  const sel = selectedId || window._coggleMapId || (filtered[0] && filtered[0].id) || '';
-  const validSel = filtered.find(function(m) { return m.id === sel; }) ? sel : (filtered[0] && filtered[0].id) || '';
-  dropdown.innerHTML = filtered.map(function(m) {
+  const sel = selectedId || '';
+  const validSel = filtered.find(function(m) { return m.id === sel; }) ? sel : '';
+  dropdown.innerHTML = '<option value="">-- Karte wählen --</option>' + filtered.map(function(m) {
     return '<option value="' + m.id + '"' + (m.id === validSel ? ' selected' : '') + '>' + m.name + '</option>';
   }).join('');
-  if (validSel !== window._coggleMapId) {
-    window._coggleMapId = validSel;
-    showMapsInViewer();
-  }
+  // Nicht automatisch laden – Nutzer muss explizit auswaehlen
 }
 function switchCoggleMap(mapId) {
+  if (!mapId) return; // Placeholder: nichts laden
   window._coggleMapId = mapId;
   showMapsInViewer();
 }
