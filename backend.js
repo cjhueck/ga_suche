@@ -6859,7 +6859,7 @@ app.get('/api/maps-list', async (req, res) => {
 app.get('/api/sammlungen-list', async (req, res) => {
   try {
     const files = await fs.readdir(SAMMLUNGEN_PDF_DIR);
-    const pdfs = files.filter(f => f.endsWith('.pdf') && !f.includes('(alt)')).sort();
+    const pdfs = files.filter(f => f.endsWith('.pdf') && !f.includes('(alt).pdf')).sort();
     const list = pdfs.map(f => {
       const name = f.replace(/\.pdf$/i, '');
       const short = name.replace(/^Zitate Rudolf Steiner zur\s*/i, '').replace(/ - Thema /i, ' - ');
@@ -6885,6 +6885,9 @@ app.get('/api/sammlungen-pdf', async (req, res) => {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', stat.size);
     res.setHeader('Content-Disposition', 'inline; filename="' + filename + '"');
+    res.removeHeader('X-Frame-Options');
+    res.setHeader('Content-Security-Policy', "frame-ancestors *");
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const stream = fsSync.createReadStream(filePath);
     stream.pipe(res);
   } catch (err) {

@@ -1,6 +1,6 @@
 <H1>Entwicklung des Rhythmischen Systems (Atmung & Kreislauf)</H1>
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/YeBfA5tkwlX_Miav/t/rhythmisches-system/5f447e9794aa000d92c39562e646e1f3403cf74f4d09cc8ca5cfbfb221346eeb)
 

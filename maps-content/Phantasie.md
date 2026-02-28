@@ -1,7 +1,7 @@
 <H1>Entwicklung der Phantasie</H1>
 
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/YMci3MP8uwEqRnzJ/t/phantasie/623a5d767833c9ba877d43f8ab69f5e64826d0252e021cb386fc2fcdd884be00)
 

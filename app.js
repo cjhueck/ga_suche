@@ -31266,7 +31266,7 @@ function showMapsDownloadOptions() {
     'Nachahmung': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nachahmung.pdf',
     'Nachahmung_-_Nachfolge_-_Freiheit': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nachahmung - Nachfolge - Freiheit.pdf',
     'Pubertät': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Pubertät.pdf',
-    'Reinkarnations-Metamorphose': 'Zitate Rudolf Steiner zur Reinkarnation - Thema Reinkarnationsmetamorphose Gliedmaßen - Kopf.pdf',
+    'Reinkarnations-Metamorphose': 'Zitate Rudolf Steiner zur Reinkarnation - Thema Reinkarnationsmetamorphose Gliedmaßen - Kopf (thematisch).pdf',
     'Rubikon': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Rubikon.pdf',
     'Seelische_Entwicklung_des_Kindes': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Seelische Entwicklung.pdf',
     'Wirkungen_der_Erziehung_im_Lebenslauf': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Wirkungen der Erziehung im Lebenslauf.pdf',
@@ -31384,7 +31384,16 @@ async function showSammlungPdf(filename) {
   var apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
   var pdfUrl = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
 
-  viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
+  viewer.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--secondary-text);">Lade PDF\u2026</div>';
+  try {
+    var resp = await fetch(pdfUrl);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    var blob = await resp.blob();
+    var blobUrl = URL.createObjectURL(blob);
+    viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + blobUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
+  } catch(err) {
+    viewer.innerHTML = '<div style="padding:2rem;color:var(--error-color);">Fehler beim Laden des PDFs: ' + err.message + '</div>';
+  }
 }
 
 window.downloadSammlungPdf = function() {

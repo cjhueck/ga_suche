@@ -1,7 +1,7 @@
 <H1>Nachahmung</H1>
 
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/XylllcZTxlsOmC6G/t/nachahmung/fdd782c1928c49d94e2fb3bb21b51cf23e365b94ed46f683e0120a60e57cc67d)
 
