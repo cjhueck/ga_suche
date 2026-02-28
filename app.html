@@ -4483,6 +4483,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     /* Eckige Buttons - einheitliche Breite */
     #viewerTOCToggleBtn,
     #viewerDownloadBtn,
+    #mapsPdfDownloadBtn,
     #h4ToggleBtn,
     #viewerSummaryBtn,
     #membersPanelBtn {
@@ -9765,6 +9766,14 @@ Original
 <!-- 0. PDF Toggle Button (nur im Texte-Tab bei GA-Bänden) -->
 <button id="pdfToggleBtn" onclick="togglePdfPanel()" title="PDF-Ansicht ein-/ausblenden">
 PDF
+</button>
+<!-- Karten-PDF Download Button (nur im Themen-Tab Karten bei Karte mit pdfUrl) -->
+<button id="mapsPdfDownloadBtn" onclick="downloadMapsPdf()" title="Karten-PDF herunterladen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" y1="15" x2="12" y2="3"></line>
+</svg>
 </button>
 <!-- 2. PDF/Text Download Button -->
 <button id="viewerDownloadBtn" onclick="showDownloadOptions()" title="Text herunterladen (PDF, TXT, Markdown)" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">

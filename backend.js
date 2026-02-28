@@ -6785,17 +6785,34 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
 // maps-content/: exportierte Obsidian-Dateien (primaer, funktioniert auch online)
 const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
-// Fallback fuer lokale Entwicklung ohne Sync-Skript: mapId -> Obsidian-Pfad
-const MAPS_CONTENT_FALLBACK = {
-  'rhythmisches-system': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
-  'Rhythmisches_System_neu': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
-    'Seelische_Entwicklung_des_Kindes': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Denken - Fühlen - Wollen', 'Seelische Entwicklung.md'),
-  'Entwicklung der Phantasie': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Phantasie', 'Phantasie Zitate.md'),
-  'Entwicklung der Urteilskraft': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Urteilskraft', 'Urteilskraft Zitate.md'),
-  'Entwicklung des Gedächtnisses': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Gedächtnisentwicklung', 'Gedächtnis Zitate.md'),
-  'Entwicklung des Nerven-Sinnessystems': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Nerven-Sinnessystem.md'),
-  'Entwicklung des Rhythmischen_Systems': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Rhythmisches System.md'),
-  'Entwicklung des Stoffwechsel-Gliedmaßensystems': path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'I. Themen', 'Dreigliederung', 'Stoffwechsel-Gliedmaßensystem.md'),
+// mapId -> relativer Pfad unter OBSIDIAN_BASE (deckt alle Karten aus tools/sync-maps-content.py ab)
+const OBSIDIAN_BASE = path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie');
+const MAPS_OBSIDIAN_MAPPING = {
+  'Rhythmisches_System': 'I. Themen/Dreigliederung/Rhythmisches System.md',
+  'Rhythmisches_System_neu': 'I. Themen/Dreigliederung/Rhythmisches System.md',
+  'Nerven-Sinnessystem': 'I. Themen/Dreigliederung/Nerven-Sinnessystem.md',
+  'Stoffwechsel-Gliedmaßensystem': 'I. Themen/Dreigliederung/Stoffwechsel-Gliedmaßensystem.md',
+  'Seelische_Entwicklung_des_Kindes': 'I. Themen/Denken - Fühlen - Wollen/Seelische Entwicklung.md',
+  'Gedächtnisentwicklung_des_Kindes': 'I. Themen/Gedächtnisentwicklung/Gedächtnis Zitate.md',
+  'Entwicklung der Phantasie': 'I. Themen/Phantasie/Phantasie Zitate.md',
+  'Entwicklung der Urteilskraft': 'I. Themen/Urteilskraft/Urteilskraft Zitate.md',
+  'Entwicklung des Gedächtnisses': 'I. Themen/Gedächtnisentwicklung/Gedächtnis Zitate.md',
+  'Entwicklung des Nerven-Sinnessystems': 'I. Themen/Dreigliederung/Nerven-Sinnessystem.md',
+  'Entwicklung des Rhythmischen_Systems': 'I. Themen/Dreigliederung/Rhythmisches System.md',
+  'Entwicklung des Stoffwechsel-Gliedmaßensystems': 'I. Themen/Dreigliederung/Stoffwechsel-Gliedmaßensystem.md',
+  'Gehen_Sprechen_Denken': 'I. Themen/Gehen - Sprechen - Denken/Gehen - Sprechen - Denken Zitate.md',
+  'Modellleib': 'I. Themen/Modellleib/Modellleib Zitate.md',
+  'Modellleib_chronologisch': 'I. Themen/Modellleib/Modellleib Zitate.md',
+  'Nachahmung': 'I. Themen/Nachahmung/Nachahmung Zitate.md',
+  'Nachahmung_-_Nachfolge_-_Freiheit': 'I. Themen/Nachahmung - Nachfolge - Freiheit/Nachahmung - Nachfolge - Freiheit.md',
+  'Phantasie': 'I. Themen/Phantasie/Phantasie Zitate.md',
+  'Pubertät': 'I. Themen/Pubertät/Pubertät Zitate.md',
+  'Pubertät_-_Entwicklung': 'I. Themen/Pubertät - Entwicklung/Pubertät - Entwicklung Zitate.md',
+  'Reinkarnations-Metamorphose': 'I. Themen/Reinkarnation/Reinkarnationsmetamorphose.md',
+  'Rubikon': 'I. Themen/Rubikon/Rubikon Zitate.md',
+  'Urteilskraft': 'I. Themen/Urteilskraft/Urteilskraft Zitate.md',
+  'Wirkungen_der_Erziehung_im_Lebenslauf': 'I. Themen/Wirkungen im Lebenslauf/Wirkungen... Zitate.md',
+  'Zahnwechsel': 'I. Themen/Zahnwechsel/Zahnwechsel Zitate.md',
 };
 
 // Hilfsfunktion: Dateiname -> Anzeigename
@@ -6859,20 +6876,21 @@ app.get('/api/maps-pdf', async (req, res) => {
 });
 
 // GET /api/maps-content?map=ID - Markdown fuer linkes Panel
-// 1. maps-content/<mapId>.md (via sync-maps-content.py, funktioniert online)
-// 2. Fallback: MAPS_CONTENT_FALLBACK[mapId] (lokaler Obsidian-Pfad)
+// 1. Obsidian-Pfad (wenn MAPS_OBSIDIAN_MAPPING[mapId] existiert und Datei vorhanden)
+// 2. Fallback: maps-content/<mapId>.md (via sync-maps-content.py, funktioniert online)
 app.get('/api/maps-content', async (req, res) => {
   const mapId = req.query.map || 'Rhythmisches_System';
   if (!mapId || mapId.includes('..') || mapId.includes('/') || mapId.includes('\\')) {
     return res.status(400).json({ error: 'Ungueltige Map-ID' });
   }
   const repoPath = path.join(MAPS_CONTENT_DIR, mapId + '.md');
-  const fallbackPath = MAPS_CONTENT_FALLBACK[mapId];
-  if (fallbackPath) {
+  const relPath = MAPS_OBSIDIAN_MAPPING[mapId];
+  if (relPath) {
+    const obsidianPath = path.join(OBSIDIAN_BASE, relPath.split('/').join(path.sep));
     try {
-      const content = await fs.readFile(fallbackPath, 'utf-8');
+      const content = await fs.readFile(obsidianPath, 'utf-8');
       return res.json({ markdown: content, mapId, source: 'obsidian' });
-    } catch (e) { /* nicht gefunden, weiter */ }
+    } catch (e) { /* nicht gefunden, Fallback */ }
   }
   try {
     const content = await fs.readFile(repoPath, 'utf-8');
@@ -6880,6 +6898,7 @@ app.get('/api/maps-content', async (req, res) => {
   } catch (e) { /* weiter */ }
   console.warn('[MAPS] Kein Inhalt fuer Map:', mapId);
   res.status(404).json({ error: 'Keine Inhaltsdatei gefunden fuer: ' + mapId });
+});
 });
 
 // Health-Check Endpoint für Keep-Alive (UptimeRobot, etc.)
