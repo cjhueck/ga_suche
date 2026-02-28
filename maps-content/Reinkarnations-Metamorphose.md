@@ -1,5 +1,9 @@
 <H1>Reinkarnationsmetamorphose Gliedmaßen - Kopf</H1>
 
+Die "Reinkarnationsmetamorphose" ist die Umwandlung der Gliedmaßen-Organisation bzw. des "unteren Menschen" in die Kopf-Organisation des folgenden Lebens. Rudolf Steiner sah in ihr die Anwendung der Goetheschen Metamorphosenlehre auf den Menschen und damit ihre Vollendung, indem sie die menschliche Gestalt im Zusammenhang mit dem Kosmos verständlich macht. 
+
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/ZFOiNwAjwnrfC-4w/t/reinkarnations-metamorphose/ec3f8d7b7abc83d45e5fafa721275902989d0a3e086a24f165b957eb39d06cf8)
 
 ## Inhalt

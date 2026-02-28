@@ -1,5 +1,7 @@
 <H1>Gehen - Sprechen - Denken</H1>
 
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/Y4X6X71Eo51jrMu7/t/gehen%2C-sprechen%2C-denken/05500b2e3fc0f1c819f071c82c2b9595f7f0f932b6a992ea44cf787f9d00d24d)
 
 ## Inhalt 

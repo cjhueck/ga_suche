@@ -1,5 +1,7 @@
 <H1>Gedächtnisentwicklung</H1>
 
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/ZBsIUEGwolWeWZYw/t/ged%C3%A4chtnisentwicklung-des-kindes/7565bdb8ed46c9acaf560c6dd1cbacd16aeba70998f57a72663d1ae17a846b30)
 
 ## Inhalt

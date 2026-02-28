@@ -1,5 +1,7 @@
 <H1>Wirkungen der Erziehung im Lebenslauf</H1>
 
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/ZDLdByHgHRe8owQk/t/wirkungen-der-erziehung-im-lebenslauf/03d1e6a6dad6924dbd2f2205768d685d751cf5f2744f6147dcd58e0ba8339c9b)
 
 [[#(1) Berücksichtigung des ganzen Lebenslaufs]]

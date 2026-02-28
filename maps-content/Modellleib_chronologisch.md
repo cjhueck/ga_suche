@@ -1,8 +1,8 @@
 <H1>Modellleib</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Modellleib**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
 Rudolf Steiner verstand unter dem "Modellleib" die von den Eltern vererbte Leiblichkeit, die dem Kind in den ersten sieben Lebensjahren als eine Art "Modell" dient, das es durch eigene Kräfte nach und nach "umarbeitet" und individualisiert.
+
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/X3DPFniILBWI998q/t/modellleib/3eb523f51e79ac73bfe961b278d9f4c2b7125eecdae78539c5e70e45bf4e8c47) Eine zweite Übersicht zeigt die Entfaltung des Themas in Steiners Vorträgen in chronologischer Reihenfolge; [Webversion](https://coggle.it/diagram/X_ykI44ja3PghziQ/t/modellleib-%E2%80%93-chronologisch/3607fa355dfbcca22b00e79097a0297bb45e541e7618139ed17d5405ee0a9903).
 

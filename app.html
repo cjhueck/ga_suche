@@ -4320,6 +4320,26 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     body.karten-view #main {
       overflow-y: hidden !important;
     }
+    body.karten-view #pdfToggleBtn,
+    body.karten-view #gaInfoBtn {
+      display: none !important;
+    }
+    body:has(#thematic2-tab.active) #pdfToggleBtn,
+    body:has(#thematic2-tab.active) #gaInfoBtn,
+    body:has(#thematic2-tab.active) #spellcheckToggleBtn,
+    body:has(#thematic2-tab.active) #h4ToggleBtn {
+      display: none !important;
+    }
+
+    #sammlungenPdfDownloadBtn {
+      display: none !important;
+    }
+    body.sammlungen-view #sammlungenPdfDownloadBtn {
+      display: inline-flex !important;
+    }
+    body.sammlungen-view #viewerSummaryBtn {
+      display: none !important;
+    }
 
     
     #viewer-content {
@@ -7968,6 +7988,13 @@ Meine Abfragen
              color:var(--secondary-text); cursor:pointer;">
       Timeline
     </button>
+    <button id="themen-btn-sammlungen" class="themen-sub-btn"
+      onclick="switchThemenView('sammlungen')"
+      style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
+             border-bottom:2px solid transparent; margin-bottom:-2px;
+             color:var(--secondary-text); cursor:pointer;">
+      Sammlungen
+    </button>
     <button id="themen-btn-karten" class="themen-sub-btn"
       onclick="switchThemenView('karten')"
       style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
@@ -9772,7 +9799,7 @@ Original
 PDF
 </button>
 <!-- Karten-PDF Download Button (nur im Themen-Tab Karten bei Karte mit pdfUrl) -->
-<button id="mapsPdfDownloadBtn" onclick="downloadMapsPdf()" title="Karten-PDF herunterladen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<button id="mapsPdfDownloadBtn" onclick="downloadMapsPdf()" title="Download-Optionen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
 <polyline points="7 10 12 15 17 10"></polyline>
@@ -9794,6 +9821,14 @@ PDF
 <!-- 3. TOC/Übersicht Button -->
 <button id="viewerSummaryBtn" onclick="toggleSummaryPanel()" title="Rechtes Panel ein-/ausblenden" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡
+</button>
+<!-- Sammlungen-PDF Download Button (nur im Themen-Tab Sammlungen) -->
+<button id="sammlungenPdfDownloadBtn" onclick="downloadSammlungPdf()" title="PDF herunterladen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" y1="15" x2="12" y2="3"></line>
+</svg>
 </button>
 <!-- 4. Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">

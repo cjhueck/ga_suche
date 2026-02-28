@@ -1,5 +1,8 @@
 <H1>Pubertät</H1>
 
+
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/YI_qki0u0FtIsEp_/t/pubert%C3%A4t/dff995e496eaddcb78d5b01056451c554ae8d3cce785cacca4d8ae74addd65db)
 
 ## Inhalt

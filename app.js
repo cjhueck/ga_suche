@@ -31111,7 +31111,7 @@ async function showMapsInViewer() {
 // Sub-Navigation im Themen-Tab: Schwerpunkte | Timeline | Karten
 function switchThemenView(view) {
   window._themenView = view;
-  const views = ['schwerpunkte', 'timeline', 'karten'];
+  const views = ['schwerpunkte', 'timeline', 'karten', 'sammlungen'];
 
   // Rechtes Side Panel schliessen
   if (typeof closeSummaryPanelFromHeader === 'function') closeSummaryPanelFromHeader();
@@ -31122,6 +31122,7 @@ function switchThemenView(view) {
     if (view === 'schwerpunkte') docTitle.textContent = 'Themenschwerpunkte im Gesamtwerk (1879–1925)';
     else if (view === 'timeline') docTitle.textContent = 'Timeline';
     else if (view === 'karten')   docTitle.textContent = 'Karten';
+    else if (view === 'sammlungen') docTitle.textContent = 'Zitat-Sammlungen';
   }
 
   // Viewer und Side Panel leeren
@@ -31150,6 +31151,8 @@ function switchThemenView(view) {
 
   document.body.classList.toggle('karten-view', view === 'karten');
   if (view !== 'karten') { window._currentMapsMap = null; }
+  document.body.classList.toggle('sammlungen-view', view === 'sammlungen');
+      var sammlDlBtn = document.getElementById('sammlungenPdfDownloadBtn'); if (sammlDlBtn) sammlDlBtn.style.display = view === 'sammlungen' ? 'inline-flex' : 'none';
   if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
 
   if (view === 'schwerpunkte') {
@@ -31192,6 +31195,11 @@ function switchThemenView(view) {
         switchCoggleMap(firstMap.id);
       }
     }
+
+  } else if (view === 'sammlungen') {
+    if (mapsDiv) mapsDiv.style.display = 'none';
+    if (timelineDiv) timelineDiv.style.display = 'none';
+    loadSammlungenList();
   }
 }
 
@@ -31230,12 +31238,164 @@ function updateMapsPdfDownloadBtn() {
 
 window.downloadMapsPdf = function() {
   var map = window._currentMapsMap;
-  if (!map || !map.pdfUrl) return;
+  if (!map) return;
+  showMapsDownloadOptions();
+};
+
+function showMapsDownloadOptions() {
+  var map = window._currentMapsMap;
+  if (!map) return;
+  var existing = document.getElementById('mapsDownloadModal');
+  if (existing) existing.remove();
+
   var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
-  var url = (apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id);
+  var baseUrl = apiBase || window.location.origin;
+  var pdfUrl = baseUrl + '/api/maps-pdf?map=' + encodeURIComponent(map.id);
+  var mapName = map.name || map.id;
+
+  var MAP_TO_SAMMLUNG = {
+    'Entwicklung der Phantasie': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Phantasie.pdf',
+    'Entwicklung der Urteilskraft': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Urteilskraft.pdf',
+    'Entwicklung des Gedächtnisses': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Gedächtnisentwicklung.pdf',
+    'Entwicklung des Nerven-Sinnessystems': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nerven-Sinnessystem.pdf',
+    'Entwicklung des Rhythmischen_Systems': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Rhyhtmisches System.pdf',
+    'Entwicklung des Stoffwechsel-Gliedmaßensystems': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Stoffwechsel-Gliedmaßensystem.pdf',
+    'Gehen_Sprechen_Denken': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Gehen - Sprechen - Denken.pdf',
+    'Modellleib': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Modellleib.pdf',
+    'Modellleib_chronologisch': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Modellleib.pdf',
+    'Nachahmung': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nachahmung.pdf',
+    'Nachahmung_-_Nachfolge_-_Freiheit': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nachahmung - Nachfolge - Freiheit.pdf',
+    'Pubertät': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Pubertät.pdf',
+    'Reinkarnations-Metamorphose': 'Zitate Rudolf Steiner zur Reinkarnation - Thema Reinkarnationsmetamorphose Gliedmaßen - Kopf.pdf',
+    'Rubikon': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Rubikon.pdf',
+    'Seelische_Entwicklung_des_Kindes': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Seelische Entwicklung.pdf',
+    'Wirkungen_der_Erziehung_im_Lebenslauf': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Wirkungen der Erziehung im Lebenslauf.pdf',
+    'Zahnwechsel': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Zahnwechsel.pdf'
+  };
+
+  var mapId = map.id || '';
+  var sammlungFile = MAP_TO_SAMMLUNG[mapId];
+  var sammlungUrl = sammlungFile ? baseUrl + '/api/sammlungen-pdf?file=' + encodeURIComponent(sammlungFile) : null;
+
+  var modal = document.createElement('div');
+  modal.id = 'mapsDownloadModal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:20000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease;';
+  modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
+
+  var content = document.createElement('div');
+  content.style.cssText = 'background:var(--background-color,#FAF8F3);border-radius:8px;padding:1.5rem;max-width:400px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.3);';
+
+  var buttonsHtml = '<button id="mapsDownloadPdf" style="display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:6px;font-size:0.9em;text-align:left;transition:background 0.15s;"' +
+    " onmouseover=\"this.style.background='var(--sidebar-bg)'\" onmouseout=\"this.style.background='transparent'\">" +
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+    '<span><strong>Karten-PDF</strong><br><span style="font-size:0.8em;color:var(--secondary-text);">Graphische Übersicht als PDF</span></span>' +
+  '</button>';
+
+  if (sammlungUrl) {
+    buttonsHtml += '<button id="mapsDownloadSammlung" style="display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--border-color);background:transparent;color:var(--text-color);cursor:pointer;border-radius:6px;font-size:0.9em;text-align:left;transition:background 0.15s;"' +
+      " onmouseover=\"this.style.background='var(--sidebar-bg)'\" onmouseout=\"this.style.background='transparent'\">" +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' +
+      '<span><strong>Thematische Zitatsammlung</strong><br><span style="font-size:0.8em;color:var(--secondary-text);">Alle Zitate als PDF</span></span>' +
+    '</button>';
+  }
+
+  content.innerHTML = '<h3 style="margin:0 0 1rem 0;font-size:1.05rem;color:var(--text-color);">Download: ' + mapName + '</h3>' +
+    '<div style="display:flex;flex-direction:column;gap:10px;">' + buttonsHtml + '</div>' +
+    "<button onclick=\"document.getElementById('mapsDownloadModal').remove()\" style=\"margin-top:1rem;padding:6px 16px;border:1px solid var(--border-color);background:transparent;color:var(--secondary-text);cursor:pointer;border-radius:4px;font-size:0.85em;float:right;\">Abbrechen</button>";
+
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+
+  document.getElementById('mapsDownloadPdf').onclick = function() {
+    modal.remove();
+    var a = document.createElement('a');
+    a.href = pdfUrl;
+    a.download = mapName + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  var sammlBtn = document.getElementById('mapsDownloadSammlung');
+  if (sammlBtn && sammlungUrl) {
+    sammlBtn.onclick = function() {
+      modal.remove();
+      var a = document.createElement('a');
+      a.href = sammlungUrl;
+      a.download = sammlungFile;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+  }
+}
+
+// ===== Sammlungen Sub-Tab =====
+async function loadSammlungenList() {
+  var results = document.getElementById('results');
+  if (!results) return;
+  results.innerHTML = '<div style="padding:0.3rem 0.5rem;"><h1 style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);">Zitat-Sammlungen</h1><div style="color:var(--secondary-text);">Lade Liste…</div></div>';
+  try {
+    var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+    var res = await fetch(apiBase + '/api/sammlungen-list');
+    var data = await res.json();
+    var pdfs = data.pdfs || [];
+    if (pdfs.length === 0) {
+      results.innerHTML = '<div style="padding:0.3rem 0.5rem;"><h1 style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);">Zitat-Sammlungen</h1><div style="color:var(--secondary-text);">Keine Sammlungen gefunden.</div></div>';
+      return;
+    }
+    var html = '<div style="padding:0.3rem 0.5rem;"><h1 style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);">Zitat-Sammlungen</h1><ul style="list-style:none;padding:0;margin:0;">';
+    pdfs.forEach(function(p) {
+      html += '<li style="margin-bottom:8px;"><a href="#" class="sammlungen-link" data-file="' + p.filename.replace(/"/g, '&quot;') + '" style="color:var(--link-color);text-decoration:none;font-size:0.95em;line-height:1.4;display:block;padding:4px 0;border-bottom:1px solid var(--border-color);">' + p.shortName + '</a></li>';
+    });
+    html += '</ul></div>';
+    results.innerHTML = html;
+    results.querySelectorAll('.sammlungen-link').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        results.querySelectorAll('.sammlungen-link').forEach(function(l) { l.style.fontWeight = ''; });
+        this.style.fontWeight = '700';
+        showSammlungPdf(this.dataset.file);
+      });
+    });
+    // Erste Sammlung automatisch laden
+    if (pdfs.length > 0) {
+      var firstLink = results.querySelector('.sammlungen-link');
+      if (firstLink) {
+        firstLink.style.fontWeight = '700';
+        showSammlungPdf(pdfs[0].filename);
+      }
+    }
+  } catch(err) {
+    results.innerHTML = '<div style="padding:1rem;color:var(--error-color);">Fehler beim Laden der Sammlungen.</div>';
+    console.error('[SAMMLUNGEN]', err);
+  }
+}
+
+async function showSammlungPdf(filename) {
+  window._currentSammlungFilename = filename;
+  var viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  var docTitle = document.getElementById('document-title');
+  var shortName = filename.replace(/\.pdf$/i, '').replace(/^Zitate Rudolf Steiner zur\s*/i, '').replace(/ - Thema /i, ' - ');
+  if (docTitle) docTitle.textContent = shortName;
+
+  var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+  var apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+  var pdfUrl = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
+
+  viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
+}
+
+window.downloadSammlungPdf = function() {
+  var filename = window._currentSammlungFilename;
+  if (!filename) return;
+  var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+  var apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+  var url = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
   var a = document.createElement('a');
   a.href = url;
-  a.download = (map.name || map.id) + '.pdf';
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

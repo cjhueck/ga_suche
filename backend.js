@@ -6783,6 +6783,7 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 
 // // Maps Tab: Verzeichnis mit PDF-Karten
 const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
+const SAMMLUNGEN_PDF_DIR = path.join(__dirname, 'sammlungen-pdf');
 // maps-content/: exportierte Obsidian-Dateien (primaer, funktioniert auch online)
 const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
 // mapId -> relativer Pfad unter OBSIDIAN_BASE (deckt alle Karten aus tools/sync-maps-content.py ab)
@@ -6851,6 +6852,44 @@ app.get('/api/maps-list', async (req, res) => {
   } catch (err) {
     console.warn('[MAPS] Verzeichnis nicht lesbar:', err.message);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/sammlungen-list - PDF-Liste aus sammlungen-pdf/
+app.get('/api/sammlungen-list', async (req, res) => {
+  try {
+    const files = await fs.readdir(SAMMLUNGEN_PDF_DIR);
+    const pdfs = files.filter(f => f.endsWith('.pdf') && !f.includes('(alt)')).sort();
+    const list = pdfs.map(f => {
+      const name = f.replace(/\.pdf$/i, '');
+      const short = name.replace(/^Zitate Rudolf Steiner zur\s*/i, '').replace(/ - Thema /i, ' - ');
+      return { filename: f, name: name, shortName: short };
+    });
+    res.json({ pdfs: list });
+  } catch (err) {
+    console.warn('[SAMMLUNGEN] Fehler:', err.message);
+    res.json({ pdfs: [] });
+  }
+});
+
+// GET /api/sammlungen-pdf?file=FILENAME - PDF aus sammlungen-pdf/
+app.get('/api/sammlungen-pdf', async (req, res) => {
+  const file = req.query.file || '';
+  if (!file || file.includes('..') || file.includes('/') || file.includes('\\')) {
+    return res.status(400).send('Ungueltiger Dateiname');
+  }
+  const filename = file.endsWith('.pdf') ? file : file + '.pdf';
+  const filePath = path.join(SAMMLUNGEN_PDF_DIR, filename);
+  try {
+    const stat = await fs.stat(filePath);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Disposition', 'inline; filename="' + filename + '"');
+    const stream = fsSync.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err) {
+    console.warn('[SAMMLUNGEN] PDF nicht gefunden:', filePath, err.message);
+    res.status(404).send('PDF nicht gefunden: ' + filename);
   }
 });
 
