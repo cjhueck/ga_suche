@@ -649,46 +649,66 @@ const isLocal = window.location.hostname === 'localhost' ||
           
           <div class="analytics-section">
             <h3>Besuche der letzten ${dailyData.length} Tage</h3>
-            <div class="analytics-chart" id="analytics-chart-container">
+            <div style="display: flex; align-items: flex-end; gap: 0;">
+              <div style="display: flex; flex-direction: column; justify-content: space-between; height: 120px; padding: 10px 6px 10px 0; font-size: 0.7rem; color: var(--secondary-text); text-align: right; min-width: 28px;">
+                <span>${maxViews}</span>
+                <span>${Math.round(maxViews * 0.75)}</span>
+                <span>${Math.round(maxViews * 0.5)}</span>
+                <span>${Math.round(maxViews * 0.25)}</span>
+                <span>0</span>
+              </div>
+              <div class="analytics-chart" id="analytics-chart-container" style="flex: 1;">
               ${dailyData.length > 0 ? dailyData.map((d, index) => {
                 const views = Number(d.views) || 0;
                 const searches = Number(d.searches) || 0;
                 const uniqueUsers = Number(d.unique_users) || 0;
-                // Berechne Höhe: Wenn maxViews > 0, verwende Prozent, sonst minimale Höhe für Sichtbarkeit
                 let viewsHeight;
                 if (maxViews > 0 && maxViews > 1) {
                   viewsHeight = Math.max((views / maxViews) * 100, views > 0 ? 2 : 0);
                 } else if (maxViews === 1 && views > 0) {
-                  // Wenn maxViews = 1 und views > 0, zeige volle Höhe
                   viewsHeight = 100;
                 } else {
-                  // Wenn alle Views 0 sind, zeige minimale Höhe für Sichtbarkeit
                   viewsHeight = views > 0 ? 100 : 0;
                 }
-                // Debug nur für erste 3 Balken
-                if (index < 3) {
-                  console.log(`[ANALYTICS] Bar ${index}:`, { date: d.date, views, searches, viewsHeight, maxViews });
-                }
-                // Zeige Balken nur wenn views > 0 oder wenn es der einzige Tag mit Daten ist
-                if (views > 0 || maxViews > 0) {
-                  return `
+                return `
                     <div class="analytics-chart-bar" 
                          style="height: ${viewsHeight}%; min-height: ${views > 0 ? '2px' : '0px'}; background: var(--accent-color);"
                          data-label="${d.label || d.date || ''}"
                          title="${d.date || ''}: ${views} Besuche, ${uniqueUsers} Nutzer, ${searches} Suchen"></div>
                   `;
-                } else {
-                  return `
-                    <div class="analytics-chart-bar" 
-                         style="height: 0%; min-height: 0px; background: transparent;"
-                         data-label="${d.label || d.date || ''}"
-                         title="${d.date || ''}: ${views} Besuche, ${uniqueUsers} Nutzer, ${searches} Suchen"></div>
-                  `;
-                }
               }).join('') : '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Daten verfügbar</div>'}
+              </div>
             </div>
           </div>
           
+          ${(function() {
+            var tabLabels = { texte: 'Texte', thematic: 'Themen', timeline: 'Timeline', maps: 'Maps', schlagworte: 'Index', keywords: 'Export', 'advanced-search': 'Erweiterte Suche' };
+            var ts = data.tabStats || {};
+            var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
+            if (entries.length === 0) return '';
+            var maxTab = entries[0][1] || 1;
+            return '<div class="analytics-section"><h3>Tab-Aufrufe (gesamt)</h3>' +
+              '<div style="display:flex;flex-direction:column;gap:6px;">' +
+              entries.map(function(e) {
+                var pct = Math.max((e[1] / maxTab) * 100, 2);
+                var label = tabLabels[e[0]] || e[0];
+                return '<div style="display:flex;align-items:center;gap:8px;">' +
+                  '<span style="min-width:110px;font-size:0.85em;text-align:right;color:var(--text-color);">' + label + '</span>' +
+                  '<div style="flex:1;height:18px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
+                    '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;"></div>' +
+                  '</div>' +
+                  '<span style="min-width:36px;font-size:0.8em;color:var(--secondary-text);">' + e[1] + '</span>' +
+                '</div>';
+              }).join('') +
+              '</div></div>';
+          })()}
+          
+          ${(function() {
+            var qv = Number(data.quoteViews) || 0;
+            if (qv === 0) return '';
+            return '<div class="analytics-section"><h3>Zitat der Woche</h3>' +
+              '<p style="font-size:0.9em;color:var(--text-color);">Aufrufe gesamt: <strong>' + qv + '</strong></p></div>';
+          })()}
         `;
       } catch (e) {
         container.innerHTML = '<p style="color: var(--error-color);">Fehler beim Laden der Statistiken.</p>';
@@ -38142,7 +38162,7 @@ window.cancelTextEditMode = function() {};
     
     if (isWindows) {
       const username = '<%USERNAME%>';
-      osSpecificPath = `C:\\Users\\${username}\\AppData\\Roaming\\obsidian\\Custom Dictionary.txt`;
+      osSpecificPath = `C:\\Users${username}\\AppData\\Roaming\\obsidian\\Custom Dictionary.txt`;
       osSpecificInstructions = `
         <h4>🪟 Windows - So finden Sie die Datei:</h4>
         <ol style="margin-left: 1.5rem; line-height: 1.6;">

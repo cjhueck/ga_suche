@@ -24554,7 +24554,17 @@ app.post('/api/analytics/track', async (req, res) => {
     
     console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, visitor_id=${visitor_id ? visitor_id.substring(0, 8) + '...' : 'keine'}`);
     
-    // Tab-View: Lokal zählen (kein Supabase-Schema nötig)
+    // Tab-View / Quote-View: Lokal zählen (kein Supabase-Schema nötig)
+    if (type === 'quote_view') {
+      const data = await loadAnalyticsData();
+      const today = getDateKey();
+      if (!data.dailyStats[today]) {
+        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
+      }
+      data.dailyStats[today].quote_views = (data.dailyStats[today].quote_views || 0) + 1;
+      await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+      return res.json({ ok: true, storage: 'local-quote' });
+    }
     if (type === 'tab_view' && value) {
       const data = await loadAnalyticsData();
       const today = getDateKey();
@@ -24712,6 +24722,17 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
     
+    // Quote-Views aggregieren
+    let totalQuoteViews = 0;
+    if (data.dailyStats && typeof data.dailyStats === 'object') {
+      for (const key of Object.keys(data.dailyStats)) {
+        const dayData = data.dailyStats[key];
+        if (dayData && dayData.quote_views) {
+          totalQuoteViews += dayData.quote_views;
+        }
+      }
+    }
+
     // Tab-Statistiken aggregieren
     const tabStats = {};
     if (data.dailyStats && typeof data.dailyStats === 'object') {
@@ -24739,6 +24760,7 @@ app.get('/api/analytics/stats', async (req, res) => {
       topLectures,
       dailyData,
       totalDays: Object.keys(data.dailyStats).length,
+      quoteViews: totalQuoteViews,
       tabStats
     });
   } catch (error) {
