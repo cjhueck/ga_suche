@@ -1,5 +1,8 @@
 <H1>Nachahmung - Nachfolge - Freiheit</H1>
 
+
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/X0Y0bEXhP2zlpxOw/t/nachahmung-autorit%C3%A4t-freiheit/a7ade99f879178312d1fc2ea16b13803c4dfa11e5c4884a1c232e7dbdc61fa67) 
 
 ## Inhalt

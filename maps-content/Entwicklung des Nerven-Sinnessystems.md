@@ -1,5 +1,7 @@
 <H1>Entwicklung des Nerven-Sinnessystems</H1>
 
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+
 [Webversion](https://coggle.it/diagram/YMcm1q5NqVw3GxeV/t/nerven-sinnessystem/eb4e1f822c441a086dc38bcc7a65533a08d708a5092307383c88b7d009eaba6a)
 
 ## Inhalt
