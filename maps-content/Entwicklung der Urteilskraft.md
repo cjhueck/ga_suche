@@ -1,6 +1,6 @@
 <H1>Entwicklung der Urteilskraft</H1>
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/X0Y0uZkqom6DRS8E/t/urteilskraft/60176940ff00e74f158f7f5bf78e3ec96778c18c57e4d0f122f4f6ab27d33f72)
 

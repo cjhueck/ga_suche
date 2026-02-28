@@ -1,6 +1,6 @@
 <H1>Entwicklung des Stoffwechsel-Gliedmaßensystems</H1>
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/YbdawrgXoRTFKV_0/t/stoffwechsel-gliedma%C3%9Fensystem/7c2bf4487325691d74c48d5e160e4da3237be26e7b19b346454f349622ef221e)
 ## Inhalt

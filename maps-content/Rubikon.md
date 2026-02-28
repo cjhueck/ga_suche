@@ -2,7 +2,7 @@
 
 Unter dem "Rubikon" verstand Rudolf Steiner einen Entwicklungsschritt in der Zeit zwischen dem 9. und 10. Lebensjahr, in dem das Kind sich gefühlsmäßig individualisiert und damit das bis dahin selbstverständliche Zusammenhangsgefühl mit seiner Umgebung verliert.
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/ZBxw5kKapKje_9RZ/t/rubikon/84206d040dc2c8a73de5d95909098e539f5483c29ab2ee0dd165c222ec6980af)
 

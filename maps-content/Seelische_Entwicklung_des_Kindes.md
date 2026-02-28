@@ -1,7 +1,7 @@
 <H1>Entwicklung von Denken - Fühlen - Wollen</H1>
 
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/Y4X8OvnDY3PfApm5/t/seelische-entwicklung-des-kindes/072eba366dbe6299a337db276422fbc78d2e48f0b495d35887204374231a1618)
 

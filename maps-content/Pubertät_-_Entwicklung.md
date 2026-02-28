@@ -1,7 +1,7 @@
 <H1>Pubertät als Entwicklungsprozess</H1>
 
 
-(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen die das jeweilige Zitate im linken Fenster.)
+(Vergrößern / Verkleinern der Karte mit Strg.+Mausrad. Blaue Links in der Karte öffnen das jeweilige Zitate im linken Fenster.)
 
 [Webversion](https://coggle.it/diagram/YHwWUiG47l2wrUw0/t/pubert%C3%A4t-entwicklung/dda9ae8dad0fa6ac9fd3ef61dd5766cf8e31ec55b7a2d00f1d25760276028580)
 
