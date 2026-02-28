@@ -24554,6 +24554,19 @@ app.post('/api/analytics/track', async (req, res) => {
     
     console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, visitor_id=${visitor_id ? visitor_id.substring(0, 8) + '...' : 'keine'}`);
     
+    // Tab-View: Lokal zählen (kein Supabase-Schema nötig)
+    if (type === 'tab_view' && value) {
+      const data = await loadAnalyticsData();
+      const today = getDateKey();
+      if (!data.dailyStats[today]) {
+        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
+      }
+      if (!data.dailyStats[today].tabs) data.dailyStats[today].tabs = {};
+      data.dailyStats[today].tabs[value] = (data.dailyStats[today].tabs[value] || 0) + 1;
+      await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+      return res.json({ ok: true, storage: 'local-tab' });
+    }
+
     // Mappe type auf analytics-type
     let analyticsType;
     switch (type) {
@@ -24699,6 +24712,19 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
     
+    // Tab-Statistiken aggregieren
+    const tabStats = {};
+    if (data.dailyStats && typeof data.dailyStats === 'object') {
+      for (const key of Object.keys(data.dailyStats)) {
+        const dayData = data.dailyStats[key];
+        if (dayData && dayData.tabs) {
+          for (const [tab, count] of Object.entries(dayData.tabs)) {
+            tabStats[tab] = (tabStats[tab] || 0) + count;
+          }
+        }
+      }
+    }
+
     res.json({
       today: todayStats,
       week: { views: weekViews, searches: weekSearches, lectures: weekLectures, unique_users: weekUniqueUsers },
@@ -24712,7 +24738,8 @@ app.get('/api/analytics/stats', async (req, res) => {
       topSearches,
       topLectures,
       dailyData,
-      totalDays: Object.keys(data.dailyStats).length // Anzahl der Tage mit Daten
+      totalDays: Object.keys(data.dailyStats).length,
+      tabStats
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

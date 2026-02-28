@@ -2095,6 +2095,7 @@ function normalizeGANumber(gaNumber) {
     
     function switchTab(mode, skipHistory = false) {
       console.log('[HISTORY] *** switchTab aufgerufen:', mode, 'skipHistory:', skipHistory);
+      analyticsTrack('tab_view', mode);
       
       // WICHTIG: Zuerst den aktuellen Zustand erfassen BEVOR irgendetwas zurückgesetzt wird!
       let savedState = null;
