@@ -9805,6 +9805,25 @@ let timelineBackToGA = null;
 let timelineBackToLecture = null; // Speichere die Lecture ID für Zurück-Navigation
 let timelineBackToLeftPanel = null; // Speichere den HTML-Inhalt des linken Panels
 let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werden soll
+// Cache für Timeline-Schlagwort-Suchergebnisse (Schlagwort -> {results, keywords})
+const TIMELINE_KEYWORD_CACHE_KEY = 'ga_timeline_keyword_cache';
+const TIMELINE_KEYWORD_CACHE_MAX = 30;
+let timelineKeywordSearchCache = (() => {
+  try {
+    const raw = sessionStorage.getItem(TIMELINE_KEYWORD_CACHE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+})();
+function saveTimelineKeywordCache() {
+  try {
+    const keys = Object.keys(timelineKeywordSearchCache);
+    if (keys.length > TIMELINE_KEYWORD_CACHE_MAX) {
+      const sorted = keys.sort((a, b) => (timelineKeywordSearchCache[b].ts || 0) - (timelineKeywordSearchCache[a].ts || 0));
+      sorted.slice(TIMELINE_KEYWORD_CACHE_MAX).forEach(k => delete timelineKeywordSearchCache[k]);
+    }
+    sessionStorage.setItem(TIMELINE_KEYWORD_CACHE_KEY, JSON.stringify(timelineKeywordSearchCache));
+  } catch (e) { console.warn('[TIMELINE-CACHE] Speichern fehlgeschlagen:', e); }
+}
 
 // Navigation zum Timeline-Tab und Keyword auswählen
 async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
@@ -30975,6 +30994,7 @@ async function showMapsInViewer() {
       if (!res.ok) throw new Error('Datei nicht gefunden');
       const data = await res.json();
       let md = data.markdown.replace(/\[\[#([^\]]+)\]\]/g, (_, h) => `[${h}](#${encodeURIComponent(h)})`);
+      md = md.replace(/\[GA\s+\d+[a-z]?,[^\]]+\]\s*(?=\^[a-z0-9]+)/g, '');
       // Block-IDs als unsichtbare Spans einbetten (für Navigation, nicht sichtbar)
       md = md.replace(/ \^([a-z0-9]+)(?=[ \[;\s]|$)/g, ' <span class="blkref" data-bid="$1"></span>');
       let html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
