@@ -1,8 +1,6 @@
 <H1>Nachahmung - Nachfolge - Freiheit</H1>
 
-Die hier aufgeführten Zitate aus Texten und Vorträgen Rudolf Steiners beschreiben die Entwicklungsschritte des Kindes und Jugendlichen während der ersten 3 Jahrsiebte. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[II. Mindmaps/Nachahmung - Nachfolge - Freiheit|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/X0Y0bEXhP2zlpxOw/t/nachahmung-autorit%C3%A4t-freiheit/a7ade99f879178312d1fc2ea16b13803c4dfa11e5c4884a1c232e7dbdc61fa67) (vergrößern und verkleinern mit Strg.+/-). 
+[Webversion](https://coggle.it/diagram/X0Y0bEXhP2zlpxOw/t/nachahmung-autorit%C3%A4t-freiheit/a7ade99f879178312d1fc2ea16b13803c4dfa11e5c4884a1c232e7dbdc61fa67) 
 
 ## Inhalt
 

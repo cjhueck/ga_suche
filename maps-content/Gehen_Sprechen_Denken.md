@@ -1,8 +1,6 @@
 <H1>Gehen - Sprechen - Denken</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Gehen - Sprechen - Denken|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/Y4X6X71Eo51jrMu7/t/gehen%2C-sprechen%2C-denken/05500b2e3fc0f1c819f071c82c2b9595f7f0f932b6a992ea44cf787f9d00d24d) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/Y4X6X71Eo51jrMu7/t/gehen%2C-sprechen%2C-denken/05500b2e3fc0f1c819f071c82c2b9595f7f0f932b6a992ea44cf787f9d00d24d)
 
 ## Inhalt 
 

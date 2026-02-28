@@ -1,10 +1,6 @@
 <H1>Wirkungen der Erziehung im Lebenslauf</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Wirkungen der Erziehung im Lebenslauf**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Wirkungen im Lebenslauf|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/ZDLdByHgHRe8owQk/t/wirkungen-der-erziehung-im-lebenslauf/03d1e6a6dad6924dbd2f2205768d685d751cf5f2744f6147dcd58e0ba8339c9b) (vergrößern und verkleinern mit Strg.+/-).
-
-## Inhalt
+[Webversion](https://coggle.it/diagram/ZDLdByHgHRe8owQk/t/wirkungen-der-erziehung-im-lebenslauf/03d1e6a6dad6924dbd2f2205768d685d751cf5f2744f6147dcd58e0ba8339c9b)
 
 [[#(1) Berücksichtigung des ganzen Lebenslaufs]]
 [[#(2) Umgebung des Kindes]]

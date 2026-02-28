@@ -1,9 +1,6 @@
-<H1>Stoffwechsel-Gliedmaßensystem</H1>
+<H1>Entwicklung des Stoffwechsel-Gliedmaßensystems</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema des **Stoffwechsel- und Gliedmaßensystems**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Dreigliederung - Stoffwechsel-Gliedmaßensystem|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/YbdawrgXoRTFKV_0/t/stoffwechsel-gliedma%C3%9Fensystem/7c2bf4487325691d74c48d5e160e4da3237be26e7b19b346454f349622ef221e) (vergrößern und verkleinern mit Strg.+/-).
-
+[Webversion](https://coggle.it/diagram/YbdawrgXoRTFKV_0/t/stoffwechsel-gliedma%C3%9Fensystem/7c2bf4487325691d74c48d5e160e4da3237be26e7b19b346454f349622ef221e)
 ## Inhalt
 
 [[#(1) Kosmos - Welt - Gliedmaßen]]

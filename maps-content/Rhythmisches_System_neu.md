@@ -1,8 +1,6 @@
-<H1>Rhythmisches System (Atmung & Kreislauf)</H1>
+<H1>Entwicklung des Rhythmischen Systems (Atmung & Kreislauf)</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema des **rhythmischen Systems**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht**: [[Dreigliederung - Rhythmisches System|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/YeBfA5tkwlX_Miav/t/rhythmisches-system/5f447e9794aa000d92c39562e646e1f3403cf74f4d09cc8ca5cfbfb221346eeb) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/YeBfA5tkwlX_Miav/t/rhythmisches-system/5f447e9794aa000d92c39562e646e1f3403cf74f4d09cc8ca5cfbfb221346eeb)
 
 ## Inhalt
 

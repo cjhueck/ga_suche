@@ -1,8 +1,6 @@
-<H1>Phantasie</H1>
+<H1>Entwicklung der Phantasie</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Phantasie in der Entwicklung des Kindes**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Phantasie|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/YMci3MP8uwEqRnzJ/t/phantasie/623a5d767833c9ba877d43f8ab69f5e64826d0252e021cb386fc2fcdd884be00) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/YMci3MP8uwEqRnzJ/t/phantasie/623a5d767833c9ba877d43f8ab69f5e64826d0252e021cb386fc2fcdd884be00)
 
 ## Inhalt
 

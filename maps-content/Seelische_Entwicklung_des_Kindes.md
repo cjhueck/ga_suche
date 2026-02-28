@@ -1,8 +1,6 @@
-<H1>Denken - Fühlen - Wollen</H1>
+<H1>Entwicklung von Denken - Fühlen - Wollen</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zur **seelischen Entwicklung des Kindes**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[II. Mindmaps/Seelische Entwicklung|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/Y4X8OvnDY3PfApm5/t/seelische-entwicklung-des-kindes/072eba366dbe6299a337db276422fbc78d2e48f0b495d35887204374231a1618) (vergrößern und verkleinern mit Strg.+/-).  
+[Webversion](https://coggle.it/diagram/Y4X8OvnDY3PfApm5/t/seelische-entwicklung-des-kindes/072eba366dbe6299a337db276422fbc78d2e48f0b495d35887204374231a1618)
  
 ## Inhalt
    
@@ -24,7 +22,7 @@ Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[II. Mindm
 [[#(6) Denken]]
 [[#Literatur]]
 
-## (1) Denken, Fühlen, Wollen
+## (1) Entwicklung von Denken, Fühlen, Wollen
   
 ### (1a) Entwicklung  
 

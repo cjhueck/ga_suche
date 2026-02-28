@@ -1,8 +1,6 @@
 <H1>Gedächtnisentwicklung</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Gedächtnisentwicklung beim Kind**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Gedächtnisentwicklung|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/ZBsIUEGwolWeWZYw/t/ged%C3%A4chtnisentwicklung-des-kindes/7565bdb8ed46c9acaf560c6dd1cbacd16aeba70998f57a72663d1ae17a846b30) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/ZBsIUEGwolWeWZYw/t/ged%C3%A4chtnisentwicklung-des-kindes/7565bdb8ed46c9acaf560c6dd1cbacd16aeba70998f57a72663d1ae17a846b30)
 
 ## Inhalt
 

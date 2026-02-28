@@ -1,8 +1,6 @@
 <H1>Pubertät</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Pubertät**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Pubertät|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/YI_qki0u0FtIsEp_/t/pubert%C3%A4t/dff995e496eaddcb78d5b01056451c554ae8d3cce785cacca4d8ae74addd65db) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/YI_qki0u0FtIsEp_/t/pubert%C3%A4t/dff995e496eaddcb78d5b01056451c554ae8d3cce785cacca4d8ae74addd65db)
 
 ## Inhalt
 
