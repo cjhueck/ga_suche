@@ -6889,6 +6889,7 @@ app.get('/api/maps-content', async (req, res) => {
     const obsidianPath = path.join(OBSIDIAN_BASE, relPath.split('/').join(path.sep));
     try {
       const content = await fs.readFile(obsidianPath, 'utf-8');
+      fs.writeFile(repoPath, content, 'utf-8').catch(function() {});
       return res.json({ markdown: content, mapId, source: 'obsidian' });
     } catch (e) { /* nicht gefunden, Fallback */ }
   }
