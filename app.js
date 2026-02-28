@@ -30748,6 +30748,10 @@ function mapsSetViewMode(mode) {
 }
 
 async function showMapsInViewer() {
+  var sp = document.getElementById('summary-panel');
+  if (sp && sp.classList.contains('visible')) {
+    if (typeof closeSummaryPanelFromHeader === 'function') closeSummaryPanelFromHeader();
+  }
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'inline-flex';
   const viewer = document.getElementById('viewer');
