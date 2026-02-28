@@ -1,8 +1,6 @@
 <H1>Pubertät als Entwicklungsprozess</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Pubertät als Entwicklungsgeschehen**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Pubertät - Entwicklung|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/YHwWUiG47l2wrUw0/t/pubert%C3%A4t-entwicklung/dda9ae8dad0fa6ac9fd3ef61dd5766cf8e31ec55b7a2d00f1d25760276028580) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/YHwWUiG47l2wrUw0/t/pubert%C3%A4t-entwicklung/dda9ae8dad0fa6ac9fd3ef61dd5766cf8e31ec55b7a2d00f1d25760276028580)
 
 ## Inhalt
 

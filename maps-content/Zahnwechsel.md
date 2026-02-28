@@ -1,8 +1,6 @@
 <H1>Zahnwechsel</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Zahnwechsel**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Zahnwechsel|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/ZDa8ByHgHRe8NfJW/t/zahnwechsel/b23bc33b0d1014a2ced86f1d19161088ef87d39161cc0e62301d72e7d04414d0) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/ZDa8ByHgHRe8NfJW/t/zahnwechsel/b23bc33b0d1014a2ced86f1d19161088ef87d39161cc0e62301d72e7d04414d0)
 
 ## Inhalt
 

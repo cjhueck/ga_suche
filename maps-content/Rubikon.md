@@ -1,10 +1,8 @@
 <H1>Rubikon</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Rubikon**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
 Unter dem "Rubikon" verstand Rudolf Steiner einen Entwicklungsschritt in der Zeit zwischen dem 9. und 10. Lebensjahr, in dem das Kind sich gefühlsmäßig individualisiert und damit das bis dahin selbstverständliche Zusammenhangsgefühl mit seiner Umgebung verliert.
 
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Rubikon|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/ZBxw5kKapKje_9RZ/t/rubikon/84206d040dc2c8a73de5d95909098e539f5483c29ab2ee0dd165c222ec6980af) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/ZBxw5kKapKje_9RZ/t/rubikon/84206d040dc2c8a73de5d95909098e539f5483c29ab2ee0dd165c222ec6980af)
 
 ## Inhalt
 

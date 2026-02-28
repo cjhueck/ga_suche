@@ -1,8 +1,6 @@
 <H1>Reinkarnationsmetamorphose Gliedmaßen - Kopf</H1>
 
-Rudolf Steiner beschrieb, dass sich die Bewegungen und Tätigkeiten der Gliedmaßen (der Wille und seine Motive) in der nächsten Inkarnation des Menschen in die Formen und Funktionen (die Intelligenz) des Kopfes umwandeln. Die Darstellungen sind für das Verständnis des Menschen von grundlegender Bedeutung.
-
-Eine **graphische Übersicht** finden Sie hier: [[Reinkarnation|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/ZFOiNwAjwnrfC-4w/t/reinkarnations-metamorphose/ec3f8d7b7abc83d45e5fafa721275902989d0a3e086a24f165b957eb39d06cf8) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/ZFOiNwAjwnrfC-4w/t/reinkarnations-metamorphose/ec3f8d7b7abc83d45e5fafa721275902989d0a3e086a24f165b957eb39d06cf8)
 
 ## Inhalt
 

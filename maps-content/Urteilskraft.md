@@ -1,8 +1,6 @@
-<H1>Urteilskraft</H1>
+<H1>Entwicklung der Urteilskraft</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Urteilskraft in der Entwicklung des Kindes und Jugendlichen**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Urteilskraft|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/X0Y0uZkqom6DRS8E/t/urteilskraft/60176940ff00e74f158f7f5bf78e3ec96778c18c57e4d0f122f4f6ab27d33f72) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/X0Y0uZkqom6DRS8E/t/urteilskraft/60176940ff00e74f158f7f5bf78e3ec96778c18c57e4d0f122f4f6ab27d33f72)
 
 ## Inhalt
 

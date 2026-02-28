@@ -1,13 +1,11 @@
-<H1>Nerven-Sinnessystem</H1>
+<H1>Entwicklung des Nerven-Sinnessystems</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema des **Nerven-Sinnessystems**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Dreigliederung - Nerven-Sinnessystem|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/YMcm1q5NqVw3GxeV/t/nerven-sinnessystem/eb4e1f822c441a086dc38bcc7a65533a08d708a5092307383c88b7d009eaba6a) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/YMcm1q5NqVw3GxeV/t/nerven-sinnessystem/eb4e1f822c441a086dc38bcc7a65533a08d708a5092307383c88b7d009eaba6a)
 
 ## Inhalt
 
 [[#(1) Dreigliederung des menschlichen Organismus]]
-[[#(2) Die drei Systeme des menschlichen Organismus]]
+[[#(2) Entwicklung der drei Systeme des menschlichen Organismus]]
 [[#(3) Nerven-Sinnessystem und rhythmisches System]]
 [[#(3a) Atmung und Blut]]
 [[#(3b) Nerv - Blut]]
@@ -23,7 +21,7 @@ Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Dreiglied
 
 ## (1) Dreigliederung des menschlichen Organismus
 
-## (2) Die drei Systeme des menschlichen Organismus
+## (2) Entwicklung der drei Systeme des menschlichen Organismus
 
 ##### Stoffwechselsystem, rhythmisches System und Nerven-Sinnessystem liegen ineinander. GA 297 29.12.1920
 

@@ -1,8 +1,6 @@
 <H1>Nachahmung</H1>
 
-Im Folgenden finden Sie eine **Auswahl** von Zitaten aus Texten und Vorträgen Rudolf Steiners zum Thema **Nachahmung des kleinen Kindes**. Durch die verlinkten Quellenangaben am Ende eines Zitats können Sie die Textseite öffnen, der das Zitat entnommen ist.
-
-Die Reihenfolge der Zitate entspricht der **graphischen Übersicht** [[Nachahmung|Mindmap PDF]]; [Webversion](https://coggle.it/diagram/XylllcZTxlsOmC6G/t/nachahmung/fdd782c1928c49d94e2fb3bb21b51cf23e365b94ed46f683e0120a60e57cc67d) (vergrößern und verkleinern mit Strg.+/-).
+[Webversion](https://coggle.it/diagram/XylllcZTxlsOmC6G/t/nachahmung/fdd782c1928c49d94e2fb3bb21b51cf23e365b94ed46f683e0120a60e57cc67d)
 
 ## Inhalt
 
