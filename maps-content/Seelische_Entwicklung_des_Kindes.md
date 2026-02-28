@@ -221,7 +221,7 @@ Bis zum einundzwanzigsten Jahre, approximativ natürlich, wie ich ja schon in de
 
 Nun schauen wir uns das Eisen aber an in unserem eigenen menschlichen Körper. Da ist es sehr merkwürdig, daß der Mensch, wenn er ins Erdenleben hereintritt, dasjenige genießt, was am wenigsten Eisen enthält: die Milch. Die Muttermilch enthält kaum irgend etwas Eisen. So daß wir also sagen können: Der Mensch fängt erst an im Laufe seines Lebens, das Eisen mit der Nahrung in sich aufzunehmen. - Was bedeutet denn das? ^4vr54x
 
-Ja, meine Herren, wenn Sie das Kind anschauen, so zappelt es ja allerdings viel; es träumt auch schon. Aber das Kind hat noch weder ein willkürliches Denken, noch einen sonstigen freien Willen. In dem Maße, in dem das Kind zu seinem freien Willen kommt, ist es darauf angewiesen, das Eisen in sich aufzunehmen. Sie sehen also daraus, daß das Eisen eigentlich notwendig ist für den freien Willen. [GA 351, S. 100; 27.10.1923]
+Ja, meine Herren, wenn Sie das Kind anschauen, so zappelt es ja allerdings viel; es träumt auch schon. Aber das Kind hat noch weder ein willkürliches Denken, noch einen sonstigen freien Willen. In dem Maße, in dem das Kind zu seinem freien Willen kommt, ist es darauf angewiesen, das Eisen in sich aufzunehmen. Sie sehen also daraus, daß das Eisen eigentlich notwendig ist für den freien Willen. [GA 351, S. 100; 27.10.1923] ^3bqd5a
 
 ##### Loslösung vom Organischen – Unwillentliches und Willentliches in Gehen, Sprechen, Denken. GA 202 19.12.1920
 
@@ -243,7 +243,7 @@ Zwischen dem 7. und 9. Altersjahr beginnen die geistigen Eigenschaften sich zu e
 
 ##### Nachahmung geht bis zum 9. Lebensjahr durch "präponderierenden Willen". GA 297 29.12.1920
 
-In der Volksschulzeit ist die Sache so, dass zunächst etwa bis zum neunten Jahre hin noch dasjenige mit der Nachahmung nachwirkt, was der präponderierende Wille ist. [GA 297, S. 264; 29.12.1920]
+In der Volksschulzeit ist die Sache so, dass zunächst etwa bis zum neunten Jahre hin noch dasjenige mit der Nachahmung nachwirkt, was der präponderierende Wille ist. [GA 297, S. 264; 29.12.1920] ^g1lrm9
 
 ##### 1.Jahrsiebt: Das Kind ist bis in die Sinne hinein ein Willenswesen. GA 304a 14.11.1923
 
@@ -349,7 +349,7 @@ Greifen wir etwas anderes heraus. Wenn das Kind mit dem siebenten Jahre die zwei
 
 ##### Abdrücke des Denkens im physischen Leib. GA 064 16.04.1915
 
-Was spezifisch im Gehirn zu finden ist, wird man von der Seelentätigkeit ableiten können, wie man die Fußstapfen auf der Erde von den Füßen ableiten kann. Wie ein Zusammenhang zwischen Gehen und Fußstapfen nicht sein könnte ohne festen Boden, so ist es mit allem, was verrichtet wird im physischen Leib. Von allem, was der Mensch denkt und will, findet sich ein Abdruck im Nervensystem in der physischen Leiblichkeit; aber es geht nicht daraus hervor, so wenig wie die Fußstapfen aus der Erde hervorgehen. Man braucht den physischen Leib als Widerstandsfläche, wie man die feste Erde zum Gehen braucht. Daher ist es selbstverständlich, daß man Abdrücke finden muß. Es ist ein wissenschaftlich berechtigtes Bemühen, sie zu finden; aber es ist unwissenschaftlich, das aus dem Leiblichen herausholen zu wollen, was durch das Geistige hineingedrückt ist. Insofern ist die Liebmannsche Behauptung falsch. Der Abdruck ist nur die Begleiterscheinung des Seelisch-Geistigen. [GA 064, S. 441; 16.04.1915]
+Was spezifisch im Gehirn zu finden ist, wird man von der Seelentätigkeit ableiten können, wie man die Fußstapfen auf der Erde von den Füßen ableiten kann. Wie ein Zusammenhang zwischen Gehen und Fußstapfen nicht sein könnte ohne festen Boden, so ist es mit allem, was verrichtet wird im physischen Leib. Von allem, was der Mensch denkt und will, findet sich ein Abdruck im Nervensystem in der physischen Leiblichkeit; aber es geht nicht daraus hervor, so wenig wie die Fußstapfen aus der Erde hervorgehen. Man braucht den physischen Leib als Widerstandsfläche, wie man die feste Erde zum Gehen braucht. Daher ist es selbstverständlich, daß man Abdrücke finden muß. Es ist ein wissenschaftlich berechtigtes Bemühen, sie zu finden; aber es ist unwissenschaftlich, das aus dem Leiblichen herausholen zu wollen, was durch das Geistige hineingedrückt ist. Insofern ist die Liebmannsche Behauptung falsch. Der Abdruck ist nur die Begleiterscheinung des Seelisch-Geistigen. [GA 064, S. 441; 16.04.1915] ^t4v1qc
 
 ##### Kindliches Denken im 2. JS war bis zum Zahnwechsel organbildende Kraft, mit dem Zahnwechsel ist das physische Wirken der Bildekraft abgeschlossen und sie wird zu seelischem Wirken. GA 307 08.08.1923
 

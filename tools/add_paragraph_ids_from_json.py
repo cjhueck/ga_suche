@@ -18,6 +18,7 @@ import json
 import re
 import argparse
 from pathlib import Path
+from difflib import SequenceMatcher
 
 # Pfade
 BASE = Path(__file__).parent.parent
@@ -34,8 +35,9 @@ GA_CITE_RE = re.compile(
 )
 
 # GA + Seitenzahl aus Quellenangabe am Absatzende: [GA 095, S. 54–58, 27.08.1906]
+# oder (GA 095, S. 54–58; 27.08.1906)
 CITATION_RE = re.compile(
-    r'\[GA\s+(\d+)([a-z]?),\s*S\.\s*(\d+)(?:[–\-]\d+)?[^\]]*\]',
+    r'[\[\(]\s*GA\s+(\d+)([a-z]?),\s*S\.\s*(\d+)(?:[–\-]\d+)?[^\]\)]*[\]\)]',
     re.IGNORECASE
 )
 
@@ -59,8 +61,13 @@ def normalize_text(text: str) -> str:
     text = re.sub(r'\|\d+\|', '', text)
     # Block-IDs am Ende
     text = re.sub(r'\s*\^[a-z0-9]+\s*$', '', text)
-    # GA-Zitation [GA 097, S. 168–169, 04.04.1906] am Ende (für besseren Abgleich mit JSON)
-    text = re.sub(r'\s*\[GA\s+\d+[a-z]?,\s*S\.\s*[\d\s–\-]+,?\s*\d{2}\.\d{2}\.\d{4}\]\s*$', '', text, flags=re.IGNORECASE)
+    # GA-Zitation am Ende entfernen (in [] oder ())
+    text = re.sub(
+        r'\s*[\[\(]\s*GA\s+\d+[a-z]?,\s*S\.\s*[\d\s–\-]+(?:[,;]\s*\d{2}\.\d{2}\.\d{4})?[^\]\)]*[\]\)]\s*$',
+        '',
+        text,
+        flags=re.IGNORECASE
+    )
     # Alte Rechtschreibung
     for old, new in [
         ('daß', 'dass'), ('muß', 'muss'), ('läßt', 'lässt'),
@@ -189,7 +196,7 @@ def extract_text_fragments(obs_text: str, words_per_frag: int = 10) -> list[str]
     Kein Similarity-Check – nur: Fragment in Kandidat enthalten?
     """
     text = obs_text
-    text = re.sub(r'\s*\[GA\s+\d+[a-z]?,[^\]]+\]\s*$', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\s*[\[\(]\s*GA\s+\d+[a-z]?,[^\]\)]+[\]\)]\s*$', '', text, flags=re.IGNORECASE)
     text = normalize_text(text)
     words = text.split()
     if len(words) < 8:
@@ -219,6 +226,31 @@ def extract_text_fragments(obs_text: str, words_per_frag: int = 10) -> list[str]
             frags.append(f)
 
     return frags[:3]
+
+
+def extract_window_fragments(obs_text: str, words_per_frag: int = 7, max_windows: int = 24) -> list[str]:
+    """
+    Robuster Fallback: viele kurze 7-Wort-Fenster über den Absatz.
+    So werden auch lange Absätze mit eingeschobenen Seitenmarkern besser getroffen.
+    """
+    text = re.sub(r'\s*[\[\(]\s*GA\s+\d+[a-z]?,[^\]\)]+[\]\)]\s*$', '', obs_text, flags=re.IGNORECASE)
+    words = normalize_text(text).split()
+    if len(words) < words_per_frag:
+        return []
+
+    last_start = len(words) - words_per_frag
+    # Fenster gleichmäßig über den Absatz verteilen (statt jedes Wort zu nehmen)
+    step = max(1, last_start // max(1, (max_windows - 1)))
+    starts = list(range(0, last_start + 1, step))
+    if starts[-1] != last_start:
+        starts.append(last_start)
+
+    frags = []
+    for st in starts:
+        frag = " ".join(words[st: st + words_per_frag]).strip()
+        if len(frag) >= 12 and frag not in frags:
+            frags.append(frag)
+    return frags
 
 
 def find_best_match(
@@ -259,7 +291,62 @@ def find_best_match(
             best_id = block_id
             best_page_match = page_ok
 
-    return best_id
+    if best_id:
+        return best_id
+
+    # Fallback für schwierige Fälle: viele 7-Wort-Fenster scorieren
+    window_frags = extract_window_fragments(obs_text, words_per_frag=7, max_windows=24)
+    if not window_frags:
+        return None
+
+    scored = []
+    for item in candidates:
+        content_norm, block_id = item[0], item[1]
+        score = sum(1 for wf in window_frags if wf in content_norm)
+        if score > 0:
+            scored.append((score, block_id))
+
+    if not scored:
+        return None
+
+    scored.sort(reverse=True)
+    top_score, top_id = scored[0]
+    second_score = scored[1][0] if len(scored) > 1 else -1
+
+    # Nur eindeutig genug übernehmen (sonst Risiko für falsche IDs)
+    if top_score >= 2 and top_score > second_score:
+        return top_id
+
+    # Letzter Fallback: sehr konservativer Volltext-Ähnlichkeitsvergleich
+    # (hilft bei kleinen OCR-/Orthographie-Differenzen trotz klar gleicher Passage)
+    obs_norm = normalize_text(re.sub(r'\s*[\[\(]\s*GA\s+\d+[a-z]?,[^\]\)]+[\]\)]\s*$', '', obs_text, flags=re.IGNORECASE))
+    if not obs_norm:
+        return None
+
+    sim_scored = []
+    for item in candidates:
+        content_norm, block_id = item[0], item[1]
+        if not content_norm:
+            continue
+        ratio = SequenceMatcher(None, obs_norm, content_norm).ratio()
+        page_ok = len(item) >= 3 and item[2] == page_from_citation if page_from_citation is not None else False
+        # Seite leicht bevorzugen, aber nur minimal
+        score = ratio + (0.005 if page_ok else 0.0)
+        if score >= 0.94:
+            sim_scored.append((score, ratio, block_id))
+
+    if not sim_scored:
+        return None
+
+    sim_scored.sort(reverse=True)
+    top_score, top_ratio, top_id = sim_scored[0]
+    second_score = sim_scored[1][0] if len(sim_scored) > 1 else 0.0
+
+    # Nur übernehmen, wenn deutlich/sauber führend
+    if top_ratio >= 0.97 or (top_score >= 0.945 and (top_score - second_score) >= 0.01):
+        return top_id
+
+    return None
 
 
 def extract_ga_from_header(line: str) -> tuple | None:

@@ -299,7 +299,7 @@ Vorher bereitet man dem Kinde im Grunde genommen etwas recht Schlimmes für das 
 
 ##### Die Gefahr der Vorurteile durch zu frühes Urteilen. GA 301 06.05.1920
 
-Wiederum mit der Geschlechtsreife werden andere Kräfte selbständig, die uns in die Außenwelt in der mannigfaltigsten Weise einführen. Aber in dem System dieser Kräfte ist zugleich enthalten das menschliche selbständige Urteilsvermögen. So daß wir sagen können: der eigentliche Träger des menschlichen Urteilsvermögens, dasjenige im Menschen, was die Kräfte enthält, die ein Urteil hervorbringen, das wird im Menschen im Grunde genommen erst mit der Geschlechtsreife geboren und bereitet sich langsam zur Geburt vor vom 12. Jahre ab.
+Wiederum mit der Geschlechtsreife werden andere Kräfte selbständig, die uns in die Außenwelt in der mannigfaltigsten Weise einführen. Aber in dem System dieser Kräfte ist zugleich enthalten das menschliche selbständige Urteilsvermögen. So daß wir sagen können: der eigentliche Träger des menschlichen Urteilsvermögens, dasjenige im Menschen, was die Kräfte enthält, die ein Urteil hervorbringen, das wird im Menschen im Grunde genommen erst mit der Geschlechtsreife geboren und bereitet sich langsam zur Geburt vor vom 12. Jahre ab. ^lu49j6
 
 Wenn man dies weiß und richtig würdigen kann, dann ist man sich auch bewußt, welche Verantwortung man übernimmt, wenn man den Menschen zu früh an selbständiges Urteil gewöhnt. Ja, in dieser Beziehung herrschen ja insbesondere in der Gegenwart die allerverderblichsten Vorurteile: man möchte so früh wie möglich den Menschen an selbständige Urteile gewöhnen. ^5nfnft
 

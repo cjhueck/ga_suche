@@ -31381,24 +31381,18 @@ async function showSammlungPdf(filename) {
   if (docTitle) docTitle.textContent = shortName;
 
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-  var apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+  var apiBase = (typeof API_BASE !== 'undefined' ? API_BASE : (isLocal ? 'http://localhost:3003' : window.location.origin));
   var pdfUrl = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
 
-  var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  if (isLocal) {
-    viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
-  } else {
-    var encodedUrl = encodeURIComponent(pdfUrl);
-    var viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodedUrl;
-    viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + viewerUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;" allow="fullscreen"></iframe>';
-  }
+  // Online wie lokal direkt vom eigenen API-Endpunkt laden (keine externe Viewer-Abhaengigkeit)
+  viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
 }
 
 window.downloadSammlungPdf = function() {
   var filename = window._currentSammlungFilename;
   if (!filename) return;
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-  var apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+  var apiBase = (typeof API_BASE !== 'undefined' ? API_BASE : (isLocal ? 'http://localhost:3003' : window.location.origin));
   var url = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
   var a = document.createElement('a');
   a.href = url;

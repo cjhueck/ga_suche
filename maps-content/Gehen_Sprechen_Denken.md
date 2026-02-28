@@ -270,7 +270,7 @@ Diese naturwissenschaftliche Entdeckung besteht darin, daß des Menschen Sprache
 
 ##### Das deutliche Sprechen und das richtige Atmen in ihrer Wirkung bis ins spätere Leben. GA 314 07.04.1920
 
-Ein soziales Gebiet wird insbesondere intensiv beeinflußt werden müssen in hygienischer Beziehung von einer errungenen Menschenkenntnis, das ist das Gebiet der Erziehung, das Gebiet des Unterrichts. Man kann gar nicht eigentlich, ohne wirklich umfassend den Menschen zu kennen, ermessen, was es heißt: die Kinder sitzen in der Schule mit gebückten Rücken, so daß fortwährend ihre Atmung in Unordnung ist, oder Kinder werden nicht angehalten, laut und deutlich, deutlich vokalisierend, deutlich konsonantisierend zu sprechen. Das ganze spätere Leben hängt im wesentlichen davon ab, ob das Kind in der Schule in der richtigen Weise atmet und ob es angehalten wird, laut und deutlich und artikuliert zu sprechen. [GA 314, S. 237, 07.04.1920]
+Ein soziales Gebiet wird insbesondere intensiv beeinflußt werden müssen in hygienischer Beziehung von einer errungenen Menschenkenntnis, das ist das Gebiet der Erziehung, das Gebiet des Unterrichts. Man kann gar nicht eigentlich, ohne wirklich umfassend den Menschen zu kennen, ermessen, was es heißt: die Kinder sitzen in der Schule mit gebückten Rücken, so daß fortwährend ihre Atmung in Unordnung ist, oder Kinder werden nicht angehalten, laut und deutlich, deutlich vokalisierend, deutlich konsonantisierend zu sprechen. Das ganze spätere Leben hängt im wesentlichen davon ab, ob das Kind in der Schule in der richtigen Weise atmet und ob es angehalten wird, laut und deutlich und artikuliert zu sprechen. [GA 314, S. 237, 07.04.1920] ^r746ly
 
 ##### Mensch wird gestaltenschöpferisch werden durch das Wort. GA 227 30.08.1923
 
@@ -336,7 +336,7 @@ Und wie lernt das Kind denken? Das Kind lernt denken, indem es ganz und gar als 
 
 ##### Hineinfinden in das Denken; Zusammenhang mit der Zahnbildung. GA 307 08.08.1923
 
-Indem das Kind sich wie selbstverständlich im Verkehre mit seiner Umgebung hineinfindet in das Denken, indem aus dem dunklen Schlaf und Traumleben des Kindes herauftaucht das Gedankenleben, ist dieser ganze Prozeß gebunden daran, daß sich im Haupte des Kindes die Zähne durchdrängen, gebunden an die Kräfte, die aus dem Haupte des Kindes heraus sich drängen. Und wie die Zähne gewissermaßen durch den Kiefer vorstoßen, sind diejenigen Kräfte da, die aus dem unbestimmten Schlafesleben, Traumesleben, seelisch nun auch das Denken an die Oberfläche bringen. Und in demselben Maße, in dem das Kind zahnt, lernt es denken. [GA 307, S. 73, 08.08.1923]
+Indem das Kind sich wie selbstverständlich im Verkehre mit seiner Umgebung hineinfindet in das Denken, indem aus dem dunklen Schlaf und Traumleben des Kindes herauftaucht das Gedankenleben, ist dieser ganze Prozeß gebunden daran, daß sich im Haupte des Kindes die Zähne durchdrängen, gebunden an die Kräfte, die aus dem Haupte des Kindes heraus sich drängen. Und wie die Zähne gewissermaßen durch den Kiefer vorstoßen, sind diejenigen Kräfte da, die aus dem unbestimmten Schlafesleben, Traumesleben, seelisch nun auch das Denken an die Oberfläche bringen. Und in demselben Maße, in dem das Kind zahnt, lernt es denken. [GA 307, S. 73, 08.08.1923] ^fneic1
 
 ##### Der Mensch formt sein Gehirn nach der Geburt entsprechend seiner Wesenheit, die von Leben zu Leben getragen wird. GA 015 06.06.1911
 
