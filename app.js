@@ -685,7 +685,7 @@ const isLocal = window.location.hostname === 'localhost' ||
             var tabLabels = { texte: 'Texte', thematic: 'Themen', timeline: 'Timeline', maps: 'Maps', schlagworte: 'Index', keywords: 'Export', 'advanced-search': 'Erweiterte Suche' };
             var ts = data.tabStats || {};
             var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
-            if (entries.length === 0) return '';
+            if (entries.length === 0) return '<div class="analytics-section"><h3>Tab-Aufrufe (gesamt)</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten (erst nach Deploy auf Render sichtbar)</p></div>';
             var maxTab = entries[0][1] || 1;
             return '<div class="analytics-section"><h3>Tab-Aufrufe (gesamt)</h3>' +
               '<div style="display:flex;flex-direction:column;gap:6px;">' +
@@ -705,7 +705,7 @@ const isLocal = window.location.hostname === 'localhost' ||
           
           ${(function() {
             var qv = Number(data.quoteViews) || 0;
-            if (qv === 0) return '';
+            if (qv === 0) return '<div class="analytics-section"><h3>Zitat der Woche</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten</p></div>';
             return '<div class="analytics-section"><h3>Zitat der Woche</h3>' +
               '<p style="font-size:0.9em;color:var(--text-color);">Aufrufe gesamt: <strong>' + qv + '</strong></p></div>';
           })()}
