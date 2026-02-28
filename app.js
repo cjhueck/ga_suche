@@ -30759,6 +30759,8 @@ async function showMapsInViewer() {
   const usePublish = (window._mapsViewMode || 'local') === 'publish' && map.publishUrl;
   const titleEl = document.getElementById('document-title');
   if (titleEl) titleEl.textContent = map.name || 'Karten';
+  window._currentMapsMap = map;
+  updateMapsPdfDownloadBtn();
   
   if (dropdown) {
     const catEl = document.getElementById('maps-category-dropdown');
@@ -31122,6 +31124,8 @@ function switchThemenView(view) {
   const timelineDiv = document.getElementById('timelineFilterSection');
 
   document.body.classList.toggle('karten-view', view === 'karten');
+  if (view !== 'karten') { window._currentMapsMap = null; }
+  if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
 
   if (view === 'schwerpunkte') {
     if (mapsDiv) mapsDiv.style.display = 'none';
@@ -31190,6 +31194,27 @@ function switchCoggleMap(mapId) {
   window._coggleMapId = mapId;
   showMapsInViewer();
 }
+
+function updateMapsPdfDownloadBtn() {
+  var btn = document.getElementById('mapsPdfDownloadBtn');
+  if (!btn) return;
+  var isKarten = document.body.classList.contains('karten-view') || window._themenView === 'karten';
+  var hasMap = window._currentMapsMap && window._currentMapsMap.pdfUrl;
+  btn.style.display = (isKarten && hasMap) ? 'inline-flex' : 'none';
+}
+
+window.downloadMapsPdf = function() {
+  var map = window._currentMapsMap;
+  if (!map || !map.pdfUrl) return;
+  var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+  var url = (apiBase || window.location.origin) + '/api/maps-pdf?map=' + encodeURIComponent(map.id);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = (map.name || map.id) + '.pdf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
 
 // Docs Tab - TOC im Summary Panel anzeigen
 function showDocsTOC() {
