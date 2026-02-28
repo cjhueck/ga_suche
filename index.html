@@ -1900,6 +1900,12 @@
     // Zitat der Woche Button - öffne Popup direkt in index.html
     // Zeigt IMMER das Zitat an, das im Tab Zitate als "Popup An" markiert ist
     async function openQuotesPopup() {
+      // Track Zitat-der-Woche Aufruf
+      (function() {
+        var isL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+        var api = isL ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        fetch(api + '/api/analytics/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'quote_view' }) }).catch(function() {});
+      })();
       try {
         const isLocal = window.location.hostname === 'localhost' ||
                         window.location.hostname === '127.0.0.1' ||
