@@ -6899,7 +6899,6 @@ app.get('/api/maps-content', async (req, res) => {
   console.warn('[MAPS] Kein Inhalt fuer Map:', mapId);
   res.status(404).json({ error: 'Keine Inhaltsdatei gefunden fuer: ' + mapId });
 });
-});
 
 // Health-Check Endpoint für Keep-Alive (UptimeRobot, etc.)
 // Antwortet sofort ohne Datenbank-Zugriffe
