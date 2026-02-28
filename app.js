@@ -31384,15 +31384,13 @@ async function showSammlungPdf(filename) {
   var apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
   var pdfUrl = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
 
-  viewer.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--secondary-text);">Lade PDF\u2026</div>';
-  try {
-    var resp = await fetch(pdfUrl);
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    var blob = await resp.blob();
-    var blobUrl = URL.createObjectURL(blob);
-    viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + blobUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
-  } catch(err) {
-    viewer.innerHTML = '<div style="padding:2rem;color:var(--error-color);">Fehler beim Laden des PDFs: ' + err.message + '</div>';
+  var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (isLocal) {
+    viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
+  } else {
+    var encodedUrl = encodeURIComponent(pdfUrl);
+    var viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodedUrl;
+    viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + viewerUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;" allow="fullscreen"></iframe>';
   }
 }
 
