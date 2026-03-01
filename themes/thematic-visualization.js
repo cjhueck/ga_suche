@@ -1355,9 +1355,10 @@ function exportKeywordChanges() {
     function updateThemenInfoBtn(view) {
         var btn = document.getElementById('themenInfoBtn');
         if (!btn) return;
-        if (view === 'schwerpunkte' || view === 'timeline') {
+        if (view === 'schwerpunkte' || view === 'timeline' || view === 'sammlungen') {
             window._themenInfoType = view;
-            btn.setAttribute('title', view === 'schwerpunkte' ? 'Themenschwerpunkte – Info' : 'Timeline – Info');
+            var titles = { schwerpunkte: 'Themenschwerpunkte – Info', timeline: 'Timeline – Info', sammlungen: 'Sammlungen – Info' };
+            btn.setAttribute('title', titles[view] || 'Info');
             btn.style.display = 'inline-flex';
         } else {
             btn.style.display = 'none';
@@ -1422,6 +1423,9 @@ function showThemenInfoPanel(type) {
     } else if (type === 'timeline') {
         titleEl.textContent = 'Timeline – Info';
         contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Timeline basiert auf thematischen Gliederungen der einzelnen Texte (Bücher, Aufsätze, Vorträge, Briefe, u.a.) sowie auf einer Stichwortsuche in diesen Texten mit hoher Relevanz.</p><p style="margin: 0 0 0.6rem 0;">Nach Auswahl eines Themas / Schlagworts werden die entsprechenden Texte chronologisch nach Jahr dargestellt. Bei Klick auf einen Eintrag werden die entsprechenden Textstellen angezeigt. Die Darstellung gibt eine gute Orientierung, ist aber nicht vollständig.</p>';
+    } else if (type === 'sammlungen') {
+        titleEl.textContent = 'Sammlungen – Info';
+        contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Zitatsammlungen wurden von Mitarbeitern der Akanthos-Akademie durch ausführliche Suche in der Rudolf Steiner Gesamtausgabe erarbeitet. Sie können als nahezu vollständig zu dem jeweiligen Thema angesehen werden.</p>';
     } else {
         return;
     }

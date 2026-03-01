@@ -9839,19 +9839,19 @@ PDF
 <button id="viewerSummaryBtn" onclick="toggleSummaryPanel()" title="Rechtes Panel ein-/ausblenden" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡
 </button>
+<!-- Themen-Info-Button (nur bei Schwerpunkte/Timeline/Sammlungen im Themen-Tab) – gleiche Höhe wie Members-Button -->
+<button id="themenInfoBtn" onclick="showThemenInfoPanel(window._themenInfoType || 'schwerpunkte')" title="Info" style="display: none; padding: 0; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s;">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+</svg>
+</button>
 <!-- Sammlungen-PDF Download Button (nur im Themen-Tab Sammlungen) -->
 <button id="sammlungenPdfDownloadBtn" onclick="downloadSammlungPdf()" title="PDF herunterladen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
 <polyline points="7 10 12 15 17 10"></polyline>
 <line x1="12" y1="15" x2="12" y2="3"></line>
-</svg>
-</button>
-<!-- Themen-Info-Button (nur bei Schwerpunkte/Timeline im Themen-Tab) – gleiche Höhe wie Members-Button -->
-<button id="themenInfoBtn" onclick="showThemenInfoPanel(window._themenInfoType || 'schwerpunkte')" title="Info" style="display: none; padding: 0; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s;">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
-<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
-<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
 </svg>
 </button>
 <!-- 4. Mitglieder Button -->
