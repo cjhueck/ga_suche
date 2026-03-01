@@ -34,7 +34,14 @@ const PORT = process.env.PORT || 3003; // Render setzt PORT-Umgebungsvariable
 
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
-app.use(compression()); // gzip-Kompression für alle Responses (~70-80% weniger Transfer bei JSON)
+// Compression: app.js und Haupt-HTML ohne Gzip (verhindert "invalid response" bei Hard Reload)
+app.use(compression({
+  filter: (req, res) => {
+    const p = (req.path || '').toLowerCase();
+    if (p === '/app.js' || p === '/app.html' || p === '/' || p === '/index.html') return false;
+    return compression.filter(req, res);
+  }
+}));
 app.use(express.json({ limit: '10mb' })); // Limit für JSON-Body
 
 // Trust Proxy für Render (wichtig für korrekte IP-Erkennung)
@@ -509,13 +516,45 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
   }
 });
 
+// Explizite Root-Route für Robustheit (verhindert "invalid response" bei Hard Reload)
+app.get('/', (req, res, next) => {
+  try {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.sendFile(path.join(__dirname, 'index.html'), (err) => {
+      if (err) next(err);
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
 // FORCE: app.html mit no-cache Header direkt servieren
-app.get('/app.html', (req, res) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  res.setHeader('Last-Modified', new Date().toUTCString());
-  res.sendFile(path.join(__dirname, 'app.html'));
+app.get('/app.html', (req, res, next) => {
+  try {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Last-Modified', new Date().toUTCString());
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.sendFile(path.join(__dirname, 'app.html'), (err) => {
+      if (err) next(err);
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
+// app.js explizit servieren (Robustheit bei Hard Reload - großer File)
+app.get('/app.js', (req, res, next) => {
+  try {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    res.sendFile(path.join(__dirname, 'app.js'), (err) => {
+      if (err) next(err);
+    });
+  } catch (e) {
+    next(e);
+  }
 });
 
 // Statische HTML-Dateien aus dem Hauptverzeichnis bereitstellen
@@ -528,6 +567,12 @@ app.use(express.static(__dirname, {
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
+      // Explizit UTF-8 für korrekte Umlaut-/Sonderzeichen-Darstellung
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      } else if (filePath.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+      }
     }
   }
 }));
@@ -535,6 +580,14 @@ app.use(express.static(__dirname, {
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
   next();
+});
+
+// Globaler Error-Handler (verhindert "invalid response" bei ungefangenen Fehlern)
+app.use((err, req, res, next) => {
+  console.error('[EXPRESS-ERROR]', err.message || err);
+  if (!res.headersSent) {
+    res.status(500).setHeader('Content-Type', 'text/plain; charset=utf-8').send('Serverfehler');
+  }
 });
 
 // Global variables
@@ -24621,15 +24674,37 @@ app.post('/api/analytics/track', async (req, res) => {
       return res.status(400).json({ error: 'type required' });
     }
     
-    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, visitor_id=${visitor_id ? visitor_id.substring(0, 8) + '...' : 'keine'}`);
+    console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, value=${value ?? 'null'}, visitor_id=${visitor_id ? visitor_id.substring(0, 8) + '...' : 'keine'}`);
     
     // Tab-View / Quote-View: Supabase (persistent, wie Nutzerstatistik)
     if (type === 'quote_view') {
       const success = await incrementSupabaseTabQuote('quote_view');
       return res.json({ ok: true, storage: success ? 'supabase' : 'fallback' });
     }
-    if (type === 'tab_view' && value) {
-      const success = await incrementSupabaseTabQuote('tab_view', value);
+    if (type === 'tab_view') {
+      if (!value || typeof value !== 'string' || value.trim() === '') {
+        console.warn('[ANALYTICS-TRACK] tab_view ohne gültigen value (Tab-Name) – wird ignoriert');
+        return res.json({ ok: true, storage: 'skipped' });
+      }
+      const tabName = String(value).trim();
+      let success = await incrementSupabaseTabQuote('tab_view', tabName);
+      if (!success) {
+        // Fallback: In lokale JSON schreiben, damit Tab-Aufrufe nicht verloren gehen
+        try {
+          const data = await loadAnalyticsData();
+          const today = getDateKey();
+          if (!data.dailyStats[today]) {
+            data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
+          }
+          if (!data.dailyStats[today].tabs) data.dailyStats[today].tabs = {};
+          data.dailyStats[today].tabs[tabName] = (data.dailyStats[today].tabs[tabName] || 0) + 1;
+          await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+          console.log(`[ANALYTICS] ✓ tab_view ${tabName} lokal gespeichert (Supabase-Fallback)`);
+          success = true;
+        } catch (fallbackErr) {
+          console.error('[ANALYTICS] Tab-Fallback fehlgeschlagen:', fallbackErr.message);
+        }
+      }
       return res.json({ ok: true, storage: success ? 'supabase' : 'fallback' });
     }
 
