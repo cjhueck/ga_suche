@@ -1350,6 +1350,92 @@ function exportKeywordChanges() {
     });
 }
 
+// Schwerpunkte-Infobox Sichtbarkeit + themenInfoBtn (Viewer-Header) bei View-/Tab-Wechsel
+(function() {
+    function updateThemenInfoBtn(view) {
+        var btn = document.getElementById('themenInfoBtn');
+        if (!btn) return;
+        if (view === 'schwerpunkte' || view === 'timeline') {
+            window._themenInfoType = view;
+            btn.setAttribute('title', view === 'schwerpunkte' ? 'Themenschwerpunkte – Info' : 'Timeline – Info');
+            btn.style.display = 'inline-flex';
+        } else {
+            btn.style.display = 'none';
+        }
+    }
+
+    function patchSwitchThemenView() {
+        if (window._schwerpunkteInfoPatchDone) return;
+        var origSwitch = window.switchThemenView;
+        if (origSwitch) {
+            window.switchThemenView = function(view) {
+                var infoDiv = document.getElementById('thematic2-schwerpunkte-info');
+                if (infoDiv) infoDiv.style.display = view === 'schwerpunkte' ? '' : 'none';
+                updateThemenInfoBtn(view);
+                return origSwitch.apply(this, arguments);
+            };
+            window._schwerpunkteInfoPatchDone = true;
+        }
+    }
+
+    function patchSwitchTab() {
+        if (window._switchTabThemenInfoPatchDone) return;
+        var orig = window.switchTab;
+        if (orig) {
+            window.switchTab = function(mode) {
+                var btn = document.getElementById('themenInfoBtn');
+                if (btn) {
+                    if (mode === 'thematic2') {
+                        var v = window._themenView || 'schwerpunkte';
+                        updateThemenInfoBtn(v);
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                }
+                return orig.apply(this, arguments);
+            };
+            window._switchTabThemenInfoPatchDone = true;
+        }
+    }
+
+    function runPatches() {
+        patchSwitchThemenView();
+        patchSwitchTab();
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runPatches);
+    } else {
+        setTimeout(runPatches, 0);
+    }
+})();
+
+// Themen-Info-Panel: Schwerpunkte / Timeline (analog zu Bibliographie-Infopanel im Texte-Tab)
+function showThemenInfoPanel(type) {
+    var popup = document.getElementById('themenInfoPopup');
+    var titleEl = document.getElementById('themenInfoTitle');
+    var contentEl = document.getElementById('themenInfoContent');
+    if (!popup || !titleEl || !contentEl) return;
+
+    if (type === 'schwerpunkte') {
+        titleEl.textContent = 'Themenschwerpunkte – Info';
+        contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Zuordnung von Texten (Bücher, Aufsätze, Vorträge, Briefe) zu einem bestimmten Thema erfolgte durch Claude (KI). Die KI ordnete Zusammenfassungen der Texte zu den passenden Themen, welche jeweils eine Reihe von Schlagwörtern umfassen. Die Darstellung gibt eine gute Orientierung, ist aber nicht vollständig, da durch dieses Verfahren nicht jede thematisch relevante Passage erfasst werden kann. Bei Klick auf ein Feld werden die entsprechenden Text-Zusammenfassungen angezeigt.</p>';
+    } else if (type === 'timeline') {
+        titleEl.textContent = 'Timeline – Info';
+        contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Timeline basiert auf Schlagwörtern, die aus den einzelnen Texten generiert wurden. Nach Auswahl eines Themas / Schlagworts werden die entsprechenden Texte chronologisch nach Jahr dargestellt. Bei Klick auf einen Eintrag werden die entsprechenden Textstellen angezeigt. Die Darstellung gibt eine gute Orientierung, ist aber nicht vollständig.</p>';
+    } else {
+        return;
+    }
+    popup.style.display = 'flex';
+}
+
+function closeThemenInfoPopup(event) {
+    if (event && event.target.id === 'themenInfoPopup') {
+        document.getElementById('themenInfoPopup').style.display = 'none';
+    } else if (!event) {
+        document.getElementById('themenInfoPopup').style.display = 'none';
+    }
+}
+
 // Auto-init keyword management when thematic2 tab becomes active
 (function() {
     var origInit = window.initThematicVisualization;
