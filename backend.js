@@ -6837,6 +6837,7 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // // Maps Tab: Verzeichnis mit PDF-Karten
 const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
 const SAMMLUNGEN_PDF_DIR = path.join(__dirname, 'sammlungen-pdf');
+const GESAMTDARSTELLUNGEN_PDF_DIR = path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'Bilder&PDFs');
 // maps-content/: exportierte Obsidian-Dateien (primaer, funktioniert auch online)
 const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
 // mapId -> relativer Pfad unter OBSIDIAN_BASE (deckt alle Karten aus tools/sync-maps-content.py ab)
@@ -6945,6 +6946,48 @@ app.get('/api/sammlungen-pdf', async (req, res) => {
     stream.pipe(res);
   } catch (err) {
     console.warn('[SAMMLUNGEN] PDF nicht gefunden:', filePath, err.message);
+    res.status(404).send('PDF nicht gefunden: ' + filename);
+  }
+});
+
+// GET /api/gesamtdarstellungen-list - Kuratierte Liste der Gesamtdarstellungen-PDFs
+app.get('/api/gesamtdarstellungen-list', async (req, res) => {
+  const GESAMTDARSTELLUNGEN = [
+    { shortName: 'Die ersten drei Jahrsiebte', filename: 'Rudolf Steiner zur Entwicklung des Kindes - Jahrsiebte Text für Webseite 16.04.2023.pdf' },
+    { shortName: 'Erziehung aus Menschenerkenntnis', filename: 'Rudolf Steiner zur Entwicklung des Kindes - Erziehung aus Menschenerkenntnis 01.05.2023.pdf' },
+    { shortName: 'Gedächtnis und Erinnerung', filename: 'Rudolf Steiner zum Wesen von Gedächtnis und Erinnerung 07.10.2023.pdf' },
+    { shortName: 'Spirituelles Menschenbild', filename: 'Rudolf Steiner zur Entwicklung des Kindes - Spirituelles Menschenbild 01.05.2023.pdf' },
+    { shortName: 'Zum Geist der Waldorfpädagogik', filename: 'Ansprache Rudolf Steiners zur Konferenz am 24.07.1920.pdf' },
+  ];
+  const available = [];
+  for (const item of GESAMTDARSTELLUNGEN) {
+    try {
+      await fs.stat(path.join(GESAMTDARSTELLUNGEN_PDF_DIR, item.filename));
+      available.push(item);
+    } catch (e) { /* PDF nicht vorhanden, überspringen */ }
+  }
+  res.json({ pdfs: available });
+});
+
+// GET /api/gesamtdarstellungen-pdf?file=FILENAME - PDF aus Obsidian Bilder&PDFs/
+app.get('/api/gesamtdarstellungen-pdf', async (req, res) => {
+  const file = req.query.file || '';
+  if (!file || file.includes('..') || file.includes('/') || file.includes('\\')) {
+    return res.status(400).send('Ungueltiger Dateiname');
+  }
+  const filename = file.endsWith('.pdf') ? file : file + '.pdf';
+  const filePath = path.join(GESAMTDARSTELLUNGEN_PDF_DIR, filename);
+  try {
+    const stat = await fs.stat(filePath);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Disposition', 'inline; filename="' + filename + '"');
+    res.setHeader('Content-Security-Policy', "frame-ancestors *");
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const stream = fsSync.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err) {
+    console.warn('[GESAMTDARSTELLUNGEN] PDF nicht gefunden:', filePath, err.message);
     res.status(404).send('PDF nicht gefunden: ' + filename);
   }
 });
