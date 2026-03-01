@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
@@ -4496,8 +4496,9 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     .viewer-buttons-container > button {
       margin: 0;
       box-sizing: border-box;
-      height: 28px !important; /* Einheitliche Höhe für alle Buttons */
-      min-height: 28px !important;
+      display: inline-flex; /* Ohne !important, damit display:none weiterhin funktioniert */
+      height: 32px !important; /* Einheitliche Höhe für alle Buttons */
+      min-height: 32px !important;
       align-items: center !important;
       justify-content: center !important;
       padding: 4px 8px !important; /* Einheitliches Padding */
@@ -4511,8 +4512,18 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #h4ToggleBtn,
     #viewerSummaryBtn,
     #membersPanelBtn {
-      min-width: 30px !important;
-      width: 30px !important;
+      min-width: 32px !important;
+      width: 32px !important;
+    }
+
+    /* Themen-Info-Button – identisch mit gaInfoBtn, gleiche Höhe für Ausrichtung */
+    #themenInfoBtn {
+      min-width: 32px !important;
+      width: 32px !important;
+      height: 32px !important;
+      min-height: 32px !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
     
     /* Runder Info-Button */
@@ -4520,6 +4531,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       min-width: 32px !important;
       width: 32px !important;
     }
+
     
     /* Mitglieder-Button ist immer sichtbar */
     #membersPanelBtn {
@@ -8016,8 +8028,13 @@ Meine Abfragen
     </select>
   </div>
 
+  <!-- Schwerpunkte-Platzhalter (Sichtbarkeit via switchThemenView-Patch) -->
+  <div id="thematic2-schwerpunkte-info" style="margin-bottom: 0.3rem; padding: 0.8rem 0 0.4rem 0; border-top: 1px solid var(--border-color);"></div>
+
   <!-- Timeline-Filter (nur bei Timeline-View) -->
   <div id="timelineFilterSection" style="display: none; margin-bottom: 0; padding: 0;">
+  <!-- Timeline-Platzhalter -->
+  <div id="thematic2-timeline-info" style="margin-bottom: 0.3rem; padding: 0.8rem 0 0.4rem 0; border-top: 1px solid var(--border-color);"></div>
   <div style="display: grid; grid-template-columns: 0.9fr 1.2fr 0.9fr; gap: 0.5rem; margin-bottom: 0.5rem;">
   <div>
   <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.8em;" onchange="updateTimelineFilters('theme');">
@@ -9830,6 +9847,13 @@ PDF
 <line x1="12" y1="15" x2="12" y2="3"></line>
 </svg>
 </button>
+<!-- Themen-Info-Button (nur bei Schwerpunkte/Timeline im Themen-Tab) – gleiche Höhe wie Members-Button -->
+<button id="themenInfoBtn" onclick="showThemenInfoPanel(window._themenInfoType || 'schwerpunkte')" title="Info" style="display: none; padding: 0; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s;">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+</svg>
+</button>
 <!-- 4. Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
@@ -10473,6 +10497,24 @@ PDF
     
     <!-- Bibliographische Daten -->
     <div id="gaBibliographyContent" style="line-height: 1.3; color: var(--text-color, #333);">
+      <!-- Wird dynamisch befüllt -->
+    </div>
+  </div>
+</div>
+
+<!-- Themen-Info Popup (Schwerpunkte / Timeline) -->
+<div id="themenInfoPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 12000; align-items: center; justify-content: center;" onclick="closeThemenInfoPopup(event)">
+  <div style="position: relative; background: var(--bg-color, white); border: 2px solid var(--accent-color, #467886); border-radius: 8px; padding: 2rem 2.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
+    <button onclick="closeThemenInfoPopup()" 
+            style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; color: #999; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;"
+            onmouseover="this.style.color='var(--accent-color, #467886)'" 
+            onmouseout="this.style.color='#999'">
+      ×
+    </button>
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <h2 id="themenInfoTitle" style="margin: 0; color: var(--accent-color, #2c5f6f); font-size: 1.1em;">Info</h2>
+    </div>
+    <div id="themenInfoContent" style="line-height: 1.5; color: var(--text-color, #333); font-size: 0.9em;">
       <!-- Wird dynamisch befüllt -->
     </div>
   </div>
