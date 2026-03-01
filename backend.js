@@ -6837,7 +6837,7 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // // Maps Tab: Verzeichnis mit PDF-Karten
 const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
 const SAMMLUNGEN_PDF_DIR = path.join(__dirname, 'sammlungen-pdf');
-const GESAMTDARSTELLUNGEN_PDF_DIR = path.join(process.env.USERPROFILE || process.env.HOME || '', 'OneDrive', 'Obsidian', 'Obsidian Entwicklungsanthropologie', 'Bilder&PDFs');
+const GESAMTDARSTELLUNGEN_PDF_DIR = path.join(__dirname, 'gesamtdarstellungen-pdf');
 // maps-content/: exportierte Obsidian-Dateien (primaer, funktioniert auch online)
 const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
 // mapId -> relativer Pfad unter OBSIDIAN_BASE (deckt alle Karten aus tools/sync-maps-content.py ab)
