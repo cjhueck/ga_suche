@@ -1,4 +1,4 @@
-﻿// hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
+// hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -24384,6 +24384,31 @@ async function incrementSupabaseAnalytics(type) {
   }
 }
 
+// Tab-View oder Quote-View in Supabase speichern (persistent, wie Nutzerstatistik)
+async function incrementSupabaseTabQuote(type, tabName = null) {
+  if (!supabaseClient) {
+    console.warn('[ANALYTICS-SUPABASE] Kein Supabase-Client für tab/quote');
+    return false;
+  }
+  const today = getDateKey();
+  try {
+    const { error } = await supabaseClient.rpc('increment_analytics_tab_quote', {
+      p_date: today,
+      p_type: type === 'quote_view' ? 'quote' : 'tab',
+      p_tab_name: type === 'tab_view' ? tabName : null
+    });
+    if (error) {
+      console.error('[ANALYTICS-SUPABASE] Tab/Quote RPC Fehler:', error.message);
+      return false;
+    }
+    console.log(`[ANALYTICS-SUPABASE] ✓ ${type}${tabName ? ' ' + tabName : ''} getrackt`);
+    return true;
+  } catch (error) {
+    console.error('[ANALYTICS-SUPABASE] Tab/Quote Fehler:', error.message);
+    return false;
+  }
+}
+
 // Tracke unique visitor in Supabase
 async function trackUniqueVisitorInSupabase(visitorId) {
   if (!supabaseClient || !visitorId) {
@@ -24449,7 +24474,9 @@ async function loadAnalyticsFromSupabase() {
           views: row.views || 0,
           searches: row.searches || 0,
           lectures: row.lectures || 0,
-          unique_users: row.unique_users || 0
+          unique_users: row.unique_users || 0,
+          quote_views: row.quote_views || 0,
+          tabs: row.tabs || {}
         };
       });
     }
@@ -24596,27 +24623,14 @@ app.post('/api/analytics/track', async (req, res) => {
     
     console.log(`[ANALYTICS] Track-Endpunkt aufgerufen: type=${type}, visitor_id=${visitor_id ? visitor_id.substring(0, 8) + '...' : 'keine'}`);
     
-    // Tab-View / Quote-View: Lokal zählen (kein Supabase-Schema nötig)
+    // Tab-View / Quote-View: Supabase (persistent, wie Nutzerstatistik)
     if (type === 'quote_view') {
-      const data = await loadAnalyticsData();
-      const today = getDateKey();
-      if (!data.dailyStats[today]) {
-        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
-      }
-      data.dailyStats[today].quote_views = (data.dailyStats[today].quote_views || 0) + 1;
-      await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
-      return res.json({ ok: true, storage: 'local-quote' });
+      const success = await incrementSupabaseTabQuote('quote_view');
+      return res.json({ ok: true, storage: success ? 'supabase' : 'fallback' });
     }
     if (type === 'tab_view' && value) {
-      const data = await loadAnalyticsData();
-      const today = getDateKey();
-      if (!data.dailyStats[today]) {
-        data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
-      }
-      if (!data.dailyStats[today].tabs) data.dailyStats[today].tabs = {};
-      data.dailyStats[today].tabs[value] = (data.dailyStats[today].tabs[value] || 0) + 1;
-      await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
-      return res.json({ ok: true, storage: 'local-tab' });
+      const success = await incrementSupabaseTabQuote('tab_view', value);
+      return res.json({ ok: true, storage: success ? 'supabase' : 'fallback' });
     }
 
     // Mappe type auf analytics-type
