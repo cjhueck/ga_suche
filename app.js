@@ -15191,7 +15191,7 @@ function scrollToChronologicalYear(year) {
         // Im GA-Tab den Übersicht-Button NICHT anzeigen
         if (isInGATab) { viewerSummaryBtn.style.display = 'none'; } else {
           viewerSummaryBtn.style.display = 'inline-flex';
-          viewerSummaryBtn.innerHTML = '=';
+          viewerSummaryBtn.innerHTML = '≡';
         }
       }
     } else {
@@ -15201,7 +15201,7 @@ function scrollToChronologicalYear(year) {
         // Im GA-Tab den Übersicht-Button NICHT anzeigen
         if (isInGATab) { viewerSummaryBtn.style.display = 'none'; } else {
           viewerSummaryBtn.style.display = 'inline-flex';
-          viewerSummaryBtn.innerHTML = '=';
+          viewerSummaryBtn.innerHTML = '≡';
         }
       }
     }
@@ -18809,7 +18809,7 @@ setTimeout(() => {
   
   if (viewerSummaryBtn) {
     viewerSummaryBtn.disabled = false;
-    viewerSummaryBtn.innerHTML = '=';
+    viewerSummaryBtn.innerHTML = '≡';
     viewerSummaryBtn.style.opacity = '1';
   }
   // TOC-Toggle-Button ausblenden in Original-Ansicht
@@ -18930,7 +18930,7 @@ function showSummaryView() {
     if (viewerSummaryBtn) {
       // Button zurücksetzen falls er im Lade-Zustand war
       viewerSummaryBtn.disabled = false;
-      viewerSummaryBtn.innerHTML = '=';
+      viewerSummaryBtn.innerHTML = '≡';
       viewerSummaryBtn.style.opacity = '1';
     }
     
