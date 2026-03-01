@@ -31120,7 +31120,7 @@ function switchThemenView(view) {
     if (view === 'schwerpunkte') docTitle.textContent = 'Themenschwerpunkte im Gesamtwerk (1879-1925)';
     else if (view === 'timeline') docTitle.textContent = 'Timeline';
     else if (view === 'karten')   docTitle.textContent = 'Karten';
-    else if (view === 'sammlungen') docTitle.textContent = 'Zitat-Sammlungen';
+    else if (view === 'sammlungen') docTitle.textContent = 'Sammlungen';
   }
 
   // Viewer und Side Panel leeren
@@ -31332,46 +31332,115 @@ function showMapsDownloadOptions() {
 async function loadSammlungenList() {
   var results = document.getElementById('results');
   if (!results) return;
-  results.innerHTML = '<div style="padding:0.3rem 0.5rem;"><h1 style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);">Zitat-Sammlungen</h1><div style="color:var(--secondary-text);">Lade Liste</div></div>';
+  results.innerHTML = '<div style="padding:0.3rem 0.5rem;"><div style="color:var(--secondary-text);">Lade Liste…</div></div>';
+  var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+
+  var gesamtPdfs = [];
+  var sammlungPdfs = [];
+
   try {
-    var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
-    var res = await fetch(apiBase + '/api/sammlungen-list');
-    var data = await res.json();
-    var pdfs = data.pdfs || [];
-    if (pdfs.length === 0) {
-      results.innerHTML = '<div style="padding:0.3rem 0.5rem;"><h1 style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);">Zitat-Sammlungen</h1><div style="color:var(--secondary-text);">Keine Sammlungen gefunden.</div></div>';
-      return;
-    }
-    var html = '<div style="padding:0.3rem 0.5rem;"><h1 style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);">Zitat-Sammlungen</h1><ul style="list-style:none;padding:0;margin:0;">';
-    pdfs.forEach(function(p) {
-      html += '<li style="margin-bottom:8px;"><a href="#" class="sammlungen-link" data-file="' + p.filename.replace(/"/g, '&quot;') + '" style="color:var(--link-color);text-decoration:none;font-size:0.95em;line-height:1.4;display:block;padding:4px 0;border-bottom:1px solid var(--border-color);">' + p.shortName + '</a></li>';
-    });
-    html += '</ul></div>';
-    results.innerHTML = html;
-    results.querySelectorAll('.sammlungen-link').forEach(function(a) {
-      a.addEventListener('click', function(e) {
-        e.preventDefault();
-        results.querySelectorAll('.sammlungen-link').forEach(function(l) { l.style.fontWeight = ''; });
-        this.style.fontWeight = '700';
-        showSammlungPdf(this.dataset.file);
-      });
-    });
-    // Erste Sammlung automatisch laden
-    if (pdfs.length > 0) {
-      var firstLink = results.querySelector('.sammlungen-link');
-      if (firstLink) {
-        firstLink.style.fontWeight = '700';
-        showSammlungPdf(pdfs[0].filename);
-      }
-    }
+    var [gesamtRes, sammlRes] = await Promise.all([
+      fetch(apiBase + '/api/gesamtdarstellungen-list'),
+      fetch(apiBase + '/api/sammlungen-list')
+    ]);
+    var gesamtData = await gesamtRes.json();
+    var sammlData = await sammlRes.json();
+    gesamtPdfs = gesamtData.pdfs || [];
+    sammlungPdfs = sammlData.pdfs || [];
   } catch(err) {
     results.innerHTML = '<div style="padding:1rem;color:var(--error-color);">Fehler beim Laden der Sammlungen.</div>';
     console.error('[SAMMLUNGEN]', err);
+    return;
   }
+
+  var html = '<div style="padding:0 0.5rem;">';
+
+  // --- Gesamtdarstellungen (klappbar) ---
+  html += '<h1 class="sammlungen-section-toggle" onclick="toggleSammlungenSection(\'gesamt\')" style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;">' +
+    '<span id="gesamt-arrow" style="display:inline-block;transition:transform 0.2s;font-size:0.7em;">▶</span> Gesamtdarstellungen</h1>';
+  html += '<ul id="gesamt-list" style="list-style:none;padding:0;margin:0 0 1rem 0;display:none;">';
+  if (gesamtPdfs.length === 0) {
+    html += '<li style="color:var(--secondary-text);font-size:0.9em;padding:4px 0;">Keine Gesamtdarstellungen verfügbar.</li>';
+  } else {
+    gesamtPdfs.forEach(function(p) {
+      html += '<li style="margin-bottom:8px;"><a href="#" class="gesamtdarstellung-link" data-file="' + p.filename.replace(/"/g, '&quot;') + '" style="color:var(--link-color);text-decoration:none;font-size:0.95em;line-height:1.4;display:block;padding:4px 0;border-bottom:1px solid var(--border-color);">' + p.shortName + '</a></li>';
+    });
+  }
+  html += '</ul>';
+
+  // --- Zitat-Sammlungen (klappbar, standardmäßig offen) ---
+  html += '<h1 class="sammlungen-section-toggle" onclick="toggleSammlungenSection(\'zitat\')" style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;">' +
+    '<span id="zitat-arrow" style="display:inline-block;transition:transform 0.2s;transform:rotate(90deg);font-size:0.7em;">▶</span> Zitat-Sammlungen</h1>';
+  html += '<ul id="zitat-list" style="list-style:none;padding:0;margin:0;">';
+  if (sammlungPdfs.length === 0) {
+    html += '<li style="color:var(--secondary-text);font-size:0.9em;padding:4px 0;">Keine Zitat-Sammlungen gefunden.</li>';
+  } else {
+    sammlungPdfs.forEach(function(p) {
+      html += '<li style="margin-bottom:8px;"><a href="#" class="sammlungen-link" data-file="' + p.filename.replace(/"/g, '&quot;') + '" style="color:var(--link-color);text-decoration:none;font-size:0.95em;line-height:1.4;display:block;padding:4px 0;border-bottom:1px solid var(--border-color);">' + p.shortName + '</a></li>';
+    });
+  }
+  html += '</ul>';
+
+  html += '</div>';
+  results.innerHTML = html;
+
+  // Click-Handler: Gesamtdarstellungen
+  results.querySelectorAll('.gesamtdarstellung-link').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      results.querySelectorAll('.sammlungen-link, .gesamtdarstellung-link').forEach(function(l) { l.style.fontWeight = ''; });
+      this.style.fontWeight = '700';
+      showGesamtdarstellungPdf(this.dataset.file);
+    });
+  });
+
+  // Click-Handler: Zitat-Sammlungen
+  results.querySelectorAll('.sammlungen-link').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      results.querySelectorAll('.sammlungen-link, .gesamtdarstellung-link').forEach(function(l) { l.style.fontWeight = ''; });
+      this.style.fontWeight = '700';
+      showSammlungPdf(this.dataset.file);
+    });
+  });
+
+  // Erste Zitat-Sammlung automatisch laden
+  if (sammlungPdfs.length > 0) {
+    var firstLink = results.querySelector('.sammlungen-link');
+    if (firstLink) {
+      firstLink.style.fontWeight = '700';
+      showSammlungPdf(sammlungPdfs[0].filename);
+    }
+  }
+}
+
+function toggleSammlungenSection(section) {
+  var list = document.getElementById(section + '-list');
+  var arrow = document.getElementById(section + '-arrow');
+  if (!list || !arrow) return;
+  var isVisible = list.style.display !== 'none';
+  list.style.display = isVisible ? 'none' : 'block';
+  arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(90deg)';
+}
+
+function showGesamtdarstellungPdf(filename) {
+  window._currentSammlungFilename = filename;
+  window._currentSammlungType = 'gesamtdarstellung';
+  var viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  var docTitle = document.getElementById('document-title');
+  var shortName = filename.replace(/\.pdf$/i, '');
+  if (docTitle) docTitle.textContent = shortName;
+
+  var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+  var iframeApiBase = isLocal ? 'http://localhost:3003' : window.location.origin;
+  var pdfUrl = iframeApiBase + '/api/gesamtdarstellungen-pdf?file=' + encodeURIComponent(filename);
+  viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
 }
 
 async function showSammlungPdf(filename) {
   window._currentSammlungFilename = filename;
+  window._currentSammlungType = 'sammlung';
   var viewer = document.getElementById('viewer');
   if (!viewer) return;
   var docTitle = document.getElementById('document-title');
@@ -31392,7 +31461,8 @@ window.downloadSammlungPdf = function() {
   if (!filename) return;
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
   var downloadApiBase = isLocal ? 'http://localhost:3003' : window.location.origin;
-  var url = downloadApiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
+  var endpoint = (window._currentSammlungType === 'gesamtdarstellung') ? '/api/gesamtdarstellungen-pdf' : '/api/sammlungen-pdf';
+  var url = downloadApiBase + endpoint + '?file=' + encodeURIComponent(filename);
   var a = document.createElement('a');
   a.href = url;
   a.download = filename;
