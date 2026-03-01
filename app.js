@@ -31381,8 +31381,9 @@ async function showSammlungPdf(filename) {
   if (docTitle) docTitle.textContent = shortName;
 
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-  var apiBase = (typeof API_BASE !== 'undefined' ? API_BASE : (isLocal ? 'http://localhost:3003' : window.location.origin));
-  var pdfUrl = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
+  // Iframe muss online same-origin bleiben, sonst blockiert CSP frame-src.
+  var iframeApiBase = isLocal ? 'http://localhost:3003' : window.location.origin;
+  var pdfUrl = iframeApiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
 
   // Online wie lokal direkt vom eigenen API-Endpunkt laden (keine externe Viewer-Abhaengigkeit)
   viewer.innerHTML = '<iframe id="sammlungen-pdf-iframe" src="' + pdfUrl + '" style="width:100%;height:calc(100vh - 100px);border:none;"></iframe>';
@@ -31392,8 +31393,8 @@ window.downloadSammlungPdf = function() {
   var filename = window._currentSammlungFilename;
   if (!filename) return;
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-  var apiBase = (typeof API_BASE !== 'undefined' ? API_BASE : (isLocal ? 'http://localhost:3003' : window.location.origin));
-  var url = apiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
+  var downloadApiBase = isLocal ? 'http://localhost:3003' : window.location.origin;
+  var url = downloadApiBase + '/api/sammlungen-pdf?file=' + encodeURIComponent(filename);
   var a = document.createElement('a');
   a.href = url;
   a.download = filename;
