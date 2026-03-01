@@ -1421,7 +1421,7 @@ function showThemenInfoPanel(type) {
         contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Zuordnung von Texten (Bücher, Aufsätze, Vorträge, Briefe) zu einem bestimmten Thema erfolgte durch Claude (KI). Die KI ordnete Zusammenfassungen der Texte zu den passenden Themen, welche jeweils eine Reihe von Schlagwörtern umfassen. Die Darstellung gibt eine gute Orientierung, ist aber nicht vollständig, da durch dieses Verfahren nicht jede thematisch relevante Passage erfasst werden kann. Bei Klick auf ein Feld werden die entsprechenden Text-Zusammenfassungen angezeigt.</p>';
     } else if (type === 'timeline') {
         titleEl.textContent = 'Timeline – Info';
-        contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Timeline basiert auf Schlagwörtern, die aus den einzelnen Texten generiert wurden. Nach Auswahl eines Themas / Schlagworts werden die entsprechenden Texte chronologisch nach Jahr dargestellt. Bei Klick auf einen Eintrag werden die entsprechenden Textstellen angezeigt. Die Darstellung gibt eine gute Orientierung, ist aber nicht vollständig.</p>';
+        contentEl.innerHTML = '<p style="margin: 0 0 0.6rem 0;">Die Timeline basiert auf thematischen Gliederungen der einzelnen Texte (Bücher, Aufsätze, Vorträge, Briefe, u.a.) sowie auf einer Stichwortsuche in diesen Texten mit hoher Relevanz.</p><p style="margin: 0 0 0.6rem 0;">Nach Auswahl eines Themas / Schlagworts werden die entsprechenden Texte chronologisch nach Jahr dargestellt. Bei Klick auf einen Eintrag werden die entsprechenden Textstellen angezeigt. Die Darstellung gibt eine gute Orientierung, ist aber nicht vollständig.</p>';
     } else {
         return;
     }
