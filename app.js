@@ -4804,10 +4804,19 @@ function normalizeGANumber(gaNumber) {
         
         // Schließe Dropdown bei Klick außerhalb
         document.addEventListener('click', (e) => {
-          if (!this.container.contains(e.target)) {
+          if (!this.container.contains(e.target) && !this.list.contains(e.target)) {
             this.close();
           }
         });
+        
+        // Schließe bei Scroll/Resize
+        window.addEventListener('resize', () => this.close());
+      }
+      
+      positionList() {
+        const rect = this.button.getBoundingClientRect();
+        this.list.style.top = rect.bottom + 'px';
+        this.list.style.left = rect.left + 'px';
       }
       
       toggle() {
@@ -4819,6 +4828,7 @@ function normalizeGANumber(gaNumber) {
         
         if (!isOpen) {
           this.container.classList.add('open');
+          this.positionList();
         }
       }
       
@@ -5051,7 +5061,7 @@ function normalizeGANumber(gaNumber) {
         if (gaFilterDropdown) {
           const gaItems = gaList.map(ga => ({
             value: ga.number,
-            label: ga.number
+            label: ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number
           }));
           gaFilterDropdown.setItems(gaItems);
           }
@@ -5060,7 +5070,7 @@ function normalizeGANumber(gaNumber) {
         if (advancedGAFilterDropdown) {
           const gaItems = gaList.map(ga => ({
             value: ga.number,
-            label: ga.number
+            label: ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number
           }));
           advancedGAFilterDropdown.setItems(gaItems);
           }
