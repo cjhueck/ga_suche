@@ -8948,7 +8948,7 @@ app.post('/api/get-theme-results-ai', async (req, res) => {
 // ============================================================================
 // API: KI-Zusammenfassung aller Short Summaries eines Themas (mit Cache)
 // ============================================================================
-const THEME_SUMMARIES_CACHE_FILE = path.join(__dirname, 'theme-summaries-cache.json');
+const THEME_SUMMARIES_CACHE_FILE = path.join(__dirname, 'theme-summaries.json');
 
 let themeSummariesCache = {};
 try {
