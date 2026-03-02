@@ -24487,10 +24487,39 @@ async function incrementSupabaseAnalytics(type) {
   }
 }
 
+// Startup-Check: Prüfe ob Tab/Quote-Migration in Supabase ausgeführt wurde
+let tabQuoteMigrationOk = false;
+async function checkTabQuoteMigration() {
+  if (!supabaseClient) return;
+  try {
+    const { data, error } = await supabaseClient
+      .from('analytics_daily')
+      .select('tabs, quote_views')
+      .limit(1);
+    if (error && (error.message.includes('tabs') || error.message.includes('quote_views'))) {
+      console.error('╔══════════════════════════════════════════════════════════════╗');
+      console.error('║  WICHTIG: Tab/Quote-Migration fehlt in Supabase!            ║');
+      console.error('║  Bitte supabase-analytics-tabs-quotes.sql im SQL Editor     ║');
+      console.error('║  ausführen, damit Tab-Aufrufe persistent gespeichert werden ║');
+      console.error('╚══════════════════════════════════════════════════════════════╝');
+      tabQuoteMigrationOk = false;
+    } else {
+      tabQuoteMigrationOk = true;
+      console.log('[ANALYTICS] ✓ Tab/Quote-Spalten in analytics_daily vorhanden');
+    }
+  } catch (e) {
+    console.warn('[ANALYTICS] Tab/Quote-Migration-Check fehlgeschlagen:', e.message);
+  }
+}
+
 // Tab-View oder Quote-View in Supabase speichern (persistent, wie Nutzerstatistik)
 async function incrementSupabaseTabQuote(type, tabName = null) {
   if (!supabaseClient) {
     console.warn('[ANALYTICS-SUPABASE] Kein Supabase-Client für tab/quote');
+    return false;
+  }
+  if (!tabQuoteMigrationOk) {
+    console.warn('[ANALYTICS-SUPABASE] Tab/Quote-Migration nicht ausgeführt – bitte supabase-analytics-tabs-quotes.sql im Supabase SQL Editor ausführen!');
     return false;
   }
   const today = getDateKey();
@@ -24985,7 +25014,7 @@ app.get('/api/analytics/stats', async (req, res) => {
       today: todayStats,
       week: { views: weekViews, searches: weekSearches, lectures: weekLectures, unique_users: weekUniqueUsers },
       total: {
-        views: cumulativeViews,  // Verwende kumulative Werte
+        views: cumulativeViews,
         searches: cumulativeSearches,
         lectures: cumulativeLectures,
         unique_users: cumulativeUniqueUsers
@@ -24996,7 +25025,8 @@ app.get('/api/analytics/stats', async (req, res) => {
       dailyData,
       totalDays: Object.keys(data.dailyStats).length,
       quoteViews: weekQuoteViews,
-      tabStats
+      tabStats,
+      tabsMigrationNeeded: !tabQuoteMigrationOk
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -27169,6 +27199,7 @@ app.get('/api/theme-assignments-status', async (req, res) => {
     // ENTFERNT: Relevanz-Scoring-Test wurde entfernt
     
     console.log('\n[9/9] Starte Server...');
+    await checkTabQuoteMigration();
     app.listen(PORT, () => {
       console.log('\n' + '='.repeat(70));
       console.log(`  ✓ SERVER GESTARTET`);

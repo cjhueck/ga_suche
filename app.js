@@ -685,7 +685,12 @@ const isLocal = window.location.hostname === 'localhost' ||
             var tabLabels = { texte: 'Texte', thematic: 'Themen', timeline: 'Timeline', maps: 'Maps', schlagworte: 'Index', keywords: 'Export', 'advanced-search': 'Erweiterte Suche' };
             var ts = data.tabStats || {};
             var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
-            if (entries.length === 0) return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten (erst nach Deploy auf Render sichtbar)</p></div>';
+            if (entries.length === 0) {
+              if (data.tabsMigrationNeeded) {
+                return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:#c9433d;">Supabase-Migration erforderlich: Bitte <code>supabase-analytics-tabs-quotes.sql</code> im Supabase SQL Editor ausführen</p></div>';
+              }
+              return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten</p></div>';
+            }
             var maxTab = entries[0][1] || 1;
             return '<div class="analytics-section"><h3>Aufrufe je Tab</h3>' +
               '<div style="display:flex;flex-direction:column;gap:6px;">' +
@@ -9172,8 +9177,8 @@ function convertFootnotesToLinks() {
       // Format: ^ gefolgt von alphanumerischen Zeichen
       cleanText = cleanText.replace(/\s*\^[a-zA-Z0-9]+\s*/g, ' ');
       
-      // Entferne trailing ? oder ?? falls vorhanden
-      cleanText = cleanText.replace(/\s*[???]\s*$/, '');
+      // Entferne trailing ↩ oder ↩︎ falls vorhanden
+      cleanText = cleanText.replace(/\s*[↩↩︎]\s*$/, '');
       
       // Entferne überflüssige Leerzeichen
       cleanText = cleanText.replace(/\s+/g, ' ').trim();
@@ -14430,7 +14435,7 @@ function scrollToChronologicalYear(year) {
       // Stelle sicher, dass "mittel" immer aktiviert ist
       mittelOption.disabled = false;
       mittelOption.style.color = '';
-      mittelOption.textContent = 'mittel ??'; // Oranges Quadrat
+      mittelOption.textContent = 'mittel 🟧'; // Oranges Quadrat
     }
 
     function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null) {
@@ -18662,7 +18667,7 @@ async function regenerateSummary() {
       regenerateBtn.classList.add('processing');
       regenerateBtn.textContent = 'bitte warten...';
     }
-    tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">?? Generiere neue Zusammenfassung mit KI...</p>';
+    tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">🤖 Generiere neue Zusammenfassung mit KI...</p>';
     
     const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
       method: 'POST',
@@ -19828,7 +19833,7 @@ function showSummaryView() {
     
     // Debug: Log wenn Absatz als bearbeitet markiert ist
     if (para._edited) {
-      console.log(`[RENDER] ?? Absatz mit has-text-edit Klasse: para-${paraIndex}`);
+      console.log(`[RENDER] ✏️ Absatz mit has-text-edit Klasse: para-${paraIndex}`);
     }
 
 html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx} - ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
@@ -20870,13 +20875,13 @@ function formatAsteriskParagraphs() {
     
     // Debug: Prüfe auf Text-Edits im Response
     if (data.lecture && data.lecture._hasTextEdits) {
-      console.log(`[SHOW-LECTURE] ?? Vortrag hat Text-Edits: ${data.lecture.ID}`);
+      console.log(`[SHOW-LECTURE] ✏️ Vortrag hat Text-Edits: ${data.lecture.ID}`);
       const editedParas = data.lecture.paragraphs?.filter(p => p._edited);
       console.log(`[SHOW-LECTURE]   Anzahl bearbeiteter Absätze: ${editedParas?.length || 0}`);
       // Debug: Zeige welche Absätze bearbeitet wurden
       if (editedParas && editedParas.length > 0) {
         editedParas.forEach(p => {
-          console.log(`[SHOW-LECTURE]   ?? Bearbeitet: Index="${p.index}", Content-Auszug="${(p.content || p.text || '').substring(0, 50)}..."`);
+          console.log(`[SHOW-LECTURE]   ✏️ Bearbeitet: Index="${p.index}", Content-Auszug="${(p.content || p.text || '').substring(0, 50)}..."`);
         });
       }
       // Debug: Prüfe ob is-local Klasse gesetzt ist
@@ -22146,7 +22151,7 @@ async function exportCurrentGA() {
   const exportLabel = isLectureExport ? `Vortrag: ${lectureId}` : `GA-Band: ${gaNumber}`;
   viewer.innerHTML = `
     <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">?? Export: ${exportLabel}</h3>
+      <h3 style="margin-bottom: 1rem;">📤 Export: ${exportLabel}</h3>
       <div id="export-progress" style="margin-bottom: 1rem;">
         <p style="color: #17a2b8;">? Export wird gestartet...</p>
       </div>
@@ -22196,10 +22201,10 @@ async function exportCurrentGA() {
       progressDiv.insertAdjacentHTML('afterend', `
         <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
           <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-            ?? Seite neu laden
+            🔄 Seite neu laden
           </button>
           <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px;">
-            ?? Seitenmarker einfügen
+            📄 Seitenmarker einfügen
           </button>
         </div>
       `);
@@ -22287,7 +22292,7 @@ async function openPagesCorrectionDialog() {
   const processLabel = isLectureProcess ? `Vortrag: ${lectureId}` : `GA-Band: ${gaNumber}`;
   viewer.innerHTML = `
     <div style="padding: 2rem; text-align: center;">
-      <h3 style="margin-bottom: 1rem;">?? Seitenmarker generieren: ${processLabel}</h3>
+      <h3 style="margin-bottom: 1rem;">📄 Seitenmarker generieren: ${processLabel}</h3>
       <div id="pages-progress" style="margin-bottom: 1rem;">
         <p style="color: #17a2b8;">? Führe process_pagebreaks.py aus...</p>
       </div>
@@ -22334,11 +22339,11 @@ async function openPagesCorrectionDialog() {
       progressDiv.insertAdjacentHTML('afterend', `
         <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
           <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-            ?? Seite neu laden
+            🔄 Seite neu laden
           </button>
         </div>
         <p style="margin-top: 1rem; color: #856404; background: #fff3cd; padding: 0.5rem; border-radius: 4px;">
-          ?? <strong>Wichtig:</strong> Server neu starten (Ctrl+C, dann nb), damit die Änderungen wirksam werden!
+          ⚠️ <strong>Wichtig:</strong> Server neu starten (Ctrl+C, dann nb), damit die Änderungen wirksam werden!
         </p>
       `);
       
@@ -22470,7 +22475,7 @@ async function generatePagesForLecture_LEGACY(lectureId) {
           <div style="margin-top: 1rem;">
             <button class="depth-btn" onclick="generatePagebreaksForGAs('${gaNumber}')" 
                     style="padding: 8px 16px; background: #ffc107; color: #212529; border: none;">
-              ?? Pagebreaks generieren
+              📑 Pagebreaks generieren
             </button>
             <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; margin-left: 1rem;">
               Zurück
@@ -22543,7 +22548,7 @@ async function generatePagesForMultiple(lectureIdsString) {
   
   viewer.innerHTML = `
     <div style="padding: 2rem;">
-      <h3 style="margin-bottom: 1rem;">?? Seitenzahlen werden generiert...</h3>
+      <h3 style="margin-bottom: 1rem;">📄 Seitenzahlen werden generiert...</h3>
       <div id="gen-progress">
         ${gaNumbers.map(ga => `
           <div id="gen-${ga}" style="padding: 0.5rem; margin-bottom: 0.5rem; background: var(--code-bg); border-radius: 4px;">
@@ -22609,7 +22614,7 @@ async function generatePagesForMultiple(lectureIdsString) {
       ${errorCount > 0 ? `<p style="color: #856404;">Fehler: ${errorCount} GA-Bände</p>` : ''}
       <div style="margin-top: 1rem;">
         <button class="depth-btn" onclick="openPagesCorrectionDialog()" style="padding: 8px 16px; background: #17a2b8; color: white; border: none;">
-          ?? Erneut analysieren
+          🔄 Erneut analysieren
         </button>
         <button class="depth-btn" onclick="location.reload()" style="padding: 8px 16px; margin-left: 1rem;">
           Schließen
@@ -25155,7 +25160,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       // FALLBACK (nur wenn Suchworte nicht gefunden): Seitenzahl – Absatz mit Seitenmarker
       // Wichtig: Seitenzahlen in app.html stehen immer am Anfang einer Seite, nicht am Ende
       if (searchText) {
-        console.log('[OBSIDIAN-GA] ?? Primär: Suche nach Suchworten:', searchText);
+        console.log('[OBSIDIAN-GA] 🔍 Primär: Suche nach Suchworten:', searchText);
         
         const words = normalize(searchText).split(/\s+/).filter(w => w.length >= 2);
         console.log('[OBSIDIAN-GA] Durchsuche', allParas.length, '.paragraph Divs');
@@ -25183,7 +25188,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       // WICHTIG: Seitenzahlen stehen am ANFANG einer Seite – der Marker steht am Ende des
       // vorherigen Absatzes. Der Absatz MIT dem Zitat ist der NÄCHSTE (nach dem Marker).
       if (!targetPara && page) {
-        console.log('[OBSIDIAN-GA] ?? Fallback: Suche Seitenmarker', page, '(Seitenzahlen am Seitenanfang)');
+        console.log('[OBSIDIAN-GA] 📍 Fallback: Suche Seitenmarker', page, '(Seitenzahlen am Seitenanfang)');
         const pageNums = viewer.querySelectorAll('.page-break-num');
         
         for (const numSpan of pageNums) {
@@ -25293,25 +25298,25 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
               
               // Markiere die gefundenen Worte (auch wenn page-break-num dazwischen ist)
               if (match && actualText) {
-                console.log('[OBSIDIAN-GA] ?? Versuche zu markieren:', actualText);
-                console.log('[OBSIDIAN-GA] ?? Original HTML (erste 200 Zeichen):', originalHTML.substring(0, 200));
+                console.log('[OBSIDIAN-GA] 🔍 Versuche zu markieren:', actualText);
+                console.log('[OBSIDIAN-GA] 📄 Original HTML (erste 200 Zeichen):', originalHTML.substring(0, 200));
                 
                 // Extrahiere page-break-num Spans temporär
                 var pageMarkers = [];
                 var htmlWithPlaceholders = originalHTML.replace(/<span class="page-break-num"[^>]*>.*?<\/span>/g, function(match) {
                   var placeholder = '___PM' + pageMarkers.length + '___';
                   pageMarkers.push(match);
-                  console.log('[OBSIDIAN-GA] ?? Gefundener Seitenmarker:', match);
+                  console.log('[OBSIDIAN-GA] 📌 Gefundener Seitenmarker:', match);
                   return placeholder;
                 });
                 
-                console.log('[OBSIDIAN-GA] ?? HTML mit Platzhaltern (erste 200 Zeichen):', htmlWithPlaceholders.substring(0, 200));
+                console.log('[OBSIDIAN-GA] 📝 HTML mit Platzhaltern (erste 200 Zeichen):', htmlWithPlaceholders.substring(0, 200));
                 
                 // Erstelle ein flexibles Regex-Pattern
                 var escapedText = actualText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 var words = escapedText.split(/\s+/);
                 
-                console.log('[OBSIDIAN-GA] ?? Worte zum Suchen:', words);
+                console.log('[OBSIDIAN-GA] 🔤 Worte zum Suchen:', words);
                 
                 // Pattern: Worte können durch Platzhalter und Whitespace getrennt sein
                 var patternParts = [];
@@ -25324,7 +25329,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                 }
                 var flexPattern = new RegExp(patternParts.join(''), 'i');
                 
-                console.log('[OBSIDIAN-GA] ?? Regex-Pattern:', flexPattern);
+                console.log('[OBSIDIAN-GA] 🔎 Regex-Pattern:', flexPattern);
                 
                 var matchInHTML = htmlWithPlaceholders.match(flexPattern);
                 
@@ -25335,7 +25340,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                   var obsidianLink = '';
                   if (vault && file) {
                     obsidianLink = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
-                    console.log('[OBSIDIAN-GA] ?? Obsidian-Link erstellt:', obsidianLink);
+                    console.log('[OBSIDIAN-GA] 🔗 Obsidian-Link erstellt:', obsidianLink);
                   }
                   
                   // Ersetze den gefundenen Text mit markierter Version (mit Link wenn vorhanden)
@@ -25362,7 +25367,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                   if (markedEl) markedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                   console.log('[OBSIDIAN-GA] ? Konnte Zitatanfang nicht im HTML finden');
-                  console.log('[OBSIDIAN-GA] ?? Versuche ohne Seitenmarker-Logik...');
+                  console.log('[OBSIDIAN-GA] 💡 Versuche ohne Seitenmarker-Logik...');
                   
                   // Fallback ohne Seitenmarker-Logik
                   var simpleMatch = originalHTML.match(new RegExp(escapedText, 'i'));
@@ -25396,7 +25401,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
           }
           
           // Blauer Balken und Wortmarkierung bleiben dauerhaft sichtbar
-          console.log('[OBSIDIAN-GA] ?? Blauer Balken bleibt dauerhaft sichtbar (bis neuer Inhalt geladen wird)');
+          console.log('[OBSIDIAN-GA] 🔵 Blauer Balken bleibt dauerhaft sichtbar (bis neuer Inhalt geladen wird)');
         }, 300);
         
         console.log('[OBSIDIAN-GA] ? Navigation abgeschlossen');
@@ -25617,7 +25622,7 @@ async function loadKeywordsData() {
   
   // Wenn nichts geladen wurde, zeige leere Liste
   if (keywordsData.length === 0) {
-    console.warn('[KEYWORDS] ?? Keine Concepts geladen!');
+    console.warn('[KEYWORDS] ⚠️ Keine Concepts geladen!');
   }
 }
 
@@ -25845,7 +25850,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   const keywordNames = keywordsData.map(kw => kw.keyword);
   const uniqueNames = new Set(keywordNames);
   if (keywordNames.length !== uniqueNames.size) {
-    console.error('[DISPLAY] ?? DUPLIKATE IN keywordsData gefunden!');
+    console.error('[DISPLAY] ⚠️ DUPLIKATE IN keywordsData gefunden!');
     console.error('[DISPLAY] Total:', keywordNames.length, 'Unique:', uniqueNames.size);
     
     // Finde und zeige Duplikate
@@ -25952,7 +25957,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   const h4Texts = Array.from(h4Elements).map(h4 => h4.textContent.trim());
   const uniqueH4 = new Set(h4Texts);
   if (h4Texts.length !== uniqueH4.size) {
-    console.error('[DISPLAY] ?? DUPLIKATE IM DOM gefunden!');
+    console.error('[DISPLAY] ⚠️ DUPLIKATE IM DOM gefunden!');
     const duplicateH4 = h4Texts.filter((text, index) => h4Texts.indexOf(text) !== index);
     console.error('[DISPLAY] Doppelte Einträge im DOM:', [...new Set(duplicateH4)].slice(0, 10));
   } else {
@@ -33242,7 +33247,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
     
     if (validEntries.length === 0) {
       let debugInfo = `<div style="text-align: left; padding: 1rem; background: #fff3cd; border-left: 4px solid #ffc107; font-size: 0.9em; margin-bottom: 1rem;">
-        <strong>?? Keine Suchergebnisse mit gültigen Datumswerten gefunden</strong><br><br>
+        <strong>⚠️ Keine Suchergebnisse mit gültigen Datumswerten gefunden</strong><br><br>
         <strong>Debug-Informationen:</strong><br>
         | Gesamt-Suchergebnisse: ${resultsToUse.length}<br>
         | Timeline-Einträge erstellt: ${timelineEntries.length}<br>
@@ -34134,7 +34139,7 @@ function showKeywordEditor(event) {
     const btnLoadKeywords = document.getElementById('btnLoadKeywords');
     if (btnLoadKeywords) {
       btnLoadKeywords.disabled = false;
-      btnLoadKeywords.innerHTML = '?? Keywords laden';
+      btnLoadKeywords.innerHTML = '🔄 Keywords laden';
     }
     
     // Leere Eingabefelder
@@ -34522,7 +34527,7 @@ async function loadKeywordsForEdit() {
     
     if (btnLoadKeywords) {
       btnLoadKeywords.disabled = false;
-      btnLoadKeywords.innerHTML = '?? Keywords laden';
+      btnLoadKeywords.innerHTML = '🔄 Keywords laden';
     }
   }
 }
@@ -34769,7 +34774,7 @@ async function loadBackupList() {
     container.innerHTML = data.backups.map(backup => {
       const date = new Date(backup.modified);
       const sizeInfo = backup.isDirectory 
-        ? '?? Verzeichnis' 
+        ? '📁 Verzeichnis' 
         : `${(backup.size / 1024).toFixed(0)} KB`;
       const restoreDisabled = backup.isDirectory ? 'disabled title="Verzeichnis-Backups können nicht direkt wiederhergestellt werden"' : '';
       return `
@@ -34946,7 +34951,7 @@ async function loadErrorReports() {
                 <option value="reviewed" ${report.status === 'reviewed' ? 'selected' : ''}>Geprüft</option>
                 <option value="resolved" ${report.status === 'resolved' ? 'selected' : ''}>Erledigt</option>
               </select>
-              <button onclick="deleteErrorReport('${report.id}')" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em; background: #dc2626; color: white;">??? Löschen</button>
+              <button onclick="deleteErrorReport('${report.id}')" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em; background: #dc2626; color: white;">🗑️ Löschen</button>
             </div>
           </div>
         </div>
@@ -35063,7 +35068,7 @@ async function loadMarkedWords(syncOnline = true) {
   try {
     // Wenn lokal UND syncOnline: Automatisch Online-Daten holen und mergen
     if (isLocal && syncOnline) {
-      countEl.textContent = '?? Synchronisiere mit Online...';
+      countEl.textContent = '🔄 Synchronisiere mit Online...';
       try {
         const onlineResponse = await fetch('https://ga-suche.onrender.com/api/marked-words');
         if (onlineResponse.ok) {
@@ -35097,7 +35102,6 @@ async function loadMarkedWords(syncOnline = true) {
       countEl.textContent = 'Keine Einträge';
       container.innerHTML = `
         <div style="padding: 60px 40px; text-align: center; color: var(--text-color);">
-          <div style="font-size: 3em; margin-bottom: 15px; opacity: 0.3;">?</div>
           <p style="font-size: 1.1em; margin: 0; opacity: 0.7;">Keine fehlerhaften Textstellen gespeichert.</p>
           <p style="font-size: 0.85em; margin-top: 8px; opacity: 0.5;">Strg+Klick auf markierten Text, um Fehler zu melden.</p>
         </div>
@@ -35151,11 +35155,11 @@ async function loadMarkedWords(syncOnline = true) {
               <div style="flex: 1; min-width: 0;">
                 <p style="margin: 0; font-size: 0.85em; line-height: 1.5; color: var(--text-color); word-break: break-word;">"${preview}"</p>
                 <div style="margin-top: 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                  <span style="font-size: 0.7em; color: var(--text-color); opacity: 0.5;">?? ${date}</span>
-                  <button onclick="openCorrectionPanel('${escapedWord}', '${escapedGaTitle}', ${entry.originalIndex})" style="font-size: 0.7em; padding: 2px 8px; background: #5cb85c; color: white; border: none; border-radius: 3px; cursor: pointer;">?? Korrigieren</button>
+                  <span style="font-size: 0.7em; color: var(--text-color); opacity: 0.5;">${date}</span>
+                  <button onclick="openCorrectionPanel('${escapedWord}', '${escapedGaTitle}', ${entry.originalIndex})" style="font-size: 0.7em; padding: 2px 8px; background: #5cb85c; color: white; border: none; border-radius: 3px; cursor: pointer;">Korrigieren</button>
                 </div>
               </div>
-              <button onclick="deleteMarkedWord(${entry.originalIndex})" title="Eintrag löschen" style="background: transparent; border: 1px solid #c9433d; color: #c9433d; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75em; flex-shrink: 0; transition: all 0.2s;" onmouseover="this.style.background='#c9433d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#c9433d'">???</button>
+              <button onclick="deleteMarkedWord(${entry.originalIndex})" title="Eintrag löschen" style="background: transparent; border: 1px solid #c9433d; color: #c9433d; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75em; flex-shrink: 0; transition: all 0.2s;" onmouseover="this.style.background='#c9433d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#c9433d'">🗑️</button>
             </div>
           </div>
         `;
@@ -35318,7 +35322,7 @@ async function previewCorrection() {
     return;
   }
   
-  previewEl.innerHTML = '<span style="color: var(--text-color); opacity: 0.7;">?? Suche...</span>';
+  previewEl.innerHTML = '<span style="color: var(--text-color); opacity: 0.7;">🔍 Suche...</span>';
   previewEl.style.display = 'block';
   
   const includeJson = document.getElementById('correctionIncludeHtml').checked;
@@ -35344,7 +35348,7 @@ async function previewCorrection() {
     } else {
       let html = `
         <div style="color: var(--text-color);">
-          <strong>?? Gefunden: ${result.totalOccurrences} Vorkommen in ${result.fileCount} Datei${result.fileCount !== 1 ? 'en' : ''}</strong>
+          <strong>📊 Gefunden: ${result.totalOccurrences} Vorkommen in ${result.fileCount} Datei${result.fileCount !== 1 ? 'en' : ''}</strong>
         </div>
         <div style="margin-top: 8px; max-height: 150px; overflow-y: auto;">
       `;
@@ -38178,7 +38182,7 @@ window.cancelTextEditMode = function() {};
       
       listEl.innerHTML = `
         <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: rgba(70, 120, 134, 0.05); border-radius: 4px; font-size: 0.85em; color: var(--secondary-text);">
-          ?? Großes Wörterbuch (${dict.length.toLocaleString('de')} Wörter) - Seite ${dictCurrentPage} von ${totalPages}
+          📚 Großes Wörterbuch (${dict.length.toLocaleString('de')} Wörter) - Seite ${dictCurrentPage} von ${totalPages}
         </div>
         <div style="margin-bottom: 0.5rem;">
           <input type="text" id="dict-search-input" placeholder="Wort suchen..." value="${dictSearchFilter}" 
@@ -38277,7 +38281,7 @@ window.cancelTextEditMode = function() {};
     }
     
     const confirmed = confirm(
-      `?? Wörterbuch zurücksetzen\n\n` +
+      `⚠️ Wörterbuch zurücksetzen\n\n` +
       `Dies löscht alle ${dict.length.toLocaleString('de')} Wörter aus Ihrem persönlichen Wörterbuch.\n\n` +
       `Tipp: Erstellen Sie vorher ein Backup!\n\n` +
       `Wirklich fortfahren?`
@@ -38312,7 +38316,7 @@ window.cancelTextEditMode = function() {};
     
     // Zeige Dialog mit Export-Optionen
     const formatChoice = confirm(
-      '?? Wörterbuch exportieren\n\n' +
+      '📥 Wörterbuch exportieren\n\n' +
       `${dict.length.toLocaleString('de')} Wörter werden exportiert.\n\n` +
       'Wählen Sie das Format:\n\n' +
       'OK = JSON (für Re-Import in GA-Suche)\n' +
@@ -38403,7 +38407,7 @@ window.cancelTextEditMode = function() {};
       const username = '<%USERNAME%>';
       osSpecificPath = `C:\\Users${username}\\AppData\\Roaming\\obsidian\\Custom Dictionary.txt`;
       osSpecificInstructions = `
-        <h4>?? Windows - So finden Sie die Datei:</h4>
+        <h4>🪟 Windows - So finden Sie die Datei:</h4>
         <ol style="margin-left: 1.5rem; line-height: 1.6;">
           <li><strong>Drücken Sie</strong> Windows-Taste + R</li>
           <li><strong>Geben Sie ein:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">%APPDATA%\\obsidian</code></li>
@@ -38412,13 +38416,13 @@ window.cancelTextEditMode = function() {};
           <li>Falls die Datei nicht existiert: Sie haben noch keine Wörter in Obsidian zum Wörterbuch hinzugefügt</li>
         </ol>
         <p style="margin-top: 1rem; padding: 0.5rem; background: rgba(70,120,134,0.1); border-radius: 4px; font-size: 0.9em;">
-          ?? <strong>Tipp:</strong> Kopieren Sie <code>%APPDATA%\\obsidian</code> und fügen Sie es in die Adressleiste des Windows Explorers ein.
+          💡 <strong>Tipp:</strong> Kopieren Sie <code>%APPDATA%\\obsidian</code> und fügen Sie es in die Adressleiste des Windows Explorers ein.
         </p>
       `;
     } else if (isMac) {
       osSpecificPath = '~/Library/Application Support/obsidian/Custom Dictionary.txt';
       osSpecificInstructions = `
-        <h4>?? Mac - So finden Sie die Datei:</h4>
+        <h4>🍎 Mac - So finden Sie die Datei:</h4>
         <ol style="margin-left: 1.5rem; line-height: 1.6;">
           <li><strong>Öffnen Sie</strong> Finder</li>
           <li><strong>Drücken Sie</strong> Cmd + Shift + G</li>
@@ -38431,7 +38435,7 @@ window.cancelTextEditMode = function() {};
     } else if (isLinux) {
       osSpecificPath = '~/.config/obsidian/Custom Dictionary.txt';
       osSpecificInstructions = `
-        <h4>?? Linux - So finden Sie die Datei:</h4>
+        <h4>🐧 Linux - So finden Sie die Datei:</h4>
         <ol style="margin-left: 1.5rem; line-height: 1.6;">
           <li><strong>Öffnen Sie</strong> Terminal</li>
           <li><strong>Geben Sie ein:</strong> <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">nautilus ~/.config/obsidian/</code> (oder Ihr Dateimanager)</li>
@@ -38442,7 +38446,7 @@ window.cancelTextEditMode = function() {};
     } else {
       osSpecificPath = 'Betriebssystem nicht erkannt';
       osSpecificInstructions = `
-        <h4>?? Allgemeine Anleitung:</h4>
+        <h4>📁 Allgemeine Anleitung:</h4>
         <p style="line-height: 1.6;">
           Die Datei befindet sich im Obsidian-Konfigurationsordner. Suchen Sie nach dem Ordner "obsidian" 
           in Ihrem Benutzerverzeichnis oder Anwendungsdaten-Ordner.
@@ -38453,14 +38457,14 @@ window.cancelTextEditMode = function() {};
     dialog.innerHTML = `
       <div style="padding: 1.5rem;">
         <h3 style="margin-top: 0; color: var(--heading-color); display: flex; justify-content: space-between; align-items: center;">
-          <span>?? Obsidian-Wörterbuch importieren</span>
+          <span>📖 Obsidian-Wörterbuch importieren</span>
           <button onclick="restoreObsidianImportDialog()" style="background: none; border: none; font-size: 1.3em; cursor: pointer; color: var(--text-color);">&times;</button>
         </h3>
         
         <div style="max-height: 60vh; overflow-y: auto;">
           ${osSpecificInstructions}
           
-          <h4 style="margin-top: 1.5rem;">?? Vollständiger Pfad:</h4>
+          <h4 style="margin-top: 1.5rem;">📍 Vollständiger Pfad:</h4>
           <div style="background: rgba(0,0,0,0.05); padding: 0.75rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; word-break: break-all; margin-bottom: 1rem;">
             ${osSpecificPath}
           </div>
@@ -38477,10 +38481,10 @@ window.cancelTextEditMode = function() {};
             3. Wählen Sie "Add to dictionary"
           </p>
           
-          <h4 style="margin-top: 1.5rem;">?? Alternative: Wörter manuell eingeben</h4>
+          <h4 style="margin-top: 1.5rem;">📋 Alternative: Wörter manuell eingeben</h4>
           <p style="line-height: 1.6; color: var(--secondary-text);">
             Falls Sie kein Obsidian-Wörterbuch haben, können Sie auch die Funktion 
-            "?? Wörterbuch erweitern" verwenden, um eine umfangreiche deutsche Wortliste zu laden.
+            "🌐 Wörterbuch erweitern" verwenden, um eine umfangreiche deutsche Wortliste zu laden.
           </p>
         </div>
         
@@ -38518,7 +38522,7 @@ window.cancelTextEditMode = function() {};
   // === Lokales deutsches Hunspell-Wörterbuch importieren ===
   window.importLocalHunspell = async function() {
     const confirmed = confirm(
-      '?? Lokales deutsches Basis-Wörterbuch laden\n\n' +
+      '📚 Lokales deutsches Basis-Wörterbuch laden\n\n' +
       'Diese Funktion lädt das im Projekt vorhandene deutsche Hunspell-Wörterbuch.\n\n' +
       'Quelle: dictionaries/de_DE.dic\n' +
       'Größe: ~75.000 deutsche Wörter\n\n' +
@@ -38546,7 +38550,7 @@ window.cancelTextEditMode = function() {};
   // === Hunspell .dic Datei importieren ===
   window.importHunspellDictionary = function() {
     const confirmed = confirm(
-      '?? Hunspell-Wörterbuch importieren (.dic)\n\n' +
+      '📖 Hunspell-Wörterbuch importieren (.dic)\n\n' +
       'Diese Funktion importiert Hunspell-Wörterbücher im .dic Format.\n\n' +
       'Hunspell ist das Standard-Format für Rechtschreibprüfung in:\n' +
       ' |  LibreOffice\n' +
@@ -38871,7 +38875,7 @@ window.cancelTextEditMode = function() {};
   // === Wörterbuch aus dem Internet erweitern ===
   window.expandDictionaryFromInternet = async function() {
     const confirmExpand = confirm(
-      '?? Wörterbuch erweitern\n\n' +
+      '🌐 Wörterbuch erweitern\n\n' +
       'Diese Funktion fügt häufige deutsche Wörter aus verschiedenen Quellen ' +
       'zu Ihrem persönlichen Wörterbuch hinzu:\n\n' +
       '1. Lokales Basis-Wörterbuch (~75.000 Wörter)\n' +
