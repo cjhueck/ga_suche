@@ -180,7 +180,7 @@ function renderThematicChart(container) {
         legendDiv.innerHTML = legendHtml;
         container.appendChild(legendDiv);
         
-        var margin = { top: 35, right: 60, bottom: 60, left: 225 };
+        var margin = { top: 35, right: 60, bottom: 60, left: 235 };
         var containerWidth = container.getBoundingClientRect().width || 1000;
         
         var width = Math.max(800, containerWidth - margin.left - margin.right);
@@ -231,8 +231,22 @@ function renderThematicChart(container) {
             
         yAxis.selectAll('text')
             .style('font-size', '14px')
-            .style('font-weight', '500')
-            .style('fill', textColor);
+            .style('font-weight', '700')
+            .style('fill', '#467886')
+            .style('cursor', 'pointer')
+            .style('text-decoration', 'none')
+            .on('click', function(event) {
+                var themeName = d3.select(this).text();
+                if (typeof loadThemeSummary === 'function') {
+                    loadThemeSummary(themeName);
+                }
+            })
+            .on('mouseover', function() {
+                d3.select(this).style('opacity', '0.7');
+            })
+            .on('mouseout', function() {
+                d3.select(this).style('opacity', '1');
+            });
 
         // Grid lines
         svg.append('g')
@@ -464,6 +478,129 @@ function renderThematic2Results(container, theme, results, isSemantic, isCached,
         }, 100);
     }
 }
+
+// KI-Zusammenfassung eines Themas im linken Panel anzeigen (in #results, unterhalb des Resize Handles)
+async function loadThemeSummary(themeName) {
+    console.log('[THEME-SUMMARY] Lade Zusammenfassung für:', themeName);
+
+    var resultsDiv = document.getElementById('results');
+    if (!resultsDiv) {
+        console.error('[THEME-SUMMARY] #results nicht gefunden');
+        return;
+    }
+
+    // Ladeanzeige
+    resultsDiv.innerHTML = [
+        '<div style="padding: 0.8rem 0.5rem;">',
+        '  <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color); font-size: 1rem;">',
+        '    ' + themeName,
+        '  </h4>',
+        '  <div style="display: flex; align-items: center; gap: 8px; color: var(--secondary-text); font-size: 0.85rem;">',
+        '    <span class="loading-spinner" style="display: inline-block; width: 16px; height: 16px; border: 2px solid var(--border-color); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 0.8s linear infinite;"></span>',
+        '    KI-Zusammenfassung wird erstellt...',
+        '  </div>',
+        '  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>',
+        '</div>'
+    ].join('');
+
+    try {
+        var response = await fetch('/api/theme-summary', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ themeName: themeName })
+        });
+
+        if (!response.ok) {
+            var errData = await response.json().catch(function() { return {}; });
+            throw new Error(errData.error || 'Server-Fehler ' + response.status);
+        }
+
+        var data = await response.json();
+
+        if (!data.summary) {
+            resultsDiv.innerHTML = [
+                '<div style="padding: 0.8rem 0.5rem;">',
+                '  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color); font-size: 1rem;">' + themeName + '</h4>',
+                '  <p style="color: var(--secondary-text); font-size: 0.85rem;">Keine Zusammenfassung verfügbar.</p>',
+                '</div>'
+            ].join('');
+            return;
+        }
+
+        // Markdown-artige Formatierung in HTML konvertieren
+        var htmlContent = convertThemeSummaryToHtml(data.summary);
+
+        resultsDiv.innerHTML = [
+            '<div class="maps-sidepanel-content theme-summary-content" style="padding: 0.5rem 0.5rem 0.8rem 0.5rem;">',
+            '  <h1 style="margin: 0 0 0.6rem 0;">' + themeName + '</h1>',
+            '  ' + htmlContent,
+            '</div>'
+        ].join('');
+
+        console.log('[THEME-SUMMARY] Zusammenfassung angezeigt für:', themeName, data.fromCache ? '(Cache)' : '(neu)');
+
+    } catch (error) {
+        console.error('[THEME-SUMMARY] Fehler:', error);
+        resultsDiv.innerHTML = [
+            '<div style="padding: 0.8rem 0.5rem;">',
+            '  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color); font-size: 1rem;">' + themeName + '</h4>',
+            '  <p style="color: #dc2626; font-size: 0.85rem;">Fehler: ' + error.message + '</p>',
+            '</div>'
+        ].join('');
+    }
+}
+
+// Konvertiert die KI-Zusammenfassung (Markdown-ähnlich) in HTML mit klickbaren GA-Links
+function convertThemeSummaryToHtml(text) {
+    // # Hauptüberschrift entfernen (Themenname wird separat angezeigt)
+    var html = text.replace(/^# .+$/gm, '');
+
+    // ### Überschriften -> <h3> (vor ## konvertieren, da ## auch in ### matcht)
+    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+
+    // ## Überschriften -> <h2> (Styling via .maps-sidepanel-content CSS)
+    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+
+    // **fett** -> <strong>
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    // GA-Links in eckigen Klammern klickbar machen und in runde Klammern konvertieren
+    html = html.replace(/\[([^\]]*?GA\d{1,3}[a-z]?\/\d{1,3}[^\]]*?)\]/g, function(match, inner) {
+        var refs = inner.split(/,\s*/);
+        var links = refs.map(function(ref) {
+            ref = ref.trim();
+            var gaMatch = ref.match(/^(GA\d{1,3}[a-z]?)\/(\d{1,3})$/);
+            if (gaMatch) {
+                var lectureId = gaMatch[1] + '/' + gaMatch[2];
+                return '<a href="#" class="theme-summary-ga-link" ' +
+                    'onclick="openLectureFromThemeSummary(\'' + lectureId + '\'); return false;" ' +
+                    'style="color: var(--accent-color); text-decoration: none; font-weight: 500;" ' +
+                    'onmouseover="this.style.textDecoration=\'underline\'" ' +
+                    'onmouseout="this.style.textDecoration=\'none\'">' + ref + '</a>';
+            }
+            return ref;
+        });
+        return '(' + links.join(', ') + ')';
+    });
+
+    // Zeilenumbrüche -> Absätze
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = html.replace(/\n/g, '<br>');
+    html = '<p>' + html + '</p>';
+
+    return html;
+}
+
+// GA-Link aus der Zusammenfassung: Vortrag im Main Viewer des aktuellen Tabs öffnen (kein Tab-Wechsel)
+function openLectureFromThemeSummary(lectureId) {
+    console.log('[THEME-SUMMARY] Öffne Vortrag im Themen-Tab:', lectureId);
+    if (typeof showLecture === 'function') {
+        showLecture(lectureId, null, [], [], false);
+    }
+}
+
+window.loadThemeSummary = loadThemeSummary;
+window.openLectureFromThemeSummary = openLectureFromThemeSummary;
 
 async function openThematicLectureList(theme, startYear, endYear, query, clickedYear) {
     console.log('[THEME2] Opening lecture list for:', theme, startYear, '-', endYear, 'clicked year:', clickedYear);

@@ -1663,23 +1663,9 @@ function normalizeGANumber(gaNumber) {
      */
     function updateCloseSummaryPanelButton() {
       const closeBtn = document.getElementById('closeSummaryPanelBtn');
-      const summaryPanel = document.getElementById('summary-panel');
-      const thematic2Tab = document.getElementById('thematic2-tab');
-      
       if (!closeBtn) return;
-      
-      // Prüfe ob Themen-Tab aktiv ist
-      const isThematic2Active = thematic2Tab && thematic2Tab.classList.contains('active');
-      // Prüfe ob Summary Panel sichtbar ist
-      const isPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
-      
-      if (isThematic2Active && isPanelVisible) {
-        closeBtn.style.display = 'inline-flex';
-        closeBtn.style.visibility = 'visible';
-      } else {
-        closeBtn.style.display = 'none';
-        closeBtn.style.visibility = 'hidden';
-      }
+      closeBtn.style.display = 'none';
+      closeBtn.style.visibility = 'hidden';
     }
 
     /**
@@ -15155,19 +15141,21 @@ function scrollToChronologicalYear(year) {
   const isPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
   
   if (closeSummaryPanelBtn) {
-    if (isInThematic2Tab && isPanelVisible) {
-      closeSummaryPanelBtn.style.display = 'inline-flex';
-      closeSummaryPanelBtn.style.visibility = 'visible';
-    } else {
-      closeSummaryPanelBtn.style.display = 'none';
-      closeSummaryPanelBtn.style.visibility = 'hidden';
-    }
+    closeSummaryPanelBtn.style.display = 'none';
+    closeSummaryPanelBtn.style.visibility = 'hidden';
   }
   
   if (!currentLectureData) {
     // Kein Vortrag/Buch geladen - verstecke diese Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
-    if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+    if (viewerSummaryBtn) {
+      if (isInThematic2Tab) {
+        viewerSummaryBtn.style.display = 'inline-flex';
+        viewerSummaryBtn.innerHTML = '≡';
+      } else {
+        viewerSummaryBtn.style.display = 'none';
+      }
+    }
     
     // Download-Button: Nur in Timeline/Index/Abfrage/Suche anzeigen wenn Viewer Inhalt hat
     if (viewerDownloadBtn) {
@@ -31050,18 +31038,6 @@ async function showMapsInViewer() {
       });
       wrap.querySelectorAll('p').forEach(p => {
         p.classList.add('paragraph');
-        p.style.setProperty('margin', '0.5rem 0', 'important');
-        p.style.setProperty('font-size', '0.85rem', 'important');
-        p.style.setProperty('line-height', '1.5', 'important');
-      });
-      wrap.querySelectorAll('li').forEach(li => {
-        li.style.setProperty('font-size', '0.85rem', 'important');
-        li.style.setProperty('line-height', '1.5', 'important');
-      });
-      const isDark = document.body.classList.contains('dark-mode');
-      const textColor = isDark ? '#b8b8b8' : 'var(--text-color)';
-      wrap.querySelectorAll('p, li').forEach(el => {
-        el.style.setProperty('color', textColor, 'important');
       });
       resultsDiv.innerHTML = '<div id="maps-obsidian-content" class="maps-sidepanel-content">' + wrap.innerHTML + '</div>';
       resultsDiv.querySelectorAll('#maps-obsidian-content a[href^="#"]').forEach(a => {
@@ -31142,7 +31118,13 @@ function switchThemenView(view) {
   const viewer = document.getElementById('viewer');
   if (viewer) viewer.innerHTML = '';
   const results = document.getElementById('results');
-  if (results) results.innerHTML = '';
+  if (results) {
+    if (view === 'schwerpunkte') {
+      results.innerHTML = '<div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Für eine Zusammenfassung klicken Sie auf einen Themenschwerpunkt in der Graphik</div>';
+    } else {
+      results.innerHTML = '';
+    }
+  }
 
   // Buttons aktualisieren
   views.forEach(function(v) {
@@ -31168,10 +31150,20 @@ function switchThemenView(view) {
       var sammlDlBtn = document.getElementById('sammlungenPdfDownloadBtn'); if (sammlDlBtn) sammlDlBtn.style.display = view === 'sammlungen' ? 'inline-flex' : 'none';
   if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
 
+  // Side-Panel Toggle in Schwerpunkte und Timeline anzeigen
+  const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  if (viewerSummaryBtn) {
+    if (view === 'schwerpunkte' || view === 'timeline') {
+      viewerSummaryBtn.style.display = 'inline-flex';
+      viewerSummaryBtn.innerHTML = '≡';
+    } else {
+      viewerSummaryBtn.style.display = 'none';
+    }
+  }
+
   if (view === 'schwerpunkte') {
     if (mapsDiv) mapsDiv.style.display = 'none';
     if (timelineDiv) timelineDiv.style.display = 'none';
-    // Themenschwerpunkte-Visualisierung neu laden
     if (typeof initThematicVisualization === 'function') {
       initThematicVisualization();
     }
