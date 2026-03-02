@@ -4034,24 +4034,20 @@ gap: 4px !important;
     }
     
     .custom-dropdown-list {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
+      position: fixed;
       background: #FAF8F3 !important;
       border: 1px solid #ccc;
-      border-top: none;
-      max-height: 300px;
+      max-height: 50vh;
       overflow-y: auto;
       z-index: 99999 !important;
       display: none;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       opacity: 1 !important;
     }
     
-    #gaFilterList {
-      min-width: 120px;
-      right: auto;
+    #gaFilterList,
+    #advancedGAFilterList {
+      width: auto;
     }
     
     .custom-dropdown.open .custom-dropdown-list {
@@ -4059,20 +4055,24 @@ gap: 4px !important;
     }
     
     .custom-dropdown-item {
-      padding: 8px 12px;
+      padding: 3px 8px;
       cursor: pointer;
       user-select: none;
+      font-size: 0.82em;
       background: #FAF8F3 !important;
       opacity: 1 !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .custom-dropdown-item:hover {
-      background: #e8f4f8;
+      background: #cce5ff !important;
     }
     
     .custom-dropdown-item.selected {
-      font-weight: bold;
-      color: var(--link-color);
+      background: #0078d4 !important;
+      color: #fff;
     }
     
     .custom-dropdown-clear {
@@ -4117,12 +4117,12 @@ gap: 4px !important;
     }
     
     body.dark-mode .custom-dropdown-item:hover {
-      background-color: #3a4a52;
+      background-color: #2a4a5a !important;
     }
     
     body.dark-mode .custom-dropdown-item.selected {
-      font-weight: bold;
-      color: #6ba3b3;
+      background-color: #1a5276 !important;
+      color: #fff;
     }
     
     .radio-group {
