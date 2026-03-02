@@ -30,8 +30,7 @@ __pycache__/
 Steiner_GA_pdf_cache/
 wp-pdf-url-cache.json
 
-# Theme summary cache
-theme-summaries-cache.json
+# Theme summary cache (deployed für Online-Zugriff)
 
 # Spellcheck dictionaries (downloaded on demand)
 dictionaries/
