@@ -147,10 +147,10 @@
       "lectureId": "GA120/1",
       "paragraphIndex": "dbveu2",
       "addedAt": "2026-02-13T13:32:28.482Z",
-      "isActive": true,
+      "isActive": false,
       "date": "1910-05-16",
       "displayedSince": "2026-02-22T07:50:54.984Z",
-      "activeToggledAt": "2026-02-22T07:50:54.984Z",
+      "activeToggledAt": "2026-03-02T05:46:59.113Z",
       "isUsed": true,
       "usedSince": "2026-02-22T07:51:06.213Z"
     },
@@ -160,8 +160,12 @@
       "lectureId": "GA276/3",
       "paragraphIndex": "9gsst8",
       "addedAt": "2026-02-15T11:35:02.958Z",
-      "isActive": false,
-      "date": "1923-06-02"
+      "isActive": true,
+      "date": "1923-06-02",
+      "displayedSince": "2026-03-02T05:47:30.696Z",
+      "activeToggledAt": "2026-03-02T05:47:30.696Z",
+      "isUsed": true,
+      "usedSince": "2026-03-02T05:47:33.225Z"
     },
     {
       "id": "1771254044394",
