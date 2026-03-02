@@ -8945,6 +8945,318 @@ app.post('/api/get-theme-results-ai', async (req, res) => {
   }
 });
 
+// ============================================================================
+// API: KI-Zusammenfassung aller Short Summaries eines Themas (mit Cache)
+// ============================================================================
+const THEME_SUMMARIES_CACHE_FILE = path.join(__dirname, 'theme-summaries-cache.json');
+
+let themeSummariesCache = {};
+try {
+  themeSummariesCache = JSON.parse(fsSync.readFileSync(THEME_SUMMARIES_CACHE_FILE, 'utf8'));
+  console.log(`[THEME-SUMMARY] Cache geladen: ${Object.keys(themeSummariesCache).length} Themen`);
+} catch (e) {
+  console.log('[THEME-SUMMARY] Kein Cache vorhanden, starte leer');
+}
+
+app.post('/api/theme-summary', async (req, res) => {
+  try {
+    const { themeName } = req.body;
+    if (!themeName) {
+      return res.status(400).json({ error: 'themeName erforderlich' });
+    }
+
+    // Cache prüfen
+    if (themeSummariesCache[themeName]) {
+      console.log(`[THEME-SUMMARY] Cache-Hit für "${themeName}"`);
+      return res.json({
+        themeName,
+        summary: themeSummariesCache[themeName].summary,
+        fromCache: true,
+        generatedAt: themeSummariesCache[themeName].generatedAt
+      });
+    }
+
+    // Alle Short Summaries für dieses Thema laden (gleiche Logik wie /api/get-theme-results-ai)
+    let assignments = {};
+    try {
+      assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE_EMB, 'utf8'));
+    } catch (e) {
+      return res.status(404).json({ error: 'Keine KI-Zuordnungen vorhanden' });
+    }
+
+    const matchingIds = [];
+    for (const id in assignments) {
+      const entry = assignments[id];
+      if (entry.themes && entry.themes.includes(themeName)) {
+        matchingIds.push(id);
+      }
+    }
+
+    if (matchingIds.length === 0) {
+      return res.json({ themeName, summary: '', fromCache: false, error: 'Keine Texte für dieses Thema gefunden' });
+    }
+
+    let summaryDb = {};
+    let bookChapterSummaries = {};
+    try { summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8')); } catch (e) { /* ignore */ }
+    try { bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8')); } catch (e) { /* ignore */ }
+
+    const summariesForPrompt = [];
+    for (const id of matchingIds) {
+      const summaryEntry = summaryDb[id] || {};
+      const bookChapter = bookChapterSummaries[id];
+      let shortSummary = '';
+      let title = '';
+
+      if (bookChapter) {
+        shortSummary = bookChapter.shortSummary || bookChapter.summary || '';
+        title = bookChapter.title || '';
+      } else if (summaryEntry.summary || summaryEntry.shortSummary) {
+        shortSummary = summaryEntry.shortSummary || summaryEntry.summary || '';
+        title = summaryEntry.title || '';
+      }
+
+      if (shortSummary) {
+        summariesForPrompt.push({ id, title, shortSummary });
+      }
+    }
+
+    if (summariesForPrompt.length === 0) {
+      return res.json({ themeName, summary: '', fromCache: false, error: 'Keine Kurzzusammenfassungen vorhanden' });
+    }
+
+    // Prompt für Claude bauen
+    const summaryTexts = summariesForPrompt.map(s =>
+      `[${s.id}] ${s.title ? s.title + ': ' : ''}${s.shortSummary}`
+    ).join('\n\n');
+
+    const prompt = `Du bist ein Experte für das Werk Rudolf Steiners. Dir werden Kurzzusammenfassungen von Vorträgen und Texten zum Thema "${themeName}" gegeben. Jede Zusammenfassung hat eine ID im Format GAXXX/YY (z.B. GA011/02).
+
+Aufgabe:
+1. Fasse die wesentlichen Aussagen zu "${themeName}" in einem zusammenhängenden, gut lesbaren Fließtext zusammen.
+2. Vermeide Redundanzen – gleiche oder ähnliche Aussagen sollen nur einmal erscheinen.
+3. Nach jeder Kernaussage füge die zugehörige(n) GA-Referenz(en) in eckigen Klammern ein, z.B. [GA011/02].
+4. Wenn mehrere Quellen dasselbe aussagen, nenne alle relevanten Referenzen: [GA011/02, GA013/04].
+5. Strukturiere den Text thematisch mit kurzen Zwischenüberschriften (## Überschrift).
+6. Schreibe auf Deutsch in einem sachlichen, akademischen Stil.
+
+Hier sind die ${summariesForPrompt.length} Kurzzusammenfassungen:
+
+${summaryTexts}
+
+Erstelle jetzt die zusammenfassende Übersicht zum Thema "${themeName}":`;
+
+    console.log(`[THEME-SUMMARY] Generiere Zusammenfassung für "${themeName}" (${summariesForPrompt.length} Quellen)...`);
+
+    const response = await generateCompletionWithFallback(prompt, {
+      temperature: 0.3,
+      maxTokens: 4000
+    }, 'summary');
+
+    const summaryText = response.text || response.content || '';
+
+    if (!summaryText) {
+      return res.status(500).json({ error: 'Leere Antwort von der KI' });
+    }
+
+    // In Cache speichern
+    const generatedAt = new Date().toISOString();
+    themeSummariesCache[themeName] = { summary: summaryText, generatedAt };
+    try {
+      await fs.writeFile(THEME_SUMMARIES_CACHE_FILE, JSON.stringify(themeSummariesCache, null, 2), 'utf8');
+      console.log(`[THEME-SUMMARY] Cache gespeichert für "${themeName}"`);
+    } catch (e) {
+      console.warn('[THEME-SUMMARY] Cache-Speichern fehlgeschlagen:', e.message);
+    }
+
+    res.json({
+      themeName,
+      summary: summaryText,
+      fromCache: false,
+      generatedAt
+    });
+
+  } catch (error) {
+    console.error('[THEME-SUMMARY] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// API: Batch-Generierung von Theme-Summaries (manueller Aufruf)
+// ============================================================================
+app.post('/api/theme-summary-batch', async (req, res) => {
+  try {
+    const { batchSize = 5 } = req.body || {};
+
+    // Themenliste aus themes-data.js laden
+    const themesFileContent = await fs.readFile(path.join(__dirname, 'themes', 'themes-data.js'), 'utf8');
+    const themeNames = [];
+    const themeRegex = /theme:\s*"([^"]+)"/g;
+    let match;
+    while ((match = themeRegex.exec(themesFileContent)) !== null) {
+      themeNames.push(match[1]);
+    }
+
+    if (themeNames.length === 0) {
+      return res.status(500).json({ error: 'Keine Themen in themes-data.js gefunden' });
+    }
+
+    // Bereits gecachte Themen überspringen
+    const uncachedThemes = themeNames.filter(t => !themeSummariesCache[t]);
+    const skipped = themeNames.length - uncachedThemes.length;
+
+    if (uncachedThemes.length === 0) {
+      return res.json({ processed: 0, skipped, remaining: 0, errors: [], message: 'Alle Themen bereits gecacht' });
+    }
+
+    const batch = uncachedThemes.slice(0, batchSize);
+    const remaining = uncachedThemes.length - batch.length;
+    const results = [];
+    const errors = [];
+
+    console.log(`[THEME-BATCH] Starte Batch: ${batch.length} Themen (${skipped} gecacht, ${remaining} verbleibend nach diesem Batch)`);
+
+    for (let i = 0; i < batch.length; i++) {
+      const themeName = batch[i];
+      console.log(`[THEME-BATCH] [${i + 1}/${batch.length}] Generiere: "${themeName}"...`);
+
+      try {
+        // Intern den /api/theme-summary Endpoint aufrufen (gleiche Logik)
+        const internalRes = await new Promise((resolve, reject) => {
+          const mockReq = { body: { themeName } };
+          const mockRes = {
+            _statusCode: 200,
+            _data: null,
+            status(code) { this._statusCode = code; return this; },
+            json(data) { this._data = data; resolve({ status: this._statusCode, data }); }
+          };
+
+          // Direkte Generierung (Code aus /api/theme-summary extrahiert)
+          (async () => {
+            try {
+              // Cache prüfen (doppelte Absicherung)
+              if (themeSummariesCache[themeName]) {
+                resolve({ status: 200, data: { themeName, summary: themeSummariesCache[themeName].summary, fromCache: true } });
+                return;
+              }
+
+              let assignments = {};
+              try { assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE_EMB, 'utf8')); } catch (e) {
+                resolve({ status: 404, data: { error: 'Keine KI-Zuordnungen' } });
+                return;
+              }
+
+              const matchingIds = [];
+              for (const id in assignments) {
+                if (assignments[id].themes && assignments[id].themes.includes(themeName)) {
+                  matchingIds.push(id);
+                }
+              }
+
+              if (matchingIds.length === 0) {
+                resolve({ status: 200, data: { themeName, summary: '', error: 'Keine Texte' } });
+                return;
+              }
+
+              let summaryDb = {};
+              let bookChapterSummaries = {};
+              try { summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8')); } catch (e) {}
+              try { bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8')); } catch (e) {}
+
+              const summariesForPrompt = [];
+              for (const id of matchingIds) {
+                const se = summaryDb[id] || {};
+                const bc = bookChapterSummaries[id];
+                let shortSummary = '', title = '';
+                if (bc) { shortSummary = bc.shortSummary || bc.summary || ''; title = bc.title || ''; }
+                else if (se.summary || se.shortSummary) { shortSummary = se.shortSummary || se.summary || ''; title = se.title || ''; }
+                if (shortSummary) summariesForPrompt.push({ id, title, shortSummary });
+              }
+
+              if (summariesForPrompt.length === 0) {
+                resolve({ status: 200, data: { themeName, summary: '', error: 'Keine Kurzzusammenfassungen' } });
+                return;
+              }
+
+              const summaryTexts = summariesForPrompt.map(s =>
+                `[${s.id}] ${s.title ? s.title + ': ' : ''}${s.shortSummary}`
+              ).join('\n\n');
+
+              const prompt = `Du bist ein Experte für das Werk Rudolf Steiners. Dir werden Kurzzusammenfassungen von Vorträgen und Texten zum Thema "${themeName}" gegeben. Jede Zusammenfassung hat eine ID im Format GAXXX/YY (z.B. GA011/02).
+
+Aufgabe:
+1. Fasse die wesentlichen Aussagen zu "${themeName}" in einem zusammenhängenden, gut lesbaren Fließtext zusammen.
+2. Vermeide Redundanzen – gleiche oder ähnliche Aussagen sollen nur einmal erscheinen.
+3. Nach jeder Kernaussage füge die zugehörige(n) GA-Referenz(en) in eckigen Klammern ein, z.B. [GA011/02].
+4. Wenn mehrere Quellen dasselbe aussagen, nenne alle relevanten Referenzen: [GA011/02, GA013/04].
+5. Strukturiere den Text thematisch mit kurzen Zwischenüberschriften (## Überschrift).
+6. Schreibe auf Deutsch in einem sachlichen, akademischen Stil.
+
+Hier sind die ${summariesForPrompt.length} Kurzzusammenfassungen:
+
+${summaryTexts}
+
+Erstelle jetzt die zusammenfassende Übersicht zum Thema "${themeName}":`;
+
+              const response = await generateCompletionWithFallback(prompt, { temperature: 0.3, maxTokens: 4000 }, 'summary');
+              const summaryText = response.text || response.content || '';
+
+              if (!summaryText) {
+                resolve({ status: 500, data: { error: 'Leere KI-Antwort' } });
+                return;
+              }
+
+              const generatedAt = new Date().toISOString();
+              themeSummariesCache[themeName] = { summary: summaryText, generatedAt };
+              try {
+                await fs.writeFile(THEME_SUMMARIES_CACHE_FILE, JSON.stringify(themeSummariesCache, null, 2), 'utf8');
+              } catch (e) {}
+
+              resolve({ status: 200, data: { themeName, summary: summaryText, fromCache: false, generatedAt, sources: summariesForPrompt.length } });
+            } catch (err) {
+              reject(err);
+            }
+          })();
+        });
+
+        if (internalRes.status === 200 && internalRes.data.summary) {
+          results.push({ themeName, sources: internalRes.data.sources || 0, cached: internalRes.data.fromCache || false });
+          console.log(`[THEME-BATCH] [${i + 1}/${batch.length}] OK: "${themeName}" (${internalRes.data.sources || '?'} Quellen)`);
+        } else {
+          errors.push({ themeName, error: internalRes.data.error || 'Unbekannter Fehler' });
+          console.warn(`[THEME-BATCH] [${i + 1}/${batch.length}] Übersprungen: "${themeName}" - ${internalRes.data.error}`);
+        }
+      } catch (err) {
+        errors.push({ themeName, error: err.message });
+        console.error(`[THEME-BATCH] [${i + 1}/${batch.length}] FEHLER: "${themeName}" - ${err.message}`);
+      }
+
+      // Pause zwischen Aufrufen (nicht nach dem letzten)
+      if (i < batch.length - 1) {
+        console.log(`[THEME-BATCH] Pause 15s...`);
+        await new Promise(r => setTimeout(r, 15000));
+      }
+    }
+
+    console.log(`[THEME-BATCH] Batch abgeschlossen: ${results.length} generiert, ${errors.length} Fehler, ${remaining} verbleibend`);
+
+    res.json({
+      processed: results.length,
+      skipped,
+      remaining,
+      errors,
+      results,
+      totalThemes: themeNames.length,
+      totalCached: Object.keys(themeSummariesCache).length
+    });
+
+  } catch (error) {
+    console.error('[THEME-BATCH] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/hybrid-search', async (req, res) => {
   try {
     const { query, limit = 20 } = req.body;

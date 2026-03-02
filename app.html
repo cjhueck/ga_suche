@@ -2240,9 +2240,9 @@ body.dark-mode .ga-missing-text {
     }
     #results .maps-sidepanel-content h3 {
       font-size: 0.88em;
-      font-weight: 700;
+      font-weight: 400;
       font-style: normal;
-      color: var(--heading-color);
+      color: var(--accent-color);
       margin: 0.9rem 0 0.2rem 0;
     }
     #results .maps-sidepanel-content h4,
@@ -7985,7 +7985,7 @@ Meine Abfragen
 <div class="tab-content" id="thematic2-tab" style="overflow-y: auto; max-height: calc(100vh - 200px);">
 
   <!-- Sub-Navigation: Schwerpunkte | Timeline | Karten -->
-  <div id="themen-sub-nav" style="display: flex; gap: 0; margin-bottom: 0.6rem;">
+  <div id="themen-sub-nav" style="display: flex; gap: 0; margin-bottom: 0.6rem; position: sticky; top: 0; z-index: 10; background: var(--background-color); padding-bottom: 2px;">
     <button id="themen-btn-schwerpunkte" class="themen-sub-btn active"
       onclick="switchThemenView('schwerpunkte')"
       style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
@@ -8028,8 +8028,8 @@ Meine Abfragen
     </select>
   </div>
 
-  <!-- Schwerpunkte-Platzhalter (Sichtbarkeit via switchThemenView-Patch) -->
-  <div id="thematic2-schwerpunkte-info" style="margin-bottom: 0.3rem; padding: 0.8rem 0 0.4rem 0; border-top: 1px solid var(--border-color);"></div>
+  <!-- Schwerpunkte-Platzhalter (nicht mehr für Inhalt verwendet, Summary geht in #results) -->
+  <div id="thematic2-schwerpunkte-info" style="display: none;"></div>
 
   <!-- Timeline-Filter (nur bei Timeline-View) -->
   <div id="timelineFilterSection" style="display: none; margin-bottom: 0; padding: 0;">
@@ -9835,16 +9835,16 @@ PDF
 <button id="h4ToggleBtn" onclick="toggleH4Display()" title="H3/H3+H4+KW+H4Headings umschalten" style="display: none;">
 ▼
 </button>
-<!-- 3. TOC/Übersicht Button -->
-<button id="viewerSummaryBtn" onclick="toggleSummaryPanel()" title="Rechtes Panel ein-/ausblenden" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-≡
-</button>
 <!-- Themen-Info-Button (nur bei Schwerpunkte/Timeline/Sammlungen im Themen-Tab) – gleiche Höhe wie Members-Button -->
 <button id="themenInfoBtn" onclick="showThemenInfoPanel(window._themenInfoType || 'schwerpunkte')" title="Info" style="display: none; padding: 0; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s;">
 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
 <text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
 </svg>
+</button>
+<!-- 3. TOC/Übersicht Button -->
+<button id="viewerSummaryBtn" onclick="toggleSummaryPanel()" title="Rechtes Panel ein-/ausblenden" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+≡
 </button>
 <!-- Sammlungen-PDF Download Button (nur im Themen-Tab Sammlungen) -->
 <button id="sammlungenPdfDownloadBtn" onclick="downloadSammlungPdf()" title="PDF herunterladen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
