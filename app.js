@@ -17022,7 +17022,7 @@ function scrollToChronologicalYear(year) {
               // Vortrag-Link: GA###/##:index oder GA###/##:^index
               const match = gaRef.match(/GA(\d{1,3}[a-z]?)\/(\d+):(\^?[a-zA-Z0-9]+)/);
               if (match) {
-                const lectureId = `GA${match[1]} - ${match[2]}`;
+                const lectureId = `GA${match[1]}/${match[2]}`;
                 const index = match[3].startsWith('^') ? match[3] : '^' + match[3];
                 const searchTerm = sourceConcept;
                 html += ` <a href="#" class="connection-ga-link" onclick="showLectureFromAdvancedSearch('${lectureId}', '${searchTerm.replace(/'/g, "\\'")}', '${index}'); return false;">(${lectureId})</a>`;
@@ -17278,10 +17278,10 @@ function scrollToChronologicalYear(year) {
             
             const gaNumber = match[2];
             const lectureNum = match[3];
-            const lectureId = `GA${gaNumber} - ${lectureNum}`;
+            const lectureId = `GA${gaNumber}/${lectureNum}`;
             const rawIndex = match[4] || '';
             const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
-            const displayText = `GA${gaNumber} - ${lectureNum}`;
+            const displayText = `GA${gaNumber}/${lectureNum}`;
             
             const link = document.createElement('a');
             link.href = '#';
@@ -27214,10 +27214,10 @@ function convertGAReferencesToLinksInKeywordResults(container) {
         
         const gaNumber = match[2];
         const lectureNum = match[3];
-        const lectureId = `GA${gaNumber} - ${lectureNum}`;
+        const lectureId = `GA${gaNumber}/${lectureNum}`;
         const rawIndex = match[4] || '';
         const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
-        const displayText = `GA${gaNumber} - ${lectureNum}`;
+        const displayText = `GA${gaNumber}/${lectureNum}`;
         
         const link = document.createElement('a');
         link.href = '#';
