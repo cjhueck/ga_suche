@@ -24831,8 +24831,10 @@ async function incrementSupabaseTabQuote(type, tabName = null) {
     return false;
   }
   if (!tabQuoteMigrationOk) {
-    console.warn('[ANALYTICS-SUPABASE] Tab/Quote-Migration nicht ausgeführt – bitte supabase-analytics-tabs-quotes.sql im Supabase SQL Editor ausführen!');
-    return false;
+    await checkTabQuoteMigration();
+    if (!tabQuoteMigrationOk) {
+      console.warn('[ANALYTICS-SUPABASE] Tab/Quote-Migration nicht verfügbar, versuche RPC trotzdem...');
+    }
   }
   const today = getDateKey();
   try {
@@ -24845,6 +24847,7 @@ async function incrementSupabaseTabQuote(type, tabName = null) {
       console.error('[ANALYTICS-SUPABASE] Tab/Quote RPC Fehler:', error.message);
       return false;
     }
+    if (!tabQuoteMigrationOk) tabQuoteMigrationOk = true;
     console.log(`[ANALYTICS-SUPABASE] ✓ ${type}${tabName ? ' ' + tabName : ''} getrackt`);
     return true;
   } catch (error) {
