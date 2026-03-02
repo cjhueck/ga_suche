@@ -26947,7 +26947,7 @@ body.dark-mode #results .ga-keyword-link {
 #results .maps-sidepanel-content .paragraph,
 #results .maps-sidepanel-content li {
   margin: var(--paragraph-margin) 0 !important;
-  font-size: var(--text-size) !important;
+  font-size: 0.83rem !important;
   line-height: var(--line-height) !important;
   color: var(--text-color) !important;
   word-wrap: break-word !important;
@@ -26958,11 +26958,18 @@ body.dark-mode #results .maps-sidepanel-content .paragraph,
 body.dark-mode #results .maps-sidepanel-content li {
   color: #b8b8b8 !important;
 }
-/* Maps-Tab: H4/H5/H6 kleiner als in #results Standard */
+/* Maps-Tab: H2/H3 Zwischenüberschriften */
+#results .maps-sidepanel-content h2 {
+  font-size: 0.85rem !important;
+}
+#results .maps-sidepanel-content h3 {
+  font-size: 0.85rem !important;
+}
+/* Maps-Tab: H4/H5/H6 kleiner */
 #results .maps-sidepanel-content h4,
 #results .maps-sidepanel-content h5,
 #results .maps-sidepanel-content h6 {
-  font-size: 0.9rem !important;
+  font-size: 0.83rem !important;
 }
 #results .maps-sidepanel-content h4 {
   font-weight: 700 !important;
