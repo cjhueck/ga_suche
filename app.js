@@ -31252,23 +31252,23 @@ function showMapsDownloadOptions() {
   var mapName = map.name || map.id;
 
   var MAP_TO_SAMMLUNG = {
-    'Entwicklung der Phantasie': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Phantasie.pdf',
-    'Entwicklung der Urteilskraft': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Urteilskraft.pdf',
-    'Entwicklung des Gedächtnisses': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Gedächtnisentwicklung.pdf',
-    'Entwicklung des Nerven-Sinnessystems': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nerven-Sinnessystem.pdf',
-    'Entwicklung des Rhythmischen_Systems': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Rhyhtmisches System.pdf',
-    'Entwicklung des Stoffwechsel-Gliedmaßensystems': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Stoffwechsel-Gliedmaßensystem.pdf',
-    'Gehen_Sprechen_Denken': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Gehen - Sprechen - Denken.pdf',
-    'Modellleib': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Modellleib.pdf',
-    'Modellleib_chronologisch': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Modellleib.pdf',
-    'Nachahmung': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nachahmung.pdf',
-    'Nachahmung_-_Nachfolge_-_Freiheit': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Nachahmung - Nachfolge - Freiheit.pdf',
-    'Pubertät': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Pubertät.pdf',
-    'Reinkarnations-Metamorphose': 'Zitate Rudolf Steiner zur Reinkarnation - Thema Reinkarnationsmetamorphose Gliedmaßen - Kopf (thematisch).pdf',
-    'Rubikon': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Rubikon.pdf',
-    'Seelische_Entwicklung_des_Kindes': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Seelische Entwicklung.pdf',
-    'Wirkungen_der_Erziehung_im_Lebenslauf': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Wirkungen der Erziehung im Lebenslauf.pdf',
-    'Zahnwechsel': 'Zitate Rudolf Steiner zur Entwicklung des Kindes - Thema Zahnwechsel.pdf'
+    'Entwicklung der Phantasie': 'Entwicklung des Kindes - Phantasie.pdf',
+    'Entwicklung der Urteilskraft': 'Entwicklung des Kindes - Urteilskraft.pdf',
+    'Entwicklung des Gedächtnisses': 'Entwicklung des Kindes - Gedächtnisentwicklung.pdf',
+    'Entwicklung des Nerven-Sinnessystems': 'Entwicklung des Kindes - Nerven-Sinnessystem.pdf',
+    'Entwicklung des Rhythmischen_Systems': 'Entwicklung des Kindes - Rhyhtmisches System.pdf',
+    'Entwicklung des Stoffwechsel-Gliedmaßensystems': 'Entwicklung des Kindes - Stoffwechsel-Gliedmaßensystem.pdf',
+    'Gehen_Sprechen_Denken': 'Entwicklung des Kindes - Gehen, Sprechen, Denken.pdf',
+    'Modellleib': 'Entwicklung des Kindes - Modellleib.pdf',
+    'Modellleib_chronologisch': 'Entwicklung des Kindes - Modellleib.pdf',
+    'Nachahmung': 'Entwicklung des Kindes - Nachahmung.pdf',
+    'Nachahmung_-_Nachfolge_-_Freiheit': 'Entwicklung des Kindes - Nachahmung, Nachfolge, Freiheit.pdf',
+    'Pubertät': 'Entwicklung des Kindes - Pubertät.pdf',
+    'Reinkarnations-Metamorphose': 'Reinkarnation - Reinkarnationsmetamorphose Gliedmaßen - Kopf (thematisch).pdf',
+    'Rubikon': 'Entwicklung des Kindes - Rubikon.pdf',
+    'Seelische_Entwicklung_des_Kindes': 'Entwicklung des Kindes - Seelische Entwicklung.pdf',
+    'Wirkungen_der_Erziehung_im_Lebenslauf': 'Entwicklung des Kindes - Wirkungen der Erziehung im Lebenslauf.pdf',
+    'Zahnwechsel': 'Entwicklung des Kindes - Zahnwechsel.pdf'
   };
 
   var mapId = map.id || '';
@@ -31444,7 +31444,7 @@ async function showSammlungPdf(filename) {
   var viewer = document.getElementById('viewer');
   if (!viewer) return;
   var docTitle = document.getElementById('document-title');
-  var shortName = filename.replace(/\.pdf$/i, '').replace(/^Zitate Rudolf Steiner zur\s*/i, '').replace(/ - Thema /i, ' - ');
+  var shortName = filename.replace(/\.pdf$/i, '');
   if (docTitle) docTitle.textContent = shortName;
 
   var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';

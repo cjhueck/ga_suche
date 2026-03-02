@@ -6837,7 +6837,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // // Maps Tab: Verzeichnis mit PDF-Karten
 const MAPS_PDF_DIR = path.join(__dirname, 'maps-pdf');
 const SAMMLUNGEN_PDF_DIR = path.join(__dirname, 'sammlungen-pdf');
-const GESAMTDARSTELLUNGEN_PDF_DIR = path.join(__dirname, 'gesamtdarstellungen-pdf');
 // maps-content/: exportierte Obsidian-Dateien (primaer, funktioniert auch online)
 const MAPS_CONTENT_DIR = path.join(__dirname, 'maps-content');
 // mapId -> relativer Pfad unter OBSIDIAN_BASE (deckt alle Karten aus tools/sync-maps-content.py ab)
@@ -6909,15 +6908,23 @@ app.get('/api/maps-list', async (req, res) => {
   }
 });
 
-// GET /api/sammlungen-list - PDF-Liste aus sammlungen-pdf/
+// Gesamtdarstellungen-Dateinamen (werden aus der Zitat-Sammlungen-Liste ausgeschlossen)
+const GESAMTDARSTELLUNGEN_FILENAMES = new Set([
+  'Die ersten drei Jahrsiebte.pdf',
+  'Erziehung aus Menschenerkenntnis.pdf',
+  'Zum Wesen von Gedächtnis und Erinnerung.pdf',
+  'Das spirituelle Menschenbild der Waldorfpädagogik.pdf',
+  'Ansprache Rudolf Steiners zur Schulkonferenz am 24.07.1920.pdf',
+]);
+
+// GET /api/sammlungen-list - PDF-Liste aus sammlungen-pdf/ (ohne Gesamtdarstellungen)
 app.get('/api/sammlungen-list', async (req, res) => {
   try {
     const files = await fs.readdir(SAMMLUNGEN_PDF_DIR);
-    const pdfs = files.filter(f => f.endsWith('.pdf') && !f.includes('(alt).pdf')).sort();
+    const pdfs = files.filter(f => f.endsWith('.pdf') && !f.includes('(alt).pdf') && !GESAMTDARSTELLUNGEN_FILENAMES.has(f)).sort();
     const list = pdfs.map(f => {
       const name = f.replace(/\.pdf$/i, '');
-      const short = name.replace(/^Zitate Rudolf Steiner zur\s*/i, '').replace(/ - Thema /i, ' - ');
-      return { filename: f, name: name, shortName: short };
+      return { filename: f, name: name, shortName: name };
     });
     res.json({ pdfs: list });
   } catch (err) {
@@ -6953,30 +6960,30 @@ app.get('/api/sammlungen-pdf', async (req, res) => {
 // GET /api/gesamtdarstellungen-list - Kuratierte Liste der Gesamtdarstellungen-PDFs
 app.get('/api/gesamtdarstellungen-list', async (req, res) => {
   const GESAMTDARSTELLUNGEN = [
-    { shortName: 'Die ersten drei Jahrsiebte', filename: 'Rudolf Steiner zur Entwicklung des Kindes - Jahrsiebte Text für Webseite 16.04.2023.pdf' },
-    { shortName: 'Erziehung aus Menschenerkenntnis', filename: 'Rudolf Steiner zur Entwicklung des Kindes - Erziehung aus Menschenerkenntnis 01.05.2023.pdf' },
-    { shortName: 'Gedächtnis und Erinnerung', filename: 'Rudolf Steiner zum Wesen von Gedächtnis und Erinnerung 07.10.2023.pdf' },
-    { shortName: 'Spirituelles Menschenbild', filename: 'Rudolf Steiner zur Entwicklung des Kindes - Spirituelles Menschenbild 01.05.2023.pdf' },
-    { shortName: 'Zum Geist der Waldorfpädagogik', filename: 'Ansprache Rudolf Steiners zur Konferenz am 24.07.1920.pdf' },
+    { shortName: 'Die ersten drei Jahrsiebte', filename: 'Die ersten drei Jahrsiebte.pdf' },
+    { shortName: 'Erziehung aus Menschenerkenntnis', filename: 'Erziehung aus Menschenerkenntnis.pdf' },
+    { shortName: 'Zum Wesen von Gedächtnis und Erinnerung', filename: 'Zum Wesen von Gedächtnis und Erinnerung.pdf' },
+    { shortName: 'Das spirituelle Menschenbild der Waldorfpädagogik', filename: 'Das spirituelle Menschenbild der Waldorfpädagogik.pdf' },
+    { shortName: 'Ansprache zur Schulkonferenz am 24.07.1920', filename: 'Ansprache Rudolf Steiners zur Schulkonferenz am 24.07.1920.pdf' },
   ];
   const available = [];
   for (const item of GESAMTDARSTELLUNGEN) {
     try {
-      await fs.stat(path.join(GESAMTDARSTELLUNGEN_PDF_DIR, item.filename));
+      await fs.stat(path.join(SAMMLUNGEN_PDF_DIR, item.filename));
       available.push(item);
     } catch (e) { /* PDF nicht vorhanden, überspringen */ }
   }
   res.json({ pdfs: available });
 });
 
-// GET /api/gesamtdarstellungen-pdf?file=FILENAME - PDF aus Obsidian Bilder&PDFs/
+// GET /api/gesamtdarstellungen-pdf?file=FILENAME - PDF aus sammlungen-pdf/
 app.get('/api/gesamtdarstellungen-pdf', async (req, res) => {
   const file = req.query.file || '';
   if (!file || file.includes('..') || file.includes('/') || file.includes('\\')) {
     return res.status(400).send('Ungueltiger Dateiname');
   }
   const filename = file.endsWith('.pdf') ? file : file + '.pdf';
-  const filePath = path.join(GESAMTDARSTELLUNGEN_PDF_DIR, filename);
+  const filePath = path.join(SAMMLUNGEN_PDF_DIR, filename);
   try {
     const stat = await fs.stat(filePath);
     res.setHeader('Content-Type', 'application/pdf');
