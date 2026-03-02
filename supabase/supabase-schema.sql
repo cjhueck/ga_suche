@@ -56,7 +56,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can view own bookmarks" 
       ON public.bookmarks FOR SELECT 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -67,7 +67,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can insert own bookmarks" 
       ON public.bookmarks FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -78,7 +78,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can update own bookmarks" 
       ON public.bookmarks FOR UPDATE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -89,7 +89,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can delete own bookmarks" 
       ON public.bookmarks FOR DELETE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 END $$;
 
@@ -172,7 +172,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can insert own quotes" 
       ON public.quotes FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -183,7 +183,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can update own quotes" 
       ON public.quotes FOR UPDATE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -194,7 +194,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can delete own quotes" 
       ON public.quotes FOR DELETE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 END $$;
 
@@ -288,7 +288,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can insert own notes" 
       ON public.notes FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -299,7 +299,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can update own notes" 
       ON public.notes FOR UPDATE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -310,7 +310,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can delete own notes" 
       ON public.notes FOR DELETE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 END $$;
 
@@ -362,7 +362,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can view own backlinks" 
       ON public.backlinks FOR SELECT 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -373,7 +373,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can insert own backlinks" 
       ON public.backlinks FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -384,7 +384,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can delete own backlinks" 
       ON public.backlinks FOR DELETE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 END $$;
 
@@ -427,7 +427,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Members can view messages" 
       ON public.chat_messages FOR SELECT 
-      USING (auth.role() = 'authenticated');
+      USING ((select auth.role()) = 'authenticated');
   END IF;
 
   IF NOT EXISTS (
@@ -438,7 +438,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Members can insert messages" 
       ON public.chat_messages FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 END $$;
 
@@ -480,7 +480,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can update own profile" 
       ON public.user_profiles FOR UPDATE 
-      USING (auth.uid() = id);
+      USING ((select auth.uid()) = id);
   END IF;
 END $$;
 
@@ -664,7 +664,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can view own highlights" 
       ON public.highlights FOR SELECT 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -675,7 +675,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can insert own highlights" 
       ON public.highlights FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -686,7 +686,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can update own highlights" 
       ON public.highlights FOR UPDATE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (

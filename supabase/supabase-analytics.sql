@@ -122,7 +122,8 @@ BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+SET search_path = '';
 
 DROP TRIGGER IF EXISTS update_analytics_daily_updated_at ON public.analytics_daily;
 CREATE TRIGGER update_analytics_daily_updated_at 

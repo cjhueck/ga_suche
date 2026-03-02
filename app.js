@@ -705,9 +705,9 @@ const isLocal = window.location.hostname === 'localhost' ||
           
           ${(function() {
             var qv = Number(data.quoteViews) || 0;
-            if (qv === 0) return '<div class="analytics-section"><h3>Zitat der Woche</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten</p></div>';
+            if (qv === 0) return '<div class="analytics-section"><h3>Zitat der Woche</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Aufrufe diese Woche</p></div>';
             return '<div class="analytics-section"><h3>Zitat der Woche</h3>' +
-              '<p style="font-size:0.9em;color:var(--text-color);">Aufrufe gesamt: <strong>' + qv + '</strong></p></div>';
+              '<p style="font-size:0.9em;color:var(--text-color);">Aufrufe diese Woche: <strong>' + qv + '</strong></p></div>';
           })()}
         `;
       } catch (e) {

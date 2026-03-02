@@ -24728,7 +24728,22 @@ app.post('/api/analytics/track', async (req, res) => {
     
     // Tab-View / Quote-View: Supabase (persistent, wie Nutzerstatistik)
     if (type === 'quote_view') {
-      const success = await incrementSupabaseTabQuote('quote_view');
+      let success = await incrementSupabaseTabQuote('quote_view');
+      if (!success) {
+        try {
+          const data = await loadAnalyticsData();
+          const today = getDateKey();
+          if (!data.dailyStats[today]) {
+            data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
+          }
+          data.dailyStats[today].quote_views = (data.dailyStats[today].quote_views || 0) + 1;
+          await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+          console.log('[ANALYTICS] ✓ quote_view lokal gespeichert (Supabase-Fallback)');
+          success = true;
+        } catch (fallbackErr) {
+          console.error('[ANALYTICS] Quote-Fallback fehlgeschlagen:', fallbackErr.message);
+        }
+      }
       return res.json({ ok: true, storage: success ? 'supabase' : 'fallback' });
     }
     if (type === 'tab_view') {
@@ -24903,18 +24918,19 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
     
-    // Quote-Views aggregieren
-    let totalQuoteViews = 0;
-    if (data.dailyStats && typeof data.dailyStats === 'object') {
-      for (const key of Object.keys(data.dailyStats)) {
-        const dayData = data.dailyStats[key];
-        if (dayData && dayData.quote_views) {
-          totalQuoteViews += dayData.quote_views;
-        }
+    // Quote-Views nur für aktuelle Woche (letzte 7 Tage)
+    let weekQuoteViews = 0;
+    for (let i = 0; i < 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      const dayData = data.dailyStats[key];
+      if (dayData && dayData.quote_views) {
+        weekQuoteViews += dayData.quote_views;
       }
     }
 
-    // Tab-Statistiken aggregieren
+    // Tab-Statistiken aggregieren (aus primärer Datenquelle)
     const tabStats = {};
     if (data.dailyStats && typeof data.dailyStats === 'object') {
       for (const key of Object.keys(data.dailyStats)) {
@@ -24924,6 +24940,39 @@ app.get('/api/analytics/stats', async (req, res) => {
             tabStats[tab] = (tabStats[tab] || 0) + count;
           }
         }
+      }
+    }
+
+    // Fallback: Wenn keine Tab-/Quote-Daten aus Supabase, lokale JSON prüfen
+    if (Object.keys(tabStats).length === 0 || weekQuoteViews === 0) {
+      try {
+        const jsonRaw = await fs.readFile(ANALYTICS_FILE, 'utf8');
+        const jsonData = JSON.parse(jsonRaw);
+        if (jsonData.dailyStats && typeof jsonData.dailyStats === 'object') {
+          if (Object.keys(tabStats).length === 0) {
+            for (const key of Object.keys(jsonData.dailyStats)) {
+              const dayData = jsonData.dailyStats[key];
+              if (dayData && dayData.tabs) {
+                for (const [tab, count] of Object.entries(dayData.tabs)) {
+                  tabStats[tab] = (tabStats[tab] || 0) + count;
+                }
+              }
+            }
+          }
+          if (weekQuoteViews === 0) {
+            for (let i = 0; i < 7; i++) {
+              const d = new Date();
+              d.setDate(d.getDate() - i);
+              const key = d.toISOString().split('T')[0];
+              const dayData = jsonData.dailyStats[key];
+              if (dayData && dayData.quote_views) {
+                weekQuoteViews += dayData.quote_views;
+              }
+            }
+          }
+        }
+      } catch (jsonErr) {
+        // Lokale JSON nicht verfügbar – kein Problem
       }
     }
 
@@ -24941,7 +24990,7 @@ app.get('/api/analytics/stats', async (req, res) => {
       topLectures,
       dailyData,
       totalDays: Object.keys(data.dailyStats).length,
-      quoteViews: totalQuoteViews,
+      quoteViews: weekQuoteViews,
       tabStats
     });
   } catch (error) {
