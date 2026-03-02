@@ -682,7 +682,7 @@ const isLocal = window.location.hostname === 'localhost' ||
           </div>
           
           ${(function() {
-            var tabLabels = { texte: 'Texte', thematic: 'Themen', timeline: 'Timeline', maps: 'Maps', schlagworte: 'Index', keywords: 'Export', 'advanced-search': 'Erweiterte Suche' };
+            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen', thematic: 'Abfrage', timeline: 'Timeline', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Erweiterte Suche' };
             var ts = data.tabStats || {};
             var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
@@ -25031,9 +25031,9 @@ window.addEventListener('DOMContentLoaded', function() {
       if (match) {
         const initialTab = match[1];
         setTimeout(() => {
-          // Bereinige URL auf Basis-URL
           const baseUrl = window.location.origin + window.location.pathname;
           history.replaceState({ tab: initialTab }, '', `${baseUrl}#${initialTab}`);
+          analyticsTrack('tab_view', initialTab);
         }, 100);
       }
     }
