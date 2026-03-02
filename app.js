@@ -35396,7 +35396,7 @@ async function applyCorrection(mode) {
     return;
   }
   
-  const modeText = mode === 'single' ? 'nur in dieser GA' : 'in ALLEN MD-Dateien';
+  const modeText = mode === 'single' ? 'nur in dieser GA (MD + JSON)' : 'überall (alle MD-, JSON- und HTML-Dateien)';
   const opts = [caseSensitive ? 'case-sensitive' : 'case-insensitive'];
   if (includeHtml) opts.push('+JSON/HTML');
   if (!confirm(`Korrektur durchführen?\n\n"${wrongText}" ? "${correctText}"\n\nModus: ${modeText}\nOptionen: ${opts.join(', ')}`)) {

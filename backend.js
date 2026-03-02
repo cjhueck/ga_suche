@@ -23834,7 +23834,8 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// POST: Vorschau der Korrektur (zeigt wo der Fehler überall vorkommt)
+// POST: Vorschau der Korrektur (zeigt wo der Fehler vorkommt)
+// Wenn gaTitle gesetzt: nur in dieser GA (MD-Ordner + JSON-Vorträge dieser GA)
 app.post('/api/marked-words/preview-correction', async (req, res) => {
   try {
     const { wrongText, gaTitle, caseSensitive = true, includeJson = true } = req.body;
@@ -23846,15 +23847,17 @@ app.post('/api/marked-words/preview-correction', async (req, res) => {
     const steinerGAPath = path.join(__dirname, 'Steiner_GA');
     const results = [];
     const regexFlags = caseSensitive ? 'g' : 'gi';
+    const wrongRegex = new RegExp(escapeRegExp(wrongText), regexFlags);
     
-    // Parse GA-Nummer aus dem Titel (z.B. "GA117/3 - ...")
+    // Parse GA-Nummer für Scoping (z.B. "GA117/3", "GA093a")
     let targetFolder = null;
+    let targetGaId = null;
     if (gaTitle) {
-      const gaMatch = gaTitle.match(/GA(\d+)/);
+      const gaMatch = gaTitle.match(/GA(\d+[a-z]?)/i);
       if (gaMatch) {
-        const gaNumber = gaMatch[1];
+        targetGaId = 'GA' + gaMatch[1];
         const folders = await fs.readdir(steinerGAPath);
-        targetFolder = folders.find(f => f.startsWith(`GA${gaNumber}-`) || f.startsWith(`GA${gaNumber} `));
+        targetFolder = folders.find(f => f.startsWith(`GA${gaMatch[1]}-`) || f.startsWith(`GA${gaMatch[1]} `));
       }
     }
     
@@ -23871,7 +23874,7 @@ app.post('/api/marked-words/preview-correction', async (req, res) => {
         } else if (entry.name.endsWith('.md')) {
           try {
             const content = await fs.readFile(fullPath, 'utf8');
-            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
+            const occurrences = (content.match(wrongRegex) || []).length;
             
             if (occurrences > 0) {
               results.push({
@@ -23889,79 +23892,79 @@ app.post('/api/marked-words/preview-correction', async (req, res) => {
     await searchInDirectory(searchPath);
     
     // Auch in JSON- und HTML-Dateien suchen wenn gewünscht
+    // Bei targetGaId: nur in Vorträgen/Büchern dieser GA zählen
+    const countJsonOccurrences = (content, displayName) => {
+      if (!targetGaId) {
+        const m = content.match(wrongRegex);
+        return m ? m.length : 0;
+      }
+      try {
+        const data = JSON.parse(content);
+        let count = 0;
+        const targetUpper = targetGaId.toUpperCase();
+        const checkGa = (ga) => (ga || '').toUpperCase().startsWith(targetUpper);
+        const countInItems = (items) => {
+          if (!Array.isArray(items)) return;
+          for (const item of items) {
+            if (!checkGa(item.gaNumber || item.ID)) continue;
+            let paras = item.paragraphs;
+            if (!paras && item.chapters) {
+              paras = [];
+              for (const ch of item.chapters) if (ch.paragraphs) paras.push(...ch.paragraphs);
+            }
+            if (!Array.isArray(paras)) continue;
+            for (const p of paras) {
+              if (p.content && typeof p.content === 'string') {
+                const m = p.content.match(wrongRegex);
+                if (m) count += m.length;
+              }
+            }
+          }
+        };
+        if (data.lectures) countInItems(data.lectures);
+        if (data.books) countInItems(data.books);
+        return count;
+      } catch {
+        return 0;
+      }
+    };
+
     if (includeJson) {
       try {
         const rootFiles = await fs.readdir(__dirname);
-        
-        // JSON-Dateien im Root
-        const jsonFiles = rootFiles.filter(f => 
-          (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && 
-          f.endsWith('.json')
+        const rootJsonFiles = rootFiles.filter(f =>
+          (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && f.endsWith('.json')
         );
-        
-        for (const jsonFile of jsonFiles) {
-          const jsonPath = path.join(__dirname, jsonFile);
+        for (const jsonFile of rootJsonFiles) {
           try {
-            const content = await fs.readFile(jsonPath, 'utf8');
-            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
-            
-            if (occurrences > 0) {
-              results.push({
-                file: `[JSON] ${jsonFile}`,
-                occurrences
-              });
-            }
-          } catch (err) {
-            // Ignorieren
-          }
+            const content = await fs.readFile(path.join(__dirname, jsonFile), 'utf8');
+            const occurrences = countJsonOccurrences(content, jsonFile);
+            if (occurrences > 0) results.push({ file: `[JSON] ${jsonFile}`, occurrences });
+          } catch (err) { /* ignorieren */ }
         }
-        
-        // JSON-Dateien in Unterordnern
         const subDirs = ['steiner-full-lectures', 'steiner-books'];
         for (const subDir of subDirs) {
-          const subDirPath = path.join(__dirname, subDir);
           try {
+            const subDirPath = path.join(__dirname, subDir);
             const subFiles = await fs.readdir(subDirPath);
-            const subJsonFiles = subFiles.filter(f => f.endsWith('.json'));
-            
-            for (const jsonFile of subJsonFiles) {
-              const jsonPath = path.join(subDirPath, jsonFile);
+            for (const jsonFile of subFiles.filter(f => f.endsWith('.json'))) {
               try {
-                const content = await fs.readFile(jsonPath, 'utf8');
-                const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
-                
-                if (occurrences > 0) {
-                  results.push({
-                    file: `[JSON] ${subDir}/${jsonFile}`,
-                    occurrences
-                  });
-                }
-              } catch (err) {
-                // Ignorieren
-              }
+                const content = await fs.readFile(path.join(subDirPath, jsonFile), 'utf8');
+                const occurrences = countJsonOccurrences(content, jsonFile);
+                if (occurrences > 0) results.push({ file: `[JSON] ${subDir}/${jsonFile}`, occurrences });
+              } catch (err) { /* ignorieren */ }
             }
-          } catch (err) {
-            // Unterordner existiert nicht
-          }
+          } catch (err) { /* Unterordner existiert nicht */ }
         }
-        
-        // HTML-Dateien im Root
-        const htmlFiles = rootFiles.filter(f => f.endsWith('.html'));
-        
-        for (const htmlFile of htmlFiles) {
-          const htmlPath = path.join(__dirname, htmlFile);
-          try {
-            const content = await fs.readFile(htmlPath, 'utf8');
-            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), regexFlags)) || []).length;
-            
-            if (occurrences > 0) {
-              results.push({
-                file: `[HTML] ${htmlFile}`,
-                occurrences
-              });
-            }
-          } catch (err) {
-            // Ignorieren
+        // HTML: nur bei fehlendem targetGaId („Überall“-Kontext)
+        if (!targetGaId) {
+          const htmlFiles = rootFiles.filter(f => f.endsWith('.html'));
+          for (const htmlFile of htmlFiles) {
+            try {
+              const content = await fs.readFile(path.join(__dirname, htmlFile), 'utf8');
+              const occurrences = (content.match(wrongRegex) || []).length;
+              if (occurrences > 0) results.push({ file: `[HTML] ${htmlFile}`, occurrences });
+            } catch (err) { /* ignorieren */ }
           }
         }
       } catch (err) {
@@ -24006,14 +24009,16 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
     let totalCorrections = 0;
     const regexFlags = caseSensitive ? 'g' : 'gi';
     
-    // Parse GA-Nummer für single-mode
+    // Parse GA-Nummer für single-mode (z.B. "GA250", "GA093a" aus "GA250/1 - Titel")
     let targetFolder = null;
+    let targetGaId = null;  // z.B. "GA250" oder "GA093a" – für JSON/HTML-Scoping bei mode=single
     if (mode === 'single' && gaTitle) {
-      const gaMatch = gaTitle.match(/GA(\d+)/);
+      const gaMatch = gaTitle.match(/GA(\d+[a-z]?)/i);
       if (gaMatch) {
-        const gaNumber = gaMatch[1];
+        const gaNum = gaMatch[1];
+        targetGaId = 'GA' + gaNum;
         const folders = await fs.readdir(steinerGAPath);
-        targetFolder = folders.find(f => f.startsWith(`GA${gaNumber}-`) || f.startsWith(`GA${gaNumber} `));
+        targetFolder = folders.find(f => f.startsWith(`GA${gaNum}-`) || f.startsWith(`GA${gaNum} `));
       }
     }
     
@@ -24053,53 +24058,84 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
     await correctInDirectory(searchPath);
     
     // JSON-Dateien korrigieren wenn gewünscht (Vorträge UND Bücher)
+    // Bei mode=single: Nur in Vorträgen/Büchern der Ziel-GA ersetzen
     if (includeHtml) { // Parameter heißt noch includeHtml, bedeutet jetzt aber +JSON/HTML
       try {
         const rootFiles = await fs.readdir(__dirname);
-        
-        // 1. JSON-Dateien im Root (Vorträge UND Bücher)
-        const jsonFiles = rootFiles.filter(f => 
-          (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && 
-          f.endsWith('.json')
-        );
-        
-        for (const jsonFile of jsonFiles) {
-          const jsonPath = path.join(__dirname, jsonFile);
-          try {
-            const content = await fs.readFile(jsonPath, 'utf8');
-            const regex = new RegExp(escapeRegExp(wrongText), regexFlags);
-            const occurrences = (content.match(regex) || []).length;
-            
-            if (occurrences > 0) {
-              // Sicherheitscheck: Prüfe ob JSON nach Korrektur noch valide ist
-              const newContent = content.replace(regex, correctText);
-              
-              try {
-                // Validiere dass die JSON-Struktur intakt bleibt
-                JSON.parse(newContent);
-                
-                // JSON ist valide - speichern
-                await fs.writeFile(jsonPath, newContent, 'utf8');
-                
-                correctedFiles.push({
-                  file: `[JSON] ${jsonFile}`,
-                  corrections: occurrences
-                });
-                totalCorrections += occurrences;
-              } catch (parseErr) {
-                // JSON wäre nach Korrektur ungültig - nicht speichern!
-                console.error(`[CORRECTION] WARNUNG: ${jsonFile} würde durch Korrektur ungültig werden - übersprungen!`);
-                correctedFiles.push({
-                  file: `[JSON] ${jsonFile} (ÜBERSPRUNGEN - würde JSON ungültig machen)`,
-                  corrections: 0
-                });
-              }
+        const regex = new RegExp(escapeRegExp(wrongText), regexFlags);
+
+        // Hilfsfunktion: Ersetze in JSON nur in Vorträgen/Büchern der Ziel-GA (bei mode=single)
+        async function correctJsonFile(jsonPath, displayName) {
+          const content = await fs.readFile(jsonPath, 'utf8');
+          let newContent;
+          let occurrences = 0;
+
+          if (mode === 'single' && targetGaId) {
+            // Nur in der spezifischen GA ersetzen: JSON parsen, Vorträge/Bücher filtern
+            try {
+              const data = JSON.parse(content);
+              const targetUpper = targetGaId.toUpperCase();
+              const checkGa = (ga) => (ga || '').toUpperCase().startsWith(targetUpper);
+              const replaceInItems = (items) => {
+                if (!Array.isArray(items)) return;
+                for (const item of items) {
+                  if (!checkGa(item.gaNumber || item.ID)) continue;
+                  let paras = item.paragraphs;
+                  if (!paras && item.chapters) {
+                    paras = [];
+                    for (const ch of item.chapters) if (ch.paragraphs) paras.push(...ch.paragraphs);
+                  }
+                  if (!Array.isArray(paras)) continue;
+                  for (const p of paras) {
+                    if (p.content && typeof p.content === 'string') {
+                      const m = p.content.match(regex);
+                      if (m) {
+                        occurrences += m.length;
+                        p.content = p.content.replace(regex, correctText);
+                      }
+                    }
+                  }
+                }
+              };
+              if (data.lectures) replaceInItems(data.lectures);
+              if (data.books) replaceInItems(data.books);
+              newContent = JSON.stringify(data, null, 2);
+            } catch (parseErr) {
+              console.error(`[CORRECTION] JSON-Parse-Fehler ${displayName}:`, parseErr.message);
+              return;
             }
+          } else {
+            // mode=all: Globale Ersetzung wie bisher
+            const m = content.match(regex);
+            if (m) occurrences = m.length;
+            newContent = content.replace(regex, correctText);
+          }
+
+          if (occurrences > 0) {
+            try {
+              JSON.parse(newContent);
+              await fs.writeFile(jsonPath, newContent, 'utf8');
+              correctedFiles.push({ file: `[JSON] ${displayName}`, corrections: occurrences });
+              totalCorrections += occurrences;
+            } catch (parseErr) {
+              console.error(`[CORRECTION] WARNUNG: ${displayName} würde durch Korrektur ungültig werden - übersprungen!`);
+              correctedFiles.push({ file: `[JSON] ${displayName} (ÜBERSPRUNGEN)`, corrections: 0 });
+            }
+          }
+        }
+
+        // 1. JSON-Dateien im Root (Vorträge UND Bücher)
+        const rootJsonFiles = rootFiles.filter(f => 
+          (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && f.endsWith('.json')
+        );
+        for (const jsonFile of rootJsonFiles) {
+          try {
+            await correctJsonFile(path.join(__dirname, jsonFile), jsonFile);
           } catch (err) {
             console.error(`[CORRECTION] Fehler bei ${jsonFile}:`, err.message);
           }
         }
-        
+
         // 2. JSON-Dateien in Unterordnern (steiner-full-lectures/ und steiner-books/)
         const subDirs = ['steiner-full-lectures', 'steiner-books'];
         for (const subDir of subDirs) {
@@ -24107,66 +24143,35 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
           try {
             const subFiles = await fs.readdir(subDirPath);
             const subJsonFiles = subFiles.filter(f => f.endsWith('.json'));
-            
             for (const jsonFile of subJsonFiles) {
-              const jsonPath = path.join(subDirPath, jsonFile);
               try {
-                const content = await fs.readFile(jsonPath, 'utf8');
-                const regex = new RegExp(escapeRegExp(wrongText), regexFlags);
-                const occurrences = (content.match(regex) || []).length;
-                
-                if (occurrences > 0) {
-                  const newContent = content.replace(regex, correctText);
-                  
-                  try {
-                    JSON.parse(newContent);
-                    await fs.writeFile(jsonPath, newContent, 'utf8');
-                    
-                    correctedFiles.push({
-                      file: `[JSON] ${subDir}/${jsonFile}`,
-                      corrections: occurrences
-                    });
-                    totalCorrections += occurrences;
-                  } catch (parseErr) {
-                    console.error(`[CORRECTION] WARNUNG: ${subDir}/${jsonFile} würde durch Korrektur ungültig werden - übersprungen!`);
-                    correctedFiles.push({
-                      file: `[JSON] ${subDir}/${jsonFile} (ÜBERSPRUNGEN - würde JSON ungültig machen)`,
-                      corrections: 0
-                    });
-                  }
-                }
+                await correctJsonFile(path.join(subDirPath, jsonFile), `${subDir}/${jsonFile}`);
               } catch (err) {
                 console.error(`[CORRECTION] Fehler bei ${subDir}/${jsonFile}:`, err.message);
               }
             }
           } catch (err) {
-            // Unterordner existiert möglicherweise nicht
             console.log(`[CORRECTION] Unterordner ${subDir} nicht gefunden oder nicht lesbar`);
           }
         }
-        
-        // 3. HTML-Dateien im Root (app.html, index.html, etc.)
-        const htmlFiles = rootFiles.filter(f => f.endsWith('.html'));
-        
-        for (const htmlFile of htmlFiles) {
-          const htmlPath = path.join(__dirname, htmlFile);
-          try {
-            const content = await fs.readFile(htmlPath, 'utf8');
-            const regex = new RegExp(escapeRegExp(wrongText), regexFlags);
-            const occurrences = (content.match(regex) || []).length;
-            
-            if (occurrences > 0) {
-              const newContent = content.replace(regex, correctText);
-              await fs.writeFile(htmlPath, newContent, 'utf8');
-              
-              correctedFiles.push({
-                file: `[HTML] ${htmlFile}`,
-                corrections: occurrences
-              });
-              totalCorrections += occurrences;
+
+        // 3. HTML-Dateien: Bei mode=single überspringen (Inhalt kommt aus JSON; HTML enthält keine GA-spezifischen Texte)
+        if (mode !== 'single') {
+          const htmlFiles = rootFiles.filter(f => f.endsWith('.html'));
+          for (const htmlFile of htmlFiles) {
+            const htmlPath = path.join(__dirname, htmlFile);
+            try {
+              const content = await fs.readFile(htmlPath, 'utf8');
+              const occurrences = (content.match(regex) || []).length;
+              if (occurrences > 0) {
+                const newContent = content.replace(regex, correctText);
+                await fs.writeFile(htmlPath, newContent, 'utf8');
+                correctedFiles.push({ file: `[HTML] ${htmlFile}`, corrections: occurrences });
+                totalCorrections += occurrences;
+              }
+            } catch (err) {
+              console.error(`[CORRECTION] Fehler bei ${htmlFile}:`, err.message);
             }
-          } catch (err) {
-            console.error(`[CORRECTION] Fehler bei ${htmlFile}:`, err.message);
           }
         }
       } catch (err) {
