@@ -27360,139 +27360,132 @@ app.post('/api/assign-themes-batch', async (req, res) => {
 });
 
 // API: Status der Themen-Zuordnungen abrufen (mit Jahresdaten für Heatmap)
-app.get('/api/theme-assignments-status', async (req, res) => {
+// Cache für theme-assignments-status (wird beim Start berechnet)
+let themeAssignmentsStatusCache = null;
+
+async function computeThemeAssignmentsStatus() {
+  const startTime = Date.now();
+  let assignments = {};
   try {
-    let assignments = {};
-    try {
-      assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE, 'utf8'));
-    } catch (e) { /* ignore */ }
-    
-    // Lade Metadaten (Summary-DB)
-    let summaryDb = {};
-    try {
-      summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
-    } catch (e) { /* ignore */ }
-    
-    // Lade Buch-Kapitel-Summaries (für Bücher GA001-046)
-    let bookChapterSummaries = {};
-    try {
-      bookChapterSummaries = JSON.parse(await fs.readFile(path.join(__dirname, 'book-chapter-summaries.json'), 'utf8'));
-    } catch (e) { /* ignore */ }
-    
-    // Hilfsfunktion zur Ermittlung des Jahres (aus fullLectures, Büchern, ID, fileName oder Titel)
-    function getYearForText(id, entry) {
-      // 1. Aus fullLectures (primäre Quelle für Vorträge und Aufsätze)
-      if (fullLectures[id]) {
-        const lecture = fullLectures[id];
-        // Erst Jahr/Datum-Felder prüfen
-        if (lecture.year) return parseInt(lecture.year);
-        if (lecture.date) {
-          const yearMatch = lecture.date.match(/\b(18|19)\d{2}\b/);
-          if (yearMatch) return parseInt(yearMatch[0]);
-        }
-        // Dann fileName prüfen (wichtig für GA030 Aufsätze mit "(1900)" am Ende)
-        if (lecture.fileName) {
-          const fileNameMatch = lecture.fileName.match(/\((\d{4})\)\s*$/);
-          if (fileNameMatch) return parseInt(fileNameMatch[1]);
-        }
-        // Dann Titel prüfen (wichtig für GA001-046 Aufsätze mit "(1882)" im Titel)
-        if (lecture.title) {
-          const titleMatch = lecture.title.match(/\b(18|19)\d{2}\b/);
-          if (titleMatch) return parseInt(titleMatch[0]);
-        }
+    assignments = JSON.parse(await fs.readFile(THEME_ASSIGNMENTS_FILE, 'utf8'));
+  } catch (e) { /* ignore */ }
+
+  let summaryDb = {};
+  try {
+    summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
+  } catch (e) { /* ignore */ }
+
+  let bookChapterSummaries = {};
+  try {
+    bookChapterSummaries = JSON.parse(await fs.readFile(path.join(__dirname, 'book-chapter-summaries.json'), 'utf8'));
+  } catch (e) { /* ignore */ }
+
+  function getYearForText(id, entry) {
+    if (fullLectures[id]) {
+      const lecture = fullLectures[id];
+      if (lecture.year) return parseInt(lecture.year);
+      if (lecture.date) {
+        const yearMatch = lecture.date.match(/\b(18|19)\d{2}\b/);
+        if (yearMatch) return parseInt(yearMatch[0]);
       }
-      
-      // 2. Aus Buch-Kapitel-Summaries (für Bücher GA001-046)
-      if (bookChapterSummaries[id]) {
-        const chapter = bookChapterSummaries[id];
-        // Direkt gespeichertes Jahr
-        if (chapter.year) return parseInt(chapter.year);
-        // Prüfe bookTitle (z.B. "Goethes Weltanschauung (1897)")
-        if (chapter.bookTitle) {
-          const titleMatch = chapter.bookTitle.match(/\b(18|19)\d{2}\b/);
-          if (titleMatch) return parseInt(titleMatch[0]);
-        }
-        // Prüfe Kapiteltitel
-        if (chapter.title) {
-          const titleMatch = chapter.title.match(/\b(18|19)\d{2}\b/);
-          if (titleMatch) return parseInt(titleMatch[0]);
-        }
+      if (lecture.fileName) {
+        const fileNameMatch = lecture.fileName.match(/\((\d{4})\)\s*$/);
+        if (fileNameMatch) return parseInt(fileNameMatch[1]);
       }
-      
-      // 3. Aus der ID (z.B. GA093a/1905-10-04)
-      const idYearMatch = id.match(/\/(18\d{2}|19\d{2})/);
-      if (idYearMatch) return parseInt(idYearMatch[1]);
-      
-      // 5. Aus dem Titel in summaryDb (Fallback)
-      if (entry && entry.title) {
-        const titleMatch = entry.title.match(/\b(18|19)\d{2}\b/);
+      if (lecture.title) {
+        const titleMatch = lecture.title.match(/\b(18|19)\d{2}\b/);
         if (titleMatch) return parseInt(titleMatch[0]);
       }
-      
-      return null;
     }
 
-    // Statistik mit Jahren
-    const themeCounts = {};
-    const themeYears = {}; // { themeName: { year: count } }
-    
-    for (const id in assignments) {
-      const themes = assignments[id].themes || [];
-      const entry = summaryDb[id];
-      const year = getYearForText(id, entry);
-      
-      themes.forEach(t => {
-        themeCounts[t] = (themeCounts[t] || 0) + 1;
-        
-        if (year && year >= 1879 && year <= 1925) {
-          if (!themeYears[t]) themeYears[t] = {};
-          themeYears[t][year] = (themeYears[t][year] || 0) + 1;
-        }
-      });
+    if (bookChapterSummaries[id]) {
+      const chapter = bookChapterSummaries[id];
+      if (chapter.year) return parseInt(chapter.year);
+      if (chapter.bookTitle) {
+        const titleMatch = chapter.bookTitle.match(/\b(18|19)\d{2}\b/);
+        if (titleMatch) return parseInt(titleMatch[0]);
+      }
+      if (chapter.title) {
+        const titleMatch = chapter.title.match(/\b(18|19)\d{2}\b/);
+        if (titleMatch) return parseInt(titleMatch[0]);
+      }
     }
-    
-    // Finde das globale Maximum über alle Themen und Jahre
-    let globalMaxCount = 0;
-    for (const theme in themeYears) {
-      const yearData = themeYears[theme];
-      const maxForTheme = Math.max(...Object.values(yearData));
-      if (maxForTheme > globalMaxCount) globalMaxCount = maxForTheme;
+
+    const idYearMatch = id.match(/\/(18\d{2}|19\d{2})/);
+    if (idYearMatch) return parseInt(idYearMatch[1]);
+
+    if (entry && entry.title) {
+      const titleMatch = entry.title.match(/\b(18|19)\d{2}\b/);
+      if (titleMatch) return parseInt(titleMatch[0]);
     }
-    // Mindestens 3, um zu schwache Farben bei wenigen Einträgen zu vermeiden
-    globalMaxCount = Math.max(globalMaxCount, 3);
-    
-    // Erstelle Ranges für jedes Thema basierend auf den Jahren
-    const themeRanges = {};
-    for (const theme in themeYears) {
-      const yearData = themeYears[theme];
-      const years = Object.keys(yearData).map(Number).sort((a, b) => a - b);
-      
-      if (years.length === 0) continue;
-      
-      // Berechne Intensität pro Jahr mit logarithmischer Skala für bessere Differenzierung
-      // log(1) = 0, log(globalMax) = max
-      const logMax = Math.log(globalMaxCount + 1);
-      const ranges = years.map(y => ({
-        start: y,
-        end: y,
-        intensity: Math.min(1, Math.log(yearData[y] + 1) / logMax),
-        count: yearData[y]
-      }));
-      
-      themeRanges[theme] = {
-        ranges: ranges,
-        totalMatches: themeCounts[theme],
-        yearCounts: yearData
-      };
-    }
-    
-    res.json({
-      totalAssignments: Object.keys(assignments).length,
-      themeCounts: themeCounts,
-      themeRanges: themeRanges,
-      globalMaxCount: globalMaxCount,
-      sample: Object.entries(assignments).slice(0, 5)
+
+    return null;
+  }
+
+  const themeCounts = {};
+  const themeYears = {};
+
+  for (const id in assignments) {
+    const themes = assignments[id].themes || [];
+    const entry = summaryDb[id];
+    const year = getYearForText(id, entry);
+
+    themes.forEach(t => {
+      themeCounts[t] = (themeCounts[t] || 0) + 1;
+      if (year && year >= 1879 && year <= 1925) {
+        if (!themeYears[t]) themeYears[t] = {};
+        themeYears[t][year] = (themeYears[t][year] || 0) + 1;
+      }
     });
+  }
+
+  let globalMaxCount = 0;
+  for (const theme in themeYears) {
+    const yearData = themeYears[theme];
+    const maxForTheme = Math.max(...Object.values(yearData));
+    if (maxForTheme > globalMaxCount) globalMaxCount = maxForTheme;
+  }
+  globalMaxCount = Math.max(globalMaxCount, 3);
+
+  const themeRanges = {};
+  for (const theme in themeYears) {
+    const yearData = themeYears[theme];
+    const years = Object.keys(yearData).map(Number).sort((a, b) => a - b);
+    if (years.length === 0) continue;
+
+    const logMax = Math.log(globalMaxCount + 1);
+    const ranges = years.map(y => ({
+      start: y,
+      end: y,
+      intensity: Math.min(1, Math.log(yearData[y] + 1) / logMax),
+      count: yearData[y]
+    }));
+
+    themeRanges[theme] = {
+      ranges: ranges,
+      totalMatches: themeCounts[theme],
+      yearCounts: yearData
+    };
+  }
+
+  const result = {
+    totalAssignments: Object.keys(assignments).length,
+    themeCounts: themeCounts,
+    themeRanges: themeRanges,
+    globalMaxCount: globalMaxCount,
+    sample: Object.entries(assignments).slice(0, 5)
+  };
+
+  console.log(`[THEME-STATUS] Cache berechnet in ${Date.now() - startTime}ms (${Object.keys(themeCounts).length} Themen, ${result.totalAssignments} Zuordnungen)`);
+  return result;
+}
+
+app.get('/api/theme-assignments-status', async (req, res) => {
+  try {
+    if (!themeAssignmentsStatusCache) {
+      themeAssignmentsStatusCache = await computeThemeAssignmentsStatus();
+    }
+    res.json(themeAssignmentsStatusCache);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -27511,6 +27504,14 @@ app.get('/api/theme-assignments-status', async (req, res) => {
     // ENTFERNT: Relevanz-Scoring-Test wurde entfernt
     
     console.log('\n[9/9] Starte Server...');
+    
+    // Theme-Assignments-Status beim Start berechnen und cachen
+    try {
+      themeAssignmentsStatusCache = await computeThemeAssignmentsStatus();
+    } catch (e) {
+      console.warn('[THEME-STATUS] Cache-Berechnung fehlgeschlagen:', e.message);
+    }
+    
     await checkTabQuoteMigration();
     app.listen(PORT, () => {
       console.log('\n' + '='.repeat(70));
