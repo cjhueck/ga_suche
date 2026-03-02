@@ -77,7 +77,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can view own saved searches" 
       ON public.saved_thematic_searches FOR SELECT 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -88,7 +88,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can insert own saved searches" 
       ON public.saved_thematic_searches FOR INSERT 
-      WITH CHECK (auth.uid() = user_id);
+      WITH CHECK ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -99,7 +99,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can update own saved searches" 
       ON public.saved_thematic_searches FOR UPDATE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 
   IF NOT EXISTS (
@@ -110,7 +110,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Users can delete own saved searches" 
       ON public.saved_thematic_searches FOR DELETE 
-      USING (auth.uid() = user_id);
+      USING ((select auth.uid()) = user_id);
   END IF;
 END $$;
 
