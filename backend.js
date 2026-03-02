@@ -24613,6 +24613,16 @@ async function loadAnalyticsFromSupabase() {
   }
 }
 
+// Lokale JSON direkt lesen (ohne Supabase-Umweg) für Tab/Quote-Fallback
+async function loadLocalAnalyticsJson() {
+  try {
+    const raw = await fs.readFile(path.join(__dirname, 'analytics-data.json'), 'utf8');
+    return JSON.parse(raw);
+  } catch (e) {
+    return { dailyStats: {} };
+  }
+}
+
 // Alte JSON-basierte Funktionen als Fallback behalten (aber mit Supabase als Primär)
 const ANALYTICS_FILE = path.join(__dirname, 'analytics-data.json');
 const ANALYTICS_BACKUP_DIR = path.join(__dirname, 'backups', 'analytics');
@@ -24731,7 +24741,7 @@ app.post('/api/analytics/track', async (req, res) => {
       let success = await incrementSupabaseTabQuote('quote_view');
       if (!success) {
         try {
-          const data = await loadAnalyticsData();
+          const data = await loadLocalAnalyticsJson();
           const today = getDateKey();
           if (!data.dailyStats[today]) {
             data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
@@ -24754,9 +24764,8 @@ app.post('/api/analytics/track', async (req, res) => {
       const tabName = String(value).trim();
       let success = await incrementSupabaseTabQuote('tab_view', tabName);
       if (!success) {
-        // Fallback: In lokale JSON schreiben, damit Tab-Aufrufe nicht verloren gehen
         try {
-          const data = await loadAnalyticsData();
+          const data = await loadLocalAnalyticsJson();
           const today = getDateKey();
           if (!data.dailyStats[today]) {
             data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
@@ -24943,37 +24952,33 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
 
-    // Fallback: Wenn keine Tab-/Quote-Daten aus Supabase, lokale JSON prüfen
-    if (Object.keys(tabStats).length === 0 || weekQuoteViews === 0) {
-      try {
-        const jsonRaw = await fs.readFile(ANALYTICS_FILE, 'utf8');
-        const jsonData = JSON.parse(jsonRaw);
-        if (jsonData.dailyStats && typeof jsonData.dailyStats === 'object') {
-          if (Object.keys(tabStats).length === 0) {
-            for (const key of Object.keys(jsonData.dailyStats)) {
-              const dayData = jsonData.dailyStats[key];
-              if (dayData && dayData.tabs) {
-                for (const [tab, count] of Object.entries(dayData.tabs)) {
-                  tabStats[tab] = (tabStats[tab] || 0) + count;
-                }
-              }
-            }
-          }
-          if (weekQuoteViews === 0) {
-            for (let i = 0; i < 7; i++) {
-              const d = new Date();
-              d.setDate(d.getDate() - i);
-              const key = d.toISOString().split('T')[0];
-              const dayData = jsonData.dailyStats[key];
-              if (dayData && dayData.quote_views) {
-                weekQuoteViews += dayData.quote_views;
-              }
+    // Lokale JSON immer als zusätzliche Quelle für Tab-/Quote-Daten einbeziehen
+    // (Supabase hat ggf. leere tabs wenn Migration nicht ausgeführt wurde)
+    try {
+      const jsonData = await loadLocalAnalyticsJson();
+      if (jsonData.dailyStats && typeof jsonData.dailyStats === 'object') {
+        for (const key of Object.keys(jsonData.dailyStats)) {
+          const dayData = jsonData.dailyStats[key];
+          if (dayData && dayData.tabs) {
+            for (const [tab, count] of Object.entries(dayData.tabs)) {
+              tabStats[tab] = (tabStats[tab] || 0) + count;
             }
           }
         }
-      } catch (jsonErr) {
-        // Lokale JSON nicht verfügbar – kein Problem
+        if (weekQuoteViews === 0) {
+          for (let i = 0; i < 7; i++) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            const key = d.toISOString().split('T')[0];
+            const dayData = jsonData.dailyStats[key];
+            if (dayData && dayData.quote_views) {
+              weekQuoteViews += dayData.quote_views;
+            }
+          }
+        }
       }
+    } catch (jsonErr) {
+      // Lokale JSON nicht verfügbar – kein Problem
     }
 
     res.json({
