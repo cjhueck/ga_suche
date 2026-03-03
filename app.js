@@ -691,11 +691,17 @@ const isLocal = window.location.hostname === 'localhost' ||
               }
               return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten</p></div>';
             }
+            var maxTabCount = entries[0] ? entries[0][1] : 1;
             return '<div class="analytics-section"><h3>Aufrufe je Tab</h3>' +
-              '<div style="display:flex;flex-wrap:wrap;gap:4px 16px;">' +
+              '<div style="display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;max-width:500px;">' +
               entries.map(function(e) {
                 var label = tabLabels[e[0]] || e[0];
-                return '<span style="font-size:0.85em;color:var(--text-color);">' + label + ': <strong style="color:var(--accent-color);">' + e[1] + '</strong></span>';
+                var pct = Math.round((e[1] / maxTabCount) * 100);
+                return '<span style="font-size:0.85em;color:var(--text-color);white-space:nowrap;">' + label + '</span>' +
+                  '<div style="height:14px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
+                    '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;min-width:2px;"></div>' +
+                  '</div>' +
+                  '<strong style="font-size:0.85em;color:var(--accent-color);text-align:right;">' + e[1] + '</strong>';
               }).join('') +
               '</div></div>';
           })()}
@@ -718,13 +724,21 @@ const isLocal = window.location.hostname === 'localhost' ||
 
             var html = '<div class="analytics-section"><h3>Besucher nach Ländern</h3>';
             html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 16px;"></div>';
-            html += '<div style="display:flex;flex-wrap:wrap;gap:4px 16px;">';
+            html += '<div style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;align-items:center;max-width:500px;">';
             geo.forEach(function(c) {
               var flag = countryFlagMap[c.country_code] || '🌍';
               var cities = c.cities || [];
               var topCities = cities.filter(function(ci){ return ci.city; }).slice(0, 5);
-              var cityStr = topCities.length > 0 ? ' <span style="font-size:0.75em;color:var(--secondary-text);">(' + topCities.map(function(ci){ return ci.city + ': ' + ci.count; }).join(', ') + ')</span>' : '';
-              html += '<span style="font-size:0.85em;color:var(--text-color);">' + flag + ' ' + c.country_name + ': <strong style="color:var(--accent-color);">' + c.total_count + '</strong>' + cityStr + '</span>';
+              var pct = Math.round((Number(c.total_count) / maxCount) * 100);
+              var cityStr = topCities.length > 0 ? topCities.map(function(ci){ return ci.city + ': ' + ci.count; }).join(', ') : '';
+              html += '<span style="font-size:0.85em;color:var(--text-color);white-space:nowrap;">' + flag + ' ' + c.country_name + '</span>';
+              html += '<div style="display:flex;flex-direction:column;gap:2px;">' +
+                '<div style="height:14px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
+                  '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;min-width:2px;"></div>' +
+                '</div>' +
+                (cityStr ? '<span style="font-size:0.7em;color:var(--secondary-text);line-height:1.2;">' + cityStr + '</span>' : '') +
+              '</div>';
+              html += '<strong style="font-size:0.85em;color:var(--accent-color);text-align:right;">' + c.total_count + '</strong>';
             });
             html += '</div></div>';
             return html;
@@ -26188,6 +26202,12 @@ const tabOriginalContent = {};
 
 // Erweitere die bestehende switchTab Funktion
 function switchTabExtended(mode) {
+  var trackMode = mode;
+  if (mode === 'thematic2') {
+    trackMode = 'thematic2_' + (window._themenView || 'schwerpunkte');
+  }
+  analyticsTrack('tab_view', trackMode);
+  
   // Speichere ursprüngliche HTML-Struktur des aktuellen Tabs, falls noch nicht gespeichert
   const prevActive = document.querySelector('.tab-content.active');
   if (prevActive && !tabOriginalContent[prevActive.id]) {

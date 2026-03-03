@@ -25444,7 +25444,7 @@ app.get('/api/analytics/stats', async (req, res) => {
       dailyData,
       totalDays: Object.keys(data.dailyStats).length,
       quoteViews: weekQuoteViews,
-      tabStats,
+      tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_'))),
       tabsMigrationNeeded: !tabQuoteMigrationOk,
       geoStats
     });
