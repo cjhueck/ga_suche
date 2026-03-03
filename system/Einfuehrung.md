@@ -2,7 +2,30 @@ Rudolf Steiners immenses schriftliches und Vortrags-Werk, die „Rudolf Steiner 
 
 **Textgrundlagen**
 
-Die hier verwendeten Texte, insbesondere diejenigen des Vortragswerk, wurden durch die hingebungsvolle Arbeit von mehreren Generationen von Herausgebern der Rudolf Steiner Nachlassverwaltung verfügbar gemacht. Für diese Arbeit kann ihnen nicht genug gedankt werden. Die Nachlassverwaltung gibt diese Texte in gedruckter und in (kostenpflichtiger) elektronischer Form heraus. Seit Jahren existieren allerdings auch frei im Internet zugängliche Versionen der GA. Auf diesen Versionen baut die hier entwickelte Datenbank mit ihren Suchfunktionen auf. Da die Qualität der Internet-Versionen nicht immer der hochwertigen Qualität der Versionen der Nachlassverwaltung entspricht, muss bei Verwendung der Datenbank mit Druckfehlern gerechnet werden. Wer eine sichere Grundlage braucht, dem sei unbedingt eine Überprüfung anhand der Versionen der Nachlassverwaltung empfohlen. Die Paginierung der Bücher und Vortragsbände wurde hier soweit wie möglich übernommen (die verwendete Ausgabe ist jeweils über den kleinen, kreisrunden Info-Button oben rechts ersichtlich). 
+Die hier verwendeten Texte, insbesondere diejenigen des Vortragswerk, wurden durch die hingebungsvolle Arbeit von mehreren Generationen von Herausgebern der Rudolf Steiner Nachlassverwaltung verfügbar gemacht. Für diese Arbeit kann ihnen nicht genug gedankt werden. Die Nachlassverwaltung gibt diese Texte in gedruckter und in (kostenpflichtiger) elektronischer Form heraus. Seit Jahren existieren allerdings auch frei im Internet zugängliche Kopien der GA. Auf solchen Kopien baut die hier entwickelte Datenbank mit ihren Suchfunktionen auf. Da die Qualität der Internet-Kopien nicht immer der hochwertigen Qualität der Texte der Nachlassverwaltung entspricht, muss bei Verwendung der Datenbank mit Druckfehlern gerechnet werden. Wer eine sichere Grundlage braucht, dem sei unbedingt eine Überprüfung anhand der Texte der Nachlassverwaltung empfohlen. Die Paginierung der Bücher, Aufsatz- und Vortragsbände wurde hier soweit wie möglich übernommen (die verwendete Ausgabe ist jeweils über den kleinen, kreisrunden Info-Button oben rechts ersichtlich). 
+
+**Wandtafelzeichnungen**
+
+Die Wandtafelzeichnugen aus Vorträgen Rudolf Steiners sind hier vollständig dargestellt. Sie wurden aus den entsprechenden Bänden der Rudolf Steiner Nachlassverwaltung kopiert: GA K 58_1 bis GA K 58_30. 
+
+**Formale und inhaltliche Gesichtspunkte**
+
+Um sich in den Vorträgen Steiners leicht orientieren zu können, erhielt jeder Vortrag hier eine Zusammenfassung und wurde durch Zwischenüberschriften gegliedert. Zusammenfassungen und Zwischenüberschriften wurden mit Hilfe von KI (Claude, Sonnet 4.0) generiert und anschließend überprüft.  
+
+Einige Bände der Gesamtausgabe wurden hier nicht aufgenommen. Dazu gehören u.a. GA270a, b, c mit den Texten der sogenannten „Klassenstunden". Weggelassen wurden auch die ausführlichen Einleitungen und Hinweise zu den Zeitgeschichtlichen Betrachtungen in den Bänden GA173, 173a-c, sowie 174 und 174 a-b, die sich mit den Hintergründen des Ersten Weltkriegs beschäftigen. Hierfür sei dringend auf die ausführlich kommentierten Bände der Nachlassverwaltung hingewiesen. 
+
+Auch die ausführlichen Dokumentationen der Generalversammlungen der Theosophischen Gesellschaft (GA250), der Versammlungen und Vorarbeiten zur Gründung der Anthroposophischen Gesellschaft (GA251), des Johannesbau-Vereins und des Goetheanums (GA252), der Allgemeinen Anthroposophischen Gesellschaft (GA259), sowie des esoterischen Jugendkreises (GA266c) wurden hier nicht mit aufgenommen. Andere fehlende Bände werden noch ergänzt.
+
+Für detaillierte Beschreibung der verschiedenen Suchfunktionen siehe         <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
+
+**Bookmarks, Zitate und Themenabfragen speichern**
+
+Wenn Sie sich als <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglied</a> anmelden, können Sie persönliche Bookmarks setzen und Zitate sowie die Ergebnisse Ihrer Themenabfragen speichern. Für Bookmarks und Zitate einen Textabschnitt markieren und mit der **rechten Maustaste** speichern. 
+
+**Fehler & Rückmeldung**
+
+Bitte teilen Sie uns mit, falls Sie fehlerhafte Funktionen finden (hueck@akanthos-akademie.de). Schreibfehler bitte mit alt+markieren speichern. Auch über eine allgemeine Rückmeldung und gegebenenfalls über eine Spende zur Unterstützung unserer Arbeit freuen wir uns.
+___
 
 **Rudolf Steiner über die Texte**
 
@@ -27,20 +50,3 @@ Es ist nirgends auch nur in geringstem Maße etwas gesagt, was nicht reinstes Er
 
 Ein Urteil über den Inhalt eines solchen Privatdruckes wird ja allerdings nur demjenigen zugestanden werden können, der kennt, was als Urteils-Voraussetzung angenommen wird. Und das ist für die allermeisten dieser Drucke mindestens die anthroposophische Erkenntnis des Menschen, des Kosmos, insofern sein Wesen in der Anthroposophie dargestellt wird, und dessen, was als «anthroposophische Geschichte» in den Mitteilungen aus der Geist-Welt sich findet.“
 
-**Formale und inhaltliche Gesichtspunkte**
-
-Um sich in den Vorträgen Steiners leicht orientieren zu können, erhielt jeder Vortrag eine Zusammenfassung und wurde durch Zwischenüberschriften gegliedert. Zusammenfassungen und Zwischenüberschriften wurden mit Hilfe von KI generiert und anschließend überprüft.  
-
-Einige Bände der Gesamtausgabe wurden hier nicht aufgenommen. Dazu gehören u.a. GA270a, b, c mit den Texten der sogenannten „Klassenstunden". Weggelassen wurden auch die ausführlichen Einleitungen und Hinweise zu den Zeitgeschichtlichen Betrachtungen in den Bänden GA173, 173a-c, sowie 174 und 174 a-b, die sich mit den Hintergründen des Ersten Weltkriegs beschäftigen. Hierfür sei dringend auf die ausführlich kommentierten Bände der Nachlassverwaltung hingewiesen. 
-
-Auch die ausführlichen Dokumentationen der Generalversammlungen der Theosophischen Gesellschaft (GA250), der Versammlungen und Vorarbeiten zur Gründung der Anthroposophischen Gesellschaft (GA251), des Johannesbau-Vereins und des Goetheanums (GA252), der Allgemeinen Anthroposophischen Gesellschaft (GA259), sowie des esoterischen Jugendkreises (GA266c) wurden hier nicht mit aufgenommen. Andere fehlende Bände werden noch ergänzt.
-
-Für detaillierte Beschreibung der verschiedenen Suchfunktionen siehe         <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
-
-**Bookmarks, Zitate und Themenabfragen speichern**
-
-Wenn Sie sich als <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglied</a> anmelden, können Sie persönliche Bookmarks setzen und Zitate sowie die Ergebnisse Ihrer Themenabfragen speichern. Für Bookmarks und Zitate einen Textabschnitt markieren und mit der **rechten Maustaste** speichern. 
-
-**Fehler & Rückmeldung**
-
-Bitte teilen Sie uns mit, falls Sie fehlerhafte Funktionen finden (hueck@akanthos-akademie.de). Schreibfehler bitte mit alt+markieren speichern. Auch über eine allgemeine Rückmeldung freuen wir uns.

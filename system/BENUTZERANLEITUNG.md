@@ -2,10 +2,13 @@
 
 - **GA** - Auswahl einzelner GA-Bände, Anzeige der darin enthaltenen Vorträge mit Kurzusammenfassungen, sowie eine chronologische Liste der Vorträge Rudolf Steiners
 - **Suche**: Stichwortsuche in Texten und Vorträgen (mit Bewertung der Relevanz gefundener Stellen)
-- **Suche erweitert**: bis zu sieben Stichworte gleichzeitig suchen; Anzeige der Häufigkeit der Suchworte in GA-Bänden und Vorträgen
+- **Suche/erweitert**: bis zu sieben Stichworte gleichzeitig suchen; Anzeige der Häufigkeit der Suchworte in GA-Bänden und Vorträgen
 - **Texte**: Übersicht über die Texte und Vorträge aus den aufgelisteten GA-Bänden, mit Zusammenfassungen, Schlagwörtern und Zwischenüberschriften
-- **Themen**: Thematische Suche (KI-gestützt) 
-- **Timeline**: Zeitlicher Verlauf einzelner Such- und Schlagwörter in der GA
+- **Themen/Schwerpunkte** - Graphische Übersicht über thematische Schwerpunkte im Werk
+- **Themen/Timeline** - Zeitverlauf von Suchergebnissen zu einzelnen Schlagworten
+- **Themen/Sammlungen** - Umfassende Zitatsammlungen zu den Themen "Entwicklung des Kindes" und "Reinkarnationsmetamorphose" 
+- **Themen/Karten** Graphische Übersichten
+- **Abfrage**: Thematische Suche (KI-gestützt)
 - **Index**: Liste wichtiger Begriffe
 
 - **Mitgliederbereich**: Nach Anmeldung Zitate, Bookmarks und Themenabfragen abspeichern, mit Schlagworten versehen, ordnen und kommentieren

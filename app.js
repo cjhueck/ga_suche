@@ -2662,29 +2662,20 @@ function normalizeGANumber(gaNumber) {
       currentLectureSummary = null;
       showingSummaryInMain = false;
       
-      // Setze currentGANumber zurück beim Tab-Wechsel
-      // ABER: NICHT beim Wechsel zum Suche-Tab oder Texte-Tab, 
-      // da dort Vorträge angezeigt werden können und currentGANumber beibehalten werden soll
-      // Im Themen-Tab und Timeline-Tab wird currentGANumber zurückgesetzt, damit der Button erst angezeigt wird, wenn ein Vortrag geladen ist
-      // In anderen Tabs wird currentGANumber zurückgesetzt, damit der Info-Button nicht angezeigt wird
-      if (mode !== 'keyword' && mode !== 'texte') {
+      // Beim Tab-Wechsel: Lecture-Daten und GA-Nummer IMMER zurücksetzen
+      // (Viewer wird geleert → veraltete Daten dürfen keine Buttons mehr anzeigen)
+      if (mode !== 'thematic2') {
+        currentLectureData = null;
         currentGANumber = null;
       }
       
-      // Verstecke Info-Button explizit beim Tab-Wechsel (wird dann in updateButtonStates() wieder angezeigt, wenn Bedingungen erfüllt sind)
+      // Alle text-bezogenen Buttons VOR updateButtonStates() verstecken
       const gaInfoBtn = document.getElementById('gaInfoBtn');
-      if (gaInfoBtn) {
-        gaInfoBtn.style.display = 'none';
-      }
+      if (gaInfoBtn) gaInfoBtn.style.display = 'none';
+      const pdfToggleBtnReset = document.getElementById('pdfToggleBtn');
+      if (pdfToggleBtnReset) pdfToggleBtnReset.style.display = 'none';
       
-      // WICHTIG: Im Index-Tab Button IMMER verstecken - VOR updateButtonStates()
-      if (mode === 'schlagworte') {
-        if (gaInfoBtn) {
-          gaInfoBtn.style.display = 'none';
-        }
-      }
-      
-      // Verstecke Viewer-Buttons beim Tab-Wechsel (inkl. Info-Button)
+      // Viewer-Buttons aktualisieren (zeigt nur an, was im neuen Tab relevant ist)
       updateButtonStates();
       
       // Close Summary Panel Button IMMER verstecken beim Tab-Wechsel (wird später wieder angezeigt falls nötig)
@@ -2694,24 +2685,20 @@ function normalizeGANumber(gaNumber) {
         closeSummaryPanelBtn.style.visibility = 'hidden';
       }
       
-      // Zusätzliche Sicherheitsprüfung: H4 Toggle Button und Übersicht-Button im GA-Tab ausblenden
+      // GA-Tab: NUR Members-Button anzeigen - alle anderen Header-Buttons verstecken
       if (mode === 'ga') {
         const h4ToggleBtn = document.getElementById('h4ToggleBtn');
-        if (h4ToggleBtn) {
-          h4ToggleBtn.style.display = 'none';
-        }
+        if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
         const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-        if (viewerSummaryBtn) { viewerSummaryBtn.style.display = 'none'; }
-        // Sicherstellen, dass Übersicht-Button auch beim Wechsel zum GA-Tab ausgeblendet wird
+        if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
         const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-        if (viewerOriginalBtn) {
-          viewerOriginalBtn.style.display = 'none';
-        }
-        // Download-Button ebenfalls ausblenden
+        if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
         const viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
-        if (viewerDownloadBtn) {
-          viewerDownloadBtn.style.display = 'none';
-        }
+        if (viewerDownloadBtn) viewerDownloadBtn.style.display = 'none';
+        const pdfToggleBtn = document.getElementById('pdfToggleBtn');
+        if (pdfToggleBtn) pdfToggleBtn.style.display = 'none';
+        const gaInfoBtn = document.getElementById('gaInfoBtn');
+        if (gaInfoBtn) gaInfoBtn.style.display = 'none';
       }
       
       // ABSCHLIESSENDE Sicherheitsprüfung: Info-Button im Index-Tab IMMER ausblenden
@@ -15128,36 +15115,22 @@ function scrollToChronologicalYear(year) {
       gaInfoBtn.style.display = 'none';
       // Keine weiteren Prüfungen - Button bleibt versteckt
     }
-    // Im GA-Tab: Button nur anzeigen wenn ein GA-Band im Viewer angezeigt wird (nicht nur Standard-Nachricht)
-    // UND NICHT in der chronologischen Übersicht
+    // Im GA-Tab: gaInfoBtn NIE anzeigen (nur Members-Button im GA-Tab)
     else if (isInGATab) {
-      // Prüfe ob im Viewer tatsächlich ein GA-Band angezeigt wird (nicht nur die Standard-Nachricht)
-      const viewer = document.getElementById('viewer');
-      const viewerContent = viewer ? viewer.innerHTML : '';
-      const isDefaultMessage = viewerContent.includes('Wählen Sie einen GA-Band') || viewerContent.includes('Wählen Sie einen Vortrag');
-      
-      // Prüfe ob chronologische Ansicht aktiv ist
-      const isChronologicalView = currentGAView === 'chronological';
-      
-      if (currentGANumber && !isDefaultMessage && !isChronologicalView) {
-        // GA-Band ist ausgewählt und wird im Viewer angezeigt (nicht in chronologischer Übersicht)
-        gaInfoBtn.style.display = 'inline-flex';
-      }
-      // Button bleibt versteckt wenn kein GA-Band angezeigt wird, nur Standard-Nachricht, oder chronologische Ansicht aktiv
+      // gaInfoBtn bleibt hidden
     }
-    // Im Themen-Tab, Themen2-Tab oder Timeline-Tab: Button NUR anzeigen wenn ein GA-Band im Main Viewer angezeigt wird (currentLectureData gesetzt)
+    // Im Themen-Tab (thematic2), Abfrage-Tab (thematic) oder Timeline-Tab: gaInfoBtn NIE anzeigen
+    // (themenInfoBtn übernimmt die Info-Funktion im Themen-Tab)
     else if (isInThematicTab || isInTimelineTab || isInThemen2Tab) {
-      if (currentLectureData) {
-        // Extrahiere GA-Nummer aus currentLectureData
+      // gaInfoBtn bleibt hidden
+      // Aber: PDF-Button und currentGANumber trotzdem aktualisieren für Themen2
+      if (currentLectureData && isInThemen2Tab) {
         const lectureId = currentLectureData.ID || currentLectureData.lectureId;
         if (lectureId) {
           const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
           if (gaMatch) {
-            // Setze currentGANumber für zukünftige Verwendung
             currentGANumber = gaMatch[1];
-            gaInfoBtn.style.display = 'inline-flex';
-            // PDF-Button im Themen-Tab anzeigen
-            if (isInThemen2Tab && typeof updatePdfButtonVisibility === 'function') {
+            if (typeof updatePdfButtonVisibility === 'function') {
               updatePdfButtonVisibility(currentGANumber);
             }
           }
@@ -15187,25 +15160,8 @@ function scrollToChronologicalYear(year) {
     else if (isInTexteTab) {
       if (currentGANumber) {
         gaInfoBtn.style.display = 'inline-flex';
-        // PDF-Button im Texte-Tab anzeigen
         if (typeof updatePdfButtonVisibility === 'function') {
           updatePdfButtonVisibility(currentGANumber);
-        }
-      } else {
-        // Prüfe ob im Titel ein GA-Band angezeigt wird
-        const titleElement = document.getElementById('document-title');
-        if (titleElement) {
-          const titleText = titleElement.textContent || '';
-          const gaMatch = titleText.match(/^(GA\d{1,3}[a-z]?)/i);
-          if (gaMatch) {
-            // Setze currentGANumber basierend auf Titel
-            currentGANumber = gaMatch[1];
-            gaInfoBtn.style.display = 'inline-flex';
-            // PDF-Button im Texte-Tab anzeigen
-            if (typeof updatePdfButtonVisibility === 'function') {
-              updatePdfButtonVisibility(currentGANumber);
-            }
-          }
         }
       }
     }
@@ -15280,7 +15236,10 @@ function scrollToChronologicalYear(year) {
     // Kein Vortrag/Buch geladen - verstecke diese Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) {
-      if (isInThematic2Tab) {
+      if ((isInThematicTab || isInIndexTab || isInKeywordTab) && viewerHasContent) {
+        viewerSummaryBtn.style.display = 'inline-flex';
+        viewerSummaryBtn.innerHTML = '≡';
+      } else if (isInThematic2Tab && isPanelVisible) {
         viewerSummaryBtn.style.display = 'inline-flex';
         viewerSummaryBtn.innerHTML = '≡';
       } else {
@@ -15302,16 +15261,13 @@ function scrollToChronologicalYear(year) {
   } else {
     // Vortrag oder Buch geladen - zeige Buttons entsprechend
     
-    // H4 Toggle Button - nur bei Vorträgen (nicht bei Books)
+    // H4 Toggle Button - nur bei Vorträgen (nicht bei Books), und NUR in Suche/Texte/Themen2
     const h4ToggleBtn = document.getElementById('h4ToggleBtn');
     if (h4ToggleBtn) {
-      if (isBook) {
-        // Book geladen - verstecke H4 Toggle Button
+      if (isBook || isInGATab || isInIndexTab || isInThematicTab) {
         h4ToggleBtn.style.display = 'none';
       } else {
-        // Vortrag geladen - zeige H4 Toggle Button
-        h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für Grid
-        // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
+        h4ToggleBtn.style.display = 'inline-flex';
         h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▼' : '▲';
         h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
       }
@@ -15340,12 +15296,11 @@ function scrollToChronologicalYear(year) {
       }
     }
     
-    // Download-Button: Nur im Texte-Tab anzeigen wenn Text geladen ist
+    // Download-Button: In Texte, Suche und Themen2 anzeigen wenn Text geladen ist
     if (viewerDownloadBtn) {
-      if (isInTexteTab) {
+      if (isInTexteTab || isInKeywordTab || isInThemen2Tab) {
         viewerDownloadBtn.style.display = 'inline-flex';
       } else {
-        // In anderen Tabs verstecken (auch wenn Text geladen ist)
         viewerDownloadBtn.style.display = 'none';
       }
     }
@@ -31265,6 +31220,21 @@ function switchThemenView(view) {
     }
   }
 
+  // Vorherige Lecture-Daten zurücksetzen (kein Text geladen in neuer Sub-View)
+  currentLectureData = null;
+
+  // Alle text-bezogenen Header-Buttons verstecken (werden erst bei Text-Anzeige wieder eingeblendet)
+  var _gaInfoBtn = document.getElementById('gaInfoBtn');
+  if (_gaInfoBtn) _gaInfoBtn.style.display = 'none';
+  var _pdfToggleBtn = document.getElementById('pdfToggleBtn');
+  if (_pdfToggleBtn) _pdfToggleBtn.style.display = 'none';
+  var _viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
+  if (_viewerDownloadBtn) _viewerDownloadBtn.style.display = 'none';
+  var _h4ToggleBtn = document.getElementById('h4ToggleBtn');
+  if (_h4ToggleBtn) _h4ToggleBtn.style.display = 'none';
+  var _viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  if (_viewerOriginalBtn) _viewerOriginalBtn.style.display = 'none';
+
   // Buttons aktualisieren
   views.forEach(function(v) {
     const btn = document.getElementById('themen-btn-' + v);
@@ -31289,15 +31259,10 @@ function switchThemenView(view) {
       var sammlDlBtn = document.getElementById('sammlungenPdfDownloadBtn'); if (sammlDlBtn) sammlDlBtn.style.display = view === 'sammlungen' ? 'inline-flex' : 'none';
   if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
 
-  // Side-Panel Toggle in Schwerpunkte und Timeline anzeigen
+  // Side-Panel Toggle: IMMER verstecken beim Sub-View-Wechsel (wird erst bei Text-Anzeige eingeblendet)
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   if (viewerSummaryBtn) {
-    if (view === 'schwerpunkte' || view === 'timeline') {
-      viewerSummaryBtn.style.display = 'inline-flex';
-      viewerSummaryBtn.innerHTML = '≡';
-    } else {
-      viewerSummaryBtn.style.display = 'none';
-    }
+    viewerSummaryBtn.style.display = 'none';
   }
 
   if (view === 'schwerpunkte') {
