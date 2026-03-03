@@ -682,7 +682,7 @@ const isLocal = window.location.hostname === 'localhost' ||
           </div>
           
           ${(function() {
-            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen', thematic: 'Abfrage', timeline: 'Timeline', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Erweiterte Suche' };
+            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen/Schwerpunkte', thematic2_schwerpunkte: 'Themen/Schwerpunkte', thematic2_timeline: 'Themen/Timeline', thematic2_sammlungen: 'Themen/Sammlungen', thematic2_karten: 'Themen/Karten', thematic: 'Abfrage', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Suchen/erweitert' };
             var ts = data.tabStats || {};
             var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
@@ -2106,7 +2106,11 @@ function normalizeGANumber(gaNumber) {
     
     function switchTab(mode, skipHistory = false) {
       console.log('[HISTORY] *** switchTab aufgerufen:', mode, 'skipHistory:', skipHistory);
-      analyticsTrack('tab_view', mode);
+      var trackMode = mode;
+      if (mode === 'thematic2') {
+        trackMode = 'thematic2_' + (window._themenView || 'schwerpunkte');
+      }
+      analyticsTrack('tab_view', trackMode);
       
       // WICHTIG: Zuerst den aktuellen Zustand erfassen BEVOR irgendetwas zurückgesetzt wird!
       let savedState = null;
@@ -3522,6 +3526,8 @@ function normalizeGANumber(gaNumber) {
             }, 600);
           }
         }
+      } else {
+        analyticsTrack('tab_view', 'ga');
       }
       
   initResizeHandle();
@@ -11837,7 +11843,7 @@ function scrollToChronologicalYear(year) {
     // ============================================================================
     
     function openAdvancedSearch() {
-      // Setze Body-Klasse für reduziertes Padding
+      analyticsTrack('tab_view', 'advanced-search');
       document.body.classList.add('advanced-search-active');
       
       // Verstecke alle normalen Tabs
@@ -31107,6 +31113,7 @@ async function showMapsInViewer() {
 // Sub-Navigation im Themen-Tab: Schwerpunkte | Timeline | Karten
 function switchThemenView(view) {
   window._themenView = view;
+  analyticsTrack('tab_view', 'thematic2_' + view);
   const views = ['schwerpunkte', 'timeline', 'karten', 'sammlungen'];
 
   // Rechtes Side Panel schliessen
