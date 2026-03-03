@@ -691,19 +691,11 @@ const isLocal = window.location.hostname === 'localhost' ||
               }
               return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Daten</p></div>';
             }
-            var maxTab = entries[0][1] || 1;
             return '<div class="analytics-section"><h3>Aufrufe je Tab</h3>' +
-              '<div style="display:flex;flex-direction:column;gap:6px;">' +
+              '<div style="display:flex;flex-wrap:wrap;gap:4px 16px;">' +
               entries.map(function(e) {
-                var pct = Math.max((e[1] / maxTab) * 100, 2);
                 var label = tabLabels[e[0]] || e[0];
-                return '<div style="display:flex;align-items:center;gap:8px;">' +
-                  '<span style="min-width:110px;font-size:0.85em;text-align:right;color:var(--text-color);">' + label + '</span>' +
-                  '<div style="flex:1;height:18px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
-                    '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;"></div>' +
-                  '</div>' +
-                  '<span style="min-width:36px;font-size:0.8em;color:var(--secondary-text);">' + e[1] + '</span>' +
-                '</div>';
+                return '<span style="font-size:0.85em;color:var(--text-color);">' + label + ': <strong style="color:var(--accent-color);">' + e[1] + '</strong></span>';
               }).join('') +
               '</div></div>';
           })()}
@@ -726,23 +718,13 @@ const isLocal = window.location.hostname === 'localhost' ||
 
             var html = '<div class="analytics-section"><h3>Besucher nach Ländern</h3>';
             html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 16px;"></div>';
-            html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+            html += '<div style="display:flex;flex-wrap:wrap;gap:4px 16px;">';
             geo.forEach(function(c) {
-              var pct = Math.max((Number(c.total_count) / maxCount) * 100, 2);
               var flag = countryFlagMap[c.country_code] || '🌍';
               var cities = c.cities || [];
               var topCities = cities.filter(function(ci){ return ci.city; }).slice(0, 5);
               var cityStr = topCities.length > 0 ? ' <span style="font-size:0.75em;color:var(--secondary-text);">(' + topCities.map(function(ci){ return ci.city + ': ' + ci.count; }).join(', ') + ')</span>' : '';
-              html += '<div style="display:flex;align-items:center;gap:8px;">' +
-                '<span style="min-width:150px;font-size:0.85em;text-align:right;color:var(--text-color);">' + flag + ' ' + c.country_name + '</span>' +
-                '<div style="flex:1;height:18px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
-                  '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;"></div>' +
-                '</div>' +
-                '<span style="min-width:36px;font-size:0.8em;color:var(--secondary-text);">' + c.total_count + '</span>' +
-              '</div>';
-              if (cityStr) {
-                html += '<div style="margin-left:158px;margin-top:-2px;margin-bottom:2px;">' + cityStr + '</div>';
-              }
+              html += '<span style="font-size:0.85em;color:var(--text-color);">' + flag + ' ' + c.country_name + ': <strong style="color:var(--accent-color);">' + c.total_count + '</strong>' + cityStr + '</span>';
             });
             html += '</div></div>';
             return html;
