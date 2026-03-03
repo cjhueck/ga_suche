@@ -6,6 +6,7 @@ const compression = require('compression');
 const fs = require('fs').promises;
 const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
+const http = require('http');
 const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
@@ -24888,6 +24889,95 @@ async function trackUniqueVisitorInSupabase(visitorId) {
   }
 }
 
+// ============================================================
+// GEO-TRACKING: IP -> Land/Stadt (DSGVO-konform, keine IP-Speicherung)
+// ============================================================
+
+function isPrivateIp(ip) {
+  if (!ip) return true;
+  return ip === '127.0.0.1' || ip === '::1' || ip === 'localhost'
+    || ip.startsWith('10.') || ip.startsWith('192.168.')
+    || ip.startsWith('172.16.') || ip.startsWith('172.17.')
+    || ip.startsWith('172.18.') || ip.startsWith('172.19.')
+    || ip.startsWith('172.2') || ip.startsWith('172.30.')
+    || ip.startsWith('172.31.') || ip.startsWith('fc00:')
+    || ip.startsWith('fd') || ip.startsWith('fe80:');
+}
+
+async function incrementSupabaseGeo(countryCode, countryName, city, region) {
+  if (!supabaseClient) {
+    console.warn('[GEO] Kein Supabase-Client für Geo-Tracking');
+    return false;
+  }
+  const today = getDateKey();
+  try {
+    const { error } = await supabaseClient.rpc('increment_analytics_geo', {
+      p_date: today,
+      p_country_code: countryCode,
+      p_country_name: countryName,
+      p_city: city || null,
+      p_region: region || null
+    });
+    if (error) {
+      console.error('[GEO] Supabase RPC Fehler:', error.message);
+      return false;
+    }
+    console.log(`[GEO] ✓ ${countryName} (${countryCode})${city ? ', ' + city : ''} getrackt`);
+    return true;
+  } catch (err) {
+    console.error('[GEO] Supabase Fehler:', err.message);
+    return false;
+  }
+}
+
+function resolveAndStoreGeo(ip) {
+  if (isPrivateIp(ip)) {
+    console.log('[GEO] Private IP übersprungen:', ip);
+    return;
+  }
+  const url = `http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,countryCode,regionName,city`;
+  const req = http.get(url, (res) => {
+    let data = '';
+    res.on('data', chunk => data += chunk);
+    res.on('end', () => {
+      try {
+        const geo = JSON.parse(data);
+        if (geo.status === 'success' && geo.countryCode) {
+          incrementSupabaseGeo(geo.countryCode, geo.country, geo.city, geo.regionName);
+        } else {
+          console.warn('[GEO] ip-api.com Antwort nicht erfolgreich:', geo.status);
+        }
+      } catch (e) {
+        console.warn('[GEO] JSON-Parse Fehler:', e.message);
+      }
+    });
+  });
+  req.on('error', (err) => {
+    console.warn('[GEO] ip-api.com Netzwerkfehler:', err.message);
+  });
+  req.setTimeout(5000, () => {
+    req.destroy();
+    console.warn('[GEO] ip-api.com Timeout');
+  });
+}
+
+async function loadGeoStatsFromSupabase() {
+  if (!supabaseClient) return [];
+  try {
+    const { data, error } = await supabaseClient.rpc('get_analytics_geo_stats');
+    if (error) {
+      console.error('[GEO] Stats laden fehlgeschlagen:', error.message);
+      return [];
+    }
+    return data || [];
+  } catch (err) {
+    console.error('[GEO] Stats Fehler:', err.message);
+    return [];
+  }
+}
+
+// ============================================================
+
 // Lade Analytics-Daten aus Supabase
 async function loadAnalyticsFromSupabase() {
   if (!supabaseClient) {
@@ -25155,6 +25245,12 @@ app.post('/api/analytics/track', async (req, res) => {
       await trackUniqueVisitorInSupabase(visitor_id);
     }
     
+    // Geo-Tracking bei page_view (fire-and-forget, blockiert nicht die Response)
+    if (type === 'page_view') {
+      const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.ip;
+      resolveAndStoreGeo(clientIp);
+    }
+    
     if (supabaseSuccess) {
       console.log(`[ANALYTICS] ✓ ${type} in Supabase gespeichert (persistent)`);
       res.json({ ok: true, storage: 'supabase' });
@@ -25330,6 +25426,9 @@ app.get('/api/analytics/stats', async (req, res) => {
       // Lokale JSON nicht verfügbar – kein Problem
     }
 
+    // Geo-Statistiken laden
+    const geoStats = await loadGeoStatsFromSupabase();
+
     res.json({
       today: todayStats,
       week: { views: weekViews, searches: weekSearches, lectures: weekLectures, unique_users: weekUniqueUsers },
@@ -25346,7 +25445,8 @@ app.get('/api/analytics/stats', async (req, res) => {
       totalDays: Object.keys(data.dailyStats).length,
       quoteViews: weekQuoteViews,
       tabStats,
-      tabsMigrationNeeded: !tabQuoteMigrationOk
+      tabsMigrationNeeded: !tabQuoteMigrationOk,
+      geoStats
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -714,10 +714,153 @@ const isLocal = window.location.hostname === 'localhost' ||
             return '<div class="analytics-section"><h3>Zitat der Woche</h3>' +
               '<p style="font-size:0.9em;color:var(--text-color);">Aufrufe diese Woche: <strong>' + qv + '</strong></p></div>';
           })()}
+
+          ${(function() {
+            var geo = data.geoStats;
+            if (!geo || !Array.isArray(geo) || geo.length === 0) {
+              return '<div class="analytics-section"><h3>Besucher nach Ländern</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Geo-Daten verfügbar</p></div>';
+            }
+            var countryFlagMap = {DE:'🇩🇪',AT:'🇦🇹',CH:'🇨🇭',US:'🇺🇸',GB:'🇬🇧',FR:'🇫🇷',IT:'🇮🇹',ES:'🇪🇸',NL:'🇳🇱',BE:'🇧🇪',PL:'🇵🇱',CZ:'🇨🇿',SE:'🇸🇪',NO:'🇳🇴',DK:'🇩🇰',FI:'🇫🇮',PT:'🇵🇹',RU:'🇷🇺',UA:'🇺🇦',JP:'🇯🇵',CN:'🇨🇳',IN:'🇮🇳',BR:'🇧🇷',CA:'🇨🇦',AU:'🇦🇺',NZ:'🇳🇿',ZA:'🇿🇦',MX:'🇲🇽',AR:'🇦🇷',KR:'🇰🇷',IL:'🇮🇱',TR:'🇹🇷',IE:'🇮🇪',LU:'🇱🇺',HU:'🇭🇺',RO:'🇷🇴',BG:'🇧🇬',HR:'🇭🇷',SK:'🇸🇰',SI:'🇸🇮',LT:'🇱🇹',LV:'🇱🇻',EE:'🇪🇪',GR:'🇬🇷'};
+            var totalVisits = geo.reduce(function(s,c){ return s + Number(c.total_count || 0); }, 0);
+            var maxCount = geo[0] ? Number(geo[0].total_count) : 1;
+
+            var html = '<div class="analytics-section"><h3>Besucher nach Ländern</h3>';
+            html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 16px;"></div>';
+            html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+            geo.forEach(function(c) {
+              var pct = Math.max((Number(c.total_count) / maxCount) * 100, 2);
+              var flag = countryFlagMap[c.country_code] || '🌍';
+              var cities = c.cities || [];
+              var topCities = cities.filter(function(ci){ return ci.city; }).slice(0, 5);
+              var cityStr = topCities.length > 0 ? ' <span style="font-size:0.75em;color:var(--secondary-text);">(' + topCities.map(function(ci){ return ci.city + ': ' + ci.count; }).join(', ') + ')</span>' : '';
+              html += '<div style="display:flex;align-items:center;gap:8px;">' +
+                '<span style="min-width:150px;font-size:0.85em;text-align:right;color:var(--text-color);">' + flag + ' ' + c.country_name + '</span>' +
+                '<div style="flex:1;height:18px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
+                  '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;"></div>' +
+                '</div>' +
+                '<span style="min-width:36px;font-size:0.8em;color:var(--secondary-text);">' + c.total_count + '</span>' +
+              '</div>';
+              if (cityStr) {
+                html += '<div style="margin-left:158px;margin-top:-2px;margin-bottom:2px;">' + cityStr + '</div>';
+              }
+            });
+            html += '</div></div>';
+            return html;
+          })()}
         `;
+
+        // Weltkarte rendern (nach dem Einfügen ins DOM)
+        if (data.geoStats && Array.isArray(data.geoStats) && data.geoStats.length > 0) {
+          setTimeout(function() { renderGeoWorldMap(data.geoStats); }, 100);
+        }
       } catch (e) {
         container.innerHTML = '<p style="color: var(--error-color);">Fehler beim Laden der Statistiken.</p>';
       }
+    }
+
+    // D3.js Weltkarte für Geo-Statistiken
+    var _worldTopoCache = null;
+    function renderGeoWorldMap(geoStats) {
+      var mapContainer = document.getElementById('analytics-geo-map');
+      if (!mapContainer || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+
+      var width = mapContainer.clientWidth || 700;
+      var height = Math.round(width * 0.5);
+
+      var countByCode = {};
+      geoStats.forEach(function(c) {
+        countByCode[c.country_code] = Number(c.total_count) || 0;
+      });
+      var maxVal = Math.max.apply(null, Object.values(countByCode).concat([1]));
+
+      var isDark = document.body.classList.contains('dark-mode');
+      var bgColor = isDark ? '#1e1e1e' : '#f8f8f8';
+      var landColor = isDark ? '#333' : '#e0e0e0';
+      var borderColor = isDark ? '#555' : '#ccc';
+      var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim() || '#5a8a7a';
+
+      function drawMap(worldData) {
+        mapContainer.innerHTML = '';
+        var countries = topojson.feature(worldData, worldData.objects.countries);
+
+        var svg = d3.select(mapContainer).append('svg')
+          .attr('width', width).attr('height', height)
+          .attr('viewBox', '0 0 ' + width + ' ' + height)
+          .style('background', bgColor)
+          .style('border-radius', '6px')
+          .style('border', '1px solid ' + borderColor);
+
+        var projection = d3.geoNaturalEarth1()
+          .fitSize([width - 10, height - 10], countries)
+          .translate([width / 2, height / 2]);
+
+        var path = d3.geoPath().projection(projection);
+
+        var colorScale = d3.scaleLog()
+          .domain([1, Math.max(maxVal, 2)])
+          .range([isDark ? '#2a4a3a' : '#c8e6d8', accentColor])
+          .clamp(true);
+
+        var tooltip = d3.select(mapContainer).append('div')
+          .style('position', 'absolute').style('pointer-events', 'none')
+          .style('background', isDark ? '#333' : '#fff')
+          .style('border', '1px solid ' + borderColor)
+          .style('border-radius', '4px').style('padding', '4px 8px')
+          .style('font-size', '0.8em').style('display', 'none')
+          .style('color', isDark ? '#eee' : '#333')
+          .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
+
+        var isoNumericToAlpha2 = null;
+
+        svg.selectAll('path')
+          .data(countries.features)
+          .enter().append('path')
+          .attr('d', path)
+          .attr('fill', function(d) {
+            var code = getAlpha2FromFeature(d, geoStats);
+            var val = code ? (countByCode[code] || 0) : 0;
+            return val > 0 ? colorScale(val) : landColor;
+          })
+          .attr('stroke', borderColor)
+          .attr('stroke-width', 0.5)
+          .on('mouseover', function(event, d) {
+            var code = getAlpha2FromFeature(d, geoStats);
+            var val = code ? (countByCode[code] || 0) : 0;
+            if (val > 0) {
+              var name = geoStats.find(function(g) { return g.country_code === code; });
+              tooltip.style('display', 'block')
+                .html((name ? name.country_name : code) + ': <strong>' + val + '</strong>');
+            }
+          })
+          .on('mousemove', function(event) {
+            var rect = mapContainer.getBoundingClientRect();
+            tooltip.style('left', (event.clientX - rect.left + 10) + 'px')
+              .style('top', (event.clientY - rect.top - 25) + 'px');
+          })
+          .on('mouseout', function() {
+            tooltip.style('display', 'none');
+          });
+      }
+
+      if (_worldTopoCache) {
+        drawMap(_worldTopoCache);
+      } else {
+        d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(function(worldData) {
+          _worldTopoCache = worldData;
+          drawMap(worldData);
+        }).catch(function(err) {
+          console.warn('[GEO-MAP] Weltkarte konnte nicht geladen werden:', err);
+          mapContainer.innerHTML = '<p style="font-size:0.8em;color:var(--secondary-text);text-align:center;">Weltkarte konnte nicht geladen werden</p>';
+        });
+      }
+    }
+
+    // ISO 3166-1 numeric -> alpha-2 Mapping für TopoJSON (world-atlas nutzt numeric IDs)
+    var _isoNumToAlpha2 = {"004":"AF","008":"AL","010":"AQ","012":"DZ","016":"AS","020":"AD","024":"AO","028":"AG","031":"AZ","032":"AR","036":"AU","040":"AT","044":"BS","048":"BH","050":"BD","051":"AM","056":"BE","060":"BM","064":"BT","068":"BO","070":"BA","072":"BW","076":"BR","084":"BZ","090":"SB","092":"VG","096":"BN","100":"BG","104":"MM","108":"BI","112":"BY","116":"KH","120":"CM","124":"CA","132":"CV","140":"CF","144":"LK","148":"TD","152":"CL","156":"CN","158":"TW","170":"CO","174":"KM","178":"CG","180":"CD","184":"CK","188":"CR","191":"HR","192":"CU","196":"CY","203":"CZ","204":"BJ","208":"DK","212":"DM","214":"DO","218":"EC","222":"SV","226":"GQ","231":"ET","232":"ER","233":"EE","234":"FO","242":"FJ","246":"FI","250":"FR","258":"PF","262":"DJ","266":"GA","268":"GE","270":"GM","275":"PS","276":"DE","288":"GH","296":"KI","300":"GR","304":"GL","308":"GD","316":"GU","320":"GT","324":"GN","328":"GY","332":"HT","340":"HN","344":"HK","348":"HU","352":"IS","356":"IN","360":"ID","364":"IR","368":"IQ","372":"IE","376":"IL","380":"IT","384":"CI","388":"JM","392":"JP","398":"KZ","400":"JO","404":"KE","408":"KP","410":"KR","414":"KW","417":"KG","418":"LA","422":"LB","426":"LS","428":"LV","430":"LR","434":"LY","438":"LI","440":"LT","442":"LU","446":"MO","450":"MG","454":"MW","458":"MY","462":"MV","466":"ML","470":"MT","478":"MR","480":"MU","484":"MX","492":"MC","496":"MN","498":"MD","499":"ME","504":"MA","508":"MZ","512":"OM","516":"NA","520":"NR","524":"NP","528":"NL","540":"NC","554":"NZ","558":"NI","562":"NE","566":"NG","570":"NU","578":"NO","583":"FM","585":"PW","586":"PK","591":"PA","598":"PG","600":"PY","604":"PE","608":"PH","616":"PL","620":"PT","624":"GW","626":"TL","630":"PR","634":"QA","642":"RO","643":"RU","646":"RW","662":"LC","666":"PM","670":"VC","682":"SA","686":"SN","688":"RS","690":"SC","694":"SL","702":"SG","703":"SK","704":"VN","705":"SI","706":"SO","710":"ZA","716":"ZW","720":"YE","724":"ES","728":"SS","729":"SD","740":"SR","748":"SZ","752":"SE","756":"CH","760":"SY","762":"TJ","764":"TH","768":"TG","776":"TO","780":"TT","784":"AE","788":"TN","792":"TR","795":"TM","798":"TV","800":"UG","804":"UA","807":"MK","818":"EG","826":"GB","834":"TZ","840":"US","854":"BF","858":"UY","860":"UZ","862":"VE","876":"WF","882":"WS","887":"YE","894":"ZM"};
+
+    function getAlpha2FromFeature(feature, geoStats) {
+      var numericId = String(feature.id);
+      return _isoNumToAlpha2[numericId] || null;
     }
     
     // Tastenkombination: Strg+Shift+A öffnet Analytics
