@@ -8,8 +8,11 @@
 - **Gesamtausgabe** - Vorträge mit Kurzusammenfassungen und chronologische Liste
 - **Stichwortsuche** – Mit Relevanzbewertung
 - **Texte anzeigen lassen** – Texte mit Zusammenfassungen, Gliederungen und Schlagworten
-- **Thematische Suche** – KI-gestützte semantische Analyse
-- **Timeline** - Zeitverlauf von Suchergebnissen und Schlagworten
+- **Schwerpunkte** - Graphische Übersicht über thematische Schwerpunkte und Zeitverlauf im Werk
+- **Timeline** - Zeitverlauf von einzelnen Suchergebnissen zu einzelnen Schlagworten
+- **Sammlungen** - Umfassende Zitatsammlungen zu den Themen "Entwicklung des Kindes" und "Reinkarnationsmetamorphose" 
+- **Karten** Graphische Übersichten
+- **Abfrage** – KI-gestützte semantische Analyse
 - **Index** – Wichtige Schlagworte mit Verlinkung
 
 Ihre Themen-Suchanfragen werden **nicht gespeichert**.
