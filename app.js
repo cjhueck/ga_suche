@@ -32081,7 +32081,7 @@ async function sendErrorReport() {
 function showHelpChoice() {
   document.getElementById('helpChoice').style.display = 'block';
   document.getElementById('helpContentDisplay').classList.remove('active');
-  document.getElementById('helpModalTitle').textContent = 'Anleitung';
+  document.getElementById('helpModalTitle').textContent = 'GA-Suche Anleitung';
 }
 
 async function showHelpContent(type) {

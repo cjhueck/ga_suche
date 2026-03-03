@@ -6628,7 +6628,7 @@ body.dark-mode .help-button svg {
   border: 1px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 560px;
+  max-width: 800px;
   max-height: 85vh;
   display: flex;
   flex-direction: column;
@@ -9987,12 +9987,13 @@ PDF
 <div id="helpModal" class="help-modal">
   <div class="help-modal-content">
     <div class="help-modal-header">
-      <h2 id="helpModalTitle">Anleitung</h2>
+      <h2 id="helpModalTitle">GA-Suche Anleitung</h2>
       <button class="help-modal-close" onclick="closeHelpModal()">&times;</button>
     </div>
     <div class="help-modal-body">
       <!-- Choice Screen -->
       <div id="helpChoice" class="help-choice">
+        <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
         <div class="help-choice-buttons">
           <button class="help-choice-btn" onclick="showHelpContent('welcome')">
             <h3>Willkommen</h3>
