@@ -4692,6 +4692,9 @@ function normalizeGANumber(gaNumber) {
         html += `<div style="margin-bottom: 0.2rem;"><strong>Jahr:</strong> ${gaInfo.year}</div>`;
       }
       
+      // Verlag
+      html += `<div style="margin-bottom: 0.2rem;"><strong>Verlag:</strong> Rudolf Steiner Verlag</div>`;
+      
       // Verlagsort
       if (gaInfo.place) {
         html += `<div style="margin-bottom: 0.2rem;"><strong>Verlagsort:</strong> ${gaInfo.place}</div>`;
@@ -4732,115 +4735,26 @@ function normalizeGANumber(gaNumber) {
     }
     
     // Funktion: Zeige bibliographische Angaben für Wandtafelzeichnungen
-    async function showChalkboardsBibliographyInfo() {
-      // Lade bibliographische Daten
-      const bibliographyData = await loadGABibliographyData();
-      if (!bibliographyData) {
-        alert('Bibliographische Daten konnten nicht geladen werden.');
-        return;
-      }
-      
-      // Suche nach dem Eintrag "Wandtafelzeichnungen zum Vortragswerk"
-      // Suche nach Titel mit "Wandtafelzeichnungen" oder ISBN "4100" oder "3-7274-4100-3" oder "GA K"
-      let gaInfo = null;
-      let gaKey = null;
-      
-      // Zuerst prüfe, ob es einen Eintrag "GA K" gibt
-      if (bibliographyData['GA K']) {
-        gaInfo = bibliographyData['GA K'];
-        gaKey = 'GA K';
-      } else {
-        // Suche nach Titel oder ISBN
-        for (const [key, value] of Object.entries(bibliographyData)) {
-          const title = (value.title || '').toLowerCase();
-          const isbn = (value.isbn || '').replace(/-/g, '');
-          
-          if (title.includes('wandtafelzeichnungen') || 
-              title.includes('wandtafel') ||
-              isbn.includes('4100') ||
-              isbn.includes('3727404100') ||
-              key === 'GA K') {
-            gaInfo = value;
-            gaKey = key;
-            break;
-          }
-        }
-      }
-      
-      if (!gaInfo) {
-        alert('Keine bibliographischen Angaben für "Wandtafelzeichnungen zum Vortragswerk" gefunden.');
-        return;
-      }
-      
-      // Zeige Popup (genau wie bei anderen GA-Bänden)
-      const popup = document.getElementById('gaBibliographyPopup');
-      const titleEl = document.getElementById('gaBibliographyTitle');
-      const contentEl = document.getElementById('gaBibliographyContent');
-      
+    function showChalkboardsBibliographyInfo() {
+      var popup = document.getElementById('gaBibliographyPopup');
+      var titleEl = document.getElementById('gaBibliographyTitle');
+      var contentEl = document.getElementById('gaBibliographyContent');
       if (!popup || !titleEl || !contentEl) return;
-      
-      // Setze Titel
-      titleEl.textContent = `${gaKey} - Bibliographische Angaben`;
-      
-      // Erstelle HTML für bibliographische Angaben (kompakt, genau wie bei anderen GA-Bänden)
-      // KEIN Copyright-Hinweis für Wandtafelzeichnungen-Popup
-      let html = '<div style="font-size: 0.8em; line-height: 1.3;">';
-      
-      // Autor
-      if (gaInfo.author) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Autor:</strong> ${gaInfo.author}</div>`;
-      }
-      
-      // Titel
-      if (gaInfo.title) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Titel:</strong> ${gaInfo.title}</div>`;
-      }
-      
-      // Untertitel
-      if (gaInfo.subtitle) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Untertitel:</strong> ${gaInfo.subtitle}</div>`;
-      }
-      
-      // Titelzusätze (TitleSupplement)
-      if (gaInfo.titleSupplement) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Titelzusätze:</strong> ${gaInfo.titleSupplement}</div>`;
-      }
-      
-      // Herausgeber (Editor)
-      if (gaInfo.editor) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Herausgeber:</strong> ${gaInfo.editor}</div>`;
-      }
-      
-      // Jahr
-      if (gaInfo.year) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Jahr:</strong> ${gaInfo.year}</div>`;
-      }
-      
-      // Verlagsort
-      if (gaInfo.place) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Verlagsort:</strong> ${gaInfo.place}</div>`;
-      }
-      
-      // Auflage
-      if (gaInfo.edition) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Auflage:</strong> ${gaInfo.edition}</div>`;
-      }
-      
-      // Band Nummer
-      if (gaInfo.volume) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>Band Nummern:</strong> ${gaInfo.volume}</div>`;
-      }
-      
-      // ISBN
-      if (gaInfo.isbn) {
-        html += `<div style="margin-bottom: 0.2rem;"><strong>ISBN:</strong> ${gaInfo.isbn}</div>`;
-      }
-      
-      html += '</div>';
-      
-      // KEIN Copyright-Hinweis und KEIN Trennstrich für Wandtafelzeichnungen-Popup
-      
-      contentEl.innerHTML = html;
+
+      titleEl.textContent = 'GA K058/1-30 - Bibliographische Angaben';
+
+      contentEl.innerHTML = '<div style="font-size: 0.8em; line-height: 1.3;">' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Autor:</strong> Rudolf Steiner</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Titel:</strong> Wandtafelzeichnungen zum Vortragswerk</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Untertitel:</strong> Band I bis XXX</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Titelzus\u00e4tze:</strong> 1914\u20131924</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Jahr:</strong> 1992\u20132003</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Verlag:</strong> Rudolf Steiner Verlag</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Verlagsort:</strong> Dornach</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Auflage:</strong> 1. Aufl.</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>Band Nummern:</strong> K058 1\u201330</div>' +
+        '<div style="margin-bottom: 0.2rem;"><strong>ISBN:</strong> 3-7274-4100-3 (Reihe)</div>' +
+        '</div>';
       popup.style.display = 'flex';
     }
     
@@ -6443,12 +6357,10 @@ function updateChalkboardsSortIcon() {
   const btn = document.getElementById('chalkboardsSortToggleBtn');
   if (!btn) return;
   
-  // Text-Pfeil nach unten (GA-Sortierung) oder nach oben (Datum-Sortierung)
-  // Identisch mit h4ToggleBtn
   if (chalkboardsSortOrder === 'ga') {
-    btn.textContent = '?';
+    btn.textContent = '\u25BC';
   } else {
-    btn.textContent = '?';
+    btn.textContent = '\u25B2';
   }
 }
 
@@ -11853,6 +11765,20 @@ function scrollToChronologicalYear(year) {
       
       // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       
+      // Rechtes Panel schließen, falls von vorheriger Suche noch offen
+      const summaryPanel = document.getElementById('summary-panel');
+      if (summaryPanel && summaryPanel.classList.contains('visible')) {
+        summaryPanel.classList.remove('visible');
+        summaryPanel.removeAttribute('style');
+        document.body.classList.add('summary-panel-collapsed');
+        const mainContainer = document.getElementById('main-container');
+        if (mainContainer) mainContainer.style.marginRight = '0px';
+        const vrhWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (vrhWrapper) { vrhWrapper.style.display = 'none'; vrhWrapper.classList.remove('visible'); }
+        const vrh = document.querySelector('.vertical-resize-handle');
+        if (vrh) { vrh.classList.remove('visible'); vrh.removeAttribute('style'); vrh.style.width = '0'; vrh.style.display = 'none'; }
+      }
+
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen</div>';
       document.getElementById('document-title').textContent = 'Suche';
       
@@ -26224,6 +26150,61 @@ function switchTabExtended(mode) {
   // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
   savedSummaryPanelWidth = null;
   
+  // ===== ROBUSTER RESET beim Tab-Wechsel =====
+  // 1) Wandtafel-spezifische DOM-Elemente entfernen (können den Viewer ersetzen)
+  var cwWrapper = document.getElementById('chalkboards-year-nav-wrapper');
+  if (cwWrapper) cwWrapper.remove();
+  var cwNav = document.getElementById('chalkboards-year-nav');
+  if (cwNav) cwNav.remove();
+  var cwGallery = document.getElementById('chalkboards-gallery-content');
+  if (cwGallery) cwGallery.remove();
+  
+  // 2) Viewer-Inhalt leeren (wird danach tab-spezifisch neu befüllt)
+  var viewerReset = document.getElementById('viewer');
+  if (viewerReset && mode !== 'thematic2') {
+    viewerReset.innerHTML = '';
+  }
+  
+  // 3) #main Styling zurücksetzen (Wandtafeln setzen overflow:hidden)
+  var mainReset = document.getElementById('main');
+  if (mainReset) {
+    mainReset.style.overflow = '';
+    mainReset.style.height = '';
+  }
+  
+  // 4) Wandtafeln-Zustand zurücksetzen
+  if (typeof isChalkboardsViewActive !== 'undefined' && isChalkboardsViewActive) {
+    isChalkboardsViewActive = false;
+    if (typeof selectedChalkboardsYearFilter !== 'undefined') selectedChalkboardsYearFilter = null;
+    var cwBtn = document.getElementById('ga-chalkboards-btn');
+    if (cwBtn) {
+      cwBtn.style.background = 'transparent';
+      cwBtn.style.color = 'var(--accent-color)';
+      cwBtn.classList.remove('active');
+    }
+    if (typeof removeChalkboardsYearButtons === 'function') removeChalkboardsYearButtons();
+  }
+  
+  // 5) ALLE Header-Buttons verstecken (außer Members-Button)
+  //    Werden danach selektiv durch updateButtonStates() und tab-spezifische Logik eingeblendet
+  ['gaInfoBtn', 'pdfToggleBtn', 'viewerDownloadBtn', 'viewerSummaryBtn',
+   'h4ToggleBtn', 'viewerOriginalBtn', 'chalkboardsInfoBtn', 'chalkboardsSortToggleBtn',
+   'themenInfoBtn', 'closeSummaryPanelBtn', 'sammlungenPdfDownloadBtn', 'viewerTOCToggleBtn',
+   'spellcheckToggleBtn', 'mapsPdfDownloadBtn'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.style.display = 'none';
+  });
+  
+  // 6) Zustandsvariablen zurücksetzen
+  if (mode !== 'thematic2') {
+    currentLectureData = null;
+    currentGANumber = null;
+    currentLectureSummary = null;
+    showingSummaryInMain = false;
+  }
+  window.currentOpenLectureId = null;
+  // ===== ENDE ROBUSTER RESET =====
+  
   // Prüfe, ob wir ZUM Suche-Tab wechseln
   if (mode === 'keyword') {
     // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
@@ -33570,6 +33551,11 @@ window.switchTab = function(tabName) {
       }
       if (typeof removeChalkboardsYearButtons === 'function') {
         removeChalkboardsYearButtons();
+      }
+      // Viewer leeren, damit Wandtafeln nicht im neuen Tab sichtbar bleiben
+      const viewerEl = document.getElementById('viewer');
+      if (viewerEl) {
+        viewerEl.innerHTML = '';
       }
     }
   }
