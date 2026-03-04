@@ -15238,7 +15238,7 @@ function scrollToChronologicalYear(year) {
     
     // Download-Button: In Texte, Suche und Themen2 anzeigen wenn Text geladen ist
     if (viewerDownloadBtn) {
-      if (isInTexteTab || isInKeywordTab || isInThemen2Tab) {
+      if (isInTexteTab || isInKeywordTab || isInThematic2Tab) {
         viewerDownloadBtn.style.display = 'inline-flex';
       } else {
         viewerDownloadBtn.style.display = 'none';
