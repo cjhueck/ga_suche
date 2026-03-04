@@ -3520,9 +3520,6 @@
                     .replace(/>/g, '&gt;');
             };
             
-            // Escape HTML und Zeilenumbrüche durch <br> ersetzen
-            let rendered = escapeHtmlRight(content).replace(/\n/g, '<br>');
-            
             // Finde alle "---" Positionen für Navigation (Seitenumbrüche)
             mdPages = [];
             // Suche nach --- auf eigener Zeile
@@ -3530,15 +3527,28 @@
             let charPos = 0;
             for (let i = 0; i < lines.length; i++) {
                 if (lines[i].trim() === '---') {
+                    // Tabellen-Separator ausschließen: | vor oder nach --- (gleiche oder benachbarte Zeilen)
+                    const prevLine = i > 0 ? lines[i - 1] : '';
+                    const nextLine = i < lines.length - 1 ? lines[i + 1] : '';
+                    if (lines[i].includes('|') || prevLine.includes('|') || nextLine.includes('|')) {
+                        charPos += lines[i].length + 1;
+                        continue;
+                    }
                     // Finde den Text nach dem --- (mehrere Zeilen, bis zu 200 Zeichen)
+                    // Metadaten vor Copyright werden verworfen; falls nötig wird über --- hinweggelesen
                     let textAfter = '';
-                    for (let j = i + 1; j < lines.length && j < i + 10; j++) {
-                        const nextLine = lines[j].trim();
-                        if (nextLine === '---' || nextLine.startsWith('Copyright')) {
-                            break; // Stoppe bei nächstem Separator
+                    for (let j = i + 1; j < lines.length && j < i + 20; j++) {
+                        const scanLine = lines[j].trim();
+                        if (scanLine === '---') {
+                            if (textAfter.length > 0) break;
+                            continue; // Noch kein Text → über Separator hinweg suchen
                         }
-                        if (nextLine) {
-                            textAfter += (textAfter ? ' ' : '') + nextLine;
+                        if (scanLine.startsWith('Copyright')) {
+                            textAfter = ''; // Alles vorher war Metadaten → verwerfen
+                            continue;
+                        }
+                        if (scanLine) {
+                            textAfter += (textAfter ? ' ' : '') + scanLine;
                             if (textAfter.length >= 200) {
                                 textAfter = textAfter.substring(0, 200);
                                 break;
@@ -3628,6 +3638,18 @@
                 console.log(`[renderRightContent] Interpolierte Seiten (Stichproben): ${samples.map(i => `idx${i}→S.${mdPages[i].interpolatedPage || '?'}`).join(', ')}`);
             }
             
+            // HTML rendern: Zeilen escapen, Seitenseparatoren mit data-idx markieren
+            const pageBreakLineIndices = new Set(mdPages.map(p => p.lineIndex));
+            const htmlLines = lines.map((line, idx) => {
+                const escaped = escapeHtmlRight(line);
+                if (pageBreakLineIndices.has(idx)) {
+                    const pageIdx = mdPages.findIndex(p => p.lineIndex === idx);
+                    return `<span class="page-sep" data-idx="${pageIdx}">${escaped}</span>`;
+                }
+                return escaped;
+            });
+            let rendered = htmlLines.join('<br>');
+            
             // Zeige MD-Viewer und MD-Controls, verstecke PDF-Viewer und PDF-Controls
             const mdViewerEl = document.getElementById('mdViewer');
             const pdfViewerEl = document.getElementById('pdfViewer');
@@ -3706,6 +3728,9 @@
             const shouldSearch = mdSearchActive || (seriesModeEnabled && fastModeEnabled);
             if (shouldSearch && pageInfo.textAfter && pageInfo.textAfter.length > 5) {
                 searchTextInLeftWindow(pageInfo.textAfter);
+            } else if (autoOpenInsertDialogAfterSearch && autoModeEnabled) {
+                autoOpenInsertDialogAfterSearch = false;
+                pauseAutoMode('Kein Suchtext verfügbar für MD-Seite ' + (index + 1));
             }
         }
         
@@ -3714,32 +3739,15 @@
             if (!mdViewerEl) return;
             
             // Entferne vorherige Highlights
-            mdViewerEl.innerHTML = mdViewerEl.innerHTML.replace(/<span class="md-highlight">([^<]*)<\/span>/g, '$1');
+            mdViewerEl.querySelectorAll('.page-sep.md-highlight').forEach(el => {
+                el.classList.remove('md-highlight');
+            });
             
-            // Finde das n-te --- und markiere es
-            let html = mdViewerEl.innerHTML;
-            const separatorRegex = /---/g;
-            let match;
-            let count = 0;
-            let newHtml = '';
-            let lastIndex = 0;
-            
-            while ((match = separatorRegex.exec(html)) !== null) {
-                if (count === index) {
-                    newHtml += html.substring(lastIndex, match.index);
-                    newHtml += `<span class="md-highlight">${match[0]}</span>`;
-                    lastIndex = match.index + match[0].length;
-                    break;
-                }
-                count++;
-            }
-            newHtml += html.substring(lastIndex);
-            mdViewerEl.innerHTML = newHtml;
-            
-            // Scrolle zum Highlight
-            const highlight = mdViewerEl.querySelector('.md-highlight');
-            if (highlight) {
-                highlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Finde den Separator per data-idx und markiere ihn
+            const sep = mdViewerEl.querySelector(`.page-sep[data-idx="${index}"]`);
+            if (sep) {
+                sep.classList.add('md-highlight');
+                sep.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
         
@@ -4005,6 +4013,14 @@
                 } else {
                     showNotification(`Text gefunden`);
                 }
+                
+                // Auto-Modus (MD-Vorlage): Dialog automatisch öffnen
+                if (autoOpenInsertDialogAfterSearch) {
+                    autoOpenInsertDialogAfterSearch = false;
+                    setTimeout(() => {
+                        openInsertMarkerDialogAtCursor(true);
+                    }, 500);
+                }
             } else {
                 console.log('[MD-Vorlage] Text nicht gefunden');
                 showNotification('Text nicht gefunden im linken Fenster', 'warning');
@@ -4012,6 +4028,11 @@
                 if (scrollParent && savedScrollTop > 0) {
                     scrollParent.scrollTop = savedScrollTop;
                     console.log('[MD-Vorlage] Scroll-Position wiederhergestellt:', savedScrollTop);
+                }
+                // Auto-Modus (MD-Vorlage): Pausieren bei Suchfehler
+                if (autoModeEnabled && !autoModePaused) {
+                    autoOpenInsertDialogAfterSearch = false;
+                    pauseAutoMode('Text nicht gefunden: "' + searchText.substring(0, 40) + '"');
                 }
             }
         }
@@ -4079,9 +4100,16 @@
             const foundText = currentContent.substring(position, position + Math.min(200, currentContent.length - position));
             const mdSearchInput = document.getElementById('mdSearchInput');
             if (mdSearchInput && foundText) {
-                // WICHTIG: Nur die ersten 4 Wörter verwenden
-                const searchWords = foundText.trim().split(/\s+/).slice(0, 4).join(' ');
-                // ENTFERNT: Keine ß→ss Transformation mehr
+                // Markdown-Syntax entfernen (performMdSearch sucht im gerenderten HTML-Text)
+                const plainText = foundText
+                    .replace(/\*\*([^*]+)\*\*/g, '$1')
+                    .replace(/\*([^*]+)\*/g, '$1')
+                    .replace(/__([^_]+)__/g, '$1')
+                    .replace(/_([^_]+)_/g, '$1')
+                    .replace(/\|(\d+)\|/g, '')
+                    .replace(/#{1,6}\s*/g, '')
+                    .trim();
+                const searchWords = plainText.split(/\s+/).filter(w => w.length > 0).slice(0, 4).join(' ');
                 mdSearchInput.value = searchWords;
                 
                 // Suche durchführen für Highlighting (scrollingDisabledForSearch ist true, kein Auto-Scroll!)
@@ -4199,13 +4227,67 @@
                 
                 if (markers.length > 0 && currentMarkerIndex >= 0 && currentMarkerIndex < markers.length) {
                     const marker = markers[currentMarkerIndex];
-                    if (marker && marker.page) {
-                        // Regel: Marker |X| → Rechts zeigt Seite X-1
+                    if (!marker) return;
+                    
+                    // Textbasierte Suche: Text direkt nach dem Marker im linken Fenster
+                    // im rechten MD-Content finden und dorthin scrollen
+                    if (rightContent) {
+                        const markerEnd = marker.index + marker.length;
+                        const rawAfter = currentContent.substring(markerEnd, markerEnd + 300).trim();
+                        // Markdown-Syntax entfernen für bessere Treffgenauigkeit
+                        const plainAfter = rawAfter
+                            .replace(/\*\*([^*]+)\*\*/g, '$1')
+                            .replace(/\*([^*]+)\*/g, '$1')
+                            .replace(/\|(\d+)\|/g, '')
+                            .replace(/#{1,6}\s*/g, '')
+                            .trim();
+                        const words = plainAfter.split(/\s+/).filter(w => w.length > 0);
+                        
+                        // Suche mit abnehmender Wortanzahl (4→2)
+                        let foundPos = -1;
+                        for (let wc = Math.min(4, words.length); wc >= 2; wc--) {
+                            const phrase = words.slice(0, wc).join(' ').toLowerCase();
+                            foundPos = rightContent.toLowerCase().indexOf(phrase);
+                            if (foundPos !== -1) {
+                                console.log(`[syncMdPage] Text gefunden mit ${wc} Wörtern bei Position ${foundPos}: "${phrase}"`);
+                                break;
+                            }
+                        }
+                        
+                        if (foundPos !== -1) {
+                            // Zeilennummer im rechten Content berechnen
+                            const targetLine = rightContent.substring(0, foundPos).split('\n').length - 1;
+                            
+                            // Nächste mdPage finden und Index aktualisieren
+                            let closestPageIdx = 0;
+                            for (let i = 0; i < mdPages.length; i++) {
+                                if (mdPages[i].lineIndex <= targetLine) {
+                                    closestPageIdx = i;
+                                } else {
+                                    break;
+                                }
+                            }
+                            currentMdPageIndex = closestPageIdx;
+                            const pageInputEl = document.getElementById('mdPageInput');
+                            if (pageInputEl) pageInputEl.value = closestPageIdx + 1;
+                            
+                            // Separator hervorheben
+                            highlightSeparatorInMd(closestPageIdx);
+                            
+                            // Zum gefundenen Text scrollen (präziser als zum Separator)
+                            const lineHeight = 18;
+                            mdViewerEl.scrollTop = Math.max(0, targetLine * lineHeight - 100);
+                            return;
+                        }
+                        console.log(`[syncMdPage] Textbasierte Suche fehlgeschlagen, Fallback auf Seitennummer`);
+                    }
+                    
+                    // Fallback: Seitennummer-basierte Navigation
+                    if (marker.page) {
                         const targetPage = marker.page - 1;
                         
                         let targetIndex = -1;
                         
-                        // Methode 1: Exakte Übereinstimmung mit echtem pageNum
                         for (let i = 0; i < mdPages.length; i++) {
                             if (mdPages[i].pageNum === targetPage) {
                                 targetIndex = i;
@@ -4213,9 +4295,7 @@
                             }
                         }
                         
-                        // Methode 2: Interpolierte Seitenzahl verwenden
                         if (targetIndex === -1) {
-                            // Finde den mdPages-Eintrag, dessen interpolatedPage am nächsten an targetPage liegt
                             let bestDiff = Infinity;
                             for (let i = 0; i < mdPages.length; i++) {
                                 const ip = mdPages[i].interpolatedPage;
@@ -4225,13 +4305,11 @@
                                         bestDiff = diff;
                                         targetIndex = i;
                                     }
-                                    // Wenn wir schon über die Zielseite hinaus sind, brechen wir ab
                                     if (ip > targetPage && diff > bestDiff) break;
                                 }
                             }
                         }
                         
-                        // Methode 3: Letzter Fallback
                         if (targetIndex === -1) {
                             targetIndex = Math.min(targetPage - 1, mdPages.length - 1);
                             targetIndex = Math.max(0, targetIndex);
