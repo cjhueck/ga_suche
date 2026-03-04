@@ -644,6 +644,10 @@ const isLocal = window.location.hostname === 'localhost' ||
                 <td class="${(Number(data.week?.searches) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.week?.searches) || 0}</td>
                 <td class="${(Number(data.total?.searches) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.total?.searches) || 0}</td>
               </tr>
+              ${(Number(data.registeredMembers) || 0) > 0 ? `<tr>
+                <td>Mitglieder</td>
+                <td colspan="3" class="stat-green" style="text-align:center;">${Number(data.registeredMembers)}</td>
+              </tr>` : ''}
             </tbody>
           </table>
           
@@ -34918,6 +34922,10 @@ async function createManualBackup() {
         alert(`Vorträge-Backup: ${data.count} Dateien gesichert`);
       } else if (type === 'books') {
         alert(`Bücher-Backup: ${data.count} Dateien gesichert`);
+      } else if (type === 'code') {
+        alert(`Code-Backup: ${data.count} Dateien gesichert`);
+      } else if (type === 'html') {
+        alert(`HTML-Backup: ${data.count} Dateien gesichert`);
       } else if (data.message) {
         alert(data.message);
       } else {

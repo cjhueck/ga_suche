@@ -16040,31 +16040,43 @@ async function createCodeBackup() {
   try {
     await ensureBackupDirectories();
     
-    const sourceFile = path.join(__dirname, 'backend.js');
+    const codeFiles = [
+      { file: 'backend.js', prefix: 'backend', maxBackups: 20 },
+      { file: 'app.js', prefix: 'app-js', maxBackups: 20 },
+      { file: 'llm-providers.js', prefix: 'llm-providers', maxBackups: 5 },
+      { file: path.join('members', 'members-panel.js'), prefix: 'members-panel', maxBackups: 5 },
+      { file: path.join('members', 'members-api.js'), prefix: 'members-api', maxBackups: 5 },
+      { file: path.join('members', 'members-auth.js'), prefix: 'members-auth', maxBackups: 5 },
+      { file: path.join('members', 'members-integration.js'), prefix: 'members-integration', maxBackups: 5 },
+      { file: path.join('members', 'members-menu.js'), prefix: 'members-menu', maxBackups: 5 },
+      { file: path.join('members', 'members-context-menu.js'), prefix: 'members-context-menu', maxBackups: 5 },
+      { file: path.join('themes', 'thematic-visualization.js'), prefix: 'thematic-visualization', maxBackups: 5 },
+      { file: path.join('themes', 'themes-data.js'), prefix: 'themes-data', maxBackups: 5 },
+      { file: 'export-lectures.js', prefix: 'export-lectures', maxBackups: 5 }
+    ];
     
-    // Prüfe ob Datei existiert
-    try {
-      const stats = await fs.stat(sourceFile);
-      if (stats.size === 0) {
-        console.warn('[BACKUP] backend.js ist leer - kein Backup erstellt');
-        return null;
+    const results = [];
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    
+    for (const { file, prefix, maxBackups } of codeFiles) {
+      const sourceFile = path.join(__dirname, file);
+      try {
+        const stats = await fs.stat(sourceFile);
+        if (stats.size === 0) continue;
+        
+        const ext = path.extname(file);
+        const backupFile = path.join(CODE_BACKUP_DIR, `${prefix}-${timestamp}${ext}`);
+        const data = await fs.readFile(sourceFile, 'utf8');
+        await fs.writeFile(backupFile, data, 'utf8');
+        await cleanOldBackupsGeneric(CODE_BACKUP_DIR, prefix, maxBackups);
+        results.push(backupFile);
+      } catch (error) {
+        // Datei nicht vorhanden - überspringen
       }
-    } catch (error) {
-      return null;
     }
     
-    // Erstelle Backup mit Timestamp (behalte .js Endung!)
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupFile = path.join(CODE_BACKUP_DIR, `backend-${timestamp}.js`);
-    
-    const data = await fs.readFile(sourceFile, 'utf8');
-    await fs.writeFile(backupFile, data, 'utf8');
-    
-    
-    // Bereinige alte Backups
-    await cleanOldBackupsGeneric(CODE_BACKUP_DIR, 'backend', 20);
-    
-    return backupFile;
+    console.log(`[BACKUP] Code-Backup: ${results.length} Dateien gesichert`);
+    return results.length > 0 ? results : null;
   } catch (error) {
     console.error('[BACKUP] Fehler beim Code-Backup:', error);
     return null;
@@ -16162,9 +16174,10 @@ async function createFullBackup() {
     createHtmlBackup('index.html'),
     createHtmlBackup('keyword-manager.html'),
     createHtmlBackup('app.html'),
+    createHtmlBackup('themes-manager.html'),
+    createHtmlBackup('concepts-manager.html'),
     createMembersHtmlBackup(),
     createMembersPanelBackup(),
-    // NEU: Zusätzliche Backups
     createLecturesBackup(),
     createBooksBackup(),
     createQuotesBackup(),
@@ -16172,14 +16185,17 @@ async function createFullBackup() {
     createConceptsBackup(),
     createBibliographyBackup(),
     createLectureMappingBackup(),
-    // NEU: Page Marker Backups
     createPageMarkerCheckerBackup(),
     createPageMarkerMdBackup(),
-    // NEU: Chalkboards Backup
     createChalkboardsBackup()
   ]);
 
-  const successful = results.filter(r => r !== null).length;
+  let successful = 0;
+  for (const r of results) {
+    if (r === null) continue;
+    if (Array.isArray(r)) { successful += r.length; }
+    else { successful++; }
+  }
 
   return successful;
 }
@@ -24518,26 +24534,30 @@ app.post('/api/backups/create', async (req, res) => {
         }
         return res.status(500).json({ error: 'Chalkboards-Backup fehlgeschlagen' });
       case 'code':
-        backupFile = await createCodeBackup();
-        break;
+        const codeResults = await createCodeBackup();
+        if (codeResults && codeResults.length > 0) {
+          return res.json({
+            success: true,
+            backups: codeResults.map(b => path.basename(b)),
+            count: codeResults.length,
+            type: 'code'
+          });
+        }
+        return res.status(500).json({ error: 'Code-Backup fehlgeschlagen' });
       case 'html':
-        // Erstelle Backups für alle HTML-Dateien
-        const indexBackup = await createHtmlBackup('index.html');
-        const managerBackup = await createHtmlBackup('keyword-manager.html');
-        const appBackup = await createHtmlBackup('app.html');
-        // app.js Backup (seit HTML/JS-Trennung)
-        let appJsBackup = null;
+        const htmlFiles = ['index.html', 'keyword-manager.html', 'app.html', 'themes-manager.html', 'concepts-manager.html', 'members.html'];
+        const htmlResults = await Promise.all(htmlFiles.map(f => createHtmlBackup(f)));
+        const membersPanelBkp = await createMembersPanelBackup();
+        const pageMarkerCheckerBkp = await createPageMarkerCheckerBackup();
+        let appJsBkp = null;
         try {
           const appJsSrc = path.join(__dirname, 'app.js');
           const appJsTs = new Date().toISOString().replace(/[:.]/g, '-');
           const appJsDest = path.join(HTML_BACKUP_DIR, 'app-js-' + appJsTs + '.js');
           await fs.copyFile(appJsSrc, appJsDest);
-          appJsBackup = appJsDest;
-        } catch(e) { /* app.js nicht vorhanden */ }
-        const membersHtmlBackup = await createMembersHtmlBackup();
-        const membersPanelBackup = await createMembersPanelBackup();
-        const pageMarkerCheckerBackup = await createPageMarkerCheckerBackup();
-        const htmlBackups = [indexBackup, managerBackup, appBackup, appJsBackup, membersHtmlBackup, membersPanelBackup, pageMarkerCheckerBackup].filter(b => b !== null);
+          appJsBkp = appJsDest;
+        } catch(e) {}
+        const htmlBackups = [...htmlResults, membersPanelBkp, pageMarkerCheckerBkp, appJsBkp].filter(b => b !== null);
         return res.json({
           success: true,
           backups: htmlBackups.map(b => path.basename(b)),
@@ -24652,7 +24672,7 @@ app.get('/api/backups/list/:type', async (req, res) => {
         break;
       case 'code':
         backupDir = CODE_BACKUP_DIR;
-        prefix = 'backend';
+        prefix = null;
         break;
       case 'html':
         backupDir = HTML_BACKUP_DIR;
@@ -25429,6 +25449,19 @@ app.get('/api/analytics/stats', async (req, res) => {
     // Geo-Statistiken laden
     const geoStats = await loadGeoStatsFromSupabase();
 
+    // Registrierte Mitglieder zählen
+    let registeredMembers = 0;
+    if (supabaseClient) {
+      try {
+        const { data: membersData, error: membersError } = await supabaseClient.rpc('get_registered_members_count');
+        if (!membersError && membersData !== null) {
+          registeredMembers = membersData;
+        }
+      } catch (e) {
+        console.warn('[ANALYTICS] Members-Count nicht verfügbar:', e.message);
+      }
+    }
+
     res.json({
       today: todayStats,
       week: { views: weekViews, searches: weekSearches, lectures: weekLectures, unique_users: weekUniqueUsers },
@@ -25446,7 +25479,8 @@ app.get('/api/analytics/stats', async (req, res) => {
       quoteViews: weekQuoteViews,
       tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_'))),
       tabsMigrationNeeded: !tabQuoteMigrationOk,
-      geoStats
+      geoStats,
+      registeredMembers
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
