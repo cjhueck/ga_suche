@@ -569,7 +569,7 @@
     "pages": "1030",
     "edition": "1. Auflage",
     "volume": "046",
-    "editor": "Renatus Ziegler, Monika Philippi, David Marc Hoffmann"
+    "editor": "Renatus Ziegler, David Marc Hoffmann, Monika Philippi"
   },
   "GA051": {
     "gaNumber": "GA051",
@@ -721,13 +721,15 @@
   },
   "GA063": {
     "gaNumber": "GA063",
-    "title": "Beiträge zur Rudolf Steiner Gesamtausgabe",
+    "title": "Geisteswissenschaft als Lebensgut",
+    "author": "Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
-    "year": "1978",
+    "year": "1986",
     "place": "Dornach",
-    "pages": "37",
-    "subtitle": "Heft Nr. 63 Zum Atomismus",
-    "editor": "Rudolf-Steiner-Nachlassverwaltung"
+    "isbn": "3727406305",
+    "edition": "2. Aufl.",
+    "volume": "063",
+    "titleSupplement": "Zwölf öffentliche Vorträge gehalten zwischen dem 30. Oktober 1913 und 23. April 1914 im Architektenhaus zu Berlin"
   },
   "GA064": {
     "gaNumber": "GA064",
@@ -2293,7 +2295,49 @@
     "edition": "2. Aufl.",
     "volume": "173",
     "subtitle": "Kosmische und menschliche Geschichte. Vierter Band",
-    "titleSupplement": "Dreizehn Vorträge, gehalten in Dornach vom 4. bis 31. Dezember 1916 und in Basel am 21. Dezember 1916"
+    "titleSupplement": "Dreizehn Vorträge, gehalten in Dornach vom 4. bis 31. Dezember 1916 und in Basel am 21. Dezember 1916",
+    "originalPublication": "1916"
+  },
+  "GA173a": {
+    "gaNumber": "GA173a",
+    "title": "Zeitgeschichtliche Betrachtungen (Band I)",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2014",
+    "place": "Dornach",
+    "isbn": "978-3-7274-1732-0",
+    "edition": "5. Aufl.",
+    "volume": "173a",
+    "subtitle": "Wege zu einer objektiven Urteilsbildung",
+    "titleSupplement": "Sieben Vorträge, gehalten in Dornach zwischen 4. Dezember und 18. Dezember 1916",
+    "originalPublication": "1916"
+  },
+  "GA173b": {
+    "gaNumber": "GA173b",
+    "title": "Zeitgeschichtliche Betrachtungen (Band II)",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2014",
+    "place": "Dornach",
+    "isbn": "978-3-7274-1732-0",
+    "edition": "5. Aufl.",
+    "volume": "173b",
+    "subtitle": "Das Karma der Unwahrhaftigkeit",
+    "titleSupplement": "Neun Vorträge, gehalten in Dornach zwischen 24. Dezember 1916 und 8. Januar 1917",
+    "originalPublication": "1916-1917"
+  },
+  "GA173c": {
+    "gaNumber": "GA173c",
+    "title": "Zeitgeschichtliche Betrachtungen (Band III)",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2014",
+    "place": "Dornach",
+    "isbn": "978-3-7274-1732-0",
+    "volume": "173c",
+    "subtitle": "Die Wirklichkeit okkulter Impulse",
+    "titleSupplement": "Acht Vorträge, gehalten in Dornach zwischen 13. Januar und 30. Januar 1917",
+    "originalPublication": "1917"
   },
   "GA174": {
     "gaNumber": "GA174",
@@ -2319,19 +2363,6 @@
     "volume": "174a",
     "subtitle": "Kosmische und menschliche Geschichte. Sechster Band",
     "titleSupplement": "Zwölf Vorträge, gehalten in München zwischen dem 13. September 1914 und dem 4. Mai 1918"
-  },
-  "GA174b": {
-    "gaNumber": "GA174b",
-    "title": "Die geistigen Hintergründe des Ersten Weltkrieges",
-    "author": "Rudolf Steiner",
-    "publisher": "Rudolf Steiner Verlag",
-    "year": "1994",
-    "place": "Dornach",
-    "isbn": "3-7274-1742-0",
-    "edition": "2. Aufl.",
-    "volume": "174b",
-    "subtitle": "Kosmische und menschliche Geschichte. Siebenter Band",
-    "titleSupplement": "Sechzehn Vorträge, gehalten in Stuttgart zwischen dem 30. September 1914 und dem 26. April 1918 und am 21. März 1921"
   },
   "GA175": {
     "gaNumber": "GA175",
@@ -2425,11 +2456,15 @@
   },
   "GA182": {
     "gaNumber": "GA182",
-    "title": "Was tut der Engel in unserem Astralleib?",
+    "title": "Der Tod als Lebenswandlung",
     "author": "Rudolf Steiner",
-    "pages": "<sp>\r\n  <n>138</n>\r\n  <in>true</in>\r\n  <os>138</os>\r\n  <ps>138</ps>\r\n</sp>\r\n<ep>\r\n  <n>160</n>\r\n  <in>true</in>\r\n  <os>160</os>\r\n  <ps>160</ps>\r\n</ep>\r\n<os>138-160</os>",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "1996",
+    "place": "Dornach",
+    "isbn": "3-7274-1820-6",
+    "edition": "4. Aufl.",
     "volume": "182",
-    "subtitle": "Zürich, 9. Oktober 1918"
+    "titleSupplement": "Sieben Vorträge, gehalten in verschiedenen Städten zwischen dem 29. November 1917 und 16. Oktober 1918"
   },
   "GA183": {
     "gaNumber": "GA183",
@@ -4723,5 +4758,26 @@
     "volume": "354",
     "subtitle": "Über Welt- und Menschenentstehung und den Gang der Kulturentwickelung der Menschheit, Ernährungsfragen, Erdenleben und Sternenwirken",
     "titleSupplement": "Vierzehn Vorträge, gehalten für die Arbeiter am Goetheanumbau in Dornach vom 30. Juni bis 24. September 1924"
+  },
+  "GAK58": {
+    "gaNumber": "GAK58",
+    "title": "Wandtafelzeichnungen zum Vortragswerk",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf-Steiner-Verlag",
+    "year": "1989-2003",
+    "place": "Dornach",
+    "isbn": "3-7274-4100-3",
+    "volume": "01-30"
+  },
+  "GAK58-001": {
+    "gaNumber": "GAK58-001",
+    "title": "Wandtafelzeichnungen zum Vortragswerk 1",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2002",
+    "place": "Dornach",
+    "isbn": "3-7274-4101-1",
+    "pages": "44",
+    "volume": "001"
   }
 }

@@ -11,6 +11,8 @@ import sqlite3
 import json
 import re
 import sys
+import zipfile
+import tempfile
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -116,6 +118,14 @@ def extract_bibliographic_data(citavi_path: str) -> Dict[str, Dict]:
             elif 'page' in col_lower or 'seite' in col_lower:
                 pages_col = col
         
+        # SeriesTitles vorladen (für GA K-Reihen-Erkennung)
+        series_lookup = {}
+        if 'SeriesTitle' in tables:
+            series_cursor = conn.cursor()
+            series_cursor.execute("SELECT ID, Name FROM SeriesTitle")
+            for sr in series_cursor.fetchall():
+                series_lookup[sr['ID']] = sr['Name']
+        
         # Lade alle Einträge
         cursor.execute(f"SELECT * FROM {title_table}")
         rows = cursor.fetchall()
@@ -127,45 +137,53 @@ def extract_bibliographic_data(citavi_path: str) -> Dict[str, Dict]:
             # Konvertiere Row zu Dictionary
             entry = dict(row)
             
-            # Versuche GA-Nummer aus verschiedenen Feldern zu extrahieren
+            # Prüfe ob der Eintrag zu einer GA K-Reihe gehört
+            series_id = entry.get('SeriesTitleID')
+            series_name = series_lookup.get(series_id, '') if series_id else ''
+            k_match = re.match(r'GA\s+K\s+(\d+)', series_name, re.IGNORECASE)
+            
             ga_number = None
             title_value = None
             
-            # Prüfe verschiedene Felder nach GA-Nummern
-            fields_to_check = ['Title', 'ShortTitle', 'Number', 'Volume', 'TitleTagged', 'UniformTitle']
-            
-            for field in fields_to_check:
-                if field in entry and entry[field]:
-                    field_value = str(entry[field])
-                    # Suche nach GA-Nummer im Feld
-                    extracted_ga = extract_ga_number(field_value)
-                    if extracted_ga:
-                        ga_number = extracted_ga
-                        if field == 'Title' or not title_value:
-                            title_value = field_value
-                        break
-            
-            # Falls noch keine GA-Nummer gefunden, durchsuche alle Felder
-            # Prüfe besonders das Volume-Feld, da dort manchmal nur "070a" ohne "GA" steht
-            if not ga_number:
-                # Prüfe zuerst Volume-Feld separat (oft steht dort nur "070a" ohne "GA")
-                if 'Volume' in entry and entry['Volume']:
-                    volume_value = str(entry['Volume']).strip()
-                    extracted_ga = extract_ga_number(volume_value)
-                    if extracted_ga:
-                        ga_number = extracted_ga
+            if k_match:
+                # GA K-Reihe: z.B. SeriesTitle "GA K 58" + Volume "001" → "GAK58-001"
+                k_number = k_match.group(1)
+                volume = str(entry.get('Volume', '')).strip()
+                if re.match(r'^\d{1,3}$', volume):
+                    ga_number = f"GAK{k_number}-{volume.zfill(3)}"
+                else:
+                    ga_number = f"GAK{k_number}"
+            else:
+                # Reguläre GA-Nummer aus verschiedenen Feldern extrahieren
+                fields_to_check = ['Title', 'ShortTitle', 'Number', 'Volume', 'TitleTagged', 'UniformTitle']
                 
-                # Falls immer noch nicht gefunden, durchsuche alle Felder nach "GA"
+                for field in fields_to_check:
+                    if field in entry and entry[field]:
+                        field_value = str(entry[field])
+                        extracted_ga = extract_ga_number(field_value)
+                        if extracted_ga:
+                            ga_number = extracted_ga
+                            if field == 'Title' or not title_value:
+                                title_value = field_value
+                            break
+                
                 if not ga_number:
-                    for col in columns:
-                        if entry.get(col) and isinstance(entry[col], str):
-                            field_value = str(entry[col])
-                            if 'GA' in field_value.upper():
-                                extracted_ga = extract_ga_number(field_value)
-                                if extracted_ga:
-                                    ga_number = extracted_ga
-                                    title_value = field_value if not title_value else title_value
-                                    break
+                    if 'Volume' in entry and entry['Volume']:
+                        volume_value = str(entry['Volume']).strip()
+                        extracted_ga = extract_ga_number(volume_value)
+                        if extracted_ga:
+                            ga_number = extracted_ga
+                    
+                    if not ga_number:
+                        for col in columns:
+                            if entry.get(col) and isinstance(entry[col], str):
+                                field_value = str(entry[col])
+                                if 'GA' in field_value.upper():
+                                    extracted_ga = extract_ga_number(field_value)
+                                    if extracted_ga:
+                                        ga_number = extracted_ga
+                                        title_value = field_value if not title_value else title_value
+                                        break
             
             if not ga_number:
                 continue
@@ -324,26 +342,56 @@ def extract_bibliographic_data(citavi_path: str) -> Dict[str, Dict]:
     
     return bibliographic_data
 
+def find_ctv6_in_archive(archive_path: str) -> str:
+    """
+    Entpackt eine .ctv6archive-Datei (ZIP) in ein temp-Verzeichnis
+    und gibt den Pfad zur enthaltenen .ctv6-Datei zurück.
+    """
+    tmp_dir = tempfile.mkdtemp(prefix="citavi_extract_")
+    
+    with zipfile.ZipFile(archive_path, 'r') as zf:
+        ctv6_files = [n for n in zf.namelist() if n.endswith('.ctv6')]
+        if not ctv6_files:
+            raise FileNotFoundError(f"Keine .ctv6-Datei im Archiv gefunden. Inhalt: {zf.namelist()}")
+        zf.extract(ctv6_files[0], tmp_dir)
+        return str(Path(tmp_dir) / ctv6_files[0])
+
+
 def main():
-    citavi_path = r"C:\Users\chuec\OneDrive\Dokumente\Citavi 7\Projects\Rudolf Steiner Gesamtausgabe\Rudolf Steiner Gesamtausgabe.ctv6"
+    citavi_archive = r"C:\Users\chuec\OneDrive\Dokumente\Citavi 7\Backup\Rudolf Steiner Gesamtausgabe.ctv6archive"
     output_path = "ga-bibliography.json"
     
-    if not Path(citavi_path).exists():
-        print(f"Fehler: Citavi-Datei nicht gefunden: {citavi_path}")
+    if not Path(citavi_archive).exists():
+        print(f"Fehler: Citavi-Archiv nicht gefunden: {citavi_archive}")
         sys.exit(1)
     
-    print(f"Lese Citavi-Datei: {citavi_path}")
-    bibliographic_data = extract_bibliographic_data(citavi_path)
+    print(f"Entpacke Archiv: {citavi_archive}")
+    citavi_path = find_ctv6_in_archive(citavi_archive)
+    print(f"Entpackt nach: {citavi_path}")
+    
+    try:
+        print(f"Lese Citavi-Datei: {citavi_path}")
+        bibliographic_data = extract_bibliographic_data(citavi_path)
+    finally:
+        import shutil
+        tmp_dir = str(Path(citavi_path).parent)
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+        print(f"Temporäres Verzeichnis aufgeräumt: {tmp_dir}")
     
     if not bibliographic_data:
         print("Warnung: Keine bibliographischen Daten gefunden!")
         sys.exit(1)
     
-    # Sortiere nach GA-Nummer
-    sorted_data = dict(sorted(bibliographic_data.items(), key=lambda x: (
-        int(re.search(r'\d+', x[0]).group()) if re.search(r'\d+', x[0]) else 999,
-        x[0]
-    )))
+    # Sortiere: reguläre GA zuerst (nach Nummer), dann GA K-Reihen
+    def sort_key(item):
+        key = item[0]
+        is_k = key.startswith('GAK')
+        nums = re.findall(r'\d+', key)
+        primary = int(nums[0]) if nums else 999
+        secondary = int(nums[1]) if len(nums) > 1 else 0
+        return (is_k, primary, secondary, key)
+    
+    sorted_data = dict(sorted(bibliographic_data.items(), key=sort_key))
     
     # Speichere als JSON
     with open(output_path, 'w', encoding='utf-8') as f:
