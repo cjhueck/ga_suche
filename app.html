@@ -3954,32 +3954,36 @@ gap: 4px !important;
       font-size: 0.8em;
     }
 
-    .search-input.has-value {
-      padding-right: 22px;
+    .has-clear-btn {
+      display: flex !important;
+      align-items: stretch;
+    }
+
+    .has-clear-btn .search-input {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
     }
 
     .search-input-clear {
-      position: absolute;
-      right: 1px;
-      top: 1px;
-      bottom: 1px;
+      display: none;
+      align-items: center;
+      justify-content: center;
       width: 22px;
-      background: var(--background-color, #fff);
+      background: none;
       border: none;
       cursor: pointer;
       color: #999;
       font-size: 1.1em;
-      line-height: 1;
       padding: 0;
-      display: none;
-      z-index: 10;
-      border-radius: 0 3px 3px 0;
+      margin-left: -23px;
+      position: relative;
+      z-index: 5;
+      flex-shrink: 0;
     }
 
     .search-input-clear.visible {
       display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .search-input-clear:hover {
@@ -3987,7 +3991,6 @@ gap: 4px !important;
     }
 
     body.dark-mode .search-input-clear {
-      background: #333;
       color: #aaa;
     }
 
@@ -7814,7 +7817,8 @@ Wandtafeln
 <!-- Suchwort 1 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv1"/>
+<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
+<datalist id="advWord-history"></datalist>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">

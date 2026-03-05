@@ -1971,69 +1971,66 @@ function normalizeGANumber(gaNumber) {
       blockEmailAutofill(document.getElementById('word2'));
 
       // Clear-Buttons (×) für alle Suchfelder in Tab Suche und Tab Suche/erweitert
-      const clearBtnFields = ['word1', 'word2', 'advWord1', 'advWord2', 'advWord3', 'advWord4', 'advWord5', 'advWord6', 'advWord7'];
-      clearBtnFields.forEach(function(id) {
-        const input = document.getElementById(id);
+      var clearBtnFieldIds = {word1:1, word2:1, advWord1:1, advWord2:1, advWord3:1, advWord4:1, advWord5:1, advWord6:1, advWord7:1};
+      var clearBtnOrigLists = {};
+
+      Object.keys(clearBtnFieldIds).forEach(function(id) {
+        var input = document.getElementById(id);
         if (!input) return;
-        const wrapper = input.parentElement;
-        if (!wrapper || getComputedStyle(wrapper).position !== 'relative') {
-          wrapper.style.position = 'relative';
+        var parent = input.parentElement;
+        parent.classList.add('has-clear-btn');
+        var list = input.getAttribute('list');
+        if (list) clearBtnOrigLists[id] = list;
+        if (!parent.querySelector('.search-input-clear')) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'search-input-clear';
+          btn.dataset.for = id;
+          btn.textContent = '\u00D7';
+          btn.tabIndex = -1;
+          btn.title = 'Feld leeren';
+          parent.appendChild(btn);
         }
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'search-input-clear';
-        btn.textContent = '\u00D7';
-        btn.tabIndex = -1;
-        btn.title = 'Feld leeren';
-        wrapper.appendChild(btn);
-
-        var origList = input.getAttribute('list');
-        if (origList) input.dataset.origList = origList;
-
-        function toggleClear() {
-          var hasVal = input.value.length > 0;
-          btn.classList.toggle('visible', hasVal);
-          input.classList.toggle('has-value', hasVal);
-          if (origList) {
-            if (hasVal) {
-              input.removeAttribute('list');
-            } else {
-              input.setAttribute('list', origList);
-            }
-          }
-        }
-        input.addEventListener('input', toggleClear);
-        input.addEventListener('change', toggleClear);
-        input.addEventListener('focus', toggleClear);
-        toggleClear();
-
-        btn.addEventListener('mousedown', function(e) {
-          e.preventDefault();
-          input.value = '';
-          btn.classList.remove('visible');
-          input.classList.remove('has-value');
-          if (origList) input.setAttribute('list', origList);
-          input.focus();
-          input.dispatchEvent(new Event('input', { bubbles: true }));
-        });
       });
 
+      function syncClearBtn(input) {
+        if (!input || !clearBtnFieldIds[input.id]) return;
+        var hasVal = input.value.length > 0;
+        var btn = input.parentElement.querySelector('.search-input-clear');
+        if (btn) btn.classList.toggle('visible', hasVal);
+        var orig = clearBtnOrigLists[input.id];
+        if (orig) {
+          if (hasVal) { input.removeAttribute('list'); }
+          else { input.setAttribute('list', orig); }
+        }
+      }
+
+      // Event delegation: funktioniert auch nach innerHTML-Restore
+      document.addEventListener('input', function(e) {
+        if (e.target && clearBtnFieldIds[e.target.id]) syncClearBtn(e.target);
+      }, true);
+      document.addEventListener('focus', function(e) {
+        if (e.target && clearBtnFieldIds[e.target.id]) syncClearBtn(e.target);
+      }, true);
+      document.addEventListener('mousedown', function(e) {
+        var btn = e.target.closest('.search-input-clear');
+        if (!btn) return;
+        e.preventDefault();
+        var targetId = btn.dataset.for;
+        var input = targetId ? document.getElementById(targetId) : btn.parentElement.querySelector('.search-input');
+        if (!input) return;
+        input.value = '';
+        btn.classList.remove('visible');
+        var orig = clearBtnOrigLists[input.id];
+        if (orig) input.setAttribute('list', orig);
+        input.focus();
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }, true);
+
       window.updateSearchClearButtons = function() {
-        clearBtnFields.forEach(function(id) {
-          const input = document.getElementById(id);
-          if (!input) return;
-          var hasVal = input.value.length > 0;
-          var origL = input.dataset.origList;
-          const btn = input.parentElement.querySelector('.search-input-clear');
-          if (btn) btn.classList.toggle('visible', hasVal);
-          input.classList.toggle('has-value', hasVal);
-          if (origL) {
-            if (hasVal) {
-              input.removeAttribute('list');
-            } else {
-              input.setAttribute('list', origL);
-            }
-          }
+        Object.keys(clearBtnFieldIds).forEach(function(id) {
+          var input = document.getElementById(id);
+          if (input) syncClearBtn(input);
         });
       };
 
