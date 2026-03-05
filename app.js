@@ -1969,7 +1969,74 @@ function normalizeGANumber(gaNumber) {
       // Auf beide Suchfelder anwenden
       blockEmailAutofill(document.getElementById('word1'));
       blockEmailAutofill(document.getElementById('word2'));
-      
+
+      // Clear-Buttons (×) für alle Suchfelder in Tab Suche und Tab Suche/erweitert
+      const clearBtnFields = ['word1', 'word2', 'advWord1', 'advWord2', 'advWord3', 'advWord4', 'advWord5', 'advWord6', 'advWord7'];
+      clearBtnFields.forEach(function(id) {
+        const input = document.getElementById(id);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        if (!wrapper || getComputedStyle(wrapper).position !== 'relative') {
+          wrapper.style.position = 'relative';
+        }
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'search-input-clear';
+        btn.textContent = '\u00D7';
+        btn.tabIndex = -1;
+        btn.title = 'Feld leeren';
+        wrapper.appendChild(btn);
+
+        var origList = input.getAttribute('list');
+        if (origList) input.dataset.origList = origList;
+
+        function toggleClear() {
+          var hasVal = input.value.length > 0;
+          btn.classList.toggle('visible', hasVal);
+          input.classList.toggle('has-value', hasVal);
+          if (origList) {
+            if (hasVal) {
+              input.removeAttribute('list');
+            } else {
+              input.setAttribute('list', origList);
+            }
+          }
+        }
+        input.addEventListener('input', toggleClear);
+        input.addEventListener('change', toggleClear);
+        input.addEventListener('focus', toggleClear);
+        toggleClear();
+
+        btn.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          input.value = '';
+          btn.classList.remove('visible');
+          input.classList.remove('has-value');
+          if (origList) input.setAttribute('list', origList);
+          input.focus();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      });
+
+      window.updateSearchClearButtons = function() {
+        clearBtnFields.forEach(function(id) {
+          const input = document.getElementById(id);
+          if (!input) return;
+          var hasVal = input.value.length > 0;
+          var origL = input.dataset.origList;
+          const btn = input.parentElement.querySelector('.search-input-clear');
+          if (btn) btn.classList.toggle('visible', hasVal);
+          input.classList.toggle('has-value', hasVal);
+          if (origL) {
+            if (hasVal) {
+              input.removeAttribute('list');
+            } else {
+              input.setAttribute('list', origL);
+            }
+          }
+        });
+      };
+
     });
     
     // Header-Position nach kurzer Verzögerung auch aktualisieren (für dynamische Layouts)
@@ -2080,6 +2147,7 @@ function normalizeGANumber(gaNumber) {
       const word2 = document.getElementById('word2');
       if (word1) word1.value = '';
       if (word2) word2.value = '';
+      if (window.updateSearchClearButtons) window.updateSearchClearButtons();
       
       // Setze Dropdowns zurück
       const proximityFilter = document.getElementById('proximityFilter');
@@ -2134,6 +2202,7 @@ function normalizeGANumber(gaNumber) {
         const wordInput = document.getElementById(`advWord${i}`);
         if (wordInput) wordInput.value = '';
       }
+      if (window.updateSearchClearButtons) window.updateSearchClearButtons();
       
       // Setze alle Operatoren zurück auf UND
       for (let i = 1; i < 7; i++) {
@@ -3434,6 +3503,7 @@ function normalizeGANumber(gaNumber) {
               if (word2Input && event.state.searchWord2) {
                 word2Input.value = event.state.searchWord2;
               }
+              if (window.updateSearchClearButtons) window.updateSearchClearButtons();
               // Operator wiederherstellen
               if (event.state.searchOperator) {
                 const operatorRadio = document.querySelector(`input[name="wordOperator"][value="${event.state.searchOperator}"]`);
@@ -8223,7 +8293,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}" 
              id="para-${paraIndex}"
              data-index="${paraIndexWithCaret}"
-             data-paragraph-index="${paraIndex} - ${clickHandler}
+             data-paragraph-index="${paraIndex}"
+             ${clickHandler}
              style="${cursorStyle}">
           ${content}
         </div>
@@ -9218,7 +9289,7 @@ function convertFootnotesToLinks() {
       cleanText = cleanText.replace(/\s+/g, ' ').trim();
       
       footnotesSection += `<li id="fn${fnId}" value="${fnId}" style="margin-bottom: 0.5rem; font-size: var(--text-size);">
-        ${cleanText}<a href="#fnref${fnId}" class="footnote-backlink" style="text-decoration: none; color: var(--accent-color);">?</a>
+        ${cleanText}<a href="#fnref${fnId}" class="footnote-backlink" style="text-decoration: none; color: var(--accent-color);">\u21A9</a>
       </li>`;
     });
     
@@ -13963,7 +14034,7 @@ function scrollToChronologicalYear(year) {
       html += '<thead><tr>';
       
       // GA column with toggle all icon and sort arrow
-      html += '<th class="sort-header" onclick="sortFrequencyTable(\'ga\')"><span class="expand-icon" id="toggle-all-ga" onclick="event.stopPropagation(); toggleAllGABands();" style="cursor: pointer; margin-right: 0.5rem;" title="Alle auf-/zuklappen">?</span>GA<span class="sort-icon active" id="sort-icon-ga">?</span></th>';
+      html += '<th class="sort-header" onclick="sortFrequencyTable(\'ga\')"><span class="expand-icon" id="toggle-all-ga" onclick="event.stopPropagation(); toggleAllGABands();" style="cursor: pointer; margin-right: 0.5rem;" title="Alle auf-/zuklappen">\u25B6</span>GA<span class="sort-icon active" id="sort-icon-ga">\u2191</span></th>';
       
       // Spaltenüberschriften für Suchworte mit Trefferanzahl
       words.forEach((word, idx) => {
@@ -13973,7 +14044,7 @@ function scrollToChronologicalYear(year) {
         
         html += `<th class="sort-header" onclick="sortFrequencyTable(${idx})">
           <div>
-            ${displayWord}<span class="sort-icon" id="sort-icon-${idx}">?</span>`;
+            ${displayWord}<span class="sort-icon" id="sort-icon-${idx}">\u2193</span>`;
         
         // If proximity data is available, show ONLY the proximity hits
         if (hasProximityData && proximityHits > 0) {
@@ -13987,7 +14058,7 @@ function scrollToChronologicalYear(year) {
           </th>`;
       });
       
-      html += '<th class="sort-header" onclick="sortFrequencyTable(\'total\')">Gesamt<span class="sort-icon" id="sort-icon-total">?</span></th>';
+      html += '<th class="sort-header" onclick="sortFrequencyTable(\'total\')">Gesamt<span class="sort-icon" id="sort-icon-total">\u2193</span></th>';
       html += '</tr></thead>';
       html += '<tbody id="frequency-table-body">';
       
@@ -14010,7 +14081,7 @@ function scrollToChronologicalYear(year) {
         
         // GA-Band Zeile (aufklappbar)
         html += `<tr class="ga-band-row" onclick="toggleGABand('${gaBand}')">`;
-        html += `<td><span class="expand-icon" id="icon-${gaBand}">?</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
+        html += `<td><span class="expand-icon" id="icon-${gaBand}">\u25B6</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
         
         // Spalten für jedes Suchwort
         words.forEach(word => {
@@ -14219,7 +14290,7 @@ function scrollToChronologicalYear(year) {
       const activeIcon = document.getElementById(activeIconId);
       if (activeIcon) {
         activeIcon.classList.add('active');
-        activeIcon.textContent = newOrder === 'asc' ? '?' : '?';
+        activeIcon.textContent = newOrder === 'asc' ? '\u2191' : '\u2193';
       }
       
       // Re-render table body
@@ -14247,7 +14318,7 @@ function scrollToChronologicalYear(year) {
         // GA-Band Zeile
         const isExpanded = expandedBands[gaBand];
         html += `<tr class="ga-band-row" onclick="toggleGABand('${gaBand}')">`;
-        html += `<td><span class="expand-icon ${isExpanded ? 'expanded' : ''}" id="icon-${gaBand}">?</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
+        html += `<td><span class="expand-icon ${isExpanded ? 'expanded' : ''}" id="icon-${gaBand}">\u25B6</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
         
         words.forEach(word => {
           const count = displayCounts[word] || 0;
@@ -14640,7 +14711,7 @@ function scrollToChronologicalYear(year) {
             'niedrig': '#ffc107'    // Gelb
           };
           const color = relevanceColors[firstChunk.relevanceCategory] || '#ffc107';
-          relevanceDot = ` <span style="color: ${color}; font-size: 1.2em; margin-left: 4px;" title="Relevanz: ${firstChunk.relevanceCategory}">?</span>`;
+          relevanceDot = ` <span style="color: ${color}; font-size: 1.2em; margin-left: 4px;" title="Relevanz: ${firstChunk.relevanceCategory}">\u25CF</span>`;
         }
         
         titleLink.innerHTML = lecture.fileName + relevanceDot;
@@ -16044,7 +16115,7 @@ function scrollToChronologicalYear(year) {
           <div class="concept-network-header">
             <h3 class="concept-network-title" style="font-size: 1em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">Netzwerk: ${concept}</h3>
             <div class="concept-network-controls">
-              <button class="concept-network-btn" onclick="showConceptNetwork('${concept}', true)" title="Neu generieren">?</button>
+              <button class="concept-network-btn" onclick="showConceptNetwork('${concept}', true)" title="Neu generieren">\u27F3</button>
               <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">Index</button>
             </div>
           </div>
@@ -16108,9 +16179,9 @@ function scrollToChronologicalYear(year) {
           <div class="concept-network-header">
             <h3 class="concept-network-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">${concept}</h3>
             <div class="concept-network-controls">
-              <button class="concept-network-btn" onclick="showConceptNetwork('${concept}', true)" title="Neu generieren">? Neu</button>
-              <button class="concept-network-btn" onclick="resetNetworkZoom()" title="Zoom zurücksetzen">?</button>
-              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">? Index</button>
+              <button class="concept-network-btn" onclick="showConceptNetwork('${concept}', true)" title="Neu generieren">\u27F3 Neu</button>
+              <button class="concept-network-btn" onclick="resetNetworkZoom()" title="Zoom zur\u00FCcksetzen">\u2299</button>
+              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">\u2190 Index</button>
             </div>
           </div>
           <svg class="concept-network-svg" id="network-svg"></svg>
@@ -16400,8 +16471,8 @@ function scrollToChronologicalYear(year) {
           <div class="concept-network-header">
             <h3 class="concept-network-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">Verlinkungsnetz: ${concept}</h3>
             <div class="concept-network-controls">
-              <button class="concept-network-btn" onclick="resetBidirectionalNetworkZoom()" title="Zoom zurücksetzen">?</button>
-              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">? Index</button>
+              <button class="concept-network-btn" onclick="resetBidirectionalNetworkZoom()" title="Zoom zur\u00FCcksetzen">\u2299</button>
+              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">\u2190 Index</button>
             </div>
           </div>
           <div class="bidirectional-network-legend">
@@ -16752,7 +16823,7 @@ function scrollToChronologicalYear(year) {
           <div class="connection-modal-header">
             <h3 class="connection-modal-title">
               <span id="connection-modal-source"></span>
-              <span class="connection-arrow">?</span>
+              <span class="connection-arrow">\u2194</span>
               <span id="connection-modal-target"></span>
             </h3>
             <button class="connection-modal-close" onclick="hideConnectionModal()">×</button>
@@ -19854,7 +19925,7 @@ function showSummaryView() {
       console.log(`[RENDER] ✏️ Absatz mit has-text-edit Klasse: para-${paraIndex}`);
     }
 
-html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx} - ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
+html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
   
   // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
@@ -22204,7 +22275,7 @@ async function exportCurrentGA() {
         ? `<p><strong>Vortrag:</strong> ${result.lectureId}</p>` 
         : '';
       progressDiv.innerHTML = `
-        <p style="color: #5cb85c; font-size: 1.2em;">? Export erfolgreich!</p>
+        <p style="color: #5cb85c; font-size: 1.2em;">\u2713 Export erfolgreich!</p>
         <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
           <p><strong>GA-Band:</strong> ${result.gaNumber}</p>
           ${lectureInfo}
@@ -22230,7 +22301,7 @@ async function exportCurrentGA() {
     } else {
       // Fehler
       progressDiv.innerHTML = `
-        <p style="color: #d9534f; font-size: 1.2em;">? Export fehlgeschlagen</p>
+        <p style="color: #d9534f; font-size: 1.2em;">\u2717 Export fehlgeschlagen</p>
         <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left; color: #721c24;">
           <p><strong>Fehler:</strong> ${result.error || 'Unbekannter Fehler'}</p>
           ${result.details ? `<pre style="margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.85em;">${result.details}</pre>` : ''}
@@ -22251,7 +22322,7 @@ async function exportCurrentGA() {
     const progressDiv = document.getElementById('export-progress');
     if (progressDiv) {
       progressDiv.innerHTML = `
-        <p style="color: #d9534f; font-size: 1.2em;">? Verbindungsfehler</p>
+        <p style="color: #d9534f; font-size: 1.2em;">\u2717 Verbindungsfehler</p>
         <p style="margin-top: 0.5rem;">${err.message}</p>
       `;
     }
@@ -22341,14 +22412,14 @@ async function openPagesCorrectionDialog() {
         ? `<p><strong>Vortrag:</strong> ${result.lectureId}</p>` 
         : '';
       progressDiv.innerHTML = `
-        <p style="color: #5cb85c; font-size: 1.2em;">? Seitenmarker erfolgreich eingefügt!</p>
+        <p style="color: #5cb85c; font-size: 1.2em;">\u2713 Seitenmarker erfolgreich eingef\u00FCgt!</p>
         <div style="background: var(--code-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left;">
           <p><strong>GA-Band:</strong> ${result.gaNumber}</p>
           ${lectureInfo}
           <p><strong>JSON-Marker:</strong> ${result.jsonMarkers || 0}</p>
           <p><strong>MD-Marker:</strong> ${result.mdMarkers || 0}</p>
-          <p><strong>PDF kopiert:</strong> ${result.pdfCopied ? '?' : '—'}</p>
-          <p><strong>Override deaktiviert:</strong> ${result.overrideDeactivated ? '?' : '—'}</p>
+          <p><strong>PDF kopiert:</strong> ${result.pdfCopied ? '\u2713' : '\u2014'}</p>
+          <p><strong>Override deaktiviert:</strong> ${result.overrideDeactivated ? '\u2713' : '\u2014'}</p>
           ${result.message ? `<p style="margin-top: 0.5rem; color: #666;">${result.message}</p>` : ''}
         </div>
       `;
@@ -22368,7 +22439,7 @@ async function openPagesCorrectionDialog() {
     } else {
       // Fehler
       progressDiv.innerHTML = `
-        <p style="color: #d9534f; font-size: 1.2em;">? Fehler bei der Verarbeitung</p>
+        <p style="color: #d9534f; font-size: 1.2em;">\u2717 Fehler bei der Verarbeitung</p>
         <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: left; color: #721c24;">
           <p><strong>Fehler:</strong> ${result.error || 'Unbekannter Fehler'}</p>
           ${result.details ? `<pre style="margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.85em;">${result.details}</pre>` : ''}
@@ -22389,7 +22460,7 @@ async function openPagesCorrectionDialog() {
     const progressDiv = document.getElementById('pages-progress');
     if (progressDiv) {
       progressDiv.innerHTML = `
-        <p style="color: #d9534f; font-size: 1.2em;">? Verbindungsfehler</p>
+        <p style="color: #d9534f; font-size: 1.2em;">\u2717 Verbindungsfehler</p>
         <p style="margin-top: 0.5rem;">${err.message}</p>
       `;
     }
@@ -22570,7 +22641,7 @@ async function generatePagesForMultiple(lectureIdsString) {
       <div id="gen-progress">
         ${gaNumbers.map(ga => `
           <div id="gen-${ga}" style="padding: 0.5rem; margin-bottom: 0.5rem; background: var(--code-bg); border-radius: 4px;">
-            <span style="color: #17a2b8;">?</span> ${ga}: Warte...
+            <span style="color: #17a2b8;">\u23F3</span> ${ga}: Warte...
           </div>
         `).join('')}
       </div>
@@ -22586,7 +22657,7 @@ async function generatePagesForMultiple(lectureIdsString) {
   for (const gaNumber of gaNumbers) {
     const progressDiv = document.getElementById(`gen-${gaNumber}`);
     if (progressDiv) {
-      progressDiv.innerHTML = `<span style="color: #17a2b8;">?</span> ${gaNumber}: Generiere...`;
+      progressDiv.innerHTML = `<span style="color: #17a2b8;">\u23F3</span> ${gaNumber}: Generiere...`;
     }
     
     try {
@@ -22596,7 +22667,7 @@ async function generatePagesForMultiple(lectureIdsString) {
       
       // Generiere Pagebreaks (force=true: auch wenn bereits vorhanden, neu generieren)
       if (progressDiv) {
-        progressDiv.innerHTML = `<span style="color: #17a2b8;">?</span> ${gaNumber}: Generiere Seitenzahlen...`;
+        progressDiv.innerHTML = `<span style="color: #17a2b8;">\u23F3</span> ${gaNumber}: Generiere Seitenzahlen...`;
       }
       
       const resp = await fetch(`${API_BASE}/api/pages/generate`, {
@@ -22609,7 +22680,7 @@ async function generatePagesForMultiple(lectureIdsString) {
       
       if (result.success) {
         if (progressDiv) {
-          progressDiv.innerHTML = `<span style="color: #5cb85c;">?</span> ${gaNumber}: Seitenzahlen eingefügt`;
+          progressDiv.innerHTML = `<span style="color: #5cb85c;">\u2713</span> ${gaNumber}: Seitenzahlen eingef\u00FCgt`;
         }
         successCount++;
       } else {
@@ -22619,7 +22690,7 @@ async function generatePagesForMultiple(lectureIdsString) {
     } catch (err) {
       errorCount++;
       if (progressDiv) {
-        progressDiv.innerHTML = `<span style="color: #d9534f;">?</span> ${gaNumber} - ${err.message}`;
+        progressDiv.innerHTML = `<span style="color: #d9534f;">\u2717</span> ${gaNumber}: ${err.message}`;
       }
     }
   }
@@ -24303,7 +24374,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}" 
                  id="para-${paraIndex}"
                  data-index="${paraIndexWithCaret}"
-                 data-paragraph-index="${paraIndex} - ${clickHandler}
+                 data-paragraph-index="${paraIndex}"
+                 ${clickHandler}
                  style="${cursorStyle}">
               ${content}
             </div>
@@ -25078,6 +25150,7 @@ function runObsidianSearch(rawQ) {
   switchTab('keyword', true);
   setTimeout(function() {
     document.getElementById('word1').value = searchText;
+    if (window.updateSearchClearButtons) window.updateSearchClearButtons();
     performKeywordSearch();
   }, 500);
 }
@@ -30471,7 +30544,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   document.addEventListener('copy', function(e) {
     try {
-    const selection = window.getSelection();
+      const selection = window.getSelection();
     if (!selection.rangeCount) return;
     
     const selectedText = selection.toString().trim();
@@ -30567,8 +30640,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    console.log(`[COPY] ${wordCount} Wörter selektiert, erstelle Quellenangabe...`);
-    
     // Prüfe ob die Selektion in einem relevanten Container liegt
     let container = null;
     for (const id of containerIds) {
@@ -30578,10 +30649,7 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
       }
     }
-    if (!container) {
-      console.log('[COPY] Selektion nicht in viewer/results/summary-panel - keine Quellenangabe');
-      return;
-    }
+    if (!container) return;
     
     // GA-Nummer ermitteln: primär currentGANumber, alternativ aus dem DOM extrahieren
     let gaNumber = null;
@@ -30619,11 +30687,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    if (!gaNumber) {
-      console.log('[COPY] Keine GA-Nummer ermittelbar - keine Quellenangabe');
-      return;
-    }
-    console.log('[COPY] GA-Nummer:', gaNumber, '| currentOpenLectureId:', window.currentOpenLectureId);
+    if (!gaNumber) return;
     
     // Verwende gecachte bibliographische Daten (synchron, da copy-Event synchron sein muss)
     // gaInfo kann null sein (z.B. wenn GA in der Bibliographie fehlt) - dann Fallback-Quellenangabe
@@ -30740,8 +30804,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    console.log('[COPY] lectureIdForLink:', lectureIdForLink || '(null - kein Link wird erstellt)');
-    
     if (lectureIdForLink) {
       // Absatz-Index am Anfang der Selektion ermitteln
       let paragraphIndex = null;
@@ -30805,7 +30867,7 @@ document.addEventListener('DOMContentLoaded', function() {
       e.clipboardData.setData('text/html', htmlContent);
     }
     
-    console.log('[COPY] Quellenangabe angehängt:', citation, linkUrl ? '(Link: ' + linkUrl + ')' : '(KEIN LINK)', '(Container:', container.id, ')');
+    console.log('[COPY] Quellenangabe angehängt:', citation, linkUrl ? '(Link: ' + linkUrl + ')' : '', '(Container:', container.id, ')');
     } catch (err) {
       console.error('[COPY] Fehler im Copy-Handler:', err);
     }
@@ -35062,7 +35124,7 @@ async function loadErrorReports() {
               <span style="font-weight: 500; color: var(--heading-color);">${report.ga || 'Unbekannt'}</span>
               <span style="font-size: 0.8em; color: var(--text-color); opacity: 0.6;">${dateStr}</span>
             </div>
-            <span style="font-size: 1.2em; color: var(--text-color); opacity: 0.5;">?</span>
+            <span style="font-size: 1.2em; color: var(--text-color); opacity: 0.5;">\u25BC</span>
           </div>
           <div id="error-report-details-${report.id}" style="display: none; padding: 12px; border-top: 1px solid var(--border-color);">
             ${report.comment ? `<p style="margin: 0 0 10px 0; color: var(--text-color);"><strong>Kommentar:</strong> ${escapeHtml(report.comment)}</p>` : ''}
@@ -35226,6 +35288,7 @@ async function loadMarkedWords(syncOnline = true) {
       countEl.textContent = 'Keine Einträge';
       container.innerHTML = `
         <div style="padding: 60px 40px; text-align: center; color: var(--text-color);">
+          <div style="font-size: 3em; margin-bottom: 15px; opacity: 0.3;">\u2713</div>
           <p style="font-size: 1.1em; margin: 0; opacity: 0.7;">Keine fehlerhaften Textstellen gespeichert.</p>
           <p style="font-size: 0.85em; margin-top: 8px; opacity: 0.5;">Strg+Klick auf markierten Text, um Fehler zu melden.</p>
         </div>
@@ -35302,7 +35365,7 @@ async function loadMarkedWords(syncOnline = true) {
     countEl.textContent = 'Fehler';
     container.innerHTML = `
       <div style="padding: 40px; text-align: center; color: #c9433d;">
-        <div style="font-size: 2em; margin-bottom: 10px;">?</div>
+        <div style="font-size: 2em; margin-bottom: 10px;">\u274C</div>
         <p>Fehler beim Laden: ${error.message}</p>
       </div>
     `;
@@ -39015,9 +39078,9 @@ window.cancelTextEditMode = function() {};
     const originalContent = dialog.innerHTML;
     dialog.innerHTML = `
       <div style="padding: 2rem; text-align: center;">
-        <h3>Wörterbuch wird erweitert...</h3>
+        <h3>W\u00F6rterbuch wird erweitert...</h3>
         <div style="margin: 2rem 0;">
-          <div style="font-size: 3em;">?</div>
+          <div style="font-size: 3em;">\u23F3</div>
         </div>
         <p style="color: var(--secondary-text);">
           Lade deutsche Wortlisten...<br>
