@@ -4611,30 +4611,30 @@ function normalizeGANumber(gaNumber) {
     
 
     // GA-Bibliographie Popup Funktionen
-    let gaBibliographyData = null; // Cache für bibliographische Daten
+    window.gaBibliographyData = null; // Cache für bibliographische Daten (global für Copy-Handler)
     
-    async function loadGABibliographyData() {
-      if (gaBibliographyData) return gaBibliographyData;
+    window.loadGABibliographyData = async function() {
+      if (window.gaBibliographyData) return window.gaBibliographyData;
       
       try {
         const response = await fetch('ga-bibliography.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        gaBibliographyData = await response.json();
-        return gaBibliographyData;
+        window.gaBibliographyData = await response.json();
+        return window.gaBibliographyData;
       } catch (error) {
         console.error('Fehler beim Laden der bibliographischen Daten:', error);
         return null;
       }
     }
     
-    async function showGABibliographyInfo() {
+    window.showGABibliographyInfo = async function() {
       if (!currentGANumber) {
         console.warn('Kein GA-Band ausgewählt');
         return;
       }
       
       // Lade bibliographische Daten
-      const bibliographyData = await loadGABibliographyData();
+      const bibliographyData = await window.loadGABliographyData();
       if (!bibliographyData) {
         alert('Bibliographische Daten konnten nicht geladen werden.');
         return;
@@ -4728,7 +4728,7 @@ function normalizeGANumber(gaNumber) {
       popup.style.display = 'flex';
     }
     
-    function closeGABibliographyPopup(event) {
+    window.closeGABibliographyPopup = function(event) {
       // Wenn Event übergeben wurde und auf den Hintergrund geklickt wurde, schließe Popup
       if (event && event.target.id === 'gaBibliographyPopup') {
         document.getElementById('gaBibliographyPopup').style.display = 'none';
@@ -4739,7 +4739,7 @@ function normalizeGANumber(gaNumber) {
     }
     
     // Funktion: Zeige bibliographische Angaben für Wandtafelzeichnungen
-    function showChalkboardsBibliographyInfo() {
+    window.showChalkboardsBibliographyInfo = function() {
       var popup = document.getElementById('gaBibliographyPopup');
       var titleEl = document.getElementById('gaBibliographyTitle');
       var contentEl = document.getElementById('gaBibliographyContent');
@@ -30462,14 +30462,15 @@ if (document.readyState === 'loading') {
 // Format: (Titel, GA XXX, Verlagsort Jahr, S. XX)
 document.addEventListener('DOMContentLoaded', function() {
   // Bibliographische Daten vorladen, damit sie beim Kopieren sofort verfügbar sind
-  if (typeof loadGABibliographyData === 'function') {
-    loadGABibliographyData();
+  if (typeof window.loadGABibliographyData === 'function') {
+    window.loadGABibliographyData();
   }
   
   // Relevante Container-IDs, in denen Text mit Quellenangabe kopiert werden soll
   const containerIds = ['viewer', 'results', 'summary-panel'];
   
   document.addEventListener('copy', function(e) {
+    try {
     const selection = window.getSelection();
     if (!selection.rangeCount) return;
     
@@ -30561,11 +30562,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Prüfe Wortanzahl: Bei <= 10 Wörtern keine Quellenangabe hinzufügen
     const wordCount = selectedText.split(/\s+/).filter(word => word.length > 0).length;
     
-    // Bei sehr kurzen Texten (< 10 Zeichen) oder wenigen Wörtern (= 10) keine Quellenangabe
     if (selectedText.length < 10 || wordCount <= 10) {
       console.log(`[COPY] Kurzer Text (${wordCount} Wörter) - keine Quellenangabe`);
-      return; // Standardverhalten: nur Text kopieren
+      return;
     }
+    
+    console.log(`[COPY] ${wordCount} Wörter selektiert, erstelle Quellenangabe...`);
     
     // Prüfe ob die Selektion in einem relevanten Container liegt
     let container = null;
@@ -30576,7 +30578,10 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
       }
     }
-    if (!container) return; // Selektion nicht in einem relevanten Bereich
+    if (!container) {
+      console.log('[COPY] Selektion nicht in viewer/results/summary-panel - keine Quellenangabe');
+      return;
+    }
     
     // GA-Nummer ermitteln: primär currentGANumber, alternativ aus dem DOM extrahieren
     let gaNumber = null;
@@ -30614,13 +30619,17 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    if (!gaNumber) return; // Keine GA-Nummer ermittelbar
+    if (!gaNumber) {
+      console.log('[COPY] Keine GA-Nummer ermittelbar - keine Quellenangabe');
+      return;
+    }
+    console.log('[COPY] GA-Nummer:', gaNumber, '| currentOpenLectureId:', window.currentOpenLectureId);
     
     // Verwende gecachte bibliographische Daten (synchron, da copy-Event synchron sein muss)
     // gaInfo kann null sein (z.B. wenn GA in der Bibliographie fehlt) - dann Fallback-Quellenangabe
-    const hasBibData = typeof gaBibliographyData !== 'undefined' && gaBibliographyData;
+    const hasBibData = typeof window.gaBibliographyData !== 'undefined' && window.gaBibliographyData;
     const normalizedGA = normalizeGANumber(gaNumber);
-    const gaInfo = hasBibData ? (gaBibliographyData[normalizedGA] || null) : null;
+    const gaInfo = hasBibData ? (window.gaBibliographyData[normalizedGA] || null) : null;
     
     // Finde die nächste Seitenzahl VOR einem DOM-Knoten (rückwärts durch DOM laufen)
     function findNearestPageBefore(node) {
@@ -30731,6 +30740,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
+    console.log('[COPY] lectureIdForLink:', lectureIdForLink || '(null - kein Link wird erstellt)');
+    
     if (lectureIdForLink) {
       // Absatz-Index am Anfang der Selektion ermitteln
       let paragraphIndex = null;
@@ -30794,7 +30805,10 @@ document.addEventListener('DOMContentLoaded', function() {
       e.clipboardData.setData('text/html', htmlContent);
     }
     
-    console.log('[COPY] Quellenangabe angehängt:', citation, linkUrl ? '(Link: ' + linkUrl + ')' : '', '(Container:', container.id, ')');
+    console.log('[COPY] Quellenangabe angehängt:', citation, linkUrl ? '(Link: ' + linkUrl + ')' : '(KEIN LINK)', '(Container:', container.id, ')');
+    } catch (err) {
+      console.error('[COPY] Fehler im Copy-Handler:', err);
+    }
   });
 });
 
