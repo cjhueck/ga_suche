@@ -4742,7 +4742,7 @@ function normalizeGANumber(gaNumber) {
       }
       
       // Lade bibliographische Daten
-      const bibliographyData = await window.loadGABliographyData();
+      const bibliographyData = await window.loadGABibliographyData();
       if (!bibliographyData) {
         alert('Bibliographische Daten konnten nicht geladen werden.');
         return;
