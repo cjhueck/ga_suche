@@ -35074,30 +35074,32 @@ async function createManualBackup() {
     
     if (response.ok) {
       const data = await response.json();
+      let msg;
       if (type === 'full') {
-        alert(`${data.backupsCreated} Backups erstellt`);
+        msg = `${data.backupsCreated} Backups erstellt`;
       } else if (type === 'chalkboards') {
-        alert(`Wandtafeln-Backup: ${data.count} Tafeln gesichert`);
+        msg = `Wandtafeln-Backup: ${data.count} Tafeln gesichert`;
       } else if (type === 'lectures') {
-        alert(`Vorträge-Backup: ${data.count} Dateien gesichert`);
+        msg = `Vortr\u00E4ge-Backup: ${data.count} Dateien gesichert`;
       } else if (type === 'books') {
-        alert(`Bücher-Backup: ${data.count} Dateien gesichert`);
+        msg = `B\u00FCcher-Backup: ${data.count} Dateien gesichert`;
       } else if (type === 'code') {
-        alert(`Code-Backup: ${data.count} Dateien gesichert`);
+        msg = `Code-Backup: ${data.count} Dateien gesichert`;
       } else if (type === 'html') {
-        alert(`HTML-Backup: ${data.count} Dateien gesichert`);
+        msg = `HTML-Backup: ${data.count} Dateien gesichert`;
       } else if (data.message) {
-        alert(data.message);
+        msg = data.message;
       } else {
-        alert(`Backup erstellt: ${data.backup || data.backupFile}`);
+        msg = `Backup erstellt: ${data.backup || data.backupFile}`;
       }
+      showToast(msg, 'success');
       loadBackupList();
     } else {
-      alert('Fehler beim Erstellen des Backups');
+      showToast('Fehler beim Erstellen des Backups', 'error');
     }
   } catch (error) {
     console.error('Fehler:', error);
-    alert('Fehler beim Erstellen');
+    showToast('Fehler beim Erstellen des Backups', 'error');
   }
 }
 
@@ -35111,17 +35113,16 @@ async function restoreBackup(backupName) {
     
     if (response.ok) {
       const data = await response.json();
-      alert(`Backup wiederhergestellt: ${data.entries} Einträge`);
+      showToast(`Backup wiederhergestellt: ${data.entries} Eintr\u00E4ge`, 'success');
       closeBackupModal();
-      // Seite neu laden um neue Daten anzuzeigen
-      location.reload();
+      setTimeout(() => location.reload(), 1500);
     } else {
-      const error = await response.json();
-      alert(`Fehler: ${error.error}`);
+      const errData = await response.json();
+      showToast(`Fehler: ${errData.error}`, 'error');
     }
   } catch (error) {
     console.error('Fehler:', error);
-    alert('Fehler bei Wiederherstellung');
+    showToast('Fehler bei Wiederherstellung', 'error');
   }
 }
 
