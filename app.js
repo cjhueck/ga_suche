@@ -11478,6 +11478,13 @@ function scrollToChronologicalYear(year) {
         // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
         const gaNumber = lectureId.split('/')[0];
         
+        // Aktuellen Tab-Zustand im History-Eintrag speichern, BEVOR der Tab gewechselt wird,
+        // damit der Browser-Back-Button die vorherige Ansicht wiederherstellen kann
+        const savedState = getCurrentTabState();
+        if (savedState) {
+          history.replaceState(savedState, '', window.location.href);
+        }
+        
         // Wechsle zum Texte-Tab (skipHistory=true, da showLecture den History-Eintrag erstellt)
         if (typeof switchTab === 'function') {
           switchTab('texte', true);
@@ -13625,12 +13632,13 @@ function scrollToChronologicalYear(year) {
           proximity: proximity,
           gaFilter: gaFilter
         };
-        const url = `${window.location.pathname}#suche?freq=${encodeURIComponent(JSON.stringify(searchParams))}`;
+        const url = `${window.location.pathname}#keyword?freq=${encodeURIComponent(JSON.stringify(searchParams))}`;
         history.pushState({ 
-          tab: 'suche',
+          tab: 'keyword',
           searchType: 'frequency',
           searchParams: searchParams
         }, '', url);
+        window._lastViewerState = { searchType: 'frequency', searchParams: searchParams, tab: 'keyword' };
         } catch (error) {
         console.error('[FREQUENCY-ANALYSIS] Fehler:', error);
         if (statusElement) {

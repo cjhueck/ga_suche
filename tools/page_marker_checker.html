@@ -3767,8 +3767,7 @@
             // Normalisierungsfunktion (wie bei PDF-Suche)
             const normalizeForSearch = (text) => {
                 let normalized = text.replace(/\s+/g, ' ').trim().toLowerCase();
-                // ENTFERNT: Keine ß→ss Transformation mehr
-                // ENTFERNT: Keine Umlaut-Normalisierung mehr
+                normalized = normalized.replace(/ß/g, 'ss');
                 return normalized;
             };
             
@@ -3823,14 +3822,22 @@
             };
             
             // Hilfsfunktion: Finde alle Vorkommnisse eines Texts (ab minSearchPosition)
+            // ß und ss werden als äquivalent behandelt (alte/neue Rechtschreibung)
             const findAllOccurrences = (text, search) => {
                 const indices = [];
                 const lowerText = text.toLowerCase();
                 const lowerSearch = search.toLowerCase();
-                let pos = minSearchPosition; // Start ab minSearchPosition (Serie-Modus)
-                while ((pos = lowerText.indexOf(lowerSearch, pos)) !== -1) {
-                    indices.push(pos);
-                    pos++;
+                const escaped = lowerSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const szPattern = escaped
+                    .replace(/ß/g, '\x00')
+                    .replace(/ss/g, '(?:ss|ß)')
+                    .replace(/\x00/g, '(?:ß|ss)');
+                const regex = new RegExp(szPattern, 'g');
+                regex.lastIndex = minSearchPosition;
+                let match;
+                while ((match = regex.exec(lowerText)) !== null) {
+                    indices.push(match.index);
+                    regex.lastIndex = match.index + 1;
                 }
                 return indices;
             };
@@ -3897,7 +3904,7 @@
                 }
             }
             
-            // Strategie 2: Normalisierte Suche (nur Whitespace-Normalisierung, keine ß→ss Transformationen)
+            // Strategie 2: Normalisierte Suche (Whitespace-Normalisierung + ß→ss)
             if (searchIndex === -1) {
                 // Hilfsfunktion: Finde alle Vorkommnisse in normalisiertem Text
                 const findAllNormalizedOccurrences = (normText, search) => {
@@ -3917,11 +3924,20 @@
                 };
                 
                 // Hilfsfunktion: Konvertiere normalisierten Index zu Original-Position
-                // ENTFERNT: ß→ss Transformation wurde entfernt
-                // Da normalizeForSearch keine Transformationen mehr durchführt, ist normIndexToOriginal = normalizedIndex
+                // ß→ss verschiebt Positionen um +1 pro ß, deshalb Rückmapping nötig
                 const normIndexToOriginal = (normalizedIndex) => {
-                    // Da keine Transformationen mehr stattfinden, ist die Position gleich
-                    return normalizedIndex;
+                    const lowerText = markdownText.toLowerCase();
+                    let origPos = 0;
+                    let normPos = 0;
+                    while (normPos < normalizedIndex && origPos < lowerText.length) {
+                        if (lowerText[origPos] === 'ß') {
+                            normPos += 2;
+                        } else {
+                            normPos += 1;
+                        }
+                        origPos += 1;
+                    }
+                    return origPos;
                 };
                 
                 bestCandidate = null;
@@ -6975,7 +6991,12 @@
             mdSearchCurrentIndex = -1;
             
             const contentEl = document.getElementById('content');
-            const searchRegex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            const escaped = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const szPattern = escaped
+                .replace(/ß/g, '\x00')
+                .replace(/ss/gi, '(?:ss|ß)')
+                .replace(/\x00/g, '(?:ß|ss)');
+            const searchRegex = new RegExp(szPattern, 'gi');
             
             // Durchsuche alle Textknoten
             const walker = document.createTreeWalker(
