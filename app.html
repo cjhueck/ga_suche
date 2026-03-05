@@ -7718,7 +7718,7 @@ Wandtafeln
 </label>
 </div>
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word2" list="word2-history" onfocus="this.removeAttribute('readonly'); this.select();" onblur="this.setAttribute('readonly', true);" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 2 (optional)" type="text" autocomplete="off" readonly/>
+<input class="search-input" id="word2" list="word2-history" onfocus="this.removeAttribute('readonly'); this.select();" onblur="this.setAttribute('readonly', true);" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 2" type="text" autocomplete="off" readonly/>
 <datalist id="word2-history"></datalist>
 </div>
 </div>
@@ -7758,7 +7758,7 @@ Wandtafeln
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items: flex-start; justify-content: space-between; width: 100%;">
     <div style="display:flex; gap:8px;">
-      <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suchen</button>
+      <button id="searchBtnSimple" class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suchen</button>
       <button id="frequencyBtnSimple" class="depth-btn" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 8px;">Häufigkeit</button>
       <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 8px;">erweitert</button>
     </div>
@@ -7835,7 +7835,7 @@ Wandtafeln
 <!-- Suchwort 2 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv2"/>
+<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -7852,7 +7852,7 @@ Wandtafeln
 <!-- Suchwort 3 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv3"/>
+<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -7869,7 +7869,7 @@ Wandtafeln
 <!-- Suchwort 4 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv4"/>
+<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -7886,7 +7886,7 @@ Wandtafeln
 <!-- Suchwort 5 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv5"/>
+<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -7903,7 +7903,7 @@ Wandtafeln
 <!-- Suchwort 6 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv6"/>
+<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -7920,7 +7920,7 @@ Wandtafeln
 <!-- Suchwort 7 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv7"/>
+<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" list="advWord-history" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
 </div>
 <div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
 <label class="word-operator-label">
@@ -7936,7 +7936,7 @@ Wandtafeln
 
 <!-- Buttons -->
 <div style="display:flex; gap:8px; margin-top: 1rem;">
-<button class="depth-btn primary" onclick="performAdvancedSearch()" style="padding: 6px 16px;">Suchen</button>
+<button id="searchBtnAdvanced" class="depth-btn primary" onclick="performAdvancedSearch()" style="padding: 6px 16px;">Suchen</button>
 <button class="depth-btn primary" onclick="performAdvancedFrequencyAnalysis()" style="padding: 6px 16px;">Häufigkeit</button>
 </div>
 

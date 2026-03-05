@@ -627,7 +627,7 @@ const isLocal = window.location.hostname === 'localhost' ||
                 <td class="${(Number(data.total?.views) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.total?.views) || 0}</td>
               </tr>
               <tr>
-                <td>Nutzer <span style="font-size:0.75rem;color:var(--secondary-text);font-weight:normal">(pro Tag)</span></td>
+                <td>Nutzer</td>
                 <td class="${(Number(data.today?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.today?.unique_users) || 0}</td>
                 <td class="${(Number(data.week?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.week?.unique_users) || 0}</td>
                 <td class="${(Number(data.total?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.total?.unique_users) || 0}</td>
@@ -646,7 +646,9 @@ const isLocal = window.location.hostname === 'localhost' ||
               </tr>
               ${(Number(data.registeredMembers) || 0) > 0 ? `<tr>
                 <td>Mitglieder</td>
-                <td colspan="3" class="stat-green" style="text-align:center;">${Number(data.registeredMembers)}</td>
+                <td></td>
+                <td></td>
+                <td class="stat-green" style="text-align:right;">${Number(data.registeredMembers)}</td>
               </tr>` : ''}
             </tbody>
           </table>
@@ -918,13 +920,14 @@ const isLocal = window.location.hostname === 'localhost' ||
           const parsed = JSON.parse(saved);
           return {
             word1: Array.isArray(parsed.word1) ? parsed.word1 : [],
-            word2: Array.isArray(parsed.word2) ? parsed.word2 : []
+            word2: Array.isArray(parsed.word2) ? parsed.word2 : [],
+            adv: Array.isArray(parsed.adv) ? parsed.adv : []
           };
         }
       } catch (e) {
         console.warn('Suchhistorie konnte nicht geladen werden:', e);
       }
-      return { word1: [], word2: [] };
+      return { word1: [], word2: [], adv: [] };
     })();
     let showingSummaryInMain = false;
     let currentLectureSummary = null;
@@ -2010,7 +2013,25 @@ function normalizeGANumber(gaNumber) {
         if (e.target && clearBtnFieldIds[e.target.id]) syncClearBtn(e.target);
       }, true);
       document.addEventListener('focus', function(e) {
-        if (e.target && clearBtnFieldIds[e.target.id]) syncClearBtn(e.target);
+        if (e.target && clearBtnFieldIds[e.target.id]) {
+          syncClearBtn(e.target);
+          if (e.target.id.indexOf('adv') === 0) {
+            updateHistoryDatalist();
+            var parent = e.target.parentElement;
+            if (parent && !parent.classList.contains('has-clear-btn')) {
+              parent.classList.add('has-clear-btn');
+              if (!parent.querySelector('.search-input-clear')) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'search-input-clear';
+                btn.textContent = '\u00D7';
+                btn.title = 'Feld leeren';
+                btn.dataset.for = e.target.id;
+                parent.appendChild(btn);
+              }
+            }
+          }
+        }
       }, true);
       document.addEventListener('mousedown', function(e) {
         var btn = e.target.closest('.search-input-clear');
@@ -2077,6 +2098,26 @@ function normalizeGANumber(gaNumber) {
         word2List.innerHTML = searchHistory.word2.map(item => {
           const sanitized = String(item).replace(/[<>]/g, '');
           return `<option value="${sanitized}">`;
+        }).join('');
+      }
+
+      const advList = document.getElementById('advWord-history');
+      if (advList) {
+        var combined = [];
+        var seen = {};
+        var sources = [searchHistory.adv, searchHistory.word1, searchHistory.word2];
+        for (var s = 0; s < sources.length; s++) {
+          for (var i = 0; i < sources[s].length; i++) {
+            var sanitized = String(sources[s][i]).replace(/[<>]/g, '');
+            var lower = sanitized.toLowerCase();
+            if (!seen[lower]) {
+              seen[lower] = true;
+              combined.push(sanitized);
+            }
+          }
+        }
+        advList.innerHTML = combined.map(function(item) {
+          return '<option value="' + item + '">';
         }).join('');
       }
     }
@@ -11417,7 +11458,7 @@ function scrollToChronologicalYear(year) {
     }
 
     // Navigiere zum Texte-Tab und zeige den spezifischen Vortrag
-    async function navigateToLectureInTexteTab(lectureId) {
+    async function navigateToLectureInTexteTab(lectureId, keywords) {
       try {
         if (!lectureId) {
           console.error('[NAVIGATION] Keine Lecture-ID angegeben');
@@ -11518,12 +11559,23 @@ function scrollToChronologicalYear(year) {
           
           // Lade zuerst den spezifischen Vortrag im Hauptviewer
           if (typeof showLecture === 'function') {
-            await showLecture(lectureId, null, []);
+            const kw = Array.isArray(keywords) ? keywords : [];
+            await showLecture(lectureId, null, kw);
             
             // WICHTIG: Stelle Viewer-Padding nochmal sicher (nach showLecture) - symmetrisch links/rechts
             const viewerAfterLecture = document.getElementById('viewer');
             if (viewerAfterLecture) {
               viewerAfterLecture.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+            }
+            
+            // Scrolle zum ersten hervorgehobenen Suchwort
+            if (kw.length > 0) {
+              setTimeout(function() {
+                var firstMark = document.querySelector('#viewer mark');
+                if (firstMark) {
+                  firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+              }, 500);
             }
           } else {
             console.error('[NAVIGATION] showLecture Funktion nicht verfügbar');
@@ -11880,7 +11932,7 @@ function scrollToChronologicalYear(year) {
       setUILocked(true);
       button.disabled = true;
       button.classList.add('processing');
-      button.textContent = 'Suche läuft...';
+      button.innerHTML = '<i>Suche\u2026</i>';
         
         // Hole Filter-Werte aus Custom Dropdowns (als Arrays)
         const gaFilterValues = getGAFilterValue();
@@ -11958,7 +12010,7 @@ function scrollToChronologicalYear(year) {
 
         button.disabled = false;
         button.classList.remove('processing');
-        button.textContent = 'Suchen';
+        button.innerHTML = 'Suchen';
       }
     }
 
@@ -12139,6 +12191,10 @@ function scrollToChronologicalYear(year) {
         return;
       }
       
+      for (var wi = 0; wi < words.length; wi++) {
+        addToHistory('adv', words[wi]);
+      }
+      
       // Hole Proximity-Filter
       const proximityElement = document.getElementById('advancedProximityFilter');
       const proximity = proximityElement ? proximityElement.value : '';
@@ -12154,7 +12210,7 @@ function scrollToChronologicalYear(year) {
       try {
         button.disabled = true;
         button.classList.add('processing');
-        button.textContent = 'Suche läuft...';
+        button.innerHTML = '<i>Suche\u2026</i>';
         
         // Sende Anfrage an Backend
         const response = await fetch(`${API_BASE}/api/advanced-search`, {
@@ -12202,7 +12258,7 @@ function scrollToChronologicalYear(year) {
       } finally {
         button.disabled = false;
         button.classList.remove('processing');
-        button.textContent = 'Suchen';
+        button.innerHTML = 'Suchen';
       }
     }
     
@@ -13612,6 +13668,10 @@ function scrollToChronologicalYear(year) {
         return;
       }
       
+      for (var wi = 0; wi < words.length; wi++) {
+        addToHistory('adv', words[wi]);
+      }
+      
       // Sammle Operatoren
       const operators = [];
       for (let i = 1; i < words.length; i++) {
@@ -14078,7 +14138,7 @@ function scrollToChronologicalYear(year) {
         
         // GA-Band Zeile (aufklappbar)
         html += `<tr class="ga-band-row" onclick="toggleGABand('${gaBand}')">`;
-        html += `<td><span class="expand-icon" id="icon-${gaBand}">\u25B6</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
+        html += `<td><span class="expand-icon" id="icon-${gaBand}">\u25B6</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToFrequencyLecture('${gaBand}'); return false;">${gaBand}</a></td>`;
         
         // Spalten für jedes Suchwort
         words.forEach(word => {
@@ -14107,7 +14167,7 @@ function scrollToChronologicalYear(year) {
           });
           
           html += `<tr class="lecture-row" data-ga="${gaBand}">`;
-          html += `<td style="padding-left: 2rem;"><a href="#" class="lecture-link" onclick="navigateToLectureInTexteTab('${lectureId}'); return false;">${lectureId}</a></td>`;
+          html += `<td style="padding-left: 2rem;"><a href="#" class="lecture-link" onclick="navigateToLectureInTexteTab('${lectureId}', window.frequencyTableData &amp;&amp; window.frequencyTableData.words); return false;">${lectureId}</a></td>`;
           
           // Spalten für jedes Suchwort
           words.forEach(word => {
@@ -14315,7 +14375,7 @@ function scrollToChronologicalYear(year) {
         // GA-Band Zeile
         const isExpanded = expandedBands[gaBand];
         html += `<tr class="ga-band-row" onclick="toggleGABand('${gaBand}')">`;
-        html += `<td><span class="expand-icon ${isExpanded ? 'expanded' : ''}" id="icon-${gaBand}">\u25B6</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
+        html += `<td><span class="expand-icon ${isExpanded ? 'expanded' : ''}" id="icon-${gaBand}">\u25B6</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToFrequencyLecture('${gaBand}'); return false;">${gaBand}</a></td>`;
         
         words.forEach(word => {
           const count = displayCounts[word] || 0;
@@ -14372,7 +14432,7 @@ function scrollToChronologicalYear(year) {
           });
           
           html += `<tr class="lecture-row ${isExpanded ? 'visible' : ''}" data-ga="${gaBand}">`;
-          html += `<td style="padding-left: 2rem;"><a href="#" class="lecture-link" onclick="navigateToLectureInTexteTab('${lectureId}'); return false;">${lectureId}</a></td>`;
+          html += `<td style="padding-left: 2rem;"><a href="#" class="lecture-link" onclick="navigateToLectureInTexteTab('${lectureId}', window.frequencyTableData &amp;&amp; window.frequencyTableData.words); return false;">${lectureId}</a></td>`;
           
           words.forEach(word => {
             const count = lectureCounts[word] || 0;
@@ -14428,6 +14488,33 @@ function scrollToChronologicalYear(year) {
       }
     }
     
+    async function navigateToFrequencyLecture(gaBand) {
+      var ftd = window.frequencyTableData;
+      if (!ftd || !ftd.frequencies || !ftd.frequencies[gaBand]) {
+        navigateToGABandInTexteTab(gaBand);
+        return;
+      }
+      var bandData = ftd.hasProximityData && ftd.proximityFrequencies && ftd.proximityFrequencies[gaBand]
+        ? ftd.proximityFrequencies[gaBand]
+        : ftd.frequencies[gaBand];
+      var lectures = bandData.lectures || {};
+      var bestLecture = null;
+      var bestTotal = 0;
+      Object.keys(lectures).forEach(function(lid) {
+        var total = 0;
+        ftd.words.forEach(function(w) { total += lectures[lid][w] || 0; });
+        if (total > bestTotal) {
+          bestTotal = total;
+          bestLecture = lid;
+        }
+      });
+      if (bestLecture) {
+        navigateToLectureInTexteTab(bestLecture, ftd.words);
+      } else {
+        navigateToGABandInTexteTab(gaBand);
+      }
+    }
+
     function highlightSearchTermInLecture(text, searchTerm) {
       if (!text || !searchTerm) return text;
       
