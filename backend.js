@@ -15761,6 +15761,7 @@ const RELATIONSHIPS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'relationships');
 const CONCEPTS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'concepts');
 const BIBLIOGRAPHY_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'bibliography');
 const LECTURE_MAPPING_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'lecture-mapping');
+const EMBEDDINGS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'embeddings');
 
 // ============================================================================
 // AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
@@ -15786,7 +15787,8 @@ async function ensureBackupDirectories() {
     RELATIONSHIPS_BACKUP_DIR,
     CONCEPTS_BACKUP_DIR,
     BIBLIOGRAPHY_BACKUP_DIR,
-    LECTURE_MAPPING_BACKUP_DIR
+    LECTURE_MAPPING_BACKUP_DIR,
+    EMBEDDINGS_BACKUP_DIR
   ];
   
   for (const dir of dirs) {
@@ -16264,6 +16266,15 @@ async function createBibliographyBackup() {
   return await createBackup(GA_BIBLIOGRAPHY_FILE, BIBLIOGRAPHY_BACKUP_DIR, 'ga-bibliography', 2);
 }
 
+async function createEmbeddingsBackup() {
+  const backups = [
+    createBackup(EMBEDDINGS_CACHE_FILE, EMBEDDINGS_BACKUP_DIR, 'summary-embeddings', 2),
+    createBackup(path.join(__dirname, 'book-chapter-summaries.json'), EMBEDDINGS_BACKUP_DIR, 'book-chapter-summaries', 2)
+  ];
+  const results = await Promise.all(backups);
+  return results.find(r => r !== null) || null;
+}
+
 // NEU: Backup für lecture-page-mapping.json (Seitenzuordnung für Vorträge)
 async function createLectureMappingBackup() {
   const lectureMappingFile = path.join(__dirname, 'lecture-page-mapping.json');
@@ -16421,7 +16432,8 @@ async function createFullBackup() {
     createLectureMappingBackup(),
     createPageMarkerCheckerBackup(),
     createPageMarkerMdBackup(),
-    createChalkboardsBackup()
+    createChalkboardsBackup(),
+    createEmbeddingsBackup()
   ]);
 
   let successful = 0;
@@ -24832,6 +24844,9 @@ app.post('/api/backups/create', async (req, res) => {
       case 'bibliography':
         backupFile = await createBibliographyBackup();
         break;
+      case 'embeddings':
+        backupFile = await createEmbeddingsBackup();
+        break;
       case 'lecturemapping':
         backupFile = await createLectureMappingBackup();
         break;
@@ -24935,6 +24950,10 @@ app.get('/api/backups/list/:type', async (req, res) => {
       case 'bibliography':
         backupDir = BIBLIOGRAPHY_BACKUP_DIR;
         prefix = 'ga-bibliography';
+        break;
+      case 'embeddings':
+        backupDir = EMBEDDINGS_BACKUP_DIR;
+        prefix = null;
         break;
       case 'lecturemapping':
         backupDir = LECTURE_MAPPING_BACKUP_DIR;

@@ -35095,6 +35095,8 @@ async function createManualBackup() {
         msg = `Code-Backup: ${data.count} Dateien gesichert`;
       } else if (type === 'html') {
         msg = `HTML-Backup: ${data.count} Dateien gesichert`;
+      } else if (type === 'embeddings') {
+        msg = `Embeddings-Backup erstellt`;
       } else if (data.message) {
         msg = data.message;
       } else {
