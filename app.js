@@ -15055,7 +15055,7 @@ function scrollToChronologicalYear(year) {
         isThematicSearchRunning = true;
         button.disabled = true;
         button.classList.add('processing');
-        button.textContent = 'Suche läuft...';
+        button.innerHTML = '<em>Suche...</em>';
         
         const gaFilter = document.getElementById('thematicGAFilter').value;
         currentThematicGAFilter = gaFilter || '';
@@ -15126,7 +15126,7 @@ function scrollToChronologicalYear(year) {
         setUILocked(false);
         button.disabled = false;
         button.classList.remove('processing');
-        button.textContent = 'Suche starten';
+        button.textContent = 'Suchen';
       }
     }
 
@@ -17587,7 +17587,7 @@ function scrollToChronologicalYear(year) {
         // Normalisiere Query wie im Backend (toLowerCase + trim)
         const normalizedQuery = currentThematicQuery.toLowerCase().trim();
         // Verwende gespeichertes Limit (100 für Tiefe, 300 für Breite)
-        const cacheKey = `${normalizedQuery}|ausführlich|${currentThematicLimit} - ${gaFilter}`;
+        const cacheKey = `${normalizedQuery}|ausführlich|${currentThematicLimit}|${gaFilter}`;
         
         // Rufe Backend-Endpunkt auf (muss im Backend implementiert sein!)
         const response = await fetch(`${API_BASE}/api/thematic-search/delete`, {

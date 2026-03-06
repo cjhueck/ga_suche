@@ -2510,9 +2510,10 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
   return results;
 }
 
-function applySemanticRanking(keywordResults, query) {
+function applySemanticRanking(keywordResults, query, lectureSimilarities = {}) {
   const queryLower = query.toLowerCase();
   const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
+  const hasSimilarities = Object.keys(lectureSimilarities).length > 0;
   
   return keywordResults.map(result => {
     let semanticScore = result.keywordScore;
@@ -2545,6 +2546,13 @@ function applySemanticRanking(keywordResults, query) {
         semanticScore += 2;
       }
     });
+    
+    // Summary-Similarity-Boost: Keyword-Treffer aus semantisch
+    // ähnlichen Vorträgen erhalten einen zusätzlichen Score-Bonus
+    if (hasSimilarities && lectureSimilarities[result.ID]) {
+      const similarityBoost = lectureSimilarities[result.ID] * 30;
+      semanticScore += similarityBoost;
+    }
     
     const idealLength = 500;
     const lengthPenalty = Math.abs(content.length - idealLength) / idealLength;
@@ -7724,16 +7732,17 @@ async function createEmbedding(text) {
   
   if (geminiKey) {
     // GEMINI EMBEDDING
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${geminiKey}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key=${geminiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'models/text-embedding-004',
+        model: 'models/gemini-embedding-001',
         content: {
           parts: [{ text: text.substring(0, 10000) }]
-        }
+        },
+        outputDimensionality: 768
       })
     });
     
@@ -7785,10 +7794,137 @@ function cosineSimilarity(vecA, vecB) {
   return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
-// API: Generiere Embeddings für alle Summaries (einmalig)
+// ============================================================================
+// SUMMARY-EMBEDDINGS CACHE + SEMANTISCHE ANREICHERUNG FÜR THEMENSUCHE
+// ============================================================================
+
+let _summaryEmbeddingsCache = null;
+
+async function loadCachedSummaryEmbeddings() {
+  if (_summaryEmbeddingsCache) return _summaryEmbeddingsCache;
+  try {
+    const raw = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
+    // Prüfe ob Embeddings mit dem aktuellen Modell kompatibel sind
+    const firstKey = Object.keys(raw)[0];
+    if (firstKey && raw[firstKey].embedding) {
+      const dim = raw[firstKey].embedding.length;
+      if (dim !== 768) {
+        console.warn(`[EMBEDDINGS] Dimension ${dim} != 768, Embeddings nicht kompatibel. Bitte /api/generate-embeddings erneut ausführen.`);
+        _summaryEmbeddingsCache = {};
+        return _summaryEmbeddingsCache;
+      }
+      // Prüfe ob model-Feld gesetzt ist (neue Embeddings haben es)
+      if (raw[firstKey].model && !raw[firstKey].model.includes('gemini-embedding')) {
+        console.warn(`[EMBEDDINGS] Embeddings stammen von '${raw[firstKey].model}', nicht von gemini-embedding-001. Ergebnisse könnten ungenau sein.`);
+      }
+    }
+    _summaryEmbeddingsCache = raw;
+    console.log(`[EMBEDDINGS] ${Object.keys(_summaryEmbeddingsCache).length} Summary-Embeddings gecacht`);
+  } catch (e) {
+    console.warn('[EMBEDDINGS] Keine Summary-Embeddings verfügbar:', e.message);
+    _summaryEmbeddingsCache = {};
+  }
+  return _summaryEmbeddingsCache;
+}
+
+/**
+ * Findet Vorträge/Bücher, deren Summaries semantisch ähnlich zur Abfrage sind.
+ * Nutzt die Summary-Embeddings (moderne Sprache), nicht Steiners Originaltext.
+ * @returns {Object} Map: lectureId → similarity (0..1)
+ */
+async function findSemanticallySimilarLectures(query, threshold = 0.35, topN = 30) {
+  try {
+    const embeddings = await loadCachedSummaryEmbeddings();
+    if (Object.keys(embeddings).length === 0) return {};
+
+    const queryEmbedding = await createEmbedding(query);
+
+    const similarities = [];
+    for (const id in embeddings) {
+      if (!embeddings[id].embedding) continue;
+      const sim = cosineSimilarity(queryEmbedding, embeddings[id].embedding);
+      if (sim >= threshold) {
+        similarities.push([id, sim]);
+      }
+    }
+
+    similarities.sort((a, b) => b[1] - a[1]);
+    return Object.fromEntries(similarities.slice(0, topN));
+  } catch (err) {
+    console.warn('[SEMANTIC-ENRICHMENT] Fehler:', err.message);
+    return {};
+  }
+}
+
+// ============================================================================
+// QUERY-EXPANSION: LLM expandiert Nutzerfrage in Steiner-Terminologie
+// ============================================================================
+
+const _queryExpansionCache = new Map();
+
+/**
+ * Expandiert eine Nutzerfrage in Steiner-spezifische Suchbegriffe mittels LLM.
+ * Ergebnisse werden im Speicher gecacht.
+ * @returns {string[]} Array erweiterter Suchbegriffe
+ */
+async function expandQueryWithLLM(query) {
+  const cacheKey = query.toLowerCase().trim();
+  if (_queryExpansionCache.has(cacheKey)) {
+    return _queryExpansionCache.get(cacheKey);
+  }
+
+  try {
+    const provider = getProviderForTask('analysis');
+    if (!provider || !provider.isAvailable()) {
+      return [];
+    }
+
+    const prompt = `Du bist ein Experte für Rudolf Steiners Gesamtausgabe (GA). Ein Nutzer sucht nach Textstellen zum Thema:
+
+"${query}"
+
+Nenne 8-12 SPEZIFISCHE Suchbegriffe, die Rudolf Steiner zu diesem Thema verwendet. Regeln:
+- NUR Steiner-spezifische Fachbegriffe und Komposita (z.B. "Bewusstseinsseele", "ätherische Bildekräfte")
+- Bevorzuge Mehrwort-Phrasen (2-3 Wörter), die zusammen gesucht werden sollen
+- KEINE allgemeinen Wörter wie "denken", "erkenntnis", "geist", "mensch", "leben", "welt" allein
+- KEINE GA-Nummern, keine Jahreszahlen, keine Ortsnamen
+
+Antworte NUR mit einem JSON-Array von Strings, z.B.: ["Fachbegriff1", "spezifische Phrase"]`;
+
+    const response = await provider.generateCompletion(prompt, {
+      maxTokens: 300,
+      temperature: 0.3
+    });
+
+    const jsonMatch = response.match(/\[[\s\S]*?\]/);
+    if (!jsonMatch) {
+      console.warn('[QUERY-EXPANSION] Kein JSON-Array in LLM-Antwort');
+      return [];
+    }
+
+    const terms = JSON.parse(jsonMatch[0]);
+    if (!Array.isArray(terms)) return [];
+
+    const cleanTerms = terms
+      .filter(t => typeof t === 'string' && t.trim().length > 1)
+      .map(t => t.trim().toLowerCase());
+
+    console.log(`[QUERY-EXPANSION] "${query}" → ${cleanTerms.length} Begriffe: ${cleanTerms.slice(0, 5).join(', ')}...`);
+
+    _queryExpansionCache.set(cacheKey, cleanTerms);
+    return cleanTerms;
+  } catch (err) {
+    console.warn('[QUERY-EXPANSION] Fehler:', err.message);
+    return [];
+  }
+}
+
+// API: Generiere Embeddings für alle Summaries
+// POST body: { forceRegenerate: true } um alle mit dem aktuellen Modell neu zu erzeugen
 app.post('/api/generate-embeddings', async (req, res) => {
   try {
-    console.log('[EMBEDDINGS] Starte Embedding-Generierung...');
+    const { forceRegenerate = false } = req.body || {};
+    console.log(`[EMBEDDINGS] Starte Embedding-Generierung... (force=${forceRegenerate})`);
     
     // Lade Summaries (Vorträge)
     const summaryDb = JSON.parse(await fs.readFile(path.join(__dirname, 'summary-database.json'), 'utf8'));
@@ -7803,7 +7939,7 @@ app.post('/api/generate-embeddings', async (req, res) => {
       console.log('[EMBEDDINGS] Keine Buch-Kapitel-Summaries gefunden');
     }
     
-    // Lade bestehende Embeddings
+    // Lade bestehende Embeddings (auch bei forceRegenerate, damit bereits mit neuem Modell generierte übersprungen werden)
     let embeddings = {};
     try {
       embeddings = JSON.parse(await fs.readFile(EMBEDDINGS_CACHE_FILE, 'utf8'));
@@ -7811,13 +7947,16 @@ app.post('/api/generate-embeddings', async (req, res) => {
     } catch (e) {
       console.log('[EMBEDDINGS] Keine bestehenden Embeddings gefunden');
     }
+    if (forceRegenerate) {
+      console.log('[EMBEDDINGS] Force-Regenerierung: Alle Embeddings ohne aktuelles Modell werden neu erzeugt');
+    }
     
-    // Finde Summaries ohne Embedding (Vorträge)
+    // Finde Summaries, die verarbeitet werden müssen
     const toProcess = [];
     for (const id in summaryDb) {
-      if (!embeddings[id]) {
+      if (forceRegenerate || !embeddings[id]) {
         const summary = summaryDb[id];
-        const text = (summary.shortSummary || '') + ' ' + (summary.summary || '');
+        const text = summary.summary || '';
         if (text.trim().length > 50) {
           toProcess.push({ id, text: text.trim(), type: 'lecture' });
         }
@@ -7827,9 +7966,8 @@ app.post('/api/generate-embeddings', async (req, res) => {
     // Finde Buch-Kapitel-Summaries ohne Embedding
     let bookChaptersToProcess = 0;
     for (const id in bookChapterSummaries) {
-      if (!embeddings[id]) {
+      if (forceRegenerate || !embeddings[id]) {
         const chapter = bookChapterSummaries[id];
-        // Kombiniere Titel und Summary für besseres Embedding
         const text = `${chapter.title || ''} - ${chapter.bookTitle || ''}: ${chapter.summary || ''}`;
         if (text.trim().length > 50) {
           toProcess.push({ id, text: text.trim(), type: 'book-chapter' });
@@ -7838,58 +7976,82 @@ app.post('/api/generate-embeddings', async (req, res) => {
       }
     }
     
-    console.log(`[EMBEDDINGS] ${toProcess.length} Summaries zu verarbeiten (davon ${bookChaptersToProcess} Buch-Kapitel)`)
+    console.log(`[EMBEDDINGS] ${toProcess.length} Summaries zu verarbeiten (davon ${bookChaptersToProcess} Buch-Kapitel)`);
     
-    console.log(`[EMBEDDINGS] ${toProcess.length} Summaries zu verarbeiten`);
-    
-    // Verarbeite in Batches
+    if (toProcess.length === 0) {
+      return res.json({ success: true, processed: 0, total: Object.keys(embeddings).length, message: 'Alle Embeddings bereits vorhanden' });
+    }
+
+    // Geschätzte Dauer bei 100 Requests/Min
+    const estimatedMinutes = Math.ceil(toProcess.length / 80);
+    console.log(`[EMBEDDINGS] Geschätzte Dauer: ~${estimatedMinutes} Minuten (Rate-Limit: 100/min)`);
+
+    // Sende sofort Antwort, verarbeite im Hintergrund
+    res.json({
+      success: true,
+      message: `Embedding-Generierung gestartet: ${toProcess.length} Summaries, ~${estimatedMinutes} Minuten`,
+      toProcess: toProcess.length,
+      existing: Object.keys(embeddings).length
+    });
+
+    // Verarbeite im Hintergrund -- sequentiell mit Rate-Limiting
     let processed = 0;
-    const batchSize = 20;
+    let rateLimitRetries = 0;
     const errors = [];
     
-    for (let i = 0; i < toProcess.length; i += batchSize) {
-      const batch = toProcess.slice(i, i + batchSize);
+    for (let i = 0; i < toProcess.length; i++) {
+      const item = toProcess[i];
       
-      for (const item of batch) {
-        try {
-          const embedding = await createEmbedding(item.text);
-          embeddings[item.id] = {
-            embedding,
-            createdAt: new Date().toISOString()
-          };
-          processed++;
-          
-          if (processed % 100 === 0) {
-            console.log(`[EMBEDDINGS] ${processed}/${toProcess.length} verarbeitet`);
-            // Zwischenspeichern
-            await fs.writeFile(EMBEDDINGS_CACHE_FILE, JSON.stringify(embeddings), 'utf8');
-          }
-        } catch (e) {
-          errors.push({ id: item.id, error: e.message });
-          console.error(`[EMBEDDINGS] Fehler bei ${item.id}:`, e.message);
-        }
+      if (embeddings[item.id] && embeddings[item.id].model === 'gemini-embedding-001') {
+        processed++;
+        continue;
       }
       
-      // Rate limiting: 1 Sekunde Pause zwischen Batches
-      if (i + batchSize < toProcess.length) {
-        await new Promise(r => setTimeout(r, 1000));
+      try {
+        const embedding = await createEmbedding(item.text);
+        embeddings[item.id] = {
+          embedding,
+          model: 'gemini-embedding-001',
+          createdAt: new Date().toISOString()
+        };
+        processed++;
+        rateLimitRetries = 0;
+        
+        if (processed % 50 === 0) {
+          console.log(`[EMBEDDINGS] ${processed}/${toProcess.length} verarbeitet (${Math.round(processed/toProcess.length*100)}%)`);
+          await fs.writeFile(EMBEDDINGS_CACHE_FILE, JSON.stringify(embeddings), 'utf8');
+          _summaryEmbeddingsCache = null;
+        }
+        
+        // 1.2s Pause zwischen Requests (~50/min, sicher unter 100/min)
+        await new Promise(r => setTimeout(r, 1200));
+        
+      } catch (e) {
+        if (e.message.includes('429') || e.message.includes('quota') || e.message.includes('RESOURCE_EXHAUSTED')) {
+          rateLimitRetries++;
+          if (rateLimitRetries > 15) {
+            console.error(`[EMBEDDINGS] Rate-Limit nach 15 Versuchen, breche ab bei ${processed}/${toProcess.length}`);
+            break;
+          }
+          const waitMs = Math.min(90000 * rateLimitRetries, 600000);
+          console.warn(`[EMBEDDINGS] Rate-Limit erreicht (Versuch ${rateLimitRetries}), warte ${waitMs/1000}s...`);
+          await fs.writeFile(EMBEDDINGS_CACHE_FILE, JSON.stringify(embeddings), 'utf8');
+          await new Promise(r => setTimeout(r, waitMs));
+          i--;
+        } else {
+          errors.push({ id: item.id, error: e.message });
+        }
       }
     }
     
     // Speichere alle Embeddings
     await fs.writeFile(EMBEDDINGS_CACHE_FILE, JSON.stringify(embeddings), 'utf8');
+    _summaryEmbeddingsCache = null;
     
-    console.log(`[EMBEDDINGS] Fertig: ${processed} neu, ${errors.length} Fehler`);
-    res.json({ 
-      success: true, 
-      processed, 
-      total: Object.keys(embeddings).length,
-      errors: errors.length 
-    });
+    console.log(`[EMBEDDINGS] ✓ Fertig: ${processed} neu, ${errors.length} Fehler, ${Object.keys(embeddings).length} gesamt`);
     
   } catch (error) {
-    console.error('[EMBEDDINGS] Fehler:', error);
-    res.status(500).json({ error: error.message });
+    console.error('[EMBEDDINGS] Hintergrund-Fehler:', error);
   }
 });
 
@@ -9326,6 +9488,81 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Kein Cache-Hit: Neue Suche
     let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter);
 
+    // Query-Expansion: LLM expandiert die Frage in Steiner-Terminologie
+    try {
+      const expandedTerms = await expandQueryWithLLM(query);
+      if (expandedTerms.length > 0) {
+        // Jeden expandierten Begriff einzeln suchen (statt alle zusammen),
+        // damit die Scores pro Begriff sinnvoll bleiben
+        const existingKeys = new Set(keywordResults.map(r => `${r.ID}-${r.index}`));
+        let addedCount = 0;
+        const maxExpanded = 500;
+
+        for (const term of expandedTerms) {
+          if (addedCount >= maxExpanded) break;
+          const termResults = performThematicKeywordSearch(`"${term}"`, paragraphsFromLectures, gaFilter);
+
+          for (const result of termResults) {
+            if (addedCount >= maxExpanded) break;
+            const key = `${result.ID}-${result.index}`;
+            if (!existingKeys.has(key)) {
+              keywordResults.push({
+                ...result,
+                keywordScore: result.keywordScore * 0.5,
+                matchedTerms: [...(result.matchedTerms || []), `[exp:${term}]`],
+                expandedMatch: true
+              });
+              existingKeys.add(key);
+              addedCount++;
+            }
+          }
+        }
+        if (addedCount > 0) {
+          console.log(`[THEMATIC] Query-Expansion: +${addedCount} Treffer (max ${maxExpanded}) durch ${expandedTerms.length} expandierte Begriffe`);
+        }
+      }
+    } catch (err) {
+      console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
+    }
+
+    // Semantische Anreicherung: Summary-Embeddings (moderne Sprache) nutzen
+    let lectureSimilarities = {};
+    try {
+      lectureSimilarities = await findSemanticallySimilarLectures(query, 0.35, 30);
+      if (Object.keys(lectureSimilarities).length > 0) {
+        console.log(`[THEMATIC] ${Object.keys(lectureSimilarities).length} semantisch ähnliche Vorträge gefunden (Top: ${
+          Object.entries(lectureSimilarities).slice(0, 3).map(([id, sim]) => `${id}=${sim.toFixed(2)}`).join(', ')
+        })`);
+
+        // Absätze aus semantisch ähnlichen Vorträgen ergänzen,
+        // die von der Keyword-Suche nicht gefunden wurden
+        const keywordLectureIds = new Set(keywordResults.map(r => r.ID));
+        const newSemanticLectures = Object.entries(lectureSimilarities)
+          .filter(([id]) => !keywordLectureIds.has(id))
+          .slice(0, 10);
+
+        for (const [lectureId, similarity] of newSemanticLectures) {
+          const lectureParagraphs = paragraphsFromLectures.filter(p => p.ID === lectureId);
+          const topParagraphs = lectureParagraphs
+            .filter(p => p.content && p.content.length > 100)
+            .sort((a, b) => (b.content || '').length - (a.content || '').length)
+            .slice(0, 3);
+
+          topParagraphs.forEach(p => {
+            keywordResults.push({
+              ...p,
+              keywordScore: similarity * 50,
+              matchedTerms: ['[semantisch]'],
+              semanticMatch: true,
+              semanticSimilarity: similarity
+            });
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
+    }
+
     if (keywordResults.length === 0) {
       const emptyResult = {
         query: query,
@@ -9336,24 +9573,21 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         llmUsed: false
       };
       
-      // Analytics-Tracking auch für leere Ergebnisse
       trackSearch(query).catch(err => {
         console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (leer):', err.message);
       });
       
-      // Leere Ergebnisse nur bei localhost cachen
       if (shouldCache) {
         thematicDB[cacheKey] = {
           ...emptyResult,
           timestamp: new Date().toISOString()
         };
         await saveThematicSearchDatabase(thematicDB);
-      } else {
       }
       return res.json(emptyResult);
     }
 
-    let rankedResults = applySemanticRanking(keywordResults, query);
+    let rankedResults = applySemanticRanking(keywordResults, query, lectureSimilarities);
     let topResults = rankedResults.slice(0, limit);
 
     // Query-Tracking
