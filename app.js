@@ -688,8 +688,16 @@ const isLocal = window.location.hostname === 'localhost' ||
           </div>
           
           ${(function() {
-            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen/Schwerpunkte', thematic2_schwerpunkte: 'Themen/Schwerpunkte', thematic2_timeline: 'Themen/Timeline', thematic2_sammlungen: 'Themen/Sammlungen', thematic2_karten: 'Themen/Karten', thematic: 'Abfrage', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Suchen/erweitert' };
-            var ts = data.tabStats || {};
+            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen/Schwerpunkte', thematic2_schwerpunkte: 'Themen/Schwerpunkte', thematic2_timeline: 'Themen/Timeline', thematic2_sammlungen: 'Themen/Sammlungen', thematic2_karten: 'Themen/Karten', thematic: 'Abfrage', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Suche/erweitert' };
+            var tabMerge = { suche: 'keyword', erweitert: 'advanced-search' };
+            var ts = Object.assign({}, data.tabStats || {});
+            Object.keys(tabMerge).forEach(function(src) {
+              if (ts[src] != null) {
+                var target = tabMerge[src];
+                ts[target] = (ts[target] || 0) + ts[src];
+                delete ts[src];
+              }
+            });
             var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
               if (data.tabsMigrationNeeded) {
@@ -20686,6 +20694,8 @@ function formatAsteriskParagraphs() {
       normalizeCitationSpacing(answerDiv);
       // Deutsche Anführungszeichen „..." verwenden
       convertToGermanQuotes(answerDiv);
+      // Nicht vom Backend verlinkte GA-Referenzen im DOM nachträglich klickbar machen
+      convertGAReferencesToLinksInKeywordResults(answerDiv);
       
       // Zusätzlich: Korrigiere auch nach kurzer Verzögerung (falls dynamisch geladen)
       setTimeout(() => {
@@ -20779,6 +20789,24 @@ function formatAsteriskParagraphs() {
               await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex);
             });
           }
+        });
+
+        // Click-Handler auch für nachträglich erzeugte ga-keyword-link Elemente
+        const kwLinks = answerDiv.querySelectorAll('.ga-keyword-link');
+        kwLinks.forEach(link => {
+          if (link.__thematicBound) return;
+          link.__thematicBound = true;
+          link.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const onclickAttr = link.getAttribute('onclick') || '';
+            const m = onclickAttr.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
+            if (m) {
+              const keywords = extractKeywordsFromQuery(currentThematicQuery);
+              const searchTerm = keywords.length > 0 ? keywords[0] : (m[2] || '');
+              await showLectureFromAdvancedSearch(m[1], searchTerm, m[3] || null);
+            }
+          });
         });
       }, 100);
     }
@@ -37932,6 +37960,12 @@ window.cancelTextEditMode = function() {};
         </div>
       `;
       
+      // Nicht vom Backend verlinkte GA-Referenzen im DOM nachträglich klickbar machen
+      const savedAnswerDiv = document.getElementById('answerContentViewer');
+      if (savedAnswerDiv) {
+        convertGAReferencesToLinksInKeywordResults(savedAnswerDiv);
+      }
+      
       // GA-Links: Öffnen Vortrag im rechten Summary Panel (wie bei normaler Themensuche)
       setTimeout(() => {
         const answerDiv = document.getElementById('answerContentViewer');
@@ -37953,6 +37987,23 @@ window.cancelTextEditMode = function() {};
                 await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex);
               });
             }
+          });
+
+          const kwLinks = answerDiv.querySelectorAll('.ga-keyword-link');
+          kwLinks.forEach(link => {
+            if (link.__thematicBound) return;
+            link.__thematicBound = true;
+            link.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const onclickAttr = link.getAttribute('onclick') || '';
+              const m = onclickAttr.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
+              if (m) {
+                const keywords = extractKeywordsFromQuery(currentThematicQuery);
+                const searchTerm = keywords.length > 0 ? keywords[0] : (m[2] || '');
+                await showLectureFromAdvancedSearch(m[1], searchTerm, m[3] || null);
+              }
+            });
           });
         }
       }, 100);

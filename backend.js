@@ -4294,7 +4294,9 @@ STILISTISCHE ANFORDERUNGEN:
 - Beginne direkt mit Inhalten, keine Einleitung
 - Kurze, prägnante Sätze
 - Keine Wiederholungen oder Redundanzen
-- Keine eigenen Interpretationen
+- Keine eigenen Interpretationen oder allgemeinen Einordnungen
+- KEINE Meta-Kommentare über die Suchergebnisse oder Textlage (z.B. NICHT: "Diese Wendung findet sich nicht..." oder "Die Texte zeigen...")
+- NUR Steiners eigene Aussagen und kurze, sachliche Zusammenfassungen oder Verbindungen zwischen diesen Aussagen
 - Decke möglichst VIELE verschiedene Aspekte und Quellen ab
 
 STRUKTUR:
@@ -4378,6 +4380,20 @@ Beginne direkt mit konkreten Inhalten:
 KEINE einleitenden Sätze wie "Die vorliegenden Textstellen bieten..." oder "Rudolf Steiners Verständnis offenbart sich als..."
 Starte unmittelbar mit substanziellen Aussagen oder Zitaten
 
+STRENG VERBOTEN - Allgemeine Formulierungen und Interpretationen:
+- KEINE Meta-Kommentare über die Suchergebnisse oder Textlage, z.B. NICHT: "Diese exakte Wendung findet sich nicht in den verfügbaren Passagen" oder "Die Texte zeigen differenzierte Aussagen über..."
+- KEINE interpretierenden Einordnungen wie "bemerkenswert", "interessanterweise", "es zeigt sich"
+- KEINE allgemeinen Aussagen über Steiners Denken oder Ansatz
+- KEINE Bewertungen der Relevanz oder Qualität der Textstellen
+- KEINE aufgeblähten Formulierungen mit Füllwörtern wie "eine komplexe Vorstellung", "Besonders deutlich wird dies"
+- NUR Steiners eigene Aussagen (als Zitate) und kurze, sachliche Zusammenfassungen oder Verbindungen zwischen diesen Aussagen
+- Wenn die Textstellen keine direkte Antwort auf die Frage enthalten: trotzdem nur die inhaltlich nächsten Aussagen Steiners darstellen, OHNE zu kommentieren, dass die exakte Formulierung fehlt
+
+BEISPIEL für verbotenen vs. gewünschten Stil:
+FALSCH: "In den vorliegenden Textstellen entwickelt Steiner eine komplexe Vorstellung von der Zeit als einem nicht-linearen Phänomen. Besonders deutlich wird dies in seiner Darstellung des vorgestellten Ich."
+RICHTIG: "Die Auffassung der Zeit als einem nicht-linearen Phänomen zeigt sich in der Darstellung des vorgestellten Ich."
+Regel: Maximal knapp und sachlich. Keine Füllsätze, keine Redundanz, keine wertenden Adjektive. Ein Satz statt zwei, wenn möglich.
+
 Formulierungsstil:
 
 Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
@@ -4393,6 +4409,7 @@ Keine redundanten Formulierungen
 Keine Dopplungen (jede Information nur einmal)
 Keine zusammenfassenden Einleitungen
 Keine Paraphrasen von bereits zitierten Stellen
+Keine allgemeinen Interpretationen oder Einordnungen
 
 Formatierung
 
