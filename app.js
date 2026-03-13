@@ -15065,6 +15065,11 @@ function scrollToChronologicalYear(year) {
         button.classList.add('processing');
         button.innerHTML = '<em>Suche...</em>';
         
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Suche wird durchgeführt, bitte warten.</div></div>';
+        }
+        
         const gaFilter = document.getElementById('thematicGAFilter').value;
         currentThematicGAFilter = gaFilter || '';
         
@@ -15323,6 +15328,7 @@ function scrollToChronologicalYear(year) {
   const isDefaultMessage = viewerText.includes('Bitte ein Schlagwort auswählen') ||
     viewerText.includes('Bitte eine Suche durchführen') ||
     viewerText.includes('Bitte eine Themenanfrage stellen') ||
+    viewerText.includes('Suche wird durchgeführt') ||
     viewerText.includes('Bitte ein Schlagwort auswählen') ||
     viewerText.includes('Bitte einen Zeitraum auswählen') ||
     viewerHTML.includes('Wählen Sie einen GA-Band') ||
