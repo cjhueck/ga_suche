@@ -730,13 +730,13 @@ const isLocal = window.location.hostname === 'localhost' ||
           ${(function() {
             var geo = data.geoStats;
             if (!geo || !Array.isArray(geo) || geo.length === 0) {
-              return '<div class="analytics-section"><h3>Besucher nach Ländern</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Geo-Daten verfügbar</p></div>';
+              return '<div class="analytics-section"><h3>Seitenaufrufe nach Ländern</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Geo-Daten verfügbar</p></div>';
             }
             var countryFlagMap = {DE:'🇩🇪',AT:'🇦🇹',CH:'🇨🇭',US:'🇺🇸',GB:'🇬🇧',FR:'🇫🇷',IT:'🇮🇹',ES:'🇪🇸',NL:'🇳🇱',BE:'🇧🇪',PL:'🇵🇱',CZ:'🇨🇿',SE:'🇸🇪',NO:'🇳🇴',DK:'🇩🇰',FI:'🇫🇮',PT:'🇵🇹',RU:'🇷🇺',UA:'🇺🇦',JP:'🇯🇵',CN:'🇨🇳',IN:'🇮🇳',BR:'🇧🇷',CA:'🇨🇦',AU:'🇦🇺',NZ:'🇳🇿',ZA:'🇿🇦',MX:'🇲🇽',AR:'🇦🇷',KR:'🇰🇷',IL:'🇮🇱',TR:'🇹🇷',IE:'🇮🇪',LU:'🇱🇺',HU:'🇭🇺',RO:'🇷🇴',BG:'🇧🇬',HR:'🇭🇷',SK:'🇸🇰',SI:'🇸🇮',LT:'🇱🇹',LV:'🇱🇻',EE:'🇪🇪',GR:'🇬🇷'};
             var totalVisits = geo.reduce(function(s,c){ return s + Number(c.total_count || 0); }, 0);
             var maxCount = geo[0] ? Number(geo[0].total_count) : 1;
 
-            var html = '<div class="analytics-section"><h3>Besucher nach Ländern</h3>';
+            var html = '<div class="analytics-section"><h3>Seitenaufrufe nach Ländern</h3>';
             html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 16px;"></div>';
             html += '<div style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;align-items:center;max-width:500px;">';
             geo.forEach(function(c) {
