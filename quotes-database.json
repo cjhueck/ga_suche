@@ -173,20 +173,24 @@
       "lectureId": "GA052/1",
       "paragraphIndex": "wvcj6y",
       "addedAt": "2026-02-16T15:00:44.394Z",
-      "isActive": true,
+      "isActive": false,
       "date": "1903-09-06",
       "displayedSince": "2026-03-08T15:14:28.990Z",
-      "activeToggledAt": "2026-03-08T15:14:28.990Z",
+      "activeToggledAt": "2026-03-15T12:20:10.689Z",
       "isUsed": true,
       "usedSince": "2026-03-08T15:14:29.921Z"
     },
     {
       "id": "1771254560120",
-      "text": "Die Gründe der Gewissheit, auf denen der Mensch fußen kann, müssen immer aus dem Inneren kommen. Da muss aber der Geist stärker sein. Er muss die Fähigkeit haben, 32| die Gewissheit im eigenen Inneren zu finden. Schwäche des Geistes ist es, nicht an sich zu glauben, nicht zu glauben, dass man in sich die Gründe finden kann. Schwäche des Geistes ist es, nur das zu glauben, was Augen sehen und Hände tasten, und nur mit der Hand die Wahrheit greifen zu wollen. Der Materialismus ist ein Zeichen geistiger Dekadenz, eine Aushöhlung des Inneren. Und wäre es nur eine theoretische Aushöhlung, so wäre es noch verhältnismäßig unschädlich. Aber diese theoretische Aushöhlung führt zur praktischen Untergrabung zuerst der seelischen und dann der physischen Gesundheit.",
+      "text": "Die Gründe der Gewissheit, auf denen der Mensch fußen kann, müssen immer aus dem Inneren kommen. Da muss aber der Geist stärker sein. Er muss die Fähigkeit haben, die Gewissheit im eigenen Inneren zu finden. Schwäche des Geistes ist es, nicht an sich zu glauben, nicht zu glauben, dass man in sich die Gründe finden kann. Schwäche des Geistes ist es, nur das zu glauben, was Augen sehen und Hände tasten, und nur mit der Hand die Wahrheit greifen zu wollen. Der Materialismus ist ein Zeichen geistiger Dekadenz, eine Aushöhlung des Inneren. Und wäre es nur eine theoretische Aushöhlung, so wäre es noch verhältnismäßig unschädlich. Aber diese theoretische Aushöhlung führt zur praktischen Untergrabung zuerst der seelischen und dann der physischen Gesundheit.",
       "lectureId": "GA056/1",
       "paragraphIndex": "pc06el",
       "addedAt": "2026-02-16T15:09:20.120Z",
-      "isActive": false
+      "isActive": true,
+      "displayedSince": "2026-03-15T12:20:56.055Z",
+      "activeToggledAt": "2026-03-15T12:20:56.055Z",
+      "isUsed": true,
+      "usedSince": "2026-03-15T12:20:58.102Z"
     },
     {
       "id": "1771254921433",
