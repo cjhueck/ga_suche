@@ -609,6 +609,17 @@ function convertThemeSummaryToHtml(text) {
 // GA-Link aus der Zusammenfassung: Vortrag im Main Viewer des aktuellen Tabs öffnen (kein Tab-Wechsel)
 function openLectureFromThemeSummary(lectureId) {
     console.log('[THEME-SUMMARY] Öffne Vortrag im Themen-Tab:', lectureId);
+    // GA028-Kapitel abfangen: auf korrekten Abschnitt umleiten
+    if (typeof resolveGA028ChapterId === 'function') {
+        var resolved = resolveGA028ChapterId(lectureId);
+        if (resolved) {
+            console.log('[THEME-SUMMARY] GA028-Kapitel aufgelöst:', lectureId, '->', resolved.parentLectureId, 'para:', resolved.paragraphIndex);
+            if (typeof showBookChapter === 'function') {
+                showBookChapter(resolved.parentLectureId, resolved.paragraphIndex);
+                return;
+            }
+        }
+    }
     if (typeof showLecture === 'function') {
         showLecture(lectureId, null, [], [], false);
     }
