@@ -23759,7 +23759,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (link.textContent.trim() === cleanText || 
               link.textContent.trim().includes(cleanText) || 
               cleanText.includes(link.textContent.trim())) {
-            link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            link.scrollIntoView({ behavior: 'smooth', block: 'start' });
             return;
           }
         }
@@ -23781,7 +23781,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       if (!targetEntry) return;
       
-      targetEntry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetEntry.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function buildTableOfContents() {
