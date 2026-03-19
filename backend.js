@@ -1088,6 +1088,7 @@ async function loadChunks() {
 
 // Bilder-Datenbank
 let steinerImages = {};
+let steinerImageIndex = null; // lectureId → { parts: [...], count: N }
 
 async function loadSteinerImages() {
   try {
@@ -21011,7 +21012,6 @@ app.get('/api/steiner-images', async (req, res) => {
 // Route mit GA-Nummer und optionaler Vortragsnummer: /api/steiner-images/GA074/1
 app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
   try {
-    // Baue lectureId aus URL-Parametern zusammen
     const gaNumber = req.params.gaNumber;
     let lectureId = gaNumber;
     const hasLectureNumber = !!req.params.lectureNumber;
@@ -21019,85 +21019,114 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
       lectureId = `${gaNumber}/${req.params.lectureNumber}`;
     }
     
-    if (lectureId) {
-      // VALIDIERUNG ENTFERNT - verursachte Probleme
-      // Prüfe zuerst ob bereits im Memory-Cache
-      if (steinerImages[lectureId]) {
-        const images = steinerImages[lectureId];
-        return res.json(images);
-      }
-      
-      // Suche in Part-Dateien nach diesem Vortrag (zuerst im Unterordner)
-      const imagesDir = path.join(__dirname, 'steiner-images');
-      let imagesBasePath, files;
+    if (!lectureId) return res.json([]);
+
+    // 1. Memory-Cache
+    if (steinerImages[lectureId]) {
+      return res.json(steinerImages[lectureId]);
+    }
+
+    const imagesDir = path.join(__dirname, 'steiner-images');
+    let imagesBasePath;
+    try {
+      await fs.access(imagesDir);
+      imagesBasePath = imagesDir;
+    } catch {
+      imagesBasePath = __dirname;
+    }
+
+    // 2. Index laden (einmalig, ~16 KB)
+    if (!steinerImageIndex) {
+      const indexPath = path.join(imagesBasePath, 'image-index.json');
       try {
-        files = await fs.readdir(imagesDir);
-        imagesBasePath = imagesDir;
-      } catch {
-        files = await fs.readdir(__dirname);
-        imagesBasePath = __dirname;
+        steinerImageIndex = JSON.parse(await fs.readFile(indexPath, 'utf8'));
+        console.log(`[IMAGES-API] Index geladen: ${Object.keys(steinerImageIndex).length} Vorträge`);
+      } catch (e) {
+        console.warn(`[IMAGES-API] Kein image-index.json gefunden, verwende Fallback: ${e.message}`);
+        steinerImageIndex = {};
       }
-      const partFiles = files
-        .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
-        .sort();
-      
-      // Sammle alle Bilder aus allen Part-Dateien (Bilder können über mehrere Parts verteilt sein!)
-      let allImagesForLecture = [];
-      
-      console.log(`[IMAGES-API] Suche Bilder für: "${lectureId}" (hasLectureNumber: ${hasLectureNumber})`);
-      console.log(`[IMAGES-API] Durchsuche ${partFiles.length} Part-Dateien...`);
-      
-      for (const partFile of partFiles) {
+    }
+
+    let allImagesForLecture = [];
+
+    if (hasLectureNumber && steinerImageIndex[lectureId]) {
+      // Index-gestützter Zugriff: nur die relevanten Part-Dateien lesen
+      const entry = steinerImageIndex[lectureId];
+      console.log(`[IMAGES-API] Index-Treffer: "${lectureId}" in ${entry.parts.length} Part(s), ${entry.count} Bilder erwartet`);
+
+      for (const partFile of entry.parts) {
         const partPath = path.join(imagesBasePath, partFile);
         const data = await fs.readFile(partPath, 'utf8');
         const partData = JSON.parse(data);
-        
-        // Prüfe ob Array oder Objekt
+
         if (Array.isArray(partData)) {
-          // Suche nach Bildern für diesen Vortrag
-          // WICHTIG: Wenn keine Vortragsnummer angegeben, lade ALLE Bilder für diesen GA-Band
-          // (Bilder haben lectureId wie "GA207/1", nicht "GA207")
-          const imagesForLecture = partData.filter(img => {
-            if (hasLectureNumber) {
-              // Exakte Übereinstimmung für spezifischen Vortrag
-              const match = img.lectureId === lectureId;
-              if (match && partFile === 'steiner-images-part01.json') {
-                console.log(`[IMAGES-API] ✓ Match in ${partFile}: "${img.lectureId}" === "${lectureId}"`);
-              }
-              return match;
-            } else {
-              // Prefix-Match für ganzen GA-Band (z.B. "GA207/" für alle GA207 Bilder)
-              return img.lectureId && img.lectureId.startsWith(gaNumber + '/');
-            }
-          });
-          if (imagesForLecture.length > 0) {
-            console.log(`[IMAGES-API] ${partFile}: ${imagesForLecture.length} Bilder gefunden`);
-            allImagesForLecture.push(...imagesForLecture);
-          }
-        } else {
-          // Objekt-Format (legacy)
-          if (hasLectureNumber) {
-            if (partData[lectureId]) {
-              const images = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
-              allImagesForLecture.push(...images);
-            }
+          const matched = partData.filter(img => img.lectureId === lectureId);
+          allImagesForLecture.push(...matched);
+        } else if (partData[lectureId]) {
+          const imgs = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
+          allImagesForLecture.push(...imgs);
+        }
+      }
+    } else if (!hasLectureNumber) {
+      // GA-Band-Abfrage: alle lectureIds mit diesem Prefix aus dem Index sammeln
+      const prefix = gaNumber + '/';
+      const relevantParts = new Set();
+
+      for (const [lid, entry] of Object.entries(steinerImageIndex)) {
+        if (lid.startsWith(prefix)) {
+          entry.parts.forEach(p => relevantParts.add(p));
+        }
+      }
+
+      if (relevantParts.size > 0) {
+        console.log(`[IMAGES-API] GA-Band "${gaNumber}": ${relevantParts.size} Part(s) relevant`);
+        for (const partFile of relevantParts) {
+          const partPath = path.join(imagesBasePath, partFile);
+          const data = await fs.readFile(partPath, 'utf8');
+          const partData = JSON.parse(data);
+
+          if (Array.isArray(partData)) {
+            const matched = partData.filter(img => img.lectureId && img.lectureId.startsWith(prefix));
+            allImagesForLecture.push(...matched);
           } else {
-            // Für ganzen GA-Band alle passenden Schlüssel finden
             for (const key of Object.keys(partData)) {
-              if (key.startsWith(gaNumber + '/')) {
-                const images = Array.isArray(partData[key]) ? partData[key] : [partData[key]];
-                allImagesForLecture.push(...images);
+              if (key.startsWith(prefix)) {
+                const imgs = Array.isArray(partData[key]) ? partData[key] : [partData[key]];
+                allImagesForLecture.push(...imgs);
               }
             }
           }
         }
       }
-      
-      // Cache und Response
-      console.log(`[IMAGES-API] Insgesamt ${allImagesForLecture.length} Bilder für "${lectureId}" gefunden`);
-      steinerImages[lectureId] = allImagesForLecture;
-      res.json(allImagesForLecture);
+    } else {
+      // Kein Index-Eintrag: Fallback auf vollständige Suche (nur für unbekannte IDs)
+      console.log(`[IMAGES-API] Kein Index-Eintrag für "${lectureId}", Fallback-Suche...`);
+      let files;
+      try {
+        files = await fs.readdir(imagesBasePath);
+      } catch {
+        files = [];
+      }
+      const partFiles = files.filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json')).sort();
+
+      for (const partFile of partFiles) {
+        const partPath = path.join(imagesBasePath, partFile);
+        const data = await fs.readFile(partPath, 'utf8');
+        const partData = JSON.parse(data);
+
+        if (Array.isArray(partData)) {
+          const matched = partData.filter(img => img.lectureId === lectureId);
+          allImagesForLecture.push(...matched);
+        } else if (partData[lectureId]) {
+          const imgs = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
+          allImagesForLecture.push(...imgs);
+        }
+      }
     }
+
+    console.log(`[IMAGES-API] ${allImagesForLecture.length} Bilder für "${lectureId}" gefunden`);
+    steinerImages[lectureId] = allImagesForLecture;
+    res.json(allImagesForLecture);
   } catch (error) {
     console.error('[IMAGES-API] Fehler beim Laden:', error);
     res.status(500).json({ error: error.message });
@@ -26706,9 +26735,18 @@ const loadedBooks = await loadBooks();
 await deduplicateBooksAndLectures();
     console.log(`  ✓ Nach Deduplizierung: ${Object.keys(fullLectures).length} Vorträge, ${Object.keys(fullBooks).length} Bücher`);
 
-// Lade Bilder-Datenbank NICHT beim Start (zu groß)
-// Bilder werden bei Bedarf aus Part-Dateien geladen
-// await loadSteinerImages(); // Deaktiviert - Lazy Loading statt dessen
+// Bilder-Datenbank: Nur Index laden (16 KB), Bilddaten werden bei Bedarf geladen
+try {
+  const imgIndexPath = path.join(__dirname, 'steiner-images', 'image-index.json');
+  if (fsSync.existsSync(imgIndexPath)) {
+    steinerImageIndex = JSON.parse(fsSync.readFileSync(imgIndexPath, 'utf8'));
+    console.log(`  ✓ Bilder-Index geladen: ${Object.keys(steinerImageIndex).length} Vorträge`);
+  } else {
+    console.log('  ⚠ Kein image-index.json gefunden (Bilder-Suche wird langsamer)');
+  }
+} catch (e) {
+  console.warn('  ⚠ Bilder-Index konnte nicht geladen werden:', e.message);
+}
 
     console.log('\n[5/9] Lade Concepts-Database (Schlagwort-System)...');
 await loadConceptsDatabase();
