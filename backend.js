@@ -381,15 +381,28 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
   
   // 3. WordPress REST API als Fallback (selbst-gehostetes WordPress: akanthos-akademie.org)
   console.log(`[PDF-PROXY] Bekannte URLs ohne Treffer, WordPress API-Suche: ${gaNumber}`);
-  const apiUrl = `https://${WP_SITE}/wp-json/wp/v2/media?search=${encodeURIComponent(gaNumber)}&mime_type=application/pdf&per_page=10`;
-  
+  /** Mehrere Suchbegriffe z.B. für GA028: "ga028" liefert in WP oft nur Zusatz-PDFs oder zu wenig Treffer */
+  const wpSearchTerms = [gaNumber];
+  if (gaNumber === 'ga028') {
+    wpSearchTerms.push('GA028', '028', 'gesamtausgabe 28');
+  }
+
   try {
-    const apiResponse = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
-    
-    if (apiResponse.ok) {
-      const data = await apiResponse.json();
-      
-      if (data && data.length > 0) {
+    const byId = new Map();
+    for (const term of wpSearchTerms) {
+      const apiUrl = `https://${WP_SITE}/wp-json/wp/v2/media?search=${encodeURIComponent(term)}&mime_type=application/pdf&per_page=30`;
+      const apiResponse = await fetch(apiUrl, { signal: AbortSignal.timeout(12000) });
+      if (!apiResponse.ok) continue;
+      const chunk = await apiResponse.json();
+      if (Array.isArray(chunk)) {
+        for (const item of chunk) {
+          if (item && item.id != null) byId.set(item.id, item);
+        }
+      }
+    }
+    const data = [...byId.values()];
+
+    if (data.length > 0) {
         const primaryName = `${gaNumber}.pdf`.toLowerCase();
         // Lieber Haupt-PDF vor Zusatz-PDFs (z.B. ga028.pdf vor ga028-bilder.pdf)
         const sorted = [...data].sort((a, b) => {
@@ -442,7 +455,8 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
           const fn = (u.split('/').pop() || '').split('?')[0];
           return u && !isSupplementaryGaPdfFileName(fn);
         });
-        const useItem = fallbackItem || sorted[0];
+        // Nur echtes Haupt-PDF cachen — nicht ga028-bilder.pdf als Ersatz verwenden
+        const useItem = fallbackItem;
         const firstUrl = useItem ? (useItem.source_url || useItem.guid?.rendered || '') : '';
         if (firstUrl) {
           console.log(`[PDF-PROXY] WordPress API: Fallback-Treffer -> ${firstUrl}`);
@@ -450,7 +464,6 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
           saveWpPdfUrlCache();
           return firstUrl;
         }
-      }
     }
   } catch (apiError) {
     console.warn(`[PDF-PROXY] WordPress API-Fehler: ${apiError.message}`);
@@ -501,15 +514,30 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
           }
         }
         
-        // Suche PDF-Datei
-        if (pdfIndex && pdfIndex[gaNum]) {
-          localPdfPath = path.join(pdfDir, pdfIndex[gaNum]);
+        // Suche PDF-Datei (Index-Keys lokal uneinheitlich: "28" vs "028" – beides probieren)
+        let indexFileName = null;
+        if (pdfIndex) {
+          const indexKeysTry = [gaNum];
+          if (gaNumPadded && gaNumPadded !== gaNum) indexKeysTry.push(gaNumPadded);
+          if (/^\d+$/.test(gaNum)) {
+            const padded = gaNum.padStart(3, '0');
+            if (!indexKeysTry.includes(padded)) indexKeysTry.push(padded);
+          }
+          for (const ik of indexKeysTry) {
+            if (pdfIndex[ik]) {
+              indexFileName = pdfIndex[ik];
+              break;
+            }
+          }
+        }
+        if (indexFileName) {
+          localPdfPath = path.join(pdfDir, indexFileName);
         } else {
           localPdfPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
         }
         
         // Fallback: wenn Index-Eintrag auf nicht-existierende Datei zeigt, versuche Standard-Namen
-        if (!fsSync.existsSync(localPdfPath) && pdfIndex && pdfIndex[gaNum]) {
+        if (!fsSync.existsSync(localPdfPath) && indexFileName) {
           const fallbackPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
           if (fsSync.existsSync(fallbackPath)) {
             console.log(`[PDF-PROXY] Index-Datei nicht gefunden, verwende Fallback: ga${gaNumPadded}.pdf`);
@@ -1210,6 +1238,21 @@ function buildSteinerCanonicalLectureId(gaRaw, lectureNumRaw) {
   return `${ga}/${normalizeSteinerLectureNumPart(lectureNumRaw)}`;
 }
 
+/** Gleicher Vortrag trotz unterschiedlicher Schreibweise (z.B. GA074/01 vs GA074/1) – für Index + JSON-Filter */
+function normalizeSteinerFullLectureId(id) {
+  const s = String(id || '').trim();
+  const i = s.indexOf('/');
+  if (i === -1) return normalizeSteinerGaSegment(s);
+  const ga = normalizeSteinerGaSegment(s.slice(0, i));
+  const rest = s.slice(i + 1).trim();
+  const numNorm = /^\d+$/.test(rest) ? String(parseInt(rest, 10)) : rest;
+  return `${ga}/${numNorm}`;
+}
+
+function lectureIdsMatchSteiner(a, b) {
+  return normalizeSteinerFullLectureId(a) === normalizeSteinerFullLectureId(b);
+}
+
 /** Alle Part-Dateien durchsuchen (Legacy-Verhalten, Fallback wenn Index fehlt oder leer blieb) */
 async function scanSteinerImagePartFiles(imagesBasePath, { lectureIdExact, prefix } = {}) {
   let files;
@@ -1231,7 +1274,7 @@ async function scanSteinerImagePartFiles(imagesBasePath, { lectureIdExact, prefi
     if (Array.isArray(partData)) {
       const matched = partData.filter(img => {
         if (!img || !img.lectureId) return false;
-        if (lectureIdExact != null) return img.lectureId === lectureIdExact;
+        if (lectureIdExact != null) return lectureIdsMatchSteiner(img.lectureId, lectureIdExact);
         if (prefix != null) return img.lectureId.startsWith(prefix);
         return false;
       });
@@ -1240,7 +1283,7 @@ async function scanSteinerImagePartFiles(imagesBasePath, { lectureIdExact, prefi
       for (const key of Object.keys(partData)) {
         const ok =
           lectureIdExact != null
-            ? key === lectureIdExact
+            ? lectureIdsMatchSteiner(key, lectureIdExact)
             : prefix != null && key.startsWith(prefix);
         if (ok) {
           const imgs = Array.isArray(partData[key]) ? partData[key] : [partData[key]];
