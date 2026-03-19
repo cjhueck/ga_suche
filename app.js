@@ -11752,16 +11752,7 @@ function scrollToChronologicalYear(year) {
           }
           
           if (foundHeading) {
-            const header = document.getElementById('viewer-header');
-            const headerHeight = header ? header.offsetHeight + 5 : 5;
-            
-            const mainRect = mainContainer.getBoundingClientRect();
-            const headingRect = foundHeading.getBoundingClientRect();
-            const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
-            
-            // Direkt springen (nicht smooth)
-            mainContainer.scrollTop = Math.max(0, relativeTop);
-            
+            scrollViewerHeadingBelowViewportHeader(foundHeading, 'auto');
             window._pendingHeadingScroll = null;
             return true;
           }
@@ -23724,13 +23715,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
           
           if (foundHeading) {
-            const header = document.getElementById('viewer-header');
-            const headerHeight = header ? header.offsetHeight + 5 : 5;
-            
-            const mainRect = mainContainer.getBoundingClientRect();
-            const headingRect = foundHeading.getBoundingClientRect();
-            const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
-            mainContainer.scrollTop = Math.max(0, relativeTop);
+            scrollViewerHeadingBelowViewportHeader(foundHeading, 'auto');
             
             // Highlight the heading briefly
             const originalBg = foundHeading.style.backgroundColor;
@@ -23790,6 +23775,24 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       if (!targetEntry) return;
       
       targetEntry.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /**
+     * TOC / Navigation: Zielüberschrift direkt unter dem fixierten #viewer-header (Viewport) ausrichten.
+     * #viewer-header ist position:fixed → Abstand muss über getBoundingClientRect() relativ zum Viewport,
+     * nicht über mainRect.top, sonst bleibt die Überschrift zu weit unten / unter dem Header.
+     */
+    function scrollViewerHeadingBelowViewportHeader(targetHeading, scrollBehavior) {
+      const mainContainer = document.getElementById('main');
+      const header = document.getElementById('viewer-header');
+      if (!mainContainer || !targetHeading) return;
+      const behavior = scrollBehavior === 'smooth' ? 'smooth' : 'auto';
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+      const gap = 8;
+      const headingRect = targetHeading.getBoundingClientRect();
+      const delta = headingRect.top - headerBottom - gap;
+      const newScrollTop = mainContainer.scrollTop + delta;
+      mainContainer.scrollTo({ top: Math.max(0, newScrollTop), behavior });
     }
 
     function buildTableOfContents() {
@@ -23886,14 +23889,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             const targetHeading = viewer.querySelector(`h2[data-index="${dataIndex}"], h2[data-index="^${cleanIndex}"], h3[data-index="${dataIndex}"], h3[data-index="^${cleanIndex}"], h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"]`);
             
             if (targetHeading) {
-              // Scrolle zur Überschrift
-              const mainContainer = document.getElementById('main');
-              const header = document.getElementById('viewer-header');
-              const headerHeight = header ? header.offsetHeight + 5 : 5;
-              const mainRect = mainContainer.getBoundingClientRect();
-              const headingRect = targetHeading.getBoundingClientRect();
-              const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
-              mainContainer.scrollTop = Math.max(0, relativeTop);
+              scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
               
               // Highlighte NUR die Überschrift (nicht den Absatz)
               const originalBg = targetHeading.style.backgroundColor;
@@ -23930,11 +23926,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             
             timelineContainer.scrollTo({
               top: scrollPosition,
-              behavior: 'smooth'
+              behavior: 'auto'
             });
           } else {
-            // Für Haupt-Viewer: Normales scrollIntoView
-            targetHeading.scrollIntoView({ behavior: 'auto', block: 'start' });
+            scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
             }
           
           const originalBg = targetHeading.style.backgroundColor;
@@ -24000,9 +23995,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               const targetRect = scrollTarget.getBoundingClientRect();
               const containerRect = timelineContainer.getBoundingClientRect();
               const scrollPosition = timelineContainer.scrollTop + (targetRect.top - containerRect.top) - 50;
-              timelineContainer.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+              timelineContainer.scrollTo({ top: scrollPosition, behavior: 'auto' });
             } else {
-              scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              scrollViewerHeadingBelowViewportHeader(scrollTarget, 'auto');
             }
             
             // Highlight-Effekt
