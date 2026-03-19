@@ -2153,6 +2153,7 @@ function formatDate(dateStr) {
 
 // Feature-Flag: GA028 als 40 Buchkapitel statt 6 Großabschnitte anzeigen
 // Auf false setzen, um zur alten 6-Abschnitte-Anzeige zurückzukehren
+// Dazu in app.js GA028_USE_CHAPTERS_UI ebenfalls false setzen (Sidebar „Texte“).
 const GA028_USE_CHAPTERS = true;
 
 const GA028_CHAPTER_MAP = [
