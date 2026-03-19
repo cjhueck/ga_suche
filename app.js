@@ -4291,7 +4291,6 @@ function normalizeGANumber(gaNumber) {
               imgTag.setAttribute('src', imageUrl);
               imgTag.className = 'lecture-image';
               imgTag.style.cursor = 'pointer';
-              imgTag.setAttribute('data-image-popup-handler', 'true');
             }
           });
           return tempDiv.innerHTML;
@@ -4320,7 +4319,6 @@ function normalizeGANumber(gaNumber) {
               imgTag.setAttribute('src', imageUrl);
               imgTag.className = 'lecture-image';
               imgTag.style.cursor = 'pointer';
-              imgTag.setAttribute('data-image-popup-handler', 'true');
             }
           });
           return tempDiv.innerHTML;
@@ -4920,9 +4918,6 @@ function normalizeGANumber(gaNumber) {
             e.target.setAttribute('data-format', 'webp');
           }
         }
-
-        // Markiere als behandelt, um doppelte Handler zu vermeiden
-        e.target.setAttribute('data-image-popup-handler', 'true');
 
         openImagePopup(imageSrc, altText, dataFormat);
       }
@@ -10453,7 +10448,10 @@ async function displayGAOverview(data) {
         ` : ''}
         <div style="flex: 1;">
           <h3 style="margin: 0 0 0rem 0;">
-            <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
+            <a href="#" onclick="${lecture.isBookChapter 
+              ? `showBookChapter('${lecture.parentLectureId}', ${lecture.parentParagraphIndex}); return false;`
+              : `showLectureFromOverview('${lecture.ID}'); return false;`
+            }" style="text-decoration: none;">
               ${titleText}
             </a>
           </h3>
@@ -11463,6 +11461,36 @@ function scrollToChronologicalYear(year) {
 
     async function showLectureFromOverview(lectureId) {
       await showLecture(lectureId, null, []);
+    }
+
+    async function showBookChapter(parentLectureId, paragraphIndex) {
+      await showLecture(parentLectureId, null, []);
+      var maxAttempts = 30;
+      var attempt = 0;
+      function tryScrollToChapter() {
+        var allParas = document.querySelectorAll('#viewer .paragraph, #progressive-book-content .paragraph');
+        if (allParas.length > paragraphIndex) {
+          var paraEl = allParas[paragraphIndex];
+          var mainContainer = document.getElementById('main');
+          var header = document.getElementById('viewer-header');
+          var headerHeight = header ? header.offsetHeight + 10 : 10;
+          if (mainContainer && paraEl) {
+            var mainRect = mainContainer.getBoundingClientRect();
+            var paraRect = paraEl.getBoundingClientRect();
+            var relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
+            mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+          }
+          if (paraEl) {
+            var origBg = paraEl.style.backgroundColor;
+            paraEl.style.backgroundColor = 'var(--highlight-color)';
+            setTimeout(function() { paraEl.style.backgroundColor = origBg; }, 2500);
+          }
+        } else if (attempt < maxAttempts) {
+          attempt++;
+          setTimeout(tryScrollToChapter, 200);
+        }
+      }
+      setTimeout(tryScrollToChapter, 150);
     }
 
     // Navigiere zum Texte-Tab und zeige den spezifischen Vortrag
@@ -23678,6 +23706,45 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       });
     }
 
+    function syncLeftPanelToHeading(headingText) {
+      const sidebarContent = document.getElementById('sidebar-content');
+      if (!sidebarContent) return;
+      
+      const leftPanelEntries = sidebarContent.querySelectorAll('#ga-lecture-list .ga-overview-lecture');
+      if (leftPanelEntries.length === 0) {
+        const leftPanelLinks = sidebarContent.querySelectorAll('#ga-lecture-list a[data-heading-index]');
+        if (leftPanelLinks.length === 0) return;
+        
+        const cleanText = headingText.trim();
+        for (const link of leftPanelLinks) {
+          if (link.textContent.trim() === cleanText || 
+              link.textContent.trim().includes(cleanText) || 
+              cleanText.includes(link.textContent.trim())) {
+            link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+        }
+        return;
+      }
+      
+      const cleanText = headingText.trim();
+      let targetEntry = null;
+      
+      for (const entry of leftPanelEntries) {
+        const link = entry.querySelector('a');
+        if (!link) continue;
+        const linkText = link.textContent.trim();
+        if (linkText.includes(cleanText) || cleanText.includes(linkText)) {
+          targetEntry = entry;
+          break;
+        }
+      }
+      
+      if (!targetEntry) return;
+      
+      targetEntry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     function buildTableOfContents() {
       // Prüfe ob Timeline-Viewer aktiv ist
       const timelineSplitView = document.getElementById('timelineSplitView');
@@ -23789,9 +23856,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                 targetHeading.style.backgroundColor = originalBg || '';
               }, 2000);
             } else {
-              // Kein Fallback mehr - wenn Überschrift nicht gefunden, nichts tun
               console.warn(`[TOC-CLICK] Überschrift mit data-index nicht gefunden: ${dataIndex}`);
             }
+            syncLeftPanelToHeading(heading.textContent);
             return;
           }
           
@@ -23828,6 +23895,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           setTimeout(() => {
             targetHeading.style.backgroundColor = originalBg;
           }, 1000);
+          
+          syncLeftPanelToHeading(heading.textContent);
         });
         
         tocList.appendChild(tocHeading);
@@ -33880,7 +33949,8 @@ async function loadGAVolumesForExport() {
       checkbox.onchange = updateBatchExportButtonState;
       
       const textSpan = document.createElement('span');
-      textSpan.textContent = `${formatLectureId(vol.volume)} - ${vol.lectureCount} ${vol.lectureCount === 1 ? 'Vortrag' : 'Vorträge'})`;
+      const suffix = vol.sourceOnly ? ' (noch nicht exportiert)' : '';
+      textSpan.textContent = `${formatLectureId(vol.volume)} - ${vol.lectureCount} ${vol.lectureCount === 1 ? 'Vortrag' : 'Vorträge'}${suffix}`;
       
       label.appendChild(checkbox);
       label.appendChild(textSpan);

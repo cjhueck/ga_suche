@@ -410,14 +410,20 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
         
         // Suche PDF-Datei
         if (pdfIndex && pdfIndex[gaNum]) {
-          // Verwende Dateinamen aus Index
           localPdfPath = path.join(pdfDir, pdfIndex[gaNum]);
         } else {
-          // Fallback: Standard-Dateiname
           localPdfPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
         }
         
-        // Prüfe ob lokale Datei existiert
+        // Fallback: wenn Index-Eintrag auf nicht-existierende Datei zeigt, versuche Standard-Namen
+        if (!fsSync.existsSync(localPdfPath) && pdfIndex && pdfIndex[gaNum]) {
+          const fallbackPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
+          if (fsSync.existsSync(fallbackPath)) {
+            console.log(`[PDF-PROXY] Index-Datei nicht gefunden, verwende Fallback: ga${gaNumPadded}.pdf`);
+            localPdfPath = fallbackPath;
+          }
+        }
+        
         if (fsSync.existsSync(localPdfPath)) {
           console.log(`[PDF-PROXY] Lokale PDF gefunden: ${path.basename(localPdfPath)}`);
           
@@ -1982,10 +1988,95 @@ function formatDate(dateStr) {
   return dateStr;
 }
 
+// Feature-Flag: GA028 als 40 Buchkapitel statt 6 Großabschnitte anzeigen
+// Auf false setzen, um zur alten 6-Abschnitte-Anzeige zurückzukehren
+const GA028_USE_CHAPTERS = true;
+
+const GA028_CHAPTER_MAP = [
+  { chapter: 1,  section: 1, paraIndex: 2,   h2Title: 'I. Kindheitserlebnisse' },
+  { chapter: 2,  section: 1, paraIndex: 68,  h2Title: 'II. Schulzeit' },
+  { chapter: 3,  section: 2, paraIndex: 0,   h2Title: 'III. Studentenjahre' },
+  { chapter: 4,  section: 2, paraIndex: 50,  h2Title: 'IV. Jugendfreundschaften' },
+  { chapter: 5,  section: 2, paraIndex: 78,  h2Title: 'V. Wissenschaftliche Studien (Farbenlehre, Optik)' },
+  { chapter: 6,  section: 2, paraIndex: 110, h2Title: 'VI. Hauslehrer in der Familie Specht; Goethestudien' },
+  { chapter: 7,  section: 2, paraIndex: 147, h2Title: 'VII. In Wiener Gelehrten-und Künstlerkreisen' },
+  { chapter: 8,  section: 2, paraIndex: 188, h2Title: 'VIII. Reflexionen über Kunst und Ästhetik; Redakteur bei der «Deutschen Wochenschrift»' },
+  { chapter: 9,  section: 2, paraIndex: 211, h2Title: 'IX. Reisen nach Weimar, Berlin und München' },
+  { chapter: 10, section: 2, paraIndex: 236, h2Title: 'X. Die Philosophie der Freiheit' },
+  { chapter: 11, section: 2, paraIndex: 253, h2Title: 'XI. Über Mystik und Mystiker' },
+  { chapter: 12, section: 2, paraIndex: 265, h2Title: 'XII. Schicksalsfragen' },
+  { chapter: 13, section: 2, paraIndex: 291, h2Title: 'XIII. Reisen nach Budapest und Siebenbürgen; Erinnerungen an die Familie Specht' },
+  { chapter: 14, section: 3, paraIndex: 0,   h2Title: 'XIV. Mitarbeit im Goethe-Schiller-Archiv' },
+  { chapter: 15, section: 3, paraIndex: 44,  h2Title: 'XV. Begegnungen mit Haeckel, Treitschke und Laistner' },
+  { chapter: 16, section: 3, paraIndex: 76,  h2Title: 'XVI. Unter Gelehrten und Künstlern; Goethe-Versammlungen' },
+  { chapter: 17, section: 3, paraIndex: 97,  h2Title: 'XVII. Kritische Bemerkungen zur Ethik' },
+  { chapter: 18, section: 3, paraIndex: 124, h2Title: 'XVIII. Als Gast im Nietzsche-Archiv; Nietzscheana' },
+  { chapter: 19, section: 3, paraIndex: 158, h2Title: 'XIX. Erkenntnisfragen - Erkenntnisgrenzen; unter Künstlern' },
+  { chapter: 20, section: 3, paraIndex: 199, h2Title: 'XX. Weimarer Freundeskreis' },
+  { chapter: 21, section: 3, paraIndex: 252, h2Title: 'XXI. Freundschaften (Neuffer, Ansorge); das Buch «Goethes Weltanschauung» als Abschluss der Arbeit an der Sophien-Ausgabe entsteht' },
+  { chapter: 22, section: 3, paraIndex: 290, h2Title: 'XXII. In und mit Gegensätzen leben können' },
+  { chapter: 23, section: 3, paraIndex: 332, h2Title: 'XXIII. Der «ethische Individualismus»' },
+  { chapter: 24, section: 4, paraIndex: 0,   h2Title: 'XXIV. Redakteur des «Magazin für Litteratur»; Begegnungen mit Hartleben, Scheerbart, Wedekind' },
+  { chapter: 25, section: 4, paraIndex: 33,  h2Title: 'XXV. In der «Freien literarischen Gesellschaft»; Berliner Theaterleben' },
+  { chapter: 26, section: 4, paraIndex: 54,  h2Title: 'XXVI. Stellung zum Christentum; «Das Christen- tum als mystische Tatsache»' },
+  { chapter: 27, section: 4, paraIndex: 63,  h2Title: 'XXVII. Perspektiven zur Jahrhundertwende; Reflexionen über Hegel, Mackay und Anarchismus' },
+  { chapter: 28, section: 4, paraIndex: 95,  h2Title: 'XXVIII. Als Lehrer an der Arbeiterbildungsschule' },
+  { chapter: 29, section: 4, paraIndex: 116, h2Title: 'XXIX. Unter Literaten («Die Kommenden») und Monisten («Giordano-Bruno-Bund»)' },
+  { chapter: 30, section: 4, paraIndex: 153, h2Title: 'XXX. Esoterik und Öffentlichkeit' },
+  { chapter: 31, section: 4, paraIndex: 210, h2Title: 'XXXI. Beginn der Zusammenarbeit mit Marie von Sivers' },
+  { chapter: 32, section: 4, paraIndex: 242, h2Title: 'XXXII. Theosophie und Anthroposophie' },
+  { chapter: 33, section: 4, paraIndex: 291, h2Title: 'XXXIII. Innere Aspekte des Buches «Theosophie»' },
+  { chapter: 34, section: 4, paraIndex: 299, h2Title: 'XXXIV. Geist-Erkenntnis und Kunst' },
+  { chapter: 35, section: 4, paraIndex: 309, h2Title: 'XXXV. Über Bücher, Vorträge und ihre öffentliche Wirksamkeit' },
+  { chapter: 36, section: 4, paraIndex: 327, h2Title: 'XXXVI. Esoterische Unterweisungen' },
+  { chapter: 37, section: 4, paraIndex: 344, h2Title: 'XXXVII. Reifung der Seele; Vorträge in Paris 1906' },
+  { chapter: 38, section: 4, paraIndex: 369, h2Title: 'XXXVIII. Der Münchner Theosophen-Kongress 1907' },
+  { chapter: 39, section: 5, paraIndex: 0,   h2Title: 'Nachwort' },
+  { chapter: 40, section: 6, paraIndex: 0,   h2Title: 'Inhalts-Übersicht' },
+];
+
 async function generateGAOverview(gaNumber) {
   // Case-insensitive Vergleich
   const gaNumberNormalized = gaNumber.toLowerCase();
   const gaNumberUpper = gaNumber.toUpperCase();
+
+  // GA028 Buchkapitel-Modus: 40 Kapitel statt 6 Großabschnitte
+  if (GA028_USE_CHAPTERS && gaNumberUpper === 'GA028') {
+    let bookChapterSummaries = {};
+    try {
+      bookChapterSummaries = JSON.parse(await fs.readFile(BOOK_CHAPTER_SUMMARIES_FILE_EMB, 'utf8'));
+    } catch (e) { /* ignore */ }
+
+    const gaTitle = (fullLectures['GA028/1'] || {}).gaTitle || 'Mein Lebensgang';
+    const chapterLectures = GA028_CHAPTER_MAP.map(entry => {
+      const chapterKey = `GA028/${entry.chapter}`;
+      const chapterData = bookChapterSummaries[chapterKey] || {};
+      return {
+        lectureNumber: entry.chapter,
+        ID: chapterKey,
+        title: entry.h2Title,
+        fileName: null,
+        location: null,
+        date: null,
+        summary: chapterData.summary || null,
+        shortSummary: chapterData.shortSummary || null,
+        headings: [],
+        tableOfContents: [],
+        lectureKeywords: [],
+        version: 'v1',
+        isBookChapter: true,
+        parentLectureId: `GA028/${entry.section}`,
+        parentParagraphIndex: entry.paraIndex
+      };
+    });
+
+    return {
+      gaNumber: 'GA028',
+      gaTitle,
+      lectureCount: chapterLectures.length,
+      lectures: chapterLectures
+    };
+  }
   
   // Suche nach Vorträgen
   const lectures = Object.values(fullLectures)
@@ -7261,6 +7352,16 @@ app.get('/api/ga-list', async (req, res) => {
       }
     });
     
+    // NEU: Bände aus Steiner_GA einbeziehen (noch nicht exportiert, z.B. GA071a)
+    const sourceGACounts = scanSteinerGAForLectureFiles();
+    Object.keys(sourceGACounts).forEach(gaLower => {
+      const gaNumber = `GA${gaLower.replace(/^ga/, '').replace(/^(\d+)([a-z]?)$/i, (_, n, s) => n.padStart(3, '0') + (s || ''))}`;
+      if (!gaMap[gaNumber]) {
+        const title = getGATitleFromSteinerGA(gaLower) || gaNumber;
+        gaMap[gaNumber] = { number: gaNumber, title };
+      }
+    });
+    
     // Konvertiere zu Array und sortiere
     const gaList = Object.values(gaMap).sort((a, b) => {
       const numA = parseInt(a.number.replace('GA', ''));
@@ -9140,13 +9241,13 @@ try {
 
 app.post('/api/theme-summary', async (req, res) => {
   try {
-    const { themeName } = req.body;
+    const { themeName, forceRegenerate } = req.body;
     if (!themeName) {
       return res.status(400).json({ error: 'themeName erforderlich' });
     }
 
-    // Cache prüfen
-    if (themeSummariesCache[themeName]) {
+    // Cache prüfen (überspringen bei forceRegenerate)
+    if (!forceRegenerate && themeSummariesCache[themeName]) {
       console.log(`[THEME-SUMMARY] Cache-Hit für "${themeName}"`);
       return res.json({
         themeName,
@@ -9154,6 +9255,10 @@ app.post('/api/theme-summary', async (req, res) => {
         fromCache: true,
         generatedAt: themeSummariesCache[themeName].generatedAt
       });
+    }
+
+    if (forceRegenerate) {
+      console.log(`[THEME-SUMMARY] Force-Regenerate für "${themeName}"`);
     }
 
     // Alle Short Summaries für dieses Thema laden (gleiche Logik wie /api/get-theme-results-ai)
@@ -19271,6 +19376,55 @@ ANTWORTE im folgenden JSON-Format:
   }
 }
 
+// Hilfsfunktion: Scannt Steiner_GA nach Vortrags-Markdown-Dateien (GA XXX (N.).md)
+// Gibt { ga: lectureCount } für noch nicht exportierte Bände zurück
+function scanSteinerGAForLectureFiles() {
+  const steinerGADir = path.join(__dirname, 'Steiner_GA');
+  if (!fsSync.existsSync(steinerGADir)) return {};
+  const lectureFilePattern = /^GA\s*\d{2,3}[a-z]?\s*\(\d+\.\)/i;
+  const gaCount = {};
+  function walkDir(dir) {
+    try {
+      const entries = fsSync.readdirSync(dir, { withFileTypes: true });
+      for (const ent of entries) {
+        const fullPath = path.join(dir, ent.name);
+        if (ent.isDirectory()) {
+          walkDir(fullPath);
+        } else if (ent.isFile() && ent.name.endsWith('.md')) {
+          if (lectureFilePattern.test(ent.name)) {
+            const m = ent.name.match(/^GA\s*(\d{2,3}[a-z]?)\s*\(\d+\.\)/i);
+            if (m) {
+              const ga = `ga${m[1].toLowerCase()}`;
+              gaCount[ga] = (gaCount[ga] || 0) + 1;
+            }
+          }
+        }
+      }
+    } catch (e) { /* ignore */ }
+  }
+  walkDir(steinerGADir);
+  return gaCount;
+}
+
+// Hilfsfunktion: Ermittelt GA-Titel aus Steiner_GA-Ordnernamen (z.B. GA071a-Seelenunsterblichkeit...)
+function getGATitleFromSteinerGA(gaLower) {
+  const steinerGADir = path.join(__dirname, 'Steiner_GA');
+  if (!fsSync.existsSync(steinerGADir)) return null;
+  const numPart = gaLower.replace(/^ga/, '').match(/^(\d+)([a-z]?)$/i);
+  const gaNum = numPart ? numPart[1].padStart(3, '0') + (numPart[2] || '') : '';
+  const gaPrefix = `GA${gaNum}`;
+  try {
+    const entries = fsSync.readdirSync(steinerGADir, { withFileTypes: true });
+    for (const ent of entries) {
+      if (ent.isDirectory() && ent.name.replace(/\s/g, '').toUpperCase().startsWith(gaPrefix.toUpperCase())) {
+        const title = ent.name.replace(new RegExp(`^GA\\s*${gaNum}[- ]`, 'i'), '').trim();
+        return title || gaPrefix;
+      }
+    }
+  } catch (e) { /* ignore */ }
+  return null;
+}
+
 // Endpoint: Liste verfügbare GA-Bände
 app.get('/api/keywords/available-ga-volumes', async (req, res) => {
   try {
@@ -19289,7 +19443,10 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
     } catch (error) {
     }
     
-    // Sammle ALLE GA-Bände aus fullLectures, fullBooks UND summaryDB
+    // NEU: Scan Steiner_GA nach Vortrags-MD-Dateien (noch nicht exportierte Bände wie GA071a)
+    const sourceGACounts = scanSteinerGAForLectureFiles();
+    
+    // Sammle ALLE GA-Bände aus fullLectures, fullBooks, summaryDB UND Steiner_GA-Quellordner
     const allGABands = new Set();
     
     // GA-Bände aus fullLectures
@@ -19316,6 +19473,9 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
       }
     });
     
+    // GA-Bände aus Steiner_GA (noch nicht exportiert, z.B. GA071a)
+    Object.keys(sourceGACounts).forEach(ga => allGABands.add(ga));
+    
     // Gruppiere Vorträge nach GA-Band
     const gaGroups = {};
     Object.keys(fullLectures).forEach(lectureId => {
@@ -19336,6 +19496,9 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
     
     const volumes = sortedGAs.map(ga => {
       const lectures = gaGroups[ga] || [];
+      // Für noch nicht exportierte Bände: lectureCount aus Steiner_GA-Scan
+      const sourceCount = sourceGACounts[ga] || 0;
+      const lectureCountFromExport = lectures.length;
       
       // Prüfe ob ALLE Vorträge des Bandes vollständig bearbeitet sind
       const allLecturesComplete = lectures.length > 0 && lectures.every(lectureId => {
@@ -19373,19 +19536,25 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
       // Briefbände (GA262, GA263a): Briefe über headings zählen, nicht Dateien
       const isLetterBand = ga === 'ga262' || ga === 'ga263a';
       let lectureCount;
-      if (isLetterBand) {
-        lectureCount = lectures.reduce((sum, lectureId) => {
-          const lectureData = fullLectures[lectureId];
-          const headings = lectureData ? (lectureData.headings || []) : [];
-          return sum + headings.length;
-        }, 0);
+      if (lectureCountFromExport > 0) {
+        if (isLetterBand) {
+          lectureCount = lectures.reduce((sum, lectureId) => {
+            const lectureData = fullLectures[lectureId];
+            const headings = lectureData ? (lectureData.headings || []) : [];
+            return sum + headings.length;
+          }, 0);
+        } else {
+          lectureCount = lectures.length;
+        }
       } else {
-        lectureCount = lectures.length;
+        // Noch nicht exportiert: Anzahl aus Steiner_GA-Scan
+        lectureCount = sourceCount;
       }
 
       return {
         volume: ga,
         lectureCount,
+        sourceOnly: lectureCountFromExport === 0 && sourceCount > 0,
         lectures: lectures.sort(),
         hasKeywords: someLecturesComplete,  // Mindestens ein Vortrag vollständig
         isComplete: allLecturesComplete     // ALLE Vorträge vollständig

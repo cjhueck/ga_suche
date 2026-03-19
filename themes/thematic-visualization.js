@@ -480,8 +480,8 @@ function renderThematic2Results(container, theme, results, isSemantic, isCached,
 }
 
 // KI-Zusammenfassung eines Themas im linken Panel anzeigen (in #results, unterhalb des Resize Handles)
-async function loadThemeSummary(themeName) {
-    console.log('[THEME-SUMMARY] Lade Zusammenfassung für:', themeName);
+async function loadThemeSummary(themeName, forceRegenerate) {
+    console.log('[THEME-SUMMARY] Lade Zusammenfassung für:', themeName, forceRegenerate ? '(force)' : '');
 
     var resultsDiv = document.getElementById('results');
     if (!resultsDiv) {
@@ -497,17 +497,20 @@ async function loadThemeSummary(themeName) {
         '  </h4>',
         '  <div style="display: flex; align-items: center; gap: 8px; color: var(--secondary-text); font-size: 0.85rem;">',
         '    <span class="loading-spinner" style="display: inline-block; width: 16px; height: 16px; border: 2px solid var(--border-color); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 0.8s linear infinite;"></span>',
-        '    KI-Zusammenfassung wird erstellt...',
+        '    KI-Zusammenfassung wird ' + (forceRegenerate ? 'neu ' : '') + 'erstellt...',
         '  </div>',
         '  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>',
         '</div>'
     ].join('');
 
     try {
+        var requestBody = { themeName: themeName };
+        if (forceRegenerate) requestBody.forceRegenerate = true;
+
         var response = await fetch('/api/theme-summary', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ themeName: themeName })
+            body: JSON.stringify(requestBody)
         });
 
         if (!response.ok) {
@@ -530,8 +533,20 @@ async function loadThemeSummary(themeName) {
         // Markdown-artige Formatierung in HTML konvertieren
         var htmlContent = convertThemeSummaryToHtml(data.summary);
 
+        var isLocalEnv = document.body.classList.contains('is-local');
+        var regenerateBtn = isLocalEnv
+            ? '<button onclick="loadThemeSummary(\'' + themeName.replace(/'/g, "\\'") + '\', true)" ' +
+              'style="margin-top: 0.8rem; padding: 4px 10px; font-size: 0.78rem; cursor: pointer; ' +
+              'background: var(--bg-secondary, #f5f5f5); border: 1px solid var(--border-color, #ddd); ' +
+              'border-radius: 4px; color: var(--secondary-text, #666);" ' +
+              'onmouseover="this.style.background=\'var(--accent-color, #467886)\'; this.style.color=\'#fff\'" ' +
+              'onmouseout="this.style.background=\'var(--bg-secondary, #f5f5f5)\'; this.style.color=\'var(--secondary-text, #666)\'">' +
+              '&#x21bb; Neu generieren</button>'
+            : '';
+
         resultsDiv.innerHTML = [
-            '<div class="maps-sidepanel-content theme-summary-content" style="padding: 0.5rem 0.5rem 0.8rem 0.5rem;">',
+            '<div class="maps-sidepanel-content theme-summary-content" style="padding: 0.1rem 0.5rem 0.8rem 0.5rem;">',
+            '  ' + regenerateBtn,
             '  <h1 style="margin: 0 0 0.6rem 0;">' + themeName + '</h1>',
             '  ' + htmlContent,
             '</div>'
