@@ -1,0 +1,20 @@
+# GitHub Pages / Jekyll: Große Daten- und Md-Archive vom Build ausschließen
+# (sonst rendert Jekyll z. B. Steiner_GA_md/** Zeile für Zeile → Timeout).
+
+title: GA Suche
+description: Statische Weboberfläche
+
+exclude:
+  - Steiner_GA_md
+  - Steiner_GA
+  - Steiner_GA_pdf
+  - Keywords
+  - steiner-images
+  - steiner-full-lectures
+  - steiner-books
+  - system
+  - tools
+  - backups
+  - node_modules
+  - Gemfile
+  - Gemfile.lock

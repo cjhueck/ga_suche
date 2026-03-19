@@ -1,0 +1,27 @@
+# GitHub Pages (Jekyll): Diese Pfade NICHT verarbeiten — sonst rendert Jekyll Zehntausende .md/.json
+# und der Build bricht ab (Timeouts, Logs zeigen Steiner_GA_md/, Keywords/, …).
+
+Steiner_GA_md/
+Steiner_GA/
+Steiner_GA_pdf/
+Keywords/
+steiner-images/
+steiner-full-lectures/
+steiner-books/
+steiner-search*/
+system/
+tools/
+backups/
+node_modules/
+anthology*/
+Obsidian*/
+
+# Große JSON-Daten im Repo-Root (nicht für die statische Pages-Site)
+steiner-search*.json
+steiner-images*.json
+steiner-full-lectures*.json
+steiner-books*.json
+summary-database.json
+keywords-database.json
+concepts-database.json
+book-chapter-summaries.json
