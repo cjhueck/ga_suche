@@ -1,0 +1,51 @@
+# Statisches Hosting ohne Jekyll (vermeidet pages-build-deployment / jekyll-build-pages-Fehler).
+#
+# Einrichtung: GitHub → Settings → Pages → Build: „GitHub Actions“
+# Falls weiterhin der Workflow „pages build and deployment“ (Jekyll) startet:
+#   Repository → .github/workflows → dort die von GitHub erzeugte Datei entfernen
+#   oder unter Actions nur diesen Workflow behalten.
+#
+# Hinweis: Artefakt-Grenzen (z. B. sehr große JSON-Dateien) können den Upload weiterhin scheitern lassen.
+# Die Live-App läuft oft auf Render (ga-suche.onrender.com) — Pages ist dann optional.
+
+name: Deploy static site to Pages
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+# Ab GitHub: Node 20 auf Runnern deprecated — Node 24 für JS-Actions erzwungen (siehe Changelog Sept 2025)
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
