@@ -4214,14 +4214,18 @@ function normalizeGANumber(gaNumber) {
       
       if (selectedGA && lectureCount) {
         // Ein GA-Band ist ausgewählt
-        const gaType = getGAType(selectedGA);
-        if (gaType === 'book') {
-          // Bücher: keine Statistik anzeigen
-          texteServerInfo.textContent = '';
+        const gaNorm = (selectedGA || '').toUpperCase();
+        if (gaNorm === 'GA028' && typeof GA028_USE_CHAPTERS_UI !== 'undefined' && GA028_USE_CHAPTERS_UI) {
+          const nCh = typeof GA028_BOOK_CHAPTER_COUNT === 'number' ? GA028_BOOK_CHAPTER_COUNT : 40;
+          texteServerInfo.textContent = `${nCh} Kapitel`;
         } else {
-          // Vorträge oder Aufsätze: Anzahl in diesem Band anzeigen
-          const typeName = getGATypeName(selectedGA, true); // Plural
-          texteServerInfo.textContent = `${lectureCount} ${typeName}`;
+          const gaType = getGAType(selectedGA);
+          if (gaType === 'book') {
+            texteServerInfo.textContent = '';
+          } else {
+            const typeName = getGATypeName(selectedGA, true);
+            texteServerInfo.textContent = `${lectureCount} ${typeName}`;
+          }
         }
       } else {
         // Kein GA-Band ausgewählt: Gesamtstatistik
@@ -7375,6 +7379,10 @@ function getGATypeName(gaNumber, plural = false) {
   if (type === 'letter') return plural ? 'Dokumente' : 'Dokument';
   return plural ? 'Vorträge' : 'Vortrag';
 }
+
+/** Mit backend.js GA028_USE_CHAPTERS abgleichen: nur Tab „Texte“ / texteServerInfo, nicht die globale Statistik */
+var GA028_USE_CHAPTERS_UI = true;
+var GA028_BOOK_CHAPTER_COUNT = 40;
 
 // Hilfsfunktion für Post-Processing nach dem Book-Rendering (für progressives Rendering)
 async function finishBookRendering(book, viewer, targetIndex, mainContainer, highlightHeadingId = null) {
