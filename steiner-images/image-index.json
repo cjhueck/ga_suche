@@ -1,0 +1,871 @@
+{
+  "GA143/6": {
+    "parts": [
+      "steiner-images-part01.json"
+    ],
+    "count": 2
+  },
+  "GA262/6": {
+    "parts": [
+      "steiner-images-part02.json"
+    ],
+    "count": 1
+  },
+  "GA262/7": {
+    "parts": [
+      "steiner-images-part02.json"
+    ],
+    "count": 3
+  },
+  "GA262/8": {
+    "parts": [
+      "steiner-images-part02.json"
+    ],
+    "count": 8
+  },
+  "GA287/6": {
+    "parts": [
+      "steiner-images-part03.json"
+    ],
+    "count": 3
+  },
+  "GA289/2": {
+    "parts": [
+      "steiner-images-part04.json",
+      "steiner-images-part05.json"
+    ],
+    "count": 12
+  },
+  "GA289/3": {
+    "parts": [
+      "steiner-images-part05.json",
+      "steiner-images-part06.json",
+      "steiner-images-part07.json"
+    ],
+    "count": 19
+  },
+  "GA289/4": {
+    "parts": [
+      "steiner-images-part07.json",
+      "steiner-images-part08.json",
+      "steiner-images-part09.json",
+      "steiner-images-part10.json",
+      "steiner-images-part11.json",
+      "steiner-images-part12.json",
+      "steiner-images-part13.json",
+      "steiner-images-part14.json",
+      "steiner-images-part15.json",
+      "steiner-images-part16.json"
+    ],
+    "count": 77
+  },
+  "GA289/5": {
+    "parts": [
+      "steiner-images-part16.json",
+      "steiner-images-part17.json",
+      "steiner-images-part18.json",
+      "steiner-images-part19.json",
+      "steiner-images-part20.json",
+      "steiner-images-part21.json",
+      "steiner-images-part22.json",
+      "steiner-images-part23.json",
+      "steiner-images-part24.json",
+      "steiner-images-part25.json",
+      "steiner-images-part26.json"
+    ],
+    "count": 84
+  },
+  "GA289/6": {
+    "parts": [
+      "steiner-images-part26.json",
+      "steiner-images-part27.json",
+      "steiner-images-part28.json",
+      "steiner-images-part29.json",
+      "steiner-images-part30.json"
+    ],
+    "count": 38
+  },
+  "GA289/7": {
+    "parts": [
+      "steiner-images-part30.json",
+      "steiner-images-part31.json",
+      "steiner-images-part32.json",
+      "steiner-images-part33.json",
+      "steiner-images-part34.json"
+    ],
+    "count": 39
+  },
+  "GA289/8": {
+    "parts": [
+      "steiner-images-part35.json",
+      "steiner-images-part36.json",
+      "steiner-images-part37.json",
+      "steiner-images-part38.json",
+      "steiner-images-part39.json",
+      "steiner-images-part40.json",
+      "steiner-images-part41.json",
+      "steiner-images-part42.json",
+      "steiner-images-part43.json"
+    ],
+    "count": 79
+  },
+  "GA289/9": {
+    "parts": [
+      "steiner-images-part43.json",
+      "steiner-images-part44.json",
+      "steiner-images-part45.json"
+    ],
+    "count": 17
+  },
+  "GA347/10": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 14
+  },
+  "GA347/2": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 9
+  },
+  "GA347/3": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 13
+  },
+  "GA347/4": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 10
+  },
+  "GA347/5": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 7
+  },
+  "GA347/6": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 3
+  },
+  "GA347/7": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 4
+  },
+  "GA347/8": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part53.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 7
+  },
+  "GA347/9": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 13
+  },
+  "GA348/10": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 7
+  },
+  "GA348/12": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 4
+  },
+  "GA348/13": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 13
+  },
+  "GA348/14": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 4
+  },
+  "GA348/15": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 16
+  },
+  "GA348/16": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json"
+    ],
+    "count": 10
+  },
+  "GA348/18": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part54.json",
+      "steiner-images-part55.json"
+    ],
+    "count": 17
+  },
+  "GA348/2": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part55.json"
+    ],
+    "count": 11
+  },
+  "GA348/3": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part55.json"
+    ],
+    "count": 7
+  },
+  "GA348/4": {
+    "parts": [
+      "steiner-images-part46.json",
+      "steiner-images-part47.json",
+      "steiner-images-part55.json"
+    ],
+    "count": 8
+  },
+  "GA348/6": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part55.json",
+      "steiner-images-part56.json"
+    ],
+    "count": 17
+  },
+  "GA348/7": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part56.json"
+    ],
+    "count": 16
+  },
+  "GA348/8": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part56.json"
+    ],
+    "count": 14
+  },
+  "GA348/9": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part56.json"
+    ],
+    "count": 7
+  },
+  "GA349/1": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part56.json"
+    ],
+    "count": 17
+  },
+  "GA349/10": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part56.json",
+      "steiner-images-part57.json"
+    ],
+    "count": 10
+  },
+  "GA349/11": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part57.json"
+    ],
+    "count": 4
+  },
+  "GA349/13": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part57.json"
+    ],
+    "count": 9
+  },
+  "GA349/2": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part57.json"
+    ],
+    "count": 15
+  },
+  "GA349/3": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part57.json"
+    ],
+    "count": 8
+  },
+  "GA349/4": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part57.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 12
+  },
+  "GA349/5": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 4
+  },
+  "GA349/6": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 7
+  },
+  "GA349/7": {
+    "parts": [
+      "steiner-images-part47.json",
+      "steiner-images-part48.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 17
+  },
+  "GA349/8": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 5
+  },
+  "GA349/9": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 4
+  },
+  "GA350/1": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 3
+  },
+  "GA350/10": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part58.json"
+    ],
+    "count": 8
+  },
+  "GA350/11": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part58.json",
+      "steiner-images-part59.json"
+    ],
+    "count": 11
+  },
+  "GA350/12": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part59.json"
+    ],
+    "count": 8
+  },
+  "GA350/13": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part59.json"
+    ],
+    "count": 4
+  },
+  "GA350/14": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part59.json"
+    ],
+    "count": 7
+  },
+  "GA350/15": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part59.json"
+    ],
+    "count": 18
+  },
+  "GA350/2": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part59.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 14
+  },
+  "GA350/3": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 6
+  },
+  "GA350/4": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 17
+  },
+  "GA350/5": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 4
+  },
+  "GA350/6": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 4
+  },
+  "GA350/7": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 5
+  },
+  "GA350/8": {
+    "parts": [
+      "steiner-images-part48.json",
+      "steiner-images-part60.json"
+    ],
+    "count": 7
+  },
+  "GA350/9": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 5
+  },
+  "GA351/1": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 8
+  },
+  "GA351/10": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 16
+  },
+  "GA351/11": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 3
+  },
+  "GA351/12": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 16
+  },
+  "GA351/13": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 5
+  },
+  "GA351/14": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part61.json"
+    ],
+    "count": 8
+  },
+  "GA351/15": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 10
+  },
+  "GA351/2": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 9
+  },
+  "GA351/3": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 6
+  },
+  "GA351/4": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 3
+  },
+  "GA351/6": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 4
+  },
+  "GA351/7": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 3
+  },
+  "GA351/8": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 4
+  },
+  "GA351/9": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json"
+    ],
+    "count": 4
+  },
+  "GA352/1": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part62.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 14
+  },
+  "GA352/10": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 5
+  },
+  "GA352/2": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 3
+  },
+  "GA352/3": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 4
+  },
+  "GA352/4": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 4
+  },
+  "GA352/5": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 16
+  },
+  "GA352/6": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 10
+  },
+  "GA352/7": {
+    "parts": [
+      "steiner-images-part49.json",
+      "steiner-images-part50.json",
+      "steiner-images-part63.json"
+    ],
+    "count": 13
+  },
+  "GA352/9": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part63.json",
+      "steiner-images-part64.json"
+    ],
+    "count": 16
+  },
+  "GA353/12": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part64.json"
+    ],
+    "count": 6
+  },
+  "GA353/16": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part64.json"
+    ],
+    "count": 3
+  },
+  "GA353/4": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part64.json"
+    ],
+    "count": 4
+  },
+  "GA353/7": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part64.json"
+    ],
+    "count": 4
+  },
+  "GA353/8": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part64.json"
+    ],
+    "count": 3
+  },
+  "GA354/1": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part65.json"
+    ],
+    "count": 4
+  },
+  "GA354/12": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part65.json"
+    ],
+    "count": 15
+  },
+  "GA354/2": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part65.json"
+    ],
+    "count": 8
+  },
+  "GA354/3": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part65.json"
+    ],
+    "count": 15
+  },
+  "GA354/6": {
+    "parts": [
+      "steiner-images-part50.json",
+      "steiner-images-part65.json"
+    ],
+    "count": 3
+  },
+  "GA344/6": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/10": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/12": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/14": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/15": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/16": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 2
+  },
+  "GA346/17": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/19": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/20": {
+    "parts": [
+      "steiner-images-part51.json"
+    ],
+    "count": 1
+  },
+  "GA346/21": {
+    "parts": [
+      "steiner-images-part51.json",
+      "steiner-images-part52.json"
+    ],
+    "count": 26
+  },
+  "GA346/8": {
+    "parts": [
+      "steiner-images-part52.json"
+    ],
+    "count": 1
+  },
+  "GA346/9": {
+    "parts": [
+      "steiner-images-part52.json",
+      "steiner-images-part53.json"
+    ],
+    "count": 3
+  },
+  "GA348/1": {
+    "parts": [
+      "steiner-images-part54.json"
+    ],
+    "count": 1
+  },
+  "GA348/17": {
+    "parts": [
+      "steiner-images-part54.json"
+    ],
+    "count": 1
+  },
+  "GA350/16": {
+    "parts": [
+      "steiner-images-part59.json"
+    ],
+    "count": 1
+  },
+  "GA351/5": {
+    "parts": [
+      "steiner-images-part62.json"
+    ],
+    "count": 1
+  },
+  "GA353/1": {
+    "parts": [
+      "steiner-images-part64.json"
+    ],
+    "count": 2
+  },
+  "GA353/10": {
+    "parts": [
+      "steiner-images-part64.json"
+    ],
+    "count": 1
+  },
+  "GA353/11": {
+    "parts": [
+      "steiner-images-part64.json"
+    ],
+    "count": 1
+  },
+  "GA353/14": {
+    "parts": [
+      "steiner-images-part64.json"
+    ],
+    "count": 1
+  },
+  "GA353/3": {
+    "parts": [
+      "steiner-images-part64.json"
+    ],
+    "count": 1
+  },
+  "GA353/9": {
+    "parts": [
+      "steiner-images-part64.json"
+    ],
+    "count": 1
+  },
+  "GA354/10": {
+    "parts": [
+      "steiner-images-part65.json"
+    ],
+    "count": 1
+  },
+  "GA354/11": {
+    "parts": [
+      "steiner-images-part65.json"
+    ],
+    "count": 1
+  },
+  "GA354/13": {
+    "parts": [
+      "steiner-images-part65.json"
+    ],
+    "count": 1
+  },
+  "GA354/9": {
+    "parts": [
+      "steiner-images-part65.json"
+    ],
+    "count": 2
+  }
+}
