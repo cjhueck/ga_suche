@@ -236,6 +236,56 @@ let wpPdfUrlCache = {};
 const WP_PDF_URL_CACHE_FILE = path.join(__dirname, 'wp-pdf-url-cache.json');
 const WP_PDF_DISK_CACHE_DIR = path.join(__dirname, 'Steiner_GA_pdf_cache');
 const WP_SITE = 'akanthos-akademie.org';
+const PDF_WP_OVERRIDES_FILE = path.join(__dirname, 'pdf-wordpress-overrides.json');
+
+/** Manuelle GA → WordPress-URL (wenn ga028.pdf z.B. nur unter langem Dateinamen liegt) */
+let pdfWordPressOverrides = {};
+
+function loadPdfWordPressOverrides() {
+  try {
+    if (!fsSync.existsSync(PDF_WP_OVERRIDES_FILE)) return;
+    const raw = fsSync.readFileSync(PDF_WP_OVERRIDES_FILE, 'utf8').replace(/^\uFEFF/, '');
+    const data = JSON.parse(raw);
+    if (data && typeof data === 'object') {
+      pdfWordPressOverrides = Object.fromEntries(
+        Object.entries(data).filter(([k, v]) => k && !k.startsWith('_') && typeof v === 'string' && /^https?:\/\//i.test(v))
+      );
+      console.log(`[PDF-PROXY] WordPress-Overrides: ${Object.keys(pdfWordPressOverrides).length} Einträge`);
+    }
+  } catch (e) {
+    console.warn(`[PDF-PROXY] pdf-wordpress-overrides.json: ${e.message}`);
+    pdfWordPressOverrides = {};
+  }
+}
+
+loadPdfWordPressOverrides();
+
+/**
+ * Zusatz-PDFs (z.B. ga028-Bilder.pdf) nicht als „Hauptband“ für /api/pdf verwenden,
+ * sonst liefert die WP-API bei search=ga028 oft zuerst das Bilder-PDF.
+ */
+function isSupplementaryGaPdfFileName(fileName) {
+  if (!fileName || typeof fileName !== 'string') return false;
+  const f = fileName.toLowerCase().split('?')[0].trim();
+  return /-bilder\.pdf$/i.test(f);
+}
+
+/** Prüft ob eine URL ein PDF liefert (HEAD, falls nötig GET mit Range — manche Hosts liefern auf HEAD 404) */
+async function urlLooksLikePdfExists(url) {
+  try {
+    const headResp = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(8000) });
+    if (headResp.ok) return true;
+  } catch (_) { /* GET versuchen */ }
+  try {
+    const getResp = await fetch(url, {
+      method: 'GET',
+      headers: { Range: 'bytes=0-0' },
+      signal: AbortSignal.timeout(12000),
+    });
+    if (getResp.ok || getResp.status === 206) return true;
+  } catch (_) { /* nein */ }
+  return false;
+}
 
 // URL-Cache beim Start von Disk laden
 try {
@@ -289,8 +339,28 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
   
   // 1. Persistenter URL-Cache prüfen (sofort, kein Netzwerk)
   if (!skipCache && wpPdfUrlCache[gaNumber]) {
-    console.log(`[PDF-PROXY] URL-Cache-Treffer für ${gaNumber}`);
-    return wpPdfUrlCache[gaNumber];
+    const cachedUrl = wpPdfUrlCache[gaNumber];
+    const cachedName = (cachedUrl.split('/').pop() || '').split('?')[0];
+    if (isSupplementaryGaPdfFileName(cachedName)) {
+      console.warn(`[PDF-PROXY] URL-Cache verwirft Zusatz-PDF (${cachedName}) für ${gaNumber}, suche erneut…`);
+      delete wpPdfUrlCache[gaNumber];
+      saveWpPdfUrlCache();
+    } else {
+      console.log(`[PDF-PROXY] URL-Cache-Treffer für ${gaNumber}`);
+      return cachedUrl;
+    }
+  }
+
+  // 1b. Manuelle Overrides (z.B. GA028 nur als langer Dateiname in WP, nicht ga028.pdf unter Standard-Pfad)
+  if (!skipCache && pdfWordPressOverrides[gaNumber]) {
+    const overrideUrl = pdfWordPressOverrides[gaNumber];
+    if (await urlLooksLikePdfExists(overrideUrl)) {
+      console.log(`[PDF-PROXY] Override-Treffer für ${gaNumber}: ${overrideUrl}`);
+      wpPdfUrlCache[gaNumber] = overrideUrl;
+      saveWpPdfUrlCache();
+      return overrideUrl;
+    }
+    console.warn(`[PDF-PROXY] Override-URL nicht erreichbar für ${gaNumber}: ${overrideUrl}`);
   }
   
   // 2. Bekannte Basis-URLs mit allen Dateinamen-Varianten probieren
@@ -299,8 +369,7 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
     for (const variant of fileVariants) {
       const tryUrl = `${baseUrl}${variant}`;
       try {
-        const headResp = await fetch(tryUrl, { method: 'HEAD', signal: AbortSignal.timeout(5000) });
-        if (headResp.ok) {
+        if (await urlLooksLikePdfExists(tryUrl)) {
           console.log(`[PDF-PROXY] Direkt gefunden: ${tryUrl}`);
           wpPdfUrlCache[gaNumber] = tryUrl;
           saveWpPdfUrlCache();
@@ -321,10 +390,27 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
       const data = await apiResponse.json();
       
       if (data && data.length > 0) {
+        const primaryName = `${gaNumber}.pdf`.toLowerCase();
+        // Lieber Haupt-PDF vor Zusatz-PDFs (z.B. ga028.pdf vor ga028-bilder.pdf)
+        const sorted = [...data].sort((a, b) => {
+          const urlA = (a.source_url || a.guid?.rendered || '').toLowerCase();
+          const urlB = (b.source_url || b.guid?.rendered || '').toLowerCase();
+          const fnA = urlA.split('/').pop().split('?')[0] || '';
+          const fnB = urlB.split('/').pop().split('?')[0] || '';
+          const supA = isSupplementaryGaPdfFileName(fnA) ? 1 : 0;
+          const supB = isSupplementaryGaPdfFileName(fnB) ? 1 : 0;
+          if (supA !== supB) return supA - supB;
+          const exA = fnA === primaryName ? 0 : 1;
+          const exB = fnB === primaryName ? 0 : 1;
+          if (exA !== exB) return exA - exB;
+          return fnA.localeCompare(fnB);
+        });
+
         // Suche exakten Treffer (Standard-Name oder Variante)
-        for (const item of data) {
+        for (const item of sorted) {
           const itemUrl = item.source_url || item.guid?.rendered || '';
-          const fileName = itemUrl.split('/').pop().toLowerCase();
+          const fileName = (itemUrl.split('/').pop() || '').toLowerCase().split('?')[0];
+          if (isSupplementaryGaPdfFileName(fileName)) continue;
           
           for (const variant of fileVariants) {
             if (fileName === variant || itemUrl.toLowerCase().endsWith(`/${variant}`)) {
@@ -336,10 +422,11 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
           }
         }
         
-        // Kein exakter Treffer, aber Ergebnisse die mit gaNumber beginnen
-        for (const item of data) {
+        // Kein exakter Treffer, aber Ergebnisse die mit gaNumber beginnen (ohne -bilder)
+        for (const item of sorted) {
           const itemUrl = item.source_url || item.guid?.rendered || '';
-          const fileName = itemUrl.split('/').pop().toLowerCase();
+          const fileName = (itemUrl.split('/').pop() || '').toLowerCase().split('?')[0];
+          if (isSupplementaryGaPdfFileName(fileName)) continue;
           
           if (fileName.startsWith(gaNumber) || itemUrl.toLowerCase().includes(`/${gaNumber}`)) {
             console.log(`[PDF-PROXY] WordPress API: Bester Treffer -> ${itemUrl}`);
@@ -349,8 +436,14 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
           }
         }
         
-        // Letzter Fallback: erstes Ergebnis
-        const firstUrl = data[0].source_url || data[0].guid?.rendered || '';
+        // Letzter Fallback: erstes Ergebnis, das kein -bilder Zusatz ist
+        const fallbackItem = sorted.find(it => {
+          const u = it.source_url || it.guid?.rendered || '';
+          const fn = (u.split('/').pop() || '').split('?')[0];
+          return u && !isSupplementaryGaPdfFileName(fn);
+        });
+        const useItem = fallbackItem || sorted[0];
+        const firstUrl = useItem ? (useItem.source_url || useItem.guid?.rendered || '') : '';
         if (firstUrl) {
           console.log(`[PDF-PROXY] WordPress API: Fallback-Treffer -> ${firstUrl}`);
           wpPdfUrlCache[gaNumber] = firstUrl;
