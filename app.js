@@ -11463,6 +11463,27 @@ function scrollToChronologicalYear(year) {
       await showLecture(lectureId, null, []);
     }
 
+    // GA028 Kapitel→Abschnitt-Zuordnung (Kapitel 1-40 → Abschnitt 1-6 + Absatz-Index)
+    var GA028_CHAPTER_LOOKUP = {
+      1:{s:1,p:2}, 2:{s:1,p:68}, 3:{s:2,p:0}, 4:{s:2,p:50}, 5:{s:2,p:78},
+      6:{s:2,p:110}, 7:{s:2,p:147}, 8:{s:2,p:188}, 9:{s:2,p:211}, 10:{s:2,p:236},
+      11:{s:2,p:253}, 12:{s:2,p:265}, 13:{s:2,p:291}, 14:{s:3,p:0}, 15:{s:3,p:44},
+      16:{s:3,p:76}, 17:{s:3,p:97}, 18:{s:3,p:124}, 19:{s:3,p:158}, 20:{s:3,p:199},
+      21:{s:3,p:252}, 22:{s:3,p:290}, 23:{s:3,p:332}, 24:{s:4,p:0}, 25:{s:4,p:33},
+      26:{s:4,p:54}, 27:{s:4,p:63}, 28:{s:4,p:95}, 29:{s:4,p:116}, 30:{s:4,p:153},
+      31:{s:4,p:210}, 32:{s:4,p:242}, 33:{s:4,p:291}, 34:{s:4,p:299}, 35:{s:4,p:309},
+      36:{s:4,p:327}, 37:{s:4,p:344}, 38:{s:4,p:369}, 39:{s:5,p:0}, 40:{s:6,p:0}
+    };
+
+    function resolveGA028ChapterId(lectureId) {
+      var m = lectureId.match(/^GA028\/(\d+)$/i);
+      if (!m) return null;
+      var chNum = parseInt(m[1]);
+      var entry = GA028_CHAPTER_LOOKUP[chNum];
+      if (!entry) return null;
+      return { parentLectureId: 'GA028/' + entry.s, paragraphIndex: entry.p };
+    }
+
     async function showBookChapter(parentLectureId, paragraphIndex) {
       await showLecture(parentLectureId, null, []);
       var maxAttempts = 30;
@@ -11498,6 +11519,22 @@ function scrollToChronologicalYear(year) {
       try {
         if (!lectureId) {
           console.error('[NAVIGATION] Keine Lecture-ID angegeben');
+          return;
+        }
+        
+        // GA028-Kapitel abfangen: zum Texte-Tab wechseln und showBookChapter nutzen
+        var resolved028 = resolveGA028ChapterId(lectureId);
+        if (resolved028) {
+          console.log('[NAVIGATION] GA028-Kapitel aufgelöst:', lectureId, '->', resolved028.parentLectureId);
+          if (typeof switchTab === 'function') {
+            switchTab('texte', true);
+          }
+          await new Promise(resolve => setTimeout(resolve, 200));
+          var gaNumber028 = lectureId.split('/')[0];
+          if (typeof loadGAOverviewInSidePanelOnly === 'function') {
+            loadGAOverviewInSidePanelOnly(gaNumber028).catch(function() {});
+          }
+          await showBookChapter(resolved028.parentLectureId, resolved028.paragraphIndex);
           return;
         }
         
@@ -11744,6 +11781,8 @@ function scrollToChronologicalYear(year) {
     // Stelle Funktionen im globalen Scope verfügbar für onclick-Attribute
     window.navigateToLectureInTexteTab = navigateToLectureInTexteTab;
     window.navigateToLectureHeading = navigateToLectureHeading;
+    window.resolveGA028ChapterId = resolveGA028ChapterId;
+    window.showBookChapter = showBookChapter;
 
     // Navigiere zum Texte-Tab und zeige Book mit spezifischer Überschrift
     // WICHTIG: Muss auch im globalen Scope sein für onclick-Attribute im GA-Tab
