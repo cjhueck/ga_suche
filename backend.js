@@ -21183,9 +21183,12 @@ app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
 
     if (!lectureId) return res.json([]);
 
-    // 1. Memory-Cache (nur kanonischer Schlüssel)
-    if (steinerImages[lectureId]) {
-      return res.json(steinerImages[lectureId]);
+    // 1. Memory-Cache nur bei tatsächlich gefundenen Bildern.
+    // WICHTIG: `if (steinerImages[id])` ist FALSCH — [] ist in JS truthy, dann würde ein einmalig
+    // gecachtes leeres Array für immer zurückgegeben (z.B. nach alter Index-Bug-Anfrage).
+    const cachedImgs = steinerImages[lectureId];
+    if (Array.isArray(cachedImgs) && cachedImgs.length > 0) {
+      return res.json(cachedImgs);
     }
 
     const imagesDir = path.join(__dirname, 'steiner-images');
