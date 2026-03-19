@@ -3973,6 +3973,23 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
+    function buildSteinerImagesApiUrl(apiBase, lectureId) {
+      const b = String(apiBase || '').replace(/\/$/, '');
+      const id = String(lectureId || '').trim();
+      const ix = id.indexOf('/');
+      if (ix === -1) {
+        return `${b}/api/steiner-images/${encodeURIComponent(id)}`;
+      }
+      return `${b}/api/steiner-images/${encodeURIComponent(id.slice(0, ix))}/${encodeURIComponent(id.slice(ix + 1))}`;
+    }
+
+    function steinerImageBinaryApiUrl(lectureId, imagePath) {
+      const api = (typeof window !== 'undefined' && window.API_BASE) ? String(window.API_BASE).replace(/\/$/, '') : String(API_BASE || '').replace(/\/$/, '');
+      if (!api || !lectureId || !imagePath) return '';
+      const q = new URLSearchParams({ lectureId, path: imagePath });
+      return `${api}/api/steiner-image-binary?${q.toString()}`;
+    }
+
     // Lade Bilder für einen bestimmten Vortrag bei Bedarf
     async function loadSteinerImagesForLecture(lectureId) {
       try {
@@ -3981,8 +3998,7 @@ function normalizeGANumber(gaNumber) {
           return steinerImages[lectureId];
         }
         
-        // lectureId hat Format "GA074/1" - Slash NICHT encodieren, da Route ihn erwartet
-        const response = await fetch(`${API_BASE}/api/steiner-images/${lectureId}`);
+        const response = await fetch(buildSteinerImagesApiUrl(API_BASE, lectureId));
         
         if (!response.ok) {
           console.warn(`[IMAGES] Keine Bilder für ${lectureId} verfügbar`);
@@ -4580,8 +4596,13 @@ function normalizeGANumber(gaNumber) {
         
         if (matchingImage) {
           console.warn(`[IMAGES-DEBUG] ? MATCH GEFUNDEN: ${matchingImage.path}`);
-          // Ersetze src durch Base64-Daten
-          imgTag.setAttribute('src', matchingImage.base64);
+          // Online: data:-URLs ggf. von CSP/Größe betroffen — ohne/zu kurzes base64 → Binär-Route
+          let displaySrc = matchingImage.base64;
+          if (!displaySrc || displaySrc.length < 80 || !String(displaySrc).startsWith('data:')) {
+            const binUrl = steinerImageBinaryApiUrl(lectureId, matchingImage.path || '');
+            if (binUrl) displaySrc = binUrl;
+          }
+          imgTag.setAttribute('src', displaySrc);
           // Prüfe, ob es eine Tafelzeichnung ist
           const isBlackboardDrawing = /T\d+\./.test(matchingImage.path) || 
                                        matchingImage.altText.includes('-T') || 
@@ -4621,7 +4642,7 @@ function normalizeGANumber(gaNumber) {
             e.stopPropagation();
             const altText = imgTag.getAttribute('alt') || matchingImage.altText || '';
             const dataFormat = imgTag.getAttribute('data-format');
-            openImagePopup(matchingImage.base64, altText, dataFormat);
+            openImagePopup(imgTag.getAttribute('src') || matchingImage.base64, altText, dataFormat);
           });
           
           } else {
