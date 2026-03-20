@@ -737,6 +737,7 @@ app.use((err, req, res, next) => {
 let chunks = []; // WIRD NICHT MEHR VERWENDET
 let paragraphsFromLectures = []; // NEU
 let fullLectures = {};
+let fullLecturesByGA = {}; // Index: gaNumber (lowercase) → Array von Lectures
 let fullBooks = {}; // GA-Schriften (GA001-GA046)
 let conceptsDatabase = []; // Cache für concepts-database.json (Schlagwort-System)
 
@@ -2441,9 +2442,8 @@ async function generateGAOverview(gaNumber) {
     };
   }
   
-  // Suche nach Vorträgen
-  const lectures = Object.values(fullLectures)
-    .filter(lec => lec.gaNumber && lec.gaNumber.toLowerCase() === gaNumberNormalized)
+  const lectures = (fullLecturesByGA[gaNumberNormalized] || [])
+    .slice()
     .sort((a, b) => {
       const numA = parseInt(a.lectureNumber) || 0;
       const numB = parseInt(b.lectureNumber) || 0;
@@ -11051,16 +11051,22 @@ app.get('/api/book/:gaNumber', async (req, res) => {
 app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
+    const cacheKey = findGAOverviewKey(gaNumberOriginal) || gaNumberOriginal.toUpperCase();
 
+    if (gaOverviewCache[cacheKey]) {
+      res.setHeader('Cache-Control', 'public, max-age=120');
+      return res.json(gaOverviewCache[cacheKey]);
+    }
 
-    // Generiere Übersicht direkt aus zentraler Datenbank (kein Cache)
     const overview = await generateGAOverview(gaNumberOriginal);
 
     if (!overview) {
       return res.status(404).json({ error: `Keine Vorträge gefunden für ${gaNumberOriginal}` });
     }
 
-    res.setHeader('Cache-Control', 'public, max-age=120'); // 2 Min pro GA
+    gaOverviewCache[cacheKey] = overview;
+
+    res.setHeader('Cache-Control', 'public, max-age=120');
     res.json(overview);
 
   } catch (error) {
@@ -27020,6 +27026,16 @@ await loadSynonyms();
     console.log('\n[3/9] Lade Vorträge...');
 await loadFullLectures();
     console.log(`  ✓ Vorträge geladen: ${Object.keys(fullLectures).length} Vorträge`);
+
+    fullLecturesByGA = {};
+    for (const lec of Object.values(fullLectures)) {
+      if (lec.gaNumber) {
+        const key = lec.gaNumber.toLowerCase();
+        if (!fullLecturesByGA[key]) fullLecturesByGA[key] = [];
+        fullLecturesByGA[key].push(lec);
+      }
+    }
+    console.log(`  ✓ GA-Index erstellt: ${Object.keys(fullLecturesByGA).length} GA-Bände`);
 
     console.log('\n[4/9] Lade Bücher...');
 const loadedBooks = await loadBooks();

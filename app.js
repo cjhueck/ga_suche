@@ -5079,24 +5079,15 @@ function normalizeGANumber(gaNumber) {
           }
         } catch (e) { /* silent */ }
         
-        // Ansonsten: Lade GA-Übersicht (Vorträge oder Aufsätze)
+        // Lade GA-Übersicht (Vorträge oder Aufsätze)
+        const t0 = performance.now();
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
-        
-        // Debug-Information für Summary-Anzeige
-        if (data.lectures) {
-          const lecturesWithSummary = data.lectures.filter(l => l.summary && l.summary.trim() !== '');
-          
-          // Zeige ein paar Beispiel-Summaries zur Diagnose
-          if (lecturesWithSummary.length > 0) {
-          }
-          
-          // Immer versuchen, Summaries aus der Datenbank zu laden (überschreibt API-Daten)
-          await loadSummariesFromDB(data);
-        }
+        const t1 = performance.now();
         
         await displayGAOverview(data);
+        console.log(`[PERF] ${gaNumber}: API ${Math.round(t1-t0)}ms, Render ${Math.round(performance.now()-t1)}ms, Gesamt ${Math.round(performance.now()-t0)}ms`);
       } catch (error) {
         console.error('Fehler beim Laden der GA-Übersicht:', error);
         document.getElementById('viewer').innerHTML = `
@@ -5116,9 +5107,6 @@ function normalizeGANumber(gaNumber) {
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
-        
-        // Lade Summaries aus Datenbank
-        await loadSummariesFromDB(data);
         
         // Normalisiere Summary-Daten
         data.lectures.forEach(lecture => {
@@ -9375,22 +9363,6 @@ async function showGALectures(gaNumber, skipHistory = false) {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     
-    // Lade Summary-Database
-    const summaryDB = await loadSummaryDatabase();
-    
-    // Debug: Zeige summaryDB Status für GA001
-    if (gaNumber === 'GA001' && summaryDB) {
-      const ga001Lectures = Object.keys(summaryDB).filter(id => id.startsWith('GA001/'));
-      console.log('[GA001-DEBUG] Gefundene GA001 Lectures in summaryDB:', ga001Lectures.length, ga001Lectures.slice(0, 5));
-      if (ga001Lectures.length > 0) {
-        console.log('[GA001-DEBUG] Erste Lecture Daten:', {
-          id: ga001Lectures[0],
-          headings: summaryDB[ga001Lectures[0]]?.headings?.length || 0,
-          headingsData: summaryDB[ga001Lectures[0]]?.headings?.slice(0, 3)
-        });
-      }
-    }
-    
     // Sortiere Vorträge nach Vortragsnummer
     const lectures = data.lectures.sort((a, b) => {
       const numA = parseInt(a.lectureNumber) || 0;
@@ -9410,41 +9382,13 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Prüfe ob GA001, GA018 oder GA028 - zeigt Inhaltsverzeichnis für jeden Aufsatz
     const showTableOfContents = gaNum === 1 || gaNum === 18 || gaNum === 28;
     
-    // Debug: Zeige erste lecture Daten für GA001/GA018/GA028
-    if (showTableOfContents && lectures.length > 0) {
-      console.log('[GA-TOC] showTableOfContents aktiv für', gaNumber);
-      console.log('[GA-TOC] Erste Lecture:', lectures[0].ID);
-      console.log('[GA-TOC] tableOfContents aus lecture:', lectures[0].tableOfContents);
-      console.log('[GA-TOC] tableOfContents aus summaryDB:', summaryDB[lectures[0].ID]?.tableOfContents);
-      console.log('[GA-TOC] headings aus lecture:', lectures[0].headings);
-      console.log('[GA-TOC] headings aus summaryDB:', summaryDB[lectures[0].ID]?.headings);
-    }
-    
     let currentYear = null;
     lectures.forEach(lecture => {
       const lectureId = lecture.ID;
-      // Verwende shortSummary von der lecture (kommt vom Backend) oder lade aus summaryDB
-      const shortSummary = lecture.shortSummary || summaryDB[lectureId]?.shortSummary || '';
-      // Für GA001/GA018/GA028: Verwende headings direkt (enthält H3 und H4 mit Ebenen)
-      // tableOfContents enthält nur H3, aber wir brauchen alle Überschriften für die Einrückung
+      const shortSummary = lecture.shortSummary || '';
       let headingsForTOC = [];
       if (showTableOfContents) {
-        // Lade headings direkt - diese enthalten alle Überschriften mit Ebenen (H3 und H4)
-        // WICHTIG: lecture.headings kommt vom Backend und kann bereits die Überschriften enthalten
-        headingsForTOC = lecture.headings || summaryDB[lectureId]?.headings || [];
-        
-        // Debug für GA001: Zeige was geladen wurde
-        if (lectureId.includes('GA001')) {
-          console.log('[GA001-TOC] Überschriften für', lectureId, ':', {
-            ausLecture: lecture.headings?.length || 0,
-            ausSummaryDB: summaryDB[lectureId]?.headings?.length || 0,
-            final: headingsForTOC.length,
-            erste3: headingsForTOC.slice(0, 3).map(h => ({
-              text: h.text || h.title || h,
-              level: h.level
-            }))
-          });
-        }
+        headingsForTOC = lecture.headings || [];
       }
       
       // Vortragstitel und Metadaten
@@ -10005,9 +9949,6 @@ async function displayGAOverview(data) {
   currentLectureSummary = null;
   showingSummaryInMain = false;
   updateButtonStates();
-  
-  // Lade Summaries aus zentraler Datenbank (enthält jetzt auch lectureKeywords in V2)
-  await loadSummariesFromDB(data);
   
   // Zähle Vorträge mit Summaries
   const summaryCount = data.lectures.filter(l => l.summary && l.summary.trim() !== '').length;
