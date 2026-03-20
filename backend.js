@@ -7732,6 +7732,7 @@ app.get('/api/ga-list', async (req, res) => {
       return numA - numB;
     });
     
+    res.setHeader('Cache-Control', 'public, max-age=300'); // 5 Min
     res.json(gaList);
   } catch (error) {
     console.error('[API/GA-LIST] Fehler beim Laden der GA-Liste:', error);
@@ -11059,6 +11060,7 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
       return res.status(404).json({ error: `Keine Vorträge gefunden für ${gaNumberOriginal}` });
     }
 
+    res.setHeader('Cache-Control', 'public, max-age=120'); // 2 Min pro GA
     res.json(overview);
 
   } catch (error) {
@@ -19923,7 +19925,8 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
         isComplete: allLecturesComplete     // ALLE Vorträge vollständig
       };
     });
-    
+
+    res.setHeader('Cache-Control', 'public, max-age=300'); // 5 Min
     res.json({ volumes });
   } catch (error) {
     console.error('[API/AVAILABLE-GA-VOLUMES] Fehler:', error);
