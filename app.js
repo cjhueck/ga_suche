@@ -2536,11 +2536,12 @@ function normalizeGANumber(gaNumber) {
       }
       
       // PDF-Panel schließen beim Tab-Wechsel
-      if (typeof closePdfPanel === 'function' && typeof pdfPanelVisible !== 'undefined' && pdfPanelVisible) {
-        closePdfPanel();
+      const pdfPanelForTabSwitch = document.getElementById('pdf-viewer-panel');
+      if (pdfPanelForTabSwitch && pdfPanelForTabSwitch.classList.contains('visible') && typeof window.closePdfPanel === 'function') {
+        window.closePdfPanel();
       }
-      if (typeof closePdfPopup === 'function') {
-        closePdfPopup();
+      if (typeof window.closePdfPopup === 'function') {
+        window.closePdfPopup();
       }
       
       // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
@@ -5046,8 +5047,9 @@ function normalizeGANumber(gaNumber) {
       if (!gaNumber) return;
       try {
         // PDF-Panel schließen beim Öffnen eines neuen GA-Bandes
-        if (typeof closePdfPanel === 'function' && typeof pdfPanelVisible !== 'undefined' && pdfPanelVisible) {
-          closePdfPanel();
+        const pdfPanel = document.getElementById('pdf-viewer-panel');
+        if (pdfPanel && pdfPanel.classList.contains('visible') && typeof window.closePdfPanel === 'function') {
+          window.closePdfPanel();
         }
 
         // Prüfe ob es ein Book ist (aber nicht ein Aufsatzband)
