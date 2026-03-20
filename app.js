@@ -39205,9 +39205,9 @@ window.cancelTextEditMode = function() {};
     // PDF-Pfad generieren
     const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
     
+    const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/ga_pdf/';
     let pdfPath;
     if (isLocalFile) {
-      // Lokales Dateisystem: verwende lokale Dateien
       const index = await loadPdfIndex();
       let basePath;
       if (index && index[gaNum]) {
@@ -39215,19 +39215,15 @@ window.cancelTextEditMode = function() {};
       } else {
         basePath = `${PDF_LOCAL_PATH}ga${gaNumPadded.toLowerCase()}.pdf`;
       }
-      
-      // Cache-Busting für lokale Dateien: IMMER neuen Timestamp verwenden
-      // um sicherzustellen, dass geänderte Dateien neu geladen werden
       const timestamp = Date.now() + Math.floor(Math.random() * 10000);
-      
-      // Füge Cache-Busting-Parameter hinzu
       const separator = basePath.includes('?') ? '&' : '?';
       pdfPath = `${basePath}${separator}_t=${timestamp}`;
-    } else {
-      // Server (localhost oder Produktion): nutze Backend-Proxy
-      // Backend prüft zuerst lokal, dann Disk-Cache, dann WordPress
-      // Cache-Busting: verhindert, dass der Browser veraltete PDFs aus dem HTTP-Cache liefert
+    } else if (isLocal) {
+      // localhost: Backend-Proxy (lokale PDFs, Disk-Cache)
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
+    } else {
+      // Produktion: direkt von Cloudflare R2 laden (kein Umweg über Render.com)
+      pdfPath = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
     }
     
     try {
@@ -39236,60 +39232,47 @@ window.cancelTextEditMode = function() {};
         return;
       }
       
-      console.log('[PDF] Lade:', pdfPath, isLocalFile ? '(lokal)' : '(via Proxy)', forceReload ? '[FORCE RELOAD]' : '');
+      const pdfSource = isLocalFile ? 'lokal' : (isLocal ? 'Backend-Proxy' : 'R2-direkt');
+      console.log(`[PDF] Lade: ${pdfPath} (${pdfSource})`, forceReload ? '[FORCE RELOAD]' : '');
       
-      // Bei forceReload oder bei lokalen Dateien: Altes PDF-Dokument schließen falls vorhanden
-      // (lokale Dateien sollten immer neu geladen werden, da sie sich ändern können)
       if ((forceReload || isLocalFile) && pdfDoc) {
-        try {
-          pdfDoc.destroy();
-        } catch (e) {
-          // Ignoriere Fehler beim Schließen
-        }
+        try { pdfDoc.destroy(); } catch (e) { /* ignore */ }
         pdfDoc = null;
       }
       
-      // Für lokale Dateien: Lade als Blob um Browser-Cache zu umgehen
       let pdfOptions;
       if (isLocalFile) {
         try {
-          // Lade Datei als Blob mit Cache-Busting
           const blobResponse = await fetch(pdfPath, { 
             cache: 'no-store',
-            headers: {
-              'Cache-Control': 'no-cache, no-store, must-revalidate',
-              'Pragma': 'no-cache'
-            }
+            headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
           });
           const blob = await blobResponse.blob();
-          console.log('[PDF] Datei als Blob geladen, Größe:', blob.size, 'bytes');
-          
-          pdfOptions = {
-            data: blob,
-            withCredentials: false
-          };
+          pdfOptions = { data: blob, withCredentials: false };
         } catch (blobError) {
           console.warn('[PDF] Blob-Laden fehlgeschlagen, verwende URL:', blobError);
-          // Fallback: URL mit Cache-Busting
           pdfOptions = {
-            url: pdfPath,
-            withCredentials: false,
-            httpHeaders: {
-              'Cache-Control': 'no-cache, no-store, must-revalidate',
-              'Pragma': 'no-cache'
-            }
+            url: pdfPath, withCredentials: false,
+            httpHeaders: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
           };
         }
       } else {
-        // Server: normale URL
-        pdfOptions = {
-          url: pdfPath,
-          withCredentials: false
-        };
+        pdfOptions = { url: pdfPath, withCredentials: false };
       }
       
-      const loadingTask = pdfjsLib.getDocument(pdfOptions);
-      pdfDoc = await loadingTask.promise;
+      let loadingTask = pdfjsLib.getDocument(pdfOptions);
+      try {
+        pdfDoc = await loadingTask.promise;
+      } catch (r2Error) {
+        if (!isLocal && !isLocalFile) {
+          console.warn('[PDF] R2-Direktladen fehlgeschlagen, Fallback auf Backend-Proxy:', r2Error.message);
+          const proxyPath = `${API_BASE}/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
+          loadingTask = pdfjsLib.getDocument({ url: proxyPath, withCredentials: false });
+          pdfDoc = await loadingTask.promise;
+        } else {
+          throw r2Error;
+        }
+      }
       pdfTotalPages = pdfDoc.numPages;
       
       document.getElementById('pdfTotalPages').textContent = pdfTotalPages;
