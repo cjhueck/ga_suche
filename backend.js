@@ -316,6 +316,7 @@ function saveWpPdfUrlCache() {
 // Bekannte WordPress-Basis-URLs (NUR selbst-gehostetes WordPress: akanthos-akademie.org)
 const PDF_SOURCE_URLS = [
   'https://akanthos-akademie.org/wp-content/uploads/2026/02/',
+  'https://akanthos-akademie.org/wp-content/uploads/2026/01/',
   'https://akanthos-akademie.org/wp-content/uploads/2025/01/',
   'https://akanthos-akademie.org/wp-content/uploads/2023/06/',
   'https://akanthos-akademie.org/wp-content/uploads/2024/01/',
