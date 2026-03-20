@@ -235,7 +235,7 @@ app.use('/system', express.static(path.join(__dirname, 'system')));
 let wpPdfUrlCache = {};
 const WP_PDF_URL_CACHE_FILE = path.join(__dirname, 'wp-pdf-url-cache.json');
 const WP_PDF_DISK_CACHE_DIR = path.join(__dirname, 'Steiner_GA_pdf_cache');
-const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/';
+const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/ga_pdf/';
 const WP_SITE = 'akanthos-akademie.org';
 const PDF_WP_OVERRIDES_FILE = path.join(__dirname, 'pdf-wordpress-overrides.json');
 
@@ -616,7 +616,7 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
     }
     
     // SCHRITT 3: Cloudflare R2 (primäre Online-Quelle)
-    const r2Url = `${PDF_R2_BASE}${gaNumber}.pdf`;
+    const r2Url = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
     console.log(`[PDF-PROXY] Lade von R2: ${r2Url}`);
     
     let response = await fetch(r2Url, { signal: AbortSignal.timeout(15000) });
