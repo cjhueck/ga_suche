@@ -1,14 +1,16 @@
 # Upload-Skript: Vortragsbilder aus Steiner_GA/GA*/assets/ nach Cloudflare R2
 # Organisiert als images/{GA-Nummer}/{dateiname} (z.B. images/GA094/img-0.png)
 # Verwendung:
-#   Alle:    powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1
-#   Auswahl: powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1 -FilterGA "GA028,GA211"
-#   Dry-Run: powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1 -DryRun
+#   Alle:        powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1
+#   Auswahl:     powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1 -FilterGA "GA028,GA211"
+#   Fortsetzen:  powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1 -StartFromGA "GA096"
+#   Dry-Run:     powershell -ExecutionPolicy Bypass -File upload_images_to_r2.ps1 -DryRun
 
 param(
     [string]$BucketName = "ga-pdf",
     [string]$SourceDir = "",
     [string]$FilterGA = "",
+    [string]$StartFromGA = "",
     [switch]$DryRun
 )
 
@@ -38,14 +40,20 @@ if ($FilterGA) {
     Write-Host "Filter aktiv: $($filterList -join ', ')" -ForegroundColor Cyan
 }
 
+if ($StartFromGA) {
+    $StartFromGA = $StartFromGA.ToUpper()
+    Write-Host "Fortsetzen ab: $StartFromGA (fruehere GA-Baende werden uebersprungen)" -ForegroundColor Cyan
+}
+
 $gaFolders = Get-ChildItem -Path $SourceDir -Directory | Where-Object {
     $_.Name -match "^GA\d{1,3}[a-z]?"
-}
+} | Sort-Object Name
 
 $uploaded = 0
 $skipped = 0
 $errors = 0
 $totalFiles = 0
+$startReached = if ($StartFromGA) { $false } else { $true }
 
 foreach ($gaFolder in $gaFolders) {
     # GA-Nummer extrahieren (z.B. "GA094" aus "GA094-Theosophie...")
@@ -53,6 +61,15 @@ foreach ($gaFolder in $gaFolders) {
         $gaNumber = $Matches[1].ToUpper()
     } else {
         continue
+    }
+
+    # StartFromGA: alles vor dem Startpunkt ueberspringen
+    if (-not $startReached) {
+        if ($gaNumber -eq $StartFromGA) {
+            $startReached = $true
+        } else {
+            continue
+        }
     }
 
     # Filter anwenden
@@ -65,15 +82,29 @@ foreach ($gaFolder in $gaFolders) {
         continue
     }
 
-    $imageFiles = Get-ChildItem -Path $assetsDir -File | Where-Object {
+    $allImageFiles = Get-ChildItem -Path $assetsDir -File | Where-Object {
         $contentTypes.ContainsKey($_.Extension.ToLower())
     }
 
-    if ($imageFiles.Count -eq 0) {
+    if ($allImageFiles.Count -eq 0) {
         continue
     }
 
-    Write-Host "`n--- $gaNumber ($($imageFiles.Count) Bilder) ---" -ForegroundColor Yellow
+    # Pro Bildname nur ein Format hochladen (Prioritaet: png > jpeg > jpg > webp > gif > svg)
+    $extPriority = @{ ".png" = 0; ".jpeg" = 1; ".jpg" = 2; ".webp" = 3; ".gif" = 4; ".svg" = 5 }
+    $bestPerName = @{}
+    foreach ($f in $allImageFiles) {
+        $baseName = [System.IO.Path]::GetFileNameWithoutExtension($f.Name)
+        $prio = $extPriority[$f.Extension.ToLower()]
+        if ($null -eq $prio) { $prio = 99 }
+        if (-not $bestPerName.ContainsKey($baseName) -or $prio -lt $bestPerName[$baseName].Prio) {
+            $bestPerName[$baseName] = @{ File = $f; Prio = $prio }
+        }
+    }
+    $imageFiles = $bestPerName.Values | ForEach-Object { $_.File } | Sort-Object Name
+    $dupesSkipped = $allImageFiles.Count - $imageFiles.Count
+
+    Write-Host "`n--- $gaNumber ($($imageFiles.Count) Bilder, $dupesSkipped Duplikate uebersprungen) ---" -ForegroundColor Yellow
 
     foreach ($img in $imageFiles) {
         $totalFiles++
@@ -105,5 +136,5 @@ foreach ($gaFolder in $gaFolders) {
 }
 
 Write-Host "`n========================================="
-Write-Host "Ergebnis: $uploaded hochgeladen, $errors Fehler (von $totalFiles Dateien)"
+Write-Host "Ergebnis: $uploaded hochgeladen, $skipped Duplikate uebersprungen, $errors Fehler (von $totalFiles Dateien)"
 Write-Host "========================================="

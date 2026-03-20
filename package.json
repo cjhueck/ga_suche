@@ -20,6 +20,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1013.0",
     "nodemon": "^3.0.1"
   },
   "engines": {

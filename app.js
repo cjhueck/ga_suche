@@ -2535,6 +2535,14 @@ function normalizeGANumber(gaNumber) {
         console.log('[HISTORY] switchTab: pushState DONE, history.state jetzt:', JSON.stringify(history.state));
       }
       
+      // PDF-Panel schließen beim Tab-Wechsel
+      if (typeof closePdfPanel === 'function' && typeof pdfPanelVisible !== 'undefined' && pdfPanelVisible) {
+        closePdfPanel();
+      }
+      if (typeof closePdfPopup === 'function') {
+        closePdfPopup();
+      }
+      
       // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
       savedSummaryPanelWidth = null;
       
