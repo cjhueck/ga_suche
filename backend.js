@@ -313,15 +313,28 @@ function saveWpPdfUrlCache() {
   }
 }
 
-// Bekannte WordPress-Basis-URLs (NUR selbst-gehostetes WordPress: akanthos-akademie.org)
-const PDF_SOURCE_URLS = [
-  'https://akanthos-akademie.org/wp-content/uploads/2026/02/',
-  'https://akanthos-akademie.org/wp-content/uploads/2026/01/',
-  'https://akanthos-akademie.org/wp-content/uploads/2025/01/',
-  'https://akanthos-akademie.org/wp-content/uploads/2023/06/',
-  'https://akanthos-akademie.org/wp-content/uploads/2024/01/',
-  'https://akanthos-akademie.org/wp-content/uploads/2024/06/',
+// WordPress-Basis-Domains für PDF-Suche (primär: WordPress.com, Fallback: selbst-gehostet)
+const PDF_WP_BASES = [
+  'https://akanthosakademie.wordpress.com/wp-content/uploads/',
+  'https://akanthos-akademie.org/wp-content/uploads/',
 ];
+
+// Dynamisch alle Monats-Ordner von 2023/01 bis heute+1 generieren
+const PDF_SOURCE_URLS = (() => {
+  const urls = [];
+  const now = new Date();
+  const endYear = now.getFullYear();
+  const endMonth = now.getMonth() + 1;
+  for (const base of PDF_WP_BASES) {
+    for (let y = endYear; y >= 2023; y--) {
+      const mMax = (y === endYear) ? Math.min(endMonth + 1, 12) : 12;
+      for (let m = mMax; m >= 1; m--) {
+        urls.push(`${base}${y}/${String(m).padStart(2, '0')}/`);
+      }
+    }
+  }
+  return urls;
+})();
 
 // Hilfsfunktion: PDF-URL ermitteln — schnelle bekannte URLs zuerst, dann API-Fallback
 // skipCache=true wird bei Retry nach fehlgeschlagenem Download verwendet
