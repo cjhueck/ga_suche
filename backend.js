@@ -235,6 +235,7 @@ app.use('/system', express.static(path.join(__dirname, 'system')));
 let wpPdfUrlCache = {};
 const WP_PDF_URL_CACHE_FILE = path.join(__dirname, 'wp-pdf-url-cache.json');
 const WP_PDF_DISK_CACHE_DIR = path.join(__dirname, 'Steiner_GA_pdf_cache');
+const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/';
 const WP_SITE = 'akanthos-akademie.org';
 const PDF_WP_OVERRIDES_FILE = path.join(__dirname, 'pdf-wordpress-overrides.json');
 
@@ -614,63 +615,44 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
       return;
     }
     
-    // SCHRITT 3: Fallback zu WordPress (wenn weder lokal noch im Cache)
-    console.log(`[PDF-PROXY] Nicht lokal/cached, suche auf WordPress: ${gaNumber}`);
+    // SCHRITT 3: Cloudflare R2 (primäre Online-Quelle)
+    const r2Url = `${PDF_R2_BASE}${gaNumber}.pdf`;
+    console.log(`[PDF-PROXY] Lade von R2: ${r2Url}`);
     
-    let pdfUrl = await findWordPressPdfUrl(gaNumber);
+    let response = await fetch(r2Url, { signal: AbortSignal.timeout(15000) });
     
-    if (!pdfUrl) {
-      console.warn(`[PDF-PROXY] PDF nicht gefunden (lokal, Cache und WordPress): ${gaNumber}`);
-      return res.status(404).json({ error: 'PDF nicht verfügbar' });
-    }
-    
-    // PDF von der gefundenen URL laden
-    let response = await fetch(pdfUrl);
-    
+    // Fallback: WordPress (für PDFs die noch nicht auf R2 liegen)
     if (!response.ok) {
-      // Cache-Eintrag entfernen und erneut suchen (URL könnte veraltet sein)
-      console.warn(`[PDF-PROXY] Gecachte URL fehlgeschlagen: ${pdfUrl} (${response.status}), suche erneut...`);
-      delete wpPdfUrlCache[gaNumber];
-      saveWpPdfUrlCache();
-      
-      // Retry ohne Cache: neue URL suchen
-      pdfUrl = await findWordPressPdfUrl(gaNumber, true);
-      if (!pdfUrl) {
-        console.warn(`[PDF-PROXY] Auch nach Retry kein PDF gefunden: ${gaNumber}`);
+      console.warn(`[PDF-PROXY] R2 fehlgeschlagen (${response.status}), versuche WordPress-Fallback...`);
+      const wpUrl = await findWordPressPdfUrl(gaNumber);
+      if (wpUrl) {
+        response = await fetch(wpUrl);
+        if (!response.ok) {
+          console.warn(`[PDF-PROXY] Auch WordPress fehlgeschlagen: ${gaNumber}`);
+          return res.status(404).json({ error: 'PDF nicht verfügbar' });
+        }
+        console.log(`[PDF-PROXY] WordPress-Fallback erfolgreich: ${wpUrl}`);
+      } else {
         return res.status(404).json({ error: 'PDF nicht verfügbar' });
       }
-      
-      response = await fetch(pdfUrl);
-      if (!response.ok) {
-        console.warn(`[PDF-PROXY] Auch Retry-URL fehlgeschlagen: ${pdfUrl} (${response.status})`);
-        delete wpPdfUrlCache[gaNumber];
-        saveWpPdfUrlCache();
-        return res.status(response.status).json({ error: `PDF nicht verfügbar (${response.status})` });
-      }
-      
-      console.log(`[PDF-PROXY] Retry erfolgreich mit neuer URL: ${pdfUrl}`);
     }
     
-    // PDF-Daten laden
     const arrayBuffer = await response.arrayBuffer();
     const pdfBuffer = Buffer.from(arrayBuffer);
     
-    // Im Disk-Cache speichern (asynchron, blockiert Response nicht)
+    // Im Disk-Cache speichern (asynchron)
     fs.writeFile(cachedPdfPath, pdfBuffer).then(() => {
       console.log(`[PDF-PROXY] Im Disk-Cache gespeichert: ${path.basename(cachedPdfPath)}`);
     }).catch(err => {
       console.warn(`[PDF-PROXY] Disk-Cache-Speicherung fehlgeschlagen: ${err.message}`);
     });
     
-    // Content-Type und Caching-Header setzen
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Cache-Control', 'no-cache'); // Browser soll beim Server nachfragen
+    res.setHeader('Cache-Control', 'public, max-age=86400');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    
-    // PDF-Daten senden
     res.send(pdfBuffer);
     
-    console.log(`[PDF-PROXY] WordPress-PDF erfolgreich gesendet und gecacht: ${gaNumber}`);
+    console.log(`[PDF-PROXY] PDF gesendet: ${gaNumber}`);
   } catch (error) {
     console.error('[PDF-PROXY] Fehler:', error);
     res.status(500).json({ error: 'Fehler beim Laden der PDF' });

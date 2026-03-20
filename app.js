@@ -4276,441 +4276,72 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
-    // NEUE STRATEGIE: Ersetze img src-Attribute NACH dem Markdown-Rendering
+    const IMAGES_R2_BASE = 'https://ga.rudolf-steiner-online.de/images/';
+
     async function replaceImageSrcWithBase64(htmlContent, lectureId) {
-      if (!htmlContent) {
-        return htmlContent;
-      }
-      
-      // Lade Bilder für diesen Vortrag bei Bedarf
-      if (!steinerImages[lectureId]) {
-        console.log(`[IMAGES] Lade Bilder für ${lectureId}...`);
-        await loadSteinerImagesForLecture(lectureId);
-      }
-      
-      // Wenn keine Bilder in der Datenbank sind: Fallback - rewrite img-Tags
-      // Vollständige Pfade (GA306-Die.../assets/img-2.png) ? /ga-k-images/ (express.static)
-      // Kurze Pfade (assets/img-2.png) ? /assets/?ga= (API-Route)
-      if (!steinerImages[lectureId]) {
-        console.warn('[IMAGES] ? Keine Bilder-Datenbank für lectureId:', lectureId);
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlContent;
-        const imgTags = tempDiv.querySelectorAll('img[src*="assets/"]');
-        if (imgTags.length > 0) {
-          const gaFromLectureId = (lectureId || '').split('/')[0] || lectureId;
-          imgTags.forEach(imgTag => {
-            const src = imgTag.getAttribute('src');
-            if (src && !src.startsWith('data:') && !src.startsWith('http')) {
-              const cleanedSrc = (src || '').replace(/^[<"']|[>"']$/g, '').trim();
-              const m = cleanedSrc.match(/assets\/(.+)$/);
-              const p = m ? m[1] : cleanedSrc.replace(/^assets\//, '');
-              const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
-              const imageUrl = hasFullPath
-                ? (API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/'))
-                : (API_BASE + '/assets/' + encodeURIComponent(p) + '?ga=' + encodeURIComponent(gaFromLectureId));
-              imgTag.setAttribute('src', imageUrl);
-              imgTag.className = 'lecture-image';
-              imgTag.style.cursor = 'pointer';
-            }
-          });
-          return tempDiv.innerHTML;
-        }
-        return htmlContent;
-      }
-      
-      const images = steinerImages[lectureId];
-      if (!images || images.length === 0) {
-        console.warn('[IMAGES] ? Leeres Bilder-Array für lectureId:', lectureId);
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlContent;
-        const imgTags = tempDiv.querySelectorAll('img[src*="assets/"]');
-        if (imgTags.length > 0) {
-          const gaFromLectureId = (lectureId || '').split('/')[0] || lectureId;
-          imgTags.forEach(imgTag => {
-            const src = imgTag.getAttribute('src');
-            if (src && !src.startsWith('data:') && !src.startsWith('http')) {
-              const cleanedSrc = (src || '').replace(/^[<"']|[>"']$/g, '').trim();
-              const m = cleanedSrc.match(/assets\/(.+)$/);
-              const p = m ? m[1] : cleanedSrc.replace(/^assets\//, '');
-              const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
-              const imageUrl = hasFullPath
-                ? (API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/'))
-                : (API_BASE + '/assets/' + encodeURIComponent(p) + '?ga=' + encodeURIComponent(gaFromLectureId));
-              imgTag.setAttribute('src', imageUrl);
-              imgTag.className = 'lecture-image';
-              imgTag.style.cursor = 'pointer';
-            }
-          });
-          return tempDiv.innerHTML;
-        }
-        return htmlContent;
-      }
-      
-      console.log(`[IMAGES] ${images.length} Bilder geladen für ${lectureId}`);
-      // DEBUG: Temporäre sichtbare Ausgabe
-      console.warn(`[IMAGES-DEBUG] Bilder für ${lectureId}:`, images.map(i => i.path));
-      
-      // Erstelle ein temporäres DOM-Element zum Parsen
+      if (!htmlContent) return htmlContent;
+
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = htmlContent;
-      
-      // Finde alle img-Tags - auch solche ohne "assets/" Präfix
-      const allImgTags = tempDiv.querySelectorAll('img');
-      const assetsImgTags = tempDiv.querySelectorAll('img[src^="assets/"]');
-      
-      console.log(`[IMAGES] Gefundene img-Tags: ${allImgTags.length} (davon mit assets/: ${assetsImgTags.length}) für ${lectureId}`);
-      
-      // Debug: Zeige alle img-Tags
-      if (allImgTags.length > 0) {
-        allImgTags.forEach((img, idx) => {
-          const src = img.getAttribute('src');
-          console.log(`[IMAGES]   img[${idx}]: src="${src}", alt="${img.getAttribute('alt')}"`);
-          // Prüfe ob src URL-encoded ist
-          if (src && src.includes('%')) {
-            console.log(`[IMAGES]     -> decoded: ${decodeURIComponent(src)}`);
-          }
-        });
-      } else {
-        // Debug: Zeige HTML-Inhalt wenn keine img-Tags gefunden wurden
-        console.warn(`[IMAGES] ? Keine img-Tags gefunden! HTML-Inhalt (erste 500 Zeichen):`, htmlContent.substring(0, 500));
-      }
-      
-      // Verwende alle img-Tags, nicht nur die mit assets/
-      const imgTagsToProcess = allImgTags.length > 0 ? allImgTags : assetsImgTags;
-      
-      imgTagsToProcess.forEach((imgTag, idx) => {
+      const imgTags = tempDiv.querySelectorAll('img');
+      if (imgTags.length === 0) return htmlContent;
+
+      const gaNumber = (lectureId || '').split('/')[0] || lectureId || '';
+      if (!gaNumber) return htmlContent;
+
+      imgTags.forEach(imgTag => {
         const src = imgTag.getAttribute('src');
-        console.log(`[IMAGES] Verarbeite Bild ${idx + 1} - ${imgTagsToProcess.length}: src="${src}"`);
-        
-        // Überspringe Bilder die bereits Base64 sind oder externe URLs
-        if (src && (src.startsWith('data:') || src.startsWith('http://') || src.startsWith('https://'))) {
-          console.log(`[IMAGES] Überspringe Bild (bereits Base64 oder externe URL): ${src.substring(0, 50)}...`);
-          return;
-        }
-        
-        const originalSrc = imgTag.getAttribute('src');
-        
-        // Decode URL-encoded Zeichen (z.B. %20 -> Leerzeichen)
+        if (!src || src.startsWith('data:') || src.startsWith('http://') || src.startsWith('https://')) return;
+
         let decodedSrc;
-        try {
-          decodedSrc = decodeURIComponent(originalSrc);
-        } catch (e) {
-          decodedSrc = originalSrc;
+        try { decodedSrc = decodeURIComponent(src); } catch { decodedSrc = src; }
+        const cleanSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
+
+        if (!/\.(png|jpe?g|webp|gif)$/i.test(cleanSrc)) return;
+
+        // Dateiname extrahieren: versuche zuerst img-N.ext Pattern, sonst letzter Pfadteil
+        let filename;
+        const imgPattern = cleanSrc.match(/(img-\d+\.\w+)$/i);
+        if (imgPattern) {
+          filename = imgPattern[1];
+        } else {
+          const parts = cleanSrc.split('/');
+          filename = parts[parts.length - 1];
         }
-        
-        // Normalisiere Pfad (entferne < > und Anführungszeichen)
-        const normalizedSrc = decodedSrc.replace(/^<['"]?|['"]?>$/g, '').trim();
-        
-        // Prüfe ob src ein Bild-Pfad ist (assets/, img-, page_X_img, oder Bildendung)
-        const isImagePath = normalizedSrc.startsWith('assets/') || 
-                           normalizedSrc.includes('img-') ||
-                           normalizedSrc.includes('page_') ||
-                           /\.(png|jpg|jpeg|webp|gif)$/i.test(normalizedSrc);
-        
-        if (!src || !isImagePath) {
-          console.log(`[IMAGES] Überspringe Bild (kein bekannter Bildpfad): ${src}`);
-          return;
+
+        // Tafelzeichnung? (NNN-TNN.webp Pattern)
+        const isChalkboard = /\d{3}-T\d+\./i.test(filename);
+        const isWebP = /\.webp$/i.test(filename);
+
+        const r2Url = `${IMAGES_R2_BASE}${encodeURIComponent(gaNumber)}/${encodeURIComponent(filename)}`;
+        imgTag.setAttribute('src', r2Url);
+
+        // Inline onerror: probiert alternative Dateiendungen (z.B. JSON sagt .png, Datei ist .jpeg)
+        imgTag.setAttribute('onerror',
+          "var c=this.src,t=(this.dataset.triedExts||'').split(',').filter(Boolean)," +
+          "x=(c.match(/\\.\\w+$/)||[''])[0].toLowerCase();t.push(x);" +
+          "var a=['.png','.jpeg','.jpg','.webp'].filter(function(e){return t.indexOf(e)<0});" +
+          "if(a.length){this.dataset.triedExts=t.join(',');this.src=c.replace(/\\.\\w+$/,a[0])}" +
+          "else{this.onerror=null}"
+        );
+
+        imgTag.className = 'lecture-image';
+        imgTag.style.cursor = 'pointer';
+
+        if (isChalkboard) {
+          imgTag.classList.add('blackboard-drawing');
+        } else {
+          imgTag.classList.add('lecture-image');
         }
-        
-        // Hilfsfunktion: Normalisiere Pfad für Vergleich (entferne < >, Anführungszeichen, normalisiere Leerzeichen)
-        const normalizePathForComparison = (path) => {
-          if (!path) return '';
-          return path
-            .replace(/^<['"]?|['"]?>$/g, '') // Entferne < > und Anführungszeichen
-            .trim()
-            .replace(/\s+/g, ' ') // Normalisiere mehrere Leerzeichen zu einem
-            .replace(/\\/g, '/'); // Normalisiere Backslashes zu Forward Slashes
-        };
-        
-        // Hilfsfunktion: Extrahiere Dateinamen aus markdownRef
-        const extractPathFromMarkdownRef = (markdownRef) => {
-          if (!markdownRef) return '';
-          // Extrahiere Pfad aus ![alt](path) oder ![alt](<path>)
-          const match = markdownRef.match(/!\[[^\]]*\]\(<?([^>)]+)>?\)/);
-          if (match && match[1]) {
-            return normalizePathForComparison(match[1]);
-          }
-          return normalizePathForComparison(markdownRef);
-        };
-        
-        // Hilfsfunktion: Extrahiere Dateinamen aus Pfad (z.B. "img-2.png" aus "assets/GA266a-Band I..._img-2.png")
-        const extractFilenameFromPath = (path) => {
-          if (!path) return '';
-          const normalized = normalizePathForComparison(path);
-          
-          // Fallback: Letzter Teil nach dem letzten / (voller Dateiname)
-          const parts = normalized.split('/');
-          const fullFilename = parts[parts.length - 1] || '';
-          
-          // Suche nach img-X.png Pattern (am Ende des Pfads, nach _ oder /)
-          const imgMatch = normalized.match(/[_/](img-\d+\.(png|jpg|jpeg|webp))$/i);
-          if (imgMatch) {
-            return imgMatch[1];
-          }
-          // Auch ohne _ oder / am Anfang suchen
-          const imgMatchSimple = normalized.match(/(img-\d+\.(png|jpg|jpeg|webp))$/i);
-          if (imgMatchSimple) {
-            return imgMatchSimple[1];
-          }
-          // Suche nach page_X_img_Y.png Pattern
-          const pageImgMatch = normalized.match(/(page_\d+_img_\d+\.(png|jpg|jpeg|webp))$/i);
-          if (pageImgMatch) {
-            return pageImgMatch[1];
-          }
-          
-          return fullFilename;
-        };
-        
-        const normalizedSrcForComparison = normalizePathForComparison(normalizedSrc);
-        const srcFilename = extractFilenameFromPath(normalizedSrc);
-        
-        // Finde das passende Bild in unserer Datenbank
-        // Zuerst exaktes Match versuchen (path und markdownRef)
-        let matchingImage = images.find(img => {
-          const imgPath = img.path || '';
-          const imgMarkdownRef = img.markdownRef || '';
-          
-          // Normalisiere beide Pfade für Vergleich
-          const normalizedImgPath = normalizePathForComparison(imgPath);
-          const normalizedImgMarkdownRef = extractPathFromMarkdownRef(imgMarkdownRef);
-          const imgFilename = extractFilenameFromPath(imgPath);
-          const imgMarkdownRefFilename = extractFilenameFromPath(normalizedImgMarkdownRef);
-          
-          // Vergleiche mit verschiedenen Varianten
-          return imgPath === decodedSrc || 
-                 imgPath === originalSrc ||
-                 imgPath === normalizedSrc ||
-                 normalizedImgPath === normalizedSrcForComparison ||
-                 normalizedImgMarkdownRef === normalizedSrcForComparison ||
-                 // Vergleich mit Dateinamen (z.B. "img-2.png")
-                 imgFilename === srcFilename ||
-                 imgMarkdownRefFilename === srcFilename ||
-                 // Auch Vergleich mit decodedSrc (kann URL-encoded sein)
-                 normalizePathForComparison(imgPath) === normalizePathForComparison(decodedSrc) ||
-                 extractPathFromMarkdownRef(imgMarkdownRef) === normalizePathForComparison(decodedSrc);
-        });
-        
-        // Falls kein exaktes Match gefunden, suche nach Varianten mit unterschiedlichen Dateiendungen
-        if (!matchingImage) {
-          // Entferne Dateiendung vom gesuchten Pfad
-          const srcWithoutExt = normalizedSrcForComparison.replace(/\.(jpe?g|png|webp)$/i, '');
-          const srcFilenameWithoutExt = srcFilename.replace(/\.(jpe?g|png|webp)$/i, '');
-          
-          // Suche nach Bildern mit gleichem Basisnamen aber unterschiedlicher Endung
-          matchingImage = images.find(img => {
-            const imgPath = img.path || '';
-            const imgMarkdownRef = img.markdownRef || '';
-            
-            const normalizedImgPath = normalizePathForComparison(imgPath);
-            const normalizedImgMarkdownRef = extractPathFromMarkdownRef(imgMarkdownRef);
-            const imgFilename = extractFilenameFromPath(imgPath);
-            
-            const imgPathWithoutExt = normalizedImgPath.replace(/\.(jpe?g|png|webp)$/i, '');
-            const imgMarkdownRefWithoutExt = normalizedImgMarkdownRef.replace(/\.(jpe?g|png|webp)$/i, '');
-            const imgFilenameWithoutExt = imgFilename.replace(/\.(jpe?g|png|webp)$/i, '');
-            
-            return imgPathWithoutExt === srcWithoutExt || 
-                   imgMarkdownRefWithoutExt === srcWithoutExt ||
-                   imgFilenameWithoutExt === srcFilenameWithoutExt;
-          });
-          
-          if (matchingImage) {
-            console.log(`[IMAGES] Bild gefunden durch Dateiendungs-Vergleich: ${normalizedSrcForComparison}`);
-          }
-        }
-        
-        if (!matchingImage) {
-          // Debug: Zeige warum kein Match gefunden wurde
-          console.warn(`[IMAGES] ? Bild nicht gefunden für ${lectureId}:`, {
-            originalSrc,
-            decodedSrc,
-            normalizedSrc,
-            srcFilename,
-            availableImages: images.map(img => ({
-              path: img.path,
-              markdownRef: img.markdownRef,
-              filename: extractFilenameFromPath(img.path),
-              markdownRefFilename: extractFilenameFromPath(extractPathFromMarkdownRef(img.markdownRef))
-            }))
-          });
-          
-          // Versuche nochmal mit direkter Dateinamen-Suche (Fallback)
-          if (srcFilename) {
-            matchingImage = images.find(img => {
-              const imgFilename = extractFilenameFromPath(img.path);
-              const imgMarkdownRefFilename = extractFilenameFromPath(extractPathFromMarkdownRef(img.markdownRef));
-              return imgFilename === srcFilename || imgMarkdownRefFilename === srcFilename;
-            });
-            
-            if (matchingImage) {
-              console.log(`[IMAGES] ? Bild gefunden durch Fallback-Dateinamen-Suche: ${matchingImage.path}`);
-            }
-          }
-          
-          // Letzter Fallback: Suche nach img-X Pattern am Ende des Pfads (ignoriere Umlaute und Sonderzeichen)
-          if (!matchingImage) {
-            // Extrahiere nur das img-X.ext Pattern
-            const srcImgPattern = src.match(/img-(\d+)\.(png|jpg|jpeg|webp)/i);
-            if (srcImgPattern) {
-              const imgNumber = srcImgPattern[1];
-              const imgExt = srcImgPattern[2].toLowerCase();
-              
-              matchingImage = images.find(img => {
-                const imgPatternMatch = img.path.match(/img-(\d+)\.(png|jpg|jpeg|webp)/i);
-                if (imgPatternMatch) {
-                  const matchNumber = imgPatternMatch[1];
-                  const matchExt = imgPatternMatch[2].toLowerCase();
-                  // Gleiche Nummer und gleiche Endung (oder webp)
-                  return matchNumber === imgNumber && (matchExt === imgExt || matchExt === 'webp' || imgExt === 'webp');
-                }
-                return false;
-              });
-              
-              if (matchingImage) {
-                console.log(`[IMAGES] ? Bild gefunden durch img-${imgNumber} Pattern-Match: ${matchingImage.path}`);
-              }
-            }
-          }
-          
-          // Fallback für page_X_img_Y Pattern (z.B. page_8_img_1.png)
-          if (!matchingImage) {
-            const pageImgPattern = normalizedSrc.match(/page_(\d+)_img_(\d+)\.(png|jpg|jpeg|webp)/i);
-            if (pageImgPattern) {
-              const pageNum = pageImgPattern[1];
-              const imgNum = pageImgPattern[2];
-              
-              matchingImage = images.find(img => {
-                const imgPatternMatch = img.path.match(/page_(\d+)_img_(\d+)\.(png|jpg|jpeg|webp)/i);
-                if (imgPatternMatch) {
-                  return imgPatternMatch[1] === pageNum && imgPatternMatch[2] === imgNum;
-                }
-                return false;
-              });
-              
-              if (matchingImage) {
-                console.log(`[IMAGES] ? Bild gefunden durch page_${pageNum}_img_${imgNum} Pattern-Match: ${matchingImage.path}`);
-              }
-            }
-          }
-        }
-        
-        if (matchingImage) {
-          console.warn(`[IMAGES-DEBUG] ? MATCH GEFUNDEN: ${matchingImage.path}`);
-          // Online: data:-URLs ggf. von CSP/Größe betroffen — ohne/zu kurzes base64 → Binär-Route
-          let displaySrc = matchingImage.base64;
-          if (!displaySrc || displaySrc.length < 80 || !String(displaySrc).startsWith('data:')) {
-            const binUrl = steinerImageBinaryApiUrl(lectureId, matchingImage.path || '');
-            if (binUrl) displaySrc = binUrl;
-          }
-          imgTag.setAttribute('src', displaySrc);
-          // Prüfe, ob es eine Tafelzeichnung ist
-          const isBlackboardDrawing = /T\d+\./.test(matchingImage.path) || 
-                                       matchingImage.altText.includes('-T') || 
-                                       /\d{3}-T\d+/.test(matchingImage.path);
-          
-          // Prüfe, ob es ein WebP-Bild ist
-          const isWebP = matchingImage.path.toLowerCase().includes('.webp');
-          
-          // Setze Style und Klassen
-          imgTag.className = 'lecture-image';
-          imgTag.style.cursor = 'pointer';
-          
-          if (isBlackboardDrawing) {
-            imgTag.classList.add('blackboard-drawing');
-            // Tafelzeichnungen: CSS-Regel setzt bereits width: 100%, display: block, etc.
-            // Entferne Inline-Styles die die CSS-Regel überschreiben könnten
-            imgTag.style.removeProperty('max-width');
-            imgTag.style.removeProperty('float');
-          } else {
-            // Normale Bilder: CSS-Regel setzt bereits max-width: 35%, float: right, etc. mit !important
-            // Entferne Inline-Styles die die CSS-Regel überschreiben könnten
-            imgTag.style.removeProperty('width');
-            imgTag.style.removeProperty('display');
-            // Stelle sicher, dass die CSS-Klasse angewendet wird
-            if (!imgTag.classList.contains('lecture-image')) {
-              imgTag.classList.add('lecture-image');
-            }
-          }
-          
-          if (isWebP) {
-            imgTag.setAttribute('data-format', 'webp');
-          }
-          
-          // Füge Click-Handler hinzu, um Bild zu vergrößern
-          imgTag.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const altText = imgTag.getAttribute('alt') || matchingImage.altText || '';
-            const dataFormat = imgTag.getAttribute('data-format');
-            openImagePopup(imgTag.getAttribute('src') || matchingImage.base64, altText, dataFormat);
-          });
-          
-          } else {
-          console.warn('[IMAGES] ? Bild nicht gefunden in Datenbank:', {
-            originalSrc: originalSrc,
-            decodedSrc: decodedSrc,
-            normalizedSrc: normalizedSrcForComparison,
-            lectureId: lectureId,
-            availableImages: images.length,
-            samplePaths: images.slice(0, 3).map(img => ({
-              path: img.path,
-              markdownRef: img.markdownRef
-            }))
-          });
-          
-          // FALLBACK: Auch wenn Bild nicht in Datenbank gefunden
-          let cleanedSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
-          const gaFromLectureId = (lectureId || '').split('/')[0] || lectureId;
-          const assetsMatch = cleanedSrc.match(/assets\/(.+)$/);
-          const srcForBackend = assetsMatch ? assetsMatch[1] : (cleanedSrc.startsWith('assets/') ? cleanedSrc.replace('assets/', '') : cleanedSrc);
-          const hasFullPath = /^GA\d{3}[a-z]?[- ]/i.test(cleanedSrc) && cleanedSrc.indexOf('/assets/') >= 0;
-          let backendUrl;
-          if (hasFullPath) {
-            backendUrl = API_BASE + '/ga-k-images/' + encodeURIComponent(cleanedSrc).replace(/%2F/g, '/');
-          } else if (/^(GA)?\d{3}[a-z]?/i.test(srcForBackend)) {
-            backendUrl = API_BASE + '/assets/' + encodeURIComponent(srcForBackend);
-          } else {
-            backendUrl = API_BASE + '/assets/' + encodeURIComponent(srcForBackend) + '?ga=' + encodeURIComponent(gaFromLectureId);
-          }
-          
-          console.log(`[IMAGES] Fallback: Versuche URL-basierten Abruf: ${backendUrl}`);
-          imgTag.setAttribute('src', backendUrl);
-          
-          // Prüfe, ob es eine Tafelzeichnung ist
-          const isBlackboardDrawing = /T\d+\./.test(srcForBackend) || /\d{3}-T\d+/.test(srcForBackend);
-          
-          // Prüfe, ob es ein WebP-Bild ist
-          const isWebP = srcForBackend.toLowerCase().includes('.webp');
-          
-          // Setze Style und Klassen
-          imgTag.className = 'lecture-image';
-          imgTag.style.cursor = 'pointer';
-          
-          if (isBlackboardDrawing) {
-            imgTag.classList.add('blackboard-drawing');
-            imgTag.style.removeProperty('max-width');
-            imgTag.style.removeProperty('float');
-          } else {
-            imgTag.style.removeProperty('width');
-            imgTag.style.removeProperty('display');
-          }
-          
-          if (isWebP) {
-            imgTag.setAttribute('data-format', 'webp');
-          }
-          
-          // Füge Click-Handler hinzu
-          imgTag.setAttribute('data-image-popup-handler', 'true');
-          imgTag.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const altText = imgTag.getAttribute('alt') || '';
-            const dataFormat = imgTag.getAttribute('data-format');
-            openImagePopup(imgTag.src, altText, dataFormat);
-          });
-        }
+
+        if (isWebP) imgTag.setAttribute('data-format', 'webp');
+
+        imgTag.setAttribute('onclick',
+          "event.preventDefault();event.stopPropagation();" +
+          "window.openImagePopup(this.src,this.getAttribute('alt')||'',this.getAttribute('data-format'))"
+        );
       });
-      
+
       return tempDiv.innerHTML;
     }
 

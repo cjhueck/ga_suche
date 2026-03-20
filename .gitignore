@@ -35,6 +35,9 @@ wp-pdf-url-cache.json
 # Spellcheck dictionaries (downloaded on demand)
 dictionaries/
 
+# Wrangler local state (R2 emulator cache)
+.wrangler/
+
 # Node modules (if any)
 node_modules/
 
