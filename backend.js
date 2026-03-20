@@ -377,20 +377,39 @@ async function findWordPressPdfUrl(gaNumber, skipCache = false) {
     console.warn(`[PDF-PROXY] Override-URL nicht erreichbar für ${gaNumber}: ${overrideUrl}`);
   }
   
-  // 2. Bekannte Basis-URLs mit allen Dateinamen-Varianten probieren
-  console.log(`[PDF-PROXY] Probiere bekannte URLs für ${gaNumber} (${fileVariants.length} Varianten × ${PDF_SOURCE_URLS.length} URLs)...`);
-  for (const baseUrl of PDF_SOURCE_URLS) {
-    for (const variant of fileVariants) {
-      const tryUrl = `${baseUrl}${variant}`;
-      try {
-        if (await urlLooksLikePdfExists(tryUrl)) {
-          console.log(`[PDF-PROXY] Direkt gefunden: ${tryUrl}`);
-          wpPdfUrlCache[gaNumber] = tryUrl;
-          saveWpPdfUrlCache();
-          return tryUrl;
-        }
-      } catch (_) { /* nächste URL */ }
-    }
+  // 2. Parallele URL-Suche (alle Basis-URLs gleichzeitig statt sequenziell)
+  console.log(`[PDF-PROXY] Parallele URL-Suche für ${gaNumber} (${PDF_SOURCE_URLS.length} Basis-URLs)...`);
+
+  const probeUrl = async (url) => {
+    if (await urlLooksLikePdfExists(url)) return url;
+    throw new Error('not found');
+  };
+
+  // Phase 1: Standard-Dateiname parallel über alle Basis-URLs
+  try {
+    const found = await Promise.any(
+      PDF_SOURCE_URLS.map(base => probeUrl(`${base}${searchTerm}`))
+    );
+    console.log(`[PDF-PROXY] Parallel gefunden: ${found}`);
+    wpPdfUrlCache[gaNumber] = found;
+    saveWpPdfUrlCache();
+    return found;
+  } catch (_) { /* Standard-Name nirgends gefunden */ }
+
+  // Phase 2: Dateinamen-Varianten (ga053-2.pdf etc.) parallel
+  const variantNames = fileVariants.slice(1);
+  if (variantNames.length > 0) {
+    try {
+      const found = await Promise.any(
+        PDF_SOURCE_URLS.flatMap(base =>
+          variantNames.map(v => probeUrl(`${base}${v}`))
+        )
+      );
+      console.log(`[PDF-PROXY] Parallel (Variante) gefunden: ${found}`);
+      wpPdfUrlCache[gaNumber] = found;
+      saveWpPdfUrlCache();
+      return found;
+    } catch (_) { /* Keine Variante gefunden */ }
   }
   
   // 3. WordPress REST API als Fallback (selbst-gehostetes WordPress: akanthos-akademie.org)
