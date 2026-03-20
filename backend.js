@@ -16968,7 +16968,7 @@ let summaryDbLock = false;
 // Cache für Summary-Datenbank (verhindert wiederholtes Laden bei jedem Request)
 let summaryDatabaseCache = null;
 let summaryDatabaseCacheTime = 0;
-const SUMMARY_DB_CACHE_TTL = 60000; // 60 Sekunden Cache-TTL
+const SUMMARY_DB_CACHE_TTL = 300000; // 5 Minuten Cache-TTL
 
 async function loadSummaryDatabase(forceReload = false) {
   try {
