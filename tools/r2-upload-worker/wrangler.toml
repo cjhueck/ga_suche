@@ -1,0 +1,11 @@
+name = "r2-upload-temp"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+routes = [
+  { pattern = "rudolf-steiner-online.de/r2upload/*", zone_name = "rudolf-steiner-online.de" }
+]
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "ga-pdf"
