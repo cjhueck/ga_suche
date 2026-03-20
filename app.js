@@ -4851,17 +4851,16 @@ function normalizeGANumber(gaNumber) {
     
     async function populateGADropdowns() {
       try {
-        const response = await fetch(`${API_BASE}/api/ga-list`);
-        if (!response.ok) throw new Error('GA-Liste konnte nicht geladen werden');
-        // GA014 wird nicht angezeigt, sortiere GA-Nummern (ohne Suffix vor mit Suffix)
-        const gaList = (await response.json())
+        const [gaListResponse, volumesResponse] = await Promise.all([
+          fetch(`${API_BASE}/api/ga-list`),
+          fetch(`${API_BASE}/api/keywords/available-ga-volumes`)
+        ]);
+        if (!gaListResponse.ok) throw new Error('GA-Liste konnte nicht geladen werden');
+        const gaList = (await gaListResponse.json())
           .filter(ga => ga.number.toUpperCase() !== 'GA014')
           .sort(compareGANumbers);
-        
-        // Zähle Vorträge pro GA-Band
-        const lectureCountResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
-        if (lectureCountResponse.ok) {
-          const volumeData = await lectureCountResponse.json();
+        if (volumesResponse.ok) {
+          const volumeData = await volumesResponse.json();
           volumeData.volumes.forEach(vol => {
             gaLectureCounts[vol.volume] = vol.lectureCount;
           });
@@ -5046,6 +5045,11 @@ function normalizeGANumber(gaNumber) {
     async function openGAOverview(gaNumber) {
       if (!gaNumber) return;
       try {
+        // PDF-Panel schließen beim Öffnen eines neuen GA-Bandes
+        if (typeof closePdfPanel === 'function' && typeof pdfPanelVisible !== 'undefined' && pdfPanelVisible) {
+          closePdfPanel();
+        }
+
         // Prüfe ob es ein Book ist (aber nicht ein Aufsatzband)
         if (isBookGANumber(gaNumber) && !isEssayGANumber(gaNumber)) {
           // Für Books: Panel NICHT schließen, da displayBook es sofort wieder öffnet
@@ -5495,38 +5499,27 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
       apiBase = 'https://ga-suche.onrender.com'; // Fallback für Online-Version
     }
     
-    // Lade GA-Liste mit Titeln
-    let gaListResponse;
+    // Lade GA-Liste und Vortrags-Count parallel
+    let gaList, volumesData;
     try {
-      gaListResponse = await fetch(`${apiBase}/api/ga-list`);
+      const [gaListResponse, volumesResponse] = await Promise.all([
+        fetch(`${apiBase}/api/ga-list`),
+        fetch(`${apiBase}/api/keywords/available-ga-volumes`)
+      ]);
+      if (!gaListResponse.ok) {
+        const errorText = await gaListResponse.text().catch(() => 'Unbekannter Fehler');
+        throw new Error(`GA-Liste: HTTP ${gaListResponse.status} - ${errorText.substring(0, 100)}`);
+      }
+      if (!volumesResponse.ok) {
+        const errorText = await volumesResponse.text().catch(() => 'Unbekannter Fehler');
+        throw new Error(`GA-Volumes: HTTP ${volumesResponse.status} - ${errorText.substring(0, 100)}`);
+      }
+      gaList = (await gaListResponse.json()).sort(compareGANumbers);
+      volumesData = await volumesResponse.json();
     } catch (fetchError) {
-      console.error('[GA-TAB] Fetch-Fehler bei /api/ga-list:', fetchError);
+      console.error('[GA-TAB] Fetch-Fehler:', fetchError);
       throw new Error(`Verbindungsfehler: ${fetchError.message}. Server erreichbar? (${apiBase})`);
     }
-    
-    if (!gaListResponse.ok) {
-      const errorText = await gaListResponse.text().catch(() => 'Unbekannter Fehler');
-      console.error('[GA-TAB] HTTP-Fehler bei /api/ga-list:', gaListResponse.status, errorText);
-      throw new Error(`HTTP ${gaListResponse.status} - ${errorText.substring(0, 100)}`);
-    }
-    
-    const gaList = (await gaListResponse.json()).sort(compareGANumbers);
-    // Lade Vortrags-Count
-    let volumesResponse;
-    try {
-      volumesResponse = await fetch(`${apiBase}/api/keywords/available-ga-volumes`);
-    } catch (fetchError) {
-      console.error('[GA-TAB] Fetch-Fehler bei /api/keywords/available-ga-volumes:', fetchError);
-      throw new Error(`Verbindungsfehler: ${fetchError.message}. Server erreichbar? (${apiBase})`);
-    }
-    
-    if (!volumesResponse.ok) {
-      const errorText = await volumesResponse.text().catch(() => 'Unbekannter Fehler');
-      console.error('[GA-TAB] HTTP-Fehler bei /api/keywords/available-ga-volumes:', volumesResponse.status, errorText);
-      throw new Error(`HTTP ${volumesResponse.status} - ${errorText.substring(0, 100)}`);
-    }
-    
-    const volumesData = await volumesResponse.json();
     
     gaVolumesData = gaList
       .filter(ga => ga.number.toUpperCase() !== 'GA014') // GA014 wird nicht angezeigt
@@ -24819,6 +24812,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
 // ---- extracted script block ----
 document.addEventListener("DOMContentLoaded", async function () {
+  // Preload: GA-Liste im Hintergrund laden (warmt Backend/Cache fuer Texte-Tab)
+  const apiBase = window.API_BASE || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3000' : 'https://ga-suche.onrender.com');
+  fetch(`${apiBase}/api/ga-list`).catch(() => {});
+
   // Verstecke Keywords-Tab und Admin-Buttons nur online (nicht auf localhost)
 const hostname = window.location.hostname;
 const isLocalhost = hostname === 'localhost' || 
