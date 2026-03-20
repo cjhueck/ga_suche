@@ -4307,15 +4307,9 @@ function normalizeGANumber(gaNumber) {
 
         if (!/\.(png|jpe?g|webp|gif)$/i.test(cleanSrc)) return;
 
-        // Dateiname extrahieren: versuche zuerst img-N.ext Pattern, sonst letzter Pfadteil
-        let filename;
-        const imgPattern = cleanSrc.match(/(img-\d+\.\w+)$/i);
-        if (imgPattern) {
-          filename = imgPattern[1];
-        } else {
-          const parts = cleanSrc.split('/');
-          filename = parts[parts.length - 1];
-        }
+        // Dateiname: immer letzter Pfadteil (z.B. Steiner, Rudolf GA 076..._img-0.png oder img-0.png)
+        const parts = cleanSrc.split('/');
+        const filename = parts[parts.length - 1];
 
         // Tafelzeichnung? (NNN-TNN.webp Pattern)
         const isChalkboard = /\d{3}-T\d+\./i.test(filename);
