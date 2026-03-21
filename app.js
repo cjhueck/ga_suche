@@ -39222,7 +39222,7 @@ window.cancelTextEditMode = function() {};
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
     } else {
       // Produktion: direkt von Cloudflare R2 laden (kein Umweg über Render.com)
-      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf?_t=${Date.now()}`;
+      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
     }
     
     try {
@@ -39255,27 +39255,6 @@ window.cancelTextEditMode = function() {};
             httpHeaders: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
           };
         }
-      } else if (!isLocal) {
-        // Produktion: PDF als Blob laden um Browser- UND CDN-Cache zu umgehen
-        try {
-          const r2Response = await fetch(pdfPath, { cache: 'no-store' });
-          if (!r2Response.ok) throw new Error(`R2 ${r2Response.status}`);
-          const pdfData = await r2Response.arrayBuffer();
-          pdfOptions = { data: new Uint8Array(pdfData) };
-        } catch (r2LowerError) {
-          console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase`);
-          try {
-            const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf?_t=${Date.now()}`;
-            const r2Upper = await fetch(upperPath, { cache: 'no-store' });
-            if (!r2Upper.ok) throw new Error(`R2 uppercase ${r2Upper.status}`);
-            const pdfData = await r2Upper.arrayBuffer();
-            pdfOptions = { data: new Uint8Array(pdfData) };
-          } catch (r2UpperError) {
-            console.warn('[PDF] R2 fehlgeschlagen, Fallback auf Backend-Proxy');
-            const proxyPath = `${API_BASE}/api/pdf/ga${gaNumPadded}?_t=${Date.now()}`;
-            pdfOptions = { url: proxyPath, withCredentials: false };
-          }
-        }
       } else {
         pdfOptions = { url: pdfPath, withCredentials: false };
       }
@@ -39284,7 +39263,21 @@ window.cancelTextEditMode = function() {};
       try {
         pdfDoc = await loadingTask.promise;
       } catch (firstError) {
-        throw firstError;
+        if (!isLocal && !isLocalFile) {
+          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf`;
+          console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase: ${upperPath}`);
+          try {
+            loadingTask = pdfjsLib.getDocument({ url: upperPath, withCredentials: false });
+            pdfDoc = await loadingTask.promise;
+          } catch (upperError) {
+            console.warn('[PDF] R2 uppercase auch fehlgeschlagen, Fallback auf Backend-Proxy');
+            const proxyPath = `${API_BASE}/api/pdf/ga${gaNumPadded}`;
+            loadingTask = pdfjsLib.getDocument({ url: proxyPath, withCredentials: false });
+            pdfDoc = await loadingTask.promise;
+          }
+        } else {
+          throw firstError;
+        }
       }
       pdfTotalPages = pdfDoc.numPages;
       
