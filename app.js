@@ -39222,7 +39222,7 @@ window.cancelTextEditMode = function() {};
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
     } else {
       // Produktion: direkt von Cloudflare R2 laden (kein Umweg über Render.com)
-      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
+      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf?_t=${Date.now()}`;
     }
     
     try {
