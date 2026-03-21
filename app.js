@@ -39265,7 +39265,7 @@ window.cancelTextEditMode = function() {};
       } catch (firstError) {
         if (!isLocal && !isLocalFile) {
           // R2 lowercase fehlgeschlagen → versuche uppercase (manuell hochgeladene PDFs)
-          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf`;
+          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf?_t=${Date.now()}`;
           console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase: ${upperPath}`);
           try {
             loadingTask = pdfjsLib.getDocument({ url: upperPath, withCredentials: false });
