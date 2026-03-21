@@ -39205,6 +39205,7 @@ window.cancelTextEditMode = function() {};
     const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
     
     const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/ga_pdf/';
+    const PDF_R2_VERSION = 'v=2';
     let pdfPath;
     if (isLocalFile) {
       const index = await loadPdfIndex();
@@ -39222,7 +39223,7 @@ window.cancelTextEditMode = function() {};
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
     } else {
       // Produktion: direkt von Cloudflare R2 laden (kein Umweg über Render.com)
-      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
+      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf?${PDF_R2_VERSION}`;
     }
     
     try {
@@ -39259,12 +39260,18 @@ window.cancelTextEditMode = function() {};
         pdfOptions = { url: pdfPath, withCredentials: false };
       }
       
+      if (!isLocalFile) {
+        pdfOptions.rangeChunkSize = 65536;
+        pdfOptions.disableAutoFetch = true;
+        pdfOptions.disableStream = false;
+      }
+      
       let loadingTask = pdfjsLib.getDocument(pdfOptions);
       try {
         pdfDoc = await loadingTask.promise;
       } catch (firstError) {
         if (!isLocal && !isLocalFile) {
-          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf`;
+          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf?${PDF_R2_VERSION}`;
           console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase: ${upperPath}`);
           try {
             loadingTask = pdfjsLib.getDocument({ url: upperPath, withCredentials: false });
