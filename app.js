@@ -39199,10 +39199,9 @@ window.cancelTextEditMode = function() {};
     const match = gaNumber.match(/GA0*(\d+[a-z]?)/i);
     if (!match) return;
     
-    const gaNum = match[1]; // Nummer mit optionalem Buchstaben
+    const gaNum = match[1].toLowerCase();
     pdfCurrentGANumber = gaNumber;
     
-    // PDF-Pfad generieren
     const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
     
     const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/ga_pdf/';
@@ -39223,7 +39222,7 @@ window.cancelTextEditMode = function() {};
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
     } else {
       // Produktion: direkt von Cloudflare R2 laden (kein Umweg über Render.com)
-      pdfPath = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
+      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
     }
     
     try {
@@ -39263,14 +39262,23 @@ window.cancelTextEditMode = function() {};
       let loadingTask = pdfjsLib.getDocument(pdfOptions);
       try {
         pdfDoc = await loadingTask.promise;
-      } catch (r2Error) {
+      } catch (firstError) {
         if (!isLocal && !isLocalFile) {
-          console.warn('[PDF] R2-Direktladen fehlgeschlagen, Fallback auf Backend-Proxy:', r2Error.message);
-          const proxyPath = `${API_BASE}/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
-          loadingTask = pdfjsLib.getDocument({ url: proxyPath, withCredentials: false });
-          pdfDoc = await loadingTask.promise;
+          // R2 lowercase fehlgeschlagen → versuche uppercase (manuell hochgeladene PDFs)
+          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf`;
+          console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase: ${upperPath}`);
+          try {
+            loadingTask = pdfjsLib.getDocument({ url: upperPath, withCredentials: false });
+            pdfDoc = await loadingTask.promise;
+          } catch (upperError) {
+            // Beide R2-Varianten fehlgeschlagen → Backend-Proxy als letzter Fallback
+            console.warn('[PDF] R2 uppercase auch fehlgeschlagen, Fallback auf Backend-Proxy');
+            const proxyPath = `${API_BASE}/api/pdf/ga${gaNumPadded}?_t=${Date.now()}`;
+            loadingTask = pdfjsLib.getDocument({ url: proxyPath, withCredentials: false });
+            pdfDoc = await loadingTask.promise;
+          }
         } else {
-          throw r2Error;
+          throw firstError;
         }
       }
       pdfTotalPages = pdfDoc.numPages;
