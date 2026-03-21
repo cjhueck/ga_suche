@@ -1,0 +1,8 @@
+name = "r2-uploader"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+account_id = "7006bb035cbc93bce4b72d7564241069"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "ga-pdf"
