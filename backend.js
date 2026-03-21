@@ -17084,6 +17084,7 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
         
         // Cache invalidieren
         invalidateSummaryDatabaseCache();
+        await invalidateGAOverviewCache(lectureId);
         
         resolve(true);
         
@@ -17743,6 +17744,11 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
       }
     }
     
+    // GA-Overview-Cache für betroffene GA-Bände invalidieren
+    const affectedGAs = new Set(toProcess.map(id => id.split('/')[0]));
+    for (const ga of affectedGAs) {
+      await invalidateGAOverviewCache(`${ga}/1`);
+    }
     
     res.json({
       success: true,
