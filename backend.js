@@ -616,14 +616,20 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
     }
     
     // SCHRITT 3: Cloudflare R2 (primäre Online-Quelle)
-    const r2Url = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
-    console.log(`[PDF-PROXY] Lade von R2: ${r2Url}`);
+    // R2 Keys sind case-sensitive: manche PDFs lowercase (Skript), manche uppercase (manuell)
+    const r2UrlLower = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
+    const r2UrlUpper = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
+    console.log(`[PDF-PROXY] Lade von R2: ${r2UrlLower}`);
     
-    let response = await fetch(r2Url, { signal: AbortSignal.timeout(15000) });
+    let response = await fetch(r2UrlLower, { signal: AbortSignal.timeout(15000) });
     
-    // Fallback: WordPress (für PDFs die noch nicht auf R2 liegen)
     if (!response.ok) {
-      console.warn(`[PDF-PROXY] R2 fehlgeschlagen (${response.status}), versuche WordPress-Fallback...`);
+      console.log(`[PDF-PROXY] R2 lowercase 404, versuche uppercase: ${r2UrlUpper}`);
+      response = await fetch(r2UrlUpper, { signal: AbortSignal.timeout(15000) });
+    }
+    
+    if (!response.ok) {
+      console.warn(`[PDF-PROXY] R2 fehlgeschlagen, versuche WordPress-Fallback...`);
       const wpUrl = await findWordPressPdfUrl(gaNumber);
       if (wpUrl) {
         response = await fetch(wpUrl);
