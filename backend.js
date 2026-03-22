@@ -680,6 +680,40 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
   }
 });
 
+app.delete('/api/pdf-cache/:gaNumber', async (req, res) => {
+  try {
+    const gaNumber = req.params.gaNumber.toLowerCase();
+    if (!/^ga\d{1,3}[a-z]?$/.test(gaNumber)) {
+      return res.status(400).json({ error: 'Ungültige GA-Nummer: ' + gaNumber });
+    }
+    const gaNum = gaNumber.replace(/^ga0*/, '');
+    const numberMatch = gaNum.match(/^(\d+)/);
+    const letterMatch = gaNum.match(/[a-z]$/i);
+    const gaNumPadded = (numberMatch ? numberMatch[1].padStart(3, '0') : gaNum) + (letterMatch ? letterMatch[0].toLowerCase() : '');
+
+    const deleted = [];
+
+    const cachedPdfPath = path.join(WP_PDF_DISK_CACHE_DIR, `ga${gaNumPadded}.pdf`);
+    if (fsSync.existsSync(cachedPdfPath)) {
+      fsSync.unlinkSync(cachedPdfPath);
+      deleted.push('disk-cache');
+      console.log(`[PDF-CACHE] Disk-Cache gelöscht: ${path.basename(cachedPdfPath)}`);
+    }
+
+    if (wpPdfUrlCache[gaNumber]) {
+      delete wpPdfUrlCache[gaNumber];
+      saveWpPdfUrlCache();
+      deleted.push('url-cache');
+      console.log(`[PDF-CACHE] URL-Cache gelöscht: ${gaNumber}`);
+    }
+
+    res.json({ success: true, gaNumber, deleted });
+  } catch (error) {
+    console.error('[PDF-CACHE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Explizite Root-Route für Robustheit (verhindert "invalid response" bei Hard Reload)
 app.get('/', (req, res, next) => {
   try {
