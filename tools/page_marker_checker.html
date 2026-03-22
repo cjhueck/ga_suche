@@ -5863,6 +5863,9 @@
             
             // Hole aktuellen Inhalt
             const contentEl = document.getElementById('content');
+            // Entferne temporären Positionsindikator vor Textextraktion
+            const posIndicator = document.getElementById('insert-position-indicator');
+            if (posIndicator) posIndicator.remove();
             const currentText = extractMarkdownFromHTML(contentEl);
             
             let newContent = '';
@@ -6811,6 +6814,10 @@
             
             // Klone das Element, um es zu bearbeiten
             const clone = contentEl.cloneNode(true);
+            
+            // Entferne temporären Positionsindikator (falls vorhanden)
+            const posIndicator = clone.querySelector('#insert-position-indicator');
+            if (posIndicator) posIndicator.remove();
             
             // Ersetze Marker-Spans durch |N| Format
             clone.querySelectorAll('.page-marker').forEach(el => {
