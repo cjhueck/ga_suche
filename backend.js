@@ -570,12 +570,27 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
           localPdfPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
         }
         
-        // Fallback: wenn Index-Eintrag auf nicht-existierende Datei zeigt, versuche Standard-Namen
+        // Fallback 1: wenn Index-Eintrag auf nicht-existierende Datei zeigt, versuche Standard-Namen
         if (!fsSync.existsSync(localPdfPath) && indexFileName) {
           const fallbackPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
           if (fsSync.existsSync(fallbackPath)) {
             console.log(`[PDF-PROXY] Index-Datei nicht gefunden, verwende Fallback: ga${gaNumPadded}.pdf`);
             localPdfPath = fallbackPath;
+          }
+        }
+        
+        // Fallback 2: Verzeichnis nach "Steiner, Rudolf GA NNN" oder "GA NNN" Dateinamen durchsuchen
+        if (!fsSync.existsSync(localPdfPath)) {
+          try {
+            const files = fsSync.readdirSync(pdfDir);
+            const gaPattern = new RegExp(`GA\\s*0*${numberPart}${letterPart}[,\\s]`, 'i');
+            const match = files.find(f => f.endsWith('.pdf') && gaPattern.test(f));
+            if (match) {
+              console.log(`[PDF-PROXY] Verzeichnis-Scan Treffer: ${match}`);
+              localPdfPath = path.join(pdfDir, match);
+            }
+          } catch (scanErr) {
+            console.warn(`[PDF-PROXY] Verzeichnis-Scan fehlgeschlagen: ${scanErr.message}`);
           }
         }
         
