@@ -39191,6 +39191,71 @@ window.cancelTextEditMode = function() {};
   // Cache für PDF-Timestamps (für Cache-Busting bei lokalen Dateien)
   const pdfFileTimestamps = new Map();
   
+  // ===== IndexedDB PDF-Cache =====
+  const PDF_CACHE_DB_NAME = 'ga-pdf-cache';
+  const PDF_CACHE_STORE_NAME = 'pdfs';
+  
+  function openPdfCacheDB() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(PDF_CACHE_DB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(PDF_CACHE_STORE_NAME)) {
+          db.createObjectStore(PDF_CACHE_STORE_NAME);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  
+  async function getCachedPdf(key) {
+    try {
+      const db = await openPdfCacheDB();
+      return new Promise((resolve) => {
+        const tx = db.transaction(PDF_CACHE_STORE_NAME, 'readonly');
+        const store = tx.objectStore(PDF_CACHE_STORE_NAME);
+        const r = store.get(key);
+        r.onsuccess = () => resolve(r.result || null);
+        r.onerror = () => resolve(null);
+      });
+    } catch { return null; }
+  }
+  
+  async function storeCachedPdf(key, pdfData, meta) {
+    try {
+      const db = await openPdfCacheDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(PDF_CACHE_STORE_NAME, 'readwrite');
+        const store = tx.objectStore(PDF_CACHE_STORE_NAME);
+        store.put({ data: pdfData, etag: meta.etag, lastModified: meta.lastModified, contentLength: meta.contentLength, cachedAt: Date.now() }, key);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    } catch (e) { console.warn('[PDF-Cache] Speichern fehlgeschlagen:', e); }
+  }
+  
+  async function fetchR2HeadInfo(url) {
+    try {
+      const resp = await fetch(url, { method: 'HEAD' });
+      if (!resp.ok) return null;
+      return {
+        etag: resp.headers.get('ETag'),
+        lastModified: resp.headers.get('Last-Modified'),
+        contentLength: resp.headers.get('Content-Length')
+      };
+    } catch { return null; }
+  }
+  
+  function isCacheValid(cached, headInfo) {
+    if (!cached || !headInfo) return false;
+    if (headInfo.etag && cached.etag) return cached.etag === headInfo.etag;
+    if (headInfo.lastModified && cached.lastModified) return cached.lastModified === headInfo.lastModified;
+    if (headInfo.contentLength && cached.contentLength) return cached.contentLength === headInfo.contentLength;
+    return false;
+  }
+  // ===== Ende IndexedDB PDF-Cache =====
+  
   // PDF laden
   async function loadPdf(gaNumber, forceReload = false) {
     if (!gaNumber) return;
@@ -39207,6 +39272,10 @@ window.cancelTextEditMode = function() {};
     const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/ga_pdf/';
     const PDF_R2_VERSION = 'v=2';
     let pdfPath;
+    let pdfCacheKey = null;
+    let pdfHeadInfo = null;
+    let loadedFromCache = false;
+    
     if (isLocalFile) {
       const index = await loadPdfIndex();
       let basePath;
@@ -39219,11 +39288,10 @@ window.cancelTextEditMode = function() {};
       const separator = basePath.includes('?') ? '&' : '?';
       pdfPath = `${basePath}${separator}_t=${timestamp}`;
     } else if (isLocal) {
-      // localhost: Backend-Proxy (lokale PDFs, Disk-Cache)
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
     } else {
-      // Produktion: direkt von Cloudflare R2 laden (kein Umweg über Render.com)
       pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf?${PDF_R2_VERSION}`;
+      pdfCacheKey = `ga${gaNumPadded}`;
     }
     
     try {
@@ -39241,29 +39309,47 @@ window.cancelTextEditMode = function() {};
       }
       
       let pdfOptions;
-      if (isLocalFile) {
+      
+      // Produktion: Cache-Check mit HEAD-Validierung gegen R2
+      if (pdfCacheKey && !forceReload) {
         try {
-          const blobResponse = await fetch(pdfPath, { 
-            cache: 'no-store',
-            headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
-          });
-          const blob = await blobResponse.blob();
-          pdfOptions = { data: blob, withCredentials: false };
-        } catch (blobError) {
-          console.warn('[PDF] Blob-Laden fehlgeschlagen, verwende URL:', blobError);
-          pdfOptions = {
-            url: pdfPath, withCredentials: false,
-            httpHeaders: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
-          };
+          pdfHeadInfo = await fetchR2HeadInfo(`${PDF_R2_BASE}ga${gaNumPadded}.pdf`);
+          const cached = await getCachedPdf(pdfCacheKey);
+          if (cached && cached.data && isCacheValid(cached, pdfHeadInfo)) {
+            console.log(`[PDF-Cache] Treffer: ${pdfCacheKey} (${Math.round(cached.data.byteLength / 1048576)} MB)`);
+            pdfOptions = { data: new Uint8Array(cached.data) };
+            loadedFromCache = true;
+          }
+        } catch (cacheErr) {
+          console.warn('[PDF-Cache] Validierung fehlgeschlagen:', cacheErr.message);
         }
-      } else {
-        pdfOptions = { url: pdfPath, withCredentials: false };
       }
       
-      if (!isLocalFile) {
-        pdfOptions.rangeChunkSize = 262144;
-        pdfOptions.disableAutoFetch = true;
-        pdfOptions.disableStream = false;
+      if (!loadedFromCache) {
+        if (isLocalFile) {
+          try {
+            const blobResponse = await fetch(pdfPath, { 
+              cache: 'no-store',
+              headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+            });
+            const blob = await blobResponse.blob();
+            pdfOptions = { data: blob, withCredentials: false };
+          } catch (blobError) {
+            console.warn('[PDF] Blob-Laden fehlgeschlagen, verwende URL:', blobError);
+            pdfOptions = {
+              url: pdfPath, withCredentials: false,
+              httpHeaders: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+            };
+          }
+        } else {
+          pdfOptions = { url: pdfPath, withCredentials: false };
+        }
+      
+        if (!isLocalFile) {
+          pdfOptions.rangeChunkSize = 262144;
+          pdfOptions.disableAutoFetch = true;
+          pdfOptions.disableStream = false;
+        }
       }
       
       // Ladeindikator anzeigen
@@ -39282,25 +39368,37 @@ window.cancelTextEditMode = function() {};
         container.style.position = 'relative';
         container.appendChild(loadingOverlay);
       }
-      loadingOverlay.style.display = 'flex';
+      if (loadedFromCache) {
+        loadingOverlay.style.display = 'flex';
+        document.getElementById('pdfLoadingText').textContent = 'Lade aus Cache…';
+        document.getElementById('pdfLoadingBar').style.width = '100%';
+        document.getElementById('pdfLoadingSize').textContent = '';
+      } else {
+        loadingOverlay.style.display = 'flex';
+        document.getElementById('pdfLoadingText').textContent = 'Lade PDF…';
+        document.getElementById('pdfLoadingBar').style.width = '0%';
+        document.getElementById('pdfLoadingSize').textContent = '';
+      }
       if (document.body.classList.contains('dark-mode')) {
         loadingOverlay.style.background = 'rgba(30,30,30,0.9)';
         loadingOverlay.querySelector('#pdfLoadingText').style.color = '#ccc';
       }
       
       let loadingTask = pdfjsLib.getDocument(pdfOptions);
-      loadingTask.onProgress = function(progress) {
-        const bar = document.getElementById('pdfLoadingBar');
-        const sizeEl = document.getElementById('pdfLoadingSize');
-        if (progress.total > 0 && bar) {
-          const pct = Math.min(100, Math.round((progress.loaded / progress.total) * 100));
-          bar.style.width = pct + '%';
-          if (sizeEl) sizeEl.textContent = `${Math.round(progress.loaded / 1048576)} / ${Math.round(progress.total / 1048576)} MB`;
-        } else if (bar) {
-          bar.style.width = '30%';
-          if (sizeEl && progress.loaded > 0) sizeEl.textContent = `${Math.round(progress.loaded / 1048576)} MB geladen`;
-        }
-      };
+      if (!loadedFromCache) {
+        loadingTask.onProgress = function(progress) {
+          const bar = document.getElementById('pdfLoadingBar');
+          const sizeEl = document.getElementById('pdfLoadingSize');
+          if (progress.total > 0 && bar) {
+            const pct = Math.min(100, Math.round((progress.loaded / progress.total) * 100));
+            bar.style.width = pct + '%';
+            if (sizeEl) sizeEl.textContent = `${Math.round(progress.loaded / 1048576)} / ${Math.round(progress.total / 1048576)} MB`;
+          } else if (bar) {
+            bar.style.width = '30%';
+            if (sizeEl && progress.loaded > 0) sizeEl.textContent = `${Math.round(progress.loaded / 1048576)} MB geladen`;
+          }
+        };
+      }
       try {
         pdfDoc = await loadingTask.promise;
       } catch (firstError) {
@@ -39336,6 +39434,15 @@ window.cancelTextEditMode = function() {};
       // Ladeindikator ausblenden
       const overlay = document.getElementById('pdfLoadingOverlay');
       if (overlay) overlay.style.display = 'none';
+      
+      // Im Hintergrund: PDF in IndexedDB cachen (für schnelles Laden beim nächsten Mal)
+      if (pdfCacheKey && !loadedFromCache && pdfDoc) {
+        pdfDoc.getData().then(data => {
+          const meta = pdfHeadInfo || {};
+          storeCachedPdf(pdfCacheKey, data.buffer, meta);
+          console.log(`[PDF-Cache] Gespeichert: ${pdfCacheKey} (${Math.round(data.byteLength / 1048576)} MB)`);
+        }).catch(e => console.warn('[PDF-Cache] Caching fehlgeschlagen:', e.message));
+      }
       
       pdfTotalPages = pdfDoc.numPages;
       
