@@ -698,7 +698,8 @@ const isLocal = window.location.hostname === 'localhost' ||
                 delete ts[src];
               }
             });
-            var entries = Object.entries(ts).sort(function(a,b) { return b[1] - a[1]; });
+            var localOnlyTabs = { zitate: 1, keywords: 1, docs: 1 };
+            var entries = Object.entries(ts).filter(function(e) { return !localOnlyTabs[e[0]]; }).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
               if (data.tabsMigrationNeeded) {
                 return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:#c9433d;">Supabase-Migration erforderlich: Bitte <code>supabase-analytics-tabs-quotes.sql</code> im Supabase SQL Editor ausführen</p></div>';
@@ -730,29 +731,21 @@ const isLocal = window.location.hostname === 'localhost' ||
           ${(function() {
             var geo = data.geoStats;
             if (!geo || !Array.isArray(geo) || geo.length === 0) {
-              return '<div class="analytics-section"><h3>Seitenaufrufe nach Ländern</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Geo-Daten verfügbar</p></div>';
+              return '<div class="analytics-section"><h3>Besucher nach Ländern</h3><p style="font-size:0.85em;color:var(--secondary-text);">Noch keine Geo-Daten verfügbar</p></div>';
             }
             var countryFlagMap = {DE:'🇩🇪',AT:'🇦🇹',CH:'🇨🇭',US:'🇺🇸',GB:'🇬🇧',FR:'🇫🇷',IT:'🇮🇹',ES:'🇪🇸',NL:'🇳🇱',BE:'🇧🇪',PL:'🇵🇱',CZ:'🇨🇿',SE:'🇸🇪',NO:'🇳🇴',DK:'🇩🇰',FI:'🇫🇮',PT:'🇵🇹',RU:'🇷🇺',UA:'🇺🇦',JP:'🇯🇵',CN:'🇨🇳',IN:'🇮🇳',BR:'🇧🇷',CA:'🇨🇦',AU:'🇦🇺',NZ:'🇳🇿',ZA:'🇿🇦',MX:'🇲🇽',AR:'🇦🇷',KR:'🇰🇷',IL:'🇮🇱',TR:'🇹🇷',IE:'🇮🇪',LU:'🇱🇺',HU:'🇭🇺',RO:'🇷🇴',BG:'🇧🇬',HR:'🇭🇷',SK:'🇸🇰',SI:'🇸🇮',LT:'🇱🇹',LV:'🇱🇻',EE:'🇪🇪',GR:'🇬🇷'};
             var totalVisits = geo.reduce(function(s,c){ return s + Number(c.total_count || 0); }, 0);
-            var maxCount = geo[0] ? Number(geo[0].total_count) : 1;
 
-            var html = '<div class="analytics-section"><h3>Seitenaufrufe nach Ländern</h3>';
-            html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 16px;"></div>';
-            html += '<div style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;align-items:center;max-width:500px;">';
+            var html = '<div class="analytics-section"><h3>Besucher nach Ländern</h3>';
+            html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 12px;position:relative;"></div>';
+            html += '<div style="display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center;max-width:700px;margin:0 auto;">';
             geo.forEach(function(c) {
               var flag = countryFlagMap[c.country_code] || '🌍';
               var cities = c.cities || [];
               var topCities = cities.filter(function(ci){ return ci.city; }).slice(0, 5);
-              var pct = Math.round((Number(c.total_count) / maxCount) * 100);
-              var cityStr = topCities.length > 0 ? topCities.map(function(ci){ return ci.city + ': ' + ci.count; }).join(', ') : '';
-              html += '<span style="font-size:0.85em;color:var(--text-color);white-space:nowrap;">' + flag + ' ' + c.country_name + '</span>';
-              html += '<div style="display:flex;flex-direction:column;gap:2px;">' +
-                '<div style="height:14px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
-                  '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;min-width:2px;"></div>' +
-                '</div>' +
-                (cityStr ? '<span style="font-size:0.7em;color:var(--secondary-text);line-height:1.2;">' + cityStr + '</span>' : '') +
-              '</div>';
-              html += '<strong style="font-size:0.85em;color:var(--accent-color);text-align:right;">' + c.total_count + '</strong>';
+              var cityStr = topCities.length > 0 ? topCities.map(function(ci){ return ci.city + ' ' + ci.count; }).join(', ') : '';
+              var titleAttr = cityStr ? ' title="' + cityStr + '"' : '';
+              html += '<span style="font-size:0.8em;color:var(--text-color);white-space:nowrap;cursor:default;"' + titleAttr + '>' + flag + '\u2009' + c.country_name + '\u2009<strong style="color:var(--accent-color);">' + c.total_count + '</strong></span>';
             });
             html += '</div></div>';
             return html;
@@ -775,18 +768,20 @@ const isLocal = window.location.hostname === 'localhost' ||
       if (!mapContainer || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
 
       var width = mapContainer.clientWidth || 700;
-      var height = Math.round(width * 0.5);
+      var height = Math.round(width * 0.55);
 
       var countByCode = {};
+      var detailsByCode = {};
       geoStats.forEach(function(c) {
         countByCode[c.country_code] = Number(c.total_count) || 0;
+        detailsByCode[c.country_code] = c;
       });
       var maxVal = Math.max.apply(null, Object.values(countByCode).concat([1]));
 
       var isDark = document.body.classList.contains('dark-mode');
-      var bgColor = isDark ? '#1e1e1e' : '#f8f8f8';
-      var landColor = isDark ? '#333' : '#e0e0e0';
-      var borderColor = isDark ? '#555' : '#ccc';
+      var oceanColor = isDark ? '#1a2530' : '#eaf4fb';
+      var landColor = isDark ? '#2c2c2c' : '#ddd';
+      var borderColor = isDark ? '#444' : '#bbb';
       var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim() || '#5a8a7a';
 
       function drawMap(worldData) {
@@ -796,8 +791,8 @@ const isLocal = window.location.hostname === 'localhost' ||
         var svg = d3.select(mapContainer).append('svg')
           .attr('width', width).attr('height', height)
           .attr('viewBox', '0 0 ' + width + ' ' + height)
-          .style('background', bgColor)
-          .style('border-radius', '6px')
+          .style('background', oceanColor)
+          .style('border-radius', '8px')
           .style('border', '1px solid ' + borderColor);
 
         var projection = d3.geoNaturalEarth1()
@@ -813,14 +808,13 @@ const isLocal = window.location.hostname === 'localhost' ||
 
         var tooltip = d3.select(mapContainer).append('div')
           .style('position', 'absolute').style('pointer-events', 'none')
-          .style('background', isDark ? '#333' : '#fff')
+          .style('background', isDark ? 'rgba(40,40,40,0.95)' : 'rgba(255,255,255,0.97)')
           .style('border', '1px solid ' + borderColor)
-          .style('border-radius', '4px').style('padding', '4px 8px')
+          .style('border-radius', '6px').style('padding', '6px 10px')
           .style('font-size', '0.8em').style('display', 'none')
           .style('color', isDark ? '#eee' : '#333')
-          .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
-
-        var isoNumericToAlpha2 = null;
+          .style('box-shadow', '0 4px 12px rgba(0,0,0,0.2)')
+          .style('z-index', '10').style('max-width', '220px');
 
         svg.selectAll('path')
           .data(countries.features)
@@ -832,22 +826,39 @@ const isLocal = window.location.hostname === 'localhost' ||
             return val > 0 ? colorScale(val) : landColor;
           })
           .attr('stroke', borderColor)
-          .attr('stroke-width', 0.5)
+          .attr('stroke-width', 0.4)
+          .style('cursor', function(d) {
+            var code = getAlpha2FromFeature(d, geoStats);
+            return (code && countByCode[code]) ? 'pointer' : 'default';
+          })
           .on('mouseover', function(event, d) {
             var code = getAlpha2FromFeature(d, geoStats);
             var val = code ? (countByCode[code] || 0) : 0;
             if (val > 0) {
-              var name = geoStats.find(function(g) { return g.country_code === code; });
-              tooltip.style('display', 'block')
-                .html((name ? name.country_name : code) + ': <strong>' + val + '</strong>');
+              d3.select(this).attr('stroke', accentColor).attr('stroke-width', 1.5);
+              var info = detailsByCode[code];
+              var label = info ? info.country_name : code;
+              var tipHtml = '<strong>' + label + '</strong>: ' + val + ' Aufrufe';
+              if (info && info.cities && info.cities.length > 0) {
+                var topCities = info.cities.filter(function(ci){ return ci.city; }).slice(0, 5);
+                if (topCities.length > 0) {
+                  tipHtml += '<div style="margin-top:3px;font-size:0.85em;color:' + (isDark ? '#aaa' : '#666') + ';">';
+                  topCities.forEach(function(ci) { tipHtml += ci.city + ': ' + ci.count + '<br>'; });
+                  tipHtml += '</div>';
+                }
+              }
+              tooltip.style('display', 'block').html(tipHtml);
             }
           })
           .on('mousemove', function(event) {
             var rect = mapContainer.getBoundingClientRect();
-            tooltip.style('left', (event.clientX - rect.left + 10) + 'px')
-              .style('top', (event.clientY - rect.top - 25) + 'px');
+            var x = event.clientX - rect.left + 12;
+            var y = event.clientY - rect.top - 10;
+            if (x + 220 > width) x = event.clientX - rect.left - 230;
+            tooltip.style('left', x + 'px').style('top', y + 'px');
           })
           .on('mouseout', function() {
+            d3.select(this).attr('stroke', borderColor).attr('stroke-width', 0.4);
             tooltip.style('display', 'none');
           });
       }
