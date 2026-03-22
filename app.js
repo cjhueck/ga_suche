@@ -688,7 +688,7 @@ const isLocal = window.location.hostname === 'localhost' ||
           </div>
           
           ${(function() {
-            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen/Schwerpunkte', thematic2_schwerpunkte: 'Themen/Schwerpunkte', thematic2_timeline: 'Themen/Timeline', thematic2_sammlungen: 'Themen/Sammlungen', thematic2_karten: 'Themen/Karten', thematic: 'Abfrage', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Suche/erweitert' };
+            var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen/Schwerpunkte', thematic2_schwerpunkte: 'Themen/Schwerpunkte', thematic2_timeline: 'Themen/Timeline', thematic2_sammlungen: 'Themen/Sammlungen', thematic2_karten: 'Themen/Karten', thematic: 'Abfrage', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Suche/erweitert', entwicklung_kind: 'Entwicklung des Kindes', goetheanismus: 'Goetheanismus' };
             var tabMerge = { suche: 'keyword', erweitert: 'advanced-search' };
             var ts = Object.assign({}, data.tabStats || {});
             Object.keys(tabMerge).forEach(function(src) {
