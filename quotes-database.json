@@ -7,7 +7,11 @@
       "paragraphIndex": "^bypain",
       "date": "1904-03-08",
       "addedAt": "2025-12-08T08:14:20.082Z",
-      "isActive": false
+      "isActive": true,
+      "isUsed": true,
+      "usedSince": "2026-03-22T07:57:19.993Z",
+      "displayedSince": "2026-03-22T07:57:20.659Z",
+      "activeToggledAt": "2026-03-22T07:57:20.659Z"
     },
     {
       "id": "1765194082237",
@@ -186,9 +190,9 @@
       "lectureId": "GA056/1",
       "paragraphIndex": "pc06el",
       "addedAt": "2026-02-16T15:09:20.120Z",
-      "isActive": true,
+      "isActive": false,
       "displayedSince": "2026-03-15T12:20:56.055Z",
-      "activeToggledAt": "2026-03-15T12:20:56.055Z",
+      "activeToggledAt": "2026-03-22T07:57:07.796Z",
       "isUsed": true,
       "usedSince": "2026-03-15T12:20:58.102Z"
     },

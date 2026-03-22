@@ -3547,6 +3547,7 @@
                             textAfter = ''; // Alles vorher war Metadaten → verwerfen
                             continue;
                         }
+                        if (/^\d+$/.test(scanLine)) continue;
                         if (scanLine) {
                             textAfter += (textAfter ? ' ' : '') + scanLine;
                             if (textAfter.length >= 200) {
