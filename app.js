@@ -39261,31 +39261,82 @@ window.cancelTextEditMode = function() {};
       }
       
       if (!isLocalFile) {
-        pdfOptions.rangeChunkSize = 65536;
+        pdfOptions.rangeChunkSize = 262144;
         pdfOptions.disableAutoFetch = true;
         pdfOptions.disableStream = false;
       }
       
+      // Ladeindikator anzeigen
+      const container = document.getElementById('pdfCanvasContainer');
+      let loadingOverlay = document.getElementById('pdfLoadingOverlay');
+      if (!loadingOverlay) {
+        loadingOverlay = document.createElement('div');
+        loadingOverlay.id = 'pdfLoadingOverlay';
+        loadingOverlay.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.85);z-index:10;';
+        loadingOverlay.innerHTML = `
+          <div style="font-size:14px;color:#555;margin-bottom:12px;" id="pdfLoadingText">Lade PDF…</div>
+          <div style="width:200px;height:6px;background:#e0e0e0;border-radius:3px;overflow:hidden;">
+            <div id="pdfLoadingBar" style="width:0%;height:100%;background:var(--link-color,#4a90d9);border-radius:3px;transition:width 0.2s;"></div>
+          </div>
+          <div style="font-size:11px;color:#999;margin-top:6px;" id="pdfLoadingSize"></div>`;
+        container.style.position = 'relative';
+        container.appendChild(loadingOverlay);
+      }
+      loadingOverlay.style.display = 'flex';
+      if (document.body.classList.contains('dark-mode')) {
+        loadingOverlay.style.background = 'rgba(30,30,30,0.9)';
+        loadingOverlay.querySelector('#pdfLoadingText').style.color = '#ccc';
+      }
+      
       let loadingTask = pdfjsLib.getDocument(pdfOptions);
+      loadingTask.onProgress = function(progress) {
+        const bar = document.getElementById('pdfLoadingBar');
+        const sizeEl = document.getElementById('pdfLoadingSize');
+        if (progress.total > 0 && bar) {
+          const pct = Math.min(100, Math.round((progress.loaded / progress.total) * 100));
+          bar.style.width = pct + '%';
+          if (sizeEl) sizeEl.textContent = `${Math.round(progress.loaded / 1048576)} / ${Math.round(progress.total / 1048576)} MB`;
+        } else if (bar) {
+          bar.style.width = '30%';
+          if (sizeEl && progress.loaded > 0) sizeEl.textContent = `${Math.round(progress.loaded / 1048576)} MB geladen`;
+        }
+      };
       try {
         pdfDoc = await loadingTask.promise;
       } catch (firstError) {
         if (!isLocal && !isLocalFile) {
           const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf?${PDF_R2_VERSION}`;
           console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase: ${upperPath}`);
+          const loadingTextEl = document.getElementById('pdfLoadingText');
+          if (loadingTextEl) loadingTextEl.textContent = 'Lade PDF (Retry)…';
           try {
-            loadingTask = pdfjsLib.getDocument({ url: upperPath, withCredentials: false });
+            const upperOpts = { url: upperPath, withCredentials: false, rangeChunkSize: 262144, disableAutoFetch: true, disableStream: false };
+            loadingTask = pdfjsLib.getDocument(upperOpts);
+            loadingTask.onProgress = function(progress) {
+              const bar = document.getElementById('pdfLoadingBar');
+              if (progress.total > 0 && bar) bar.style.width = Math.min(100, Math.round((progress.loaded / progress.total) * 100)) + '%';
+            };
             pdfDoc = await loadingTask.promise;
           } catch (upperError) {
             console.warn('[PDF] R2 uppercase auch fehlgeschlagen, Fallback auf Backend-Proxy');
+            if (loadingTextEl) loadingTextEl.textContent = 'Lade PDF (Backend)…';
             const proxyPath = `${API_BASE}/api/pdf/ga${gaNumPadded}`;
-            loadingTask = pdfjsLib.getDocument({ url: proxyPath, withCredentials: false });
+            const proxyOpts = { url: proxyPath, withCredentials: false, rangeChunkSize: 262144, disableAutoFetch: true, disableStream: false };
+            loadingTask = pdfjsLib.getDocument(proxyOpts);
+            loadingTask.onProgress = function(progress) {
+              const bar = document.getElementById('pdfLoadingBar');
+              if (progress.total > 0 && bar) bar.style.width = Math.min(100, Math.round((progress.loaded / progress.total) * 100)) + '%';
+            };
             pdfDoc = await loadingTask.promise;
           }
         } else {
           throw firstError;
         }
       }
+      // Ladeindikator ausblenden
+      const overlay = document.getElementById('pdfLoadingOverlay');
+      if (overlay) overlay.style.display = 'none';
+      
       pdfTotalPages = pdfDoc.numPages;
       
       document.getElementById('pdfTotalPages').textContent = pdfTotalPages;
@@ -39304,6 +39355,8 @@ window.cancelTextEditMode = function() {};
     } catch (error) {
       console.error('[PDF] Fehler beim Laden:', error);
       console.error('[PDF] URL war:', pdfPath);
+      const overlay = document.getElementById('pdfLoadingOverlay');
+      if (overlay) overlay.style.display = 'none';
       pdfDoc = null;
       return false;
     }
