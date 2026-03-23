@@ -533,6 +533,7 @@ const isLocal = window.location.hostname === 'localhost' ||
     // Analytics-Dashboard öffnen
     let analyticsRefreshInterval = null;
     function openAnalytics() {
+      if (!isLocal) return;
       const overlay = document.getElementById('analytics-overlay');
       if (overlay) {
         overlay.classList.add('visible');
@@ -39281,7 +39282,6 @@ window.cancelTextEditMode = function() {};
     const gaNumPadded = gaNum.replace(/^(\d+)/, (m) => m.padStart(3, '0'));
     
     const PDF_R2_BASE = 'https://ga.rudolf-steiner-online.de/ga_pdf/';
-    const PDF_R2_VERSION = 'v=2';
     let pdfPath;
     let pdfCacheKey = null;
     let pdfHeadInfo = null;
@@ -39301,7 +39301,7 @@ window.cancelTextEditMode = function() {};
     } else if (isLocal) {
       pdfPath = `/api/pdf/ga${gaNumPadded.toLowerCase()}?_t=${Date.now()}`;
     } else {
-      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf?${PDF_R2_VERSION}`;
+      pdfPath = `${PDF_R2_BASE}ga${gaNumPadded}.pdf?_t=${Date.now()}`;
       pdfCacheKey = `ga${gaNumPadded}`;
     }
     
@@ -39414,7 +39414,7 @@ window.cancelTextEditMode = function() {};
         pdfDoc = await loadingTask.promise;
       } catch (firstError) {
         if (!isLocal && !isLocalFile) {
-          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf?${PDF_R2_VERSION}`;
+          const upperPath = `${PDF_R2_BASE}GA${gaNumPadded.toUpperCase()}.pdf?_t=${Date.now()}`;
           console.warn(`[PDF] R2 lowercase fehlgeschlagen, versuche uppercase: ${upperPath}`);
           const loadingTextEl = document.getElementById('pdfLoadingText');
           if (loadingTextEl) loadingTextEl.textContent = 'Lade PDF (Retry)…';
