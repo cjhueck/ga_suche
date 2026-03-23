@@ -39249,21 +39249,24 @@ window.cancelTextEditMode = function() {};
   
   async function fetchR2HeadInfo(url) {
     try {
-      const resp = await fetch(url, { method: 'HEAD' });
+      const sep = url.includes('?') ? '&' : '?';
+      const resp = await fetch(url + sep + '_t=' + Date.now(), { method: 'HEAD' });
       if (!resp.ok) return null;
-      return {
+      const info = {
         etag: resp.headers.get('ETag'),
         lastModified: resp.headers.get('Last-Modified'),
         contentLength: resp.headers.get('Content-Length')
       };
-    } catch { return null; }
+      console.log('[PDF-Cache] HEAD-Info:', JSON.stringify(info));
+      return info;
+    } catch (e) { console.warn('[PDF-Cache] HEAD fehlgeschlagen:', e); return null; }
   }
   
   function isCacheValid(cached, headInfo) {
     if (!cached || !headInfo) return false;
     if (headInfo.etag && cached.etag) return cached.etag === headInfo.etag;
     if (headInfo.lastModified && cached.lastModified) return cached.lastModified === headInfo.lastModified;
-    if (headInfo.contentLength && cached.contentLength) return cached.contentLength === headInfo.contentLength;
+    // Content-Length allein reicht NICHT — verschiedene Dateien können gleich groß sein
     return false;
   }
   // ===== Ende IndexedDB PDF-Cache =====
