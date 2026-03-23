@@ -17,7 +17,7 @@ export default {
 
     if (request.method === "POST" && url.pathname === "/create") {
       const mpu = await env.BUCKET.createMultipartUpload(key, {
-        httpMetadata: { contentType: "application/pdf" },
+        httpMetadata: { contentType: "application/pdf", cacheControl: "no-cache, s-maxage=0" },
       });
       return Response.json({ uploadId: mpu.uploadId });
     }
