@@ -4330,13 +4330,16 @@ function normalizeGANumber(gaNumber) {
 
         const r2Url = `${IMAGES_R2_BASE}${encodeURIComponent(gaNumber)}/${encodeURIComponent(filename)}`;
         imgTag.setAttribute('src', r2Url);
+        imgTag.setAttribute('data-local-src', `/assets/${encodeURIComponent(filename)}?ga=${encodeURIComponent(gaNumber)}`);
 
-        // Inline onerror: probiert alternative Dateiendungen (z.B. JSON sagt .png, Datei ist .jpeg)
+        // onerror: erst alternative Dateiendungen auf R2, dann lokaler Fallback via Backend
+        // (Backend übernimmt selbst den Extension-Fallback, daher reicht ein Versuch lokal)
         imgTag.setAttribute('onerror',
           "var c=this.src,t=(this.dataset.triedExts||'').split(',').filter(Boolean)," +
           "x=(c.match(/\\.\\w+$/)||[''])[0].toLowerCase();t.push(x);" +
           "var a=['.png','.jpeg','.jpg','.webp'].filter(function(e){return t.indexOf(e)<0});" +
-          "if(a.length){this.dataset.triedExts=t.join(',');this.src=c.replace(/\\.\\w+$/,a[0])}" +
+          "if(c.indexOf('rudolf-steiner-online.de')>=0&&a.length){this.dataset.triedExts=t.join(',');this.src=c.replace(/\\.\\w+$/,a[0])}" +
+          "else if(!this.dataset.triedLocal&&this.dataset.localSrc){this.dataset.triedLocal='1';this.src=this.dataset.localSrc}" +
           "else{this.onerror=null}"
         );
 

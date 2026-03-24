@@ -141,14 +141,10 @@ function sanitizeString(input, maxLength = 1000) {
 // API: Bilder aus GA-Ordnern servieren (für Bücher) - MUSS VOR express.static kommen!
 app.get('/assets/*', async (req, res) => {
   try {
-    // Extrahiere den Pfad nach /assets/
-    const imagePath = req.path.replace('/assets/', ''); // z.B. "GA046-Nachgelassene Abhandlungen...img-0.png"
-    
-    // Decode URL-encoded Zeichen
+    const imagePath = req.path.replace('/assets/', '');
     const decodedPath = decodeURIComponent(imagePath);
     
-    // Finde den GA-Ordner basierend auf dem Bildpfad ODER Query-Parameter ?ga=GA295
-    // Manche Bände (z.B. GA295, GA306) haben relative Pfade wie "img-0.png" ohne GA-Präfix
+    // GA-Nummer extrahieren: 1) Am Anfang des Pfades, 2) ?ga= Parameter, 3) Irgendwo im Pfad (z.B. "Steiner, Rudolf GA 091...")
     let gaNumber = null;
     const gaMatch = decodedPath.match(/^(GA)?(\d{3}[a-z]?)/i);
     if (gaMatch) {
@@ -161,20 +157,25 @@ app.get('/assets/*', async (req, res) => {
       }
     }
     if (!gaNumber) {
+      const midMatch = decodedPath.match(/GA\s*(\d{3}[a-z]?)/i);
+      if (midMatch) {
+        gaNumber = 'GA' + midMatch[1];
+      }
+    }
+    if (!gaNumber) {
       return res.status(404).json({ error: 'GA-Nummer nicht gefunden (weder im Pfad noch als ?ga= Parameter)' });
     }
     
     // Wenn decodedPath einen vollständigen Unterordner-Pfad enthält (z.B. "GA306-Die.../assets/img-2.png"),
-    // extrahiere nur den Dateinamen relativ zu assets/ – sonst würde der Pfad doppelt werden
+    // extrahiere nur den Dateinamen relativ zu assets/
     let pathForAssets = decodedPath;
     const assetsIdx = decodedPath.lastIndexOf('/assets/');
     if (assetsIdx >= 0) {
-      pathForAssets = decodedPath.substring(assetsIdx + 8); // Nach "/assets/"
+      pathForAssets = decodedPath.substring(assetsIdx + 8);
     }
     
     const steinerGADir = path.join(__dirname, 'Steiner_GA');
     
-    // Suche nach dem GA-Ordner
     const files = await fs.readdir(steinerGADir);
     const gaFolder = files.find(f => {
       const stat = fsSync.statSync(path.join(steinerGADir, f));
@@ -185,44 +186,64 @@ app.get('/assets/*', async (req, res) => {
       return res.status(404).json({ error: `GA-Ordner nicht gefunden: ${gaNumber}` });
     }
     
+    const gaFolderPath = path.join(steinerGADir, gaFolder);
+    const resolved = findImageInGAFolder(gaFolderPath, pathForAssets);
     
-    // Konstruiere den vollständigen Pfad zum Bild
-    let fullImagePath = path.join(steinerGADir, gaFolder, 'assets', pathForAssets);
-    
-    // Prüfe ob Datei existiert
-    if (!fsSync.existsSync(fullImagePath)) {
-      
-      // Falls .png nicht gefunden, versuche .jpeg oder .jpg
-      if (pathForAssets.endsWith('.png')) {
-        const jpegPath = pathForAssets.replace(/\.png$/i, '.jpeg');
-        const jpgPath = pathForAssets.replace(/\.png$/i, '.jpg');
-        
-        const jpegFullPath = path.join(steinerGADir, gaFolder, 'assets', jpegPath);
-        const jpgFullPath = path.join(steinerGADir, gaFolder, 'assets', jpgPath);
-        
-        if (fsSync.existsSync(jpegFullPath)) {
-          fullImagePath = jpegFullPath;
-        } else if (fsSync.existsSync(jpgFullPath)) {
-          fullImagePath = jpgFullPath;
-        } else {
-          const assetsDir = path.join(steinerGADir, gaFolder, 'assets');
-          if (fsSync.existsSync(assetsDir)) {
-            const assetsFiles = fsSync.readdirSync(assetsDir);
-          }
-          return res.status(404).json({ error: 'Bild nicht gefunden' });
-        }
-      } else {
-        return res.status(404).json({ error: 'Bild nicht gefunden' });
-      }
+    if (!resolved) {
+      return res.status(404).json({ error: 'Bild nicht gefunden' });
     }
     
-    // Serviere das Bild
-    res.sendFile(fullImagePath);
+    res.sendFile(resolved);
   } catch (error) {
     console.error('[IMAGES-ASSETS] Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
+
+/**
+ * Sucht eine Bilddatei in einem GA-Ordner – zuerst direkt in assets/,
+ * dann rekursiv in Unterordnern, mit Fallback auf alternative Dateiendungen.
+ */
+function findImageInGAFolder(gaFolderPath, filename) {
+  const altExts = ['.jpeg', '.jpg', '.png', '.webp'];
+  
+  function tryWithAlternateExts(dir, name) {
+    const full = path.join(dir, name);
+    if (fsSync.existsSync(full)) return full;
+    const ext = path.extname(name).toLowerCase();
+    const base = name.slice(0, -ext.length);
+    for (const alt of altExts) {
+      if (alt === ext) continue;
+      const altPath = path.join(dir, base + alt);
+      if (fsSync.existsSync(altPath)) return altPath;
+    }
+    return null;
+  }
+
+  // 1) Direkt in assets/
+  const directAssets = path.join(gaFolderPath, 'assets');
+  if (fsSync.existsSync(directAssets)) {
+    const found = tryWithAlternateExts(directAssets, filename);
+    if (found) return found;
+  }
+
+  // 2) Rekursiv: Suche in allen Unterordnern die ein assets/-Verzeichnis haben
+  if (fsSync.existsSync(gaFolderPath)) {
+    try {
+      const entries = fsSync.readdirSync(gaFolderPath, { withFileTypes: true });
+      for (const entry of entries) {
+        if (!entry.isDirectory() || entry.name === 'assets') continue;
+        const subAssets = path.join(gaFolderPath, entry.name, 'assets');
+        if (fsSync.existsSync(subAssets)) {
+          const found = tryWithAlternateExts(subAssets, filename);
+          if (found) return found;
+        }
+      }
+    } catch { /* ignore */ }
+  }
+
+  return null;
+}
 
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
