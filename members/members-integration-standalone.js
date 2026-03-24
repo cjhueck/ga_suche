@@ -245,10 +245,6 @@ async function saveAsQuote(text, contextBefore, contextAfter) {
         user_id: currentUser.id,
         quote_text: text,
       ga_reference: lectureId,
-        lecture_title: currentContext.lectureTitle,
-        lecture_url: window.location.href,
-        context_before: contextBefore,
-        context_after: contextAfter,
         personal_note: '',
         tags: [],
         is_public: false
@@ -282,8 +278,6 @@ async function saveAsBookmark(text) {
       .insert({
         user_id: currentUser.id,
         ga_number: currentContext.gaNumber,
-        lecture_title: currentContext.lectureTitle,
-        lecture_url: window.location.href,
         paragraph_id: null,
         paragraph_text: text,
         note: '',
@@ -414,8 +408,6 @@ function addParagraphBookmarkIcons(gaNumber, lectureTitle) {
           .insert({
             user_id: currentUser.id,
             ga_number: gaNumber,
-            lecture_title: lectureTitle,
-            lecture_url: window.location.href,
             paragraph_id: `p-${index}`,
             paragraph_text: paragraph.textContent.trim(),
             note: '',
