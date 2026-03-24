@@ -293,7 +293,6 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
     const insertData = {
       user_id: currentUser.id,
       ga_number: lectureId,
-      lecture_title: lectureTitle,
       paragraph_id: paragraphIndex,
       paragraph_text: text,
       note: note || '',
@@ -799,7 +798,6 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       user_id: currentUser.id,
       quote_text: text,
       ga_reference: lectureId,
-      lecture_title: lectureTitle,
       paragraph_id: paragraphIndex,
       personal_note: note || '',
       tags: keywords,
@@ -1289,8 +1287,6 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       const insertData = {
         user_id: currentUser.id,
         ga_number: lectureId,
-        lecture_title: lectureTitle,
-        lecture_url: window.location.href,
         paragraph_id: paragraphIndex,
         paragraph_text: paragraphText,
         text_start_offset: normalizedStart,
@@ -1379,8 +1375,6 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     const insertData = {
       user_id: currentUser.id,
       ga_number: lectureId,
-      lecture_title: lectureTitle,
-      lecture_url: window.location.href,
       paragraph_id: paragraphIndex,
       paragraph_text: paragraphText,
       text_start_offset: textStartOffset,

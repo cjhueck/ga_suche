@@ -22,8 +22,6 @@ export async function createBookmark(gaNumber, lectureTitle, paragraphId, paragr
       .insert({
         user_id: user.id,
         ga_number: gaNumber,
-        lecture_title: lectureTitle,
-        lecture_url: lectureUrl,
         paragraph_id: paragraphId,
         paragraph_text: paragraphText,
         note: note,
@@ -205,10 +203,6 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
         user_id: user.id,
         quote_text: quoteText,
         ga_reference: gaReference,
-        lecture_title: lectureTitle,
-        lecture_url: lectureUrl,
-        context_before: contextBefore,
-        context_after: contextAfter,
         personal_note: personalNote,
         tags: tags,
         is_public: isPublic
@@ -925,8 +919,6 @@ export async function createHighlight(gaNumber, lectureTitle, paragraphId, parag
     const insertData = {
         user_id: user.id,
         ga_number: gaNumber,
-        lecture_title: lectureTitle,
-        lecture_url: lectureUrl,
         paragraph_id: paragraphId,
         paragraph_text: paragraphText,
         text_start_offset: textStartOffset,

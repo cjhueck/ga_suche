@@ -376,10 +376,6 @@ async function quickSaveQuote() {
         user_id: currentUser.id,
         quote_text: lastSelection,
       ga_reference: lectureId,
-        lecture_title: currentContext.lectureTitle || '',
-        lecture_url: window.location.href,
-        context_before: lastSelectionContext?.before || '',
-        context_after: lastSelectionContext?.after || '',
         personal_note: '',
         tags: [],
         is_public: false
@@ -431,8 +427,6 @@ async function quickSaveBookmark() {
       .insert({
         user_id: currentUser.id,
         ga_number: currentContext.gaNumber || 'Unbekannt',
-        lecture_title: currentContext.lectureTitle || '',
-        lecture_url: window.location.href,
         paragraph_id: null,
         paragraph_text: lastSelection,
         note: '',
