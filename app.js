@@ -30816,7 +30816,7 @@ async function showMapsInViewer() {
       ? COGGLE_MAPS.filter(m => m.id === reinkId)
       : COGGLE_MAPS.filter(m => m.id !== reinkId);
     dropdown.innerHTML = '<option value="">-- Karte wählen --</option>' +
-      filtered.map(m => `<option value="${m.id} - ${m.id === map.id ? 'selected' : ''} - ${m.name}</option>`).join('');
+      filtered.map(m => `<option value="${m.id}"${m.id === map.id ? ' selected' : ''}>${m.name}</option>`).join('');
   }
   const localBtn = document.getElementById('maps-view-local');
   const publishBtn = document.getElementById('maps-view-publish');
