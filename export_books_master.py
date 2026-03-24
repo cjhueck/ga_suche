@@ -1113,15 +1113,14 @@ class BooksExporter:
                 content = f.read()
             read_time = time.time() - read_start
             
-            # 0. Konvertiere JPEG-Bilder zu PNG (überspringen für Performance)
-            # converted_images = convert_jpeg_to_png_files(main_file)
+            # 0. Konvertiere JPEG-Bilder zu PNG
+            if PIL_AVAILABLE:
+                convert_jpeg_to_png_files(main_file)
             
-            # 1. Rechtschreibkorrekturen (OPTIONAL - kann deaktiviert werden für Geschwindigkeit)
+            # 1. Rechtschreibkorrekturen (abschaltbar mit --no-spelling)
             if not self.skip_spelling:
                 spelling_start = time.time()
-                # OPTIMIERUNG: Überspringe Rechtschreibkorrekturen wenn Text sehr groß (>500KB)
-                if len(content) < 500000:  # Nur bei kleineren Dateien
-                    content = self.fix_spelling(content)
+                content = self.fix_spelling(content)
                 spelling_time = time.time() - spelling_start
             else:
                 spelling_time = 0
@@ -1281,8 +1280,8 @@ class BooksExporter:
                 title_match = re.match(r'GA\d{2,3}[a-z]?\s*\(\d+\.\)\s+(.+)$', chapter_name)
                 chapter_title = title_match.group(1).strip() if title_match else chapter_name
                 
-                # 1. Rechtschreibkorrekturen (optional)
-                if not self.skip_spelling and len(content) < 500000:
+                # 1. Rechtschreibkorrekturen (abschaltbar mit --no-spelling)
+                if not self.skip_spelling:
                     content = self.fix_spelling(content)
                 
                 # 1.5. Konvertiere JPEG-Platzhalter zu PNG
@@ -1672,9 +1671,8 @@ def main():
     """Hauptfunktion"""
     ga_numbers = parse_arguments()
     
-    # PERFORMANCE: Überspringe Rechtschreibkorrekturen für schnellere Verarbeitung
-    # (kann später mit --spelling aktiviert werden)
-    skip_spelling = '--spelling' not in sys.argv
+    # Rechtschreibkorrekturen standardmäßig aktiv (abschaltbar mit --no-spelling)
+    skip_spelling = '--no-spelling' in sys.argv
     
     exporter = BooksExporter(parallel_workers=1, skip_spelling=skip_spelling)  # Parallelisierung deaktiviert für Windows-Kompatibilität
     

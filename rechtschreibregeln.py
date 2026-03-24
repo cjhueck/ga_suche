@@ -171,6 +171,14 @@ def korrigiere_rechtschreibung(text):
         # Kongreß → Kongress
         'Kongreß': 'Kongress',
         'kongreß': 'kongress',
+        
+        # Schweizerische Schreibweise (ss statt ß nach Diphthong)
+        'äusser': 'äußer',
+        'Äusser': 'Äußer',
+        'ausser': 'außer',
+        'Ausser': 'Außer',
+        'Aussen': 'Außen',
+        'aussen': 'außen',
     }
     
     # Wende alle Ersetzungen an
@@ -310,6 +318,14 @@ def get_replacements_dict():
         # Kongreß → Kongress
         'Kongreß': 'Kongress',
         'kongreß': 'kongress',
+        
+        # Schweizerische Schreibweise (ss statt ß nach Diphthong)
+        'äusser': 'äußer',
+        'Äusser': 'Äußer',
+        'ausser': 'außer',
+        'Ausser': 'Außer',
+        'Aussen': 'Außen',
+        'aussen': 'außen',
     }
 
 
