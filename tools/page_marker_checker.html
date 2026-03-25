@@ -3548,6 +3548,7 @@
                             continue;
                         }
                         if (/^\d+$/.test(scanLine)) continue;
+                        if (/^\d{4}\s*[-–—]\s*.+/.test(scanLine)) continue;
                         if (scanLine) {
                             textAfter += (textAfter ? ' ' : '') + scanLine;
                             if (textAfter.length >= 200) {

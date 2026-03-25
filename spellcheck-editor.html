@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA Rechtschreib-Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    <script src="dictionaries/typo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --text-color: #333;
+            --heading-color: #467886;
+            --accent-color: #467886;
+            --background-color: #FAF8F3;
+            --panel-bg: #fff;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --rf-color: #ffcccb;
+            --st-color: #c8f7c5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--panel-bg);
+            border-bottom: 2px solid var(--accent-color);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            color: var(--heading-color);
+            white-space: nowrap;
+        }
+
+        .header select, .header input {
+            padding: 6px 10px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            background: var(--panel-bg);
+            color: var(--text-color);
+        }
+
+        .header select { min-width: 280px; cursor: pointer; }
+
+        .btn {
+            padding: 6px 14px;
+            border: 1.5px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: transparent;
+            color: var(--accent-color);
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .btn:hover { background: var(--accent-color); color: #fff; }
+        .btn.primary { background: var(--accent-color); color: #fff; }
+        .btn.primary:hover { background: #365f6a; }
+        #btn-autocorrect:not(:disabled) { background: #2d8a4e; color: #fff; }
+        #btn-autocorrect:not(:disabled):hover { background: #236b3c; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-group {
+            display: flex;
+            border: 1.5px solid var(--accent-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .btn-group .btn {
+            border: none;
+            border-radius: 0;
+            border-right: 1px solid var(--accent-color);
+        }
+        .btn-group .btn:last-child { border-right: none; }
+        .btn-group .btn.active { background: var(--accent-color); color: #fff; }
+
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .editor-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-toolbar {
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.4rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            flex-shrink: 0;
+        }
+
+        .editor-container {
+            flex: 1;
+            overflow: auto;
+            padding: 1.5rem;
+            background: var(--panel-bg);
+        }
+
+        #editor-content {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            outline: none;
+            min-height: 100%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .sidebar-panel {
+            width: 320px;
+            border-left: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--heading-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-tab {
+            flex: 1;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--secondary-text);
+            border-bottom: 2px solid transparent;
+        }
+        .sidebar-tab.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .error-item {
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.1s;
+        }
+        .error-item:hover { background: #f5f5f5; }
+        .error-item .badge {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .badge-rf { background: var(--rf-color); color: #8b0000; }
+        .badge-st { background: var(--st-color); color: #006400; }
+
+        .stats-bar {
+            padding: 0.5rem 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--secondary-text);
+            display: flex;
+            gap: 1rem;
+            background: #fafafa;
+            flex-shrink: 0;
+        }
+        .stat-item { display: flex; align-items: center; gap: 4px; }
+        .stat-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .stat-dot.rf { background: var(--rf-color); border: 1px solid #e88; }
+        .stat-dot.st { background: var(--st-color); border: 1px solid #8c8; }
+
+        mark.rf {
+            background: var(--rf-color);
+            padding: 1px 2px;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        mark.st {
+            background: var(--st-color);
+            padding: 1px 2px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        mark.rf:hover, mark.st:hover { filter: brightness(0.92); }
+
+        mark.highlight-pulse { filter: brightness(0.88); }
+
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem;
+            color: var(--secondary-text);
+            transition: all 0.2s;
+        }
+        .upload-zone.dragover {
+            border-color: var(--accent-color);
+            background: rgba(70, 120, 134, 0.05);
+        }
+        .upload-zone input[type="file"] { display: none; }
+
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .login-box {
+            background: var(--panel-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 380px;
+            max-width: 90vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        .login-box h2 {
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .login-box .form-group {
+            margin-bottom: 1rem;
+        }
+        .login-box label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            color: var(--secondary-text);
+        }
+        .login-box input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .login-box input:focus { outline: none; border-color: var(--accent-color); }
+        .login-message {
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .login-message.error { display: block; background: #fef2f2; color: #dc2626; }
+        .login-message.success { display: block; background: #f0fdf4; color: #16a34a; }
+
+        .status-bar {
+            padding: 6px 1.5rem;
+            font-size: 0.78rem;
+            color: var(--secondary-text);
+            background: #fafafa;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 14px; height: 14px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hidden { display: none !important; }
+
+        .context-menu {
+            position: fixed;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            z-index: 2000;
+            min-width: 180px;
+            padding: 4px 0;
+            font-size: 0.85rem;
+        }
+        .context-menu-item {
+            padding: 6px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .context-menu-item:hover { background: #f0f0f0; }
+        .context-menu-edit {
+            padding: 6px 10px;
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2px;
+        }
+        .context-menu-edit input {
+            flex: 1;
+            padding: 4px 8px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            min-width: 0;
+        }
+        .context-menu-edit input:focus { border-color: var(--accent-color); outline: none; }
+        .context-menu-edit button {
+            padding: 4px 8px;
+            border: none;
+            background: var(--accent-color);
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .context-menu-edit button:hover { background: #365f6a; }
+        .context-menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4px 0;
+        }
+
+        .filter-row {
+            padding: 0.5rem 1rem;
+            display: flex;
+            gap: 6px;
+        }
+        .filter-btn {
+            padding: 3px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            background: transparent;
+            color: var(--secondary-text);
+        }
+        .filter-btn.active { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 1rem;
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 5px 10px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+        .search-bar input:focus { border-color: var(--accent-color); outline: none; }
+        .search-bar .search-info {
+            font-size: 0.78rem;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            min-width: 55px;
+            text-align: center;
+        }
+        .search-bar button {
+            padding: 4px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            line-height: 1;
+        }
+        .search-bar button:hover { background: #f0f0f0; }
+        .search-highlight { background: #fff59d; border-radius: 2px; }
+        .search-highlight-active { background: #ffab40; border-radius: 2px; }
+        .copyright-highlight {
+            background: #d4b8ff;
+            border-radius: 2px;
+            padding: 1px 2px;
+            outline: 2px solid #9b59b6;
+        }
+        #btn-pagemarker:not(:disabled) { background: #8e44ad; color: #fff; }
+        #btn-pagemarker:not(:disabled):hover { background: #6c3483; }
+    </style>
+</head>
+<body>
+
+<!-- Login Overlay (online only) -->
+<div id="login-overlay" class="login-overlay hidden">
+    <div class="login-box">
+        <h2>Editor-Zugang</h2>
+        <p style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 1rem;">
+            Der Online-Zugriff auf den Rechtschreib-Editor erfordert eine Anmeldung mit Editor-Berechtigung.
+        </p>
+        <div id="login-message" class="login-message"></div>
+        <div class="form-group">
+            <label for="login-email">E-Mail</label>
+            <input type="email" id="login-email" placeholder="ihre@email.de">
+        </div>
+        <div class="form-group">
+            <label for="login-password">Passwort</label>
+            <input type="password" id="login-password" placeholder="Passwort">
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <button class="btn primary" onclick="doLogin()" style="flex:1;">Anmelden</button>
+            <button class="btn" onclick="window.close() || history.back()">Abbrechen</button>
+        </div>
+    </div>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <h1>GA Rechtschreib-Editor</h1>
+    <select id="ga-select" onchange="onGASelect(this.value)">
+        <option value="">-- GA-Band wählen --</option>
+    </select>
+    <div class="btn-group">
+        <button class="btn active" id="btn-source-md" onclick="setSource('md')">MD</button>
+        <button class="btn" id="btn-source-pdf" onclick="setSource('pdf')">PDF</button>
+    </div>
+    <button class="btn primary" id="btn-check" onclick="runSpellcheck()" disabled>Prüfen</button>
+    <button class="btn" id="btn-autocorrect" onclick="autoCorrectAll()" disabled title="Alle erkannten Fehler automatisch korrigieren">Auto-Korrektur</button>
+    <button class="btn" id="btn-save" onclick="saveDocument()" disabled>Speichern</button>
+    <button class="btn" id="btn-undo" onclick="editorUndo()" title="Rückgängig (Strg+Z)" style="padding: 5px 8px; line-height: 1;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 0 1 15.36-6.36L21 9"/></svg>
+    </button>
+    <button class="btn" id="btn-redo" onclick="editorRedo()" title="Wiederherstellen (Strg+Y)" style="padding: 5px 8px; line-height: 1;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 0 0-15.36-6.36L3 9"/></svg>
+    </button>
+    <button class="btn" id="btn-pagemarker" onclick="findNextCopyright()" disabled title="Copyright-Zeilen finden und durch Seitenmarker ersetzen (Alt+Q = nächste)">Seitenmarker</button>
+    <button class="btn" id="btn-upload" onclick="document.getElementById('pdf-upload-input').click()" style="display:none;">PDF hochladen</button>
+    <input type="file" id="pdf-upload-input" accept=".pdf" onchange="handlePDFUpload(event)" style="display:none;">
+    <span id="auth-status" style="margin-left: auto; font-size: 0.8rem; color: var(--secondary-text);"></span>
+    <button class="btn" id="btn-logout" onclick="doLogout()" style="display:none;">Abmelden</button>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+    <!-- Editor Panel -->
+    <div class="editor-panel">
+        <div class="editor-toolbar">
+            <span id="file-info">Kein Dokument geladen</span>
+            <span style="margin-left: auto;" id="edit-status"></span>
+        </div>
+        <div id="search-bar" class="search-bar hidden">
+            <input type="text" id="search-input" placeholder="Suchen…">
+            <span class="search-info" id="search-info"></span>
+            <button onclick="searchNav(-1)" title="Vorheriger (Shift+Enter)">&#9650;</button>
+            <button onclick="searchNav(1)" title="Nächster (Enter)">&#9660;</button>
+            <button onclick="closeSearchBar()" title="Schließen (Esc)">&times;</button>
+        </div>
+        <div class="editor-container">
+            <div id="editor-content" contenteditable="true" spellcheck="false">
+                <p style="color: var(--secondary-text); font-style: italic;">Wählen Sie einen GA-Band aus dem Dropdown, um zu beginnen.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar-panel">
+        <div class="sidebar-tabs">
+            <button class="sidebar-tab active" onclick="switchSidebarTab('errors')">Fehler</button>
+            <button class="sidebar-tab" onclick="switchSidebarTab('dict')">Wörterb.</button>
+            <button class="sidebar-tab" onclick="switchSidebarTab('search')">Suche</button>
+            <button class="sidebar-tab" onclick="switchSidebarTab('upload')">Upload</button>
+        </div>
+
+        <!-- Errors Tab -->
+        <div id="tab-errors" class="sidebar-content">
+            <div class="filter-row">
+                <button class="filter-btn active" data-filter="all" onclick="setErrorFilter('all', this)">Alle</button>
+                <button class="filter-btn" data-filter="rf" onclick="setErrorFilter('rf', this)">RF</button>
+                <button class="filter-btn" data-filter="st" onclick="setErrorFilter('st', this)">ST</button>
+            </div>
+            <div id="error-list">
+                <div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">
+                    Noch keine Prüfung durchgeführt.
+                </div>
+            </div>
+        </div>
+
+        <!-- Dictionary Tab -->
+        <div id="tab-dict" class="sidebar-content hidden">
+            <div style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);">
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="dict-add-input" placeholder="Wort hinzufügen…" style="flex:1; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem;">
+                    <button class="btn" onclick="dictAddWord()" style="padding: 4px 10px; font-size: 0.8rem;">+</button>
+                </div>
+                <div style="margin-top: 6px; font-size: 0.75rem; color: var(--secondary-text);">
+                    <span id="dict-count">0</span> Wörter im Benutzerwörterbuch
+                </div>
+            </div>
+            <div id="dict-list" style="overflow-y: auto; flex: 1;"></div>
+        </div>
+
+        <!-- Search Tab -->
+        <div id="tab-search" class="sidebar-content hidden">
+            <div style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);">
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="search-word-input" placeholder="Wort in GA-Bänden suchen…" style="flex:1; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem;">
+                    <button class="btn" onclick="searchWordInGA()" style="padding: 4px 10px; font-size: 0.8rem;">Suchen</button>
+                </div>
+                <div style="margin-top: 4px; font-size: 0.72rem; color: var(--secondary-text);">
+                    Sucht in allen MD-Dateien nach Vorkommen eines Wortes.
+                </div>
+            </div>
+            <div id="search-results" style="overflow-y: auto; flex: 1; padding: 0.5rem 0;">
+                <div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">
+                    Rechtsklick auf ein markiertes Wort → "In GA suchen"
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Tab -->
+        <div id="tab-upload" class="sidebar-content hidden">
+            <div id="upload-zone" class="upload-zone">
+                <p style="font-size: 1.5rem; margin-bottom: 0.5rem;">📄</p>
+                <p style="font-weight: 500; margin-bottom: 0.3rem;">PDF hierher ziehen</p>
+                <p style="font-size: 0.8rem;">oder <a href="#" onclick="document.getElementById('pdf-upload-input').click(); return false;" style="color: var(--accent-color);">Datei auswählen</a></p>
+            </div>
+            <div id="upload-log" style="padding: 0.5rem 1rem; font-size: 0.8rem; color: var(--secondary-text);"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+    <div class="stat-item"><span class="stat-dot rf"></span> RF: <span id="stat-rf">0</span></div>
+    <div class="stat-item"><span class="stat-dot st"></span> ST: <span id="stat-st">0</span></div>
+    <div class="stat-item">Wörter: <span id="stat-words">0</span></div>
+</div>
+
+<!-- Status Bar -->
+<div class="status-bar">
+    <span id="status-left">Bereit</span>
+    <span id="status-right"></span>
+</div>
+
+<!-- Context Menu -->
+<div id="context-menu" class="context-menu hidden"></div>
+
+<script>
+// ============================================================================
+// State
+// ============================================================================
+let currentSource = 'md';
+let currentGA = null;
+let currentFileData = null;
+let originalText = '';
+let typoInstance = null;
+let typoLoading = false;
+let supabaseClient = null;
+let currentUser = null;
+let isLocal = false;
+let errorItems = [];
+let activeFilter = 'all';
+let hasUnsavedChanges = false;
+
+const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
+
+const EDITOR_EMAILS = [
+    'christoph.hueck@gmx.net',
+    'admin@ga-suche.de'
+];
+
+const DICT_AFF_URL = 'dictionaries/de_DE.aff';
+const DICT_DIC_URL = 'dictionaries/de_DE.dic';
+const USER_DICT_KEY = 'ga-suche-spellcheck-dictionary';
+
+function getApiBase() {
+    if (isLocal) return 'http://localhost:3003/api';
+    return '/api';
+}
+
+// ============================================================================
+// Init
+// ============================================================================
+document.addEventListener('DOMContentLoaded', async () => {
+    isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+
+    if (isLocal) {
+        document.getElementById('auth-status').textContent = 'Lokal (kein Login nötig)';
+        document.getElementById('btn-upload').style.display = 'none';
+        await loadGAList();
+    } else {
+        await initAuth();
+    }
+
+    setupDragDrop();
+    setupEditorEvents();
+    setupContextMenu();
+    renderDictList();
+});
+
+// ============================================================================
+// Auth
+// ============================================================================
+async function initAuth() {
+    if (typeof supabase === 'undefined') {
+        setStatus('Supabase nicht verfügbar');
+        return;
+    }
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+    });
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (user && isEditorUser(user)) {
+        currentUser = user;
+        onAuthSuccess();
+    } else if (user) {
+        showLoginMessage('Ihr Account hat keine Editor-Berechtigung.', 'error');
+        document.getElementById('login-overlay').classList.remove('hidden');
+    } else {
+        document.getElementById('login-overlay').classList.remove('hidden');
+    }
+}
+
+function isEditorUser(user) {
+    if (!user) return false;
+    if (EDITOR_EMAILS.includes(user.email)) return true;
+    if (user.user_metadata?.role === 'editor') return true;
+    return false;
+}
+
+async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pw = document.getElementById('login-password').value;
+    if (!email || !pw) { showLoginMessage('Bitte alle Felder ausfüllen.', 'error'); return; }
+
+    showLoginMessage('Anmeldung läuft...', 'success');
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pw });
+    if (error) { showLoginMessage('Fehler: ' + error.message, 'error'); return; }
+    if (!isEditorUser(data.user)) {
+        showLoginMessage('Ihr Account hat keine Editor-Berechtigung.', 'error');
+        await supabaseClient.auth.signOut();
+        return;
+    }
+    currentUser = data.user;
+    onAuthSuccess();
+}
+
+async function doLogout() {
+    if (hasUnsavedChanges && !confirm('Ungespeicherte Änderungen gehen verloren. Abmelden?')) return;
+    await supabaseClient.auth.signOut();
+    currentUser = null;
+    location.reload();
+}
+
+function onAuthSuccess() {
+    document.getElementById('login-overlay').classList.add('hidden');
+    document.getElementById('auth-status').textContent = currentUser.email;
+    document.getElementById('btn-logout').style.display = '';
+    document.getElementById('btn-upload').style.display = '';
+    loadGAList();
+}
+
+function showLoginMessage(msg, type) {
+    const el = document.getElementById('login-message');
+    el.textContent = msg;
+    el.className = 'login-message ' + type;
+}
+
+// ============================================================================
+// GA List
+// ============================================================================
+async function loadGAList() {
+    setStatus('Lade GA-Liste...');
+    try {
+        const headers = {};
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+        const res = await fetch(getApiBase() + '/spellcheck/ga-files', { headers });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const sel = document.getElementById('ga-select');
+        sel.innerHTML = '<option value="">-- GA-Band wählen --</option>';
+        data.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.gaNumber;
+            const formats = [];
+            if (item.hasMd) formats.push('MD');
+            if (item.hasPdf) formats.push('PDF');
+            opt.textContent = `GA ${item.gaNumber} – ${item.title} [${formats.join('/')}]`;
+            sel.appendChild(opt);
+        });
+        setStatus(`${data.length} GA-Bände geladen`);
+    } catch (err) {
+        setStatus('Fehler beim Laden der GA-Liste: ' + err.message);
+        console.error(err);
+    }
+}
+
+// ============================================================================
+// Load Document
+// ============================================================================
+async function onGASelect(gaNumber) {
+    if (!gaNumber) return;
+    if (hasUnsavedChanges && !confirm('Ungespeicherte Änderungen gehen verloren. Fortfahren?')) {
+        document.getElementById('ga-select').value = currentGA || '';
+        return;
+    }
+    currentGA = gaNumber;
+    hasUnsavedChanges = false;
+    await loadDocument();
+}
+
+async function loadDocument() {
+    if (!currentGA) return;
+    setStatus('Lade Dokument...');
+    document.getElementById('btn-check').disabled = true;
+    document.getElementById('btn-save').disabled = true;
+    document.getElementById('editor-content').innerHTML = '<p style="color: var(--secondary-text);"><span class="loading-spinner"></span> Lade...</p>';
+
+    try {
+        const headers = {};
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+
+        const url = `${getApiBase()}/spellcheck/load/${encodeURIComponent(currentGA)}?format=${currentSource}`;
+        const res = await fetch(url, { headers });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+            throw new Error(err.error || 'Laden fehlgeschlagen');
+        }
+        const data = await res.json();
+        currentFileData = data;
+
+        if (data.format === 'pdf' && data.pdfUrl) {
+            setStatus('Extrahiere PDF-Text...');
+            const text = await extractPDFText(data.pdfUrl);
+            originalText = text;
+            document.getElementById('editor-content').textContent = text;
+        } else {
+            originalText = data.text;
+            document.getElementById('editor-content').textContent = data.text;
+        }
+
+        document.getElementById('file-info').textContent = data.filename || `GA ${currentGA} (${currentSource.toUpperCase()})`;
+        document.getElementById('btn-check').disabled = false;
+        document.getElementById('btn-save').disabled = false;
+        document.getElementById('btn-pagemarker').disabled = false;
+
+        updateWordCount();
+        clearErrors();
+        setStatus('Dokument geladen: ' + (data.filename || currentGA));
+    } catch (err) {
+        document.getElementById('editor-content').innerHTML = `<p style="color: #dc2626;">Fehler: ${err.message}</p>`;
+        setStatus('Fehler: ' + err.message);
+        console.error(err);
+    }
+}
+
+async function extractPDFText(pdfUrl) {
+    if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js nicht verfügbar');
+    let fullUrl;
+    if (pdfUrl.startsWith('http')) {
+        fullUrl = pdfUrl;
+    } else if (isLocal) {
+        fullUrl = `http://localhost:3003${pdfUrl}`;
+    } else {
+        fullUrl = pdfUrl;
+    }
+    const pdf = await pdfjsLib.getDocument(fullUrl).promise;
+    const pages = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const text = content.items.map(item => item.str).join(' ');
+        pages.push(text);
+        if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
+    }
+    return pages.join('\n\n');
+}
+
+function setSource(src) {
+    if (src === currentSource) return;
+    currentSource = src;
+    document.getElementById('btn-source-md').classList.toggle('active', src === 'md');
+    document.getElementById('btn-source-pdf').classList.toggle('active', src === 'pdf');
+    if (currentGA) loadDocument();
+}
+
+// ============================================================================
+// Spellcheck Engine (Typo.js)
+// ============================================================================
+async function loadTypo() {
+    if (typoInstance) return typoInstance;
+    if (typoLoading) {
+        while (typoLoading) await new Promise(r => setTimeout(r, 100));
+        return typoInstance;
+    }
+    typoLoading = true;
+    setStatus('Lade Wörterbuch...');
+    try {
+        const [affData, dicData] = await Promise.all([
+            fetch(DICT_AFF_URL).then(r => r.text()),
+            fetch(DICT_DIC_URL).then(r => r.text())
+        ]);
+        typoInstance = new Typo('de_DE', affData, dicData, { platform: 'any' });
+        setStatus('Wörterbuch geladen');
+    } catch (err) {
+        setStatus('Wörterbuch-Fehler: ' + err.message);
+        console.error(err);
+    }
+    typoLoading = false;
+    if (typoInstance) {
+        const selfTest = [
+            ['Diese', true], ['Diere', false], ['Erkenntnis', true], ['xyzqqq', false]
+        ];
+        const results = selfTest.map(([w, expected]) => {
+            const actual = typoInstance.check(w);
+            return `${w}:${actual === expected ? 'OK' : 'FAIL(' + actual + ')'}`;
+        });
+        console.log('[Spellcheck] Wörterbuch-Selftest:', results.join(', '));
+    }
+    return typoInstance;
+}
+
+let userDictCache = null;
+let userDictSet = null;
+
+function getUserDictionary() {
+    if (userDictCache !== null) return userDictCache;
+    try {
+        const stored = localStorage.getItem(USER_DICT_KEY);
+        const dict = stored ? JSON.parse(stored) : [];
+        userDictCache = dict;
+        userDictSet = new Set(dict.map(w => w.toLowerCase()));
+        return dict;
+    } catch { userDictCache = []; userDictSet = new Set(); return []; }
+}
+
+function isInUserDictionary(word) {
+    if (userDictSet === null) getUserDictionary();
+    return userDictSet.has(word.toLowerCase());
+}
+
+let dictSaveTimer = null;
+let dictRenderTimer = null;
+
+function saveDictDeferred() {
+    if (dictSaveTimer) clearTimeout(dictSaveTimer);
+    dictSaveTimer = setTimeout(() => {
+        localStorage.setItem(USER_DICT_KEY, JSON.stringify(userDictCache || []));
+    }, 300);
+}
+
+function addToUserDictionary(word) {
+    if (isInUserDictionary(word)) return;
+    const dict = getUserDictionary();
+    dict.push(word);
+    userDictSet.add(word.toLowerCase());
+    saveDictDeferred();
+    renderDictListDeferred();
+}
+
+function removeFromUserDictionary(word) {
+    const dict = getUserDictionary();
+    const idx = dict.findIndex(w => w.toLowerCase() === word.toLowerCase());
+    if (idx >= 0) {
+        dict.splice(idx, 1);
+        userDictSet.delete(word.toLowerCase());
+        saveDictDeferred();
+        renderDictListDeferred();
+    }
+}
+
+function renderDictListDeferred() {
+    if (dictRenderTimer) clearTimeout(dictRenderTimer);
+    dictRenderTimer = setTimeout(renderDictList, 100);
+}
+
+function renderDictList() {
+    const dict = getUserDictionary();
+    document.getElementById('dict-count').textContent = dict.length;
+    const list = document.getElementById('dict-list');
+    if (dict.length === 0) {
+        list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Noch keine Wörter gespeichert.</div>';
+        return;
+    }
+    const sorted = [...dict].sort((a, b) => a.localeCompare(b, 'de'));
+    list.innerHTML = sorted.map(w => `
+        <div class="error-item" style="justify-content: space-between;">
+            <span style="font-size: 0.85rem;">${escapeHtml(w)}</span>
+            <button onclick="removeFromUserDictionary('${escapeHtml(w)}')" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.75rem; padding:2px 6px;" title="Entfernen">✕</button>
+        </div>
+    `).join('');
+}
+
+function dictAddWord() {
+    const input = document.getElementById('dict-add-input');
+    const word = input.value.trim();
+    if (word) {
+        addToUserDictionary(word);
+        input.value = '';
+        setStatus(`"${word}" zum Wörterbuch hinzugefügt`);
+    }
+}
+
+function isWordCorrect(word) {
+    if (!word || word.length < 2) return true;
+    if (/^\d+[\.,]?\d*$/.test(word)) return true;
+    if (/^[A-ZÄÖÜ]{1,5}$/.test(word)) return true;
+    if (/^\|?\d+\|?$/.test(word)) return true;
+    if (/^\^[a-z0-9]+$/i.test(word)) return true;
+    if (isInUserDictionary(word)) return true;
+    if (!typoInstance) return true;
+    return typoInstance.check(word);
+}
+
+function isValidPart(typo, word) {
+    if (!word || word.length < 2) return false;
+    if (typo.check(word)) return true;
+    if (typo.check(word.charAt(0).toUpperCase() + word.slice(1))) return true;
+    if (typo.check(word.toLowerCase())) return true;
+    return false;
+}
+
+function checkJoined(typo, part1, part2) {
+    const joined = part1 + part2;
+    if (typo.check(joined)) return joined;
+    if (isInUserDictionary(joined)) return joined;
+    const cap = joined.charAt(0).toUpperCase() + joined.slice(1);
+    if (typo.check(cap)) return cap;
+    if (isInUserDictionary(cap)) return cap;
+    const lower = joined.toLowerCase();
+    if (typo.check(lower)) return lower;
+    if (isInUserDictionary(lower)) return lower;
+
+    if (isValidPart(typo, part1) && isValidPart(typo, part2)) {
+        return part1 + part2.charAt(0).toLowerCase() + part2.slice(1);
+    }
+
+    return null;
+}
+
+// ============================================================================
+// Spellcheck + Hyphenation Detection
+// ============================================================================
+async function runSpellcheck() {
+    try {
+        const typo = await loadTypo();
+        if (!typo) { setStatus('Kein Wörterbuch verfügbar'); return; }
+
+        const editor = document.getElementById('editor-content');
+        const rawText = editor.textContent || editor.innerText;
+        if (!rawText || rawText.trim().length < 10) {
+            setStatus('Kein Text zum Prüfen vorhanden');
+            return;
+        }
+        console.log('[Spellcheck] Text-Länge:', rawText.length);
+        setStatus('Prüfe Text...');
+        document.getElementById('btn-check').disabled = true;
+
+        await new Promise(r => setTimeout(r, 50));
+
+        // Collect all hyphenation matches (both line-break and inline)
+        const hyphenMatches = [];
+
+        // A) Line-break hyphens: word-\nrest
+        const lineBreakRegex = /(\p{L}+)-[\r\n]+(\p{L}+)/gu;
+        let hm;
+        while ((hm = lineBreakRegex.exec(rawText)) !== null) {
+            if (isInUserDictionary(hm[0].replace(/[\r\n]+/g, ''))) continue;
+            const joined = checkJoined(typo, hm[1], hm[2]);
+            if (joined) {
+                hyphenMatches.push({
+                    start: hm.index,
+                    end: hm.index + hm[0].length,
+                    text: hm[0],
+                    joined
+                });
+            }
+        }
+
+        // B) Inline hyphens: word-word within a line (OCR artifacts like "Erkenntnis-theorie")
+        const inlineHyphenRegex = /(\p{L}{2,})-(\p{L}{2,})/gu;
+        let ihm;
+        while ((ihm = inlineHyphenRegex.exec(rawText)) !== null) {
+            const alreadyCovered = hyphenMatches.some(h =>
+                ihm.index >= h.start && ihm.index < h.end
+            );
+            if (alreadyCovered) continue;
+
+            const part1 = ihm[1];
+            const part2 = ihm[2];
+            const hyphenated = ihm[0];
+
+            if (typo.check(hyphenated)) continue;
+            if (isInUserDictionary(hyphenated)) continue;
+
+            const joined = checkJoined(typo, part1, part2);
+            if (joined) {
+                hyphenMatches.push({
+                    start: ihm.index,
+                    end: ihm.index + ihm[0].length,
+                    text: ihm[0],
+                    joined
+                });
+            }
+        }
+
+        // C) Hyphen-space: "Auseinan- dersetzungen" (OCR artifact with space after hyphen)
+        const hyphenSpaceRegex = /(\p{L}{2,})-\s+(\p{L}{2,})/gu;
+        let hsm;
+        while ((hsm = hyphenSpaceRegex.exec(rawText)) !== null) {
+            const alreadyCovered = hyphenMatches.some(h =>
+                hsm.index >= h.start && hsm.index < h.end
+            );
+            if (alreadyCovered) continue;
+
+            const part1 = hsm[1];
+            const part2 = hsm[2];
+            const fullMatch = hsm[0];
+
+            if (isInUserDictionary(fullMatch.replace(/\s+/g, ''))) continue;
+            if (isInUserDictionary(fullMatch.replace(/\s+/g, '-'))) continue;
+
+            const joined = checkJoined(typo, part1, part2);
+            if (joined) {
+                hyphenMatches.push({
+                    start: hsm.index,
+                    end: hsm.index + fullMatch.length,
+                    text: fullMatch,
+                    joined
+                });
+            }
+        }
+
+        console.log('[Spellcheck] Silbentrennungen gefunden:', hyphenMatches.length);
+
+        // Now render with annotations
+        renderAnnotatedText(rawText, typo, hyphenMatches);
+
+        document.getElementById('btn-check').disabled = false;
+        updateErrorList();
+        updateStats();
+
+        const rfCount = errorItems.filter(e => e.type === 'rf').length;
+        const stCount = errorItems.filter(e => e.type === 'st').length;
+        console.log('[Spellcheck] Ergebnis: RF=' + rfCount + ', ST=' + stCount);
+        setStatus(`Prüfung abgeschlossen: ${rfCount} RF, ${stCount} ST`);
+        document.getElementById('btn-autocorrect').disabled = false;
+
+    } catch (err) {
+        console.error('[Spellcheck] Fehler:', err);
+        setStatus('Spellcheck-Fehler: ' + err.message);
+        document.getElementById('btn-check').disabled = false;
+    }
+}
+
+function renderAnnotatedText(rawText, typo, hyphenMatches) {
+    const editor = document.getElementById('editor-content');
+    errorItems = [];
+
+    const htmlParts = [];
+    const lines = rawText.split('\n');
+    let globalOffset = 0;
+
+    for (let li = 0; li < lines.length; li++) {
+        const line = lines[li];
+        const lineStart = globalOffset;
+
+        const marks = [];
+
+        // Pure-letter words only (no hyphens in the token)
+        const wordRegex = /(\p{L}[\p{L}''']*\p{L}|\p{L}{1})/gu;
+        let wm;
+        while ((wm = wordRegex.exec(line)) !== null) {
+            const absPos = lineStart + wm.index;
+            // Skip words inside a hyphenation match
+            const inHyphen = hyphenMatches.some(h =>
+                absPos >= h.start && (absPos + wm[0].length) <= h.end
+            );
+            if (inHyphen) continue;
+
+            if (!isWordCorrect(wm[0])) {
+                marks.push({
+                    start: wm.index,
+                    end: wm.index + wm[0].length,
+                    type: 'rf',
+                    word: wm[0],
+                    absPos
+                });
+            }
+        }
+
+        // Hyphenation artifacts on this line
+        for (const h of hyphenMatches) {
+            const relStart = h.start - lineStart;
+            const relEnd = h.end - lineStart;
+            // The match must at least partially overlap this line
+            if (relStart >= 0 && relStart < line.length) {
+                const clampedEnd = Math.min(relEnd, line.length);
+                marks.push({
+                    start: relStart,
+                    end: clampedEnd,
+                    type: 'st',
+                    word: h.text,
+                    absPos: h.start,
+                    joined: h.joined
+                });
+            }
+        }
+
+        // Remove overlaps: ST takes priority (remove RF marks inside ST ranges)
+        const stMarks = marks.filter(m => m.type === 'st');
+        const finalMarks = marks.filter(m => {
+            if (m.type === 'rf') {
+                return !stMarks.some(st => m.start >= st.start && m.end <= st.end);
+            }
+            return true;
+        });
+
+        finalMarks.sort((a, b) => a.start - b.start);
+
+        let cursor = 0;
+        for (const m of finalMarks) {
+            if (m.start < cursor) continue;
+            if (m.start > cursor) {
+                htmlParts.push(escapeHtml(line.substring(cursor, m.start)));
+            }
+            const dataAttr = m.type === 'st'
+                ? ` data-joined="${escapeHtml(m.joined || '')}"`
+                : '';
+            htmlParts.push(
+                `<mark class="${m.type}" data-pos="${m.absPos}"${dataAttr}>`
+                + escapeHtml(line.substring(m.start, m.end))
+                + '</mark>'
+            );
+
+            const errorWord = m.type === 'st'
+                ? m.word.replace(/[\r\n]+/g, '⏎')
+                : m.word;
+            errorItems.push({
+                type: m.type,
+                word: errorWord,
+                position: m.absPos,
+                joined: m.joined
+            });
+            cursor = m.end;
+        }
+
+        if (cursor < line.length) {
+            htmlParts.push(escapeHtml(line.substring(cursor)));
+        }
+        if (li < lines.length - 1) htmlParts.push('\n');
+        globalOffset += line.length + 1;
+    }
+
+    editor.innerHTML = htmlParts.join('');
+}
+
+function escapeHtml(text) {
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function getSuggestions(word) {
+    if (!typoInstance) return [];
+    return typoInstance.suggest(word, 5);
+}
+
+// ============================================================================
+// Save
+// ============================================================================
+async function saveDocument() {
+    if (!currentGA) return;
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+
+    setStatus('Speichere...');
+    document.getElementById('btn-save').disabled = true;
+
+    try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+
+        const res = await fetch(`${getApiBase()}/spellcheck/save/${encodeURIComponent(currentGA)}`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ text, format: currentSource })
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+            throw new Error(err.error || 'Speichern fehlgeschlagen');
+        }
+        const result = await res.json();
+        originalText = text;
+        hasUnsavedChanges = false;
+        setStatus('Gespeichert: ' + (result.filename || currentGA));
+    } catch (err) {
+        setStatus('Speichern fehlgeschlagen: ' + err.message);
+        console.error(err);
+    }
+    document.getElementById('btn-save').disabled = false;
+}
+
+// ============================================================================
+// PDF Upload
+// ============================================================================
+async function handlePDFUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (!file.name.endsWith('.pdf')) {
+        alert('Bitte eine PDF-Datei auswählen.');
+        return;
+    }
+    await uploadPDF(file);
+    event.target.value = '';
+}
+
+async function uploadPDF(file) {
+    const log = document.getElementById('upload-log');
+    log.innerHTML = `<span class="loading-spinner"></span> Lade hoch: ${file.name}...`;
+
+    try {
+        const formData = new FormData();
+        formData.append('pdf', file);
+
+        const headers = {};
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+
+        const res = await fetch(getApiBase() + '/spellcheck/upload-pdf', {
+            method: 'POST',
+            headers,
+            body: formData
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+            throw new Error(err.error || 'Upload fehlgeschlagen');
+        }
+        const result = await res.json();
+        log.innerHTML = `<span style="color: #16a34a;">Hochgeladen:</span> ${result.filename}`;
+        setStatus('PDF hochgeladen: ' + result.filename);
+        await loadGAList();
+    } catch (err) {
+        log.innerHTML = `<span style="color: #dc2626;">Fehler:</span> ${err.message}`;
+        console.error(err);
+    }
+}
+
+// ============================================================================
+// Drag & Drop
+// ============================================================================
+function setupDragDrop() {
+    const zone = document.getElementById('upload-zone');
+    if (!zone) return;
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.name.endsWith('.pdf')) uploadPDF(file);
+        else alert('Bitte eine PDF-Datei ablegen.');
+    });
+}
+
+// ============================================================================
+// Error List & Sidebar
+// ============================================================================
+function updateErrorList() {
+    const list = document.getElementById('error-list');
+    const filtered = activeFilter === 'all' ? errorItems : errorItems.filter(e => e.type === activeFilter);
+    if (filtered.length === 0) {
+        list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Keine Fehler gefunden.</div>';
+        return;
+    }
+    list.innerHTML = filtered.map((item, i) => `
+        <div class="error-item" onclick="scrollToError(${item.position})" title="${item.type === 'st' ? 'Zusammengefügt: ' + (item.joined || '') : ''}">
+            <span class="badge badge-${item.type}">${item.type.toUpperCase()}</span>
+            <span>${escapeHtml(item.word)}</span>
+            ${item.joined ? `<span style="color: var(--secondary-text); font-size: 0.75rem;">→ ${escapeHtml(item.joined)}</span>` : ''}
+        </div>
+    `).join('');
+}
+
+let activeHighlight = null;
+
+function scrollToError(position) {
+    if (activeHighlight) {
+        activeHighlight.classList.remove('highlight-pulse');
+        activeHighlight = null;
+    }
+
+    const mark = document.querySelector(`#editor-content mark[data-pos="${position}"]`);
+    if (!mark) return;
+
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    mark.classList.add('highlight-pulse');
+    activeHighlight = mark;
+
+    setTimeout(() => {
+        mark.classList.remove('highlight-pulse');
+        if (activeHighlight === mark) activeHighlight = null;
+    }, 3000);
+}
+
+function setErrorFilter(filter, btn) {
+    activeFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    updateErrorList();
+}
+
+function switchSidebarTab(tab) {
+    document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sidebar-content').forEach(c => c.classList.add('hidden'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tab).classList.remove('hidden');
+}
+
+// ============================================================================
+// Editor Events
+// ============================================================================
+let wordCountTimer = null;
+let suppressInputHandler = false;
+
+function setupEditorEvents() {
+    const editor = document.getElementById('editor-content');
+    editor.addEventListener('input', () => {
+        if (suppressInputHandler) return;
+        hasUnsavedChanges = true;
+        document.getElementById('edit-status').textContent = '● Ungespeichert';
+        document.getElementById('edit-status').style.color = '#e67e22';
+        if (wordCountTimer) clearTimeout(wordCountTimer);
+        wordCountTimer = setTimeout(updateWordCount, 500);
+    });
+
+    editor.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = e.clipboardData.getData('text/plain');
+        document.execCommand('insertText', false, text);
+    });
+
+    document.getElementById('dict-add-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') dictAddWord();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            openSearchBar();
+        }
+        if (e.altKey && e.key === 'q') {
+            e.preventDefault();
+            findNextCopyright();
+        }
+    });
+
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', () => {
+        if (searchDebounce) clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(performSearch, 200);
+    });
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (searchMatches.length === 0) {
+                performSearch();
+            } else {
+                searchNav(e.shiftKey ? -1 : 1);
+            }
+        }
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            closeSearchBar();
+        }
+    });
+    document.getElementById('search-word-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') searchWordInGA();
+    });
+}
+
+function updateWordCount() {
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+    document.getElementById('stat-words').textContent = words.length.toLocaleString('de-DE');
+}
+
+function updateStats() {
+    const rf = errorItems.filter(e => e.type === 'rf').length;
+    const st = errorItems.filter(e => e.type === 'st').length;
+    document.getElementById('stat-rf').textContent = rf;
+    document.getElementById('stat-st').textContent = st;
+}
+
+function clearErrors() {
+    errorItems = [];
+    document.getElementById('error-list').innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Noch keine Prüfung durchgeführt.</div>';
+    document.getElementById('stat-rf').textContent = '0';
+    document.getElementById('stat-st').textContent = '0';
+    document.getElementById('btn-autocorrect').disabled = true;
+}
+
+// ============================================================================
+// Auto-Korrektur (textbasiert, nicht-blockierend)
+// ============================================================================
+async function autoCorrectAll() {
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    if (!text || text.trim().length < 10) {
+        setStatus('Kein Text für Auto-Korrektur vorhanden');
+        return;
+    }
+
+    setStatus('Analysiere Text für Auto-Korrektur...');
+    document.getElementById('btn-autocorrect').disabled = true;
+    await new Promise(r => setTimeout(r, 50));
+
+    let result = text;
+    let hyphenFixes = 0;
+    let ssFixes = 0;
+
+    // 1) Hyphen-newline joins: "Auseinan-\ndersetzungen" → "Auseinandersetzungen"
+    result = result.replace(/(\p{L}{2,})-[\r\n]+(\p{L}{2,})/gu, (match, p1, p2) => {
+        if (isInUserDictionary(match.replace(/[\r\n]+/g, ''))) return match;
+        if (isInUserDictionary(match.replace(/[\r\n]+/g, '-'))) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2) : null;
+        if (joined) { hyphenFixes++; return joined; }
+        return match;
+    });
+
+    // 2) Hyphen-space joins: "Auseinan- dersetzungen" → "Auseinandersetzungen"
+    result = result.replace(/(\p{L}{2,})-\s+(\p{L}{2,})/gu, (match, p1, p2) => {
+        if (isInUserDictionary(match.replace(/\s+/g, ''))) return match;
+        if (isInUserDictionary(match.replace(/\s+/g, '-'))) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2) : null;
+        if (joined) { hyphenFixes++; return joined; }
+        return match;
+    });
+
+    // 3) Inline hyphens: "Erkenntnis-theorie" → "Erkenntnistheorie"
+    result = result.replace(/(\p{L}{2,})-(\p{L}{2,})/gu, (match, p1, p2) => {
+        if (typoInstance && typoInstance.check(match)) return match;
+        if (isInUserDictionary(match)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2) : null;
+        if (joined) { hyphenFixes++; return joined; }
+        return match;
+    });
+
+    await new Promise(r => setTimeout(r, 30));
+
+    // 4) ss → ß Korrektur (alte Rechtschreibung, typisch für Steiner-Texte)
+    const ssWords = new Map();
+    result.replace(/\b(\p{L}*ss\p{L}*)\b/gu, (match, word, offset) => {
+        if (!ssWords.has(word)) ssWords.set(word, []);
+        ssWords.get(word).push(offset);
+        return match;
+    });
+
+    for (const [word] of ssWords) {
+        if (!typoInstance) break;
+        if (typoInstance.check(word)) continue;
+        if (isInUserDictionary(word)) continue;
+        const withSz = word.replace(/ss/g, 'ß');
+        if (typoInstance.check(withSz) || isInUserDictionary(withSz)) {
+            result = result.split(word).join(withSz);
+            ssFixes++;
+        }
+    }
+
+    const totalFixes = hyphenFixes + ssFixes;
+
+    if (totalFixes === 0) {
+        alert('Keine automatisch korrigierbaren Fehler gefunden.\n\n' +
+              'Silbentrennungen ohne gültiges zusammengesetztes Wort und\n' +
+              'Wörter ohne Wörterbuch-Vorschlag können nur manuell\n' +
+              'per Rechtsklick bearbeitet werden.');
+        document.getElementById('btn-autocorrect').disabled = false;
+        setStatus('Bereit');
+        return;
+    }
+
+    const msg = `Auto-Korrektur durchführen?\n\n` +
+                `${hyphenFixes} Silbentrennungen zusammenführen\n` +
+                `${ssFixes} ss→ß Korrekturen\n\n` +
+                `Gesamt: ${totalFixes} Korrekturen\n\n` +
+                `Hinweis: Prüfen Sie das Ergebnis vor dem Speichern.\n` +
+                `(Rückgängig mit Strg+Z oder Undo-Button)`;
+
+    if (!confirm(msg)) {
+        document.getElementById('btn-autocorrect').disabled = false;
+        setStatus('Auto-Korrektur abgebrochen');
+        return;
+    }
+
+    suppressInputHandler = true;
+    editor.textContent = result;
+    suppressInputHandler = false;
+
+    markEdited();
+    clearErrors();
+    setStatus(`Auto-Korrektur: ${totalFixes} Korrekturen angewendet (${hyphenFixes} Trennungen, ${ssFixes} ss→ß). Führen Sie "Prüfen" erneut aus.`);
+}
+
+// ============================================================================
+// Context Menu
+// ============================================================================
+function setupContextMenu() {
+    const editor = document.getElementById('editor-content');
+    editor.addEventListener('contextmenu', (e) => {
+        const crSpan = e.target.closest('.copyright-highlight');
+        if (crSpan) {
+            e.preventDefault();
+            showCopyrightContextMenu(e.clientX, e.clientY, crSpan);
+            return;
+        }
+        const mark = e.target.closest('mark');
+        if (mark) {
+            e.preventDefault();
+            showContextMenu(e.clientX, e.clientY, mark);
+            return;
+        }
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0 && !sel.isCollapsed && editor.contains(sel.anchorNode)) {
+            e.preventDefault();
+            showSelectionContextMenu(e.clientX, e.clientY, sel);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const menu = document.getElementById('context-menu');
+        if (!menu.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+}
+
+function showContextMenu(x, y, mark) {
+    const menu = document.getElementById('context-menu');
+    const word = mark.textContent;
+    const type = mark.classList.contains('rf') ? 'rf' : 'st';
+    const pos = mark.dataset.pos;
+    const joined = mark.dataset.joined || '';
+    const editValue = (type === 'st' && joined) ? joined : word;
+
+    let items = '';
+    items += `<div class="context-menu-edit">` +
+             `<input type="text" id="ctx-edit-input" value="${escapeHtml(editValue)}" data-mark-pos="${pos}" data-edited="false">` +
+             `<button onclick="applyManualEdit()">OK</button>` +
+             `</div>`;
+
+    if (type === 'st' && joined) {
+        items += `<div class="context-menu-item" onclick="applyHyphenFix(this, '${escapeHtml(joined)}')" data-mark-pos="${pos}">✅ Zusammenführen: ${escapeHtml(joined)}</div>`;
+    }
+
+    items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
+    items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(word)}')">🔍 In GA suchen</div>`;
+    items += `<div class="context-menu-item" onclick="ignoreMark(this)" data-mark-pos="${pos}">⏭ Ignorieren</div>`;
+
+    menu.innerHTML = items;
+    menu.style.left = Math.min(x, window.innerWidth - 220) + 'px';
+    menu.style.top = Math.min(y, window.innerHeight - 250) + 'px';
+    menu.classList.remove('hidden');
+
+    const input = document.getElementById('ctx-edit-input');
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); applyManualEdit(); }
+        if (e.key === 'Escape') { menu.classList.add('hidden'); }
+    });
+    input.addEventListener('input', () => {
+        input.dataset.edited = 'true';
+    });
+}
+
+function showSelectionContextMenu(x, y, sel) {
+    const menu = document.getElementById('context-menu');
+    const text = sel.toString();
+    window._selectionRange = sel.getRangeAt(0).cloneRange();
+
+    let items = '';
+    items += `<div class="context-menu-edit">` +
+             `<input type="text" id="ctx-sel-input" value="${escapeHtml(text)}">` +
+             `<button onclick="applySelectionEdit()">OK</button>` +
+             `</div>`;
+    items += `<div class="context-menu-item" onclick="addToDictionarySelection()">📖 Zum Wörterbuch</div>`;
+    items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(text)}')">🔍 In GA suchen</div>`;
+
+    menu.innerHTML = items;
+    menu.style.left = Math.min(x, window.innerWidth - 220) + 'px';
+    menu.style.top = Math.min(y, window.innerHeight - 250) + 'px';
+    menu.classList.remove('hidden');
+
+    const input = document.getElementById('ctx-sel-input');
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); applySelectionEdit(); }
+        if (e.key === 'Escape') { menu.classList.add('hidden'); }
+    });
+}
+
+function applySelectionEdit() {
+    const input = document.getElementById('ctx-sel-input');
+    if (!input) return;
+    const newText = input.value.trim();
+    if (!newText) return;
+    const range = window._selectionRange;
+    if (!range) return;
+
+    suppressInputHandler = true;
+    range.deleteContents();
+    range.insertNode(document.createTextNode(newText));
+    suppressInputHandler = false;
+
+    markEdited();
+    document.getElementById('context-menu').classList.add('hidden');
+    window._selectionRange = null;
+}
+
+function addToDictionarySelection() {
+    const input = document.getElementById('ctx-sel-input');
+    const word = input ? input.value.trim() : '';
+    if (!word) return;
+    addToUserDictionary(word);
+    const range = window._selectionRange;
+    if (range) {
+        suppressInputHandler = true;
+        range.deleteContents();
+        range.insertNode(document.createTextNode(word));
+        suppressInputHandler = false;
+        markEdited();
+        window._selectionRange = null;
+    }
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
+function replaceMark(mark, plainText) {
+    if (!mark || !mark.parentNode) return;
+    suppressInputHandler = true;
+    mark.replaceWith(document.createTextNode(plainText));
+    suppressInputHandler = false;
+}
+
+function editorUndo() {
+    const container = document.querySelector('.editor-container');
+    const scrollTop = container.scrollTop;
+    document.getElementById('editor-content').focus();
+    document.execCommand('undo');
+    container.scrollTop = scrollTop;
+}
+
+function editorRedo() {
+    const container = document.querySelector('.editor-container');
+    const scrollTop = container.scrollTop;
+    document.getElementById('editor-content').focus();
+    document.execCommand('redo');
+    container.scrollTop = scrollTop;
+}
+
+function markEdited() {
+    hasUnsavedChanges = true;
+    document.getElementById('edit-status').textContent = '● Ungespeichert';
+    document.getElementById('edit-status').style.color = '#e67e22';
+}
+
+function replaceWord(el, replacement) {
+    const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
+    replaceMark(mark, replacement);
+    markEdited();
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
+function applyManualEdit() {
+    const input = document.getElementById('ctx-edit-input');
+    if (!input) return;
+    const newText = input.value.trim();
+    if (!newText) return;
+    const mark = document.querySelector(`#editor-content mark[data-pos="${input.dataset.markPos}"]`);
+    if (mark) {
+        const oldText = mark.textContent;
+        replaceMark(mark, newText);
+        if (newText !== oldText) markEdited();
+    }
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
+function applyHyphenFix(el, joined) {
+    const mark = document.querySelector(`#editor-content mark.st[data-pos="${el.dataset.markPos}"]`);
+    replaceMark(mark, joined);
+    markEdited();
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
+function addToDictionary(word, el) {
+    const input = document.getElementById('ctx-edit-input');
+    const wasEdited = input && input.dataset.edited === 'true';
+    const dictWord = wasEdited ? input.value.trim() : word;
+    const replaceText = wasEdited ? input.value.trim() : word;
+    addToUserDictionary(dictWord);
+    const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
+    if (mark) {
+        const oldText = mark.textContent;
+        replaceMark(mark, replaceText);
+        if (replaceText !== oldText) markEdited();
+    }
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
+function ignoreMark(el) {
+    const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
+    if (mark) replaceMark(mark, mark.textContent);
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
+// ============================================================================
+// GA Cross-Search
+// ============================================================================
+async function searchWordInGA(word) {
+    if (!word) {
+        word = document.getElementById('search-word-input').value.trim();
+    }
+    if (!word) return;
+
+    document.getElementById('search-word-input').value = word;
+    switchSidebarTabByName('search');
+
+    const resultsDiv = document.getElementById('search-results');
+    resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Suche läuft…</div>';
+
+    try {
+        const headers = {};
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+        const resp = await fetch(`${getApiBase()}/api/spellcheck/search-word?q=${encodeURIComponent(word)}`, { headers });
+        if (!resp.ok) throw new Error('Fehler: ' + resp.status);
+        const data = await resp.json();
+
+        if (!data.results || data.results.length === 0) {
+            resultsDiv.innerHTML = `<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Keine Treffer für "<b>${escapeHtml(word)}</b>"</div>`;
+            return;
+        }
+
+        let html = `<div style="padding: 0.5rem 1rem; font-size: 0.75rem; color: var(--secondary-text); border-bottom: 1px solid var(--border-color);">${data.totalHits} Treffer in ${data.results.length} Bänden für "<b>${escapeHtml(word)}</b>"</div>`;
+        for (const r of data.results) {
+            html += `<div style="padding: 0.4rem 1rem; border-bottom: 1px solid var(--border-color);">`;
+            html += `<div style="font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">GA ${escapeHtml(r.ga)} <span style="color: var(--secondary-text); font-weight: normal;">(${r.count}×)</span></div>`;
+            for (const ctx of r.contexts.slice(0, 3)) {
+                html += `<div style="font-size: 0.78rem; color: var(--text-color); margin: 2px 0; padding: 2px 6px; background: var(--surface-color); border-radius: 3px; line-height: 1.4;">…${highlightSearchWord(escapeHtml(ctx), word)}…</div>`;
+            }
+            if (r.count > 3) {
+                html += `<div style="font-size: 0.7rem; color: var(--secondary-text);">+ ${r.count - 3} weitere</div>`;
+            }
+            html += `</div>`;
+        }
+        resultsDiv.innerHTML = html;
+    } catch (err) {
+        resultsDiv.innerHTML = `<div style="padding: 1rem; color: #dc2626; font-size: 0.85rem; text-align: center;">${escapeHtml(err.message)}</div>`;
+    }
+}
+
+function highlightSearchWord(text, word) {
+    const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<b style="color: var(--accent-color);">$1</b>');
+}
+
+function switchSidebarTabByName(tab) {
+    document.querySelectorAll('.sidebar-tab').forEach(t => {
+        t.classList.toggle('active', t.textContent.toLowerCase().startsWith(tab.substring(0, 3)));
+    });
+    document.querySelectorAll('.sidebar-content').forEach(c => c.classList.add('hidden'));
+    const el = document.getElementById('tab-' + tab);
+    if (el) el.classList.remove('hidden');
+}
+
+// ============================================================================
+// Ctrl+F Search
+// ============================================================================
+let searchMatches = [];
+let searchCurrentIdx = -1;
+let searchDebounce = null;
+
+function openSearchBar() {
+    const bar = document.getElementById('search-bar');
+    bar.classList.remove('hidden');
+    const input = document.getElementById('search-input');
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed) input.value = sel.toString().trim();
+    input.focus();
+    input.select();
+}
+
+function closeSearchBar() {
+    document.getElementById('search-bar').classList.add('hidden');
+    clearSearchHighlights();
+    document.getElementById('search-input').value = '';
+    searchMatches = [];
+    searchCurrentIdx = -1;
+    document.getElementById('search-info').textContent = '';
+}
+
+function performSearch() {
+    clearSearchHighlights();
+    const query = document.getElementById('search-input').value.trim();
+    if (!query) {
+        searchMatches = [];
+        searchCurrentIdx = -1;
+        document.getElementById('search-info').textContent = '';
+        return;
+    }
+
+    const editor = document.getElementById('editor-content');
+    const treeWalker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
+
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escapedQuery, 'gi');
+
+    searchMatches = [];
+    suppressInputHandler = true;
+    for (const node of textNodes) {
+        const text = node.nodeValue;
+        let match;
+        const localMatches = [];
+        while ((match = regex.exec(text)) !== null) {
+            localMatches.push({ index: match.index, length: match[0].length });
+        }
+        if (localMatches.length === 0) continue;
+
+        let parent = node.parentNode;
+        let currentNode = node;
+        let offset = 0;
+        for (const m of localMatches) {
+            const before = currentNode.splitText(m.index - offset);
+            const matchNode = before.splitText(m.length);
+            const span = document.createElement('span');
+            span.className = 'search-highlight';
+            parent.replaceChild(span, before);
+            span.appendChild(document.createTextNode(span.textContent || before.nodeValue));
+            searchMatches.push(span);
+            currentNode = matchNode;
+            offset = m.index + m.length;
+        }
+    }
+    suppressInputHandler = false;
+
+    if (searchMatches.length > 0) {
+        searchCurrentIdx = 0;
+        highlightCurrentMatch();
+    } else {
+        searchCurrentIdx = -1;
+    }
+    updateSearchInfo();
+}
+
+function highlightCurrentMatch() {
+    searchMatches.forEach((s, i) => {
+        s.className = (i === searchCurrentIdx) ? 'search-highlight-active' : 'search-highlight';
+    });
+    if (searchMatches[searchCurrentIdx]) {
+        searchMatches[searchCurrentIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+function searchNav(dir) {
+    if (searchMatches.length === 0) return;
+    searchCurrentIdx = (searchCurrentIdx + dir + searchMatches.length) % searchMatches.length;
+    highlightCurrentMatch();
+    updateSearchInfo();
+}
+
+function updateSearchInfo() {
+    const info = document.getElementById('search-info');
+    if (searchMatches.length === 0) {
+        info.textContent = document.getElementById('search-input').value.trim() ? 'Keine Treffer' : '';
+    } else {
+        info.textContent = `${searchCurrentIdx + 1} / ${searchMatches.length}`;
+    }
+}
+
+function clearSearchHighlights() {
+    suppressInputHandler = true;
+    const spans = document.querySelectorAll('#editor-content .search-highlight, #editor-content .search-highlight-active');
+    spans.forEach(span => {
+        const text = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(text, span);
+    });
+    document.getElementById('editor-content').normalize();
+    suppressInputHandler = false;
+}
+
+// ============================================================================
+// Seitenmarker (Copyright-Zeilen → |Seite|)
+// ============================================================================
+const COPYRIGHT_REGEX = /Copyright\s+Rudolf\s+Steine[tr]\s+Nachlass[\s-]*Verwaltung(?:\s+Buch:\s*\d+)?(?:\s+Seite:\s*(\d+))?/gi;
+let lastCopyrightOffset = -1;
+
+function findNextCopyright() {
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    if (!text) return;
+
+    clearCopyrightHighlight();
+
+    COPYRIGHT_REGEX.lastIndex = lastCopyrightOffset + 1;
+    let match = COPYRIGHT_REGEX.exec(text);
+    if (!match && lastCopyrightOffset > 0) {
+        COPYRIGHT_REGEX.lastIndex = 0;
+        match = COPYRIGHT_REGEX.exec(text);
+    }
+    if (!match) {
+        setStatus('Keine (weiteren) Copyright-Zeilen gefunden');
+        lastCopyrightOffset = -1;
+        return;
+    }
+
+    lastCopyrightOffset = match.index;
+    const pageNum = match[1] || '';
+
+    const treeWalker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT);
+    let charCount = 0;
+    let startNode = null, startOff = 0, endNode = null, endOff = 0;
+
+    while (treeWalker.nextNode()) {
+        const node = treeWalker.currentNode;
+        const len = node.nodeValue.length;
+        if (!startNode && charCount + len > match.index) {
+            startNode = node;
+            startOff = match.index - charCount;
+        }
+        if (charCount + len >= match.index + match[0].length) {
+            endNode = node;
+            endOff = match.index + match[0].length - charCount;
+            break;
+        }
+        charCount += len;
+    }
+
+    if (!startNode || !endNode) {
+        setStatus('Copyright-Zeile konnte nicht im DOM gefunden werden');
+        return;
+    }
+
+    const range = document.createRange();
+    range.setStart(startNode, startOff);
+    range.setEnd(endNode, endOff);
+
+    suppressInputHandler = true;
+    const span = document.createElement('span');
+    span.className = 'copyright-highlight';
+    span.dataset.pageNum = pageNum;
+    range.surroundContents(span);
+    suppressInputHandler = false;
+
+    span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setStatus(`Copyright-Zeile gefunden${pageNum ? ' (Seite ' + pageNum + ')' : ''} — Rechtsklick zum Ersetzen`);
+}
+
+function clearCopyrightHighlight() {
+    suppressInputHandler = true;
+    document.querySelectorAll('#editor-content .copyright-highlight').forEach(el => {
+        el.replaceWith(document.createTextNode(el.textContent));
+    });
+    document.getElementById('editor-content').normalize();
+    suppressInputHandler = false;
+}
+
+function showCopyrightContextMenu(x, y, span) {
+    const menu = document.getElementById('context-menu');
+    const pageNum = span.dataset.pageNum || '';
+    const fullText = span.textContent;
+
+    let items = '';
+    items += `<div class="context-menu-edit">` +
+             `<input type="text" id="ctx-page-input" value="${escapeHtml(pageNum)}" placeholder="Seitenzahl" style="width: 80px;">` +
+             `<button onclick="applyPageMarker()">|S| einfügen</button>` +
+             `</div>`;
+    if (pageNum) {
+        items += `<div class="context-menu-item" onclick="applyPageMarkerDirect('${escapeHtml(pageNum)}')">📄 Ersetzen durch |${escapeHtml(pageNum)}|</div>`;
+    }
+    items += `<div class="context-menu-item" onclick="removeCopyrightLine()">🗑 Zeile entfernen</div>`;
+    items += `<div class="context-menu-item" onclick="skipCopyright()">⏭ Überspringen</div>`;
+
+    menu.innerHTML = items;
+    menu.style.left = Math.min(x, window.innerWidth - 220) + 'px';
+    menu.style.top = Math.min(y, window.innerHeight - 250) + 'px';
+    menu.classList.remove('hidden');
+
+    const input = document.getElementById('ctx-page-input');
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); applyPageMarker(); }
+        if (e.key === 'Escape') { menu.classList.add('hidden'); }
+    });
+}
+
+function applyPageMarker() {
+    const input = document.getElementById('ctx-page-input');
+    if (!input) return;
+    const page = input.value.trim();
+    if (!page) { setStatus('Bitte Seitenzahl eingeben'); return; }
+    applyPageMarkerDirect(page);
+}
+
+function applyPageMarkerDirect(page) {
+    const span = document.querySelector('#editor-content .copyright-highlight');
+    if (!span) return;
+
+    suppressInputHandler = true;
+    const marker = document.createTextNode(`|${page}|`);
+    let target = span;
+    let parent = span.parentNode;
+    let prev = span.previousSibling;
+    let next = span.nextSibling;
+
+    // Remove surrounding whitespace/newlines from the copyright line
+    if (prev && prev.nodeType === 3) {
+        prev.nodeValue = prev.nodeValue.replace(/\n?\s*$/, '');
+    }
+    if (next && next.nodeType === 3) {
+        next.nodeValue = next.nodeValue.replace(/^\s*\n?/, '');
+    }
+
+    span.replaceWith(marker);
+    suppressInputHandler = false;
+
+    markEdited();
+    document.getElementById('context-menu').classList.add('hidden');
+    setStatus(`Seitenmarker |${page}| eingefügt`);
+}
+
+function removeCopyrightLine() {
+    const span = document.querySelector('#editor-content .copyright-highlight');
+    if (!span) return;
+
+    suppressInputHandler = true;
+    let prev = span.previousSibling;
+    let next = span.nextSibling;
+    if (prev && prev.nodeType === 3) {
+        prev.nodeValue = prev.nodeValue.replace(/\n?\s*$/, '');
+    }
+    if (next && next.nodeType === 3) {
+        next.nodeValue = next.nodeValue.replace(/^\s*\n?/, '');
+    }
+    span.remove();
+    suppressInputHandler = false;
+
+    markEdited();
+    document.getElementById('context-menu').classList.add('hidden');
+    setStatus('Copyright-Zeile entfernt');
+}
+
+function skipCopyright() {
+    clearCopyrightHighlight();
+    document.getElementById('context-menu').classList.add('hidden');
+    findNextCopyright();
+}
+
+// ============================================================================
+// Utilities
+// ============================================================================
+function setStatus(msg) {
+    document.getElementById('status-left').textContent = msg;
+}
+
+window.addEventListener('beforeunload', (e) => {
+    if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+</script>
+</body>
+</html>
