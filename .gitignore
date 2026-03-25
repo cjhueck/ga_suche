@@ -41,6 +41,9 @@ dictionaries/
 # Node modules (if any)
 node_modules/
 
+# Temp upload directory
+uploads_tmp/
+
 # OS files
 .DS_Store
 Thumbs.db

@@ -11,6 +11,7 @@ const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
 const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
+const multer = require('multer');
 
 // ============================================================================
 // SUPABASE CLIENT für persistente Analytics
@@ -17686,6 +17687,7 @@ REGELN:
 - Nur die allerwichtigste Kernaussage
 - Keine Meta-Sprache ("Rudolf Steiner beschreibt...")
 - Direkt und sachlich
+- KEINE wertenden oder subjektiven Adjektive (nicht: "außergewöhnlich", "nüchtern", "bedeutend", "krass", "bemerkenswert", "tiefgreifend", "einzigartig", "grundlegend"). Nur neutrale, sachliche Beschreibung des Inhalts.
 
 ZUSAMMENFASSUNG:
 ${fullSummary}
@@ -27076,6 +27078,325 @@ function startDailyAnalyticsBackup() {
   }
 }
 
+// ============================================================================
+// SPELLCHECK EDITOR API
+// ============================================================================
+
+const STEINER_GA_DIR = path.join(__dirname, 'Steiner_GA');
+const STEINER_GA_PDF_DIR = path.join(__dirname, 'Steiner_GA_pdf');
+
+const EDITOR_EMAILS = [
+  'christoph.hueck@gmx.net',
+  'admin@ga-suche.de'
+];
+
+const spellcheckTmpDir = path.join(__dirname, 'uploads_tmp');
+fsSync.mkdirSync(spellcheckTmpDir, { recursive: true });
+const spellcheckUpload = multer({
+  dest: spellcheckTmpDir,
+  limits: { fileSize: 100 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    cb(null, file.mimetype === 'application/pdf' || file.originalname.endsWith('.pdf'));
+  }
+});
+
+function isLocalRequest(req) {
+  const host = req.hostname || req.headers.host || '';
+  return host === 'localhost' || host === '127.0.0.1' || host.startsWith('localhost:');
+}
+
+async function verifyEditorAuth(req, res) {
+  if (isLocalRequest(req)) return true;
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    res.status(401).json({ error: 'Authentifizierung erforderlich' });
+    return false;
+  }
+  try {
+    const token = authHeader.split(' ')[1];
+    const { data: { user }, error } = await supabaseClient.auth.getUser(token);
+    if (error || !user) {
+      res.status(401).json({ error: 'Ungültiger Token' });
+      return false;
+    }
+    if (!EDITOR_EMAILS.includes(user.email) && user.user_metadata?.role !== 'editor') {
+      res.status(403).json({ error: 'Keine Editor-Berechtigung' });
+      return false;
+    }
+    return true;
+  } catch (err) {
+    res.status(401).json({ error: 'Auth-Fehler: ' + err.message });
+    return false;
+  }
+}
+
+// GET: Liste aller GA-Bände mit verfügbaren Formaten
+app.get('/api/spellcheck/ga-files', async (req, res) => {
+  try {
+    if (!isLocalRequest(req)) {
+      const authHeader = req.headers.authorization;
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.split(' ')[1];
+        const { data: { user }, error } = await supabaseClient.auth.getUser(token);
+        if (error || !user || (!EDITOR_EMAILS.includes(user.email) && user.user_metadata?.role !== 'editor')) {
+          return res.status(403).json({ error: 'Keine Editor-Berechtigung' });
+        }
+      } else {
+        return res.status(401).json({ error: 'Authentifizierung erforderlich' });
+      }
+    }
+
+    const results = {};
+
+    function normalizeGANum(raw) {
+      const m = raw.match(/^0*(\d+)([a-z]?)$/i);
+      if (!m) return raw;
+      return m[1] + (m[2] || '');
+    }
+
+    // Scan Steiner_GA subdirectories for MD files
+    const gaDirs = await fs.readdir(STEINER_GA_DIR);
+    for (const dir of gaDirs) {
+      const gaMatch = dir.match(/^GA(\d{3}[a-z]?)/i);
+      if (!gaMatch) continue;
+      const gaNum = normalizeGANum(gaMatch[1]);
+      const dirPath = path.join(STEINER_GA_DIR, dir);
+      const stat = await fs.stat(dirPath).catch(() => null);
+      if (!stat || !stat.isDirectory()) continue;
+
+      const files = await fs.readdir(dirPath);
+      const mdFile = files.find(f => f.endsWith('.md'));
+      let title = dir.replace(/^GA\d{3}[a-z]?[-\s]*/, '').trim();
+      title = title.replace(/^Steiner,\s*Rudolf\s+GA\s*\d+[a-z]?,?\s*\d{4}\s*[-–]\s*/i, '').trim() || `GA ${gaNum}`;
+
+      if (!results[gaNum]) results[gaNum] = { gaNumber: gaNum, title, hasMd: false, hasPdf: false };
+      if (mdFile) results[gaNum].hasMd = true;
+    }
+
+    // Scan Steiner_GA_pdf for PDF files
+    try {
+      const pdfFiles = await fs.readdir(STEINER_GA_PDF_DIR);
+      for (const pf of pdfFiles) {
+        if (!pf.endsWith('.pdf')) continue;
+        const pdfMatch = pf.match(/GA\s*(\d+[a-z]?)/i);
+        if (!pdfMatch) continue;
+        const gaNum = normalizeGANum(pdfMatch[1]);
+        if (!results[gaNum]) {
+          let title = pf.replace(/\.pdf$/i, '').replace(/^GA\s*\d+[a-z]?\s*[-–]\s*/i, '').trim();
+          title = title.replace(/^Steiner,\s*Rudolf\s+GA\s*\d+[a-z]?,?\s*\d{4}\s*[-–]\s*/i, '').trim();
+          title = title.replace(/\s*\(\d+-\d+\)\s*$/, '').trim();
+          results[gaNum] = { gaNumber: gaNum, title: title || `GA ${gaNum}`, hasMd: false, hasPdf: true };
+        } else {
+          results[gaNum].hasPdf = true;
+        }
+      }
+    } catch (e) { /* PDF dir may not exist */ }
+
+    const sorted = Object.values(results).sort((a, b) => {
+      const na = parseInt(a.gaNumber);
+      const nb = parseInt(b.gaNumber);
+      return na - nb || a.gaNumber.localeCompare(b.gaNumber);
+    });
+
+    res.json(sorted);
+  } catch (error) {
+    console.error('[SPELLCHECK] ga-files error:', error);
+    res.status(500).json({ error: 'Fehler beim Laden der GA-Dateien' });
+  }
+});
+
+// GET: GA-Band laden (MD oder PDF-Text)
+app.get('/api/spellcheck/load/:gaNumber', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const gaNumber = req.params.gaNumber;
+    const format = req.query.format || 'md';
+
+    function normalizeGANum(raw) {
+      const m = raw.match(/^0*(\d+)([a-z]?)$/i);
+      if (!m) return raw;
+      return m[1] + (m[2] || '');
+    }
+
+    if (format === 'md') {
+      // Find MD file in Steiner_GA/GAxxx-.../
+      const gaDirs = await fs.readdir(STEINER_GA_DIR);
+      const normalizedReq = normalizeGANum(gaNumber);
+      const gaDir = gaDirs.find(d => {
+        const m = d.match(/^GA(\d{3}[a-z]?)/i);
+        return m && normalizeGANum(m[1]) === normalizedReq;
+      });
+
+      if (!gaDir) return res.status(404).json({ error: `GA ${gaNumber}: Kein MD-Verzeichnis gefunden` });
+
+      const dirPath = path.join(STEINER_GA_DIR, gaDir);
+      const files = await fs.readdir(dirPath);
+      const mdFiles = files.filter(f => f.endsWith('.md'));
+      const mdFile = mdFiles.find(f => /^GA\d{3}[a-z]?\s*-\s/.test(f)) || mdFiles[0];
+      if (!mdFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine MD-Datei gefunden` });
+
+      const text = await fs.readFile(path.join(dirPath, mdFile), 'utf-8');
+      res.json({ text, filename: mdFile, gaNumber, format: 'md', dirName: gaDir });
+
+    } else if (format === 'pdf') {
+      // Find PDF in Steiner_GA_pdf/
+      const pdfFiles = await fs.readdir(STEINER_GA_PDF_DIR);
+      const normalizedReqPdf = normalizeGANum(gaNumber);
+      const pdfFile = pdfFiles.find(f => {
+        if (!f.endsWith('.pdf')) return false;
+        const m = f.match(/GA\s*(\d+[a-z]?)/i);
+        return m && normalizeGANum(m[1]) === normalizedReqPdf;
+      });
+
+      if (!pdfFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine PDF-Datei gefunden` });
+
+      // Return the PDF URL so the frontend can extract text with pdf.js
+      const pdfPath = path.join(STEINER_GA_PDF_DIR, pdfFile);
+      res.json({
+        pdfUrl: `/Steiner_GA_pdf/${encodeURIComponent(pdfFile)}`,
+        filename: pdfFile,
+        gaNumber,
+        format: 'pdf'
+      });
+    } else {
+      res.status(400).json({ error: 'Ungültiges Format. Verwende md oder pdf.' });
+    }
+  } catch (error) {
+    console.error('[SPELLCHECK] load error:', error);
+    res.status(500).json({ error: 'Fehler beim Laden: ' + error.message });
+  }
+});
+
+// POST: Korrigierten Text speichern
+app.post('/api/spellcheck/save/:gaNumber', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const gaNumber = req.params.gaNumber;
+    const { text } = req.body;
+    if (!text) return res.status(400).json({ error: 'Kein Text übergeben' });
+
+    // Find MD file
+    function normalizeGANumSave(raw) {
+      const m = raw.match(/^0*(\d+)([a-z]?)$/i);
+      if (!m) return raw;
+      return m[1] + (m[2] || '');
+    }
+    const gaDirs = await fs.readdir(STEINER_GA_DIR);
+    const normalizedReqSave = normalizeGANumSave(gaNumber);
+    const gaDir = gaDirs.find(d => {
+      const m = d.match(/^GA(\d{3}[a-z]?)/i);
+      return m && normalizeGANumSave(m[1]) === normalizedReqSave;
+    });
+
+    if (!gaDir) return res.status(404).json({ error: `GA ${gaNumber}: Kein Verzeichnis gefunden` });
+
+    const dirPath = path.join(STEINER_GA_DIR, gaDir);
+    const files = await fs.readdir(dirPath);
+    const mdFile = files.find(f => f.endsWith('.md'));
+    if (!mdFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine MD-Datei gefunden` });
+
+    const filePath = path.join(dirPath, mdFile);
+
+    // Create backup before overwriting
+    const backupDir = path.join(dirPath, '.backups');
+    await fs.mkdir(backupDir, { recursive: true });
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupName = mdFile.replace('.md', `_backup_${timestamp}.md`);
+    await fs.copyFile(filePath, path.join(backupDir, backupName));
+
+    // Write corrected text
+    await fs.writeFile(filePath, text, 'utf-8');
+
+    res.json({ success: true, filename: mdFile, backup: backupName });
+  } catch (error) {
+    console.error('[SPELLCHECK] save error:', error);
+    res.status(500).json({ error: 'Fehler beim Speichern: ' + error.message });
+  }
+});
+
+// POST: PDF hochladen
+app.post('/api/spellcheck/upload-pdf', spellcheckUpload.single('pdf'), async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    if (!req.file) return res.status(400).json({ error: 'Keine Datei hochgeladen' });
+
+    const originalName = req.file.originalname;
+    const destPath = path.join(STEINER_GA_PDF_DIR, originalName);
+
+    // Ensure PDF directory exists
+    await fs.mkdir(STEINER_GA_PDF_DIR, { recursive: true });
+
+    // Move from temp to PDF dir
+    await fs.rename(req.file.path, destPath);
+
+    console.log(`[SPELLCHECK] PDF hochgeladen: ${originalName}`);
+    res.json({ success: true, filename: originalName });
+  } catch (error) {
+    // Clean up temp file on error
+    if (req.file?.path) await fs.unlink(req.file.path).catch(() => {});
+    console.error('[SPELLCHECK] upload error:', error);
+    res.status(500).json({ error: 'Upload fehlgeschlagen: ' + error.message });
+  }
+});
+
+// GET: Wort in allen GA-MD-Dateien suchen
+app.get('/api/spellcheck/search-word', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const query = (req.query.q || '').trim();
+    if (!query || query.length < 2) return res.status(400).json({ error: 'Suchbegriff zu kurz (min. 2 Zeichen)' });
+
+    function normalizeGANum(raw) {
+      const m = raw.match(/^0*(\d+)([a-z]?)$/i);
+      if (!m) return raw;
+      return m[1] + m[2].toLowerCase();
+    }
+
+    const gaDirs = await fs.readdir(STEINER_GA_DIR);
+    const results = [];
+    let totalHits = 0;
+    const CONTEXT_CHARS = 60;
+    const MAX_GA = 50;
+
+    for (const dir of gaDirs) {
+      if (results.length >= MAX_GA) break;
+      const gaMatch = dir.match(/^GA(\d{3}[a-z]?)/i);
+      if (!gaMatch) continue;
+      const gaNum = normalizeGANum(gaMatch[1]);
+      const dirPath = path.join(STEINER_GA_DIR, dir);
+      const stat = await fs.stat(dirPath).catch(() => null);
+      if (!stat || !stat.isDirectory()) continue;
+      const files = await fs.readdir(dirPath);
+      const mdFile = files.find(f => f.endsWith('.md'));
+      if (!mdFile) continue;
+
+      const content = await fs.readFile(path.join(dirPath, mdFile), 'utf-8');
+      const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      const matches = [];
+      let m;
+      while ((m = regex.exec(content)) !== null && matches.length < 10) {
+        const start = Math.max(0, m.index - CONTEXT_CHARS);
+        const end = Math.min(content.length, m.index + m[0].length + CONTEXT_CHARS);
+        let ctx = content.substring(start, end).replace(/\n/g, ' ').replace(/\s+/g, ' ');
+        matches.push(ctx);
+      }
+      if (matches.length > 0) {
+        totalHits += matches.length;
+        results.push({ ga: gaNum, count: matches.length, contexts: matches });
+      }
+    }
+
+    results.sort((a, b) => b.count - a.count);
+    res.json({ query, totalHits, results });
+  } catch (error) {
+    console.error('[SPELLCHECK] search error:', error);
+    res.status(500).json({ error: 'Suche fehlgeschlagen: ' + error.message });
+  }
+});
+
+// ============================================================================
+
+
 async function startServer() {
   try {
     console.log('\n' + '='.repeat(70));
@@ -27729,6 +28050,7 @@ REGELN:
 - Nur die allerwichtigste Kernaussage
 - Keine Meta-Sprache ("Rudolf Steiner beschreibt...")
 - Direkt und sachlich
+- KEINE wertenden oder subjektiven Adjektive (nicht: "außergewöhnlich", "nüchtern", "bedeutend", "krass", "bemerkenswert", "tiefgreifend", "einzigartig", "grundlegend"). Nur neutrale, sachliche Beschreibung des Inhalts.
 
 KAPITEL: ${item.title}
 
