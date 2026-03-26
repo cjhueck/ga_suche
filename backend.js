@@ -27094,7 +27094,6 @@ const spellcheckTmpDir = path.join(__dirname, 'uploads_tmp');
 fsSync.mkdirSync(spellcheckTmpDir, { recursive: true });
 const spellcheckUpload = multer({
   dest: spellcheckTmpDir,
-  limits: { fileSize: 100 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     cb(null, file.mimetype === 'application/pdf' || file.originalname.endsWith('.pdf'));
   }
@@ -27250,25 +27249,6 @@ app.get('/api/spellcheck/load/:gaNumber', async (req, res) => {
       if (!pdfFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine PDF-Datei gefunden` });
 
       const pdfUrl = `/Steiner_GA_pdf/${encodeURIComponent(pdfFile)}`;
-
-      // Check if OCR-cached .txt exists alongside the PDF
-      const paddedNum = gaNumber.padStart(3, '0');
-      const ocrCacheFile = `GA${paddedNum}_OCR.txt`;
-      const ocrCachePath = path.join(STEINER_GA_PDF_DIR, ocrCacheFile);
-      try {
-        await fs.access(ocrCachePath);
-        const text = await fs.readFile(ocrCachePath, 'utf-8');
-        return res.json({
-          text,
-          pdfUrl,
-          filename: pdfFile,
-          ocrCacheFile,
-          gaNumber,
-          format: 'pdf',
-          cachedOCR: true
-        });
-      } catch {}
-
       res.json({ pdfUrl, filename: pdfFile, gaNumber, format: 'pdf' });
     } else {
       res.status(400).json({ error: 'Ungültiges Format. Verwende md oder pdf.' });
@@ -27410,17 +27390,10 @@ app.post('/api/spellcheck/ocr-mistral/:gaNumber', async (req, res) => {
     const textParts = pages.map(p => `|${p.index + 1}|\n${p.markdown}`);
     const fullText = textParts.join('\n\n');
 
-    // OCR-Cache speichern
-    const paddedNum = gaNumber.padStart(3, '0');
-    const ocrCacheFile = `GA${paddedNum}_OCR.txt`;
-    const ocrCachePath = path.join(STEINER_GA_PDF_DIR, ocrCacheFile);
-    await fs.writeFile(ocrCachePath, fullText, 'utf-8');
-
-    console.log(`[MISTRAL-OCR] Fertig: ${pages.length} Seiten, Cache: ${ocrCacheFile}`);
+    console.log(`[MISTRAL-OCR] Fertig: ${pages.length} Seiten`);
 
     res.json({
       text: fullText,
-      ocrCacheFile,
       pagesProcessed: pages.length,
       pdfFile
     });
@@ -27430,30 +27403,19 @@ app.post('/api/spellcheck/ocr-mistral/:gaNumber', async (req, res) => {
   }
 });
 
-// POST: OCR-Cache speichern (automatisch nach OCR-Extraktion)
-app.post('/api/spellcheck/save-ocr/:gaNumber', async (req, res) => {
-  if (!(await verifyEditorAuth(req, res))) return;
-  try {
-    const gaNumber = req.params.gaNumber;
-    const { text } = req.body;
-    if (!text) return res.status(400).json({ error: 'Kein Text übergeben' });
-
-    const paddedNum = gaNumber.padStart(3, '0');
-    const ocrCacheFile = `GA${paddedNum}_OCR.txt`;
-    const ocrCachePath = path.join(STEINER_GA_PDF_DIR, ocrCacheFile);
-
-    await fs.writeFile(ocrCachePath, text, 'utf-8');
-    console.log(`[SPELLCHECK] OCR-Cache gespeichert: ${ocrCachePath}`);
-
-    res.json({ success: true, ocrCacheFile });
-  } catch (error) {
-    console.error('[SPELLCHECK] save-ocr error:', error);
-    res.status(500).json({ error: 'OCR-Cache speichern fehlgeschlagen: ' + error.message });
-  }
-});
 
 // POST: PDF hochladen
-app.post('/api/spellcheck/upload-pdf', spellcheckUpload.single('pdf'), async (req, res) => {
+app.post('/api/spellcheck/upload-pdf', (req, res, next) => {
+  spellcheckUpload.single('pdf')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(413).json({ error: 'Upload-Fehler: ' + err.message });
+    }
+    if (err) {
+      return res.status(500).json({ error: 'Upload-Fehler: ' + err.message });
+    }
+    next();
+  });
+}, async (req, res) => {
   if (!(await verifyEditorAuth(req, res))) return;
   try {
     if (!req.file) return res.status(400).json({ error: 'Keine Datei hochgeladen' });
@@ -27461,19 +27423,35 @@ app.post('/api/spellcheck/upload-pdf', spellcheckUpload.single('pdf'), async (re
     const originalName = req.file.originalname;
     const destPath = path.join(STEINER_GA_PDF_DIR, originalName);
 
-    // Ensure PDF directory exists
     await fs.mkdir(STEINER_GA_PDF_DIR, { recursive: true });
+    await fs.copyFile(req.file.path, destPath);
+    await fs.unlink(req.file.path).catch(() => {});
 
-    // Move from temp to PDF dir
-    await fs.rename(req.file.path, destPath);
+    const gaMatch = originalName.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
+    const gaNumber = gaMatch ? gaMatch[1] : null;
 
-    console.log(`[SPELLCHECK] PDF hochgeladen: ${originalName}`);
-    res.json({ success: true, filename: originalName });
+    console.log(`[SPELLCHECK] PDF hochgeladen: ${originalName} (GA ${gaNumber || '?'})`);
+    res.json({ success: true, filename: originalName, gaNumber });
   } catch (error) {
-    // Clean up temp file on error
     if (req.file?.path) await fs.unlink(req.file.path).catch(() => {});
     console.error('[SPELLCHECK] upload error:', error);
     res.status(500).json({ error: 'Upload fehlgeschlagen: ' + error.message });
+  }
+});
+
+// GET: Ordnerliste in STEINER_GA_DIR
+app.get('/api/spellcheck/folders', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const entries = await fs.readdir(STEINER_GA_DIR, { withFileTypes: true });
+    const folders = entries
+      .filter(e => e.isDirectory() && !e.name.startsWith('.'))
+      .map(e => e.name)
+      .sort((a, b) => a.localeCompare(b, 'de', { numeric: true }));
+    res.json({ folders });
+  } catch (error) {
+    console.error('[SPELLCHECK] folders error:', error);
+    res.status(500).json({ error: 'Ordnerliste konnte nicht geladen werden: ' + error.message });
   }
 });
 
