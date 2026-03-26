@@ -1,5 +1,5 @@
 // hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
-require('dotenv').config();
+require('dotenv').config({ override: true });
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
@@ -27239,7 +27239,6 @@ app.get('/api/spellcheck/load/:gaNumber', async (req, res) => {
       res.json({ text, filename: mdFile, gaNumber, format: 'md', dirName: gaDir });
 
     } else if (format === 'pdf') {
-      // Find PDF in Steiner_GA_pdf/
       const pdfFiles = await fs.readdir(STEINER_GA_PDF_DIR);
       const normalizedReqPdf = normalizeGANum(gaNumber);
       const pdfFile = pdfFiles.find(f => {
@@ -27250,14 +27249,27 @@ app.get('/api/spellcheck/load/:gaNumber', async (req, res) => {
 
       if (!pdfFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine PDF-Datei gefunden` });
 
-      // Return the PDF URL so the frontend can extract text with pdf.js
-      const pdfPath = path.join(STEINER_GA_PDF_DIR, pdfFile);
-      res.json({
-        pdfUrl: `/Steiner_GA_pdf/${encodeURIComponent(pdfFile)}`,
-        filename: pdfFile,
-        gaNumber,
-        format: 'pdf'
-      });
+      const pdfUrl = `/Steiner_GA_pdf/${encodeURIComponent(pdfFile)}`;
+
+      // Check if OCR-cached .txt exists alongside the PDF
+      const paddedNum = gaNumber.padStart(3, '0');
+      const ocrCacheFile = `GA${paddedNum}_OCR.txt`;
+      const ocrCachePath = path.join(STEINER_GA_PDF_DIR, ocrCacheFile);
+      try {
+        await fs.access(ocrCachePath);
+        const text = await fs.readFile(ocrCachePath, 'utf-8');
+        return res.json({
+          text,
+          pdfUrl,
+          filename: pdfFile,
+          ocrCacheFile,
+          gaNumber,
+          format: 'pdf',
+          cachedOCR: true
+        });
+      } catch {}
+
+      res.json({ pdfUrl, filename: pdfFile, gaNumber, format: 'pdf' });
     } else {
       res.status(400).json({ error: 'Ungültiges Format. Verwende md oder pdf.' });
     }
@@ -27272,45 +27284,171 @@ app.post('/api/spellcheck/save/:gaNumber', async (req, res) => {
   if (!(await verifyEditorAuth(req, res))) return;
   try {
     const gaNumber = req.params.gaNumber;
-    const { text } = req.body;
+    const { text, format, dirName: reqDirName, filename: reqFilename } = req.body;
     if (!text) return res.status(400).json({ error: 'Kein Text übergeben' });
 
-    // Find MD file
     function normalizeGANumSave(raw) {
       const m = raw.match(/^0*(\d+)([a-z]?)$/i);
       if (!m) return raw;
       return m[1] + (m[2] || '');
     }
-    const gaDirs = await fs.readdir(STEINER_GA_DIR);
-    const normalizedReqSave = normalizeGANumSave(gaNumber);
-    const gaDir = gaDirs.find(d => {
-      const m = d.match(/^GA(\d{3}[a-z]?)/i);
-      return m && normalizeGANumSave(m[1]) === normalizedReqSave;
-    });
 
-    if (!gaDir) return res.status(404).json({ error: `GA ${gaNumber}: Kein Verzeichnis gefunden` });
+    let dirPath, mdFile, filePath, isNew = false;
 
-    const dirPath = path.join(STEINER_GA_DIR, gaDir);
-    const files = await fs.readdir(dirPath);
-    const mdFile = files.find(f => f.endsWith('.md'));
-    if (!mdFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine MD-Datei gefunden` });
+    if (reqDirName && reqFilename && reqFilename.endsWith('.md')) {
+      dirPath = path.join(STEINER_GA_DIR, reqDirName);
+      mdFile = reqFilename;
+      filePath = path.join(dirPath, mdFile);
+      try {
+        await fs.access(filePath);
+      } catch {
+        isNew = true;
+        await fs.mkdir(dirPath, { recursive: true });
+      }
+    } else {
+      const gaDirs = await fs.readdir(STEINER_GA_DIR);
+      const normalizedReqSave = normalizeGANumSave(gaNumber);
+      let gaDir = gaDirs.find(d => {
+        const m = d.match(/^GA(\d{3}[a-z]?)/i);
+        return m && normalizeGANumSave(m[1]) === normalizedReqSave;
+      });
 
-    const filePath = path.join(dirPath, mdFile);
+      if (gaDir) {
+        dirPath = path.join(STEINER_GA_DIR, gaDir);
+        const files = await fs.readdir(dirPath);
+        const mdFiles = files.filter(f => f.endsWith('.md'));
+        mdFile = mdFiles.find(f => /^GA\d{3}[a-z]?\s*-\s/.test(f)) || mdFiles[0];
 
-    // Create backup before overwriting
-    const backupDir = path.join(dirPath, '.backups');
-    await fs.mkdir(backupDir, { recursive: true });
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupName = mdFile.replace('.md', `_backup_${timestamp}.md`);
-    await fs.copyFile(filePath, path.join(backupDir, backupName));
+        if (!mdFile) {
+          const paddedNum = gaNumber.padStart(3, '0');
+          mdFile = `GA${paddedNum} - Korrektur.md`;
+          isNew = true;
+        }
+        filePath = path.join(dirPath, mdFile);
+      } else {
+        const paddedNum = gaNumber.padStart(3, '0');
+        gaDir = `GA${paddedNum}`;
+        dirPath = path.join(STEINER_GA_DIR, gaDir);
+        await fs.mkdir(dirPath, { recursive: true });
+        mdFile = `GA${paddedNum} - Korrektur.md`;
+        filePath = path.join(dirPath, mdFile);
+        isNew = true;
+      }
+    }
 
-    // Write corrected text
+    if (!isNew) {
+      const backupDir = path.join(dirPath, '.backups');
+      await fs.mkdir(backupDir, { recursive: true });
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const backupName = mdFile.replace('.md', `_backup_${timestamp}.md`);
+      await fs.copyFile(filePath, path.join(backupDir, backupName));
+    }
+
     await fs.writeFile(filePath, text, 'utf-8');
+    console.log(`[SPELLCHECK] Gespeichert: ${filePath}${isNew ? ' (neu erstellt)' : ''}`);
 
-    res.json({ success: true, filename: mdFile, backup: backupName });
+    res.json({ success: true, filename: mdFile, dirName: path.basename(dirPath), isNew });
   } catch (error) {
     console.error('[SPELLCHECK] save error:', error);
     res.status(500).json({ error: 'Fehler beim Speichern: ' + error.message });
+  }
+});
+
+// POST: Mistral OCR - PDF serverseitig per Mistral API verarbeiten
+app.post('/api/spellcheck/ocr-mistral/:gaNumber', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const gaNumber = req.params.gaNumber;
+    const mistralKey = process.env.MISTRAL_API_KEY;
+    if (!mistralKey) return res.status(500).json({ error: 'MISTRAL_API_KEY nicht konfiguriert' });
+
+    function normalizeGANum(raw) {
+      const m = raw.match(/^0*(\d+)([a-z]?)$/i);
+      if (!m) return raw;
+      return m[1] + (m[2] || '');
+    }
+
+    const pdfFiles = await fs.readdir(STEINER_GA_PDF_DIR);
+    const normalizedReq = normalizeGANum(gaNumber);
+    const pdfFile = pdfFiles.find(f => {
+      if (!f.endsWith('.pdf')) return false;
+      const m = f.match(/GA\s*(\d+[a-z]?)/i);
+      return m && normalizeGANum(m[1]) === normalizedReq;
+    });
+    if (!pdfFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine PDF-Datei gefunden` });
+
+    const pdfPath = path.join(STEINER_GA_PDF_DIR, pdfFile);
+    const pdfBuffer = await fs.readFile(pdfPath);
+    const base64Pdf = pdfBuffer.toString('base64');
+
+    console.log(`[MISTRAL-OCR] Starte OCR für ${pdfFile} (${(pdfBuffer.length / 1024 / 1024).toFixed(1)} MB)...`);
+
+    const mistralRes = await fetch('https://api.mistral.ai/v1/ocr', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${mistralKey}`
+      },
+      body: JSON.stringify({
+        model: 'mistral-ocr-latest',
+        document: {
+          type: 'document_url',
+          document_url: `data:application/pdf;base64,${base64Pdf}`
+        },
+        include_image_base64: false
+      })
+    });
+
+    if (!mistralRes.ok) {
+      const errBody = await mistralRes.text();
+      console.error('[MISTRAL-OCR] API Fehler:', mistralRes.status, errBody);
+      return res.status(502).json({ error: `Mistral OCR fehlgeschlagen (${mistralRes.status}): ${errBody.substring(0, 200)}` });
+    }
+
+    const ocrResult = await mistralRes.json();
+    const pages = ocrResult.pages || [];
+    const textParts = pages.map(p => `|${p.index + 1}|\n${p.markdown}`);
+    const fullText = textParts.join('\n\n');
+
+    // OCR-Cache speichern
+    const paddedNum = gaNumber.padStart(3, '0');
+    const ocrCacheFile = `GA${paddedNum}_OCR.txt`;
+    const ocrCachePath = path.join(STEINER_GA_PDF_DIR, ocrCacheFile);
+    await fs.writeFile(ocrCachePath, fullText, 'utf-8');
+
+    console.log(`[MISTRAL-OCR] Fertig: ${pages.length} Seiten, Cache: ${ocrCacheFile}`);
+
+    res.json({
+      text: fullText,
+      ocrCacheFile,
+      pagesProcessed: pages.length,
+      pdfFile
+    });
+  } catch (error) {
+    console.error('[MISTRAL-OCR] Fehler:', error);
+    res.status(500).json({ error: 'Mistral OCR Fehler: ' + error.message });
+  }
+});
+
+// POST: OCR-Cache speichern (automatisch nach OCR-Extraktion)
+app.post('/api/spellcheck/save-ocr/:gaNumber', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const gaNumber = req.params.gaNumber;
+    const { text } = req.body;
+    if (!text) return res.status(400).json({ error: 'Kein Text übergeben' });
+
+    const paddedNum = gaNumber.padStart(3, '0');
+    const ocrCacheFile = `GA${paddedNum}_OCR.txt`;
+    const ocrCachePath = path.join(STEINER_GA_PDF_DIR, ocrCacheFile);
+
+    await fs.writeFile(ocrCachePath, text, 'utf-8');
+    console.log(`[SPELLCHECK] OCR-Cache gespeichert: ${ocrCachePath}`);
+
+    res.json({ success: true, ocrCacheFile });
+  } catch (error) {
+    console.error('[SPELLCHECK] save-ocr error:', error);
+    res.status(500).json({ error: 'OCR-Cache speichern fehlgeschlagen: ' + error.message });
   }
 });
 

@@ -14,6 +14,7 @@
         }
     </script>
     <script src="dictionaries/typo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -142,9 +143,21 @@
             word-wrap: break-word;
         }
 
+        .resize-handle {
+            width: 5px;
+            cursor: col-resize;
+            background: var(--border-color);
+            flex-shrink: 0;
+            transition: background 0.15s;
+        }
+        .resize-handle:hover,
+        .resize-handle.active {
+            background: var(--accent-color);
+        }
+
         .sidebar-panel {
             width: 320px;
-            border-left: 1px solid var(--border-color);
+            border-left: none;
             background: var(--panel-bg);
             display: flex;
             flex-direction: column;
@@ -398,6 +411,32 @@
         }
         #btn-pagemarker:not(:disabled) { background: #8e44ad; color: #fff; }
         #btn-pagemarker:not(:disabled):hover { background: #6c3483; }
+
+        #tab-pdf { padding: 0; }
+        #pdf-viewer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 4px;
+        }
+        #pdf-viewer-container canvas {
+            width: 100%;
+            height: auto;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+            border-radius: 2px;
+        }
+        .pdf-page-label {
+            font-size: 0.72rem;
+            color: var(--secondary-text);
+            margin-top: 4px;
+        }
+        #pdf-viewer-placeholder {
+            padding: 2rem 1rem;
+            text-align: center;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
@@ -415,6 +454,7 @@
     <button class="btn primary" id="btn-check" onclick="runSpellcheck()" disabled>Prüfen</button>
     <button class="btn" id="btn-autocorrect" onclick="autoCorrectAll()" disabled title="Alle erkannten Fehler automatisch korrigieren">Auto-Korrektur</button>
     <button class="btn" id="btn-save" onclick="saveDocument()" disabled>Speichern</button>
+    <button class="btn" id="btn-saveas" onclick="saveDocumentAs()" disabled title="Unter anderem Dateinamen speichern">Speichern unter...</button>
     <button class="btn" id="btn-undo" onclick="editorUndo()" title="Rückgängig (Strg+Z)" style="padding: 5px 8px; line-height: 1;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 0 1 15.36-6.36L21 9"/></svg>
     </button>
@@ -450,12 +490,16 @@
         </div>
     </div>
 
+    <!-- Resize Handle -->
+    <div class="resize-handle" id="resize-handle"></div>
+
     <!-- Sidebar -->
     <div class="sidebar-panel">
         <div class="sidebar-tabs">
             <button class="sidebar-tab active" onclick="switchSidebarTab('errors')">Fehler</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('dict')">Wörterb.</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('search')">Suche</button>
+            <button class="sidebar-tab" onclick="switchSidebarTab('pdf')">PDF</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('upload')">Upload</button>
         </div>
 
@@ -505,6 +549,14 @@
             </div>
         </div>
 
+        <!-- PDF Viewer Tab -->
+        <div id="tab-pdf" class="sidebar-content hidden">
+            <div id="pdf-viewer-placeholder">
+                Laden Sie einen GA-Band als PDF, um ihn hier anzuzeigen.
+            </div>
+            <div id="pdf-viewer-container"></div>
+        </div>
+
         <!-- Upload Tab -->
         <div id="tab-upload" class="sidebar-content hidden">
             <div id="upload-zone" class="upload-zone">
@@ -533,6 +585,18 @@
 <!-- Context Menu -->
 <div id="context-menu" class="context-menu hidden"></div>
 
+<!-- Save As Dialog -->
+<div id="saveas-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.25); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:20px 24px; min-width:420px; box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+        <div style="font-weight:600; margin-bottom:12px; color:var(--text-color); font-size:15px;">Speichern unter...</div>
+        <input type="text" id="saveas-input" style="width:100%; padding:8px 10px; border:1.5px solid var(--border-color); border-radius:4px; background:#fff; color:var(--text-color); font-size:14px; box-sizing:border-box; outline-color:var(--accent-color);" />
+        <div style="display:flex; gap:8px; margin-top:16px; justify-content:flex-end;">
+            <button onclick="closeSaveAsDialog()" class="btn" style="padding:6px 16px;">Abbrechen</button>
+            <button onclick="confirmSaveAs()" class="btn" style="padding:6px 16px; background:var(--accent-color); color:#fff; border-color:var(--accent-color);">Speichern</button>
+        </div>
+    </div>
+</div>
+
 <script>
 // ============================================================================
 // State
@@ -549,6 +613,8 @@ let isLocal = false;
 let errorItems = [];
 let activeFilter = 'all';
 let hasUnsavedChanges = false;
+let currentPdfUrl = null;
+let currentPdfDoc = null;
 
 const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
@@ -681,6 +747,7 @@ async function loadDocument() {
     setStatus('Lade Dokument...');
     document.getElementById('btn-check').disabled = true;
     document.getElementById('btn-save').disabled = true;
+    document.getElementById('btn-saveas').disabled = true;
     document.getElementById('editor-content').innerHTML = '<p style="color: var(--secondary-text);"><span class="loading-spinner"></span> Lade...</p>';
 
     try {
@@ -700,23 +767,46 @@ async function loadDocument() {
         currentFileData = data;
 
         if (data.format === 'pdf' && data.pdfUrl) {
-            setStatus('Extrahiere PDF-Text...');
-            const text = await extractPDFText(data.pdfUrl);
+            const pdfFullUrl = buildPdfUrl(data.pdfUrl);
+            let text;
+
+            if (data.cachedOCR && data.text) {
+                setStatus('Lade gespeicherten OCR-Text (' + data.ocrCacheFile + ')...');
+                text = data.text;
+            } else {
+                document.getElementById('editor-content').innerHTML =
+                    '<p style="color: var(--secondary-text);"><span class="loading-spinner"></span> PDF wird geladen und Text extrahiert (bei gescannten PDFs: Mistral OCR)...</p>';
+                setStatus('Extrahiere PDF-Text...');
+                const result = await extractPDFText(data.pdfUrl);
+                text = result.text;
+
+                if (!result.usedMistral) autoSaveOCRText(text);
+            }
+
             originalText = text;
             document.getElementById('editor-content').textContent = text;
+            currentPdfUrl = pdfFullUrl;
+            switchSidebarTabByName('pdf');
+            renderPdfInViewer(pdfFullUrl);
         } else {
             originalText = data.text;
             document.getElementById('editor-content').textContent = data.text;
+            currentPdfUrl = null;
+            clearPdfViewer();
         }
 
-        document.getElementById('file-info').textContent = data.filename || `GA ${currentGA} (${currentSource.toUpperCase()})`;
+        let fileInfoText = data.filename || `GA ${currentGA} (${currentSource.toUpperCase()})`;
+        if (data.cachedOCR) fileInfoText += ' (OCR-Cache)';
+        document.getElementById('file-info').textContent = fileInfoText;
         document.getElementById('btn-check').disabled = false;
         document.getElementById('btn-save').disabled = false;
+        document.getElementById('btn-saveas').disabled = false;
         document.getElementById('btn-pagemarker').disabled = false;
 
         updateWordCount();
         clearErrors();
-        setStatus('Dokument geladen: ' + (data.filename || currentGA));
+        const statusSuffix = data.cachedOCR ? ' (aus OCR-Cache)' : '';
+        setStatus('Dokument geladen: ' + (data.filename || currentGA) + statusSuffix);
     } catch (err) {
         document.getElementById('editor-content').innerHTML = `<p style="color: #dc2626;">Fehler: ${err.message}</p>`;
         setStatus('Fehler: ' + err.message);
@@ -726,24 +816,169 @@ async function loadDocument() {
 
 async function extractPDFText(pdfUrl) {
     if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js nicht verfügbar');
-    let fullUrl;
-    if (pdfUrl.startsWith('http')) {
-        fullUrl = pdfUrl;
-    } else if (isLocal) {
-        fullUrl = `http://localhost:3003${pdfUrl}`;
-    } else {
-        fullUrl = pdfUrl;
-    }
+    const fullUrl = buildPdfUrl(pdfUrl);
     const pdf = await pdfjsLib.getDocument(fullUrl).promise;
+    currentPdfDoc = pdf;
+
+    setStatus('Prüfe Textlayer...');
+    const samplePages = Math.min(5, pdf.numPages);
+    let sampleChars = 0;
+    for (let i = 1; i <= samplePages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const text = content.items.map(item => item.str).join('');
+        sampleChars += text.replace(/\s+/g, '').length;
+    }
+    const avgCharsPerPage = sampleChars / samplePages;
+    const needsOCR = avgCharsPerPage < 50;
+
+    if (needsOCR) {
+        console.log(`[PDF] Textlayer zu spärlich (${avgCharsPerPage.toFixed(0)} Zeichen/Seite) → Mistral OCR`);
+        const text = await extractPDFTextMistral();
+        return { text, usedMistral: true };
+    }
+
+    console.log(`[PDF] Textlayer vorhanden (${avgCharsPerPage.toFixed(0)} Zeichen/Seite) → Direkt-Extraktion`);
     const pages = [];
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
         const text = content.items.map(item => item.str).join(' ');
-        pages.push(text);
+        pages.push(`|${i}|\n${text}`);
         if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
     }
+    return { text: pages.join('\n\n'), usedMistral: false };
+}
+
+async function extractPDFTextMistral() {
+    setStatus('Mistral OCR wird gestartet...');
+    document.getElementById('editor-content').innerHTML =
+        '<p style="color: var(--secondary-text);"><span class="loading-spinner"></span> Mistral OCR-Verarbeitung läuft (serverseitig)...</p>';
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (!isLocal && currentUser) {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+    }
+
+    const res = await fetch(`${getApiBase()}/spellcheck/ocr-mistral/${encodeURIComponent(currentGA)}`, {
+        method: 'POST', headers, body: '{}'
+    });
+
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+        throw new Error(err.error || 'Mistral OCR fehlgeschlagen');
+    }
+
+    const result = await res.json();
+    setStatus(`Mistral OCR abgeschlossen: ${result.pagesProcessed} Seiten (Cache: ${result.ocrCacheFile})`);
+    return result.text;
+}
+
+async function extractPDFTextOCR(pdf) {
+    if (typeof Tesseract === 'undefined') throw new Error('Tesseract.js nicht verfügbar');
+
+    const pages = [];
+    const OCR_SCALE = 2;
+    let currentOCRPage = 0;
+
+    setStatus('OCR wird initialisiert (Deutsch)...');
+    const worker = await Tesseract.createWorker('deu', 1, {
+        logger: m => {
+            if (m.status === 'recognizing text') {
+                const pct = (m.progress * 100).toFixed(0);
+                document.getElementById('status-left').textContent =
+                    `OCR: Seite ${currentOCRPage}/${pdf.numPages} (${pct}%)`;
+            }
+        }
+    });
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+        currentOCRPage = i;
+        setStatus(`OCR: Seite ${i}/${pdf.numPages}...`);
+
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: OCR_SCALE });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const { data: { text } } = await worker.recognize(canvas);
+        pages.push(`|${i}|\n${text.trim()}`);
+
+        canvas.width = 0;
+        canvas.height = 0;
+    }
+
+    await worker.terminate();
+    setStatus(`OCR abgeschlossen: ${pdf.numPages} Seiten`);
     return pages.join('\n\n');
+}
+
+function buildPdfUrl(pdfUrl) {
+    if (pdfUrl.startsWith('http')) return pdfUrl;
+    if (isLocal) return `http://localhost:3003${pdfUrl}`;
+    return pdfUrl;
+}
+
+function clearPdfViewer() {
+    const container = document.getElementById('pdf-viewer-container');
+    container.innerHTML = '';
+    document.getElementById('pdf-viewer-placeholder').style.display = '';
+    currentPdfDoc = null;
+}
+
+async function renderPdfInViewer(fullUrl) {
+    const container = document.getElementById('pdf-viewer-container');
+    const placeholder = document.getElementById('pdf-viewer-placeholder');
+    container.innerHTML = '';
+    placeholder.style.display = 'none';
+
+    if (typeof pdfjsLib === 'undefined') {
+        placeholder.textContent = 'pdf.js nicht verfügbar';
+        placeholder.style.display = '';
+        return;
+    }
+
+    try {
+        const pdf = currentPdfDoc || await pdfjsLib.getDocument(fullUrl).promise;
+        currentPdfDoc = pdf;
+        const containerWidth = container.parentElement.clientWidth - 16;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const viewport = page.getViewport({ scale: 1 });
+            const scale = containerWidth / viewport.width;
+            const scaledViewport = page.getViewport({ scale });
+
+            const canvas = document.createElement('canvas');
+            canvas.width = scaledViewport.width;
+            canvas.height = scaledViewport.height;
+            const ctx = canvas.getContext('2d');
+
+            await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+
+            const label = document.createElement('div');
+            label.className = 'pdf-page-label';
+            label.textContent = `Seite ${i} / ${pdf.numPages}`;
+
+            container.appendChild(canvas);
+            container.appendChild(label);
+
+            if (i % 5 === 0) {
+                setStatus(`PDF-Ansicht: Seite ${i}/${pdf.numPages}...`);
+                await new Promise(r => setTimeout(r, 0));
+            }
+        }
+        setStatus(`PDF geladen: ${pdf.numPages} Seiten`);
+    } catch (err) {
+        placeholder.textContent = 'PDF konnte nicht gerendert werden: ' + err.message;
+        placeholder.style.display = '';
+        console.error('[PDF Viewer]', err);
+    }
 }
 
 function setSource(src) {
@@ -1142,6 +1377,11 @@ async function saveDocument() {
     const editor = document.getElementById('editor-content');
     const text = editor.textContent || editor.innerText;
 
+    if (!text || text.trim().length === 0) {
+        setStatus('Nichts zum Speichern (leerer Text).');
+        return;
+    }
+
     setStatus('Speichere...');
     document.getElementById('btn-save').disabled = true;
 
@@ -1152,10 +1392,18 @@ async function saveDocument() {
             if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
         }
 
+        const saveBody = { text, format: currentSource };
+        if (currentFileData) {
+            const dirName = currentFileData.savedDirName || currentFileData.dirName;
+            const filename = currentFileData.savedFilename ||
+                (currentFileData.filename?.endsWith('.md') ? currentFileData.filename : null);
+            if (dirName) saveBody.dirName = dirName;
+            if (filename) saveBody.filename = filename;
+        }
         const res = await fetch(`${getApiBase()}/spellcheck/save/${encodeURIComponent(currentGA)}`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({ text, format: currentSource })
+            body: JSON.stringify(saveBody)
         });
         if (!res.ok) {
             const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
@@ -1164,12 +1412,137 @@ async function saveDocument() {
         const result = await res.json();
         originalText = text;
         hasUnsavedChanges = false;
-        setStatus('Gespeichert: ' + (result.filename || currentGA));
+
+        if (result.dirName && result.filename) {
+            currentFileData = Object.assign(currentFileData || {}, {
+                savedDirName: result.dirName,
+                savedFilename: result.filename
+            });
+        }
+
+        document.getElementById('edit-status').textContent = '✓ Gespeichert';
+        document.getElementById('edit-status').style.color = '#16a34a';
+        const savedAs = result.filename || currentGA;
+        const msg = result.isNew
+            ? 'Neue MD-Datei erstellt: ' + savedAs
+            : 'Gespeichert als MD: ' + savedAs;
+        setStatus(msg);
+        document.getElementById('file-info').textContent =
+            (currentFileData?.filename || savedAs) + ' → ' + savedAs;
     } catch (err) {
         setStatus('Speichern fehlgeschlagen: ' + err.message);
-        console.error(err);
+        console.error('[Save]', err);
+        alert('Speichern fehlgeschlagen: ' + err.message);
     }
     document.getElementById('btn-save').disabled = false;
+}
+
+function saveDocumentAs() {
+    if (!currentGA) return;
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    if (!text || text.trim().length === 0) {
+        setStatus('Nichts zum Speichern (leerer Text).');
+        return;
+    }
+
+    const currentFilename = currentFileData?.savedFilename || currentFileData?.filename || '';
+    const defaultName = currentFilename.endsWith('.md')
+        ? currentFilename
+        : `GA${currentGA.padStart(3, '0')} - Korrektur.md`;
+
+    const overlay = document.getElementById('saveas-overlay');
+    const input = document.getElementById('saveas-input');
+    input.value = defaultName;
+    overlay.style.display = 'flex';
+    setTimeout(() => { input.focus(); input.select(); }, 50);
+}
+
+function closeSaveAsDialog() {
+    document.getElementById('saveas-overlay').style.display = 'none';
+}
+document.getElementById('saveas-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') confirmSaveAs();
+    if (e.key === 'Escape') closeSaveAsDialog();
+});
+document.getElementById('saveas-overlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeSaveAsDialog();
+});
+
+async function confirmSaveAs() {
+    const input = document.getElementById('saveas-input');
+    const newFilename = input.value.trim();
+    if (!newFilename) return;
+    closeSaveAsDialog();
+
+    const finalName = newFilename.endsWith('.md') ? newFilename : newFilename + '.md';
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+
+    setStatus('Speichere unter: ' + finalName + '...');
+    document.getElementById('btn-saveas').disabled = true;
+
+    try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+
+        const saveBody = { text, format: currentSource, filename: finalName };
+        if (currentFileData?.savedDirName || currentFileData?.dirName) {
+            saveBody.dirName = currentFileData.savedDirName || currentFileData.dirName;
+        }
+
+        const res = await fetch(`${getApiBase()}/spellcheck/save/${encodeURIComponent(currentGA)}`, {
+            method: 'POST', headers, body: JSON.stringify(saveBody)
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+            throw new Error(err.error || 'Speichern fehlgeschlagen');
+        }
+        const result = await res.json();
+        originalText = text;
+        hasUnsavedChanges = false;
+
+        if (result.dirName && result.filename) {
+            currentFileData = Object.assign(currentFileData || {}, {
+                savedDirName: result.dirName,
+                savedFilename: result.filename
+            });
+        }
+
+        document.getElementById('edit-status').textContent = '✓ Gespeichert';
+        document.getElementById('edit-status').style.color = '#16a34a';
+        setStatus('Gespeichert als: ' + (result.filename || finalName));
+        document.getElementById('file-info').textContent = result.filename || finalName;
+    } catch (err) {
+        setStatus('Speichern fehlgeschlagen: ' + err.message);
+        console.error('[SaveAs]', err);
+        alert('Speichern fehlgeschlagen: ' + err.message);
+    }
+    document.getElementById('btn-saveas').disabled = false;
+}
+
+async function autoSaveOCRText(text) {
+    if (!currentGA || !text) return;
+    try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+        const res = await fetch(`${getApiBase()}/spellcheck/save-ocr/${encodeURIComponent(currentGA)}`, {
+            method: 'POST', headers, body: JSON.stringify({ text })
+        });
+        if (res.ok) {
+            const result = await res.json();
+            console.log('[OCR] Cache gespeichert:', result.ocrCacheFile);
+            setStatus('OCR-Text extrahiert und gecacht (' + result.ocrCacheFile + ')');
+        }
+    } catch (err) {
+        console.warn('[OCR] Cache speichern fehlgeschlagen:', err);
+    }
 }
 
 // ============================================================================
@@ -1348,6 +1721,157 @@ function setupEditorEvents() {
     });
     document.getElementById('search-word-input').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') searchWordInGA();
+    });
+
+    setupScrollSync();
+    setupResizeHandle();
+}
+
+function setupResizeHandle() {
+    const handle = document.getElementById('resize-handle');
+    const sidebar = document.querySelector('.sidebar-panel');
+    let startX, startWidth;
+
+    handle.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        startX = e.clientX;
+        startWidth = sidebar.getBoundingClientRect().width;
+        handle.classList.add('active');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+
+        function onMouseMove(e) {
+            const delta = startX - e.clientX;
+            const newWidth = Math.max(200, Math.min(window.innerWidth * 0.6, startWidth + delta));
+            sidebar.style.width = newWidth + 'px';
+        }
+
+        function onMouseUp() {
+            handle.classList.remove('active');
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+}
+
+let scrollSyncActive = false;
+
+function getEditorPageMarkerPositions() {
+    const editor = document.getElementById('editor-content');
+    const editorContainer = document.querySelector('.editor-container');
+    if (!editor || !editorContainer) return [];
+
+    const walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT);
+    const markers = [];
+    const regex = /\|(\d+)\|/g;
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        let match;
+        regex.lastIndex = 0;
+        while ((match = regex.exec(node.textContent)) !== null) {
+            const range = document.createRange();
+            range.setStart(node, match.index);
+            range.setEnd(node, match.index + match[0].length);
+            const rect = range.getBoundingClientRect();
+            const containerRect = editorContainer.getBoundingClientRect();
+            markers.push({
+                page: parseInt(match[1]),
+                offsetTop: rect.top - containerRect.top + editorContainer.scrollTop
+            });
+        }
+    }
+    return markers.sort((a, b) => a.page - b.page);
+}
+
+function getPdfPagePositions() {
+    const container = document.getElementById('pdf-viewer-container');
+    const pdfTab = document.getElementById('tab-pdf');
+    if (!container || !pdfTab) return [];
+
+    const canvases = container.querySelectorAll('canvas');
+    const tabRect = pdfTab.getBoundingClientRect();
+    const positions = [];
+    canvases.forEach((canvas, i) => {
+        const rect = canvas.getBoundingClientRect();
+        positions.push({
+            page: i + 1,
+            offsetTop: rect.top - tabRect.top + pdfTab.scrollTop
+        });
+    });
+    return positions;
+}
+
+function interpolateScroll(srcPos, srcItems, destItems) {
+    let idx = 0;
+    for (let i = 0; i < srcItems.length; i++) {
+        if (srcItems[i].offsetTop <= srcPos) idx = i;
+        else break;
+    }
+
+    const srcA = srcItems[idx];
+    const destA = destItems.find(d => d.page === srcA.page);
+    if (!destA) return null;
+
+    const srcB = srcItems[idx + 1];
+    const destB = srcB ? destItems.find(d => d.page === srcB.page) : null;
+
+    if (!srcB || !destB) return destA.offsetTop;
+
+    const srcRange = srcB.offsetTop - srcA.offsetTop;
+    if (srcRange <= 0) return destA.offsetTop;
+
+    const fraction = (srcPos - srcA.offsetTop) / srcRange;
+    return destA.offsetTop + fraction * (destB.offsetTop - destA.offsetTop);
+}
+
+function setupScrollSync() {
+    const editorContainer = document.querySelector('.editor-container');
+    const pdfTab = document.getElementById('tab-pdf');
+
+    editorContainer.addEventListener('scroll', () => {
+        if (scrollSyncActive) return;
+        if (!currentPdfUrl) return;
+        if (pdfTab.classList.contains('hidden')) return;
+        scrollSyncActive = true;
+
+        const markers = getEditorPageMarkerPositions();
+        const pdfPages = getPdfPagePositions();
+
+        if (markers.length > 0 && pdfPages.length > 0) {
+            const target = interpolateScroll(editorContainer.scrollTop, markers, pdfPages);
+            if (target !== null) pdfTab.scrollTop = target;
+        } else {
+            const pct = editorContainer.scrollTop / (editorContainer.scrollHeight - editorContainer.clientHeight || 1);
+            pdfTab.scrollTop = pct * (pdfTab.scrollHeight - pdfTab.clientHeight);
+        }
+
+        requestAnimationFrame(() => { scrollSyncActive = false; });
+    });
+
+    pdfTab.addEventListener('scroll', () => {
+        if (scrollSyncActive) return;
+        if (!currentPdfUrl) return;
+        if (pdfTab.classList.contains('hidden')) return;
+        scrollSyncActive = true;
+
+        const markers = getEditorPageMarkerPositions();
+        const pdfPages = getPdfPagePositions();
+
+        if (pdfPages.length > 0 && markers.length > 0) {
+            const target = interpolateScroll(pdfTab.scrollTop, pdfPages, markers);
+            if (target !== null) editorContainer.scrollTop = target;
+        } else {
+            const pct = pdfTab.scrollTop / (pdfTab.scrollHeight - pdfTab.clientHeight || 1);
+            editorContainer.scrollTop = pct * (editorContainer.scrollHeight - editorContainer.clientHeight);
+        }
+
+        requestAnimationFrame(() => { scrollSyncActive = false; });
     });
 }
 
