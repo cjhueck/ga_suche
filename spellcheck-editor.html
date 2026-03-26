@@ -44,41 +44,43 @@
         .header {
             background: var(--panel-bg);
             border-bottom: 2px solid var(--accent-color);
-            padding: 0.75rem 1.5rem;
+            padding: 0.4rem 1rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex-shrink: 0;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
         }
 
         .header h1 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--heading-color);
             white-space: nowrap;
         }
 
         .header select, .header input {
-            padding: 6px 10px;
+            padding: 4px 8px;
             border: 1.5px solid var(--border-color);
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             background: var(--panel-bg);
             color: var(--text-color);
         }
 
-        .header select { min-width: 280px; cursor: pointer; }
+        .header select { flex: 0 1 150px; min-width: 80px; cursor: pointer; }
 
         .btn {
-            padding: 6px 14px;
+            padding: 4px 10px;
             border: 1.5px solid var(--accent-color);
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             cursor: pointer;
             background: transparent;
             color: var(--accent-color);
             transition: all 0.15s;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         .btn:hover { background: var(--accent-color); color: #fff; }
         .btn.primary { background: var(--accent-color); color: #fff; }
@@ -86,17 +88,69 @@
         #btn-autocorrect:not(:disabled) { background: #2d8a4e; color: #fff; }
         #btn-autocorrect:not(:disabled):hover { background: #236b3c; }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        #btn-pagemarker { background: var(--accent-color); color: #fff; }
+        #btn-pagemarker:hover { background: #365f6a; }
+        #btn-pagemarker.active { background: #2d8a4e; color: #fff; }
+        #btn-pagemarker.active:hover { background: #236b3c; }
+
+        .sm-active-marker {
+            background: #ffeb3b;
+            outline: 2px solid #f57c00;
+            border-radius: 3px;
+            padding: 1px 2px;
+        }
+
+        .sm-panel {
+            position: fixed;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            z-index: 10001;
+            padding: 6px 0;
+            font-size: 0.85rem;
+            min-width: 280px;
+        }
+        .sm-panel-title {
+            padding: 6px 14px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2px;
+        }
+        .sm-panel-item {
+            padding: 7px 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .sm-panel-item:hover { background: #f0f0f0; }
+        .sm-panel-kbd {
+            font-size: 0.72rem;
+            background: #e8e8e8;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-family: monospace;
+            color: #555;
+            white-space: nowrap;
+        }
 
         .btn-group {
             display: flex;
             border: 1.5px solid var(--accent-color);
             border-radius: 4px;
             overflow: hidden;
+            flex-shrink: 0;
         }
         .btn-group .btn {
             border: none;
             border-radius: 0;
             border-right: 1px solid var(--accent-color);
+            padding: 3px 8px;
+            font-size: 0.75rem;
         }
         .btn-group .btn:last-child { border-right: none; }
         .btn-group .btn.active { background: var(--accent-color); color: #fff; }
@@ -117,11 +171,12 @@
         .editor-toolbar {
             background: var(--panel-bg);
             border-bottom: 1px solid var(--border-color);
-            padding: 0.4rem 1rem;
+            padding: 8px 1rem 10px;
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 0.8rem;
+            line-height: 1;
             color: var(--secondary-text);
             flex-shrink: 0;
         }
@@ -185,6 +240,7 @@
             padding: 8px 4px;
             text-align: center;
             font-size: 0.8rem;
+            line-height: 1;
             cursor: pointer;
             border: none;
             background: transparent;
@@ -409,10 +465,54 @@
             padding: 1px 2px;
             outline: 2px solid #9b59b6;
         }
-        #btn-pagemarker:not(:disabled) { background: #8e44ad; color: #fff; }
-        #btn-pagemarker:not(:disabled):hover { background: #6c3483; }
 
-        #tab-pdf { padding: 0; }
+        #tab-pdf { padding: 0; display: flex; flex-direction: column; }
+        .pdf-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+        .pdf-nav-bar button {
+            padding: 3px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            line-height: 1;
+        }
+        .pdf-nav-bar button:hover { background: #f0f0f0; }
+        .pdf-nav-bar button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .pdf-nav-bar input[type="number"] {
+            width: 48px;
+            padding: 3px 4px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-align: center;
+            font-family: inherit;
+            -moz-appearance: textfield;
+        }
+        .pdf-nav-bar input[type="number"]::-webkit-outer-spin-button,
+        .pdf-nav-bar input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .pdf-nav-bar input[type="number"]:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        .pdf-nav-scroll {
+            flex: 1;
+            overflow-y: auto;
+        }
         #pdf-viewer-container {
             display: flex;
             flex-direction: column;
@@ -420,11 +520,26 @@
             gap: 8px;
             padding: 8px 4px;
         }
-        #pdf-viewer-container canvas {
+        .pdf-page-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .pdf-page-wrapper > canvas:first-child {
+            display: block;
             width: 100%;
             height: auto;
             box-shadow: 0 1px 4px rgba(0,0,0,0.12);
             border-radius: 2px;
+        }
+        .pdf-page-wrapper > canvas.pdf-highlight-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            box-shadow: none;
+            border-radius: 0;
         }
         .pdf-page-label {
             font-size: 0.72rem;
@@ -444,26 +559,24 @@
 <!-- Header -->
 <div class="header">
     <h1>GA Rechtschreib-Editor</h1>
-    <select id="ga-select" onchange="onGASelect(this.value)">
+    <div class="btn-group">
+        <button class="btn" onclick="document.getElementById('pdf-viewer-upload-input').click()" title="PDF im rechten Panel anzeigen">PDF laden</button>
+        <button class="btn" onclick="openMDFile()" title="MD-Datei vom Rechner laden">MD laden</button>
+    </div>
+    <select id="ga-select" onchange="onGASelect(this.value)" style="display:none;">
         <option value="">-- GA-Band wählen --</option>
     </select>
-    <div class="btn-group">
-        <button class="btn active" id="btn-source-md" onclick="setSource('md')">MD</button>
-        <button class="btn" id="btn-source-pdf" onclick="setSource('pdf')">PDF</button>
-    </div>
     <button class="btn primary" id="btn-check" onclick="runSpellcheck()" disabled>Prüfen</button>
     <button class="btn" id="btn-autocorrect" onclick="autoCorrectAll()" disabled title="Alle erkannten Fehler automatisch korrigieren">Auto-Korrektur</button>
     <button class="btn" id="btn-save" onclick="saveDocument()" disabled>Speichern</button>
     <button class="btn" id="btn-saveas" onclick="saveDocumentAs()" disabled title="Unter anderem Dateinamen speichern">Speichern unter...</button>
-    <button class="btn" id="btn-undo" onclick="editorUndo()" title="Rückgängig (Strg+Z)" style="padding: 5px 8px; line-height: 1;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 0 1 15.36-6.36L21 9"/></svg>
+    <button class="btn" id="btn-pagemarker" onclick="togglePageMarkerMode()" title="Seitenmarker-Modus (F2 / Alt+Q: nächster Marker)">Seitenmarker</button>
+    <button class="btn" id="btn-undo" onclick="editorUndo()" title="Rückgängig (Strg+Z)" style="padding: 3px 6px; line-height: 1;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 0 1 15.36-6.36L21 9"/></svg>
     </button>
-    <button class="btn" id="btn-redo" onclick="editorRedo()" title="Wiederherstellen (Strg+Y)" style="padding: 5px 8px; line-height: 1;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 0 0-15.36-6.36L3 9"/></svg>
+    <button class="btn" id="btn-redo" onclick="editorRedo()" title="Wiederherstellen (Strg+Y)" style="padding: 3px 6px; line-height: 1;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 0 0-15.36-6.36L3 9"/></svg>
     </button>
-    <button class="btn" id="btn-pagemarker" onclick="findNextCopyright()" disabled title="Copyright-Zeilen finden und durch Seitenmarker ersetzen (Alt+Q = nächste)">Seitenmarker</button>
-    <button class="btn" id="btn-upload" onclick="document.getElementById('pdf-upload-input').click()" style="display:none;">PDF hochladen</button>
-    <input type="file" id="pdf-upload-input" accept=".pdf" onchange="handlePDFUpload(event)" style="display:none;">
     <span id="auth-status" style="margin-left: auto; font-size: 0.8rem; color: var(--secondary-text);"></span>
     <button class="btn" id="btn-logout" onclick="doLogout()" style="display:none;">Abmelden</button>
 </div>
@@ -485,7 +598,7 @@
         </div>
         <div class="editor-container">
             <div id="editor-content" contenteditable="true" spellcheck="false">
-                <p style="color: var(--secondary-text); font-style: italic;">Wählen Sie einen GA-Band aus dem Dropdown, um zu beginnen.</p>
+                <p style="color: var(--secondary-text); font-style: italic;">Laden Sie ein PDF, um zu beginnen.</p>
             </div>
         </div>
     </div>
@@ -524,8 +637,11 @@
                     <input type="text" id="dict-add-input" placeholder="Wort hinzufügen…" style="flex:1; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem;">
                     <button class="btn" onclick="dictAddWord()" style="padding: 4px 10px; font-size: 0.8rem;">+</button>
                 </div>
+                <div style="margin-top: 6px;">
+                    <input type="text" id="dict-search-input" placeholder="Suchen…" oninput="debouncedDictRender()" style="width: 100%; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem; box-sizing: border-box;">
+                </div>
                 <div style="margin-top: 6px; font-size: 0.75rem; color: var(--secondary-text);">
-                    <span id="dict-count">0</span> Wörter im Benutzerwörterbuch
+                    <span id="dict-count">0</span> Wörter, <span id="corr-count">0</span> Korrekturen
                 </div>
             </div>
             <div id="dict-list" style="overflow-y: auto; flex: 1;"></div>
@@ -551,10 +667,20 @@
 
         <!-- PDF Viewer Tab -->
         <div id="tab-pdf" class="sidebar-content hidden">
-            <div id="pdf-viewer-placeholder">
-                Laden Sie einen GA-Band als PDF, um ihn hier anzuzeigen.
+            <div class="pdf-nav-bar" id="pdf-nav-bar">
+                <button onclick="pdfNavPage(-1)" id="pdf-nav-prev" disabled title="Vorherige Seite">&#9664;</button>
+                <input type="number" id="pdf-page-input" min="1" value="1" title="Seitenzahl eingeben" onkeydown="if(event.key==='Enter'){pdfGoToPage(+this.value);}" disabled>
+                <span id="pdf-page-total">/ 0</span>
+                <button onclick="pdfNavPage(1)" id="pdf-nav-next" disabled title="Nächste Seite">&#9654;</button>
             </div>
-            <div id="pdf-viewer-container"></div>
+            <div class="pdf-nav-scroll" id="pdf-nav-scroll">
+                <input type="file" id="pdf-viewer-upload-input" accept=".pdf" onchange="handleViewerPDFUpload(event)" style="display:none;">
+                <div id="pdf-viewer-placeholder">
+                    <p>Laden Sie ein PDF, um es hier anzuzeigen.</p>
+                    <button class="btn" onclick="document.getElementById('pdf-viewer-upload-input').click()" style="margin-top: 0.5rem;">PDF laden</button>
+                </div>
+                <div id="pdf-viewer-container"></div>
+            </div>
         </div>
 
         <!-- Upload Tab -->
@@ -562,7 +688,7 @@
             <div id="upload-zone" class="upload-zone">
                 <p style="font-size: 1.5rem; margin-bottom: 0.5rem;">📄</p>
                 <p style="font-weight: 500; margin-bottom: 0.3rem;">PDF hierher ziehen</p>
-                <p style="font-size: 0.8rem;">oder <a href="#" onclick="document.getElementById('pdf-upload-input').click(); return false;" style="color: var(--accent-color);">Datei auswählen</a></p>
+                <p style="font-size: 0.8rem;">oder <a href="#" onclick="document.getElementById('pdf-viewer-upload-input').click(); return false;" style="color: var(--accent-color);">Datei auswählen</a></p>
             </div>
             <div id="upload-log" style="padding: 0.5rem 1rem; font-size: 0.8rem; color: var(--secondary-text);"></div>
         </div>
@@ -584,18 +710,8 @@
 
 <!-- Context Menu -->
 <div id="context-menu" class="context-menu hidden"></div>
+<div id="sm-panel" class="sm-panel hidden"></div>
 
-<!-- Save As Dialog -->
-<div id="saveas-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.25); z-index:9999; align-items:center; justify-content:center;">
-    <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:20px 24px; min-width:420px; box-shadow:0 4px 20px rgba(0,0,0,0.15);">
-        <div style="font-weight:600; margin-bottom:12px; color:var(--text-color); font-size:15px;">Speichern unter...</div>
-        <input type="text" id="saveas-input" style="width:100%; padding:8px 10px; border:1.5px solid var(--border-color); border-radius:4px; background:#fff; color:var(--text-color); font-size:14px; box-sizing:border-box; outline-color:var(--accent-color);" />
-        <div style="display:flex; gap:8px; margin-top:16px; justify-content:flex-end;">
-            <button onclick="closeSaveAsDialog()" class="btn" style="padding:6px 16px;">Abbrechen</button>
-            <button onclick="confirmSaveAs()" class="btn" style="padding:6px 16px; background:var(--accent-color); color:#fff; border-color:var(--accent-color);">Speichern</button>
-        </div>
-    </div>
-</div>
 
 <script>
 // ============================================================================
@@ -604,6 +720,7 @@
 let currentSource = 'md';
 let currentGA = null;
 let currentFileData = null;
+let currentFileHandle = null;
 let originalText = '';
 let typoInstance = null;
 let typoLoading = false;
@@ -627,6 +744,7 @@ const EDITOR_EMAILS = [
 const DICT_AFF_URL = 'dictionaries/de_DE.aff';
 const DICT_DIC_URL = 'dictionaries/de_DE.dic';
 const USER_DICT_KEY = 'ga-suche-spellcheck-dictionary';
+const USER_CORRECTIONS_KEY = 'ga-suche-spellcheck-corrections';
 
 function getApiBase() {
     if (isLocal) return 'http://localhost:3003/api';
@@ -641,7 +759,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (isLocal) {
         document.getElementById('auth-status').textContent = 'Lokal (kein Login nötig)';
-        document.getElementById('btn-upload').style.display = 'none';
         await loadGAList();
     } else {
         await initAuth();
@@ -692,7 +809,6 @@ async function doLogout() {
 function onAuthSuccess() {
     document.getElementById('auth-status').textContent = currentUser.email;
     document.getElementById('btn-logout').style.display = '';
-    document.getElementById('btn-upload').style.display = '';
     loadGAList();
 }
 
@@ -779,8 +895,6 @@ async function loadDocument() {
                 setStatus('Extrahiere PDF-Text...');
                 const result = await extractPDFText(data.pdfUrl);
                 text = result.text;
-
-                if (!result.usedMistral) autoSaveOCRText(text);
             }
 
             originalText = text;
@@ -792,7 +906,9 @@ async function loadDocument() {
             originalText = data.text;
             document.getElementById('editor-content').textContent = data.text;
             currentPdfUrl = null;
+            currentPdfDoc = null;
             clearPdfViewer();
+            loadPdfInSidebar();
         }
 
         let fileInfoText = data.filename || `GA ${currentGA} (${currentSource.toUpperCase()})`;
@@ -801,7 +917,6 @@ async function loadDocument() {
         document.getElementById('btn-check').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
-        document.getElementById('btn-pagemarker').disabled = false;
 
         updateWordCount();
         clearErrors();
@@ -811,6 +926,30 @@ async function loadDocument() {
         document.getElementById('editor-content').innerHTML = `<p style="color: #dc2626;">Fehler: ${err.message}</p>`;
         setStatus('Fehler: ' + err.message);
         console.error(err);
+    }
+}
+
+async function loadPdfInSidebar() {
+    if (!currentGA) return;
+    try {
+        const headers = {};
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+        const url = `${getApiBase()}/spellcheck/load/${encodeURIComponent(currentGA)}?format=pdf`;
+        const res = await fetch(url, { headers });
+        if (!res.ok) return;
+        const pdfData = await res.json();
+        if (pdfData.pdfUrl) {
+            const pdfFullUrl = buildPdfUrl(pdfData.pdfUrl);
+            currentPdfUrl = pdfFullUrl;
+            currentPdfDoc = null;
+            switchSidebarTabByName('pdf');
+            await renderPdfInViewer(pdfFullUrl);
+        }
+    } catch (err) {
+        console.warn('[PDF Sidebar] Kein PDF für GA ' + currentGA + ':', err.message);
     }
 }
 
@@ -838,13 +977,98 @@ async function extractPDFText(pdfUrl) {
         return { text, usedMistral: true };
     }
 
-    console.log(`[PDF] Textlayer vorhanden (${avgCharsPerPage.toFixed(0)} Zeichen/Seite) → Direkt-Extraktion`);
+    console.log(`[PDF] Textlayer vorhanden (${avgCharsPerPage.toFixed(0)} Zeichen/Seite) → Direkt-Extraktion mit Absatzerkennung`);
     const pages = [];
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        const text = content.items.map(item => item.str).join(' ');
-        pages.push(`|${i}|\n${text}`);
+        const items = content.items.filter(it => it.str.trim().length > 0);
+
+        if (items.length === 0) {
+            pages.push(`|${i}|`);
+            if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
+            continue;
+        }
+
+        const yGaps = [];
+        for (let j = 1; j < items.length; j++) {
+            const gap = items[j - 1].transform[5] - items[j].transform[5];
+            if (gap > 0.5 && gap < 80) yGaps.push(gap);
+        }
+        yGaps.sort((a, b) => a - b);
+        const lineSpacing = yGaps.length > 3
+            ? yGaps[Math.floor(yGaps.length / 2)]
+            : 14;
+        const sameLineThreshold = lineSpacing * 0.5;
+        const paraGap = lineSpacing * 1.25;
+
+        const lines = [];
+        let currentLine = items[0].str;
+        let lineStartX = items[0].transform[4];
+        for (let j = 1; j < items.length; j++) {
+            const gap = items[j - 1].transform[5] - items[j].transform[5];
+            if (gap < sameLineThreshold) {
+                currentLine += ' ' + items[j].str;
+            } else {
+                lines.push({ text: currentLine, startX: lineStartX, gapAfter: gap });
+                currentLine = items[j].str;
+                lineStartX = items[j].transform[4];
+            }
+        }
+        lines.push({ text: currentLine, startX: lineStartX, gapAfter: 0 });
+
+        const bodyLines = lines.filter(l =>
+            l.text.trim().length > 10 &&
+            !/^\s*\|?\d+\|?\s*$/.test(l.text) &&
+            !/^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(l.text)
+        );
+
+        const textLineLens = bodyLines.map(l => l.text.length);
+        textLineLens.sort((a, b) => a - b);
+        const medianLineLen = textLineLens.length > 2
+            ? textLineLens[Math.floor(textLineLens.length * 0.75)]
+            : 80;
+        const shortLineThreshold = medianLineLen * 0.8;
+
+        const xPositions = bodyLines.map(l => Math.round(l.startX));
+        xPositions.sort((a, b) => a - b);
+        const baseX = xPositions.length > 2
+            ? xPositions[Math.floor(xPositions.length * 0.25)]
+            : (xPositions[0] || 0);
+        const indentThreshold = lineSpacing * 0.8;
+
+        const parts = [];
+        for (let li = 0; li < lines.length; li++) {
+            parts.push(lines[li].text);
+            if (li >= lines.length - 1) break;
+
+            const gap = lines[li].gapAfter;
+            const lineText = lines[li].text.trimEnd();
+            const nextLine = lines[li + 1];
+            const endsWithPunct = /[.!?:;»«"'\u201d\u00bb\u2019]$/.test(lineText);
+            const isShortLine = lineText.length < shortLineThreshold && lineText.length > 0;
+            const isAllCaps = /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(lineText) && lineText.length > 3;
+            const nextIsIndented = nextLine && (nextLine.startX - baseX) > indentThreshold;
+            const nextIsAllCaps = nextLine && /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(nextLine.text.trim()) && nextLine.text.trim().length > 3;
+
+            if (gap >= paraGap) {
+                parts.push('\n\n');
+            } else if (nextIsIndented && !isAllCaps) {
+                parts.push('\n\n');
+            } else if (endsWithPunct && isShortLine) {
+                parts.push('\n\n');
+            } else if (isAllCaps || nextIsAllCaps) {
+                parts.push('\n\n');
+            } else {
+                parts.push('\n');
+            }
+        }
+        let pageText = parts.join('');
+
+        pageText = pageText.replace(/(VERLAG)\s+(?!\n)/g, '$1\n\n');
+        pageText = pageText.replace(/(VERLAG)\s*\n(?!\n)/g, '$1\n\n');
+
+        pages.push(`|${i}|\n${pageText}`);
         if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
     }
     return { text: pages.join('\n\n'), usedMistral: false };
@@ -929,6 +1153,8 @@ function clearPdfViewer() {
     container.innerHTML = '';
     document.getElementById('pdf-viewer-placeholder').style.display = '';
     currentPdfDoc = null;
+    pdfPageTexts = [];
+    resetPdfNav();
 }
 
 async function renderPdfInViewer(fullUrl) {
@@ -936,6 +1162,7 @@ async function renderPdfInViewer(fullUrl) {
     const placeholder = document.getElementById('pdf-viewer-placeholder');
     container.innerHTML = '';
     placeholder.style.display = 'none';
+    pdfPageTexts = [];
 
     if (typeof pdfjsLib === 'undefined') {
         placeholder.textContent = 'pdf.js nicht verfügbar';
@@ -948,24 +1175,33 @@ async function renderPdfInViewer(fullUrl) {
         currentPdfDoc = pdf;
         const containerWidth = container.parentElement.clientWidth - 16;
 
+        const dpr = window.devicePixelRatio || 1;
+        const PDF_RENDER_SCALE = Math.max(dpr, 2);
+
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const viewport = page.getViewport({ scale: 1 });
-            const scale = containerWidth / viewport.width;
-            const scaledViewport = page.getViewport({ scale });
+            const displayScale = containerWidth / viewport.width;
+            const scaledViewport = page.getViewport({ scale: displayScale });
+            const renderViewport = page.getViewport({ scale: displayScale * PDF_RENDER_SCALE });
 
             const canvas = document.createElement('canvas');
-            canvas.width = scaledViewport.width;
-            canvas.height = scaledViewport.height;
+            canvas.width = Math.floor(renderViewport.width);
+            canvas.height = Math.floor(renderViewport.height);
             const ctx = canvas.getContext('2d');
 
-            await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+            await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'pdf-page-wrapper';
+            wrapper.appendChild(canvas);
+            await storePdfTextContent(page, scaledViewport);
 
             const label = document.createElement('div');
             label.className = 'pdf-page-label';
             label.textContent = `Seite ${i} / ${pdf.numPages}`;
 
-            container.appendChild(canvas);
+            container.appendChild(wrapper);
             container.appendChild(label);
 
             if (i % 5 === 0) {
@@ -973,19 +1209,127 @@ async function renderPdfInViewer(fullUrl) {
                 await new Promise(r => setTimeout(r, 0));
             }
         }
+        initPdfNav(pdf.numPages);
         setStatus(`PDF geladen: ${pdf.numPages} Seiten`);
     } catch (err) {
         placeholder.textContent = 'PDF konnte nicht gerendert werden: ' + err.message;
         placeholder.style.display = '';
+        resetPdfNav();
         console.error('[PDF Viewer]', err);
     }
+}
+
+let pdfPageTexts = [];
+
+async function storePdfTextContent(page, viewport) {
+    try {
+        const textContent = await page.getTextContent();
+        const textItems = textContent.items.filter(it => it.str && it.str.trim());
+        pdfPageTexts.push({
+            pageIdx: pdfPageTexts.length,
+            items: textContent.items,
+            viewport
+        });
+        if (pdfPageTexts.length === 1) {
+            console.log(`[PDF TextContent] Seite 1: ${textItems.length} Text-Elemente`,
+                textItems.length > 0 ? `(Beispiel: "${textItems[0].str}")` : '(kein Text – gescanntes PDF?)');
+        }
+    } catch (err) {
+        console.warn('[PDF TextContent]', err);
+        pdfPageTexts.push({ pageIdx: pdfPageTexts.length, items: [], viewport });
+    }
+}
+
+function highlightPdfSearch(query) {
+    clearPdfSearchHighlights();
+    if (!query || !currentPdfDoc || pdfPageTexts.length === 0) return;
+
+    const lowerQuery = query.toLowerCase();
+    const container = document.getElementById('pdf-viewer-container');
+    const wrappers = container.querySelectorAll('.pdf-page-wrapper');
+    let totalHits = 0;
+
+    for (let i = 0; i < pdfPageTexts.length; i++) {
+        const pageData = pdfPageTexts[i];
+        const wrapper = wrappers[i];
+        if (!wrapper) continue;
+
+        const mainCanvas = wrapper.querySelector('canvas:first-child');
+        if (!mainCanvas) continue;
+
+        const vp = pageData.viewport;
+        const canvasScale = mainCanvas.width / vp.width;
+
+        const matchedIndices = new Set();
+        for (let j = 0; j < pageData.items.length; j++) {
+            const item = pageData.items[j];
+            if (!item.str) continue;
+            const itemLower = item.str.toLowerCase();
+            if (itemLower.includes(lowerQuery)) {
+                matchedIndices.add(j);
+                continue;
+            }
+            if (lowerQuery.length >= 6 && itemLower.endsWith('-')) {
+                const prefix = itemLower.slice(0, -1);
+                for (let n = j + 1; n < pageData.items.length; n++) {
+                    const next = pageData.items[n];
+                    if (!next.str) continue;
+                    const combined = prefix + next.str.toLowerCase();
+                    if (combined.includes(lowerQuery)) {
+                        matchedIndices.add(j);
+                        matchedIndices.add(n);
+                    }
+                    break;
+                }
+            }
+        }
+        const rects = [];
+        for (const j of matchedIndices) {
+            const item = pageData.items[j];
+            if (!item.str) continue;
+
+            const tx = pdfjsLib.Util.transform(vp.transform, item.transform);
+            const fontSize = Math.sqrt(tx[0] * tx[0] + tx[1] * tx[1]);
+            const x = tx[4];
+            const y = tx[5] - fontSize;
+            const w = item.width ? item.width * vp.scale : item.str.length * fontSize * 0.55;
+            const h = fontSize * 1.3;
+            rects.push({ x, y, w, h });
+        }
+
+        if (rects.length === 0) continue;
+        totalHits += rects.length;
+
+        const overlay = document.createElement('canvas');
+        overlay.className = 'pdf-highlight-overlay';
+        overlay.width = mainCanvas.width;
+        overlay.height = mainCanvas.height;
+        const ctx = overlay.getContext('2d');
+        ctx.scale(canvasScale, canvasScale);
+        ctx.fillStyle = 'rgba(255, 200, 0, 0.4)';
+        for (const r of rects) {
+            if (ctx.roundRect) {
+                ctx.beginPath();
+                ctx.roundRect(r.x, r.y, r.w, r.h, 3);
+                ctx.fill();
+            } else {
+                ctx.fillRect(r.x, r.y, r.w, r.h);
+            }
+        }
+        wrapper.appendChild(overlay);
+    }
+    if (totalHits > 0) {
+        console.log(`[PDF Search] ${totalHits} Treffer für "${query}" in ${pdfPageTexts.length} Seiten`);
+    }
+}
+
+function clearPdfSearchHighlights() {
+    document.querySelectorAll('.pdf-highlight-overlay').forEach(el => el.remove());
 }
 
 function setSource(src) {
     if (src === currentSource) return;
     currentSource = src;
-    document.getElementById('btn-source-md').classList.toggle('active', src === 'md');
-    document.getElementById('btn-source-pdf').classList.toggle('active', src === 'pdf');
     if (currentGA) loadDocument();
 }
 
@@ -1079,21 +1423,70 @@ function renderDictListDeferred() {
     dictRenderTimer = setTimeout(renderDictList, 100);
 }
 
+let dictSearchTimer = null;
+function debouncedDictRender() {
+    if (dictSearchTimer) clearTimeout(dictSearchTimer);
+    dictSearchTimer = setTimeout(renderDictList, 150);
+}
+
 function renderDictList() {
     const dict = getUserDictionary();
+    const corrections = getUserCorrections();
+    const corrEntries = Object.entries(corrections);
     document.getElementById('dict-count').textContent = dict.length;
+    document.getElementById('corr-count').textContent = corrEntries.length;
+
     const list = document.getElementById('dict-list');
-    if (dict.length === 0) {
-        list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Noch keine Wörter gespeichert.</div>';
+    const searchInput = document.getElementById('dict-search-input');
+    const filter = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+
+    const filteredDict = (filter
+        ? dict.filter(w => w.toLowerCase().includes(filter))
+        : [...dict]
+    ).sort((a, b) => a.localeCompare(b, 'de'));
+
+    const filteredCorr = (filter
+        ? corrEntries.filter(([k, v]) => k.toLowerCase().includes(filter) || v.toLowerCase().includes(filter))
+        : corrEntries
+    ).sort((a, b) => a[0].localeCompare(b[0], 'de'));
+
+    if (filteredDict.length === 0 && filteredCorr.length === 0) {
+        list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">' +
+            (filter ? 'Keine Treffer.' : 'Noch keine Einträge.') + '</div>';
         return;
     }
-    const sorted = [...dict].sort((a, b) => a.localeCompare(b, 'de'));
-    list.innerHTML = sorted.map(w => `
-        <div class="error-item" style="justify-content: space-between;">
-            <span style="font-size: 0.85rem;">${escapeHtml(w)}</span>
-            <button onclick="removeFromUserDictionary('${escapeHtml(w)}')" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.75rem; padding:2px 6px;" title="Entfernen">✕</button>
-        </div>
-    `).join('');
+
+    let html = '';
+
+    if (filteredDict.length > 0) {
+        html += '<div style="padding: 4px 10px; font-size: 0.72rem; font-weight: 600; color: var(--secondary-text); background: var(--bg-color); border-bottom: 1px solid var(--border-color);">Wörterbuch</div>';
+        html += filteredDict.map(w => {
+            const esc = escapeHtml(w).replace(/'/g, '&#39;');
+            return `<div class="error-item" style="justify-content: space-between;">
+                <span style="font-size: 0.85rem;">${escapeHtml(w)}</span>
+                <button onclick="removeFromUserDictionary('${esc}')" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.75rem; padding:2px 6px;" title="Entfernen">✕</button>
+            </div>`;
+        }).join('');
+    }
+
+    if (filteredCorr.length > 0) {
+        html += '<div style="padding: 4px 10px; font-size: 0.72rem; font-weight: 600; color: var(--secondary-text); background: var(--bg-color); border-bottom: 1px solid var(--border-color);">Auto-Korrekturen</div>';
+        html += filteredCorr.map(([orig, corr]) => {
+            const escOrig = escapeHtml(orig).replace(/'/g, '&#39;');
+            return `<div class="error-item" style="justify-content: space-between;">
+                <span style="font-size: 0.85rem;">${escapeHtml(orig)} <span style="color:var(--secondary-text);">→</span> ${escapeHtml(corr)}</span>
+                <button onclick="removeCorrectionFromUI('${escOrig}')" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.75rem; padding:2px 6px;" title="Entfernen">✕</button>
+            </div>`;
+        }).join('');
+    }
+
+    list.innerHTML = html;
+}
+
+function removeCorrectionFromUI(original) {
+    removeUserCorrection(original);
+    renderDictList();
+    setStatus(`Korrektur "${original}" entfernt`);
 }
 
 function dictAddWord() {
@@ -1103,6 +1496,38 @@ function dictAddWord() {
         addToUserDictionary(word);
         input.value = '';
         setStatus(`"${word}" zum Wörterbuch hinzugefügt`);
+    }
+}
+
+// ============================================================================
+// User Corrections Store (original → corrected mappings)
+// ============================================================================
+let userCorrectionsCache = null;
+
+function getUserCorrections() {
+    if (userCorrectionsCache !== null) return userCorrectionsCache;
+    try {
+        const stored = localStorage.getItem(USER_CORRECTIONS_KEY);
+        userCorrectionsCache = stored ? JSON.parse(stored) : {};
+        return userCorrectionsCache;
+    } catch { userCorrectionsCache = {}; return {}; }
+}
+
+function addUserCorrection(original, corrected) {
+    if (!original || !corrected || original === corrected) return;
+    const corrections = getUserCorrections();
+    corrections[original] = corrected;
+    userCorrectionsCache = corrections;
+    localStorage.setItem(USER_CORRECTIONS_KEY, JSON.stringify(corrections));
+    console.log(`[Corrections] Gespeichert: "${original}" → "${corrected}"`);
+}
+
+function removeUserCorrection(original) {
+    const corrections = getUserCorrections();
+    if (original in corrections) {
+        delete corrections[original];
+        userCorrectionsCache = corrections;
+        localStorage.setItem(USER_CORRECTIONS_KEY, JSON.stringify(corrections));
     }
 }
 
@@ -1126,18 +1551,30 @@ function isValidPart(typo, word) {
 }
 
 function checkJoined(typo, part1, part2) {
-    const joined = part1 + part2;
-    if (typo.check(joined)) return joined;
-    if (isInUserDictionary(joined)) return joined;
-    const cap = joined.charAt(0).toUpperCase() + joined.slice(1);
-    if (typo.check(cap)) return cap;
-    if (isInUserDictionary(cap)) return cap;
-    const lower = joined.toLowerCase();
-    if (typo.check(lower)) return lower;
-    if (isInUserDictionary(lower)) return lower;
+    const candidates = [part1 + part2];
+    const joined = candidates[0];
+    if (joined.includes('ß')) {
+        candidates.push(joined.replace(/ß/g, 'ss'));
+    }
+
+    for (const c of candidates) {
+        if (typo.check(c)) return c;
+        if (isInUserDictionary(c)) return c;
+        const cap = c.charAt(0).toUpperCase() + c.slice(1);
+        if (typo.check(cap)) return cap;
+        if (isInUserDictionary(cap)) return cap;
+        const lower = c.toLowerCase();
+        if (typo.check(lower)) return lower;
+        if (isInUserDictionary(lower)) return lower;
+    }
 
     if (isValidPart(typo, part1) && isValidPart(typo, part2)) {
-        return part1 + part2.charAt(0).toLowerCase() + part2.slice(1);
+        const fallback = part1 + part2.charAt(0).toLowerCase() + part2.slice(1);
+        if (fallback.includes('ß')) {
+            const ssFallback = fallback.replace(/ß/g, 'ss');
+            if (typo.check(ssFallback) || isInUserDictionary(ssFallback)) return ssFallback;
+        }
+        return fallback;
     }
 
     return null;
@@ -1298,11 +1735,21 @@ function renderAnnotatedText(rawText, typo, hyphenMatches) {
         for (const h of hyphenMatches) {
             const relStart = h.start - lineStart;
             const relEnd = h.end - lineStart;
-            // The match must at least partially overlap this line
             if (relStart >= 0 && relStart < line.length) {
                 const clampedEnd = Math.min(relEnd, line.length);
                 marks.push({
                     start: relStart,
+                    end: clampedEnd,
+                    type: 'st',
+                    word: h.text,
+                    absPos: h.start,
+                    joined: h.joined
+                });
+            } else if (relStart < 0 && relEnd > 0) {
+                const clampedStart = 0;
+                const clampedEnd = Math.min(relEnd, line.length);
+                marks.push({
+                    start: clampedStart,
                     end: clampedEnd,
                     type: 'st',
                     word: h.text,
@@ -1437,7 +1884,7 @@ async function saveDocument() {
     document.getElementById('btn-save').disabled = false;
 }
 
-function saveDocumentAs() {
+async function saveDocumentAs() {
     if (!currentGA) return;
     const editor = document.getElementById('editor-content');
     const text = editor.textContent || editor.innerText;
@@ -1451,99 +1898,50 @@ function saveDocumentAs() {
         ? currentFilename
         : `GA${currentGA.padStart(3, '0')} - Korrektur.md`;
 
-    const overlay = document.getElementById('saveas-overlay');
-    const input = document.getElementById('saveas-input');
-    input.value = defaultName;
-    overlay.style.display = 'flex';
-    setTimeout(() => { input.focus(); input.select(); }, 50);
-}
+    if (window.showSaveFilePicker) {
+        try {
+            const handle = await window.showSaveFilePicker({
+                suggestedName: defaultName,
+                types: [{
+                    description: 'Markdown-Datei',
+                    accept: { 'text/markdown': ['.md'] }
+                }, {
+                    description: 'Textdatei',
+                    accept: { 'text/plain': ['.txt'] }
+                }]
+            });
+            const writable = await handle.createWritable();
+            await writable.write(text);
+            await writable.close();
 
-function closeSaveAsDialog() {
-    document.getElementById('saveas-overlay').style.display = 'none';
-}
-document.getElementById('saveas-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') confirmSaveAs();
-    if (e.key === 'Escape') closeSaveAsDialog();
-});
-document.getElementById('saveas-overlay').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeSaveAsDialog();
-});
-
-async function confirmSaveAs() {
-    const input = document.getElementById('saveas-input');
-    const newFilename = input.value.trim();
-    if (!newFilename) return;
-    closeSaveAsDialog();
-
-    const finalName = newFilename.endsWith('.md') ? newFilename : newFilename + '.md';
-    const editor = document.getElementById('editor-content');
-    const text = editor.textContent || editor.innerText;
-
-    setStatus('Speichere unter: ' + finalName + '...');
-    document.getElementById('btn-saveas').disabled = true;
-
-    try {
-        const headers = { 'Content-Type': 'application/json' };
-        if (!isLocal && currentUser) {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+            originalText = text;
+            hasUnsavedChanges = false;
+            document.getElementById('edit-status').textContent = '✓ Gespeichert';
+            document.getElementById('edit-status').style.color = '#16a34a';
+            setStatus('Gespeichert als: ' + handle.name);
+            document.getElementById('file-info').textContent = handle.name;
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+            setStatus('Speichern fehlgeschlagen: ' + err.message);
+            console.error('[SaveAs]', err);
+            alert('Speichern fehlgeschlagen: ' + err.message);
         }
-
-        const saveBody = { text, format: currentSource, filename: finalName };
-        if (currentFileData?.savedDirName || currentFileData?.dirName) {
-            saveBody.dirName = currentFileData.savedDirName || currentFileData.dirName;
-        }
-
-        const res = await fetch(`${getApiBase()}/spellcheck/save/${encodeURIComponent(currentGA)}`, {
-            method: 'POST', headers, body: JSON.stringify(saveBody)
-        });
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
-            throw new Error(err.error || 'Speichern fehlgeschlagen');
-        }
-        const result = await res.json();
+    } else {
+        const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = defaultName;
+        a.click();
+        URL.revokeObjectURL(url);
         originalText = text;
         hasUnsavedChanges = false;
-
-        if (result.dirName && result.filename) {
-            currentFileData = Object.assign(currentFileData || {}, {
-                savedDirName: result.dirName,
-                savedFilename: result.filename
-            });
-        }
-
         document.getElementById('edit-status').textContent = '✓ Gespeichert';
         document.getElementById('edit-status').style.color = '#16a34a';
-        setStatus('Gespeichert als: ' + (result.filename || finalName));
-        document.getElementById('file-info').textContent = result.filename || finalName;
-    } catch (err) {
-        setStatus('Speichern fehlgeschlagen: ' + err.message);
-        console.error('[SaveAs]', err);
-        alert('Speichern fehlgeschlagen: ' + err.message);
+        setStatus('Datei heruntergeladen: ' + defaultName);
     }
-    document.getElementById('btn-saveas').disabled = false;
 }
 
-async function autoSaveOCRText(text) {
-    if (!currentGA || !text) return;
-    try {
-        const headers = { 'Content-Type': 'application/json' };
-        if (!isLocal && currentUser) {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
-        }
-        const res = await fetch(`${getApiBase()}/spellcheck/save-ocr/${encodeURIComponent(currentGA)}`, {
-            method: 'POST', headers, body: JSON.stringify({ text })
-        });
-        if (res.ok) {
-            const result = await res.json();
-            console.log('[OCR] Cache gespeichert:', result.ocrCacheFile);
-            setStatus('OCR-Text extrahiert und gecacht (' + result.ocrCacheFile + ')');
-        }
-    } catch (err) {
-        console.warn('[OCR] Cache speichern fehlgeschlagen:', err);
-    }
-}
 
 // ============================================================================
 // PDF Upload
@@ -1556,6 +1954,46 @@ async function handlePDFUpload(event) {
         return;
     }
     await uploadPDF(file);
+    event.target.value = '';
+}
+
+async function handleMDUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+        const text = await file.text();
+        const editor = document.getElementById('editor-content');
+        pushUndo();
+        editor.textContent = text;
+        originalText = text;
+        hasUnsavedChanges = false;
+
+        const gaMatch = file.name.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
+        if (gaMatch) {
+            currentGA = gaMatch[1];
+            currentSource = 'md';
+            document.getElementById('ga-select').value = currentGA;
+        }
+        currentFileData = { filename: file.name };
+
+        document.getElementById('btn-check').disabled = false;
+        document.getElementById('btn-autocorrect').disabled = false;
+        document.getElementById('btn-save').disabled = false;
+        document.getElementById('btn-saveas').disabled = false;
+        document.getElementById('file-info').textContent = file.name;
+        setStatus('MD geladen: ' + file.name);
+    } catch (err) {
+        setStatus('MD laden fehlgeschlagen: ' + err.message);
+        console.error(err);
+    }
+    event.target.value = '';
+}
+
+async function handleViewerPDFUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    await loadPdfIntoViewer(file);
     event.target.value = '';
 }
 
@@ -1584,8 +2022,28 @@ async function uploadPDF(file) {
         }
         const result = await res.json();
         log.innerHTML = `<span style="color: #16a34a;">Hochgeladen:</span> ${result.filename}`;
-        setStatus('PDF hochgeladen: ' + result.filename);
+
+        let gaNum = result.gaNumber;
+        if (!gaNum) {
+            const m = file.name.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
+            gaNum = m ? m[1] : null;
+        }
+        if (!gaNum) {
+            gaNum = prompt('GA-Nummer konnte nicht aus dem Dateinamen erkannt werden.\nBitte GA-Nummer eingeben (z.B. "4" oder "004"):');
+            if (gaNum) gaNum = gaNum.replace(/^0+/, '').trim();
+        }
+        if (!gaNum) {
+            setStatus('PDF hochgeladen, aber keine GA-Nummer angegeben.');
+            return;
+        }
+
         await loadGAList();
+        currentGA = gaNum;
+        currentSource = 'pdf';
+        document.getElementById('ga-select').value = gaNum;
+        hasUnsavedChanges = false;
+        setStatus('PDF hochgeladen – lade GA ' + gaNum + '...');
+        await loadDocument();
     } catch (err) {
         log.innerHTML = `<span style="color: #dc2626;">Fehler:</span> ${err.message}`;
         console.error(err);
@@ -1604,9 +2062,24 @@ function setupDragDrop() {
         e.preventDefault();
         zone.classList.remove('dragover');
         const file = e.dataTransfer.files[0];
-        if (file && file.name.endsWith('.pdf')) uploadPDF(file);
+        if (file && file.name.endsWith('.pdf')) loadPdfIntoViewer(file);
         else alert('Bitte eine PDF-Datei ablegen.');
     });
+}
+
+async function loadPdfIntoViewer(file) {
+    try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        currentPdfDoc = pdf;
+        currentPdfUrl = null;
+        switchSidebarTabByName('pdf');
+        await renderPdfInViewer(null);
+        setStatus('PDF im Viewer geladen: ' + file.name);
+    } catch (err) {
+        setStatus('PDF laden fehlgeschlagen: ' + err.message);
+        console.error(err);
+    }
 }
 
 // ============================================================================
@@ -1660,6 +2133,11 @@ function switchSidebarTab(tab) {
     document.querySelectorAll('.sidebar-content').forEach(c => c.classList.add('hidden'));
     event.target.classList.add('active');
     document.getElementById('tab-' + tab).classList.remove('hidden');
+    if (tab === 'dict') {
+        const si = document.getElementById('dict-search-input');
+        if (si) { si.value = ''; }
+        renderDictList();
+    }
 }
 
 // ============================================================================
@@ -1667,6 +2145,22 @@ function switchSidebarTab(tab) {
 // ============================================================================
 let wordCountTimer = null;
 let suppressInputHandler = false;
+
+const undoStack = [];
+const redoStack = [];
+const MAX_UNDO = 50;
+
+function pushUndo() {
+    const editor = document.getElementById('editor-content');
+    if (!editor) return;
+    const container = document.querySelector('.editor-container');
+    undoStack.push({
+        html: editor.innerHTML,
+        scroll: container ? container.scrollTop : 0
+    });
+    if (undoStack.length > MAX_UNDO) undoStack.shift();
+    redoStack.length = 0;
+}
 
 function setupEditorEvents() {
     const editor = document.getElementById('editor-content');
@@ -1694,9 +2188,13 @@ function setupEditorEvents() {
             e.preventDefault();
             openSearchBar();
         }
-        if (e.altKey && e.key === 'q') {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
             e.preventDefault();
-            findNextCopyright();
+            editorUndo();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+            e.preventDefault();
+            editorRedo();
         }
     });
 
@@ -1791,17 +2289,17 @@ function getEditorPageMarkerPositions() {
 
 function getPdfPagePositions() {
     const container = document.getElementById('pdf-viewer-container');
-    const pdfTab = document.getElementById('tab-pdf');
-    if (!container || !pdfTab) return [];
+    const scrollEl = document.getElementById('pdf-nav-scroll');
+    if (!container || !scrollEl) return [];
 
-    const canvases = container.querySelectorAll('canvas');
-    const tabRect = pdfTab.getBoundingClientRect();
+    const wrappers = container.querySelectorAll('.pdf-page-wrapper');
+    const scrollRect = scrollEl.getBoundingClientRect();
     const positions = [];
-    canvases.forEach((canvas, i) => {
-        const rect = canvas.getBoundingClientRect();
+    wrappers.forEach((wrapper, i) => {
+        const rect = wrapper.getBoundingClientRect();
         positions.push({
             page: i + 1,
-            offsetTop: rect.top - tabRect.top + pdfTab.scrollTop
+            offsetTop: rect.top - scrollRect.top + scrollEl.scrollTop
         });
     });
     return positions;
@@ -1832,11 +2330,12 @@ function interpolateScroll(srcPos, srcItems, destItems) {
 
 function setupScrollSync() {
     const editorContainer = document.querySelector('.editor-container');
+    const pdfScroll = document.getElementById('pdf-nav-scroll');
     const pdfTab = document.getElementById('tab-pdf');
 
     editorContainer.addEventListener('scroll', () => {
         if (scrollSyncActive) return;
-        if (!currentPdfUrl) return;
+        if (!currentPdfDoc) return;
         if (pdfTab.classList.contains('hidden')) return;
         scrollSyncActive = true;
 
@@ -1845,18 +2344,19 @@ function setupScrollSync() {
 
         if (markers.length > 0 && pdfPages.length > 0) {
             const target = interpolateScroll(editorContainer.scrollTop, markers, pdfPages);
-            if (target !== null) pdfTab.scrollTop = target;
+            if (target !== null) pdfScroll.scrollTop = target;
         } else {
             const pct = editorContainer.scrollTop / (editorContainer.scrollHeight - editorContainer.clientHeight || 1);
-            pdfTab.scrollTop = pct * (pdfTab.scrollHeight - pdfTab.clientHeight);
+            pdfScroll.scrollTop = pct * (pdfScroll.scrollHeight - pdfScroll.clientHeight);
         }
 
+        updatePdfCurrentPage();
         requestAnimationFrame(() => { scrollSyncActive = false; });
     });
 
-    pdfTab.addEventListener('scroll', () => {
+    pdfScroll.addEventListener('scroll', () => {
         if (scrollSyncActive) return;
-        if (!currentPdfUrl) return;
+        if (!currentPdfDoc) return;
         if (pdfTab.classList.contains('hidden')) return;
         scrollSyncActive = true;
 
@@ -1864,15 +2364,91 @@ function setupScrollSync() {
         const pdfPages = getPdfPagePositions();
 
         if (pdfPages.length > 0 && markers.length > 0) {
-            const target = interpolateScroll(pdfTab.scrollTop, pdfPages, markers);
+            const target = interpolateScroll(pdfScroll.scrollTop, pdfPages, markers);
             if (target !== null) editorContainer.scrollTop = target;
         } else {
-            const pct = pdfTab.scrollTop / (pdfTab.scrollHeight - pdfTab.clientHeight || 1);
+            const pct = pdfScroll.scrollTop / (pdfScroll.scrollHeight - pdfScroll.clientHeight || 1);
             editorContainer.scrollTop = pct * (editorContainer.scrollHeight - editorContainer.clientHeight);
         }
 
+        updatePdfCurrentPage();
         requestAnimationFrame(() => { scrollSyncActive = false; });
     });
+}
+
+// ============================================================================
+// PDF Navigation
+// ============================================================================
+let totalPdfPages = 0;
+let currentPdfPageNum = 1;
+
+function pdfNavPage(delta) {
+    pdfGoToPage(currentPdfPageNum + delta);
+}
+
+function pdfGoToPage(pageNum) {
+    pageNum = parseInt(pageNum);
+    if (!totalPdfPages || isNaN(pageNum) || pageNum < 1 || pageNum > totalPdfPages) return;
+    currentPdfPageNum = pageNum;
+
+    const container = document.getElementById('pdf-viewer-container');
+    const wrappers = container.querySelectorAll('.pdf-page-wrapper');
+    if (wrappers[pageNum - 1]) {
+        wrappers[pageNum - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    updatePdfNavDisplay();
+}
+
+function updatePdfCurrentPage() {
+    if (!totalPdfPages) return;
+    const scrollEl = document.getElementById('pdf-nav-scroll');
+    const container = document.getElementById('pdf-viewer-container');
+    if (!scrollEl || !container) return;
+
+    const wrappers = container.querySelectorAll('.pdf-page-wrapper');
+    const scrollRect = scrollEl.getBoundingClientRect();
+    let bestPage = 1;
+    let bestDist = Infinity;
+
+    for (let i = 0; i < wrappers.length; i++) {
+        const rect = wrappers[i].getBoundingClientRect();
+        const dist = Math.abs(rect.top - scrollRect.top);
+        if (dist < bestDist) {
+            bestDist = dist;
+            bestPage = i + 1;
+        }
+    }
+
+    if (bestPage !== currentPdfPageNum) {
+        currentPdfPageNum = bestPage;
+        updatePdfNavDisplay();
+    }
+}
+
+function updatePdfNavDisplay() {
+    document.getElementById('pdf-page-input').value = currentPdfPageNum;
+    document.getElementById('pdf-page-total').textContent = '/ ' + totalPdfPages;
+    document.getElementById('pdf-nav-prev').disabled = currentPdfPageNum <= 1;
+    document.getElementById('pdf-nav-next').disabled = currentPdfPageNum >= totalPdfPages;
+}
+
+function initPdfNav(numPages) {
+    totalPdfPages = numPages;
+    currentPdfPageNum = 1;
+    const input = document.getElementById('pdf-page-input');
+    input.disabled = false;
+    input.max = numPages;
+    updatePdfNavDisplay();
+}
+
+function resetPdfNav() {
+    totalPdfPages = 0;
+    currentPdfPageNum = 1;
+    document.getElementById('pdf-page-input').disabled = true;
+    document.getElementById('pdf-page-input').value = 1;
+    document.getElementById('pdf-page-total').textContent = '/ 0';
+    document.getElementById('pdf-nav-prev').disabled = true;
+    document.getElementById('pdf-nav-next').disabled = true;
 }
 
 function updateWordCount() {
@@ -1915,6 +2491,7 @@ async function autoCorrectAll() {
     let result = text;
     let hyphenFixes = 0;
     let ssFixes = 0;
+    let dictFixes = 0;
 
     // 1) Hyphen-newline joins: "Auseinan-\ndersetzungen" → "Auseinandersetzungen"
     result = result.replace(/(\p{L}{2,})-[\r\n]+(\p{L}{2,})/gu, (match, p1, p2) => {
@@ -1945,26 +2522,120 @@ async function autoCorrectAll() {
 
     await new Promise(r => setTimeout(r, 30));
 
-    // 4) ss → ß Korrektur (alte Rechtschreibung, typisch für Steiner-Texte)
-    const ssWords = new Map();
-    result.replace(/\b(\p{L}*ss\p{L}*)\b/gu, (match, word, offset) => {
-        if (!ssWords.has(word)) ssWords.set(word, []);
-        ssWords.get(word).push(offset);
+    // 4) ß → ss Korrektur (neue Rechtschreibung: bewußt → bewusst, daß → dass)
+    const szWords = new Map();
+    result.replace(/(?<!\p{L})(\p{L}*ß\p{L}*)(?!\p{L})/gu, (match, word) => {
+        if (!szWords.has(word)) szWords.set(word, []);
         return match;
     });
 
-    for (const [word] of ssWords) {
+    for (const [word] of szWords) {
         if (!typoInstance) break;
-        if (typoInstance.check(word)) continue;
         if (isInUserDictionary(word)) continue;
-        const withSz = word.replace(/ss/g, 'ß');
-        if (typoInstance.check(withSz) || isInUserDictionary(withSz)) {
-            result = result.split(word).join(withSz);
+        const withSS = word.replace(/ß/g, 'ss');
+        if (typoInstance.check(withSS) || isInUserDictionary(withSS)) {
+            result = result.split(word).join(withSS);
             ssFixes++;
         }
     }
 
-    const totalFixes = hyphenFixes + ssFixes;
+    // 5) Wörterbuch-Korrekturen anwenden (gespeicherte original→corrected Zuordnungen)
+    const corrections = getUserCorrections();
+    for (const [original, corrected] of Object.entries(corrections)) {
+        const escaped = original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(?<=^|\\P{L})${escaped}(?=\\P{L}|$)`, 'gu');
+        const before = result;
+        result = result.replace(regex, corrected);
+        if (result !== before) {
+            const count = (before.match(regex) || []).length;
+            dictFixes += count;
+        }
+    }
+
+    // 6) "RUDOLF STEINER ... VERLAG" Kopfzeilen entfernen (ein- oder mehrzeilig)
+    let headerFixes = 0;
+    result = result.replace(/^[^\n]*RUDOLF\s+STEINER[^\n]*VERLAG[^\n]*$/gm, () => {
+        headerFixes++;
+        return '';
+    });
+    result = result.replace(/^([^\n]*RUDOLF\s+STEINER[^\n]*)\n+([^\n]*VERLAG[^\n]*)$/gm, () => {
+        headerFixes++;
+        return '';
+    });
+
+    // 7) Seitenzahlen über Seitenmarkern entfernen: "\n31\n\n|32|" → "\n|32|"
+    let pageNumFixes = 0;
+    result = result.replace(/\n(\d{1,4})\s*\n+(\|\d+\|)/g, (match, num, marker) => {
+        pageNumFixes++;
+        return '\n' + marker;
+    });
+
+    // Aufräumen: mehrfache Leerzeilen auf maximal zwei reduzieren
+    result = result.replace(/\n{3,}/g, '\n\n');
+
+    // 8) Mehrfache Leerzeichen zu einfachen zusammenführen (nicht am Zeilenanfang)
+    let spaceFixes = 0;
+    result = result.replace(/([^\n]) {2,}/g, (match, prefix) => {
+        spaceFixes++;
+        return prefix + ' ';
+    });
+
+    // 9) Gerade Apostrophe ' → typografische '
+    let apostrophFixes = 0;
+    result = result.replace(/'/g, () => { apostrophFixes++; return '\u2019'; });
+
+    // 10) Zeilenumbrüche zusammenführen, Absatzumbrüche erhalten/einfügen (nur bei PDF-Quelle)
+    let lineFixes = 0;
+    if (currentSource === 'pdf') {
+        const lines = result.split('\n');
+
+        const textLineLens = lines
+            .filter(l => l.trim().length > 5 && !/^\s*\|\d+\|/.test(l) && !/^\s*#{1,6}\s/.test(l))
+            .map(l => l.replace(/\s*\^\w+\s*$/, '').trimEnd().length);
+        textLineLens.sort((a, b) => a - b);
+        const medianLen = textLineLens.length > 0 ? textLineLens[Math.floor(textLineLens.length / 2)] : 80;
+        const shortLineThreshold = medianLen * 0.75;
+
+        const outParts = [];
+        for (let i = 0; i < lines.length; i++) {
+            outParts.push(lines[i]);
+            if (i >= lines.length - 1) break;
+
+            const cur = lines[i];
+            const nxt = lines[i + 1];
+
+            if (cur.trim() === '' || nxt.trim() === '') {
+                outParts.push('\n');
+                continue;
+            }
+
+            if (/^\s*\|\d+\|\s*$/.test(cur) || /^\s*#{1,6}\s/.test(cur)) {
+                outParts.push('\n');
+                continue;
+            }
+
+            if (/^\s*\|\d+\|/.test(nxt) || /^\s*#{1,6}\s/.test(nxt)) {
+                outParts.push('\n');
+                continue;
+            }
+
+            const stripped = cur.replace(/\s*\^\w+\s*$/, '').trimEnd();
+            const endsWithPunct = /[.!?:»«"'\u201d)\u00bb]$/.test(stripped);
+            const isShortLine = stripped.length > 0 && stripped.length < shortLineThreshold;
+
+            if (endsWithPunct && isShortLine) {
+                outParts.push('\n\n');
+                lineFixes++;
+                continue;
+            }
+
+            outParts.push(' ');
+            lineFixes++;
+        }
+        result = outParts.join('');
+    }
+
+    const totalFixes = hyphenFixes + ssFixes + dictFixes + headerFixes + pageNumFixes + spaceFixes + apostrophFixes + lineFixes;
 
     if (totalFixes === 0) {
         alert('Keine automatisch korrigierbaren Fehler gefunden.\n\n' +
@@ -1976,9 +2647,18 @@ async function autoCorrectAll() {
         return;
     }
 
+    let msgParts = [];
+    if (hyphenFixes) msgParts.push(`${hyphenFixes} Silbentrennungen zusammenführen`);
+    if (ssFixes) msgParts.push(`${ssFixes} ß→ss Korrekturen (neue Rechtschreibung)`);
+    if (dictFixes) msgParts.push(`${dictFixes} Wörterbuch-Korrekturen`);
+    if (headerFixes) msgParts.push(`${headerFixes} Verlagskopfzeilen entfernt`);
+    if (pageNumFixes) msgParts.push(`${pageNumFixes} Seitenzahlen vor Markern entfernt`);
+    if (spaceFixes) msgParts.push(`${spaceFixes} mehrfache Leerzeichen bereinigt`);
+    if (apostrophFixes) msgParts.push(`${apostrophFixes} Apostrophe ' → \u2019`);
+    if (lineFixes) msgParts.push(`${lineFixes} Zeilenumbrüche bereinigt (Absätze erhalten)`);
+
     const msg = `Auto-Korrektur durchführen?\n\n` +
-                `${hyphenFixes} Silbentrennungen zusammenführen\n` +
-                `${ssFixes} ss→ß Korrekturen\n\n` +
+                msgParts.join('\n') + `\n\n` +
                 `Gesamt: ${totalFixes} Korrekturen\n\n` +
                 `Hinweis: Prüfen Sie das Ergebnis vor dem Speichern.\n` +
                 `(Rückgängig mit Strg+Z oder Undo-Button)`;
@@ -1989,14 +2669,299 @@ async function autoCorrectAll() {
         return;
     }
 
+    pushUndo();
     suppressInputHandler = true;
     editor.textContent = result;
     suppressInputHandler = false;
 
     markEdited();
     clearErrors();
-    setStatus(`Auto-Korrektur: ${totalFixes} Korrekturen angewendet (${hyphenFixes} Trennungen, ${ssFixes} ss→ß). Führen Sie "Prüfen" erneut aus.`);
+    const parts = [];
+    if (hyphenFixes) parts.push(`${hyphenFixes} Trennungen`);
+    if (ssFixes) parts.push(`${ssFixes} ß→ss`);
+    if (dictFixes) parts.push(`${dictFixes} Wörterbuch`);
+    if (headerFixes) parts.push(`${headerFixes} Kopfzeilen`);
+    if (pageNumFixes) parts.push(`${pageNumFixes} Seitenzahlen`);
+    if (spaceFixes) parts.push(`${spaceFixes} Leerzeichen`);
+    if (apostrophFixes) parts.push(`${apostrophFixes} Apostrophe`);
+    if (lineFixes) parts.push(`${lineFixes} Zeilenumbrüche`);
+    setStatus(`Auto-Korrektur: ${totalFixes} Korrekturen angewendet (${parts.join(', ')}). Führen Sie "Prüfen" erneut aus.`);
 }
+
+// ============================================================================
+// Seitenmarker-Modus
+// ============================================================================
+let pageMarkerMode = false;
+let currentMarkerIndex = -1;
+let lastSmOffset = -1;
+
+function togglePageMarkerMode() {
+    pageMarkerMode = !pageMarkerMode;
+    const btn = document.getElementById('btn-pagemarker');
+    btn.classList.toggle('active', pageMarkerMode);
+    closeSmPanel();
+    if (pageMarkerMode) {
+        currentMarkerIndex = -1;
+        lastSmOffset = -1;
+        setStatus('Seitenmarker-Modus aktiv. Nochmal klicken oder Alt+Q / F2 → nächster Marker');
+        jumpToNextMarker();
+    } else {
+        lastSmOffset = -1;
+        setStatus('Seitenmarker-Modus deaktiviert');
+    }
+}
+
+function smNextMarker() {
+    if (!pageMarkerMode) {
+        pageMarkerMode = true;
+        document.getElementById('btn-pagemarker').classList.add('active');
+        currentMarkerIndex = -1;
+        lastSmOffset = -1;
+    }
+    jumpToNextMarker();
+}
+
+function getMarkerPositions() {
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    const positions = [];
+    const regex = /\|\d+\|/g;
+    let m;
+    while ((m = regex.exec(text)) !== null) {
+        positions.push({ index: m.index, text: m[0], length: m[0].length });
+    }
+    return positions;
+}
+
+function clearSmHighlight() {
+    const el = document.querySelector('.sm-active-marker');
+    if (el) {
+        el.outerHTML = el.innerHTML;
+    }
+}
+
+function getCursorOffset() {
+    const editor = document.getElementById('editor-content');
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return -1;
+    const range = sel.getRangeAt(0);
+    if (!editor.contains(range.startContainer)) return -1;
+    const preRange = document.createRange();
+    preRange.setStart(editor, 0);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    return preRange.toString().length;
+}
+
+function jumpToNextMarker() {
+    if (!pageMarkerMode) return;
+
+    const editor = document.getElementById('editor-content');
+
+    const cursorPos = getCursorOffset();
+
+    clearSmHighlight();
+
+    const text = editor.textContent || '';
+    const allMatches = [...text.matchAll(/\|\d+\|/g)];
+    if (allMatches.length === 0) {
+        setStatus('Keine Seitenmarker gefunden');
+        return;
+    }
+
+    const searchFrom = (cursorPos >= 0) ? cursorPos : lastSmOffset;
+    let idx = allMatches.findIndex(m => m.index > searchFrom);
+    if (idx === -1) idx = 0;
+    currentMarkerIndex = idx;
+    lastSmOffset = allMatches[idx].index;
+    const markerText = allMatches[idx][0];
+
+    suppressInputHandler = true;
+    const html = editor.innerHTML;
+    const escaped = markerText.replace(/\|/g, '\\|');
+    let targetOcc = 0;
+    for (let i = 0; i < idx; i++) {
+        if (allMatches[i][0] === markerText) targetOcc++;
+    }
+    let seen = 0;
+    let done = false;
+    const newHtml = html.replace(new RegExp(escaped, 'g'), (m) => {
+        if (done) return m;
+        if (seen < targetOcc) { seen++; return m; }
+        done = true;
+        return '<span class="sm-active-marker">' + m + '</span>';
+    });
+    editor.innerHTML = newHtml;
+    window.getSelection().removeAllRanges();
+    suppressInputHandler = false;
+
+    const markerData = { text: markerText, index: allMatches[idx].index, length: markerText.length };
+
+    const hl = editor.querySelector('.sm-active-marker');
+    if (hl) {
+        hl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            const rect = hl.getBoundingClientRect();
+            showSmPanel(rect.left, rect.bottom + 4, markerData);
+        }, 200);
+    }
+
+    setStatus(`Seitenmarker ${markerText} (${idx + 1}/${allMatches.length})`);
+}
+
+function showSmPanel(x, y, marker) {
+    const panel = document.getElementById('sm-panel');
+    panel.innerHTML =
+        `<div class="sm-panel-title">${marker.text} — Einfügemodus wählen</div>` +
+        `<div class="sm-panel-item" onclick="smBetweenWords()">` +
+            `<span>1 Zwischen Wörtern (inline)</span><span class="sm-panel-kbd">1 / Alt+W</span></div>` +
+        `<div class="sm-panel-item" onclick="smInSplitWord()">` +
+            `<span>2 In getrenntem Wort</span><span class="sm-panel-kbd">2 / Alt+A</span></div>` +
+        `<div class="sm-panel-item" onclick="smAtParagraph()">` +
+            `<span>3 Bei Absatzumbruch</span><span class="sm-panel-kbd">3 / Alt+Y</span></div>`;
+
+    panel.style.left = Math.min(x, window.innerWidth - 300) + 'px';
+    panel.style.top = Math.min(y, window.innerHeight - 160) + 'px';
+    panel.classList.remove('hidden');
+}
+
+function closeSmPanel() {
+    document.getElementById('sm-panel').classList.add('hidden');
+    clearSmHighlight();
+}
+
+function getEditorTextAndMarker() {
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    const markers = getMarkerPositions();
+    if (currentMarkerIndex < 0 || currentMarkerIndex >= markers.length) return null;
+    return { editor, text, marker: markers[currentMarkerIndex] };
+}
+
+function smBetweenWords() {
+    closeSmPanel();
+    const data = getEditorTextAndMarker();
+    if (!data) return;
+    const { editor, text, marker } = data;
+
+    const before = text.substring(0, marker.index);
+    const after = text.substring(marker.index + marker.length);
+
+    const trimBefore = before.replace(/\s+$/, '');
+    const trimAfter = after.replace(/^\s+/, '');
+
+    const newText = trimBefore + ' ' + marker.text + ' ' + trimAfter;
+
+    pushUndo();
+    suppressInputHandler = true;
+    editor.textContent = newText;
+    suppressInputHandler = false;
+    markEdited();
+    setStatus(`${marker.text} inline eingefügt (zwischen Wörtern)`);
+    lastSmOffset = newText.indexOf(marker.text);
+    jumpToNextMarker();
+}
+
+function smInSplitWord() {
+    closeSmPanel();
+    const data = getEditorTextAndMarker();
+    if (!data) return;
+    const { editor, text, marker } = data;
+
+    const before = text.substring(0, marker.index);
+    const after = text.substring(marker.index + marker.length);
+
+    const trimBefore = before.replace(/[\s\-]+$/, '');
+    const trimAfter = after.replace(/^\s+/, '');
+
+    const newText = trimBefore + marker.text + trimAfter;
+
+    pushUndo();
+    suppressInputHandler = true;
+    editor.textContent = newText;
+    suppressInputHandler = false;
+    markEdited();
+    setStatus(`${marker.text} in getrenntes Wort eingefügt`);
+    lastSmOffset = newText.indexOf(marker.text);
+    jumpToNextMarker();
+}
+
+function smAtParagraph() {
+    closeSmPanel();
+    const data = getEditorTextAndMarker();
+    if (!data) return;
+    const { editor, text, marker } = data;
+
+    const before = text.substring(0, marker.index);
+    const after = text.substring(marker.index + marker.length);
+
+    const trimBefore = before.replace(/\s+$/, '');
+    const afterTrimmed = after.replace(/^\s*\n/, '\n').replace(/^\n+/, '\n');
+
+    const afterLines = afterTrimmed.split('\n');
+    let skipLines = 0;
+    for (let i = 0; i < afterLines.length; i++) {
+        const line = afterLines[i].trim();
+        if (line === '') { skipLines++; continue; }
+        if (/^[IVXLCDM]+$/.test(line)) { skipLines++; continue; }
+        if (/^[A-ZÄÖÜ\s\-.,;:!?()]+$/.test(line) && line.length > 3) { skipLines++; continue; }
+        if (line.startsWith('*')) { skipLines++; continue; }
+        break;
+    }
+
+    const headingPart = afterLines.slice(0, skipLines).join('\n');
+    const textPart = afterLines.slice(skipLines).join('\n').replace(/^\s+/, '');
+
+    let newText;
+    if (headingPart.trim()) {
+        newText = trimBefore + '\n\n' + headingPart + '\n\n' + marker.text + ' ' + textPart;
+    } else {
+        newText = trimBefore + '\n\n' + marker.text + ' ' + textPart;
+    }
+
+    pushUndo();
+    suppressInputHandler = true;
+    editor.textContent = newText;
+    suppressInputHandler = false;
+    markEdited();
+    setStatus(`${marker.text} vor Absatz/Text gesetzt`);
+    lastSmOffset = newText.indexOf(marker.text);
+    jumpToNextMarker();
+}
+
+document.addEventListener('keydown', (e) => {
+    const isSmNext = e.key === 'F2' ||
+        (e.altKey && (e.code === 'KeyQ' || e.key === 'q' || e.key === '@'));
+    if (isSmNext) {
+        e.preventDefault();
+        e.stopPropagation();
+        smNextMarker();
+        return;
+    }
+
+    if (!pageMarkerMode) return;
+    const panelOpen = !document.getElementById('sm-panel').classList.contains('hidden');
+    if (!panelOpen) return;
+
+    if (e.altKey && (e.code === 'KeyW' || e.key === 'w')) {
+        e.preventDefault(); smBetweenWords();
+    }
+    if (e.altKey && (e.code === 'KeyA' || e.key === 'a')) {
+        e.preventDefault(); smInSplitWord();
+    }
+    if (e.altKey && (e.code === 'KeyY' || e.key === 'y' || e.key === 'z')) {
+        e.preventDefault(); smAtParagraph();
+    }
+    if (e.key === '1') { e.preventDefault(); smBetweenWords(); }
+    if (e.key === '2') { e.preventDefault(); smInSplitWord(); }
+    if (e.key === '3') { e.preventDefault(); smAtParagraph(); }
+}, true);
+
+document.addEventListener('click', (e) => {
+    const panel = document.getElementById('sm-panel');
+    if (!panel.classList.contains('hidden') && !panel.contains(e.target)) {
+        closeSmPanel();
+    }
+});
 
 // ============================================================================
 // Context Menu
@@ -2010,16 +2975,20 @@ function setupContextMenu() {
             showCopyrightContextMenu(e.clientX, e.clientY, crSpan);
             return;
         }
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0 && !sel.isCollapsed && editor.contains(sel.anchorNode)) {
+            const selText = sel.toString().trim();
+            if (selText.length > 0) {
+                e.preventDefault();
+                showSelectionContextMenu(e.clientX, e.clientY, sel);
+                return;
+            }
+        }
         const mark = e.target.closest('mark');
         if (mark) {
             e.preventDefault();
             showContextMenu(e.clientX, e.clientY, mark);
             return;
-        }
-        const sel = window.getSelection();
-        if (sel && sel.rangeCount > 0 && !sel.isCollapsed && editor.contains(sel.anchorNode)) {
-            e.preventDefault();
-            showSelectionContextMenu(e.clientX, e.clientY, sel);
         }
     });
 
@@ -2049,6 +3018,12 @@ function showContextMenu(x, y, mark) {
         items += `<div class="context-menu-item" onclick="applyHyphenFix(this, '${escapeHtml(joined)}')" data-mark-pos="${pos}">✅ Zusammenführen: ${escapeHtml(joined)}</div>`;
     }
 
+    const autoSuggestion = getAutoCorrection(word);
+    if (autoSuggestion && autoSuggestion !== word) {
+        const escSugg = escapeHtml(autoSuggestion).replace(/'/g, '&#39;');
+        items += `<div class="context-menu-item" onclick="applyAutoCorrectSingle(this, '${escSugg}')" data-mark-pos="${pos}">🔄 Autokorrektur: ${escapeHtml(autoSuggestion)}</div>`;
+    }
+
     items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
     items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(word)}')">🔍 In GA suchen</div>`;
     items += `<div class="context-menu-item" onclick="ignoreMark(this)" data-mark-pos="${pos}">⏭ Ignorieren</div>`;
@@ -2070,18 +3045,59 @@ function showContextMenu(x, y, mark) {
     });
 }
 
+function joinHyphenatedSelection(text) {
+    const m = text.match(/^([\p{L}]+)-\s+([\p{L}].*)$/su);
+    if (m) {
+        let joined = m[1] + m[2];
+        if (/ß/.test(joined) && typoInstance) {
+            const withSS = joined.replace(/ß/g, 'ss');
+            if (typoInstance.check(withSS) || isInUserDictionary(withSS)) joined = withSS;
+        }
+        return joined;
+    }
+    return null;
+}
+
 function showSelectionContextMenu(x, y, sel) {
     const menu = document.getElementById('context-menu');
-    const text = sel.toString();
-    window._selectionRange = sel.getRangeAt(0).cloneRange();
+    const rawText = sel.toString();
+    const text = rawText.trim();
+    const rawRange = sel.getRangeAt(0);
+    const clonedRange = rawRange.cloneRange();
+    const trailingSpaces = rawText.length - rawText.trimEnd().length;
+    if (trailingSpaces > 0 && clonedRange.endContainer.nodeType === Node.TEXT_NODE) {
+        clonedRange.setEnd(clonedRange.endContainer, clonedRange.endOffset - trailingSpaces);
+    }
+    const leadingSpaces = rawText.length - rawText.trimStart().length;
+    if (leadingSpaces > 0 && clonedRange.startContainer.nodeType === Node.TEXT_NODE) {
+        clonedRange.setStart(clonedRange.startContainer, clonedRange.startOffset + leadingSpaces);
+    }
+    window._selectionRange = clonedRange;
+
+    const joined = joinHyphenatedSelection(text);
 
     let items = '';
     items += `<div class="context-menu-edit">` +
              `<input type="text" id="ctx-sel-input" value="${escapeHtml(text)}">` +
              `<button onclick="applySelectionEdit()">OK</button>` +
              `</div>`;
+
+    if (joined && joined !== text) {
+        const escJoined = escapeHtml(joined).replace(/'/g, '&#39;');
+        items += `<div class="context-menu-item" onclick="applyJoinAndSave('${escJoined}')">🔗 Zusammenfügen: ${escapeHtml(joined)}</div>`;
+        const autoOnJoined = getAutoCorrection(joined);
+        if (autoOnJoined && autoOnJoined !== joined) {
+            items += `<div class="context-menu-item" onclick="applyJoinAndSave('${escapeHtml(autoOnJoined).replace(/'/g, '&#39;')}')">🔄 Autokorrektur: ${escapeHtml(autoOnJoined)}</div>`;
+        }
+    } else {
+        const autoSuggestion = getAutoCorrection(text);
+        if (autoSuggestion && autoSuggestion !== text) {
+            items += `<div class="context-menu-item" onclick="applySelectionAutoCorrect('${escapeHtml(autoSuggestion).replace(/'/g, '&#39;')}')">🔄 Autokorrektur: ${escapeHtml(autoSuggestion)}</div>`;
+        }
+    }
+
     items += `<div class="context-menu-item" onclick="addToDictionarySelection()">📖 Zum Wörterbuch</div>`;
-    items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(text)}')">🔍 In GA suchen</div>`;
+    items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(joined || text)}')">🔍 In GA suchen</div>`;
 
     menu.innerHTML = items;
     menu.style.left = Math.min(x, window.innerWidth - 220) + 'px';
@@ -2105,6 +3121,7 @@ function applySelectionEdit() {
     const range = window._selectionRange;
     if (!range) return;
 
+    pushUndo();
     suppressInputHandler = true;
     range.deleteContents();
     range.insertNode(document.createTextNode(newText));
@@ -2115,6 +3132,26 @@ function applySelectionEdit() {
     window._selectionRange = null;
 }
 
+function applySelectionAutoCorrect(corrected) {
+    const range = window._selectionRange;
+    if (!range) return;
+
+    pushUndo();
+    suppressInputHandler = true;
+    range.deleteContents();
+    range.insertNode(document.createTextNode(corrected));
+    suppressInputHandler = false;
+
+    markEdited();
+    document.getElementById('context-menu').classList.add('hidden');
+    window._selectionRange = null;
+}
+
+function applyJoinAndSave(corrected) {
+    addToUserDictionary(corrected);
+    applySelectionAutoCorrect(corrected);
+}
+
 function addToDictionarySelection() {
     const input = document.getElementById('ctx-sel-input');
     const word = input ? input.value.trim() : '';
@@ -2122,6 +3159,7 @@ function addToDictionarySelection() {
     addToUserDictionary(word);
     const range = window._selectionRange;
     if (range) {
+        pushUndo();
         suppressInputHandler = true;
         range.deleteContents();
         range.insertNode(document.createTextNode(word));
@@ -2134,25 +3172,44 @@ function addToDictionarySelection() {
 
 function replaceMark(mark, plainText) {
     if (!mark || !mark.parentNode) return;
+    pushUndo();
     suppressInputHandler = true;
     mark.replaceWith(document.createTextNode(plainText));
     suppressInputHandler = false;
 }
 
 function editorUndo() {
+    if (undoStack.length === 0) { setStatus('Nichts zum Rückgängig-Machen'); return; }
+    const editor = document.getElementById('editor-content');
     const container = document.querySelector('.editor-container');
-    const scrollTop = container.scrollTop;
-    document.getElementById('editor-content').focus();
-    document.execCommand('undo');
-    container.scrollTop = scrollTop;
+    redoStack.push({
+        html: editor.innerHTML,
+        scroll: container ? container.scrollTop : 0
+    });
+    const state = undoStack.pop();
+    suppressInputHandler = true;
+    editor.innerHTML = state.html;
+    suppressInputHandler = false;
+    if (container) container.scrollTop = state.scroll;
+    markEdited();
+    setStatus(`Rückgängig (noch ${undoStack.length} Schritte)`);
 }
 
 function editorRedo() {
+    if (redoStack.length === 0) { setStatus('Nichts zum Wiederherstellen'); return; }
+    const editor = document.getElementById('editor-content');
     const container = document.querySelector('.editor-container');
-    const scrollTop = container.scrollTop;
-    document.getElementById('editor-content').focus();
-    document.execCommand('redo');
-    container.scrollTop = scrollTop;
+    undoStack.push({
+        html: editor.innerHTML,
+        scroll: container ? container.scrollTop : 0
+    });
+    const state = redoStack.pop();
+    suppressInputHandler = true;
+    editor.innerHTML = state.html;
+    suppressInputHandler = false;
+    if (container) container.scrollTop = state.scroll;
+    markEdited();
+    setStatus(`Wiederhergestellt (noch ${redoStack.length} Schritte)`);
 }
 
 function markEdited() {
@@ -2182,6 +3239,41 @@ function applyManualEdit() {
     document.getElementById('context-menu').classList.add('hidden');
 }
 
+function getAutoCorrection(word) {
+    if (!word) return null;
+
+    const corrections = getUserCorrections();
+    if (corrections[word]) return corrections[word];
+
+    if (word.includes("'")) {
+        const withTypo = word.replace(/'/g, '\u2019');
+        if (withTypo !== word) {
+            const corrTypo = corrections[withTypo];
+            if (corrTypo) return corrTypo;
+            if (typoInstance && typoInstance.check(withTypo)) return withTypo;
+            if (isInUserDictionary(withTypo)) return withTypo;
+        }
+    }
+
+    if (/ß/.test(word) && typoInstance) {
+        if (!typoInstance.check(word) && !isInUserDictionary(word)) {
+            const withSS = word.replace(/ß/g, 'ss');
+            if (typoInstance.check(withSS) || isInUserDictionary(withSS)) return withSS;
+        }
+    }
+
+    return null;
+}
+
+function applyAutoCorrectSingle(el, corrected) {
+    const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
+    if (mark) {
+        replaceMark(mark, corrected);
+        markEdited();
+    }
+    document.getElementById('context-menu').classList.add('hidden');
+}
+
 function applyHyphenFix(el, joined) {
     const mark = document.querySelector(`#editor-content mark.st[data-pos="${el.dataset.markPos}"]`);
     replaceMark(mark, joined);
@@ -2195,6 +3287,9 @@ function addToDictionary(word, el) {
     const dictWord = wasEdited ? input.value.trim() : word;
     const replaceText = wasEdited ? input.value.trim() : word;
     addToUserDictionary(dictWord);
+    if (wasEdited && word !== dictWord) {
+        addUserCorrection(word, dictWord);
+    }
     const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
     if (mark) {
         const oldText = mark.textContent;
@@ -2292,6 +3387,7 @@ function openSearchBar() {
 function closeSearchBar() {
     document.getElementById('search-bar').classList.add('hidden');
     clearSearchHighlights();
+    clearPdfSearchHighlights();
     document.getElementById('search-input').value = '';
     searchMatches = [];
     searchCurrentIdx = -1;
@@ -2299,12 +3395,17 @@ function closeSearchBar() {
 }
 
 function performSearch() {
+    const editorContainer = document.querySelector('.editor-container');
+    const savedScrollTop = editorContainer ? editorContainer.scrollTop : 0;
+
     clearSearchHighlights();
+    clearPdfSearchHighlights();
     const query = document.getElementById('search-input').value.trim();
-    if (!query) {
+    if (!query || query.length < 3) {
         searchMatches = [];
         searchCurrentIdx = -1;
-        document.getElementById('search-info').textContent = '';
+        document.getElementById('search-info').textContent = query.length > 0 && query.length < 3 ? 'Mind. 3 Zeichen…' : '';
+        if (editorContainer) editorContainer.scrollTop = savedScrollTop;
         return;
     }
 
@@ -2344,13 +3445,34 @@ function performSearch() {
     }
     suppressInputHandler = false;
 
+    if (editorContainer) editorContainer.scrollTop = savedScrollTop;
+
     if (searchMatches.length > 0) {
-        searchCurrentIdx = 0;
+        searchCurrentIdx = findNearestMatch(editorContainer, savedScrollTop);
         highlightCurrentMatch();
     } else {
         searchCurrentIdx = -1;
     }
     updateSearchInfo();
+    highlightPdfSearch(query);
+}
+
+function findNearestMatch(container, scrollTop) {
+    if (!container || searchMatches.length === 0) return 0;
+    const viewCenter = scrollTop + container.clientHeight / 2;
+    let bestIdx = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < searchMatches.length; i++) {
+        const rect = searchMatches[i].getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const matchPos = rect.top - containerRect.top + container.scrollTop;
+        const dist = Math.abs(matchPos - viewCenter);
+        if (dist < bestDist) {
+            bestDist = dist;
+            bestIdx = i;
+        }
+    }
+    return bestIdx;
 }
 
 function highlightCurrentMatch() {
@@ -2359,7 +3481,46 @@ function highlightCurrentMatch() {
     });
     if (searchMatches[searchCurrentIdx]) {
         searchMatches[searchCurrentIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        syncPdfToEditor();
     }
+}
+
+function syncPdfToEditor() {
+    if (!currentPdfDoc || pdfPageTexts.length === 0) return;
+
+    const pdfTab = document.getElementById('tab-pdf');
+    if (pdfTab.classList.contains('hidden')) {
+        switchSidebarTabByName('pdf');
+    }
+
+    setTimeout(() => {
+        const editorContainer = document.querySelector('.editor-container');
+        if (!editorContainer) return;
+
+        const currentMatch = searchMatches[searchCurrentIdx];
+        if (!currentMatch) return;
+
+        const rect = currentMatch.getBoundingClientRect();
+        const containerRect = editorContainer.getBoundingClientRect();
+        const matchOffset = rect.top - containerRect.top + editorContainer.scrollTop;
+
+        const markers = getEditorPageMarkerPositions();
+        let page = 0;
+        for (const m of markers) {
+            if (m.offsetTop <= matchOffset) page = m.page;
+            else break;
+        }
+
+        if (page > 0 && totalPdfPages > 0) {
+            pdfGoToPage(Math.min(page, totalPdfPages));
+        } else {
+            const pdfScroll = document.getElementById('pdf-nav-scroll');
+            if (!pdfScroll) return;
+            const pct = matchOffset / (editorContainer.scrollHeight || 1);
+            pdfScroll.scrollTop = pct * pdfScroll.scrollHeight - pdfScroll.clientHeight / 3;
+            updatePdfCurrentPage();
+        }
+    }, 400);
 }
 
 function searchNav(dir) {
@@ -2380,12 +3541,17 @@ function updateSearchInfo() {
 
 function clearSearchHighlights() {
     suppressInputHandler = true;
+    const editorContainer = document.querySelector('.editor-container');
+    const savedScrollTop = editorContainer ? editorContainer.scrollTop : 0;
+
     const spans = document.querySelectorAll('#editor-content .search-highlight, #editor-content .search-highlight-active');
     spans.forEach(span => {
         const text = document.createTextNode(span.textContent);
         span.parentNode.replaceChild(text, span);
     });
     document.getElementById('editor-content').normalize();
+
+    if (editorContainer) editorContainer.scrollTop = savedScrollTop;
     suppressInputHandler = false;
 }
 

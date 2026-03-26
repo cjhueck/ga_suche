@@ -67,6 +67,17 @@ const isLocal = window.location.hostname === 'localhost' ||
             if (isLocal) document.body.classList.add('is-local');
         });
     }
+
+    function showLocalOnlyElements() {
+        if (!isLocal) return;
+        const editorBtn = document.getElementById('spellcheck-editor-button');
+        if (editorBtn) editorBtn.style.display = '';
+    }
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', showLocalOnlyElements);
+    } else {
+        showLocalOnlyElements();
+    }
     
     // ============================================================
     // TOAST/NOTIFICATION FUNKTION
