@@ -31689,7 +31689,6 @@ function openErrorReportModal() {
   modal.classList.add('active');
   resetErrorReport();
   
-  // Lucide Icons neu rendern
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
@@ -31708,6 +31707,131 @@ function resetErrorReport() {
   document.getElementById('errorReportSuccess').style.display = 'none';
   document.getElementById('errorComment').value = '';
   errorReportState.screenshotData = null;
+  checkEditorAuthState();
+}
+
+// ============================================
+// Rechtschreib-Editor Auth (im Fehler-melden-Modal)
+// ============================================
+const EDITOR_EMAILS_LIST = [
+  'christoph.hueck@gmx.net',
+  'admin@ga-suche.de'
+];
+
+function isEditorUserCheck(user) {
+  if (!user) return false;
+  if (EDITOR_EMAILS_LIST.includes(user.email)) return true;
+  if (user.user_metadata?.role === 'editor') return true;
+  return false;
+}
+
+async function checkEditorAuthState() {
+  const loginForm = document.getElementById('editorLoginForm');
+  const loggedIn = document.getElementById('editorLoggedIn');
+  const section = document.getElementById('editorAccessSection');
+  if (!section) return;
+
+  const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+  if (isLocal) {
+    if (loginForm) loginForm.style.display = 'none';
+    if (loggedIn) {
+      loggedIn.style.display = 'block';
+      document.getElementById('editorUserEmail').textContent = 'Lokal';
+    }
+    return;
+  }
+
+  if (!supabaseClient) {
+    try { await initSupabase(); } catch(e) { /* ignore */ }
+  }
+  if (!supabaseClient) return;
+
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (user && isEditorUserCheck(user)) {
+    if (loginForm) loginForm.style.display = 'none';
+    if (loggedIn) {
+      loggedIn.style.display = 'block';
+      document.getElementById('editorUserEmail').textContent = user.email;
+    }
+  } else {
+    if (loginForm) loginForm.style.display = 'block';
+    if (loggedIn) loggedIn.style.display = 'none';
+  }
+}
+
+function showEditorAuthMsg(msg, isError) {
+  const el = document.getElementById('editorAuthMsg');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.style.background = isError ? '#fef2f2' : '#f0fdf4';
+  el.style.color = isError ? '#dc2626' : '#16a34a';
+}
+
+function hideEditorAuthMsg() {
+  const el = document.getElementById('editorAuthMsg');
+  if (el) el.style.display = 'none';
+}
+
+async function editorDoLogin() {
+  const email = document.getElementById('editorLoginEmail').value.trim();
+  const pw = document.getElementById('editorLoginPassword').value;
+  if (!email || !pw) { showEditorAuthMsg('Bitte alle Felder ausfüllen.', true); return; }
+
+  hideEditorAuthMsg();
+  showEditorAuthMsg('Anmeldung läuft...', false);
+
+  if (!supabaseClient) {
+    try { await initSupabase(); } catch(e) { showEditorAuthMsg('Supabase nicht verfügbar.', true); return; }
+  }
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pw });
+  if (error) { showEditorAuthMsg('Fehler: ' + error.message, true); return; }
+  if (!isEditorUserCheck(data.user)) {
+    showEditorAuthMsg('Ihr Account hat keine Editor-Berechtigung.', true);
+    await supabaseClient.auth.signOut();
+    return;
+  }
+  currentUser = data.user;
+  window.currentUser = data.user;
+  hideEditorAuthMsg();
+  checkEditorAuthState();
+}
+
+async function editorDoRegister() {
+  const email = document.getElementById('editorLoginEmail').value.trim();
+  const pw = document.getElementById('editorLoginPassword').value;
+  if (!email || !pw) { showEditorAuthMsg('Bitte alle Felder ausfüllen.', true); return; }
+  if (pw.length < 6) { showEditorAuthMsg('Passwort muss mindestens 6 Zeichen lang sein.', true); return; }
+
+  hideEditorAuthMsg();
+  showEditorAuthMsg('Registrierung läuft...', false);
+
+  if (!supabaseClient) {
+    try { await initSupabase(); } catch(e) { showEditorAuthMsg('Supabase nicht verfügbar.', true); return; }
+  }
+
+  const { data, error } = await supabaseClient.auth.signUp({ email, password: pw });
+  if (error) { showEditorAuthMsg('Fehler: ' + error.message, true); return; }
+
+  if (data.user && !data.user.confirmed_at) {
+    showEditorAuthMsg('Registrierung erfolgreich! Bitte bestätigen Sie Ihre E-Mail-Adresse.', false);
+  } else if (data.user) {
+    showEditorAuthMsg('Registrierung erfolgreich! Ein Administrator muss Ihnen die Editor-Rolle zuweisen.', false);
+  }
+}
+
+function openSpellcheckEditorFromModal() {
+  window.open('spellcheck-editor.html', '_blank');
+}
+
+async function editorDoLogoutFromModal() {
+  if (!supabaseClient) return;
+  await supabaseClient.auth.signOut();
+  currentUser = null;
+  window.currentUser = null;
+  hideEditorAuthMsg();
+  checkEditorAuthState();
 }
 
 function startErrorSelection() {

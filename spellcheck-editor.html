@@ -259,55 +259,6 @@
         }
         .upload-zone input[type="file"] { display: none; }
 
-        .login-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        .login-box {
-            background: var(--panel-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            width: 380px;
-            max-width: 90vw;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-        }
-        .login-box h2 {
-            color: var(--heading-color);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        .login-box .form-group {
-            margin-bottom: 1rem;
-        }
-        .login-box label {
-            display: block;
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-            color: var(--secondary-text);
-        }
-        .login-box input {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1.5px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        .login-box input:focus { outline: none; border-color: var(--accent-color); }
-        .login-message {
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-        .login-message.error { display: block; background: #fef2f2; color: #dc2626; }
-        .login-message.success { display: block; background: #f0fdf4; color: #16a34a; }
-
         .status-bar {
             padding: 6px 1.5rem;
             font-size: 0.78rem;
@@ -450,29 +401,6 @@
     </style>
 </head>
 <body>
-
-<!-- Login Overlay (online only) -->
-<div id="login-overlay" class="login-overlay hidden">
-    <div class="login-box">
-        <h2>Editor-Zugang</h2>
-        <p style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 1rem;">
-            Der Online-Zugriff auf den Rechtschreib-Editor erfordert eine Anmeldung mit Editor-Berechtigung.
-        </p>
-        <div id="login-message" class="login-message"></div>
-        <div class="form-group">
-            <label for="login-email">E-Mail</label>
-            <input type="email" id="login-email" placeholder="ihre@email.de">
-        </div>
-        <div class="form-group">
-            <label for="login-password">Passwort</label>
-            <input type="password" id="login-password" placeholder="Passwort">
-        </div>
-        <div style="display: flex; gap: 8px;">
-            <button class="btn primary" onclick="doLogin()" style="flex:1;">Anmelden</button>
-            <button class="btn" onclick="window.close() || history.back()">Abbrechen</button>
-        </div>
-    </div>
-</div>
 
 <!-- Header -->
 <div class="header">
@@ -675,10 +603,9 @@ async function initAuth() {
         currentUser = user;
         onAuthSuccess();
     } else if (user) {
-        showLoginMessage('Ihr Account hat keine Editor-Berechtigung.', 'error');
-        document.getElementById('login-overlay').classList.remove('hidden');
+        setStatus('Keine Editor-Berechtigung. Bitte melden Sie sich über GA-Suche mit einem Editor-Konto an.');
     } else {
-        document.getElementById('login-overlay').classList.remove('hidden');
+        setStatus('Nicht angemeldet. Bitte melden Sie sich über GA-Suche → Fehler melden an.');
     }
 }
 
@@ -689,23 +616,6 @@ function isEditorUser(user) {
     return false;
 }
 
-async function doLogin() {
-    const email = document.getElementById('login-email').value.trim();
-    const pw = document.getElementById('login-password').value;
-    if (!email || !pw) { showLoginMessage('Bitte alle Felder ausfüllen.', 'error'); return; }
-
-    showLoginMessage('Anmeldung läuft...', 'success');
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pw });
-    if (error) { showLoginMessage('Fehler: ' + error.message, 'error'); return; }
-    if (!isEditorUser(data.user)) {
-        showLoginMessage('Ihr Account hat keine Editor-Berechtigung.', 'error');
-        await supabaseClient.auth.signOut();
-        return;
-    }
-    currentUser = data.user;
-    onAuthSuccess();
-}
-
 async function doLogout() {
     if (hasUnsavedChanges && !confirm('Ungespeicherte Änderungen gehen verloren. Abmelden?')) return;
     await supabaseClient.auth.signOut();
@@ -714,17 +624,10 @@ async function doLogout() {
 }
 
 function onAuthSuccess() {
-    document.getElementById('login-overlay').classList.add('hidden');
     document.getElementById('auth-status').textContent = currentUser.email;
     document.getElementById('btn-logout').style.display = '';
     document.getElementById('btn-upload').style.display = '';
     loadGAList();
-}
-
-function showLoginMessage(msg, type) {
-    const el = document.getElementById('login-message');
-    el.textContent = msg;
-    el.className = 'login-message ' + type;
 }
 
 // ============================================================================
