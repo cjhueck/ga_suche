@@ -617,20 +617,29 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
         }
         
         if (fsSync.existsSync(localPdfPath)) {
-          console.log(`[PDF-PROXY] Lokale PDF gefunden: ${path.basename(localPdfPath)}`);
+          const stat = fsSync.statSync(localPdfPath);
+          console.log(`[PDF-PROXY] Lokale PDF gefunden: ${path.basename(localPdfPath)} (${(stat.size / 1024 / 1024).toFixed(1)} MB)`);
           
-          // Lade lokale Datei
-          const pdfBuffer = await fs.readFile(localPdfPath);
-          
-          // Content-Type und NO-CACHE Header für lokale Dateien (können sich ändern)
+          req.setTimeout(600000);
+          res.setTimeout(600000);
+
           res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Length', stat.size);
           res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
           res.setHeader('Pragma', 'no-cache');
           res.setHeader('Expires', '0');
           res.setHeader('Access-Control-Allow-Origin', '*');
           
-          res.send(pdfBuffer);
-          console.log(`[PDF-PROXY] Lokale PDF erfolgreich gesendet: ${gaNumber}`);
+          const stream = fsSync.createReadStream(localPdfPath);
+          stream.on('error', (err) => {
+            console.error(`[PDF-PROXY] Stream-Fehler: ${err.message}`);
+            if (!res.headersSent) res.status(500).json({ error: err.message });
+            else res.destroy();
+          });
+          stream.on('end', () => {
+            console.log(`[PDF-PROXY] Lokale PDF erfolgreich gestreamt: ${gaNumber}`);
+          });
+          stream.pipe(res);
           return;
         }
       } catch (localError) {
@@ -642,13 +651,24 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
     // SCHRITT 2: Prüfe Disk-Cache (zuvor von WordPress heruntergeladene PDFs)
     const cachedPdfPath = path.join(WP_PDF_DISK_CACHE_DIR, `ga${gaNumPadded}.pdf`);
     if (fsSync.existsSync(cachedPdfPath)) {
-      console.log(`[PDF-PROXY] Disk-Cache-Treffer: ${path.basename(cachedPdfPath)}`);
-      const cachedBuffer = await fs.readFile(cachedPdfPath);
+      const cachedStat = fsSync.statSync(cachedPdfPath);
+      console.log(`[PDF-PROXY] Disk-Cache-Treffer: ${path.basename(cachedPdfPath)} (${(cachedStat.size / 1024 / 1024).toFixed(1)} MB)`);
+      req.setTimeout(600000);
+      res.setTimeout(600000);
       res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Cache-Control', 'no-cache'); // Browser soll beim Server nachfragen
+      res.setHeader('Content-Length', cachedStat.size);
+      res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.send(cachedBuffer);
-      console.log(`[PDF-PROXY] Disk-Cache-PDF gesendet: ${gaNumber}`);
+      const cachedStream = fsSync.createReadStream(cachedPdfPath);
+      cachedStream.on('error', (err) => {
+        console.error(`[PDF-PROXY] Cache-Stream-Fehler: ${err.message}`);
+        if (!res.headersSent) res.status(500).json({ error: err.message });
+        else res.destroy();
+      });
+      cachedStream.on('end', () => {
+        console.log(`[PDF-PROXY] Disk-Cache-PDF gestreamt: ${gaNumber}`);
+      });
+      cachedStream.pipe(res);
       return;
     }
     

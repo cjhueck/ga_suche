@@ -1048,10 +1048,8 @@ function getApiBase() {
 }
 
 function getFileUrl(key) {
-    if (!isLocal && key.startsWith('ga_pdf/')) {
-        let publicKey = key;
-        if (!publicKey.endsWith('.pdf')) publicKey += '.pdf';
-        return R2_PUBLIC_BASE + publicKey;
+    if (!isLocal && key.startsWith('ga_pdf/') && key.endsWith('.pdf')) {
+        return R2_PUBLIC_BASE + key;
     }
     return getApiBase() + '/editor/file/' + key;
 }
@@ -4868,8 +4866,8 @@ async function r2LoadFileIntoEditor(key) {
     try {
         setStatus('Lade aus R2: ' + filename + '...');
         const url = getFileUrl(key);
-        const useDirectR2 = !isLocal && key.startsWith('ga_pdf/');
-        const fetchOpts = useDirectR2 ? {} : { headers: await r2GetAuthHeaders() };
+        const skipAuth = key.startsWith('ga_pdf/');
+        const fetchOpts = skipAuth ? {} : { headers: await r2GetAuthHeaders() };
         const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
 
@@ -5190,8 +5188,8 @@ async function r2OpenPdfInViewer(key) {
     try {
         setStatus('Lade PDF in Viewer...');
         const url = getFileUrl(key);
-        const useDirectR2 = !isLocal && key.startsWith('ga_pdf/');
-        const fetchOpts = useDirectR2 ? {} : { headers: await r2GetAuthHeaders() };
+        const skipAuth = key.startsWith('ga_pdf/');
+        const fetchOpts = skipAuth ? {} : { headers: await r2GetAuthHeaders() };
         const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const blob = await res.blob();
@@ -5368,8 +5366,8 @@ async function r2DownloadFile(key, name) {
     r2HideContextMenu();
     try {
         const url = getFileUrl(key);
-        const useDirectR2 = !isLocal && key.startsWith('ga_pdf/');
-        const fetchOpts = useDirectR2 ? {} : { headers: await r2GetAuthHeaders() };
+        const skipAuth = key.startsWith('ga_pdf/');
+        const fetchOpts = skipAuth ? {} : { headers: await r2GetAuthHeaders() };
         const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const blob = await res.blob();
