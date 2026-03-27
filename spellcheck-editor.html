@@ -1093,6 +1093,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupContextMenu();
     renderDictList();
     r2Init();
+    loadDictFromServer();
 });
 
 // ============================================================================
@@ -1259,6 +1260,7 @@ function onAuthSuccess() {
     document.getElementById('btn-logout').style.display = '';
     loadGAList();
     r2Init();
+    loadDictFromServer();
 }
 
 // ============================================================================
@@ -2037,7 +2039,75 @@ function saveDictDeferred() {
     if (dictSaveTimer) clearTimeout(dictSaveTimer);
     dictSaveTimer = setTimeout(() => {
         localStorage.setItem(USER_DICT_KEY, JSON.stringify(userDictCache || []));
-    }, 300);
+        localStorage.setItem(USER_CORRECTIONS_KEY, JSON.stringify(userCorrectionsCache || {}));
+        syncDictToServer();
+    }, 500);
+}
+
+async function syncDictToServer() {
+    try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+        const body = JSON.stringify({
+            words: userDictCache || [],
+            corrections: userCorrectionsCache || {}
+        });
+        const res = await fetch(getApiBase() + '/spellcheck/dictionary', { method: 'PUT', headers, body });
+        if (!res.ok) console.warn('[Dict] Server-Sync fehlgeschlagen:', res.status);
+        else console.log('[Dict] Wörterbuch auf Server gespeichert');
+    } catch (e) {
+        console.warn('[Dict] Server-Sync Fehler:', e.message);
+    }
+}
+
+async function loadDictFromServer() {
+    try {
+        const headers = {};
+        if (!isLocal && currentUser) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
+        const res = await fetch(getApiBase() + '/spellcheck/dictionary', { headers });
+        if (!res.ok) { console.warn('[Dict] Server-Laden fehlgeschlagen:', res.status); return; }
+        const data = await res.json();
+        const serverWords = Array.isArray(data.words) ? data.words : [];
+        const serverCorr = (data.corrections && typeof data.corrections === 'object') ? data.corrections : {};
+
+        const localWords = getUserDictionary();
+        const localCorr = getUserCorrections();
+
+        const mergedSet = new Set(localWords.map(w => w.toLowerCase()));
+        const mergedWords = [...localWords];
+        for (const w of serverWords) {
+            if (!mergedSet.has(w.toLowerCase())) {
+                mergedWords.push(w);
+                mergedSet.add(w.toLowerCase());
+            }
+        }
+        const mergedCorr = { ...serverCorr, ...localCorr };
+
+        userDictCache = mergedWords;
+        userDictSet = new Set(mergedWords.map(w => w.toLowerCase()));
+        userCorrectionsCache = mergedCorr;
+
+        localStorage.setItem(USER_DICT_KEY, JSON.stringify(mergedWords));
+        localStorage.setItem(USER_CORRECTIONS_KEY, JSON.stringify(mergedCorr));
+
+        const newWords = mergedWords.length - localWords.length;
+        const newCorr = Object.keys(mergedCorr).length - Object.keys(localCorr).length;
+        if (newWords > 0 || newCorr > 0) {
+            console.log(`[Dict] Vom Server geladen: +${newWords} Wörter, +${newCorr} Korrekturen`);
+            syncDictToServer();
+        } else {
+            console.log(`[Dict] Wörterbuch synchron (${mergedWords.length} Wörter, ${Object.keys(mergedCorr).length} Korrekturen)`);
+        }
+        renderDictList();
+    } catch (e) {
+        console.warn('[Dict] Laden vom Server fehlgeschlagen:', e.message);
+    }
 }
 
 function addToUserDictionary(word) {
@@ -2160,7 +2230,7 @@ function addUserCorrection(original, corrected) {
     const corrections = getUserCorrections();
     corrections[original] = corrected;
     userCorrectionsCache = corrections;
-    localStorage.setItem(USER_CORRECTIONS_KEY, JSON.stringify(corrections));
+    saveDictDeferred();
     console.log(`[Corrections] Gespeichert: "${original}" → "${corrected}"`);
 }
 
@@ -2169,7 +2239,7 @@ function removeUserCorrection(original) {
     if (original in corrections) {
         delete corrections[original];
         userCorrectionsCache = corrections;
-        localStorage.setItem(USER_CORRECTIONS_KEY, JSON.stringify(corrections));
+        saveDictDeferred();
     }
 }
 
