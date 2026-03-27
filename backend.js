@@ -27090,6 +27090,10 @@ const EDITOR_EMAILS = [
   'admin@ga-suche.de'
 ];
 
+// Editor R2 Routes
+const createEditorRouter = require('./editor-routes');
+app.use('/api/editor', createEditorRouter({ supabaseClient, editorEmails: EDITOR_EMAILS }));
+
 const spellcheckTmpDir = path.join(__dirname, 'uploads_tmp');
 fsSync.mkdirSync(spellcheckTmpDir, { recursive: true });
 const spellcheckUpload = multer({
