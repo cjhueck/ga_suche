@@ -2597,7 +2597,7 @@ function normalizeGANumber(gaNumber) {
       const wrapperCheck2 = document.getElementById('chronological-year-nav-wrapper');
       let viewerRestored = false;
       
-      if (wrapperCheck2 && (mode !== 'ga' || mode === 'thematic2')) {
+      if (wrapperCheck2 && mode !== 'korrektur' && (mode !== 'ga' || mode === 'thematic2')) {
         // Stelle den ursprünglichen viewer wieder her
         const viewerContentPanel2 = document.getElementById('chronological-viewer-content');
         if (wrapperCheck2.parentNode) {
@@ -2622,7 +2622,7 @@ function normalizeGANumber(gaNumber) {
       const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
       const hasChronologicalContainers = chronologicalNav !== null || chronologicalViewerContent !== null;
       
-      if (mode !== 'ga' && mode !== 'thematic2' && (
+      if (mode !== 'ga' && mode !== 'thematic2' && mode !== 'korrektur' && (
         (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') ||
         hasChronologicalContent ||
         hasChronologicalContainers ||
@@ -2791,7 +2791,7 @@ function normalizeGANumber(gaNumber) {
         viewer.querySelector('#chronological-year-nav') !== null
       );
       
-      if (mode !== 'ga' && mode !== 'thematic2' && (
+      if (mode !== 'ga' && mode !== 'thematic2' && mode !== 'korrektur' && (
         (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') ||
         viewerHasChronologicalContent
       )) {
@@ -2823,15 +2823,17 @@ function normalizeGANumber(gaNumber) {
         }
       }
       
-      // currentOpenLectureId und currentLectureData zurücksetzen
-      window.currentOpenLectureId = null;
-      currentLectureData = null;
-      currentLectureSummary = null;
-      showingSummaryInMain = false;
+      // currentOpenLectureId und currentLectureData zurücksetzen (nicht bei Korrektur-Tab)
+      if (mode !== 'korrektur') {
+        window.currentOpenLectureId = null;
+        currentLectureData = null;
+        currentLectureSummary = null;
+        showingSummaryInMain = false;
+      }
       
-      // Beim Tab-Wechsel: Lecture-Daten und GA-Nummer IMMER zurücksetzen
+      // Beim Tab-Wechsel: Lecture-Daten und GA-Nummer zurücksetzen
       // (Viewer wird geleert → veraltete Daten dürfen keine Buttons mehr anzeigen)
-      if (mode !== 'thematic2') {
+      if (mode !== 'thematic2' && mode !== 'korrektur') {
         currentLectureData = null;
         currentGANumber = null;
       }
@@ -3134,7 +3136,7 @@ function normalizeGANumber(gaNumber) {
       }
       
       // WICHTIG: Wenn wir zu einem anderen Tab wechseln (nicht GA-Tab), entferne chronologische Ansicht SOFORT
-      if (mode !== 'ga' && mode !== 'thematic2' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+      if (mode !== 'ga' && mode !== 'thematic2' && mode !== 'korrektur' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
         currentGAView = 'volumes';
         
         // Setze chronologischen Button zurück
@@ -3255,7 +3257,7 @@ function normalizeGANumber(gaNumber) {
             
             // Lösche Viewer-Inhalt falls noch chronologische Ansicht sichtbar
             const viewer = document.getElementById('viewer');
-            if (viewer && mode !== 'thematic2') {
+            if (viewer && mode !== 'thematic2' && mode !== 'korrektur') {
               viewer.innerHTML = '';
             }
             
@@ -3332,7 +3334,7 @@ function normalizeGANumber(gaNumber) {
               
               // Lösche Viewer-Inhalt falls noch chronologische Ansicht sichtbar
               const viewer = document.getElementById('viewer');
-              if (viewer) {
+              if (viewer && mode !== 'korrektur') {
                 viewer.innerHTML = '';
               }
               
@@ -26097,7 +26099,7 @@ function switchTabExtended(mode) {
   
   // 2) Viewer-Inhalt leeren (wird danach tab-spezifisch neu befüllt)
   var viewerReset = document.getElementById('viewer');
-  if (viewerReset && mode !== 'thematic2') {
+  if (viewerReset && mode !== 'thematic2' && mode !== 'korrektur') {
     viewerReset.innerHTML = '';
   }
   
@@ -26132,13 +26134,15 @@ function switchTabExtended(mode) {
   });
   
   // 6) Zustandsvariablen zurücksetzen
-  if (mode !== 'thematic2') {
+  if (mode !== 'thematic2' && mode !== 'korrektur') {
     currentLectureData = null;
     currentGANumber = null;
     currentLectureSummary = null;
     showingSummaryInMain = false;
   }
-  window.currentOpenLectureId = null;
+  if (mode !== 'korrektur') {
+    window.currentOpenLectureId = null;
+  }
   // ===== ENDE ROBUSTER RESET =====
   
   // Prüfe, ob wir ZUM Suche-Tab wechseln
@@ -26158,7 +26162,7 @@ function switchTabExtended(mode) {
   if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
     // Lösche Viewer-Inhalt (Suchergebnisse)
     const viewer = document.getElementById('viewer');
-    if (viewer && mode !== 'thematic2') {
+    if (viewer && mode !== 'thematic2' && mode !== 'korrektur') {
       viewer.innerHTML = '';
       }
     
