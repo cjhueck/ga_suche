@@ -26293,11 +26293,13 @@ function switchTabExtended(mode) {
     }, 50);
   }
   
-  // currentOpenLectureId und currentLectureData zurücksetzen
-  window.currentOpenLectureId = null;
-  currentLectureData = null;
-  currentLectureSummary = null;
-  showingSummaryInMain = false;
+  // currentOpenLectureId und currentLectureData zurücksetzen (nicht bei Korrektur-Tab)
+  if (mode !== 'korrektur') {
+    window.currentOpenLectureId = null;
+    currentLectureData = null;
+    currentLectureSummary = null;
+    showingSummaryInMain = false;
+  }
   
   // Verstecke Viewer-Buttons beim Tab-Wechsel
   updateButtonStates();
@@ -26419,9 +26421,9 @@ function switchTabExtended(mode) {
         resultsEl.innerHTML = '';
         }
 
-      // Main Viewer leeren (außer für Themen II)
+      // Main Viewer leeren (außer für Themen II und Korrektur)
       const viewer = document.getElementById('viewer');
-      if (viewer && mode !== 'thematic2') {
+      if (viewer && mode !== 'thematic2' && mode !== 'korrektur') {
         viewer.innerHTML = '';
         }
       
@@ -26446,8 +26448,8 @@ function switchTabExtended(mode) {
 
   // Gewünschten Tab-Inhalt anzeigen und auf ursprüngliche Struktur zurücksetzen
   if (targetContent) {
-    // Stelle die ursprüngliche HTML-Struktur wieder her, falls gespeichert
-    if (tabOriginalContent[targetId]) {
+    // Stelle die ursprüngliche HTML-Struktur wieder her, falls gespeichert (nicht für Korrektur-Tab)
+    if (tabOriginalContent[targetId] && targetId !== 'korrektur-tab') {
       targetContent.innerHTML = tabOriginalContent[targetId];
     }
     targetContent.classList.add('active');
@@ -26597,11 +26599,11 @@ function switchTabExtended(mode) {
           }
         }, 100);
       });
-    } else {
+    } else if (mode !== 'korrektur') {
     viewer.innerHTML = `<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">${defaultMessage}</div></div>`;
     }
     
-    if (documentTitle) {
+    if (documentTitle && mode !== 'korrektur') {
       documentTitle.textContent = titleText;
     }
     
