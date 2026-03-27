@@ -835,6 +835,60 @@
 <div id="context-menu" class="context-menu hidden"></div>
 <div id="sm-panel" class="sm-panel hidden"></div>
 
+<!-- Autokorrektur-Dialog -->
+<div id="ac-dialog-overlay" class="r2-modal-overlay" style="display:none;">
+    <div class="r2-modal" style="max-width:380px;">
+        <h3>Auto-Korrektur: Seitenauswahl</h3>
+
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="radio" name="ac-scope" value="all" checked> Alle Seiten
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="radio" name="ac-scope" value="single"> Einzelne Seiten
+            </label>
+            <div id="ac-single-row" style="display:none; margin-left:26px;">
+                <input type="text" id="ac-pages-input" placeholder="z.B. 3, 7, 12" style="width:100%; padding:5px 8px; border:1.5px solid var(--border-color); border-radius:4px; font-size:0.85rem; box-sizing:border-box;">
+            </div>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="radio" name="ac-scope" value="range"> Seitenbereich
+            </label>
+            <div id="ac-range-row" style="display:none; margin-left:26px; gap:6px; align-items:center;">
+                <span>Von</span>
+                <input type="number" id="ac-range-from" min="1" style="width:60px; padding:5px 6px; border:1.5px solid var(--border-color); border-radius:4px; font-size:0.85rem; text-align:center;">
+                <span>bis</span>
+                <input type="number" id="ac-range-to" min="1" style="width:60px; padding:5px 6px; border:1.5px solid var(--border-color); border-radius:4px; font-size:0.85rem; text-align:center;">
+            </div>
+        </div>
+        <div id="ac-page-info" style="margin-top:10px; font-size:0.78rem; color:var(--secondary-text);"></div>
+        <div class="r2-modal-btns">
+            <button onclick="acDialogCancel()" style="background:var(--background-color,#fff); border:1px solid var(--border-color);">Abbrechen</button>
+            <button onclick="acDialogConfirm()" style="background:var(--accent-color); color:#fff; border:none;">Ausführen</button>
+        </div>
+    </div>
+</div>
+
+<!-- PDF-Typ-Dialog (vor Konvertierung) -->
+<div id="pdftype-dialog-overlay" class="r2-modal-overlay" style="display:none;">
+    <div class="r2-modal" style="max-width:340px;">
+        <h3>PDF-Typ wählen</h3>
+        <p style="font-size:0.82rem; color:var(--secondary-text); margin:0 0 12px 0;">Wie wurde das PDF erstellt?</p>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+            <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
+                <input type="radio" name="pdftype-choice" value="ocr" checked style="margin-top:3px;">
+                <span><strong>OCR</strong><br><span style="font-size:0.78rem; color:var(--secondary-text);">Bindestriche sind im Text vorhanden</span></span>
+            </label>
+            <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
+                <input type="radio" name="pdftype-choice" value="acrobat" style="margin-top:3px;">
+                <span><strong>Acrobat</strong><br><span style="font-size:0.78rem; color:var(--secondary-text);">Silbentrennungen werden rekonstruiert</span></span>
+            </label>
+        </div>
+        <div class="r2-modal-btns" style="margin-top:14px;">
+            <button id="pdftype-btn-cancel" style="background:var(--background-color,#fff); border:1px solid var(--border-color); padding:6px 16px; border-radius:4px; font-size:0.85rem; cursor:pointer;">Abbrechen</button>
+            <button id="pdftype-btn-ok" style="background:var(--accent-color); color:#fff; border:none; padding:6px 16px; border-radius:4px; font-size:0.85rem; cursor:pointer;">Weiter</button>
+        </div>
+    </div>
+</div>
 
 <script>
 // ============================================================================
@@ -856,6 +910,7 @@ let hasUnsavedChanges = false;
 let currentPdfUrl = null;
 let currentPdfDoc = null;
 let pdfRenderingInProgress = false;
+let currentPdfType = 'ocr';
 
 const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
@@ -1096,11 +1151,44 @@ async function loadDocument() {
     }
 }
 
+function showPdfTypeDialog() {
+    return new Promise((resolve) => {
+        const overlay = document.getElementById('pdftype-dialog-overlay');
+        const ocrRadio = document.querySelector('input[name="pdftype-choice"][value="ocr"]');
+        ocrRadio.checked = true;
+
+        const btnOk = document.getElementById('pdftype-btn-ok');
+        const btnCancel = document.getElementById('pdftype-btn-cancel');
+
+        function cleanup() {
+            overlay.style.display = 'none';
+            btnOk.removeEventListener('click', onOk);
+            btnCancel.removeEventListener('click', onCancel);
+        }
+        function onOk() {
+            const val = document.querySelector('input[name="pdftype-choice"]:checked').value;
+            currentPdfType = val;
+            cleanup();
+            resolve(val);
+        }
+        function onCancel() {
+            cleanup();
+            resolve(null);
+        }
+
+        btnOk.addEventListener('click', onOk);
+        btnCancel.addEventListener('click', onCancel);
+        overlay.style.display = 'flex';
+    });
+}
+
 /**
  * pdf.js getTextContent()-Ergebnis → Fließtext mit Zeilen-/Absatzerkennung.
- * @returns {string|null} Text der Seite ohne Seitenmarke, oder null wenn die Seite keinen Text enthält.
+ * @param {object} content - PDF.js getTextContent() result
+ * @param {string} [pdfType='ocr'] - 'ocr' oder 'acrobat'
+ * @returns {string|null}
  */
-function paragraphTextFromPdfTextContent(content) {
+function paragraphTextFromPdfTextContent(content, pdfType) {
     const items = content.items.filter(it => it.str.trim().length > 0);
     if (items.length === 0) return null;
 
@@ -1116,20 +1204,30 @@ function paragraphTextFromPdfTextContent(content) {
     const sameLineThreshold = lineSpacing * 0.5;
     const paraGap = lineSpacing * 1.25;
 
+    const isAcrobat = (pdfType === 'acrobat');
     const lines = [];
     let currentLine = items[0].str;
     let lineStartX = items[0].transform[4];
+    let lineEndX = items[0].transform[4] + (items[0].width || 0);
     for (let j = 1; j < items.length; j++) {
         const gap = items[j - 1].transform[5] - items[j].transform[5];
         if (gap < sameLineThreshold) {
-            currentLine += ' ' + items[j].str;
+            const next = items[j].str;
+            if (next === '-' || next === '\u00AD' || next === '\u00AC' || currentLine.endsWith('-') || currentLine.endsWith('\u00AD') || currentLine.endsWith('\u00AC')) {
+                currentLine += next;
+            } else {
+                currentLine += ' ' + next;
+            }
+            const itemEndX = items[j].transform[4] + (items[j].width || 0);
+            if (itemEndX > lineEndX) lineEndX = itemEndX;
         } else {
-            lines.push({ text: currentLine, startX: lineStartX, gapAfter: gap });
+            lines.push({ text: currentLine, startX: lineStartX, endX: lineEndX, gapAfter: gap });
             currentLine = items[j].str;
             lineStartX = items[j].transform[4];
+            lineEndX = items[j].transform[4] + (items[j].width || 0);
         }
     }
-    lines.push({ text: currentLine, startX: lineStartX, gapAfter: 0 });
+    lines.push({ text: currentLine, startX: lineStartX, endX: lineEndX, gapAfter: 0 });
 
     const bodyLines = lines.filter(l =>
         l.text.trim().length > 10 &&
@@ -1151,27 +1249,50 @@ function paragraphTextFromPdfTextContent(content) {
         : (xPositions[0] || 0);
     const indentThreshold = lineSpacing * 0.8;
 
+    let hyphenMarginThreshold = Infinity;
+    if (isAcrobat) {
+        const endXValues = bodyLines.map(l => l.endX).filter(v => v > 0);
+        endXValues.sort((a, b) => a - b);
+        const rightMargin = endXValues.length > 2
+            ? endXValues[Math.floor(endXValues.length * 0.85)]
+            : (endXValues[endXValues.length - 1] || 500);
+        const lineWidth = rightMargin - baseX;
+        hyphenMarginThreshold = rightMargin - lineWidth * 0.08;
+    }
+
     const parts = [];
     for (let li = 0; li < lines.length; li++) {
-        parts.push(lines[li].text);
-        if (li >= lines.length - 1) break;
+        const trimmed = lines[li].text.trimEnd();
+        const nextLine = (li < lines.length - 1) ? lines[li + 1] : null;
 
         const gap = lines[li].gapAfter;
-        const lineText = lines[li].text.trimEnd();
-        const nextLine = lines[li + 1];
-        const endsWithPunct = /[.!?:;»«"'\u201d\u00bb\u2019]$/.test(lineText);
-        const isShortLine = lineText.length < shortLineThreshold && lineText.length > 0;
-        const isAllCaps = /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(lineText) && lineText.length > 3;
+        const endsWithPunct = /[.!?:;»«"'\u201d\u00bb\u2019]$/.test(trimmed);
+        const isShortLine = trimmed.length < shortLineThreshold && trimmed.length > 0;
+        const isAllCaps = /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(trimmed) && trimmed.length > 3;
         const nextIsIndented = nextLine && (nextLine.startX - baseX) > indentThreshold;
         const nextIsAllCaps = nextLine && /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(nextLine.text.trim()) && nextLine.text.trim().length > 3;
 
-        if (gap >= paraGap) {
-            parts.push('\n\n');
-        } else if (nextIsIndented && !isAllCaps) {
-            parts.push('\n\n');
-        } else if (endsWithPunct && isShortLine) {
-            parts.push('\n\n');
-        } else if (isAllCaps || nextIsAllCaps) {
+        const isParagraphBreak = (gap >= paraGap)
+            || (nextIsIndented && !isAllCaps)
+            || (endsWithPunct && isShortLine)
+            || isAllCaps || nextIsAllCaps;
+
+        let lineContent = trimmed;
+        if (isAcrobat && !isParagraphBreak && nextLine
+            && !trimmed.endsWith('-') && !trimmed.endsWith('\u00AD') && !trimmed.endsWith('\u00AC')) {
+            const reachesMargin = lines[li].endX >= hyphenMarginThreshold;
+            const endsWithLetter = /\p{L}$/u.test(trimmed);
+            const nextText = nextLine.text.trimStart();
+            const nextStartsLower = /^\p{Ll}/u.test(nextText);
+            if (reachesMargin && endsWithLetter && nextStartsLower) {
+                lineContent = trimmed + '-';
+            }
+        }
+
+        parts.push(lineContent);
+        if (li >= lines.length - 1) break;
+
+        if (isParagraphBreak) {
             parts.push('\n\n');
         } else {
             parts.push('\n');
@@ -1214,11 +1335,13 @@ async function extractPDFText(pdfUrl) {
     }
 
     console.log(`[PDF] Textlayer vorhanden (${avgCharsPerPage.toFixed(0)} Zeichen/Seite) → Direkt-Extraktion mit Absatzerkennung`);
+    const chosenType = await showPdfTypeDialog();
+    if (!chosenType) throw new Error('Abgebrochen');
     const pages = [];
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        const pageText = paragraphTextFromPdfTextContent(content);
+        const pageText = paragraphTextFromPdfTextContent(content, chosenType);
         pages.push(pdfPageBlockWithMarker(i, pageText));
         if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
     }
@@ -1839,7 +1962,7 @@ function isValidPart(typo, word) {
     return false;
 }
 
-function checkJoined(typo, part1, part2) {
+function checkJoined(typo, part1, part2, lenient) {
     const candidates = [part1 + part2];
     const joined = candidates[0];
     if (joined.includes('ß')) {
@@ -1859,11 +1982,20 @@ function checkJoined(typo, part1, part2) {
 
     if (isValidPart(typo, part1) && isValidPart(typo, part2)) {
         const fallback = part1 + part2.charAt(0).toLowerCase() + part2.slice(1);
+        if (lenient) {
+            if (fallback.includes('ß')) {
+                const ssFallback = fallback.replace(/ß/g, 'ss');
+                if (typo.check(ssFallback) || isInUserDictionary(ssFallback)) return ssFallback;
+            }
+            return fallback;
+        }
+        if (typo.check(fallback) || isInUserDictionary(fallback)) return fallback;
+        const capFallback = fallback.charAt(0).toUpperCase() + fallback.slice(1);
+        if (typo.check(capFallback) || isInUserDictionary(capFallback)) return capFallback;
         if (fallback.includes('ß')) {
             const ssFallback = fallback.replace(/ß/g, 'ss');
             if (typo.check(ssFallback) || isInUserDictionary(ssFallback)) return ssFallback;
         }
-        return fallback;
     }
 
     return null;
@@ -1895,8 +2027,8 @@ async function runSpellcheck() {
         // Collect all hyphenation matches (both line-break and inline)
         const hyphenMatches = [];
 
-        // A) Line-break hyphens: word-\nrest
-        const lineBreakRegex = /(\p{L}+)-[\r\n]+(\p{L}+)/gu;
+        // A) Line-break hyphens: word-\nrest (also ¬)
+        const lineBreakRegex = /(\p{L}+)(?:-|\xAC)[\r\n]+(\p{L}+)/gu;
         let hm;
         while ((hm = lineBreakRegex.exec(rawText)) !== null) {
             if (isInUserDictionary(hm[0].replace(/[\r\n]+/g, ''))) continue;
@@ -1911,8 +2043,8 @@ async function runSpellcheck() {
             }
         }
 
-        // B) Inline hyphens: word-word within a line (OCR artifacts like "Erkenntnis-theorie")
-        const inlineHyphenRegex = /(\p{L}{2,})-(\p{L}{2,})/gu;
+        // B) Inline hyphens: word-word within a line (also ¬)
+        const inlineHyphenRegex = /(\p{L}{2,})(?:-|\xAC)(\p{L}{2,})/gu;
         let ihm;
         while ((ihm = inlineHyphenRegex.exec(rawText)) !== null) {
             const alreadyCovered = hyphenMatches.some(h =>
@@ -1938,8 +2070,8 @@ async function runSpellcheck() {
             }
         }
 
-        // C) Hyphen-space: "Auseinan- dersetzungen" (OCR artifact with space after hyphen)
-        const hyphenSpaceRegex = /(\p{L}{2,})-\s+(\p{L}{2,})/gu;
+        // C) Hyphen-space: "Auseinan- dersetzungen" (also ¬)
+        const hyphenSpaceRegex = /(\p{L}{2,})(?:-|\xAC)\s+(\p{L}{2,})/gu;
         let hsm;
         while ((hsm = hyphenSpaceRegex.exec(rawText)) !== null) {
             const alreadyCovered = hyphenMatches.some(h =>
@@ -2319,6 +2451,8 @@ async function openPDFAsText() {
             });
         }
         if (!file) return;
+        const chosenType = await showPdfTypeDialog();
+        if (!chosenType) return;
         setStatus('Extrahiere Text aus PDF: ' + file.name + '...');
         const arrayBuffer = await file.arrayBuffer();
         const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -2326,7 +2460,7 @@ async function openPDFAsText() {
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const content = await page.getTextContent();
-            const pageText = paragraphTextFromPdfTextContent(content);
+            const pageText = paragraphTextFromPdfTextContent(content, chosenType);
             pages.push(pdfPageBlockWithMarker(i, pageText));
             if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
         }
@@ -2906,9 +3040,58 @@ function clearErrors() {
 }
 
 // ============================================================================
-// Auto-Korrektur (textbasiert, nicht-blockierend)
+// Auto-Korrektur – Seitenauswahl-Dialog
 // ============================================================================
-async function autoCorrectAll() {
+function acDialogUpdateVisibility() {
+    const scope = document.querySelector('input[name="ac-scope"]:checked').value;
+    document.getElementById('ac-single-row').style.display = scope === 'single' ? 'block' : 'none';
+    const rangeRow = document.getElementById('ac-range-row');
+    rangeRow.style.display = scope === 'range' ? 'flex' : 'none';
+}
+
+function acDialogCancel() {
+    document.getElementById('ac-dialog-overlay').style.display = 'none';
+    document.getElementById('btn-autocorrect').disabled = false;
+    setStatus('Auto-Korrektur abgebrochen');
+}
+
+function acDialogConfirm() {
+    const scope = document.querySelector('input[name="ac-scope"]:checked').value;
+    let pageFilter = null;
+
+    if (scope === 'single') {
+        const raw = document.getElementById('ac-pages-input').value.trim();
+        if (!raw) { alert('Bitte Seitenzahlen eingeben (z.B. 3, 7, 12)'); return; }
+        const pages = new Set();
+        for (const part of raw.split(/[,;\s]+/)) {
+            const n = parseInt(part, 10);
+            if (isNaN(n) || n < 1) { alert(`Ungültige Seitenzahl: "${part}"`); return; }
+            pages.add(n);
+        }
+        pageFilter = pages;
+    } else if (scope === 'range') {
+        const from = parseInt(document.getElementById('ac-range-from').value, 10);
+        const to = parseInt(document.getElementById('ac-range-to').value, 10);
+        if (isNaN(from) || isNaN(to) || from < 1 || to < 1) { alert('Bitte gültige Seitenzahlen eingeben.'); return; }
+        if (from > to) { alert('"Von" muss kleiner oder gleich "bis" sein.'); return; }
+        const pages = new Set();
+        for (let i = from; i <= to; i++) pages.add(i);
+        pageFilter = pages;
+    }
+
+    document.getElementById('ac-dialog-overlay').style.display = 'none';
+    runAutoCorrect(pageFilter);
+}
+
+function findPageMarkersInText(text) {
+    const pages = [];
+    const re = /\|(\d+)\|/g;
+    let m;
+    while ((m = re.exec(text)) !== null) pages.push(parseInt(m[1], 10));
+    return [...new Set(pages)].sort((a, b) => a - b);
+}
+
+function autoCorrectAll() {
     const editor = document.getElementById('editor-content');
     const text = editor.textContent || editor.innerText;
     if (!text || text.trim().length < 10) {
@@ -2916,38 +3099,111 @@ async function autoCorrectAll() {
         return;
     }
 
+    const pages = findPageMarkersInText(text);
+    const info = document.getElementById('ac-page-info');
+    if (pages.length > 0) {
+        info.textContent = `Gefundene Seitenmarker: ${pages[0]}–${pages[pages.length - 1]} (${pages.length} Seiten)`;
+    } else {
+        info.textContent = 'Keine Seitenmarker (|N|) gefunden – "Alle Seiten" empfohlen.';
+    }
+
+    document.querySelector('input[name="ac-scope"][value="all"]').checked = true;
+    document.getElementById('ac-pages-input').value = '';
+    document.getElementById('ac-range-from').value = pages.length > 0 ? pages[0] : '';
+    document.getElementById('ac-range-to').value = pages.length > 0 ? pages[pages.length - 1] : '';
+    acDialogUpdateVisibility();
+
+    document.querySelectorAll('input[name="ac-scope"]').forEach(r =>
+        r.onchange = acDialogUpdateVisibility
+    );
+
+    document.getElementById('ac-dialog-overlay').style.display = 'flex';
+}
+
+// ============================================================================
+// Auto-Korrektur (textbasiert, nicht-blockierend)
+// ============================================================================
+async function runAutoCorrect(pageFilter) {
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+
     setStatus('Analysiere Text für Auto-Korrektur...');
     document.getElementById('btn-autocorrect').disabled = true;
     await new Promise(r => setTimeout(r, 50));
 
-    let result = text;
+    let segmentsMap = null;
+    let segmentKeys = null;
+    let textToCorrect = text;
+
+    if (pageFilter) {
+        const markerRe = /\|(\d+)\|/g;
+        const markers = [];
+        let mm;
+        while ((mm = markerRe.exec(text)) !== null) {
+            markers.push({ page: parseInt(mm[1], 10), idx: mm.index });
+        }
+
+        if (markers.length === 0) {
+            alert('Keine Seitenmarker (|N|) im Text gefunden.\nAutokorrektur wird auf den gesamten Text angewendet.');
+            pageFilter = null;
+        } else {
+            segmentsMap = new Map();
+            segmentKeys = [];
+
+            if (markers[0].idx > 0) {
+                segmentsMap.set('_pre', { text: text.substring(0, markers[0].idx), selected: false });
+                segmentKeys.push('_pre');
+            }
+            for (let mi = 0; mi < markers.length; mi++) {
+                const start = markers[mi].idx;
+                const end = mi < markers.length - 1 ? markers[mi + 1].idx : text.length;
+                const pg = markers[mi].page;
+                const key = '_p' + mi;
+                segmentsMap.set(key, { text: text.substring(start, end), selected: pageFilter.has(pg), page: pg });
+                segmentKeys.push(key);
+            }
+
+            const selectedParts = [];
+            for (const [, seg] of segmentsMap) {
+                if (seg.selected) selectedParts.push(seg.text);
+            }
+            textToCorrect = selectedParts.join('');
+        }
+    }
+
+    let result = textToCorrect;
     let hyphenFixes = 0;
     let ssFixes = 0;
     let dictFixes = 0;
 
+    // 0) ¬ und Soft-Hyphens (\u00AD) sind IMMER Silbentrennungen – bedingungslos zusammenfügen
+    const softHyphenRe = /(\p{L})[\xAC\u00AD]\s*(\p{L})/gu;
+    let shMatch;
+    while ((shMatch = softHyphenRe.exec(result)) !== null) hyphenFixes++;
+    result = result.replace(/(\p{L})[\xAC\u00AD]\s*(\p{L})/gu, '$1$2');
+
     // 1) Hyphen-newline joins: "Auseinan-\ndersetzungen" → "Auseinandersetzungen"
     result = result.replace(/(\p{L}{2,})-[\r\n]+(\p{L}{2,})/gu, (match, p1, p2) => {
-        if (isInUserDictionary(match.replace(/[\r\n]+/g, ''))) return match;
-        if (isInUserDictionary(match.replace(/[\r\n]+/g, '-'))) return match;
-        const joined = typoInstance ? checkJoined(typoInstance, p1, p2) : null;
+        if (isInUserDictionary(p1 + '-' + p2)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2, true) : null;
         if (joined) { hyphenFixes++; return joined; }
         return match;
     });
 
     // 2) Hyphen-space joins: "Auseinan- dersetzungen" → "Auseinandersetzungen"
     result = result.replace(/(\p{L}{2,})-\s+(\p{L}{2,})/gu, (match, p1, p2) => {
-        if (isInUserDictionary(match.replace(/\s+/g, ''))) return match;
-        if (isInUserDictionary(match.replace(/\s+/g, '-'))) return match;
-        const joined = typoInstance ? checkJoined(typoInstance, p1, p2) : null;
+        if (isInUserDictionary(p1 + '-' + p2)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2, true) : null;
         if (joined) { hyphenFixes++; return joined; }
         return match;
     });
 
     // 3) Inline hyphens: "Erkenntnis-theorie" → "Erkenntnistheorie"
     result = result.replace(/(\p{L}{2,})-(\p{L}{2,})/gu, (match, p1, p2) => {
-        if (typoInstance && typoInstance.check(match)) return match;
-        if (isInUserDictionary(match)) return match;
-        const joined = typoInstance ? checkJoined(typoInstance, p1, p2) : null;
+        const withHyphen = p1 + '-' + p2;
+        if (typoInstance && typoInstance.check(withHyphen)) return match;
+        if (isInUserDictionary(withHyphen)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2, true) : null;
         if (joined) { hyphenFixes++; return joined; }
         return match;
     });
@@ -2995,11 +3251,26 @@ async function autoCorrectAll() {
         return '';
     });
 
-    // 7) Seitenzahlen über Seitenmarkern entfernen: "\n31\n\n|32|" → "\n|32|"
+    // 7) Copyright-Fußzeilen entfernen (inkl. Leerzeile davor)
+    let copyrightFixes = 0;
+    result = result.replace(/\n*^Copyright\s+Rudolf\s+Steiner\s+Nachlass-Verwaltung\s+Buch:\s*\d+(?:\s+Seite:\s*[\d ]*)?\s*$/gm, () => {
+        copyrightFixes++;
+        return '';
+    });
+
+    // 8) Seitenzahlen über Seitenmarkern entfernen: "\n31\n\n|32|" → "\n|32|"
     let pageNumFixes = 0;
     result = result.replace(/\n(\d{1,4})\s*\n+(\|\d+\|)/g, (match, num, marker) => {
         pageNumFixes++;
         return '\n' + marker;
+    });
+
+    // 9) Seitenmarker |N| normalisieren: je genau eine Leerzeile davor und danach
+    let markerFixes = 0;
+    result = result.replace(/\n+(\|\d+\|)\n+/g, (match, marker) => {
+        const expected = '\n\n' + marker + '\n\n';
+        if (match !== expected) markerFixes++;
+        return expected;
     });
 
     // Aufräumen: mehrfache Leerzeilen auf maximal zwei reduzieren
@@ -3067,7 +3338,36 @@ async function autoCorrectAll() {
         result = outParts.join('');
     }
 
-    const totalFixes = hyphenFixes + ssFixes + dictFixes + headerFixes + pageNumFixes + spaceFixes + apostrophFixes + lineFixes;
+    if (segmentsMap && segmentKeys) {
+        const correctedMarkerRe = /\|(\d+)\|/g;
+        const corrParts = [];
+        let cMM;
+        while ((cMM = correctedMarkerRe.exec(result)) !== null) {
+            corrParts.push({ page: parseInt(cMM[1], 10), idx: cMM.index });
+        }
+
+        const corrSegments = new Map();
+        if (corrParts.length > 0) {
+            for (let ci = 0; ci < corrParts.length; ci++) {
+                const start = corrParts[ci].idx;
+                const end = ci < corrParts.length - 1 ? corrParts[ci + 1].idx : result.length;
+                corrSegments.set(corrParts[ci].page, result.substring(start, end));
+            }
+        }
+
+        const finalParts = [];
+        for (const key of segmentKeys) {
+            const seg = segmentsMap.get(key);
+            if (seg.selected && seg.page !== undefined && corrSegments.has(seg.page)) {
+                finalParts.push(corrSegments.get(seg.page));
+            } else {
+                finalParts.push(seg.text);
+            }
+        }
+        result = finalParts.join('');
+    }
+
+    const totalFixes = hyphenFixes + ssFixes + dictFixes + headerFixes + copyrightFixes + pageNumFixes + markerFixes + spaceFixes + apostrophFixes + lineFixes;
 
     if (totalFixes === 0) {
         alert('Keine automatisch korrigierbaren Fehler gefunden.\n\n' +
@@ -3084,12 +3384,23 @@ async function autoCorrectAll() {
     if (ssFixes) msgParts.push(`${ssFixes} ß→ss Korrekturen (neue Rechtschreibung)`);
     if (dictFixes) msgParts.push(`${dictFixes} Wörterbuch-Korrekturen`);
     if (headerFixes) msgParts.push(`${headerFixes} Verlagskopfzeilen entfernt`);
+    if (copyrightFixes) msgParts.push(`${copyrightFixes} Copyright-Fußzeilen entfernt`);
     if (pageNumFixes) msgParts.push(`${pageNumFixes} Seitenzahlen vor Markern entfernt`);
+    if (markerFixes) msgParts.push(`${markerFixes} Seitenmarker-Abstände normalisiert`);
     if (spaceFixes) msgParts.push(`${spaceFixes} mehrfache Leerzeichen bereinigt`);
     if (apostrophFixes) msgParts.push(`${apostrophFixes} Apostrophe ' → \u2019`);
     if (lineFixes) msgParts.push(`${lineFixes} Zeilenumbrüche bereinigt (Absätze erhalten)`);
 
+    let scopeLabel = 'Alle Seiten';
+    if (pageFilter) {
+        const pgArr = [...pageFilter].sort((a, b) => a - b);
+        scopeLabel = pgArr.length <= 8
+            ? `Seiten: ${pgArr.join(', ')}`
+            : `Seiten: ${pgArr[0]}–${pgArr[pgArr.length - 1]} (${pgArr.length} Seiten)`;
+    }
+
     const msg = `Auto-Korrektur durchführen?\n\n` +
+                `Bereich: ${scopeLabel}\n\n` +
                 msgParts.join('\n') + `\n\n` +
                 `Gesamt: ${totalFixes} Korrekturen\n\n` +
                 `Hinweis: Prüfen Sie das Ergebnis vor dem Speichern.\n` +
@@ -4265,6 +4576,8 @@ async function r2LoadFileIntoEditor(key) {
 
         let text;
         if (key.endsWith('.pdf')) {
+            const chosenType = await showPdfTypeDialog();
+            if (!chosenType) { setStatus('Abgebrochen'); return; }
             const blob = await res.blob();
             const arrayBuffer = await blob.arrayBuffer();
             const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -4272,7 +4585,7 @@ async function r2LoadFileIntoEditor(key) {
             for (let i = 1; i <= pdf.numPages; i++) {
                 const page = await pdf.getPage(i);
                 const content = await page.getTextContent();
-                const pageText = paragraphTextFromPdfTextContent(content);
+                const pageText = paragraphTextFromPdfTextContent(content, chosenType);
                 pages.push(pdfPageBlockWithMarker(i, pageText));
                 if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
             }
@@ -4319,7 +4632,7 @@ async function r2LoadUserInfo() {
 function r2RenderBreadcrumb() {
     const bc = document.getElementById('r2-breadcrumb');
     const upBtn = document.getElementById('r2-nav-up');
-    const scopeLabel = r2CurrentScope === 'shared' ? 'Shared' : (r2CurrentScope === 'all' ? 'Alle' : 'Meine Dateien');
+    const scopeLabel = r2CurrentScope === 'ga_pdf' ? 'GA PDFs' : r2CurrentScope === 'shared' ? 'Shared' : (r2CurrentScope === 'all' ? 'Alle' : 'Meine Dateien');
     let html = `<span onclick="r2SwitchScope('${r2CurrentScope}')">${scopeLabel}</span>`;
     if (r2CurrentSubpath) {
         const parts = r2CurrentSubpath.replace(/\/$/, '').split('/');
@@ -4344,6 +4657,9 @@ async function r2RefreshFiles() {
     r2SelectedItem = null;
     r2RenderBreadcrumb();
     list.innerHTML = '<div class="r2-empty">Laden...</div>';
+
+    const toolbarRow = list.parentElement.querySelector('.r2-toolbar-row');
+    if (toolbarRow) toolbarRow.style.display = r2CurrentScope === 'ga_pdf' ? 'none' : '';
 
     try {
         const headers = await r2GetAuthHeaders();
@@ -4375,6 +4691,7 @@ async function r2RefreshFiles() {
             const scopes = [];
             if (r2CurrentScope !== 'shared') scopes.push({ id: 'shared', label: 'Shared (gemeinsam)', icon: '&#128101;' });
             if (r2CurrentScope !== 'user') scopes.push({ id: 'user', label: 'Meine Dateien', icon: '&#128100;' });
+            if (r2CurrentScope !== 'ga_pdf') scopes.push({ id: 'ga_pdf', label: 'GA PDFs (Original)', icon: '&#128218;' });
             if (r2UserInfo?.isAdmin && r2CurrentScope !== 'all') scopes.push({ id: 'all', label: 'Alle Nutzer (Admin)', icon: '&#128274;' });
             for (const s of scopes) {
                 html += `<div class="r2-item" ondblclick="r2SwitchScope('${s.id}')">
@@ -4384,16 +4701,18 @@ async function r2RefreshFiles() {
             }
         }
 
+        const isReadonly = r2CurrentScope === 'ga_pdf';
+
         for (const folder of data.folders) {
             const fname = escapeHtml(folder.name);
             html += `<div class="r2-item" data-type="folder" data-name="${fname}" data-key="${escapeHtml(folder.key)}" 
                           onclick="r2SelectItem(this)" ondblclick="r2NavigateInto('${fname}/')" 
-                          oncontextmenu="r2ShowContextMenu(event, 'folder', '${fname}', '${escapeHtml(folder.key)}')">
+                          ${isReadonly ? '' : `oncontextmenu="r2ShowContextMenu(event, 'folder', '${fname}', '${escapeHtml(folder.key)}')"`}>
                 <div class="r2-icon">&#128193;</div>
                 <div class="r2-name" style="font-weight:500;">${fname}</div>
-                <div class="r2-actions">
+                ${isReadonly ? '' : `<div class="r2-actions">
                     <button class="r2-act-btn danger" onclick="event.stopPropagation(); r2DeleteFolder('${fname}', '${escapeHtml(folder.key)}')" title="Löschen">&#128465;</button>
-                </div>
+                </div>`}
             </div>`;
         }
 
@@ -4407,15 +4726,15 @@ async function r2RefreshFiles() {
             html += `<div class="r2-item" data-type="file" data-name="${fn}" data-key="${fk}"
                           onclick="r2OpenFile('${fk}')"
                           oncontextmenu="r2ShowContextMenu(event, 'file', '${fn}', '${fk}')"
-                          title="Klick: Im Editor öffnen. Rechtsklick: Weitere Optionen">
+                          title="${isReadonly ? 'Klick: Im PDF-Viewer öffnen. Rechtsklick: Kopieren' : 'Klick: Im Editor öffnen. Rechtsklick: Weitere Optionen'}">
                 <div class="r2-icon">${icon}</div>
                 <div class="r2-name">${fn}</div>
                 <div class="r2-meta">${size}${size && date ? ' · ' : ''}${date}</div>
-                <div class="r2-actions">
+                ${isReadonly ? '' : `<div class="r2-actions">
                     <button class="r2-act-btn" onclick="event.stopPropagation(); r2RenameFile('${fk}', '${fn}')" title="Umbenennen">&#9998;</button>
                     <button class="r2-act-btn" onclick="event.stopPropagation(); r2MoveFileDialog('${fk}', '${fn}')" title="Verschieben">&#8644;</button>
                     <button class="r2-act-btn danger" onclick="event.stopPropagation(); r2DeleteFile('${fk}', '${fn}')" title="Löschen">&#128465;</button>
-                </div>
+                </div>`}
             </div>`;
         }
 
@@ -4456,21 +4775,32 @@ function r2ShowContextMenu(event, type, name, key) {
     event.stopPropagation();
     const menu = document.getElementById('r2-context-menu');
     let html = '';
+    const isGaPdf = key.startsWith('ga_pdf/');
     if (type === 'file') {
-        html += `<div class="r2-ctx-item" onclick="r2OpenFile('${key}')">&#128221; Im Editor öffnen</div>`;
-        if (key.endsWith('.pdf')) {
-            html += `<div class="r2-ctx-item" onclick="r2OpenPdfInViewer('${key}')">&#128196; Im PDF-Viewer anzeigen</div>`;
+        if (isGaPdf) {
+            if (key.endsWith('.pdf')) {
+                html += `<div class="r2-ctx-item" onclick="r2OpenPdfInViewer('${key}')">&#128196; Im PDF-Viewer anzeigen</div>`;
+            }
+            html += `<div class="r2-ctx-item" onclick="r2CopyToMyFolder('${key}', '${name}')">&#128194; In meinen Ordner kopieren</div>`;
+            html += `<div class="r2-ctx-item" onclick="r2DownloadFile('${key}', '${name}')">&#8595; Herunterladen</div>`;
+        } else {
+            html += `<div class="r2-ctx-item" onclick="r2OpenFile('${key}')">&#128221; Im Editor öffnen</div>`;
+            if (key.endsWith('.pdf')) {
+                html += `<div class="r2-ctx-item" onclick="r2OpenPdfInViewer('${key}')">&#128196; Im PDF-Viewer anzeigen</div>`;
+            }
+            html += `<div class="r2-ctx-sep"></div>`;
+            html += `<div class="r2-ctx-item" onclick="r2RenameFile('${key}', '${name}')">&#9998; Umbenennen</div>`;
+            html += `<div class="r2-ctx-item" onclick="r2MoveFileDialog('${key}', '${name}')">&#8644; Verschieben</div>`;
+            html += `<div class="r2-ctx-item" onclick="r2DownloadFile('${key}', '${name}')">&#8595; Herunterladen</div>`;
+            html += `<div class="r2-ctx-sep"></div>`;
+            html += `<div class="r2-ctx-item danger" onclick="r2DeleteFile('${key}', '${name}')">&#128465; Löschen</div>`;
         }
-        html += `<div class="r2-ctx-sep"></div>`;
-        html += `<div class="r2-ctx-item" onclick="r2RenameFile('${key}', '${name}')">&#9998; Umbenennen</div>`;
-        html += `<div class="r2-ctx-item" onclick="r2MoveFileDialog('${key}', '${name}')">&#8644; Verschieben</div>`;
-        html += `<div class="r2-ctx-item" onclick="r2DownloadFile('${key}', '${name}')">&#8595; Herunterladen</div>`;
-        html += `<div class="r2-ctx-sep"></div>`;
-        html += `<div class="r2-ctx-item danger" onclick="r2DeleteFile('${key}', '${name}')">&#128465; Löschen</div>`;
     } else if (type === 'folder') {
         html += `<div class="r2-ctx-item" onclick="r2NavigateInto('${name}/')">&#128194; Öffnen</div>`;
-        html += `<div class="r2-ctx-sep"></div>`;
-        html += `<div class="r2-ctx-item danger" onclick="r2DeleteFolder('${name}', '${key}')">&#128465; Ordner löschen</div>`;
+        if (!isGaPdf) {
+            html += `<div class="r2-ctx-sep"></div>`;
+            html += `<div class="r2-ctx-item danger" onclick="r2DeleteFolder('${name}', '${key}')">&#128465; Ordner löschen</div>`;
+        }
     }
     menu.innerHTML = html;
     menu.style.display = 'block';
@@ -4520,7 +4850,7 @@ async function r2OpenFile(key) {
         return;
     }
 
-    if (key.endsWith('.pdf')) {
+    if (key.startsWith('ga_pdf/') || key.endsWith('.pdf')) {
         r2OpenPdfInViewer(key);
         return;
     }
@@ -4749,6 +5079,80 @@ async function r2DownloadFile(key, name) {
         setStatus('Heruntergeladen: ' + name);
     } catch (err) {
         setStatus('Download fehlgeschlagen: ' + err.message);
+    }
+}
+
+// --- Copy to my folder (ga_pdf → editor/<user>/) ---
+async function r2CopyToMyFolder(sourceKey, name) {
+    r2HideContextMenu();
+
+    const overlay = document.createElement('div');
+    overlay.className = 'r2-modal-overlay';
+    const modal = document.createElement('div');
+    modal.className = 'r2-modal';
+    modal.innerHTML = `<h3>Kopieren: ${escapeHtml(name)}</h3>
+        <p style="font-size:0.83rem;color:var(--secondary-text);margin:0 0 0.75rem;">Zielordner in Ihrem Bereich wählen:</p>
+        <div id="r2-copy-folders" style="max-height:250px;overflow-y:auto;border:1px solid var(--border-color);border-radius:4px;margin-bottom:0.5rem;"></div>
+        <div class="r2-modal-btns">
+            <button onclick="this.closest('.r2-modal-overlay').remove()" style="background:var(--background-color);border:1px solid var(--border-color);">Abbrechen</button>
+            <button id="r2-copy-confirm" style="background:var(--accent-color);color:white;border:none;" disabled>Kopieren</button>
+        </div>`;
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+
+    const foldersDiv = modal.querySelector('#r2-copy-folders');
+    foldersDiv.innerHTML = '<div style="padding:8px;text-align:center;color:var(--secondary-text);">Lade Ordner...</div>';
+
+    try {
+        const headers = await r2GetAuthHeaders();
+        const targets = [];
+
+        for (const scope of ['user', 'shared']) {
+            const scopeLabel = scope === 'shared' ? 'Shared' : 'Meine Dateien';
+            const res = await fetch(getApiBase() + '/editor/files?' + new URLSearchParams({ scope, prefix: '' }), { headers });
+            if (!res.ok) continue;
+            const data = await res.json();
+            const rootKey = scope === 'shared' ? 'editor/shared/' : ('editor/' + (r2UserInfo?.prefix || ''));
+            targets.push({ label: scopeLabel + '/', key: rootKey });
+            for (const f of data.folders) {
+                targets.push({ label: scopeLabel + '/' + f.name + '/', key: f.key });
+            }
+        }
+
+        let html = '';
+        for (const t of targets) {
+            html += `<div class="r2-modal-folder" data-key="${escapeHtml(t.key)}" 
+                          onclick="document.querySelectorAll('#r2-copy-folders .r2-modal-folder').forEach(e=>e.classList.remove('selected'));this.classList.add('selected');document.getElementById('r2-copy-confirm').disabled=false;">
+                <span>&#128193;</span> ${escapeHtml(t.label)}
+            </div>`;
+        }
+        foldersDiv.innerHTML = html || '<div style="padding:8px;color:var(--secondary-text);">Keine Ordner gefunden.</div>';
+
+        modal.querySelector('#r2-copy-confirm').addEventListener('click', async () => {
+            const sel = foldersDiv.querySelector('.r2-modal-folder.selected');
+            if (!sel) return;
+            const targetDir = sel.dataset.key.endsWith('/') ? sel.dataset.key : sel.dataset.key + '/';
+            const targetKey = targetDir + name;
+            try {
+                setStatus('Kopiere ' + name + '...');
+                const copyRes = await fetch(getApiBase() + '/editor/copy', {
+                    method: 'POST',
+                    headers: { ...headers, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sourceKey, targetKey })
+                });
+                if (!copyRes.ok) {
+                    const err = await copyRes.json().catch(() => ({}));
+                    throw new Error(err.error || 'Kopieren fehlgeschlagen');
+                }
+                setStatus('Kopiert: ' + name + ' → ' + targetDir.replace('editor/', ''));
+                overlay.remove();
+            } catch (err) {
+                setStatus('Kopieren fehlgeschlagen: ' + err.message);
+            }
+        });
+    } catch (err) {
+        foldersDiv.innerHTML = `<div style="padding:8px;color:#dc2626;">${err.message}</div>`;
     }
 }
 

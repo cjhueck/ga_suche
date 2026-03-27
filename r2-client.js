@@ -91,4 +91,29 @@ function isConfigured() {
     return !!(process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY);
 }
 
-module.exports = { listFiles, getFile, putFile, deleteFile, isConfigured, EDITOR_PREFIX };
+async function listFilesRaw(rawPrefix) {
+    const client = getClient();
+    if (!client) throw new Error('R2 nicht konfiguriert');
+    const result = await client.send(new ListObjectsV2Command({
+        Bucket: getBucket(),
+        Prefix: rawPrefix,
+        Delimiter: '/'
+    }));
+
+    const folders = (result.CommonPrefixes || []).map(p => {
+        const name = p.Prefix.slice(rawPrefix.length).replace(/\/$/, '');
+        return { name, type: 'folder', key: p.Prefix };
+    });
+
+    const files = (result.Contents || []).filter(obj => obj.Key !== rawPrefix).map(obj => ({
+        name: obj.Key.split('/').pop(),
+        type: obj.Key.endsWith('.pdf') ? 'pdf' : 'md',
+        key: obj.Key,
+        size: obj.Size,
+        lastModified: obj.LastModified
+    }));
+
+    return { folders, files };
+}
+
+module.exports = { listFiles, listFilesRaw, getFile, putFile, deleteFile, isConfigured, EDITOR_PREFIX };
