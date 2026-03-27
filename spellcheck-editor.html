@@ -4797,8 +4797,8 @@ let r2CachedData = null;
 
 async function r2GetAuthHeaders() {
     const headers = {};
-    if (!isLocal && typeof supabase !== 'undefined' && supabase) {
-        const { data: { session } } = await supabase.auth.getSession();
+    if (!isLocal && supabaseClient) {
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
     }
     return headers;
