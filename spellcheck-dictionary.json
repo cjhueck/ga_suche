@@ -1,15 +1,5 @@
 {
   "words": [
-    "Entwicklungsstufen",
-    "Menschheitsentwicklung",
-    "Seraphim",
-    "Sonnensystem",
-    "Tierkreis",
-    "Wassermann-Region",
-    "Weltenkörper",
-    "Weltenraum",
-    "Wissenschafter",
-    "Zusammenfassung",
     "aachen",
     "aachener",
     "aal",
@@ -13357,6 +13347,7 @@
     "entwicklungspsychologisch",
     "Entwicklungsreihe",
     "Entwicklungsstufe",
+    "Entwicklungsstufen",
     "Entwicklungstheorie",
     "entwinden",
     "entwirft",
@@ -29590,6 +29581,7 @@
     "menschheit",
     "menschheits",
     "Menschheitsentwickelung",
+    "Menschheitsentwicklung",
     "Menschheits­geschehen",
     "Menschheitsmission",
     "Menschheitswissenschaft",
@@ -49036,11 +49028,13 @@
     "Weltengeister",
     "Weltengrund",
     "Weltenkarma",
+    "Weltenkörper",
     "Weltenkraft",
     "Weltenkräften",
     "Weltenkugel",
     "Weltenlenker",
     "Weltenlenkers",
+    "Weltenraum",
     "Weltenschaffens",
     "Weltenschicksal",
     "Weltenschicksale",
@@ -49748,6 +49742,7 @@
     "wissens",
     "wissensbasiert",
     "wissenschaft",
+    "Wissenschafter",
     "wissenschaftler",
     "wissenschaftlich",
     "Wissenschaftlichkeit",
@@ -51502,6 +51497,7 @@
     "zusammenfällt",
     "zusammenfalten",
     "zusammenfassen",
+    "Zusammenfassung",
     "zusammenfiel",
     "zusammenfinden",
     "zusammenflicken",
@@ -52206,9 +52202,15 @@
     "zypern",
     "zypresse",
     "zyste",
+    "Seraphim",
+    "Sonnensystem",
+    "Tierkreis",
+    "Wassermann-Region",
     "physikalisch-mechanischen",
     "Außerungen",
-    "Äußerungen"
+    "Äußerungen",
+    "Entwickelungsformen",
+    "S"
   ],
   "corrections": {
     "Schlußfolgerungen": "Schlussfolgerungen",
@@ -52278,7 +52280,8 @@
     "Johannes-Baues": "Johannesbaues",
     "Mietshäusernfür": "Mietshäusern für",
     "deengestaltungen": "Ideengestaltungen",
-    "physikalischmechanischen": "physikalisch-mechanischen"
+    "physikalischmechanischen": "physikalisch-mechanischen",
+    "$": "S"
   },
-  "updatedAt": "2026-03-27T19:48:51.925Z"
+  "updatedAt": "2026-03-27T20:17:09.508Z"
 }

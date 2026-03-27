@@ -212,13 +212,12 @@
         }
 
         .sidebar-panel {
-            width: 320px;
+            flex: 1;
             border-left: none;
             background: var(--panel-bg);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            flex-shrink: 0;
         }
 
         .sidebar-header {
@@ -3088,6 +3087,7 @@ function setupResizeHandle() {
         function onMouseMove(e) {
             const delta = startX - e.clientX;
             const newWidth = Math.max(200, Math.min(window.innerWidth * 0.6, startWidth + delta));
+            sidebar.style.flex = 'none';
             sidebar.style.width = newWidth + 'px';
         }
 
@@ -3421,8 +3421,11 @@ async function autoCorrectSelection() {
     let hyphenFixes = 0, ssFixes = 0, dictFixes = 0;
     let spaceFixes = 0, apostrophFixes = 0, blankLineFixes = 0;
 
-    // Leerzeilen entfernen: \n\n+ → \n
+    // Leerzeilen entfernen: \n\n+ → \n (aber Leerzeilen um ___/--- erhalten)
+    const rulerPlaceholder = '\x00RULER\x00';
+    result = result.replace(/(\n[ \t]*(?:_{3,}|-{3,})[ \t]*\n)/g, (m) => rulerPlaceholder + m.trim() + rulerPlaceholder);
     result = result.replace(/\n{2,}/g, () => { blankLineFixes++; return '\n'; });
+    result = result.replace(new RegExp(rulerPlaceholder, 'g'), '\n');
 
     // ¬ / Soft-Hyphens
     const shRe = /(\p{L})[\xAC\u00AD]\s*(\p{L})/gu;
@@ -3576,6 +3579,13 @@ async function runAutoCorrect(pageFilter) {
     let ssFixes = 0;
     let dictFixes = 0;
 
+    // Trennlinien (___/---) mit umliegenden Leerzeilen schützen
+    const RULER_TOKEN = '\x00RULER_BLK\x00';
+    result = result.replace(/(\n\n)([ \t]*(?:_{3,}|-{3,})[ \t]*)(\n\n)/g,
+        (m, pre, ruler, post) => RULER_TOKEN + ruler + RULER_TOKEN);
+    result = result.replace(/(\n)([ \t]*(?:_{3,}|-{3,})[ \t]*)(\n)/g,
+        (m, pre, ruler, post) => RULER_TOKEN + ruler + RULER_TOKEN);
+
     // 0) ¬ und Soft-Hyphens (\u00AD) sind IMMER Silbentrennungen – bedingungslos zusammenfügen
     const softHyphenRe = /(\p{L})[\xAC\u00AD]\s*(\p{L})/gu;
     let shMatch;
@@ -3712,12 +3722,12 @@ async function runAutoCorrect(pageFilter) {
                 continue;
             }
 
-            if (/^\s*\|\d+\|\s*$/.test(cur) || /^\s*#{1,6}\s/.test(cur)) {
+            if (/^\s*\|\d+\|\s*$/.test(cur) || /^\s*#{1,6}\s/.test(cur) || /^\s*(?:_{3,}|-{3,})\s*$/.test(cur)) {
                 outParts.push('\n');
                 continue;
             }
 
-            if (/^\s*\|\d+\|/.test(nxt) || /^\s*#{1,6}\s/.test(nxt)) {
+            if (/^\s*\|\d+\|/.test(nxt) || /^\s*#{1,6}\s/.test(nxt) || /^\s*(?:_{3,}|-{3,})\s*$/.test(nxt)) {
                 outParts.push('\n');
                 continue;
             }
@@ -3737,6 +3747,9 @@ async function runAutoCorrect(pageFilter) {
         }
         result = outParts.join('');
     }
+
+    // Trennlinien-Platzhalter wiederherstellen
+    result = result.replace(new RegExp(RULER_TOKEN, 'g'), '\n\n');
 
     if (segmentsMap && segmentKeys) {
         const correctedMarkerRe = /\|(\d+)\|/g;
@@ -3945,11 +3958,10 @@ function jumpToNextMarker() {
         const hlRect = hl.getBoundingClientRect();
         const containerRect = scrollParent.getBoundingClientRect();
         const lineHeight = parseFloat(getComputedStyle(editor).lineHeight) || 29;
-        const targetScrollTop = scrollParent.scrollTop + (hlRect.top - containerRect.top) - lineHeight;
+        const targetScrollTop = scrollParent.scrollTop + (hlRect.top - containerRect.top) - lineHeight * 4;
         scrollParent.scrollTo({ top: Math.max(0, targetScrollTop), behavior: 'smooth' });
         setTimeout(() => {
-            const rect = hl.getBoundingClientRect();
-            showSmPanel(rect.left, rect.bottom + 4, markerData);
+            showSmPanel(0, 0, markerData);
         }, 200);
     }
 
@@ -3967,13 +3979,18 @@ function showSmPanel(x, y, marker) {
         `<div class="sm-panel-item" onclick="smAtParagraph()">` +
             `<span>3 Bei Absatzumbruch</span><span class="sm-panel-kbd">3 / Alt+Y</span></div>`;
 
-    panel.style.left = Math.min(x, window.innerWidth - 300) + 'px';
-    panel.style.top = Math.min(y, window.innerHeight - 160) + 'px';
+    panel.style.left = '50%';
+    panel.style.transform = 'translateX(-50%)';
+    panel.style.bottom = '24px';
+    panel.style.top = 'auto';
     panel.classList.remove('hidden');
 }
 
 function closeSmPanel() {
-    document.getElementById('sm-panel').classList.add('hidden');
+    const panel = document.getElementById('sm-panel');
+    panel.classList.add('hidden');
+    panel.style.transform = '';
+    panel.style.bottom = '';
     clearSmHighlight();
 }
 
