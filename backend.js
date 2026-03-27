@@ -532,129 +532,26 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
   try {
     const gaNumber = req.params.gaNumber.toLowerCase();
     
-    // Validierung: nur gültige GA-Nummern erlauben (z.B. ga001, ga123a, ga68d)
-    // Erlaubt 1-3 Ziffern mit optionalem Buchstaben
     if (!/^ga\d{1,3}[a-z]?$/.test(gaNumber)) {
       return res.status(400).json({ error: 'Ungültige GA-Nummer: ' + gaNumber });
     }
     
-    // Extrahiere GA-Nummer ohne "ga" Präfix (z.B. "011" aus "ga011", "068d" aus "ga068d")
-    // WICHTIG: Behalte den Suffix-Buchstaben (z.B. "d" in "ga068d")
-    const gaNum = gaNumber.replace(/^ga0*/, ''); // z.B. "11" aus "ga011", "68d" aus "ga068d"
-    
-    // Trenne Zahl und Buchstabe, padde nur die Zahl
+    const gaNum = gaNumber.replace(/^ga0*/, '');
     const numberMatch = gaNum.match(/^(\d+)/);
     const letterMatch = gaNum.match(/[a-z]$/i);
     const numberPart = numberMatch ? numberMatch[1] : gaNum;
     const letterPart = letterMatch ? letterMatch[0].toLowerCase() : '';
-    const paddedNumber = numberPart.padStart(3, '0'); // z.B. "068" aus "68"
-    const gaNumPadded = paddedNumber + letterPart; // z.B. "068d" aus "68d"
+    const paddedNumber = numberPart.padStart(3, '0');
+    const gaNumPadded = paddedNumber + letterPart;
     
-    // SCHRITT 1: Prüfe zuerst lokales Verzeichnis
-    const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
-    let localPdfPath = null;
+    req.setTimeout(600000);
+    res.setTimeout(600000);
     
-    if (fsSync.existsSync(pdfDir)) {
-      try {
-        // Lade pdf-index.json falls vorhanden
-        const indexPath = path.join(pdfDir, 'pdf-index.json');
-        let pdfIndex = null;
-        
-        if (fsSync.existsSync(indexPath)) {
-          try {
-            let indexData = await fs.readFile(indexPath, 'utf8');
-            indexData = indexData.replace(/^\uFEFF/, ''); // BOM entfernen
-            pdfIndex = JSON.parse(indexData);
-          } catch (indexError) {
-            console.warn(`[PDF-PROXY] Fehler beim Laden von pdf-index.json: ${indexError.message}`);
-          }
-        }
-        
-        // Suche PDF-Datei (Index-Keys lokal uneinheitlich: "28" vs "028" – beides probieren)
-        let indexFileName = null;
-        if (pdfIndex) {
-          const indexKeysTry = [gaNum];
-          if (gaNumPadded && gaNumPadded !== gaNum) indexKeysTry.push(gaNumPadded);
-          if (/^\d+$/.test(gaNum)) {
-            const padded = gaNum.padStart(3, '0');
-            if (!indexKeysTry.includes(padded)) indexKeysTry.push(padded);
-          }
-          for (const ik of indexKeysTry) {
-            if (pdfIndex[ik]) {
-              indexFileName = pdfIndex[ik];
-              break;
-            }
-          }
-        }
-        if (indexFileName) {
-          localPdfPath = path.join(pdfDir, indexFileName);
-        } else {
-          localPdfPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
-        }
-        
-        // Fallback 1: wenn Index-Eintrag auf nicht-existierende Datei zeigt, versuche Standard-Namen
-        if (!fsSync.existsSync(localPdfPath) && indexFileName) {
-          const fallbackPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
-          if (fsSync.existsSync(fallbackPath)) {
-            console.log(`[PDF-PROXY] Index-Datei nicht gefunden, verwende Fallback: ga${gaNumPadded}.pdf`);
-            localPdfPath = fallbackPath;
-          }
-        }
-        
-        // Fallback 2: Verzeichnis nach "Steiner, Rudolf GA NNN" oder "GA NNN" Dateinamen durchsuchen
-        if (!fsSync.existsSync(localPdfPath)) {
-          try {
-            const files = fsSync.readdirSync(pdfDir);
-            const gaPattern = new RegExp(`GA\\s*0*${numberPart}${letterPart}[,\\s]`, 'i');
-            const match = files.find(f => f.endsWith('.pdf') && gaPattern.test(f));
-            if (match) {
-              console.log(`[PDF-PROXY] Verzeichnis-Scan Treffer: ${match}`);
-              localPdfPath = path.join(pdfDir, match);
-            }
-          } catch (scanErr) {
-            console.warn(`[PDF-PROXY] Verzeichnis-Scan fehlgeschlagen: ${scanErr.message}`);
-          }
-        }
-        
-        if (fsSync.existsSync(localPdfPath)) {
-          const stat = fsSync.statSync(localPdfPath);
-          console.log(`[PDF-PROXY] Lokale PDF gefunden: ${path.basename(localPdfPath)} (${(stat.size / 1024 / 1024).toFixed(1)} MB)`);
-          
-          req.setTimeout(600000);
-          res.setTimeout(600000);
-
-          res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Length', stat.size);
-          res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-          res.setHeader('Pragma', 'no-cache');
-          res.setHeader('Expires', '0');
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          
-          const stream = fsSync.createReadStream(localPdfPath);
-          stream.on('error', (err) => {
-            console.error(`[PDF-PROXY] Stream-Fehler: ${err.message}`);
-            if (!res.headersSent) res.status(500).json({ error: err.message });
-            else res.destroy();
-          });
-          stream.on('end', () => {
-            console.log(`[PDF-PROXY] Lokale PDF erfolgreich gestreamt: ${gaNumber}`);
-          });
-          stream.pipe(res);
-          return;
-        }
-      } catch (localError) {
-        console.warn(`[PDF-PROXY] Fehler beim Laden lokaler PDF: ${localError.message}`);
-        // Fahre fort mit WordPress-Fallback
-      }
-    }
-    
-    // SCHRITT 2: Prüfe Disk-Cache (zuvor von WordPress heruntergeladene PDFs)
+    // SCHRITT 1: Disk-Cache (schnellste Quelle, rein lokal)
     const cachedPdfPath = path.join(WP_PDF_DISK_CACHE_DIR, `ga${gaNumPadded}.pdf`);
     if (fsSync.existsSync(cachedPdfPath)) {
       const cachedStat = fsSync.statSync(cachedPdfPath);
-      console.log(`[PDF-PROXY] Disk-Cache-Treffer: ${path.basename(cachedPdfPath)} (${(cachedStat.size / 1024 / 1024).toFixed(1)} MB)`);
-      req.setTimeout(600000);
-      res.setTimeout(600000);
+      console.log(`[PDF-PROXY] Disk-Cache-Treffer: ga${gaNumPadded}.pdf (${(cachedStat.size / 1024 / 1024).toFixed(1)} MB)`);
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Length', cachedStat.size);
       res.setHeader('Cache-Control', 'no-cache');
@@ -665,60 +562,124 @@ app.get('/api/pdf/:gaNumber', async (req, res) => {
         if (!res.headersSent) res.status(500).json({ error: err.message });
         else res.destroy();
       });
-      cachedStream.on('end', () => {
-        console.log(`[PDF-PROXY] Disk-Cache-PDF gestreamt: ${gaNumber}`);
-      });
       cachedStream.pipe(res);
       return;
     }
     
-    // SCHRITT 3: Cloudflare R2 (primäre Online-Quelle)
-    // R2 Keys sind case-sensitive: manche PDFs lowercase (Skript), manche uppercase (manuell)
-    const r2UrlLower = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
-    const r2UrlUpper = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
-    console.log(`[PDF-PROXY] Lade von R2: ${r2UrlLower}`);
-    
-    let response = await fetch(r2UrlLower, { signal: AbortSignal.timeout(15000) });
-    
-    if (!response.ok) {
-      console.log(`[PDF-PROXY] R2 lowercase 404, versuche uppercase: ${r2UrlUpper}`);
-      response = await fetch(r2UrlUpper, { signal: AbortSignal.timeout(15000) });
+    // SCHRITT 2: Cloudflare R2 (schnell via CDN, mit Streaming zum Client)
+    const r2Key = `ga_pdf/ga${gaNumPadded}.pdf`;
+    console.log(`[PDF-PROXY] Versuche R2: ${r2Key}`);
+    try {
+      const r2 = require('./r2-client');
+      const result = await r2.getFileStream(r2Key);
+      console.log(`[PDF-PROXY] R2-Stream erhalten für ${r2Key} (${((result.contentLength || 0) / 1024 / 1024).toFixed(1)} MB)`);
+      
+      res.setHeader('Content-Type', 'application/pdf');
+      if (result.contentLength) res.setHeader('Content-Length', result.contentLength);
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      
+      const { PassThrough } = require('stream');
+      const tee = new PassThrough();
+      result.stream.pipe(tee);
+      tee.pipe(res);
+      
+      // Nebenbei im Disk-Cache speichern
+      const chunks = [];
+      tee.on('data', (chunk) => chunks.push(chunk));
+      res.on('finish', () => {
+        if (chunks.length > 0) {
+          const buf = Buffer.concat(chunks);
+          fs.writeFile(cachedPdfPath, buf).then(() => {
+            console.log(`[PDF-PROXY] Im Disk-Cache gespeichert: ga${gaNumPadded}.pdf (${(buf.length / 1024 / 1024).toFixed(1)} MB)`);
+          }).catch(() => {});
+        }
+      });
+      return;
+    } catch (r2Err) {
+      console.warn(`[PDF-PROXY] R2 fehlgeschlagen: ${r2Err.message}`);
     }
     
-    if (!response.ok) {
-      console.warn(`[PDF-PROXY] R2 fehlgeschlagen, versuche WordPress-Fallback...`);
-      const wpUrl = await findWordPressPdfUrl(gaNumber);
-      if (wpUrl) {
-        response = await fetch(wpUrl);
-        if (!response.ok) {
-          console.warn(`[PDF-PROXY] Auch WordPress fehlgeschlagen: ${gaNumber}`);
-          return res.status(404).json({ error: 'PDF nicht verfügbar' });
+    // SCHRITT 3: R2 Public URL Fallback (case-insensitive)
+    const r2UrlLower = `${PDF_R2_BASE}ga${gaNumPadded}.pdf`;
+    const r2UrlUpper = `${PDF_R2_BASE}GA${gaNumPadded}.pdf`;
+    console.log(`[PDF-PROXY] Versuche R2 Public URL: ${r2UrlLower}`);
+    try {
+      let r2Resp = await fetch(r2UrlLower, { signal: AbortSignal.timeout(30000) });
+      if (!r2Resp.ok) r2Resp = await fetch(r2UrlUpper, { signal: AbortSignal.timeout(30000) });
+      if (r2Resp.ok) {
+        const contentLength = r2Resp.headers.get('content-length');
+        console.log(`[PDF-PROXY] R2 Public URL OK (${contentLength ? (contentLength / 1024 / 1024).toFixed(1) + ' MB' : '?'})`);
+        res.setHeader('Content-Type', 'application/pdf');
+        if (contentLength) res.setHeader('Content-Length', contentLength);
+        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        
+        const arrayBuffer = await r2Resp.arrayBuffer();
+        const pdfBuffer = Buffer.from(arrayBuffer);
+        fs.writeFile(cachedPdfPath, pdfBuffer).catch(() => {});
+        res.send(pdfBuffer);
+        return;
+      }
+    } catch (urlErr) {
+      console.warn(`[PDF-PROXY] R2 Public URL fehlgeschlagen: ${urlErr.message}`);
+    }
+    
+    // SCHRITT 4: Lokales Verzeichnis (OneDrive - langsam, letzter Fallback)
+    const pdfDir = path.join(__dirname, 'Steiner_GA_pdf');
+    if (fsSync.existsSync(pdfDir)) {
+      try {
+        let localPdfPath = path.join(pdfDir, `ga${gaNumPadded}.pdf`);
+        
+        if (!fsSync.existsSync(localPdfPath)) {
+          const files = fsSync.readdirSync(pdfDir);
+          const gaPattern = new RegExp(`GA\\s*0*${numberPart}${letterPart}[,\\s]`, 'i');
+          const match = files.find(f => f.endsWith('.pdf') && gaPattern.test(f));
+          if (match) localPdfPath = path.join(pdfDir, match);
         }
-        console.log(`[PDF-PROXY] WordPress-Fallback erfolgreich: ${wpUrl}`);
-      } else {
-        return res.status(404).json({ error: 'PDF nicht verfügbar' });
+        
+        if (fsSync.existsSync(localPdfPath)) {
+          const stat = fsSync.statSync(localPdfPath);
+          console.log(`[PDF-PROXY] Lokaler Fallback: ${path.basename(localPdfPath)} (${(stat.size / 1024 / 1024).toFixed(1)} MB) - kann bei OneDrive-Dateien langsam sein`);
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Length', stat.size);
+          res.setHeader('Cache-Control', 'no-cache');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          const stream = fsSync.createReadStream(localPdfPath);
+          stream.on('error', (err) => {
+            if (!res.headersSent) res.status(500).json({ error: err.message });
+            else res.destroy();
+          });
+          stream.pipe(res);
+          return;
+        }
+      } catch (localErr) {
+        console.warn(`[PDF-PROXY] Lokaler Fallback fehlgeschlagen: ${localErr.message}`);
       }
     }
     
-    const arrayBuffer = await response.arrayBuffer();
-    const pdfBuffer = Buffer.from(arrayBuffer);
+    // SCHRITT 5: WordPress (letzter Online-Fallback)
+    console.log(`[PDF-PROXY] Versuche WordPress-Fallback für ${gaNumber}`);
+    const wpUrl = await findWordPressPdfUrl(gaNumber);
+    if (wpUrl) {
+      const wpResp = await fetch(wpUrl);
+      if (wpResp.ok) {
+        const arrayBuffer = await wpResp.arrayBuffer();
+        const pdfBuffer = Buffer.from(arrayBuffer);
+        fs.writeFile(cachedPdfPath, pdfBuffer).catch(() => {});
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Cache-Control', 'public, max-age=86400');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.send(pdfBuffer);
+        console.log(`[PDF-PROXY] WordPress-Fallback erfolgreich: ${gaNumber}`);
+        return;
+      }
+    }
     
-    // Im Disk-Cache speichern (asynchron)
-    fs.writeFile(cachedPdfPath, pdfBuffer).then(() => {
-      console.log(`[PDF-PROXY] Im Disk-Cache gespeichert: ${path.basename(cachedPdfPath)}`);
-    }).catch(err => {
-      console.warn(`[PDF-PROXY] Disk-Cache-Speicherung fehlgeschlagen: ${err.message}`);
-    });
-    
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Cache-Control', 'public, max-age=86400');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.send(pdfBuffer);
-    
-    console.log(`[PDF-PROXY] PDF gesendet: ${gaNumber}`);
+    res.status(404).json({ error: 'PDF nicht verfügbar' });
   } catch (error) {
     console.error('[PDF-PROXY] Fehler:', error);
-    res.status(500).json({ error: 'Fehler beim Laden der PDF' });
+    if (!res.headersSent) res.status(500).json({ error: 'Fehler beim Laden der PDF' });
   }
 });
 
@@ -29070,7 +29031,7 @@ app.get('/api/theme-assignments-status', async (req, res) => {
     }
     
     await checkTabQuoteMigration();
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log('\n' + '='.repeat(70));
       console.log(`  ✓ SERVER GESTARTET`);
       console.log(`  URL: http://localhost:${PORT}`);
@@ -29083,6 +29044,10 @@ app.get('/api/theme-assignments-status', async (req, res) => {
       console.log(`    • ${Object.keys(synonyms).length} Synonym-Gruppen`);
       console.log(`\n  Server bereit für Anfragen!\n`);
     });
+    server.timeout = 600000;
+    server.headersTimeout = 600000;
+    server.keepAliveTimeout = 600000;
+    server.requestTimeout = 600000;
     
   } catch (error) {
     console.error('\n✗ Fehler beim Server-Start:', error);
