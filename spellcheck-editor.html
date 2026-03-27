@@ -270,6 +270,7 @@
             transition: background 0.1s;
         }
         .error-item:hover { background: #f5f5f5; }
+        .error-item.selected { background: #dbeafe; outline: 2px solid var(--accent-color); outline-offset: -2px; }
         .error-item .badge {
             display: inline-block;
             padding: 1px 6px;
@@ -709,6 +710,7 @@
                 <button class="filter-btn" data-filter="rf" onclick="setErrorFilter('rf', this)">RF</button>
                 <button class="filter-btn" data-filter="st" onclick="setErrorFilter('st', this)">ST</button>
                 <button class="filter-btn" data-filter="sz" onclick="setErrorFilter('sz', this)">SZ</button>
+                <button class="filter-btn" id="btn-batch-dict" style="display:none; margin-left:auto; background:var(--accent-color); color:#fff;" onclick="batchAddToDict()">📖 Auswahl ins Wörterbuch</button>
             </div>
             <div id="error-list">
                 <div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">
@@ -2924,20 +2926,88 @@ async function loadPdfIntoViewer(file) {
 // ============================================================================
 // Error List & Sidebar
 // ============================================================================
+let errorListSelection = new Set();
+
 function updateErrorList() {
     const list = document.getElementById('error-list');
     const filtered = activeFilter === 'all' ? errorItems : errorItems.filter(e => e.type === activeFilter);
+    errorListSelection.clear();
+    updateBatchButton();
     if (filtered.length === 0) {
         list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Keine Fehler gefunden.</div>';
         return;
     }
     list.innerHTML = filtered.map((item, i) => `
-        <div class="error-item" onclick="scrollToError(${item.position})" title="${item.type === 'st' ? 'Zusammengefügt: ' + (item.joined || '') : item.type === 'sz' ? 'Unerwünschtes Sonderzeichen' : ''}">
+        <div class="error-item" data-err-pos="${item.position}" data-err-word="${escapeHtml(item.word)}"
+             onclick="onErrorItemClick(event, ${item.position})"
+             oncontextmenu="openErrorContextMenu(event, ${item.position})"
+             title="${item.type === 'st' ? 'Zusammengefügt: ' + (item.joined || '') : item.type === 'sz' ? 'Unerwünschtes Sonderzeichen' : ''}">
             <span class="badge badge-${item.type}">${item.type.toUpperCase()}</span>
             <span>${escapeHtml(item.word)}</span>
             ${item.joined ? `<span style="color: var(--secondary-text); font-size: 0.75rem;">→ ${escapeHtml(item.joined)}</span>` : ''}
         </div>
     `).join('');
+}
+
+function onErrorItemClick(e, position) {
+    if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        const el = e.currentTarget;
+        if (errorListSelection.has(position)) {
+            errorListSelection.delete(position);
+            el.classList.remove('selected');
+        } else {
+            errorListSelection.add(position);
+            el.classList.add('selected');
+        }
+        updateBatchButton();
+    } else {
+        errorListSelection.clear();
+        document.querySelectorAll('#error-list .error-item.selected').forEach(el => el.classList.remove('selected'));
+        updateBatchButton();
+        scrollToError(position);
+    }
+}
+
+function updateBatchButton() {
+    const btn = document.getElementById('btn-batch-dict');
+    if (btn) btn.style.display = errorListSelection.size > 0 ? 'inline-block' : 'none';
+}
+
+function batchAddToDict() {
+    if (errorListSelection.size === 0) return;
+    const positions = [...errorListSelection];
+    let added = 0;
+    for (const pos of positions) {
+        const item = errorItems.find(e => e.position === pos);
+        if (!item) continue;
+        const word = item.word.replace(/⏎/g, '');
+        addToUserDictionary(word);
+        const mark = document.querySelector(`#editor-content mark[data-pos="${pos}"]`);
+        if (mark) replaceMark(mark, mark.textContent);
+        added++;
+    }
+    errorItems = errorItems.filter(e => !errorListSelection.has(e.position));
+    errorListSelection.clear();
+    updateErrorList();
+    updateStats();
+    document.getElementById('context-menu').classList.add('hidden');
+    setStatus(`${added} Wörter zum Wörterbuch hinzugefügt`);
+}
+
+function batchIgnore() {
+    if (errorListSelection.size === 0) return;
+    const count = errorListSelection.size;
+    for (const pos of errorListSelection) {
+        const mark = document.querySelector(`#editor-content mark[data-pos="${pos}"]`);
+        if (mark) replaceMark(mark, mark.textContent);
+    }
+    errorItems = errorItems.filter(e => !errorListSelection.has(e.position));
+    errorListSelection.clear();
+    updateErrorList();
+    updateStats();
+    document.getElementById('context-menu').classList.add('hidden');
+    setStatus(`${count} Fehler ignoriert`);
 }
 
 let activeHighlight = null;
@@ -2959,6 +3029,42 @@ function scrollToError(position) {
         mark.classList.remove('highlight-pulse');
         if (activeHighlight === mark) activeHighlight = null;
     }, 3000);
+}
+
+function openErrorContextMenu(e, position) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (errorListSelection.size > 0) {
+        if (!errorListSelection.has(position)) {
+            errorListSelection.add(position);
+            const el = document.querySelector(`#error-list .error-item[data-err-pos="${position}"]`);
+            if (el) el.classList.add('selected');
+            updateBatchButton();
+        }
+        const words = [];
+        for (const pos of errorListSelection) {
+            const item = errorItems.find(ei => ei.position === pos);
+            if (item) words.push(item.word.replace(/⏎/g, ''));
+        }
+        const menu = document.getElementById('context-menu');
+        const preview = words.length <= 5
+            ? words.map(w => escapeHtml(w)).join(', ')
+            : words.slice(0, 5).map(w => escapeHtml(w)).join(', ') + ' …';
+        menu.innerHTML =
+            `<div style="padding:6px 12px; font-size:0.78rem; color:var(--secondary-text); border-bottom:1px solid var(--border-color);">${errorListSelection.size} Wörter markiert</div>` +
+            `<div style="padding:4px 12px; font-size:0.75rem; color:var(--secondary-text); word-break:break-word;">${preview}</div>` +
+            `<div class="context-menu-item" onclick="batchAddToDict()">📖 Alle ins Wörterbuch</div>` +
+            `<div class="context-menu-item" onclick="batchIgnore()">⏭ Alle ignorieren</div>`;
+        menu.style.left = Math.min(e.clientX, window.innerWidth - 220) + 'px';
+        menu.style.top = Math.min(e.clientY, window.innerHeight - 200) + 'px';
+        menu.classList.remove('hidden');
+        return;
+    }
+
+    const mark = document.querySelector(`#editor-content mark[data-pos="${position}"]`);
+    if (!mark) return;
+    showContextMenu(e.clientX, e.clientY, mark);
 }
 
 function setErrorFilter(filter, btn) {
@@ -4194,7 +4300,6 @@ function showContextMenu(x, y, mark) {
     }
 
     items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
-    items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(word)}')">🔍 In GA suchen</div>`;
     items += `<div class="context-menu-item" onclick="ignoreMark(this)" data-mark-pos="${pos}">⏭ Ignorieren</div>`;
 
     menu.innerHTML = items;
@@ -4266,7 +4371,6 @@ function showSelectionContextMenu(x, y, sel) {
     }
 
     items += `<div class="context-menu-item" onclick="addToDictionarySelection()">📖 Zum Wörterbuch</div>`;
-    items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(joined || text)}')">🔍 In GA suchen</div>`;
 
     menu.innerHTML = items;
     menu.style.left = Math.min(x, window.innerWidth - 220) + 'px';
@@ -4399,12 +4503,16 @@ function applyManualEdit() {
     if (!input) return;
     const newText = input.value.trim();
     if (!newText) return;
-    const mark = document.querySelector(`#editor-content mark[data-pos="${input.dataset.markPos}"]`);
+    const pos = input.dataset.markPos;
+    const mark = document.querySelector(`#editor-content mark[data-pos="${pos}"]`);
     if (mark) {
         const oldText = mark.textContent;
         replaceMark(mark, newText);
         if (newText !== oldText) markEdited();
     }
+    errorItems = errorItems.filter(e => String(e.position) !== String(pos));
+    updateErrorList();
+    updateStats();
     document.getElementById('context-menu').classList.add('hidden');
 }
 
@@ -4435,23 +4543,31 @@ function getAutoCorrection(word) {
 }
 
 function applyAutoCorrectSingle(el, corrected) {
-    const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
+    const pos = el.dataset.markPos;
+    const mark = document.querySelector(`#editor-content mark[data-pos="${pos}"]`);
     if (mark) {
         replaceMark(mark, corrected);
         markEdited();
     }
+    errorItems = errorItems.filter(e => String(e.position) !== String(pos));
+    updateErrorList();
+    updateStats();
     document.getElementById('context-menu').classList.add('hidden');
 }
 
 function applyHyphenFix(el, joined) {
-    const mark = document.querySelector(`#editor-content mark.st[data-pos="${el.dataset.markPos}"]`);
+    const pos = el.dataset.markPos;
+    const mark = document.querySelector(`#editor-content mark.st[data-pos="${pos}"]`);
     if (mark) {
         const original = mark.textContent;
         addUserCorrection(original, joined);
+        addToUserDictionary(joined);
+        replaceMark(mark, joined);
+        markEdited();
     }
-    addToUserDictionary(joined);
-    replaceMark(mark, joined);
-    markEdited();
+    errorItems = errorItems.filter(e => String(e.position) !== String(pos));
+    updateErrorList();
+    updateStats();
     document.getElementById('context-menu').classList.add('hidden');
 }
 
@@ -4470,12 +4586,19 @@ function addToDictionary(word, el) {
         replaceMark(mark, replaceText);
         if (replaceText !== oldText) markEdited();
     }
+    errorItems = errorItems.filter(e => e.word !== word);
+    updateErrorList();
+    updateStats();
     document.getElementById('context-menu').classList.add('hidden');
 }
 
 function ignoreMark(el) {
-    const mark = document.querySelector(`#editor-content mark[data-pos="${el.dataset.markPos}"]`);
+    const pos = el.dataset.markPos;
+    const mark = document.querySelector(`#editor-content mark[data-pos="${pos}"]`);
     if (mark) replaceMark(mark, mark.textContent);
+    errorItems = errorItems.filter(e => String(e.position) !== String(pos));
+    updateErrorList();
+    updateStats();
     document.getElementById('context-menu').classList.add('hidden');
 }
 
