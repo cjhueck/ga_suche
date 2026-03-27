@@ -10103,41 +10103,11 @@ PDF
             <strong>Rechtschreib-Editor</strong>
           </p>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
-            Texte direkt bearbeiten und Rechtschreibfehler korrigieren. Erfordert Editor-Berechtigung.
+            Texte direkt bearbeiten und Rechtschreibfehler korrigieren. Registrierung und Anmeldung direkt im Editor.
           </p>
-
-          <div id="editorLoginSection">
-            <div id="editorAuthMsg" style="display: none; padding: 8px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
-
-            <div id="editorLoginForm">
-              <div style="margin-bottom: 0.75rem;">
-                <label for="editorLoginEmail" style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--text-muted);">E-Mail</label>
-                <input type="email" id="editorLoginEmail" placeholder="ihre@email.de" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box; background: var(--background-color); color: var(--text-color);">
-              </div>
-              <div style="margin-bottom: 0.75rem;">
-                <label for="editorLoginPassword" style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--text-muted);">Passwort</label>
-                <input type="password" id="editorLoginPassword" placeholder="Passwort" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box; background: var(--background-color); color: var(--text-color);">
-              </div>
-              <div style="display: flex; gap: 8px; margin-bottom: 0.5rem;">
-                <button class="help-choice-btn" onclick="editorDoLogin()" style="flex: 1; padding: 0.7rem; background: var(--accent-color); border-color: var(--accent-color);">
-                  <span style="margin: 0; color: white; font-weight: 600;">Anmelden</span>
-                </button>
-                <button class="help-choice-btn" onclick="editorDoRegister()" style="flex: 1; padding: 0.7rem;">
-                  <span style="margin: 0; font-weight: 600;">Registrieren</span>
-                </button>
-              </div>
-            </div>
-
-            <div id="editorLoggedIn" style="display: none;">
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-                Angemeldet als <strong id="editorUserEmail"></strong>
-              </p>
-              <button class="help-choice-btn" onclick="openSpellcheckEditorFromModal()" style="width: 100%; padding: 0.8rem; background: #8e44ad; border-color: #8e44ad;">
-                <span style="margin: 0; color: white; font-size: 1em; font-weight: 600;">✎ Editor öffnen</span>
-              </button>
-              <button style="background: none; border: none; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; margin-top: 0.5rem; text-decoration: underline;" onclick="editorDoLogoutFromModal()">Abmelden</button>
-            </div>
-          </div>
+          <button class="help-choice-btn" onclick="window.open('spellcheck-editor.html', '_blank')" style="width: 100%; padding: 0.8rem; background: #8e44ad; border-color: #8e44ad;">
+            <span style="margin: 0; color: white; font-size: 1em; font-weight: 600;">✎ Editor öffnen</span>
+          </button>
         </div>
       </div>
       <div id="errorReportStep2" style="display: none;">

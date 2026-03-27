@@ -89,10 +89,10 @@
         #btn-autocorrect:not(:disabled) { background: #2d8a4e; color: #fff; }
         #btn-autocorrect:not(:disabled):hover { background: #236b3c; }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        #btn-pagemarker { background: var(--accent-color); color: #fff; }
-        #btn-pagemarker:hover { background: #365f6a; }
-        #btn-pagemarker.active { background: #2d8a4e; color: #fff; }
-        #btn-pagemarker.active:hover { background: #236b3c; }
+        #btn-pagemarker:not(:disabled) { background: var(--accent-color); color: #fff; }
+        #btn-pagemarker:not(:disabled):hover { background: #365f6a; }
+        #btn-pagemarker.active:not(:disabled) { background: #2d8a4e; color: #fff; }
+        #btn-pagemarker.active:not(:disabled):hover { background: #236b3c; }
 
         .sm-active-marker {
             background: #ffeb3b;
@@ -656,7 +656,7 @@
     <button class="btn" id="btn-autocorrect" onclick="autoCorrectAll()" disabled title="Alle erkannten Fehler automatisch korrigieren">Auto-Korrektur</button>
     <button class="btn" id="btn-save" onclick="saveDocument()" disabled>Speichern</button>
     <button class="btn" id="btn-saveas" onclick="saveDocumentAs()" disabled title="Unter anderem Dateinamen speichern">Speichern unter...</button>
-    <button class="btn" id="btn-pagemarker" onclick="togglePageMarkerMode()" title="Seitenmarker-Modus (F2 / Alt+Q: nächster Marker)">Seitenmarker</button>
+    <button class="btn" id="btn-pagemarker" onclick="togglePageMarkerMode()" disabled title="Seitenmarker-Modus (F2 / Alt+Q: nächster Marker)">Seitenmarker</button>
     <button class="btn" id="btn-undo" onclick="editorUndo()" title="Rückgängig (Strg+Z)" style="padding: 3px 6px; line-height: 1;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 0 1 15.36-6.36L21 9"/></svg>
     </button>
@@ -823,8 +823,8 @@
         </div>
         <div style="overflow-y:auto; flex:1; font-size:0.88rem; line-height:1.6; padding-right:8px;">
 
-<h3>Anmeldung</h3>
-<p>Beim Öffnen des Editors erscheint ein Login-Dialog. Melden Sie sich mit E-Mail und Passwort an. Nach der Anmeldung werden die Server-Funktionen freigeschaltet.</p>
+<h3>Anmeldung / Registrierung</h3>
+<p>Beim Öffnen des Editors erscheint ein Login-Dialog. Falls Sie noch kein Konto haben, klicken Sie auf <strong>Registrieren</strong> und erstellen Sie ein Konto mit Ihrer E-Mail und einem Passwort. Nach der Registrierung erhalten Sie eine Bestätigungs-E-Mail. Bestätigen Sie Ihre E-Mail-Adresse und melden Sie sich danach an. Nach der Anmeldung werden die Server-Funktionen freigeschaltet.</p>
 
 <h3>Aufbau</h3>
 <ul>
@@ -855,6 +855,7 @@
 <li>Entfernung von Copyright-Fußzeilen</li>
 <li>Normalisierung von Seitenmarkern</li>
 </ul>
+<p>Nach der Auto-Korrektur können Sie erneut auf <strong>Prüfen</strong> klicken, um die verbleibenden fehlerhaften Wörter anzeigen zu lassen.</p>
 
 <h3>Schritt 4: Manuelle Nachbearbeitung</h3>
 <p><strong>Rechtsklick</strong> auf ein markiertes Wort öffnet das Kontextmenü:</p>
@@ -911,17 +912,37 @@
 </ul>
 
 <h3>Tab: Dateien</h3>
-<p>Die Dateiverwaltung auf dem Server. Hier sehen Sie verschiedene Bereiche:</p>
-<ul>
-<li><strong>Eigener Ordner:</strong> Ihre persönlichen MD- und PDF-Dateien. Sie können Dateien öffnen, umbenennen, verschieben, herunterladen oder löschen (per Rechtsklick).</li>
-<li><strong>GA PDF's (Original):</strong> Die Original-PDFs der GA-Bände. Diese sind nur lesbar &ndash; Sie können sie im PDF-Viewer öffnen, in Ihren eigenen Ordner kopieren oder herunterladen.</li>
+<p>Die Dateiverwaltung auf dem Server. Sie können zwischen drei Bereichen wechseln, die als Ordner-Links angezeigt werden:</p>
+
+<h4 style="margin:10px 0 4px 0;">Meine Dateien</h4>
+<p style="margin:0 0 6px 0;">Ihr persönlicher Ordner. Hier werden Ihre bearbeiteten Markdown-Dateien und hochgeladenen PDFs gespeichert. Sie können Unterordner anlegen, um Ihre Arbeit zu organisieren.</p>
+<p style="margin:0 0 6px 0;"><strong>Rechtsklick auf eine Datei:</strong></p>
+<ul style="margin:0 0 8px 0;">
+<li>Im Editor öffnen (MD) bzw. im PDF-Viewer öffnen (PDF)</li>
+<li>Umbenennen, Verschieben, Herunterladen, Löschen</li>
 </ul>
-<p>Funktionen in der Toolbar:</p>
+
+<h4 style="margin:10px 0 4px 0;">Shared (gemeinsam)</h4>
+<p style="margin:0 0 8px 0;">Ein gemeinsamer Ordner, auf den alle Nutzer zugreifen können. Hier können Dateien geteilt werden.</p>
+
+<h4 style="margin:10px 0 4px 0;">GA PDFs (Original)</h4>
+<p style="margin:0 0 6px 0;">Hier liegen die <strong>Original-PDFs aller GA-Bände</strong>, numerisch sortiert (GA 001 bis GA 354). Diese Dateien sind <strong>schreibgeschützt</strong> &ndash; Sie können sie nicht verändern oder löschen.</p>
+<p style="margin:0 0 6px 0;"><strong>Rechtsklick auf ein GA-PDF:</strong></p>
+<ul style="margin:0 0 6px 0;">
+<li><strong>Im Viewer öffnen</strong> &ndash; Zeigt das PDF im rechten Panel an</li>
+<li><strong>In meinen Ordner kopieren</strong> &ndash; Kopiert das PDF in Ihren persönlichen Ordner (dort können Sie es dann bearbeiten)</li>
+<li><strong>Herunterladen</strong> &ndash; Lädt das PDF auf Ihren Rechner</li>
+</ul>
+<p style="margin:0 0 8px 0;"><em>Tipp:</em> Um ein GA-PDF zu bearbeiten, können Sie es direkt über <strong>PDF laden &rarr; Vom Server &rarr; GA PDFs</strong> im Editor öffnen. Der konvertierte Text wird dann in Ihrem Ordner gespeichert.</p>
+
+<h4 style="margin:10px 0 4px 0;">Toolbar-Funktionen</h4>
 <ul>
 <li><strong>Hochladen:</strong> Eigene PDF- oder MD-Dateien in den aktuellen Ordner hochladen.</li>
 <li><strong>+ Ordner:</strong> Einen neuen Unterordner erstellen.</li>
-<li><strong>Pfeil nach oben:</strong> Zum übergeordneten Ordner navigieren.</li>
+<li><strong>Pfeil nach oben (&uarr;):</strong> Zum übergeordneten Ordner navigieren.</li>
+<li><strong>Aktualisieren (&circlearrowleft;):</strong> Dateiliste neu laden.</li>
 </ul>
+<p><em>Hinweis:</em> In GA PDFs (Original) sind die Toolbar-Buttons ausgeblendet, da dort keine Dateien hochgeladen oder erstellt werden können.</p>
 
 <hr style="margin:18px 0; border:none; border-top:1px solid var(--border-color);">
 
@@ -945,17 +966,25 @@
 <div id="login-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center;">
     <div style="background: var(--background-color, #fff); border-radius: 12px; padding: 2rem; max-width: 380px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
         <h2 style="margin: 0 0 0.5rem 0; font-size: 1.3rem;">Rechtschreib-Editor</h2>
-        <p style="color: var(--secondary-text); font-size: 0.85rem; margin-bottom: 1.5rem;">Anmeldung erforderlich. Editor-Berechtigung wird benötigt.</p>
+        <p id="login-overlay-desc" style="color: var(--secondary-text); font-size: 0.85rem; margin-bottom: 1.5rem;">Anmeldung erforderlich.</p>
         <div id="login-overlay-msg" style="display:none; padding: 8px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
         <div style="margin-bottom: 0.75rem;">
             <label style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--secondary-text);">E-Mail</label>
             <input type="email" id="login-overlay-email" placeholder="ihre@email.de" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box;">
         </div>
-        <div style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 0.75rem;">
             <label style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--secondary-text);">Passwort</label>
             <input type="password" id="login-overlay-pw" placeholder="Passwort" onkeydown="if(event.key==='Enter')loginOverlaySubmit()" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box;">
         </div>
-        <button onclick="loginOverlaySubmit()" style="width: 100%; padding: 0.7rem; background: var(--accent-color); color: white; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer;">Anmelden</button>
+        <div id="login-overlay-pw2-row" style="display:none; margin-bottom: 0.75rem;">
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--secondary-text);">Passwort bestätigen</label>
+            <input type="password" id="login-overlay-pw2" placeholder="Passwort wiederholen" onkeydown="if(event.key==='Enter')loginOverlaySubmit()" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box;">
+        </div>
+        <button id="login-overlay-btn" onclick="loginOverlaySubmit()" style="width: 100%; padding: 0.7rem; background: var(--accent-color); color: white; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-bottom: 0.75rem;">Anmelden</button>
+        <div style="text-align: center; font-size: 0.85rem; color: var(--secondary-text);">
+            <span id="login-toggle-text">Noch kein Konto?</span>
+            <a href="#" id="login-toggle-link" onclick="toggleLoginMode(); return false;" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">Registrieren</a>
+        </div>
     </div>
 </div>
 
@@ -1076,9 +1105,13 @@ async function initAuth() {
     }
 }
 
+let loginIsRegisterMode = false;
+
 function showLoginOverlay(msg) {
     const overlay = document.getElementById('login-overlay');
     overlay.style.display = 'flex';
+    loginIsRegisterMode = false;
+    updateLoginModeUI();
     if (msg) {
         const msgEl = document.getElementById('login-overlay-msg');
         msgEl.style.display = 'block';
@@ -1092,6 +1125,26 @@ function hideLoginOverlay() {
     document.getElementById('login-overlay').style.display = 'none';
 }
 
+function toggleLoginMode() {
+    loginIsRegisterMode = !loginIsRegisterMode;
+    updateLoginModeUI();
+    document.getElementById('login-overlay-msg').style.display = 'none';
+}
+
+function updateLoginModeUI() {
+    document.getElementById('login-overlay-pw2-row').style.display = loginIsRegisterMode ? 'block' : 'none';
+    document.getElementById('login-overlay-btn').textContent = loginIsRegisterMode ? 'Registrieren' : 'Anmelden';
+    document.getElementById('login-overlay-desc').textContent = loginIsRegisterMode
+        ? 'Neues Konto erstellen.'
+        : 'Anmeldung erforderlich.';
+    document.getElementById('login-toggle-text').textContent = loginIsRegisterMode
+        ? 'Bereits ein Konto?'
+        : 'Noch kein Konto?';
+    document.getElementById('login-toggle-link').textContent = loginIsRegisterMode
+        ? 'Anmelden'
+        : 'Registrieren';
+}
+
 async function loginOverlaySubmit() {
     const email = document.getElementById('login-overlay-email').value.trim();
     const pw = document.getElementById('login-overlay-pw').value;
@@ -1103,26 +1156,77 @@ async function loginOverlaySubmit() {
         msgEl.textContent = 'E-Mail und Passwort eingeben.';
         return;
     }
-    msgEl.style.display = 'block';
-    msgEl.style.background = '#eff6ff';
-    msgEl.style.color = '#2563eb';
-    msgEl.textContent = 'Anmelden...';
-    try {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pw });
-        if (error) throw error;
-        if (!data.user || !isEditorUser(data.user)) {
+    if (loginIsRegisterMode) {
+        const pw2 = document.getElementById('login-overlay-pw2').value;
+        if (pw !== pw2) {
+            msgEl.style.display = 'block';
             msgEl.style.background = '#fef2f2';
             msgEl.style.color = '#dc2626';
-            msgEl.textContent = 'Keine Editor-Berechtigung für dieses Konto.';
+            msgEl.textContent = 'Passwörter stimmen nicht überein.';
             return;
         }
-        currentUser = data.user;
-        hideLoginOverlay();
-        onAuthSuccess();
-    } catch (err) {
-        msgEl.style.background = '#fef2f2';
-        msgEl.style.color = '#dc2626';
-        msgEl.textContent = err.message || 'Anmeldung fehlgeschlagen.';
+        if (pw.length < 6) {
+            msgEl.style.display = 'block';
+            msgEl.style.background = '#fef2f2';
+            msgEl.style.color = '#dc2626';
+            msgEl.textContent = 'Passwort muss mindestens 6 Zeichen haben.';
+            return;
+        }
+        msgEl.style.display = 'block';
+        msgEl.style.background = '#eff6ff';
+        msgEl.style.color = '#2563eb';
+        msgEl.textContent = 'Konto wird erstellt...';
+        try {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email,
+                password: pw,
+                options: { data: { role: 'editor' } }
+            });
+            if (error) throw error;
+            if (data.user && !data.user.identities?.length) {
+                msgEl.style.background = '#fef2f2';
+                msgEl.style.color = '#dc2626';
+                msgEl.textContent = 'Diese E-Mail ist bereits registriert.';
+                return;
+            }
+            if (data.session) {
+                currentUser = data.user;
+                hideLoginOverlay();
+                onAuthSuccess();
+            } else {
+                msgEl.style.background = '#f0fdf4';
+                msgEl.style.color = '#16a34a';
+                msgEl.textContent = 'Registrierung erfolgreich! Bitte bestätigen Sie Ihre E-Mail und melden Sie sich dann an.';
+                loginIsRegisterMode = false;
+                updateLoginModeUI();
+            }
+        } catch (err) {
+            msgEl.style.background = '#fef2f2';
+            msgEl.style.color = '#dc2626';
+            msgEl.textContent = err.message || 'Registrierung fehlgeschlagen.';
+        }
+    } else {
+        msgEl.style.display = 'block';
+        msgEl.style.background = '#eff6ff';
+        msgEl.style.color = '#2563eb';
+        msgEl.textContent = 'Anmelden...';
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pw });
+            if (error) throw error;
+            if (!data.user || !isEditorUser(data.user)) {
+                msgEl.style.background = '#fef2f2';
+                msgEl.style.color = '#dc2626';
+                msgEl.textContent = 'Keine Editor-Berechtigung für dieses Konto.';
+                return;
+            }
+            currentUser = data.user;
+            hideLoginOverlay();
+            onAuthSuccess();
+        } catch (err) {
+            msgEl.style.background = '#fef2f2';
+            msgEl.style.color = '#dc2626';
+            msgEl.textContent = err.message || 'Anmeldung fehlgeschlagen.';
+        }
     }
 }
 
@@ -1199,6 +1303,7 @@ async function loadDocument() {
     document.getElementById('btn-check').disabled = true;
     document.getElementById('btn-save').disabled = true;
     document.getElementById('btn-saveas').disabled = true;
+    document.getElementById('btn-pagemarker').disabled = true;
     document.getElementById('editor-content').innerHTML = '<p style="color: var(--secondary-text);"><span class="loading-spinner"></span> Lade...</p>';
 
     try {
@@ -1245,6 +1350,7 @@ async function loadDocument() {
         document.getElementById('btn-check').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
+        document.getElementById('btn-pagemarker').disabled = false;
 
         updateWordCount();
         clearErrors();
@@ -1525,6 +1631,7 @@ function closeEditorDocument() {
     document.getElementById('btn-save').disabled = true;
     document.getElementById('btn-saveas').disabled = true;
     document.getElementById('btn-autocorrect').disabled = true;
+    document.getElementById('btn-pagemarker').disabled = true;
     currentGA = null;
     currentFileData = null;
     currentFileHandle = null;
@@ -2552,6 +2659,7 @@ async function openPDFAsText() {
         document.getElementById('btn-autocorrect').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
+        document.getElementById('btn-pagemarker').disabled = false;
         document.getElementById('file-info').textContent = file.name + ' (Text extrahiert)';
         showCloseEditorBtn();
         setStatus(`PDF-Text geladen: ${file.name} (${pdf.numPages} Seiten)`);
@@ -2614,6 +2722,7 @@ async function loadMDIntoEditor(file) {
     document.getElementById('btn-autocorrect').disabled = false;
     document.getElementById('btn-save').disabled = false;
     document.getElementById('btn-saveas').disabled = false;
+    document.getElementById('btn-pagemarker').disabled = false;
     document.getElementById('file-info').textContent = file.name;
     showCloseEditorBtn();
     setStatus('MD geladen: ' + file.name);
@@ -4679,6 +4788,7 @@ async function r2LoadFileIntoEditor(key) {
         document.getElementById('btn-autocorrect').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
+        document.getElementById('btn-pagemarker').disabled = false;
         const suffix = key.endsWith('.pdf') ? ' (PDF→Text, R2)' : ' (R2)';
         document.getElementById('file-info').textContent = filename + suffix;
         showCloseEditorBtn();
@@ -4948,6 +5058,7 @@ async function r2OpenFile(key) {
         document.getElementById('btn-autocorrect').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
+        document.getElementById('btn-pagemarker').disabled = false;
         document.getElementById('file-info').textContent = filename + ' (R2)';
         showCloseEditorBtn();
         setStatus('In Editor geladen: ' + filename);
