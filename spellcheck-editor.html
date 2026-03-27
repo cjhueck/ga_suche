@@ -27,6 +27,7 @@
             --secondary-text: #666;
             --rf-color: #ffcccb;
             --st-color: #c8f7c5;
+            --sz-color: #e6d5f5;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -280,6 +281,7 @@
         }
         .badge-rf { background: var(--rf-color); color: #8b0000; }
         .badge-st { background: var(--st-color); color: #006400; }
+        .badge-sz { background: var(--sz-color); color: #4a148c; }
 
         .stats-bar {
             padding: 0.5rem 1rem;
@@ -295,6 +297,7 @@
         .stat-dot { width: 8px; height: 8px; border-radius: 50%; }
         .stat-dot.rf { background: var(--rf-color); border: 1px solid #e88; }
         .stat-dot.st { background: var(--st-color); border: 1px solid #8c8; }
+        .stat-dot.sz { background: var(--sz-color); border: 1px solid #a6c; }
 
         mark.rf {
             background: var(--rf-color);
@@ -309,7 +312,13 @@
             border-radius: 2px;
             cursor: pointer;
         }
-        mark.rf:hover, mark.st:hover { filter: brightness(0.92); }
+        mark.sz {
+            background: var(--sz-color);
+            padding: 1px 2px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        mark.rf:hover, mark.st:hover, mark.sz:hover { filter: brightness(0.92); }
 
         mark.highlight-pulse { filter: brightness(0.88); }
 
@@ -456,6 +465,7 @@
         .filter-row {
             padding: 0.5rem 1rem;
             display: flex;
+            flex-wrap: wrap;
             gap: 6px;
         }
         .filter-btn {
@@ -572,6 +582,16 @@
             position: relative;
             width: 100%;
         }
+        .pdf-page-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            color: var(--secondary-text);
+            font-size: 0.78rem;
+            background: rgba(0,0,0,0.04);
+            border-radius: 2px;
+        }
         .pdf-page-wrapper > canvas:first-child {
             display: block;
             width: 100%;
@@ -683,6 +703,7 @@
                 <button class="filter-btn active" data-filter="all" onclick="setErrorFilter('all', this)">Alle</button>
                 <button class="filter-btn" data-filter="rf" onclick="setErrorFilter('rf', this)">RF</button>
                 <button class="filter-btn" data-filter="st" onclick="setErrorFilter('st', this)">ST</button>
+                <button class="filter-btn" data-filter="sz" onclick="setErrorFilter('sz', this)">SZ</button>
             </div>
             <div id="error-list">
                 <div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">
@@ -780,6 +801,7 @@
 <div class="stats-bar">
     <div class="stat-item"><span class="stat-dot rf"></span> RF: <span id="stat-rf">0</span></div>
     <div class="stat-item"><span class="stat-dot st"></span> ST: <span id="stat-st">0</span></div>
+    <div class="stat-item"><span class="stat-dot sz"></span> SZ: <span id="stat-sz">0</span></div>
     <div class="stat-item">Wörter: <span id="stat-words">0</span></div>
 </div>
 
@@ -1103,6 +1125,100 @@ async function loadPdfInSidebar() {
     }
 }
 
+/**
+ * pdf.js getTextContent()-Ergebnis → Fließtext mit Zeilen-/Absatzerkennung.
+ * @returns {string|null} Text der Seite ohne Seitenmarke, oder null wenn die Seite keinen Text enthält.
+ */
+function paragraphTextFromPdfTextContent(content) {
+    const items = content.items.filter(it => it.str.trim().length > 0);
+    if (items.length === 0) return null;
+
+    const yGaps = [];
+    for (let j = 1; j < items.length; j++) {
+        const gap = items[j - 1].transform[5] - items[j].transform[5];
+        if (gap > 0.5 && gap < 80) yGaps.push(gap);
+    }
+    yGaps.sort((a, b) => a - b);
+    const lineSpacing = yGaps.length > 3
+        ? yGaps[Math.floor(yGaps.length / 2)]
+        : 14;
+    const sameLineThreshold = lineSpacing * 0.5;
+    const paraGap = lineSpacing * 1.25;
+
+    const lines = [];
+    let currentLine = items[0].str;
+    let lineStartX = items[0].transform[4];
+    for (let j = 1; j < items.length; j++) {
+        const gap = items[j - 1].transform[5] - items[j].transform[5];
+        if (gap < sameLineThreshold) {
+            currentLine += ' ' + items[j].str;
+        } else {
+            lines.push({ text: currentLine, startX: lineStartX, gapAfter: gap });
+            currentLine = items[j].str;
+            lineStartX = items[j].transform[4];
+        }
+    }
+    lines.push({ text: currentLine, startX: lineStartX, gapAfter: 0 });
+
+    const bodyLines = lines.filter(l =>
+        l.text.trim().length > 10 &&
+        !/^\s*\|?\d+\|?\s*$/.test(l.text) &&
+        !/^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(l.text)
+    );
+
+    const textLineLens = bodyLines.map(l => l.text.length);
+    textLineLens.sort((a, b) => a - b);
+    const medianLineLen = textLineLens.length > 2
+        ? textLineLens[Math.floor(textLineLens.length * 0.75)]
+        : 80;
+    const shortLineThreshold = medianLineLen * 0.8;
+
+    const xPositions = bodyLines.map(l => Math.round(l.startX));
+    xPositions.sort((a, b) => a - b);
+    const baseX = xPositions.length > 2
+        ? xPositions[Math.floor(xPositions.length * 0.25)]
+        : (xPositions[0] || 0);
+    const indentThreshold = lineSpacing * 0.8;
+
+    const parts = [];
+    for (let li = 0; li < lines.length; li++) {
+        parts.push(lines[li].text);
+        if (li >= lines.length - 1) break;
+
+        const gap = lines[li].gapAfter;
+        const lineText = lines[li].text.trimEnd();
+        const nextLine = lines[li + 1];
+        const endsWithPunct = /[.!?:;»«"'\u201d\u00bb\u2019]$/.test(lineText);
+        const isShortLine = lineText.length < shortLineThreshold && lineText.length > 0;
+        const isAllCaps = /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(lineText) && lineText.length > 3;
+        const nextIsIndented = nextLine && (nextLine.startX - baseX) > indentThreshold;
+        const nextIsAllCaps = nextLine && /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(nextLine.text.trim()) && nextLine.text.trim().length > 3;
+
+        if (gap >= paraGap) {
+            parts.push('\n\n');
+        } else if (nextIsIndented && !isAllCaps) {
+            parts.push('\n\n');
+        } else if (endsWithPunct && isShortLine) {
+            parts.push('\n\n');
+        } else if (isAllCaps || nextIsAllCaps) {
+            parts.push('\n\n');
+        } else {
+            parts.push('\n');
+        }
+    }
+    let pageText = parts.join('');
+
+    pageText = pageText.replace(/(VERLAG)\s+(?!\n)/g, '$1\n\n');
+    pageText = pageText.replace(/(VERLAG)\s*\n(?!\n)/g, '$1\n\n');
+
+    return pageText;
+}
+
+function pdfPageBlockWithMarker(pageIndex, paragraphText) {
+    if (paragraphText === null || paragraphText === undefined) return `|${pageIndex}|`;
+    return `|${pageIndex}|\n${paragraphText}`;
+}
+
 async function extractPDFText(pdfUrl) {
     if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js nicht verfügbar');
     const fullUrl = buildPdfUrl(pdfUrl);
@@ -1132,93 +1248,8 @@ async function extractPDFText(pdfUrl) {
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        const items = content.items.filter(it => it.str.trim().length > 0);
-
-        if (items.length === 0) {
-            pages.push(`|${i}|`);
-            if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
-            continue;
-        }
-
-        const yGaps = [];
-        for (let j = 1; j < items.length; j++) {
-            const gap = items[j - 1].transform[5] - items[j].transform[5];
-            if (gap > 0.5 && gap < 80) yGaps.push(gap);
-        }
-        yGaps.sort((a, b) => a - b);
-        const lineSpacing = yGaps.length > 3
-            ? yGaps[Math.floor(yGaps.length / 2)]
-            : 14;
-        const sameLineThreshold = lineSpacing * 0.5;
-        const paraGap = lineSpacing * 1.25;
-
-        const lines = [];
-        let currentLine = items[0].str;
-        let lineStartX = items[0].transform[4];
-        for (let j = 1; j < items.length; j++) {
-            const gap = items[j - 1].transform[5] - items[j].transform[5];
-            if (gap < sameLineThreshold) {
-                currentLine += ' ' + items[j].str;
-            } else {
-                lines.push({ text: currentLine, startX: lineStartX, gapAfter: gap });
-                currentLine = items[j].str;
-                lineStartX = items[j].transform[4];
-            }
-        }
-        lines.push({ text: currentLine, startX: lineStartX, gapAfter: 0 });
-
-        const bodyLines = lines.filter(l =>
-            l.text.trim().length > 10 &&
-            !/^\s*\|?\d+\|?\s*$/.test(l.text) &&
-            !/^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(l.text)
-        );
-
-        const textLineLens = bodyLines.map(l => l.text.length);
-        textLineLens.sort((a, b) => a - b);
-        const medianLineLen = textLineLens.length > 2
-            ? textLineLens[Math.floor(textLineLens.length * 0.75)]
-            : 80;
-        const shortLineThreshold = medianLineLen * 0.8;
-
-        const xPositions = bodyLines.map(l => Math.round(l.startX));
-        xPositions.sort((a, b) => a - b);
-        const baseX = xPositions.length > 2
-            ? xPositions[Math.floor(xPositions.length * 0.25)]
-            : (xPositions[0] || 0);
-        const indentThreshold = lineSpacing * 0.8;
-
-        const parts = [];
-        for (let li = 0; li < lines.length; li++) {
-            parts.push(lines[li].text);
-            if (li >= lines.length - 1) break;
-
-            const gap = lines[li].gapAfter;
-            const lineText = lines[li].text.trimEnd();
-            const nextLine = lines[li + 1];
-            const endsWithPunct = /[.!?:;»«"'\u201d\u00bb\u2019]$/.test(lineText);
-            const isShortLine = lineText.length < shortLineThreshold && lineText.length > 0;
-            const isAllCaps = /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(lineText) && lineText.length > 3;
-            const nextIsIndented = nextLine && (nextLine.startX - baseX) > indentThreshold;
-            const nextIsAllCaps = nextLine && /^[A-ZÄÖÜ\s\d\-.,;:!?()]+$/.test(nextLine.text.trim()) && nextLine.text.trim().length > 3;
-
-            if (gap >= paraGap) {
-                parts.push('\n\n');
-            } else if (nextIsIndented && !isAllCaps) {
-                parts.push('\n\n');
-            } else if (endsWithPunct && isShortLine) {
-                parts.push('\n\n');
-            } else if (isAllCaps || nextIsAllCaps) {
-                parts.push('\n\n');
-            } else {
-                parts.push('\n');
-            }
-        }
-        let pageText = parts.join('');
-
-        pageText = pageText.replace(/(VERLAG)\s+(?!\n)/g, '$1\n\n');
-        pageText = pageText.replace(/(VERLAG)\s*\n(?!\n)/g, '$1\n\n');
-
-        pages.push(`|${i}|\n${pageText}`);
+        const pageText = paragraphTextFromPdfTextContent(content);
+        pages.push(pdfPageBlockWithMarker(i, pageText));
         if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
     }
     return { text: pages.join('\n\n'), usedMistral: false };
@@ -1298,13 +1329,54 @@ function buildPdfUrl(pdfUrl) {
     return pdfUrl;
 }
 
+let pdfPageTexts = [];
+let pdfLazyPageEntries = [];
+let pdfLazyIo = null;
+
 function clearPdfViewer() {
+    if (pdfLazyIo) {
+        pdfLazyIo.disconnect();
+        pdfLazyIo = null;
+    }
+    pdfLazyPageEntries = [];
     const container = document.getElementById('pdf-viewer-container');
     container.innerHTML = '';
     document.getElementById('pdf-viewer-placeholder').style.display = '';
     currentPdfDoc = null;
     pdfPageTexts = [];
     resetPdfNav();
+}
+
+async function renderPdfLazyPageCanvas(entry) {
+    if (entry.rendered) return;
+    if (!entry.renderPromise) {
+        entry.renderPromise = (async () => {
+            try {
+                const { page, wrapper, displayScale, pdfRenderScale } = entry;
+                const renderViewport = page.getViewport({ scale: displayScale * pdfRenderScale });
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.floor(renderViewport.width);
+                canvas.height = Math.floor(renderViewport.height);
+                const ctx = canvas.getContext('2d');
+                await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+                const ph = wrapper.querySelector('.pdf-page-placeholder');
+                if (ph) ph.remove();
+                wrapper.insertBefore(canvas, wrapper.firstChild);
+                wrapper.style.minHeight = '';
+                entry.rendered = true;
+            } catch (err) {
+                entry.renderPromise = null;
+                throw err;
+            }
+        })();
+    }
+    await entry.renderPromise;
+}
+
+async function ensurePdfPageCanvasRendered(pageIndex0) {
+    const entry = pdfLazyPageEntries[pageIndex0];
+    if (!entry) return;
+    await renderPdfLazyPageCanvas(entry);
 }
 
 async function renderPdfInViewer(fullUrl) {
@@ -1330,29 +1402,32 @@ async function renderPdfInViewer(fullUrl) {
     try {
         const pdf = currentPdfDoc || await pdfjsLib.getDocument(fullUrl).promise;
         currentPdfDoc = pdf;
-        const containerWidth = container.parentElement.clientWidth - 16;
+        if (pdfLazyIo) {
+            pdfLazyIo.disconnect();
+            pdfLazyIo = null;
+        }
+        pdfLazyPageEntries = [];
 
+        const scrollRoot = document.getElementById('pdf-nav-scroll');
+        const containerWidth = container.parentElement.clientWidth - 16;
         const dpr = window.devicePixelRatio || 1;
-        const PDF_RENDER_SCALE = Math.max(dpr, 2);
+        const PDF_RENDER_SCALE = Math.max(1, Math.min(dpr, 1.35));
 
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const viewport = page.getViewport({ scale: 1 });
             const displayScale = containerWidth / viewport.width;
             const scaledViewport = page.getViewport({ scale: displayScale });
-            const renderViewport = page.getViewport({ scale: displayScale * PDF_RENDER_SCALE });
 
-            const canvas = document.createElement('canvas');
-            canvas.width = Math.floor(renderViewport.width);
-            canvas.height = Math.floor(renderViewport.height);
-            const ctx = canvas.getContext('2d');
-
-            await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+            await storePdfTextContent(page, scaledViewport);
 
             const wrapper = document.createElement('div');
             wrapper.className = 'pdf-page-wrapper';
-            wrapper.appendChild(canvas);
-            await storePdfTextContent(page, scaledViewport);
+            wrapper.style.minHeight = Math.ceil(scaledViewport.height) + 'px';
+            const placeholder = document.createElement('div');
+            placeholder.className = 'pdf-page-placeholder';
+            placeholder.textContent = 'Seite ' + i + ' …';
+            wrapper.appendChild(placeholder);
 
             const label = document.createElement('div');
             label.className = 'pdf-page-label';
@@ -1361,12 +1436,48 @@ async function renderPdfInViewer(fullUrl) {
             container.appendChild(wrapper);
             container.appendChild(label);
 
-            if (i % 5 === 0) {
-                setStatus(`PDF-Ansicht: Seite ${i}/${pdf.numPages}...`);
+            pdfLazyPageEntries.push({
+                page,
+                wrapper,
+                displayScale,
+                pdfRenderScale: PDF_RENDER_SCALE,
+                rendered: false,
+                renderPromise: null
+            });
+
+            if (i % 15 === 0) {
+                setStatus(`PDF: Seiten vorbereiten ${i}/${pdf.numPages}…`);
                 await new Promise(r => setTimeout(r, 0));
             }
         }
+
         initPdfNav(pdf.numPages);
+
+        const eager = Math.min(2, pdfLazyPageEntries.length);
+        for (let k = 0; k < eager; k++) {
+            await renderPdfLazyPageCanvas(pdfLazyPageEntries[k]);
+        }
+
+        if (scrollRoot && 'IntersectionObserver' in window && pdfLazyPageEntries.length > eager) {
+            pdfLazyIo = new IntersectionObserver((entries) => {
+                for (const ent of entries) {
+                    if (!ent.isIntersecting) continue;
+                    const idx = pdfLazyPageEntries.findIndex(e => e.wrapper === ent.target);
+                    if (idx < 0) continue;
+                    void renderPdfLazyPageCanvas(pdfLazyPageEntries[idx]).catch(err => console.error('[PDF Viewer]', err));
+                }
+            }, { root: scrollRoot, rootMargin: '520px 0px', threshold: 0 });
+            pdfLazyPageEntries.forEach(e => pdfLazyIo.observe(e.wrapper));
+        } else if (pdfLazyPageEntries.length > eager) {
+            for (let k = eager; k < pdfLazyPageEntries.length; k++) {
+                await renderPdfLazyPageCanvas(pdfLazyPageEntries[k]);
+                if ((k - eager) % 8 === 0) {
+                    setStatus(`PDF-Ansicht: Seite ${k + 1}/${pdf.numPages}…`);
+                    await new Promise(r => setTimeout(r, 0));
+                }
+            }
+        }
+
         setStatus(`PDF geladen: ${pdf.numPages} Seiten`);
     } catch (err) {
         placeholder.textContent = 'PDF konnte nicht gerendert werden: ' + err.message;
@@ -1377,8 +1488,6 @@ async function renderPdfInViewer(fullUrl) {
         pdfRenderingInProgress = false;
     }
 }
-
-let pdfPageTexts = [];
 
 async function storePdfTextContent(page, viewport) {
     try {
@@ -1399,7 +1508,7 @@ async function storePdfTextContent(page, viewport) {
     }
 }
 
-function highlightPdfSearch(query) {
+async function highlightPdfSearch(query) {
     clearPdfSearchHighlights();
     if (!query || !currentPdfDoc || pdfPageTexts.length === 0) return;
 
@@ -1413,11 +1522,7 @@ function highlightPdfSearch(query) {
         const wrapper = wrappers[i];
         if (!wrapper) continue;
 
-        const mainCanvas = wrapper.querySelector('canvas:first-child');
-        if (!mainCanvas) continue;
-
         const vp = pageData.viewport;
-        const canvasScale = mainCanvas.width / vp.width;
 
         const matchedIndices = new Set();
         for (let j = 0; j < pageData.items.length; j++) {
@@ -1457,6 +1562,14 @@ function highlightPdfSearch(query) {
         }
 
         if (rects.length === 0) continue;
+
+        await ensurePdfPageCanvasRendered(i);
+
+        const mainCanvas = wrapper.querySelector('canvas:first-child');
+        if (!mainCanvas) continue;
+
+        const canvasScale = mainCanvas.width / vp.width;
+
         totalHits += rects.length;
 
         const overlay = document.createElement('canvas');
@@ -1739,6 +1852,9 @@ function checkJoined(typo, part1, part2) {
     return null;
 }
 
+// Unerwünschte Sonderzeichen im Fließtext (OCR/Markdown-Artefakte)
+const FORBIDDEN_IN_GA_TEXT_REGEX = /[\\§$&\[\]{}°#]/gu;
+
 // ============================================================================
 // Spellcheck + Hyphenation Detection
 // ============================================================================
@@ -1843,8 +1959,9 @@ async function runSpellcheck() {
 
         const rfCount = errorItems.filter(e => e.type === 'rf').length;
         const stCount = errorItems.filter(e => e.type === 'st').length;
-        console.log('[Spellcheck] Ergebnis: RF=' + rfCount + ', ST=' + stCount);
-        setStatus(`Prüfung abgeschlossen: ${rfCount} RF, ${stCount} ST`);
+        const szCount = errorItems.filter(e => e.type === 'sz').length;
+        console.log('[Spellcheck] Ergebnis: RF=' + rfCount + ', ST=' + stCount + ', SZ=' + szCount);
+        setStatus(`Prüfung abgeschlossen: ${rfCount} RF, ${stCount} ST, ${szCount} SZ`);
         document.getElementById('btn-autocorrect').disabled = false;
 
     } catch (err) {
@@ -1918,10 +2035,28 @@ function renderAnnotatedText(rawText, typo, hyphenMatches) {
             }
         }
 
-        // Remove overlaps: ST takes priority (remove RF marks inside ST ranges)
+        // Unerwünschte Sonderzeichen (nicht in Silbentrennungs-Bereichen)
+        FORBIDDEN_IN_GA_TEXT_REGEX.lastIndex = 0;
+        let fz;
+        while ((fz = FORBIDDEN_IN_GA_TEXT_REGEX.exec(line)) !== null) {
+            const absCharPos = lineStart + fz.index;
+            const inHyphen = hyphenMatches.some(h =>
+                absCharPos >= h.start && absCharPos + fz[0].length <= h.end
+            );
+            if (inHyphen) continue;
+            marks.push({
+                start: fz.index,
+                end: fz.index + fz[0].length,
+                type: 'sz',
+                word: fz[0],
+                absPos: absCharPos
+            });
+        }
+
+        // Remove overlaps: ST takes priority (RF/SZ innerhalb ST entfernen)
         const stMarks = marks.filter(m => m.type === 'st');
         const finalMarks = marks.filter(m => {
-            if (m.type === 'rf') {
+            if (m.type === 'rf' || m.type === 'sz') {
                 return !stMarks.some(st => m.start >= st.start && m.end <= st.end);
             }
             return true;
@@ -1946,7 +2081,7 @@ function renderAnnotatedText(rawText, typo, hyphenMatches) {
 
             const errorWord = m.type === 'st'
                 ? m.word.replace(/[\r\n]+/g, '⏎')
-                : m.word;
+                : (m.type === 'sz' ? (m.word === '\\' ? '\\\\' : m.word) : m.word);
             errorItems.push({
                 type: m.type,
                 word: errorWord,
@@ -2174,8 +2309,8 @@ async function openPDFAsText() {
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const content = await page.getTextContent();
-            const pageText = content.items.map(item => item.str).join(' ');
-            pages.push(pageText);
+            const pageText = paragraphTextFromPdfTextContent(content);
+            pages.push(pdfPageBlockWithMarker(i, pageText));
             if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
         }
         const text = pages.join('\n\n');
@@ -2362,7 +2497,7 @@ function updateErrorList() {
         return;
     }
     list.innerHTML = filtered.map((item, i) => `
-        <div class="error-item" onclick="scrollToError(${item.position})" title="${item.type === 'st' ? 'Zusammengefügt: ' + (item.joined || '') : ''}">
+        <div class="error-item" onclick="scrollToError(${item.position})" title="${item.type === 'st' ? 'Zusammengefügt: ' + (item.joined || '') : item.type === 'sz' ? 'Unerwünschtes Sonderzeichen' : ''}">
             <span class="badge badge-${item.type}">${item.type.toUpperCase()}</span>
             <span>${escapeHtml(item.word)}</span>
             ${item.joined ? `<span style="color: var(--secondary-text); font-size: 0.75rem;">→ ${escapeHtml(item.joined)}</span>` : ''}
@@ -2734,8 +2869,11 @@ function updateWordCount() {
 function updateStats() {
     const rf = errorItems.filter(e => e.type === 'rf').length;
     const st = errorItems.filter(e => e.type === 'st').length;
+    const sz = errorItems.filter(e => e.type === 'sz').length;
     document.getElementById('stat-rf').textContent = rf;
     document.getElementById('stat-st').textContent = st;
+    const szEl = document.getElementById('stat-sz');
+    if (szEl) szEl.textContent = sz;
 }
 
 function clearErrors() {
@@ -2743,6 +2881,8 @@ function clearErrors() {
     document.getElementById('error-list').innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">Noch keine Prüfung durchgeführt.</div>';
     document.getElementById('stat-rf').textContent = '0';
     document.getElementById('stat-st').textContent = '0';
+    const szEl = document.getElementById('stat-sz');
+    if (szEl) szEl.textContent = '0';
     document.getElementById('btn-autocorrect').disabled = true;
 }
 
@@ -3276,7 +3416,9 @@ function setupContextMenu() {
 function showContextMenu(x, y, mark) {
     const menu = document.getElementById('context-menu');
     const word = mark.textContent;
-    const type = mark.classList.contains('rf') ? 'rf' : 'st';
+    let type = 'st';
+    if (mark.classList.contains('rf')) type = 'rf';
+    else if (mark.classList.contains('sz')) type = 'sz';
     const pos = mark.dataset.pos;
     const joined = mark.dataset.joined || '';
     const editValue = (type === 'st' && joined) ? joined : word;
@@ -3291,13 +3433,17 @@ function showContextMenu(x, y, mark) {
         items += `<div class="context-menu-item" onclick="applyHyphenFix(this, '${escapeHtml(joined)}')" data-mark-pos="${pos}">✅ Zusammenführen: ${escapeHtml(joined)}</div>`;
     }
 
-    const autoSuggestion = getAutoCorrection(word);
-    if (autoSuggestion && autoSuggestion !== word) {
-        const escSugg = escapeHtml(autoSuggestion).replace(/'/g, '&#39;');
-        items += `<div class="context-menu-item" onclick="applyAutoCorrectSingle(this, '${escSugg}')" data-mark-pos="${pos}">🔄 Autokorrektur: ${escapeHtml(autoSuggestion)}</div>`;
+    if (type !== 'sz') {
+        const autoSuggestion = getAutoCorrection(word);
+        if (autoSuggestion && autoSuggestion !== word) {
+            const escSugg = escapeHtml(autoSuggestion).replace(/'/g, '&#39;');
+            items += `<div class="context-menu-item" onclick="applyAutoCorrectSingle(this, '${escSugg}')" data-mark-pos="${pos}">🔄 Autokorrektur: ${escapeHtml(autoSuggestion)}</div>`;
+        }
     }
 
-    items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
+    if (type !== 'sz') {
+        items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
+    }
     items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(word)}')">🔍 In GA suchen</div>`;
     items += `<div class="context-menu-item" onclick="ignoreMark(this)" data-mark-pos="${pos}">⏭ Ignorieren</div>`;
 
@@ -3727,7 +3873,7 @@ function performSearch() {
         searchCurrentIdx = -1;
     }
     updateSearchInfo();
-    highlightPdfSearch(query);
+    highlightPdfSearch(query).catch(err => console.error('[PDF Search]', err));
 }
 
 function findNearestMatch(container, scrollTop) {
@@ -4102,7 +4248,8 @@ async function r2LoadFileIntoEditor(key) {
             for (let i = 1; i <= pdf.numPages; i++) {
                 const page = await pdf.getPage(i);
                 const content = await page.getTextContent();
-                pages.push(content.items.map(item => item.str).join(' '));
+                const pageText = paragraphTextFromPdfTextContent(content);
+                pages.push(pdfPageBlockWithMarker(i, pageText));
                 if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
             }
             text = pages.join('\n\n');
