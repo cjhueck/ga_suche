@@ -39185,6 +39185,13 @@ window.cancelTextEditMode = function() {};
       closeSpellcheckDictionary();
     }
   });
+
+  window.loadTypo = loadTypo;
+  window.isInUserDictionary = isInUserDictionary;
+  Object.defineProperty(window, 'typoInstance', {
+    get: () => typoInstance,
+    configurable: true
+  });
 })();
 
 // ---- extracted script block ----
@@ -39218,15 +39225,15 @@ window.cancelTextEditMode = function() {};
     if (/^[A-ZÄÖÜ]{1,5}$/.test(word)) return true;
     if (/^\|?\d+\|?$/.test(word)) return true;
     if (/^\^[a-z0-9]+$/i.test(word)) return true;
-    if (typeof isInUserDictionary === 'function' && isInUserDictionary(word)) return true;
-    if (typeof typoInstance !== 'undefined' && typoInstance) return typoInstance.check(word);
+    if (typeof window.isInUserDictionary === 'function' && window.isInUserDictionary(word)) return true;
+    if (window.typoInstance) return window.typoInstance.check(word);
     return true;
   }
 
   function scCheckJoined(part1, part2) {
-    const typo = (typeof typoInstance !== 'undefined') ? typoInstance : null;
+    const typo = window.typoInstance || null;
     if (!typo) return null;
-    const isInDict = (w) => (typeof isInUserDictionary === 'function' && isInUserDictionary(w));
+    const isInDict = (w) => (typeof window.isInUserDictionary === 'function' && window.isInUserDictionary(w));
     const candidates = [part1 + part2];
     const joined = candidates[0];
     if (joined.includes('ß')) candidates.push(joined.replace(/ß/g, 'ss'));
@@ -39265,7 +39272,7 @@ window.cancelTextEditMode = function() {};
     const viewerContent = document.getElementById('viewer-content');
     if (!viewerContent) { alert('Kein Vortrag geladen.'); return; }
 
-    const typo = (typeof loadTypo === 'function') ? await loadTypo() : null;
+    const typo = (typeof window.loadTypo === 'function') ? await window.loadTypo() : null;
     if (!typo) { alert('Wörterbuch konnte nicht geladen werden.'); return; }
 
     const btn = document.getElementById('sc-btn-check');
@@ -39311,7 +39318,7 @@ window.cancelTextEditMode = function() {};
       let ihm;
       while ((ihm = inlineHyphenRegex.exec(text)) !== null) {
         if (typo.check(ihm[0])) continue;
-        if (typeof isInUserDictionary === 'function' && isInUserDictionary(ihm[0])) continue;
+        if (typeof window.isInUserDictionary === 'function' && window.isInUserDictionary(ihm[0])) continue;
         const joined = scCheckJoined(ihm[1], ihm[2]);
         if (joined) {
           marks.push({ start: ihm.index, end: ihm.index + ihm[0].length, type: 'st', word: ihm[0], joined });
@@ -39324,7 +39331,7 @@ window.cancelTextEditMode = function() {};
       while ((hsm = hyphenSpaceRegex.exec(text)) !== null) {
         const alreadyCovered = marks.some(m => m.type === 'st' && hsm.index >= m.start && hsm.index < m.end);
         if (alreadyCovered) continue;
-        if (typeof isInUserDictionary === 'function' && isInUserDictionary(hsm[0].replace(/\s+/g, ''))) continue;
+        if (typeof window.isInUserDictionary === 'function' && window.isInUserDictionary(hsm[0].replace(/\s+/g, ''))) continue;
         const joined = scCheckJoined(hsm[1], hsm[2]);
         if (joined) {
           marks.push({ start: hsm.index, end: hsm.index + hsm[0].length, type: 'st', word: hsm[0], joined });
@@ -39461,8 +39468,8 @@ window.cancelTextEditMode = function() {};
     if (type === 'st' && markEl.dataset.joined) {
       suggestions.push(markEl.dataset.joined);
     }
-    if (type === 'rf' && typeof typoInstance !== 'undefined' && typoInstance) {
-      const ts = typoInstance.suggest(word, 5);
+    if (type === 'rf' && window.typoInstance) {
+      const ts = window.typoInstance.suggest(word, 5);
       suggestions = suggestions.concat(ts);
     }
     const userCorrs = getScUserCorrections();
@@ -39592,9 +39599,9 @@ window.cancelTextEditMode = function() {};
   window.scAddToDict = function() {
     if (!scActiveMarkEl) return;
     const word = scActiveMarkEl.textContent;
-    if (typeof spellcheckAddWordFromMenu === 'function') {
+    if (typeof window.spellcheckAddWordFromMenu === 'function') {
       window.spellcheckContextWord = word;
-      spellcheckAddWordFromMenu();
+      window.spellcheckAddWordFromMenu();
     } else {
       const dict = JSON.parse(localStorage.getItem('ga-suche-spellcheck-dictionary') || '[]');
       if (!dict.some(w => w.toLowerCase() === word.toLowerCase())) {
@@ -39617,7 +39624,7 @@ window.cancelTextEditMode = function() {};
   window.autoCorrectViewer = async function() {
     const viewerContent = document.getElementById('viewer-content');
     if (!viewerContent || scErrorItems.length === 0) return;
-    const typo = (typeof typoInstance !== 'undefined') ? typoInstance : null;
+    const typo = window.typoInstance || null;
     if (!typo) return;
 
     let corrCount = 0;
