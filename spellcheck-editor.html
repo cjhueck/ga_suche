@@ -1048,8 +1048,8 @@ function getApiBase() {
 }
 
 function getFileUrl(key) {
-    if (key.startsWith('ga_pdf/') && key.endsWith('.pdf')) {
-        return R2_PUBLIC_BASE + key;
+    if (key.endsWith('.pdf')) {
+        return R2_PUBLIC_BASE + encodeURI(key).replace(/#/g, '%23');
     }
     return getApiBase() + '/editor/file/' + key;
 }
@@ -1490,13 +1490,11 @@ async function loadPdfJsFromUrl(resolvedUrl) {
         ((resolvedUrl.startsWith('/') && !resolvedUrl.startsWith('//')) ||
          resolvedUrl.startsWith(location.origin + '/') ||
          resolvedUrl.startsWith('http://localhost:'));
-    if (isSameOrigin) {
-        const res = await fetch(resolvedUrl, { credentials: 'same-origin' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const buf = await res.arrayBuffer();
-        return pdfjsLib.getDocument({ data: buf }).promise;
-    }
-    return pdfjsLib.getDocument(resolvedUrl).promise;
+    const opts = isSameOrigin ? { credentials: 'same-origin' } : {};
+    const res = await fetch(resolvedUrl, opts);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const buf = await res.arrayBuffer();
+    return pdfjsLib.getDocument({ data: buf }).promise;
 }
 
 async function extractPDFText(pdfUrl) {
@@ -1509,7 +1507,7 @@ async function extractPDFText(pdfUrl) {
         // Wie app.html: direkter R2-Fallback (alter pdfUrl /Steiner_GA_pdf/… oder /api/pdf-Fehler)
         const canR2Fallback = typeof fullUrl === 'string' &&
             (fullUrl.includes('/api/pdf/') || fullUrl.startsWith('/Steiner_GA_pdf/'));
-        if (!isLocal && currentGA && canR2Fallback) {
+        if (currentGA && canR2Fallback) {
             const m = String(currentGA).match(/^0*(\d+)([a-z]?)$/i);
             if (m) {
                 const r2Url = R2_PUBLIC_BASE + 'ga_pdf/ga' + m[1].padStart(3, '0') + (m[2] || '').toLowerCase() + '.pdf';
@@ -1632,6 +1630,8 @@ async function extractPDFTextOCR(pdf) {
 
 function buildPdfUrl(pdfUrl) {
     if (pdfUrl.startsWith('http')) return pdfUrl;
+    const gaMatch = pdfUrl.match(/\/api\/pdf\/(ga\d{3}[a-z]?)$/i);
+    if (gaMatch) return R2_PUBLIC_BASE + 'ga_pdf/' + gaMatch[1].toLowerCase() + '.pdf';
     if (isLocal) return `http://localhost:3003${pdfUrl}`;
     return pdfUrl;
 }
@@ -3061,9 +3061,12 @@ function setupEditorEvents() {
             closeSearchBar();
         }
     });
-    document.getElementById('search-word-input').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') searchWordInGA();
-    });
+    const searchWordInput = document.getElementById('search-word-input');
+    if (searchWordInput) {
+        searchWordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') searchWordInGA();
+        });
+    }
 
     setupScrollSync();
     setupResizeHandle();
@@ -3381,26 +3384,7 @@ function autoCorrectAll() {
         setStatus('Kein Text für Auto-Korrektur vorhanden');
         return;
     }
-
-    const pages = findPageMarkersInText(text);
-    const info = document.getElementById('ac-page-info');
-    if (pages.length > 0) {
-        info.textContent = `Gefundene Seitenmarker: ${pages[0]}–${pages[pages.length - 1]} (${pages.length} Seiten)`;
-    } else {
-        info.textContent = 'Keine Seitenmarker (|N|) gefunden – "Alle Seiten" empfohlen.';
-    }
-
-    document.querySelector('input[name="ac-scope"][value="all"]').checked = true;
-    document.getElementById('ac-pages-input').value = '';
-    document.getElementById('ac-range-from').value = pages.length > 0 ? pages[0] : '';
-    document.getElementById('ac-range-to').value = pages.length > 0 ? pages[pages.length - 1] : '';
-    acDialogUpdateVisibility();
-
-    document.querySelectorAll('input[name="ac-scope"]').forEach(r =>
-        r.onchange = acDialogUpdateVisibility
-    );
-
-    document.getElementById('ac-dialog-overlay').style.display = 'flex';
+    runAutoCorrect(null);
 }
 
 // ============================================================================
@@ -4866,7 +4850,7 @@ async function r2LoadFileIntoEditor(key) {
     try {
         setStatus('Lade aus R2: ' + filename + '...');
         const url = getFileUrl(key);
-        const skipAuth = key.startsWith('ga_pdf/');
+        const skipAuth = key.endsWith('.pdf');
         const fetchOpts = skipAuth ? {} : { headers: await r2GetAuthHeaders() };
         const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -5188,7 +5172,7 @@ async function r2OpenPdfInViewer(key) {
     try {
         setStatus('Lade PDF in Viewer...');
         const url = getFileUrl(key);
-        const skipAuth = key.startsWith('ga_pdf/');
+        const skipAuth = key.endsWith('.pdf');
         const fetchOpts = skipAuth ? {} : { headers: await r2GetAuthHeaders() };
         const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -5366,7 +5350,7 @@ async function r2DownloadFile(key, name) {
     r2HideContextMenu();
     try {
         const url = getFileUrl(key);
-        const skipAuth = key.startsWith('ga_pdf/');
+        const skipAuth = key.endsWith('.pdf');
         const fetchOpts = skipAuth ? {} : { headers: await r2GetAuthHeaders() };
         const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);

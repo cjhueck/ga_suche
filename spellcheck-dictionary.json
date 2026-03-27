@@ -52201,7 +52201,12 @@
     "zynismus",
     "zypern",
     "zypresse",
-    "zyste"
+    "zyste",
+    "Seraphim",
+    "Sonnensystem",
+    "Tierkreis",
+    "Wassermann-Region",
+    "physikalisch-mechanischen"
   ],
   "corrections": {
     "Schlußfolgerungen": "Schlussfolgerungen",
@@ -52269,7 +52274,9 @@
     "herauffübren": "heraufführen",
     "Gegenwarts-Kultur": "GegenwartsKultur",
     "Johannes-Baues": "Johannesbaues",
-    "Mietshäusernfür": "Mietshäusern für"
+    "Mietshäusernfür": "Mietshäusern für",
+    "deengestaltungen": "Ideengestaltungen",
+    "physikalischmechanischen": "physikalisch-mechanischen"
   },
-  "updatedAt": "2026-03-27T16:50:09.109Z"
+  "updatedAt": "2026-03-27T19:13:20.644Z"
 }
