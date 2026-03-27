@@ -327,6 +327,54 @@
             background: rgba(70, 120, 134, 0.05);
         }
         .upload-zone input[type="file"] { display: none; }
+        /* Load Dropdowns */
+        .load-dropdown { position: relative; display: inline-block; }
+        .load-dropdown-menu { display: none; position: fixed; z-index: 5000; background: var(--background-color, #fff); border: 1px solid var(--border-color); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); min-width: 130px; }
+        .load-dropdown-menu.open { display: block; }
+        .load-dropdown-item { padding: 7px 14px; cursor: pointer; font-size: 0.85rem; white-space: nowrap; }
+        .load-dropdown-item:hover { background: rgba(59,130,246,0.08); }
+        .load-dropdown-r2 { display: none; }
+        /* R2 File Browser */
+        #tab-r2files:not(.hidden) { display: flex !important; }
+        .r2-toolbar { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border-color); background: var(--header-bg, #f8f9fa); }
+        .r2-toolbar-row { display: flex; gap: 4px; align-items: center; }
+        .r2-toolbar-row + .r2-toolbar-row { margin-top: 5px; }
+        .r2-breadcrumb { flex: 1; font-size: 0.8rem; color: var(--secondary-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px 6px; }
+        .r2-breadcrumb span { cursor: pointer; color: var(--accent-color); }
+        .r2-breadcrumb span:hover { text-decoration: underline; }
+        .r2-btn { padding: 3px 8px; font-size: 0.78rem; border: 1px solid var(--border-color); background: var(--background-color, #fff); border-radius: 3px; cursor: pointer; white-space: nowrap; }
+        .r2-btn:hover { background: var(--hover-bg, rgba(0,0,0,0.06)); }
+        .r2-btn:disabled { opacity: 0.4; cursor: default; }
+        .r2-list { overflow-y: auto; flex: 1; user-select: none; }
+        .r2-item { display: flex; align-items: center; gap: 8px; padding: 5px 10px; cursor: pointer; border-bottom: 1px solid var(--border-color); font-size: 0.83rem; position: relative; }
+        .r2-item:hover { background: rgba(59,130,246,0.06); }
+        .r2-item.selected { background: rgba(59,130,246,0.12); }
+        .r2-item .r2-icon { width: 20px; text-align: center; font-size: 1rem; flex-shrink: 0; }
+        .r2-item .r2-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .r2-item .r2-meta { font-size: 0.72rem; color: var(--secondary-text); white-space: nowrap; }
+        .r2-item .r2-actions { opacity: 0; display: flex; gap: 2px; }
+        .r2-item:hover .r2-actions { opacity: 1; }
+        .r2-act-btn { background: none; border: none; cursor: pointer; padding: 2px 5px; font-size: 0.8rem; border-radius: 3px; color: var(--secondary-text); }
+        .r2-act-btn:hover { background: rgba(0,0,0,0.08); color: var(--text-color); }
+        .r2-act-btn.danger:hover { background: rgba(220,38,38,0.1); color: #dc2626; }
+        .r2-scope-link { color: var(--accent-color); font-weight: 500; }
+        .r2-empty { padding: 2rem 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center; }
+        /* Context Menu */
+        .r2-context-menu { position: fixed; z-index: 20000; background: var(--background-color, #fff); border: 1px solid var(--border-color); border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); min-width: 180px; padding: 4px 0; font-size: 0.85rem; }
+        .r2-context-menu .r2-ctx-item { padding: 7px 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .r2-context-menu .r2-ctx-item:hover { background: rgba(59,130,246,0.08); }
+        .r2-context-menu .r2-ctx-item.danger { color: #dc2626; }
+        .r2-context-menu .r2-ctx-item.danger:hover { background: rgba(220,38,38,0.08); }
+        .r2-context-menu .r2-ctx-sep { height: 1px; background: var(--border-color); margin: 4px 0; }
+        /* Move Dialog */
+        .r2-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 25000; display: flex; justify-content: center; align-items: center; }
+        .r2-modal { background: var(--background-color, #fff); border-radius: 8px; padding: 1.5rem; max-width: 400px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+        .r2-modal h3 { margin: 0 0 1rem 0; font-size: 1.1rem; }
+        .r2-modal-folder { padding: 6px 10px; cursor: pointer; border-radius: 4px; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+        .r2-modal-folder:hover { background: rgba(59,130,246,0.08); }
+        .r2-modal-folder.selected { background: rgba(59,130,246,0.15); font-weight: 500; }
+        .r2-modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1rem; }
+        .r2-modal-btns button { padding: 6px 16px; border-radius: 4px; font-size: 0.85rem; cursor: pointer; }
 
         .status-bar {
             padding: 6px 1.5rem;
@@ -560,8 +608,20 @@
 <div class="header">
     <h1>GA Rechtschreib-Editor</h1>
     <div class="btn-group">
-        <button class="btn" onclick="document.getElementById('pdf-viewer-upload-input').click()" title="PDF im rechten Panel anzeigen">PDF laden</button>
-        <button class="btn" onclick="openMDFile()" title="MD-Datei vom Rechner laden">MD laden</button>
+        <div class="load-dropdown" id="dropdown-pdf">
+            <button class="btn" onclick="toggleLoadDropdown('pdf')">PDF laden &#9662;</button>
+            <div class="load-dropdown-menu" id="dropdown-pdf-menu">
+                <div class="load-dropdown-item" onclick="closeLoadDropdowns(); openPDFAsText();">Vom Rechner</div>
+                <div class="load-dropdown-item load-dropdown-r2" onclick="closeLoadDropdowns(); r2PickFileForEditor('pdf');">Vom Server</div>
+            </div>
+        </div>
+        <div class="load-dropdown" id="dropdown-md">
+            <button class="btn" onclick="toggleLoadDropdown('md')">MD laden &#9662;</button>
+            <div class="load-dropdown-menu" id="dropdown-md-menu">
+                <div class="load-dropdown-item" onclick="closeLoadDropdowns(); openMDFile();">Vom Rechner</div>
+                <div class="load-dropdown-item load-dropdown-r2" onclick="closeLoadDropdowns(); r2PickFileForEditor('md');">Vom Server</div>
+            </div>
+        </div>
     </div>
     <select id="ga-select" onchange="onGASelect(this.value)" style="display:none;">
         <option value="">-- GA-Band wählen --</option>
@@ -614,6 +674,7 @@
             <button class="sidebar-tab" onclick="switchSidebarTab('search')">Suche</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('pdf')">PDF</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('upload')">Upload</button>
+            <button class="sidebar-tab" id="tab-btn-r2files" onclick="switchSidebarTab('r2files')" style="display:none;">Dateien</button>
         </div>
 
         <!-- Errors Tab -->
@@ -692,6 +753,26 @@
             </div>
             <div id="upload-log" style="padding: 0.5rem 1rem; font-size: 0.8rem; color: var(--secondary-text);"></div>
         </div>
+
+        <!-- R2 Files Tab -->
+        <div id="tab-r2files" class="sidebar-content hidden" style="flex-direction:column;">
+            <div class="r2-toolbar">
+                <div class="r2-toolbar-row">
+                    <button class="r2-btn" id="r2-nav-up" onclick="r2NavigateUp()" disabled title="Übergeordneter Ordner">&#9650;</button>
+                    <div class="r2-breadcrumb" id="r2-breadcrumb"></div>
+                    <button class="r2-btn" onclick="r2RefreshFiles()" title="Aktualisieren">&#8635;</button>
+                </div>
+                <div class="r2-toolbar-row">
+                    <button class="r2-btn" onclick="r2UploadFileDialog()" style="flex:1;">&#8593; Hochladen</button>
+                    <button class="r2-btn" onclick="r2CreateFolderDialog()">+ Ordner</button>
+                </div>
+            </div>
+            <div id="r2-file-list" class="r2-list">
+                <div class="r2-empty">Klicken Sie auf den Tab, um Dateien zu laden.</div>
+            </div>
+            <input type="file" id="r2-upload-input" accept=".pdf,.md,.txt" multiple onchange="r2HandleUpload(event)" style="display:none;">
+        </div>
+        <div id="r2-context-menu" class="r2-context-menu" style="display:none;"></div>
     </div>
 </div>
 
@@ -706,6 +787,24 @@
 <div class="status-bar">
     <span id="status-left">Bereit</span>
     <span id="status-right"></span>
+</div>
+
+<!-- Login Overlay (Online only) -->
+<div id="login-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center;">
+    <div style="background: var(--background-color, #fff); border-radius: 12px; padding: 2rem; max-width: 380px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+        <h2 style="margin: 0 0 0.5rem 0; font-size: 1.3rem;">Rechtschreib-Editor</h2>
+        <p style="color: var(--secondary-text); font-size: 0.85rem; margin-bottom: 1.5rem;">Anmeldung erforderlich. Editor-Berechtigung wird benötigt.</p>
+        <div id="login-overlay-msg" style="display:none; padding: 8px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
+        <div style="margin-bottom: 0.75rem;">
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--secondary-text);">E-Mail</label>
+            <input type="email" id="login-overlay-email" placeholder="ihre@email.de" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 3px; color: var(--secondary-text);">Passwort</label>
+            <input type="password" id="login-overlay-pw" placeholder="Passwort" onkeydown="if(event.key==='Enter')loginOverlaySubmit()" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; box-sizing: border-box;">
+        </div>
+        <button onclick="loginOverlaySubmit()" style="width: 100%; padding: 0.7rem; background: var(--accent-color); color: white; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer;">Anmelden</button>
+    </div>
 </div>
 
 <!-- Context Menu -->
@@ -732,6 +831,7 @@ let activeFilter = 'all';
 let hasUnsavedChanges = false;
 let currentPdfUrl = null;
 let currentPdfDoc = null;
+let pdfRenderingInProgress = false;
 
 const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
@@ -768,6 +868,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupEditorEvents();
     setupContextMenu();
     renderDictList();
+    r2Init();
 });
 
 // ============================================================================
@@ -785,10 +886,58 @@ async function initAuth() {
     if (user && isEditorUser(user)) {
         currentUser = user;
         onAuthSuccess();
-    } else if (user) {
-        setStatus('Keine Editor-Berechtigung. Bitte melden Sie sich über GA-Suche mit einem Editor-Konto an.');
     } else {
-        setStatus('Nicht angemeldet. Bitte melden Sie sich über GA-Suche → Fehler melden an.');
+        showLoginOverlay(user ? 'Keine Editor-Berechtigung für dieses Konto.' : null);
+    }
+}
+
+function showLoginOverlay(msg) {
+    const overlay = document.getElementById('login-overlay');
+    overlay.style.display = 'flex';
+    if (msg) {
+        const msgEl = document.getElementById('login-overlay-msg');
+        msgEl.style.display = 'block';
+        msgEl.style.background = '#fef2f2';
+        msgEl.style.color = '#dc2626';
+        msgEl.textContent = msg;
+    }
+}
+
+function hideLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'none';
+}
+
+async function loginOverlaySubmit() {
+    const email = document.getElementById('login-overlay-email').value.trim();
+    const pw = document.getElementById('login-overlay-pw').value;
+    const msgEl = document.getElementById('login-overlay-msg');
+    if (!email || !pw) {
+        msgEl.style.display = 'block';
+        msgEl.style.background = '#fef2f2';
+        msgEl.style.color = '#dc2626';
+        msgEl.textContent = 'E-Mail und Passwort eingeben.';
+        return;
+    }
+    msgEl.style.display = 'block';
+    msgEl.style.background = '#eff6ff';
+    msgEl.style.color = '#2563eb';
+    msgEl.textContent = 'Anmelden...';
+    try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pw });
+        if (error) throw error;
+        if (!data.user || !isEditorUser(data.user)) {
+            msgEl.style.background = '#fef2f2';
+            msgEl.style.color = '#dc2626';
+            msgEl.textContent = 'Keine Editor-Berechtigung für dieses Konto.';
+            return;
+        }
+        currentUser = data.user;
+        hideLoginOverlay();
+        onAuthSuccess();
+    } catch (err) {
+        msgEl.style.background = '#fef2f2';
+        msgEl.style.color = '#dc2626';
+        msgEl.textContent = err.message || 'Anmeldung fehlgeschlagen.';
     }
 }
 
@@ -810,6 +959,7 @@ function onAuthSuccess() {
     document.getElementById('auth-status').textContent = currentUser.email;
     document.getElementById('btn-logout').style.display = '';
     loadGAList();
+    r2Init();
 }
 
 // ============================================================================
@@ -1158,6 +1308,12 @@ function clearPdfViewer() {
 }
 
 async function renderPdfInViewer(fullUrl) {
+    if (pdfRenderingInProgress) {
+        setStatus('PDF wird bereits geladen – bitte warten.');
+        return;
+    }
+    pdfRenderingInProgress = true;
+
     const container = document.getElementById('pdf-viewer-container');
     const placeholder = document.getElementById('pdf-viewer-placeholder');
     container.innerHTML = '';
@@ -1167,6 +1323,7 @@ async function renderPdfInViewer(fullUrl) {
     if (typeof pdfjsLib === 'undefined') {
         placeholder.textContent = 'pdf.js nicht verfügbar';
         placeholder.style.display = '';
+        pdfRenderingInProgress = false;
         return;
     }
 
@@ -1216,6 +1373,8 @@ async function renderPdfInViewer(fullUrl) {
         placeholder.style.display = '';
         resetPdfNav();
         console.error('[PDF Viewer]', err);
+    } finally {
+        pdfRenderingInProgress = false;
     }
 }
 
@@ -1820,7 +1979,6 @@ function getSuggestions(word) {
 // Save
 // ============================================================================
 async function saveDocument() {
-    if (!currentGA) return;
     const editor = document.getElementById('editor-content');
     const text = editor.textContent || editor.innerText;
 
@@ -1828,6 +1986,37 @@ async function saveDocument() {
         setStatus('Nichts zum Speichern (leerer Text).');
         return;
     }
+
+    if (currentFileData?.r2Key) {
+        document.getElementById('btn-save').disabled = true;
+        await r2SaveCurrentFile();
+        document.getElementById('btn-save').disabled = false;
+        return;
+    }
+
+    if (currentFileHandle) {
+        setStatus('Speichere...');
+        document.getElementById('btn-save').disabled = true;
+        try {
+            const writable = await currentFileHandle.createWritable();
+            await writable.write(text);
+            await writable.close();
+            originalText = text;
+            hasUnsavedChanges = false;
+            document.getElementById('edit-status').textContent = '✓ Gespeichert';
+            document.getElementById('edit-status').style.color = '#16a34a';
+            setStatus('Gespeichert: ' + (currentFileData?.filename || currentFileHandle.name));
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+            setStatus('Speichern fehlgeschlagen: ' + err.message);
+            console.error('[Save]', err);
+            alert('Speichern fehlgeschlagen: ' + err.message);
+        }
+        document.getElementById('btn-save').disabled = false;
+        return;
+    }
+
+    if (!currentGA) return;
 
     setStatus('Speichere...');
     document.getElementById('btn-save').disabled = true;
@@ -1885,7 +2074,6 @@ async function saveDocument() {
 }
 
 async function saveDocumentAs() {
-    if (!currentGA) return;
     const editor = document.getElementById('editor-content');
     const text = editor.textContent || editor.innerText;
     if (!text || text.trim().length === 0) {
@@ -1896,7 +2084,7 @@ async function saveDocumentAs() {
     const currentFilename = currentFileData?.savedFilename || currentFileData?.filename || '';
     const defaultName = currentFilename.endsWith('.md')
         ? currentFilename
-        : `GA${currentGA.padStart(3, '0')} - Korrektur.md`;
+        : currentGA ? `GA${currentGA.padStart(3, '0')} - Korrektur.md` : 'Korrektur.md';
 
     if (window.showSaveFilePicker) {
         try {
@@ -1913,6 +2101,10 @@ async function saveDocumentAs() {
             const writable = await handle.createWritable();
             await writable.write(text);
             await writable.close();
+
+            currentFileHandle = handle;
+            if (currentFileData) currentFileData.filename = handle.name;
+            else currentFileData = { filename: handle.name };
 
             originalText = text;
             hasUnsavedChanges = false;
@@ -1957,37 +2149,114 @@ async function handlePDFUpload(event) {
     event.target.value = '';
 }
 
-async function handleMDUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
+async function openPDFAsText() {
     try {
-        const text = await file.text();
+        let file;
+        if (window.showOpenFilePicker) {
+            const [handle] = await window.showOpenFilePicker({
+                types: [{ description: 'PDF-Datei', accept: { 'application/pdf': ['.pdf'] } }],
+                multiple: false
+            });
+            file = await handle.getFile();
+        } else {
+            file = await new Promise((resolve, reject) => {
+                const input = document.createElement('input');
+                input.type = 'file'; input.accept = '.pdf';
+                input.onchange = () => resolve(input.files[0]);
+                input.click();
+            });
+        }
+        if (!file) return;
+        setStatus('Extrahiere Text aus PDF: ' + file.name + '...');
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const pages = [];
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const pageText = content.items.map(item => item.str).join(' ');
+            pages.push(pageText);
+            if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
+        }
+        const text = pages.join('\n\n');
         const editor = document.getElementById('editor-content');
         pushUndo();
         editor.textContent = text;
         originalText = text;
         hasUnsavedChanges = false;
+        currentFileHandle = null;
 
         const gaMatch = file.name.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
-        if (gaMatch) {
-            currentGA = gaMatch[1];
-            currentSource = 'md';
-            document.getElementById('ga-select').value = currentGA;
-        }
-        currentFileData = { filename: file.name };
+        if (gaMatch) { currentGA = gaMatch[1]; currentSource = 'pdf'; }
+        currentFileData = { filename: file.name.replace('.pdf', '.md') };
 
         document.getElementById('btn-check').disabled = false;
         document.getElementById('btn-autocorrect').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
-        document.getElementById('file-info').textContent = file.name;
-        setStatus('MD geladen: ' + file.name);
+        document.getElementById('file-info').textContent = file.name + ' (Text extrahiert)';
+        setStatus(`PDF-Text geladen: ${file.name} (${pdf.numPages} Seiten)`);
     } catch (err) {
+        if (err.name === 'AbortError') return;
+        setStatus('PDF-Text laden fehlgeschlagen: ' + err.message);
+        console.error(err);
+    }
+}
+
+async function openMDFile() {
+    try {
+        if (window.showOpenFilePicker) {
+            const [handle] = await window.showOpenFilePicker({
+                types: [{
+                    description: 'Markdown-Datei',
+                    accept: { 'text/markdown': ['.md'], 'text/plain': ['.txt'] }
+                }],
+                multiple: false
+            });
+            currentFileHandle = handle;
+            const file = await handle.getFile();
+            await loadMDIntoEditor(file);
+        } else {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.md,.txt';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentFileHandle = null;
+                await loadMDIntoEditor(file);
+            };
+            input.click();
+        }
+    } catch (err) {
+        if (err.name === 'AbortError') return;
         setStatus('MD laden fehlgeschlagen: ' + err.message);
         console.error(err);
     }
-    event.target.value = '';
+}
+
+async function loadMDIntoEditor(file) {
+    const text = await file.text();
+    const editor = document.getElementById('editor-content');
+    pushUndo();
+    editor.textContent = text;
+    originalText = text;
+    hasUnsavedChanges = false;
+
+    const gaMatch = file.name.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
+    if (gaMatch) {
+        currentGA = gaMatch[1];
+        currentSource = 'md';
+        document.getElementById('ga-select').value = currentGA;
+    }
+    currentFileData = { filename: file.name };
+
+    document.getElementById('btn-check').disabled = false;
+    document.getElementById('btn-autocorrect').disabled = false;
+    document.getElementById('btn-save').disabled = false;
+    document.getElementById('btn-saveas').disabled = false;
+    document.getElementById('file-info').textContent = file.name;
+    setStatus('MD geladen: ' + file.name);
 }
 
 async function handleViewerPDFUpload(event) {
@@ -2137,6 +2406,10 @@ function switchSidebarTab(tab) {
         const si = document.getElementById('dict-search-input');
         if (si) { si.value = ''; }
         renderDictList();
+    }
+    if (tab === 'r2files') {
+        if (!r2UserInfo) r2LoadUserInfo().then(() => r2RefreshFiles());
+        else r2RefreshFiles();
     }
 }
 
@@ -3736,6 +4009,648 @@ window.addEventListener('beforeunload', (e) => {
         e.returnValue = '';
     }
 });
+
+// ============================================================================
+// R2 File Browser (Explorer-Style)
+// ============================================================================
+let r2CurrentScope = 'user';
+let r2CurrentSubpath = '';
+let r2UserInfo = null;
+let r2SelectedItem = null;
+let r2CachedData = null;
+
+async function r2GetAuthHeaders() {
+    const headers = {};
+    if (!isLocal && typeof supabase !== 'undefined' && supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
+    }
+    return headers;
+}
+
+async function r2Init() {
+    const tabBtn = document.getElementById('tab-btn-r2files');
+    try {
+        const res = await fetch(getApiBase() + '/editor/status');
+        const data = await res.json();
+        if (data.r2Configured) {
+            if (tabBtn) tabBtn.style.display = '';
+            document.querySelectorAll('.load-dropdown-r2').forEach(el => el.style.display = 'block');
+        }
+    } catch (e) {
+        console.warn('[R2] Status check failed:', e.message);
+    }
+    document.addEventListener('click', () => r2HideContextMenu());
+}
+
+function r2ShowBrowser() {
+    const tabBtn = document.getElementById('tab-btn-r2files');
+    if (tabBtn) tabBtn.click();
+}
+
+// --- Load Dropdowns ---
+let _dropdownCloseTimer = null;
+
+function toggleLoadDropdown(type) {
+    if (_dropdownCloseTimer) { clearTimeout(_dropdownCloseTimer); _dropdownCloseTimer = null; }
+    const menu = document.getElementById('dropdown-' + type + '-menu');
+    const btn = menu.parentElement.querySelector('button');
+    const wasOpen = menu.classList.contains('open');
+    closeLoadDropdowns();
+    if (!wasOpen) {
+        const rect = btn.getBoundingClientRect();
+        menu.style.top = rect.bottom + 2 + 'px';
+        menu.style.left = rect.left + 'px';
+        menu.classList.add('open');
+        _dropdownCloseTimer = setTimeout(function() {
+            function onClickOutside(e) {
+                if (!e.target.closest('.load-dropdown')) {
+                    closeLoadDropdowns();
+                }
+                document.removeEventListener('click', onClickOutside, true);
+            }
+            document.addEventListener('click', onClickOutside, true);
+        }, 10);
+    }
+}
+
+function closeLoadDropdowns() {
+    document.querySelectorAll('.load-dropdown-menu').forEach(m => m.classList.remove('open'));
+}
+
+let r2PickMode = null;
+
+function r2PickFileForEditor(type) {
+    r2PickMode = type;
+    r2ShowBrowser();
+}
+
+async function r2LoadFileIntoEditor(key) {
+    const filename = key.split('/').pop();
+    try {
+        const headers = await r2GetAuthHeaders();
+        setStatus('Lade aus R2: ' + filename + '...');
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        let text;
+        if (key.endsWith('.pdf')) {
+            const blob = await res.blob();
+            const arrayBuffer = await blob.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            const pages = [];
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const content = await page.getTextContent();
+                pages.push(content.items.map(item => item.str).join(' '));
+                if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
+            }
+            text = pages.join('\n\n');
+        } else {
+            text = await res.text();
+        }
+
+        const editor = document.getElementById('editor-content');
+        pushUndo();
+        editor.textContent = text;
+        originalText = text;
+        hasUnsavedChanges = false;
+        currentFileHandle = null;
+
+        const gaMatch = filename.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
+        if (gaMatch) { currentGA = gaMatch[1]; currentSource = key.endsWith('.pdf') ? 'pdf' : 'md'; }
+        currentFileData = { filename: filename.replace(/\.pdf$/, '.md'), r2Key: key.endsWith('.pdf') ? null : key };
+
+        document.getElementById('btn-check').disabled = false;
+        document.getElementById('btn-autocorrect').disabled = false;
+        document.getElementById('btn-save').disabled = false;
+        document.getElementById('btn-saveas').disabled = false;
+        const suffix = key.endsWith('.pdf') ? ' (PDF→Text, R2)' : ' (R2)';
+        document.getElementById('file-info').textContent = filename + suffix;
+        setStatus('In Editor geladen: ' + filename);
+    } catch (err) {
+        setStatus('Datei laden fehlgeschlagen: ' + err.message);
+        console.error('[R2]', err);
+    }
+    r2PickMode = null;
+}
+
+async function r2LoadUserInfo() {
+    try {
+        const headers = await r2GetAuthHeaders();
+        const res = await fetch(getApiBase() + '/editor/whoami', { headers });
+        if (res.ok) { r2UserInfo = await res.json(); return r2UserInfo; }
+    } catch (e) { console.warn('[R2] whoami failed:', e.message); }
+    return null;
+}
+
+function r2RenderBreadcrumb() {
+    const bc = document.getElementById('r2-breadcrumb');
+    const upBtn = document.getElementById('r2-nav-up');
+    const scopeLabel = r2CurrentScope === 'shared' ? 'Shared' : (r2CurrentScope === 'all' ? 'Alle' : 'Meine Dateien');
+    let html = `<span onclick="r2SwitchScope('${r2CurrentScope}')">${scopeLabel}</span>`;
+    if (r2CurrentSubpath) {
+        const parts = r2CurrentSubpath.replace(/\/$/, '').split('/');
+        let path = '';
+        for (const p of parts) {
+            path += p + '/';
+            const pathCopy = path;
+            html += ` / <span onclick="r2GoToPath('${pathCopy}')">${p}</span>`;
+        }
+    }
+    bc.innerHTML = html;
+    upBtn.disabled = !r2CurrentSubpath;
+}
+
+function r2GoToPath(path) {
+    r2CurrentSubpath = path;
+    r2RefreshFiles();
+}
+
+async function r2RefreshFiles() {
+    const list = document.getElementById('r2-file-list');
+    r2SelectedItem = null;
+    r2RenderBreadcrumb();
+    list.innerHTML = '<div class="r2-empty">Laden...</div>';
+
+    try {
+        const headers = await r2GetAuthHeaders();
+        const params = new URLSearchParams({ scope: r2CurrentScope, prefix: r2CurrentSubpath });
+        const res = await fetch(getApiBase() + '/editor/files?' + params, { headers });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+            throw new Error(err.error || 'Laden fehlgeschlagen');
+        }
+        const data = await res.json();
+        r2CachedData = data;
+
+        let html = '';
+
+        if (r2PickMode) {
+            const typeLabel = r2PickMode === 'pdf' ? 'PDF' : 'MD';
+            html += `<div style="padding:6px 10px;background:rgba(59,130,246,0.08);font-size:0.8rem;color:var(--accent-color);border-bottom:1px solid var(--border-color);">
+                Wählen Sie eine ${typeLabel}-Datei für den Editor
+                <span onclick="r2PickMode=null;r2RefreshFiles();" style="float:right;cursor:pointer;font-weight:bold;" title="Abbrechen">✕</span>
+            </div>`;
+        }
+
+        if (!r2CurrentSubpath) {
+            const scopes = [];
+            if (r2CurrentScope !== 'shared') scopes.push({ id: 'shared', label: 'Shared (gemeinsam)', icon: '&#128101;' });
+            if (r2CurrentScope !== 'user') scopes.push({ id: 'user', label: 'Meine Dateien', icon: '&#128100;' });
+            if (r2UserInfo?.isAdmin && r2CurrentScope !== 'all') scopes.push({ id: 'all', label: 'Alle Nutzer (Admin)', icon: '&#128274;' });
+            for (const s of scopes) {
+                html += `<div class="r2-item" ondblclick="r2SwitchScope('${s.id}')">
+                    <div class="r2-icon">${s.icon}</div>
+                    <div class="r2-name r2-scope-link">${s.label}</div>
+                </div>`;
+            }
+        }
+
+        for (const folder of data.folders) {
+            const fname = escapeHtml(folder.name);
+            html += `<div class="r2-item" data-type="folder" data-name="${fname}" data-key="${escapeHtml(folder.key)}" 
+                          onclick="r2SelectItem(this)" ondblclick="r2NavigateInto('${fname}/')" 
+                          oncontextmenu="r2ShowContextMenu(event, 'folder', '${fname}', '${escapeHtml(folder.key)}')">
+                <div class="r2-icon">&#128193;</div>
+                <div class="r2-name" style="font-weight:500;">${fname}</div>
+                <div class="r2-actions">
+                    <button class="r2-act-btn danger" onclick="event.stopPropagation(); r2DeleteFolder('${fname}', '${escapeHtml(folder.key)}')" title="Löschen">&#128465;</button>
+                </div>
+            </div>`;
+        }
+
+        for (const file of data.files) {
+            if (file.name === '.keep') continue;
+            const fn = escapeHtml(file.name);
+            const fk = escapeHtml(file.key);
+            const icon = file.type === 'pdf' ? '&#128196;' : '&#128221;';
+            const size = file.size ? formatFileSize(file.size) : '';
+            const date = file.lastModified ? r2FormatDate(file.lastModified) : '';
+            html += `<div class="r2-item" data-type="file" data-name="${fn}" data-key="${fk}"
+                          onclick="r2OpenFile('${fk}')"
+                          oncontextmenu="r2ShowContextMenu(event, 'file', '${fn}', '${fk}')"
+                          title="Klick: Im Editor öffnen. Rechtsklick: Weitere Optionen">
+                <div class="r2-icon">${icon}</div>
+                <div class="r2-name">${fn}</div>
+                <div class="r2-meta">${size}${size && date ? ' · ' : ''}${date}</div>
+                <div class="r2-actions">
+                    <button class="r2-act-btn" onclick="event.stopPropagation(); r2RenameFile('${fk}', '${fn}')" title="Umbenennen">&#9998;</button>
+                    <button class="r2-act-btn" onclick="event.stopPropagation(); r2MoveFileDialog('${fk}', '${fn}')" title="Verschieben">&#8644;</button>
+                    <button class="r2-act-btn danger" onclick="event.stopPropagation(); r2DeleteFile('${fk}', '${fn}')" title="Löschen">&#128465;</button>
+                </div>
+            </div>`;
+        }
+
+        if (!html) {
+            html = '<div class="r2-empty">Ordner ist leer.</div>';
+        }
+        list.innerHTML = html;
+    } catch (err) {
+        list.innerHTML = `<div class="r2-empty" style="color:#dc2626;">Fehler: ${err.message}</div>`;
+    }
+}
+
+function r2FormatDate(dateStr) {
+    const d = new Date(dateStr);
+    const day = String(d.getDate()).padStart(2, '0');
+    const mon = String(d.getMonth() + 1).padStart(2, '0');
+    const yr = d.getFullYear();
+    const hr = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    return `${day}.${mon}.${yr} ${hr}:${min}`;
+}
+
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function r2SelectItem(el) {
+    document.querySelectorAll('#r2-file-list .r2-item.selected').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    r2SelectedItem = { type: el.dataset.type, name: el.dataset.name, key: el.dataset.key };
+}
+
+// --- Context Menu ---
+function r2ShowContextMenu(event, type, name, key) {
+    event.preventDefault();
+    event.stopPropagation();
+    const menu = document.getElementById('r2-context-menu');
+    let html = '';
+    if (type === 'file') {
+        html += `<div class="r2-ctx-item" onclick="r2OpenFile('${key}')">&#128221; Im Editor öffnen</div>`;
+        if (key.endsWith('.pdf')) {
+            html += `<div class="r2-ctx-item" onclick="r2OpenPdfInViewer('${key}')">&#128196; Im PDF-Viewer anzeigen</div>`;
+        }
+        html += `<div class="r2-ctx-sep"></div>`;
+        html += `<div class="r2-ctx-item" onclick="r2RenameFile('${key}', '${name}')">&#9998; Umbenennen</div>`;
+        html += `<div class="r2-ctx-item" onclick="r2MoveFileDialog('${key}', '${name}')">&#8644; Verschieben</div>`;
+        html += `<div class="r2-ctx-item" onclick="r2DownloadFile('${key}', '${name}')">&#8595; Herunterladen</div>`;
+        html += `<div class="r2-ctx-sep"></div>`;
+        html += `<div class="r2-ctx-item danger" onclick="r2DeleteFile('${key}', '${name}')">&#128465; Löschen</div>`;
+    } else if (type === 'folder') {
+        html += `<div class="r2-ctx-item" onclick="r2NavigateInto('${name}/')">&#128194; Öffnen</div>`;
+        html += `<div class="r2-ctx-sep"></div>`;
+        html += `<div class="r2-ctx-item danger" onclick="r2DeleteFolder('${name}', '${key}')">&#128465; Ordner löschen</div>`;
+    }
+    menu.innerHTML = html;
+    menu.style.display = 'block';
+    const x = Math.min(event.clientX, window.innerWidth - 200);
+    const y = Math.min(event.clientY, window.innerHeight - 200);
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+}
+
+function r2HideContextMenu() {
+    document.getElementById('r2-context-menu').style.display = 'none';
+}
+
+// --- Navigation ---
+function r2SwitchScope(scope) {
+    r2CurrentScope = scope;
+    r2CurrentSubpath = '';
+    r2RefreshFiles();
+}
+
+function r2NavigateInto(folderName) {
+    r2CurrentSubpath += folderName;
+    r2RefreshFiles();
+}
+
+function r2NavigateUp() {
+    if (!r2CurrentSubpath) return;
+    const parts = r2CurrentSubpath.replace(/\/$/, '').split('/');
+    parts.pop();
+    r2CurrentSubpath = parts.length > 0 ? parts.join('/') + '/' : '';
+    r2RefreshFiles();
+}
+
+// --- Open File: Normaler Klick: MD → Editor (links), PDF → Viewer (rechts)
+// --- Wenn r2PickMode aktiv: Alles → Editor (links, Text extrahiert bei PDF)
+async function r2OpenFile(key) {
+    r2HideContextMenu();
+
+    if (r2PickMode) {
+        r2LoadFileIntoEditor(key);
+        return;
+    }
+
+    if (key.endsWith('.pdf')) {
+        r2OpenPdfInViewer(key);
+        return;
+    }
+
+    const filename = key.split('/').pop();
+    try {
+        const headers = await r2GetAuthHeaders();
+        setStatus('Lade aus R2: ' + filename + '...');
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const text = await res.text();
+
+        const editor = document.getElementById('editor-content');
+        pushUndo();
+        editor.textContent = text;
+        originalText = text;
+        hasUnsavedChanges = false;
+        currentFileHandle = null;
+
+        const gaMatch = filename.match(/GA\s*0*(\d{1,3}[a-z]?)/i);
+        if (gaMatch) { currentGA = gaMatch[1]; currentSource = 'md'; }
+        currentFileData = { filename, r2Key: key };
+
+        document.getElementById('btn-check').disabled = false;
+        document.getElementById('btn-autocorrect').disabled = false;
+        document.getElementById('btn-save').disabled = false;
+        document.getElementById('btn-saveas').disabled = false;
+        document.getElementById('file-info').textContent = filename + ' (R2)';
+        setStatus('In Editor geladen: ' + filename);
+    } catch (err) {
+        setStatus('Datei laden fehlgeschlagen: ' + err.message);
+        console.error('[R2]', err);
+    }
+}
+
+// --- Open PDF in RIGHT panel viewer (only called from right panel buttons) ---
+async function r2OpenPdfInViewer(key) {
+    r2HideContextMenu();
+    try {
+        const headers = await r2GetAuthHeaders();
+        setStatus('Lade PDF in Viewer...');
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const blob = await res.blob();
+        const arrayBuffer = await blob.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        currentPdfDoc = pdf;
+        currentPdfUrl = null;
+        switchSidebarTabByName('pdf');
+        await renderPdfInViewer(null);
+        setStatus('PDF im Viewer geladen: ' + key.split('/').pop());
+    } catch (err) {
+        setStatus('PDF laden fehlgeschlagen: ' + err.message);
+        console.error('[R2]', err);
+    }
+}
+
+// --- Delete ---
+async function r2DeleteFile(key, name) {
+    r2HideContextMenu();
+    if (!confirm('Datei "' + name + '" wirklich löschen?')) return;
+    try {
+        const headers = await r2GetAuthHeaders();
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { method: 'DELETE', headers });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        setStatus('Gelöscht: ' + name);
+        r2RefreshFiles();
+    } catch (err) {
+        setStatus('Löschen fehlgeschlagen: ' + err.message);
+    }
+}
+
+async function r2DeleteFolder(name, key) {
+    r2HideContextMenu();
+    if (!confirm('Ordner "' + name + '" und alle Inhalte wirklich löschen?')) return;
+    try {
+        const headers = await r2GetAuthHeaders();
+        const params = new URLSearchParams({ scope: r2CurrentScope, prefix: r2CurrentSubpath + name + '/' });
+        const listRes = await fetch(getApiBase() + '/editor/files?' + params, { headers });
+        if (listRes.ok) {
+            const listData = await listRes.json();
+            for (const f of listData.files) {
+                await fetch(getApiBase() + '/editor/file/' + f.key, { method: 'DELETE', headers });
+            }
+        }
+        if (key) {
+            const keepKey = key + '.keep';
+            await fetch(getApiBase() + '/editor/file/' + keepKey, { method: 'DELETE', headers }).catch(() => {});
+        }
+        setStatus('Ordner gelöscht: ' + name);
+        r2RefreshFiles();
+    } catch (err) {
+        setStatus('Ordner löschen fehlgeschlagen: ' + err.message);
+    }
+}
+
+// --- Rename ---
+async function r2RenameFile(key, oldName) {
+    r2HideContextMenu();
+    const newName = prompt('Neuer Dateiname:', oldName);
+    if (!newName || newName.trim() === oldName || !newName.trim()) return;
+    const cleanName = newName.trim().replace(/[\/\\]/g, '-');
+    try {
+        setStatus('Umbenennen...');
+        const headers = await r2GetAuthHeaders();
+        const getRes = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        if (!getRes.ok) throw new Error('Datei nicht gefunden');
+        const blob = await getRes.blob();
+        const newKey = key.substring(0, key.lastIndexOf('/') + 1) + cleanName;
+        const putHeaders = await r2GetAuthHeaders();
+        putHeaders['Content-Type'] = blob.type || 'application/octet-stream';
+        const putRes = await fetch(getApiBase() + '/editor/file/' + newKey, {
+            method: 'PUT', headers: putHeaders, body: blob
+        });
+        if (!putRes.ok) throw new Error('Speichern fehlgeschlagen');
+        await fetch(getApiBase() + '/editor/file/' + key, { method: 'DELETE', headers });
+        if (currentFileData?.r2Key === key) {
+            currentFileData.r2Key = newKey;
+            currentFileData.filename = cleanName;
+            document.getElementById('file-info').textContent = cleanName + ' (R2)';
+        }
+        setStatus('Umbenannt: ' + oldName + ' → ' + cleanName);
+        r2RefreshFiles();
+    } catch (err) {
+        setStatus('Umbenennen fehlgeschlagen: ' + err.message);
+    }
+}
+
+// --- Move ---
+async function r2MoveFileDialog(key, name) {
+    r2HideContextMenu();
+    const overlay = document.createElement('div');
+    overlay.className = 'r2-modal-overlay';
+    const modal = document.createElement('div');
+    modal.className = 'r2-modal';
+    modal.innerHTML = `<h3>Verschieben: ${escapeHtml(name)}</h3>
+        <p style="font-size:0.83rem;color:var(--secondary-text);margin:0 0 0.75rem;">Zielordner wählen:</p>
+        <div id="r2-move-folders" style="max-height:250px;overflow-y:auto;border:1px solid var(--border-color);border-radius:4px;margin-bottom:0.5rem;"></div>
+        <div class="r2-modal-btns">
+            <button onclick="this.closest('.r2-modal-overlay').remove()" style="background:var(--background-color);border:1px solid var(--border-color);">Abbrechen</button>
+            <button id="r2-move-confirm" style="background:var(--accent-color);color:white;border:none;" disabled>Verschieben</button>
+        </div>`;
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+
+    const foldersDiv = modal.querySelector('#r2-move-folders');
+    foldersDiv.innerHTML = '<div style="padding:8px;text-align:center;color:var(--secondary-text);">Lade Ordner...</div>';
+
+    try {
+        const headers = await r2GetAuthHeaders();
+        const targets = [];
+
+        const currentDir = key.substring(0, key.lastIndexOf('/') + 1);
+
+        for (const scope of ['user', 'shared']) {
+            const scopeLabel = scope === 'shared' ? 'Shared' : 'Meine Dateien';
+            const res = await fetch(getApiBase() + '/editor/files?' + new URLSearchParams({ scope, prefix: '' }), { headers });
+            if (!res.ok) continue;
+            const data = await res.json();
+            const rootKey = scope === 'shared' ? 'editor/shared/' : ('editor/' + (r2UserInfo?.prefix || ''));
+            targets.push({ label: scopeLabel + '/', key: rootKey, scope });
+            for (const f of data.folders) {
+                targets.push({ label: scopeLabel + '/' + f.name + '/', key: f.key, scope });
+            }
+        }
+
+        let html = '';
+        let selectedTarget = null;
+        for (const t of targets) {
+            const isCurrent = t.key === currentDir;
+            html += `<div class="r2-modal-folder${isCurrent ? ' selected' : ''}" data-key="${escapeHtml(t.key)}" 
+                          onclick="document.querySelectorAll('.r2-modal-folder').forEach(e=>e.classList.remove('selected'));this.classList.add('selected');document.getElementById('r2-move-confirm').disabled=false;">
+                <span>&#128193;</span> ${escapeHtml(t.label)}${isCurrent ? ' (aktuell)' : ''}
+            </div>`;
+        }
+        foldersDiv.innerHTML = html || '<div style="padding:8px;color:var(--secondary-text);">Keine Ordner gefunden.</div>';
+
+        modal.querySelector('#r2-move-confirm').addEventListener('click', async () => {
+            const sel = foldersDiv.querySelector('.r2-modal-folder.selected');
+            if (!sel) return;
+            const targetKey = sel.dataset.key;
+            const targetDir = targetKey.endsWith('/') ? targetKey : targetKey + '/';
+            if (targetDir === currentDir) { overlay.remove(); return; }
+            try {
+                setStatus('Verschiebe...');
+                const getRes = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+                if (!getRes.ok) throw new Error('Datei nicht gefunden');
+                const blob = await getRes.blob();
+                const newKey = targetDir + name;
+                const putHeaders = await r2GetAuthHeaders();
+                putHeaders['Content-Type'] = blob.type || 'application/octet-stream';
+                const putRes = await fetch(getApiBase() + '/editor/file/' + newKey, {
+                    method: 'PUT', headers: putHeaders, body: blob
+                });
+                if (!putRes.ok) throw new Error('Speichern fehlgeschlagen');
+                await fetch(getApiBase() + '/editor/file/' + key, { method: 'DELETE', headers });
+                if (currentFileData?.r2Key === key) {
+                    currentFileData.r2Key = newKey;
+                }
+                setStatus('Verschoben: ' + name);
+                overlay.remove();
+                r2RefreshFiles();
+            } catch (err) {
+                setStatus('Verschieben fehlgeschlagen: ' + err.message);
+            }
+        });
+    } catch (err) {
+        foldersDiv.innerHTML = `<div style="padding:8px;color:#dc2626;">${err.message}</div>`;
+    }
+}
+
+// --- Download ---
+async function r2DownloadFile(key, name) {
+    r2HideContextMenu();
+    try {
+        const headers = await r2GetAuthHeaders();
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = name; a.click();
+        URL.revokeObjectURL(url);
+        setStatus('Heruntergeladen: ' + name);
+    } catch (err) {
+        setStatus('Download fehlgeschlagen: ' + err.message);
+    }
+}
+
+// --- Upload ---
+function r2UploadFileDialog() {
+    document.getElementById('r2-upload-input').click();
+}
+
+async function r2HandleUpload(event) {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+    const headers = await r2GetAuthHeaders();
+    let ok = 0, fail = 0;
+    for (const file of files) {
+        try {
+            setStatus('Hochladen: ' + file.name + '...');
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('scope', r2CurrentScope);
+            formData.append('folder', r2CurrentSubpath);
+            const res = await fetch(getApiBase() + '/editor/upload', {
+                method: 'POST', headers, body: formData
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            ok++;
+        } catch (err) {
+            fail++;
+            console.error('[R2 Upload]', file.name, err);
+        }
+    }
+    setStatus(ok + ' Datei(en) hochgeladen' + (fail ? ', ' + fail + ' fehlgeschlagen' : ''));
+    event.target.value = '';
+    r2RefreshFiles();
+}
+
+// --- Create Folder ---
+async function r2CreateFolderDialog() {
+    const name = prompt('Neuer Ordnername:');
+    if (!name || !name.trim()) return;
+    const folderName = name.trim().replace(/[\/\\]/g, '-');
+    try {
+        const headers = await r2GetAuthHeaders();
+        headers['Content-Type'] = 'text/plain';
+        let basePath;
+        if (r2CurrentScope === 'shared') basePath = 'shared/';
+        else if (r2CurrentScope === 'all') basePath = '';
+        else basePath = r2UserInfo?.prefix || '';
+        const key = 'editor/' + basePath + r2CurrentSubpath + folderName + '/.keep';
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { method: 'PUT', headers, body: '' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        setStatus('Ordner erstellt: ' + folderName);
+        r2RefreshFiles();
+    } catch (err) {
+        setStatus('Ordner erstellen fehlgeschlagen: ' + err.message);
+    }
+}
+
+// --- Save to R2 ---
+async function r2SaveCurrentFile() {
+    if (!currentFileData?.r2Key) return false;
+    const editor = document.getElementById('editor-content');
+    const text = editor.textContent || editor.innerText;
+    if (!text || !text.trim()) { setStatus('Nichts zum Speichern.'); return false; }
+    try {
+        setStatus('Speichere nach R2...');
+        const headers = await r2GetAuthHeaders();
+        headers['Content-Type'] = 'text/markdown; charset=utf-8';
+        const res = await fetch(getApiBase() + '/editor/file/' + currentFileData.r2Key, {
+            method: 'PUT', headers, body: text
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+            throw new Error(err.error || 'Speichern fehlgeschlagen');
+        }
+        originalText = text;
+        hasUnsavedChanges = false;
+        document.getElementById('edit-status').textContent = '✓ Gespeichert (R2)';
+        document.getElementById('edit-status').style.color = '#16a34a';
+        setStatus('Gespeichert: ' + currentFileData.r2Key.split('/').pop());
+        return true;
+    } catch (err) {
+        setStatus('R2-Speichern fehlgeschlagen: ' + err.message);
+        alert('Speichern fehlgeschlagen: ' + err.message);
+        return false;
+    }
+}
 </script>
 </body>
 </html>

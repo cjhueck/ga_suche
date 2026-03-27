@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.68.0",
+    "@aws-sdk/client-s3": "^3.1018.0",
     "@supabase/supabase-js": "^2.86.2",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
@@ -21,7 +22,6 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.1013.0",
     "nodemon": "^3.0.1"
   },
   "engines": {
