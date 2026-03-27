@@ -1503,10 +1503,49 @@ function pdfPageBlockWithMarker(pageIndex, paragraphText) {
     return `|${pageIndex}|\n${paragraphText}`;
 }
 
+/** Lädt ein PDF für pdf.js: bei gleicher Origin per fetch (ganze Datei), damit keine Range-/Worker-Fetch-Probleme auftreten. */
+async function loadPdfJsFromUrl(resolvedUrl) {
+    if (typeof resolvedUrl === 'string' && resolvedUrl.startsWith('/') && !resolvedUrl.startsWith('//')) {
+        const res = await fetch(resolvedUrl, { credentials: 'same-origin' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const buf = await res.arrayBuffer();
+        return pdfjsLib.getDocument({ data: buf }).promise;
+    }
+    return pdfjsLib.getDocument(resolvedUrl).promise;
+}
+
 async function extractPDFText(pdfUrl) {
     if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js nicht verfügbar');
     const fullUrl = buildPdfUrl(pdfUrl);
-    const pdf = await pdfjsLib.getDocument(fullUrl).promise;
+    let pdf;
+    try {
+        pdf = await loadPdfJsFromUrl(fullUrl);
+    } catch (e1) {
+        // Wie app.html: direkter R2-Fallback (alter pdfUrl /Steiner_GA_pdf/… oder /api/pdf-Fehler)
+        const canR2Fallback = typeof fullUrl === 'string' &&
+            (fullUrl.includes('/api/pdf/') || fullUrl.startsWith('/Steiner_GA_pdf/'));
+        if (!isLocal && currentGA && canR2Fallback) {
+            const m = String(currentGA).match(/^0*(\d+)([a-z]?)$/i);
+            if (m) {
+                const r2Url = R2_PUBLIC_BASE + 'ga_pdf/ga' + m[1].padStart(3, '0') + (m[2] || '').toLowerCase() + '.pdf';
+                try {
+                    const res = await fetch(r2Url);
+                    if (res.ok) {
+                        const buf = await res.arrayBuffer();
+                        pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+                    } else {
+                        throw e1;
+                    }
+                } catch (e2) {
+                    throw e1;
+                }
+            } else {
+                throw e1;
+            }
+        } else {
+            throw e1;
+        }
+    }
 
     setStatus('Prüfe Textlayer...');
     const samplePages = Math.min(5, pdf.numPages);
