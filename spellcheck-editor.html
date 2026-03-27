@@ -653,7 +653,7 @@
         <option value="">-- GA-Band wählen --</option>
     </select>
     <button class="btn primary" id="btn-check" onclick="runSpellcheck()" disabled>Prüfen</button>
-    <button class="btn" id="btn-autocorrect" onclick="autoCorrectAll()" disabled title="Alle erkannten Fehler automatisch korrigieren">Auto-Korrektur</button>
+    <button class="btn" id="btn-autocorrect" onclick="autoCorrectAll()" disabled title="Alle erkannten Fehler korrigieren – oder nur die Auswahl (markierter Text), inkl. Leerzeilen entfernen">Auto-Korrektur</button>
     <button class="btn" id="btn-save" onclick="saveDocument()" disabled>Speichern</button>
     <button class="btn" id="btn-saveas" onclick="saveDocumentAs()" disabled title="Unter anderem Dateinamen speichern">Speichern unter...</button>
     <button class="btn" id="btn-pagemarker" onclick="togglePageMarkerMode()" disabled title="Seitenmarker-Modus (F2 / Alt+Q: nächster Marker)">Seitenmarker</button>
@@ -3384,7 +3384,140 @@ function autoCorrectAll() {
         setStatus('Kein Text für Auto-Korrektur vorhanden');
         return;
     }
+
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed && sel.rangeCount > 0 &&
+        editor.contains(sel.anchorNode) && editor.contains(sel.focusNode)) {
+        const selText = sel.toString();
+        if (selText && selText.trim().length > 0) {
+            autoCorrectSelection();
+            return;
+        }
+    }
+
     runAutoCorrect(null);
+}
+
+async function autoCorrectSelection() {
+    const editor = document.getElementById('editor-content');
+    const fullText = editor.textContent || editor.innerText;
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+
+    const range = sel.getRangeAt(0);
+    const preRange = document.createRange();
+    preRange.selectNodeContents(editor);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    const startOffset = preRange.toString().length;
+    const endOffset = startOffset + range.toString().length;
+
+    let selectedText = fullText.substring(startOffset, endOffset);
+
+    setStatus('Auto-Korrektur auf Auswahl…');
+    document.getElementById('btn-autocorrect').disabled = true;
+    await new Promise(r => setTimeout(r, 50));
+
+    let result = selectedText;
+    let hyphenFixes = 0, ssFixes = 0, dictFixes = 0;
+    let spaceFixes = 0, apostrophFixes = 0, blankLineFixes = 0;
+
+    // Leerzeilen entfernen: \n\n+ → \n
+    result = result.replace(/\n{2,}/g, () => { blankLineFixes++; return '\n'; });
+
+    // ¬ / Soft-Hyphens
+    const shRe = /(\p{L})[\xAC\u00AD]\s*(\p{L})/gu;
+    let shM;
+    while ((shM = shRe.exec(result)) !== null) hyphenFixes++;
+    result = result.replace(/(\p{L})[\xAC\u00AD]\s*(\p{L})/gu, '$1$2');
+
+    // Silbentrennung über Zeilenumbruch
+    result = result.replace(/(\p{L}{2,})-[\r\n]+(\p{L}{2,})/gu, (match, p1, p2) => {
+        if (isInUserDictionary(p1 + '-' + p2)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2, true) : null;
+        if (joined) { hyphenFixes++; return joined; }
+        return match;
+    });
+
+    // Silbentrennung mit Leerzeichen
+    result = result.replace(/(\p{L}{2,})-\s+(\p{L}{2,})/gu, (match, p1, p2) => {
+        if (isInUserDictionary(p1 + '-' + p2)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2, true) : null;
+        if (joined) { hyphenFixes++; return joined; }
+        return match;
+    });
+
+    // Inline-Bindestriche
+    result = result.replace(/(\p{L}{2,})-(\p{L}{2,})/gu, (match, p1, p2) => {
+        const withHyphen = p1 + '-' + p2;
+        if (typoInstance && typoInstance.check(withHyphen)) return match;
+        if (isInUserDictionary(withHyphen)) return match;
+        const joined = typoInstance ? checkJoined(typoInstance, p1, p2, true) : null;
+        if (joined) { hyphenFixes++; return joined; }
+        return match;
+    });
+
+    // ß → ss
+    const szWords = new Map();
+    result.replace(/(?<!\p{L})(\p{L}*ß\p{L}*)(?!\p{L})/gu, (match, word) => {
+        if (!szWords.has(word)) szWords.set(word, []);
+        return match;
+    });
+    for (const [word] of szWords) {
+        if (!typoInstance) break;
+        if (isInUserDictionary(word)) continue;
+        const withSS = word.replace(/ß/g, 'ss');
+        if (typoInstance.check(withSS) || isInUserDictionary(withSS)) {
+            result = result.split(word).join(withSS);
+            ssFixes++;
+        }
+    }
+
+    // Wörterbuch-Korrekturen
+    const corrections = getUserCorrections();
+    for (const [original, corrected] of Object.entries(corrections)) {
+        const escaped = original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(?<=^|\\P{L})${escaped}(?=\\P{L}|$)`, 'gu');
+        const before = result;
+        result = result.replace(regex, corrected);
+        if (result !== before) dictFixes += (before.match(regex) || []).length;
+    }
+
+    // Mehrfache Leerzeichen
+    result = result.replace(/([^\n]) {2,}/g, (match, prefix) => {
+        spaceFixes++;
+        return prefix + ' ';
+    });
+
+    // Gerade → typografische Apostrophe
+    result = result.replace(/'/g, () => { apostrophFixes++; return '\u2019'; });
+
+    const totalFixes = blankLineFixes + hyphenFixes + ssFixes + dictFixes + spaceFixes + apostrophFixes;
+
+    if (totalFixes === 0) {
+        document.getElementById('btn-autocorrect').disabled = false;
+        setStatus('Keine Korrekturen in der Auswahl gefunden.');
+        return;
+    }
+
+    const newFullText = fullText.substring(0, startOffset) + result + fullText.substring(endOffset);
+
+    pushUndo();
+    suppressInputHandler = true;
+    editor.textContent = newFullText;
+    suppressInputHandler = false;
+    markEdited();
+    clearErrors();
+
+    const parts = [];
+    if (blankLineFixes) parts.push(`${blankLineFixes} Leerzeilen entfernt`);
+    if (hyphenFixes) parts.push(`${hyphenFixes} Trennungen`);
+    if (ssFixes) parts.push(`${ssFixes} ß→ss`);
+    if (dictFixes) parts.push(`${dictFixes} Wörterbuch`);
+    if (spaceFixes) parts.push(`${spaceFixes} Leerzeichen`);
+    if (apostrophFixes) parts.push(`${apostrophFixes} Apostrophe`);
+
+    document.getElementById('btn-autocorrect').disabled = false;
+    setStatus(`Auto-Korrektur (Auswahl): ${totalFixes} Korrekturen (${parts.join(', ')})`);
 }
 
 // ============================================================================
@@ -3808,7 +3941,12 @@ function jumpToNextMarker() {
 
     const hl = editor.querySelector('.sm-active-marker');
     if (hl) {
-        hl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const scrollParent = editor.closest('.editor-container');
+        const hlRect = hl.getBoundingClientRect();
+        const containerRect = scrollParent.getBoundingClientRect();
+        const lineHeight = parseFloat(getComputedStyle(editor).lineHeight) || 29;
+        const targetScrollTop = scrollParent.scrollTop + (hlRect.top - containerRect.top) - lineHeight;
+        scrollParent.scrollTo({ top: Math.max(0, targetScrollTop), behavior: 'smooth' });
         setTimeout(() => {
             const rect = hl.getBoundingClientRect();
             showSmPanel(rect.left, rect.bottom + 4, markerData);

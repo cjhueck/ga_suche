@@ -1,5 +1,15 @@
 {
   "words": [
+    "Entwicklungsstufen",
+    "Menschheitsentwicklung",
+    "Seraphim",
+    "Sonnensystem",
+    "Tierkreis",
+    "Wassermann-Region",
+    "Weltenkörper",
+    "Weltenraum",
+    "Wissenschafter",
+    "Zusammenfassung",
     "aachen",
     "aachener",
     "aal",
@@ -13347,7 +13357,6 @@
     "entwicklungspsychologisch",
     "Entwicklungsreihe",
     "Entwicklungsstufe",
-    "Entwicklungsstufen",
     "Entwicklungstheorie",
     "entwinden",
     "entwirft",
@@ -29581,7 +29590,6 @@
     "menschheit",
     "menschheits",
     "Menschheitsentwickelung",
-    "Menschheitsentwicklung",
     "Menschheits­geschehen",
     "Menschheitsmission",
     "Menschheitswissenschaft",
@@ -49028,13 +49036,11 @@
     "Weltengeister",
     "Weltengrund",
     "Weltenkarma",
-    "Weltenkörper",
     "Weltenkraft",
     "Weltenkräften",
     "Weltenkugel",
     "Weltenlenker",
     "Weltenlenkers",
-    "Weltenraum",
     "Weltenschaffens",
     "Weltenschicksal",
     "Weltenschicksale",
@@ -49742,7 +49748,6 @@
     "wissens",
     "wissensbasiert",
     "wissenschaft",
-    "Wissenschafter",
     "wissenschaftler",
     "wissenschaftlich",
     "Wissenschaftlichkeit",
@@ -51497,7 +51502,6 @@
     "zusammenfällt",
     "zusammenfalten",
     "zusammenfassen",
-    "Zusammenfassung",
     "zusammenfiel",
     "zusammenfinden",
     "zusammenflicken",
@@ -52202,11 +52206,9 @@
     "zypern",
     "zypresse",
     "zyste",
-    "Seraphim",
-    "Sonnensystem",
-    "Tierkreis",
-    "Wassermann-Region",
-    "physikalisch-mechanischen"
+    "physikalisch-mechanischen",
+    "Außerungen",
+    "Äußerungen"
   ],
   "corrections": {
     "Schlußfolgerungen": "Schlussfolgerungen",
@@ -52278,5 +52280,5 @@
     "deengestaltungen": "Ideengestaltungen",
     "physikalischmechanischen": "physikalisch-mechanischen"
   },
-  "updatedAt": "2026-03-27T19:13:20.644Z"
+  "updatedAt": "2026-03-27T19:48:51.925Z"
 }
