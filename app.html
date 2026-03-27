@@ -1850,6 +1850,10 @@ mark.highlight-pulse { animation: scHighlightPulse 0.6s ease-out; }
   100% { filter: brightness(1); }
 }
 
+#korrektur-tab.active {
+  display: flex !important; flex-direction: column;
+}
+
 #korrektur-tab .sc-header {
   display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--border-color);
 }
@@ -8260,7 +8264,7 @@ Meine Abfragen
 </div>
 
 <!-- Korrektur-Tab (nur lokal sichtbar) -->
-<div class="tab-content" id="korrektur-tab" style="display: flex; flex-direction: column; overflow-y: auto; max-height: calc(100vh - 120px);">
+<div class="tab-content" id="korrektur-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div class="sc-header">
   <button id="sc-btn-check" onclick="window.runViewerSpellcheck()">Prüfen</button>
   <button id="sc-btn-autocorrect" onclick="window.autoCorrectViewer()" disabled>Auto-Korrektur</button>
