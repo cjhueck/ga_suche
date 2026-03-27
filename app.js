@@ -31718,14 +31718,6 @@ function resetErrorReport() {
   document.getElementById('errorReportSuccess').style.display = 'none';
   document.getElementById('errorComment').value = '';
   errorReportState.screenshotData = null;
-  checkEditorAuthState();
-}
-
-// ============================================
-// Rechtschreib-Editor (Auth entfernt – Registrierung/Anmeldung direkt im Editor)
-// ============================================
-function checkEditorAuthState() {
-  // No-op: Auth findet direkt im spellcheck-editor.html statt
 }
 
 function startErrorSelection() {
