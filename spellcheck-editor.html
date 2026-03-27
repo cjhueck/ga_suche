@@ -1055,7 +1055,6 @@ async function loadDocument() {
         currentFileData = data;
 
         if (data.format === 'pdf' && data.pdfUrl) {
-            const pdfFullUrl = buildPdfUrl(data.pdfUrl);
             let text;
 
             if (data.cachedOCR && data.text) {
@@ -1071,16 +1070,9 @@ async function loadDocument() {
 
             originalText = text;
             document.getElementById('editor-content').textContent = text;
-            currentPdfUrl = pdfFullUrl;
-            switchSidebarTabByName('pdf');
-            renderPdfInViewer(pdfFullUrl);
         } else {
             originalText = data.text;
             document.getElementById('editor-content').textContent = data.text;
-            currentPdfUrl = null;
-            currentPdfDoc = null;
-            clearPdfViewer();
-            loadPdfInSidebar();
         }
 
         let fileInfoText = data.filename || `GA ${currentGA} (${currentSource.toUpperCase()})`;
@@ -1098,30 +1090,6 @@ async function loadDocument() {
         document.getElementById('editor-content').innerHTML = `<p style="color: #dc2626;">Fehler: ${err.message}</p>`;
         setStatus('Fehler: ' + err.message);
         console.error(err);
-    }
-}
-
-async function loadPdfInSidebar() {
-    if (!currentGA) return;
-    try {
-        const headers = {};
-        if (!isLocal && currentUser) {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
-        }
-        const url = `${getApiBase()}/spellcheck/load/${encodeURIComponent(currentGA)}?format=pdf`;
-        const res = await fetch(url, { headers });
-        if (!res.ok) return;
-        const pdfData = await res.json();
-        if (pdfData.pdfUrl) {
-            const pdfFullUrl = buildPdfUrl(pdfData.pdfUrl);
-            currentPdfUrl = pdfFullUrl;
-            currentPdfDoc = null;
-            switchSidebarTabByName('pdf');
-            await renderPdfInViewer(pdfFullUrl);
-        }
-    } catch (err) {
-        console.warn('[PDF Sidebar] Kein PDF für GA ' + currentGA + ':', err.message);
     }
 }
 
@@ -1223,7 +1191,6 @@ async function extractPDFText(pdfUrl) {
     if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js nicht verfügbar');
     const fullUrl = buildPdfUrl(pdfUrl);
     const pdf = await pdfjsLib.getDocument(fullUrl).promise;
-    currentPdfDoc = pdf;
 
     setStatus('Prüfe Textlayer...');
     const samplePages = Math.min(5, pdf.numPages);
@@ -1400,7 +1367,13 @@ async function renderPdfInViewer(fullUrl) {
     }
 
     try {
-        const pdf = currentPdfDoc || await pdfjsLib.getDocument(fullUrl).promise;
+        const pdf = currentPdfDoc || (fullUrl ? await pdfjsLib.getDocument(fullUrl).promise : null);
+        if (!pdf) {
+            placeholder.textContent = 'Kein PDF geladen. Nutzen Sie „Upload“ oder „Dateien“, um ein PDF anzuzeigen.';
+            placeholder.style.display = '';
+            pdfRenderingInProgress = false;
+            return;
+        }
         currentPdfDoc = pdf;
         if (pdfLazyIo) {
             pdfLazyIo.disconnect();
