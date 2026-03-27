@@ -700,7 +700,7 @@
             <button class="sidebar-tab active" onclick="switchSidebarTab('errors')">Fehler</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('dict')">Wörterbuch</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('pdf')">PDF</button>
-            <button class="sidebar-tab" id="tab-btn-r2files" onclick="switchSidebarTab('r2files')" style="display:none;">Dateien</button>
+            <button class="sidebar-tab" id="tab-btn-r2files" onclick="switchSidebarTab('r2files')">Dateien</button>
         </div>
 
         <!-- Errors Tab -->
@@ -1486,9 +1486,13 @@ function pdfPageBlockWithMarker(pageIndex, paragraphText) {
     return `|${pageIndex}|\n${paragraphText}`;
 }
 
-/** Lädt ein PDF für pdf.js: bei gleicher Origin per fetch (ganze Datei), damit keine Range-/Worker-Fetch-Probleme auftreten. */
+/** Lädt ein PDF für pdf.js: bei gleicher Origin oder localhost per fetch (ganze Datei), damit keine Range-/Worker-Fetch-Probleme auftreten. */
 async function loadPdfJsFromUrl(resolvedUrl) {
-    if (typeof resolvedUrl === 'string' && resolvedUrl.startsWith('/') && !resolvedUrl.startsWith('//')) {
+    const isSameOrigin = typeof resolvedUrl === 'string' &&
+        ((resolvedUrl.startsWith('/') && !resolvedUrl.startsWith('//')) ||
+         resolvedUrl.startsWith(location.origin + '/') ||
+         resolvedUrl.startsWith('http://localhost:'));
+    if (isSameOrigin) {
         const res = await fetch(resolvedUrl, { credentials: 'same-origin' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const buf = await res.arrayBuffer();
