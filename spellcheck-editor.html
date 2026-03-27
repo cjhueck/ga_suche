@@ -322,20 +322,11 @@
 
         mark.highlight-pulse { filter: brightness(0.88); }
 
-        .upload-zone {
-            border: 2px dashed var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            margin: 1rem;
-            color: var(--secondary-text);
-            transition: all 0.2s;
+        .pdf-nav-scroll.dragover {
+            background: rgba(70, 120, 134, 0.08);
+            outline: 2px dashed var(--accent-color);
+            outline-offset: -4px;
         }
-        .upload-zone.dragover {
-            border-color: var(--accent-color);
-            background: rgba(70, 120, 134, 0.05);
-        }
-        .upload-zone input[type="file"] { display: none; }
         /* Load Dropdowns */
         .load-dropdown { position: relative; display: inline-block; }
         .load-dropdown-menu { display: none; position: fixed; z-index: 5000; background: var(--background-color, #fff); border: 1px solid var(--border-color); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); min-width: 130px; }
@@ -567,6 +558,21 @@
             border-color: var(--accent-color);
             outline: none;
         }
+        .close-file-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--secondary-text);
+            display: none;
+        }
+        .close-file-btn:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
         .pdf-nav-scroll {
             flex: 1;
             overflow-y: auto;
@@ -667,6 +673,7 @@
     <div class="editor-panel">
         <div class="editor-toolbar">
             <span id="file-info">Kein Dokument geladen</span>
+            <button class="close-file-btn" id="btn-close-editor" onclick="closeEditorDocument()" title="Dokument schließen">&times;</button>
             <span style="margin-left: auto;" id="edit-status"></span>
         </div>
         <div id="search-bar" class="search-bar hidden">
@@ -693,7 +700,6 @@
             <button class="sidebar-tab" onclick="switchSidebarTab('dict')">Wörterb.</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('search')">Suche</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('pdf')">PDF</button>
-            <button class="sidebar-tab" onclick="switchSidebarTab('upload')">Upload</button>
             <button class="sidebar-tab" id="tab-btn-r2files" onclick="switchSidebarTab('r2files')" style="display:none;">Dateien</button>
         </div>
 
@@ -754,25 +760,21 @@
                 <input type="number" id="pdf-page-input" min="1" value="1" title="Seitenzahl eingeben" onkeydown="if(event.key==='Enter'){pdfGoToPage(+this.value);}" disabled>
                 <span id="pdf-page-total">/ 0</span>
                 <button onclick="pdfNavPage(1)" id="pdf-nav-next" disabled title="Nächste Seite">&#9654;</button>
+                <span style="flex:1;"></span>
+                <button class="close-file-btn" id="btn-close-pdf" onclick="closePdfViewerAction()" title="PDF schließen">&times;</button>
             </div>
             <div class="pdf-nav-scroll" id="pdf-nav-scroll">
                 <input type="file" id="pdf-viewer-upload-input" accept=".pdf" onchange="handleViewerPDFUpload(event)" style="display:none;">
                 <div id="pdf-viewer-placeholder">
                     <p>Laden Sie ein PDF, um es hier anzuzeigen.</p>
-                    <button class="btn" onclick="document.getElementById('pdf-viewer-upload-input').click()" style="margin-top: 0.5rem;">PDF laden</button>
+                    <div style="margin-top: 0.5rem; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn" onclick="document.getElementById('pdf-viewer-upload-input').click()">Vom Rechner</button>
+                        <button class="btn load-dropdown-r2" onclick="r2PickPdfForViewer()">Vom Server</button>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top: 0.75rem; color: var(--secondary-text);">oder PDF hierher ziehen</p>
                 </div>
                 <div id="pdf-viewer-container"></div>
             </div>
-        </div>
-
-        <!-- Upload Tab -->
-        <div id="tab-upload" class="sidebar-content hidden">
-            <div id="upload-zone" class="upload-zone">
-                <p style="font-size: 1.5rem; margin-bottom: 0.5rem;">📄</p>
-                <p style="font-weight: 500; margin-bottom: 0.3rem;">PDF hierher ziehen</p>
-                <p style="font-size: 0.8rem;">oder <a href="#" onclick="document.getElementById('pdf-viewer-upload-input').click(); return false;" style="color: var(--accent-color);">Datei auswählen</a></p>
-            </div>
-            <div id="upload-log" style="padding: 0.5rem 1rem; font-size: 0.8rem; color: var(--secondary-text);"></div>
         </div>
 
         <!-- R2 Files Tab -->
@@ -1078,6 +1080,7 @@ async function loadDocument() {
         let fileInfoText = data.filename || `GA ${currentGA} (${currentSource.toUpperCase()})`;
         if (data.cachedOCR) fileInfoText += ' (OCR-Cache)';
         document.getElementById('file-info').textContent = fileInfoText;
+        showCloseEditorBtn();
         document.getElementById('btn-check').disabled = false;
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
@@ -1312,6 +1315,46 @@ function clearPdfViewer() {
     currentPdfDoc = null;
     pdfPageTexts = [];
     resetPdfNav();
+    document.getElementById('btn-close-pdf').style.display = 'none';
+}
+
+function closeEditorDocument() {
+    if (hasUnsavedChanges && !confirm('Ungespeicherte Änderungen gehen verloren. Dokument schließen?')) return;
+    document.getElementById('editor-content').innerHTML =
+        '<p style="color: var(--secondary-text); font-style: italic;">Laden Sie ein PDF, um zu beginnen.</p>';
+    document.getElementById('file-info').textContent = 'Kein Dokument geladen';
+    document.getElementById('btn-close-editor').style.display = 'none';
+    document.getElementById('btn-check').disabled = true;
+    document.getElementById('btn-save').disabled = true;
+    document.getElementById('btn-saveas').disabled = true;
+    document.getElementById('btn-autocorrect').disabled = true;
+    currentGA = null;
+    currentFileData = null;
+    currentFileHandle = null;
+    originalText = '';
+    hasUnsavedChanges = false;
+    errorItems = [];
+    undoStack.length = 0;
+    redoStack.length = 0;
+    clearErrors();
+    updateWordCount();
+    setStatus('Dokument geschlossen.');
+    const gaSelect = document.getElementById('ga-select');
+    if (gaSelect) gaSelect.value = '';
+}
+
+function closePdfViewerAction() {
+    clearPdfViewer();
+    currentPdfUrl = null;
+    setStatus('PDF geschlossen.');
+}
+
+function showCloseEditorBtn() {
+    document.getElementById('btn-close-editor').style.display = 'inline-block';
+}
+
+function showClosePdfBtn() {
+    document.getElementById('btn-close-pdf').style.display = 'inline-block';
 }
 
 async function renderPdfLazyPageCanvas(entry) {
@@ -1375,6 +1418,7 @@ async function renderPdfInViewer(fullUrl) {
             return;
         }
         currentPdfDoc = pdf;
+        showClosePdfBtn();
         if (pdfLazyIo) {
             pdfLazyIo.disconnect();
             pdfLazyIo = null;
@@ -2303,6 +2347,7 @@ async function openPDFAsText() {
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
         document.getElementById('file-info').textContent = file.name + ' (Text extrahiert)';
+        showCloseEditorBtn();
         setStatus(`PDF-Text geladen: ${file.name} (${pdf.numPages} Seiten)`);
     } catch (err) {
         if (err.name === 'AbortError') return;
@@ -2364,6 +2409,7 @@ async function loadMDIntoEditor(file) {
     document.getElementById('btn-save').disabled = false;
     document.getElementById('btn-saveas').disabled = false;
     document.getElementById('file-info').textContent = file.name;
+    showCloseEditorBtn();
     setStatus('MD geladen: ' + file.name);
 }
 
@@ -2431,7 +2477,7 @@ async function uploadPDF(file) {
 // Drag & Drop
 // ============================================================================
 function setupDragDrop() {
-    const zone = document.getElementById('upload-zone');
+    const zone = document.getElementById('pdf-nav-scroll');
     if (!zone) return;
     zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
@@ -4204,6 +4250,11 @@ function r2PickFileForEditor(type) {
     r2ShowBrowser();
 }
 
+function r2PickPdfForViewer() {
+    r2PickMode = 'pdfviewer';
+    r2ShowBrowser();
+}
+
 async function r2LoadFileIntoEditor(key) {
     const filename = key.split('/').pop();
     try {
@@ -4247,6 +4298,7 @@ async function r2LoadFileIntoEditor(key) {
         document.getElementById('btn-saveas').disabled = false;
         const suffix = key.endsWith('.pdf') ? ' (PDF→Text, R2)' : ' (R2)';
         document.getElementById('file-info').textContent = filename + suffix;
+        showCloseEditorBtn();
         setStatus('In Editor geladen: ' + filename);
     } catch (err) {
         setStatus('Datei laden fehlgeschlagen: ' + err.message);
@@ -4304,12 +4356,17 @@ async function r2RefreshFiles() {
         const data = await res.json();
         r2CachedData = data;
 
+        const naturalCmp = (a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+        data.folders.sort(naturalCmp);
+        data.files.sort(naturalCmp);
+
         let html = '';
 
         if (r2PickMode) {
-            const typeLabel = r2PickMode === 'pdf' ? 'PDF' : 'MD';
+            const typeLabel = r2PickMode === 'pdfviewer' ? 'PDF' : (r2PickMode === 'pdf' ? 'PDF' : 'MD');
+            const targetLabel = r2PickMode === 'pdfviewer' ? 'den PDF-Viewer' : 'den Editor';
             html += `<div style="padding:6px 10px;background:rgba(59,130,246,0.08);font-size:0.8rem;color:var(--accent-color);border-bottom:1px solid var(--border-color);">
-                Wählen Sie eine ${typeLabel}-Datei für den Editor
+                Wählen Sie eine ${typeLabel}-Datei für ${targetLabel}
                 <span onclick="r2PickMode=null;r2RefreshFiles();" style="float:right;cursor:pointer;font-weight:bold;" title="Abbrechen">✕</span>
             </div>`;
         }
@@ -4448,12 +4505,18 @@ function r2NavigateUp() {
 }
 
 // --- Open File: Normaler Klick: MD → Editor (links), PDF → Viewer (rechts)
-// --- Wenn r2PickMode aktiv: Alles → Editor (links, Text extrahiert bei PDF)
+// --- Wenn r2PickMode aktiv: pdf/md → Editor, pdfviewer → PDF-Viewer
 async function r2OpenFile(key) {
     r2HideContextMenu();
 
     if (r2PickMode) {
-        r2LoadFileIntoEditor(key);
+        if (r2PickMode === 'pdfviewer') {
+            if (!key.endsWith('.pdf')) { alert('Bitte eine PDF-Datei wählen.'); return; }
+            r2PickMode = null;
+            r2OpenPdfInViewer(key);
+        } else {
+            r2LoadFileIntoEditor(key);
+        }
         return;
     }
 
@@ -4486,6 +4549,7 @@ async function r2OpenFile(key) {
         document.getElementById('btn-save').disabled = false;
         document.getElementById('btn-saveas').disabled = false;
         document.getElementById('file-info').textContent = filename + ' (R2)';
+        showCloseEditorBtn();
         setStatus('In Editor geladen: ' + filename);
     } catch (err) {
         setStatus('Datei laden fehlgeschlagen: ' + err.message);
@@ -4733,7 +4797,7 @@ async function r2CreateFolderDialog() {
         else if (r2CurrentScope === 'all') basePath = '';
         else basePath = r2UserInfo?.prefix || '';
         const key = 'editor/' + basePath + r2CurrentSubpath + folderName + '/.keep';
-        const res = await fetch(getApiBase() + '/editor/file/' + key, { method: 'PUT', headers, body: '' });
+        const res = await fetch(getApiBase() + '/editor/file/' + key, { method: 'PUT', headers, body: ' ' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         setStatus('Ordner erstellt: ' + folderName);
         r2RefreshFiles();

@@ -124,7 +124,7 @@ function createEditorRouter({ supabaseClient, editorEmails }) {
                 return res.status(403).json({ error: 'Kein Zugriff auf diese Datei' });
             }
             const contentType = req.headers['content-type'] || 'text/markdown; charset=utf-8';
-            await r2.putFile(key, req.body, contentType);
+            await r2.putFile(key, req.body || Buffer.alloc(0), contentType);
             res.json({ success: true, key });
         } catch (err) {
             console.error('[Editor] putFile error:', err.message);
