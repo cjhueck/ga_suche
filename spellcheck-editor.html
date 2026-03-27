@@ -663,6 +663,7 @@
     <button class="btn" id="btn-redo" onclick="editorRedo()" title="Wiederherstellen (Strg+Y)" style="padding: 3px 6px; line-height: 1;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 0 0-15.36-6.36L3 9"/></svg>
     </button>
+    <button class="btn" onclick="document.getElementById('anleitung-overlay').style.display='flex'" title="Anleitung anzeigen">Anleitung</button>
     <span id="auth-status" style="margin-left: auto; font-size: 0.8rem; color: var(--secondary-text);"></span>
     <button class="btn" id="btn-logout" onclick="doLogout()" style="display:none;">Abmelden</button>
 </div>
@@ -811,6 +812,133 @@
 <div class="status-bar">
     <span id="status-left">Bereit</span>
     <span id="status-right"></span>
+</div>
+
+<!-- Anleitung Overlay -->
+<div id="anleitung-overlay" class="r2-modal-overlay" style="display:none; z-index:9999;">
+    <div class="r2-modal" style="max-width:700px; max-height:85vh; display:flex; flex-direction:column;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h2 style="margin:0; font-size:1.2rem;">Anleitung</h2>
+            <button onclick="document.getElementById('anleitung-overlay').style.display='none'" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--text-color); padding:2px 8px;" title="Schließen">&times;</button>
+        </div>
+        <div style="overflow-y:auto; flex:1; font-size:0.88rem; line-height:1.6; padding-right:8px;">
+
+<h3>Anmeldung</h3>
+<p>Beim Öffnen des Editors erscheint ein Login-Dialog. Melden Sie sich mit E-Mail und Passwort an. Nach der Anmeldung werden die Server-Funktionen freigeschaltet.</p>
+
+<h3>Aufbau</h3>
+<ul>
+<li><strong>Linkes Panel (Editor):</strong> Text bearbeiten, prüfen und korrigieren.</li>
+<li><strong>Rechtes Panel (Seitenleiste):</strong> Tabs &ndash; Fehler, Wörterbuch, Suche, PDF-Anzeige, Dateien.</li>
+</ul>
+
+<h3>Schritt 1: PDF laden</h3>
+<p>Klicken Sie auf <strong>PDF laden</strong> und wählen Sie <em>Vom Rechner</em> (lokale Datei) oder <em>Vom Server</em> (aus Ihrem Ordner oder den GA-Originalen). Das PDF wird automatisch in bearbeitbaren Text konvertiert. Die Seitenmarker (z.B. <code>|33|</code>) kennzeichnen die Seitenumbrüche.</p>
+<p>Alternativ: <strong>MD laden</strong> für bereits konvertierte Markdown-Dateien.</p>
+<p>Im rechten Panel unter <strong>PDF</strong> können Sie das Original-PDF zur Anzeige laden, um Text und Original nebeneinander zu vergleichen.</p>
+
+<h3 style="color:var(--accent-color);">Schritt 2: Prüfen &ndash; vor Auto-Korrektur durchführen!</h3>
+<p><strong>Klicken Sie zuerst auf &bdquo;Prüfen&ldquo;!</strong> Die Prüfung sollte immer vor der Auto-Korrektur durchgeführt werden. Ohne vorherige Prüfung kann die Auto-Korrektur nicht optimal arbeiten.</p>
+<p>Fehlerhafte Wörter werden im Text farbig markiert:</p>
+<ul>
+<li><span style="color:#c0392b;"><strong>Rot (RF)</strong></span> &ndash; Rechtschreibfehler (Wort nicht im Wörterbuch)</li>
+<li><span style="color:#e67e22;"><strong>Orange (ST)</strong></span> &ndash; Silbentrennung am Zeilenende</li>
+<li><span style="color:#2980b9;"><strong>Blau (SZ)</strong></span> &ndash; Sonderzeichen-Problem</li>
+</ul>
+<p>Die gefundenen Fehler erscheinen im Tab <strong>Fehler</strong> im rechten Panel (siehe unten).</p>
+
+<h3>Schritt 3: Auto-Korrektur</h3>
+<p>Klicken Sie auf <strong>Auto-Korrektur</strong>. Es öffnet sich ein Dialog zur Seitenauswahl (Alle Seiten / Einzelne Seiten / Seitenbereich). Die Auto-Korrektur führt automatisch durch:</p>
+<ul>
+<li>Zusammenführung silbengetrennter Wörter</li>
+<li>Zeichenersetzungen</li>
+<li>Entfernung von Copyright-Fußzeilen</li>
+<li>Normalisierung von Seitenmarkern</li>
+</ul>
+
+<h3>Schritt 4: Manuelle Nachbearbeitung</h3>
+<p><strong>Rechtsklick</strong> auf ein markiertes Wort öffnet das Kontextmenü:</p>
+<ul>
+<li><strong>Zusammenführen</strong> &ndash; Silbengetrenntes Wort zusammenfügen</li>
+<li><strong>Autokorrektur</strong> &ndash; Vorschlag für dieses Wort anwenden</li>
+<li><strong>Zum Wörterbuch</strong> &ndash; Wort als korrekt aufnehmen (wird bei künftigen Prüfungen nicht mehr markiert)</li>
+<li><strong>In GA suchen</strong> &ndash; Schreibweise in anderen GA-Bänden prüfen</li>
+<li><strong>Ignorieren</strong> &ndash; Wort überspringen</li>
+</ul>
+<p>Der Text kann auch direkt im Editor bearbeitet werden.</p>
+
+<h3>Schritt 5: Speichern</h3>
+<ul>
+<li><strong>Speichern</strong> &ndash; unter aktuellem Namen auf dem Server</li>
+<li><strong>Speichern unter...</strong> &ndash; unter neuem Namen speichern</li>
+</ul>
+
+<hr style="margin:18px 0; border:none; border-top:1px solid var(--border-color);">
+
+<h2 style="font-size:1.1rem; margin:12px 0 8px 0;">Rechtes Panel &ndash; Tabs im Detail</h2>
+
+<h3>Tab: Fehler</h3>
+<p>Nach dem Klick auf <strong>Prüfen</strong> erscheint hier die Liste aller gefundenen Probleme. Jeder Eintrag zeigt das markierte Wort und seinen Fehlertyp.</p>
+<ul>
+<li><strong>Klick auf einen Fehler:</strong> Der Editor scrollt automatisch zur entsprechenden Stelle im Text und hebt das Wort hervor.</li>
+<li><strong>Filter-Buttons (Alle / RF / ST / SZ):</strong> Oben im Tab können Sie die Fehlerliste nach Typ filtern, z.B. nur Rechtschreibfehler (RF) oder nur Silbentrennungen (ST) anzeigen.</li>
+<li>Nach einer Auto-Korrektur können Sie erneut <strong>Prüfen</strong> klicken, um die verbleibenden Fehler zu aktualisieren.</li>
+</ul>
+
+<h3>Tab: Wörterbuch</h3>
+<p>Das Benutzerwörterbuch enthält Wörter, die bei der Prüfung als korrekt gelten sollen (z.B. Eigennamen, Fachbegriffe).</p>
+<ul>
+<li><strong>Wort hinzufügen:</strong> Oben im Tab ein Wort eingeben und mit <strong>+</strong> hinzufügen.</li>
+<li><strong>Suchen:</strong> Das Suchfeld filtert die Wörterbuchliste.</li>
+<li>Wörter können auch per Rechtsklick auf ein markiertes Wort im Editor hinzugefügt werden (&bdquo;Zum Wörterbuch&ldquo;).</li>
+<li>Hinzugefügte Wörter werden bei der nächsten Prüfung nicht mehr als Fehler markiert.</li>
+</ul>
+
+<h3>Tab: Suche</h3>
+<p>Hier können Sie ein Wort in allen verfügbaren GA-Bänden suchen. Das ist hilfreich, um die korrekte Schreibweise eines Wortes zu überprüfen.</p>
+<ul>
+<li>Geben Sie ein Wort ein und klicken Sie auf <strong>Suchen</strong>.</li>
+<li>Die Ergebnisse zeigen, in welchen GA-Bänden und an welchen Stellen das Wort vorkommt.</li>
+<li><strong>Tipp:</strong> Per Rechtsklick auf ein markiertes Wort im Editor können Sie direkt &bdquo;In GA suchen&ldquo; wählen.</li>
+</ul>
+
+<h3>Tab: PDF</h3>
+<p>Zeigt ein PDF als visuelle Referenz neben dem Editor an. So können Sie den konvertierten Text mit dem Original vergleichen.</p>
+<ul>
+<li><strong>PDF laden:</strong> Über die Buttons <em>Vom Rechner</em> oder <em>Vom Server</em>, oder per Drag&amp;Drop einer PDF-Datei.</li>
+<li><strong>Navigation:</strong> Mit den Pfeiltasten oben blättern Sie seitenweise. Sie können auch direkt eine Seitenzahl eingeben.</li>
+<li>Das PDF im rechten Panel ist unabhängig vom PDF, das im Editor konvertiert wurde &ndash; Sie können verschiedene Dateien laden.</li>
+</ul>
+
+<h3>Tab: Dateien</h3>
+<p>Die Dateiverwaltung auf dem Server. Hier sehen Sie verschiedene Bereiche:</p>
+<ul>
+<li><strong>Eigener Ordner:</strong> Ihre persönlichen MD- und PDF-Dateien. Sie können Dateien öffnen, umbenennen, verschieben, herunterladen oder löschen (per Rechtsklick).</li>
+<li><strong>GA PDF's (Original):</strong> Die Original-PDFs der GA-Bände. Diese sind nur lesbar &ndash; Sie können sie im PDF-Viewer öffnen, in Ihren eigenen Ordner kopieren oder herunterladen.</li>
+</ul>
+<p>Funktionen in der Toolbar:</p>
+<ul>
+<li><strong>Hochladen:</strong> Eigene PDF- oder MD-Dateien in den aktuellen Ordner hochladen.</li>
+<li><strong>+ Ordner:</strong> Einen neuen Unterordner erstellen.</li>
+<li><strong>Pfeil nach oben:</strong> Zum übergeordneten Ordner navigieren.</li>
+</ul>
+
+<hr style="margin:18px 0; border:none; border-top:1px solid var(--border-color);">
+
+<h3>Seitenmarker-Modus</h3>
+<p>Der Button <strong>Seitenmarker</strong> aktiviert einen Modus zum schnellen Navigieren zwischen den Seitenmarkern (<code>|1|</code>, <code>|2|</code>, ...). Mit <strong>F2</strong> oder <strong>Alt+Q</strong> springen Sie zum nächsten Marker.</p>
+
+<h3>Tastenkombinationen</h3>
+<table style="width:100%; font-size:0.85rem; border-collapse:collapse;">
+<tr style="border-bottom:1px solid var(--border-color);"><td style="padding:4px 8px;"><strong>Strg+Z</strong></td><td>Rückgängig</td></tr>
+<tr style="border-bottom:1px solid var(--border-color);"><td style="padding:4px 8px;"><strong>Strg+Y</strong></td><td>Wiederherstellen</td></tr>
+<tr style="border-bottom:1px solid var(--border-color);"><td style="padding:4px 8px;"><strong>Strg+F</strong></td><td>Suche im Editor</td></tr>
+<tr style="border-bottom:1px solid var(--border-color);"><td style="padding:4px 8px;"><strong>F2 / Alt+Q</strong></td><td>Nächster Seitenmarker</td></tr>
+<tr><td style="padding:4px 8px;"><strong>Strg+S</strong></td><td>Speichern</td></tr>
+</table>
+
+        </div>
+    </div>
 </div>
 
 <!-- Login Overlay (Online only) -->
@@ -2397,8 +2525,6 @@ async function openPDFAsText() {
             });
         }
         if (!file) return;
-        const chosenType = await showPdfTypeDialog();
-        if (!chosenType) return;
         setStatus('Extrahiere Text aus PDF: ' + file.name + '...');
         const arrayBuffer = await file.arrayBuffer();
         const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -2406,7 +2532,7 @@ async function openPDFAsText() {
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const content = await page.getTextContent();
-            const pageText = paragraphTextFromPdfTextContent(content, chosenType);
+            const pageText = paragraphTextFromPdfTextContent(content, 'ocr');
             pages.push(pdfPageBlockWithMarker(i, pageText));
             if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
         }
@@ -4522,8 +4648,6 @@ async function r2LoadFileIntoEditor(key) {
 
         let text;
         if (key.endsWith('.pdf')) {
-            const chosenType = await showPdfTypeDialog();
-            if (!chosenType) { setStatus('Abgebrochen'); return; }
             const blob = await res.blob();
             const arrayBuffer = await blob.arrayBuffer();
             const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -4531,7 +4655,7 @@ async function r2LoadFileIntoEditor(key) {
             for (let i = 1; i <= pdf.numPages; i++) {
                 const page = await pdf.getPage(i);
                 const content = await page.getTextContent();
-                const pageText = paragraphTextFromPdfTextContent(content, chosenType);
+                const pageText = paragraphTextFromPdfTextContent(content, 'ocr');
                 pages.push(pdfPageBlockWithMarker(i, pageText));
                 if (i % 10 === 0) setStatus(`Extrahiere Text: Seite ${i}/${pdf.numPages}...`);
             }
