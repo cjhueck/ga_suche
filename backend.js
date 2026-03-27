@@ -27252,7 +27252,12 @@ app.get('/api/spellcheck/load/:gaNumber', async (req, res) => {
 
       if (!pdfFile) return res.status(404).json({ error: `GA ${gaNumber}: Keine PDF-Datei gefunden` });
 
-      const pdfUrl = `/Steiner_GA_pdf/${encodeURIComponent(pdfFile)}`;
+      // Gleiche Quelle wie app.html: /api/pdf/gaNNN lädt lokal, dann Cache, dann Cloudflare R2.
+      // Nur /Steiner_GA_pdf/... scheitert online, wenn die PDF nur auf R2 liegt (neue Uploads).
+      const numMatch = normalizedReqPdf.match(/^(\d+)([a-z]?)$/i);
+      const pdfUrl = numMatch
+        ? `/api/pdf/ga${numMatch[1].padStart(3, '0')}${(numMatch[2] || '').toLowerCase()}`
+        : `/Steiner_GA_pdf/${encodeURIComponent(pdfFile)}`;
       res.json({ pdfUrl, filename: pdfFile, gaNumber, format: 'pdf' });
     } else {
       res.status(400).json({ error: 'Ungültiges Format. Verwende md oder pdf.' });

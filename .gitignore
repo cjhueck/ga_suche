@@ -32,8 +32,7 @@ wp-pdf-url-cache.json
 
 # Theme summary cache (deployed für Online-Zugriff)
 
-# Spellcheck dictionaries (downloaded on demand)
-dictionaries/
+# Spellcheck dictionaries (deployed for online use)
 
 # Wrangler local state (R2 emulator cache)
 .wrangler/

@@ -72,6 +72,8 @@ const isLocal = window.location.hostname === 'localhost' ||
         if (!isLocal) return;
         const editorBtn = document.getElementById('spellcheck-editor-button');
         if (editorBtn) editorBtn.style.display = '';
+        const korrekturBtn = document.getElementById('korrektur-tab-button');
+        if (korrekturBtn) korrekturBtn.style.display = '';
     }
     if (document.readyState === 'loading') {
         window.addEventListener('DOMContentLoaded', showLocalOnlyElements);
@@ -2478,8 +2480,8 @@ function normalizeGANumber(gaNumber) {
         }
       }
       
-      // Lösche ALLE Inhalte im Viewer beim Tab-Wechsel (außer für Themen II)
-      if (viewer && mode !== 'thematic2') {
+      // Lösche ALLE Inhalte im Viewer beim Tab-Wechsel (außer für Themen II und Korrektur)
+      if (viewer && mode !== 'thematic2' && mode !== 'korrektur') {
         viewer.innerHTML = '';
         }
       
@@ -26511,6 +26513,10 @@ function switchTabExtended(mode) {
         defaultMessage = 'Bitte ein Zitat auswählen';
         titleText = 'Zitate';
         break;
+      case 'korrektur':
+        defaultMessage = '';
+        titleText = 'Korrektur';
+        break;
       case 'docs':
         defaultMessage = '';
         titleText = 'Dokumentation';
@@ -39173,6 +39179,480 @@ window.cancelTextEditMode = function() {};
       closeSpellcheckDictionary();
     }
   });
+})();
+
+// ---- extracted script block ----
+// Korrektur-Tab: Erweiterte Rechtschreibprüfung mit Fehlerliste und Korrektur-Popup
+(function() {
+  'use strict';
+
+  let scErrorItems = [];
+  let scCurrentFilter = 'all';
+  let scActiveMarkEl = null;
+  const FORBIDDEN_SC_REGEX = /[\\§$&\[\]{}°#]/gu;
+  const SC_USER_CORRECTIONS_KEY = 'ga-suche-spellcheck-corrections';
+
+  function getScUserCorrections() {
+    try {
+      const s = localStorage.getItem(SC_USER_CORRECTIONS_KEY);
+      return s ? JSON.parse(s) : {};
+    } catch { return {}; }
+  }
+
+  function addScUserCorrection(orig, corr) {
+    if (!orig || !corr || orig === corr) return;
+    const c = getScUserCorrections();
+    c[orig] = corr;
+    localStorage.setItem(SC_USER_CORRECTIONS_KEY, JSON.stringify(c));
+  }
+
+  function scIsWordCorrect(word) {
+    if (!word || word.length < 2) return true;
+    if (/^\d+[\.,]?\d*$/.test(word)) return true;
+    if (/^[A-ZÄÖÜ]{1,5}$/.test(word)) return true;
+    if (/^\|?\d+\|?$/.test(word)) return true;
+    if (/^\^[a-z0-9]+$/i.test(word)) return true;
+    if (typeof isInUserDictionary === 'function' && isInUserDictionary(word)) return true;
+    if (typeof typoInstance !== 'undefined' && typoInstance) return typoInstance.check(word);
+    return true;
+  }
+
+  function scCheckJoined(part1, part2) {
+    const typo = (typeof typoInstance !== 'undefined') ? typoInstance : null;
+    if (!typo) return null;
+    const isInDict = (w) => (typeof isInUserDictionary === 'function' && isInUserDictionary(w));
+    const candidates = [part1 + part2];
+    const joined = candidates[0];
+    if (joined.includes('ß')) candidates.push(joined.replace(/ß/g, 'ss'));
+    for (const c of candidates) {
+      if (typo.check(c) || isInDict(c)) return c;
+      const cap = c.charAt(0).toUpperCase() + c.slice(1);
+      if (typo.check(cap) || isInDict(cap)) return cap;
+      const lower = c.toLowerCase();
+      if (typo.check(lower) || isInDict(lower)) return lower;
+    }
+    const isValidPart = (w) => {
+      if (!w || w.length < 2) return false;
+      if (typo.check(w)) return true;
+      if (typo.check(w.charAt(0).toUpperCase() + w.slice(1))) return true;
+      if (typo.check(w.toLowerCase())) return true;
+      return false;
+    };
+    if (isValidPart(part1) && isValidPart(part2)) {
+      const fb = part1 + part2.charAt(0).toLowerCase() + part2.slice(1);
+      if (typo.check(fb) || isInDict(fb)) return fb;
+      const capFb = fb.charAt(0).toUpperCase() + fb.slice(1);
+      if (typo.check(capFb) || isInDict(capFb)) return capFb;
+      if (fb.includes('ß')) {
+        const ssFb = fb.replace(/ß/g, 'ss');
+        if (typo.check(ssFb) || isInDict(ssFb)) return ssFb;
+      }
+    }
+    return null;
+  }
+
+  function escHtml(t) {
+    return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  window.runViewerSpellcheck = async function() {
+    const viewerContent = document.getElementById('viewer-content');
+    if (!viewerContent) { alert('Kein Vortrag geladen.'); return; }
+
+    const typo = (typeof loadTypo === 'function') ? await loadTypo() : null;
+    if (!typo) { alert('Wörterbuch konnte nicht geladen werden.'); return; }
+
+    const btn = document.getElementById('sc-btn-check');
+    if (btn) btn.disabled = true;
+
+    scRemoveMarks();
+    scErrorItems = [];
+    await new Promise(r => setTimeout(r, 50));
+
+    const textNodes = [];
+    const walker = document.createTreeWalker(viewerContent, NodeFilter.SHOW_TEXT, {
+      acceptNode: (node) => {
+        const p = node.parentElement;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        if (p.closest('mark, .spellcheck-error, .page-marker, script, style, code, pre'))
+          return NodeFilter.FILTER_REJECT;
+        if (['H1','H2','H3','H4'].includes(p.tagName))
+          return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    let n;
+    while (n = walker.nextNode()) {
+      if (n.textContent.trim().length > 0) textNodes.push(n);
+    }
+
+    let errorPos = 0;
+    textNodes.forEach(textNode => {
+      const text = textNode.textContent;
+      const marks = [];
+
+      // RF: Spelling errors
+      const wordRegex = /(\p{L}[\p{L}''']*\p{L}|\p{L}{1})/gu;
+      let wm;
+      while ((wm = wordRegex.exec(text)) !== null) {
+        if (!scIsWordCorrect(wm[0])) {
+          marks.push({ start: wm.index, end: wm.index + wm[0].length, type: 'rf', word: wm[0] });
+        }
+      }
+
+      // ST: Inline hyphens (word-word)
+      const inlineHyphenRegex = /(\p{L}{2,})(?:-|\xAC)(\p{L}{2,})/gu;
+      let ihm;
+      while ((ihm = inlineHyphenRegex.exec(text)) !== null) {
+        if (typo.check(ihm[0])) continue;
+        if (typeof isInUserDictionary === 'function' && isInUserDictionary(ihm[0])) continue;
+        const joined = scCheckJoined(ihm[1], ihm[2]);
+        if (joined) {
+          marks.push({ start: ihm.index, end: ihm.index + ihm[0].length, type: 'st', word: ihm[0], joined });
+        }
+      }
+
+      // ST: Hyphen+space (word- word)
+      const hyphenSpaceRegex = /(\p{L}{2,})(?:-|\xAC)\s+(\p{L}{2,})/gu;
+      let hsm;
+      while ((hsm = hyphenSpaceRegex.exec(text)) !== null) {
+        const alreadyCovered = marks.some(m => m.type === 'st' && hsm.index >= m.start && hsm.index < m.end);
+        if (alreadyCovered) continue;
+        if (typeof isInUserDictionary === 'function' && isInUserDictionary(hsm[0].replace(/\s+/g, ''))) continue;
+        const joined = scCheckJoined(hsm[1], hsm[2]);
+        if (joined) {
+          marks.push({ start: hsm.index, end: hsm.index + hsm[0].length, type: 'st', word: hsm[0], joined });
+        }
+      }
+
+      // SZ: Forbidden characters
+      FORBIDDEN_SC_REGEX.lastIndex = 0;
+      let fz;
+      while ((fz = FORBIDDEN_SC_REGEX.exec(text)) !== null) {
+        marks.push({ start: fz.index, end: fz.index + fz[0].length, type: 'sz', word: fz[0] });
+      }
+
+      // Remove RF/SZ overlaps with ST
+      const stMarks = marks.filter(m => m.type === 'st');
+      const finalMarks = marks.filter(m => {
+        if (m.type === 'rf' || m.type === 'sz') {
+          return !stMarks.some(st => m.start >= st.start && m.end <= st.end);
+        }
+        return true;
+      });
+      finalMarks.sort((a, b) => a.start - b.start);
+
+      if (finalMarks.length === 0) return;
+
+      const fragment = document.createDocumentFragment();
+      let cursor = 0;
+
+      for (const m of finalMarks) {
+        if (m.start < cursor) continue;
+        if (m.start > cursor) {
+          fragment.appendChild(document.createTextNode(text.slice(cursor, m.start)));
+        }
+        const markEl = document.createElement('mark');
+        markEl.className = m.type;
+        markEl.dataset.pos = String(errorPos);
+        if (m.joined) markEl.dataset.joined = m.joined;
+        markEl.textContent = text.slice(m.start, m.end);
+        markEl.addEventListener('click', (e) => { e.stopPropagation(); window.showScPopup(markEl); });
+
+        const errorWord = m.type === 'st' ? m.word.replace(/[\r\n]+/g, '\u23CE') : m.word;
+        scErrorItems.push({ type: m.type, word: errorWord, position: errorPos, joined: m.joined, markEl });
+        errorPos++;
+        fragment.appendChild(markEl);
+        cursor = m.end;
+      }
+      if (cursor < text.length) {
+        fragment.appendChild(document.createTextNode(text.slice(cursor)));
+      }
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+
+    scUpdateErrorList();
+    scUpdateCounts();
+    if (btn) btn.disabled = false;
+    const acBtn = document.getElementById('sc-btn-autocorrect');
+    if (acBtn) acBtn.disabled = scErrorItems.length === 0;
+    console.log(`[KORREKTUR] Prüfung abgeschlossen: ${scErrorItems.length} Fehler`);
+  };
+
+  function scRemoveMarks() {
+    const vc = document.getElementById('viewer-content');
+    if (!vc) return;
+    vc.querySelectorAll('mark.rf, mark.st, mark.sz').forEach(m => {
+      const t = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(t, m);
+    });
+    vc.normalize();
+    scErrorItems = [];
+  }
+
+  function scUpdateCounts() {
+    const rf = scErrorItems.filter(e => e.type === 'rf').length;
+    const st = scErrorItems.filter(e => e.type === 'st').length;
+    const sz = scErrorItems.filter(e => e.type === 'sz').length;
+    const rfEl = document.getElementById('sc-count-rf');
+    const stEl = document.getElementById('sc-count-st');
+    const szEl = document.getElementById('sc-count-sz');
+    if (rfEl) rfEl.textContent = 'RF: ' + rf;
+    if (stEl) stEl.textContent = 'ST: ' + st;
+    if (szEl) szEl.textContent = 'SZ: ' + sz;
+  }
+
+  function scUpdateErrorList() {
+    const list = document.getElementById('sc-error-list');
+    if (!list) return;
+    const filtered = scCurrentFilter === 'all' ? scErrorItems : scErrorItems.filter(e => e.type === scCurrentFilter);
+    if (filtered.length === 0) {
+      list.innerHTML = '<p style="color: var(--secondary-text); font-size: 0.85em; padding: 1rem; font-style: italic;">' +
+        (scErrorItems.length === 0 ? 'Keine Fehler gefunden.' : 'Keine Fehler dieses Typs.') + '</p>';
+      return;
+    }
+    list.innerHTML = filtered.map((e, i) => {
+      const suggText = e.type === 'st' && e.joined ? e.joined : '';
+      return `<div class="sc-error-item" data-idx="${i}" onclick="window.scrollToScError(${e.position})">
+        <span class="sc-error-badge ${e.type}">${e.type}</span>
+        <span class="sc-error-word">${escHtml(e.word)}</span>
+        ${suggText ? `<span class="sc-error-suggestion">\u2192 ${escHtml(suggText)}</span>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  window.setScErrorFilter = function(filter, btnEl) {
+    scCurrentFilter = filter;
+    const cont = btnEl.parentElement;
+    if (cont) cont.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+    scUpdateErrorList();
+  };
+
+  window.scrollToScError = function(pos) {
+    const mark = document.querySelector(`#viewer-content mark[data-pos="${pos}"]`);
+    if (!mark) return;
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    mark.classList.add('highlight-pulse');
+    setTimeout(() => mark.classList.remove('highlight-pulse'), 700);
+  };
+
+  window.showScPopup = function(markEl) {
+    scActiveMarkEl = markEl;
+    const popup = document.getElementById('sc-correction-popup');
+    const wordEl = document.getElementById('sc-popup-word');
+    const suggsEl = document.getElementById('sc-popup-suggestions');
+    const inputEl = document.getElementById('sc-popup-input');
+    if (!popup) return;
+
+    const word = markEl.textContent;
+    const type = markEl.classList.contains('rf') ? 'rf' : markEl.classList.contains('st') ? 'st' : 'sz';
+    wordEl.textContent = word;
+    inputEl.value = '';
+    suggsEl.innerHTML = '';
+
+    let suggestions = [];
+    if (type === 'st' && markEl.dataset.joined) {
+      suggestions.push(markEl.dataset.joined);
+    }
+    if (type === 'rf' && typeof typoInstance !== 'undefined' && typoInstance) {
+      const ts = typoInstance.suggest(word, 5);
+      suggestions = suggestions.concat(ts);
+    }
+    const userCorrs = getScUserCorrections();
+    if (userCorrs[word]) {
+      suggestions.unshift(userCorrs[word]);
+    }
+    suggestions = [...new Set(suggestions)].slice(0, 6);
+
+    if (suggestions.length > 0) {
+      suggsEl.innerHTML = suggestions.map(s =>
+        `<button onclick="window.applyScSuggestion('${escHtml(s)}')">${escHtml(s)}</button>`
+      ).join('');
+    }
+
+    popup.style.display = 'block';
+    const rect = markEl.getBoundingClientRect();
+    let x = rect.left;
+    let y = rect.bottom + 4;
+    setTimeout(() => {
+      const pr = popup.getBoundingClientRect();
+      if (x + pr.width > window.innerWidth) x = window.innerWidth - pr.width - 10;
+      if (y + pr.height > window.innerHeight) y = rect.top - pr.height - 4;
+      if (x < 0) x = 5;
+      popup.style.left = x + 'px';
+      popup.style.top = y + 'px';
+    }, 10);
+  };
+
+  window.hideScPopup = function() {
+    const popup = document.getElementById('sc-correction-popup');
+    if (popup) popup.style.display = 'none';
+    scActiveMarkEl = null;
+  };
+
+  document.addEventListener('click', (e) => {
+    const popup = document.getElementById('sc-correction-popup');
+    if (popup && popup.style.display !== 'none' && !popup.contains(e.target) && !e.target.closest('mark')) {
+      window.hideScPopup();
+    }
+  });
+
+  window.applyScSuggestion = function(corrected) {
+    if (!scActiveMarkEl) return;
+    const original = scActiveMarkEl.textContent;
+    applyScCorrection(scActiveMarkEl, corrected);
+    addScUserCorrection(original, corrected);
+    window.hideScPopup();
+  };
+
+  window.applyManualScCorrection = function() {
+    const input = document.getElementById('sc-popup-input');
+    if (!input || !input.value.trim() || !scActiveMarkEl) return;
+    const corrected = input.value.trim();
+    const original = scActiveMarkEl.textContent;
+    applyScCorrection(scActiveMarkEl, corrected);
+    addScUserCorrection(original, corrected);
+    window.hideScPopup();
+  };
+
+  function applyScCorrection(markEl, corrected) {
+    const paraEl = markEl.closest('[data-index], [id^="para-"]');
+    const original = markEl.textContent;
+
+    const textNode = document.createTextNode(corrected);
+    markEl.parentNode.replaceChild(textNode, markEl);
+    textNode.parentNode.normalize();
+
+    const pos = parseInt(markEl.dataset.pos);
+    scErrorItems = scErrorItems.filter(e => e.position !== pos);
+    scUpdateErrorList();
+    scUpdateCounts();
+
+    if (paraEl) {
+      const paraIndex = paraEl.dataset.index || paraEl.id;
+      const lectureId = detectCurrentLectureId();
+      if (lectureId && paraIndex) {
+        const paraText = paraEl.textContent;
+        saveCorrectionToBackend(lectureId, paraIndex, paraText);
+      }
+    }
+  }
+
+  function detectCurrentLectureId() {
+    if (typeof currentGANumber !== 'undefined' && currentGANumber &&
+        typeof currentLectureNumber !== 'undefined' && currentLectureNumber) {
+      const padded = currentGANumber.replace(/^GA/i, '').padStart(3, '0');
+      return `GA${padded}/${currentLectureNumber}`;
+    }
+    const titleEl = document.getElementById('document-title');
+    if (titleEl) {
+      const txt = titleEl.textContent;
+      const m = txt.match(/GA\s*(\d{1,3}[a-z]?)\b/i);
+      if (m) {
+        const num = m[1].padStart(3, '0');
+        const lectureNum = txt.match(/\((\d+)\.\)/);
+        if (lectureNum) return `GA${num}/${lectureNum[1]}`;
+      }
+    }
+    return null;
+  }
+
+  async function saveCorrectionToBackend(lectureId, paraIndex, newText) {
+    const API_BASE = window.API_BASE || (window.location.hostname === 'localhost' ? `http://localhost:3003` : '');
+    try {
+      const resp = await fetch(`${API_BASE}/api/text-edits/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lectureId,
+          editType: 'paragraph',
+          paragraphIndex: paraIndex,
+          originalText: '',
+          editedText: newText
+        })
+      });
+      const data = await resp.json();
+      if (data.success) {
+        console.log(`[KORREKTUR] Gespeichert: ${lectureId} ${paraIndex}` + (data.mdUpdated ? ' (+ MD)' : ''));
+      } else {
+        console.warn('[KORREKTUR] Speichern fehlgeschlagen:', data.error);
+      }
+    } catch (err) {
+      console.warn('[KORREKTUR] Netzwerkfehler beim Speichern:', err.message);
+    }
+  }
+
+  window.scAddToDict = function() {
+    if (!scActiveMarkEl) return;
+    const word = scActiveMarkEl.textContent;
+    if (typeof spellcheckAddWordFromMenu === 'function') {
+      window.spellcheckContextWord = word;
+      spellcheckAddWordFromMenu();
+    } else {
+      const dict = JSON.parse(localStorage.getItem('ga-suche-spellcheck-dictionary') || '[]');
+      if (!dict.some(w => w.toLowerCase() === word.toLowerCase())) {
+        dict.push(word);
+        dict.sort((a, b) => a.localeCompare(b, 'de'));
+        localStorage.setItem('ga-suche-spellcheck-dictionary', JSON.stringify(dict));
+      }
+    }
+    const textNode = document.createTextNode(scActiveMarkEl.textContent);
+    scActiveMarkEl.parentNode.replaceChild(textNode, scActiveMarkEl);
+    textNode.parentNode.normalize();
+
+    const pos = parseInt(scActiveMarkEl.dataset.pos);
+    scErrorItems = scErrorItems.filter(e => e.position !== pos);
+    scUpdateErrorList();
+    scUpdateCounts();
+    window.hideScPopup();
+  };
+
+  window.autoCorrectViewer = async function() {
+    const viewerContent = document.getElementById('viewer-content');
+    if (!viewerContent || scErrorItems.length === 0) return;
+    const typo = (typeof typoInstance !== 'undefined') ? typoInstance : null;
+    if (!typo) return;
+
+    let corrCount = 0;
+    const userCorrs = getScUserCorrections();
+
+    const stItems = scErrorItems.filter(e => e.type === 'st' && e.joined && e.markEl && e.markEl.parentNode);
+    for (const item of stItems) {
+      const t = document.createTextNode(item.joined);
+      item.markEl.parentNode.replaceChild(t, item.markEl);
+      t.parentNode.normalize();
+      corrCount++;
+    }
+
+    const rfItems = scErrorItems.filter(e => e.type === 'rf' && e.markEl && e.markEl.parentNode);
+    for (const item of rfItems) {
+      const w = item.markEl.textContent;
+      if (userCorrs[w]) {
+        const t = document.createTextNode(userCorrs[w]);
+        item.markEl.parentNode.replaceChild(t, item.markEl);
+        t.parentNode.normalize();
+        corrCount++;
+        continue;
+      }
+      if (w.includes('ß')) {
+        const ssVersion = w.replace(/ß/g, 'ss');
+        if (typo.check(ssVersion)) {
+          const t = document.createTextNode(ssVersion);
+          item.markEl.parentNode.replaceChild(t, item.markEl);
+          t.parentNode.normalize();
+          corrCount++;
+        }
+      }
+    }
+
+    scErrorItems = [];
+    scUpdateErrorList();
+    scUpdateCounts();
+    alert(`Auto-Korrektur: ${corrCount} Korrekturen angewendet.\nBitte erneut "Prüfen" klicken.`);
+  };
+
+  console.log('[KORREKTUR] Modul geladen');
 })();
 
 // ---- extracted script block ----
