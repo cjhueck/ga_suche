@@ -1766,7 +1766,7 @@ async function renderPdfInViewer(fullUrl) {
         const scrollRoot = document.getElementById('pdf-nav-scroll');
         const containerWidth = container.parentElement.clientWidth - 16;
         const dpr = window.devicePixelRatio || 1;
-        const PDF_RENDER_SCALE = Math.max(1, Math.min(dpr, 1.35));
+        const PDF_RENDER_SCALE = Math.max(2, dpr);
 
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
