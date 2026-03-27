@@ -868,27 +868,6 @@
     </div>
 </div>
 
-<!-- PDF-Typ-Dialog (vor Konvertierung) -->
-<div id="pdftype-dialog-overlay" class="r2-modal-overlay" style="display:none;">
-    <div class="r2-modal" style="max-width:340px;">
-        <h3>PDF-Typ wählen</h3>
-        <p style="font-size:0.82rem; color:var(--secondary-text); margin:0 0 12px 0;">Wie wurde das PDF erstellt?</p>
-        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
-            <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
-                <input type="radio" name="pdftype-choice" value="ocr" checked style="margin-top:3px;">
-                <span><strong>OCR</strong><br><span style="font-size:0.78rem; color:var(--secondary-text);">Bindestriche sind im Text vorhanden</span></span>
-            </label>
-            <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
-                <input type="radio" name="pdftype-choice" value="acrobat" style="margin-top:3px;">
-                <span><strong>Acrobat</strong><br><span style="font-size:0.78rem; color:var(--secondary-text);">Silbentrennungen werden rekonstruiert</span></span>
-            </label>
-        </div>
-        <div class="r2-modal-btns" style="margin-top:14px;">
-            <button id="pdftype-btn-cancel" style="background:var(--background-color,#fff); border:1px solid var(--border-color); padding:6px 16px; border-radius:4px; font-size:0.85rem; cursor:pointer;">Abbrechen</button>
-            <button id="pdftype-btn-ok" style="background:var(--accent-color); color:#fff; border:none; padding:6px 16px; border-radius:4px; font-size:0.85rem; cursor:pointer;">Weiter</button>
-        </div>
-    </div>
-</div>
 
 <script>
 // ============================================================================
@@ -910,7 +889,6 @@ let hasUnsavedChanges = false;
 let currentPdfUrl = null;
 let currentPdfDoc = null;
 let pdfRenderingInProgress = false;
-let currentPdfType = 'ocr';
 
 const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
@@ -1151,36 +1129,6 @@ async function loadDocument() {
     }
 }
 
-function showPdfTypeDialog() {
-    return new Promise((resolve) => {
-        const overlay = document.getElementById('pdftype-dialog-overlay');
-        const ocrRadio = document.querySelector('input[name="pdftype-choice"][value="ocr"]');
-        ocrRadio.checked = true;
-
-        const btnOk = document.getElementById('pdftype-btn-ok');
-        const btnCancel = document.getElementById('pdftype-btn-cancel');
-
-        function cleanup() {
-            overlay.style.display = 'none';
-            btnOk.removeEventListener('click', onOk);
-            btnCancel.removeEventListener('click', onCancel);
-        }
-        function onOk() {
-            const val = document.querySelector('input[name="pdftype-choice"]:checked').value;
-            currentPdfType = val;
-            cleanup();
-            resolve(val);
-        }
-        function onCancel() {
-            cleanup();
-            resolve(null);
-        }
-
-        btnOk.addEventListener('click', onOk);
-        btnCancel.addEventListener('click', onCancel);
-        overlay.style.display = 'flex';
-    });
-}
 
 /**
  * pdf.js getTextContent()-Ergebnis → Fließtext mit Zeilen-/Absatzerkennung.
@@ -1335,13 +1283,11 @@ async function extractPDFText(pdfUrl) {
     }
 
     console.log(`[PDF] Textlayer vorhanden (${avgCharsPerPage.toFixed(0)} Zeichen/Seite) → Direkt-Extraktion mit Absatzerkennung`);
-    const chosenType = await showPdfTypeDialog();
-    if (!chosenType) throw new Error('Abgebrochen');
     const pages = [];
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        const pageText = paragraphTextFromPdfTextContent(content, chosenType);
+        const pageText = paragraphTextFromPdfTextContent(content, 'ocr');
         pages.push(pdfPageBlockWithMarker(i, pageText));
         if (i % 20 === 0) setStatus(`PDF-Text: Seite ${i}/${pdf.numPages}...`);
     }
