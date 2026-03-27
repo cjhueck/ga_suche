@@ -4736,15 +4736,24 @@ async function r2GetAuthHeaders() {
 
 async function r2Init() {
     const tabBtn = document.getElementById('tab-btn-r2files');
-    try {
-        const res = await fetch(getApiBase() + '/editor/status');
-        const data = await res.json();
-        if (data.r2Configured) {
-            if (tabBtn) tabBtn.style.display = '';
-            document.querySelectorAll('.load-dropdown-r2').forEach(el => el.style.display = 'block');
+    // Online: Tab „Dateien“ und „Vom Server“ immer anzeigen (R2-API kann trotzdem fehlen).
+    if (!isLocal) {
+        if (tabBtn) tabBtn.style.display = '';
+        document.querySelectorAll('.load-dropdown-r2').forEach(el => { el.style.display = 'block'; });
+    } else {
+        try {
+            const res = await fetch(getApiBase() + '/editor/status');
+            const data = await res.json();
+            if (data.r2Configured) {
+                if (tabBtn) tabBtn.style.display = '';
+                document.querySelectorAll('.load-dropdown-r2').forEach(el => { el.style.display = 'block'; });
+            } else {
+                if (tabBtn) tabBtn.style.display = 'none';
+            }
+        } catch (e) {
+            console.warn('[R2] Status check failed:', e.message);
+            if (tabBtn) tabBtn.style.display = 'none';
         }
-    } catch (e) {
-        console.warn('[R2] Status check failed:', e.message);
     }
     document.addEventListener('click', () => r2HideContextMenu());
 }
