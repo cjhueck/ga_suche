@@ -27464,6 +27464,42 @@ app.get('/api/spellcheck/folders', async (req, res) => {
   }
 });
 
+// ============================================================================
+// Gemeinsames Wörterbuch (lokal + online synchron, nicht pro Nutzer)
+// ============================================================================
+const SHARED_DICT_PATH = path.join(__dirname, 'spellcheck-dictionary.json');
+
+app.get('/api/spellcheck/dictionary', async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const raw = await fs.readFile(SHARED_DICT_PATH, 'utf-8').catch(() => '{}');
+    const data = JSON.parse(raw);
+    res.json({
+      words: Array.isArray(data.words) ? data.words : [],
+      corrections: (data.corrections && typeof data.corrections === 'object') ? data.corrections : {}
+    });
+  } catch (err) {
+    console.error('[SPELLCHECK] dictionary GET error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/spellcheck/dictionary', express.json({ limit: '5mb' }), async (req, res) => {
+  if (!(await verifyEditorAuth(req, res))) return;
+  try {
+    const { words, corrections } = req.body;
+    if (!Array.isArray(words) || typeof corrections !== 'object') {
+      return res.status(400).json({ error: 'Ungültiges Format (words: [], corrections: {})' });
+    }
+    const data = { words, corrections, updatedAt: new Date().toISOString() };
+    await fs.writeFile(SHARED_DICT_PATH, JSON.stringify(data, null, 2), 'utf-8');
+    res.json({ success: true, wordCount: words.length, correctionCount: Object.keys(corrections).length });
+  } catch (err) {
+    console.error('[SPELLCHECK] dictionary PUT error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET: Wort in allen GA-MD-Dateien suchen
 app.get('/api/spellcheck/search-word', async (req, res) => {
   if (!(await verifyEditorAuth(req, res))) return;
