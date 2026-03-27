@@ -75,6 +75,13 @@ function createEditorRouter({ supabaseClient, editorEmails }) {
         try {
             const scope = req.query.scope || 'user';
             const subpath = req.query.prefix || '';
+
+            if (scope === 'ga_pdf') {
+                const rawPrefix = 'ga_pdf/' + subpath;
+                const result = await r2.listFilesRaw(rawPrefix);
+                return res.json(result);
+            }
+
             let prefix;
             if (scope === 'shared') {
                 prefix = 'shared/' + subpath;
@@ -94,10 +101,10 @@ function createEditorRouter({ supabaseClient, editorEmails }) {
     router.get('/file/*', requireAuth, async (req, res) => {
         try {
             const key = req.params[0];
-            if (!key || !key.startsWith('editor/')) {
+            if (!key || !(key.startsWith('editor/') || key.startsWith('ga_pdf/'))) {
                 return res.status(400).json({ error: 'Ungültiger Dateipfad' });
             }
-            if (!canAccessKey(req, key)) {
+            if (!key.startsWith('ga_pdf/') && !canAccessKey(req, key)) {
                 return res.status(403).json({ error: 'Kein Zugriff auf diese Datei' });
             }
             const result = await r2.getFile(key);
@@ -152,6 +159,34 @@ function createEditorRouter({ supabaseClient, editorEmails }) {
             res.json({ success: true, key, filename });
         } catch (err) {
             console.error('[Editor] upload error:', err.message);
+            res.status(500).json({ error: err.message });
+        }
+    });
+
+    router.post('/copy', requireAuth, express.json(), async (req, res) => {
+        try {
+            const { sourceKey, targetKey } = req.body;
+            if (!sourceKey || !targetKey) {
+                return res.status(400).json({ error: 'sourceKey und targetKey erforderlich' });
+            }
+            if (!sourceKey.startsWith('ga_pdf/') && !sourceKey.startsWith('editor/')) {
+                return res.status(400).json({ error: 'Ungültige Quelldatei' });
+            }
+            if (!targetKey.startsWith('editor/')) {
+                return res.status(400).json({ error: 'Ziel muss im editor/-Bereich liegen' });
+            }
+            if (!canAccessKey(req, targetKey)) {
+                return res.status(403).json({ error: 'Kein Schreibzugriff auf den Zielordner' });
+            }
+            const source = await r2.getFile(sourceKey);
+            const contentType = source.contentType || (sourceKey.endsWith('.pdf') ? 'application/pdf' : 'text/markdown; charset=utf-8');
+            await r2.putFile(targetKey, source.body, contentType);
+            res.json({ success: true, targetKey });
+        } catch (err) {
+            console.error('[Editor] copy error:', err.message);
+            if (err.name === 'NoSuchKey' || err.$metadata?.httpStatusCode === 404) {
+                return res.status(404).json({ error: 'Quelldatei nicht gefunden' });
+            }
             res.status(500).json({ error: err.message });
         }
     });
