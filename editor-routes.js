@@ -107,17 +107,33 @@ function createEditorRouter({ supabaseClient, editorEmails }) {
             if (!key.startsWith('ga_pdf/') && !canAccessKey(req, key)) {
                 return res.status(403).json({ error: 'Kein Zugriff auf diese Datei' });
             }
+            
+            req.setTimeout(600000);
+            res.setTimeout(600000);
+            if (req.socket) req.socket.setTimeout(600000);
+            
             const result = await r2.getFileStream(key);
+            const sizeMB = result.contentLength ? (result.contentLength / 1024 / 1024).toFixed(1) : '?';
+            console.log(`[Editor] Streaming ${key} (${sizeMB} MB)`);
+            
             const contentType = result.contentType || (key.endsWith('.pdf') ? 'application/pdf' : 'text/markdown; charset=utf-8');
             res.setHeader('Content-Type', contentType);
             if (result.contentLength) res.setHeader('Content-Length', result.contentLength);
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.flushHeaders();
+            
+            result.stream.on('error', (err) => {
+                console.error(`[Editor] Stream-Fehler für ${key}: ${err.message}`);
+                if (!res.headersSent) res.status(500).json({ error: err.message });
+                else res.destroy();
+            });
             result.stream.pipe(res);
         } catch (err) {
             console.error('[Editor] getFile error:', err.message);
             if (err.name === 'NoSuchKey' || err.$metadata?.httpStatusCode === 404) {
                 return res.status(404).json({ error: 'Datei nicht gefunden' });
             }
-            res.status(500).json({ error: err.message });
+            if (!res.headersSent) res.status(500).json({ error: err.message });
         }
     });
 
