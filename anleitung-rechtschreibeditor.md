@@ -1,8 +1,10 @@
 # Anleitung: GA Rechtschreib-Editor
 
-## Anmeldung
+## Anmeldung / Registrierung
 
-Beim Öffnen des Editors erscheint ein Login-Dialog. Melden Sie sich mit der E-Mail-Adresse und dem Passwort an, die Sie erhalten haben. Nach der Anmeldung werden die Server-Funktionen (Dateien laden/speichern) freigeschaltet.
+Beim Öffnen des Editors erscheint ein Login-Dialog. Falls Sie noch kein Konto haben, klicken Sie auf **Registrieren** und erstellen Sie ein Konto mit Ihrer E-Mail und einem Passwort (mindestens 6 Zeichen). Nach der Registrierung erhalten Sie eine Bestätigungs-E-Mail. Bestätigen Sie Ihre E-Mail-Adresse und melden Sie sich danach an.
+
+Nach der Anmeldung werden die Server-Funktionen (Dateien laden/speichern) freigeschaltet.
 
 ---
 
@@ -32,18 +34,18 @@ Im rechten Panel unter dem Tab **PDF** können Sie dasselbe oder ein anderes PDF
 
 ---
 
-## Schritt 2: Prüfen (Pflicht vor Auto-Korrektur!)
+## Schritt 2: Prüfen -- vor Auto-Korrektur durchführen!
 
 Klicken Sie auf den Button **Prüfen**, um die Rechtschreibprüfung durchzuführen.
 
-**Wichtig: Die Prüfung muss immer zuerst ausgeführt werden, bevor die Auto-Korrektur gestartet wird.** Die Auto-Korrektur arbeitet auf Grundlage der Prüfergebnisse. Ohne vorherige Prüfung kann sie keine Korrekturen vornehmen.
+**Wichtig: Die Prüfung sollte immer vor der Auto-Korrektur durchgeführt werden. Ohne vorherige Prüfung kann die Auto-Korrektur nicht optimal arbeiten.**
 
 Nach der Prüfung werden fehlerhafte oder unbekannte Wörter im Text farbig markiert:
 - **Rot (RF):** Rechtschreibfehler (Wort nicht im Wörterbuch)
 - **Orange (ST):** Silbentrennung (Wort mit Trennstrich am Zeilenende)
 - **Blau (SZ):** Sonderzeichen-Probleme
 
-Im rechten Panel unter **Fehler** erscheint eine Liste aller gefundenen Probleme. Mit den Filtern (Alle / RF / ST / SZ) können Sie nach Fehlertyp filtern. Ein Klick auf einen Eintrag springt zur entsprechenden Stelle im Text.
+Die gefundenen Fehler erscheinen im Tab **Fehler** im rechten Panel (siehe unten).
 
 ---
 
@@ -63,6 +65,8 @@ Die Auto-Korrektur führt automatisch folgende Schritte durch:
 - Weitere Standardkorrekturen
 
 Nach der Auto-Korrektur wird angezeigt, wie viele Korrekturen vorgenommen wurden.
+
+**Nach der Auto-Korrektur können Sie erneut auf "Prüfen" klicken, um die verbleibenden fehlerhaften Wörter anzeigen zu lassen.**
 
 ---
 
@@ -93,40 +97,76 @@ Ungespeicherte Änderungen werden in der Kopfleiste angezeigt. Beim Schließen e
 
 ---
 
-## Rechtes Panel: Tabs im Detail
+## Rechtes Panel -- Tabs im Detail
 
-### Fehler
+### Tab: Fehler
 
-Zeigt die Liste aller bei der Prüfung gefundenen Probleme. Ein Klick auf einen Fehler scrollt im Editor zur entsprechenden Stelle.
+Nach dem Klick auf **Prüfen** erscheint hier die Liste aller gefundenen Probleme. Jeder Eintrag zeigt das markierte Wort und seinen Fehlertyp.
 
-### Wörterbuch
+- **Klick auf einen Fehler:** Der Editor scrollt automatisch zur entsprechenden Stelle im Text und hebt das Wort hervor.
+- **Filter-Buttons (Alle / RF / ST / SZ):** Oben im Tab können Sie die Fehlerliste nach Typ filtern, z.B. nur Rechtschreibfehler (RF) oder nur Silbentrennungen (ST) anzeigen.
+- Nach einer Auto-Korrektur können Sie erneut **Prüfen** klicken, um die verbleibenden Fehler zu aktualisieren.
 
-Hier können Sie:
-- Neue Wörter manuell zum Benutzerwörterbuch hinzufügen
-- Das Wörterbuch durchsuchen
-- Vorhandene Einträge einsehen
+### Tab: Wörterbuch
 
-Wörter im Wörterbuch werden bei der Prüfung nicht als Fehler markiert.
+Das Benutzerwörterbuch enthält Wörter, die bei der Prüfung als korrekt gelten sollen (z.B. Eigennamen, Fachbegriffe).
 
-### Suche
+- **Wort hinzufügen:** Oben im Tab ein Wort eingeben und mit **+** hinzufügen.
+- **Suchen:** Das Suchfeld filtert die Wörterbuchliste.
+- Wörter können auch per Rechtsklick auf ein markiertes Wort im Editor hinzugefügt werden ("Zum Wörterbuch").
+- Hinzugefügte Wörter werden bei der nächsten Prüfung nicht mehr als Fehler markiert.
 
-Sucht ein Wort in allen verfügbaren GA-Bänden. So können Sie überprüfen, wie ein Wort in anderen Bänden geschrieben wird. Tipp: Rechtsklick auf ein markiertes Wort und dann "In GA suchen" ist der schnellste Weg.
+### Tab: Suche
 
-### PDF
+Hier können Sie ein Wort in allen verfügbaren GA-Bänden suchen. Das ist hilfreich, um die korrekte Schreibweise eines Wortes zu überprüfen.
 
-Zeigt ein PDF zur visuellen Referenz an. Sie können das PDF vom Rechner oder vom Server laden und seitenweise navigieren. Das ist besonders hilfreich, um den konvertierten Text mit dem Original zu vergleichen.
+- Geben Sie ein Wort ein und klicken Sie auf **Suchen**.
+- Die Ergebnisse zeigen, in welchen GA-Bänden und an welchen Stellen das Wort vorkommt.
+- **Tipp:** Per Rechtsklick auf ein markiertes Wort im Editor können Sie direkt "In GA suchen" wählen.
 
-### Dateien
+### Tab: PDF
 
-Die Dateiverwaltung auf dem Server. Hier sehen Sie:
-- **Ihren persönlichen Ordner** mit Ihren gespeicherten Dateien (MD- und PDF-Dateien).
-- **GA PDF's (Original):** Die Original-PDFs der GA-Bände. Diese können Sie lesen und in Ihren eigenen Ordner kopieren, aber nicht verändern.
+Zeigt ein PDF als visuelle Referenz neben dem Editor an. So können Sie den konvertierten Text mit dem Original vergleichen.
 
-Funktionen:
-- **Hochladen:** Eigene PDFs in Ihren Ordner hochladen.
+- **PDF laden:** Über die Buttons *Vom Rechner* oder *Vom Server*, oder per Drag&Drop einer PDF-Datei.
+- **Navigation:** Mit den Pfeiltasten oben blättern Sie seitenweise. Sie können auch direkt eine Seitenzahl eingeben.
+- Das PDF im rechten Panel ist unabhängig vom PDF, das im Editor konvertiert wurde -- Sie können verschiedene Dateien laden.
+
+### Tab: Dateien
+
+Die Dateiverwaltung auf dem Server. Sie können zwischen drei Bereichen wechseln, die als Ordner-Links angezeigt werden:
+
+#### Meine Dateien
+
+Ihr persönlicher Ordner. Hier werden Ihre bearbeiteten Markdown-Dateien und hochgeladenen PDFs gespeichert. Sie können Unterordner anlegen, um Ihre Arbeit zu organisieren.
+
+**Rechtsklick auf eine Datei:**
+- Im Editor öffnen (MD) bzw. im PDF-Viewer öffnen (PDF)
+- Umbenennen, Verschieben, Herunterladen, Löschen
+
+#### Shared (gemeinsam)
+
+Ein gemeinsamer Ordner, auf den alle Nutzer zugreifen können. Hier können Dateien geteilt werden.
+
+#### GA PDFs (Original)
+
+Hier liegen die **Original-PDFs aller GA-Bände**, numerisch sortiert (GA 001 bis GA 354). Diese Dateien sind **schreibgeschützt** -- Sie können sie nicht verändern oder löschen.
+
+**Rechtsklick auf ein GA-PDF:**
+- **Im Viewer öffnen** -- Zeigt das PDF im rechten Panel an
+- **In meinen Ordner kopieren** -- Kopiert das PDF in Ihren persönlichen Ordner (dort können Sie es dann bearbeiten)
+- **Herunterladen** -- Lädt das PDF auf Ihren Rechner
+
+*Tipp:* Um ein GA-PDF zu bearbeiten, können Sie es direkt über **PDF laden > Vom Server > GA PDFs** im Editor öffnen. Der konvertierte Text wird dann in Ihrem Ordner gespeichert.
+
+#### Toolbar-Funktionen
+
+- **Hochladen:** Eigene PDF- oder MD-Dateien in den aktuellen Ordner hochladen.
 - **+ Ordner:** Einen neuen Unterordner erstellen.
-- **Rechtsklick** auf eine Datei: Öffnen, umbenennen, verschieben, herunterladen oder löschen.
-- **Rechtsklick** auf ein GA-Original: Im PDF-Viewer öffnen, in den eigenen Ordner kopieren oder herunterladen.
+- **Pfeil nach oben:** Zum übergeordneten Ordner navigieren.
+- **Aktualisieren:** Dateiliste neu laden.
+
+*Hinweis:* In GA PDFs (Original) sind die Toolbar-Buttons ausgeblendet, da dort keine Dateien hochgeladen oder erstellt werden können.
 
 ---
 
@@ -154,6 +194,7 @@ Der Button **Seitenmarker** aktiviert einen speziellen Modus zum schnellen Navig
 | Strg+Z | Rückgängig |
 | Strg+Y | Wiederherstellen |
 | Strg+F | Suche im Editor öffnen |
+| Strg+S | Speichern |
 | F2 / Alt+Q | Nächster Seitenmarker (im Seitenmarker-Modus) |
 | Enter | Nächster Suchtreffer |
 | Shift+Enter | Vorheriger Suchtreffer |

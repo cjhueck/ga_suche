@@ -65,6 +65,20 @@ async function getFile(key) {
     };
 }
 
+async function getFileStream(key) {
+    const client = getClient();
+    if (!client) throw new Error('R2 nicht konfiguriert');
+    const result = await client.send(new GetObjectCommand({
+        Bucket: getBucket(),
+        Key: key
+    }));
+    return {
+        stream: result.Body,
+        contentType: result.ContentType,
+        contentLength: result.ContentLength
+    };
+}
+
 async function putFile(key, body, contentType) {
     const client = getClient();
     if (!client) throw new Error('R2 nicht konfiguriert');
@@ -116,4 +130,4 @@ async function listFilesRaw(rawPrefix) {
     return { folders, files };
 }
 
-module.exports = { listFiles, listFilesRaw, getFile, putFile, deleteFile, isConfigured, EDITOR_PREFIX };
+module.exports = { listFiles, listFilesRaw, getFile, getFileStream, putFile, deleteFile, isConfigured, EDITOR_PREFIX };

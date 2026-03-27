@@ -107,11 +107,11 @@ function createEditorRouter({ supabaseClient, editorEmails }) {
             if (!key.startsWith('ga_pdf/') && !canAccessKey(req, key)) {
                 return res.status(403).json({ error: 'Kein Zugriff auf diese Datei' });
             }
-            const result = await r2.getFile(key);
+            const result = await r2.getFileStream(key);
             const contentType = result.contentType || (key.endsWith('.pdf') ? 'application/pdf' : 'text/markdown; charset=utf-8');
             res.setHeader('Content-Type', contentType);
-            res.setHeader('Content-Length', result.body.length);
-            res.end(result.body);
+            if (result.contentLength) res.setHeader('Content-Length', result.contentLength);
+            result.stream.pipe(res);
         } catch (err) {
             console.error('[Editor] getFile error:', err.message);
             if (err.name === 'NoSuchKey' || err.$metadata?.httpStatusCode === 404) {
