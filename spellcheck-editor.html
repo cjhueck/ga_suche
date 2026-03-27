@@ -1047,6 +1047,7 @@ let currentPdfUrl = null;
 let currentPdfDoc = null;
 let pdfRenderingInProgress = false;
 
+const R2_PUBLIC_BASE = 'https://ga.rudolf-steiner-online.de/';
 const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
 
@@ -1063,6 +1064,13 @@ const USER_CORRECTIONS_KEY = 'ga-suche-spellcheck-corrections';
 function getApiBase() {
     if (isLocal) return 'http://localhost:3003/api';
     return '/api';
+}
+
+function getFileUrl(key) {
+    if (!isLocal && key.startsWith('ga_pdf/')) {
+        return R2_PUBLIC_BASE + key;
+    }
+    return getApiBase() + '/editor/file/' + key;
 }
 
 // ============================================================================
@@ -4750,9 +4758,11 @@ function r2PickPdfForViewer() {
 async function r2LoadFileIntoEditor(key) {
     const filename = key.split('/').pop();
     try {
-        const headers = await r2GetAuthHeaders();
         setStatus('Lade aus R2: ' + filename + '...');
-        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        const url = getFileUrl(key);
+        const useDirectR2 = !isLocal && key.startsWith('ga_pdf/');
+        const fetchOpts = useDirectR2 ? {} : { headers: await r2GetAuthHeaders() };
+        const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
 
         let text;
@@ -4958,9 +4968,7 @@ function r2ShowContextMenu(event, type, name, key) {
     const isGaPdf = key.startsWith('ga_pdf/');
     if (type === 'file') {
         if (isGaPdf) {
-            if (key.endsWith('.pdf')) {
-                html += `<div class="r2-ctx-item" onclick="r2OpenPdfInViewer('${key}')">&#128196; Im PDF-Viewer anzeigen</div>`;
-            }
+            html += `<div class="r2-ctx-item" onclick="r2OpenPdfInViewer('${key}')">&#128196; Im PDF-Viewer anzeigen</div>`;
             html += `<div class="r2-ctx-item" onclick="r2CopyToMyFolder('${key}', '${name}')">&#128194; In meinen Ordner kopieren</div>`;
             html += `<div class="r2-ctx-item" onclick="r2DownloadFile('${key}', '${name}')">&#8595; Herunterladen</div>`;
         } else {
@@ -5072,9 +5080,11 @@ async function r2OpenFile(key) {
 async function r2OpenPdfInViewer(key) {
     r2HideContextMenu();
     try {
-        const headers = await r2GetAuthHeaders();
         setStatus('Lade PDF in Viewer...');
-        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        const url = getFileUrl(key);
+        const useDirectR2 = !isLocal && key.startsWith('ga_pdf/');
+        const fetchOpts = useDirectR2 ? {} : { headers: await r2GetAuthHeaders() };
+        const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const blob = await res.blob();
         const arrayBuffer = await blob.arrayBuffer();
@@ -5249,14 +5259,16 @@ async function r2MoveFileDialog(key, name) {
 async function r2DownloadFile(key, name) {
     r2HideContextMenu();
     try {
-        const headers = await r2GetAuthHeaders();
-        const res = await fetch(getApiBase() + '/editor/file/' + key, { headers });
+        const url = getFileUrl(key);
+        const useDirectR2 = !isLocal && key.startsWith('ga_pdf/');
+        const fetchOpts = useDirectR2 ? {} : { headers: await r2GetAuthHeaders() };
+        const res = await fetch(url, fetchOpts);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
+        const blobUrl = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url; a.download = name; a.click();
-        URL.revokeObjectURL(url);
+        a.href = blobUrl; a.download = name; a.click();
+        URL.revokeObjectURL(blobUrl);
         setStatus('Heruntergeladen: ' + name);
     } catch (err) {
         setStatus('Download fehlgeschlagen: ' + err.message);
