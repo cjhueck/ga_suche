@@ -1068,7 +1068,9 @@ function getApiBase() {
 
 function getFileUrl(key) {
     if (!isLocal && key.startsWith('ga_pdf/')) {
-        return R2_PUBLIC_BASE + key;
+        let publicKey = key;
+        if (!publicKey.endsWith('.pdf')) publicKey += '.pdf';
+        return R2_PUBLIC_BASE + publicKey;
     }
     return getApiBase() + '/editor/file/' + key;
 }
