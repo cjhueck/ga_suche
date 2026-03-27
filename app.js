@@ -74,6 +74,15 @@ const isLocal = window.location.hostname === 'localhost' ||
         if (editorBtn) editorBtn.style.display = '';
         const korrekturBtn = document.getElementById('korrektur-tab-button');
         if (korrekturBtn) korrekturBtn.style.display = '';
+        const btnContainer = document.getElementById('sidebar-action-buttons');
+        if (btnContainer) {
+            btnContainer.style.display = 'grid';
+            btnContainer.style.gridTemplateColumns = 'repeat(2, auto)';
+            btnContainer.style.gridTemplateRows = 'repeat(3, auto)';
+            btnContainer.style.gap = '0.3rem';
+            btnContainer.style.justifyItems = 'end';
+            btnContainer.style.alignItems = 'end';
+        }
     }
     if (document.readyState === 'loading') {
         window.addEventListener('DOMContentLoaded', showLocalOnlyElements);
@@ -33501,9 +33510,11 @@ window.switchTab = function(tabName) {
         removeChalkboardsYearButtons();
       }
       // Viewer leeren, damit Wandtafeln nicht im neuen Tab sichtbar bleiben
-      const viewerEl = document.getElementById('viewer');
-      if (viewerEl) {
-        viewerEl.innerHTML = '';
+      if (tabName !== 'korrektur' && tabName !== 'thematic2') {
+        const viewerEl = document.getElementById('viewer');
+        if (viewerEl) {
+          viewerEl.innerHTML = '';
+        }
       }
     }
   }
@@ -37901,11 +37912,71 @@ window.cancelTextEditMode = function() {};
     try {
       localStorage.setItem(DICT_STORAGE_KEY, JSON.stringify(words));
       console.log(`[Wörterbuch] Gespeichert: ${words.length} Wörter`);
+      _syncDictToServer();
     } catch (e) {
       console.error('[Wörterbuch] Fehler beim Speichern:', e);
       alert('Fehler beim Speichern des Wörterbuchs. Das Wörterbuch ist möglicherweise zu groß für localStorage.');
     }
   }
+
+  let _dictSyncTimer = null;
+  window._triggerDictSync = _syncDictToServer;
+  function _syncDictToServer() {
+    if (_dictSyncTimer) clearTimeout(_dictSyncTimer);
+    _dictSyncTimer = setTimeout(async () => {
+      const API_BASE = window.API_BASE || (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+      try {
+        const words = JSON.parse(localStorage.getItem(DICT_STORAGE_KEY) || '[]');
+        const corrections = JSON.parse(localStorage.getItem('ga-suche-spellcheck-corrections') || '{}');
+        const resp = await fetch(`${API_BASE}/api/spellcheck/dictionary`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ words, corrections })
+        });
+        if (resp.ok) console.log('[Wörterbuch] Server-Sync OK');
+        else console.warn('[Wörterbuch] Server-Sync fehlgeschlagen:', resp.status);
+      } catch (e) {
+        console.warn('[Wörterbuch] Server-Sync Fehler:', e.message);
+      }
+    }, 2000);
+  }
+
+  async function _loadDictFromServer() {
+    const API_BASE = window.API_BASE || (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
+    try {
+      const resp = await fetch(`${API_BASE}/api/spellcheck/dictionary`);
+      if (!resp.ok) return;
+      const data = await resp.json();
+      const serverWords = Array.isArray(data.words) ? data.words : [];
+      const serverCorr = (data.corrections && typeof data.corrections === 'object') ? data.corrections : {};
+
+      const localWords = JSON.parse(localStorage.getItem(DICT_STORAGE_KEY) || '[]');
+      const localCorr = JSON.parse(localStorage.getItem('ga-suche-spellcheck-corrections') || '{}');
+
+      const mergedSet = new Set(localWords.map(w => w.toLowerCase()));
+      const mergedWords = [...localWords];
+      for (const w of serverWords) {
+        if (!mergedSet.has(w.toLowerCase())) {
+          mergedWords.push(w);
+          mergedSet.add(w.toLowerCase());
+        }
+      }
+      const mergedCorr = { ...serverCorr, ...localCorr };
+
+      localStorage.setItem(DICT_STORAGE_KEY, JSON.stringify(mergedWords));
+      localStorage.setItem('ga-suche-spellcheck-corrections', JSON.stringify(mergedCorr));
+
+      userDictionaryCache = mergedWords;
+      userDictionarySet = new Set(mergedWords.map(w => w.toLowerCase()));
+
+      const newWords = mergedWords.length - localWords.length;
+      if (newWords > 0) console.log(`[Wörterbuch] ${newWords} neue Wörter vom Server geladen`);
+    } catch (e) {
+      console.warn('[Wörterbuch] Server-Laden Fehler:', e.message);
+    }
+  }
+
+  setTimeout(() => _loadDictFromServer(), 3000);
 
   function isInUserDictionary(word) {
     // Verwende Set für O(1) Lookup statt O(n) Array-Suche
@@ -37919,6 +37990,18 @@ window.cancelTextEditMode = function() {};
     userDictionaryCache = null;
     userDictionarySet = null;
   }
+
+  window.addWordToDictionary = function(word) {
+    if (!word) return;
+    const dict = loadUserDictionary();
+    const lw = word.toLowerCase();
+    if (!userDictionarySet.has(lw)) {
+      dict.push(word);
+      dict.sort((a, b) => a.localeCompare(b, 'de'));
+      saveUserDictionary(dict);
+      console.log(`[Wörterbuch] "${word}" hinzugefügt`);
+    }
+  };
 
   // === Typo.js laden ===
   async function loadTypo() {
@@ -38176,18 +38259,18 @@ window.cancelTextEditMode = function() {};
   });
 
   // === Wort zum Wörterbuch hinzufügen ===
-  window.spellcheckAddWordFromMenu = function() {
-    if (!spellcheckContextWord) return;
+  window.spellcheckAddWordFromMenu = function(wordParam) {
+    const wordToAdd = wordParam || spellcheckContextWord || window.spellcheckContextWord;
+    if (!wordToAdd) return;
     
     const dict = loadUserDictionary();
-    const lowerWord = spellcheckContextWord.toLowerCase();
+    const lowerWord = wordToAdd.toLowerCase();
     
-    // Verwende Set für schnelle Duplikatsprüfung
     if (!userDictionarySet.has(lowerWord)) {
-      dict.push(spellcheckContextWord);
+      dict.push(wordToAdd);
       dict.sort((a, b) => a.localeCompare(b, 'de'));
-      saveUserDictionary(dict); // Debounced speichern
-      console.log(`[Spellcheck] "${spellcheckContextWord}" zum Wörterbuch hinzugefügt`);
+      saveUserDictionary(dict);
+      console.log(`[Spellcheck] "${wordToAdd}" zum Wörterbuch hinzugefügt`);
     }
     
     hideContextMenu();
@@ -39217,6 +39300,7 @@ window.cancelTextEditMode = function() {};
     const c = getScUserCorrections();
     c[orig] = corr;
     localStorage.setItem(SC_USER_CORRECTIONS_KEY, JSON.stringify(c));
+    if (typeof window._triggerDictSync === 'function') window._triggerDictSync();
   }
 
   function scIsWordCorrect(word) {
@@ -39266,6 +39350,21 @@ window.cancelTextEditMode = function() {};
 
   function escHtml(t) {
     return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function getVisibleText(el) {
+    let text = '';
+    for (const node of el.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        text += node.textContent;
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const style = window.getComputedStyle(node);
+        if (style.display !== 'none' && style.visibility !== 'hidden') {
+          text += getVisibleText(node);
+        }
+      }
+    }
+    return text;
   }
 
   window.runViewerSpellcheck = async function() {
@@ -39450,68 +39549,228 @@ window.cancelTextEditMode = function() {};
     setTimeout(() => mark.classList.remove('highlight-pulse'), 700);
   };
 
+  function scGetAutoSuggestion(word) {
+    const typo = window.typoInstance;
+    if (!typo) return null;
+    const userCorrs = getScUserCorrections();
+    if (userCorrs[word]) return userCorrs[word];
+    if (word.includes('ß')) {
+      const ssVersion = word.replace(/ß/g, 'ss');
+      if (typo.check(ssVersion)) return ssVersion;
+    }
+    return null;
+  }
+
   window.showScPopup = function(markEl) {
     scActiveMarkEl = markEl;
-    const popup = document.getElementById('sc-correction-popup');
-    const wordEl = document.getElementById('sc-popup-word');
-    const suggsEl = document.getElementById('sc-popup-suggestions');
-    const inputEl = document.getElementById('sc-popup-input');
-    if (!popup) return;
+    const menu = document.getElementById('sc-correction-popup');
+    if (!menu) return;
 
     const word = markEl.textContent;
     const type = markEl.classList.contains('rf') ? 'rf' : markEl.classList.contains('st') ? 'st' : 'sz';
-    wordEl.textContent = word;
-    inputEl.value = '';
-    suggsEl.innerHTML = '';
+    const pos = markEl.dataset.pos;
+    const joined = markEl.dataset.joined || '';
+    const editValue = word;
 
-    let suggestions = [];
-    if (type === 'st' && markEl.dataset.joined) {
-      suggestions.push(markEl.dataset.joined);
-    }
-    if (type === 'rf' && window.typoInstance) {
-      const ts = window.typoInstance.suggest(word, 5);
-      suggestions = suggestions.concat(ts);
-    }
-    const userCorrs = getScUserCorrections();
-    if (userCorrs[word]) {
-      suggestions.unshift(userCorrs[word]);
-    }
-    suggestions = [...new Set(suggestions)].slice(0, 6);
+    let items = '';
+    items += `<div class="sc-ctx-edit">` +
+             `<input type="text" id="sc-ctx-edit-input" value="${escHtml(editValue)}" data-mark-pos="${pos}">` +
+             `<button onclick="window.scApplyManualEdit()">OK</button>` +
+             `</div>`;
 
-    if (suggestions.length > 0) {
-      suggsEl.innerHTML = suggestions.map(s =>
-        `<button onclick="window.applyScSuggestion('${escHtml(s)}')">${escHtml(s)}</button>`
-      ).join('');
+    if (type === 'st' && joined) {
+      items += `<div class="sc-ctx-item" onclick="window.scMergeAndSave('${escHtml(joined).replace(/'/g, '&#39;')}')">` +
+               `\u2705 Zusammenf\u00fchren: ${escHtml(joined)}</div>`;
     }
 
-    popup.style.display = 'block';
+    if (type !== 'sz') {
+      const autoSugg = scGetAutoSuggestion(word);
+      if (autoSugg && autoSugg !== word) {
+        items += `<div class="sc-ctx-item" onclick="window.scApplyFix('${escHtml(autoSugg).replace(/'/g, '&#39;')}')">` +
+                 `\uD83D\uDD04 Autokorrektur: ${escHtml(autoSugg)}</div>`;
+      }
+    }
+
+    items += `<div class="sc-ctx-sep"></div>`;
+
+    items += `<div class="sc-ctx-item" onclick="window.scAddToDict()">\uD83D\uDCD6 Zum W\u00f6rterbuch</div>`;
+    items += `<div class="sc-ctx-item" onclick="window.scIgnore()">\u23ED Ignorieren</div>`;
+
+    menu.innerHTML = items;
+
     const rect = markEl.getBoundingClientRect();
     let x = rect.left;
     let y = rect.bottom + 4;
-    setTimeout(() => {
-      const pr = popup.getBoundingClientRect();
-      if (x + pr.width > window.innerWidth) x = window.innerWidth - pr.width - 10;
-      if (y + pr.height > window.innerHeight) y = rect.top - pr.height - 4;
-      if (x < 0) x = 5;
-      popup.style.left = x + 'px';
-      popup.style.top = y + 'px';
-    }, 10);
+    menu.classList.remove('hidden');
+
+    const mr = menu.getBoundingClientRect();
+    if (x + mr.width > window.innerWidth) x = window.innerWidth - mr.width - 10;
+    if (y + mr.height > window.innerHeight) y = rect.top - mr.height - 4;
+    if (x < 0) x = 5;
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+
+    const input = document.getElementById('sc-ctx-edit-input');
+    if (input) {
+      input.focus();
+      input.select();
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); window.scApplyManualEdit(); }
+        if (e.key === 'Escape') { window.hideScPopup(); }
+      });
+    }
+
   };
 
   window.hideScPopup = function() {
-    const popup = document.getElementById('sc-correction-popup');
-    if (popup) popup.style.display = 'none';
+    const menu = document.getElementById('sc-correction-popup');
+    if (menu) menu.classList.add('hidden');
     scActiveMarkEl = null;
   };
 
   document.addEventListener('click', (e) => {
-    const popup = document.getElementById('sc-correction-popup');
-    if (popup && popup.style.display !== 'none' && !popup.contains(e.target) && !e.target.closest('mark')) {
-      window.hideScPopup();
+    const menu = document.getElementById('sc-correction-popup');
+    if (menu && !menu.classList.contains('hidden') && !menu.contains(e.target) && !e.target.closest('mark') && !e.target.closest('[data-word-edit]')) {
+      if (scWordEditTarget) {
+        window.scCancelWordEdit();
+      } else {
+        window.hideScPopup();
+      }
     }
   });
 
-  window.applyScSuggestion = function(corrected) {
+  // === DOPPELKLICK-WORTBEARBEITUNG ===
+  let scWordEditTarget = null;
+
+  document.addEventListener('dblclick', function(e) {
+    const korrekturTab = document.getElementById('korrektur-tab');
+    if (!korrekturTab || !korrekturTab.classList.contains('active')) return;
+    const viewerContent = document.getElementById('viewer-content');
+    if (!viewerContent || !viewerContent.contains(e.target)) return;
+    if (e.target.closest('mark')) return;
+
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+    const word = sel.toString().trim();
+    if (!word || word.includes(' ') || word.includes('\n')) return;
+
+    const range = sel.getRangeAt(0);
+    try {
+      const span = document.createElement('span');
+      span.style.background = '#fef3c7';
+      span.style.borderRadius = '2px';
+      span.style.outline = '2px solid #f59e0b';
+      span.dataset.wordEdit = 'true';
+      range.surroundContents(span);
+      sel.removeAllRanges();
+      scWordEditTarget = span;
+      showWordEditPopup(span, word);
+    } catch (err) {
+      sel.removeAllRanges();
+    }
+  });
+
+  function showWordEditPopup(spanEl, word) {
+    scActiveMarkEl = null;
+    const menu = document.getElementById('sc-correction-popup');
+    if (!menu) return;
+
+    let items = '';
+    items += `<div class="sc-ctx-edit">` +
+             `<input type="text" id="sc-ctx-edit-input" value="${escHtml(word)}">` +
+             `<button onclick="window.scApplyWordEdit()">OK</button>` +
+             `</div>`;
+    items += `<div class="sc-ctx-sep"></div>`;
+    items += `<div class="sc-ctx-item" onclick="window.scDeleteWord()">\uD83D\uDDD1\uFE0F L\u00f6schen</div>`;
+    items += `<div class="sc-ctx-item" onclick="window.scCancelWordEdit()">\u274C Abbrechen</div>`;
+
+    menu.innerHTML = items;
+
+    const rect = spanEl.getBoundingClientRect();
+    let x = rect.left;
+    let y = rect.bottom + 4;
+    menu.classList.remove('hidden');
+    const mr = menu.getBoundingClientRect();
+    if (x + mr.width > window.innerWidth) x = window.innerWidth - mr.width - 10;
+    if (y + mr.height > window.innerHeight) y = rect.top - mr.height - 4;
+    if (x < 0) x = 5;
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+
+    const input = document.getElementById('sc-ctx-edit-input');
+    if (input) {
+      input.focus();
+      input.select();
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); window.scApplyWordEdit(); }
+        if (e.key === 'Escape') { window.scCancelWordEdit(); }
+      });
+    }
+  }
+
+  window.scApplyWordEdit = function() {
+    if (!scWordEditTarget) return;
+    const input = document.getElementById('sc-ctx-edit-input');
+    if (!input) return;
+    const newWord = input.value.trim();
+    const oldWord = scWordEditTarget.textContent;
+
+    if (!newWord || newWord === oldWord) {
+      window.scCancelWordEdit();
+      return;
+    }
+
+    const paraEl = scWordEditTarget.closest('[data-index], [id^="para-"]');
+    const paraHtmlBefore = paraEl ? paraEl.innerHTML : null;
+    const paraTextBefore = paraEl ? getVisibleText(paraEl) : null;
+    const paraIndex = paraEl ? (paraEl.dataset.index || paraEl.id) : null;
+
+    const textNode = document.createTextNode(newWord);
+    scWordEditTarget.parentNode.replaceChild(textNode, scWordEditTarget);
+    textNode.parentNode.normalize();
+    scPushUndo({ type: 'word-edit', paraEl, paraIndex, paraHtmlBefore, paraTextBefore });
+
+    if (paraEl && paraIndex) {
+      const lectureId = detectCurrentLectureId();
+      if (lectureId) saveCorrectionToBackend(lectureId, paraIndex, getVisibleText(paraEl));
+    }
+    scWordEditTarget = null;
+    const menu = document.getElementById('sc-correction-popup');
+    if (menu) menu.classList.add('hidden');
+  };
+
+  window.scDeleteWord = function() {
+    if (!scWordEditTarget) return;
+    const paraEl = scWordEditTarget.closest('[data-index], [id^="para-"]');
+    const paraHtmlBefore = paraEl ? paraEl.innerHTML : null;
+    const paraTextBefore = paraEl ? getVisibleText(paraEl) : null;
+    const paraIndex = paraEl ? (paraEl.dataset.index || paraEl.id) : null;
+
+    scWordEditTarget.parentNode.removeChild(scWordEditTarget);
+    if (paraEl) paraEl.normalize();
+    scPushUndo({ type: 'word-edit', paraEl, paraIndex, paraHtmlBefore, paraTextBefore });
+
+    if (paraEl && paraIndex) {
+      const lectureId = detectCurrentLectureId();
+      if (lectureId) saveCorrectionToBackend(lectureId, paraIndex, getVisibleText(paraEl));
+    }
+    scWordEditTarget = null;
+    const menu = document.getElementById('sc-correction-popup');
+    if (menu) menu.classList.add('hidden');
+  };
+
+  window.scCancelWordEdit = function() {
+    if (scWordEditTarget) {
+      const textNode = document.createTextNode(scWordEditTarget.textContent);
+      scWordEditTarget.parentNode.replaceChild(textNode, scWordEditTarget);
+      textNode.parentNode.normalize();
+      scWordEditTarget = null;
+    }
+    const menu = document.getElementById('sc-correction-popup');
+    if (menu) menu.classList.add('hidden');
+  };
+
+  window.scApplyFix = function(corrected) {
     if (!scActiveMarkEl) return;
     const original = scActiveMarkEl.textContent;
     applyScCorrection(scActiveMarkEl, corrected);
@@ -39519,40 +39778,79 @@ window.cancelTextEditMode = function() {};
     window.hideScPopup();
   };
 
-  window.applyManualScCorrection = function() {
-    const input = document.getElementById('sc-popup-input');
+  window.scMergeAndSave = function(joined) {
+    if (!scActiveMarkEl) return;
+    const original = scActiveMarkEl.textContent;
+    applyScCorrection(scActiveMarkEl, joined);
+    addScUserCorrection(original, joined);
+    if (typeof window.addWordToDictionary === 'function') {
+      window.addWordToDictionary(joined);
+    }
+    window.hideScPopup();
+    if (typeof window.scRenderDictList === 'function') window.scRenderDictList();
+  };
+
+  window.scApplyManualEdit = function() {
+    const input = document.getElementById('sc-ctx-edit-input');
     if (!input || !input.value.trim() || !scActiveMarkEl) return;
     const corrected = input.value.trim();
     const original = scActiveMarkEl.textContent;
+    if (corrected === original) { window.hideScPopup(); return; }
     applyScCorrection(scActiveMarkEl, corrected);
     addScUserCorrection(original, corrected);
     window.hideScPopup();
   };
 
+  window.scIgnore = function() {
+    if (!scActiveMarkEl) return;
+    const textNode = document.createTextNode(scActiveMarkEl.textContent);
+    scActiveMarkEl.parentNode.replaceChild(textNode, scActiveMarkEl);
+    textNode.parentNode.normalize();
+    const pos = parseInt(scActiveMarkEl.dataset.pos);
+    scErrorItems = scErrorItems.filter(e => e.position !== pos);
+    scUpdateErrorList();
+    scUpdateCounts();
+    window.hideScPopup();
+  };
+
+  const scUndoStack = [];
+
+  function scPushUndo(entry) {
+    scUndoStack.push(entry);
+    const btn = document.getElementById('sc-btn-undo');
+    if (btn) btn.disabled = false;
+  }
+
   function applyScCorrection(markEl, corrected) {
     const paraEl = markEl.closest('[data-index], [id^="para-"]');
     const original = markEl.textContent;
+    const paraHtmlBefore = paraEl ? paraEl.innerHTML : null;
+    const paraTextBefore = paraEl ? getVisibleText(paraEl) : null;
+    const paraIndex = paraEl ? (paraEl.dataset.index || paraEl.id) : null;
+    const pos = parseInt(markEl.dataset.pos);
 
     const textNode = document.createTextNode(corrected);
     markEl.parentNode.replaceChild(textNode, markEl);
     textNode.parentNode.normalize();
 
-    const pos = parseInt(markEl.dataset.pos);
+    scPushUndo({ type: 'correction', original, corrected, paraEl, paraIndex, paraHtmlBefore, paraTextBefore, pos });
+
     scErrorItems = scErrorItems.filter(e => e.position !== pos);
     scUpdateErrorList();
     scUpdateCounts();
 
-    if (paraEl) {
-      const paraIndex = paraEl.dataset.index || paraEl.id;
+    if (paraEl && paraIndex) {
       const lectureId = detectCurrentLectureId();
-      if (lectureId && paraIndex) {
-        const paraText = paraEl.textContent;
-        saveCorrectionToBackend(lectureId, paraIndex, paraText);
+      if (lectureId) {
+        saveCorrectionToBackend(lectureId, paraIndex, getVisibleText(paraEl));
       }
     }
   }
 
   function detectCurrentLectureId() {
+    if (window.currentOpenLectureId) {
+      return window.currentOpenLectureId;
+    }
     if (typeof currentGANumber !== 'undefined' && currentGANumber &&
         typeof currentLectureNumber !== 'undefined' && currentLectureNumber) {
       const padded = currentGANumber.replace(/^GA/i, '').padStart(3, '0');
@@ -39598,27 +39896,34 @@ window.cancelTextEditMode = function() {};
 
   window.scAddToDict = function() {
     if (!scActiveMarkEl) return;
-    const word = scActiveMarkEl.textContent;
-    if (typeof window.spellcheckAddWordFromMenu === 'function') {
-      window.spellcheckContextWord = word;
-      window.spellcheckAddWordFromMenu();
-    } else {
-      const dict = JSON.parse(localStorage.getItem('ga-suche-spellcheck-dictionary') || '[]');
-      if (!dict.some(w => w.toLowerCase() === word.toLowerCase())) {
-        dict.push(word);
-        dict.sort((a, b) => a.localeCompare(b, 'de'));
-        localStorage.setItem('ga-suche-spellcheck-dictionary', JSON.stringify(dict));
-      }
-    }
-    const textNode = document.createTextNode(scActiveMarkEl.textContent);
-    scActiveMarkEl.parentNode.replaceChild(textNode, scActiveMarkEl);
-    textNode.parentNode.normalize();
+    const originalWord = scActiveMarkEl.textContent;
+    const input = document.getElementById('sc-ctx-edit-input');
+    const editedWord = (input && input.value.trim()) ? input.value.trim() : originalWord;
+    const hasCorrection = editedWord !== originalWord;
 
-    const pos = parseInt(scActiveMarkEl.dataset.pos);
-    scErrorItems = scErrorItems.filter(e => e.position !== pos);
-    scUpdateErrorList();
-    scUpdateCounts();
+    if (hasCorrection) {
+      applyScCorrection(scActiveMarkEl, editedWord);
+      addScUserCorrection(originalWord, editedWord);
+      if (typeof window.addWordToDictionary === 'function') {
+        window.addWordToDictionary(editedWord);
+      }
+    } else {
+      if (typeof window.addWordToDictionary === 'function') {
+        window.addWordToDictionary(originalWord);
+      }
+      const pos = parseInt(scActiveMarkEl.dataset.pos);
+      const paraEl = scActiveMarkEl.closest('[data-index], [id^="para-"]');
+      scPushUndo({ type: 'dict-add', word: originalWord, pos });
+      const textNode = document.createTextNode(originalWord);
+      scActiveMarkEl.parentNode.replaceChild(textNode, scActiveMarkEl);
+      textNode.parentNode.normalize();
+      scErrorItems = scErrorItems.filter(e => e.position !== pos);
+      scUpdateErrorList();
+      scUpdateCounts();
+    }
+
     window.hideScPopup();
+    if (typeof window.scRenderDictList === 'function') window.scRenderDictList();
   };
 
   window.autoCorrectViewer = async function() {
@@ -39629,22 +39934,27 @@ window.cancelTextEditMode = function() {};
 
     let corrCount = 0;
     const userCorrs = getScUserCorrections();
+    const changedParas = new Set();
 
     const stItems = scErrorItems.filter(e => e.type === 'st' && e.joined && e.markEl && e.markEl.parentNode);
     for (const item of stItems) {
+      const paraEl = item.markEl.closest('[data-index], [id^="para-"]');
       const t = document.createTextNode(item.joined);
       item.markEl.parentNode.replaceChild(t, item.markEl);
       t.parentNode.normalize();
+      if (paraEl) changedParas.add(paraEl);
       corrCount++;
     }
 
     const rfItems = scErrorItems.filter(e => e.type === 'rf' && e.markEl && e.markEl.parentNode);
     for (const item of rfItems) {
       const w = item.markEl.textContent;
+      const paraEl = item.markEl.closest('[data-index], [id^="para-"]');
       if (userCorrs[w]) {
         const t = document.createTextNode(userCorrs[w]);
         item.markEl.parentNode.replaceChild(t, item.markEl);
         t.parentNode.normalize();
+        if (paraEl) changedParas.add(paraEl);
         corrCount++;
         continue;
       }
@@ -39654,7 +39964,18 @@ window.cancelTextEditMode = function() {};
           const t = document.createTextNode(ssVersion);
           item.markEl.parentNode.replaceChild(t, item.markEl);
           t.parentNode.normalize();
+          if (paraEl) changedParas.add(paraEl);
           corrCount++;
+        }
+      }
+    }
+
+    const lectureId = detectCurrentLectureId();
+    if (lectureId && changedParas.size > 0) {
+      for (const paraEl of changedParas) {
+        const paraIndex = paraEl.dataset.index || paraEl.id;
+        if (paraIndex) {
+          saveCorrectionToBackend(lectureId, paraIndex, getVisibleText(paraEl));
         }
       }
     }
@@ -39663,6 +39984,126 @@ window.cancelTextEditMode = function() {};
     scUpdateErrorList();
     scUpdateCounts();
     alert(`Auto-Korrektur: ${corrCount} Korrekturen angewendet.\nBitte erneut "Prüfen" klicken.`);
+  };
+
+  // === UNDO ===
+  window.scUndo = function() {
+    if (scUndoStack.length === 0) return;
+    const entry = scUndoStack.pop();
+    const btn = document.getElementById('sc-btn-undo');
+    if (btn) btn.disabled = scUndoStack.length === 0;
+
+    if (entry.type === 'correction') {
+      if (entry.paraEl && entry.paraHtmlBefore && entry.paraIndex) {
+        entry.paraEl.innerHTML = entry.paraHtmlBefore;
+        const lectureId = detectCurrentLectureId();
+        if (lectureId) {
+          saveCorrectionToBackend(lectureId, entry.paraIndex, entry.paraTextBefore || getVisibleText(entry.paraEl));
+        }
+      }
+    } else if (entry.type === 'dict-add') {
+      const dict = loadUserDictionary();
+      const idx = dict.findIndex(w => w.toLowerCase() === entry.word.toLowerCase());
+      if (idx !== -1) {
+        dict.splice(idx, 1);
+        saveUserDictionary(dict, true);
+      }
+    }
+    if (typeof window.scRenderDictList === 'function') window.scRenderDictList();
+  };
+
+  // === WÖRTERBUCH-PANEL ===
+  let scDictSearchTimer = null;
+
+  window.scToggleDictPanel = function() {
+    const panel = document.getElementById('sc-dict-panel');
+    if (!panel) return;
+    const visible = panel.style.display !== 'none';
+    panel.style.display = visible ? 'none' : 'block';
+    if (!visible) window.scRenderDictList();
+  };
+
+  window.scDictSearchDebounced = function() {
+    if (scDictSearchTimer) clearTimeout(scDictSearchTimer);
+    scDictSearchTimer = setTimeout(() => window.scRenderDictList(), 150);
+  };
+
+  window.scDictAddWord = function() {
+    const input = document.getElementById('sc-dict-add-input');
+    if (!input) return;
+    const word = input.value.trim();
+    if (!word) return;
+    if (typeof window.addWordToDictionary === 'function') {
+      window.addWordToDictionary(word);
+    }
+    input.value = '';
+    window.scRenderDictList();
+  };
+
+  window.scDictRemoveWord = function(word) {
+    const dict = loadUserDictionary();
+    const idx = dict.findIndex(w => w === word);
+    if (idx !== -1) {
+      dict.splice(idx, 1);
+      saveUserDictionary(dict, true);
+      window.scRenderDictList();
+    }
+  };
+
+  window.scDictRemoveCorrection = function(orig) {
+    const corr = getScUserCorrections();
+    delete corr[orig];
+    localStorage.setItem(SC_USER_CORRECTIONS_KEY, JSON.stringify(corr));
+    if (typeof window._triggerDictSync === 'function') window._triggerDictSync();
+    window.scRenderDictList();
+  };
+
+  window.scRenderDictList = function() {
+    const dict = loadUserDictionary();
+    const corrections = getScUserCorrections();
+    const corrEntries = Object.entries(corrections);
+    const countEl = document.getElementById('sc-dict-count');
+    const corrCountEl = document.getElementById('sc-corr-count');
+    if (countEl) countEl.textContent = dict.length;
+    if (corrCountEl) corrCountEl.textContent = corrEntries.length;
+
+    const list = document.getElementById('sc-dict-list');
+    if (!list) return;
+    const searchInput = document.getElementById('sc-dict-search-input');
+    const filter = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+    const filteredDict = (filter
+      ? dict.filter(w => w.toLowerCase().includes(filter))
+      : [...dict]
+    ).sort((a, b) => a.localeCompare(b, 'de'));
+
+    const filteredCorr = (filter
+      ? corrEntries.filter(([k, v]) => k.toLowerCase().includes(filter) || v.toLowerCase().includes(filter))
+      : corrEntries
+    ).sort((a, b) => a[0].localeCompare(b[0], 'de'));
+
+    if (filteredDict.length === 0 && filteredCorr.length === 0) {
+      list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">' +
+        (filter ? 'Keine Treffer.' : 'Noch keine Einträge.') + '</div>';
+      return;
+    }
+
+    let html = '';
+    if (filteredDict.length > 0) {
+      html += '<div class="sc-dict-section-header">Wörterbuch</div>';
+      for (const w of filteredDict) {
+        const esc = w.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        html += `<div class="sc-dict-entry"><span>${escapeHtml(w)}</span><button onclick="window.scDictRemoveWord('${esc}')" title="Entfernen">✕</button></div>`;
+      }
+    }
+    if (filteredCorr.length > 0) {
+      html += '<div class="sc-dict-section-header">Auto-Korrekturen</div>';
+      for (const [orig, corr] of filteredCorr) {
+        const escOrig = orig.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        html += `<div class="sc-dict-entry"><span>${escapeHtml(orig)} <span style="color:var(--secondary-text);">→</span> ${escapeHtml(corr)}</span><button onclick="window.scDictRemoveCorrection('${escOrig}')" title="Entfernen">✕</button></div>`;
+      }
+    }
+    list.innerHTML = html;
   };
 
   console.log('[KORREKTUR] Modul geladen');

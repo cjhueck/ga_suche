@@ -698,8 +698,7 @@
     <div class="sidebar-panel">
         <div class="sidebar-tabs">
             <button class="sidebar-tab active" onclick="switchSidebarTab('errors')">Fehler</button>
-            <button class="sidebar-tab" onclick="switchSidebarTab('dict')">Wörterb.</button>
-            <button class="sidebar-tab" onclick="switchSidebarTab('search')">Suche</button>
+            <button class="sidebar-tab" onclick="switchSidebarTab('dict')">Wörterbuch</button>
             <button class="sidebar-tab" onclick="switchSidebarTab('pdf')">PDF</button>
             <button class="sidebar-tab" id="tab-btn-r2files" onclick="switchSidebarTab('r2files')" style="display:none;">Dateien</button>
         </div>
@@ -734,24 +733,6 @@
                 </div>
             </div>
             <div id="dict-list" style="overflow-y: auto; flex: 1;"></div>
-        </div>
-
-        <!-- Search Tab -->
-        <div id="tab-search" class="sidebar-content hidden">
-            <div style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);">
-                <div style="display: flex; gap: 6px;">
-                    <input type="text" id="search-word-input" placeholder="Wort in GA-Bänden suchen…" style="flex:1; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem;">
-                    <button class="btn" onclick="searchWordInGA()" style="padding: 4px 10px; font-size: 0.8rem;">Suchen</button>
-                </div>
-                <div style="margin-top: 4px; font-size: 0.72rem; color: var(--secondary-text);">
-                    Sucht in allen MD-Dateien nach Vorkommen eines Wortes.
-                </div>
-            </div>
-            <div id="search-results" style="overflow-y: auto; flex: 1; padding: 0.5rem 0;">
-                <div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">
-                    Rechtsklick auf ein markiertes Wort → "In GA suchen"
-                </div>
-            </div>
         </div>
 
         <!-- PDF Viewer Tab -->
@@ -4051,7 +4032,7 @@ function showContextMenu(x, y, mark) {
     else if (mark.classList.contains('sz')) type = 'sz';
     const pos = mark.dataset.pos;
     const joined = mark.dataset.joined || '';
-    const editValue = (type === 'st' && joined) ? joined : word;
+    const editValue = word;
 
     let items = '';
     items += `<div class="context-menu-edit">` +
@@ -4071,9 +4052,7 @@ function showContextMenu(x, y, mark) {
         }
     }
 
-    if (type !== 'sz') {
-        items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
-    }
+    items += `<div class="context-menu-item" onclick="addToDictionary('${escapeHtml(word)}', this)" data-mark-pos="${pos}">📖 Zum Wörterbuch</div>`;
     items += `<div class="context-menu-item" onclick="searchWordInGA('${escapeHtml(word)}')">🔍 In GA suchen</div>`;
     items += `<div class="context-menu-item" onclick="ignoreMark(this)" data-mark-pos="${pos}">⏭ Ignorieren</div>`;
 
@@ -4325,6 +4304,11 @@ function applyAutoCorrectSingle(el, corrected) {
 
 function applyHyphenFix(el, joined) {
     const mark = document.querySelector(`#editor-content mark.st[data-pos="${el.dataset.markPos}"]`);
+    if (mark) {
+        const original = mark.textContent;
+        addUserCorrection(original, joined);
+    }
+    addToUserDictionary(joined);
     replaceMark(mark, joined);
     markEdited();
     document.getElementById('context-menu').classList.add('hidden');
