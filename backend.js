@@ -10997,8 +10997,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     const bookCopy = JSON.parse(JSON.stringify(book));
     const bookIdForEdits = bookCopy.ID || bookCopy.gaNumber;
 
-    // Text-Edit-Funktion wurde entfernt
-    // await applyTextEditsToLecture(bookCopy, bookIdForEdits);
+    await applyTextEditsToLecture(bookCopy, bookIdForEdits);
 
     // Speichere Überschriften in summary-database.json für TOC-Anzeige
     // WICHTIG: Nur für Books (GA002-GA046), niemals Vortrags-Einträge überschreiben!
@@ -23770,17 +23769,21 @@ app.post('/api/quotes/update', async (req, res) => {
 // Hilfsfunktion: Text-Bearbeitungen auf einen Vortrag anwenden
 async function applyTextEditsToLecture(lecture, lectureId) {
   try {
+    console.log(`[TEXT-EDITS] 📖 applyTextEditsToLecture aufgerufen für: ${lectureId}`);
     const textEditsFile = path.join(__dirname, 'text-edits-database.json');
     let editsDB = {};
     try {
       const editsData = await fs.readFile(textEditsFile, 'utf8');
       editsDB = JSON.parse(editsData);
     } catch (err) {
-      // Datei existiert nicht oder ist leer
+      console.log(`[TEXT-EDITS] Keine text-edits-database.json gefunden`);
       return;
     }
     
     if (editsDB[lectureId]) {
+      const editKeys = Object.keys(editsDB[lectureId].paragraphs || {});
+      console.log(`[TEXT-EDITS] ✅ ${editKeys.length} Edits gefunden für ${lectureId}: ${editKeys.slice(0, 5).join(', ')}${editKeys.length > 5 ? '...' : ''}`);
+      
       // Prüfe ob die MD-Quelldatei neuer ist als die gespeicherten Edits
       const mdFilePath = await findMdFileForLecture(lectureId);
       if (mdFilePath) {
@@ -23788,21 +23791,30 @@ async function applyTextEditsToLecture(lecture, lectureId) {
           const mdStats = await fs.stat(mdFilePath);
           const mdMtime = mdStats.mtime.getTime();
           const editsMtime = new Date(editsDB[lectureId].lastModified || 0).getTime();
+          console.log(`[TEXT-EDITS] Timestamp-Check: MD=${new Date(mdMtime).toISOString()}, Edits=${new Date(editsMtime).toISOString()}, Diff=${mdMtime - editsMtime}ms`);
           
-          if (mdMtime > editsMtime) {
-            // MD-Datei ist neuer - lösche die alten Edits
-            console.log(`[TEXT-EDITS] 🔄 MD-Datei ist neuer als Edits für ${lectureId} - Edits werden verworfen`);
-            console.log(`[TEXT-EDITS]    MD: ${new Date(mdMtime).toISOString()}, Edits: ${new Date(editsMtime).toISOString()}`);
+          if (mdMtime > editsMtime + 30000) {
+            console.log(`[TEXT-EDITS] 🔄 MD-Datei ist deutlich neuer als Edits für ${lectureId} - Edits werden verworfen`);
             delete editsDB[lectureId];
             await saveTextEditsDatabase(editsDB);
-            return; // Keine Edits anwenden
+            return;
           }
         } catch (statErr) {
-          // MD-Datei nicht gefunden oder Fehler beim Prüfen - ignorieren
+          console.log(`[TEXT-EDITS] ⚠️ Konnte MD-Datei nicht prüfen: ${statErr.message}`);
         }
+      } else {
+        console.log(`[TEXT-EDITS] ⚠️ Keine MD-Datei gefunden für ${lectureId}`);
       }
       const edits = editsDB[lectureId];
       let appliedEdits = 0;
+      
+      // Debug: Zeige erste Paragraph-Indizes der Lecture
+      if (lecture.paragraphs && lecture.paragraphs.length > 0) {
+        const sampleIndices = lecture.paragraphs.slice(0, 5).map(p => p.index || 'KEIN-INDEX');
+        console.log(`[TEXT-EDITS] Lecture hat ${lecture.paragraphs.length} Absätze. Erste Indizes: ${sampleIndices.join(', ')}`);
+      } else {
+        console.log(`[TEXT-EDITS] ⚠️ Lecture hat KEINE Absätze!`);
+      }
       
       // Wende Absatz-Bearbeitungen an
       if (edits.paragraphs && lecture.paragraphs) {
@@ -23810,11 +23822,13 @@ async function applyTextEditsToLecture(lecture, lectureId) {
           // Finde den Absatz mit diesem Index
           const para = lecture.paragraphs.find(p => {
             const paraIndex = p.index ? p.index.replace(/^\^/, '') : '';
-            // Berücksichtige auch den 'para-' Präfix vom Frontend
             const cleanIndex = index.toString().replace(/^para-/, '');
             return paraIndex === index || p.index === index || p.index === `^${index}` ||
                    paraIndex === cleanIndex || p.index === cleanIndex || p.index === `^${cleanIndex}`;
           });
+          if (!para) {
+            console.log(`[TEXT-EDITS] ⚠️ Absatz NICHT gefunden für Index: ${index}`);
+          }
           if (para && (edit.edited !== undefined)) { // Erlaube auch leere Strings (Löschen)
             // Konvertiere \n zu <br> für korrekte HTML-Darstellung (wichtig für Gedichte)
             let editedContent = edit.edited;
@@ -23884,6 +23898,8 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
     
+    await applyTextEditsToLecture(lecture, lectureId);
+    
     res.json({ lecture });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
@@ -23903,6 +23919,8 @@ app.get('/api/lecture-with-summary/:gaNumber/:lectureNum', async (req, res) => {
     if (!lecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
+    
+    await applyTextEditsToLecture(lecture, lectureId);
     
     // 2. Summary-Daten laden (gleiche Logik wie /api/check-summary)
     let summaryData = { exists: false, lectureId, summary: null, headings: [], tableOfContents: [], lectureKeywords: [], version: null };
@@ -23958,8 +23976,7 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
     
-    // Text-Edit-Funktion wurde entfernt
-    // await applyTextEditsToLecture(lecture, lectureId);
+    await applyTextEditsToLecture(lecture, lectureId);
     
     // Debug: Prüfe ob Marker in Paragraphs vorhanden sind
     if (lecture.paragraphs && lecture.paragraphs.length > 0) {
@@ -24297,81 +24314,91 @@ async function findMdFileForLecture(lectureId) {
   }
 }
 
+async function updateSingleMdFile(filePath, cleanIndex, newContent) {
+  const mdContent = await fs.readFile(filePath, 'utf8');
+  const lines = mdContent.split('\n');
+  let lineIndex = -1;
+  
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].includes(`^${cleanIndex}`)) {
+      lineIndex = i;
+      break;
+    }
+  }
+  
+  if (lineIndex === -1) return false;
+  
+  if (!newContent || newContent.trim() === '') {
+    lines.splice(lineIndex, 1);
+    if (lines[lineIndex] && lines[lineIndex].trim() === '') {
+      lines.splice(lineIndex, 1);
+    }
+  } else {
+    if (newContent.includes('\n')) {
+      const newLines = newContent.split('\n').map(l => l.trim()).filter(l => l);
+      lines[lineIndex] = `${newLines.join('\n')} ^${cleanIndex}`;
+    } else {
+      lines[lineIndex] = `${newContent.trim()} ^${cleanIndex}`;
+    }
+  }
+  
+  await fs.writeFile(filePath, lines.join('\n'), 'utf8');
+  return true;
+}
+
 async function updateMarkdownFile(lectureId, paragraphIndex, newContent) {
   try {
-    const mdFilePath = await findMdFileForLecture(lectureId);
-    
-    if (!mdFilePath) {
-      return { success: false, error: 'MD-Datei nicht gefunden' };
-    }
-    
-    // Lese die MD-Datei
-    const mdContent = await fs.readFile(mdFilePath, 'utf8');
-    
-    // Normalisiere den Index (entferne para- und ^ Präfixe)
     const cleanIndex = paragraphIndex.replace(/^para-/, '').replace(/^\^/, '');
     
-    // Finde die Zeile mit diesem Index (^{index} am Ende)
-    const lines = mdContent.split('\n');
-    let lineIndex = -1;
-    let originalLine = '';
+    const match = lectureId.match(/^(GA\d{3}[a-z]?)\/(\d+)$/i);
+    if (!match) {
+      return { success: false, error: 'lectureId nicht parsbar' };
+    }
+    const gaNumber = match[1].toUpperCase();
     
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      // Suche nach dem Index am Ende der Zeile: ^abc123 oder ^abc123 (mit Leerzeichen)
-      if (line.includes(`^${cleanIndex}`)) {
-        lineIndex = i;
-        originalLine = line;
-        break;
+    const steinerGaPath = path.join(__dirname, 'Steiner_GA');
+    const dirs = await fs.readdir(steinerGaPath);
+    const gaFolder = dirs.find(dir => {
+      const dirUpper = dir.toUpperCase();
+      return dirUpper.startsWith(gaNumber + '-') || dirUpper === gaNumber;
+    });
+    
+    if (!gaFolder) {
+      return { success: false, error: `Kein Ordner für ${gaNumber}` };
+    }
+    
+    const folderPath = path.join(steinerGaPath, gaFolder);
+    const files = await fs.readdir(folderPath);
+    const mdFiles = files.filter(f => f.endsWith('.md'));
+    
+    let updatedFiles = [];
+    
+    for (const mdFile of mdFiles) {
+      const filePath = path.join(folderPath, mdFile);
+      try {
+        const content = await fs.readFile(filePath, 'utf8');
+        if (content.includes(`^${cleanIndex}`)) {
+          const updated = await updateSingleMdFile(filePath, cleanIndex, newContent);
+          if (updated) {
+            updatedFiles.push(filePath);
+            console.log(`[MD-UPDATE] ✅ Aktualisiert: ${mdFile}`);
+          }
+        }
+      } catch (readErr) {
+        // Einzelne Datei nicht lesbar - weiter
       }
     }
     
-    if (lineIndex === -1) {
-      console.log(`[MD-UPDATE] Index ^${cleanIndex} nicht gefunden in ${mdFilePath}`);
+    if (updatedFiles.length === 0) {
+      console.log(`[MD-UPDATE] Index ^${cleanIndex} in keiner MD-Datei gefunden in ${folderPath}`);
       return { success: false, error: `Index ^${cleanIndex} nicht gefunden` };
     }
     
-    // Wenn newContent leer ist, lösche die Zeile (und ggf. folgende Leerzeile)
-    if (!newContent || newContent.trim() === '') {
-      lines.splice(lineIndex, 1);
-      // Entferne auch eine folgende Leerzeile, falls vorhanden
-      if (lines[lineIndex] && lines[lineIndex].trim() === '') {
-        lines.splice(lineIndex, 1);
-      }
-      console.log(`[MD-UPDATE] Zeile gelöscht: ${originalLine.substring(0, 50)}...`);
-    } else {
-      // Ersetze den Inhalt, behalte den Index
-      // Konvertiere \n zu echten Zeilenumbrüchen (für Gedichte)
-      // Aber: Bei MD-Dateien muss jede Zeile den Index am Ende haben!
-      
-      if (newContent.includes('\n')) {
-        // Mehrzeilige Bearbeitung: Jede Zeile einzeln, nur letzte mit Index
-        const newLines = newContent.split('\n').map(l => l.trim()).filter(l => l);
-        
-        // Füge den Index nur zur letzten Zeile hinzu
-        // Alle vorherigen Zeilen bekommen keinen Index (werden als Teil des gleichen Absatzes behandelt)
-        // WICHTIG: Bei MD-Format bedeutet ein Index das Ende eines Absatzes
-        
-        // Option 1: Alles in eine Zeile mit <br> (für Gedichte nicht ideal)
-        // Option 2: Nur die letzte Zeile mit Index
-        
-        // Wir verwenden Option 2: Nur der gesamte Inhalt als ein Block mit Index am Ende
-        const combinedContent = newLines.join('\n');
-        lines[lineIndex] = `${combinedContent} ^${cleanIndex}`;
-      } else {
-        // Einzeilige Bearbeitung
-        lines[lineIndex] = `${newContent.trim()} ^${cleanIndex}`;
-      }
-      
-      console.log(`[MD-UPDATE] Zeile aktualisiert: ${lines[lineIndex].substring(0, 60)}...`);
-    }
-    
-    // Speichere die MD-Datei
-    await fs.writeFile(mdFilePath, lines.join('\n'), 'utf8');
-    
+    console.log(`[MD-UPDATE] ${updatedFiles.length} MD-Datei(en) aktualisiert für ^${cleanIndex}`);
     return { 
       success: true, 
-      filePath: mdFilePath,
+      filePath: updatedFiles[0],
+      filesUpdated: updatedFiles.length,
       index: cleanIndex
     };
     
@@ -24398,86 +24425,100 @@ app.post('/api/text-edits/sync-to-md/:lectureId', async (req, res) => {
       });
     }
     
-    // Finde die MD-Datei
-    const mdFilePath = await findMdFileForLecture(lectureId);
+    // Finde ALLE MD-Dateien im GA-Ordner
+    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)\/(\d+)$/i);
+    if (!gaMatch) {
+      return res.json({ success: false, message: 'lectureId nicht parsbar', lectureId });
+    }
+    const gaNumber = gaMatch[1].toUpperCase();
+    const steinerGaPath = path.join(__dirname, 'Steiner_GA');
+    const dirs = await fs.readdir(steinerGaPath);
+    const gaFolder = dirs.find(dir => dir.toUpperCase().startsWith(gaNumber + '-') || dir.toUpperCase() === gaNumber);
     
-    if (!mdFilePath) {
-      return res.json({ 
-        success: false, 
-        message: 'MD-Datei nicht gefunden',
-        lectureId 
-      });
+    if (!gaFolder) {
+      return res.json({ success: false, message: 'GA-Ordner nicht gefunden', lectureId });
     }
     
-    // Lese die MD-Datei
-    let mdContent = await fs.readFile(mdFilePath, 'utf8');
-    let lines = mdContent.split('\n');
+    const folderPath = path.join(steinerGaPath, gaFolder);
+    const allFiles = await fs.readdir(folderPath);
+    const mdFiles = allFiles.filter(f => f.endsWith('.md'));
     
     let updated = 0;
     let deleted = 0;
+    let filesUpdated = 0;
     
-    // Sammle alle Änderungen mit ihren Zeilen-Indizes
-    const changes = [];
-    
+    // Sammle die Änderungen
+    const paraChanges = [];
     for (const [paragraphIndex, edit] of Object.entries(lectureEdits.paragraphs)) {
       const cleanIndex = paragraphIndex.replace(/^para-/, '').replace(/^\^/, '');
-      
-      // Finde die Zeile mit diesem Index
-      let lineIndex = -1;
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i].includes(`^${cleanIndex}`)) {
-          lineIndex = i;
-          break;
-        }
-      }
-      
-      if (lineIndex === -1) {
-        console.log(`[MD-SYNC] Index ^${cleanIndex} nicht gefunden`);
-        continue;
-      }
-      
-      changes.push({
-        lineIndex,
+      paraChanges.push({
         cleanIndex,
         isDelete: !edit.edited || edit.edited.trim() === '',
         newContent: edit.edited
       });
     }
     
-    // Sortiere nach Zeilen-Index absteigend (von hinten nach vorne)
-    // So verschieben sich die Indizes nicht beim Löschen
-    changes.sort((a, b) => b.lineIndex - a.lineIndex);
-    
-    // Wende Änderungen an
-    for (const change of changes) {
-      if (change.isDelete) {
-        console.log(`[MD-SYNC] Lösche Zeile ${change.lineIndex}: ^${change.cleanIndex}`);
-        lines.splice(change.lineIndex, 1);
-        // Entferne auch eine folgende Leerzeile, falls vorhanden
-        if (lines[change.lineIndex] && lines[change.lineIndex].trim() === '') {
-          lines.splice(change.lineIndex, 1);
+    // Aktualisiere JEDE MD-Datei, die passende Indizes enthält
+    for (const mdFile of mdFiles) {
+      const filePath = path.join(folderPath, mdFile);
+      let mdContent;
+      try {
+        mdContent = await fs.readFile(filePath, 'utf8');
+      } catch (e) { continue; }
+      
+      let lines = mdContent.split('\n');
+      let fileChanged = false;
+      
+      // Sammle Zeilen-Änderungen für diese Datei
+      const fileChanges = [];
+      for (const change of paraChanges) {
+        let lineIndex = -1;
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].includes(`^${change.cleanIndex}`)) {
+            lineIndex = i;
+            break;
+          }
         }
-        deleted++;
-      } else {
-        const newContent = change.newContent.trim();
-        lines[change.lineIndex] = `${newContent} ^${change.cleanIndex}`;
-        console.log(`[MD-SYNC] Aktualisiere Zeile ${change.lineIndex}: ^${change.cleanIndex}`);
-        updated++;
+        if (lineIndex !== -1) {
+          fileChanges.push({ ...change, lineIndex });
+        }
+      }
+      
+      if (fileChanges.length === 0) continue;
+      
+      fileChanges.sort((a, b) => b.lineIndex - a.lineIndex);
+      
+      for (const change of fileChanges) {
+        if (change.isDelete) {
+          lines.splice(change.lineIndex, 1);
+          if (lines[change.lineIndex] && lines[change.lineIndex].trim() === '') {
+            lines.splice(change.lineIndex, 1);
+          }
+          deleted++;
+        } else {
+          lines[change.lineIndex] = `${change.newContent.trim()} ^${change.cleanIndex}`;
+          updated++;
+        }
+        fileChanged = true;
+      }
+      
+      if (fileChanged) {
+        await fs.writeFile(filePath, lines.join('\n'), 'utf8');
+        filesUpdated++;
+        console.log(`[MD-SYNC] ✅ ${mdFile}: ${fileChanges.length} Änderungen`);
       }
     }
     
-    // Speichere die MD-Datei
-    await fs.writeFile(mdFilePath, lines.join('\n'), 'utf8');
-    
-    console.log(`[MD-SYNC] ✅ Synchronisation abgeschlossen: ${updated} aktualisiert, ${deleted} gelöscht`);
+    console.log(`[MD-SYNC] ✅ Synchronisation: ${updated} aktualisiert, ${deleted} gelöscht, ${filesUpdated} Dateien`);
     
     res.json({ 
       success: true, 
       message: `${updated} Absätze aktualisiert, ${deleted} gelöscht`,
       lectureId,
-      mdFilePath,
+      mdFilePath: path.join(folderPath, mdFiles[0]),
       updated,
-      deleted
+      deleted,
+      filesUpdated
     });
     
   } catch (error) {

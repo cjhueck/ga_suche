@@ -1872,6 +1872,15 @@ mark.highlight-pulse { animation: scHighlightPulse 0.6s ease-out; }
 #korrektur-tab .sc-stat-badge.st { background: var(--st-color); }
 #korrektur-tab .sc-stat-badge.sz { background: var(--sz-color); }
 
+#sc-dict-panel .sc-dict-entry {
+  display: flex; justify-content: space-between; align-items: center; padding: 3px 10px; font-size: 0.85rem; border-bottom: 1px solid var(--border-color);
+}
+#sc-dict-panel .sc-dict-entry:hover { background: rgba(70,120,134,0.05); }
+#sc-dict-panel .sc-dict-entry button { background: none; border: none; cursor: pointer; color: #dc2626; font-size: 0.75rem; padding: 2px 6px; }
+#sc-dict-panel .sc-dict-section-header {
+  padding: 4px 10px; font-size: 0.72rem; font-weight: 600; color: var(--secondary-text); background: var(--bg-color); border-bottom: 1px solid var(--border-color);
+}
+
 #korrektur-tab .sc-filters {
   display: flex; gap: 4px; padding: 0.3rem 0;
 }
@@ -1902,36 +1911,29 @@ mark.highlight-pulse { animation: scHighlightPulse 0.6s ease-out; }
   font-size: 0.85em; color: var(--link-color); flex-shrink: 0;
 }
 
-#sc-correction-popup {
-  display: none; position: fixed; z-index: 100002; background: var(--sidebar-bg, #fff); border: 1px solid var(--border-color);
-  border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); padding: 0.8rem; min-width: 240px; max-width: 360px;
+.sc-context-menu {
+  position: fixed; z-index: 100002; background: var(--sidebar-bg, #fff); border: 1px solid var(--border-color);
+  border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); min-width: 200px; max-width: 340px; padding: 4px 0; font-size: 0.85rem;
 }
-#sc-correction-popup .sc-popup-word {
-  font-weight: 600; font-size: 1em; margin-bottom: 0.4rem; color: var(--text-color);
+.sc-context-menu.hidden { display: none; }
+.sc-context-menu .sc-ctx-edit {
+  padding: 6px 10px; display: flex; gap: 4px; align-items: center; margin-bottom: 2px;
 }
-#sc-correction-popup .sc-popup-suggestions {
-  display: flex; flex-direction: column; gap: 3px; margin-bottom: 0.5rem;
+.sc-context-menu .sc-ctx-edit input {
+  flex: 1; padding: 4px 8px; font-size: 0.88em; border: 1px solid var(--border-color); border-radius: 4px;
+  background: var(--background-color); color: var(--text-color); min-width: 0;
 }
-#sc-correction-popup .sc-popup-suggestions button {
-  text-align: left; padding: 5px 8px; border: 1px solid var(--border-color); background: transparent; cursor: pointer; border-radius: 4px; font-size: 0.88em; color: var(--text-color);
+.sc-context-menu .sc-ctx-edit input:focus { border-color: var(--accent-color, var(--link-color)); outline: none; }
+.sc-context-menu .sc-ctx-edit button {
+  padding: 4px 8px; border: none; background: var(--link-color, #467886); color: white;
+  border-radius: 4px; cursor: pointer; font-size: 0.85em; white-space: nowrap;
 }
-#sc-correction-popup .sc-popup-suggestions button:hover { background: rgba(70,120,134,0.1); }
-#sc-correction-popup .sc-popup-manual {
-  display: flex; gap: 4px;
+.sc-context-menu .sc-ctx-edit button:hover { opacity: 0.85; }
+.sc-context-menu .sc-ctx-item {
+  padding: 7px 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-color);
 }
-#sc-correction-popup .sc-popup-manual input {
-  flex: 1; padding: 4px 8px; font-size: 0.88em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--background-color); color: var(--text-color);
-}
-#sc-correction-popup .sc-popup-manual button {
-  padding: 4px 10px; font-size: 0.85em; border: 1px solid var(--link-color); background: var(--link-color); color: white; cursor: pointer; border-radius: 4px;
-}
-#sc-correction-popup .sc-popup-actions {
-  display: flex; gap: 4px; margin-top: 0.4rem; justify-content: flex-end;
-}
-#sc-correction-popup .sc-popup-actions button {
-  padding: 3px 8px; font-size: 0.78em; border: 1px solid var(--border-color); background: transparent; color: var(--secondary-text); cursor: pointer; border-radius: 3px;
-}
-#sc-correction-popup .sc-popup-actions button:hover { background: rgba(0,0,0,0.05); }
+.sc-context-menu .sc-ctx-item:hover { background: rgba(70,120,134,0.08); }
+.sc-context-menu .sc-ctx-sep { height: 1px; background: var(--border-color); margin: 4px 0; }
 
 /* === ENDE RECHTSCHREIBPRÜFUNG === */
 
@@ -7773,11 +7775,11 @@ body.dark-mode .viewer-search-highlight.active {
 <i id="theme-icon" data-lucide="moon"></i>
 </button>
 </div>
-<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
+<div id="sidebar-action-buttons" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen" data-help="help-button">
 <i data-lucide="info"></i>
 </button>
-<button id="spellcheck-editor-button" class="help-button" onclick="window.open('spellcheck-editor.html', '_blank')" title="Rechtschreib-Editor öffnen" data-help="spellcheck-editor" style="display:none;">
+<button id="spellcheck-editor-button" class="help-button" onclick="document.getElementById('korrektur-tab-button').style.display=''; switchTab('korrektur');" title="Korrektur-Tab öffnen" data-help="spellcheck-editor">
 <i data-lucide="spell-check"></i>
 </button>
 <button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none; position: relative;">
@@ -8268,11 +8270,26 @@ Meine Abfragen
 <div class="sc-header">
   <button id="sc-btn-check" onclick="window.runViewerSpellcheck()">Prüfen</button>
   <button id="sc-btn-autocorrect" onclick="window.autoCorrectViewer()" disabled>Auto-Korrektur</button>
+  <button id="sc-btn-undo" onclick="window.scUndo()" disabled title="Letzte Änderung rückgängig machen">↩ Rückgängig</button>
+  <button id="sc-btn-dict" onclick="window.scToggleDictPanel()" title="Wörterbuch anzeigen/verbergen">📖 Wörterbuch</button>
   <div class="sc-stats">
     <span class="sc-stat-badge rf" id="sc-count-rf">RF: 0</span>
     <span class="sc-stat-badge st" id="sc-count-st">ST: 0</span>
     <span class="sc-stat-badge sz" id="sc-count-sz">SZ: 0</span>
   </div>
+</div>
+<div id="sc-dict-panel" style="display: none; border-bottom: 1px solid var(--border-color); padding: 0.5rem 0;">
+  <div style="padding: 0 0.5rem;">
+    <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+      <input type="text" id="sc-dict-add-input" placeholder="Wort hinzufügen…" onkeypress="if(event.key==='Enter') window.scDictAddWord();" style="flex:1; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem;">
+      <button onclick="window.scDictAddWord()" style="padding: 4px 10px; font-size: 0.8rem; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px;">+</button>
+    </div>
+    <input type="text" id="sc-dict-search-input" placeholder="Suchen…" oninput="window.scDictSearchDebounced()" style="width: 100%; padding: 5px 8px; border: 1.5px solid var(--border-color); border-radius: 4px; font-size: 0.82rem; box-sizing: border-box;">
+    <div style="margin-top: 6px; font-size: 0.75rem; color: var(--secondary-text);">
+      <span id="sc-dict-count">0</span> Wörter, <span id="sc-corr-count">0</span> Korrekturen
+    </div>
+  </div>
+  <div id="sc-dict-list" style="overflow-y: auto; max-height: 300px; margin-top: 6px;"></div>
 </div>
 <div class="sc-filters">
   <button class="active" onclick="window.setScErrorFilter('all', this)">Alle</button>
@@ -8285,19 +8302,8 @@ Meine Abfragen
 </div>
 </div>
 
-<!-- Korrektur-Popup (erscheint bei Klick auf markierten Fehler) -->
-<div id="sc-correction-popup">
-  <div class="sc-popup-word" id="sc-popup-word"></div>
-  <div class="sc-popup-suggestions" id="sc-popup-suggestions"></div>
-  <div class="sc-popup-manual">
-    <input type="text" id="sc-popup-input" placeholder="Korrektur eingeben...">
-    <button onclick="window.applyManualScCorrection()">OK</button>
-  </div>
-  <div class="sc-popup-actions">
-    <button onclick="window.scAddToDict()">Wörterbuch +</button>
-    <button onclick="window.hideScPopup()">Schließen</button>
-  </div>
-</div>
+<!-- Korrektur-Kontextmenü (erscheint bei Klick auf markierten Fehler) -->
+<div id="sc-correction-popup" class="sc-context-menu hidden"></div>
 
 <div class="tab-content" id="schlagworte-tab">
 <!-- Neues Schlagwort hinzufügen (nur lokal sichtbar) -->
