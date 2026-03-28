@@ -1195,6 +1195,11 @@ async function loginOverlaySubmit() {
                 msgEl.textContent = 'Diese E-Mail ist bereits registriert.';
                 return;
             }
+            fetch(getApiBase() + '/spellcheck/notify-registration', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            }).catch(() => {});
             if (data.session) {
                 currentUser = data.user;
                 hideLoginOverlay();
