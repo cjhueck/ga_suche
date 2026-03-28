@@ -640,7 +640,7 @@ class SteinerLecturesExporter {
       
       if (stat.isDirectory()) {
         this.findMarkdownFiles(filePath, fileList);
-      } else if (file.endsWith('.md')) {
+      } else if (file.endsWith('.md') && !file.includes('_backup_')) {
         fileList.push(filePath);
       }
     });
@@ -816,8 +816,7 @@ class SteinerLecturesExporter {
 
       const gaNumber = filename.match(/^GA\s*(\d{2,3}[a-z]?)/i)?.[1]?.toUpperCase();
       
-      // GA002-GA050 sind Bücher, nicht Vorträge - ausschließen
-      // Ausnahmen: GA001 wird wie Vortragsband behandelt (5 Texte aus Obsidian)
+      // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA040 wird wie Vortragsband behandelt
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
       // Zusätzliche Ausnahmen: GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
@@ -837,8 +836,6 @@ class SteinerLecturesExporter {
         // BRIEFE: GA262 und GA263a werden wie Vorträge exportiert (NICHT als Bücher!)
         const isGA263a = gaLower === '263a' || gaLower === 'ga263a';
         const isLetterBandCheck = gaNum === 262 || isGA263a;
-        // GA001: Wird wie Vortragsband behandelt (5 Texte aus Obsidian)
-        const isGA001 = gaNum === 1;
         // GA040: Wird wie Vortragsband behandelt
         const isGA040 = gaNum === 40;
         
@@ -847,14 +844,14 @@ class SteinerLecturesExporter {
           contentType = 'letter';
         } else if (isEssayBand) {
           contentType = 'essay';
-        } else if (isGA001 || isGA040) {
-          contentType = 'lecture'; // GA001 und GA040 werden wie Vortragsbände behandelt
+        } else if (isGA040) {
+          contentType = 'lecture';
         }
         
         // Wenn selectedGAs angegeben sind UND diese GA dabei ist, dann exportieren (override)
         const isExplicitlySelected = selectedGAs.length > 0 && selectedGAs.map(g => g.toUpperCase()).includes(`GA${gaNumber.toUpperCase()}`);
-        if (gaNum >= 2 && gaNum <= 50 && !isEssayBand && !isLetterBandCheck && !isGA001 && !isGA040 && !isExplicitlySelected) {
-          continue; // Überspringe GA002-GA050 (werden als Bücher exportiert), außer GA001 und GA040
+        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isLetterBandCheck && !isGA040 && !isExplicitlySelected) {
+          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert), außer GA040
         }
       }
       

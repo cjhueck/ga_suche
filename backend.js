@@ -918,14 +918,10 @@ function isSchriftForStats(gaNumber) {
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Schriften-Band (Buch) ist
-// Bücher: GA002-GA027 (ohne Aufsatzbände GA018, GA019, GA024, GA026) und GA045
-// GA001, GA028 und GA040 werden wie Vortragsbände/Aufsätze behandelt
+// Bücher: GA001-GA027 (ohne Aufsatzbände GA018, GA019, GA024, GA026) und GA045
+// GA028 und GA040 werden wie Vortragsbände/Aufsätze behandelt
 // GA028 wird als Aufsatzband exportiert, aber in Statistik als Buch gezählt
 function isBookGANumberBackend(gaNumber) {
-  // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
-  if (gaNumber && (gaNumber.toUpperCase() === 'GA001' || gaNumber === '1')) {
-    return false;
-  }
   // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNumber && (gaNumber.toUpperCase() === 'GA040' || gaNumber === '40')) {
     return false;
@@ -935,9 +931,9 @@ function isBookGANumberBackend(gaNumber) {
   if (isEssayGANumber(gaNumber)) return false;
   const normalized = String(gaNumber).replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
-  // GA002-GA027 und GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
+  // GA001-GA027 und GA045 sind Bücher (außer Aufsatzbände, die schon oben ausgeschlossen wurden)
   // GA028 wird als Aufsatzband behandelt (bereits oben durch isEssayGANumber ausgeschlossen)
-  return (gaNum >= 2 && gaNum <= 27) || gaNum === 45;
+  return (gaNum >= 1 && gaNum <= 27) || gaNum === 45;
 }
 
 // Hilfsfunktion: Extrahiert GA-Nummer aus Lecture-ID (z.B. "GA078/1" -> "GA078")
@@ -10981,17 +10977,15 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     await applyTextEditsToLecture(bookCopy, bookIdForEdits);
 
     // Speichere Überschriften in summary-database.json für TOC-Anzeige
-    // WICHTIG: Nur für Books (GA002-GA046), niemals Vortrags-Einträge überschreiben!
-    // GA001 wird wie Vortragsband behandelt, daher nicht hier
+    // WICHTIG: Nur für Books (GA001-GA046), niemals Vortrags-Einträge überschreiben!
     const bookId = bookCopy.ID || bookCopy.gaNumber;
     
-    // Prüfe ob es wirklich ein Book ist (GA002-GA046, GA001 ausgeschlossen)
+    // Prüfe ob es wirklich ein Book ist (GA001-GA046)
     const gaMatch = bookId.match(/^GA0?([0-4][0-6]|[0-4][0-9])$/);
     if (!gaMatch) {
       const gaNum = parseInt(bookId.replace('GA', ''));
-      if (gaNum < 2 || gaNum > 46 || gaNum === 1) {
-        console.warn(`[BOOK] ⚠️  ${bookId} ist kein Book (GA002-GA046, GA001 ausgeschlossen) - Überschriften werden NICHT gespeichert`);
-        // Gebe Book trotzdem zurück, aber ohne Überschriften zu speichern
+      if (gaNum < 1 || gaNum > 46) {
+        console.warn(`[BOOK] ⚠️  ${bookId} ist kein Book (GA001-GA046) - Überschriften werden NICHT gespeichert`);
       }
     }
     

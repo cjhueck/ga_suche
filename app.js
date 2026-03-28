@@ -4961,41 +4961,11 @@ function normalizeGANumber(gaNumber) {
             texteGAFilter.value = currentValue;
           }
           
-          // Event-Listener für Texte GA-Filter hinzufügen
-          // Entferne zuerst alle bestehenden Listener durch Klonen des Elements
+          // Entferne alle alten Event-Listener durch Klonen des Elements
           const newTexteGAFilter = texteGAFilter.cloneNode(true);
-          newTexteGAFilter.value = texteGAFilter.value; // Wert beibehalten
+          newTexteGAFilter.value = texteGAFilter.value;
           texteGAFilter.parentNode.replaceChild(newTexteGAFilter, texteGAFilter);
-          
-          // Füge Event-Listener hinzu
-          newTexteGAFilter.addEventListener('change', (e) => {
-            const selectedGA = e.target.value;
-            if (selectedGA) {
-              // Setze Auswahl zurück beim Wechsel des GA-Bands
-              if (typeof selectedLectureIds !== 'undefined') {
-                selectedLectureIds.clear();
-              }
-              if (typeof updateSelectionInfo === 'function') {
-                updateSelectionInfo();
-              }
-              if (typeof openGAOverview === 'function') {
-                openGAOverview(selectedGA);
-              }
-              // Aktualisiere Statistik-Anzeige für ausgewählten Band
-              if (typeof updateTexteServerInfo === 'function') {
-                updateTexteServerInfo();
-              }
-            } else {
-              // Filter zurückgesetzt: Zeige Gesamtstatistik
-              if (typeof updateTexteServerInfo === 'function') {
-                updateTexteServerInfo();
-              }
-            }
-            // Aktualisiere Button-Status (für Keywords-Regeneration)
-            if (typeof updateButtonStates === 'function') {
-              updateButtonStates();
-            }
-          });
+          // Listener wird ausschließlich über initGAFilter() registriert
           
           }
         
@@ -5062,7 +5032,8 @@ function normalizeGANumber(gaNumber) {
       const texteGAFilter = document.getElementById('texteGAFilter');
 
       // Texte-Tab: Direkt GA-Übersicht öffnen bei Auswahl
-      if (texteGAFilter) {
+      if (texteGAFilter && !texteGAFilter._gaFilterInitialized) {
+        texteGAFilter._gaFilterInitialized = true;
         texteGAFilter.addEventListener('change', (e) => {
           const selectedGA = e.target.value;
           if (selectedGA) {
@@ -6978,9 +6949,7 @@ function isBookGANumber(gaNumber) {
     return false;
   }
   
-  // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
-  if (gaNum === 1) return false;
   // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
   if (gaNum === 40) return false;
   
@@ -6995,7 +6964,7 @@ function isBookGANumber(gaNumber) {
   }
   // Prüfe auch mit isEssayGANumber (doppelte Sicherheit)
   if (typeof isEssayGANumber === 'function' && isEssayGANumber(gaNumber)) return false;
-  return gaNum >= 2 && gaNum <= 46;
+  return gaNum >= 1 && gaNum <= 46;
 }
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Briefband ist (GA262, GA263a)
@@ -7334,7 +7303,21 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
 }
 
 // Funktion: Rendert ein Book (Schrift)
+let _displayBookLoading = null;
 async function displayBook(book, highlightHeadingId = null, keywords = [], isPhraseArray = [], targetIndex = null) {
+  const bookId = book?.gaNumber || book?.ID || book;
+  if (_displayBookLoading === bookId) {
+    console.log(`[DISPLAY-BOOK] Doppelter Aufruf für ${bookId} unterdrückt`);
+    return;
+  }
+  _displayBookLoading = bookId;
+  try {
+  return await _displayBookImpl(book, highlightHeadingId, keywords, isPhraseArray, targetIndex);
+  } finally {
+    _displayBookLoading = null;
+  }
+}
+async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], isPhraseArray = [], targetIndex = null) {
   // Aktualisiere Statistik-Anzeige (Bücher: keine Statistik)
   if (typeof updateTexteServerInfo === 'function') {
     updateTexteServerInfo();
@@ -8878,7 +8861,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
 function scrollToHeading(headingId) {
   const headingElement = document.getElementById(headingId);
   if (headingElement) {
-    headingElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
     // Markiere kurz
     const originalBg = headingElement.style.backgroundColor;
     headingElement.style.backgroundColor = 'var(--highlight-color)';
@@ -9138,7 +9121,7 @@ function convertFootnotesToLinks() {
           const footnote = document.getElementById(`fn${part.id}`);
           if (footnote) {
             // Scrolle zur Fußnote mit etwas Abstand oben
-            footnote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            footnote.scrollIntoView({ behavior: 'auto', block: 'center' });
             const originalBg = footnote.style.backgroundColor;
             footnote.style.backgroundColor = 'var(--highlight-color)';
             setTimeout(() => {
@@ -9233,8 +9216,7 @@ function convertFootnotesToLinks() {
       const targetId = backlink.getAttribute('href').substring(1);
       const target = document.getElementById(targetId);
       if (target) {
-        // Scrolle zurück zur Referenz mit etwas Abstand oben
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.scrollIntoView({ behavior: 'auto', block: 'center' });
       }
     });
   });
@@ -9255,8 +9237,7 @@ function activateFootnoteLinks() {
       if (targetId) {
         const footnote = document.getElementById(targetId);
         if (footnote) {
-          footnote.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Markiere kurz
+          footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
           const originalBg = footnote.style.backgroundColor;
           footnote.style.backgroundColor = 'var(--highlight-color)';
           setTimeout(() => {
@@ -9281,7 +9262,7 @@ function activateFootnoteLinks() {
       backlinkEl.style.marginLeft = '0.5rem';
       backlinkEl.addEventListener('click', (e) => {
         e.preventDefault();
-        backlink.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        backlink.scrollIntoView({ behavior: 'auto', block: 'start' });
       });
       fn.appendChild(backlinkEl);
     }
@@ -9407,9 +9388,9 @@ async function showGALectures(gaNumber, skipHistory = false) {
     viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
     
     // Prüfe ob es ein Book (Schrift) ist
-    // WICHTIG: GA001, GA018, GA028 sind Aufsatzbände und werden NICHT als Bücher behandelt
+    // GA018, GA028 sind Aufsatzbände und werden NICHT als Bücher behandelt
     const gaNumForBookCheck = parseInt(gaNumber.replace(/^GA/i, ''));
-    const isDefinitelyNotABook = gaNumForBookCheck === 1 || gaNumForBookCheck === 18 || gaNumForBookCheck === 28 || isEssayGANumber(gaNumber);
+    const isDefinitelyNotABook = gaNumForBookCheck === 18 || gaNumForBookCheck === 28 || isEssayGANumber(gaNumber);
     
     if (!isDefinitelyNotABook && isBookGANumber(gaNumber)) {
       // Lade Book-Daten
@@ -9445,12 +9426,12 @@ async function showGALectures(gaNumber, skipHistory = false) {
     let html = '<div class="ga-lectures-container" style="padding: 0 2rem 2rem 0; max-width: 900px;">';
     
     // Aufsatzbände - keine "Keine Kurzzusammenfassung" Meldung anzeigen
-    // GA001, GA018, GA028, GA029-GA037, GA040, GA040a, GA042, GA043, GA044
+    // GA018, GA028, GA029-GA037, GA040, GA040a, GA042, GA043, GA044
     const gaNum = parseInt(gaNumber.replace(/^GA/i, ''));
-    const isEssayBand = gaNum === 1 || gaNum === 18 || gaNum === 28 || gaNum === 40 || isEssayGANumber(gaNumber);
+    const isEssayBand = gaNum === 18 || gaNum === 28 || gaNum === 40 || isEssayGANumber(gaNumber);
     
-    // Prüfe ob GA001, GA018 oder GA028 - zeigt Inhaltsverzeichnis für jeden Aufsatz
-    const showTableOfContents = gaNum === 1 || gaNum === 18 || gaNum === 28;
+    // Prüfe ob GA018 oder GA028 - zeigt Inhaltsverzeichnis für jeden Aufsatz
+    const showTableOfContents = gaNum === 18 || gaNum === 28;
     
     let currentYear = null;
     lectures.forEach(lecture => {
@@ -9997,7 +9978,7 @@ async function displayGAOverview(data) {
   // Passender Text je nach GA-Typ (Vortrag/Aufsatz/Band)
   const itemTypeName = getGATypeName(data.gaNumber, false);
   let selectItemText;
-  if (data.gaNumber === 'GA001' || data.gaNumber === 'GA028') {
+  if (data.gaNumber === 'GA028') {
     selectItemText = 'einen Band';
   } else if (data.gaNumber === 'GA018') {
     selectItemText = 'einen Band oder Abschnitt';
@@ -11321,7 +11302,7 @@ function scrollToChronologicalYear(year) {
               setTimeout(function() {
                 var firstMark = document.querySelector('#viewer mark');
                 if (firstMark) {
-                  firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  firstMark.scrollIntoView({ behavior: 'auto', block: 'center' });
                 }
               }, 500);
             }
@@ -12127,7 +12108,7 @@ function scrollToChronologicalYear(year) {
     
     async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
       
-      // Prüfe ob es ein Buch ist (GA002-GA046, GA001 wird wie Vortragsband behandelt)
+      // Prüfe ob es ein Buch ist (GA001-GA046)
       // Extrahiere GA-Nummer aus lectureId (z.B. "GA001/1" -> "GA001")
       const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
       if (gaMatch) {
@@ -17014,7 +16995,7 @@ function scrollToChronologicalYear(year) {
                 const cleanIndex = index.replace(/^\^/, '');
                 const targetElement = viewer.querySelector(`[data-index="${cleanIndex}"], [data-index="^${cleanIndex}"], [id="${cleanIndex}"], [id="^${cleanIndex}"]`);
                 if (targetElement) {
-                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
                   // Highlight
                   targetElement.style.backgroundColor = 'rgba(255, 200, 0, 0.3)';
                   setTimeout(() => {
@@ -20648,7 +20629,20 @@ function formatAsteriskParagraphs() {
       setTimeout(() => msgDiv.remove(), 3000);
     }
 
+    let _showLectureLoading = null;
     async function showLecture(lectureId, targetIndex, keywords = [], isPhraseArray = [], skipHistory = false) {
+  if (_showLectureLoading === lectureId) {
+    console.log(`[SHOW-LECTURE] Doppelter Aufruf für ${lectureId} unterdrückt`);
+    return;
+  }
+  _showLectureLoading = lectureId;
+  try {
+  return await _showLectureImpl(lectureId, targetIndex, keywords, isPhraseArray, skipHistory);
+  } finally {
+    _showLectureLoading = null;
+  }
+  }
+    async function _showLectureImpl(lectureId, targetIndex, keywords = [], isPhraseArray = [], skipHistory = false) {
   // Bereichs-Markierung: Lese End-Index aus temporärer Variable (vom URL-Parser gesetzt)
   // und setze zurück, damit nachfolgende Navigationen keinen falschen Bereich markieren
   lastHighlightedEndIndex = window._pendingHighlightEndIndex || null;
@@ -22143,7 +22137,7 @@ async function exportCurrentGA() {
   
   // Scrolle zum Viewer und stelle sicher, dass er sichtbar ist
   viewer.scrollTop = 0;
-  viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  viewer.scrollIntoView({ behavior: 'auto', block: 'start' });
   
   try {
     // Rufe Backend-API für Export auf
@@ -23451,7 +23445,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (link.textContent.trim() === cleanText || 
               link.textContent.trim().includes(cleanText) || 
               cleanText.includes(link.textContent.trim())) {
-            link.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            link.scrollIntoView({ behavior: 'auto', block: 'start' });
             return;
           }
         }
@@ -23473,7 +23467,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       if (!targetEntry) return;
       
-      targetEntry.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      targetEntry.scrollIntoView({ behavior: 'auto', block: 'start' });
     }
 
     /**
@@ -25273,9 +25267,9 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       if (targetPara) {
         // Bei Fallback: zum Seitenanfang scrollen (Seitenzahlen stehen am Anfang der Seite)
         if (pageBreakNumForScroll) {
-          pageBreakNumForScroll.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          pageBreakNumForScroll.scrollIntoView({ behavior: 'auto', block: 'start' });
         } else {
-          targetPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          targetPara.scrollIntoView({ behavior: 'auto', block: 'center' });
         }
         
         setTimeout(function() {
@@ -25418,7 +25412,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                   console.log('[OBSIDIAN-GA] ? Suchworte markiert (gepunktete Unterstreichung):', actualText);
                   // Scrolle zu den Suchworten (Hauptziel), damit sie sichtbar sind
                   var markedEl = pTag.querySelector('.obsidian-first-words');
-                  if (markedEl) markedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  if (markedEl) markedEl.scrollIntoView({ behavior: 'auto', block: 'center' });
                 } else {
                   console.log('[OBSIDIAN-GA] ? Konnte Zitatanfang nicht im HTML finden');
                   console.log('[OBSIDIAN-GA] 💡 Versuche ohne Seitenmarker-Logik...');
@@ -25445,7 +25439,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                     pTag.innerHTML = markedHTML;
                     console.log('[OBSIDIAN-GA] ? Suchworte markiert (einfache Methode):', actualText);
                     var markedEl = pTag.querySelector('.obsidian-first-words');
-                    if (markedEl) markedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    if (markedEl) markedEl.scrollIntoView({ behavior: 'auto', block: 'center' });
                   }
                 }
               } else {
@@ -28412,7 +28406,7 @@ async function addBatchKeywords() {
     }
     
     // Scroll zum aktiven Element
-    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    statusEl.scrollIntoView({ behavior: 'auto', block: 'nearest' });
   };
   
   try {
@@ -28997,7 +28991,7 @@ function scrollToKeyword(keyword) {
     if (entry.textContent.trim().toLowerCase() === keyword.toLowerCase()) {
       const container = entry.closest('.keyword-entry');
       if (container) {
-        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        container.scrollIntoView({ behavior: 'auto', block: 'center' });
         // Kurzes Highlight
         container.style.transition = 'background-color 0.3s';
         container.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
@@ -30035,7 +30029,7 @@ async function showLectureInTimeline(lectureId, targetIndex = null, keyword = nu
           const cleanIndex = targetIndex.replace(/^\^/, '');
           const paraElement = viewerContent.querySelector(`#para-${cleanIndex}`);
           if (paraElement) {
-            paraElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            paraElement.scrollIntoView({ behavior: 'auto', block: 'start' });
             // Highlighting hinzufügen
             paraElement.style.backgroundColor = '#fff3cd';
             paraElement.style.borderLeft = '4px solid #ffc107';
@@ -30199,7 +30193,7 @@ function searchKeywordInCurrentLecture() {
     // Scrolle zum ersten gefundenen Element
     const firstMark = viewerContent.querySelector('mark');
     if (firstMark) {
-      firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      firstMark.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
     
     // Zeige Erfolgsmeldung
@@ -30439,7 +30433,7 @@ function scrollToParagraphFromURL() {
         mainContainer.scrollTop = Math.max(0, relativeTop);
       } else {
         // Fallback: Standard scrollIntoView
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
       }
       
       // Highlighting (wie in scrollToIndexInViewer)
@@ -31200,7 +31194,7 @@ async function showMapsInViewer() {
           const el = id ? document.getElementById(id) : null;
           if (el) {
             e.preventDefault();
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            el.scrollIntoView({ behavior: 'auto', block: 'start' });
           }
         });
       });
@@ -31239,7 +31233,7 @@ async function showMapsInViewer() {
         frag = decodeURIComponent(hash).replace(/\+/g, ' ');
       }
       const scrollEl = frag ? document.getElementById(frag) : null;
-      if (scrollEl) scrollEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (scrollEl) scrollEl.scrollIntoView({ behavior: 'auto', block: 'start' });
     } catch (e) {
       resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Inhalt konnte nicht geladen werden. Pfad in backend.js prüfen.</div>';
     }
@@ -31762,7 +31756,7 @@ function scrollToDocsSection(sectionId) {
   if (viewer) {
     const section = viewer.querySelector('#' + sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      section.scrollIntoView({ behavior: 'auto', block: 'start' });
       return false;
     }
   }
@@ -31770,7 +31764,7 @@ function scrollToDocsSection(sectionId) {
   // Fallback: Suche im gesamten Dokument
   const section = document.getElementById(sectionId);
   if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    section.scrollIntoView({ behavior: 'auto', block: 'start' });
   }
   return false;
 }
@@ -37613,9 +37607,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   const originalIsBookGANumber = window.isBookGANumber || isBookGANumber;
   window.isBookGANumber = function(gaNumber) {
     if (!gaNumber) return false;
-    // GA001 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
     const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
-    if (gaNum === 1) return false;
     // GA040 wird jetzt wie ein Vortragsband behandelt (nicht als Buch)
     if (gaNum === 40) return false;
     const normalized = gaNumber.toUpperCase().replace(/^GA(\d)$/, 'GA00$1').replace(/^GA(\d{2})$/, 'GA0$1');
@@ -39658,7 +39650,7 @@ window.cancelTextEditMode = function() {};
 
     const mark = document.querySelector(`#viewer-content mark[data-pos="${pos}"]`);
     if (!mark) return;
-    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    mark.scrollIntoView({ behavior: 'auto', block: 'center' });
     mark.classList.add('sc-focused');
 
     const item = document.querySelector(`#sc-error-list .sc-error-item[data-pos="${pos}"]`);
@@ -40963,7 +40955,7 @@ window.cancelTextEditMode = function() {};
     
     if (targetMarker) {
       // Scroll sanft zum Marker
-      targetMarker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetMarker.scrollIntoView({ behavior: 'auto', block: 'center' });
       
       // Kurz hervorheben (visuelles Feedback)
       targetMarker.style.transition = 'background-color 0.3s ease';
