@@ -14135,10 +14135,29 @@ app.post('/api/export/ga', async (req, res) => {
             
             console.log(`[EXPORT] ${lectureCount} Vorträge aus ${normalizedGA} in Memory geladen`);
           } else {
-            // Bücher - zähle exportierte Dateien
+            // Bücher - lade exportierte Dateien in Memory nach
             const booksDir = path.join(__dirname, 'steiner-books');
             files = fsSync.readdirSync(booksDir)
               .filter(f => f.includes(gaNum.padStart(3, '0')) && f.endsWith('.json'));
+            
+            let bookCount = 0;
+            for (const file of files) {
+              try {
+                const filePath = path.join(booksDir, file);
+                const data = JSON.parse(fsSync.readFileSync(filePath, 'utf8'));
+                const books = data.books || [];
+                for (const book of books) {
+                  const bookId = (book.ID || book.gaNumber || '').toUpperCase();
+                  if (bookId) {
+                    fullBooks[bookId] = book;
+                    bookCount++;
+                  }
+                }
+              } catch (bookErr) {
+                console.warn(`[EXPORT] Warnung beim Laden von ${file}: ${bookErr.message}`);
+              }
+            }
+            console.log(`[EXPORT] ${bookCount} Bücher aus ${normalizedGA} in Memory nachgeladen`);
           }
         } catch (loadErr) {
           console.warn(`[EXPORT] Warnung beim Nachladen: ${loadErr.message}`);
@@ -24242,15 +24261,16 @@ async function saveTextEditsDatabase(editsDB) {
 // ============================================================================
 
 async function findMdFileForLecture(lectureId) {
-  // Extrahiere GA-Nummer und Vortragsnummer aus lectureId (z.B. "GA174a/1")
-  const match = lectureId.match(/^(GA\d{3}[a-z]?)\/(\d+)$/i);
+  // Extrahiere GA-Nummer und optionale Vortragsnummer aus lectureId
+  // Unterstützt sowohl "GA174a/1" (Vorträge) als auch "GA005" (Bücher)
+  const match = lectureId.match(/^(GA\d{3}[a-z]?)(\/(\d+))?$/i);
   if (!match) {
     console.log(`[MD-UPDATE] Konnte lectureId nicht parsen: ${lectureId}`);
     return null;
   }
   
   const gaNumber = match[1].toUpperCase();
-  const lectureNum = match[2];
+  const lectureNum = match[3]; // undefined für Bücher
   
   // Finde den Ordner für diese GA-Nummer
   const steinerGaPath = path.join(__dirname, 'Steiner_GA');
@@ -24272,18 +24292,30 @@ async function findMdFileForLecture(lectureId) {
     const folderPath = path.join(steinerGaPath, gaFolder);
     const files = await fs.readdir(folderPath);
     
-    // Suche nach der MD-Datei für diese Vortragsnummer
-    // Format: "GA174a (1.) ERSTER VORTRAG, München, 13. September 1914.md"
-    const mdFile = files.find(file => {
-      if (!file.endsWith('.md')) return false;
-      const fileUpper = file.toUpperCase();
-      // Muster: GA174A (1.) oder GA174a (1.)
-      const pattern = new RegExp(`^${gaNumber}\\s*\\(${lectureNum}\\.\\)`, 'i');
-      return pattern.test(file);
-    });
-    
-    if (mdFile) {
-      return path.join(folderPath, mdFile);
+    if (lectureNum) {
+      // Vortrag: Suche nach der MD-Datei für diese Vortragsnummer
+      // Format: "GA174a (1.) ERSTER VORTRAG, München, 13. September 1914.md"
+      const mdFile = files.find(file => {
+        if (!file.endsWith('.md')) return false;
+        const pattern = new RegExp(`^${gaNumber}\\s*\\(${lectureNum}\\.\\)`, 'i');
+        return pattern.test(file);
+      });
+      
+      if (mdFile) {
+        return path.join(folderPath, mdFile);
+      }
+    } else {
+      // Buch: Suche nach Hauptdatei (Format: "GAXXX - Titel (Jahr).md")
+      const mdFile = files.find(file => {
+        if (!file.endsWith('.md')) return false;
+        if (file.includes('_backup_')) return false;
+        const pattern = new RegExp(`^${gaNumber}\\s*-\\s*.+\\.md$`, 'i');
+        return pattern.test(file);
+      });
+      
+      if (mdFile) {
+        return path.join(folderPath, mdFile);
+      }
     }
     
     console.log(`[MD-UPDATE] Keine MD-Datei gefunden für ${lectureId} in ${folderPath}`);
@@ -24297,6 +24329,7 @@ async function findMdFileForLecture(lectureId) {
 
 async function updateSingleMdFile(filePath, cleanIndex, newContent) {
   const mdContent = await fs.readFile(filePath, 'utf8');
+  const originalSize = mdContent.length;
   const lines = mdContent.split('\n');
   let lineIndex = -1;
   
@@ -24323,7 +24356,19 @@ async function updateSingleMdFile(filePath, cleanIndex, newContent) {
     }
   }
   
-  await fs.writeFile(filePath, lines.join('\n'), 'utf8');
+  const newFileContent = lines.join('\n');
+  const sizeDiff = Math.abs(newFileContent.length - originalSize);
+  if (sizeDiff > originalSize * 0.1 && originalSize > 1000) {
+    console.error(`[MD-UPDATE] ABBRUCH: Dateigröße würde sich um ${sizeDiff} Zeichen ändern (${originalSize} → ${newFileContent.length}). Einzelparagraph-Edit sollte max. ~10% ändern.`);
+    return false;
+  }
+
+  const backupsDir = path.join(path.dirname(filePath), '.backups');
+  await fs.mkdir(backupsDir, { recursive: true });
+  const backupName = path.basename(filePath, '.md') + `_backup_${new Date().toISOString().replace(/[:.]/g, '-')}.md`;
+  await fs.writeFile(path.join(backupsDir, backupName), mdContent, 'utf8');
+
+  await fs.writeFile(filePath, newFileContent, 'utf8');
   return true;
 }
 
@@ -24331,7 +24376,7 @@ async function updateMarkdownFile(lectureId, paragraphIndex, newContent) {
   try {
     const cleanIndex = paragraphIndex.replace(/^para-/, '').replace(/^\^/, '');
     
-    const match = lectureId.match(/^(GA\d{3}[a-z]?)\/(\d+)$/i);
+    const match = lectureId.match(/^(GA\d{3}[a-z]?)(\/\d+)?$/i);
     if (!match) {
       return { success: false, error: 'lectureId nicht parsbar' };
     }
@@ -24407,7 +24452,7 @@ app.post('/api/text-edits/sync-to-md/:lectureId', async (req, res) => {
     }
     
     // Finde ALLE MD-Dateien im GA-Ordner
-    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)\/(\d+)$/i);
+    const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)(\/\d+)?$/i);
     if (!gaMatch) {
       return res.json({ success: false, message: 'lectureId nicht parsbar', lectureId });
     }

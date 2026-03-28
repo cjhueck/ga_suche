@@ -7360,6 +7360,12 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   const documentTitle = document.getElementById('document-title');
   const mainContainer = document.getElementById('main');
   
+  // Buch-ID tracken (für Korrektur-Pipeline: Rückschreiben in MD-Dateien)
+  const currentBookId = book.gaNumber || book.ID;
+  if (currentBookId) {
+    window.currentOpenLectureId = currentBookId;
+  }
+  
   // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
   if (viewer) {
     viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
@@ -7884,6 +7890,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         return placeholder;
       });
       
+      // Schütze Seitenmarker |47| vor marked.parse() (GFM interpretiert Pipes als Tabellensyntax)
+      const rpPageMarkerPlaceholders = [];
+      content = content.replace(/\|(\d{1,4})\|/g, (match, num) => {
+        const placeholder = `@@PAGE_MARKER_${num}@@`;
+        rpPageMarkerPlaceholders.push({ placeholder, original: match });
+        return placeholder;
+      });
       
       // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
       if (typeof marked !== 'undefined') {
@@ -7934,6 +7947,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
           });
         }
+        
+        // Stelle Seitenmarker wieder her (nach marked.parse())
+        rpPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
+          content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
+        });
         
         // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
         content = convertUnderscoreItalics(content);
@@ -8173,6 +8191,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       return placeholder;
     });
     
+    // Schütze Seitenmarker |47| vor marked.parse() (GFM interpretiert Pipes als Tabellensyntax)
+    const bookPageMarkerPlaceholders = [];
+    content = content.replace(/\|(\d{1,4})\|/g, (match, num) => {
+      const placeholder = `@@PAGE_MARKER_${num}@@`;
+      bookPageMarkerPlaceholders.push({ placeholder, original: match });
+      return placeholder;
+    });
+    
     // Konfiguriere marked für Fußnoten und Überschriften-IDs
     if (typeof marked !== 'undefined') {
       if (marked.setOptions) {
@@ -8211,6 +8237,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
         });
       }
+      
+      // Stelle Seitenmarker wieder her (nach marked.parse())
+      bookPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
+        content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
+      });
       
       // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
       content = convertUnderscoreItalics(content);
@@ -12308,6 +12339,14 @@ function scrollToChronologicalYear(year) {
               return placeholder;
             });
             
+            // Schütze Seitenmarker |47| vor marked.parse() (GFM interpretiert Pipes als Tabellensyntax)
+            const searchPageMarkerPlaceholders = [];
+            content = content.replace(/\|(\d{1,4})\|/g, (match, num) => {
+              const placeholder = `@@PAGE_MARKER_${num}@@`;
+              searchPageMarkerPlaceholders.push({ placeholder, original: match });
+              return placeholder;
+            });
+            
             // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
             if (typeof marked !== 'undefined' && marked.parse) {
               content = marked.parse(content, { breaks: true, gfm: true });
@@ -12326,6 +12365,11 @@ function scrollToChronologicalYear(year) {
               content = content.replace(`<p>${placeholder}\n</p>`, original);
               content = content.replace(`<p>\n${placeholder}</p>`, original);
               content = content.replace(placeholder, original);
+            });
+            
+            // Stelle Seitenmarker wieder her (nach marked.parse())
+            searchPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
+              content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
             });
             
             // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
@@ -12783,6 +12827,14 @@ function scrollToChronologicalYear(year) {
           // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
           fullContent = preprocessObsichanLineBreaks(fullContent);
           
+          // Schütze Seitenmarker |47| vor marked.parse() (GFM interpretiert Pipes als Tabellensyntax)
+          const fullContentPageMarkerPlaceholders = [];
+          fullContent = fullContent.replace(/\|(\d{1,4})\|/g, (match, num) => {
+            const placeholder = `@@PAGE_MARKER_${num}@@`;
+            fullContentPageMarkerPlaceholders.push({ placeholder, original: match });
+            return placeholder;
+          });
+          
           // Konvertiere Markdown zu HTML (wie im Tab "Texte")
           if (typeof marked !== 'undefined') {
             if (marked.setOptions) {
@@ -12804,6 +12856,11 @@ function scrollToChronologicalYear(year) {
               fullContent = marked(fullContent, markedOpts);
             }
           }
+          
+          // Stelle Seitenmarker wieder her (nach marked.parse())
+          fullContentPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
+            fullContent = fullContent.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
+          });
           
           // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
           fullContent = convertPageMarkers(fullContent);
@@ -19438,6 +19495,14 @@ function showSummaryView() {
       console.log(`[IMG-EXTRACT] Enthält Platzhalter:`, content.includes('@@IMG_TAG_PLACEHOLDER_'));
     }
     
+    // Schütze Seitenmarker |47| vor marked.parse() (GFM interpretiert Pipes als Tabellensyntax)
+    const pageMarkerPlaceholders = [];
+    content = content.replace(/\|(\d{1,4})\|/g, (match, num) => {
+      const placeholder = `@@PAGE_MARKER_${num}@@`;
+      pageMarkerPlaceholders.push({ placeholder, original: match });
+      return placeholder;
+    });
+    
     // Schütze Text in <> vor HTML-Interpretation
     content = protectAngleBrackets(content);
     
@@ -19587,6 +19652,11 @@ function showSummaryView() {
         });
       }
     }
+    
+    // Stelle Seitenmarker wieder her (nach marked.parse())
+    pageMarkerPlaceholders.forEach(({ placeholder, original }) => {
+      content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
+    });
     
     // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
     content = convertUnderscoreItalics(content);
@@ -24064,6 +24134,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             return placeholder;
           });
           
+          // Schütze Seitenmarker |47| vor marked.parse() (GFM interpretiert Pipes als Tabellensyntax)
+          const thematicPageMarkerPlaceholders = [];
+          content = content.replace(/\|(\d{1,4})\|/g, (match, num) => {
+            const placeholder = `@@PAGE_MARKER_${num}@@`;
+            thematicPageMarkerPlaceholders.push({ placeholder, original: match });
+            return placeholder;
+          });
+          
           // Schütze Text in <> vor HTML-Interpretation
           content = protectAngleBrackets(content);
           
@@ -24144,6 +24222,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               content = content.replace(regex, original);
             });
           }
+          
+          // Stelle Seitenmarker wieder her (nach marked.parse())
+          thematicPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
+            content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
+          });
           
           // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
           content = convertUnderscoreItalics(content);
@@ -24926,8 +25009,23 @@ window.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('DOMContentLoaded', function() {
   let hash = window.location.hash.substring(1); // Entferne das #
   
-  // Parse Query-Parameter aus dem Hash (z.B. "texte&lecture=GA052/15&p=42")
+  // Parse Query-Parameter aus dem Hash
+  // Unterstützt sowohl "texte&lecture=GA005" als auch "texte?lecture=GA005"
   let queryParams = {};
+  
+  // Zuerst ?-Parameter extrahieren (z.B. "texte?lecture=GA005&p=42")
+  if (hash && hash.includes('?')) {
+    const qParts = hash.split('?');
+    hash = qParts[0];
+    qParts.slice(1).join('?').split('&').forEach(part => {
+      const [key, value] = part.split('=');
+      if (key && value) {
+        queryParams[key] = decodeURIComponent(value);
+      }
+    });
+  }
+  
+  // Dann &-Parameter (z.B. "texte&lecture=GA052/15&p=42")
   if (hash && hash.includes('&')) {
     const parts = hash.split('&');
     hash = parts[0];
@@ -24937,11 +25035,6 @@ window.addEventListener('DOMContentLoaded', function() {
         queryParams[key] = decodeURIComponent(value);
       }
     });
-  }
-  
-  // Entferne auch alte ?-Parameter aus dem Hash (z.B. "schlagworte?letter=M" -> "schlagworte")
-  if (hash && hash.includes('?')) {
-    hash = hash.split('?')[0];
   }
   
   if (hash) {
@@ -25399,8 +25492,21 @@ window.addEventListener('hashchange', function() {
   let hash = window.location.hash.substring(1);
   if (!hash) return;
   
-  // Parse &-Parameter aus dem Hash
+  // Parse Query-Parameter aus dem Hash
+  // Unterstützt sowohl "texte&lecture=GA005" als auch "texte?lecture=GA005"
   let queryParams = {};
+  
+  // Zuerst ?-Parameter extrahieren
+  if (hash.includes('?')) {
+    const qParts = hash.split('?');
+    hash = qParts[0];
+    qParts.slice(1).join('?').split('&').forEach(part => {
+      const [key, value] = part.split('=');
+      if (key && value) queryParams[key] = decodeURIComponent(value);
+    });
+  }
+  
+  // Dann &-Parameter
   if (hash.includes('&')) {
     const parts = hash.split('&');
     hash = parts[0];
@@ -25408,11 +25514,6 @@ window.addEventListener('hashchange', function() {
       const [key, value] = part.split('=');
       if (key && value) queryParams[key] = decodeURIComponent(value);
     });
-  }
-  
-  // Auch ?-Parameter entfernen
-  if (hash.includes('?')) {
-    hash = hash.split('?')[0];
   }
   
   if (!hash) return;
@@ -39358,6 +39459,14 @@ window.cancelTextEditMode = function() {};
       if (node.nodeType === Node.TEXT_NODE) {
         text += node.textContent;
       } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // Seitenmarker: Originalformat |Zahl| rekonstruieren statt sichtbaren Text zu extrahieren
+        if (node.classList && node.classList.contains('page-break-container')) {
+          const numEl = node.querySelector('.page-break-num');
+          if (numEl) {
+            text += '|' + numEl.textContent + '|';
+            continue;
+          }
+        }
         const style = window.getComputedStyle(node);
         if (style.display !== 'none' && style.visibility !== 'hidden') {
           text += getVisibleText(node);
@@ -39525,7 +39634,7 @@ window.cancelTextEditMode = function() {};
     }
     list.innerHTML = filtered.map((e, i) => {
       const suggText = e.type === 'st' && e.joined ? e.joined : '';
-      return `<div class="sc-error-item" data-idx="${i}" onclick="window.scrollToScError(${e.position})">
+      return `<div class="sc-error-item" data-idx="${i}" data-pos="${e.position}" onclick="window.scrollToScError(${e.position})">
         <span class="sc-error-badge ${e.type}">${e.type}</span>
         <span class="sc-error-word">${escHtml(e.word)}</span>
         ${suggText ? `<span class="sc-error-suggestion">\u2192 ${escHtml(suggText)}</span>` : ''}
@@ -39542,11 +39651,18 @@ window.cancelTextEditMode = function() {};
   };
 
   window.scrollToScError = function(pos) {
+    const prev = document.querySelector('#viewer-content mark.sc-focused');
+    if (prev) prev.classList.remove('sc-focused');
+    const prevItem = document.querySelector('#sc-error-list .sc-error-item.active');
+    if (prevItem) prevItem.classList.remove('active');
+
     const mark = document.querySelector(`#viewer-content mark[data-pos="${pos}"]`);
     if (!mark) return;
     mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    mark.classList.add('highlight-pulse');
-    setTimeout(() => mark.classList.remove('highlight-pulse'), 700);
+    mark.classList.add('sc-focused');
+
+    const item = document.querySelector(`#sc-error-list .sc-error-item[data-pos="${pos}"]`);
+    if (item) item.classList.add('active');
   };
 
   function scGetAutoSuggestion(word) {
@@ -39594,6 +39710,7 @@ window.cancelTextEditMode = function() {};
     items += `<div class="sc-ctx-sep"></div>`;
 
     items += `<div class="sc-ctx-item" onclick="window.scAddToDict()">\uD83D\uDCD6 Zum W\u00f6rterbuch</div>`;
+    items += `<div class="sc-ctx-item" onclick="window.scDeleteMark()">\uD83D\uDDD1\uFE0F L\u00f6schen</div>`;
     items += `<div class="sc-ctx-item" onclick="window.scIgnore()">\u23ED Ignorieren</div>`;
 
     menu.innerHTML = items;
@@ -39629,6 +39746,7 @@ window.cancelTextEditMode = function() {};
   };
 
   document.addEventListener('click', (e) => {
+    if (scSelectionJustMade) { scSelectionJustMade = false; return; }
     const menu = document.getElementById('sc-correction-popup');
     if (menu && !menu.classList.contains('hidden') && !menu.contains(e.target) && !e.target.closest('mark') && !e.target.closest('[data-word-edit]')) {
       if (scWordEditTarget) {
@@ -39641,6 +39759,7 @@ window.cancelTextEditMode = function() {};
 
   // === DOPPELKLICK-WORTBEARBEITUNG ===
   let scWordEditTarget = null;
+  let scSelectionJustMade = false;
 
   document.addEventListener('dblclick', function(e) {
     const korrekturTab = document.getElementById('korrektur-tab');
@@ -39670,14 +39789,54 @@ window.cancelTextEditMode = function() {};
     }
   });
 
+  // === MEHRWORT-AUSWAHL per Maus-Selektion ===
+  document.addEventListener('mouseup', function(e) {
+    const korrekturTab = document.getElementById('korrektur-tab');
+    if (!korrekturTab || !korrekturTab.classList.contains('active')) return;
+    const viewerContent = document.getElementById('viewer-content');
+    if (!viewerContent || !viewerContent.contains(e.target)) return;
+    const menu = document.getElementById('sc-correction-popup');
+    if (menu && !menu.classList.contains('hidden')) return;
+    if (scWordEditTarget) return;
+
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+    const selectedText = sel.toString().trim();
+    if (!selectedText || !selectedText.includes(' ')) return;
+
+    const range = sel.getRangeAt(0);
+    if (!viewerContent.contains(range.commonAncestorContainer)) return;
+
+    try {
+      const span = document.createElement('span');
+      span.style.background = '#fef3c7';
+      span.style.borderRadius = '2px';
+      span.style.outline = '2px solid #f59e0b';
+      span.dataset.wordEdit = 'true';
+      const contents = range.extractContents();
+      span.appendChild(contents);
+      range.insertNode(span);
+      sel.removeAllRanges();
+      scWordEditTarget = span;
+      scSelectionJustMade = true;
+      showWordEditPopup(span, selectedText);
+    } catch (err) {
+      sel.removeAllRanges();
+    }
+  });
+
   function showWordEditPopup(spanEl, word) {
     scActiveMarkEl = null;
     const menu = document.getElementById('sc-correction-popup');
     if (!menu) return;
 
+    const isMultiWord = word.includes(' ');
+    const inputWidth = isMultiWord ? Math.min(Math.max(word.length * 8, 200), 500) : '';
+    const inputStyle = isMultiWord ? ` style="min-width:200px;width:${inputWidth}px"` : '';
+
     let items = '';
     items += `<div class="sc-ctx-edit">` +
-             `<input type="text" id="sc-ctx-edit-input" value="${escHtml(word)}">` +
+             `<input type="text" id="sc-ctx-edit-input" value="${escHtml(word)}"${inputStyle}>` +
              `<button onclick="window.scApplyWordEdit()">OK</button>` +
              `</div>`;
     items += `<div class="sc-ctx-sep"></div>`;
@@ -39725,6 +39884,12 @@ window.cancelTextEditMode = function() {};
     const paraTextBefore = paraEl ? getVisibleText(paraEl) : null;
     const paraIndex = paraEl ? (paraEl.dataset.index || paraEl.id) : null;
 
+    const containedMarks = scWordEditTarget.querySelectorAll('mark');
+    if (containedMarks.length > 0) {
+      const posSet = new Set(Array.from(containedMarks).map(m => parseInt(m.dataset.pos)));
+      scErrorItems = scErrorItems.filter(e => !posSet.has(e.position));
+    }
+
     const textNode = document.createTextNode(newWord);
     scWordEditTarget.parentNode.replaceChild(textNode, scWordEditTarget);
     textNode.parentNode.normalize();
@@ -39737,6 +39902,7 @@ window.cancelTextEditMode = function() {};
     scWordEditTarget = null;
     const menu = document.getElementById('sc-correction-popup');
     if (menu) menu.classList.add('hidden');
+    if (containedMarks.length > 0) { scUpdateErrorList(); scUpdateCounts(); }
   };
 
   window.scDeleteWord = function() {
@@ -39745,6 +39911,12 @@ window.cancelTextEditMode = function() {};
     const paraHtmlBefore = paraEl ? paraEl.innerHTML : null;
     const paraTextBefore = paraEl ? getVisibleText(paraEl) : null;
     const paraIndex = paraEl ? (paraEl.dataset.index || paraEl.id) : null;
+
+    const containedMarks = scWordEditTarget.querySelectorAll('mark');
+    if (containedMarks.length > 0) {
+      const posSet = new Set(Array.from(containedMarks).map(m => parseInt(m.dataset.pos)));
+      scErrorItems = scErrorItems.filter(e => !posSet.has(e.position));
+    }
 
     scWordEditTarget.parentNode.removeChild(scWordEditTarget);
     if (paraEl) paraEl.normalize();
@@ -39757,13 +39929,17 @@ window.cancelTextEditMode = function() {};
     scWordEditTarget = null;
     const menu = document.getElementById('sc-correction-popup');
     if (menu) menu.classList.add('hidden');
+    if (containedMarks.length > 0) { scUpdateErrorList(); scUpdateCounts(); }
   };
 
   window.scCancelWordEdit = function() {
     if (scWordEditTarget) {
-      const textNode = document.createTextNode(scWordEditTarget.textContent);
-      scWordEditTarget.parentNode.replaceChild(textNode, scWordEditTarget);
-      textNode.parentNode.normalize();
+      const parent = scWordEditTarget.parentNode;
+      while (scWordEditTarget.firstChild) {
+        parent.insertBefore(scWordEditTarget.firstChild, scWordEditTarget);
+      }
+      parent.removeChild(scWordEditTarget);
+      parent.normalize();
       scWordEditTarget = null;
     }
     const menu = document.getElementById('sc-correction-popup');
@@ -39810,6 +39986,29 @@ window.cancelTextEditMode = function() {};
     scErrorItems = scErrorItems.filter(e => e.position !== pos);
     scUpdateErrorList();
     scUpdateCounts();
+    window.hideScPopup();
+  };
+
+  window.scDeleteMark = function() {
+    if (!scActiveMarkEl) return;
+    const paraEl = scActiveMarkEl.closest('[data-index], [id^="para-"]');
+    const paraHtmlBefore = paraEl ? paraEl.innerHTML : null;
+    const paraTextBefore = paraEl ? getVisibleText(paraEl) : null;
+    const paraIndex = paraEl ? (paraEl.dataset.index || paraEl.id) : null;
+    const pos = parseInt(scActiveMarkEl.dataset.pos);
+
+    scActiveMarkEl.parentNode.removeChild(scActiveMarkEl);
+    if (paraEl) paraEl.normalize();
+
+    scPushUndo({ type: 'correction', original: scActiveMarkEl.textContent, corrected: '', paraEl, paraIndex, paraHtmlBefore, paraTextBefore, pos });
+    scErrorItems = scErrorItems.filter(e => e.position !== pos);
+    scUpdateErrorList();
+    scUpdateCounts();
+
+    if (paraEl && paraIndex) {
+      const lectureId = detectCurrentLectureId();
+      if (lectureId) saveCorrectionToBackend(lectureId, paraIndex, getVisibleText(paraEl));
+    }
     window.hideScPopup();
   };
 
@@ -39864,6 +40063,7 @@ window.cancelTextEditMode = function() {};
         const num = m[1].padStart(3, '0');
         const lectureNum = txt.match(/\((\d+)\.\)/);
         if (lectureNum) return `GA${num}/${lectureNum[1]}`;
+        return `GA${num}`;
       }
     }
     return null;
@@ -40064,7 +40264,7 @@ window.cancelTextEditMode = function() {};
     const corrEntries = Object.entries(corrections);
     const countEl = document.getElementById('sc-dict-count');
     const corrCountEl = document.getElementById('sc-corr-count');
-    if (countEl) countEl.textContent = dict.length;
+    if (countEl) countEl.textContent = dict.length.toLocaleString('de');
     if (corrCountEl) corrCountEl.textContent = corrEntries.length;
 
     const list = document.getElementById('sc-dict-list');
@@ -40072,35 +40272,48 @@ window.cancelTextEditMode = function() {};
     const searchInput = document.getElementById('sc-dict-search-input');
     const filter = searchInput ? searchInput.value.trim().toLowerCase() : '';
 
-    const filteredDict = (filter
-      ? dict.filter(w => w.toLowerCase().includes(filter))
-      : [...dict]
-    ).sort((a, b) => a.localeCompare(b, 'de'));
+    const MAX_DISPLAY = 100;
 
     const filteredCorr = (filter
       ? corrEntries.filter(([k, v]) => k.toLowerCase().includes(filter) || v.toLowerCase().includes(filter))
       : corrEntries
     ).sort((a, b) => a[0].localeCompare(b[0], 'de'));
 
+    let filteredDict = [];
+    let dictTruncated = false;
+    if (filter && filter.length >= 1) {
+      const matches = [];
+      for (const w of dict) {
+        if (w.toLowerCase().includes(filter)) matches.push(w);
+        if (matches.length > MAX_DISPLAY) break;
+      }
+      if (matches.length > MAX_DISPLAY) {
+        dictTruncated = true;
+        matches.length = MAX_DISPLAY;
+      }
+      filteredDict = matches.sort((a, b) => a.localeCompare(b, 'de'));
+    }
+
     if (filteredDict.length === 0 && filteredCorr.length === 0) {
       list.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-size: 0.85rem; text-align: center;">' +
-        (filter ? 'Keine Treffer.' : 'Noch keine Einträge.') + '</div>';
+        (filter ? 'Keine Treffer.' : 'Suchbegriff eingeben, um im W\u00f6rterbuch zu suchen.') + '</div>';
       return;
     }
 
     let html = '';
     if (filteredDict.length > 0) {
-      html += '<div class="sc-dict-section-header">Wörterbuch</div>';
+      html += '<div class="sc-dict-section-header">W\u00f6rterbuch' +
+        (dictTruncated ? ' (erste ' + MAX_DISPLAY + ' Treffer)' : ' (' + filteredDict.length + ' Treffer)') + '</div>';
       for (const w of filteredDict) {
         const esc = w.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-        html += `<div class="sc-dict-entry"><span>${escapeHtml(w)}</span><button onclick="window.scDictRemoveWord('${esc}')" title="Entfernen">✕</button></div>`;
+        html += `<div class="sc-dict-entry"><span>${escapeHtml(w)}</span><button onclick="window.scDictRemoveWord('${esc}')" title="Entfernen">\u2715</button></div>`;
       }
     }
     if (filteredCorr.length > 0) {
-      html += '<div class="sc-dict-section-header">Auto-Korrekturen</div>';
+      html += '<div class="sc-dict-section-header">Auto-Korrekturen (' + filteredCorr.length + ')</div>';
       for (const [orig, corr] of filteredCorr) {
         const escOrig = orig.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-        html += `<div class="sc-dict-entry"><span>${escapeHtml(orig)} <span style="color:var(--secondary-text);">→</span> ${escapeHtml(corr)}</span><button onclick="window.scDictRemoveCorrection('${escOrig}')" title="Entfernen">✕</button></div>`;
+        html += `<div class="sc-dict-entry"><span>${escapeHtml(orig)} <span style="color:var(--secondary-text);">\u2192</span> ${escapeHtml(corr)}</span><button onclick="window.scDictRemoveCorrection('${escOrig}')" title="Entfernen">\u2715</button></div>`;
       }
     }
     list.innerHTML = html;
@@ -40852,9 +41065,9 @@ window.cancelTextEditMode = function() {};
       const pageNum = parseInt(numSpan.textContent.trim());
       if (isNaN(pageNum)) return;
       
-      // In Texte-, Suche- und Themen-Tab reagieren
+      // In Texte-, Suche-, Themen- und Korrektur-Tab reagieren
       const activeTab = document.querySelector('.tab-content.active');
-      const pdfSupportedTabs = ['texte-tab', 'keyword-tab', 'thematic2-tab'];
+      const pdfSupportedTabs = ['texte-tab', 'keyword-tab', 'thematic2-tab', 'korrektur-tab'];
       if (!activeTab || !pdfSupportedTabs.includes(activeTab.id)) return;
       
       // PDF öffnen und zu Seite springen
