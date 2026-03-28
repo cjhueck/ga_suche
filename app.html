@@ -1844,6 +1844,8 @@ mark.sz {
   cursor: pointer;
 }
 mark.rf:hover, mark.st:hover, mark.sz:hover { filter: brightness(0.92); }
+mark.sc-focused { filter: brightness(0.85) !important; }
+body.dark-mode mark.sc-focused { filter: brightness(1.25) !important; }
 mark.highlight-pulse { animation: scHighlightPulse 0.6s ease-out; }
 @keyframes scHighlightPulse {
   0% { filter: brightness(0.7); }
@@ -1898,6 +1900,7 @@ mark.highlight-pulse { animation: scHighlightPulse 0.6s ease-out; }
   display: flex; align-items: center; gap: 6px; padding: 5px 6px; border-bottom: 1px solid var(--border-color); cursor: pointer; font-size: 0.82em;
 }
 #sc-error-list .sc-error-item:hover { background: var(--hover-bg, rgba(0,0,0,0.04)); }
+#sc-error-list .sc-error-item.active { background: rgba(70,120,134,0.15); font-weight: 600; }
 #sc-error-list .sc-error-badge {
   font-size: 0.7em; font-weight: 600; padding: 1px 5px; border-radius: 3px; flex-shrink: 0; text-transform: uppercase;
 }

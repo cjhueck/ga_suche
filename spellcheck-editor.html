@@ -172,7 +172,9 @@
         .editor-toolbar {
             background: var(--panel-bg);
             border-bottom: 1px solid var(--border-color);
-            padding: 8px 1rem 10px;
+            padding: 0 10px;
+            height: calc(0.8rem + 19px);
+            box-sizing: border-box;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -180,6 +182,17 @@
             line-height: 1;
             color: var(--secondary-text);
             flex-shrink: 0;
+        }
+        #file-info {
+            font-weight: 600;
+            color: var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .editor-toolbar .close-file-btn {
+            font-size: 0.9rem;
+            padding: 1px 5px;
         }
 
         .editor-container {
@@ -234,6 +247,8 @@
         .sidebar-tabs {
             display: flex;
             border-bottom: 1px solid var(--border-color);
+            height: calc(0.8rem + 19px);
+            box-sizing: border-box;
         }
         .sidebar-tab {
             flex: 1;
@@ -674,8 +689,8 @@
     <div class="editor-panel">
         <div class="editor-toolbar">
             <span id="file-info">Kein Dokument geladen</span>
+            <span id="edit-status" style="margin-left: auto;"></span>
             <button class="close-file-btn" id="btn-close-editor" onclick="closeEditorDocument()" title="Dokument schließen">&times;</button>
-            <span style="margin-left: auto;" id="edit-status"></span>
         </div>
         <div id="search-bar" class="search-bar hidden">
             <input type="text" id="search-input" placeholder="Suchen…">
@@ -1948,6 +1963,10 @@ async function highlightPdfSearch(query) {
     }
     if (totalHits > 0) {
         console.log(`[PDF Search] ${totalHits} Treffer für "${query}" in ${pdfPageTexts.length} Seiten`);
+        const firstOverlay = container.querySelector('.pdf-highlight-overlay');
+        if (firstOverlay && firstOverlay.parentElement) {
+            firstOverlay.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 }
 
@@ -3126,6 +3145,18 @@ function setupEditorEvents() {
         e.preventDefault();
         const text = e.clipboardData.getData('text/plain');
         document.execCommand('insertText', false, text);
+    });
+
+    editor.addEventListener('click', (e) => {
+        const mark = e.target.closest('mark.rf, mark.st, mark.sz');
+        if (!mark || !currentPdfDoc || pdfPageTexts.length === 0) return;
+        let word = mark.textContent.trim();
+        if (mark.classList.contains('st') && mark.dataset.joined) {
+            word = mark.dataset.joined;
+        }
+        word = word.replace(/[\r\n¬]+/g, '').replace(/-$/, '');
+        if (word.length < 2) return;
+        highlightPdfSearch(word).catch(err => console.error('[PDF Mark Click]', err));
     });
 
     document.getElementById('dict-add-input').addEventListener('keydown', (e) => {
