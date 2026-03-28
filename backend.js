@@ -27622,6 +27622,51 @@ app.get('/api/spellcheck/search-word', async (req, res) => {
   }
 });
 
+app.post('/api/spellcheck/notify-registration', express.json(), async (req, res) => {
+  try {
+    const { email } = req.body || {};
+    if (!email) return res.status(400).json({ error: 'E-Mail fehlt' });
+
+    const timestamp = new Date().toISOString();
+    console.log('\n' + '!'.repeat(60));
+    console.log(`  NEUE EDITOR-REGISTRIERUNG: ${email}`);
+    console.log(`  Zeitpunkt: ${timestamp}`);
+    console.log('!'.repeat(60) + '\n');
+
+    const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
+    const resendKey = process.env.RESEND_API_KEY;
+
+    if (resendKey && adminEmail) {
+      try {
+        const resp = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: 'GA Editor <onboarding@resend.dev>',
+            to: [adminEmail],
+            subject: `Neue Editor-Registrierung: ${email}`,
+            text: `Eine neue Registrierung für den Spellcheck-Editor:\n\nE-Mail: ${email}\nZeitpunkt: ${timestamp}\n\nBitte im Supabase-Dashboard freischalten.`
+          })
+        });
+        if (resp.ok) {
+          console.log('[NOTIFY] Admin-E-Mail gesendet an', adminEmail);
+        } else {
+          console.warn('[NOTIFY] E-Mail-Versand fehlgeschlagen:', resp.status, await resp.text().catch(() => ''));
+        }
+      } catch (mailErr) {
+        console.warn('[NOTIFY] E-Mail-Fehler:', mailErr.message);
+      }
+    } else {
+      console.log('[NOTIFY] Kein RESEND_API_KEY/ADMIN_NOTIFY_EMAIL konfiguriert – nur Log-Ausgabe.');
+    }
+
+    res.json({ ok: true });
+  } catch (error) {
+    console.error('[NOTIFY] Fehler:', error);
+    res.status(500).json({ error: 'Benachrichtigung fehlgeschlagen' });
+  }
+});
+
 // ============================================================================
 
 
