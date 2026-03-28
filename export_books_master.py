@@ -414,8 +414,8 @@ class BooksExporter:
         """
         md_files = list(ga_folder.glob("GA*.md"))
         
-        # Filtere Backup-Dateien aus
-        md_files = [f for f in md_files if not f.name.endswith('.backup')]
+        # Filtere Backup-Dateien aus (.backup Endung oder _backup_ im Dateinamen)
+        md_files = [f for f in md_files if not f.name.endswith('.backup') and '_backup_' not in f.name]
         
         # Suche nach Multi-File-Format: "GAXXX (N.) KAPITELNAME.md"
         # z.B. "GA001 (1.) ZUR EINFÜHRUNG.md", "GA001 (2.) ERSTER BAND.md"
