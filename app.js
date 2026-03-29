@@ -41998,8 +41998,7 @@ window.cancelTextEditMode = function() {};
   }
 
   function _showTranslateBtn() {
-    const wrapper = document.getElementById('translateBtnWrapper');
-    if (wrapper) wrapper.style.display = 'inline-block';
+    return;
   }
 
   function _resetTranslateState() {
@@ -42021,7 +42020,7 @@ window.cancelTextEditMode = function() {};
   const observer = new MutationObserver(() => {
     const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
     const wrapper = document.getElementById('translateBtnWrapper');
-    if (viewer && wrapper && viewer.textContent.trim().length > 100) {
+    if (false && viewer && wrapper && viewer.textContent.trim().length > 100) {
       wrapper.style.display = 'inline-block';
     }
   });
