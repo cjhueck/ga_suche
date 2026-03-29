@@ -346,6 +346,9 @@ const isLocal = window.location.hostname === 'localhost' ||
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
       try {
+        // Fußnoten-Anker (fn4, fnref11, ...) nicht tracken
+        if (value && /^fn\d|^fnref\d/.test(value)) return Promise.resolve();
+        
         // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
         // Prüfe NICHT auf lokale API_BASE Variable, da diese möglicherweise noch nicht initialisiert ist
         let apiBase = '';
@@ -722,7 +725,7 @@ const isLocal = window.location.hostname === 'localhost' ||
               }
             });
             var localOnlyTabs = { zitate: 1, keywords: 1, docs: 1 };
-            var entries = Object.entries(ts).filter(function(e) { return !localOnlyTabs[e[0]]; }).sort(function(a,b) { return b[1] - a[1]; });
+            var entries = Object.entries(ts).filter(function(e) { return !localOnlyTabs[e[0]] && !/^fn\d|^fnref\d/.test(e[0]); }).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
               if (data.tabsMigrationNeeded) {
                 return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:#c9433d;">Supabase-Migration erforderlich: Bitte <code>supabase-analytics-tabs-quotes.sql</code> im Supabase SQL Editor ausführen</p></div>';
@@ -25486,6 +25489,9 @@ window.addEventListener('hashchange', function() {
   let hash = window.location.hash.substring(1);
   if (!hash) return;
   
+  // Fußnoten-Anker (fn4, fnref11, ...) sind keine Navigations-Hashes
+  if (/^fn\d|^fnref\d/.test(hash)) return;
+  
   // Parse Query-Parameter aus dem Hash
   // Unterstützt sowohl "texte&lecture=GA005" als auch "texte?lecture=GA005"
   let queryParams = {};
@@ -41826,8 +41832,208 @@ window.cancelTextEditMode = function() {};
   console.log('[VIEWER-SEARCH] Modul geladen');
 })();
 
+// ========================================================================
+// DEEPL ÜBERSETZUNG (zum Entfernen: diesen gesamten Block löschen)
+// ========================================================================
+(function() {
+  'use strict';
 
+  let _translateOriginalHtml = null;
+  let _translateCurrentLang = null;
+  const _translateCache = {};
 
+  function _getCacheKey(lang) {
+    const id = window.currentOpenLectureId || 'viewer';
+    return id + '::' + lang;
+  }
 
+  window.toggleTranslateDropdown = function() {
+    let dd = document.getElementById('translateDropdown');
+    const btn = document.getElementById('translateBtn');
+    if (!dd || !btn) return;
+
+    if (dd.parentElement !== document.body) {
+      dd.parentElement.removeChild(dd);
+      document.body.appendChild(dd);
+    }
+
+    const isOpen = dd.style.display === 'block';
+    if (isOpen) {
+      dd.style.display = 'none';
+      return;
+    }
+    const isDark = document.body.classList.contains('dark-mode') || document.documentElement.getAttribute('data-theme') === 'dark';
+    dd.style.background = isDark ? '#1e1e1e' : '#ffffff';
+    const rect = btn.getBoundingClientRect();
+    dd.style.position = 'fixed';
+    dd.style.top = (rect.bottom + 4) + 'px';
+    dd.style.right = (window.innerWidth - rect.right) + 'px';
+    dd.style.left = 'auto';
+    dd.style.display = 'block';
+    setTimeout(() => {
+      document.addEventListener('click', _closeDropdownOutside, { once: true });
+    }, 0);
+  };
+
+  function _closeDropdownOutside(e) {
+    const dd = document.getElementById('translateDropdown');
+    const btn = document.getElementById('translateBtn');
+    if (dd && btn && !dd.contains(e.target) && !btn.contains(e.target)) {
+      dd.style.display = 'none';
+    } else if (dd && dd.style.display === 'block') {
+      setTimeout(() => {
+        document.addEventListener('click', _closeDropdownOutside, { once: true });
+      }, 0);
+    }
+  }
+
+  window.translateViewer = async function(targetLang) {
+    const dd = document.getElementById('translateDropdown');
+    if (dd) dd.style.display = 'none';
+
+    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    if (!viewer || !viewer.innerHTML.trim()) return;
+
+    if (!_translateOriginalHtml) {
+      _translateOriginalHtml = viewer.innerHTML;
+    }
+
+    const cacheKey = _getCacheKey(targetLang);
+    if (_translateCache[cacheKey]) {
+      viewer.innerHTML = _translateCache[cacheKey];
+      _translateCurrentLang = targetLang;
+      _updateTranslateUI(targetLang);
+      return;
+    }
+
+    const langNames = {'EN-US':'English','FR':'Français','ES':'Español','IT':'Italiano','NL':'Nederlands','PL':'Polski','RU':'Русский','PT-PT':'Português','JA':'日本語','KO':'한국어','ZH-HANS':'中文'};
+    const label = document.getElementById('translateBtnLabel');
+    const btn = document.getElementById('translateBtn');
+    if (label) label.textContent = 'Übersetze...';
+    if (btn) btn.disabled = true;
+
+    try {
+      const html = _translateOriginalHtml || viewer.innerHTML;
+      const chunks = _splitHtmlChunks(html, 48000);
+
+      const translated = [];
+      for (let i = 0; i < chunks.length; i++) {
+        if (label) label.textContent = chunks.length > 1
+          ? `Übersetze ${i+1}/${chunks.length}...`
+          : 'Übersetze...';
+
+        const apiBase = window.API_BASE || '';
+        const res = await fetch(`${apiBase}/api/translate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: [chunks[i]], target_lang: targetLang })
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: res.statusText }));
+          throw new Error(err.error || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
+        translated.push(data.translations[0].text);
+      }
+
+      const result = translated.join('');
+      _translateCache[cacheKey] = result;
+      viewer.innerHTML = result;
+      _translateCurrentLang = targetLang;
+      _updateTranslateUI(targetLang);
+
+    } catch (err) {
+      console.error('[TRANSLATE] Fehler:', err);
+      alert('Übersetzungsfehler: ' + err.message);
+      if (label) label.textContent = 'Übersetzen';
+      if (btn) btn.disabled = false;
+    }
+  };
+
+  window.restoreOriginalText = function() {
+    const dd = document.getElementById('translateDropdown');
+    if (dd) dd.style.display = 'none';
+
+    if (!_translateOriginalHtml) return;
+    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    if (viewer) viewer.innerHTML = _translateOriginalHtml;
+    _translateCurrentLang = null;
+    _updateTranslateUI(null);
+  };
+
+  function _updateTranslateUI(lang) {
+    const label = document.getElementById('translateBtnLabel');
+    const btn = document.getElementById('translateBtn');
+    const restoreItem = document.getElementById('translateRestoreItem');
+    const langNames = {'EN-US':'EN','FR':'FR','ES':'ES','IT':'IT','NL':'NL','PL':'PL','RU':'RU','PT-PT':'PT','JA':'JA','KO':'KO','ZH-HANS':'ZH'};
+
+    if (btn) btn.disabled = false;
+    if (lang) {
+      if (label) label.textContent = langNames[lang] || lang;
+      if (btn) btn.style.borderColor = 'var(--accent-color)';
+      if (btn) btn.style.color = 'var(--accent-color)';
+      if (restoreItem) restoreItem.style.display = 'block';
+    } else {
+      if (label) label.textContent = 'Übersetzen';
+      if (btn) btn.style.borderColor = 'var(--link-color)';
+      if (btn) btn.style.color = 'var(--link-color)';
+      if (restoreItem) restoreItem.style.display = 'none';
+    }
+  }
+
+  function _splitHtmlChunks(html, maxLen) {
+    if (html.length <= maxLen) return [html];
+    const chunks = [];
+    const parts = html.split(/(?=<(?:h[1-6]|p|div|section|article|blockquote)\b)/i);
+    let current = '';
+    for (const part of parts) {
+      if (current.length + part.length > maxLen && current.length > 0) {
+        chunks.push(current);
+        current = '';
+      }
+      current += part;
+    }
+    if (current) chunks.push(current);
+    return chunks;
+  }
+
+  function _showTranslateBtn() {
+    const wrapper = document.getElementById('translateBtnWrapper');
+    if (wrapper) wrapper.style.display = 'inline-block';
+  }
+
+  function _resetTranslateState() {
+    _translateOriginalHtml = null;
+    _translateCurrentLang = null;
+    _updateTranslateUI(null);
+  }
+
+  const origShowLecture = window.showLecture;
+  if (typeof origShowLecture === 'function') {
+    window.showLecture = async function() {
+      _resetTranslateState();
+      const result = await origShowLecture.apply(this, arguments);
+      _showTranslateBtn();
+      return result;
+    };
+  }
+
+  const observer = new MutationObserver(() => {
+    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    const wrapper = document.getElementById('translateBtnWrapper');
+    if (viewer && wrapper && viewer.textContent.trim().length > 100) {
+      wrapper.style.display = 'inline-block';
+    }
+  });
+  const viewerEl = document.getElementById('viewer');
+  if (viewerEl) {
+    observer.observe(viewerEl, { childList: true, subtree: true });
+  }
+
+  console.log('[TRANSLATE] DeepL-Übersetzungsmodul geladen');
+})();
+// ========================================================================
+// ENDE DEEPL ÜBERSETZUNG
+// ========================================================================
 
 

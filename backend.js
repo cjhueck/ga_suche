@@ -26134,6 +26134,9 @@ app.post('/api/analytics/track', async (req, res) => {
         return res.json({ ok: true, storage: 'skipped' });
       }
       const tabName = String(value).trim();
+      if (/^fn\d|^fnref\d/.test(tabName)) {
+        return res.json({ ok: true, storage: 'skipped' });
+      }
       let success = await incrementSupabaseTabQuote('tab_view', tabName);
       if (!success) {
         try {
@@ -26390,7 +26393,7 @@ app.get('/api/analytics/stats', async (req, res) => {
       dailyData,
       totalDays: Object.keys(data.dailyStats).length,
       quoteViews: weekQuoteViews,
-      tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_'))),
+      tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_') && !/^fn\d|^fnref\d/.test(k))),
       tabsMigrationNeeded: !tabQuoteMigrationOk,
       geoStats,
       registeredMembers
@@ -29105,6 +29108,74 @@ app.get('/api/theme-assignments-status', async (req, res) => {
     
     // ENTFERNT: Relevanz-Scoring-Test wurde entfernt
     
+    // ========================================================================
+    // DEEPL ÜBERSETZUNGS-PROXY (zum Entfernen: diesen Block löschen)
+    // ========================================================================
+    app.post('/api/translate', async (req, res) => {
+      const deeplKey = process.env.DEEPL_API_KEY;
+      if (!deeplKey || deeplKey === 'DEIN-DEEPL-API-KEY-HIER') {
+        return res.status(503).json({ error: 'DeepL API-Key nicht konfiguriert' });
+      }
+      const { text, target_lang } = req.body;
+      if (!text || !target_lang) {
+        return res.status(400).json({ error: 'text und target_lang erforderlich' });
+      }
+      const textArray = Array.isArray(text) ? text : [text];
+      const totalChars = textArray.reduce((s, t) => s + t.length, 0);
+      if (totalChars > 500000) {
+        return res.status(413).json({ error: 'Text zu lang (max 500.000 Zeichen pro Anfrage)' });
+      }
+      try {
+        const isFreeKey = deeplKey.endsWith(':fx');
+        const deeplHost = isFreeKey ? 'api-free.deepl.com' : 'api.deepl.com';
+        const deeplRes = await fetch(`https://${deeplHost}/v2/translate`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `DeepL-Auth-Key ${deeplKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            text: textArray,
+            target_lang: target_lang.toUpperCase(),
+            tag_handling: 'html',
+            split_sentences: 'nonewlines'
+          })
+        });
+        if (!deeplRes.ok) {
+          const errText = await deeplRes.text();
+          console.error(`[DEEPL] API-Fehler ${deeplRes.status}:`, errText);
+          return res.status(deeplRes.status).json({ error: `DeepL API-Fehler: ${deeplRes.status}` });
+        }
+        const data = await deeplRes.json();
+        console.log(`[DEEPL] Übersetzt: ${totalChars} Zeichen → ${target_lang}`);
+        res.json(data);
+      } catch (err) {
+        console.error('[DEEPL] Proxy-Fehler:', err.message);
+        res.status(500).json({ error: 'Übersetzungsfehler: ' + err.message });
+      }
+    });
+
+    app.get('/api/translate/usage', async (req, res) => {
+      const deeplKey = process.env.DEEPL_API_KEY;
+      if (!deeplKey || deeplKey === 'DEIN-DEEPL-API-KEY-HIER') {
+        return res.status(503).json({ error: 'DeepL API-Key nicht konfiguriert' });
+      }
+      try {
+        const isFreeKey = deeplKey.endsWith(':fx');
+        const deeplHost = isFreeKey ? 'api-free.deepl.com' : 'api.deepl.com';
+        const usageRes = await fetch(`https://${deeplHost}/v2/usage`, {
+          headers: { 'Authorization': `DeepL-Auth-Key ${deeplKey}` }
+        });
+        if (!usageRes.ok) return res.status(usageRes.status).json({ error: 'DeepL usage error' });
+        res.json(await usageRes.json());
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+    });
+    // ========================================================================
+    // ENDE DEEPL ÜBERSETZUNGS-PROXY
+    // ========================================================================
+
     console.log('\n[9/9] Starte Server...');
     
     // Theme-Assignments-Status beim Start berechnen und cachen
