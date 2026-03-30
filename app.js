@@ -422,135 +422,26 @@ const isLocal = window.location.hostname === 'localhost' ||
       }
     }
     
-    // Seitenaufruf tracken (einmal pro Session)
-    // WICHTIG: Warte bis API_BASE gesetzt ist, besonders auf der Online-Version
+    // Seitenaufruf tracken (bei jedem Laden der Seite)
+    // analyticsTrack('page_view') inkrementiert immer "views" im Backend.
+    // Unique-User-Deduplication passiert serverseitig via visitor_id + Supabase.
     function trackPageView() {
-      console.log('[ANALYTICS] trackPageView() aufgerufen');
-      const alreadyTracked = sessionStorage.getItem('analytics_tracked');
-      console.log('[ANALYTICS] Bereits getrackt?', alreadyTracked);
-      
-      if (!alreadyTracked) {
-        // Prüfe ob API_BASE gesetzt ist (wichtig für Online-Version)
-        // Verwende NUR window.API_BASE, um TDZ-Fehler zu vermeiden
-        let apiBase = '';
-        try {
-          apiBase = window.API_BASE || '';
-        } catch (e) {
-          // Ignoriere Fehler
-        }
-        
-        // Fallback basierend auf Hostname
-        if (!apiBase) {
-          const isLocal = window.location.hostname === 'localhost' || 
-                         window.location.hostname === '127.0.0.1' ||
-                         window.location.hostname.startsWith('192.168.') ||
-                         window.location.hostname.startsWith('172.') ||
-                         window.location.hostname.startsWith('10.') ||
-                         window.location.protocol === 'file:';
-          apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-        }
-        
-        const isOnline = !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
-        
-        // Auf Online-Version muss API_BASE gesetzt sein oder wir verwenden die Render-URL direkt
-        if (isOnline && !apiBase) {
-          console.log('[ANALYTICS] Warte auf API_BASE Initialisierung...');
-          // Warte bis API_BASE gesetzt ist (max. 2 Sekunden)
-          let attempts = 0;
-          const checkInterval = setInterval(() => {
-            attempts++;
-            let currentApiBase = '';
-            try {
-              currentApiBase = window.API_BASE || '';
-            } catch (e) {
-              // Ignoriere Fehler
-            }
-            if (!currentApiBase) {
-              const isLocal = window.location.hostname === 'localhost' || 
-                             window.location.hostname === '127.0.0.1' ||
-                             window.location.hostname.startsWith('192.168.') ||
-                             window.location.hostname.startsWith('172.') ||
-                             window.location.hostname.startsWith('10.') ||
-                             window.location.protocol === 'file:';
-              currentApiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-            }
-            if (currentApiBase || attempts > 20) {
-              clearInterval(checkInterval);
-              if (currentApiBase) {
-                console.log('[ANALYTICS] API_BASE gefunden, tracke Page View');
-                executePageViewTracking();
-              } else {
-                console.warn('[ANALYTICS] API_BASE nicht gefunden, verwende direkte Render-URL');
-                executePageViewTrackingWithDirectUrl();
-              }
-            }
-          }, 100);
-        } else {
-          executePageViewTracking();
-        }
-      } else {
-        console.log('[ANALYTICS] Page View bereits in dieser Session getrackt');
-      }
-    }
-    
-    function executePageViewTracking() {
-      console.log('[ANALYTICS] Tracke Page View (erste Session)');
       analyticsTrack('page_view').then(() => {
-        console.log('[ANALYTICS] ? Page View erfolgreich getrackt');
-        sessionStorage.setItem('analytics_tracked', '1');
+        console.log('[ANALYTICS] Page View erfolgreich getrackt');
       }).catch((err) => {
-        console.error('[ANALYTICS] ? Page View Tracking fehlgeschlagen:', err);
-        // Versuche es erneut nach kurzer Verzögerung
+        console.error('[ANALYTICS] Page View Tracking fehlgeschlagen:', err);
         setTimeout(() => {
-          console.log('[ANALYTICS] Retry: Tracke Page View erneut');
-          analyticsTrack('page_view').then(() => {
-            sessionStorage.setItem('analytics_tracked', '1');
-          }).catch((retryErr) => {
-            console.error('[ANALYTICS] ? Retry fehlgeschlagen:', retryErr);
+          analyticsTrack('page_view').catch((retryErr) => {
+            console.error('[ANALYTICS] Retry fehlgeschlagen:', retryErr);
           });
         }, 1000);
       });
     }
     
-    function executePageViewTrackingWithDirectUrl() {
-      // Fallback: Verwende direkte Render-URL wenn API_BASE nicht verfügbar
-      console.log('[ANALYTICS] Tracke Page View mit direkter Render-URL');
-      const directBody = { type: 'page_view', value: null };
-      const visitorId = getVisitorId();
-      if (visitorId) {
-        directBody.visitor_id = visitorId;
-      }
-      fetch('https://ga-suche.onrender.com/api/analytics/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(directBody)
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status} - ${response.statusText}`);
-        }
-        console.log('[ANALYTICS] ? Page View erfolgreich getrackt (direkte URL)');
-        sessionStorage.setItem('analytics_tracked', '1');
-      })
-      .catch((err) => {
-        console.error('[ANALYTICS] ? Page View Tracking fehlgeschlagen (direkte URL):', err);
-      });
-    }
-    
     // Starte Page View Tracking nach kurzer Verzögerung, damit API_BASE gesetzt werden kann
-    console.log('[ANALYTICS] ========================================');
-    console.log('[ANALYTICS] Initialisiere Page View Tracking...');
-    console.log('[ANALYTICS] sessionStorage analytics_tracked:', sessionStorage.getItem('analytics_tracked'));
-    console.log('[ANALYTICS] window.API_BASE:', window.API_BASE);
-    console.log('[ANALYTICS] Hostname:', window.location.hostname);
-    console.log('[ANALYTICS] ========================================');
-    
-    // Warte etwas länger, damit window.API_BASE definitiv gesetzt ist
     setTimeout(() => {
-      console.log('[ANALYTICS] Timeout abgelaufen, starte trackPageView()');
-      console.log('[ANALYTICS] window.API_BASE jetzt:', window.API_BASE);
       trackPageView();
-    }, 1000); // Erhöht auf 1 Sekunde für mehr Sicherheit
+    }, 1000);
     
     // Analytics: Nur Online-Daten (Render) verwenden
     window.analyticsUseOnlineData = true; // Immer Online-Daten
@@ -654,12 +545,6 @@ const isLocal = window.location.hostname === 'localhost' ||
               </tr>
               <tr>
                 <td>Nutzer</td>
-                <td class="${(Number(data.today?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.today?.unique_users) || 0}</td>
-                <td class="${(Number(data.week?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.week?.unique_users) || 0}</td>
-                <td class="${(Number(data.total?.unique_users) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(data.total?.unique_users) || 0}</td>
-              </tr>
-              <tr>
-                <td>Nutzer <span style="font-size:0.75rem;color:var(--secondary-text);font-weight:normal">(eindeutig)</span></td>
                 <td class="${(Number(globalUnique.today) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.today) || 0}</td>
                 <td class="${(Number(globalUnique.week) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.week) || 0}</td>
                 <td class="${(Number(globalUnique.total) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.total) || 0}</td>
@@ -17596,6 +17481,7 @@ function scrollToChronologicalYear(year) {
     // Interne Links (.ga-reference, .ga-keyword-link) in absolute Online-URLs umwandeln
     function convertInternalLinksToOnlineUrls(clone) {
       const ONLINE_BASE = 'https://rudolf-steiner-online.de/app.html#texte';
+      let converted = 0;
 
       // 1) .ga-reference Links (Backend): data-id + data-index
       clone.querySelectorAll('.ga-reference').forEach(link => {
@@ -17607,6 +17493,7 @@ function scrollToChronologicalYear(year) {
         if (cleanIndex) url += `&p=${encodeURIComponent(cleanIndex)}`;
         link.setAttribute('href', url);
         link.removeAttribute('onclick');
+        converted++;
       });
 
       // 2) .ga-keyword-link Links (Frontend): onclick enthält lectureId + index
@@ -17620,6 +17507,7 @@ function scrollToChronologicalYear(year) {
           let url = `${ONLINE_BASE}&lecture=${encodeURIComponent(lectureId)}`;
           if (cleanIndex && cleanIndex !== 'null') url += `&p=${encodeURIComponent(cleanIndex)}`;
           link.setAttribute('href', url);
+          converted++;
         }
         link.removeAttribute('onclick');
       });
@@ -17637,8 +17525,11 @@ function scrollToChronologicalYear(year) {
           if (cleanIndex && cleanIndex !== 'null') url += `&p=${encodeURIComponent(cleanIndex)}`;
           link.setAttribute('href', url);
           link.removeAttribute('onclick');
+          converted++;
         }
       });
+
+      console.log(`[DOWNLOAD] ${converted} interne Links zu Online-URLs konvertiert`);
     }
 
     // Viewer-Inhalt als Datei herunterladen
@@ -17767,6 +17658,10 @@ function scrollToChronologicalYear(year) {
               a { 
                 color: #467886 !important; 
                 text-decoration: none !important;
+              }
+              a[href^="http"] {
+                color: #467886 !important;
+                text-decoration: underline !important;
               }
               div {
                 margin: 0 !important;
