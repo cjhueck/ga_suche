@@ -17593,6 +17593,54 @@ function scrollToChronologicalYear(year) {
       document.addEventListener('keydown', escHandler);
     };
     
+    // Interne Links (.ga-reference, .ga-keyword-link) in absolute Online-URLs umwandeln
+    function convertInternalLinksToOnlineUrls(clone) {
+      const ONLINE_BASE = 'https://rudolf-steiner-online.de/app.html#texte';
+
+      // 1) .ga-reference Links (Backend): data-id + data-index
+      clone.querySelectorAll('.ga-reference').forEach(link => {
+        const lectureId = link.getAttribute('data-id');
+        if (!lectureId) return;
+        const rawIndex = link.getAttribute('data-index') || '';
+        const cleanIndex = rawIndex.replace(/^\^/, '');
+        let url = `${ONLINE_BASE}&lecture=${encodeURIComponent(lectureId)}`;
+        if (cleanIndex) url += `&p=${encodeURIComponent(cleanIndex)}`;
+        link.setAttribute('href', url);
+        link.removeAttribute('onclick');
+      });
+
+      // 2) .ga-keyword-link Links (Frontend): onclick enthält lectureId + index
+      clone.querySelectorAll('.ga-keyword-link').forEach(link => {
+        const onclick = link.getAttribute('onclick') || '';
+        const m = onclick.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'[^']*',\s*'?([^')]*)'?\)/);
+        if (m) {
+          const lectureId = m[1];
+          const rawIndex = m[2] || '';
+          const cleanIndex = rawIndex.replace(/^\^/, '');
+          let url = `${ONLINE_BASE}&lecture=${encodeURIComponent(lectureId)}`;
+          if (cleanIndex && cleanIndex !== 'null') url += `&p=${encodeURIComponent(cleanIndex)}`;
+          link.setAttribute('href', url);
+        }
+        link.removeAttribute('onclick');
+      });
+
+      // 3) Alle übrigen <a> mit href="#" und onclick die showLecture* aufrufen
+      clone.querySelectorAll('a[onclick]').forEach(link => {
+        if (link.classList.contains('ga-reference') || link.classList.contains('ga-keyword-link')) return;
+        const onclick = link.getAttribute('onclick') || '';
+        const m = onclick.match(/showLecture(?:FromAdvancedSearch)?\('([^']+)'(?:,\s*'[^']*')?(?:,\s*'?([^')]*)'?)?\)/);
+        if (m) {
+          const lectureId = m[1];
+          const rawIndex = m[2] || '';
+          const cleanIndex = rawIndex.replace(/^\^/, '');
+          let url = `${ONLINE_BASE}&lecture=${encodeURIComponent(lectureId)}`;
+          if (cleanIndex && cleanIndex !== 'null') url += `&p=${encodeURIComponent(cleanIndex)}`;
+          link.setAttribute('href', url);
+          link.removeAttribute('onclick');
+        }
+      });
+    }
+
     // Viewer-Inhalt als Datei herunterladen
     window.downloadViewerContent = async function(format, tabName) {
       const viewer = document.getElementById('viewer');
@@ -17610,6 +17658,9 @@ function scrollToChronologicalYear(year) {
       clone.querySelectorAll('*').forEach(el => {
         el.removeAttribute('style');
       });
+      
+      // Konvertiere interne Links zu Online-URLs
+      convertInternalLinksToOnlineUrls(clone);
       
       // Hole den Textinhalt
       let textContent = '';
@@ -17805,6 +17856,9 @@ function scrollToChronologicalYear(year) {
           clone.querySelectorAll('*').forEach(el => {
             el.removeAttribute('style');
           });
+          
+          // Konvertiere interne Links zu Online-URLs
+          convertInternalLinksToOnlineUrls(clone);
           
           // Konvertiere HTML zu Text
           if (format === 'md') {
