@@ -499,9 +499,32 @@ const isLocal = window.location.hostname === 'localhost' ||
         window.analyticsLastLoadTime = Date.now();
         // Stelle sicher, dass dailyData existiert und ein Array ist
         const dailyData = Array.isArray(data.dailyData) ? data.dailyData : [];
-        const allDailyData = Array.isArray(data.allDailyData) && data.allDailyData.length > 0
-          ? data.allDailyData
-          : dailyData.filter(d => (d.views || 0) + (d.searches || 0) + (d.unique_users || 0) > 0);
+        let allDailyData = Array.isArray(data.allDailyData) && data.allDailyData.length > 0
+          ? data.allDailyData : [];
+
+        if (allDailyData.length === 0) {
+          try {
+            const fullRes = await fetch('https://ga-suche.onrender.com/api/analytics/full', { cache: 'no-store' });
+            if (fullRes.ok) {
+              const fullData = await fullRes.json();
+              if (fullData.dailyStats && typeof fullData.dailyStats === 'object') {
+                allDailyData = Object.keys(fullData.dailyStats).sort().map(key => {
+                  const day = fullData.dailyStats[key];
+                  const d = new Date(key + 'T00:00:00');
+                  return {
+                    date: key,
+                    label: d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }),
+                    views: day.views || 0,
+                    searches: day.searches || 0,
+                    unique_users: day.unique_users || 0
+                  };
+                });
+              }
+            }
+          } catch (e) {
+            console.warn('[ANALYTICS] Fallback allDailyData fehlgeschlagen:', e.message);
+          }
+        }
         
         // Debug: Logge alle Daten für Diagnose (erweitert)
         console.log('[ANALYTICS] Vollständige API-Antwort:', JSON.stringify({
