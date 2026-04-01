@@ -26362,6 +26362,25 @@ app.get('/api/analytics/stats', async (req, res) => {
       // Lokale JSON nicht verfügbar – kein Problem
     }
 
+    // Alle historischen Tagesdaten für Liniendiagramm "seit Beginn"
+    const allDailyData = [];
+    if (data.dailyStats && typeof data.dailyStats === 'object') {
+      const sortedDates = Object.keys(data.dailyStats).sort();
+      for (const key of sortedDates) {
+        const dayData = data.dailyStats[key];
+        if (dayData && typeof dayData === 'object') {
+          const d = new Date(key + 'T00:00:00');
+          allDailyData.push({
+            date: key,
+            label: d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }),
+            views: dayData.views || 0,
+            searches: dayData.searches || 0,
+            unique_users: dayData.unique_users || 0
+          });
+        }
+      }
+    }
+
     // Geo-Statistiken laden
     const geoStats = await loadGeoStatsFromSupabase();
 
@@ -26391,6 +26410,7 @@ app.get('/api/analytics/stats', async (req, res) => {
       topSearches,
       topLectures,
       dailyData,
+      allDailyData,
       totalDays: Object.keys(data.dailyStats).length,
       quoteViews: weekQuoteViews,
       tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_') && !/^fn\d|^fnref\d/.test(k))),

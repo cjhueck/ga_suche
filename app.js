@@ -499,6 +499,9 @@ const isLocal = window.location.hostname === 'localhost' ||
         window.analyticsLastLoadTime = Date.now();
         // Stelle sicher, dass dailyData existiert und ein Array ist
         const dailyData = Array.isArray(data.dailyData) ? data.dailyData : [];
+        const allDailyData = Array.isArray(data.allDailyData) && data.allDailyData.length > 0
+          ? data.allDailyData
+          : dailyData.filter(d => (d.views || 0) + (d.searches || 0) + (d.unique_users || 0) > 0);
         
         // Debug: Logge alle Daten für Diagnose (erweitert)
         console.log('[ANALYTICS] Vollständige API-Antwort:', JSON.stringify({
@@ -597,6 +600,11 @@ const isLocal = window.location.hostname === 'localhost' ||
               </div>
             </div>
           </div>
+
+          <div class="analytics-section">
+            <h3>Besuche seit Beginn${allDailyData.length > 0 ? ' (' + allDailyData.length + ' Tage)' : ''}</h3>
+            <div class="analytics-line-chart-container" id="analytics-line-chart"></div>
+          </div>
           
           ${(function() {
             var tabLabels = { ga: 'GA', keyword: 'Suche', texte: 'Texte', thematic2: 'Themen/Schwerpunkte', thematic2_schwerpunkte: 'Themen/Schwerpunkte', thematic2_timeline: 'Themen/Timeline', thematic2_sammlungen: 'Themen/Sammlungen', thematic2_karten: 'Themen/Karten', thematic: 'Abfrage', schlagworte: 'Index', docs: 'Docs', maps: 'Maps', keywords: 'Export', zitate: 'Zitate', 'advanced-search': 'Suche/erweitert', entwicklung_kind: 'Entwicklung des Kindes', goetheanismus: 'Goetheanismus' };
@@ -666,6 +674,10 @@ const isLocal = window.location.hostname === 'localhost' ||
         // Weltkarte rendern (nach dem Einfügen ins DOM)
         if (data.geoStats && Array.isArray(data.geoStats) && data.geoStats.length > 0) {
           setTimeout(function() { renderGeoWorldMap(data.geoStats); }, 100);
+        }
+        // Liniendiagramm "Besuche seit Beginn" rendern
+        if (allDailyData.length > 1) {
+          setTimeout(function() { renderVisitsLineChart(allDailyData); }, 120);
         }
       } catch (e) {
         container.innerHTML = '<p style="color: var(--error-color);">Fehler beim Laden der Statistiken.</p>';
@@ -795,6 +807,148 @@ const isLocal = window.location.hostname === 'localhost' ||
       return _isoNumToAlpha2[numericId] || null;
     }
     
+    // Liniendiagramm: Besuche seit Beginn (D3-basiert)
+    function renderVisitsLineChart(allDailyData) {
+      var chartContainer = document.getElementById('analytics-line-chart');
+      if (!chartContainer || typeof d3 === 'undefined' || allDailyData.length < 2) return;
+
+      chartContainer.innerHTML = '';
+
+      var isDark = document.body.classList.contains('dark-mode');
+      var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim() || '#5a8a7a';
+      var borderColor = isDark ? '#444' : '#ccc';
+      var textColor = isDark ? '#aaa' : '#888';
+      var bgColor = isDark ? 'rgba(40,40,40,0.95)' : 'rgba(255,255,255,0.97)';
+      var gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+
+      var margin = { top: 12, right: 14, bottom: 32, left: 38 };
+      var fullWidth = chartContainer.clientWidth || 600;
+      var fullHeight = 180;
+      var width = fullWidth - margin.left - margin.right;
+      var height = fullHeight - margin.top - margin.bottom;
+
+      var parseDate = function(s) { return new Date(s + 'T00:00:00'); };
+      var chartData = allDailyData.map(function(d) {
+        return { date: parseDate(d.date), views: d.views || 0, rawDate: d.date, searches: d.searches || 0, unique_users: d.unique_users || 0 };
+      });
+
+      var xScale = d3.scaleTime()
+        .domain(d3.extent(chartData, function(d) { return d.date; }))
+        .range([0, width]);
+
+      var maxV = d3.max(chartData, function(d) { return d.views; }) || 1;
+      var yScale = d3.scaleLinear()
+        .domain([0, maxV * 1.08])
+        .range([height, 0])
+        .nice();
+
+      var svg = d3.select(chartContainer).append('svg')
+        .attr('width', fullWidth)
+        .attr('height', fullHeight)
+        .attr('viewBox', '0 0 ' + fullWidth + ' ' + fullHeight);
+
+      var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      // Horizontale Gitterlinien
+      var yTicks = yScale.ticks(4);
+      g.selectAll('.grid-line')
+        .data(yTicks)
+        .enter().append('line')
+        .attr('x1', 0).attr('x2', width)
+        .attr('y1', function(d) { return yScale(d); })
+        .attr('y2', function(d) { return yScale(d); })
+        .attr('stroke', gridColor).attr('stroke-width', 1);
+
+      // Y-Achse Beschriftungen
+      g.selectAll('.y-label')
+        .data(yTicks)
+        .enter().append('text')
+        .attr('x', -6).attr('y', function(d) { return yScale(d); })
+        .attr('dy', '0.35em').attr('text-anchor', 'end')
+        .attr('fill', textColor).attr('font-size', '0.65rem')
+        .text(function(d) { return d; });
+
+      // X-Achse: Datumsbeschriftungen (ca. 5-7 Ticks)
+      var tickCount = Math.min(6, chartData.length);
+      var xTicks = xScale.ticks(tickCount);
+      g.selectAll('.x-label')
+        .data(xTicks)
+        .enter().append('text')
+        .attr('x', function(d) { return xScale(d); })
+        .attr('y', height + 18)
+        .attr('text-anchor', 'middle')
+        .attr('fill', textColor).attr('font-size', '0.65rem')
+        .text(function(d) { return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }); });
+
+      // Fläche unter der Linie
+      var area = d3.area()
+        .x(function(d) { return xScale(d.date); })
+        .y0(height)
+        .y1(function(d) { return yScale(d.views); })
+        .curve(d3.curveMonotoneX);
+
+      g.append('path')
+        .datum(chartData)
+        .attr('fill', accentColor)
+        .attr('fill-opacity', 0.12)
+        .attr('d', area);
+
+      // Linie
+      var line = d3.line()
+        .x(function(d) { return xScale(d.date); })
+        .y(function(d) { return yScale(d.views); })
+        .curve(d3.curveMonotoneX);
+
+      g.append('path')
+        .datum(chartData)
+        .attr('fill', 'none')
+        .attr('stroke', accentColor)
+        .attr('stroke-width', 2)
+        .attr('d', line);
+
+      // Tooltip
+      var tooltip = d3.select(chartContainer).append('div')
+        .attr('class', 'analytics-line-chart-tooltip')
+        .style('background', bgColor)
+        .style('border', '1px solid ' + borderColor)
+        .style('color', isDark ? '#eee' : '#333');
+
+      var focusCircle = g.append('circle')
+        .attr('r', 4).attr('fill', accentColor)
+        .attr('stroke', isDark ? '#222' : '#fff').attr('stroke-width', 2)
+        .style('display', 'none');
+
+      var bisect = d3.bisector(function(d) { return d.date; }).left;
+
+      svg.append('rect')
+        .attr('width', width).attr('height', height)
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('fill', 'transparent')
+        .on('mousemove', function(event) {
+          var coords = d3.pointer(event, this);
+          var x0 = xScale.invert(coords[0]);
+          var i = bisect(chartData, x0, 1);
+          var d0 = chartData[i - 1];
+          var d1 = chartData[i] || d0;
+          var d = (x0 - d0.date > d1.date - x0) ? d1 : d0;
+          focusCircle.style('display', null)
+            .attr('cx', xScale(d.date))
+            .attr('cy', yScale(d.views));
+          var dateStr = d.date.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+          tooltip.style('display', 'block')
+            .html('<strong>' + dateStr + '</strong><br>' + d.views + ' Besuche, ' + d.unique_users + ' Nutzer, ' + d.searches + ' Suchen');
+          var tx = margin.left + xScale(d.date) + 12;
+          var ty = margin.top + yScale(d.views) - 10;
+          if (tx + 180 > fullWidth) tx = margin.left + xScale(d.date) - 180;
+          if (ty < 0) ty = 10;
+          tooltip.style('left', tx + 'px').style('top', ty + 'px');
+        })
+        .on('mouseout', function() {
+          focusCircle.style('display', 'none');
+          tooltip.style('display', 'none');
+        });
+    }
+
     // Tastenkombination: Strg+Shift+A öffnet Analytics
     document.addEventListener('keydown', function(e) {
       if (e.ctrlKey && e.shiftKey && e.key === 'A') {
