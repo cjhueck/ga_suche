@@ -19,6 +19,10 @@
 	"settings": {
 		"workbench.colorTheme": "Default Light+",
 		"window.autoDetectColorScheme": false,
-		"workbench.preferredLightColorTheme": "Light Modern"
+		"workbench.preferredLightColorTheme": "Light Modern",
+		"editor.wordWrap": "wordWrapColumn",
+		"diffEditor.wordWrap": "on",
+		"editor.wordWrapColumn": 120,
+		"editor.fontFamily": "Monspace"
 	}
 }
