@@ -3019,14 +3019,38 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
 }
 
 function applySemanticRanking(keywordResults, query, lectureSimilarities = {}) {
-  const queryLower = query.toLowerCase();
+  const queryLower = query.toLowerCase().replace(/['"]/g, '');
   const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
   const hasSimilarities = Object.keys(lectureSimilarities).length > 0;
+  
+  // Signifikante Wörter aus der Original-Abfrage (keine Stoppwörter)
+  const stopWords = ['der', 'die', 'das', 'ein', 'eine', 'und', 'oder', 'von', 'mit',
+    'für', 'ist', 'sind', 'hat', 'wie', 'was', 'des', 'dem', 'den', 'sich',
+    'bei', 'aus', 'auf', 'nach', 'über', 'zur', 'zum', 'als', 'auch', 'noch',
+    'werden', 'wird', 'kann', 'haben', 'nicht', 'aber', 'wenn', 'dass', 'welche'];
+  const significantQueryWords = queryWords.filter(w => !stopWords.includes(w) && w.length > 3);
   
   return keywordResults.map(result => {
     let semanticScore = result.keywordScore;
     const content = (result.content || '').toLowerCase();
     
+    // DIREKT-TREFFER-BOOST: Starker Bonus wenn der Absatz die Original-Suchbegriffe enthält
+    // Das verhindert, dass Expansions-/Semantik-Treffer die echten Keyword-Treffer verdrängen
+    let directMatchCount = 0;
+    significantQueryWords.forEach(word => {
+      if (content.includes(word)) {
+        directMatchCount++;
+      }
+    });
+    if (significantQueryWords.length > 0 && directMatchCount > 0) {
+      const matchRatio = directMatchCount / significantQueryWords.length;
+      semanticScore += matchRatio * 100;
+      if (matchRatio === 1) {
+        semanticScore += 50;
+      }
+    }
+    
+    // Proximity-Boost: Suchbegriffe nah beieinander im Text
     queryWords.forEach(word => {
       const wordIndex = content.indexOf(word);
       if (wordIndex !== -1) {
@@ -3044,21 +3068,24 @@ function applySemanticRanking(keywordResults, query, lectureSimilarities = {}) {
       }
     });
     
-    const philosophicalTerms = [
-      'erkenntnis', 'wahrheit', 'wirklichkeit', 'geist', 'seele', 
-      'bewusstsein', 'denken', 'anschauung', 'begriff'
-    ];
+    // Philosophical-Terms-Boost nur für direkte Treffer (nicht für Expansions-Ergebnisse)
+    if (!result.expandedMatch && !result.semanticMatch) {
+      const philosophicalTerms = [
+        'erkenntnis', 'wahrheit', 'wirklichkeit', 'geist', 'seele', 
+        'bewusstsein', 'denken', 'anschauung', 'begriff'
+      ];
+      philosophicalTerms.forEach(term => {
+        if (content.includes(term)) {
+          semanticScore += 2;
+        }
+      });
+    }
     
-    philosophicalTerms.forEach(term => {
-      if (content.includes(term)) {
-        semanticScore += 2;
-      }
-    });
-    
-    // Summary-Similarity-Boost: Keyword-Treffer aus semantisch
-    // ähnlichen Vorträgen erhalten einen zusätzlichen Score-Bonus
+    // Summary-Similarity-Boost: Nur für direkte Treffer verstärken,
+    // für indirekte Treffer reduzierter Boost
     if (hasSimilarities && lectureSimilarities[result.ID]) {
-      const similarityBoost = lectureSimilarities[result.ID] * 30;
+      const boostFactor = (result.expandedMatch || result.semanticMatch) ? 10 : 30;
+      const similarityBoost = lectureSimilarities[result.ID] * boostFactor;
       semanticScore += similarityBoost;
     }
     
@@ -3069,7 +3096,8 @@ function applySemanticRanking(keywordResults, query, lectureSimilarities = {}) {
     return {
       ...result,
       semanticScore: semanticScore,
-      finalScore: semanticScore
+      finalScore: semanticScore,
+      containsQueryTerms: directMatchCount > 0
     };
   }).sort((a, b) => b.finalScore - a.finalScore);
 }
@@ -10139,7 +10167,21 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     }
 
     let rankedResults = applySemanticRanking(keywordResults, query, lectureSimilarities);
-    let topResults = rankedResults.slice(0, limit);
+    
+    // Quoten-basierte Selektion: Direkte Keyword-Treffer haben Vorrang
+    // Verhindert, dass Expansions-/Semantik-Treffer die echten Treffer verdrängen
+    const directResults = rankedResults.filter(r => !r.expandedMatch && !r.semanticMatch);
+    const indirectResults = rankedResults.filter(r => r.expandedMatch || r.semanticMatch);
+    
+    const directQuota = Math.ceil(limit * 0.7);
+    const indirectQuota = limit - Math.min(directResults.length, directQuota);
+    
+    let topResults = [
+      ...directResults.slice(0, directQuota),
+      ...indirectResults.slice(0, indirectQuota)
+    ].sort((a, b) => b.finalScore - a.finalScore).slice(0, limit);
+    
+    console.log(`[THEMATIC] Ergebnis-Selektion: ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => !r.expandedMatch && !r.semanticMatch).length} direkte)`);
 
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
