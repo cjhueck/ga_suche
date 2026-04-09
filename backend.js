@@ -1,5 +1,5 @@
 // hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
-require('dotenv').config({ override: true });
+require('dotenv').config({ path: require('path').join(__dirname, '.env'), override: true });
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
@@ -4765,11 +4765,16 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
   const contextText = topResults
     .map((result, index) => {
       const refId = `${result.ID}:${result.index}`;
-      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+      const matchTag = result.expandedMatch ? ' [INDIREKT-EXPANSION]'
+                     : result.semanticMatch  ? ' [INDIREKT-SEMANTISCH]'
+                     : '';
+      return `[${refId}]${matchTag} ${result.fileName || result.title}\n${result.content}`;
     })
     .join('\n\n---\n\n');
     
+  const directRefs = topResults.filter(r => !r.expandedMatch && !r.semanticMatch);
   const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
+  const directRefIds = directRefs.map(r => `${r.ID}:${r.index}`).join(', ');
   
   
   const maxTokens = {
@@ -4822,10 +4827,13 @@ QUELLENANGABEN IM TEXT:
 - Falsch: "...hervortreten. (GA336/1)" oder "...muss. (GA079/2)"
 
 WEITERE RELEVANTE QUELLEN:
-Liste am Ende unter ## "Weitere relevante Quellen" NUR Quellen auf, die sich inhaltlich UNMITTELBAR auf die Fragestellung beziehen – nicht nur am Rande oder assoziativ.
+Liste am Ende unter ## "Weitere relevante Quellen" NUR Quellen auf, die sich inhaltlich UNMITTELBAR und KONKRET auf die Fragestellung beziehen.
+- Maximal 5 Quellen – lieber weniger als zu viele
 - Nur Quellen, die im Text NICHT genannt wurden
-- KEINE Quellen, die nur entfernt oder lose mit dem Thema zusammenhängen
-- Wenn es keine solchen weiteren relevanten Quellen gibt: überspringe diese Sektion ganz
+- KEINE Quellen mit dem Tag [INDIREKT-EXPANSION] oder [INDIREKT-SEMANTISCH] – diese wurden nur durch KI-Begriffserweiterung gefunden und haben oft keinen direkten Bezug
+- KEINE Quellen, die nur entfernt, assoziativ oder thematisch lose zusammenhängen
+- Im Zweifel: überspringe diese Sektion ganz. Lieber keine Liste als eine mit irrelevanten Quellen
+- Wähle nur aus diesen direkten Keyword-Treffern: ${directRefIds}
 Format: GA###/lectureNum:index (ohne Klammern), komma-getrennt
 
 Verfügbare Referenzen: ${availableRefs}
@@ -4947,10 +4955,13 @@ Fasse die wesentlichen Erkenntnisse zusammen
 
 Weitere relevante Quellen
 
-Liste unter dem Text unter der ## Überschrift "Weitere relevante Quellen" NUR Quellen, die sich inhaltlich UNMITTELBAR auf die Fragestellung beziehen – nicht nur am Rande oder assoziativ.
+Liste unter dem Text unter der ## Überschrift "Weitere relevante Quellen" NUR Quellen, die sich inhaltlich UNMITTELBAR und KONKRET auf die Fragestellung beziehen.
+- Maximal 5 Quellen – lieber weniger als zu viele
 - Nur Quellen, die im obigen Text NICHT genannt wurden
-- KEINE Quellen, die nur entfernt oder lose mit dem Thema zusammenhängen
-- Wenn es keine solchen weiteren relevanten Quellen gibt: überspringe diese Sektion ganz
+- KEINE Quellen mit dem Tag [INDIREKT-EXPANSION] oder [INDIREKT-SEMANTISCH] – diese wurden nur durch KI-Begriffserweiterung gefunden und haben oft keinen direkten Bezug zur Frage
+- KEINE Quellen, die nur entfernt, assoziativ oder thematisch lose zusammenhängen
+- Im Zweifel: überspringe diese Sektion ganz. Lieber keine Liste als eine mit irrelevanten Quellen
+- Wähle nur aus diesen direkten Keyword-Treffern: ${directRefIds}
 Format: GA###/lectureNum:index (wie im Text), ohne Klammern, komma-getrennt
 Jede Quelle nur einmal; verwende keine Quellen, die bereits im Text zitiert wurden
 Beispiel: "GA070b/13:abc123, GA080b/4:def456"
