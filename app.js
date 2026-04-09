@@ -4421,13 +4421,16 @@ function normalizeGANumber(gaNumber) {
         imgTag.setAttribute('src', r2Url);
         imgTag.setAttribute('data-local-src', `/assets/${encodeURIComponent(filename)}?ga=${encodeURIComponent(gaNumber)}`);
 
-        // onerror: erst alternative Dateiendungen auf R2, dann lokaler Fallback via Backend
-        // (Backend übernimmt selbst den Extension-Fallback, daher reicht ein Versuch lokal)
+        // onerror: R2 Extensions → R2 mit Doppel-Leerzeichen → lokaler Fallback
         imgTag.setAttribute('onerror',
           "var c=this.src,t=(this.dataset.triedExts||'').split(',').filter(Boolean)," +
           "x=(c.match(/\\.\\w+$/)||[''])[0].toLowerCase();t.push(x);" +
           "var a=['.png','.jpeg','.jpg','.webp'].filter(function(e){return t.indexOf(e)<0});" +
           "if(c.indexOf('rudolf-steiner-online.de')>=0&&a.length){this.dataset.triedExts=t.join(',');this.src=c.replace(/\\.\\w+$/,a[0])}" +
+          "else if(c.indexOf('rudolf-steiner-online.de')>=0&&!this.dataset.triedDoubleSpace&&c.indexOf('%20')>=0){" +
+            "this.dataset.triedDoubleSpace='1';this.dataset.triedExts='';" +
+            "this.src=c.replace(/%20/g,'%20%20')" +
+          "}" +
           "else if(!this.dataset.triedLocal&&this.dataset.localSrc){this.dataset.triedLocal='1';this.src=this.dataset.localSrc}" +
           "else{this.onerror=null}"
         );

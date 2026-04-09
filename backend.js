@@ -207,8 +207,10 @@ app.get('/assets/*', async (req, res) => {
  */
 function findImageInGAFolder(gaFolderPath, filename) {
   const altExts = ['.jpeg', '.jpg', '.png', '.webp'];
+  function normalizeSpaces(s) { return s.replace(/\s+/g, ' '); }
   
   function tryWithAlternateExts(dir, name) {
+    // 1) Exakter Match (inkl. Extension-Fallback)
     const full = path.join(dir, name);
     if (fsSync.existsSync(full)) return full;
     const ext = path.extname(name).toLowerCase();
@@ -218,6 +220,24 @@ function findImageInGAFolder(gaFolderPath, filename) {
       const altPath = path.join(dir, base + alt);
       if (fsSync.existsSync(altPath)) return altPath;
     }
+    
+    // 2) Whitespace-normalisierter Fuzzy-Match
+    // Behebt Diskrepanzen zwischen Doppel-Leerzeichen auf Disk und
+    // einfachen Leerzeichen in den JSON-Referenzen (betrifft 9 GA-Baende)
+    try {
+      const dirFiles = fsSync.readdirSync(dir);
+      const normalizedName = normalizeSpaces(name);
+      const fuzzyMatch = dirFiles.find(f => normalizeSpaces(f) === normalizedName);
+      if (fuzzyMatch) return path.join(dir, fuzzyMatch);
+      
+      const normalizedBase = normalizeSpaces(base);
+      for (const alt of altExts) {
+        if (alt === ext) continue;
+        const fuzzy = dirFiles.find(f => normalizeSpaces(f) === normalizedBase + alt);
+        if (fuzzy) return path.join(dir, fuzzy);
+      }
+    } catch { /* ignore */ }
+    
     return null;
   }
 
