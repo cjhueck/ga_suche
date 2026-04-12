@@ -121,7 +121,11 @@
       "lectureId": "GA034/17",
       "paragraphIndex": "6mgcaf",
       "addedAt": "2026-01-12T20:42:14.998Z",
-      "isActive": false
+      "isActive": true,
+      "isUsed": true,
+      "usedSince": "2026-04-12T21:24:04.640Z",
+      "displayedSince": "2026-04-12T21:24:05.611Z",
+      "activeToggledAt": "2026-04-12T21:24:05.611Z"
     },
     {
       "id": "1768663023578",
@@ -202,11 +206,14 @@
     },
     {
       "id": "1771254921433",
-      "text": "Zwei Bilder stehen vor der Seele des Geheimwissenschaftlers. Wer heute die große Kulturschöpfung des Christentums überblickt, wer das, was das Christentum in der Welt getan hat, ermessen will, der stelle sich zwei Bilder vor die Seele: Zuerst das alte kaiserliche Rom in der Zeit der ersten christlichen Jahrhunderte. Er sehe hin auf die Trümmer des alten Roms, die heute noch künden von dem, was damals in der gebildeten Welt vorgegangen ist. Aus diesem Bild wird er Trost und Sicherheit schöpfen können, wenn gesagt wird, die Gelehrten und Gebildeten wollen nichts wissen von Theosophie oder Geisteswissenschaft. Was wollten diejenigen, die da oben in diesen verfallenen Prachtgebäuden waren? Sie wollten – die Schaustellungen des Kolosseums! Und was hielten sie vom Christentum? Sie haben die Christen zu Pechfackeln gemacht und verbrannt! Rufen wir uns das so recht ins Gedächtnis.\n\nDer Wandel der Zeiten\nUnd dann wenden wir den Blick zu einem anderen Bild. Dieses müssen wir allerdings an einem ganz anderen Orte suchen. Unter der Erde müssen wir es suchen, in den weit ausgedehnten Katakomben Roms, wo Mühselige und Beladene waren, die abseits standen von der Bildung und der tonangebenden Welt. Dahin, wo diese ihre Altäre aufrichteten, wo sie ihre Toten begruben und ihre heiligen Opfer darbrachten, dahin wenden wir unseren Blick.\n\nUnd nachdem wir diese Bilder in unserer Seele hervorgerufen haben, fragen wir uns: Wie änderte sich das Bild im Laufe der Jahrhunderte? – Die unten waren, trugen in der Seele dasjenige, was die Welt eroberte, und das, was sich oben abspielte, ging zugrunde. Es musste zurückweichen 36| vor dem, was aus den verborgenen Stätten heraufdrang. So war der Gang der Dinge, und das ist für uns Trost und Hoffnung. Wir wissen es ganz genau, dass wir durch die eigentümlichen Zeitverhältnisse nur Spott und Hohn finden können. Wir finden, dass wir in ähnlicher Weise still und schlicht wirken müssen gerade bei denen, die vielleicht verachtet werden von den sogenannten Aufgeklärten. Wir wissen aber auch, dass das Bild ein ähnliches sein wird wie damals. Wir wissen, dass das, was früher verachtet wurde, entweder die anderen ergreifen und mitziehen wird, oder dass es über sie hinweggeht.",
+      "text": "Wer heute die große Kulturschöpfung des Christentums überblickt, wer das, was das Christentum in der Welt getan hat, ermessen will, der stelle sich zwei Bilder vor die Seele: Zuerst das alte kaiserliche Rom in der Zeit der ersten christlichen Jahrhunderte. Er sehe hin auf die Trümmer des alten Roms, die heute noch künden von dem, was damals in der gebildeten Welt vorgegangen ist. Aus diesem Bild wird er Trost und Sicherheit schöpfen können, wenn gesagt wird, die Gelehrten und Gebildeten wollen nichts wissen von Theosophie oder Geisteswissenschaft. Was wollten diejenigen, die da oben in diesen verfallenen Prachtgebäuden waren? Sie wollten – die Schaustellungen des Kolosseums! Und was hielten sie vom Christentum? Sie haben die Christen zu Pechfackeln gemacht und verbrannt! \n\nUnd dann wenden wir den Blick zu einem anderen Bild. Dieses müssen wir allerdings an einem ganz anderen Orte suchen. Unter der Erde müssen wir es suchen, in den weit ausgedehnten Katakomben Roms, wo Mühselige und Beladene waren, die abseits standen von der Bildung und der tonangebenden Welt. Dahin, wo diese ihre Altäre aufrichteten, wo sie ihre Toten begruben und ihre heiligen Opfer darbrachten, dahin wenden wir unseren Blick.\n\nWie änderte sich das Bild im Laufe der Jahrhunderte? – Die unten waren, trugen in der Seele dasjenige, was die Welt eroberte, und das, was sich oben abspielte, ging zugrunde. Es musste zurückweichen vor dem, was aus den verborgenen Stätten heraufdrang. So war der Gang der Dinge, und das ist für uns Trost und Hoffnung. Wir wissen es ganz genau, dass wir durch die eigentümlichen Zeitverhältnisse nur Spott und Hohn finden können. Wir finden, dass wir in ähnlicher Weise still und schlicht wirken müssen gerade bei denen, die vielleicht verachtet werden von den sogenannten Aufgeklärten. Wir wissen aber auch, dass das Bild ein ähnliches sein wird wie damals. Wir wissen, dass das, was früher verachtet wurde, entweder die anderen ergreifen und mitziehen wird, oder dass es über sie hinweggeht.",
       "lectureId": "GA056/1",
       "paragraphIndex": "uwpr6y",
       "addedAt": "2026-02-16T15:15:21.433Z",
-      "isActive": false
+      "isActive": false,
+      "isUsed": false,
+      "displayedSince": "2026-04-12T21:19:45.913Z",
+      "activeToggledAt": "2026-04-12T21:24:08.889Z"
     },
     {
       "id": "1771320718604",
@@ -214,11 +221,11 @@
       "lectureId": "GA300a/17",
       "paragraphIndex": "nrgs80",
       "addedAt": "2026-02-17T09:31:58.604Z",
-      "isActive": true,
+      "isActive": false,
       "displayedSince": "2026-04-05T15:57:56.076Z",
-      "activeToggledAt": "2026-04-05T15:57:56.076Z",
+      "activeToggledAt": "2026-04-12T21:23:25.585Z",
       "isUsed": true,
-      "usedSince": "2026-04-05T15:57:57.417Z"
+      "usedSince": "2026-04-12T21:23:18.490Z"
     },
     {
       "id": "1772439126447",
