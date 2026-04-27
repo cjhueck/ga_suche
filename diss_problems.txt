@@ -1,0 +1,7 @@
+404	I.1.1. Aristotelian organicism.md	103	https://doi.org/10.1163/156852899321149798	Caston, Victor. 1999. "Aristotle's Two Intellects: A Modest Proposal." *Phronesis* 44 (3): 199–227. https://doi.org/10.1
+FORMAT_ERR	I.1.2. Vitalism.md	136	https://doi.org/10.1016/0039-3681(74	Benton, E. 1974. "Vitalism in Nineteenth-Century Scientific Thought: A Typology and Reassessment." *Studies in History a
+ERR	I.1.2. Vitalism.md	152	https://doi.org/10.24117/2526-2270.2019.i7.03	Chen, Bohang. 2019. "Revisiting the Logical Empiricist Criticisms of Vitalism." *Transversal: International Journal for 
+FORMAT_ERR	I.1.4. Epigenesis and Bildungstrieb.md	136	https://doi.org/10.1016/S1369-8486(99	Richards, Robert J. 2000. "Kant and Blumenbach on the *Bildungstrieb*: A Historical Misunderstanding." *Studies in Histo
+FORMAT_ERR	I.1.5. Organicism.md	213	https://doi.org/10.1002/1097-0177(2000	Gilbert, Scott F., and Sahotra Sarkar. 2000. "Embracing Complexity: Organicism for the 21st Century." *Developmental Dyn
+404	III.1 The Epistemological Problem of Knowing Organic Life.md	103	https://doi.org/10.1007/s11229-011-9878-7	Bich, Leonardo. 2012. "Complex Emergence and the Living Organization: An Epistemological Framework for Biology." *Synthe
+404	III.1 The Epistemological Problem of Knowing Organic Life.md	119	https://doi.org/10.1023/A:1006750508375	Maienschein, Jane. 2000. "Competing Epistemologies and Developmental Biology." *Biology and Philosophy* 15: 631–654. htt

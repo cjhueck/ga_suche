@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goethe-Zitate</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #f7f5f0;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      color: #2c2c2c;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    /* API Key */
+    .api-section {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .api-section label {
+      font-size: 0.8rem;
+      color: #555;
+      white-space: nowrap;
+    }
+
+    .api-section input {
+      flex: 1;
+      font-family: monospace;
+      font-size: 0.78rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 0.3rem 0.5rem;
+      background: #fafafa;
+      color: #333;
+    }
+
+    .api-section .save-btn {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.8rem;
+      background: #4a7c59;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .api-section .save-btn:hover { background: #3a6347; }
+
+    .api-saved {
+      font-size: 0.75rem;
+      color: #4a7c59;
+      white-space: nowrap;
+    }
+
+    /* Input */
+    .input-section {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-section label {
+      display: block;
+      font-size: 0.85rem;
+      color: #444;
+      margin-bottom: 0.6rem;
+    }
+
+    textarea {
+      width: 100%;
+      height: 110px;
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 0.7rem;
+      resize: vertical;
+      background: #fefefe;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+
+    textarea:focus { outline: none; border-color: #8b7355; }
+
+    .search-btn {
+      margin-top: 0.8rem;
+      padding: 0.6rem 1.8rem;
+      background: #8b7355;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+
+    .search-btn:hover { background: #6e5c42; }
+    .search-btn:disabled { background: #bbb; cursor: not-allowed; }
+
+    /* Loading */
+    .loading {
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid #ddd;
+      border-top-color: #8b7355;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Results */
+    .result-section {
+      display: none;
+      background: #fff;
+      border: 1px solid #c8b89a;
+      border-radius: 4px;
+      padding: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .result-section h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8b7355;
+      margin-bottom: 1rem;
+    }
+
+    .citation-box {
+      background: #faf7f2;
+      border-left: 3px solid #8b7355;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .citation-box .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      background: #e8e0d5;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      color: #555;
+      font-family: sans-serif;
+    }
+
+    .citation-box .copy-btn:hover { background: #d4c9b8; }
+
+    .reliability {
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 3px;
+      font-family: sans-serif;
+    }
+
+    .reliability.high { background: #eaf4ec; color: #2d6b40; border-left: 3px solid #4a9e60; }
+    .reliability.medium { background: #fef8e7; color: #7a5c00; border-left: 3px solid #c9a820; }
+    .reliability.low { background: #fdecea; color: #a02020; border-left: 3px solid #d04040; }
+
+    .analysis {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .sources-header {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 0.5rem;
+      font-family: sans-serif;
+    }
+
+    .source-item {
+      font-size: 0.82rem;
+      font-family: sans-serif;
+      margin-bottom: 0.3rem;
+    }
+
+    .source-item a {
+      color: #5a7fa8;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .source-item a:hover { text-decoration: underline; }
+
+    /* Error */
+    .error-box {
+      display: none;
+      background: #fdecea;
+      border: 1px solid #f5a0a0;
+      border-radius: 4px;
+      padding: 0.9rem 1rem;
+      font-size: 0.88rem;
+      color: #a02020;
+      margin-bottom: 1rem;
+      font-family: sans-serif;
+    }
+
+    /* History */
+    .history-section {
+      margin-top: 1.5rem;
+    }
+
+    .history-toggle {
+      font-size: 0.8rem;
+      color: #888;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: sans-serif;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    .history-list {
+      display: none;
+      margin-top: 0.6rem;
+      border: 1px solid #e0d8cc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .history-item {
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid #ece6dc;
+      cursor: pointer;
+      font-size: 0.83rem;
+      transition: background 0.15s;
+    }
+
+    .history-item:last-child { border-bottom: none; }
+    .history-item:hover { background: #f5f0e8; }
+
+    .history-item .hist-quote {
+      color: #555;
+      font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .history-item .hist-cite {
+      font-size: 0.78rem;
+      color: #8b7355;
+      font-family: sans-serif;
+      margin-top: 0.15rem;
+    }
+
+    .note {
+      font-size: 0.75rem;
+      color: #999;
+      font-family: sans-serif;
+      margin-top: 1.5rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Goethe-Zitate</h1>
+  <p class="subtitle">Quellensuche in Frankfurter Ausgabe (FA) und Hamburger Ausgabe (HA) &mdash; mit Internetquellen</p>
+
+  <!-- API Key -->
+  <div class="api-section">
+    <label for="apiKey">Gemini API-Key</label>
+    <input type="password" id="apiKey" placeholder="AIza..." autocomplete="off">
+    <button class="save-btn" onclick="saveKey()">Speichern</button>
+    <span class="api-saved" id="keySaved" style="display:none">✓ gespeichert</span>
+  </div>
+
+  <!-- Input -->
+  <div class="input-section">
+    <label for="quoteInput">Goethe-Zitat (vollständig oder als Fragment)</label>
+    <textarea id="quoteInput" placeholder="z. B.: Bei Betrachtung der Natur im Großen wie im Kleinen hab' ich unausgesetzt die Frage gestellt…"></textarea>
+    <button class="search-btn" id="searchBtn" onclick="search()">Quelle suchen</button>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      Suche in Goethe-Quellen (Websuche aktiv)…
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div class="error-box" id="errorBox"></div>
+
+  <!-- Results -->
+  <div class="result-section" id="resultSection">
+    <h2>Ergebnis</h2>
+
+    <div class="citation-box" id="citationBox">
+      <div style="position:absolute;top:0.5rem;right:0.5rem;display:flex;gap:0.3rem">
+        <button class="copy-btn" onclick="copyCitation('short')" title="Kurzform kopieren: (FA Band:Seite)">Kurzform</button>
+        <button class="copy-btn" onclick="copyCitation('long')" title="Vollangabe kopieren">Vollangabe</button>
+      </div>
+      <span id="citationText"></span>
+    </div>
+
+    <div class="reliability" id="reliabilityBox"></div>
+
+    <div class="analysis" id="analysisText"></div>
+
+    <!-- HA -->
+    <div id="haSection" style="display:none;margin-top:1.2rem;border-top:1px solid #e8e0d0;padding-top:1.2rem;">
+      <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;color:#5a7fa8;margin-bottom:0.7rem;">Hamburger Ausgabe (HA)</div>
+      <div class="citation-box" id="haCitationBox" style="border-left-color:#5a7fa8;">
+        <div style="position:absolute;top:0.5rem;right:0.5rem;display:flex;gap:0.3rem">
+          <button class="copy-btn" onclick="copyCitationHA('short')" title="HA Kurzform">Kurzform</button>
+          <button class="copy-btn" onclick="copyCitationHA('long')" title="HA Vollangabe">Vollangabe</button>
+        </div>
+        <span id="haCitationText"></span>
+      </div>
+      <div class="reliability" id="haReliabilityBox"></div>
+      <div class="sources-header" style="margin-top:0.8rem;">Online-Texte (HA)</div>
+      <div id="haLinksList"></div>
+    </div>
+
+    <!-- Bibliographie -->
+    <div style="margin-top:1.4rem;border-top:1px solid #e8e0d0;padding-top:1.2rem;">
+      <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;color:#8b7355;margin-bottom:0.8rem;">Bibliographische Einträge (für Referenzlisten)</div>
+
+      <div class="citation-box" id="faBibBox" style="font-family:Georgia,serif;font-size:0.88rem;line-height:1.6;padding-right:5.5rem;">
+        <div style="position:absolute;top:0.5rem;right:0.5rem;">
+          <button class="copy-btn" onclick="copyBib('fa')" title="FA-Eintrag kopieren">Kopieren</button>
+        </div>
+        <span id="faBibText">Goethe, Johann Wolfgang von. 1985–2013. <em>Sämtliche Werke. Briefe, Tagebücher und Gespräche</em>. Edited by Hendrik Birus, Dieter Borchmeyer, Karl Eibl, et al. 40 vols. Frankfurt am Main: Deutscher Klassiker Verlag. [Cited as FA]</span>
+      </div>
+
+      <div class="citation-box" id="haBibBox" style="font-family:Georgia,serif;font-size:0.88rem;line-height:1.6;padding-right:5.5rem;border-left-color:#5a7fa8;margin-top:0.6rem;">
+        <div style="position:absolute;top:0.5rem;right:0.5rem;">
+          <button class="copy-btn" onclick="copyBib('ha')" title="HA-Eintrag kopieren">Kopieren</button>
+        </div>
+        <span id="haBibText">Goethe, Johann Wolfgang von. (1948–1960) 1981. <em>Werke: Hamburger Ausgabe in 14 Bänden</em>. Edited by Erich Trunz. 14 vols. Munich: C.H. Beck. [Cited as HA]</span>
+      </div>
+
+      <div style="position:relative;">
+        <button class="copy-btn" style="position:static;margin-top:0.4rem;display:inline-block;" onclick="copyBib('both')">Beide kopieren</button>
+      </div>
+    </div>
+
+    <div class="sources-header" style="margin-top:1.4rem;border-top:1px solid #e8e0d0;padding-top:1rem;">Verwendete Internetquellen (Websuche)</div>
+    <div id="sourcesList"></div>
+  </div>
+
+  <!-- History -->
+  <div class="history-section">
+    <button class="history-toggle" onclick="toggleHistory()">Suchverlauf anzeigen/verbergen</button>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <p class="note">
+    Hinweis: Die Seitenangaben der Frankfurter Ausgabe werden aus Internetquellen (Zeno.org, Goethe-Lexikon Pittsburgh, DTA, Projekt Gutenberg u.a.) erschlossen
+    und sollten am gedruckten Band verifiziert werden. Angaben ohne direkten FA-Nachweis werden als &bdquo;zu verifizieren&ldquo; gekennzeichnet.
+  </p>
+</div>
+
+<script>
+  // ── API Key ──────────────────────────────────────────────────────────────
+  const KEY_STORE = 'goethe_fa_gemini_key';
+  const DEFAULT_KEY = 'AIzaSyB-ZST1znUV10WRL8pVsdf2gGHNVX7If48';
+
+  (function initKey() {
+    const saved = localStorage.getItem(KEY_STORE) || DEFAULT_KEY;
+    document.getElementById('apiKey').value = saved;
+    document.getElementById('keySaved').style.display = 'inline';
+  })();
+
+  function saveKey() {
+    const k = document.getElementById('apiKey').value.trim();
+    if (!k) return;
+    localStorage.setItem(KEY_STORE, k);
+    const el = document.getElementById('keySaved');
+    el.style.display = 'inline';
+    setTimeout(() => { el.style.display = 'none'; }, 2000);
+  }
+
+  // Extrahiert die 3 längsten Wörter (≥5 Zeichen) als Suchstring für Pittsburgh
+  function keywords3(quote) {
+    return quote.split(/\s+/)
+      .map(w => w.replace(/\W/g, ''))
+      .filter(w => w.length >= 5)
+      .sort((a, b) => b.length - a.length)
+      .slice(0, 3)
+      .join(' ');
+  }
+
+  // ── Fuzzy Normalisierung ─────────────────────────────────────────────────
+  // Gibt ein Array von Varianten zurück: [original, normalisiert, ...]
+  function buildVariants(quote) {
+    const variants = new Set();
+    variants.add(quote.trim());
+
+    function transform(s) {
+      return s
+        // langes s
+        .replace(/ſ/g, 's')
+        // apostrophierte Endungen: hab' → habe, geb' → gebe, find' → finde
+        .replace(/(\w)'\s/g, '$1e ')
+        .replace(/(\w)'$/g, '$1e')
+        // historische Diphthonge
+        .replace(/\bseyn\b/gi, 'sein')
+        .replace(/\bsey\b/gi,  'sei')
+        .replace(/\bey\b/gi,   'ei')
+        .replace(/\bthun\b/gi, 'tun')
+        .replace(/\bthut\b/gi, 'tut')
+        .replace(/\bthat\b/gi, 'tat')
+        .replace(/\bgethan\b/gi, 'getan')
+        .replace(/\bsteh[e]?n\b/gi, 'stehen')
+        .replace(/\bgeht\b/gi,  'geht')
+        // th → t (allgemein, vorsichtig)
+        .replace(/th([aeiouäöüAEIOUÄÖÜ])/g, 't$1')
+        // ae/oe/ue → Umlaute
+        .replace(/ae/g, 'ä').replace(/oe/g, 'ö').replace(/ue/g, 'ü')
+        // ß ↔ ss
+        .replace(/ß/g, 'ss')
+        // Anführungszeichen normalisieren
+        .replace(/[»«„"]/g, '"')
+        // mehrfache Leerzeichen
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    const norm = transform(quote);
+    variants.add(norm);
+
+    // Variante mit ss→ß
+    variants.add(norm.replace(/ss/g, 'ß'));
+
+    // Nur die charakteristischen Schlüsselwörter (≥ 5 Zeichen) als Suchbegriffe
+    const keywords = quote.split(/\s+/).filter(w => w.replace(/\W/g,'').length >= 5);
+    if (keywords.length >= 3) variants.add(keywords.slice(0, 6).join(' '));
+
+    return [...variants].filter(v => v.length > 0);
+  }
+
+  // ── System Prompt ────────────────────────────────────────────────────────
+  const SYSTEM_PROMPT = `Du bist ein Goethe-Philologe mit Spezialisierung auf die Frankfurter Ausgabe (FA) und die Hamburger Ausgabe (HA).
+
+Aufgabe: Für ein gegebenes Goethe-Zitat (oder Zitatfragment) — ggf. mit leichten Schreibabweichungen, historischer Orthographie oder Tippfehlern — bestimmst du die genaue Quelle in der Frankfurter Ausgabe UND der Hamburger Ausgabe, und gibst direkte Links zu Online-Texten an.
+
+Fuzzy-Suchstrategie (wichtig!):
+- Das Zitat kann historisch orthographiert sein (ey→ei, seyn→sein, thun→tun, Doppel-s statt ß u.ä.) oder leichte Tippfehler enthalten.
+- Suche IMMER auch nach modernisierten und historischen Schreibvarianten.
+- Wenn exakte Treffer fehlen, suche nach den charakteristischen Schlüsselwörtern des Zitats.
+- Nutze mehrere Suchanfragen mit verschiedenen Varianten, bis du eine Zuordnung findest oder alle Varianten ausgeschöpft sind.
+
+== FRANKFURTER AUSGABE (FA) ==
+Suhrkamp/Insel, 1985–1999, hrsg. von Hendrik Birus u.a.
+- FA I (Werke): Bände 1–40
+- FA II (Tagebücher), FA III (Briefe), FA IV (Briefe an Goethe)
+Zitierformat: (FA [Band]:[Seite]) — Beispiel: (FA 24:432)
+Kein "S.", kein "Bd.", kein "Goethe,", kein "I/".
+
+== HAMBURGER AUSGABE (HA) ==
+C.H. Beck, 14 Bände, hrsg. von Erich Trunz.
+Bandübersicht: HA 1–2 Gedichte · HA 3–4 Dramen · HA 5 Faust · HA 6–7 Romane · HA 8 Wilhelm Meister · HA 9–10 Autobiographisches · HA 11 Naturwissenschaft · HA 12 Kunst und Literatur · HA 13 Maximen und Reflexionen · HA 14 Briefe
+Zitierformat: (HA [Band]:[Seite]) — Beispiel: (HA 13:49)
+HA-Texte sind z.T. bei Zeno.org abrufbar: https://www.zeno.org/Literatur/M/Goethe,+Johann+Wolfgang
+
+== ONLINE-LINKS (PRIORITÄT) ==
+Suche in DIESER Reihenfolge:
+1. HÖCHSTE PRIORITÄT — Goethe-Lexicon of Philosophical Concepts (Pittsburgh):
+   https://goethe-lexicon.pitt.edu/GL/
+   Suche: site:goethe-lexicon.pitt.edu "[Schlüsselwörter aus dem Zitat]"
+   Diese Quelle enthält direkte FA-Seitenangaben in akademischen Artikeln — immer zuerst prüfen.
+2. Zeno.org: https://www.zeno.org/Literatur/M/Goethe,+Johann+Wolfgang
+3. Deutsches Textarchiv (DTA): https://www.deutschestextarchiv.de/
+4. Projekt Gutenberg-DE: https://www.projekt-gutenberg.org/autoren/goethe.html
+5. TextGrid Repository: https://textgridrep.org/
+
+Gib für jede gefundene Online-Quelle einen direkten, anklickbaren Link zur entsprechenden Textstelle (oder zumindest zum Werk) an.
+
+Vorgehensweise:
+1. Suche mit den gegebenen Varianten in allen genannten Quellen.
+2. Identifiziere das Werk, den Kontext und die Textstelle.
+3. Ermittle FA-Band und Seitenzahl sowie HA-Band und Seitenzahl so präzise wie möglich.
+4. Sammle direkte URLs zu Online-Texten, die die Stelle enthalten oder belegen.
+5. Bewerte die Zuverlässigkeit: HOCH (direkte Seitenangabe in FA oder HA gefunden), MITTEL (Band bekannt, Seite erschlossen), NIEDRIG (nur Werk bekannt).
+
+Deine Antwort muss IMMER dieses JSON-Format haben (kein Markdown-Codeblock, nur reines JSON):
+{
+  "citation": "(FA 13:50)",
+  "citation_long": "Goethe, *Maximen und Reflexionen*, FA 13:50",
+  "reliability": "MITTEL",
+  "reliability_reason": "FA-Band durch Pittsburgh Goethe-Lexikon bestätigt; Seitenangabe am Druckband zu verifizieren.",
+  "ha_citation": "(HA 12:367)",
+  "ha_citation_long": "Goethe, *Schriften zur Kunst*, HA 12:367",
+  "ha_reliability": "MITTEL",
+  "ha_links": [
+    {"title": "Zeno.org — Goethe: Maximen und Reflexionen", "url": "https://www.zeno.org/Literatur/M/Goethe,+Johann+Wolfgang/Aphorismen+und+Sprüche/Maximen+und+Reflexionen"},
+    {"title": "Projekt Gutenberg-DE — Goethe: Sprüche in Prosa", "url": "https://www.projekt-gutenberg.org/goethe/sprueche/sprueche.html"}
+  ],
+  "work": "Maximen und Reflexionen",
+  "section": "Natur und Wissenschaft",
+  "context": "Kontext des Zitats im Werk...",
+  "wA_reference": "WA II/11, S. 50 (Weimarer Ausgabe, zur weiteren Verifikation)",
+  "matched_variant": "normalisierte Schreibweise, die zum Treffer geführt hat (falls abweichend vom Original)"
+}
+
+Falls du das Zitat gar nicht zuordnen kannst, setze citation auf null und erkläre in context.`;
+
+  // ── Search ───────────────────────────────────────────────────────────────
+  async function search() {
+    const key = document.getElementById('apiKey').value.trim();
+    const quote = document.getElementById('quoteInput').value.trim();
+
+    if (!key) { showError('Bitte zuerst den Gemini API-Key eingeben und speichern.'); return; }
+    if (!quote) { showError('Bitte ein Zitat eingeben.'); return; }
+
+    setLoading(true);
+    hideError();
+    hideResult();
+
+    try {
+      const variants = buildVariants(quote);
+      const variantBlock = variants.length > 1
+        ? `\n\nSuchvarianten (automatisch generiert):\n${variants.map((v,i) => `${i+1}. "${v}"`).join('\n')}`
+        : '';
+
+      const payload = {
+        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ role: 'user', parts: [{ text: `Zitat: "${quote}"${variantBlock}` }] }],
+        tools: [{ google_search: {} }],
+        generation_config: { temperature: 0.1 }
+      };
+
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }
+      );
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error?.message || `API-Fehler: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      const candidate = data.candidates?.[0];
+      if (!candidate) {
+        const blocked = data.promptFeedback?.blockReason;
+        throw new Error(blocked ? `Anfrage blockiert: ${blocked}` : 'Keine Antwort von der API erhalten.');
+      }
+
+      // Nur text-Teile zusammenführen (Tool-Call-Teile haben kein .text)
+      const rawText = (candidate.content?.parts || [])
+        .filter(p => typeof p.text === 'string')
+        .map(p => p.text)
+        .join('') || '';
+
+      // Grounding-Metadaten aus allen Kandidaten-Ebenen holen
+      const sources =
+        candidate.groundingMetadata?.groundingChunks ||
+        data.candidates?.flatMap(c => c.groundingMetadata?.groundingChunks || []) ||
+        [];
+
+      // Parse JSON from response — handle markdown blocks, thinking tokens, etc.
+      let parsed;
+      try {
+        // 1. Thinking-Block entfernen (<think>...</think> oder ähnliches)
+        let cleaned = rawText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+        // 2. Markdown-Code-Block extrahieren falls vorhanden
+        const codeBlock = cleaned.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        if (codeBlock) cleaned = codeBlock[1];
+        // 3. JSON-Objekt extrahieren
+        const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) throw new Error('no-json');
+        parsed = JSON.parse(jsonMatch[0]);
+      } catch {
+        parsed = {
+          citation: null,
+          citation_long: '',
+          reliability: 'NIEDRIG',
+          reliability_reason: 'Antwort konnte nicht strukturiert werden.',
+          work: '',
+          section: '',
+          context: rawText || 'Keine Antwort erhalten.',
+          ha_citation: null,
+          alternative_editions: ''
+        };
+      }
+
+      displayResult(parsed, sources, quote);
+      saveToHistory(quote, parsed.citation);
+
+    } catch (e) {
+      showError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // ── Display ──────────────────────────────────────────────────────────────
+  function displayResult(parsed, sources, originalQuote) {
+    _lastParsed = parsed;
+    const section = document.getElementById('resultSection');
+    section.style.display = 'block';
+
+    // Citation — short form (FA Band:Seite) + long form
+    const citeText = parsed.citation || '— Zitat nicht identifiziert —';
+    const longCite = parsed.citation_long || '';
+    document.getElementById('citationText').innerHTML =
+      `<span style="font-size:1.1rem;font-weight:bold;letter-spacing:0.01em">${esc(citeText)}</span>` +
+      (longCite ? `<br><span style="font-size:0.85rem;color:#666;font-weight:normal;margin-top:0.3rem;display:inline-block">${esc(longCite)}</span>` : '');
+
+    // Reliability
+    const relBox = document.getElementById('reliabilityBox');
+    const relMap = { HOCH: 'high', MITTEL: 'medium', NIEDRIG: 'low' };
+    const relLabel = { HOCH: '✓ Hohe Zuverlässigkeit', MITTEL: '~ Mittlere Zuverlässigkeit', NIEDRIG: '⚠ Niedrige Zuverlässigkeit' };
+    relBox.className = 'reliability ' + (relMap[parsed.reliability] || 'low');
+    relBox.innerHTML = `<strong>${relLabel[parsed.reliability] || parsed.reliability}</strong>: ${parsed.reliability_reason || ''}`;
+
+    // Analysis
+    let html = '';
+    if (parsed.work) html += `<strong>Werk:</strong> ${esc(parsed.work)}`;
+    if (parsed.section) html += ` &middot; <em>${esc(parsed.section)}</em>`;
+    if (parsed.work || parsed.section) html += '<br><br>';
+    if (parsed.context) html += esc(parsed.context).replace(/\n/g, '<br>');
+    if (parsed.wA_reference) html += `<br><br><span style="font-size:0.82rem;color:#888;font-family:sans-serif;"><strong>WA-Verweis:</strong> ${esc(parsed.wA_reference)}</span>`;
+    if (parsed.matched_variant) html += `<br><span style="font-size:0.78rem;color:#999;font-family:sans-serif;">Treffer über Variante: „${esc(parsed.matched_variant)}"</span>`;
+    document.getElementById('analysisText').innerHTML = html;
+
+    // ── Hamburger Ausgabe ───────────────────────────────────────────────
+    const haSection = document.getElementById('haSection');
+    if (parsed.ha_citation) {
+      haSection.style.display = 'block';
+
+      const haLong = parsed.ha_citation_long || '';
+      document.getElementById('haCitationText').innerHTML =
+        `<span style="font-size:1.05rem;font-weight:bold">${esc(parsed.ha_citation)}</span>` +
+        (haLong ? `<br><span style="font-size:0.85rem;color:#666;display:inline-block;margin-top:0.2rem">${esc(haLong)}</span>` : '');
+
+      const haRel = document.getElementById('haReliabilityBox');
+      const relMap2 = { HOCH: 'high', MITTEL: 'medium', NIEDRIG: 'low' };
+      const relLabel2 = { HOCH: '✓ Hohe Zuverlässigkeit', MITTEL: '~ Mittlere Zuverlässigkeit', NIEDRIG: '⚠ Niedrige Zuverlässigkeit' };
+      const haR = parsed.ha_reliability || 'NIEDRIG';
+      haRel.className = 'reliability ' + (relMap2[haR] || 'low');
+      haRel.textContent = relLabel2[haR] || haR;
+
+      const haLinks = parsed.ha_links || [];
+      const haLinksEl = document.getElementById('haLinksList');
+      if (haLinks.length === 0) {
+        haLinksEl.innerHTML = '<p style="font-size:0.82rem;color:#999;font-family:sans-serif;">Keine direkten Online-Links gefunden.</p>';
+      } else {
+        haLinksEl.innerHTML = haLinks.map(l =>
+          `<div class="source-item">→ <a href="${l.url}" target="_blank">${esc(l.title)}</a></div>`
+        ).join('');
+      }
+    } else {
+      haSection.style.display = 'none';
+    }
+
+    // ── Webquellen ──────────────────────────────────────────────────────
+    const srcEl = document.getElementById('sourcesList');
+    if (sources.length === 0) {
+      srcEl.innerHTML = '<p style="font-size:0.82rem;color:#999;font-family:sans-serif;">Keine Webquellen zurückgemeldet.</p>';
+    } else {
+      srcEl.innerHTML = sources.map(s => {
+        const uri = s.web?.uri || '';
+        const title = s.web?.title || uri;
+        const isPitt = uri.includes('goethe-lexicon.pitt.edu');
+        return `<div class="source-item" ${isPitt ? 'style="font-weight:bold;color:#2d6b40"' : ''}>` +
+          `${isPitt ? '★ ' : '→ '}<a href="${uri}" target="_blank">${esc(title)}</a>` +
+          `${isPitt ? ' <span style="font-size:0.75rem;font-weight:normal;color:#4a9e60">[Pittsburgh Goethe-Lexikon]</span>' : ''}` +
+          `</div>`;
+      }).join('');
+    }
+  }
+
+  let _lastParsed = null;
+
+  function copyCitation(mode) {
+    const text = mode === 'long'
+      ? (_lastParsed?.citation_long || _lastParsed?.citation || '')
+      : (_lastParsed?.citation || document.getElementById('citationText').textContent);
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btns = document.querySelectorAll('.copy-btn');
+      btns.forEach(b => { if (b.textContent === (mode === 'long' ? 'Vollangabe' : 'Kurzform')) { b.textContent = '✓'; setTimeout(() => { b.textContent = mode === 'long' ? 'Vollangabe' : 'Kurzform'; }, 1800); } });
+    });
+  }
+
+  const FA_BIB = 'Goethe, Johann Wolfgang von. 1985\u20132013. \u2019Sämtliche Werke. Briefe, Tagebücher und Gespräche\u2018. Edited by Hendrik Birus, Dieter Borchmeyer, Karl Eibl, et al. 40 vols. Frankfurt am Main: Deutscher Klassiker Verlag. [Cited as FA]';
+  const HA_BIB = 'Goethe, Johann Wolfgang von. (1948\u20131960) 1981. \u2019Werke: Hamburger Ausgabe in 14 Bänden\u2018. Edited by Erich Trunz. 14 vols. Munich: C.H. Beck. [Cited as HA]';
+
+  function copyBib(which) {
+    const faText = 'Goethe, Johann Wolfgang von. 1985\u20132013. *Sämtliche Werke. Briefe, Tagebücher und Gespräche*. Edited by Hendrik Birus, Dieter Borchmeyer, Karl Eibl, et al. 40 vols. Frankfurt am Main: Deutscher Klassiker Verlag. [Cited as FA]';
+    const haText = 'Goethe, Johann Wolfgang von. (1948\u20131960) 1981. *Werke: Hamburger Ausgabe in 14 Bänden*. Edited by Erich Trunz. 14 vols. Munich: C.H. Beck. [Cited as HA]';
+    const text = which === 'fa' ? faText : which === 'ha' ? haText : faText + '\n\n' + haText;
+    navigator.clipboard.writeText(text).then(() => {
+      const id = which === 'fa' ? 'faBibBox' : which === 'ha' ? 'haBibBox' : null;
+      const btns = id ? document.getElementById(id).querySelectorAll('.copy-btn') : document.querySelectorAll('#faBibBox .copy-btn, #haBibBox .copy-btn');
+      btns.forEach(b => { const orig = b.textContent; b.textContent = '✓'; setTimeout(() => { b.textContent = orig; }, 1800); });
+    });
+  }
+
+  function copyCitationHA(mode) {
+    const text = mode === 'long'
+      ? (_lastParsed?.ha_citation_long || _lastParsed?.ha_citation || '')
+      : (_lastParsed?.ha_citation || '');
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btns = document.querySelectorAll('#haCitationBox .copy-btn');
+      btns.forEach(b => { if (b.textContent === (mode === 'long' ? 'Vollangabe' : 'Kurzform')) { b.textContent = '✓'; setTimeout(() => { b.textContent = mode === 'long' ? 'Vollangabe' : 'Kurzform'; }, 1800); } });
+    });
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── State helpers ─────────────────────────────────────────────────────────
+  function setLoading(on) {
+    document.getElementById('loading').style.display = on ? 'flex' : 'none';
+    document.getElementById('searchBtn').disabled = on;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorBox');
+    el.style.display = 'block';
+    el.textContent = msg;
+  }
+
+  function hideError() { document.getElementById('errorBox').style.display = 'none'; }
+  function hideResult() { document.getElementById('resultSection').style.display = 'none'; }
+
+  // ── History ───────────────────────────────────────────────────────────────
+  const HIST_KEY = 'goethe_fa_history';
+
+  function saveToHistory(quote, citation) {
+    let hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+    hist.unshift({ quote: quote.slice(0, 120), citation: citation || '—', ts: Date.now() });
+    hist = hist.slice(0, 20);
+    localStorage.setItem(HIST_KEY, JSON.stringify(hist));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+    const el = document.getElementById('historyList');
+    if (!hist.length) { el.innerHTML = '<div style="padding:0.7rem 0.9rem;font-size:0.82rem;color:#aaa;font-family:sans-serif;">Noch keine Suchen.</div>'; return; }
+    el.innerHTML = hist.map((h, i) => `
+      <div class="history-item" onclick="loadHistory(${i})">
+        <div class="hist-quote">${esc(h.quote)}${h.quote.length >= 120 ? '…' : ''}</div>
+        <div class="hist-cite">${esc(h.citation)}</div>
+      </div>`).join('');
+  }
+
+  function loadHistory(i) {
+    const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+    if (hist[i]) document.getElementById('quoteInput').value = hist[i].quote;
+  }
+
+  function toggleHistory() {
+    const el = document.getElementById('historyList');
+    if (el.style.display === 'block') { el.style.display = 'none'; return; }
+    renderHistory();
+    el.style.display = 'block';
+  }
+
+  // ── Enter key ─────────────────────────────────────────────────────────────
+  document.getElementById('quoteInput').addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Enter') search();
+  });
+</script>
+</body>
+</html>

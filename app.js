@@ -1018,7 +1018,7 @@ const isLocal = window.location.hostname === 'localhost' ||
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
-    let currentThematicLimit = 100; // Limit basierend auf Modus (100 für Tiefe, 300 für Breite)
+    let currentThematicLimit = 100; // Limit basierend auf Modus (100 = Tiefe, 250 = Zitat, 300 = Breite)
     // Suchhistorie aus localStorage laden (falls vorhanden)
     let searchHistory = (function() {
       try {
@@ -14881,10 +14881,20 @@ function scrollToChronologicalYear(year) {
         // Modus-basierte Einstellungen:
         // - "deep" (Tiefe Analyse): Claude, begrenzte Quellen, qualitative Analyse
         // - "broad" (Breite Sammlung): Gemini, viele Quellen, umfassende Sammlung
-        const isDeepMode = thematicMode === 'deep';
-        const limit = isDeepMode ? 100 : 300; // Breite Sammlung: mehr Quellen
+        // - "quote" (Zitatsuche): Claude, breitere Quellenbasis durch Phrasen-/Semantik-
+        //                          Anreicherung im Backend, präzise Zitatauswahl
+        let limit, preferredProvider;
+        if (thematicMode === 'broad') {
+          limit = 300;
+          preferredProvider = 'gemini';
+        } else if (thematicMode === 'quote') {
+          limit = 250;
+          preferredProvider = 'claude';
+        } else {
+          limit = 100;
+          preferredProvider = 'claude';
+        }
         currentThematicLimit = limit; // Speichere für Lösch-Funktion
-        const preferredProvider = isDeepMode ? 'claude' : 'gemini';
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
@@ -15348,8 +15358,11 @@ function scrollToChronologicalYear(year) {
           if (gaSel && currentThematicGAFilter) {
             gaSel.value = currentThematicGAFilter;
           }
-          // Radio-Button synchronisieren (100 = Tiefe, 300 = Breite)
-          const modeValue = currentThematicLimit === 300 ? 'broad' : 'deep';
+          // Radio-Button synchronisieren (100 = Tiefe, 250 = Zitat, 300 = Breite)
+          let modeValue;
+          if (currentThematicLimit === 300) modeValue = 'broad';
+          else if (currentThematicLimit === 250) modeValue = 'quote';
+          else modeValue = 'deep';
           const modeRadio = document.querySelector(`input[name="thematicMode"][value="${modeValue}"]`);
           if (modeRadio) modeRadio.checked = true;
         } catch (_) { currentThematicGAFilter = ''; currentThematicLimit = 100; }
@@ -20525,8 +20538,11 @@ function formatAsteriskParagraphs() {
       // Verwende ausschließlich den GA-Band, der für DIESES Ergebnis angewendet wurde
       const selectedGA = appliedGA || '';
       const headingBase = autocorrectQuery(query) || '';
-      // Modus-Label basierend auf currentThematicLimit (100 = tief, 300 = breit)
-      const modeLabel = currentThematicLimit === 300 ? '[breit]' : '[tief]';
+      // Modus-Label basierend auf currentThematicLimit (100 = tief, 250 = zitat, 300 = breit)
+      let modeLabel;
+      if (currentThematicLimit === 300) modeLabel = '[breit]';
+      else if (currentThematicLimit === 250) modeLabel = '[zitat]';
+      else modeLabel = '[tief]';
       const headingWithMode = `${headingBase} ${modeLabel}`;
       const headingWithGA = selectedGA ? `${headingWithMode} (aus ${selectedGA})` : headingWithMode;
       const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

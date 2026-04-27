@@ -1,0 +1,102 @@
+STATUS	URL	NOTE
+200	https://doi.org/10.1016/j.shpsc.2005.03.003	
+200	https://doi.org/10.12987/9780300150544-006	
+200	https://doi.org/10.1007/s10739-018-9549-4	
+200	https://doi.org/10.1017/CBO9780511730191	
+200	https://doi.org/10.1007/978-94-009-3761-1_14	
+200	https://doi.org/10.1007/978-94-017-9822-8_1	
+200	https://doi.org/10.1515/9780823291977	
+200	https://doi.org/10.1007/978-3-031-70690-5	
+200	https://doi.org/10.1007/978-3-031-12604-8	
+403	https://doi.org/10.1093/oso/9780198812814.003.0004	Forbidden
+200	https://doi.org/10.1016/j.shpsa.2022.02.005	
+TRUNCATED	https://doi.org/10.1002/1097-0177(2000	URL abgeschnitten (offene Klammer)
+403	https://doi.org/10.1093/acprof:oso/9780199547975.003.0013	Forbidden
+200	https://doi.org/10.1007/s40656-025-00681-7	
+200	https://doi.org/10.1017/CBO9780511804656	
+200	https://doi.org/10.1515/agph.2005.87.3.270	
+403	https://doi.org/10.1098/rspb.2015.1019	Forbidden
+200	https://doi.org/10.1017/CBO9780511541476	
+200	https://doi.org/10.1007/978-3-031-38968-9	
+200	https://doi.org/10.1016/j.shpsc.2013.05.014	
+403	https://doi.org/10.1093/oso/9780198779636.001.0001	Forbidden
+200	https://doi.org/10.1007/s40656-015-0085-7	
+403	https://doi.org/10.1111/j.1558-5646.2007.00246.x	Forbidden
+403	https://doi.org/10.7551/mitpress/14739.001.0001	Forbidden
+200	https://doi.org/10.4324/9781003441809	
+200	https://doi.org/10.1353/pbm.2018.0059	
+403	https://doi.org/10.1002/bies.202100185	Forbidden
+202	https://doi.org/10.30965/26664275-01401008	
+403	https://doi.org/10.1162/posc_a_00387	Forbidden
+403	https://doi.org/10.1002/jmr.674	Forbidden
+200	https://doi.org/10.1017/CBO9781316402719	
+403	https://doi.org/10.1128/MMBR.68.2.173-186.2004	Forbidden
+200	https://doi.org/10.1016/j.shpsc.2006.09.008	
+200	https://doi.org/10.4159/harvard.9780674064980.c11	
+200	https://doi.org/10.1007/s11245-023-09882-w	
+200	https://doi.org/10.1353/hph.2004.0005	
+403	https://doi.org/10.1080/00071773.2013.11006786	Forbidden
+403	https://doi.org/10.5840/symposium20151919	Forbidden
+403	https://doi.org/10.1093/monist/onx016	Forbidden
+200	https://doi.org/10.1017/CBO9780511791925.007	
+200	https://doi.org/10.1016/B978-044451543-8/50024-1	
+200	https://doi.org/10.1017/CBO9780511498510	
+403	https://doi.org/10.1093/0195133056.001.0001	Forbidden
+200	https://doi.org/10.1007/978-3-319-49953-6_6	
+404	https://doi.org/10.7208/9780226520827	Not Found
+403	https://doi.org/10.1073/pnas.1421388112	Forbidden
+200	https://doi.org/10.1016/j.artint.2007.10.012	
+200	https://doi.org/10.3389/fpsyg.2024.1362658	
+403	https://doi.org/10.1111/evo.14421	Forbidden
+403	https://doi.org/10.1093/biolinnean/blac061	Forbidden
+403	https://doi.org/10.1111/ede.12432	Forbidden
+403	https://doi.org/10.1111/j.1749-6632.2009.04578.x	Forbidden
+200	https://doi.org/10.2478/ngi-2013-0005	
+403	https://doi.org/10.1111/ede.12448	Forbidden
+200	https://doi.org/10.1017/9780511780240	
+200	https://doi.org/10.1016/j.shpsa.2016.05.003	
+TRUNCATED	https://doi.org/10.1007/s10441-005-5350-	URL abgeschnitten
+200	https://doi.org/10.1017/9781009495035	
+200	https://doi.org/10.1007/978-3-031-22028-9_8	
+200	https://doi.org/10.1007/978-94-017-9822-8	
+200	https://doi.org/10.1007/s11191-011-9350-7	
+403	https://doi.org/10.1093/biosci/biag016	Forbidden
+200	https://doi.org/10.12775/LLP.2007.008	
+200	https://doi.org/10.4324/9781003413318-1	
+200	https://doi.org/10.1017/CBO9781139014083	
+200	https://doi.org/10.13130/2240-9599/2658	
+200	https://doi.org/10.1086/286983	
+200	https://doi.org/10.1007/s40656-024-00649-z	
+403	https://doi.org/10.1111/j.1468-0378.2009.00386.x	Forbidden
+200	https://doi.org/10.1007/978-3-476-02710-8_20	
+403	https://doi.org/10.1080/17496977.2014.888612	Forbidden
+200	https://doi.org/10.12775/szhf.2025.017	
+200	https://doi.org/10.1007/978-3-319-04141-4	
+200	https://doi.org/10.1515/9780691221489	
+200	https://doi.org/10.1016/bs.aiq.2019.11.001	
+TRUNCATED	https://doi.org/10.1016/S0367-1615(17	URL abgeschnitten (offene Klammer)
+200	https://doi.org/10.1515/9783110532050	
+200	https://doi.org/10.6082/uchicago.2246	
+200	https://doi.org/10.1111/zygo.12800	
+404	https://doi.org/10.18756/jfg.2021.113	Not Found
+200	https://doi.org/10.14271/dms-18238-de	
+200	https://doi.org/10.14271/dms-17588-de	
+403	https://doi.org/10.1080/02698595.2025.2500893	Forbidden
+DOUBLE_DOI	https://doi.org/doi:10.1007/s40656-025-00681-7	Doppeltes doi:-Prefix
+200	https://doi.org/10.14271/dms-20683-de	
+200	https://doi.org/10.1016/j.explore.2020.02.015	
+200	https://doi.org/10.1016/j.explore.2020.02.016	
+403	https://doi.org/10.2110/pec.07.88.0027	Forbidden
+200	https://doi.org/10.1007/s12052-012-0420-3	
+403	https://doi.org/10.1111/phc3.12128	Forbidden
+200	https://doi.org/10.19272/202211402003	
+403	https://doi.org/10.2307/jj.18253151.13	Forbidden
+200	https://doi.org/10.1016/j.shpsc.2013.05.019	
+200	https://doi.org/10.14271/dms-18318-de	
+200	https://doi.org/10.14271/dms-18260-de	
+403	https://www.jstor.org/stable/25592036	Forbidden
+200	https://plato.stanford.edu/entries/reduction-biology/	
+200	https://plato.stanford.edu/archives/fall2025/entries/human-genome	
+200	http://staferla.free.fr/S14/S14.htm	
+200	http://staferla.free.fr/Lacan/letourdit.htm	
+200	https://de.scribd.com/document/475587785/Goethe-V02-doc	
