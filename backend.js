@@ -29685,6 +29685,1128 @@ app.get('/api/theme-assignments-status', async (req, res) => {
     // ENDE DEEPL ÜBERSETZUNGS-PROXY
     // ========================================================================
 
+    // ========================================================================
+    // OPENAI-PROXY für Goethe-Zitate.html (Obsidian-Tool)
+    //
+    // Verwendet OpenAI Responses API mit web_search Tool. OpenAI nutzt
+    // Google-Suche und indexiert akademische Spezial-Domains (insb.
+    // goethe-lexicon.pitt.edu) deutlich besser als Anthropic (Brave Search)
+    // oder Gemini (Quotenprobleme). Default: gpt-5-mini + medium reasoning
+    // effort — schnell genug, dass Cloudflare keine Upstream-Timeouts wirft.
+    // Bei transienten Cloudflare-Fehlern (502/503/504/upstream...) wird
+    // automatisch einmal erneut versucht.
+    //
+    // Das Frontend (HTML) sendet weiterhin im Gemini-Payload-Format und
+    // erwartet eine Antwort im Gemini-Format. Der Proxy übernimmt die
+    // Transformation in beide Richtungen, damit das HTML unangetastet bleibt.
+    //
+    // Die HTML-Datei wird via file:// aus dem Obsidian-Ordner geöffnet,
+    // d.h. Origin = "null". Daher CORS für jeden Origin auf diesem Endpoint
+    // erlauben (lokales Tool, kein Sicherheitsrisiko).
+    // ========================================================================
+    const goetheCors = (req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      if (req.method === 'OPTIONS') return res.sendStatus(204);
+      next();
+    };
+
+    /**
+     * Wandelt das vom Frontend gesendete Gemini-Payload in das OpenAI-
+     * Responses-API-Format um.
+     */
+    function geminiPayloadToOpenAI(payload, modelOverride) {
+      const systemText = (payload.system_instruction?.parts || [])
+        .map(p => p.text)
+        .filter(Boolean)
+        .join('\n');
+
+      const userMessages = (payload.contents || []).map(c => {
+        const text = (c.parts || []).map(p => p.text).filter(Boolean).join('\n');
+        return {
+          role: c.role === 'user' ? 'user' : (c.role || 'user'),
+          content: text
+        };
+      });
+
+      const input = [];
+      if (systemText) input.push({ role: 'system', content: systemText });
+      input.push(...userMessages);
+
+      const model = modelOverride || 'gpt-5-mini';
+      const openaiPayload = {
+        model,
+        input,
+        tools: [{ type: 'web_search' }],
+        tool_choice: 'auto',
+        include: ['web_search_call.action.sources']
+      };
+
+      const isGpt5Family = /^gpt-5/i.test(model);
+      const isReasoningModel = /^(gpt-5|o\d)/i.test(model);
+
+      // Reasoning-Effort steuert Such-Gründlichkeit (Default: low):
+      //   "low"    -> ~10-25s, mit klarem Prompt 2-4 zielgerichtete Suchen
+      //   "medium" -> ~25-60s, kann sich verzetteln (>10 Suchen ohne Mehrwert)
+      //   "high"   -> ~60-120s, oft Cloudflare-Timeout-Risiko
+      // Da der System-Prompt eine explizite 4-Schritt-Suchstrategie mit
+      // Stopp-Kriterium vorgibt, ist low der beste Default.
+      const effort = (process.env.GOETHE_REASONING_EFFORT || 'low').toLowerCase();
+      const validEffort = ['low', 'medium', 'high'].includes(effort) ? effort : 'medium';
+      if (isReasoningModel) {
+        openaiPayload.reasoning = { effort: validEffort };
+      }
+      if (isGpt5Family) {
+        openaiPayload.text = { verbosity: 'low' };
+      }
+      openaiPayload.max_output_tokens = validEffort === 'high' ? 16384 : 8192;
+
+      // GPT-5 / o-Serie akzeptieren keine temperature.
+      if (!isReasoningModel) {
+        openaiPayload.temperature = payload.generation_config?.temperature ?? 0.1;
+      }
+
+      return openaiPayload;
+    }
+
+    /**
+     * Wandelt die OpenAI-Responses-API-Antwort in das Gemini-Antwortformat
+     * um, das das Frontend erwartet.
+     */
+    function openaiResponseToGemini(data) {
+      const messageItem = (data.output || []).find(o => o.type === 'message');
+      const textParts = (messageItem?.content || [])
+        .filter(c => c.type === 'output_text' && typeof c.text === 'string')
+        .map(c => ({ text: c.text }));
+
+      const annotations = (messageItem?.content || [])
+        .flatMap(c => c.annotations || []);
+
+      const urlCitations = annotations
+        .filter(a => a.type === 'url_citation' && a.url)
+        .map(a => ({ web: { uri: a.url, title: a.title || a.url } }));
+
+      const webSearchSources = (data.output || [])
+        .filter(o => o.type === 'web_search_call')
+        .flatMap(ws => ws.action?.sources || [])
+        .filter(s => s && s.url)
+        .map(s => ({ web: { uri: s.url, title: s.title || s.url } }));
+
+      const seen = new Set();
+      const groundingChunks = [...urlCitations, ...webSearchSources].filter(g => {
+        if (seen.has(g.web.uri)) return false;
+        seen.add(g.web.uri);
+        return true;
+      });
+
+      return {
+        candidates: [{
+          content: { parts: textParts.length > 0 ? textParts : [{ text: '' }] },
+          groundingMetadata: { groundingChunks }
+        }]
+      };
+    }
+
+    app.options('/api/tools/goethe-zitate/search', goetheCors);
+    app.post('/api/tools/goethe-zitate/search', goetheCors, express.json({ limit: '2mb' }), async (req, res) => {
+      const openaiKey = process.env.OPENAI_API_KEY;
+      if (!openaiKey || !openaiKey.startsWith('sk-')) {
+        return res.status(503).json({ error: 'OPENAI_API_KEY nicht konfiguriert' });
+      }
+      const { payload, model } = req.body || {};
+      if (!payload || typeof payload !== 'object') {
+        return res.status(400).json({ error: 'payload (object) erforderlich' });
+      }
+      // Modell-Auswahl liegt allein beim Server. Frontend-Hints werden nur
+      // berücksichtigt, wenn sie tatsächlich nach einem OpenAI-Modell aussehen.
+      const looksLikeOpenAI = typeof model === 'string'
+        && /^[a-zA-Z0-9._\-]+$/.test(model)
+        && /^(gpt-|o\d|chatgpt-)/i.test(model);
+      const safeModel = looksLikeOpenAI
+        ? model
+        : (process.env.GOETHE_OPENAI_MODEL || 'gpt-5-mini');
+
+      // Timeout: Default 150s. Web-Search mit gpt-5-mini medium dauert ~15-40s.
+      const timeoutMs = parseInt(process.env.GOETHE_OPENAI_TIMEOUT_MS || '150000', 10);
+
+      /**
+       * Führt einen einzelnen Request gegen die OpenAI Responses API aus.
+       * Liefert {ok, status, data, rawText, transient}. transient=true
+       * markiert Cloudflare/Upstream-Errors, die einen Retry rechtfertigen.
+       */
+      async function callOpenAI() {
+        const abortCtl = new AbortController();
+        const timeoutId = setTimeout(() => abortCtl.abort(), timeoutMs);
+        try {
+          const openaiPayload = geminiPayloadToOpenAI(payload, safeModel);
+          const apiRes = await fetch('https://api.openai.com/v1/responses', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${openaiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(openaiPayload),
+            signal: abortCtl.signal
+          });
+          clearTimeout(timeoutId);
+          // Body erst als Text lesen, damit Plain-Text-Errors (wie
+          // "upstream connect error...") nicht beim json()-Parse crashen.
+          const rawText = await apiRes.text();
+          let data = null;
+          let parseError = null;
+          try {
+            data = rawText ? JSON.parse(rawText) : {};
+          } catch (e) {
+            parseError = e;
+          }
+          // Cloudflare-/Edge-Fehler: HTTP-Status oft ungewöhnlich oder Body
+          // ist Plain-Text wie "upstream connect error..." / "upstream request timeout"
+          const isUpstreamPlainText = parseError && /upstream|cloudflare|gateway|timeout|connect error/i.test(rawText);
+          const isTransientStatus = [502, 503, 504, 520, 521, 522, 524].includes(apiRes.status);
+          const transient = isUpstreamPlainText || isTransientStatus;
+          return { ok: apiRes.ok, status: apiRes.status, data, rawText, parseError, transient };
+        } catch (err) {
+          clearTimeout(timeoutId);
+          if (err.name === 'AbortError') {
+            return { abort: true };
+          }
+          // Netzwerk-Fehler (ECONNRESET etc.) -> transient
+          return { ok: false, status: 0, data: null, rawText: '', parseError: err, transient: true, networkError: err };
+        }
+      }
+
+      const tStart = Date.now();
+      let attempt = 0;
+      let result;
+      while (true) {
+        attempt++;
+        result = await callOpenAI();
+        if (result.abort) {
+          console.error(`[GOETHE-PROXY] Timeout nach ${timeoutMs}ms (Modell ${safeModel}, Versuch ${attempt})`);
+          return res.status(504).json({
+            error: { message: `Web-Suche zu langsam (>${Math.round(timeoutMs / 1000)}s). Bitte erneut versuchen oder Anfrage präziser formulieren.` }
+          });
+        }
+        // Bei transientem Fehler einmal automatisch erneut versuchen
+        if (!result.ok && result.transient && attempt === 1) {
+          const reason = result.networkError?.message
+            || (result.rawText ? result.rawText.slice(0, 120) : `HTTP ${result.status}`);
+          console.warn(`[GOETHE-PROXY] Transient-Fehler (${reason.trim()}) - Retry...`);
+          await new Promise(r => setTimeout(r, 1500));
+          continue;
+        }
+        break;
+      }
+
+      const elapsed = Date.now() - tStart;
+
+      if (!result.ok) {
+        // Fehler-Body kann Plain-Text sein (Cloudflare-Upstream-Fehler)
+        let errMsg;
+        if (result.data && result.data.error) {
+          errMsg = result.data.error.message || JSON.stringify(result.data.error);
+        } else if (result.rawText) {
+          // Plain-Text-Fehler kürzen, damit Frontend lesbare Meldung bekommt
+          const snippet = result.rawText.replace(/\s+/g, ' ').trim().slice(0, 200);
+          errMsg = `Upstream-Fehler (${result.status || 'Netzwerk'}): ${snippet || 'unbekannt'}`;
+        } else {
+          errMsg = `OpenAI API-Fehler: ${result.status || 'unbekannt'}`;
+        }
+        console.error(`[GOETHE-PROXY] OpenAI-Fehler ${result.status} (${elapsed}ms, ${attempt} Versuche):`, errMsg);
+        return res.status(result.status && result.status >= 400 ? result.status : 502).json({
+          error: { message: errMsg }
+        });
+      }
+
+      // Erfolg: data muss gültiges JSON sein
+      if (!result.data || result.parseError) {
+        console.error('[GOETHE-PROXY] Antwort nicht JSON-parsebar:', result.rawText?.slice(0, 200));
+        return res.status(502).json({
+          error: { message: 'OpenAI-Antwort nicht parsebar (Upstream-Fehler). Bitte erneut versuchen.' }
+        });
+      }
+
+      const data = result.data;
+      const transformed = openaiResponseToGemini(data);
+      const sourceCount = transformed.candidates[0].groundingMetadata.groundingChunks.length;
+      const webSearchCalls = (data.output || []).filter(o => o.type === 'web_search_call').length;
+      console.log(`[GOETHE-PROXY] OpenAI ${safeModel} ok (${elapsed}ms, ${attempt} Versuche): ${webSearchCalls} Suchen, ${sourceCount} Quellen`);
+      res.json(transformed);
+    });
+    // ========================================================================
+    // ENDE OPENAI-PROXY
+    // ========================================================================
+
+    // ========================================================================
+    // GOETHE-ZITATE: LOKALE SUCHE
+    // ------------------------------------------------------------------------
+    // Durchsucht den lokal abgelegten WA-Ordner (PDF + dazugehoerige OCR-
+    // Volltexte als .txt) und liefert Treffer mit Snippet + archive.org-
+    // Bookreader-URL. Diese URL nutzt archive.org's eigene Suchfunktion
+    // (?q=...), die zuverlaessig zur richtigen Druckseite des Treffers
+    // springt - selbst wenn die lokale OCR die Seitenzahl nicht erkennen
+    // konnte. Der Ordner enthaelt eine _manifest.json mit Mapping
+    // Dateiname <-> archive.org-Identifier <-> Bandtitel.
+    //
+    // Toleranzen der Suche:
+    //  - Historische Orthographie (ey<->ei, th<->t, ss<->ß)
+    //  - Silbentrennung am Zeilenende ("Naturwissen-\nschaft")
+    //  - Optional: Fraktur-OCR-Fehler (s<->f, n<->u) im "fuzzy"-Modus
+    // ========================================================================
+    const WA_LOCAL_FOLDER_DEFAULT = 'C:\\Users\\chuec\\OneDrive\\Desktop\\Lit Organism\\Goethe Weimarer Ausgabe';
+    const waLocalFolder = process.env.WA_LOCAL_FOLDER || WA_LOCAL_FOLDER_DEFAULT;
+
+    let waManifestCache = null;
+    let waManifestMtime = 0;
+    // Cache: filename -> { text, pages, hasPageMap, mtime }
+    //   pages = [{ leafNum, printPage, startOffset, endOffset }] | null
+    const waTextCache = new Map();
+
+    async function loadWAManifest() {
+      const manifestPath = path.join(waLocalFolder, '_manifest.json');
+      try {
+        const stat = await fs.stat(manifestPath);
+        if (waManifestCache && stat.mtimeMs === waManifestMtime) return waManifestCache;
+        const raw = await fs.readFile(manifestPath, 'utf8');
+        waManifestCache = JSON.parse(raw);
+        waManifestMtime = stat.mtimeMs;
+        return waManifestCache;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // ────────────────────────────────────────────────────────────────────
+    // Page-Mapping aus archive.org-Derivaten
+    //   - <name>.djvu.xml         -> Pro <OBJECT> ein Scan, mit usemap="..._NNNN.djvu"
+    //                                und allen <WORD>-Texten dieser Seite.
+    //   - <name>.page_numbers.json -> Mapping leafNum (= Scan-Seite) -> Druckseite (pageNumber).
+    //
+    // Wir bauen daraus einen seitenstrukturierten Volltext mit Offset-Map,
+    // sodass jede Treffer-Position rueckwaerts auf Scan- und Druckseite
+    // aufgeloest werden kann.
+    // ────────────────────────────────────────────────────────────────────
+
+    function decodeXmlEntities(s) {
+      return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"').replace(/&apos;/g, "'")
+        .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)));
+    }
+
+    // ── Roemische Zahlen <-> Integer ──
+    function romanToInt(r) {
+      if (!/^[IVXLCDM]+$/i.test(r)) return null;
+      const map = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
+      let total = 0;
+      const s = r.toUpperCase();
+      for (let i = 0; i < s.length; i++) {
+        const v = map[s[i]];
+        const next = map[s[i+1]];
+        if (next && next > v) { total += next - v; i++; } else { total += v; }
+      }
+      return total;
+    }
+    function intToRoman(n) {
+      if (n <= 0 || n >= 4000) return null;
+      const tab = [
+        ['M',1000],['CM',900],['D',500],['CD',400],
+        ['C',100],['XC',90],['L',50],['XL',40],
+        ['X',10],['IX',9],['V',5],['IV',4],['I',1]
+      ];
+      let out = '';
+      for (const [s,v] of tab) { while (n >= v) { out += s; n -= v; } }
+      return out;
+    }
+
+    /**
+     * Interpoliert fehlende Druckseiten zwischen bekannten Anker-Punkten.
+     * Eingabe: [[leafNum, "VII"|"3"|null], ...]
+     * - Bei zwei bekannten Ankern A=(leafA, pA) und B=(leafB, pB):
+     *   wenn pA und pB beide arabisch ODER beide roemisch UND
+     *   (leafB-leafA) === (intB-intA), dann fuelle linear auf.
+     * Setzt zudem ein Flag, ob ein Wert original oder interpoliert ist.
+     */
+    function interpolatePageNumbers(rawMap) {
+      // rawMap: Map<leafNum, "VII"|"3"|null>
+      const leafs = [...rawMap.keys()].sort((a,b) => a-b);
+      const enriched = new Map();
+      for (const l of leafs) enriched.set(l, { value: rawMap.get(l), source: rawMap.get(l) ? 'ocr' : null });
+
+      // Sammle alle bekannten Anker mit numerischer Auswertung
+      const anchors = [];
+      for (const l of leafs) {
+        const v = rawMap.get(l);
+        if (!v) continue;
+        const trimmed = v.trim();
+        if (/^[0-9]+$/.test(trimmed)) anchors.push({ leaf: l, kind: 'arab', n: parseInt(trimmed,10) });
+        else if (/^[IVXLCDM]+$/i.test(trimmed)) {
+          const n = romanToInt(trimmed);
+          if (n) anchors.push({ leaf: l, kind: 'roman', n });
+        }
+      }
+
+      // Zwischen zwei aufeinanderfolgenden Anker-Paaren gleicher Art:
+      // Lineare Fortschreibung wenn (leafB-leafA) === (nB-nA) und nB > nA.
+      for (let i = 0; i < anchors.length - 1; i++) {
+        const a = anchors[i], b = anchors[i+1];
+        if (a.kind !== b.kind) continue;
+        if (b.leaf <= a.leaf) continue;
+        if ((b.leaf - a.leaf) !== (b.n - a.n)) continue; // keine 1:1-Linearitaet
+        for (let l = a.leaf + 1; l < b.leaf; l++) {
+          if (enriched.has(l) && enriched.get(l).value) continue;
+          const n = a.n + (l - a.leaf);
+          const value = a.kind === 'arab' ? String(n) : intToRoman(n);
+          enriched.set(l, { value, source: 'interpolated' });
+        }
+      }
+
+      // Vor dem ersten Anker und nach dem letzten Anker extrapolieren --
+      // begrenzt auf MAX_EXTRAPOLATE Schritte, weil Frontmatter (Innentitel,
+      // Widmung) typischerweise unpaginiert ist und wir nicht ueberschiessen
+      // wollen. 10 Schritte sind genug um Vorwort-Bereiche abzudecken.
+      const MAX_EXTRAPOLATE = 10;
+      if (anchors.length > 0) {
+        const first = anchors[0];
+        for (let step = 1; step <= MAX_EXTRAPOLATE; step++) {
+          const l = first.leaf - step;
+          if (l < 1) break;
+          const n = first.n - step;
+          if (n <= 0) break;
+          if (enriched.has(l) && enriched.get(l).value) continue;
+          const value = first.kind === 'arab' ? String(n) : intToRoman(n);
+          if (!value) break;
+          enriched.set(l, { value, source: 'extrapolated' });
+        }
+        const last = anchors[anchors.length - 1];
+        const lastLeaf = leafs[leafs.length - 1];
+        for (let step = 1; step <= MAX_EXTRAPOLATE; step++) {
+          const l = last.leaf + step;
+          if (l > lastLeaf) break;
+          const n = last.n + step;
+          if (enriched.has(l) && enriched.get(l).value) continue;
+          const value = last.kind === 'arab' ? String(n) : intToRoman(n);
+          if (!value) break;
+          enriched.set(l, { value, source: 'extrapolated' });
+        }
+      }
+
+      return enriched; // Map<leaf, { value, source: 'ocr'|'interpolated'|'extrapolated'|null }>
+    }
+
+    /**
+     * Parst eine djvu.xml und gibt pro Scan-Seite den Wortstrom zurueck.
+     * Returns: [{ leafNum: 1, words: ['nO.O.'] }, ...]
+     */
+    function parseDjvuXml(xml) {
+      const pages = [];
+      // Eine OBJECT-Sequenz reicht: usemap="..._NNNN.djvu" + Inhalt bis </OBJECT>
+      const objRe = /<OBJECT[^>]*usemap="[^"]*?_(\d+)\.djvu"[^>]*>([\s\S]*?)<\/OBJECT>/g;
+      let m;
+      while ((m = objRe.exec(xml)) !== null) {
+        const leafNum = parseInt(m[1], 10);
+        const inner = m[2];
+        const words = [];
+        const wordRe = /<WORD[^>]*>([\s\S]*?)<\/WORD>/g;
+        let w;
+        while ((w = wordRe.exec(inner)) !== null) {
+          const txt = decodeXmlEntities(w[1]).trim();
+          if (txt) words.push(txt);
+        }
+        pages.push({ leafNum, words });
+      }
+      return pages;
+    }
+
+    /**
+     * Wendet das gleiche Cleanup an wie der bisherige .txt-Pfad,
+     * aber pro Seite, sodass die Seitenstruktur erhalten bleibt.
+     */
+    function cleanWAPageText(raw) {
+      let text = raw
+        .replace(/-\r?\n\s*/g, '')
+        .replace(/[\r\n]+/g, ' ')
+        .replace(/\s{2,}/g, ' ');
+      text = text.replace(/([A-Za-z0-9äöüÄÖÜß])[\^\)\(\]\[\}\{\|\\;:!?`~*<>+=&%#@"]+(?=[A-Za-z0-9äöüÄÖÜß])/g, '$1');
+      text = text.replace(/ſ/g, 's');
+      text = text.replace(/\s{2,}/g, ' ');
+      return text.trim();
+    }
+
+    /**
+     * Hauptloader: liefert { text, pages, hasPageMap, source }.
+     *
+     * Quelle 1 (bevorzugt): <name>.djvu.xml + <name>.page_numbers.json
+     *   -> Volltext mit exakter Scan-/Druckseiten-Zuordnung.
+     *
+     * Quelle 2 (fallback): <name>.txt
+     *   -> Volltext ohne Seitenangabe (pages=null).
+     */
+    async function loadWAText(filename) {
+      const baseName = filename.replace(/\.pdf$/i, '');
+      const txtName = baseName + '.txt';
+      const xmlName = baseName + '.djvu.xml';
+      const pnName = baseName + '.page_numbers.json';
+      const txtPath = path.join(waLocalFolder, txtName);
+      const xmlPath = path.join(waLocalFolder, xmlName);
+      const pnPath = path.join(waLocalFolder, pnName);
+
+      // Cache key: kombinierte mtimes (so dass Refresh greift, wenn Dateien geupdatet werden)
+      let xmlStat = null, pnStat = null, txtStat = null;
+      try { xmlStat = await fs.stat(xmlPath); } catch (_) {}
+      try { pnStat = await fs.stat(pnPath); } catch (_) {}
+      try { txtStat = await fs.stat(txtPath); } catch (_) {}
+
+      const cacheKey = filename;
+      const cached = waTextCache.get(cacheKey);
+      const currentSig = [
+        xmlStat ? xmlStat.mtimeMs : 0,
+        pnStat ? pnStat.mtimeMs : 0,
+        txtStat ? txtStat.mtimeMs : 0
+      ].join('|');
+      if (cached && cached.sig === currentSig) {
+        return { text: cached.text, pages: cached.pages, hasPageMap: cached.hasPageMap, source: cached.source };
+      }
+
+      // ── Pfad 1: djvu.xml + page_numbers.json ──
+      if (xmlStat && pnStat) {
+        try {
+          const xml = await fs.readFile(xmlPath, 'utf8');
+          const pnRaw = await fs.readFile(pnPath, 'utf8');
+          const pnJson = JSON.parse(pnRaw);
+          const rawMap = new Map();
+          if (pnJson && Array.isArray(pnJson.pages)) {
+            for (const p of pnJson.pages) {
+              const leaf = parseInt(p.leafNum, 10);
+              const num = (p.pageNumber || '').toString().trim();
+              if (!isNaN(leaf)) rawMap.set(leaf, num || null);
+            }
+          }
+          // Lineare Interpolation/Extrapolation der Druckseiten.
+          const enriched = interpolatePageNumbers(rawMap);
+
+          const djvuPages = parseDjvuXml(xml);
+          const pages = [];
+          let fullText = '';
+          for (let i = 0; i < djvuPages.length; i++) {
+            const p = djvuPages[i];
+            const pageRaw = p.words.join(' ');
+            const pageClean = cleanWAPageText(pageRaw);
+            const startOffset = fullText.length;
+            fullText += pageClean;
+            const endOffset = fullText.length;
+            // Trenner zwischen Seiten (gehoert zu KEINER Seite explizit)
+            if (i < djvuPages.length - 1) fullText += ' ';
+            const e = enriched.get(p.leafNum);
+            pages.push({
+              leafNum: p.leafNum,
+              printPage: e ? e.value : null,
+              printPageSource: e ? e.source : null,
+              startOffset,
+              endOffset
+            });
+          }
+
+          waTextCache.set(cacheKey, {
+            text: fullText, pages, hasPageMap: true,
+            sig: currentSig, source: 'djvu.xml'
+          });
+          return { text: fullText, pages, hasPageMap: true, source: 'djvu.xml' };
+        } catch (e) {
+          console.warn(`[WA-LOCAL] djvu.xml-Parse fehlgeschlagen fuer ${filename}: ${e.message} - fallback auf .txt`);
+        }
+      }
+
+      // ── Pfad 2: rohe .txt (kein Page-Mapping) ──
+      if (txtStat) {
+        try {
+          const raw = await fs.readFile(txtPath, 'utf8');
+          let text = raw
+            .replace(/-\r?\n\s*/g, '')
+            .replace(/[\r\n]+/g, ' ')
+            .replace(/\s{2,}/g, ' ');
+          text = text.replace(/([A-Za-z0-9äöüÄÖÜß])[\^\)\(\]\[\}\{\|\\;:!?`~*<>+=&%#@"]+(?=[A-Za-z0-9äöüÄÖÜß])/g, '$1');
+          text = text.replace(/ſ/g, 's');
+          text = text.replace(/\s{2,}/g, ' ');
+          waTextCache.set(cacheKey, {
+            text, pages: null, hasPageMap: false,
+            sig: currentSig, source: 'txt'
+          });
+          return { text, pages: null, hasPageMap: false, source: 'txt' };
+        } catch (e) {
+          return null;
+        }
+      }
+
+      return null;
+    }
+
+    /**
+     * Findet die Seite zu einer Position pos via Binary-Search auf pages.
+     * pages = [{ leafNum, printPage, startOffset, endOffset }, ...] sortiert.
+     * Gibt { leafNum, printPage } | null zurueck.
+     */
+    function findPageAt(pages, pos) {
+      if (!pages || pages.length === 0) return null;
+      let lo = 0, hi = pages.length - 1;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        const p = pages[mid];
+        if (pos < p.startOffset) hi = mid - 1;
+        else if (pos >= p.endOffset) lo = mid + 1;
+        else return { leafNum: p.leafNum, printPage: p.printPage, printPageSource: p.printPageSource };
+      }
+      for (let i = pages.length - 1; i >= 0; i--) {
+        if (pages[i].endOffset <= pos) return { leafNum: pages[i].leafNum, printPage: pages[i].printPage, printPageSource: pages[i].printPageSource };
+      }
+      return null;
+    }
+
+    /**
+     * Baut ein OCR-tolerantes Regex-Pattern fuer ein EINZELNES Token.
+     * Gibt den Pattern-String zurueck (ohne Flags), damit er sowohl in
+     * Phrase- als auch in Multi-Term-Search wiederverwendet werden kann.
+     */
+    function buildTokenPattern(token, fuzzy) {
+      let p = '';
+      const lower = token.toLowerCase();
+      // OCR liest Fraktur-Versalien (groß-A, groß-P, groß-S, groß-W) oft als
+      // mehrzeichige Zahlen+Kleinbuchstaben-Sequenzen ("A"->"5l", "P"->"5p",
+      // "W"->"äß"). Bei einem Token, das im Original mit Großbuchstabe begann,
+      // erlauben wir am Anfang bis zu 2 beliebige Junk-Zeichen, damit z. B.
+      // "Auge" auch "5luge" matcht.  Nur wenn das Token mindestens 4 Zeichen
+      // hat (sonst zuviele False Positives bei Mini-Tokens).
+      const isCapitalized = /^[A-ZÄÖÜ]/.test(token);
+      if (fuzzy && isCapitalized && token.length >= 4) {
+        p += '(?:.{0,2})';
+      }
+      for (let i = 0; i < lower.length; i++) {
+        const c = lower[i];
+        const next = lower[i + 1];
+
+        // Bigramme zuerst pruefen (allg. Orthographie)
+        if (c === 'e' && next === 'i') { p += 'e[iy]'; i++; continue; }
+        if (c === 'e' && next === 'y') { p += 'e[iy]'; i++; continue; }
+        if (c === 't' && next === 'h') { p += 't[h]?'; i++; continue; }
+        if (c === 'c' && next === 'h') {
+          // Fraktur-'ch' wird von Tesseract fast immer verstuemmelt:
+          // 'd)', 'dj', 'cj', 'd^', oder das h faellt komplett weg.
+          p += fuzzy ? '[cd]?[hjl\\^]?' : 'c[hjl]?';
+          i++;
+          continue;
+        }
+        if (c === 's' && next === 's') { p += '(?:ss|ß|fs|fz)'; i++; continue; }
+
+        // Fraktur-spezifische Bigramme (nur im Fuzzy-Modus)
+        // 'rn' wird in Fraktur sehr haeufig als 'm' gelesen, weil die
+        // Buchstabenformen visuell zusammenfallen (z. B. "unternehmen"
+        // -> "untemelmen", "Sonne" bleibt aber). Dito Bigramme mit
+        // tt-Verwechslungen und nn->m.
+        if (fuzzy && c === 'r' && next === 'n') { p += '(?:rn|m|nt)'; i++; continue; }
+        if (fuzzy && c === 'n' && next === 'n') { p += '(?:nn|m|ni|in)'; i++; continue; }
+        if (fuzzy && c === 'i' && next === 'n') { p += '(?:in|m|ni)'; i++; continue; }
+        if (fuzzy && c === 'n' && next === 'i') { p += '(?:ni|in|m)'; i++; continue; }
+
+        if (c === 'ß')                 { p += '(?:ss|ß|fs)'; continue; }
+        if (c === 'ä')                 { p += '(?:ä|ae)'; continue; }
+        if (c === 'ö')                 { p += '(?:ö|oe)'; continue; }
+        if (c === 'ü')                 { p += '(?:ü|ue)'; continue; }
+
+        if (fuzzy) {
+          // Klassische Fraktur-OCR-Verwechslungen.  Beobachtet im Tesseract-
+          // Output von archive.org:
+          // - s ↔ f / ß / § / ſ (langes-s wird als f gelesen, oder als § bei OCR-Glitch)
+          // - n ↔ u, c ↔ e (haeufigster Fehler)
+          // - m → 'ni'/'in'/'rn'/'nn' (Fraktur-m in zwei Buchstaben aufgeloest)
+          // - g ↔ f, k ↔ f (in -keit/-feit)
+          // - h ↔ l ↔ optional (Oberlaengen-Verwechslung)
+          // - r ↔ t (Oberlaengen-Verwechslung), beidseitig
+          // - d ↔ b ↔ s (klein-d und klein-b sind in Fraktur fast identisch:
+          //   "das"->"ba§", "der"->"ber", "die"->"bie", "und"->"unb")
+          // - b ↔ d ↔ h (entsprechende Rueckrichtung)
+          // - w wird VOELLIG verstuemmelt: "äß"/"iü"/"to"/"iv"/"tt)"/"n)"
+          //   (siehe TestKorpus WA II/01)
+          if (c === 's')              { p += '[sfßſ§\\$]'; continue; }
+          if (c === 'f')              { p += '[fsſ]'; continue; }
+          if (c === 'n')              { p += '[nuim]'; continue; }
+          if (c === 'u')              { p += '[un]'; continue; }
+          if (c === 'c')              { p += '[ce]'; continue; }
+          if (c === 'e')              { p += '[ec]'; continue; }
+          if (c === 'm')              { p += '(?:m|ni|in|nn|rn)'; continue; }
+          if (c === 'g')              { p += '[gf]'; continue; }
+          if (c === 'k')              { p += '[kf]'; continue; }
+          if (c === 'h')              { p += '[hl\\^]?'; continue; }
+          if (c === 'l')              { p += '[lhi]'; continue; }
+          if (c === 'w') {
+            // Sehr breite Disjunktion: alle in Goethes WA beobachteten
+            // Fraktur-w-Lesungen.  Diese permissive Regel ist tolerabel,
+            // weil w immer in einem laengeren Token-Kontext steht und
+            // Phrase-Match alle Tokens benoetigt.
+            p += '(?:w|äß|iü|tt[\\?\\)\\]]?|n[\\?\\)]?|tn|tu|to|tr|ip|iv|iu|iy|tj|in|m)';
+            continue;
+          }
+          if (c === 'r')              { p += '[rt]'; continue; }
+          if (c === 't')              { p += '[tr]'; continue; }
+          if (c === 'd')              { p += '[dsb]'; continue; }
+          if (c === 'b')              { p += '[bdh]'; continue; }
+        }
+
+        if (/[.*+?^${}()|[\]\\]/.test(c)) p += '\\' + c;
+        else p += c;
+      }
+      return p;
+    }
+
+    /**
+     * Baut Single-Pass-Regex aus dem ganzen Suchbegriff (Phrase als
+     * zusammenhaengende Sequenz). Wird fuer Single-Token-Queries sowie
+     * als Anzeige-Pattern fuer das Frontend genutzt.
+     */
+    function buildOcrTolerantRegex(query, fuzzy) {
+      const q = query.trim();
+      if (!q) return null;
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const patternTokens = tokens.map(t => buildTokenPattern(t, fuzzy));
+      const between = '[\\s\\u00AD\\-]{1,5}';
+      const finalPattern = patternTokens.join(between);
+      try { return new RegExp(finalPattern, 'gi'); }
+      catch (e) { return null; }
+    }
+
+    /**
+     * Multi-Term-Phrase-Suche mit Cluster-Score.
+     *
+     * Algorithmus:
+     *  1. Fuer jedes Token (≥3 Zeichen) ein OCR-tolerantes Regex bauen
+     *     und alle Match-Positionen im Text sammeln.
+     *  2. Tokens, die ueberhaupt nicht im Text vorkommen, zaehlen als
+     *     "missing" - das Match-Ziel ist nicht "alle, sondern minScore.
+     *  3. Anker = Treffer des seltensten Tokens. Fuer jeden Anker ein
+     *     Fenster ±windowSize ziehen und zaehlen, wie viele andere
+     *     Token-Treffer dort liegen.
+     *  4. Score = matched / totalTokens. Cluster mit Score >= minScore
+     *     werden zu Hits, sortiert nach Score+Position.
+     *  5. Dedup: ueberlappende Cluster mergen (hoehere Score gewinnt).
+     *
+     * Vorteil: findet auch Stellen, wo OCR ein paar Wörter so verstuemmelt
+     * hat, dass strikte Phrase-Suche fehlschlaegt - solange genug andere
+     * Tokens lesbar sind.
+     */
+    function phraseSearch(text, tokens, fuzzy, opts) {
+      const minScore = (opts && opts.minScore) || 0.5;
+      const windowSize = (opts && opts.windowSize) || 220;
+      const maxHitsPerBand = (opts && opts.maxHitsPerBand) || 25;
+
+      const tokenInfos = tokens.map(t => {
+        const pat = buildTokenPattern(t, fuzzy);
+        let re = null;
+        try { re = new RegExp(pat, 'gi'); } catch (_) {}
+        return { token: t, pattern: pat, re };
+      }).filter(t => t.re);
+
+      if (tokenInfos.length === 0) return [];
+
+      // Alle Match-Positionen pro Token sammeln (Cap pro Token, damit
+      // sehr haeufige Woerter wie "der" nicht ausarten)
+      const TOKEN_HITS_CAP = 800;
+      const tokenHits = tokenInfos.map(ti => {
+        const hits = [];
+        let m;
+        ti.re.lastIndex = 0;
+        while ((m = ti.re.exec(text)) !== null && hits.length < TOKEN_HITS_CAP) {
+          hits.push({ pos: m.index, len: m[0].length, match: m[0] });
+          if (ti.re.lastIndex === m.index) ti.re.lastIndex++;
+        }
+        return hits;
+      });
+
+      const totalTokens = tokenInfos.length;
+      // Bei ≥2 Tokens muessen mindestens 2 davon im Cluster vorkommen,
+      // sonst ist es kein Cluster, sondern Single-Token-Match.
+      const minTokensRequired = totalTokens >= 2
+        ? Math.max(2, Math.ceil(totalTokens * minScore))
+        : 1;
+
+      const tokensWithHits = tokenHits.filter(h => h.length > 0).length;
+      if (tokensWithHits < minTokensRequired) return [];
+
+      // Wir betrachten ALLE Token-Hits als potentielle Anker. Das ist
+      // robuster als ein einzelner "seltenster Anker", weil OCR-bedingte
+      // Fehlmatches nicht das ganze Cluster ueberspringen lassen.
+      // Der Anker mit den meisten echten Nachbarn gewinnt nach Dedup.
+      const candidates = [];
+      for (let i = 0; i < tokenHits.length; i++) {
+        for (const h of tokenHits[i]) {
+          candidates.push({ tokIdx: i, pos: h.pos, len: h.len, match: h.match });
+        }
+      }
+      // Performance-Cap: bei sehr vielen Kandidaten begrenzen
+      const MAX_CANDIDATES = 1500;
+      if (candidates.length > MAX_CANDIDATES) candidates.length = MAX_CANDIDATES;
+
+      const clusters = [];
+      for (const ah of candidates) {
+        const wStart = ah.pos - windowSize;
+        const wEnd = ah.pos + ah.len + windowSize;
+        const matchedIdx = new Set([ah.tokIdx]);
+        const matchPositions = [{ idx: ah.tokIdx, pos: ah.pos, len: ah.len, match: ah.match }];
+        const missingTokens = [];
+
+        for (let i = 0; i < tokenHits.length; i++) {
+          if (i === ah.tokIdx) continue;
+          let best = null;
+          let bestDist = Infinity;
+          for (const h of tokenHits[i]) {
+            if (h.pos < wStart) continue;
+            if (h.pos > wEnd) break;
+            const dist = Math.abs(h.pos - ah.pos);
+            if (dist < bestDist) { best = h; bestDist = dist; }
+          }
+          if (best) {
+            matchedIdx.add(i);
+            matchPositions.push({ idx: i, pos: best.pos, len: best.len, match: best.match });
+          } else {
+            missingTokens.push(tokenInfos[i].token);
+          }
+        }
+
+        if (matchedIdx.size >= minTokensRequired) {
+          const positions = matchPositions.map(p => p.pos);
+          const ends = matchPositions.map(p => p.pos + p.len);
+          clusters.push({
+            score: matchedIdx.size / totalTokens,
+            matchedCount: matchedIdx.size,
+            startPos: Math.min(...positions),
+            endPos: Math.max(...ends),
+            anchorPos: ah.pos,
+            matchPositions,
+            missingTokens
+          });
+        }
+      }
+
+      if (clusters.length === 0) return [];
+
+      // Dedup: ueberlappende Cluster mergen (hoeherer Score gewinnt)
+      clusters.sort((a, b) => a.startPos - b.startPos);
+      const dedup = [];
+      for (const c of clusters) {
+        const last = dedup[dedup.length - 1];
+        if (last && c.startPos < last.endPos + 50) {
+          // Ueberlappen: behalte den mit hoeherem Score
+          if (c.score > last.score) dedup[dedup.length - 1] = c;
+          continue;
+        }
+        dedup.push(c);
+      }
+
+      // Final: nach Score absteigend, dann Position
+      dedup.sort((a, b) => b.score - a.score || a.startPos - b.startPos);
+      if (dedup.length > maxHitsPerBand) dedup.length = maxHitsPerBand;
+      return dedup;
+    }
+
+    app.options('/api/tools/goethe-zitate/local-search', goetheCors);
+    app.post('/api/tools/goethe-zitate/local-search', goetheCors, express.json({ limit: '256kb' }), async (req, res) => {
+      const { query, fuzzy, maxHits, minScore, phraseOnly } = req.body || {};
+      if (!query || typeof query !== 'string' || query.trim().length < 3) {
+        return res.status(400).json({ error: 'query (string, mind. 3 Zeichen) erforderlich' });
+      }
+      const limit = Math.min(Math.max(parseInt(maxHits, 10) || 80, 1), 300);
+      // phraseOnly: bei true werden NUR strikte Phrasentreffer (Tokens
+      // zusammenhaengend in derselben Reihenfolge) zurueckgegeben.
+      // Cluster-Fallback wird uebersprungen.
+      const strictPhrase = !!phraseOnly;
+
+      const manifest = await loadWAManifest();
+      if (!manifest || !Array.isArray(manifest.volumes)) {
+        return res.status(500).json({
+          error: { message: `WA-Manifest nicht gefunden in ${waLocalFolder}. _manifest.json fehlt oder ist beschaedigt.` }
+        });
+      }
+
+      // Tokens fuer Multi-Term-Modus: nur Wörter ≥3 Zeichen. Sehr kurze
+      // Stoppwoerter (im, die, der, ...) wuerden den Score verwaessern.
+      const STOP = new Set(['der','die','das','den','dem','des','ein','eine','einer','eines','einem','einen','und','oder','aber','auch','ist','sind','war','waren','wir','ihr','sie','sich','von','vom','zum','zur','mit','bei','an','auf','in','im','aus','nicht','wie','als','so','es','er','wenn','dass','daß','was','wer','dem','dies','das','ich','du','ihn','ihm','sein','seine','seinen','seinem','seines','ihre','ihren','ihrem','ihres']);
+      const allTokens = query.trim().split(/\s+/).filter(Boolean);
+      const meaningfulTokens = allTokens.filter(t => {
+        const clean = t.replace(/[^A-Za-zäöüÄÖÜß]/g, '');
+        return clean.length >= 3 && !STOP.has(clean.toLowerCase());
+      });
+      // Wir verwenden Phrase-Mode bei ≥2 sinnvollen Tokens.
+      const usePhraseMode = meaningfulTokens.length >= 2;
+      const userMinScore = parseFloat(minScore);
+      const effectiveMinScore = (!isNaN(userMinScore) && userMinScore > 0 && userMinScore <= 1) ? userMinScore : 0.5;
+
+      const phraseRegex = buildOcrTolerantRegex(query, !!fuzzy);
+      if (!phraseRegex && !usePhraseMode) {
+        return res.status(400).json({ error: { message: 'Suchbegriff fuehrt zu ungueltigem Pattern' } });
+      }
+
+      const tStart = Date.now();
+      const hits = [];
+      let bandsScanned = 0;
+      let bandsWithOCR = 0;
+      const perBandStats = [];
+
+      // Hilfsfunktion: baut die Verlinkungen (lokal/IA) mit Direktsprung zur Druckseite.
+      // - PDF-Reader (Edge/Chrome/Adobe) interpretieren #page=N als 1-basierte Seitenzahl.
+      //   Da das PDF von archive.org genau die Scan-Seiten in derselben Reihenfolge enthaelt,
+      //   entspricht leafNum direkt der PDF-Seite.
+      // - Internet Archive Bookreader nutzt /page/n{N-1} (0-basiert), oder /page/{printPage}
+      //   wenn die Druckseite numerisch ist.
+      function buildLinks(vol, leafNum, printPage, pdfAvailable) {
+        const local_pdf = path.join(waLocalFolder, vol.filename);
+        const fileUri = 'file:///' + local_pdf.replace(/\\/g, '/');
+        const out = {
+          local_pdf,
+          local_pdf_uri: pdfAvailable ? fileUri : null,
+          pdfAvailable: !!pdfAvailable,
+          ia_url: `https://archive.org/details/${vol.ia_id}?q=${encodeURIComponent(query)}`
+        };
+        if (leafNum) {
+          if (pdfAvailable) out.local_pdf_page_uri = fileUri + '#page=' + leafNum;
+          // Bookreader-Direktsprung zur Bildseite (0-basiert)
+          out.ia_page_url = `https://archive.org/details/${vol.ia_id}/page/n${leafNum - 1}/mode/2up`;
+        }
+        return out;
+      }
+
+      for (const vol of manifest.volumes) {
+        bandsScanned++;
+        const loaded = await loadWAText(vol.filename);
+        if (!loaded) {
+          perBandStats.push({ band: vol.band, title: vol.title, ocr: false, hits: 0 });
+          continue;
+        }
+        const { text, pages, hasPageMap } = loaded;
+        // Existenz des lokalen PDF pruefen (das macht den "Lokales PDF"-Button sinnvoll
+        // oder unsinnig). fs.access wirft, wenn nicht vorhanden.
+        let pdfAvailable = false;
+        try { await fs.access(path.join(waLocalFolder, vol.filename)); pdfAvailable = true; } catch (_) {}
+        bandsWithOCR++;
+
+        const bandHitsBefore = hits.length;
+
+        // ── 1. Versuch: Phrase als zusammenhaengende Sequenz ──
+        const phraseHits = [];
+        if (phraseRegex) {
+          let m;
+          phraseRegex.lastIndex = 0;
+          while ((m = phraseRegex.exec(text)) !== null) {
+            phraseHits.push({ pos: m.index, len: m[0].length, match: m[0] });
+            if (phraseHits.length >= 25) break;
+            if (phraseRegex.lastIndex === m.index) phraseRegex.lastIndex++;
+          }
+        }
+
+        for (const ph of phraseHits) {
+          if (hits.length >= limit) break;
+          const start = Math.max(0, ph.pos - 160);
+          const end = Math.min(text.length, ph.pos + ph.len + 160);
+          const snippet = text.slice(start, end).trim();
+          const pageInfo = findPageAt(pages, ph.pos);
+          hits.push({
+            ia_id: vol.ia_id, title: vol.title, band: vol.band,
+            abteilung: vol.abteilung, year: vol.year || null, filename: vol.filename,
+            snippet, match: ph.match,
+            matchStart: ph.pos - start,
+            matchEnd: ph.pos - start + ph.len,
+            position: ph.pos,
+            relativePosition: text.length > 0 ? ph.pos / text.length : 0,
+            score: 1, // exakte Phrase
+            matchType: 'phrase',
+            matchedTokens: meaningfulTokens.length || 1,
+            totalTokens: meaningfulTokens.length || 1,
+            missingTokens: [],
+            leafNum: pageInfo ? pageInfo.leafNum : null,
+            printPage: pageInfo ? pageInfo.printPage : null,
+            printPageSource: pageInfo ? pageInfo.printPageSource : null,
+            hasPageMap,
+            ...buildLinks(vol, pageInfo ? pageInfo.leafNum : null, pageInfo ? pageInfo.printPage : null, pdfAvailable)
+          });
+        }
+
+        // ── 2. Versuch: Multi-Term-Phrase-Suche mit Cluster-Score ──
+        // Nur wenn die Phrase nicht als Ganzes gefunden wurde UND die
+        // Anfrage mehrere bedeutsame Tokens hat UND der Nutzer nicht
+        // explizit "strict phrase" (Quotes) gewaehlt hat.
+        if (phraseHits.length === 0 && usePhraseMode && !strictPhrase) {
+          const clusters = phraseSearch(text, meaningfulTokens, !!fuzzy, {
+            minScore: effectiveMinScore,
+            windowSize: 220,
+            maxHitsPerBand: 25
+          });
+          for (const cl of clusters) {
+            if (hits.length >= limit) break;
+            const start = Math.max(0, cl.startPos - 80);
+            const end = Math.min(text.length, cl.endPos + 80);
+            const snippet = text.slice(start, end).trim();
+            // Highlight: alle Match-Positionen relativ zum Snippet einsammeln
+            const highlights = cl.matchPositions
+              .map(mp => ({ start: mp.pos - start, end: mp.pos - start + mp.len, match: mp.match }))
+              .filter(h => h.start >= 0 && h.end <= snippet.length)
+              .sort((a, b) => a.start - b.start);
+            // Page-Zuordnung an der Anker-Position (nicht startPos, weil das u.U.
+            // ein voraneilender Token-Match ist; anchorPos ist der "echte" Treffer).
+            const pageInfo = findPageAt(pages, cl.anchorPos != null ? cl.anchorPos : cl.startPos);
+            hits.push({
+              ia_id: vol.ia_id, title: vol.title, band: vol.band,
+              abteilung: vol.abteilung, year: vol.year || null, filename: vol.filename,
+              snippet,
+              match: snippet.slice(highlights[0]?.start || 0, highlights[0]?.end || 0),
+              matchStart: highlights[0]?.start || 0,
+              matchEnd: highlights[0]?.end || 0,
+              highlights,
+              position: cl.startPos,
+              relativePosition: text.length > 0 ? cl.startPos / text.length : 0,
+              score: cl.score,
+              matchType: 'cluster',
+              matchedTokens: cl.matchedCount,
+              totalTokens: meaningfulTokens.length,
+              missingTokens: cl.missingTokens,
+              leafNum: pageInfo ? pageInfo.leafNum : null,
+              printPage: pageInfo ? pageInfo.printPage : null,
+              printPageSource: pageInfo ? pageInfo.printPageSource : null,
+              hasPageMap,
+              ...buildLinks(vol, pageInfo ? pageInfo.leafNum : null, pageInfo ? pageInfo.printPage : null, pdfAvailable)
+            });
+          }
+        }
+
+        const bandHits = hits.length - bandHitsBefore;
+        perBandStats.push({ band: vol.band, title: vol.title, ocr: true, hits: bandHits, hasPageMap });
+        if (hits.length >= limit) break;
+      }
+
+      const elapsed = Date.now() - tStart;
+      const phraseMatches = hits.filter(h => h.matchType === 'phrase').length;
+      const clusterMatches = hits.filter(h => h.matchType === 'cluster').length;
+      console.log(`[WA-LOCAL] "${query.slice(0, 60)}" -> ${hits.length} Treffer (${phraseMatches} Phrase + ${clusterMatches} Cluster) in ${bandsWithOCR}/${bandsScanned} Baenden (${elapsed}ms)`);
+      res.json({
+        query,
+        fuzzy: !!fuzzy,
+        phraseMode: usePhraseMode,
+        phraseOnly: strictPhrase,
+        minScore: effectiveMinScore,
+        meaningfulTokens,
+        pattern: phraseRegex ? phraseRegex.source : null,
+        hits,
+        total: hits.length,
+        phraseMatches,
+        clusterMatches,
+        bandsScanned,
+        bandsWithOCR,
+        folder: waLocalFolder,
+        elapsedMs: elapsed,
+        perBandStats
+      });
+    });
+
+    // Status-Endpoint: zeigt, welche Baende OCR-Volltext + Page-Map haben
+    app.options('/api/tools/goethe-zitate/local-status', goetheCors);
+    app.get('/api/tools/goethe-zitate/local-status', goetheCors, async (req, res) => {
+      const manifest = await loadWAManifest();
+      if (!manifest || !Array.isArray(manifest.volumes)) {
+        return res.json({ folder: waLocalFolder, manifestFound: false, volumes: [] });
+      }
+      const vols = [];
+      for (const v of manifest.volumes) {
+        const base = v.filename.replace(/\.pdf$/i, '');
+        const pdfPath = path.join(waLocalFolder, v.filename);
+        const txtPath = path.join(waLocalFolder, base + '.txt');
+        const xmlPath = path.join(waLocalFolder, base + '.djvu.xml');
+        const pnPath = path.join(waLocalFolder, base + '.page_numbers.json');
+        let pdfOk = false, txtOk = false, xmlOk = false, pnOk = false;
+        let txtSize = 0, xmlSize = 0;
+        try { await fs.access(pdfPath); pdfOk = true; } catch (_) {}
+        try { const s = await fs.stat(txtPath); txtOk = true; txtSize = s.size; } catch (_) {}
+        try { const s = await fs.stat(xmlPath); xmlOk = true; xmlSize = s.size; } catch (_) {}
+        try { await fs.access(pnPath); pnOk = true; } catch (_) {}
+        vols.push({
+          band: v.band, abteilung: v.abteilung, title: v.title,
+          ia_id: v.ia_id, filename: v.filename,
+          pdfAvailable: pdfOk,
+          ocrAvailable: txtOk, ocrSizeKb: Math.round(txtSize / 1024),
+          djvuXmlAvailable: xmlOk, djvuXmlSizeKb: Math.round(xmlSize / 1024),
+          pageNumbersAvailable: pnOk,
+          pageMapReady: xmlOk && pnOk
+        });
+      }
+      res.json({ folder: waLocalFolder, manifestFound: true, volumes: vols });
+    });
+
+    // ────────────────────────────────────────────────────────────────────
+    // local-prepare: Laedt fuer alle Baende fehlende djvu.xml und
+    //                page_numbers.json von archive.org nach. Damit
+    //                ist jeder Treffer mit exakter Druckseite versehen.
+    // Body (optional): { ia_id?: string, force?: boolean }
+    //   - ia_id: nur diesen Band aktualisieren
+    //   - force: ueberschreibe vorhandene Dateien
+    // ────────────────────────────────────────────────────────────────────
+    app.options('/api/tools/goethe-zitate/local-prepare', goetheCors);
+    app.post('/api/tools/goethe-zitate/local-prepare', goetheCors, express.json({ limit: '32kb' }), async (req, res) => {
+      const manifest = await loadWAManifest();
+      if (!manifest || !Array.isArray(manifest.volumes)) {
+        return res.status(500).json({ error: 'WA-Manifest nicht gefunden' });
+      }
+      const targetIa = (req.body && req.body.ia_id) ? String(req.body.ia_id) : null;
+      const force = !!(req.body && req.body.force);
+
+      const tasks = manifest.volumes.filter(v => !targetIa || v.ia_id === targetIa);
+      const results = [];
+
+      async function downloadIfMissing(url, dest, label) {
+        try {
+          if (!force) {
+            try { const s = await fs.stat(dest); if (s.size > 0) return { skipped: true, size: s.size }; } catch (_) {}
+          }
+          const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (GA-Suche/Goethe-Zitate)' } });
+          if (!r.ok) return { error: `${label} HTTP ${r.status}` };
+          const buf = Buffer.from(await r.arrayBuffer());
+          if (buf.length < 100) return { error: `${label} response zu klein (${buf.length} B)` };
+          await fs.writeFile(dest, buf);
+          return { downloaded: true, size: buf.length };
+        } catch (e) {
+          return { error: `${label}: ${e.message}` };
+        }
+      }
+
+      for (const vol of tasks) {
+        const base = vol.filename.replace(/\.pdf$/i, '');
+        const xmlDest = path.join(waLocalFolder, base + '.djvu.xml');
+        const pnDest = path.join(waLocalFolder, base + '.page_numbers.json');
+        const txtDest = path.join(waLocalFolder, base + '.txt');
+
+        const xmlUrl = `https://archive.org/download/${vol.ia_id}/${vol.ia_id}_djvu.xml`;
+        const pnUrl = `https://archive.org/download/${vol.ia_id}/${vol.ia_id}_page_numbers.json`;
+        const txtUrl = `https://archive.org/download/${vol.ia_id}/${vol.ia_id}_djvu.txt`;
+
+        const xmlRes = await downloadIfMissing(xmlUrl, xmlDest, 'djvu.xml');
+        const pnRes = await downloadIfMissing(pnUrl, pnDest, 'page_numbers.json');
+        const txtRes = await downloadIfMissing(txtUrl, txtDest, 'djvu.txt');
+
+        // Cache fuer diesen Band invalidieren, damit naechste Suche neu indiziert
+        waTextCache.delete(vol.filename);
+
+        results.push({
+          band: vol.band, ia_id: vol.ia_id, title: vol.title,
+          djvuXml: xmlRes, pageNumbers: pnRes, ocrTxt: txtRes
+        });
+      }
+
+      const ok = results.filter(r => !r.djvuXml.error && !r.pageNumbers.error).length;
+      res.json({
+        folder: waLocalFolder,
+        processed: results.length,
+        readyCount: ok,
+        results
+      });
+    });
+    // ========================================================================
+    // ENDE GOETHE-ZITATE LOKALE SUCHE
+    // ========================================================================
+
     console.log('\n[9/9] Starte Server...');
     
     // Theme-Assignments-Status beim Start berechnen und cachen
