@@ -1,5 +1,24 @@
 // hybrid-search-server-unified.js - Vereinheitlichtes System mit GA/Vortrag IDs
 require('dotenv').config({ path: require('path').join(__dirname, '.env'), override: true });
+
+function resolveClaudeApiKey() {
+  const preferredAccount = (process.env.CLAUDE_API_KEY_ACTIVE || 'primary').toLowerCase();
+  const prioritizedKeys = preferredAccount === 'secondary'
+    ? [process.env.CLAUDE_API_KEY_SECONDARY, process.env.CLAUDE_API_KEY_PRIMARY]
+    : [process.env.CLAUDE_API_KEY_PRIMARY, process.env.CLAUDE_API_KEY_SECONDARY];
+
+  return prioritizedKeys.find(Boolean)
+    || process.env.CLAUDE_API_KEY
+    || process.env.ANTHROPIC_API_KEY
+    || '';
+}
+
+const resolvedClaudeApiKey = resolveClaudeApiKey();
+if (resolvedClaudeApiKey) {
+  // Halte Legacy-Zugriffe kompatibel, obwohl die eigentlichen Keys jetzt getrennt konfiguriert sind.
+  process.env.CLAUDE_API_KEY = resolvedClaudeApiKey;
+  process.env.ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || resolvedClaudeApiKey;
+}
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
@@ -4724,6 +4743,129 @@ app.post('/api/advanced-search', async (req, res) => {
 // LLM ANALYSE
 // ============================================================================
 
+/**
+ * Normalisiert Text für Quote-Matching: lowercase, deutsche Anführungszeichen,
+ * Auslassungspunkte, doppelte Whitespaces entfernen.
+ */
+function _normalizeForQuoteMatch(text) {
+  if (!text) return '';
+  return text
+    .toLowerCase()
+    .replace(/[„""''«»]/g, '')
+    .replace(/\[\s*[…\.]+\s*\]/g, ' ')
+    .replace(/[…]/g, ' ')
+    .replace(/[^\wäöüß\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Prüft, ob ein Zitat substanziell im Korpus vorkommt.
+ * Erlaubt Auslassungen ([…]) durch n-Gramm-Matching: Mindestens 1 zusammenhängendes
+ * 8-Wort-Fenster aus dem Zitat muss im Korpus vorkommen. Sehr kurze Zitate (<8 Wörter)
+ * müssen vollständig vorkommen.
+ */
+function _isQuoteInCorpus(quote, normCorpus, minNgram = 8) {
+  const normQuote = _normalizeForQuoteMatch(quote);
+  if (!normQuote || !normCorpus) return false;
+
+  const words = normQuote.split(' ').filter(w => w.length > 0);
+  if (words.length === 0) return false;
+
+  if (words.length < minNgram) {
+    return normCorpus.includes(normQuote);
+  }
+
+  for (let i = 0; i + minNgram <= words.length; i++) {
+    const ngram = words.slice(i, i + minNgram).join(' ');
+    if (normCorpus.includes(ngram)) return true;
+  }
+  return false;
+}
+
+/**
+ * Post-Hoc-Validierung der LLM-Antwort im Quote-Modus.
+ * Extrahiert alle Blockquotes (`> ...`) und entfernt diejenigen, die NICHT
+ * substanziell im bereitgestellten Korpus stehen. Damit werden halluzinierte
+ * Zitate (z.B. Wiederverwenden der Nutzeranfrage als „Zitat") herausgefiltert.
+ *
+ * Bleibt nichts übrig: ersetzt die Antwort durch „Kein passendes Zitat gefunden".
+ */
+function validateQuoteAnalysis(analysisText, topResults) {
+  const corpus = topResults.map(r => r.content || '').join('\n');
+  const normCorpus = _normalizeForQuoteMatch(corpus);
+
+  const lines = analysisText.split('\n');
+  const out = [];
+  let validQuotes = 0;
+  let removedQuotes = 0;
+  const removedSamples = [];
+
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+
+    if (/^\s*>\s*/.test(line)) {
+      // Sammle alle aufeinanderfolgenden Quote-Zeilen
+      let blockText = '';
+      const blockStart = i;
+      while (i < lines.length && /^\s*>\s*/.test(lines[i])) {
+        blockText += ' ' + lines[i].replace(/^\s*>\s?/, '');
+        i++;
+      }
+
+      // Suche nachfolgende "Quelle:"-Zeile (ggf. nach Leerzeilen)
+      let cursor = i;
+      while (cursor < lines.length && lines[cursor].trim() === '') cursor++;
+      const hasSource = cursor < lines.length && /^\s*quelle\s*:/i.test(lines[cursor]);
+      const blockEnd = hasSource ? cursor + 1 : i;
+
+      const isValid = _isQuoteInCorpus(blockText.trim(), normCorpus);
+      if (isValid) {
+        for (let j = blockStart; j < blockEnd; j++) {
+          out.push(lines[j]);
+        }
+        validQuotes++;
+      } else {
+        removedQuotes++;
+        if (removedSamples.length < 3) {
+          removedSamples.push(blockText.trim().slice(0, 80));
+        }
+      }
+      i = blockEnd;
+    } else {
+      out.push(line);
+      i++;
+    }
+  }
+
+  // Headings ohne nachfolgende Quotes entfernen (z.B. "## Möglicher Treffer" mit nichts drunter)
+  let resultText = out.join('\n');
+  resultText = resultText.replace(
+    /^##\s+(?:möglicher\s*treffer|weitere\s*mögliche\s*treffer|weitere\s*treffer|gesuchtes\s*zitat)[^\n]*\n([\s\S]*?)(?=^##\s|$(?![\r\n]))/gim,
+    (match, body) => (/^\s*>/m.test(body) ? match : '')
+  );
+  resultText = resultText.replace(/\n{3,}/g, '\n\n').trim();
+
+  if (removedQuotes > 0) {
+    console.log(`[QUOTE-VALIDATOR] ${removedQuotes} halluzinierte/nicht-im-Korpus Zitate entfernt: ${removedSamples.map(s => `"${s}…"`).join(', ')}`);
+  }
+
+  if (validQuotes === 0) {
+    return {
+      text: '## Kein passendes Zitat gefunden\n\nKeine der vorliegenden Textpassagen enthält den in der Anfrage beschriebenen Sachverhalt eindeutig.',
+      removed: removedQuotes,
+      hasValidResults: false
+    };
+  }
+
+  return {
+    text: resultText,
+    removed: removedQuotes,
+    hasValidResults: true
+  };
+}
+
 async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep') {
   
   // Hole passenden LLM-Provider
@@ -4828,13 +4970,86 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
   const maxTokens = {
     'allgemein': 4000,
     'ausführlich': 8000,
-    'broad': 32000  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
+    'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
+    'quote': 6000    // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
   };
   
   // Wähle Prompt basierend auf thematicMode
   let prompt;
   
-  if (thematicMode === 'broad') {
+  if (thematicMode === 'quote') {
+    // ZITATSUCHE: Claude - sucht das beste Zitat zur sinngemäß beschriebenen Anfrage
+    console.log(`[ANALYSIS] Modus: Zitatsuche - ${topResults.length} Quellen`);
+    prompt = `Du bist ein Spezialist für die Zitatsuche im Werk Rudolf Steiners (Gesamtausgabe / GA).
+
+AUFGABE
+Der Nutzer beschreibt sinngemäß den Inhalt eines bestimmten Zitats von Rudolf Steiner, ohne den genauen Wortlaut oder einzelne Schlüsselwörter zu kennen. Deine Aufgabe ist es, aus den unten gelisteten Textpassagen genau diejenige(n) Stelle(n) zu identifizieren, in der/denen Steiner den beschriebenen Sachverhalt tatsächlich, klar und unmittelbar ausspricht.
+
+ANFRAGE DES NUTZERS
+"${query}"
+
+ABSOLUT KRITISCHE REGELN (Verstoß = Aufgabe verfehlt)
+1. JEDES ausgegebene Zitat MUSS WÖRTLICH und ZUSAMMENHÄNGEND in EINER der unten gelisteten TEXTPASSAGEN stehen. Jedes einzelne Wort des Zitats muss exakt so im Originaltext einer Textpassage vorkommen. Auslassungen mit […] sind nur erlaubt, wenn der Rest des Zitats wörtlich aus EINER zusammenhängenden Stelle stammt.
+2. Du darfst NIEMALS die Anfrage des Nutzers oder eine Paraphrase davon als Zitat ausgeben. Wenn du kein wörtliches Zitat im Korpus findest, das den Sachverhalt klar trifft, gib „Kein passendes Zitat gefunden" aus.
+3. Du darfst KEINE Stellen aus mehreren Textpassagen kombinieren oder zu einem Zitat zusammensetzen.
+4. Du darfst KEINE Quellen erfinden. Die Quellenangabe muss EXAKT der ID entsprechen, die in eckigen Klammern vor der zitierten Textpassage steht (Format: GA###/lectureNum:index, z.B. GA306/9:abc123). Quellen ohne :index oder ohne /lectureNum sind verboten.
+5. Eine bloß thematische Ähnlichkeit oder „passt ungefähr zum Thema" ist KEIN Treffer. Lieber „Kein passendes Zitat gefunden" als ein nur halb passendes Zitat ausgeben.
+
+ARBEITSWEISE
+1. Lies jede Textpassage sorgfältig.
+2. Prüfe für jede Passage, ob sie den in der Anfrage beschriebenen Sachverhalt WIRKLICH und EINDEUTIG enthält.
+3. Wenn du eine Stelle gefunden hast: zitiere sie WÖRTLICH (1–4 Sätze, exakt der Wortlaut aus der Textpassage).
+4. Wenn keine Stelle wirklich passt: gib „Kein passendes Zitat gefunden" aus. Niemals ersatzweise eine ungenaue Stelle ausgeben.
+5. Bei mehreren echten Treffern: maximal drei, sortiert nach Passgenauigkeit. Ein einzelner echter Treffer ist besser als drei mittelmäßige.
+
+AUSGABEFORMAT BEI TREFFER (Markdown)
+
+## Möglicher Treffer
+
+> [Wörtliches Zitat aus der Textstelle in deutschen Anführungszeichen, vollständig genug, um den Sinngehalt klar wiederzugeben – idealerweise 1–4 Sätze. Längere Zitate dürfen nur dann gekürzt werden, wenn unwesentliche Nebenbemerkungen mit […] markiert ausgelassen werden.]
+
+Quelle: (GA###/lectureNum:index)
+
+## Weitere mögliche Treffer
+(Diesen Abschnitt nur einfügen, wenn 1–2 weitere Stellen den Sachverhalt der Anfrage ebenfalls eindeutig wiedergeben. Maximal 2 weitere Treffer. Andernfalls Abschnitt komplett weglassen.)
+
+> [Zitat 2]
+
+Quelle: (GA###/lectureNum:index)
+
+AUSGABEFORMAT BEI KEINEM TREFFER
+
+Wenn KEINE der vorliegenden Textpassagen den in der Anfrage beschriebenen Sachverhalt wirklich und eindeutig enthält, antworte AUSSCHLIESSLICH mit:
+
+## Kein passendes Zitat gefunden
+
+Keine der vorliegenden Textpassagen enthält den in der Anfrage beschriebenen Sachverhalt eindeutig.
+
+NICHTS sonst – keine Annäherungen, keine "thematisch nahen" Stellen, keine Quellenangaben, keine Erläuterungen, keine Vorschläge.
+
+REGELN FÜR DIE QUELLENANGABE
+- Format: (GA###/lectureNum:index) – z.B. (GA293/4:abc123)
+- Genau die ID verwenden, die bei der jeweiligen Textpassage in eckigen Klammern angegeben ist (Format [GA###/lectureNum:index]).
+- KEINE Leerzeichen innerhalb der Klammern.
+
+STRENGE VERBOTE
+- KEINE Annäherungen, "thematisch nahen" Stellen oder "Möglichkeiten" ausgeben, wenn keine Passage den Sachverhalt wirklich trifft.
+- KEINE Begründung, KEINE Erläuterung, KEINE Kommentare, warum das Zitat passt – das Zitat steht für sich.
+- KEINE eigene Zusammenfassung oder Paraphrase des Zitats.
+- KEINE Meta-Kommentare ("In den vorliegenden Texten findet sich…", "Steiner äußert sich an mehreren Stellen…" usw.).
+- KEINE Kombination/Verschmelzung mehrerer Stellen zu einem konstruierten Zitat.
+- KEINE Quellen erfinden, die nicht in der Liste der verfügbaren Referenzen vorkommen.
+
+VERFÜGBARE REFERENZEN
+${availableRefs}
+
+Anzahl Textpassagen: ${topResults.length}
+
+TEXTPASSAGEN:
+${contextText}
+
+ZITATSUCHE-ERGEBNIS:`;
+  } else if (thematicMode === 'broad') {
     // BREITE SAMMLUNG: Gemini - viele Quellen, kurze Zusammenfassungen
     console.log(`[ANALYSIS] Modus: Breite Sammlung - ${topResults.length} Quellen`);
     prompt = `Erstelle eine umfassende Quellensammlung zu: "${query}"
@@ -5025,22 +5240,39 @@ ANALYSE:`;
   }
   
   // Bestimme maxTokens basierend auf Modus
-  const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad'] : maxTokens['ausführlich'];
+  const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad']
+                            : thematicMode === 'quote' ? maxTokens['quote']
+                            : maxTokens['ausführlich'];
 
   try {
     
     // Verwende Provider-Abstraction
+    // Im Quote-Modus deterministischer (temperature niedrig), damit das Modell
+    // weniger zu Kreativität/Paraphrasierung neigt.
+    const effectiveTemperature = thematicMode === 'quote' ? 0.1 : 0.7;
     let analysisText = await provider.generateCompletion(prompt, {
       maxTokens: effectiveMaxTokens,
-      temperature: 0.7
+      temperature: effectiveTemperature
     });
-    
-    
+
+    // Im Quote-Modus: Halluzinations-Filter. Jedes ausgegebene Zitat muss wörtlich
+    // (ggf. mit Auslassungen) in den bereitgestellten Textpassagen vorkommen,
+    // sonst wird es entfernt.
+    if (thematicMode === 'quote') {
+      const validation = validateQuoteAnalysis(analysisText, topResults);
+      analysisText = validation.text;
+      if (validation.removed > 0 && validation.hasValidResults) {
+        console.log(`[QUOTE-VALIDATOR] ${validation.removed} Zitat(e) gefiltert, ${validation.hasValidResults ? 'verbleibende valide Treffer im Output' : 'keine validen Treffer übrig'}`);
+      } else if (!validation.hasValidResults) {
+        console.log(`[QUOTE-VALIDATOR] Alle ${validation.removed} Zitate halluziniert/nicht im Korpus → "Kein passendes Zitat gefunden"`);
+      }
+    }
+
     analysisText = addClickableReferences(analysisText, topResults);
-    
+
     // Deutsche Anführungszeichen korrigieren: öffnend „ (unten), schließend " (oben)
     analysisText = fixGermanQuotes(analysisText);
-    
+
     return analysisText;
 
   } catch (error) {
@@ -8514,6 +8746,92 @@ Antworte NUR mit einem JSON-Array von Strings, z.B.: ["Fachbegriff1", "spezifisc
   }
 }
 
+// ============================================================================
+// QUOTE-PHRASEN-EXPANSION: LLM erzeugt mögliche Steiner-Originalformulierungen
+// ============================================================================
+
+const _quotePhrasesCache = new Map();
+
+/**
+ * Erzeugt mögliche WÖRTLICHE Steiner-Formulierungen zu einer sinngemäß
+ * beschriebenen Anfrage. Im Gegensatz zu expandQueryWithLLM liefert diese
+ * Funktion ganze Halbsätze / Phrasen, die als wörtliche Suchbegriffe
+ * gegen den Originaltext laufen.
+ *
+ * @param {string} query
+ * @returns {Promise<string[]>} Array möglicher Original-Phrasen
+ */
+async function expandQueryToQuotePhrases(query) {
+  const cacheKey = query.toLowerCase().trim();
+  if (_quotePhrasesCache.has(cacheKey)) {
+    return _quotePhrasesCache.get(cacheKey);
+  }
+
+  try {
+    const provider = getProviderForTask('analysis');
+    if (!provider || !provider.isAvailable()) {
+      return [];
+    }
+
+    const prompt = `Ein Nutzer sucht nach einem bestimmten Zitat aus Rudolf Steiners Gesamtausgabe (GA), kennt aber nur den sinngemäßen Inhalt:
+
+"${query}"
+
+Erzeuge 12-18 KURZE WÖRTLICHE Formulierungen, die als EXAKTE Phrasen gegen den Originaltext der GA gesucht werden. Eine Phrase wird nur gefunden, wenn die exakte Wortfolge im Text vorkommt – die Phrasen müssen daher kurz und treffsicher sein.
+
+REGELN:
+- Jede Phrase: 3-6 Wörter, KEINE einzelnen Wörter und KEINE langen Sätze
+- Schreibe in Steiners Sprachstil (frühes 20. Jh., gehoben)
+- Erzeuge MEHRERE WORTLAUT-VARIANTEN für JEDEN zentralen Aspekt der Anfrage. Berücksichtige:
+  * Substantiv/Verb-Varianten: "Meditation" / "Meditieren" / "die Meditation"
+  * Synonyme: "etwas Mittleres" / "ein mittlerer Zustand" / "ein Mittleres" / "die Mitte"
+  * Negationen: "weder X noch Y" / "nicht X und nicht Y" / "kein X kein Y"
+  * Wortstellung: "X zwischen Y und Z" / "zwischen Y und Z liegt X"
+  * Steiner-typische Formulierungen: "ein Drittes", "es ist nicht ein …, sondern", "wenn man … hat man"
+- KEINE Phrasen, die das Hauptverb der Nutzerfrage ("Wie lautet", "in dem Steiner sagt") wiederholen
+- KEINE eigenen Inhalte hinzufügen, die nicht in der Anfrage stehen
+- Streue auch Phrasen ein, die nur einen TEILASPEKT der Anfrage abdecken (Steiner formuliert oft kompakt)
+
+BEISPIEL
+Nutzerfrage: "Wie lautet das Zitat, dass Meditation etwas Mittleres ist? Zwischen Denken und Wahrnehmung?"
+Gute Antwort:
+["Meditation ist etwas Mittleres", "Meditieren ist ein mittlerer", "ein mittlerer Zustand", "weder Denken noch Wahrnehmen", "weder Denken noch Wahrnehmung", "zwischen Denken und Wahrnehmen", "ein Mittleres zwischen", "die Meditation steht in der Mitte", "wenn man meditiert", "das Meditieren ist", "weder ein Denken noch", "Mitte zwischen Denken und"]
+
+Antworte NUR mit einem JSON-Array von Strings, sonst nichts.`;
+
+    const response = await provider.generateCompletion(prompt, {
+      maxTokens: 700,
+      temperature: 0.5
+    });
+
+    const jsonMatch = response.match(/\[[\s\S]*?\]/);
+    if (!jsonMatch) {
+      console.warn('[QUOTE-PHRASES] Kein JSON-Array in LLM-Antwort');
+      return [];
+    }
+
+    const phrases = JSON.parse(jsonMatch[0]);
+    if (!Array.isArray(phrases)) return [];
+
+    const cleanPhrases = phrases
+      .filter(p => typeof p === 'string')
+      .map(p => p.trim())
+      // Mindestens 2 Wörter, max. 8 Wörter (echte Phrase, nicht Einzelwort und nicht ganzer Satz)
+      .filter(p => {
+        const wc = p.split(/\s+/).length;
+        return wc >= 2 && wc <= 8 && p.length >= 6;
+      });
+
+    console.log(`[QUOTE-PHRASES] "${query.slice(0, 60)}..." → ${cleanPhrases.length} Phrasen: ${cleanPhrases.slice(0, 3).map(p => `"${p}"`).join(', ')}...`);
+
+    _quotePhrasesCache.set(cacheKey, cleanPhrases);
+    return cleanPhrases;
+  } catch (err) {
+    console.warn('[QUOTE-PHRASES] Fehler:', err.message);
+    return [];
+  }
+}
+
 // API: Generiere Embeddings für alle Summaries
 // POST body: { forceRegenerate: true } um alle mit dem aktuellen Modell neu zu erzeugen
 app.post('/api/generate-embeddings', async (req, res) => {
@@ -10049,7 +10367,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const effectiveDepth = 'ausführlich';
     
     // Log Analyse-Modus
-    const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)' : 'Breite Sammlung (Gemini)';
+    const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
+                    : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
+                    : 'Breite Sammlung (Gemini)';
     console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
     
     // Prüfe ob Request von localhost kommt
@@ -10085,82 +10405,166 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     }
 
     // Kein Cache-Hit: Neue Suche
+    const tStart = Date.now();
     let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter);
+    const tKeyword = Date.now() - tStart;
 
-    // Query-Expansion: LLM expandiert die Frage in Steiner-Terminologie
-    try {
-      const expandedTerms = await expandQueryWithLLM(query);
-      if (expandedTerms.length > 0) {
-        // Jeden expandierten Begriff einzeln suchen (statt alle zusammen),
-        // damit die Scores pro Begriff sinnvoll bleiben
-        const existingKeys = new Set(keywordResults.map(r => `${r.ID}-${r.index}`));
-        let addedCount = 0;
-        const maxExpanded = 500;
+    // Im Quote-Modus suchen wir gezielter, weil die Anfrage oft nur den Sinn,
+    // nicht aber Steiners Originalwortlaut enthält.
+    const isQuoteMode = thematicMode === 'quote';
 
-        for (const term of expandedTerms) {
+    // === PARALLEL-PHASE ===
+    // Drei unabhängige async-Calls (zwei LLM-Calls + ein Embedding-Call) gleichzeitig
+    // ausführen, damit die Gesamtzeit dieses Blocks dem längsten Einzelcall entspricht
+    // statt der Summe aller drei.
+    const tParallelStart = Date.now();
+    const semThreshold = isQuoteMode ? 0.28 : 0.35;
+    const semTopN = isQuoteMode ? 50 : 30;
+    const [expandedTerms, phrases, lectureSimilarities] = await Promise.all([
+      expandQueryWithLLM(query).catch(err => {
+        console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
+        return [];
+      }),
+      isQuoteMode
+        ? expandQueryToQuotePhrases(query).catch(err => {
+            console.warn('[THEMATIC-QUOTE] Phrasen-Expansion fehlgeschlagen:', err.message);
+            return [];
+          })
+        : Promise.resolve([]),
+      findSemanticallySimilarLectures(query, semThreshold, semTopN).catch(err => {
+        console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
+        return {};
+      })
+    ]);
+    const tParallel = Date.now() - tParallelStart;
+
+    // === SYNCHRONE VERARBEITUNG ===
+    // Term-, Phrasen- und Semantik-Treffer in keywordResults aufnehmen.
+    const tSyncStart = Date.now();
+
+    // 1) Query-Expansion: Begriffe einzeln suchen
+    if (expandedTerms.length > 0) {
+      const existingKeys = new Set(keywordResults.map(r => `${r.ID}-${r.index}`));
+      let addedCount = 0;
+      const maxExpanded = 500;
+
+      for (const term of expandedTerms) {
+        if (addedCount >= maxExpanded) break;
+        const termResults = performThematicKeywordSearch(`"${term}"`, paragraphsFromLectures, gaFilter);
+
+        for (const result of termResults) {
           if (addedCount >= maxExpanded) break;
-          const termResults = performThematicKeywordSearch(`"${term}"`, paragraphsFromLectures, gaFilter);
-
-          for (const result of termResults) {
-            if (addedCount >= maxExpanded) break;
-            const key = `${result.ID}-${result.index}`;
-            if (!existingKeys.has(key)) {
-              keywordResults.push({
-                ...result,
-                keywordScore: result.keywordScore * 0.5,
-                matchedTerms: [...(result.matchedTerms || []), `[exp:${term}]`],
-                expandedMatch: true
-              });
-              existingKeys.add(key);
-              addedCount++;
-            }
+          const key = `${result.ID}-${result.index}`;
+          if (!existingKeys.has(key)) {
+            keywordResults.push({
+              ...result,
+              keywordScore: result.keywordScore * 0.5,
+              matchedTerms: [...(result.matchedTerms || []), `[exp:${term}]`],
+              expandedMatch: true
+            });
+            existingKeys.add(key);
+            addedCount++;
           }
         }
-        if (addedCount > 0) {
-          console.log(`[THEMATIC] Query-Expansion: +${addedCount} Treffer (max ${maxExpanded}) durch ${expandedTerms.length} expandierte Begriffe`);
-        }
       }
-    } catch (err) {
-      console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
+      if (addedCount > 0) {
+        console.log(`[THEMATIC] Query-Expansion: +${addedCount} Treffer durch ${expandedTerms.length} Begriffe`);
+      }
     }
 
-    // Semantische Anreicherung: Summary-Embeddings (moderne Sprache) nutzen
-    let lectureSimilarities = {};
-    try {
-      lectureSimilarities = await findSemanticallySimilarLectures(query, 0.35, 30);
-      if (Object.keys(lectureSimilarities).length > 0) {
-        console.log(`[THEMATIC] ${Object.keys(lectureSimilarities).length} semantisch ähnliche Vorträge gefunden (Top: ${
-          Object.entries(lectureSimilarities).slice(0, 3).map(([id, sim]) => `${id}=${sim.toFixed(2)}`).join(', ')
-        })`);
+    // 2) Phrasen-Expansion (nur Quote-Modus): EXAKTE Phrase-Match-Suche
+    if (isQuoteMode && phrases.length > 0) {
+      // Map zur schnellen Existenz-Prüfung (vorher .find() = O(n) pro Treffer)
+      const resultsMap = new Map(keywordResults.map(r => [`${r.ID}-${r.index}`, r]));
+      let exactMatchCount = 0;
+      const maxAddedFromPhrases = 400;
+      // Early-Exit-Schwelle: ab 15 echten Phrase-Treffern brechen wir die weitere
+      // Phrasen-Suche ab. Schon ein einziger guter Phrase-Treffer reicht zur
+      // Identifikation des Zitats, 15 ist ein großzügiger Sicherheitspuffer.
+      const earlyExitThreshold = 15;
+      const phraseHitsPerPhrase = [];
 
-        // Absätze aus semantisch ähnlichen Vorträgen ergänzen,
-        // die von der Keyword-Suche nicht gefunden wurden
-        const keywordLectureIds = new Set(keywordResults.map(r => r.ID));
-        const newSemanticLectures = Object.entries(lectureSimilarities)
-          .filter(([id]) => !keywordLectureIds.has(id))
-          .slice(0, 10);
+      for (const phrase of phrases) {
+        if (exactMatchCount >= maxAddedFromPhrases) break;
+        if (exactMatchCount >= earlyExitThreshold) {
+          console.log(`[THEMATIC-QUOTE] Early-Exit: ${exactMatchCount} exakte Treffer reichen, weitere ${phrases.length - phraseHitsPerPhrase.length} Phrasen übersprungen`);
+          break;
+        }
 
-        for (const [lectureId, similarity] of newSemanticLectures) {
-          const lectureParagraphs = paragraphsFromLectures.filter(p => p.ID === lectureId);
-          const topParagraphs = lectureParagraphs
-            .filter(p => p.content && p.content.length > 100)
-            .sort((a, b) => (b.content || '').length - (a.content || '').length)
-            .slice(0, 3);
+        const exactResults = performThematicKeywordSearch(`"${phrase}"`, paragraphsFromLectures, gaFilter);
+        phraseHitsPerPhrase.push({ phrase, hits: exactResults.length });
 
-          topParagraphs.forEach(p => {
-            keywordResults.push({
-              ...p,
-              keywordScore: similarity * 50,
-              matchedTerms: ['[semantisch]'],
-              semanticMatch: true,
-              semanticSimilarity: similarity
-            });
+        for (const result of exactResults) {
+          if (exactMatchCount >= maxAddedFromPhrases) break;
+          const key = `${result.ID}-${result.index}`;
+          const existing = resultsMap.get(key);
+          if (existing) {
+            // Bestehender Treffer wird als ExactMatch markiert + Score-Boost
+            existing.quoteExactMatch = true;
+            existing.keywordScore = (existing.keywordScore || 0) + 1500;
+            existing.matchedTerms = [...(existing.matchedTerms || []), `[exact:"${phrase}"]`];
+            exactMatchCount++;
+            continue;
+          }
+          const newEntry = {
+            ...result,
+            keywordScore: (result.keywordScore || 0) * 5 + 1500,
+            matchedTerms: [...(result.matchedTerms || []), `[exact:"${phrase}"]`],
+            quoteExactMatch: true
+          };
+          keywordResults.push(newEntry);
+          resultsMap.set(key, newEntry);
+          exactMatchCount++;
+        }
+      }
+
+      const topHits = phraseHitsPerPhrase
+        .filter(p => p.hits > 0)
+        .slice(0, 5)
+        .map(p => `"${p.phrase}"=${p.hits}`)
+        .join(', ');
+      console.log(`[THEMATIC-QUOTE] Phrasen-Expansion: ${exactMatchCount} exakte Treffer (von ${phraseHitsPerPhrase.length}/${phrases.length} Phrasen geprüft). Top: ${topHits || 'keine'}`);
+    }
+
+    // 3) Semantische Anreicherung
+    if (Object.keys(lectureSimilarities).length > 0) {
+      console.log(`[THEMATIC] ${Object.keys(lectureSimilarities).length} semantisch ähnliche Vorträge (Top: ${
+        Object.entries(lectureSimilarities).slice(0, 3).map(([id, sim]) => `${id}=${sim.toFixed(2)}`).join(', ')
+      })`);
+
+      const keywordLectureIds = new Set(keywordResults.map(r => r.ID));
+      const lectureCutoff = isQuoteMode ? 25 : 10;
+      const paragraphsPerLecture = isQuoteMode ? 8 : 3;
+      const newSemanticLectures = Object.entries(lectureSimilarities)
+        .filter(([id]) => !keywordLectureIds.has(id))
+        .slice(0, lectureCutoff);
+
+      let addedSemanticCount = 0;
+      for (const [lectureId, similarity] of newSemanticLectures) {
+        const lectureParagraphs = paragraphsFromLectures.filter(p => p.ID === lectureId);
+        const topParagraphs = lectureParagraphs
+          .filter(p => p.content && p.content.length > 100)
+          .sort((a, b) => (b.content || '').length - (a.content || '').length)
+          .slice(0, paragraphsPerLecture);
+
+        topParagraphs.forEach(p => {
+          keywordResults.push({
+            ...p,
+            keywordScore: similarity * 50,
+            matchedTerms: ['[semantisch]'],
+            semanticMatch: true,
+            semanticSimilarity: similarity
           });
-        }
+          addedSemanticCount++;
+        });
       }
-    } catch (err) {
-      console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
+      if (isQuoteMode) {
+        console.log(`[THEMATIC-QUOTE] Semantische Anreicherung: +${addedSemanticCount} Absätze aus ${newSemanticLectures.length} Vorträgen`);
+      }
     }
+
+    const tSync = Date.now() - tSyncStart;
+    console.log(`[THEMATIC] Timing: keyword=${tKeyword}ms, parallel(LLM+LLM+emb)=${tParallel}ms, sync=${tSync}ms`);
 
     if (keywordResults.length === 0) {
       const emptyResult = {
@@ -10188,20 +10592,32 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     let rankedResults = applySemanticRanking(keywordResults, query, lectureSimilarities);
     
-    // Quoten-basierte Selektion: Direkte Keyword-Treffer haben Vorrang
-    // Verhindert, dass Expansions-/Semantik-Treffer die echten Treffer verdrängen
-    const directResults = rankedResults.filter(r => !r.expandedMatch && !r.semanticMatch);
-    const indirectResults = rankedResults.filter(r => r.expandedMatch || r.semanticMatch);
+    // Im Quote-Modus haben exakte Phrasen-Treffer (quoteExactMatch) absolute Priorität:
+    // Sie kommen IMMER in die Top-N, unabhängig von der direkten/indirekten Quote-Logik.
+    // Das verhindert, dass das gesuchte Zitat durch tausende schwache Direktreffer verdrängt wird.
+    const exactPhraseHits = isQuoteMode
+      ? rankedResults.filter(r => r.quoteExactMatch).sort((a, b) => b.finalScore - a.finalScore)
+      : [];
+    const exactPhraseKeys = new Set(exactPhraseHits.map(r => `${r.ID}-${r.index}`));
+    const remainingForQuotaSplit = rankedResults.filter(r => !exactPhraseKeys.has(`${r.ID}-${r.index}`));
     
-    const directQuota = Math.ceil(limit * 0.7);
-    const indirectQuota = limit - Math.min(directResults.length, directQuota);
+    // Quoten-basierte Selektion für die übrigen Plätze:
+    // Direkte Keyword-Treffer bekommen einen Quotenanteil, der Rest geht an indirekte (Expansion/Semantik).
+    const directResults = remainingForQuotaSplit.filter(r => !r.expandedMatch && !r.semanticMatch);
+    const indirectResults = remainingForQuotaSplit.filter(r => r.expandedMatch || r.semanticMatch);
+    
+    const directQuotaShare = isQuoteMode ? 0.4 : 0.7;
+    const remainingSlots = Math.max(0, limit - exactPhraseHits.length);
+    const directQuota = Math.ceil(remainingSlots * directQuotaShare);
+    const indirectQuota = remainingSlots - Math.min(directResults.length, directQuota);
     
     let topResults = [
+      ...exactPhraseHits.slice(0, limit),
       ...directResults.slice(0, directQuota),
       ...indirectResults.slice(0, indirectQuota)
     ].sort((a, b) => b.finalScore - a.finalScore).slice(0, limit);
     
-    console.log(`[THEMATIC] Ergebnis-Selektion: ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => !r.expandedMatch && !r.semanticMatch).length} direkte)`);
+    console.log(`[THEMATIC] Ergebnis-Selektion: ${exactPhraseHits.length} exakte Phrasen, ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => r.quoteExactMatch).length} exakte Phrasen-Treffer, Quote-Modus=${isQuoteMode})`);
 
     // Query-Tracking
     trackQueryTerms(query, topResults.length);

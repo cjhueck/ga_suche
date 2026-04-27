@@ -8,6 +8,18 @@
 // Node.js 18+ hat fetch built-in, für ältere Versionen:
 const fetch = globalThis.fetch || require('node-fetch');
 
+function resolveClaudeApiKey() {
+  const preferredAccount = (process.env.CLAUDE_API_KEY_ACTIVE || 'primary').toLowerCase();
+  const prioritizedKeys = preferredAccount === 'secondary'
+    ? [process.env.CLAUDE_API_KEY_SECONDARY, process.env.CLAUDE_API_KEY_PRIMARY]
+    : [process.env.CLAUDE_API_KEY_PRIMARY, process.env.CLAUDE_API_KEY_SECONDARY];
+
+  return prioritizedKeys.find(Boolean)
+    || process.env.CLAUDE_API_KEY
+    || process.env.ANTHROPIC_API_KEY
+    || '';
+}
+
 // ============================================================================
 // RATE-LIMIT TRACKING
 // ============================================================================
@@ -100,7 +112,7 @@ class LLMProvider {
 class ClaudeProvider extends LLMProvider {
   constructor() {
     super('Claude');
-    this.apiKey = process.env.CLAUDE_API_KEY;
+    this.apiKey = resolveClaudeApiKey();
   }
 
   isAvailable() {
@@ -109,7 +121,7 @@ class ClaudeProvider extends LLMProvider {
 
   async generateCompletion(prompt, options = {}) {
     if (!this.isAvailable()) {
-      throw new Error('Claude API Key nicht gesetzt (CLAUDE_API_KEY)');
+      throw new Error('Claude API Key nicht gesetzt (CLAUDE_API_KEY_PRIMARY / CLAUDE_API_KEY_SECONDARY / CLAUDE_API_KEY)');
     }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
