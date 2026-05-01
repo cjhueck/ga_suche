@@ -30886,11 +30886,81 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
+    // Lecture-ID ermitteln: primär currentOpenLectureId, alternativ aus DOM
+    // (vor der Citation-Erstellung, damit das Vortragsdatum mit aufgenommen werden kann)
+    let lectureIdForLink = window.currentOpenLectureId || null;
+    if (!lectureIdForLink) {
+      // Fallback: Suche data-lecture-id im DOM (z.B. in Suchergebnissen)
+      let linkEl = commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
+      while (linkEl && linkEl !== container) {
+        if (linkEl.getAttribute && linkEl.getAttribute('data-lecture-id')) {
+          lectureIdForLink = linkEl.getAttribute('data-lecture-id');
+          break;
+        }
+        linkEl = linkEl.parentElement;
+      }
+    }
+    
+    // Vortragsdatum ermitteln (nur für Vorträge, nicht für Bücher/Aufsätze)
+    // Quellen-Reihenfolge: fullLecturesData (für Suchergebnisse mit anderer ID),
+    //                      currentLectureData (Hauptviewer), window.currentSidePanelLectureDate
+    let lectureDateRaw = null;
+    try {
+      if (lectureIdForLink && typeof fullLecturesData !== 'undefined' && fullLecturesData[lectureIdForLink]) {
+        lectureDateRaw = fullLecturesData[lectureIdForLink].date || null;
+      }
+      if (!lectureDateRaw && typeof currentLectureData !== 'undefined' && currentLectureData) {
+        // Nur verwenden wenn currentLectureData zur aktuellen Lecture-ID passt
+        if (!lectureIdForLink || currentLectureData.ID === lectureIdForLink) {
+          lectureDateRaw = currentLectureData.date || null;
+        }
+      }
+      if (!lectureDateRaw && window.currentSidePanelLectureDate) {
+        if (!lectureIdForLink || window.currentSidePanelLectureId === lectureIdForLink) {
+          lectureDateRaw = window.currentSidePanelLectureDate;
+        }
+      }
+    } catch (e) {
+      lectureDateRaw = null;
+    }
+    
+    // Datum in DD.MM.YYYY formatieren
+    function formatLectureDateDDMMYYYY(dateStr) {
+      if (!dateStr) return '';
+      // ISO-Format: "1908-01-23"
+      const isoMatch = dateStr.toString().match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (isoMatch) return `${isoMatch[3]}.${isoMatch[2]}.${isoMatch[1]}`;
+      // Bereits Punkt-Format: "23.01.1908" oder "23.1.1908"
+      const dotMatch = dateStr.toString().match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+      if (dotMatch) {
+        const d = dotMatch[1].padStart(2, '0');
+        const m = dotMatch[2].padStart(2, '0');
+        return `${d}.${m}.${dotMatch[3]}`;
+      }
+      // Fallback: über parseLectureDateToISO
+      try {
+        if (typeof parseLectureDateToISO === 'function') {
+          const iso = parseLectureDateToISO(dateStr);
+          if (iso) {
+            const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (m) return `${m[3]}.${m[2]}.${m[1]}`;
+          }
+        }
+      } catch (e) { /* ignore */ }
+      return '';
+    }
+    
+    const lectureDateFormatted = formatLectureDateDDMMYYYY(lectureDateRaw);
+    
     let citation = '';
     if (title) {
       citation = `(${title} - ${gaLabel}`;
     } else {
       citation = `(Rudolf Steiner, ${gaLabel}`;
+    }
+    // Vortragsdatum direkt nach der GA-Nummer einfügen (nur wenn vorhanden)
+    if (lectureDateFormatted) {
+      citation += `, ${lectureDateFormatted}`;
     }
     if (place && year) {
       citation += `, ${place} ${year}`;
@@ -30913,20 +30983,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Link-URL für die Quellenangabe erstellen
     let linkUrl = '';
-    
-    // Lecture-ID ermitteln: primär currentOpenLectureId, alternativ aus DOM
-    let lectureIdForLink = window.currentOpenLectureId || null;
-    if (!lectureIdForLink) {
-      // Fallback: Suche data-lecture-id im DOM (z.B. in Suchergebnissen)
-      let linkEl = commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
-      while (linkEl && linkEl !== container) {
-        if (linkEl.getAttribute && linkEl.getAttribute('data-lecture-id')) {
-          lectureIdForLink = linkEl.getAttribute('data-lecture-id');
-          break;
-        }
-        linkEl = linkEl.parentElement;
-      }
-    }
     
     if (lectureIdForLink) {
       // Absatz-Index am Anfang der Selektion ermitteln
