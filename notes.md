@@ -9,6 +9,10 @@ http://localhost:3003/md-pdf-comparison.html
 python ga_comparison_server.py
 http://localhost:3003/ga-text-comparison.html
 
+http://localhost:3003/spellcheck-editor.html 
+
+wir haben ein script, um eine datei wie C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA068c-Goethe und die Gegenwart\Steiner, Rudolf GA 068c, 2017 - Goethe und die Gegenwart\Steiner, Rudolf GA 068c, 2017 - Goethe und die Gegenwart.md so zu bearbeiten, dass aus den Seitenumbrüchen seitenmarker (|XX|) werden. 
+
 
 Die vollkommene Synthese aller Wissenschaften zu sein, verstandesmäßig alles zu umfassen, was vom Verstand erfasst werden kann, es dann in die reinste Spiritualität zu erheben, es dort niederzulegen wie in einen edlen Kelch, es ist dies ein Ton, der in dieser Vollkommenheit auch nur einmal angeschlagen werden kann.
 
@@ -17,14 +21,8 @@ tools/convert_ga_page_markers.py (nach Umwandlung in md von Steiner_GA_pdf mit M
 tools/transfer_sm_from_source.py (zur Übertragung der Marker in bestehende md - funktioniert nicht korrekt)
 
 
-Bearbeitung von pdf von GA-Bänden mit final_mistral_... : in GA_Steiner_md gibt es in den "assets" zu dem jeweiligen GA-Band
-Steiner_GA: ![img-0.png](assets/img-0.png)
-Steiner_GA_md: 
-
-
 generate_pagebreaks_with_anthrowiki.py
 correct_pagebreaks_from_anthrowiki_with_pdf.py
-
 
 generate_pagebreaks_with_pdf.py (funktioniert nicht für bücher, evtl. für Vorträge)
 
