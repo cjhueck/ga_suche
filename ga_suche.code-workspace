@@ -4,9 +4,6 @@
 			"path": "."
 		},
 		{
-			"path": "../../Wissenschaft/CLC Proceedings Anthology/Anthology"
-		},
-		{
 			"path": "../../Desktop/Lit Organism"
 		},
 		{
@@ -14,6 +11,9 @@
 		},
 		{
 			"path": "../../Texte"
+		},
+		{
+			"path": "../../Unterricht & Seminare/Unterricht Seewalde"
 		}
 	],
 	"settings": {
